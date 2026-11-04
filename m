@@ -1,55 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793824498;
-	b=0KcEMqkGY/Xb5V2XJJsYx7aVCDl+5/xfoYEphJ6b8bYXeyCriUHJ7o5jeLMdNPZ2X099
-	 KLBgxKC2sOuUXNqw/Fp+ugv6e22FTy89ld6SKjWg6V7FkL7XS0l5Kp0fWS8jl6uHGs/AH
-	 4F9ieXLFMxrojmaHxgdR1HFDOH29UTqPCsZI7oAIgJKYYM3aS2F1CIHFm3ZroGdivLN40
-	 Oo1zYuiIrcnz/G85uPmnQxftJlcxZ6U6IyTz2rFX868mzPE90uxjosA4rT1gIvAq2EgGR
-	 zo+IzjXtxtB/qr3R296fi4PiO+UichWRjfHPKlaaqcLLZEM2xMyK/UStq8eRzCUB69A==
+	t=1793824575;
+	b=dT6QkxSz5OXIW9JNRJYa7i0SRxChpibgp8pJ1lWNC2481vFakgZ88nUFd7ITz1AnlErh
+	 qjRvGtrQDPPtYrtWYg37QmVJmeK2Eb1ZE+9EPznE1ja8MDgwruJuF83pib6KGMQWhuDT9
+	 776D6oyP3st2JDixgA+cyJlhrQmOi4TfuMpGDSDxaCBxJwO8JLvI0djcDJjyLMlK5CqYX
+	 qFHtQLSBqipjCu4X7OMI+KEqFssgR9oauNF4sDvAZRHFwqZPluaoOyOF78poTcrtjikYh
+	 xKe3FSPbVlOth1X/aAcB6CYRjifN80Wgmsx3o366zbKx+Qrh85iosI7NLyVDPbuv4rQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793824498;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=++/cJApKmq5juZfLAiuel6bFIXV++xX+hmMi/hm4D1E=;
-	b=ST3Z44RG1FwC2Wa51Y16N+lZt2TWcJmi1bAzCNDAZdjfWlvxhZqMil23RbJ55nXIVG25
-	 Sl4DAU2CpZi0OTtSTWEYMCBl2PRek2ghRGu/YrRfwQwjeoTGYfKLcJHmtMZ8IJjJg5yEO
-	 tIMhC8Nu+WbM/p6KPg1hx9M2xpBT5tih3ebnFd42/9lZRJ5jF+jIYzcwyR2RdDEQPADN1
-	 pKJki8buOsTEbg9imCbBVVnpB1O+aN97TS0FvyT1SN1rxfekAic7Q/PERRZYGUYFwqnS2
-	 VXzxOf0JKWjiT1m9dcHDwxiym5/3J7eHRlCruLSGu5um+SDyIOenya2XWFCCpQ59UWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793824575;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:From:To:Cc:Subject:References:In-Reply-To;
+	bh=VwPEOH6TnC9eq0kvN9U5QGgPY1fvhRUkSYpizPQPnRc=;
+	b=GLupoo5q5ztHJbbKWD4/4D+k8gQXvWyAu05wZy11pzcQn3UI4RRv09XuXdTzAtnwn7t5
+	 n79n23y2KWyGq+tEZGQm2HZlip7BIxeXK6uCPG7004lyJcR6RGLQB5qxaS8A+HzrEhWsQ
+	 4gzvVwBsbDSDD6yJR1iVE3OkTM1QekIzd69odkL4s+jYSfxeVRRfmRAdeJHzKy4gSb5f2
+	 wlDff4b++lvz/1Gs6DXSVIDS/iWrk3RAOCFFai506mozbF7TAM1jw6BZsbUSeZPJIspxy
+	 6gJBhNyn6FlPjl4EQquLEg3SNwOx3GgYQRVZEskCeRgzK4qNSNQv3D3a6IXCV14FLUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=deyfE46G;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=paul-moore.com;
+	spf=pass smtp.mailfrom=paul-moore.com;
+	dkim=pass header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b=awiKX9MW;
+	arc=none smtp.remote-ip=209.85.160.173
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 432826074FA0
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:34:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9A706075269
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:36:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9A706075269
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=deyfE46G
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17AE61F00A18
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:34:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793824498;
-	bh=++/cJApKmq5juZfLAiuel6bFIXV++xX+hmMi/hm4D1E=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=deyfE46GbYl+VT6m52waq3YHoTWlKQXXozviR2x4cYR3h6B7BJBVyRfUHpvbNcAZ8
-	 PfjDbxB8DvrAFvHLmc3JU2LJJNgVzJ7pjKpqAwrRt60qnJJZmqTIWCn6mhhpzgmkjq
-	 l9fd/fpE8zIoUlHcMJI0lBJihRUooD9vqj4zkkfwbBWek1pKMlNMerezzyfVpke3BS
-	 27n1lvWZieUYzrIVt3FgNznUyzUCD7AQLRfJGSv4mausQpgV1EVqJkMHuGDLMkVH4w
-	 uhQlhKFe8Euf6J3MBTLYKe00PGqAGxf31zqDiEgAzhiUX18cSC9kPFFB/hyhRJOwv5
-	 jX5JjbnnDXZVQ==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5ba35c0df4fso1121471e87.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:34:58 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBy7HXjGvmd0XPM0fBPLkcdmjQIvbteFswpI/UzLFiEDUxmeR0NCbWrEpWapgEuTSXExWEEnaWIcXX9QS30=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/kum3bLaFu0AwgRF4Y7t4xvwH9ouzrxK2NA9zcnLXzFMfne7Wr
-	xm585o4QEiwjJG52t/Ui5T27YI4sHPyfIOtrXmCLnPg15F7JUOa6g/0N861gXf5QEE6D9JdVivY
-	FPCoGLCBMqC1H/ZCq44+WwtOGZsvjp04=
-X-Received: by 2002:a05:6512:6683:10b0:5bf:e8fd:5e64 with SMTP id
- 2adb3069b0e04-5bfe8fd5ea2mr2459163e87.19.1793824496534; Wed, 04 Nov 2026
- 12:34:56 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b=awiKX9MW
+Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-537548b811aso8436821cf.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:36:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=paul-moore.com; s=google; t=1793824574; x=1794429374; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
+         :content-type:mime-version:message-id:date:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VwPEOH6TnC9eq0kvN9U5QGgPY1fvhRUkSYpizPQPnRc=;
+        b=awiKX9MW+jQ/pdyMQdy5h1Kdt8Ffbv5vW1j2PVua0fdRVCyzRn/omf16XlmjmEm1ZP
+         73LSi8BQEugNpgM5sLZtYBz7MnLwufSsK557NzaoyuzhS/B4FmyVGl3VtGXEoIyky50L
+         9AE+frPji8xMLgNEJ276X4Hyo5FDkpUv2Hn+HkRPxxuULdYHsrAspFJCRM+zZPs771HG
+         J0T0+AyqUejnXm+zJVP8iDGjzjB6fi145gQtY7lAEHXVqWqHEOgd9xWJDbx8gFrJRjDu
+         t7dnNwY6Dmbj5fYjA/wOYbq5jUg/7x1SvaU7U2FOIb4i5lYriTnKXVzGZBS37Nmetr+W
+         7sMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793824574; x=1794429374;
+        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
+         :content-type:mime-version:message-id:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VwPEOH6TnC9eq0kvN9U5QGgPY1fvhRUkSYpizPQPnRc=;
+        b=mktEzMk+ge/DpIeaDBwiNy4ELTSEalABJc+rHmks9YbirQe0D53QuTAvcgoSTNpDju
+         eQgMHQu51mkxCsksl81CKU6eC5VbSPSi6/NU9PvrfPvLQaABfirXLRPf1gjFUiSyWZBX
+         z+Nugi8tK8Y6LT4GnJdX/1dwrGs/UT2Yrqbrg3UmU3X/LRN/JTI+v8GhaRuUP8LEGXM2
+         Iy+Y7rS2IvlGMXe5BNPxF9PHPDP0JY1S7uRcT46SkbR42VtZq6Lgv+49RoxTXl/wdIlJ
+         njRHsRi5/ZkW5JmGC3uItxiLT8wH9LPrXi8K30msDM6UZ5C9q/GaBSHZ9n0zyALkIKiX
+         5nZA==
+X-Forwarded-Encrypted: i=1; AKwUvBwqAKodX1zdyV3wTEAukL04nxKi8PyQkdB7mPuCHJi0WnORdwHpdv6zOnfdwUOq8f3i9Jd2sv/BCvuggb8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9P6ym5ge+W2RI04AXFMIEeK7kKr2xwb5uBzde1PoPLMIRkD4Xf
+	b7F1L4LDCtcmaEFlwXDDEOTBzCFpG3nAf+smlWZQG3lRRSIQgeG0HFC4oX0WjYgcdw==
+X-Gm-Gg: AYBFou3eD3Fga9xBy/1feXIhyduWI97SwNod3U2iGjNaJuCuAT/g4H/4ynk9xnGv1S+
+	RAAMu2wNdq3IsFWiMpDeMwHJdgU55Xf29GLC9qhx593gWNDDYgAPc+o5OPgEzkiLahfkIGgBwVt
+	fZcG1NjiYNsKi19VPBn46gLZMkbVoXSwuq/BdAEGW+A5gaAoEnm2lcxqbrBIpb8uib3ds3QL3gb
+	jtMKUBbzMe6r6/cda5yBhyJmqrC3GnT+VS7rWbBqaqZ9OlEUr9FSjs/4f8fS7cKDpCsUEFjSbl/
+	ds9YS6/B45rl9pSFkQMi7jm/K6BI0cZFUPZuTMVkV12UPElZAaKedKqVCe9BSdS07zNX8H8fcQz
+	cGhD9vGENo73fri81tWkikdLKe+9xpFYMRmZnqJXg/EF0wq+rauc4xtYLg+3bQH6YI3jP5gmb7z
+	GcfCLZXMqhOP0AE1+EmfAumNvXDM+Fgz/O+tH8cA5LTOHGU85DQyAxZ2gOwcWWjLFWFBZqxNwTa
+	iNCzwJksYxlvq1C829pELyVRg6STlPBEDJZC89CVLwqYP9pJsy0dVpjuOjRcvQEvr2MFTmezscg
+	4cy8q+hDRGgGTQwVmSBip5fzEXH4VFf1jRPRJlWd4ZXjl5/kI2BPwZK3CD9WDL5AFSKP9b35hzv
+	0EBrvNGutp7aPH+mZ5QOvIrgYLkcLIg==
+X-Received: by 2002:ac8:5d46:0:b0:535:9798:3f0c with SMTP id d75a77b69052e-542b6a6d944mr300331831cf.34.1793824573629;
+        Wed, 04 Nov 2026 12:36:13 -0800 (PST)
+Received: from localhost (pool-71-126-255-178.bstnma.fios.verizon.net. [71.126.255.178])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54b10c4dcddsm33431391cf.20.2026.11.04.12.36.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 12:36:12 -0800 (PST)
+Date: Wed, 04 Nov 2026 15:36:12 -0500
+Message-ID: <b446cedf8a7977337389f8cdc1e5acce@paul-moore.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,207 +90,91 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261023074502.103681-1-shreeramrahul94@gmail.com>
-In-Reply-To: <20261023074502.103681-1-shreeramrahul94@gmail.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 4 Nov 2026 21:34:44 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0jaSKPYkzALU5xfJqxBhcPfU0v-60cL=1XwQ=_1r9X-ow@mail.gmail.com>
-X-Gm-Features: AclHuK8mvXXK5ImZfKcs1Ri_7afOGeBgt1iV1tIBZmHdivjPFnmZY_zP8SxXao0
-Message-ID: <CAJZ5v0jaSKPYkzALU5xfJqxBhcPfU0v-60cL=1XwQ=_1r9X-ow@mail.gmail.com>
-Subject: Re: [PATCH] ACPI: ACPICA: Fall back to inline recursion if update
- state allocation fails
-To: Rahul Rao <shreeramrahul94@gmail.com>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>, 
-	Pawel Chmielewski <pawel.chmielewski@intel.com>, Len Brown <lenb@kernel.org>, 
-	Robert Moore <robert.moore@intel.com>, linux-acpi@vger.kernel.org, 
-	acpica-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	syzbot+e1268acad3c273b12120@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0 
+Content-Type: text/plain; charset=UTF-8 
+Content-Transfer-Encoding: 8bit 
+X-Mailer: pstg-pwork:20261103_1853/pstg-lib:20261103_1851/pstg-pwork:20261103_1853
+From: Paul Moore <paul@paul-moore.com>
+To: Bradley Morgan <brads@mainlining.org>, =?ISO-8859-1?Q?J=E9r=E9my_Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>, Eric Paris <eparis@redhat.com>
+Cc: audit@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] audit: fix UAF in kauditd_send_queue()
+References: <20261031211258.1626829-2-Jeremy.Jean@oss.cyber.gouv.fr>
+In-Reply-To: <20261031211258.1626829-2-Jeremy.Jean@oss.cyber.gouv.fr>
 
-On Fri, Oct 23, 2026 at 9:46=E2=80=AFAM Rahul Rao <shreeramrahul94@gmail.co=
-m> wrote:
->
-> When acpi_ut_update_object_reference() traverses nested package elements
-> or field elements to increment/decrement reference counts, it allocates a
-> temporary union acpi_generic_state via
-> acpi_ut_create_update_state_and_push()
-> to avoid deep C stack recursion.
->
-> If memory allocation fails (for instance, under slab fault injection),
-> the function aborts mid-traversal. This leaves sub-object reference count=
-s
-> out of sync with parent containers. Callers cannot readily roll back the
-> partial updates, leading to reference count underflows and slab
-> use-after-free bugs (such as in acpi_ns_check_package()).
->
-> Fix this by introducing acpi_ut_push_or_update_object(). When allocating
-> a deferred update state fails, fall back to inline recursive traversal up
-> to a safe bounded recursion limit (ACPI_UT_MAX_UPDATE_DEPTH =3D 16). This
-> ensures reference counts remain consistent even during severe memory
-> pressure.
->
-> Reported-by: syzbot+e1268acad3c273b12120@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3De1268acad3c273b12120
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Signed-off-by: Rahul Rao <shreeramrahul94@gmail.com>
-
-Please submit this change to the upstream ACPICA project on GitHub as
-a pull request.  If applied, Linux will receive it from there as per
-
-Documentation/driver-api/acpi/linuxized-acpica.rst
-
+On Oct 31, 2026 Bradley Morgan <brads@mainlining.org> wrote:
+> 
+> kauditd_send_queue() grabs an extra reference to the skb header before
+> netlink_unicast() since it may need to retry a failed send. If unicast
+> delivery reuses that same header, the receive path stores the
+> destination socket in skb->sk without taking a socket reference.
+> Consequently, after the receiver consumes the skb and closes the
+> socket, the extra reference taken on the skb header makes kauditd
+> release a header whose skb->sk points to freed socket storage.
+> 
+> KASAN reports a UAF as:
+> 
+>   BUG: KASAN: slab-use-after-free in sock_rfree+0x44/0x140
+>   Write of size 4 at addr ffff888004f94140 by task kauditd/31
+> 
+> Clone the header before netlink_unicast(), then use the clone for
+> delivery and keep the original skb only for retries. If cloning fails,
+> handle it as -EAGAIN so the send can be retried.
+> 
+> Fixes: f3d357b09295 ("Audit: save audit_backlog_limit audit messages in case auditd comes back")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 > ---
->  drivers/acpi/acpica/utdelete.c | 78 +++++++++++++++++++++++-----------
->  1 file changed, 54 insertions(+), 24 deletions(-)
->
-> diff --git a/drivers/acpi/acpica/utdelete.c b/drivers/acpi/acpica/utdelet=
-e.c
-> index e8180099d01f..87ae66c7eee8 100644
-> --- a/drivers/acpi/acpica/utdelete.c
-> +++ b/drivers/acpi/acpica/utdelete.c
-> @@ -20,6 +20,14 @@ static void acpi_ut_delete_internal_obj(union acpi_ope=
-rand_object *object);
->  static void
->  acpi_ut_update_ref_count(union acpi_operand_object *object, u32 action);
->
-> +static acpi_status
-> +acpi_ut_update_object_reference_depth(union acpi_operand_object *object,
-> +                                     u16 action, u32 depth);
-> +
-> +/* Max inline nesting used when a deferred update state cannot be alloca=
-ted */
-> +
-> +#define ACPI_UT_MAX_UPDATE_DEPTH       16
-> +
->  /***********************************************************************=
-********
->   *
->   * FUNCTION:    acpi_ut_delete_internal_obj
-> @@ -457,6 +465,28 @@ acpi_ut_update_ref_count(union acpi_operand_object *=
-object, u32 action)
->         }
->  }
->
-> +/*
-> + * Queue an object for a later reference count update. If the update sta=
-te
-> + * cannot be allocated, update the object right away instead of failing:=
- an
-> + * update abandoned half way leaves the counts of the sub-objects out of
-> + * step with the count of their parent, and callers (most of which canno=
-t
-> + * handle an error) would later drop references that were never added.
-> + */
-> +static acpi_status
-> +acpi_ut_push_or_update_object(union acpi_operand_object *object, u16 act=
-ion,
-> +                             union acpi_generic_state **state_list, u32 =
-depth)
-> +{
-> +       acpi_status status;
-> +
-> +       status =3D acpi_ut_create_update_state_and_push(object, action,
-> +                                                     state_list);
-> +       if (ACPI_SUCCESS(status) || depth >=3D ACPI_UT_MAX_UPDATE_DEPTH)
-> +               return status;
-> +
-> +       return acpi_ut_update_object_reference_depth(object, action,
-> +                                                     depth + 1);
-> +}
-> +
->  /***********************************************************************=
-********
->   *
->   * FUNCTION:    acpi_ut_update_object_reference
-> @@ -480,6 +510,13 @@ acpi_ut_update_ref_count(union acpi_operand_object *=
-object, u32 action)
->
->  acpi_status
->  acpi_ut_update_object_reference(union acpi_operand_object *object, u16 a=
-ction)
-> +{
-> +       return acpi_ut_update_object_reference_depth(object, action, 0);
-> +}
-> +
-> +static acpi_status
-> +acpi_ut_update_object_reference_depth(union acpi_operand_object *object,
-> +                                     u16 action, u32 depth)
+>  kernel/audit.c | 11 +++++++----
+>  1 file changed, 7 insertions(+), 4 deletions(-)
+> 
+> diff --git a/kernel/audit.c b/kernel/audit.c
+> index 9412af9144bc..5e739fa606be 100644
+> --- a/kernel/audit.c
+> +++ b/kernel/audit.c
+> @@ -790,6 +790,7 @@ static int kauditd_send_queue(struct sock *sk, u32 portid,
 >  {
->         acpi_status status =3D AE_OK;
->         union acpi_generic_state *state_list =3D NULL;
-> @@ -560,8 +597,9 @@ acpi_ut_update_object_reference(union acpi_operand_ob=
-ject *object, u16 action)
->                                          * for later processing (this eli=
-minates recursion.)
->                                          */
->                                         status =3D
-> -                                           acpi_ut_create_update_state_a=
-nd_push
-> -                                           (next_object, action, &state_=
-list);
-> +                                           acpi_ut_push_or_update_object
-> +                                           (next_object, action, &state_=
-list,
-> +                                            depth);
->                                         if (ACPI_FAILURE(status)) {
->                                                 goto error_exit;
->                                         }
-> @@ -579,31 +617,23 @@ acpi_ut_update_object_reference(union acpi_operand_=
-object *object, u16 action)
->
->                 case ACPI_TYPE_LOCAL_BANK_FIELD:
->
-> -                       next_object =3D object->bank_field.bank_obj;
-> -                       status =3D
-> -                           acpi_ut_create_update_state_and_push(object->
-> -                                                                bank_fie=
-ld.
-> -                                                                region_o=
-bj,
-> -                                                                action,
-> -                                                                &state_l=
-ist);
-> -                       if (ACPI_FAILURE(status)) {
-> -                               goto error_exit;
-> -                       }
-> -                       break;
-> +               next_object =3D object->bank_field.bank_obj;
-> +               status =3D acpi_ut_push_or_update_object(
-> +                               object->bank_field.region_obj, action,
-> +                               &state_list, depth);
-> +               if (ACPI_FAILURE(status))
-> +                       goto error_exit;
-> +               break;
->
->                 case ACPI_TYPE_LOCAL_INDEX_FIELD:
->
-> -                       next_object =3D object->index_field.index_obj;
-> -                       status =3D
-> -                           acpi_ut_create_update_state_and_push(object->
-> -                                                                index_fi=
-eld.
-> -                                                                data_obj=
-,
-> -                                                                action,
-> -                                                                &state_l=
-ist);
-> -                       if (ACPI_FAILURE(status)) {
-> -                               goto error_exit;
-> -                       }
-> -                       break;
-> +               next_object =3D object->index_field.index_obj;
-> +               status =3D acpi_ut_push_or_update_object(
-> +                               object->index_field.data_obj, action,
-> +                               &state_list, depth);
-> +               if (ACPI_FAILURE(status))
-> +                       goto error_exit;
-> +               break;
->
->                 case ACPI_TYPE_LOCAL_REFERENCE:
->                         /*
-> --
-> 2.43.0
->
+>  	int rc = 0;
+>  	struct sk_buff *skb = NULL;
+> +	struct sk_buff *skb_to_send;
+>  	struct sk_buff *skb_tail;
+>  	unsigned int failed = 0;
+>  
+> @@ -810,9 +811,11 @@ static int kauditd_send_queue(struct sock *sk, u32 portid,
+>  		}
+>  
+>  retry:
+> -		/* grab an extra skb reference in case of error */
+> -		skb_get(skb);
+> -		rc = netlink_unicast(sk, skb, portid, 0);
+> +		/* Keep the original header unowned for retries. */
+> +		skb_to_send = skb_clone(skb, GFP_KERNEL);
+
+As Bradley pointed out, this appears a little confusing as the existing
+approach of skb_get()+netlink_unicast() should end up doing something
+very similar to what you are proposing due to netlink_unicast() calling
+into netlink_trim() which in this case should always end up doing a
+skb_clone().  I'm sure I'm missing something, can you help me understand
+why this proposed patch is different and solves the problem?
+
+Also, do you have a reproducer for this?
+
+> +		/* Preserve the connection on a temporary allocation failure. */
+> +		rc = skb_to_send ?
+> +			netlink_unicast(sk, skb_to_send, portid, 0) : -EAGAIN;
+>  		if (rc < 0) {
+>  			/* send failed - try a few times unless fatal error */
+>  			if (++failed >= retry_limit ||
+> @@ -827,7 +830,7 @@ retry:
+>  			} else
+>  				goto retry;
+>  		} else {
+> -			/* skb sent - drop the extra reference and continue */
+> +			/* skb sent - consume the original and continue */
+>  			consume_skb(skb);
+>  			failed = 0;
+>  		}
+> -- 
+> 2.47.3
+
+--
+paul-moore.com
