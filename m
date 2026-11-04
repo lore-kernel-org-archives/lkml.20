@@ -1,65 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793828674;
-	b=xKDZLXtjbWU6m4a5AW3LR4bw04+ZhvT4ExfiFGdSRRkqdZ0kExuNV7JN38wU44GPqXv3
-	 PFhR00ZZN8g6TVFRSjNBzbGTKBlpmi8+UUVZC+AQ6ftGipPtmRNMU2VKKB8bY4SZjCQu5
-	 UcbCt8D+biAKoNwFS3FiiYx73hjbICwcwsER3Kr9tHjyXlugoqfJwcIynHATPfCPIwQHW
-	 pw2zO1odAcEFn33u23uDDKZZf1gbgc+CBm3Tk6j0hO69yo7qjBbgRLXjbyloqT8H++dmL
-	 Af9O8e4ozHiZYMsJEp2r4PCRV1tOFEfVr8rj7h3vbCQNWRBIaeas6rurgpGIKus5AAw==
+	t=1793828746;
+	b=dZiQA/ELuvM4zrlNxSDw4ZZ53D4toS71z+pKA8REhuCT6Sc3wZ6eqar31l05Pyl28rsP
+	 mOhKAicZpsjWgBFUhTpKqgo/j1bVrXT2nFHLSjZTLwzpcb/9JSJiCrVPoGXCrbD9OZzll
+	 cjq7dDmDRi1N27O5m3HK8jwPlcgcOIDdYn5NV2yl1u3o8F/yMFLdN81U06y1FMEBtm3XD
+	 sooZkYloTyRHpAY3Oi15E54N3fyu/vIl0T0FnT7Hp/NvtTRLo73wS2shTYnoxmE1Jqm5s
+	 ZysRxT8+6EfBxhHII/RTvZtw2xEQfRKKaJaSz27Lf1I4ndn3P/cH3nNnX2q+01ewgOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793828674;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=PY2sdrCi0+0sX7qsNuAbBBVp/LVsxKLCDHHWfHblhQA=;
-	b=43Pr8jR+blwAOuVX0WTSDTafCXAq/ZVwknUKFH4CmIHIy6JMZ7Uz9PAeKfb+GzT8SmOW
-	 s5miVqDTByrUeNXtI9oEmeI5VVdOjfsI48dhFJYgfd+fd/ggGvDZhEluw1jLLXOcGAGM2
-	 VJ0AiH6Bem95HmSExZSSl9e0YA1ymQS3bM5HZUTrKBkeyAXqv7btiTTM0xsz//kD/4uem
-	 09A4nO9PqN/XwV2qXlSaV1Va77KbKMCBkOYvK/KC4sSuS02TJyA0XDYsSvdn6LuEd/zeF
-	 ugA9tCv3BYT0BJ87iSlIjCUB/bsMzv8SbHKmT9XWD/4UK/vE7q4Pfp1bU9jBk1GQnTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793828746;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=lqjLb+mG6Paw67aPWiBPzyeEWmphVu8ONgODVgCa5Sk=;
+	b=qb9709oFa8W+4DKUfilw7pCZkqMeVb3KahbeQ4wP0V5B35WLxXP+FIqQx2D92rxcBDwk
+	 kAWWkceOGLw8Hwrx+Z+opeXhcPPHegdHmzbjukJC/T/v8W97AC/CMJ3ayqrHQfPmlDq+5
+	 RIHVXf+5BZKETT/vS3VSnX85rBk9jqvVHBIW+zUKZDhBC3buIU9ci0WDoG9iJiTGaXPBi
+	 Q8HFow+CIsfg9auFyo/wNVq+LA8K7wvIfkJ4Rd8CyrOVbizPGLR87pqRb21l+upZqHl5B
+	 qmkfLM9E7Dq2pLH95kQiP1QDwVQNF1emQAglPizJ7p/8ccM76LUSy8GOSmnXVsXLXMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fNm36Zy8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UBxRSSwD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D1A3606A339
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:44:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78916606A331;
+	Wed,  4 Nov 2026 21:45:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fNm36Zy8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 761E61F00A16;
-	Wed,  4 Nov 2026 21:44:30 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UBxRSSwD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B5E71F000C1;
+	Wed,  4 Nov 2026 21:45:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793828674;
-	bh=PY2sdrCi0+0sX7qsNuAbBBVp/LVsxKLCDHHWfHblhQA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fNm36Zy877ytogwQ88aKuSZ/ktzojEay7m3d7wRK6ckNpPG3E00aRuHhrsFvflqKN
-	 cJ5mkxQCwrTMOH4Gfx5FAYNOzM9XYVQO1tKlrBF+dKA7qSOyltU8FGHOkJu85VnIXh
-	 BeUdBLNb7s1+8/sE+Oi004RzbK8adr0yBEZ7lLw8PUz5rbfs52JI2E4nZsAZD3QWl1
-	 uv8UR3KYrlT6AOY4ia9LG7oxzyH8zXFYWunQVrn+K6yJVAPE01Hrkkcf40HDEVIetb
-	 VAu1XRKa4bz9Rbiw14sZkiWD8cbmHvrC37yDmcJTGET4I6/acfTJ/3rps4tCOLEyKx
-	 ofisDSJUx1BZg==
-Date: Wed, 4 Nov 2026 21:44:28 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Vladimir Kondratiev <Vladimir.Kondratiev@mobileye.com>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Will Deacon <will@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Mark Rutland <mark.rutland@arm.com>, Gary Guo <gary@garyguo.net>,
-	Yury Norov <yury.norov@gmail.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>, cfu@wavecomp.com,
-	torvalds@linux-foundation.org, olof@lixom.net,
-	aleksa.paunovic@htecgroup.com, arikalo@gmail.com,
-	Boqun Feng <boqun@kernel.org>, linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] riscv: build kernel atomics from LR/SC when Zaamo
- is disabled
-Message-ID: <20261104-headlamp-improve-21863d9ca13e@spud>
-References: <20261101-lrsc-only-v4-0-4e1d010463b3@mobileye.com>
- <20261101-lrsc-only-v4-1-4e1d010463b3@mobileye.com>
- <20261103-distance-audio-9b6aac0b1b4b@spud>
- <28a25fef-2a53-4d4f-b43e-6e8740c08e1e@mobileye.com>
+	s=k20260515; t=1793828746;
+	bh=lqjLb+mG6Paw67aPWiBPzyeEWmphVu8ONgODVgCa5Sk=;
+	h=From:Date:Subject:To:Cc;
+	b=UBxRSSwDd5V0GiU7DpH+nPyMq/Maum4d2vpncqrIBLDu2lUK98IphgRclwl+zGP9k
+	 gEvL2g8aUyHLOmOdUwPUeK2PDLgF2NKyWbjcp/KGXE2+y7vUp9vBavjegYBHng3/Yx
+	 5+a3JMKjU0kka8aXoLwIYEi3IxuGsQyNdgsVD8+JTAJJUZ8T2p5UQiP8ZXuRrRYHcS
+	 pcBPL7s5D7hKET/god8/S1UMhJkew0GHil3YYHiHXepbN1w2wCo0u/OWDjLsUyvhL4
+	 Az8NtbAYfIkmM+HBYZbvXPlqRTS3JJr1dLD1hngK6nKagKN57Oz6wgYgontgVzE4Mr
+	 KNSv+QnjQ4c1g==
+From: Eugen Hristev <ehristev@kernel.org>
+Date: Wed, 04 Nov 2026 23:45:32 +0200
+Subject: [PATCH] dmaengine: pl330: Bound UNTIL loop
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,177 +52,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fpKJwq6g+nGE1k16"
-Content-Disposition: inline
-In-Reply-To: <28a25fef-2a53-4d4f-b43e-6e8740c08e1e@mobileye.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-b4-pl330-until-v1-1-b541929da163@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAHun62oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQwMT3SQT3YIcY2MD3dK8kswcXYtEIwtzSwvD1BTTFCWgpoKi1LTMCrC
+ B0bEQfnFpUlZqcgnIFKXaWgAl+MUdcgAAAA==
+X-Change-ID: 20261104-b4-pl330-until-8a287981ed5d
+To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>
+Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Eugen Hristev <ehristev@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2972; i=ehristev@kernel.org;
+ h=from:subject:message-id; bh=yBmITGHz7EZUELEqDKOPgjfsBeFhSjNtZTuRzp+q7Eg=;
+ b=owGbwMvMwCXWkjcnuXne3fmMp9WSGLJeL2/JcxHPTTqy95HjjaX9n8RaLFVCo9/OOVJ+pOnms
+ uzojCUBHaUsDGJcDLJiiizVJv9qhft3uJ90tVSBmcPKBDKEgYtTACbi85Hhv3uF244dV2y99l+e
+ 1fp2c9S8601TUr90/L+novLfbMvki74M/4O1Z5hPlWg1qvdzUfkuf3adotNN77jUlRI81Qm386r
+ EGQE=
+X-Developer-Key: i=ehristev@kernel.org; a=openpgp;
+ fpr=AB184498D27A77B65D7852C81EB31E020EAC2FC8
 
---fpKJwq6g+nGE1k16
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Bound UNTIL loop with a timeout.
+It may happen that by accident pl330 will read/write a wrong address
+and generate a bus fault. In such cases it will not complete the
+condition that UNTIL waits for. To have the driver continue and not
+hang, use a timeout.
 
-On Wed, Nov 04, 2026 at 01:41:44PM +0200, Vladimir Kondratiev wrote:
-> On 11/3/26 23:09, Conor Dooley wrote:
-> >> +config TOOLCHAIN_HAS_ZALRSC
-> >> +	bool
-> >> +	default y
-> >> +	depends on !64BIT || $(cc-option,-mabi=3Dlp64 -march=3Drv64im_zalrsc)
-> >> +	depends on !32BIT || $(cc-option,-mabi=3Dilp32 -march=3Drv32im_zalrs=
-c)
-> >> +
-> >> +config RISCV_ISA_ZAAMO
-> >> +	bool "Zaamo extension support for AMO atomics" if NONPORTABLE && TOO=
-LCHAIN_HAS_ZALRSC
-> >=20
-> > Probably this option should be called something like
-> > TOOLCHAIN_HAS_ZALRSC_ZAAMO if you're going to use it like this, because
-> > it is confusing why ZALRSC gates a ZAAMO option.
-> >=20
-> > I'm curious actually, does every toolchain provide zalrsc and zaamo as a
-> > pair, or should you check for both here? I'd be surprised if there was a
-> > toolchain with one but not the other but worth checking to avoid some
-> > bizarre toolchain bug..
->=20
-> Agree, will be in next version.
->=20
-> > Ah, right. But that kinda goes against how NONPORTABLE is meant to work
-> > since the default cannot run on all platforms? At that point, just get
-> > rid of NONPORTABLE?
->=20
-> Agree, dropping NONPORTABLE
->=20
-> > | My logic when adding it:
-> > | There are 2 sets of extensions related defines: one is Kconfig ones,
-> > | CONFIG_RISCV_ISA_<ext>; and another one found in the
-> > | arch/riscv/include/asm/hwcap.h, RISCV_ISA_EXT_<ext>
-> > |=20
-> > | In the hwcap.h, there's already
-> > |=20
-> > | #define RISCV_ISA_EXT_ZAAMO		97
-> > | #define RISCV_ISA_EXT_ZALRSC		98
-> > |=20
-> > | added by commit 35173b666a16 (riscv: add parsing for Zaamo and Zalrsc
-> > | extensions, 2024-06-19)
-> > |=20
-> > | These 2 sets are logically coupled, and used in the BPF JUT code like
-> > |=20
-> > | #define rv_ext_enabled(ext) \
-> > | 	(IS_ENABLED(CONFIG_RISCV_ISA_##ext) &&
-> > | riscv_has_extension_likely(RISCV_ISA_EXT_##ext))
-> > |=20
-> > | So I thought if RISCV_ISA_EXT_ZALRSC exists although it is mandatory,
-> > | CONFIG_RISCV_ISA_ZALRSC counterpart should exist for the same reason.
-> > |=20
-> > | Do you suggest this is different case and it is worth to remove
-> > | CONFIG_RISCV_ISA_ZALRSC anyway?
-> >=20
-> > If this is the justification for it, then you need to provide this
-> > justification in your commit message - but if zalrsc is always enabled
-> > then there's no need for any code like that in the bpf jit in the first
-> > place, once more making this dead code that should be deleted?
->=20
-> Adding justification. Also, it is possible to have zaamo+zacas and not
-> support zalrsc; in this case CONFIG_RISCV_ISA_ZALRSC will be "n"; adding
-> clause explaining this theoretical option.
+Assisted-by: Github Copilot
+Signed-off-by: Eugen Hristev <ehristev@kernel.org>
+---
+ drivers/dma/pl330.c | 36 ++++++++++++++++++++++++++++++------
+ 1 file changed, 30 insertions(+), 6 deletions(-)
 
-Key word, theoretical. We do not support zaamo + zacas only systems.
-Please do not add "code" that a) has no actual user and b) would only be
-useful if we supported something that we do not support.
+diff --git a/drivers/dma/pl330.c b/drivers/dma/pl330.c
+index c2d0b473b8f4..9ced60fef9ff 100644
+--- a/drivers/dma/pl330.c
++++ b/drivers/dma/pl330.c
+@@ -248,8 +248,15 @@ enum pl330_byteswap {
+  */
+ #define MCODE_BUFF_PER_REQ	256
+ 
+-/* Use this _only_ to wait on transient states */
+-#define UNTIL(t, s)	while (!(_state(t) & (s))) cpu_relax();
++/* returns true if state reached within loop budget */
++#define UNTIL(t, s, loops) \
++	({ \
++		unsigned long _l = (loops); \
++		while (!(_state(t) & (s)) && _l) { \
++			cpu_relax(); _l--; \
++		 } \
++		!!(_state(t) & (s)); \
++	 })
+ 
+ #ifdef PL330_DEBUG_MCGEN
+ static unsigned cmd_line;
+@@ -979,7 +986,8 @@ static void _stop(struct pl330_thread *thrd)
+ 	u32 inten = readl(regs + INTEN);
+ 
+ 	if (_state(thrd) == PL330_STATE_FAULT_COMPLETING)
+-		UNTIL(thrd, PL330_STATE_FAULTING | PL330_STATE_KILLING);
++		UNTIL(thrd, PL330_STATE_FAULTING | PL330_STATE_KILLING,
++		      msecs_to_loops(5));
+ 
+ 	/* Return if nothing needs to be done */
+ 	if (_state(thrd) == PL330_STATE_COMPLETING
+@@ -1059,12 +1067,24 @@ static bool _trigger(struct pl330_thread *thrd)
+ 
+ static bool pl330_start_thread(struct pl330_thread *thrd)
+ {
++	/* msecs_to_loops(5) gives the same budget used by _until_dmac_idle */
++	const unsigned long tout = msecs_to_loops(5);
++
+ 	switch (_state(thrd)) {
+ 	case PL330_STATE_FAULT_COMPLETING:
+-		UNTIL(thrd, PL330_STATE_FAULTING | PL330_STATE_KILLING);
++		if (!UNTIL(thrd, PL330_STATE_FAULTING | PL330_STATE_KILLING,
++			   tout)) {
++			dev_err(thrd->dmac->ddma.dev,
++				"pl330: thread stuck in FAULT_COMPLETING\n");
++			return false;
++		}
+ 
+ 		if (_state(thrd) == PL330_STATE_KILLING)
+-			UNTIL(thrd, PL330_STATE_STOPPED)
++			if (!UNTIL(thrd, PL330_STATE_STOPPED, tout)) {
++				dev_err(thrd->dmac->ddma.dev,
++					"pl330: thread stuck KILLING->STOPPED\n");
++				return false;
++			}
+ 		fallthrough;
+ 
+ 	case PL330_STATE_FAULTING:
+@@ -1073,7 +1093,11 @@ static bool pl330_start_thread(struct pl330_thread *thrd)
+ 
+ 	case PL330_STATE_KILLING:
+ 	case PL330_STATE_COMPLETING:
+-		UNTIL(thrd, PL330_STATE_STOPPED)
++		if (!UNTIL(thrd, PL330_STATE_STOPPED, tout)) {
++			dev_err(thrd->dmac->ddma.dev,
++				"pl330: thread stuck, not reaching STOPPED\n");
++			return false;
++		}
+ 		fallthrough;
+ 
+ 	case PL330_STATE_STOPPED:
 
-Thanks,
-Conor.
+---
+base-commit: 6d0933ae9d46674a6ea63a87e9e9ab4e662670c9
+change-id: 20261104-b4-pl330-until-8a287981ed5d
 
->=20
-> >> +# Zaamo is off only when the compiler accepts _zalrsc in -march.
-> >=20
-> > I think the comment here is not quite right, it should be "can only be
-> > off", no?
->=20
-> Sure, fixed
->=20
-> >> +ifneq ($(CONFIG_RISCV_ISA_A),y)
-> >> +riscv-march-$(CONFIG_RISCV_ISA_ZAAMO) :=3D $(riscv-march-y)_zaamo
-> >=20
-> > Isn't this dead code? The logic for RISCV_ISA_A is:
-> > config RISCV_ISA_A
-> > 	def_bool RISCV_ISA_ZAAMO && RISCV_ISA_ZALRSC
-> > but ZALRSC is always set, so RISCV_ISA_A is equivalent to
-> > RISCV_ISA_ZAAMO so there can't be a case where RISCV_ISA_A is not set
-> > but RISCV_ISA_ZAAMO is?
-> >=20
-> >> +riscv-march-$(CONFIG_RISCV_ISA_ZALRSC) :=3D $(riscv-march-y)_zalrsc
-> >=20
-> > And here, this is effectively just riscv-march-y, since if you get as
-> > far as here, it must be true.
->=20
-> See above, in theory one can have zaamo+zacas but not zalrsc
-> > | > ...why are we making this a compiletime decision in the first place?
-> > | > Why can't this be an alternative, starting with the zalrsc stuff and
-> > | > moving to the better implementation if available?
-> > |=20
-> > | I started with alternatives approach, see
-> > | Suspicious Link - Removed
-> > | Then I converted it to the static compile-time decision following inp=
-ut
-> > | from Gary Guo that I think is valid, here:
-> > | Suspicious Link - Removed
-> >=20
-> >=20
-> > Okay, that logic from Gary does make some sense. I'll accept that
-> > argument, but again this needs to be communicated in the commit message.
->=20
-> Done
->=20
-> > | There's BPF JIT that emits AMO instructions, patch for this is not re=
-ady
-> > | yet. These AMO instructions will be emulated and work correctly but v=
-ery
-> > | slowly.
-> >=20
-> > I think that needs to be part of this series. You're far too focused on
-> > your individual platform where the instructions work, rather than the
-> > holistic solution of lowering our minimum requirements so that platforms
-> > that do not have any AMO support work. The only way that it'd make sense
-> > to move forward with this without the bpf jit patch is if you disabled
-> > bpf entirely when RISCV_ISA_ZAAMO is disabled.
->=20
-> Added patch for BPF JIT.
->=20
-> Also, added is patch for kprobes/uprobes, to reject probes inside lr/sc
-> sequence. This is needed anyway, having lr/sc blocks for any atomics
-> only increase chances but we do have lr/sc blocks in code anyway and
-> need to protect it.
->=20
-> >=20
-> >> +#if defined(__riscv_atomic) || defined(__riscv_zaamo)
-> >=20
-> > Something else to note is that we do not use this pattern anywhere else
-> > in arch code as far as I know? We always use the RISC_ISA_WHATEVER
-> > config option to gate conditional stuff. Since RISCV_ISA_A is equivalent
-> > to RISCV_ISA_ZAAMO (unless I am mistaken there somehow) this just colla=
-pses
-> > to a single check?
->=20
-> Agree, replacing with #ifdef CONFIG_RISCV_ISA_ZAAMO>> +#else
-> >> +#error "Need AMO or LR/SC atomics"
-> >=20
-> > And this error is actually unreachable?
-> >=20
-> > (and so on in every other place that this pattern is repeated)
->=20
-> Agree, removed
-> Thanks, Vladimir
+Best regards,
+--  
+Eugen Hristev <ehristev@kernel.org>
 
---fpKJwq6g+nGE1k16
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauunPAAKCRB4tDGHoIJi
-0rZRAP0SIBd4mnf7eT0t0SQJrop+mJT+JpuiCueBxbZ6t3a76QEA4s32hCwCVa6F
-I+9s9JyOz9O+zn7y5U2kFfES3EWRbAE=
-=GDnv
------END PGP SIGNATURE-----
-
---fpKJwq6g+nGE1k16--
