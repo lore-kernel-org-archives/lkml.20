@@ -1,103 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793822679;
-	b=0LvV9W2gLFVD8/gl33hoHMXzQnnfz+E1Rfeu5OwFM8YnV07YnP8lcrWA6FsqRAlUsQMH
-	 yTTPlVzrodiiyI2W6J36N12ioNqEXtq5UR9xkMN7kOeBca/N4rnQPRyUHR0+1wCI2ZQog
-	 3MrGJJj3OfahESZyd2EROsXPYS9MfR+AA5l3iCcnREuSIp0DvB2qwE7QN1xp8JRAy9t9H
-	 9BP3zlSUTjS7KFj7saMBIEnecUWTPhPglYg2qOKnd9KuT8VGdr7R4hEmk/Zof5FLPr+xY
-	 qzM9rX+5sp3bax2joT6P7Fb3GlDcgT6ADDxPaa0YgwUpwkYpMAYHmg5Nk7YmvgbTMEA==
+	t=1793822898;
+	b=dkkQ/uKFDDwJQ99weVdVDZJwxCHYVztlVZgV9ipPn+vEb8Rsu2W6SPLwqjgVn/VQ9vsR
+	 XqWa/Hqjm6nBGWKg8JasLQa6refKrReGy4H/DsqiqV4P7vf0Avwo8w7fnjxFx5I2jNGWR
+	 IpkZyMCed3VEspQxeZxfRjgW/N8X0UvQbY4iDZTHTdpMdIBnFsBZokIhXtpeAyqjsHB8h
+	 uh/RHO/IGHSOs2s8Y/yl4MvzWYA83nBHOpjoGdCz4snD5Upac4heEorj2u1CNlM9ku89S
+	 9KXyi/meR31aIKHC4HvfImqZlIWSaUBzwaEpi00a3N6bfBFr5ryPuvmvFHb6/JS+PQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793822679;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=pYSTU5X3UuzczYg/8E5OrEwi5CakiKvwqjCVOhWzWq4=;
-	b=noZ14pVK5BSyUJHjPOkYBgzVRVVs4urHlDV0P6PmWCHI4sm04fE03S/rxoq/GYyhRq+y
-	 GSnfjDErqBNUFXGaV4oDOUZwjeppO7RWgIGDw5X8c4E38nBpPZ0BauDotPOkNblJnQeic
-	 3S2EdeY7ubWI00LxpCcWJiasGuS4j5h29yeDTIFFmtc5vKmPFUwast3XvDq+E5QMCsdWG
-	 efZ2154FvR2XPxIfzmdGYUh5romXbIWkazC495VTYCz0K29t3HVijd4uRdsxepLFKX810
-	 1K18wRbx/c4W/TNRRWfTM1Ol1fFN1UKzdj16qLIBdlkDV9bGogH3cQkPmB0Ux3JwECA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793822898;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:MIME-Version:
+	 Date:From:To:Cc:Subject:In-Reply-To:References:Message-ID:X-Sender:
+	 Content-Type:Content-Transfer-Encoding:X-Spam-Report:X-Spam-Score:
+	 X-Spam-Bar:X-Rspamd-Score:X-Rspamd-Action:X-Rspamd-Bar;
+	bh=0PcCihOuFAnilp2mklYvKQzE/8b41vnt7v3E6IaO7LA=;
+	b=P8eiZQUg5gq0q8d2YJL7ZNUdxJfhfNV45eOuchJd0CcNIDXrxyxiybO3zuSYD8LK7Quo
+	 gn4P/tzyWeYioJ1r0SocfKIF2ANT+Ae0DG+TIpIp+b7kJvNkC5XahJIyrsueuypWWWzpl
+	 3j3l5aCBNAWNDAlDvYFG5Hk5AqjWJzU8bunIhm8hsuvPSlLnUEA4ZBOF0h0wXrh9/z893
+	 mkGHIdFQHy+AidlzmipYiTNFBGfj9svjPDjlQCsdkC8a9RHLqwnjh51GfYD6xHcYk51HA
+	 qN8KKHIBmBMZx+6PzGAotZdAGwTVIDtv2eMRUTNE6tdlOD7zJoPNeSJVeGZqPaPqJow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0DCecO28;
-	arc=none smtp.remote-ip=209.85.208.172
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b="d/EaO050";
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28FB4607A96E
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:04:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28FB4607A96E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DB83606D821
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:08:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DB83606D821
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0DCecO28
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3ab28f3e4dcso18675781fa.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:04:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793822677; x=1794427477; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pYSTU5X3UuzczYg/8E5OrEwi5CakiKvwqjCVOhWzWq4=;
-        b=0DCecO28ue16+Xp/dZw6oCOTeArtgudPtEJi038NWajCPUMgU+Ncyxu1f3gg+8QXA7
-         C1Spupb+fbH0LTCgmxLcbp8gu+6eZ5jgq+lUt01LuoXFHduSdD3G5dot5vAFB6bEoGX0
-         dzuPJ6EW1pJtHs2dz74RHB0/n9EPaWFkAg87oeS34ikgMMxqR3aXriVN9S0fIcvRo1uC
-         aJ9MebCz9V4uzJP6kXoEhg5koqBie0S39kGxx3jwWFgHPIg8YRQNjrk/ML1V66p+F4Gp
-         YtdaARu0mRcX1qdSMX9JahtX7Y94FMcRv9IWCTS+DPucCSLYFjOJmra10kzvl/eXE62/
-         YnbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793822677; x=1794427477;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pYSTU5X3UuzczYg/8E5OrEwi5CakiKvwqjCVOhWzWq4=;
-        b=2dmFp5qNxKHiTbI6gbHqK0T9wA67KzCL8LCmew2yf6kcYSzvOlHTqK9g5jcvsb+R7b
-         V6rAcE69+gLu30j7dPh8MEj8x8cQqis4wC7Luuz+xNS0GyrZyZZ23h2b7cz+n189jfry
-         ONHTs//5dct9S6uCd1PKN10+7EF2DT3zSKxaWIAsfghl8V3Xfwulam268vhXMjmOecZo
-         bjgFy6VNwY/o9wd6JPjdNnjtv36QsO/OOFytD3Krm8KnOs1LusxZjhi/52aNoMjidazJ
-         LAyD10hmbTUg72Zv4Yr8/zqfzo/deeTpO3hRUkgrvUtlPzLorPNrwqVvAX0UDsW2i5pl
-         BXFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy7IcVV2Xh/L0hwTc6pZeodOFqc9iu8leUv9/pxiPHFuPAptC4v6JRBqAvaAw9Riju3MAPJtcC3lHACqQE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/n04a+xyRLTdpsheOavtnEgiAG0pgQ/ddle2Yeh5rjEgVNVi02
-	UVqTgHkGjTkTaAFEtXhIJg9uXW8qzKrVJmGb21SQemcMdnL9gV+w9Rh/
-X-Gm-Gg: AYBFou2hMnV1UucRvQ63EfO/5kCFLsdvBn+cUbEqY8lgkr2AKC1wUvM9HHwpoYkqgbC
-	pFkMIq1wapjI0nHj29N9HNubYzoqBCTJ1WCGCb3D3niuUo6w3iXKVHh8q7zHgDC/urXbLL0RcHp
-	xSpJig/YdJOyzZObRIb/J7eL6we8hOt7iRQwAu2dI2htR9HpW8v/Ognfo/8cg/NGH2HOahNk3ae
-	fcwAUbQTa33RBP5p6xMDC9M62VqOl4rmSBnGhPB6HS/Y+8nwm4UFzJGBMbaI0/VqKupVfvJAVk1
-	ki1uMozuOKK5844bhJM6Zi0zI80ppFcumqN/N+AnC2oDFkW4ce/PW9l16yunx0nSAkVfW97NxrI
-	+9nxkZgIezyLB/aOzvIfOSWLzQ1W0MKjcWGDsuZVYdPOiahErVwOR8tuEzFbV1+/UAUINmqHKz5
-	ouoTzM6Zl77jOFlOuMLHaW+EDS90q8ogr4j5C6oknu3Vc5pTHMxRTckcX8d25tSQSxeyKqHlJI1
-	dtT593Ce1efdnNspcgiLPasYdaRfrKyjY8nyC9s4GiiYMyz7tD1FHumUqfs3H+JgYGIOBS8BThN
-	nZ8x/GAhsxrw5VbLeHr8Yi+ynxmLwQ==
-X-Received: by 2002:a05:651c:b07:b0:3ab:4b4b:fab with SMTP id 38308e7fff4ca-3ace2f7fca9mr994011fa.2.1793822677045;
-        Wed, 04 Nov 2026 12:04:37 -0800 (PST)
-Received: from gentoo ([95.55.209.127])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3acdc6e9b60sm5848021fa.35.2026.11.04.12.04.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 12:04:36 -0800 (PST)
-From: Yaroslav Dudkov <aroslavdudkov622@gmail.com>
-To: netdev@vger.kernel.org
-Cc: dsahern@kernel.org,
-	idosch@nvidia.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	shuah@kernel.org,
-	weiwan@google.com,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Yaroslav Dudkov <aroslavdudkov622@gmail.com>
-Subject: [PATCH net v2 2/2] selftests: fib_tests: Add carrier gateway test
-Date: Wed,  4 Nov 2026 19:56:55 +0000
-Message-ID: <20261104195655.1406837-3-aroslavdudkov622@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261104195655.1406837-1-aroslavdudkov622@gmail.com>
-References: <20261104195655.1406837-1-aroslavdudkov622@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=d/EaO050
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:Message-ID:Subject:Cc:To
+	:From:Date:MIME-Version:From:Reply-To;
+	bh=0PcCihOuFAnilp2mklYvKQzE/8b41vnt7v3E6IaO7LA=; t=1793822896; x=2109182896; 
+	b=d/EaO050Waef0VGvBBKY7b6mGqO5i4TlnYImHiLs843C5ij3oks4y/bfy44BQW5HqLExELPQR/b
+	zT8qYQreNVpZH6z0YhlFnCdZhYcKFcMF81oLPswv741zMrX3eOK7rRudiuSe7jldfjS252gyNmpCK
+	enM4epYLPN0890LnuvfNz9yh6NyuFFsiC3xa4ielRorAEuqjDctt9lnxApagNZFFOw9x+AL127DA7
+	6Nv97ScI9hxUuTxGwvp1msmo6GsACiRN7OhTFT2TCU6ppiXfmV6B+xF+Bby4ScsLM20WDMeLb9Igr
+	4Sd04MJb0vcxTJvkkNgEAB3VgzH0RRB+6rfQ==;
+Received: from maestria.local.igalia.com ([192.168.10.14] helo=mail.igalia.com)
+	by fanzine2.igalia.com with esmtps 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xOhHD-002ceZ-1n; Wed, 04 Nov 2026 21:08:07 +0100
+Received: from webmail.service.igalia.com ([192.168.21.45])
+	by mail.igalia.com with esmtp (Exim)
+	id 1xOhHC-0000000EdDv-22S9;
+	Wed, 04 Nov 2026 21:08:06 +0100
+Received: from localhost ([127.0.0.1] helo=webmail.igalia.com)
+	by webmail.service.igalia.com with esmtp (Exim 4.98.2)
+	(envelope-from <mfo@igalia.com>)
+	id 1xOhHC-0000000F9iF-1R6L;
+	Wed, 04 Nov 2026 21:08:06 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,99 +65,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Wed, 04 Nov 2026 17:08:06 -0300
+From: Mauricio Faria de Oliveira <mfo@igalia.com>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>, Sagi
+ Grimberg <sagi@grimberg.me>, Chao Shi <coshi036@gmail.com>,
+ kernel-dev@igalia.com, linux-nvme@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] nvme: reject completions for requests that are not in
+ flight
+In-Reply-To: <641c7c0d-0455-490a-8811-e6eda728a7e7@kernel.dk>
+References: <20261103-nvme-double-cmpl-uaf-blk-mq-v1-1-b10fea474423@igalia.com>
+ <auo5a1kRTSWsAYtF@kbusch-mbp> <352cfcec6865cbf636a22442511f16b1@igalia.com>
+ <auo-v5ZliGbM1Tiz@kbusch-mbp> <65414ea51d23fdbeb5d8b7bb4bd9d535@igalia.com>
+ <641c7c0d-0455-490a-8811-e6eda728a7e7@kernel.dk>
+Message-ID: <cb53c4ac3cd1ec95ec01374dc757a5f7@igalia.com>
+X-Sender: mfo@igalia.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Spam-Report: NO, Score=-4.9, Tests=ALL_TRUSTED=-3,BAYES_00=-1.9,KAM_DMARC_STATUS=0.007
+X-Spam-Score: -48
+X-Spam-Bar: ----
+X-Rspamd-Score: -1.6
+X-Rspamd-Action: no action
+X-Rspamd-Bar: -
 
-Test adds routes with a gateway while the nexthop device
-has no carrier and ignore_routes_with_linkdown is enabled on it. The
-routes are added to the main table and to a non-main table, with and
-without a device, for both IPv4 and IPv6. Routes are expected to be
-accepted disregarding the link state.
+On 2026-11-04 17:01, Jens Axboe wrote:
+>> I agree that a device in this state can't be used successfully, but the
+>> kernel should, IMHO. 
+>> Say, in case the device hits this due to firmware which needs an update,
+>> the kernel crash might prevent the user from applying it, in the first
+>> place.
+> 
+> OK, now we're really reaching... If the device is so buggy that it can't
+> even do basic operations without violating protocol and crashing the
+> kernel, then there's nothing the kernel can (or should) do to try and
+> prevent that. We don't cater to severely broken firmware or devices.
+> 
+> Please stop all of this nonsense.
 
-Without the previous patch, the IPv6 non-main table cases fail:
+Ok; thanks for the feedback and clarifications.
 
-Without fix:
-Gateway validation with carrier down
-    TEST: IPv4 route in main table                                [ OK ]
-    TEST: IPv6 route in main table                                [ OK ]
-    TEST: IPv4 route in non-main table                            [ OK ]
-    TEST: IPv6 route in non-main table                            [FAIL]
-    TEST: IPv4 route in non-main table without device             [ OK ]
-    TEST: IPv6 route in non-main table without device             [FAIL]
-    TEST: IPv4 linkdown flag set                                  [ OK ]
-    TEST: IPv6 linkdown flag set                                  [FAIL]
-
-With fix:
-Gateway validation with carrier down
-    TEST: IPv4 route in main table                                [ OK ]
-    TEST: IPv6 route in main table                                [ OK ]
-    TEST: IPv4 route in non-main table                            [ OK ]
-    TEST: IPv6 route in non-main table                            [ OK ]
-    TEST: IPv4 route in non-main table without device             [ OK ]
-    TEST: IPv6 route in non-main table without device             [ OK ]
-    TEST: IPv4 linkdown flag set                                  [ OK ]
-    TEST: IPv6 linkdown flag set                                  [ OK ]
-
-Suggested-by: Ido Schimmel <idosch@nvidia.com>
-Signed-off-by: Yaroslav Dudkov <aroslavdudkov622@gmail.com>
----
- tools/testing/selftests/net/fib_tests.sh | 40 ++++++++++++++++++++++++
- 1 file changed, 40 insertions(+)
-
-diff --git a/tools/testing/selftests/net/fib_tests.sh b/tools/testing/selftests/net/fib_tests.sh
-index 7c47d7fe250d..d7ac3c727f70 100755
---- a/tools/testing/selftests/net/fib_tests.sh
-+++ b/tools/testing/selftests/net/fib_tests.sh
-@@ -406,10 +406,50 @@ fib_carrier_unicast_test()
- 	cleanup
- }
- 
-+fib_carrier_gw_test()
-+{
-+	echo
-+	echo "Gateway validation with carrier down"
-+
-+	setup
-+
-+	set -e
-+	$NS_EXEC sysctl -qw net.ipv4.conf.dummy0.ignore_routes_with_linkdown=1
-+	$NS_EXEC sysctl -qw net.ipv6.conf.dummy0.ignore_routes_with_linkdown=1
-+	$IP link set dev dummy0 carrier off
-+	sleep 1
-+	set +e
-+
-+	$IP route add 203.0.113.0/25 via 198.51.100.2 dev dummy0 &> /dev/null
-+	log_test $? 0 "IPv4 route in main table"
-+	$IP -6 route add 2001:db8:10::/64 via 2001:db8:1::2 dev dummy0 &> /dev/null
-+	log_test $? 0 "IPv6 route in main table"
-+
-+	$IP route add 203.0.113.0/25 table 100 via 198.51.100.2 dev dummy0 &> /dev/null
-+	log_test $? 0 "IPv4 route in non-main table"
-+	$IP -6 route add 2001:db8:10::/64 table 100 via 2001:db8:1::2 dev dummy0 &> /dev/null
-+	log_test $? 0 "IPv6 route in non-main table"
-+
-+	$IP route add 203.0.113.128/25 table 100 via 198.51.100.2 &> /dev/null
-+	log_test $? 0 "IPv4 route in non-main table without device"
-+	$IP -6 route add 2001:db8:11::/64 table 100 via 2001:db8:1::2 &> /dev/null
-+	log_test $? 0 "IPv6 route in non-main table without device"
-+
-+	$IP route show table 100 203.0.113.0/25 | \
-+		grep -q "linkdown"
-+	log_test $? 0 "IPv4 linkdown flag set"
-+	$IP -6 route show table 100 2001:db8:10::/64 | \
-+		grep -q "linkdown"
-+	log_test $? 0 "IPv6 linkdown flag set"
-+
-+	cleanup
-+}
-+
- fib_carrier_test()
- {
- 	fib_carrier_local_test
- 	fib_carrier_unicast_test
-+	fib_carrier_gw_test
- }
- 
- fib_rp_filter_test()
 -- 
-2.54.0
-
+Mauricio
