@@ -1,67 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817582;
-	b=mt0iF7YoS9MYEFyLnMcz9PlFNHAAG38zH1wHM+W+iaOipt7zn/XK68gfB9w5JOGj9zIE
-	 hXscYdL+L1YzXYhyKpBziVyVXavcdxIL4x2hjFeU3UxTYvHOuJLPSudGdH1AbTVKqlz+N
-	 BPb/dNTVprbWdoFgW6kJ74PI8qDkn/3dyKz/GfjClse2AT26LXXUDQc4n4KIm39WMvilQ
-	 ygC1FVQlvV1bT0HA/5HZaGBa6oJQT2B+p4IlZgS9omizEIcpqDECK8116skeTTaMD7Rhy
-	 EhctVLfF+bKAfxija8ja8Gmur+V5+FjotVXb5d+SVSH+4ZLuoqyxWHz1BcJeKlRfF+w==
+	t=1793817589;
+	b=TKUalEAoV3FunhRTYUuJwR83K8QzpAiToJ6tFReEh5gXMzvyRZn+VsU7jslQ2BloCx7T
+	 3D4LFAm8bALm/nZ8TmDLJkAHvFdcVJh0RG69vchf6ln61mIxcqAOP8TOihmNAj5suaszu
+	 yU8ixIjFGHwhQN0g5CHjzh0XmOMNMNA+ElMew+WvN/I0rOiuoNXoUAsPTU1kNHdNzLZjm
+	 ZtlHCtIqXo9wzC9GHnVZNiDBVGGAIsVwdLmi09HBVDmG9doHrMIwzskmNOwzI9nHjb0MB
+	 Pl0bUu6qMSFH/Sh72V457NrMKnzQoZvifaxe4CDmPVJzSKu/anv5L6OsOPF6VLAXyDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817582;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817589;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=DvMLxBlki3uUbmQZYCI/NfK/V+8RiWix7z0CnkehUbs=;
-	b=BRtPMzglKfH1QI/FgIKmsC6nsJ81Aci6kKYhqgQxGJ8qnYHDHpf3jE0bQz1kyTCpWpjR
-	 DxbnlBuwqYxdTSjNRe53b463Wq4W5QtYaCDcYMjF/lqvCp4FYNOiL3WElK59p/sTcfaFs
-	 JcmMYqmDVhufGg2MxJ8ZvIZOsx/2NAGSI7or2XZ5R8PBxjqlQaxor7kiVexoZvXgZWL0n
-	 Ajj+v4vND6SF44wRETdpWBqSsumxcOdphxekyksk4VUjrsDfCpHBZ5KBzBddT1qpvAZpG
-	 p5MWJCOQyck3KoShs08G7/QAZiQ4UCJBCdCvvkLtXms9jRLcnj8Zs5pEylK+NBnsIGg==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=GCXM+1vHv30jwbDAeKZYBleOEN3MIKNP86ZtMt61Hjo=;
+	b=ajaCki/8GrSAwkDLytCLJ+lQ3HR2TevHok3Lks5Vkk/u3G2lAgYe/bpbKB5/ATrvKUXN
+	 dML/eqkRe7czK9ob2Na1e11VphpKsWUriWDhpQO5G3p6ACnjuWF2I8N5uzjkOzIQ565Lz
+	 31lw0rkQW4hxVMrriIRfRYJFu5OBBNrB1o5dZRey6EHSRdt07uUYgLF0zG6ynEJMlQsya
+	 UpBu+JCqQd9uX+GwEJcnnzEPHYtJ48+xHtdRHIuYmXK8X2Og6wmDwwMbFyE3kB570LEMN
+	 yaltAme9G10v3oImufJJUAsLe0AZyGOb56768lnzMf4BaHSMei/8Ptd1JlfqzdQdHhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FfOz0h8j;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jOSHfEpt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F039D606A326;
-	Wed,  4 Nov 2026 18:39:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 341AD606A32C;
+	Wed,  4 Nov 2026 18:39:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FfOz0h8j
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03F0A1F000C1;
-	Wed,  4 Nov 2026 18:39:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jOSHfEpt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0221D1F00919;
+	Wed,  4 Nov 2026 18:39:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793817581;
-	bh=DvMLxBlki3uUbmQZYCI/NfK/V+8RiWix7z0CnkehUbs=;
-	h=From:To:Cc:Subject:Date;
-	b=FfOz0h8j7+c5jdDl0qlPLn+rjYEsk9YbPY12IrLApeLRDyhKKzxQUB2rOWoPur159
-	 FLvsw7SkILA1nxPAIFBTONB5wAb9UsX1Oeoqhdi2JRNs6E95GKe8NzfY1pyQoxFcZb
-	 suyRDGRXDfFlGE3SqjfMDygY8vlsGqzCc+w9MlVMAhpqyVAHYB7rTFWUXmcNi3Vnwk
-	 2RNv/hejcuroPRYs1+fRrb9hI1x6K0EjJF12WWBcRxX8FLBAxinh0ThAcxnZ/9Vf9U
-	 pyN4SuSPQvEZpmp3YB1sZA9+ef4TZg9hLfAUvPBebJh/uRA7o/38cM0QJkL8Qx+1e+
-	 ci07bbneOFDuQ==
+	s=k20260515; t=1793817588;
+	bh=GCXM+1vHv30jwbDAeKZYBleOEN3MIKNP86ZtMt61Hjo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=jOSHfEptiiOKgeEosLGAGrMmzKcsJF/qUzKQHApDUWg3yY3OD2tOOIEKQnZnd2pwA
+	 Tkm0oXb2WOsP99CfqkHY011A93wvO7dsv6yMVpClJZ4YnnJJoe0HjMVwnePoIQOQBV
+	 5QYXZQ6qI67kuMSAndP4teRR5Ve1JybUf7MaufIGNBlOPLxwZ/4wibZPaL+Wej79at
+	 KLBcQXF8UYZEoiozBdY7HEW+NRDaSq8fDZDxO3BbHw7x53szQWMC6I5KzPI3sE+VXi
+	 wnuGCFU1sYYOE2xpydduE/A5jeoKpnQFMS7z2yS/po45n9IbjD/LADUXFVPsVXIE48
+	 lvtxrQxAfUUyQ==
 From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Daniel Jeong <gshark.jeong@gmail.com>,
+To: lee@kernel.org,
 	Daniel Thompson <danielt@kernel.org>,
-	David Heidelberg <david@ixit.cz>,
-	dri-devel@lists.freedesktop.org,
-	Helge Deller <deller@gmx.de>,
 	Jingoo Han <jingoohan1@gmail.com>,
-	Jin Park <jinyoungp@nvidia.com>,
-	Kiran Gunda <quic_kgunda@quicinc.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Helge Deller <deller@gmx.de>,
+	Daniel Jeong <gshark.jeong@gmail.com>,
 	LDD MLP <ldd-mlp@list.ti.com>,
-	linux-arm-msm@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	dri-devel@lists.freedesktop.org,
 	linux-fbdev@vger.kernel.org,
-	Samuel Ortiz <sameo@linux.intel.com>,
-	Subbaraman Narayanamurthy <quic_subbaram@quicinc.com>
-Subject: [PATCH 0/6] backlight: Fix Critical and High issues reported by Sashiko
-Date: Wed,  4 Nov 2026 18:39:01 +0000
-Message-ID: <20261104183935.1214630-1-lee@kernel.org>
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH 1/6] backlight: lm3630a: Request PWM device before registering backlight
+Date: Wed,  4 Nov 2026 18:39:02 +0000
+Message-ID: <20261104183935.1214630-2-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
+In-Reply-To: <20261104183935.1214630-1-lee@kernel.org>
+References: <20261104183935.1214630-1-lee@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,69 +66,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-These issues were reported by Sashiko.
+lm3630a_probe() currently registers the backlight devices via
+lm3630a_backlight_register() before acquiring and initialising the PWM
+device via devm_pwm_get() and pwm_init_state().
 
-This series resolves the open Critical and High severity bug reports
-identified by the Sashiko AI analysis tool (https://sashiko.dev) across
-the Backlight subsystem:
+This creates two issues when PWM control is enabled:
 
-  1. lm3630a_bl: Prevent a NULL pointer dereference in lm3630a_pwm_ctrl()
-     when PWM mode is enabled by requesting the PWM device before
-     registering the backlight device.
-  2. aat2870_bl: Prevent a NULL pointer dereference on platform_get_drvdata()
-     during devm_backlight_device_register() by populating driver data and
-     scaling the initial brightness beforehand.
-  3. qcom-wled: Cancel wled->ovp_work on probe failure via
-     devm_delayed_work_autocancel() so a scheduled OVP work item cannot
-     fire after devm_kzalloc() frees struct wled.
-  4. qcom-wled: Manage wled->lock via devm_mutex_init() and remove
-     wled_remove() so devres unwinds the backlight device, threaded IRQs,
-     delayed work, and mutex in strict reverse registration order without
-     calling disable_irq() on unconfigured negative or zero IRQ numbers.
-  5. qcom-wled: Guard against calling a NULL
-     wled->wled_auto_detection_required() callback on WLED3 hardware when
-     an OVP fault interrupt fires.
-  6. qcom-wled: Avoid an AB-BA deadlock between wled->lock and the
-     threaded OVP IRQ handler by using disable_irq_nosync() in
-     wled_module_enable() and verifying under wled->lock that the module
-     remains enabled before running wled_auto_string_detection().
+1. Exposing the backlight sysfs attributes before pchip->pwmd is
+   initialised leaves a window during probe where a userspace brightness
+   update calls lm3630a_pwm_ctrl() with pchip->pwmd still NULL (or set
+   to an ERR_PTR() if devm_pwm_get() fails while devres tears down the
+   backlight device).
 
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Bjorn Andersson <andersson@kernel.org>
-Cc: Daniel Jeong <gshark.jeong@gmail.com>
-Cc: Daniel Thompson <danielt@kernel.org>
-Cc: David Heidelberg <david@ixit.cz>
-Cc: dri-devel@lists.freedesktop.org
-Cc: Helge Deller <deller@gmx.de>
-Cc: Jingoo Han <jingoohan1@gmail.com>
-Cc: Jin Park <jinyoungp@nvidia.com>
-Cc: Kiran Gunda <quic_kgunda@quicinc.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: LDD MLP <ldd-mlp@list.ti.com>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: linux-fbdev@vger.kernel.org
-Cc: Samuel Ortiz <sameo@linux.intel.com>
-Cc: Subbaraman Narayanamurthy <quic_subbaram@quicinc.com>
+2. Because devres releases resources in reverse registration order on
+   driver unbind, the PWM device is released before the backlight
+   devices are unregistered, allowing a sysfs brightness write during
+   unbind to invoke lm3630a_pwm_ctrl() on a freed PWM device.
 
-Lee Jones (6):
-  backlight: lm3630a: Request PWM device before registering backlight
-  backlight: aat2870: Initialise driver data before registering
-    backlight
-  backlight: qcom-wled: Cancel delayed work on probe failure
-  backlight: qcom-wled: Manage teardown via devres and remove
-    wled_remove()
-  backlight: qcom-wled: Check for auto-detection callback in
-    wled_ovp_irq_handler()
-  backlight: qcom-wled: Avoid AB-BA deadlock in wled_module_enable()
+Acquire and initialise the PWM device before registering the backlight
+devices so that pchip->pwmd is valid throughout the lifetime of the
+backlight registration.
 
- drivers/video/backlight/aat2870_bl.c | 43 +++++++++++++------------
- drivers/video/backlight/lm3630a_bl.c | 12 +++----
- drivers/video/backlight/qcom-wled.c  | 47 +++++++++++++++-------------
- 3 files changed, 52 insertions(+), 50 deletions(-)
+Fixes: 28e64a68a2ef ("backlight: lm3630: apply chip revision")
+Closes: https://sashiko.dev/#/bug/linux-ba01ed63-0b5a-4b3d-94c5-e6989857d77c
+Cc: stable@vger.kernel.org
+Signed-off-by: Lee Jones <lee@kernel.org>
+---
+ drivers/video/backlight/lm3630a_bl.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/video/backlight/lm3630a_bl.c b/drivers/video/backlight/lm3630a_bl.c
+index 8ef8163c7fef..9061355ef8ed 100644
+--- a/drivers/video/backlight/lm3630a_bl.c
++++ b/drivers/video/backlight/lm3630a_bl.c
+@@ -549,12 +549,6 @@ static int lm3630a_probe(struct i2c_client *client)
+ 		dev_err(&client->dev, "fail : init chip\n");
+ 		return rval;
+ 	}
+-	/* backlight register */
+-	rval = lm3630a_backlight_register(pchip);
+-	if (rval < 0) {
+-		dev_err(&client->dev, "fail : backlight register.\n");
+-		return rval;
+-	}
+ 	/* pwm */
+ 	if (pdata->pwm_ctrl != LM3630A_PWM_DISABLE) {
+ 		pchip->pwmd = devm_pwm_get(pchip->dev, "lm3630a-pwm");
+@@ -564,6 +558,12 @@ static int lm3630a_probe(struct i2c_client *client)
+ 
+ 		pwm_init_state(pchip->pwmd, &pchip->pwmd_state);
+ 	}
++	/* backlight register */
++	rval = lm3630a_backlight_register(pchip);
++	if (rval < 0) {
++		dev_err(&client->dev, "fail : backlight register.\n");
++		return rval;
++	}
+ 
+ 	/* interrupt enable  : irq 0 is not allowed */
+ 	pchip->irq = client->irq;
 -- 
 2.56.0.385.gac671c819a-goog
 
