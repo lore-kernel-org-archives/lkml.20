@@ -1,48 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.133.224.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793771484;
-	b=sDtCT5i6nRvoZ9EC53IRULlFYq8AWW60fBN8AGRWedtkqSBuWYGuOBJEsNc1YlLYMtdC
-	 2A58S4UpCHt9YQ0NFBiL2NzqLzG0k/6FZw+v594JiL8EJ7UNuw4L0Wvg2/ia8USlIWg7U
-	 7NtGo5G0Ub7laUMub0DuT/DeB7eXZYYDP1BWoxPl6LjZDa4hyf/30MC2qQM0MNlb35WwG
-	 d1hPbIRcpDJ/X36Ubi0id5bEQXgnHmwSCz4hJECLRWYekxzW9RZz5nXeWEZ0YT9goHAAJ
-	 PtsoFz7eMv2+gm7a3iXTd1Y96Lsut8R3qmA8F8E3IE8qpV64+j6LRP2UgpdWrtnsWIA==
+	t=1793771534;
+	b=5NB3SY9Aq6E+QfXWZVlP6QJXY29LCyXGV2Sw63gfKNNqY5TEnTKCYZe/6S9+IUhlXNsf
+	 V3vrUVjXghWkY+CU0BKanwk4rP1vtAYn1lQRGZv2Y9qUo63Q9v3QqYK6SsAd5XUy9ft1w
+	 VTNoLlhkzZ36Q0TWYDkEMuTiSRT5gT2QHlm4J6cCSfQgLyyur1gKr6R9teWoU3ywW4B4V
+	 TNFrRBVvkYf6OxggCcrUdNmVW1p05Njj5DNIkuEYLkXtSUf3zJ+5CcFLjbYktL1H0/Nnv
+	 +0A1saRa3vFftPadaRQVGyX4D6q1e4LVxcFIk0cS2AcergY75O2pOujg/0jxekr102A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793771484;
-	h=DMARC-Filter:Received:Received:Date:From:To:cc:Subject:In-Reply-To:
-	 Message-ID:References:User-Agent:MIME-Version:Content-Type;
-	bh=gFOsRWlPoVv3sryTMuE3bL0g8Ttk+4iH4fp6LwC1P4o=;
-	b=Rzww0x3heLuoN/L52568Z0ELqMdlB0C0ENvodl/f0aNiELKG+k4fnvEjEeZbhb06AXzz
-	 qn5R95LbT3UbzpUQuVlTXhUNomIRaGOGsjhgLz9YekSrHTip72IKyYl7ahEz/aUU1RwMA
-	 1W2+nmsnk49i7XjTySQzaIS/YvJsr9ExfOaTP66q6aZ76j1flh0xV0S+4dlAW7D8+QZOp
-	 leV5kgJLZkNlvmtXuCmzuudI7XAC0XEtyuLZbPl62QwKMjb2+eT8jfDl7nidehvPp2YhX
-	 dKp6A/bwGWdOTS9Bl73wD9/rr0tEohyuYT1qOrbRla28jMzG+zHkBkaopvY08TEWXFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793771534;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Subject:From:
+	 To:Cc:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Date:Message-ID;
+	bh=FEL3mXotpxi5HHOSmxgKhXNsm0CX9l/laMH07CuMMUo=;
+	b=IwNyjB2WOzRsZL/xvvEDJiEZhQiIUNL87Fg1xci2AO1YMQeh22B4sAnGpjO9rQnZ05VE
+	 QAIfna6R7dj4eHTvSDIWd/jAkUd83OGrVWw7MCAmrrT3Bdx8mb2xXC+Ba5FcbzHL2c7JZ
+	 MgTGtWrGlvAWfugAuQPvmclxdZtOjyLw5zu2ImzHA2va/aGn2Dw6f8tzsz9n6epPtojwo
+	 ftwpsSMDsRzwrPyp9YS7qFPzY6IRkTgEAPDcSwlgAyQdx6S8mOPRkxylOlz/d6lJ/+Puj
+	 OO7nmesb6QKU8aawRFfK0+C+LTVexFI70+65LHEkRDdVhvyt1SzKTsyBXwJjfxao1Cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=orcam.me.uk;
-	spf=none smtp.mailfrom=orcam.me.uk;
-	arc=none smtp.remote-ip=78.133.224.34
-Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DEF87606A31B;
-	Wed,  4 Nov 2026 05:51:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEF87606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
-Received: by angie.orcam.me.uk (Postfix, from userid 500)
-	id 72EA492009E; Wed,  4 Nov 2026 06:51:21 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
-	by angie.orcam.me.uk (Postfix) with ESMTP id 65F6B92009C;
-	Wed,  4 Nov 2026 05:51:21 +0000 (GMT)
-Date: Wed, 4 Nov 2026 05:51:21 +0000 (GMT)
-From: "Maciej W. Rozycki" <macro@orcam.me.uk>
-To: Linus Walleij <linusw@kernel.org>
-cc: Richard Henderson <richard.henderson@linaro.org>, 
-    Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>, 
-    linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
-    kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH] alpha: Use symbol assignment in SYM_END
-In-Reply-To: <20261103-alpha-compile-v1-1-9e93e2260a9f@kernel.org>
-Message-ID: <alpine.DEB.2.21.2611040544270.6502@angie.orcam.me.uk>
-References: <20261103-alpha-compile-v1-1-9e93e2260a9f@kernel.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=bvGAf9IZ;
+	arc=none smtp.remote-ip=115.124.28.51
+Received: from out28-51.mail.aliyun.com (out28-51.mail.aliyun.com [115.124.28.51])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB88606A326;
+	Wed,  4 Nov 2026 05:52:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BB88606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=bvGAf9IZ
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1793771523; h=Subject:From:To:MIME-Version:Content-Type:Date:Message-ID;
+	bh=FEL3mXotpxi5HHOSmxgKhXNsm0CX9l/laMH07CuMMUo=;
+	b=bvGAf9IZqobk9Gj2nomKD+15zIKLt6poHw1eohrizPk5Bbo8dyKf9n8dcVHG/ytGgstthm00zzbou6cqrowhiq2W1VzUKng+Hj0x4Wvg68Odv3qFfFDp5ObLCHVcTxX8xn6LDzxYuwDRNWYksjmdQbP47p4Z4pCtUzyQILNIqAc=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.2686238|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_news_journal|0.151568-0.000737019-0.847695;FP=5172841553863036793|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037033194;MF=liuwb@xiaopeng.com;NM=1;PH=DS;RN=7;RT=7;SR=0;TI=SMTPD_---.jwNFjaz_1793771522;
+Received: from 127.0.0.1(mailfrom:liuwb@xiaopeng.com fp:SMTPD_---.jwNFjaz_1793771522 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Wed, 04 Nov 2026 13:52:02 +0800
+Subject: Re: [PATCH] spi: ljca: Don't require data in write replies
+From: Weibin Liu <liuwb@xiaopeng.com>
+To: Arpith Alexander <arpith99@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>,
+    Lixu Zhang <lixu.zhang@intel.com>,
+    Sakari Ailus <sakari.ailus@linux.intel.com>,
+    linux-spi@vger.kernel.org,
+    linux-kernel@vger.kernel.org,
+    stable@vger.kernel.org
+In-Reply-To: <20261103131435.21838-1-arpith99@gmail.com>
+References: <20261103131435.21838-1-arpith99@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,22 +62,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Date: Wed, 04 Nov 2026 13:52:02 +0800
+Message-ID: <179377152201.4085956.16301164342682506589@xiaopeng.com>
 
-On Tue, 3 Nov 2026, Linus Walleij wrote:
+Hi Arpith,
 
-> Alpha uses the .set directive to select assembler options, so the
-> symbol assignment emitted by the generic SYM_END macro fails to assemble.
-> This breaks COMPILE_TEST builds left and right, e.g.:
-> 
->   Error: junk at end of line, first unrecognized character is `,'
->   Error: .size expression for bcm6846_runner_start does not evaluate to a constant
-> 
-> Override SYM_END to use an ordinary symbol assignment for the calculated
-> size. Preserve the symbol type, size and local size symbol while leaving
-> other architectures unchanged.
+Thanks for catching and fixing this. I missed that write replies only
+contain the header, with no payload following.
 
- Alternatively `.equ' pseudo-op could be used, which has compatible syntax 
-(but in turn has different syntax on PA-RISC).
+The fix looks good to me. For stable, it should be backported together
+with 0fe4573c822c.
 
-  Maciej
+Reviewed-by: Weibin Liu <liuwb@xiaopeng.com>
