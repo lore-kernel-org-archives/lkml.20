@@ -1,73 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793804418;
-	b=DCY3BYUs4LX4vYP2aPvfPCPMPC6gu/Fy3OrU7xcNGu2V+iVQyJM75mcKRi3dCzUusfWo
-	 +sxhFuT32WkCrgiT8MbguyP+WGlC18h+EPqFzLRBG8f5UGpxk0HWuGaBHX8EFi3VEveRU
-	 iHLylwtWl2ZH9qSIlb+cEfyBD5+Ua7CNZk3DxPDu2dIDFbt2s1FxoPK4lHuYfOGZKMoku
-	 7/pf8wi1lJ+J1BlzjphyFVFpHropgw0RDK0exOOOGuivoJzAm5G3cPKwUfTepnW2KHhK6
-	 //kxanqvldIx8nQYcAuvQ8Zd2ihRcrXenkSrs7oovD6WY7gLfod51gfHEQzg65pAirA==
+	t=1793804423;
+	b=ZeJyXS84kmKYR7Hi4rPbpbpOGPGNPXSrq4GCOT+401ISgB7zeED/hlr4Tyh9DrT33lS6
+	 cu6vDPUolYSQ3ySRxKvuzDbc8vYZmqDbuzIs16dW43rYUpO6kmLbotM/S/gnZ+uz3MVC3
+	 VPEipiukuKr2AX6cdRiHMn0xxWSTRq9cmSsuYcOsZXXHFucmhDsutMPssvjBk57Mcj7V2
+	 FVzE9AwKGVUKaa7oidTZG4yvcCMtCogU3Uy+2aeUQ5p5UrsPOsBNgdu1MSsiLWno+scHj
+	 XTdiclywtKTepWIrCq0UZvhdifYEXmJ3lKzoOasAoc6IBjYajccJyNIJ8hMqoyzwpmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793804418;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=L2TX4jw8nBgVDDi3cr/Q5stFGHBBLzs3q4obJ5FleF8=;
-	b=B2Kz4S53jjiseXt5ew78SF58uGUWRGnhyg6ehldpHJhwuPzLUwtUMDWuWs/YWwznfcAm
-	 G3Qs+wkOPQ3ezwbTclmrJCALDI4uyxJ7Ola3PANycMZQC/q/oveJE+K8UX2ln/LD5eM/y
-	 EwCO2uxxBCX5FKl6bRHJlCyumEyTcmVNbT+VfeKCksYokg0fY0bGxUrnyzTYcJJqORmiG
-	 ES2bg7UCmM1o9kAIqYLw0IySkQTHm9OyIbYDqylnu8RXoQWs4ISE1GbPEI83F8tGyDbqk
-	 mfJoI8pYvhritTQvN3qkKBjIPWmHUELKJTJ0y98wWGfex6hYKtD9nrLJvneXe4NhwoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793804423;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=dJ5nNF8fJBCcyjpTvRB287LocZ9aEZbE3ISg2aHVauM=;
+	b=3OtY4bQPiV1xVacQrii5oOrW4VYD3PK/5mNCAenHnkyllHm10X+zgjHGBJlCJ5k1a6IW
+	 tN6aF7njNpO1bE/8tecIFFXtMaeRhsVH0ClfD3LTrCIJ6TWPJPH2GTKvLWQl6Euhf9Tji
+	 +mtzzBVfy+XSxe7VV8qiwjN38/J+mM49StGWnIFKl166BQRiRVh9kCnTE88EIKtiifHOw
+	 3t04dT8oJEtqHK5BUsZaiYv4vKr91IcE18Aw94mrIG1bM1nfA10BKnadFkCG1BRaOiz51
+	 BcuMxK5/kYpOCn1H3GAeSg942Jix/llLKA89YH/thhycmAM7Z6Kovc4jrQz6/FBvDAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=mdjSfNjz;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Lzf+dOfr;
+	arc=none smtp.remote-ip=209.85.210.170
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B77606A331;
-	Wed,  4 Nov 2026 15:00:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86B77606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D53F7606A336
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:00:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D53F7606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=mdjSfNjz
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=L2TX4jw8nBgVDDi3cr/Q5stFGHBBLzs3q4obJ5FleF8=; b=mdjSfNjzuysfatSV3UV5aMC+2m
-	LLA4mrTdxlRu5ZW7vy8FnbTi08PDsefTmZsYT4HSI5QmxXr6b9kQ6gwpJoP3w2GNCz+3yIzQClEGW
-	MovEpP2TUpGaakLgsn/Opwmj1HaO62nrediWVdWoN4HdC/txEiq40bsbXLoL5HdKtcv4=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xOcT0-00EL1c-U5; Wed, 04 Nov 2026 15:59:58 +0100
-Date: Wed, 4 Nov 2026 15:59:58 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: "Stolniceanu, Iustin" <Iustin.Stolniceanu@analog.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"Schmitt, Marcelo" <marcelo.schmitt@analog.com>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"Regus, Ciprian" <ciprian.regus@analog.com>
-Subject: Re: [PATCH net-next 0/5] net: ethernet: adi: adin1110: Add OPEN
- Alliance TC6 support
-Message-ID: <c1747691-2c2e-4a7a-af04-92c94cb041b2@lunn.ch>
-References: <20261103160918.409701-1-iustin.stolniceanu@analog.com>
- <49b292c4-c0e9-4b19-aa4d-d15dd20d25b6@lunn.ch>
- <IA3PR03MB8453F2E91946AE59A9818B9AF2682@IA3PR03MB8453.namprd03.prod.outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Lzf+dOfr
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8b1a705b88aso121947b3a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 07:00:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793804422; x=1794409222; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dJ5nNF8fJBCcyjpTvRB287LocZ9aEZbE3ISg2aHVauM=;
+        b=Lzf+dOfrGHScRBAfcGM2MmST2gZLT2E4ucniQYUtPQxQRdkQ9bUBAvBHNzcKew6exF
+         3B/5Y7xLOsU8qoeGzb9qTfBYEZx4NKwN27DqVjYRSkgdgiHZ6ejsSqJeRscSAfKPEW4v
+         wHaxPw9IYwdJ0PVwe7gInvDF5E+irsr278FWXaE9xOUK7xbPaYgsHHdydg2Wyji4+Itl
+         1BAdLy8QhMpiS0gUY8YXbj6VVByDY2dwHgX+ozNE0kCo6prFsktr/1W2h1kMdacU3Szm
+         UhtwGhKQqTEm6a0oH9wYPcwRRtD8mmQpgwiQswJAFrcpCRXa4CLhEeLl2UpjLZ4kwj2W
+         AMog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793804422; x=1794409222;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dJ5nNF8fJBCcyjpTvRB287LocZ9aEZbE3ISg2aHVauM=;
+        b=c7BdkgJVjatWp4bwkUaaLxFdg6D5X9nEQOx0CcfNLmvdhhzAnFP/foKBaFYErIdJsv
+         U6V/Z4cy7CZlo0DZn10Q3JY0LgywL1yyScYOqD5ofQaTCUAN1X0O2dJ/R9dconmPrWK9
+         H0qAEMKfnfNQPGHJV/Tk7xu1BYPAM/ArJVGHI0ZkU0InHduq6YEVGbZnsxoHTVr66VhD
+         PLJfjcWKJtvoxEKq7Exp5hF9bm8W/a1MZ3LpJPXMYD3I0/rQa4xFqVoatr482668vXyK
+         P/iBTVIxA7uLbMhAW4WoXWhPZjw5D0/BjvMMZ9a5OAYmaqwKa8U29+I+43ReFB6TAaDi
+         rG5w==
+X-Forwarded-Encrypted: i=1; AKwUvBy8EuskeTKA8r+qr0WotseVRNN5+UmOvRsP3GNEL/wuCOsBJ17mElhfEyB5++QwQWS5oMaPNFllq3MItOw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8CATX0sHgqldDPqsSyRGRubCKizmpNs5KtthYAq79GKls8OqWj
+	webDq+0BD8ty5IcgmtANam7TuiRKPB41865S4XcsAMLXQZxPUZ3BauJn
+X-Gm-Gg: AYBFou2aZ+PVbmzhB4j1wvgE7gjP9q2Rb1tUjtNBTIWtlPd6B/ceShBx+2avrIGqMqh
+	lsTpTg8dtfU8i8HN3vxF24S/eKe5w0IyStqRbUC/LuBUM2nMdLcKKOKcLQY1mbuwqlE0Io7NnGw
+	q0Zu/Eib62tk9A8H6z8MSt7sjlNj4vBllOmsqtXqLADZINeCOToBKP26okm2sEaUSEXP4tvqkvO
+	PohtHLB3N1i/0rURVGi5oassaZJ9vtL5MfWW7BDzq2Pm4Mq6LwwynIp1Ledhk6hKb6ChFghISr/
+	r+KtQ4BuolIFGEUVloBw2xtviu/4W5O5bRDsqc3juLRu6H+Jcu7SEqpO1g9ZQ3pUwCFV3KlYsTs
+	wTQrantHU8Hoi+ipIVhwbumaCFfCoIrDEMygEEX/+jJRZjaEBE2uamRJBVDgamPK7R7nQMdoiXF
+	TyZGo/V2JdgBkIXZjr10Xwjm/AXXAhhk0coCgOwL7yIkTE0yvgpLbp7QiMzdT4kC2AQvzorcTMt
+	NXob3VAIahhRQ1EcL4GOePQCf51cbHWJUurtCRNSVc7j8a4ph6hlBjqDuLx4oHvY2bDrT6kfKQo
+	Z69M5K0nECug/D6JZtGyZQ3DT7VRKx7Uycu3eNucoyUithrkPFHG83WRC9nSWaTlxEqlE6NgPiw
+	C390YIL/WHB38upVwi2YjfTurUP8tb4XuaaDXzoTZMV9vldBM
+X-Received: by 2002:a05:6a00:140f:b0:89e:f8e9:205e with SMTP id d2e1a72fcca58-8a9bf71c0f3mr13544009b3a.40.1793804422077;
+        Wed, 04 Nov 2026 07:00:22 -0800 (PST)
+Received: from localhost.localdomain ([2405:201:301c:f8cd:5040:8550:f5e4:709a])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b09a7cc077sm1062059b3a.15.2026.11.04.07.00.18
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 04 Nov 2026 07:00:20 -0800 (PST)
+From: Aryan Sinha <sinha.aryan03@gmail.com>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>,
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Cc: Linus Walleij <linusw@kernel.org>,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aryan Sinha <sinha.aryan03@gmail.com>
+Subject: [PATCH] pinctrl: starfive: jhb100: use str_enable_disable()
+Date: Wed,  4 Nov 2026 20:30:08 +0530
+Message-ID: <20261104150013.32879-1-sinha.aryan03@gmail.com>
+X-Mailer: git-send-email 2.46.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,37 +98,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <IA3PR03MB8453F2E91946AE59A9818B9AF2682@IA3PR03MB8453.namprd03.prod.outlook.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 08:06:56AM +0000, Stolniceanu, Iustin wrote:
-> On Tue, Nov 03, 2026 at 20:49 UTC, Andrew Lunn wrote:
-> > On Tue, Nov 03, 2026 at 06:09:13PM +0200, Iustin Stolniceanu wrote:
-> > > The ADIN1110 supports two SPI host interface protocols: the generic SPI
-> > > protocol, which the adin1110 driver implements today, and the OPEN
-> > > Alliance TC6 protocol. The protocol is selected by the SPI_CFG1 pin,
-> > > which the device latches when it comes out of reset.
-> >
-> > Is it possible to read the status of this pin from a register?
-> 
-> No, not for SPI_CFG1. The ADIN1110 has no register that reports the 
-> SPI_CFG1 level or the selected host protocol.
+Replace the open coded ternary in the jhb100_irq_set_wake() function with the helper
+from string_choices.h. Gives same output.
 
-Seems like a badly thought out hardware design.
+Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
+---
+ drivers/pinctrl/starfive/pinctrl-starfive-jhb100.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-> The only way to detect the mode at runtime would be to probe it:
-> read the PHYID register using one framing and fall back to the
-> other if the value does not match. I have not tried that yet, and I
-> am not sure that clocking a transaction in the wrong framing is
-> harmless for the device, so I went with a DT property describing how
-> the board straps the pin.
-> 
-> If you would prefer autodetection, I can try it on hardware for V2.
+diff --git a/drivers/pinctrl/starfive/pinctrl-starfive-jhb100.c b/drivers/pinctrl/starfive/pinctrl-starfive-jhb100.c
+index 462a26697..329153876 100644
+--- a/drivers/pinctrl/starfive/pinctrl-starfive-jhb100.c
++++ b/drivers/pinctrl/starfive/pinctrl-starfive-jhb100.c
+@@ -20,6 +20,7 @@
+ #include <linux/seq_file.h>
+ #include <linux/spinlock.h>
+ #include <linux/string.h>
++#include <linux/string_choices.h>
+ 
+ #include <linux/pinctrl/consumer.h>
+ #include <linux/pinctrl/pinconf.h>
+@@ -1152,7 +1153,7 @@ static int jhb100_irq_set_wake(struct irq_data *d, unsigned int enable)
+ 		ret = disable_irq_wake(sfp->irq);
+ 	if (ret)
+ 		dev_err(sfp->dev, "failed to %s wake-up interrupt\n",
+-			enable ? "enable" : "disable");
++			str_enable_disable(enable));
+ 
+ 	return ret;
+ }
+-- 
+2.46.0
 
-Do you have an reference design using a jumper, so you can try all
-combinations? At minimum, it would be good to probe the chip, print an
-error message, and return ENODEV, if the property and the hardware
-don't match.
-
-      Andrew
