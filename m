@@ -1,51 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793814506;
-	b=rqHdU0DIL+aJUTKS2PTTipl2vs6/Zx7u/XyLrw/YVqIi4e12uPKcN3422hop6KjvWxAn
-	 ASAU3zpvXtlRsdlkL5mZpuOsw0Cuu8cJXvj4+t3i4F1oMf10bduIfigh5BKsWAxF/NM+9
-	 Nf2toZ5Vgv2Emx+yoKUiVU5DPjT/m7xeDqiCtCYAorxj64cWNYv8IBy/A/dIHMDNsoCWM
-	 aCk3y09SRXPanxjm+naSfNMRc85trPC9yHI7ayRKylZkpMuSXIshi4UZLXleZPlIQ2arg
-	 2TcuNG/g8nIlBZNN4qqm0JlDNY7+9wBCXpiSQTm/z7ebWapQsENTmIHw/sEms2J1roQ==
+	t=1793814511;
+	b=NHmsa+CP5zBNAZowCnHxrVlfDZigzTel3cXKjKLs6hRv5VuS8AQwZ+OEgNpnR1et6k1G
+	 AhX6iqez5EwYPKNJnFMi7SI4D8xKSgOT96YgbLA2OKteesAlPuEWg+yMxQ1xY6ZV7p6/Y
+	 ejT5tCpL1G2Vi5baEhvrDTg96YKtKrIH/Y8/2tf9naaNm/SaYBG2pPabykttWRMBf8bFm
+	 TLIyrgLyvmgnkcI/ApXOUTRJmrDqUsScZB2O0wpcMqS4KokYufKnuQ31kdoamSao6u5Di
+	 mtCrhHfcKHl/p0umP36Pe1NPz6h89fr22VkXTfg4OenlHdpKYDATos7R86S2wJQB34A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793814506;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793814511;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=5mDmVcyfUCeEAX8H66OPCvcSV/Zj8eOdzhf6RFoRR/s=;
-	b=cZYgHCIawxshIVFNdcaitsmBUEGP+EMvTOX2UonuvM2p9ydiYucOBt9Fix1k3et1x2pg
-	 iI/wbAOtHWFhuuSi5fuQgfzEeK7yl5/6mbomz+DOiETo/OScLKemIEyVDh6PR7e+EapO6
-	 iMPcUD8nrk7kKkx9ZnDzvGf/yWxOhI8Dfu1Gh/8R/RJJnZUCFMH3BUn/w+qE9MMjXUpFc
-	 Uc2juJTIyDytS31gEB0qSnUmOPrnCBIJXhA57GNmqQTcQpurs9uqM+5AsP6Ucm86P5yeI
-	 +XpnYz2RGZnKtiMnH8dkzVP/khpIATnHIoyiu4UDRrRk4FTmP3Iph0avOItPqoTSa+Q==
+	bh=9IAWjxD3DMvTDRO0xLFR7+UDIhICAFaUwIwlraihADE=;
+	b=NalptonXievFGe68Brbd2Qs4o3xzIHUtDNPtLD0XZJm4JdrfO5XMXGOVqwCckxPt/pDx
+	 kgMKwv0fSjD+nUDy9u0PLSmIj5ns51Ikfx+ZhDL1bKxfRyTsWABOVRQdTXve7ECDwVEMd
+	 fJoG1bBAsg/Wf0oBTrfD8mRv6zsCyUqYIKNSTM39siipllzZ3sBas1UJrUL4URy5k4wem
+	 /kNhzfooOXAaDlsaUDmSApw+JxjANVHMm/xCqL/6C+M0XBqrHIzZ75DGnIc8EKYpn7nPA
+	 y9cCHeWIuN53LCaIeCDNbmCIXO2vAAC2HtHwdtPK1stUlVAV+mdRF0xISxYWQpn5Zpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=YjKyDO0M;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=BQLJocJt;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 77B56606A32E;
-	Wed,  4 Nov 2026 17:48:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77B56606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 818FD606A31B;
+	Wed,  4 Nov 2026 17:48:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 818FD606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=YjKyDO0M
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=BQLJocJt
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C7D711F91;
-	Wed,  4 Nov 2026 09:48:22 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0E6DD1BB0;
+	Wed,  4 Nov 2026 09:48:28 -0800 (PST)
 Received: from e133894.arm.com (e133894.arm.com [10.2.80.62])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 74D473F673;
-	Wed,  4 Nov 2026 09:48:24 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B16FA3F673;
+	Wed,  4 Nov 2026 09:48:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793814505; bh=rtHBnwtVq7g8hs8r3SVgFVZrZGzkMLR5iSHNEjAFp9Q=;
+	t=1793814511; bh=jo2GN/hFb0lgn/s0Tey5xXl+2KKgsiXUYhJCLTe/amA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=YjKyDO0M4UEGryr6fyL6FBYC6HZ6eECnV3V+dxb5ODIgwnY3mebUd21YeLEU1TtSe
-	 rAVvji1D/DD+l1pUmuO2P8FVfcf1XM2G+XjZim4HHiGReUxiwdSzJesyNhlq2ApjfF
-	 mRZ32i4fTeOM6h/djSfu9/l0VO/ebe7nLZn/42IE=
+	b=BQLJocJtCPOH0ThM+oAXzW/2w/9xfgle4dQ2OpUSfez5t9xsISqSdDo3pGf1twLWM
+	 keKUokDMp6laEM3ymDUr7iOo1Z1BbdGYsBdiPwFYo+zz9NVlYaQ5Eo3gy7yGj8M8s/
+	 lPfP+QP0Sjqe5htLrwhmuyBqarLRCBu4lO9+Jb8o=
 From: Sascha Bischoff <sascha.bischoff@arm.com>
-Date: Wed, 04 Nov 2026 17:47:57 +0000
-Subject: [PATCH v2 03/10] irqchip/gic-v5: Serialise IRS synchronisation
- requests
+Date: Wed, 04 Nov 2026 17:48:00 +0000
+Subject: [PATCH v2 06/10] irqchip/gic-v5: Honour ACPI ITS noncoherent flag
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,7 +56,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-host_gicv5_fixes-v2-3-e47ad20ea3c8@arm.com>
+Message-Id: <20261104-host_gicv5_fixes-v2-6-e47ad20ea3c8@arm.com>
 References: <20261104-host_gicv5_fixes-v2-0-e47ad20ea3c8@arm.com>
 In-Reply-To: <20261104-host_gicv5_fixes-v2-0-e47ad20ea3c8@arm.com>
 To: Marc Zyngier <maz@kernel.org>, 
@@ -71,63 +70,35 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  Sascha Bischoff <sascha.bischoff@arm.com>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-IRS_SYNCR writes are ignored while IRS_SYNC_STATUSR.IDLE is clear.
-Calls to gicv5_irs_syncr() for different IRQs can overlap, allowing
-the second request to be dropped. Its caller can then observe the
-first request completing and assume that its own events have been
-processed.
+The ACPI ITS probe passes its noncoherent flag to
+gicv5_its_init_bases(), but the common initializer checks a DT
+property instead. For an ACPI ITS, this always selects coherent cache
+settings and skips the cache maintenance required for its tables.
 
-With GICv5 ITS KVM support, gicv5_irs_syncr() is also called while
-restoring the host ITTE in gicv5_its_set_vcpu_affinity(). The callback
-runs under the IRQ descriptor lock via irq_set_vcpu_affinity(), so it
-cannot sleep.
+Use the noncoherent argument, which both firmware paths already
+supply.
 
-Serialise the request and completion poll with a raw spinlock, and use
-atomic polling because the synchronisation runs while holding the IRQ
-descriptor lock.
-
-Fixes: 57d72196dfc8 ("irqchip/gic-v5: Add GICv5 ITS support")
+Fixes: a97efa5ba5946 ("irqchip/gic-v5: Add ACPI ITS probing")
 Cc: stable@vger.kernel.org
+Acked-by: Lorenzo Pieralisi <lpieralisi@kernel.org>
 Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
 ---
- drivers/irqchip/irq-gic-v5-irs.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/irqchip/irq-gic-v5-its.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/irqchip/irq-gic-v5-irs.c b/drivers/irqchip/irq-gic-v5-irs.c
-index 4edf787f3f97f..ead76560ea08f 100644
---- a/drivers/irqchip/irq-gic-v5-irs.c
-+++ b/drivers/irqchip/irq-gic-v5-irs.c
-@@ -10,6 +10,7 @@
- #include <linux/log2.h>
- #include <linux/of.h>
- #include <linux/of_address.h>
-+#include <linux/spinlock.h>
+diff --git a/drivers/irqchip/irq-gic-v5-its.c b/drivers/irqchip/irq-gic-v5-its.c
+index 866c238f08dfe..c5d057f713134 100644
+--- a/drivers/irqchip/irq-gic-v5-its.c
++++ b/drivers/irqchip/irq-gic-v5-its.c
+@@ -1135,7 +1135,7 @@ static int __init gicv5_its_init_bases(void __iomem *its_base, struct fwnode_han
+ 			goto out_free_node;
+ 	}
  
- #include <linux/irqchip.h>
- #include <linux/irqchip/arm-gic-v5.h>
-@@ -22,6 +23,8 @@
- #define LPI_ID_BITS_LINEAR		12
- 
- static DEFINE_PER_CPU_READ_MOSTLY(struct gicv5_irs_chip_data *, per_cpu_irs_data);
-+/* Synchronization requests must not overlap in an IRS Domain. */
-+static DEFINE_RAW_SPINLOCK(irs_sync_lock);
- static LIST_HEAD(irs_nodes);
- 
- static u32 irs_readl_relaxed(struct gicv5_irs_chip_data *irs_data,
-@@ -507,10 +510,11 @@ void gicv5_irs_syncr(void)
- 		return;
- 
- 	syncr = FIELD_PREP(GICV5_IRS_SYNCR_SYNC, 1);
-+	guard(raw_spinlock_irqsave)(&irs_sync_lock);
- 	irs_writel_relaxed(irs_data, syncr, GICV5_IRS_SYNCR);
- 
--	gicv5_wait_for_op(irs_data->irs_base, GICV5_IRS_SYNC_STATUSR,
--			  GICV5_IRS_SYNC_STATUSR_IDLE);
-+	gicv5_wait_for_op_atomic(irs_data->irs_base, GICV5_IRS_SYNC_STATUSR,
-+				 GICV5_IRS_SYNC_STATUSR_IDLE, NULL);
- }
- 
- int gicv5_irs_register_cpu(int cpuid)
+-	if (of_property_read_bool(np, "dma-noncoherent")) {
++	if (noncoherent) {
+ 		/*
+ 		 * A non-coherent ITS implies that some cache levels cannot be
+ 		 * used coherently by the cores and GIC. Our only option is to mark
 
 -- 
 2.34.1
