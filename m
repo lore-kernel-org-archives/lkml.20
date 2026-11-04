@@ -1,83 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793789293;
-	b=vQxo4+wxOTGjogGKXwE3drLGByTXy3HN/yHtoSMkYmhFDo8SliP3VemAI/boEUt4BXBg
-	 7WjV7tg7f3kdYmG7pBbFkgRC6uFs7NKDOuv0mbSP0JL0dQV3kRiIke8nrtbRKljJid3pZ
-	 oXICmVmfizQL30Cabq2lMXj+V1uBD+5rKGnewraSYpYLMq52ae78cQMW2H7HOEwfBtxIN
-	 yebcSkVLlDFc4C8KWjG4KMbuEZXxpx4ttUGQp6W1rF6pMac8iXxKw4mMernavH8tixgeN
-	 2XyZF56+uZEmvyJ1WB/uR92+EZoe2voEng4rhYJvTPqfX+YkyAmbk2daZLAOnVKlEnQ==
+	t=1793789311;
+	b=ZTL5YaOE/8CO8YbAfuKCMMIZ+mRUFbDGBGIQVWqHdRJv1fPKPnA4nix+V2OVa4cegl2l
+	 8ESQJjlUwXPzKby9zwDIL5zCkji3f/kO7tBgOa5VCRAElteJXFJ/025w94cNXjNFECe2d
+	 Y6N/P6gEFuXcTqhrKiFAibwOV9rNRMXD2wVgVHqoa9jUzpGPWkfHmBKMFx0NUZmazFZpz
+	 P37vsaHIMOMiNCBoEXdkg3cTLgTi0/IC1vWYj+rGrY3Ub4LUsVipPfuZDglvPWxtbJvNG
+	 LMwluNlXyFt2DZlCP/+DlW2UZmaQRV8LAxbaFmlbQW2n07FEyPuE+rT3s+dvKYVxdPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793789293;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=jozP82KH6glhGWXgzZRzNLlRupxlnORo/58rZr7qZ9M=;
-	b=KFzIaCCFkgA7zb9McA29wji4nd+R/X5IJLAPq3ZzAgQbtlFD9BKxY3t8TJqJlbM73ieB
-	 S4Pw4ZA8APw2YIsOkmkNm2gkng53yaDeJDmbMxfE8WhQgUdzA7ECy7WpHjiMsEyF2UyYe
-	 CkzY3PIH9iYGdX8AKn1LLkmW5JW0+PSAkGJE11HG9CXCIQq27zcV92TzKKyPiHk1oNaP4
-	 AS0u+I2psXHqNmEdt6vFcFniq7Qn3tQ3U2K5FMgzZ3+NYptGc2eBatIAKDacKlhhKmyZ1
-	 LOYEBLdF6rJj9VkbYcYZRn+yCgbLjUvgMCPucQsClsu/uJ6Tg8zYLEWWpy3V4Xw38bw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793789311;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=r0yndPxUhhPiOlKsOGZcPIxshPKvfSmviX9txktuT6o=;
+	b=bLLThhI264s5x/EAPmB9OEO72bK+y81+I3CknR7K8HUFYuet2eYl7v1+uiB/K/kYonwF
+	 9Aii8HEDLSOS2k0QMG5lETgH+/JHLjwpeJJ21rWoOvP6gJk1Et2uY5hf60ePbqcrDW/11
+	 UTBWw5iPXDTHwhmll6q8T1R9uoSc/PDI1n7lay6ocIBUp/XeenZ89MkWQHwy75zj2cBsv
+	 DBAFk7OGSVpfB95VWTU1sfEpKwS3fO32rVOjgEOZLJ2MWpGVleQ5fW8dy5h0oLDyC0e97
+	 I3o4rp7Kzw1BdOTVw0wBjYJm94X4i/c5Re7JEYUAXP391LmD1Fz6gbkzSfYr/PSXCbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fZownUSi;
-	arc=none smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ii+Uo71R;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D720606A31B;
-	Wed,  4 Nov 2026 10:48:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D720606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3354606A31B;
+	Wed,  4 Nov 2026 10:48:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fZownUSi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793789293; x=1825325293;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=9WOXcToYwIQoz7fhImQHKUc1KH3haX4Er1ncPbI21WA=;
-  b=fZownUSiIhWy1NDFoqIJUMDiCpWvxVAKV9TvP1zyL35DDVrVyUv3NqTF
-   k7eAclEu9pQqpNnsBvFTY9cfJNfZ7rBCTBGei803suZ0PnTxsc+6wg5E0
-   r9JQmVIsNvawtxyQ0aVv1qbcZkbqFIN7nDuhjfcyL7pDYgC6O+O4rdLLE
-   FlOIIlOFwBMgTgGN0wWnqr7Tt7hgolVCkizMtKEovLHiG3CIBgnlb3ej7
-   BB1zGqugEXl9WJjGeFjhD/b27uR6gw1NrJaJQ/+49BVWtUI9Tj6jeqXvO
-   qa9VhvgW/lp2sxoFjvvr4c65VducQT9JsGUfa9DubZUKn8KLAfxNoHvcH
-   A==;
-X-CSE-ConnectionGUID: MBCBN/0iTCu/hPZq7aFqwA==
-X-CSE-MsgGUID: L+tbilk2TkuqeH2cFzEhug==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2552440"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2552440"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 02:48:13 -0800
-X-CSE-ConnectionGUID: h8C2zJTFRfq6dw4VZbAfEw==
-X-CSE-MsgGUID: AZLoV3SzT9OTjAmHCmqQ3Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="8558196"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 02:48:09 -0800
-Date: Wed, 4 Nov 2026 12:48:06 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH v7 12/12] serial: 8250_dw: configure RX trigger
- thresholds for Octeon
-Message-ID: <ausNZqZrR3wqQjf7@ashevche-desk.local>
-References: <20261103-submit-h616-uart-fifo-v1-v7-0-c9e248d685c1@gmail.com>
- <20261103-submit-h616-uart-fifo-v1-v7-12-c9e248d685c1@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ii+Uo71R
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE90C1F00A17;
+	Wed,  4 Nov 2026 10:48:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793789310;
+	bh=r0yndPxUhhPiOlKsOGZcPIxshPKvfSmviX9txktuT6o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ii+Uo71R6czgiB17H6WDqTqqQ0xTPO1fBU8EtxEAPFVA4ntlhk8S/834W7Pv6V8hT
+	 4I3EDGs2Vw8QG+GxUZnGI6VK5tQWb9XMVplL4OtWSzZcBFry5H59dnlb11Lvs8lEYL
+	 8T10fWSGuC1ATHYC8zw4tU9LQufBL1cex5+YM3EqwjCkde/aqypXt+VaxUemgcwMlX
+	 SCEw9cYwrP9UCaPJ8VmjkUz+r6pPTExufacLcsbeopvqtO7IdX592eEc3Gihl42hXK
+	 Xhf5Cvo9LJL7Cdni19/YDPKq/zmmiShUn7gysgrntxpBFyB/7lAyFDJ+YgzSFfg4It
+	 bxYOpHci/bRRA==
+Date: Wed, 4 Nov 2026 11:48:25 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: James Calligeros <jcalligeros99@gmail.com>
+Cc: David Rhodes <david.rhodes@cirrus.com>, 
+	Richard Fitzgerald <rf@opensource.cirrus.com>, Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
+	Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, Sven Peter <sven@kernel.org>, 
+	Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>, asahi@lists.linux.dev, 
+	linux-sound@vger.kernel.org, patches@opensource.cirrus.com, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH v4 01/22] ASoC: dt-bindings: cs42l84: Allow referenced
+ dai-common properties
+Message-ID: <20261104-eccentric-auk-of-zoology-55bcc4@quoll>
+References: <20261103-macaudio-v4-0-637484efe46d@gmail.com>
+ <20261103-macaudio-v4-1-637484efe46d@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,39 +69,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103-submit-h616-uart-fifo-v1-v7-12-c9e248d685c1@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261103-macaudio-v4-1-637484efe46d@gmail.com>
 
-On Tue, Nov 03, 2026 at 02:40:05PM -0700, James Hilliard wrote:
-> Octeon uses the DesignWare receive-trigger mapping with a 64-byte FIFO,
-> giving thresholds of 1, 16, 32 and 62 bytes. Its setup bypasses
-> dw8250_setup_port(), so it does not install the common trigger callbacks.
-> PORT_OCTEON also has no static trigger table, so rx_trig_bytes is not
-> exposed.
-> 
-> Supply the fixed depth from platform data when firmware has not provided
-> one and initialize the common trigger table before port registration.
-> This makes rx_trig_bytes available while preserving the Octeon port type
-> and register accessors.
-> 
-> Select DMA before filling in the default depth, as before when the 8250
-> core supplied that default during registration. Thus the new trigger
-> setup preserves which ports attach DMA and their existing burst sizes.
+On Tue, Nov 03, 2026 at 05:39:49PM +1000, James Calligeros wrote:
+> Some consumers may wish to prepend the codec's name with a known value
+> to identify a specific codec among many and set #sound-dai-cells. Allow
+> this by allowing referenced properties from dai-common.yaml.
+>=20
+> Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/sound/cirrus,cs42l84.yaml | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs42l84.yaml =
+b/Documentation/devicetree/bindings/sound/cirrus,cs42l84.yaml
+> index 94062c1d9d45..66cae8b7db5d 100644
+> --- a/Documentation/devicetree/bindings/sound/cirrus,cs42l84.yaml
+> +++ b/Documentation/devicetree/bindings/sound/cirrus,cs42l84.yaml
+> @@ -9,6 +9,9 @@ title: Cirrus Logic CS42L84 audio CODEC
+>  maintainers:
+>    - Martin Povi=C5=A1er <povik+lin@cutebit.org>
+> =20
+> +allOf:
+> +  - $ref: dai-common.yaml#
+> +
+>  description: |
+>    The CS42L84 is a headphone jack codec made by Cirrus Logic and embedded
+>    in personal computers sold by Apple. It was first seen in 2021 Macbook
+> @@ -29,14 +32,11 @@ properties:
+>    interrupts:
+>      maxItems: 1
+> =20
+> -  '#sound-dai-cells':
+> -    const: 0
 
-...
+This should not be removed. Why cells of 1 would be correct? If so,
+explain in commit msg.
 
-> +	if (!p->fifosize)
-> +		p->fifosize = data->pdata->fifo_size;
-
-In this case I would use ternary Elvis:
-
-	p->fifosize = p->fifosize ?: data->pdata->fifo_size;
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Best regards,
+Krzysztof
 
