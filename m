@@ -1,83 +1,85 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793753614;
-	b=v/oWv+wdYF4bI9pCGnjJkLAQme7mYlbIf0hnx6EVvXHSmaVXRN6FekrHJLDvQtIZ3yxB
-	 v6WWvZ5MCJtW4FSNq8t+CUMybhtDxuXBJipb+it07+chmhKPLYw5IWxb7GAfDuBc4a7bo
-	 A+/iOtJclpDcnlidekdvcYNJsXog0Xf4LLCiN45x8+aPSEBJnXCP1qovW4qibuQkws3ci
-	 WO2CdkKpnHZEQIs6fg7M4wdai8AI+g5KIqVsL+4BiYhBmXdH6YYe6y1Qh7sqBaR6MA+uE
-	 02hko1VI8xbSobXWWvrxE77R/DG6YyK2fqBkQ6fawo2DfkeA3h7czdfXIb2fCS7yeMw==
+	t=1793753615;
+	b=spPXNA8ppK68Uh7Fapz5quOog92i4z5OZMaZYP7c91RnRRlSLjCzcPUfXsJWBqcFVqgL
+	 IW1jxp70Q7eTABw6v3sbKQ92LwsaJ+hEQlV4N1HNIeKYrikx9xHTVn6yLfbTT8hwkjxmK
+	 A35h/+ydz1eY3XLG1w9KUgRoa4JMr+58C7fxXgKxqzapmBy99U6RjGsKEQfsQbt7jXUUp
+	 PUdaheSZxahCH+vKGrBhiwnlpqHYb+FpLYp9XkBmNvR10SfAdlP976DfBYnXKqpAcjKcB
+	 hneFW6PxF2cbUkPGiqe1h1UC7ArL3rY7NusggIvywMMkExeVEgRijmiOcGbANMmVfaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793753614;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793753615;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=S1SsyVWmFN/K3FnAnSvhcSztrShloDWtZn+HQ2qgOL8=;
-	b=riNDjD0Yp16uKMyOyHHIqswda9e1zCqgZUDqhCW0PsL9pOppPSTO004VhF8VteJpbqPI
-	 Ii6pLSWf9u+WTvt5EbXEyHnGfoqMbdv0AcO1Ii3T45JLbMIIfVxPxW0UlaEAdTsUIl4TH
-	 w+Yl9GljI9PqPzyiUAaZdDtsj9wGUswtKSreXWTVbw/L6tq78UOSlvx43F+QxMzBpnZcz
-	 P1PJ05lcXd/J4V6CGHwvtUoAmoH1yGwxKRVXNW2cKrBLKy+UtAoWWnDty7JHSrsHSz+LS
-	 x8GC3mi78S10VesJj4pTw1/xNpkEHvCnXvfsX/udY+0pvTbuiepHe+kN0JEhuQDXUFA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=NmshGrU9cm2MP+9Dmq54/0RJrGESLEnVpwqBYvzdIOc=;
+	b=Ome+9qLnrRWO8o4E+fIwPDUTZY0OKD+2fbgvlYI4iz2cQKqooihDZKmPBch/BNHURhjM
+	 L0iZGepXpixf9TmqkebXoiMF1IgmY5LAzblTAcT2Pw61G6rr3l2gMvaXm6E3euCYc2lRx
+	 SJ///3okBGb+R1wLemYdroGxeCPeqW3fBSUmxBBsQRarGjtKIg90TABI2qLYgmer+6oih
+	 X14MqnaHmTS7qHxj+hvdAQgc8mOfq3xjxatxDXH7QCPNQPkXchIIK5To+7i3sQlt7geT9
+	 qYKRBykWkgcxJ27aw6mvVrfVd+JdsohEG80mLaKHVxW2SSnnm957/dHM8ih8MSj8z9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TpZWTHSp;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PV0XSk+R;
 	arc=none smtp.remote-ip=209.85.128.49
 Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F289E606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 00:53:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F289E606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26D16606A33B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 00:53:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26D16606A33B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TpZWTHSp
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so1452305e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 16:53:33 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PV0XSk+R
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso662135e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 16:53:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793753612; x=1794358412; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=S1SsyVWmFN/K3FnAnSvhcSztrShloDWtZn+HQ2qgOL8=;
-        b=TpZWTHSp3XI2HlV5SyPj702wB3fTkW5MoFJcmd3OwxRVxd5x+fnWfkQYGk7jGXrh4U
-         LYDX9f/LcVtY3i5adkOhw0DJ2h7+p3bI8jxmh9p+FQnRejjtNa6drOPtf8VitgdEtbos
-         Dog5iOXEYcYmE/O1IMhgaxe/Knm0NP9ry5WU0woP0DMXuEUPteDeSV7MDqaodonxMIdo
-         F7F19GbBl6UqYo0iuaKrCJ+9oCJ9SWYoou5St0p4kuI5/u4CfgZLDy8tW94GjH3k9xPf
-         bnjYiGtPTQzCBmp1ouVs7cBeFIY8r7geyHbt5ycGwhGBrjCmtx/c95B92R+p+VzvSKQe
-         PdWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793753612; x=1794358412;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793753613; x=1794358413; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=S1SsyVWmFN/K3FnAnSvhcSztrShloDWtZn+HQ2qgOL8=;
-        b=HyYttO2Bq/peYepLLb4jIXElMequDSBggTfAJ0A/JvR7LIsAgspNAaiU5bSOJNJg7V
-         dFxeblniUFrRHUiRubOJtQgD2j95yUnstch6rfD4l+Zo3hIGh7//tHY0AaU9JCevulvr
-         OT+JQ7KdaNGWajwL2iETwcVOZmrcC/RFaXpxf9YvJ5QJ07i0eS5pMkDmfOl5KppYcWBP
-         2l1wJ0FioKZI8njTxaZvKhjkmS8PeeJH1jlGZPkUWepXUMwtVf/RXTO+eu77Tc+uPXgE
-         1AvUuMilA54LK806KbPuzDGkmQbbtouQlA6M2hi8Gg0QSxwrmU77nEWTmINfvQ0Jmvhg
-         7AHA==
-X-Forwarded-Encrypted: i=1; AKwUvBzytcJH/fhFAW6CsWOesMwOImg+MlO6s/QPBtgUt11hDgoZVvkiNXT59KMki9J6A7/2AU0V2GkrHePgSfg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8LgpHOIX1hTcgvo8vdttoKltFaNA1NQvSdx1kH3PfKwiI2PAqo
-	vH5aXZkPBll3o5ldrGw2NqTBJOi389m6sNm3Yet4D6tXx+u7c3Xidg3+
-X-Gm-Gg: AYBFou2SMKzUsGM0eHIncr7GnRGqn/13DdXanOJlm23RT6yX9tSJovshCqjGgNvR3h0
-	FO+5JvTuZLmxFUi0n8pvcvnJ3wRtc0N1LSSm1WxWRABy2TJ0KGBMBntq8rGE4orp1yAaAFKzIn3
-	m8CmvJvY/tnhPcpnSnsxlQiVyJkURJAHiK9WvGkWWZbstJaSwhTZOLfwUV/OyNLIKimJSxWEHWq
-	LCJsrMzW+MGJaeVWYuAAFcPON+CI1y1wTVryUVkek0tZaf08r/RviY3yTEMGrs6qd7HJecAGUM0
-	msayPxyV6F3uImnkepv0GXIA7Ue8fMvPA2HGnh6HYLFc6cjJOiN1w4lQz6Y1VwlDvVPyNZtXKSL
-	cH28AxU347lvFLjrx9yqiWncgn4xC/IQ4eQH7fOOG5oBZfZk7ZMBLhuTQRsW9QYg5IZg68u4O4B
-	933DHjQbgW9PzIqIVmO/BHFzm0yE3BULUPmvytbdd+17X5D4eNtFmawFttjpKT3JcSnaBuOrids
-	P+/7rG0PFfjuhx8+nBB//RnX+WKUmxkM/dM13nTeR9mqRDtnrTiPeYwPV7AEvH44YPyEZ5RseaX
-	KQ+R6K1Tz9Hv6lQg/3hdv8+JcRb0cyUg2g2J1GVrC0jokaqI8kAKZveAhzF19IyC7XVXCghgF4Y
-	Gj2NZFxoJi9/0N1Fk5hqt5+X0POqpABdZrsL/w7SHWHp84y3Qym4U5l+CeGpdjCSWnQ==
-X-Received: by 2002:a05:600c:609a:b0:4a1:7c56:d4e2 with SMTP id 5b1f17b1804b1-4ac1709aa77mr317867705e9.16.1793753612056;
-        Tue, 03 Nov 2026 16:53:32 -0800 (PST)
+        bh=NmshGrU9cm2MP+9Dmq54/0RJrGESLEnVpwqBYvzdIOc=;
+        b=PV0XSk+RiXzZLnfdK7BHeD7PwQjf0KIhSoYUAG4jvYEMkwOi/HTiqb5Tt2BFU7/+OT
+         615OLKzCNdhhr4o7YYfKHbW9YoYXPrQpcu618zSMH6DJhCqjgm662TWTfR1iGVCT2fYY
+         +nODwyALbvS/RrcgtxTvMs15lL90npMP7a3nHBmdjmg1gx/FK+FLyeKXaPPbYhDkYbHI
+         GGCnrxoMSQwwC+rSZx0QKUF9DUdGcfkgaoSSUUhqWNdjgrIua0KWDWM+/rCSfsk+L8KM
+         KFxoLYf46wSANsd5l5csVOATXWwcZjNiwBSkwfoRCuwvaWbJI9i0pKyLMOzwFFLawD+S
+         pt+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793753613; x=1794358413;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NmshGrU9cm2MP+9Dmq54/0RJrGESLEnVpwqBYvzdIOc=;
+        b=SlUoDa5Wop6ymd+OdIRv5ES8DY1CwffI2rYGJqxPX1QaLErJCuL7kqCqkj+ubW5KOC
+         7jhKp447bsSPHh8PRg/+FNaqiRkoKattsEc2TqS5q4kCPPriuHf1uPnGFQPVcjWgxVYv
+         0un6NTFY+5Y7Rt5Jl/03AhX7q3ZSkW2OdP7tnx4V3KIzcDvjgcKoNBHzlQQiW9/Ndw4U
+         S23hpP5XMkWMoo6ISxGvGk7FovEeEofrEZeHKyBbeijQoLKjrWQe/kzEH+Fwc+NuhhyT
+         +JDx11lF0amp3qQT8S2qDhpapD/NIslW2TfKVeww6dgMsw5PY1GSoY2UB2tR9RAwvDyD
+         hFKg==
+X-Forwarded-Encrypted: i=1; AKwUvBz1zrMdJzXOTG1WEsOr0qcOwXriymyFvUFaCj4Ha66alv/2KiLUt+fLaiY0syt6fx4GAzj8XxbBwfuJM1o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z80yGjIBCbie07dWaM+WqDBxoGH1AHHJB5vcPrgcMASjuX4dopv
+	GBTJPpaf/RHpZcqsiI32uvbS2aoni/IUabkiPEaW14a3NDDv0Dqm04tv
+X-Gm-Gg: AYBFou2p/76Z+EheiIUZvHWxjBWjKDERQzY0KylGXbuuEB+CnIl8ycdx6tTXJUXlL8q
+	RQwYD5M81BYl3ln5EWf/ZprJIiHoX9i1d6KWejTmECSVnrpOy2nJPbPEMLn4e70NSCjSUAcACZk
+	5vCw1hR1PnvoS62ZgTPKwhmPvABC+8CVX/+g1GT6bCSBF/l3mkvFy/dX/NxnBhYkaPGGtmTRkWu
+	XOodzG/KLrWwmOAdMlH9MpHlQNIuHk8um+ObqNFc3Z0z0NcnWPRg8dc5pYBsxlFWixh0IM0+d0q
+	H8rSbO7GDz0QrOdgkuVPIgMoVrOVbmjQ6KDYaSFMbw0ACQ4gIET0DnqxgiNvfMi4qPgE2/hX8SD
+	vo63R3oshkuzd37oBFng18uFO6JZKGMKQUgOlb4WDfTa7CtvOR54C/1MrCvcoXXGxWkNZtPZrMh
+	fashl2f6EQnbdk+GWtQyx7z/LnMLbXNaK/1A66Hb/ynAyF6BqUWSzRfLeZZxia76iJnUHb9Pvr/
+	PnvdX/F4IIeyrKfgOn9Tt4NkkHS+1yJ4WNiyhI5jWIyUHkdQ49H1jKATVf5OqNUWOobdSwh9HXo
+	kQ9Ad7cpeMujd/tpEBVF4wmyqqTFByQxUFLiiKOnnl6Wh63IhOUcO1SPMZd/RbVRnfQk170cAHI
+	yhenNbzsyAGjDVPLaT2GKITkt9AYt3YVgolIi7Xo8RI4BzkPyaPM05UKA7Q2DZS6lOdDOSI67XY
+	OjLgodPb7aDZg=
+X-Received: by 2002:a05:600c:8b04:b0:4a1:fb01:13 with SMTP id 5b1f17b1804b1-4ac17a3683bmr344017775e9.18.1793753613516;
+        Tue, 03 Nov 2026 16:53:33 -0800 (PST)
 Received: from dev-dsk-fgriffo-1c-93421965.eu-west-1.amazon.com (54-240-197-234.amazon.com. [54.240.197.234])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b43c17ed95sm11899275e9.4.2026.11.03.16.53.31
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b43c17ed95sm11899275e9.4.2026.11.03.16.53.32
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 03 Nov 2026 16:53:31 -0800 (PST)
+        Tue, 03 Nov 2026 16:53:32 -0800 (PST)
 From: Fred Griffoul <griffoul@gmail.com>
 To: Sean Christopherson <seanjc@google.com>,
 	Paolo Bonzini <pbonzini@redhat.com>
@@ -86,10 +88,12 @@ Cc: Mushahid Hussain <hmushi@amazon.co.uk>,
 	nh-open-source@amazon.com,
 	kvm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 0/5] KVM: x86/mmu: Allocate memslot rmaps on demand
-Date: Wed,  4 Nov 2026 00:53:26 +0000
-Message-ID: <20261104005331.50600-1-griffoul@gmail.com>
+Subject: [RFC PATCH 2/5] KVM: x86: Count rmaps per level in a debugfs helper
+Date: Wed,  4 Nov 2026 00:53:28 +0000
+Message-ID: <20261104005331.50600-3-griffoul@gmail.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261104005331.50600-1-griffoul@gmail.com>
+References: <20261104005331.50600-1-griffoul@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,67 +107,75 @@ Content-Transfer-Encoding: 8bit
 
 From: Fred Griffoul <fgriffo@amazon.co.uk>
 
-When an L1 guest runs a nested guest, KVM allocates rmaps for all of
-L1's memory the first time it creates a shadow root, one 8-byte head
-per 4 KiB page. For an L1 with 4 TiB of memory that is 8 GiB, allocated
-at once on the first nested VM-Enter, whether L2 maps 1% or all of L1's
-memory. Sean pointed at this cost on Mushahid's lpage_info patch [1].
+In preparation for storing memslot rmaps in chunks, move the counting
+of one memslot level's rmaps into a helper, so that it can later walk
+a level one chunk at a time.
 
-This RFC allocates rmaps in page-sized chunks instead, when the first
-SPTE in a chunk's range is added. Each memslot keeps a per-level
-directory of chunks, 8 bytes per 2 MiB at the 4 KiB level, so the 4 TiB
-L1 above allocates 16 MiB on the first nested VM-Enter. A missing chunk
-reads as empty rmaps and slot walks skip it. When L2 maps every gfn,
-rmaps cost what they did before plus the directory.
+No functional change intended.
 
-Patches 1 and 2 prepare the slot walk and the debugfs rmap statistics,
-with no functional change. Patch 3 does the chunking. Patches 4 and 5
-add a selftest in which L2 writes pages around chunk boundaries and
-checks the dirty log after the memslot is write-protected, including
-eager splitting of nested huge pages.
+Signed-off-by: Fred Griffoul <fgriffo@amazon.co.uk>
+---
+ arch/x86/kvm/debugfs.c | 33 +++++++++++++++++++--------------
+ 1 file changed, 19 insertions(+), 14 deletions(-)
 
-I would like feedback on:
-  - The data structure. A directory of page-sized chunks keeps lookups
-    to one extra load. An xarray would be simpler to grow but adds a
-    tree walk to every rmap lookup.
-  - Freeing chunks once they are empty. That would let the shadow MMU
-    page limit bound rmap memory too, but lockless aging reads chunks
-    without mmu_lock, so freeing needs an RCU grace period. I left it
-    out of this RFC.
-  - Doing the same for gfn_write_track, 2 bytes per 4 KiB page, which
-    is still allocated for every memslot on the first shadow root.
-
-Limitations:
-  - Chunks are only freed with the memslot.
-  - Eager page splitting on dirty-log enable splits L2's huge mappings,
-    so every 2 MiB that L2 mapped with a huge page then gets a chunk.
-
-The series is based on kvm.git next.
-
-[1] https://lore.kernel.org/all/arr1VgGZmgUmY4hc@google.com/
-
-Fred
-
-
-Fred Griffoul (5):
-  KVM: x86/mmu: Walk memslot rmaps by index
-  KVM: x86: Count rmaps per level in a debugfs helper
-  KVM: x86/mmu: Allocate memslot rmaps in on-demand chunks
-  KVM: selftests: Declare __tdp_map() in the x86 processor header
-  KVM: selftests: Test dirty logging of sparse nested mappings
-
- arch/x86/include/asm/kvm_host.h               |  22 +-
- arch/x86/kvm/debugfs.c                        |  46 ++-
- arch/x86/kvm/mmu/mmu.c                        | 126 +++++++-
- arch/x86/kvm/x86.c                            |  22 +-
- tools/testing/selftests/kvm/Makefile.kvm      |   1 +
- .../selftests/kvm/include/x86/processor.h     |   1 +
- .../kvm/x86/nested_dirty_log_sparse_test.c    | 275 ++++++++++++++++++
- 7 files changed, 460 insertions(+), 33 deletions(-)
- create mode 100644 tools/testing/selftests/kvm/x86/nested_dirty_log_sparse_test.c
-
-
-base-commit: d21eef2084a9af87ac2a783bc7c2b175ba114e4e
+diff --git a/arch/x86/kvm/debugfs.c b/arch/x86/kvm/debugfs.c
+index 0074a56e45b4..923424011328 100644
+--- a/arch/x86/kvm/debugfs.c
++++ b/arch/x86/kvm/debugfs.c
+@@ -86,16 +86,30 @@ void kvm_arch_create_vcpu_debugfs(struct kvm_vcpu *vcpu, struct dentry *debugfs_
+ 
+ static const char *kvm_lpage_str[KVM_NR_PAGE_SIZES] = { "4K", "2M", "1G" };
+ 
++static void kvm_mmu_rmaps_stat_level(struct kvm_memory_slot *slot, int level,
++				     unsigned int *cur)
++{
++	struct kvm_rmap_head *rmap = slot->arch.rmap[level - PG_LEVEL_4K];
++	unsigned long lpages = kvm_mmu_slot_lpages(slot, level);
++	unsigned int bucket;
++	unsigned long l;
++
++	for (l = 0; l < lpages; l++) {
++		bucket = fls(pte_list_count(&rmap[l]));
++		if (WARN_ON_ONCE(bucket >= RMAP_LOG_SIZE))
++			bucket = RMAP_LOG_SIZE - 1;
++		cur[bucket]++;
++	}
++}
++
+ static int kvm_mmu_rmaps_stat_show(struct seq_file *m, void *v)
+ {
+-	struct kvm_rmap_head *rmap;
+ 	struct kvm *kvm = m->private;
+ 	struct kvm_memory_slot *slot;
+ 	struct kvm_memslots *slots;
+-	unsigned int lpage_size, index;
+ 	/* Still small enough to be on the stack */
+ 	unsigned int *log[KVM_NR_PAGE_SIZES], *cur;
+-	int i, j, k, l, ret;
++	int i, j, k, ret;
+ 
+ 	if (!kvm_memslots_have_rmaps(kvm))
+ 		return 0;
+@@ -116,17 +130,8 @@ static int kvm_mmu_rmaps_stat_show(struct seq_file *m, void *v)
+ 
+ 		slots = __kvm_memslots(kvm, i);
+ 		kvm_for_each_memslot(slot, bkt, slots)
+-			for (k = 0; k < KVM_NR_PAGE_SIZES; k++) {
+-				rmap = slot->arch.rmap[k];
+-				lpage_size = kvm_mmu_slot_lpages(slot, k + 1);
+-				cur = log[k];
+-				for (l = 0; l < lpage_size; l++) {
+-					index = fls(pte_list_count(&rmap[l]));
+-					if (WARN_ON_ONCE(index >= RMAP_LOG_SIZE))
+-						index = RMAP_LOG_SIZE - 1;
+-					cur[index]++;
+-				}
+-			}
++			for (k = 0; k < KVM_NR_PAGE_SIZES; k++)
++				kvm_mmu_rmaps_stat_level(slot, k + 1, log[k]);
+ 	}
+ 
+ 	write_unlock(&kvm->mmu_lock);
 -- 
 2.47.3
 
