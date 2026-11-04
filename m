@@ -1,108 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793786995;
-	b=W6xEJ1XO1H404EhUUVIo3SWnisV/IaFxMHaV9odmxXdxUbFkCmeu5roPrh35nG0H+bNf
-	 UiBVG+n+JFMcj6LgGMdKJOdLoVjJ6IMmPqTr6srK99RQAZyVOi+/oagq/t+xWDvybzKTa
-	 Cw+Nk2EJFPKiK7FOFfF8I+Gcar2pVvITjPqzWsNMyEwS9N7S6iEIt2KgqPkUk5yI2ZqCU
-	 D2oTIpHMDq0cZFIOCB81R//XmYyRA7J2AuZh6X56jP0rwyreN7v+1L6o94WxNTH65NsJ8
-	 cE+0liyCosE4uQr+qzQmt+8ni3zFVr3ada3G7021JYeUbJacu4GFGuE0uRTQ3BkAJUA==
+	t=1793787009;
+	b=DtzvRRb6rB9EtX2VW7Qz0v0U2dpeblGWpKYgaORz7mVhCq/DtHKYS7Mhy6WJKALQ8TOD
+	 nvQuIPE/630fw0hjXd4I/9FTRrwnyywOvKKC942xyU2rMQXB7fvXmhMBS4wWzL8oUc82j
+	 oVSCH3WDYuERur1ZvTLZueqldsTJYdLOzHHGn+xlUmGoy+WA7zCMaxjqob1Hgrcj8Rob9
+	 2hNFCnJGDipy4RSEdwBuCViLhWtjECxriZzO3DY55ItFi7XAEWSNaVyl8VJ0QgSOhMMV6
+	 DI0rZolMyCEXd3+vfr768qNdXTnNDBNMa2JF0rxRPT+AQ/1hFWqn8fps74QFLlAtqUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793786995;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=qIMpR+0/hdmd8jinaUXUOgaSrCAhJGIMFs5i4DB1BC0=;
-	b=lt08DoblzFYYZ08AlD2FL3acppWBnxb31HiTntKVWSH3nn/88U8pQMTR2uiwnyAqo+I0
-	 OaA03yuiPawSURAv8vIsOAk7bbUGNOodDatFDXNR526f81GVnxfp0/ImnKOyXhHZQpjtE
-	 RnYtttFDPM7ieHY8OOfqHZAObxlqxwBITJG67UpN1kemdKCGlncS4sA+xIZVqDqhA8WMu
-	 6NPNrVHpJ0ld28xNUY/eH8CbwPASRGtbZVI0a0uUC101IE/b1gSO8WL9Zny84hyYs09DM
-	 n2DQQZDQSEkakEppFm8ext4xVXb5Ey/6COZmH/ARiH0012t4TItEXPiaao59g0BxbMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793787009;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=bbE/lgR9vBPLVJi5/1KALbz9FtBnYSUeZBwKK9/dS7U=;
+	b=2Cxp2hvqgSuzb/ZNJoshyBPKV28bUD87HilCr49XFrYF4SdSfRIpWBZjNnytDursAZc9
+	 LuKx1bDo/jxEbx1fol6dUVdlE/SrbraEpTR3alLyj7IizrJ7TZPdcfApSDhDxYOxkwdGf
+	 2urnRsNLGXfUaMsp1QzfzzPNRZRi14bA1A8Ni6hL5UPngv/9hcbql1E6hD06E9sKqmpk7
+	 7NwBN1ZFQYkN9DHAozDa3bu95u3Ew8PZMf1aVVZfZjgnErB+D8uO89FyJgqBj0QUY6i16
+	 Xoysr9IztRA7DKmr/2h3usvNpwvm46g0rMvR9p/WULQ6UCRrFNttNImYkNhBJqSFvLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Qf5SVuE5;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HOncpjtD;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Qf5SVuE5;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HOncpjtD;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=jaeyeong.cc;
+	spf=pass smtp.mailfrom=jaeyeong.cc;
+	dkim=pass header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=aMlFb3nM;
+	arc=none smtp.remote-ip=109.224.244.20
+Received: from mail-24420.protonmail.ch (mail-24420.protonmail.ch [109.224.244.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78503606A31B;
-	Wed,  4 Nov 2026 10:09:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78503606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 854BA606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:10:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 854BA606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jaeyeong.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaeyeong.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Qf5SVuE5;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HOncpjtD;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Qf5SVuE5;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HOncpjtD
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A5F891F7BE;
-	Wed,  4 Nov 2026 10:09:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793786992; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qIMpR+0/hdmd8jinaUXUOgaSrCAhJGIMFs5i4DB1BC0=;
-	b=Qf5SVuE5r5sMGvj7IuH5vo0P85ZM9kxaqzSqW1XbVBFfT+FApLpNv8ubyfpPHxwO81EgOp
-	/GsS9ojUyK02u6bvpBfC/X+rf8YlrPL5JVqvtaHrEBkeV1CeFQo+CBlE5NrIecInviDZ2k
-	ZH8qcIx/ouPU+YGux8L/i+IdzgzEIfQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793786992;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qIMpR+0/hdmd8jinaUXUOgaSrCAhJGIMFs5i4DB1BC0=;
-	b=HOncpjtDOpzbthgdoYNKyHQC7pAcFwn9ve/w08zlusNUzXH25eB2xRmoT5SIPHVYDm9fzj
-	yRMNnN4pOg2TGHAw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793786992; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qIMpR+0/hdmd8jinaUXUOgaSrCAhJGIMFs5i4DB1BC0=;
-	b=Qf5SVuE5r5sMGvj7IuH5vo0P85ZM9kxaqzSqW1XbVBFfT+FApLpNv8ubyfpPHxwO81EgOp
-	/GsS9ojUyK02u6bvpBfC/X+rf8YlrPL5JVqvtaHrEBkeV1CeFQo+CBlE5NrIecInviDZ2k
-	ZH8qcIx/ouPU+YGux8L/i+IdzgzEIfQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793786992;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qIMpR+0/hdmd8jinaUXUOgaSrCAhJGIMFs5i4DB1BC0=;
-	b=HOncpjtDOpzbthgdoYNKyHQC7pAcFwn9ve/w08zlusNUzXH25eB2xRmoT5SIPHVYDm9fzj
-	yRMNnN4pOg2TGHAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 020C6134F0;
-	Wed,  4 Nov 2026 10:09:51 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id /kgrMm8E62pxXwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 04 Nov 2026 10:09:51 +0000
-Date: Wed, 04 Nov 2026 11:09:51 +0100
-Message-ID: <878q38vrf4.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: songxiebing <songxiebing@kylinos.cn>
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hdsp: Fix divide-by-zero in DDS offset control
-In-Reply-To: <20261104083045.1939479-1-songxiebing@kylinos.cn>
-References: <20261104083045.1939479-1-songxiebing@kylinos.cn>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=aMlFb3nM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaeyeong.cc;
+	s=protonmail2; t=1793787004; x=1794046204;
+	bh=bbE/lgR9vBPLVJi5/1KALbz9FtBnYSUeZBwKK9/dS7U=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=aMlFb3nMItkEa3XJpm3XcSxSP7RlORBVx04bwGnTaIdQOSnNRgBBW2rkE/EnC2oz0
+	 eLshjsTRlX0zdb0tRcp9v2vze5qwn8wqeXbWd24Bank/ny9lwKriZGobAc3+8l8ck9
+	 EYFN1FnNEJQFTrrpin8iekfhBp2Tkyw51EAUX66Q4+SzLzT+hrYNomzlQjC6cL3OI/
+	 kzbgfXbbZNjBPD74OsrjOPC0tXxV5NLOpo3wV+3VDGgis3Sj9AUyP8LBaWzYze2C1I
+	 x3U9/UQedLY/6oL8vSZ2pywb1Xu0Zs5HnC7h5JU4YsjbQkEFA2xvMj+bCjhA1qzbAm
+	 DSz7Tue3931PQ==
+Date: Wed, 04 Nov 2026 10:10:00 +0000
+To: Bernard Metzler <bernard.metzler@linux.dev>
+From: Jaeyeong Lee <lee@jaeyeong.cc>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2] RDMA/siw: Fix early peer close handling on listeners
+Message-ID: <20261104100953.125140-1-lee@jaeyeong.cc>
+Feedback-ID: 177356447:user:proton
+X-Pm-Message-ID: 6a45d80764dce613a8cdea825bddbeff5e30bf9a
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,70 +60,97 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-12.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[kylinos.cn:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -12.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 04 Nov 2026 09:30:45 +0100,
-songxiebing wrote:
-> 
-> From: Bob Song <songxiebing@kylinos.cn>
-> 
-> hdsp_set_dds_offset() computes the target rate as
-> system_sample_rate + offset_hz without validating the result.  A user
-> can set the DDS offset to -system_sample_rate through the control API,
-> making rate zero and causing div_u64() in hdsp_set_dds_value() to
-> divide by zero.
-> 
-> Reject non-positive rates before programming the DDS value.
-> 
-> Fixes: e4b6088c8cf1 ("[ALSA] hdsp - Add support for fine tuning of sample rate support to HDSP 9632")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Bob Song <songxiebing@kylinos.cn>
-> ---
->  sound/pci/rme9652/hdsp.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/sound/pci/rme9652/hdsp.c b/sound/pci/rme9652/hdsp.c
-> index 7dce548b9f36..694816f966d2 100644
-> --- a/sound/pci/rme9652/hdsp.c
-> +++ b/sound/pci/rme9652/hdsp.c
-> @@ -2802,6 +2802,9 @@ static int hdsp_dds_offset(struct hdsp *hdsp)
->  static int hdsp_set_dds_offset(struct hdsp *hdsp, int offset_hz)
->  {
->  	int rate = hdsp->system_sample_rate + offset_hz;
-> +
-> +	if (rate <= 0)
-> +		return -EINVAL;
->  	hdsp_set_dds_value(hdsp, rate);
->  	return 0;
->  }
+A TCP child socket inherits the listener callbacks and sk_user_data before
+kernel_accept() associates it with a new connection endpoint. If the peer
+closes during this window, siw_cm_llp_state_change() queues a PEER_CLOSE
+work item against the listening endpoint.
 
-The caller doesn't check the error case properly.
-Please fix the caller side, too.
+The worker releases that endpoint without removing it from the listener
+list. A later listener teardown then walks the dangling entry, causing a
+use-after-free in siw_destroy_listen().
+
+Ignoring close notifications while the endpoint is LISTENING is not
+sufficient. The endpoint remains IDLE for a short interval after listen()
+starts accepting connections, and a close delivered before the accepted
+socket is handed to its new endpoint would otherwise be lost.
+
+Ignore close notifications from unaccepted child sockets during the IDLE
+interval as well. During accept, serialize the endpoint handoff with TCP
+state changes and reject a child that has already reached TCP_CLOSE or
+TCP_CLOSE_WAIT. Live accepted sockets continue through the normal close
+path.
+
+The issue was found by static analysis. It was reproduced with SIW over
+loopback in an x86_64 QEMU guest. KASAN reported the listener endpoint
+use-after-free on the unpatched kernel. Tests covering RST before accept,
+an MPA request followed by FIN, and an extended post-listen IDLE window
+completed without KASAN or lockdep reports after this change.
+
+Fixes: 6c52fdc244b5 ("rdma/siw: connection management")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jaeyeong Lee <lee@jaeyeong.cc>
+---
+Changes in v2:
+- Cover the IDLE interval between listen() and the LISTENING transition.
+- Serialize accepted-socket handoff and reject an already closed child.
+
+ drivers/infiniband/sw/siw/siw_cm.c | 19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/infiniband/sw/siw/siw_cm.c b/drivers/infiniband/sw/siw=
+/siw_cm.c
+index ed49818793dde..92fcbcabb5984 100644
+--- a/drivers/infiniband/sw/siw/siw_cm.c
++++ b/drivers/infiniband/sw/siw/siw_cm.c
+@@ -973,6 +973,7 @@ static void siw_accept_newconn(struct siw_cep *cep)
+ =09struct socket *s =3D cep->sock;
+ =09struct socket *new_s =3D NULL;
+ =09struct siw_cep *new_cep =3D NULL;
++=09bool peer_closed;
+ =09int rv =3D 0; /* debug only. should disappear */
+=20
+ =09if (cep->state !=3D SIW_EPSTATE_LISTENING)
+@@ -1009,11 +1010,23 @@ static void siw_accept_newconn(struct siw_cep *cep)
+ =09}
+ =09new_cep->sock =3D new_s;
+ =09siw_cep_get(new_cep);
+-=09new_s->sk->sk_user_data =3D new_cep;
+=20
+ =09if (siw_tcp_nagle =3D=3D false)
+ =09=09tcp_sock_set_nodelay(new_s->sk);
++
++=09lock_sock(new_s->sk);
++=09write_lock_bh(&new_s->sk->sk_callback_lock);
+ =09new_cep->state =3D SIW_EPSTATE_AWAIT_MPAREQ;
++=09new_s->sk->sk_user_data =3D new_cep;
++=09peer_closed =3D new_s->sk->sk_state =3D=3D TCP_CLOSE ||
++=09=09      new_s->sk->sk_state =3D=3D TCP_CLOSE_WAIT;
++=09write_unlock_bh(&new_s->sk->sk_callback_lock);
++=09release_sock(new_s->sk);
++
++=09if (peer_closed) {
++=09=09rv =3D -ECONNRESET;
++=09=09goto error;
++=09}
+=20
+ =09rv =3D siw_cm_queue_work(new_cep, SIW_CM_WORK_MPATIMEOUT);
+ =09if (rv)
+@@ -1361,6 +1374,10 @@ static void siw_cm_llp_state_change(struct sock *sk)
+=20
+ =09case TCP_CLOSE:
+ =09case TCP_CLOSE_WAIT:
++=09=09if (cep->state =3D=3D SIW_EPSTATE_LISTENING ||
++=09=09    (cep->state =3D=3D SIW_EPSTATE_IDLE &&
++=09=09     !READ_ONCE(sk->sk_socket)))
++=09=09=09break;
+ =09=09if (cep->qp)
+ =09=09=09cep->qp->tx_ctx.tx_suspend =3D 1;
+ =09=09siw_cm_queue_work(cep, SIW_CM_WORK_PEER_CLOSE);
+--=20
+2.43.0
 
 
-thanks,
-
-Takashi
