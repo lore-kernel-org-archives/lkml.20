@@ -1,84 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793786133;
-	b=wwotZgsAJbPeD+4D8STdMLOIr9ITfR5ZQw4S3S7JkSE19ufkQxEZKJzKhdjKBSmH/EKW
-	 VPeoixt5UJcmBVuU3nWVmI476QODqPlQSPS/7JiCtTHyRO89A5f/Z7ZhwKonMBGkae0OX
-	 qvExttCm/QZgIQq7D4rvTH9PVurhj0dK3gkuwCNt0nbh5iOKcthga/v6GRr6Tnia6uLq4
-	 KHvTy6M0bfPLQe7IXy8Ep5jsSou/tkCAUv80dUargt4s5d24Hv7LOqUbliumkOVSjarGh
-	 X5kAVMk/W9FJS64OkxGqq5iKZD8zisXfRVwtm0EFvocZDNb/lmrHNwNb5UTp+dm8fCA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793786133;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
-	bh=25MNtijzcOe+5x6jv2uk4Ld/cRiFGcxQziSZ3KTb4LM=;
-	b=UBxOMRiDzObdCY56naNLWXtoXBgx/e3p0bmpPpguv4OYdpVbygIs4edK7aP9KinaHHOi
-	 +csd/kZFg/IAnbBqbI5Q4PU7u7RjdmmtOeohFLpoZFXIHh2fl8rA6NBGrf1bQooQ7Wvsh
-	 l5fsfP6s422QN67c2nJmS60T+MLXi9xmyd1tzeuX+mDUNT4ffI8NFmI7OltX3GDQeNYtE
-	 frGceI+hZ8u1tYReFDw2EI4HKGd3VN00d3dnu6ICdp9BpvVzWNO27ws/kvxg3VlNKnUmx
-	 GlNiXD9ANJCqCGI2bxngs4ws2AeQVYu4g/Ol85Sm7fvKeYoQnWChGu9E9/dJVLmO+KQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hsal.es;
-	spf=pass smtp.mailfrom=hsal.es;
-	dkim=pass header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=P4cR5fKS;
-	arc=none smtp.remote-ip=80.241.56.172
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793786144;
+	b=dHHUtzXwaMHlbnvlcglRbnUKRk+x3DHuUYY7YjeP7TSBxa5sDKZsGRRzHovvriXLWyIZ
+	 BmQAgMNciFllOErXankox/P6ofy/oIbfp1LrIzA2OICTA2nlnvhRWNZ2Xj7S+xq532v3T
+	 NSo8Sv81dRulKHqpCAg3qY8TG2WEBGn6ylGMvNrRBz9WiFQB/iA2Jb6SRXuKctisXNgll
+	 86BbjUp4rJoNRJ6xQMweWg02FBZ+xvNcSRXP9foWfnL/gDwznaoRZk0MEfihFTmMzUEfF
+	 N98OOv7Jzek9LTbpRBJWYl7ti9wWNGvuxDIdVFe3vlhyyq1+6qXXlhq6C3YDIlt1qcg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793786144;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=eTFRhcEn12IL6H2Z1l21FtPdZX/lVEm4+csYwTijtb4=;
+	b=NsjVsHEAh95siGhdd3zJY47+X7TlbPxDfWhXRzfqzQl+jejfRnuZ+QPH0nPRwubueu1j
+	 u34xyxdAWtsE1C5YZnXdx27EyzNC9koOGO9A54V9/EhJWJuAAb8wwnrNZaUVIN3HGh4+t
+	 d3FAzPxCPGYPEnvLz0491kirBAU/91ieG2FkeyST8zci6xeFwFl1MoB6/qen3lm6AehyL
+	 TnhalHIl46fCtTWR2dBXanrN0v5mYM3j8biPmudQ6m0LA8d5GogQzAjhoSCFHKTDsk1rk
+	 auNdnIhZwCzXVfluF8wCSh1GrpIbl/zKq7wi0qXWIazs3BqCTqMfGfCEgiXCnwzdBXg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=b+UdZXft;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D64FF606A330
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:55:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D64FF606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F66606D803;
+	Wed,  4 Nov 2026 09:55:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73F66606D803
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=P4cR5fKS
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jKLR46B2yzMm4k;
-	Wed, 04 Nov 2026 10:55:28 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
-	t=1793786128;
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=b+UdZXft
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id A7088201CE0;
+	Wed, 04 Nov 2026 10:55:40 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793786140;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=25MNtijzcOe+5x6jv2uk4Ld/cRiFGcxQziSZ3KTb4LM=;
-	b=P4cR5fKS8KHU+/Em5Q5gvd9iyCcmqlrS5oWEcTRJC8xTXrLRWGtu26r7nKRW+p0u5gkL69
-	4KsVUGPm1yQuLga5hiDwkv7wEdRNhMWt+CIH6FF6eTqhc7N2XLNCvaUuVNe53YYwgrJ7U0
-	BsabHGMLta8MCSjGl2kv7+KpY6DBoqDNOQfBlqTTWtfr+234baoEACokkAr/ASzBGBwn5M
-	o/wjlSqXfR4D9wFMiAfbPt6l+0v1NgS4tvuvUc53x00uEcS8FUh3EJ02IdhFtf2apx76qH
-	BHo8N7Ur2nCQZuU8kh2Ft4JHmklbL+zqmBqbCQtMcOFdWH/NjX8YzdaBroHpxQ==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=hugo@hsal.es
-From: Hugo Sales <hugo@hsal.es>
-To: alexander.deucher@amd.com,
-	sunpeng.li@amd.com,
-	harry.wentland@amd.com,
-	siqueira@igalia.com,
-	amd-gfx@lists.freedesktop.org
-Cc: Hugo Sales <hugo@hsal.es>,
-	ray.wu@amd.com,
-	simona@ffwll.ch,
-	alex.hung@amd.com,
-	mario.limonciello@amd.com,
-	linux-kernel@vger.kernel.org,
-	lohita.mudimela@amd.com,
-	bhawanpreet.lakha@amd.com,
-	dri-devel@lists.freedesktop.org,
-	roman.li@amd.com,
-	airlied@gmail.com,
-	christian.koenig@amd.com
-Subject: [PATCH RFC RFT 6/8] drm/amd/display: Add KUnit tests for backlight LUT interpolation
-Date: Wed,  4 Nov 2026 09:55:14 +0000
-Message-ID: <20261103-backlight-curve-rfc-v1-6-6e4813a8f2eb@hsal.es>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261103-backlight-curve-rfc-v1-0-6e4813a8f2eb@hsal.es>
-References: <20261103-backlight-curve-rfc-v1-0-6e4813a8f2eb@hsal.es>
+	bh=eTFRhcEn12IL6H2Z1l21FtPdZX/lVEm4+csYwTijtb4=;
+	b=b+UdZXftB1uycmAFjc2aKkmFeC0BkmCzWZsxgBJNxVW2zYUWSrWSIm2wL1m7FsXVO4zAy4
+	EHpsy5Q07pGo2tCv3prWyJ897xUwbpxCAwM+LB8gV/S1oux3BQvL3lGWHjn7D6SO7zforx
+	0enJZf9Y3ADwfrkvxrpKeqBwwa3AJ9S8OyVu8HVYx8rJecxVL7pSw6EN0iNbmKMI112N6u
+	aVW2ld+S/fr2y86nQgfeOB+I6nE2wXhLqzltm6yqahkiv1AGfSIlt2Ik+UrH5OjvUDH/oq
+	5M6oE4GEsk79Juqrt+tZYlhFi1THkIHXVA5naNOf4rCDMJj3bcQ4Vjk7A8tGww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793786140;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eTFRhcEn12IL6H2Z1l21FtPdZX/lVEm4+csYwTijtb4=;
+	b=eeoEwgOEIWL+AvZU0dby5dnZBv6ZdjGFTJYSXv9jrQE9Iz/vArbXHRv2hfaajThs0II7i6
+	IEwITRew6ym5i9IlVosQ+CKh4EExTtUjwGBHeJj7/EmEs7b11VB1U+48RlyP3WRJ55lCst
+	2jHGVASEzWqqhRcnIJvgGsGqldzW3r8+0fT31vPfHKEyhI5fwFpfqS+54XjaAScXUQgqPS
+	NJKegyXv1ncZ4PMX0sZogpDHG66ElmFQ/dLOTwACFUxWM5iRlNKC44pjL7lKUamqj1J/ZB
+	HcgBOol4MdAsqk/UtKNmSROijUpdfO9tl740jbLrLUvcQkiC3oSa5VvI6gj8mQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793786140; a=rsa-sha256;
+	cv=none;
+	b=KVBW48X0NZUsU++qUQbWXD4V09DjVaEyft/+qRnwqvGMbDBn4vdBVjGUZIaVQMgDNvG5KC
+	Q9F2emqy240Ktq5SXVa57ddyw0owb9Ts4laqb28PKwBLxMpW25s65ItQTUgI0VWWjSTLtT
+	pPfq0z4rHA/SoDlKUvWiHJeGFE8qARTmcgR8aVFqTpwCUNM2lbab2OPfgxZVxDzSQcVEmd
+	Hrl6EmB6R4286gkzDvb1rni3RraTwYEy/csIoGeDO4Us3PuqoacvMJlJd6r9/gWJgk3mvE
+	MWHzQPr/f3JjAIsUbiwrulGNcQuiNCM27vW21Edvi/n7rxeiLck4jdTr+kseyg==
+Message-ID: <dd321689f566e687914908974bbe4c27ce2b587e.camel@pengutronix.de>
+Subject: Re: [PATCH v3 4/5] bcma: add host driver for the BCM6362 integrated
+ WLAN backplane
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Alessio Ferri <alessio.ferri@mythread.it>, Rob Herring
+ <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>,  =?UTF-8?Q?Rafa=C5=82_Mi=C5=82ecki?=	
+ <zajec5@gmail.com>, Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list	
+ <bcm-kernel-feedback-list@broadcom.com>, Thomas Bogendoerfer	
+ <tsbogend@alpha.franken.de>, Jonas Gorski <jonas.gorski@gmail.com>
+Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org
+Date: Wed, 04 Nov 2026 10:55:40 +0100
+In-Reply-To: <20261104-bcm6362-wlan-v3-4-e46562b2ac12@mythread.it>
+References: <20261104-bcm6362-wlan-v3-0-e46562b2ac12@mythread.it>
+	 <20261104-bcm6362-wlan-v3-4-e46562b2ac12@mythread.it>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,288 +100,189 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=11960; i=hugo@hsal.es; h=from:subject:message-id; bh=0mMCaT8mms2X7zb63wewS8AewVlg8BBP+QOblL9WdwI=; b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsl7xRDE8Fgy1nxA10+1fj+M5blc1yYxZe0JuH3j+8 o5my/5VHYwdpSwMYlwMsmKKLLo3PBlYJk6emVP0fAnMHFYmsCFcnAIwkYspjAxdFtM7rVNUwnS6 l8QJGfLMEmfi93/qMKlnxuGljccOX1ZhZGj9v25ybfLzjEf1NqK/V3q3fjioIh11Z8uVHfVbexM 4TzADAF5ZSJ0=
-X-Developer-Key: i=hugo@hsal.es; a=openpgp; fpr=193D095149CF7E8737B39064D912B0DB205A91C1
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jKLR46B2yzMm4k
 
-Build the power module's LUT with initialize_backlight_caps() from the
-ATIF reply of an ASUS ROG Flow X13 GV301QH, with min_input_signal 0, and
-test backlight_millipercent_to_pwm() on it. A whole percent gives its
-LUT entry, and a request in between lands between the two entries, at
-values worked out by hand. The PWM never goes down as the request goes
-up, and below the first curve point every millipercent gets its own
-PWM, where the floor index gave only 0 and 0x707
+On Mi, 2026-11-04 at 00:31 +0100, Alessio Ferri wrote:
+> The BCM6362 integrates a WLAN macro on a dedicated bcma backplane.
+> CFE leaves the macro clock gated and in reset, the backplane is
+> a big-endian peripheral, and none of the cores has a wrapper:
+> gating and reset of ChipCommon and of the 802.11 core go through
+> per-core control registers in a separate WLAN control block.
+>=20
+> Add a host driver for it that:
+>=20
+>   - maps the ChipCommon and WLAN control register blocks;
+>   - enables the clock, cycles the WLAN and WLAN UBUS resets and runs the
+>     macro enable sequence bcma touches the backplane;
+>   - provides big-endian register and block I/O ops;
+>   - emulates BCMA_IOCTL, BCMA_IOST, BCMA_RESET_CTL and BCMA_RESET_ST
+>     on top of the per-core control registers. The PHY bits of
+>     BCMA_IOST report what b43 needs to hear;
+>   - sets the big_endian and wrapperless bus flags before scanning.
+>=20
+> As for the PCI and generic SoC hosts, the driver is linked into
+> bcma.ko and registered from bcma_modinit().
+>=20
+> Add a MAINTAINERS entry for the driver and its binding.
+>=20
+> The 802.11 core (rev 0x16) is handled by b43 once a SPROM is
+> available; on this SoC it is not stored on the chip and has to be
+> provided. In openwrt i use 6362-sprom plus fixups.
+>=20
+> Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
+> ---
+>  MAINTAINERS                     |   7 +
+>  drivers/bcma/Kconfig            |  12 ++
+>  drivers/bcma/Makefile           |   1 +
+>  drivers/bcma/bcma_private.h     |  15 ++
+>  drivers/bcma/host_soc_bcm6362.c | 419 ++++++++++++++++++++++++++++++++++=
+++++++
+>  drivers/bcma/main.c             |   6 +
+>  6 files changed, 460 insertions(+)
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index f53047aa8d3c..00d964829db5 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -5235,6 +5235,13 @@ S:	Maintained
+>  F:	arch/arm/boot/dts/broadcom/bcm47189*
+>  F:	arch/arm/boot/dts/broadcom/bcm53573*
+> =20
+> +BROADCOM BCM6362 WLAN BCMA HOST DRIVER
+> +M:	Alessio Ferri <alessio.ferri@mythread.it>
+> +L:	linux-wireless@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/bus/brcm,bcm6362-wlan-bus-axi.yaml
+> +F:	drivers/bcma/host_soc_bcm6362.c
+> +
+>  BROADCOM BCM63XX/BCM33XX UDC DRIVER
+>  M:	Kevin Cernekee <cernekee@gmail.com>
+>  L:	linux-usb@vger.kernel.org
+> diff --git a/drivers/bcma/Kconfig b/drivers/bcma/Kconfig
+> index b9558ff20830..ef0c461bdf90 100644
+> --- a/drivers/bcma/Kconfig
+> +++ b/drivers/bcma/Kconfig
+> @@ -38,6 +38,18 @@ config BCMA_HOST_SOC
+> =20
+>  	  If unsure, say N
+> =20
+> +config BCMA_HOST_SOC_BCM6362
+> +	bool "Support for the BCM6362 integrated WLAN backplane"
+> +	depends on BMIPS_GENERIC || COMPILE_TEST
+> +	depends on OF
+> +	help
+> +	  Host driver for the bcma backplane of the WLAN macro
+> +	  integrated in the Broadcom BCM6362 SoC. It powers the macro on
+> +	  and lets bcma enumerate the backplane, so that the 802.11 core
+> +	  can be driven by b43.
+> +
+> +	  If unsure, say N
+> +
+>  config BCMA_DRIVER_PCI
+>  	bool "BCMA Broadcom PCI core driver"
+>  	depends on PCI
+> diff --git a/drivers/bcma/Makefile b/drivers/bcma/Makefile
+> index f8c37de35da2..3ff93990ecbb 100644
+> --- a/drivers/bcma/Makefile
+> +++ b/drivers/bcma/Makefile
+> @@ -13,6 +13,7 @@ bcma-$(CONFIG_BCMA_DRIVER_GMAC_CMN)	+=3D driver_gmac_cm=
+n.o
+>  bcma-$(CONFIG_BCMA_DRIVER_GPIO)		+=3D driver_gpio.o
+>  bcma-$(CONFIG_BCMA_HOST_PCI)		+=3D host_pci.o
+>  bcma-$(CONFIG_BCMA_HOST_SOC)		+=3D host_soc.o
+> +bcma-$(CONFIG_BCMA_HOST_SOC_BCM6362)	+=3D host_soc_bcm6362.o
+>  obj-$(CONFIG_BCMA)			+=3D bcma.o
+> =20
+>  ccflags-$(CONFIG_BCMA_DEBUG)		:=3D -DDEBUG
+> diff --git a/drivers/bcma/bcma_private.h b/drivers/bcma/bcma_private.h
+> index 6eded32d1aac..931a0ca0aea3 100644
+> --- a/drivers/bcma/bcma_private.h
+> +++ b/drivers/bcma/bcma_private.h
+> @@ -118,6 +118,21 @@ static inline void __exit bcma_host_soc_unregister_d=
+river(void)
+>  }
+>  #endif /* CONFIG_BCMA_HOST_SOC && CONFIG_OF */
+> =20
+> +/* host_soc_bcm6362.c */
+> +#ifdef CONFIG_BCMA_HOST_SOC_BCM6362
+> +int __init bcma_host_soc_bcm6362_register_driver(void);
+> +void __exit bcma_host_soc_bcm6362_unregister_driver(void);
+> +#else
+> +static inline int __init bcma_host_soc_bcm6362_register_driver(void)
+> +{
+> +	return 0;
+> +}
+> +
+> +static inline void __exit bcma_host_soc_bcm6362_unregister_driver(void)
+> +{
+> +}
+> +#endif /* CONFIG_BCMA_HOST_SOC_BCM6362 */
+> +
+>  /* driver_pci.c */
+>  #ifdef CONFIG_BCMA_DRIVER_PCI
+>  u32 bcma_pcie_read(struct bcma_drv_pci *pc, u32 address);
+> diff --git a/drivers/bcma/host_soc_bcm6362.c b/drivers/bcma/host_soc_bcm6=
+362.c
+> new file mode 100644
+> index 000000000000..5a4fa6a63411
+> --- /dev/null
+> +++ b/drivers/bcma/host_soc_bcm6362.c
+> @@ -0,0 +1,419 @@
+[...]
+> +struct bcma_host_soc_bcm6362 {
+[...]
+> +	struct reset_control	*rst_wlan;
+> +	struct reset_control	*rst_wlan_ubus;
+> +};
+[...]
+> +/*
+> + * Macro enable sequence from the Broadcom board support code: with the
+> + * clock forced on and the macro in soft reset, enable the 802.11 core
+> + * clock with force gated clock set, then release the soft reset and the
+> + * forces.
+> + */
+> +static int bcma_host_soc_bcm6362_power_on(struct bcma_host_soc_bcm6362 *=
+host)
+> +{
+[...]
+> +	reset_control_assert(host->rst_wlan_ubus);
+> +	reset_control_assert(host->rst_wlan);
 
-Test backlight_pwm_to_millipercent() by hand at two points too, and
-check that every PWM turned into a percentage and back lands within 1
-of where it started. A LUT built with the real min_input_signal of 12
-gets the same hand checks in both directions
+These are asserted in different order than in
+bcma_host_soc_bcm6362_power_off(). Is this on purpose?
 
-Export these functions when the KUnit tests are enabled, so the tests
-can call them
+If the order can be switched here, you can use the reset_control_bulk
+API.
 
-Signed-off-by: Hugo Sales <hugo@hsal.es>
----
-The tests use gv301qh_curve and set_gv301qh_caps() from patch 5
+> +	fsleep(1000);
+> +	reset_control_deassert(host->rst_wlan_ubus);
+> +	reset_control_deassert(host->rst_wlan);
+> +	fsleep(1000);
+[...]
+> +}
+> +
+> +static void bcma_host_soc_bcm6362_power_off(struct bcma_host_soc_bcm6362=
+ *host)
+> +{
+[...]
+> +	reset_control_assert(host->rst_wlan);
+> +	reset_control_assert(host->rst_wlan_ubus);
 
-KUnit on UML with PROVE_LOCKING: amdgpu_dm_backlight passes 78 of 78
-without this patch and 83 of 83 with it. dm_test_pwm_lut_whole_percents
-passes at every patch, since a whole percent always gave the LUT entry.
-dm_test_pwm_lut_between_percents, dm_test_pwm_lut_monotonic and
-dm_test_pwm_lut_min_input_signal pass from patch 2, and
-dm_test_pwm_lut_readback from patch 3
+[...]
+> +static int bcma_host_soc_bcm6362_probe(struct platform_device *pdev)
+> +{
+[...]
+> +	host->rst_wlan =3D devm_reset_control_get_exclusive(dev, "wlan");
+> +	if (IS_ERR(host->rst_wlan))
+> +		return dev_err_probe(dev, PTR_ERR(host->rst_wlan),
+> +				     "failed to get wlan reset\n");
+> +
+> +	host->rst_wlan_ubus =3D devm_reset_control_get_exclusive(dev, "wlan-ubu=
+s");
+> +	if (IS_ERR(host->rst_wlan_ubus))
+> +		return dev_err_probe(dev, PTR_ERR(host->rst_wlan_ubus),
+> +				     "failed to get wlan-ubus reset\n");
+[...]
+> +}
 
-The other amdgpu_dm suites behave the same with and without the series,
-as in patch 5
-
-checkpatch --strict flags two prototypes whose line ends in '('. They
-follow the DC style of the prototypes around them in power_abm.c and
-power_helpers.h
----
- .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     | 146 +++++++++++++++++++++
- .../gpu/drm/amd/display/modules/power/power_abm.c  |  10 +-
- .../drm/amd/display/modules/power/power_helpers.h  |   4 +
- 3 files changed, 159 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-index ba8ffb92ae7af..e9da2c46779fd 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-@@ -24,6 +24,7 @@
- #include "amd_shared.h"
- #include "link_service.h"
- #include "dc/inc/hw/panel_cntl.h"
-+#include "power_helpers.h"
- 
- struct dm_backlight_connector_fixture {
- 	struct amdgpu_device *adev;
-@@ -2163,6 +2164,145 @@ static void dm_test_setup_backlight_device_attaches_abm_property(struct kunit *t
- 	amdgpu_dm_set_abm_level_param(saved_abm_level);
- }
- 
-+/* Tests for the legacy backlight LUT conversion, in both directions */
-+
-+/*
-+ * Build the power module's backlight LUT from the GV301QH curve the same
-+ * way the driver does, through the ATIF caps cached in the display manager
-+ */
-+static struct core_power *gv301qh_power_module(struct kunit *test, int min_input_signal)
-+{
-+	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
-+	struct dc *dc = dm_kunit_alloc_dc_with_ctx(test);
-+	struct core_power *core_power;
-+
-+	core_power = kunit_kzalloc(test, sizeof(*core_power), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, core_power);
-+
-+	set_gv301qh_caps(&adev->dm.backlight_caps[0], false);
-+	adev->dm.backlight_caps[0].min_input_signal = min_input_signal;
-+	adev->dm.backlight_caps[0].caps_valid = true;
-+	dc->ctx->driver_context = adev;
-+	core_power->dc = dc;
-+	core_power->bl_prop[0].num_backlight_levels = 101;
-+	core_power->bl_prop[0].backlight_lut = kunit_kcalloc(test, 101, sizeof(unsigned int),
-+							     GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, core_power->bl_prop[0].backlight_lut);
-+
-+	initialize_backlight_caps(core_power, 0);
-+	KUNIT_ASSERT_TRUE(test, core_power->bl_prop[0].backlight_caps_valid);
-+
-+	return core_power;
-+}
-+
-+/**
-+ * dm_test_pwm_lut_whole_percents - Test Whole percents give the LUT entry
-+ * @test: The KUnit test context
-+ *
-+ * With min_input_signal 0 the LUT starts at 0, reaches the first curve
-+ * point (signal 14, 2%) at index 2 and has 0x707 halfway at index 1. Index
-+ * 50 is the point (98, 50%)
-+ */
-+static void dm_test_pwm_lut_whole_percents(struct kunit *test)
-+{
-+	struct core_power *core_power = gv301qh_power_module(test, 0);
-+
-+	KUNIT_EXPECT_EQ(test, backlight_millipercent_to_pwm(core_power, 0, 0), 0U);
-+	KUNIT_EXPECT_EQ(test, backlight_millipercent_to_pwm(core_power, 1000, 0), 0x707U);
-+	KUNIT_EXPECT_EQ(test, backlight_millipercent_to_pwm(core_power, 2000, 0), 0xe0eU);
-+	KUNIT_EXPECT_EQ(test, backlight_millipercent_to_pwm(core_power, 50000, 0), 98U * 0x101);
-+	KUNIT_EXPECT_EQ(test, backlight_millipercent_to_pwm(core_power, 100000, 0), 0xffffU);
-+}
-+
-+/**
-+ * dm_test_pwm_lut_between_percents - Test Requests between percents interpolate
-+ * @test: The KUnit test context
-+ *
-+ * The code rounds the step between two entries before adding it. 0.5% is
-+ * halfway from 0 to 0x707, so 1799 / 2 = 899.5, which rounds to 900. 1.5%
-+ * is 1799 + 900 = 2699. 2.5% is halfway from 0xe0e to 0xf0f, so 257 / 2 =
-+ * 128.5 rounds to 129 and 3598 + 129 = 3727. 99.999% is 1028 * 999 / 1000
-+ * = 1026.97 past 64507, which rounds to 1027 and gives 65534
-+ */
-+static void dm_test_pwm_lut_between_percents(struct kunit *test)
-+{
-+	struct core_power *core_power = gv301qh_power_module(test, 0);
-+
-+	KUNIT_EXPECT_EQ(test, backlight_millipercent_to_pwm(core_power, 500, 0), 900U);
-+	KUNIT_EXPECT_EQ(test, backlight_millipercent_to_pwm(core_power, 1500, 0), 2699U);
-+	KUNIT_EXPECT_EQ(test, backlight_millipercent_to_pwm(core_power, 2500, 0), 3727U);
-+	KUNIT_EXPECT_EQ(test, backlight_millipercent_to_pwm(core_power, 99999, 0), 65534U);
-+}
-+
-+/**
-+ * dm_test_pwm_lut_readback - Test PWM reads back as the percentage that set it
-+ * @test: The KUnit test context
-+ *
-+ * 900 is halfway from 0 to 0x707, so it reads back as 0.5%. Every PWM from
-+ * 0 to 0xffff turned into a percentage and back must land within 1 of
-+ * where it started
-+ */
-+static void dm_test_pwm_lut_readback(struct kunit *test)
-+{
-+	struct core_power *core_power = gv301qh_power_module(test, 0);
-+	unsigned int pwm, mp;
-+
-+	KUNIT_EXPECT_EQ(test, backlight_pwm_to_millipercent(core_power, 0x707, 0), 1000U);
-+	KUNIT_EXPECT_EQ(test, backlight_pwm_to_millipercent(core_power, 900, 0), 500U);
-+
-+	for (pwm = 0; pwm <= 0xffff; pwm++) {
-+		mp = backlight_pwm_to_millipercent(core_power, pwm, 0);
-+		KUNIT_ASSERT_LE_MSG(test,
-+				    abs((int)backlight_millipercent_to_pwm(core_power, mp, 0) -
-+					(int)pwm), 1,
-+				    "pwm %u", pwm);
-+	}
-+}
-+
-+/**
-+ * dm_test_pwm_lut_monotonic - Test PWM never goes down as the request goes up
-+ * @test: The KUnit test context
-+ *
-+ * Every millipercent below 2% must also get its own PWM, where the floor
-+ * index gave only 0 and 0x707
-+ */
-+static void dm_test_pwm_lut_monotonic(struct kunit *test)
-+{
-+	struct core_power *core_power = gv301qh_power_module(test, 0);
-+	unsigned int mp, pwm, prev = 0, steps = 0;
-+
-+	for (mp = 0; mp <= 100000; mp++) {
-+		pwm = backlight_millipercent_to_pwm(core_power, mp, 0);
-+		KUNIT_ASSERT_GE_MSG(test, pwm, prev, "millipercent %u", mp);
-+		if (mp < 2000 && (mp == 0 || pwm != prev))
-+			steps++;
-+		prev = pwm;
-+	}
-+
-+	KUNIT_EXPECT_EQ(test, steps, 2000U);
-+}
-+
-+/**
-+ * dm_test_pwm_lut_min_input_signal - Test the LUT with the real minimum of 12
-+ * @test: The KUnit test context
-+ *
-+ * With min_input_signal 12 the LUT starts at 0xc0c, has 3341 at index 1 and
-+ * reaches the first curve point (signal 14, 2%) at index 2, 0xe0e. 1.714%,
-+ * the curve's value at the minimum, is 0.714 of the way from 3341 to 0xe0e,
-+ * so 3341 + 183 = 3524. A PWM at or below 0xc0c reads back as 0%
-+ */
-+static void dm_test_pwm_lut_min_input_signal(struct kunit *test)
-+{
-+	struct core_power *core_power = gv301qh_power_module(test, 12);
-+
-+	KUNIT_EXPECT_EQ(test, backlight_millipercent_to_pwm(core_power, 0, 0), 0xc0cU);
-+	KUNIT_EXPECT_EQ(test, backlight_millipercent_to_pwm(core_power, 1000, 0), 3341U);
-+	KUNIT_EXPECT_EQ(test, backlight_millipercent_to_pwm(core_power, 1714, 0), 3524U);
-+	KUNIT_EXPECT_EQ(test, backlight_pwm_to_millipercent(core_power, 3341, 0), 1000U);
-+	KUNIT_EXPECT_EQ(test, backlight_pwm_to_millipercent(core_power, 0xc0c, 0), 0U);
-+	KUNIT_EXPECT_EQ(test, backlight_pwm_to_millipercent(core_power, 1000, 0), 0U);
-+}
-+
- static struct kunit_case dm_backlight_test_cases[] = {
- 	/* dm_find_stream_with_link */
- 	KUNIT_CASE(dm_test_find_stream_with_link_returns_match),
-@@ -2255,6 +2395,12 @@ static struct kunit_case dm_backlight_test_cases[] = {
- 	KUNIT_CASE(dm_test_setup_backlight_device_max_edps),
- 	KUNIT_CASE(dm_test_setup_backlight_device_oled_success),
- 	KUNIT_CASE(dm_test_setup_backlight_device_attaches_abm_property),
-+	/* legacy backlight LUT conversion */
-+	KUNIT_CASE(dm_test_pwm_lut_whole_percents),
-+	KUNIT_CASE(dm_test_pwm_lut_between_percents),
-+	KUNIT_CASE(dm_test_pwm_lut_readback),
-+	KUNIT_CASE(dm_test_pwm_lut_monotonic),
-+	KUNIT_CASE(dm_test_pwm_lut_min_input_signal),
- 	{}
- };
- 
-diff --git a/drivers/gpu/drm/amd/display/modules/power/power_abm.c b/drivers/gpu/drm/amd/display/modules/power/power_abm.c
-index 83d79c20281ec..11efe59b9f96b 100644
---- a/drivers/gpu/drm/amd/display/modules/power/power_abm.c
-+++ b/drivers/gpu/drm/amd/display/modules/power/power_abm.c
-@@ -3,6 +3,7 @@
- // Copyright 2026 Advanced Micro Devices, Inc.
- 
- #include "dm_services.h"
-+#include "dm_helpers.h"
- #include "dc.h"
- #include "mod_power.h"
- #include "core_types.h"
-@@ -436,7 +437,8 @@ static unsigned int backlight_pwm_to_millipercent_legacy(
-  * 0 PWM = 0% and max_backlight_pwm = 100%.
-  * Otherwise, falls back to the legacy LUT based mapping.
-  */
--static unsigned int backlight_pwm_to_millipercent(
-+STATIC_IFN_KUNIT
-+unsigned int backlight_pwm_to_millipercent(
- 		struct core_power *core_power, unsigned int pwm, unsigned int inst)
- {
- 	if (!is_vesa_abc(core_power, inst))
-@@ -456,6 +458,8 @@ static unsigned int backlight_pwm_to_millipercent(
- 			core_power->bl_prop[inst].max_backlight_pwm);
- }
- 
-+EXPORT_IF_KUNIT(backlight_pwm_to_millipercent);
-+
- static unsigned int backlight_pwm_to_millinit_legacy(
- 		struct core_power *core_power, unsigned int pwm, unsigned int inst)
- {
-@@ -586,6 +590,8 @@ unsigned int backlight_millipercent_to_pwm(
- 			BACKLIGHT_MILLIPERCENT_MAX);
- }
- 
-+EXPORT_IF_KUNIT(backlight_millipercent_to_pwm);
-+
- /* Legacy millinit→PWM conversion: scales linearly between
-  * [min_brightness_millinits, max_brightness_millinits] → [min_backlight_pwm, max_backlight_pwm].
-  */
-@@ -844,6 +850,8 @@ void initialize_backlight_caps(struct core_power *core_power, unsigned int inst)
- 	core_power->bl_prop[inst].backlight_caps_valid = true;
- }
- 
-+EXPORT_IF_KUNIT(initialize_backlight_caps);
-+
- static void varibright_set_level(struct core_power *core_power)
- {
- 	if (!core_power->varibright_prop.varibright_active ||
-diff --git a/drivers/gpu/drm/amd/display/modules/power/power_helpers.h b/drivers/gpu/drm/amd/display/modules/power/power_helpers.h
-index 68679fa109460..9c07f1c92a781 100644
---- a/drivers/gpu/drm/amd/display/modules/power/power_helpers.h
-+++ b/drivers/gpu/drm/amd/display/modules/power/power_helpers.h
-@@ -201,6 +201,10 @@ void mod_power_set_backlight_control_type(struct core_power *core_power,
- 		unsigned int inst, enum backlight_control_type backlight_control_type);
- unsigned int backlight_millipercent_to_pwm(
- 		struct core_power *core_power, unsigned int millipercent, unsigned int inst);
-+#if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
-+unsigned int backlight_pwm_to_millipercent(
-+		struct core_power *core_power, unsigned int pwm, unsigned int inst);
-+#endif
- unsigned int backlight_millipercent_to_millinit(
- 		struct core_power *core_power, unsigned int millipercent, unsigned int inst);
- void fill_backlight_level_params(struct core_power *core_power,
-
--- 
-2.56.0
-
+regards
+Philipp
