@@ -1,49 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793814182;
-	b=gX0ym459abBBjxG6rCsXHPnbHNOI9lb1HprTX2eeRZBopHkcXleuSd7mmQfXnI5s3Gmf
-	 1pQ08SVjEzMz1ZKieUjTtEmNRgCyiUQfo1plhUDJpjO0h/NvfiHb3M3RQIMj7IaIDTbTc
-	 YGQkfsKxZXnrMFuYFx/5v+NQFShhq2gYz6XwL2pSiCh2bkegQzUV565ihY5XRuo1UU6lx
-	 mNdwLa1f0LuH/IHP0HS5zm4/q0+Gfx6XmF/5FC2x2hCcktewAMLb9v/e/R6EkNUkNm8RI
-	 ujiubLwqjhkgqrYiPyPwJBPdRZjMHyy3PGz6ywjOpYLsGP8uUN2cEXWeCmgst5X+yOQ==
+	t=1793814224;
+	b=zi4l77lTW7ItJv2ycYN11KpcfJPPlGfzYWDFtzRa08EsaFNVAJrTpEAKkFsmD0cxJynI
+	 XHv3s/wXJa27phU3i1ZgIQqDuKPbjoMfZrQyBWiMbPG48rTcB8ZJZDJNQ16qvOyvuJDrP
+	 gzrhOfQ9z9R9WZMG+v/FUdGCVS8NXGFnzwAGCyhRHa/z8qLviw9b7PfZVEJrtsqGvJuuG
+	 33PpzSUrVMYwwcqXJdSJOO6GPjHONNUnVux2kyIRxl26bwE/lONAxu+XMMt2TCV5jmMwX
+	 8QRj5ezRf/uUq4+/BlgYnS/YE9ITZTc35CkxdlJllXooH3uFhkuXvMJ6AwxoDRSVGtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793814182;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=D/ufQuT616L/slKbsMvHsuyGu7FrChwnjA8syXHjneE=;
-	b=1J1VMt6RJTiu7U0Hfg3IizRseowT6M+QpmRERwWqEdNPhM3qnnIIaVKQq8OxxEXZJckX
-	 75czz8olrdZTj+cbzLhHi3XmRHnIgQILhjIw2Mdt9Tndmtg19pITwG3Lyz7a3fXTsMTJa
-	 EOVXhFgKB/Z9K+vLhXnKkJubfPNx5SBJPfCQlDhsgDfeQQo2D0t6rtkjMQvKwe9oTZFGH
-	 9KEgXQOh7P7wsKkfZF5th6+XYOsfjomrqI6cpM7MLuzpwYYW2u9AkhFhUlygJKmmaCSof
-	 X82IjD5syKvbNBQ33GmPGP5tj37oYWpaMxU47P7+YhLsvVIKiOeIAMf7zvNsZS4Uiqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793814224;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ItZUs4rAkttw16yN200Z8k0fdOnF5WAA/wo1XxPg2KE=;
+	b=KbZ+ubSOBW12OphilYLtYLL9J1DJdR+LDQFkuV+DCnfxOob36i+pN/WBMeL92BGCj5sU
+	 D4AGZyRXmMKnSS1A31pNSuwWc2+CM7JDN01JjsZKZc5mJUX1HIj6RBcyBaxJ1AMN7/sKN
+	 3cNg/KBOQI3TuBTZjorB5fAINsM/V98uiHuQPWAYf0mfGkKpe2Ieyfck49CAEQd+a/Mg0
+	 N2D3HEkrqon9bS7cP0HgI6ngQHqrPPcfSh11WovK+a5yUXu93GVmRKK7e9tOvW2Dw85dt
+	 wW0F46cBBXnJ3DgPRnArvCNiNYsms25ySYQTY6oYYlqN9MoY7qObSJ7+lLNcpDvdnFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="KPcKo/04";
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 48E15606A31B;
-	Wed,  4 Nov 2026 17:43:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48E15606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AmIaoUeL;
+	arc=none smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B54F606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 17:43:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B54F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=KPcKo/04
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7A7741BB0;
-	Wed,  4 Nov 2026 09:42:57 -0800 (PST)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 005123F673;
-	Wed,  4 Nov 2026 09:42:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793814180; bh=1CoUnHkJvq7fNArZYhXbaSulQ+DONEx5SVmufR69YZ8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=KPcKo/048miBpsrKK9qd7lPKn5afNfN0G0JjZZh9fCJDFIyzkbTShfocwDB9yrqij
-	 caTD7IYV8qxi1/LtWKV6CN2UV8LEfhbFkvQ+Nu+qArzsUR7+31CT/vKUyJ2YFX74Ul
-	 XECBPwU5it1AttvWJhBPFtDsNHd0Doa4KTaM6jw8=
-Message-ID: <2d0fbfdd-4497-492e-be26-9f4b79fe47bb@arm.com>
-Date: Wed, 4 Nov 2026 17:42:52 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AmIaoUeL
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-15dd124bbe7so1976729c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 09:43:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793814223; x=1794419023; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ItZUs4rAkttw16yN200Z8k0fdOnF5WAA/wo1XxPg2KE=;
+        b=AmIaoUeLi2Q/TlozqiC/bjSSYDzbLHl3l03iQ1msp4uho0ZFTjEwWOCEuNY0zLkul0
+         LCIVaG73rhShZ31dT6u+MnMlfLzErl0oCsrZslfVrVnkkAjBwpVCrA2CBIpmQ2E2OkrW
+         rEENQ/Axdfwbts4w5VeGsJ4EsmWIek1NH7VGh74FGREfEYZfrQ14Vtu9CgQ2J854o1tJ
+         ZweqEcYTY2VJW5bNbZX38mmlMKRb27eSpBWK/vJYuSMCkpEz9+TL2dUdiI5alawv6tie
+         u2Hw5NFBOJ5noHXBKWWCkLAlNITOTMehafsvlhcf4bcOtvlDc1hUjByf4TN5tEMuOt1T
+         u0/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793814223; x=1794419023;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ItZUs4rAkttw16yN200Z8k0fdOnF5WAA/wo1XxPg2KE=;
+        b=qhGGJ2PZiBvkrt5e8iowYNEX3bSbE30InydQ6ridEk6rKKXh2UzcLBPFJULDYW60y+
+         GueM+f2RqqWlTLhWIgvsjwW91mJ3QwXQPxHisLBH8Xi7xhLxOhpZ6MMZWRN0ewsnsFnA
+         vC7kad5FDuGCESHlSwcXzZpznwHVkjuI9Vj8wlKzl9Tm0Lkf3sFyLU0ATgcMW78O1/9/
+         ZQkCoYiJ4cKmbmPl5dv8WxEw27muIlB8cGwwb5GCgPIj8Z4CGWtpenKKkUzD1C9F/RHq
+         CeR50keUr5kykiZCVLo0tW+V9O+fo7SOsZPdQb4oD6PAIcoqiAWedqFFi3KvhXaBxuL7
+         v3aA==
+X-Forwarded-Encrypted: i=1; AKwUvBw6VD5mgLy+LKt/DIK0GOO5TzZRxx/kH4rdYxRZCZwanCSdnY9HHvLlCswD4SzPyCvX4tmNi75mDHvHo9c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z80Ay/goXBRWM+A2A2qQ6ciyBl6nj2KPOmxOOW0NkMvyVSVlZrQ
+	HmelDAxmjOtnWFnQ6rp223U9jM+1qziU7Yure1h7crmAw9kF4IIWr6jw
+X-Gm-Gg: AYBFou30gKWn5n7nqK7k4AL+N9hqMkZjRaQlkgJQJ0lNEXXigG96+7+giZUOeBNg4dK
+	r7rQA/XFaxDNbDyow/ARFVkUejMBy0qHYLHUSLOSt+yL+DWcbqwoh5eP0MU2h8JdMGVSXqOOC9x
+	lMoH6fadpgfwvZM1lAN7Uj7iDsnI899FMKk6e6286JA7xFYpXrsQCVS2mJZp1LV689mmAyYCMNh
+	R0hSaSqSRSCb2FdH0vNn6LRABs7PCmv4lnBQaSmVDH/ZYUg6wNr/dFUU150Me8cU6H6PLi1LMEI
+	tUwpJwDeLLV6NYcuUZvIjh/R59O5NeGtornnkRU7dETNHQM2RBKVrmhFPDVFSgPRQfTJ+6/eA0j
+	H2hRyI9/uj94+QNjrJDsn1h+g9Hh2zEPqYN9f5XpVlc7fYH8/hpRnp0YV9Y7DjgSLk+cNjjVV/8
+	5JtzYllYwnKo5prxbkR6TUksYWU4K031qdh/oZLbsCEl5iHcVpjdZqmJpeu+LQ3wkJSNBFDPfvt
+	MQiz9ng1T/sWcpvvOmaevPcrurUPsyazHde33pGxFUEx0ZqUjogoqkGt0zhvNvbOAmQdv9NUGz7
+	BFoyQc/qsQ4LFR1SBtLqQWPQJ4UtMiHhY7dzZ/gsaHM10IYmnBxU
+X-Received: by 2002:a05:7022:223:b0:144:f089:b189 with SMTP id a92af1059eb24-1ac5c369250mr34671500c88.36.1793814223214;
+        Wed, 04 Nov 2026 09:43:43 -0800 (PST)
+Received: from umang-Inspiron-3501 ([2401:4900:1c60:e7b2:735c:e3ea:7972:e818])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca3989670sm11988565eec.25.2026.11.04.09.43.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 09:43:42 -0800 (PST)
+From: Umang Pokhriyal <umangpokhriyall@gmail.com>
+To: netdev@vger.kernel.org
+Cc: willemdebruijn.kernel@gmail.com,
+	jasowangio@gmail.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	linux-kernel@vger.kernel.org,
+	Umang Pokhriyal <umangpokhriyall@gmail.com>
+Subject: [PATCH net] tun: delete the flow entries of the moved queue on detach
+Date: Wed,  4 Nov 2026 23:12:40 +0530
+Message-ID: <20261104174240.138491-1-umangpokhriyall@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,273 +101,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] iommu/ipmmu-vmsa: Keep shared micro-TLBs enabled
- while in use
-To: Koichiro Den <den@valinux.co.jp>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Magnus Damm <damm+renesas@opensource.se>,
- Jason Gunthorpe <jgg@ziepe.ca>, Lu Baolu <baolu.lu@linux.intel.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
- Marek Vasut <marek.vasut@mailbox.org>, iommu@lists.linux.dev,
- linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261104162251.1749998-1-den@valinux.co.jp>
- <20261104162251.1749998-4-den@valinux.co.jp>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20261104162251.1749998-4-den@valinux.co.jp>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 04/11/2026 4:22 pm, Koichiro Den wrote:
-> PCI functions can share a micro-TLB. ipmmu_release_device() disables it
-> unconditionally, so removing one function makes DMA from the others
-> bypass translation even though they remain attached to a paging domain.
-> Switching a device to the identity domain can disable a shared micro-TLB
-> in the same way.
-> 
-> Count the users of each micro-TLB and disable it only when its last user
-> leaves. Track whether each device holds a reference so paging-domain
-> switches do not add another one and release does not drop a reference
-> the device never acquired.
+When a queue is detached, __tun_detach() moves the last queue into the
+freed slot and decrements tun->numqueues. The flow entries that point at
+the old index of the moved queue, now tun->numqueues, are meant to be
+deleted, but the call passes tun->numqueues + 1, an index that never
+exists, so nothing is deleted.
 
-Shouldn't we just not touch the physical enable/disable state at all in 
-release_device? Once the device is removed, if it did happen to be the 
-last one in the group then the default domain will be torn down, so at 
-most I would think it should just be a case of ipmmu_domain_free() 
-detecting if the domain being freed is the currently-attached one, and 
-if so then resetting the uTLB to its desired default state.
+Until those entries are refreshed by a write on their flow or age out,
+tun_automq_select_queue() returns an index past the last queue, and
+netdev_core_pick_tx() sends every such flow to queue 0 and warns:
 
-Thanks,
-Robin.
+  tapq0 selects TX queue 3, but real number of TX queues is 3
 
-> Cc: stable@vger.kernel.org
-> Fixes: 24dfb197c3b7 ("iommu/ipmmu-vmsa: Call arm_iommu_release_mapping() in release path")
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> ---
->   drivers/iommu/ipmmu-vmsa.c | 121 ++++++++++++++++++++++++++-----------
->   1 file changed, 86 insertions(+), 35 deletions(-)
-> 
-> diff --git a/drivers/iommu/ipmmu-vmsa.c b/drivers/iommu/ipmmu-vmsa.c
-> index cea9348ac10d..bfbb6795ec13 100644
-> --- a/drivers/iommu/ipmmu-vmsa.c
-> +++ b/drivers/iommu/ipmmu-vmsa.c
-> @@ -7,6 +7,7 @@
->    */
->   
->   #include <linux/bitmap.h>
-> +#include <linux/cleanup.h>
->   #include <linux/delay.h>
->   #include <linux/dma-mapping.h>
->   #include <linux/err.h>
-> @@ -59,14 +60,26 @@ struct ipmmu_vmsa_device {
->   	struct ipmmu_vmsa_device *root;
->   	const struct ipmmu_features *features;
->   	unsigned int num_ctx;
-> -	spinlock_t lock;			/* Protects ctx and domains[] */
-> +	/* Protects ctx, domains[], utlb_ctx[] and utlb_users[] */
-> +	spinlock_t lock;
->   	DECLARE_BITMAP(ctx, IPMMU_CTX_MAX);
->   	struct ipmmu_vmsa_domain *domains[IPMMU_CTX_MAX];
->   	s8 utlb_ctx[IPMMU_UTLB_MAX];
-> +	unsigned int utlb_users[IPMMU_UTLB_MAX];
->   
->   	struct dma_iommu_mapping *mapping;
->   };
->   
-> +/*
-> + * Per bus master (device) data. Several bus masters can be connected to the
-> + * same microTLB, which stays enabled until the last translated master using it
-> + * is gone (see ipmmu_vmsa_device.utlb_users[]).
-> + */
-> +struct ipmmu_vmsa_master {
-> +	struct ipmmu_vmsa_device *mmu;
-> +	bool translated;		/* Counted in mmu->utlb_users[] */
-> +};
-> +
->   struct ipmmu_vmsa_domain {
->   	struct ipmmu_vmsa_device *mmu;
->   	struct iommu_domain io_domain;
-> @@ -83,11 +96,18 @@ static struct ipmmu_vmsa_domain *to_vmsa_domain(struct iommu_domain *dom)
->   	return container_of(dom, struct ipmmu_vmsa_domain, io_domain);
->   }
->   
-> -static struct ipmmu_vmsa_device *to_ipmmu(struct device *dev)
-> +static struct ipmmu_vmsa_master *to_master(struct device *dev)
->   {
->   	return dev_iommu_priv_get(dev);
->   }
->   
-> +static struct ipmmu_vmsa_device *to_ipmmu(struct device *dev)
-> +{
-> +	struct ipmmu_vmsa_master *master = to_master(dev);
-> +
-> +	return master ? master->mmu : NULL;
-> +}
-> +
->   #define TLB_LOOP_TIMEOUT		100	/* 100us */
->   
->   /* -----------------------------------------------------------------------------
-> @@ -281,11 +301,6 @@ static void ipmmu_utlb_enable(struct ipmmu_vmsa_domain *domain,
->   {
->   	struct ipmmu_vmsa_device *mmu = domain->mmu;
->   
-> -	/*
-> -	 * TODO: Reference-count the microTLB as several bus masters can be
-> -	 * connected to the same microTLB.
-> -	 */
-> -
->   	/* TODO: What should we set the ASID to ? */
->   	ipmmu_imuasid_write(mmu, utlb, 0);
->   	/* TODO: Do we need to flush the microTLB ? */
-> @@ -297,15 +312,63 @@ static void ipmmu_utlb_enable(struct ipmmu_vmsa_domain *domain,
->   /*
->    * Disable MMU translation for the microTLB.
->    */
-> -static void ipmmu_utlb_disable(struct ipmmu_vmsa_domain *domain,
-> +static void ipmmu_utlb_disable(struct ipmmu_vmsa_device *mmu,
->   			       unsigned int utlb)
->   {
-> -	struct ipmmu_vmsa_device *mmu = domain->mmu;
-> -
->   	ipmmu_imuctr_write(mmu, utlb, 0);
->   	mmu->utlb_ctx[utlb] = IPMMU_CTX_INVALID;
->   }
->   
-> +/*
-> + * Enable this master's micro-TLBs using the domain's context.
-> + *
-> + * Several bus masters can be connected to the same microTLB, so count the
-> + * masters translated through each of them. Moving a master from one paging
-> + * domain to another keeps its reference and only updates the context selection.
-> + */
-> +static void ipmmu_attach_utlbs(struct ipmmu_vmsa_domain *domain,
-> +			       struct device *dev)
-> +{
-> +	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
-> +	struct ipmmu_vmsa_master *master = to_master(dev);
-> +	struct ipmmu_vmsa_device *mmu = domain->mmu;
-> +	unsigned int i;
-> +
-> +	guard(spinlock_irqsave)(&mmu->lock);
-> +
-> +	for (i = 0; i < fwspec->num_ids; ++i) {
-> +		if (!master->translated)
-> +			mmu->utlb_users[fwspec->ids[i]]++;
-> +		ipmmu_utlb_enable(domain, fwspec->ids[i]);
-> +	}
-> +	master->translated = true;
-> +}
-> +
-> +/*
-> + * Drop this master's references to its micro-TLBs. A micro-TLB stays enabled
-> + * as long as other bus masters connected to it are still translated.
-> + */
-> +static void ipmmu_detach_utlbs(struct device *dev)
-> +{
-> +	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
-> +	struct ipmmu_vmsa_master *master = to_master(dev);
-> +	struct ipmmu_vmsa_device *mmu = master->mmu;
-> +	unsigned int i;
-> +
-> +	guard(spinlock_irqsave)(&mmu->lock);
-> +
-> +	if (!master->translated)
-> +		return;
-> +
-> +	for (i = 0; i < fwspec->num_ids; ++i) {
-> +		unsigned int utlb = fwspec->ids[i];
-> +
-> +		if (!--mmu->utlb_users[utlb])
-> +			ipmmu_utlb_disable(mmu, utlb);
-> +	}
-> +	master->translated = false;
-> +}
-> +
->   static void ipmmu_tlb_flush_all(void *cookie)
->   {
->   	struct ipmmu_vmsa_domain *domain = cookie;
-> @@ -592,10 +655,8 @@ static void ipmmu_domain_free(struct iommu_domain *io_domain)
->   static int ipmmu_attach_device(struct iommu_domain *io_domain,
->   			       struct device *dev, struct iommu_domain *old)
->   {
-> -	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
->   	struct ipmmu_vmsa_device *mmu = to_ipmmu(dev);
->   	struct ipmmu_vmsa_domain *domain = to_vmsa_domain(io_domain);
-> -	unsigned int i;
->   	int ret = 0;
->   
->   	if (!mmu) {
-> @@ -630,8 +691,7 @@ static int ipmmu_attach_device(struct iommu_domain *io_domain,
->   	if (ret < 0)
->   		return ret;
->   
-> -	for (i = 0; i < fwspec->num_ids; ++i)
-> -		ipmmu_utlb_enable(domain, fwspec->ids[i]);
-> +	ipmmu_attach_utlbs(domain, dev);
->   
->   	return 0;
->   }
-> @@ -640,16 +700,7 @@ static int ipmmu_iommu_identity_attach(struct iommu_domain *identity_domain,
->   				       struct device *dev,
->   				       struct iommu_domain *old)
->   {
-> -	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
-> -	struct ipmmu_vmsa_domain *domain;
-> -	unsigned int i;
-> -
-> -	if (old == identity_domain || !old)
-> -		return 0;
-> -
-> -	domain = to_vmsa_domain(old);
-> -	for (i = 0; i < fwspec->num_ids; ++i)
-> -		ipmmu_utlb_disable(domain, fwspec->ids[i]);
-> +	ipmmu_detach_utlbs(dev);
->   
->   	/*
->   	 * TODO: Optimize by disabling the context when no device is attached.
-> @@ -815,6 +866,7 @@ static struct iommu_device *ipmmu_probe_device(struct device *dev)
->   {
->   	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
->   	struct platform_device *ipmmu_pdev;
-> +	struct ipmmu_vmsa_master *master;
->   	struct ipmmu_vmsa_device *mmu;
->   
->   	if (!fwspec)
-> @@ -830,7 +882,12 @@ static struct iommu_device *ipmmu_probe_device(struct device *dev)
->   	if (!mmu)
->   		return ERR_PTR(-ENODEV);
->   
-> -	dev_iommu_priv_set(dev, mmu);
-> +	master = kzalloc_obj(*master);
-> +	if (!master)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	master->mmu = mmu;
-> +	dev_iommu_priv_set(dev, master);
->   
->   	return &mmu->iommu;
->   }
-> @@ -848,18 +905,12 @@ static void ipmmu_probe_finalize(struct device *dev)
->   
->   static void ipmmu_release_device(struct device *dev)
->   {
-> -	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
-> -	struct ipmmu_vmsa_device *mmu = to_ipmmu(dev);
-> -	unsigned int i;
-> +	struct ipmmu_vmsa_master *master = to_master(dev);
->   
-> -	for (i = 0; i < fwspec->num_ids; ++i) {
-> -		unsigned int utlb = fwspec->ids[i];
-> +	ipmmu_detach_utlbs(dev);
->   
-> -		ipmmu_imuctr_write(mmu, utlb, 0);
-> -		mmu->utlb_ctx[utlb] = IPMMU_CTX_INVALID;
-> -	}
-> -
-> -	arm_iommu_release_mapping(mmu->mapping);
-> +	arm_iommu_release_mapping(master->mmu->mapping);
-> +	kfree(master);
->   }
->   
->   static const struct iommu_ops ipmmu_ops = {
+Found with an LLM while testing how a VMM detaches tap queues when a
+guest lowers its virtio-net queue pairs. With four queues, 30 flows
+learned on queue 3 and queue 1 detached, all 30 went to queue 0 with the
+warning; with this patch they are spread by hash and no warning is
+printed (3 runs each, in a guest booted on net).
+
+Pass tun->numqueues.
+
+Fixes: 96442e42429e ("tuntap: choose the txq based on rxq")
+Signed-off-by: Umang Pokhriyal <umangpokhriyall@gmail.com>
+---
+ drivers/net/tun.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/net/tun.c b/drivers/net/tun.c
+index dcec7311e..3b292bce4 100644
+--- a/drivers/net/tun.c
++++ b/drivers/net/tun.c
+@@ -615,7 +615,7 @@ static void __tun_detach(struct tun_file *tfile, bool clean)
+ 		}
+ 
+ 		synchronize_net();
+-		tun_flow_delete_by_queue(tun, tun->numqueues + 1);
++		tun_flow_delete_by_queue(tun, tun->numqueues);
+ 		/* Drop read queue */
+ 		tun_queue_purge(tfile);
+ 		spin_lock_bh(&ntfile->tx_ring.consumer_lock);
+-- 
+2.53.0
 
