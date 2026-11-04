@@ -1,82 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.99
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793761775;
-	b=FDPnbbrjnGTf1pG90JuOWuYIMHAV8oP05PbzR6+dXE8WeJu9T2VB0BcnE2jFtYAIa7cF
-	 hBQc0u1G11AebOkcw2DlHO4hXQLaY63ALnA2NTo2WGhxHes+80TIX/Ttsf3PJUs3fBC3W
-	 XnU7Be3A8NWHXWUsoO8j/WYYGABfdtmWcSj9/850o08l8cjNpiEBCthOCto/H+1VTL5Xk
-	 I+Bu1GKo5jMmCT2QHKZhuTl13CeKNCTzs59qvV3nPBuUbwWvkRARXjmJqadzvjkCmMDXT
-	 EuxRQ13eRjpZgwjws464QzHEuQ8L2RMAKvRMTdo5ip9ZAKSzKrk6Um8FKpBTfqI3BKg==
+	t=1793761981;
+	b=WdT6+YmaXJQfs1mfTtE4pWtWY+It5o3FanzBBX624tDFKEmueZurUkez3qPjMgagOdWX
+	 TDvuj7ZF6fKTKPSG84vNR0NWvygMMCPwIsMME1kYf856JoHE6kX21bHE1RPaW87gE2EmX
+	 KbQ/oMxrnAzym7TJrgpWZOv5KNTb13wBCk9UbZW4AITJvXyw8FHu7ovwBY03kuEwi4hv+
+	 hR3uO5IctOF/qun42QpMC9hnP3gTJWzCVtjCGeu/hmNhCgF5aaWHDdKtA2ebgPOr3hCkx
+	 NhbYrdJtPcLxDkBRJU/O2AtYgMUB6/8lVnteCdYIqygbK3KHk7Bb66U72Z9lVyFoBnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793761775;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793761981;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=PtppRtqHNRbGnmxrTtd2QEJGmhauyAjEy4PUv6vEkFo=;
-	b=w6dej58YO/21GA7B6L4q+GdeQkR7LfjfqnmuFpvB4dd3AgebKWR427CRNU3T4LTl67SG
-	 lPOqFEgf/Hz/IJfNM2vsDe9LoV0/0EqkLzIp9Ap43cRwcilTaDcL3ew1pQBZTqLky/Hcg
-	 /UdZ2nztBXnc3c6ZAk3o/4QTkNr4NtzQzFqhsdlXKmE1ghCAIj+GyVbJ/NUBAaZwuIagU
-	 v6gTRxFC7Yh1gQA0emmm5iH3sxv4THWGiFnkbtJhn1hMVSzqKKsmAyvISCtUGXRXNUltg
-	 EdFKdCcI/OyyNtaeqtqkIOSkDKBElGtGRMPpnOFV10JaTYHWogoOKbh6TqNg/jYpegw==
+	bh=LveW7nDiawWEYIXu5pfVPlNN/304vQfJ88DUg/zm9Lw=;
+	b=TgyW+MbDL3k7kvnl+OvU3KSBkvJAyrREFh98G+LAfOquMQauVkexvnVahjHHel+Ecavf
+	 +v4WOEPhC1vf7WW9KrjuYQ++RnE+luKtnSt1YHdVRAg/vd/jE2COl22FIi0/7lNTRVdzH
+	 YqrbooL2r61ZG+iBDfMy9B1Flch1pVkVRPhXFw8LCbNqzI8WPnAatv/Z27qY3WEVvYeHd
+	 ybhz77X+yAL8hWE+iP1xMuauiZaiIC6mmdQwoMXJB/2Ho4vShI6ARGCjaqCWCnNKmO1z2
+	 aDHJgjx3WftojqUP7mbMY7robtbCEARpU+FnjedsI5mIj3Gh8ACZMJLwxJdAHn63fbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ps38kg8o;
-	arc=none smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="doLWrA/N";
+	arc=none smtp.remote-ip=95.215.58.99
+Received: from mta1.migadu.com (out-99.mta1.migadu.com [95.215.58.99])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69837606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 03:09:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69837606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73154606A331
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 03:13:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73154606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ps38kg8o
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793761775; x=1825297775;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=7YJ6D6X404SFQcrDUq7zWYgMmYofJlI5HX2JZO4pNhg=;
-  b=Ps38kg8olLkIAlEz3GKrP5ipFBV3K+gtEYUS044MecTRrXObeFWocAIp
-   3vQfjA4LtNG+EPjmVKD8McU/iwfCbv9ZwTQJnhg5CE0mJW2FB0igsFvqI
-   XYEMad4aaW/zPTji90Nn+YWbBlVTfBzQ3ICaQNfuyOACybSWpDjv0Txf9
-   BI/ybO3VQ/RGveNwM6SHvn0zYrGSfEzeAe4xoWCko8ZIkGxlgf+huViWR
-   YaPO5OC46e3LEVr7R3LzdOpVSU5oubSXd/5/mBnlf63VVL4XYySn2Zwzd
-   8NzarcfyeXzz6FNpQi4SJQK/56JaQ6vBUWdDAL4qcixNpImyZOWQoBwNp
-   A==;
-X-CSE-ConnectionGUID: unAOy5k8To2+36se7ngWgQ==
-X-CSE-MsgGUID: j/CTbcDDQzClv7IlRDpOCA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2536096"
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="2536096"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 19:09:34 -0800
-X-CSE-ConnectionGUID: vU83DuhHSMmKHvCvkRttSw==
-X-CSE-MsgGUID: OMFdjV08R8etQcxI1Gsgtg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="6420301"
-Received: from yufei-inspiron-3910.sh.intel.com ([10.239.92.97])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 19:09:31 -0800
-From: "Yu, Fei" <fei.yu@intel.com>
-To: dri-devel@lists.freedesktop.org,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	linux-kernel@vger.kernel.org,
-	syzbot+95416f957d84e858b377@syzkaller.appspotmail.com,
-	Madhur Kumar <madhurkumar004@gmail.com>,
-	Fei Yu <fei.yu@intel.com>
-Subject: [PATCH v2] drm/syncobj: Limit the number of handles and use kvmalloc for user-sized arrays
-Date: Wed,  4 Nov 2026 11:09:30 +0800
-Message-ID: <20261104030930.3852781-1-fei.yu@intel.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=doLWrA/N
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=9OEa3fPovPlD+MXI2KeoqPySDCpv+FwfnIb8O3AdQek=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793761978; v=1; x=1794366778;
+ b=doLWrA/NIRHhmJJQPBEF9xi9oB4Z6q+zIdHcHgpVILcXpSryYLgtLAq/sQ5fHPKSvP4rqua5
+ yKeklQ9P7XrD2ri185Mau/iUYSJ2sd7zRVsKoI0bse29ZMKNV3+IQHx18tTS0HCioyHUhUYV/IR
+ pbidK5X/k8TMETKPezDUr5ws=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6043c9df7e23f1de;
+	Wed, 04 Nov 2026 03:12:58 +0000
+X-Mizu-Trace-ID: 6043c9df7e23f1de
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b48c1374-0136-4da8-b696-3f31c052dad4@linux.dev>
+Date: Wed, 4 Nov 2026 11:12:44 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,224 +58,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, cgroups@vger.kernel.org, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, andrii@kernel.org,
+ eddyz87@gmail.com, ast@kernel.org, daniel@iogearbox.net,
+ linux-kselftest@vger.kernel.org, cuitao@kylinos.cn, ameryhung@gmail.com,
+ martin.lau@kernel.org, yonghong.song@linux.dev, mason@kernel.org,
+ ihor.solodrai@linux.dev
+Subject: Re: [RFC PATCH v12 2/4] blk-iocost: add iocost_ioc_tick tracepoint
+ for per-period device summary
+To: bot+bpf-ci@kernel.org, tj@kernel.org, josef@toxicopanda.com,
+ axboe@kernel.dk, alexei.starovoitov@gmail.com
+References: <20261103132613.1952975-3-cui.tao@linux.dev>
+ <04adc0407868a7876c12e46e0637e13b3bb8f549e6f47a1d0a9bfe29d144e29b@mail.kernel.org>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <04adc0407868a7876c12e46e0637e13b3bb8f549e6f47a1d0a9bfe29d144e29b@mail.kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Fei Yu <fei.yu@intel.com>
+Hello,
 
-The syncobj ioctls allocate several temporary arrays whose size is taken
-directly from the u32 count_handles provided by userspace:
+在 2026/11/3 22:07, bot+bpf-ci@kernel.org 写道:
+>> blk-iocost: add iocost_ioc_tick tracepoint for per-period device summary
+> 
+> TL;DR: In iocost_ioc_tick, the tracepoint call sits outside its enabled()
+> check, so a probe attached in between may log a bogus active count of 0, which
+> consumers could read as dormancy.
+Confirmed. `nr_active` is only consumed by this tracepoint, so there
+is no reason for `trace_iocost_ioc_tick()` to sit outside the
+`trace_iocost_ioc_tick_enabled()` block. The split was simply an
+oversight when the active count was made conditional on the tracepoint
+being enabled.
+> 
+>> diff --git a/block/blk-iocost.c b/block/blk-iocost.c
+>> --- a/block/blk-iocost.c
+>> +++ b/block/blk-iocost.c
+> 
+> [ ... ]
+> 
+>> @@ -2478,6 +2479,22 @@ static void ioc_timer_fn(struct timer_list *timer)
+>>  
+>>  	ioc->busy_level = clamp(ioc->busy_level, -1000, 1000);
+>>  
+>> +	/*
+>> +	 * busy_level, cur_period, nr_active and usage_us_sum are complete
+>> +	 * here. usage is wall time over wall time, summed over iocgs, and
+>> +	 * is not capped at 100. vrate and period_us reflect the current
+>> +	 * controller state, which an io.cost.qos write may have changed
+>> +	 * mid-period. Emit before the refresh and the period transition.
+>> +	 */
+>> +	if (trace_iocost_ioc_tick_enabled()) {
+>> +		struct ioc_gq *active_iocg;
+>> +
+>> +		list_for_each_entry(active_iocg, &ioc->active_iocgs,
+>> +				     active_list)
+>> +			nr_active++;
+>> +	}
+>> +	trace_iocost_ioc_tick(ioc, &now, nr_active, usage_us_sum);
+>> +
+> 
+> Can this record a bogus nr_active of 0?
+> 
+> trace_iocost_ioc_tick() is called outside the
+> trace_iocost_ioc_tick_enabled() block, so the two static key tests are
+> independent.  If a probe is attached on another CPU between them, the first
+> test sees the key disabled and skips the count, while the tracepoint itself
+> then fires with nr_active still 0 even though ioc->active_iocgs is non-empty.
+> 
+> Documentation/trace/tracepoints.rst says the tracepoint call should always
+> be within the block of the if (trace_<tracepoint>_enabled()) check to avoid
+> this race.
+I'll move `trace_iocost_ioc_tick()` inside the enabled() block in the
+next posting.
 
- - handles and syncobjs in drm_syncobj_array_find()
- - points and entries in drm_syncobj_array_wait_timeout()
- - points and chains in drm_syncobj_timeline_signal_ioctl()
-
-These are kmalloc() allocations, so a count above KMALLOC_MAX_SIZE /
-element size trips the WARN_ON_ONCE_GFP() in ___kmalloc_large_node():
-
-  WARNING: mm/slub.c:5459 at ___kmalloc_large_node+0x10c/0x170 mm/slub.c:5459
-  Call Trace:
-   __kmalloc_large_node_noprof+0x18/0x90 mm/slub.c:5502
-   __do_kmalloc_node mm/slub.c:5519 [inline]
-   __kmalloc_noprof+0x3f6/0x710 mm/slub.c:5556
-   _kmalloc_noprof include/linux/slab.h:995 [inline]
-   _kmalloc_array_noprof include/linux/slab.h:1211 [inline]
-   drm_syncobj_array_find+0x3a/0x440 drivers/gpu/drm/drm_syncobj.c:1241
-   drm_syncobj_timeline_wait_ioctl+0x18a/0x640 drivers/gpu/drm/drm_syncobj.c:1356
-   drm_ioctl_kernel+0x2df/0x3b0 drivers/gpu/drm/drm_ioctl.c:817
-   drm_ioctl+0x70e/0xba0 drivers/gpu/drm/drm_ioctl.c:914
-
-The wait entries are 64 bytes each on 64-bit, so with a 4 MiB
-KMALLOC_MAX_SIZE a wait on more than about 64K handles already fails
-today, with a warning.
-
-Fix this in two parts:
-
- - Reject more than DRM_SYNCOBJ_MAX_HANDLES handles with -EINVAL in
-   drm_syncobj_array_find(), which every ioctl taking a handle array goes
-   through. The limit is derived from the largest per-handle allocation
-   (the wait entries) and the INT_MAX size limit of kvmalloc(), so none
-   of the allocations above can exceed it. That is about 33M handles on
-   64-bit.
-
- - Switch the six allocations to kvmalloc(), so that large but valid
-   handle counts no longer depend on physically contiguous memory.
-
-Using kvmalloc() alone is not enough: the reproducer asks for more than
-INT_MAX bytes, which hits the WARN_ON_ONCE() in __kvmalloc_node_noprof()
-instead.
-
-Fixes: 3e6fb72d6cef ("drm/syncobj: Add a syncobj_array_find helper")
-Reported-by: syzbot+95416f957d84e858b377@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=95416f957d84e858b377
-Suggested-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Fei Yu <fei.yu@intel.com>
----
-v2:
- - Drop __GFP_NOWARN (Christian).
- - Add DRM_SYNCOBJ_MAX_HANDLES, return -EINVAL above it, and switch all six
-   arrays to kvmalloc() (Christian).
- - v1: https://lore.kernel.org/all/20261103085002.3100723-1-fei.yu@intel.com/
-
-About the limit: INT_MAX / sizeof(struct syncobj_wait_entry) is about 33M
-handles on 64-bit. It is the largest count for which every allocation stays
-below the kvmalloc() INT_MAX size limit, so it does not add a new policy
-number. Today the real limit is much lower: a wait on more than ~64K
-handles already fails with -ENOMEM (plus the warning), because the wait
-entries are a kmalloc() allocation larger than 4 MiB. If you prefer a lower,
-fixed limit (e.g. SZ_1M) or GFP_KERNEL_ACCOUNT for these arrays, I can
-change it.
-
-Testing on v7.4-rc1 (x86_64, KASAN, virtio-gpu in QEMU):
- - syzbot C reproducer: base warns in ___kmalloc_large_node() (size
-   0x100000920), patched is clean, ioctl returns -EINVAL.
- - wait / timeline_wait / timeline_signal / reset / signal on 200000
-   signaled syncobjs: base fails wait and timeline_wait with -ENOMEM and
-   the same warning; patched all succeed.
- - count == DRM_SYNCOBJ_MAX_HANDLES gets past the check (-EFAULT from the
-   short user buffer), count == DRM_SYNCOBJ_MAX_HANDLES + 1 returns -EINVAL
-   for wait, reset and timeline_signal.
- - kmemleak clean, checkpatch --strict clean, W=1 clean,
-   DRM KUnit 667/667 passed.
- - IGT syncobj_basic, syncobj_wait, syncobj_timeline on virtio-gpu:
-   202/202 subtests pass, same as base.
-
- drivers/gpu/drm/drm_syncobj.c | 40 ++++++++++++++++++++++-------------
- 1 file changed, 25 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
-index f1d4da1685457..c01cf164a4f9e 100644
---- a/drivers/gpu/drm/drm_syncobj.c
-+++ b/drivers/gpu/drm/drm_syncobj.c
-@@ -220,6 +220,13 @@ struct syncobj_wait_entry {
- 	u64    point;
- };
- 
-+/*
-+ * Upper limit for the number of handles passed to a single ioctl. The
-+ * largest per-handle allocation is the wait entry array, keep it below the
-+ * INT_MAX size limit of kvmalloc().
-+ */
-+#define DRM_SYNCOBJ_MAX_HANDLES	(INT_MAX / sizeof(struct syncobj_wait_entry))
-+
- static void syncobj_wait_syncobj_func(struct drm_syncobj *syncobj,
- 				      struct syncobj_wait_entry *wait);
- 
-@@ -1051,7 +1058,7 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
- 		lockdep_assert_none_held_once();
- 	}
- 
--	points = kmalloc_array(count, sizeof(*points), GFP_KERNEL);
-+	points = kvmalloc_array(count, sizeof(*points), GFP_KERNEL);
- 	if (points == NULL)
- 		return -ENOMEM;
- 
-@@ -1064,7 +1071,7 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
- 		goto err_free_points;
- 	}
- 
--	entries = kzalloc_objs(*entries, count);
-+	entries = kvzalloc_objs(*entries, count);
- 	if (!entries) {
- 		timeout = -ENOMEM;
- 		goto err_free_points;
-@@ -1185,10 +1192,10 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
- 						  &entries[i].fence_cb);
- 		dma_fence_put(entries[i].fence);
- 	}
--	kfree(entries);
-+	kvfree(entries);
- 
- err_free_points:
--	kfree(points);
-+	kvfree(points);
- 
- 	return timeout;
- }
-@@ -1238,7 +1245,10 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
- 	struct drm_syncobj **syncobjs;
- 	int ret;
- 
--	handles = kmalloc_array(count_handles, sizeof(*handles), GFP_KERNEL);
-+	if (count_handles > DRM_SYNCOBJ_MAX_HANDLES)
-+		return -EINVAL;
-+
-+	handles = kvmalloc_array(count_handles, sizeof(*handles), GFP_KERNEL);
- 	if (handles == NULL)
- 		return -ENOMEM;
- 
-@@ -1248,7 +1258,7 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
- 		goto err_free_handles;
- 	}
- 
--	syncobjs = kmalloc_objs(*syncobjs, count_handles);
-+	syncobjs = kvmalloc_objs(*syncobjs, count_handles);
- 	if (syncobjs == NULL) {
- 		ret = -ENOMEM;
- 		goto err_free_handles;
-@@ -1262,16 +1272,16 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
- 		}
- 	}
- 
--	kfree(handles);
-+	kvfree(handles);
- 	*syncobjs_out = syncobjs;
- 	return 0;
- 
- err_put_syncobjs:
- 	while (i-- > 0)
- 		drm_syncobj_put(syncobjs[i]);
--	kfree(syncobjs);
-+	kvfree(syncobjs);
- err_free_handles:
--	kfree(handles);
-+	kvfree(handles);
- 
- 	return ret;
- }
-@@ -1283,7 +1293,7 @@ static void drm_syncobj_array_free(struct drm_syncobj **syncobjs,
- 
- 	for (i = 0; i < count; i++)
- 		drm_syncobj_put(syncobjs[i]);
--	kfree(syncobjs);
-+	kvfree(syncobjs);
- }
- 
- int
-@@ -1572,8 +1582,8 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
- 	if (ret < 0)
- 		return ret;
- 
--	points = kmalloc_array(args->count_handles, sizeof(*points),
--			       GFP_KERNEL);
-+	points = kvmalloc_array(args->count_handles, sizeof(*points),
-+				GFP_KERNEL);
- 	if (!points) {
- 		ret = -ENOMEM;
- 		goto out;
-@@ -1586,7 +1596,7 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
- 		goto err_points;
- 	}
- 
--	chains = kmalloc_objs(*chains, args->count_handles);
-+	chains = kvmalloc_objs(*chains, args->count_handles);
- 	if (!chains) {
- 		ret = -ENOMEM;
- 		goto err_points;
-@@ -1609,9 +1619,9 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
- 		dma_fence_put(fence);
- 	}
- err_chains:
--	kfree(chains);
-+	kvfree(chains);
- err_points:
--	kfree(points);
-+	kvfree(points);
- out:
- 	drm_syncobj_array_free(syncobjs, args->count_handles);
- 
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.43.0
+Thanks,
+Tao
+> 
+> Since the commit message describes active=0 as the marker for the transition
+> to dormancy, a consumer could read this spurious record as that transition,
+> alongside a non-zero usage value.
+> 
+> Would moving the trace_iocost_ioc_tick() call inside the enabled block
+> work?  Alternatively, nr_active could be counted in the existing
+> list_for_each_entry() walk over ioc->active_iocgs earlier in
+> ioc_timer_fn().
+> 
+> 
+> ---
+> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+> 
+> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/41646836440
 
