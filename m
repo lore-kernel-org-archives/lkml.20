@@ -1,111 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793779871;
-	b=kOhQ6XvBzfFTbudxtEvmYWPA1FEcz+QJypUtK2k4Em4UZj4PRBBy3trobAzQpo69TI4O
-	 1I/dcdGE2MPadFGG1tWkemDd8c1zbTtM0xB3AYi/WvT975jMjxI+5+jBW/21DWi0xCiPc
-	 0qsKcpitEJVyfcFqqlI7sh3CMBola0B1N9pgFag+HoKyvmrN/bw4SFeUO0bACV75epwvm
-	 O7MXVtiFZ3TsJN2QaB0zAD5XxitiFCwlnHKxF3e9iayCncfnK1b0/bA+SJ664DUWnl0/6
-	 Oq2Lds6Vk790Zg4CEAiBde019WIcO5o8Y5u0gtDsxb6bvA1zapqpWG4X2SXGIUiZpMQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793779871;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=SHoCPwg3yKGYoepxE62TQiEAKgIIh9UVY9jZRidEOuw=;
-	b=n/csiHUIx7xp0SGZALWL9QtFocrq/4Ci3oquStnTa+4eQBRE+8/oulKTCZyzgHFi3sNG
-	 PbHHHaRxUrVnTQ28U+WN7nhwB8mvsr0IZeAR26JzdY1CCCRAKGXRPNQJfbKh44Z1wogEp
-	 SxnEp72/4GnXAgGV6SimmrUQ/rsLAE8vtvlf47dsYlnhXVNBQL/4EK2NM/QyvNebb7dXA
-	 No1xDT4phHP8ix+Dh5A6oxhRij6C5L7TVzQvqOQ5gkIKoOwaXnrs6fgS8fPSt0eRe++S1
-	 Bc7fk+11UXNPgM8bw7YJULJDRqBXlqTaX+aDSP9H6vuZi4NXiU6+th+ISga2URXtAXQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="Q5Hl/FUK";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CQb2yDYF;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793779896;
+	b=GSmU9I0jxPgW1xPFGDZbYxJ9DMCLNrOOArSQn+j7TPonmUKgIyKsHVUNOaneQk/DW8QG
+	 hTDrJzHPvCYuEgYa3Wj838qcpv+kqm0Pwc/KZUX+VUtPCN+irlJFOao+I20zNNEGA9XOL
+	 FjyKeCoGkvSLYTLWZqUAopr8h4M5bY2CyC6n6RLb3phafSFibpcFFXLNQU32oTp60kwRx
+	 oCcyyk2zBXYg/H7QlSXL5fXfHkTGZvliitg7SSkB3eY/wr2v7E4EWM5Vvd0RiRSkVKemx
+	 cArtVbom+6JuXsFEePOcy/bJJdploic9hIMa8Qhf6R8rdwGa9ctQMiukUhvLsJa+FBw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793779896;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=MLhpiOQq+BcLHoXpwFBleckIHcU5aB2HxUSVZEWSQXc=;
+	b=sNqPr33gj2ePQyWBBFufCZqZhczblKEbgop1W152s2Pe+aZXQrznYrQQHSXrDBg9mYwN
+	 S95uQ5lS32yyeFmQ3WqemfxCH2xxOoRyH6BNkhQkLv2Vh4KROvnmUrmwFFUAAqWuCm4KM
+	 igydlTlomKtnZ/pC/H2VENqHcYZDmPQawggQzyURNxz2hNe5+vaMrTnEbgapg57Y5hThj
+	 rjz5MPADkKy62tVtWUImPTyac7H3wb5wqBQhnYSzDw3bEYR6Bqd+NRF0jOq9tM1xZzlr1
+	 k9o4HbFqoSKBAl0XEfA3ArMe+BPE7iQkj1dBtmT93PHfFjBYdCk9uKH7o8OBxksLrxw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="IuXFvwm/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C41DD606A31B;
+	Wed,  4 Nov 2026 08:11:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IuXFvwm/
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793779895;
+	b=a2NQcqweFi0UL41gAF1ZBj1W0z3PpKMG7kCeS3l2smMS17M9UqKj4z7fR80TUfR0LE9X
+	 iL9PbfWvrRhlBxnf9qCf/TOIh2mr4+JwEt5s2WQV0HR9N1YuRm30pWrnWdgoUSDPM5/ZG
+	 LmpjJHfwTU5XyfZTDny8n5kxCIl6GhYcd02bWcP/Oe1qpKY9mQcF7Re/CF90EcHLs+Ta4
+	 xKdIsoSrvtNNBtk7hkaZ30BkxOoQ0fAJcYSy1YKWsgRSCANojYPoFOW9G2SnkgbJq43vs
+	 OWquyDiuhA8IqRshsVfxXAcQXXsNxqIiJLIvu7ziG43QHZB6mKzGPD8FgpHu1Ekw5zw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793779895;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=MLhpiOQq+BcLHoXpwFBleckIHcU5aB2HxUSVZEWSQXc=;
+	b=onY+AXlfaq2v+lNl8+i1GnWHzalFb/HcO2kUIyC5oznBY9tNesNlF+okmShSBs5vqIwz
+	 wvhx5YFrP1HqhQoOsLc/IHYTYekdriJ/yim/MzIjNynLPYJxsOc+IMzXafApgqA3rwbpJ
+	 BGykl7rYI1yU6IEE60lGpAUU/luZNZIGhsxNa1LsV0CC7wVpK5+gVKvdZbczI0Yf41Y1W
+	 CKaLCWI4X5oePeFWZADpmzMcdffCSGWUI7c4oiGmhcXnptt0rYbbB5k2hSabSg5f+JrsR
+	 o91p/JBAjdQwWVybCu8CibXWVaqnjFPmE0IgN+J40Avmz6GqJX4GjxzbHS2+QlXkpXw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C057606A334
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:11:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C057606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Q5Hl/FUK;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CQb2yDYF
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A43OptA267281
-	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 08:11:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	SHoCPwg3yKGYoepxE62TQiEAKgIIh9UVY9jZRidEOuw=; b=Q5Hl/FUKLsIrDvnJ
-	h8l8F7cD8QbVmi1BSMZG8XyGAH5dW1ezAryoqO/XJfHg+nX4NAyoJ6PdsM0x9GLg
-	VRngGW9BW7IJOcTGX3Uu09gfTfMFzaD+wwO523W7RDyECOfypRcA6UVn4FrBaOhJ
-	QYmcIPPsJhWuUb21Q4SQrddWJB1h5T5BU2qjHqe1MgYSGn6vcodLGKe4Siot/hAl
-	wd0eiAb262P4cbEVNvp8buNLUV4DvkFlMKHPvJkidSj9zewJrWXFPxPvVG3Dtq+c
-	gJPI46lZtSavOb9zAgpOcZU1cL3Xk1bpHnKWYK1AyMNBEquY/A0xjKMLqaSD+SKj
-	1uU3Tg==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqvsg915y-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 08:11:09 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cbb92868263so349135a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 00:11:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793779868; x=1794384668; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SHoCPwg3yKGYoepxE62TQiEAKgIIh9UVY9jZRidEOuw=;
-        b=CQb2yDYFAcxyGGz7u7syvPzZMAdvGU68fPbr2OQlIcLfapGtycojdEXXCCGaqhwbxJ
-         +p93HZKia+ktdlMrtxniuOSrrbGRB+ke5pk5qNNwpluEU7PszTZH01ltd2jFU0mR8/wS
-         SXOLSMoYIoxtZpAL6eM3xsuV/RvZQ1p6Bw4JL352lrun3SaykOGQvazN5cWkDOzRqZyu
-         7kfJ2NaTLZJ/nv4s1lWkzAF402W4juEz3e6i9YcrvOD+RfXbWsH3DTuR2aI3JWo9yHRA
-         c5F/OyDT6lnLN8+hOPo0elpJzKPRbBI54SPCOyyqS5m1Ez57BblcVrDFg5Cwj1M9/2Dp
-         pffQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793779868; x=1794384668;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SHoCPwg3yKGYoepxE62TQiEAKgIIh9UVY9jZRidEOuw=;
-        b=oENOq3O8T8i8T2Gc6OrxeW1kl/KD9YcXUuMHSpb2K1yufEaB05GehxXFvMVuSYALIz
-         b+yvRddPa57zLcSXVYT/+QTKSKXOfwLi+0Dl4daiLPz2cwzOLRksE2qdtiJVIJrYAeP5
-         vWdgUBBVTsjofp6debhfzpl1DLD90z9NzI9f8/C9+IzeMLZqSeMZzLCb4TeD/GPBTUM5
-         nPixP1jx3nilYY1Uy+xOwTw2SP92q4HJRh13IVNL27bHpfBlfDDizUpDpJzisprHsLQR
-         iPxwShq6QBSI60+wpxwWD4/oCvfpu+aShSIEiuWqtphvP+HydHZbsyBjmw5zPm+u5xgj
-         wPyQ==
-X-Gm-Message-State: APuU4Z+kEjLF4WUuWvT5dnvWPzuVO18xGQ/HIq3lO6Qed4614ypbJsTf
-	8SJmySSTaXyHNQPN8WKLd4bzUIAc55OYRKnrQoeEIk1JSr9W2gKRkYRHM+IE0oydjdijqUUN7Sc
-	L6HI75w4kf1Vao7r1PuxJPLAR5iyY0ajoeiYHjCbFa1aHBnN03N/ilO+zrARE4UZVha0=
-X-Gm-Gg: AYBFou1lGw6EcNabOYkcY1CAPsP4vdh1ITrk6+EJhVv/LYMPIgYDQNJJbDPSSaw/Fgy
-	GxHYKGfjfWj9XXrihEuhdnQEkSghFZ12dudf93OrIdHx2BNSMMRbc25AISFt2EDVkLOW+aZouC6
-	W92xrxjniZaL3qhzG7R3l4LTwztteoBg9Q/EHj51e4US3ebbdFUPAZK4Qshw+nQRnwkKsu9sjmr
-	7hV6suY3WQrroJFVY/KqzI3+3kwkb2C3Kx613LzdEm6byRe7HZCqCgIBDAA5nSmfiiLhX5sqAbx
-	GQm4JtRBNxwV1UijKgLVwP1FbLs56N7NVyLS4dmgoFqVXCoiAyc3+qqOvgpV+Uz2bxa2SR+8hsi
-	ssFRZ9ESe3ryWgOtA8VC1heWpBNlzjmEQgw89Vmbdqq3xW47j9neR+Jq+6e9aGtXAThLDG4x52s
-	LNInBCANpABQ==
-X-Received: by 2002:a17:90b:514f:b0:3a4:9dd7:296f with SMTP id 98e67ed59e1d1-3ae897e224bmr11430310a91.40.1793779868309;
-        Wed, 04 Nov 2026 00:11:08 -0800 (PST)
-X-Received: by 2002:a17:90b:514f:b0:3a4:9dd7:296f with SMTP id 98e67ed59e1d1-3ae897e224bmr11430278a91.40.1793779867692;
-        Wed, 04 Nov 2026 00:11:07 -0800 (PST)
-Received: from hu-ssmaurya-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b08759344dsm6089920a91.13.2026.11.04.00.11.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 00:11:06 -0800 (PST)
-From: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
-Date: Wed, 04 Nov 2026 13:40:48 +0530
-Subject: [PATCH v4 2/2] regulator: rpi-panel-v2: Add vcc-supply support
+	by smtp.kernel.org (Postfix) with ESMTPS id D90231F000C1;
+	Wed,  4 Nov 2026 08:11:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793779895;
+	bh=MLhpiOQq+BcLHoXpwFBleckIHcU5aB2HxUSVZEWSQXc=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=IuXFvwm/+J/Uw90dfZV8DYqJig3VePze9NUmNZyJSpUgokU4roHu3dwD34f0QZFKR
+	 H6+6SZSDk2olabbd3/lY9OAp/fQUe3GiMeV/IFynh05MCitH2Fb9ojYiYuxSiGLIKb
+	 P2nG97WdhzzjAxE4dEfeYo7sgg8Ah2gXFRib2vw8cA3Zka2XvIcDBSjZLZI9PhzjyN
+	 vjd395E9DuQEzIY7iA23/jfuRaBKU1g1cNt4kyjnu/20GbiH3R9HGr+4aEFZOUWdQ0
+	 51JWU6Q9QYhLOOVz0HzAmh3mYGX5gNLMxB4YUhESXhoL27kSnLwOk9bshKCn+fdCFS
+	 6TY7uQ7nZHiug==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 4E3BB46D4D;
+	Wed,  4 Nov 2026 08:11:34 +0000 (UTC)
+From: Marcin Knap via B4 Relay <devnull+marcin.knap.vecima.com@kernel.org>
+Date: Wed, 04 Nov 2026 09:11:24 +0100
+Subject: [PATCH net v3] xsk: Do not free ZC Rx buffer when the Rx ring is
+ full
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,107 +84,251 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-rpi_reg-v4-2-3578e794ff45@oss.qualcomm.com>
-References: <20261104-rpi_reg-v4-0-3578e794ff45@oss.qualcomm.com>
-In-Reply-To: <20261104-rpi_reg-v4-0-3578e794ff45@oss.qualcomm.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Florian Fainelli <florian.fainelli@broadcom.com>,
-        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-        Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-rpi-kernel@lists.infradead.org,
-        linux-arm-kernel@lists.infradead.org,
-        Shashank Maurya <shashank.maurya@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793779851; l=1681;
- i=shashank.maurya@oss.qualcomm.com; s=20260828; h=from:subject:message-id;
- bh=QWiYTLoT7AkiN37vBI/AE7LlJlRi/CqB8G17hwaEjjU=;
- b=DVVLCw4My7UiHN4FMaawHLE6nfj1PEFdkTtDbGuC4Uc8xs2R2kBnhY1R2CXl59nV6prVtRdwI
- MNy1Pr+uH0aAnwZmZJz/05OZFSF14PXJ+wjAgHFDCkkHC+/mCBWii9h
-X-Developer-Key: i=shashank.maurya@oss.qualcomm.com; a=ed25519;
- pk=xld72d+QYBwDMDcn3+QLCb5AUsj/D0j8klGIuxWd860=
-X-Authority-Analysis: v=2.4 cv=GtnXaU1C c=1 sm=1 tr=0 ts=6aeae89d cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=RYO69U5GnIJllgjd4B4A:9 a=QEXdDO2ut3YA:10
- a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-ORIG-GUID: NU0hvo1e_Na7P_lTNnBQwrKHjDbJyrGF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAzMiBTYWx0ZWRfX30u58dGpH5dN
- rKaoWddTztPL2WkB/s5ahAO0Erl8qzssoD9ivzSU/cEv2sm0bq2g5Zc3ld0lUjJaFHa0rGrqnGF
- 7Q+gnNK40Yts2B0eYeDCE4OjEX2yYZK+2ke087m0zwwnIiS7gp+AW9SRNcrHJjgkdzVCO1CqOCn
- dJPwiWlTwBTfRSWXY22ky6IGSlL3vNjnriPISU/WsLM1+u8D0njgkS8XWXeOcGV9Tp0cT6DhXlQ
- HIJ/zzXyBQM5130fNYsFw+OxFhRubuLOyFb5iJS++ciMLbC6eDAMXtNQwCks3hBwZAEWr/ACZUE
- CNuNPKT4ODL1ZKIOYOwKs3R/dMYAGnCjIWCbd9L3IbkDbHj1DHud5pARDJHolLJ6LeWod6/Q3EP
- x6DGzdLJWBO1jKDBNyuDKvRgUj7OAGvO0u+j90dG29qd4lGKgycyWvY510rkPa8yFVB/DdCXbAR
- nfap8GWfhy3wgbBZa2Q==
-X-Proofpoint-GUID: NU0hvo1e_Na7P_lTNnBQwrKHjDbJyrGF
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAzMiBTYWx0ZWRfX1mZN2LLtjtv8
- hsEVXskACK0mXZnVCTynS35o6xU4cjwRt0X3uOLM0CajSQnn2qT6i5W5i4Of236CkKNJl4Gcg1F
- eIZd+rL1BcvupOLu84wuFKPHnxBBwoQ=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_01,2026-11-03_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 priorityscore=1501 malwarescore=0 impostorscore=0
- spamscore=0 bulkscore=0 clxscore=1015 phishscore=0 suspectscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611040032
+Message-Id: <20261104-xsk-zc-rx-double-free-v3-1-11a0c7ef1973@vecima.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XNQQ6CMBAF0KuQrh3TKYjiynsYF6VMpSrUtNCgh
+ LtbcKML4/JP/rw/Mk/OkGf7ZGSOgvHGtjGkq4SpWrZnAlPFzAQXOXIsYPBXeCpwA1S2L28E2hE
+ ByrTkm0JVGWoWf++OtBkW98ha6tjpffR9eSHVzeJcq43vrHss6wGX8p+hgIAgpMRC57nY6fIQS
+ JlGrpVtlpEgPpiU/2JEZJTmWGWy0KnefjHTNL0A+P3rnhkBAAA=
+X-Change-ID: 20261019-xsk-zc-rx-double-free-1a3b059cd41f
+To: Tony Nguyen <anthony.l.nguyen@intel.com>, 
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Magnus Karlsson <magnus.karlsson@intel.com>, 
+ Maciej Fijalkowski <maciej.fijalkowski@intel.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Simon Horman <horms@kernel.org>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>, jtollet@cisco.com
+Cc: intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@kernel.org>, 
+ Jason Xing <kerneljasonxing@gmail.com>, 
+ Nitin Shetty J <nshettyj@marvell.com>, Marcin Knap <marcin.knap@vecima.com>, 
+ Joshua Washington <joshwash@google.com>, 
+ Harshitha Ramamurthy <hramamurthy@google.com>, 
+ Sunil Goutham <sgoutham@marvell.com>, Geetha sowjanya <gakula@marvell.com>, 
+ Ratheesh Kannoth <rkannoth@marvell.com>, 
+ Subbaraya Sundeep <sbhatta@marvell.com>, 
+ Bharat Bhushan <bbhushan2@marvell.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793779893; l=8126;
+ i=marcin.knap@vecima.com; s=20261019; h=from:subject:message-id;
+ bh=/laycyHfa7+gbXe0gfkjeC8lPXK/Rk4DOFzJfL0dQwQ=;
+ b=hQCx725MgG1C0JQBAD56aXXsYonoB7PKYR+oWIN1Bt+sR9ahZvW+49W7jXZ/OcSy9QDVfXk28
+ shOgotK2NCWB0XstEKyqQIWoOAlOaPF9TGPzKZTut+Z2IOzTkHQoE8N
+X-Developer-Key: i=marcin.knap@vecima.com; a=ed25519;
+ pk=rCvVOuopf4s4BHtLE+FRnv0x83PoFHgBPo9mtNlvzLk=
+X-Endpoint-Received: by B4 Relay for marcin.knap@vecima.com/20261019 with
+ auth_id=1237
+X-Original-From: Marcin Knap <marcin.knap@vecima.com>
+Reply-To: marcin.knap@vecima.com
+Content-Transfer-Encoding: 8bit
 
-The Raspberry Pi 7" touchscreen panel V2 MCU is powered from an external
-power rail which has to be enabled before any I2C register access is
-attempted. Use devm_regulator_get() to obtain the vcc supply and enable
-it at the start of probe.
+From: Marcin Knap <marcin.knap@vecima.com>
 
-devm_regulator_get() returns a dummy regulator when the supply is not
-described in the device tree, so device trees without a vcc-supply
-property keep working as before.
+When an XDP program redirects a zero-copy buffer to an XSK and the
+socket's Rx ring is full, xsk_rcv_zc() frees the buffer and returns
+-ENOBUFS to xdp_do_redirect().
 
-Signed-off-by: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
+A failed xdp_do_redirect() leaves the buffer owned by the caller, so
+the driver releases it as well. That is harmless when the driver frees
+it right away, as i40e, ice, igc, stmmac, idpf and most others do:
+xp_free() ignores a buffer that is already on the pool free list. It
+breaks when the driver releases or uses the buffer later, after it may
+have been reallocated:
+
+- mlx5e treats the failure as XDP_DROP and releases the buffer when
+  the Rx WQE is refilled. By then the buffer can be in use for another
+  Rx descriptor, so an in-use buffer goes back on the free list and the
+  same UMEM frame is later handed to user space twice. With striding
+  RQ this also ended in a NULL pointer dereference in
+  mlx5e_post_rx_wqes().
+- ixgbe and igb keep the buffer in the ring on their need_wakeup
+  -ENOBUFS (XDP_EXIT) path and run XDP on it again on the next poll.
+- dpaa2 hands the buffer back to its hardware pool while it is also on
+  the pool free list.
+- octeontx2 returns false on a failed redirect, so the caller goes on
+  to build an skb from the freed buffer.
+
+Leave the buffer with the caller on both the single-buffer and the
+multi-buffer -ENOBUFS paths, as xsk_rcv() and xsk_rcv_check() already
+do. Make the drivers that relied on the core freeing the buffer free
+it themselves:
+
+- i40e and ice consume the descriptor on XDP_EXIT without freeing it.
+- gve DQO counts the redirect error without freeing the buffer.
+- octeontx2 now frees the buffer and reports it as consumed.
+
+Seen on Mellanox ConnectX-6 DX MT2892 (FW 22.47.1026) with AF_XDP
+zero-copy on 7.3.0-rc6 when the user-space consumer could not keep up
+with the Rx ring. With this change no duplicate frames were seen with
+striding RQ on or off.
+
+Fixes: 269009893146 ("xsk: recycle buffer in case Rx queue was full")
+Reviewed-by: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+Reviewed-by: Björn Töpel <bjorn@kernel.org>
+Reviewed-by: Jason Xing <kerneljasonxing@gmail.com>
+Reviewed-by: Nitin Shetty J <nshettyj@marvell.com>
+Signed-off-by: Marcin Knap <marcin.knap@vecima.com>
 ---
- drivers/regulator/rpi-panel-v2-regulator.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+Tested on mlx5 (ConnectX-6 DX) in zero-copy single-buffer mode.
+The i40e and ice changes and the multi-buffer path are build-tested
+only, as I don't have that hardware available.
+---
+Changes in v3:
+- Target net instead of bpf (Maciej).
+- Reword the changelog only: drivers that free the buffer right away
+  are not affected; name the ones with a deferred release or reuse
+  after free (AI review). No code changes.
+- Collect Reviewed-by tags.
+- Link to v2: https://patch.msgid.link/20261030-xsk-zc-rx-double-free-v2-1-cf01d4a9f3f7@vecima.com
 
-diff --git a/drivers/regulator/rpi-panel-v2-regulator.c b/drivers/regulator/rpi-panel-v2-regulator.c
-index 30b78aa75ee3..e54d675962e7 100644
---- a/drivers/regulator/rpi-panel-v2-regulator.c
-+++ b/drivers/regulator/rpi-panel-v2-regulator.c
-@@ -11,6 +11,7 @@
- #include <linux/module.h>
- #include <linux/pwm.h>
- #include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
- 
- /* I2C registers of the microcontroller. */
- #define REG_ID		0x01
-@@ -66,10 +67,21 @@ static int rpi_panel_v2_i2c_probe(struct i2c_client *i2c)
- 		.parent		= &i2c->dev,
- 		.reg_set_base	= REG_POWERON,
- 	};
-+	struct regulator *vcc;
- 	struct regmap *regmap;
- 	struct pwm_chip *pc;
- 	int ret;
- 
-+	vcc = devm_regulator_get(&i2c->dev, "vcc");
-+	if (IS_ERR(vcc))
-+		return dev_err_probe(&i2c->dev, PTR_ERR(vcc),
-+				     "Failed to get vcc supply\n");
-+
-+	ret = regulator_enable(vcc);
-+	if (ret)
-+		return dev_err_probe(&i2c->dev, ret,
-+				     "Failed to enable vcc supply\n");
-+
- 	pc = devm_pwmchip_alloc(&i2c->dev, 1, 0);
- 	if (IS_ERR(pc))
- 		return PTR_ERR(pc);
+Changes in v2:
+- Also free the buffer on zero-copy redirect failure in gve DQO and
+  octeontx2, which relied on the core freeing it (AI review).
+- Audited the remaining zero-copy drivers against Björn's table.
+  ixgbe and igb no longer run XDP on a freed buffer after
+  XDP_EXIT; making them drop and consume the descriptor (R2) is
+  left for a follow-up unless you prefer it in this patch.
+- Rebased on current bpf.
+- Link to v1: https://patch.msgid.link/20261019-xsk-zc-rx-double-free-v1-1-2aa19f6628fb@vecima.com
 
--- 
-2.34.1
+To: Joshua Washington <joshwash@google.com>
+To: Harshitha Ramamurthy <hramamurthy@google.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>
+To: "David S. Miller" <davem@davemloft.net>
+To: Eric Dumazet <edumazet@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>
+To: Paolo Abeni <pabeni@redhat.com>
+To: Tony Nguyen <anthony.l.nguyen@intel.com>
+To: Przemek Kitszel <przemyslaw.kitszel@intel.com>
+To: Sunil Goutham <sgoutham@marvell.com>
+To: Geetha sowjanya <gakula@marvell.com>
+To: Ratheesh Kannoth <rkannoth@marvell.com>
+To: Subbaraya Sundeep <sbhatta@marvell.com>
+To: Bharat Bhushan <bbhushan2@marvell.com>
+To: Magnus Karlsson <magnus.karlsson@intel.com>
+To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+To: Stanislav Fomichev <sdf@fomichev.me>
+To: Simon Horman <horms@kernel.org>
+To: Alexei Starovoitov <ast@kernel.org>
+To: Daniel Borkmann <daniel@iogearbox.net>
+To: Jesper Dangaard Brouer <hawk@kernel.org>
+To: John Fastabend <john.fastabend@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: intel-wired-lan@lists.osuosl.org
+Cc: bpf@vger.kernel.org
+---
+ drivers/net/ethernet/google/gve/gve_rx_dqo.c           |  4 +++-
+ drivers/net/ethernet/intel/i40e/i40e_xsk.c             |  1 +
+ drivers/net/ethernet/intel/ice/ice_xsk.c               |  1 +
+ drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c |  3 ++-
+ net/xdp/xsk.c                                          | 15 +++------------
+ 5 files changed, 10 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/net/ethernet/google/gve/gve_rx_dqo.c b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
+index 82ed5e48b00a..cc544420df11 100644
+--- a/drivers/net/ethernet/google/gve/gve_rx_dqo.c
++++ b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
+@@ -686,8 +686,10 @@ static void gve_xsk_done_dqo(struct gve_priv *priv, struct gve_rx_ring *rx,
+ 			goto err;
+ 		break;
+ 	case XDP_REDIRECT:
+-		if (unlikely(xdp_do_redirect(priv->dev, xdp, xprog)))
++		if (unlikely(xdp_do_redirect(priv->dev, xdp, xprog))) {
++			xsk_buff_free(xdp);
+ 			goto err;
++		}
+ 		break;
+ 	}
+ 
+diff --git a/drivers/net/ethernet/intel/i40e/i40e_xsk.c b/drivers/net/ethernet/intel/i40e/i40e_xsk.c
+index 51a05ce4c7ce..a11ee1f3fa38 100644
+--- a/drivers/net/ethernet/intel/i40e/i40e_xsk.c
++++ b/drivers/net/ethernet/intel/i40e/i40e_xsk.c
+@@ -360,6 +360,7 @@ static void i40e_handle_xdp_result_zc(struct i40e_ring *rx_ring,
+ 		return;
+ 
+ 	if (xdp_res == I40E_XDP_EXIT) {
++		xsk_buff_free(xdp_buff);
+ 		*failure = true;
+ 		return;
+ 	}
+diff --git a/drivers/net/ethernet/intel/ice/ice_xsk.c b/drivers/net/ethernet/intel/ice/ice_xsk.c
+index 0643017541c3..7c1dd4c87a71 100644
+--- a/drivers/net/ethernet/intel/ice/ice_xsk.c
++++ b/drivers/net/ethernet/intel/ice/ice_xsk.c
+@@ -636,6 +636,7 @@ int ice_clean_rx_irq_zc(struct ice_rx_ring *rx_ring,
+ 		if (likely(xdp_res & (ICE_XDP_TX | ICE_XDP_REDIR))) {
+ 			xdp_xmit |= xdp_res;
+ 		} else if (xdp_res == ICE_XDP_EXIT) {
++			xsk_buff_free(first);
+ 			failure = true;
+ 			first = NULL;
+ 			break;
+diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c
+index 90af9b9044aa..6d10c132f61c 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c
++++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c
+@@ -1555,7 +1555,8 @@ static bool otx2_xdp_rcv_pkt_handler(struct otx2_nic *pfvf,
+ 				*need_xdp_flush = true;
+ 				return true;
+ 			}
+-			return false;
++			xsk_buff_free(xsk_buff);
++			return true;
+ 		}
+ 
+ 		err = xdp_do_redirect(pfvf->netdev, &xdp, prog);
+diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
+index 781ba46eb152..89bac2feeff2 100644
+--- a/net/xdp/xsk.c
++++ b/net/xdp/xsk.c
+@@ -224,21 +224,15 @@ static int xsk_rcv_zc(struct xdp_sock *xs, struct xdp_buff *xdp, u32 len)
+ 	struct list_head *xskb_list;
+ 	u32 contd = 0;
+ 	u32 num_desc;
+-	int err;
+ 
+-	if (likely(!frags)) {
+-		err = __xsk_rcv_zc(xs, xskb, len, contd);
+-		if (err)
+-			goto err;
+-		return 0;
+-	}
++	if (likely(!frags))
++		return __xsk_rcv_zc(xs, xskb, len, contd);
+ 
+ 	contd = XDP_PKT_CONTD;
+ 	num_desc = xdp_get_shared_info_from_buff(xdp)->nr_frags + 1;
+ 	if (xskq_prod_nb_free(xs->rx, num_desc) < num_desc) {
+ 		xs->rx_queue_full++;
+-		err = -ENOBUFS;
+-		goto err;
++		return -ENOBUFS;
+ 	}
+ 
+ 	__xsk_rcv_zc_safe(xs, xskb, len, contd);
+@@ -252,9 +246,6 @@ static int xsk_rcv_zc(struct xdp_sock *xs, struct xdp_buff *xdp, u32 len)
+ 	}
+ 
+ 	return 0;
+-err:
+-	xsk_buff_free(xdp);
+-	return err;
+ }
+ 
+ static void *xsk_copy_xdp_start(struct xdp_buff *from)
+
+---
+base-commit: fb7bd3a2aad70a76232a7168a505386d0a1396af
+change-id: 20261019-xsk-zc-rx-double-free-1a3b059cd41f
+
+Best regards,
+--  
+Marcin Knap <marcin.knap@vecima.com>
+
 
