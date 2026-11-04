@@ -1,100 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.161.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793799154;
-	b=MRiCdrAAxuLcGt2Vf20F/+am4v/Vhv1W5iIA88dW0WByW8qwFGIQ9x1b1iZYRWmKSsmI
-	 OjlhaucJEHxY0+IbbPsH44B/R41zu8CN6Xp/tMB8oUE9cSXjt1hO6gFWgLrHq9xTDJpXo
-	 UbByQ77JYjrlKbeU0vQIlvOaYTfRJKd4g1zKG6Q7Q+ow8M6uyzz/16ihE0ryXQE/4uDXh
-	 FmCkYyatQRlYWDqQHMF3TPFHRGd88nHaaGz16/pdW6jj4RyEeBi6Jw0cpjeZ5VY/rZEku
-	 qLuKlfFeBu76g55idL7gVxbYEuEqrWl/+ib9QFPn7Bl2cV23P3Cn+3usj/cqB23Op+g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799154;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.177
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793799155;
+	b=u8+lLGka/CcPJO++uscr7DCz9Q4frw54NKwUDR3mSPE1Ovs+oHN1yHEXlAqxr/ALvcF9
+	 iGZGUm1EIvbCcn5VjRJb5I+7Gb+wwZ9t1R+sAAM+80DSj36W0+wvWFPTrcg+PYnhO7y/Y
+	 4CDSnXH+OZZrVoXXR/Sebt+1F18mFotGo2SN4Ct4E/Pse1c+/j7jlB37W3lJ+Zr0Ci2pc
+	 LcOkPmowHB79fYW+sGae79VjNctjsUv1R9y2X77a92OSdRhPLbLHsRmsjMaxO2kAmFz1o
+	 5Agw+KtXKL+bO1+7QR+TH/MOKQ3OCyP+wfawdo/FYwkufyJufTCczG6ixeWwOFiRR7A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799155;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=flt7oH/ETh3Es2fb8h9unV+oYzs4yKusapEzarwUpgQ=;
-	b=v0/uHRLCX51xb44RdImiRYFr87NMwT9FpKGCExhgFHgCe10mohwu5sQjjz6Pe8vvJLp2
-	 e5sU2tJwEoB2wmSEsd4XiSX9FfFlTlbQisUYfActEAjEKMuEG84XeBRjMpe/OshNGDIgV
-	 UWwjTZVzB2Dq5vskQR6I4HNgyDyR1ZUNV+BX0zaMduG+IV7ddeGzhydfZcVUfxynM67os
-	 A+gU0id0BjgH45tmv8Mgog5HVJSGn9iTfp0ZAwxtlKL1P2i2Tya2VFLOEZJGNjJ65MPAk
-	 qTJ6pqZ/+GxEFOs5xZvHEqo1xM3LrZgueS+she0VtWnnyZSIvE5XHgBGrPqZwQiV4Qw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=hsId2+DpgTtxye1Yv6HPoaQDim7S8FopzLEymWWnRm0=;
+	b=mYhfzi4LfzYldb3puN5PWDkLNtzL0LFbGc04y3vb4w0D15y1j6b3ez04h9B6OCV/jy6q
+	 pJJ0WykgYsL/Ieu/jJqAh2AiMnEi/546daz18XurLzi1YkP42OjplJbeO4wq4fZrZmS3N
+	 KFnog9g52A+IWOiAZLXSo1vebn4uzxUzFhpyfMr6KuP0PjCr9o2OA2Zs7OLqFiUkU7Bo9
+	 nWd2/95QwROdAyEvlu2k33ZKBclXlR495jFNZQGMWpi2cBcCinAsEyrLhCfTGrWLtS/+c
+	 Y9rpgzm8Kg97liGeRjgzruYZzImfG7qIZ0CrVp2whMbMCk/3p36xAQ/oiJSiQVIOg3g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qy9pS4bp;
-	arc=fail smtp.remote-ip=209.85.161.41
-Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com [209.85.161.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IwmzwBFO;
+	arc=none smtp.remote-ip=209.85.210.177
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD429606A329
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:32:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD429606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38AEF606A32C
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:32:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38AEF606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qy9pS4bp
-Received: by mail-oo1-f41.google.com with SMTP id 006d021491bc7-6de2f213b7aso309011eaf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 05:32:33 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793799153; cv=none;
-        d=google.com; s=arc-20260327;
-        b=T71A7lAC/4iqxpdrjm2roiq4DAsoV3fKs26itfKqm6UiV4fypgTMaxkIcnJKW1z7S9
-         UXRWJRz/IdtWH1AHXhrcgVyIq9RnPINii4D9+xwEjQ9qROVWrF8NOVh5LhLxmN5G/Po3
-         gFPR/VfiQDqMFqPPbEDddEdRxxJ9K8c4pWaZcCVF0B5xnN6Ou1VoDaRNjcodw3qqP1yZ
-         whgIAe7Pnca4t/J3mGEQ1GZsf2f1SxbdrvWQajIxN3XJGhg5lvbFfzTNF6ILJz4SVm62
-         dBc1He1C16/GsluqtBWGANNn6oTaNecVDZPYof3nN4ud7JEbLIn/dMzen0pv5XcIxGhC
-         vXJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=flt7oH/ETh3Es2fb8h9unV+oYzs4yKusapEzarwUpgQ=;
-        fh=2nJ6Od8JwWf2VRm8Gzzzm6bxiOvHQiHVNk67O1Omulo=;
-        b=C6OZ8ROUCVLqymK8+M7V1UPaUVo5wCVui2TjgR0PqqhZGXv9d5pUfnppAx16925p2/
-         QnXjzwdGfT2tm51YalB0IY69uKchTfLrf7AG/k1yrUH2zyCxCSRSTDbeeO1Lluu7Q9XL
-         6IQr/wQtIVdpvJg7TGmO+1l1gKwFK3D2XsHNtBuSi+LkaHa4gduVfJyDUEC16KaZWRnE
-         cjxPw9tNbgXtWTHqA+IGOwfZqCA+4cIcYhOrynHt/oUa2hIhWjZ6F2hte5LVL4J9RaRh
-         v0kr950czVhX7FdIKkz1VlNhkfD0Ovc0/C9OQ+RDrl9fOkp6t8Wuz2JHN/3HCO9Di7Fe
-         RoyQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IwmzwBFO
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8a064fac8cbso571195b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 05:32:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793799153; x=1794403953; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=flt7oH/ETh3Es2fb8h9unV+oYzs4yKusapEzarwUpgQ=;
-        b=qy9pS4bprOjTsWRvlH9jkM15Jb6X9A27TdRPIVsM3h3dXuLNkrkluEELmjTLBM+V3P
-         ncmegftrX1Jbf48M/GIiWSkyr9c2afUzcpyDNVJUxw2kErAFuFuiYBM0d4r2Z2WVe8/P
-         mryc8gKuoM+SPz7kBRJsT3vcNUF1prKGEyid+vyji8hwjKqA/XununEaEOmNqxRbF7Ik
-         Ay6P0FIY9Xe7oHKlx6qraSAP9Dbjx59WRcXWsOznu+IpcBB6lS5xl7kIb0TV6bN2rGXy
-         D2jjv2adUgO9gp2wR1eQZMN2kZBuWpiOMzIW4Nth+vi0fpGicG3Y+McnpRkp2x+TqdRj
-         /FeQ==
+        d=gmail.com; s=20260707; t=1793799149; x=1794403949; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hsId2+DpgTtxye1Yv6HPoaQDim7S8FopzLEymWWnRm0=;
+        b=IwmzwBFOYv3W0BkI3zvF+i4IG6xcqz20VGMeRB5FrYpv+GPB1cLaaXHz7tyTvV0YFG
+         uVetQwv2dyTV3G78NoOcLMsKjzAwN+yMcCkiX7Tj8F67nwsuP5yTCM2zlXhsMO02Hg4M
+         Il+RF7HAKVt5V69NjauHb2Ur0BIQD7C4sceOUBs+6xOuSArAmjwiR8t8ur2oXsA6TZQt
+         RHl0HOOFTnqSVDdffkhqIrfliZ9BbzvZ27w2nag7/vjqv4vUyYY7FrtJpWl4XzJXyEnd
+         kG3OQf1GKtjcoBUAV8oSFwenIaROH3FIqIZ9A3nculPtTnqR1mfBBaxgoi3Y85tFf8l2
+         FyjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793799153; x=1794403953;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=flt7oH/ETh3Es2fb8h9unV+oYzs4yKusapEzarwUpgQ=;
-        b=eqHBSm3qoidjfRu4b8Em8HC0ROP8jUYa4w7S/W/D+cGRqQa4CACErKzWNK35zAWerh
-         SIty4ROxyDocM+gEZ2U3vECnFaL3sAoChkXkdEK/2NqQhZKSFpBsYBzUK8NuCQSXpw7o
-         YC5RcNiQXIBFBWjhi94Dg4NHVM1LC7Oz6vrOgPKSjhlhK7rY08w07Cy2WtIcPXtGeS2M
-         R1qnn53ss+iV4ws+IMFksC3gAeR60fPqwx6zgR1CjyMcG3rh1MrDirB2s/+hQfWG1A2p
-         zC2zq5clE2NNwSpOTuBQ4LweWkFVKiVjYh4QEkCsNx7/3HMYBG3CnwEUmoaX3U9Bjab0
-         hKDA==
-X-Forwarded-Encrypted: i=1; AKwUvBxlk6FVL71cv4sOexBm2610E8WKBYZQfzXgoFIlNQIu/XVJ0UyFcVZlgYoqtkxG7fzW4m4OBgKjouWJUVE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+hRo/ZcF2pDLBEZ8uSyWErPXGnSC1p+g1BA/Ci9NFPGP3BoqbO
-	hS50ph0vJ6guqT3OqOQEauqkJ5U4D4Zs6Ix3gjkBXLHVZh7a+4gMSbnJ6g0720MKc4ip6Sbu6Nf
-	3orWpHh1hM81KJM0OjmNgSnwoQtPLhtg=
-X-Gm-Gg: AYBFou02GXMjIHiFOgg9hisG/LmAJU7oHdNkHsGOYmTBKhKUF9dhkdOXj725LkPytzV
-	ABOiEQCfbmcjNUZZnhHffNNmA0YTbM8GfcZ0WMsyaIg1GLhHvrUyfNTHTHwH9zpIZBR9SB1egNe
-	SCPd9qbiyFJTEvWUdUXKKq3tgu8Dwz69ZKg7HFqMMhhSy8qNZD4QHSIA3mB/nlLZpJoWoTAEa5B
-	YD3pGb0Q0iwilLJtwlN+RWS1/9IByxXuYZFIjRdnSnNoi1Rrp23dRhDP9QS/+xdxkPr4W1NzXCx
-	+AT+MWpfQQBRlGNR0sMkXVDXBLj/Eks1tU6VFLIb5CgzbfpqWM/1LJFdBnL7hzM6tZWyv0iBL84
-	ftv+Nd4DN165/NE7vdnh+Q3Tfmob5BFiocjYUv0oj0ZwJXYqX+pPn15uQcyabuw==
-X-Received: by 2002:a05:6820:55d4:10b0:712:c3fb:b4dd with SMTP id
- 006d021491bc7-714f2a07b44mr6865589eaf.58.1793799152650; Wed, 04 Nov 2026
- 05:32:32 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793799149; x=1794403949;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hsId2+DpgTtxye1Yv6HPoaQDim7S8FopzLEymWWnRm0=;
+        b=bdpsmRT4ux+MN9yL+0rj2o/lJaqWBkWSTj2QcaeucmbHEx6PWvdSkxFX022le4rijj
+         5zRx7yFCgE61ICKM07k1xfEbdU/u1tpBvqb2KwLqzGEp+8nIkwrVRSP4eLYvctHUBdyB
+         gHX0EblXX2fahmAXvCbsfe41gKGyewJ4UcUj7+MgVJPgYieguhDjpJz6otILlpaJt1fN
+         GcRIXjTH725U8p98rhF84GRewUOTa25Al2tEJpScQNS94UUoiMRfWvNrXcpcfZsWKv7h
+         srfcXSFgfByaM9wwnOrgIfGIurN99Y+Tezh5Yjsu/g1EYpSbakZKdXv29d5IqjbcI5Dh
+         wKjg==
+X-Forwarded-Encrypted: i=1; AKwUvBzNWTDdFXOFFH6GflMtguKyFJ9uIxEneD5Z1xse3dkrD2hKVlmgbeNXnAkFWrMg0n/l6d+H1LuptS1+ZRc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/HkigcfcSWkSK1l74IkDdy0ZvvMlbeep8FjY9aiGFjnCf+NBFm
+	1r/TxMqkzcAnMbbpEs5rEFaSN0awRZeVJY6li0/iicRjo689qvQ7yKKP
+X-Gm-Gg: AYBFou3h5/J0v3I15LTbIgZ97R102j4ZL/GOSVQrochVoOdW/cLx0oQwYJo35Ougwwq
+	ExAf3rkMNDGV9sNUuUPRMXaODIqfN775kv5lEugEshFbK+dCsv/CZvkuOYnS/S50jo15VrB9MQW
+	QTtWUMByLg1R9mPaynvyoedWfmuYJPF/1DXrYNumKbBEC9RUUQY/ZiX0eyj3F3/RKqoJd+2H2HR
+	4a17HN90BwEdaxAD8gnvgEz85/bhRG67kqlHG004WV6TLX4E6uCkugmfg2EY2/j4I66xXo4S7+E
+	xxJxw6WqXc1dki8kFCz8RyYrQS5DZs2JnYn7e8dZSFMEMDZcDTwWyfTv/CpdyPDV3VRVqHdvuFR
+	5TB/o8RF3DKUsgn+mJS+kmv0vmRnhWb9ymZ6yxG3zWnPZi6UAy7cP8977CochQZ0MJ9oPMG7koU
+	+hQKCpbYcLbpHbhQ3F6mtrUCWEfh8LRzxp+2HC5DyfyYw4sjFz1NeLHv/Ahvw5+srm6UEVXGYtC
+	zXWAF18db47KxVeIhM5mwnkokWgFEWskaRdEs+Gjbq6/F4tudb0A1At6n57gi0y98ZXwI45Ssas
+	AO6ajRkG/cdbbMl/OFkkd3LBuoZq39RPD+MSr64KV+pY2SWzfA==
+X-Received: by 2002:a05:6a00:4694:b0:897:ffff:c18a with SMTP id d2e1a72fcca58-8b17e72e134mr369429b3a.7.1793799149518;
+        Wed, 04 Nov 2026 05:32:29 -0800 (PST)
+Received: from anatasluo-Precision-5560 ([139.226.166.21])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b09a7ce84fsm911369b3a.13.2026.11.04.05.32.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 05:32:29 -0800 (PST)
+From: Longjun Luo <luolongjuna@gmail.com>
+To: jpoimboe@kernel.org,
+	peterz@infradead.org
+Cc: mbenes@suse.cz,
+	pmladek@suse.com,
+	joe.lawrence@redhat.com,
+	song@kernel.org,
+	puranjay@kernel.org,
+	nathan@kernel.org,
+	ndesaulniers@google.com,
+	morbo@google.com,
+	justinstitt@google.com,
+	live-patching@vger.kernel.org,
+	llvm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Longjun Luo <luolongjuna@gmail.com>
+Subject: [RFC PATCH v2 03/11] objtool/klp: Preserve identifier digits when stripping suffixes
+Date: Wed,  4 Nov 2026 21:31:49 +0800
+Message-ID: <20261104133158.3187525-4-luolongjuna@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261104133158.3187525-1-luolongjuna@gmail.com>
+References: <20261104133158.3187525-1-luolongjuna@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,55 +109,154 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-sf19a2890-sysm-v1-0-a4fac07df823@telaak.dev> <20261104-sf19a2890-sysm-v1-4-a4fac07df823@telaak.dev>
-In-Reply-To: <20261104-sf19a2890-sysm-v1-4-a4fac07df823@telaak.dev>
-From: Chuanhong Guo <gch981213@gmail.com>
-Date: Wed, 4 Nov 2026 21:32:20 +0800
-X-Gm-Features: AclHuK9KjWGPhCZrdzN2zSc99IwcSQrcSlYV4KRQtVdLRgeo4bHU_zFbKSD1vFk
-Message-ID: <CAJsYDVJ+FWHJ9AaJCmQwwfdsVJJC5mPw-fXzr2n6OAsZFHJbEA@mail.gmail.com>
-Subject: Re: [PATCH 4/4] clk: siflower: Add SF19A2890 peripheral clock and
- reset manager driver
-To: joseph@telaak.dev
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Yao Zi <me@ziyao.cc>, linux-mips@vger.kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 4, 2026 at 3:21=E2=80=AFPM Joseph Telaak via B4 Relay
-<devnull+joseph.telaak.dev@kernel.org> wrote:
->
-> From: Chuanhong Guo <gch981213@gmail.com>
->
-> Add a platform driver for the peripheral clock and reset manager (CRM)
-> block found on Siflower SF19A2890 and compatible SoCs.
->
-> Each CRM block manages a group of APB peripherals through three registers=
-:
-> a reset register, a clock gate register, and a shared Bus Output Enable
-> (BOE) register that must be asserted for any peripheral in the block to
-> respond to bus transactions.
->
-> The driver registers a clock gate controller and a reset controller from
-> a single DT node. A shared spinlock protects all read-modify-write
-> accesses across both. BOE is managed automatically: asserted when the
-> first clock gate is enabled and deasserted when the last one is disabled.
->
-> Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
-> [jt: from Chuanhong's siflower-7.1 branch; one compatible per block with
->  its gate bits, critical gates and reset masks in tables here instead of
->  the siflower,valid-gates, siflower,critical-gates, siflower,reset-masks
->  and siflower,num-resets properties
+The name tx.crc32 loses its trailing digits, while tx.crc32.llvm.<hash>
+keeps them because of an early return. ThinLTO promotion can therefore
+break correlation and copy existing static state into the patch.
 
-Why? This block is one used repeatedly inside this SoC and SF21,
-I think a generic binding with clock & reset description in dt makes it
-reusable without further changes and also results in a shorter driver
-without a table. This table in driver aren't simplifying the dt bindings
-anyway since it still needs one block per node.
+Strip LLVM hashes and complete .<number> suffixes on the same path.
+Keep the counter-stripping rule for __UNIQUE_ID names, including
+Clang's function-prefixed names.
 
---=20
-Regards,
-Chuanhong Guo
+Add a ThinLTO test which checks that the existing crc32 state is reused.
+The available objtool tests pass with GCC 16.2.1 and Clang 22.1.8.
+
+Fixes: 0d83da43b1e1 ("objtool/klp: Add --checksum option to generate per-function checksums")
+Fixes: 020b71dcafee ("objtool/klp: Remove .llvm suffix in demangle_name()")
+Assisted-by: LLM
+Signed-off-by: Longjun Luo <luolongjuna@gmail.com>
+---
+ tools/objtool/elf.c                           | 33 +++++++++++--------
+ .../fixtures/identity/promotion_crc32.c       |  8 +++++
+ .../fixtures/identity/promotion_crc32_user.c  | 15 +++++++++
+ .../generic/test-identity-thinlto-crc32.sh    | 23 +++++++++++++
+ 4 files changed, 66 insertions(+), 13 deletions(-)
+ create mode 100644 tools/objtool/tests/generic/fixtures/identity/promotion_crc32.c
+ create mode 100644 tools/objtool/tests/generic/fixtures/identity/promotion_crc32_user.c
+ create mode 100755 tools/objtool/tests/generic/test-identity-thinlto-crc32.sh
+
+diff --git a/tools/objtool/elf.c b/tools/objtool/elf.c
+index 71f1a272e468..3ddbf5143260 100644
+--- a/tools/objtool/elf.c
++++ b/tools/objtool/elf.c
+@@ -448,32 +448,39 @@ static int read_sections(struct elf *elf)
+  */
+ static ssize_t demangled_name_len(const char *name)
+ {
+-	ssize_t idx;
++	ssize_t idx, len;
+ 	const char *p;
+ 
+ 	p = strstr(name, ".llvm.");
+-	if (p)
+-		return p - name;
++	len = p ? p - name : strlen(name);
+ 
+-	if (!strstarts(name, "__UNIQUE_ID_") && !strchr(name, '.'))
+-		return strlen(name);
++	if (strstarts(name, "__UNIQUE_ID_") || strstr(name, ".__UNIQUE_ID_")) {
++		for (idx = len - 1; idx >= 0; idx--) {
++			char c = name[idx];
+ 
+-	for (idx = strlen(name) - 1; idx >= 0; idx--) {
+-		char c = name[idx];
++			if (!isdigit(c) && c != '.' && c != '_')
++				break;
++		}
++		return idx + 1;
++	}
++
++	while (len && isdigit(name[len - 1])) {
++		p = name + len - 1;
++		while (p > name && isdigit(*p))
++			p--;
+ 
+-		if (!isdigit(c) && c != '.' && c != '_')
++		if (p == name || *p != '.')
+ 			break;
++		len = p - name;
+ 	}
+-	if (idx <= 0)
+-		return strlen(name);
+-	return idx + 1;
++	return len;
+ }
+ 
+ /*
+  * Remove number suffix of a symbol.
+  *
+- * Specifically, remove trailing numbers for "__UNIQUE_ID_" symbols and
+- * symbols with '.'.
++ * Remove complete .<number> suffixes and trailing numbers from
++ * "__UNIQUE_ID_" symbols.
+  *
+  * With CONFIG_LTO_CLANG_THIN, it is possible to have nested __UNIQUE_ID_,
+  * such as
+diff --git a/tools/objtool/tests/generic/fixtures/identity/promotion_crc32.c b/tools/objtool/tests/generic/fixtures/identity/promotion_crc32.c
+new file mode 100644
+index 000000000000..d95914eacdc0
+--- /dev/null
++++ b/tools/objtool/tests/generic/fixtures/identity/promotion_crc32.c
+@@ -0,0 +1,8 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com> */
++unsigned int tx(unsigned int value)
++{
++	static volatile unsigned int crc32;
++
++	return crc32 += value;
++}
+diff --git a/tools/objtool/tests/generic/fixtures/identity/promotion_crc32_user.c b/tools/objtool/tests/generic/fixtures/identity/promotion_crc32_user.c
+new file mode 100644
+index 000000000000..b44fa1d4a75e
+--- /dev/null
++++ b/tools/objtool/tests/generic/fixtures/identity/promotion_crc32_user.c
+@@ -0,0 +1,15 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com> */
++#include "common.h"
++MODINFO;
++
++unsigned int tx(unsigned int value);
++
++unsigned int target(unsigned int value)
++{
++#ifdef PATCHED
++	return tx(value);
++#else
++	return value;
++#endif
++}
+diff --git a/tools/objtool/tests/generic/test-identity-thinlto-crc32.sh b/tools/objtool/tests/generic/test-identity-thinlto-crc32.sh
+new file mode 100755
+index 000000000000..66988d0b7692
+--- /dev/null
++++ b/tools/objtool/tests/generic/test-identity-thinlto-crc32.sh
+@@ -0,0 +1,23 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0
++# Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com>
++# ThinLTO promotion must retain the digits in a static variable's name.
++. "$(dirname "$0")/../identity-lib.sh"
++
++setup
++build_identity_pair thin "" identity/promotion_crc32.c identity/promotion_crc32_user.c
++in_symbols orig.o | awk '$4 == "OBJECT" && $5 == "LOCAL" && $8 == "tx.crc32"' |
++	grep -q . || probe_skip "CRC state was not local before importing"
++in_symbols patched.o | awk '$4 == "OBJECT" && $5 == "GLOBAL" && $8 ~ /^tx\.crc32\.llvm\.[0-9]+$/' |
++	grep -q . || probe_skip "ThinLTO did not promote the CRC state"
++
++assert_checksum_matches tx
++run_diff
++assert_patched target
++assert_not_patched tx
++out_symbols | awk '$4 == "OBJECT" && $7 != "UND" && $8 ~ /^tx\.crc32(\.|$)/' |
++	grep -q . && fail "promoted CRC state was allocated again"
++run_post_link
++assert_original_reference target tx.crc32
++
++pass "digits in static names survive ThinLTO promotion"
+-- 
+2.55.0
+
