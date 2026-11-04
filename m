@@ -1,60 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793829665;
-	b=wGuKVEtl8qkO1Jik2tlAlTyqUurGu/mIlVR6GfuQ5LjosPRYinvyEGnFB+uKU7TQm8Vk
-	 VXtrWkY34WwhWsvZSS/GLIDZaCBlIwSfkNtQA4NUq6Vmm1IdvkGsTn1y7TZ7i9fmPoSb3
-	 MF9trqTPKztogC9UD/GdxL4EIwsD6+OCnJraFts956kj59w5ZUdXC3P4lYplTCs3XdPIf
-	 vJ46GyEBK3YYQzhG9x8ThCwyfnIE4383lyIddCRu2evhlkxpI/8HDo054gIxSmvlmPAxB
-	 lZSltR0usxkP3BfHg1vZhQduRLFwgzvCyVdKMC1xXusOiRCDNX3kYgjY+X1fG2Eli8g==
+	t=1793829674;
+	b=ixEfm4Xha8WMJ020ake8K0rUbPjMCy+TJI87L3yRQTVtyWT4FYmrIVggGKbhVghd3nqM
+	 CNhm3VJiEeSKIOuj0Q3uBHJ4ASVLlpzzWwS+yZh/xRKz1PlA4U6/gCdpjqDkjo3K+2BGf
+	 ZB3plYvnQHGlBTRK1Ye/exq3Ry7zFejZAfUTmvHQJNYAYcRdFTi0CabEvgpBhPxQP81of
+	 zflKAeFmz4AgrzD62nPJaksxZQCr7xT6AVQp9svJWuwjDsirDwlLZbC3WATsAWFKq6QKy
+	 Z1o69giknwBKxNU3N42JbRzvmGuCvsAeOWpSbjT/gRV7Rdk83ikWzZG+zfee47D9zbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793829665;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=1sjaakE+YA9fNVZvjX29YflKzzv+s4AfE0dYZK0O3I0=;
-	b=eUq30VJLwpaVhrEgKhw+FXyJqyjeIs1h0w2K5X0hrHZTAoSLyP40EYt34x+GUCjb0ZBd
-	 ADxIXxSEs+Ci+DgFdlG5xLlLLEg5oppY2zopMd7lIyndc1O8fbxgh1Fge3AjMwIAqrOsR
-	 2n9My5SNiM2W5axfc8CCtsOuWp1SyYrXt1RHDlRO1EM0laAvFrt25GbHUo0sIgtUhIGVz
-	 aaOQqgy2dYiuqUl3tnQOIW6frH/bX+DEuoOcXYV1qb0h0QEyXWzo8lDsid69RQiSXtboq
-	 vSn70x8dlysKIMS+yqflAMsgGugOsmLuIzXPEE3TnVf63MaYvLCLaGdPCwRXnygL23w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793829674;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
+	bh=w9CdwPErUt55SviF3rKSmqb1tl8IBDbw/57AfeFpaXU=;
+	b=clKGRkkRBX1L/RkrJFbWcY7ZgnQWcvnwnqE5ffM0SrwHokST/wEMujiqJhlxfyc1PpP4
+	 +uHKP43wIGn9FmA+VGvA6mtjtT+NU88t4z1CPyocVcstjpcC2IuA8En0iujZcquc5w2uw
+	 JT1EVJMxPLCDUgiuTDZ7r83wq3flQrTYhG5Q2MFowrYd9XEo1MWh1eYGsKTSJyBgXVSk3
+	 QcTwgMn/aF0qhMUd6BQO2qAGt5jMfTfgBk91UFKPJKa+ZKmys5LK3GgIWYGrdtWsdRdbK
+	 B7e1xMFkkS5LIjjtUoLzWZP+wNU2vQ7TpuViRa2RvpwqFBGKjzsg+4Mje1rpr2Gu87w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=modelmiser.com;
-	spf=pass smtp.mailfrom=modelmiser.com;
-	dkim=pass header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=Tm0mxSNd;
-	arc=none smtp.remote-ip=109.224.244.21
-Received: from mail-24421.protonmail.ch (mail-24421.protonmail.ch [109.224.244.21])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ZdxJm6fq;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B485606BA2B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:01:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B485606BA2B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=modelmiser.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modelmiser.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E1F606C58E
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:01:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7E1F606C58E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=Tm0mxSNd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=modelmiser.com;
-	s=protonmail; t=1793829662; x=1794088862;
-	bh=1sjaakE+YA9fNVZvjX29YflKzzv+s4AfE0dYZK0O3I0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=Tm0mxSNdG66gOSDdzIcR4QCJb83oraYEHAZjDHnH57rKNyshrcJFQajRWUvLmetWd
-	 o7e+s3MtWPdg/7bPxeZmB2ePi+vahDpbu8pzsPNJbc7tgkbmDw5mTvAh4R5AOX6XpZ
-	 ow8f9hzAZz0CLxtc9T3qaq/AgxFDa53AWovxyzVT2RAhmiWycq8zZiMaZcEeX9EUBv
-	 Fa/8q/FYm3InPDUFCHRxiote6KRdhVSSYN1PqmddPENHcVZPfUIAfh3EO3kGn+7Nuq
-	 lVuOJh72lCtG81C4iocWS9eHZylKuhmcvr6gUiZjnHQVXPc3KwRpPAVRzGrA4DwCuW
-	 LwiM4rRcOs8YA==
-Date: Wed, 04 Nov 2026 22:00:57 +0000
-To: linux-kernel@vger.kernel.org
-From: Chad Aldreda <ca@modelmiser.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, driver-core@lists.linux.dev, linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Nick Faro <yux50000@hotmail.com>
-Subject: [RFC PATCH 4/4] drivers: base: test: add a vehicle for DEBUG_DEVRES_REFS
-Message-ID: <20261104220041.3994559-3-ca@modelmiser.com>
-In-Reply-To: <20261104215546.3990950-1-ca@modelmiser.com>
-References: <20261104215546.3990950-1-ca@modelmiser.com>
-Feedback-ID: 232753253:user:proton
-X-Pm-Message-ID: d16a27c94a5e8d4ddab9719659d532294fb0e54b
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ZdxJm6fq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793829672;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=w9CdwPErUt55SviF3rKSmqb1tl8IBDbw/57AfeFpaXU=;
+	b=ZdxJm6fqgqKzi6kjy9PCgLpJWGcDjjLIBp1IwdsKtemOG3IZ9SYsnvYzK6N6clzaj1RSL6
+	s0nz7qrPbWQCrJURjUSWL2beBy2IPeZLw+7ySpeyihARKbHsx388oj33lTUqd8dmBtXRC8
+	G5G0S7NOLAtywAQZbxspQ+sHrQ09HrE=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-538-nPOl_08aPTO2CdaX177x4A-1; Wed,
+ 04 Nov 2026 17:01:07 -0500
+X-MC-Unique: nPOl_08aPTO2CdaX177x4A-1
+X-Mimecast-MFC-AGG-ID: nPOl_08aPTO2CdaX177x4A_1793829665
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 5F6A81955F1B;
+	Wed,  4 Nov 2026 22:01:05 +0000 (UTC)
+Received: from poros-thinkpadp16vgen1.tpbc.com (unknown [10.44.32.42])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 76C9B195604C;
+	Wed,  4 Nov 2026 22:01:00 +0000 (UTC)
+From: Petr Oros <poros@redhat.com>
+To: netdev@vger.kernel.org
+Cc: Petr Oros <poros@redhat.com>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Michal Swiatkowski <michal.swiatkowski@linux.intel.com>,
+	Simon Horman <horms@kernel.org>,
+	Larysa Zaremba <larysa.zaremba@intel.com>,
+	Mateusz Pacuszka <mateuszx.pacuszka@intel.com>,
+	intel-wired-lan@lists.osuosl.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH iwl-net] ice: do not classify EAPOL MAC address as LLDP
+Date: Wed,  4 Nov 2026 23:00:42 +0100
+Message-ID: <20261104220042.1421735-1-poros@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,407 +86,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-Register a platform device whose driver exposes two misc devices, one
-character device and one debugfs file: /dev/devm_refs_bad keeps its
-state, with the miscdevice embedded, in devm memory; /dev/devm_refs_good
-keeps refcounted state freed on last close; /dev/devm_refs_cdev is a
-struct cdev embedded in devm memory; the debugfs file bad_magic points
-into the devm state and is removed by a devres action registered after
-that allocation. The driver depends on DEBUG_FS for that file.
+01:80:c2:00:00:03 (Nearest Non-TPMR Bridge) is also the 802.1X PAE
+group address used by EAPOL, and the virtchnl MAC filter API carries no
+ethertype to tell the two apart. ice_vc_can_add_mac() therefore rejects
+it on untrusted VFs, which fails the whole ADD_ETH_ADDR request and
+breaks 802.1X authentication:
 
-Unbinding the device with all four held open must warn exactly twice,
-for the devm-backed misc node and for the cdev, and report the debugfs
-file at info level after release; closing the bad node and the cdev
-node afterwards are use-after-frees that KASAN reports independently
-(the cdev close reads the freed cdev in cdev_put() and then writes its
-kobject refcount in kobject_put(), so run this under KASAN only).
-Rebinding and unbinding with nothing open must be silent.
+[  128.447213] ice 0000:17:00.2: An untrusted VF 0 is attempting to configure an LLDP multicast address
+[  128.447301] iavf 0000:17:11.0: Failed to add MAC filter, error IAVF_ERR_ADMIN_QUEUE_ERROR
 
-Written with Claude (Anthropic) under my direction; see the cover letter
-for the disclosure required by Documentation/process/generated-content.rst.
+Drop 0x03 from ice_is_mc_lldp_eth_addr() and treat it as a regular
+multicast MAC. Trusted VFs still get the ETH_P_LLDP forwarding rule
+through the other two LLDP addresses and the rule does not match on
+the destination MAC anyway.
 
-Signed-off-by: Chad Aldreda <ca@modelmiser.com>
+Fixes: 2296345416b0 ("ice: receive LLDP on trusted VFs")
+Signed-off-by: Petr Oros <poros@redhat.com>
 ---
- drivers/base/test/Kconfig          |  15 ++
- drivers/base/test/Makefile         |   2 +
- drivers/base/test/devm_refs_test.c | 323 +++++++++++++++++++++++++++++
- 3 files changed, 340 insertions(+)
- create mode 100644 drivers/base/test/devm_refs_test.c
+ drivers/net/ethernet/intel/ice/virt/virtchnl.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/base/test/Kconfig b/drivers/base/test/Kconfig
-index 1ecf079124..e04dfda988 100644
---- a/drivers/base/test/Kconfig
-+++ b/drivers/base/test/Kconfig
-@@ -23,3 +23,18 @@ config DRIVER_SWNODE_KUNIT_TEST
- =09tristate "KUnit Tests for software node fw_devlink links" if !KUNIT_ALL=
-_TESTS
- =09depends on KUNIT
- =09default KUNIT_ALL_TESTS
-+
-+config DEVM_REFS_TEST
-+=09tristate "Test driver for DEBUG_DEVRES_REFS"
-+=09depends on DEBUG_DEVRES_REFS && DEBUG_FS
-+=09help
-+=09  Registers a platform device whose driver exposes /dev/devm_refs_bad
-+=09  (state in devm memory, freed on unbind while open),
-+=09  /dev/devm_refs_good (refcounted state), /dev/devm_refs_cdev (a
-+=09  struct cdev embedded in devm memory) and a debugfs file bad_magic
-+=09  whose data is that devm memory and whose removal is a devres
-+=09  action. Unbinding with all four open must warn once for the bad
-+=09  node and once for the cdev, and report the debugfs file at info
-+=09  level after release. See drivers/base/test/devm_refs_test.c.
-+
-+=09  If unsure say N.
-diff --git a/drivers/base/test/Makefile b/drivers/base/test/Makefile
-index 9ced7bbd56..556b9d2635 100644
---- a/drivers/base/test/Makefile
-+++ b/drivers/base/test/Makefile
-@@ -8,3 +8,5 @@ obj-$(CONFIG_DRIVER_PE_KUNIT_TEST) +=3D property-entry-test=
-.o
- CFLAGS_property-entry-test.o +=3D $(DISABLE_STRUCTLEAK_PLUGIN)
-=20
- obj-$(CONFIG_DRIVER_SWNODE_KUNIT_TEST) +=3D swnode-devlink-test.o
-+
-+obj-$(CONFIG_DEVM_REFS_TEST)=09+=3D devm_refs_test.o
-diff --git a/drivers/base/test/devm_refs_test.c b/drivers/base/test/devm_re=
-fs_test.c
-new file mode 100644
-index 0000000000..40b4211d52
---- /dev/null
-+++ b/drivers/base/test/devm_refs_test.c
-@@ -0,0 +1,323 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Test vehicle for CONFIG_DEBUG_DEVRES_REFS.
-+ *
-+ * Registers one platform device bound to a driver that exposes two misc
-+ * devices, one character device and one debugfs file (see
-+ * devm_refs_dbg_show() below):
-+ *
-+ *   /dev/devm_refs_bad  - driver state allocated with devm_kzalloc(), so
-+ *                         it is freed on unbind even while the node is op=
-en.
-+ *                         file->private_data (set by the misc core to the
-+ *                         embedded struct miscdevice) points into it.
-+ *   /dev/devm_refs_good - driver state refcounted and freed on last put,
-+ *                         so unbind with the node open is safe.
-+ *   /dev/devm_refs_cdev - a struct cdev embedded in devm memory; an open
-+ *                         file reaches it through inode->i_cdev.
-+ *
-+ * Unbinding the device with all nodes held open must produce exactly two
-+ * DEBUG_DEVRES_REFS warnings, for the bad node and for the cdev, and an
-+ * info line for the debugfs file after release. Closing the bad node and
-+ * the cdev node after unbind are use-after-frees that KASAN reports
-+ * independently; the cdev close reads the freed object in cdev_put() and
-+ * then writes its kobject refcount in kobject_put(), so run this under
-+ * KASAN only.
-+ */
-+#include <linux/cdev.h>
-+#include <linux/debugfs.h>
-+#include <linux/fs.h>
-+#include <linux/kref.h>
-+#include <linux/miscdevice.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/seq_file.h>
-+#include <linux/slab.h>
-+#include <linux/uaccess.h>
-+
-+#define DEVM_REFS_MAGIC=090x5245465344455644ULL=09/* "DVEDSFER" */
-+
-+struct devm_refs_bad {
-+=09struct miscdevice misc;
-+=09u64 magic;
-+};
-+
-+struct devm_refs_good {
-+=09struct miscdevice misc;
-+=09struct kref kref;
-+=09u64 magic;
-+};
-+
-+struct devm_refs_cdev {
-+=09struct cdev cdev;
-+=09u64 magic;
-+};
-+
-+struct devm_refs_state {
-+=09struct devm_refs_bad *bad;
-+=09struct devm_refs_good *good;
-+=09struct devm_refs_cdev *cd;
-+=09struct class *class;
-+=09dev_t devt;
-+=09struct dentry *dbg;
-+};
-+
-+static ssize_t devm_refs_cdev_read(struct file *file, char __user *buf,
-+=09=09=09=09   size_t len, loff_t *ppos)
-+{
-+=09struct devm_refs_cdev *cd =3D
-+=09=09container_of(file_inode(file)->i_cdev, struct devm_refs_cdev, cdev);
-+=09char tmp[32];
-+=09int n;
-+
-+=09n =3D scnprintf(tmp, sizeof(tmp), "%s\n",
-+=09=09      cd->magic =3D=3D DEVM_REFS_MAGIC ? "ok" : "CORRUPT");
-+=09return simple_read_from_buffer(buf, len, ppos, tmp, n);
-+}
-+
-+static const struct file_operations devm_refs_cdev_fops =3D {
-+=09.owner =3D THIS_MODULE,
-+=09.read =3D devm_refs_cdev_read,
-+};
-+
-+/*
-+ * A debugfs file whose i_private points into devm memory and whose
-+ * removal is a devres action registered AFTER that allocation: debugfs
-+ * revokes it before the memory goes, so the check must report it at info
-+ * level after release, not WARN during the walk.
-+ */
-+static int devm_refs_dbg_show(struct seq_file *m, void *v)
-+{
-+=09struct devm_refs_bad *bad =3D m->private;
-+
-+=09seq_printf(m, "%s\n", bad->magic =3D=3D DEVM_REFS_MAGIC ? "ok" : "CORRU=
-PT");
-+=09return 0;
-+}
-+DEFINE_SHOW_ATTRIBUTE(devm_refs_dbg);
-+
-+static void devm_refs_dbg_remove(void *dir)
-+{
-+=09debugfs_remove_recursive(dir);
-+}
-+
-+static ssize_t devm_refs_bad_read(struct file *file, char __user *buf,
-+=09=09=09=09  size_t len, loff_t *ppos)
-+{
-+=09struct devm_refs_bad *bad =3D
-+=09=09container_of(file->private_data, struct devm_refs_bad, misc);
-+=09char tmp[32];
-+=09int n;
-+
-+=09n =3D scnprintf(tmp, sizeof(tmp), "%s\n",
-+=09=09      bad->magic =3D=3D DEVM_REFS_MAGIC ? "ok" : "CORRUPT");
-+=09return simple_read_from_buffer(buf, len, ppos, tmp, n);
-+}
-+
-+static int devm_refs_bad_release(struct inode *inode, struct file *file)
-+{
-+=09struct devm_refs_bad *bad =3D
-+=09=09container_of(file->private_data, struct devm_refs_bad, misc);
-+
-+=09/* After unbind this is a read of freed memory. */
-+=09pr_info("devm_refs_test: bad release, magic %s\n",
-+=09=09bad->magic =3D=3D DEVM_REFS_MAGIC ? "ok" : "CORRUPT");
-+=09return 0;
-+}
-+
-+static const struct file_operations devm_refs_bad_fops =3D {
-+=09.owner =3D THIS_MODULE,
-+=09.read =3D devm_refs_bad_read,
-+=09.release =3D devm_refs_bad_release,
-+};
-+
-+static void devm_refs_good_free(struct kref *kref)
-+{
-+=09struct devm_refs_good *good =3D
-+=09=09container_of(kref, struct devm_refs_good, kref);
-+
-+=09pr_info("devm_refs_test: good freed on last put\n");
-+=09kfree(good);
-+}
-+
-+static int devm_refs_good_open(struct inode *inode, struct file *file)
-+{
-+=09struct devm_refs_good *good =3D
-+=09=09container_of(file->private_data, struct devm_refs_good, misc);
-+
-+=09kref_get(&good->kref);
-+=09return 0;
-+}
-+
-+static ssize_t devm_refs_good_read(struct file *file, char __user *buf,
-+=09=09=09=09   size_t len, loff_t *ppos)
-+{
-+=09struct devm_refs_good *good =3D
-+=09=09container_of(file->private_data, struct devm_refs_good, misc);
-+=09char tmp[32];
-+=09int n;
-+
-+=09n =3D scnprintf(tmp, sizeof(tmp), "%s\n",
-+=09=09      good->magic =3D=3D DEVM_REFS_MAGIC ? "ok" : "CORRUPT");
-+=09return simple_read_from_buffer(buf, len, ppos, tmp, n);
-+}
-+
-+static int devm_refs_good_release(struct inode *inode, struct file *file)
-+{
-+=09struct devm_refs_good *good =3D
-+=09=09container_of(file->private_data, struct devm_refs_good, misc);
-+
-+=09pr_info("devm_refs_test: good release, magic %s\n",
-+=09=09good->magic =3D=3D DEVM_REFS_MAGIC ? "ok" : "CORRUPT");
-+=09kref_put(&good->kref, devm_refs_good_free);
-+=09return 0;
-+}
-+
-+static const struct file_operations devm_refs_good_fops =3D {
-+=09.owner =3D THIS_MODULE,
-+=09.open =3D devm_refs_good_open,
-+=09.read =3D devm_refs_good_read,
-+=09.release =3D devm_refs_good_release,
-+};
-+
-+static int devm_refs_probe(struct platform_device *pdev)
-+{
-+=09struct device *dev =3D &pdev->dev, *cdev_dev;
-+=09struct devm_refs_state *st;
-+=09int ret;
-+
-+=09st =3D devm_kzalloc(dev, sizeof(*st), GFP_KERNEL);
-+=09if (!st)
-+=09=09return -ENOMEM;
-+
-+=09st->bad =3D devm_kzalloc(dev, sizeof(*st->bad), GFP_KERNEL);
-+=09if (!st->bad)
-+=09=09return -ENOMEM;
-+=09st->bad->magic =3D DEVM_REFS_MAGIC;
-+=09st->bad->misc.minor =3D MISC_DYNAMIC_MINOR;
-+=09st->bad->misc.name =3D "devm_refs_bad";
-+=09st->bad->misc.fops =3D &devm_refs_bad_fops;
-+=09st->bad->misc.parent =3D dev;
-+
-+=09st->good =3D kzalloc_obj(*st->good);
-+=09if (!st->good)
-+=09=09return -ENOMEM;
-+=09kref_init(&st->good->kref);
-+=09st->good->magic =3D DEVM_REFS_MAGIC;
-+=09st->good->misc.minor =3D MISC_DYNAMIC_MINOR;
-+=09st->good->misc.name =3D "devm_refs_good";
-+=09st->good->misc.fops =3D &devm_refs_good_fops;
-+=09st->good->misc.parent =3D dev;
-+
-+=09st->dbg =3D debugfs_create_dir("devm_refs_test", NULL);
-+=09debugfs_create_file("bad_magic", 0444, st->dbg, st->bad,
-+=09=09=09    &devm_refs_dbg_fops);
-+=09ret =3D devm_add_action_or_reset(dev, devm_refs_dbg_remove, st->dbg);
-+=09if (ret)
-+=09=09goto err_free_good;
-+
-+=09ret =3D misc_register(&st->bad->misc);
-+=09if (ret)
-+=09=09goto err_free_good;
-+=09ret =3D misc_register(&st->good->misc);
-+=09if (ret)
-+=09=09goto err_dereg_bad;
-+
-+=09/* A cdev embedded in devm memory, with its own /dev node. */
-+=09st->cd =3D devm_kzalloc(dev, sizeof(*st->cd), GFP_KERNEL);
-+=09if (!st->cd) {
-+=09=09ret =3D -ENOMEM;
-+=09=09goto err_dereg_good;
-+=09}
-+=09st->cd->magic =3D DEVM_REFS_MAGIC;
-+=09ret =3D alloc_chrdev_region(&st->devt, 0, 1, "devm_refs_cdev");
-+=09if (ret)
-+=09=09goto err_dereg_good;
-+=09cdev_init(&st->cd->cdev, &devm_refs_cdev_fops);
-+=09st->cd->cdev.owner =3D THIS_MODULE;
-+=09ret =3D cdev_add(&st->cd->cdev, st->devt, 1);
-+=09if (ret)
-+=09=09goto err_region;
-+=09st->class =3D class_create("devm_refs");
-+=09if (IS_ERR(st->class)) {
-+=09=09ret =3D PTR_ERR(st->class);
-+=09=09goto err_cdev;
-+=09}
-+=09cdev_dev =3D device_create(st->class, dev, st->devt, NULL,
-+=09=09=09=09 "devm_refs_cdev");
-+=09if (IS_ERR(cdev_dev)) {
-+=09=09ret =3D PTR_ERR(cdev_dev);
-+=09=09goto err_class;
-+=09}
-+
-+=09platform_set_drvdata(pdev, st);
-+=09dev_info(dev, "probed: /dev/devm_refs_bad, /dev/devm_refs_good, /dev/de=
-vm_refs_cdev\n");
-+=09return 0;
-+
-+err_class:
-+=09class_destroy(st->class);
-+err_cdev:
-+=09cdev_del(&st->cd->cdev);
-+err_region:
-+=09unregister_chrdev_region(st->devt, 1);
-+err_dereg_good:
-+=09misc_deregister(&st->good->misc);
-+err_dereg_bad:
-+=09misc_deregister(&st->bad->misc);
-+=09/* Registered or not, drop the probe-time reference; the free runs on z=
-ero. */
-+=09kref_put(&st->good->kref, devm_refs_good_free);
-+=09return ret;
-+err_free_good:
-+=09kfree(st->good);
-+=09return ret;
-+}
-+
-+static void devm_refs_remove(struct platform_device *pdev)
-+{
-+=09struct devm_refs_state *st =3D platform_get_drvdata(pdev);
-+
-+=09device_destroy(st->class, st->devt);
-+=09class_destroy(st->class);
-+=09cdev_del(&st->cd->cdev);
-+=09unregister_chrdev_region(st->devt, 1);
-+=09misc_deregister(&st->good->misc);
-+=09misc_deregister(&st->bad->misc);
-+=09kref_put(&st->good->kref, devm_refs_good_free);
-+=09dev_info(&pdev->dev, "removed; devres release follows\n");
-+}
-+
-+static struct platform_driver devm_refs_driver =3D {
-+=09.probe =3D devm_refs_probe,
-+=09.remove =3D devm_refs_remove,
-+=09.driver =3D {
-+=09=09.name =3D "devm_refs_test",
-+=09},
-+};
-+
-+static struct platform_device *devm_refs_pdev;
-+
-+static int __init devm_refs_test_init(void)
-+{
-+=09int ret;
-+
-+=09ret =3D platform_driver_register(&devm_refs_driver);
-+=09if (ret)
-+=09=09return ret;
-+
-+=09devm_refs_pdev =3D platform_device_register_simple("devm_refs_test", -1=
-,
-+=09=09=09=09=09=09=09 NULL, 0);
-+=09if (IS_ERR(devm_refs_pdev)) {
-+=09=09platform_driver_unregister(&devm_refs_driver);
-+=09=09return PTR_ERR(devm_refs_pdev);
-+=09}
-+=09return 0;
-+}
-+
-+static void __exit devm_refs_test_exit(void)
-+{
-+=09platform_device_unregister(devm_refs_pdev);
-+=09platform_driver_unregister(&devm_refs_driver);
-+}
-+
-+module_init(devm_refs_test_init);
-+module_exit(devm_refs_test_exit);
-+MODULE_DESCRIPTION("Test vehicle for DEBUG_DEVRES_REFS");
-+MODULE_LICENSE("GPL");
---=20
-2.43.0
-
+diff --git a/drivers/net/ethernet/intel/ice/virt/virtchnl.c b/drivers/net/ethernet/intel/ice/virt/virtchnl.c
+index ca8018e3dd4288..27f0e1dee24642 100644
+--- a/drivers/net/ethernet/intel/ice/virt/virtchnl.c
++++ b/drivers/net/ethernet/intel/ice/virt/virtchnl.c
+@@ -744,8 +744,9 @@ ice_vfhw_mac_add(struct ice_vf *vf, struct virtchnl_ether_addr *vc_ether_addr)
+  * ice_is_mc_lldp_eth_addr - check if the given MAC is a multicast LLDP address
+  * @mac: address to check
+  *
+- * Return: true if the address is one of the three possible LLDP multicast
+- *	   addresses, false otherwise.
++ * Return: true if the address is one of the LLDP multicast addresses
++ *	   handled by this driver (Nearest Bridge or Nearest Customer Bridge),
++ *	   false otherwise.
+  */
+ static bool ice_is_mc_lldp_eth_addr(const u8 *mac)
+ {
+@@ -754,7 +755,7 @@ static bool ice_is_mc_lldp_eth_addr(const u8 *mac)
+ 	if (memcmp(mac, lldp_mac_base, sizeof(lldp_mac_base)))
+ 		return false;
+ 
+-	return (mac[5] == 0x0e || mac[5] == 0x03 || mac[5] == 0x00);
++	return (mac[5] == 0x0e || mac[5] == 0x00);
+ }
+ 
+ /**
+-- 
+2.56.0
 
