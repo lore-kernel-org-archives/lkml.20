@@ -1,63 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793804480;
-	b=AfZ0Jnbr0YYT8mGEYCLIVKpHHR1mED6s+WT68liolF6Vknt9/eDoIjz/USNdgk3ag522
-	 lu9wALouTiZX1pY0TnO6A9NQRnxES34tnIcMXHFKd59a8z79BviJ4ZNq1dv1+Ji0GbIlb
-	 h9h/NVJirkx0VpReg7PCF63phYAJf8qi672wXYSwqw4Oh/9CdNZuYCwE7L3Wc9rzmtNE3
-	 6bJ0XNuzPm9y3X/aNqfIO3SAdZm9hlNv6YdQoHJ2trQcxC7KY9vp32R9XO5V6D0igydHN
-	 kTUTqyuPAwXYdH0e0CDDzWcWhz3drSxKG37dOSQTe0Fm9ArwGZEwMPNI+xssu6o6DNQ==
+	t=1793804488;
+	b=ShGCBlowH93ZBC/K2zE2h/rC7Sp4Itbc7sJWMYE/SSAEeKS4GZ0wQ5zpen+bxi8vr6JO
+	 tgYONwm06Sxbj6I8+PyyMd9IMVSXPi6bPMHMaywogzBf2vfWuPgSGt1wlM/Pmyr5e5/5n
+	 W3Dn9//VW9WxXMuLSBLnz/VgqebSa8USomrwpXjYI0hOLZw3wATOKyEimS0RyCZx3E/Cq
+	 /NIcbZEqxm+GVbNHYqgcmUG3drKH/ZMgIEsbIoVQt7yLhHhlytzEWftPFC0ek0E1OLnRs
+	 SQGYy/Ih3a+7bSI5QZFUJyQkR0HCvDIN5ikcwOpkd2cmMPW5cCCw8hioAhKvrT/tQtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793804480;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=RTCWGHjaF/Ld146pWyWxphZf6onDLp8uBS7oOvthXlU=;
-	b=P2GL0kuo+L/T+ePLYytpMuNj+7mLZ9BZjJc7wDP/wjPXQO+9c6olv1cZhKddd7eMho49
-	 AbuviySdHXsdmcQHO7wb0VmnJahYkJeW8o+WmRjHTWB4mbWEfYCUUy6FzRxUOQQuRrqnl
-	 F16HDqJ6KKTPFkXjXthv07sJwGtOL6endxiZcsj/SAFer4feCfnk9USImOi1Ou1hofuzL
-	 sMIy1O3+G2W04Ogb/Z49TQw9iHFEMbX2AsduqOv5KWBAXgwPGrrxOdjsfdZ/ZvM2OPoyX
-	 DHeqcimvmXeJkqBD3GfXFo+FZEnRzOmEzooZgWEoOupbbZm3S18SbR2Biy0TE5oG82w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793804488;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:User-Agent:MIME-Version:Content-Type;
+	bh=6YxOPHeBFVzKRVOWsijIHFAGxsh3bvwNNvRfegWSMFo=;
+	b=vIyYpirhmkY4hhjtwvh/m25fK93krM4nuq0ivbOfvvf05jnAk1AGyEei+uLBrEd4dl1b
+	 1StcfqNCGTIUj9Nci4iK50UN0i9mG2UW8l4o3MxilV0x1Z7oxUAjnI1iQ41Ok7hF9y9s8
+	 wTfKdxJFhWReYUisdJHTfG6Dmm50jRvbP6ju73sRGIs5PcOE9bSEuVpyTTldz+bj64qaV
+	 jCAv0/C9oe2XRQZlqD1md5KC5D6Z2OmxlP9sOsFhBkpt8WAgAU5VpXSk9RFUGvvl7O+iS
+	 f8cjxdDAZyvuChmYaFzcyHbjv1NlTyO3fBUU3U34Bl0hE2WifXgeb3pMM0w7f8xKI3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=surriel.com;
-	spf=pass smtp.mailfrom=surriel.com;
-	dkim=pass header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=ULGUO+Em;
-	arc=none smtp.remote-ip=96.67.55.147
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OwJnxig3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5689606A31B;
-	Wed,  4 Nov 2026 15:01:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5689606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EB1A606A337;
+	Wed,  4 Nov 2026 15:01:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=ULGUO+Em
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
-	Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:Content-Description:
-	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	In-Reply-To:References; bh=RTCWGHjaF/Ld146pWyWxphZf6onDLp8uBS7oOvthXlU=; b=UL
-	GUO+EmZTRYo4C619wE8rh7yBIQzPYZztFinuvmsOkxc8BAoJhTFOKpZfNbFxvYtDuLhiuO/4m1CjG
-	bqGE/uRNxixbFfrzEbK+e5vLm0b44b12BzQrzFalUVWvXMFnZI8OfD1WTjDJG0/kpCHi6SviyOX9n
-	LW8XiFlbLgxL+L5VJwr52KZ1BN0xJa5E6B/qSkrrFoHec0NNVdlo0OaIZvbS17b0TpxJy/dJ2XpFO
-	7FXXpD7NdNGwE6y7Mvmwg5AdLoxUpOSNEaLHrB5o00SXcp3BVrCSOf/yl0xXBRndiHz84RuFyee78
-	tIQdHNHmiz8JV7lh2/GPXZX2kNH8aiig==;
-Received: from [2601:18c:8100:a0e0:2541:b86e:2586:d219] (helo=fangorn)
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1xOcUG-00000001zrN-1aX5;
-	Wed, 04 Nov 2026 15:01:16 +0000
-Date: Wed, 4 Nov 2026 10:01:15 -0500
-From: Rik van Riel <riel@surriel.com>
-To: linux-kernel@vger.kernel.org
-Cc: linux-xfs@vger.kernel.org, Carlos Maiolino <cem@kernel.org>, "Darrick J.
- Wong" <djwong@kernel.org>, Christoph Hellwig <hch@lst.de>,
- kernel-team@meta.com, Christian Andres Saide <csaide@meta.com>
-Subject: [PATCH] xfs: keep successful near rt allocations
-Message-ID: <20261104100115.36bf7d28@fangorn>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OwJnxig3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C76AF1F0093A;
+	Wed,  4 Nov 2026 15:01:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793804487;
+	bh=6YxOPHeBFVzKRVOWsijIHFAGxsh3bvwNNvRfegWSMFo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=OwJnxig3rfoGKDzHfgnzBO3NMi8sr2bi7nZPcIXsVfqDqD2ml4RCvESVjw64EXsZy
+	 0Iq0Rveie9/lMNePvdQHltK6+H2sKsmqZo/VM8NHEF1vn0ybRJsZeSpdeNVHnfYK9I
+	 9JSalFL53Wpknx1cYHqboIWo9jjPjXzonHiRjCgG23CusXijz7xRveiT4cnAjU9Yc6
+	 0GnKo5RyD3TENvFcCjOcQWx53fWl25tXPxDWbTew6D7VkfDMp+7jSrhY5l+qRtjJJ7
+	 eMAeeBXN2mLzMiJ8zChNdFZCpdrJH2V2dbL3LkaeTJ4ePFuK4SZctGZZtlmPPCnOTn
+	 aEEiOhq83RuYQ==
+From: Pratyush Yadav <pratyush@kernel.org>
+To: David Matlack <dmatlack@google.com>
+Cc: kexec@lists.infradead.org,  linux-doc@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  linux-kselftest@vger.kernel.org,
+  linux-mm@kvack.org,  Alexander Graf <graf@amazon.com>,  Andrew Morton
+ <akpm@linux-foundation.org>,  Baolin Wang <baolin.wang@linux.alibaba.com>,
+  Christian Brauner <brauner@kernel.org>,  David Hildenbrand
+ <david@kernel.org>,  Hugh Dickins <hughd@google.com>,  Jonathan Corbet
+ <corbet@lwn.net>,  "Liam R. Howlett" <liam@infradead.org>,  Lorenzo
+ Stoakes <ljs@kernel.org>,  Michal Hocko <mhocko@suse.com>,  Mike Rapoport
+ <rppt@kernel.org>,  Pasha Tatashin <pasha.tatashin@soleen.com>,  Pratyush
+ Yadav <pratyush@kernel.org>,  Randy Dunlap <rdunlap@infradead.org>,
+  Samiullah Khawaja <skhawaja@google.com>,  Shuah Khan
+ <skhan@linuxfoundation.org>,  Suren Baghdasaryan <surenb@google.com>,
+  Vlastimil Babka <vbabka@kernel.org>
+Subject: Re: [PATCH v3 06/10] mm/shmem_luo: Don't make early retrieve
+ failures permanent
+In-Reply-To: <20261103010216.3447716-7-dmatlack@google.com> (David Matlack's
+	message of "Tue, 3 Nov 2026 01:02:12 +0000")
+References: <20261103010216.3447716-1-dmatlack@google.com>
+	<20261103010216.3447716-7-dmatlack@google.com>
+Date: Wed, 04 Nov 2026 16:01:22 +0100
+Message-ID: <2vxzik2ck5dp.fsf@kernel.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,51 +72,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-XFS realtime allocations first attempt to allocate space near where
-other parts of a file already are. If that allocation succeeds, it
-does not have to do a global search for free space.
+On Tue, Nov 03 2026, David Matlack wrote:
 
-Unfortunately, a code cleanup a while ago causes xfs_rtallocate_rtg
-to unconditionally do the global search, even when the search for a
-nearby extent has succeeded.
+> Mark failures in shmem_luo_retrieve() before it starts restoring the
+> folios as retryable, and return the error without freeing the serialized
+> state. If no retrieve succeeds, finish() frees the preserved folios,
+> like it does for a file that was never retrieved.
+>
+> Nothing has consumed the preserved state before the folios are
+> restored, so the retrieve can be tried again.
+>
+> This also fixes leaking the preserved folios when one of these early
+> steps fails, e.g. because the file has seals that this kernel doesn't
+> support. The retrieve freed the serialized state but not the folios, and
+> finish() then skipped the file because its retrieve had failed. There is
+> no Fixes tag, since the fix relies on args->retryable, which was only
+> added earlier in this series.
 
-Fix it by running the global search only when the near search did
-not find available space.
+If the seals don't match, the retrieve is not retryable. It will always
+fail.
 
-Found by noticing higher kernel CPU use and examining the profile.
+I think the only retriable part is memfd_alloc_file(), although even
+that is quite unlikely to fail. But I think that also fits pretty well
+with the most important type of error you want to retry on, which is bad
+arguments. In later patches, you check the argument on
+shmem_luo_create_tmpfs_file() or shmem_luo_create_memfd(), so perhaps
+set retriable in those functions?
 
-Fixes: fd048a1bb391d ("xfs: rework the rtalloc fallback handling")
-Cc: stable@vger.kernel.org # v6.12
-Reported-by: Christian Andres Saide <csaide@meta.com>
-Signed-off-by: Rik van Riel <riel@surriel.com>
----
- fs/xfs/xfs_rtalloc.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+[...]
 
-diff --git a/fs/xfs/xfs_rtalloc.c b/fs/xfs/xfs_rtalloc.c
-index 84efe5a8fb11..31d90828b4e9 100644
---- a/fs/xfs/xfs_rtalloc.c
-+++ b/fs/xfs/xfs_rtalloc.c
-@@ -1997,10 +1997,14 @@ xfs_rtallocate_rtg(
- 		if (error == -ENOSPC) {
- 			xfs_rtbuf_cache_relse(&args);
- 			error = 0;
-+			start = 0;
- 		}
- 	}
- 
--	if (!error) {
-+	/*
-+	 * Global search, runs when the near search did not find space.
-+	 */
-+	if (!error && !start) {
- 		error = xfs_rtallocate_extent_size(&args, minlen, maxlen, &len,
- 				prod, &rtx);
- 	}
 -- 
-2.56.0
-
-
+Regards,
+Pratyush Yadav
