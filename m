@@ -1,67 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793835566;
-	b=r1WwV3JS1nEnNOOi76yWYlg2ZFBwGlDo6lY/KL5EsxJgS9Gb2fjMfSGAlv18UmtKJkay
-	 +lZhLybqXqj3tMON2I46hINieNg36YxugESjKz6BL3LNJPQ0srYaRiaiKjr9eZOalWw1B
-	 Jh7FctqCOqeXXsjL+0hbZq49x0ZxdqHILHUiPJ7r0IdBJimXeVmU/HJx3rMxMgG0y6baN
-	 b9V3IcoUfue3lrtIxDn94p5kyTYQjR4Uqz2rbLvps0uYHdWqbaOBDG1CAICi8I0XdZstv
-	 9vATJYB3lHKDUcZg5Gk2J9fSp6IoY9N+Fw665Ro7zrbKgbWjjByAgFLrEkzAFvf/iAQ==
+	t=1793835567;
+	b=eEXdrKvnxdCE60cN/Jh7nNfMau5/yg0bwtdJipOfUTHCDGeneGEaYqHPzzEgyt+ba4GZ
+	 G8e5gP3RIgUqoCdAdnnnCafRENTTB0h2K3SVT/79nu035wTsISifv3uBJsnIzOv5inHpw
+	 D8wsGR5jP2qKSA/YncWcC2O5fHDgN6yQubHpj4kHWepDC6c32fpoBXRkU9UGPSKDi1qlm
+	 vVVBp1OmKaY2KhnPA5Zyvugd+nKeDt9UFHaxnaTE4Kbo7JDwJ5RvJ733Nsk6rCZzbryQe
+	 y1GMbi/L6u1VPODGcmj8/5B2AD5CeD3l886cRwKqiYe4hwb2M38szaKU9PdPStooUog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793835566;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793835567;
 	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
 	 Subject:Message-Id:Date:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=06UV3GtDScRnLF9PQMAWuPV6Pkn69/KTumr3wFFMWPo=;
-	b=fC1Naz5TZNn56HrEYrb+JvTV0S4sjYsueSKgBQ9aEXGP0IBPTdKBt7ZGEgxolDf8iR2f
-	 M3hGo44FNxIxJ28ZDTm3XwH7tyctGVxwPx7cOR1+sLAHbQjiMCq2tUKVJ5hSf8J9M6coY
-	 OCg6/ZSG3ld/rrN25eqEhqDFjkdTHQ8Uz7K1Z49JrUu+0ZhgvVipuZnRBCSjqoi3vxKum
-	 jRYt3y9lHQ8SFSExfYgYJfETzqgMzVwDPit44fsuaeBqmaBzLdf76HzQPtrtBxJglCSS7
-	 tAzEop3bJfEf8FWEPuJy4CHnjFLTEUDIODR2jjBpk7aN+Y6/sXnNMA4MjCY/OrMdx1A==
+	bh=wV1uJInLusVv585fK3kDQzS6tz7tXCsUgiPuQYP+aoI=;
+	b=RvtAnhURiArEEWES03cGm9IVaFKsTJXGlmSzZCiSeUnuFmEK2dZyfnX85GNBR20AINBq
+	 yXVgXmO53VpOclQ+8idQF5kpyv7MDIqeuM8UTC7mjXb0g4Rx2w5KN9tr5edhV128PdEDE
+	 dW2yNfxpMQv0OjX2lpXfCfAWP2yt/xa6f241MztYBxMt8+C76EsCzFhJEbssFbh7J7WmT
+	 7fLyXTof4HgR45lYhA9Pj9WU1MAkQO/X7FAN4/ENPs5ZNWetCnBe+1z0b76AsZE2lkucc
+	 kB0SK+FpqmhLEywAJmGJKjarLnt+oQ0A3vAB+ImLDrpguDr+vukquEit1Me+9/6W/qA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mWY/0kZe";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kdw1orWb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76297606A326;
-	Wed,  4 Nov 2026 23:39:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EC70606A334;
+	Wed,  4 Nov 2026 23:39:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mWY/0kZe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAB671F000C1;
-	Wed,  4 Nov 2026 23:39:25 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kdw1orWb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EC7D1F00A16;
+	Wed,  4 Nov 2026 23:39:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793835566;
-	bh=06UV3GtDScRnLF9PQMAWuPV6Pkn69/KTumr3wFFMWPo=;
+	s=k20260515; t=1793835567;
+	bh=wV1uJInLusVv585fK3kDQzS6tz7tXCsUgiPuQYP+aoI=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=mWY/0kZeDxb0Mbc+yYdLIXpsRhElBACEfUI4v12j5VDy3BetYK6hQaC2Q415SJYg6
-	 /p+BbGlrVTz+RO3IlhvjamJe3Oiyk1Bh1NRVGL2RtHxG8HGVK7/NPf6dWBYmaBZ0Lv
-	 DPniuEPcQzzY7OZQBDuVTm/koEwrMusvtB1Rt8EEfjdtBq2YJ3PQuawL/xRLKdx3KK
-	 JbyNT1OwZ0RGYbIWBhIYc+rm4JGXanPk/RNXHDX4mpfvr9pzFr3yFDBLDLuNhtG4zR
-	 VkK0SgNq+KnuBvEZogseqYyiw6q4MnxZ2E8KwEGSZIs9ArpdFV/iTtrFrwDeWP3C0S
-	 C6QojjJMGPiOQ==
+	b=Kdw1orWb5PLTRwwIhdL9XEJmjzHpIlqXwc/Nzd4TE6dnadg/L8wZyz7PfBp3xsgZz
+	 SrPsYbk8VCvcZLKuLUpCLK6TjWoQ64L0aQkkOQ9PEhdG76ERb0S8UCCl5C6IBPabV4
+	 R6jy0tGasvtnPcWSiV+CQWn+FSHEQIgbBbzYQqJPq6jx6KZeyDvwykZuD7X0A7H5Km
+	 hs7ekAr4ktTGeHXrcZcWtgGeQipI4GR0lJkZiywPpTv+zcSrxSIsAIMOkNoegObIl9
+	 ehj+ybnciS2V0c3L7o0tc129Oec5sYDXMqg4HgmGhlMoQrn4tAG4WvF4upd9ViBYmt
+	 8u9sesVEs9tvQ==
 Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 3022126926C3;
-	Wed, 04 Nov 2026 23:39:24 +0000 (GMT)
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 20A2926926D3;
+	Wed, 04 Nov 2026 23:39:25 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org, 
- Stefano Radaelli <stefano.radaelli21@gmail.com>
-Cc: pierluigi.p@variscite.com, alexander.h@variscite.com, 
- Stefano Radaelli <stefano.r@variscite.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, 
- Charles Keepax <ckeepax@opensource.cirrus.com>, 
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
- Linus Walleij <linusw@kernel.org>, Kees Cook <kees+treewide@kernel.org>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, 
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
  patches@opensource.cirrus.com
-In-Reply-To: <20261104155832.57738-1-stefano.r@variscite.com>
-References: <20261104155832.57738-1-stefano.r@variscite.com>
-Subject: Re: [PATCH v1 1/1] ASoC: wm8904: Enable FLL when switching an
- active SYSCLK to FLL
-Message-Id: <179381745851.2456854.5845236701643906576.b4-ty@b4>
-Date: Wed, 04 Nov 2026 18:37:38 +0000
+In-Reply-To: <20261104152402.1153795-1-rf@opensource.cirrus.com>
+References: <20261104152402.1153795-1-rf@opensource.cirrus.com>
+Subject: Re: [PATCH] firmware: cs_dsp: Fix memory leak on cs_dsp_power_up()
+ error path
+Message-Id: <179382036950.2456854.5834583890748599492.b4-ty@b4>
+Date: Wed, 04 Nov 2026 19:26:09 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,17 +66,17 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1148; i=broonie@kernel.org;
- h=from:subject:message-id; bh=+N+d3xzmz8LgZgf0keSpbFxBGI4hAez6zWda/3qs//0=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJeH9J5FxJw7tS2I6KTN62pKjtktC1I/Xh6x9dCQQeDl
- SWlLbIvO0pZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRl0sZGY7bGKvKJzWtT8+b
- 3X+ApX+LVhB/MO91npdr2k+6zGRPN2L4w38vY+ujf5NuiidN3mX4MHn/xyk37vTvaN8oeE34T4J
- +JBcA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1154; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=6oFp6tmzvlDfpw9hW2ryT6vUdG1gUdtcbcRU6kM0MDU=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJeH9Kt0X8o+P/rm0Pe/A1Vaa0vv6kLaAf/X3om7OZqi
+ a/f15ot6yhlYRDjYpAVU2SJy+J+WV/yeg3fwYVtMHNYmUCGMHBxCsBEFosy/DP4/sql/oHHwhtW
+ FS7/znacXm8jMnvq7w2tF/qmN31MLGFmZJjOuk+tTPH1JjveHxsfuNm8C3OweMHeWy15P4Dr9/4
+ 1ajwA
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Wed, 04 Nov 2026 16:58:32 +0100, Stefano Radaelli wrote:
-> ASoC: wm8904: Enable FLL when switching an active SYSCLK to FLL
+On Wed, 04 Nov 2026 15:24:02 +0000, Richard Fitzgerald wrote:
+> firmware: cs_dsp: Fix memory leak on cs_dsp_power_up() error path
 
 Applied to
 
@@ -92,8 +84,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: wm8904: Enable FLL when switching an active SYSCLK to FLL
-      https://git.kernel.org/broonie/sound/c/b3f452ff1778
+[1/1] firmware: cs_dsp: Fix memory leak on cs_dsp_power_up() error path
+      https://git.kernel.org/broonie/sound/c/39d31f76ad1b
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
