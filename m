@@ -1,96 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793786144;
-	b=dHHUtzXwaMHlbnvlcglRbnUKRk+x3DHuUYY7YjeP7TSBxa5sDKZsGRRzHovvriXLWyIZ
-	 BmQAgMNciFllOErXankox/P6ofy/oIbfp1LrIzA2OICTA2nlnvhRWNZ2Xj7S+xq532v3T
-	 NSo8Sv81dRulKHqpCAg3qY8TG2WEBGn6ylGMvNrRBz9WiFQB/iA2Jb6SRXuKctisXNgll
-	 86BbjUp4rJoNRJ6xQMweWg02FBZ+xvNcSRXP9foWfnL/gDwznaoRZk0MEfihFTmMzUEfF
-	 N98OOv7Jzek9LTbpRBJWYl7ti9wWNGvuxDIdVFe3vlhyyq1+6qXXlhq6C3YDIlt1qcg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793786144;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=eTFRhcEn12IL6H2Z1l21FtPdZX/lVEm4+csYwTijtb4=;
-	b=NsjVsHEAh95siGhdd3zJY47+X7TlbPxDfWhXRzfqzQl+jejfRnuZ+QPH0nPRwubueu1j
-	 u34xyxdAWtsE1C5YZnXdx27EyzNC9koOGO9A54V9/EhJWJuAAb8wwnrNZaUVIN3HGh4+t
-	 d3FAzPxCPGYPEnvLz0491kirBAU/91ieG2FkeyST8zci6xeFwFl1MoB6/qen3lm6AehyL
-	 TnhalHIl46fCtTWR2dBXanrN0v5mYM3j8biPmudQ6m0LA8d5GogQzAjhoSCFHKTDsk1rk
-	 auNdnIhZwCzXVfluF8wCSh1GrpIbl/zKq7wi0qXWIazs3BqCTqMfGfCEgiXCnwzdBXg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=b+UdZXft;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793786137;
+	b=AnEi9ALWiAh7eAeRmqX2gewL85DlSjFYMrW7oXJQ8+FKw9EO/1Zr7WEcCdp247ktRwOH
+	 24OdCMOufBfnIuIUEyzry5miLX+tgezAoqRQeviXEzKnRi1s6JoSl7Q+vXPJRiQgLhFc4
+	 s4ClRMhM0rAwX1MemFHKm6D7jaoqD8lSng08B+kZfrZniNzk9mvaZZULrokS6h0YAZFZu
+	 AkU/nCZ+Pznf4v7O59ao/qaWfLQHutgCPVGZ+V7Ba1ov9YxqnnMqdDKDsausGgb6RqEeu
+	 pQlw3TgGOtK02EEkEEiwJ9LI3KG0pHUukw7BhPKVgb2mK4+msmGx6Gy9zHvgVdB6uNg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793786137;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
+	bh=L9SjIRlN22aEJ/eflOcuaFanjf0EtRwA1GZ/Ili63jY=;
+	b=E7EMNn9ywephiqccP3eHgg9gV9xgDRj9jNTTYWr0v19P3ZdiivjwFQn0TVRhdvdt3XmP
+	 estkFAbLD4vJb/y8m5Lv4n1lSVWpVBndYCJ4HgPwHWTzSa4BkQwM2EUAEJyiDbtVLUXjL
+	 vUJ1u8Jqs0j1mzMpw/FmsJg2WqeEetZHSCGgRMIVL8lpsVR9Wbe9x2JPPRhajwVomN7gz
+	 s6wegG/DQLwCs/xiLprzebZnTcowRijhx/jnpHrTNMre+9u8SQFz3PugGFUrjgLPgJkEX
+	 IwuTKf/7WcroUfrgZBDepgHH2LEuDHgR+lcjEimge9cs/Kf/TXaytmLpP2CY1gkKosg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=hsal.es;
+	spf=pass smtp.mailfrom=hsal.es;
+	dkim=pass header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=St5vZC+e;
+	arc=none smtp.remote-ip=80.241.56.161
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F66606D803;
-	Wed,  4 Nov 2026 09:55:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73F66606D803
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F0EA606D81A
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:55:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F0EA606D81A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=b+UdZXft
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id A7088201CE0;
-	Wed, 04 Nov 2026 10:55:40 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793786140;
+	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=St5vZC+e
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jKLR31YykzKm4R;
+	Wed, 04 Nov 2026 10:55:27 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
+	t=1793786127;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=eTFRhcEn12IL6H2Z1l21FtPdZX/lVEm4+csYwTijtb4=;
-	b=b+UdZXftB1uycmAFjc2aKkmFeC0BkmCzWZsxgBJNxVW2zYUWSrWSIm2wL1m7FsXVO4zAy4
-	EHpsy5Q07pGo2tCv3prWyJ897xUwbpxCAwM+LB8gV/S1oux3BQvL3lGWHjn7D6SO7zforx
-	0enJZf9Y3ADwfrkvxrpKeqBwwa3AJ9S8OyVu8HVYx8rJecxVL7pSw6EN0iNbmKMI112N6u
-	aVW2ld+S/fr2y86nQgfeOB+I6nE2wXhLqzltm6yqahkiv1AGfSIlt2Ik+UrH5OjvUDH/oq
-	5M6oE4GEsk79Juqrt+tZYlhFi1THkIHXVA5naNOf4rCDMJj3bcQ4Vjk7A8tGww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793786140;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eTFRhcEn12IL6H2Z1l21FtPdZX/lVEm4+csYwTijtb4=;
-	b=eeoEwgOEIWL+AvZU0dby5dnZBv6ZdjGFTJYSXv9jrQE9Iz/vArbXHRv2hfaajThs0II7i6
-	IEwITRew6ym5i9IlVosQ+CKh4EExTtUjwGBHeJj7/EmEs7b11VB1U+48RlyP3WRJ55lCst
-	2jHGVASEzWqqhRcnIJvgGsGqldzW3r8+0fT31vPfHKEyhI5fwFpfqS+54XjaAScXUQgqPS
-	NJKegyXv1ncZ4PMX0sZogpDHG66ElmFQ/dLOTwACFUxWM5iRlNKC44pjL7lKUamqj1J/ZB
-	HcgBOol4MdAsqk/UtKNmSROijUpdfO9tl740jbLrLUvcQkiC3oSa5VvI6gj8mQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793786140; a=rsa-sha256;
-	cv=none;
-	b=KVBW48X0NZUsU++qUQbWXD4V09DjVaEyft/+qRnwqvGMbDBn4vdBVjGUZIaVQMgDNvG5KC
-	Q9F2emqy240Ktq5SXVa57ddyw0owb9Ts4laqb28PKwBLxMpW25s65ItQTUgI0VWWjSTLtT
-	pPfq0z4rHA/SoDlKUvWiHJeGFE8qARTmcgR8aVFqTpwCUNM2lbab2OPfgxZVxDzSQcVEmd
-	Hrl6EmB6R4286gkzDvb1rni3RraTwYEy/csIoGeDO4Us3PuqoacvMJlJd6r9/gWJgk3mvE
-	MWHzQPr/f3JjAIsUbiwrulGNcQuiNCM27vW21Edvi/n7rxeiLck4jdTr+kseyg==
-Message-ID: <dd321689f566e687914908974bbe4c27ce2b587e.camel@pengutronix.de>
-Subject: Re: [PATCH v3 4/5] bcma: add host driver for the BCM6362 integrated
- WLAN backplane
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Alessio Ferri <alessio.ferri@mythread.it>, Rob Herring
- <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>,  =?UTF-8?Q?Rafa=C5=82_Mi=C5=82ecki?=	
- <zajec5@gmail.com>, Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list	
- <bcm-kernel-feedback-list@broadcom.com>, Thomas Bogendoerfer	
- <tsbogend@alpha.franken.de>, Jonas Gorski <jonas.gorski@gmail.com>
-Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org
-Date: Wed, 04 Nov 2026 10:55:40 +0100
-In-Reply-To: <20261104-bcm6362-wlan-v3-4-e46562b2ac12@mythread.it>
-References: <20261104-bcm6362-wlan-v3-0-e46562b2ac12@mythread.it>
-	 <20261104-bcm6362-wlan-v3-4-e46562b2ac12@mythread.it>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	bh=L9SjIRlN22aEJ/eflOcuaFanjf0EtRwA1GZ/Ili63jY=;
+	b=St5vZC+e69zF+0QYl7tzsomIn/cBnY9p1wfZrtZVcwtRx7Ww6NJrSKZp/ecvdqBfJzwv1n
+	EdDVz38s/Mhsm1OVk9jDBNhfA70E9ZHLXKxRQrd+r6XlGg5VUv8e/SW0miaCTHCnYK2rvE
+	Zt+4hAlJw10Ywlry7WxvipnAg+K/iDcwQdu1iLZaIMj7tWLvOBhhlqivcEcYw6Mqvncrbs
+	7HcCR+t2OSIe6OwD4TS+Cct7c49nAwUGy3HoBXnXlJZ0t5K4rvwwBLi74bAcNIc8BZC+rP
+	gR1iYqQSoH1Ie2pYUHKczEDdj1GU2FjrUOM02OSLVe4RGbjFeDGhekgiF2FDTg==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=hugo@hsal.es
+From: Hugo Sales <hugo@hsal.es>
+To: alexander.deucher@amd.com,
+	sunpeng.li@amd.com,
+	harry.wentland@amd.com,
+	siqueira@igalia.com,
+	amd-gfx@lists.freedesktop.org
+Cc: Hugo Sales <hugo@hsal.es>,
+	ray.wu@amd.com,
+	simona@ffwll.ch,
+	alex.hung@amd.com,
+	mario.limonciello@amd.com,
+	linux-kernel@vger.kernel.org,
+	lohita.mudimela@amd.com,
+	bhawanpreet.lakha@amd.com,
+	dri-devel@lists.freedesktop.org,
+	roman.li@amd.com,
+	airlied@gmail.com,
+	christian.koenig@amd.com
+Subject: [PATCH RFC RFT 5/8] drm/amd/display: Add KUnit tests for the custom brightness curve
+Date: Wed,  4 Nov 2026 09:55:13 +0000
+Message-ID: <20261103-backlight-curve-rfc-v1-5-6e4813a8f2eb@hsal.es>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261103-backlight-curve-rfc-v1-0-6e4813a8f2eb@hsal.es>
+References: <20261103-backlight-curve-rfc-v1-0-6e4813a8f2eb@hsal.es>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,189 +88,312 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=13031; i=hugo@hsal.es; h=from:subject:message-id; bh=T/NqxQ3zNHoPNDzc6oEevd6n3mdwS2oL1FfQWjZQ/Ys=; b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsl7xRKVfDjKe3cl0omFDWq4j/8R595tZ11Qc4ZhxK WBjXNzJ7R86SlkYxLgYZMUUWXRveDKwTJw8M6fo+RKYOaxMIEMYuDgFYCL3AhkZNoru+qUfEy55 Xa3/cVqJu+WchIayXulbvPfmTP/P89X9IcP/SL0dJswvZdLu71D1jE9LjGLfutm78Lh5tIF65Pf t3S/4ARNqSTY=
+X-Developer-Key: i=hugo@hsal.es; a=openpgp; fpr=193D095149CF7E8737B39064D912B0DB205A91C1
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4jKLR31YykzKm4R
 
-On Mi, 2026-11-04 at 00:31 +0100, Alessio Ferri wrote:
-> The BCM6362 integrates a WLAN macro on a dedicated bcma backplane.
-> CFE leaves the macro clock gated and in reset, the backplane is
-> a big-endian peripheral, and none of the cores has a wrapper:
-> gating and reset of ChipCommon and of the 802.11 core go through
-> per-core control registers in a separate WLAN control block.
->=20
-> Add a host driver for it that:
->=20
->   - maps the ChipCommon and WLAN control register blocks;
->   - enables the clock, cycles the WLAN and WLAN UBUS resets and runs the
->     macro enable sequence bcma touches the backplane;
->   - provides big-endian register and block I/O ops;
->   - emulates BCMA_IOCTL, BCMA_IOST, BCMA_RESET_CTL and BCMA_RESET_ST
->     on top of the per-core control registers. The PHY bits of
->     BCMA_IOST report what b43 needs to hear;
->   - sets the big_endian and wrapperless bus flags before scanning.
->=20
-> As for the PCI and generic SoC hosts, the driver is linked into
-> bcma.ko and registered from bcma_modinit().
->=20
-> Add a MAINTAINERS entry for the driver and its binding.
->=20
-> The 802.11 core (rev 0x16) is handled by b43 once a SPROM is
-> available; on this SoC it is not stored on the chip and has to be
-> provided. In openwrt i use 6362-sprom plus fixups.
->=20
-> Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
-> ---
->  MAINTAINERS                     |   7 +
->  drivers/bcma/Kconfig            |  12 ++
->  drivers/bcma/Makefile           |   1 +
->  drivers/bcma/bcma_private.h     |  15 ++
->  drivers/bcma/host_soc_bcm6362.c | 419 ++++++++++++++++++++++++++++++++++=
-++++++
->  drivers/bcma/main.c             |   6 +
->  6 files changed, 460 insertions(+)
->=20
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index f53047aa8d3c..00d964829db5 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -5235,6 +5235,13 @@ S:	Maintained
->  F:	arch/arm/boot/dts/broadcom/bcm47189*
->  F:	arch/arm/boot/dts/broadcom/bcm53573*
-> =20
-> +BROADCOM BCM6362 WLAN BCMA HOST DRIVER
-> +M:	Alessio Ferri <alessio.ferri@mythread.it>
-> +L:	linux-wireless@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/bus/brcm,bcm6362-wlan-bus-axi.yaml
-> +F:	drivers/bcma/host_soc_bcm6362.c
-> +
->  BROADCOM BCM63XX/BCM33XX UDC DRIVER
->  M:	Kevin Cernekee <cernekee@gmail.com>
->  L:	linux-usb@vger.kernel.org
-> diff --git a/drivers/bcma/Kconfig b/drivers/bcma/Kconfig
-> index b9558ff20830..ef0c461bdf90 100644
-> --- a/drivers/bcma/Kconfig
-> +++ b/drivers/bcma/Kconfig
-> @@ -38,6 +38,18 @@ config BCMA_HOST_SOC
-> =20
->  	  If unsure, say N
-> =20
-> +config BCMA_HOST_SOC_BCM6362
-> +	bool "Support for the BCM6362 integrated WLAN backplane"
-> +	depends on BMIPS_GENERIC || COMPILE_TEST
-> +	depends on OF
-> +	help
-> +	  Host driver for the bcma backplane of the WLAN macro
-> +	  integrated in the Broadcom BCM6362 SoC. It powers the macro on
-> +	  and lets bcma enumerate the backplane, so that the 802.11 core
-> +	  can be driven by b43.
-> +
-> +	  If unsure, say N
-> +
->  config BCMA_DRIVER_PCI
->  	bool "BCMA Broadcom PCI core driver"
->  	depends on PCI
-> diff --git a/drivers/bcma/Makefile b/drivers/bcma/Makefile
-> index f8c37de35da2..3ff93990ecbb 100644
-> --- a/drivers/bcma/Makefile
-> +++ b/drivers/bcma/Makefile
-> @@ -13,6 +13,7 @@ bcma-$(CONFIG_BCMA_DRIVER_GMAC_CMN)	+=3D driver_gmac_cm=
-n.o
->  bcma-$(CONFIG_BCMA_DRIVER_GPIO)		+=3D driver_gpio.o
->  bcma-$(CONFIG_BCMA_HOST_PCI)		+=3D host_pci.o
->  bcma-$(CONFIG_BCMA_HOST_SOC)		+=3D host_soc.o
-> +bcma-$(CONFIG_BCMA_HOST_SOC_BCM6362)	+=3D host_soc_bcm6362.o
->  obj-$(CONFIG_BCMA)			+=3D bcma.o
-> =20
->  ccflags-$(CONFIG_BCMA_DEBUG)		:=3D -DDEBUG
-> diff --git a/drivers/bcma/bcma_private.h b/drivers/bcma/bcma_private.h
-> index 6eded32d1aac..931a0ca0aea3 100644
-> --- a/drivers/bcma/bcma_private.h
-> +++ b/drivers/bcma/bcma_private.h
-> @@ -118,6 +118,21 @@ static inline void __exit bcma_host_soc_unregister_d=
-river(void)
->  }
->  #endif /* CONFIG_BCMA_HOST_SOC && CONFIG_OF */
-> =20
-> +/* host_soc_bcm6362.c */
-> +#ifdef CONFIG_BCMA_HOST_SOC_BCM6362
-> +int __init bcma_host_soc_bcm6362_register_driver(void);
-> +void __exit bcma_host_soc_bcm6362_unregister_driver(void);
-> +#else
-> +static inline int __init bcma_host_soc_bcm6362_register_driver(void)
-> +{
-> +	return 0;
-> +}
-> +
-> +static inline void __exit bcma_host_soc_bcm6362_unregister_driver(void)
-> +{
-> +}
-> +#endif /* CONFIG_BCMA_HOST_SOC_BCM6362 */
-> +
->  /* driver_pci.c */
->  #ifdef CONFIG_BCMA_DRIVER_PCI
->  u32 bcma_pcie_read(struct bcma_drv_pci *pc, u32 address);
-> diff --git a/drivers/bcma/host_soc_bcm6362.c b/drivers/bcma/host_soc_bcm6=
-362.c
-> new file mode 100644
-> index 000000000000..5a4fa6a63411
-> --- /dev/null
-> +++ b/drivers/bcma/host_soc_bcm6362.c
-> @@ -0,0 +1,419 @@
-[...]
-> +struct bcma_host_soc_bcm6362 {
-[...]
-> +	struct reset_control	*rst_wlan;
-> +	struct reset_control	*rst_wlan_ubus;
-> +};
-[...]
-> +/*
-> + * Macro enable sequence from the Broadcom board support code: with the
-> + * clock forced on and the macro in soft reset, enable the 802.11 core
-> + * clock with force gated clock set, then release the soft reset and the
-> + * forces.
-> + */
-> +static int bcma_host_soc_bcm6362_power_on(struct bcma_host_soc_bcm6362 *=
-host)
-> +{
-[...]
-> +	reset_control_assert(host->rst_wlan_ubus);
-> +	reset_control_assert(host->rst_wlan);
+Add KUnit tests for the PWM path, using the curve from the ATIF reply of
+an ASUS ROG Flow X13 GV301QH: minimum 12 and 49 points. They check
+values worked out by hand, and walk every request to check that the
+millipercent never goes down and changes on most steps. Two more curves
+cover points above max_input_signal and a luminance over 100%
 
-These are asserted in different order than in
-bcma_host_soc_bcm6362_power_off(). Is this on purpose?
+Export convert_brightness_to_millipercent() when the KUnit tests are
+enabled, so the tests can call it
 
-If the order can be switched here, you can use the reset_control_bulk
-API.
+Signed-off-by: Hugo Sales <hugo@hsal.es>
+---
+KUnit on UML with PROVE_LOCKING: amdgpu_dm_backlight passes 74 of 74
+without this patch and 78 of 78 with it. Patch 4 says which of the new
+tests fail without it
 
-> +	fsleep(1000);
-> +	reset_control_deassert(host->rst_wlan_ubus);
-> +	reset_control_deassert(host->rst_wlan);
-> +	fsleep(1000);
-[...]
-> +}
-> +
-> +static void bcma_host_soc_bcm6362_power_off(struct bcma_host_soc_bcm6362=
- *host)
-> +{
-[...]
-> +	reset_control_assert(host->rst_wlan);
-> +	reset_control_assert(host->rst_wlan_ubus);
+The other amdgpu_dm suites behave the same with and without the series.
+Both runs stop in amdgpu_dm_crtc, at the BUG in drm_vblank_restore()
+that dm_test_crtc_enable_vblank_ips_restore hits. With that test
+skipped, the crtc, helpers, quirks and services suites pass
 
-[...]
-> +static int bcma_host_soc_bcm6362_probe(struct platform_device *pdev)
-> +{
-[...]
-> +	host->rst_wlan =3D devm_reset_control_get_exclusive(dev, "wlan");
-> +	if (IS_ERR(host->rst_wlan))
-> +		return dev_err_probe(dev, PTR_ERR(host->rst_wlan),
-> +				     "failed to get wlan reset\n");
-> +
-> +	host->rst_wlan_ubus =3D devm_reset_control_get_exclusive(dev, "wlan-ubu=
-s");
-> +	if (IS_ERR(host->rst_wlan_ubus))
-> +		return dev_err_probe(dev, PTR_ERR(host->rst_wlan_ubus),
-> +				     "failed to get wlan-ubus reset\n");
-[...]
-> +}
+W=1 C=1 on power_abm, amdgpu_dm, amdgpu_dm_backlight,
+amdgpu_dm_connector, amdgpu_dm_services and the backlight and connector
+test objects adds no warnings at any patch, and checkpatch --strict is
+clean
+---
+ .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    |   7 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_backlight.h    |   2 +
+ .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     | 212 +++++++++++++++++++++
+ 3 files changed, 219 insertions(+), 2 deletions(-)
 
-regards
-Philipp
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+index 900c17e0285c9..2c1da5cbf5d7f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+@@ -178,8 +178,9 @@ static u32 backlight_custom_curve_scale(const struct amdgpu_dm_backlight_caps *c
+ 		     output_max);
+ }
+ 
+-static u32 convert_brightness_to_millipercent(const struct amdgpu_dm_backlight_caps *caps,
+-					      u32 user_brightness)
++STATIC_IFN_KUNIT
++u32 convert_brightness_to_millipercent(const struct amdgpu_dm_backlight_caps *caps,
++				       u32 user_brightness)
+ {
+ 	unsigned int user_min, user_max;
+ 
+@@ -195,6 +196,8 @@ static u32 convert_brightness_to_millipercent(const struct amdgpu_dm_backlight_c
+ 					    caps->max_input_signal, 100000);
+ }
+ 
++EXPORT_IF_KUNIT(convert_brightness_to_millipercent);
++
+ STATIC_IFN_KUNIT
+ void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
+ 			       unsigned int user_max, uint32_t *user_brightness)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
+index c5400b6c98660..9eec805809158 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
+@@ -69,6 +69,8 @@ int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
+ 			 unsigned int *user_min, unsigned int *user_max);
+ void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
+ 			       unsigned int user_max, uint32_t *user_brightness);
++u32 convert_brightness_to_millipercent(const struct amdgpu_dm_backlight_caps *caps,
++				       u32 user_brightness);
+ u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *caps,
+ 				 uint32_t brightness);
+ u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *caps,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+index d38f388961d69..ba8ffb92ae7af 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+@@ -1460,6 +1460,214 @@ static void dm_test_brightness_from_user_with_curve(struct kunit *test)
+ 	amdgpu_dm_set_dc_debug_mask(saved_mask);
+ }
+ 
++/*
++ * ATIF QBTC reply of an ASUS ROG Flow X13 GV301QH (BIOS 418), with
++ * min_input_signal 12 and max_input_signal 255
++ */
++static const struct amdgpu_dm_luminance_data gv301qh_curve[] = {
++	{ .input_signal =  14, .luminance =  2 },
++	{ .input_signal =  16, .luminance =  4 },
++	{ .input_signal =  18, .luminance =  6 },
++	{ .input_signal =  21, .luminance =  8 },
++	{ .input_signal =  23, .luminance = 10 },
++	{ .input_signal =  26, .luminance = 12 },
++	{ .input_signal =  29, .luminance = 14 },
++	{ .input_signal =  32, .luminance = 16 },
++	{ .input_signal =  35, .luminance = 18 },
++	{ .input_signal =  38, .luminance = 20 },
++	{ .input_signal =  41, .luminance = 22 },
++	{ .input_signal =  44, .luminance = 24 },
++	{ .input_signal =  48, .luminance = 26 },
++	{ .input_signal =  52, .luminance = 28 },
++	{ .input_signal =  55, .luminance = 30 },
++	{ .input_signal =  59, .luminance = 32 },
++	{ .input_signal =  62, .luminance = 34 },
++	{ .input_signal =  67, .luminance = 36 },
++	{ .input_signal =  71, .luminance = 38 },
++	{ .input_signal =  75, .luminance = 40 },
++	{ .input_signal =  80, .luminance = 42 },
++	{ .input_signal =  84, .luminance = 44 },
++	{ .input_signal =  88, .luminance = 46 },
++	{ .input_signal =  93, .luminance = 48 },
++	{ .input_signal =  98, .luminance = 50 },
++	{ .input_signal = 103, .luminance = 52 },
++	{ .input_signal = 108, .luminance = 54 },
++	{ .input_signal = 113, .luminance = 56 },
++	{ .input_signal = 118, .luminance = 58 },
++	{ .input_signal = 123, .luminance = 60 },
++	{ .input_signal = 129, .luminance = 62 },
++	{ .input_signal = 135, .luminance = 64 },
++	{ .input_signal = 140, .luminance = 66 },
++	{ .input_signal = 146, .luminance = 68 },
++	{ .input_signal = 152, .luminance = 70 },
++	{ .input_signal = 158, .luminance = 72 },
++	{ .input_signal = 164, .luminance = 74 },
++	{ .input_signal = 171, .luminance = 76 },
++	{ .input_signal = 177, .luminance = 78 },
++	{ .input_signal = 183, .luminance = 80 },
++	{ .input_signal = 190, .luminance = 82 },
++	{ .input_signal = 197, .luminance = 84 },
++	{ .input_signal = 204, .luminance = 86 },
++	{ .input_signal = 211, .luminance = 88 },
++	{ .input_signal = 218, .luminance = 90 },
++	{ .input_signal = 225, .luminance = 92 },
++	{ .input_signal = 232, .luminance = 94 },
++	{ .input_signal = 240, .luminance = 96 },
++	{ .input_signal = 247, .luminance = 98 },
++};
++
++static void dm_test_restore_dc_debug_mask(void *data)
++{
++	amdgpu_dm_set_dc_debug_mask((uintptr_t)data);
++}
++
++/* Turn the custom curve on, and back off when the test ends, even if it aborts */
++static void dm_test_enable_custom_curve(struct kunit *test)
++{
++	uint mask = amdgpu_dm_get_dc_debug_mask();
++
++	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test, dm_test_restore_dc_debug_mask,
++							(void *)(uintptr_t)mask), 0);
++	amdgpu_dm_set_dc_debug_mask(mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE);
++}
++
++/*
++ * Over AUX, use the 1..512 nits range amdgpu_dm_backlight falls back to when
++ * the EDID gives no luminance range
++ */
++static void set_gv301qh_caps(struct amdgpu_dm_backlight_caps *caps, bool aux)
++{
++	caps->aux_support = aux;
++	caps->aux_min_input_signal = 1;
++	caps->aux_max_input_signal = 512;
++	caps->min_input_signal = 12;
++	caps->max_input_signal = AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
++	caps->data_points = ARRAY_SIZE(gv301qh_curve);
++	memcpy(caps->luminance_data, gv301qh_curve, sizeof(gv301qh_curve));
++}
++
++/*
++ * A PWM range of 0..65535 with no minimum, so the result is the curve's
++ * output on 0..65535
++ */
++static void set_custom_curve_caps(struct amdgpu_dm_backlight_caps *caps,
++				  const struct amdgpu_dm_luminance_data *points,
++				  int n)
++{
++	caps->aux_support = false;
++	caps->min_input_signal = 0;
++	caps->max_input_signal = AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
++	caps->data_points = n;
++	memcpy(caps->luminance_data, points, n * sizeof(*points));
++}
++
++/**
++ * dm_test_brightness_curve_pwm_values - Test PWM millipercent on the GV301QH curve
++ * @test: The KUnit test context
++ *
++ * Worked out by hand on the PWM range of 3084..65535. A request below the
++ * minimum is raised to 3084, signal 12, which is 12 / 14 of the way to the
++ * first point (14, 2), so 1714 millipercent. 32000 is signal 124.51,
++ * between (123, 60) and (129, 62), so 60505. 65535 is 100000
++ */
++static void dm_test_brightness_curve_pwm_values(struct kunit *test)
++{
++	struct amdgpu_dm_backlight_caps caps = {};
++
++	dm_test_enable_custom_curve(test);
++	set_gv301qh_caps(&caps, false);
++
++	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(&caps, 0), 1714U);
++	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(&caps, 3084), 1714U);
++	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(&caps, 32000), 60505U);
++	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(&caps, 65535), 100000U);
++}
++
++/**
++ * dm_test_brightness_curve_pwm_steps - Test PWM millipercent never drops and keeps its steps
++ * @test: The KUnit test context
++ *
++ * Walk every request from user_min to user_max. The millipercent must
++ * never go down, and most requests must change it. There are 62452
++ * requests and 100001 possible millipercent values, against 101 with
++ * whole percents
++ */
++static void dm_test_brightness_curve_pwm_steps(struct kunit *test)
++{
++	struct amdgpu_dm_backlight_caps caps = {};
++	unsigned int user_min, user_max, user, steps = 0;
++	u32 prev, cur;
++
++	dm_test_enable_custom_curve(test);
++	set_gv301qh_caps(&caps, false);
++	get_brightness_range(&caps, &user_min, &user_max);
++
++	prev = convert_brightness_to_millipercent(&caps, user_min);
++	for (user = user_min + 1; user <= user_max; user++) {
++		cur = convert_brightness_to_millipercent(&caps, user);
++		if (cur < prev || cur > 100000) {
++			KUNIT_FAIL(test, "%u gives %u after %u", user, cur, prev);
++			return;
++		}
++		steps += cur != prev;
++		prev = cur;
++	}
++
++	KUNIT_EXPECT_GT(test, steps, (user_max - user_min) / 2);
++}
++
++/**
++ * dm_test_brightness_curve_pwm_points_above_max - Test PWM curve points above max_input_signal
++ * @test: The KUnit test context
++ *
++ * With max_input_signal 200 and points (180, 70) and (220, 90), the curve
++ * still runs between the two points. 42330 is signal 210.003, so 85001
++ * millipercent. Past the last point the curve runs on to 100% at signal
++ * 255: 47873 is signal 237.502, so 95001
++ */
++static void dm_test_brightness_curve_pwm_points_above_max(struct kunit *test)
++{
++	static const struct amdgpu_dm_luminance_data points[] = {
++		{ .input_signal = 180, .luminance = 70 },
++		{ .input_signal = 220, .luminance = 90 },
++	};
++	struct amdgpu_dm_backlight_caps caps = {};
++
++	dm_test_enable_custom_curve(test);
++	set_custom_curve_caps(&caps, points, ARRAY_SIZE(points));
++	caps.max_input_signal = 200;
++
++	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(&caps, 42330), 85001U);
++	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(&caps, 47873), 95001U);
++	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(&caps, 0x101 * 200), 100000U);
++}
++
++/**
++ * dm_test_brightness_curve_pwm_luminance_over_100 - Test PWM with an ATIF luminance over 100%
++ * @test: The KUnit test context
++ *
++ * Points (100, 50), (200, 150) and (250, 120) claim more than 100%. The
++ * curve uses them as given and caps only the result, as before.
++ * Level 125 is 50 + 100 * 25 / 100 = 75%, and the curve reaches full
++ * brightness at level 150, halfway to the second point, and stays there
++ */
++static void dm_test_brightness_curve_pwm_luminance_over_100(struct kunit *test)
++{
++	static const struct amdgpu_dm_luminance_data points[] = {
++		{ .input_signal = 100, .luminance = 50 },
++		{ .input_signal = 200, .luminance = 150 },
++		{ .input_signal = 250, .luminance = 120 },
++	};
++	struct amdgpu_dm_backlight_caps caps = {};
++
++	dm_test_enable_custom_curve(test);
++	set_custom_curve_caps(&caps, points, ARRAY_SIZE(points));
++
++	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(&caps, 125 * 0x101), 75000U);
++	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(&caps, 150 * 0x101), 100000U);
++	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(&caps, 225 * 0x101), 100000U);
++}
++
+ /**
+  * dm_test_brightness_range_zero_signals - Test Brightness range with zero min and max signals
+  * @test: The KUnit test context
+@@ -2018,6 +2226,10 @@ static struct kunit_case dm_backlight_test_cases[] = {
+ 	KUNIT_CASE(dm_test_brightness_from_user_midrange),
+ 	KUNIT_CASE(dm_test_brightness_from_user_with_curve),
+ 	KUNIT_CASE(dm_test_brightness_from_user_curve_min),
++	KUNIT_CASE(dm_test_brightness_curve_pwm_values),
++	KUNIT_CASE(dm_test_brightness_curve_pwm_steps),
++	KUNIT_CASE(dm_test_brightness_curve_pwm_points_above_max),
++	KUNIT_CASE(dm_test_brightness_curve_pwm_luminance_over_100),
+ 	KUNIT_CASE(dm_test_brightness_range_zero_signals),
+ 	/* amdgpu_dm_backlight_fill_props */
+ 	KUNIT_CASE(dm_test_backlight_fill_props_ac_linear),
+
+-- 
+2.56.0
+
