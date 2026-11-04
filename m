@@ -1,58 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793791725;
-	b=gby5SkjYuJnEyoD+5SczVi+Twg4GudzO612jSSNBABk47V4QP/pQFVepKfW7v3luo41r
-	 QPms+vw+2AkBKY80ov/n8zcEVjJBWO0ELUA5YsxIEmNG+z3aeOLLn9eE3J+xPleNFxxom
-	 1xvhRrrwKtC9sQRvFz/LuWPpS7CZiRuyJmTZADXN6jN/KxZz1zOcP6rUfscOt9F8D/Kkx
-	 uGGrB3K9tUoSLTczb4VMaJTBWBKjG4uQD04JZeY5W1yBM3eGIj2Rfju2DyRXJUqYJJ4Yk
-	 NTuk91TEFOwNRkl7zJAuaqs+kjlJPOt6B6czLWPqtVluuuwevmdCc9HxPsGtVK6dxQA==
+	t=1793791735;
+	b=zrfvLezYXgAQYjLHh5SmMCY3U8JHvyvdxYsNKZSg7NqueIFK8z6rmMdWfB9GDP7PcRZm
+	 MB+dWKh9yLDMpWY3gWS6XrqBOr72ERXEZNMtR/7AZfigjoo5tS/15IwNTHkzzBMfOEfn0
+	 E0a/FMcFM70iLKC5PVx4zvkG5Jkr72+5fNWrzV6Z7grmihHoqOdskjn6NNOAHJ8cax4JK
+	 spsIjJP/W//7D00ZtHXt5FelG0BCj84K0xkuX3oUCEyfEhjFGAZD8DDv/677k9qhnVPyQ
+	 XuQA46aiaowVVy7nr7xWXw2Mndbb1KesF5VkD6ZphpqLYRmiqAzxP/tVfjIDpXTz1vQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793791725;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=spCiuAh3BQ8nXdC6c0i6ZhkNUB0OuA4C80t+dWzUXPU=;
-	b=q9lSmrERjY0cnU27Yo61R7RLefnNBW+8cKaFpbBnkz+14bcrGh9osnWooxyVHtRvwhvh
-	 HBhKaAOtc3iNoXlrDoOHBWzlz7fzqfl/YSl6D5nbDmGM3GhNrI8v4zkKTtpN49IbEtQlE
-	 6d+rRQPxHyCNqDLGsYKN8Bninp0EJE1+e1tlbqcUn8bpJuZAZYo7AVvtKu8iY6WddLE8x
-	 HGQKhUV8jkKwzWGIfonT2ZWEJGMMos76NPX2258nhK1pr1qu46SCm7T1n8l0tXpmJfEwx
-	 BDvk2JjxPY4KyT2Jy3d0Zq7IolE4j7NdZMJazV8dWHjHCimbZUZKhiijMaADF4jz4Gw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793791735;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=9is/N8s+P77nIizr4iOPWVN8ElLFZtGDMyfkjPVV7ok=;
+	b=hW393tfNZK/tqOslZX1z46c8iBLX1ESyVC/FoQhseFZO7/ZM8JvhBI7iDx2+v+f7BOgn
+	 Vt9K+zUPcET4zhRn/wQeyud9OIGnP17O7FYbFptV8FYWnMz3AA4bnT1vgKMaEIJrcov/c
+	 tqcutTaC8Rkg5ViKSnnMj92d2ohIyuN4nhohPciAlUW9vXzTYbffTYEODQ9B6sdyEv2uZ
+	 P0BNNVLFp+jUve88cCdzMAQerhrKfxHBkB4g+Wb/grWGhqjcNNZazGmLP2UqdnU9ta+kN
+	 jVcmDIjdO5wIknbt1TtXFtKAABBCg8djZGR+p8affNB5pnYB8uCVi7VnDa7ur48ck4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=yJPMA1XF;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=jgdm78Gz;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25553606A328;
-	Wed,  4 Nov 2026 11:28:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25553606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02A81606A329;
+	Wed,  4 Nov 2026 11:28:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02A81606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=yJPMA1XF
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 84D3C1A1451;
-	Wed,  4 Nov 2026 11:28:40 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 47FCD60770;
-	Wed,  4 Nov 2026 11:28:40 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E0FC1103291D1;
-	Wed,  4 Nov 2026 12:28:27 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793791714; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=spCiuAh3BQ8nXdC6c0i6ZhkNUB0OuA4C80t+dWzUXPU=;
-	b=yJPMA1XFx4bUB0CaN4PHH/frMh5h5ylQggTVajK7+Gw0WjyU6+jGBt8rkPgeY7R7Pb0mfq
-	l2diMYv6krooVzUOOv/lFb2UiLnhB5RfsdrK75D/EYQKNujofSLSd3bFhBu1Gq5bnX6Gbl
-	DMZsK+hRTnbIKWgglkyQnByBkBQHZ4Sooqzpd3/D/BQWfSWbBF8hRNX/lgiKr1hw4lgrYD
-	t0wzyg5VzKji3e1rGeCTYYLa6Z+doe6c8TzCkMeodPCSy78B7E6iAnaQWO8RnAxmWYyR+r
-	xB2036/6DXXrF2eTw5s9U66yMpmILvdYwTWt7fbvpltlZIsDMjilS6EaYiMR1w==
-Message-ID: <3ec7364a-3373-489e-99aa-38723a0f7b17@bootlin.com>
-Date: Wed, 4 Nov 2026 12:28:26 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=jgdm78Gz
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=9is/N8s+P77nIizr4iOPWVN8ElLFZtGDMyfkjPVV7ok=; b=jgdm78Gz9UGB9lEHqxYvlou0CF
+	KutGa9kqLufeOHXyPksfalr8TGDd7Qjd3tQH2L7oBQHupX+kTlaaKzW1afMCyCYUaiJJ2iGGB70oX
+	yUwrmnE7OVoMMYHZNTAmgbJKDUS5vKef2pVnD0LoEXB9jvIDd7ptVKguMRqbrtt0cXmhCr/XvjZAb
+	7Gy6NMigdFntWPLB7BRi98TVcjr6fDcS6ocN6VGuh0+C8sJnMrobb1gCe0+zouonWA3lnpu1nkE8h
+	RQ+Voe4lQl/aCzyPhyOrVaick563cL76U22efAn/kPb650EoOY0iEXzUm6cLk6F9GHhuBZQp4RtUI
+	ZHYjfeYQ==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xOZA6-007g5u-2T;
+	Wed, 04 Nov 2026 11:28:15 +0000
+Date: Wed, 4 Nov 2026 03:28:06 -0800
+From: Breno Leitao <leitao@debian.org>
+To: Mike Rapoport <rppt@kernel.org>
+Cc: Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Miaohe Lin <linmiaohe@huawei.com>, 
+	Naoya Horiguchi <nao.horiguchi@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, kas@kernel.org, 
+	kexec@lists.infradead.org, Brendan Jackman <brendan.jackman@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, shakeel.butt@linux.dev, 
+	linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-cxl@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, rmikey@meta.com, riel@surriel.com, harry@kernel.org, 
+	kernel-team@meta.com
+Subject: Re: [PATCH v6 3/7] mm/memory-failure: add hwpoison_boot_page() to
+ flag an inherited frame
+Message-ID: <ausWvcPv20yznl_8@gmail.com>
+References: <20261016-hwpoison-kho-v6-0-f304255147da@debian.org>
+ <20261016-hwpoison-kho-v6-3-f304255147da@debian.org>
+ <aumt-4kfGGtoXuh-@kernel.org>
+ <aumvVjoHo4KeuyEp@gmail.com>
+ <auovL7i1rEcXCeGS@kernel.org>
+ <auo3ScXy6dk0Gr3-@gmail.com>
+ <ausLkNhb8ZPz0ra_@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,65 +89,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] iio: adc: add driver for Texas Instruments TLA2528
- adc
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Matti Vaittinen <mazziesaccount@gmail.com>,
- Rodolfo Giometti <giometti@enneenne.com>,
- Marcelo Schmitt <marcelo.schmitt@analog.com>,
- Antoniu Miclaus <antoniu.miclaus@analog.com>,
- Angelo Dureghello <adureghello@baylibre.com>,
- Tobias Sperling <tobias.sperling@softing.com>,
- Eason Yang <j2anfernee@gmail.com>,
- Marilene Andrade Garcia <marilene.agarcia@gmail.com>,
- Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
- duje@dujemihanovic.xyz, herve.codina@bootlin.com,
- thomas.petazzoni@bootlin.com, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261030164705.297354-1-maxime.chevallier@bootlin.com>
- <20261030164705.297354-3-maxime.chevallier@bootlin.com>
- <20261031234848.00248ddd@jic23-hlaptop>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20261031234848.00248ddd@jic23-hlaptop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ausLkNhb8ZPz0ra_@kernel.org>
+X-Debian-User: leitao
 
-Hi Jonathan,
-
-On 11/1/26 00:48, Jonathan Cameron wrote:
-> On Fri, 30 Oct 2026 17:47:04 +0100
-> Maxime Chevallier <maxime.chevallier@bootlin.com> wrote:
+On Wed, Nov 04, 2026 at 12:40:16PM +0200, Mike Rapoport wrote:
+> On Tue, Nov 03, 2026 at 11:49:44AM -0800, Breno Leitao wrote:
+> > On Tue, Nov 03, 2026 at 08:59:59PM +0200, Mike Rapoport wrote:
+> > > On Tue, Nov 03, 2026 at 02:06:17AM -0800, Breno Leitao wrote:
+> > > > On Tue, Nov 03, 2026 at 11:48:43AM +0200, Mike Rapoport wrote:
+> > > > > > --- a/mm/internal.h
+> > > > > > +++ b/mm/internal.h
+> > > > > 
+> > > > > We've been splitting internal.h to smaller headers, maybe it's time to add
+> > > > > "memory-faulure.h"?
+> > > > 
+> > > > Ack. I'm happy to move the "mm/memory-failure.c" section out of
+> > > > mm/internal.h into a new mm/memory-failure.h, as preparation for this
+> > > > patch.
+> > > > 
+> > > > Since this patchset is moving slowly, I'll start the header split in
+> > > > parallel as a separate series, and rebase this patchset on top of it
+> > > > when I respin. Is it this ok?
+> > > 
+> > > Sounds good to me.
+> > > 
+> > > Just be aware that MM folks are knee deep into fixes this cycle, so both
+> > > sets could be moving slowly :)
+> > 
+> > Appreciate the heads up. In that case, should I hold off on the header
+> > split until the next cycle instead of starting it now?
 > 
->> Add a new driver for the TI TLA2528 ADC chip. It has 8 12-bit
->> channels, that can also be configured as 16-bit averaging channels.
->>
->> This is a very simple driver, allowing reading raw values for each
->> channel. GPIO mode isn't supported for now, as well as buffered mode and
->> the 16-bit averaging mode.
->>
->> Co-developed-by: Rodolfo Giometti <giometti@enneenne.com>
->> Signed-off-by: Rodolfo Giometti <giometti@enneenne.com>
->> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-> Hi Maxime
-> 
-> A couple of minor things inline.  At least one due to cleanup
-> that happened tree wide in the last year.
-> 
+> I believe one header split patch is small enough and not controversial to
+> have it this cycle.
 
-Thanks a lot for your reviews, I'll address those in V3, I don't have
-any objections on them, it's all clear and straightforward :)
-
-Same goes for Matti, Victor and Rodolfo's comments, I'll just keep the
-Kconfig help message consistent with other drivers.
+Ack, on it!
 
 Thanks,
-
-Maxime
-
+--breno
