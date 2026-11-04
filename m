@@ -1,72 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793805415;
-	b=udrCQOX+9LD0cHo59gpgN7jG05xJDSh+ZWO2j4ibmX1cDHul3jGni52NK22qbGVlFdvi
-	 PDCHPU1nYvBvTmllGr9jpjWIKUFc7cXz2KbACIBAJRQo6IyaTyXXRFoCJM5o61cFf7PYH
-	 Cj2SLxan6du1x7xkqNsWvBBXa3FfzxI1iRZk52dn+cdROEAkcV/b1SIsBsZAmsUHmoBIJ
-	 B+2mCFk4d2vuSSifCrJ963Av338py0KLbeuiO9a8qu4WiH5WrlAZEaNQ02GXrrNE7DlZ1
-	 t6UbNkvVawxBQb4VIPvEVIRJICtvRoV+MbrzH0DrBU+gKYMZv7UA8JbX8YUhfnrbxXw==
+	t=1793805417;
+	b=Rhk4yz1Y/dJbNKno6idh0Zdgx6SsK7bgsqnuXHZJm7TvemgCoaxPSt6PiZ7qaTa6aZFE
+	 PuaFfc9EtCKjueZQf1PDpjFo2fCXOTMbln6sXJ4YprB1pF2w0f+s3lmzh6PMkSObpNS9y
+	 AmEOPQkjAEp0F2+77fAjjwpSuXRr8ylb/R6kOmbkxyi8wHQyOiUu2JKF/vkpwfzRKkdWU
+	 H1icjRdiYRds0GMAZa/AGRZhyIIRmVx5l2Wm5wQ+xxWjvWhTp82ovwQnFhtelp13WbNen
+	 Z7Td55HeETPKUW26KKCMDHIbR+35mfDKT5L7iUT+ao5pMsR0o5/YKdnkxZvgysXUE3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793805415;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=Uq1e7jWuoceT2x7ZhYRUZ6C4jiC0NbfgYNrjkiRron4=;
-	b=zZ0v1DC0+J8Az478yqnD4M4Xwa/ssKpADWXvMGIcnmba2HU76i7vtA12Uriv5RdMm3Su
-	 8/wjJe/YEPG1mPVrifxk20K6DyUxQMzmTaSvqKeFT5RGrvkSr/QJAIPojrr3Xp5KWubfk
-	 7n/vFaCoGlkAzfShxh/UVLNJs55M0KiiR3FU2GYxeCTZIweQSOac1OFEn2fRw7PUbtz88
-	 S71Fg3w8fcO5f7Ccp7o467S0Cc0Z6sLnvlIe8psl3tYZkjdI5za3PYv6N7cy7qyNrr6f6
-	 EGxKWvoY8x3HbxAkHfmBoEfcDGkuazSoaGCtZljhyWSx4SvJPaubKhUBh7d8+/Pyn8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793805417;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-AI-Review-Draft;
+	bh=+ujcZSwz/83lrvr7TwjbA/nnj3jCHCu3CReqCbjjg4k=;
+	b=bueFKtyogFa4VdbGBoR7l8ZJ1jQq4aSH5SWeDIGLPk26Czrk4Nojys828tUWD/Cj4r5C
+	 Tsc4uZsT6r4/rHSu+GlcTDz44tOIIIQk52ppY19ZHSB4tu8K4UTJMFiJJ9lbgGkvd3c5G
+	 /oXHKEyd6PYg3E02jUmWHXW+ucB4StuCImJCkufy8l3vIGAB1DTNWwwWqJJ6H6kz/hjSr
+	 oZUp6aH8qvaRzaPRKpg3SvRdbH4RZL+epqgG2sCAjdJ3xbm7uEkILhpLO7HXh3lY6gtoE
+	 UW4KpFoaRISB4kC1/wO9frzL4csh1vvDpyIWgXgg56UWpjrwJrPt3vEm2DoiZTnu1ZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=V5qxMC8i;
-	arc=none smtp.remote-ip=209.85.210.199
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dm5xgmQs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AA37607476C
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:16:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AA37607476C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A536082BCA;
+	Wed,  4 Nov 2026 15:16:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=V5qxMC8i
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8a05a4396d2so853942b3a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 07:16:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793805414; x=1794410214; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Uq1e7jWuoceT2x7ZhYRUZ6C4jiC0NbfgYNrjkiRron4=;
-        b=V5qxMC8iNZRNUbCry/IYAuCXjsz2S2to3mmREdQL2kfZUuTj1juBWz+30iE/aIiyVh
-         Nh6k0qHuKdq+p6gJXqz6NIGfOsBjLQKw79EaJ/OFVsblemYIH++/duGw4REg3H9mixk1
-         zxavgu7KdB/IYCfpdOYnKLcTq68HP92rwv63DXx8ZHX7QkjG2P6rtA4BNv8Ek3NGyS4C
-         6OU1A4wocJ7FZPg8DdyqykUFYoaD4mcsUva/MaMFM4gAzua4Ep7Nwy0VuZrP1NPCMghs
-         mCmGUnGcPA6PrSFj+pn6r3qe2Izap8G51Jh6+OOB7pKI5eQWRYz8e5KvGAOBe/t6oime
-         mZOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793805414; x=1794410214;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Uq1e7jWuoceT2x7ZhYRUZ6C4jiC0NbfgYNrjkiRron4=;
-        b=bP8d8yjvIr9RS9LJX3xjGXST1tmts1zAwhYJF8QvoSkBJeNv7bxYozPM3MYwqMRyrp
-         GYo8bFp4JBlqtVPBAfkZqo42tl8RSWir6L3QG5JCVsiUqiBE+Jwg71NlBhS8b94HsQaR
-         I/CP3SkvshjsubzNiLwx3tcVUhHM+DZgz7YNuUJYe8zo1DPUZPOVOQ7yf7uIXa7TGXeM
-         APjX3yMp5GByx4UzOXU8tvfCPmerj3nKf8DvskRkO4lCTBK+n95AgvCMj5iOiqaqqMNS
-         8BgpjP+JoM/MxoaVrJ6eIpbPVqD+uVGv2WLnaFp/5RqOOmNQXRKqXTOZbbavIqAJI7nX
-         ODZw==
-X-Forwarded-Encrypted: i=1; AKwUvBwBdVVIWQ51v3Pml69eyJEJYYB1rCvCWRW/kkB5O/lvUNclb/0PhRCFD2AnWCOmaY/8b+5bFyCxTjZD/Gw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+gcM5m+QydoVK2je3HyWXvXXnEWHQ7w4x6N4nMTQDMyiXI0//1
-	SJZS9uKlTasgErFH/1Mvavxp6m0YXET5NzIyWbNryhDEmCojhtfoXo5FmF8cKwk4gCJuduynjDw
-	US6i742qtGGQFJQrOOHrP1g==
-X-Received: from pfblt3.prod.google.com ([2002:a05:6a00:7443:b0:89f:6242:b2d2])
- (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a20:a107:b0:3e2:117a:6307 with SMTP id adf61e73a8af0-3e928d4476cmr14928062637.22.1793805413627;
- Wed, 04 Nov 2026 07:16:53 -0800 (PST)
-Date: Wed,  4 Nov 2026 23:16:51 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dm5xgmQs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C95D11F000C1;
+	Wed,  4 Nov 2026 15:16:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793805416;
+	bh=+ujcZSwz/83lrvr7TwjbA/nnj3jCHCu3CReqCbjjg4k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dm5xgmQs9vbq7KABM0NpP+ZAPLa4DMSzqyEkuaod8cucwB6X9XbLcnMIa0roPCHFz
+	 sT/WbrfWDG6BxHcVATi74iVbVZSvQEdv59vX49p9Th126pTDX1IB3+vnndDkV/R1DC
+	 hTa1kHj3tspFrTDiA4eH12ypLKwAL8eLt0q7EVOecxr9em1O0Qk4FKsZM/nlTbBeaZ
+	 NuqLcukapd9avErN1jWbC66S/aGcyF8YonWIFu7iscB2umKswNJTAQCNRewyrLEqyl
+	 97j3lRwHg+CohE/dpjOgt7pZTXLCTmwgHFPUaWpWVAZwGE1VUNZTRA6njfbiWlX0eZ
+	 sx1DJbSrPwS/w==
+Date: Wed, 4 Nov 2026 15:16:53 +0000
+From: Lee Jones <lee@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Pavel Machek <pavel@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-leds@vger.kernel.org, mfd@lists.linux.dev
+Subject: Re: [PATCH v4] leds: Add driver for MAX8907 LED cell
+Message-ID: <179318844110.3606039.5801345229436270811@kernel.org>
+References: <20261027115006.86032-1-clamor95@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,85 +56,222 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261104151651.3035537-1-stanleyjhu@google.com>
-Subject: [PATCH v2] PM: runtime: Update runtime_pm.rst for non-fatal resume errors
-From: Stanley Jhu <stanleyjhu@google.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>
-Cc: Brian Norris <briannorris@chromium.org>, Len Brown <lenb@kernel.org>, 
-	Pavel Machek <pavel@kernel.org>, Praveen Talari <praveen.talari@oss.qualcomm.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Mark Brown <broonie@kernel.org>, 
-	Alan Stern <stern@rowland.harvard.edu>, Jens Axboe <axboe@kernel.dk>, 
-	Bart Van Assche <bvanassche@acm.org>, linux-pm@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-block@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Stanley Jhu <stanleyjhu@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027115006.86032-1-clamor95@gmail.com>
+X-AI-Review-Draft: <20261027115006.86032-1-clamor95@gmail.com>
 
-Since commit eef1d74bf88f ("PM: runtime: Only set runtime_error on
-suspend callback failures"), rpm_callback() no longer sets
-dev->power.runtime_error when ->runtime_resume() returns an error.
-However, Documentation/power/runtime_pm.rst still states in both the
-resume callback rules and the ->runtime_idle() comparison that the PM
-core treats ->runtime_resume() errors as fatal device errors and blocks
-runtime PM helper functions until the status is manually reset.
+--- checkpatch.pl (1 issue) ---
+Line 38: WARNING: please write a help paragraph that fully describes the config symbol with at least 4 lines
+----------------------------------
 
-Update the resume callback semantics bullet to state that on error the
-PM core resets the runtime PM status to 'suspended', returns the error
-code from synchronous resume helpers, and unlike with the suspend
-callback never treats resume failures as fatal, leaving the Section 4
-runtime PM helpers unblocked so a subsequent resume request can run
-->runtime_resume() again. Also drop ->runtime_resume() from the
-->runtime_idle() fatal-error comparison.
+On Tue, 27 Oct 2026, Svyatoslav Ryhel wrote:
 
-Fixes: eef1d74bf88f ("PM: runtime: Only set runtime_error on suspend callback failures")
-Fixes: aedc51762a0d ("PM: runtime: Clarify ->runtime_idle() callback return value handling")
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
----
-Differences from v1:
-- Contrast resume failures with the suspend callback instead of citing
-  -EBUSY, -EAGAIN, or power.runtime_error (Brian Norris)
-- Add Fixes tag for commit aedc51762a0d covering ->runtime_idle()
-- Link to v1: https://lore.kernel.org/r/20261029040005.2100005-1-stanleyjhu@google.com
+> Add a small driver to control the LED cell provided by the MAX8907 PMIC.
+> The LED does not require any specific configuration and is folded into the
+> PMIC's node.
+>
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+> Changes in v2:
+> - rebased so patch is now applicable to linux/next
+>
+> Changes in v3:
+> - added check if led is off for get callback
+> - added dedicated MAX8907_REG_WLED_MODE_ON mask
+> - switched to devm_led_classdev_register_ext
+>
+> Changes in v4:
+> - platform_set_drvdata dropped
+> - init_data.devicename dropped
+> - added MODULE_ALIAS
+> ---
+>  drivers/leds/Kconfig        |  7 +++
+>  drivers/leds/Makefile       |  1 +
+>  drivers/leds/leds-max8907.c | 90 +++++++++++++++++++++++++++++++++++++
+>  drivers/mfd/max8907.c       |  1 +
+>  include/linux/mfd/max8907.h |  2 +-
+>  5 files changed, 100 insertions(+), 1 deletion(-)
+>  create mode 100644 drivers/leds/leds-max8907.c
+>
+> diff --git a/drivers/leds/Kconfig b/drivers/leds/Kconfig
+> index 788e689fe875c..3796c562919fe 100644
+> --- a/drivers/leds/Kconfig
+> +++ b/drivers/leds/Kconfig
+> @@ -813,6 +813,13 @@ config LEDS_MAX77705
+>  	help
+>  	  LED driver for MAX77705 PMIC from Maxim Integrated.
+>
+> +config LEDS_MAX8907
+> +	tristate "LED support for MAX8907 PMIC"
+> +	depends on LEDS_CLASS && MFD_MAX8907
+> +	help
+> +	  This option enables support for on-chip LED drivers on
+> +	  MAXIM MAX8907 PMIC.
 
- Documentation/power/runtime_pm.rst | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+As requested on v3, please expand this help text to at least 4 lines to satisfy
+'checkpatch.pl'.
 
-diff --git a/Documentation/power/runtime_pm.rst b/Documentation/power/runtime_pm.rst
-index 40a5c23d5259..09072c576087 100644
---- a/Documentation/power/runtime_pm.rst
-+++ b/Documentation/power/runtime_pm.rst
-@@ -222,11 +222,12 @@ what to do to handle the device).
-     I/O operations as needed.  The runtime PM status of the device is then
-     'active'.
- 
--  * If the resume callback returns an error code, the PM core regards this as a
--    fatal error and will refuse to run the helper functions described in
--    `Section 4`_ for the device, until its status is directly set to either
--    'active', or 'suspended' (by means of special helper functions provided by
--    the PM core for this purpose).
-+  * If the resume callback returns an error code, the PM core sets the
-+    device's runtime PM status back to 'suspended' and returns the error
-+    code from synchronous resume helpers.  Unlike with the suspend
-+    callback, failures in the resume callback are never considered fatal,
-+    so the helper functions described in `Section 4`_ are not blocked and
-+    a subsequent resume request can run the resume callback again.
- 
- The idle callback (a subsystem-level one, if present, or the driver one) is
- executed by the PM core whenever the device appears to be idle, which is
-@@ -250,9 +251,9 @@ call to pm_runtime_autosuspend().
- To prevent this suspension (for example, if the callback routine has scheduled
- a delayed suspend or determined the device cannot be idle), the routine must
- return a non-zero value (typically -EBUSY or -EAGAIN).  Unlike
--->runtime_suspend() and ->runtime_resume(), the PM core does not treat negative
--return codes from ->runtime_idle() as a fatal device error; any non-zero value
--simply stops the PM core from suspending the device.
-+->runtime_suspend(), the PM core does not treat negative return codes from
-+->runtime_idle() as a fatal device error, and any non-zero value simply stops
-+the PM core from suspending the device.
- 
- Core Guarantees and Synchronization Rules
- -----------------------------------------
+> +
+>  config LEDS_MAX8997
+>  	tristate "LED support for MAX8997 PMIC"
+>  	depends on LEDS_CLASS && MFD_MAX8997
+> diff --git a/drivers/leds/Makefile b/drivers/leds/Makefile
+> index 3da746279bb81..24efda3fbaa44 100644
+> --- a/drivers/leds/Makefile
+> +++ b/drivers/leds/Makefile
+> @@ -67,6 +67,7 @@ obj-$(CONFIG_LEDS_LTC3220)		+= leds-ltc3220.o
+>  obj-$(CONFIG_LEDS_MAX5970)		+= leds-max5970.o
+>  obj-$(CONFIG_LEDS_MAX77650)		+= leds-max77650.o
+>  obj-$(CONFIG_LEDS_MAX77705)		+= leds-max77705.o
+> +obj-$(CONFIG_LEDS_MAX8907)		+= leds-max8907.o
+>  obj-$(CONFIG_LEDS_MAX8997)		+= leds-max8997.o
+>  obj-$(CONFIG_LEDS_MC13783)		+= leds-mc13783.o
+>  obj-$(CONFIG_LEDS_MENF21BMC)		+= leds-menf21bmc.o
+> diff --git a/drivers/leds/leds-max8907.c b/drivers/leds/leds-max8907.c
+> new file mode 100644
+> index 0000000000000..a5c445f75d1b1
+> --- /dev/null
+> +++ b/drivers/leds/leds-max8907.c
+> @@ -0,0 +1,90 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +
+> +#include <linux/err.h>
+> +#include <linux/leds.h>
+> +#include <linux/mfd/max8907.h>
+> +#include <linux/module.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/property.h>
+> +#include <linux/regmap.h>
+> +
+> +#define MAX8907_REG_WLED_MODE_ON	BIT(0)
+> +
+> +struct max8907_led_data {
+> +	struct max8907 *max8907;
+
+As asked on v3, what is 'max8907' used for?
+
+> +	struct regmap *regmap;
+> +	struct led_classdev cdev;
+> +};
+> +
+> +static enum led_brightness max8907_led_get_brightness(struct led_classdev *cdev)
+> +{
+> +	struct max8907_led_data *ddata = container_of(cdev, struct max8907_led_data, cdev);
+> +	unsigned int brightness_lvl;
+> +	int ret;
+> +
+> +	ret = regmap_read(ddata->regmap, MAX8907_REG_WLED_MODE_CNTL, &brightness_lvl);
+> +	if (ret || !(brightness_lvl & MAX8907_REG_WLED_MODE_ON))
+> +		return LED_OFF;
+> +
+> +	ret = regmap_read(ddata->regmap, MAX8907_REG_WLED_CNTL, &brightness_lvl);
+> +	if (ret)
+> +		return LED_OFF;
+> +
+> +	return brightness_lvl;
+> +}
+> +
+> +static int max8907_led_set_brightness(struct led_classdev *cdev,
+> +				      enum led_brightness brightness)
+> +{
+> +	struct max8907_led_data *ddata = container_of(cdev, struct max8907_led_data, cdev);
+> +	int brightness_lvl, ret;
+> +
+> +	brightness_lvl = clamp(brightness, LED_OFF, LED_FULL);
+> +
+> +	if (brightness_lvl) {
+> +		ret = regmap_write(ddata->regmap, MAX8907_REG_WLED_CNTL, brightness_lvl);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return regmap_update_bits(ddata->regmap, MAX8907_REG_WLED_MODE_CNTL,
+> +				  MAX8907_REG_WLED_MODE_ON,
+> +				  brightness_lvl ? MAX8907_REG_WLED_MODE_ON : 0);
+> +}
+> +
+> +static int max8907_led_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct max8907 *max8907 = dev_get_drvdata(dev->parent);
+> +	struct led_init_data init_data = { };
+> +	struct max8907_led_data *ddata;
+> +
+> +	ddata = devm_kzalloc(dev, sizeof(*ddata), GFP_KERNEL);
+> +	if (!ddata)
+> +		return -ENOMEM;
+> +
+> +	ddata->max8907 = max8907;
+> +	ddata->regmap = max8907->regmap_gen;
+> +
+> +	init_data.fwnode = dev_fwnode(dev->parent);
+
+This will evaluate to 'pmic'.  The sysfs attribute will be incorrect.
+
+Since there is no child node, why not set 'ddata->cdev.name' directly
+and use 'devm_led_classdev_register()'?
+
+> +
+> +	ddata->cdev.brightness = LED_OFF;
+> +	ddata->cdev.flags = LED_CORE_SUSPENDRESUME;
+> +	ddata->cdev.max_brightness = LED_FULL;
+> +
+> +	ddata->cdev.brightness_get = max8907_led_get_brightness;
+> +	ddata->cdev.brightness_set_blocking = max8907_led_set_brightness;
+> +
+> +	return devm_led_classdev_register_ext(dev, &ddata->cdev, &init_data);
+> +}
+> +
+> +static struct platform_driver max8907_led_driver = {
+> +	.driver.name = "max8907-leds",
+
+Cute.  But please expand.
+
+> +	.probe = max8907_led_probe,
+> +};
+> +module_platform_driver(max8907_led_driver);
+> +
+> +MODULE_ALIAS("platform:max8907-leds");
+> +MODULE_AUTHOR("Svyatolsav Ryhel <clamor95@gmail.com>");
+
+Your name is misspelt here.
+
+> +MODULE_DESCRIPTION("MAX8907 LED driver");
+> +MODULE_LICENSE("GPL");
+> diff --git a/drivers/mfd/max8907.c b/drivers/mfd/max8907.c
+> index e282dd82ece69..826d7768fd8d0 100644
+> --- a/drivers/mfd/max8907.c
+> +++ b/drivers/mfd/max8907.c
+> @@ -20,6 +20,7 @@
+>  #include <linux/slab.h>
+>
+>  static const struct mfd_cell max8907_cells[] = {
+> +	{ .name = "max8907-leds", },
+
+Separate patch.
+
+>  	{ .name = "max8907-regulator", },
+>  	{ .name = "max8907-rtc", },
+>  };
+> diff --git a/include/linux/mfd/max8907.h b/include/linux/mfd/max8907.h
+> index e222250f0cc1e..35b2ede54f856 100644
+> --- a/include/linux/mfd/max8907.h
+> +++ b/include/linux/mfd/max8907.h
+> @@ -112,7 +112,7 @@
+>  #define MAX8907_REG_CHG_IRQ2_MASK	0x81
+>  #define MAX8907_REG_CHG_STAT		0x82
+>  #define MAX8907_REG_WLED_MODE_CNTL	0x84
+> -#define MAX8907_REG_ILED_CNTL		0x84
+> +#define MAX8907_REG_WLED_CNTL		0x85
+>  #define MAX8907_REG_II1RR		0x8E
+>  #define MAX8907_REG_II2RR		0x8F
+>  #define MAX8907_REG_LDOCTL20		0x9C
+> -- 
+> 2.53.0
+>
+>
+
 -- 
-2.56.0.385.gac671c819a-goog
-
+Lee Jones
