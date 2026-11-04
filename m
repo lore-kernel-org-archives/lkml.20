@@ -1,65 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793811906;
-	b=N6b6SBsWexpTq/MAUTXzKRIOCmiOfbArkzISs0kAU94lFgPSguzs18s4VanmMwMQKhRQ
-	 /Hqn/wYXkOBbW3TfY4NRF0V6aeUVJsHlq6SwlT847WfCUCpdPrpNqF71lHZaJwWox9Qkk
-	 f2rAUvftHnQGV+KP7YhbyrDV3EFaLe9J8dbbdKFZyOsUWS2Fu5OSJvHXoDuc0zY0Sgtk6
-	 0l2xWsyQe4c+RADTvoplfu8YUP5+ZQBDiAU7PDKySfXzrHafVAPUruvm1w8yAv3jFqtD5
-	 FUlwB0prkPKJj8MDMbwjgg1lECBgf7YdVMvNg+nNuuf9hrL3Imf3qtxz2vgaIKchRHg==
+	t=1793811917;
+	b=i0IRCwEPHvu5yKkUXhUfL4UlWMYFaJgCCo6NuBWyj5xXMnHWKuaCu0cAkoKj76I2u9uc
+	 VdM0wB6kHLNgr7kdFTeFKlEEJQwEU8PzXBkMl2roQPHQIPFPBZj65Wv4dEStR3ZLkj2dz
+	 bPf4oDN6MfVpGkKUA2TB+Q9aiVbYNtqpzng5ImKE/lilIZ/8AHr08SpltGhNgQ3mui+K1
+	 MgMX6TF3xZ9GALUI2zCTPs0iV0cXpN27q11tm2Id6h5KX4+QAXnBQmlToDp2+NBLwTEGI
+	 mwWcFjhJsMlV2CEg7sQLc4su3L+qDYiiB41piFMG01GcBHTSmr6OKHpTzH7rX1x0/Ew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793811906;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=WeXzuffIyNbHEXpcjMbSa6+m0KyUG6GRb77zTWpYma4=;
-	b=RICQ0uK2MiLjyU3NS/cCGarsF7ZUr/3X06Zsn175d31Ypa30XEKR5L86y+ers7Sh7Q+E
-	 rN+LPb4BRmxymtVivU+QWb+W1aycj4iO6MeBGUwrM0kTlfozPIV50jt1cWkdx8o9W9v3G
-	 tPd62E+uuXtZZ2MuE6W0S7g0Efco1oxYy6L/6hvLp+phw66GCmsvvs7fjOIJLJ+YYZ7Mk
-	 Aa5HFlEPPt1BFyJMUs4EjJzzLjkX0KR9m7q1yh/ANaZwqNmOVZvYJipiyKQAIFl+akWHh
-	 bw7ivUuEWku4+vflFz4epgMjnMjVxbm9xG+hJvxpAok3lhwjZlgZKKNdJWKSzWRK+4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793811917;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=b9mqyszWE+s/BPty+6IDSzsJ4NwhbEuImRQIx+oQ6vk=;
+	b=vbXeaGkggj4pVDChKVVYXedyA/+0E0wrHH0SKGB9GAUnAlS7fyr5jXZYDZQ/qxrYXSpT
+	 vmHB6cWy0Z60onnzhb6eCI/Ke0tcbWlpCd9xZmr9WE9k9fOSk3PF7ANlxefTZlmIJnV0C
+	 qdSKBDnrTguIVopmXXeduCRDOp1raTWtEHuxd01LpLVxf5OFMVzZC+nNlQaiHj/m7+rod
+	 mzpB0Z+F+V2gLydSQ9FhHGX5KRV1u6XYxPuBBBPvNyPoPj7qTpXW+DZN/6IYjPwmIo+E8
+	 lJmk0Ox1xsVfrmNK+LONqsy/ymyy9TcMqn3T22TXvuH6gzjGVImFI2mMoKotUm3SkPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=YwkyU5sq;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=0PrlmqZ7;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Eg7DTDv0;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=0PrlmqZ7;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Eg7DTDv0;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24EAB606A328;
-	Wed,  4 Nov 2026 17:05:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24EAB606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ADEF606A335;
+	Wed,  4 Nov 2026 17:05:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2ADEF606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=YwkyU5sq
-Received: from ideasonboard.com (93-46-82-201.ip106.fastwebnet.it [93.46.82.201])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 01927C23;
-	Wed,  4 Nov 2026 18:02:45 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793811766;
-	bh=EvYNB8RdJzSe4iS1tyaGT1xOV9p5v37Ms3e5tp+shKw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YwkyU5sqWGpFtZcBlS0/g7qF9RHq5Dwf+LtohZUszzms4R4rw6hnQtTJ2lbLbqEV0
-	 nvAKKr1qAfvmjNuZ6mILmbRnpoxpf25sayzPP9O9ppZLvc/goXdwfwhyH1CyIsC0Gd
-	 5/R4XscIzI6Az4esUG/Q5Fig0yVriz7JLmd26dMo=
-Date: Wed, 4 Nov 2026 18:05:00 +0100
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	Hans de Goede <johannes.goede@oss.qualcomm.com>
-Subject: Re: [PATCH v13 4/9] media: uapi: Add CAMSS ISP configuration
- definition
-Message-ID: <autlc2AfB8AZfb2H@zed>
-References: <20261103-camss-isp-ope-v13-0-c2cbf15a39b1@oss.qualcomm.com>
- <20261103-camss-isp-ope-v13-4-c2cbf15a39b1@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=0PrlmqZ7;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Eg7DTDv0;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=0PrlmqZ7;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Eg7DTDv0
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 4523421E54;
+	Wed,  4 Nov 2026 17:05:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793811915; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=b9mqyszWE+s/BPty+6IDSzsJ4NwhbEuImRQIx+oQ6vk=;
+	b=0PrlmqZ75ck00LecdruTFdvtoJhhd8opM0DkyouxvNVErPKr7xWeBEIk7XFaZVjKeUkfsh
+	UtrYTyI9IdJq+unu/uVDA6YuXMhZW6eJmAw0fAid0Q6A0EsLtIV2C6by3o3O2GjYXCtg6T
+	fsZQIl/AD1GIxKGuzbNZXe7UEdVa8rY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793811915;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=b9mqyszWE+s/BPty+6IDSzsJ4NwhbEuImRQIx+oQ6vk=;
+	b=Eg7DTDv0Vporxnb2UM2iuNmOgpkYfxjeKQUbJ7y2UOiCjhkoTPDfdllOlIzO4L0fA5iU/p
+	o1DhSgSvKa/Vw2CA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=0PrlmqZ7;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Eg7DTDv0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793811915; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=b9mqyszWE+s/BPty+6IDSzsJ4NwhbEuImRQIx+oQ6vk=;
+	b=0PrlmqZ75ck00LecdruTFdvtoJhhd8opM0DkyouxvNVErPKr7xWeBEIk7XFaZVjKeUkfsh
+	UtrYTyI9IdJq+unu/uVDA6YuXMhZW6eJmAw0fAid0Q6A0EsLtIV2C6by3o3O2GjYXCtg6T
+	fsZQIl/AD1GIxKGuzbNZXe7UEdVa8rY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793811915;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=b9mqyszWE+s/BPty+6IDSzsJ4NwhbEuImRQIx+oQ6vk=;
+	b=Eg7DTDv0Vporxnb2UM2iuNmOgpkYfxjeKQUbJ7y2UOiCjhkoTPDfdllOlIzO4L0fA5iU/p
+	o1DhSgSvKa/Vw2CA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id ED3B5134A5;
+	Wed,  4 Nov 2026 17:05:14 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id CY80Mspl62pXEwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 04 Nov 2026 17:05:14 +0000
+Date: Wed, 04 Nov 2026 18:05:14 +0100
+Message-ID: <87fqxgttmd.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: rafael.gago@gmail.com
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hdsp: allow sample rate changes from hw_params
+In-Reply-To: <20261101-hdsp-sound-v1-1-f39f185400b5@gmail.com>
+References: <20261101-hdsp-sound-v1-1-f39f185400b5@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,261 +112,111 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261103-camss-isp-ope-v13-4-c2cbf15a39b1@oss.qualcomm.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Queue-Id: 4523421E54
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-11.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	TAGGED_RCPT(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -11.01
 
-Hi Loic
+On Sun, 01 Nov 2026 16:18:50 +0100,
+Rafael Gago via B4 Relay wrote:
+> 
+> From: Rafael Gago <rafael.gago@gmail.com>
+> 
+> hdsp_set_rate() refuses to switch between single, double and quad
+> speed whenever capture_pid or playback_pid is set. Both are set in the
+> PCM open callbacks, so the substream that asks for the new rate in
+> hw_params always blocks itself:
+> 
+>   cannot change speed mode (capture PID = -1, playback PID = 4242)
+> 
+> As a result no application can move an HDSP from 48 kHz to 96 kHz (or
+> to 192 kHz on the H9632) through the normal ALSA API. Rate changes
+> within one speed mode work, and a speed mode change only works through
+> the "Sample Clock Source" control while no PCM is open, which is what
+> users have to script around today.
+> 
+> The restriction exists because a speed mode change moves the channels
+> to other DMA buffer slots (hdsp->channel_map) and changes the channel
+> count, which must not happen under a substream that was already set up
+> with the old layout. The substream calling hw_params is about to be set
+> up anyway, so it is not such a substream.
+> 
+> Pass the requesting substream to hdsp_set_rate() in place of the
+> called_internally flag, and from hw_params only refuse the speed mode
+> change if the other direction is open and past the OPEN state, that is,
+> it has hw_params of its own. A substream of another process is still
+> turned away by the existing check in snd_hdsp_hw_params(), and requests
+> from the controls and from card initialization (substream == NULL) keep
+> the old rule of no open substreams at all.
+> 
+> A duplex client therefore opens both directions, sets hw_params on the
+> first one (which may change the speed mode) and then on the second one
+> at the same rate. To change the speed mode later it has to hw_free or
+> close the other direction first.
+> 
+> Tested on an HDSP 9632 (v7.0 based kernel, same hdsp.c as v7.0) with
+> aplay/arecord -M on hw:DSP: one stream moves the clock between 44.1k,
+> 48k, 88.2k, 96k and 192k in both directions; alsaloop runs duplex in one
+> process at 48k/12ch, 96k/8ch and 192k/4ch; while another process plays
+> at 96k, a capture at 96k works and one at 48k or 192k is still refused;
+> the "Sample Clock Source" control is still refused while a stream is
+> open. REAPER on raw ALSA now changes the project rate between speed
+> modes without presetting the clock first. Also built with W=1 on
+> current mainline without warnings.
+> 
+> Only the HDSP 9632 was available for testing; the Digiface, Multiface,
+> RPM and 9652 were not. The change is not model specific: the speed
+> mode switch itself is the same code the "Sample Clock Source" control
+> already runs on every model, and it still only happens while no stream
+> is transferring data. The per-model channel counts and channel maps
+> come from the driver's existing tables.
+> 
+> A Claude AI coding assistant (Claude Code) read the driver, wrote this
+> change, the changelog and the tests at the request of the submitter,
+> who reviewed them.
+> 
+> Signed-off-by: Rafael Gago <rafael.gago@gmail.com>
 
-On Tue, Nov 03, 2026 at 09:05:48PM +0100, Loic Poulain wrote:
-> Add the uapi header qcom-camss-config.h defining the ISP parameter
-> structures used by the CAMSS Offline Processing Engine (OPE) driver.
-> This includes structures for white balance, chroma enhancement and
-> color correction configuration.
->
-> The block type enum is shared across CAMSS ISPs so that userspace only
-> has to deal with a single set of block identifiers.
->
-> Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-> Tested-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> ---
->  include/uapi/linux/qcom-camss-config.h | 217 +++++++++++++++++++++++++++++++++
->  1 file changed, 217 insertions(+)
->
-> diff --git a/include/uapi/linux/qcom-camss-config.h b/include/uapi/linux/qcom-camss-config.h
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..543c1682f8aed3b07d7085f54a24eb632ea190a8
-> --- /dev/null
-> +++ b/include/uapi/linux/qcom-camss-config.h
+The idea sounds fine and the code looks mostly OK.
+But there could be a race as Sashiko suggested:
+  https://sashiko.dev/#/patchset/20261101-hdsp-sound-v1-1-f39f185400b5%40gmail.com
+Could you check it?
 
-We have (kind of) recently introduced include/uapi/linux/media
 
-This file should probably be:
-include/uapi/linux/media/qcom/camss-config.h
+thanks,
 
-> @@ -0,0 +1,217 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only WITH Linux-syscall-note */
-> +/*
-> + * Qualcomm CAMSS ISP Driver - Userspace API
-> + *
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#ifndef _UAPI_LINUX_QCOM_CAMSS_CONFIG_H
-> +#define _UAPI_LINUX_QCOM_CAMSS_CONFIG_H
-> +
-> +#include <linux/types.h>
-> +#include <linux/media/v4l2-isp.h>
-> +
-> +/**
-> + * enum camss_params_block_type - CAMSS ISP parameter block identifiers
-> + *
-> + * Each value identifies one ISP processing block.  The value is placed in
-> + * the @type field of &struct v4l2_isp_block_header.
-> + *
-> + * @CAMSS_PARAMS_WB_GAIN: white balance gains and offsets (CLC_WB),
-> + *	&struct camss_params_wb_gain
-> + * @CAMSS_PARAMS_CHROMA_ENHAN: RGB to YUV colour transfer matrix
-> + *	(CLC_CHROMA_ENHAN), &struct camss_params_chroma_enhan
-> + * @CAMSS_PARAMS_COLOR_CORRECT: colour correction matrix (CLC_CC),
-> + *	&struct camss_params_color_correct
-> + * @CAMSS_PARAMS_GAMMA: per-channel gamma correction curves (CLC_GLUT),
-> + *	&struct camss_params_gamma
-> + */
-> +enum camss_params_block_type {
-> +	CAMSS_PARAMS_WB_GAIN = 1,
-> +	CAMSS_PARAMS_CHROMA_ENHAN = 2,
-> +	CAMSS_PARAMS_COLOR_CORRECT = 3,
-> +	CAMSS_PARAMS_GAMMA = 4,
-> +};
-> +
-> +/* Number of entries in each gamma channel LUT. */
-> +#define CAMSS_GAMMA_LUT_SIZE	256
-> +
-> +/**
-> + * struct camss_params_wb_gain - White Balance gains
-> + *
-> + * Implements the CLC_WB pipeline module.  The pipeline applies three
-> + * sequential operations per channel::
-> + *
-> + *   1. Subtract sub-offset (black-level subtraction)
-> + *   2. Multiply by gain    (colour balance)
-> + *   3. Add add-offset      (output pedestal)
-> + *
-> + * Gains are 15uQ10 (15-bit unsigned, 10 fractional bits). Offsets
-> + * are 16-bit unsigned, normalised to full input scale (65535 = 1.0)
-> + *
-> + * @header:   block header; @header.type = CAMSS_PARAMS_WB_GAIN
-> + * @g_gain:   green channel gain (15uQ10, 1024 = 1.0)
-> + * @b_gain:   blue  channel gain (15uQ10, 1024 = 1.0)
-> + * @r_gain:   red   channel gain (15uQ10, 1024 = 1.0)
-> + * @g_sub:    green sub-offset, subtracted before gain (16u)
-> + * @b_sub:    blue  sub-offset, subtracted before gain (16u)
-> + * @r_sub:    red   sub-offset, subtracted before gain (16u)
-> + * @g_add:    green add-offset, added after gain (16u)
-> + * @b_add:    blue  add-offset, added after gain (16u)
-> + * @r_add:    red   add-offset, added after gain (16u)
-> + * @_pad:     padding for 64-bit alignment, must be zero
-> + */
-> +struct camss_params_wb_gain {
-> +	struct v4l2_isp_block_header header;
-> +	__u16 g_gain;
-> +	__u16 b_gain;
-> +	__u16 r_gain;
-> +	__u16 g_sub;
-> +	__u16 b_sub;
-> +	__u16 r_sub;
-> +	__u16 g_add;
-> +	__u16 b_add;
-> +	__u16 r_add;
-> +	__u16 _pad[3];
-> +} __attribute__((aligned(8)));
-> +
-> +/**
-> + * struct camss_params_chroma_enhan - RGB to YUV colour transfer matrix
-> + *
-> + * Implements the CLC_CHROMA_ENHAN pipeline module. All coefficients are
-> + * signed 12-bit fixed-point Q3.8 (range roughly -8.0 to +7.996).
-> + *
-> + * RGB2Y - Luma (Y) coefficients::
-> + *
-> + *   Y = v0 * R + v1 * G + v2 * B
-> + *
-> + * RGB2Cb - Chroma (Cb) coefficients::
-> + *
-> + *   Cb = a x ((B - G) + b(R - G)) + KCb
-> + *   with:
-> + *     a = ap, when (B-G) + b(R-G) > 0; a = am, when (B-G) + b(R-G) ≤ 0;
-> + *     b = bp when (R-G) > 0; b = bm when (R-G) ≤ 0
-> + *
-> + * RGB2Cr - Chroma (Cr) coefficients::
-> + *
-> + *   Cr = c x ((R - G) + d(B - G)) + KCr
-> + *   with:
-> + *     c = cp, when (R-G) + d(B-G) > 0; c = cm, when (R-G) + d(B-G) ≤ 0
-> + *     d = dp when (B-G) > 0; d = dm when (B-G) ≤ 0
-> + *
-> + * @header:   generic block header; @header.type = CAMSS_PARAMS_CHROMA_ENHAN
-> + * @luma_v0:  R-to-Y coefficient (12sQ8)
-> + * @luma_v1:  G-to-Y coefficient (12sQ8)
-> + * @luma_v2:  B-to-Y coefficient (12sQ8)
-> + * @luma_k:   Y output offset    (9s,  0 = no offset)
-> + * @coeff_ap: Cb positive coefficient (12sQ8)
-> + * @coeff_am: Cb negative coefficient (12sQ8)
-> + * @coeff_bp: Cb positive coefficient (12sQ8)
-> + * @coeff_bm: Cb negative coefficient (12sQ8)
-> + * @coeff_cp: Cr positive coefficient (12sQ8)
-> + * @coeff_cm: Cr negative coefficient (12sQ8)
-> + * @coeff_dp: Cr positive coefficient (12sQ8)
-> + * @coeff_dm: Cr negative coefficient (12sQ8)
-> + * @kcb:      Cb output offset        (11s)
-> + * @kcr:      Cr output offset        (11s)
-> + * @_pad:     padding for 64-bit alignment, must be zero
-> + */
-> +struct camss_params_chroma_enhan {
-> +	struct v4l2_isp_block_header header;
-> +	__s16 luma_v0;
-> +	__s16 luma_v1;
-> +	__s16 luma_v2;
-> +	__s16 luma_k;
-> +	__s16 coeff_ap;
-> +	__s16 coeff_am;
-> +	__s16 coeff_bp;
-> +	__s16 coeff_bm;
-> +	__s16 coeff_cp;
-> +	__s16 coeff_cm;
-> +	__s16 coeff_dp;
-> +	__s16 coeff_dm;
-> +	__s16 kcb;
-> +	__s16 kcr;
-> +	__u16 _pad[2];
-> +} __attribute__((aligned(8)));
-> +
-> +/**
-> + * struct camss_params_color_correct - colour correction matrix
-> + *
-> + * Implements the CLC_CC pipeline module.  The matrix computes::
-> + *
-> + *   Out_ch0 (G) = a0*G + b0*B + c0*R + k0
-> + *   Out_ch1 (B) = a1*G + b1*B + c1*R + k1
-> + *   Out_ch2 (R) = a2*G + b2*B + c2*R + k2
-> + *
-> + * The @qfactor member selects the fixed-point format of all coefficients::
-> + *
-> + *   0 = 12sQ7  (range ~-16.0 .. +15.992)
-> + *   1 = 12sQ8  (range  ~-8.0 ..  +7.996)
-> + *   2 = 12sQ9  (range  ~-4.0 ..  +3.998)
-> + *   3 = 12sQ10 (range  ~-2.0 ..  +1.999)
-> + *
-> + * @header:  block header; @header.type = CAMSS_PARAMS_COLOR_CORRECT
-> + * @a:       G-input coefficients per output channel (12s;
-> + *           a[0]=Out_G, a[1]=Out_B, a[2]=Out_R)
-> + * @b:       B-input coefficients (12s)
-> + * @c:       R-input coefficients (12s)
-> + * @k:       per-output-channel offsets (typically 9s effective)
-> + * @qfactor: Q-format selector (2u), see above
-> + * @_pad:    padding for 64-bit alignment, must be zero
-> + */
-> +struct camss_params_color_correct {
-> +	struct v4l2_isp_block_header header;
-> +	__s16 a[3];
-> +	__s16 b[3];
-> +	__s16 c[3];
-> +	__s16 k[3];
-> +	__u16 qfactor;
-> +	__u16 _pad[3];
-> +} __attribute__((aligned(8)));
-> +
-> +/**
-> + * struct camss_params_gamma - per-channel gamma correction curves
-> + *
-> + * Implements the CLC_GLUT pipeline module, applied in the RGB domain.  It
-> + * holds one independent lookup table per colour channel. Each table is a
-> + * direct (not segmented) map of input level to output level.
-> + *
-> + * Each table has @CAMSS_GAMMA_LUT_SIZE (256) entries of 16-bit unsigned
-> + * output. The number of significant output bits follows the width of the
-> + * engine's internal bus; the upper bits are ignored by the hardware.
-> + *
-> + * The module maps a 12-bit input to an 8-bit output: the top 8 input bits
-> + * index the table and the low 4 bits are used to linearly interpolate
-> + * between adjacent entries. Entry i therefore represents the output for
-> + * input level i/255 of full scale.
-> + * Output range: 0x00 = black, 0xFF = white.
-> + *
-> + * How to fill a curve (same on all three channels for pure luminance
-> + * gamma; different curves per channel additionally shift colour balance)::
-> + *
-> + *   Identity (pass-through, gamma 1.0):
-> + *     lut[i] = i;                                // i = 0..255
-> + *
-> + *   Encode with gamma g (e.g. sRGB-like, g = 2.2):
-> + *     lut[i] = round(pow(i / 255.0, 1.0 / g) * 255.0);
-> + *
-> + * @header:  block header; @header.type = CAMSS_PARAMS_GAMMA
-> + * @glut:    green channel gamma curve
-> + * @blut:    blue  channel gamma curve
-> + * @rlut:    red   channel gamma curve
-> + */
-> +struct camss_params_gamma {
-> +	struct v4l2_isp_block_header header;
-> +	__u16 glut[CAMSS_GAMMA_LUT_SIZE];
-> +	__u16 blut[CAMSS_GAMMA_LUT_SIZE];
-> +	__u16 rlut[CAMSS_GAMMA_LUT_SIZE];
-> +} __attribute__((aligned(8)));
-> +
-> +#define CAMSS_PARAMS_OPE_MAX_PAYLOAD		\
-> +	(sizeof(struct camss_params_wb_gain)	+\
-> +	 sizeof(struct camss_params_chroma_enhan)	+\
-> +	 sizeof(struct camss_params_color_correct)	+\
-> +	 sizeof(struct camss_params_gamma))
-> +
-> +#endif /* _UAPI_LINUX_QCOM_CAMSS_CONFIG_H */
->
-> --
-> 2.34.1
->
->
+Takashi
