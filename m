@@ -1,54 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793810649;
-	b=aBoxkEDqt4dxvR/5Gh7gRYw4/YyRQ4JbT1jpucmrsb8zXOLzu3iVh+mebLGIex+ffukS
-	 j5hYDlc341r7+i315nppqXqldCmwRpuaeOF+G5nWLvTi2zTROKlHRYtUs816BQqudPwnA
-	 cJrJpEqiAemIpx41z2ydq94vkAbeudZvi3zeSArBjXBaPadpLFvZGQO9Ea8u78UypGD+l
-	 rv+gOWPMq1AG5m0u4jt07Jt+xMswTtHvlyz7pzcer3cjf4r93hfVTpkdMY2/aThAH7l4A
-	 JXPONzRVMz6/eoaEW18A2r5a4zfyGN4gQuRzJAxeWmrS0jmTv3PAzzlzDXxzw7CzdYA==
+	t=1793810674;
+	b=4MdNXZhI1Mf6ewBZwj0Ft+5o5O18njwyce9khqX7+IrZ2++CgZeL523tZ53p3LViStzf
+	 VGAxNvx2m6TQ1SrNrdNVy254tpMvZjMTL7mGdCMwtcC0G7wNP8Ys0Qtm/8qmOE81NQ6j2
+	 SOpl2p0s/hpBXgJTcwlID9nfuT4sNVKbdfpp7TuoCUuD/th2cn/pQwG8K1kMb/a/0kdYV
+	 QxK53+8ycZJr+c6/d2u6rcRzqVv6ZjN+qmhzlmbvfoAsiyZumYSoKiPDGIbl6Wst0xrdD
+	 mw17e7vOX700ZNOM1qKLUix9Z6W0Ri1OofBApq0X1Mn5I90jlpfqIj64pKY02z+2NbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793810649;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=nV2r7k/wz3b04bHgUI3RSPi8hDfS8dQ4mmisBszesNM=;
-	b=tGdizXuWF2H4+He47s19K6m8ZUkSb0leeGCEx491h7bcHShws3lsnPJo/AqOeKSPsp1V
-	 GoVBxBbzgLWMHOyHsX5D0IPXWZQfOS8zyFg2OLa1EyKlTCbilKOWScM+BxynD3R1rbXoy
-	 VxZM5U0HK5lliK5/RN1Mn0qQZk2XnY5lrkm/2j8REIcImfn/dPE6GZIiNUwO38Ay1em01
-	 9wazA57uZPaGjUFV1MIpmwbXTB/W9mtIoRxnQkLDPUt1hu07WgThSXv7r/FqERKcWKLYf
-	 mwz3vPCnCZl54rT6x60hyGoPYcU9tmwZ7oDJsS00i2FsHShc4nRXijcZ39CmQ9OK8bw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793810674;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=v85/dxSKl2fjZlg4NNDW7kCAXPImgdYEhqBglpB1Uzc=;
+	b=aHIYsXZ4mOVX2mBYWHffsrI18GU+UVXeLlxFrJorSmtuudkMYKSFiN+acXwDEvwvF4pc
+	 uqLURm0MPOAAuLctOdtCo5HSrxvI0nxepPqhW+fF7bPbW7YQ0k2ecOvn4z0/lCNTOXdMT
+	 W9wrdewgKnDVwrN/THKuDdGVZMBOM6EjauH1sZ9Mzct3IUB9pHfpAOkTsUNnrkLzGlMzI
+	 dHceYMV+Jl3GLqHGwqoAoGq4iz++exlAe8nztpqyipgxbZRvlEbBgLg942/ewMUAPfUZx
+	 M4/3t7Nc0szgczHvRJfnOc2luRESj8VPPUvOenvsj9VWoPr3a0XDBXGzTMy5rKnNhAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fKEZ2WTE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=G8i9hweE;
+	arc=none smtp.remote-ip=209.85.214.169
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0A8F606A31B;
-	Wed,  4 Nov 2026 16:44:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D25D4606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:44:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D25D4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fKEZ2WTE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B56331F00919;
-	Wed,  4 Nov 2026 16:44:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793810648;
-	bh=nV2r7k/wz3b04bHgUI3RSPi8hDfS8dQ4mmisBszesNM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fKEZ2WTEZWvhk5E1QImCHa+zgLWKLh42i4IGhtK9/lzjld+huug8FmkAYfQDRt6tC
-	 TFKmHyD3Do2Fj4MXTKNJ88+lq7+mZuIprb4dr/KyAPpd8PTzj+n1e/r15AjwCkKoYM
-	 Pk90ig60K1LT9scXLdl9ONZdFPmiSU4VH4Oderv4vM1xm/Z7FUgSVj4KJkFDMlcpHN
-	 4O9okUk+cOFfPObPOqej4sixBNFiOS+ZBnKVQBpeuvAEfwaMIB0g9I7z/7ZqDzzi9j
-	 Duj0q6vf+zquCFglJhnIgPt687O4BXxkTgt1LjpWIHrbdVRJklt4dEZtClbp8EEOn7
-	 Hc+QUn6MTfGhA==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Cc: Naveen N Rao <naveen@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, "David S. Miller" <davem@davemloft.net>, linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org, tz2294@columbia.edu, Mani Tofigh <mt4022@columbia.edu>
-Subject: Re: [PATCH 3/3] kprobes: Arm reused optprobe on cooling list
-Date: Thu, 05 Nov 2026 01:44:04 +0900
-Message-ID: <undine-1793810644673369233-54123b0cf19aa6b9@undined.local>
-X-Mailer: UndineD 0.1
-In-Reply-To: <20261103-kprobes-optprobe-state-v1-3-6aaac612abe6@columbia.edu>
-References: <20261103-kprobes-optprobe-state-v1-0-6aaac612abe6@columbia.edu> <20261103-kprobes-optprobe-state-v1-3-6aaac612abe6@columbia.edu>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=G8i9hweE
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2ed1b9e8f43so2186605ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 08:44:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793810673; x=1794415473; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=v85/dxSKl2fjZlg4NNDW7kCAXPImgdYEhqBglpB1Uzc=;
+        b=G8i9hweEv60CP1G9mcCfOZy9YLt+NuQZcz1tPY8+2SRuWt9vdnKUaG9Nq9MMXDcw4w
+         +3+aT7T1be68r8pVWQA/HSrQvgdd5OgkKJFaptkRZTnSOdxs5joe2KoKm3SjiSeI1Lz+
+         /iXoeRdVzG2w8WO91j3BAK/2Y84OMDBtXn//32+21JJkMGC43JFetQndQ9l8zLDldcnU
+         SSJ/iq3uI1FsuqQCQrnE2Gtltj2Y8X0lBE2R6OI/kvfWiD/yc22K6tlfVfFUveQ9Gbg1
+         umtbb0VctW1l3mSnzrIcxdpMsDPMcdSPzkqmZy0/j7kTe3KWLsg+1jkS8EGzCebIuGOT
+         bxXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793810673; x=1794415473;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=v85/dxSKl2fjZlg4NNDW7kCAXPImgdYEhqBglpB1Uzc=;
+        b=lJIQdDWHe+pMe4pFXbvK7Gxhv7SllZj8nnAVEFhQsUlWuEDY2sLg/b3/w6Xhq38yoz
+         vhSe9g5KyrRedPYICBzeeb5k4BRABrwUC1sGOVUGBsjjMpNUtxPnsECle2GcJm1MOqZD
+         7tUzu8obmRbC5VopjqspowSj26cKNAY3FCXuV87h1wGZrqi/n7W8+zT3PyGMMUHK0z8g
+         NkjNXWyy6jltBIQ2dTbSopJpiXtKdxnZXN8S+BpHjKitqZzKimdO2ocivg/4vJri+JOO
+         6a9vXvQYpI42nOaTBvcM3xagh32LZbVtLLjQt85m1+5X5kAjIzVdifsMPGUQg1uXpvih
+         VVtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwzJ/2EMFkjMricFh9GGhDqxHf2CEeDQ3/TRWeNI8WNBFZO4V3xKqgcnJhRLqRdnrb0Efg+K/KXhoO21wo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+8sY+ZemhYV49d/EPyb/TIap5hizgu5k2Ln3yuH+x95fbwn91s
+	UAN6xOUQNoAUMgJxSXdFbKLQpoDd+oUNFsexDMp8GS/O8B3FYmhtKYC4Jtr2q+aSxm8=
+X-Gm-Gg: AYBFou2P05vTMuNTG8Fs53398HFp7wDLKbpaO/liG/ffyq74pv/d3kaFRkhtpfdNL9F
+	Uc/PgboWDmhKeSwGRiRw64ICicVk2b3oFVjOlPMSUfsWqfwHtkVa/XIvGWvj/NwEm1dZ9qPv1iq
+	tb5RSk/E8PhzYsirox6b+RqPJY6Rht9LFjHIjZz9pnUdzxIxsyEvzzB7dbPWv8r9uh7zH5a06Kd
+	3SpFdme05kr6UmTKa81l0+qzjIV69OXpkfGB7vtR1TUn61TyNY7EzmfMiXKGCDL2iv176Icec1M
+	4Pvv0ymyfRr5QPKaoGQTPyaWlklyaFjbcqetawLjUWiEyNiRoWrGpf9AmFzeEIBYFxn7+8Dvb0S
+	IHB9vvtR31fOZtqVVJFHxxuuNT4Hu5l4AMysg8l6Egdif7gt6nN+Q9KDCYbOQuZJQxGfVQ+BKx3
+	dQfAPK3ToMNwdHyeOpBVNOh/3UaTCMp/5ZfwJj0JQ4HaBag3K5GkqjcszqDl5fq5F7FfrbIsLJy
+	Udv5Njj6yQVm1zetXKq623hbCs7MBhh/7cknW+g42IsY2cW7kljspiYR9hK5qQktgqgwyzXaAbm
+	1lJlOmAWkGtHPvrghgFje0Y/EgeSanvLVuSopNEUj8EICkQl7dL/
+X-Received: by 2002:a17:903:37c7:b0:2e9:cd03:b432 with SMTP id d9443c01a7336-2eb36501f0dmr158595375ad.60.1793810673005;
+        Wed, 04 Nov 2026 08:44:33 -0800 (PST)
+Received: from p14s ([2604:3d09:148c:c800:bbc3:cdac:2cd9:7fc5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed0910faaasm10192365ad.47.2026.11.04.08.44.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 08:44:32 -0800 (PST)
+Date: Wed, 4 Nov 2026 10:44:30 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	linux-remoteproc@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH v2 1/2] remoteproc: elf_loader: Create new callback for
+ copying segments to remote cpu
+Message-ID: <autg7vGliR7-lH-V@p14s>
+References: <cover.1793117996.git.u.kleine-koenig@baylibre.com>
+ <15d90126debc21c116c9e862a007afa4d81f704c.1793117996.git.u.kleine-koenig@baylibre.com>
+ <auoAZs66RA5OYjJo@p14s>
+ <auod0uYPow76TEb8@monoceros>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,63 +107,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <auod0uYPow76TEb8@monoceros>
 
-On Tue, 03 Nov 2026 13:46:01 -0500, Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org> wrote:
+On Tue, Nov 03, 2026 at 06:49:59PM +0100, Uwe Kleine-König wrote:
+> Hello Mathieu,
+> 
+> On Tue, Nov 03, 2026 at 09:40:22AM -0600, Mathieu Poirier wrote:
+> > On Tue, Oct 27, 2026 at 05:25:20PM +0100, Uwe Kleine-König wrote:
+> > > diff --git a/drivers/remoteproc/remoteproc_elf_loader.c b/drivers/remoteproc/remoteproc_elf_loader.c
+> > > index da3cddbe7d4c..3c749a39e5da 100644
+> > > --- a/drivers/remoteproc/remoteproc_elf_loader.c
+> > > +++ b/drivers/remoteproc/remoteproc_elf_loader.c
+> > > @@ -227,35 +227,45 @@ int rproc_elf_load_segments(struct rproc *rproc, const struct firmware *fw)
+> > >  			break;
+> > >  		}
+> > >  
+> > > -		/* grab the kernel address for this device address */
+> > > -		ptr = rproc_da_to_va(rproc, da, memsz, &is_iomem);
+> > > -		if (!ptr) {
+> > > -			dev_err(dev, "bad phdr da 0x%llx mem 0x%llx\n", da,
+> > > -				memsz);
+> > > -			ret = -EINVAL;
+> > > -			break;
+> > > -		}
+> > > +		if (rproc->ops->memcpy_tova) {
+> > > +			ret = rproc->ops->memcpy_tova(rproc, da, elf_data + offset, filesz, memsz);
+> > > +			if (ret) {
+> > > +				dev_err(dev, "Failed to copy segment %d to device address 0x%llx: %pe\n",
+> > > +					i, da, ERR_PTR(ret));
+> > > +				break;
+> > > +			}
+> > 
+> > I really like your patch, but I'm wondering why you decided to move
+> > rproc_da_to_va() in ops->memcpy_tova().  Right now it is called in both path,
+> > i.e with and without ops->memcpy_tova().  Wouldn't it be better to
+> > unconditionally leave rproc_da_to_va() in rproc_elf_load_segments()?
+> 
+> The reason is that on ADI's SC846 the memory for the remote processor
+> isn't directly accessible by Linux. So there is no virtual address for
+> the given device address and thus the implementation of .memcpy_tova()
+> on that machine won't use rproc_da_to_va(). 
 
-> diff --git a/kernel/kprobes.c b/kernel/kprobes.c
-> --- a/kernel/kprobes.c
-> +++ b/kernel/kprobes.c
-> @@ -536,6 +536,7 @@ static struct optprobe_generation optprobe_gens[OPTPROBE_GEN_MAX];
->  static int optprobe_cur_gen;
->  
->  static void optimize_kprobe(struct kprobe *p);
-> +static void __arm_kprobe(struct kprobe *p);
+That is a valid use case - please add something to that effect in the
+changelog.
 
-If reuse_unused_kprobe() leaves arming to register_aggr_kprobe()
-(via arm_kprobe()), this forward declaration of __arm_kprobe() will not be needed.
-
->  static struct task_struct *kprobe_optimizer_task;
->  static wait_queue_head_t kprobe_optimizer_wait;
->  static atomic_t optimizer_state;
-> @@ -1067,6 +1068,13 @@ static int reuse_unused_kprobe(struct kprobe *ap)
->  	if (!kprobe_optready(ap))
->  		return -EINVAL;
->  
-> +	if (optprobe_queued_cooling(op)) {
-
-Instead of arming the probe directly here, consider let
-register_aggr_kprobe() to arm it:
+> 
+> Best regards
+> Uwe
 
 
-if (ret == 0 && kprobe_disabled(ap) && !kprobe_disabled(p)) {
-	ap->flags &= ~KPROBE_FLAG_DISABLED;
-	if (!kprobes_all_disarmed) {
-		ret = arm_kprobe(ap);
-		...
-
-
-The reason a cooling probe didn't fire in the first place is that
-reuse_unused_kprobe() unconditionally cleared KPROBE_FLAG_DISABLED.
-Because a cooling probe was already unoptimized and disarmed,
-it should remain disabled while on the cooling list.
-
-If reuse_unused_kprobe() does not clear KPROBE_FLAG_DISABLED when
-optprobe_queued_cooling(op) is true, register_aggr_kprobe() will
-naturally arm the probe via arm_kprobe(ap) only if the newly attached
-probe is enabled (!kprobe_disabled(p)), handle any error unwinding
-if arm_kprobe() fails, and keep it disabled if 'p' is disabled.
-
-> +		/* Already disarmed. It will be optimized again upon finalize */
-> +		if (!kprobes_all_disarmed)
-> +			__arm_kprobe(ap);
-
-Arming the probe here unconditionally when it is on a cooling list
-introduces a bug when the new probe 'p' being registered is disabled
-(e.g., registered via tracefs before being enabled or with KPROBE_FLAG_DISABLED).
-
-Thanks,
-
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
