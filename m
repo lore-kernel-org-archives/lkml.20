@@ -1,92 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793789941;
-	b=sw+js5AYu9/27z6WazuyZRXPYBAAIxI83S2z0SfAKDli3e4vpwWxydmpj5JcaygK/cbj
-	 SuoiMgl7SEGK/lTfMf6zb7NmOcwmRzlyTmidi+Ys/w0eNh16E6zSZ1pMhKmqHxLA1Yh8c
-	 +ZghHUwmn8Ud9Rg8dmUwhKv6jT9cZy+D6TcYDFBIRB3nHsNDsZbtZFfimpyiAPkuRciLW
-	 d2SI6oburpS1YUQSiD/GuEFvyNwnfpSKEa3D7ScRnYE1niPdcHi2f93YGkxTm+ewfOhKL
-	 q1kj2qKFvuRuXkoP7I0eAJkpH5YtY7ciqNwiziBL39wqXiwvAfYBSPpZVutJtM/TZKA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793789941;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=BZFGF4yVK8CasvOvAXi/K/IhB8egqk0MRd0U/7JM4nI=;
-	b=EG5KCnrCQQAF4aVjML/x73R9nDdDwTgHLZU+EbRaUoUVwFuYVoQaotDgwGoNNlT3GQCn
-	 QqD3/ew00XzE4RUIA3FAxKXszESmrMwiNrUGxlzhyCzc+4V0Z4zbiRK3q1PAOWGxP/+Ph
-	 Z7NrofxfYZTUFvCsq+oVZwuBtNv9vb1Ygxo0poxwkAfXcsyQzkHwCrQvvTQlSWI3SgKTH
-	 s/twXDpF4TRMEgGpxL9m2kQp56+d68BvRLL3RcueFKRoHAz1u7IeBDAee89wfJFkZok1M
-	 UKsBUfFRDyUPNUINZrwdCa4/JKIhFY9+m7mW9AsOrDF2/lgqJC1/B3yl2bN6A1b/BHg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=TLlQ6ZKv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.118
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793789957;
+	b=B7kaMYCrVuJRXaBmylKsksen5WvqQuFcJUAC6fJEX9mhh5TvxWOfIcp363uMKlB+vgyX
+	 oUfXtCcCdUECqQtzD5MZM8Xupm9A+iIJsJ9AlKgKxviv+DCtfdhODiTi2Jc/QCcYe14N+
+	 uNmBBROpJmsDcIBHyu+dK6eQ1A0JlB+4zzZ3FhoTYx0DDNkotJ0EAYrlHyNeko3wkt2fa
+	 ndh0mSbZebWCryYyCFoJyH4Tj9YFWxlJFtZCXUlicBNh7koAjM6iNgjBrpJW9Cxa/tj+w
+	 DQh4lTx+MS7LN2O8t2hzz+1vQTrl1/9afiybVa1/rVXW2aRW4oyDc80rAe64zUS3wBw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793789957;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=3nff9d/AA4m5vVgbnjj/6QnlBWUP9A3eO3LG2cNpO0Q=;
+	b=SBFb1Wxv9B5VNZ6W7yjTH7CZ4dILXaDc95Ui6NyYaB456JD+PgwsSxjTOIAfUZiXsCpg
+	 VCvp34R1QBPnnskIssjFLBPfz2wED/iAQPMtOkFPHswJTIoVk6Nv5wzHa9e/p1HKKk5V8
+	 i5BSvm3J/1rurYfl+bCa5AjA+QPu0S0Ngj7qptbzOMiYpsS8isFeWWWUw9q5vMskg56Vd
+	 cz0GzjxSead+6qTVG9fcq/55Q29qx6egwpC/52eqv8vc8/GxOX00Nit8/44QeXvhE3zW7
+	 h0ghsfVoLYgYsTpu4KDA3BXN1PWw0AzZGS+jnaYPtbL36eoplhPJBnfAc6d9zPy0vbg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=PFjvzsAn;
+	arc=none smtp.remote-ip=115.124.30.118
+Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7AFD606A31B;
-	Wed,  4 Nov 2026 10:58:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7AFD606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C8E606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:59:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53C8E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=TLlQ6ZKv
-Received: from [IPv6:::1] (ptz.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::77])
-	(Authenticated sender: lst@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id EE5752008B9;
-	Wed, 04 Nov 2026 11:58:57 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793789938;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BZFGF4yVK8CasvOvAXi/K/IhB8egqk0MRd0U/7JM4nI=;
-	b=TLlQ6ZKvu6bXMiiyckpsPoVyhjyUb3xv7sKk4zj8QfNRV58YyZqR4MBdrR/cY1k1zA7hdQ
-	uKDGpM56BoeZ//CrB2JXnAgK7ilFxaYcgYSmhYdDm6S8bQ/+fHVtS/f3s+0fE2cXUUfc9W
-	jV4LiNVQgEk9LEDbUBybPA84WQiY6xyuPvvd8t8/bx/iwsrENROeKYdnlYuEwLgo8qeOWU
-	6uVta/ZX1eNY0gr+ue9goAn1CWOIa9pwDGx9oGjJeLkiNvzJkn49v4PEe9Kc7wJhziLrm4
-	xeWHR3q+XSgTS0Rk/wKyxdCN/7Hy74B+hh088Hinkpm+SbibTkZAhFPqXtvkAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793789938;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BZFGF4yVK8CasvOvAXi/K/IhB8egqk0MRd0U/7JM4nI=;
-	b=R1jiyD1hstnR1F9AVO7KSV5iL0G0U/obkKEufsN7hXhAVXr0/ElCasNPA1UTHusDYKNJYY
-	pieUChCofcGko+EIj35+uf9gqkVJXm8Xm7uFigkNICre+1U2AeNYZI+xbfN7FOpwQFqrHH
-	CsdX6QKoJrHTv4N1vbvX57jjipfX6cR/V3OzpNNPSQFzXFjAbWpuFYQFhnvDYdV1x7g5T7
-	Mc/UfLoS/o/b0GZdxKWJzSQG6foQI6883dql5DB0hhoHtFlnIWmKfXWNqM5rACptO3lVVJ
-	s36Raux9NSxWMgLXBvLjzJGt8h/HfE37J3pk6BquVaj8v9yI0+Lvj+cpDgTHHg==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=lst@pengutronix.de smtp.mailfrom=l.stach@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793789938; a=rsa-sha256;
-	cv=none;
-	b=Jqu7Cv3wg03x/46cig9MB5ofn6u8liJyLUhcMrPmM8KpDDiFKpLLZ0ueHOctlDa/7w/wMl
-	6GtAdfXZ7kk3oFgy8Eba+EDFxcQ27mkhKCs0Qbj2FCzC28n5wR2WKLDHu5d0VEzKIdxOhO
-	qdlFFklqag6fMhT+RxsWeyli+XrkXJRPYuWBqgzFiLeSrDlCba/JNNpOiedZAyQn+9kz2e
-	QFml4f26Ar/MjKN5syonIjCBxpjk/JRe1uQvCVx2eUWziOZb+GbwrJc1L+8F/Y4OlLoID5
-	o0zfL1KpnBtDAYmbmsoZxUjzRHpkQl6Kp821g+4uQUfWc2zePSyFlF35LE26hg==
-Message-ID: <b6999d67d14772a9b3b90e3cce84d96551e9d63d.camel@pengutronix.de>
-Subject: Re: [PATCH] drm/etnaviv: Fix NULL dereference on unbind without PPU
- flop reset
-From: Lucas Stach <l.stach@pengutronix.de>
-To: Christian Gmeiner <christian.gmeiner@gmail.com>, Russell King
-	 <linux+etnaviv@armlinux.org.uk>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Gert Wollny <gert.wollny@collabora.com>
-Cc: etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, Christian Gmeiner <cgmeiner@igalia.com>, 
-	stable@vger.kernel.org
-Date: Wed, 04 Nov 2026 11:58:57 +0100
-In-Reply-To: <20261102-etnaviv-unbind-flop-fix-v1-1-588fd16f6768@igalia.com>
-References: <20261102-etnaviv-unbind-flop-fix-v1-1-588fd16f6768@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=PFjvzsAn
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793789947; h=From:To:Subject:Date:Message-Id:MIME-Version:Content-Type;
+	bh=3nff9d/AA4m5vVgbnjj/6QnlBWUP9A3eO3LG2cNpO0Q=;
+	b=PFjvzsAnkJ0qrJnUVNU8xaVjNDMUGhfzpXPHvcuQAnSRMUWczSWUbf1XZO1KMx4gqjcFOGKHA36EjoBqaMbRvZGF2TMPhrrth+RWsQLa+OqZ9o+Thr20w7fMeIPaJa/vR4MuD5uiUbP6ANGtKNdwOBnj32sxcpHPedKxoUmLs0Y=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=30;SR=0;TI=SMTPD_---0XE5XI7y_1793789942;
+Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XE5XI7y_1793789942 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 04 Nov 2026 18:59:04 +0800
+From: fangyu.yu@linux.alibaba.com
+To: gong.shuai@sanechips.com.cn
+Cc: ajones@ventanamicro.com,
+	alex@ghiti.fr,
+	andrew.jones@linux.dev,
+	anup@brainfault.org,
+	aou@eecs.berkeley.edu,
+	atish.patra@linux.dev,
+	baolu.lu@linux.intel.com,
+	fangyu.yu@linux.alibaba.com,
+	guoren@kernel.org,
+	iommu@lists.linux.dev,
+	jgg@nvidia.com,
+	jgg@ziepe.ca,
+	joerg.roedel@amd.com,
+	joro@8bytes.org,
+	jroedel@suse.de,
+	kevin.tian@intel.com,
+	kvm-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	palmer@dabbelt.com,
+	pjw@kernel.org,
+	robin.murphy@arm.com,
+	skhawaja@google.com,
+	tanchi25@mails.ucas.ac.cn,
+	tjeznach@rivosinc.com,
+	tomasz.jeznach@linux.dev,
+	vasant.hegde@amd.com,
+	will@kernel.org,
+	zong.li@sifive.com
+Subject: Re: [PATCH v7 06/10] RISC-V: KVM: Enable KVM_VFIO interfaces on RISC-V arch 
+Date: Wed,  4 Nov 2026 18:59:01 +0800
+Message-Id: <20261104105901.64207-1-fangyu.yu@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <20261104064540.115560-1-gong.shuai@sanechips.com.cn>
+References: <20261104064540.115560-1-gong.shuai@sanechips.com.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,49 +88,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Am Montag, dem 02.11.2026 um 11:38 +0100 schrieb Christian Gmeiner:
-> From: Christian Gmeiner <cgmeiner@igalia.com>
->=20
-> flop_reset_data_ppu is only allocated on GPUs that need the PPU flop
-> reset. However, etnaviv_unbind(..) frees it unconditionally, and
-> etnaviv_cmdbuf_free(..) dereferences cmdbuf->suballoc before checking
-> whether cmdbuf is NULL.
->=20
-> As a result, unloading the driver on GPUs that do not need the PPU
-> flop reset causes a NULL pointer dereference at address 0.
->=20
-> Fixes: 85ba57ad88cf ("drm/etnaviv: Add PPU flop reset")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
+>Hi Fangyu,
+>
+>> From: Tomasz Jeznach <tjeznach@rivosinc.com>
+>>
+>> Enable KVM/VFIO support on RISC-V architecture.
+>>
+>> Signed-off-by: Tomasz Jeznach <tjeznach@rivosinc.com>
+>> Signed-off-by: Andrew Jones <ajones@ventanamicro.com>
+>> Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+>> ---
+>>  arch/riscv/kvm/Kconfig | 2 ++
+>>  1 file changed, 2 insertions(+)
+>>
+>> diff --git a/arch/riscv/kvm/Kconfig b/arch/riscv/kvm/Kconfig
+>> index f7e4d0f9b156..13552cfc2cd3 100644
+>> --- a/arch/riscv/kvm/Kconfig
+>> +++ b/arch/riscv/kvm/Kconfig
+>> @@ -28,8 +28,10 @@ config KVM
+>>  	select KVM_GENERIC_HARDWARE_ENABLING
+>>  	select KVM_GENERIC_PRE_FAULT_MEMORY
+>>  	select VIRT_XFER_TO_GUEST_WORK
+>> +	select KVM_VFIO
+>>  	select SCHED_INFO
+>>  	select GUEST_PERF_EVENTS if PERF_EVENTS
+>> +	select SRCU
+>
+>This option is now meaningless, please remove it.
 
-Reviewed-by: Lucas Stach <l.stach@pengutronix.de>
+Thanks for the heads-up.
+I’ll remove it from the next version.
 
-> ---
->  drivers/gpu/drm/etnaviv/etnaviv_drv.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.c b/drivers/gpu/drm/etna=
-viv/etnaviv_drv.c
-> index 08aca9035fc1..ec1352c1b09f 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-> @@ -601,8 +601,10 @@ static void etnaviv_unbind(struct device *dev)
-> =20
->  	component_unbind_all(dev, drm);
-> =20
-> -	etnaviv_cmdbuf_free(priv->flop_reset_data_ppu);
-> -	kfree(priv->flop_reset_data_ppu);
-> +	if (priv->flop_reset_data_ppu) {
-> +		etnaviv_cmdbuf_free(priv->flop_reset_data_ppu);
-> +		kfree(priv->flop_reset_data_ppu);
-> +	}
-> =20
->  	etnaviv_cmdbuf_suballoc_destroy(priv->cmdbuf_suballoc);
-> =20
->=20
-> ---
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> change-id: 20261102-etnaviv-unbind-flop-fix-5c77f75de45f
->=20
-> Best regards,
+Thanks,
+Fangyu
+
+>See:
+>https://lore.kernel.org/linux-riscv/20230105003813.1770367-5-paulmck@kernel.org/
+>
+>Thanks,
+>Shuai
+>
+>>  	help
+>>  	  Support hosting virtualized guest machines.
+>>
+>> --
+>> 2.50.1
