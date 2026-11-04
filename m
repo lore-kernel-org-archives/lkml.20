@@ -1,61 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.155
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793756897;
-	b=RaMfkqt12aSNUEjXL+i7CEkbQO8jrRH1HewButMGl55jzU575wvszsUXGAvu0/JktuzP
-	 QvAJgoI0K2uz5MyQNHhVnfFxC5W/MfyfdOB4s9ILFiH/Sl4FxG+8In7OyHC6IjDuem7hg
-	 7kRZPOZ7JvfjAbhGGoPO2JHLgwGi3aL6U67zjwt5ApnEnTJSqOZOsJw+iGRycr9k+rb5r
-	 d9781LDGdq03HthL7z4TfnhFh2f+wr9oaYvdcs1fIGbIkNP3HgumV43VUUh22whhyHLR+
-	 hCdhlrWF2lwts8ppJjWJe19RzzCvO7ql1c4v8k42XrWgF7g9JC40umhI+pg+peDdp7Q==
+	t=1793756915;
+	b=Kt8+/FDkWD3oYwI7XwYmL1j+7yuaT2qfTXX4UljAFWQO7DWrUVHHjUUpUSFxYo+Yxhjq
+	 FQgKxoARyHxKcqkFzVabx/3lHp2hTTUf6R81MadS1BGvrSo/jTh1KX58SEEOtgI43wghC
+	 LWSe/O9u05UP8B++4Blf6Bklq6Itjh8lkOVFGp56jWEKw2SOX0GmJAT1tnFob3nYQ3XBy
+	 IxHkCBV6r6hPMdgY7p7PvVXVv88PoclfNvlgZbNV8UI04xIXLl1U9te+DSoH4Lo6JFRX/
+	 5Ywv4kyozsSjgRVpZUBJTGGRIJQJnPrLlklkJNp9lRNnfW9SE4+a6NxxfF2QYkRV7IA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793756897;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=QyFBrT3W/KJfm2VNPVTE0rU9qrI5bDLSgmmBzoZy2vo=;
-	b=ONSsbh3hOswBQtoVWkPFVgYkSG2zpYScF5T0SSi2/6xpHbEN3L1HcqNpc9HHPuj3JttB
-	 cI7VCjlyoY8iJEH7DxvHxoDQg+6OEzuXL5/B1tUotSfYnwaYamhZkmyqn3KHPzbEeabmj
-	 h/NZVPL4ADO932VRzuQS8AZsHMRjCYhs0oumnrxQycJvKVK+X8s4RzVLZ6CFiwZVdzzm1
-	 SdFyrH5mTcB7U2fCKi6+2fMvYingqRfQ0TBwpll63qwI0CGnq4sC7s6qkMxt31ZhsEqqX
-	 H+bxAx2xBhQbPNACIxbJ629gAxSma6SpVi3jPY1BmtT5Rqn3NRZtbXA2ueeEX70h2QQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793756915;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=f2BFXTdAQBceYdGgKEPFKvgQyU+hCrR2MmNjmw62mFc=;
+	b=ZCP17s+UlWMX+grA3n+rybwmF7LHm33kwFiewF/abjttAJZ7r0yXwHMRKmdGIeJkhwO1
+	 s1d5hxEtgcWBOZlWCnatl3V6WHZ3xk8IYq3v8gbl6tQichXTQ2NxQyjEwbLWLv1fRvSI0
+	 CcLDqGCSkaufZaz+GotXFENqNuLvzKg8UnAVw2mq/s4V0Bp7VbufunWLL/1rNF2nfFBwx
+	 T5Tt0dT0zccPeMAp68SRW2gVkPCP4s6jM3Ip+HYYDYjUfP7kpZxP+Uq8IcinZKbGTovfC
+	 XYP88cMqri9mQofcRoECnKUF8e31hwAuyBvfNtNgIYwFahiUTzhiIHMIwiVrPJUVLnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JExwITc3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TxvoOO10;
+	arc=none smtp.remote-ip=95.215.58.155
+Received: from mta1.migadu.com (out-155.mta1.migadu.com [95.215.58.155])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36746606A31B;
-	Wed,  4 Nov 2026 01:48:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44C1D606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 01:48:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44C1D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JExwITc3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ED341F000C1;
-	Wed,  4 Nov 2026 01:48:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793756896;
-	bh=QyFBrT3W/KJfm2VNPVTE0rU9qrI5bDLSgmmBzoZy2vo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=JExwITc3RPXGZzLErEVSv3uDOgZwOgqQOPVdkHY5WjdsizvYos12+BBhXreZnIsPJ
-	 arLCxKsNuMnvUvOJinwNLHePub52z15nFSuQbEvtRnnVGP4a3MLQ/AlDDoUokeHyMS
-	 9ca/BAD5LwesYwQnSmZmhlx36+IGzyUGr+iICO0vzmJLzIc+TbVCW6GnIaLidEf9Xu
-	 STCEPNa14uczydI12JJnhgvros7gubpbgYKBSal9iRMd/9n84i30tGBiyMytYPz15P
-	 YW1mNETsGn5xhsSGt4jfQ2vgW5b9pmSLkeEehPsQL8EYaD615kd40YVuVkaj4Wqpo8
-	 WBM7da/I6qv/A==
-Date: Wed, 4 Nov 2026 01:48:09 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Joshua Crofts <crofts@kernel.org>
-Cc: Raffaele Tranfaglia via B4 Relay
- <devnull+raffaele.tranfaglia.gmail.com@kernel.org>,
- raffaele.tranfaglia@gmail.com, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Dmitry Osipenko <digetx@gmail.com>, David Heidelberg <david@ixit.cz>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: light: al3010: fix out-of-bounds read of the scale
- table
-Message-ID: <20261104014809.75e92a17@jic23-hlaptop>
-In-Reply-To: <20261103140055.00000efd@kernel.org>
-References: <20261103-al3010-scale-bounds-v1-1-6110c2ffe3b4@gmail.com>
-	<20261103140055.00000efd@kernel.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TxvoOO10
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ev8LN25R6PKVsQ0LgifHU6c5x8Koo0inMSGxpKLl1QM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793756912; v=1; x=1794361712;
+ b=TxvoOO10icPR5yqYxKeGsrFPkkkwezzDOiuAis+nBsrpMqfO5Oiv/8rxK2r2ZQVqLPfyk/sr
+ o//keH9MTn2pK0bfW15O4VY9pyvhfD+EYQz0TS8eXIvsZg8rivoBttDNwqTE8faW25La7aYVZ5e
+ /2NucNxeOiMbJXEl71dMJgsU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 949170bc90fe0f60;
+	Wed, 04 Nov 2026 01:48:32 +0000
+X-Mizu-Trace-ID: 949170bc90fe0f60
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 4 Nov 2026 09:48:21 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Sasha Levin <sashal@kernel.org>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Dmitry Safonov <0x7f454c46@gmail.com>,
+	Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next] selftests: net: tcp_ao: make the netstat column
+ pointer const
+Message-ID: <auqO5W4-hhd1brHi@fedora>
+References: <20261103165419.687806-1-sashal@kernel.org>
+ <20261103165419.687806-6-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,52 +70,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103165419.687806-6-sashal@kernel.org>
 
-On Tue, 3 Nov 2026 14:00:55 +0100
-Joshua Crofts <crofts@kernel.org> wrote:
-
-> On Tue, 03 Nov 2026 08:42:48 +0000
-> Raffaele Tranfaglia via B4 Relay <devnull+raffaele.tranfaglia.gmail.com@kernel.org> wrote:
+On Tue, Nov 03, 2026 at 11:54:19AM -0500, Sasha Levin wrote:
+> lookup_get_column() stores the result of strchr() on a const string in
+> a plain char pointer. Since glibc 2.43, strchr() returns a const char
+> pointer for a const argument when C23 features are enabled, as they
+> are with _GNU_SOURCE, so gcc and clang warn:
 > 
-> > From: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
-> > 
-> > The gain field read from the CONFIG register is three bits wide, so it
-> > can hold values from 0 to 7, but al3010_scales[] only has four entries.
-> > If the register holds a gain value of 4 or more, reading the scale
-> > attribute indexes past the end of the table and returns garbage.
-> > 
-> > Reject such values with -EINVAL instead of indexing past the end of
-> > the table.
-> > 
-> > Fixes: c36b5195ab70 ("iio: light: add Dyna-Image AL3010 driver")
-Dropped the fixes tag.  This is hardening against buggy hardware
-rather than fixing an issue anyone should encounter with a correctly
-functioning device.
-
-I don't mind such hardening (when simple and maintainable which 
-your example here is) but I don't want to mark them as fixes
-as that tends to trigger backporting which may not be appropriate.
-
-Applied to the testing branch of iio.git with that tag dropped.
-
-Jonathan
-
-> > Signed-off-by: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
-> > ---
-> > Found with LLM-assisted static analysis of drivers/iio, looking for
-> > table lookups indexed by unchecked register fields; the fix was drafted
-> > with the same assistant and reviewed and tested by me.
-> > 
-> > Tested on arm64 QEMU with i2c-stub and CONFIG_UBSAN_BOUNDS=y. After
-> > writing a gain value of 4 to CONFIG (0x10), reading
-> > in_illuminance_scale:
-> > - before: two array-index-out-of-bounds reports (al3010.c:137 and
-> >   :138), and the attribute reads 0.000000
-> > - after: the read fails with -EINVAL and no report is printed
-> > ---  
+>   lib/proc.c:61:16: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-qualifiers]
 > 
-> Reviewed-by: Joshua Crofts <crofts@kernel.org>
+> The pointer is only used to compute the length, so make it const.
+> 
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+> Found with gcc 16 and clang 21 on glibc 2.43; KernelCI's gcc 15 builds
+> show the same warning.
+> 
+>  tools/testing/selftests/net/tcp_ao/lib/proc.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/tools/testing/selftests/net/tcp_ao/lib/proc.c b/tools/testing/selftests/net/tcp_ao/lib/proc.c
+> index 8b984fa042869..50062b527a393 100644
+> --- a/tools/testing/selftests/net/tcp_ao/lib/proc.c
+> +++ b/tools/testing/selftests/net/tcp_ao/lib/proc.c
+> @@ -56,7 +56,7 @@ static struct netstat *lookup_get(struct netstat *ns,
+>  
+>  static struct netstat *lookup_get_column(struct netstat *ns, const char *line)
+>  {
+> -	char *column;
+> +	const char *column;
+>  
+>  	column = strchr(line, ':');
+>  	if (!column)
+> -- 
+> 2.53.0
 > 
 
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
