@@ -1,68 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793792379;
-	b=4VxZP4/ev2BU1/bgNJrFywsTClYga1HWo/zkF1CrwWQ2BMfZkpuUhbtTq7v/FHw417r5
-	 WZrJHhbYo+lINZCNUk7WscGH6280algnHmeiKeo4JhIikQSFHihwylFiExDZ+/bYn6FG3
-	 1wxZa0JHB049pnsudDVER+tEVAg1FjDNScSqugi/vUTneAuZ+m+R3saB9fyJ/e9KfmXT6
-	 HVs/6r20B9iJMoQlaEEGk8nwQeFDxNSe+jKSh1RQ+x4yFxGdMnbG0QQ/ySmpkIk4Ou6tZ
-	 qLXJdBFOV17Fg/waansV9w1mzDPcahFl70Wl+RGLmYk2xheiGHb7iD/lFQQsnBomi4w==
+	t=1793792426;
+	b=jbRdetKD8LK1mFXGkZpE4BBmj1rjtrZpE+TWqbs6ubjTYc0rQLaoSP9PiaDsu0B2WaWC
+	 Y6+SLlGlThEZEyu9/t2fzwBSjBgumaZRJboCMpUnviaS8r6qyiF1gsMAlA1fCbPZezYQA
+	 dk4Asofn/7fb5rbcBppBGMwppe1SPCBt90ApUApvmRWfSJBlsuN3zSW7XiAYqTJWj/uIE
+	 cOnN1TMswIpGprXHMDQ8XLpL3HElZJGRNbBXkefBYjkxnVJGhhQWrTtkz8IEe0phfsE75
+	 i8Tq8LYDT5zSpCyLuV56GhQsJ8LluPQng9W+vjoYsWjygDh3eaPNAausO3FX+sJ7qcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793792379;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=t1GBe3oG5d6+E51tKW43KOYGoF4SDQWklgXSUBsLydM=;
-	b=W54Edn2ZiLewB5bXF8kn0dGGmq8z2QvUkv3Wyde181mdGlipYO1x3kCyAtIU4LEbS8bX
-	 Xzg21AC264yt6M+7YAecnV5mqYQ/LSCHDTEhDrxkyHJ+QF9k5uxXNwCvJOkiQg7sFGg9Q
-	 PH7qx3HhKoKnAaiiLf+HbCiGMmLVv3DiGLuzzm/KIzzFAaL0chUpOzm46+Xtqj+TJQvmx
-	 ZpI13TTsMgseZ4y6Rj/lsQwd3PI6vYtRL9emWGAbzsUoHGzZE+TjXZWN2XXwPcOAAQhOc
-	 lzfMrbw9B2mj6WtMX7HmuWMuIrTz+WIJqYk+lgpur0TXUyE5RaIz1qoNkN53lPTlCsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793792426;
+	h=DMARC-Filter:DKIM-Signature:Message-Id:Received:References:
+	 X-Lms-Return-Path:From:Subject:Date:User-Agent:
+	 Content-Transfer-Encoding:In-Reply-To:Content-Type:X-Original-From:To:
+	 Cc:Mime-Version;
+	bh=pPsOd91eue55DvpTTpIkJaM1e+sIzdW80J0vYdNAO4k=;
+	b=NDT+WKGT+1l7u/vpM53h2o2k4uxPOgpTnUD40FmU8eapRekrykxdsn7ucetN7PVl0xrR
+	 VlMYjnuelX+082SqgZKBDmqlCG3l6j8aNj7QxdhdgL7/VVScSaroghCth6ZK6RtJUHrzn
+	 K27Ix3PIq5wCqh/h/IcHhBuEwLAeWoRa4xM3wZ8Zo3oyE2EANh8r80MFfFp+xUnvzi1uo
+	 ydTURP5wNk9CAI3aMEPIW6If4V8OxcGz2ATqEAkeUy2bjgp45DnNWYAT2OUB56xmHfeu2
+	 O+jUFpq421Bx7IGsi3OlpJw/GWDLhQBuPcLFhUQaIGdbfSRx1asDKywGS7kxgEpK+fQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Syde+xg9;
-	arc=none smtp.remote-ip=192.198.163.18
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=yunsilicon.com;
+	spf=pass smtp.mailfrom=yunsilicon.com;
+	dkim=pass header.d=yunsilicon.com header.i=@yunsilicon.com header.a=rsa-sha256 header.s=feishu2403070942 header.b=HDzLbzH1;
+	arc=none smtp.remote-ip=209.127.231.39
+Received: from va-2-39.ptr.blmpb.com (va-2-39.ptr.blmpb.com [209.127.231.39])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF1B1606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:39:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF1B1606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA381606A32E
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:40:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA381606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yunsilicon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yunsilicon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Syde+xg9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793792378; x=1825328378;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=/7/ERNg8lgbcxb3bPZCGMGuw3wZ3SgyLLV1A63XrHi0=;
-  b=Syde+xg9d8BmhnoIYy/9Csa5Mmw2MW4Ku7p5tKqX/viRd6KV8ldQJBXc
-   335Xim+Z+RpQ4wb1KRDbbQ50USiVL4H2WHMOH35Ae4FkxIiGqSuaHw8XC
-   S22Q3+6m+FtWdcK1LUQzTKiBTBmNar97mTla94JWIDDgX6uvBeG+k3U8P
-   j+Fs+RCeTJSSmZowpe7mJEJabkdYmqnrwulWpGtMcsVVfFrDwZ85TNe2S
-   MZMjrxxrppfZwcvxZHvYkTDUtWcYBOmpwkpHC1bnPBGX1qtkLUiMMaYY7
-   AJfevt2vuhT/IAT4VzmhoCzvrHokrdWM/nyNcar7zEwOlPJ7avuOxY3OQ
-   w==;
-X-CSE-ConnectionGUID: Tb8ufpXLTri0IaC1rliG/Q==
-X-CSE-MsgGUID: BtFrTerWS4GNUB7WwuBHyQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2577898"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2577898"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 03:39:37 -0800
-X-CSE-ConnectionGUID: YWADxan0TVGS+ce0naeN7Q==
-X-CSE-MsgGUID: PeC3xVFbQ8i5lWsFZgLJpg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="8568820"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO [10.245.244.43]) ([10.245.244.43])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 03:39:33 -0800
-Message-ID: <7f567052-f8a8-488f-beb8-aff8f099fe0c@intel.com>
-Date: Wed, 4 Nov 2026 11:39:30 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=yunsilicon.com header.i=@yunsilicon.com header.a=rsa-sha256 header.s=feishu2403070942 header.b=HDzLbzH1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2403070942; d=yunsilicon.com; t=1793792421; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=pPsOd91eue55DvpTTpIkJaM1e+sIzdW80J0vYdNAO4k=;
+ b=HDzLbzH1CGbklSWoIPIQCsDnnq06UZAZKuSmKt3YDJH38gLB5kVOCf9QDEPl9IsiLA1F6K
+ taPOduA/EpHBt35OgL0LEx9N3fBzvyFW0LWclogLaRRhceiXENVI3LEHrTvh57Tm5NIEP/
+ vtZHR6eA1Vr42mn9sFBpDR93YZ6QwxuB9aRqpifxhY4GxmDRHtV1iM24fY0HgKiW2RLWIn
+ C9FbcBdjmPJgYf40y3NzKiQ6aDWHqsUoGlz3zGrhgrxLcaKDSH+6A/oxg7nJmSvhkdACif
+ uJeys8fao+axh+3rulPua3yDvkG9/dif6gmf2E4+8PeWre9rnjEF6tmxoVPuEw==
+Message-Id: <e3354620-abb4-4584-80d2-0251a0d49d10@yunsilicon.com>
+Received: from [127.0.0.1] ([180.152.18.210]) by smtp.feishu.cn with ESMTPS; Wed, 04 Nov 2026 19:40:18 +0800
+References: <20261012114352.2471317-1-tianx@yunsilicon.com> <20261012114356.2471317-4-tianx@yunsilicon.com> <47c82da8-99cd-ec81-f264-d270fef057ee@hisilicon.com>
+X-Lms-Return-Path: <lba+26aeb19a3+759116+vger.kernel.org+tianx@yunsilicon.com>
+From: "Xin Tian" <tianx@yunsilicon.com>
+Subject: Re: [PATCH 03/15] yunsilicon: add the command queue
+Date: Wed, 4 Nov 2026 19:40:17 +0800
+User-Agent: Mozilla Thunderbird
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <47c82da8-99cd-ec81-f264-d270fef057ee@hisilicon.com>
+Content-Type: text/plain; charset=UTF-8
+X-Original-From: Xin Tian <tianx@yunsilicon.com>
+To: "Junxian Huang" <huangjunxian6@hisilicon.com>, 
+	"Andrew Lunn" <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, 
+	"Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, 
+	"Paolo Abeni" <pabeni@redhat.com>, "Jason Gunthorpe" <jgg@ziepe.ca>, 
+	"Leon Romanovsky" <leon@kernel.org>
+Cc: <weihg@yunsilicon.com>, <linux-kernel@vger.kernel.org>, 
+	<netdev@vger.kernel.org>, <linux-rdma@vger.kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,152 +72,128 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 28/33] drm/xe: Use IOVA-based DMA mapping for eligible
- tt BOs
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-References: <20260711025619.2540575-1-matthew.brost@intel.com>
- <20260711025619.2540575-29-matthew.brost@intel.com>
- <a26a2160-fb6a-4d21-b132-d00093622b22@intel.com>
- <aupCPWQ7v5kyCpcW@gsse-cloud1.jf.intel.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <aupCPWQ7v5kyCpcW@gsse-cloud1.jf.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
 
-On 03/11/2026 20:21, Matthew Brost wrote:
-> On Tue, Nov 03, 2026 at 07:00:24PM +0000, Matthew Auld wrote:
->> On 11/07/2026 03:56, Matthew Brost wrote:
->>> Add support for mapping a ttm_tt's pages using the IOVA-based DMA API
->>> (dma_iova_try_alloc()/link()/sync()/unlink()/free()) as an alternative
->>> to the scatter-gather list. An IOVA mapping is a single contiguous DMA
->>> range, which is cheaper to walk and program than an sg list.
->>>
->>> Whether the IOVA API can be used depends on the IOMMU mode, so the
->>> decision is made once per tt at xe_ttm_tt_create() time and recorded in
->>> struct xe_ttm_tt::use_iova. To keep the scope limited, only device BOs
->>> that are not GGTT-mapped are eligible: dma-buf imports manage their own
->>> mapping and GGTT bindings are programmed directly from the sg list.
->>> dma_iova_try_alloc() may still fail, in which case the tt transparently
->>> falls back to the sg list, which remains the default.
->>>
->>> The IOVA reservation is allocated at tt creation and freed at tt
->>> destroy. xe_tt_map_iova() links the tt pages (coalescing physically
->>> contiguous runs) and syncs the IOTLB; xe_tt_unmap_iova() unlinks them
->>> but keeps the reservation so the tt can be remapped without
->>> re-allocating IOVA space. xe_tt_map()/xe_tt_unmap() dispatch between the
->>> IOVA and sg backends, and xe_bo_dma_unmap_pinned() learns about the IOVA
->>> case.
->>>
->>> Consumers that walked the sg list via xe_res_first_sg(xe_bo_sg()) now go
->>> through the new xe_res_first_tt() helper, which initializes either an
->>> IOVA cursor (xe_res_first_iova()) or an sg cursor depending on the tt's
->>> mapping mode.
->>>
->>> Cc: Carlos Santa <carlos.santa@intel.com>
->>> Cc: Ryan Neph <ryanneph@google.com>
->>> Cc: Christian Koenig <christian.koenig@amd.com>
->>> Cc: Huang Rui <ray.huang@amd.com>
->>> Cc: Matthew Auld <matthew.auld@intel.com>
->>> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->>> Cc: Maxime Ripard <mripard@kernel.org>
->>> Cc: Thomas Zimmermann <tzimmermann@suse.de>
->>> Cc: David Airlie <airlied@gmail.com>
->>> Cc: Simona Vetter <simona@ffwll.ch>
->>> Cc: dri-devel@lists.freedesktop.org
->>> Cc: linux-kernel@vger.kernel.org
->>> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->>> Assisted-by: GitHub_Copilot:claude-opus-4.8
->>> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+On 10/13/2026 11:11 AM, Junxian Huang wrote:
+>
+> On 2026/10/12 19:43, Xin Tian wrote:
+>> Add the command queue that is shared by the ethernet and RDMA functions:
+>> the request/response rings, the command work handling and the device
+>> initialisation sequence that queries the HCA capabilities, the GUID and
+>> the message opcode table.
 >>
+>> Signed-off-by: Xin Tian <tianx@yunsilicon.com>
+>> ---
+>>   .../net/ethernet/yunsilicon/xsc/pci/Makefile  |    2 +-
+>>   .../net/ethernet/yunsilicon/xsc/pci/cmdq.c    | 1247 +++++++++++++++++
+>>   drivers/net/ethernet/yunsilicon/xsc/pci/hw.c  |  310 ++++
+>>   drivers/net/ethernet/yunsilicon/xsc/pci/hw.h  |   18 +
+>>   .../net/ethernet/yunsilicon/xsc/pci/main.c    |   55 +
+>>   5 files changed, 1631 insertions(+), 1 deletion(-)
+>>   create mode 100644 drivers/net/ethernet/yunsilicon/xsc/pci/cmdq.c
+>>   create mode 100644 drivers/net/ethernet/yunsilicon/xsc/pci/hw.c
+>>   create mode 100644 drivers/net/ethernet/yunsilicon/xsc/pci/hw.h
 >>
->> <snip>
->>
->>>    static void xe_ttm_tt_destroy(struct ttm_device *ttm_dev, struct ttm_tt *tt)
->>>    {
->>> +	struct xe_ttm_tt *xe_tt = container_of(tt, struct xe_ttm_tt, ttm);
->>> +
->>> +	/*
->>> +	 * Release the IOVA reservation made in xe_ttm_tt_create(). The pages
->>> +	 * must already have been unlinked by xe_tt_unmap().
->>> +	 */
->>> +	if (xe_tt->use_iova) {
->>> +		struct xe_device *xe = ttm_to_xe_device(ttm_dev);
->>> +
->>> +		xe_assert(xe, !xe_tt->iova_linked);
->>> +		dma_iova_free(xe->drm.dev, &xe_tt->iova);
->>
->> Do we know if this is allowed? I think there is xe_bo_pci_dev_remove_all()
->> which requires that evict_all will correctly tear down iommu mappings on
->> stuff like pci unplug and I don't think tt_destroy is called in that flow?
-> 
-> But unpopulate is called which unlinks / syncs (TLB flush for the IOVA).
-> 
->> Does having the iova here cause issues? Also, for VRAM flow I think there is
->> a tt_create() via pipeline gutting which will now create a new iova?
->>
-> 
-> Maybe we shuffle this around a bit so the iova alloc is tied to
-> populate/unpopulate. It was been a while I forget exactly why I did this
-> way.
-> 
->> Aside from that, maybe we can land 27/28 as standalone?
-> 
-> Yes, let me extract these two into standalone patches today and
-> reworking if needed.
+>> diff --git a/drivers/net/ethernet/yunsilicon/xsc/pci/Makefile b/drivers/=
+net/ethernet/yunsilicon/xsc/pci/Makefile
+>> index 81b65232e..656cdffa1 100644
+>> --- a/drivers/net/ethernet/yunsilicon/xsc/pci/Makefile
+>> +++ b/drivers/net/ethernet/yunsilicon/xsc/pci/Makefile
+>> @@ -6,4 +6,4 @@ ccflags-y +=3D -I$(srctree)/drivers/net/ethernet/yunsili=
+con/xsc
+>>  =20
+>>   obj-$(CONFIG_YUNSILICON_XSC_PCI) +=3D xsc_pci.o
+>>  =20
+>> -xsc_pci-y :=3D main.o hal/andes_impl.o
+>> +xsc_pci-y :=3D main.o cmdq.o hw.o hal/andes_impl.o
+>> diff --git a/drivers/net/ethernet/yunsilicon/xsc/pci/cmdq.c b/drivers/ne=
+t/ethernet/yunsilicon/xsc/pci/cmdq.c
+>> new file mode 100644
+>> index 000000000..48832b26d
+>> --- /dev/null
+>> +++ b/drivers/net/ethernet/yunsilicon/xsc/pci/cmdq.c
+>> @@ -0,0 +1,1247 @@
+>> +// SPDX-License-Identifier: GPL-2.0
+>> +/*
+>> + * Copyright (c) 2021-2026, Shanghai Yunsilicon Technology Co., Ltd.
+>> + * All rights reserved.
+>> + * Copyright (c) 2013-2016, Mellanox Technologies. All rights reserved.
+Hi Junxian,
 
-Quickly double checked this, indeed looks to be needed:
+All ten are fixed in v1, which I'll post shortly.
+> Why Mellanox?
+This is intentional=E2=80=94the code is derived from the Mellanox driver, a=
+s Leon
+noted. I'll keep it as is.
+>> + */
+>> +
+>> +#include <linux/module.h>
+>> +#include <linux/errno.h>
+>> +#include <linux/pci.h>
+>> +#include <linux/dma-mapping.h>
+>> +#include <linux/slab.h>
+>> +#include <linux/delay.h>
+>> +#include <linux/random.h>
+>> +#include <linux/kthread.h>
+>> +#include <linux/io-mapping.h>
+>> +
+>> +#include "common/xsc_cmd_api.h"
+>> +#include "common/xsc_cmd.h"
+>> +#include "common/xsc_core.h"
+>> +#include "hal/xsc_hal.h"
+>> +
+>> +enum {
+>> +	CMD_IF_REV =3D 3,
+>> +};
+>> +
+>> +enum {
+>> +	NUM_LONG_LISTS	  =3D 2,
+>> +	NUM_MED_LISTS	  =3D 64,
+>> +	LONG_LIST_SIZE	  =3D (2ULL * 1024 * 1024 * 1024 / PAGE_SIZE) * 8 + 16 =
++
+>> +				XSC_CMD_DATA_BLOCK_SIZE,
+>> +	MED_LIST_SIZE	  =3D 16 + XSC_CMD_DATA_BLOCK_SIZE,
+>> +};
+>> +
+>> +enum {
+>> +	XSC_CMD_DELIVERY_STAT_OK			=3D 0x0,
+>> +	XSC_CMD_DELIVERY_STAT_SIGNAT_ERR		=3D 0x1,
+>> +	XSC_CMD_DELIVERY_STAT_TOK_ERR			=3D 0x2,
+>> +	XSC_CMD_DELIVERY_STAT_BAD_BLK_NUM_ERR		=3D 0x3,
+>> +	XSC_CMD_DELIVERY_STAT_OUT_PTR_ALIGN_ERR		=3D 0x4,
+>> +	XSC_CMD_DELIVERY_STAT_IN_PTR_ALIGN_ERR		=3D 0x5,
+>> +	XSC_CMD_DELIVERY_STAT_FW_ERR			=3D 0x6,
+>> +	XSC_CMD_DELIVERY_STAT_IN_LENGTH_ERR		=3D 0x7,
+>> +	XSC_CMD_DELIVERY_STAT_OUT_LENGTH_ERR		=3D 0x8,
+>> +	XSC_CMD_DELIVERY_STAT_RES_FLD_NOT_CLR_ERR	=3D 0x9,
+>> +	XSC_CMD_DELIVERY_STAT_CMD_DESCR_ERR		=3D 0x10,
+>> +};
+>> +
+>> +static struct xsc_cmd_work_ent *xsc_alloc_cmd(struct xsc_cmd *cmd,
+>> +					      struct xsc_cmd_msg *in,
+>> +					      struct xsc_rsp_msg *out)
+>> +{
+>> +	struct xsc_cmd_work_ent *ent;
+>> +
+>> +	ent =3D kzalloc_obj(*ent, GFP_KERNEL);
+>> +	if (!ent)
+>> +		return ERR_PTR(-ENOMEM);
+>> +
+>> +	ent->in		=3D in;
+>> +	ent->out	=3D out;
+>> +	ent->cmd	=3D cmd;
+>> +
+>> +	return ent;
+>> +}
+>> +
+>> +static void xsc_free_cmd(struct xsc_cmd_work_ent *ent)
+>> +{
+>> +	kfree(ent);
+> One line function is unnecessary.
+>
+> Junxian
+Fixed in v1.
 
-[  808.058892] [IGT] core_hotunplug: finished subtest 
-hotreplug-lateclose-with-load, SUCCESS
-[  808.058928] [IGT] core_hotunplug: exiting, ret=0
-[  808.059673] BUG: kernel NULL pointer dereference, address:
-[  808.061068] RIP: 0010:iommu_get_dma_domain+0x10/0x20
-[  808.061141] PKRU: 55555554
-[  808.061144] Call Trace:
-[  808.061146]  <TASK>
-[  808.061149]  dma_iova_free+0x18/0xf0
-[  808.061153]  xe_ttm_tt_destroy+0x23/0x40 [xe]
-[  808.061231]  ttm_bo_put+0x242/0x3d0 [ttm]
-[  808.061412]  ? drm_gpuvm_bo_put+0x199/0x200 [drm_gpuvm]
-[  808.061418]  xe_vma_destroy_late+0x89/0x90 [xe]
-[  808.061476]  xe_vm_close_and_put+0x5de/0x920 [xe]
-[  808.061534]  xe_file_close+0x105/0x190 [xe]
-[  808.061712]  drm_file_free+0x218/0x260
-[  808.061717]  drm_release_noglobal+0x6d/0xd0
-[  808.061721]  __fput+0xf9/0x270
-[  808.061725]  task_work_run+0x8b/0xb0
-[  808.061730]  do_exit+0x229/0x8b0
-[  808.061735]  do_group_exit+0x8b/0x90
-[  808.061739]  __x64_sys_exit_group+0x17/0x20
-[  808.061744]  x64_sys_call+0x18c6/0x18d0
-[  808.061749]  do_syscall_64+0xee/0x350
-[  808.061753]  ? __pte_offset_map+0x1d/0xd0
-[  808.061757]  ? next_uptodate_folio+0xbb/0x3a0
-[  808.061762]  ? set_pte_range+0x20d/0x290
-[  808.061766]  ? filemap_map_pages+0x8e1/0x9c0
-[  808.061772]  ? count_memcg_events+0x7c/0x1b0
-[  808.061776]  ? handle_mm_fault+0xbde/0x14f0
-[  808.061781]  ? __se_sys_close+0x7a/0xe0
-[  808.061785]  ? __se_sys_close+0x7a/0xe0
-[  808.061790]  ? do_user_addr_fault+0x272/0x6c0
-[  808.061794]  ? irqentry_exit+0x3f/0x640
-[  808.061799]  ? do_syscall_64+0x42/0x350
-[  808.061803]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-[  808.061808] RIP: 0033:0x7f95428c71b8
-
-I assume this is dev->iommu_group = NULL post unplug.
-
-> 
-> Matt
-
+Thanks,
+Xin Tian
+>> +}
