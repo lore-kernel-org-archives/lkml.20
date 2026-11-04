@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793818757;
-	b=QE9kHypTMqgRl64DxbCjvJB+uVtFVmURrdCKryjiehb9qQERWEF6Au763lK9bd5Ipgy+
-	 WIJmOt+tMIpgDPT6xtGg79ZUaX1vhwcIIU8f4iA1yEWghiCBRg2oC8/NfchqdI4CXSvU/
-	 pSBpIQjjTUMXZRIRm5GeeDiPhvn+TTpIBsKUC8b57oOuN6kj9l9R9dmBz3yV5J0bQGQbb
-	 C/8DXOFlmmbLJ8xXSWp8rQRsl/VXznSGQOtWoQ9Ne1a3FcdnMZ37Tp4LaCwtLJ0oeCyQI
-	 +xSl51neasxpGnDNDdjCRsQLAyDMp0ZqQr6En0+FbWziLPf3jd2H3THP/gKC4Zxo/qg==
+	t=1793818758;
+	b=Z23X57yvMJaVbae6dQD/3OJ2fG0cP2i2pLvvlmkfPQ3F2Q3nRWRYxqVc0J8MJ8kpKC5e
+	 md25UBvM2oGlDeND2UMo/K2dfD7id4yNb5s9kftV1lK469SFqZnxRRlWuHc+zmd2dG6LP
+	 Ik4I4MAFHR4e62A0f2rht/y5sSfKRFrEqJ4pQG0odt2A9aZ1Jy81qJF7KjbtKQ3RFl7S7
+	 Vb8f5y27E14zekfkAaqGmIqzfa2iq3FBdknxEVMQtdn6SchyZEJkDkqQM++c7rD2Zphff
+	 5oYXcpJIhfoGQaG9nkG9XjEirHxjlkZNNQqLWCqTE3Ewh1AxBJau6qfXzwk7HK4R2lQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818757;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=fg4jmw/a+nITIeFwjqtq/iByvFNcxz/nd2aE1Sq1It4=;
-	b=RrAHMNuvZBzmVN1DVj0dnKCQI/u5cqryXjGructW9wGYDGu8lb10/k3hY2kkyDVHqVD/
-	 WVarcY6WoAeE3YLZg+bVGxrl6VX7+VVkf+JnoFEQbiMpWJkZI+BQW5WE7ufXRE4LbZcsZ
-	 1uK2tgcYWZ4FqYxe7Sq/BfkmNTARXBCda/C9XBV8B9hwDO8yAAiv7HM5eDFmtU4iYKl3C
-	 paetNA2Oiyov07VdOTWxX/52uUrubnG3jJEMIfBIL18vtfwa80G7RFmTKWP2HH14qh9Es
-	 Mu0gj9uAu2k0iYf0TyAQbMvPJD1xx+4XPSejpMv8deVgbVXXeEQxeAhFhvUfS1rtTJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818758;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=LeHORieG8tffBzaxtmiwqfGDft8wCNqkgYI0mubfQiY=;
+	b=mm57e3n6jApub2tPXSybGC/PKvNBke0W+lge9x6Uy/TfeBq/qJUpfSPzJ5QWsuUOWVZN
+	 McMrxYqcD86dq2vrbNneGgN1DHBpRweXbWErM4ZWAyN33WELsIygwtyK6mcO6nUUIQjpq
+	 dcO3WlDGNx0OMFYHYe1gEtHLceykcHL+BTbZ0zJhEL0OFoUnS8+MiN+Qrz91Tg0qM5huh
+	 0ZlCQ3xp8rh7crNrghKulGPpcjdy5shtzDHlbMAVpFO90M58yVSq5Axq/PuTTfqaGCEvH
+	 C+Cag8CTdBLfGHaQjq3yWA1wJRagVPWsyb3DPUD3qDGGqUwHP+0lZVpWVM/hlvtpavA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LF1nHyZW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ErU3DjYz;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 998A8606D809;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 259A3606D810;
 	Wed,  4 Nov 2026 18:59:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LF1nHyZW
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ErU3DjYz
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793818757;
-	b=EGt90wqACyY5dnRNzMI9vKTC3v5U+uinMeT9PSYMANPv3W78B97Qntcwd7t+ei7ttRoo
-	 nAiYXVJpZe5eV9DTF/td+1H0B3gIOG0D/IhYIFkx/h6qr/Y27BXmQQy+8V0fuKYC6rrEG
-	 U7iqfCX3Jdpo5mkn1CcRaf5wIUPVgIsTwNOmxCPDroF0iG5dyhR87sCHXJ1ag6HLa9kxS
-	 wWrowOMc95wasy/iligClpJgvDuYxG4yuMWKrSXRLat7g8QVWDsV7QHe2p33Hv2/gdPj9
-	 n1B2lWpRWRfuUsF0aBpeS1jWv38SXi/jexcno1vbYghJ08KeVRJpP9Vru0zI5XnkmmQ==
+	b=aLSXNcXx9F6kocVU1qKdnfz6Xl8z2AA3sprreMTxBI2PhlghUZmKKxdvxVcfNJgeJXSf
+	 XbpBnz+j42pFnvmSnY50SkVaywI72OxuyVF0BKIMzKnTIuZtSd/L0Xx+Ai1fwYptwz/x0
+	 QefvUUNT16y6xnDrVzH3bnVxtuf5YGvrRruKJwZtIdPKBlwmFB9ZrfLIeMDiZTqr1etmu
+	 15SA5PgqVO1n6yKbiilLggQc9w4vM6q1hekB42O5oRcTED0OpOo6OWzClINElGvfEGQ/G
+	 Nww8VCbM3EWM+RGWw1xA0YAnk/QTcWbgLjqtzhypIkvSxvYpK1zkkMwukSsEvcSLnGQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793818757;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=fg4jmw/a+nITIeFwjqtq/iByvFNcxz/nd2aE1Sq1It4=;
-	b=cAhaZwmpW7JQxkX9e68ucNGhNoPuJ0oK59v0zoqh1EYtclKN4zNEnVWM2T0YpCDj23JP
-	 3h2fh0uBjMSGfB1GFYjSxDIXYBAIGRKaU5uxYwMRXekPsRMtVHmmMiDtNiWaCNwOsipQR
-	 KrIlyJJQexyyVo0t5aEPhmjdovRyNvK1mo1JI7OKeDQz1Igtl3YZYSUnoZUGx5ogr8LHf
-	 6WH6Esb/O4gTYMeAsI+ED0LePEGdaVP7mufSdIRNeKnM9f9+i1PkNrDvDaT/XqcQ8WBtm
-	 7O/q9EIZkuzMjdevD3DCeKjDY3g+TVL9ElpUkxKzQLJPpaOeCvipIIcNBCUmq8eCTVA==
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=LeHORieG8tffBzaxtmiwqfGDft8wCNqkgYI0mubfQiY=;
+	b=ATMhkdPOe/6pHDb8XBzGl8sp7AaE/RP2LkQ2Y58Fl+gRRkQl2Rp0QTY5Eyyw/tpREF6r
+	 dkAiWRQxHf7fsyaE19zm1Yu04hjIt1eLr4dFkk4+CVgs5BzFMsazEkeWTFcSAxnWRLjbI
+	 t/1QZn5jsz40Iu+BhyyOtvEeJbUyrr9AyeNB+UdRG27R1R/yfV98HpgqkJCFOTLQjKB+n
+	 zkf1Iecoa/Eu7tATlLRmMuhHiIEnr+kkD3kKY6lZsiF0XJ4JKradOte/vuReqnIolxrnl
+	 /1rnogbtPXq5VYRH1ETzGq4EncMeZzjP2ZLeWDHDBIAK/kY/CG60zYGknjOQuPDP0pg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 22ADB1F000C1;
+	by smtp.kernel.org (Postfix) with ESMTPS id 22C451F00919;
 	Wed,  4 Nov 2026 18:59:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793818757;
-	bh=fg4jmw/a+nITIeFwjqtq/iByvFNcxz/nd2aE1Sq1It4=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=LF1nHyZWAzBH9gLkDIHhp+jDQJt5OxF8hIggN2cWLAlaX/NTjWPTUE++TYSi4XmoZ
-	 RtixAr8NS7O1h3UWIuteMg9EWF2qGDxx7hpLzuTXnIRnDbH59NoLS/MDfsTJU7lGyK
-	 hMgBObWC6/hcZk1lGdUIXCsBmF10SA7he1kJPlbMsVfdZYW2bpjaVu3SmvcYkdf3D9
-	 42sf/tj+RmwhYhw/Z9BVhHOzG/BNE/IlXx6T/B5z5ySVqWl/v3J9ayuT6JI39b3D+f
-	 lZOMDu7CbhJAF1tMAlKs2VMuIkF/WWGZcdlelYrelGA2+Ji6QtUCE6lAIDpMN3gNS+
-	 59/rzdoOepBsQ==
+	bh=LeHORieG8tffBzaxtmiwqfGDft8wCNqkgYI0mubfQiY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=ErU3DjYzDhXSAqc6F613RQSzjdDm/ZqMs+NRyAKqht4xleMXijbO7df+IEAgMeh1d
+	 GrkcxmQFstvLAaLW3e5nYKANQUMv4DwrnCmXRITOmiYbTWauo/e1/EL7sgqnXW3Yg8
+	 2Wwm/CK+4I0+aeezwewBfw9n6egiUgeeMoX9aIpLQrq6uEJ0qAu+QU+hOJYHNoMBeT
+	 D9Q3nsWsDnOJ92JWVMe8z6JvKJ61T0VUhr4llvqB2FHoWWEkMs6/1TrZOwzoI8mtPc
+	 PKCU1PXo8UkubOHWao5PIMVzJVkyQ5FBhZN/M3BLJKkK4eTBYWFn7AzNCAU9GgSs04
+	 VvgldG/rxKHNg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 72FE846F48;
+	by lkml.kernel.org (Postfix) with ESMTP id 92B3E46F4C;
 	Wed,  4 Nov 2026 18:59:15 +0000 (UTC)
 From: Asdlerto Korry via B4 Relay <devnull+korryasdlerto.gmail.com@kernel.org>
-Subject: [PATCH 0/2] arm64: dts: qcom: Add Samsung Galaxy M52 5G
-Date: Wed, 04 Nov 2026 20:59:14 +0200
-Message-Id: <20261104-m52xq-dts-v1-0-b198f02912ff@gmail.com>
+Date: Wed, 04 Nov 2026 20:59:16 +0200
+Subject: [PATCH 2/2] arm64: dts: qcom: sm7325: Add Samsung Galaxy M52 5G
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,11 +83,9 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAIKA62oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQwMT3VxTo4pC3ZSSYl0jC+PkVIO05KRkE0sloPqCotS0zAqwWdGxtbU
- AGdQVtFsAAAA=
-X-Change-ID: 20261104-m52xq-dts-283ce0fcbc49
+Message-Id: <20261104-m52xq-dts-v1-2-b198f02912ff@gmail.com>
+References: <20261104-m52xq-dts-v1-0-b198f02912ff@gmail.com>
+In-Reply-To: <20261104-m52xq-dts-v1-0-b198f02912ff@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -98,63 +95,894 @@ To: Bjorn Andersson <andersson@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Asdlerto Korry <korryasdlerto@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793818754; l=2032;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793818754; l=23237;
  i=korryasdlerto@gmail.com; s=20261104; h=from:subject:message-id;
- bh=2xMJJCx7BHBsazgo/Rt9pf3D8n8vHFB8iVwUBQPj1+I=;
- b=uXj1aVnTnGh4hrD96LnWa1axAmz6m0lbhrLjVhHO73c46XKL1qWMHtdE7Tl0qOKnzueAVS31J
- hwM/+CUCReaDyIEdEvwx2U2yA/4vh52LVS/m+rNxEXjqX4VxZb9Zs9s
+ bh=om+zfaVJOtqHIxW0WzDNIXT7oUQ4NcgaowR92mkGUI0=;
+ b=1B+LkFLjmTqeICuC6bRN4GKYZ1xHS0JPW7qN/9bKylKpLuHERFsCDj0Q7344NTzLsH2EIns96
+ PXYM4YZetkuDc/gL72BKnBi8S2EXVqRN+77XVuiBodBdzdd+4A+w+Mj
 X-Developer-Key: i=korryasdlerto@gmail.com; a=ed25519;
  pk=RqttIGkm2XZ8NhLQBzPgpXXawOdVa1uODGsk+sagbxs=
 X-Endpoint-Received: by B4 Relay for korryasdlerto@gmail.com/20261104 with
  auth_id=1411
 X-Original-From: Asdlerto Korry <korryasdlerto@gmail.com>
 Reply-To: korryasdlerto@gmail.com
+Content-Transfer-Encoding: 7bit
 
-This series adds initial support for the Samsung Galaxy M52 5G
-(SM-M526B, codename m52xq), a smartphone based on the Qualcomm SM7325
-SoC.
+From: Asdlerto Korry <korryasdlerto@gmail.com>
 
-Tested on next-20261030 with only this series applied: the device boots
-to a postmarketOS userspace from UFS. ADSP, MPSS and WPSS come up, WiFi
-connects, Venus probes, the microSD card is detected and readable, and
-USB peripheral mode works in both plug orientations. The kernel log
-shows no errors from the nodes described here. Bluetooth, NFC, IPA
-mobile data and the GPU were tested with the same nodes on a 7.1
-kernel.
+Add the device tree for the Samsung Galaxy M52 5G (samsung,m52xq)
+smartphone, which is based on the SM7325 SoC.
 
-Not included yet: the display panel, touchscreen, cameras, audio, the
-fuel gauge/charger and the USB Type-C controller (SM5714). They need
-drivers that are not upstream yet. The display works through
-simple-framebuffer for now.
-
-Notes:
-* The stock ABL picks the DTB by qcom,msm-id/qcom,board-id. These
-  properties are left out as required for new SM7325 boards, so users
-  add them when packaging the boot image.
-* The reserved memory map follows the stock device tree. The removed
-  region is larger than on other SM7325 devices (0x5f00000). With the
-  common size, the kernel livelocks when it touches the memory the
-  hypervisor keeps.
-* Several regulators need a fixed voltage or must stay always-on (UFS
-  VCC on L7b, the ADSP-managed sensors on L12c). With the stock ranges
-  Linux sets the minimum and UFS or the ADSP fail.
+Supported features are, as of now:
+* UFS
+* USB (peripheral)
+* microSD card slot
+* Display via simple-framebuffer
+* Power & volume buttons
+* Remoteprocs (ADSP, MPSS, WPSS)
+* WiFi & Bluetooth (WCN6750)
+* IPA
+* Venus video decoding/encoding
+* NFC (Samsung S3FWRN5)
+* Vibrator
+* GPU (with zap shader)
+* PMK8350 ADC thermistor, ramoops
+* Regulators, i2c, uart, gpi dma
 
 Signed-off-by: Asdlerto Korry <korryasdlerto@gmail.com>
 ---
-Asdlerto Korry (2):
-      dt-bindings: arm: qcom: Add Samsung Galaxy M52 5G
-      arm64: dts: qcom: sm7325: Add Samsung Galaxy M52 5G
-
- Documentation/devicetree/bindings/arm/qcom.yaml   |   1 +
  arch/arm64/boot/dts/qcom/Makefile                 |   1 +
  arch/arm64/boot/dts/qcom/sm7325-samsung-m52xq.dts | 828 ++++++++++++++++++++++
- 3 files changed, 830 insertions(+)
----
-base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
-change-id: 20261104-m52xq-dts-283ce0fcbc49
+ 2 files changed, 829 insertions(+)
 
-Best regards,
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 88230c4e00ea..a1c1a7368887 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -401,6 +401,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm7325-motorola-dubai.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm7325-motorola-dubai-csot.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm7325-motorola-dubai-tianma.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm7325-nothing-spacewar.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= sm7325-samsung-m52xq.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm7325-xiaomi-lisa.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm7325-xiaomi-taoyao.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8150-hdk.dtb
+diff --git a/arch/arm64/boot/dts/qcom/sm7325-samsung-m52xq.dts b/arch/arm64/boot/dts/qcom/sm7325-samsung-m52xq.dts
+new file mode 100644
+index 000000000000..5ba9623df6c4
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/sm7325-samsung-m52xq.dts
+@@ -0,0 +1,828 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) 2026, Asdlerto Korry <korryasdlerto@gmail.com>
++ */
++
++/dts-v1/;
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/iio/qcom,spmi-adc7-pm7325.h>
++#include <dt-bindings/input/linux-event-codes.h>
++#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
++#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
++
++#include "sm7325.dtsi"
++#include "pm7325.dtsi"
++#include "pm8350c.dtsi" /* PM7350C */
++#include "pmk8350.dtsi" /* PMK7325 */
++
++/* The following reserved memory regions have different addresses or sizes */
++/delete-node/ &adsp_mem;
++/delete-node/ &rmtfs_mem;
++
++/ {
++	model = "Samsung Galaxy M52 5G";
++	compatible = "samsung,m52xq", "qcom,sm7325";
++	chassis-type = "handset";
++
++	aliases {
++		serial1 = &uart7;
++	};
++
++	chosen {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		framebuffer0: framebuffer@e1000000 {
++			compatible = "simple-framebuffer";
++			reg = <0x0 0xe1000000 0x0 (1080 * 2400 * 4)>;
++			width = <1080>;
++			height = <2400>;
++			stride = <(1080 * 4)>;
++			format = "a8r8g8b8";
++			memory-region = <&splash_mem>;
++
++			clocks = <&gcc GCC_DISP_HF_AXI_CLK>,
++				 <&dispcc DISP_CC_MDSS_MDP_CLK>,
++				 <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
++				 <&dispcc DISP_CC_MDSS_BYTE0_INTF_CLK>,
++				 <&dispcc DISP_CC_MDSS_PCLK0_CLK>,
++				 <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
++			power-domains = <&dispcc DISP_CC_MDSS_CORE_GDSC>;
++		};
++	};
++
++	gpio-keys {
++		compatible = "gpio-keys";
++
++		pinctrl-0 = <&volume_up_default>;
++		pinctrl-names = "default";
++
++		key-volume-up {
++			label = "Volume Up";
++			gpios = <&pm7325_gpios 6 GPIO_ACTIVE_LOW>;
++			linux,code = <KEY_VOLUMEUP>;
++			debounce-interval = <15>;
++		};
++	};
++
++	reserved-memory {
++		cdsp_secure_heap_mem: cdsp-secure-heap@81800000 {
++			reg = <0x0 0x81800000 0x0 0x1e00000>;
++			no-map;
++		};
++
++		adsp_mem: adsp@86700000 {
++			reg = <0x0 0x86700000 0x0 0x4800000>;
++			no-map;
++		};
++
++		/* Mainline video_mem is downstream cvp_mem */
++		real_video_mem: video@8ad00000 {
++			reg = <0x0 0x8ad00000 0x0 0x500000>;
++			no-map;
++		};
++
++		ipa_gsi_mem: ipa-gsi@8b710000 {
++			reg = <0x0 0x8b710000 0x0 0xa000>;
++			no-map;
++		};
++
++		rmtfs_mem: rmtfs@9c900000 {
++			compatible = "qcom,rmtfs-mem";
++			reg = <0x0 0x9c900000 0x0 0x280000>;
++			no-map;
++
++			qcom,client-id = <1>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>,
++				    <QCOM_SCM_VMID_NAV>;
++		};
++
++		/* Larger than on other SM7325 devices, the stock DT carves out 0x5f00000 */
++		removed_mem: removed@c0000000 {
++			reg = <0x0 0xc0000000 0x0 0x5f00000>;
++			no-map;
++		};
++
++		pil_trustedvm_mem: pil-trustedvm-region@d0800000 {
++			reg = <0x0 0xd0800000 0x0 0x76f7000>;
++			no-map;
++		};
++
++		qrtr_shmem: qrtr-shmem@d7ef7000 {
++			reg = <0x0 0xd7ef7000 0x0 0x9000>;
++			no-map;
++		};
++
++		neuron_block_0_mem: neuron-block@d7f00000 {
++			reg = <0x0 0xd7f00000 0x0 0x80000>;
++			no-map;
++		};
++
++		neuron_block_1_mem: neuron-block@d7f80000 {
++			reg = <0x0 0xd7f80000 0x0 0x80000>;
++			no-map;
++		};
++
++		ramoops@f0b00000 {
++			compatible = "ramoops";
++			reg = <0x0 0xf0b00000 0x0 0x100000>;
++			record-size = <0x40000>;
++			console-size = <0x40000>;
++			ftrace-size = <0x40000>;
++			pmsg-size = <0x40000>;
++		};
++
++		/* ABL looks this node up by name to update the splash region */
++		splash_mem: splash_region@e1000000 {
++			reg = <0x0 0xe1000000 0x0 0x2300000>;
++			no-map;
++		};
++
++		dfps_data_mem: dfps-data@e3300000 {
++			reg = <0x0 0xe3300000 0x0 0x100000>;
++			no-map;
++		};
++	};
++
++	/* NFC chip power, switched by TLMM 42 (no consumer property in the binding) */
++	vreg_nfc_pvdd: regulator-nfc-pvdd {
++		compatible = "regulator-fixed";
++		regulator-name = "nfc_pvdd";
++		gpio = <&tlmm 42 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++		regulator-always-on;
++		regulator-boot-on;
++	};
++
++	/* Coin DC motor, TLMM 62 switches its external LDO */
++	vibrator {
++		compatible = "gpio-vibrator";
++		enable-gpios = <&tlmm 62 GPIO_ACTIVE_HIGH>;
++
++		pinctrl-0 = <&motor_en_default>;
++		pinctrl-names = "default";
++	};
++
++	vph_pwr: vph-pwr-regulator {
++		compatible = "regulator-fixed";
++		regulator-name = "vph_pwr";
++		regulator-min-microvolt = <3700000>;
++		regulator-max-microvolt = <3700000>;
++	};
++
++	/*
++	 * The arch_timer label is unused here, but is required by ABL: the
++	 * Gunyah overlay it applies references it, the boot fails without it.
++	 */
++	arch_timer: timer { };
++};
++
++&apps_rsc {
++	regulators-0 {
++		compatible = "qcom,pm7325-rpmh-regulators";
++		qcom,pmic-id = "b";
++
++		vdd-s1-supply = <&vph_pwr>;
++		vdd-s2-supply = <&vph_pwr>;
++		vdd-s7-supply = <&vph_pwr>;
++		vdd-s8-supply = <&vph_pwr>;
++
++		vdd-l1-l4-l12-l15-supply = <&vreg_s7b_0p972>;
++		vdd-l2-l7-supply = <&vreg_bob>;
++		vdd-l6-l9-l10-supply = <&vreg_s8b_1p272>;
++		vdd-l8-supply = <&vreg_s7b_0p972>;
++		vdd-l11-l17-l18-l19-supply = <&vreg_s1b_1p872>;
++		vdd-l13-supply = <&vreg_s7b_0p972>;
++		vdd-l14-l16-supply = <&vreg_s8b_1p272>;
++
++		vreg_s1b_1p872: smps1 {
++			regulator-name = "vreg_s1b_1p872";
++			regulator-min-microvolt = <1840000>;
++			regulator-max-microvolt = <2040000>;
++		};
++
++		vreg_s7b_0p972: smps7 {
++			regulator-name = "vreg_s7b_0p972";
++			regulator-min-microvolt = <535000>;
++			regulator-max-microvolt = <1120000>;
++		};
++
++		vreg_s8b_1p272: smps8 {
++			regulator-name = "vreg_s8b_1p272";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1500000>;
++		};
++
++		vreg_l1b_0p912: ldo1 {
++			regulator-name = "vreg_l1b_0p912";
++			regulator-min-microvolt = <825000>;
++			regulator-max-microvolt = <925000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l2b_3p072: ldo2 {
++			regulator-name = "vreg_l2b_3p072";
++			regulator-min-microvolt = <2700000>;
++			regulator-max-microvolt = <3544000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l3b_0p504: ldo3 {
++			regulator-name = "vreg_l3b_0p504";
++			regulator-min-microvolt = <312000>;
++			regulator-max-microvolt = <910000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l6b_1p2: ldo6 {
++			regulator-name = "vreg_l6b_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1260000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l7b_2p952: ldo7 {
++			regulator-name = "vreg_l7b_2p952";
++			regulator-min-microvolt = <2952000>;
++			regulator-max-microvolt = <2952000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l8b_0p904: ldo8 {
++			regulator-name = "vreg_l8b_0p904";
++			regulator-min-microvolt = <870000>;
++			regulator-max-microvolt = <970000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l9b_1p2: ldo9 {
++			regulator-name = "vreg_l9b_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1304000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l11b_1p504: ldo11 {
++			regulator-name = "vreg_l11b_1p504";
++			regulator-min-microvolt = <1504000>;
++			regulator-max-microvolt = <2000000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l12b_0p751: ldo12 {
++			regulator-name = "vreg_l12b_0p751";
++			regulator-min-microvolt = <751000>;
++			regulator-max-microvolt = <824000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l13b_0p53: ldo13 {
++			regulator-name = "vreg_l13b_0p53";
++			regulator-min-microvolt = <530000>;
++			regulator-max-microvolt = <824000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l14b_1p08: ldo14 {
++			regulator-name = "vreg_l14b_1p08";
++			regulator-min-microvolt = <1080000>;
++			regulator-max-microvolt = <1304000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l15b_0p765: ldo15 {
++			regulator-name = "vreg_l15b_0p765";
++			regulator-min-microvolt = <765000>;
++			regulator-max-microvolt = <1020000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l16b_1p1: ldo16 {
++			regulator-name = "vreg_l16b_1p1";
++			regulator-min-microvolt = <1100000>;
++			regulator-max-microvolt = <1300000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l17b_1p7: ldo17 {
++			regulator-name = "vreg_l17b_1p7";
++			regulator-min-microvolt = <1700000>;
++			regulator-max-microvolt = <1900000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l18b_1p8: ldo18 {
++			regulator-name = "vreg_l18b_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <2000000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l19b_1p8: ldo19 {
++			regulator-name = "vreg_l19b_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <2000000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++
++	regulators-1 {
++		compatible = "qcom,pm8350c-rpmh-regulators";
++		qcom,pmic-id = "c";
++
++		vdd-s1-supply = <&vph_pwr>;
++		vdd-s2-supply = <&vph_pwr>;
++		vdd-s5-supply = <&vph_pwr>;
++		vdd-s7-supply = <&vph_pwr>;
++		vdd-s9-supply = <&vph_pwr>;
++		vdd-s10-supply = <&vph_pwr>;
++
++		vdd-l1-l12-supply = <&vreg_s1b_1p872>;
++		vdd-l2-l8-supply = <&vreg_s1b_1p872>;
++		vdd-l3-l4-l5-l7-l13-supply = <&vreg_bob>;
++		vdd-l6-l9-l11-supply = <&vreg_bob>;
++		vdd-l10-supply = <&vreg_s7b_0p972>;
++		vdd-bob-supply = <&vph_pwr>;
++
++		vreg_s1c_2p19: smps1 {
++			regulator-name = "vreg_s1c_2p19";
++			regulator-min-microvolt = <2190000>;
++			regulator-max-microvolt = <2210000>;
++		};
++
++		vreg_s9c_1p084: smps9 {
++			regulator-name = "vreg_s9c_1p084";
++			regulator-min-microvolt = <1010000>;
++			regulator-max-microvolt = <1170000>;
++		};
++
++		vreg_l1c_1p8: ldo1 {
++			regulator-name = "vreg_l1c_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1980000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l2c_1p62: ldo2 {
++			regulator-name = "vreg_l2c_1p62";
++			regulator-min-microvolt = <1620000>;
++			regulator-max-microvolt = <1980000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l3c_2p8: ldo3 {
++			regulator-name = "vreg_l3c_2p8";
++			regulator-min-microvolt = <2800000>;
++			regulator-max-microvolt = <3540000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l4c_1p62: ldo4 {
++			regulator-name = "vreg_l4c_1p62";
++			regulator-min-microvolt = <1620000>;
++			regulator-max-microvolt = <3300000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l5c_1p62: ldo5 {
++			regulator-name = "vreg_l5c_1p62";
++			regulator-min-microvolt = <1620000>;
++			regulator-max-microvolt = <3300000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l6c_2p96: ldo6 {
++			regulator-name = "vreg_l6c_2p96";
++			regulator-min-microvolt = <1650000>;
++			regulator-max-microvolt = <3544000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l7c_3p0: ldo7 {
++			regulator-name = "vreg_l7c_3p0";
++			regulator-min-microvolt = <3000000>;
++			regulator-max-microvolt = <3544000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l8c_1p62: ldo8 {
++			regulator-name = "vreg_l8c_1p62";
++			regulator-min-microvolt = <1620000>;
++			regulator-max-microvolt = <2000000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l9c_2p96: ldo9 {
++			regulator-name = "vreg_l9c_2p96";
++			regulator-min-microvolt = <2700000>;
++			regulator-max-microvolt = <3544000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l10c_0p88: ldo10 {
++			regulator-name = "vreg_l10c_0p88";
++			regulator-min-microvolt = <880000>;
++			regulator-max-microvolt = <1050000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l11c_2p8: ldo11 {
++			regulator-name = "vreg_l11c_2p8";
++			regulator-min-microvolt = <2800000>;
++			regulator-max-microvolt = <3544000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		/* Sensors behind the ADSP (accelerometer, light, proximity) */
++		vreg_l12c_1p65: ldo12 {
++			regulator-name = "vreg_l12c_1p65";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <2000000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-always-on;
++		};
++
++		vreg_l13c_2p7: ldo13 {
++			regulator-name = "vreg_l13c_2p7";
++			regulator-min-microvolt = <2700000>;
++			regulator-max-microvolt = <3544000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_bob: bob {
++			regulator-name = "vreg_bob";
++			regulator-min-microvolt = <3008000>;
++			regulator-max-microvolt = <3960000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++
++	regulators-2 {
++		compatible = "qcom,pmr735a-rpmh-regulators";
++		qcom,pmic-id = "e";
++
++		vreg_l2e_1p2: ldo2 {
++			regulator-name = "vreg_l2e_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l3e_0p912: ldo3 {
++			regulator-name = "vreg_l3e_0p912";
++			regulator-min-microvolt = <912000>;
++			regulator-max-microvolt = <1020000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l4e_1p776: ldo4 {
++			regulator-name = "vreg_l4e_1p776";
++			regulator-min-microvolt = <1776000>;
++			regulator-max-microvolt = <1890000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l5e_0p8: ldo5 {
++			regulator-name = "vreg_l5e_0p8";
++			regulator-min-microvolt = <800000>;
++			regulator-max-microvolt = <800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l6e_0p48: ldo6 {
++			regulator-name = "vreg_l6e_0p48";
++			regulator-min-microvolt = <480000>;
++			regulator-max-microvolt = <904000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++};
++
++&gcc {
++	protected-clocks = <GCC_CFG_NOC_LPASS_CLK>,
++			   <GCC_MSS_CFG_AHB_CLK>,
++			   <GCC_MSS_OFFLINE_AXI_CLK>,
++			   <GCC_MSS_Q6SS_BOOT_CLK_SRC>,
++			   <GCC_MSS_Q6_MEMNOC_AXI_CLK>,
++			   <GCC_MSS_SNOC_AXI_CLK>,
++			   <GCC_QSPI_CNOC_PERIPH_AHB_CLK>,
++			   <GCC_QSPI_CORE_CLK>,
++			   <GCC_QSPI_CORE_CLK_SRC>,
++			   <GCC_SEC_CTRL_CLK_SRC>,
++			   <GCC_WPSS_AHB_BDG_MST_CLK>,
++			   <GCC_WPSS_AHB_CLK>,
++			   <GCC_WPSS_RSCP_CLK>;
++};
++
++&gpi_dma1 {
++	status = "okay";
++};
++
++&gpu {
++	status = "okay";
++};
++
++&gpu_zap_shader {
++	firmware-name = "qcom/sm7325/samsung/m52xq/a660_zap.mbn";
++};
++
++&i2c9 {
++	clock-frequency = <100000>;
++
++	status = "okay";
++
++	nfc@27 {
++		compatible = "samsung,s3fwrn5-i2c";
++		reg = <0x27>;
++
++		interrupts-extended = <&tlmm 41 IRQ_TYPE_LEVEL_HIGH>;
++
++		en-gpios = <&tlmm 38 GPIO_ACTIVE_HIGH>;
++		wake-gpios = <&tlmm 40 GPIO_ACTIVE_HIGH>;
++	};
++};
++
++&ipa {
++	/* the IPA firmware goes to the Samsung IPA GSI PIL region */
++	memory-region = <&ipa_gsi_mem>;
++	firmware-name = "qcom/sm7325/samsung/m52xq/ipa_fws.mbn";
++
++	status = "okay";
++};
++
++&lpass_audiocc {
++	compatible = "qcom,qcm6490-lpassaudiocc";
++	/delete-property/ power-domains;
++};
++
++&pm7325_gpios {
++	volume_up_default: volume-up-default-state {
++		pins = "gpio6";
++		function = PMIC_GPIO_FUNC_NORMAL;
++		power-source = <1>;
++		bias-pull-up;
++		input-enable;
++	};
++};
++
++&pmk8350_vadc {
++	/* battery NTC */
++	channel@14b {
++		reg = <PM7325_ADC7_GPIO2_100K_PU>;
++		qcom,ratiometric;
++		qcom,hw-settle-time = <200>;
++		qcom,pre-scaling = <1 1>;
++		label = "pm7325_bat_therm";
++	};
++};
++
++&pon_pwrkey {
++	status = "okay";
++};
++
++&pon_resin {
++	linux,code = <KEY_VOLUMEDOWN>;
++
++	status = "okay";
++};
++
++&qupv3_id_1 {
++	status = "okay";
++};
++
++&qup_uart7_cts {
++	drive-strength = <2>;
++	bias-disable;
++};
++
++&qup_uart7_rts {
++	drive-strength = <2>;
++	bias-pull-down;
++};
++
++&qup_uart7_rx {
++	drive-strength = <2>;
++	bias-disable;
++};
++
++&qup_uart7_tx {
++	drive-strength = <2>;
++	bias-pull-up;
++};
++
++&remoteproc_adsp {
++	firmware-name = "qcom/sm7325/samsung/m52xq/adsp.mbn";
++
++	status = "okay";
++};
++
++&remoteproc_mpss {
++	firmware-name = "qcom/sm7325/samsung/m52xq/modem.mbn";
++
++	status = "okay";
++};
++
++&remoteproc_wpss {
++	firmware-name = "qcom/sm7325/samsung/m52xq/wpss.mbn";
++
++	status = "okay";
++};
++
++&sdc2_clk {
++	drive-strength = <16>;
++	bias-disable;
++};
++
++&sdc2_cmd {
++	drive-strength = <10>;
++	bias-pull-up;
++};
++
++&sdc2_data {
++	drive-strength = <10>;
++	bias-pull-up;
++};
++
++&sdhc_2 {
++	cd-gpios = <&tlmm 91 GPIO_ACTIVE_LOW>;
++
++	pinctrl-0 = <&sdc2_clk>, <&sdc2_cmd>, <&sdc2_data>, <&sd_cd_default>;
++	pinctrl-1 = <&sdc2_clk_sleep>, <&sdc2_cmd_sleep>, <&sdc2_data_sleep>, <&sd_cd_default>;
++
++	vmmc-supply = <&vreg_l9c_2p96>;
++	vqmmc-supply = <&vreg_l6c_2p96>;
++
++	status = "okay";
++};
++
++&tlmm {
++	gpio-reserved-ranges = <56 4>; /* SPI (fingerprint reader) */
++
++	bluetooth_enable_default: bluetooth-enable-default-state {
++		pins = "gpio85";
++		function = "gpio";
++		drive-strength = <2>;
++		output-low;
++		bias-pull-down;
++	};
++
++	motor_en_default: motor-en-default-state {
++		pins = "gpio62";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	qup_uart7_sleep_cts: qup-uart7-sleep-cts-state {
++		pins = "gpio28";
++		function = "gpio";
++		/*
++		 * Configure a bias-bus-hold on CTS to lower power
++		 * usage when Bluetooth is turned off. Bus hold will
++		 * maintain a low power state regardless of whether
++		 * the Bluetooth module drives the pin in either
++		 * direction or leaves the pin fully unpowered.
++		 */
++		bias-bus-hold;
++	};
++
++	qup_uart7_sleep_rts: qup-uart7-sleep-rts-state {
++		pins = "gpio29";
++		function = "gpio";
++		/*
++		 * Configure pull-down on RTS. As RTS is active low
++		 * signal, pull it low to indicate the BT SoC that it
++		 * can wakeup the system anytime from suspend state by
++		 * pulling RX low (by sending wakeup bytes).
++		 */
++		bias-pull-down;
++	};
++
++	qup_uart7_sleep_tx: qup-uart7-sleep-tx-state {
++		pins = "gpio30";
++		function = "gpio";
++		/*
++		 * Configure pull-up on TX when it isn't actively driven
++		 * to prevent BT SoC from receiving garbage during sleep.
++		 */
++		bias-pull-up;
++	};
++
++	qup_uart7_sleep_rx: qup-uart7-sleep-rx-state {
++		pins = "gpio31";
++		function = "gpio";
++		/*
++		 * Configure a pull-up on RX. This is needed to avoid
++		 * garbage data when the TX pin of the Bluetooth module
++		 * is floating which may cause spurious wakeups.
++		 */
++		bias-pull-up;
++	};
++
++	sd_cd_default: sd-cd-default-state {
++		pins = "gpio91";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	sw_ctrl_default: sw-ctrl-default-state {
++		pins = "gpio86";
++		function = "gpio";
++		bias-pull-down;
++	};
++};
++
++&uart7 {
++	/delete-property/ interrupts;
++	interrupts-extended = <&intc GIC_SPI 608 IRQ_TYPE_LEVEL_HIGH>,
++			      <&tlmm 31 IRQ_TYPE_EDGE_FALLING>;
++
++	pinctrl-1 = <&qup_uart7_sleep_cts>, <&qup_uart7_sleep_rts>,
++		    <&qup_uart7_sleep_tx>, <&qup_uart7_sleep_rx>;
++	pinctrl-names = "default", "sleep";
++
++	status = "okay";
++
++	bluetooth: bluetooth {
++		compatible = "qcom,wcn6750-bt";
++
++		pinctrl-0 = <&bluetooth_enable_default>, <&sw_ctrl_default>;
++		pinctrl-names = "default";
++
++		enable-gpios = <&tlmm 85 GPIO_ACTIVE_HIGH>;
++		swctrl-gpios = <&tlmm 86 GPIO_ACTIVE_HIGH>;
++
++		vddio-supply = <&vreg_l19b_1p8>;
++		vddaon-supply = <&vreg_s7b_0p972>;
++		vddbtcxmx-supply = <&vreg_s7b_0p972>;
++		vddrfacmn-supply = <&vreg_s7b_0p972>;
++		vddrfa0p8-supply = <&vreg_s7b_0p972>;
++		vddrfa1p7-supply = <&vreg_s1b_1p872>;
++		vddrfa1p2-supply = <&vreg_s7b_0p972>;
++		vddrfa2p2-supply = <&vreg_s8b_1p272>;
++		vddasd-supply = <&vreg_l11c_2p8>;
++
++		max-speed = <3200000>;
++	};
++};
++
++&ufs_mem_hc {
++	reset-gpios = <&tlmm 175 GPIO_ACTIVE_LOW>;
++
++	vcc-supply = <&vreg_l7b_2p952>;
++	vcc-max-microamp = <800000>;
++	vccq-supply = <&vreg_l9b_1p2>;
++	vccq-max-microamp = <900000>;
++
++	status = "okay";
++};
++
++&ufs_mem_phy {
++	vdda-phy-supply = <&vreg_l10c_0p88>;
++	vdda-pll-supply = <&vreg_l6b_1p2>;
++
++	status = "okay";
++};
++
++&usb_1 {
++	dr_mode = "peripheral";
++	maximum-speed = "high-speed";
++	phys = <&usb_1_hsphy>;
++	phy-names = "usb2-phy";
++	qcom,select-utmi-as-pipe-clk;
++
++	status = "okay";
++};
++
++&usb_1_hsphy {
++	vdda-pll-supply = <&vreg_l10c_0p88>;
++	vdda18-supply = <&vreg_l1c_1p8>;
++	vdda33-supply = <&vreg_l2b_3p072>;
++
++	status = "okay";
++};
++
++&venus {
++	firmware-name = "qcom/sm7325/samsung/m52xq/venus.mbn";
++
++	status = "okay";
++};
++
++&wifi {
++	status = "okay";
++};
+
 -- 
-Asdlerto Korry <korryasdlerto@gmail.com>
+2.25.1
 
 
