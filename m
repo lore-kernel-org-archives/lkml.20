@@ -1,92 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793824475;
-	b=i83aI4gIfWzud97AfEDLo2au77JyC741eVqRO4XcpDgxG2qUcItKlFocWvzaO2Iqh+Bq
-	 lW0o4krMN50EIhpGhpk1/HGYJET6umMgAWsmOiLeIvVuoyMDefcMk3qy3gDEAuFqwlTCr
-	 a89sp71ol7fLzgeDvD+Wth1IvOb5o6tTKd8SDCeU38vzIfgx9U0ZF7gOYt9CqoaM8eqBe
-	 2D/RlD3BnZVJxSn83SbAnyQzj9Hn6Gp0P/SN67wXzADGLw5TPBj8qZ7uSKTlDuzBkfRx6
-	 escT0R0qLJYBIPm/CqkXBKbv+gcZXQ4ol57+uvzwYLJQNGluOafyBrbtLQ3wbh/mgeQ==
+	t=1793824498;
+	b=0KcEMqkGY/Xb5V2XJJsYx7aVCDl+5/xfoYEphJ6b8bYXeyCriUHJ7o5jeLMdNPZ2X099
+	 KLBgxKC2sOuUXNqw/Fp+ugv6e22FTy89ld6SKjWg6V7FkL7XS0l5Kp0fWS8jl6uHGs/AH
+	 4F9ieXLFMxrojmaHxgdR1HFDOH29UTqPCsZI7oAIgJKYYM3aS2F1CIHFm3ZroGdivLN40
+	 Oo1zYuiIrcnz/G85uPmnQxftJlcxZ6U6IyTz2rFX868mzPE90uxjosA4rT1gIvAq2EgGR
+	 zo+IzjXtxtB/qr3R296fi4PiO+UichWRjfHPKlaaqcLLZEM2xMyK/UStq8eRzCUB69A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793824475;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=qRsZY3xueLsYo81EeFYIjiC4t2ZfkCtOq22VvO5dYxA=;
-	b=ME/3YUjsUo230CRlCJvUDoP9n9qTSRYpl4fmsZXsijW4vL+mMh+rJNnv4IF1IQGs7utn
-	 S6wcHE9hVDk9eK9ZieXF7yx66lG6Q3aTm6gvgsm+06t9xr5zLEh/BosgxxqQNPZrYKDRw
-	 1w63pvFu1c1r74woSz+SocaP+sInk8iWzP7mTgzNfggaGkXxLclLe9z4Y75KCguWoogPQ
-	 kuuDZOjZeYTI9THR+/VnaVk8C2tDY0NM+3XOJcUmhm27GDR1f+rM9ZnxoCZfGf3OD2vWb
-	 BSwk4pzGM4FYT5tBxPR3z8sPOiz9DjEAUc+IKctVyUcyRI1jtx9QijheW5wER1KiQqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793824498;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=++/cJApKmq5juZfLAiuel6bFIXV++xX+hmMi/hm4D1E=;
+	b=ST3Z44RG1FwC2Wa51Y16N+lZt2TWcJmi1bAzCNDAZdjfWlvxhZqMil23RbJ55nXIVG25
+	 Sl4DAU2CpZi0OTtSTWEYMCBl2PRek2ghRGu/YrRfwQwjeoTGYfKLcJHmtMZ8IJjJg5yEO
+	 tIMhC8Nu+WbM/p6KPg1hx9M2xpBT5tih3ebnFd42/9lZRJ5jF+jIYzcwyR2RdDEQPADN1
+	 pKJki8buOsTEbg9imCbBVVnpB1O+aN97TS0FvyT1SN1rxfekAic7Q/PERRZYGUYFwqnS2
+	 VXzxOf0JKWjiT1m9dcHDwxiym5/3J7eHRlCruLSGu5um+SDyIOenya2XWFCCpQ59UWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=flLLQg46;
-	arc=none smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=deyfE46G;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B918606AB31;
-	Wed,  4 Nov 2026 20:34:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B918606AB31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 432826074FA0
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:34:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=flLLQg46
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793824475; x=1825360475;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=StSSW5/xpW0MGVJqCQ72E4YsaavMQP4nt5umVauhYso=;
-  b=flLLQg46O2M6J+ogWtr7H/PhnqpoImgqcs/izKeta51h0tYW8OYbtEg1
-   w/vaj6rYDYoiaq7f7Jf8/+SawRJmBGjwOQiurRaKoIm6Et22V6bR7cqBK
-   gPn7a5DvdCavOJ17ijfCvAZIqY7i14ORggAtOApCbo0krNLQo8hfA0RyL
-   dDJCIDA/92Du1TY8czZhnyVBTPTCEG8CB7OpalKnSp+TPCDqHOzCnqyLU
-   SGVux3/s/ghcmwUeVv8xV5Z3guv7k6YUzcdIIvmCzagkd2jHxYNeueI5D
-   PlJz1ELxyATHZMRNuFGkUCJRp5HaduC0YMkrD2l1jhv0ShY1aJuJsk8ZN
-   w==;
-X-CSE-ConnectionGUID: sLDKA66fQ/u7ChElgOMcOA==
-X-CSE-MsgGUID: XfM4BTJyQTeHE7sODUF/Sg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2613577"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2613577"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:34:34 -0800
-X-CSE-ConnectionGUID: rXnAXH6STZCbtlf11xATow==
-X-CSE-MsgGUID: nn0XOPIDS0qODXMv7b+VxA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="7138628"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:34:29 -0800
-Date: Wed, 4 Nov 2026 22:34:26 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Frank.Li@oss.nxp.com, Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jia Jie Ho <jiajie.ho@starfivetech.com>,
-	William Qiu <william.qiu@starfivetech.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	T Pratham <t-pratham@ti.com>, Thorsten Blum <blum@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>, Pan Chuang <panchuang@vivo.com>,
-	Maxime =?iso-8859-1?Q?M=E9r=E9?= <maxime.mere@foss.st.com>,
-	"open list:CRYPTO API" <linux-crypto@vger.kernel.org>,
-	"moderated list:ARM/Microchip (AT91) SoC support" <linux-arm-kernel@lists.infradead.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:QUALCOMM CRYPTO DRIVERS" <linux-arm-msm@vger.kernel.org>,
-	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>,
-	imx@lists.linux.dev, vkoul@kernel.org
-Subject: Re: [PATCH 1/1] crypto: use dmaengine_desc_set_callback()
-Message-ID: <auuW0safpswDmp13@ashevche-desk.local>
-References: <20261102164538.3834039-1-Frank.Li@oss.nxp.com>
- <7b476c24-3185-49ff-9a72-fbd865dc0d65@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=deyfE46G
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17AE61F00A18
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:34:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793824498;
+	bh=++/cJApKmq5juZfLAiuel6bFIXV++xX+hmMi/hm4D1E=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=deyfE46GbYl+VT6m52waq3YHoTWlKQXXozviR2x4cYR3h6B7BJBVyRfUHpvbNcAZ8
+	 PfjDbxB8DvrAFvHLmc3JU2LJJNgVzJ7pjKpqAwrRt60qnJJZmqTIWCn6mhhpzgmkjq
+	 l9fd/fpE8zIoUlHcMJI0lBJihRUooD9vqj4zkkfwbBWek1pKMlNMerezzyfVpke3BS
+	 27n1lvWZieUYzrIVt3FgNznUyzUCD7AQLRfJGSv4mausQpgV1EVqJkMHuGDLMkVH4w
+	 uhQlhKFe8Euf6J3MBTLYKe00PGqAGxf31zqDiEgAzhiUX18cSC9kPFFB/hyhRJOwv5
+	 jX5JjbnnDXZVQ==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5ba35c0df4fso1121471e87.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:34:58 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBy7HXjGvmd0XPM0fBPLkcdmjQIvbteFswpI/UzLFiEDUxmeR0NCbWrEpWapgEuTSXExWEEnaWIcXX9QS30=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/kum3bLaFu0AwgRF4Y7t4xvwH9ouzrxK2NA9zcnLXzFMfne7Wr
+	xm585o4QEiwjJG52t/Ui5T27YI4sHPyfIOtrXmCLnPg15F7JUOa6g/0N861gXf5QEE6D9JdVivY
+	FPCoGLCBMqC1H/ZCq44+WwtOGZsvjp04=
+X-Received: by 2002:a05:6512:6683:10b0:5bf:e8fd:5e64 with SMTP id
+ 2adb3069b0e04-5bfe8fd5ea2mr2459163e87.19.1793824496534; Wed, 04 Nov 2026
+ 12:34:56 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,44 +59,206 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7b476c24-3185-49ff-9a72-fbd865dc0d65@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20261023074502.103681-1-shreeramrahul94@gmail.com>
+In-Reply-To: <20261023074502.103681-1-shreeramrahul94@gmail.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Wed, 4 Nov 2026 21:34:44 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0jaSKPYkzALU5xfJqxBhcPfU0v-60cL=1XwQ=_1r9X-ow@mail.gmail.com>
+X-Gm-Features: AclHuK8mvXXK5ImZfKcs1Ri_7afOGeBgt1iV1tIBZmHdivjPFnmZY_zP8SxXao0
+Message-ID: <CAJZ5v0jaSKPYkzALU5xfJqxBhcPfU0v-60cL=1XwQ=_1r9X-ow@mail.gmail.com>
+Subject: Re: [PATCH] ACPI: ACPICA: Fall back to inline recursion if update
+ state allocation fails
+To: Rahul Rao <shreeramrahul94@gmail.com>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, 
+	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>, 
+	Pawel Chmielewski <pawel.chmielewski@intel.com>, Len Brown <lenb@kernel.org>, 
+	Robert Moore <robert.moore@intel.com>, linux-acpi@vger.kernel.org, 
+	acpica-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	syzbot+e1268acad3c273b12120@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 04, 2026 at 06:51:10PM +0100, Krzysztof Kozlowski wrote:
-> On 02/11/2026 17:45, Frank.Li@oss.nxp.com wrote:
+On Fri, Oct 23, 2026 at 9:46=E2=80=AFAM Rahul Rao <shreeramrahul94@gmail.co=
+m> wrote:
+>
+> When acpi_ut_update_object_reference() traverses nested package elements
+> or field elements to increment/decrement reference counts, it allocates a
+> temporary union acpi_generic_state via
+> acpi_ut_create_update_state_and_push()
+> to avoid deep C stack recursion.
+>
+> If memory allocation fails (for instance, under slab fault injection),
+> the function aborts mid-traversal. This leaves sub-object reference count=
+s
+> out of sync with parent containers. Callers cannot readily roll back the
+> partial updates, leading to reference count underflows and slab
+> use-after-free bugs (such as in acpi_ns_check_package()).
+>
+> Fix this by introducing acpi_ut_push_or_update_object(). When allocating
+> a deferred update state fails, fall back to inline recursive traversal up
+> to a safe bounded recursion limit (ACPI_UT_MAX_UPDATE_DEPTH =3D 16). This
+> ensures reference counts remain consistent even during severe memory
+> pressure.
+>
+> Reported-by: syzbot+e1268acad3c273b12120@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3De1268acad3c273b12120
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Signed-off-by: Rahul Rao <shreeramrahul94@gmail.com>
 
-> > diff --git a/drivers/crypto/atmel-aes.c b/drivers/crypto/atmel-aes.c
-> > index 84392411b98d8..49f1bf19747d8 100644
-> > --- a/drivers/crypto/atmel-aes.c
-> > +++ b/drivers/crypto/atmel-aes.c
-> > @@ -824,8 +824,7 @@ static int atmel_aes_dma_transfer_start(struct atmel_aes_dev *dd,
-> >  	if (!desc)
-> >  		return -ENOMEM;
-> >  
-> > -	desc->callback = callback;
-> > -	desc->callback_param = dd;
-> > +	dmaengine_desc_set_callback(desc, callback, NULL, dd);
-> >  	dmaengine_submit(desc);
-> >  	dma_async_issue_pending(dma->chan);
-> >  
-> 
-> Apparently reviewing only a few lines of entire patch is still reviewing:
-> https://lore.kernel.org/all/9e39502a-dd17-4fa2-98a3-9019523cb5e8@kernel.org/
-> 
-> Therefore:
-> Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
+Please submit this change to the upstream ACPICA project on GitHub as
+a pull request.  If applied, Linux will receive it from there as per
 
-Yep, in a form of
+Documentation/driver-api/acpi/linuxized-acpica.rst
 
-  Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org> # atmel-aes
-
-or something that makes it clear what has been reviewed.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+> ---
+>  drivers/acpi/acpica/utdelete.c | 78 +++++++++++++++++++++++-----------
+>  1 file changed, 54 insertions(+), 24 deletions(-)
+>
+> diff --git a/drivers/acpi/acpica/utdelete.c b/drivers/acpi/acpica/utdelet=
+e.c
+> index e8180099d01f..87ae66c7eee8 100644
+> --- a/drivers/acpi/acpica/utdelete.c
+> +++ b/drivers/acpi/acpica/utdelete.c
+> @@ -20,6 +20,14 @@ static void acpi_ut_delete_internal_obj(union acpi_ope=
+rand_object *object);
+>  static void
+>  acpi_ut_update_ref_count(union acpi_operand_object *object, u32 action);
+>
+> +static acpi_status
+> +acpi_ut_update_object_reference_depth(union acpi_operand_object *object,
+> +                                     u16 action, u32 depth);
+> +
+> +/* Max inline nesting used when a deferred update state cannot be alloca=
+ted */
+> +
+> +#define ACPI_UT_MAX_UPDATE_DEPTH       16
+> +
+>  /***********************************************************************=
+********
+>   *
+>   * FUNCTION:    acpi_ut_delete_internal_obj
+> @@ -457,6 +465,28 @@ acpi_ut_update_ref_count(union acpi_operand_object *=
+object, u32 action)
+>         }
+>  }
+>
+> +/*
+> + * Queue an object for a later reference count update. If the update sta=
+te
+> + * cannot be allocated, update the object right away instead of failing:=
+ an
+> + * update abandoned half way leaves the counts of the sub-objects out of
+> + * step with the count of their parent, and callers (most of which canno=
+t
+> + * handle an error) would later drop references that were never added.
+> + */
+> +static acpi_status
+> +acpi_ut_push_or_update_object(union acpi_operand_object *object, u16 act=
+ion,
+> +                             union acpi_generic_state **state_list, u32 =
+depth)
+> +{
+> +       acpi_status status;
+> +
+> +       status =3D acpi_ut_create_update_state_and_push(object, action,
+> +                                                     state_list);
+> +       if (ACPI_SUCCESS(status) || depth >=3D ACPI_UT_MAX_UPDATE_DEPTH)
+> +               return status;
+> +
+> +       return acpi_ut_update_object_reference_depth(object, action,
+> +                                                     depth + 1);
+> +}
+> +
+>  /***********************************************************************=
+********
+>   *
+>   * FUNCTION:    acpi_ut_update_object_reference
+> @@ -480,6 +510,13 @@ acpi_ut_update_ref_count(union acpi_operand_object *=
+object, u32 action)
+>
+>  acpi_status
+>  acpi_ut_update_object_reference(union acpi_operand_object *object, u16 a=
+ction)
+> +{
+> +       return acpi_ut_update_object_reference_depth(object, action, 0);
+> +}
+> +
+> +static acpi_status
+> +acpi_ut_update_object_reference_depth(union acpi_operand_object *object,
+> +                                     u16 action, u32 depth)
+>  {
+>         acpi_status status =3D AE_OK;
+>         union acpi_generic_state *state_list =3D NULL;
+> @@ -560,8 +597,9 @@ acpi_ut_update_object_reference(union acpi_operand_ob=
+ject *object, u16 action)
+>                                          * for later processing (this eli=
+minates recursion.)
+>                                          */
+>                                         status =3D
+> -                                           acpi_ut_create_update_state_a=
+nd_push
+> -                                           (next_object, action, &state_=
+list);
+> +                                           acpi_ut_push_or_update_object
+> +                                           (next_object, action, &state_=
+list,
+> +                                            depth);
+>                                         if (ACPI_FAILURE(status)) {
+>                                                 goto error_exit;
+>                                         }
+> @@ -579,31 +617,23 @@ acpi_ut_update_object_reference(union acpi_operand_=
+object *object, u16 action)
+>
+>                 case ACPI_TYPE_LOCAL_BANK_FIELD:
+>
+> -                       next_object =3D object->bank_field.bank_obj;
+> -                       status =3D
+> -                           acpi_ut_create_update_state_and_push(object->
+> -                                                                bank_fie=
+ld.
+> -                                                                region_o=
+bj,
+> -                                                                action,
+> -                                                                &state_l=
+ist);
+> -                       if (ACPI_FAILURE(status)) {
+> -                               goto error_exit;
+> -                       }
+> -                       break;
+> +               next_object =3D object->bank_field.bank_obj;
+> +               status =3D acpi_ut_push_or_update_object(
+> +                               object->bank_field.region_obj, action,
+> +                               &state_list, depth);
+> +               if (ACPI_FAILURE(status))
+> +                       goto error_exit;
+> +               break;
+>
+>                 case ACPI_TYPE_LOCAL_INDEX_FIELD:
+>
+> -                       next_object =3D object->index_field.index_obj;
+> -                       status =3D
+> -                           acpi_ut_create_update_state_and_push(object->
+> -                                                                index_fi=
+eld.
+> -                                                                data_obj=
+,
+> -                                                                action,
+> -                                                                &state_l=
+ist);
+> -                       if (ACPI_FAILURE(status)) {
+> -                               goto error_exit;
+> -                       }
+> -                       break;
+> +               next_object =3D object->index_field.index_obj;
+> +               status =3D acpi_ut_push_or_update_object(
+> +                               object->index_field.data_obj, action,
+> +                               &state_list, depth);
+> +               if (ACPI_FAILURE(status))
+> +                       goto error_exit;
+> +               break;
+>
+>                 case ACPI_TYPE_LOCAL_REFERENCE:
+>                         /*
+> --
+> 2.43.0
+>
