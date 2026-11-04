@@ -1,98 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793830007;
-	b=PKC3R97j4b671S/q5ulNzrarQLSRHnOhtpQRNPVczUlv1BCnPkKD7AqLiL2QHZVDiLg7
-	 AyzLMuzxpfJp0uHCDeQDBL1fDbJz6J6Gy0JBxRq0aTkCTFWxarXiQR4NH2kbcg7BoH05S
-	 f7mIz9Vy7a3hVvY4pOqPCFlumLn8fpv1AmcfdEFyJHr1Mv0abruiLUhZ/4P92MTFsYehc
-	 Z6wWu8rDZbtU4wLs7Ho6PB63Co7vWGno9YORILMcypepu2+Nq+DqqOq9y1n0zfCmWcrZ2
-	 MWFgyOaQyzzJAcKNzBkg+ZTq73hq4SvCdnvXiDRmQBSt05B3zf3noqhxlndGSrujymw==
+	t=1793830074;
+	b=5eov9eUhXHQl/WtXMOGRvob/Q88xpOuKCFfHPeqakteUHrmmJJagaG0T/3EprN4xFzic
+	 2RoGcNIgj50WoqmFVl/U2N/iQkXnCV3AZJ1e8v6cWh94dBECeOLpHfJA+IKzpX04P9SYh
+	 jov4Gp1F+gmCLFdogNE7Soe1O7vB2BRrmN9VC16983QvNJYuJnft/LljZRIbEXqhrVK0Q
+	 BMWc2q/D4de8SvCtZA37IUHMLcrg9VDASrXvPTHf6mripuMC/krdBZ5LxGvXST8Dnaqe5
+	 oyNwICM2KvjQigmrhyc/I6WiXV+pWMZbsd5dFtntYNqwuCkYk818DUg3w0H4TPSekbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793830007;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=ufPIe0MNsaPL8q21bT+XXMgG6he7MqxkIOdgpkrKFhc=;
-	b=IY60zS+BbEj0roGHV/3nDUpgYrPymbnhSVS0425kTkbhHpkSO1x8l0SdEi9xKLxHAvAD
-	 nTqmEjWuOyRbOvYzoisKQcQ7j339KLb82IpDeDObfptp+UZsb3uY4VHHvuXABK5/McmeQ
-	 jHrYBPFEc44EQ2dtSyeFYMf+SniNgrFOyO95w9saQKLfmWAQwf5DT4s+X1B0zUdYotqDo
-	 +BaBE0NVLZIqQa27kHQzVuclcQ4YfghoLvBqRhmaChLlZOXPw22YFVy+gbElq95lWUoJU
-	 j70h6lXlIu9SJp1MFshBrWYRcY/IxK+EVM/v6Jv+iahxoIHWJwrWqY0sYbp6keTKUbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793830074;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=O/IT5ea1TA/ia5Q4Lx4AEa3ZripMAx4uDfLdMDe4DOA=;
+	b=3BY3Sc72DtXRP7wzwXatKlXIgKF6TOBVxOs8xdHi8+TPRL8c/gfWcNot59uwQV9MBDqu
+	 972BmqBzrHb6I3x/XgltsuVzfKq/+UfM5fJWdHU1vp2DjBGGl9pTwOu6GE4Nl5zDJSLMV
+	 Ome4NO19aqVYTJGs7OFgOKHgts43ASLV8TyAIvjxUO4/YRpe2/UVBQdpl3GgMUU/NNtxL
+	 aIVNOie2vr5R1rizjm5O4zpomtQZfCPK7dZyiEh+JSNy5nR9HzaI3vNcFkxRLg6Fj9dL3
+	 t9cID9rn1eMu4iDBbtugINl5hRQrm+ciLC2baj0s4PPk/z6Bn5rRr4meqw8tIXEJFFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=soleen.com;
-	spf=pass smtp.mailfrom=soleen.com;
-	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=U4ZAV9Re;
-	arc=none smtp.remote-ip=209.85.221.170
-Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com [209.85.221.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=AIMEKbtm;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C31606D823
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:06:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8C31606D823
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB7A606A33A;
+	Wed,  4 Nov 2026 22:07:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEB7A606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=U4ZAV9Re
-Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-5eac6c5f927so520906e0c.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:06:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1793830006; x=1794434806; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ufPIe0MNsaPL8q21bT+XXMgG6he7MqxkIOdgpkrKFhc=;
-        b=U4ZAV9ReQbDybk4AYqAR3Mxn6N1znNQ7qoSGqJIc6HjUX+U3VjvEfDIlWmdOwK0hfZ
-         K2EZdoWItED28pS2OuGFyxFwSA0EKXVCq71UR+3ZR/KqBblKTfSm0EGr3HryPhwa2X5S
-         fTwj95oyI5OSyBeRdhj06RZd0jwxyzaalQPH/ZkqX3Z5ZLo12DZvxAAU1JGRdMtqL0cY
-         mtZMKWFjlnuMDJTIYJcqHRHa/z2wyFnbb83hMcLH2zk/6Gpyrn/47vBlmXWdbPvl/JbP
-         FqX7mW9XuWEhMuS3LJrHsWGZUJgVj3wg2KUYI3zh7JPq05wNvfq8QQ4jwy8fw1fEhOI9
-         ub3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793830006; x=1794434806;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ufPIe0MNsaPL8q21bT+XXMgG6he7MqxkIOdgpkrKFhc=;
-        b=JkCHNb6WcYFqV4g6HClgo8+F6kp+UQ/1kt+B0sUJVlcysX90NtG9pu2d5PLiB1D6P1
-         ZRPh1yyDnw9XnPk3NmYreB3efE/EjIz2tceZDk/ljGZ+btlLZYHXesCM8cudgQN/YmB1
-         SzDzdX+/k6qmay+3THVGnt36XKZ9vsnqkBaslB+XyMhKxj0H9mesiFzeaC+Rgqssvbn3
-         xHjcJWUTluLIxNMUAZuQMyS/kGQHb1bhJS4NMfDib5qzZuv2p7geu8I0edR7bffSl/My
-         G4n0yqFXJI27xrEDQo1ZS28vnwe8TbWWkjHtaZUAlSgPWP7z63hhLittZ6rJ3XCJI/98
-         rssQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx/CbCDFO9FEb2oSREq4CFO0/EthnEZVcm/0a4OD2sg4YTCIm6s3n9z+Xc/tP6w7O77fOECjVJarZ7LMIQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z90Eu566VVW+PoqqPPVcxBCgZCqs/wqxr0u4nk1NujFDjPlcVnE
-	rFywYNYDLIrO7t5Yaz3iHHXa8d2lUKoQlk/fz6z4l+u53V8iPVyJveodX2BOYmd9vVk=
-X-Gm-Gg: AYBFou1wC3rs605mRUlN4NbOVuE/Xk6W09o9IfVRAMYZFQBbb/9Vheq0sECtmwwSY0+
-	UKA0UgNbNEgE5OoGNzv8nPDKTXxrutWV3oEqd2JsymgxVyeYw06OY7LEffekuL8NBYJBM8WKSVe
-	jyDU0EB8KLipv7yTp0s6ny296qj2HkGuNkOw+Xha+j7y/+1vmBxWNBn+AcehIu2b7Di/dRv42p5
-	GwljXuFxEnVthVm+w8wZ54NiYRMzgdiX06NkD93l+6EURAA0TReqEWbZj/csP1BiUmEO8irFFfy
-	wOjLDhFgR9/sY79XUyFpL8El0PHjPzniOX2Y31CGJJqQ4wyXFEF5WVpmPtAG5BYgDQko9WI8Blx
-	utx/BB/Bke6Rk6VYBjWRtQbdOLroz0iJsuMdWL7TZbDrFDrp014fL5TMNXmmqsAtFRVWhNQJsJ5
-	50HuEmZcLKFyuqN/gAHz4TckkdfMCbfihmakYKb15Uexpk2DO+ULCvQ66jTAN80ErvXl1LVV8zE
-	ybLhCQqbjjfm1dlgF2+Zg1MDacOIoqnqNaapiVMXJOq/bMRSFwUGAAWnr4P5rsU/CEel5byvMjf
-	vjHOH0zQcHUd88duHD07L0X3+IXnLPbZjzwSjeC4wjtsScFHnlD+jGq4LXus7BMYJB0+GfJJoJg
-	6HE27WMAMSTPdGOtA+aju0xjCvzR1RxTY5CtHpxfBjIbk
-X-Received: by 2002:a05:6122:310b:b0:5ea:cd4f:8494 with SMTP id 71dfb90a1353d-5ec6897bcc7mr7448416e0c.16.1793830005585;
-        Wed, 04 Nov 2026 14:06:45 -0800 (PST)
-Received: from soleen.c.googlers.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eca8d774dcsm2714498e0c.5.2026.11.04.14.06.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 14:06:44 -0800 (PST)
-From: Pasha Tatashin <pasha.tatashin@soleen.com>
-To: Mike Rapoport <rppt@kernel.org>, Pratyush Yadav <pratyush@kernel.org>, 
- Alexander Graf <graf@amazon.com>, Arnd Bergmann <arnd@arndb.de>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Changyuan Lyu <changyuanl@google.com>, Thorsten Blum <blum@kernel.org>
-Cc: kexec@lists.infradead.org, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261104162352.140836-3-blum@kernel.org>
-References: <20261104162352.140836-3-blum@kernel.org>
-Subject: Re: [PATCH v2] kho: Remove redundant 0x prefixes
-Message-Id: <179382998668.2089669.366825701461081981.b4-ty@b4>
-Date: Wed, 04 Nov 2026 17:06:26 -0500
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=AIMEKbtm
+Received: from killaraus.ideasonboard.com (81-175-209-152.bb.dnainternet.fi [81.175.209.152])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6AA8A4DC;
+	Wed,  4 Nov 2026 23:05:32 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793829932;
+	bh=VsQbt41fXOSapnTdVwtRZ3JINszuqwA4hU6clBhdmuw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=AIMEKbtm20BUbEoUXyY6OV4BR4JVvpQfnRX1Bqy5nWkGpYEUGkXUCHwXYjKZ0LJku
+	 6pUuETM1WKlWgnMNypC3c94I0BNOx73CwxmqmySYIY/mZ3XigcBMoDEFhibUC7UOND
+	 epjNrjHMG7bnd+3lfY1lXTrX3Sx4FqFBGCcTKn/U=
+Date: Thu, 5 Nov 2026 00:07:49 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Chad Aldreda <ca@modelmiser.com>
+Cc: linux-kernel@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+	driver-core@lists.linux.dev, linux-media@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Nick Faro <yux50000@hotmail.com>
+Subject: Re: [RFC PATCH 0/4] devres: warn about managed memory still held by
+ open files at unbind
+Message-ID: <20261104220749.GA3976471@killaraus.ideasonboard.com>
+References: <20261104215546.3990950-1-ca@modelmiser.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,39 +67,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=328;
- i=pasha.tatashin@soleen.com; h=from:subject:message-id;
- bh=bxNUDneQzMXPopJ3U7vhIU7tZ6OZ2ltQlUaSDgbGkI4=;
- b=owEBbQKS/ZANAwAKAbt3KEzbc3reAcsmYgBq66xzJBj4jQ6s4ffhsZHum0EOCVZkmEy4vpG9A
- nhdhvRi5laJAjMEAAEKAB0WIQRBMaqT7LRvGvB/NmK7dyhM23N63gUCauuscwAKCRC7dyhM23N6
- 3rRdEACF+wDzWW99SGiwMwtuFbYT4Xc8ZvesuZt8wZB/qXnZR9gyJwdjXVibGieISJj+fl6WUDX
- UkzUEhuFemIAteJft5JUXzw5Jhe3JgGpnAFYg0SU8H0T4dPbInWmAilKZelqYn7D9BVgYBSG7GA
- aQvPIffpelgiK7WaCG4gGC0xpfVgmXtRU9RaflFlCkz5aEI12rB0FvrBr7gvroAMK+ubgFt0iEO
- pGIdUFoo7xToZiowASNJVpJ/KswWmLvCUVQ2XGnZWcxnh7K9dFerjGsHUFUs26hTErZkHs1QXFj
- zEFKgGKkpNzboYk3Tw5iU4ZglLYChRoinFSHoW/bWDPRBGaoHQCy+aATI0bCZI+YxHprqo2bBO7
- z/KwoFQkgLKzRangEXnpWYPbbKiEmgt2zCBymSqriEKoDo2QTGLQKtal4UgAaxzigcB86bXF2sz
- qVBocvbZh2yO2ZEGxVtinU78W8oDexbm2Qfsg7/xyEmsdJZtg+6ngxT4nOApFfDxFe3SM4P5F42
- Weyraqc+tx3+G1m+sE87IjwSdxaaFy4H7+lRgvydBx08IeYpmySIeBSZ/LhUniQK4a5EDN+B8Y9
- DBVRDKSi47qHOkrchgjFCQfrs4o0kHLVu5NzS1dXnv74ycFcrz0ru53V5iM9nJsd/HVLzr/hfYX
- A+FxXGiWAnGQceQ==
-X-Developer-Key: i=pasha.tatashin@soleen.com; a=openpgp;
- fpr=CAAAB722DD22A081F0D49F35633A6A993D43B569
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261104215546.3990950-1-ca@modelmiser.com>
 
-On Wed, 04 Nov 2026 17:23:53 +0100, Thorsten Blum wrote:
-> kho: Remove redundant 0x prefixes
+On Wed, Nov 04, 2026 at 09:55:50PM +0000, Chad Aldreda wrote:
+> Driver state that an open file can reach, such as a struct cdev,
+> video_device or miscdevice embedded in it, must not be devm memory: the
+> file outlives the unbind, and the next operation on it, typically close(),
+> is a use-after-free. This keeps being fixed one driver at a time: commit
+> 44f3468a0aef ("gpio: sloppy-logic-analyzer: fix use-after-free via debugfs
+> trigger on unbind") this summer, a debugfs write racing unbind on devm
+> private data; commit 7d6358ab0286 ("media: cx231xx: fix devres lifetime")
+> in March, one of a sweep of the related wrong-device lifetime. In 7.4-rc1
+> cx231xx still has the shape: its state, with four video_devices and its
+> mutex embedded, is devm_kzalloc()'d against the USB interface, and
+> disconnect defers release to close() while devres frees the state at
+> unbind; a fix is under review ("[PATCH 0/6] media: cx231xx: make USB
+> disconnect teardown safe", Nick Faro, linux-media, 2026-08-27, changes
+> requested). xilinx_hwicap embeds its struct cdev in devm memory the same
+> way.
+> 
+> This series adds CONFIG_DEBUG_DEVRES_REFS, a runtime debug check rather
+> than a static rule. From device_unbind_cleanup(), before
+> devres_release_all(), it snapshots the device's managed allocations, walks
+> every task's fd table once, and WARNs when an open file still points into
+> an allocation about to be freed, through file->private_data, the inode's
+> i_private, the inode's cdev for a character device, or an object a
+> subsystem names through a small hook. Such a pointer dangles once release
+> runs; it is a use-after-free if anything dereferences it afterwards, which
+> for private_data is any operation, for a cdev its release on close, and
+> for a debugfs file a new open or an unguarded release. A hit on a live
+> debugfs file is decided after release instead, because many drivers remove
+> their debugfs files through a devres action; debugfs_file_revoked() and
+> debugfs_file_release_safe() (patch 1, inert until patch 2 adds the Kconfig
+> symbol) tell the check whether debugfs has cut the file off and whether
+> its release can still reach the data.
+> 
+> The walks run on a kernel thread the unbinding task waits for, and no file
+> reference is kept across release. A reference the walk holds becomes the
+> last one if the owner closes the file meanwhile; dropped from a user task
+> its release would be queued behind unbind, where a devres action that
+> waits for the close (snd_card_free()) deadlocks; dropped from a kernel
+> thread it goes to the delayed-fput work. What remains, and I would like
+> your view on it (question 5): that work drains one global list
+> last-in-first-out with all its runs serialized, so a release there that
+> needs a lock unbind holds (a usbfs close takes the USB parent lock a USB
+> interface unbind holds) stalls every later delayed close, including one
+> such an action is waiting for; without this option that close would have
+> run from its owner's task work. The cross-vendor review this went through
+> found the first of these.
+> 
+> Subsystems whose files do not reach the driver object through those
+> pointers register the hook, keyed on their file_operations; V4L2 is the
+> first (patch 3), naming the video_device; its drvdata is not named, since
+> reaching it means dereferencing a video_device that may already be freed.
+> The hook is a workaround. The cdev route catches a struct cdev embedded in
+> managed memory (an open file pins the cdev's kobject, so inode->i_cdev is
+> still there at unbind) but not these: V4L2's cdev is a separate
+> cdev_alloc() with no kobject parent, and misc's is one shared cdev, so
+> neither leads to the driver's allocation. Parenting V4L2's cdev to the
+> video device, as mc-devnode and cec do with cdev_device_add(), would make
+> the cdev hold the device whose release deletes the cdev; that is a
+> media-core change with regression risk, not something a debug option
+> should carry. A DRM hook is deferred: devm_drm_dev_alloc() memory is
+> kzalloc()'d, so the expected yield is low.
+> 
+> Testing, one boot of an x86 KVM guest with KASAN, on the development
+> branch (identical to this series except for two extra test vehicles): the
+> test driver in patch 4 (a devm-backed misc node, a devm-embedded cdev
+> node, a refcounted control node and a devres-removed debugfs file) and a
+> cx231xx-shaped V4L2 vehicle WARN once per dangling allocation before the
+> unbind returns (two for the test driver, one for the V4L2 vehicle), after
+> which KASAN reports use-after-frees on close of the misc and cdev nodes
+> and, for the V4L2 vehicle, 38 reports across a read, an ioctl and close;
+> the gpio sloppy logic analyzer, instantiated through a fake-gpiochip glue
+> module and unbound with four debugfs files held open, produces four info
+> lines and no WARN, its reads return -EIO and nothing fires on close;
+> vivid, as a negative control, is silent. The V4L2 vehicle and the glue are
+> in the branch below, not in the series. Also compiled: the option off;
+> DEBUG_FS=n; VIDEO_DEV=m with DEVM_REFS_TEST=m (videodev.ko and the test
+> module through modpost); W=1 clean on devres.o, dd.o, v4l2-dev.o,
+> debugfs/file.o and the test driver. Only the all-builtin configuration was
+> booted. Not exercised: the two phase-2 WARN branches (a removed but
+> unguarded, or a still-live, debugfs file) and the no-memory fallback.
+> 
+> Limitations, also in the Kconfig help: only files in task fd tables are
+> seen; the check finds pointers that are dangling at that moment, not
+> teardown races, nor whether a debugfs removal action ran before or after
+> the free; a managed allocation whose release waits for its files to close
+> first (an ALSA card) is not about to be freed, so a hit on it is a false
+> positive; and the walk is linear in threads times fd tables and costs
+> every unbind and failed probe (not deferral).
+> 
+> Questions for review:
+>  1. Is driver core the right home for this, or should it be
+>     per-subsystem (misc, V4L2) with no generic walk?
+>  2. Is a hook keyed on file_operations acceptable, or should the
+>     answer for V4L2 be the cdev_device_add() conversion despite its
+>     risk?
+>  3. Is the info/WARN split for removed-and-guarded versus unguarded
+>     debugfs files the right call?
+>  4. Should the test be a module plus a tools/testing/selftests script
+>     rather than a module alone? The check needs fds held in a task fd
+>     table across the unbind, which KUnit cannot do naturally.
+>  5. The walk must hold a reference on each file it inspects, so a
+>     racing close can make it the last holder; routing that release
+>     through the delayed-fput worker avoids the task-work deadlock but
+>     leaves the serialized-worker case above. Is that acceptable for a
+>     debug option, or is there a way to look at a file's pointers
+>     without the walk ever owning the last reference?
+> 
+> Per Documentation/process/generated-content.rst: the code, the test
+> vehicles and the first drafts of these messages were written with Claude
+> (Anthropic) under my direction, from prompts that specified the mechanism,
+> the call site, the lock context and the debugfs handling; the series was
+> then revised through repeated model-assisted review passes against the
+> kernel source, including one by reviewers from three other model families,
+> with the fixes mine to judge. I have read and can answer for every line.
+> Where I most expect to be wrong is in the Kconfig's list of limitations
+> and in the choice to put the hook in driver core at all.
 
-Applied, thanks!
+Are you really expecting anyone to read all that ?
 
-https://git.kernel.org/pub/scm/linux/kernel/git/liveupdate/linux.git/log/?h=fixes
+If you feel this is an important issue, ditch your LLM and try again,
+this time understanding what you're doing.
 
-[1/1] kho: Remove redundant 0x prefixes
-      commit: 3cf66b39f560257e77f422d9fc73525ee2c29275
+> This series: https://github.com/modelmiser/linux/tree/devres-refs-v1
+> Development history (incl. the two extra vehicles and the review fix
+> batches): https://github.com/modelmiser/linux/tree/devres-refs-dev
+> Guest harness, its logs, and the review record:
+> https://github.com/modelmiser/devres-refs-support
+> 
+> linux-media is Cc'd on the whole series because the hook API exists
+> for V4L2; linux-doc on patch 2 for devres.rst.
+> 
+>  .../driver-api/driver-model/devres.rst        |  18 +
+>  drivers/base/Kconfig                          |  64 ++
+>  drivers/base/base.h                           |  38 +
+>  drivers/base/dd.c                             |  14 +-
+>  drivers/base/devres.c                         | 667 ++++++++++++++++++
+>  drivers/base/test/Kconfig                     |  15 +
+>  drivers/base/test/Makefile                    |   2 +
+>  drivers/base/test/devm_refs_test.c            | 323 +++++++++
+>  drivers/media/v4l2-core/v4l2-dev.c            |  31 +
+>  fs/debugfs/file.c                             | 112 +++
+>  include/linux/debugfs.h                       |  29 +
+>  include/linux/device/devres.h                 |  58 ++
+>  12 files changed, 1367 insertions(+), 4 deletions(-)
+>  create mode 100644 drivers/base/test/devm_refs_test.c
 
-Best regards,
 -- 
-Pasha
+Regards,
 
-
+Laurent Pinchart
