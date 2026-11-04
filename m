@@ -1,111 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.180
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793815035;
-	b=bEL0Ylxsz1A2a+uXrwPpNmtCL6QoeVB3YPh7vAFjFo+b3BQ2iIC1tO+4hlEBLpnAQ52p
-	 B9akx508Ofh7ufRo17kW4BmAiMEmwb5DkVCP4QKlooRAkz1kmxDk3HQ9nuv3bsnupkW+d
-	 hd3KrKVfGvnXliEYRjKbTVBxjS4fKp/p+Hw/OhOJ8JCuiHmWsB/qQQ2fFoOpcQtzlnW1j
-	 zeM10FaV+K9i8xpIhZRNH01J9ZSfsCz7Y481iByH22j/bu2MU6Jl+Q9MzGXPnETr+0HzY
-	 5VDrvLaLyEqhBQgpLptXmvrx+p2hn45MB8Hb2ZJ2qhfuaof5yGUhJWzPGKSeEECd28A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793815035;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=u6+Lf/8gHZf1IKHjq4H+ss02XIxxzMA/c7y+z6oAgJc=;
-	b=GiINncF0pzL4C+krHbTcbLPwIpHNdYK95Dw6fY7JLBtngaNSUKAm0rJIG9OnH76Jno6i
-	 DFr0AWehxZJF3vWyrlB8DyI0l9GHppCk49zH078NGS6Piv+nP3wldh5YwNvZIBpSfp8TM
-	 OLzkUtlJS/OMFLfR9UMHp2Mb4+qPZvOjjz0OBV7O4NGtdRhMOxwfzmH2tMRLvaavxuoAD
-	 5Ml4GIpORZDqBu2jr3RXoFTj6wiZslk+2WfCmgdU5vX86BsmH3H3npMVwi49pk/hgKRGM
-	 j2oPgWIQe3vdInc9JEcTjbCB5sg2YRrKv8f6Kt+1aITl8XTqvfgGxLVJOdr+wmIGxKA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=jSpTFwGr;
-	arc=none smtp.remote-ip=209.85.160.180
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793815036;
+	b=dqmwZAQrwtxEikekh0lL7wy7auozkYtxsWxvM3wVzH7v8OfKQ4VqsuRLTYo21Lbmg9Pz
+	 UpSJDfR+Sz/O91EdnZsXyKjUDcr+D4OjP4xHb02XPr7n1bEM7Fo8G//CxTY0kE+4eNw9W
+	 O/Fh6qAZjQyvTZ/01R/YyNAlfENk4ASarMPakWSQY/WeJcxJZUhWWnVPTDZuheKwbUu+9
+	 k/DofnNiYEWwoyMiN5Nn+o7+ba95oNqaPDZ74orNw5vM15S6QspNxp9a3WbiTVYoQha8R
+	 /PxzTZYQWKNr/zCFCDfuylQSa1HP5Qf4Llh696IwXZrRxJFX8u3cZfzgLcZk6sraT2w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793815036;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Fb3Zd3ut8454HotwPwPAYB7YyRUaA3GgbhwCbjm8lMI=;
+	b=sXqrWnc9s9h3TaEVv/KVk9hHjWiyeht+uz6UqcvA9bdpgRXMVS2tw1HBnWcswEUW7vPg
+	 7r7CqGyomfLGveRVPuASzQcpkckrS1GzINFoNhxTjoq5/7UdrcUuPjAqJE9LE/PeMF3SR
+	 j5PAPi31NFXqqBMIOMLD1UDhoPEfmzdHvlcJiU26tOF2G8zI/ilQZFy4EJSjIOSIM46sx
+	 i9QHJ6MH9UPujsZhQY2QhPzakBXSMluwDSfYNY2K/g+VzvXDYxIEeowJ6Rph1byBYtbK7
+	 +ICGvPH7AWpgB8IvVMPmvI5TrL6SqsujEGXKPQFMLLjZRcBX40BgnXJcGiWw/pilnZQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="RQLgT/9/";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="mlAC/jFj";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 166C1607168C
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 17:57:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 166C1607168C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9922E607AF0E
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 17:57:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9922E607AF0E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=jSpTFwGr
-Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-536c8f958d7so7584281cf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 09:57:09 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=RQLgT/9/;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=mlAC/jFj
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793815029;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Fb3Zd3ut8454HotwPwPAYB7YyRUaA3GgbhwCbjm8lMI=;
+	b=RQLgT/9/LCYB2tLGWkjNAyspMrh4zk6ZGjOJ+fclDucidd5Wgxed5dVp9c1nL3M5UlkF4F
+	+OCuWUo01TVEFCek+Bw5vma3PEmhEEs0Brp3Y16g2Ta9CueoNqP/nuzlqJDlkc0vfqdnM/
+	giIkw4fq+vaxWDowTLP8ots0YbPkRQA=
+Received: from mail-lj1-f199.google.com (mail-lj1-f199.google.com
+ [209.85.208.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-696-fkws6BjqNNSdK3bK6o4kXA-1; Wed, 04 Nov 2026 12:57:07 -0500
+X-MC-Unique: fkws6BjqNNSdK3bK6o4kXA-1
+X-Mimecast-MFC-AGG-ID: fkws6BjqNNSdK3bK6o4kXA_1793815026
+Received: by mail-lj1-f199.google.com with SMTP id 38308e7fff4ca-3ace248a3bdso244901fa.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 09:57:07 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793815026; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kzhmtOsV1WfjPwJ2dt3pe6NY6rMlIsHuVQjTcJ3XEtqUR9/k0udt8ed20pzElztD30
+         CwYcoiB0kOnEixWpvMEPoM7zsfZNH+hzv2mgGntPv0Vr20UBOk5gU7pTWLPKJ6DSjyOW
+         hMZ25Wj1VG/sAa93jxdbWpuBNn61VOSzeo6b6tm/dL22fRsCJ2oqqN7/PPHwP0sSUHil
+         eXm3vO5BJGftRG2ehO4E69E8Klfba6ofMIB+yhPecX8/WSdSFgz1LDAAz4Q/ikLD4DDn
+         BqFHxO1dNpLeQpq7RTcnf78Fghkda4JFQlHkg5pjG0aDKD4EiDKqHnEnUvOISPK/NsyS
+         gCjw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Fb3Zd3ut8454HotwPwPAYB7YyRUaA3GgbhwCbjm8lMI=;
+        fh=tgLBa7IOc2WoUTbNyvqgqTuPNPWS31UHiF/yGjOBymE=;
+        b=P87is6gazLMGfJnf738GirhN/e8m+5xWsc+eN/AXbhonZxkJ4hlzxCpRLHy7m4+M4i
+         o//Wu9CrEDUnipBFhIR8tbBZZ78k7eJgOj1wE49zZhTDq4IrFoDacT16PbfX2APebmKG
+         GEly/lh6gdWuaxBh3AB3pr1jhCjC/u3BsJzYKsemqURSu7iaaYpjt8KctpHF6XhS33nV
+         ZhOYhlxZ3RtUoTLV8+YU998S8bTPup9NfFqlQ/a6VoFGZLjRk85v1BLlhG3rUkeWSfgu
+         0KCUFYx8KtIN6mppbyjn0Lgi0YsocFqP2pjs4Qx47+y2X2lG/Jwm1XAAWvpqFl8owG9E
+         YDPQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1793815029; x=1794419829; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=redhat.com; s=google; t=1793815026; x=1794419826; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=u6+Lf/8gHZf1IKHjq4H+ss02XIxxzMA/c7y+z6oAgJc=;
-        b=jSpTFwGrGxYp4V4QZz2ba5dYIoDJJuxWjxKzx8KifYjFiBa0ODGbZD1ZEEW7S/WD0T
-         Uh/eSnAdhC0igsZSTinaNwZ4d/bVNxNVLR0SLBhFpcfR//v8TwO6mWhjarmiAGHvyd/R
-         eexkK+c4Gy+NJuptHuPNZ54oZFyCFRniuibxorEQrulnSaF5/g4Ne6nK4G/A+pa2SYyO
-         6VfYSM9ZMa476+obumWFBoY+RomdwnrNryQ/m7ngxfEuyZ57ZyO3Quffa1K8yWwxMq9m
-         PI1/0vFyzZ7alsgF2rxdyGUkXrbSK26XBu/pXg8rzUuwGjiFyUH5CdTcpJmTHMDmmIvS
-         oFLA==
+        bh=Fb3Zd3ut8454HotwPwPAYB7YyRUaA3GgbhwCbjm8lMI=;
+        b=mlAC/jFjz7oK817vV7DsYBvrbyux9dgwk6qV1AApQ/4L5OV0xk2T4pZBrepTZiT2gR
+         MggScLQmHF20PTh2VdRd4nFSOfIGL09xvuPV8v6httK+OlIZGqibynpX5DMCpc/ytxpm
+         rV7W2VKOcmevoZcngrouKLaIT185InHTR8ytAO/SmUcCz3ut2+4zOzJeRfwOK7DrwiQo
+         1EN6u8ogVIoyVMkqKz/vfZ1MZ49feChmZYgAwNu+USpBGUh8fPIexE6r/J6ZspvTuH46
+         WEbEnh3wFKroI0XHXAHX5ir5n2U/gR7F3Z/5r0q8WT/EJXVF9GSaqA9yOR/wF2lQn716
+         KZxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793815029; x=1794419829;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793815026; x=1794419826;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=u6+Lf/8gHZf1IKHjq4H+ss02XIxxzMA/c7y+z6oAgJc=;
-        b=Telyqi5wfeFHDLK2uEy7DKciW5qrCS27ZukmRH8oixzCZ3CgviBX4SdGegtaUx4c/2
-         pkBUPtizGnogdMOX0kNGhBOMDCscqT4G2oAo6/CtIVpr0JB91FPYZr7f0adeBer6ZP66
-         DwycxxbgZLe8hchQvR3gjhlaIGKFMgn2ZaGxSacsWu7Fue736ivgGM4mWmUCEETDR1Ka
-         frwyG5jTY30LCXVtFdz1bzQNyUBgOKeOCoYJeMbwTrVe9q6+vL3rh9HQQDRAxCA4jNc+
-         9jzQLV2AVN6RE1+nDEv7FgH6DfIxuDFEiDNfffAM9wTVL4WH7GqabsgbSrTtLVAje5+V
-         8HXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwPcXK3M7Ko/vbqcD53kJxp+JSghv3794MngBrtXkDz5HrfGWSGw4mRcOwIgEyuwJZ/FMkWORC3pPGYhqY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z88JERuwuDl9tl+JEbwRVHD1+e2hC45efcKGbD0S6xi2xv9iBRX
-	mEJtUF/0h0AV7O2Mze5aIPk5zHlyCaukMUAtLynFbl+7H3JcteMps+xhvSLQoh/hC4M=
-X-Gm-Gg: AYBFou2v/RADagXi6oXsaAO5KdyCcQVeBY/jKCelpsc9qIH6WS7okzpEHq80cR7uk8N
-	y8k/KlEhBxR+i5bDNjCMDdPbNdSGffg8G2KX/KkeuKCRcVg9YvvpVz2JuHjM53gTIg7MT3QWLnT
-	4QHCmqFZm0y/OLmzOkCFjMatTXyDnOwvXwQYCa6RopdWoKqmNxX54NJIdck+moMWNRSI9u8AoHi
-	eeLRdNlLu1M4Y+/+AGJGLbt7sRTnbM/T56iNbwAGpni7Nko9ncSpip4rCCekiy5fmt0xBM7L1Q1
-	PQiD8KS8Z2isWSWdKvwwwvaYIfeVCLwBIOO5kvb6PWUwr3hs04jgrdlqcg7XyVo9TpVLDjyxULi
-	kyB0cyTqajJ/yhm+nauz5O8BV/8c+yLV/BIjYyJROlP3zydvxlTlYS6SYd7IW8zoZZLDmZJu33S
-	P1rne0kwVgA4QnEb8TB/5B+88yVFQ63ECZ+g3BGnsYOrzjrjvgcbFlWtUGlsxyKvQHFv7pTuvW8
-	ITcKJ/b33rn3Ui7dpK/CtXJ6heOIxNgwQRMI2hPcZRunxKL4lPNa1a0NdhV26kXuhIWvr8gB8EJ
-	Z6kHDmx/3Mn/R1c+1S/X8cs3y/FKJjRX7XwmkyYybfhWVU3086gW4SvvRb8WV9XBW4R7XetUua8
-	/YjoQLtiyaA==
-X-Received: by 2002:ac8:5f08:0:b0:535:baa:a78d with SMTP id d75a77b69052e-542b3a728c4mr272645741cf.10.1793815029017;
-        Wed, 04 Nov 2026 09:57:09 -0800 (PST)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54b10a6ca24sm30262291cf.14.2026.11.04.09.57.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 09:57:08 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xOfER-0000000H210-48gw;
-	Wed, 04 Nov 2026 13:57:07 -0400
-Date: Wed, 4 Nov 2026 13:57:07 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Jiri Pirko <jiri@resnulli.us>
-Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
-	linux-doc@vger.kernel.org, david.quigley@intel.com, lukas@wunner.de,
-	ksinyuk@kernel.org, rodrigo.vivi@intel.com, cedric.xing@intel.com,
-	sameo@meta.com, drdeeglaze@gmail.com,
-	James.Bottomley@hansenpartnership.com, aik@amd.com,
-	jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
-	jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
-	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
-	elena.reshetova@intel.com, dave.hansen@linux.intel.com,
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
-Subject: Re: [PATCH RFC 11/20] ctlv: Prepare runtime introspection
-Message-ID: <20261104175707.GA3889730@ziepe.ca>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <20261015145053.3664509-12-jiri@resnulli.us>
- <179302367452.58760.11808905856343064399.b4-review@b4>
- <auRmMPfaFINUIchi@FV6GYCPJ69>
- <20261103010537.GI3889730@ziepe.ca>
- <aumogVKtYnY0QJ2r@FV6GYCPJ69>
+        bh=Fb3Zd3ut8454HotwPwPAYB7YyRUaA3GgbhwCbjm8lMI=;
+        b=Z4ldoDD0xQiphVch+SY3kVugMPat2Z/RVe6Etd9lTOkcySlZHlRqNrQsgQz95GxJXF
+         Ki6K60n2+qWZ2BB5bW8i/00g8QrLy7o2UkWcV3HH6pNP80kd2U6rmhwkOYLKIE70eWaV
+         QzxVG2Sl1jZy4WCuEAhSnmDkNrn6xGD9Gg6HAZ/82QM80zc4wt98gjGxqnuVp8YKr5VN
+         iOmiIlq3uR7ATwPfMZicNrjTfR9uyQVbDLCIfOZZKbCHE1CqRbUeTGkA5q1I/GxLk98r
+         4m3fczhgKEPOXxPpQfSK4P00GUzFZI/QScA4kyIDSPH0MMAxBu55OgXOPo2xHJwp2K2O
+         cK3w==
+X-Forwarded-Encrypted: i=1; AKwUvBxzCAEQQLedmj6ab/TvYClcIX6xOuB+6eOyVjkUfD42E1uzgHz0+y1Kv0OmrpgKAqgvdnnmvvh4vFLbjFQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8rFqU+kY981pskHTv3jS2+L0n8pjxxoehJmkBjd+QYYpk/Mq+z
+	0ta+opIJCpC90CpO3OSGHlEi8pDoozU7aPu/gRfEBNXV+48SQ+YnMe49LG19M03CtjHvByolJmE
+	tAQjVWUTUCAfWyKRN9LRUyzjayZUSjTbzbFX7xtwtWNj9v3cJQK4/oLoJnrCk9wEvk7n731FbB9
+	IWPWHaFjPSbMP/iDBpXmWkSD+jGpk5ex6A0Fuz7UUH
+X-Gm-Gg: AYBFou2GV2hMIz5e7rOytEkZLcXCFCpA33+HZDC3oHM7F9giMczW4CCL/qXw6IJZHRC
+	6VWFRr2eEd6YeVi1Xvt2XMXpc5vcbVWld2uIJHwYRVVYCaUmOZSbEyZw4O1b1lSmltvNHv0jK1j
+	GYSNdHSDZATvj741eacHX0odT7LwZM/IVggPi1N+QCsSLQP+/JJXna3Qrz
+X-Received: by 2002:a2e:97c9:0:b0:3ac:ddd5:55ee with SMTP id 38308e7fff4ca-3acddd55907mr4690851fa.2.1793815026115;
+        Wed, 04 Nov 2026 09:57:06 -0800 (PST)
+X-Received: by 2002:a2e:97c9:0:b0:3ac:ddd5:55ee with SMTP id
+ 38308e7fff4ca-3acddd55907mr4690781fa.2.1793815025627; Wed, 04 Nov 2026
+ 09:57:05 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,46 +124,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aumogVKtYnY0QJ2r@FV6GYCPJ69>
+References: <20261102-nxp-stm-fixes-v2-0-8ca2706f30ef@redhat.com> <20261103154246.S-8NqN99@linutronix.de>
+In-Reply-To: <20261103154246.S-8NqN99@linutronix.de>
+From: Enric Balletbo i Serra <eballetb@redhat.com>
+Date: Wed, 4 Nov 2026 18:56:53 +0100
+X-Gm-Features: AclHuK931Qz4UJ3O8Has-FEwEeK34WYcv8yPrDJgYS60eLd8ID20u55CvxuZARw
+Message-ID: <CALE0LRsLS9Hsr_vUZ7k6YA4DJB6Su=E9r-F-btpyOXSvv6cMZA@mail.gmail.com>
+Subject: Re: [PATCH v2 0/3] Fix NXP STM clockevent bugs causing lockups
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, linux-kernel@vger.kernel.org, 
+	linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org, linux-rt-devel@lists.linux.dev, 
+	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>, NXP S32 Linux Team <s32@nxp.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 03, 2026 at 10:29:45AM +0100, Jiri Pirko wrote:
-> Tue, Nov 03, 2026 at 02:05:37AM +0100, jgg@ziepe.ca wrote:
-> >On Fri, Oct 30, 2026 at 10:53:11AM +0100, Jiri Pirko wrote:
-> >> >So.. how about could we drop the sets, use a direct description of the
-> >> >layout and do something else for the ID numbering? Maybe the numbering
-> >> >can be solved directly by only listing the names in:
-> >> >
-> >> >numbering:
-> >> >  - device-get.reply
-> >> >  - device-get.reply.caps
-> >> >  - device-get.caps.evidence
-> >> >  -[..]
-> >> >
-> >> >?
-> >> 
-> >> I'm still committed to implicit numbering. For "inline records" I
-> >> resolved it by having it encoded as a tree with 4 levels:
-> >> 
-> >>  63         48 47 46 45        32 31  28 27  24 23  20 19  16 15               0
-> >> +-------------+-----+------------+------+------+------+------+------------------+
-> >> |   family    |kind |   index    |  L1  |  L2  |  L3  |  L4  |      field       |
-> >> +-------------+-----+------------+------+------+------+------+------------------+
-> >>               |<------------------ record ------------------>|
+Hi Sebastian,
+
+Thank you for the review.
+
+On Tue, Nov 3, 2026 at 4:42=E2=80=AFPM Sebastian Andrzej Siewior
+<bigeasy@linutronix.de> wrote:
+>
+> On 2026-11-02 22:16:19 [+0100], Enric Balletbo i Serra wrote:
+> > This series fixes three bugs in the NXP STM clocksource driver that can
+> > cause soft lockups and missed timer events, particularly visible on
+> > PREEMPT_RT kernels running on S32G platforms.
 > >
-> >Fascinating idea. Sort of like an oid
+> > The NXP STM generates an interrupt only on exact match between the
+> > counter and comparator registers. If the counter passes the programmed
+> > value, the match is missed and the hardware must count through all 2^32
+> > ticks (~32.2s at 133 MHz) before firing, causing soft lockups.
 > >
-> >I guarentee we will run out of bits someday :) I saw recently we ran
-> >out of bits in RDMA :\ 3 bits seems like quite a small number..
-> 
-> Well, this is just for inlines. I think if user comes to the point this
-> will not be enough, he can use named record, as he probably should with
-> more than 8 inline records anyway :) Also, we can introduce "mapping"
-> mechanism to allow inline conversion to named record without breaking
-> userspace. I just didn't bother to implement now as it is a theoretical
-> problem now as I see it.
+> > Patch 1 fixes max_delta: on 64-bit platforms, ULONG_MAX exceeds the
+> > hardware's 32-bit compare register width, making it possible to program
+> > an unreachable compare value.
+>
+> This looks fine
+>
+> > Patch 2 fixes the overshoot detection in set_next_event: the existing
+> > check only detected counter wraps, not the normal case where the counte=
+r
+> > advances past the programmed value during the read-modify-write window.
+> > Replace it with a signed comparison following the pattern used by
+> > timer-imx-gpt.
+>
+> okay=E2=80=A6
+>
+> > Patch 3 increases min_delta from 2us to 20us: under bus contention on
+> > PREEMPT_RT, 2us is not enough margin and the counter frequently
+> > overshoots the programmed value, triggering repeated -ETIME retries.
+>
+> This all sounds like the hpet trouble on x86. I'm not sure what heavy
+> busy contention means and why the device is enabled/ disable during
+> setting. I would assume that the programmed value hits the HW after the
+> wrap so you wait until the counter wraps again for the equal match.
+> Worst case would be you read back the expected value but the HW sees it
+> later (after the wrap).
+> hpet_clkevt_set_next_event() does in principle the same check as you in
+> #2 except it compares against the "min" value instead <=3D0.
+> Would this make sense?
+>
 
-Oh OK, thats interesting.
+Yes, it does make sense. I will look at the pattern used in hpet and
+send a new version.
 
-Jason
+Thanks,
+  Enric
+
+> Sebastian
+>
+
