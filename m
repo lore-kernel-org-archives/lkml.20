@@ -1,54 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793776073;
-	b=P/DUMazHeoStaBvYhlb/VdRYD86lQXip3VqdwbHgnpuvqPQhkvuaifeh5tdIl5dVvNZ2
-	 O5J3eUQeqr5CTQUJk6j7mRtsQ8v/4HoOt8FcraPl5KrWeJdEPXYuNz7AAWvcE+3vLex6M
-	 TTz5RvKbkFhwaxgV+uDn/Sf43j2uRdntvXQWH1zKji7BSVTANv/PX/Qer2OZ3ZZ1tQFNv
-	 cxKzBTu5kIR3rZKeEf6ymyplzjcm+Pe3pgWjycH9AAsoaN5+o8CI3OXrTmSwTMFDmB8mC
-	 0NSyasbUJTdQd02RAuevdHY80BhgnbO5n22tEC71i4Lkzp7TacFDL4OyyIi85lr4dDg==
+	t=1793776093;
+	b=blXyHoLDo7ZSC2X26w+bkzulpcXp6O4xBjZxUyebjsh3V17+rlVWmGOUj90Lqyidf1u1
+	 ojPX2nwhgkXZoeZdQ7GD+JriqBvlWq3pckQkgFQwyPHRSHLol9wOJKwwgDlb4Sb/VF17o
+	 Z12gchgM6hDOabAIZ6wQ8FGyjuDZEIxszk8H0c+ikyCEjYTBm5k39GLmc8ze0YzrHrNoF
+	 SEG0VjoZ4RSHr8gXhqyszE32QjneQ+wOXrFKrwUaMkU5CVY7MO0vdNfZaMnqu7tE+7aGi
+	 uHChwrYMqm/JGsyN+hKfUuIL6r0+tVZlTuYuiJKVWUi1VgUgAuQ23PmZ+uoiF7aoPuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793776073;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=LgFroUGFKpdEpsdgtkKaDpgGtTJdhJhgl9e77IsbomE=;
-	b=TaDkhg40VitQ9IwKBt25E8QZmCpFcdtVACI+n8Z2kqONGUrICWItBVjqEmS4OWWU/iYP
-	 AxiBmbdpi79oYETliQfYg4xqZfpVxMb4qUWHm2QTIYx/uJAhkzFTJv+CxUP162U5oE32T
-	 APmorra6w5RHddbA7dCCQD89gCtcvU0NWT7Un5nqtgrq9Y0t0eNbdhpZTSBrGXtXGYj3y
-	 F+suXr5MCxNJNUFUo+xurWOoaT2EZmKPc80fWXNrM1DJjrptukelMEJUWyj1PknbIWtPv
-	 gYCELT8YA/22prLgG7JRJLg0CnVXbOn6FZ7W7Z051TJW2DVZ84uvZ5dMrfVHgw9PvqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793776093;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=vXoloEh6FJGNcPwlC3Osvgak4yvUbh+FGNfQQluoHvM=;
+	b=YLWaDvTRYkcmEkew+OmXAJkOH/BRkyn3nwQUlqr4Mgd3oUighX0FqzE5K60y1GQg57BN
+	 cVUHLWXhNEU7Ldb3z0tnU0QFE+6i5xbRquaYHAXymxUjgej45j7UVu4IQ0d4mj91PWo6O
+	 2f1hiNjrjWZBIJSDXNJBf5BK4/hwfq8YxvTEOJhKiNqqafnCPTkz32z2NZepkKla+qP9d
+	 sip4wfdESdUV7rjLUdxtxg4SHYwFOF+isCQBtgnU4iCdq8LYPTo8OjUNpknp+HQwrLHPK
+	 q1z0YDThy1mpXYo8oyjnN0Ans4+PwrsEz78oWpr5fgCE/yPQtbnr5B70Gfq20/sTOww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="t/rnVYY3";
-	arc=none smtp.remote-ip=91.218.175.175
-Received: from mta0.migadu.com (out-175.mta0.migadu.com [91.218.175.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ADSfcTJV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87357606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 07:07:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87357606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64CDB606A31B;
+	Wed,  4 Nov 2026 07:08:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=t/rnVYY3
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=2flBiNkjPpyfuO38KJqLh8zZK1p8JBEOfsDzZidYjyA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793776070; v=1; x=1794380870;
- b=t/rnVYY3owlF9B/6NtFckGgyA19CWUTTyL3pLVIOvGqUnGJ7tCi4XaPVtlcwIyaMDW+FPOjN
- pbPizGmJMRRX7D15+nJszteY5KsCV/DKFJvFaLVh97yAEU0fAycrNFIIbq4ikhJpcNZ8CUQ93h+
- gLcCCIEDi8GKMqxs4WsHoIvk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id e13f75cac8a9b814;
-	Wed, 04 Nov 2026 07:07:50 +0000
-X-Mizu-Trace-ID: e13f75cac8a9b814
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ADSfcTJV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5EC91F000C1;
+	Wed,  4 Nov 2026 07:08:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793776092;
+	bh=vXoloEh6FJGNcPwlC3Osvgak4yvUbh+FGNfQQluoHvM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ADSfcTJVFSuqx/1GtkR4HF4surfKM+BvmtmCBD0bSmQBdAC1iILVEQ7ypiyKzIs+M
+	 2atdyy8NssQ4VpGMvGTQ2/G5ait7EFXpCUJpWSzTqKZrM81l3DqIEydZUeW8VaRuMX
+	 y4oUmMKm1qHz9wNpuXS8euqJ4bvhwJaGjQmC1ZrECnhxdhrfa/a5rpXL2AWghH+p/n
+	 wOjxryImZywVvWjbD0KKcl6AgMFKO0SaY8H7Y8Yb840NFiFMnmHw8doEEbJTk/NoMP
+	 okNAiG2A71lg2+nxThtU3CJxZG74jpmfaMbxusccqVjwv1bb8uvTDZGPCRqdN+Cl6i
+	 l8dYknklWUWmg==
+Message-ID: <8942bbed-cd53-44a4-8559-c18fb2073bb2@kernel.org>
+Date: Wed, 4 Nov 2026 08:08:04 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,266 +50,103 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH 2/4] mm: hugetlb: skip CMA allocations under
- PF_MEMALLOC_PIN
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <8b7f6573-ed12-494f-9210-d6f6dbf01567@linux.dev>
-Date: Wed, 4 Nov 2026 15:07:23 +0800
-Cc: osalvador@suse.de,
- David Hildenbrand <david@kernel.org>,
- akpm@linux-foundation.org,
- azpijr@gmail.com,
- linux-kernel@vger.kernel.org,
- linux-mm@kvack.org,
- stable@vger.kernel.org,
- Qi Zheng <zhengqi.arch@bytedance.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <2DE679F1-C87F-4222-A710-C87CDE86D333@linux.dev>
-References: <cover.1793692578.git.zhengqi.arch@bytedance.com>
- <5bc00742fe249cf09a3095abccf8889d5fa71116.1793692578.git.zhengqi.arch@bytedance.com>
- <4EC5E593-7537-4659-879C-95ECC2224D2F@linux.dev>
- <8b7f6573-ed12-494f-9210-d6f6dbf01567@linux.dev>
-To: Qi Zheng <qi.zheng@linux.dev>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/5] phy: qcom-mipi-csi2: Add sc7280 D-PHY provider
+To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ gjorgji.rosikopulos@oss.qualcomm.com,
+ hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
+ jigarkumar.zala@oss.qualcomm.com, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261103214105.3605181-1-anusha.nandi@oss.qualcomm.com>
+ <20261103214105.3605181-6-anusha.nandi@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261103214105.3605181-6-anusha.nandi@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 03/11/2026 22:41, Anusha Arun Nandi wrote:
+> Add the SC7280 CSIPHY to the generic MIPI CSI2 PHY driver, 
+> bound to a new "qcom,sc7280-csi2-phy" compatible
+> and reusing the existing D-PHY 2-phase hw ops
+> (phy_qcom_mipi_csi2_ops_3ph_1_0). The lane_regs_sc7280[] init
+> sequence is the CSIPHY 5nm 2-phase 2.5Gbps 4-lane D-PHY register
+> set ported from the legacy in-tree camss-csiphy-3ph-1-0.c table,
+> with the entries that table left as do-not-program placeholders
+> simply omitted here rather than carried as a new marker. The
+> soc_cfg declares the core/timer clocks (matching x1e80100's and
+> sa8775p's clock-names convention for this pair) and the
+> vdda-phy/vdda-pll supplies.
+> 
+> Like x1e80100 and SA8775P, SC7280's CSIPHY core clock is OPP-scaled
+> against the sensor's link frequency via the shared csiphy_opp_table
+> in kodiak.dtsi, so opp_clk_name is set to "core" here too. SC7280's
+> CSIPHY has a single power-domain, the Titan Top GDSC, matching
+> camss.c's sc7280_resources.pd_name = "top" and kodiak.dtsi's
+> existing camss node; it is not OPP-scaled, only kept enabled.
+> 
+> Reviewed-by: Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>
 
+Where/When? Please provide lore links and proper changelog.
 
-> On Nov 4, 2026, at 11:27, Qi Zheng <qi.zheng@linux.dev> wrote:
->=20
-> Hi Muchun,
-
-Hi,
-
->=20
-> On 11/3/26 6:56 PM, Muchun Song wrote:
->>> On Nov 3, 2026, at 16:01, Qi Zheng <qi.zheng@linux.dev> wrote:
->>>=20
->>> From: Qi Zheng <zhengqi.arch@bytedance.com>
->>>=20
->>> With gigantic overcommit enabled, a fault during long-term pinning
->>> can allocate a fresh HugeTLB folio from CMA despite PF_MEMALLOC_PIN.
->>>=20
->>> The folio must then be migrated before it can be pinned. However,
->>> fresh gigantic migration targets are not supported, so pinning fails
->>> when the HugeTLB pool has no suitable target, even if the original
->>> fault could have allocated pinnable memory outside CMA.
->>>=20
->>> Honor PF_MEMALLOC_PIN in the HugeTLB CMA allocator so the fault can
->>> try the non-CMA fallback, or fail when allocation is restricted to =
-CMA.
->> Wait... I think my Acked-by got ahead of me here. :)
->> There seems to be a rather odd distinction that GUP is missing.
->> The usual reason long-term GUP must migrate a page out of a
->> MIGRATE_CMA pageblock is that the page was only borrowed from CMA by =
-the
->> normal page allocator.  The corresponding CMA bitmap range is still
->> available, so a future CMA allocation relies on being able to migrate
->> that page away.  A long-term pin would prevent that.
->> However, a HugeTLB folio returned by
->> hugetlb_cma_alloc_frozen_folio() is different.  It is the actual CMA
->> allocation, not merely a movable page that happens to reside in a
->> MIGRATE_CMA pageblock.  Its range has already been marked allocated =
-in
->> the hugetlb CMA bitmap.
->> Therefore, CMA cannot allocate that range again until the HugeTLB =
-folio
->> is freed anyway.  Long-term pinning the folio does not seem to make =
-the
->> CMA area any less available than keeping the HugeTLB folio mapped for
->> the same amount of time.
->> folio_is_longterm_pinnable() currently only sees MIGRATE_CMA and does
->> not distinguish these two cases.  In that light, rejecting
->> PF_MEMALLOC_PIN in hugetlb_cma_alloc_frozen_folio() looks like =
-working
->> around an overly broad GUP classification.  It also means that
->> hugetlb_cma_only users will fail the fault, while other users may =
-consume
->> a gigantic contiguous range outside the dedicated hugetlb CMA area =
-even
->> when that area has free space.
->> Would it make more sense to fix the long-term GUP check instead, so =
-that
->> an explicitly CMA-allocated HugeTLB folio is considered pinnable, =
-while
->> ordinary pages merely borrowed from MIGRATE_CMA pageblocks remain =
-unpinnable?
->=20
-> Make sense!
->=20
-> I'll replace this patch with an exception for HPG_cma folios in the
-> MIGRATE_CMA check. This also lets the HugeTLB allocator select =
-preallocated
-> CMA folios during long-term pinning. MIGRATE_ISOLATE and ZONE_MOVABLE
-> remain restricted.
->=20
-> Fresh CMA allocations under PF_MEMALLOC_PIN also need to skip ranges
-> in ZONE_MOVABLE. Returning -EBUSY here lets CMA try its remaining =
-ranges.
->=20
-> The incremental diff against this patch is below.
->=20
-> diff --git a/include/linux/cma.h b/include/linux/cma.h
-> index 8555d38a97b1..7fd1b6e65b58 100644
-> --- a/include/linux/cma.h
-> +++ b/include/linux/cma.h
-> @@ -21,11 +21,13 @@
-> #define CMA_MIN_ALIGNMENT_BYTES (PAGE_SIZE * CMA_MIN_ALIGNMENT_PAGES)
->=20
-> struct cma;
-> +struct folio;
->=20
-> extern unsigned long totalcma_pages;
-> extern phys_addr_t cma_get_base(const struct cma *cma);
-> extern unsigned long cma_get_size(const struct cma *cma);
-> extern const char *cma_get_name(const struct cma *cma);
-> +bool cma_folio_is_pinnable(struct folio *folio);
->=20
-> extern int __init cma_declare_contiguous_nid(phys_addr_t base,
-> 			phys_addr_t size, phys_addr_t limit,
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index cb993a1d0728..d15810be7d96 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -3,6 +3,7 @@
-> #define _LINUX_MM_H
->=20
-> #include <linux/args.h>
-> +#include <linux/cma.h>
-> #include <linux/errno.h>
-> #include <linux/mmdebug.h>
-> #include <linux/gfp.h>
-> @@ -2975,14 +2976,16 @@ static inline bool is_zero_folio(const struct =
-folio *folio)
-> 	return is_zero_page(&folio->page);
-> }
->=20
-> -/* MIGRATE_CMA and ZONE_MOVABLE do not allow pin folios */
-> +/* Borrowed CMA pages and ZONE_MOVABLE folios cannot be pinned long =
-term. */
-> #ifdef CONFIG_MIGRATION
-> static inline bool folio_is_longterm_pinnable(struct folio *folio)
-> {
-> #ifdef CONFIG_CMA
-> 	int mt =3D folio_migratetype(folio);
->=20
-> -	if (mt =3D=3D MIGRATE_CMA || mt =3D=3D MIGRATE_ISOLATE)
-> +	if (mt =3D=3D MIGRATE_ISOLATE)
-> +		return false;
-> +	if (mt =3D=3D MIGRATE_CMA && !cma_folio_is_pinnable(folio))
-> 		return false;
-
-Actually, we do not need cma_folio_is_pinnable(), does the following =
-work for you?
-
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -2982,6 +2982,9 @@ static inline bool =
-folio_is_longterm_pinnable(struct folio *folio)
- #ifdef CONFIG_CMA
-        int mt =3D folio_migratetype(folio);
-
-+       if (folio_test_hugetlb(folio) && folio_test_hugetlb_cma(folio))
-+               return true;
-+
-        if (mt =3D=3D MIGRATE_CMA || mt =3D=3D MIGRATE_ISOLATE)
-                return false;
- #endif
-
-> #endif
-> /* The zero page can be "pinned" but gets special handling. */
-> diff --git a/mm/cma.c b/mm/cma.c
-> index a10ea37a261d..c2814f54f86a 100644
-> --- a/mm/cma.c
-> +++ b/mm/cma.c
-> @@ -27,6 +27,7 @@
-> #include <linux/log2.h>
-> #include <linux/cma.h>
-> #include <linux/highmem.h>
-> +#include <linux/hugetlb.h>
-> #include <linux/io.h>
-> #include <linux/kmemleak.h>
-> #include <trace/events/cma.h>
-> @@ -55,6 +56,12 @@ const char *cma_get_name(const struct cma *cma)
-> }
-> EXPORT_SYMBOL_GPL(cma_get_name);
->=20
-> +bool cma_folio_is_pinnable(struct folio *folio)
-> +{
-> +	/* Explicit HugeTLB CMA allocations own their bitmap ranges. */
-> +	return folio_test_hugetlb(folio) && =
-folio_test_hugetlb_cma(folio);
-> +}
-> +
-> static unsigned long cma_bitmap_aligned_mask(const struct cma *cma,
-> 					     unsigned int align_order)
-> {
-> @@ -792,6 +799,11 @@ static int cma_range_alloc(struct cma *cma, =
-struct cma_memrange *cmr,
-> 	int ret =3D -EBUSY;
-> 	struct page *page =3D NULL;
->=20
-> + 	/* Each range lies within one zone; try other ranges if needed. =
-*/
-> +	if ((current->flags & PF_MEMALLOC_PIN) &&
-> + 	    is_zone_movable_page(pfn_to_page(cmr->base_pfn)))
-> +		return -EBUSY;
-
-I don't know why we need this.
-
-Thanks,
-Muchun
+...
 
 > +
-> 	mask =3D cma_bitmap_aligned_mask(cma, align);
-> 	offset =3D cma_bitmap_aligned_offset(cma, cmr, align);
-> 	bitmap_maxno =3D cma_bitmap_maxno(cma, cmr);
-> diff --git a/mm/hugetlb_cma.c b/mm/hugetlb_cma.c
-> index dde1c866406f..95fd2d190f0d 100644
-> --- a/mm/hugetlb_cma.c
-> +++ b/mm/hugetlb_cma.c
-> @@ -62,9 +62,6 @@ struct folio *hugetlb_cma_alloc_frozen_folio(int =
-order, gfp_t gfp_mask,
-> 	if (!hugetlb_cma_size)
-> 		return NULL;
->=20
-> -	if (current->flags & PF_MEMALLOC_PIN)
-> -		return NULL;
-> -
-> retry_cpuset:
-> 	if (!nodemask) {
-> 		cpuset_mems_cookie =3D read_mems_allowed_begin();
->=20
-> Thanks,
-> Qi
->=20
->> Thanks,
->> Muchun
->>>=20
->>> Fixes: eb02f14c4a2b ("mm/hugetlb: allow overcommitting gigantic =
-hugepages")
->>> Cc: stable@vger.kernel.org
->>> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
->>> ---
->>> mm/hugetlb_cma.c | 3 +++
->>> 1 file changed, 3 insertions(+)
->>>=20
->>> diff --git a/mm/hugetlb_cma.c b/mm/hugetlb_cma.c
->>> index 95fd2d190f0d2..dde1c866406fb 100644
->>> --- a/mm/hugetlb_cma.c
->>> +++ b/mm/hugetlb_cma.c
->>> @@ -62,6 +62,9 @@ struct folio *hugetlb_cma_alloc_frozen_folio(int =
-order, gfp_t gfp_mask,
->>> 	if (!hugetlb_cma_size)
->>> 		return NULL;
->>>=20
->>> +	if (current->flags & PF_MEMALLOC_PIN)
->>> +		return NULL;
->>> +
->>> retry_cpuset:
->>> 	if (!nodemask) {
->>> 		cpuset_mems_cookie =3D read_mems_allowed_begin();
->>> --=20
->>> 2.54.0
+> +static const char * const sc7280_clks[] = {
+> +	"core",
+> +	"timer",
+> +};
 
+What is the point of this array for each variant if all devices have the
+same names? IOW, what is the point of patch #2?
 
+Best regards,
+Krzysztof
