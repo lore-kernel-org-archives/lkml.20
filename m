@@ -1,111 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819820;
-	b=vSjsG8U6sqXrNArx+izivr7UKWuxrC5qFRL4RUVoMbHWeIOpS9be6VDUHDU17pjQepGc
-	 6IzJg3o/k4t8AqIgT4yv7ynSX+EWRzYOeeuQb4Yr9jaKOWPWBeyKxoej/KXz13nAd7z55
-	 3a09Hnlhos7tif03HainiCzAWAz0REHvzrxZc3oAPfphM8AJc/atV7UVuEJCcrf5fnjTl
-	 nZBXF6khTq0nJWjCUU+HYAIqz4AVy8uvXKIJCv+a3kcxe0DFXodW/6h8dNQt9ETBgAiuJ
-	 VITGhYoGgr0E26y1w7hXb24XjjDoMl6DDfpfUxo+4McpmabPpisgGpkLfmYczuy1BVA==
+	t=1793819846;
+	b=P8oQjbKHiUBhOKht9XVqpolQemhHHfETuT/AqfXml5s9Uet6n8Gl4X5yD2t1iEkHKUS8
+	 BPhV7vgLKlJwjlf+t9mnzwhN+bHte1QLL6417E9vuxXBldlywTI9R/GAYlGOzbKBBHPIa
+	 3dClz1wqGdM4XnLfNzMvqGmKny2W3pO5WEjvOJXNiOfUPKeoLrjx/sQOYD2CHVt2KOCKO
+	 t8a/9J1YLXKcKppaPnOb/OkY1rw9JWzN305ZVpzMdBkqIBXB9TlRmU5eHi4L6nb1fKeMn
+	 LrrMzBTRL37Yt07Xn6Okhvyi47fkGERwXmd7sE0MrWr3GItGR4Zh1er0QbCI+VQ+4Bw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819820;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=Cbujoj2vf5W42joV5o7W0AvKkij9cCOpaGGghku9+G8=;
-	b=xEOV+MXl6cw+l2q8ztcDZugn9vZSUb6rtwCLDUbSnxC3w1JJUFqprPWY+A67oKf6vnxL
-	 Hn5ZgtJMJeaqsnhmJRuJlnaorQwa7Klskw0HOFgTINMo9XkFD3vvO2TaFbnTaOIjwRxtj
-	 Lht08vv/agvJQxTGjE+NyVVQFv5oYc4HXxLAV5hInPjXlShSu8FvYeIZnQz58aj/Aw0YS
-	 HU1FnGFQ7GArMxh9D5NvVXLYFwbIRv+M8+1hzEt7COntvm1Dec1k2Pf9vvnTSNVzfKY3b
-	 nbG0AQkPmtyKRmIMdzvQogwzRnjr+WIILyqYndN3OCZMU4gsrwzBgD96/5jrl3G8RnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819846;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
+	 In-Reply-To:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=q9RBWwFn63CofyiYGd/4lZu+7oEXCckEZxKnFr8wcCE=;
+	b=Xhuj90e0GV3Y/Equzcdpn49N/Xbq2DzKP0hV8AjimhauHKDJwKgAFlcp0ug6fXeEpr9F
+	 sshd87enOHCr//hr1H/FtQPInuLfPrh/mBnLDSd5s8kiBrTY/Pa2wyKioH8wH25iS2cF1
+	 5P4aFBqrXqXy9RJqZz1UV9q7NiSk24uAFaqPtDfyle7HRn5SC3BYaNpClYs5EyF5KR3Ro
+	 aKCdEK+K/bGsiKgvDGFnQkakIT1I7W4foZ33yU6Aq/Ev2koqpsMcxj5aIcm4h9YTJjVbF
+	 QcHEaESIEInGitYTr4Tci/ROBYyor6K81FE0lOF0DtaRJarCZGbNKC8opPKQBfGIdaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=omO9IGCx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mainlining.org;
+	spf=pass smtp.mailfrom=mainlining.org;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=gzTXmkeW;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=vj1HCCKS;
+	arc=none smtp.remote-ip=5.75.144.95
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB71606D803;
-	Wed,  4 Nov 2026 19:16:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51079608362D
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:17:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51079608362D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=omO9IGCx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24F441F00A02;
-	Wed,  4 Nov 2026 19:16:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793819819;
-	bh=Cbujoj2vf5W42joV5o7W0AvKkij9cCOpaGGghku9+G8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=omO9IGCxRyG7KD0kOxfDpDxNQyYIzODWVtRjkLnN3/zFnPKj34X5crXOKucSFkfWr
-	 K2vwmPWEfSCfTc7KrJwcOMFunLOjtXDVztdyYUmknteKFz3PelPVAL1UgBnI+tAbd4
-	 XF5ErKRbX8bdCtSjgX0zvSFTT6L0PDEOQbHUmwQkI114XRdB8cIfxqGscpwpemafw3
-	 K7MJZBUNHbtj7OSLbkije9HCjsdQTGe+6yASXSAIELhzrF5YD6mcuYVUBb8Sm2r2MZ
-	 MV/cCX6mrHLPa/XrLIYAdVEN9IQTdCweH82A0WOCV2qCcCupff8Ero6Vt+lk3uRxZE
-	 xip5YgJ7X0fVA==
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Jann Horn <jannh@google.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Chris Mason <mason@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Christoph Hellwig <hch@lst.de>,
-	Greg Kroah-Hartman <gregkh@suse.de>,
-	Joel Granados <joel.granados@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Jan Kara <jack@suse.com>,
-	linux-kernel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	netdev@vger.kernel.org,
-	ntfs3@lists.linux.dev,
-	platform-driver-x86@vger.kernel.org,
-	coreteam@netfilter.org,
-	kexec@lists.infradead.org,
-	linux-pci@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	ibm-acpi-devel@lists.sourceforge.net,
-	jfs-discussion@lists.sourceforge.net,
-	linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-sh@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	samba-technical@lists.samba.org,
-	sparclinux@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
-	linux-doc@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-atm-general@lists.sourceforge.net,
-	Takashi Iwai <tiwai@suse.de>,
-	linux-input@vger.kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	linux-modules@vger.kernel.org,
-	linux-debuggers@vger.kernel.org,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH RESEND v2 03/51] ALSA: cs46xx: hand the region to the region proc files
-Date: Wed,  4 Nov 2026 20:16:45 +0100
-Message-ID: <20261104-work-procfs-bugfixes-v2-3-021c84d852e0@kernel.org>
-In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
-References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=gzTXmkeW;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=vj1HCCKS
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1793819801; bh=q9RBWwFn63CofyiYGd/4lZu
+	+7oEXCckEZxKnFr8wcCE=; b=gzTXmkeWedj7jRMbeoQJEsmjhBNYW0Lz0whmZZ73mqb7xJZGUK
+	Pe3GeqEi0YHA8IMGoQjJ6VQ9UKvEL4/euRcCjSWuqeS/jTZ7JIhiFfebuUdX9Un2iagtAm68SZt
+	g7ZhuBIynlrhXulbo9J3JRKsx9wxWsYU2x2BPzgdTE7MCCK6YCDWhgQ920TUXS6NRsOiNvdButH
+	WgYg8ppX9lCVITHtxFrJ1HqUx3Dpy4To8lAiVPJ3qLIb++DPgaNIj2jhB8RUpLAl2tl2RpRTkbK
+	8rDrIqoPH2r4wAGVZ7MjTghGFhAfoGgFd9BVRTBklEbCN2TikRBZ6m/m/dTgkHFODqA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1793819801; bh=q9RBWwFn63CofyiYGd/4lZu
+	+7oEXCckEZxKnFr8wcCE=; b=vj1HCCKSlnZcl02DJs+dAIAwPBQk/jfbwXDewIbV+HhF7idwxm
+	6+RapBxR5/PdGjgGbwAAC8XvAfJkeOLtMbBA==;
+Date: Wed, 04 Nov 2026 19:16:42 +0000
+From: Bradley Morgan <brads@mainlining.org>
+To: usama.arif@linux.dev
+CC: akpm@linux-foundation.org, baoquan.he@linux.dev, david@kernel.org,
+ hannes@cmpxchg.org, hbathini@linux.ibm.com, jbohac@suse.cz, kas@kernel.org,
+ kernel-team@meta.com, kexec@lists.infradead.org, leitao@debian.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, pasha.tatashin@soleen.com,
+ pratyush@kernel.org, riel@surriel.com, rppt@kernel.org,
+ ruirui.yang@linux.dev, shakeel.butt@linux.dev
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_crash=3A_keep_crashkernel_C?=
+ =?US-ASCII?Q?MA_pages_reserved_if_activation_fails?=
+In-Reply-To: <20261104145600.3708886-1-usama.arif@linux.dev>
+Message-ID: <661AFDEC-B8DF-4A5B-8C58-1D39F518F068@mainlining.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,39 +68,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1215; i=brauner@kernel.org; h=from:subject:message-id; bh=Z6ZRkJrhuCU4H5MdQ4cObdjJffW/paOotMbfYVXoKlo=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9bjy38dymo9fKTmUGbmnq3vJ19u55ybMf3qtLXF/lV 3V+wtzWzx2lLAxiXAyyYoosDu0m4XLLeSo2G2VqwMxhZQIZwsDFKQAT+VXCyPDsb6PwnbR1njvC l2SKvFp3T79ebMkTpTsZWRmxsjzl6xoZ/qmcK6g8/p/jzJXZ7Ak/uerEBKe8Z+6ItmpmfjKzNzX 8DSMA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-snd_cs46xx_proc_init() stores the chip in the private data of the five
-region entries, but snd_cs46xx_io_read() reads that back as the region,
-so a read of /proc/asound/cardN/CS46xx_BA0 and friends copies from
-whatever sits at the region's offset in struct snd_cs46xx instead of
-the mapped registers. Store the region.
+On 4 November 2026 14:56:00 GMT, Usama Arif <usama.arif@linux.dev> wrote:
+>reserve_crashkernel_cma() adds each crashkernel CMA area to
+>crashk_cma_ranges[] as soon as it is declared. If the area later fails
+>activation, e.g. because movablecore= put the ZONE_MOVABLE boundary
+>inside it, cma_activate_area() releases the pages to the buddy allocator
+>as ordinary memory. The range is still handed to the crash kernel and
+>excluded from the vmcore, so kernel data that lands there is overwritten
+>by the crash kernel and missing from the dump.
+>
+>Mark the areas with cma_reserve_pages_on_error(), so that a failed
+>activation leaves the pages reserved: lost to the first kernel, but safe
+>for the crash kernel to use.
+>
+>Fixes: ab475510e042 ("kdump: implement reserve_crashkernel_cma")
+>Signed-off-by: Usama Arif <usama.arif@linux.dev>
+>---
+> kernel/crash_reserve.c | 1 +
+> 1 file changed, 1 insertion(+)
+>
+>diff --git a/kernel/crash_reserve.c b/kernel/crash_reserve.c
+>index a03f0a4305a4e..a4b616ed49482 100644
+>--- a/kernel/crash_reserve.c
+>+++ b/kernel/crash_reserve.c
+>@@ -498,6 +498,7 @@ void __init reserve_crashkernel_cma(unsigned long long cma_size)
+> 			continue;
+> 		}
+> 
+>+		cma_reserve_pages_on_error(res);
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- sound/pci/cs46xx/cs46xx_lib.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+You do know that this will activate under every bitmap_zalloc() failure,
+right? Is that accounted for?
 
-diff --git a/sound/pci/cs46xx/cs46xx_lib.c b/sound/pci/cs46xx/cs46xx_lib.c
-index 797a5f09cade..efc7df444cb5 100644
---- a/sound/pci/cs46xx/cs46xx_lib.c
-+++ b/sound/pci/cs46xx/cs46xx_lib.c
-@@ -2764,7 +2764,7 @@ static int snd_cs46xx_proc_init(struct snd_card *card, struct snd_cs46xx *chip)
- 		struct snd_cs46xx_region *region = &chip->region.idx[idx];
- 		if (! snd_card_proc_new(card, region->name, &entry)) {
- 			entry->content = SNDRV_INFO_CONTENT_DATA;
--			entry->private_data = chip;
-+			entry->private_data = region;
- 			entry->c.ops = &snd_cs46xx_proc_io_ops;
- 			entry->size = region->size;
- 			entry->mode = S_IFREG | 0400;
+> 		crashk_cma_ranges[crashk_cma_cnt].start = cma_get_base(res);
+> 		crashk_cma_ranges[crashk_cma_cnt].end =
+> 			crashk_cma_ranges[crashk_cma_cnt].start +
+>
 
--- 
-2.53.0
-
+--- Thanks!
