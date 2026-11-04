@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793806043;
-	b=wDboSTKdDyo1v9h5NVwO9LXNvzxK0wTk9I8EBM2ZnEQHeioRqnsuMcczNefb1qjk+YTI
-	 3D9ul40kw3CPNg/wpEG35TZ5LatEuo/NkKWQS60Amy+WNxp+cpI8RuYEntqvvJwl3UQ54
-	 xBZBkr+JjuEGJV1TTHiflZVBIFmVVvw8Kh9YsdfgqoqAovmSXvslnBoBI1FebLfMTfqTi
-	 C1PiTWviV3VWXc8laTtJPJgpYiRK5cy/T8ebu8T86loyih5CAsHoDAfoGqsn31iTIR9HS
-	 szLZ4KYlgSmJf4IgAsfDvMZPWOrWw/Tm3aWgfjSmgc53wSj9y/z3+383hekTfwi6xMA==
+	t=1793806044;
+	b=dW6UOXDap4Yl/RqkN3rF+NcAVOE3ZUk/aRqgswGEwIK+TnToQ7BZWalGapSAVD1l4YjL
+	 6qzsmECIS0eDathVEOw3Cno2fhEOMj6tKv0fKQo0+8hxoKqChyLWOcZ8aj59hSspAJNoI
+	 8FAfu1tlyti8X/esh+TDSgaFO+30MrojwZfkLfuCdqnQxtQ4THrqoqlPJCJplpGMUE2ct
+	 /O+jPgzie6JdAeKFsWQ8LeNYxHXFprGGzZenjz8lYmn8SDnyJ9rB/oLqwqFyhLFaEdoWe
+	 lliOeMzkXwyjjhLW7zfsd3LoGT65rJiXDnotTnM0x0h+zok8Z7Uu8x9zdHOBCf7R3EQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793806043;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793806044;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
 	 Date:Message-ID:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Y8EIbelQmwDXNINKGdWYmBtsdh5/PXS0KvgWapyB5tc=;
-	b=gnyfmeJ/aQwYk6ura0r8Q+C3zvLuca8hkTDJgHzBTUrXihfRM/N8SJYMN6mhV5QiJN3b
-	 FDoj0iqu2s19wET4S9H3VLYXsbM8yGfLbvtwkj8/9DJucOBzpLs06Z5qY+F9jdoGSNoLC
-	 fv8cZfFf6Fpn3yrozbas3lepV/ts9XMjZEsEHBhFzrz0DgWk6oqxig4q06gO0neGDAYLz
-	 7pyL3I+KLL+ct/lWy17vDvUzZdqg4zplGOw8le6Rq6nwRrPr0IehFXsNkSIR9ljybo/TS
-	 xMIETN7Ah6P67JYYNit9kG2fNHaIimU4h4990rggW5uwzdEwsjonzUOqDL/puPKaX2w==
+	bh=JN22oxdaN3zgBX5qNztQ4ZuT8bGPH+vtOiywU9Zm/R0=;
+	b=XoxaYaHVJHBD3mAvgS7GzY68C2h60WleQCXM1V7Yw+MXUAUm5WGMQT6GWUlFLI75aJEr
+	 PAJkvrdTkFKReiOf6Po5a3mH/bXdPO82ujjD8AMAs8sr+dHZ3Qn1yPl73fcZ6jcWHGgqm
+	 GChueJPYiBACv5MR8GPNmSMDAU5xS+vduyQZDRdaPiPnESuI8IqcAE3C5eb9OoxcVsM+A
+	 pl/fAtcXQmXsd4YVfHcej/cp0btJ4JtRCRoKYoJfthHdk6KQZpnupnU0317x3R7tqYpBT
+	 uTZLoAR+r4i+uqDLF1gKTRuuMbmDR3rE1pqW2riysW8ROSCaW8FfKmuoNbIpme8vX9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=posteo.net;
 	spf=pass smtp.mailfrom=posteo.net;
-	dkim=pass header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b="EDt2T1A/";
+	dkim=pass header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=EZAUJ5Ps;
 	arc=none smtp.remote-ip=185.67.36.66
 Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0659606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:27:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0659606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B71D0606D803
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:27:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B71D0606D803
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=EDt2T1A/
+	dkim=pass (2048-bit key, unprotected) header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=EZAUJ5Ps
 Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id B2D4B240106
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:27:20 +0100 (CET)
+	by mout02.posteo.de (Postfix) with ESMTPS id 5403624010C
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:27:22 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.net;
-	s=1984.8680eb; t=1793806040;
-	bh=Y8EIbelQmwDXNINKGdWYmBtsdh5/PXS0KvgWapyB5tc=;
+	s=1984.8680eb; t=1793806042;
+	bh=JN22oxdaN3zgBX5qNztQ4ZuT8bGPH+vtOiywU9Zm/R0=;
 	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:
 	 Content-Transfer-Encoding:From;
-	b=EDt2T1A/H/qJwI0uM0Q+PARbq4xwvf+KMlWwEPp1KbAWzflsfpklK0VyZQ9QDWsG/
-	 Du+TAHpIWadKuRXNV0dwPkIUTBRjraUc5nakFGFu8tnGlFcc8FrwYFvf4IG24U/lK5
-	 7BoQs6+WqdNocoZIaJMkpW9P5TrQBm9f2UCrQRrTHjAP9y8fKaUhIfP7J0HpZOemM7
-	 vB24B750up6pkg1OtGDihWGd/dmwtTvYKwJn7cxnZhyFZqaLKCSuXcf43mlMYh8mtL
-	 fJ/TZzEWIEgVqh31VSWjqBT23yd9CVaBPAWp23A8ZPnQKSc6F+X5SApDyBBdDxrAbm
-	 k+J2XlW0tfedA==
+	b=EZAUJ5PspiLCVJ+gpdACGaT/RQHwloO815etCseAXsLgHh+6L/aAYYBo2pGtU1Hg2
+	 ADHhQckFJsIZicQIo66QTfSjaa0BBR/xJQGQ+teKq9BFIwrjDSvD1jEgebOpuHaYI8
+	 S9ohrzi7+nSIELEk8RZa0Xc/WI43M87RHxOpBnc+8rxi9wT4IhR9frb2B3ceG2oG55
+	 BbgVkt6eein0A8sYJJwFVU3AfqjsbcD1qA/7oCEl4ehpV4ch8h/G9mayI8eFfHLGMT
+	 5Jomv72iIwd2hpz6Ax8i05F7zR+KNB0zoIzQ/4h90NKNAQAUNkl/6qtF/qy/j8Xoh2
+	 22glTK3I+yy9w==
 Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4jKTny3vGQz9rxW;
-	Wed,  4 Nov 2026 16:27:18 +0100 (CET)
+	by submission (posteo.de) with ESMTPSA id 4jKTp00wwKz9rxV;
+	Wed,  4 Nov 2026 16:27:20 +0100 (CET)
 From: Mateusz Nowicki <mateusz.nowicki@posteo.net>
 To: Ulf Hansson <ulfh@kernel.org>,
 	linux-mmc@vger.kernel.org
@@ -68,9 +68,9 @@ Cc: Christophe Kerello <christophe.kerello@foss.st.com>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Mateusz Nowicki <mateusz.nowicki@posteo.net>
-Subject: [PATCH v2 2/5] mmc: mmci: stm32: release the delay block before enabling it
-Date: Wed, 04 Nov 2026 15:27:20 +0000
-Message-ID: <20261104152657.14909-3-mateusz.nowicki@posteo.net>
+Subject: [PATCH v2 3/5] mmc: mmci: stm32: use the delay block above 100 MHz on stm32mp25 SoC
+Date: Wed, 04 Nov 2026 15:27:21 +0000
+Message-ID: <20261104152657.14909-4-mateusz.nowicki@posteo.net>
 In-Reply-To: <20261104152657.14909-1-mateusz.nowicki@posteo.net>
 References: <20261104152657.14909-1-mateusz.nowicki@posteo.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -86,51 +86,75 @@ Content-Transfer-Encoding: 8bit
 
 From: Christophe Kerello <christophe.kerello@foss.st.com>
 
-The delay block must be locked on the last frequency set. To avoid it
-staying locked on a frequency used before, disable it first and wait for
-the lock to drop before enabling it again.
+On stm32mp25 SoC, the delay block has to be used only for an external
+data frequency above 100 MHz. Skip the tuning up to that frequency, keep
+50 MHz for stm32mp15 as before.
 
 Fixes: b5c3eb385797 ("mmc: mmci: stm32: add delay block support for STM32MP25")
 Cc: stable@vger.kernel.org
 Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
-[Mateusz: reworded the commit message, added Fixes and Cc stable]
+[Mateusz: reworded the commit message, check dlyb before reading
+min_freq, added Fixes and Cc stable]
 Signed-off-by: Mateusz Nowicki <mateusz.nowicki@posteo.net>
 ---
 
 Notes:
-    On the STM32MP257F-DK eMMC in HS200 at 150 MHz, switching from DDR52 to
-    HS200 made the tuning pick a wrong phase in 9 of 18 tries without this
-    change, the phase was right in all 12 tries with it.
+    On the STM32MP257F-DK (SDMMC2 kernel clock 200 MHz, eMMC in HS200 at
+    100 MHz) the writes failed with I/O errors in all 9 test runs without
+    this change, with sdmmc2 pins_a or pins_b and with or without NEGEDGE.
+    With it all 6 runs were correct, on both pin groups.
 
- drivers/mmc/host/mmci_stm32_sdmmc.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ drivers/mmc/host/mmci_stm32_sdmmc.c | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/mmc/host/mmci_stm32_sdmmc.c b/drivers/mmc/host/mmci_stm32_sdmmc.c
-index 9dc51859c2e5..bb058e0910ad 100644
+index bb058e0910ad..a50dc58336de 100644
 --- a/drivers/mmc/host/mmci_stm32_sdmmc.c
 +++ b/drivers/mmc/host/mmci_stm32_sdmmc.c
-@@ -537,10 +537,20 @@ static int sdmmc_dlyb_mp15_prepare(struct mmci_host *host)
- static int sdmmc_dlyb_mp25_enable(struct sdmmc_dlyb *dlyb)
- {
- 	u32 cr, sr;
-+	int ret;
+@@ -75,6 +75,7 @@ struct sdmmc_dlyb {
+ 	void __iomem *base;
+ 	u32 unit;
+ 	u32 max;
++	unsigned int min_freq;
+ 	struct sdmmc_tuning_ops *ops;
+ };
  
- 	cr = readl_relaxed(dlyb->base + SYSCFG_DLYBSD_CR);
--	cr |= DLYBSD_CR_EN;
+@@ -636,14 +637,16 @@ static int sdmmc_execute_tuning(struct mmc_host *mmc, u32 opcode)
+ 	u32 clk;
+ 	int ret;
  
-+	cr &= ~DLYBSD_CR_EN;
-+	writel_relaxed(cr, dlyb->base + SYSCFG_DLYBSD_CR);
+-	if ((host->mmc->ios.timing != MMC_TIMING_UHS_SDR104 &&
+-	     host->mmc->ios.timing != MMC_TIMING_MMC_HS200) ||
+-	    host->mmc->actual_clock <= 50000000)
++	if (host->mmc->ios.timing != MMC_TIMING_UHS_SDR104 &&
++	    host->mmc->ios.timing != MMC_TIMING_MMC_HS200)
+ 		return 0;
+ 
+ 	if (!dlyb || !dlyb->base)
+ 		return -EINVAL;
+ 
++	if (host->mmc->actual_clock <= dlyb->min_freq)
++		return 0;
 +
-+	ret = readl_relaxed_poll_timeout(dlyb->base + SYSCFG_DLYBSD_SR,
-+					 sr, !(sr & DLYBSD_SR_LOCK), 1,
-+					 DLYBSD_TIMEOUT_1S_IN_US);
-+	if (ret)
-+		return ret;
-+
-+	cr |= DLYBSD_CR_EN;
- 	writel_relaxed(cr, dlyb->base + SYSCFG_DLYBSD_CR);
+ 	ret = dlyb->ops->dlyb_enable(dlyb);
+ 	if (ret)
+ 		return ret;
+@@ -749,10 +752,13 @@ void sdmmc_variant_init(struct mmci_host *host)
+ 		return;
  
- 	return readl_relaxed_poll_timeout(dlyb->base + SYSCFG_DLYBSD_SR,
+ 	dlyb->base = base_dlyb;
+-	if (of_device_is_compatible(np, "st,stm32mp25-sdmmc2"))
++	if (of_device_is_compatible(np, "st,stm32mp25-sdmmc2")) {
+ 		dlyb->ops = &dlyb_tuning_mp25_ops;
+-	else
++		dlyb->min_freq = 100000000;
++	} else {
+ 		dlyb->ops = &dlyb_tuning_mp15_ops;
++		dlyb->min_freq = 50000000;
++	}
+ 
+ 	host->variant_priv = dlyb;
+ 	host->mmc_ops->execute_tuning = sdmmc_execute_tuning;
 -- 
 2.56.0
 
