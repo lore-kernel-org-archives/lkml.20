@@ -1,103 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793769914;
-	b=YGWaD7fPOCmk/N0f/wQChrFJg59xhKs27RpYhmKwpML1ehiISo9eErGXkmmGQbQueWKx
-	 53z8/cIOfj2DrN3RVDawye6GIaWuBrP0tubN/mkg8+xMnyH4bQbRwztq6BMgKQaCll8Qg
-	 tocNn6Rg/RjoR1XkZpr6h2mZQ4qdSIfpi+yPtRCgBovcCYsNQBJ4Ge78SH2G2uDmxqErc
-	 EZK8kZXPnZGOQUHq1dV3Hwo+i2QHTfu5LmhJXq6YOcw9oJRdEleuBIL7/9zBTjLlIbQgP
-	 e4PNWVhkaRJm35hzHTtDXXnoOi0gktwkc5SuU1yk7BERO+AvqhfHIpdEXxX+6/EJYDQ==
+	t=1793770089;
+	b=n0IWgbuu7rzwZJivXcGUAwo6mQVtsz9CcIfa8rV+R05B6dxnKFEuvwReqf1BuSqrtFub
+	 Ev0wJwv/C8+VZAMtG0h1KL2wWNb2UIm5IlrHd18pBZ5LA97PvQ3e8IgGnPfRzFVWfCK1F
+	 YHt2utMiL5SwfTJtgxTyCEiIBG1rAn/XBZp6WLPYr/TDePdsqnqKTpF2lpE0+wjvKTJl8
+	 13FIAwa6waHcGGuPWJ4nZ8YBBbcXN0aoQPl176EhlJ8b/i3elx5kcFcOgb4cNmbKQbD8u
+	 dwz9VtLlqhIaflNE5BFCZTuJ2cpKbRyriXMjgh0rhYi+M3AI4gZKU+U4wZ34t2bVEIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793769914;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793770089;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=LOG7AOmS6IRRfgPKSJTi33/lfhAOaV7O3VJZu3BP5NY=;
-	b=IRbGNXW27ai4dLmOklZ3LMdEdf0jbVRUo6RiOTIoRHVHA5MGs4YZjnTM29yWrldUuzyQ
-	 2cNCcmmzFrWCF2V/cg3I1UN023RupCgplglEV+jSMj+Iy0Kp2RTsLsRc1DYzi78MimhHu
-	 Kbu2L3BO1iF6u7CnIbG8sqN1eshgKo/5pNO/mlX7U3EfpbSpz8eS4TpCDUv/ZLzlovuqS
-	 2tOtawmwbhQPLIGsfq6+cqGz1PE2VODVJUQaRhvGMBQxuSD08S5MvVksL9QbtuZVHRepk
-	 nfQgUPKK3s8qsiOJ+JIcThyOgOIXt0JMbphzfgL88yLRrcJLrlG/Fssy6IW7TdbQJBA==
+	bh=irQAokomBOrEvq1E25b1/yaWaEKJedcNM9avak0rsxM=;
+	b=jstwFn+7Ta+vU4H/A+z04y1KpshVNYArkCfBZt/3dXrTtYRPJb9un9fHdSnC/jYyXF7Z
+	 BxdwiaIxKim95NM4DVw+CigLqzd0qcFRCqgl/M3LxTv80cqbxpnpiufEZJ1SSK0yCKJ3E
+	 kf7Xj9K21+AQEd+vxE4A6By0odNpqG3LUF8WiOMyojED/LH9sE3kdgOnfaJlz/Gq/+cer
+	 Tqyj48KBOMwyZ/ykXwbXgj3ANfHaDT54HoMd8b9LiR7Lgb6xY6O2GR4Su8aFmLhw08hkc
+	 2Lob7J/3aKsMjf1CwRO9w8eF6heBuhoCBO/Q0aAXoOfF3HfiTjVPAN+VfmFblnIIJlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=jclark.com;
-	spf=pass smtp.mailfrom=jclark.com;
-	dkim=pass header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=nitJ5qF+;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oAnu04eU;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E2EC606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 05:25:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E2EC606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jclark.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70123606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 05:28:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70123606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=nitJ5qF+
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3514b90bb89so591504eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 21:25:13 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oAnu04eU
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48fbe12cfdcso135845f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 21:28:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jclark-com.20260707.gappssmtp.com; s=20260707; t=1793769912; x=1794374712; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793770087; x=1794374887; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LOG7AOmS6IRRfgPKSJTi33/lfhAOaV7O3VJZu3BP5NY=;
-        b=nitJ5qF+g9pmuZqnfV6g0OB2usPhDHrYEncfSFTxZEDjIH1OwBIA3zox7IJFPp06xQ
-         K40SE3iJq/v5lK77yc3wmc/H2K16h3UBaGoBS/BQR8tzXfNIu6//GCQHf1EnYCbZ+ywt
-         miFb3XK1cclhKOn9uTeLPEpbQZQVmJ+Fgf10SMwBwim3ydvAujDiNXmmRufW9mEm5XZW
-         SloOfOTgz8ZM3sfAxIDFP8cxjHM8mWCme4zti/cz7dAjWhAsxuYVrh9GFTU67ZFy0FHI
-         ef/0aXDV7erBBR5vnomigRcB9xehqpQUKofRsctxlcIdPI88tpOPOcWYgtA96F3U/iER
-         ivFg==
+        bh=irQAokomBOrEvq1E25b1/yaWaEKJedcNM9avak0rsxM=;
+        b=oAnu04eU+s3LGkUx1jwkqz7Twro5AjH5asleqtuon57Etq/k0ktcWSor0iWMB0/l3m
+         fJ9E75NjnOf3htVo3Mixg2r95tpRcUZ5aPiupyVY7H+nuJbKLr3nB/AZ/LcopLRhFPTk
+         l4/oooMuHStQY89DRz/4dC3LlbRlJPq9rY9ijo4IpoVZaKejlzAD6U7ZtMgLUYlakxe3
+         JkFzpM+ndtOyjIsFDAWfOKQwsMqXL6lKHnRkqr/MeoRMW9UfqANYsTNdFdQBR2k7Ex6A
+         VJ2jwbWIaT46VKs4uL6gotYb4fngQ1RtXzxNxYKkb97QymYrMszkXGOYcYCrIZdchKaN
+         Wypg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793769912; x=1794374712;
+        d=1e100.net; s=20260707; t=1793770087; x=1794374887;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=LOG7AOmS6IRRfgPKSJTi33/lfhAOaV7O3VJZu3BP5NY=;
-        b=OPhV53YpoeOF5dgsP+S7YW2eMnfr7xSRW13+vRoSgMC23HEL78EgA7vl3Ns6yIvZ3G
-         DOVHR6UoIbQA/xoSVw0moytEqykoPNcVA3NkCohaOTHpxlxOY6e0lEkPAgAQL+1LAzEF
-         7zW921PRMea7Nuzi1l3hl8r4QzLelvQPmaDoXJyf0LR5xTqmRoRgPuYDCNjYOZZjuQ4d
-         8Pw3jSwmZy3kTSqzkDV/WlrW266dyjq6O34LzpdtRErr9MVTKh0OKa3JXk5MINkYJeAC
-         VqSgsyrDj+fEwCiTAPo1TSznkZG1MK+qwFtiwIiFZDOAr40Bo3pzY7yNK+ZPFWm0EbtN
-         ZkLQ==
-X-Forwarded-Encrypted: i=1; AKwUvByBmZEPx/tqCmXsJc5w5QA/m4NS/bYywPOS6ku+N2vnOL76DW7h9Wip3N/vEwLM8aDHLfgZyY87aJ47OVU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9jOvR6ZS5a1zUXYhp+3oGaznI2pcYmZ/rBVOj+5VyBDjWuMyG1
-	9PnHiMi1K/JaT2hUZ2GCZSrXZWLDn8Rw14DSZdkEmYo/1acccg6m81FYgenvkWzU4Q==
-X-Gm-Gg: AYBFou0RdAUI/C0s9f/ByLmhVyQCOmaSPOU/qIGBSBHHQr9zYvprUzwKjRSbJ2WEVCj
-	wHTchiOjTkT1TMSlAyta1+EIi65l26eLEzjVPKNu5f/i7/KxkUzjHxklBcKUxPil0g061L8Ic3s
-	Yxw8LcIXcpcgjbLh/o9srWX+wU9PVBcFiw4GuaJCBrl9bUr79FKV5O4HAbbY4V3Y2j37oWbaPFQ
-	UTYHKoEmO8CjLeJARmvmID47rCSxmKlOWzUnewfJchQwBpnqzw8KFSVyPRxJrgDsKGipBf1RZs8
-	T5QagycpOjIynoONgmOHkD7H4LIEfK7kgsB43Lvn8+V9wEuziGURUu2Voy7u9TL+1GVWearYFju
-	J+EBqXx+791TiM31WekyhrJhJgv6NF3uY0/qofeUeblIhRoce5JNSgoCqnXGRWAh2Pa/m5wmZnD
-	WT1g/XxOedJ5TITPYICregHL8jJ8axTZmQs6NAIwOrbFvv/tVO/TZmvhZQBNcrPdgKPd5uo66Sc
-	3OOJnvVjZjejv20PXdYEvxlsbZUOlGxfZV+Wc9bJC69aTMCfEdkmDdWW5FZg/xRRr+F+uqsxHgM
-	pbMLtfTxi4yvDrE6y9w5u1czYlwu9shKb5Zv0B7B8tg0haxFp9mMgxb9pgBHYZO55qj7G9NbNpR
-	thdYh6V8y9/TZ9A+z8w==
-X-Received: by 2002:a05:7301:4242:b0:358:dfed:d0fe with SMTP id 5a478bee46e88-36a42219d4fmr21775375eec.5.1793769912239;
-        Tue, 03 Nov 2026 21:25:12 -0800 (PST)
-Received: from cantal.lan ([58.136.77.237])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca39c5f0csm3405176eec.29.2026.11.03.21.25.06
+        bh=irQAokomBOrEvq1E25b1/yaWaEKJedcNM9avak0rsxM=;
+        b=xhfHSDy1BGo01Z+kmqM2o/sKcJheTXV37X/06oJO2tF4gCfiIo504XlGKTSmX2rL8c
+         szFS0FBpsRhB5e/DGBbcApRw54aqt4B0XYQ1P3u5DdceB2F0Cgs+Sf/KeY3pQlFRFvyK
+         mmYRoUdfRCRGzdSMdyYMuEI3HL84IherPm5cCEcANkyNoteUVT2VrHT9GYfLjaAL/Xij
+         zsa9E7d+z4+aZ1AaWkMnzWNkSKzCle7hFMf4Fi3tfoI8NrepBGCtE8/5GR31p1M5prdx
+         XF4Oh7KrNaiLhvQHLgwZcQAQBZ46nVdklMl83VTOqa5oPKlIFKHrkw1WhGJlZQYXh7m5
+         yAAw==
+X-Forwarded-Encrypted: i=1; AKwUvBxqd3pw+E03lHbd+BnzdCJOqeOIUcUIfCTY01FypAKqnA1ZrJbedEAvrBIxOV2s6oE/Pbll6iiL3HlDVG4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/uWkCRfhWyT/A5WwwdbuNCvJxUJ83/VWpY39J9GcNx1iPhdwDq
+	2DVJ1ZsG4gKvRiEGoixWChwf6dSCUESpuPin77gVLoMxx9JmFh0FWV07
+X-Gm-Gg: AYBFou0Qa2iw/zFO1TyGGI5auYxNjqBWqAQbgqrzjVDW5NIGMAt+sNTUsb3KLdn1HME
+	dHE2VZihsfd4qGgmP4H1dL/79JRIwtAKMYcx4Xr15nmHALVoIRmgxeJBzzgIvcT3Dn7by+w//Vh
+	BzjVkDRsOEnH+azvROzoHiG2ULdWBQRkho2Jd9WoE4MKTUNptsJo+hxNIBo3rPvSzd6fjA49vSa
+	nhdxazXCwB6wRno4PbnnlRXCelQacyjXGtHBbJAf4s4V6Xk6Z2s4c8p7ggXwfsKZYtAHHoDLlmS
+	1V7TbB4uIcSxpo3PwJPabLwWvALqhjwtbCvaNYwB8xIe/2W6ZAZjOcdgkJaiV1I+cmWO8KLqDGj
+	W5h+XKOIR/W4xZ0dAFrjW1nvR9W1LtvqYJ/0zs26RSj4ZlCfOSxJUqblcru+uRhEXGUgwqed2j5
+	+R/PuKjeZLb/NDqO1kjjBoQrt6kZUfPSaRtO6sNXeFlK0CMVHLNWIR4BZ+5QALBHpERDFtqbzKO
+	yzRLaJgU3PnStEJ60RKrrfYM6qHycR2p5lQmGNyKA+X726yU+hkx54S4XNkicjVlId4euquSoPc
+	LThe3WQZk6Hms7HGTKVll6Oimscmo0YKgWXO9TDP76wQADUFREafBe36LSjkNnWZn/30IV9ixnZ
+	T/8GgwQ==
+X-Received: by 2002:a05:6000:4301:b0:48d:ff0d:cfa5 with SMTP id ffacd0b85a97d-48e6e50049emr34787634f8f.47.1793770087179;
+        Tue, 03 Nov 2026 21:28:07 -0800 (PST)
+Received: from recorder.play.pl ([2a02:a31a:a1b6:b080:1f0e:f037:ff95:4265])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed92a753sm1917062f8f.45.2026.11.03.21.28.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 21:25:10 -0800 (PST)
-From: James Clark <jjc@jclark.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Jacob Keller <jacob.e.keller@intel.com>,
-	Kory Maincent <kory.maincent@bootlin.com>,
-	netdev@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] net: stmmac: ptp: fix support for PTP_EXTTS_REQUEST2 ioctl
-Date: Wed,  4 Nov 2026 12:25:04 +0700
-Message-ID: <20261104052504.1886335-1-jjc@jclark.com>
-X-Mailer: git-send-email 2.56.0
+        Tue, 03 Nov 2026 21:28:06 -0800 (PST)
+From: Greg Sikorski <sikorski.grzegorz@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org
+Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
+	"Jiangong . Han" <jiangong.han@windriver.com>,
+	linux-kernel@vger.kernel.org,
+	Greg Sikorski <sikorski.grzegorz@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: em28xx: fix NULL pointer dereference on disconnect of dual-TS devices
+Date: Wed,  4 Nov 2026 06:28:00 +0100
+Message-ID: <20261104052800.44551-1-sikorski.grzegorz@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,56 +101,69 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 7c571ac57d9d ("net: ptp: introduce .supported_extts_flags to
-ptp_clock_info") modified the PTP core to validate the supported flags
-of external timestamp requests, rather than relying on each driver to
-check them.
+Commit 826915b6b65e ("media: em28xx: fix use-after-free of
+dev_next->devlist on disconnect") made em28xx_close_extension() unlink
+dev->dev_next->devlist from em28xx_devlist. On a regular dual-TS board
+(e.g. Hauppauge WinTV-dualHD, 2040:8265) the secondary device is never
+added to that list: em28xx_duplicate_dev() kmemdup()s the primary device
+during probe, before request_modules() -> em28xx_init_extension() links
+the primary one, so dev_next->devlist is { NULL, NULL }. With
+CONFIG_LIST_HARDENED the inlined list_del() validity check dereferences
+the NULL prev pointer and every disconnect oopses in usb_hub_wq with
+em28xx_devlist_mutex held; the device never re-enumerates and the USB hub
+thread stays stuck until reboot:
 
-stmmac_enable() and dwmac1000_ptp_enable() ignore the flags, and
-neither stmmac_ptp_clock_ops nor dwmac1000_ptp_clock_ops was given any
-.supported_extts_flags. Since PTP_EXTTS_REQUEST2 always implies
-PTP_STRICT_FLAGS, the core now rejects every PTP_EXTTS_REQUEST2 for
-this driver with -EOPNOTSUPP, where before that commit the same
-requests succeeded. Only the PTP_EXTTS_REQUEST ioctl still works.
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  Workqueue: usb_hub_wq hub_event
+  RIP: 0010:em28xx_close_extension+0x80/0x130 [em28xx]
+  Call Trace:
+   em28xx_usb_disconnect.cold+0x87/0xed [em28xx]
+   usb_unbind_interface+0x9b/0x2c0
+   ...
+   usb_disconnect+0xe7/0x300
+   hub_port_connect+0x7f/0x930
 
-Tests on an NXP i.MX 8M Plus (FRDM-IMX8MPLUS, GMAC 5.10a) show that the
-auxiliary snapshot inputs timestamp just the rising edge. The reference
-manuals for the STM32MP13 (GMAC 4.20a) and the Cyclone V HPS (GMAC
-3.70a, which uses dwmac1000_ptp_clock_ops) say the same.
+Initialise the list head in em28xx_init_dev(), which runs for both
+devices (for the secondary one after the kmemdup()), and unlink both
+entries with list_del_init(). That is correct whether or not dev_next was
+ever linked, so the use-after-free fixed by 826915b6b65e stays fixed.
 
-Encode this in .supported_extts_flags. A PTP_EXTTS_REQUEST2 for the
-rising edge then succeeds, and one for the falling edge or for both
-edges fails with -EOPNOTSUPP.
-
-Fixes: 7c571ac57d9d ("net: ptp: introduce .supported_extts_flags to ptp_clock_info")
+Fixes: 826915b6b65e ("media: em28xx: fix use-after-free of dev_next->devlist on disconnect")
 Cc: stable@vger.kernel.org
-Signed-off-by: James Clark <jjc@jclark.com>
+
+Signed-off-by: Greg Sikorski <sikorski.grzegorz@gmail.com>
 ---
-I used an LLM coding assistant to help prepare this patch.
+ drivers/media/usb/em28xx/em28xx-cards.c | 1 +
+ drivers/media/usb/em28xx/em28xx-core.c  | 4 ++--
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
- drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-index a37405534beb..31a66e855d6b 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-@@ -277,6 +277,7 @@ const struct ptp_clock_info stmmac_ptp_clock_ops = {
- 	.n_per_out = 0, /* will be overwritten in stmmac_ptp_register */
- 	.n_pins = 0,
- 	.pps = 0,
-+	.supported_extts_flags = PTP_RISING_EDGE | PTP_STRICT_FLAGS,
- 	.adjfine = stmmac_adjust_freq,
- 	.adjtime = stmmac_adjust_time,
- 	.gettimex64 = stmmac_get_timex,
-@@ -294,6 +295,7 @@ const struct ptp_clock_info dwmac1000_ptp_clock_ops = {
- 	.n_per_out = 0,
- 	.n_pins = 0,
- 	.pps = 0,
-+	.supported_extts_flags = PTP_RISING_EDGE | PTP_STRICT_FLAGS,
- 	.adjfine = stmmac_adjust_freq,
- 	.adjtime = stmmac_adjust_time,
- 	.gettimex64 = stmmac_get_timex,
+diff --git a/drivers/media/usb/em28xx/em28xx-cards.c b/drivers/media/usb/em28xx/em28xx-cards.c
+index 8440eafad..4d2ea2e27 100644
+--- a/drivers/media/usb/em28xx/em28xx-cards.c
++++ b/drivers/media/usb/em28xx/em28xx-cards.c
+@@ -3845,6 +3845,7 @@ static int em28xx_init_dev(struct em28xx *dev, struct usb_device *udev,
+ 	const char *chip_name = NULL;
+ 
+ 	dev->intf = intf;
++	INIT_LIST_HEAD(&dev->devlist);
+ 	mutex_init(&dev->ctrl_urb_lock);
+ 	spin_lock_init(&dev->slock);
+ 
+diff --git a/drivers/media/usb/em28xx/em28xx-core.c b/drivers/media/usb/em28xx/em28xx-core.c
+index 62a1c25a2..ab1e1e18b 100644
+--- a/drivers/media/usb/em28xx/em28xx-core.c
++++ b/drivers/media/usb/em28xx/em28xx-core.c
+@@ -1263,8 +1263,8 @@ void em28xx_close_extension(struct em28xx *dev)
+ 		}
+ 	}
+ 	if (dev->dev_next)
+-		list_del(&dev->dev_next->devlist);
+-	list_del(&dev->devlist);
++		list_del_init(&dev->dev_next->devlist);
++	list_del_init(&dev->devlist);
+ 	mutex_unlock(&em28xx_devlist_mutex);
+ }
+ 
 -- 
-2.56.0
+2.53.0
 
