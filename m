@@ -1,77 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793834317;
-	b=Rh78JNEeoaU1nf9VSk9f3zMonfSqnSydlG4hv/RXnZjbuJJ+sUtZFHzAQ1EW4YWPnXzV
-	 tcQD+kkzs34UO3vT3URaPce16VowjbZVxVDeG1cLKR2HrmgQTHBuupXnkftwFLoO//606
-	 TpaIse1oG2h1ONQ0yrFGBBSjEYbCgh2Y/csEvHI6NZ2oMUYx5jB2+72T4hS7EY6rE+uCD
-	 MwFOWNau2WvzsEdbEvqDN0TZW6sv/QPNgVGBSH664h9V+OHJ+ZqMCPGleP7npCCpp5p73
-	 F6uSQHWzDQUepkQykB1fxDOfQDbUJXg1/jGofW1W7h42U/eTmnX9zVp8g5AEz5eGnww==
+	t=1793834453;
+	b=YchvOcT0/MzP6uJmQN0ldiKTZV6Bte7ZdIOia7OaR9A+eNWfUrLdIKnE3SnXQP+gGkMG
+	 21YeicNjvBPJvav6YXC3BkoIGuxOrQSzLf1aqYgi6sOk+GB6Sm6xsiFIic/Lb+siUVcOS
+	 RQkr27rBViq4NpgHloY93k/Mk4OD/iTacwJuA+AbMETUuVmYfLX77WI1LI1Cu9vGdeaU9
+	 355kczI+ZF7Cy4hWpaVsOj9TkTVYTcMA8O8RexQlRW5eDUhpmvLEyLViNa0dP2En7rHUl
+	 iHFkzPztPMJc1zs2B5GC72d1dGQxB4CnCPmFIuIyGrUracThs5iZKmg8m6hKzYgprtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793834317;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=0ig/7/QrdpCDxXtWkwmfBcbB/v9MdGwTTP1BzaPF+ok=;
-	b=kPlSqw9j5odHh6glFFiiDZ01BXPLQE9V61QPMazqeO6N0ynsJr2ZEfkWzA9csGgkmTKf
-	 Cm0gk1wqmPb39EOiJZQfrOPEF8v5V5cF9YtS/q9njKQGW8aK7HpwBYPTWNZGtlMazHmF7
-	 xLWFJMkvKK6xDBFwAaLavUOJwSjkuX2d7Di0DCuSfQE7QezjYAW3kemMBzdZx+B+iraxe
-	 SwMd6sa8FlV+pPdCklwSAdzHvcWZmQhrDw00eCI/A7QHftkUE1kFYYJwClaRcYwx1WzPo
-	 HYDtgmhywlQBTzF+t34T3zseRHaiafmug/LJEYFZw1F0kjGuPW3dsyJAO2nyxNb+xxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793834453;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=8ioPBLXoKsZSCxTIuHLWWhHJhXU/FTy/hw4maw0vQoQ=;
+	b=FCq3treg2P81PjzCFWgcBpGiVVNpSS1Nb97RbUP8T/NzEgUy/z5FU6eKms1hFMB1rLKp
+	 Vs2XaTRKz1Yr5lSXzbDuiI0+n1DcAEROQKrB6EE0jeg0nUE/3ptWRvrOmGOL8/4pD1G6i
+	 N6gHckW6thQ6faJjJVJe9LC9FdyLC0UIxfPdlSElWu3RJmq5mj7P+Q1GqbfQm+kl58sjL
+	 8fg7QpL3mhq7KyV5pkiRNd5aK1rmNZc3WmyZ/U3DZp2DVwESRlp37i2IJ5Vn7ipTjVHBt
+	 FUwCOzmeViN0OaxCQnWxhdF1pwiIuXZoj5g44bQjzkpGboFNdFTxZRAOn/aQAGNbivA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=andrewgigena.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.208.169
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=Gn1xrYC2;
+	arc=none smtp.remote-ip=44.202.169.39
+Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 853FC606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:18:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 853FC606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=andrewgigena.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3a1f628b1d1so10255211fa.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 15:18:37 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793834316; x=1794439116;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0ig/7/QrdpCDxXtWkwmfBcbB/v9MdGwTTP1BzaPF+ok=;
-        b=p5n4JNnstv+0nhoWL8U3Wh0JbfApoDR9rZjMVTp0ENJUR0mR3jUOfJwBRnKBBxjs2h
-         pxk7n49J+G8EtoI34XFpZPtB24n5v5V6caPF0/T8IcfMHStpO8xJgvbPAGchrmtWtoK/
-         WCpdtW/2/wuQOpyPapcF4n7g7pGNofX3B7WDQGmfyFvNF5Z0sD1Q7o+XiqM6OM3uJlCm
-         iMIr8YEC1Qg4sr9Dw/7zDHwEtAwOFzahtWH6UijipZQYV3QRsVr2p9sQqAlHkZAqCT4E
-         UfZwKzvHDLI3HX+F/Ka67bhpslpWXmBgMPdmCrMaan8lxQtl2t8enS0Ejah1LNwLlqND
-         9ZJw==
-X-Forwarded-Encrypted: i=1; AKwUvBwZZGBndIIxZwVNwBv9aXwgd9fdiIJWHuDqIVl3sI0ukj10mNOWfZLqR5WyAKFjnCJAoyg4npu8lobVGSY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/SD27XM6v4fvTmUx6aW57Hwd7TzmphVTHOGj4+n1Hzqy2VxXvW
-	Sw8lT+Lw7+TrbZmK7f8ViflqhfCAB4JlkDdad6DJCYSntq+cM+uIsO+4R++lxLT/H7c=
-X-Gm-Gg: AYBFou2XtPnsZDh1U3ONVSx/qqh5sw/fMnn9YE3beyEoA11Y6d9yDSWnu1+i6+PEhEu
-	A/113BfqJFRBnvLODFRPpo9cYIuVaicqSjJRjrgj7wvkjTPSNXAIt6SgVvtw8sSIQ1f6Tu2TBjj
-	TXKudokYkEDPDl8R80qYGxUOHsqs945koNorugvP5kVa4GHEoZp1z/yIl3nGpv3o92x0212+Xuv
-	kvKwDUYCOVhkqpkUUZufMb8Jqs+qkwG38S2rnZWNtl2tHR5CQrhwJlpoWXspL/M+MeX8Itn/g3J
-	w5J60GUNkr0GVRbSrR0fSRB67hfEJzJyjtFzdGdqvMlHQ/nY7ZI4X/VlYrl9FspVSnsTrGtmHb3
-	SzrMWv6lWph1YcJzdBMKMa47PxWC6EyDgrdngbt3z2yWkLAkN0X7LERUAYmDVzf4a3eIUPSgjYM
-	MSZtkcy3h3GzVW8H3eEjCInG3uJ01jZ0HXABprRPHKuE5FhUWYjmyVgIieDfP5xj1FxBYTZ4AYo
-	ub6XpNevagIshbKVzuMaFWYOgef/uHk50w27nqK7QcjfaHm2uHk8YQ/YJHxBB1QZrSHZZxcG1vW
-	W7n/OJ0BTecPk3i/GdqRA9hYe4Wz9R28Xy+OkvFUyheljCKEBtDhcM/Qx6sZ8j7MoCKTKjI=
-X-Received: by 2002:a05:651c:890:b0:3ab:716d:6406 with SMTP id 38308e7fff4ca-3acb7b22a6dmr42315581fa.17.1793834315560;
-        Wed, 04 Nov 2026 15:18:35 -0800 (PST)
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com. [209.85.208.171])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3acdc7fd7bcsm6863681fa.39.2026.11.04.15.18.35
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 15:18:35 -0800 (PST)
-Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3ab3dd966e1so12068781fa.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 15:18:35 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwvF0p/Xrigu41kSwsdn9XYr/k7e7/L1HqHnJv6HNlApDGmRUomlH8Q9KXzJm1NoFsQOu5fZ4bgah6i+tw=@vger.kernel.org
-X-Received: by 2002:a05:651c:31d2:b0:3ac:e4b6:b93d with SMTP id
- 38308e7fff4ca-3ace4b6bad3mr1250481fa.8.1793833951678; Wed, 04 Nov 2026
- 15:12:31 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD09C606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:20:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD09C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=Gn1xrYC2
+Received: from eig-obgw-6002b.ext.cloudfilter.net ([10.0.30.203])
+	by cmsmtp with ESMTPS
+	id OcT5xjVl8OOJnOkHjxUvZZ; Wed, 04 Nov 2026 23:20:51 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id OkHixPysiPdvCOkHjx3OqV; Wed, 04 Nov 2026 23:20:51 +0000
+X-Authority-Analysis: v=2.4 cv=ZYIdNtVA c=1 sm=1 tr=0 ts=6aebbdd3
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
+ a=ICjA5wv23ds22tp88nIA:9 a=QEXdDO2ut3YA:10 a=oR4HUqRzxioTCyxudRYx:22
+ a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=8ioPBLXoKsZSCxTIuHLWWhHJhXU/FTy/hw4maw0vQoQ=; b=Gn1xrYC2uGjp
+	bqKKFTTS4WIXZgyiBILwrchjjx89kZxtorGqvtK/hStfakwqaVudE41JTRjB4g3SA1qvneppQfLNw
+	TqMWK5rNQklxO0MdL/aLjLlQCjtEzPUtGMZKNi+LfTExisDKZwCtRE4cZzK1IwbmktM7K611RF75y
+	h+mwkHDyW+0jxeYNKa6c8o54eomgotSugnh6Nt58/JMDKKptbeZKKaJvr9XDhZ8kr0V0tyipopDbL
+	ej7jFEIo813V4HqI2kd+5XpC+IiO6C+luzBeSRzk1oN9kSnxnUgUOQkD4jHoVKuMUGo3R7oRIpdkG
+	H7/wNGD19k0em/wdBzSf4w==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:60068)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xOkHi-00000001byH-28C7;
+	Thu, 05 Nov 2026 04:50:50 +0530
+Message-ID: <5612f56c-fec6-47fd-b2d1-9d21bcf56124@roeck-us.net>
+Date: Wed, 4 Nov 2026 15:20:49 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,138 +76,147 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-sm8150-v7-4-rc1-camss-v1-0-7a9534a9a22f@andrewgigena.dev>
- <20261104-sm8150-v7-4-rc1-camss-v1-3-7a9534a9a22f@andrewgigena.dev> <c5405525-78ee-4480-b482-4dedc49661a7@packett.cool>
-In-Reply-To: <c5405525-78ee-4480-b482-4dedc49661a7@packett.cool>
-From: Andrew Gigena <mail@andrewgigena.dev>
-Date: Wed, 4 Nov 2026 20:12:04 -0300
-X-Gmail-Original-Message-ID: <CANn8Ume7MfDKhjdZAc3Qha7_k=CFFzaxzk5nK9Ke8iNOveYyRA@mail.gmail.com>
-X-Gm-Features: AclHuK9-uWrMe0XXfFl-zEd0pTQ8lUonEa8rXy8zxcLRw3JRTxzZbTIo1byB1YQ
-Message-ID: <CANn8Ume7MfDKhjdZAc3Qha7_k=CFFzaxzk5nK9Ke8iNOveYyRA@mail.gmail.com>
-Subject: Re: [PATCH 3/4] media: qcom: camss: Add support for SM8150
-To: Val Packett <val@packett.cool>
-Cc: mail@andrewgigena.dev, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
-	Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	"Bryan O'Donoghue" <bod@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] hwmon: pwm-fan: use managed timer shutdown
+To: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>,
+ Hans de Goede <hansg@kernel.org>
+Cc: Matti Vaittinen <mazziesaccount@gmail.com>, linux-hwmon@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261105-kasync-devm-timer-1-kirtiar15502@gmail.com>
+ <CADZg-m3OJAhUi8EzBeMQbcKKVTkBBN70mnkGmJzkj2t54xFxDQ@mail.gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <CADZg-m3OJAhUi8EzBeMQbcKKVTkBBN70mnkGmJzkj2t54xFxDQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xOkHi-00000001byH-28C7
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:60068
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 4
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfOJRVI7nhWogGL7NEBG3FbmWzchGzbQU5hYkN666X099R1ycy5YO1SMyvcnc8LpIy7p+Q1KqvbCGhTGGDxiNJ+0pvuo/ZSPY2OmiciLAgkjkBIunmP0q
+ EgKxdkYoE1C4aTWMvfqRWGXsQV7KnZd+H06Pmw6whVbnGVHCIWHpuGnkDjgPvZV4cebrxstwGEWnm14Uc8+gnOUFpOANJyItL8d8iA1kBPcCDNjYDcqNCg0+
 
-Hi Val,
+On 11/4/26 15:03, Kirtikumar Anandrao Ramchandani wrote:
+> Replace the private devres timer cleanup action with
+> devm_timer_autoshutdown(). Keep initialization and action registration at
+> their existing positions, preserving the cleanup order. The system
+> shutdown path continues to call timer_shutdown_sync() directly.
+> 
+> Signed-off-by: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
 
-Thanks for the review, and great timing on the SC8180X work.
-> It should probably go higher in the sort order, before 8250?
-Agreed. I=E2=80=99ve moved them for the next version.
-> Interesting, why do these match 8280xp and not, say, 8250?
+I fail to see how this would improve the code. This looks like just
+a random change to me with no real benefit. It just replaces
+devm_add_action_or_reset() with devm_timer_autoshutdown().
 
-SM8150=E2=80=99s downstream DT describes the PHY as qcom,csiphy-v1.1, and t=
-he
-v1.1 2PH (D-PHY) lane sequence in cam_csiphy_1_1_hwreg.h matches the
-2PH entries in lane_regs_sc8280xp offset-for-offset:
-- 0x0004, 0x002C, 0x0034, 0x001C, 0x0014, 0x0028, 0x003C, 0x0000,
-0x0008, 0x000C, 0x0010, 0x0038, 0x0060, 0x0064
-- lane blocks at 0x0704, 0x0204, 0x0404, 0x0604
-- with 0x0728 =3D 0x04, 0x0700 =3D 0x80, 0x070C =3D 0xA5, 0x0738 =3D 0x1F
+It also seems logically wrong: devm functions should be associated with
+some initialization or action (such as devm_kzalloc -> kfree), and not
+require a separate cleanup. I'd expect to see a devm_timer_setup()
+or similar instead, if at all.
 
-The SM8250 lane_regs_sm8250 table is a different sequence (0x0030,
-0x0900/0x0908, 0x0034 =3D 0x07, 0x0010 =3D 0x02, etc.), so it doesn=E2=80=
-=99t fit
-the v1.1 PHY. If SC8180X uses the same v1.1 CSIPHY, the SC8280XP lane
-table should be the right starting point there too.
+Guenter
 
-See https://android.googlesource.com/kernel/msm/+/refs/heads/android-msm-co=
-ral-4.14-android13/drivers/media/platform/msm/ais/cam_sensor_module/cam_csi=
-phy/include/cam_csiphy_1_1_hwreg.h
+> ---
+>   drivers/hwmon/pwm-fan.c | 12 +++---------
+>   1 file changed, 3 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/hwmon/pwm-fan.c b/drivers/hwmon/pwm-fan.c
+> index 9cabbe9f8..6b02c2687 100644
+> --- a/drivers/hwmon/pwm-fan.c
+> +++ b/drivers/hwmon/pwm-fan.c
+> @@ -8,6 +8,7 @@
+>    */
+> 
+>   #include <linux/delay.h>
+> +#include <linux/devm-helpers.h>
+>   #include <linux/hwmon.h>
+>   #include <linux/interrupt.h>
+>   #include <linux/module.h>
+> @@ -493,13 +494,6 @@ static void pwm_fan_cleanup(void *__ctx)
+>   	}
+>   }
+> 
+> -static void pwm_fan_timer_cleanup(void *__ctx)
+> -{
+> -	struct pwm_fan_ctx *ctx = __ctx;
+> -
+> -	timer_shutdown_sync(&ctx->rpm_timer);
+> -}
+> -
+>   static int pwm_fan_probe(struct platform_device *pdev)
+>   {
+>   	struct thermal_cooling_device *cdev;
+> @@ -650,7 +644,7 @@ static int pwm_fan_probe(struct platform_device *pdev)
+>   	}
+> 
+>   	if (ctx->tach_count > 0) {
+> -		ret = devm_add_action_or_reset(dev, pwm_fan_timer_cleanup, ctx);
+> +		ret = devm_timer_autoshutdown(dev, &ctx->rpm_timer);
+>   		if (ret)
+>   			return ret;
+> 
+> @@ -710,7 +704,7 @@ static void pwm_fan_shutdown(struct platform_device *pdev)
+>   {
+>   	struct pwm_fan_ctx *ctx = platform_get_drvdata(pdev);
+> 
+> -	pwm_fan_timer_cleanup(ctx);
+> +	timer_shutdown_sync(&ctx->rpm_timer);
+>   	pwm_fan_cleanup(ctx);
+>   }
 
-
-El mi=C3=A9, 4 nov 2026 a la(s) 6:19=E2=80=AFp.m., Val Packett (val@packett=
-.cool) escribi=C3=B3:
->
-> Hi,
->
-> On 11/4/26 5:54 PM, Andrew Gigena via B4 Relay wrote:
-> > From: Andrew Gigena <mail@andrewgigena.dev>
-> >
-> > Add CAMSS platform data for the Qualcomm SM8150 SoC. The camera
-> > subsystem contains four CSIPHY, four CSID (two full and two lite), two
-> > VFE and two VFE-Lite instances.
-> >
-> > The hardware reuses the existing 3-phase 1.0 CSIPHY, Gen2 CSID and
-> > VFE 17x implementations; the CSIPHY uses the SC8280XP lane register
-> > layout. Add CAMSS_8150 to the version enum and to the shared code
-> > paths, then add the per-block clock, regulator, power domain,
-> > interrupt and interconnect resources.
-> >
-> > Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
-> > ---
-> Wow, what an unbelievable coincidence =E2=80=94 I just went looking for t=
-his and
-> found these patches on gitlab in order to test on the similar sc8180x,
-> and half an hour later you've submitted it to the lists! :D
-> >   .../platform/qcom/camss/camss-csiphy-3ph-1-0.c     |   2 +
-> >   drivers/media/platform/qcom/camss/camss-vfe.c      |   2 +
-> >   drivers/media/platform/qcom/camss/camss.c          | 262 ++++++++++++=
-+++++++++
-> >   drivers/media/platform/qcom/camss/camss.h          |   1 +
-> >   4 files changed, 267 insertions(+)
-> >
-> > diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b=
-/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-> > index dac8d2ecf799..851decb0691e 100644
-> > --- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-> > +++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-> > @@ -1141,6 +1141,7 @@ static bool csiphy_is_gen2(u32 version)
-> >       case CAMSS_8650:
-> >       case CAMSS_8775P:
-> >       case CAMSS_X1E80100:
-> > +     case CAMSS_8150:
-> It should probably go higher in the sort order, before 8250?
-> >               ret =3D true;
-> >               break;
-> >       }
-> > @@ -1236,6 +1237,7 @@ static int csiphy_init(struct csiphy_device *csip=
-hy)
-> >               regs->lane_array_size =3D ARRAY_SIZE(lane_regs_sm8250);
-> >               break;
-> >       case CAMSS_8280XP:
-> > +     case CAMSS_8150:
-> >               regs->lane_regs =3D &lane_regs_sc8280xp[0];
-> >               regs->lane_array_size =3D ARRAY_SIZE(lane_regs_sc8280xp);
-> >               break;
-> Interesting, why do these match 8280xp and not, say, 8250?
-> > diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/me=
-dia/platform/qcom/camss/camss-vfe.c
-> > index 2680a9914765..dd28058e98a7 100644
-> > --- a/drivers/media/platform/qcom/camss/camss-vfe.c
-> > +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-> > @@ -354,6 +354,7 @@ static u32 vfe_src_pad_code(struct vfe_line *line, =
-u32 sink_code,
-> >       case CAMSS_8650:
-> >       case CAMSS_8775P:
-> >       case CAMSS_X1E80100:
-> > +     case CAMSS_8150:
-> Sort order here too
-> >               switch (sink_code) {
-> >               case MEDIA_BUS_FMT_YUYV8_1X16:
-> >               {
-> > @@ -2010,6 +2011,7 @@ static int vfe_bpl_align_rdi(struct vfe_device *v=
-fe)
-> >       case CAMSS_8280XP:
-> >       case CAMSS_8300:
-> >       case CAMSS_845:
-> > +     case CAMSS_8150:
-> >       case CAMSS_8550:
-> >       case CAMSS_8650:
-> >       case CAMSS_8775P:
-> > [..]
->
->
-> Thanks,
-> ~val
->
->
