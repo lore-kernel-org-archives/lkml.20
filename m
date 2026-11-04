@@ -1,72 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793832990;
-	b=NQ58tOtDF0Uet2ztoa+YwrFhRZ0DDvn7WcoH67JNhaqCahPmdeOPenRWvJ5SGvh1wrX9
-	 fjwPXjBraiA+cTBFaVmd7P3h8GsMwAcqIrqqaPmdt7m1w7PRLRao5R3f5diSdaEzxKhVV
-	 TxeBKMMCDOpMLQWOqwEODE7N+I02gC29+gZQod7a9ujmRPw2d7nljDalPl1SYR0CXKhRc
-	 W8j19aTlRdRSPbTOFBVEuE/cgq6qZrZ1dHPH7HDPhwJmXREGaq8D0/2fB3u9dXgeAnxFP
-	 pH47+B72OcKxhHuMS0UPUiFzsUGXv04eOZ+Lh+GbKvnDGLxiyb0sfmL9cYmZDJqEiXA==
+	t=1793833072;
+	b=t3RgKHottfbqRH7TA1Io2APXfrJ91/CpWZ8+QCoKivSVlmZ1DdGHQnhLrWVOJrN18Q72
+	 Wj0NeYquZ7cmk6hdNiNACxwrED8pjjiuixshDZnKXe9Ur5KP0IjNTVaHLhaBbAr+6aChW
+	 9JF3eeqKsURY9tgaP8y51Kp+f5IzGF6KfLB9dmkvFWpv3RKz2gA8zwRd/hEjiD4WsI0Bj
+	 Nubzp1xYxAwzVynFuWtlObebMCY9aqv5fKylGiEY6OLeLDnrO0TGhvgjdgfe+VALuvntQ
+	 gtr/dFcbSlXcA0NlDuCWVwyVmQu1DtEh1s4CE9BGKAZKoyLFWTM8RMApubWirQto87Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793832990;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=BVSlivO0NT5LNZI1ueIGCNvTYScZ1EWmEWcTYGB4ijY=;
-	b=ul3cqsVGBx9N1MIjy5KTGME8+GEVthnihkhaLxMZlmkOCLo0lCnUJdSE7QYonFAmEk53
-	 s5iG7/8VJoQTopreBYXGsxDIwxvtiuP92+2AxhLXh6KW6LEX2TYG7jDzliGLzQyE1QHs2
-	 RJ1xyNmdfz/TeJsLYU982wznv2Xe5isjCzy0c6Dc/3FYJkHqXqS/LNPTNs0oRd9nXPTgc
-	 I6qA+DZUO0cNLSOTuSa+M/RfxKZR4+7l4LIf5/wcFXIYpQTPrkdkV3wET5T78xMvjv2Gd
-	 ctumECabbKHwG3uWHlxJHgg0La8vuDhdkpNSozzSebFaHHIyCfzbOfHsgxBxp1bxTpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793833072;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=bZmm/fjciQHFDsHygF6gqzElYGHv0HpumcgfM0NGUjo=;
+	b=cRNH8KvjQeQ+AJXfVjzLlXtYs58j/SJcaHwrwQAIojpfFhrxDVRGEm+hjSl+aLgwaErx
+	 b8jPhDvR+o01I/zMn8JY3Ic9vAyi3Zat8cC7t8A6dvGS8q0fU5iwnX+LHsYUElmdYem82
+	 dBSzlcVhRgXcdEnwyuDisPYxj3PKUqbRIetua2EeH1VjZfcQjyECAGu9UVlHoTvlmbU4p
+	 k2zGLRrnfm4BCuFd3C7rx5vHWlDE+r4SLB1FJG2iydZDhyNO8NFGEiCZmpkOQRzwxw3AM
+	 YUoIUK6KTFFQanV8sTHZ6XoS12gec2kXPNI2FLhwoX+tUGyNMSFoKcU1D2hc8D+tTeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=k3wfvMt4;
-	arc=none smtp.remote-ip=35.89.44.33
-Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cDfTc7XW;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75733606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:56:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75733606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE6D8606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:57:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE6D8606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=k3wfvMt4
-Received: from eig-obgw-5003b.ext.cloudfilter.net ([10.0.29.155])
-	by cmsmtp with ESMTPS
-	id OIFZx0pqzAR1iOju9xxbCN; Wed, 04 Nov 2026 22:56:30 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id Oju8xGefjbtpUOju9xfbpR; Wed, 04 Nov 2026 22:56:29 +0000
-X-Authority-Analysis: v=2.4 cv=dIqmmPZb c=1 sm=1 tr=0 ts=6aebb81d
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
- a=iox4zFpeAAAA:8 a=A5ctjimnlw7kqC9GiE4A:9 a=QEXdDO2ut3YA:10 a=LP3-5Lh9zdkA:10
- a=WzC6qhA0u3u7Ye7llzcV:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=BVSlivO0NT5LNZI1ueIGCNvTYScZ1EWmEWcTYGB4ijY=; b=k3wfvMt43HLH
-	o5IG+l01Z2G80GAZzp/PNoN/sIzKUSjCy4c4j0ca8xEsdSXfoydWJVjhMvt9ib1gkXxGnRuKR/xZY
-	f/h5zhJuv8K4RfJRImTi68GLumWVPTGbK1gzcQx4UbxOlYHOqHngO09zT5G9Er9S54vxr1PH2v4z1
-	v0a8EeYu9jTvOgvOjKZmNddYvfwICDLgMo+cEbFY+jobEvAT1F8SWk7XqSeIMe5KsifMege2KGx8f
-	eU9xwGE8gA0ITVUtdDBbpQzbSI+tH9WGsiIks6bNznPpxnDsA/ZbkEtEmXLcT9gKUphc3VV5Dbw/u
-	wx3owxMD58aIMaf7ay8wrQ==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:54826)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xOju5-00000001O41-43MB;
-	Thu, 05 Nov 2026 04:26:26 +0530
-Message-ID: <ae9a4df9-b1f2-4f00-ab86-d9cf8d9bc387@roeck-us.net>
-Date: Wed, 4 Nov 2026 14:56:22 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cDfTc7XW
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a214af2076so8994405e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:57:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793833070; x=1794437870; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bZmm/fjciQHFDsHygF6gqzElYGHv0HpumcgfM0NGUjo=;
+        b=cDfTc7XW0ifae+8M1LuPWAwdIdNKakZkFWFnJt6KL55fGa37RQmqkq2uRmhEY7B1n3
+         CaBTcgavNgfBak+NIwaNa3H5fTfJ9PIT5PgZQgH2MazyhDmo4aFllXX0SMasXGEEM9Fl
+         p/51Tb9ZeDWq1NeJnxB9QMyf1cDUO3GXJQBRKRgploH8Le81bwbGb+y13nOzQrXCWpNq
+         F42HKXSHEzc0A6bpTaknb/yOiq64kB0H1wCLiqtk4d1YdokCcUVaxOjocfuDaznMEOXl
+         BFMxyeOdRQgLkukh4xswNJohIqsIMfXRyH1cjs8NbBnWvzJr4LA0LYjw3tAYWNzSjLvS
+         MNIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793833070; x=1794437870;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bZmm/fjciQHFDsHygF6gqzElYGHv0HpumcgfM0NGUjo=;
+        b=1rSC17g9QY7+25xwsbQYRgGvoxeUvj7Ki5687NATRVpQoWGX6bbqkJUZ0KbLCojZEH
+         jyV510ZVdXJWFAnr6dScCVjSHNCViTp5qoBDSY0KMNnCVDOrqQnwr5AVeoLSVtL/ANOf
+         Yx2UXvkS3npAcDdTUvDcYQQc81oImcKRX8kZHiQzXfc1teKvFPjTrPVa2zL345H1ZOjn
+         262EXq5VFQAsb/es4W/MPWJfFT2ucXdYa2KDWnAElEb7Ba4R7hwoplLDDOZIOtLR+OnX
+         b3Qko1rEsjHm98Uyjn9DG1BLBtVuIZiyn4MgHDpXD4qQfvT2NDtHRSrAKoJIRTd2LW8v
+         ZXfg==
+X-Forwarded-Encrypted: i=1; AKwUvBxrSKT0sXI+UwXBWGMkx8RArNlGSgffFuAAM6ck+ILIPI9Oku1TVPra7+pUfODDWww4HTtIHGXAR5/n/5o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9RM+sZ3MNYMuJiyuiFw2hGlzZCilvpj3tjwW2p6waQab9LE2oZ
+	HnRnqUhfne7E2K7/HEbDnIQxf7hcCFSJGBMPMRZxrTiyyFPBLL6Limh8
+X-Gm-Gg: AYBFou2XM970QoYad0RMJlDb3Ra0PslyPOma0xuVvaHGR8KiJwy6Z99+wmUeJGa6FTE
+	TlMRNRka1bVALuYs7YxVc1Fqae3qExlOHPiDR1/vy8DtAINpElIPQeM72ZuIAz7MODbjN3dJWFO
+	hH97lK/tSHsYME+jESeXa2ws7kiprNiUPwpEshYd+uDH79lL3Fqhl6OclsrmNJFZnOcmIfdud8V
+	QNpSsur40i0WIMUr0HpSJmMs1VCRND8Fu+JQZ1xjkOMrdvkt2Naoku2Q2V0+is7LTeeAk4OElob
+	PGy1A/B/NbbQ80TthGkZahrgZpkBMudihpimXmAuaXhFWGpe1wX52JKknAf6nb5MOXc3KmZhqxn
+	eyDFgb2D8TebglPO68yb/tiqZKi2OYHZWqXg2UTPgskq4pS4Rk1QYtHajYzejAwyxGL0rXPMjHQ
+	SsN86Vgea4L3KbJiSgPStH1Y6qscEWkyb2RSJXM25LVaVm/BtmtYKc54PYN/k59TsnKxZMWD7Sx
+	KL45JdYEU1CntI7PqySYKCfgzqCrWgbaNxFU5jA7qvI+vXqOBRJI0ElcGQdhZ5WC9/SpKCl6Gfe
+	LlIhWn/r4QVa6cx9XqfTSr4=
+X-Received: by 2002:a05:600c:6212:b0:4b0:a7aa:843 with SMTP id 5b1f17b1804b1-4b0a7aa0a54mr222825565e9.25.1793833070285;
+        Wed, 04 Nov 2026 14:57:50 -0800 (PST)
+Received: from [192.168.1.22] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b5725061e1sm17756545e9.7.2026.11.04.14.57.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 14:57:49 -0800 (PST)
+Message-ID: <93d13781-0c37-4a3c-8fca-6f8108eff35a@gmail.com>
+Date: Wed, 4 Nov 2026 23:57:47 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,190 +93,53 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 0/4] hwmon: Add fan tachometer support for Raspberry
- Pi RP1
-To: Andrea della Porta <andrea.porta@suse.com>
-Cc: Gary Guo <gary@garyguo.net>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
- <ukleinek@kernel.org>, Ray Jui <rjui@broadcom.com>,
- Scott Branden <sbranden@broadcom.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Gregor Herburger <gregor.herburger@linutronix.de>,
- Stanimir Varbanov <svarbanov@suse.de>, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-pwm@vger.kernel.org,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-References: <cover.1792748690.git.andrea.porta@suse.com>
- <7df58d42-517c-4936-88b0-9d044d30882c@roeck-us.net>
- <auBzvB8TsvIK8Hik@apocalypse>
- <53a4b4bb-271c-4d2d-a9e4-cec4e0ce214b@roeck-us.net>
- <DMFPE71J8205.3FZKD5BKW3U7C@garyguo.net>
- <b02b4f0b-ad2c-453a-b69c-a0865a333d62@roeck-us.net>
- <auIotAwnOWKNApjp@apocalypse> <aus2Ra_sLySMZU1i@apocalypse>
+Subject: Re: [PATCH v5 1/4] mm/rmap: duplicate a PMD mapping as one in
+ folio_dup_file_rmap_pmd()
+To: Konstantin Khorenko <khorenko@virtuozzo.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Peter Xu <peterx@redhat.com>
+Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
+ =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>,
+ Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>,
+ linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
+ stable@vger.kernel.org
+References: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-0-c56d0d26f970@virtuozzo.com>
+ <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-1-c56d0d26f970@virtuozzo.com>
 Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <aus2Ra_sLySMZU1i@apocalypse>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-1-c56d0d26f970@virtuozzo.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xOju5-00000001O41-43MB
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:54826
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 20
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfOvq259kBQ4g0DmKWIjDxjkdr3w7d5LhVEwXH/dWv/wDiHjpb8pwCSijAVS4zb5Il9QyuVjUHZ2UxOo/IeywkPIjduXAdym//QSFI30hglDQY5xDSWsD
- VZisw5O76ECy0rp550IV4ysr7rtA98DveWF8LJYTlbb88IgU7CB1DzHvpWR4sy1K0Gddg+4C+mT1K0eIu5qcsYPDRAWEfkUe/DQEZp9OGO33DxM5tbz/swfH
 
-On 11/4/26 05:42, Andrea della Porta wrote:
-> Hi,
+On 11/4/26 9:40 PM, Konstantin Khorenko wrote:
+> folio_dup_file_rmap_pmd() passes PGTABLE_LEVEL_PTE to
+> __folio_dup_file_rmap() for HPAGE_PMD_NR pages, so it adds HPAGE_PMD_NR
+> PTE mappings to the folio instead of one PMD mapping.
 > 
-> On 17:54 Wed 28 Oct     , Andrea della Porta wrote:
->> On 09:13 Tue 27 Oct     , Guenter Roeck wrote:
->>> On Tue, Oct 27, 2026 at 10:51:15PM +0800, Gary Guo wrote:
->>>> On Tue Oct 27, 2026 at 9:48 PM CST, Guenter Roeck wrote:
->>>>> On Tue, Oct 27, 2026 at 10:49:48AM +0100, Andrea della Porta wrote:
->>>>>> Hi Guenter,
->>>>>>
->>>>>> Yes, I also proposed that in the cover letter because auxbus seems also a viable
->>>>>> solution.
->>>>>>
->>>>>> The current implementation is a consequence to the discussion about the companion
->>>>>> PWM driver, from here (and the revisions that followed):
->>>>>>
->>>>>> https://lore.kernel.org/all/cover.1775223441.git.andrea.porta@suse.com/
->>>>>>
->>>>>> To give a short and hopefully coherent view of the decisions, here's a breakdown:
->>>>>>
->>>>>> - first proposal: PWM driver + fan hwmon (to read the RPM), all in the same driver
->>>>>>
->>>>>> - V2: Uwe preferred to split the PWM driver from the hwmon one, so the hwmon was
->>>>>>    dropped from teh PWM driver in favor of a future (fan) driver. To accomplish this,
->>>>>>    I moved from readl/writel to regmap + syscon.
->>>>>>
->>>>>> - V8: Gary proposed to export a function to read the fan RPM as a viable
->>>>>>    solution. As a result, the regmap/syscon was dropped as it was no longer needed
->>>>>>    and the function has been exported from the PWM driver
->>>>>>
->>>>>> - new patchset for fan driver: the now independent hwmon moodle just call the
->>>>>>    exported function from thw PWM driver.
->>>>>>
->>>>>> If the auxiliary bus is indeed the preferred approach, I'd like to ensure we are
->>>>>> all aligned, as this would also require refactoring the PWM driver.
->>>>>>
->>>>>
->>>>> Let's say it that way: If you don't want to implement the auxiliary driver,
->>>>> and you insist using the exported function, I would prefer for you to go back
->>>>> to the first solution. The one thing I really dislike is conceptually broken
->>>>> code, and I consider the current approach broken. Your call, but the one thing
->>>>> I won't accept is the code with the exported function.
->>>>
->>>> I agree on the auxiliary driver part. However, I don't think EXPORT_SYMBOL_NS is
->>>> an issue, and regmap is not the right fit here:
->>>>
->>>> - Previous version of the PWM1 patch series publish regmap using
->>>>    of_syscon_register_regmap, but this cannot be undone -- which needs to happen
->>>>    on PWM device unbind (the RP1 PWM device is itself platform device, but RP1
->>>>    chip itself is PCIe device which must be removable).
->>>>
->>>> - The tachometer register is not its own separate register, but rather (re)using
->>>>    the phase control register. The phase control is not implemented in the RP1
->>>>    PWM driver on the list yet, so this is currently a simple register read -- I
->>>>    can see that RP1 PWM driver need to take special care to about the tachometer
->>>>    reading if the phase control is implemented.
->>>>
->>>>    For the two reasons above, I think the way that tachometer is read should
->>>>    really be an implementation detail of the PWM driver and not for the hwmon
->>>>    driver to worry about, so I suggested using EXPORT_SYMBOL_NS.
->>>>
->>>> - EXPORT_SYMBOL_NS is the documented way for exposing functionality from parent
->>>>    device to auxiliary drivers: https://docs.kernel.org/driver-api/auxiliary_bus.html
->>>>
->>>
->>> Let's agree to disagree, and keep the code in the pwm subsystem.
->>
->> And auxiliary bus it will be. I propose the following:
->>
->> - drivers/pwm/pwm-rp1.c: create an auxiliary device for the fan. The function to read
->>    the RPM will not be exported, but a function pointer will be passed through the
->>    private data to the fan driver. No need for regmap. To be taken by Uwe.
->>
->> - drivers/hwmon/rp1-hwmon.c: The auxiliary driver is probed against the device registered
->>    by the pwm driver. No imported function. To be taken by Guenter.
->>
->> In this way, we decouple the two drivers and we leverage the auxiliary bus paradigm.
->> Also, no DT node needed for the fan.
->>
->> Do we all agree on this approach?
+> The helper has no caller yet, the next patch adds the first one. Pass
+> PGTABLE_LEVEL_PMD, as folio_try_dup_anon_rmap_pmd() does.
 > 
-> A gentle reminder about this inquiry. Before refactoring both the PWM and the fan
-> driver I'd like to be sure that the proposed approach is at least acceptable.
-> 
+> Fixes: d8ef5e311d7b ("mm/rmap: convert page_dup_file_rmap() to folio_dup_file_rmap_[pte|ptes|pmd]()")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
 
-This is just as bad as the exported symbol, as it creates a cross-module dependency
-which I would strongly prefer to avoid. Given that this is actually suggested
-in the guidance for auxiliary drivers (shiver), lets just keep the EXPORT_SYMBOL_NS
-approach after all.
+LGTM:
 
-Guenter
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 
+-- 
+cheers,
+jose a. p-a
