@@ -1,57 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793757696;
-	b=osX4m+L9bGAdjbTuNC9ggG/4DbFtXRAXTpjLeq8qBQ2TAvCCSv43lkADdBnddyJNS20F
-	 iljA56vfkacvbKcOMA12rI25Ugfu5VHNClUM8WjSLsENY6kFYMRo7FOPCq1hafKZGOV9l
-	 rWsN9aMPqPxvQhisqVX22YOmrydhsz8Lb/BOcVN/Nx8hydtLlvThRrrN/YNsYPkgSLM3k
-	 nHEkw2rrQzTdM4sCNc/H5L6hDU4HcsowT/zQSG9Kg2EmjwgTXoSxZNbFhkxhtLGQGXGr/
-	 ZwcCUxwWV3P3gk7+r6lJYO8l8nn/TJNd/XdCs5HnbXdofqbGlg/JroJhafptc18puvw==
+	t=1793757759;
+	b=l7bZSSjt3m0Eo5au0hmHXAEGkrCfQSnsrh1T0H/kzUNatclhLPD078aqCtbO8WojOAjI
+	 JG+J4n3ha5tRFeGW1/WCQg/LZo3N9jYfNlkDXMmzcnxVVoS23ZcGbiISVXSC72skjX/Sd
+	 rFFaoLWPM5c3w82J1n7e81RbQTfARC1/LJUJ30b8KO70yn6jG17cb1efMi8qB1DBnzzmb
+	 M7VSTSkwpS5XfO6OKA3SxD64OMO5mNrDIzgoxdSQWWI3q3hJCAiDxNk10icepRZts4Ase
+	 9QL6SIen23Bap1sYyp6RfgnqgEv8MYjj7a1pZZh8Ytg8aBMHnko0WQzrJRron6h5uoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793757696;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=d3tRwg+6kmWQPvDHfDb0iceVZog2ETjF6XYA5PmVuHA=;
-	b=geGYTI07HDzYJTlzgzISiW5iRWsOwVMUNJyNu3TMRYjgGRRbPZDnt59cYNVpur01LISA
-	 qQ8nRQZgNUfx619t6jGP5nXLnIpwayg1K0OexNW1rUV94LtSnnsZgq/7LQDlNljrzOMS7
-	 vyexQngB3BezBfjWAC/AXUC6hAuiGm1F3Hb7PhK36LvIpF/7EcnVMVFXxqXOtnxE+8faJ
-	 dCq3atxYgit9sNnBPZ7e8i/ykrARC9MMI6gANC0wrbGRCQ014Q+nQ0P4LNSZFT3cf1loy
-	 61Gjoh069GbfXkdqzAtfDs+eIbU/O+3WrixR8MN9p/ls1vurgmSSJLseXM7MitOaNNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793757759;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=32vAGZ/a1y3hLPzftJbPpOIZU7el/7vO9DaLkQmD4nw=;
+	b=ng0ddJXb1THa/+IL60DtNjAMXp4PVzmw7DpbHOD5mmruaYEO6oxio0rRreCMbX8Nd9/H
+	 xoKFLuNaKtDl3Z+FA5tZyMkOHwLaWCu+nIeYel2Ve3EzT3h8pwjR9vvI9YRnxTUhNnhFL
+	 MaiJ5kS3p7CIEvyBOHYvRyrP3Eqkv9MVWVo3iqk6IJto2vlKvAurgyFZNVE/1g2d6wYEK
+	 WTA0FqppRGObK0xlo6MxsDPn57Plfxu6bFWlu33tkdENkGnZlfHXJuclr2GghzwQYZJWI
+	 r5PG0AuEAbYuD4QEyyVV9EXdn9htcRZ3ZEUuXt96fmEuV2Mwd/8pP+QeO1f6m/hgDBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GDP5Vhmb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DBCtrizy;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="D/tNRtDn";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C97E5606A31B;
-	Wed,  4 Nov 2026 02:01:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04C7606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 02:02:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D04C7606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GDP5Vhmb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72A011F000C1;
-	Wed,  4 Nov 2026 02:01:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793757695;
-	bh=d3tRwg+6kmWQPvDHfDb0iceVZog2ETjF6XYA5PmVuHA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=GDP5VhmbB7nSGwNTGPLEyf3vLI8zxHVVBt1uzi91T/SK6RPMZqyv3oFq9Yq0GzmWh
-	 CxOHnaklmwm8XGgCPNokFjzObbtRBo087K5X+3sZL4H3m1hOUVNanoZ2lkVAGUnAq3
-	 tzgOp6gsDNIr7MSlFMzka493YKmMPnaLo2dXgmxruG4KvnQeeXThqJj44mX+hzrG4r
-	 lP4ZzXQmxSS+SrIENPp5iuB/bWMF8SbNCLSyia5GtFN+OIRbv33L4F+GIL8arz4XfL
-	 e5jigjCUUunBo2uvWCFa3m0K/lSJsxLGzh47m23fPnf/bqWvvMOhVAIi5L+WRp4Syo
-	 trHXvDnQj8sXA==
-Date: Wed, 4 Nov 2026 02:01:27 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- andy@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com
-Subject: Re: [PATCH v3 2/2] iio: gyro: mpu3050: Fix runtime PM refcount leak
- in trigger enable path
-Message-ID: <20261104020127.4a9d7a2d@jic23-hlaptop>
-In-Reply-To: <20261103092002.1332-3-laixiangwu@cmss.chinamobile.com>
-References: <20261103092002.1332-1-laixiangwu@cmss.chinamobile.com>
-	<20261103092002.1332-3-laixiangwu@cmss.chinamobile.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DBCtrizy;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=D/tNRtDn
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A40RFtM1248580
+	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 02:02:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	32vAGZ/a1y3hLPzftJbPpOIZU7el/7vO9DaLkQmD4nw=; b=DBCtrizyk7dRQcIa
+	g/gOru9rbw3+nT+/G6I9DUmyBcS5kkTXOh/Fzir4LPv1ihThiAHTPM2i3kQUYxo5
+	OZi/Mx1M7ZkJANh+CvNJIDVSeUO6T7wwpkUMphEPntHSoypOiiIZUKBbzJ4ql4L8
+	X5DjOkGbPv4oHZT3TMFuVDpFO54AUsHA4pU+gqnFOVsRTr5W97yyoGRWuhcVf7rf
+	ZAPTmpVPykmHBSCecHL+TIEj5Kom0olIVs0CBpZd7+XhJEryUxlIV+KxfA0IYEra
+	7u0UFZe4Arrg6q6OE30A50zewiIYdX8P3uJL9PQYSU4NkxUGYleCdS2BRvTuKggB
+	DiMGCA==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqpuv90sj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 02:02:37 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ad704d4760so280036a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 18:02:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793757757; x=1794362557; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=32vAGZ/a1y3hLPzftJbPpOIZU7el/7vO9DaLkQmD4nw=;
+        b=D/tNRtDnvxNRwuVXe6dKiEpc6QU/8tSRx74n/CdKuWH+VAnnH/l5QSeq7w10fKumCH
+         zuSvZLRwofqh5GihDnHoe03QFg6g73rdVoUs6VGx4tCahVp+y5U+Px2nWZ+K6YZpooOX
+         0Yk53kLnpGdG4m1U+eBwblmUo5FPc64wJUVN6tsQB7eUySBBRymKZ7pWJbz9BAmy23LK
+         pS4yrbPMLiPqjmZ46Xen485xUCqpEIEKKX9dyKxQqly6UpQYG9JSlFkhrRoouMzBRvgm
+         ubvLe3UaW2ZQ73LCxUX3eZ4oAIVkO56gzWWdekz6e/GxdAHSOdGoOcM7bkDY6CZ81iW3
+         mhLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793757757; x=1794362557;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=32vAGZ/a1y3hLPzftJbPpOIZU7el/7vO9DaLkQmD4nw=;
+        b=P/GGWFrJWDtEgFAEDktLOkFJT2p3F5l+xjmq/+uJKDOZvkLA9J9S5kPHy6lrrDd91v
+         kw5yUWHFhGbIdMIEvJwGNLf3XtebTwW4UUTLX4JSc2rIr7rZ2j7qoQ2uKwzY4Y2fRkvn
+         wl+zVTphh+wIITI4Umpj+7balQ8re9rXp+Vu9lUZ/uSJeTlCofGm2AtBjesOvnkTbY21
+         0qMPGe1GwgVj8uCehncXzKG6eNJt4ioBIxSAzagaKsGN8rjqSwnSQDZx/mUGg/mz0zeG
+         djenqU/9S47AUV+KhfjpnZLRb7C58r9vpBAEpa6fTW5fJfqDBBI9f2g2At6qjPy7ZRu+
+         jkSA==
+X-Forwarded-Encrypted: i=1; AKwUvByGvTh6vT1/9oCoSK31Hg8CEu1JIru2AkXGkUVS3EumDie1UFhiy4ArGDyGJjQSFrU6AGNCYVY22bKHoGM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9nEP/bO0+YLntlt6TVa8DVvy1cpjgzMQSVwHy473CVRki5HcAn
+	cdI362jxTccb0UUEUM02d/YGP8usyU6UC/BnvLHErB3yWXtnpE/mUlCaSIfHuxJ2VQKeFO6F+1F
+	WJp0wt9xu0limB3ATnvRmerEWQt41BnAMc9jCVD2hMhiqKrkAtWX+kyZlDGOknIz0L7I=
+X-Gm-Gg: AYBFou0YkLNpI6NVJGGw7znSu+0PridMKiefy4/q0hQ4iBoarLHnTtYfa/GqKP5ujls
+	WuG5irwhc5lDyvg5xdoVZhoDlGSKA/lQU7L87h1KRy/ml1dP5xGxp1iXX/fhw3j+rvXEMxono/0
+	ZtR/FIgXJ6J5ud9BzwBeA88lzae+l7wbMrQvOdJklUB8Pp4tYmx2ORc84bVj8Mxe6cbG73S3XXO
+	WRrHLok55nMS36fYp0kYJfnmUPH77rllkCyhWz7FUEb34y/2N/BuO8IQNowp5DRF7jUJhU2DHdl
+	ltuRX/PsyldlZaqH6gP5oLGHglshkIaG9J/Xsm3o8z0aQGnkWZBOG21hGSkmaKJgp6DkCS2b2xQ
+	kwz1GYVIn0G+BvpWk7XeMlAvFxXFGxINTUNy3+IEohnnfQP+Et1Dz6+tkd0mz9M9NNbc/NtFNoY
+	e4aJwgnUFxbLOtJO5kGKkXyYgyCTwgDrdlW2Biu25Ot6mC
+X-Received: by 2002:a17:90a:8398:b0:3b0:9984:18c9 with SMTP id 98e67ed59e1d1-3b0998422c1mr266157a91.11.1793757757199;
+        Tue, 03 Nov 2026 18:02:37 -0800 (PST)
+X-Received: by 2002:a17:90a:8398:b0:3b0:9984:18c9 with SMTP id 98e67ed59e1d1-3b0998422c1mr266144a91.11.1793757756626;
+        Tue, 03 Nov 2026 18:02:36 -0800 (PST)
+Received: from [10.133.33.51] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c9928c4sm6947487a91.15.2026.11.03.18.02.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 03 Nov 2026 18:02:36 -0800 (PST)
+Message-ID: <7d07b4b7-42f2-4367-b3f2-aa2ce5258747@oss.qualcomm.com>
+Date: Wed, 4 Nov 2026 10:02:32 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,118 +114,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH ath-next 2/2] wifi: ath12k: refactor m3 and aux_uc
+ firmware memory handling
+To: Madhavan Ganesan <madhavan.ganesan@oss.qualcomm.com>,
+        Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+        linux-kernel@vger.kernel.org
+References: <20261103-m3_and_aux_ucode-v1-0-e14f13fdfa41@oss.qualcomm.com>
+ <20261103-m3_and_aux_ucode-v1-2-e14f13fdfa41@oss.qualcomm.com>
+From: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20261103-m3_and_aux_ucode-v1-2-e14f13fdfa41@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=O6SsLx9W c=1 sm=1 tr=0 ts=6aea923e cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=j5APcU90v0LWm_mwTeIA:9 a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-ORIG-GUID: rTVnL6snDzqupdYWIRhZhnRbbMs1X3FE
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAwNyBTYWx0ZWRfXw7fkpi1i9v4i
+ HIlLXvoDDLG4N9d1ob9LFZKEqaUXIDYhOeD5zDeTk+RxDuzqY7sCnbiUyo4AKyBJ8XlE1TBawJk
+ x6epGFe0PLTHiMkEpqwG4OmcUl4tg0M=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAwNyBTYWx0ZWRfX9Wpz6SKAAOTj
+ CLzkSbX1J4qLSXzZ0Zp2DMwKy8Nkm2KH7FYUQlu6lCFPv5VX/aba8w3Un29CXc9ljPKexm94cqX
+ D7tvTNOYDNllB02n3x7/LQ5/RlY/wWW2z1H1UmhiMp/Ofi4D6BFmYVgYBmbqxSBLo2wcd4p7DYu
+ x9hqaiqkSTuAsjIY0bBD4JSzoRjhVhcCIblXIiYOcZFXxXbtP1ILyO+0JYkWB8zhvT9E+lEZndv
+ h6K6YeboUtkxWCWrrZ2Lx0C35gloWdSok24/rIaXivt7TdTSvIsp9GhuFUPnMIAmUaa97lQuuOU
+ YzdBZG4TuF53wAi7gcM91xMLb2vpXykC3Z6KvQ1y8CwOk8nPGoMyuifDuGX53ko0GO9swEKB53g
+ KMa+V4Z8VjiVx+TuDs/n16n16ccPx3N6Lon085EDPwDGaB+eCuw7xHizcD88Hq7/+eAcd4rx//k
+ CvgGCMXPzcOdaKtfh7g==
+X-Proofpoint-GUID: rTVnL6snDzqupdYWIRhZhnRbbMs1X3FE
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_01,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 clxscore=1015 spamscore=0 suspectscore=0
+ priorityscore=1501 lowpriorityscore=0 phishscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040007
 
-On Tue,  3 Nov 2026 17:20:02 +0800
-Xiangwu Lai <laixiangwu@cmss.chinamobile.com> wrote:
 
-> From: laixiangwu <laixiangwu@cmss.chinamobile.com>
-> 
-> mpu3050_drdy_trigger_enable() calls pm_runtime_get_sync() when
-> enabling the data ready trigger, but all five error returns in the
-> enable path return directly without the matching
-> pm_runtime_put_autosuspend(). The disable path, in contrast, drops
-> the reference correctly.
-> 
-> As a result, a failed trigger enable leaves the runtime PM usage
-> counter incremented and the sensor can never runtime suspend. It also
-> leaves hw_irq_trigger set to true, claiming the hardware IRQ is in
-> use when it is not.
-> 
-> Use pm_runtime_resume_and_get(), which does not leave the usage
-> counter incremented when resume fails, and add an error label that
-> drops the runtime PM reference and clears hw_irq_trigger so that a
-> failed enable returns with the device in the same state as before
-> the attempt.
-> 
-> Fixes: 3904b28efb2c ("iio: gyro: Add driver for the MPU-3050 gyroscope")
-> Signed-off-by: laixiangwu <laixiangwu@cmss.chinamobile.com>
 
-Other than the missing error return I called out in the previous patch this
-looks fine.
+On 11/4/2026 1:26 AM, Madhavan Ganesan wrote:
+> ath12k_qmi_m3_free()/ath12k_qmi_m3_load() and
+> ath12k_qmi_aux_uc_free()/ath12k_qmi_aux_uc_load() implement identical
+> logic for freeing a DMA-coherent firmware memory region and for
+> loading firmware into it (reuse existing buffer if large enough,
+> otherwise free and reallocate, falling back to a standalone firmware
+> file when no embedded data is present).
+> 
+> Factor the common logic into ath12k_qmi_free_mem_region() and
+> ath12k_qmi_fw_mem_load(), and have the m3 and aux_uc wrappers call
+> into them with the appropriate struct ath12k_fw_mem_region and
+> firmware file name. The shared free helper also clears paddr, which
+> the previous per-region implementations missed.
 
-> ---
-> 
-> Changes in v3:
-> - none; reposted in a new top-level thread.
-> 
-> Changes in v2:
-> - Rebase the fix on a new precursor patch that splits the enable and
->   disable paths of mpu3050_drdy_trigger_set_state() into separate
->   helpers, as suggested by the reviewer, so the error label only
->   applies to the enable path.
-> - Use pm_runtime_resume_and_get() instead of pm_runtime_get_sync(),
->   as suggested by the reviewer; it also keeps the usage counter
->   balanced when the resume fails, so no manual
->   pm_runtime_put_noidle() is needed in the caller.
-> 
-> Link: https://lore.kernel.org/r/20261101092327.197-3-laixiangwu@cmss.chinamobile.com
-> Link: https://lore.kernel.org/r/20261030084305.1660-1-laixiangwu@cmss.chinamobile.com
->  drivers/iio/gyro/mpu3050-core.c | 21 +++++++++++++++------
->  1 file changed, 15 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/iio/gyro/mpu3050-core.c b/drivers/iio/gyro/mpu3050-core.c
-> index d966911ab..fc305564d 100644
-> --- a/drivers/iio/gyro/mpu3050-core.c
-> +++ b/drivers/iio/gyro/mpu3050-core.c
-> @@ -957,20 +957,23 @@ static int mpu3050_drdy_trigger_enable(struct mpu3050 *mpu3050)
->  	unsigned int val;
->  	int ret;
->  
-> -	pm_runtime_get_sync(mpu3050->dev);
-> +	ret = pm_runtime_resume_and_get(mpu3050->dev);
-> +	if (ret)
-> +		return ret;
-> +
->  	mpu3050->hw_irq_trigger = true;
->  
->  	/* Disable all things in the FIFO */
->  	ret = regmap_write(mpu3050->map, MPU3050_FIFO_EN, 0);
->  	if (ret)
-> -		return ret;
-> +		goto err_put_pm;
->  
->  	/* Reset and enable the FIFO */
->  	ret = regmap_set_bits(mpu3050->map, MPU3050_USR_CTRL,
->  			      MPU3050_USR_CTRL_FIFO_EN |
->  			      MPU3050_USR_CTRL_FIFO_RST);
->  	if (ret)
-> -		return ret;
-> +		goto err_put_pm;
->  
->  	mpu3050->pending_fifo_footer = false;
->  
-> @@ -982,12 +985,12 @@ static int mpu3050_drdy_trigger_enable(struct mpu3050 *mpu3050)
->  			   MPU3050_FIFO_EN_GYRO_ZOUT |
->  			   MPU3050_FIFO_EN_FOOTER);
->  	if (ret)
-> -		return ret;
-> +		goto err_put_pm;
->  
->  	/* Configure the sample engine */
->  	ret = mpu3050_start_sampling(mpu3050);
->  	if (ret)
-> -		return ret;
-> +		goto err_put_pm;
->  
->  	/* Clear IRQ flag */
->  	ret = regmap_read(mpu3050->map, MPU3050_INT_STATUS, &val);
-> @@ -1006,9 +1009,15 @@ static int mpu3050_drdy_trigger_enable(struct mpu3050 *mpu3050)
->  
->  	ret = regmap_write(mpu3050->map, MPU3050_INT_CFG, val);
->  	if (ret)
-> -		return ret;
-> +		goto err_put_pm;
->  
->  	return 0;
-> +
-> +err_put_pm:
-> +	pm_runtime_put_autosuspend(mpu3050->dev);
-> +	mpu3050->hw_irq_trigger = false;
-> +
-> +	return ret;
->  }
->  
->  /**
-
+I don't see that paddr is cleared in ath12k_qmi_free_mem_region()
