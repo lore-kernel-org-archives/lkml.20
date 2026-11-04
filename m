@@ -1,127 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793825069;
-	b=scpSYFXW/e3u7V/pNu/MrLtL040fUtgPJpkVuQdes6aJM7qc2z+fKp0A9RURXNVKTyCp
-	 maMXfwJd3v7sPWnWiJedMoa7z/XCXwLrLutbyThZpqiAdUhXJHhh+hk+tQRze4YC/qJ4f
-	 Ttco910N9P6thpDcYNYEPo0+R9HgBbwlJfzLI/d0dXYUpSSXHz47hpZmDUFmGerceZ+x2
-	 qT/AHSH2WWuNB5f1fX+ov2yVI3X+LIaBTDSrr/PFqfbKqb5n8FjMCCUbq3V0rlPkK+qGm
-	 IodLBNRRLA8llMNq1JVWNE8A9Ir+6ScWEE+fUjS3nfsgF2Vbg84eroWDZPNRQRS25rg==
+	t=1793825122;
+	b=pJrYmjG9S+AbTQJufrctyuOGJ2WJ56WEwdlm7KrBTzElKa4nsZV2OOg4jRA02HiZP6pa
+	 xDHACaeGF2gVu8Xdqh8EpJYzxNb6Q4x73p38PqlJpUx8njHY7zA98NLEba6nXiEd4mN37
+	 ZXPJDK+7niyTCZ8L01gbnXRDosMi31G8kQQdyiC7bxgqBPNMfQ/h8zzf/UjR78W5kPvzW
+	 Qdtt/3OXlV4z098L+XBOmdZmP/sSnReDJZ9ETD43C8ugewj+iO6IjfsJAUlE1+ZYf3Tek
+	 h34r0AQvdac38HFleAp3Y/X5x97BxnI0N9rJF2xirbB9yYeMG3leh43v/JlweWc3ERQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793825069;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=Fu3Aq2hefSzjwRV+KYEz/CG5s0UvrmJ9SoczCNw172g=;
-	b=jUMwUB2pGNRGBvlmSSZ2sej7IWE45CheTjA22oYEvpZWTmaZjV04W+Egw3ahyQl/TKIu
-	 wqkF4B6tJOghhyfmZ8Sqp7oGQSNTlLnxIDaYGdg1cw9iUx/SOjCaZn+FFYKRl+QZIeRxD
-	 mrwnsl7Mpb4u6JPujvmOJKI1RobZknERfG0xu7vvRcGLhjwxIqZhoEBGNTQ7rrti1f74s
-	 xhWOD4xQZ7Y5lPGyefUjk8gf7i91pfJpvpWinSWL9jn+8KGMLGVRpdrYI3rUQGCzxVJCU
-	 NPw8gppHp9vsMgJjzhMk63jTm6u/dz7Oq1+rP4eZXZqihzloi1UDCqff6crJS3aa+3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793825122;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=FFyElV0JGp89hQTPXMOgAiCtnc9VkWZMulp2A1EvBCw=;
+	b=ImY5puZANy+TM6vP4ro7DtbHXuECrsGmurvMrrevyExyd4zHVtZRy03NiB4D4tahg1y1
+	 kD5FO4iHWaZFwsW8mHP5816EjtNxCPhpmDv7JYBGFskG5wjY2qjydv3fdFJia+hIYGmL3
+	 dzvEiqWkj9fBZNgPo6WlYvLBQy0km+mo6gI80JiJ1MbdNXXYKe525GeItDstQnbb3IJK/
+	 Mx7O0Qo3oKFua2sNGpuhTVSB4zPBNGLrzE82cI/ZAmwQ+0LHe9Nom3cjocTwYXoMZgQ8P
+	 l8/JkGwE/gtrrLzn327hgHNxcun0V3ZlOW1Mk65nZvInbNOlxBOcqqoXgTpS4Twck6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NRcZ9DVE;
-	arc=none smtp.remote-ip=192.198.163.18
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=toxicpanda.com;
+	spf=pass smtp.mailfrom=toxicpanda.com;
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=fQ4rD7Ol;
+	arc=none smtp.remote-ip=209.85.160.181
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 871FB606C474;
-	Wed,  4 Nov 2026 20:44:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 871FB606C474
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD0166077B54
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:45:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD0166077B54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NRcZ9DVE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793825069; x=1825361069;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=5sRT5I+m6KfQYFE3k27dO5MxaZynzJhyPdFPDxcOiE4=;
-  b=NRcZ9DVEyB+z8PNUWWN1k1TwNJsHkHLB0RkIhXNi8OPPaumAbXwdBusb
-   XJ0tRswIwk/HAI3U08NCdw8gSsd3fdHfsZGvIoakFFNjw3AMbhwBsxdvZ
-   MF+IFI3N8G6s1cU9TZ6nu2D7Quh3Bd9w77S64rw1QFG76PE3tzcAH+cza
-   JCV/7ImeaR645m5dp2GIWnI4RcctcQ0zYSIyQaI33Sl40LNLVHUHPcJ9D
-   cTDOV5DlxtAWFgmxbMxz9PHoa3W0Xhp07+B1RPDbNL/WVi6i07ag3i3h7
-   qw4i8gPp7H9DXoutExRukI4yyUua1UoY5hgyDVfZhouA34dOrNySljHLr
-   A==;
-X-CSE-ConnectionGUID: cgj6GuddQxikonAe3XzAzw==
-X-CSE-MsgGUID: QaA/9LqTSF+vPlF64EPJbA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2635160"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2635160"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:44:28 -0800
-X-CSE-ConnectionGUID: EZ1+q8OlT/uYk59yq1HNAg==
-X-CSE-MsgGUID: icBbDpEQTOuZLO4D8LrQjw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="7215296"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:44:16 -0800
-Date: Wed, 4 Nov 2026 22:44:13 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Frank.Li@oss.nxp.com, Mark Brown <broonie@kernel.org>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Radu Pirea <radu_nicolae.pirea@upb.ro>,
-	CL Wang <cl634@andestech.com>,
-	Ryan Wanner <ryan.wanner@microchip.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Vladimir Oltean <olteanv@gmail.com>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>,
-	Haibo Chen <haibo.chen@nxp.com>, Linus Walleij <linusw@kernel.org>,
-	Daniel Mack <daniel@zonque.org>,
-	Haojian Zhuang <haojian.zhuang@gmail.com>,
-	Robert Jarzmik <robert.jarzmik@free.fr>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>, Yixun Lan <dlan@kernel.org>,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Alain Volmat <alain.volmat@foss.st.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Sowjanya Komatineni <skomatineni@nvidia.com>,
-	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	"open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
-	"moderated list:ARM/Microchip (AT91) SoC support" <linux-arm-kernel@lists.infradead.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE" <linux-rpi-kernel@lists.infradead.org>,
-	"open list:FREESCALE DSPI DRIVER" <imx@lists.linux.dev>,
-	"open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
-	"open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
-	"open list:RENESAS RZ/V2H(P) RSPI DRIVER" <linux-renesas-soc@vger.kernel.org>,
-	"open list:SAMSUNG SPI DRIVERS" <linux-samsung-soc@vger.kernel.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>,
-	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>,
-	"open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
-	"open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
-	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Thierry Reding <treding@nvidia.com>
-Subject: Re: [PATCH v2 1/1] spi: use dmaengine_desc_set_callback()
-Message-ID: <auuZHTvr5UI9Q9Q4@ashevche-desk.local>
-References: <20261104152253.3279052-1-Frank.Li@oss.nxp.com>
- <b656861c-a087-4087-952e-91fd15fadd52@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=fQ4rD7Ol
+Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-54465f79af8so9958621cf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:45:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda.com; s=google; t=1793825121; x=1794429921; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FFyElV0JGp89hQTPXMOgAiCtnc9VkWZMulp2A1EvBCw=;
+        b=fQ4rD7OlgZ1AHHMJIiqoY7rklz7cTMHvKZOCzhhFEN+Y4cBrK4y+ymWwQpmMR/v57q
+         qzNB3cnm9BTN0I2DWpswNhTw+8lHIgS63B94aURnhDjmVHb3MDYbAc1KdxaoI4y6Ztai
+         +ivorZNFvpAgZpDQq0S2xDYk4Pc54ttUwDTzHxsTrxsVNI6qFRAQfBkMP0fewHHDz3Sb
+         qjKhrkVX/ioqmYQfn5hLa5niWTuOwalq8Bt/dtctMbNArNrOi9kA+dwwU2EDzpRbwq5/
+         WHRnW9Kf3SV9VlIAl1VRtgmYe9be2K9RJf9mN0fyQDT18w2h3K5FDS23qJjXG4z1rfkm
+         hugg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793825121; x=1794429921;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FFyElV0JGp89hQTPXMOgAiCtnc9VkWZMulp2A1EvBCw=;
+        b=u8lhRw+4v8KS7am0MExxT4Buiz3aBFoYNgyQ1uCRKeqoj79oaOazroIOqOd89C8NEn
+         FKrK26ujeZNfGY+L/EcfvI436VswN7XIiYpdW35fK2nbNf/eOYvAclHei7Sa+IJxTS56
+         M/nWc9/3Wd98IozVOnO+8C2TEoxEbI4PBU0J+FCXIrM7198YFL1bK1Tk3r4EfVxfRNKQ
+         2cx4akhIP2PHNvRsWGhpQ3jE1ywhmA1nOgcDO2U8GTRMt428TlPcFE9u4q++Ps6MR/h/
+         H2EKBV+ICMyc4aCziEduko9HsfYUmiUpqnloujRZ9cmIoQtlxbkt3ztjNJm4rnDHb3kH
+         uCtA==
+X-Forwarded-Encrypted: i=1; AKwUvBxcmKFIghyfhod5X7wqfDA7Z5EMNYGwDgNw+2I0qasHmWan5ennO2GrVv8Nghr0ILgW8lPIQ0tPZUITYhs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9wTiUSrt3Wm9qzqW5UnZztqu0XNspZMGBUQChj5/e/LBsgh+Y7
+	XgiJ92F49cppinXfFJmzkSirUNTpcEOxMvQ5PurMdgXJDNbezhxt26Zlls/P5x8kx2U=
+X-Gm-Gg: AYBFou2t6dLfx7ZhSVdsTGr1FO6s+HmGDjB7Mi8zCAN4vOxvhCEZSOuwdihPkDf66Hf
+	7j24sgxsUGtReq2pY++kbw9cHtoyhXYtoYi0otbKopLVYdSvCFeQtIFpfzp4gQvJo/l0aZNCWzM
+	llzx5j0dUvTqGCYWlIAUwBSHPgvVR/jnXKDr+P/+fyWnhCJ/7cj4R8iiCSI8gX/YKmKJCq959XX
+	yUPw/KLRmfWDlTMuUauAE0BYUrUjyKLjpPOE+6O9ymlVlwxm1mpu3JhrtpiCnOzBQY4XK3+kK+Y
+	sEBMfe2Jxz8xSCtRLlF5o3ijlAuxLa7YQfjjGw+DV96KAxa2U1iOKF79Ef4O8oV38JTCGqg0piE
+	MeQIJMdmO/RKPxG2lUv/za+XJZS3y5GwZc8n4ihEWPVAlO3PtziRWXvbGp34SFWpZYb0aZDfcLg
+	ySDpubuX5jhYKkPR0o1EzOCW6FmCWvseLrl5ZvoLwdR04XQUCkZ57JFXtsY7hWkcwdQ8u4ZTvRQ
+	CoObmnl9HjC/PSv0MInubvrz7y5qB3EvW5xgpHv04RMe0anw4dnfWof4FII6mObaI0ioX0w/a8U
+	auBsbwv8zE1xoleWvZKfbv6pA8WmYZuR6eF40bW9m3FWBA==
+X-Received: by 2002:a05:622a:38e:b0:536:3760:e6cb with SMTP id d75a77b69052e-542b6781aa8mr290505121cf.14.1793825120793;
+        Wed, 04 Nov 2026 12:45:20 -0800 (PST)
+Received: from toxicpanda.com ([153.61.196.240])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54b100ab8e4sm33768751cf.7.2026.11.04.12.45.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 12:45:19 -0800 (PST)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Wed, 04 Nov 2026 20:45:00 +0000
+Subject: [PATCH v3 3/8] ovl: make the root inode appear hashed
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -131,47 +92,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b656861c-a087-4087-952e-91fd15fadd52@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-b4-ovl-containerized-sync-v3-3-8daa20144f53@toxicpanda.com>
+References: <20261104-b4-ovl-containerized-sync-v3-0-8daa20144f53@toxicpanda.com>
+In-Reply-To: <20261104-b4-ovl-containerized-sync-v3-0-8daa20144f53@toxicpanda.com>
+To: Miklos Szeredi <miklos@szeredi.hu>, Amir Goldstein <amir73il@gmail.com>, 
+ Christian Brauner <brauner@kernel.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ Christoph Hellwig <hch@infradead.org>, Chris Mason <mason@kernel.org>, 
+ Chengguang Xu <cgxu519@mykernel.net>, linux-unionfs@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1793825112; l=1088;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=ezVCiVHlXduEGN/JKqN233jz7I4B7cGFx2BULYbRDoA=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QORkF2pQNIHUPSjD2pa1aC3HFV9lTWplFwhF2J5CN4s3vwCfVwe1XEffjfEYONUnvhSeIGOq7Kb
+ LRgXuWs/4SgI=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-On Wed, Nov 04, 2026 at 06:25:32PM +0100, Krzysztof Kozlowski wrote:
-> On 04/11/2026 16:22, Frank.Li@oss.nxp.com wrote:
+__mark_inode_dirty() does not put an unhashed inode on a dirty list, and
+the root inode of an overlay is never hashed.  Use inode_fake_hash() on it,
+so that the following patches can track it like any other overlay inode.
 
-...
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+---
+ fs/overlayfs/super.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-> > diff --git a/drivers/spi/atmel-quadspi.c b/drivers/spi/atmel-quadspi.c
-> > index 762a3fb0fca81..de205e04a8600 100644
-> > --- a/drivers/spi/atmel-quadspi.c
-> > +++ b/drivers/spi/atmel-quadspi.c
-> > @@ -790,8 +790,7 @@ static int atmel_qspi_dma_xfer(struct atmel_qspi *aq, struct dma_chan *chan,
-> >  	}
-> >  
-> >  	reinit_completion(&aq->dma_completion);
-> > -	tx->callback = atmel_qspi_dma_callback;
-> > -	tx->callback_param = aq;
-> > +	dmaengine_desc_set_callback(tx, atmel_qspi_dma_callback, NULL, aq);
-> 
-> Andy,
-> These three lines look correct.
-> 
-> LGTM:
-> 
-> Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
-
-As
-
-  Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org> # atmel-quadspi
-
-Note, it's in your power to ask the author to split out what you maintain
-to a separate change. So, it's your choice what to do, Ack the full patch,
-give a partial Rb, ask for a split, ignore reviewing (often means silent
-agreement when maintainer just applies that kind of a patch)
+diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
+index efa4d862039c..55635648b3de 100644
+--- a/fs/overlayfs/super.c
++++ b/fs/overlayfs/super.c
+@@ -1372,6 +1372,11 @@ static struct dentry *ovl_get_root(struct super_block *sb,
+ 	ovl_set_flag(OVL_WHITEOUTS, d_inode(root));
+ 	ovl_dentry_set_flag(OVL_E_CONNECTED, root);
+ 	ovl_set_upperdata(d_inode(root));
++	/*
++	 * Nobody looks the root up by its hash, but __mark_inode_dirty() only
++	 * puts hashed inodes on a dirty list.
++	 */
++	inode_fake_hash(d_inode(root));
+ 	ovl_inode_init(d_inode(root), &oip, ino, fsid);
+ 	WARN_ON(!!IS_CASEFOLDED(d_inode(root)) != ofs->casefold);
+ 	ovl_dentry_init_flags(root, upperdentry, oe, DCACHE_OP_WEAK_REVALIDATE);
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.55.0
 
