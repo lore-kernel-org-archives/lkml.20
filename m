@@ -1,68 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793798795;
-	b=DI/goxnMzxqlLyW4bswFB3s6s56g/I/LoD0A7cWFaxp7/3Mv9twmoQhZbREM36O2i5YQ
-	 tRwfFvFXks4rJGejcxMj5aPoENwct37k/rTjEPKQrAdQdLP+x5IuGdEGTBtt9oAY8jrSX
-	 ubXu+9NYmYzZax5xrRjpnb5Lm4A+/o4o5QVlhlcIKl4+DLkpoSYRTsp39sj+GJJelDyTA
-	 fqt17ZRR95Jk1NEceNy+lRfya7/E/p5bemZI/EuWkOcyAR6iJRR5iIX7hdT6+nahIh757
-	 WVdY7t4M0tzfr1Av+W/aVzQ9vOFpH12kntFEpt1wUK78r+Qasrak6kSTUYEOlGNlUlA==
+	t=1793798798;
+	b=WddtrIDp1Sv07G1u/2zAtJz+lP6tzONXcJPClTllD2/STQqzl4TitNZnLJAmu1QMsfU+
+	 +Oz0rFsJLvJxlNHdpx5DoJ/O0STpqr/7CrRZX8UUi1IqYEoBOilqyCAPxSzm6GLVX2Xep
+	 pr5WMUTFoqAvNqYCNvxNen6UPzd8GRZr9HqiTSYOFvkG3uZiplDNAEDxsliHgY2ehalL5
+	 Cb0kzoesMQtQYT/Gubzf2KOlGj4dz5wEQBybxlkVnyAom9P2pcGRf9menvSwvZsdpXJjp
+	 xKm7l2FfZAECp97r4cK5jlE4aJNUVPq0ljwHSOQPdwzYtnajxhd0USqXnIrG8jqU7kQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793798795;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:User-Agent:MIME-Version:Content-Type;
-	bh=pvQk7gkgjyECtllSEXxMYHx9i1xSAVAK6APJPPvCqm0=;
-	b=rLkcPk7LQHfyatL708vsutixMqJ9wBsJf0co+S1hHRX+48ci3/GhYpUHmjuS9DBI9uth
-	 gwJvf3y9aBuMGyH9I7H0B4o5tQeuBiTA+Fcm4kzxqTYIiVhRlXVYI5H7/E17EzXezu7K2
-	 QGSbEE9AxewaaVsTv1nHgjeusvBc8KlWpsXkn12vF32xrJJravsY5bPo1PHHv3hhT+uVv
-	 sWvb+QMeVqGXGwU5SMw2wqkgk/xblYJDy+QvLByJPdEi/hxZEo2KDhR9OqM8DqOTF9RUC
-	 WZk/DpQyswX2PgK+TauQWGH8D8cvQ3E57GYOLZuJdxEgESK9N4JHC4buxFozs2IuzZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793798798;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=yjmwql2Q0/WWj7I5rUoCbaZQ81/0rY7QHc3z6oUDgjE=;
+	b=cEPetTQvzuan5vv/yVjm5W8yARj79YeGLOx3aPJZkScARqvR+qqglUDxC5ne8AJmsjPt
+	 Yt4f5gCzCL1QjpYJLNYmDb+8nbbuDnSuiMv4er1FllJmCej7EqBSpdMdThctvqjFd/mnW
+	 61TU1aYKygjNJpu3KXhWgr6j+iXpOpfv6K6gqhyO72oIyZQVirG07woUrJccVSSSqMSvP
+	 rzOE5prXQR0YnNEL0g1Bp5l1vxzGJmBnGOsx9jw38AtKC6ZeCOEh0rFR5WI3XTtwBCL0f
+	 hkBJ4Ox/HefSrknKGgjuMFdvYzutIHYwwyES99bEcusQvRzudnSANQNQlbfH2p37Lyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AAQeB94N;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=JHY6z7vu;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF6ED606A31B;
-	Wed,  4 Nov 2026 13:26:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 902C3606A33A;
+	Wed,  4 Nov 2026 13:26:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 902C3606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AAQeB94N
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE9C61F000C1;
-	Wed,  4 Nov 2026 13:26:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793798794;
-	bh=pvQk7gkgjyECtllSEXxMYHx9i1xSAVAK6APJPPvCqm0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=AAQeB94NpsdVxdbYF50v7JrxTJ1MLmAG6T5ILf5+I7BHKtmTQeMeLUsVdV9aAKJVb
-	 F8aobQ2oDHgTUEkO+hLUrZO2Fs6BLUEX9y/S/oqQY7sF61wAP95BBkBCz+S2kZIm7M
-	 2qygBxvGCen/9kY8WP5FXnqVn2NYpENQNyoFzj6xasHx04ktg3N7JTbponsO+FBA8O
-	 MTq59fCOT+AWqw7PxNNGuzK5yvxfXmIt6oNkjBUWq3LDHFJtB9aJHmvFZQAf7pBYf5
-	 Ai+VKaIUMG/mOwbCQu68+3iEQ7bkX8G/U0l1OHYMA92ntsVjriWAeYkIvkV0ZemmzI
-	 mqKBfJJ0rQ/1g==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: David Matlack <dmatlack@google.com>
-Cc: kexec@lists.infradead.org,  linux-doc@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  linux-kselftest@vger.kernel.org,
-  linux-mm@kvack.org,  Alexander Graf <graf@amazon.com>,  Andrew Morton
- <akpm@linux-foundation.org>,  Baolin Wang <baolin.wang@linux.alibaba.com>,
-  Christian Brauner <brauner@kernel.org>,  David Hildenbrand
- <david@kernel.org>,  Hugh Dickins <hughd@google.com>,  Jonathan Corbet
- <corbet@lwn.net>,  "Liam R. Howlett" <liam@infradead.org>,  Lorenzo
- Stoakes <ljs@kernel.org>,  Michal Hocko <mhocko@suse.com>,  Mike Rapoport
- <rppt@kernel.org>,  Pasha Tatashin <pasha.tatashin@soleen.com>,  Pratyush
- Yadav <pratyush@kernel.org>,  Randy Dunlap <rdunlap@infradead.org>,
-  Samiullah Khawaja <skhawaja@google.com>,  Shuah Khan
- <skhan@linuxfoundation.org>,  Suren Baghdasaryan <surenb@google.com>,
-  Vlastimil Babka <vbabka@kernel.org>
-Subject: Re: [PATCH v3 02/10] selftests: liveupdate: Add tests for preserve
- and retrieve user argument
-In-Reply-To: <20261103010216.3447716-3-dmatlack@google.com> (David Matlack's
-	message of "Tue, 3 Nov 2026 01:02:08 +0000")
-References: <20261103010216.3447716-1-dmatlack@google.com>
-	<20261103010216.3447716-3-dmatlack@google.com>
-Date: Wed, 04 Nov 2026 14:26:29 +0100
-Message-ID: <2vxzzevok9ru.fsf@kernel.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=JHY6z7vu
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4BiAgQ3026253;
+	Wed, 4 Nov 2026 13:26:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=yjmwql
+	2Q0/WWj7I5rUoCbaZQ81/0rY7QHc3z6oUDgjE=; b=JHY6z7vuCDPfVgknKa7b8y
+	Bx9eZ7LN23WYxB/7Hd+1hi+4+s1R61V2JYJE8WCqJ1pmN7+SZ/fRvWFUrt0sXzNb
+	BR4bVKUXTeFUCrD8JrHS1tnwAWSASYdECHSSR2EhLIVod4+Dh1WKHo5EiRBVG7Rj
+	edEE7CTcsIIo13GgtrAJ0yahYTQgE3yAwCD/jQODWHn6aJZE4ub4tOf0GOCiqNRw
+	slQ3zbcextdUzlyyjoTKlN/CjDvcRjJVP27xfikiA+Fww0l12E+LSyMh9xMETuff
+	sZTHcmtss8XB/xmeh6LrN259nSJ4KQils7ioMlBs15o1VcWE3YAUBtUccW0pF6nw
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn80sv0m8-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 04 Nov 2026 13:26:14 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4Baj9w3997539;
+	Wed, 4 Nov 2026 13:26:13 GMT
+Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hqcrce8v1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 04 Nov 2026 13:26:13 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com [10.241.53.100])
+	by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A4DQD0Q14942870
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 4 Nov 2026 13:26:13 GMT
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E42C558061;
+	Wed,  4 Nov 2026 13:26:12 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 12C1158057;
+	Wed,  4 Nov 2026 13:26:09 +0000 (GMT)
+Received: from [9.123.7.57] (unknown [9.123.7.57])
+	by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Wed,  4 Nov 2026 13:26:08 +0000 (GMT)
+Message-ID: <c172b7a8-bea1-4004-83be-af6dfe921df0@linux.ibm.com>
+Date: Wed, 4 Nov 2026 18:56:07 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,29 +86,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] blk-mq: take quiesce_lock when removing a queue from the
+ tag set
+To: Christoph Hellwig <hch@lst.de>, mt4022@columbia.edu
+Cc: Jens Axboe <axboe@kernel.dk>,
+        Mohamed Khalfella <mkhalfella@purestorage.com>,
+        Keith Busch <kbusch@kernel.org>, Ming Lei <tom.leiming@gmail.com>,
+        Bart Van Assche <bvanassche@acm.org>,
+        Josef Bacik <josef@toxicpanda.com>, linux-block@vger.kernel.org,
+        linux-kernel@vger.kernel.org, tz2294@columbia.edu,
+        stable@vger.kernel.org
+References: <20261103-blk-mq-del-quiesce-lock-v1-1-04aa29a481f6@columbia.edu>
+ <20261104071926.GA29136@lst.de>
+Content-Language: en-US
+From: Nilay Shroff <nilay@linux.ibm.com>
+In-Reply-To: <20261104071926.GA29136@lst.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: OL6bJ6XdGfIfN-IE_2nKDKeceYmhD930
+X-Proofpoint-ORIG-GUID: kjX0ct8-6NHIu3_iWyRCWMcwoDsr-7ZW
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA1MiBTYWx0ZWRfXwKFBVFCEePT5
+ rNCc8CexrDkmhuZK7SJRXcM5SUHKI8IS/QLv/GNZWkGrkpgK6GjzwFLeSu+eGaOiMAz0RDQOAXz
+ lydGC02v0dE+dpONYcrH51O8K/N7zMYszUcWGfnUa3wFJKv7jRt2FpgyTJvnblXrj3mDj6sQHmB
+ 4IMG02DYwsP5v8gXlEf5UpOM4oGqYT5EpAw7PH9qMDN1oZRkSytUlojNbWzQUnftz697NyiTcQN
+ e+Mev6zQ1u87scFqLGKfkNz5NZuJNn9PSEgVlDZc6HGW/tsRypf0H2vgXcxkrciqteRAr+4/DGw
+ M/nSyuTyeqSdMFmDPh2i19ZEboF5vDIOdFb2pAwsf17iTgEg0uszuqyO3N1pzuWUCGDXXe+rTaO
+ 6ckxnRMjo2YWwKGLC88Q9WyyrqvLuT8S5xCzemyFqbyF50bcpmb9kDilTp53vh9c0lqqIDLVJqn
+ GH5uLipbFU/Jhi++T/A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA1MiBTYWx0ZWRfX/ccD5SVabaSY
+ kTLhYnJYNUHqla6dpbi/r8suZKJaxfLjJ1MjA1bUijRJQD7fsPWs/A/81jG8CzSFEx0hgIQwgZq
+ 3awMjGIASlt6K01/6QjjkqNTOrMspfI=
+X-Authority-Analysis: v=2.4 cv=FIqOVOos c=1 sm=1 tr=0 ts=6aeb3276 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=DfyN0UfllRvmPPNdMxQA:9
+ a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_04,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0
+ bulkscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040052
 
-On Tue, Nov 03 2026, David Matlack wrote:
+On 11/4/26 12:49 PM, Christoph Hellwig wrote:
+> Looks good, but the note from Mohamed should be taken into account.
+> 
+> Or even better add a guarded_by so that clang catches this (requires
+> actualy compile testing with clang, though).
+> 
+Yeah agreed! I also recommend adding __guarded_by() annotation around
+set->tag_list and set->quiesce_depth.
 
-> From: Pasha Tatashin <pasha.tatashin@soleen.com>
->
-> Verify the user argument support in LIVEUPDATE_SESSION_PRESERVE_FD and
-> LIVEUPDATE_SESSION_RETRIEVE_FD. Add luo_session_preserve_fd_arg() and
-> luo_session_retrieve_fd_arg() helpers to libliveupdate so tests can pass
-> a handler-specific argument.
->
-> Add a preserve_memfd_with_arg test case to verify that memfd
-> preservation rejects a non-zero argument with -EOPNOTSUPP, accepts an
-> explicit zero argument, and remains compatible with callers passing the
-> legacy struct size up to the token field.
->
-> Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
-> Signed-off-by: David Matlack <dmatlack@google.com>
+With this change, I have sorted following locking pattern:
 
-Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
+1. Every set->tag_list mutation holds both set->tag_list_lock and set->quiesce_lock.
+2. Every set->tag_list traversal holds at least one of set->tag_list_lock or set->quiesce_lock.
+3. The set->tag_list_lock and set->quiesce_lock order is preserved.
 
-[...]
+So the above scheme fits really well in the context annotations.
 
--- 
-Regards,
-Pratyush Yadav
+We can define context annotation as follows:
+
+struct blk_mq_tag_set {
+     ...
+     struct list_head    tag_list __guarded_by(&tag_list_lock, &quiesce_lock);
+     unsigned int        quiesce_depth __guarded_by(&quiesce_lock);
+     ...
+}
+
+Thanks,
+--Nilay
