@@ -1,46 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793788397;
-	b=SEhHh9QWs8jqPkb/0I7mPh9JFpGjUZBLFYZGw5bYD3PrvYR+VAitZxEb7agWRb2XSyi0
-	 FPZTs+aONw2ddHW+SfB/aOkgS/NCuEUaJZGo9lDtp9YF4I+hmhw2B3Cb/ZjImeLdd06M9
-	 OsfvEHd0Yh7cwMaiBtVwR4dh/FIBbsLV10dexku4AD4MXW10PKcrR3GmM0BIso7emvnJr
-	 PnwbUPix7NIsdrHBVULuSKIBD5RKChPY7Qbkj7yFqY/5+DsLZQubxlACDThG9cxLVyitt
-	 GSwplg5B72sOLIo2Se3YykbIMIWowup07zRw3LgmszKx16SlflQtB6V+lVfqBSEDZLw==
+	t=1793788419;
+	b=IYqvZdY8DXblpf32ewPxFif0inW8elL9O40reSM4pwWXv7uKqBAfxfrLTyu2tLep8HyQ
+	 uydtg5UgVQtjAW+aGb3/yd0hOLLwoR9QHvHmKinxOjY1rCpwJPvrKPn+QFnkRIiy3vTe0
+	 YoCR7RiJnyqXj7bC0fWjjo1LcjtPTwJIoXDnt+mMbo97KUNuOW8qq2Frg02je6GcCieHS
+	 Y/1P8NrDPJ81AXYd+aHxU4G9FxmhdzuBSbwzgziYXm/3zAfsJCPAjc8ee4yMvo2j/EMbb
+	 AI47/7c11m3sKIbuW7EF91WnKxMsIfBhL6L8rzvO9ps6xHsp+Qb0u1fwGPkxwfdVR2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793788397;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793788419;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:
 	 Content-Transfer-Encoding:In-Reply-To;
-	bh=u/eDtZS4wjn/U8MG+7DwL0ZWK1x555IP9HVQv9HwObk=;
-	b=0vjIiPdxtl7AQKnayYKcPskfsR9oKLu4bXxOs5I07TZgBBTfBM/hmhjxKUvC3hazC9g/
-	 zkVx5TpoUeirnax59UYqgHXu8H2MDnpB7T6FRyUPTVmE7UKKihQHTBrmwHNJoqR1eMskR
-	 FMLixh1Ky8fclb3uO5WFySQeqeOen6LlvvgM1pexJ1obh8UOV+XKBdq+wz+69fqLKpAYH
-	 t1cFNt2cX6INj9uZ03lJy/zP0RtShR1uWRT2anBboAWntKPjHzWR9PqOZQXAXm9j865EK
-	 BITay6P5JD0N3L76Ui0veVjUY1tnNUEzqW5xpJjSzNS/iGATiGxBQSaIIDdZ2CWF09g==
+	bh=1v+vPQfoGkHCsYpx/z+qXBL8qgnFTSPKxQiCiSOUl6I=;
+	b=gMo+fDX1D6IS8R3bi47tMFK7ZrRyg2EuArDYRCpotyh55BJJhdrQshpBH785GIs4uod2
+	 o3EOo3i2rSPsy+M4XWtSaD3cm5iPmtfCYjyczNYfUSZrS8/hDAcASTt+AUVH7Alq5aEzA
+	 Un9Hdc33hflc8WIhjh8/DZ2lsI+ysqfnbbXVm97AoqIg/48Q7/rDa3V56d4mUtf1LTVpE
+	 kqQWIS2ZFxQAlbX9YoeEKWbqKMtdx3/YzFZx1d1fiNqKZnS8jS6ocVaXRHIfPguMej3Nk
+	 HjtnhKeMV+pIlPuqTPBapEI36rRDxaWfF/cvg8L7j3jaZnP5s3rxWI5Wqk7k7vNGZIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="i/Ilhiu8";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ix+mIwtO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79053606A31B;
-	Wed,  4 Nov 2026 10:33:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECC5B606A31B;
+	Wed,  4 Nov 2026 10:33:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i/Ilhiu8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2FB41F000C1;
-	Wed,  4 Nov 2026 10:33:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ix+mIwtO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10D081F000C1;
+	Wed,  4 Nov 2026 10:33:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793788397;
-	bh=u/eDtZS4wjn/U8MG+7DwL0ZWK1x555IP9HVQv9HwObk=;
+	s=k20260515; t=1793788418;
+	bh=1v+vPQfoGkHCsYpx/z+qXBL8qgnFTSPKxQiCiSOUl6I=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=i/Ilhiu8gSErW8FsASyqWzyY0c3ig2W+mB2luw9OtSy5tq+qToMpYsWzLxP4f7IsD
-	 HolPhDqS/pwnVDrQAeSfwbJ1bzZ+thF15O+7uP3exotVOTQ523IacKlx6zwxvtBcJc
-	 pDKaIGByIbr8IN1x9Xw03+euuyAvLJWrqrSkOOdvdiUTwVx9xfNhgpAvmNcqRcxLMK
-	 o7GO4HqYbErZg6infRCme3H4ZteFZUAcqkCAM4ZBs5WDWmUTOfxTJDpzvFhKLL7uZT
-	 vzbIP3AHJVj0o005andcJU+1uHHMEcVrRL80WKUL6WUvYN1cXhbm6r3m8kVofes/bC
-	 IGkSfYE8qKQEg==
-Date: Wed, 4 Nov 2026 11:33:13 +0100
+	b=Ix+mIwtOotDrvMTMvDOWVWhNcuHZp2MmOo5SOh/5vik9pHX+wphcZRkXh6OM5O2/X
+	 QIObD5khAH4S4R7YgYZDKnsYysgXsY0FjlXVSTekeUTw4h924CjD4L3wRqQzej3lgd
+	 CwyVUe4nn1IwD6qMcciN+QEbpGip/SvHoEoxH7EmHW7NG0Q29Zq8wEXx15FE21WX+V
+	 Tvt6JV0uTrbVLbs9ziTdVnWdYhkKwubFB/9nyNX00GG7eWg4np6SMcRREE6DZp3OoM
+	 8eWyK3sO+IFvb2eF7uoOg+Rd0e5cbiQbuXhD0PTS/99PTQudUVuE7OgEI7nhqxBAkN
+	 OY7T/RiIS7A1Q==
+Date: Wed, 4 Nov 2026 11:33:35 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Hongliang Yang =?utf-8?B?KOadqOWuj+S6rik=?= <hongliang.yang@cixtech.com>
 Cc: Vinod Koul <vkoul@kernel.org>, 
@@ -52,7 +52,7 @@ Cc: Vinod Koul <vkoul@kernel.org>,
 	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
 	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, cix-kernel-upstream <cix-kernel-upstream@cixtech.com>
 Subject: Re: [PATCH v5 1/3] dt-bindings: phy: Add CIX Sky1 USB3 PHY
-Message-ID: <20261104-grateful-chivalrous-cougar-ebe4ff@quoll>
+Message-ID: <20261104-ethereal-cassowary-of-revolution-ecdda2@quoll>
 References: <20261103074913.1971025-1-hongliang.yang@cixtech.com>
  <20261103074913.1971025-2-hongliang.yang@cixtech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -71,38 +71,12 @@ In-Reply-To: <20261103074913.1971025-2-hongliang.yang@cixtech.com>
 
 On Tue, Nov 03, 2026 at 07:49:20AM +0000, Hongliang Yang (=E6=9D=A8=E5=AE=
 =8F=E4=BA=AE) wrote:
-> +patternProperties:
-> +  "^usb-port@[0-9a-f]+$":
-> +    type: object
-> +    description:
-> +      A single USB3 PHY port/lane.
-> +
-> +    properties:
-> +      reg:
-> +        maxItems: 1
-> +
-> +      "#phy-cells":
-> +        const: 0
-> +
-> +    required:
-> +      - reg
-> +      - "#phy-cells"
+> Add device tree binding for the CIX Sky1 USB3 PHY, a multi-port
+> SuperSpeedPlus PHY supporting up to two USB3 lanes.
+>=20
+> Signed-off-by: Hongliang Yang <hongliang.yang@cixtech.com>
 
-Why do you need this node in the first place? Parent is the phy provider, n=
-o?
-
-> +
-> +    additionalProperties: false
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - resets
-> +  - reset-names
-> +  - "#address-cells"
-> +  - "#size-cells"
+Also, does not match From field.
 
 Best regards,
 Krzysztof
