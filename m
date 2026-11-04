@@ -1,72 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.72
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793790892;
-	b=UOkqYNYT9rZrPfvRk6M9zCBL4nJCE6Ge12Hi6+fZZI1O9qBvTOBZlQLygNTOR7B7z54N
-	 dHocgIwtN8OwciRc5oMb6dd5l7cj0uICu13orNym3nCv3vMTldINuLuUqj5k+Kc92C99R
-	 D8FABd4jfwfdxqKx3NR+jQgLVlZRfsS3HwMexv6KeYeUuOytW0+uAfP8EVnTO95vDiTmu
-	 rhxsuYxP34NXrPuyda+k3uEGsL2J3RlbQUCtM0sZaNwGWc2qgvF1WcRblGVsJgpmvCvIH
-	 gQmd0jp1FZlnre3D2IFz5pd4ok+aqgGyM0VNRQHIMQsXaQpWHcNwD+APLFCVRzOLbXg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793790892;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=xDxDhqJVjBKwoBSqZ4/8zTufBKgQ9/aX3QhT60mdvuE=;
-	b=uct/TYGFHFsZNUZX8/ZNAUohmM3lEFFluiwn5yP5xLPsLc0KHno2OIZdjISttD3o8zUS
-	 niLSlJxT11o/xk327utrhGTyISidGuaO80r6U6V7J75IfW1TQBdWGLLvW2kHLEFDW0UoH
-	 Xss6iVdEL2z+Ueje1YgxP0/YywETQCdvR7QyjUWBJY7BMWpcCgmaYiBIXpv63lLayfPG2
-	 XF5Kva2c2RD/VZnoIFjSpAhgErIJloU+MdRkiEGYkcOiuG3WXdO8Jx16byTc5kp/nxJcp
-	 hFLicXAlvnp4vGwfPRK2riMAKkqe1yNFKBpNPfQB1J4ejURS7/8uqr9gfm6DyFhDV7g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=j5rJVpOA;
-	arc=none smtp.remote-ip=209.85.128.72
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793790895;
+	b=N8C2bk82p80W3AvKbvZg2WY+5bUPe5SeR/TOOETqMUkltrF1d/ltQRCpkfFdtM+S7QeO
+	 l3VJBbxah2KQwgvOGK0Ok+1ktG+gNguuHNlmhhggCQYJ/vJcbG4qqobp1KROfi3ro+E06
+	 9HOhWP45FAEYezGVvJ5hw3kxSC9LtwhmvltcGKqHEacFKiLXZo04WwgYkDtytrs7vobtJ
+	 Fe94qIB9h14OYSY0A8ilh4fZpN421O638yEBbhWl+7Qq/HiJcK0SL8wOWuC0GqCwGPdLD
+	 iytEqRW8FTb2sqiCzhEXKzD1uuow74BSlhCt3/LsSp0mUUOHXshhWSZ0fYZ813vMuTA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793790895;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=cdadhiwqFD1XQPwZ7A8u+lLGgi3X6HTFVWqBQeJs09g=;
+	b=kPVWTCRVO+9wXbTpabc0E86H4hIqPj+x5+lGA+rVlHqqk6XLhdiQIM0ButUXQKy3BY0z
+	 3VB8Ja/0FT7dZuEo1c94MfngOEuNcfhA/z+cheo7KwcNnCVR3XusCxgEYZvgaJsLIRYvo
+	 dCsFmbxJbcGMjEQgr2GeTrObjxqjOY7BfghJzV4idpajx6pHmwTtJkg4sI/VVb0udVa57
+	 CMqByNOHakdTgo7V45QEaqX502vphA0LYeJiZfaXR3dLsXOUbmFQEF8rwOCggq+EEPXWU
+	 i37P28kbJliggbN0W/qOQf7u5laPxcGte6CGed5qVfBa9XGG66qnLeI3VR+qlQd11ZQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=F+Hs7Zkl;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39B96606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:14:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39B96606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65270606A32F;
+	Wed,  4 Nov 2026 11:14:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65270606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=j5rJVpOA
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a009f82bedso5124635e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 03:14:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793790890; x=1794395690; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xDxDhqJVjBKwoBSqZ4/8zTufBKgQ9/aX3QhT60mdvuE=;
-        b=j5rJVpOA2tezszyFdo20OxehC6I3vkpwJiMG9G0RNAGwCoFUjEYgxEC/GriSW28s2k
-         xcpre/+VQ365vS/j7WLDVeAEJmQjGZWblGr/T6QujUDUtNYYHMtMJwIV3Q7kUIb2lGHS
-         aDHToAqV+BKW7x09WqP3OZZshW/O4WeeTsaIvP3FeMDYHYqy0qJFByscQI2tWTaBpAtU
-         jN5cym7tPQgmDJO217csR/d9byxh36M5db5uekrA/8FNwdAYiOk1CfY7MkKQ4WQXtGgv
-         ZUs6UO/0zbD9oZ/IQNmaTbLKY+RiKGnbvgHyJVXP1oDG8dN1W5QP2BSUCuIPJc4PNK51
-         o2mA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793790890; x=1794395690;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xDxDhqJVjBKwoBSqZ4/8zTufBKgQ9/aX3QhT60mdvuE=;
-        b=DEXNeJbDqsuAqq5599l8PEXHT5eAQwTXq/foTegjmaqdSZWGKleMLEmoQ/1AT/4GJl
-         saCFCdDX5IcCd/hpk1pHd+mvS5oy6eKZkt/UrtWWgC4cP3AoYPF5WVgkq4E3MIpekPON
-         CRuDWt/5Twbhaf9DEOm3advQswtUy7YtF2tJun4AIzO/4E+SsSNzoHZInwdpMXTFVMM1
-         DMqveXyyfZ4X6oFwr+FnhmLKlgA22l5plDB+SAehzBaTvBVdkcfSsk+pqlF9zz00aFYT
-         OZWmqdPNDy4ForbekqcMc6ngVSBG/EbJxpId6XkPHJky+2AmZY2lASyeYsWHf77NMoNJ
-         PUoA==
-X-Forwarded-Encrypted: i=1; AKwUvBxsWr9sLh2NBU1lhlKQXJisnxu10npugZnwQZk+dPNugqun8nd859b8QoTRgoY7qsQ767N9dFyrWJ/XWbM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+xK6poAzjcgMTNjwBmuII1rVnlDqQPQionLdKj9yQUoL+cMrbV
-	NemOpreaoMZynVHdfY5jOgnA7Iks8szvjOmeGyumGvxIRuy436ly3Us1SzK517nJUrufLbefoBn
-	NK9TONFkgAWR6ag==
-X-Received: from wmbjp21.prod.google.com ([2002:a05:600c:5595:b0:4a1:dfb3:2e66])
- (user=jpiecuch job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600d:a:b0:4ac:aae6:6400 with SMTP id 5b1f17b1804b1-4acaae665a6mr272975095e9.13.1793790890378;
- Wed, 04 Nov 2026 03:14:50 -0800 (PST)
-Date: Wed,  4 Nov 2026 11:14:39 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=F+Hs7Zkl
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 83A95202292;
+	Wed, 04 Nov 2026 12:14:51 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793790891;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cdadhiwqFD1XQPwZ7A8u+lLGgi3X6HTFVWqBQeJs09g=;
+	b=F+Hs7ZklKQA+hKlTabYnteiaJVNueYAugR1Q/qUI4xLuMqHhAdmpZGVjaH6yHrM4NYCLcn
+	79lIsxaNCFCGXC7AlfZCuEs+mULGPCZgChO2RTN3l+9VunkAcERhjvB4k4AiwawNyZPBeG
+	LO9Ol0SzfKhU1OWFCW5E243yUgUrlVF6H34sSHnEF57Bn9wS3wqo+THnyuGkQ4IfDFbEaz
+	mcxEiodBVjXwyJWyuVTue8+101f37igg/urP469Iopbq6qXcN5oQmlH9ZK4jYpRpUwiRBn
+	ldUqxa1Q2uVT0HLHy9PTEjQ4vdi9S10fS9frWQ4Y7ECwG6vQv+7gBUDMrjtzBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793790891;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cdadhiwqFD1XQPwZ7A8u+lLGgi3X6HTFVWqBQeJs09g=;
+	b=RPOIuofdMmzWOeqvJTQfIBxki9Kuz0qF73e4Tz3f1fJHNoGvbtSH/251M9Q5dfMkUh3iiA
+	1/ZWwAN1uP1gtcwOjnay2sCZ6VrclDEIHnGnMjrVvWvYiSMVWodiCg9B+/Y7Qo0KWOcm6D
+	dAhILaJgg5IxmlMJIwY69CltaZJAvAvedHOsTXt0EN0DwoIVm2ZBqBYjiuBBFoRc3tKIM+
+	Ce/Dk5zNe0KYgwhHe1p9alAU8c+32Onh6NHSmuBsEwAY/1nfr5CZ9+YjkODlskgpYYOu38
+	MemSh/+rsRShG1D2csJ1roaT4lBpvYWzIzXyVZk7IHKN61ZbkMI45PEac7Mf5w==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793790891; a=rsa-sha256;
+	cv=none;
+	b=LP2/0w7Mgi15Aj5Pov2DLRSqEo7VTVEY2F8tfQYnnX3md6Ij43w5VgzDFf4uqgV8jTqG3O
+	0nlSa9wNjgqUAi6Xv8mKlsF0/v90NsmTZQIHwNddtSoWyItdYhIESMslX8PrFCvPeVUCj9
+	AubOLcI+VaiZSaZtH07cNUjJBXpHN1VvHysAKLkcjHefA0rTZu4VUR5oY8IeHWapk878wv
+	2Q3/4FB6W+Wq88bl4SHnDjU3XrdGh+WGUcZW4K89ipi+N8TmZwS3ANAJ3R+9lGuPFDXN6b
+	/xWd++Aetvcu90FyfexnmRwjDncJcBugmdlX7YBHxmwdkNB04ckjAuo4kVlSAw==
+Message-ID: <f0633026a1ae251715af3c7323fcfd26e96ffaab.camel@pengutronix.de>
+Subject: Re: [PATCH 5/8] i3c: mipi-i3c-hci: Add support for the AST2700 I3C
+ controller
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Billy Tsai <billy_tsai@aspeedtech.com>, Alexandre Belloni
+	 <alexandre.belloni@bootlin.com>, Frank Li <Frank.Li@nxp.com>, Rob Herring
+	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	 <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, Andrew Jeffery
+	 <andrew@codeconstruct.com.au>
+Cc: linux-i3c@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
+	linux-kernel@vger.kernel.org
+Date: Wed, 04 Nov 2026 12:14:51 +0100
+In-Reply-To: <20260901-b4-i3c-hci-ast2700-v1-5-19909e7cbd7e@aspeedtech.com>
+References: <20260901-b4-i3c-hci-ast2700-v1-0-19909e7cbd7e@aspeedtech.com>
+	 <20260901-b4-i3c-hci-ast2700-v1-5-19909e7cbd7e@aspeedtech.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,89 +98,155 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
-Message-ID: <20261104111449.3984318-1-jpiecuch@google.com>
-Subject: [PATCH sched_ext/for-7.4-fixes] sched_ext: Read exit_kind before
- flushing in scx_flush_disable_work()
-From: Kuba Piecuch <jpiecuch@google.com>
-To: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>, 
-	Changwoo Min <changwoo@igalia.com>
-Cc: Kuba Piecuch <jpiecuch@google.com>, Cheng-Yang Chou <yphbchou0911@gmail.com>, 
-	Richard Cheng <icheng@nvidia.com>, sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
 
-scx_disable_workfn() sets exit_kind to SCX_EXIT_DONE before it tears the
-scheduler down. scx_flush_disable_work() reads exit_kind after syncing
-disable_irq_work and flushing disable_work, so it can observe DONE from
-a disable_work that was queued after its flush and return while the
-teardown is still running:
+On Di, 2026-09-01 at 19:35 +0800, Billy Tsai wrote:
+> The AST2700 I3C controller carries an ASPEED vendor extended
+> capability describing an in-house control block and a PHY programming
+> window. Recognize the ASPEED MIPI vendor ID in the extended capability
+> parser and cache both register bases via the generic vendor_data
+> pointer, which other vendors (e.g. NXP) also populate; add is_aspeed()
+> to identify ASPEED specifically.
+>=20
+[...]
+>
+> Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
+> Assisted-by: Claude:claude-fable-5
 
-  CPU A                          CPU B
-  -----                          -----
-  scx_vexit()
-    scx_claim_exit() -> true
-                                 bpf_struct_ops_map_link_detach()
-                                   bpf_scx_unreg()
-                                     scx_disable()
-                                       scx_claim_exit() -> false
-                                     scx_flush_disable_work()
-                                       irq_work_sync()      // not queued
-                                       kthread_flush_work() // not queued
-    irq_work_queue()
-  scx_disable_irq_workfn()
-    kthread_queue_work()
-  scx_disable_workfn()
-    exit_kind = SCX_EXIT_DONE
-    scx_root_disable()
-                                       atomic_read() -> SCX_EXIT_DONE
-                                   bpf_map_put()
+Drop, see 1e035297ffda ("docs: remove Assisted-by references").
 
-Once bpf_scx_unreg() returns, its caller drops the struct_ops map
-reference, and the struct_ops trampolines can be freed while
-scx_root_disable() is still running and can still call into the BPF
-scheduler, e.g. ops.exit().
+> ---
+>  drivers/i3c/master/mipi-i3c-hci/Makefile        |   2 +-
+>  drivers/i3c/master/mipi-i3c-hci/cmd_v1.c        |  21 +++
+>  drivers/i3c/master/mipi-i3c-hci/core.c          | 175 ++++++++++++++++--
+>  drivers/i3c/master/mipi-i3c-hci/ext_caps.c      |  15 ++
+>  drivers/i3c/master/mipi-i3c-hci/ext_caps.h      |   1 +
+>  drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.c | 234 ++++++++++++++++++=
+++++++
+>  drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.h | 174 ++++++++++++++++++
+>  7 files changed, 606 insertions(+), 16 deletions(-)
+>=20
+> diff --git a/drivers/i3c/master/mipi-i3c-hci/core.c b/drivers/i3c/master/=
+mipi-i3c-hci/core.c
+> index 2290a889701cd..e0ee8148aa2f8 100644
+> --- a/drivers/i3c/master/mipi-i3c-hci/core.c
+> +++ b/drivers/i3c/master/mipi-i3c-hci/core.c
+[...]
+> @@ -1146,10 +1235,17 @@ static int i3c_hci_init(struct i3c_hci *hci)
+>  	return i3c_hci_reset_and_init(hci);
+>  }
+> =20
+> +static void i3c_hci_dma_rst_assert(void *data)
+> +{
+> +	reset_control_assert(data);
+> +}
+> +
+>  static int i3c_hci_probe(struct platform_device *pdev)
+>  {
+>  	const struct mipi_i3c_hci_platform_data *pdata =3D pdev->dev.platform_d=
+ata;
+>  	struct clk_bulk_data *clks;
+> +	irq_handler_t irq_handler;
+> +	unsigned long irq_flags;
+>  	struct i3c_hci *hci;
+>  	int irq, ret;
+> =20
+> @@ -1176,8 +1272,12 @@ static int i3c_hci_probe(struct platform_device *p=
+dev)
+>  	}
+> =20
+>  	platform_set_drvdata(pdev, hci);
+> -	/* temporary for dev_printk's, to be replaced in i3c_master_register */
+> +	/*
+> +	 * Temporary for dev_printk's and is_aspeed(), both replaced with
+> +	 * the real values by i3c_master_register().
+> +	 */
+>  	hci->master.dev.init_name =3D dev_name(&pdev->dev);
+> +	hci->master.dev.of_node =3D pdev->dev.of_node;
+> =20
+>  	hci->quirks =3D (unsigned long)device_get_match_data(&pdev->dev);
+>  	if (!hci->quirks && platform_get_device_id(pdev))
+> @@ -1189,6 +1289,40 @@ static int i3c_hci_probe(struct platform_device *p=
+dev)
+>  					     "cannot set DMA mask\n");
+>  	}
+> =20
+> +	if (is_aspeed(hci)) {
+> +		struct aspeed_i3c_vendor_data *vd;
+> +
+> +		vd =3D devm_kzalloc(&pdev->dev, sizeof(*vd), GFP_KERNEL);
+> +		if (!vd)
+> +			return -ENOMEM;
+> +		hci->vendor_data =3D vd;
+> +
+> +		vd->rst =3D devm_reset_control_get_optional_exclusive(&pdev->dev, "cor=
+e");
 
-Read exit_kind before syncing and flushing, with acquire ordering paired
-with the atomic_try_cmpxchg() in scx_disable_workfn(). DONE is only set
-from disable_work, so once it is observed, the following
-kthread_flush_work() sees the queued work and waits for the teardown to
-finish.
+vd->rst is only ever used in i3c_hci_probe(), this could be a local
+variable.
 
-This patch was created with the help of an AI coding assistant.
+> +		if (IS_ERR(vd->rst))
+> +			return PTR_ERR(vd->rst);
+> +		ret =3D reset_control_deassert(vd->rst);
+> +		if (ret)
+> +			return ret;
 
-Fixes: d99f7a32f09d ("sched_ext: Fix scx_flush_disable_work() UAF race")
-Cc: stable@vger.kernel.org # v7.1+
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/sashiko-outbox-195908@kernel.org/
-Signed-off-by: Kuba Piecuch <jpiecuch@google.com>
----
- kernel/sched/ext/ext.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+Is the core reset never asserted again on purpose? Otherwise you could
+use devm_reset_control_get_optional_exclusive_deasserted() to simplify
+this.
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 6c593d3dee3c..949143bf4752 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -7810,10 +7810,17 @@ void scx_flush_disable_work(struct scx_sched *sch)
- {
- 	int kind;
- 
-+	/*
-+	 * scx_disable_workfn() sets SCX_EXIT_DONE before tearing down. Read
-+	 * exit_kind with acquire ordering (paired with atomic_try_cmpxchg() in
-+	 * scx_disable_workfn()) before syncing and flushing so that, once DONE
-+	 * is seen, the following flush observes the queued work and waits for
-+	 * the teardown to finish.
-+	 */
- 	do {
-+		kind = atomic_read_acquire(&sch->exit_kind);
- 		irq_work_sync(&sch->disable_irq_work);
- 		kthread_flush_work(&sch->disable_work);
--		kind = atomic_read(&sch->exit_kind);
- 	} while (kind != SCX_EXIT_NONE && kind != SCX_EXIT_DONE);
- }
- 
--- 
-2.56.0.398.g882cbad275-goog
+> +
+> +		vd->dma_rst =3D devm_reset_control_get_optional_shared(&pdev->dev, "dm=
+a");
 
+vd->dma_rst is only ever used in i3c_hci_probe(), this could be a local
+variable.
+
+> +		if (IS_ERR(vd->dma_rst))
+> +			return PTR_ERR(vd->dma_rst);
+> +		if (vd->dma_rst) {
+> +			ret =3D reset_control_deassert(vd->dma_rst);
+> +			if (ret)
+> +				return ret;
+> +			ret =3D devm_add_action_or_reset(&pdev->dev,
+> +						       i3c_hci_dma_rst_assert,
+> +						       vd->dma_rst);
+> +			if (ret)
+> +				return ret;
+
+This looks like it can be simplified with
+devm_reset_control_get_optional_shared_deasserted().
+
+> +		}
+> +
+> +		vd->clk =3D devm_clk_get_optional(&pdev->dev, NULL);
+> +		if (IS_ERR(vd->clk))
+> +			return PTR_ERR(vd->clk);
+> +	}
+> +
+>  	ret =3D devm_clk_bulk_get_all_enabled(&pdev->dev, &clks);
+>  	if (ret < 0)
+>  		return dev_err_probe(&pdev->dev, ret,
+[...]
+> diff --git a/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.h b/drivers/i3=
+c/master/mipi-i3c-hci/vendor_aspeed.h
+> new file mode 100644
+> index 0000000000000..8760384d1c6f5
+> --- /dev/null
+> +++ b/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.h
+> @@ -0,0 +1,174 @@
+[...]
+> +struct aspeed_i3c_vendor_data {
+> +	void __iomem *inhouse_regs;
+> +	void __iomem *phy_regs;
+> +	struct reset_control *rst;
+> +	struct reset_control *dma_rst;
+
+These two don't seem necessary.
+
+> +	struct clk *clk;
+> +};
+> +
+
+regards
+Philipp
