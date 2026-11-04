@@ -1,89 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793778775;
-	b=bL0g1aG7OGCWAv8L1YqUkr5K5GR8v29iNA0WZtXCXwPa2uCC3tYO9TOFoS7ngv7gfFBZ
-	 GEnJPVxMTX7dhgUMgMqqgfh+uhJRLZIiYdmXJTcVBFyuaJcNGeUG+ICE0JQSWWL8zeNfb
-	 OpclyZqYhIe8JKyt96w3wsoVfuBUJF762mnm4f+94XSMCECWSpfB3oLAG8kOw+qrx/Ns6
-	 9MN8/yOWFDsVmiT8tIruZ/5N+I6EfYLPUT2cSK4y9nsKN2dp4tm/hxrEdI4Joh6OaRnG1
-	 343VPGr+GlicVKZFvSUhbkWX/CDKolpnyMzbJeVFGDRBn/65qju7JAP/JDoKDqA90QQ==
+	t=1793778856;
+	b=kPunWJoIGPXGq7EEXj8uTHel6/yBJe4jtT5lY+QRT2YrEOhHuA0JVItQwGU/9Xf7jS8e
+	 AP90CaRC1SZkE8ka+DaJuCKYUimL62IKlGFHa6Q+X0peKruQfEvMPrmZb3MpFVt8/HPme
+	 5xXpVD4ZxmCeioL8j9lIOCWauYDlTf8e63gsM2yOHmZMg59YqCPTjVS79Wh9bupjZrZAB
+	 UKTIpJSa8pa23XbAfth9+FyIqEKrnC0jsS/Q/t2cEKCcHvTSl6lpNwztrI31zFN4iroAz
+	 eqX6YB8P+XXt6rAGIzR42kaSIuDwPNO6bd2ngFfmTiktp4uKypZ53+UuNABHjKNHQxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793778775;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=cqycFgOKVSS6NgUhwtTP0dN9smWY70wXU/hFF4VXYvY=;
-	b=ON62KnocyuplqSl3os9kqQlVnfbg2pKufnmonYreLRaCJwHstSlvRZ/zub62EHq3kW4P
-	 qQH0nhKDmqlk+XfrOtQW/35TLvbqiZlwPlFouu+jRzD3wmU2RLbGCff37s+V3Sw55pFs3
-	 BlllKQObExRSaLI3rw1eu9DgbMzWfNA9EUK1k+xZicS1aCOGeHSbaeNaNG5dhQSHCclFB
-	 eznwkxNVF4rhuzfHwrtHxAdoxEiWxXJpH1dmMQFi8qruktOm1xnc4Eks8INoMoSN4fw1F
-	 D1AGfN201GQaIyUQniL7vhrz5V8CORlbS7KYzirzpULulopw0a+46eOgwraO9ODOcpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793778856;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=T6QrPN+n248/1fXugyZOfzAMq/V+IWfxaE7Jd1ynvKI=;
+	b=T7cuTb0QY52MKvcaRepD81u4QQiS22iuuZOVdLnsqIdUEFfdWDEykX+gLYfVc7vbkpqq
+	 jMlgVsytIWkzForUIQiefAi1i+I+ijW76LCoUr0pKNt+BbF1oF7AVM+mGTAHuMOwKNxwH
+	 hA1KeDy0q7fISWI7W1dkfI16cSz5DVnEuAAY1iKGfLsk9r/kFQ9yR1T8uhDK1hM8rAKqg
+	 1A/Sb8Lc4PkA6txitecAIFQlZE+dhmcuPPW35CR7koJBSd9AAAzpy4cU7G0qlVpUNpfhV
+	 W2dIFg5vyTaA/xIym1bjScrjKHN7K7fgnnO04ZhVpDWYt5qUlE/tNRZyCYIQoX1lJJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="jbX/OYnF";
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=lOdylO79;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4EBA606A33F
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 07:52:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4EBA606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3113606A31B;
+	Wed,  4 Nov 2026 07:54:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3113606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jbX/OYnF
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48c5358fc28so317316f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 23:52:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793778773; x=1794383573; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cqycFgOKVSS6NgUhwtTP0dN9smWY70wXU/hFF4VXYvY=;
-        b=jbX/OYnF/U24eJbovm5b2eqMvqzlgy6JmTceKraRz8B7IBdkpmj1EQlxahp9nCiC7S
-         53QINHgegY3lHwC2DNJKaPGxXa8KrIqODe4EQt1NN6fgyR3bAfe0MlC42HlMb9aCfTZe
-         AbtQVq13IacmyqRoddrQWw8NZY519bX1zPvedZkEf4rTX5TZ4G7HrntUCauHEjtG5/Kz
-         654GfysVCW0SYkn7jyiHkyxEV/lKxRlUVJxFZgKQM5wNgW84d6W7RNTZ4HRPkcFQhJtG
-         Cl+skBqMvS1yoJ0vXjjxftAzaeSGHecnN58lLB3Rs+wGsqRA7LiGHgSyS+79i/txZ1z4
-         QBvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793778773; x=1794383573;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cqycFgOKVSS6NgUhwtTP0dN9smWY70wXU/hFF4VXYvY=;
-        b=x0hEOYBVRNoQTOLsbS0hSMNttgXoB1hw27jrH1rjOjIwFtke81yTQtarbxZLCyPkIC
-         HzOI+DoxDU7qBzOiGODxf/ojfW5NV/1T855ZXB+aOfIXtos218vbKyUrhpHYWDCc7+Ra
-         klc/FMLeBUZjAm+FOYYrjK0a1RZTiu1Y/zAmuNnHTWlVS7p1EYcGIFd6X9pkBY2cF/YA
-         p7NrAP1ivtjm+M7ABrr6aFa22Jl+4oDyr4/USKTOsY0fyEXtXXEGIfECHhWH7nTLzJz+
-         85gjxGkrMe8A5mESXA9+4HdOWDS+DW8ukVN+BRfXf1GLxfIHy268O0734D+FjTaLKgOf
-         QDJw==
-X-Forwarded-Encrypted: i=1; AKwUvBzxQ20WdIg14avqAsbYVS6DlKlXeMwRwOT4tYSIbiSpflKYQwamGOrRZfXYGukES9zvM8Hs0WJ4frGx3ZI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9f32S45zqA2+iOOpBSIf9lVUL+DJ7PEbrJAaA+sg/JupzkyFai
-	K6RLKgB7FoSTs/J59yqElxlIdTCFcZr5tbvKRDz8+Rzr06KvhfJK30J0
-X-Gm-Gg: AYBFou2/uzOWOH4P6xqqpeG61aEfZot/x3EJ4mUavD6b9rKvbu4XSzweCj3U0KC4fV7
-	iGXPBlD58W7JwnwwYSspAmwNEiDs+wg4DRhpOOOUTHoPFJ59EgFG7Lzzdr+N6oqbYh2H5/XyxsH
-	udwZQqIG2bLlHb38StxguKaasPet0FAaqa0gbcBVq+ccJvqTQVW/82Q3gN2swlDRs+z7jLOV7CD
-	70h8+jq5RRqHcNxBA9ebxF6FUKxWE3iRx0ienPGwQeTtPh1Xc3U6txao8KSI6ufn6qWhVKHh+Nw
-	QRZMQX+6akryELSjsJ6L6ZECuNOvW+zEJmKa3r/TnObjY4vGaY8/gJOEqcaEPwpoXA6hKiXDo3R
-	brLVA0eZ/uXeUEngM+sYrou8uRGaBX2L0cLhxa41pwy79E1SdaITJbuccowznjd0KPWfrYRGljh
-	xo4o59w6CnQtFURQrtGe5Qi7qtx7NiVVmhK0p+riD8sqGJofj/3qyR5Hzff/9gPGl9lrYc+h/wD
-	FwSWdZEwoev55VjOwDsOKGM4NzHY8QLbeVFPcpkZ3SHgBoLzPbQ6bNNdejfB6l20YweZsFsvHJ6
-	IV27CM6h1cZ4Nca4Vu+cIwJVUyM6QShkIQQXKRPVWDYXnXnJZno0+qMVwzeH71uMTAPCQoQC3fu
-	FTrbxQWN5aOpA8T1P+PwApOlisaQl4IZI/jVe9g1NOYdLqquYgnY=
-X-Received: by 2002:a05:6000:4a13:b0:48b:9d2:1a6a with SMTP id ffacd0b85a97d-48e6e2b9ce9mr33693968f8f.1.1793778773094;
-        Tue, 03 Nov 2026 23:52:53 -0800 (PST)
-Received: from localhost.localdomain (80-108-121-211.cable.dynamic.surfer.at. [80.108.121.211])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feda207d8sm2200785f8f.52.2026.11.03.23.52.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 23:52:52 -0800 (PST)
-From: Christian Gmeiner <christian.gmeiner@gmail.com>
-Date: Wed, 04 Nov 2026 08:52:40 +0100
-Subject: [PATCH v2 2/3] drm/panthor: Report the CS fatal errors through
- GROUP_GET_STATE
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=lOdylO79
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id BC061C8F46E;
+	Wed,  4 Nov 2026 07:55:16 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id A500D60770;
+	Wed,  4 Nov 2026 07:54:11 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A0F56103291CE;
+	Wed,  4 Nov 2026 08:54:00 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793778850; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=T6QrPN+n248/1fXugyZOfzAMq/V+IWfxaE7Jd1ynvKI=;
+	b=lOdylO79h+90XVatYM2+an+NnBnVD+SYHclZfF/YT1gMnnJoJXQSfHDtahgdG9yMlua6nW
+	BgbJpCYSn3d+BuVZjwP6kqZu94E9B+T3VcDH/mJp4bTshL6qS5SwmgkD//WoxtxP9XuuBp
+	dtiPiVyLabHJqljgWc/OoO9WaThKSF/7ZnxZq56AhQi9upGyJ8PUgAF19kPJyJGalwuQok
+	5372tjz8s3mTwqv93El4OBN2w/9Pj+e2Gk1Arblolxp3X7PUg8lcfMFu6vYjImuleKodsQ
+	OABZte/UyUvrwzhLeFdEyWnwsRxvbJNuCMCN6Bu+j0+wq8c7njtTlHDG8iN4xg==
+Message-ID: <6e8d69e3-9404-4a80-874e-0133f942229e@bootlin.com>
+Date: Wed, 4 Nov 2026 08:53:59 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,248 +62,269 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 2/2] net: stmmac: Add Siflower SF19A2890 glue
+To: joseph@telaak.dev, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Chuanhong Guo <gch981213@gmail.com>, Russell King
+ <linux@armlinux.org.uk>, linux-mips@vger.kernel.org, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+References: <20261104-sf19a2890-gmac-v1-0-a15965a49574@telaak.dev>
+ <20261104-sf19a2890-gmac-v1-2-a15965a49574@telaak.dev>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20261104-sf19a2890-gmac-v1-2-a15965a49574@telaak.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-panthor-fault-info-v2-v2-2-673b31f3840c@igalia.com>
-References: <20261104-panthor-fault-info-v2-v2-0-673b31f3840c@igalia.com>
-In-Reply-To: <20261104-panthor-fault-info-v2-v2-0-673b31f3840c@igalia.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>, 
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Alice Ryhl <aliceryhl@google.com>
-Cc: Lukas Zapolskas <lukas.zapolskas@arm.com>, 
- Paul Toadere <paul.toadere@arm.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- Christian Gmeiner <cgmeiner@igalia.com>
-X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Christian Gmeiner <cgmeiner@igalia.com>
+Hi Joseph,
 
-Keep the raw CS_FATAL and CS_FATAL_INFO in the queue that hit them and
-return them through GROUP_GET_STATE in an array indexed by queue.
-Userspace decodes the values. No memory is allocated in the fatal path.
+On 11/4/26 08:22, Joseph Telaak via B4 Relay wrote:
+> From: Joseph Telaak <joseph@telaak.dev>
+> 
+> Add the glue for the DesignWare GMAC of the Siflower SF19A2890. The
+> interface type is set in the GMAC's configuration block through the
+> set_phy_intf_sel hook, and so are the RGMII clock delays, which the
+> MAC adds only where rx-internal-delay-ps or tx-internal-delay-ps is
+> present.
+> 
+> The delay line's step is not documented. Sweeping each delay over its
+> whole range with the link at 1000 Mb/s, the working windows repeat every
+> 145 steps, one 8 ns clock period, so a step is about 55 ps; the driver
+> rounds to the nearest step.
+> 
+> Based on Chuanhong Guo's driver from OpenWrt and his siflower-7.1
+> branch, which read the delays from a factory flash cell in the delay
+> line's own units and always applied them. That driver also set
+> STMMAC_FLAG_HAS_INTEGRATED_PCS, because the core reports a PCS that
+> does not work in RGMII mode; stmmac now uses the integrated PCS only
+> for SGMII, and the flag is gone.
+> 
+> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
 
-A queue stops at its first fatal error, so one slot per queue is
-enough. The slot is a struct drm_panthor_queue_fatal, which is the uAPI
-struct, so the ioctl can copy it with one assignment. The CS_FATAL
-event handler writes the slot under events_lock. The ioctl reads it
-under the same lock. The slot is never cleared, so the values can be
-read again after the call.
+Looking good, I have a small nit below :)
 
-The ioctl copies the slots of all queues to a stack array while the
-locks are held and copies them to userspace after the locks are
-dropped. It fills at most one entry per queue of the group and leaves
-the rest of the user array untouched.
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/Kconfig        |  11 ++
+>  drivers/net/ethernet/stmicro/stmmac/Makefile       |   1 +
+>  .../net/ethernet/stmicro/stmmac/dwmac-sf19a2890.c  | 158 +++++++++++++++++++++
+>  3 files changed, 170 insertions(+)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> index c6559e749..78efe7859 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> @@ -201,6 +201,17 @@ config DWMAC_S32
+>  	  SOCs GMAC ethernet controller, ie. S32G2xx, S32G3xx and
+>  	  S32R45.
+>  
+> +config DWMAC_SF19A2890
+> +	tristate "Siflower SF19A2890 GMAC support"
+> +	default MACH_SIFLOWER_MIPS
+> +	depends on OF && (MACH_SIFLOWER_MIPS || COMPILE_TEST)
+> +	help
+> +	  Support for the Ethernet controller of the Siflower SF19A2890 SoC.
+> +
+> +	  This selects the SF19A2890 glue layer support for the stmmac
+> +	  device driver. It sets the interface type and the RGMII clock
+> +	  delays in the GMAC's configuration block.
+> +
+>  config DWMAC_SOCFPGA
+>  	tristate "SOCFPGA dwmac support"
+>  	default ARCH_INTEL_SOCFPGA
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
+> index b16a456b7..9330de094 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/Makefile
+> +++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
+> @@ -26,6 +26,7 @@ obj-$(CONFIG_DWMAC_RENESAS_GBETH) += dwmac-renesas-gbeth.o
+>  obj-$(CONFIG_DWMAC_ROCKCHIP)	+= dwmac-rk.o
+>  obj-$(CONFIG_DWMAC_RZN1)	+= dwmac-rzn1.o
+>  obj-$(CONFIG_DWMAC_S32)		+= dwmac-s32.o
+> +obj-$(CONFIG_DWMAC_SF19A2890)	+= dwmac-sf19a2890.o
+>  obj-$(CONFIG_DWMAC_SOCFPGA)	+= dwmac-altr-socfpga.o
+>  obj-$(CONFIG_DWMAC_SOPHGO)	+= dwmac-sophgo.o
+>  obj-$(CONFIG_DWMAC_SPACEMIT)	+= dwmac-spacemit.o
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sf19a2890.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sf19a2890.c
+> new file mode 100644
+> index 000000000..41bfe7a4a
+> --- /dev/null
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sf19a2890.c
+> @@ -0,0 +1,158 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Siflower SF19A2890 GMAC glue
+> + *
+> + * The SF19A2890 has a DWMAC 3.73a. Its interface type and RGMII clock
+> + * delays are set in a register block of their own.
+> + *
+> + * Based on the driver by Chuanhong Guo <gch981213@gmail.com>.
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/clk.h>
+> +#include <linux/io.h>
+> +#include <linux/math.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/stmmac.h>
+> +
+> +#include "stmmac_platform.h"
+> +
+> +/* GMAC configuration block */
+> +#define SF19A2890_GMAC_MISC		0x0
+> +#define  SF19A2890_PHY_INTF_SEL		GENMASK(2, 0)
+> +#define SF19A2890_GMAC_TX_DELAY		0x4
+> +#define SF19A2890_GMAC_RX_DELAY		0x8
+> +#define SF19A2890_GMAC_RX_DELAY_EN	0xc
+> +#define  SF19A2890_DELAY_MAX		0xff
+> +
+> +/*
+> + * The delay line's step is not documented. Sweeping a full 8 ns RGMII clock
+> + * period at 1000 Mb/s takes 145 steps, so one step is about 55 ps.
+> + */
+> +#define SF19A2890_DELAY_STEP_PS		55
+> +
+> +struct sf19a2890_gmac {
+> +	struct device *dev;
 
-A queue can be flagged in fatal_queues without a CS_FATAL, for example
-when the group was killed by a VM fault. Its entry then has a zero
-exception. The VM fault itself is available through VM_GET_STATE.
+This is only used during the probe sequence, you can simply pass it as
+function parameters, this avoids using up memory to store that :)
 
-Old userspace that passes the shorter struct still works, the DRM core
-zero-fills the missing tail. A zero count skips the array.
+> +	void __iomem *cfg;
+> +};
+> +
+> +static int sf19a2890_gmac_set_phy_intf_sel(void *bsp_priv, u8 phy_intf_sel)
+> +{
+> +	struct sf19a2890_gmac *gmac = bsp_priv;
+> +	u32 val;
+> +
+> +	if (phy_intf_sel != PHY_INTF_SEL_GMII_MII &&
+> +	    phy_intf_sel != PHY_INTF_SEL_RGMII &&
+> +	    phy_intf_sel != PHY_INTF_SEL_RMII)
+> +		return -EINVAL;
+> +
+> +	val = readl(gmac->cfg + SF19A2890_GMAC_MISC);
+> +	val &= ~SF19A2890_PHY_INTF_SEL;
+> +	val |= FIELD_PREP(SF19A2890_PHY_INTF_SEL, phy_intf_sel);
+> +	writel(val, gmac->cfg + SF19A2890_GMAC_MISC);
+> +
+> +	return 0;
+> +}
+> +
+> +static int sf19a2890_gmac_get_delay(struct sf19a2890_gmac *gmac,
+> +				    const char *prop, u32 *steps)
+> +{
+> +	u32 ps;
+> +
+> +	*steps = 0;
+> +	if (of_property_read_u32(gmac->dev->of_node, prop, &ps))
+> +		return 0;
+> +
+> +	*steps = DIV_ROUND_CLOSEST(ps, SF19A2890_DELAY_STEP_PS);
+> +	if (*steps > SF19A2890_DELAY_MAX)
+> +		return dev_err_probe(gmac->dev, -EINVAL,
+> +				     "%s too large: %u\n", prop, ps);
+> +
+> +	return 0;
+> +}
+> +
+> +/* The MAC adds an RGMII delay only where the device tree asks for one */
+> +static int sf19a2890_gmac_set_delays(struct sf19a2890_gmac *gmac)
+> +{
+> +	u32 tx, rx;
+> +	int ret;
+> +
+> +	ret = sf19a2890_gmac_get_delay(gmac, "tx-internal-delay-ps", &tx);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = sf19a2890_gmac_get_delay(gmac, "rx-internal-delay-ps", &rx);
+> +	if (ret)
+> +		return ret;
+> +
+> +	writel(tx, gmac->cfg + SF19A2890_GMAC_TX_DELAY);
+> +	writel(rx, gmac->cfg + SF19A2890_GMAC_RX_DELAY);
+> +	writel(!!rx, gmac->cfg + SF19A2890_GMAC_RX_DELAY_EN);
+> +
+> +	return 0;
+> +}
+> +
+> +static int sf19a2890_gmac_probe(struct platform_device *pdev)
+> +{
+> +	struct plat_stmmacenet_data *plat_dat;
+> +	struct stmmac_resources stmmac_res;
+> +	struct device *dev = &pdev->dev;
+> +	struct sf19a2890_gmac *gmac;
+> +	struct clk *clk;
+> +	int ret;
+> +
+> +	gmac = devm_kzalloc(dev, sizeof(*gmac), GFP_KERNEL);
+> +	if (!gmac)
+> +		return -ENOMEM;
+> +
+> +	gmac->dev = dev;
+> +
+> +	gmac->cfg = devm_platform_ioremap_resource(pdev, 1);
+> +	if (IS_ERR(gmac->cfg))
+> +		return dev_err_probe(dev, PTR_ERR(gmac->cfg),
+> +				     "failed to map the configuration block\n");
+> +
+> +	clk = devm_clk_get_enabled(dev, "byp_ref");
+> +	if (IS_ERR(clk))
+> +		return dev_err_probe(dev, PTR_ERR(clk),
+> +				     "failed to enable the byp_ref clock\n");
+> +
+> +	ret = sf19a2890_gmac_set_delays(gmac);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
+> +	if (ret)
+> +		return ret;
+> +
+> +	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
+> +	if (IS_ERR(plat_dat))
+> +		return PTR_ERR(plat_dat);
+> +
+> +	plat_dat->bsp_priv = gmac;
+> +	plat_dat->set_phy_intf_sel = sf19a2890_gmac_set_phy_intf_sel;
+> +
+> +	return stmmac_dvr_probe(dev, plat_dat, &stmmac_res);
+> +}
+> +
+> +static const struct of_device_id sf19a2890_gmac_match[] = {
+> +	{ .compatible = "siflower,sf19a2890-gmac" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, sf19a2890_gmac_match);
+> +
+> +static struct platform_driver sf19a2890_gmac_driver = {
+> +	.probe = sf19a2890_gmac_probe,
+> +	.remove = stmmac_pltfr_remove,
+> +	.driver = {
+> +		.name = "sf19a2890-gmac",
+> +		.pm = &stmmac_pltfr_pm_ops,
+> +		.of_match_table = sf19a2890_gmac_match,
+> +	},
+> +};
+> +module_platform_driver(sf19a2890_gmac_driver);
+> +
+> +MODULE_DESCRIPTION("Siflower SF19A2890 GMAC glue");
+> +MODULE_LICENSE("GPL");
 
-Link: https://lore.kernel.org/r/20251215115457.2137485-3-lukas.zapolskas@arm.com
-Link: https://lore.kernel.org/r/20251215115457.2137485-6-lukas.zapolskas@arm.com
-Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
----
- drivers/gpu/drm/panthor/panthor_drv.c   | 20 ++++++++++++++++++--
- drivers/gpu/drm/panthor/panthor_sched.c | 32 +++++++++++++++++++++++++++++++-
- drivers/gpu/drm/panthor/panthor_sched.h |  5 ++++-
- include/uapi/drm/panthor_drm.h          | 30 ++++++++++++++++++++++++++++++
- 4 files changed, 83 insertions(+), 4 deletions(-)
+Thanks :)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-index 7572cd7d6423..fb5fdf848dec 100644
---- a/drivers/gpu/drm/panthor/panthor_drv.c
-+++ b/drivers/gpu/drm/panthor/panthor_drv.c
-@@ -181,7 +181,8 @@ panthor_get_uobj_array(const struct drm_panthor_obj_array *in, u32 min_stride,
- 		 PANTHOR_UOBJ_DECL(struct drm_panthor_queue_submit, syncs), \
- 		 PANTHOR_UOBJ_DECL(struct drm_panthor_queue_create, ringbuf_size), \
- 		 PANTHOR_UOBJ_DECL(struct drm_panthor_vm_bind_op, syncs), \
--		 PANTHOR_UOBJ_DECL(struct drm_panthor_bo_sync_op, size))
-+		 PANTHOR_UOBJ_DECL(struct drm_panthor_bo_sync_op, size), \
-+		 PANTHOR_UOBJ_DECL(struct drm_panthor_queue_fatal, exception_info))
- 
- /**
-  * PANTHOR_UOBJ_SET() - Copy a kernel object to a user object.
-@@ -1254,10 +1255,25 @@ static int panthor_ioctl_group_create(struct drm_device *ddev, void *data,
- static int panthor_ioctl_group_get_state(struct drm_device *ddev, void *data,
- 					 struct drm_file *file)
- {
-+	struct drm_panthor_queue_fatal fatals[MAX_CS_PER_CSG];
- 	struct panthor_file *pfile = file->driver_priv;
- 	struct drm_panthor_group_get_state *args = data;
-+	u64 usr_ptr = args->queue_fatals.array;
-+	u32 stride = args->queue_fatals.stride;
-+	u32 count;
-+	int ret;
- 
--	return panthor_group_get_state(pfile, args);
-+	ret = panthor_group_get_state(pfile, args, fatals, &count);
-+	if (ret)
-+		return ret;
-+
-+	for (u32 i = 0; i < count; i++) {
-+		ret = PANTHOR_UOBJ_SET(usr_ptr + (u64)i * stride, stride, fatals[i]);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
- }
- 
- static int panthor_ioctl_tiler_heap_create(struct drm_device *ddev, void *data,
-diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-index a343c5180e01..40400b2e4551 100644
---- a/drivers/gpu/drm/panthor/panthor_sched.c
-+++ b/drivers/gpu/drm/panthor/panthor_sched.c
-@@ -485,6 +485,15 @@ struct panthor_queue {
- 		/** @profiling.seqno: Index of the next available profiling information slot. */
- 		u32 seqno;
- 	} profiling;
-+
-+	/**
-+	 * @fatal: Last CS_FATAL reported on this queue.
-+	 *
-+	 * Never cleared, a later CS_FATAL overwrites it. A zero exception
-+	 * means no CS_FATAL was reported. Protected by
-+	 * panthor_scheduler::events_lock.
-+	 */
-+	struct drm_panthor_queue_fatal fatal;
- };
- 
- /**
-@@ -1412,10 +1421,20 @@ cs_slot_process_fatal_event_locked(struct panthor_device *ptdev,
- 	info = cs_iface->output->fatal_info;
- 
- 	if (group) {
-+		struct panthor_queue *queue = cs_id < group->queue_count ?
-+					      group->queues[cs_id] : NULL;
-+
- 		drm_warn(&ptdev->base, "CS_FATAL: pid=%d, comm=%s\n",
- 			 group->task_info.pid, group->task_info.comm);
- 
- 		atomic_or(BIT(cs_id), &group->fatal_queues);
-+
-+		if (queue) {
-+			queue->fatal = (struct drm_panthor_queue_fatal){
-+				.exception = fatal,
-+				.exception_info = info,
-+			};
-+		}
- 	}
- 
- 	if (CS_EXCEPTION_TYPE(fatal) == DRM_PANTHOR_EXCEPTION_CS_UNRECOVERABLE) {
-@@ -3818,8 +3837,11 @@ static struct panthor_group *group_from_handle(struct panthor_group_pool *pool,
- }
- 
- int panthor_group_get_state(struct panthor_file *pfile,
--			    struct drm_panthor_group_get_state *get_state)
-+			    struct drm_panthor_group_get_state *get_state,
-+			    struct drm_panthor_queue_fatal *fatals,
-+			    u32 *fatal_count)
- {
-+	struct drm_panthor_obj_array queue_fatals = get_state->queue_fatals;
- 	struct panthor_group_pool *gpool = pfile->groups;
- 	struct panthor_device *ptdev = pfile->ptdev;
- 	struct panthor_scheduler *sched = ptdev->scheduler;
-@@ -3833,6 +3855,9 @@ int panthor_group_get_state(struct panthor_file *pfile,
- 		return -EINVAL;
- 
- 	memset(get_state, 0, sizeof(*get_state));
-+	get_state->queue_fatals = queue_fatals;
-+
-+	*fatal_count = min(queue_fatals.count, group->queue_count);
- 
- 	mutex_lock(&sched->lock);
- 	if (atomic_read(&group->timedout))
-@@ -3844,6 +3869,11 @@ int panthor_group_get_state(struct panthor_file *pfile,
- 
- 	if (group->innocent)
- 		get_state->state |= DRM_PANTHOR_GROUP_STATE_INNOCENT;
-+
-+	scoped_guard(spinlock, &sched->events_lock) {
-+		for (u32 i = 0; i < *fatal_count; i++)
-+			fatals[i] = group->queues[i]->fatal;
-+	}
- 	mutex_unlock(&sched->lock);
- 
- 	group_put(group);
-diff --git a/drivers/gpu/drm/panthor/panthor_sched.h b/drivers/gpu/drm/panthor/panthor_sched.h
-index d87cbdba4d40..dd3d31c06cf1 100644
---- a/drivers/gpu/drm/panthor/panthor_sched.h
-+++ b/drivers/gpu/drm/panthor/panthor_sched.h
-@@ -14,6 +14,7 @@ struct drm_minor;
- struct drm_panthor_group_create;
- struct drm_panthor_queue_create;
- struct drm_panthor_group_get_state;
-+struct drm_panthor_queue_fatal;
- struct drm_panthor_queue_submit;
- struct panthor_device;
- struct panthor_file;
-@@ -26,7 +27,9 @@ int panthor_group_create(struct panthor_file *pfile,
- 			 u64 drm_client_id);
- int panthor_group_destroy(struct panthor_file *pfile, u32 group_handle);
- int panthor_group_get_state(struct panthor_file *pfile,
--			    struct drm_panthor_group_get_state *get_state);
-+			    struct drm_panthor_group_get_state *get_state,
-+			    struct drm_panthor_queue_fatal *fatals,
-+			    u32 *fatal_count);
- 
- struct drm_sched_job *
- panthor_job_create(struct panthor_file *pfile,
-diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
-index 85e197d7a528..c9a681762b96 100644
---- a/include/uapi/drm/panthor_drm.h
-+++ b/include/uapi/drm/panthor_drm.h
-@@ -1072,6 +1072,27 @@ enum drm_panthor_group_state_flags {
- 	DRM_PANTHOR_GROUP_STATE_INNOCENT = 1 << 2,
- };
- 
-+/**
-+ * struct drm_panthor_queue_fatal - Fatal error of a single queue.
-+ */
-+struct drm_panthor_queue_fatal {
-+	/**
-+	 * @exception: Raw CS_FATAL value.
-+	 *
-+	 * Zero if no CS_FATAL was reported on this queue. A queue can be
-+	 * flagged in drm_panthor_group_get_state::fatal_queues without a
-+	 * CS_FATAL, for instance when the group was killed by a VM fault.
-+	 * A later CS_FATAL overwrites the previous one.
-+	 */
-+	__u32 exception;
-+
-+	/** @pad: Will be zero on return. */
-+	__u32 pad;
-+
-+	/** @exception_info: Raw CS_FATAL_INFO value, valid if @exception is non-zero. */
-+	__u64 exception_info;
-+};
-+
- /**
-  * struct drm_panthor_group_get_state - Arguments passed to DRM_IOCTL_PANTHOR_GROUP_GET_STATE
-  *
-@@ -1093,6 +1114,15 @@ struct drm_panthor_group_get_state {
- 
- 	/** @pad: MBZ */
- 	__u32 pad;
-+
-+	/**
-+	 * @queue_fatals: Array of struct drm_panthor_queue_fatal, indexed by queue.
-+	 *
-+	 * Entry N describes the queue at index N of the group creation array.
-+	 * The driver fills at most as many entries as the group has queues and
-+	 * leaves the rest untouched. A zero count skips the array.
-+	 */
-+	struct drm_panthor_obj_array queue_fatals;
- };
- 
- /**
-
--- 
-2.56.0
+Maxime 
 
