@@ -1,65 +1,40 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.38
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.205.14.76
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793792632;
-	b=mwRVdp6Wcohx7S9ZioHY8zKSkUs7vkVDKO8h3EG8hZrMjxM4/qAxPD4IN57P5NpzKzVk
-	 4tfHWwDIGDl+FDzQxSCzwaxF9oNngs81tPgDrkdQp1gCb3ICU/RS0wUUhP/CXMnCB/1sZ
-	 HVVpkZs76kv1XoRuJ+cE4qqqt5bc223nL7eNnaXFf2AXsz9nVQRWNEWAoa3TLv6mZ7+vt
-	 l2Pt9RhOlrYeUOwc1Q6+n9zgLMugv4w0qxeiXtBJOpJICCQyilyv5uPpoI5AfHXTuX6ls
-	 bg9V9GOa8niGKrr1xBVC6C6KXUXfD9DN71wurMNU3iSMv1ikxMBpZEYjtGsTfKp9wVA==
+	t=1793792624;
+	b=IXZTT9iQuZBGHvEEaMaS/tZO82I+nxX7szXAyghGcw0xjjTxkZSG9JC0+ykev7luGt0S
+	 86zF1rYNAcRu5SHZpj98JJdjS1NJBLOlyLkBOZNa/G3SBT2rzyiYFMVzwwmPGrM2Q6IbV
+	 +0o+GXVh46CpoHOnqZJwO93lrkcE5+WYnBGmd6JZ/WhUmspOKW9mGt/xIQWzSgFbMDFlx
+	 glWbJ3Ta4GrO1JSlu0Yn4f8oqUhT1OOSpvGgKtRwXFccMEhPwXEAwlASmRqkzQJ3nhL13
+	 Vlz+BZfbzkgAQ1j4+xjhsR9PwrQkhRhsYqrU0aOa82q71g15eZxhbvhLc/tofhFycDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793792632;
-	h=DMARC-Filter:DKIM-Signature:Message-Id:To:Received:References:From:
-	 Date:Content-Type:In-Reply-To:Content-Transfer-Encoding:
-	 X-Original-From:Cc:Mime-Version:X-Lms-Return-Path:User-Agent:Subject;
-	bh=9nOS00/4oT0JM3BaBnrKdFTphpzGiSyZVFHCo5yrkhs=;
-	b=UBm1n2HmULhEMVjMjd2EtNnRp4OzxYXkgvxTCOPLKvl8YgTvgtxLWCkfJJoqPoIW/Stv
-	 jyxjYZoaMqxkuSXU+JfuZ0Mxo5gxy8XhH3KdX3LWmWHOsPKZ9gEqZiF8nKIFfb9kNRqq5
-	 2kjmugFER/Q9nW09XfW41JplkAekktDhW18J7N07hVcBvFzMcI/ACy7HIZSmktxbRh2ux
-	 bPF+EBXopO5u9iSnJroIvuKrw+L/zs92cmBu9tzlNMw7yqoMPyJB1S79i6RUFPZ2KTs5Z
-	 aIZUUxTYyfq0F6nl0N/rCCB15JT7KfDO/2uedq2Toqq2jpnwb772sJAtxjvBuhygvGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793792624;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=z9ysQ+XoG+foncX/3jtWkWh7mLG1px8yz8zNNyKH3rU=;
+	b=r7shsL2DygTfAankiMAg3ItAB9Cf+xiYbg34tw+z880vq1Bxr9BWOsyiqay6oKQKJAqJ
+	 vcuZEYPvrHSt/i7iL38YME0TndkhPJe3vMDqOdOF5MmyBs0BfFCSapzCzYl2E/45NLifI
+	 HdeZLGIyUepEMxfFz2wwOPl8Wu6/pA5too1FL6JyJ5r1wjp5RG8wUmQY8GMby4A8gZpfd
+	 KiJ6WxsFWOLxOyT4HM6Ul5j83h/LvI1aAy85MwFWKOLfPa7VTFIYXvgHaJ8PKoqO/yRgl
+	 OcXZRvNn2gzywvKuWSM6D1aSEm6eJelmckxFrfu7pca7qRUnWfhO47ec75MwfSSMaOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=yunsilicon.com;
-	spf=pass smtp.mailfrom=yunsilicon.com;
-	dkim=pass header.d=yunsilicon.com header.i=@yunsilicon.com header.a=rsa-sha256 header.s=feishu2403070942 header.b="MtK/nnnj";
-	arc=none smtp.remote-ip=209.127.231.38
-Received: from va-2-38.ptr.blmpb.com (va-2-38.ptr.blmpb.com [209.127.231.38])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=gpxsee.org;
+	spf=pass smtp.mailfrom=gpxsee.org;
+	arc=none smtp.remote-ip=37.205.14.76
+Received: from mx.gpxsee.org (mx.gpxsee.org [37.205.14.76])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3A84606A337
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:43:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3A84606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yunsilicon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yunsilicon.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yunsilicon.com header.i=@yunsilicon.com header.a=rsa-sha256 header.s=feishu2403070942 header.b=MtK/nnnj
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2403070942; d=yunsilicon.com; t=1793792626; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=9nOS00/4oT0JM3BaBnrKdFTphpzGiSyZVFHCo5yrkhs=;
- b=MtK/nnnjbdaeOpcgGZO4J+1NB9HjOGugK+u/DR3v3usbabbH0Xxcn4c4bnBKwyWeGfgy8d
- 3DaObYDhWS4Dnd5B+ysAaWCtSkOdS/dDNOH9JCL40JqwSbEZ3Ez5bcD2zSxXSWY6P8MnL3
- LOv+ElHS2IpQWjhg+r9/gPtXukk4NCeeIAnQxi/wsSrVskM8KfaVlH5m2MBk3xWXOvS8Or
- XkIE6/PacORfaalQadAmCunVLAsnPsV/NmZCINe4aH24vCCPe+zZesv8zrNvdMe0MELm+4
- hgI9J/2N/UFSF+8kcon3UutnPRf1tlLDdJaqSND0+8yjJ80S7OKDZFk9WnzIEw==
-Message-Id: <e63df858-d9f6-4d1c-8802-9a8b83c9f904@yunsilicon.com>
-To: "Junxian Huang" <huangjunxian6@hisilicon.com>, 
-	"Andrew Lunn" <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, 
-	"Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, 
-	"Paolo Abeni" <pabeni@redhat.com>, "Jason Gunthorpe" <jgg@ziepe.ca>, 
-	"Leon Romanovsky" <leon@kernel.org>
-Received: from [127.0.0.1] ([180.152.18.210]) by smtp.feishu.cn with ESMTPS; Wed, 04 Nov 2026 19:43:43 +0800
-References: <20261012114352.2471317-1-tianx@yunsilicon.com> <20261012114356.2471317-4-tianx@yunsilicon.com> <47c82da8-99cd-ec81-f264-d270fef057ee@hisilicon.com>
-From: "Xin Tian" <tianx@yunsilicon.com>
-Date: Wed, 4 Nov 2026 19:43:42 +0800
-Content-Type: text/plain; charset=UTF-8
-In-Reply-To: <47c82da8-99cd-ec81-f264-d270fef057ee@hisilicon.com>
-Content-Transfer-Encoding: quoted-printable
-X-Original-From: Xin Tian <tianx@yunsilicon.com>
-Cc: <weihg@yunsilicon.com>, <linux-kernel@vger.kernel.org>, 
-	<netdev@vger.kernel.org>, <linux-rdma@vger.kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A4D606A326;
+	Wed,  4 Nov 2026 11:43:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09A4D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gpxsee.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gpxsee.org
+Received: from [192.168.4.18] (unknown [62.77.71.229])
+	by mx.gpxsee.org (Postfix) with ESMTPSA id 833DCA56A2;
+	Wed, 04 Nov 2026 12:43:32 +0100 (CET)
+Message-ID: <02af8699-0ac3-468c-913e-a374af1c8d63@gpxsee.org>
+Date: Wed, 4 Nov 2026 12:43:31 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,136 +43,55 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26aeb1a70+954ab2+vger.kernel.org+tianx@yunsilicon.com>
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/15] yunsilicon: add the command queue
+Subject: Re: [PATCH v3 2/9] media: mgb4: use dmaengine_desc_set_callback()
+To: Frank.Li@oss.nxp.com, Martin Tuma <martin.tuma@digiteqautomotive.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ "open list:DIGITEQ AUTOMOTIVE MGB4 V4L2 DRIVER"
+ <linux-media@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
+Cc: imx@lists.linux.dev, Frank Li <Frank.Li@nxp.com>
+References: <20261103153721.1232488-1-Frank.Li@oss.nxp.com>
+ <20261103153721.1232488-2-Frank.Li@oss.nxp.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Martin_T=C5=AFma?= <tumic@gpxsee.org>
+In-Reply-To: <20261103153721.1232488-2-Frank.Li@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 10/13/2026 11:11 AM, Junxian Huang wrote:
->
-> On 2026/10/12 19:43, Xin Tian wrote:
->> Add the command queue that is shared by the ethernet and RDMA functions:
->> the request/response rings, the command work handling and the device
->> initialisation sequence that queries the HCA capabilities, the GUID and
->> the message opcode table.
->>
->> Signed-off-by: Xin Tian <tianx@yunsilicon.com>
->> ---
->>   .../net/ethernet/yunsilicon/xsc/pci/Makefile  |    2 +-
->>   .../net/ethernet/yunsilicon/xsc/pci/cmdq.c    | 1247 +++++++++++++++++
->>   drivers/net/ethernet/yunsilicon/xsc/pci/hw.c  |  310 ++++
->>   drivers/net/ethernet/yunsilicon/xsc/pci/hw.h  |   18 +
->>   .../net/ethernet/yunsilicon/xsc/pci/main.c    |   55 +
->>   5 files changed, 1631 insertions(+), 1 deletion(-)
->>   create mode 100644 drivers/net/ethernet/yunsilicon/xsc/pci/cmdq.c
->>   create mode 100644 drivers/net/ethernet/yunsilicon/xsc/pci/hw.c
->>   create mode 100644 drivers/net/ethernet/yunsilicon/xsc/pci/hw.h
->>
->> diff --git a/drivers/net/ethernet/yunsilicon/xsc/pci/Makefile b/drivers/=
-net/ethernet/yunsilicon/xsc/pci/Makefile
->> index 81b65232e..656cdffa1 100644
->> --- a/drivers/net/ethernet/yunsilicon/xsc/pci/Makefile
->> +++ b/drivers/net/ethernet/yunsilicon/xsc/pci/Makefile
->> @@ -6,4 +6,4 @@ ccflags-y +=3D -I$(srctree)/drivers/net/ethernet/yunsili=
-con/xsc
->>  =20
->>   obj-$(CONFIG_YUNSILICON_XSC_PCI) +=3D xsc_pci.o
->>  =20
->> -xsc_pci-y :=3D main.o hal/andes_impl.o
->> +xsc_pci-y :=3D main.o cmdq.o hw.o hal/andes_impl.o
->> diff --git a/drivers/net/ethernet/yunsilicon/xsc/pci/cmdq.c b/drivers/ne=
-t/ethernet/yunsilicon/xsc/pci/cmdq.c
->> new file mode 100644
->> index 000000000..48832b26d
->> --- /dev/null
->> +++ b/drivers/net/ethernet/yunsilicon/xsc/pci/cmdq.c
->> @@ -0,0 +1,1247 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +/*
->> + * Copyright (c) 2021-2026, Shanghai Yunsilicon Technology Co., Ltd.
->> + * All rights reserved.
->> + * Copyright (c) 2013-2016, Mellanox Technologies. All rights reserved.
-> Why Mellanox?
+On 11/3/26 4:37 PM, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
+> 
+> Replace open-coded assignments to callback and callback_param fields
+> of struct dma_async_tx_descriptor with calls to the
+> dmaengine_desc_set_callback() helper.
+> 
+> No functional change intended. Prepare to make struct
+> dma_async_tx_descriptor private to the DMA engine.
+> 
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> ---
+> change in v3
+>    split to simple patch
+> https://lore.kernel.org/imx/38f6a9abf37b06318bb6429ac04807941ca8d558.camel@collabora.com/
+> ---
+>   drivers/media/pci/mgb4/mgb4_dma.c | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/drivers/media/pci/mgb4/mgb4_dma.c b/drivers/media/pci/mgb4/mgb4_dma.c
+> index cae888e6504b0..c9a15c625be65 100644
+> --- a/drivers/media/pci/mgb4/mgb4_dma.c
+> +++ b/drivers/media/pci/mgb4/mgb4_dma.c
+> @@ -55,8 +55,7 @@ int mgb4_dma_transfer(struct mgb4_dev *mgbdev, u32 channel, bool write,
+>   		return -EIO;
+>   	}
+>   
+> -	tx->callback = chan_irq;
+> -	tx->callback_param = chan;
+> +	dmaengine_desc_set_callback(tx, chan_irq, NULL, chan);
+>   
+>   	ret = dma_submit_error(dmaengine_submit(tx));
+>   	if (ret) {
 
-Hi Junxian,
+Acked-by: Martin Tůma <martin.tuma@digiteqautomotive.com>
 
-This is intentional=E2=80=94the code is derived from the Mellanox driver, a=
-s Leon
-noted. I'll keep it as is.
-
->> + */
->> +
->> +#include <linux/module.h>
->> +#include <linux/errno.h>
->> +#include <linux/pci.h>
->> +#include <linux/dma-mapping.h>
->> +#include <linux/slab.h>
->> +#include <linux/delay.h>
->> +#include <linux/random.h>
->> +#include <linux/kthread.h>
->> +#include <linux/io-mapping.h>
->> +
->> +#include "common/xsc_cmd_api.h"
->> +#include "common/xsc_cmd.h"
->> +#include "common/xsc_core.h"
->> +#include "hal/xsc_hal.h"
->> +
->> +enum {
->> +	CMD_IF_REV =3D 3,
->> +};
->> +
->> +enum {
->> +	NUM_LONG_LISTS	  =3D 2,
->> +	NUM_MED_LISTS	  =3D 64,
->> +	LONG_LIST_SIZE	  =3D (2ULL * 1024 * 1024 * 1024 / PAGE_SIZE) * 8 + 16 =
-+
->> +				XSC_CMD_DATA_BLOCK_SIZE,
->> +	MED_LIST_SIZE	  =3D 16 + XSC_CMD_DATA_BLOCK_SIZE,
->> +};
->> +
->> +enum {
->> +	XSC_CMD_DELIVERY_STAT_OK			=3D 0x0,
->> +	XSC_CMD_DELIVERY_STAT_SIGNAT_ERR		=3D 0x1,
->> +	XSC_CMD_DELIVERY_STAT_TOK_ERR			=3D 0x2,
->> +	XSC_CMD_DELIVERY_STAT_BAD_BLK_NUM_ERR		=3D 0x3,
->> +	XSC_CMD_DELIVERY_STAT_OUT_PTR_ALIGN_ERR		=3D 0x4,
->> +	XSC_CMD_DELIVERY_STAT_IN_PTR_ALIGN_ERR		=3D 0x5,
->> +	XSC_CMD_DELIVERY_STAT_FW_ERR			=3D 0x6,
->> +	XSC_CMD_DELIVERY_STAT_IN_LENGTH_ERR		=3D 0x7,
->> +	XSC_CMD_DELIVERY_STAT_OUT_LENGTH_ERR		=3D 0x8,
->> +	XSC_CMD_DELIVERY_STAT_RES_FLD_NOT_CLR_ERR	=3D 0x9,
->> +	XSC_CMD_DELIVERY_STAT_CMD_DESCR_ERR		=3D 0x10,
->> +};
->> +
->> +static struct xsc_cmd_work_ent *xsc_alloc_cmd(struct xsc_cmd *cmd,
->> +					      struct xsc_cmd_msg *in,
->> +					      struct xsc_rsp_msg *out)
->> +{
->> +	struct xsc_cmd_work_ent *ent;
->> +
->> +	ent =3D kzalloc_obj(*ent, GFP_KERNEL);
->> +	if (!ent)
->> +		return ERR_PTR(-ENOMEM);
->> +
->> +	ent->in		=3D in;
->> +	ent->out	=3D out;
->> +	ent->cmd	=3D cmd;
->> +
->> +	return ent;
->> +}
->> +
->> +static void xsc_free_cmd(struct xsc_cmd_work_ent *ent)
->> +{
->> +	kfree(ent);
-> One line function is unnecessary.
->
-> Junxian
-
-Fixed in v1.
-
-Thanks,
-Xin Tian
-
-
->
->> +}
