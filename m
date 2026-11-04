@@ -1,64 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793789350;
-	b=qt9XqbxcGQZqdxkhE2wOUHREhvHY2YwJcMi0AW7FGMvkoMFNwboNVMCtTdS/s6T2RXXT
-	 JOCXK4T+txvXbSriuuhjuLdAhKFjEbnQfEKWDIwRTn2gpZz3WyIaXuox04565ngTWCNBl
-	 gJJzNJX3G0pFm353N/iGVFXfGcMY5JqbfsTRpoZdh76zOv4eAmzj3bcM6SZ1U1YXGUzkD
-	 MwxR1DxAXFhpFi53z3g31tTjnKT2FGihA5zZHXe0o1Ps2DaE5RUuLO0FbXDreBDDtQX33
-	 +AoTW1ImO0flDFFKsXKTAf0I/G3FrDh3BuZUg+hyINBE3VOkAbHVmdwWpjBfycuCFXg==
+	t=1793789361;
+	b=xK2OTSvLbQNoBePsqJCHe9sQbtpX2vz/one5NYYc3IA/+M7sLlA9+jm77LxiiDsd9wti
+	 b8CR/HCDTxfgotEXA3qrVT1BRSGPHqNFSZ5ouos60om0FhGwqeyzbw8VuQ22bExHVPTpK
+	 /5TKnp4Om5PZILmkx4emxCorQk8TtpHleLk5y9qE5ymqjsXNRLJFNMQO1mmhEr8xoz82N
+	 EVZnYN7jhrZXnPzk4OdE+XIyvdUeH5H/SwwTgH4kII9RZWh9jCfUo8EL7atZg+BibEz27
+	 t5Tb8mOhZjpV3rckK7sRL8lGbK5/r/BqmefGLl88Nzrhtlh85m4xQ/J7fec6YlXiEDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793789350;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=vZTO7e+scOHMZfZ0rgBwT14GC+n8HQAdcfXeVAuK/yM=;
-	b=rieRhvo6uS1QrIPjTQieOxzSsnbqHQB2bShhfglepSLXtarxO63h/MHiNt6+LJT8DvJi
-	 rV6ofCzJYBlViqNmLPNqhRVu5/+hTxn3h9zgZCNUx9WsrF27anpu0iDtWv+qEjS6wqWsn
-	 2JtNa3GY7LswONqp0wNLwhdEQChgzpXbSVo1DuTu55+9aylU0HOCa2epT20WVb1+sy+qj
-	 UV2Q+DDGpY6NOI2gTaGCG8PNF6W+A1uVPgUuzXpJlGL2+5gDYb6KbPJnfWLSkgQZfOfHs
-	 yjoD+c27tvtpBzAJ/fxDSZdtqWS7BdxoyX5rFX3qD0FJsTRtW5f+G/47GC4qaX02v3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793789361;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Scanned-By;
+	bh=MFA7WkGo+hIbERumFRG59VaVyf5F/3/i6Y52p+XAYVU=;
+	b=SGHYn/6AOnlcRr5pWFmLl2p93OlJnySnLgrUuvvD8WIk3PTZP0/k6PlXpgnTCId+rMxM
+	 MFhGv20M4sSCisbGqYDwtRDDPbjkjaZqjZDFGNS9UQj3gjMKedDpoynXWFQ/13DFQFNhp
+	 +uDb86G53SLytC5zqazMl+QA7VzaF8CCRYiH+jhx+mlw1WlBAGB87RWNq6cK5dTitJfc8
+	 IkXltPuZUPfCwv1Wsde2MUH66ld1eq53Y8ilaEdTYZp7RjIEUanEgGlRRI1YYmdoPmfVu
+	 SwAtqs754ZQYJJmbLwUX/Fo6aB0sv/gSYeXOK2aepnleVjyozYNyvKM52s4m+UNYkjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=le3NFuUc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=heIo9m99;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10F68606A31B;
-	Wed,  4 Nov 2026 10:49:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8736606A330
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:49:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8736606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=le3NFuUc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B9A61F000C1;
-	Wed,  4 Nov 2026 10:49:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793789349;
-	bh=vZTO7e+scOHMZfZ0rgBwT14GC+n8HQAdcfXeVAuK/yM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=le3NFuUcHXFH8dt8dhX/enpkJvbAqvt5iYEuKTjz/MCdSCaMfBEGrXZiEz6bnNscf
-	 0VNK4hsQ8MC8BRbBEpdSkBgB0XUPK+UPUof5+jfwAW6p2fFs2fpcGPXn1jAaaXzROt
-	 9+Ai0sn8EtYyfzlLGeTjaqZCQBIwaOgxl1j7gAevqnG5PGVs/5JT/rkroEgoh18okE
-	 h+56o3Z3abo3yst7h8q0sbnSLX6dZ8EOPIG2fvBpPHGYn+O2H2plaWyhGBS2lkXW4f
-	 yjXtGqyurw91eBLXwq6miaQEbrVxPRREeIMzphddaoa+mtotdoS5pER5ypfeYLSTur
-	 V9D1C4ZvOBamw==
-Date: Wed, 4 Nov 2026 11:49:06 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: James Calligeros <jcalligeros99@gmail.com>
-Cc: David Rhodes <david.rhodes@cirrus.com>, 
-	Richard Fitzgerald <rf@opensource.cirrus.com>, Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
-	Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, Sven Peter <sven@kernel.org>, 
-	Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>, asahi@lists.linux.dev, 
-	linux-sound@vger.kernel.org, patches@opensource.cirrus.com, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH v4 02/22] ASoC: dt-bindings: cs42l42: Allow referenced
- dai-common properties
-Message-ID: <20261104-strict-precise-mouflon-85cbad@quoll>
-References: <20261103-macaudio-v4-0-637484efe46d@gmail.com>
- <20261103-macaudio-v4-2-637484efe46d@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=heIo9m99
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793789359;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=MFA7WkGo+hIbERumFRG59VaVyf5F/3/i6Y52p+XAYVU=;
+	b=heIo9m99tL469yH7HV2HXPVj5poSweBOvR7qDhRmfyGP0ziMMQFgI6S9hpedi6YRMO6QiC
+	xd3JO2UdtonxQfe3qbue6gJi+O355o+SJGfTrolu/xXMCK8I04vbutAzEFvvDUPBUsL/lC
+	wcSZrv1rlsqciM91eLtGm3y+3D86m1w=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-279-7_rpUqBSPeWq-YWFmJo4VQ-1; Wed,
+ 04 Nov 2026 05:49:14 -0500
+X-MC-Unique: 7_rpUqBSPeWq-YWFmJo4VQ-1
+X-Mimecast-MFC-AGG-ID: 7_rpUqBSPeWq-YWFmJo4VQ_1793789353
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4CD851800361;
+	Wed,  4 Nov 2026 10:49:13 +0000 (UTC)
+Received: from thuth-p1g4.redhat.com (unknown [10.44.48.42])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 2F3ED195608C;
+	Wed,  4 Nov 2026 10:49:10 +0000 (UTC)
+From: Thomas Huth <thuth@redhat.com>
+To: Ming Lei <tom.leiming@gmail.com>,
+	Shuah Khan <shuah@kernel.org>
+Cc: linux-block@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] selftests: ublk: Fix include path for out-of-tree builds
+Date: Wed,  4 Nov 2026 11:49:08 +0100
+Message-ID: <20261104104909.129656-1-thuth@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,40 +77,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261103-macaudio-v4-2-637484efe46d@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-On Tue, Nov 03, 2026 at 05:39:50PM +1000, James Calligeros wrote:
-> We may need to define both #sound-dai-cells and sound-name-prefix on some
-> machines where this codec is part of a simple DAI. Allow this by refrencing
-> dai-common.yaml and allowing its properties to be used.
-> 
-> Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
-> ---
->  Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml b/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml
-> index ab4c7d22dc0e..4ac0af34c464 100644
-> --- a/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml
-> +++ b/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml
-> @@ -9,6 +9,9 @@ title: Cirrus Logic CS42L42 audio CODEC
->  maintainers:
->    - patches@opensource.cirrus.com
->  
-> +allOf:
-> +  - $ref: dai-common.yaml#
-> +
->  description:
->    The CS42L42 is a low-power audio codec designed for portable applications.
->    It provides a high-dynamic range, stereo DAC for audio playback and a mono
-> @@ -193,7 +196,7 @@ required:
->    - VL-supply
->    - VA-supply
+When building the seltests out of tree with "make kselftest-all",
+the compilation of the ublk tests can currently fail since they
+are using the headers from the distro instead the headers from the
+kernel source. For example, I'm getting:
 
-Missing dai-cells constraint
+ kublk.c: In function ‘ublk_ctrl_dump’:
+ kublk.c:190:27: error: ‘UBLK_F_IO_DESC_SIZE’ undeclared (first use in
+  this function); did you mean ‘UBLK_F_UPDATE_SIZE’?
+   190 |         if (info->flags & UBLK_F_IO_DESC_SIZE)
+       |                           ^~~~~~~~~~~~~~~~~~~
+       |                           UBLK_F_UPDATE_SIZE
+ kublk.c:190:27: note: each undeclared identifier is reported only once
+  for each function it appears in
+ kublk.c:191:53: error: ‘struct ublksrv_ctrl_dev_info’ has no member
+  named ‘io_desc_size’
+   191 |             ublk_log("\tio_desc_size %u\n", info->io_desc_size);
+       |                                                 ^~
+ ... etc ...
 
-Best regards,
-Krzysztof
+Fix it by using the KHDR_INCLUDES from the main selftest Makefile that
+should contain the right include path in either case.
+
+Signed-off-by: Thomas Huth <thuth@redhat.com>
+---
+ tools/testing/selftests/ublk/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tools/testing/selftests/ublk/Makefile b/tools/testing/selftests/ublk/Makefile
+index fc64b8f028332..ba6df7c0b530b 100644
+--- a/tools/testing/selftests/ublk/Makefile
++++ b/tools/testing/selftests/ublk/Makefile
+@@ -1,6 +1,6 @@
+ # SPDX-License-Identifier: GPL-2.0
+ 
+-CFLAGS += -O3 -Wl,-no-as-needed -Wall -I $(top_srcdir)/usr/include
++CFLAGS += -O3 -Wl,-no-as-needed -Wall $(KHDR_INCLUDES)
+ ifneq ($(WERROR),0)
+ 	CFLAGS += -Werror
+ endif
+-- 
+2.56.0
 
