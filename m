@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793805607;
-	b=KwAuprNMhZN1z4sPXz09bdB7F2eSYpkweNCuTg9eGTXpwJhH8TSpVJ1Tiqn97rlPTcF3
-	 wDHdpDk1s/g48ehMPdEpZ/OWlkvrocB0FI+JkSRjb0pCdmrPVfnDmwbZXZ11//1zdnqUH
-	 /UCC9GP89b27qR2H0Al/PW9JjQsGTCs/NiBQVrrZdcPX00k4eVbNK4cmZNMjHpbHTAyGz
-	 uPAW9Ms6MPAsow59hYK90xr/kGe6lt0UslKuoCkz0rMJEvr4/dst2kZDnwgNNPoMndJlG
-	 BUZVrIWQBQnWK+WLU1WyolDdtCZMkQjom3qVXzSekAizrL35Tp9KooRWxHRZTla+ZXg==
+	t=1793805594;
+	b=EOfljfvVc0cKUkd/ifnTdFYPFcErNcY1nsPKqcAtNMY8yzApCPrarDNG1RhvPWGoBxfJ
+	 OAG1X7oJribbzoD26QG1Bx5ZL75M0BqNTdbortluPP0xuBuCCUx8knjJdcudNZw55nhsR
+	 nZ3lntF9x5NiI6NKjYldUkHW2nzLzcvUK9kjoubSzpBv0o0Q/BCZVpA+dy6g124f7AFjX
+	 wR3L7JewRfilmvPfwdGkJhPu8H4myrl/FLwA1PuGO782vuQV/aGCbcNNkWBcqi+uPJukW
+	 7jzDPM+n59NCsQlppyqEu/4JYvJ6jlrj+fBlJGG1jHpyjQQWo+KRaMHV68h0Z0i1NxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793805607;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793805594;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
 	 References:Date:Message-Id:X-Mailer:X-Last-TLS-Session-Version;
-	bh=GgM4EgkVv+1x6Punl4v9ucm9MZswVB97/k8FiaLVyi4=;
-	b=QXtdY8xSFdEDwfF7T6FM1PCMaqSMKOJ034o1mwmLZGcU6eCZJ330nnAzHUEG04LWmOHg
-	 ePY2k3S0xeNiRk1/mbhPTNVZSZoFYAVQMJYEPqlF4GLMxqd6wGrYfx80158sdqT9axx74
-	 tLhmQqgQRqOehYOHbfWpoGE1Azo7sMgXO2NBcRFuIl9zdNibRtg4Ajb/NVgHT62PuzgzW
-	 p9qllxkyzB8FmqpGv2mZW8Bve8kgecX4ZBVD085j1KoyEA6991ucaP/Nuc7xnZTaS6W3N
-	 sU6NRV4s9qm5GVsoZVjYSS5dMvEwKGPNfIjfNOJAsnsOGS9Q3IVR6eNX7tJJYi9oPzg==
+	bh=K3fgBMw2HNXRAIiBZEeJ/lREOui7IgwXu/7UvY+DQ6Y=;
+	b=YJOreHthZtMOFq6kb2Ft5GO95J7ktSwdGogvHuPRqqboO78H0RsMp8w+Q/caqpsHhUOp
+	 +nSAmapxpAA/83HUhW9c9Pc23eLAdYumtWRgIaJVnXpCJwW+7/dNWbaN9D4RwC4+IPhXc
+	 9QxYXFTSu2P5hEfGXOlS1y5McaeHRrIESIZ2gX1pTk/s4UP4Np0+OOrqsMVlWUhK6MCyS
+	 qZdRDrDFzkG5gaj1cowCmIXfRTCVeZtnUPRgJIMB12NJmaYqhUDuwD4L/7DljeKL2Q/VD
+	 3tlwp9dxNmKGC5MbEg98rVmW006NDKTaLbOt/XYhlxBmfwBz/NN1e5Iw5vEX8Q/Dvfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="V/Jvi2dQ";
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=y7OMmUSV;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4094608363B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:20:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4094608363B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7894D606A7C4
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:19:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7894D606A7C4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=V/Jvi2dQ
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=y7OMmUSV
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 5D63B1A145D;
-	Wed,  4 Nov 2026 15:20:05 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 318144E41406;
+	Wed,  4 Nov 2026 15:19:52 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1F74E60770;
-	Wed,  4 Nov 2026 15:20:05 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E610710329206;
-	Wed,  4 Nov 2026 16:20:01 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 0053B60770;
+	Wed,  4 Nov 2026 15:19:52 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C737D103291D1;
+	Wed,  4 Nov 2026 16:19:48 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793805603; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1793805590; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=GgM4EgkVv+1x6Punl4v9ucm9MZswVB97/k8FiaLVyi4=;
-	b=V/Jvi2dQJyKD1n0dM64eS1cfjwExl9L1PeLjlrHs0EOYxZ1UqsCnVb39Luu62/vU9yPzMc
-	/aDERCvsreWczQjLBFwhx0mgWEaWdxNLWza5Qs9V5B7xdKtSxFh+jcdHrX1vPfOtTkG096
-	Jgc5I2bkqE3NALQa9MvYbs+ZjRUr9SI7jGGcWlGvfHwiJWDw9GOxCVsbqZgxx2sjeNAtZQ
-	a4MTAncrH1WBvFs3NuFVxHobudc2xphVVzg6iem35uKn7OhMrQRlgd2NkONOP7MQDdOnpT
-	lvTDuO+4bmTkD7qd38BPzC24x6BJnp9lj9ay1B6phz0qsfwi26ZpaORTZfX4kA==
+	bh=K3fgBMw2HNXRAIiBZEeJ/lREOui7IgwXu/7UvY+DQ6Y=;
+	b=y7OMmUSVEPClGb+kdN269F+rf+gyC039YWg2CSocLXrwcoliz0PUgvqvha7E5QoWdN0Rr5
+	IKK2r2urXpkuazVC+zJjx9gmXCxVbQllawAwyutqFNLkdwUKtEGWRZ8SBu31xlibM5RLnP
+	OdVH+/XBw8Iy5rZmfk3NbcjuYm0tg2nNhYJ3N+Vp21SmP+5eAaHcdN9EUBITr5p5niGq9T
+	hIfEQtbF4Yh4teLqr1vsQRdO+Dzo2wnWVNU+sdOJ93yD32idb1v0Z8IN9H0eQVgdGCo/yy
+	Gn6e8BYnHyngvxK0vWt239Q9/AZItTv6scVX9NYAw/DeI/skuXapPFnzWUDI6g==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,8 +61,8 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v3 12/14] net: pse-pd: use each PI's own supply
- handle for the power budget
+Subject: Re: [PATCH net v3 05/14] net: pse-pd: do not reach a freed PHY
+ from the notification worker
 From: Kory Maincent <kory.maincent@bootlin.com>
 To: Carlo Szelinsky <github@szelinsky.de>
 Cc: Oleksij Rempel <o.rempel@pengutronix.de>, 
@@ -76,25 +76,130 @@ Cc: Oleksij Rempel <o.rempel@pengutronix.de>,
  Kyle Swenson <kyle.swenson@est.tech>, Ross Cawston <ross@r-sc.ca>, 
  netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org, 
  linux-kernel@vger.kernel.org
-In-Reply-To: <20261103220217.1131971-13-github@szelinsky.de>
+In-Reply-To: <20261103220217.1131971-6-github@szelinsky.de>
 References: <20261103220217.1131971-1-github@szelinsky.de>
- <20261103220217.1131971-13-github@szelinsky.de>
+ <20261103220217.1131971-6-github@szelinsky.de>
 Date: Wed, 04 Nov 2026 16:19:34 +0100
-Message-Id: <179380557482.1333589.5626232974220759600.b4-review@b4>
+Message-Id: <179380557477.1333589.18180962041053495718.b4-review@b4>
 X-Mailer: b4 0.16.1-dev-17221
 X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, 03 Nov 2026 23:02:15 +0100, Carlo Szelinsky <github@szelinsky.de> wrote:
-> A power domain shared by several controllers holds one supply handle.
-> Its consumer device is a PI regulator of the controller that created
-> the domain. When that controller unbinds, devres frees the regulator,
-> but the other controllers still use the domain and its handle, which
-> now points at a freed device. Reading the regulator summary in debugfs
-> then reads freed memory.
+> The notification worker holds a reference on the pse_control, but not
+> on the PHY that psec->attached_phydev points to. If the PHY is removed
+> while the worker runs, the pse_control survives and the worker reads the
+> freed PHY. The same happens without a race when two PHYs share one PI:
+> attached_phydev keeps pointing at the first PHY after it is removed.
 > 
-> [...]
+> pse_control_put() unlinks and frees a pse_control under pse_list_mutex,
+> and phy_device_remove() calls it before the PHY is freed. So instead of
+> taking a reference, let the worker look the pse_control up and use
+> attached_phydev under pse_list_mutex. This nests pse_list_mutex inside
+> rtnl; nothing under pse_list_mutex takes rtnl.
+> 
+> For a PI shared by two PHYs there is no single netdev to report to, so
+> clear attached_phydev when a second PHY takes the pse_control, and warn.
+> Events for that PI are then no longer reported, even after one PHY goes
+> away. Failing the second PHY instead would fail its whole MDIO bus.
+> 
+> Triggered in QEMU (arm64, KASAN) with a test-only PSE controller:
+> removing a PHY while the worker waits for rtnl, and removing one of
+> two PHYs on a shared PI, both give
+> 
+>   BUG: KASAN: slab-use-after-free in pse_send_ntf_worker+0x2b0/0x2bc
+> 
+> With this patch both are gone.
+> 
+> Fixes: fc0e6db30941 ("net: pse-pd: Add support for reporting events")
+> Acked-by: Oleksij Rempel <o.rempel@pengutronix.de>
+> Signed-off-by: Carlo Szelinsky <github@szelinsky.de>
+>
+> diff --git a/drivers/net/pse-pd/pse_core.c b/drivers/net/pse-pd/pse_core.c
+> index eab7e25f2039b..af9eb29792706 100644
+> --- a/drivers/net/pse-pd/pse_core.c
+> +++ b/drivers/net/pse-pd/pse_core.c
+> @@ -238,24 +238,22 @@ static int of_load_pse_pis(struct pse_controller_dev *pcdev)
+>   * @pcdev: a pointer to the PSE
+>   * @id: index of the PSE control
+>   *
+> - * Return: pse_control pointer or NULL. The device returned has had a
+> - *	   reference added and the pointer is safe until the user calls
+> - *	   pse_control_put() to indicate they have finished with it.
+> + * Must be called with pse_list_mutex held. No reference is taken: the
+> + * pointer is only valid until pse_list_mutex is released.
+> + *
+> + * Return: pse_control pointer or NULL.
+>   */
+>  static struct pse_control *
+>  pse_control_find_by_id(struct pse_controller_dev *pcdev, int id)
+>  {
+>  	struct pse_control *psec;
+>  
+> -	mutex_lock(&pse_list_mutex);
+> +	lockdep_assert_held(&pse_list_mutex);
+> +
+>  	list_for_each_entry(psec, &pcdev->pse_control_head, list) {
+> -		if (psec->id == id) {
+> -			kref_get(&psec->refcnt);
+> -			mutex_unlock(&pse_list_mutex);
+> +		if (psec->id == id)
+>  			return psec;
+> -		}
+>  	}
+> -	mutex_unlock(&pse_list_mutex);
+>  	return NULL;
+>  }
+>  
+> @@ -268,6 +266,7 @@ pse_control_find_by_id(struct pse_controller_dev *pcdev, int id)
+>  static struct net_device *pse_control_get_netdev(struct pse_control *psec)
+>  {
+>  	ASSERT_RTNL();
+> +	lockdep_assert_held(&pse_list_mutex);
+>  
+>  	if (!psec || !psec->attached_phydev)
+>  		return NULL;
+> @@ -1015,13 +1014,23 @@ static void pse_send_ntf_worker(struct work_struct *work)
+>  		struct net_device *netdev;
+>  		struct pse_control *psec;
+>  
+> -		psec = pse_control_find_by_id(pcdev, ntf.id);
+> +		/* If attached_phydev is set, it names the only PHY that
+> +		 * holds this pse_control: a second PHY on the same PI
+> +		 * clears it in pse_control_get_internal(). That PHY's
+> +		 * pse_control_put() unlinks and frees the pse_control under
+> +		 * pse_list_mutex before the PHY itself can be freed. Holding
+> +		 * the mutex across the lookup and the attached_phydev
+> +		 * dereference therefore keeps the PHY alive, which a
+> +		 * reference on the pse_control alone would not.
+> +		 */
 
-Reviewed-by: Kory Maincent <kory.maincent@bootlin.com>
+Can you summarize this comment. It's hard to read.
+Also we have the commit message that explain the why.
+
+>  		rtnl_lock();
+> +		mutex_lock(&pse_list_mutex);
+> +		psec = pse_control_find_by_id(pcdev, ntf.id);
+>  		netdev = pse_control_get_netdev(psec);
+>  		if (netdev)
+>  			ethnl_pse_send_ntf(netdev, ntf.notifs);
+> +		mutex_unlock(&pse_list_mutex);
+>  		rtnl_unlock();
+> -		pse_control_put(psec);
+>  	}
+>  }
+>  
+> @@ -1412,6 +1421,19 @@ pse_control_get_internal(struct pse_controller_dev *pcdev, unsigned int index,
+>  
+>  	list_for_each_entry(psec, &pcdev->pse_control_head, list) {
+>  		if (psec->id == index) {
+> +			/* attached_phydev can only name one PHY. If a second
+> +			 * one shares the PI, either may be removed first and
+> +			 * leave it pointing at a freed phy_device, so stop
+> +			 * reporting events for this PI instead.
+> +			 */
+
+Same here. The warn message explain already the issue.
+
+With these changes you can add my Reviewed-by.
 
 -- 
 Köry Maincent, Bootlin
