@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793788807;
-	b=coUUapRHzv20T74oIoqy9DKvE469hmzZfFpAVoHNLaQNEOjZZvRlZBGH1PLkRKrkIzMJ
-	 hINF2OAITTkkx5IkhLQQGwBi237tlCZAjYt84owS1ERTmM9a4IDEl48cHsTlnrOsHGg2o
-	 I5VBm7prdLG8hdUyOGcPmVjUqSmyDN7B6UmT4Krwi3+ZL91APgsTxwctykgfnyiwlc6kV
-	 spsQmAWEif4eUI2SVQKSRS67mT5IbMJG3mPG152/ryAKQvZFU2kpvytUtd13LotNCIh9l
-	 b4jOxD2A5DEuEJ2IM2XxsFzKx1fnyJz9EQgtJJ0M1s7rBsgcaks9ntZb8JqGG6Ngm8A==
+	t=1793788833;
+	b=AChHRBJQ9eXHZu44tsnlvP+RZiyJJfo3VUF6K7WAyLcC6h1h/D4EYboyTlYlt2xRt7eA
+	 gnHoH6YwHSVFP2JJC9kD8flJ57dCO0+DYTtanjqoXIK6TmBNc3wyZjQZ1C9uBdG8cFLtJ
+	 4LwsSRKLbXtjqYAvmpBWup/gNTxvnjed4zUVHLHcAZgWUc5jFQLgVqMivN5AD4Cu8kdmY
+	 ZuERU6J+sTFQ6KrvZyLaQJVpYbqn2flrvdtx3R2TinpxZXKIftXEabGypy7VVK6uj9w5C
+	 30H4NP+MJspSzQtz9cb0gJSC7S0Am7ngwjhtMAxo0edXInmi3Vj+nAG8dbqaKnHE78g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793788807;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=9nviUxxklDz1e7RQotS+S5xXIzfCLzTAm+63a1Agefo=;
-	b=FB7jHdd0WU5ouCQ+qQwfQVYws967oGB+uHfrA7KmDNkQLT6xyrX6XHmegpkiUsj9cQDf
-	 kxEs7i2TBj3TsKT4K0tvVqySmm6pq19SYfFYTiEwGJIA4Uu5O1yiN6OilcxyUEFSenqYs
-	 7Y+7TxyUdV/MnybohmqOoxVpuXLvLdmiHG2tozisB/EfxrVMLTetL5uvewbwYra2TkmF/
-	 Am10oaBR2NAa7NdgzFFXkHgBZ0odSkMKMIe0e9zy0RRhQp/GZGKuIU5YRr3hLNkGQMrLl
-	 hxhvtcrz84Btowxu+Tm7a7Z0N3/bs4P4G+s1YTq3MV2G2ojVgKxyWeaMQf+G/Bcby2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793788833;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=OHhrH3mVCZL9F+uul7Pko5LwqezUEkg/0ds9TVqWkW0=;
+	b=5RCWKwpjtnQej81oKuXr8ZjP/iYBhJ+bR/n4dfeV3oC9HScPGN1n+pBg7lwSuqfM268Q
+	 CjiIM2eyt2qlqWTeKcKsj+mBOJzWWSZkTH7mnWd2kHIa50BMOe+nHct7kvhIPx4TRAqRl
+	 G+Bj40VgCgDtrN/gXoMe9m/KqJgOGA63212Crij/2wQCRmTww0Ktr+SlwQXUs8Wuq6prl
+	 gGhUgKTTFaALbD8QyFV+bRNVvFEr/iMauy++nX6dKNH2XDjkCIcp1hkEb6OKeE8+ub4Dr
+	 /0GwkXDi9/qkZM148YVmgeA3HlzQy3k/gYw926fQ0v51ZqgX2vFNE8P0/iMCFIxeuWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=A4GS76s4;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EeMZhO8D;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A68F606A31B;
-	Wed,  4 Nov 2026 10:40:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A68F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7936606A31B;
+	Wed,  4 Nov 2026 10:40:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=A4GS76s4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793788807; x=1825324807;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=gS4Z3hxrWiNXk0PZbDdWd9RFAdHS8/Nmmvft9Q2f1Dg=;
-  b=A4GS76s4sQTRmC8reuCQpfR+h5NxcBgdDdlBGugjr4nHs/Hi2jIiwyMg
-   BrDI6Ta2xdtZRrjXNlFcCqJVn684CbwIa3ermOgVwPefAibPDCOjM/+gc
-   DJX1s9qKyEHQNsQ7jpgeMDEUgi2mhTQKcVHUJkGcnQgc1jsNIUA0/myiJ
-   8+q2q6jhJLkB5RkF29IZtCZ8Gnoqjobmf+1h8MKyHzA7XaFfKNULLL5/Z
-   ZRrn663t1gwQFSla9CN2o4kBkjV3IhwWTokY+GNkPJESyqkkIPU4il0E+
-   nAO9e9UAI97xFlee4SBGm7xDHHOLed4E80g8exMPNVLnakKbtCt0CsNRp
-   Q==;
-X-CSE-ConnectionGUID: i8WdGjGyScWElFU0bjM3DQ==
-X-CSE-MsgGUID: vgAsVhr/QmyBAmhNdRZeoQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2436340"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2436340"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 02:40:06 -0800
-X-CSE-ConnectionGUID: xHuM0kqnRyy5PTiMdZKYlw==
-X-CSE-MsgGUID: IJOAm2dLQRCs+ce9hVyt8g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="7007981"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 02:40:03 -0800
-Date: Wed, 4 Nov 2026 12:40:01 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EeMZhO8D
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 962121F000C1;
+	Wed,  4 Nov 2026 10:40:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793788832;
+	bh=OHhrH3mVCZL9F+uul7Pko5LwqezUEkg/0ds9TVqWkW0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EeMZhO8DjG4Z1LNGDG6wdfrR5/jvvahFgvuj3m7HOQrS5HMxi/U+6lT8CdBS1mQBG
+	 IC79mPKN5pooYxKGcfp/3nadOdWf8Fym3XSVAO968hO1SW6hTg6elGvzxmkBPwmNaS
+	 v9T63ChJrQAQbad0an5kGXooCbmvv9MDXmPvDoorGg+XyLiYGBnkViAIHcypGwqbpJ
+	 ppQezfycclcHYH/cH5pj6vY3QPZi1ua1tE+LaTlont55dEIEeB+v8CFlcxuVMlA3hL
+	 myTh9yVFL8UBjo6Snz+ghL8sE2j0/RkU7G36RxL7WrUdRykGnhNHAiwYwIXZ3Ksf2n
+	 rYu3AjolMYkzw==
+Date: Wed, 4 Nov 2026 12:40:16 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Breno Leitao <leitao@debian.org>
+Cc: Ard Biesheuvel <ardb@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Miaohe Lin <linmiaohe@huawei.com>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Oscar Salvador <osalvador@suse.de>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH v7 05/12] serial: 8250_dw: derive RX trigger thresholds
- from the FIFO depth
-Message-ID: <ausLge5yYc2W00zi@ashevche-desk.local>
-References: <20261103-submit-h616-uart-fifo-v1-v7-0-c9e248d685c1@gmail.com>
- <20261103-submit-h616-uart-fifo-v1-v7-5-c9e248d685c1@gmail.com>
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	kas@kernel.org, kexec@lists.infradead.org,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+	shakeel.butt@linux.dev, linux-efi@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-cxl@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, rmikey@meta.com,
+	riel@surriel.com, harry@kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH v6 3/7] mm/memory-failure: add hwpoison_boot_page() to
+ flag an inherited frame
+Message-ID: <ausLkNhb8ZPz0ra_@kernel.org>
+References: <20261016-hwpoison-kho-v6-0-f304255147da@debian.org>
+ <20261016-hwpoison-kho-v6-3-f304255147da@debian.org>
+ <aumt-4kfGGtoXuh-@kernel.org>
+ <aumvVjoHo4KeuyEp@gmail.com>
+ <auovL7i1rEcXCeGS@kernel.org>
+ <auo3ScXy6dk0Gr3-@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,65 +90,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261103-submit-h616-uart-fifo-v1-v7-5-c9e248d685c1@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <auo3ScXy6dk0Gr3-@gmail.com>
 
-On Tue, Nov 03, 2026 at 02:39:58PM -0700, James Hilliard wrote:
-> DW_apb_uart uses receive thresholds of one byte, one quarter full,
-> one half full and two bytes below full. The generic 16550A table describes
-> these encodings only for a 16-byte FIFO. For example, the half-full setting
-> on a 64-byte DW FIFO is reported as eight bytes instead of 32, and a sysfs
-> request for 32 bytes selects the 62-byte encoding.
+On Tue, Nov 03, 2026 at 11:49:44AM -0800, Breno Leitao wrote:
+> On Tue, Nov 03, 2026 at 08:59:59PM +0200, Mike Rapoport wrote:
+> > On Tue, Nov 03, 2026 at 02:06:17AM -0800, Breno Leitao wrote:
+> > > On Tue, Nov 03, 2026 at 11:48:43AM +0200, Mike Rapoport wrote:
+> > > > > --- a/mm/internal.h
+> > > > > +++ b/mm/internal.h
+> > > > 
+> > > > We've been splitting internal.h to smaller headers, maybe it's time to add
+> > > > "memory-faulure.h"?
+> > > 
+> > > Ack. I'm happy to move the "mm/memory-failure.c" section out of
+> > > mm/internal.h into a new mm/memory-failure.h, as preparation for this
+> > > patch.
+> > > 
+> > > Since this patchset is moving slowly, I'll start the header split in
+> > > parallel as a separate series, and rebase this patchset on top of it
+> > > when I respin. Is it this ok?
+> > 
+> > Sounds good to me.
+> > 
+> > Just be aware that MM folks are knee deep into fixes this cycle, so both
+> > sets could be moving slowly :)
 > 
-> Build a per-port threshold table from the discovered FIFO depth in dwlib
-> and install receive-trigger callbacks for CPR-described FIFOs, including
-> LPSS ports. Keep the setup helper available to integrations which obtain
-> the depth without probing the optional DW registers. Validate that each
-> threshold is positive and representable before constructing the table.
-> 
-> Serialize FCR updates with termios and the port lock, acquire a runtime PM
-> reference before accessing the device, and propagate resume errors without
-> changing the shadow or hardware. Update only the trigger field so changing
-> the threshold preserves the FIFO contents.
-> 
-> The FCR mapping is documented in the DW_apb_uart databook, section 6,
-> FIFO Control Register. The existing default FCR encoding is unchanged.
+> Appreciate the heads up. In that case, should I hold off on the header
+> split until the next cycle instead of starting it now?
 
-...
-
->  static int dw8250_setup(struct uart_port *p)
->  {
-> -	dw8250_setup_port(p);
-> +	int ret;
-> +
-> +	ret = dw8250_setup_port(p);
-> +	if (ret)
-> +		return ret;
-> +
->  	return dw8250_setup_dma(p);
->  }
-
-Split out a change that moves from void to int for _setup_port() and do it
-before the patch that creates _setup_dma(), so it will be less churn overall.
-
-...
-
-> struct dw8250_port_data {
-
->  	/* Hardware configuration */
->  	u32			cpr_value;
->  	u8			dlf_size;
-> +	u16			rxtrig_bytes[UART_FCR_R_TRIG_MAX_STATE];
-
-Put it first after the above comment. Check with `pahole` before and after
-results.
-
->  	/* RS485 variables */
->  	bool			hw_rs485_support;
+I believe one header split patch is small enough and not controversial to
+have it this cycle.
+ 
+> Thanks,
+> --breno
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Sincerely yours,
+Mike.
