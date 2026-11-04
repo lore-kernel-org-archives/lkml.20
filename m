@@ -1,100 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793774569;
-	b=f6QjdPbAXKMijsXjO++uVW5+tpp2QuvWwyM/5u+8XqGUjdWO86+F04Uy5s97uvquUpuN
-	 kEZTzr0hC8kHUcwu7OQOghma8CrXA5oGOlntkmgulN4vrdiKEu0wGsHv4G+2rsRZT87En
-	 2DWMa7ISVa7EB+vLTS1gIOx2LUB/2uxVQ+7Ev4IYp2kDweVEGNhSQqMyEZ657g0EEJywS
-	 QRdRTILOcy6q07pjo+2Xx0whlVeH/p7dIOByjGMsu3poozDplSYs1OJ/riN4XRulwCjwn
-	 DHXBhl+vAzk9K5jAOIkc7Hbf3RgkMspWlimdvvQAZ6R8gZrIVd2MWh/vNXpaeWHH0IQ==
+	t=1793774593;
+	b=EQ6ph067FYTdXlBQgcEuo+0c/8SCDsRrXAcy+MZilEkt2Cj/Jr357d7LhBkLnnxLct82
+	 2kF3ygb3CMaz8vRZG+QD6RUiHIqdRv9SR0BuzilhGdl9zIEpceW1SMbfFl707ZlQeQ17f
+	 7EJ8Kwgs5Auq0nHdRL8zH3kE2LpN1UVfgObG7BzRm1JGWdA2OPEjlCt5unAlqztzG9rxK
+	 pbcF6q18yIGfWFApkPR8uilLIObWECz4x1t05BaKAfjSbGCrJzI/2tU95sef1gzqLjSjy
+	 x2u54vHhy7OB793nQDyUsQvyN7sH0W+gbhV6211lRGN0Tk1BymNmQUw5rDb/PacJ1xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793774569;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=CaIA/Sr2kiTxJs6D9LfjF0iFIQjHh5ZBby7zBRLnjyI=;
-	b=OPCj1ccWpERAkoPMt6O3du8gr6yOcVog6Ei3VMRCmqX+yyHiwP7l62AtfslX/NK6CshI
-	 Y9dDF71aHDT/SUv+XsmOBnMBqpGHDfas6hoJ4G3VCX/LxsGQEfw7jyWpixxvOvgR+WZmR
-	 U6YP64RMcsO/8Gjj3obSKWAITWGAkcY0j7qR0jrLiEDfWaqlCNj0aHtrug52yPdH3RQUE
-	 /UZKmLXY9rxR2v+cJVXJog8N1CnZDpSz5yCLtQ/hKLLSlWhmGvne/SsAZcuL+0u9BUrke
-	 IhYF322xQNCULMmfkrAWStiBgCSKBF113Y0znEfdQwFyITSceJpqSEPEAs+R/HPKD1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793774593;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=1GluMcGX6o9K3FgWN3ADvIyhvh+rKWD5APNzg1dV1gQ=;
+	b=QNA2JdpNJd2F6MGkfVwYHyukJC83x3kq7L9uuswNdDxMgDdL+ZrKI3OQPu5rd71nQOcc
+	 0hiuJF0fCtRyhelYHXfxFRSxeAaEspKgXfiIxIKKzFI+C5uH/w+gEgOLfhs5wI7VKZfNg
+	 pomHjKtIC65t0ILDlM1rPE+BFMk6BNPjwOJhVr5Qs3MhD/UH2dg9SFcqqN84MmzPHDmbC
+	 d91Y/rWqlr5MZSCtPRD52hO1SbbE0BEbp1x+oVDoq1OSA/fz4RGSd/cizDDHHHvdDWk+L
+	 iNyLgxcmyq+X5o6ZWfSc8hm181fmQUCnHJbGvaMsnUViiSdmk0sUOjlH90tTcris9uQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b="fC4/WDT5";
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aI0RBTrn;
+	arc=none smtp.remote-ip=198.175.65.15
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F508606A332
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 06:42:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F508606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A0E606A31B;
+	Wed,  4 Nov 2026 06:43:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67A0E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=fC4/WDT5
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-353804b591eso658849eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 22:42:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1793774563; x=1794379363; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CaIA/Sr2kiTxJs6D9LfjF0iFIQjHh5ZBby7zBRLnjyI=;
-        b=fC4/WDT5oFZPWEWs60Q7RhuQZP4DJQe877ZJJI5AU7bF0gQrNjO5hGkH+3W/0KW5gw
-         y77bERCqeS/9ocgr+2YbIxL0MU3EpNYL2hfq0FlDomKr7jM5/7L5JmuLAENe+1XuT/EV
-         PTt72eKpBaHTGw82zOPYckddDQr6LDMsL/wcOFm7Ti3M/26Lxc9DbAy5JAeE0zPSrV+N
-         OzRi6rNNV5Tf7k5usFH+FtGX1SGr76HKuj5Wf+m4Kf9XoNbmcp05AhYsFp26Vy1Tou5e
-         PBkIZn42tGID6PUU8fX5iFI7V3+Kt7b+3yL0JJODXQxGXRWVLz+q4ELKzfxDBAVvsNCa
-         U71A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793774563; x=1794379363;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CaIA/Sr2kiTxJs6D9LfjF0iFIQjHh5ZBby7zBRLnjyI=;
-        b=t30Oac6xh2Z0NnG8mT4YEBxdfTIdz2LDh2E0QBwgf2A0Qk3CSGk5+j8ZFa54mUBA5m
-         VrAKyDoygfWq1H61LaMPNTJ2g9ZXOEluzNwS153uh1/9YGas8ArMZeal2UzK6+9D4FLu
-         pYLcpMX7Fi72w0ZUPDf838xPPwoEVyCzBhKVt5SsSuDvNzAJdfwedBy0Jw3QuXE3eqnN
-         L5sDurJpF0aeYCqgiB9/n3SFDay2CrxthAsMfZrhuCxEod6qJn6oLtKBGFDWSE8l6DVJ
-         V0dqvVInBYau4FQNwDmkG9Xa58sP5vCKNzGTMWD19t/zzeZGf/aleeZlh8ZKAkDx6eBA
-         wydA==
-X-Forwarded-Encrypted: i=1; AKwUvByrbNVVnkh7k0UXE9qj2pMOWNpNzAhWK7tRGP/KlU2AycJWOZHACde1THewmyqx+EiJpb4BNIk3EbLhKXU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+kgE8Czcw1l72MAkemBXS2PcbNLux0V+OU9SbLM0/4qPK/ymC+
-	p2U9kS0Q96hjB2wEZM/shlZ/XVIf2ieElp99GgrtLK2KucR4DSdNLn8GmjsjAcMlY/0=
-X-Gm-Gg: AYBFou1BvCqJ6XOZLXEA63QuP2IjbhbsGvlsjhfQNZ7k6xnTSDrni9b9n23VuI5lLjL
-	M8DJfKDoPhIx+d6jnGAjtywlnkpig7wJXX7ZVUxB93g3Du9+8l4ppkZYa50FgJULpiFHMQU+oeR
-	HZ8vr2ppR3SalX3xqDH2Iabafvr4gf2Pd7LuWUN2raL4CIP+Ouw4FPknG5i/WviQseq2dqJJ84S
-	DovhLklD4wsGH1Ok75gMuvj/ARMzc1EPmsWghVrJXJZXNoCLD1BFcTXGe3xePVkqn+SoRwmJegk
-	sL2WzqlKbz6yYca6ZK4obSIvzkfSOlCt/c38MBcW9nkhzXlFG9NYyFJO+PuAibFAak7jYKNbLf6
-	KoMEfzht57oEyOgG4z7g+FVfwWCnnPvf+IDhzqJv+MkqbyNj/h2R/68qzUq/Jty51LPotztdvRz
-	N3Fp8ogGVJjlu71nDNfFVaRmPUDaJKDWoDy5gxqcz5g5SRpH+se4QoN8hMdQ010210tsuKDb4mT
-	1iby2+FUeX+8XAiBHuBmSeXfSurmGnpF/fHAXjCLEAWg1+8bHabjtJmo3nBW52dBdi86RInDteL
-	pgy4Tiv0OUdBZxWY/6Eqfrm4n7XJar3NYw9t5w==
-X-Received: by 2002:a05:7022:1711:b0:1ae:59d6:91d7 with SMTP id a92af1059eb24-1ae59d6945fmr17559078c88.40.1793774562347;
-        Tue, 03 Nov 2026 22:42:42 -0800 (PST)
-Received: from gourry-fedora-PF4VCD3F ([61.251.99.240])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c57430sm5905073c88.18.2026.11.03.22.42.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 22:42:41 -0800 (PST)
-Date: Wed, 4 Nov 2026 01:42:23 -0500
-From: Gregory Price <gourry@gourry.net>
-To: Li Zhe <lizhe.67@bytedance.com>
-Cc: Tejun Heo <tj@kernel.org>, hannes@cmpxchg.org, mkoutny@suse.com,
-	akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com,
-	joshua.hahnjy@gmail.com, ying.huang@linux.alibaba.com,
-	ljs@kernel.org, liam@infradead.org, rppt@kernel.org,
-	surenb@google.com, mhocko@suse.com, cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	bpf@vger.kernel.org
-Subject: Re: [PATCH 0/3] mm/mempolicy: add per-cgroup weighted interleave
- controls
-Message-ID: <aurTz8SiB-nQ22lJ@gourry-fedora-PF4VCD3F>
-References: <20261103122816.48037-1-lizhe.67@bytedance.com>
- <0efbf4db1decd8e6bb6a5fcdcf897314@kernel.org>
- <03bceb67-d362-47a6-b555-ed5aa1f9bd3e@bytedance.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aI0RBTrn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793774592; x=1825310592;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=4MiPbWa9MovakwQvojXUWB5s/cO4I/EWBWhE5UD5mvE=;
+  b=aI0RBTrnTKMCrs8htx7mRdeOedoa64vbGChiSZc1D1AXZD+fL2GNB3O5
+   ABZCaOKnbvCxIjbp1lCdJI0X4ufU2M6ytv4+F9Ak9RtgGSumI5Ytymg1b
+   KI2iZ9fS8a0wvaZaPoBZ8OOnjjHHJNDT++dO9cXOdwX37oEES1Ih1KWhH
+   0Hpxc+5XLuWH00Fdpz+VLTOZAoeJGzaT/G+aVT+drBdi4afjTWfY/QQap
+   MCUnHJeU5ixL2FoUeD1GRfMjfvTH0KB6gDuyIHkSQJhjWpY1fEBIs0i6L
+   HEH6iO2WFk54RurIO7AKROp4l1JedMsbhwICOFtIwVB9cFG3Z492wt5i8
+   A==;
+X-CSE-ConnectionGUID: mYTLMje7QoqtNbazqsH9yQ==
+X-CSE-MsgGUID: vQsbC7NXTU2AXiQMAgdLDw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2527380"
+X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
+   d="scan'208";a="2527380"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 22:43:11 -0800
+X-CSE-ConnectionGUID: al9pqcoxRbCbgtR9ZvDqvw==
+X-CSE-MsgGUID: 61kfdNpUSsSQ5hWJ5lJTNQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
+   d="scan'208";a="8433789"
+Received: from unknown (HELO [10.238.2.205]) ([10.238.2.205])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 22:43:06 -0800
+Message-ID: <508329e9-a3b1-4143-830c-44439d459fe4@linux.intel.com>
+Date: Wed, 4 Nov 2026 14:43:03 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,33 +72,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <03bceb67-d362-47a6-b555-ed5aa1f9bd3e@bytedance.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 21/28] KVM: nVMX: Handle FRED VMCS fields in nested
+ VMX context
+To: Sohil Mehta <sohil.mehta@intel.com>
+Cc: kvm@vger.kernel.org, x86@kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
+ Sean Christopherson <seanjc@google.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin"
+ <hpa@zytor.com>, Xin Li <xin@zytor.com>, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Tom Lendacky <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>,
+ Shivansh Dhiman <shivansh.dhiman@amd.com>,
+ David Woodhouse <dwmw@amazon.co.uk>, Chao Gao <chao.gao@intel.com>,
+ Zhao Liu <zhao1.liu@intel.com>, Yosry Ahmed <yosry@kernel.org>,
+ David Matlack <dmatlack@google.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+References: <20260911213659.2025974-1-sohil.mehta@intel.com>
+ <20260911213659.2025974-22-sohil.mehta@intel.com>
+From: Binbin Wu <binbin.wu@linux.intel.com>
+Content-Language: en-US
+In-Reply-To: <20260911213659.2025974-22-sohil.mehta@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 04, 2026 at 10:44:46AM +0800, Li Zhe wrote:
+On 9/12/2026 5:36 AM, Sohil Mehta wrote:
+> From: "Xin Li (Intel)" <xin@zytor.com>
 > 
-> Does that distinction make the cgroup-scoped override acceptable? If not,
-> could you suggest a better way to support this kind of administrative
-> weight override without adding new mempolicy syscalls?
->
+> Extend nested VMX context management to include FRED-related VMCS fields,
+> enabling proper handling of FRED state during nested virtualization.
 
-I'm a little confused why cgroup-anything is needed here when you could
-just override the weight table / interleave functions.
+No strong preference, but for me this is a bit too thin to describe the
+overall change of this patch.
 
-I don't particularly like the idea of bpf hooks for a single mempolicy
-mode as opposed to something more generally useful - and I question
-how useful task-mempolicies are in general for tiered memory systems
-(they also affect kernel allocation placement, which is not great).
+> 
+> Because KVM always sets SECONDARY_VM_EXIT_SAVE_IA32_FRED, FRED MSRs are
+> always saved to vmcs02.  However an L1 VMM may choose to clear this bit,
+> i.e., not to save FRED MSRs to vmcs12.  This is not a problem when the L1
+> VMM sets SECONDARY_VM_EXIT_LOAD_IA32_FRED, as KVM then immediately loads
+> host FRED MSRs of vmcs12 to guest FRED MSRs of vmcs01.  However if the L1
+> VMM clears SECONDARY_VM_EXIT_LOAD_IA32_FRED, KVM should retain FRED MSRs
+> to run the L1 VMM.
+> 
+> To propagate guest FRED MSRs from vmcs02 to vmcs01, save them in
+> sync_vmcs02_to_vmcs12() regardless of whether
+> SECONDARY_VM_EXIT_SAVE_IA32_FRED is set in vmcs12.  Then, use the saved
+> values to set guest FRED MSRs in vmcs01 within load_vmcs12_host_state()
+> when !nested_cpu_load_host_fred_state().
+> 
+> Signed-off-by: Xin Li (Intel) <xin@zytor.com>
+> Signed-off-by: Sohil Mehta <sohil.mehta@intel.com>
+> ---
+> v10:
+>  - Simplify nested FRED MSRs update with read/write helpers (Chao).
+>  - Add other FRED MSRS to MSR bitmap nested filtering (Chao).
+>  - Add {ORIGINAL,INJECTED}_EVENT_DATA to shadow fields in a separate
+>    patch (Sean).
+>  - Add a new parameter to load_vmcs12_host_state() to indicate the call
+>    is from a failed VM entry.
+>  - Update exception status member variable nested to is_nested (Sean).
+> 
+> v9:
+>  - Rebase to kvm-x86/next.
+>  - Guard FRED state save/restore with guest_cpu_cap_has(vcpu,
+>    X86_FEATURE_FRED) (syzbot & Chao).
+> ---
 
-You have many patch proposals recently trying to adjust the mempolicy
-components and I think it might be helpful if we could chat a bit
-about what big problems you're actually trying to solve.
+[...]
 
-I get that you want better control over task/task-groups, i think that
-can be useful - but I also know that demotion immediately mucks all
-this placement logic up (and we can't check vma / task policies at
-demotion time) so I question how realisitic the value of these
-extensions will be.
+> diff --git a/arch/x86/kvm/vmx/vmx.h b/arch/x86/kvm/vmx/vmx.h
+> index 14fd3f57d5c1..cc1e4038cd44 100644
+> --- a/arch/x86/kvm/vmx/vmx.h
+> +++ b/arch/x86/kvm/vmx/vmx.h
+> @@ -182,6 +182,29 @@ struct nested_vmx {
+>  	u64 pre_vmenter_ssp;
+>  	u64 pre_vmenter_ssp_tbl;
+>  
+> +	/*
+> +	 * Used to snapshot FRED MSRs that may NOT be saved to vmcs12 as specified
+> +	 * in the VM-Exit controls of vmcs12 configured by L1 VMM.
+> +	 *
+> +	 * FRED MSRs are *always* saved into vmcs02 because KVM always sets
+> +	 * SECONDARY_VM_EXIT_SAVE_IA32_FRED.  However an L1 VMM may choose to clear
+> +	 * this bit, resulting in FRED MSRs not being propagated to vmcs12 from
+> +	 * vmcs02.  When the L1 VMM sets SECONDARY_VM_EXIT_LOAD_IA32_FRED, this is
+> +	 * not a problem, since KVM then immediately loads the host FRED MSRs of
+> +	 * vmcs12 to the guest FRED MSRs of vmcs01.
+> +	 *
+> +	 * But if the L1 VMM clears SECONDARY_VM_EXIT_LOAD_IA32_FRED, KVM should
+> +	 * retain the FRED MSRs, i.e., propagate the guest FRED MSRs of vmcs02 to
+> +	 * the guest FRED MSRs of vmcs01.
+> +	 *
+> +	 * This structure stores guest FRED MSRs that an L1 VMM opts not to save
+> +	 * during VM-Exits from L2 to L1.  These MSRs may still be retained for
+> +	 * running the L1 VMM if SECONDARY_VM_EXIT_LOAD_IA32_FRED is cleared in
+> +	 * vmcs12.
+> +	 */
+> +	struct vmcs_fred_msrs pre_vmenter_fred_msrs;> +	struct vmcs_fred_msrs at_vmexit_fred_msrs;
 
-~Gregory
+I understand that the two fields are both belong to FRED, but the comment blocks
+are for at_vmexit_fred_msrs, not for pre_vmenter_fred_msrs.
+
+Should pre_vmenter_fred_msrs be put together with the other pre_vmenter_xxx,
+since the comments above the pre_vmenter_xxx explains why these fields are
+needed.
+> +
+>  	u16 vpid02;
+>  	u16 last_vpid;
+>  
+
