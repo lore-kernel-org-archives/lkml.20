@@ -1,49 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802119;
-	b=PYVzIVCvNrSGOafGJpYBUc4rCO69JLR8cw72A3pngmOe3+Zpb9DG0MD+nTrhzfapuZjb
-	 WmLnps3y2fQ2C6i/WxC8VDrIuWxwKw9KlnNttrg6HLFc+25JWw2AyK0PGoYaD9e6gBF5S
-	 7ZwsdSu3iZU0c+vEaW3JpHySyvwlmrUu1tGgXMV6k856z5lu8M/sw1bCuF8SRxIYcuc00
-	 2UkwRXpsXrACGaGT8KaVvDFSXVT9Bc2nQ2g4xmxSMtdtBFsAPeYIYd79o0s0b/Er14u2P
-	 NwQAmCBQPdQhSYt1Brtu9yRqYE2Fsqgtb3wpz9KGInUznvAM3dNcuk2jpeVpYx47Fzw==
+	t=1793802197;
+	b=lmVSpnSa4wQr0DgdiK+q1zT4BYzP3Er0W5rF++1fu7T2AzR+23raIhpLNrMF5g5P7FZl
+	 RLc6iKeuq8VbC3mje1BaUyqU+wmLlBQ88XmbuX9h6BAB9rrlrFkCwoNPFVjtr7s8DAfDo
+	 sCO2v2ckdCcpQWCLisncNqtFkjILnxMwZ81wPFMvS+Y9Et/ibDHtRZ8WekjHFDu7lZml9
+	 p0PWMtmTRjh3c3eFxzxZOre4uhlx2aCKHhpLqrd57rLf+SLbbT7/z9CrrxWIIMyAXQxdr
+	 5Rl9G+mpDja/MMkd+JqBW1VsSNWGVUe60Mn4oXL0x4v3R6ftI4tig3YYKvSoVObtCDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802119;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=RCZFKzJ5FU5wXI/AAra2JtvLPo4fWmIXc6OYvhxEbRA=;
-	b=rhKcrcM/5GEUeuaHoHIBtaDF66iAiLltAhMIqcwtXWCrHZgZ7KE6eo2liWiPPXltuq35
-	 fGNJXKnq8n1IwbYKrauSOhocEUnA4VZrkLmAM2zWHIITkJk1gkxhlbpqH9bUveTOXdQBc
-	 Mh3AqrsrpFI6XFvmnCPNGaTH8vJOOmoceNN2Ggwr1WHK01bAWYyZGytR/TnZKD+4f32dz
-	 G/Pz4YmnXY/Df/ase5XO+e02gyC5KRm1bqQqtyZYy7wayMaCq32zFGO12/WN9g7QMdmRf
-	 VqHc1DQuMQy94XFZTglrhXmP2I1Dspcbtif6cgVEU9qfKDNADnqljASeVbc1M6oxGww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802197;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=ipCVhzNjz3bkUh3HIH/dC2V084l64YZgYq8uC+CfKVA=;
+	b=1K63IVxsXB/pqkBsahihGsFfhj0lYpG+V4sw97dwLfj30FMhN5m03eiLBUF1jpKNm0Z/
+	 srb/VA8qZ53Z5GFD2krk71syWG3r7T57/gGFPrPRL0oQ+vsGsljKBfLCnvOtMvnRehfHP
+	 CSDANj+vFuE8Fv98V0e/fr6rKEiLgWHcq6n2jJkmzJMaMpYMTW5KMMKYzG7eBCeu78cHs
+	 WPiFxKVFa+hVGsOGYb8kokxm8L380DKXF0wbByLPc1O3/58ibFM5La0dZNyEXjM9tpu0n
+	 9H4yJABTWvu6SEW/lqAHEdY7AfkXYatjVQMal+Np3QS+flZ40Ev9yMaI3flt/ycjybg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Upjdc+mS;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6DDF3606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:21:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DDF3606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0LsVrB1R;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F407606A336
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:23:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F407606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Upjdc+mS
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5EBF81D34;
-	Wed,  4 Nov 2026 06:21:54 -0800 (PST)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3EEDF3F628;
-	Wed,  4 Nov 2026 06:21:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793802117; bh=Hr/3oRpndyHDDyfM5E1feoKXxm11nbcgryaiMGXfRuU=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=Upjdc+mSRyCDC1OhOnE9Tr4U/cVmnaynLs1JILZLzeDfb+EfrE8RV5OpM0GBVORLF
-	 2ekeZ+3vWpR/iaaiTrnWkaBFcNE954J5mpER0aYHp+zpviOV4OmWsOBU9kLsRzSOHq
-	 ye2u2uRIzJX5MkADh8ctHN26f2PEF0kh7wABHWvI=
-Message-ID: <45efa783-21b4-4f67-a0fd-c6772d5cb038@arm.com>
-Date: Wed, 4 Nov 2026 14:21:54 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0LsVrB1R
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so6789045e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:23:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793802195; x=1794406995; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ipCVhzNjz3bkUh3HIH/dC2V084l64YZgYq8uC+CfKVA=;
+        b=0LsVrB1RbPjDtXwX3qjLB1A3vbWVpqZ7HZf5pVQXVp4B7btdszFS1RljBh17d4QysC
+         BS3cixxniLqtiMaPPHJK5cPfu73HovzOQC3aoX+YmxViTbcNeU+xrWcrtDpOK3olBzbq
+         8BYj61J6NvVpkQGghxMoUWWxHaUL3v2+0S7dfFQuuTth1J1asNB7GdDfzPs5Ij5j1Fma
+         CAHQ0lbRdCK0qEiS0+sQqrIdPbDnjliso64JP9yRZdlJQLMNlR49y+Q1lop64YIK2xJG
+         yr/u0N5gPgEp75e1VVKhayMcmVrXJMOLfY8AaES0WpLtJCBYs28K3LQlgCNZwXYwAbjv
+         QTiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793802195; x=1794406995;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ipCVhzNjz3bkUh3HIH/dC2V084l64YZgYq8uC+CfKVA=;
+        b=XHnjX5pTmwnMr2j21oN0HvSc9B2d0DJ+wUTccE9dP4n3gTGVqddy2aOH9OsABy8toU
+         WZQelY9XXxHHC90fo5TMVqyd3FWghtRmmIfgNgnEioVsm92b8PjjOgPYIiRWCKf5ryg9
+         BN32OKNrsMKSFK3ONAJ1U5hsj4JBc9D+9uk5jcm7mCHBkMaxcMYeWtyOltnixDUThwel
+         gWYMknnSAdtE8jTh9RaatXRPuhhefBfVSPFtctdb7Y4R6QGSNenPnZ0IOEDd9XeMswGF
+         IC45js/iAO/u/ES3dumAvL/dPb0j2wt4faPsBhzUCwvWVeKNVx5Hd4RqXIWogT/ISh8+
+         xTbg==
+X-Forwarded-Encrypted: i=1; AKwUvBy/PSctjfunSI65eTiBWpw4qYUfp5xomqAFYOUvDkgo8qkEIrBAkkkM82q4d0yf1y8moR4cUnFVIp9wj5E=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Gru+Bo4VcfnnLDf1msmOCvqdZER8SB/EJq6eeCBsf1TWX2djY
+	ZehJURAAjipZc3vZC5vyaG9Zkhn9R/KlF8htzdZahFbb6jO2v6oCu3cY
+X-Gm-Gg: AYBFou2tgE4hGmQTrH+BNKv8kg5xrlxXbhUTZZwkbUO327T7UzM6oB8lFuVCNxW5H3p
+	x1Kfei2bGqxCoW/T54yr8SPIy/S7aW3QXTJRh0B2nZKF0Vjt8+ny9ST9hQsn+jzyU2HL8DdwY1P
+	Rr9zCDDxsyiQKkzLC09CxQMksd4iGAbY6UdZg7qLb58qOsCCtLoey6pf/rcZv3ox9Sz6rqPYrrX
+	ZChgaD+w1ysTdVyxsuxLj1ShEnRa0F63Q9pDcOabcFzaYIRR2M42NlgZ9pyhi+fy/CpMYiyCuoi
+	cXakqqFn7yR46hr/zLS/ru0dq+9nU4NYAoF0QD5Yb/PhFbls8kTY4aXWjrGnIvdD51n4evOjRsO
+	Cj8qYVBrg7aK7sKw3Z1Ic3iXZBPA7SKRCkfKrKEdXeDRQCDPGfiBNH3Oz5nokPESYyK1xzLPR24
+	7iv6Z2L41HkK7EUNf3/zKjpA9O6plBAkA1pfkGix3lBgFyxNN91ElSTzQD7uF/Pc640X8k6T8+C
+	YdrEqE1oSmrlcRhAZvYNOzeJomngqUjhMycvebRyDLsnRR3eC38s9GubYSGpHWgNLloS/rz5nCg
+	Yg1Fope3zer2Jk+sBR0JMNLqRyU4vzQ3OPKcEFAIlEkYUneTkOZPivor1mecfhke
+X-Received: by 2002:a05:600c:4f55:b0:4a3:d327:6ed with SMTP id 5b1f17b1804b1-4ac182dcba3mr406397685e9.17.1793802195353;
+        Wed, 04 Nov 2026 06:23:15 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b43c7480e3sm87089165e9.7.2026.11.04.06.23.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 06:23:09 -0800 (PST)
+Date: Wed, 4 Nov 2026 14:23:07 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Samuel Wu <wusamuel@google.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner
+ <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Andrii Nakryiko
+ <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Ihor Solodrai
+ <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, Daniel
+ Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi
+ <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu
+ <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa
+ <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, Nathan
+ Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ kernel-team@android.com, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org,
+ bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, llvm@lists.linux.dev
+Subject: Re: [PATCH bpf-next v2 1/6] kallsyms: Add KALLSYMS_QUERY ioctl to
+ /proc/kallsyms
+Message-ID: <20261104142307.431fc12f@pumpkin>
+In-Reply-To: <CAG2KctqdPq6NmK6rB13s2bgM7kP2w4OMMy2hdp_OFMVYYhTnZA@mail.gmail.com>
+References: <20261023001603.560210-8-wusamuel@google.com>
+	<20261023001603.560210-9-wusamuel@google.com>
+	<20261028134012.01d52e94@pumpkin>
+	<CAG2KctpGPHo-S3AEvBhK5HPUnDHfoJu6Z-r+cS1hQ4Ps=B3DmQ@mail.gmail.com>
+	<20261030100215.6f8e0d4f@pumpkin>
+	<CAG2KctqdPq6NmK6rB13s2bgM7kP2w4OMMy2hdp_OFMVYYhTnZA@mail.gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,85 +117,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm_mpam: Round the CDP RMID count down to whole CLOSIDs
-To: Jinjie Ruan <ruanjinjie@huawei.com>, james.morse@arm.com,
- reinette.chatre@intel.com, fenghuay@nvidia.com, zengheng4@huawei.com,
- gshan@redhat.com, jic23@kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261104101622.563280-1-ruanjinjie@huawei.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <20261104101622.563280-1-ruanjinjie@huawei.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 
-Hi Jinjie,
+On Tue, 3 Nov 2026 17:14:26 -0800
+Samuel Wu <wusamuel@google.com> wrote:
 
-For patches touching the glue between MPAM and resctrl, essentially mpam_resctrl.c, the prefix used
-is 'arm_mpam: resctrl' rather than just 'arm_mpam'.
+> On Fri, Oct 30, 2026 at 3:02=E2=80=AFAM David Laight
+> <david.laight.linux@gmail.com> wrote:
+> >
+> > On Thu, 29 Oct 2026 15:05:45 -0700
+> > Samuel Wu <wusamuel@google.com> wrote: =20
+> [...]
+> > > BY_NAME matches names exactly, like kallsyms_lookup_name(), so they
+> > > would be different symbols at different addresses. Please correct me
+> > > if I'm missing something here! =20
+> >
+> > Only that the user might really want one of the copies.
+> > Sometimes there is only the copy. =20
+>=20
+> Good point. I'll have v3 add KALLSYMS_F_PREFIX + pos/next_pos
+> pagination to cover these. A prefix query for "foo." also finds the
+> copies when plain foo does not exist (expanded on this in my reply to
+> Andrii's Oct 30 mail in this thread).
 
-On 04/11/2026 10:16, Jinjie Ruan wrote:
-> resctrl_arch_set_cdp_enabled() halves the whole RMID index space, while
-> the resctrl core halves the CLOSID count: schemata_list_add() divides a
-> CDP resource's schema by two, and closid_init() takes the smallest
-> across the schemata.
-> 
-> When the PMG count and the CLOSID count are both odd, halving the
-> product counts RMIDs that belong to a CLOSID resctrl never allocates.
-> With 3 PMGs and 5 CLOSIDs MPAM reports 7 RMIDs, but the 2 CLOSIDs that
-> resctrl has times 3 PMGs only allow 6. The count is visible in
-> /sys/fs/resctrl/info/L3_MON/num_rmids, so userspace reads a value that
-> includes RMIDs no CLOSID can use; 
+I'm busy rebasing my patches - they got stamped all over :-(
+I should get a v3 that applies by the end of the week.
 
-Good spot.
+I will add a 'prefix' variant for you.
+The 'next symbol matches' flag is exactly that (actually it is a
+this symbol is a duplicate to avoid issues at the start of the array).
+So in this case that application would always need to read
+the next symbol (by name).
 
-It occurs to me that 'num_rmids' is also too high on a monitor only system too as there is only one
-PARTID that can be used.  Can you see a clean way to fix this in one go?
+I think it might be more sensible (less pitfalls later on) to return
+the symbol number - not that of the next one.
 
-Thanks,
-
-Ben
-
-RMID allocation itself is bounded by
-> the free list.
-> 
-> Derive the number of RMID groups from the index space and halve that, so
-> the count follows resctrl_arch_system_num_rmid_idx().
-> 
-> Fixes: 264c285999fc ("arm_mpam: resctrl: Add monitor initialisation and domain boilerplate")
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> Cc: <stable@vger.kernel.org> # 7.1.x
-> Cc: James Morse <james.morse@arm.com>
-> Cc: Ben Horgan <ben.horgan@arm.com>
-> Cc: Reinette Chatre <reinette.chatre@intel.com>
-> Cc: Fenghua Yu <fenghuay@nvidia.com>
-> ---
->  drivers/resctrl/mpam_resctrl.c | 12 +++++++++---
->  1 file changed, 9 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-> index 5468367776e2..d3f957162b68 100644
-> --- a/drivers/resctrl/mpam_resctrl.c
-> +++ b/drivers/resctrl/mpam_resctrl.c
-> @@ -217,10 +217,16 @@ int resctrl_arch_set_cdp_enabled(enum resctrl_res_level rid, bool enable)
->  	cdp_enabled = enable;
->  	mpam_resctrl_controls[rid].cdp_enabled = enable;
->  
-> -	if (enable)
-> -		l3->mon.num_rmid = resctrl_arch_system_num_rmid_idx() / 2;
-> -	else
-> +	if (enable) {
-> +		u32 num_group;
-> +
-> +		/* Halve the number of RMID groups, keeping whole PMG rows. */
-> +		num_group = resctrl_arch_system_num_rmid_idx() /
-> +			    (mpam_pmg_max + 1);
-> +		l3->mon.num_rmid = (mpam_pmg_max + 1) * (num_group / 2);
-> +	} else {
->  		l3->mon.num_rmid = resctrl_arch_system_num_rmid_idx();
-> +	}
->  
->  	/* The mbw_max feature can't hide cdp as it's a per-partid maximum. */
->  	if (cdp_enabled && !mpam_resctrl_controls[RDT_RESOURCE_MBA].cdp_enabled)
-
+David
