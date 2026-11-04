@@ -1,55 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793814144;
-	b=fJSPGGoluoyBPuSJLOlkWUhdVoBBKsQftaRccxVrN6+VNlR23kvDhMxjkNPDHiDJyxBf
-	 7EjL5LAsq2bLKMgtQXKowomrIWDhFmV442x1u7jD8AIEg+tFb5Pv1gQ1TGfKr28qIsv1f
-	 8WNywOnieJaCoHBxjzipaAK0z9paCv+okFiuSzM3lTEm+X6DqVbyur7y6nHpwbA8E9hWs
-	 +qkvmCninaymmC4Ghoqruim2OfrnTylA5UVrhrgY+5Jxs8ChVGrzAIFsAQsaof8sqi0Pd
-	 pps/4YNNDK0CH07Grh9lIIkNqWQX++cEx8p7JLbBAEdAQaQRZ/aPN/AehtlTQ3HgYmQ==
+	t=1793814152;
+	b=Awywg9yiOsdwGuxc2Ulsn7j0GRAFFPVUiKlo/pfHpgtoxs+gsUKJBgUlyUqYHjYwRso/
+	 U7lXJ2osCQwk1HU87QWvLzeLkzjmdaaONNYeo0LF9toierdnjlT2ynIFiNAcCzf84L07z
+	 q2gMkTLLwkCf0tMx1ktOSS7w0mgKZ8snd+s0pIvR7ybxy+K3pdCu0NgHnL+K/ecpzpV7L
+	 LrxRHG8pFAnUVbNCywT0XNZnyUfFIhUSCaoivpJ09lV08WHRDvbb/sV/k0PTOJ0kPTVQV
+	 TdzRwfZJSZ7wPYagbJ2Y4c2Q8Bq4OFNeJ+rIm25+bf31Batlwiq4K5gWsLxK5dQY7lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793814144;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=9k9BBVrz1GanrbqteD0MkFQTf5wuZ/oAZS4lzUDswSU=;
-	b=kqEYU1lcw6UvwgATxlbTgYAErmsAgWBhK30TwicC+psi6mPeeHnDggiV4Tbj7ER+jNJo
-	 /ntLyUlJoHtmEC86ChTfcQx7yLY9gSYH9BCs+tEdR8WfWwtYBYEkJZgwLuDygKprivkg0
-	 LHKQ3TZ+5+jSkXWikLylKziD/uY1xtLF1waSebzonvZO2gj3sw9i7Gm7/lzlfh27U54om
-	 rEN8b47qoa/6LZVxJq59C2sT46V9D/AuwO0nP1o/PLn3PUUCnsTF+WgAYYSC0BOC2UTqr
-	 FZgExJQphiQf6KjAii56iJWUPA02dmCmNHLkl5EbMqLNN3kbMQOMozngkPMOPnLbfwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793814152;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Qgrr7ni+/wWB6KrEVoi8winLqQmlrOPhCmlWyUxljNw=;
+	b=oEcglH1vf8nzaIFKnn82Ibg8lq9CrR5pSV4HCuhotxc1buzxFSnXdOYbjoCxsPl4xMU2
+	 sMuxUMXnsJUHkOWTVz7LV+H4pXp6JAkypg43lB11zTg6FUbm7+NAYAfB76ff1gwh3yyZ9
+	 2Nf1AWExvq4JpNOHZIkyl6vmx/CKLZNyo68XXGHYxuEumd2PgynOXe2B0T17yIhY4g8Yb
+	 gD0fauycaXYprU/PcD1vdCZ4Qcw6r3voTDE9aAbkUxdPlKm/a4qE5HY8PA5BdrMVkoXBE
+	 mdXkyZzXjfJy+j4MA2D1mx3cBBpwOFOTPpkpU2C0VcGvfSybQ7hnyZBUkKYrC/8leQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yo+CwqdK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=srH7cace;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C66606A32C
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 17:42:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FD6F606A32F
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 17:42:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FD6F606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yo+CwqdK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 366A91F00919
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 17:42:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793814143;
-	bh=9k9BBVrz1GanrbqteD0MkFQTf5wuZ/oAZS4lzUDswSU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Yo+CwqdKhlGAbjz22M5BdKnfNj6pmNVHw6069gZpaEatPUJmuhn+m3ZDny46uUdW2
-	 kgiKTqQOiHNZKNzYcVtYf85oGceTc6W9TGYjcQDjNoftx452VkL6hFL3/lsSSUuiZ7
-	 invSQLJWL5xkCkDeoJgj6jcq5xWFdu9z1opBnpQ3d8HWtDent5rCnnHbg5Y/yUoL9h
-	 gLpilkcmPHdIFBosggpVgcTv1wCBxEZpCIUQJzYw2K6MBTxnR7Tb57OhyMiLQ+dC8w
-	 2FCMaz4wQ4afyDLwRCCIutdHRc9gxUSoDKsXtpmd4nfdFcN+3M9ndnQZ8pZrelXhft
-	 O4dXmyCarTUNg==
-Received: by mail-ua1-f49.google.com with SMTP id a1e0cc1a2514c-98301b325c4so291314241.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 09:42:23 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwz/RCkxTAqpFhO4skJK+0/TuT+TS+QVtdLQt9NOk9gXA7yjgiCTz6fvd/T6Bi4suoMIwKZBS8RDmbKppk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/LrhkJ8avkjV6ZXI3MC8NQ98u7kBSrmRstEsJBHtRnZ1mXes7T
-	h2XvNAN/Z6LqX2yC4R/BnsOWaijyGlM6dbvsG85ol1+4bDa21qnMZURwCgi3fos4WByBwRb9LCA
-	JWG/I3n6y3dB/oDxUeIuReFi74YJ0RBA=
-X-Received: by 2002:a05:6102:5811:b0:7c5:4da3:aefd with SMTP id
- ada2fe7eead31-7d072c25cf0mr6579776137.15.1793814142403; Wed, 04 Nov 2026
- 09:42:22 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=srH7cace
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=Qgrr7ni+/wWB6KrEVoi8winLqQmlrOPhCmlWyUxljNw=; b=srH7cace5OyxC1TdxFOr+0SV9v
+	YTuYN8Mdli3q4t4D+ivBeGsfe00NdlnK7kxxurFEZTxKy4IQTBb35mdvErJ6E/u0SB+b/mcOTzlLD
+	ycRAoYy7wTqSK9s7WyLpO2x5xh+TIM1vG0BjaKnJMWvCZBDWffiJj9CH1Q+5zXqgTCBo4gU/rjcHd
+	ravT/ixqz1n8pAUEL4B0Bgq5BbCcwZbckr4CMNdBgVgTAJgiALyzFfyRGAzgJzAbx5sFP2cagKKyZ
+	iLJOC/IYymF6l+QT51IQRg44qK/ODXABaQFCzfPiqQXQZsWRt4Qad/6CkiDZALp5+nDmTXKTUko1A
+	jkujztEQ==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xOf0I-00000006G0L-0rAQ;
+	Wed, 04 Nov 2026 17:42:30 +0000
+Message-ID: <0f7942d5-71b6-484d-bb4f-ca3b13462216@infradead.org>
+Date: Wed, 4 Nov 2026 09:42:29 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,150 +58,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104082834.25047-1-shishunbo@cmss.chinamobile.com>
-In-Reply-To: <20261104082834.25047-1-shishunbo@cmss.chinamobile.com>
-From: Filipe Manana <fdmanana@kernel.org>
-Date: Wed, 4 Nov 2026 17:41:45 +0000
-X-Gmail-Original-Message-ID: <CAL3q7H6w1sY5R_+Ajg-uHYx_=KjeUwyt5Aw=Zj+qViLXKcB+_A@mail.gmail.com>
-X-Gm-Features: AclHuK8HDQ0pZyMDKLC_Xe3zpQz0Mb69DnVe1-Rt08Do8KQuc6OGMoDXeGFl-5U
-Message-ID: <CAL3q7H6w1sY5R_+Ajg-uHYx_=KjeUwyt5Aw=Zj+qViLXKcB+_A@mail.gmail.com>
-Subject: Re: [PATCH] btrfs: fix delayed_refs_rsv leak when realloc shrinks an extent
-To: Shunbo Shi <shishunbo@cmss.chinamobile.com>
-Cc: dsterba@suse.com, mason@kernel.org, jbacik@fb.com, 
-	linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzbot+7ec60f4482abeecb0fd8@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, Nov 4, 2026 at 8:28=E2=80=AFAM Shunbo Shi
-<shishunbo@cmss.chinamobile.com> wrote:
->
-> When a data extent is freed and reallocated (with a smaller size)
-> before its delayed refs are processed, update_existing_head_ref()
-> updates existing->num_bytes to the new size while the extent is
-> still in the " csum reservation\ state (total_ref_mod < 0).
-
-This last part of the sentence is unintelligible... an opening quote
-without an ending quote, a backslash for no reason, and everything
-after the opening quote doesn't make any sense.
-
-Something like:
-
-... updates existing->num_bytes but does neither adjusts the space
-used for checksums nor releases excess space from the delayed refs
-block reserve.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] powerpc/mpc52xx: Remove redundant 0x prefix in
+ mpc52xx_pci_setup()
+To: Thorsten Blum <blum@kernel.org>, Anatolij Gustschin <agust@denx.de>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+References: <20261104172829.231857-2-blum@kernel.org>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20261104172829.231857-2-blum@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
->
-> The csum space for deleting the checksums was reserved for the
-> original size in add_delayed_ref_head():
->
->  pending_csums +=3D head_ref->num_bytes;
->  trans->delayed_ref_csum_deletions +=3D csum_leaves(num_bytes);
->
-> but when total_ref_mod later turns non-negative,
-> update_existing_head_ref() releases the reservation based on the
-> new, smaller num_bytes:
->
->  pending_csums -=3D existing->num_bytes;
->  btrfs_delayed_refs_rsv_release(fs_info, 0, csum_leaves);
->
-> The difference between the old and the new size is never released,
-> so delayed_refs_rsv.size (and .reserved) stay above zero forever.
-> At unmount this triggers
->
->  WARNING: fs_info->delayed_refs_rsv.reserved > 0
->  at btrfs_release_global_block_rsv
->
-> and at runtime the leaked reservation keeps inflating
-> space_info->bytes_may_use, which can lead to premature ENOSPC.
->
-> Fix this by adjusting the csum accounting to the new size at the
-> time existing->num_bytes is updated: if the head is still in the
-> reservation state, release the difference in csum leaves (or add
-> it, if the extent grew) and update pending_csums accordingly, so
-> that the release in the total_ref_mod transition stays symmetric
-> with the reservation.
->
-> Fixes: ba2c4d4e3bda ("btrfs: introduce delayed_refs_rsv")
-> Reported-by: syzbot+7ec60f4482abeecb0fd8@syzkaller.appspotmail.com
-> Link: https://lore.kernel.org/linux-btrfs/6ae88b9e.64e51036.15cf6a.0027.G=
-AE@google.com/
-> Signed-off-by: Shunbo Shi <shishunbo@cmss.chinamobile.com>
-> ---
->  fs/btrfs/delayed-ref.c | 28 ++++++++++++++++++++++++++++
->  1 file changed, 28 insertions(+)
->
-> diff --git a/fs/btrfs/delayed-ref.c b/fs/btrfs/delayed-ref.c
-> index 8bc1929237f7..a3e32f08dacc 100644
-> --- a/fs/btrfs/delayed-ref.c
-> +++ b/fs/btrfs/delayed-ref.c
-> @@ -694,6 +694,34 @@ static noinline void update_existing_head_ref(struct=
- btrfs_trans_handle *trans,
->                 existing->must_insert_reserved =3D update->must_insert_re=
-served;
->                 existing->owning_root =3D update->owning_root;
->
-> +               /*
-> +                * The extent may have been reallocated with a different
-> +                * size before its delayed refs were processed.  The csum
-> +                * reservation was made for the old size (see
-> +                * add_delayed_ref_head()), so adjust the accounting to t=
-he
-> +                * new size here; otherwise the release done when
-> +                * total_ref_mod turns non-negative below releases less t=
-han
-> +                * what was reserved and delayed_refs_rsv leaks the
-> +                * difference.
-> +                */
-> +               if (existing->is_data && existing->total_ref_mod < 0 &&
-> +                   existing->num_bytes !=3D update->num_bytes) {
-> +                       u64 old_leaves =3D btrfs_csum_bytes_to_leaves(fs_=
-info,
-> +                                                          existing->num_=
-bytes);
-> +                       u64 new_leaves =3D btrfs_csum_bytes_to_leaves(fs_=
-info,
-> +                                                           update->num_b=
-ytes);
-> +
-> +                       if (new_leaves < old_leaves)
-> +                               btrfs_delayed_refs_rsv_release(fs_info, 0=
-,
-> +                                               old_leaves - new_leaves);
-> +                       else if (new_leaves > old_leaves)
-> +                               trans->delayed_ref_csum_deletions +=3D
-> +                                       new_leaves - old_leaves;
 
-We can't update delayed_ref_csums_deletions blindly without looking
-into existing->total_ref_mod.
-This else branch should be:
+On 11/4/26 9:28 AM, Thorsten Blum wrote:
+> The %pa format specifier already includes the 0x prefix. Remove the
+> redundant prefix to avoid printing 0x0x.
+> 
+> Fixes: 59510820fff7 ("powerpc/mpc52xx: Fix some pr_debug() issues")
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
 
-else if (new_leaves > old_leaves && existing->total_ref_mod < 0)
-
-And I probably missed something more.
-Sashiko is complaining about that I think and more:
-
-https://sashiko.dev/#/patchset/20261104082834.25047-1-shishunbo%40cmss.chin=
-amobile.com
-
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
 Thanks.
 
+> ---
+>  arch/powerpc/platforms/52xx/mpc52xx_pci.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/powerpc/platforms/52xx/mpc52xx_pci.c b/arch/powerpc/platforms/52xx/mpc52xx_pci.c
+> index 0ca4401ba781..a2e53cacd15b 100644
+> --- a/arch/powerpc/platforms/52xx/mpc52xx_pci.c
+> +++ b/arch/powerpc/platforms/52xx/mpc52xx_pci.c
+> @@ -288,7 +288,7 @@ mpc52xx_pci_setup(struct pci_controller *hose,
+>  		printk(KERN_ERR "%s: Didn't find IO resources\n", __FILE__);
+>  		return;
+>  	}
+> -	pr_debug(".io_resource = %pr .io_base_phys=0x%pa\n",
+> +	pr_debug(".io_resource = %pr .io_base_phys=%pa\n",
+>  		 res, &hose->io_base_phys);
+>  	out_be32(&pci_regs->iw2btar,
+>  	         MPC52xx_PCI_IWBTAR_TRANSLATION(hose->io_base_phys,
 
-
-> +
-> +                       delayed_refs->pending_csums +=3D update->num_byte=
-s;
-> +                       delayed_refs->pending_csums -=3D existing->num_by=
-tes;
-> +               }
-> +
->                 /*
->                  * update the num_bytes so we make sure the accounting
->                  * is done correctly
-> --
-> 2.53.0
->
->
->
->
+-- 
+~Randy
