@@ -1,86 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801843;
-	b=eimRueGV8WPzOllFelFoN2Mr3kO3c7oQyKiRjA6jrcTejSxuVRxgeeXijuuN4K/TP2gl
-	 dMW8sdjciNwTsIO/WULY4YAiuGtnBdgXi1l48pwkpoWiU5jg0OMV/M8Wd1OZmfEXT87MO
-	 8/F7hso/sHQCd5nKgRLo2a0RNXipOU8V8E49sY/hVHtVRAoA9US0VDcIc7nWo6EODU8pF
-	 apZhl8g7DWWoDPbxyuIoxGgJplPtN4jTZj05Feq9BsTcN1uUqtYojI12LV+1g0bFmI5af
-	 D2Uzop3C4ptQ3EwYKtnngMMGEk16zcfjEUKq50ftm35mFgmgD4BLqAEzyYanXLhOqXA==
+	t=1793801842;
+	b=Pfc1QKNyiFMkqIGAjFRPOPgexMBNp7hyzu/t5iBXyNnDh+eKaiaqWzwoyOsfSHpMtXal
+	 eZntQw7TuJkY96zNTtIMWs7x4WZNh831VRm3aaJigbH12ejZkIsQhidNlfAqc15RSGT9q
+	 Lam3e1/VakfbhsiAe6ErpvF8+Itp4WPVcmepiz6bqcffwT0GhnjmYoBOIG1oRBaxIIEJp
+	 bh7ElvFOBBE1ercJvad7rp6R+THNYpuXi534V2MV+yQ+muI+L0RiND+eNWmUDdUfHkqzj
+	 0kwmx0LCBjkr0F/nNYZjEAR4BUySqrHKBktVffLWdKVkRncrE98JtLkrllQogRxOzWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801843;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801842;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=dVHG44+BDIBCBwDY+96Lk7oESZ3fyFBd8Aec92tJSYg=;
-	b=KACINeUIbFV7j3464fUn+9GWWhSqPaxpvrgV1X6idp39rMIGWjeMzk/loW/98ZHR65sQ
-	 mCyfSlmfmp9iw7njXg2wiAMtPCthMr83zBuofOaKBQ6eatUUudckRRv71jLT1IbUTd0kd
-	 yEZEBS7/iDagMlQpg+w7vfACvlqVvLoP9tWrcTOtQBX/LvpeRhM3ZDSG7FJus9UdRvNsm
-	 b3l87z0RlQw1G4K0/loMFzseWlXFPYaKzrz5uBXe12tIwVLOpLOA4mxrZTCRzU1h0qCLP
-	 +vsCQqbpBSdnoJLUrMXv0Cph1eno13/Cv5CDpTNvWRsHef4gvNqeJUWwA7yy/CVqWIQ==
+	bh=gFimt1rkvDCCjT4BzWgXH68/6Kziwpyu6m2kyzBiw1s=;
+	b=wB6wg96iyoXOPgYdyAKqYFDkifRPxcQ5GrsG9VM+4nz0pwDp400xsMKi58HKF34pTLYR
+	 yLNd0yBGY8lPV7s4V66Yt9/2pn99BkTnv6OVYh53TQBfzRk7Gi5pFoTvVl8n8atiSdFRz
+	 YXu9of9VdBt6atlHmsjX4C8Vh7nW58r+AAmVy5bWvZtSg+CbM9qrwXJt7wMdOKf5TgJkP
+	 B/09RYTapkI2s3GUCWyE4+jNmP0eAIXfIdxTjyLr13EXVVBHCQ9oMYg90Lj8+D1CHKvgL
+	 9YDivni87Rm2tm8caacQT+dKNROm30A4umwfV31cT6w88PPUbIEJALE5rf86bVmXKPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ToATedU9;
-	arc=none smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mR9b1zcc;
+	arc=none smtp.remote-ip=209.85.208.42
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC863606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:17:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC863606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B244606A334
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:17:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B244606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ToATedU9
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4550d8ab15so114949766b.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:17:22 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mR9b1zcc
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b1aa4d71e7so836098a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:17:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793801841; x=1794406641; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793801840; x=1794406640; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dVHG44+BDIBCBwDY+96Lk7oESZ3fyFBd8Aec92tJSYg=;
-        b=ToATedU9d4AKlw1TrrcSx/rpQqZJKU5ptfLvpNhrtrjFQdMtoINZFG4rPpIrjIXCV+
-         IVe/cNotw+557JLtvVZbTeDduv/m5TUx29giIs68Hexdp8hKmIVZFzAkG6cnnXmMGKnf
-         08bGt3gEH4AjURa26dm+mGQBohqrWiBHpetP6sNc/DNzeNCypHOPFzKIUyrisurCCHPl
-         vHjH/WtGiJ1Ool+HIWLHn3o4WkeGgDTdc64IPQSy8Au7+1HQuWXFKNxns2KxF43YsO58
-         lKv725PdTYPVd8HM2W38F4u372nPQh9J3ZI2JnHpTFXvtH9zcaSluEYc8MpQJzzHBkW5
-         Burw==
+        bh=gFimt1rkvDCCjT4BzWgXH68/6Kziwpyu6m2kyzBiw1s=;
+        b=mR9b1zccPhZiroZ6jHhY+R1mcQtJ4EBotJVvk7yIjXuM/psBiMRAPoXyHC1PmbkJuO
+         cNpn3bqa2c3VNWMTdtI+E0usCnL4uZGdrUkRxop6Vexni6jE4/jJcchHQy73VUYnxExx
+         cYy1RgrUr+yxtfi3yy5L/g5fiekYR0aPqv/gIVn8GBMmRJp7eRE/+iFPWZNHOxvLSsBV
+         JtppO1NRAbux6PkpUjSqYFeT1P2jTFvTZvz9993L8K5VLP7Ww7kkVV0QWKfQWrL8IF/h
+         CM+lTWLPqy3+nKJ06efr3YOitFsO2ODFDhWGBOSF1bNSBUiyNALnFROTN5ivrjH+G6+U
+         aHNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793801841; x=1794406641;
+        d=1e100.net; s=20260707; t=1793801840; x=1794406640;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dVHG44+BDIBCBwDY+96Lk7oESZ3fyFBd8Aec92tJSYg=;
-        b=kIcaee9IcJFricFHfhKTAXCTrfgCvcW1UZPU+QGxOXwRSdarQd+SMWQbyfKnTb+nNI
-         ciX4Du8mVnKEpKkazyQDpZJbRqcKd6iGYVkwdNdmeYfPXXsIKJCN+AQk+Bn/Q7EGtY2A
-         W3/r/JqNdi2WQ0naPdCLawJT9ihO1D3548LHP97i2JjCf6Sb08CVwM7HLqNTI4Q1l8Ny
-         1YUa07ldv3E0FUk9Vv+2Ebm9I53UeDANJKYeoTdxxfFS/873Vcwi4YlAqAPWmLxyOrRI
-         /x1VAAZhyh/gBrB0gPLobTcNpqop6ku77pW8i8Fn2WqM7P62Q+hqzYfRdFz+04jCGmWw
-         5Fhg==
-X-Forwarded-Encrypted: i=1; AKwUvBxaQBxFB4y24BzDBNI0vhlChZL05gwrtb0QstqnNzSjtQNtalgL6HceCLP5CPB4rqBU0Gz/W2awRjSxDec=@vger.kernel.org
-X-Gm-Message-State: APuU4Z83aAWUTM4nPQGmShcaogl9+jtOCENVsgBKukrsLOePS4cYj4XW
-	AkfD5fLOK9XEOINZnsRypCxJbu4O/mRlGLchZIZrrwGmSGyXHNSRq/a6Xrnw/ILPaq6l6hxG
-X-Gm-Gg: AYBFou3S6y/Y4mEyGZztz/0nNdeR6XteLEQFWVD58MrnqyFns7I2R+HG0ag93/ZXzQE
-	6p/0B93Kyikg+dE2fONva8VF8yFx9t4Y3cvMBBVesPAhp8JF2ObLqyEBnY1BeMY7i6CcW/+TG/6
-	5eN8EKSv5VQQho2YqX52EBWhwJeSif8dyAzlfdeAdIwR6Ex0L+oPifxwTuwmYHgluYW4MrzDdCT
-	GQfKNskVku6KxsJAlDtGTFLWzHX5XU3CiLYNS2e6ZctyKSSCRDWM5eafMiXSb5hk7iRKcbcaSey
-	Chz/PHOfl55SEhKzfajtpus1UrSRVPi4XC+qFiXAy/o2ADSndWSXHCAQytYIWF5SN82cLwcDPYC
-	6pwjoOsJsns7v9T7gtK9RRe71g6FInTfAQdjj433GZFuh6nU7ntO2xfG7LVYTzuR5yda3H4p3yO
-	9Pdc0jKL9jKYq7hrrrRcIfRlcIQyChQhQjM2UavuuLG1kUB9S7QWbH2wumESNZCN9ChzagKuBPQ
-	Probxbtzlzf/qapNaMTMj1q0P9XwSlnfqZNSnmXu8wUJp3DGvMtJfZT863OuQOs6gSROno8K5tC
-	ycdEBzdWb9p3hTjmwRkwzl+/nsHe3ncj+A7hSNuO1WhifU2VeUV2uz4/BQhq7s1x47vHvDShxcl
-	R8pDyLD/uvEYaCCDkX4UGBny/QypoOVL+jvLo7lHpfXsuha9FUmr/m+MoOgPRLV8Y+b8uyt7rve
-	IpXOZWHGJnSojFJsYFKNDs/y6iVypCaRjg8VIBhIa2mr74bAnlYLzCha7X9pnvnk4tG0GyWmg2B
+        bh=gFimt1rkvDCCjT4BzWgXH68/6Kziwpyu6m2kyzBiw1s=;
+        b=uAu2k/QjIfkbHNDyMTDHgfwPQrPS2I7M0PQlpIVWv1udNvNWlVQSG4pjdwkiJcvlYz
+         qZOIQzZS9FzGkzRWAOGi0fNPzM0i00XfD9BshFUMHVUE5WosQMVqKDYuO2qzvqmwGve2
+         tQ9HgPDxoE7hXsle5C5+9UvtnfPBJytWfSz0FbSstY81axl4g00vyy8iESMV/5uiehqO
+         ODoE6wshL04kCn/GGgVPC2Fp0B3xH55L/pehWG2s+DxCEemaM3k6PQhg9qXNtWhEWAYm
+         60HNtSZ97fIFkCv40Z697x8WYTRT6hGHFwRTN1V3P/oh8rDe4Ko2tZ6ZvdBnW5lacWqG
+         sojA==
+X-Forwarded-Encrypted: i=1; AKwUvBzfcAJyVdKBhXzQa4i6anJxpoMy4NdI7G3/U2gUI0MXjnamiUVYMeEHfGXN0vTJ3aDel/O8q30YUAosim8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Ngi4M0hvpdC5zOE/72td7GoyCR49YKz5y8MZwIbqq9gf0Yw1+
+	UL0kDOT8jQCTdb7llNhvscC9JmPqkjF4RORXM9Q10lxQE7nH5S9RSsks
+X-Gm-Gg: AYBFou1SaceRlZp++UHZXSeVmz4ztciHHuzRsZRDONkcGjSQ67TVMOMSRHKDJt40DnO
+	yYy0ycnRUWke9ZMJ6J2f8YvFCWnrqn0WteJb+jHGISBkuaHMXLkzwsuP85YKrKJK656s/J2wdt/
+	f0NHSK5+NNmEWcKjS6lFKexo341uwhFkDw2JImN59ZQK1m5puIZKHSi062OqG7m1JHNrQRg31UI
+	ldw4AkQQxgv2gg7E7X5n5d6xLrZiCzWu3a8sGjOanF5vFZvvr4owndDZYUHCwVgPyeNqFIsmWzA
+	oTCOcdlidCb2uDCXWhHtcGehW0nggIoqk5hCfnJsRiepaWdtdZJncdC4bMtK7l29U2Vt8GQlAR6
+	YSNqae14JxUGklzcCmGRuFC9ZXnO1MPW+o8uYv3vvirSuSVDlgKAb6qPvmpYtBihY2f70paccPl
+	3ymzN80+I0fU2Dlst1nfvkS5cokui7tS6iA1bRnZ9/Uv1JK4hVV/bpxdYsqZovcwZVdHbb9tfdb
+	w8sCBR7XPU7nm7MZWWhdaoD78mjvc3QhqIqvuDy2N8rq5u5tDTxHn6WJT9XMP2J057I0l0APSYi
+	V1rHdpgq41yABJqtnhjw97PxmHpnBcywaO4wDdgquU1EC7poA3juxeZhG1guVM7JCsyNkRJxw4a
+	1HA2wCim7YQXbILojCbf93xMHDok6vRA/ODRSYzBeijyfnbSX5zyh2G5Ej74UhSmkZ0n5+9OvRo
+	SK9PDdt3KvBAw5Ns6sg+Qi6tswwtyvPvO6asxOA6s33yRM8uGlkbmhl0wDfRPUITTDo+GkDgqJv
 	w==
-X-Received: by 2002:a17:906:604c:b0:c3f:55e6:83e6 with SMTP id a640c23a62f3a-c4cc399b6f7mr687400066b.15.1793801841000;
-        Wed, 04 Nov 2026 06:17:21 -0800 (PST)
-Received: from Ubuntu.tail0f733b.ts.net (87-205-15-91.static.ip.netia.com.pl. [87.205.15.91])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d0e43e2eesm77311566b.31.2026.11.04.06.17.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+X-Received: by 2002:a17:907:1c8e:b0:c49:c76f:dad4 with SMTP id a640c23a62f3a-c4ca7a6e69fmr1463979066b.31.1793801840118;
         Wed, 04 Nov 2026 06:17:20 -0800 (PST)
+Received: from Ubuntu.tail0f733b.ts.net (87-205-15-91.static.ip.netia.com.pl. [87.205.15.91])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d0e43e2eesm77311566b.31.2026.11.04.06.17.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 06:17:19 -0800 (PST)
 From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
 To: Vinicius Costa Gomes <vinicius.gomes@intel.com>,
 	Jamal Hadi Salim <jhs@mojatatu.com>,
@@ -94,9 +94,9 @@ Cc: Simon Horman <horms@kernel.org>,
 	Vedang Patel <vedang.patel@intel.com>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net v3 2/3] net/sched: taprio: prevent cycle time extension overflow
-Date: Wed,  4 Nov 2026 15:17:12 +0100
-Message-ID: <20261104141713.355958-3-krystianmkaniewski@gmail.com>
+Subject: [PATCH net v3 1/3] net/sched: taprio: reject software schedules that overflow their timestamps
+Date: Wed,  4 Nov 2026 15:17:11 +0100
+Message-ID: <20261104141713.355958-2-krystianmkaniewski@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261104141713.355958-1-krystianmkaniewski@gmail.com>
 References: <20261104141713.355958-1-krystianmkaniewski@gmail.com>
@@ -111,77 +111,107 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-cycle_time_extension is an unrestricted signed 64-bit netlink value.
-should_change_schedules() and get_interval_end_time() add it to an
-absolute time without checking for overflow. A positive extension can
-therefore wrap the result negative. The schedule handover test then
-ignores an extension that should cover the admin base time. The
-txtime-assist path can use the same wrapped value as its extended cycle
-boundary.
+taprio takes base-time as an unbounded signed 64-bit value. A base time
+in the future is used as the schedule start unchanged, and
+setup_first_end_time() then adds the cycle time, the first interval and
+the gate durations of the first entry to it. With a start close to
+KTIME_MAX these sums overflow, and the software schedule starts with end
+and gate close times that lie far in the past.
 
-Add one helper that saturates positive overflow at KTIME_MAX and use it
-for both sums. Values that do not overflow, including negative
-extensions, keep their existing behavior.
+If this is the first schedule, the qdisc timer is armed for its future
+start. With an operational schedule running, taprio_start_sched() keeps
+the earlier operational expiry instead. A large cycle-time-extension
+can then trigger an early handover to the pending admin schedule.
+advance_sched() uses the invalid entry end as the next expiry and can
+keep restarting inside the same timer interrupt.
 
-Fixes: c25031e99344 ("taprio: Add support for cycle-time-extension")
-Fixes: 4cfd5779bd6e ("taprio: Add support for txtime-assist mode")
+Before a software schedule is initialized and published, check that the
+computed start is not negative and leaves room for every timestamp
+initialized from it, and reject the schedule with -ERANGE otherwise. Full
+offload and txtime-assist do not use the software timer and are not
+affected. Schedules with a reasonable base time behave as before.
+
+Fixes: 5a781ccbd19e ("tc: Add support for configuring the taprio scheduler")
 Acked-by: Vinicius Costa Gomes <vinicius.gomes@intel.com>
 Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
 ---
 v3:
- - split the overflow handling from the advance_sched() change (Vinicius)
- - use the same helper for the sum in get_interval_end_time()
+ - reword the range-check comment to describe only software timer
+   timestamps (Vinicius)
  - add Acked-by from Vinicius
  - drop the obsolete Assisted-by trailers
  - rebase onto current net/main
-v2: https://lore.kernel.org/all/20261009123309.284193-3-krystianmkaniewski@gmail.com/
+v2: https://lore.kernel.org/all/20261009123309.284193-2-krystianmkaniewski@gmail.com/
+ - no change
+v1: https://lore.kernel.org/all/20261006113335.241564-2-krystianmkaniewski@gmail.com/
 
- net/sched/sch_taprio.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+ net/sched/sch_taprio.c | 46 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 46 insertions(+)
 
 diff --git a/net/sched/sch_taprio.c b/net/sched/sch_taprio.c
-index 2a31b189d654e2..e4c937cf74c10f 100644
+index 4f69ef3d847a6b..2a31b189d654e2 100644
 --- a/net/sched/sch_taprio.c
 +++ b/net/sched/sch_taprio.c
-@@ -239,6 +239,18 @@ static s32 get_cycle_time_elapsed(struct sched_gate_list *sched, ktime_t time)
- 	return time_elapsed;
+@@ -1258,6 +1258,48 @@ static int taprio_get_start_time(struct Qdisc *sch,
+ 	return 0;
  }
  
-+/*
-+ * Netlink accepts any s64 cycle_time_extension. Saturate positive overflow
-+ * so comparisons remain monotonic in end_time.
-+ */
-+static ktime_t taprio_cycle_ext_end(ktime_t end_time, s64 extension)
++static int taprio_validate_start_time(struct taprio_sched *q,
++				      const struct sched_gate_list *sched,
++				      ktime_t start,
++				      struct netlink_ext_ack *extack)
 +{
-+	if (extension > 0 && end_time > KTIME_MAX - extension)
-+		return KTIME_MAX;
++	int num_tc = netdev_get_num_tc(qdisc_dev(q->root));
++	const struct sched_entry *first, *entry;
++	u64 offset = 0, span;
++	int tc;
 +
-+	return ktime_add_ns(end_time, extension);
++	if (TXTIME_ASSIST_IS_ENABLED(q->flags) ||
++	    FULL_OFFLOAD_IS_ENABLED(q->flags))
++		return 0;
++
++	first = list_first_entry(&sched->entries, struct sched_entry, list);
++
++	/* The software timer adds the cycle time, the first interval and
++	 * the finite gate durations of the first entry to the start. Entry
++	 * offsets are also calculated from that start. None of these sums
++	 * may overflow.
++	 */
++	span = max_t(u64, sched->cycle_time, first->interval);
++	list_for_each_entry(entry, &sched->entries, list) {
++		span = max(span, offset);
++		offset += entry->interval;
++	}
++
++	for (tc = 0; tc < num_tc; tc++) {
++		if (first->gate_duration[tc] == sched->cycle_time)
++			continue;
++		span = max(span, first->gate_duration[tc]);
++	}
++
++	if (start < 0 || span > KTIME_MAX ||
++	    (u64)start > KTIME_MAX - span) {
++		NL_SET_ERR_MSG(extack, "Schedule timing is out of range");
++		return -ERANGE;
++	}
++
++	return 0;
 +}
 +
- static ktime_t get_interval_end_time(struct sched_gate_list *sched,
- 				     struct sched_gate_list *admin,
- 				     struct sched_entry *entry,
-@@ -249,7 +261,8 @@ static ktime_t get_interval_end_time(struct sched_gate_list *sched,
+ static void setup_first_end_time(struct taprio_sched *q,
+ 				 struct sched_gate_list *sched, ktime_t base)
+ {
+@@ -1982,6 +2024,10 @@ static int taprio_change(struct Qdisc *sch, struct nlattr *opt,
+ 		goto unlock;
+ 	}
  
- 	cycle_end = ktime_add_ns(intv_start, sched->cycle_time - cycle_elapsed);
- 	intv_end = ktime_add_ns(intv_start, entry->interval);
--	cycle_ext_end = ktime_add(cycle_end, sched->cycle_time_extension);
-+	cycle_ext_end =
-+		taprio_cycle_ext_end(cycle_end, sched->cycle_time_extension);
++	err = taprio_validate_start_time(q, new_admin, start, extack);
++	if (err)
++		goto unlock;
++
+ 	setup_txtime(q, new_admin, start);
  
- 	if (ktime_before(intv_end, cycle_end))
- 		return intv_end;
-@@ -916,7 +929,8 @@ static bool should_change_schedules(const struct sched_gate_list *admin,
- 	 * next schedule base_time, we can extend the current schedule
- 	 * for that amount.
- 	 */
--	extension_time = ktime_add_ns(end_time, oper->cycle_time_extension);
-+	extension_time = taprio_cycle_ext_end(end_time,
-+					      oper->cycle_time_extension);
- 
- 	/* FIXME: the IEEE 802.1Q-2018 Specification isn't clear about
- 	 * how precisely the extension should be made. So after
+ 	if (TXTIME_ASSIST_IS_ENABLED(q->flags)) {
 -- 
 2.53.0
 
