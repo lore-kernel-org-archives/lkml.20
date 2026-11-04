@@ -1,106 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793793461;
-	b=O5sbSfhb578D2riWIHJGdSfcHkce7OMG1QqxzJ0uFj2AIAECOYFLNiNEpKMXze49NtZH
-	 4MVZ+gLb3Ql58lB2kjsws74tHJptPkA2LcPzHzTL6b631JJJOVhGX6XanV3foyTpGzw6A
-	 cKH5YOF8Ou5hga34nDF7uRw0EBCb/Z+feNheYEX+zqDhaide0jxXXhs47lVDcpEsx/+oq
-	 RbIoFGetqH+7aHsHiHAQEsONHzYWJO8zU/fKdEXzvASuHm0prsTNrO1wa49p5MStgYblP
-	 c9GttDTdhWAMYaCze3aqKzTkO6l9pajh1D6M2BXPLpSo09DAekL7QrFc/8QU8zaI5VQ==
+	t=1793793469;
+	b=N/uT0+kcUvpprQIV1rN2Kx/pjyfLeIFE15GFcBjG8UDI8d4pwIFZHcIG0ycI4j6Kgl6N
+	 /78/zCn0aFKuBknfffJPEfEV2lECPfmFi9wmbuzTcYj2BLLUMjPnb1EvteA9KC3DuqYE6
+	 q998o9lvPKkByxtI+sgqsaSKYGXhcFY4gjGqbcgy0Ct69cxzxvydIc8osbMlJsVBZz7EX
+	 o5Cv2Q/IQ1dBA+7ukCAc+Hq0nsxyuMoZasoUWVemP3gvrx8lSHtkjxCaNriqMAUFnnIFn
+	 Xe2p/hl5+UpVQcs3iP1qbdFlwzJbO75e7OBQI1TdomeMXUJqEAr5ncNVNvMqmcutsvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793793461;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=rHluHhAO0xC/KF78ZIKkidib22uHHwF0MmD/UX1TZas=;
-	b=AnR9AAfpYeL3vAiEDBNqWmWjtBaEIveEwz8qMqJwgCwXBex9UrG66ZC/SN9gt+wDzofs
-	 o/yH1su56m+YOQl/w1ifIQjLoUDJBrGc62qB3SsGEdKBezJQnlIvyMr/BZEs7N/t79Xi3
-	 lwtIlmiu+yLzAVjrDVlxs9jy049pwWSrQt0sMHCnVk/Ih0xp8vJ9+ldsoJolBvXSKOjDU
-	 v+KlPPRmrg+4Bcb6oKElXPpQx/DGqNSQMOimsvRADXWeNOvwm86aNl86dRBXAzZCN9CU9
-	 AIvtVm72x2KHlOlBQMW8y87JiPOkm32zeHC5J0ZVYVOsh0jPBWk9loZy2GwAnFUAvrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793793469;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=STtrZRO2YxEVx3H+ha1sUlpeSWj4yt3rSoZpXoj+5so=;
+	b=kjdKGiZe2VNyeoJExxTSaGt75kED7XVl5lMv7IV6/yEh/NBW0xG9soh8Xuo3gxMNm0Hn
+	 K+djCnfG+TQOnUnpO22eeVjG/l5l9R5PviA1pvhzqEs8DgBJ2SENE5KWkkcbeAOfJqlNC
+	 +3DmBsuIFzeuwkj9APK4dO0ZpVW0A1EPPV4vdxIQNljK4aaxhNmrolxao/1GEPsXQf6Js
+	 gRi7GIGR0eBTOgJJniUMtZkkktVRqdJolt36W95uJU1vUOdBXo6pUAh2LtvZXL/yGIhv3
+	 TfbMwhqfetbQ5LfBCyrEcgBPf640GbEoTSSZrbGzWt29mSVCaSm9WJy/q1gfl8WsywQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="fy2ko+/0";
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kLN+Zm+G;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="fy2ko+/0";
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kLN+Zm+G;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GMfjJGR0;
+	arc=none smtp.remote-ip=91.218.175.216
+Received: from mta0.migadu.com (out-216.mta0.migadu.com [91.218.175.216])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BB15606A31B;
-	Wed,  4 Nov 2026 11:57:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BB15606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAECE606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:57:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAECE606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=fy2ko+/0;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kLN+Zm+G;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=fy2ko+/0;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kLN+Zm+G
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 6B1131F7B0;
-	Wed,  4 Nov 2026 11:57:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793793459; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rHluHhAO0xC/KF78ZIKkidib22uHHwF0MmD/UX1TZas=;
-	b=fy2ko+/0ozIyB3q5s1uUqEpVwnWUMej8/uCnv72PKBECMQziYobfMfkgZJnziOgYNg3dM8
-	A5HDIT7ZR7CHYeiJWOdEq5LqDc0xqfsu3uokHefPpQ+Tl1Uf5NhrUM+cMvxTTSzcgs8y1L
-	HXGQGTUYpkj3RmyBhEazvvf3rhDnhZ0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793793459;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rHluHhAO0xC/KF78ZIKkidib22uHHwF0MmD/UX1TZas=;
-	b=kLN+Zm+Gxs3JqSjmXH3tgisagn/MTlDuir+JU00r6OsUmaTBNDsC6Xg0AFvQMX/ZKxrkQT
-	qR27tUOPLZQTaQDw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793793459; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rHluHhAO0xC/KF78ZIKkidib22uHHwF0MmD/UX1TZas=;
-	b=fy2ko+/0ozIyB3q5s1uUqEpVwnWUMej8/uCnv72PKBECMQziYobfMfkgZJnziOgYNg3dM8
-	A5HDIT7ZR7CHYeiJWOdEq5LqDc0xqfsu3uokHefPpQ+Tl1Uf5NhrUM+cMvxTTSzcgs8y1L
-	HXGQGTUYpkj3RmyBhEazvvf3rhDnhZ0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793793459;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rHluHhAO0xC/KF78ZIKkidib22uHHwF0MmD/UX1TZas=;
-	b=kLN+Zm+Gxs3JqSjmXH3tgisagn/MTlDuir+JU00r6OsUmaTBNDsC6Xg0AFvQMX/ZKxrkQT
-	qR27tUOPLZQTaQDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3F47E134F0;
-	Wed,  4 Nov 2026 11:57:39 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id S2RxB7Md62olTwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 04 Nov 2026 11:57:39 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id C285BB336; Wed, 04 Nov 2026 12:57:38 +0100 (CET)
-Date: Wed, 4 Nov 2026 12:57:38 +0100
-From: Jan Kara <jack@suse.cz>
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: willy@infradead.org, jack@suse.cz, akpm@linux-foundation.org, 
-	lczerner@redhat.com, tytso@mit.edu, hughd@google.com, linux-fsdevel@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm: skip empty finite ranges in truncate_pagecache_range
-Message-ID: <l53ckhx3h6jyt7bnosdycttcesuyt2jxvspnhs3gdftrxuj67y@djj4esw62ht7>
-References: <20261027211505.22044-1-dennylin0707@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GMfjJGR0
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=9ozzZ0J6mwwASk+DJQ5lOt7LdV8xbNav1SzRVl12KLg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793793466; v=1; x=1794398266;
+ b=GMfjJGR0lqO4+dJV4F+jBRzqIx9RTGA9JvfN60PEXutxuzEn2uGGj/XmeyddR2cNtloJmS/X
+ ErXKQQZLBUrl3vAi7YgGaiCcU1BfLh2JbMaKMxFpb1RDFICy5dTZ4ZOq+9dmK1JVkYCvURheR0q
+ kL2POQN8V4HbSVjd0KjM0TFA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8e7a7c0b85afa322;
+	Wed, 04 Nov 2026 11:57:45 +0000
+X-Mizu-Trace-ID: 8e7a7c0b85afa322
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: netdev@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Willem de Bruijn <willemb@google.com>,
+	Kees Cook <kees@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Breno Leitao <leitao@debian.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Joe Damato <joe@dama.to>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Li RongQing <lirongqing@baidu.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net] net: raw: fix ICMP unreachable sent when receive queue is full
+Date: Wed,  4 Nov 2026 19:57:26 +0800
+Message-ID: <20261104115732.322151-1-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,90 +77,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027211505.22044-1-dennylin0707@gmail.com>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -12.80
+Content-Transfer-Encoding: 8bit
 
-On Tue 27-10-26 21:15:05, Hungyu Lin wrote:
-> For a finite range ending before the first page boundary,
-> truncate_pagecache_range() calculates unmap_end as -1. The unsigned
-> comparison then treats the empty full-page interval as nonempty.
-> 
-> For example, lstart == 0 and lend == 0 cause unmap_mapping_range() to be
-> called with a zero length, meaning unmap to EOF. Punching one byte at
-> offset zero in a mapped FUSE file can therefore remove mappings outside
-> the hole, causing unnecessary page-table work and subsequent faults.
-> 
-> Compare the exclusive rounded end against the rounded start, while
-> explicitly preserving lend == -1 as the EOF sentinel. Perform the
-> addition after converting to u64 so the largest inclusive end does not
-> introduce a signed overflow in the comparison.
-> 
-> Fixes: 5a7203947a1d ("mm: teach truncate_inode_pages_range() to handle non page aligned ranges")
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+It's found in a raw socket application. When the application doesn't
+read packets in time, the client receives ICMP Protocol Unreachable,
+which makes the client abort the session.
 
-Hum, so I agree about the problem but the rounding logic in
-truncate_pagecache_range() has more flaws AFAICS. For example if lend ==
-LLONG_MAX, then unmap_end with overflow to huge negative value. So maybe
-let's fix it all at once. Maybe something like:
+The reason is that the server hits the sk_rcvbuf limit, and
+raw_v4_input() skips the socket before setting 'delivered', so it
+returns 0. Then ip_protocol_deliver_rcu() sees 'raw' is 0, thinks no one
+handles this protocol and calls icmp_send() to send ICMP Protocol
+Unreachable.
 
-	if (lend == -1 || lend == LLONG_MAX)
-		unmap_end = LLONG_MAX;
-	else if (lend < PAGE_SIZE - 1)
-		unmap_end = 0;
-	else
-		unmap_end = round_down(1 + lend, PAGE_SIZE) - 1;
+IPv6 has the same issue, ip6_protocol_deliver_rcu() sends ICMPv6
+Parameter Problem instead.
 
-And then you can leave the condition checking whether to call
-unmap_mapping_range() untouched.
+Also, we'd better run icmp_filter() and ip_mc_sf_allow() (icmpv6_filter()
+for IPv6) before we check sk_rcvbuf, otherwise packets rejected by
+ICMP_FILTER/ICMPV6_FILTER or the multicast filter are counted in
+sk_drops. So move the check right before skb_clone().
 
-								Honza
+Fixes: d721812aa875 ("ipv4: raw: check sk->sk_rcvbuf earlier")
+Fixes: 026763ece881 ("ipv6: raw: check sk->sk_rcvbuf earlier")
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+---
+ net/ipv4/raw.c | 15 ++++++++-------
+ net/ipv6/raw.c | 15 ++++++++-------
+ 2 files changed, 16 insertions(+), 14 deletions(-)
 
-> ---
->  mm/truncate.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/mm/truncate.c b/mm/truncate.c
-> index b58ba940be47..43c6cf99027f 100644
-> --- a/mm/truncate.c
-> +++ b/mm/truncate.c
-> @@ -919,7 +919,7 @@ void truncate_pagecache_range(struct inode *inode, loff_t lstart, loff_t lend)
->  	 * once (before truncating pagecache), and without "even_cows" flag:
->  	 * hole-punching should not remove private COWed pages from the hole.
->  	 */
-> -	if ((u64)unmap_end > (u64)unmap_start)
-> +	if (lend == -1 || (u64)unmap_end + 1 > (u64)unmap_start)
->  		unmap_mapping_range(mapping, unmap_start,
->  				    1 + unmap_end - unmap_start, 0);
->  	truncate_inode_pages_range(mapping, lstart, lend);
-> -- 
-> 2.43.0
-> 
+diff --git a/net/ipv4/raw.c b/net/ipv4/raw.c
+index 9d01006d8189..f33a9dfc5309 100644
+--- a/net/ipv4/raw.c
++++ b/net/ipv4/raw.c
+@@ -182,18 +182,19 @@ static int raw_v4_input(struct net *net, struct sk_buff *skb,
+ 				  iph->saddr, iph->daddr, dif, sdif))
+ 			continue;
+ 
+-		if (atomic_read(&sk->sk_rmem_alloc) >=
+-		    READ_ONCE(sk->sk_rcvbuf)) {
+-			sk_drops_inc(sk);
+-			continue;
+-		}
+-
+ 		delivered = 1;
+ 		if ((iph->protocol != IPPROTO_ICMP || !icmp_filter(sk, skb)) &&
+ 		    ip_mc_sf_allow(sk, iph->daddr, iph->saddr,
+ 				   skb->dev->ifindex, sdif)) {
+-			struct sk_buff *clone = skb_clone(skb, GFP_ATOMIC);
++			struct sk_buff *clone;
++
++			if (atomic_read(&sk->sk_rmem_alloc) >=
++			    READ_ONCE(sk->sk_rcvbuf)) {
++				sk_drops_inc(sk);
++				continue;
++			}
+ 
++			clone = skb_clone(skb, GFP_ATOMIC);
+ 			/* Not releasing hash table! */
+ 			if (clone)
+ 				raw_rcv(sk, clone);
+diff --git a/net/ipv6/raw.c b/net/ipv6/raw.c
+index b965258cf9e5..eb99f4a906ec 100644
+--- a/net/ipv6/raw.c
++++ b/net/ipv6/raw.c
+@@ -160,12 +160,6 @@ static bool ipv6_raw_deliver(struct sk_buff *skb, int nexthdr)
+ 				  inet6_iif(skb), inet6_sdif(skb)))
+ 			continue;
+ 
+-		if (atomic_read(&sk->sk_rmem_alloc) >=
+-		    READ_ONCE(sk->sk_rcvbuf)) {
+-			sk_drops_inc(sk);
+-			continue;
+-		}
+-
+ 		delivered = true;
+ 		switch (nexthdr) {
+ 		case IPPROTO_ICMPV6:
+@@ -197,8 +191,15 @@ static bool ipv6_raw_deliver(struct sk_buff *skb, int nexthdr)
+ 		if (filtered < 0)
+ 			break;
+ 		if (filtered == 0) {
+-			struct sk_buff *clone = skb_clone(skb, GFP_ATOMIC);
++			struct sk_buff *clone;
++
++			if (atomic_read(&sk->sk_rmem_alloc) >=
++			    READ_ONCE(sk->sk_rcvbuf)) {
++				sk_drops_inc(sk);
++				continue;
++			}
+ 
++			clone = skb_clone(skb, GFP_ATOMIC);
+ 			/* Not releasing hash table! */
+ 			if (clone)
+ 				rawv6_rcv(sk, clone);
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.43.0
+
