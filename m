@@ -1,77 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.136
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793775973;
-	b=I/ZTqtb2x7J6GThkKLeEdDhsgZM5xdY6WnG4cPNfzvjbQOpRS9SHyQ9YylO0OC1am5QP
-	 8Y9p5cw9NXzXRLtWd/qKEXJViE2ULrbZENzY4NbIW8hoWWP5nRPGubqDgl8SAwa16snwA
-	 itr5+1vgX/JMse/VHxGxJfafMKX21uKB8Lt3hufRFm9ABl4+JAaeHEEeGEiatYN/ts/oU
-	 Bmtfoaqqu/eLjOfoKQs+9lzrWEUKybi1XOE1bGSrsfjksOrTRGJIGeBxTXkHkjnx0nRnt
-	 Qc/e8tSrdTy9iyaWquf4cumxLdv6q5BWZoB5P9UphqHtZQJwNmCXsFzwWWa85MuE3kg==
+	t=1793775997;
+	b=mysiEyp0hEsSL+46dJtxjXcq9gVJE82sFx3Fn6IDy3W8rHEP83aQHG+2prerR++4/Z6D
+	 XRR/hbuFuv0xyQSJ5m8SSJjpynPx/3tdP422x/fyPB0KG775TYtUTHWFydObtQobiTUT5
+	 IgJmIUzCHoULPJiI8gsYOqnomY8Oh0Kly9A440ZbwJEKQLMcYuNUJL87yE/uR4k13vMsa
+	 mGYaYnRKq3wwpsg9nYbLA9UqR/Rq3emJO8DnwwljtMsW0jUYTrYdA74xW+pp9xw8YlvEk
+	 jz1Nrh7io8uillxWVxCygTb1aj2Xxl8hefvYUTyOA1h/tzeaQsMhNgAEjLwZPtI4DgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793775973;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=WokjOK4qUKpaWUewt5ne3nHyD3RlNEsjQzStQ+c1XNE=;
-	b=wGojMCKWlFG9ZB4dpNIYThaqPPzS4DX0S8KPZUEjU9dl7HkNGciSGAwtviQeV0PKO1N4
-	 2BF0mAPlS0rZFZIRhnB6mkMQbfJCAjIy0jHJtrgqj+lr3Qo7C5zIzB0x0jkcnayP0w43p
-	 pt6rQzIXsdie3hzTFtE5mIua6CGF9pJLOTLkFghrwGiobq1iRmj3pX4FyvG1RVNpwi0V5
-	 c1d81wCd32/V3jmgvSDw6YfSWlP8QxYHBy3BzBnwOsXQMXhmWldKOtJmP4sxOZnRpmvri
-	 uFDDIoFHChFjif2czKuCrO6Q6RqtRhkr31zDU7ne3eg8s/fyGzhqi+yhZRlBg5YF3sA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793775997;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=oZ4eIQgNg851HiC1LhwvokflDAaGaokZHAdBUHZGe30=;
+	b=FRZPGpWoGAAq/+qEl0xLEgpLmDkJUU4HU7iGxjV8nWUA5Cgq6Mh1Ptq6ozyHZ6B62BHX
+	 Q79i9buHQhYLMDUk/+8DeJVmVCqmI1Xz+NmlsKV229WYztFl1wmDiSILrVsErAWf7QMWZ
+	 RHxR90dF7lwZB2hSFlxwvZ3sFpJouzsG28o3DPJTHC86oWz9UodFTwHth4eMs3QyZqewV
+	 dq6IVPVUirXub1WDIa5D6vyihEjeJPR5tjruTmmaCmpjr8nscCHonpvw9gYjQNMDumWyH
+	 oRnCDrZ5AU/F8Z7doZT0s67Nt+lrvfpyTP5OCPmfeWhjxVq1IWztddeQBJRQbDQteaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=packett.cool;
-	spf=pass smtp.mailfrom=packett.cool;
-	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=pYeOesUx;
-	arc=none smtp.remote-ip=95.215.58.136
-Received: from mta1.migadu.com (out-136.mta1.migadu.com [95.215.58.136])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UvT5gpdu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CACE606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 07:06:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CACE606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86919606A31B;
+	Wed,  4 Nov 2026 07:06:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=pYeOesUx
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=sN6eycwIKu/qE35PSu5sRh3YS6d8qIr8WXShRM/F29s=;
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793775971; v=1; x=1794380771;
- b=pYeOesUxINa+DqUJ5BRP6CfaVMrX1z911PeLdD1Tsk5KqerFu01VHcj3YV9PuNJ9JUKM2LlW
- fumk5BbT1RjvNvx4GTQVRGVoWG8VXS/8xJZ+UYKDxJyJknE7DoS+tOnblJvrH9pa9X9OJ4TSDMH
- Ch7BAeB2ZSDqX/AtviAacNtesBysOlX65qLdq0DCWsBaZAC3RIFXzEDboPtzwh9Il9g3gpAO20M
- RMe4jL7NU1eQat9HQUqpYJsnqyfnakpTkMRotL614kcaGbLwuWnLd3J5itolfhBb23BAWVjZiw1
- wMStXQWpeH+7c0fXU2EVCMVx/EV1MME9kUeYnx19B1pFw==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e5fa99feb5128d1f;
-	Wed, 04 Nov 2026 07:06:09 +0000
-X-Mizu-Trace-ID: e5fa99feb5128d1f
-X-Migadu-Flow: FLOW_OUT
-From: Val Packett <val@packett.cool>
-To: Maximilian Luz <luzmaximilian@gmail.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-rtc@vger.kernel.org,
-	Val Packett <val@packett.cool>,
-	platform-driver-x86@vger.kernel.org
-Subject: [PATCH 5/5] platform/surface: aggregator_registry: Add support for Surface Pro X
-Date: Wed,  4 Nov 2026 04:04:36 -0300
-Message-ID: <20261104070441.74127-6-val@packett.cool>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104070441.74127-1-val@packett.cool>
-References: <20261104070441.74127-1-val@packett.cool>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UvT5gpdu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8436F1F000C1;
+	Wed,  4 Nov 2026 07:06:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793775997;
+	bh=oZ4eIQgNg851HiC1LhwvokflDAaGaokZHAdBUHZGe30=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UvT5gpduUQKVZ800CmfMM+07oDYD2bgft81mhxQAPxi2siw4JpGseHEbSwbP2LCE2
+	 /pYKuepHMpNfOyqpMP4TyeDywh8AEbrhWfLIoFLGCnwIMzMN2xBNXzv/z2jMT7A3MI
+	 QUo+clMjOFRZMrFFGp2syiZKG7VAndCJpHoHe08RZVlN27t1WQXlFOHVzXW7EPolr2
+	 AykHmdd5Q6qHGKYMOgi7Nys93pAdtUwjOZ7KD9F6rYtdeTqNGVUZvhpv/UVRfqcjzt
+	 B3QnVxcQ71b+npOrmuVMN5+p9uU2D8swChKvxz53zirGbDNj2KxVXLewyWRFeD1rpe
+	 nD8rAZ10GmQWQ==
+Message-ID: <a103b49e-e13f-4c70-b9a0-261534cfef79@kernel.org>
+Date: Wed, 4 Nov 2026 08:06:31 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,69 +51,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/5] phy: qcom-mipi-csi2: Make timer and OPP clock
+ names configurable
+To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ gjorgji.rosikopulos@oss.qualcomm.com,
+ hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
+ jigarkumar.zala@oss.qualcomm.com, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261103214105.3605181-1-anusha.nandi@oss.qualcomm.com>
+ <20261103214105.3605181-3-anusha.nandi@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261103214105.3605181-3-anusha.nandi@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Maximilian Luz <luzmaximilian@gmail.com>
+On 03/11/2026 22:41, Anusha Arun Nandi wrote:
+> The timer-clock lookup in phy_qcom_mipi_csi2_probe() and the OPP
+> clkname passed to devm_pm_opp_set_clkname() were both hardcoded
+> string literals sized to x1e80100 ("timer"/"core"). Add
+> timer_clk_name/opp_clk_name to struct mipi_csi2phy_soc_cfg so each
+> SoC can declare its own clock-name strings instead.
+> 
+> x1e80100's soc_cfg now declares "timer"/"core" explicitly; no
+> behaviour change.
+> 
+> Reviewed-by: Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>
 
-Add SAM client device nodes for the Surface Pro X.
+Where did it happen?
 
-Signed-off-by: Maximilian Luz <luzmaximilian@gmail.com>
-Signed-off-by: Val Packett <val@packett.cool>
----
- .../surface/surface_aggregator_registry.c     | 26 +++++++++++++++++++
- 1 file changed, 26 insertions(+)
-
-diff --git a/drivers/platform/surface/surface_aggregator_registry.c b/drivers/platform/surface/surface_aggregator_registry.c
-index cf3ae252b1c4..bec0a87a2a95 100644
---- a/drivers/platform/surface/surface_aggregator_registry.c
-+++ b/drivers/platform/surface/surface_aggregator_registry.c
-@@ -51,6 +51,12 @@ static const struct software_node ssam_node_hub_base = {
- 	.parent = &ssam_node_root,
- };
- 
-+/* Real-Time Clock. */
-+static const struct software_node ssam_node_rtc = {
-+	.name = "ssam:01:01:01:00:00",
-+	.parent = &ssam_node_root,
-+};
-+
- /* AC adapter. */
- static const struct software_node ssam_node_bat_ac = {
- 	.name = "ssam:01:02:01:01:01",
-@@ -352,6 +358,22 @@ static const struct software_node *ssam_node_group_sp7[] = {
- 	NULL,
- };
- 
-+/* Devices for Surface Pro X */
-+static const struct software_node *ssam_node_group_spx[] = {
-+	&ssam_node_root,
-+	&ssam_node_hub_kip,
-+	&ssam_node_rtc,
-+	&ssam_node_bat_ac,
-+	&ssam_node_bat_main,
-+	&ssam_node_tmp_sensors,
-+	&ssam_node_kip_tablet_switch,
-+	&ssam_node_hid_kip_keyboard,
-+	&ssam_node_hid_kip_penstash,
-+	&ssam_node_hid_kip_touchpad,
-+	&ssam_node_hid_kip_fwupd,
-+	NULL,
-+};
-+
- /* Devices for Surface Pro 8 */
- static const struct software_node *ssam_node_group_sp8[] = {
- 	&ssam_node_root,
-@@ -508,6 +530,10 @@ static const struct acpi_device_id ssam_platform_hub_acpi_match[] = {
- MODULE_DEVICE_TABLE(acpi, ssam_platform_hub_acpi_match);
- 
- static const struct of_device_id ssam_platform_hub_of_match[] __maybe_unused = {
-+	/* Surface Pro X */
-+	{ .compatible = "microsoft,cambria", (void *)ssam_node_group_spx },
-+	{ .compatible = "microsoft,carina", (void *)ssam_node_group_spx },
-+	{ .compatible = "microsoft,caspar", (void *)ssam_node_group_spx },
- 	/* Surface Pro 9 5G (ARM/QCOM) */
- 	{ .compatible = "microsoft,arcata", (void *)ssam_node_group_sp9_5g },
- 	/* Surface Pro 11 (ARM/QCOM) */
--- 
-2.56.0
-
+Best regards,
+Krzysztof
