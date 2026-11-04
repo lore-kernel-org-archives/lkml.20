@@ -1,101 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.6
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793812147;
-	b=mjZUyW9OdQiRl6RowupQ3/f4RP6DYqvVUooLG7lPOZkfwb6Y97/EBnW/OOia3/cW5FrU
-	 p/6Xi4ZFHEVC4uisVgpjo7zX9QQsC+TWFlzot0N3sMyw+k4Ft1CYBDn1K0OrCBalo5uhw
-	 RdGyPshQwEwIOU0RCJzvBHM71tU+HM0erq0eqcec3sMvYNlz2A6HndMbPYLXKPp8C7dnZ
-	 BTT/7bXOF3FWimywBVThQvn4Qu+B+50Wp7tTQBlkLFnzysgQEIYGitfqxHLOuv2i5M2s7
-	 u/joQVYwrNT9zfT2COSyx54g5a/Yvyfag4XI8LFiC6R7B1sDtr0XbEsURagtMn1AxuQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793812147;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 CC:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ftI0UFOdkRAQKb5B4qPO0pM2QbqpAezKgmnOuI2y9Bw=;
-	b=gax3jm9H9dZppJbpnPX/xHdYcXSFlTB8De3ydHgQ457F/V1jAbmYc1sq8zxs+uSiXtLG
-	 kwYz/p+aDYkpJ6rE5jdLxK6pRq5ZwDeKg/nDUbRA+AKmvppU2li5CDntxVf1HzUYMXxrk
-	 6ovfzBt9n5ea4t/12FQuUzBT7r2zrKWfMC5WCkMY2+MtRimsGi/t7rZAhUzB348M6/RKC
-	 WniixcgSzzI7GfyobZxv4jGuoWdZqgGgLZjJGCrU0qRl4WCGnfoOrYdBRUSKxZYUq/TMC
-	 xzA7OsAMb3Bg5BT8GNXGNws6L3Rq8LXHik/V4tTwlIUgCao/3bHq8VKl6tgPinWz6Xg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=3L1A6EoD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.6
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010006.outbound.protection.outlook.com [40.93.198.6])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793812165;
+	b=1U309PrscPzVpDDkRou/elfRqep56/XyGNyRMtG70/D9/Po4IbzYYjXSCq39OBimy4aO
+	 FGrbM1E6MhjxcTlLms5NjNRDSQbMqX8erHjdNFQobKeBL26yU4elbTt5qVEz+rmJ7FF5Y
+	 lQjScQFZx2pI5r3KFBU1/bZaaS1MnouVah4nU3qXFUkmoCQu7B7nLPhYVCw6noCj3ltZN
+	 f3dVS2asB4pobXPrIbh6LGnzTI4ZM82ueeR6sl1i7+Tmkf33IrehjxDVG3SvdFsSSTTtk
+	 FeqV4ZcnqC0y6PlDBjTFgqt+5l928RsLLH/e4IWKlklO0RJ4P6fgEuKAsiyUvjTogvw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793812165;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer;
+	bh=rKSitA4GhO3iXo6/sM1DqbwM0oZP8831TgqTTx7U8Yw=;
+	b=h81zJ07Xly9zPS0Ve90eRHqfoDEZnf2rIVNPvuMo/2uFvAIHEWGFksFoXsrZA/zEik4W
+	 wzi7lltvEGUJ2QJSqyjniWpTrQooY9DdEAyOHwQX7pkjInRt6XLrccq2k/qaSZd4fJb+Q
+	 Tv/rTpslYI51xMrUYCyxz5e2ZDmKZ8AOuQ+iSTVYF+DyK89J9Ct2krHFEvDvZKtrh3sSB
+	 gf9NQuLw57a9hniPEtctENyblz+EU6juq0Jabkf7Nv19COxzuhGJGfv5QLzMyBPgzbWYC
+	 cUMPGKjlHyWtaCROPD8PlkFhlXICVG8ie+/VCwgyv7Cjy0RkEW1Us/SDnNjTtgE/Esg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZO+bMQM2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CF65606A334
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 17:09:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CF65606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D949606A32D
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 17:09:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=3L1A6EoD
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=moYHure8oyMDLkx5K22kCL4FsNl9VjZdmWVOMf35hXVjdsW/S90NUN4mk9QVQvPQPmVK1+zFAAmWmJUs6iEWmFDehHSXg5CtrAtl64uc29k/YXz5t0q7xsWK0wTo2jUm9wuzNMyznxr2v+QVs7uPEKIXlmKAVXg+H8v9soeAILFC39pXY40g85nEg342xkxVVft5feI8pWFwKQwqaO+pLfH6SLfS08UjtNF+hFeLNYWy3wy8HLXRU6GLN0ZjAN/Y6m8k0XmSwoK4Z5q3ZBOJ4xw246Dejy0bGRdfdtjFI9rU1R4YQC9+ZIr1Cy0ajn87KhHQmR3j4eZ1mQZve6WpZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ftI0UFOdkRAQKb5B4qPO0pM2QbqpAezKgmnOuI2y9Bw=;
- b=UX4ZLqEcT1TjQvdyvorMvNeOj3iH8wD0OkE3VSUps4My8GLAxX3IJCOXCD6ny3T9DVjYlEtKqoLS/dO/W72xjZOTOwEuwDYVRm34tmeRVGpd5dtVgSfvRfFxon9LUhRQQMTWyZzxfc+DLT7ZeOZMgyjMGAHViHvJZkcftYhZcjWgO7hnL7aAZuATLx3iZDltn/rMSTn2kndlwxq1Rtf9zdlDdHaBsrp1TmvyG299kppj7cgDN38yjKj/rhLRNPmT1MjuZh/phy3RFy+5bpueMdTmykuzyTrSYOdUrEo6SD7nt+C3YTU+w1U9I+5j/3Hvb1yMqgudNJzIX/xhG0IV9g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ftI0UFOdkRAQKb5B4qPO0pM2QbqpAezKgmnOuI2y9Bw=;
- b=3L1A6EoDBIytYDkGTkodAFFj2JtiZd12hfUP0GozM5ButOv7xP8hCkxOGb1kBKB3oR5EIThSByAT1UfgBJYJQmkAq/9eeLSKCSQu1VrhaOmVgGJiyNcgObC2PnOzMBV060KY2JPTmQ2Ep08XJYqICISydQTomKUsqq+Jf/1U3tw=
-Received: from SJ0PR03CA0010.namprd03.prod.outlook.com (2603:10b6:a03:33a::15)
- by SJ2PR12MB9190.namprd12.prod.outlook.com (2603:10b6:a03:554::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
- 17:09:00 +0000
-Received: from PH7PEPF00000005.namprd04.prod.outlook.com
- (2603:10b6:a03:33a:cafe::c) by SJ0PR03CA0010.outlook.office365.com
- (2603:10b6:a03:33a::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Wed, 4
- Nov 2026 17:09:00 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- PH7PEPF00000005.mail.protection.outlook.com (10.167.243.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 17:09:00 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 4 Nov
- 2026 11:08:59 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 4 Nov
- 2026 11:08:59 -0600
-Received: from [172.19.166.81] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Wed, 4 Nov 2026 11:08:59 -0600
-Message-ID: <ad484ed4-9b52-4210-99c2-9e035d9f8189@amd.com>
-Date: Wed, 4 Nov 2026 09:08:53 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZO+bMQM2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B9DF1F000C1;
+	Wed,  4 Nov 2026 17:09:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793812164;
+	bh=rKSitA4GhO3iXo6/sM1DqbwM0oZP8831TgqTTx7U8Yw=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=ZO+bMQM2HPlq92f7QNDpBuxeZ+BfI0Cg9C4IcKYdsvwAtqDeicKjU0j+Ex7z2Ug2h
+	 iAcK43Oug7C/9Yhilc8KJ6DqyN0QyOdXsYtzGLcUyj4e9vkx2b/rsY1gr6+ksOMcx7
+	 R2ije2b9dYDCOqNznuUrfA0mjC5b0j5tjyS2Gg3D+DFZKV3ToMsR9Jo36cIJ/j3Vn0
+	 y3OAx6kwWKkr3as4pmXDWQTz+E6TfSb3Zu7/Um8YRfxPPXR0sQgQgnZDBiqzZwlSVX
+	 AIbFqs9vx5gIwa2J4XAesfziIs2wiZPh6lNYEmv2NcW20tLhNcdqYtNcp0BLbyJELh
+	 zBZ8xrMULVd8Q==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,278 +49,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V1] accel/amdxdna: Remap BO pages instead of using
- vm_insert_pages
-To: Lizhi Hou <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
-	<quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
-	<mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>
-CC: <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
-References: <20261103190821.2019203-1-lizhi.hou@amd.com>
-Content-Language: en-US
-From: Max Zhen <max.zhen@amd.com>
-In-Reply-To: <20261103190821.2019203-1-lizhi.hou@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PEPF00000005:EE_|SJ2PR12MB9190:EE_
-X-MS-Office365-Filtering-Correlation-Id: 51def1ee-cf38-4110-32f5-08df3a9651cb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|376014|1800799024|18002099003|22082099003|10067099003|11063799006|5023799004|261026121527099003|261102130727099003|261028144727099003|261022105027099003|261026140227099003|261021123027099003|261021121427099003|56012099006|261009223027099003|261102123227099003;
-X-Microsoft-Antispam-Message-Info:
-	XFHy+1Moqq5Wit//4VPMq02+5k6Vq6FQkw4d3zm0x+mDxpZXg/xL/ANJqdK3XNygT7QvhQitJ2sHtDzor/aOMUyzCd4/BVUyxoOolzu81rqwPHuV2509inh/Sj8LW0eIz0+IDcys1EXjqFyG5jfXrsfc88x8ZLygsZoVcLoRQVTtxMR7wc3NWmJ4FT7ZX4qQGH2xe2ra6+7ZnoA9VWP4ptY02yQV+5DioC3pf8ZMNY8WyhUU0IpDICgibm/BWYsWmJYrZD4QbgBvRQW1PejRLppdLKA323fZ2OY4tY0o+k9w1xA9UpisC5p5QcWCndZz9bnIdNDWjAvS58EN4X6sUTnXrpME4hFC1xjAATqtSeDSJnD1wl0Yjb1Nxwhy/TjN3XikWbmrmS5APr9ptnZIm1lJ1YiidWo/7EqVn8KTqvhyYUwRN2I2G2r+X9tpyNHzU6SEn9W50pddsaoUkgnCVr0zsm1YwZVT07tTTO404TBuCIkBGOyfkFMvVp7+sIVZtxLHkw06bmfhCCZieFrXaeLr+jQppewV2EIRJ8aiGqQGV5JZxNGyLSwroP/cH70BsZMUYfRw0sCCkcJYGEJdjpSsH3XCD91vCq6LIBHiG/IKxkPaDhM3/OMwTh8zfVZWL17I60Pr3ClNjGd745KcBRhGjsW0d02gLz/Bwleem9d2VKtuC7edM4oF8CxrGm8gvWs7ingGo7nyzFEBmzivOw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(1800799024)(18002099003)(22082099003)(10067099003)(11063799006)(5023799004)(261026121527099003)(261102130727099003)(261028144727099003)(261022105027099003)(261026140227099003)(261021123027099003)(261021121427099003)(56012099006)(261009223027099003)(261102123227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	G7Fbc7EsVCIiLAc2XTTpv/AhO4JCrAGdA5t5Zj3P8Vh1iu+J9QOuWff8hSfrznM6gQqriW3pY/6d9LirJTvCafGb+jetaSTWR0hXWyX3iPv2SQh00KhtmgFZwv1tHg+3j3skLX414wbxHD02shMJe7z0pCNNlGj7/bd+3Ct7dAGUMWxr7zE6CtZmOZphqqUWtWZteWDRS0OczPxzP4aa3C4oZJAsl69BUfxiwWWR+ctgvabG7jRmbyiCV8rHAsVrIVSBRGUJK7w8yUhHLbY6r/k5JU1o8IJElYPFoGem5Y1B25v8dqsaQySNqkCcsOLY8JDZ5tSmFeMgtOz89i90ITi0J4G2hI9YgPErKn3uBY+F+MYyEiLKzXRjMKO/Z55u5LNp4TG3ou46gH10U9g8Z5TbMN8kBsbw2uXP8cbKyuYxxIpXQoiv5fOpi1x3f1OB
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 17:09:00.1022
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 51def1ee-cf38-4110-32f5-08df3a9651cb
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	PH7PEPF00000005.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9190
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2] mm/memfd_luo: don't use memfd_pin_folios()
+From: Mike Rapoport <rppt@kernel.org>
+To: Pratyush Yadav <pratyush@kernel.org>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>, 
+ Mike Rapoport <rppt@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+ kexec@lists.infradead.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org
+In-Reply-To: <20261103172251.2348370-1-pratyush@kernel.org>
+References: <20261103172251.2348370-1-pratyush@kernel.org>
+Date: Wed, 04 Nov 2026 19:09:19 +0200
+Message-Id: <179381215936.28814.9050829645096838793.b4-review@b4>
+X-Mailer: b4 0.16.1-dev
 
+> memfd_luo takes a snapshot of the folios in the file's mapping. To make
+> sure the snapshot does not go out of sync, it pins the folios in the
+> file via memfd_pin_folios(). The pinning also migrates the folios out of
+> MIGRATE_MOVABLE to make sure doesn't land in KHO boot memory or in a CMA
+> region.
+> 
+> memfd_pin_folios() does not lock the folios. So it can race with
+> shmem_writeout(). A folio returned by memfd_pin_folios() might already
+> be in swap cache. This happens to work but is fragile. memfd_luo looks
+> at folio flags and index on a folio that isn't in the memfd's page
+> cache.
+> 
+> In addition, memfd_pin_folios() needs the caller to allocate an array of
+> folios. memfd_luo does not really need that since it will vmalloc
+> folios_ser and store the information there anyway. The folios array is
+> unnecessary overhead.
+> 
+> Finally, memfd_pin_folios() fills in holes in the memfd. This makes
+> preserving sparse memfds very expensive in both compute and memory.
+> While this patch doesn't yet stop filling in the holes, it sets up the
+> infrastructure to make it simpler.
+> 
+> Fix all this by walking the page cache directly using shmem_get_folio()
+> with SGP_CACHE. This returns a locked folio with an elevated refcount.
+> memfd_luo holds that reference until the memfd is unpreserved. This
+> blocks compaction, migration, etc.
+> 
+> There is still a need to migrate folios out of MIGRATE_MOVABLE page
+> blocks. This is because those might be CMA or KHO scratch. memfd_luo
+> will hold a longterm reference to the folios so it will block migration
+> in that pageblock. Introduce memfd_luo_migrate_folio() to do this.
+> 
+> Also factor out folio unpreservation logic into memfd_luo_put_folios()
+> and use it from memfd_luo_unpreserve_folios() and from error paths in
+> memfd_luo_preserve_folios().
+> 
+> Since shmem_get_folio() always returns uptodate folios, drop the folio
+> zeroing logic.
+> 
+> This change also improves preservation performance, shown in the table
+> below.
+> 
+> |------------------+----------+------------+-------|
+> | memfd            | baseline | this patch | delta |
+> |------------------+----------+------------+-------|
+> | 4K pages, 32 GiB | 748 ms   | 600 ms     |  -20% |
+> | THP, 4 GiB       | 0.59 ms  | 0.59 ms    |    0% |
+> | THP, 16 GiB      | 2.99 ms  | 2.61 ms    |  -13% |
+> | THP, 32 GiB      | 4.83 ms  | 5.21 ms    |   +8% |
+> | sparse, 32 GiB   | 8695 ms  | 7269 ms    |  -16% |
+> |------------------+----------+------------+-------|
+> 
+> Acked-by: Pasha Tatashin <pasha.tatashin@soleen.com>
+> Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
 
+With a few nits below
 
-On 11/3/2026 Tue 11:08, Lizhi Hou wrote:
-> VM_PFNMAP is set for shmem BO to prevent pin_user_pages() from pining BO
-> memory. Replacing it with VM_MIXEDMAP breaks this behavior.
-> 
-> Keep the VM_PFNMAP mapping established by drm_gem_shmem_mmap() and
-> populate its page tables with remap_pfn_range() immediately after
-> creating the mapping.
-> 
-> Fixes: df4d5352063a ("accel/amdxdna: Fix unsafe use of handle_mm_fault()")
-> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-Reviewed-by: Max Zhen <max.zhen@amd.com>
-> ---
->   drivers/accel/amdxdna/amdxdna_gem.c | 157 +++++++++++-----------------
->   1 file changed, 62 insertions(+), 95 deletions(-)
-> 
-> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-> index 46b9f6c960d7..09e48c794e1b 100644
-> --- a/drivers/accel/amdxdna/amdxdna_gem.c
-> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
-> @@ -564,11 +564,51 @@ static void amdxdna_mark_mapp_invalid(struct amdxdna_gem_obj *abo,
->   	up_write(&xdna->notifier_lock);
->   }
->   
-> +static int amdxdna_remap_pages(struct amdxdna_gem_obj *abo,
-> +			       struct vm_area_struct *vma)
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+
+> +/*
+> + * Move a folio out of ZONE_MOVABLE or CMA, so it can be held until the next
+
+"held until next kernel" - here and below - I feel that something is off
+here, but can't pinpoint what exactly.
+
+> + * kernel. Called with a reference on the unlocked folio, which is always
+> + * dropped. The caller must look up the folio again afterwards.
+
+I'm having hard time parsing "called with a reference" sentence :)
+
+> +/*
+> + * Look up the folio at @index, allocating it if needed, and make sure it can be
+> + * held until the next kernel. Folios that are not longterm pinnable are migrated
+> + * out first, retrying a few times if someone else has them isolated.
+> + *
+> + * On success, returns 0 with *@foliop locked and holding a reference.
+> + */
+> +static int memfd_luo_get_folio(struct inode *inode, pgoff_t index,
+> +			       struct folio **foliop)
 > +{
-> +	unsigned long num_pages = vma_pages(vma);
-> +	struct page **pages = abo->base.pages;
-> +	unsigned long i, nr;
-> +	int ret;
+> +	int err, busy_retries = 0;
+> +	struct folio *folio;
 > +
-> +	for (i = 0; i < num_pages; i += nr) {
-> +		unsigned long pfn = page_to_pfn(pages[i]);
+> +	for (;;) {
+
+Won't
+	for (retry = 0; retry < MEMFD_LUO_MIGRATE_RETRIES; retry++) {
+
+look better and the body simpler?
+
+> +		err = shmem_get_folio(inode, index, 0, &folio, SGP_CACHE);
+> +		if (err)
+> +			return err;
 > +
-> +		for (nr = 1; i + nr < num_pages; nr++) {
-> +			if (page_to_pfn(pages[i + nr]) != pfn + nr)
-> +				break;
-> +		}
+> +		if (likely(folio_is_longterm_pinnable(folio)))
+> +			break;
 > +
-> +		ret = remap_pfn_range(vma, vma->vm_start + (i << PAGE_SHIFT), pfn,
-> +				      nr << PAGE_SHIFT, vma->vm_page_prot);
-> +		if (ret) {
-> +			zap_special_vma_range(vma, vma->vm_start, i << PAGE_SHIFT);
-> +			return ret;
-> +		}
+> +		folio_unlock(folio);
+> +		err = memfd_luo_migrate_folio(folio);
+> +		/* Someone else might have it isolated, retry a bit. */
+> +		if (err == -EBUSY && ++busy_retries < MEMFD_LUO_MIGRATE_RETRIES)
+> +			continue;
+> +		if (err)
+> +			return err;
 > +	}
 > +
-> +	/*
-> +	 * The page tables are populated upfront, thus the CPU never takes a
-> +	 * write fault and drm_gem_shmem_vm_ops.pfn_mkwrite() never marks the
-> +	 * folios dirty. The device writes to the pages through the IOMMU
-> +	 * without any notification either. And the PTEs are special in a
-> +	 * VM_PFNMAP VMA, so unmapping does not transfer their dirty bits
-> +	 * back to the folios. Mark the pages dirty when they are released,
-> +	 * the same way drm_gem_shmem_vmap() does.
-> +	 */
-> +	dma_resv_lock(to_gobj(abo)->resv, NULL);
-> +	abo->base.pages_mark_dirty_on_put = true;
-> +	abo->base.pages_mark_accessed_on_put = true;
-> +	dma_resv_unlock(to_gobj(abo)->resv);
-> +
+> +	*foliop = folio;
 > +	return 0;
 > +}
-> +
->   static int amdxdna_insert_pages(struct amdxdna_gem_obj *abo,
->   				struct vm_area_struct *vma)
->   {
->   	struct amdxdna_dev *xdna = to_xdna_dev(to_gobj(abo)->dev);
-> -	unsigned long num_pages = vma_pages(vma);
->   	int ret;
->   
->   	/*
-> @@ -587,7 +627,8 @@ static int amdxdna_insert_pages(struct amdxdna_gem_obj *abo,
->   			return ret;
->   		}
->   
-> -		amdxdna_mark_mapp_invalid(abo, vma);
-> +		if (!(vma->vm_flags & VM_PFNMAP))
-> +			amdxdna_mark_mapp_invalid(abo, vma);
->   
->   		/* Drop the reference drm_gem_mmap_obj() acquired.*/
->   		drm_gem_object_put(to_gobj(abo));
-> @@ -600,10 +641,9 @@ static int amdxdna_insert_pages(struct amdxdna_gem_obj *abo,
->   		return ret;
->   	}
->   
-> -	vm_flags_mod(vma, VM_MIXEDMAP, VM_PFNMAP);
-> -	ret = vm_insert_pages(vma, vma->vm_start, abo->base.pages, &num_pages);
-> +	ret = amdxdna_remap_pages(abo, vma);
->   	if (ret) {
-> -		XDNA_ERR(xdna, "Failed to insert pages %d", ret);
-> +		XDNA_ERR(xdna, "Failed to remap pages %d", ret);
->   		dma_resv_lock(to_gobj(abo)->resv, NULL);
->   		drm_gem_shmem_put_pages_locked(&abo->base);
->   		dma_resv_unlock(to_gobj(abo)->resv);
-> @@ -641,99 +681,21 @@ static int amdxdna_gem_obj_mmap(struct drm_gem_object *gobj,
->   	return ret;
->   }
->   
-> -/*
-> - * VM operations for amdxdna shmem VMAs that use VM_MIXEDMAP.
-> - *
-> - * drm_gem_shmem_vm_ops cannot be used on VM_MIXEDMAP VMAs because its fault
-> - * handler calls vmf_insert_pfn() → vmf_insert_pfn_prot() which contains:
-> - *   BUG_ON((vma->vm_flags & VM_MIXEDMAP) && pfn_valid(pfn))
-> - * All amdxdna shmem pages are ordinary struct pages so pfn_valid() is always
-> - * true, making the combination fatal.
-> - *
-> - * These ops use vmf_insert_page() (struct-page based) instead, which is the
-> - * correct API for VM_MIXEDMAP VMAs backed by real struct pages.  The open and
-> - * close handlers replicate drm_gem_shmem_vm_open/close using only exported
-> - * symbols.
-> - */
-> -static vm_fault_t amdxdna_gem_mixedmap_fault(struct vm_fault *vmf)
-> -{
-> -	struct vm_area_struct *vma = vmf->vma;
-> -	struct drm_gem_object *gobj = vma->vm_private_data;
-> -	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(gobj);
-> -	loff_t num_pages = gobj->size >> PAGE_SHIFT;
-> -	vm_fault_t ret = VM_FAULT_SIGBUS;
-> -	pgoff_t page_offset;
-> -	struct page *page;
-> -
-> -	/*
-> -	 * Partial free of vma is unexpected. Otherwise, the wrong page
-> -	 * will be faulted in and the user application may crash itself.
-> -	 */
-> -	page_offset = linear_page_delta(vma, vmf->address);
-> -
-> -	dma_resv_lock(gobj->resv, NULL);
-> -
-> -	if (!shmem->pages || shmem->madv < 0 || page_offset >= num_pages)
-> -		goto out;
-> -
-> -	page = shmem->pages[page_offset];
-> -	if (WARN_ON_ONCE(!page))
-> -		goto out;
-> -
-> -	/*
-> -	 * Use vmf_insert_page() (struct-page path) not vmf_insert_pfn()
-> -	 * (PFN path) because this VMA carries VM_MIXEDMAP.
-> -	 */
-> -	ret = vmf_insert_page(vma, vmf->address, page);
-> -	if (ret == VM_FAULT_NOPAGE)
-> -		folio_mark_accessed(page_folio(page));
-> -
-> -out:
-> -	dma_resv_unlock(gobj->resv);
-> -	return ret;
-> -}
-> -
-> -static void amdxdna_gem_mixedmap_vm_open(struct vm_area_struct *vma)
-> -{
-> -	struct drm_gem_object *gobj = vma->vm_private_data;
-> -	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(gobj);
-> -
-> -	/*
-> -	 * Bump pages_use_count so the page array stays alive for the new
-> -	 * mapping copy created by fork().  Mirrors drm_gem_shmem_vm_open().
-> -	 */
-> -	dma_resv_lock(gobj->resv, NULL);
-> -	drm_WARN_ON_ONCE(gobj->dev, !refcount_inc_not_zero(&shmem->pages_use_count));
-> -	dma_resv_unlock(gobj->resv);
-> -
-> -	drm_gem_vm_open(vma);
-> -}
-> -
-> -static void amdxdna_gem_mixedmap_vm_close(struct vm_area_struct *vma)
-> -{
-> -	struct drm_gem_object *gobj = vma->vm_private_data;
-> -	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(gobj);
-> -
-> -	dma_resv_lock(gobj->resv, NULL);
-> -	drm_gem_shmem_put_pages_locked(shmem);
-> -	dma_resv_unlock(gobj->resv);
-> -
-> -	drm_gem_vm_close(vma);
-> -}
-> -
-> -static const struct vm_operations_struct amdxdna_gem_mixedmap_vm_ops = {
-> -	.fault  = amdxdna_gem_mixedmap_fault,
-> -	.open   = amdxdna_gem_mixedmap_vm_open,
-> -	.close  = amdxdna_gem_mixedmap_vm_close,
-> -};
-> -
->   static int amdxdna_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struct *vma)
->   {
->   	struct drm_gem_object *gobj = dma_buf->priv;
->   	struct amdxdna_gem_obj *abo = to_xdna_obj(gobj);
->   	int ret;
->   
-> -	vma->vm_ops = &amdxdna_gem_mixedmap_vm_ops;
-> +	/*
-> +	 * vm_pgoff is the page offset within the dma-buf, see dma_buf_mmap().
-> +	 * drm_gem_shmem_vm_ops indexes the BO pages by the page offset within
-> +	 * the VMA. Thus the mapping has to start at the beginning of the BO.
-> +	 */
-> +	if (vma->vm_pgoff)
-> +		return -EINVAL;
-> +
-> +	vma->vm_ops = &drm_gem_shmem_vm_ops;
->   	vma->vm_private_data = gobj;
->   
->   	drm_gem_object_get(gobj);
-> @@ -741,11 +703,16 @@ static int amdxdna_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struc
->   	if (ret)
->   		goto put_obj;
->   
-> -	/* The buffer is based on memory pages. Fix the flag. */
-> -	vm_flags_mod(vma, VM_MIXEDMAP, VM_PFNMAP);
-> +	ret = amdxdna_remap_pages(abo, vma);
-> +	if (ret)
-> +		goto put_pages;
->   
->   	return 0;
->   
-> +put_pages:
-> +	dma_resv_lock(gobj->resv, NULL);
-> +	drm_gem_shmem_put_pages_locked(&abo->base);
-> +	dma_resv_unlock(gobj->resv);
->   put_obj:
->   	drm_gem_object_put(gobj);
->   	return ret;
-> @@ -1043,7 +1010,7 @@ static const struct drm_gem_object_funcs amdxdna_gem_shmem_funcs = {
->   	.vmap = amdxdna_gem_obj_vmap,
->   	.vunmap = amdxdna_gem_obj_vunmap,
->   	.mmap = amdxdna_gem_obj_mmap,
-> -	.vm_ops = &amdxdna_gem_mixedmap_vm_ops,
-> +	.vm_ops = &drm_gem_shmem_vm_ops,
->   	.export = amdxdna_gem_prime_export,
->   };
->   
+
+.
+
+-- 
+Sincerely yours,
+Mike.
 
