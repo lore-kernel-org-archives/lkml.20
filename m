@@ -1,112 +1,132 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793832456;
-	b=owQMohCw/D4RAEDoF/mlABsQ+BVNvA40aoZwXC2oisN8SIuVjcUm1sTCPlEq53PSxoxH
-	 zecIwWx0PF3LjHazoysOpdQtBWOvtW3ZJxTpJRKbI9M5y1cPys8dbmb24gsTTlNk0OrgI
-	 fkKexIe7zRz3Fe/V/pvZmeryC8iftQl8h+etAeIfB4Pg9HzkKVtLGbNAwatkioIcNK9JN
-	 wR33VFnqbrXEOQNdZb/1MqFUv0WWY++JpiPgqpQ6yT6oMoD+akTcUcBXTe613nL9JffcO
-	 C6EaeM6J7YHUCn5plIrbZAE/zFlnpa/Tr7AHpWE4zGjH9m/7h5hYl9ze/iMHD5XsQMw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793832456;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=B9JOD6Zk4V3P6OicBg4lY0cN+dvX1jzJBdo/RTj2Z2c=;
-	b=4GEopIHrcsCcCGqMNte4kIrIB36YvGPSChqQYE3kphHpfdcj5g85DxLuhsANW3M1b/ZI
-	 sfALuhhozG7do+Akhq1EHhaBqy4oNC8ypb7W/fc0l0gY6KDifDyj8XwXs+pS82OCUqhmL
-	 fZjO4bOlWmfhPtpazSN77f2oT5StZe3n6hcg0WOAGtThGnc+ecrS8RjzVG0gk8F9lwKwP
-	 avj06/gIY7i8gYqOC+KIQ/WAPYLZziOlPgrT2J/8LjSCGxUJBXlRHnwvsPWN/s+K6rRPH
-	 7I5zzy3cenOlC9yJuTfeMETbjHRywb5ki44HOUq/iJnszGbegTfb/ec1hIW+sAOrZKg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="Yiw/JkgY";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dni1wFCn;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.7
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793832612;
+	b=YFeFrHIbKuifP13cXD6UkNoqaxdPP7TOkhuxDeT931oIzXH8BsrPgsr09F1S5PlHTkrk
+	 DnhvT5COkgH8g1fAgsCJE1gSHnvrlK7Pay2zc1rtZJMw6XFRSQ5435P0EFJE+AWGPWif5
+	 T9CU7eC51QIhjSamIAIZqa3Et5qcUKS2FtoM1O5gCro6SDY7r0P5pP2ht/JjethblWUIe
+	 pwA02isA7LDi/xyAlj9AtmBYbqK6JEXPSRvpDQsIP4XqKnQGYE/VxBKZx5Fkqdz8QhTJP
+	 aOfmDeBbNmEKNY4KDXEBHfgd5rdyxTGUXAVW6o9Ad2WuvSIoVCDAQIAws8QO0CtJ8vQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793832612;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
+	 References:From:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=McDq8uaJdeuoZQmr7jyKzeBtvQ3ciddFNQBdyYBcXiE=;
+	b=jLNNaHTLqa0FzxxjHfPbTy5fk1TvlA3iT3Rj80A8FJowy9aL9bYVhz9p/jJgfDZg++nW
+	 fntjV2iXfPxyq9yb9DMlGfG+unpAh9urIe/pgRgCdvpSjbfVAoxHsITM0VvEC84r+JlAF
+	 dlzLshYZ/YeiavTeC5L3rzdBqHzK/IyeG8RU8HritWueCe136clIGkN6GE2eor3ZXL+70
+	 LzlWJEMoyFiXwjouhtzafTEBXNdSv+tHkCsUhhlzT50vuv0ddGftFHDZIitOUAI+SSUkG
+	 d1bHYkFe5aOBxb+SSi/H1hTu2xaNMZf6ykuivBGVE7Li8ZpikTU+oz3AkT6QMiBPrXQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="L/t9q3QL";
+	arc=fail smtp.remote-ip=192.198.163.7
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD1FF606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:47:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD1FF606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09756606A31B;
+	Wed,  4 Nov 2026 22:50:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09756606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Yiw/JkgY;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dni1wFCn
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4MWRxe1692579
-	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 22:47:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	B9JOD6Zk4V3P6OicBg4lY0cN+dvX1jzJBdo/RTj2Z2c=; b=Yiw/JkgYgIQ0UOQv
-	PbCUvdZ9qLdQNt2QLW5Xx99mMZdWRwdLD1Z2JCv2FtKhTAqxXRq+YaWkzrM4itgk
-	IajfD3mSArjtdWow81+ojjRdFKsTQsNf7tAEuDuRJJo/YVgrRLqCcx1ara2FmRM9
-	FDJa9EpNvAAutDh8kzGRlBonzwErGk0cBqrr3qo/IDkOws3OeTUPPVXRmWaenWk/
-	z3meMW7X3RDe8R7nJ3k8//Y6OyuhBpnkdpus7k+TaGdIb3bfqXFdumjAhKjRF8N3
-	G9FJI161SBYSJauK3fi6RjuXWLvy+ZJmIS0GALXp6LFaV2NAjJHfJMuLxNtdQgTI
-	vPOzrw==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr6br20nm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 22:47:35 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-33713e5e6daso1350306eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:47:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793832454; x=1794437254; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=B9JOD6Zk4V3P6OicBg4lY0cN+dvX1jzJBdo/RTj2Z2c=;
-        b=dni1wFCnnPwuYD1GdYTCs/D7MhvRsJcDPFE9JcdbtD0OpUx5U3616fL96/s9WlpVph
-         Mwj0AOnPGv7wPL59xph9fBWZOlz+8PSpzwAM8XjfX+mUPehc7q6U9c5rpqqDp754GmMv
-         OCjPw7Gt8jkMaDZbBEhxoii/7L6wk139GVllhoC8C1BB5FTx/E2QOAYl727Qldkj2l+p
-         +Piaqj6M36L+h5DFObXEX54+Z91JVhSYvqgoBz2TUBU9Izv+u0L6ZUPY30yIoOvTxPG0
-         eSamwp3+QIS9k3rCf0atRnSujfDT8gS2WTxCTY38xFYc+NTK3in4D5Gwhr9+av1NJpTi
-         EuTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793832454; x=1794437254;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=B9JOD6Zk4V3P6OicBg4lY0cN+dvX1jzJBdo/RTj2Z2c=;
-        b=ECubN+SuxGP1iDQyZlW/R/CcCz8ZBKdsSZpJ8s+hamy0o6Qk5uYkHT150u+/MTNrWA
-         IDBShp0GeScLBMDrv8rqjZ9ZwB7SGNQsSlyoc+XLeXnhgSt6Jsw0/L2I7zAH3wvP7er2
-         W5I0q/sJy69tSC80HnJzqJRae3Cz7H6b+BGnxU4ZPG8v5NmjK7jSGlw+xbCE+KwnkSRl
-         9Kzh8/hCiGuDLyQ4YS25fhW8YMkVCH/YX2Y4cvLD3K1DYE4ZGrNH1ie6LM5l4TTEzkfa
-         xqFHfTl+irz4IEjJ2BpdzDAPAqLcMJTvveAC/17A2fQpSgyfVY7Zo9DpUx0MlqyeDCEW
-         Pqgg==
-X-Forwarded-Encrypted: i=1; AKwUvByMO90ettWza7yIGuSLh7eo3SAtBr+5QPZcFSQ6dNI3Jrf29sRrfL2713eLaPJcBfdZNBYLMWajbyZvMZc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+pK5pIf91Wvt1iBIGP9vih6cYTHV0lILk/cu/g3VIpVKbVPtSV
-	Xo34OofmRYjbsMGyuDN+kQoSNmfur5DUi3GaebmlkTauZ/7cJhPsU88xuEFM9nTtF+9p2B0TjD4
-	QeO7vV4Ea1rYhGh0ilqEJqyJIc6LGNIBspJjmekNafShRILwq6kE+NgnuXJGv5LSBlqk=
-X-Gm-Gg: AYBFou3x+7Uy42+iuw/ZVY2vEUey+0YG1rt/6Ql2oj+miN/jmI1MqV5eaF+5m0IiRoA
-	w0ruGZJDyCaEYPfhVLsyYJbS8WSzOrdC19T0Wv+5WQgI3DIOZ3zctC8QzMR/4eNmm6wn27CVMZb
-	o0ymZCcdEIrHxaZL/uIurs0cvTzUkjwUWA9yoJO7cP0WL2txfq5NCLxSdgtBL0uq7d+DVD81aI4
-	97A1Wg6qgAuC4X/IuZ8S93LJ8xp3KV2P+2/Z1x098wDlVMK13yFWKha6p1ndg/Xd7mDJmmauhIn
-	1LCZt96qrv9eoKnAibOJjEAUGx4seXXKX1jFIQwuz34XucVrcG+fDrvPdFqHGUDL5mxxkTl4n1r
-	ZEygQ9UAKNZLUVpaMfXL/YvqH6qqEgZHj8Ylu5QAdnauX1eFJa+XSRpgSHiZR/IYizAOUs78cj8
-	WbDOkMIYmFk1ypW2wCNkjm94+9fM8m
-X-Received: by 2002:a05:7301:e105:b0:36a:15cb:30bf with SMTP id 5a478bee46e88-36a42345851mr24443564eec.13.1793832454127;
-        Wed, 04 Nov 2026 14:47:34 -0800 (PST)
-X-Received: by 2002:a05:7301:e105:b0:36a:15cb:30bf with SMTP id 5a478bee46e88-36a42345851mr24443521eec.13.1793832453392;
-        Wed, 04 Nov 2026 14:47:33 -0800 (PST)
-Received: from [10.71.181.181] (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36dd85a5464sm2052690eec.4.2026.11.04.14.47.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 14:47:33 -0800 (PST)
-Message-ID: <d21c5d8d-6dc2-465b-941a-e551a2a46dce@oss.qualcomm.com>
-Date: Wed, 4 Nov 2026 14:47:32 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L/t9q3QL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793832610; x=1825368610;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=6YdJKJARnCixqowgQpqymiBmi6zGtAtQSKkzJ72PaFA=;
+  b=L/t9q3QLAOvgvuKHRedPzv49HGiQjS29SIU4UagEZgFWJT/7BfcC6lBy
+   HKkSLdV+9juoeCdXHTkAFdBiDmYz2niTzb9+eWIREuRO1D9rAD55t17z1
+   mBhud9BoM5FNKN6CGslqkhlHuSWX2WxyL8dQ2dS8Zzr2UogRfPOuuCz/5
+   RvNwECnYoT/N3tl0PffRnwQhlHFSAPQeIYmFeqOeKGt6gFdMfOn/BMDM+
+   AXQJ/a/I1/H/sLWpzYJjx2eLtYUr/6gPHuW8AJB2A1a5h2Kdxd6W6glUG
+   DiaPfEHxHu1EhWUu5zfpg+gpNgaeEgHqJsvirbCKIRxki9RN5eyiGZ4RL
+   g==;
+X-CSE-ConnectionGUID: DdTu99CuQLKQ26CL0bwwcA==
+X-CSE-MsgGUID: DeYaAPtrSgK6sH4KI165zA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2478800"
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="2478800"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 14:50:09 -0800
+X-CSE-ConnectionGUID: KvoFjNAKSw2lvOIqCQjyEQ==
+X-CSE-MsgGUID: zrNial+4RbaRUcqGKPJVSw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="6842408"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 14:50:09 -0800
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 4 Nov 2026 14:50:08 -0800
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Wed, 4 Nov 2026 14:50:08 -0800
+Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.49) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 4 Nov 2026 14:50:07 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iuBhWX3n68A25J9cpYjxlYNGQyXPz4Ln/tcZqktrARDbxAmUoV/VgW0SSsEqO1qgtmA6l212kORSq+ybRTnP+FWbz/UrSw2NDCGA8NZXONKhLVT4/Z2DRl5NSxVW5aFOjVJfS6mb1xcKattJEFydQ9y8Of7N14LzP4FPZd4DdnCITNvvYceIUUbxjW+nqqbfp9C/B1uA/tz45j80WDn7iOCv55luMaKrx5g1CqeIxGA0e3V0Mrn6dRFYmELOp97HX+wCL0HatuFG3OPmb6bR7A9ArJOLSGt1akbrJRFp/Q4rJygbCOoUYAhSduUdNPYpxYPkREPtygh6EvWBz9HPqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=McDq8uaJdeuoZQmr7jyKzeBtvQ3ciddFNQBdyYBcXiE=;
+ b=sC1FhWzUxaNdjVa6g6vkoj3X3wqhnZLJ4pgn3b0AGFpxwJvShdYBG/tgU+R7PjWcdPNTeJdLjz0gy9GknjDjt2k8o9MeCC+oUXamp9LbU0LElYQK1flQXXiQmnB9vNVAAQMzhobOS+0bhnN6EXE1q+7kud6I8BLSuzEdqqqmY4g/obB6Mlr0x0eH/AvjVt0Foe4C/Uy1OabcLoo8LGj5Y/KqpmQNtKcVCcuel/8mOrR7btQJ+2i7wumeXabOa0HRV8FisFmHnnAC8OmoAuQFketC+qv/ohTDarT8pXnzDekZVv3ZvpVstQNBC7AJEfUnRwbTSPw0h0hTJmtdWOOg4A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB7381.namprd11.prod.outlook.com (2603:10b6:8:134::14)
+ by SA3PR11MB7583.namprd11.prod.outlook.com (2603:10b6:806:306::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Wed, 4 Nov
+ 2026 22:50:02 +0000
+Received: from DS0PR11MB7381.namprd11.prod.outlook.com
+ ([fe80::4c39:dfe6:d6dc:6f58]) by DS0PR11MB7381.namprd11.prod.outlook.com
+ ([fe80::4c39:dfe6:d6dc:6f58%6]) with mapi id 15.21.0569.011; Wed, 4 Nov 2026
+ 22:49:55 +0000
+Message-ID: <c2191a11-4148-463e-aec4-c1ffe5c732d7@intel.com>
+Date: Wed, 4 Nov 2026 14:49:53 -0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] r8169: enable the RxOverflow interrupt again
+To: Jure Rebernik <jure.rebernik@luxonis.com>, Heiner Kallweit
+	<hkallweit1@gmail.com>, <nic_swsd@realtek.com>, <netdev@vger.kernel.org>
+CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+References: <20261101102720.702600-1-jure.rebernik@luxonis.com>
+From: Jacob Keller <jacob.e.keller@intel.com>
+Content-Language: en-US
+In-Reply-To: <20261101102720.702600-1-jure.rebernik@luxonis.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR04CA0085.namprd04.prod.outlook.com
+ (2603:10b6:303:6b::30) To DS0PR11MB7381.namprd11.prod.outlook.com
+ (2603:10b6:8:134::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,293 +136,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] dt-bindings: phy: qcom: Add common qcom,csi2-phy
-To: Bryan O'Donoghue <bod@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        gjorgji.rosikopulos@oss.qualcomm.com,
-        hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
-        jigarkumar.zala@oss.qualcomm.com, linux-phy@lists.infradead.org,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261103214105.3605181-1-anusha.nandi@oss.qualcomm.com>
- <Qxjw6nqG8e0t_jwSz4HC1rrgZrHc2wUez5PQn28lbXlvMq_V4_RSjlzhsFu_8OgE-pmS_GkXKICn0ObgJWomzg==@protonmail.internalid>
- <20261103214105.3605181-2-anusha.nandi@oss.qualcomm.com>
- <803d16ba-49c9-404c-8973-e4d4dc02b1e3@kernel.org>
-Content-Language: en-US
-From: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
-In-Reply-To: <803d16ba-49c9-404c-8973-e4d4dc02b1e3@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA4OSBTYWx0ZWRfX+a1WnGIoWx66
- IXKzyYArpeDq/iLqWoHDG9D8FWcPvsvRvoBz0rUfaKx3dFu8lEKC0RIULTV3fXLPJfLFAL3txu+
- JA0g+BpDEDs8n5QhIKuq2fxAzXZ88PSac0z/hWiedR8C1RTMsr+9PqyRyKSoGO7HU1OUj2fhLwl
- btDvRDdQfFxQxOWGkWim1K2lNt0fL+rUk6IVMqVqlK1L4OE5koRSJEPTNs052dlSflnuHdPCwIh
- LwVG8mtvmRA8IAr96ebbtTLGu+oIrN3UQWUIM/A4nTi8qTxn4YXdu9wxAT1BjKf+9bgQbSx4uKa
- KL4OR664c+SNwphB6TqDKS7ZIg6HtiP88hGxIYf9YeHysIZ2t9rxALnQQ4ooruSwTuUu83mX2a4
- pXmNDSq4xgjCvL64p0Umcv4QJRcl74iX5HhP8MKHwXrK8LArwMAjrfxFn3XiiE4qOhtXq4fa5D/
- q69JcgMdSyIy1fe+KiA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA4OSBTYWx0ZWRfX5MfT69smn5F8
- S39LPx1jhFXpMfOB240CMYzEcgR9mWKstFZM2vJMU0NFDWypZwQ+5dP06Rm9T6TnrDUIJKvXgvc
- ydosjAsFvVBHzdE4xk4dhLjKq9CmOq4=
-X-Proofpoint-GUID: DUzgwAl8kcWmLs62j7wroQB_FQ5tRhmu
-X-Proofpoint-ORIG-GUID: DUzgwAl8kcWmLs62j7wroQB_FQ5tRhmu
-X-Authority-Analysis: v=2.4 cv=futJ914f c=1 sm=1 tr=0 ts=6aebb607 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=YckT5oapyQZYSsRhpqkA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=bBxd6f-gb0O0v-kibOvt:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_05,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 lowpriorityscore=0 malwarescore=0
- clxscore=1015 suspectscore=0 bulkscore=0 spamscore=0 impostorscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611040089
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB7381:EE_|SA3PR11MB7583:EE_
+X-MS-Office365-Filtering-Correlation-Id: a43465b6-de3a-4e30-4119-08df3ac5f208
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|6133799003|10067099003|22082099003|261102123227099003|18002099003|261022105027099003|56012099006|5023799004|11063799006|261021121427099003|261026121527099003|261021135927099003|261009223027099003|261028144727099003|261026140227099003|261022075727099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info: bZC6QJzEZEceZG4uvXCC8yPy/Fds/NL5+MWHaNKjKVyHnrcQhQ18Y/uA6DOOlfuFm+ux0slWh2GAcRO0iGgHpoR6mDGPmgY/0wGRYq/2dz3XkTvAjFbu+C4zky1PJfGbwOqtX4DqwC68yftaLkc5dIjY3Vh+bFrJDbPz/osveLdOtLmot0ObEkdqtNYSWdWlFLCn9xhrmr2g22iaeXnx2vBppZ1XSZpJV8UDi5UyLPx5W3YBMpGd4xMbNtskhdi2TYSBqcnA2X4ytY2RU9BJQuvVVQzkkU0tXbKTNxB77x8yMqRNIhCJHwBMB9GXbL8OrthjuUYFViyp3ol99Jt+wHpbSV/CkiUY5rExQ/EqykBffU8DG2+mRPWvIINCXJlg02yTIrr9WDUrksLcK4NUpH1fvABQ7u1/L2oWTHfFiIP+3fTiqzKjM0zpJ96ZnNV0hMHkdDUEtOUgItbEnEO7eq51U2G8ZI7ljbc8TrAmc9/JMMsMvex2YLCiQLsdnie85o0HyuaLz/aY/R2vUOxxFwN71xYq7qT9+DjYHlNVqCCF2BbNut+ojafbhvW1a1lyXUDNH+Hs39BZOGgQRsups/TogLoWf4qH5p9S4+AXpGYLSgwY4WZ3/UjGXiKPsj8jew32w5/kPE8ZscJiDSs9Mzw2sLhV5u01dTqSW8wUiQs=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB7381.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(6133799003)(10067099003)(22082099003)(261102123227099003)(18002099003)(261022105027099003)(56012099006)(5023799004)(11063799006)(261021121427099003)(261026121527099003)(261021135927099003)(261009223027099003)(261028144727099003)(261026140227099003)(261022075727099003)(261021123027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MzhHR29TRDVzYVBXcmV1ZlB3ejk2OGZGa1NYR3lkL0hoSzVmbWRkSHNWTzFt?=
+ =?utf-8?B?Y1lOSmtyVFIzRDJrK0ZZWmJJbUlsN1d4S1VzWGROSThNMXBReG1EQW9UMVRL?=
+ =?utf-8?B?Q0JlVGk1M1lscTNPWTNCS2V2U1hndjZIT1YzTlZvVHdGd3ZzRDQyeHE4R2Zv?=
+ =?utf-8?B?cmFRWHZjTXRvMCs0UnMxTGRzekdJOWVscFg4YmVhNGlqaEgxK3JvbHZra2Q3?=
+ =?utf-8?B?YjBsSGNybUhMZ3cvdEo1Yk90WXF2WEF4Q3BteCtEWHF0aDVJOW5xOEwwMW5C?=
+ =?utf-8?B?RllMT1UvQUJnVXowclNjNy9vSUNFVzJNdXJYbnJsaERJbnphT1RnZkFJd2Fr?=
+ =?utf-8?B?WFg4dkZWcWRnMzJZd2FKQUdnNGpYbkxHSnVRUE85a0Z5VUtzVVVTNDArdU5R?=
+ =?utf-8?B?VnFucXl2NXZXdEl2QkZCMjEvT2JkVFVvanZCSHJkdWJLQWxhQ1JzZXZhRlhi?=
+ =?utf-8?B?Vkt4T0o5RHRueVN0VzFOdWNLcldXZjhzNStrZnZ3Z2ptMU5xZDV4Y2NPMVhT?=
+ =?utf-8?B?NjgvWWhYaDRWcUlUY25yVVhTeDR3OU8ydUZtWGZCNTZVTWNaQUlRVThhTVVW?=
+ =?utf-8?B?SEFiNytDeUhzR2I1NHJoWWI0aTNrMDlhQmJaSThGUVN6dllPN0VhYnRMSHo3?=
+ =?utf-8?B?RVJaYUdoK1F4RUMvTlhLZURiMmUrTTAvNW1tT3VJVXNpTXVhVzNGYktqbTg3?=
+ =?utf-8?B?dnkyTmd4VmhGR21NbzJYN2ZYRVBCalM5Rnlzb0pjM3hORzJZak5weFJta05j?=
+ =?utf-8?B?RzFIRTVzaXhQc3hKZWIvbVpQR3lHN3hEaVFCdEowaHcyVFhQZTA2MTNLT3V1?=
+ =?utf-8?B?VmpmVXY3TlBMSTRjMHp6WWdzZ2JvWm9Ja3JQQUdiNnRGMW5DL2syS0pJR3ls?=
+ =?utf-8?B?ZEM3VUJmcDFaN3JQMnZoeHBPbWQxUXZQNEhPRjhsUkxaeFJjWll3c2NHay9p?=
+ =?utf-8?B?MnkyMSsrZytTTGhtYU1PUTIyYTcyUFdyTFFaTlRvRnZoVkE0RVZtTE9yOWVS?=
+ =?utf-8?B?QXMvd3BHeWVwMmNqL0hKeGM2QVQzQWVlRWJpMEsxcXFSRmdNRWd5WDQ2dTZB?=
+ =?utf-8?B?Vk5JUXdtbnNJWXM3empnRXBmYk9FTlJyQStoRFA4MHpUbFJVMTRXcE41QTNU?=
+ =?utf-8?B?Nzdkem5QQ3c0WEJJV1F4ZGw2NDVGWmJ0VXQ0QkF4dU5IZDhMbGlJQ3gveFpX?=
+ =?utf-8?B?TnVVMzRZcUNPbFE3Tld4aGp5aGFSZHRHZHBnWE5ZVWlyQnNKa2NNTGRSbVdF?=
+ =?utf-8?B?bko5SG1GL0xKZy9tZ21SdTZKblA0QkdnWDE2emtwU1hQWmszTkdSeW9iNzk2?=
+ =?utf-8?B?Qm9rVUxnb1diejJTS1JDU2JqZ0J4c2NjcXFQU0krNUlYeGxreWF6QVdicGd2?=
+ =?utf-8?B?U2pjV1RTbVZnSmpKaUZiMjZHRlV6ekpyUFFRREI0LzM5V0FQVC9BUVBQMEVn?=
+ =?utf-8?B?dG56ZWNKRUl2ZUdYT3N0eTF3UnZJVFpsTlR6UkgxUHp2RU8yTXFtWElzQ3Q4?=
+ =?utf-8?B?Vk5uMDdkVUtDM094QTE5Ny9kU0NqRGFwUC92WWdhM1JHWjlKNGFTL2FlNS9o?=
+ =?utf-8?B?eFIxNEtNRGhUczQwakE1clNjVkgrdHpZWEVlL3NicjVyQzRJbHY4R2lJYTUw?=
+ =?utf-8?B?UVpaSXZLdFZoU3hmNEVLaTRQYjFkRSs3b0s0NEsvSkE0NWdsSHlGSFVZcG1I?=
+ =?utf-8?B?V3prUXl4ZzZKZHI3NVNwUGRRbmJpTUJ1bEowN2VyYVJ4SU91aXMrcmpaOWQ1?=
+ =?utf-8?B?Si90YUxySUMxY0NjalFQWStNbkZPSHJESzFnL3M2bDllWjRBdEx1MmJVYnBv?=
+ =?utf-8?B?eXZhdUxYSXNYMlV5RDhtZnZDMGd0TXQvdTJKWUxMek1zbjhPRWJIWFdTbVR2?=
+ =?utf-8?B?RjBPY1BlV3pOTWdiUVpJT1hTTnAvTkxadnFBcXB1SEZlMTA3Z2JjNy9FTk9Y?=
+ =?utf-8?B?cFJwUElLUUxMWFdWNkt5RU8rUERyS1lJZVVOWXNRRkxuT1BEOS93Q3Jjbm9I?=
+ =?utf-8?B?SElDOHJsNkJVc0xCZWF3NE1zOGh6TXBJRUZodjVwUWRRYlhjMVRjblZoUHd5?=
+ =?utf-8?B?QTdFb3dodFRuUVZDamRHZ1hwZk43VVhBdmFTUkZKVTZ1Qnh4VTRqZGZEdVpx?=
+ =?utf-8?B?bWhxUXAzdlA1SDZHNjE3RWVtV2UzUmFkNSs4aEVSaXNwankvQk4xak9tWWRB?=
+ =?utf-8?B?VmhsTE1OUGIrVFVTWjMrOVRPaHZLVDBOK1RXbnpXSVAzNHdySlgzSWpwS1dI?=
+ =?utf-8?B?YWRkZjhhK1hiS3pkVnZydnJkaGhvNkV5MlBXamxSR0VITmNXeGxGcUliYkFR?=
+ =?utf-8?B?MXNPZlBIYXNML2UxRlU1Mm1mbGU3MjRkWDlYRVRBNTVjZ05VOUFLK1lhSUky?=
+ =?utf-8?Q?7ukrCKSzq7mMOJnw=3D?=
+X-Exchange-RoutingPolicyChecked: gNEdIrrKXQniTPlHcqCrm1euYiR2SpkRB4IZFjfKVq6C4E1agqkqirNB4CNjnE4mMOZy2i0OBvugpQ00at6gqSkT+p3t+q0iKOVcjdiaRxuuNWVBLRUnoFnLPv0sLlPEU5r2mMQIdECcyeO9Zx+kDy1+xAK5EY12tBq56TMvjq1LmKhhf9gCSLVfR8e2leTIAOXocePs5NxK9Ym9l0KUzh8NMuv1szNHe2yVcPJ6MfRDZamBMKbB4H9kOcQQtMWKRr20Of6w//qK7g/2FeD45nqGVOAGxvb/gO4BL5ah7N5zFpZoeoQjw9ks+eMJPuQOuyWr4w/HVunxv+yBVybgWg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: a43465b6-de3a-4e30-4119-08df3ac5f208
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7381.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 22:49:55.5557
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0J51T4zFhAXje5Q+wEEVuQCVy/KoUP53tPv1pLjXj8+0m4CXBi6nAbbzs7oJFnweZzYRGFlQ1Lk3G8q2eSv55KPbrUb+34yrZ/59xDUTeHo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR11MB7583
+X-OriginatorOrg: intel.com
 
+On 11/1/2026 2:27 AM, Jure Rebernik wrote:
+> Commit 6994520a3328 ("r8169: disable interrupt source RxOverflow")
+> removed RxOverflow (RxDescUnavail in the vendor driver) from the
+> interrupt mask on the grounds that NAPI is scheduled anyway when the
+> chip runs out of RX descriptors. On RTL8125B that does not hold.
+> 
 
+This commit says it was "Tested on RTL8168h."
 
-On 11/4/2026 3:29 AM, Bryan O'Donoghue wrote:
-> On 03/11/2026 21:41, Anusha Arun Nandi wrote:
->> SA8775P, QCS8300 and SC7280 CSI2 PHYs are bit-for-bit identical in
->> devicetree shape (ports, bus-type, data-lanes, operating-points-v2,
->> clocks, single "top" power-domain, vdda-phy/vdda-pll supplies).
->>
->> Describe all three with a single qcom,csi2-phy.yaml and a compatible
->> oneOf, rather than one standalone schema per SoC. QCS8300 is further
->> required to be paired with a qcom,sa8775p-csi2-phy fallback
->> compatible, the same way other Qualcomm bindings express full
->> hardware compatibility between two SoCs (see qcom,qusb2-phy.yaml);
->> this lets the driver bind QCS8300 nodes via its qcom,sa8775p-csi2-phy
->> match entry rather than carrying a duplicate one.
->>
->> qcom,x1e80100-csi2-phy.yaml is a separate PHY with a different shape
->> (3 clocks, 3 power-domains, different supply names, DPHY split-mode
->> support) and is left untouched.
->>
->> Reviewed-by: Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>
->> Signed-off-by: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
->> ---
->>   .../bindings/phy/qcom,csi2-phy.yaml           | 176 ++++++++++++++++++
->>   1 file changed, 176 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/phy/qcom,csi2-
->> phy.yaml
->>
->> diff --git a/Documentation/devicetree/bindings/phy/qcom,csi2-phy.yaml
->> b/Documentation/devicetree/bindings/phy/qcom,csi2-phy.yaml
->> new file mode 100644
->> index 000000000000..5d25547528bd
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/phy/qcom,csi2-phy.yaml
->> @@ -0,0 +1,176 @@
->> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
->> +# Copyright (c) 2026 Qualcomm Innovation Center, Inc. All rights
->> reserved.
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/phy/qcom,csi2-phy.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Qualcomm CSI2 PHY
->> +
->> +maintainers:
->> +  - Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
->> +
->> +description:
->> +  Qualcomm MIPI CSI2 D-PHY. Connects MIPI CSI2 sensors to Qualcomm's
->> Camera
->> +  CSI Decoder.
->> +
->> +properties:
->> +  compatible:
->> +    oneOf:
->> +      - enum:
->> +          - qcom,sa8775p-csi2-phy
->> +          - qcom,sc7280-csi2-phy
->> +      - items:
->> +          - enum:
->> +              - qcom,qcs8300-csi2-phy
->> +          - const: qcom,sa8775p-csi2-phy
->> +
->> +  reg:
->> +    maxItems: 1
->> +
->> +  clocks:
->> +    maxItems: 2
->> +
->> +  clock-names:
->> +    items:
->> +      - const: core
->> +      - const: timer
->> +
->> +  interrupts:
->> +    maxItems: 1
->> +
->> +  operating-points-v2: true
->> +
->> +  opp-table:
->> +    type: object
->> +
->> +  power-domains:
->> +    items:
->> +      - description: Titan Top GDSC - Titan ISP Block, Global
->> Distributed Switch Controller.
->> +
->> +  power-domain-names:
->> +    items:
->> +      - const: top
->> +
->> +  vdda-phy-supply:
->> +    description: Phandle to PHY supply.
->> +
->> +  vdda-pll-supply:
->> +    description: Phandle to PLL supply.
+> When the RTL8125B runs out of RX descriptors it sets RxOverflow and
+> stops receiving. It does not start again when the driver returns
+> descriptors to it, only when RxOverflow is cleared in IntrStatus.
+> rtl8169_interrupt() clears only the bits it read on entry. If the ring
+> fills while NAPI runs with the interrupt mask cleared, RxOverflow is
+> set after that read and stays set: NAPI empties the ring, unmasks the
+> interrupts and completes, the stopped receiver raises no RxOK, and
+> RxOverflow is no longer an interrupt source. Reception stays stopped,
+> and every frame is counted in rx_missed, until another event such as
+> TxOK makes the handler clear all status bits.
 > 
-> Why are we departing from vdda-0p9-supply and vdda-1p2-supply ?
+> This was observed on a machine in real use: an RTL8125B (XID 641) on
+> the PCIe bus of an arm64 Qualcomm QCS8550, running v7.2.6. With UDP
+> at 800 Mbit/s inbound and nothing sent by the host, reception stopped
+> for seconds in 13 of 20 30 s runs, losing 5% to 31% of the datagrams,
+> and a single transmitted packet restarted it. To confirm the cause,
+> a debugfs dump added to a test build of the driver showed, during each
+> stop, IntrMask 0x2f, IntrStatus 0x50, NAPI idle and all 256 RX
+> descriptors owned by the NIC. Writing only RxOverflow to IntrStatus
+> from user space, through the sysfs PCI resource mapping and with
+> nothing transmitted, restarted reception in 17 of 17 stops.
+> Reproducing the stall itself needs no kernel modification.
 > 
-> Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+> With this change backported to v7.2.6, 0 of 20 runs stopped and the
+> worst run lost 0.03%, on two RTL8125B boards. It was build-tested,
+> not run, on this tree, where the single-vector path RTL8125B uses
+> is the same as in v7.2. The multi-vector mapping used by RTL8127 is
+> not changed and was not tested.
 > 
-The 0p9 and 1p2 supply names are derived from the current CSIPHY
-hardware power rail naming, which may not remain consistent across
-future platforms. To make the binding more generic and
-function-oriented, I will rename them to vdda-hs-supply and
-vdda-lp-supply, which better represent the CSIPHY power requirements.>> +
->> +  ports:
->> +    $ref: /schemas/graph.yaml#/properties/ports
->> +
->> +    properties:
->> +      port@0:
->> +        $ref: /schemas/graph.yaml#/$defs/port-base
->> +        description:
->> +          Sensor input. A single sensor is described by a single
->> endpoint
->> +          with one to four data lanes, numbered 1-4. The clock lane is
->> +          position 0.
+> Restore the mask of the chips that had RxOverflow before that commit.
+> Only RTL8125B was tested.
 > 
-> Since you've cloned and owned the yaml - you've also dropped the
-> description of DPHY split mode.
+> The investigation was done with an AI coding assistant (Claude Code):
+> it wrote the HIL test scripts, the debugfs instrumentation and the
+> register tools used above, proposed this change and drafted this
+> changelog. I reviewed the change and the evidence, and the test
+> results above come from runs on our hardware.
 > 
-Thank you for highlighting. I will add the support for it. >> +
->> +        unevaluatedProperties: false
->> +
->> +        properties:
->> +          endpoint:
->> +            $ref: /schemas/media/video-interfaces.yaml#
->> +            unevaluatedProperties: false
->> +            properties:
->> +              bus-type:
->> +                enum:
->> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
->> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
->> +                default: 4
->> +
->> +              data-lanes:
->> +                minItems: 1
->> +                maxItems: 4
->> +                items:
->> +                  minimum: 1
->> +                  maximum: 4
->> +                description:
->> +                  Data lane positions following this endpoint's clock
->> +                  lane. Positions are a per-port logical numbering, not
->> +                  package pad or ball positions.
->> +
->> +            required:
->> +              - data-lanes
->> +              - remote-endpoint
+> Fixes: 6994520a3328 ("r8169: disable interrupt source RxOverflow")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jure Rebernik <jure.rebernik@luxonis.com>
+> ---
 > 
-> And then you've dropped the DPHY split mode defintion
+> Notes:
+>     This restores RxOverflow for every chip that had it before 6994520a3328,
+>     but I could only test RTL8125B. If you prefer, I can send a v2 that sets
+>     it for the RTL8125 family only (rtl_is_8125()).
 > 
-> NAK
+
+I was thinking that it might make sense to only remove RxOverflow from
+RTL8168h, the one that the original change was tested on. However,  the
+original change is not motivated as a bug fix, and I think given we
+*know* it is harmful to have this bit clear on RTL8125B, I think I agree
+with this implementation that sets it for all device types.
+
+If people disagree, then I think v2 should just clear RxOverflow only
+for RTL8168h rather than only keeping it on RTL8125 since thats the only
+one claimed to be tested in the original commit. To me, it seems
+entirely plausible that RTL8168h also has this same behavior and
+requires the flag but simply wasted tested with this same use case.
+
+Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
+
+>  drivers/net/ethernet/realtek/r8169_main.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
-> Please either clone and own the whole DPHY split-mode circus or just
-> modify the existing definition to include your new stuff.
-> 
-Will be modified along with other comments for v2 version, sending in
-shortly.>> +
->> +      port@1:
->> +        $ref: /schemas/graph.yaml#/properties/port
->> +        description: Output to the CAMSS CSID controller.
->> +
->> +    required:
->> +      - port@0
->> +      - port@1
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - clocks
->> +  - clock-names
->> +  - interrupts
->> +  - operating-points-v2
->> +  - power-domains
->> +  - power-domain-names
->> +  - vdda-phy-supply
->> +  - vdda-pll-supply
->> +  - ports
->> +
->> +additionalProperties: false
->> +
->> +examples:
->> +  - |
->> +    #include <dt-bindings/clock/qcom,sa8775p-camcc.h>
->> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
->> +    #include <dt-bindings/media/video-interfaces.h>
->> +
->> +    phy@ac9c000 {
->> +        compatible = "qcom,sa8775p-csi2-phy";
->> +        reg = <0x0ac9c000 0x2000>;
->> +
->> +        clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
->> +                 <&camcc CAM_CC_CSI0PHYTIMER_CLK>;
->> +        clock-names = "core",
->> +                      "timer";
->> +
->> +        interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
->> +
->> +        operating-points-v2 = <&csiphy_opp_table>;
->> +
->> +        power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
->> +        power-domain-names = "top";
->> +
->> +        vdda-phy-supply = <&vreg_l4a>;
->> +        vdda-pll-supply = <&vreg_l1c>;
->> +
->> +        ports {
->> +            #address-cells = <1>;
->> +            #size-cells = <0>;
->> +
->> +            port@0 {
->> +                reg = <0>;
->> +                csiphy0_in: endpoint {
->> +                    bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
->> +                    data-lanes = <1 2 3 4>;
->> +                    remote-endpoint = <&sensor_out>;
->> +                };
->> +            };
->> +
->> +            port@1 {
->> +                reg = <1>;
->> +                csiphy0_out: endpoint {
->> +                    remote-endpoint = <&csid_in>;
->> +                };
->> +            };
->> +        };
->> +
->> +        csiphy_opp_table: opp-table {
->> +            compatible = "operating-points-v2";
->> +
->> +            opp-300000000 {
->> +                opp-hz = /bits/ 64 <300000000>;
->> +            };
->> +        };
->> +    };
->> -- 
->> 2.34.1
-> 
+> diff --git a/drivers/net/ethernet/realtek/r8169_main.c b/drivers/net/ethernet/realtek/r8169_main.c
+> index cd4ebc654dd0..62709160d354 100644
+> --- a/drivers/net/ethernet/realtek/r8169_main.c
+> +++ b/drivers/net/ethernet/realtek/r8169_main.c
+> @@ -6086,7 +6086,9 @@ static void rtl_set_irq_mask(struct rtl8169_private *tp)
+>  		tp->irq_mask = RxOK | RxErr | TxOK | TxErr | LinkChg;
+>  
+>  		if (tp->mac_version <= RTL_GIGA_MAC_VER_06)
+> -			tp->irq_mask |= SYSErr | RxFIFOOver;
+> +			tp->irq_mask |= SYSErr | RxOverflow | RxFIFOOver;
+> +		else
+> +			tp->irq_mask |= RxOverflow;
+>  	}
+>  }
+>  
 
