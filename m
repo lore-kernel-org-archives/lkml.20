@@ -1,79 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.57
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793756505;
-	b=OMYuY7+2wI4QMM5DkaqyhLR9nS2EACfB/bkYzWQrgal80M/CD/UYAm8qlt5pfgkHjqQy
-	 /RzQq5atT5m/RYE3cjizcN4m9dypkgr2G9ObipB+GGtXvPPpnDL6E1zI3drN258N9Lb1c
-	 ZjnEGFXLlu+H/azA6kmkZg0FSJHu4pxUeXCJA69MxCLQCrVcqGey0Xs5qUKhcsh2QuEoB
-	 yiqkm/c/T8YuzrY0nfHzdy4GCcOue0QDZw32KdfbESvkfRXoBp12oqEkpIXZDskIaZx2h
-	 tuR1BCrfpPCaCB8HyZzNwUux0IvV5DBSMdjGMBTR7rSfjVXfdqJt+uhjS7DLQhVVplg==
+	t=1793756569;
+	b=YBz5zomqUmE3ggCQBHlzxcHk3kHiFM8xHEZuwEj1PL4RrbXRLRHkPMY1zkWJXJuxtqhq
+	 AXZ5pdfG0eEGzv4JsS0eWJsHGc3PvegXjKJ9TW/0LTARiIJeFy+yPP9vqOaSUlRgsg3YG
+	 6gm40d1hx+c7EJdfRPwP8w+hinq4XMxxGQJxv7a89yUkokrWe++3Smwb0h/+Cidybpa0c
+	 0CDVTxxwzbusjBQ6xAK0n8Y9K1EtWRxiS8n4EwIEROTajh/eUQjYvKraFX1dSYGq/6NVk
+	 jfQ4TlLAte/lXzKnVg0WB0zkEdaMUyQR4wc4B+INpOrs+d6yVMTLMNCA0/XAdaxSg1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793756505;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793756569;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=cLGnmizI0rQhqsNKClm0H53LdDa4BKTqazSRRlghGiU=;
-	b=Y74axnZzbVP30eExzAz9XWcM64RqxhWHqssbFrHwVPG6mFQfzSDRSBbHeAkzJjsf3ws1
-	 zHj0XAO9g/FwySXi3P5qSWg/YjNHU6Gs4gi5PuFMbD9sFXTOgHh/kIeJHenVgR5r2oRws
-	 IFmEeVwY4ZdZMP25ksx1EmJAqrWOmktFKfjat/RqKt4SHNrZ8Zhcd4X1yXGkoSTbJAJn2
-	 by4hVQwmb4QYNaP4G4as3RjqAfhYTbX4RvtKhXMFToYCWc5SdygppFFb1+RwLtEadxGEN
-	 5Hzjjl+JcapE2uZ/q4b30QMkItc36yKOoMt249TT7Wc8hHGMJbwqChkUPGbWIsWAyxQ==
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=nWp1QkiE8UQYLRHEuq1OCW+NhhQpDG2WoI/kzQ0ag9s=;
+	b=hTYELwSmbXyFV/Xe8pqn8QI7BOCN+fzWCbDvCPdF975Z3+rWvbBAN1bq7wL56NTRfj6s
+	 mfS9lVBdz1Op0WrJUg2lhkMDc2aQ0yhpNOov8MOJUEuK9dVfWxTzfLah4s2NFAIfa146O
+	 hZPylWEbbHG1h4/cHNzavasJebOTg7WYkxolS0/kNt5YbMzvChtaefo48DK9XPPutBZca
+	 jTVebPxtpwgGrqpBaaOwZTtEn99Cm3S1Ix22yJhALORl77G3I0Fw5kCjUF9+VEQjVbr9i
+	 j00+931cBzxMDYwYfsYU3Q++uFgTQ4MkhRGlLnkL70sN5G7OmFQXEKIfe5prnRu14DA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WodpJemv;
-	arc=none smtp.remote-ip=91.218.175.41
-Received: from mta0.migadu.com (out-41.mta0.migadu.com [91.218.175.41])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="GW/Ebttp";
+	arc=none smtp.remote-ip=91.218.175.57
+Received: from mta0.migadu.com (out-57.mta0.migadu.com [91.218.175.57])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF3A9606A32F
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 01:41:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF3A9606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E72F606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 01:42:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E72F606A328
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WodpJemv
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GW/Ebttp
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=v/vwC0I5TFCZ5/5X6X4jA8IEXevOgfqLa3VQQEnVcIo=;
+DKIM-Signature: a=rsa-sha256; bh=YX/s6/HwMM+QXcGKjPYZwlkwikDGqHDXoSO3cMoqP6I=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793756503; v=1; x=1794361303;
- b=WodpJemv48puEWSfIGeXRISpYiPsoddmw7OjGeYMoKu9tDHUg4/CoRjV7Yui2L+6vN9OqMnJ
- k735EfspU3hxTMOmmay0RQks/d5HIXvX+0nnxgsxwKXc1koXV4HApiIfonmlyEof4noPTCjpQKu
- cqv5OkVLANy6tj5OjBWDUAHw=
+ t=1793756566; v=1; x=1794361366;
+ b=GW/EbttpRAwg7oIXRQuQlJyfSFZ5C1PMpzxUmhAMreigDkimGv21maCnrZ9lz9ff58h81Y6s
+ 4WgEJvpPgi88r0PfzlWrSe9aBKZDxSr/IiJ6JDL/1zPzxjXia/CelsxpCopjxeKvyZD4RqA4qe8
+ Ft4mcaMLefHAhrCPkFHPyHsA=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4feac6e259902a2b;
-	Wed, 04 Nov 2026 01:41:43 +0000
-X-Mizu-Trace-ID: 4feac6e259902a2b
+Received: by mta11.migadu.com with ESMTPS id b3c20ee6540bb41b;
+	Wed, 04 Nov 2026 01:42:46 +0000
+X-Mizu-Trace-ID: b3c20ee6540bb41b
 X-Migadu-Flow: FLOW_OUT
-From: Denis Benato <denis.benato@linux.dev>
-To: linux-kernel@vger.kernel.org
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	kernel@lists.opengamingcollective.org,
-	"Benjamin Tissoires" <bentiss@kernel.org>,
-	"Jiri Kosina" <jikos@kernel.org>,
-	"Luke D . Jones" <luke@ljones.dev>,
-	"Mateusz Schwartz" <matthew.schwartz@linux.dev>,
-	"Denis Benato" <benato.denis96@gmail.com>,
-	"Jonathan LoBue" <jlobue10@gmail.com>,
-	"Khamunetri Clark" <khamunetriclark@gmail.com>,
-	"Derek J. Clark" <derekjohn.clark@gmail.com>,
-	"Joshua Leivenzon" <hacker1024@users.sourceforge.net>,
-	"Nathan Chancellor" <nathan@kernel.org>,
-	=?UTF-8?q?Rebecca=20Mara=20M=C3=BCller?= <rebecca.mara@posteo.de>,
-	"Ivan Levchenko" <me@livan.pro>,
-	"Corentin Chary" <corentin.chary@gmail.com>,
-	"Hans de Goede" <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Denis Benato <denis.benato@linux.dev>
-Subject: [PATCH v13 18/18] MAINTAINERS: add maintainer for the ASUS HID driver
-Date: Wed,  4 Nov 2026 01:39:35 +0000
-Message-ID: <20261104013935.512713-19-denis.benato@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261104013935.512713-1-denis.benato@linux.dev>
-References: <20261104013935.512713-1-denis.benato@linux.dev>
+Date: Wed, 4 Nov 2026 09:42:28 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Sasha Levin <sashal@kernel.org>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Dmitry Safonov <0x7f454c46@gmail.com>,
+	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
+	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] selftests: net: tcp_ao: don't shift a size_t by 32
+Message-ID: <auqNhOR3Z6Lx0ggR@fedora>
+References: <20261103163921.641347-1-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,37 +68,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103163921.641347-1-sashal@kernel.org>
 
-I already maintain the ASUS drivers in platform/x86, know these
-devices well, have contributed in reviewing and bugfixing and have a
-lot more work pending so I volunteer on helping making this driver
-better: give hid-asus.c and its sysfs ABI file a dedicated entry
-and list me as its maintainer.
+On Tue, Nov 03, 2026 at 11:39:21AM -0500, Sasha Levin wrote:
+> gen_tcp_addr() shifts the size_t n right by 32 and masks it with BIT(32)
+> - 1. On 32-bit architectures both shifts are as wide as the type, which
+> is undefined:
+> 
+>   aolib.h:230:40: warning: right shift count >= width of type [-Wshift-count-overflow]
+> 
+> Convert n to uint64_t first and mask with 0xffffffff.
+> 
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+> Found with 32-bit builds of the selftests (gcc 16 and clang 21 with
+> -m32, with and without -D_TIME_BITS=64 -D_FILE_OFFSET_BITS=64);
+> KernelCI's 32-bit arm builds show the same warnings. The changed files
+> build without them now, and the x86_64 builds don't change.
+> 
+>  tools/testing/selftests/net/tcp_ao/lib/aolib.h | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/net/tcp_ao/lib/aolib.h b/tools/testing/selftests/net/tcp_ao/lib/aolib.h
+> index 53be1744237ee..71ff975533089 100644
+> --- a/tools/testing/selftests/net/tcp_ao/lib/aolib.h
+> +++ b/tools/testing/selftests/net/tcp_ao/lib/aolib.h
+> @@ -226,8 +226,8 @@ static inline union tcp_addr gen_tcp_addr(union tcp_addr net, size_t n)
+>  	union tcp_addr ret = net;
+>  
+>  #ifdef IPV6_TEST
+> -	ret.a6.s6_addr32[3] = htonl(n & (BIT(32) - 1));
+> -	ret.a6.s6_addr32[2] = htonl((n >> 32) & (BIT(32) - 1));
+> +	ret.a6.s6_addr32[3] = htonl((uint64_t)n & 0xffffffff);
+> +	ret.a6.s6_addr32[2] = htonl((uint64_t)n >> 32);
+>  #else
+>  	ret.a4.s_addr = htonl(ntohl(net.a4.s_addr) + n);
+>  #endif
+> -- 
+> 2.53.0
+> 
 
-Signed-off-by: Denis Benato <denis.benato@linux.dev>
----
- MAINTAINERS | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 4a69da715c58..3dbf491046b9 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4135,6 +4135,13 @@ L:	linux-hwmon@vger.kernel.org
- S:	Maintained
- F:	drivers/hwmon/asus-ec-sensors.c
- 
-+ASUS HID DRIVER
-+M:	Denis Benato <denis.benato@linux.dev>
-+L:	linux-input@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/ABI/testing/sysfs-driver-hid-asus
-+F:	drivers/hid/hid-asus.c
-+
- ASUS NOTEBOOKS AND EEEPC ACPI/WMI EXTRAS DRIVERS
- M:	Corentin Chary <corentin.chary@gmail.com>
- M:	Luke D. Jones <luke@ljones.dev>
--- 
-2.47.3
-
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
