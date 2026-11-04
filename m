@@ -1,100 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793777149;
-	b=h9a5mkBzawtM9Lk89BkrcFaHJSQhwbh2JfFZbASpKuyeltnhzqfgcgIhmL58wdwz+qvT
-	 SParKUPv5mfnM5PPl1goIploZX+zt9FAyQ9pYcXcfaHeEEHFedoLEaTVEWSneIocW2sfM
-	 gSc3bnKkyndOrT0B4TgBmAKItkyhOD/mJZaB2kHnQdladXlAW8Kf+WkOLc1Pi0mqb3XPX
-	 1VlrzxrS60VtBaOjTjmqnb3qabFDadVtAmOIoqxnpEmBjjHXKYD2M3mnZK3mkrKlUpxW0
-	 bCmP6kc+G2hpR7m0WrJmUPx25uzazwR6eD1p0Zc31hXChmYeg/7dr0bDoXWNCl2VfhA==
+	t=1793777263;
+	b=ReEeeYQJCQoMIIJkqNZFld8D7w5201N02U88JZ2qlVZg9SBLlI0/iV96meIScmMsXSFV
+	 cMlMhuxDWIzteEOCH8y3ls2FWNC/ccCVCYN6GHuy1tw+29mi9tMxq3M5fkrA2SA8TLYvz
+	 mAJzzdfP1lVAbMqozcEfzR/fxUI/fjwyDlbnrHRf9fMRVH8PbMKUAqVPP1f+BCDCse1yD
+	 rdWMqfD0rin975yx/maP3k3s4uCn+7crvCSJigZKAW+GwhyDQt2/iuEU/mq4nHo6EMRpd
+	 oPAcowS/8/yiTB/6EIzaYr1N10GEK08P/arrmqR+X4bYoeczfni4Yy/gYvzz1UUDYYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793777149;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793777263;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=HGf7LW+11fFCmkfZDnBYSiu7NHiZ1J+7B7vrKk2MO+o=;
-	b=x3rT3sbWcNoRVuc+ERDT7Rg6KynQRUTShtvna6WcfMlrYuCtjhNIHIpJq4zNBb+z8W6U
-	 B22WclhaWsfJmxfVh4X5Eq3/51VsaIhBp1/BSIZPRTWdd793gJ6H+eJYtxUY1VeuXkF8V
-	 M+0oWTSYYTy9rjzjbFwXdTuDB98iVvRoyXN+J5Oqwsrl/IJ6JY4nPWpqxSXsugrnMry2C
-	 FLRAlg9Mec3Yf986MDi5RTDddID+1mO1MMHh2d8VW+zuz1iU2sekzGcsxy8Dy6D8IR/pT
-	 BQh/fFbwZ3X+hSr06/KpW0Av2VSXdRVCRTz7GiLWDHpWfwSKC190iLL392+sRwfVCvA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=2eIrsdGclmsUkVstChbgZeSp9y9jcEYAK+IEJRWBFtw=;
+	b=Dk5ghWOAsC+iWdVH7LxNpvesCj22jYBB1nQUKk53H2POAVqJVMJ+g+7CTVRY6v7LenNS
+	 fgHgR1V+Lm0ir7+RLCBIr7Djk0u0iCfZLK8RA6cw12skHuADP4rFmVySoGdz6Tt/Bgmy+
+	 9wxdQURmScRENIYV5TU58Dft5a2wcStxe+v58yjFmkAMlrZTfzkOmHraAHHRqtELX53uu
+	 vGk2b5c1JDICozBQi5wmVXGnAvem9wqoaCqcA5/WydSPoznOudu5DvxMp6ZAFPzkt7C2T
+	 IQKhtcU2hiU1IKCp2d6YHel/CMkGXGDzFHbElvMCp8AAxeJZdbiz3QUnTIetR3NDbhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=osandov.com;
-	spf=none smtp.mailfrom=osandov.com;
-	dkim=pass header.d=osandov-com.20260707.gappssmtp.com header.i=@osandov-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=VRgHZidZ;
-	arc=none smtp.remote-ip=209.85.216.51
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=URaBGwXG;
+	arc=none smtp.remote-ip=209.85.214.177
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FDA7606A32C
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 07:25:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FDA7606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=osandov.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=osandov.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F1B606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 07:27:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92F1B606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=osandov-com.20260707.gappssmtp.com header.i=@osandov-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=VRgHZidZ
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ac6008c914so59674a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 23:25:48 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=URaBGwXG
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e5fb79ce82so1864535ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 23:27:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=osandov-com.20260707.gappssmtp.com; s=20260707; t=1793777148; x=1794381948; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HGf7LW+11fFCmkfZDnBYSiu7NHiZ1J+7B7vrKk2MO+o=;
-        b=VRgHZidZURljCrK0HH3V2vKy9f31BQ0iYTP43G6ikNvBR4QjOxKvexYUY5uUu+JitD
-         T9TOLxU3AuwSiEfvs+OeG0AzPdwnVqjedfkdmdtpWZVvyj1FCA9sCGyKG3IfgqeMduF7
-         tADytHQvwR9g70pEF30quutiy5cwA5plryhJHjdgJ/FA7lKi9UOpU0Hi2aHxpB9zmmLz
-         p7lB/1HmvqOF5+WzgD1Xyuwg3Sd7aC8aoth5hS9HATjN45F4AIk9OThyjOW0PZmMn8Gb
-         PyeFm2ozp72iY7GtQJs9SMMvKa8+VY3YqslwzoN50PyVfinzUal3mgUUKUFwvo9oFTcD
-         Kj2g==
+        d=gmail.com; s=20260707; t=1793777262; x=1794382062; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2eIrsdGclmsUkVstChbgZeSp9y9jcEYAK+IEJRWBFtw=;
+        b=URaBGwXGMK1WwGPhLq8jIwi21Gh294q3SvRM0Jm2or+AOHs/ep0LgltlMwQ26D+NEp
+         qi4tVEY5bP1wNnHzx6dqGplAIS3YpDlbzr319bHbfsv2q0+eUWpB2l6WQwOENyMBrRIH
+         TKOi31tIVcsnxIdQJw4XS7eJ5CnD9f7snxjuYn6wWFl0TMtxSiXckqzf7Td8T6q/6bJ3
+         y7/jZsqMXixZzVO3ta8BjYZNIlm4jGE09DGpmJKXQqr6PgOCZPpygX/ZJgNDzJXAMYew
+         NcqLnntsMHBArEq2lA8jWCak/Cs/Gn1ZrXpT/tOMapJnmC2G+GTXvF/lFzWTCydJD/1g
+         N10A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793777148; x=1794381948;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HGf7LW+11fFCmkfZDnBYSiu7NHiZ1J+7B7vrKk2MO+o=;
-        b=RGHF/5vS3H+cXgAj1wVBZoHurdKiKZ9r8pk+DwUiPXL0oMCqatqS+HTbg9F7Zs7IrI
-         jTNuRS44Ia0bZAWRzxxFqFTRoPYOZM2EVgLzi+SpguVXOn2yav+ymtYgUNNZqm+GDSd5
-         UgHFQs5lpAJ7fy0glbjxymSdFkhWq9RIVzS+gVaju+Yu8eWXBS2roywMza7GAhRLLmPd
-         2dGiUP3CiBRVofioIkzOrt/8NOXH3xD0O89nLjCjkT7g/wBbBJdymm4hergHz0jsDpzG
-         RlkvqeOMNvlz4JdT3EMh51BL5CwXXU9maxE2YtqFt+pmYH0Domw6uIR6VNHyZ9PlCpOF
-         YthA==
-X-Forwarded-Encrypted: i=1; AKwUvBzrkqAgPsB/8kqZ7K1mpU66rh81HxUb+E/gMzCO98+foHwyzLRRrMBrg5p88nBmIy5hWc1BH4AxP8f83Dw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8NwtbaqjXGSlZGW0Nznf5wqZU0Ir4iAKxHOvJu2TSuIrTwGt3h
-	kuio8blR+t9xn0vB/A+C04eTTTJ79NGBRO/UFdzNzR2WVe6KKNLrrNgSC7PHKSSe/M4=
-X-Gm-Gg: AYBFou17rP6astJ258VqpUUDA786smVDt/JsJlEf/Z3ohrAN5OAAWeCUfWD9+YNVqNH
-	bk80UiKBrN0qL/y3RyQuzt+4gVIp6nLHwq+JUJ2C0Y2LX4+GusGVFAPsPtHl5KVkWBh3iMszBuk
-	VraGJ2aqwxEvdNWxfRwg6shyx+7rrrBMIKmgsEfJmlR9mxmoAbW7388G6Kw+7bvluKAb4rVFBuz
-	GIHmMlvty1uqgCieBw5hXBoO9nn3vgkFDnGUtWjFgdpIG2piBhPvMHNe6c+BQcGVlCAHOKFsYTc
-	dTfOB3w5gOlcBqG1LYb5M+4z6IOfsgEpjGH8TNckynbscfek/SjlkiXknwmI3mHWy7yChhZeLIT
-	imcfrQYglUeQbmkyhJk/DG85sRfjoSGv73nAcWICfsgUzFO3zQ3fXpgqJfz7pCXow1raE5bIsO6
-	Ndi4aEySaQYoVoOuxoSght2OtJIS08gtPKy68uI668BU0mLT4hx/laI6KL2xgS3uhHO1ZVEHh7B
-	/n9PdMDYMdTBt2UIoEwAkv2qRpdw1gRkjm+CpBOqAqIaO1gtnsqdcsWrDfzI9Eb+OowjJQLLbEy
-	O6n3OzwAchbTYyLBhsuP5yBc42m3UWN6/G5xtgbT0ph7GRrB57QQe8KJIhXRFr6xv4GS787I7oV
-	2rxz3WnbWtuVQnPETq0mr1QvXGfOxMie9miOjhkuqfPG/kWkSxUtSxTnH
-X-Received: by 2002:a17:90b:4488:b0:3b0:9a3e:bf8b with SMTP id 98e67ed59e1d1-3b09a3ec031mr1494219a91.6.1793777147801;
-        Tue, 03 Nov 2026 23:25:47 -0800 (PST)
-Received: from os-N5J97HY9XQ.tail2dda0.ts.net (c-67-185-21-237.hsd1.wa.comcast.net. [67.185.21.237])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b09311866fsm2861006a91.17.2026.11.03.23.25.46
+        d=1e100.net; s=20260707; t=1793777262; x=1794382062;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2eIrsdGclmsUkVstChbgZeSp9y9jcEYAK+IEJRWBFtw=;
+        b=I4OmqMKyh2M6Jt96X7e0O78ntSmr/YqwKVAeqF9mnIHwPRDKcmBxrcvIIeGBieOP4y
+         JeowbkpmS3VEVdmbFEocj31I0pfa/ic2iE5sNNSCbu7nidXvibdQL0dXmY1burj+hlTs
+         Uo2O9mxZm7vqnSvny9mwRMhhqmLpsDwhIocXXhPpxRerXFCyEeFjJLIEhGY1HegoqZ2l
+         OIuXttgXQ8qUnKQMXzwXaAd/a1xl3ms43j5sw03s5P33YLafUUFLcTCMxrARuqfChlEi
+         +0p9csxgfQ9+Mrt0ZK/1hKPjITcvYOxfvQs+3YpzK+TuvdfGLMMq5YMS70e26GoAtstk
+         /0Yw==
+X-Forwarded-Encrypted: i=1; AKwUvBzGK17MGJuOu0lNx4Z5IoYNbgacQYzaYXs/BK5WfbtibqXsiXWEiRYcxfxYyAn9faIEbY0hKmE6+Vg6ACw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ZDoSjfB+jIicCxF/XSJJRO08KiA67VQhhCJIQp/bkO1sv+n6Z
+	P/7insGnBeFNrc3hPIkiaQU7DWIVyd+zwHUm/E6tx4oFPfsKUhZOyhY=
+X-Gm-Gg: AYBFou2NHnpc9VR/QIGnp0x/9H0xXdcasy8kCFVZZzpePNCKaWLT4OELbSetCbwFbUH
+	LgOh5wjkE5SjCN0+gvNjOQPxR2OsQPWq2S78LsrQYpUG1DRDUSXRMHpIqAZen1q8pkakvzr/cYF
+	uL1hyvlEHQ1fZE7P/UNsMQ2a8HQ/YEJRB5Y+QX4xzFajTwl/OKaEf2gZtdvSjao9ajiGTrLGxAc
+	9JEOikKrBagOFJkAO4SFTjhqUOW2WAlRmJOFoFZgeSILvrpiMuK+nIAE0W7laBakA0N/58csylm
+	rx9YHsao4jQUJdB9cIHyNXxRygJ0VxIXqQf82hoN2QyD81hCA+nkKjn6xw4oct+tLarP7RNmu2a
+	3uFLmzCMqhLn8JA1rUfJ4djT9ZrkiZYFVTZSi9Ta0F4wJg50zeobQJ79aVYhBBLqlsAeRyRfcuJ
+	qtBl4kHxDQVe43wkoxgN2a/Ml0rGxkOW1RQ9VwEF02HY60bdM7j+dE7OLP8kO5di8LSqqgx06e5
+	8/08K0rHo7lvicLbDVrfnAMdqZyllFJkPQmMnrZMb/8PItqzuedEwIT6PsaCgnfpsyDKR6riXM9
+	7Rszmkeq7PfQpmB+6wOSvgm7rTqxteczucSpHzhEsIm1rkRmFS70wbN4NeH0CJzK4ryq2VOZeDa
+	Ywv8KkrdzBUgnrw==
+X-Received: by 2002:a17:90b:3951:b0:3a4:945e:bc33 with SMTP id 98e67ed59e1d1-3ae89798089mr12661430a91.47.1793777261725;
+        Tue, 03 Nov 2026 23:27:41 -0800 (PST)
+Received: from freddie-kane.lan ([71.212.222.246])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c7e087csm8019210a91.4.2026.11.03.23.27.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 23:25:47 -0800 (PST)
-Date: Tue, 3 Nov 2026 23:25:46 -0800
-From: Omar Sandoval <osandov@osandov.com>
-To: Chris Down <chris@chrisdown.name>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-debuggers@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kernel-team@meta.com
-Subject: Re: [PATCH] proc/kcore: Allow disabling /proc/kcore at boot
-Message-ID: <aurd-kCBE7ebENUl@os-N5J97HY9XQ.tail2dda0.ts.net>
-References: <auAmuqZyUodq3iqk@chrisdown.name>
- <auKKisespDm1xLLg@os-N5J97HY9XQ>
- <auOEhTNaKzu8dgEy@chrisdown.name>
+        Tue, 03 Nov 2026 23:27:41 -0800 (PST)
+From: Burke Cates <burke.cates@gmail.com>
+To: ccortner@gmail.com
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] phy: qcom: edp: update v8 power-on programming sequence
+Date: Tue,  3 Nov 2026 23:27:37 -0800
+Message-ID: <20261104072737.3489383-1-burke.cates@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <179346367993.44447.8683103034067826560.x2e-share-edp@gmail.com>
+References: <20260622-glymur-edp-phy-v1-0-814b45089ac9@oss.qualcomm.com> <20260622-glymur-edp-phy-v1-2-814b45089ac9@oss.qualcomm.com> <fc3d0dfc-20cb-4289-a0dd-67ace50d42d8@oss.qualcomm.com> <179346367993.44447.8683103034067826560.x2e-share-edp@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,49 +103,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auOEhTNaKzu8dgEy@chrisdown.name>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 30, 2026 at 01:38:13AM +0800, Chris Down wrote:
-> Hi Omar,
-> 
-> Thanks for taking a look!
-> 
-> Omar Sandoval writes:
-> > The code looks correct, but is there a reason that /proc/kcore
-> > (CAP_SYS_RAWIO) is any more concerning than other ways to read kernel
-> > memory (e.g., CAP_BPF + CAP_PERFMON)?
-> 
-> Not in terms of what it can read, indeed. I would say the distinction is
-> more about who needs each capability and what we can remove.
-> 
-> Abstractly speaking CAP_SYS_RAWIO may be needed for hardware access without
-> necessarily wanting to grant general RAM access. STRICT_DEVMEM already makes
-> that possible for /dev/mem, but /proc/kcore gives the same capability to do
-> general purpose RAM reading anyway.
-> 
-> In our case in particular, a process with CAP_SYS_RAWIO doesn't necessarily
-> have CAP_BPF and CAP_PERFMON, so keeping BPF available doesn't make removing
-> kcore redundant.  On the hosts in question, BPF tracing and BPF LSM are part
-> of the monitoring and sandboxing we rely on, so we can't remove it from the
-> kernel entirely, but we nevertheless keep CAP_BPF and CAP_PERFMON away from
-> guest facing processes. Nothing on those host uses /proc/kcore, so we remove
-> it as one more gap to close.
-> 
-> For that reason those hosts already run with CONFIG_PROC_KCORE=n, while
-> other hosts keep kcore to aid debugging, since they have a different threat
-> model.  This patch, then, lets us preserve those choices while using the
-> same kernel image.
-> 
-> In retrospect I should have explained that better in the commit message :-)
-> I can update it for v2. Does that make more sense? Let me know if I can
-> clarify further.
-> 
-> Thanks!
+On Sat, Oct 31, 2026 at 11:24:31AM -0500, Christian Cortner wrote:
+> Writing the firmware values at the end of power-on, all 120 enables
+> over two boots trained 4 lanes cleanly, and 10 of 10 resumes. Which
+> register matters is not known. Happy to test a revision.
 
-Yeah, with a bit more justification in the commit message I'm fine with
-this.
+Same result on another Zenbook A16 (eDP at HBR2 x4): v7.4-rc1 with
+Bjorn's v1 as posted (ldo_config 0xd0, not 0x91), out-of-tree Glymur
+board patches, and your five values written after DCC. Link enables
+with at least one failed training attempt, over fbdev blank/unblank
+cycles and boots:
+
+  without the values: 30 of 400 enables, 8 of 61 boots
+  with the values:     0 of 500 enables, 0 of 162 boots
+
+One dpu_encoder_virt_atomic_disable() "enc42 timeout pending" at a
+blank (1 in 500) appeared only with the values; cause unknown.
+
+AI coding assistants helped run these tests and draft this reply; the
+results are from the hardware runs.
 
 Thanks,
-Omar
+Burke
