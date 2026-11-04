@@ -1,91 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.192
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793810317;
-	b=XV204NHtlJRlT2OeBBWc9lGir33zBQgX4uW8kQmTsVkApTQabW7CSVIrJrjhM4xX0yJK
-	 ZhaXV4hM4j/esOv4AOkb55LdhuQ0T+Rys+kDrndEW7X5RMP5gtmfbr4OA4PsTM5h5NgWb
-	 MZYb7pgJl4A4m3kJ7+72i8eiXi+AnTtRXXwHnvr72jOGdj7jcvBFbBtPxYbGpsmWzzwJ6
-	 XuLvJ8B31gjYg4KYlJ9QXT7b1vMw+BPuPUpIV8TELCgeV8qYSujq7ukEPORbuq1p2DY+j
-	 ygsRBmXGQmM8fO9UNAIswXHhs4LOW44dat+FkeSUBDpUgt4mg250ashlQE8XCWC3RBg==
+	t=1793810343;
+	b=UxXrQRgCTBsIvB33OZPJ13/wE5ewAbSrQ6nMSvcwZCBYWUd1vX+nnma9zpbEJ9m+RzbL
+	 nxCsZqz7rbjIEwQZpIvTbAaz5HdN65gXDpS+QokmeAlEaIQBhIdf3SoiThDc6csfT7Wch
+	 S81O0F2vzwSkktTwbhvjOuzSJ4nZCyWN1oPBbVNh337yP0kX2yaoCD1nyacHpp6bJoNDV
+	 cB1BNw4iXFBKUQU3yQmwhJ4VOmE0pIcIKIj9NM80hMUCOzng2CiP83+sUmHmwzYWUthR8
+	 Sr+P0tnYzly60VMz8Nqov9osbeGOLY44ixf8XX/t8qVHTT5hJPYPDQ8T6FWhnfe3c+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793810317;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=hG3RiTzW4rOzvFwLuSqxJwT5QWl3KAEwMYSeXlW3oLQ=;
-	b=d1sjIRh+JL7WjcnMMQBiHQ4TklE7CV7xeb4POrJtXoObcnfzJnvVlqhcFnfNX6zcEha2
-	 +tnu9Ky3c3qK7kBEMThrXtev4Gc2gkJGTDBoIcyWAqnkVamnPURiAGmj9c5pseDIKrmyv
-	 GobcjGKufdW8vbjeIaCrme7aIO2sHMNGbF8pbxbR5RjaWLopaVXAz9781OnSLrQlckQHx
-	 IDOLadrJNgIoiMbS2bzO13cYiiqjRa5OUg6UXVgHjAF7SJ/39iRYEdIoZ1a52clhJGnco
-	 HjTegP/xjqd58nhI09gdVdr5Fq2U4zBIwNu0rL6rJhw72qVMQR92nA5HjveLEy5SFMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793810343;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=+vNGczHMw6FkUVcnbhV7x1VPiBIGfUMOUBD2hJJTm1k=;
+	b=ZVg7G+xMgwKVZ2tlfSmmsJqDBnT/sIS10aqx5Ni7B1aUqeOdKzViLhiK1keYiX7FYfeQ
+	 hogwJolZtAXuUiGt8RvN3t0g6hQlR3LXMOFE3nXusBaEjdXLPCVK8oQhBLgm4vENfmcyy
+	 aQ9kN9yfY9IL2UNWL+1IM8K3Nk4G7Iwcvlo76xty81hJ0AHuR7XXw3tn9vK9+5o/ioGGw
+	 ONj/XP+acEGH3Sx6i2GdS3XFfxz4jNYSBW+cQiMs75ofmgx6lbgsTCpGrwqf62nhnwoD0
+	 dSwlxuX6rs4560Z5m1Yv8Uyj3X0VtePlKn0/qJ7PcZCrdSQ1MgoFcM70QGhjJ3+T0oQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Tv+MUOQH;
-	arc=none smtp.remote-ip=91.218.175.192
-Received: from mta0.migadu.com (out-192.mta0.migadu.com [91.218.175.192])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87333606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:38:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87333606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=s3GrBJOl;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7855F606A328;
+	Wed,  4 Nov 2026 16:39:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7855F606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Tv+MUOQH
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7Cg4Ez7Vn04vdChf0EIzG0v+x6mvneURKcF64tPZr+A=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793810314; v=1; x=1794415114;
- b=Tv+MUOQHV4qew5/g4754f80AI5tU5/F1HTu/I+UxwKUvIKTyKSznhMAiU9ubR/mAAdOaazwx
- mRORZzzzUpCwUKHy28o7VLQl7PDEgcXl7Olmk8sos7gXF2SCrtt7fsHFlUa2lKQvdgn5xwv3Wj0
- YZrzGotU/vdQoECcW9izQCoY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 8ed0b4cf6e12cb23;
-	Wed, 04 Nov 2026 16:38:34 +0000
-X-Mizu-Trace-ID: 8ed0b4cf6e12cb23
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: "Zi Yan" <ziy@nvidia.com>
-Cc: Usama Arif <usama.arif@linux.dev>,
-	"Andrew Morton" <akpm@linux-foundation.org>,
-	david@kernel.org,
-	chrisl@kernel.org,
-	kasong@tencent.com,
-	ljs@kernel.org,
-	linux-mm@kvack.org,
-	ying.huang@linux.alibaba.com,
-	"Baoquan He" <baoquan.he@linux.dev>,
-	willy@infradead.org,
-	youngjun.park@lge.com,
-	hannes@cmpxchg.org,
-	riel@surriel.com,
-	shakeel.butt@linux.dev,
-	alex@ghiti.fr,
-	kas@kernel.org,
-	baohua@kernel.org,
-	dev.jain@arm.com,
-	baolin.wang@linux.alibaba.com,
-	"Nico Pache" <nico.pache@linux.dev>,
-	"Liam R.Howlett" <liam@infradead.org>,
-	ryan.roberts@arm.com,
-	"Vlastimil Babka" <vbabka@kernel.org>,
-	lance.yang@linux.dev,
-	linux-kernel@vger.kernel.org,
-	nphamcs@gmail.com,
-	shikemeng@huaweicloud.com,
-	yosry@kernel.org,
-	qi.zheng@linux.dev,
-	luizcap@redhat.com,
-	kernel-team@meta.com
-Subject: Re: [PATCH v8 08/30] mm: recognize PMD swap entries in the softleaf layer
-Date: Wed,  4 Nov 2026 08:38:29 -0800
-Message-ID: <20261104163830.3586103-1-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <DLZ38NR21UU6.QIKBG8SO7189@nvidia.com>
-References: 
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=s3GrBJOl
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B20B0169C;
+	Wed,  4 Nov 2026 08:38:58 -0800 (PST)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 729103F632;
+	Wed,  4 Nov 2026 08:39:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793810341; bh=H3gLXSBeer+KOTYX0U8MNDqI+dszeoRWQK+rfNP4N3s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=s3GrBJOlaKBDpmlHDKGW96IzubpnPtY8t5ctXlsyAV4MK+ONTKqPQTkHivad2c5tx
+	 O4lZXz2Bz4NoJowwdj09EEllgdkMcLLdoAKvPlptuWB+3j/9Ls5mi98fTNuF6cVYQx
+	 8cFJFaCFWdliJyzZR0XDmvCJOo2xkUs3lw/TECxM=
+Date: Wed, 4 Nov 2026 16:38:59 +0000
+From: Leo Yan <leo.yan@arm.com>
+To: James Clark <james.clark@linaro.org>
+Cc: Leo Yan <leo.yan@linux.dev>, Adrian Hunter <adrian.hunter@intel.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>, Will Deacon <will@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>,
+	linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	linux-doc@vger.kernel.org, John Garry <john.garry@linux.dev>
+Subject: Re: [PATCH v3 06/18] perf cs-etm: Don't drop previous target for
+ kernel samples
+Message-ID: <20261104163859.GK9176@e132581.arm.com>
+References: <20261102-james-cs-unformatted-per-thread-fix-v3-0-dbcb0c281b9b@linaro.org>
+ <20261102-james-cs-unformatted-per-thread-fix-v3-6-dbcb0c281b9b@linaro.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,90 +77,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102-james-cs-unformatted-per-thread-fix-v3-6-dbcb0c281b9b@linaro.org>
 
-On Wed, 07 Oct 2026 22:06:57 -0400 "Zi Yan" <ziy@nvidia.com> wrote:
+On Mon, Nov 02, 2026 at 12:15:20PM +0000, James Clark wrote:
+> The branch target of the previous sample is used as the start of the
+> range to disassemble, but if that sample's DSO is "[unknown]" then we'll
+> drop it even though it's useful information. This happens when recording
+> userspace only. Save the address earlier for "Trace On" samples, before
+> we get to the early exit condition for unknown DSOs.
+> 
+> In a later commit to change the default timestamp interval, trace will
+> be collected that triggers this issue, so fix it now.
+> 
+> Signed-off-by: James Clark <james.clark@linaro.org>
 
-> On Fri Oct 2, 2026 at 5:52 AM EDT, Usama Arif wrote:
-> > Reclaim splits a PMD-mapped anonymous THP into PTE-level swap entries
-> > before unmapping it, so an ordinary swap entry has never had to appear in a
-> > PMD. Prepare for installing one there instead: the softleaf layer is where
-> > every consumer decodes non-present PMDs.
-> >
-> > Accept swap entries as valid PMD softleaves and add pmd_is_swap_entry().
-> > A swap entry carries no PFN, so make pmd_softleaf_to_folio() warn and
-> > return NULL rather than interpret a swap offset as a page frame number.
-> >
-> > Unlike migration and device-private entries, a PMD swap entry can also
-> > carry the swap-exclusive marker, which softleaf_from_pmd() has to strip
-> > before decoding. Strip all three overlays unconditionally while we are
-> > here: each clear is a plain bit clear, so testing first only buys a branch.
-> >
-> > Signed-off-by: Usama Arif <usama.arif@linux.dev>
-> > Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> > Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> > ---
-> >  include/linux/leafops.h | 40 ++++++++++++++++++++++++++++------------
-> >  include/linux/pgtable.h | 17 +++++++++++++++++
-> >  2 files changed, 45 insertions(+), 12 deletions(-)
-> >
-> > diff --git a/include/linux/leafops.h b/include/linux/leafops.h
-> > index 7c13c58a5e218..ce176c78cefd4 100644
-> > --- a/include/linux/leafops.h
-> > +++ b/include/linux/leafops.h
-> > @@ -98,10 +98,9 @@ static inline softleaf_t softleaf_from_pmd(pmd_t pmd)
-> >  	if (pmd_present(pmd) || pmd_none(pmd))
-> >  		return softleaf_mk_none();
-> >  
-> > -	if (pmd_swp_soft_dirty(pmd))
-> > -		pmd = pmd_swp_clear_soft_dirty(pmd);
-> > -	if (pmd_swp_uffd(pmd))
-> > -		pmd = pmd_swp_clear_uffd(pmd);
-> > +	pmd = pmd_swp_clear_soft_dirty(pmd);
-> > +	pmd = pmd_swp_clear_uffd(pmd);
-> > +	pmd = pmd_swp_clear_exclusive(pmd);
-> 
-> I notice there is pte_swp_clear_flags() and wonder if we want
-> pmd_swp_clear_flags() to match it.
-
-Added pmd_swp_clear_flags() alongside pte_swp_clear_flags() and used
-it in softleaf_from_pmd() for the next revision.
-
-> 
-> >  	arch_entry = __pmd_to_swp_entry(pmd);
-> >  
-> >  	/* Temporary until swp_entry_t eliminated. */
-> > @@ -634,18 +633,29 @@ static inline bool pmd_is_migration_entry(pmd_t pmd)
-> >   */
-> >  static inline bool softleaf_is_valid_pmd_entry(softleaf_t entry)
-> >  {
-> > -	/* Only device private, migration entries valid for PMD. */
-> >  	return softleaf_is_device_private(entry) ||
-> > -		softleaf_is_migration(entry);
-> > +		softleaf_is_migration(entry) ||
-> > +		softleaf_is_swap(entry);
-> 
-> Using softleaf_is_swap() here makes softleaf_is_valid_pmd_entry() return
-> false positive when pmd swap entry is not possible at the moment. Adding
-> it only after pmd swap entry is possible can close the gap. But the
-> whole series should be applied together, so it should be fine.
-> 
-> Otherwise, LGTM.
-> 
-
-The predicate accepts the new encoding before the producer is enabled,
-but no PMD swap entry can be installed at that point. Reclaim still
-uses TTU_SPLIT_HUGE_PMD until the final swap-out patch. I kept the
-ordering so each consumer is ready before entries can be produced.
-As you said, there is no reachable intermediate PMD swap entry to mishandle.
-
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> 
-
-Thanks for the reviews!
-
-> -- 
-> Best Regards,
-> Yan, Zi
-> 
-> 
+Reviewed-by: Leo Yan <leo.yan@arm.com>
