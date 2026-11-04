@@ -1,96 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793812131;
-	b=xgh5NbJnQNeslmePvd60KlDiHMHF80u7h9RFWJ0wD1lUSJTh+Pdp4yAsvlOe81QPVz+k
-	 W4PVtZUfCP2t2AQFKV5d8qzqstVeBE6diuzLXJAM6k0xLUCLgfyh9HCrH+o9QDQ3C49zK
-	 GUeefuxQF8ccWkU2R32+TbiaJbbZqWH9Fy8uFG6S48OkiMsrQ1lh3CaLSXlz9cyXORS7x
-	 DkresauYApdujD1NUL8ABIcIA2rd/n5F94uK4SAArwsBGJUmAKl2kvpmgXXoxAecOUXGl
-	 Y4hID9Op8A5f0uCPfDyn3uPedWpWezcWtyZGXCeFWDO9REet6uMeEjkz8rT1uON11dA==
+	t=1793812142;
+	b=2xzQH3m8XJMeFw8gDajDhPp+wsGkrWM8M3HzP9C+LCOzgFHJ5j12Id+1daLI06uDBCGf
+	 W7HBBCfz5nM4shcuq3BdqZ8MqlWw1CyMjms+K3VK1Ig1NnC3zHhVoUv1O7wiM++z5QhK7
+	 pKelgcBmwZejIAio71FzbsDl1Pn2ZWWdMvyzEzo3n3e0t7Ch9lyNxIkdxMadyTlTDey6p
+	 /elqYF3DcKhPr1GB9IdKzoesdKUfvHY9CcgbUpgHOhHZNPksLls8gJX+B9SE25w5bZrAx
+	 1MleI7ejA4P5D5xoPjTqRujZkkRR+iQcWJW2Z0fuyCZn7/dS/mBWbzb3MgpeKXsRiSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793812131;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Content-Disposition;
-	bh=BggNDxA9KgGk5xDWclBWYSnVWHuMCkK7nhX4rgf+QMg=;
-	b=kE8GdFlSaSFoE+fKelmbK3hW3kIyoB9Hdnva4zwDxN1WHw73lLeTpboGIvQyzRZiOjha
-	 O+pda7sugphAjIKfsmd+Z5dSDKlSx3/d2TGCzVDr5AOaZY//l4bNxPeohv91Mf2FvbjzX
-	 C5jyXvhOvYjX40dyYRsFPDM7+TwnHU+/a63kZnODXUl76sd9tAA6T/AlJ81ggmxTRwkDQ
-	 CAbM1Gpd5dELUerQD3FPAEpstoDhcXG+wQULJUgo28mlnu0z+e7K8VdR5ffLQPm0yWgnp
-	 MzEfxtGX2hoIf37jSW3Bdj6yE92XpeupPYJ+4ev2qDhcsAMmhpaGwfPwoe5bwyD5yxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793812142;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:From:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=l/KAmDRtOoMoDq2gG1YpbrEXelFzd6hjViwAy8SPt2Y=;
+	b=gjFaj6lZCOFlzIIhkOSvbuRfNPGXYf44vDapNciK5yjDurGAdO0KNMcWVcSTUYDPYJoA
+	 COQgBnHzjxaawxqdy+6+nYjVJeGtMC4V0NVAXnQsy2xvdFcEMHfrJAk51Fc2984TzyiZl
+	 L7CnLtREcL/AQIzcxx3wv1I/ILZdkdkbwnmTLdAQjeS8xqwQq+XtJ5v7S2hFePA4spnXv
+	 WWTd1g0LdwFdiDsCAlytJBPxmUD+nen54XTsf5Z3gkRDUeyYg8eYoyoFfU8u/qqf0HktS
+	 r3Py5/se+IQ2YKJJfmOW/26Hifgsemwk/8hyP4L+Tio+fABtmE+WX9OXyX8SnoXLjyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cMiaVy+p;
-	arc=none smtp.remote-ip=74.125.82.42
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GxcVIJ4K;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7794606A32C
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 17:08:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7794606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD188606A328;
+	Wed,  4 Nov 2026 17:09:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cMiaVy+p
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1a3c08d6928so1478707c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 09:08:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793812130; x=1794416930; darn=vger.kernel.org;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BggNDxA9KgGk5xDWclBWYSnVWHuMCkK7nhX4rgf+QMg=;
-        b=cMiaVy+pSe19pMljL1uhjFq4kEbCEUt/o/Iz6C2dTV176m5rucfND0PEf2SEpbbZxc
-         PlE025Nm9PTscRp/p6IR7dB+llIsWQ/RxTRQ9DMb3zak2OfQIiH4AzmBia7njqIOqfv7
-         +6UkapzksH/qN5zgpwwEDIiJP5Zra4K5wMOpP9dnw6Ut8jFNBtafU9CP3+QcghOfWyuS
-         VRs1slNBsFhglrZ5hpyjHicvAlB1cY4yMXpAHrE91rIxMDuYxleL7z7x1/StDrDduXTF
-         /8oMWy7fE10gZwzPJXEvuhfC6tma6uCe3q0HDDPSHNL+iHzw782M8oIMqk9jJLuN1MeJ
-         mURA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793812130; x=1794416930;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=BggNDxA9KgGk5xDWclBWYSnVWHuMCkK7nhX4rgf+QMg=;
-        b=0N7wV2KSqpkEPmRW/CJC7yIPuxEqpZgjaKkxJoYeOjnBeTu3tL+atbiFHyYcJr8r8i
-         D/BflCbnPqd9gy2xTBbQK5IfwcO3fs3OJu4yzr1zxiANXmBfJYQp8CeGum05qB2DH2qj
-         lioCSybDXL46WsbtBaIW2ZbJnu63FhofIoqMB/pZK/PeSbcx0n74AnO9wKk2ESmpQx/3
-         j6wW7soFmrq+yATQIp//Kc7mUybTYPLK2IdG6r5xa2t02ppn5W22TH/J0bXrh3hsQoHk
-         ijZHRFo6KN8TmvtolWcQCW5LHXFSShVlQ/O2BGYNLg4zCpNKEf2V7lmz9eR46QIQXXnZ
-         5tWA==
-X-Forwarded-Encrypted: i=1; AKwUvBybdNgYVk5KYaXiL+Ml50o2Ddq7o8lVG5kxvJLX1VCa3cM80FUX5lv90q7LbBTsGOPNgDffI0rGV7Cjrnc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/mAXONuC4gW1blIsk88Olcp2tpR5Ea73ZLQjKnWiF5NkZRxcde
-	sAlE4aXhtoycPl1CzOQuKuv0XoimodCi5I/hRWaOH4xGfSG1jZ1Hagn1
-X-Gm-Gg: AYBFou37tatqaLaP6cAYVSbK2y8Q6wlbGMthGR8aCwFahPT3kB88Vz3BBeFv+Rv27pK
-	M7lsMGe65TdoYxLW5oZGDP2KYVAy9ZugOPPeKuMvhET2a+RA6hGbYjuKIUQvPoi01+4MJUSUxlE
-	tQIRzr1OcM6sRoalNQUwbScuUCcER5rk5G0rOSRBa+S+K7n4ZvI+I1JdgfHsG5QseRLflOkKxv8
-	DdvMOjZ3YOpiXpz2PmbgGEtFwZ3R6nmAsGjWp9AkU48IqG6PWGv1rUzXG1YrRe3dyBw4S983niP
-	PycovO/me10bXx9cipN8DlEffBrvzboljmrhIDwoGBIFu06aIHwj1k3/knNoHxI3hcjA0W0EGmd
-	Vq1Sx1NCsvBvTkOGy46dFmqZfAHLgH5mWT7Iq2C6rtXmvj3Vz91sCRfYuVBZRCVBzaZZVTT7WVG
-	qTw2tmT2VaVxRbiJQGMSkQar68CTAZawheHKNVLn0XVyfjrOkaUivMkWS8cQgjhhLFlOLqi/ynF
-	u3bZQWOJ5OL+VTBxYK5XGl9oNwQVz66gedmExJzAmui0BNz3noS5UKYZd9v+aNb18HzEE+XKked
-	oJ/TQ2uKpdVFBBp7pn4KnOhafTGXK1eCdTPOe5iJtdrYfAqaWqyexDoNRnHrT3DCULkW
-X-Received: by 2002:a05:7022:b0c8:b0:1ab:6b10:461 with SMTP id a92af1059eb24-1ac5e3231demr21369464c88.45.1793812128406;
-        Wed, 04 Nov 2026 09:08:48 -0800 (PST)
-Received: from localhost ([2a00:79e0:2ebe:8:88b4:22ec:d621:c1b])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c1c290sm9034336c88.5.2026.11.04.09.08.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 09:08:47 -0800 (PST)
-Date: Wed, 04 Nov 2026 09:08:46 -0800
-Message-ID: <219a70bd93416777ae88becb34d8cb72@gmail.com>
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Guanglei Zhu <zhugl3@xiaopeng.com>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	liuc63@xiaopeng.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] Input: tegra-kbc - check the pin numbers from the device tree
-In-Reply-To: <20261103084135.426629-7-zhugl3@xiaopeng.com>
-References: <20261103084135.426629-1-zhugl3@xiaopeng.com> <20261103084135.426629-7-zhugl3@xiaopeng.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GxcVIJ4K
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 687DF1F000C1;
+	Wed,  4 Nov 2026 17:08:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793812141;
+	bh=l/KAmDRtOoMoDq2gG1YpbrEXelFzd6hjViwAy8SPt2Y=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=GxcVIJ4KkfHdjV4p36lasomP9lVOIWjuYpOAHfC43DN09/q/MMmQ51NvwyQ2y2pXn
+	 R9YgZfVnq43PewitoD5MfbjJmmQHONsNoipRY+lVE+UJHqa5pwn0kQO13BQ+FjP/eQ
+	 FLn8kxqZA1xl0QwUui9HpL+mH1r/IKmo83wjtLmCckLb4pmgmDA8suznN48BX4/4qQ
+	 TMnWmZqidscFIBWmF92PBY3QohWBJe1ncJDzaYtKbIgCx4v48cCDnxO5O5lrwkFj5v
+	 VKQ+XFGw9GmARsT/N8Sx8W/LrpqHxb6A1aWOKpu08YFPFekKQj+gKGz+MNR6wv+RPH
+	 zY15jVrl2HSIw==
+Message-ID: <f1fa853d-1703-411d-b2d2-0fb0b176c2fa@kernel.org>
+Date: Wed, 4 Nov 2026 18:08:39 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,73 +51,159 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/1] spi: use dmaengine_desc_set_callback()
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Frank.Li@oss.nxp.com
+Cc: Mark Brown <broonie@kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Radu Pirea <radu_nicolae.pirea@upb.ro>, CL Wang <cl634@andestech.com>,
+ Ryan Wanner <ryan.wanner@microchip.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui
+ <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Vladimir Oltean
+ <olteanv@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>,
+ Haibo Chen <haibo.chen@nxp.com>, Linus Walleij <linusw@kernel.org>,
+ Daniel Mack <daniel@zonque.org>, Haojian Zhuang <haojian.zhuang@gmail.com>,
+ Robert Jarzmik <robert.jarzmik@free.fr>, Heiko Stuebner <heiko@sntech.de>,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Andi Shyti <andi.shyti@kernel.org>, Tudor Ambarus
+ <tudor.ambarus@linaro.org>, Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Yixun Lan <dlan@kernel.org>,
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Alain Volmat <alain.volmat@foss.st.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Laxman Dewangan
+ <ldewangan@nvidia.com>, Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ "open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
+ "moderated list:ARM/Microchip (AT91) SoC support"
+ <linux-arm-kernel@lists.infradead.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE"
+ <linux-rpi-kernel@lists.infradead.org>,
+ "open list:FREESCALE DSPI DRIVER" <imx@lists.linux.dev>,
+ "open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
+ "open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
+ "open list:RENESAS RZ/V2H(P) RSPI DRIVER"
+ <linux-renesas-soc@vger.kernel.org>,
+ "open list:SAMSUNG SPI DRIVERS" <linux-samsung-soc@vger.kernel.org>,
+ "open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
+ "open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
+ "open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
+ Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Thierry Reding <treding@nvidia.com>
+References: <20261104152253.3279052-1-Frank.Li@oss.nxp.com>
+ <autj6pr_bPaul3w0@ashevche-desk.local>
+ <7f96599b-681d-4963-bdda-1274371ac84f@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <7f96599b-681d-4963-bdda-1274371ac84f@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
-Hi Guanglei,
+On 04/11/2026 18:02, Krzysztof Kozlowski wrote:
+> On 04/11/2026 17:57, Andy Shevchenko wrote:
+>> On Wed, Nov 04, 2026 at 10:22:45AM -0500, Frank.Li@oss.nxp.com wrote:
+>>>
+>>> Replace open-coded assignments to callback and callback_param fields
+>>> of struct dma_async_tx_descriptor with calls to the
+>>> dmaengine_desc_set_callback() helper across SPI bus drivers.
+>>>
+>>> No functional change intended. Prepare make to struct
+>>> dma_async_tx_descriptor private to the DMA engine.
+>>
+>> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com> # dw, pxa2xx, topcliff-pch
+>>
+>> (Note, you forgot to add the list of the drivers to the Rb trailers of other reviewers)
+> 
+> These should be acks. RB creates false impression entire commit was
+> reviewed. Our docs also clearly state entire commit:
+> 
+> "Reviewed-by:, instead, indicates that the patch has been reviewed and
+> found acceptable according to the Reviewer's Statemen"
+> 
+> (not patch or part of patch)
+> 
+> "By offering my Reviewed-by: tag, I state that
+> I have carried out a technical review of this patch to
+> "
+> 
+> (not patch or part of patch)
+> 
+> When you accept only part of this code, you basically Ack. I really
+> dislike these half-done reviews, which later appear in logs and tell you
+> nothing. You could have clear security bug here, but 10 review tags. How
+> useful tags...
 
-On Tue, Nov 03, 2026 at 04:41:34PM +0800, Guanglei Zhu wrote:
-> The row and column pin lists are read straight from the device tree
-> and used to index the fixed pin configuration array:
-> 
-> 	num_rows = of_property_read_variable_u32_array(np, "nvidia,kbc-row-pins",
-> 				rows_cfg, 1, KBC_MAX_GPIO);
-> 	...
-> 	for (i = 0; i < num_rows; i++) {
-> 		kbc->pin_cfg[rows_cfg[i]].type = PIN_CFG_ROW;
-> 		kbc->pin_cfg[rows_cfg[i]].num = i;
-> 	}
-> 
-> The helper only limits how many entries it reads, not what they
-> contain, and the pin_cfg array holds KBC_MAX_GPIO entries, so a pin
-> number from the device tree indexes past the array into the rest
-> of the driver data. The later configuration check validates the
-> row and column counts stored this way, not the index itself, so it
-> cannot undo the write.
-> 
-> Reject pin numbers the array does not have.
-> 
-> Fixes: 88390243a993 ("Input: tegra-kbc - add support for rows/columns configuration from dt")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-> ---
->  drivers/input/keyboard/tegra-kbc.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/input/keyboard/tegra-kbc.c b/drivers/input/keyboard/tegra-kbc.c
-> index e6177f2bdf8d..f086ccf1a075 100644
-> --- a/drivers/input/keyboard/tegra-kbc.c
-> +++ b/drivers/input/keyboard/tegra-kbc.c
-> @@ -522,6 +522,10 @@ static int tegra_kbc_parse_dt(struct tegra_kbc *kbc)
->  	}
->  
->  	for (i = 0; i < num_rows; i++) {
-> +		if (rows_cfg[i] >= KBC_MAX_GPIO) {
-> +			dev_err(kbc->dev, "invalid row pin %u\n", rows_cfg[i]);
-> +			return -EINVAL;
-> +		}
->  		kbc->pin_cfg[rows_cfg[i]].type = PIN_CFG_ROW;
->  		kbc->pin_cfg[rows_cfg[i]].num = i;
->  	}
-> @@ -538,6 +542,10 @@ static int tegra_kbc_parse_dt(struct tegra_kbc *kbc)
->  	}
->  
->  	for (i = 0; i < num_cols; i++) {
-> +		if (cols_cfg[i] >= KBC_MAX_GPIO) {
-> +			dev_err(kbc->dev, "invalid col pin %u\n", cols_cfg[i]);
-> +			return -EINVAL;
-> +		}
->  		kbc->pin_cfg[cols_cfg[i]].type = PIN_CFG_COL;
->  		kbc->pin_cfg[cols_cfg[i]].num = i;
->  	}
+And let me even bring a better example. Imagine a patch, doing massive
+refactoring of core SPI stuff, 1000 lines of code, complex locking and
+also simultaneously updates drivers to new API changed in this core.
 
-Could you please check against kbc->num_rows_and_columns instead of
-KBC_MAX_GPIO? Not all Tegra variants have 24 KBC pins (for example,
-Tegra114 only has 11 rows + 8 columns = 19 pins), and the loop right
-above only initializes kbc->pin_cfg[] up to kbc->num_rows_and_columns.
+Reviewing that 1000 lines of code in core SPI with complex locking takes
+someone 30 minutes. He gives Rb tag, gets credit.
 
-Thanks.
+Now you come, look at SINGLE line in a driver and give Rb tag. For 10
+seconds job of looking at one changed call in one driver.
 
--- 
-Dmitry
+You just Acked, you did not review "the patch" (quoting submitting patches).
+
+Best regards,
+Krzysztof
