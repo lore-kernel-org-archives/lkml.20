@@ -1,93 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.6.135.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793827531;
-	b=Q3MRqC9Dnf7JJXCpZUQX/iA4/Y4FgldTp0ZNoGxuG2OczWmy5UeiyHImdunEDa8JBrJr
-	 gJN5ojqmmFO696RG3zkb+sTFFLJxp47qIrs1w/LeaL0yzSM1J5H40tsT98Cp8HZsvzy6o
-	 tgIi8b/DZ3i/hg/DKjty+1dwShzlgvE9CdHzVxohiwbduzXNwG2UIVKDjrbFUKPr3Wgdv
-	 Xnhsc9TLCPMkYyaph2dj1dBZtHQy1qPOXBzGepd1yhVw8ToWIcY960D+P/LdYZPlTN8ge
-	 uCIgnZQh7qSPErQL4kcKfZ0RkRzLGu3CVfcqlPIxPYJmx11AF1qximB0OSAooPRByuA==
+	t=1793827553;
+	b=px8/jpkvgAlZaAhfqCQ1kKQDlSZWiJ3mUkUgRCrJd0179TG9eDhXUWugMZFJOgXggPpV
+	 kZH3gc5Zbry77UAwMWnfxmuA78H/8vFCaPsLHCuFCr9dVlOAwBT0SpuPQKW0PAJrb1RaL
+	 6HNxN0cQRtRDx1fi767qimTKTgrZ2K0kdr0RZLq2bYMxerU59lSXCJONHLo0EWnDrLRIb
+	 KZ9CeSIucvjsaM13P48CVS9Kr6hm3Gl4ZFd1IS+UcTCVVXP8qhDQ2QM3UeUzEIYSCovbP
+	 2FXJUBpV6DBfVO4EiH6jZU1kSvwDgsZJYzAx7PPaMEeMTf2CtH8u4O98ME0D4MlJjUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793827531;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:References;
-	bh=oiHsBoo4ax+JXNIAzYijKNsPhYtjWF/GsFDXyS6pIxM=;
-	b=C8+1EJlShxjutAifyFBNqPA5l2NbfJBqnj+lw5TY09N7E1hvHMyWUjCLdOZ/MBKCof46
-	 YQ/egYmrA1ADYxjnk0Dq+C6WGIT07tarsPdeU534hOM5xff8pdPPQTAnDnPxT9FP1L8bp
-	 qkl++coePy12v6WgQCAd0p4FKuz+9U43/JhWnuLqxRbyG7bXXEFKxZs4O7C1TGB+7RtrF
-	 5iLz9n80wBrVRRBgrZav+A4AG9E+5Bz0NhIn2sj4bkTkoIj7s/6W3kVU/vUAAeVrJB5Ht
-	 1/WegS7PeAQ3tjwRXsUfrXuKH44OI+HXvtUlxuo2yseKt26lKoc89jv5gIcwze5mTbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793827553;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ehUjsofQYEve6ndzO97sRzCTIUWyobwDpskP54c542Q=;
+	b=1RWlYiQDa4w+kkeKVRticxSPbTmLrlRpbuHkGMPZgEjqWEJDPePpN2Tk7iqBF2XhQE8f
+	 0oJNUgUYJcBOTKSz+mz1dB/lP6GhCb+wVXNp71qVYzl3DK/e5f17zfWFUTRXtQlfn9d/t
+	 8df6i4xim7zYhA5cExkX20lU3PvyjvWPzyLTl5tWji9WHRBWD7KeD3cAEt07UFSJsQBeZ
+	 NyhLP+G2up29aNdBw1BMVqEm6F70W/b6WPCQ9K8gfKdy19OblW6btoB2yv0AkLew8VfA1
+	 Pm7tC7MjjzPJkswOyDY+4bP7tPjGsY5+sJBcgUB5iKTJSnG1XDEbg0/c8jx5/rcls6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.com;
-	spf=pass smtp.mailfrom=yahoo.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=EAzI9AhA;
-	arc=none smtp.remote-ip=74.6.135.124
-Received: from sonic310-14.consmr.mail.bf2.yahoo.com (sonic310-14.consmr.mail.bf2.yahoo.com [74.6.135.124])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=E4Cuw+Ej;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=X2vml9es;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B660606C5BD
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:25:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B660606C5BD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36E57606C5BD
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:25:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36E57606C5BD
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=EAzI9AhA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793827530; bh=oiHsBoo4ax+JXNIAzYijKNsPhYtjWF/GsFDXyS6pIxM=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=EAzI9AhAz849W/733rXBHW8LtMG/exgch0h+bjEEHpDZliKHXU3uIeHY5RRTB7212YB2AqMrSRbir4DVQlUZ/qEk4f56kM3AL+BBquGRLiZIK7fjcRx1jKvHAWheH6QjCqnMOzYNfxhz8twyCDcxwUo5c942ldvIolzGXSvU/XZUPz+32KYi8HUo/uF03JAA8ffmD+volo2qVMPKnPPFghibIU6jk+wKIixZOIXSiz7wo8A5SLNoru8Ed2P2//P9fa1W/flAA2RpUmEuyiAHoLdSfbaAPu8aNdgWybymaMqPn2mKG/Nj5YeU0bFPtjpXYRL6dMajPF/AaoyoEGW4pQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793827530; bh=T8FhAh/tGtqnklh57gs8VmPI99D1krVO7QP7NijeW5A=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=RZAOP73xbrZibaePOvX4rT04eV23kXQ3jmosnW7aOUn4ecs8WWCFEoj8Kg/tE7yj3kcohwR6hcNN9JSmqBBSSZIPGUlLTRBektBu6b57ytXxALKPiIqvWGeodZpz9QYWtBm9YHK8keznpkMjVmZKl8PSPv30ss9nZT+Wza172AXjPwvK3hQ8Q1DIGuVpOWpp4m3ijSS4V0W69J6wugeU7xhGnx2drN++ZEncSrD9rQcveGRzpBpQWQrfUrwCAS7YpmpMNN3Z1RxjFSdnJ2b5uQfAzxQ/j6Uj9Mdl6udIFZngiOipc9/mEHi7yE+EjQngL0rUWSP6SP+/VFhZiNKL2w==
-X-YMail-OSG: TyfXkFsVM1n3wg2js5.bePodlOJjDVyOUoI1ejGE3eGugWgBZ9BJfnAiIyBQxDY
- 09Zjftc7tIDuAKwh1enpWZ8kc3xrJIdEAZ4MIV58SEk7dz6A4oX5ZRs_oYywyIaP6jSRQFDREPdZ
- xxK3Nww59Jf6_n.1aXjgaN2swD5x5YeZgv1iwhpgx5VYZyN.hMH_pci02Mu7WYzmtEyLeIh5v._K
- ze17S5aNB.Uz9RXvKvJD4TJqxVK0MSHSRaeF99nxV.P8vaiTvOEfWDFv1hFmkYeRzv_ilXf9frS4
- S3cGQPS_nggRXW9hgnczad9dtd7atNdja.VzW5Tvdw3hhvxnP4Nin9bFP1pbE6xoQld4xAb5b1bk
- 7ENDSveQD0UOO1QIe7jxWujVUQKr92DzB.rKlGoziZZcV.CXBxjTKgMeX1i3qvjOVgwQ3XuFcf.H
- myf3yPGdgIixUmgTRkQbkOykeg3bDIyOufHShxYd7Z_ZWKd1Dfm0WXlRnEs8LyUb1FO8IMaxbAcV
- 6kb2lMkdMMorgOtUrUU4AxAX.2GKQ3ChR33HNA03kJhC528IcU88Cu4NMHAwfeWrQpqhMUV9J8xR
- RFBLglsN.MzUovb40wgXNVfEZNfLGZIqanf3GA5jlaum2ELPJizMDb7kJDe4jzNJFg4iCBkMd7HJ
- ViLfT4ireUn6gBrgtVsx6PAKKBCD.72F2DWn6C5IbClaeHEK8QOV_4LPQC4CSIQ658EJo7L0Pe3_
- vdLmk5obtnHMssHJhqA3.jDWkzw1qulrD_vdPSzs_a1kPVndbE84MQnKlJjbP8l_CH76rFH_F_tB
- 9fdEAtMtUz983ip7NWU29XlJiqow6bg5QsmWhRlFhA5wRJbULIWLnX7LevZ2u_CTxwCWWqGB.TSU
- HScopYv4tAuhiT8wRD_FP0732Zbj8z4a8xGMCXokHNYha_eKBtYbygEboPFcROQycpVGkVRD29LA
- D7BJHAE62RR_CAbe0WSrx7itugZ70eJ97sa0_H6cSB98Yyr.jCJ7QF5pBl_eU.heibICW39Ppeh3
- PBS7NmAulgI19hSmc0cyqrfXnNA9AOaTVKLDozlNovJIct9ylQOn8dwJxrtA5Vv7XokOH9NMdNGK
- vtaNY_0wX9_2g30LNpSsS0xKB0kFj3ObQUXxRwKSOGGk7PGUt0h9vEVaPsWQOhCLiQNyN0ZJHeiY
- 9hIKnLq5swjYF.efUVWMMRlOxTvgmmPMgc5jMph5ws4xp6dXxbQd_6QxURcgviK.OWa2vuGoW9vL
- WDYX_XuGi43AayUrlJCiDldTP6yM48lctk1OVSc.ZneJ8N3sMDOMLQFXCedi2IhhYZN4piNQE29r
- Vk120hCmaooYMpAtWJvTEKd9y2zt7xZq.JrTaUBs5WyhcDqxZiVymkFW_CZGqxYH9Rafrh44XBeD
- 2uUiExC_bfA793Z7WCr4a7VSbUv_NPJGwAAlrtjevUHDv1y62rFHAuERfdru4HItnzkxE8qa2SQK
- s6hzCUdv3FWWsE2mHO0dV.eENKtskzhERBDREgXblNrofmcM7AeD_Pyn5IPJVZeej4dp.CMDqTUd
- uwXEhv.AdFdyalJvBc433KT_UgmaR0r9r2NUx1bIqWkbtuTwk7qn52FgMofCn4lzIGnIkGqE5fwt
- 2KWa7tCXVwk6LD7.DmJpuqHyBjaC_jfefH78tUk1WRJjSop.xZVoOqtI1RQHqJMCZGMOaD7S.qeT
- orPK_NAAhY03VmGn16GUeSbS19TMC8eQy10RTuVJY6DnPJzKJR.MFqbUoHIS6NNX9O5H8T3.MCB5
- ozH_LJFqxRvj7DxUoX0XDWAQywH39jayLRRYOOk2ue.G4ra9umlaK45jP52n8mLDtwxKZ8XIsV7r
- t6npaHdix4GaRwpXrWrcsSJ9POq2fsCi4AiU_nZ_nqHd4fY_Xo7g18fVRYwyHXdNM2Mcyc1aEAtm
- LiH94LbcHwNt2Q8oCHDP2Z55flgks_oDJ.oen3UmqudZDDPlcHa9LJB4TJqNmIIwkeqWShruMgRL
- 8yO3v2WiRRBo6Atstb1GikxkdTwaa9DAGwKDRxHF9oBsU4zcPx9pKeVUhxLQucu7CekPIfiOodsr
- dQ8WT6Eyd2DInXj9pL8dcZAo4HlO7EXnASnIpvJ4FKsGScyd9sbjKTY8elHecRE7Dl8s5u4FPP.H
- SDNcWdanHCESL3Ej0IO7XJPUwx0iYxFygZRZzT0_a9hmDM6ioRdcjHmWi2cLdCi18KvQu8DRfsca
- 7wswaGx7ONaRWhNyVBqWzQhSK.VyEmT9tjO.t9hwtbLFxUC8b4KVpmayfYt1uaEwFAqG.ptIO6ND
- 2SQ1x5Mkw9bQFFUKMY9YlAoUurZQ4K3ooIAJaPGm8N0A-
-X-Sonic-MF: <laurian.iacob@yahoo.com>
-X-Sonic-ID: 9a948739-927c-4462-b555-937ee80083ad
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic310.consmr.mail.bf2.yahoo.com with HTTP; Wed, 4 Nov 2026 21:25:30 +0000
-Received: by hermes--production-ir2-5dd9bf4598-bgsl4 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 4b63819bc2b89d88a33bcf362e7f8b93;
-          Wed, 04 Nov 2026 21:25:27 +0000 (UTC)
-From: Laurian Iacob <laurian.iacob@yahoo.com>
-To: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Laurian Iacob <laurian.iacob@yahoo.com>
-Subject: [PATCH] KVM: x86: Fix spelling typo 'RECIEVED' to 'RECEIVED'
-Date: Wed,  4 Nov 2026 23:24:56 +0200
-Message-ID: <20261104212456.9835-1-laurian.iacob@yahoo.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=E4Cuw+Ej;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=X2vml9es
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793827552;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ehUjsofQYEve6ndzO97sRzCTIUWyobwDpskP54c542Q=;
+	b=E4Cuw+EjjHtBBgzh/y1qW7fNKMTBW5npRubLltaU7WG54/0CFclD89uQouEyN7CsBrTUon
+	fU/SKrbTYbxQdSt6EBMo4bWkA90wPx8PsfWJnNl4kwYMUkJskWGkztimbe/hQOY/rFQDUR
+	NPsmaR6Ks61WBOxjBO6h3VaU32gAEQQ=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-139-FtsCD7lAPHuN_G4ZMZGUbg-1; Wed, 04 Nov 2026 16:25:51 -0500
+X-MC-Unique: FtsCD7lAPHuN_G4ZMZGUbg-1
+X-Mimecast-MFC-AGG-ID: FtsCD7lAPHuN_G4ZMZGUbg_1793827550
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48e0461e040so1073403f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 13:25:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793827550; x=1794432350; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ehUjsofQYEve6ndzO97sRzCTIUWyobwDpskP54c542Q=;
+        b=X2vml9esjC3ryJ8DwKfNMDQLVcSUFaZZtftcnS5ShWrp1M5xyxTQd27t2fdNrKmRPN
+         Yv49mTDynfJKH/BjtOFC5OtHION31m9nRGb7K8ZFzMcYhutIKxF1/gAO0pVQVu+DeL5U
+         WUOM2Sgc4TQlq4/A5/e0ohmmqrmnQtWnuuKZ6aAQnKrZ00U0M8BAujJnOQLZdRffM2rM
+         EE/4ZAvU7MmozKylTWGQIJEkI/WbMEy22jtVEtOC7b5sF6fD86hYseanv4e/eBFQMnad
+         75x3FEoRUU3cJtoVsV/7IMyZ7J6LgmCw0SqPf06FR8ykT+ZFVpMElK4gk0NZH7HNaUIZ
+         pfjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793827550; x=1794432350;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ehUjsofQYEve6ndzO97sRzCTIUWyobwDpskP54c542Q=;
+        b=gxXrjx2XgHxoCFz2zdzvqIEEm+VsPbRKlpBa/B8QhYuqstvxtkaW77l7SQRHD04mKQ
+         6F29GPhGCdLWupQaqiEC93IQl9kUkCn7mX973fcQVrRfWu351rweawEPvJPGMQs3gGL0
+         0SaPHOXYCfWi8nZos3/86d3iVV8W20bPexcFUDhzjgEwUkYWpYkGd8Zi65oFqD+0QR+t
+         CQ0Cp7vfpv6cGYJJ9eHETd+v3IJ3ZZIsdlc10uVuKX2RsB6KuXKs44jR3JfADHjFt2Up
+         3qsfJwvqZu42V7hiv/rzoIfYtxpFCR11QC85PkKeERS8gSFP8prr0nDIXNxzRpIE8DxQ
+         IFFg==
+X-Forwarded-Encrypted: i=1; AKwUvBzyLJFdq2uay1G0wFwvjX3FGIVREru3Cn9I1bbRoK3KYBvI39Cc7LH1yk0K8kcejUQjJAqephtFqEp789Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9e67ifqQo1CreGEUMja6/5Ek2Im4jtekc+muknzhDucDOlUn7E
+	TLeLWUoyw8zUzsE1UbYpUtpHAOCDKpFJlm0bCjQiFar2HzY21jcjq/8gtgV8nukzP0dw7vMLBNX
+	2HKoUMmYmcmgSeCZgJc0z+1h4hW28C1P0hcssKrXWkpH2QOnrTiCtpdf7U2EaVy5zOw==
+X-Gm-Gg: AYBFou17nKUVMsQ5UR1pYZkfDubJuLdfddRA772s3UQ/Pg0jOhmCGmIsELskm9DNhLJ
+	rAreAIcCavIy0TZiL/sv/TFvihFiuIkFb1+I1v7C3mCSgO0A1XWeFPLESTprCyMZV55gwe/yJuM
+	q9ep0kcoO0iUflatGjZCPNfY/KFbtli5hcJsBtO/eNqFGvJ5hFOG/xXkasW1SbGLG1KE7wTGisN
+	28Tmx3Z4FvdEkdj53F4UfvA5MhR5dnWO/G6I/zAmomXA6LAEljPwDt/zp4LvTkrFaYFyCj6U1yT
+	HOfmN0r2mkidgXdokXkbGIHmUCXljzY1rwq/i+SpApCMnmcaHUu/L4lkBz3HT3ee6dhzx1KnfyS
+	+GUg6YswDpj8NKcVP/jSffQND4rUCMioCoF4U4GwhRtdY2gjt4LFzGI6mw00iVdP7/cCCwUqdCh
+	Wy24FdFn+3VCL88x1q/C7lPnbNlnSqVJhbkySKPUjUMrg=
+X-Received: by 2002:a05:6000:184d:b0:48d:fbf2:555f with SMTP id ffacd0b85a97d-48e6e518487mr40091115f8f.55.1793827549852;
+        Wed, 04 Nov 2026 13:25:49 -0800 (PST)
+X-Received: by 2002:a05:6000:184d:b0:48d:fbf2:555f with SMTP id ffacd0b85a97d-48e6e518487mr40091084f8f.55.1793827549444;
+        Wed, 04 Nov 2026 13:25:49 -0800 (PST)
+Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed552afcsm5900596f8f.41.2026.11.04.13.25.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 13:25:48 -0800 (PST)
+Message-ID: <457a96dd-99dd-47f9-ae0f-cdb82e2951f9@redhat.com>
+Date: Wed, 4 Nov 2026 22:25:45 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,27 +112,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-References: <20261104212456.9835-1-laurian.iacob.ref@yahoo.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v5] tipc: raise the minimum bearer MTU to fit tunnel
+ and crypto overhead
+To: Joas Antonio dos Santos <joasantonio108@gmail.com>,
+ Jon Maloy <jmaloy@redhat.com>, Tung Quang Nguyen <tung.quang.nguyen@est.tech>
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org
+References: <179340438471.4412.6707287163192409104@gmail.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <179340438471.4412.6707287163192409104@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Laurian Iacob <laurian.iacob@yahoo.com>
----
- arch/x86/kvm/x86.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 10/31/26 00:53, Joas Antonio dos Santos wrote:
+> A peer can lower the link MTU to TIPC_MIN_BEARER_MTU (100 bytes, plus
+> the UDP encapsulation header) with the max_pkt field of a RESET or
+> ACTIVATE message; tipc_link_proto_rcv() only checks the lower bound
+> returned by tipc_bearer_min_mtu().  The same bound is applied to the
+> device MTU when a bearer is enabled.
+> 
+> That bound predates two later reductions of the link MSS:
+> 
+>    tipc_link_mss() = mtu - INT_H_SIZE                    (tunnel header)
+>                           - EMSG_OVERHEAD               (CONFIG_TIPC_CRYPTO)
+> 
+> With CONFIG_TIPC_CRYPTO=y, which is the default, an MTU of 100 gives an
+> MSS of 28.  Once the link comes up, tipc_named_node_up() calls
+> named_distribute(), which computes
+> 
+>    msg_dsz = ((tipc_node_get_mtu() - INT_H_SIZE) / ITEM_SIZE) * ITEM_SIZE;
+> 
+> For an MSS of 28 the subtraction is negative and the result truncates to
+> 0xfffffff0; for an MSS between 40 and 59 it is 0.  named_prepare_buf()
+> then allocates a buffer with no room for any item (the u32 size wraps),
+> and msg_rem never reaches zero, so every cluster-scope publication on
+> the node is written with publ_to_item() past the end of that one skb,
+> over skb_shared_info and into adjacent memory.
+> 
+> Without crypto the MSS is at least 60, which still does not hold the
+> first fragment built by tipc_msg_build(): INT_H_SIZE fragment header
+> plus a message header of up to MAX_H_SIZE.  With pktmax below that, the
+> header copies run past the pktmax bytes allocated for the fragment.
+> 
+> Raise TIPC_MIN_BEARER_MTU to MAX_H_SIZE + 2 * INT_H_SIZE so the MSS can
+> always hold INT_H_SIZE + MAX_H_SIZE, which also leaves room for name
+> table items, and add tipc_bearer_mtu_floor(), which adds EMSG_OVERHEAD
+> on top for CONFIG_TIPC_CRYPTO=y.  Use it for the device MTU check
+> (tipc_mtu_bad()), the UDP MTU check, the netlink MTU setting and
+> tipc_bearer_min_mtu(), which also bounds the max_pkt negotiation.
+> 
+> Found by manual code review and reproduced with KASAN using two network
+> namespaces joined by a veth pair (see below).
+> 
+> Fixes: fc1b6d6de220 ("tipc: introduce TIPC encryption & authentication")
+> Fixes: 2320bcdae628 ("tipc: fix changeover issues due to large packet")
+> Suggested-by: Tung Nguyen <tung.quang.nguyen@est.tech>
+> Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+For some reasons the PW bot did not notice...
 
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 26e7beaff8a0..fee193487388 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -9129,7 +9129,7 @@ int kvm_arch_vcpu_ioctl_set_mpstate(struct kvm_vcpu *vcpu,
- 
- 	/*
- 	 * SIPI_RECEIVED is obsolete and no longer used internally; KVM instead
--	 * leaves the vCPU in INIT_RECIEVED (Wait-For-SIPI) and pends the SIPI.
-+	 * leaves the vCPU in INIT_RECEIVED (Wait-For-SIPI) and pends the SIPI.
- 	 * Translate SIPI_RECEIVED as appropriate for backwards compatibility.
- 	 */
- 	if (mp_state->mp_state == KVM_MP_STATE_SIPI_RECEIVED) {
--- 
-2.43.0
+Applied, thanks!
+
+/P
 
