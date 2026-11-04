@@ -1,85 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793825132;
-	b=TSljZCUZ/v0qT2JFUked7Uud3BFH9DHsrcdhNbwAzYpj9AQgwTdc5tZaLWsYd50UJ/Ct
-	 Bp/yvjS6Cz+6oywqtkV5/5JPSm0yMFIHb1danektrR9YPgKDnccvYHJ9EHp513dZij5MW
-	 yljkyYRDwiY1qkfva3bf2ITNNeABojBULy8+Ch8/R8pFx97GKxz6/Dhd2sBnn3x//kxME
-	 4Dhx/jk2H89OJD+AHUdp4RHnOQNoRYd6KrCFWSj/cOXolmOr62gvHnMmS6kkzw3FG/AGI
-	 rF7Sk3kR229SEnGLQH65QQudpu29Uk1b0XYgSIzLdZkQqHDrhZifiJUcFNlDFjm/jTw==
+	t=1793825139;
+	b=jgdTRxwltEvMW7MVl9nkWZa9fzygl4RcCbhyPULnNLMbWnWFPM1CjyJyY97N6PsDe1Vy
+	 nQqYmzKxCCpkdQGG7b87Ivu0LwvNUGOqNbG/GL8CFtkG9s+QeW9FYdjIXdK2PRO7xZCvg
+	 odEq6Rk+pcErvmt+2+EdGDp4tBHx7a1ui3rHbNjBwONmDI7vwTvzgqsKcGoAGR6PQMCg2
+	 gCIYp0Ti4cI9ohYYGxLFYOspq/lDLgm71kt+kUDMkOO7dc3Nmu0RP8C6SO6nio4lqcvPT
+	 GjqaqF4FQAkJzWVgCGYDOWaOJjM+ydJ0Iy6ABvso0wx0QCPzC0jvVT+Cl2taZKo82Mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793825132;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793825139;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=rzmt5Hz3K4kVCI7Fq2Ze1MrmxPTBuObA36LwwUri/gg=;
-	b=2fQZq8K6H3RnciMdPiJGGmb3dKoy1cPLDugZDMFdwuexOKquiUmuBIJnUH3jsYZY1zox
-	 4km+woMiTh6irPbCJIcwXiJSebauYkjevpRC9Jyjr4DcT5XjOZ8UIgguRBRLal918LCtU
-	 Bknxntwo5/h0OD1UmPCHwBmjHngmAYLJhGyuWy6exWOArEtyoIcoS1g0LZoEXzpdnfxuv
-	 J2VARR+EpEcRYxUGeVd2xMfccrT52IFVXxezCzOWJtlQvS0yA8WXip2orFymBdzcSrg0i
-	 t5u0Pp9wg2IPrE6Xo2YL96B4so1hvmJg7fFnES+X1cT2AJ5b6ndTJD+ru+H7C+HpFgQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=m6RxhV28tVDd3IWEmU/52xEW4Trn9GkOrvqtd0+keQs=;
+	b=Ew10GDq4YRrgDm1EFdYkb38cpAz+a8TdrpYewsfJ6dr5lLa70ALP+MRH2m2OEFXPgQeY
+	 MEpOpDoOejyy/gxTSJLoDnxilBzvZw0jjx/ysfJgF4rWnVWNhxjWkojBCY/hCJ0d28DB5
+	 BmS7/l1FzIfyzrK8kDqMIgiPGDH9JbfaYDOrnkZkml0Vdc3NkvurG4tN9JU4tc1GlDBKd
+	 5UPFC9sJHagaaKL8XTCMy/9hrWhBA/PJML+GjV+TtCd05UOT7CNBGHvp7U+C9nsnZaPZ0
+	 Dikz7H7tTd45r6KNVP7JEzikgstiUdec/PSiM5YloQZ2vzMKr8nfstL/AyLKTF5hIlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=toxicpanda.com;
-	spf=pass smtp.mailfrom=toxicpanda.com;
-	arc=none smtp.remote-ip=209.85.222.176
-Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Kqm1ta0z;
+	arc=none smtp.remote-ip=209.85.216.70
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D26B7608F11D
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:45:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D26B7608F11D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
-Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-93f3c8958d5so126828985a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:45:26 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF6D260952B3
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:45:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF6D260952B3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Kqm1ta0z
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3b0a7cbf164so571456a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:45:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1793825126; x=1794429926; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rzmt5Hz3K4kVCI7Fq2Ze1MrmxPTBuObA36LwwUri/gg=;
-        b=sSNfABAxnIK0HnaztekNKF9rwj946WP3Vo6/D17hJujePfuouEEIo16mHn9XeiKZM1
-         f4nrjv/07Yroo7pa3I+SNhEBpYzAcc15Ld/kq7VBluexp2nWwkwWsARvscTasAFOd93j
-         T3xsDfKDCJlycR2WMJFmLqutx7ZiLqFYO3yBlV4RAG0Ngm+R4z9rQdNjOv8alxpxvcoT
-         vp8mOuKvsqgqF9cz/WmCMX/2VKC+hUNQSFANY+lZDHKtLfI62fEHJcTlHBE7ioh8z0KN
-         h8OrEQSqz+c106g1+yOpleDKnda9lxSp3WAoMU65YVQY7dxT/R2Moj1e4qVLjido+ERI
-         Mr6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793825126; x=1794429926;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1793825138; x=1794429938; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=rzmt5Hz3K4kVCI7Fq2Ze1MrmxPTBuObA36LwwUri/gg=;
-        b=2mt/e6/kLhmFgvDu8fqdyUBmn8TgWJujoVcSkdaGah48V3oGemq160kJxEk1yxY9HJ
-         FIg+v6Tdb8+iiQ5NfiriRi1hXT0Rd6H4D4y5/ByZ2I3OZGNERPlEGgH+8EXCxqbjMIHq
-         Kjf+6Xt6Mv5LJ/KzfKVkI36mHfLXCqb1LpS/1GfDUa8eX+z8sN7wNPwiboCqtyiZtvjf
-         N6U5MJTGTiOBi/y/N9blL5Qid3tmiOUQ456OtqaCGqKCtGLcRUhDjRwBvScmX5pAzqJf
-         s1sOu40UvPLQLG4LC/HZrQor119wA4wLOZsccyDzghfUbfDyfoUq6leIPURrjyxtKBH0
-         bELw==
-X-Forwarded-Encrypted: i=1; AKwUvBz7BYxECJNaxjxaW3iJLTrrV43zqKw4NsfLzYv4XAudvz8aYgEVvmfRc1MfjGkIyoob3OoX5MKdCeXKXT8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9YRY2/fxlsOHUD6wdsk7BTb74wswmNSgBI93l41Seqip5WE6L1
-	8thSDVUoJwy8N1ePqevLNncZ3Km0FgDrvD7xxXTn9BrOO87IsB1+1nN2MN6D28t9Bqk=
-X-Gm-Gg: AYBFou1tgaSaR+7gNF/bBgfyD7cMrgeZia1f/BR2YJQ+EtxKQZDDVgFJwwtPcEHPV7b
-	JC3UmBp8p19DconZ2W0rTV+er488d37Du5Do+UGZ3vVyOLKKE8a+efQhckwZeyKKV71cbx+KrlK
-	90paYYf2fohElGwZZglv5RqOwW5Zq0WWe+PoHW9nvjXbqgZYAO7pdW2D3oIA2OpJjwlek/u+D0W
-	uz9ra0CX7LwEEKySFb5/u8Cj9EoexMG/AHSHFpDD4M3dSuwA+EwQoMHJvKsHhruAYTS6WcHvgMk
-	hBnu6fWnyNHS1lr8cDDoT+xAZWiqOTn9KUAy+snP+Z9VOipeUP61NBXBkTpPMFCYrFrJviUAoiS
-	0ZfEMauPKYEokWpWkdCdRmLvB8N1kth59VpB7oUGJTtWOL9cUSnF67Wj+ZAZBrMxWbFR1C7XHzU
-	QNkAxV/5zQwxaPuL+7Dq7OAk2mAG0HfXeWDi7w8LGGYGKjafxR3C06bqKW1mBI+ORFLUI8eYe/4
-	uftth07cbIjZj1+nql5EYXkK2tTHRS4cVqcTTg6HzsWQIJH7xh9cR2co3QmfDMsWS2xKckFf5cb
-	jiNP9mm4RJqdP49YliljFj4SWeWWhcuRmsDr5/sVSRprPA==
-X-Received: by 2002:a05:620a:444c:b0:93e:4d60:d389 with SMTP id af79cd13be357-9442163032amr3103157085a.25.1793825125871;
-        Wed, 04 Nov 2026 12:45:25 -0800 (PST)
-Received: from toxicpanda.com ([153.61.196.246])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d4898a06sm291414185a.42.2026.11.04.12.45.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 12:45:25 -0800 (PST)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Wed, 04 Nov 2026 20:45:04 +0000
-Subject: [PATCH v3 7/8] ovl: handle lazytime on the upper filesystem
+        bh=m6RxhV28tVDd3IWEmU/52xEW4Trn9GkOrvqtd0+keQs=;
+        b=Kqm1ta0zK7vn0YdeoBJpPK/M2kcB3iQP8Oyy+Aq5LPlVpfU3OXb2Kxp4F0rQ04uHBR
+         o2yUc06bDe28XDMBcHUk0g8+Z1hAXrlbc4ZFp80HURRCxKu/suNRPZsLQ3z7QuQujaZE
+         slCGGXPxf4zV/34kkmlUFZ4IikeoD8kX0mM7dBQymluM6ulD+Xg/QiOuvo/+qtT+onLF
+         CSgRQ6gHN70dBIdLMWND+DkHrVUR8hmNh6d3GhCQEJSI3l9Nb0SHO3qTCXdvXYrdj2qU
+         PqZZYPOkELGcQG3wnPxAxxuvMCpShuz8odIg+7WtpxSJZ+mm4qq6jCs2uhN4sjx8YfMO
+         aR2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793825138; x=1794429938;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m6RxhV28tVDd3IWEmU/52xEW4Trn9GkOrvqtd0+keQs=;
+        b=q8eJARjGeRSFvkIzuvAE+Oz18szorkU2MbohSl4p6pjsF88xfxJfMrY86VfwmEjQKS
+         TIh8ETcTbZ0Y/7IVlfJHMmakvb0if7Fusnz4In9scMTMyXO+8INbjqzdsOq0tWnO7C/E
+         C/i9c1IJFk8fOuCCtJVwqlE03r+CbO/3x0Q9ChgtO+h+AhdUZ2dgR4V3I3NhRS1telrX
+         wnxMBwrlZSeb6TfP5mXBo5EKoj/1XRj+WmUeFZiCzTlzhaqnceBq721I4FGjIzjaiVxq
+         xdKY4cTKsfKZPdwKnyNZzlaEpycBVnwX3+WlTzvg3J6FjhCgfk2HjEiFpqdXKbDZbSgn
+         UjWg==
+X-Forwarded-Encrypted: i=1; AKwUvBzLivC9rU1eTuq/brIigvN8Couc+OWbLZZDB+trle94db+gwm+6Ht6pUHlOo37YMAKGShjm7K279rt4O6Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/EuVeKyTXRirxZudoinc3scRdBqSwr6fIo4PrDT7+Z2P3kzjFm
+	0+CgzRjJFElJcCJuz6Q/Ug9a+pdiXKId7WUdpwutTvPTyZ3LVMcwFkvqAxIXg7QbysBIMY0TELR
+	L5lXJUw==
+X-Received: from pjhw22.prod.google.com ([2002:a17:90a:5296:b0:3ab:54fb:2a3d])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2e52:b0:3ab:24b2:9016
+ with SMTP id 98e67ed59e1d1-3ae897ec759mr14634100a91.25.1793825137869; Wed, 04
+ Nov 2026 12:45:37 -0800 (PST)
+Date: Wed, 4 Nov 2026 12:45:37 -0800
+In-Reply-To: <20261020234535.3182385-3-jmattson@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,172 +77,102 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-b4-ovl-containerized-sync-v3-7-8daa20144f53@toxicpanda.com>
-References: <20261104-b4-ovl-containerized-sync-v3-0-8daa20144f53@toxicpanda.com>
-In-Reply-To: <20261104-b4-ovl-containerized-sync-v3-0-8daa20144f53@toxicpanda.com>
-To: Miklos Szeredi <miklos@szeredi.hu>, Amir Goldstein <amir73il@gmail.com>, 
- Christian Brauner <brauner@kernel.org>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- Christoph Hellwig <hch@infradead.org>, Chris Mason <mason@kernel.org>, 
- Chengguang Xu <cgxu519@mykernel.net>, linux-unionfs@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1793825112; l=5683;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=lAJTbUM7nvdyV8CL9S/lP19B0RrQ2NzBxFBQvu0+Y/0=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QHmibJDFeLY8enJF9c72DMbQ8RkyqGnQfRKIK+QC7z3nNFlLlZ9M4q76f8Kc08ipA67wckhiRha
- W7uFWpKQ22wo=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
+Mime-Version: 1.0
+References: <20261020234535.3182385-1-jmattson@google.com> <20261020234535.3182385-3-jmattson@google.com>
+Message-ID: <auuZcZhBhrkZd9qM@google.com>
+Subject: Re: [PATCH 2/4] KVM: VMX: Refresh LBR MSR intercepts on full MSR
+ intercept recalc
+From: Sean Christopherson <seanjc@google.com>
+To: Jim Mattson <jmattson@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Yosry Ahmed <yosry@kernel.org>, Like Xu <likexu@tencent.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-With lazytime on the upper filesystem the flusher leaves timestamps in
-memory for up to 12 hours.  The overlay inode must not be clean during that
-time, or syncfs() would miss them.  It cannot stay dirty either, because
-the flusher would visit it on every pass and it could not be reclaimed.
+On Tue, Oct 20, 2026, Jim Mattson wrote:
+> Re-apply the LBR MSR intercepts in vmx_recalc_msr_intercepts() if the
+> LBRs are currently passed through, so that changes to userspace MSR
+> filters are reflected in the MSR bitmap.  Unlike SVM, which can simply
+> rewrite the intercepts in either direction, leave the bitmap alone if
+> the LBRs aren't passed through, as a filter can only force interception,
+> never prevent it, i.e. the bitmap is already correct.  Note, clearing
+> msr_passthrough to force vmx_passthrough_lbr_msrs() to re-apply the
+> intercepts on the next VM-Enter isn't an option, as doing so would
+> leave stale passthrough bits behind if the guest LBR event is no longer
+> active.
+> 
+> vmx_recalc_msr_intercepts() is invoked in response to
+> KVM_REQ_RECALC_INTERCEPTS, which is raised on MSR filter updates, but it
+> skips the LBR MSRs, and vmx_enable_lbr_msrs_passthrough() does nothing
+> if lbr_desc->msr_passthrough is already set.  If the LBR MSRs are passed
+> through when userspace installs a filter that denies them, they remain
+> passed through, and the guest can access them without exiting to
+> userspace.  Conversely, if a filter forced interception when the guest
+> LBR event became active, relaxing the filter leaves the MSRs needlessly
+> intercepted.  Either way, the bitmap remains stale until the guest LBR
+> event is torn down and recreated.
+> 
+> Only x2APIC MSRs are exempt from userspace filtering (see
+> kvm_msr_allowed() and the KVM_X86_SET_MSR_FILTER documentation), and the
+> filter is honored when LBR passthrough is first enabled, so KVM's
+> behavior shouldn't depend on whether the filter is set before or after
+> the guest enables LBRs.  Drop the LBR MSRs from the comment claiming
+> that they can't be filtered by userspace, and clarify that
+> lbr_desc.msr_passthrough tracks KVM's desired interception, which may
+> not match the MSR bitmap when userspace filters are in play.
+> 
+> Fixes: 9254beaafd12 ("KVM: vmx/pmu: Reduce the overhead of LBR pass-through or cancellation")
+> Cc: stable@vger.kernel.org
 
-When deferred timestamps are all that is left to write, set I_DIRTY_TIME on
-the overlay inode, like the VFS does on the upper inode.  Implement
-->sync_lazytime() to pass the request on to the upper inode.
+Meh, this isn't stable material.  Unlike SVM, where LBR virtualization is tied
+to a pile of other crud, if userspace wants to filter LBRs on Intel it should
+just not expose LBRs in the first place.
 
-The VFS writes deferred timestamps on the last iput().  The upper inode
-does not see that while the overlay inode holds it, so the last iput() of
-the overlay inode stands in for it.
+If it weren't for SVM, and the fact that avoiding the filters is actually more
+work, I probably would vote to fix the docs.
 
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
- fs/overlayfs/dir.c       |  1 +
- fs/overlayfs/inode.c     | 19 +++++++++++++++++++
- fs/overlayfs/overlayfs.h |  1 +
- fs/overlayfs/super.c     | 27 +++++++++++++++++++++++++++
- 4 files changed, 48 insertions(+)
+> Signed-off-by: Jim Mattson <jmattson@google.com>
+> ---
+>  arch/x86/kvm/vmx/pmu_intel.c | 20 +++++++++++++++++++-
+>  arch/x86/kvm/vmx/pmu_intel.h |  7 ++++++-
+>  arch/x86/kvm/vmx/vmx.c       |  6 ++++--
+>  arch/x86/kvm/vmx/vmx.h       |  1 +
+>  4 files changed, 30 insertions(+), 4 deletions(-)
+> 
+> diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
+> index 70a8c4816135..b945213f0b68 100644
+> --- a/arch/x86/kvm/vmx/pmu_intel.c
+> +++ b/arch/x86/kvm/vmx/pmu_intel.c
+> @@ -517,7 +517,8 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
+>  	memset(&lbr_desc->records, 0, sizeof(lbr_desc->records));
+>  
+>  	/*
+> -	 * Setting passthrough of LBR MSRs is done only in the VM-Entry loop,
+> +	 * LBR MSRs are initially passed through only in the VM-Entry loop (a
+> +	 * full MSR intercept recalc merely refreshes an existing passthrough),
+>  	 * and PMU refresh is disallowed after the vCPU has run, i.e. this code
+>  	 * should never be reached while KVM is passing through MSRs.
+>  	 */
+> @@ -704,6 +705,23 @@ static inline void vmx_enable_lbr_msrs_passthrough(struct kvm_vcpu *vcpu)
+>  	lbr_desc->msr_passthrough = true;
+>  }
+>  
+> +/*
+> + * Refresh the LBR MSR intercepts if the LBRs are passed through, so that
+> + * changes to userspace MSR filters are reflected in the MSR bitmap.  There's
+> + * nothing to do if the LBRs are intercepted, as a filter can only force
+> + * interception, never prevent it.
 
-diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
-index 1194ccf981c3..fc47beffa67e 100644
---- a/fs/overlayfs/dir.c
-+++ b/fs/overlayfs/dir.c
-@@ -1489,6 +1489,7 @@ const struct inode_operations ovl_dir_inode_operations = {
- 	.get_acl	= ovl_get_acl,
- 	.set_acl	= ovl_set_acl,
- 	.update_time	= ovl_update_time,
-+	.sync_lazytime	= ovl_sync_lazytime,
- 	.fileattr_get	= ovl_fileattr_get,
- 	.fileattr_set	= ovl_fileattr_set,
- 	.tmpfile	= ovl_tmpfile,
-diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
-index 9a4bf7c2502b..5895ee5aa771 100644
---- a/fs/overlayfs/inode.c
-+++ b/fs/overlayfs/inode.c
-@@ -743,6 +743,22 @@ int ovl_fileattr_get(struct dentry *dentry, struct file_kattr *fa)
- 	return err;
- }
- 
-+/*
-+ * The overlay inode has I_DIRTY_TIME set because the upper inode has deferred
-+ * timestamps, see ovl_park_inode().  The VFS calls this when the timestamps
-+ * have to be written.  Mark the upper inode dirty, which hands the timestamps
-+ * to the upper filesystem, and mark the overlay inode dirty, so that
-+ * ovl_write_inode() writes the upper inode.
-+ */
-+void ovl_sync_lazytime(struct inode *inode)
-+{
-+	struct inode *upper = ovl_inode_upper(inode);
-+
-+	if (upper && (inode_state_read_once(upper) & I_DIRTY_TIME))
-+		mark_inode_dirty_sync(upper);
-+	ovl_mark_inode_dirty(inode);
-+}
-+
- static const struct inode_operations ovl_file_inode_operations = {
- 	.setattr	= ovl_setattr,
- 	.permission	= ovl_permission,
-@@ -752,6 +768,7 @@ static const struct inode_operations ovl_file_inode_operations = {
- 	.get_acl	= ovl_get_acl,
- 	.set_acl	= ovl_set_acl,
- 	.update_time	= ovl_update_time,
-+	.sync_lazytime	= ovl_sync_lazytime,
- 	.fiemap		= ovl_fiemap,
- 	.fileattr_get	= ovl_fileattr_get,
- 	.fileattr_set	= ovl_fileattr_set,
-@@ -763,6 +780,7 @@ static const struct inode_operations ovl_symlink_inode_operations = {
- 	.getattr	= ovl_getattr,
- 	.listxattr	= ovl_listxattr,
- 	.update_time	= ovl_update_time,
-+	.sync_lazytime	= ovl_sync_lazytime,
- };
- 
- static const struct inode_operations ovl_special_inode_operations = {
-@@ -774,6 +792,7 @@ static const struct inode_operations ovl_special_inode_operations = {
- 	.get_acl	= ovl_get_acl,
- 	.set_acl	= ovl_set_acl,
- 	.update_time	= ovl_update_time,
-+	.sync_lazytime	= ovl_sync_lazytime,
- };
- 
- static const struct address_space_operations ovl_aops = {
-diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
-index bbe1a5bb8e97..f7292e23bb28 100644
---- a/fs/overlayfs/overlayfs.h
-+++ b/fs/overlayfs/overlayfs.h
-@@ -901,6 +901,7 @@ static inline struct posix_acl *ovl_get_acl_path(const struct path *path,
- 
- int ovl_update_time(struct inode *inode, enum fs_update_time type,
- 		unsigned int flags);
-+void ovl_sync_lazytime(struct inode *inode);
- bool ovl_is_private_xattr(struct super_block *sb, const char *name);
- 
- struct ovl_inode_params {
-diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-index fe626e9d78a8..420cd166748a 100644
---- a/fs/overlayfs/super.c
-+++ b/fs/overlayfs/super.c
-@@ -363,6 +363,31 @@ static enum ovl_write_mode ovl_write_mode(struct inode *inode,
- 	return OVL_WRITE_COMMIT;
- }
- 
-+/*
-+ * All that is left to write for @inode are timestamps that lazytime has
-+ * deferred on the upper inode.  The flusher leaves those alone for up to 12
-+ * hours.  Set I_DIRTY_TIME on the overlay inode, like the VFS did on the upper
-+ * inode.  This takes the overlay inode off the list that the flusher walks,
-+ * syncfs() still finds it, and the VFS calls ovl_sync_lazytime() when the
-+ * timestamps have to be written.
-+ *
-+ * One of those occasions is when the last reference to an inode goes away.  The
-+ * upper inode never loses its last reference while the overlay inode exists, so
-+ * the overlay inode has to stand in for it.  The last reference to the overlay
-+ * inode may already be gone at this point.  iput() checks for I_DIRTY_TIME
-+ * under i_lock before it drops the last reference, so either iput() sees the
-+ * flag, or the reference count is zero here.
-+ */
-+static void ovl_park_inode(struct inode *inode)
-+{
-+	if (!ovl_tracks_dirty(OVL_FS(inode->i_sb)))
-+		return;
-+
-+	__mark_inode_dirty(inode, I_DIRTY_TIME);
-+	if (!icount_read_once(inode))
-+		mark_inode_dirty_sync(inode);
-+}
-+
- static int ovl_write_inode(struct inode *inode, struct writeback_control *wbc)
- {
- 	struct inode *upper = ovl_inode_upper(inode);
-@@ -383,6 +408,8 @@ static int ovl_write_inode(struct inode *inode, struct writeback_control *wbc)
- 
- 	if (ovl_upper_unfinished(upper))
- 		ovl_mark_inode_dirty(inode);
-+	else if (inode_state_read_once(upper) & I_DIRTY_TIME)
-+		ovl_park_inode(inode);
- 
- 	return ret;
- }
+Hmm, I don't love assuming that recalcs are only done for filter updates.  On the
+other hand, taking action if lbr_desc->msr_passthrough=false is nonsensical.
+Rather than immediately refresh the updates, what if we just disable passthrough
+and let vmx_passthrough_lbr_msrs() do the actual update?
 
--- 
-2.55.0
+void vmx_recalc_lbr_msr_intercepts(struct kvm_vcpu *vcpu)
+{
+	if (WARN_ON_ONCE(!vcpu_to_lbr_desc(vcpu)))
+		return;
+
+	/* Disable passthrough to force a recalc on the next VM-Entry. */
+	vmx_disable_lbr_msrs_passthrough(vcpu);
+}
 
