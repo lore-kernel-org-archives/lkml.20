@@ -1,111 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793777386;
-	b=hvF9pxmIyMz22KL16sBDVG2xjiAlT0VpAsJqFLF3XGz5Y5XhrG6GPDzipNzOy+dRRyjF
-	 nReTujFndlIv6YYU5el516s5/mraHG+Fl70L5/9nRGK20BEuEuMpN4BF+9p+xplolZBrv
-	 26ZXGyu61BHV2htyc9S82YW8LA1l9/3E6d295a+CYcXFkgvTQ/hMKGy6uyR7APpjp10e4
-	 xN9tjQdGhhzHSBUkC2/4/FxrMOGzF+/OQNPSMOSJhPiUalGLD0QAo8Ujj60xn34DhGjt5
-	 BXq8Uxs2ILwkMzW1iwrkZiAIIkoRfsbCHnciuJ28b9LNngAaP1pDjcKPVD5A0KeCjbw==
+	t=1793777388;
+	b=lh8aYsf9KWeYqNp1UTIAY4/Iuiw9B8ZHai3KMU1YVB0bmrhq3ycnCAtE9NGUI4y986kz
+	 2ed2bdZBAnjn3H7QwvC9BK7iIuJCCkH/UmbrTShNId/7z/eHNOjbK1yhpE+OISiCKghSk
+	 fhA1sb2BT/1z00fnw8cZR78z7IE5kwlyQ3saIDSQKThVjSjE1lnwruvbaPTD+PG/KmYvU
+	 vD9ZJ1wYOi4LLywUvgFfNq38sWC2B+tpJn/o1RJ6xdUfkLUM+LotU/dgLv9ZS8oKWU/ZY
+	 8aqus/37Pmu+NY6b4KSDMyBJftCI5uVD8D8iaAXxbRVD53ggBM+FdUp5yAZekfkqUBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793777386;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=iRO4CLOqPr9uH1kpPT2qDteaQ0RfuYPf8MimE0o7IGg=;
-	b=j9SuhXRkK+lMCyLqpSgGTHnFKjn4/N4NaBQGRKXIo5MSlvjpXmuk7yPrUHoFN5qURwWf
-	 3izdzQnHbZGGpuqkF8/44cA3E+dap1U9daKks46DQDuxJpSOOZURSpSvm0a96H0tS15bk
-	 0c0yKLKmd1DQajcQdV/8EeHKgvPpTsVsHwPpBQ/bVa6tz1HPsx41SfcpAvJREfWkBJ67Z
-	 mP16nl+FrJEPx5wjX8dBefQ8dkFKgAWvhgL3J4W+qB50zbB+XIQDCCe3ixPCiv0Chgrgy
-	 ceW3SUvDq9AWFtq2ZhLf+MckGBXnELoJYVrzZ+gX1AWj95ClOe77rzNUF6i0rCAiqKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793777388;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=121s4JOLOhrrTtqNw+nRPzr1JTP5S9GXqoANnz/M4b8=;
+	b=DpGL/cfNrfm2v6f3znKsYVFxrv2bAFE0O2bOw2GAAvrwPBscuR2+p7fL4R0MV1PiNhLG
+	 99S+aG4ykJMCagll/13pQhF1wrN5b8m+WNHwH0ujtyByczW/oB2sJdh6P+5VkWSC2sSu/
+	 C+egGJvyMrrajNVUrUM1dGkea+uIt4AyoFe1WaVHgJ2Y/02A3uwrygeTVWUT+O3VfYjR6
+	 B0pa5dPIj3MylVVV0TjahwywUAY/tEw64ViwHtWFl5AS338AYw4F6MhJ2Dq4UMt0NLHrV
+	 YexELTWSt22buUr9Faso+pt/O+EjMcBfGixtIQBWq1nVsZRio86OAG+GvvCpYASzSww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fUyNB7La;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=h9Yhasrh;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GnP1ALsd;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB2AD606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 07:29:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB2AD606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12AD1606A334
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 07:29:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12AD1606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fUyNB7La;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=h9Yhasrh
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A46tKJh3335342
-	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 07:29:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	iRO4CLOqPr9uH1kpPT2qDteaQ0RfuYPf8MimE0o7IGg=; b=fUyNB7LaXHHn++Zq
-	OXO05Aa+1jRNb/72u+kvt1YTzZTy/0A81MpmdCO6r4gP9C315M8TYoUpSEtTI/Gd
-	mOd0jJDQD0RfpAlhdwayQBG4bTrnxoF4m6/3t0BiOrinj2+dA7kWvONTa8kL6ekH
-	Ma6wIcfVdhOiBnaB5ArSUiGJ6GyhDwUXCjbB11G3fRdmdGz+zt8Q7jvZgJJIopUa
-	6Lj8Be3GTIotUQT9GspOkj76cy2MseRr1rOsx93aLqqZUgUZz8boMKx0xwTfwiGY
-	cSXg3c8AwZ6YXsGWCoNKiURC/C1tbCiEj4JcRxdUzvzLdGOzpP0pNXKDhMX1iPxf
-	w72Smw==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqmjbtse4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 07:29:43 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5476f5bd009so1243661cf.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 23:29:43 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GnP1ALsd
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48e4831c028so320692f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 23:29:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793777383; x=1794382183; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iRO4CLOqPr9uH1kpPT2qDteaQ0RfuYPf8MimE0o7IGg=;
-        b=h9YhasrhFIZARQBS2sErF5o7T6LC8AHyMjKWqE1cfyU4qdQzuN55E87DvDzbC2ECGI
-         u0u/6P3hrGoM+88Ss8wBssreB6RmhvCU/AgdYWjh6bZ7d1844Eo+PtX8o86MGTsTuMv6
-         +OFX0lF81m906WOzRRZifgP9t0tdO8xn88E9J4rv+rpcmOQuPbv4A4nQtW8407j1gnqv
-         VCWo98TgyHOVBufLfFDHGovm8JRcJVpJP6ps1HJmSFutHIZTXVDD+Zu9peWAD5UolfO8
-         R650/BLEI8PsKFyT0xohpZsjHiVmIsP5XxRac3mcxa6Pnb3sGJGb/RlgvoDnCBlWU9rn
-         p7SA==
+        d=gmail.com; s=20260707; t=1793777386; x=1794382186; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=121s4JOLOhrrTtqNw+nRPzr1JTP5S9GXqoANnz/M4b8=;
+        b=GnP1ALsdVz51CwsNe01ids8Vf3XofkIBdeApDuS2THdbzLAnZE0sO2UqznJzBj77zU
+         L6EI5+xeloPdKNSnc4WPtEMZdWTe7nWiHbCxh3VlTUYFq8wx2Z8VXfdDxRa8hCPBzv29
+         rrXw2TobSoWy5g6L7i7Cwh9b/x4FlcBBCfmL3k/4ezm/6ySR5g79027PUjWHzCU36aJf
+         X1YfREmSrAMg+tbF58CiZP9DSlnvCSD4YawDUaN69Y3Bo5dZ6HSJE75H0dFr7y9MqbBA
+         qwXuZ55mj8XK+XayBwxEWpiF/fcNM3QXgLrJg8HdScRkw7+1GUA+DdWlzZP5zmmxhc1y
+         lKNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793777383; x=1794382183;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iRO4CLOqPr9uH1kpPT2qDteaQ0RfuYPf8MimE0o7IGg=;
-        b=zkcJ5El1RpXcmjRdRx9odaBma3X2c46GLl/Ano7p7ajzPgTqtMUwHsGxGCq51HyexA
-         Ya87fnN+AeC/ozYhXpOR4uFAEU6u5jnRZyKaGv5vm2fJXm/mMYfKApydZc7zErlmQvvB
-         gz5D3iDf2leiUXwbrok8gh3dHitGGkLFrUpN0GYRAvUP5Fk9+fITjH21muMET4hORdR8
-         yQCiXntW4Opg41jd6Krxjr2InsbcZu7+dLy+q1SfLbkPJgyYMXlAfqqLpRoYp1kp2fOD
-         gxtsd6E5Tyo78du5Mm0CHdfestAxpRdYKyPsO78sDweW1olPA7k+N8ugltCPOLUteuqv
-         UauA==
-X-Forwarded-Encrypted: i=1; AKwUvBwfNab/tw/GVwE5VbF0Zzj1h8tPSJqLWScqomNdxMmQvpLaZVnCeMkj4t+qXNRVOE53LdZ1aWdZatlAsqo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9EK1ju/1eJs1C4QAOeeqflkn1/nBKewJSPLH0l76t/5Oi0MVEy
-	onaOIIQVoXcuOgnalNZMnWTefplQifSAh4cYIhq7bHAHXMUnjCBlL4INHBwDbQdV7X1F6nRI56r
-	7Q+xuxb5/JlG1s2THPUjXlGge95ya9CSFRHwGW61yvCkvq0+7ytQn9RLi6HvvBEENmH0=
-X-Gm-Gg: AYBFou1obtt9scHZOIPoLxnptZ/QGXS6CeTnNSfrYMU5f5D21kFlM3Yvvjh7xKlq+xd
-	y6z0Y4/hpc2qP+9Aj6t74MgVg1l3RYumkYGPjqYZqYaZQcXe52g4tephIsJggdQNrXru7p6LCDA
-	3NWJbti1J0Qn3ytqO7idClfus8f9+7r83WW34wbkkLguQxJn7y0k3SCbPE52h1CZLGhXG45x+mA
-	GKS+J9IP/ITVIosLNUCnSH8WsFDgC3m02UDBzgsVamLeS9z1WVCSl2RcKPa0IGgnDWXmQGCnSej
-	18yXTWwojSkozha6SIsTgzJGZqbrme5p88lmDqV7x8BkaMBJKGPz7IJC42Dwv7raWcjPQCDDzIZ
-	TbOTew8IplX5KkzmRyesS6qc9K5EQssZWHBk/H6FyFlsTP0seX4/2Dj6FUgYKOLfq8HOX
-X-Received: by 2002:a05:620a:a29b:10b0:93f:1a1a:2974 with SMTP id af79cd13be357-9442173715dmr2474380885a.6.1793777382980;
-        Tue, 03 Nov 2026 23:29:42 -0800 (PST)
-X-Received: by 2002:a05:620a:a29b:10b0:93f:1a1a:2974 with SMTP id af79cd13be357-9442173715dmr2474379085a.6.1793777382531;
-        Tue, 03 Nov 2026 23:29:42 -0800 (PST)
-Received: from [192.168.226.1] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d0e48b3b7sm40379466b.66.2026.11.03.23.29.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 23:29:41 -0800 (PST)
-Message-ID: <a56ef682-c28b-42f4-b23e-25bf7d7879c2@oss.qualcomm.com>
-Date: Wed, 4 Nov 2026 08:29:40 +0100
+        d=1e100.net; s=20260707; t=1793777386; x=1794382186;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=121s4JOLOhrrTtqNw+nRPzr1JTP5S9GXqoANnz/M4b8=;
+        b=F2tS+5LzWGjEymlziEaJci/NrDU5PnPIO98Y2UdASkf8GkscycW35dVGeVkxho/H8h
+         hQJVfj5+NeNYZydYt/4LD3MmbK1L4zoUZRyx13T3cmQ0KgMNbX02hmEKg/nwLmwt7G98
+         o3Vl4yZY1Rg+jYnycvzLVj24lFbpa/67oP6OM0m7Yb29YkpT603kvHf+Osyb5W7vmjX0
+         1FHw6HCaO+Ga9z4Sqlg7NztlSMwpx/gHJVt+oLiZR/stX9xJhX8IdnaLTr3foGFn5QGI
+         2SCohg8sB6WPXfds8eOKQq6kU67vjjc+Q1pxcCwDOBrp49vKVVopAt1qVyhxY4DMT2PL
+         Qocg==
+X-Forwarded-Encrypted: i=1; AKwUvBwvoFHUCMG9Ev+GfgQNYfHJ5vkZ7e/bB0McRey9Xp9i4g/fX6dKstLamQYUIUxE8C30ejNIYJ/t6YBaCoY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9P2PQHTwbD0qghODCoMx/mvHBpyc87hV5VHf4ydLipKbOgIso4
+	E1c1wWWzcWW5buy9nug89s/sqYlRT2eqIj/RZ4w7fnS8okZztelgkozpBqblWg==
+X-Gm-Gg: AYBFou03eQ2LvUX+Wjj6ahrFVHeDtOxO4iXHZn6t93rw1zN/OXC5lrSkvrPcTNAMKSU
+	xKKLxwAtFQh8SsoUW9lCRT9oLsLvPvAodtkcPDGAn19CI6k7bSIqPYbIcUHVlpgVV1+PAh8Yu3q
+	AW1uaUyB4HAT8t7980B5KbkANUiFHELDfABRvHUEXkGrx7h6pavj/OgPt9ja0r/aui1/mkk6o2T
+	RNYMnbusWmfANH6CYs7uGHCNuUUismCuImppMhwHqEBF9etVRUmumT5SLpZULk4GsgpsE8wW02c
+	vD4sb/jvZpPDpYSH54cmF+q3wXV0NDvNI3J7RNn9eeVNKSASjGXl1rzKsWnICYCdZjxBW8gQS+t
+	EXfiSFAoAxzE6gAtWXgt6H4Ffuu4w5NCEK+14YFZEeG2TQqIfEgPUBXO5yGExIfe3miCMNKCwb3
+	j5RQ8U8CiPD+6mqRoSBFyH6W3xPoI4nHxDPMTs0TYMbt7qk8X/cTrPT4VntT2Jgbqaf5NB3tEkB
+	4plfp44IRXQTyBZYdBInm3tOBRYlZbH0r9Bcg5Y5MjNWlz+71uvxM5/VeML7ymJXJFpHgq0i/kA
+	7UWwMQsKdPzlPtaUbh/FEgfPuytzYwl8D6hT6Z5M3DFHxphWKBjPKx3yzP9k90dFDGVnWRzObOx
+	NxTagsiIqfyQNtXUMNqPV3itcDjyUnnlxaw==
+X-Received: by 2002:a05:600c:46ce:b0:4a6:7d6:821f with SMTP id 5b1f17b1804b1-4ac189928e9mr345693905e9.29.1793777386280;
+        Tue, 03 Nov 2026 23:29:46 -0800 (PST)
+Received: from Ansuel-XPS24.localdomain (93-34-90-148.ip49.fastwebnet.it. [93.34.90.148])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4b2a555e59dsm130754225e9.0.2026.11.03.23.29.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 23:29:45 -0800 (PST)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Lorenzo Bianconi <lorenzo@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Felix Fietkau <nbd@nbd.name>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH RFC net-next] net: airoha: npu: attach passive devfreq scaling
+Date: Wed,  4 Nov 2026 08:29:39 +0100
+Message-ID: <20261104072940.52933-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,121 +104,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] mailbox: qcom-cpucp: read mbox hardware register using
- readq()
-To: Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>
-Cc: Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Jassi Brar <jassisinghbrar@gmail.com>,
-        Konrad Dybcio
- <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260928052940.688105-1-sivansh.gupta@oss.qualcomm.com>
- <989045f1-c4c3-4871-92b5-dc9f2a18f801@oss.qualcomm.com>
- <179189473286.2132802.7434637844183959510.b4-reply@b4>
- <d4c11aa2-637f-4936-91d5-81b9d00aff0f@oss.qualcomm.com>
- <179377342626.494575.14471451763190105361.b4-reply@b4>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <179377342626.494575.14471451763190105361.b4-reply@b4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: isP845pX3IevRTzFC6n50ysnsVAA6j7x
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAyOSBTYWx0ZWRfX/HkuGW+7Smto
- j7/Tmj+7+Jr0iTz6nv6Hdgwm4ie6ky14Fb544kl0uWzzy6pnpGOZixXaI6xUfxkjLGhJxAuf4IF
- bFlhn9MTQatlYbZEWBx13qSgkrn/Ed/5vnM8DDPsiHZSgbJUDMcqUZVCmGn9ce/48mIFV6goDm4
- v8wpjHj1CWRN7MN9LjQCY44ysKdRoffexpDZbRHUQsClUkEv8yWdtWVU17ciPQ7q51gEoZU3knw
- QFyVgR0F4djckBiE5/kJ/bpvd4Bh1MsSbAK+p/TJUjiH8BDiUFC3AwxBJWJliGZvOMYuhw9ovDm
- yhbtuZa/TDvKYlY+FPEV6LR9XOMwv9v9+Pcn+RbJ5K5fvIXIAqehkRjrtnVZr0hWCEhvUGEI891
- c7V/ovx0b+SUVikbpdtC94gBMdZLeEhYh4l4vSiB2/w+sG5qgbOPUglcSLfnDxvsMBazeGm62S0
- u7jqUG1oOKfPK8gkpJg==
-X-Proofpoint-ORIG-GUID: isP845pX3IevRTzFC6n50ysnsVAA6j7x
-X-Authority-Analysis: v=2.4 cv=NMhAaE6g c=1 sm=1 tr=0 ts=6aeadee7 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=bXuMI6HEHXQEcPHf8MwA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAyOSBTYWx0ZWRfX4DWsOD00KQh6
- 4UufExNrGDZY3+k7DF9CBhBqJ+Uo+diejTmopnZx7hZyqlTedFcuQt+5AZZiSDM475K07BQQ9vD
- 8ngiNeCciAnorsyua69vgffxccuUMkk=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_01,2026-11-03_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 lowpriorityscore=0 clxscore=1015
- impostorscore=0 suspectscore=0 phishscore=0 adultscore=0 malwarescore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611040029
+Content-Transfer-Encoding: 8bit
 
-On 11/4/26 7:23 AM, Sivansh Gupta wrote:
-> On 2026-11-02 16:56 +0100, Konrad Dybcio wrote:
->> On 10/13/26 2:32 PM, Sivansh Gupta wrote:
->>> On 2026-09-30 11:55 +0200, Konrad Dybcio wrote:
->>>> On 9/28/26 7:29 AM, Sivansh Gupta wrote:
->>>>> Mailbox hardware registers are 64 bit wide, but the interrupt handler
->>>>> currently reads only 32 bits with readl() at offset 0x4 (upper 32
->>>>> bits). This returns an incorrect value, while reading using readq()
->>>>> returns the expected value.
->>>>>
->>>>> Use readq() to access the 64 bit register and pass the expected value
->>>>> to the mailbox client.
->>>>>
->>>>> Fixes: 0e2a9a03106c ("mailbox: Add support for QTI CPUCP mailbox controller")
->>>>> Signed-off-by: Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>
->>>>> ---
->>>>> v3:
->>>>> - Removed references to an out of tree driver to focus on the incorrect
->>>>>   value returned by readl()
->>>>>   https://lore.kernel.org/all/93ce8588-7500-45da-9b9a-424c202590cf@oss.qualcomm.com/#t
->>>>>
->>>>> v2:
->>>>> - Expanded the commit message to explain why this change is required.
->>>>>
->>>>>  drivers/mailbox/qcom-cpucp-mbox.c | 2 +-
->>>>>  1 file changed, 1 insertion(+), 1 deletion(-)
->>>>>
->>>>> diff --git a/drivers/mailbox/qcom-cpucp-mbox.c b/drivers/mailbox/qcom-cpucp-mbox.c
->>>>> index 862e45e8fbd5..0b584d9aad6c 100644
->>>>> --- a/drivers/mailbox/qcom-cpucp-mbox.c
->>>>> +++ b/drivers/mailbox/qcom-cpucp-mbox.c
->>>>> @@ -61,7 +61,7 @@ static irqreturn_t qcom_cpucp_mbox_irq_fn(int irq, void *data)
->>>>>  	status = readq(cpucp->rx_base + APSS_CPUCP_RX_MBOX_STAT);
->>>>>  
->>>>>  	for_each_set_bit(i, (unsigned long *)&status, cpucp->mbox.num_chans) {
->>>>> -		u32 val = readl(cpucp->rx_base + APSS_CPUCP_RX_MBOX_CMD(i) + APSS_CPUCP_MBOX_CMD_OFF);
->>>>
->>>> This still retains the writel() later on
->>>
->>> This is intentional, currently the existing mbox client(s) assume 32 bits
->>> writes instead of 64 bits, changing to 64 bits here would require all
->>> mbox clients to be updated to send 64 bits.
->>> Currently there is only 1 upstream client (arm_scmi).
->>>
->>>>> +		u64 val = readq(cpucp->rx_base + APSS_CPUCP_RX_MBOX_CMD(i));
->>>>
->>>> This will alter the indices of the mailbox channels, but it's ""fine""
->>>> because it's always zero for the existing platforms..
->>>>
->>>> Konrad
->>>
->>> I am unsure what you mean here. The channel registers are spaced 8 bytes
->>> apart. In the old code, we used to read each channel's upper 32 bits
->>> (channel base + 4 bytes), in the new code we will be reading the entire
->>> 8 bytes.
->>> If this is not what you meant, please let me know!
->>
->> You're right, please remove the leftover define
-> 
-> Hey, APSS_CPUCP_MBOX_CMD_OFF is intentionally used in 
-> qcom_cpucp_mbox_send_data  as it is still using writel instead of writeq, 
-> as we discussed.
-> 
-> Also, I have since learned that this patch has already been picked up!
-> 
-> Cheers, Sivansh
+The NPU can scale to different operating state from idle to normal to
+turbo. Attach a passive devfreq that will scale the NPU frequency with the
+CPU with the use of OPP table and opp-required properties.
 
-Ok, all is well that ends well
+Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+---
 
-Konrad
+Posted as RFC to understand if it's the correct way to handle this...
+
+DT patch will come later.
+
+ drivers/net/ethernet/airoha/airoha_npu.c  | 61 ++++++++++++++++++++++-
+ include/linux/soc/airoha/airoha_offload.h |  3 ++
+ 2 files changed, 63 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/airoha/airoha_npu.c b/drivers/net/ethernet/airoha/airoha_npu.c
+index 4d3195eb00f7..f8055ca65ec4 100644
+--- a/drivers/net/ethernet/airoha/airoha_npu.c
++++ b/drivers/net/ethernet/airoha/airoha_npu.c
+@@ -12,6 +12,8 @@
+ #include <linux/of_platform.h>
+ #include <linux/of_reserved_mem.h>
+ #include <linux/regmap.h>
++#include <linux/pm_opp.h>
++#include <linux/clk.h>
+ 
+ #include "airoha_eth.h"
+ 
+@@ -656,6 +658,62 @@ void airoha_npu_put(struct airoha_npu *npu)
+ }
+ EXPORT_SYMBOL_GPL(airoha_npu_put);
+ 
++static int airoha_npu_devfreq_get_cur_freq(struct device *dev, unsigned long *freq)
++{
++	struct airoha_npu *npu = dev_get_drvdata(dev);
++
++	*freq = clk_get_rate(npu->clk);
++
++	return 0;
++}
++
++static int airoha_npu_devfreq_target(struct device *dev, unsigned long *freq,
++				     u32 flags)
++{
++	struct airoha_npu *npu = dev_get_drvdata(dev);
++
++	return clk_set_rate(npu->clk, *freq);
++}
++
++static int airoha_npu_devfreq_get_dev_status(struct device *dev,
++					     struct devfreq_dev_status *stat)
++{
++	struct airoha_npu *npu = dev_get_drvdata(dev);
++
++	stat->busy_time = 0;
++	stat->total_time = 0;
++	stat->current_frequency = clk_get_rate(npu->clk);
++
++	return 0;
++}
++
++static struct devfreq_dev_profile airoha_npu_devfreq_profile = {
++	.target = airoha_npu_devfreq_target,
++	.get_dev_status = airoha_npu_devfreq_get_dev_status,
++	.get_cur_freq = airoha_npu_devfreq_get_cur_freq
++};
++
++static int airoha_npu_devfreq_probe(struct device *dev)
++{
++	struct airoha_npu *npu = dev_get_drvdata(dev);
++	struct devfreq *devfreq;
++	int ret;
++
++	npu->clk = devm_clk_get_enabled(dev, NULL);
++	if (IS_ERR(npu->clk))
++		return dev_err_probe(dev, PTR_ERR(npu->clk), "failed to get clk\n");
++
++	ret = devm_pm_opp_of_add_table(dev);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to parse NPU freq thresholds\n");
++
++	npu->gov_data.parent_type = CPUFREQ_PARENT_DEV;
++	devfreq = devm_devfreq_add_device(dev, &airoha_npu_devfreq_profile,
++					  DEVFREQ_GOV_PASSIVE, &npu->gov_data);
++
++	return PTR_ERR_OR_ZERO(devfreq);
++}
++
+ static const struct airoha_npu_soc_data en7581_npu_soc_data = {
+ 	.fw_rv32 = {
+ 		.name = NPU_EN7581_FIRMWARE_RV32,
+@@ -803,8 +861,9 @@ static int airoha_npu_probe(struct platform_device *pdev)
+ 			 (val >> 16) & 0xffff, val & 0xffff);
+ 
+ 	platform_set_drvdata(pdev, npu);
++	dev_set_drvdata(dev, npu);
+ 
+-	return 0;
++	return airoha_npu_devfreq_probe(dev);
+ }
+ 
+ static struct platform_driver airoha_npu_driver = {
+diff --git a/include/linux/soc/airoha/airoha_offload.h b/include/linux/soc/airoha/airoha_offload.h
+index 7589fccfeef6..ac776dc31487 100644
+--- a/include/linux/soc/airoha/airoha_offload.h
++++ b/include/linux/soc/airoha/airoha_offload.h
+@@ -6,6 +6,7 @@
+ #ifndef AIROHA_OFFLOAD_H
+ #define AIROHA_OFFLOAD_H
+ 
++#include <linux/devfreq.h>
+ #include <linux/skbuff.h>
+ #include <linux/spinlock.h>
+ #include <linux/workqueue.h>
+@@ -167,6 +168,8 @@ struct airoha_npu {
+ #if (IS_BUILTIN(CONFIG_NET_AIROHA_NPU) || IS_MODULE(CONFIG_NET_AIROHA_NPU))
+ 	struct device *dev;
+ 	struct regmap *regmap;
++	struct clk *clk;
++	struct devfreq_passive_data gov_data;
+ 
+ 	struct airoha_npu_core {
+ 		struct airoha_npu *npu;
+-- 
+2.55.0
+
