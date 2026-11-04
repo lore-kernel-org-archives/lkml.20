@@ -1,76 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793781037;
-	b=Q59tQxi+3qQAS3sK0qbdYLzBgOLrpit3+wPTj6ohmLvDR0pLYknsyHGhG6A5z6imLuka
-	 QdGoGTFqaOCwRzfzgf3t4pqs3Dcu+yqUjQW2r0HJLpzr1k72L2GZHmw07cO1XmpIMgp9z
-	 WA++OnRGoPdMJ2cvjxcLcNBBOdThHKlA3+bCpZpjk1R7+nmn/gr1OpjQv3o2UtsHb2s3n
-	 rNKsp307wxUGnewLBSVFyo3rjPlU7OyuVRtN/0ePl+XpR2PARuELysJWPM6puA12Vrr/u
-	 L16vSSXjcAF6WA/8pcOHHjOauPfIDbBd1EJccLMkSSaD0r6xnrAD44CbBeBa2BVJrGQ==
+	t=1793781058;
+	b=VOLsqiVRT1kS0VMshnbBNHf2guEYgSjTA5w5DMqZGcgieKgkKXZcaE1iq6+ucCUIXtGp
+	 NhkLZTvTkOCfrplTUzbyxyoQGVKtcj70xssaJdCZom3jRnzYHfZXmJrJLBKyDENcBEulw
+	 RY2YbLoQVkiJP3DRIZtKWfzPytojZNkmtz4W92fwNwZ/SAkzgTfYIFq3U31DvASxnpyOO
+	 KmZ9//rC1Jq+KjpNbhvKZs8KYUbjiLGkgIIvSsQkXkJIxMgliRcpyQlMH9ix8kM2mUsAs
+	 a5EfIMOcIoGbR/E91qZ0osnVOBqAqZf6kpVtWGTi+Ba57rQ1CE60Vsd7Chp+uC8BW/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793781037;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=VTnZ9KxipM57oeI6XdWPJAXVctjy3UG+Ti/EianJRiM=;
-	b=gQtwmbfnNLTFGL5+VZ9xkkA/3gKpHnQxySnJHOGlVYdTzWm5a39qPLg7nVZKyS1UZCnX
-	 ExSJAWPXK8nEmlRIj1LQemIW5FDwWBkxKML03fM9y+MvM2lXeSrxlWZjEMt8n1qcdWVrm
-	 3phpZzY954t/gE8sUF4V/gcGcVKafOJ0YJvR3jiXbok5i+miz+f6g1Ul/vDxLs0dzDuaA
-	 WOfZvWX5TD7Q77dMQRl62AW7SXL1uKuTdDrPIUOAh+dRCx0bF/YSrh9Mx6PRu7HU8HX6X
-	 KPPmdscBdMDkKD1vGCYqzfTw2gzHyxxOG9m47FVhxA5zDtZsnSchiLhDARtmO7RSJPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793781058;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Uj8tvQfzebEib49IP4TwO7biv2xdB7sPLDoMB1lqXfY=;
+	b=3ELyIG/SFCvdlxJBAguBr8r7kFSQ/b6+XhuKkkpp0zonC+ux+maZBh0vNOqnFHfkCI8K
+	 axwAOh9XGdCAUJhFYI64F1rpAfgBrKYARFEb7yJFGxiDa9QVdKHlgJkJh2lByrGhZf0dc
+	 zl8WFfn6QHLSrKFqa3QzJzx3WVebPsefzF06StnQ3MI5/C2GX18ihXuIo+xPM4BDP+hIv
+	 PBrLp2qJ4P5cgfvdtl9JmTSbp586TnIRlzVoXWMTr0j0N6FVFKvbqJqrVa+qV3P+oTQYz
+	 eUPYAHnsTzCC4+WjRhFjjCI4g2eJ2x5UTqfU1BmswMy90oaJeMwi0TdNvEPf53/Alpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.217.47
-Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com [209.85.217.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8D57606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:30:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8D57606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-7cc53938a8fso215584137.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 00:30:36 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793781035; x=1794385835;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=VTnZ9KxipM57oeI6XdWPJAXVctjy3UG+Ti/EianJRiM=;
-        b=jzBgPqBZpimQtppqK2HL2u02rce/Wy2sTbgVzITwXYlSq+w5VV4yQP8g65n8ZHwhjT
-         Pn2j+Daov4YS61CKaezb9WKZVclCmY8xt6aAEhw78fxdpFiogXgnrDVD73O5J7+KwAhe
-         4z5ebZGgdcHtqIrabeynBlwVIMPs3kCslxRDiXqZC2dBGTYGefxTLYdrdT4TVuuBXO5B
-         HFl4VP1GZXm2FPcivRYOtKNBEtw/A2rA/vdFPSywxNheTcnE8lykN6ntbuwm4wDD2Vdb
-         EEJBTZmCaka3c6hZ+2hv9w2JOKsJ+SrX/RviXUCR1j5fX5QtBV/L/6z3JKhb+G4oNcCY
-         WhKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxEdGZEo0yzZ5bqW0cs1XtC+QLTSHQxW6s4qENiZY2TgUFyRUXUQkNergMmv6wEiupzWSB8wpp+hT2auD4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8sE50pHaH1wvCFaLXjWwhOZaXGrtOtELuOtoeXf2GeRa6ocHFd
-	yJhdsCCFVon61OkfLrtkE7fp1joI0pckELsyoDJmp7/flazTHfhwiHdWwUl0qXe3
-X-Gm-Gg: AYBFou1LxLHz9vU3qxmQiDelshzF8zd942IMh8pRJe8Ku38brDrl3LxqEyUF5Tw17QD
-	nLjgqzE6XMuQFY8N7pAzvSCcyT8/NtA9oq+yLlvdLs8VC1nEA52dYoVncgY2ZqS5Fr8oU0+4TiZ
-	JGNdZ5lAwc4QwxJ2CcQRCyMDCj2dgaqqsIKBvYYlgv3vItjENfDaSKTGC9uxUxOBi9Mb6Y1n6c1
-	H+U2i5/K0cYKvSdYoZktVnaB2RZUJ9bMcOnvUfCWO0WZ24awGu8iXkE8EHGBTE6jcBgsrpe8+AU
-	9IkJedOoJgIa6al6LVrY177rl4OLOzprZoA12R4Neaz66W9OR7cnlRXaw8SD0LdoKNEipjahv12
-	wnsVHWP6b6Se6iQARBwb+KKO/CnKUFbszltnM7O+45ZorHovBIozwswhq2eFdlNIZuSAI6Fh6ak
-	3D5b64IcnpYFRmxDZLgMu6DDnBbgyTn+ReP+//EVKdhqlWG7LQmYzpDDMNOHGtyIvZqRPEn/igq
-	IrvQScInTdzeeemG1NJQTJKwU6Z52RyaymvLDpGkCXrw5BA6d1op2yCg6/lOzUQhlsNiVFvhjwG
-	OJS9Ko+iLwAY4TVjLtGH7tF+TWthnlGHcdAA/Hc+5wCEOZdgko6WfEm9vMmv/iyQ3A==
-X-Received: by 2002:a67:e70e:0:b0:7b2:f3ff:6b34 with SMTP id ada2fe7eead31-7d07277c9e4mr6718637137.1.1793781035354;
-        Wed, 04 Nov 2026 00:30:35 -0800 (PST)
-Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com. [209.85.217.49])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d26fd3e101sm1109791137.3.2026.11.04.00.30.34
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 00:30:34 -0800 (PST)
-Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-7c03a445cb8so246185137.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 00:30:34 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxvyKBojXqIno3Vpz8BVJ1RznWVrwx/CgWm/wm71U/JYKEUybp/cB7pUVii6rGGnjuzLElGYUdhOft1/D0=@vger.kernel.org
-X-Received: by 2002:a05:6102:8099:b0:7cc:bc0:b2d0 with SMTP id
- ada2fe7eead31-7d072d59168mr6120354137.33.1793781034293; Wed, 04 Nov 2026
- 00:30:34 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47E1D606A31B;
+	Wed,  4 Nov 2026 08:30:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47E1D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 0a48e63ad82a11f19a56ed5b684f684d-20261104
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:4457f2ba-a248-4bf4-9933-fa9fdace82e7,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:20
+X-CID-META: VersionHash:7db8b62,CLOUDID:9eb46779cbfa0239073993231c2a8354,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP
+	:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,
+	LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 0a48e63ad82a11f19a56ed5b684f684d-20261104
+X-User: songxiebing@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <songxiebing@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1147232008; Wed, 04 Nov 2026 16:30:49 +0800
+From: songxiebing <songxiebing@kylinos.cn>
+To: tiwai@suse.com,
+	perex@perex.cz
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	songxiebing@kylinos.cn,
+	stable@vger.kernel.org
+Subject: [PATCH] ALSA: hdsp: Fix divide-by-zero in DDS offset control
+Date: Wed,  4 Nov 2026 16:30:45 +0800
+Message-Id: <20261104083045.1939479-1-songxiebing@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,43 +70,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103-reset-regmap-test-bits-v1-0-1b33607a76b0@pengutronix.de> <20261103-reset-regmap-test-bits-v1-5-1b33607a76b0@pengutronix.de>
-In-Reply-To: <20261103-reset-regmap-test-bits-v1-5-1b33607a76b0@pengutronix.de>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 4 Nov 2026 09:30:22 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdX8-8nEYKOB3Hhbb5DiXHcOgYaMCtJ0do=evQDbYNEMLw@mail.gmail.com>
-X-Gm-Features: AclHuK8USmfzs7i7XtJ90bDmKjuz-weCg5Jo9uiJtfA3Xj-kpN0lb8TQTdngXvE
-Message-ID: <CAMuHMdX8-8nEYKOB3Hhbb5DiXHcOgYaMCtJ0do=evQDbYNEMLw@mail.gmail.com>
-Subject: Re: [PATCH 5/8] reset: mpfs: Use regmap_test_bits in mpfs_status
-To: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Damien Le Moal <dlemoal@kernel.org>, Conor Dooley <conor.dooley@microchip.com>, 
-	Valentina Fernandez <valentina.fernandezalanis@microchip.com>, 
-	Daire McNamara <daire.mcnamara@microchip.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
-	Michal Simek <michal.simek@amd.com>, linux-kernel@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, linux-renesas-soc@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, 3 Nov 2026 at 15:53, Philipp Zabel <p.zabel@pengutronix.de> wrote:
-> Simplify mpfs_status() by using regmap_test_bits().
-> Now returns 1 if asserted for all bits.
+From: Bob Song <songxiebing@kylinos.cn>
 
-and propagates errors.
+hdsp_set_dds_offset() computes the target rate as
+system_sample_rate + offset_hz without validating the result.  A user
+can set the DDS offset to -system_sample_rate through the control API,
+making rate zero and causing div_u64() in hdsp_set_dds_value() to
+divide by zero.
 
->
-> Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
+Reject non-positive rates before programming the DDS value.
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Fixes: e4b6088c8cf1 ("[ALSA] hdsp - Add support for fine tuning of sample rate support to HDSP 9632")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Bob Song <songxiebing@kylinos.cn>
+---
+ sound/pci/rme9652/hdsp.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Gr{oetje,eeting}s,
-
-                        Geert
-
+diff --git a/sound/pci/rme9652/hdsp.c b/sound/pci/rme9652/hdsp.c
+index 7dce548b9f36..694816f966d2 100644
+--- a/sound/pci/rme9652/hdsp.c
++++ b/sound/pci/rme9652/hdsp.c
+@@ -2802,6 +2802,9 @@ static int hdsp_dds_offset(struct hdsp *hdsp)
+ static int hdsp_set_dds_offset(struct hdsp *hdsp, int offset_hz)
+ {
+ 	int rate = hdsp->system_sample_rate + offset_hz;
++
++	if (rate <= 0)
++		return -EINVAL;
+ 	hdsp_set_dds_value(hdsp, rate);
+ 	return 0;
+ }
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.25.1
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
