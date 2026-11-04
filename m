@@ -1,56 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793756988;
-	b=bO+6UP5RBwvziUAxBK7W4REgYFH/fBKRVicztdWa9D+/CEucqhz+oNE49YfwJ3Dsgh3x
-	 0LCFFOaWURWVxVDZMkPgJv77dq1/BU/BVehGbFYkdt4KrVbn5FQA4ucxLYKD4mfsM5R3u
-	 TpB4fGzaYqZQXA9EhVcncK8McwI1FAnRIqjwl0RjeHV/J0kPdhkH0xDTGQnAlqw1Rb8H4
-	 3NuEA6nAVA4aeSndoRg433bcBAVF8NseuLJKHroP2f+R/YIDzf3tz/qDfZ4e8midRl6tL
-	 fsLTnTedAPIu47WTB2qPQQjSuovd41Vtzq9osNJgOkdZ1l+ucSCIvx/jn3Z/7lz7Z0g==
+	t=1793757070;
+	b=GY+uvquPFUxbuK1xSR2/iQHFrxtTTxeZhBnMhbjPa1kmOLRdq3pOEOvTwb8yplQm5AAy
+	 H0toDrZ1LGQJ6Sbn8dFA2c58naOFzch4GVac1eW+og2uQ+QzYGA10PePHuyVgozmXL+4z
+	 UoIobe3nyAuXIwEKjF4GBR2qCbBDkfccdJF0vm21rxySNr5XdD/Xm2dx8dxtB8MuYxEb7
+	 omRE6oMSDdPFL7E6Ra6kf0w0WNXfwYqs7h1xbiSH0vLCjvWZ4qlNcPIMjaUzYqcjTPI0f
+	 PeN2Ves3dWnHnMwOIzj1hFoHZGiisCzCb9pnjEsF9G5KTIUxP231ES5lNCDSVUrdPlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793756988;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793757070;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=x2y/jrRuW1kOVkeI/kyVA0jAKmFvPNzDOon3GN/uQPs=;
-	b=jzZwcwW8xPWHAaTte5Xaf0/7Om/olMwVJ+Adani6cpWHfb5pcQHBpMTSPG8bfUxlk0hB
-	 /Ceik9PBtvKriDGiS5DoQqhiyeaIXuykHqAhsicoJw4SS8z4WNQcedHSmDpGakVjZiPxD
-	 MmAWeXtODMcRGwLn/AV3LAA0LrlNLrvSjJ8h56fzfbIma4+lT+seParBcYpEACTlILZek
-	 vFh5JEtL1LbX0JbKpRa0KIX+EgEsy1WC5HfzdkhAQCE+Xvn3ipajXBw+sJsYTQSweS9h2
-	 N7oRBYE9OJcwR1V7NJ81VsRfHGye6cwyoxsAL5ufm1HArGWHuGvV766HibJArdpKG5Q==
+	bh=LFq08CsAFVhSn1eWQAB3dasJVn0D2xjTVXuGTr24SJY=;
+	b=CrKujtkKsbO+gGB6NTD3GQan1NbHoP/6YZME1ewOmiHwVUg7XWed4xoQ9bMgudtYmvMH
+	 ENsYdq9swHYpUp1oBouHQXFbPKSiBAYUSvG40CL+LITeHvVpITesBoU8aQQaH68Rlr9x1
+	 3CSkWX0HCUUD1e94cCgCbJfKxRx6BbAVzY7MiSB8GTptjVknxRNLY2/1wOZ0EagSxNamU
+	 Jrc6dsLZ6w9YDnK44RAhXeJ8grZHXZDzoURFMvV9/pk5ehIYFWtPON9bny65fopubnMV4
+	 j1FKSOOAEVAh7tXdHVnC6v1V1nn/s71WqN0JnRRx/INUCzFRPHI7NIB0A/N3f2B4Pfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OmwWK6LW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 807C1606A326;
-	Wed,  4 Nov 2026 01:49:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OmwWK6LW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB6F51F000C1;
-	Wed,  4 Nov 2026 01:49:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793756988;
-	bh=x2y/jrRuW1kOVkeI/kyVA0jAKmFvPNzDOon3GN/uQPs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=OmwWK6LWBHsuAIc4CYoOo4VUNuEAq0PQhJmAv7o+GvrlV5bzf986F8gS2Sab+y2ak
-	 xlR1BPQ1Jv6VBdQ+bXTlY90xFEk9UWsSm3jo2B6AeGiwn5t7OBAHyF9JN2xXGNTMnI
-	 yLDIR9UQkeg1t0V9BAnwBMCLpZajvT0Da9uqCzSREaPgsL2m45nQ9mL5X3GkfPNQ1q
-	 c3B88X8x9zAwOVf0Dlt28RjnQHpYvBxGyueX93U8kcg2Yso6pfX7Wl/QQXrFHxhne3
-	 r6jWAD+UuNtiiyAhllQQkIEoWDHlhDdc2VCiiW9EFXTv5yfpJFAF4mY05eBIGk9epR
-	 J1mQ/X/+5KJSw==
-Date: Wed, 4 Nov 2026 01:49:40 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- andy@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com
-Subject: Re: [PATCH v3 0/2] iio: gyro: mpu3050: Fix runtime PM refcount leak
- in trigger enable path
-Message-ID: <20261104014940.565b8fb0@jic23-hlaptop>
-In-Reply-To: <20261103092002.1332-1-laixiangwu@cmss.chinamobile.com>
-References: <20261103092002.1332-1-laixiangwu@cmss.chinamobile.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C1A606A31B;
+	Wed,  4 Nov 2026 01:51:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28C1A606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 309188d4d7f211f19a56ed5b684f684d-20261104
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:5a3d2273-7069-40cf-aed0-21ea1ad4d9bd,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:f4c7383558f645e3733a1ecab93ba228,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:-3,I
+	P:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0
+	,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 309188d4d7f211f19a56ed5b684f684d-20261104
+X-User: weilixiang@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <weilixiang@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 488411259; Wed, 04 Nov 2026 09:51:02 +0800
+From: Wei Lixiang <weilixiang@kylinos.cn>
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Mark Brown <broonie@kernel.org>
+Cc: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Zhang Heng <zhangheng@kylinos.cn>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: amd: yc: drop duplicated DMI quirk entries
+Date: Wed,  4 Nov 2026 09:50:58 +0800
+Message-Id: <20261104015058.6-1-weilixiang@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,34 +73,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Tue,  3 Nov 2026 17:20:00 +0800
-Xiangwu Lai <laixiangwu@cmss.chinamobile.com> wrote:
+Two entries of yc_acp_quirk_table[] are present twice, so the second
+copy of each can never match: dmi_first_match() returns the first hit
+and the rest of the table is only walked when that lookup fails.
 
-> From: laixiangwu <laixiangwu@cmss.chinamobile.com>
-> 
-> Hi Jonathan,
-> 
-> This is a repost of the v2 series as a new top-level thread, as
-> requested. There are no code changes since v2.
-> 
-> For context, this series fixes a runtime PM refcount leak in the
-> mpu3050 data ready trigger enable path: patch 1 splits the enable
-> and disable paths out of mpu3050_drdy_trigger_set_state() into
-> separate helpers, and patch 2 applies the fix on top, using
-> pm_runtime_resume_and_get() instead of pm_runtime_get_sync(), which
-> also keeps the usage counter balanced when the resume fails.
-> 
-> Changes in v3:
-> - no code changes, the series is reposted as a new top-level thread
->   (v2 was mistakenly sent as a reply to the review comments).
-Future reference. Don't do that unless specifically asked to do
-so. Obviously you should never be in that position again, so this
-is mostly for anyone else who sees your patch!
+The LENOVO/21D0 entry was added twice in October 2022, once for the
+ThinkBook 14/16 Gen 4+ ARA (a450b5c87392) and again ten days later for
+the ThinkBook 14+ 2022 (a75481fa00cc).
 
-Thanks,
+The ASUSTeK/BM1403CDA entry was added for the ExpertBook BM1403CDA
+(f200b2f9a810) and then duplicated when that fix was merged into the
+development branch by commit 5a306bef5988 ("ASoC: Merge up fixes"),
+which kept both copies while resolving the conflict.
 
-Jonathan
+Removing the redundant copies keeps the table easy to audit when new
+quirks are added; the set of matched machines is unchanged.
+
+Signed-off-by: Wei Lixiang <weilixiang@kylinos.cn>
+---
+ sound/soc/amd/yc/acp6x-mach.c | 14 --------------
+ 1 file changed, 14 deletions(-)
+
+diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
+index ae26524453e8..034957508e51 100644
+--- a/sound/soc/amd/yc/acp6x-mach.c
++++ b/sound/soc/amd/yc/acp6x-mach.c
+@@ -87,13 +87,6 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "21D0"),
+ 		}
+ 	},
+-	{
+-		.driver_data = &acp6x_card,
+-		.matches = {
+-			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "21D0"),
+-		}
+-	},
+ 	{
+ 		.driver_data = &acp6x_card,
+ 		.matches = {
+@@ -878,13 +871,6 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
+ 			DMI_MATCH(DMI_BOARD_NAME, "BM1403CDA"),
+ 		}
+ 	},
+-	{
+-		.driver_data = &acp6x_card,
+-		.matches = {
+-			DMI_MATCH(DMI_BOARD_VENDOR, "ASUSTeK COMPUTER INC."),
+-			DMI_MATCH(DMI_BOARD_NAME, "BM1403CDA"),
+-		}
+-	},
+ 	{
+ 		.driver_data = &acp6x_card,
+ 		.matches = {
+-- 
+2.25.1
 
