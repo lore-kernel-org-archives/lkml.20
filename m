@@ -1,65 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793830884;
-	b=mvlkoEu1ZoycVKK4FcA9xWYfLUDAvLS7vjLvpT5uP/HzCGtfL688JD/5xTByvO0866wt
-	 SM9cOl1+It1NzfAyzdkvLy1bQzUa5/3IqpiGanmIqUzffax4ZVcl8595+S7G+mRIo82Tq
-	 tMekWggYQEpANxj57aLIbsSJ763WmfuvN9T2M4MRbIvAXco/Klr6y+V0kmeJA2L+lt2tV
-	 ic2gmmB4hunKHE4JoFwJKKvXXtO6jfmi7maoWksVZAK1Bmcq+U4p2NqPN4oYOUxvC1uga
-	 GRW5cayTJ235228pdw6TnxlzeARDNGuTIgrOb+FFuJbawMDSkZySiBaoUffgO6RSGfA==
+	t=1793831034;
+	b=5s/N6zGUw1JiP1rx8COSaU9W0MOcbSakEmGXJ3OgClziPex36PcwcLQKaNKGlGIoGRni
+	 Oqow8mukThrn+qNiKIAh/MHRGs8biTr8+eOl33fxA0y9Szy1IBusFDgcHQcm732Opmzoz
+	 KM+zCo6nhSC02iHVWXYn2PEmAcD7Vx1VQqioobJoDIzfCjX6NCCATmJ/cxaNAak6xCqMZ
+	 3SWmUoIs6RtUdpFnL2jXYR/mYJAUlzdNlQHIO4Ed70hFFThDFBHlzIq42GOguQnzwh60w
+	 fIJ0EYsoXH/6K6bOBwf5viuqWxdHL1BTOx+Wp7p7V/kKZM5rUOYEK3ZUBvmhJPIMB1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793830884;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=XCCk1/UzqkHSfoEOYC+LVl2fRx92CSah9mVG5E6sbPo=;
-	b=y8eMlLmW5dlK70Mu6/ZqjWEZCBEJ6hKt/Id56CMb4iEXarf3A12YeRzq/6o1t0FOYMgv
-	 6WBzPIwdSAff5RO6MXOPg7n1RLE8Ni7WjX8NMxSrvZzXwFwtBinmjIa6YBD0PRIH6aoP4
-	 EAk33Ldp+zWTKaPP5/IwlROKd9oa9vFp6L8dUW7ZjkPshQFn35aXmmsOJBgwxvOF/j0Zb
-	 cxv4FA+abyrxY/k6joBXoqQumOOdR3RDn3njmDQa2vkuDrnks1QESIPIofKRCkTwjqjHG
-	 02AfohOQEepU+4UcbS9n4v8RPQKuYLegHwaqw6QHminrZXLgU9sXayC8Qteb2fNFTbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793831034;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=KeZ2aB0X0IqNy32Bwapb83gUzvOHb7jOV5nmidAoLRQ=;
+	b=zhpkZSFXvTUDjSz8we3w6JzAL/mctSq4CvX7CzOyXs2rLoe1ieBL76WmmyzUfwdasCbP
+	 GmD1fvFqbBFOgFyP8Dab23sEjE4zGvV8sg2gH994xoPajHpltqlDGSVRXB2fq+PdDphxo
+	 SI7BIPA6nJTUYVLvRvOvKM3/tXzFuY5jT512d/TO5qmrlmLDxXAaA9nmHFt08mu7/0ami
+	 WtwvSgkD3ZwP20s/kOogIxGe4zdlhlMeqUEakeWMKNeT8lf923BQMkGAr+WvabSLaSFeD
+	 VAiBMhdqRxhRz6np/nvdr+vKnfrfkCkjFaTRSRh++4DIVv/zfJ9UB34KH5INhKHWRDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N1bvsY5c;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=toxicpanda.com;
+	spf=pass smtp.mailfrom=toxicpanda.com;
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=NcEExbnD;
+	arc=none smtp.remote-ip=209.85.222.173
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89982606E83C
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:21:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3999606B385
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:23:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3999606B385
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N1bvsY5c
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63C5A1F00919;
-	Wed,  4 Nov 2026 22:21:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793830884;
-	bh=XCCk1/UzqkHSfoEOYC+LVl2fRx92CSah9mVG5E6sbPo=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=N1bvsY5cGXpvtzUUVHaK4mO1FkP1jrhiMoU0nswrfWZNzZG63gaLaJaNqep3aDO4Z
-	 owqx0fo4BNlpd8OcVDcsB6iYNTlSPadICdgSMOv12YN3LQBeY0WAp0C5K833dGMtRR
-	 jBpqiAIl7VXyVkBSk5V+fh0L/gByEituloN6DEpzVxfhf4AgXHYQQ8iD0m0KZQGnKT
-	 SvTjvGXgIPv+LaEobnW3xByM+Sp7z5wko/baLD2ewkyvKJkDwKIzPhnRdiP+BPJNvt
-	 9uofWRSFowuzshvYtFx4io+QLm0Zj0Oq0+KFdEVF34R42w3wB9OpDj+uWh/MnJ10KF
-	 NHe3cnxrL/EdA==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 20705CE09CE; Wed,  4 Nov 2026 14:21:24 -0800 (PST)
-Date: Wed, 4 Nov 2026 14:21:24 -0800
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: James Morris <jmorris@namei.org>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Julia Lawall <julia.lawall@inria.fr>, Greg KH <greg@kroah.com>,
-	gmonaco@redhat.com, ojeda@kernel.org, aliceryhl@google.com,
-	gary@garyguo.net, namcao@linutronix.de, sashal@kernel.org,
-	natalie.klaus@runtimeverification.com, willy@infradead.org,
-	linux-kernel@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
-	tytso@mit.edu, keisuke.nishimura@inria.fr,
-	jean-pierre.lozi@inria.fr, ejratl@gmail.com,
-	corinn_tiffany@alumni.brown.edu, kate.stewart@att.net
-Subject: Re: Kernel formal methods mailing list?
-Message-ID: <e788b576-43a0-461c-9ae0-d7de3a6866e4@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <ed89f1ce-cdca-d6f6-3e1-f0fa34eac4d@namei.org>
- <4ea0f231-eec4-4f41-bd2c-e5484c0535de@paulmck-laptop>
- <b765a5d3-9844-fed8-4277-2a998980b33f@namei.org>
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=NcEExbnD
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93f20b304c0so116418385a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:23:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda.com; s=google; t=1793831033; x=1794435833; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KeZ2aB0X0IqNy32Bwapb83gUzvOHb7jOV5nmidAoLRQ=;
+        b=NcEExbnDLtiALC276t5kcclQzZoOYloVis0hCWAdB5suqT0QkRwNJ+AFK0XB4NzGVk
+         MBvKf3YK63ail+629aXUNIvCM1WnXnfCIha+DrPSuNj8k3YzkImzwB+xGI2s2y2HBJ5T
+         vvkTuikiQqNxAICkZ4ywv2TcbVVqmFMFp/2B11hfLkRa7xqDvLx4q/6WouEjHlPu8igf
+         zrdHc2HpeafPYSIxUQLBS1un6n7qW3BkOqpkKrUbvRAIFCSnaZItXy7Cg5Cn0kHFlgPO
+         kv82C6T1O0AQD/2BA2RX99j/GbgpjX9B9AtvNADneDIEvKVhq+f3BAJVyYf4DaCus4Kp
+         YwFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793831033; x=1794435833;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KeZ2aB0X0IqNy32Bwapb83gUzvOHb7jOV5nmidAoLRQ=;
+        b=My7T3p/q+nJMfkF2NWJVYE5bBb6ZuDHK3dPHqbxC5up21JfkSGLL4Ts2TTke8PT6xw
+         Hfwe5QFzVjTztIymqDlQ7OzC5IlQ5gXL/B/8ZWSb7j9NX787R+R4UI1vlR3bja1T8+jb
+         /VHfxfcMq6FUXloJMc7FpUhZLl2gf1Drf5L9CBBwygaFrB+EHi5+zBkrKrc7J5BJpN2e
+         CmZUDVebYfz6RyRYbao+XV/U5Fgh6v26gGIszHTsJwXUVl4dajJ384KTKGs0K8705VYk
+         GKD97X5Wu1kw/HOJ4izb21u6dQuPbZzeyKyxckJO+llQZR4XygQ8TNYu34NObqskTX8H
+         dTNA==
+X-Forwarded-Encrypted: i=1; AKwUvByZmCI6yCZUcIIqDM5H4mes40B2p/aesTUkA1TVDfakupW4t2kub1dlAmvTcQ5z5Nelwqp2JYZKMrMnF0U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+kSfAWGgVAToEMSTyxEQeVXvuJmd3pun/ynBr85zT5LEOrsR2o
+	zx3AeKrImsbispQh7KXqX0zAo2jrzc9Ttpi8jlrYloUj3muJoJdTE02kgna9V1fZaEw=
+X-Gm-Gg: AYBFou1J+5hvwdu6B3v371HZms7W02cEbWXxFmfB9PmIrUYdJF57Ks0YAhuTHeUd5Bl
+	jMcrUtUDY6mvfCIJgghimEyr6V9cD3NiX8X/6ctC8y6ZrwRytE9I8G7z/H4N2fJ2kONy/LYTnl7
+	e2+0TrgBeU49sUzUEcvOXRMCBWMLfeHqrmeSJ6La+v77g6E4OqiUgfS5BQ8L760GLXeUu7eNXfJ
+	fYEATqEclJOnwItMkKDjKYlhmJ81WxntQqxLWYaz5U1jEi/AonlMge7PSfIe3kNR91sdrE5E8km
+	CIx//7LZM6rfwWbLu3EuDKwfLZxZ3wDCbb/b0bsJpt102GD3eE+Fz51gibXoMnddmNQzlNsHqs5
+	uvpR/W/GuRUErSV7LPuFsFL8xuveg/+Ybr0ipecbx7VVYwyohj+/3TTRj46vug9s/PeAFBaKq2/
+	cRo1sUXNHAuGyxmctGMZp5alSSfrWmQ/YJqiQSeDEQa2er+kCtbHa2yyy4CJk1uoqbqsv7e9I7/
+	iGsgEH2J10Bn91Jsn/vz8puuvCVzrl+weawv/IKonAXWfHb35X30ye93CPAuZFWEebPSzaN824G
+	3OQi5OVhTBZI71MPeMfcwZ/LlcR39XCSOyFnMUjx1fsqVQ==
+X-Received: by 2002:a05:620a:608d:b0:93c:7e9c:3bba with SMTP id af79cd13be357-944216bd4bdmr3093198785a.41.1793831032557;
+        Wed, 04 Nov 2026 14:23:52 -0800 (PST)
+Received: from toxicpanda.com ([153.61.196.240])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d4691a76sm312610285a.4.2026.11.04.14.23.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 14:23:51 -0800 (PST)
+Date: Wed, 04 Nov 2026 22:23:51 +0000
+Message-ID: <464ef986eab97abf226791c7e19ad111.josef@toxicpanda.com>
+From: Josef Bacik <josef@toxicpanda.com>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Jann Horn <jannh@google.com>, Chris Mason <mason@kernel.org>,
+ Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
+ Eric Dumazet <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Al Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>,
+ Christoph Hellwig <hch@lst.de>, Greg Kroah-Hartman <gregkh@suse.de>,
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>,
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>,
+ linux-kernel@vger.kernel.org, ntfs3@lists.linux.dev,
+ linux-sound@vger.kernel.org, linux-mm@kvack.org,
+ Chuck Lever <chuck.lever@oracle.com>, Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH RFC 0/7] proc: move procfs to what kernfs does
+In-Reply-To: <20261102-defizit-jobaussicht-kurios-7016c6e67442@brauner>
+References: <20261102-defizit-jobaussicht-kurios-7016c6e67442@brauner>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,24 +108,198 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b765a5d3-9844-fed8-4277-2a998980b33f@namei.org>
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 04, 2026 at 12:56:30PM -0800, James Morris wrote:
-> On Wed, 4 Nov 2026, Paul E. McKenney wrote:
-> 
-> > > Thoughts? Would it be worth setting up a mailing list?
-> > 
-> > We do have (low-traffic) lkmm@lists.linux.dev, though that was intended to
-> > be specific to the Linux kernel memory model and its formal-verification
-> > tooling.
-> 
-> That's a possibility. Would the mm folk there would want to keep it domain-focused?
+Hey Christian,
 
-On second thought, I have to agree with Miguel, so I suggest instead
-subscribing lkmm@lists.linux.dev to the list.
+This is a summary of my Claude review of everything.  It didn't find
+anything wrong with the conversions in parts 3 to 6, the findings are in
+part 1 and on the procfs side.  1-3 are reproduced in a VM, 4-6 are from
+reading the code.
 
-But it could be a good fallback in case the Powers That Be object to
-creating a new email list.  ;-)
+1) bugfixes 19/38 ("proc: resume readdir after the last name it
+   returned")
 
-							Thanx, Paul
+proc_readdir_de() now returns 1 instead of 0 when there's nothing left
+to emit:
+
+	if (!de) {
+		read_unlock(&proc_subdir_lock);
+		return 1;
+	}
+
+proc_root_readdir() needs that to go on to the pids, but proc_readdir()
+and proc_tgid_net_readdir() are also the ->iterate_shared() of every
+other directory, and iterate_dir() hands the value to its caller.
+getdents doesn't look at it, old_readdir() and the compat one do:
+
+	error = iterate_dir(fd_file(f), &buf.ctx);
+	if (buf.result)
+		error = buf.result;
+
+	return error;
+
+So at the end of the directory readdir(2) returns 1 without having
+written a dirent, and keeps doing that.  This is syscall 89 through
+int $0x80 in a loop on x86_64 with IA32_EMULATION, giving up after
+100000 calls:
+
+	             base, 18/38         19/38, whole series
+	/proc        106 entries, 0      106 entries, 0
+	/proc/fs       4 entries, 0        4 entries, 1 from then on
+	/proc/net     31 entries, 0       31 entries, 1 from then on
+	/proc/sys     10 entries, 0       10 entries, 0
+
+/proc/bus, driver, irq, tty and self/net do the same as /proc/fs.
+glibc doesn't use that syscall, but this patch is tagged for stable.
+
+proc_readdir() has to keep returning the 1 for proc_root_readdir(), so
+I think proc_dir_operations and proc_net_operations want a wrapper that
+turns it into 0.  The comment above proc_readdir_de() that says the VFS
+doesn't care about the return value should go as well.
+
+2) cleanup 5/5 ("proc: drop the _buf suffix from the new methods")
+
+4/5 renames the old ->proc_read() so that "A module that sets one of
+them doesn't build anymore".  5/5 hands the name to the new method, and
+the old and the new prototype only differ in __user:
+
+	ssize_t (*proc_read)(struct file *, char __user *, size_t, loff_t *);
+	ssize_t (*proc_read)(struct file *, char *, size_t, loff_t *);
+
+Only sparse sees that.  The compiler does reject an old ->proc_write()
+or ->proc_ioctl() (gcc 13, clang 18), but this
+
+	.proc_open	= foo_open,	/* single_open() */
+	.proc_read	= seq_read,
+	.proc_lseek	= seq_lseek,
+	.proc_release	= single_release,
+
+builds without a warning with W=1.  pde_set_flags() only refuses the
+release helpers for seq_file entries, which this isn't one of, so it
+registers too.  With a module that has exactly that loaded on top of the
+series there's no warning, open() works and every read() fails with
+-EFAULT.
+
+The tree had 84 of those at your base.  None are left, but whatever is
+in flight in other trees, gets backported or lives out of tree ends up
+there without anybody noticing.  Either the read method keeps a name of
+its own or pde_set_flags() refuses seq_read, and either way this
+probably wants an entry in porting.rst.
+
+3) bugfixes 38/38 ("selftests/proc: check that a faulting readlink()
+   doesn't hold up removal")
+
+This adds proc-remove-slow-reader to the Makefile and to .gitignore
+along with proc-remove-slow-readlink, but proc-remove-slow-reader.c
+only shows up in core 08/16.  From here up to core 07/16 make says
+
+	make: *** No rule to make target '[...]/proc-remove-slow-reader'.  Stop.
+
+in tools/testing/selftests/proc, so also with part 1 applied on its
+own.  The two lines want to move to core 08/16.
+
+4) core 04/16 ("proc: let procfs own the seq_file of seq_file entries")
+
+pde_seq_start() returns right after it unpinned, pde_seq_next() goes on:
+
+	v = pde->seq_ops->next(m, v, pos);
+	if (v == ERR_PTR(-EIO))
+		pde_seq_stop_pinned(m, v);
+	/* seq_file would blame these seq_operations, blame the entry's */
+	if (*pos == old) {
+		pr_info_ratelimited("buggy .next function %ps did not update position index\n",
+				    pde->seq_ops->next);
+		++*pos;
+	}
+	return v;
+
+core 16/16 documents that next() may return ERR_PTR(-EIO).  A next()
+that does and leaves *pos alone is called buggy for it, and
+pde->seq_ops is read after the unpin, when the module it points into
+can be gone.  Nothing in the tree returns -EIO from next() today.  A
+return v after pde_seq_stop_pinned() takes care of both.
+
+5) bugfixes 35/38 ("proc: sysctl: don't hold the tables while readdir
+   copies to userspace")
+
+	while (err > 0) {
+		if (!d.skip) {
+			err = proc_sys_fill_dirent(file, &d);
+			if (err)
+				break;
+	...
+	sysctl_dir_done(&d);
+	return 0;
+
+sysctl_dir_next() only pins the memory, so the entry can be unregistered
+before proc_sys_make_inode() looks at it and returns -ENOENT.  The loop
+breaks without moving ctx->pos and returns 0.  If that was the first
+entry of the getdents64() call userspace sees the end of the directory
+and loses everything behind it.
+
+The old code bailed out the same way, so it's not a regression, but
+it's the "terminated early" case you set out to fix and these are the
+lines that get rewritten.  Handling -ENOENT like d.skip would carry on
+after that name.  -ENOMEM probably wants to be returned instead of
+turning into EOF.
+
+6) stable tags, bugfixes 34/38 and 37/38
+
+34/38 has no Fixes: or stable tag and says "No functional changes", but
+35/38 is tagged for stable and depends on it.  Without 34/38
+proc_sys_make_inode() reads table->mode and calls ->set_ownership()
+after it dropped sysctl_lock, and the caller 35/38 adds doesn't keep the
+table registered.  35/38 applies cleanly without 34/38, so nothing will
+complain if only the tagged one gets picked up.
+
+37/38 has Fixes: 7e0e953bb0cf, which is 4.0.  "the inode holds a
+reference to the entry" only covers RCU walk since 47458802f660
+("procfs: move dropping pde and pid from ->evict_inode() to
+->free_inode()"), which went into 6.8.  Before that the inode drops the
+entry in ->evict_inode() without a grace period, and the pin is what
+keeps ->data around for a walker that got it from ->get_link().  Which
+stable trees have that commit isn't something I checked.
+
+Smaller stuff:
+
+- The cursors in bugfixes 19/38 and 31/38 hang off an open file and
+  anybody can have as many as they have fds, so GFP_KERNEL_ACCOUNT.
+
+- copy_to_user_fromio() has no callers left after drivers 22/23.
+
+- fs 07/27 says ntfs_set_label() refused a label that's too long with
+  -ENAMETOOLONG or -EFBIG.  It doesn't always, cpu_str.len is a u8 and
+  ntfs_nls_to_utf16() is allowed (PATH_MAX - 2) / 2 here, so 300
+  characters come out as 44 and pass the check.  That's an old ntfs3
+  bug, it's only the sentence in the changelog.
+
+Two more old ones that you might want in part 1, the series doesn't
+change either of them:
+
+- allocinfo can deadlock against a module load.
+  codetag_alloc_module_section() calls reserve_module_tags() with
+  mod_lock held for write, and its three error paths call
+  shutdown_mem_profiling(true) -> remove_proc_entry("allocinfo"), which
+  waits for the readers.  A reader that's pinned and in
+  allocinfo_start() -> codetag_lock_module_list() sits in
+  down_read(mod_lock).  There's no copy to userspace involved, so
+  moving the copies out doesn't help this one.
+
+- snd_info_text_entry_write() allocates the larger buffer and frees the
+  old one without copying what's in it, so a text entry written in
+  pieces loses the start once it crosses a page.  It's been like that
+  since ffb73b08e794.
+
+For what it's worth the end state checks out.  Every proc_ops
+initializer in the tree matches the final struct, the only entries that
+still read straight into userspace are kcore, kmsg, kpagecount,
+kpageflags, kpagecgroup and profile, all built in and never removed, and
+nothing in the tree trips the new checks in pde_set_flags().
+
+This part is me. I have a selftest that my claude wrote to validate #1.
+If you want I can send it along, but we should probably have a test for
+that.
+
+Thanks,
+Josef
