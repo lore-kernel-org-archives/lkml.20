@@ -1,83 +1,46 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.76.5.236
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793799590;
-	b=XxL1AtbhTW+Lnlbs4BrP6ibR1K6p8uNSW3VGOxEZkCrgZweND237CX9OhIsNho8CdvFv
-	 ss/U/HQGhx86Je6G7oFzD8ZZU8uKDH90W1QQtLoFvcaCZRuYqyABdnr3mz+jeXovzmPua
-	 2z9xydfvogxDJpNanEoUzHMfB3ifyZpO9kzcgJrgb8T0mhwGPCsFZe9CxdkULfICvF9RA
-	 9Ca809NRf6SiKymPIb6wTy3gEOarbV+TVP7negTZvPRqSiRWCtYFTfPKMV9oY1S5HBSD9
-	 J4ONciDh2BJLD8V36wXoMrCSXrmC7uk8yPP21+4Ry9ZXBSdSMZ85IEvq0LVyhYbubBg==
+	t=1793799595;
+	b=r1cyn2ribp6XaMsAevj43TMdArr9JXadETLOvgN4fAWQCUXmiHcLQ8K7d0QYF9VjPmOv
+	 BkAz7yOz5L6+NBB6x6Ak8XLiRaE+OkiHlrGhYZe9SC7Vee92KGjFPK6KCjhWrsNkd7c8W
+	 2DzYZv08Pbya0eOIDGLMFtaS46etUVFEHaP9aTuKIXvDwDBJtK91EpukAOdEnlgoNKC+U
+	 olOAr9OgIa81P5ZO2fhWguih9jlf5KIAwET5Hgz/bU1dCjfCIYq2RQ422XNvdIdXjXk4K
+	 /VosU0um0g3cySEhnBftoO3K6EYyvIhx9XgGDNTssj10AJiLu6gkdC8mFT3kyKwDmDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799590;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=BQjfl9RbsQNCX6Q2tebtsFt2Sfsx0gARntz1N98irG4=;
-	b=r4sBItYJviMuR+LEf/YRrPRR8LfguxAhYsGBrTfDjSNAjxDWTtIGNlRxj4ixeVO7ksE5
-	 3Adx6WgU4eO88zy3kiDH22+Xy5j7Bv51ucLSFOdoM+lqhr9oj7hqW/b66m2gsIbuscN0L
-	 L/tzh0G9N3WOcw/XQvgxS6sWUp1BCa1G9RLO2f0UyrD6fNmajCiHtnyP7piHGlI5g1+Tj
-	 Xn/cwXk9yjlnZznatW4jBx9iQ0YBxo5MWKruE2LHxHDjHplawH0yXtNsjCY4+Qp6gSI9v
-	 wBynJf0tzdzbfoUIxMYyAIzQQjWSqHy4DZjWg6zkqpUfx+XloZA6iwNeGfv3ranSB9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799595;
+	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-Originating-IP:X-ClientProxiedBy:DKIM-Signature;
+	bh=IkhbWLUwIsHVA5qbkZd1FvDfizz0mbHSzrjJWS7856E=;
+	b=FREhNVXUtPJOP//C0St3ho0AbfSBWlnzDnraZyfKVSXiB4dgkSnnpOfPtGqgcqHfQCsn
+	 iZBzMXQmPd7QQ55hjjaJ/xLJxev496sgro54LSBvppLzH9GTTvX4GBIgztZsqNWKOnYji
+	 keF1qR5yi/tafAXXDKgCpuvRuQ6UXVl+7FhAYdg3zBiJsnRnhfopOmp6e5gaYdiqQjwhP
+	 sw5k2ZTmWKNEn638xjcJzfcxK1vF4TKdlGKNV1d6pk1b31uroB9gOwR6oOgPbgm3V5y9Z
+	 ZwP+olpqvoxHfMXRL3I/kqlqM2/xmgFUhyuLC2EkhPOFUgyApGlxUIKhsyzhfHt7sIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=gMpi7Hxv;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19412606A335;
-	Wed,  4 Nov 2026 13:39:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19412606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	dmarc=pass header.from=baidu.com;
+	spf=pass smtp.mailfrom=baidu.com;
+	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=DEGrKpZp;
+	arc=none smtp.remote-ip=180.76.5.236
+Received: from outbound.baidu.com (outbound.baidu.com [180.76.5.236])
+	by smtp.subspace.kernel.org (Postfix) with SMTP id 71EA7606A336
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:39:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71EA7606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=gMpi7Hxv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793799588;
-	bh=V67Q77CGcmmhluyCdITvTP/daZaV9aa0SNLMpSDUB14=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=gMpi7HxvGNnS3RfmQYk99UkzPCIhWUG0SC25A5cE8Jw8XYyolGTrKWGQ1utvNLjbz
-	 vh0Nq6jP2mqcmh8OfvtAssNHHSD49aWhHlBqaSaknqLtElA8Hovfs/PFQSIFcSLVqg
-	 8VB6bxtyIqUhrmQefwbnJiyMKBxhfCnlCJ+t45RUB7gGo/5sDQfkT78jKtSns7QcTO
-	 MBEOzmrjFtbaNvzk4/r0aPQZqaB3fLoWUmsk7GF3ATv4Vwg7Jo5Sw1aP2kQuCHYDvV
-	 0F1Xg40TJIR+wYkhhuB6zV6s89v65DKtfMwgWn2S2+NKX+wX5F5a2ID0TbAblBpgDz
-	 4IOwXStK9xbkg==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 1F6A717E0400;
-	Wed, 04 Nov 2026 14:39:47 +0100 (CET)
-Message-ID: <35f68881d65e0bb60cb4c6f25c027164f09b926f.camel@collabora.com>
-Subject: Re: [PATCH] media: v4l2-mem2mem: cancel job work before freeing
- m2m_dev
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Yaohan Li <shunsheng1218@gmail.com>, mchehab@kernel.org
-Cc: hverkuil+cisco@kernel.org, Frank.Li@nxp.com, ming.qian@oss.nxp.com, 
-	dmantipov@yandex.ru, 121811682@qq.com, ezequiel@vanguardiasur.com.ar, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Wed, 04 Nov 2026 08:39:46 -0500
-In-Reply-To: <179378585020.73536.6089775766038265997@gmail.com>
-References: <179378585020.73536.6089775766038265997@gmail.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-apRvdK517pKNxu0RZtNR"
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=DEGrKpZp
+X-MD-Sfrom: zhangyili01@baidu.com
+X-MD-SrcIP: 172.31.51.15
+From: Yili Zhang <zhangyili01@baidu.com>
+To: <muchun.song@linux.dev>, <osalvador@suse.de>, <akpm@linux-foundation.org>
+CC: <david@kernel.org>, <kas@kernel.org>, <linux-mm@kvack.org>,
+	<linux-kernel@vger.kernel.org>, <rppt@kernel.org>, Yili Zhang
+	<zhangyili01@baidu.com>
+Subject: [PATCH] mm/hugetlb: do not invoke the OOM killer when optimizing vmemmap
+Date: Wed, 4 Nov 2026 21:39:38 +0800
+Message-ID: <20261104133938.50974-1-zhangyili01@baidu.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,75 +50,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: bjkjy-exc12.internal.baidu.com (172.31.51.12) To
+ BJKJY-Exc19.internal.baidu.com (172.31.51.15)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
+	s=selector1; t=1793799589;
+	bh=IkhbWLUwIsHVA5qbkZd1FvDfizz0mbHSzrjJWS7856E=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
+	b=DEGrKpZpvg+dC+n6PNW5iuA3y2vQTBc2UI/ca3IWigfKjgN6kEOaypSOh2vAfkb95
+	 IlKnFbauvomSKB3e7iSq9xTg/En2KSi/Hw4tJYkCxmcoc+O4ndhpj6io8dT/aav2eK
+	 9hxuMMAdLvbrj25g6/8uwEV59uIM5a8XujpN3Vjg1MFYeuR8jN5TK36EJ7g3vx7VRx
+	 tzPsI2urySU2AKgzVhQh60nXCWdft7M89zQb+LmYmOqAoqT+g04iUkm8KmlfWB+eq0
+	 QB4v5ziuWaFR9JBf4b8kh550dto7exx3qUiVc8GYMy/TuaMh1visMBS0ayeoGTlEMz
+	 TOXb1ff+Je2DA==
 
+Boot-time hugepage allocation is designed to drain all free memory and
+let the vmemmap optimization reclaim vmemmap pages, so that more
+hugepages can be allocated afterwards:
+hugetlb_pages_alloc_boot_node() flushes the folios accumulated so far
+once si_mem_available() drops to zero, and hugetlb_pages_alloc_boot()
+keeps retrying as long as progress is being made.  The allocation is
+parallelized with padata and runs on many threads at once.
 
---=-apRvdK517pKNxu0RZtNR
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+The page that will back the new head struct page of a folio being
+optimized is allocated with a bare GFP_KERNEL mask in
+__hugetlb_vmemmap_optimize_folio():
 
-Hi,
+	vmemmap_head = alloc_pages_node(nid, GFP_KERNEL, 0);
 
-Le mercredi 04 novembre 2026 =C3=A0 17:50 +0800, Yaohan Li a =C3=A9crit=C2=
-=A0:
-> v4l2_m2m_release() frees the mem2mem device without draining its
-> embedded job_work. A job completion can queue the work while device
-> removal runs, leaving the worker to access a freed m2m_dev.
->=20
-> Cancel and wait for job_work before freeing the device. This ensures
-> that a previously queued or running job worker has completed before
-> the memory backing it is released.
->=20
-> The use-after-free was reproduced with an in-tree V4L2 test driver
-> under KASAN during stream teardown and device unbind; the same
-> injected scheduling sequence completed without the report after the
-> change.
->=20
-> Fixes: cbd9463da1b12 ("media: v4l2-mem2mem: Avoid calling .device_run in =
-v4l2_m2m_job_finish")
-> Assisted-by: ZCode:GLM-4
-> Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
+Once the workers have consumed all free memory, this allocation enters
+the OOM path.  During boot-time allocation, at the do_one_initcall()
+stage, there are no user processes yet, so out_of_memory() finds
+nothing to kill and panics:
 
+  Out of memory and no killable processes...
+  Kernel panic - not syncing: System is deadlocked on memory
+  CPU: 74 UID: 0 PID: 1 Comm: swapper/0
+  Call Trace:
+    vpanic+0x32f/0x360
+    panic+0x57/0x60
+    out_of_memory+0x581/0x590
+    __alloc_pages_slowpath.constprop.115+0x97d/0xed0
+    __alloc_frozen_pages_noprof+0x303/0x330
+    __alloc_pages_noprof+0xa/0x20
+    __hugetlb_vmemmap_optimize_folio+0xa3/0x210
+    __hugetlb_vmemmap_optimize_folios+0x190/0x230
+    prep_and_add_allocated_folios+0x16/0x90
+    hugetlb_pages_alloc_boot_node+0x152/0x180
+    padata_mt_helper+0x5b/0xb0
+    padata_do_multithreaded+0x294/0x3a0
+    hugetlb_hstate_alloc_pages+0x2e1/0x3b0
+    hugetlb_init+0x3b5/0x640
+    do_one_initcall+0x49/0x200
 
-Please, check the mailing list before sending patches, there is a v2 of thi=
-s
-change already. Its as simple as adding this step to your prompt really.
+Optimizing the vmemmap is best-effort by design: on allocation failure,
+__hugetlb_vmemmap_optimize_folios() frees the vmemmap pages reclaimed
+from the folios it has processed so far and retries once, and folios
+that still cannot be optimized are put into the pool unoptimized by
+prep_and_add_allocated_folios().  The worst outcome of a failure is a
+higher vmemmap overhead and, as a consequence, fewer hugepages being
+allocated (along with a warning) - waking up the OOM killer is never
+the right thing to do here.  Note that the same code also runs for
+runtime hugepage allocations, where an OOM invocation may kill an
+unrelated process instead of failing the optimization gracefully.
 
-Nicolas
+The head page is a vmemmap page, and every other vmemmap page
+allocation involved is prepared to fail gracefully:
+vmemmap_alloc_block() - which vmemmap_shared_tail_page() also uses
+to allocate the shared tail vmemmap pages - uses
+GFP_KERNEL|__GFP_RETRY_MAYFAIL|__GFP_NOWARN, and
+alloc_vmemmap_page_list() uses GFP_KERNEL|__GFP_RETRY_MAYFAIL.
 
-> ---
->  drivers/media/v4l2-core/v4l2-mem2mem.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->=20
-> diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-=
-core/v4l2-mem2mem.c
-> index a65cbb124cfe0..c4756e7bb1fb2 100644
-> --- a/drivers/media/v4l2-core/v4l2-mem2mem.c
-> +++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
-> @@ -1207,6 +1207,12 @@ EXPORT_SYMBOL_GPL(v4l2_m2m_init);
-> =20
->  void v4l2_m2m_release(struct v4l2_m2m_dev *m2m_dev)
->  {
-> +	/*
-> +	 * job_work is embedded in m2m_dev and is re-queued unconditionally
-> +	 * whenever a job finishes; wait for it before freeing the device.
-> +	 */
-> +	cancel_work_sync(&m2m_dev->job_work);
-> +
->  	kfree(m2m_dev);
->  }
->  EXPORT_SYMBOL_GPL(v4l2_m2m_release);
+Align it with the other vmemmap page allocations by using the same mask
+that vmemmap_alloc_block() uses for vmemmap pages, so that a failure
+returns -ENOMEM to the caller instead of going through the OOM path.
 
---=-apRvdK517pKNxu0RZtNR
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+This was observed on a 384-CPU machine with ~1.5TiB of RAM booting
+with a hugepages= reservation close to the total memory size and
+CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP_DEFAULT_ON=y, where the boot
+panicked intermittently, depending on how the parallel allocation
+workers interleaved.
 
------BEGIN PGP SIGNATURE-----
+Fixes: c0b495b91a47b ("mm/hugetlb: refactor code around vmemmap_walk")
+Signed-off-by: Yili Zhang <zhangyili01@baidu.com>
+---
+ mm/hugetlb_vmemmap.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaus1ogAKCRDZQZRRKWBy
-9GOkAQDd5F64T/LasnglxdTcjF2oGICHm/sFtkKS1ELEO8OhiQD/ZALowBKRMgFh
-GjpfLHRMeIuxUvJ6idz9YLa0Lyn1Qg8=
-=hxbH
------END PGP SIGNATURE-----
+diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
+index 0057fa2a16a8..3a759b930ed9 100644
+--- a/mm/hugetlb_vmemmap.c
++++ b/mm/hugetlb_vmemmap.c
+@@ -499,6 +499,7 @@ static int __hugetlb_vmemmap_optimize_folio(const struct hstate *h,
+ {
+ 	unsigned long vmemmap_start, vmemmap_end;
+ 	struct page *vmemmap_head, *vmemmap_tail;
++	gfp_t gfp_mask = GFP_KERNEL | __GFP_NOWARN | __GFP_RETRY_MAYFAIL;
+ 	int nid, ret = 0;
+ 
+ 	VM_WARN_ON_ONCE_FOLIO(!folio_test_hugetlb(folio), folio);
+@@ -525,7 +526,7 @@ static int __hugetlb_vmemmap_optimize_folio(const struct hstate *h,
+ 	 */
+ 	folio_set_hugetlb_vmemmap_optimized(folio);
+ 
+-	vmemmap_head = alloc_pages_node(nid, GFP_KERNEL, 0);
++	vmemmap_head = alloc_pages_node(nid, gfp_mask, 0);
+ 	if (!vmemmap_head) {
+ 		ret = -ENOMEM;
+ 		goto out;
+-- 
+2.27.0
 
---=-apRvdK517pKNxu0RZtNR--
