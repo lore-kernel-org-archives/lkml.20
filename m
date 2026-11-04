@@ -1,67 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793823058;
-	b=D4JcqHSzlgVld2qwiUf/dkEmcmjhKYY1kL1gyfhzGLrqEkA2vrySUGz+lBwmr7qjh/R6
-	 sc4Nw3O3Knspyi3nDHS0ZpoWnWlsuSO6B168uQa7sNEshN0YuWmlAJXwFwQCTvl9FSqko
-	 F7dxui96RGioTiiQRmB70AgyJ88PqGGqLtduFzxFvg/q2P8RCu2j5VV+12J9ftSO0hGwT
-	 PSJXZQER9b/0+QFCfC/NFwxsuUfqTRmQAN+byCsene6Y19XUwQciwzohU4zEVNiApg6PK
-	 9TYxKsehAZURmQG76PVON8k2V0j2A9/TkwXE2JHVGcIZ5fv3CBahIwNESlEg1hVbUhA==
+	t=1793823067;
+	b=QvoY0twyGtYf+8Y9gyAKrJOCCyxLfaqYs6CM0m5TJnBRMtZvdqrdTJ3vGT0OYMLUalcx
+	 XQOqG7Mh3MYhQ8DNpbtp7FK3bBmJH3uLx+ziIscLftn5pxMoiopXo9FMxxKK8H8kTnQdL
+	 Et65yl0QwI65HSbEm6qHEeM5k6l2vsVDbHKGiJrZZmSpevkpdN5Z4SgjvwQy2hZHckzQ0
+	 UEdCz2H6o8Gc600C77cklQB5cD79lnpx7XlJ7Ku5mLAXn8VEtKSt5kSjX8RdkP9ZUN+dH
+	 lYLQN3eZv4gyrB5j+mCFUv5eMHw1xYIHpSxQf0YVopXEVR3ILFyzdx+FOBP07PMWQqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793823058;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=cZ6yFI7uUXsNpfZcP6QwBP/s11ZaCftZOiY0AOuJYFY=;
-	b=JsMhWVsXMMvv/kMkIIIcR6Ura/sLz8ZUHCa/giPSV+NGpuFX5Ia1UtFx/52rtXFq56vt
-	 Z8pZzVbns4rQxDReP2odg0NTF7m/7wj1zvzd1pBlKi+WkObN5IkNmlt3Lrz3DsKl/IXEv
-	 y6Skn3c2XlxdCIK8muLudO/54dBApKf2liQxHRMFDAOlkRZFerHqi9Tmpgx6eFt9nOrj8
-	 YldmIdb6rR5BCgWvmJpyLy/4tSP2KIq7YkGVET5Sto8IsUBZClMZi23IS9mq5GWjltyfM
-	 DcJchyoA+GdGOIM4rQl36bKN43BuBd0ZkSCv4P9ZoK7qWZxP8wmVQa/Amft+A4swvUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793823067;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=axktSpkMz8G9oKTbdKR+y7TQiCVf6bAQxEAR5q4VBnY=;
+	b=GbUFsUxgsxJW68h5ll6B/tm/IX+hCO07J2fRqCIkm4H508vT7HRjDOJRYOZvTKVkXli+
+	 ZSSvpmfXO3vyfvd+LujV7h24GPg46jK2utSmcLAB7UPV8EpsSV0+6UNyf67gYA7Am0U6e
+	 mnQtoUDww1IrdlMtInha7cMQ5c7buxx5wEEfJ3enzo4SUUBtz2wnbTZ8qf8kvcWPtPQbq
+	 RoaPjNkb/Ib4kdayntYNpQBJPrMtDAnyForJsYv4XFVhMKSRkz+AZMNYXjSxUHZt1YRM8
+	 XAo5WJD5xPeVZ5itN2Do6SveT7K6GNhqIeTRZF7BMtS3sapjWPA9sN69rUAyOIsESlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n6CfLZuA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wRcqLL7U;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7589D6070F3B;
-	Wed,  4 Nov 2026 20:10:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 438EF607E931
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:11:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 438EF607E931
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n6CfLZuA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCB371F000C1;
-	Wed,  4 Nov 2026 20:10:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793823058;
-	bh=cZ6yFI7uUXsNpfZcP6QwBP/s11ZaCftZOiY0AOuJYFY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=n6CfLZuAume0uCWHjBTy8MGLChXDsG2YSrXEf3W3ANF0TYe0v4ydfu4iDhKsx1VWQ
-	 EiBceW5hAsWsQ+MJN4mITvSpMkFEmcVNEmUvbNHXnGSQt8srZJ861FH1LrzAS/4fv4
-	 4tnk5jnYX7977eLJ5k3FT7l7ZMawroT/TvRGIYf1LT9GS8eayXQx+Zu8kQYrh/49TO
-	 PIgWy9WesJxttg1upq0t75ZceWVS5AK2qYbQdtOKQ+zy5DmqMUsApu1sxRAlOvCacv
-	 vZYb1OqqfdPXcMWWWXhRU8eR+Rp3JTkdHxe/rCMek9fW0wPafZ3ppHeOFqICDoAAhi
-	 jKnblf+ZyyN3A==
-Date: Wed, 4 Nov 2026 17:10:55 -0300
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
-	linux-kbuild@vger.kernel.org, Shuah Khan <shuah@kernel.org>,
-	linux-kselftest@vger.kernel.org,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	linux-perf-users@vger.kernel.org,
-	Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Thorsten Leemhuis <linux@leemhuis.info>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/7] kbuild: build the userspace tools in tools/ with
- the kernel
-Message-ID: <auuRTxKE-I8Tyji-@phoenix2>
-References: <20261102021253.2545235-1-sashal@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wRcqLL7U
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35b2c599f43so336518eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:11:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793823066; x=1794427866; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=axktSpkMz8G9oKTbdKR+y7TQiCVf6bAQxEAR5q4VBnY=;
+        b=wRcqLL7UnZlWivP+CKpE9rBWEChFGjI1YRSbSTd9ANtjD+82gAqhe/ta6t5yr5L4xM
+         xqOrgCBqDXHpftuCfyygFk6GzNU4n4LBxi6Kq1SXO7iKosDTINyRiXXKn4oDv2UFONQf
+         u4/i/LyiL/5HYTaOGJHtngTjQvjrkc/cle6w2K1nlqbc1lyi45BPrzw5pK20Y+Az6Ku3
+         mVwsdTrGC8tbwT5TRac3HR8k8alIMaOHvzoXtVg051Dm7H2M+r/uD0s9u68vGVvGD7yP
+         Xi3FTaqcLyOSrDs1EwIk5GcWfRcppgUxx4ZE2oj96gSQ/pY8HP+54XWv2s+dVkZ0rdpJ
+         UUaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793823066; x=1794427866;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=axktSpkMz8G9oKTbdKR+y7TQiCVf6bAQxEAR5q4VBnY=;
+        b=bIpYvOSR5WSLKnxQxbYd0cNhg/F0CR/uwCGOzABMa/dUZK07yt/W40lClTD5TyawZa
+         1BhaiclJuXG6wEDA+g6tYBgvPtZljQIsN7qqLNvfx5iLQgmOIB+X6XvIfIZQ2Dfj0Kbh
+         nAaexJwxSz9+lXHvtw0mlWWIX7pUp7SnCJhyqDz/VGvx+XB65ZxZW2CF5yrFVYwl8qAi
+         c1FXBZwGL6hM0engYZRZinPczqj1qJsHgp37hZF/uzOw2e+FtK8FFj9hp6RsZGZf+gV3
+         p5eEbJVc8XejYPQvcEv0TFyPdwIEH5xEoaUOqrqcAHaY4frfwiwvu5Cuss+VCILjuYOy
+         KfwQ==
+X-Forwarded-Encrypted: i=1; AKwUvByCaFzZ+pxiuhqi/juyeDTHgdFdawTy3Xvo7G0CDBt4HlFuNh2CHcXMDWyqCySxElcer1HWm7aUnIXCzg8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8n1LyXajru56101CmgA6JqL50Y+BO9R5OgraCrB40J2mQn43a/
+	Xc+KsYdDwaHGelKh/zBha0FDs51yTdjQrJ2YlOXTFJzfXFadjIOlXTc=
+X-Gm-Gg: AYBFou2lgULpjQvOihr05YVTFP2yEB4MvjnybwqSRa2zLvazGclXhv9x8MBvTVTQD66
+	M0ODrRroxecQfwCjYBHQQS+y6kkKbqhjJTGjdS/blQHh8TItyUg431LUCEBxGjT5Sp29ikDjE5n
+	uCQIT3unTrH35twdWw/+Rk7Eu1fR8GUhjT/sqLdFoJxXUcKbv9no2Nr8si6TOmokic0dpcALDM6
+	E+WSxpOFoyF4R4ZePmwkAlhYS+TAvkyDnBgOlxdDpRvlT0j7fXWDKbumMK3KoEW9WJ08JZpaW3O
+	orV0OEgvPq3cLp61DEIca2g5hU7pnbS8dc5+6UV6u3FwfcC4Wuj+MNcz9iSswAgnJT2mhwsONYK
+	Y/5ld6trUOwAEQNNQRh1V5t/OOCwf89/GOaa/l3mZEgyhcQ7Fr/3Sh5Wb4RfL/FVKxRd2SegBKq
+	yI9SlojzhV/y5F3xWHxr6sBD/+bf5DcURIwDXdniK44666lmkO5dl3EQiAk7MV4bHqGJJe4IOj2
+	+hpnOHXIHzudoxYECYCnO2Od4OP4BD4a40KbVWjgh+PTow97uvK6FVIcoRt7AUjv9ptMeuJLPu1
+	obhZj65kqu5Vb+qFf9ShKo5+68SCR5fVfIg6IOm7MQv+PotNRgFAHlJGZ4qy4M7f
+X-Received: by 2002:a05:7301:2a95:b0:36c:9afe:fcd8 with SMTP id 5a478bee46e88-36c9afefe8dmr5613420eec.30.1793823066322;
+        Wed, 04 Nov 2026 12:11:06 -0800 (PST)
+Received: from at-Standard-PC-Q35-ICH9-2009 ([106.194.66.249])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36dd7ec8881sm2731938eec.18.2026.11.04.12.11.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 12:11:05 -0800 (PST)
+From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+To: alexdeucher@gmail.com
+Cc: airlied@gmail.com,
+	alexander.deucher@amd.com,
+	amd-gfx@lists.freedesktop.org,
+	atharvatiwarilinuxdev@gmail.com,
+	christian.koenig@amd.com,
+	dri-devel@lists.freedesktop.org,
+	harry.wentland@amd.com,
+	linux-kernel@vger.kernel.org,
+	simona@ffwll.ch,
+	siqueira@igalia.com,
+	sunpeng.li@amd.com
+Subject: Re: [PATCH] drm/amd/amdgpu: Add 5K Support for iMac20,1 and iMac20,2
+Date: Wed,  4 Nov 2026 15:10:57 -0500
+Message-ID: <20261104201057.8395-1-atharvatiwarilinuxdev@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <CADnq5_PjiWHEDzS5DJgB1wS72_tHp4Ju5Wwr0R0N5EK-i9fXfQ@mail.gmail.com>
+References: <CADnq5_PjiWHEDzS5DJgB1wS72_tHp4Ju5Wwr0R0N5EK-i9fXfQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,186 +106,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261102021253.2545235-1-sashal@kernel.org>
 
-On Sun, Nov 01, 2026 at 09:12:46PM -0500, Sasha Levin wrote:
-> The userspace programs under tools/ are disconnected from the rest of the
-> kernel's build system. Each has its own makefiles and build framework, and
-> "make" never builds them: apart from the few host tools the build itself needs,
-> such as objtool and resolve_btfids, nothing under tools/ is compiled as part of
-> a kernel build.
- 
-> That makes them easy to break. Most people, and most of the build bots, check a
-> change with "make allmodconfig && make", which doesn't cover tools/ at all. A
+> I think the rest of this can be simplified quite a bit.  I'd suggest
+> rebasing this on the other 5K support patches and see how much of that
+> code you can share.
+> https://lists.freedesktop.org/archives/dri-devel/2026-November/610011.html
 
-Well, by definition nothing that changes in the kernel should break at
-least tools/perf, see:
-
-tools/include/uapi/README
-
-"
-Why we want a copy of kernel headers in tools?
-==============================================
-
-There used to be no copies, with tools/ code using kernel headers
-directly. From time to time tools/perf/ broke due to legitimate kernel
-hacking. At some point Linus complained about such direct usage. Then we
-adopted the current model.
-"
-
-So tools shouldn't be using anything outside tools and people updating
-tools/ living shared headers should test the other subsystems that use
-it.
-
-Recently I added:
-
-⬢ [acme@toolbx perf-tools-next]$ make -C tools/perf help | grep headers
-  check-headers         - check which header copies are out of sync with the kernel
-  sync-headers          - sync those header copies with the kernel, creating commits
-⬢ [acme@toolbx perf-tools-next]$
-
-That calls:
-
-acme@phoenix2:~/git/perf-tools-next$ tools/perf/scripts/sync-headers.sh --help
-Usage: sync-headers.sh [OPTIONS]
-
-Sync tools/ header copies with the kernel sources and create commits.
-<SNIP>
-The script:
-  1. Runs 'make -C tools/perf check-headers' to find stale copies.
-  2. For each stale header, identifies the kernel commits that changed it,
-     including the merges that brought content of their own.
-  3. Copies the kernel header into the tools/ tree, skipping it when only
-     the tools/ copy changed (it is ahead) or when it carries intentional
-     edits, and stopping for manual investigation when both sides have
-     content the other lacks.
-  4. For beauty headers, runs the relevant beauty script(s) before and
-     after, showing new/changed string table entries.
-  5. Builds perf and the other consumers of the header to verify nothing
-     breaks.
-  6. Creates a git commit per header (or group) with the standard commit
-     message format.
-
-     -----
-
-See point #5.
-
-Having more people testing that perf continues to build if the existing
-rules described above is only good and I thank you for the work you are
-doing, I just wanted to clarify how tools/perf/ has been working with
-this over the years and the recent extra scripting around the updates
-that we do while maintaining tools/perf.
-
-- Arnaldo
-
-> change that breaks a tool passes every build check and is only noticed when
-> someone happens to build that tool by hand, often much later.
-> 
-> We keep seeing this in tools/testing/: selftests that stop building after a
-> change elsewhere in the tree, or after a backport to a stable tree, and stay
-> broken until someone tries to build them. Others brought up the same concern at
-> LPC.
-> 
-> This series lets the kernel build also build the tools it is configured for:
-> 
-> - tools/Kconfig adds a "Build userspace tools from tools/" menu
->   (CONFIG_TOOLS_BUILD) with one entry per tool and per selftests
->   directory, so .config records what gets built, and a tool that breaks
->   can be turned off on its own.
-> 
-> - "make tools_build" builds the selected tools for the target, each with
->   its own build system as it is built standalone, into tools-build/ in
->   the object tree.
-> 
-> - With CONFIG_TOOLS_BUILD=y, "make all" builds them too. allmodconfig
->   and allyesconfig enable every entry that applies to the target when
->   the compiler can link glibc programs for it (currently x86_64 and
->   arm64), so the usual build test catches tools breakage. Other
->   toolchains are unaffected, as are "make vmlinux", "make modules" and
->   external module builds.
-> 
-> This is useful beyond build testing: the tools are built for the same
-> target, from the same tree, as the kernel they go with.
-> 
-> The selftests need "selftests: lib.mk: define LINK.c, COMPILE.S and LINK.S
-> when make has none" [1], which is not in mainline yet. Without it, most of
-> them fail to build in tools_build.
-> 
-> I used LLM coding assistants to write and review these patches. I reviewed
-> and tested every change.
-> 
-> Changes in v3:
-> - Rebase onto v7.4-rc1 and drop the RFC prefix.
-> - 3/7: The perf-tools-next changes are in mainline now, so MINIMAL=1 sets
->   NO_PYTHON_MODULE instead of NO_LIBPYTHON and also sets NO_MYPY and
->   NO_PYLINT. This is the version that was posted on its own [2]. Add the
->   Acked-by tags from Namhyung and Arnaldo.
-> - 4/7: Add Namhyung's Acked-by.
-> - 5/7: Add Shuah's Reviewed-by. Add entries for the selftests new in v7.4
->   that build with only a C library: filesystems/configfs,
->   filesystems/file_stressor, filesystems/freeze and nfsd.
-> 
-> Changes in v2:
-> - 1/7: Add Thomas's Reviewed-by.
-> - 2/7: Put each "depends on" condition on its own line. Allow UML: the
->   tools are built for the architecture UML runs on (HEADER_ARCH), as
->   their build systems do not know ARCH=um. Drop the
->   PYTHONDONTWRITEBYTECODE export, as 5479e1a13b75 ("perf tools: Put
->   Python bytecode in output directory") in perf-tools-next keeps perf's
->   bytecode in its output directory.
-> - 3/7: New. Add MINIMAL=1 to perf, which turns off every optional
->   feature, as Ian suggested.
-> - 4/7: Build perf with MINIMAL=1 instead of a list of NO_* variables.
-> - 5/7: As with "make kselftest-all", a selftest that fails to build no
->   longer fails the build unless FORCE_TARGETS is set, and
->   kselftest_deps.sh lists the libraries it needs that the compiler
->   cannot link with. Also rebuild the selftests when headers under
->   tools/arch change, the vDSO test when kernel headers change, and the
->   x86 tests when the x86 headers they include change.
-> 
-> v2: https://lore.kernel.org/r/20261016143143.3613501-1-sashal@kernel.org
-> v1: https://lore.kernel.org/r/20261011233647.2454648-1-sashal@kernel.org
-> 
-> [1] https://lore.kernel.org/r/20261011223358.2327625-6-sashal@kernel.org
-> [2] https://lore.kernel.org/r/20261018135321.3986899-1-sashal@kernel.org
-> 
-> Sasha Levin (7):
->   kbuild: factor the userspace ABI flags out into KBUILD_USERABI
->   kbuild: add "make tools_build" to build userspace tools from tools/
->   perf build: Add MINIMAL=1 to build without optional features
->   tools: build perf in tools_build
->   tools: build kernel selftests in tools_build
->   kbuild: build the tools selected in tools/Kconfig as part of "make
->     all"
->   Documentation: describe building tools with the kernel
-> 
->  .gitignore                                 |   5 +
->  Documentation/dev-tools/kselftest.rst      |   4 +
->  Documentation/kbuild/kbuild.rst            |   4 +-
->  Documentation/process/submit-checklist.rst |   5 +
->  Makefile                                   |  24 +-
->  lib/Kconfig.debug                          |   2 +
->  tools/Kconfig                              | 342 +++++++++++++++++++++
->  tools/Makefile.kbuild                      | 209 +++++++++++++
->  tools/perf/Makefile.config                 |   8 +-
->  tools/perf/Makefile.perf                   |  42 ++-
->  tools/perf/tests/make                      |   8 +-
->  11 files changed, 635 insertions(+), 18 deletions(-)
->  create mode 100644 tools/Kconfig
->  create mode 100644 tools/Makefile.kbuild
-> 
-> 
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> prerequisite-patch-id: 68eb8785244b88ec7e696e716420e2d9b1367dbc
-> prerequisite-patch-id: 37c57cf4c2a9700788cd1755912753f363cbb3f9
-> prerequisite-patch-id: 5243b7b03f2c12a6e66c353b0c083f7f21fd7ba2
-> prerequisite-patch-id: 7153a847ba7b05e49a670caba5d5b8fa2508eff1
-> prerequisite-patch-id: 67a995618952454c30eb77960a5bf6f897d22547
-> prerequisite-patch-id: bc69d99570e4326ce7736b244838e1e97cc13358
-> prerequisite-patch-id: 7a28872d234cdfa7bd5ec851e9dde01a65e91130
-> prerequisite-patch-id: a71f47de3fd339d680c9f18e80f5bcde7eae0abf
-> -- 
-> 2.53.0
+The code that i saw, dosent have the ability to change resolutions, and the code
+it self, is basically completely different, for example writing 0 to 0x4F1 completely
+kills 5K forever, you cant alive it again on iMac20,1 and the code does that.
