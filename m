@@ -1,89 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793806623;
-	b=LEJvJx/co1q+bqnqrW0slEXG3RanDonygqDwxwbakU5oUu4UT2WCOY3Gul3rqd5BHTAB
-	 U3YhPKZ9WtKHQsbdZdj2KdBT+Tinzo0LnftFYG5o3MzITziub1U99AVNJzsfR5x4oai9A
-	 S3Y9pql3EK95eOju8N/ippSbD5t6sngJ1yA1Z4/bhsC2UZEEbekXZBsUxGvTEgGVGiNg0
-	 47pJYwgGNn9hyaDizsRTvIeqLh0hkCx1FKHHjWp0x4vIpbn21y3m92kw3FLBbY1pjrk1+
-	 G3wimztbuSwqc5EikFatZC2uaMCaaSxfdMUdO5byiWsNjE3ksjN5abvLHlceSXHR+1A==
+	t=1793806619;
+	b=RkgtDhk5o42kXXYRFhdrfhzRjfPvUQIDJ+0ZmtyhQfdK7gibDpHSH2I4gfzsUTqnfe3r
+	 jgcPrTUdjokPJUDNAS4F0ZJe5Wqs20yV2S/Ve09iwzswOHcnABIM16LVLzXqJNIWahdA6
+	 RjRgAQajta2qS/rPjlFkFdlGHsVhN+hgBTQoGcdfKtbnH7t+TVeGt56aCcF7jKzupxx0c
+	 tijHFkttUpNAeapeFXL9Urk6bgEUxE0aRKy0B9kQwURdbfMh1sU8u59wsD1gYlSel1yL4
+	 oCX5htc/7A/SaEID0YV/n1pPKVBdsoXEB6745IpjCyp3UEar49+kg7DFtwZZjBo3NOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793806623;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793806619;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=lK8cPrH+g4i7tPuW2n2cVCxMFt6yPnnwaiX14m0/O74=;
-	b=QFFAlJWCITM5lLBZxnxA49uukPxWDfZFohWinbG9pnRqv5buan0F+jQT6qk/MMSc5PnG
-	 2ab9vt3HjFmDM3gWycJdJq+X/6RquuDu6PzCbMoQJRZBA3yLmg1ajfiPHyG9srdjr+5CN
-	 w9cHg2V++t3rxMl38iDUpDxDiJFBynzli01q9yXFe77AY5KzzSZ+fFQDolQ+eFjpGllrd
-	 anENPMWy7RVHHtwORX3vtE8iKdtn6PQXyDBXSQ9t0A1RPn37kNKCPTbE9B7kvw3nHuzZ7
-	 09/ofWkVYhrNoTTyBgGQA+IlkjAj07/sRRazXItrj4Taby0WDXtKblmUxlVBZu2mH1Q==
+	bh=3fjvYxL1CcyYarRBHj/5LrpmgJVswx2GaGjokKiBvVE=;
+	b=hsTZnWLh3oD627OxnpnmMQBFiqw5OQeVOUXriLpTT9tnmImCCKzcs5sbKOFz4NoOVolN
+	 YLBuqr9EQgShz7/SBTIv0bEVEi7Pqj86c7U4kNTVi7yM2NMluGfewuBJShW3r4ZFtZtI4
+	 ad97jFbR8PMCxTY5kppF+754xsVDSRYXKBhPa4cq3sfkWPG6I2y6KZmlVucSwhtD/++T1
+	 OiVqrrscxB5bGNiT11UbDa6slR59tUvVrlwZJWX1K+WcxjSqO2km+Ffvvhx3TkzBoE2FF
+	 p9eGGKANMb4KZ67mV+/X29hS0nWtfOZ2GhEmWBpy6/WY+UYkX/1m+2+EuMnqBl0DStw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=EUGsnUhP;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=UA3gnVfc;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ACE4606EE9C
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:37:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5ACE4606EE9C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8AAD606A330
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:36:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8AAD606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=EUGsnUhP
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so5282045e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 07:37:03 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=UA3gnVfc
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso7815155e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 07:36:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793806622; x=1794411422; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793806617; x=1794411417; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=lK8cPrH+g4i7tPuW2n2cVCxMFt6yPnnwaiX14m0/O74=;
-        b=EUGsnUhPL0/s0qNrBR+xvOF8yjFZ8IAH6dVWz70Nz2AyLxwRCvJb05GSLEAlXZBQ5Y
-         c1Ey5Lf6A3zwlfjn+gRIXA2xe8M+X0WLxvJQ0IZC+9L8TufJtkImqa6S2gNsI35PHAhm
-         7PoaPlA8y0/OCMCSG8NrRZE5q/6I2Q6H5pUhwk5hIbBycdbjQoH/huXr21n5zfS2QpTn
-         JgriJ0+SzD7L1PBh7XlFtvxZznJwRbYsAvlwAK5awXjz2ODg7c0fVwXXHRb9cXTyGl/O
-         BUXMlLB87l++GMm0sqoZGkG2D5vlwZGnke1azEkVw9l4b3hBScnBl7M5tS4My4ampUad
-         wJCg==
+        bh=3fjvYxL1CcyYarRBHj/5LrpmgJVswx2GaGjokKiBvVE=;
+        b=UA3gnVfccpmDJ4IhOE3O8EPsf4KwA2QPM1zCqGSmWaHc7OYNkbweR4Aiq/HwSDNN3u
+         ZxkpQ7IGLDJ4jkkBaixnNuIrc/PoJDCQcmegonek33fbvJmHnjjSsvZQd2pumy2CQ6K8
+         fuFxkXTENjjdRE5QfHg4DlHFJfHok/FXKfSWnl5RyEP40VOIB3QvDqEdTp33CtvW/oZ8
+         YffxWE+7GyONzMKCLrpPM7fqX8f6G+YjmQT8jhyp7GAXyt75y2ek9Hoq9Lrl0CC+2dQk
+         joJDGs7Oyn7/wV/TwpvAPyuJeAS8jJj40R2OU1aJWqifMnm2gttyjKsrChCBzg8+FMXB
+         2rxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793806622; x=1794411422;
+        d=1e100.net; s=20260707; t=1793806617; x=1794411417;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=lK8cPrH+g4i7tPuW2n2cVCxMFt6yPnnwaiX14m0/O74=;
-        b=047UQNgsHyCHKIzMTrbWrFlJJpeZ5o/qX6cDR+6CDSggLbXBx0QO0jLZUbckwWRouJ
-         i7Lw1uAfRz7zZda0LB3szruFumRIeyh9h4V5Z/gFi5JpjGXa/eP5Rj/Y7+RaoE4YChx5
-         FKjcqspnYR+q6XbpW9h6q3/ayRtvs3q6CybffKiCaOsQ7GiB4Wmm9KI6bm6R5tQ/QMsB
-         xc5nIyXOD9Ycjt9YWaqbmYLXw1Yj/aWmLJzhV6WYneR0svgi/YNTDmCTCIdlLRKR5Cgd
-         q1o1RDrBOTOgsWLXjeRfP3TgaCVgm3MqB5Ita/rB4QhqoHRBGvYjiRO8jt24mI7tecJ0
-         n2kw==
-X-Forwarded-Encrypted: i=1; AKwUvBz14zaoZysCwgRLG06ktq7RcBxLPQ1PAjIAtRibViOu9/E/6bhc9/d9gt9EOQvi+LLBPj2OW9P3gV3+Gd8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8fhlzVMtLwPaYAnW8RSpm3/4TkQnhMYKjhl2as8+bdsvZsA9HN
-	wqEtdJHrfxrs8pJXDXoWhirvkvim57n7FTJ4LSxk5VYEF/jA9dQQVzrq5tNWyqPRAXKsXoiPrJw
-	30rwVFBQ=
-X-Gm-Gg: AYBFou3ARlajJEdpF6VvvPeCNxtn0WJ39PQVKocjscWsv1nQOcBODBn9H8fVsdtorc+
-	hO6worlqoMG9o52z2+WUzgeOht5rWl8nLLzjWuSYh7e8GZumOTE7oHSQNcI4PYTTZ9pGK1CDo5E
-	xP5xHD8bsen/P4+q3pl+riLncIgctKlTP33Tr14vgN89yEses/8//B+I4Wlr05n45FIXq53P8jt
-	DmV+Cudz8JeJjb3xQQ7DlYuASJuF/N4kxuVuJ+AITbBXmlh74ohYqIRm8XykFB7aF1/ZeQF5WAK
-	COTEp4rnBHUOqnpqdOixx4vTe/sHipNIpcg092QzwLcluuSF5RA+MP9wEgWW7qh5XszJvmOQrj4
-	pjwcQ6XJyLpM5oc6ftADmZvq1yRW6cWmrotlIdAJyneHt9vQzuIlSxvf8tTmZdxHPMzWE2Z2UDs
-	tdfui0WHMnNQ6GP9Rorlnb1/7eweUI/v30UvA4xmzMo7ANxKjCIVkccScU9C8rxBgeoulmNCQXf
-	RkemOOHBj5D08tf+QGw0kwsGzuyY8UvYw49CpWebjgA7NMTFIu308YezLb9GDgAt3ePVOZN24Xk
-	33aFVgIj8BN++d/s8F04lY+gQ8/lmVOj
-X-Received: by 2002:a05:600c:4fd4:b0:4a1:e250:b191 with SMTP id 5b1f17b1804b1-4ac180f2ff3mr369147945e9.17.1793806621789;
-        Wed, 04 Nov 2026 07:37:01 -0800 (PST)
+        bh=3fjvYxL1CcyYarRBHj/5LrpmgJVswx2GaGjokKiBvVE=;
+        b=Gdd3VaQV01VxItxTZaWAeTZC7XbpI+3dJp44R8Ep45tgf5hPPWPKGsqR/e1vqTWP2z
+         7W9bEsbut6M57XHKLC6Rm1H7wn1goFXXhsq479SE2cykWqNjQC3PDj/zYxI5sXiO1O7+
+         CfFUEH28kzPg3IhFY9m0SwJb9o3N+rQjrnVdR9cakPuPBxSurt1rMCIYgGDoKE6nbrpR
+         lmDWOGMni313d8DetOGcniv1JrefPxg/fZodletzgGUtBDPO+X4SiaaNgkSMgP9Lhm/c
+         QxpbYOtDAOSNAn9kjFaR7AamxNmxlPYt61dd7GMW0g+7T31oGjU/13THJ52YdqytSxx+
+         slvw==
+X-Forwarded-Encrypted: i=1; AKwUvByaOwNMWxS941cVa5V9pbVHFtQ4hp4y18fJ/TN/IB1IOEJioxyiBVy89YPoFisQIfp068Vco8KSsv3HKcs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/+Q5U4BdgmzAjQbmWX4rRBjaIrxqxCJKJYCRnLzVBdNQwZPW08
+	NwFAvR1XeEDutDiVYAdvdgGkUGcXEChXy0mIF+m0ecQT2TbInH/KIRCZNpOTg3jZos4=
+X-Gm-Gg: AYBFou3u3FhnMhpskJNkMfdZrSOIY4Dt0POd+5Nooq6Bv8oV2BG7d48Lku4X0Le6SAn
+	FhqmmrhGqUZ/vzCEM4wN8XTDtlUjB452PWk4/iaqSeA1p7pfYmqkTGjMe30eiLoAL6IR4rX1nsR
+	YnkNjf4R2r4is4LifiUADV+vt52pEUbRF8Tzu4Z/xpybDBPJh4vAiAj2SNy70qwauxbA2wTJZHn
+	o03tvj+b7P33ual868/8KzLfSD0RUJX+bRwLZn2gmPvj6vUp1U740L4y6UQSV5wURhVW78pd+R/
+	4gnfnwQFRjqENvNvcmdA4160rHRblrq7LLjBg8e4rHQfeXRzAkdiGAYFDf57h62R3G8NrANuIei
+	HP6OSxf64AjbbVzkfb2Urz4MMKnLJabfdKSzST1QY03+xL5VYckSdbU5+qAA7qQt4DQ2dwI3r4n
+	NTTG2VmOEz6wtb6tI4iaq7x4c1+hQDO6uKYAv3CJpR5OvI5pyMXUvz07N2jwWGB08LV4ybPZAF2
+	Hm8oIFZSXSaC7sWg3lF6FjXPHhboaFCwx4zyfpEHzXe/DMsUj9E5PeMEB/aIZcZhSmEkdSsAWtJ
+	wIyXFl9zsoPxdVHWPutkHgLapZl/lcoj
+X-Received: by 2002:a05:600c:4715:b0:4a3:598e:e7a8 with SMTP id 5b1f17b1804b1-4ac150b28bamr382209415e9.4.1793806617228;
+        Wed, 04 Nov 2026 07:36:57 -0800 (PST)
 Received: from pop-os.local ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b43d4c9d4csm82566395e9.12.2026.11.04.07.37.01
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b43d4c9d4csm82566395e9.12.2026.11.04.07.36.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 07:37:01 -0800 (PST)
+        Wed, 04 Nov 2026 07:36:56 -0800 (PST)
 From: James Clark <james.clark@linaro.org>
-Date: Wed, 04 Nov 2026 15:36:37 +0000
-Subject: [PATCH v2 6/9] coresight: syscfg: Fix deadlock in
- cscfg_create_device() error path
+Date: Wed, 04 Nov 2026 15:36:32 +0000
+Subject: [PATCH v2 1/9] coresight: etm-perf: Serialize AUX topology access
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,46 +93,190 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-james-cs-sashiko-easy-fixes-1-v2-6-410c03941267@linaro.org>
+Message-Id: <20261104-james-cs-sashiko-easy-fixes-1-v2-1-410c03941267@linaro.org>
 References: <20261104-james-cs-sashiko-easy-fixes-1-v2-0-410c03941267@linaro.org>
 In-Reply-To: <20261104-james-cs-sashiko-easy-fixes-1-v2-0-410c03941267@linaro.org>
 To: Suzuki K Poulose <suzuki.poulose@arm.com>, 
  Mike Leach <mike.leach@arm.com>, Leo Yan <leo.yan@arm.com>, 
  Yeoreum Yun <yeoreum.yun@arm.com>
 Cc: coresight@lists.linaro.org, linux-kernel@vger.kernel.org, 
- James Clark <james.clark@linaro.org>, Sashiko <sashiko-bot@kernel.org>
+ James Clark <james.clark@linaro.org>
 X-Mailer: b4 0.15.2
 
-If device_register() fails, put_device() is called with cscfg_mutex
-held. This calls cscfg_dev_release() which takes cscfg_mutex again and
-deadlocks. Drop the mutex before calling put_device().
+Perf AUX setup walks the CoreSight connections to select a sink, build
+paths and acquire references to the devices and their helpers. Unlike
+sysfs tracing, it does not hold coresight_mutex. Driver registration and
+removal can therefore change or free connections while setup walks them.
+Adding a CTI helper can also reallocate an existing device's output
+connection array even when the device is already referenced by a path.
 
-Fixes: 199380decc5f ("coresight: configfs: Fix unload of configurations on module exit")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-e07a8e2f-c34e-4609-a667-9f294c6fcf29
+Hold coresight_mutex from sink selection through buffer allocation.
+The allocation must also be protected because ETR buffers can look up a
+connected CATU. Release the mutex before calling etm_free_aux() on error.
+
+AUX cleanup walks helper connections again when releasing paths. Add a
+locking coresight_release_path() wrapper and use
+coresight_release_path_locked() for sysfs and setup error paths which
+already hold the mutex. Leave sink buffer freeing and configuration
+deactivation outside the mutex. AUX cleanup runs in sleepable context
+following the preceding workqueue removal.
+
+Add lockdep assertions to path construction and release to document the
+existing sysfs locking contract and enforce it for perf as well. This
+protects sleepable AUX topology walks; connection reads in atomic path
+enable/disable callbacks need a separate solution.
+
+Fixes: 0bcbf2e30ff2 ("coresight: etm-perf: new PMU driver for ETM tracers")
 Signed-off-by: James Clark <james.clark@linaro.org>
 ---
- drivers/hwtracing/coresight/coresight-syscfg.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/hwtracing/coresight/coresight-core.c     | 20 ++++++++++++++++----
+ drivers/hwtracing/coresight/coresight-etm-perf.c | 11 +++++++----
+ drivers/hwtracing/coresight/coresight-priv.h     |  1 +
+ drivers/hwtracing/coresight/coresight-sysfs.c    |  4 ++--
+ 4 files changed, 26 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/hwtracing/coresight/coresight-syscfg.c b/drivers/hwtracing/coresight/coresight-syscfg.c
-index 8d18cd2aa347..1ecf4e9a91c4 100644
---- a/drivers/hwtracing/coresight/coresight-syscfg.c
-+++ b/drivers/hwtracing/coresight/coresight-syscfg.c
-@@ -1212,8 +1212,12 @@ static int cscfg_create_device(void)
- 	dev->init_name = "cs_system_cfg";
+diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
+index d2f9c1fb77d9..c05d657cde73 100644
+--- a/drivers/hwtracing/coresight/coresight-core.c
++++ b/drivers/hwtracing/coresight/coresight-core.c
+@@ -30,8 +30,8 @@
+ #include "coresight-trace-id.h"
  
- 	err = device_register(dev);
--	if (err)
-+	if (err) {
-+		/* cscfg_dev_release() takes cscfg_mutex */
-+		mutex_unlock(&cscfg_mutex);
- 		put_device(dev);
-+		return err;
-+	}
+ /*
+- * Mutex used to lock all sysfs enable and disable actions and loading and
+- * unloading devices by the Coresight core.
++ * Mutex used to serialize device registration and removal, sysfs enable and
++ * disable actions, and perf AUX setup and path release.
+  */
+ DEFINE_MUTEX(coresight_mutex);
+ static DEFINE_PER_CPU(struct coresight_device *, csdev_sink);
+@@ -910,6 +910,8 @@ static void coresight_drop_device(struct coresight_device *csdev)
+ {
+ 	int i;
  
- create_dev_exit_unlock:
- 	mutex_unlock(&cscfg_mutex);
++	lockdep_assert_held(&coresight_mutex);
++
+ 	coresight_put_ref(csdev);
+ 	for (i = 0; i < csdev->pdata->nr_outconns; i++) {
+ 		struct coresight_device *child;
+@@ -1046,6 +1048,8 @@ struct coresight_path *coresight_build_path(struct coresight_device *source,
+ 	struct coresight_path *path;
+ 	int rc;
+ 
++	lockdep_assert_held(&coresight_mutex);
++
+ 	if (!sink)
+ 		return ERR_PTR(-EINVAL);
+ 
+@@ -1065,17 +1069,19 @@ struct coresight_path *coresight_build_path(struct coresight_device *source,
+ }
+ 
+ /**
+- * coresight_release_path - release a previously built path.
++ * coresight_release_path_locked - release a path with coresight_mutex held.
+  * @path:	the path to release.
+  *
+  * Go through all the elements of a path and 1) removed it from the list and
+  * 2) free the memory allocated for each node.
+  */
+-void coresight_release_path(struct coresight_path *path)
++void coresight_release_path_locked(struct coresight_path *path)
+ {
+ 	struct coresight_device *csdev;
+ 	struct coresight_node *nd, *next;
+ 
++	lockdep_assert_held(&coresight_mutex);
++
+ 	list_for_each_entry_safe(nd, next, &path->path_list, link) {
+ 		csdev = nd->csdev;
+ 
+@@ -1087,6 +1093,12 @@ void coresight_release_path(struct coresight_path *path)
+ 	kfree(path);
+ }
+ 
++void coresight_release_path(struct coresight_path *path)
++{
++	guard(mutex)(&coresight_mutex);
++	coresight_release_path_locked(path);
++}
++
+ /* return true if the device is a suitable type for a default sink */
+ static bool coresight_is_def_sink_type(struct coresight_device *csdev)
+ {
+diff --git a/drivers/hwtracing/coresight/coresight-etm-perf.c b/drivers/hwtracing/coresight/coresight-etm-perf.c
+index 09b21a711a87..86ec4708b7e4 100644
+--- a/drivers/hwtracing/coresight/coresight-etm-perf.c
++++ b/drivers/hwtracing/coresight/coresight-etm-perf.c
+@@ -411,7 +411,7 @@ etm_event_build_path(struct perf_event *event, int cpu,
+ 	/* ensure we can allocate a trace ID for this CPU */
+ 	ret = coresight_path_assign_trace_id(path, CS_MODE_PERF);
+ 	if (ret) {
+-		coresight_release_path(path);
++		coresight_release_path_locked(path);
+ 		path = NULL;
+ 		goto out;
+ 	}
+@@ -438,6 +438,9 @@ static void *etm_setup_aux(struct perf_event *event, void **pages,
+ 		return NULL;
+ 	INIT_WORK(&event_data->work, free_event_data);
+ 
++	/* Protect sink selection, path construction and buffer allocation. */
++	mutex_lock(&coresight_mutex);
++
+ 	/* First get the selected sink from user space. */
+ 	sink_hash = ATTR_CFG_GET_FLD(&event->attr, sinkid);
+ 	if (sink_hash)
+@@ -508,13 +511,13 @@ static void *etm_setup_aux(struct perf_event *event, void **pages,
+ 	if (!event_data->snk_config)
+ 		goto err;
+ 
+-out:
++	mutex_unlock(&coresight_mutex);
+ 	return event_data;
+ 
+ err:
++	mutex_unlock(&coresight_mutex);
+ 	etm_free_aux(event_data);
+-	event_data = NULL;
+-	goto out;
++	return NULL;
+ }
+ 
+ static int etm_event_resume(struct coresight_path *path)
+diff --git a/drivers/hwtracing/coresight/coresight-priv.h b/drivers/hwtracing/coresight/coresight-priv.h
+index dddac946659f..edec5a7d2be3 100644
+--- a/drivers/hwtracing/coresight/coresight-priv.h
++++ b/drivers/hwtracing/coresight/coresight-priv.h
+@@ -143,6 +143,7 @@ coresight_find_default_sink(struct coresight_device *csdev);
+ struct coresight_path *coresight_build_path(struct coresight_device *csdev,
+ 					    struct coresight_device *sink);
+ void coresight_release_path(struct coresight_path *path);
++void coresight_release_path_locked(struct coresight_path *path);
+ int coresight_add_sysfs_link(struct coresight_sysfs_link *info);
+ void coresight_remove_sysfs_link(struct coresight_sysfs_link *info);
+ int coresight_create_conns_sysfs_group(struct coresight_device *csdev);
+diff --git a/drivers/hwtracing/coresight/coresight-sysfs.c b/drivers/hwtracing/coresight/coresight-sysfs.c
+index 75000fe64fda..5dd4e9b0426e 100644
+--- a/drivers/hwtracing/coresight/coresight-sysfs.c
++++ b/drivers/hwtracing/coresight/coresight-sysfs.c
+@@ -230,7 +230,7 @@ int coresight_enable_sysfs(struct coresight_device *csdev)
+ 	coresight_disable_path(path);
+ 
+ err_path:
+-	coresight_release_path(path);
++	coresight_release_path_locked(path);
+ 	goto out;
+ }
+ EXPORT_SYMBOL_GPL(coresight_enable_sysfs);
+@@ -256,7 +256,7 @@ void coresight_disable_sysfs(struct coresight_device *csdev)
+ 		goto out;
+ 
+ 	coresight_disable_path(path);
+-	coresight_release_path(path);
++	coresight_release_path_locked(path);
+ 
+ out:
+ 	mutex_unlock(&coresight_mutex);
 
 -- 
 2.43.0
