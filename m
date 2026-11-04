@@ -1,79 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793817506;
-	b=hjp908MtymIpP6MikpIAnn1YET3as29HH9iVj8HW8OWcz+BjWBsJa7cfRKxef8zctjoo
-	 Cqw5gIwy9RqqTHABpIZmENuN+DBSONJP2V4JGKghvs2o294PIcZO5yKgc5cdaAn2xqcN8
-	 7x5Sn1qJOass32+bPuZrDo3BNsQnFZMMGbdZ3EbmaF+sHtqjmnRp7dAocc2xex3kw9QTX
-	 nVGSYQtWvkkyxnlNGPFNFbdlw2eF7hPLQOYlJxPUVVquKPgX/lju92j1pywvDGuzv4eY6
-	 acY5sUVYcZEtuTa6g5O8XLR7eNeP9YmW+QhoQjqXgtCpZTH4KPL7QfzPBj8aLZC/0WA==
+	t=1793817523;
+	b=inYqIrcUHLnQwUoSWHWpTRqQ0aQM2lZ8dL7g9QRsz5tHG2pOLd4b4cp4IBCq0tEgPXGd
+	 hnvkvSGXECFewolY70Z88f3hT+EGVnX2Dgy0X7UzvyemWi3cyClqjA1lVf/lZwJ2FKqGN
+	 NUjEV6hCQQs8vMsAsoeGj7DoGxyhLMzH28eTHOHGkClLRvqQKvICuVQ9Pv+4BosByZRZa
+	 PGJM8fAfCbFkhKg+bREhj0jSaK4wO8nGzRTxO6zlFbD8FDXuwh8prpG6C9jHZ+k3pZHRy
+	 OuxzRr1LLkHHl8uyC0ayrHEigP7lehEVhkYu9GfgsmvD0oUKjOjLO5lFdcDCz32gJWw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817506;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=+1f7Rzra7x85jb5eSs0HoWde3I/rDsurattuUDX1lxY=;
-	b=dQivOtjCNSmk1SB+XbZ0LYm5WBaagWR3yGLiVpGP55DUmpzGRQbExqVSSpq4vZBjcCsp
-	 3yqHOTgfzGlU0epdNnl/+n0PFA3XMFXq0FJOQ1Pr786PcCXiVp588a+sT43vjv/IBXCOV
-	 6pvzbBaebqID7LEt/Yot3xolDaoOdkzMfnX9nPbut6veW6raA5CM5jUa8cbvrqX8wuFDY
-	 gLCSsbLTFttanTITANP6/lxo0Ntn1IV3Pmp6ekv7l1mVuq6giX/fOiLSUYqD5bO1qRI0a
-	 +1oUqOtYqYN80DRTIXKA2ItY+SFjZd5nF/gJSJ7rretiWtzrAsWGE6qbyBMcdCCKswg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817523;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=+G4rf1hzJmKdD7EoOaWqne7TUKWl699YR7p6ZHK04Pg=;
+	b=aQY4ti/YQeBHc4KC+rb9kgOilJ2ibBGQ/B7B3grDLj2vL3m2ZmwWddpVQ8bYGp1QW4xs
+	 vnEXZE6HBOXHBpZxMfzOE5kf7CEQH56rJEgmuv4R4HF+jKsSmmaAyZ9feKPXWJodb4zaS
+	 NAHXqFZ6ZA/MpdSLlOz+wMhvdldKhARmApIZuSO3ovf1tjW3jfzxS3BA19EdHrYLgmPXE
+	 iG3ZwwhS4NWjyzxL1PV98l69QK6NDg4CGamjPh7+E3rYyWKE6oLufIXa4WZ22hTPrsDk2
+	 ellTsokNZ/stJ8na/eyK6i0y9puj2z+PAw9hkhHXzwmZf572ToDymmz236a1gOhLRZw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jOW2LVsw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A22FE606D806;
-	Wed,  4 Nov 2026 18:38:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jOW2LVsw
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793817505;
-	b=ieT9UmWeRjBKIZR2tK75c8o9u8dzWde1kzSySMl8t75sCkoCoAhlLYHvWxokHRTfE7Z/
-	 ETJXVBUpxuoKkUspMLapNkAG/763eLeVZwU7RSOgNgtVr3CGHhfmdrXCgGFSe8Y40tR2+
-	 VLDcR0rxNucB0ba4Mv1WQECsmaDwAVxFhmKgX+CV/5d8y/uSNwloWvKGDFmwQ+lzKLRtR
-	 jgz7B7Iw79rPBRTGHtWLGX2uyS3JqQytu/q3CmfPjWXgAjfIG/O5lgPeSNFXzwcfoa3tF
-	 +0tbm36aEtfjekAB25YQyWyvcgizY5QoEEJEDUm+2S7AcKaUzv1U5HyOy9Ob6uhSeIw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793817505;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=+1f7Rzra7x85jb5eSs0HoWde3I/rDsurattuUDX1lxY=;
-	b=w68rM7VcL8mE06en+N5DB1//b0WKpc342FLP4NHraMWFWHoQvEhnAg8oRHVpRg3QoVds
-	 GhPBu2Qo7JJKLVATFNL8BSa5KLNIkZczZQk5WcBfjLAqKTxK4Wq4eUTE8yJ+Y/eWQtRr3
-	 qsXom2IS0nDqgFUi8/ViMXOGQ667GafF7NzzZ0f5GaGt3xQ788ue5P4h9BB+kQP7C34a/
-	 bYYH0dbY0l6UOBR5gG+6yKk0cZK93PJUla/63pDWeQGSAzj7TbUHnqxdSXriphkAo2Z/q
-	 U+6ZgXkICe+SoNthJqXO7XmBWm2baoTWpvdQHJi4z/vDM1LYff702KZe9fnRcb3wJjQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	dmarc=none header.from=iav.lv;
+	spf=pass smtp.mailfrom=iav.lv;
+	dkim=pass header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b="XwsE/OKh";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
+Received: from sender-op-o15.zoho.eu (sender-op-o15.zoho.eu [136.143.169.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 618051F00A15;
-	Wed,  4 Nov 2026 18:38:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793817505;
-	bh=+1f7Rzra7x85jb5eSs0HoWde3I/rDsurattuUDX1lxY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=jOW2LVswIT6eg6NKfTW9BLGu3fWkzUrGoEJ6sFxvrNiUZkTJ0ockRXQKXqmn8orvQ
-	 jTBVkj5OJtRuelv0O3Us32F/a2G5OCsufFsLGNrXHedHUhy1NGEr3JAwpDm5G51j0m
-	 HM8/+0icQOMkMRerYYYZ4BzhcUVYikhUMN7bp85KSy/43zkkS9vT4AIip+uA/mrfG4
-	 pIuSit5p8SAsFU/nrq7DlfOEsI4ny7XEqfdN0LUEO1y3nU4MVSFT4u52UjH6w/0H+Y
-	 0fO72kgBbAgroqhhBlyw3iDJDcmM5GG1DOmODm6Vd9K+LFBLzbJGrt3p/bodDsOKZM
-	 aFkKZujZn6Pyg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C9E4546F30;
-	Wed,  4 Nov 2026 18:38:23 +0000 (UTC)
-From: Andrew Gigena via B4 Relay <devnull+mail.andrewgigena.dev@kernel.org>
-Date: Wed, 04 Nov 2026 18:38:12 +0000
-Subject: [PATCH v2 1/2] dt-bindings: crypto: ice: Document sm8150 inline
- crypto engine
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA22C606D813;
+	Wed,  4 Nov 2026 18:38:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA22C606D813
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=XwsE/OKh
+ARC-Seal: i=1; a=rsa-sha256; t=1793817483; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=jOiOl+0CE+ACVKVx2qnxTLmr810zE/CRa3KOwEr2zNkoJc25NbMCCdee3UXcgi4SvHxIB9BtXeTa0IVCXrN70PWks0O6lrv3nUDrmsbs7zmRhW0uVtNFMd0VTFsWtSr8+/uuFcaXlBFobGvMea9hXuGXpJvGRq1hcefv3O2S7cE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1793817483; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=+G4rf1hzJmKdD7EoOaWqne7TUKWl699YR7p6ZHK04Pg=; 
+	b=KMm2Qa0cQcm1Y27OQJWy4TNMM30UFPAzO1jo5bniPHxWFY0Eda/ucpPhYTde4l6Pg2NFIbfnvQFVZX1Ll+NpPo+lgbZt1jPYyQdzP1mocMFucUS2ZDb6+KaOPLwNzr7Ds4lccHlD684uAul0XSMWEoK4teQbqi8DSwUGyg4TaIs=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=iav.lv;
+	spf=pass  smtp.mailfrom=iav@iav.lv;
+	dmarc=pass header.from=<iav@iav.lv>
+DKIM-Signature: a=rsa-sha256; b=XwsE/OKhgSV8BT27J+m5RtLTpGlmD2r5OAJQBoml3G3mJAKrH4UlhmUacSyvaKRjiVf6jv2WIYpVW3Zf1hnYQuMIP8iVKsbm/g6dLhyYNPkj9JoZW4z3McwqHJCweLV6luJLFyFNmNcj9d8s1sIjsmdVL0IaFCIvnJVaF1p0uAk=; c=relaxed/relaxed; s=zoho; d=iav.lv; v=1; bh=+G4rf1hzJmKdD7EoOaWqne7TUKWl699YR7p6ZHK04Pg=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zoho.eu with SMTPS id 1793817481738396.6696032790776;
+	Wed, 4 Nov 2026 19:38:01 +0100 (CET)
+Date: Wed, 04 Nov 2026 20:38:00 +0200
+From: Igor Velkov <iav@iav.lv>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: iav@iav.lv, John Stultz <jstultz@google.com>, Thomas Gleixner <tglx@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Kevin Hilman <khilman@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
+ Miroslav Lichvar <mlichvar@redhat.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 0/3] alarmtimer: Choose the wakeup RTC per sleep state from the device tree
+Message-ID: <20261104-alarmtimer-rtc-neil-reply-1@iav.lv>
+In-Reply-To: <399668f0-e97a-438e-b761-1ea6c18d904b@linaro.org>
+References: <20261104-b4-alarmtimer-rtc-priority-v1-0-e996681b8086@iav.lv>
+ <399668f0-e97a-438e-b761-1ea6c18d904b@linaro.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,146 +73,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261104-sm8150-ice-rfc-v2-1-d697bbce0278@andrewgigena.dev>
-References: <20261104-sm8150-ice-rfc-v2-0-d697bbce0278@andrewgigena.dev>
-In-Reply-To: <20261104-sm8150-ice-rfc-v2-0-d697bbce0278@andrewgigena.dev>
-To: Abel Vesa <abelvesa@kernel.org>, 
- Herbert Xu <herbert@gondor.apana.org.au>, 
- "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
- Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>, 
- Bjorn Andersson <andersson@kernel.org>, Andy Gross <agross@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-scsi@vger.kernel.org, Andrew Gigena <mail@andrewgigena.dev>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793817503; l=4322;
- i=mail@andrewgigena.dev; s=20261104; h=from:subject:message-id;
- bh=mRCpiAcaklHlABHeMaju4dyvg4yCGxIDPGZCXtGntFY=;
- b=9CGO1iYKSfbbBha6rQDoLKsEQY0u4YVtWuY71pAiX3vzQtZhQBMdqNKDSYscGQFHM3KYDXuzJ
- /rNvlzjrlsPBAA1HGof+ml9C8+q8iddLBv/7yR9C9cHJLcgDRceHUYY
-X-Developer-Key: i=mail@andrewgigena.dev; a=ed25519;
- pk=OMhlYIBaOEC8g4mJ4JCKy7kbg+lrwRxuujieZF8Ne6U=
-X-Endpoint-Received: by B4 Relay for mail@andrewgigena.dev/20261104 with
- auth_id=1402
-X-Original-From: Andrew Gigena <mail@andrewgigena.dev>
-Reply-To: mail@andrewgigena.dev
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-From: Andrew Gigena <mail@andrewgigena.dev>
+On 11/4/26, Neil Armstrong wrote:
+> This sounds bulky, perhaps it would be much simpler if we just added
+> all the available RTCs which has RTC_FEATURE_ALARM and can wakeup ?
+>
+> Just switch from 1 single to multiple RTCs in a linked list and you're
+> done, no DT & bindings changes.
 
-Document the compatible used for the inline crypto engine found on
-SM8150.
+A list it is, and v2 drops linux,alarmtimer-priority.
 
-SM8150 UFS uses a standalone ICE node referenced via qcom,ice, so move
-qcom,sm8150-ufshc from the legacy embedded-ICE UFS binding to the
-standalone-ICE UFS binding. Update the legacy binding example to use
-qcom,sdm845-ufshc, which still uses the embedded ICE representation.
+Arming every RTC makes the coarsest one fire first: pcf8563 has no
+alarm seconds, so its alarm comes up to 59 s early, and an RTC with
+alarm_offset_max wakes earlier still. The board wakes before the timer
+expires, and the next alarm may come seconds later: while it is still
+resuming, which takes seconds with disks and PCIe, or right after it
+is suspended again. Drivers then go through suspend and resume at
+short intervals. Arming one RTC per sleep state avoids that, and which
+RTC wakes from which state is board knowledge, so v2 keeps
+linux,wakeup-states.
 
-Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
----
- .../devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml |  1 +
- Documentation/devicetree/bindings/ufs/qcom,sc7180-ufshc.yaml  |  2 ++
- Documentation/devicetree/bindings/ufs/qcom,ufs.yaml           | 11 ++++-------
- 3 files changed, 7 insertions(+), 7 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
-index 23bf98c2b9fa..0d73e4581e6e 100644
---- a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
-+++ b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
-@@ -24,6 +24,7 @@ properties:
-           - qcom,sc7180-inline-crypto-engine
-           - qcom,sc7280-inline-crypto-engine
-           - qcom,shikra-inline-crypto-engine
-+          - qcom,sm8150-inline-crypto-engine
-           - qcom,sm8450-inline-crypto-engine
-           - qcom,sm8550-inline-crypto-engine
-           - qcom,sm8650-inline-crypto-engine
-diff --git a/Documentation/devicetree/bindings/ufs/qcom,sc7180-ufshc.yaml b/Documentation/devicetree/bindings/ufs/qcom,sc7180-ufshc.yaml
-index 3c407426d697..572eec814a60 100644
---- a/Documentation/devicetree/bindings/ufs/qcom,sc7180-ufshc.yaml
-+++ b/Documentation/devicetree/bindings/ufs/qcom,sc7180-ufshc.yaml
-@@ -23,6 +23,7 @@ select:
-           - qcom,sc7280-ufshc
-           - qcom,sc8180x-ufshc
-           - qcom,sc8280xp-ufshc
-+          - qcom,sm8150-ufshc
-           - qcom,sm8250-ufshc
-           - qcom,sm8350-ufshc
-           - qcom,sm8450-ufshc
-@@ -48,6 +49,7 @@ properties:
-               - qcom,sc7280-ufshc
-               - qcom,sc8180x-ufshc
-               - qcom,sc8280xp-ufshc
-+              - qcom,sm8150-ufshc
-               - qcom,sm8250-ufshc
-               - qcom,sm8350-ufshc
-               - qcom,sm8450-ufshc
-diff --git a/Documentation/devicetree/bindings/ufs/qcom,ufs.yaml b/Documentation/devicetree/bindings/ufs/qcom,ufs.yaml
-index 516bb61a4624..ef4d1d055169 100644
---- a/Documentation/devicetree/bindings/ufs/qcom,ufs.yaml
-+++ b/Documentation/devicetree/bindings/ufs/qcom,ufs.yaml
-@@ -23,7 +23,6 @@ select:
-           - qcom,sm6115-ufshc
-           - qcom,sm6125-ufshc
-           - qcom,sm6350-ufshc
--          - qcom,sm8150-ufshc
-   required:
-     - compatible
- 
-@@ -38,7 +37,6 @@ properties:
-           - qcom,sm6115-ufshc
-           - qcom,sm6125-ufshc
-           - qcom,sm6350-ufshc
--          - qcom,sm8150-ufshc
-       - const: qcom,ufshc
-       - const: jedec,ufs-2.0
- 
-@@ -69,7 +67,6 @@ allOf:
-             enum:
-               - qcom,sdm845-ufshc
-               - qcom,sm6350-ufshc
--              - qcom,sm8150-ufshc
-     then:
-       properties:
-         clocks:
-@@ -175,10 +172,10 @@ unevaluatedProperties: false
- 
- examples:
-   - |
--    #include <dt-bindings/clock/qcom,gcc-sm8150.h>
-+    #include <dt-bindings/clock/qcom,gcc-sdm845.h>
-     #include <dt-bindings/clock/qcom,rpmh.h>
-     #include <dt-bindings/gpio/gpio.h>
--    #include <dt-bindings/interconnect/qcom,sm8150.h>
-+    #include <dt-bindings/interconnect/qcom,sdm845.h>
-     #include <dt-bindings/interrupt-controller/arm-gic.h>
- 
-     soc {
-@@ -186,7 +183,7 @@ examples:
-         #size-cells = <2>;
- 
-         ufs@1d84000 {
--            compatible = "qcom,sm8150-ufshc", "qcom,ufshc",
-+            compatible = "qcom,sdm845-ufshc", "qcom,ufshc",
-                          "jedec,ufs-2.0";
-             reg = <0x0 0x01d84000 0x0 0x2500>,
-                   <0x0 0x01d90000 0x0 0x8000>;
-@@ -207,7 +204,7 @@ examples:
-             vccq-max-microamp = <1200000>;
- 
-             power-domains = <&gcc UFS_PHY_GDSC>;
--            iommus = <&apps_smmu 0x300 0>;
-+            iommus = <&apps_smmu 0x100 0xf>;
- 
-             clocks = <&gcc GCC_UFS_PHY_AXI_CLK>,
-                      <&gcc GCC_AGGRE_UFS_PHY_AXI_CLK>,
-
--- 
-2.56.0
-
-
+--
+Igor Velkov
