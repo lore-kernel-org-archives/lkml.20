@@ -1,67 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793804612;
-	b=AhcIyhAVJCPlFQ+uGhu2t2NSK0v0vwxwKOzVeMst+A9jkKd104td64ZRa6CnSJPVUflS
-	 6chd/QS1GhQyJ7In6yuZXYFhYdZDuHRQWENQbx9A+J6ztV7AXK8i9GeSDKPQAublLZc7l
-	 S8eJfWVxyvWcO5kCpPDUngm/SEcy6Zs6UBRVOr3atkQd+Si8pV5hXwRJyhwhUvRp2YGHG
-	 6yJxfTX1y7AK2Knr8UiXD1GCbrlrRqR75Sb/yp9IlCMW9VKVi9Tck970Y+M/yKW5d/oyY
-	 qUa6tVJ+jnScQTqqGdHD3Y8y7WDBQavovNRm8KUO7BCF3whjsAMoKkPhsaCW4N1elRg==
+	t=1793804618;
+	b=D2TLtboNa5vDcXh8dodcNDIvR/zwfeOHONkDmY1rFJMPb6TXmRWnwB8pcafhfpPTAztt
+	 OEn59TZh+EpSrCvgC9NK1jIZfiHPHSj10WUAQWO+6/H7hzCxG48D9ci/+pjVQpwTSEZ5r
+	 XE/lXVp255wJTPGTwn7cc6mGe8zXN+8yDjL4uquepBsqyQtDT3h4kc2F+0wIEm9enrbcA
+	 t6qe9N3EENp7yzAll4KgVzJQAvvikvg3wIAyxa9bCT2O8DR9/I2YOIaIaQBwd6xR/OjrE
+	 2OZq5AZjCc96JCPP7r0TOSfqnR4EB1LMtKQmBCG4XB8kfkeZNPAi8oTz+HHs2pkxrfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793804612;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=jcuK5iLQbBpoNUcGNqmSkFEid/wes9Tw0xAICnEgk2I=;
-	b=luth+v9R9WxmFeNCi0R6TfFeJKFj1M0/2FW3IiSMLEbkm4fESPjIsmA2UawVNNZgr10e
-	 xWVKljxxbA95nZkAE6NNXJbghKXq0JXgTrH0ScFpPoZXSj8sxdIa2FFhJ68I+u52sXpw5
-	 JKqZhK8uZyqkaNarftvpNI5vqi64TufGAiqZqWv5NZis1bAuppb6V3tbcdFHX6GNctZNS
-	 Ek9fcIsnegXoNPpJJwgxnd0tIIQrJ1G5J89R8Xs+78cJsX6cwNNDK4mQjws07/7SmkdiH
-	 3AIA1I8EIE1G1Fn2uyJ5PGpEskwV3rRzyQVBxjy7Db1uKKIdRNrgET8GvktOhOB6fmA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793804618;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=riKhaylCbDlpVRlcWx+ke8rGc+IoyU2HKm4r+6p+j+g=;
+	b=buWJeFqa8Bui1dw6gzCmonxRvTHQJUbY5855Jyez9QdgSQTj6hKIYYZM31UZ7DYT3gFF
+	 TL0pgy4H13AaVrP2a4pSpfIAlovW21N145rgjwNsd8KmiYCEr66IgWJlYWl6HOWXnWYox
+	 S75eEgWoIMBeaqRHC3gOMwaFOO6Fl2EZGnFDUPlGten/CRdEvfxwNvMDIYcp896EXrMlX
+	 9iUhv52o5zAhDrL8wQSI7LE4qOQEofeNJMdmquqY3EoSnZoLctKY/bbKHuA+WB7JIrmC9
+	 0xSS8Bq/yrZD1iEfcxOitPk7NqE3AT52eQZh1c2P3dlkwMJ7GBGB5I4nZC+yOUZHjVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eIrCEFfS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wk5J2toY;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71EDB606A329;
-	Wed,  4 Nov 2026 15:03:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA5F606A338
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:03:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1EA5F606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eIrCEFfS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 751941F0093A;
-	Wed,  4 Nov 2026 15:03:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793804612;
-	bh=jcuK5iLQbBpoNUcGNqmSkFEid/wes9Tw0xAICnEgk2I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eIrCEFfSSC3DJJemsJ1SUXjXY8yUkE4yg9cD/telo2KbgxpiuDRXdHES6CKYP1E79
-	 iVzm9jNzHBGXubcKZHtPPq3+0UbMb9HicYLdCLN5dA/fF7fYOGvcgvdZ/mUgv1sorK
-	 i4EJUXUfvu3hJaqXkiZR8SW7sRmW3WJ9Xtwt1JEb1EaN2jQ6VWDWqTF28DXjfN5i6e
-	 V0x0BoN1I7nS4jbhkT/jqTbJXghxAOLpUse0KcuWvNTg+2faSp1rlhEo8Qnj9EaWUG
-	 VetEJVD0KvQ3LwCux4vlvTa0efI+5NV1N4UwCJmAcFghukrCbNvlGIYP6LXkfhSG3K
-	 pPGzzumzC24+Q==
-From: Sasha Levin <sashal@kernel.org>
-To: Elliot Berman <elliotjb@elliotjb.com>
-Cc: Sasha Levin <sashal@kernel.org>,
-	Theodore Ts'o <tytso@mit.edu>,
-	Andreas Dilger <adilger.kernel@dilger.ca>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Yongjian Sun <sunyongjian1@huawei.com>,
-	Jan Kara <jack@suse.cz>,
-	stable@vger.kernel.org,
-	regressions@lists.linux.dev,
-	linux-ext4@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wk5J2toY
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-36d6765756fso539667eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 07:03:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793804617; x=1794409417; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=riKhaylCbDlpVRlcWx+ke8rGc+IoyU2HKm4r+6p+j+g=;
+        b=wk5J2toY9fRlni4nSjngWFeIdYhzk9B4vAMbGkcAaYVmPvs4oJxlGaAiWuxpih/KS4
+         5TNfYGJbcJmSDmvYY0nCQn0Ncgib9GTZ3cS31doE678LPA6pVTw4nHrQ8yHUBqZeoQt0
+         C/M0YOeKQggDUm3AkkXVZa6EyiReL4muBlkKa9N6kxabiNjRSk52H/b5bdnbuAD74mlv
+         3ChZcknw51DYO4khI/A6GiaNHbsWs0gv7qlJhaeQp2htaRW3ldi0kPd84I5Yo8s3Z6uy
+         GfCeTfkSzolI1/+8DyQelZJN0R07NjcmrLUm4OPCGMZBvW/jrB6+Z4TDS2ScMgMqkPHY
+         ROlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793804617; x=1794409417;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=riKhaylCbDlpVRlcWx+ke8rGc+IoyU2HKm4r+6p+j+g=;
+        b=Mzv9k310c6nN7xRm8Vd+wov5YYa2mQQfZJMbBWnqgxlMi+L3ut2HWRNf7FpN77Bowi
+         QqM5M37jCps97lkloLb3WGYyiFYpzPz84Qn5DTjjMYAFysDFdGdgoIZHqhpp/bgR2Zql
+         nggLsw+9oonilJrvRFeByWlSsRx9bsKzbNvZJAx9bpg+kmEwoncjNpqHYYgZcexbuqZ0
+         xOyWRZ0X8edR85Ch7tfA9QkbfzEX11DUP9TqArfUuexDnB6RfhVtU6DKbmfGq9VwHbQi
+         0ustuJkkSnW3IGunq7+qCMPXmsaThMuF3uUGBZEuI3NK7ziTmE6ZTSXW27sHiELgv3PU
+         zu9w==
+X-Forwarded-Encrypted: i=1; AKwUvBzHsiDakT9QisTubk5JjPNRI2az1KWqcs1ySR2ctn9/c+HoazdslV06i+pgxO953WkT1b78lXLJwc60gSg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+luwshZWYC6xhkLCcYlUtbgfVqbIeOQCSLsNEWmo4JMpmKQO+9
+	ZgR3V4LltzeGNVgKSWW0/5EFoy1zps8s3dupImsQ9GwW1Sr8Kz7Mw2on
+X-Gm-Gg: AYBFou13ngOcRCrGRGK5eExPJtlppyMh18VxiTGTUOQwfcnEHzwJTTBJEWQvUzkVSC0
+	blzX+GTCSnHfefkYYuYbqZSvYidW3Tcq4HyWyUsvXZYTpxHKnIiJybRc2eT8j07IUr2ctqFmkyi
+	TDneEFeuyW3COUUS+zXv7Jni2QT87oJGeJfzsQmOGdrQpjplMwesNVXlP4V6kofrBs0pjYOCtvu
+	Wht7kuPiqHTabitj49tiYPM1T88wnZNiI0OnOCsaNbBlvtF9ecn6q4QUFXnDrx5EE+jK16hgD1N
+	3mvi0gDTT/UXIYShxGod+TsAijzj85HzVImUI4Pi7BbE4YG+58Gjix5Jx2DgipqNIvSLaq3UFRd
+	/58PmeK3cYuDkla6mrGPGxckjZSbWmU10S48tkLJHzm3Lq4OmZUKI9groeKwRue7wN/CV+A4k26
+	iyiMYPWYSmt/2EWuF1BAsgjf5Pzas6lxRsAOu03KZyicW42Z23SiQyycmCIJ/kZGqWNtj8SMKUD
+	nUHjE7RL3rALRWbQ8U39SLcd2f4P/QhUySJaueszP4fyQzsQIV8vw8LktErFcg3/T3cwVJ+s2r5
+	6CtrXR6+QGRhkBcQ1V5X4a9OVgZm3WbSo8JF8SzlJxiUv8DeJuNDhXQC8bjNxmTndWog9BFNfhc
+	MS6i/RbaWwxSGRBiOk451C2WHnpQ=
+X-Received: by 2002:a05:693c:638e:20b0:366:703c:5ef8 with SMTP id 5a478bee46e88-36a423935f0mr25717811eec.7.1793804616731;
+        Wed, 04 Nov 2026 07:03:36 -0800 (PST)
+Received: from localhost.localdomain ([2405:201:301c:f8cd:5040:8550:f5e4:709a])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38fa273sm9351643eec.16.2026.11.04.07.03.32
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 04 Nov 2026 07:03:35 -0800 (PST)
+From: Aryan Sinha <sinha.aryan03@gmail.com>
+To: Matt Turner <mattst88@gmail.com>,
+	Magnus Lindholm <linmag7@gmail.com>
+Cc: Richard Henderson <richard.henderson@linaro.org>,
+	linux-alpha@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	ntfs3@lists.linux.dev,
-	Tom Bereknyei <tomberek@gmail.com>,
-	Kevin Fernandez <kevin@findhost.org>
-Subject: Re: [PATCH 6.1.y 0/2] Fix NULL folio dereferences from IS_ERR() checks in 6.1.191
-Date: Wed,  4 Nov 2026 10:03:13 -0500
-Message-ID: <2026-11-04-1-daily-reply-0004-re-ext4-null-folio-61@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <auk775zR0FCl4L0X@hebergement-securise.com>
-References: <auk775zR0FCl4L0X@hebergement-securise.com>
+	Aryan Sinha <sinha.aryan03@gmail.com>,
+	kernel test robot <lkp@intel.com>
+Subject: [PATCH] alpha: use min() in tsunami_console_data_log()
+Date: Wed,  4 Nov 2026 20:33:24 +0530
+Message-ID: <20261104150328.33387-1-sinha.aryan03@gmail.com>
+X-Mailer: git-send-email 2.46.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,12 +101,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On 2026-11-03, Kevin Fernandez <kevin@findhost.org> wrote:
-> Is the series needed on 6.1.y at all?
+The dump length is an open coded minimum. Use min() instead, and include
+minmax.h for it rather than relying on it arriving through another header.
 
-Yes. Elliot's two patches are queued for 6.1 and fix this oops, so it will be
-fixed in the next 6.1.y release.
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/r/202610201902.6BG70hxk-lkp@intel.com/
+Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
+---
+ arch/alpha/kernel/err_tsunami.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
+diff --git a/arch/alpha/kernel/err_tsunami.c b/arch/alpha/kernel/err_tsunami.c
+index dacf91d95..97e85237a 100644
+--- a/arch/alpha/kernel/err_tsunami.c
++++ b/arch/alpha/kernel/err_tsunami.c
+@@ -6,6 +6,7 @@
+  * Register definitions: 21272 Hardware Reference Manual, revision 4.0.
+  */
+ #include <linux/init.h>
++#include <linux/minmax.h>
+ #include <linux/printk.h>
+ #include <linux/pci.h>
+ #include <linux/sched.h>
+@@ -650,7 +651,7 @@ tsunami_console_data_log(int cpu, struct percpu_struct *pcpu)
+ {
+ 	unsigned char *data = (void *)(IDENT_ADDR | pcpu->console_data_log_pa);
+ 	size_t length = pcpu->console_data_log_length;
+-	size_t dump = length < 1024 ? length : 1024;
++	size_t dump = min(length, 1024UL);
+ 
+ 	printk("%sConsole data log for CPU %d (%zu bytes):\n",
+ 	       err_print_prefix, cpu, length);
 -- 
-Thanks,
-Sasha
+2.46.0
+
