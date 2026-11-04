@@ -1,90 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793766563;
-	b=F7pUMFo/GsqHOxEi3+Lm/bKhjJcwZnDb6j5YC5NXnjNxukkeNml9gJqJHFI1wtMl44VT
-	 Cx/R5Pe17DmuSumT+kdC9WCnsvwz9PkwSYMqlQyZo3NkkA2ioIsCOzar11WhZVqJt2F/f
-	 X1A/0KRzLs2p5df/G5v7EmhHSfldm1QqE7cMrLgxc9baieFgZA5g+8fkgTMQ7aA281nsr
-	 g0Bb3Urhk7FuyOG1YXmtJ8EDsWNawDFcep1UKmB3daVFkEHoVAi44ktb7YSelj/IIfo4k
-	 vCw9xU9ymUNCpheFYv/sP2huPeqDVNenYzo9V2jZ1FPLL/XFmZr7OxE0gbie8ur2r7w==
+	t=1793766619;
+	b=bbAewB+AeN+B9VRPSHjv/ntkv/QLWsE2P9j8hriQQ+f0rQe+7vOzlf/ajmYAQAB1vIhi
+	 d+wrenqvSt3x5PIZ0IbaF5pmEi2CwXhd2In7nqQFlXyZo/3Uldie8SSZOsbM85Rxjl4on
+	 e70CgNC40lhlVDOhxgp2wKNTIxeM+i16FE/hd55c8UxmUGXrhdRCbOnmvSqe6MTXcZTMY
+	 9UTJfXaEV8qlcQ2ONmKAvSETCOiltGnZUq5DiBnWNYrNHKRvZUV0Ed44PkJI1bbpsN2Ir
+	 XsumjjGXh6xvTJqT3DuE02xawBTqcS6SyDuMhpFZVEj8ExEgy7CEDMawAWF3l7X7Qcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793766563;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793766619;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=s9VTcseFRjItBb8M0/dM+uCKSe8QR9zyb/UHNpdb02M=;
-	b=IHmiXVRLDNyeeff79CxwaelkpFBNSh7u76XlzsvACh3iFMKOsliGtudqjmC1KoTkJ7r4
-	 vXr/KbtfLc6PAscCDTK0KgRk/kxAXPQX8pHew804yHBXzeUDKwGBlm+lhcxYWZBBEl1jU
-	 MAsQAhDGmpGaXU7uZACGylcHUlp+wViiDY/DxHjv+Qs8hIdlc2aOrAnRyo1INvhNtxigo
-	 5iASbxN/0E80CKuQ6XMkHmAEO4qk0LgeNjIvYwNNiHbPBhFYB6jUdCgnAGEbskE2lKzat
-	 d7UKs2bubI6eiVAEtMS8cD8RvdmvtnORq1H5pZqEoNaRWfMMvnX2sw5ByVrM4hUV4Pw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=8waw0InSHbtK6ZY3bCOmuZQhAY4jX7XSlK/9kloqXLc=;
+	b=dCLHFxC1TeJulMdTt5m1iBi6b4RyDVKtxOtnU7QonIG5EmIdCNr6ohnr6+PquGjC601/
+	 GEtwaN2WKTYb/Kj5h9eorQUv5WLNiGBznTjK1ykhkgkkvfPOu+4sZcBGjVoium0a0DPJu
+	 nQosLO4IptOMMZ47pT/BCCjAPR5z2IM4JRVWHoTv4eELcTArNR+qfH3dHo1HrozJwVChl
+	 oFrE2YmNw/5TXX98NeCmCQv6htr7vyy4kNUSDuC6y3Pr81TqnmKo00z05zZHYwshxakwU
+	 wRc2xHy5h8eh1xjLbU67I9bS0aJ/WThsd7IeCk+1DJxzSEVDsvjobAhEm7b/diW3JLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=XIuWIcfq;
-	arc=none smtp.remote-ip=209.85.218.53
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cA05iQ+L;
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3F5B606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 04:29:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3F5B606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0493C606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 04:30:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0493C606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=XIuWIcfq
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c45551fa84eso47548266b.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 20:29:22 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cA05iQ+L
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-341eff9e381so548401eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 20:30:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793766561; x=1794371361; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=s9VTcseFRjItBb8M0/dM+uCKSe8QR9zyb/UHNpdb02M=;
-        b=XIuWIcfq98WkZxctkWZHa+04rg82SxQvh1BxGIapWJoFcjHSAxJ8lxBNrL0ZJ7mO+s
-         cta05rEB3B78Ksdg/zIXTdmJc1eIYJcOou84JqF665g51dZ/ltBZ2BsQhLH6hBTteNOQ
-         LttrCSASJEf2EDlT27Sv1wkIiwpTY34ZG4jmw=
+        d=google.com; s=20260707; t=1793766618; x=1794371418; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8waw0InSHbtK6ZY3bCOmuZQhAY4jX7XSlK/9kloqXLc=;
+        b=cA05iQ+L87KeC0XJCB1HKfGJI3KaZo1LmjL2Gxvh14+v5B/W70zKGkNbJurgtAdwLr
+         b9Yb7vLuXGqWqaM/lxCIqLtUfRnQcpCegjVN4dZnPvxA2taBEi0lx23PIRtTGNtGKlii
+         tMyD0Ga5SfnLTe0hKtFdZJyqYtwD2pdHC2W3HkTrkGYOWyG6Z5BYFwkqli4Y32lPFAds
+         Ko8HvAsJRUFJj3+wPler6pryCcqFAHGUEOssYiMRGStWPsJr5SwryNmrLcbbos4SjFEV
+         OiP6fHkU4TKo2tJY7o/eODqrG1AcWG/42vuaPmwjB5kRreJyTpYV+IWp2ne5FN96qipL
+         ylKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793766561; x=1794371361;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793766618; x=1794371418;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=s9VTcseFRjItBb8M0/dM+uCKSe8QR9zyb/UHNpdb02M=;
-        b=qj2Q63fh+FSHTRq6EN1MGMahSFHqO4Lqzds712114GvbkbPuT2EbuJv0LqjZ/P3IRf
-         j7SFL7mpLn/9L6NgcpkiF+xk0N9TEyYj87+UeOt5wzE/F/EUkTDA4XZEBaViPGq4AGDr
-         YpRfwUyCFjS958ov+g3YyYj2vdg9me3Gy1z7E1S9PlAnOWwzwCVmSvtdkmbRw5Z0kYzn
-         HeT7zOBxcmM1oqlAy03DV+qDd6ywH98t1Bmp/Q+lON/dq9qcmDZ/UgSFq2Won05eGcku
-         IwYmUpI2RyA7z6EOM8jo4Tv/fLHDPfVONyXEbxk770MGEapEiQjO/jSiGTo88qlH4j6p
-         IdhA==
-X-Forwarded-Encrypted: i=1; AKwUvBwdKyKOTAIsfkJ7whnqf8N8HIf3oAiCNkW7T6Ud2HXsR1ip04TCNfd5Wp6WXHCmCOwUzb9grsf2w+/6fU4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8OpNealSfyGPNVpToxeHlULinJmbsAhTMVnP/+q3DbISZ1ryBK
-	5tZoSNNGERh93NKEssUpg20HA7KEogcGVcAfpMxnp5R6sA0flC4PrWnjqcZYL1f3McnkzxHltlE
-	ZB252mA==
-X-Gm-Gg: AYBFou1kwZBJetxD+ESM0cT5caN6f7UMwPTw2yIMDnobadCQCkgkxzD+qoKqYmlNmNX
-	fHVdOhzpcurUgvRDr92z/KM4IWeNnJTRO40FgApe7hBaeBR2dp4i0iGmyUL+x9p3FQFzjq8L5oF
-	fHFKyjIp2keKs9YFQ5MFrtb3x7WvX7Au3QzwEcSuBM52xDsUpxi6DJWOJqyh5BjAR0choO3n3bR
-	wNj5bwXS3KhV8hbaJEx7R7ET9XvuPbN3cmQXEqA5yG8Sq+3qEX4X8jtcS/bXIm9gInbT4eM7CRV
-	3tLwlKUsyU1mQYttI+eDJBxPgI0RNrW2IZr7mqDBsail9SGQLL4G1h+1EWmG8koHikm879vGbVu
-	fsSPz88Ix3ZAFshwryCiwlh2utG692uzFqW5kIB5jy5PTRxKOEBfSFtIN6jjyvDl+78cE1bimUj
-	qKgmX1mzHVUXCeu3ymFandgTnpKKpvgW7rF4NTwi71kkx/2WHV4RN/DQ/YHmNMa+/Ig+ycegI5j
-	VwGGONoCDTsDzw6pKZPaKBFRtCof+yf5YLhySKPjxqOnC8yySKkQmnmceSBHXE+cJqQLheQ3XKk
-	JVmYPr4tX2MGZM8Qnz8sFCgTMuRf1mg0iYPFASd+4SF1nxRsN74s5WCl9uyD1Tdz54Y=
-X-Received: by 2002:a17:906:c143:b0:c46:c3ad:e1ca with SMTP id a640c23a62f3a-c4ca7a0996cmr1290856866b.9.1793766560947;
-        Tue, 03 Nov 2026 20:29:20 -0800 (PST)
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com. [209.85.128.44])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b55ac835ccsm331139a12.30.2026.11.03.20.29.18
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 20:29:19 -0800 (PST)
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so1732995e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 20:29:18 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBw82+Dbhnd3fJ5LkgoisO2cpeKSA2I3/BKdVNk4rwJWCgJEQfjzGuoTQO7QaRYLYqYqFyas1EXwWJgicDA=@vger.kernel.org
-X-Received: by 2002:a05:600c:350b:b0:4a3:2f35:38aa with SMTP id
- 5b1f17b1804b1-4ac1932bac0mr304971575e9.29.1793766557744; Tue, 03 Nov 2026
- 20:29:17 -0800 (PST)
+        bh=8waw0InSHbtK6ZY3bCOmuZQhAY4jX7XSlK/9kloqXLc=;
+        b=ux/eJKUfCtwPttzZbpedU581H6ZrPTQtOwk9HyXJAtDs3y2hsoyM7s4mIUgusSjYEN
+         Ks8lT4LwTpCtX8VplLY5TOYCLYGRz6mT/tBle6SRVH7ZEzbsByIjwzFk3CEs9pxzDVxB
+         6IA//Uj1YAhp1Nmd3RQ8LwfyPIUvt5MOFHXSzLRSneswJUPStg+AiRb+lxuUREi7Oii1
+         hU48iFVLgnBfjEGBK0PscthYABnC9R9qoEjGg3q63OdTJ1sg7v3vfg/00UIbtPMotx4j
+         bTL0J+0EvR+Qy6P/0be0KIRA/Vw9WubeqSqnH2t7kgRfoQBw6kTa0P2vsXHf4NH+3MDH
+         D6zw==
+X-Forwarded-Encrypted: i=1; AKwUvBwAzfnRbXmPsLWgSGFR9A7Rjyz39fj4H8IWa/wA3Gb/Izg3RuvnfuUHGdf+DIiyU71TcVtu5HLkV2pgzIs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8OpwcDNHeHkAIhYQ+mZ4cBeKEwbe/mSfgd5lPmwdHM6gTAcrk1
+	WrNwsisHmXZbM9BKZ1dqgcFhPjlb7PBOYDKPbke70P44J868zENGilYMQR1S3mTaDZPK/5sw03V
+	azeYDJua7Yw==
+X-Received: from dybhh13.prod.google.com ([2002:a05:7301:290d:b0:369:7ef0:57a8])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7300:c019:20b0:36b:f09f:924a
+ with SMTP id 5a478bee46e88-36bf09fa41emr5753785eec.14.1793766617812; Tue, 03
+ Nov 2026 20:30:17 -0800 (PST)
+Date: Tue,  3 Nov 2026 20:30:02 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,256 +75,67 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261101220224.1436242-1-dianders@chromium.org>
- <20261101220224.1436242-8-dianders@chromium.org> <auhYb6FV2dPrbVxB@gractus.seuss>
-In-Reply-To: <auhYb6FV2dPrbVxB@gractus.seuss>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 3 Nov 2026 20:29:06 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=Vzyu7Jfg43yZQmThc5O007h2Ch5J3cnc4FG3eJUj8pNQ@mail.gmail.com>
-X-Gm-Features: AclHuK-EI94Ty2au4xO-ZKZ76QhCMiI3A7chng9xu_64EGkNq0XD6rjuoimiGkw
-Message-ID: <CAD=FV=Vzyu7Jfg43yZQmThc5O007h2Ch5J3cnc4FG3eJUj8pNQ@mail.gmail.com>
-Subject: Re: [PATCH v3 07/15] devicetree: Add DeviceTree live tree representation
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
-	Saravana Kannan <saravanak@kernel.org>, Devicetree@vger.kernel.org, 
-	Simon Glass <sjg@chromium.org>, Chen-Yu Tsai <wenst@chromium.org>, 
-	Julius Werner <jwerner@chromium.org>, Brian Norris <briannorris@chromium.org>, 
-	linux-kernel@vger.kernel.org, Tudor Ambarus <tudor.ambarus@linaro.org>, 
-	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+Message-ID: <20261104043006.1199857-1-irogers@google.com>
+Subject: [PATCH v3 0/4] tools build: Fixes for libbfd -lzstd dependency
+From: Ian Rogers <irogers@google.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	Quentin Monnet <qmo@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>
+Cc: Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, James Clark <james.clark@linaro.org>, 
+	Leo Yan <leo.yan@arm.com>, linux-perf-users@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi David,
+This series addresses build problems when linking against static
+libbfd/libopcodes on distributions like Fedora where binutils is built
+with zstd section decompression support (requiring '-liberty -lz -lzstd'
+together).
 
-On Mon, Nov 2, 2026 at 1:31=E2=80=AFAM David Gibson <david@gibson.dropbear.=
-id.au> wrote:
->
-> On Sun, Nov 01, 2026 at 02:01:14PM -0800, Douglas Anderson wrote:
-> > diff --git a/devicetree.py b/devicetree.py
-> > new file mode 100644
-> > index 000000000000..198ab73eda88
-> > --- /dev/null
-> > +++ b/devicetree.py
->
-> This should probably go in a subdir, since it's not part of dtc
-> proper.  I think putting it in pylibfdt is ok, even though it's not
-> technically part of pylibfdt either.
+In v2, commit 89d001d48ec7 ("tools build: Add zstd to the binutils
+library feature tests") landed in tools/build/feature/Makefile at the
+same time, creating a merge conflict and only adding '|| $(BUILD_BFD)
+-lzstd' without '-liberty -lz' or the corresponding
+libbfd-liberty-z-zstd feature check in perf and bpftool (so even if
+test-libbfd.bin passed with -lzstd, perf and bpftool would link only
+'-lbfd -lopcodes' without '-lzstd').
 
-Sounds good. For v4 I'll move `devicetree.py` to `pylibfdt/devicetree.py`
-and update `pylibfdt/meson.build` and `tests/meson.build` accordingly.
+v3 rebases onto perf-tools-next (v7.4-rc1), fixes commit 89d001d48ec7 in
+patch 1/4, collects the Acked-by tags from Quentin Monnet and Peter
+Zijlstra, updates the LIBOPCODES_LIBS comment in tools/objtool/Makefile,
+and moves the AI assistance disclosure from commit trailers to the cover
+letter.
 
+v2: https://lore.kernel.org/all/20260909204122.1993010-1-irogers@google.com/
+v1: https://lore.kernel.org/linux-perf-users/20260909181030.1870496-1-irogers@google.com/
 
-> > +        node =3D cls()
-> > +        for prop in fdt.properties(offset):
-> > +            if prop.name in node.props:
-> > +                raise ValueError(f'Duplicate property {prop.name!r}')
-> > +            node.props[prop.name] =3D prop
->
-> This is, technically aliasing the Property returned directly from the
-> flattened tree, which seems a little risky.  Or at least it does if
-> Property is mutable, which it appears to be as a subclass of
-> bytearray.
->
-> On consideration, that kind of seems like a pre-existing mistake - the
-> way we use it, I think it makes more sense for Property to be
-> immutable (a subclass of 'bytes' instead).  I wonder if making that
-> change would break things.
+AI Assistance Disclosure (per Documentation/process/coding-assistants.rst):
+- Tools used: Antigravity coding assistant and Sashiko automated patch
+  review.
+- Summary of prompts and assistance: Rebased the 4-patch series onto
+  perf-tools-next, resolved the conflict with commit 89d001d48ec7 in
+  tools/build/feature/Makefile, incorporated review feedback and
+  Acked-by tags, and verified with scripts/checkpatch.pl.
 
-Note that `fdt.properties(offset)` (via `get_property_by_offset()`)
-already allocates a fresh `Property` object with copied bytes on each
-call rather than aliasing the underlying `Fdt` buffer. Even so, having
-`Property` be mutable is definitely footgun-prone when `Property`
-instances are stored in `DeviceTree` or shared across nodes, and making
-`Property` subclass `bytes` instead of `bytearray` has some nice extra
-benefits:
-- `Property` becomes hashable (can be used in sets/dict keys) and its
-  byte value is immutable.
-- `fdt.setprop()` and `sw.property()` C SWIG typemaps require
-  `PyBytes_Check()`, so previously passing a `Property` directly to
-  `fdt.setprop()` raised a `TypeError` unless wrapped in `bytes(prop)`.
-  With `Property(bytes)`, a `Property` can be passed directly.
+Ian Rogers (4):
+  tools build: Add explicitly sequenced -lzstd to libbfd feature
+    fallback
+  perf build: Add explicitly sequenced -lzstd to libbfd feature fallback
+  bpftool: Add explicitly sequenced -lzstd to libbfd feature fallback
+  objtool: Add explicitly sequenced -lzstd to libopcodes fallback
 
-Looking into compatibility for external `pylibfdt` callers if we switch
-`Property` from `bytearray` to `bytes`:
-- All existing tests in `dtc` pass without modification, and U-Boot's
-  `dtoc` (`tools/dtoc/fdt.py`) immediately converts the `Property` from
-  `get_property_by_offset()` to `bytes(p)` anyway.
-- Indexing, slicing, `len()`, iteration, `struct.unpack()`, the buffer
-  protocol, and all read-only bytes/string methods work identically.
-- Equality comparisons (`=3D=3D`) against `bytearray` still work, since
-  `b'abc' =3D=3D bytearray(b'abc')` is `True` in Python.
-- One subtle difference is that `bytearray` has a `.copy()` method
-  (`prop.copy()`) whereas `bytes` does not (`b''.copy()` raises
-  `AttributeError`), though we could easily keep `prop.copy()` working
-  by aliasing `copy =3D __copy__` on `Property` if needed.
-- The only things that would break in external callers (and can't be
-  shimmed on a `bytes` subclass in CPython) are:
-  1. Mutating a `Property` in place (`prop[0] =3D x`, `prop.extend(...)`),
-     which seems unlikely since `Property` is a disconnected snapshot and
-     mutating it never updated the `Fdt` blob anyway.
-  2. Explicit `isinstance(prop, bytearray)` checks.
+ tools/bpf/bpftool/Makefile   |  4 ++++
+ tools/build/Makefile.feature |  3 ++-
+ tools/build/feature/Makefile | 19 +++++++++++++------
+ tools/objtool/Makefile       |  7 ++++---
+ tools/perf/Makefile.config   |  3 +++
+ 5 files changed, 26 insertions(+), 10 deletions(-)
 
-In my draft v4 branch I've queued up a preparatory patch ("pylibfdt:
-Make Property a subclass of bytes instead of bytearray") that changes
-`Property` to subclass `bytes` via `__new__(cls, name, value)`, updates
-the `fdt_get_property_by_offset` SWIG typemap to return
-`PyBytes_FromStringAndSize()`, and drops the redundant `bytearray()`
-wrapper in `FdtRo.getprop()`. Let me know if that sounds good to you or
-if you're worried enough about compatibility with external callers that
-we should keep `Property(bytearray)`.
+-- 
+2.56.0.385.gac671c819a-goog
 
-
-> > +        for suboff in fdt.subnodes(offset):
->
-> So, this can be a later improvement, it doesn't need a respin, but
-> this is a pretty inefficient way of unflattening the tree.  To get
-> from one subnode to the next subnodes() needs to traverse everything
-> in between in the flattened format - which is also what the child
-> unflatten()s do.   So on at every level making this roughly O(d * n)
-> where n is the number of nodes, and d is the depth of the tree.  You
-> can unflatten in a single O(n) pass over the tree.
-
-Since I'll be spinning v4 anyway, I've updated `DeviceTree.unflatten()`
-in my draft v4 to unflatten in a single O(n) pass using
-`fdt.next_node(offset, depth)` and a node stack.
-
-
-> > +        fdt =3D sw.as_fdt()
-> > +        fdt.set_boot_cpuid_phys(boot_cpuid_phys)
-> > +        fdt.pack()
->
-> The pack() is harmless, but probably unnecessary - fdt_finish(),
-> called from as_fdt() leaves an already packed tree.  Unless something
-> resized after that point, which set_boot_cpuid_phys() shouldn't do, it
-> should still be packed.
-
-Good catch. Looking at `FdtSw.as_fdt()`, while `fdt_finish()` packs the
-FDT header's `totalsize`, `FdtSw.as_fdt()` currently doesn't trim the
-backing Python `bytearray` to `fdt_totalsize()` (unlike `Fdt.pack()`,
-which runs `del self._fdt[self.totalsize():]`), leaving trailing buffer
-slack in `fdt.as_bytearray()`. For v4 I plan to add a small preparatory
-patch ("pylibfdt: Trim Fdt bytearray to totalsize() in FdtSw.as_fdt()")
-so `FdtSw.as_fdt()` trims the `bytearray` to `fdt_totalsize()`, and drop
-`fdt.pack()` from `DeviceTree.flatten()`.
-
-
-> > +    def get_str(self, name):
-> > +        """Return property `name` decoded as a NUL-terminated UTF-8 st=
-ring.
-> > +
-> > +        Args:
-> > +            name: Property name to look up in `self.props`.
-> > +
-> > +        Returns:
-> > +            Decoded string value (without the trailing NUL byte).
-> > +
-> > +        Raises:
-> > +            KeyError: If `name` is not in `self.props`.
-> > +            ValueError: If the property value is not a single NUL-term=
-inated
-> > +                UTF-8 string.
-> > +        """
-> > +        return self.props[name].as_str()
->
-> Rather than having wrappers around all the class Property acccessors,
-> would it be simpler (and only slightly more verbose) to just have a
-> property() method, returning a Property instance and use its accessors
-> in the caller?  Looking up properties with __getitem__ could also
-> work, although maybe the fact that doesn't get subnodes would be
-> confusing?
->
-> I guess that would also require a bunch of new class methods on
-> Property for the set* side.
-
-Yeah, that works out nicely. For v4 I've queued up a preparatory patch
-("pylibfdt: Add Property.from_*() creation methods") adding
-`from_cell()`, `from_uint32()`, `from_int32()`, `from_uint64()`,
-`from_int64()`, `from_list()`, `from_uint32_list()`, `from_int32_list()`,
-`from_uint64_list()`, `from_int64_list()`, `from_str()`, and
-`from_stringlist()` classmethods to `libfdt.Property` as the
-counterparts to `Property.as_*()`. Then in `DeviceTree` I've dropped all
-the `get_*()` and `set_*()` wrapper methods and replaced them with a
-single `DeviceTree.set_prop(prop)` helper (which stores
-`self.props[prop.name] =3D prop` so callers don't have to repeat the
-property name when setting a `Property`).
-
-
-> > diff --git a/tests/pylibfdt_tests.py b/tests/pylibfdt_tests.py
-> > index ae46b29a8f5c..cfdb8f5749b6 100644
-> > --- a/tests/pylibfdt_tests.py
-> > +++ b/tests/pylibfdt_tests.py
-> > @@ -11,6 +11,8 @@ import types
-> >  import unittest
-> >
-> >  sys.path.insert(0, '../pylibfdt')
-> > +sys.path.insert(0, '..')
->
-> See above about location of devicetree.py.  But.. for that matter,
-> with the code in a separate module, it probably makes sense to have
-> its tests in a separate file, too.
-
-Makes sense. For v4 I'll move the `DeviceTree` unit tests into a new
-`tests/devicetree_tests.py` file and run it alongside `pylibfdt_tests.py`
-in `tests/run_tests.sh`.
-
-
-> > +    def testDeviceTreeRoundTrip(self):
-> > +        """Test unflattening and flattening a tree via DeviceTree"""
-> > +        tree =3D copy.deepcopy(devicetree.DeviceTree.unflatten(self.fd=
-t))
->
-> What's the deepcopy for?  You're not retaining the original
-> unflattened copy.
-
-I'll drop that in v4. (It was a leftover from testing
-`Property.__deepcopy__()` before that was split out into its own test in
-`pylibfdt_tests.py`.)
-
-
-> > +        self.assertIsInstance(tree.props['compatible'], libfdt.Propert=
-y)
->
-> I don't know if directly accessing the tree's internal dictionary from
-> outside is a good idea.
-
-My intent was for `props` and `children` to be the primary public `dict`
-attributes of `DeviceTree` (rather than internal/private state), which
-keeps property and child-node lookups, iteration, and deletion
-(e.g. `node.props['compatible'].as_stringlist()`, `node.props.get(...)`,
-`del node.props[...]`) idiomatic in Python without needing a parallel
-set of dict-wrapper methods. Dropping the competing `get_*()`/`set_*()`
-wrappers on `DeviceTree` and adding `node.set_prop(prop)` makes that
-model much more consistent; for v4 I'll also update the `DeviceTree`
-class docstring to explicitly document `props` and `children` as public
-attributes for callers.
-
-
-> > +        tree2 =3D devicetree.DeviceTree.unflatten(fdt2)
-> > +        nodes1 =3D [(path, n.props, list(n.children.keys()))
-> > +                  for path, n in tree.walk()]
-> > +        nodes2 =3D [(path, n.props, list(n.children.keys()))
-> > +                  for path, n in tree2.walk()]
-> > +        self.assertEqual(nodes1, nodes2)
->
-> I don't think it's guaranteed that walk() will get the nodes in the
-> same order each time, so you probably want sets instead of lists here.
-
-Will fix in v4 by comparing
-`{path: (n.props, set(n.children.keys())) for path, n in tree.walk()}`
-(and using sets of paths in the other `walk()` test assertions).
-
-
-For now I'll hold these draft v4 changes in my local tree. If you have
-any feedback on the responses above (or any other patches in the
-series) I can make further changes before actually sending out a v4.
-If you'd prefer me to send out what I have now so you can review the
-latest-and-greatest, I'm happy to do that too. If nothing else, some
-of the changes we've made to how DeviceTree works here bleed into the
-other patches a little, so sending a v4 before you review further
-could be nice. ...but I also don't want to churn the series faster
-than you're ready for it. ;-)
-
--Doug
