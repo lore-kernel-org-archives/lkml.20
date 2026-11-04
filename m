@@ -1,75 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793766622;
-	b=fGnfFZfr4hVHKSl2pwHcreaMxrf4NspLP9ox7+//gsseTkbpCdp4+wpd+5yWLvgoRVf2
-	 LcQZbdhHdWICaaZ9PLMy2yrJ5yRBv6Ovc4KBaGe6/yJvAk9dWmkEDoWsA6OxlDWf5ZSoj
-	 04DW+YQS4CaDT5rwicLtaSmwVYSMQzQeDc1y/VMgxJQCujHgVEYPYx7wX43oDB4PQl5zj
-	 DFBTmTsMeEvsYB331rJesAu5noPVTBYOTDWQaElUoM52itUfUyIRoXiUPljD2EchY4TkP
-	 ZqJPEBzlx7QR7ZSkNBFxJ658Ad4kHVC7n1KaFN49bNdIRbgF2vzcpryM+ou9HwsiaPA==
+	t=1793766651;
+	b=cLz/2shhsqxOZtQXBtiN0gpNiPYtQWGtCArGufRBTGJytUwW5+sHFJpGhK8KsiMYvRxS
+	 YFJEGuGkJYlXREGfClqOKAW5HOsDk2jUKzKoB9EJpQ1M0UFtFnm/7Z3obfXekHCMA3WiJ
+	 M9SV0a+Q7NF9/6qSoxeYK2OZkhpHEn24GbfKpe+YzaHBwAk6SJDVwgHEdXVJY8bSimyC9
+	 5HIsVGHEj06dwexRIKRakzxYsVPsG7IkvVoG9Wil5O5gkP0aNc8Q2a7zg1Yx/ZGSLcDJi
+	 t0rMLW7w/ak2FKu5v7dDyBoLgFDasirR2acuAUR0W/kkfWm1sCFpmN7atE/lN1RNs8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793766622;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=M5ouklrHE4cf5TDEAMF9SCkJTPVvWGYITZBVBfks0c0=;
-	b=xPXcC9w/na7ErS6cm/LPLzAVjF+I8shlMStFCDtrPk1arRjoFEwiGf5nEdX0cjp3JFPE
-	 BhDfUuaIZbXTTqC6664Y4cUxkMNobzPMcYtttV89b53JKqQBA+KLLmxNdwXBMQZ/Yx6BL
-	 bYi+9pY895vr/+bole6lv6RgL+9S+RW+4Ei55UfWiNSDZtoL3A8qEMEKegM+GtJbX0eaf
-	 KUUY1aW/61RE69oSq93szlgxGLyH5TS3KoYBUtfxXEVofxc5p9BYe+PGerRrWJ8l2m6gC
-	 yzLBRxelrgU/FSxfZg808xg/j6Wj7+1rqXFg8l+fdvL/jZ/rXQuS7E0Bo4anYN3tomw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793766651;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ZpNcQj24yuMM3GQtiTzILqkIccl+qas6VuLsoUlL4Ug=;
+	b=2DHfmXeG7QRizVI9hDHPnUXMkuEA4IVde1l1DpJnte1aAca7A2I3fM1JEnWqtsC5+zD8
+	 huXtcLpOs28ZpYTIY40POnZ1Vi0+1U8+SihuRD3eK8cIR9xTB3QIlweqeUKBA5rXPQAyM
+	 rzNX7RMcHKJ2mbNBpU1B6lnOKzJj8VaQpC4FXXChI6ScRTcujTTZShcxDC2b9j+1NENfV
+	 FIcPbNClvZ9HhWdG8eprrTcEvJzqSI6EU4bdjFY8cVcng5JUXqItoFCq1PbhfjLVcZso8
+	 FkHwWVhtCHK72l5ez+yfoKw9Knowcq8wjMfWWBRqZo8Et0wXqYF7qwYqeYH8/u/kviQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=czilwe2O;
-	arc=none smtp.remote-ip=74.125.82.198
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S6eMCrzx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC164606A330
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 04:30:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC164606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49B70606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 04:30:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=czilwe2O
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36a3451ea93so410998eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 20:30:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793766621; x=1794371421; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=M5ouklrHE4cf5TDEAMF9SCkJTPVvWGYITZBVBfks0c0=;
-        b=czilwe2Odw0EpbtqJ70KyBch5voX2iTsy+BMWaReFKuQgizgGG2bviH9enO9I6b9/f
-         GFFUc654HhEkI8r5+LZ32DmnV3OrFgZxzKeQB1weYfmjEY8Z+ZkozCC/ZkvCGt9zrILY
-         R8W+R8hwz8YA0xw/7OZObDs72UQi/Q3Ieh8fU30l9+LNJACXudz7pHXSybvBubMt/uGd
-         1qbge9uLm72l0xRzhvu0pNVhPzxyYbpx7oh1zE4rp+eYXupVJUuOFagrR4Ny+fWe1vRV
-         x9ZZ2tEsaGHhCVmIus/G+mUxIL/vpx56/usCbwK8XenwjAmgInYWStRHgBh89T2T5Qs4
-         PoAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793766621; x=1794371421;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=M5ouklrHE4cf5TDEAMF9SCkJTPVvWGYITZBVBfks0c0=;
-        b=szfBTzX+2i8MDy088rhNXhyzxO3xQPtusU746wEFKdVdKXKiFn4GP5/n+EJrCdakQK
-         t3LaX9/2/ySTedvkLUslKjELygqjnLE1GrY7FYyBuGgVSv5771KyUhG2Tg2bO4sNhrt1
-         lg5104XY4mrKW+x2VmQ4oy6GWxFapS/Htv2HZY8/3PFDfDnrthPOj5CMDzEbiGkvB6P0
-         +wRg8es03duk4xG6xthOAjfRZas6lO7BVqOB89kEyAHqI2kmdIkHoCL0sdit5cNHXW67
-         GwKynaa/+CHjSMkpI9TczIR7tQR3plMDCzT2o1e7o+mli7yjr6Cfg6fUeet3hzrm52pD
-         wzAw==
-X-Forwarded-Encrypted: i=1; AKwUvByExhuyaE64wf4qLamNtwdKVPGQxc+nAEroEVIQPLt3SdBGoe3hfGQ4QtAhkqwqRt9sqPy4VZWp7DsSkf4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+9OimPoUtEJpHeMK3vwxsvtDaPLSGmy6/CMuCN7d5OmSw8/YB2
-	yh7hleUAzwsNKL07cpGoKAcHvSyCHN92rW62A/B+W019MiI3hgs9cSRMlXe3KGHeFpRIzbI6p8x
-	WVQIDA437YA==
-X-Received: from dlbsi11.prod.google.com ([2002:a05:7022:b88b:b0:1b1:f02b:2321])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:ea57:b0:196:c1ca:3489
- with SMTP id a92af1059eb24-1ac50799c22mr20080907c88.0.1793766620259; Tue, 03
- Nov 2026 20:30:20 -0800 (PST)
-Date: Tue,  3 Nov 2026 20:30:03 -0800
-In-Reply-To: <20261104043006.1199857-1-irogers@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S6eMCrzx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24F551F00A18
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 04:30:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793766651;
+	bh=ZpNcQj24yuMM3GQtiTzILqkIccl+qas6VuLsoUlL4Ug=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=S6eMCrzxSqAOVgmsmosfiLt8SlqWRJYLyBn3xFly7Axbs+CcnPZ4suZp+uIys3Jgc
+	 4PwgTbTlGU+uYOszuV8JP+quWKwBxKS0umYm/RwW51oNPRYy3PUiyHVWkOxVZxjgx4
+	 iyfRVBNLA48avCLJMCo3K1GIR3vb4qV6CJQFbxTTr0vjQgzk8W7P81bBsbroB1LPs8
+	 yBB7q/qVivwzcHqmmyFRbQkymuYXeNTeHnwepvXQh+s7v3pfcTjSLsX1p7wwCXwz46
+	 CC8oUXW94stSS2g68YvdxCf9/IgebUmbDYhrb+JsOZwoZXblciB5A2GLh+57Fk5YtQ
+	 PRfyBpOd6IrMg==
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b486e1d02eso251112a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 20:30:51 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvByyjmz8wy1HPJwdfO/Id4ioLz4D6CzSweYtDKmXTMHH2WtmwMH3mTiZcWf5FC2YRR/tH8PDos0WyOZsfiM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9sUtqF08zCAvBFyJlTUkkSjILpPCW5bqTYHwLLsaEP3gKgTYYl
+	DRnq4xOWUV/VMjR08WPDFNENpt3bnJ/rTGBRRgrOpEoUlBz7z9KaxBh75YfQy2mnWCEizbzORS/
+	DIBHnmfTu6eEFWou3QtRE7o14BY+iIYk=
+X-Received: by 2002:a05:6402:a505:10b0:6aa:e46b:2ca with SMTP id
+ 4fb4d7f45d1cf-6b4d5537ae9mr7019046a12.30.1793766649804; Tue, 03 Nov 2026
+ 20:30:49 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,121 +58,39 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261104043006.1199857-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261104043006.1199857-2-irogers@google.com>
-Subject: [PATCH v3 1/4] tools build: Add explicitly sequenced -lzstd to libbfd
- feature fallback
-From: Ian Rogers <irogers@google.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	Quentin Monnet <qmo@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>
-Cc: Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
-	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, James Clark <james.clark@linaro.org>, 
-	Leo Yan <leo.yan@arm.com>, linux-perf-users@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+MIME-Version: 1.0
+References: <20261103111453.84804-1-mike.michalo@gmail.com>
+ <20261103111453.84804-3-mike.michalo@gmail.com> <20261103171742.18816-1-icb@fastmail.org>
+ <A37137ED-872A-4969-A1BD-C23E9B523EDD@gmail.com>
+In-Reply-To: <A37137ED-872A-4969-A1BD-C23E9B523EDD@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Wed, 4 Nov 2026 13:30:36 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd8ozh-WT+iSLspeZ_h2PM3xLSK4c22EsDD+53z7nbzieg@mail.gmail.com>
+X-Gm-Features: AclHuK_UFq3A83cRJ7DhTEK66pNCvFNRdlhviHK4gv1kJtzRQYyXpFPlKH59ijQ
+Message-ID: <CAKYAXd8ozh-WT+iSLspeZ_h2PM3xLSK4c22EsDD+53z7nbzieg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] ksmbd: add AES-GMAC signing support
+To: mixalhs <mike.michalo@gmail.com>
+Cc: Ian Bridges <icb@fastmail.org>, senozhatsky@chromium.org, tom@talpey.com, 
+	chenxiaosong@chenxiaosong.com, ematsumiya@suse.de, linux-cifs@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Distributions like Fedora ship a statically compiled binutils libbfd
-that depends on zstd (along with libiberty and zlib) to decompress
-sections (e.g. undefined reference to 'ZSTD_decompress').
-
-Commit 89d001d48ec7 ("tools build: Add zstd to the binutils library
-feature tests") added '|| $(BUILD_BFD) -lzstd' directly to
-test-libbfd.bin, test-libbfd-threadsafe.bin, and
-test-disassembler-four-args.bin. However, static libbfd requires
-'-liberty -lz -lzstd' together, and setting feature-libbfd=1 when extra
-libraries are needed causes callers (perf, bpftool) to link only '-lbfd
--lopcodes' without '-lzstd'.
-
-Restore test-libbfd.bin to test only $(BUILD_BFD), add the
-test-libbfd-liberty-z-zstd.bin feature test and
-FEATURE_GROUP_MEMBERS-libbfd entry, and append the '-liberty -lz -lzstd'
-fallback to test-libbfd-threadsafe.bin, test-disassembler-four-args.bin,
-and test-disassembler-init-styled.bin.
-
-Fixes: 89d001d48ec7 ("tools build: Add zstd to the binutils library feature tests")
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/build/Makefile.feature |  3 ++-
- tools/build/feature/Makefile | 19 +++++++++++++------
- 2 files changed, 15 insertions(+), 7 deletions(-)
-
-diff --git a/tools/build/Makefile.feature b/tools/build/Makefile.feature
-index 4d37d11f674c..c010049d9720 100644
---- a/tools/build/Makefile.feature
-+++ b/tools/build/Makefile.feature
-@@ -121,6 +121,7 @@ FEATURE_TESTS_EXTRA :=                  \
-          libcheck                       \
-          libbfd-liberty                 \
-          libbfd-liberty-z               \
-+         libbfd-liberty-z-zstd          \
-          libopencsd                     \
-          llvm                           \
-          libbpf                         \
-@@ -160,7 +161,7 @@ FEATURE_DISPLAY ?=              \
- # Declare group members of a feature to display the logical OR of the detection
- # result instead of each member result.
- #
--FEATURE_GROUP_MEMBERS-libbfd = libbfd-liberty libbfd-liberty-z
-+FEATURE_GROUP_MEMBERS-libbfd = libbfd-liberty libbfd-liberty-z libbfd-liberty-z-zstd
- 
- #
- # Declare list of feature dependency packages that provide pkg-config files.
-diff --git a/tools/build/feature/Makefile b/tools/build/feature/Makefile
-index 10340a537224..359da8b98bc5 100644
---- a/tools/build/feature/Makefile
-+++ b/tools/build/feature/Makefile
-@@ -20,6 +20,7 @@ FILES=                                          \
-          test-reallocarray.bin			\
-          test-libbfd-liberty.bin                \
-          test-libbfd-liberty-z.bin              \
-+         test-libbfd-liberty-z-zstd.bin         \
-          test-cplus-demangle.bin                \
-          test-cxa-demangle.bin                  \
-          test-libcap.bin			\
-@@ -249,18 +250,21 @@ $(OUTPUT)test-python-module.bin:
- 	$(BUILD) $(FLAGS_PYTHON_EMBED)
- 
- $(OUTPUT)test-libbfd.bin:
--	$(BUILD_BFD) || $(BUILD_BFD) -lzstd
-+	$(BUILD_BFD)
- 
- $(OUTPUT)test-libbfd-threadsafe.bin:
--	$(BUILD_BFD) || $(BUILD_BFD) -lzstd || $(BUILD_BFD) -liberty || $(BUILD_BFD) -liberty -lz
-+	$(BUILD_BFD) || $(BUILD_BFD) -liberty || $(BUILD_BFD) -liberty -lz || \
-+	$(BUILD_BFD) -liberty -lz -lzstd
- 
- $(OUTPUT)test-disassembler-four-args.bin:
--	$(BUILD_BFD) -lopcodes || $(BUILD_BFD) -lopcodes -lzstd || $(BUILD_BFD) -lopcodes -liberty || \
--	$(BUILD_BFD) -lopcodes -liberty -lz
-+	$(BUILD_BFD) -lopcodes || $(BUILD_BFD) -lopcodes -liberty || \
-+	$(BUILD_BFD) -lopcodes -liberty -lz || \
-+	$(BUILD_BFD) -lopcodes -liberty -lz -lzstd
- 
- $(OUTPUT)test-disassembler-init-styled.bin:
--	$(BUILD_BFD) -lopcodes ||  $(BUILD_BFD) -lopcodes -liberty || \
--	$(BUILD_BFD) -lopcodes -liberty -lz
-+	$(BUILD_BFD) -lopcodes || $(BUILD_BFD) -lopcodes -liberty || \
-+	$(BUILD_BFD) -lopcodes -liberty -lz || \
-+	$(BUILD_BFD) -lopcodes -liberty -lz -lzstd
- 
- $(OUTPUT)test-reallocarray.bin:
- 	$(BUILD)
-@@ -271,6 +275,9 @@ $(OUTPUT)test-libbfd-liberty.bin:
- $(OUTPUT)test-libbfd-liberty-z.bin:
- 	$(CC) $(CFLAGS) -Wall -Werror -o $@ test-libbfd.c -DPACKAGE='"perf"' $(LDFLAGS) -lbfd -ldl -liberty -lz
- 
-+$(OUTPUT)test-libbfd-liberty-z-zstd.bin:
-+	$(CC) $(CFLAGS) -Wall -Werror -o $@ test-libbfd.c -DPACKAGE='"perf"' $(LDFLAGS) -lbfd -ldl -liberty -lz -lzstd
-+
- $(OUTPUT)test-cplus-demangle.bin:
- 	$(BUILD) -liberty
- 
--- 
-2.56.0.385.gac671c819a-goog
-
+On Wed, Nov 4, 2026 at 2:57=E2=80=AFAM mixalhs <mike.michalo@gmail.com> wro=
+te:
+>
+> Hi Ian,
+> Thank you for the careful analysis and the reproducer.
+>
+> You=E2=80=99re right: in the multichannel branch of smb2_sess_setup() the=
+ binding
+> request is never verified with Session.SigningKey, and with AES-GMAC t
+> hat turns the existing signing oracle into nonce reuse.
+> Namjae, please don=E2=80=99t apply this version. I was unaware of this.
+> I=E2=80=99ll send a v2 that first verifies binding requests with the sess=
+ion signing
+> key before they are processed or any response is signed with it, and
+> check whether legitimate binding can also reuse a nonce under
+> the session key.
+Okay, I will check v2 patches.
+Thanks!
