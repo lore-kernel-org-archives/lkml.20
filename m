@@ -1,95 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793773538;
-	b=a4VJhfe6Bjxii/0euAOQUl7yp0t2GTTaYuX319c9K2f7k7XAW2xX8++t5j0BiHIpTUub
-	 N23L7IcmwEDHLNPqH1GEl2inleZIvv20eIHNW6hJk53QaSXvc+L7jK/4VqKODTAfHYr3K
-	 uvtgopVwn+7zN26+kkSwz5o3SuatiTpo70M1G8kRRl/l02wKT4sccQSYjiT7B+yRX+mYg
-	 qAKhVwlNuAP8E8bijc7BkNQvBIhq6UImPJ1C4g6P2qnSFCSsbcYPqosjspiICm/JWhlUk
-	 Rl4zrffM9rc1/YTJSxIbGWwtk2kO3Kv+uo9RD40MH7AOzMQTX+NZncQPG2y63nr3NZA==
+	t=1793773563;
+	b=mUY2Kelnoczn0HWtyQskE0npJpfKjsh2lobh15RERAoRXdP99v/5GE6paWke8/uv53CD
+	 ZKx7FgiljFy/l9ystPGvQqNqrcliPLju0j1yBN3u1x9jmRN7kkzDchN3pxoesOH9KSBTL
+	 ovh4LRVmp+brFe8DZjvBozsX7GmUeF+zwM27X6GCy5j2GCgH0qUC+xSb3rbs8us3hjqil
+	 CrScNt/iZM+3TPJnkwWr5VtswgewPnUf9wXN+Ok5dRGHDZnwsCQ/29r1VAzJPPSUi6MP1
+	 SKjt/H7ZMC05BwNp+ZGC3DzZTM+vU+QyhIQwUzg0odQf5JLJIpeqnijbApRRjkA/OaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793773538;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793773563;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=6Bro8ntEtQu6vWViYeKCn76sAWO+684KhhtMVx+kfV0=;
-	b=F+otgRI58Jp//j1I2B+sC6+lStBvIQNHNR3BrzWmTnlGA9pIIB9qPgtirDBzr9M0XRlF
-	 QzuNhdoX5KmxtYWuzrlS+LNawDC4pfInd/YzpA+C+0fSOgIfQ9ZC6fPhD+la8Pjrhoq3H
-	 agqX9URfzd24bRVJg1S5CNtoxiAFpq+Gu4dZkw+cJ9cGyRW1DRjh8g0YZsFP5h27RC/nS
-	 NEfGGDU8N81MetHjkxrJvNsPtJtyX3vKzLY7PgCfQpFsUBK1FEoUHbdul2Y+QzMVJRd8T
-	 DKlz9rJepqGOM8BNeIz13WxsYH+vw8IBwspbqegoRl7LIsuBPd3nENPEAHA6XeVa5HA==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=lYAY31DLg1K8Ctq3iMNb+HOdz/jkumjLa2+Nxs3EUCs=;
+	b=lmjQT27nqFNCpaEraqjLAFCqEd62KhbD7ESJWNXBiHd1cftoxIj3/5ppIb/DlRfVd4KD
+	 AZVsKrQfgpnPXi5pHdu5qXg2SNGMW0ZV1uzukWy7mDa3dpO1esbqFoqUCfte1kB/9ae32
+	 WnfDhjfydKNWK6Knpm+hDhzjVYk+TqWEDJzTYRvi8oQyhxI4TzU191TMYLBcFa9rxd+Xh
+	 l1amenwHJ/mG+A+PFnM1/YUD0XuOk8400b440jkoxKTjEQR00WjXNhQTtdFg/cF6ilN1K
+	 /KjxPlfofAag5Ip69ZH//ohRuNz+zPSYlKirKGxudOSKoctpL9eYwWG3UAcALOFyBCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TQal1hNR;
-	arc=none smtp.remote-ip=209.85.215.175
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0e7JhfjQ;
+	arc=none smtp.remote-ip=209.85.167.173
+Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com [209.85.167.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6273E606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 06:25:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6273E606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EAB5606A330
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 06:26:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EAB5606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TQal1hNR
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cd6028ff33fso152497a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 22:25:38 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0e7JhfjQ
+Received: by mail-oi1-f173.google.com with SMTP id 5614622812f47-539a57a0b1fso123177b6e.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 22:26:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793773538; x=1794378338; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6Bro8ntEtQu6vWViYeKCn76sAWO+684KhhtMVx+kfV0=;
-        b=TQal1hNR+hyBkIra71sM3lO9IN4+z7XvE72XGbDcv0VAhbjZQJI+mpfau6p7BL5FtZ
-         iDl09A8oHw7o/mnCJjKjeiYCmTW8NHeqVrCkok0tgaCQhK5pOqYP2rdNsXSlU+bgqhUg
-         wtXejGlXwXTOczlx5jxBwLGc5F4IYouER+eAKEIKZ6B4nqtTOD+GgdkLmsGzW2cr3WP2
-         ZN610PP6yl80b1fwwbYWEw7JisvMp+Mn6opAI0G552JPaoTbhyhx7xNUmKko/zMpgBNQ
-         uHTXbBizaFPzIaYThNLuvjjt34lKp4N2qe6/dWhcaiPYsTrKWd+F687ys+Rf+DHfezFF
-         Hs1g==
+        d=gmail.com; s=20260707; t=1793773561; x=1794378361; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=lYAY31DLg1K8Ctq3iMNb+HOdz/jkumjLa2+Nxs3EUCs=;
+        b=0e7JhfjQ9MoWUh6sekxxXaf5UzD0LVBYqyUr51Xg33wVXycS5kkHsl5M14daG4pAIA
+         SZfOgjcmQST1Z8/L9SQe8toKRMQqsLVqK5sX2KAT5snkwUvuPOlIA1x6Xp0tF42alf8K
+         leEXM86lGcLJTcY989HzBadbzwYGFceBg/RbdbigOBQMc/MY+zZyGiwqe1Y6zjSnJsy1
+         BlT2Hz9ps3QRZGWANub3opX/KAZm26jOjzI68Co1welvrWFRudosvf9OBhkeMBNEnxPv
+         vFPj4dVsg9vtHdEwNMNIv7fXRk3TQeUVm635EmzUN3vp3ekb7AnJzbe/z8K1o6iYCc5J
+         tAlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793773538; x=1794378338;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6Bro8ntEtQu6vWViYeKCn76sAWO+684KhhtMVx+kfV0=;
-        b=R06qNqJpSoP9gMAMipjbG2GRhXrX/Vttix96bu8Q7i03xOPbOdRaOfWFp+S8Wqunso
-         J3QX2NkjV0rTTxWl104V2ksSDSgUNpaURXkf1ZvqY9bgO9kS4uFvzLDm+dz5/1zrO4a2
-         1QSiHrmtqdhacTh89bz2fzGCMZKG8S0TwelgITlwLio8QxkWtD30GlRVvmVOBHInEwaj
-         vuk0x4NsRTYcCHEgQH/hdih0Ib86jaxuxfoz6rFUqHMs5L/0KZ9kCS29xba+HetJKCsy
-         21A+aOnhhHLEoWGzAK9wD+gh07bpZy1ynxjWW2OyUaIbrgASLiHgTEmhFHAOq4OMo5I0
-         +9JQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzAOigm4hgPeNqHKG2GxfJM1zS9x63g0grcuUUdEnQ1U1uoR6ximFhmZo/c2BEtqMEzBrAay7z/B0u7Scc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+2Onr1J1rPs5TYfrs5HYGUO6B1aj+5+tH8dZx28qeMrhhYjzgT
-	cnX39G+/0UFgZ4ek4FagV/x11zKG7zwhpYk0mNSxfsqa2L9/0mrO9Jv4
-X-Gm-Gg: AYBFou1oRAaoOuIAWU8rVKVnoNJ8mJdqQkuebQt7g/k0nvtmF7pkaXEAs5ptQNbLwL6
-	fEEgv+nVV+7yaTiTBVByASeq9OUeFliWtFKzR8BdaAWoTpTn9lAUwoRo9BQa6zeH5DKybtYwpR0
-	iCiDAutKc7+V3YRJdqo60HOkVE3Xiq42tytOVymWA4Ul8rA/VBRZRKrp0aANB4qO1ZPtdjqqeF6
-	hmxUNSgGvpfyGqYqPnBo177Oo/nmdkuIXppfxkezdTvoPkBkwhrF/W7WHJTAZHLRMLdGVpwtN4t
-	EqwYBG4PCjmmWAa9X2JveEdE0SCVGmhHu9bv4QQVxBr0g9ZauW8jrT6KfriEDKEF3UEcKspbxK0
-	O4eteDDIjR2W0NDb84WRvIeZlTzrYft0STDaVONqp/caFicui44gQvdTtjQkCPJ08EtoDxsLUQB
-	eLHPLF8o38jHPfOP+DB1RDfX9pI5TtYvpz0TgDKunJxj6FRdxyfLGeLvUDjgop2GT910P8jjKoM
-	PcHfAPCCSZn4npezsdhmRzODLGcwJOLCVprOhbwocJsAnjB5oAi3OJMgCL7nYLa8Sy5cFURO1Of
-	MPzmyjJ4HAEQra2bOe0qSQp/VTzXBjsM5P1/DYm68yXszoqLMg/C1MI53JOyGV37W1XQpakUnlf
-	2YV6JzyrADAcdCQ==
-X-Received: by 2002:a17:90b:4a8f:b0:3ab:413:49b6 with SMTP id 98e67ed59e1d1-3ae89787ee3mr12721065a91.41.1793773537530;
-        Tue, 03 Nov 2026 22:25:37 -0800 (PST)
-Received: from google.com ([2a00:79e0:2ebe:8:88b4:22ec:d621:c1b])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0944ea360sm2741863a91.14.2026.11.03.22.25.36
+        d=1e100.net; s=20260707; t=1793773561; x=1794378361;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=lYAY31DLg1K8Ctq3iMNb+HOdz/jkumjLa2+Nxs3EUCs=;
+        b=aAKJlY4z9C8bHhZCNO+9uSKk/oZ8Kw+fIj6GL2L9LuvP8VK7q0o+6XY1fAmxCBsayz
+         w9I7wyq3pKl8qf9OGvsPezx2Q4VszWLH2tRWz1xM5q6r3nz4keJiDJkJxJFWRJuncLZY
+         AFeCX8Jp6WVtMT4eweEeYqvYQ9tVFjfCr9qncYrTS816JC48BejcPAA/2zXkFj3FlBx7
+         Vkcaa3xriXKDNsu8XhZIxVM7gDgfmNEkMZyZXiTwQf6PJ71BlsXe3iWzNw0Mk+U7t5Y7
+         ttMlqBFcogmO3RQH2KorPiToHm4oUsl/877qryVYfGhpZwznOQzC+OujcBXzG4UIA3tW
+         n6CA==
+X-Forwarded-Encrypted: i=1; AKwUvBwDIaTJ0QKbxITlBIYTIlBH6K3QIg9uZVDkqqQIl3OVceajm0p8U9FEHyUVqb7UVrJzn6D7vtuLlBE8N7c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+SieU1/TqR406K3b6wRYQVb9J9N2/T6tqaUeA74H2jZldyen/j
+	Ylg0eSU3ZOEhMena/MahF7Iax3oUpygDOI4ngN0xaQr7lXqCwvBaim6S
+X-Gm-Gg: AYBFou2O7lgtEuDe5s2fGZAQOgGtKCoVHjUi/F5Y+v8WyhqW10GMLYutIznLb4Qw1O+
+	0ulLim4vWADfIW48mFe98+25ZJItW8zpEdSTAdh4/eEoCsAPCOM1wNFtHNM7iZ43jBoMm4J0SD1
+	b/epj93P/qfu6xHbzb21wRrTxSHsYsSdQ+9cb9BzEW2Rd6q3MJT7RMpIyHxZc7FqZF44ZduUDs/
+	zCWqT/+6NF7sHKe29SVf6F8zS2nbiZl8T+jCkz4YbrjN4HYvYyRRDvXTV1hich5t5hpyU61mLjh
+	QmqJRwxXIA34/YGkjIM+ZqtUn8h7jPg8CgykCPkPgDfiGt9ZMPk7aQYbcrX0HFNbNTZnYBXld0g
+	iawBI44hw7/cCBBlwZOUgDxTpne6GBjMXvZokrRLzYkUGd0Blb/A6UbhDI+Ajeqdc/AGMsPNkXm
+	WeUs/uAMJDpeTEpsOuuN2qe0/jweCpvrK3uf+l+r+nRjV2IjR8I9IlvxwHdzlYwtYRRjoPcjE+X
+	7AWzXAYa/IRd5+/W86nBAcXybJ18ZDBbvgN7bgHy/ly4rS2xTw7RgCGjZ2qwhp3+EsRRs8seFfV
+	15sGns9tNhROiv17Avwnd6kh1svVOp+5tov2gq2p0KkUg/KL8T4hsc9rC5sPvOI3aySKG59lIPD
+	8oVwKoijF8oc+BBcCwTEF0E4q45hnClp2jRd9bU1xxRYV1CkFdzNmRXaqsNgzcU3tSf5XZBI7YL
+	ClKG6hIVVE54y7rgXLzJ0Q0DZeg6IBFonnOYjz3KL2TcxmJMM+LAM9
+X-Received: by 2002:a05:6808:4fcc:b0:4e7:c6f2:75a6 with SMTP id 5614622812f47-5640deafdb6mr12232306b6e.68.1793773561572;
+        Tue, 03 Nov 2026 22:26:01 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9ef58b1sm956795b6e.3.2026.11.03.22.26.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 22:25:36 -0800 (PST)
-Date: Tue, 3 Nov 2026 22:25:33 -0800
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Guanglei Zhu <zhugl3@xiaopeng.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	liuc63@xiaopeng.com, stable@vger.kernel.org
-Subject: Re: [PATCH v2] Input: lpc32xx-keys - reject matrices bigger than the
- hardware has
-Message-ID: <aurPvymSFACa_kXH@google.com>
-References: <auos7TgVNv7EWnbj@google.com>
- <20261104030709.791761-1-zhugl3@xiaopeng.com>
+        Tue, 03 Nov 2026 22:26:01 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Tue, 03 Nov 2026 23:25:58 -0700
+Subject: [PATCH] dmaengine: sun4i: retain cyclic descriptors until
+ callbacks drain
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,67 +93,189 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104030709.791761-1-zhugl3@xiaopeng.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-submit-sun4i-dma-callback-lifetime-v1-v1-1-4c5a0653104f@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNQQ7CIBCF4as0s3YSBg1Gr2JcAB10FNAANiZN7
+ 16qq5dv878ZKhfhCudhhsKTVHnlDtoN4O823xhl7AattCFSe6wfl6T1yQfBMVn0NkZn/ROjBG6
+ SGCdCZ+iklVHuaAL01rtwkO/v53L9u4ce7NsWh2VZAXMhtUGJAAAA
+X-Change-ID: 20261103-submit-sun4i-dma-callback-lifetime-v1-b6192060b76f
+To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Emilio_L=C3=B3pez?= <emilio@elopez.com.ar>, 
+ Maxime Ripard <mripard@kernel.org>
+Cc: dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-On Wed, Nov 04, 2026 at 11:07:09AM +0800, Guanglei Zhu wrote:
-> The scanner state array holds the last state of eight matrix
-> columns, and the interrupt handler walks the matrix size that the
-> device tree declared:
-> 
-> 	u8 lastkeystates[8];
-> 	...
-> 	for (i = 0; i < kscandat->matrix_sz; i++)
-> 		lpc32xx_mod_states(kscandat, i);
-> 
-> The probe path only checks that rows and columns match; the
-> hardware supports square matrices from 1x1 up to 8x8, but nothing
-> stops a device tree from declaring more, which makes the state
-> array index run past the field into the rest of the driver data -
-> including the keymap pointer the same code dereferences.
-> 
-> Reject matrices larger than the hardware supports.
-> 
-> Fixes: 69690bec400e ("Input: add support for key scan interface of the LPC32xx SoC")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-> ---
-> v2: use LPC32XX_MAX_MATRIX_SIZE for the state array and the new
->     check instead of a literal 8, per review.
-> 
->  drivers/input/keyboard/lpc32xx-keys.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/input/keyboard/lpc32xx-keys.c b/drivers/input/keyboard/lpc32xx-keys.c
-> index 2392e7e..429a3eb 100644
-> --- a/drivers/input/keyboard/lpc32xx-keys.c
-> +++ b/drivers/input/keyboard/lpc32xx-keys.c
-> @@ -65,7 +65,7 @@ struct lpc32xx_kscan_drv {
->  	unsigned int row_shift;
->  	unsigned short *keymap;	/* Pointer to key map for the scan matrix */
->  
-> -	u8 lastkeystates[8];
-> +	u8 lastkeystates[LPC32XX_MAX_MATRIX_SIZE];
+A cyclic IRQ queues a virt-dma tasklet with a pointer to the active
+descriptor. sun4i_dma_terminate_all() frees it without clearing the queued
+cyclic callback or waiting for one which has already started. The tasklet
+can subsequently access the freed descriptor. There is no
+device_synchronize callback to let clients drain these callbacks before
+releasing their own resources either.
 
-Compiling this would be helpful...
+Serialize both half-transfer and end-transfer IRQ handling with termination
+under the virtual-channel lock. Recheck the physical-channel association
+after acquiring that lock so an IRQ which looked up the channel before
+termination cannot use its detached transfer state.
 
->  };
->  
->  static void lpc32xx_mod_states(struct lpc32xx_kscan_drv *kscandat, int col)
-> @@ -141,6 +141,12 @@ static int lpc32xx_parse_dt(struct device *dev,
->  		dev_err(dev, "rows and columns must be equal!\n");
->  		return -EINVAL;
->  	}
-> +	if (rows > LPC32XX_MAX_MATRIX_SIZE) {
-> +		dev_err(dev, "rows and columns must be at most %d!\n",
-> +			LPC32XX_MAX_MATRIX_SIZE);
-> +		return -EINVAL;
-> +	}
-> +
->  
->  	kscandat->matrix_sz = rows;
->  	kscandat->row_shift = get_count_order(columns);
+Move terminated cyclic descriptors to the virt-dma terminated list. This
+clears any pending cyclic callback. Retain them until a new synchronize
+callback has waited for the IRQ handler and drained the tasklet. Drain
+callbacks before freeing channel resources as well. Termination itself
+remains usable from atomic context and from a completion callback.
 
--- 
-Dmitry
+Keep freeing other collected descriptors immediately: an in-flight
+non-cyclic callback owns its descriptor on the tasklet's private list.
+
+Fixes: b096c1377d1e ("dmaengine: sun4i: Add support for the DMA engine on sun[457]i SoCs")
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+ drivers/dma/sun4i-dma.c | 46 +++++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 35 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/dma/sun4i-dma.c b/drivers/dma/sun4i-dma.c
+index 225e4a53502b..b92cd9c8676e 100644
+--- a/drivers/dma/sun4i-dma.c
++++ b/drivers/dma/sun4i-dma.c
+@@ -293,10 +293,20 @@ static int convert_buswidth(enum dma_slave_buswidth addr_width)
+ 	return (addr_width >> 1);
+ }
+ 
++static void sun4i_dma_synchronize(struct dma_chan *chan)
++{
++	struct sun4i_dma_dev *priv = to_sun4i_dma_dev(chan->device);
++	struct sun4i_dma_vchan *vchan = to_sun4i_dma_vchan(chan);
++
++	synchronize_irq(priv->irq);
++	vchan_synchronize(&vchan->vc);
++}
++
+ static void sun4i_dma_free_chan_resources(struct dma_chan *chan)
+ {
+ 	struct sun4i_dma_vchan *vchan = to_sun4i_dma_vchan(chan);
+ 
++	sun4i_dma_synchronize(chan);
+ 	vchan_free_chan_resources(&vchan->vc);
+ }
+ 
+@@ -322,7 +332,7 @@ static struct sun4i_dma_pchan *find_and_use_pchan(struct sun4i_dma_dev *priv,
+ 	spin_lock_irqsave(&priv->lock, flags);
+ 	for_each_clear_bit_from(i, priv->pchans_used, max) {
+ 		pchan = &pchans[i];
+-		pchan->vchan = vchan;
++		WRITE_ONCE(pchan->vchan, vchan);
+ 		set_bit(i, priv->pchans_used);
+ 		break;
+ 	}
+@@ -339,7 +349,7 @@ static void release_pchan(struct sun4i_dma_dev *priv,
+ 
+ 	spin_lock_irqsave(&priv->lock, flags);
+ 
+-	pchan->vchan = NULL;
++	WRITE_ONCE(pchan->vchan, NULL);
+ 	clear_bit(nr, priv->pchans_used);
+ 
+ 	spin_unlock_irqrestore(&priv->lock, flags);
+@@ -970,13 +980,13 @@ static int sun4i_dma_terminate_all(struct dma_chan *chan)
+ {
+ 	struct sun4i_dma_dev *priv = to_sun4i_dma_dev(chan->device);
+ 	struct sun4i_dma_vchan *vchan = to_sun4i_dma_vchan(chan);
+-	struct sun4i_dma_pchan *pchan = vchan->pchan;
++	struct sun4i_dma_pchan *pchan;
++	struct virt_dma_desc *vd, *tmp;
+ 	LIST_HEAD(head);
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&vchan->vc.lock, flags);
+-	vchan_get_all_descriptors(&vchan->vc, &head);
+-	spin_unlock_irqrestore(&vchan->vc.lock, flags);
++	pchan = vchan->pchan;
+ 
+ 	/*
+ 	 * Clearing the configuration register will halt the pchan. Interrupts
+@@ -991,10 +1001,20 @@ static int sun4i_dma_terminate_all(struct dma_chan *chan)
+ 		release_pchan(priv, pchan);
+ 	}
+ 
+-	spin_lock_irqsave(&vchan->vc.lock, flags);
+ 	/* Clear these so the vchan is usable again */
+ 	vchan->processing = NULL;
+ 	vchan->pchan = NULL;
++	vchan->contract = NULL;
++
++	/* A tasklet may already be using the active cyclic descriptor. */
++	vchan_get_all_descriptors(&vchan->vc, &head);
++	list_for_each_entry_safe(vd, tmp, &head, node) {
++		if (!to_sun4i_dma_contract(vd)->is_cyclic)
++			continue;
++
++		list_del(&vd->node);
++		vchan_terminate_vdesc(vd);
++	}
+ 	spin_unlock_irqrestore(&vchan->vc.lock, flags);
+ 
+ 	vchan_dma_desc_free_list(&vchan->vc, &head);
+@@ -1128,9 +1148,15 @@ static irqreturn_t sun4i_dma_interrupt(int irq, void *dev_id)
+ 
+ 	for_each_set_bit(bit, &pendirq, 32) {
+ 		pchan = &pchans[bit >> 1];
+-		vchan = pchan->vchan;
++		vchan = READ_ONCE(pchan->vchan);
+ 		if (!vchan) /* a terminated channel may still interrupt */
+ 			continue;
++
++		spin_lock(&vchan->vc.lock);
++		if (vchan->pchan != pchan || !vchan->processing) {
++			spin_unlock(&vchan->vc.lock);
++			continue;
++		}
+ 		contract = vchan->contract;
+ 
+ 		/*
+@@ -1138,8 +1164,6 @@ static irqreturn_t sun4i_dma_interrupt(int irq, void *dev_id)
+ 		 * interrupt (odd bit)
+ 		 */
+ 		if (bit & 1) {
+-			spin_lock(&vchan->vc.lock);
+-
+ 			/*
+ 			 * Move the promise into the completed list now that
+ 			 * we're done with it
+@@ -1173,8 +1197,6 @@ static irqreturn_t sun4i_dma_interrupt(int irq, void *dev_id)
+ 				disableirqs |= BIT(bit);
+ 				release_pchan(priv, pchan);
+ 			}
+-
+-			spin_unlock(&vchan->vc.lock);
+ 		} else {
+ 			/* Half done interrupt */
+ 			if (contract->is_cyclic)
+@@ -1182,6 +1204,7 @@ static irqreturn_t sun4i_dma_interrupt(int irq, void *dev_id)
+ 			else
+ 				disableirqs |= BIT(bit);
+ 		}
++		spin_unlock(&vchan->vc.lock);
+ 	}
+ 
+ 	/* Disable the IRQs for events we handled */
+@@ -1276,6 +1299,7 @@ static int sun4i_dma_probe(struct platform_device *pdev)
+ 	priv->slave.device_prep_dma_cyclic	= sun4i_dma_prep_dma_cyclic;
+ 	priv->slave.device_config		= sun4i_dma_config;
+ 	priv->slave.device_terminate_all	= sun4i_dma_terminate_all;
++	priv->slave.device_synchronize	= sun4i_dma_synchronize;
+ 	priv->slave.copy_align			= 2;
+ 	priv->slave.src_addr_widths		= BIT(DMA_SLAVE_BUSWIDTH_1_BYTE) |
+ 						  BIT(DMA_SLAVE_BUSWIDTH_2_BYTES) |
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261103-submit-sun4i-dma-callback-lifetime-v1-b6192060b76f
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
+
