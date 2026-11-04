@@ -1,84 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793780353;
-	b=fw8m6npcb8qcdk7rCU9BJYcsH3TIwrd3J04hma89vjZLTQKauq2dz2qyojEhS5tVxbGp
-	 crIsatS14GOBnFV9FO+jblNKYwKLxBkz9nRKcgBpnDK+6oHp7Vs+eL6Gm/EfhnUyRKj0r
-	 lF5HD5kQeIGjBvMW3dYnRDJ0zxpcMtVagQs2TqKdhzK8NPN2NmikuIUwfQc2FpghYFq4y
-	 9fup1i/0Z+6gF6DfkeaQCJRoWD+ZoDacrRUHD8fVf38gGlslZWPHK3SvhdIRsFEw+Is6u
-	 et0IQOpok7wPHrAZl7ou0av82KJ/scf79b1HUchLjHv91gFXJrZeiCV8LG1xMwDsIGw==
+	t=1793780349;
+	b=E/m+SBS8lvFgQf34vDZiIIn3MGaSE9So8fjEC/2XmcIuaUXvPhuajXMpsUznb6O/+TjX
+	 tjoARsO8anB3DpAQXiBjQGFc1YlBjsd9jnK9cVNILGC46JnUW5011OC6CMwIP0RUEqDOL
+	 1lWA4hBogYEcBsIJMHoV7QRmr+Ulvq/3WtKbv4GLSSgcjluwMikYOHOWMnu/xI67Adk7f
+	 Nm6U2WWslc04XNVrPSXrAcG1hEp3KxTT2yNdrQ74WjQcHXh2fshgIa9aelEoiDuUETFAg
+	 WAYW45LO0M+TSRmwUxtvLYxDLOgM2xjVrpse3iYjg/Fn6EceKeSGKGmPBYvoZIsE4xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793780353;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=NExaWPR6b3vPAjSZHLkW68uDa0LxPHZXSvtgMc9tD74=;
-	b=alhFD6Mieq7ShKCpqme0SaU/RFW/1t+i/L94HP9XgLqsZAonf34RRAhfvvLO8OwGTmG8
-	 /1QQ8ktyZMnSYG+bU4ZTrcxjOfkPppf+9qCFm5sVs577khbJVuy7JMYMbOmqmEKJ+rDAX
-	 Pyh9jGOI4Jj1+Fu5sF2m3/NFMfDQNtaxBKVzIRTYTEYI+6+wcDKtw/cYjmnSZ7SEZE59g
-	 21v3AW5DZzkomYaUF247q7c19KLOFu1yNDwy4JHsKtROF3CY6GZbXwpwTlvMozTawe+5Y
-	 SQvThZ7su2lkLtwCiXcXocGLhY/BTKe1GRBc/WAb/b9gcpbV+taVPrFbiQckVNSfuPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793780349;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=7JPjenQFeEsZp71b+iGe0lGbAcckPwZVykttqOk4x5Q=;
+	b=eyNTOVQOPpFlSC3cC9yYen9hTSV4Op7cTwlV8URaH7Ssjs022Bm8hIhGUNGnNZ+qKOyB
+	 IyBdaTSvnfn7rQ6QV7IgXI5pawn0an4F8LoJsEEjiqEAatUzrH72PFXwN5zZtN5Cytx2o
+	 NY955s7/tcnrHL8ME4w/2m9840RO22XIn+oVt9JHSi+55J5yF05jliIyPPWA0UcnYydtj
+	 yLN4MVWjzHgvVDC1ijU3wag8fUcVIEKcIYi7NWk0XGB/ly2Jvhf8ZZ/piCRxiuBB7+Qxj
+	 /A8ygsCFsiYmifn8V9U56p5ANZrHMz7ZsGJPjmTYkqsvMSda78/bKDcEyeogN7/It7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="Dn/bW/1x";
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VGYEVKoG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8BEF606A32C;
-	Wed,  4 Nov 2026 08:19:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8BEF606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74B29606A326;
+	Wed,  4 Nov 2026 08:19:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Dn/bW/1x
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793780353; x=1825316353;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=mHxyElwRd8tymKXxiCENQvH4gQgeaNqbXSZ6efWcyY8=;
-  b=Dn/bW/1xLhA9QIAnRU/ettmxk0qR35K7jT4QdoLTEvD76EgL4yUOAgBS
-   CBfy0eP/WZbZl5dgZ3zo1M93LIFFOMwGgMpDPfx+suh9CyYF3VAnSSaOs
-   rWpGuyvDEsYJowipDCvZPfLwCwqJYBK/KwPUpfD+STj/dUp6EsCgdY3qY
-   PrIefPClHdTDoH708MSj4Q2JrKMIWJglwqHyNr1h0rWvw+HMH7jzWloF9
-   VCYFcH86vaKj8iirYUaf5o20xYlLexBvvmJdGwLEDUUOzlG+t4d+Tz6wP
-   GhvylmnI9QX0SybUGWRRjxRkF6q307lhmmfvGZpQiPqTg1UxR3ixkJTat
-   w==;
-X-CSE-ConnectionGUID: kzGLpavRSKiEiZcQkQN/7A==
-X-CSE-MsgGUID: NZXjxf4zSH+EEJfWQxZqoA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2523847"
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="2523847"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 00:19:12 -0800
-X-CSE-ConnectionGUID: KII69xHYTBGMFnWre/0tUA==
-X-CSE-MsgGUID: BejNALFMQIGfKGxMIs0MHw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="7214274"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 00:19:09 -0800
-Date: Wed, 4 Nov 2026 10:19:06 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: "Vivekanandan, Balasubramani" <balasubramani.vivekanandan@intel.com>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] software node: only let the owner release a managed node
-Message-ID: <aurqev-AgiGYo5DT@ashevche-desk.local>
-References: <20261102-swnode-only-owner-release-v1-1-ee4c9022a629@oss.qualcomm.com>
- <aurU5Z1CNl87uMrU@bvivekan-mobl1>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VGYEVKoG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C59E1F000C1;
+	Wed,  4 Nov 2026 08:19:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793780349;
+	bh=7JPjenQFeEsZp71b+iGe0lGbAcckPwZVykttqOk4x5Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VGYEVKoGNwFuMJbTOlO7VKVvGlToA5A1xtt1tUQu/WGB1i1j9NttWJM/9bq4oTWXW
+	 YZVTVn1SAkFb9cnjEgZA4Ox5ZZDmKBJ8PO155G/DBT52C1wa6Ulq19x0nZprUah0Mb
+	 ne1LR2560+AP7QCob8LSk7VejOfbXRsijZN1KCTZdFUNfq6hNch6sFesuGt/uVP6+e
+	 9CK/EoculLm9BMAlQPK2Y7oNZ34vt7qKV4AnrKtNqoVber3PRzcgsUhEWrFZI0DgNh
+	 IHPjWHTdjMgkO8vGJrvcFTFM9rujxlckBOq8SMHdvX2D8z8+i65qNanXxGjDKNXvQ+
+	 JWcHHnkEVQ3qw==
+Date: Wed, 4 Nov 2026 08:19:02 +0000
+From: Lee Jones <lee@kernel.org>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Aradhya Bhatia <aradhya.bhatia@linux.dev>,
+	Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
+	Swamil Jain <s-jain1@ti.com>, Devarsh Thakkar <devarsht@ti.com>,
+	Louis Chauvet <louis.chauvet@bootlin.com>,
+	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Jayesh Choudhary <j-choudhary@ti.com>,
+	Aradhya Bhatia <a-bhatia1@ti.com>, Andrew Davis <afd@ti.com>
+Subject: Re: [PATCH v5 00/15] drm/tidss: Add BeagleY-AI display support (and
+ some more)
+Message-ID: <20261104081902.GC792264@google.com>
+References: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,29 +72,25 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aurU5Z1CNl87uMrU@bvivekan-mobl1>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
 
-On Wed, Nov 04, 2026 at 12:17:01PM +0530, Vivekanandan, Balasubramani wrote:
-> On 02.11.2026 16:25, Bartosz Golaszewski wrote:
+[...]
 
-...
+> Changes in v2:
+> - Add Rb and Tb tags
+> - Drop "dt-bindings: mfd: syscon: Add ti,am625-dss-dpi0-clk-ctrl
 
-> > Reported-by: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
-> > Closes: https://lore.kernel.org/all/20261009164241.923756-2-balasubramani.vivekanandan@intel.com/
+Looks like I should have been dropped here.
 
-> > ---
-> > This is my approach at addressing the bug reported by Vivekanandan
-> > directly in driver core. Please test it if you can.
-> > ---
+Please can you remove me as a recipient of this large set.  Thanks.
 
-> Reviewed-by: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
-
-Thanks, would it be possible to test this?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+>   compatible", which is now implemented with the below changes.
+> - New patch "dt-bindings: display: ti,am65x-dss: Add ti,dpi-io-ctrl"
+> - Modify "drm/tidss: Add external data and sync signal edge
+>   configuration" to use the 'ti,dpi-io-ctrl' with offset.
+> - New patch "arm64: dts: ti: k3-am62p-j722s-common-main: Make main_conf
+>   a syscon".
+> - Modify "arm64: dts: ti: k3-am62p-j722s-common-main: Add support for
+>   DSS" to set 'ti,dpi-io-ctrl' properties
+> - Drop generic desc in DT bindings for power-domains property
+> - Fix pm_runtime_get_sync() return value check
