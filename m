@@ -1,99 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802083;
-	b=wQrMAJ+CsMnJYbcprbp9/RLGnwfsmQzgIyOJ21Ll3AXLwazlITMXgTZIGLP9LbjmhNzb
-	 Y3tP0qv/qd3j7XIc3ika3g7cKd2ot1RqfMmFHcIXGciAr39LFFTe62GddPEOul1iMH+Kx
-	 3wAbZjeOg5X466vtUNYTMOVTzxPBN4z1EP3/GDWLURGRnaXNnnwh25Ldffsf+rmsHYxTY
-	 SMA9cRQeu/bWvAG4Oft4wOIeuPBDaiA1guB/doP0wYRlHygMUWgKuOBblTUMH7Z6nVrYz
-	 82mRAW7pj48RZqGScapvDkk6jdUBf6WtL7TYv0m8Y1+Czb1+fs+ykZivOalIw6jHXFQ==
+	t=1793802086;
+	b=Sg3dihFc9mGlsUyn4zVzcFdMAnW3YdGfJST0F4mbRFz8I7sqWBBdwhk4Lws4uP/7LsLR
+	 OMx/ooZlnKB/d0iDeEt9Qk9s84l5LPLFGow1QHHazXq9skGCeEptsqSqva9h6+c2tTTEb
+	 GQqNG3z6Qf9uehQm2DB+ctzO9RGKgIDhV0alvQIvCNnwR04GzybCi5KlyhsYzVmRLKgRs
+	 tv1ck3shl0chFiJolVh3Dwes/X/wWBSbQWysMuMjsNrZom9Mbxnwb6cGIV5N4hhjLi2sd
+	 tHH8oI/rYQCGkRRRny57a61bgGzcTlhmJ+KT5AO7Nt3r1lliG3D+SNZ6+L7iz1phJzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802083;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=d3+qu57H6hbPzpfqrzDervo4ihTLFL0YK5b5tmW8eY8=;
-	b=lmpfoz5tmXapk2IHPPsrhIX27tn5bdX0n1gEIZyYEVqPUx2dJXahsC22olUsJ2RJ0x81
-	 gTRLk3iryv71wlBnOqP9iCEnAU7RJjQUg0+VEIa1ECpLjSIWhp1Pdc2+LEU4RSla5SRJh
-	 3R99gtFkYBXGd7Z2JGAFECJtIWh6Jjba45cRbeHdgT5G1TTEzDZHjnesyPSWdELAmXdTe
-	 Z8h3XL4SukY80Mj/fJ91BtgsaMJO0vd1IZGxqxKq/6Q2cMqjTZ2CVfFHPhSusr2WlkZUJ
-	 f7MTju5iTxraCMMQQzq5kScNmj86wR0c42DsnsVIMwsXu1GJfGjDIYRVL0Dtevz4ssw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802086;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=EWuc93Sijrp/hgRDRMe1IyjN/w0FK+tKD36/UFnsCso=;
+	b=nnDpcrC8zyQApFTqVIdyXQUfI+sSHhCIj3qruG4eJVowj4+4koK6cYf6NPQoYEPpe9eI
+	 Pemg4ISyhtSDfaiV9UO5uTIZzzJZMPkcLtXMXV5D1Qm6Dt0yui8+DQr5ccQNPCCJWEWKu
+	 5rnzeUWZ9v2L0tPsRpFoQRDUSyZuxjPa/KBVy+mbMe4JhK8NHuDPrg4UCwWxPJ2JH4LRA
+	 ecs/vOvTKGUOHIsablTBt6PtORLuqACRsPnrz8CTqlKRsvcJbjkDqPbUs8xQ1LVhmkmah
+	 vwhJ5mIhNCRf8mj1L97RVY5McDOhgU6Nu9SViKuYj9+BcWJKndTLB/9FaqpQFsI4tMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=NRUK2O13;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SPrTGat9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C6BE606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:21:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C6BE606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 85439606A31B;
+	Wed,  4 Nov 2026 14:21:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=NRUK2O13
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so6339885e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:21:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793802081; x=1794406881; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=d3+qu57H6hbPzpfqrzDervo4ihTLFL0YK5b5tmW8eY8=;
-        b=NRUK2O13KP7Gat2o5FGPwGcMb8OoxTJoPqto3/DrNYgfYmyag0OkJNHv9C+XJAjorI
-         5BwkP1AA0d1wWHal91K1CvZnlZlbWOOeSybWlI8HnNM/KXVG+ENJ0dkl7eqzusHxQ0ag
-         I4rt4EJeN0OUTd1ED/Eix3F/6Sv5SlRdtwpo2rFGcwL1WH8YzhQSQVa4pAEU19YxAJml
-         cw3JqwhjKH2iJXhONJKazNPAIq2iCDJsnqVNBO6Eb+k9M67TOVB7Aj3jA/XtPNdtSCXg
-         CKJNMDdwpVhmC1ZCi91P2kJZIlunyHLo9iL8byA3ZPYH6OmCo0Ok9Gye5d2ZmoNI2gic
-         hYzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793802081; x=1794406881;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=d3+qu57H6hbPzpfqrzDervo4ihTLFL0YK5b5tmW8eY8=;
-        b=mtwRaO5pEIUf4SiK6J3fYUs3lWca542xw52yQArlfZwX4Q3rSKvpabDsG6gttWPz62
-         Hlr35vMGP56iSQ/8FacVX/FKDdV0+Yo8HvzWKT/WNcaJTa6uomRJoxgt0mGcIelmdil0
-         A/1erSptDXzbL1/j+bj/prEs5KPSDUn62ZaBwm2k2KcFq95rpa3udAbXMwwmheXPIseD
-         0Hv0Im9VrI6Q+JmXY/cuZSQsivDpuSDJPsqIQWXWZN+NRivA6ORYDB0CyWzcmBQRN5g2
-         467mXTtFDpsBzH2oXZ7gtai+QQPaADNp28lO1gaDaOEk8ExpDW5Bqyo9ZAcIuRub8wmj
-         5CkQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzg0yiW4LTwmK8CIJ9XtNdyviwJ3MjGacZQAJc7DfbBPjpi0vl5ffwkVcx7YxKOmJvw584aRHhqNL6bELM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Vvn8d3olOhLVvOlmduccUis8rgklOZY2pWy9hj+STdo7yBhtN
-	qy1f9In9TKhc+BU034FiwhN+irPs1ZDdMeXNN1XbSoJJYUiSOaMbHIIEkVBLmv3vWgo=
-X-Gm-Gg: AYBFou15T8ymzWJcJn5o1SFdq/PDI9KVwiYb0ED3HxBIxP7ise8qA4ke6tSEvkKhsmW
-	rNG39UdXHlvYj8dGfwgwdmyID3no3VyzHOpY1ePFLGPtbd4BsY8ERreczRV7uo0Zeq0Lxdt0gP8
-	i3pcpwoF1t4iMuPWT/Hk83iY6crPiSKE3lF8AUZXhfqCXEEUYVkTi2zxAzTJhXDVCwi8ae8Q/sf
-	TRl6tBDrVi3UR0ut7deN9ePgDd22RwcG8kWt4Kr3GDYgkTjKB+84KAhci3OnHiOTSJ9uVZOF8u3
-	qBehKusBt3cXp4Iq5CxixR25bJFDA81EXf1X5GO8uGbHPJ3kJHCNA7CEoC/iOdEtfMw5vL6zA1Q
-	LsCRQOt+JWBdGURtSNnm366+lfsg2cDceta0D9RZlxxcPtam1baGCD050lsGNb0UptNYPJq1ZFQ
-	lGpyUs1/0YdKh2VEDwlzT2VkfivaJK78XPBm/sZ3xYCoXQETqFVNbRj9k+q+e2vvKH70Lxc4B/P
-	y8PGwThPfkIf6TE+VDgQARPOko5wC1XmtG84Yf/oc/O3Slj2M1ivFS7KJvQHcdGSpZesZcKvwlq
-	0qpYXYL/IZAr2xfpGMGJoh73m3qhG7xn5imXMREnJ5IY
-X-Received: by 2002:a05:600c:4e12:b0:4a2:a9:ed87 with SMTP id 5b1f17b1804b1-4ac1765cf2cmr385352135e9.19.1793802080851;
-        Wed, 04 Nov 2026 06:21:20 -0800 (PST)
-Received: from pathway.suse.cz (nat2.prg.suse.com. [195.250.132.146])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b43c17ecdasm83584475e9.5.2026.11.04.06.21.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 06:21:20 -0800 (PST)
-Date: Wed, 4 Nov 2026 15:21:18 +0100
-From: Petr Mladek <pmladek@suse.com>
-To: Chris Down <chris@chrisdown.name>
-Cc: John Ogness <john.ogness@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Marcos Paulo de Souza <mpdesouza@suse.com>,
-	Naveen Kumar Chaudhary <naveen.osdev@gmail.com>,
-	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v5 11/16] console/braille: Lock console->setup() call
- during the registration
-Message-ID: <aus_XuSPZYByvYmg@pathway.suse.cz>
-References: <20260929120546.328616-1-pmladek@suse.com>
- <20260929120546.328616-12-pmladek@suse.com>
- <auLyiUrOsr7W8tuo@chrisdown.name>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SPrTGat9
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 5B2E61F00919;
+	Wed,  4 Nov 2026 14:21:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793802086;
+	bh=EWuc93Sijrp/hgRDRMe1IyjN/w0FK+tKD36/UFnsCso=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SPrTGat90aMXfTCidZoIjMRJ+abYgt5OIsMRnPKFZFbXvNACruhNUw5cc/oYCQN9m
+	 szIaSFVZssudeqvmaiFRUYOgMjKmYou8rlhr3IV8rG5VkUA6nrcfCZomiXpkPnPxnP
+	 aglViOz8b1DFJW6KX8hQquSM3KtWB+VLBLSak6qXYjM+i22hUzzpDqwUkSFOGiffxf
+	 h/0tsmyvFO3iIukk2TQv0d+cNN4NxlbK3Hm3bhGpcTwKjB/oDnGDy6AhG+j+JRH4ga
+	 eETnmknnCnuTGTZ3tvZGkENvt/9PL5A1lpZDWcBm5jNl+HtfKgCadG5M9/FffPf9bE
+	 742E9648rj12Q==
+Date: Wed, 4 Nov 2026 15:21:22 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Jinseob Kim <kimjinseob88@gmail.com>
+Cc: linusw@kernel.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] gpio: kunit: test mixed-polarity multi-line hogs
+Message-ID: <v4dpv4fmz4av5v5cnjfpdov6h3lgir3lowelveex35da2dj73b@l5rbtdkd2vg6>
+References: <20261104120055.256-1-kimjinseob88@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,48 +58,55 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <auLyiUrOsr7W8tuo@chrisdown.name>
+In-Reply-To: <20261104120055.256-1-kimjinseob88@gmail.com>
 
-On Thu 2026-10-29 15:15:21, Chris Down wrote:
-> Petr Mladek writes:
-> >In braille_register_console(), the console->setup() callback must be
-> >called while holding the console_lock. This prevents a race condition
-> >with a possible active boot console that might be using the same hardware
-> >registers.
+On Wed, Nov 04, 2026 at 09:00:55PM +0900, Jinseob Kim wrote:
+> A single software-node GPIO hog can describe several lines with different
+> polarities. Add a case with alternating active-low and active-high lines
+> to verify that lookup flags do not carry over between GPIO specifiers.
+> Check both descriptor polarity and the raw output level for a logical
+> output-high value.
 > 
-> Acked-by: Chris Down <chris@chrisdown.name>
+> Register the additional provider and hog nodes in the existing hog node
+> group and add the case to gpio_swnode_hog_tests. Reuse the existing suite
+> lifecycle and test-managed GPIO device reference cleanup.
 > 
-> >index d780f6de303a..11d6b854ee63 100644
-> >--- a/include/linux/console.h
-> >+++ b/include/linux/console.h
-> >@@ -699,6 +699,7 @@ enum con_flush_mode {
-> > };
-> > 
-> > extern int add_preferred_console(const char *name, const short idx, char *options);
-> >+extern int console_call_setup(struct console *newcon, char *options);
+> Codex assisted with the regression test and commit message.
+
+Don't put that in commit message, that can go under the '---' or in the
+cover letter.
+
 > 
-> Hmm, now that console_call_setup() is global, a short comment saying it is only 
-> meant for the Braille driver might discourage other users if you want. But not 
-> a big deal either way.
+> Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
+> ---
+> Test split from the combined v1 patch, for v7.5:
+> - Add the case to the existing gpio-swnode-hog suite and node group.
+> - Drop the duplicate suite lifecycle and keep managed reference cleanup.
+> - Adapt to gpio/for-next's provider label and existing test helpers.
+> 
 
-OK, I am going to do the following change in v6:
+Maybe I didn't make myself clear enough: this should have been part of
+the same series as the fix, just a separate commit in that series. No
+worries, don't resend unless there's another reason, I'll keep track of
+it.
 
---- a/kernel/printk/printk.c
-+++ b/kernel/printk/printk.c
-@@ -3957,6 +3957,12 @@ static int __init keep_bootcon_setup(char *str)
- 
- early_param("keep_bootcon", keep_bootcon_setup);
- 
-+/*
-+ * The function is intended only for the generic console registration code.
-+ * It has been made global only for the Braille console driver which
-+ * is partly using the generic console registration code but it is
-+ * integrated with VT code instead of printk().
-+ */
- int console_call_setup(struct console *newcon, char *options)
- {
- 	int err;
+> Target: brgl/linux gpio/for-next at d66b6b86d5a6278ca930112c634d03725beb7d9a.
+> Dependency: apply the fix-only v2, "gpiolib: reset lookup flags for each
+> hogged line", before this test. Without that prerequisite the new test
+> is expected to fail. The test itself changes no GPIO implementation.
+> The maintainer requested this test for v7.5, separately from the fix.
+> 
+> Testing on this target: actual UML/KUnit, before 10 pass / 1 fail;
+> after 11 pass / 0 fail, with the same config and test source.
+> GCC W=1 and Clang W=1/private Sparse C=2 builds completed.
+> The mixed-polarity case also passes alone and within the hog suite.
+> No physical GPIO or runtime OF hardware validation was performed.
+> 
+> Previous version: https://lore.kernel.org/linux-gpio/20261103224339.1180-1-kimjinseob88@gmail.com/
+> Review: https://lore.kernel.org/linux-gpio/qboynvhfmvltsuopwotpf3sqdwho3qobxmw5qldooedjqodfgy@x4l6hscj5unx/
 
-Best Regards,
-Petr
+Ideally this should have been v2 of the series with its proper
+Changelog.
 
+Thanks,
+Bartosz
