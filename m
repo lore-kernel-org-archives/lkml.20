@@ -1,55 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793798081;
-	b=LxWvjqWK1ZnKC5B8hisoR86hSMNRjfgBGPTyrtzkDGQcYN5Ah5cWdR7B6zuFgbY5Rs0r
-	 GBVswOwI4Si3GzNu0KDxgJVUwlfP6hFMT+Eve0FgByUDTAt/4aMOxg5o9nNvpVVio3cBL
-	 5Wnq7CymQtuvlBPAndY060OR2kamzj+1QYNcNDleQ+/LVxsGUj8tsu97urpVMIol7070K
-	 N+9Le+DMVKcNi7DDv+rlByob1NGgrLFL433Ow9ApjGn/CfHhbwFcszmIczs4X9PlVz/H8
-	 7nf9qUpS/NXx6x/1yrgEKiqLGmEczqEOmJEGFWh42//OwzgaZfvQ1mFimu0uNHufCiA==
+	t=1793798093;
+	b=gqGynOwEEfNiIFYTnb05E424fMo18+f3Xe6KnPjxGsJrIbrXnN0wW06CiLlsx98Rsc1e
+	 9jH7iwp9+n2oqtWCTED6FyulWr64YwhnvttAwyLNqbCBo0ysFx7qjmyZ2G+GfNPQwqDUc
+	 pii8O5TVlWweO5CECfWMaNnUjtOJahKCFoerCEc2ftb50TExHqhk0Qg0HEAcRvROlopuH
+	 kT6/A5FKHP+Of3m8FZieA0tFVjIm+DAp+uIZw9qvGRxutQNfxdUeQJbQzv0ClHxEogkr5
+	 6AUAUimaUKv9lPTzDM5ApaXY0jjtpjatxwTjfA4Wx69/78KExsfFi70+0XtUPBXqh3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793798081;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=/p5+Pyk6coILlORdcQBpVHNHSFgdC438Pn8Lrp7EWZ4=;
-	b=Iim1pznxbHn3yvq0jKgch1rpmibQflyfjkOoZ02lZrK0S/QBF1KVv1LapIPl6Mz1pj/q
-	 C/yXvjSCsiArg5xwcN3fOwecSi+4Y4aSQkZKeWwtnwmHELLlSzFMr7oiQaVW5D001qAlZ
-	 QLKXSwe+eKgS7c3iGjt9Ak4n3z5QgzkrMYl0J7likl9GWDfGe5vHWRrIvtNXBisAz+ko9
-	 9Hx80xNTjX3if9GvCckGmdbyAKp8on4sz3L/9oIgkOANR8o8iwkIzSwqLi+CbhK5aIhhQ
-	 gCkP2qWxQK3hCpi1R5uFY7C3kbGTzggqKsNn8H87y6W4VDsRWhnRvQgIihZIuSrK48A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793798093;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
+	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=DxT2ZLUeW2NIbDjvztXpHdeBzgiR/nP0952gzwh2P3E=;
+	b=Bt76J/OnMZ2zPfFmQ58vpH8qCQEThZxPD49i09Dq54T6h24YFy+plfN2ihKdpy4UPSAq
+	 sQ4zXrhygmoE6mXnA+4qv9GnNbRR9dcc3SdGdc57lxtkdgdKpx9c1HjwE7shbNjOd4A/5
+	 Laf+2DCcbcSflaFzxmwujRWfoalBrrESXy9jjo+tcAqRz4PfPbIoKUeA2U/qJAzi3lFnb
+	 WrhRBnxDMtyH9cNkthr0XLLn95jG18mZbzFGfi591nGMwGJx7EZ3Dy+4TNtfxPkN+jXl0
+	 TeXgalKRNZ7PR1RWlOchb0Rdv/bgP882VBpu5y9/fHi451G/+5l/8/PV9bimkh39csQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PSwVh+0e;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07A9E606A33D
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:14:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PSwVh+0e
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0F291F00A1E
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:14:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793798080;
-	bh=/p5+Pyk6coILlORdcQBpVHNHSFgdC438Pn8Lrp7EWZ4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=PSwVh+0eCTT+b5fCxey1CsR0b6m5BP0NC9rEWv/qGoVAp7z7b/X1baMHbpDnRhHw0
-	 1IlSHrcLAlVsg55IpOJF5Nkvf2vaGC/fHZEyKH+Don9up9zSqgKV37V5nainUewRr1
-	 tAyK+1WI3fZ/i42mU5cbzo+HvC/82f7rkN3yxsVGBPX5SeP8DXJpSKARcrEvAMNSv1
-	 RLgoTtiG3rPcDWuwk0+yNZkdNee1OkZ9GCZo58XY+OQNfYVWhHMw4oNuRfTNNgiFs7
-	 4AkeoxFWz8uacgEWDIjPHFeVRqn52p+Yr5AhY/9vo5pidgnseQ+ftRBNMagtn2p8xU
-	 Pbq1Di/rgQkDA==
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5be4fea434bso1619633e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 05:14:40 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBygoaKpexvIzGYtK1pRwfSP0g94GaEydQevkoqiM0Z+KEfSxo/C0T51wnhf8LblO0bDvkymA7tN34VoT54=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8xITXDAqlp5SlNXe+cXNVGTLPvxxrpH4hJJIjf29MjN3eWr1Tz
-	CaVmoB5B4UbqjrJ0JPCvlxoQFWH5fIKqbOsLTRXfTMTjWeYmZc0XJvpz+Q+YNxBxhSkRpoTttBO
-	3nU8tLpCmu3fO8eF7uU7mG4DBEMs3tBA=
-X-Received: by 2002:a05:6512:3d93:b0:5bf:ac46:c5d6 with SMTP id
- 2adb3069b0e04-5bfd956d81cmr4929046e87.12.1793798079384; Wed, 04 Nov 2026
- 05:14:39 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ECFB606A330;
+	Wed,  4 Nov 2026 13:14:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5ECFB606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jKQrq5lnKz57HS1;
+	Wed, 04 Nov 2026 21:14:35 +0800 (CST)
+Received: from xaxapp04.zte.com.cn ([10.99.98.157])
+	by mse-fl1.zte.com.cn with SMTP id 6A4DEU0V088196;
+	Wed, 4 Nov 2026 21:14:30 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp02[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Wed, 4 Nov 2026 21:14:32 +0800 (CST)
+X-Zmail-TransId: 2afa6aeb2fb827b-f71a2
+X-Mailer: Zmail v1.0
+Message-ID: <20261104211432688UOs4v84BESagMmLFH30Er@zte.com.cn>
+Date: Wed, 4 Nov 2026 21:14:32 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,54 +56,39 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261103-a210-scmi-v3-0-ee6b31580808@iscas.ac.cn> <20261103-a210-scmi-v3-6-ee6b31580808@iscas.ac.cn>
-In-Reply-To: <20261103-a210-scmi-v3-6-ee6b31580808@iscas.ac.cn>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 4 Nov 2026 14:14:27 +0100
-X-Gmail-Original-Message-ID: <CAD++jL=5SypKyjwb71hT2pzTZ3s9qi62JG_EevyjTjGgTZiE8w@mail.gmail.com>
-X-Gm-Features: AclHuK-6MXT5O-NfPKrU9YAGzhqKyzaaZr6RTIvrirwYp92eUVqCIspXmcEerPc
-Message-ID: <CAD++jL=5SypKyjwb71hT2pzTZ3s9qi62JG_EevyjTjGgTZiE8w@mail.gmail.com>
-Subject: Re: [PATCH RFC v3 06/17] dt-bindings: pinctrl: add Zhihe A210 pin controller
-To: gaohan@iscas.ac.cn
-Cc: Sudeep Holla <sudeep.holla@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>, 
-	Michal Simek <michal.simek@amd.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>, 
-	Jassi Brar <jassisinghbrar@gmail.com>, 
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
-	Samuel Holland <samuel.holland@sifive.com>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Drew Fustini <fustini@kernel.org>, Icenowy Zheng <uwu@icenowy.me>, Inochi Amaoto <inochiama@gmail.com>, 
-	Vivian Wang <wangruikang@iscas.ac.cn>, Yao Zi <me@ziyao.cc>, 
-	Jiaxun Yang <jiaxun.yang@flygoat.com>, arm-scmi@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	linux-gpio@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
-	linux-clk@vger.kernel.org, linux-serial@vger.kernel.org, 
-	Han Gao <rabenda.cn@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <dlemoal@kernel.org>, <cassel@kernel.org>, <hansg@kernel.org>,
+        <linux-ide@vger.kernel.org>
+Cc: <linux-kernel@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIIDAvM10gYXRhOiByZW1vdmUgZGVhZCBjaGVja3MgYW5kIHJlZHVuZGFudCBjb2Rl?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 6A4DEU0V088196
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Wed, 04 Nov 2026 21:14:35 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AEB2FBB.000/4jKQrq5lnKz57HS1
 
-On Mon, Nov 2, 2026 at 8:45=E2=80=AFPM Han Gao via B4 Relay
-<devnull+gaohan.iscas.ac.cn@kernel.org> wrote:
+This series removes two checks that the surrounding code already
+guarantees and folds five duplicated cleanup paths in
+zpodd_get_mech_type() into one.  It was found while reading libata.
+There is no functional change intended; every patch is independent and
+can be applied on its own or as any subset.
 
-> From: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
->
-> Add a binding for the AON, PERI1 and PERI2 pad controllers of the Zhihe
-> A210. Every pad is muxed and configured on its own. Functions of the same
-> kind share one name unless a pad can select more than one instance of
-> them, as with the UARTs.
->
-> Signed-off-by: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
-> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+Patch 1 drops a test that is constant-false at compile time.
+SATA_PMP_GSCR_DWORDS is 128, so "SATA_PMP_GSCR_DWORDS & 3" is zero and
+the loop already terminates every fourth dword with a newline.
 
-This LGTM, just waiting for a non-RFC version and DT bindings review.
+Patch 2 drops a dead rc check in ahci_platform_get_resources().  The
+branch is only entered when IS_ERR() is true, so PTR_ERR() is negative
+and "rc != 0" always holds.
 
-Yours,
-Linus Walleij
+Patch 3 rewrites zpodd_get_mech_type() to use one exit label instead of
+five "kfree(buf); return ..." pairs.
+
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+---
+base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
