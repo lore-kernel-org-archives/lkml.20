@@ -1,88 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793785666;
-	b=HHRAm+qQyx2vuasDAoMgiHPRGjMk1y8zh17HOMbxRa9pC7z1mPS29PTn/n2t3Qrxfuo/
-	 C+r9GEGCqZgzNoylS4t/sDK3JAodcTl+K4AvEnlauFH/ANplAzzlq8+34p06AITfojUad
-	 wglZoOtbltt86sp+Dknq0QC4CHO4pUcryxtzIt4PqJi094RVQURaoa4RqpAMhBRZzbDgx
-	 oW4X6gQGIIbrCPDyJTZfaWYJMZtnDDXdky9Oqs4cMQGx55I2uf2UAf6q3yW/cTTqovC9d
-	 YfqyjzB6ipU6KzWpIA22mMmOz8GSEHbeInKCQpyUrfJGessFRyw2DA8lIKxmcTUoYYQ==
+	t=1793785677;
+	b=i83K5A6JPa1GGCr8vXZeptv6L86q3cBUd4t3uVlLm6VtIrcqcNUupiH5Hu6y2KSMzJ+w
+	 KJ+6crZsi1cvW24nSAnE2NgYfTVG4Hosib+p/4VPg17gAddTt7C18TnsDGkbYM+Qefe26
+	 G5CZ0L8sO0O2Jd+Hd9EAGTgA2186ZSxWQUgLBRHBfO2jl6GiarR93a0z1UW9S5tyJqyKC
+	 JZeNnEAjjLZ5XBoCmIf2qJMflzRvfYiDk7kWcT3XyVlVpS66de0ia6mEkv8IOnK1O3Kuw
+	 Cgwj1iIvAur7lEPZguDEWrzPo8CwfiHW+el2aLrJJ9Z7MeUzCefuPqjWipgVsjT3kxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793785666;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:Message-ID:To:Cc;
-	bh=Uh7Kzi5HknUWaE4263UOKqC/5G4430WqvI/t+055Hh8=;
-	b=r8DfjVshN5sTV8MSLNZjJi7r8H8XA77tb/s9pwBN/mPNgIuyZYBe/bH3nwwGSiM1DxnF
-	 EFIPQSNTuEBZSm7T5zt8Q+fNbCcoJ2HdZVzGsbqhDW/K5sBVSMGQN5w4PlnXru8dbDpgu
-	 ZDoTIRJ2Fnxl0oAuxMgWeOfInm5/MRqWG2YxXSJzThSsKgGAMnw4mzRsq7BtiTXs4Z+uI
-	 pmy+zH9b95uOyq7Bsv1PWu8EwVM7qMPIl78lvY3AhvkmH9qUe36RUploZmVilTsZQW6gC
-	 IQ0Y11D6njoD7lYPLKXqy3LWPIZbJKQx3IJvCevH0LC/L9yj7v4R8vktJLtpb5J2SEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793785677;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=n+attB9PvL2n6dsbSQ6Vs1/AeKnQk1sOTd77loYwPLM=;
+	b=YOOUxCvmIrBBxcnmF20nnD88oqNflyycpjX/ov/jA8AMRQjEHqi3/9L2Mk2d0POFf/P8
+	 1OLPHvaSQ0+4O9GuT3UFVlb0mvllIP9ILH/w3G1f0NUyX8Qhbqpz52z0llQfOgpuEUr3g
+	 YQbRCGKDXV3cmZCet6bnMcUcoS1V+/pdeGFlXYwmSefHv1obXO82sh+yPCxMXBRLxjk0T
+	 uWlYSp7+1uyrXrE7mC1YmftuEeaBW7o2o5Mv8rz6oGUvozXAjVlZji0vjOoma/KENvK29
+	 fJ9tcbLeGQ4T8Z2c0yjDiPlkZq5G+1SFSg1teLxDAnHHvVawezQ9RtUfHZflZDxrB6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BcUl6U+U;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gondor.apana.org.au;
+	spf=pass smtp.mailfrom=gondor.apana.org.au;
+	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=Cm7wEFo4;
+	arc=none smtp.remote-ip=180.181.231.80
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F76606A329
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:47:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90F76606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF057606A31B;
+	Wed,  4 Nov 2026 09:47:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF057606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BcUl6U+U
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-15ea896ddc8so912557c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:47:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793785665; x=1794390465; darn=vger.kernel.org;
-        h=cc:to:message-id:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Uh7Kzi5HknUWaE4263UOKqC/5G4430WqvI/t+055Hh8=;
-        b=BcUl6U+U5Ou1V+OPIEa0wBAlKPH/Ca4ZNT6sIaYz1Iv156zEQdRXZgV6BJbM4PR9Ff
-         HrKfYe2WJnPoOBJznPFr/TpofGloVrSSBO3crPlG51Ef4OcmcKZqXHewSNPmKDb/3/Nc
-         nISBaemsAMd4wrBtLnKpKBWtvPWak3Hnb1K4V0e3sSYMH0EkAmhQKq80g3w0c8ruatf8
-         mlz4cjVUxtKrFWgCe8XuAwB/MGToaN4p/W2U9QElW+s3egYN+SDnLydHZZsGPI4u2SHA
-         p9/qC/5G/s+FyllFpaNq2Q/hwybrHAzYKLyUDZXBD0IX23LM7hiVKqf5skXHHLjVYOQu
-         rcHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793785665; x=1794390465;
-        h=cc:to:message-id:subject:date:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Uh7Kzi5HknUWaE4263UOKqC/5G4430WqvI/t+055Hh8=;
-        b=lWNFIqDM7fpCsRHXTk3eNjqA+gsJ5Qfr9kOoyx9R+dISoOiVa6QtgBLZSsWQA7bGNM
-         ZliypTyJHW2vH7jl9JzNb+mhNs81aoTtmCzHsAlSVNe8ltjl1bWHkOTkp/9DSiTCogvJ
-         VQbF552qbX3cbNiPnJCWg01s2qSZDx/tTAs/Oy6wLOLOWLPsZiL3o6JFcWJHGI9MUsQ0
-         jO0L6d8n7YKmVOV8MGR72KyKj4jtX1vFW8mcpIV1FODQO3NgORRXs2dfTxvfe3MUGTte
-         ynZHVZH6sSRhz9+j9MSNYgs+M68HQXAfIaTEL20iJdZn4RqPLZmV8rqA4l12kkvtYJO6
-         rfAA==
-X-Forwarded-Encrypted: i=1; AKwUvBxuo4JMHp1DML1KeNu4r1LFdus14NiE9OfiBFz5OynhJ0hZJ2i/4lPc0RkfpLYFwOdVx9jDRJ70eDpEK/o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8lOzHqQPzxmqEjKmchFpBEn3NhC3YnFs1cp5g/i45SN9O5nEDd
-	T0EpFnaX6HS10WWbdqv/zPeA0mb5d5POyK6B63MsXXYo4P0syS2NKhL0
-X-Gm-Gg: AYBFou0ynzxOpQRREWfpeD+CgJLO+BbOb+WLdLeaGLaWFMzmz8vDCCbgcRqpbdXgtSP
-	5P89ERbE8qBrgIvl1uVzgRgMcdDuqEZEQY6jGVn3gGqSgHk5BkwME5EK+7PEbFitDzgT75lQL9W
-	x06xh0Y3snrwaXJsSkFrCqgwL6SOvlUeLW1l8ytpXMJM25NM10bg3T6vgFaQFDAH+b6mW52jGHp
-	ziYLyZKJ2BxHHSM9GPwOQJP8AiCQHOoLK+6ns1mDe6KKqQVfuOGDJp0/Wj7D4R+d+AbgmqKBL2I
-	cwtgtkP1gJVmMUfIAQKGrqv9duLdJhono7lElj52agyUWmSOTz/5wevFA9o1XYLWQatWGSV6Jse
-	sEQMS50OIB2Qi8z3zpqfR4GjmjdPskvK8GZJODxqg5dnma0fCRiBmSa38ngLlSavFXrNVdJhea/
-	424Fq2K8vYO455cmVJifsCof5P+9Z6HH/Lh4G42EagMwnS3QuQcZ4Dh/HLocxks3JRJk7XUV8m4
-	eNUbNT1shcbyglyqANpRr68xc19dU4DACpkf4XXMcbnGCuy4RC8OF5CNickvlTj4bU0tQpHf2nx
-	IQhANEZgwNrmUt+cpaqphW/nNx4QCkRyF2/KCYB69VXLpXCVpFJbxI8B/UKjtg57MaI=
-X-Received: by 2002:a05:7022:7f0b:b0:13b:3132:6e99 with SMTP id a92af1059eb24-1ac5af2da84mr21527601c88.20.1793785664520;
-        Wed, 04 Nov 2026 01:47:44 -0800 (PST)
-Received: from [127.0.1.1] ([23.247.137.158])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c2de58sm6065186c88.12.2026.11.04.01.47.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 01:47:44 -0800 (PST)
-From: Yaohan Li <shunsheng1218@gmail.com>
-Date: Wed, 04 Nov 2026 17:47:31 +0800
-Subject: [PATCH] power: supply: bq25890: cancel pump work before supply
- removal
-Message-ID: <179378565123.72475.2497991563887142080@gmail.com>
-To: sre@kernel.org
-Cc: hansg@kernel.org, marex@denx.de, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org
+	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=Cm7wEFo4
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=n+attB9PvL2n6dsbSQ6Vs1/AeKnQk1sOTd77loYwPLM=; 
+	b=Cm7wEFo4Pm4FVw8bVsqV2KFGXONAXn6Pmnx4MSA9MrouvnFLO4rMTc1JraBdzLb9Bg6/iiJoyXx
+	zh+NuJSooJuoesImo5j1R6UDhSebvzodBtz5iurbl64AjowLXbqNIALrzPAt8P3sucbiTxTsr5Xnl
+	WqpLIAnocz5CJFUFw+3TlX6v6TqKf3qfqPsd6LXajQgP81vaIiDsX6YMuO3OpDnncmLSmyRxGywrM
+	f096M2hlh/uIfaYwGU8xCbcnRlst5USAx6Cz2KMBimgSZ6lx6amC1anM3UMyVG01ExWUYWdf+ihl2
+	20SN9YL3LfeLWs7fq95MO26ay61JZNaSbaog==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xOXax-0000000AoNg-1YbC;
+	Wed, 04 Nov 2026 17:47:52 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 04 Nov 2026 17:47:51 +0800
+Date: Wed, 4 Nov 2026 17:47:51 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: =?iso-8859-1?B?Suly6W15?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: "David S. Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3] crypto: essiv: fix use-after-free in AEAD path
+Message-ID: <aur_R6HA1ylklPB_@gondor.apana.org.au>
+References: <20261016075030.3463123-2-Jeremy.Jean@oss.cyber.gouv.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,67 +63,47 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261016075030.3463123-2-Jeremy.Jean@oss.cyber.gouv.fr>
 
-The existing devm cleanup for pump_express_work runs after the
-managed power supply has been unregistered. A delayed or running pump
-work item can therefore call power_supply_changed() with a freed
-power_supply pointer.
+On Fri, Oct 16, 2026 at 07:50:31AM +0000, Jérémy Jean wrote:
+> The request that ESSIV submits to its wrapped AEAD transform may
+> finish before crypto_aead_encrypt() or crypto_aead_decrypt() returns.
+> In case this happens, essiv_aead_done() calls aead_request_complete()
+> on the original ESSIV request, which can end up freeing the request
+> before essiv_aead_crypt() resumes, creating a UAF:
+> 
+>   BUG: KASAN: slab-use-after-free in essiv_aead_crypt+0x8e6/0x950
+>   Read of size 8 at addr ffff888102af1360 by task init/66
+> 
+> Check the return status before dereferencing rctx after submitting that
+> request. If the operation did not return -EINPROGRESS or -EBUSY, then
+> the request cannot have been freed yet.
+> 
+> Fixes: be1eb7f78aa8 ("crypto: essiv - create wrapper template for ESSIV generation")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+> ---
+> 
+> Changes in v3:
+>  - Code simplification.
+> 
+> Changes in v2:
+>  - Drop the local assoc variable and check the return status before
+>    dereferencing rctx, as requested by Herbert Xu.
+> 
+> v1: https://lore.kernel.org/linux-crypto/20261014222351.2930674-1-Jeremy.Jean@oss.cyber.gouv.fr/
+> v2: https://lore.kernel.org/linux-crypto/20261015121743.3151400-2-Jeremy.Jean@oss.cyber.gouv.fr/
+> 
+>  crypto/essiv.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Register an additional devm cleanup action after power-supply
-registration, so devres reverse ordering drains the work while the
-supply is still alive. Keep the original late cleanup as a backstop
-for work that might be queued again during supplier teardown.
-
-A KASAN test using a simulated I2C device and the real bq25890
-driver reproduced the use-after-free before the change and not under
-the corresponding teardown sequence afterward.
-
-Fixes: a7aaa80098d5b7608 ("power: supply: bq25890: Ensure pump_express_work is cancelled on remove")
-Assisted-by: ZCode:GLM-4
-Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
----
- drivers/power/supply/bq25890_charger.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
-
-diff --git a/drivers/power/supply/bq25890_charger.c b/drivers/power/supply/bq25890_charger.c
-index f7510ada6b734..a3e35e036b97b 100644
---- a/drivers/power/supply/bq25890_charger.c
-+++ b/drivers/power/supply/bq25890_charger.c
-@@ -1459,6 +1459,23 @@ static void bq25890_non_devm_cleanup(void *data)
- 	}
- }
- 
-+static void bq25890_cancel_pump_express(void *data)
-+{
-+	struct bq25890_device *bq = data;
-+
-+	/*
-+	 * Cancel the delayed work while the power supply is still alive:
-+	 * bq25890_pump_express_work() calls power_supply_changed() at its
-+	 * end and must not run against an already released supply.
-+	 *
-+	 * bq25890_non_devm_cleanup() stays in place as well: it runs
-+	 * after the devres-managed power supply has been unregistered,
-+	 * catching work queued again from the supplier-change path
-+	 * between this cancel and the unregister.
-+	 */
-+	cancel_delayed_work_sync(&bq->pump_express_work);
-+}
-+
- static int bq25890_probe(struct i2c_client *client)
- {
- 	struct device *dev = &client->dev;
-@@ -1531,6 +1548,10 @@ static int bq25890_probe(struct i2c_client *client)
- 	if (ret < 0)
- 		return dev_err_probe(dev, ret, "registering power supply\n");
- 
-+	ret = devm_add_action_or_reset(dev, bq25890_cancel_pump_express, bq);
-+	if (ret)
-+		return ret;
-+
- 	ret = devm_request_threaded_irq(dev, client->irq, NULL,
- 					bq25890_irq_handler_thread,
- 					IRQF_TRIGGER_FALLING | IRQF_ONESHOT,
+Patch applied.  Thanks.
 -- 
-2.34.1
-
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
