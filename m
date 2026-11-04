@@ -1,47 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793783970;
-	b=Yr8nwd++Hs+0Lq9H57xxZ2hnSr1YIwSjD3PhkFW2klp8MghPbVAn3/VLFSZ8TohFgPU4
-	 jkQkUYcBeye/31gMmqda9/Z6LE9OoJQi+LZIecBljhmtkqh7XlyYJG0kLRISGSgrJbNlB
-	 zSyugzTksPUwYKuKgnKOZOmTJd+KsrEHaUWQlZ0Kp3z2rYQS/2/LiOERl3Qt5L3VnocBo
-	 huCzpyKrFwYSkMOKyGQAh/Rs3d3YmuzZwPz78fK7rn7dMNk/YR6bvnsg4m/Hs3Lk53Wrm
-	 N1OnwfPuW5GbEudQcdtNjdbBVpSv4ckEWznzmM3NIS911a33HyPmth6u3LKAmg1bZjA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793783970;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Cc:
-	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Nm2sC6YFNOzrXvMKavxY7Hy2m3WmraP/nyzSIpbbJgw=;
-	b=5EIGYOBmasFVkWQwvKAdjT3diDzQTpqdR79TUgQANN0x7QIdAZIgccTWpPFM45FHsts/
-	 jar6B9UbucvK8ZTgPIORvOb0G4OmpipMZJZrxqmofi27DG3NaujkrMV7hJafqOWcUmA+0
-	 ohG7CYLV0PNdkc10nMonHBwVEfOZf678QdVae+7l9D/cbR3QYH8nXw5xDU8TU5frqreew
-	 udptpH7Rag1RdJaQ8dxJfvQZP402xn6dSZagl9Nr2iU6LwusHXoRuUJA7sNqXYlgpPygP
-	 OoU2iatsAN/cRDRs3tCaN6renVRN0OGL/elDbjs9eQywm5JjxFyUmddW4KKcQZ32eig==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="QKWp/b4P";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.20
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793783968;
+	b=uK7oyOlRcfeWqQpzyDwvWesDn5dBB3/aCnW2E/ISn4/RobHfyS+ahoLtqedxvzSFKZ7u
+	 cFZiYlqdfbt8xsYgk5M1m7ydbjuRQ7U4o6rY9aVpLcEOsJlKpn9owGfXqyowglV4SEONR
+	 i6eWZimvxGIDppDM3gzMp6vUaBG49bVJztLD9PEqlsPVSk+CK/g72Ghp+m4ZL097+0S/W
+	 U27jUmYjWa7f2O0IJkymezbBXwDtdIAUMmbYdwXSoVYlIYu4BSj4vgd7UFyCcObviqv2j
+	 9MZ4+wvdJimFeiycC/WDaOLX8JzScemMVKIUHopfOk0quClc5H5bXlruxXUd3nHMQwA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793783968;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=KFK8sfPu5IfbxWRLeJKnhEpOsoplb7UDNltwwWL42qo=;
+	b=Tdh0icb4/1muHVdYXjs9oDoet1GbjkPkOmcoYPDVvr29+A/TMUCC2u5ZEuUfOtHAPlOY
+	 XJl/lSAr2SaGs7BBdJzlPI8rMtylSWLyRpkxXfwMnj/diWa8jB/lxbtd+uQ5d1MU67mZP
+	 XGEnA8KoQ2vwtRD+O2SXzdtOusRnu6kTVFFY2070jCfvwZHcZgOgSOuOkBmrRiCq0Ro2z
+	 tnjsuwuhtmghHAgPG/PQYBYHMtVfTshYD009jSydUJkFMx3I32dHdyzS//xcbw2lSy+h2
+	 eMd0m4kCdiXO4qSF/xYpXhW7AOe1hrbtp/dZHu8K16tbc2EpVEUvXvPwWsqTL0X2j5A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=trPZ9TmE;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.20
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012020.outbound.protection.outlook.com [52.101.53.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5765D606A330
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:19:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QKWp/b4P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E7FE1F000C1;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00293606A326;
 	Wed,  4 Nov 2026 09:19:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793783968;
-	bh=Nm2sC6YFNOzrXvMKavxY7Hy2m3WmraP/nyzSIpbbJgw=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=QKWp/b4PYwh603fVW0npWbOVzZq03YY5o4gVbwcTXrokSCfZMhSe0eceEQJ/AT50g
-	 lbAbrMOcvCGk1GWQ5zUZghIGlqScAjBWs5aqVu1JdYtORcEcyGGiBZVBGdstI71EhR
-	 Wf3Z2UFzjqImOWd6msRfG6WvsWN/0qxMSbTA5cBWBWXekg99huvutKrGF1L006VjUx
-	 L3gWuDg5wHUPaNpI4BXAjFb1BeywQx9OF1Ta1w1LxTB4E8IHCztLAdXbO7G75p2Q1V
-	 dGPzQkkG7fD9rujJXu8WcGFLWIemYitsZauV5C41eIY8siZS2r7Cihy61R5KV2YCbA
-	 FbOBTE3cUpGMw==
-Message-ID: <b3c98bba-69c8-4350-a9eb-0942be336f93@kernel.org>
-Date: Wed, 4 Nov 2026 17:19:25 +0800
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00293606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=trPZ9TmE
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=is/RY/dw1B6r5UoO1OPJ79+oYfxhlPEePfT1LcSfZqGmwqtDKSu2R/ipGj7PwqWckddKhVIXkHBS3mxVV08aM9SxmM+PJSRxKjNl/+JkLDjw6AH/CCxvO2/1LPL7ZyRMFm5zq6LwTuzg5U8ixagzRuapsS+vq7CUef5ZdwjgL+N0zzHpDNGOiV2AjbjiqhrA4lEpXw3hpmGIbJ/kBcISGbjAcJ+Le080yM4gT+s44aPnQbQ3KblnC5FDHD1Mz7jzRxY6/cTatYnTtfHrMztIatpRW//f0Rxp4EGtWrSuagCywoq5HW9nrPwPe5z+TI+Sb4NAwREqkxolyTLK6JwHzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KFK8sfPu5IfbxWRLeJKnhEpOsoplb7UDNltwwWL42qo=;
+ b=mc/u8Yan/ywRRLdD1DsMjyXuzNMdkvK7uKKwdiP2aWxCKkBdhfGLunYCyxwITSvNkOOyMd2YPDAealhDx288rD3VCWB3sJRNvwTL7QD4wgjShKp+7auHAyb7OVP3kNGC61Evj642/HoxZo2KT2+He2wC9OXwTYb3l0DEMEvPP54k9ywtAUXXSNSnV3cuNJb7J8e2CAO7i1wG7i2dENRfng2tBH92oKtge5l/NCP9pAF0/RwC8TwqiBDBemTmGE2IYbWkyKDgFvf/DlDbh5N5IiZBfn52LjJcEanZLC/ZNcunsK+33cT28g+preP6eC/ap93HMPVG9rhbXqZ2sjbSdQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KFK8sfPu5IfbxWRLeJKnhEpOsoplb7UDNltwwWL42qo=;
+ b=trPZ9TmEdU4k+IaZAlzd7A+7keUw9srt7M6nweWW2XFsypnT8k15gHRWU62OuSgTGcLoJdrvtn6NyFGAQqkXkjV2WYGOaO5yShwfEIItbp+CoupxkPpdH8DpuRoSAN34804SWTB1oThDYNkUgxUl0Xhr2Eav5Wve09qsLyEJUEk=
+Received: from BN9PR03CA0892.namprd03.prod.outlook.com (2603:10b6:408:13c::27)
+ by DM3PR12MB9352.namprd12.prod.outlook.com (2603:10b6:0:4a::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
+ 09:19:23 +0000
+Received: from BN3PEPF00022BBD.namprd04.prod.outlook.com
+ (2603:10b6:408:13c:cafe::8d) by BN9PR03CA0892.outlook.office365.com
+ (2603:10b6:408:13c::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Wed, 4
+ Nov 2026 09:19:23 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF00022BBD.mail.protection.outlook.com (10.167.248.117) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 09:19:23 +0000
+Received: from [10.85.43.226] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 4 Nov
+ 2026 03:19:19 -0600
+Message-ID: <b426d646-5dd7-40b3-812b-e9377ecce4e9@amd.com>
+Date: Wed, 4 Nov 2026 14:49:17 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,951 +99,210 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, Daeho Jeong <daehojeong@google.com>
-Subject: Re: [f2fs-dev] [PATCH 03/20] f2fs: extend f2fs_folio_state for
- subpage blocks
-To: Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, kernel-team@android.com
-References: <20261102193952.3002018-1-daeho43@gmail.com>
- <20261102193952.3002018-4-daeho43@gmail.com>
+Subject: Re: [PATCH v1] iommu/amd: Prevent spurious IRQ disable on high-rate
+ GALog MSIs
+To: Mina Almasry <almasrymina@google.com>, Joerg Roedel <jroedel@suse.de>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>, Vasant Hegde
+	<vasant.hegde@amd.com>, Jerry Snitselaar <jsnitsel@redhat.com>,
+	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+CC: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>, <stable@vger.kernel.org>
+References: <20261101062102.1000477-1-almasrymina@google.com>
+From: Sairaj Kodilkar <sarunkod@amd.com>
 Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20261102193952.3002018-4-daeho43@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <20261101062102.1000477-1-almasrymina@google.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BBD:EE_|DM3PR12MB9352:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1b4d858d-774e-4bf3-1105-08df3a54b700
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|376014|23010399003|1800799024|6133799003|10067099003|22082099003|18002099003|56012099006|11063799006|261102123227099003|261009223027099003|261026121527099003|261022105027099003|261022075727099003|261028144727099003|261021121427099003|261021123027099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	sR62aAJufT2L9Wq1sOiz648BG4sPxnLmBQGXy0bmHwfzWPJlOrhBXG0rQQ/hxOpYdm/pQxyuqwHSdnmYaxlLE89PDNQTEF+GzJYuCXoVIwu5bY3zmjiwg3uk7q1bVvEdjPWbjenf4KDWfB10kgyuQZNE/o7dZw9GD8mor9q205zWGR4ZOte4cOWj3bY+X8rROyJ11d7lU//Unll5lxDi0l1tDd2Y3hkeg1kcQpWh3U2Ax//tYO5WcQ3+e5Y7yGnOMCHkiufPplff7OK37h4boJDw/xH4aqpWe3WjdOAmdAZr5TkDz3Vez2YciJdw8Ess+M5O7Kva0+nPn5CtgHiIAibdzOPrZYoTjsNiT81Al+alkch3pOn9jsXHutULXCttIfN1Y6QYCCDACaeUxwgoZUtIWRlif4lZHKfeSUMl71iYIgbkol0afm4woYKZzwsz/X8yMA/uSNV4o5r7/syjfT87pY4MVueg6stSPCh7C1gYxTJvD0/7MiMypTMyOx4hpXkwz2CjjHooo4f57CIESWTKz9yfJyss8J0p3v4leRPMsZr+dEKQJzYxkB+Cahfa8GCFeaQwbv60wzOCDZLW0qKAXZYSx+5gWfu1dCeqC9zEb517hSd44YSZioUtOXwjVuBBvQGJYU749EdMLnKBu7yyyJl2QlxE5ZB4w0Xrv5KTLJsj+qoKnNxt+Dqkrbe753/irm8BSPreZ934CeUDEg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(23010399003)(1800799024)(6133799003)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006)(261102123227099003)(261009223027099003)(261026121527099003)(261022105027099003)(261022075727099003)(261028144727099003)(261021121427099003)(261021123027099003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	/CwGNg+lA1nUEXg+1Ap5Hh9Q2u+cmpzDxYR0zr1/2JBNXbKLhTq0/K1FZImZCyR2a0HIx23UhueqGJfQaE/4CtuELhJp4gSAh3ZZyRjV+6b5oXsoOKUi4i/OlJ1u961IpW87e+c+1VH8o1QDsPO1x9tJpQJAncTRqoCaiCzLkUYbuos1owUsvqct3ozBu1f7j9BEyhl9EglSrugIAhUpk2PgIUPzo+l82S8lCD7OosJKB/rfwNFmMrDraiC1HKn0kMjknyt5LTgBzJbL6SgmT1zcLMDTTdJV4/iSQCruq+7sfg+UkAyW6juY8KStu/t4WfIcjwUPkaRjm71EwmIYN3pIzlijmy5g8To1GNpbqBeRvbxeGJgv1rjdtw0MqaVL5vUTr64nPSjnWeJ8Qm2XF3Af+6hGQjxM9zZ58YLPHGpmKft2fKizA4hxY75gI3KB
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 09:19:23.1374
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1b4d858d-774e-4bf3-1105-08df3a54b700
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BBD.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9352
 
-On 11/3/26 03:39, Daeho Jeong wrote:
-> From: Daeho Jeong <daehojeong@google.com>
+On 11/1/2026 11:51 AM, Mina Almasry wrote:
+> On AMD EPYC (Turin) hosts with AVIC enabled, passed-through SR-IOV VFs
+> in KVM guests log interrupts targeting non-running vCPUs into the IOMMU
+> Guest Virtual APIC Log (GALog) ring buffer and signal the host via an
+> edge-triggered IntCapXT MSI (AMD-Vi*-GA).
 > 
-> With subpage blocks, even an order-0 folio holds several blocks, so
-> track uptodate and dirty state per block for any folio that holds more
-> than one block, not only for large folios.
+> Both __iommu_setup_intcapxt() and iommu_setup_msi() register their
+> handlers via request_threaded_irq(..., NULL, thread_fn, IRQF_ONESHOT,
+> ...), using irq_default_primary_handler() (which returns
+> IRQ_WAKE_THREAD), while intcapxt_irqdomain_alloc() sets handle_edge_irq
+> which does not mask edge-triggered MSIs during oneshot thread execution.
 > 
-> - Identify the folio state by a magic number, since folio->private can
->   also hold page private flags, and carry those flags over when the
->   state is attached.
-> - Make the uptodate and dirty helpers take block indices. Allocate the
->   state on demand with __GFP_NOFAIL, so callers no longer handle an
->   allocation failure.
-> - Handle per-block state in invalidation, dirtying and writeback.
-> - Clear PAGECACHE_TAG_TOWRITE as well as PAGECACHE_TAG_DIRTY in
->   f2fs_clear_page_cache_dirty_tag().
+> Previously, amd_iommu_handle_irq() cleared MMIO_STATUS_OFFSET at the top
+> of the while (status & mask) loop before calling int_handler(iommu)
+> (iommu_poll_ga_log()). Under overcommitted multi-VM TCP_RR workloads
+> (1,000 to 10,000 flows across 4-8 VMs with vCPU overcommit), new VF
+> interrupts for non-running vCPUs arrive while iommu_poll_ga_log() is
+> draining the ring buffer, causing GALogInt to transition 0 -> 1 and fire
+> additional hardware edge MSIs while the IRQ thread is still inside
+> amd_iommu_handle_irq(). Because desc->threads_handled only increments in
+> irq_thread_fn() after action->thread_fn() returns, note_interrupt()
+> (kernel/irq/spurious.c) accounts every intermediate edge MSI as IRQ_NONE
+> (desc->irqs_unhandled++). Once desc->irqs_unhandled exceeds 99,900 out
+> of 100,000 interrupts, __report_bad_irq() logs "irq <N>: nobody cared"
+> and permanently disables the IOMMU GALog IRQ, breaking guest VF MSI-X
+> wakeups.
 > 
-> Some of these changes also apply to large folios when the block size
-> equals PAGE_SIZE.
+> Fix this in two ways:
+> 1. Drain the log ring buffer via int_handler(iommu) before writing
+>    status & mask to MMIO_STATUS_OFFSET (clearing only the status bits
+>    observed set so a concurrent overflow bit is never cleared without
+>    running overflow_handler()), followed by a post-clear poll pass so
+>    entries written before the status clear took effect are processed
+>    without generating redundant edge MSIs or leaving entries stranded.
+> 2. Set IRQ_IS_POLLED on the AMD-Vi MSI and IntCapXT IRQs (clearing it on
+>    request_threaded_irq() failure paths) so note_interrupt() never
+>    spuriously disables the dedicated IOMMU event/PPR/GALog IRQ lines
+>    under sustained high-rate edge MSI bursts.
 > 
-> Signed-off-by: Daeho Jeong <daehojeong@google.com>
+> Discovered in production testing on AMD EPYC (Turin) hosts running
+> multi-VM KVM guests with passed-through SR-IOV VFs where the host
+> permanently disabled AMD-Vi-GA under heavy TCP_RR traffic, and verified
+> on the same AMD EPYC (Turin) hardware across 4-VM and 8-VM SR-IOV VF
+> test suites.
+> 
+> Fixes: 2379f3485239 ("iommu/amd: Refactor IOMMU interrupt handling logic for Event, PPR, and GA logs")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mina Almasry <almasrymina@google.com>
 > ---
->  fs/f2fs/data.c    | 430 ++++++++++++++++++++++++++--------------------
->  fs/f2fs/f2fs.h    |  35 ++--
->  fs/f2fs/file.c    |  18 +-
->  fs/f2fs/segment.c |   2 +-
->  4 files changed, 264 insertions(+), 221 deletions(-)
+>  drivers/iommu/amd/init.c  |  4 ++++
+>  drivers/iommu/amd/iommu.c | 13 ++++++++++---
+>  2 files changed, 14 insertions(+), 3 deletions(-)
 > 
-> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-> index aacc92839f61..e983b59e4a65 100644
-> --- a/fs/f2fs/data.c
-> +++ b/fs/f2fs/data.c
-> @@ -96,15 +96,14 @@ struct bio_post_read_ctx {
->  static bool __ffs_mark_subrange_uptodate(struct folio *folio,
->  		struct f2fs_folio_state *ffs, size_t offset, size_t len)
->  {
-> -	unsigned int nr_subpages = folio_nr_pages(folio);
-> -	unsigned int start, end;
-> -
-> -	start = offset >> PAGE_SHIFT;
-> -	end = (offset + len + PAGE_SIZE - 1) >> PAGE_SHIFT;
-> -	end = min(end, nr_subpages);
-> +	struct f2fs_sb_info *sbi = F2FS_F_SB(folio);
-> +	unsigned int nr_blocks = f2fs_blocks_per_folio(sbi, folio);
-> +	unsigned int start = F2FS_BYTES_TO_BLK(sbi, offset);
-> +	unsigned int end = min_t(unsigned int,
-> +				F2FS_BLK_ALIGN(sbi, offset + len), nr_blocks);
+> diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
+> index de6db5621194..5eea9204f209 100644
+> --- a/drivers/iommu/amd/init.c
+> +++ b/drivers/iommu/amd/init.c
+> @@ -2404,9 +2404,11 @@ static int iommu_setup_msi(struct amd_iommu *iommu)
+>  	if (r)
+>  		return r;
 >  
->  	bitmap_set(ffs->state, start, end - start);
-> -	return bitmap_full(ffs->state, nr_subpages);
-> +	return bitmap_full(ffs->state, nr_blocks);
->  }
->  
->  /*
-> @@ -122,7 +121,7 @@ static bool __ffs_mark_subrange_uptodate(struct folio *folio,
->   * release the bio's reference to the decompress_io_ctx of the page's cluster.
->   */
->  /*
-> - * Update read_pages_pending.
-> + * Update read_blocks_pending.
->   */
->  static inline void f2fs_update_read_folio_pending(struct folio *folio, int nr)
->  {
-> @@ -134,7 +133,7 @@ static inline void f2fs_update_read_folio_pending(struct folio *folio, int nr)
->  
->  	ffs = (struct f2fs_folio_state *)folio->private;
->  	spin_lock_irqsave(&ffs->state_lock, flags);
-> -	ffs->read_pages_pending += nr;
-> +	ffs->read_blocks_pending += nr;
->  	spin_unlock_irqrestore(&ffs->state_lock, flags);
->  }
->  
-> @@ -173,8 +172,8 @@ static void f2fs_finish_read_bio(struct bio *bio, bool in_task)
->  			if (uptodate)
->  				uptodate = __ffs_mark_subrange_uptodate(folio, ffs,
->  						fi.offset, fi.length);
-> -			ffs->read_pages_pending -= nr_pages;
-> -			finished = !ffs->read_pages_pending;
-> +			ffs->read_blocks_pending -= nr_pages;
-
-Looks weird here, but logically it's fine due to pagesize == blocksize now.
-
-> +			finished = !ffs->read_blocks_pending;
->  			spin_unlock_irqrestore(&ffs->state_lock, flags);
->  		}
->  
-> @@ -372,18 +371,18 @@ bool f2fs_ffs_has_dirty_subpage(struct folio *folio)
->  {
->  	struct f2fs_folio_state *ffs;
->  	unsigned long flags;
-> -	unsigned int nr_subpages;
-> +	unsigned int nr_blocks;
->  	bool dirty;
->  
->  	if (!f2fs_folio_has_ffs(folio))
->  		return false;
->  
->  	ffs = (struct f2fs_folio_state *)folio->private;
-> -	nr_subpages = folio_nr_pages(folio);
-> +	nr_blocks = f2fs_blocks_per_folio(F2FS_F_SB(folio), folio);
->  
->  	spin_lock_irqsave(&ffs->state_lock, flags);
-> -	dirty = find_next_bit(ffs->state, 2 * nr_subpages,
-> -				nr_subpages) < 2 * nr_subpages;
-> +	dirty = find_next_bit(ffs->state, 2 * nr_blocks,
-> +				nr_blocks) < 2 * nr_blocks;
->  	spin_unlock_irqrestore(&ffs->state_lock, flags);
->  
->  	return dirty;
-> @@ -402,7 +401,7 @@ static void f2fs_ffs_put_write_pending(struct folio *folio, unsigned int nr)
->  		goto release;
->  
->  	ffs = (struct f2fs_folio_state *)folio->private;
-> -	if (!atomic_sub_and_test(nr, &ffs->write_pages_pending))
-> +	if (!atomic_sub_and_test(nr, &ffs->write_blocks_pending))
->  		return;
->  release:
->  	if (!f2fs_ffs_has_dirty_subpage(folio))
-> @@ -1572,7 +1571,7 @@ static int f2fs_submit_page_read_sync(struct inode *inode, struct folio *folio,
->  			      REQ_OP_READ, true);
->  
->  	/* Wait until all bios have completed (pending drops back to our bias). */
-> -	while (READ_ONCE(ffs->read_pages_pending) != 1)
-> +	while (READ_ONCE(ffs->read_blocks_pending) != 1)
->  		f2fs_io_schedule_timeout(DEFAULT_SCHEDULE_TIMEOUT);
->  
->  	/* Remove the bias. */
-> @@ -1693,12 +1692,8 @@ struct folio *f2fs_get_read_data_folio(struct inode *inode, pgoff_t index,
->  	if (IS_ERR(folio))
->  		return folio;
->  
-> -	if (folio_test_large(folio)) {
-> -		if (!f2fs_ffs_find_or_alloc(folio)) {
-> -			err = -ENOMEM;
-> -			goto put_err;
-> -		}
-> -	}
-> +	if (folio_test_large(folio))
-> +		f2fs_ffs_find_or_alloc(folio);
->  
->  	if (f2fs_lookup_read_extent_cache_block(inode, index,
->  						&dn.data_blkaddr)) {
-> @@ -1821,12 +1816,8 @@ struct folio *f2fs_get_lock_data_folio(struct inode *inode, pgoff_t index,
->  	 * for a fully uptodate folio; a partially uptodate one cannot be
->  	 * rebuilt and will fail the subpage check below.
->  	 */
-> -	if (folio_test_large(folio) && !f2fs_folio_has_ffs(folio)) {
-> -		if (!f2fs_ffs_find_or_alloc(folio)) {
-> -			f2fs_folio_put(folio, true);
-> -			return ERR_PTR(-ENOMEM);
-> -		}
-> -	}
-> +	if (folio_test_large(folio) && !f2fs_folio_has_ffs(folio))
-> +		f2fs_ffs_find_or_alloc(folio);
->  
->  	if (unlikely(!f2fs_ffs_test_blk_uptodate(folio, index))) {
->  		f2fs_folio_put(folio, true);
-> @@ -1862,11 +1853,8 @@ struct folio *f2fs_get_new_data_folio(struct inode *inode,
->  		return ERR_PTR(-ENOMEM);
+> +	irq_set_status_flags(iommu->dev->irq, IRQ_IS_POLLED);
+>  	r = request_threaded_irq(iommu->dev->irq, NULL, amd_iommu_int_thread,
+>  				 IRQF_ONESHOT, "AMD-Vi", iommu);
+>  	if (r) {
+> +		irq_clear_status_flags(iommu->dev->irq, IRQ_IS_POLLED);
+>  		pci_disable_msi(iommu->dev);
+>  		return r;
+>  	}
+> @@ -2579,9 +2581,11 @@ static int __iommu_setup_intcapxt(struct amd_iommu *iommu, const char *devname,
+>  		return irq;
 >  	}
 >  
-> -	if (folio_test_large(folio) && !f2fs_ffs_find_or_alloc(folio)) {
-> -		f2fs_folio_put(folio, true);
-> -		f2fs_put_cache(ientry, true);
-> -		return ERR_PTR(-ENOMEM);
-> -	}
-> +	if (folio_test_large(folio))
-> +		f2fs_ffs_find_or_alloc(folio);
+> +	irq_set_status_flags(irq, IRQ_IS_POLLED);
+>  	ret = request_threaded_irq(irq, NULL, thread_fn, IRQF_ONESHOT, devname,
+>  				   iommu);
+>  	if (ret) {
+> +		irq_clear_status_flags(irq, IRQ_IS_POLLED);
+>  		irq_domain_free_irqs(irq, 1);
+>  		irq_domain_remove(domain);
+>  		return ret;
+> diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
+> index 960e1dc05ec6..ec392da008f9 100644
+> --- a/drivers/iommu/amd/iommu.c
+> +++ b/drivers/iommu/amd/iommu.c
+> @@ -1112,9 +1112,6 @@ static void amd_iommu_handle_irq(void *data, const char *evt_type,
+>  	u32 mask = int_mask | overflow_mask;
 >  
->  	set_new_dnode(&dn, inode, ientry, NULL, 0);
->  	err = f2fs_reserve_block(&dn, index);
-> @@ -2900,29 +2888,43 @@ int f2fs_read_multi_pages(struct compress_ctx *cc, struct bio **bio_ret,
->  
->  struct f2fs_folio_state *f2fs_ffs_find_or_alloc(struct folio *folio)
->  {
-> -	struct f2fs_folio_state *ffs;
-> -	unsigned int nr_subpages = folio_nr_pages(folio);
-> -	unsigned long private = (unsigned long)folio->private;
+>  	while (status & mask) {
+> -		/* Enable interrupt sources again */
+> -		writel(mask, iommu->mmio_base + MMIO_STATUS_OFFSET);
 > -
-> -	f2fs_bug_on(F2FS_F_SB(folio), !folio_test_large(folio));
-> -	f2fs_bug_on(F2FS_F_SB(folio),
-> -		    test_bit(F2FS_FOLIO_PRIVATE_NOT_POINTER, &private));
-> +	struct f2fs_sb_info *sbi = F2FS_F_SB(folio);
-> +	struct f2fs_folio_state *ffs = folio->private;
-> +	unsigned int nr_blocks;
-> +	unsigned long private_flags;
->  
->  	if (f2fs_folio_has_ffs(folio))
-> -		return (struct f2fs_folio_state *)folio->private;
-> +		return ffs;
->  
-> -	ffs = f2fs_kmalloc(F2FS_F_SB(folio),
-> -			struct_size(ffs, state, BITS_TO_LONGS(2 * nr_subpages)),
-> -			GFP_NOFS | __GFP_ZERO);
-> -	if (!ffs)
-> -		return NULL;
-> +	/* Carry over the page private flags kept in folio->private. */
-> +	private_flags = f2fs_folio_get_private_flags(folio);
->  
-> +	nr_blocks = f2fs_blocks_per_folio(sbi, folio);
-> +	ffs = kzalloc(struct_size(ffs, state, BITS_TO_LONGS(2 * nr_blocks)),
-> +			GFP_NOIO | __GFP_NOFAIL);
-> +
-> +	ffs->magic = F2FS_FOLIO_STATE_MAGIC;
->  	spin_lock_init(&ffs->state_lock);
-> +	ffs->private_flags = private_flags;
->  	if (folio_test_uptodate(folio))
-> -		bitmap_set(ffs->state, 0, nr_subpages);
-> -	if (folio_test_dirty(folio))
-> -		bitmap_set(ffs->state, nr_subpages, nr_subpages);
-> +		bitmap_set(ffs->state, 0, nr_blocks);
-> +	if (folio_test_dirty(folio)) {
-> +		struct inode *inode = folio->mapping->host;
-> +		pgoff_t last_lblk = F2FS_BLK_ALIGN(sbi, i_size_read(inode));
-> +		pgoff_t first_lblk = f2fs_folio_lblk(sbi, folio);
-> +		pgoff_t valid_blocks = 0;
->  
-> +		if (f2fs_verity_in_progress(inode))
-> +			valid_blocks = nr_blocks;
-> +		else if (first_lblk < last_lblk)
-> +			valid_blocks = min_t(pgoff_t, nr_blocks,
-> +					     last_lblk - first_lblk);
-> +
-> +		if (valid_blocks)
-> +			bitmap_set(ffs->state, nr_blocks, valid_blocks);
-> +	}
-> +
-> +	folio_detach_private(folio);
->  	folio_attach_private(folio, ffs);
->  	return ffs;
->  }
-> @@ -2940,17 +2942,17 @@ static void ffs_detach_free(struct folio *folio)
->  	if (!ffs)
->  		return;
->  
-> -	WARN_ON_ONCE(ffs->read_pages_pending != 0);
-> -	WARN_ON_ONCE(atomic_read(&ffs->write_pages_pending));
-> +	WARN_ON_ONCE(ffs->read_blocks_pending != 0);
-> +	WARN_ON_ONCE(atomic_read(&ffs->write_blocks_pending));
-> +	ffs->magic = 0;
->  	kfree(ffs);
->  }
->  
->  bool f2fs_ffs_test_blk_uptodate(const struct folio *folio, pgoff_t index)
->  {
-> +	struct f2fs_sb_info *sbi = F2FS_M_SB(folio->mapping);
->  	struct f2fs_folio_state *ffs;
-> -	unsigned int idx;
-> -
-> -	f2fs_bug_on(F2FS_F_SB(folio), !folio_contains(folio, index));
-> +	pgoff_t offset;
->  
->  	if (folio_test_uptodate(folio))
->  		return true;
-> @@ -2958,63 +2960,60 @@ bool f2fs_ffs_test_blk_uptodate(const struct folio *folio, pgoff_t index)
->  	if (!f2fs_folio_has_ffs(folio))
->  		return false;
->  
-> -	ffs = (struct f2fs_folio_state *)folio->private;
-> -	idx = index - folio->index;
-> -	return test_bit(idx, ffs->state);
-> +	ffs = folio->private;
-> +	offset = f2fs_folio_blk_offset(sbi, folio, index);
-> +	if (WARN_ON_ONCE(offset >= f2fs_blocks_per_folio(sbi, folio)))
-> +		return false;
-> +
-> +	if (test_bit(offset, ffs->state)) {
-> +		/* Order the bit test before reading the block data */
-> +		smp_rmb();
-> +		return true;
-> +	}
-> +	return false;
->  }
->  
->  void f2fs_ffs_mark_subrange_uptodate(struct folio *folio, size_t offset,
->  				       size_t len)
->  {
-> +	struct f2fs_sb_info *sbi = F2FS_F_SB(folio);
->  	struct f2fs_folio_state *ffs;
->  	unsigned long flags;
->  	bool mark_uptodate = false;
->  
->  	f2fs_bug_on(F2FS_F_SB(folio), offset + len > folio_size(folio));
->  
-> -	if (!f2fs_folio_has_ffs(folio)) {
-> +	if (!f2fs_is_multiblock_folio(sbi, folio)) {
->  		folio_mark_uptodate(folio);
->  		return;
->  	}
->  
-> -	ffs = (struct f2fs_folio_state *)folio->private;
-> -	spin_lock_irqsave(&ffs->state_lock, flags);
-> -	mark_uptodate = __ffs_mark_subrange_uptodate(folio, ffs, offset, len) &&
-> -			!ffs->read_pages_pending;
-> -	spin_unlock_irqrestore(&ffs->state_lock, flags);
-> -	if (mark_uptodate)
-> +	/*
-> +	 * Without f2fs_folio_state, the folio uptodate flag covers every block,
-> +	 * so marking the whole folio needs no allocation. This keeps bio
-> +	 * completion paths such as decompression free of allocation.
-> +	 */
-> +	if (!f2fs_folio_has_ffs(folio) && !offset && len >= folio_size(folio)) {
->  		folio_mark_uptodate(folio);
-> -}
-> -
-> -static void ffs_clear_subrange_uptodate(struct folio *folio,
-> -					size_t offset, size_t len)
-> -{
-> -	struct f2fs_folio_state *ffs;
-> -	unsigned int nr_subpages, start, end;
-> -	unsigned long flags;
-> -
-> -	f2fs_bug_on(F2FS_F_SB(folio), offset + len > folio_size(folio));
-> -
-> -	if (!f2fs_folio_has_ffs(folio))
->  		return;
-> +	}
->  
-> -	ffs = (struct f2fs_folio_state *)folio->private;
-> -	nr_subpages = folio_nr_pages(folio);
-> -	start = offset >> PAGE_SHIFT;
-> -	end = (offset + len + PAGE_SIZE - 1) >> PAGE_SHIFT;
-> -	end = min(end, nr_subpages);
-> -
-> +	ffs = f2fs_ffs_find_or_alloc(folio);
->  	spin_lock_irqsave(&ffs->state_lock, flags);
-> -	bitmap_clear(ffs->state, start, end - start);
-> +	mark_uptodate = __ffs_mark_subrange_uptodate(folio, ffs, offset, len) &&
-> +			!ffs->read_blocks_pending;
->  	spin_unlock_irqrestore(&ffs->state_lock, flags);
-> +	if (mark_uptodate)
-> +		folio_mark_uptodate(folio);
->  }
->  
->  static void f2fs_clear_truncated_page_state(struct folio *folio, pgoff_t i)
->  {
-> +	struct f2fs_sb_info *sbi = F2FS_F_SB(folio);
-> +
->  	if (f2fs_folio_has_ffs(folio)) {
-> -		ffs_clear_subrange_uptodate(folio,
-> -				(loff_t)i << PAGE_SHIFT, PAGE_SIZE);
-> -		folio_clear_uptodate(folio);
-> +		f2fs_ffs_clear_subrange_uptodate(folio,
-> +				F2FS_BLK_TO_BYTES(sbi, i), F2FS_BLKSIZE(sbi));
->  	} else {
->  		folio_clear_uptodate(folio);
->  		folio_clear_f2fs_gcing(folio);
-> @@ -3023,33 +3022,36 @@ static void f2fs_clear_truncated_page_state(struct folio *folio, pgoff_t i)
->  
->  bool f2fs_ffs_test_blk_dirty(const struct folio *folio, pgoff_t index)
->  {
-> +	struct f2fs_sb_info *sbi = F2FS_M_SB(folio->mapping);
->  	struct f2fs_folio_state *ffs;
-> -	unsigned int idx, nr_subpages;
-> -
-> -	f2fs_bug_on(F2FS_F_SB(folio), !folio_contains(folio, index));
-> +	unsigned int nr_blocks;
-> +	pgoff_t offset;
->  
->  	if (!f2fs_folio_has_ffs(folio))
->  		return folio_test_dirty(folio);
->  
-> -	ffs = (struct f2fs_folio_state *)folio->private;
-> -	nr_subpages = folio_nr_pages(folio);
-> -	idx = index - folio->index;
-> -	return test_bit(nr_subpages + idx, ffs->state);
-> +	ffs = folio->private;
-> +	nr_blocks = f2fs_blocks_per_folio(sbi, folio);
-> +	offset = f2fs_folio_blk_offset(sbi, folio, index);
-> +	if (WARN_ON_ONCE(offset >= nr_blocks))
-> +		return false;
-> +
-> +	return test_bit(nr_blocks + offset, ffs->state);
->  }
->  
->  static unsigned int __ffs_mark_subrange_dirty(struct folio *folio,
->  			struct f2fs_folio_state *ffs, size_t offset, size_t len)
->  {
-> -	unsigned int nr_subpages = folio_nr_pages(folio);
-> +	struct f2fs_sb_info *sbi = F2FS_F_SB(folio);
-> +	unsigned int nr_blocks = f2fs_blocks_per_folio(sbi, folio);
->  	unsigned int start, end, before;
->  
-> -	start = offset >> PAGE_SHIFT;
-> -	end = (offset + len + PAGE_SIZE - 1) >> PAGE_SHIFT;
-> -	end = min(end, nr_subpages);
-> +	start = F2FS_BYTES_TO_BLK(sbi, offset);
-> +	end = min_t(unsigned int, F2FS_BLK_ALIGN(sbi, offset + len), nr_blocks);
->  
-> -	before = bitmap_weight(ffs->state, 2 * nr_subpages);
-> -	bitmap_set(ffs->state, nr_subpages + start, end - start);
-> -	return bitmap_weight(ffs->state, 2 * nr_subpages) - before;
-> +	before = bitmap_weight(ffs->state, 2 * nr_blocks);
-> +	bitmap_set(ffs->state, nr_blocks + start, end - start);
-> +	return bitmap_weight(ffs->state, 2 * nr_blocks) - before;
->  }
->  
->  /*
-> @@ -3062,16 +3064,17 @@ static unsigned int __ffs_mark_subrange_dirty(struct folio *folio,
->  void f2fs_ffs_mark_subrange_dirty(struct folio *folio,
->  				    size_t offset, size_t len)
->  {
-> +	struct f2fs_sb_info *sbi = F2FS_F_SB(folio);
->  	struct f2fs_folio_state *ffs;
->  	unsigned int set;
->  	unsigned long flags;
->  
->  	f2fs_bug_on(F2FS_F_SB(folio), offset + len > folio_size(folio));
->  
-> -	if (!f2fs_folio_has_ffs(folio))
-> +	if (!f2fs_is_multiblock_folio(sbi, folio))
->  		return;
->  
-> -	ffs = (struct f2fs_folio_state *)folio->private;
-> +	ffs = f2fs_ffs_find_or_alloc(folio);
->  
->  	spin_lock_irqsave(&ffs->state_lock, flags);
->  	set = __ffs_mark_subrange_dirty(folio, ffs, offset, len);
-> @@ -3081,22 +3084,54 @@ void f2fs_ffs_mark_subrange_dirty(struct folio *folio,
->  		f2fs_account_dirty_blocks(folio->mapping->host, set);
->  }
->  
-> +void f2fs_ffs_clear_subrange_uptodate(struct folio *folio,
-> +					     size_t offset, size_t len)
-> +{
-> +	struct f2fs_sb_info *sbi = F2FS_F_SB(folio);
-> +	struct f2fs_folio_state *ffs;
-> +	unsigned int nr_blocks, start, end;
-> +	unsigned long flags;
-> +
-> +	f2fs_bug_on(sbi, offset + len > folio_size(folio));
-> +
-> +	if (!f2fs_folio_has_ffs(folio)) {
-> +		if (!folio_test_uptodate(folio))
-> +			return;
-> +		/* Without ffs, clearing the whole folio needs no allocation. */
-> +		if (!offset && len >= folio_size(folio)) {
-> +			folio_clear_uptodate(folio);
-> +			return;
-> +		}
-> +	}
-> +
-> +	ffs = f2fs_ffs_find_or_alloc(folio);
-> +	nr_blocks = f2fs_blocks_per_folio(sbi, folio);
-> +	start = F2FS_BYTES_TO_BLK(sbi, offset);
-> +	end = min_t(unsigned int, F2FS_BLK_ALIGN(sbi, offset + len), nr_blocks);
-> +
-> +	spin_lock_irqsave(&ffs->state_lock, flags);
-> +	bitmap_clear(ffs->state, start, end - start);
-> +	spin_unlock_irqrestore(&ffs->state_lock, flags);
-> +	if (folio_test_uptodate(folio))
-> +		folio_clear_uptodate(folio);
-> +}
-> +
->  static bool __ffs_clear_subrange_dirty(struct folio *folio,
->  			struct f2fs_folio_state *ffs, size_t offset, size_t len,
->  			unsigned int *cleared)
->  {
-> -	unsigned int nr_subpages = folio_nr_pages(folio);
-> +	struct f2fs_sb_info *sbi = F2FS_F_SB(folio);
-> +	unsigned int nr_blocks = f2fs_blocks_per_folio(sbi, folio);
->  	unsigned int start, end, before;
->  
-> -	start = offset >> PAGE_SHIFT;
-> -	end = (offset + len + PAGE_SIZE - 1) >> PAGE_SHIFT;
-> -	end = min(end, nr_subpages);
-> +	start = F2FS_BYTES_TO_BLK(sbi, offset);
-> +	end = min_t(unsigned int, F2FS_BLK_ALIGN(sbi, offset + len), nr_blocks);
->  
-> -	before = bitmap_weight(ffs->state, 2 * nr_subpages);
-> -	bitmap_clear(ffs->state, nr_subpages + start, end - start);
-> -	*cleared = before - bitmap_weight(ffs->state, 2 * nr_subpages);
-> -	return find_next_bit(ffs->state, 2 * nr_subpages, nr_subpages) <
-> -			2 * nr_subpages;
-> +	before = bitmap_weight(ffs->state, 2 * nr_blocks);
-> +	bitmap_clear(ffs->state, nr_blocks + start, end - start);
-> +	*cleared = before - bitmap_weight(ffs->state, 2 * nr_blocks);
-> +	return find_next_bit(ffs->state, 2 * nr_blocks, nr_blocks) <
-> +			2 * nr_blocks;
->  }
->  
->  /**
-> @@ -3117,10 +3152,19 @@ bool f2fs_ffs_clear_subrange_dirty_and_test(struct folio *folio, size_t offset,
->  	unsigned int cleared = 0;
->  	bool dirty;
->  
-> -	if (!f2fs_folio_has_ffs(folio))
-> -		return false;
-> +	if (!f2fs_folio_has_ffs(folio)) {
-> +		/*
-> +		 * Without ffs, the folio dirty flag covers every block. Callers
-> +		 * that clear the flag first (writeback, GC) must have ffs.
-> +		 */
-> +		if (!folio_test_dirty(folio))
-> +			return false;
-> +		/* Clearing the whole folio leaves no dirty block. */
-> +		if (!offset && len >= folio_size(folio))
-> +			return false;
-> +	}
->  
-> -	ffs = (struct f2fs_folio_state *)folio->private;
-> +	ffs = f2fs_ffs_find_or_alloc(folio);
->  	spin_lock_irqsave(&ffs->state_lock, flags);
->  	dirty = __ffs_clear_subrange_dirty(folio, ffs, offset, len, &cleared);
->  	spin_unlock_irqrestore(&ffs->state_lock, flags);
-> @@ -3131,55 +3175,37 @@ bool f2fs_ffs_clear_subrange_dirty_and_test(struct folio *folio, size_t offset,
->  	return dirty;
->  }
->  
-> -static unsigned int ffs_next_dirty_subpage(struct f2fs_folio_state *ffs,
-> -			const struct folio *folio, unsigned int start,
-> -			unsigned int end)
-> -{
-> -	unsigned int nr_subpages = folio_nr_pages(folio);
-> -
-> -	return find_next_bit(ffs->state, nr_subpages + end + 1,
-> -			nr_subpages + start) - nr_subpages;
-> -}
-> -
-> -static unsigned int ffs_next_clean_subpage(struct f2fs_folio_state *ffs,
-> -			const struct folio *folio, unsigned int start,
-> -			unsigned int end)
-> -{
-> -	unsigned int nr_subpages = folio_nr_pages(folio);
-> -
-> -	return find_next_zero_bit(ffs->state, nr_subpages + end + 1,
-> -			nr_subpages + start) - nr_subpages;
-> -}
-> -
-> -static unsigned int ffs_find_dirty_range(struct folio *folio,
-> -					u64 *range_start, u64 range_end)
-> +bool f2fs_ffs_dirty_blk_range(struct folio *folio, unsigned int from,
-> +			      unsigned int to, unsigned int *start,
-> +			      unsigned int *count)
->  {
-> +	struct f2fs_sb_info *sbi = F2FS_F_SB(folio);
->  	struct f2fs_folio_state *ffs;
-> -	unsigned int start, end, nr_pages;
-> -
-> -	if (*range_start >= range_end)
-> -		return 0;
-> -
-> -	if (!f2fs_folio_has_ffs(folio))
-> -		return range_end - *range_start;
-> -
-> -	ffs = (struct f2fs_folio_state *)folio->private;
-> -	start = offset_in_folio(folio, *range_start) >> PAGE_SHIFT;
-> -	end = DIV_ROUND_UP(min_not_zero(offset_in_folio(folio, range_end),
-> -					folio_size(folio)), PAGE_SIZE) - 1;
-> +	unsigned int nr_blocks = f2fs_blocks_per_folio(sbi, folio);
-> +	unsigned long flags;
->  
-> -	start = ffs_next_dirty_subpage(ffs, folio, start, end);
-> -	if (start > end)
-> -		return 0;
-> +	if (from >= to || to > nr_blocks)
-> +		return false;
->  
-> -	if (start == end)
-> -		nr_pages = 1;
-> -	else
-> -		nr_pages = ffs_next_clean_subpage(ffs, folio,
-> -						 start + 1, end) - start;
-> +	if (!f2fs_folio_has_ffs(folio)) {
-> +		if (!folio_test_dirty(folio))
-> +			return false;
-> +		*start = from;
-> +		*count = to - from;
-> +		return true;
-> +	}
->  
-> -	*range_start = folio_pos(folio) + ((u64)start << PAGE_SHIFT);
-> -	return (u64)nr_pages << PAGE_SHIFT;
-> +	ffs = folio->private;
-> +	spin_lock_irqsave(&ffs->state_lock, flags);
-> +	*start = find_next_bit(ffs->state, nr_blocks + to, nr_blocks + from) - nr_blocks;
-> +	if (*start >= to) {
-> +		spin_unlock_irqrestore(&ffs->state_lock, flags);
-> +		return false;
-> +	}
-> +	*count = find_next_zero_bit(ffs->state, nr_blocks + to,
-> +				    nr_blocks + *start) - nr_blocks - *start;
-> +	spin_unlock_irqrestore(&ffs->state_lock, flags);
-> +	return true;
->  }
->  
->  static bool find_next_valid_block(const struct folio *folio,
-> @@ -3307,13 +3333,9 @@ static int f2fs_read_data_large_folio(struct inode *inode,
->  		/*
->  		 * Allocate the folio state before doing anything with the
->  		 * folio, so that the block mapping helpers below can rely on
-> -		 * it, and fail early if memory is not available.
-> +		 * it.
->  		 */
->  		ffs = f2fs_ffs_find_or_alloc(folio);
-> -		if (!ffs) {
-> -			ret = -ENOMEM;
-> -			goto err_out;
-> -		}
->  	}
->  	index = folio->index;
->  	offset = 0;
-> @@ -3393,7 +3415,7 @@ static int f2fs_read_data_large_folio(struct inode *inode,
->  			continue;
->  		}
->  
-> -		/* We must increment read_pages_pending before possible BIOs submitting
-> +		/* We must increment read_blocks_pending before possible BIOs submitting
->  		 * to prevent from premature folio_end_read() call on folio
->  		 */
->  		if (folio_test_large(folio)) {
-> @@ -3847,7 +3869,7 @@ int f2fs_do_write_data_page(struct f2fs_io_info *fio)
->  	__folio_start_writeback(folio, folio_test_dirty(folio));
->  	if (f2fs_folio_has_ffs(folio)) {
->  		ffs = (struct f2fs_folio_state *)folio->private;
-> -		atomic_inc(&ffs->write_pages_pending);
-> +		atomic_inc(&ffs->write_blocks_pending);
->  		pending_added = true;
->  	}
->  
-> @@ -3927,7 +3949,7 @@ static int f2fs_write_folio_dirty_range(struct folio *folio, int *submitted,
->  
->  		if (f2fs_folio_has_ffs(folio)) {
->  			ffs = (struct f2fs_folio_state *)folio->private;
-> -			atomic_inc(&ffs->write_pages_pending);
-> +			atomic_inc(&ffs->write_blocks_pending);
->  		}
->  
->  		set_new_dnode(&dn, dn_inode, NULL, NULL, 0);
-> @@ -4499,7 +4521,6 @@ static int f2fs_write_cache_folios(struct address_space *mapping,
->  	struct f2fs_lock_context lc;
->  	u64 pos = 0;
->  	u64 end_pos = 0;
-> -	u32 r_len = 0;
->  	int err = 0;
->  	int submitted = 0;
->  	int nwritten = 0;
-> @@ -4633,29 +4654,60 @@ static int f2fs_write_cache_folios(struct address_space *mapping,
->  
->  		folio_start_writeback(folio);
+>  		if (int_handler) {
+>  			pr_devel("Processing IOMMU (ivhd%d) %s Log\n",
+>  				 iommu->index, evt_type);
+> @@ -1124,6 +1121,16 @@ static void amd_iommu_handle_irq(void *data, const char *evt_type,
+>  		if ((status & overflow_mask) && overflow_handler)
+>  			overflow_handler(iommu);
 >  
 > +		/*
-> +		 * PG_dirty was already cleared by writeback_iter(), and a
-> +		 * single-block folio has no ffs dirty bitmap, so the dirty
-> +		 * range cannot be derived. Write the whole folio.
+> +		 * Clear only the status bits observed above, then poll once
+> +		 * more so entries written before the clear took effect are not
+> +		 * left unprocessed with the interrupt status bit cleared.
 > +		 */
-> +		if (!folio_test_large(folio)) {
-> +			err = f2fs_write_folio_dirty_range(folio, &submitted,
-> +					wbc, io_type, &pos, end_pos - pos);
-> +			folio_submitted += submitted;
-> +			if (err)
-> +				goto out;
-> +			nwritten += submitted;
-
-Should update nwritten before goto out in case we only submitted partial 4k blocks
-in a 16k folio.
-
-> +			goto written;
-> +		}
+> +		writel(status & mask, iommu->mmio_base + MMIO_STATUS_OFFSET);
 > +
-> +		if (!f2fs_folio_has_ffs(folio)) {
-> +			ffs = f2fs_ffs_find_or_alloc(folio);
-> +			f2fs_ffs_mark_subrange_dirty(folio, 0, end_pos - pos);
-> +		} else {
-> +			ffs = (struct f2fs_folio_state *)folio->private;
-> +		}
+> +		if (int_handler)
+> +			int_handler(iommu);
+> +
 >  		/*
->  		 * Large folios can be submitted as multiple bios, which may
->  		 * complete while we are still submitting the remaining dirty
-> -		 * ranges.  Hold a bias on write_pages_pending to prevent
-> +		 * ranges.  Hold a bias on write_blocks_pending to prevent
->  		 * folio_end_writeback() from being called early.
->  		 */
-> -		if (!bias_added && f2fs_folio_has_ffs(folio)) {
-> -			ffs = (struct f2fs_folio_state *)folio->private;
-> -			WARN_ON_ONCE(atomic_read(&ffs->write_pages_pending) != 0);
-> -			atomic_inc(&ffs->write_pages_pending);
-> +		if (f2fs_folio_has_ffs(folio) && !bias_added) {
+>  		 * Hardware bug: ERBT1312
+>  		 * When re-enabling interrupt (by writing 1
+> 
+> base-commit: 4dd16e31135ea8437a720222df34e8745f385d6d
 
-f2fs_folio_has_ffs(folio) check is redundant here, due to we will allocate ffs if there
-is no ffs.
 
-Thanks,
+Hi Mina,
 
-> +			WARN_ON_ONCE(atomic_read(&ffs->write_blocks_pending) != 0);
-> +			atomic_inc(&ffs->write_blocks_pending);
->  			bias_added = true;
->  		}
->  
-> -		while ((r_len = ffs_find_dirty_range(folio, &pos, end_pos))) {
-> +		unsigned int from = 0, start, count;
-> +		unsigned int nr_blocks = f2fs_blocks_per_folio(sbi, folio);
-> +		unsigned int to_blk = min_t(unsigned int,
-> +				F2FS_BLK_ALIGN(sbi, end_pos - folio_pos(folio)),
-> +				nr_blocks);
-> +
-> +		while (f2fs_ffs_dirty_blk_range(folio, from, to_blk,
-> +						&start, &count)) {
->  			submitted = 0;
-> +			pos = folio_pos(folio) + F2FS_BLK_TO_BYTES(sbi, start);
->  			err = f2fs_write_folio_dirty_range(folio, &submitted,
-> -					wbc, io_type, &pos, r_len);
-> +					wbc, io_type, &pos,
-> +					F2FS_BLK_TO_BYTES(sbi, count));
->  			folio_submitted += submitted;
->  			nwritten += submitted;
->  			if (err)
->  				goto out;
-> +			from = start + count;
->  		}
->  
-> +written:
->  		/* If none of the subpages of a folio is submitted, keep the atomic flag */
->  		if (folio_submitted &&
->  		    f2fs_is_atomic_file(inode) &&
-> @@ -5171,8 +5223,6 @@ static int prepare_large_folio_write_begin(struct inode *inode,
->  	}
->  
->  	ffs = f2fs_ffs_find_or_alloc(folio);
-> -	if (!ffs)
-> -		return -ENOMEM;
->  
->  	/* Skip read if the folio is already fully uptodate or the write
->  	 * covers the entire folio.
-> @@ -5248,8 +5298,7 @@ static int prepare_large_folio_atomic_write_begin(struct inode *inode,
->  
->  	len = min_t(unsigned int, len, folio_size(folio) - ori_off);
->  
-> -	if (!f2fs_ffs_find_or_alloc(folio))
-> -		return -ENOMEM;
-> +	f2fs_ffs_find_or_alloc(folio);
->  
->  	/* Inline data must have been converted before reaching here. */
->  	f2fs_bug_on(sbi, f2fs_has_inline_data(inode));
-> @@ -5533,8 +5582,8 @@ void f2fs_invalidate_folio(struct folio *folio, size_t offset, size_t length)
->  
->  	if (inode->i_ino >= F2FS_ROOT_INO(sbi) &&
->  				(offset || length != folio_size(folio))) {
-> -		size_t clear_start = round_up(offset, PAGE_SIZE);
-> -		size_t clear_end = round_down(offset + length, PAGE_SIZE);
-> +		size_t clear_start = round_up(offset, F2FS_BLKSIZE(sbi));
-> +		size_t clear_end = round_down(offset + length, F2FS_BLKSIZE(sbi));
->  		size_t clear_length;
->  		bool dirty;
->  
-> @@ -5548,16 +5597,18 @@ void f2fs_invalidate_folio(struct folio *folio, size_t offset, size_t length)
->  		clear_length = clear_end - clear_start;
->  		dirty = f2fs_ffs_clear_subrange_dirty_and_test(folio,
->  						clear_start, clear_length);
-> -		ffs_clear_subrange_uptodate(folio, clear_start, clear_length);
-> -		folio_clear_uptodate(folio);
-> +		f2fs_ffs_clear_subrange_uptodate(folio, clear_start,
-> +						 clear_length);
->  
->  		/*
->  		 * If the truncated subrange happens to clear the remaining
->  		 * dirty bitmap of the whole folio, cancel the folio-level
->  		 * dirty state.
->  		 */
-> -		if (!dirty && folio_test_dirty(folio))
-> +		if (!dirty && folio_test_dirty(folio)) {
-> +			f2fs_clear_page_cache_dirty_tag(folio);
->  			folio_cancel_dirty(folio);
-> +		}
->  		if (!dirty && !folio_test_writeback(folio))
->  			folio_clear_f2fs_gcing(folio);
->  		return;
-> @@ -5592,6 +5643,7 @@ static bool f2fs_dirty_data_folio(struct address_space *mapping,
->  		struct folio *folio)
->  {
->  	struct inode *inode = mapping->host;
-> +	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
->  
->  	trace_f2fs_set_page_dirty(folio, DATA);
->  
-> @@ -5599,13 +5651,13 @@ static bool f2fs_dirty_data_folio(struct address_space *mapping,
->  		bool uptodate = true;
->  
->  		if (f2fs_folio_has_ffs(folio)) {
-> -			struct f2fs_folio_state *ffs =
-> -				(struct f2fs_folio_state *)folio->private;
-> +			struct f2fs_folio_state *ffs = folio->private;
-> +			unsigned int nr_blocks = f2fs_blocks_per_folio(sbi, folio);
->  			unsigned long flags;
->  
->  			spin_lock_irqsave(&ffs->state_lock, flags);
-> -			uptodate = bitmap_full(ffs->state, folio_nr_pages(folio)) &&
-> -				   !ffs->read_pages_pending;
-> +			uptodate = bitmap_full(ffs->state, nr_blocks) &&
-> +				   !ffs->read_blocks_pending;
->  			spin_unlock_irqrestore(&ffs->state_lock, flags);
->  		}
->  		if (uptodate)
-> @@ -5957,6 +6009,8 @@ void f2fs_clear_page_cache_dirty_tag(struct folio *folio)
->  	xa_lock_irqsave(&mapping->i_pages, flags);
->  	__xa_clear_mark(&mapping->i_pages, folio->index,
->  						PAGECACHE_TAG_DIRTY);
-> +	__xa_clear_mark(&mapping->i_pages, folio->index,
-> +						PAGECACHE_TAG_TOWRITE);
->  	xa_unlock_irqrestore(&mapping->i_pages, flags);
->  }
->  
-> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-> index 11de12a3e804..114d3d7bcd3e 100644
-> --- a/fs/f2fs/f2fs.h
-> +++ b/fs/f2fs/f2fs.h
-> @@ -1630,13 +1630,17 @@ static inline void f2fs_clear_bit(unsigned int nr, char *addr);
->   * folio->private is a wrapped pointer.
->   */
->  
-> +#define F2FS_FOLIO_STATE_MAGIC		0xF5F2FF50
-> +
->  struct f2fs_folio_state {
-> +	u32			magic;
->  	spinlock_t		state_lock;
-> -	unsigned int		read_pages_pending;
-> -	atomic_t		write_pages_pending;
-> +	unsigned int		read_blocks_pending;
-> +	atomic_t		write_blocks_pending;
->  	unsigned long		private_flags;
-> -	/* state[0..nr_subpages - 1] tracks uptodate subpages.
-> -	 * state[nr_subpages..2 * nr_subpages - 1] tracks dirty subpages.
-> +	/*
-> +	 * state[0..nr_blocks - 1] tracks uptodate blocks.
-> +	 * state[nr_blocks..2 * nr_blocks - 1] tracks dirty blocks.
->  	 */
->  	unsigned long		state[];
->  };
-> @@ -2337,6 +2341,12 @@ static inline bool f2fs_has_subpage_blocks(struct f2fs_sb_info *sbi)
->  	return F2FS_BLKSIZE(sbi) < PAGE_SIZE;
->  }
->  
-> +static inline bool f2fs_is_multiblock_folio(struct f2fs_sb_info *sbi,
-> +					    const struct folio *folio)
-> +{
-> +	return folio_size(folio) > F2FS_BLKSIZE(sbi);
-> +}
-> +
->  static inline pgoff_t f2fs_folio_lblk(struct f2fs_sb_info *sbi,
->  				      const struct folio *folio)
->  {
-> @@ -2483,18 +2493,9 @@ static inline bool f2fs_folio_has_ffs(const struct folio *folio)
->  {
->  	unsigned long private = (unsigned long)folio->private;
->  
-> -	if (!folio_test_large(folio) || !private)
-> +	if (!private || (private & BIT(F2FS_FOLIO_PRIVATE_NOT_POINTER)))
->  		return false;
-> -
-> -	/*
-> -	 * A large folio should always carry f2fs_folio_state rather than
-> -	 * non-pointer private flags at its folio->private.
-> -	 */
-> -	if (unlikely(test_bit(F2FS_FOLIO_PRIVATE_NOT_POINTER, &private))) {
-> -		f2fs_bug_on(F2FS_F_SB(folio), 1);
-> -		return false;
-> -	}
-> -	return true;
-> +	return *((u32 *)private) == F2FS_FOLIO_STATE_MAGIC;
->  }
->  
->  static inline void clear_sbi_flag(struct f2fs_sb_info *sbi, unsigned int type)
-> @@ -4529,6 +4530,10 @@ void f2fs_ffs_mark_subrange_dirty(struct folio *folio, size_t offset, size_t len
->  bool f2fs_ffs_has_dirty_subpage(struct folio *folio);
->  bool f2fs_ffs_clear_subrange_dirty_and_test(struct folio *folio, size_t offset,
->  					    size_t len);
-> +void f2fs_ffs_clear_subrange_uptodate(struct folio *folio, size_t offset,
-> +				      size_t len);
-> +bool f2fs_ffs_dirty_blk_range(struct folio *folio, unsigned int from,
-> +			      unsigned int to, unsigned int *start, unsigned int *count);
->  void f2fs_write_failed(struct inode *inode, loff_t to);
->  void f2fs_invalidate_folio(struct folio *folio, size_t offset, size_t length);
->  bool f2fs_release_folio(struct folio *folio, gfp_t wait);
-> diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-> index 82eb62301c48..e339cfd84b27 100644
-> --- a/fs/f2fs/file.c
-> +++ b/fs/f2fs/file.c
-> @@ -238,12 +238,6 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
->  		goto out_sem;
->  	}
->  
-> -	if (folio_test_large(folio) && !f2fs_ffs_find_or_alloc(folio)) {
-> -		folio_unlock(folio);
-> -		err = -ENOMEM;
-> -		goto out_sem;
-> -	}
-> -
->  	nr = DIV_ROUND_UP(dirty_len, PAGE_SIZE);
->  
->  	for (i = 0; i < nr; i++) {
-> @@ -1628,12 +1622,6 @@ static int __clone_blkaddrs(struct inode *src_inode, struct inode *dst_inode,
->  			memcpy_folio(fdst, dst_off, fsrc, src_off,
->  				    F2FS_BLKSIZE(sbi));
->  			if (folio_test_large(fdst)) {
-> -				if (!f2fs_ffs_find_or_alloc(fdst)) {
-> -					f2fs_folio_put(fdst, true);
-> -					if (!same_folio)
-> -						f2fs_folio_put(fsrc, true);
-> -					return -ENOMEM;
-> -				}
->  				f2fs_ffs_mark_subrange_uptodate(fdst,
->  						dst_off, F2FS_BLKSIZE(sbi));
->  				f2fs_ffs_mark_subrange_dirty(fdst, dst_off,
-> @@ -4975,16 +4963,12 @@ static int redirty_blocks(struct inode *inode, pgoff_t page_idx, int len)
->  			 * bitmap as well, otherwise f2fs_write_cache_folios()
->  			 * finds no dirty range and skips the whole folio.
->  			 */
-> -			if (!f2fs_ffs_find_or_alloc(folio)) {
-> -				ret = -ENOMEM;
-> -				goto next;
-> -			}
-> +			f2fs_ffs_find_or_alloc(folio);
->  			f2fs_ffs_mark_subrange_dirty(folio, off, dlen);
->  		}
->  
->  		folio_mark_dirty(folio);
->  		folio_set_f2fs_gcing(folio);
-> -next:
->  		redirty_idx = folio_next_index(folio);
->  		folio_unlock(folio);
->  		folio_put_refs(folio, 2);
-> diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-> index 2b0821c2c18b..93f165151c0f 100644
-> --- a/fs/f2fs/segment.c
-> +++ b/fs/f2fs/segment.c
-> @@ -4193,7 +4193,7 @@ static void do_write_block(struct f2fs_summary *sum, struct f2fs_io_info *fio)
->  				fio->old_blkaddr, fio->new_blkaddr, err);
->  			/*
->  			 * For a large folio, the caller rolls back
-> -			 * write_pages_pending and ends writeback when the last
-> +			 * write_blocks_pending and ends writeback when the last
->  			 * pending write is gone.
->  			 */
->  			if (!f2fs_folio_has_ffs(folio))
+I think marking IRQ_IS_POLLED seems like a bad work around,
+IRQ_IS_POLLED is used for fake/software irqs and I dont think it is
+right way to use it for the hardware IRQ.
 
+Additionally, code movement in the iommu.c seems redundant and does not
+provide any real benefit. we will encounter following condition again,
+this time while calling int_handler() for second time
+
+> interrupts for non-running vCPUs arrive while iommu_poll_ga_log() is
+> draining the ring buffer, causing GALogInt to transition 0 -> 1 and fire
+> additional hardware edge MSIs while the IRQ thread is still inside
+> amd_iommu_handle_irq()
+
+The read from status bit will cause handler to keep running without
+incrementing threads_handled.
+
+
+We also encountered same issue recently, I think right way to fix is to
+address the underlying root cause -->
+1. GALOG is a circular buffer and any new entries created by the IOMMU
+can be handled in a single interrupt.
+2. In an high interrupt rate environment The ga-log handler keeps
+looping without incrementing threads_handled.
+3. This causes note_interrupt to disable irq since it thinks that
+handler is stuck.
+
+The solution that I had in mind (not sure if its a right way) is to
+break the while loop inside amd_iommu_handle_irq() after certain number
+of iterations.
+
+This works because.
+1. We enable the interrupts before processing the entries
+2. Any new interrupts that arrive during the entry processing will set
+IRQTF_RUNTHREAD.
+3. If we break the loop after that, the irq_thread_fn() will increment
+threads_handled.
+4. And irq_wait_for_interrupt() will return true because it sees
+IRQTF_RUNTHREAD and irq_thread() will call the handler again.
+
+Although I am not sure what should be a right value for number of
+iterations, the initial tests with 10000 iterations resolves this issue
+but increases the interrupt latency.
+
+
+Thanks
+Sairaj
