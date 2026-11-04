@@ -1,72 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793766619;
-	b=bbAewB+AeN+B9VRPSHjv/ntkv/QLWsE2P9j8hriQQ+f0rQe+7vOzlf/ajmYAQAB1vIhi
-	 d+wrenqvSt3x5PIZ0IbaF5pmEi2CwXhd2In7nqQFlXyZo/3Uldie8SSZOsbM85Rxjl4on
-	 e70CgNC40lhlVDOhxgp2wKNTIxeM+i16FE/hd55c8UxmUGXrhdRCbOnmvSqe6MTXcZTMY
-	 9UTJfXaEV8qlcQ2ONmKAvSETCOiltGnZUq5DiBnWNYrNHKRvZUV0Ed44PkJI1bbpsN2Ir
-	 XsumjjGXh6xvTJqT3DuE02xawBTqcS6SyDuMhpFZVEj8ExEgy7CEDMawAWF3l7X7Qcg==
+	t=1793766624;
+	b=3ScM3UxXC9p7aH4O5ni2Vtq5oXxpvZ5WarTyGBrPS8ueeBoa+R7PFH+17NNAFXQ4yogF
+	 F6AtRq/W9IvH8VlTZIGGWJYslIB/+/DUZKbxrDfDMKfCOL9IDseX5+Kj9fh9KePt0VQ71
+	 8Yg+sZ57IiM7MEVmi1BxIND4r0XPsla9jjHmLD8IC8OiKRGJlUP+i3yJPgB0f6XxFi0Lk
+	 v8wTgK+Ay/mCWfQAu44dA9JVeLaSyB8UcGFBHaHFG8wmgYc+lFP40xYRWhJYlw4TFyYZA
+	 JCo3KiJ+Kbdkgm8ZAEfAjL3g6+uxAcw/LPlRkuv1CTxTJlwRJ/vDqQlt1PqyGy7Jbpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793766619;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793766624;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=8waw0InSHbtK6ZY3bCOmuZQhAY4jX7XSlK/9kloqXLc=;
-	b=dCLHFxC1TeJulMdTt5m1iBi6b4RyDVKtxOtnU7QonIG5EmIdCNr6ohnr6+PquGjC601/
-	 GEtwaN2WKTYb/Kj5h9eorQUv5WLNiGBznTjK1ykhkgkkvfPOu+4sZcBGjVoium0a0DPJu
-	 nQosLO4IptOMMZ47pT/BCCjAPR5z2IM4JRVWHoTv4eELcTArNR+qfH3dHo1HrozJwVChl
-	 oFrE2YmNw/5TXX98NeCmCQv6htr7vyy4kNUSDuC6y3Pr81TqnmKo00z05zZHYwshxakwU
-	 wRc2xHy5h8eh1xjLbU67I9bS0aJ/WThsd7IeCk+1DJxzSEVDsvjobAhEm7b/diW3JLA==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=lf8+fUIi9nYvAfKMMCuyoqEDJu1jsXhBuDkXiGeAP2M=;
+	b=4OAXVkfMGppwyb4Pym1zEG8VqJ4veCNoZvPGMrisEVrmGmlH0y0zktvw3AIWcLYLnow+
+	 YoujE9hC1IhAJ2E6Fjh8nyVJLcoRldd7x7TDUNxGnpQDjeaSDSItvLwcSveCyJmaRbwZm
+	 YKh6e2dMzU7kamhhHSuHqAMcgwYADg401dZyySvoElwf0Z9yPgMTPvd+oCjgu6ybCVJN+
+	 yJIhj5Z4d+q2rgk3QteUIMM8eqi5WWDOr0wzsjKajqy6Ft+Rv1iuAcXo9hVBIxhNhyARG
+	 B2e54GdwkdDqy9aPGXZh7ljrbwTxbORKCoHHLeiLDXP8CIrdo9golKdhuLfrw2nYC3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cA05iQ+L;
-	arc=none smtp.remote-ip=74.125.82.200
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=S2NL62jh;
+	arc=none smtp.remote-ip=74.125.82.197
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0493C606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 04:30:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0493C606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C77A606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 04:30:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C77A606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cA05iQ+L
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-341eff9e381so548401eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 20:30:18 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=S2NL62jh
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-36d1353fdcdso291168eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 20:30:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793766618; x=1794371418; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8waw0InSHbtK6ZY3bCOmuZQhAY4jX7XSlK/9kloqXLc=;
-        b=cA05iQ+L87KeC0XJCB1HKfGJI3KaZo1LmjL2Gxvh14+v5B/W70zKGkNbJurgtAdwLr
-         b9Yb7vLuXGqWqaM/lxCIqLtUfRnQcpCegjVN4dZnPvxA2taBEi0lx23PIRtTGNtGKlii
-         tMyD0Ga5SfnLTe0hKtFdZJyqYtwD2pdHC2W3HkTrkGYOWyG6Z5BYFwkqli4Y32lPFAds
-         Ko8HvAsJRUFJj3+wPler6pryCcqFAHGUEOssYiMRGStWPsJr5SwryNmrLcbbos4SjFEV
-         OiP6fHkU4TKo2tJY7o/eODqrG1AcWG/42vuaPmwjB5kRreJyTpYV+IWp2ne5FN96qipL
-         ylKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793766618; x=1794371418;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1793766623; x=1794371423; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8waw0InSHbtK6ZY3bCOmuZQhAY4jX7XSlK/9kloqXLc=;
-        b=ux/eJKUfCtwPttzZbpedU581H6ZrPTQtOwk9HyXJAtDs3y2hsoyM7s4mIUgusSjYEN
-         Ks8lT4LwTpCtX8VplLY5TOYCLYGRz6mT/tBle6SRVH7ZEzbsByIjwzFk3CEs9pxzDVxB
-         6IA//Uj1YAhp1Nmd3RQ8LwfyPIUvt5MOFHXSzLRSneswJUPStg+AiRb+lxuUREi7Oii1
-         hU48iFVLgnBfjEGBK0PscthYABnC9R9qoEjGg3q63OdTJ1sg7v3vfg/00UIbtPMotx4j
-         bTL0J+0EvR+Qy6P/0be0KIRA/Vw9WubeqSqnH2t7kgRfoQBw6kTa0P2vsXHf4NH+3MDH
-         D6zw==
-X-Forwarded-Encrypted: i=1; AKwUvBwAzfnRbXmPsLWgSGFR9A7Rjyz39fj4H8IWa/wA3Gb/Izg3RuvnfuUHGdf+DIiyU71TcVtu5HLkV2pgzIs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8OpwcDNHeHkAIhYQ+mZ4cBeKEwbe/mSfgd5lPmwdHM6gTAcrk1
-	WrNwsisHmXZbM9BKZ1dqgcFhPjlb7PBOYDKPbke70P44J868zENGilYMQR1S3mTaDZPK/5sw03V
-	azeYDJua7Yw==
-X-Received: from dybhh13.prod.google.com ([2002:a05:7301:290d:b0:369:7ef0:57a8])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7300:c019:20b0:36b:f09f:924a
- with SMTP id 5a478bee46e88-36bf09fa41emr5753785eec.14.1793766617812; Tue, 03
- Nov 2026 20:30:17 -0800 (PST)
-Date: Tue,  3 Nov 2026 20:30:02 -0800
+        bh=lf8+fUIi9nYvAfKMMCuyoqEDJu1jsXhBuDkXiGeAP2M=;
+        b=S2NL62jhYPj0Kpdrgpiy41JLh38Zfoiq8uefbVCDNEgr4KYtyJVuB3qKbIxFcqMfj3
+         WP8uVp5Em69yb8z5c7Ft/lUEjpm2jhsCFoiOoKG3Ax1DLRpRVWeQnfZUyv4Tmb+LfjyE
+         6ZHiGPH9o8242nilDtRyg+IEAb+GhYyVT5bYfctX71Bz3y704RRZo0eEGw2L0NDSAZD2
+         uCt6deYmbJYCUCWkYM62+MJUUUaMgI+4cFvpOZ6uCFT8JNAcZ1iu/WDczv9QpGffQmi9
+         9iA+brl/6pJUhGIDSjPbZ89rUlS+iPQ3kxvscT4wR8Uo3mU+ONTxldGuGjh7yNXx+rsV
+         YDAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793766623; x=1794371423;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lf8+fUIi9nYvAfKMMCuyoqEDJu1jsXhBuDkXiGeAP2M=;
+        b=J/izL0wxP6RLPnAoHp79UZTdZNiFaDMQ45fvxaW7iW6wMstSyP0cLcCwDLbxOnhikw
+         LhuGx9KSrEkHDK7NFoHcJVKSxhL7Sci7Dua+qL4eKjgxle9l7uK4Qk2J7YuxqVAj4ksX
+         ffIEqHT3k1V5FAC0TGa+U0POTqM5s4lNWVVDCaY4yVkS/TCY5cSewR+LbnxeZ1U4p5ZM
+         RJxwoNtb2/jfyPbPlD/a2kxVBI/Vqt7ebh3bPEnUrsU44sfxt4vG7Q2dYoLXVfBzL337
+         pNacSvOpc5f2RdZw3FFUzvTthV9hQUggrJ60LsC0PB2KAG3Npa1i26KYr5M1izEA+CyE
+         KTSg==
+X-Forwarded-Encrypted: i=1; AKwUvByfxkYmTs9Zvx3J1Hhutp7XVoI9Irw8OVYuN3KFnmRcr/gkbnM8KLR092Ys1ArFY/XwORzk4k9B6pfYU8Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8fN4xO3F3PwTcKgZdf4uiIiU5w7LEYpgYEXsrCY6MkO6G3ZSuf
+	bZIGpnwgAgekbkOVzAgZPZqGbO9DdCgoXpltQ3HpnXmfdFHqXObUaXNGjjr3onJ1So/NuZhQybG
+	yS3Am65NhDw==
+X-Received: from dynv12.prod.google.com ([2002:a05:7300:5a0c:b0:36c:9b55:8436])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:6312:b0:36a:1709:458
+ with SMTP id 5a478bee46e88-36a423cce1fmr25708786eec.27.1793766623064; Tue, 03
+ Nov 2026 20:30:23 -0800 (PST)
+Date: Tue,  3 Nov 2026 20:30:04 -0800
+In-Reply-To: <20261104043006.1199857-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,9 +79,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
+References: <20261104043006.1199857-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261104043006.1199857-1-irogers@google.com>
-Subject: [PATCH v3 0/4] tools build: Fixes for libbfd -lzstd dependency
+Message-ID: <20261104043006.1199857-3-irogers@google.com>
+Subject: [PATCH v3 2/4] perf build: Add explicitly sequenced -lzstd to libbfd
+ feature fallback
 From: Ian Rogers <irogers@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
@@ -92,50 +97,44 @@ Cc: Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
 	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-This series addresses build problems when linking against static
-libbfd/libopcodes on distributions like Fedora where binutils is built
-with zstd section decompression support (requiring '-liberty -lz -lzstd'
-together).
+Distributions like Fedora ship a statically compiled binutils libbfd
+that depends on zstd to decompress sections (e.g. undefined reference to
+'ZSTD_decompress').
 
-In v2, commit 89d001d48ec7 ("tools build: Add zstd to the binutils
-library feature tests") landed in tools/build/feature/Makefile at the
-same time, creating a merge conflict and only adding '|| $(BUILD_BFD)
--lzstd' without '-liberty -lz' or the corresponding
-libbfd-liberty-z-zstd feature check in perf and bpftool (so even if
-test-libbfd.bin passed with -lzstd, perf and bpftool would link only
-'-lbfd -lopcodes' without '-lzstd').
+Since libbfd does not reliably distribute a .pc file for pkg-config,
+perf probes manual linker flag combinations in fallback chains (-lbfd
+-ldl -liberty -lz).
 
-v3 rebases onto perf-tools-next (v7.4-rc1), fixes commit 89d001d48ec7 in
-patch 1/4, collects the Acked-by tags from Quentin Monnet and Peter
-Zijlstra, updates the LIBOPCODES_LIBS comment in tools/objtool/Makefile,
-and moves the AI assistance disclosure from commit trailers to the cover
-letter.
+Extend the testing cascade in tools/perf/Makefile.config to check
+libbfd-liberty-z-zstd and append '-lbfd -lopcodes -liberty -lz -lzstd'
+when detected.
 
-v2: https://lore.kernel.org/all/20260909204122.1993010-1-irogers@google.com/
-v1: https://lore.kernel.org/linux-perf-users/20260909181030.1870496-1-irogers@google.com/
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ tools/perf/Makefile.config | 3 +++
+ 1 file changed, 3 insertions(+)
 
-AI Assistance Disclosure (per Documentation/process/coding-assistants.rst):
-- Tools used: Antigravity coding assistant and Sashiko automated patch
-  review.
-- Summary of prompts and assistance: Rebased the 4-patch series onto
-  perf-tools-next, resolved the conflict with commit 89d001d48ec7 in
-  tools/build/feature/Makefile, incorporated review feedback and
-  Acked-by tags, and verified with scripts/checkpatch.pl.
-
-Ian Rogers (4):
-  tools build: Add explicitly sequenced -lzstd to libbfd feature
-    fallback
-  perf build: Add explicitly sequenced -lzstd to libbfd feature fallback
-  bpftool: Add explicitly sequenced -lzstd to libbfd feature fallback
-  objtool: Add explicitly sequenced -lzstd to libopcodes fallback
-
- tools/bpf/bpftool/Makefile   |  4 ++++
- tools/build/Makefile.feature |  3 ++-
- tools/build/feature/Makefile | 19 +++++++++++++------
- tools/objtool/Makefile       |  7 ++++---
- tools/perf/Makefile.config   |  3 +++
- 5 files changed, 26 insertions(+), 10 deletions(-)
-
+diff --git a/tools/perf/Makefile.config b/tools/perf/Makefile.config
+index b4764f69f47f..78423b0dcc73 100644
+--- a/tools/perf/Makefile.config
++++ b/tools/perf/Makefile.config
+@@ -896,6 +896,7 @@ ifdef BUILD_NONDISTRO
+   $(call feature_check,libbfd-threadsafe)
+   $(call feature_check,libbfd-liberty)
+   $(call feature_check,libbfd-liberty-z)
++  $(call feature_check,libbfd-liberty-z-zstd)
+ 
+   ifneq ($(feature-libbfd-threadsafe), 1)
+     $(error binutils-dev(el) 2.42 or later is required for non-distro builds)
+@@ -909,6 +910,8 @@ ifdef BUILD_NONDISTRO
+     EXTLIBS += -lbfd -lopcodes -liberty
+   else ifeq ($(feature-libbfd-liberty-z), 1)
+     EXTLIBS += -lbfd -lopcodes -liberty -lz
++  else ifeq ($(feature-libbfd-liberty-z-zstd), 1)
++    EXTLIBS += -lbfd -lopcodes -liberty -lz -lzstd
+   endif
+ 
+   CFLAGS += -DHAVE_LIBBFD_SUPPORT
 -- 
 2.56.0.385.gac671c819a-goog
 
