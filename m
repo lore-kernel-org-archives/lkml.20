@@ -1,100 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.192
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793817524;
-	b=y1ZgYOFpJoqBlPUJvRqtWu47A11hSfmqwKem4fnmP0El7Q063pOpgqv3FpQYeJ/aRAb+
-	 mkMHaZf43O3vTIliJKBj0RDQGJSGwihVvwdJ65LSBKypn6Skg9ur5NNcZx1Y3k4nY4+w9
-	 yKcuiThd/3/2du/TZTdGgAuTI0DKtYkAIYlPPzfD2MX9GBq3yAdCwoz/BuHcfoceQzQ1F
-	 8pw0bQsIxwGsgTjSAFkpxN9nbqNeDbGT5x/cO4gctQy5+DO1VCZbVGO1iU26s3xDFNdt9
-	 WQHakgzTi+423D2htshbCsr1eCk/hiZY9h0pOLxGuY1dN4wbrSnsj+gwGTpQnOypHnQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817524;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=xi2CTq0sctSpk2rBheKo6Pp4BrAIpJ2VTsphU+x+0aE=;
-	b=GxZXZxNlwXVf04ogq9aVW4ocnaYEuM9qU8ExdlvEsYpRM9D5fPkXMLSGduGsJ4JlwCrr
-	 KHAJcSZstt/f+Y2lMXmpIc4kfAbBAn39rIWY6TJ6gLvADKZOQac0oFjCRnRwDbRdyzKyV
-	 xVRrl+kL0KowzZNkpJOZ5v/+PFnAy0PfKOvoIAOsTYbxx8oM5X1HJKu14w5eK2vlwyzB8
-	 /83pH2tp7hMgL8rPgox23HFwyuUuqQO5f7RAg4t3emUpk6NCI3zRpj/SVcEO85b0RwsqL
-	 Mzte0sQUpHcQGI1M72CQsO8JmOh9Xn0+AkVXEg3LetITsZ2slZpihVodPisS0qn7ulQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ml7tXF+s;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.192
-Received: from mail-oi2-f0.google.com (mail-oi2-f0.google.com [74.125.231.192])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793817539;
+	b=SwgcZuqTHe6PYMVckfu358/GPJaab+p1QVuxiZkQ5NEGxjArimK6VdjdofY2I/2ceTWx
+	 04day4znRqHMEH/vj5Qr2rXzNIzB8VN5xtJaBYC4CpSJvhGrJ9dNzPWbWXw/+XExQcQAh
+	 NG1V4omf3S7wGH8ibM+/RhLA26azU0CpsML4U5c4CcsuYX7n1qandwVHQOJT93lF245q6
+	 +HrwBh+3eAM60cbferhh3DUm5/vq4bmtCR1LArEFikjw0d88Q1WfHUqWW7k4SkjeIQmvG
+	 9obnsG4HX/zv5zSw4F9lJrzVR6fIV7hZmYc+GUjS7Zd3UW5+hpmzdObAfChYtrmEZdw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817539;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=jJ6G//1Be0Fadl0Ktca/I5QkBevkAE1aXcgU9JY1Uho=;
+	b=NpuvU+Z7QKdrlHZUrjmaefTteMuzA7N/0SHuAIrE0yHEOx2zeq7jwqcrSWz+Yxj1d9iD
+	 XAjs+ftNzJ5jhmdsIcipoLsjGqKKP/xqQ2NqXQhgEIPncWQ3sc788fXbybSCvILpQHt79
+	 ZP6kMoKifveXpl4pDME6Gef7vv1JZesKZUkd1UGxfA5QX16ZLXBQaNUgifBaXiS8ffx6A
+	 +MDOtXmFegngURx7zQJtFPCXfwWdtrxLguZxJh8IjlPFlRNPuk2DVyYaAKTT+ArMtlmSE
+	 e7fWHD/bElG1lDRAm9UrjHVVx7sH2IK89leSwA6MP3PnIWE5TSXlEyrLEdhpZWKbxuQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WyrDGM3J;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25BAE606EE80
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:38:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25BAE606EE80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DAB9606A33B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:38:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ml7tXF+s
-Received: by mail-oi2-f0.google.com with SMTP id 5614622812f47-533fe730856so454492b6e.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:38:43 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793817523; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ed/JCBpmrgxTbA22W8C7czLHcf6pUnQYqEomA9Lolpcw4VbbzdGLtFy92bzktPhwiu
-         l+oL0uJWnBpGuXdPRssbIBozTuyOuk24cnPvJIzss/lnn6cNP4By3WHL/ozJeZ02KSNt
-         i+hAMYAN5OwiDj609AiIIQk6wNx5cXBOO2ZWSy4TGoBrE+IbmiNSPYD/vYXdbQI2qSmr
-         0N+oBLpP9SbN50+fh2T6k1ByPRAD9PUfgmu1dDJNPpIep5NWieXxoLugRjNjQmfbccPc
-         S3UdjcB81gXXPDhKuCsspQ0TASYVh5Ik5CN3iFcdXGjJzXxMe3oVgV7X8+ofVEr2cUyu
-         QbzA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=xi2CTq0sctSpk2rBheKo6Pp4BrAIpJ2VTsphU+x+0aE=;
-        fh=my0r8/wldtSNNSrP/8qUSQ8SzUf4xG5U0ZBhOQiKd2I=;
-        b=R56OjGtVA4s5Edn8EI+H3OnKI+VRIJH9sR/ERzP/DQinIUG9FG6YTZqDD0mKm6Aghx
-         RNMzGqv8hpb/KAQi43VkL/gkzE4K51ZDZUwB9xXdVCfqyG/S6jIMa0/xpU1/SUdFSHTY
-         ppO8RvyGH2Z7nBxsYMHFVC4sXUQCufjvifMa464wfIZBTKLMNKq1pkpDpFS73wR607ax
-         q53ui8PL7h4ep2Dl7noFyalvjEIHtiiCvSaHIbxy8Io15lo7CDgUqENtInYBvAPqN4Sl
-         SuZBrow7lvhxlbIJnmqjenb19xcUBYdzf5moyQ/dAYfOB4QPo38n37sfTVuOuVjpxeAe
-         3EuA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793817523; x=1794422323; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xi2CTq0sctSpk2rBheKo6Pp4BrAIpJ2VTsphU+x+0aE=;
-        b=Ml7tXF+sVZvkpHkBr8/idNrFKfyY8PoYXpBJtAvho4ovbfG5zcGskW8/ivtnErEmZe
-         NkBxWzblx8wNCyDPxt5bwvZNz0Ix0TeSzUiejal58hT/OCM0hTnBVHmyZjcRMYPmNmho
-         zTL/Rv8Mh5U89IFQXczgPMALZMMUr6ldEXR2xtQqOAgydoaNpvagj3Qxr5s1pyPfYgNX
-         DMrdh+xY5CDGQIkrgBb6bMsNunx3wZBuAobc7xPuzMDPob2V6QSE866W6c6l7PPx4YOM
-         HCDDxzXAzWhgiwUXwpr6jeSVeyxGZohqp6bnZ7dLS/MHAq2jA92b6iDFM6DfoWjo0cOx
-         MH9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793817523; x=1794422323;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=xi2CTq0sctSpk2rBheKo6Pp4BrAIpJ2VTsphU+x+0aE=;
-        b=azBEfeDPlkSFLniNcHYZjQITXUv4/HJ7pVC6f2uDRFQodR6tAPXPy6dcEYoUruYhBQ
-         BhAgcqZBVk9e5V9jaa3wYauCYy5QWAQnfoVAdDi6ErZEZ5eV55NVCzzYEW5iJUNW2GEc
-         W7TQFuWJL0RbOqcWFdv4WnXjvF9PDYhl1J8MvuOAhQYN6tya57zr+YwgK/c9Y5vUFULu
-         DFMEkjyTsdAuwiYZWxBOLz4clRc+pyxsfY6RPZ0Mr/gFLiMx8ujQSOOmIVC1JfGOaxqb
-         XG+zFNRUeToaCMTiaGwW44ZL3ON6k7NIOUngGkFNOj1ysqnQkmVT0n+0kMaRGzS/yymR
-         OGug==
-X-Forwarded-Encrypted: i=1; AKwUvBwDNeX63r7hbRlbNs17JI4Wbb/yl4GnMJEj6/un7pZeu6AVmZdZ3XQyLaljXNarXcqVf5COYfl6T7xZMCw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+lEBtlyj+yze+e84Tl04XgTW/FPZgIrRDDfYwotEIjUU84ieaW
-	2VkwZL1Mg+Hxxc671DaRejGojcZEp3MxH7xQ6/nnJGOpJBbfi0XfFBcjJpGdUaInwdKUnxZ1trg
-	B1Ti2XEWYK6Ku/lrvXnjwTZjJiFHFSt4=
-X-Gm-Gg: AYBFou1pzI5kEbeRz7VQCf8m0qUie246hsTaQAMPM8DPhJpApTN43RnEgr7OmFeWsjx
-	liB4ZecQPZujpi4pYPZSwZthckwxleRZp6C+a5xlCZTVgEgsKjXm4LQnx4aZLP4Xs3aJQbbuoU3
-	exllO6rjHvGV2ZZmPPLl0Fce6hWXl5U41U/n1tXr0ePg31XkYtEcB7Ml/K1wFu+EukRDCD6mORo
-	iuqgOZNWrLigW4+cr3TgXY4QQtBpLlEqZj/95bujbJvA2aWCY0tbhK/PTSkB0gvC/xJwl3T0PnZ
-	LoBzILsP465hMRlqJS/xj8JQ6MEFNewZb0l0SbpY5Ghw1Zy+Q7cd70kR/+V40A/HTOgD0jP0Sr+
-	8xCa1NJrRWXdiF3wgqTkIc2wE4Bf3G5D5cpROZW7Ex451/UZZx51qjbbJk5/+d+JVFLc0945N7H
-	wet4lBP68KCsSQmUdHS9KuJuWc0KxWLH+8Wjbcl+f4XY3pkO0DqLf0
-X-Received: by 2002:a05:6808:1209:b0:4d5:295c:a82f with SMTP id
- 5614622812f47-5640df1c57dmr11547296b6e.60.1793817523087; Wed, 04 Nov 2026
- 10:38:43 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WyrDGM3J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE7E21F000C1;
+	Wed,  4 Nov 2026 18:38:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793817538;
+	bh=jJ6G//1Be0Fadl0Ktca/I5QkBevkAE1aXcgU9JY1Uho=;
+	h=From:Date:Subject:To:Cc;
+	b=WyrDGM3JiEk14394UgHlaNuZOL3HxS4GDq1/FbGLzVHNSaRX237BaucuXl9n7orq2
+	 MweIyD74OJBTsIZ6PsKyOs6T8kxd3bfGH6+hgKTXt49kPJKN4TF0QkNfikm2AYIP6L
+	 AymG+dsFsQXOIbQcr/9ZZXnzOG3VXrFVlX2sEZsyMNRF4xi1s4yS4HUVk0L17TKGOS
+	 JlVFhd7b8CdlY/5h2Dq6TmToyVRrIWPpK0fC58yIOaf1PvFxypcLSxVgmb38bS3U86
+	 iIqijSR51xE5cRN2PQz9t8fmhAjj0KWoiPTybx3+FtC/TSDbQrmckHpgvykr6L77O/
+	 AktrYelb8Hu+w==
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Date: Wed, 04 Nov 2026 19:38:44 +0100
+Subject: [PATCH] mm, vmscan: make kswapd unreserve highatomic pageblocks
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,24 +52,291 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029013616.97194-1-dennylin0707@gmail.com> <jnqgrofg5eh4rvmpqr3wrhyimlux2cwtguj2o5d3tjzdaqq6nc@xsxxjpzmpomu>
-In-Reply-To: <jnqgrofg5eh4rvmpqr3wrhyimlux2cwtguj2o5d3tjzdaqq6nc@xsxxjpzmpomu>
-From: Hungyu Lin <dennylin0707@gmail.com>
-Date: Wed, 4 Nov 2026 10:38:32 -0800
-X-Gm-Features: AclHuK-r_3WJ0ntTj1FvPXP3r8tt_m6iclxJZOkDMnSvHN7BvKNtxEkMKUL6peE
-Message-ID: <CAGEkeHeBgeDM5_+ncjKspqEOw0CnVBsb5GJYdbQ+rUJ-W3ht8g@mail.gmail.com>
-Subject: Re: [PATCH] ext2: preserve IOMAP_F_DIRTY for extending direct writes
-To: Jan Kara <jack@suse.cz>
-Cc: jack@suse.com, ritesh.list@gmail.com, linux-ext4@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-kswapd-highatomic-unreserve-v1-1-38be5106adf5@kernel.org>
+X-B4-Tracking: v=1; b=H4sIALN762oC/yXMQQ6CMBAF0KuQWTtJqbFGr2JclPZLR2MhHUATw
+ t2tunybt5KiCJTOzUoFi6gMuaLdNRSSzz1YYjVZY11r9oYf+vJj5CR98tPwlMBzLqjLAj7COXt
+ CcIdoqA5jwU3ev/1y/Vvn7o4wfUvatg+SanvnfwAAAA==
+X-Change-ID: 20261030-kswapd-highatomic-unreserve-7e6629ec65d0
+To: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>, 
+ David Hildenbrand <david@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ JP Kobryn <jp.kobryn@linux.dev>, Frank van der Linden <fvdl@google.com>, 
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9213; i=vbabka@kernel.org;
+ h=from:subject:message-id; bh=RU2RYAP1IAIoTJNvW8TyRg0//g9SSkYrmtWRhHXs7z4=;
+ b=owGbwMvMwMG4+8GG0kuuHbMYT6slMWS9rt61m0mRpXxKWIrAwoJlG2xVSpJnf1/qE7a8uWDDu
+ bwEX+vVnYz+LAyMHAyWYoos1btPOIrOVPaY5uH7EWYQKxPIFGmRBgYgYGHgy03MKzXSMdIz1TbU
+ MwQydIwYuDgFYKo50tn/16zMjfu8ko3VKPy5XdATBb9LWrH9sQ0NrS9NOcJ2njx8iuuczR/NDBa
+ n+VuNrdcfs+h9Hvxm5mbtDTG7LXzmXrFkfrbrxRF/dov46+x1Sy2PuF/7l834q7qdb5dtiOWFnF
+ CGW4cLryuVm4qvSv2au2Sq4Vbbq/UJi0Snz+T7JHqP41L1W77DLP86I+y4DZdcabGvrLCS1d2mJ
+ rvtzNU6lxVGzBvtSv4v1mhx1p2UpLw/902m+2k10Rducj+llx+XPjpTSyVo09TtBbf2GImvfRsS
+ 1Npbqji5+CG3UrinsG0Lx7YfxyTlnW9s4WdSfHxnxcF9l37O8lt84tWWpzlVaxPtA/N+v90eJHL
+ YkqkDAA==
+X-Developer-Key: i=vbabka@kernel.org; a=openpgp;
+ fpr=A940D434992C2E8E99103D50224FA7E7CC82A664
 
-On Wed, Nov 4, 2026 at 4:44 AM Jan Kara <jack@suse.cz> wrote:
-> Thanks for the fix. I've just move the setting of the IOMAP_F_DIRTY bit
-> instead of moving the initialization. Functionally this is equivalent and
-> the iomap modification is better localized that way (the resulting patch is
-> attached).
+A customer has reported excessive reclaim activity despite memory above
+high watermarks. Analyzing support data (including sar log) revealed the
+following scenario:
 
-Thanks for the adjustment! That looks good to me.
+- the system has almost all memory reserved as 1G hugepages for kvm
+  guests, and operates normally
+- due to a spike of memory pressure from userspace, highatomic
+  reservations occur (probably due to e.g. concurrent network receive
+  activity)
+- on one of the 8 NUMA nodes, this creates a situation where free pages
+  are above high watermark, but when __zone_watermark_unusable_free()
+  considers highatomic pageblocks, the result appears to be below the
+  low watermark
+- pgdat_balanced() is false, kswapd hopelessly keeps trying to balance,
+  spending cpu time and disrupting the system. It has nothing to reclaim
+  because the node is filled with hugetlbfs hugepages.
+- since the overal memory pressure is under control again and there are
+  no allocations restricted to the affected node, they are satisfied
+  from other nodes without going through direct reclaim
+- since direct reclaim is the only code that calls
+  unreserve_highatomic_pageblock(), this never happens and nothing fixes
+  the situation
 
-Hungyu
+Note this was observed on a 6.4-based kernel and there have been recent
+fixes upstream limiting the highatomic reservation side, but I don't
+think they can prevent the same happening in mainline, only perhaps
+lower the chances. Nothing seems to prevent the issue completely.
+
+For example, while we limit the amount of highatomic pageblocks to 1% of
+the zone, this calculation does not subtract the amount of hugepages or
+otherwise permanent allocations, so the highatomic pageblocks can end up
+taking much higher share of actually reclaimable memory.
+
+The most targeted fix thus appears to be to allow kswapd perform the
+highatomic pageblock unreserve to match direct reclaim. It's also
+somewhat similar in principle to how kswapd reduces watermark boosting.
+
+Hook this highatomic unreserve to the moment we are increasing kswapd
+reclaim priority, as that is when kswapd is struggling to make progress
+and it should roughly match the case of direct reclaim failure.
+
+The only caveat is that direct reclaim knows which migratetype it wants
+to allocate and thus changes the highatomic pageblock to. Kswapd doesn't
+track that, so use MIGRATE_UNMOVABLE. Highatomic allocations usually are
+not movable, and this will avoid creating nominally movable pageblocks
+polluted with unmovable pages, so it should be the least problematic
+default.
+
+Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+---
+We interrupt the regular stream of AI fixes by something a bit
+different. RFC to get agreement on the approach. Haven't tried
+reproducing the issue in mainline, but it seems quite clear to me from
+the data I've seen.
+---
+ mm/page_alloc.c | 126 +++++++++++++++++++++++++++++---------------------------
+ mm/page_alloc.h |   3 ++
+ mm/vmscan.c     |  16 ++++++-
+ 3 files changed, 83 insertions(+), 62 deletions(-)
+
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index a8cac5e01066..785a13570788 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -3476,6 +3476,68 @@ static void reserve_highatomic_pageblock(struct page *page, int order,
+ 	}
+ }
+ 
++bool unreserve_highatomic_pageblock_zone(struct zone *zone, int migratetype,
++					 bool force)
++{
++	/*
++	 * Preserve at least one pageblock unless memory pressure
++	 * is really high.
++	 */
++	if (!force && zone->nr_reserved_highatomic <= pageblock_nr_pages)
++		return false;
++
++	guard(spinlock_irqsave)(&zone->lock);
++	for (int order = 0; order < NR_PAGE_ORDERS; order++) {
++		struct free_area *area = &(zone->free_area[order]);
++		unsigned long size;
++		struct page *page;
++		int ret;
++
++		page = get_page_from_free_area(area, MIGRATE_HIGHATOMIC);
++		if (!page)
++			continue;
++
++		size = max(pageblock_nr_pages, 1UL << order);
++		/*
++		 * It should never happen but changes to locking could
++		 * inadvertently allow a per-cpu drain to add pages to
++		 * MIGRATE_HIGHATOMIC while unreserving so be safe and watch for
++		 * underflows.
++		 */
++		if (WARN_ON_ONCE(size > zone->nr_reserved_highatomic))
++			size = zone->nr_reserved_highatomic;
++		zone->nr_reserved_highatomic -= size;
++
++		/*
++		 * Convert to migratetype and avoid the normal pageblock
++		 * stealing heuristics. Minimally, the caller is doing the work
++		 * and needs the pages. More importantly, if the block was
++		 * always converted to MIGRATE_UNMOVABLE or another type then
++		 * the number of pageblocks that cannot be completely freed may
++		 * increase.
++		 */
++		if (order < pageblock_order)
++			ret = move_freepages_block(zone, page,
++					MIGRATE_HIGHATOMIC, migratetype);
++		else {
++			move_to_free_list(page, zone, order,
++					  MIGRATE_HIGHATOMIC,
++					  migratetype);
++			change_pageblock_range(page, order, migratetype);
++			ret = 1;
++		}
++		/*
++		 * Reserving the block(s) already succeeded,
++		 * so this should not fail on zone boundaries.
++		 */
++		WARN_ON_ONCE(ret == -1);
++		if (ret > 0)
++			return true;
++	}
++
++	return false;
++}
++
+ /*
+  * Used when an allocation is about to fail under memory pressure. This
+  * potentially hurts the reliability of high-order allocations when under
+@@ -3491,70 +3553,12 @@ static bool unreserve_highatomic_pageblock(const struct alloc_context *ac,
+ 	struct zonelist *zonelist = ac->zonelist;
+ 	struct zoneref *z;
+ 	struct zone *zone;
+-	struct page *page;
+-	int order;
+-	int ret;
+ 
+ 	for_each_zone_zonelist_nodemask(zone, z, zonelist, ac->highest_zoneidx,
+ 								ac->nodemask) {
+-		/*
+-		 * Preserve at least one pageblock unless memory pressure
+-		 * is really high.
+-		 */
+-		if (!force && zone->nr_reserved_highatomic <=
+-					pageblock_nr_pages)
+-			continue;
+-
+-		guard(spinlock_irqsave)(&zone->lock);
+-		for (order = 0; order < NR_PAGE_ORDERS; order++) {
+-			struct free_area *area = &(zone->free_area[order]);
+-			unsigned long size;
+-
+-			page = get_page_from_free_area(area, MIGRATE_HIGHATOMIC);
+-			if (!page)
+-				continue;
+-
+-			size = max(pageblock_nr_pages, 1UL << order);
+-			/*
+-			 * It should never happen but changes to
+-			 * locking could inadvertently allow a per-cpu
+-			 * drain to add pages to MIGRATE_HIGHATOMIC
+-			 * while unreserving so be safe and watch for
+-			 * underflows.
+-			 */
+-			if (WARN_ON_ONCE(size > zone->nr_reserved_highatomic))
+-				size = zone->nr_reserved_highatomic;
+-			zone->nr_reserved_highatomic -= size;
+-
+-			/*
+-			 * Convert to ac->migratetype and avoid the normal
+-			 * pageblock stealing heuristics. Minimally, the caller
+-			 * is doing the work and needs the pages. More
+-			 * importantly, if the block was always converted to
+-			 * MIGRATE_UNMOVABLE or another type then the number
+-			 * of pageblocks that cannot be completely freed
+-			 * may increase.
+-			 */
+-			if (order < pageblock_order)
+-				ret = move_freepages_block(zone, page,
+-							   MIGRATE_HIGHATOMIC,
+-							   ac->migratetype);
+-			else {
+-				move_to_free_list(page, zone, order,
+-						  MIGRATE_HIGHATOMIC,
+-						  ac->migratetype);
+-				change_pageblock_range(page, order,
+-						       ac->migratetype);
+-				ret = 1;
+-			}
+-			/*
+-			 * Reserving the block(s) already succeeded,
+-			 * so this should not fail on zone boundaries.
+-			 */
+-			WARN_ON_ONCE(ret == -1);
+-			if (ret > 0)
+-				return ret;
+-		}
++		if (unreserve_highatomic_pageblock_zone(zone,
++							ac->migratetype, force))
++			return true;
+ 	}
+ 
+ 	return false;
+diff --git a/mm/page_alloc.h b/mm/page_alloc.h
+index e238ee91ed24..9fba6480b18d 100644
+--- a/mm/page_alloc.h
++++ b/mm/page_alloc.h
+@@ -282,6 +282,9 @@ static inline bool free_area_empty(struct free_area *area, int migratetype)
+ 	return list_empty(&area->free_list[migratetype]);
+ }
+ 
++bool unreserve_highatomic_pageblock_zone(struct zone *zone, int migratetype,
++					 bool force);
++
+ /* Convert GFP flags to their corresponding migrate type */
+ #define GFP_MOVABLE_MASK (__GFP_RECLAIMABLE|__GFP_MOVABLE)
+ #define GFP_MOVABLE_SHIFT 3
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 9959ca158ce8..91c622068d99 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -7460,8 +7460,22 @@ static int balance_pgdat(pg_data_t *pgdat, int order, int highest_zoneidx)
+ 		if (nr_boost_reclaim && !nr_reclaimed)
+ 			break;
+ 
+-		if (raise_priority || !nr_reclaimed)
++		if (raise_priority || !nr_reclaimed) {
++			/*
++			 * Similarly to when direct reclaim is retrying, try to
++			 * unreserve highatomic pageblocks on the node. Convert
++			 * them to movable ones as kswapd doesn't have a target
++			 * migratetype, and passing unmovable should lead to
++			 * least permanent fragmentation.
++			 */
++			for (int i = 0; i <= highest_zoneidx; i++) {
++				struct zone *zone = pgdat->node_zones + i;
++
++				unreserve_highatomic_pageblock_zone(zone,
++						MIGRATE_UNMOVABLE, false);
++			}
+ 			sc.priority--;
++		}
+ 	} while (sc.priority >= 1);
+ 
+ 	/*
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261030-kswapd-highatomic-unreserve-7e6629ec65d0
+
