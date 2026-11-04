@@ -1,77 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793823180;
-	b=MhKH4RH5/sjQslv713tpdj9NTUkTkxrBnmwYKTntDBgcby6gFTs/btEcB8v9GKYi9trb
-	 TKdg7+1XoqZe9yscBOjsAauhJ96c+EsmZHCOPNmf7N6e5T6JeLsLX15LKjDRC1cnUVIK4
-	 P/9eNtPd5Mic4mHDzjBBiLajO5rz22xhc+ecBm2dRNz9w6StgGIViur/fxOahKW4a7DZ7
-	 t399il/VJekq9Gy1Lb7n0jNyR4BqzMK1a3uS5b5ZIEUUzrRZ9bbaqYJzjL6bXHAoN+sg+
-	 mBkh4wjoHspI/1iM9osOZmltG0O2FVLy3hOOkSIDQtm2rjAJ6U0Habf5KV4xsSqe6PQ==
+	t=1793823187;
+	b=FLL93IpZgk6aVm6sqsuHrvvB5OnkqgnGb3KrIxdntxAqAFPk37O6zExDi/KFK2lHm72M
+	 WwNffzRzjTHoOW8QBw3yvztupuuseX6oo8ETeWPKoLunHdA/eA+z7ZylQme1ac6sefr6y
+	 WBKA/qlCPBFKa9ijF4wkF0zNqejHycfaqBqQJrC8g8LOdg//tUCJhccwiPn3htyLSaJxk
+	 IIDpbZ+qE0MeiQSBFc4uF6MAEGMvu+A+ubLVNLJB7RMU3cbK4+6tPKcybXoXpOGVRykyH
+	 OeGDYPNqWQT9xGVngJPPUF8J6kHoxrIAVQFe7J1/PKGycF3pknC8qY3zgKFVgcc1Cfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793823180;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=ZxXu9zhPw8w9HM4Z494ZQ0afNqUzJO/nyo7WE4RsLKQ=;
-	b=RQAkgC74If6T868KHIBsxxo01T+1X7saJxVNWuMevM+Ltnr2PV2YY7TDyNceLrDpT5i3
-	 TD1JzWmRD9Ix1YDSjTkAAl+k7WRGOhRfaHbdc+oUfZ4iY7oQmflVtiiqxj5hVj9ysvbbJ
-	 KPStAXKIHKJ4A64HOZHDJm4c4R+yXe/EnchTj6IlyXtuNacDvsMRg5CfP8kOBS3wsYBBx
-	 HyOh15h7O5ycLqHAKvcwosaEOXKVHMhh+g5BKx4FbnI8mzEH2dfY+ZGtbeF6DZ0wwFFxW
-	 0hCaIaNQ1jMbOLRGSM1coKAE8YULwbN+d7mcCEO3KIYxvh8PDVFPMWMlUiIehRocz/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793823187;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=LCqiLHf1DIbfKNXx3ccWkvqxBhOdwo3yYkazQxIGarg=;
+	b=WgUxUi9pmpBzTiMdJJ86qEPTbEzM6Jfjln1Hmf3u1tPuaXRIVQrXDhItSS0g6So4NtzX
+	 bY1eVKdurzeFIJpTV3fV9F1uYTOpo8LE0dz6mZFvKWiLc7bZ7OJ/bjbg+lurUekD2neLI
+	 +F1QlrpBSQaVmK2gHWIQO0EU/HFQ0ZBJJlnn5faGGKFDPaPyPAU4HU5WAVWQnQcxKAS9r
+	 fok/lpa49cXj/+xa/tNt3kR7Z7+LXKcBwtisxKUfEFfiG8mL7J2aTJpRNnXBQ9WZioiBb
+	 be6oq5EngwcSgNb16HOgxnWxmECKAdtrorg8gMch4JyMRdWb341WUXomVw47IwsbUqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=telaak.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.216.46
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=JGUQ8ecu;
+	arc=none smtp.remote-ip=209.85.208.43
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD762608079B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:12:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD762608079B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3b09a65c76dso807319a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:12:59 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2433606EE86
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:13:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2433606EE86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=JGUQ8ecu
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b579003f29so83127a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:13:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1793823185; x=1794427985; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LCqiLHf1DIbfKNXx3ccWkvqxBhOdwo3yYkazQxIGarg=;
+        b=JGUQ8ecu+X7cddBnFHR/z0QG5N7JmGQbEet9vbAnPylUeP/l70s0aAM8LUCTzuz0PY
+         E5W9nMJMLVFqGo9/djddtI9mWDWQt2B5vG4xf0yczlT66/zfPBHVGMK78oXZLG+PltQb
+         uKuHfrOFKTHoGkHbHXylkc5Nc8/HtEbf8iyCg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793823179; x=1794427979;
+        d=1e100.net; s=20260707; t=1793823185; x=1794427985;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=ZxXu9zhPw8w9HM4Z494ZQ0afNqUzJO/nyo7WE4RsLKQ=;
-        b=F6ZzmaiSvXgzfacWIFSVGJ0TD1tnQO45ho4u/U7r/re3ysVAhvucJ8sTnIP99/Bcpx
-         x88zVFEMHi0z0VJrfD8Q8sBknw+P6QdBgaW7Cdx4OZ5r51eduGlCZw/1wnOtWPjrqe9f
-         D67M7UwV6LxH+qGGfVTq23OpKLrxd62JmWjcDks/lmiB57LUOWmz9sPR2aEKDHYFrLxj
-         Jhh+q8tY9e6EIgXZxiFKK/s/O7yg8IxKuXlzvVXySkwXf1vV+smDgxbfqpqK6yYjtOvv
-         Ii+Y2kitku1XYE88r7d+Rbai7XOiv7Eg18A3LzInVPaXHrJLQMBWsY14PuqqKtdgflj3
-         1Eew==
-X-Forwarded-Encrypted: i=1; AKwUvBxPeOKjjooWurUBZGw2Ll5S55g8nVzZ7ziMzp5khB1ADoSSADQgm+hmAPnPSggeVFwXTUy3932qtpVeJ2E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8sxqZs6WaCoi9OJKdnwCLiEkWVlqSSzR7HNP1S80tnyhiZrneY
-	9CoVT3bnWxR229op2vT7jNbuYejcZ4lth4c/z9fgzGNQgAEwLhWzYIbMR3eXXuJN
-X-Gm-Gg: AYBFou3/EqhXs6gpYJCofdGAh49Rbq95SkmV0JLZPpYPOiNBzkIFRBnCPGlUfwscUIp
-	BstSHQn0CCRkN0k7P/n2SADn2szHvkwneUzTFRXPbULH2qQdQxxnl0GziaAqMiKvjkRiJ0mNxuC
-	+15GZDZWGkGfJ3n7ooqh7Ohr25Ino6UvDx33PqQk0S3EHjySgLD/TZBFLa4lTld/nvGnB8+eU7i
-	U+Bc4fdEsjCCp57jFIFV0jstg95tJ0wJ9PP1/gh1CYXGJdZ1ktWIewYYPGE25SXyeFPZjXFBkuu
-	dkUtloU74795n5poOSoX83Q6b/mjO5SzMAIKi/bBY+Sd7l62a+j1EmpWg7T7m2FFCzVXyhD6tMx
-	9mIf+XVvni1/4GSdTkW7BJ3MoQ+AarjZvJDepZdvMEZ+Pv0UhFdDC7ohV0THLrONqYo85KoOHSu
-	MnxD6NvbddTz1sKAG/rAHSGqYKdU1tV85on5YcIdqxZS9+7Qf4slDL7bneil4Zzy7mQFC5+duL6
-	RPJf6bYhkgr6mHqusfrH/Xp6F87cxElk2WfdqGrhV2A3jlsy3JBO3ML4/E0YbuTHFB+LkCrdcKM
-	/LuTCsMR5LTgZaxf1q77QMrvkApIuH5kkxo6DSFRm208576zqO0Q+D/+U1gaCEUIb+WbPahZmCl
-	Io2oTDjiizJudkVqUnUebyxOUDx9WxvdzuwIDlxo=
-X-Received: by 2002:a17:90b:3844:b0:3ab:36c4:b502 with SMTP id 98e67ed59e1d1-3ae89814e4fmr14245235a91.30.1793823178956;
-        Wed, 04 Nov 2026 12:12:58 -0800 (PST)
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com. [74.125.82.44])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b31cf4b6sm404368a91.14.2026.11.04.12.12.57
+        bh=LCqiLHf1DIbfKNXx3ccWkvqxBhOdwo3yYkazQxIGarg=;
+        b=oS/lsrdY3M7JEKS4CIoA7S02edilfyiMpUz5kp75d7ZK+7qS5MWOvF3h7F+iLQc41X
+         Tn80DW3ZFkvpE44XWXnsVJwquASPL+Y5jAgCcyyhYLcQahryeWEPJMJ0mEBNKHUnS/u/
+         aOzs3b9qKQaLe/kZzyzlY92klcbbi/EpPt8gd3lxGtK42jDzsGEFyhTI7UDHzgMtsgF2
+         ils5ThSsJTYusxB4Z4+sK2m5t7DNyVQ99ZVYUv0we9DxDWDWuhN+krKKsvxRhN1IcZ03
+         J7tI3jN4spXkUqTVB1t5aJAZ4+KRnJN1xO/YLdit06yUUV3ZJS8ZLUEPALnij41qq47X
+         ogWA==
+X-Forwarded-Encrypted: i=1; AKwUvByMWAxZj8+naqCA3PeH7vh4nJN74CD+rz5jMj3F5r1kqx1aTZeCSgzJCz7hyobCa+GxlFIhVlSYS9O+2Tg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+sHK7pXe1StLygtwuqrPpXvBgjxkjc1v1/k1VXoiOPPgCWfLZm
+	X5rgirLqYgQOAyp1x0xAAzkLeDWpiCfVD55F8RUdFzDMsZ29z6jNQmXl7XDSoxfRdyIXPm5GM7j
+	d153Skkwo/g==
+X-Gm-Gg: AYBFou3HrAy2Ftjvwyr9vPsr4CxqcCSnH0PhfQJ8hQ3mjYWcJT7T2iED50X3hAxubTu
+	HkrVhs9BrfiCCPB4EeHr5r/Spo2hMC/VjXKw88L5oIP3Kj2180KpnDSdhfpgKHXKT3aJIl9qnDW
+	sJR7ocJm42bXjCOXb0yGbt3C6IehkRMfkgak5cSv/H2cjz2HWVM5MUtmz5lu0AzPtQoVrvCJ6V9
+	TO96c/ptuXwbGY+UH17GqFniobVgdBDbkpDZdKmA0oRpra8ak8xg1QwYOVjJL8ab91vXyzPE43b
+	Q4aRDr5e618Dwl5PEwrtsdzwNPh1/8md7qNRRzIp7UMisVQitH/FXMuroAol2YjPZF/B6bKpfEC
+	uGK9DJLXPEeOCl9r7V7IRQKCFariukmelm9pdzlxZU5A9jn4ZAq4U/5Ze8+vt/dTioLzV3JvTm6
+	GwYuC1l289wnFSuQfc5QHoLCdQm8el+hpsjZdBFuDus5aaAns9FNrF8LW3iIsgone9WQmUU0MbW
+	YeWPGXtoC6+NizIUwd83WK8yUeWFFRBjU9lytThvpzLhXRO+p6H4UNCQq4hMuvmJCbwmx3myE6r
+	rGIbvyMLSAe+LTUOZaYh3OGZwoyKvQCihjtHvpzPK8+nNNFXoRnYaY2l1EOEteY9LTrT5eRuigc
+	t3L6cs4eqAgosCEcp8zJ4v30=
+X-Received: by 2002:a05:6402:513:b0:6b4:1df2:244e with SMTP id 4fb4d7f45d1cf-6b4d5ed9239mr10832286a12.38.1793823185057;
+        Wed, 04 Nov 2026 12:13:05 -0800 (PST)
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com. [209.85.218.52])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b5643f0d04sm805693a12.0.2026.11.04.12.13.04
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 12:12:58 -0800 (PST)
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1ae18eb9ad0so1252684c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:12:57 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBzPY9NX/5XbIxqGNHHN+RR5K4PQWVEhJ2Jk+QDSmsgjQjK6TC1qpYeume43IpeqELYLDl6k6xBgUBnKQlM=@vger.kernel.org
-X-Received: by 2002:a05:701b:42c7:20b0:1b0:f0f5:e38f with SMTP id
- a92af1059eb24-1b0f0f5e3b5mr18258532c88.34.1793823176925; Wed, 04 Nov 2026
- 12:12:56 -0800 (PST)
+        Wed, 04 Nov 2026 12:13:04 -0800 (PST)
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c423b145922so163223666b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:13:04 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBx17bGgFyYNhTb02FA/A0USqjW8V+wiR6rmXBQ51V/1ZNTcYYX43yr9QzcyZP+FUhn1ZFLgWbXzzVs/vYg=@vger.kernel.org
+X-Received: by 2002:a17:907:60c8:b0:c49:a4b1:9cb1 with SMTP id
+ a640c23a62f3a-c4ca795fa50mr1973235866b.3.1793822725121; Wed, 04 Nov 2026
+ 12:05:25 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,35 +94,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-sf19a2890-sysm-v1-0-a4fac07df823@telaak.dev>
- <20261104-sf19a2890-sysm-v1-4-a4fac07df823@telaak.dev> <CAJsYDVJ+FWHJ9AaJCmQwwfdsVJJC5mPw-fXzr2n6OAsZFHJbEA@mail.gmail.com>
-In-Reply-To: <CAJsYDVJ+FWHJ9AaJCmQwwfdsVJJC5mPw-fXzr2n6OAsZFHJbEA@mail.gmail.com>
-From: Joseph Telaak <joseph@telaak.dev>
-Date: Wed, 4 Nov 2026 15:12:44 -0500
-X-Gmail-Original-Message-ID: <CAPY4CJ4eJ0Pa1iowGEO9qe4E7zyFoGp8TdjB=O0ws9FKUUGiRw@mail.gmail.com>
-X-Gm-Features: AclHuK_90z-X_G7lwJns7lB_5N2ZLz7CerbTGbvWSwHLWG_G7heWWc43q7AWu_U
-Message-ID: <CAPY4CJ4eJ0Pa1iowGEO9qe4E7zyFoGp8TdjB=O0ws9FKUUGiRw@mail.gmail.com>
-Subject: Re: [PATCH 4/4] clk: siflower: Add SF19A2890 peripheral clock and
- reset manager driver
-To: Chuanhong Guo <gch981213@gmail.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Yao Zi <me@ziyao.cc>, linux-mips@vger.kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+References: <20261104-work-procfs-v2-0-b45cd5789ac5@brauner> <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
+In-Reply-To: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Wed, 4 Nov 2026 12:05:08 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wj9Y9NcOesBBm+jhPjYa7qO00fD7g7uwX+H-k0-R2difA@mail.gmail.com>
+X-Gm-Features: AclHuK9j_YIgrwhhpWOlnull6heAULBd4dgTqoOhUQQjFm_MgoIgrL1vgPfefvI
+Message-ID: <CAHk-=wj9Y9NcOesBBm+jhPjYa7qO00fD7g7uwX+H-k0-R2difA@mail.gmail.com>
+Subject: Re: [PATCH RESEND v2 00/30] proc: convert the fs, kernel and mm
+ entries (Part 5/7)
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, Jann Horn <jannh@google.com>, 
+	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, 
+	Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+	Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, Greg Kroah-Hartman <gregkh@suse.de>, 
+	Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Jan Kara <jack@suse.com>, linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+	linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+	linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, ntfs3@lists.linux.dev, 
+	platform-driver-x86@vger.kernel.org, coreteam@netfilter.org, 
+	kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
+	linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, ibm-acpi-devel@lists.sourceforge.net, 
+	jfs-discussion@lists.sourceforge.net, linux-alpha@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
+	linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
+	linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, 
+	samba-technical@lists.samba.org, sparclinux@vger.kernel.org, 
+	linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
+	Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+	linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+	linux-debuggers@vger.kernel.org, Chuck Lever <cel@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-> Why? This block is one used repeatedly inside this SoC and SF21,
-> I think a generic binding with clock & reset description in dt makes it
-> reusable without further changes and also results in a shorter driver
-> without a table.
+On Wed, 4 Nov 2026 at 11:49, Christian Brauner <brauner@kernel.org> wrote:
+>
+> Part 5/7 of "proc: move procfs to what kernfs does", on top of part 2
 
-I moved them because writing-bindings.rst asks not to put in properties
-what the compatible implies ("DON'T add properties to avoid a specific
-compatible"), and each block's gate and reset bits looked like that to
-me. SF21 support would then add its compatibles and tables.
+Christian - way too many patches, re-sent much too often, cc'd to way
+too many people.
 
-Either works for the driver, and I'd like the DT maintainers' view before
-v2: a compatible per block with the bits in the driver, or one compatible
-with the bits described in DT?
+Nobody is going to read these repeated resends, and all you are doing
+is clogging up peoples mailboxes.
+
+             Linus
