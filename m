@@ -1,95 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793764925;
-	b=g7OXwDIlnj1GtyiRE25YJM3YNl3ncQUGyMgFOivRFkAGlcUHIi1svuXxqeSixArYVxKk
-	 Wmj/vN0B89R+BBCYWeUWT7Umyi0P2b7d6Zrjzw2i3K4pGDr9eFY7i9agdzbvDUuC0q2nC
-	 d252AKSjpb7WTzuZX/ZfmwVDYExHtfSlXl2nn81JFxvLxpDVXA8DamzS/B0gRIVEORbmB
-	 TpBWDD5s2mZ5sj1SafXp6SzzHyCapherZgaEUk5w9OilnuW9hTRnOfO41libz3SgJQa0q
-	 +XvSTrCEwrJPVJ40DeBnT0JG18XoYreSvjxBVYSrA95/0W+ZG2kyU3LnCdT1iiUe7eg==
+	t=1793765015;
+	b=4oCC0BK7VuLT7U8vKDyvSHCW+kvwv08/G3+XNpn5w1vPlO3c5Yssgc/iBFUyuD5McyW/
+	 YAG9WCl6y4roBBZzNsjWDBRy197aiQH0X2AE66DoBqlZAK+jDkYATmg49RbzGstCD3c4L
+	 sK9e1ySFtriSpLUIiSMEKGvl+Hlq/QLOSqoMGqD75PLOkq4FC/r7sy3Ahf5UoCziS6TOU
+	 oVrAjxZV7QH0bkW5sC9jIprM8zbyFDoOS/M3kKsM50cjrrv2Dn/SVewkiLe/90WeSfUja
+	 e1UzsNaKBrOeYGYG6/FyKewpRva3xJOiAfa7W4oaLVAkh4B2iYtwx7Oed2ZYWTNnGCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793764925;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793765015;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=lZNKZ1iGqEzwGtaZav+D5kkPTnq7sCsxBbTcImnHm48=;
-	b=fr7bdzC2++e/16fyJ928bs22pZ/io/sXIIh8QSdRp72w4ZygBVuQ9xhjuWTA73t/NVBR
-	 UKU2WTJ6TuAxpGUX+pHda6WiicRL/lsixWKx0IkhrJLJdqoO4M05ybiVarbmjfF0HIPjS
-	 cLYS1uW3gXTm+Bi4yZFLkZzSwuFpvUgaYA9rduDf0+oIePhjGddMznIGqXdsiiPx3aObo
-	 3yrevpLwbqvb/0rLJyU+8HN9HaLEoRALygQbthkL4RbaEXZ8DhzoGgk3WIuJrf5AxVsGC
-	 l+RiGFU/NmGQfb6c472gInTlIQY7b+bGCbxwc+evIzcT4GlRg++nulcvC+tt1xytBUg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=oVa6CCAH519bjAZCKZQVejZVAzQohLPWeK+tg1l7Elc=;
+	b=EDNW/0GK1kYhtagHXXwLYT1oIsGHuErT+4pHyQuXh327RhcTeY0+TtqcniDze4SLHVru
+	 vNm7mUfXQ7+e9054J1r6zSYXnhtuNOFs45SLGYP47ItafY2yb79BpMS7QnhuM2lYcN2Fq
+	 57uopY+wVgV5veyFEcYkapTgmbpUTYi70ETPO2bCDGJIICEAuyiUjK4xiS+wJLKvhsZSc
+	 3IztnOpPo13FYkPh/BflKMqJqHrj23ys9ibN0/EereTPmwfw/lfoGLj/kU5o0QjxCyYj/
+	 6ZVOC+8nSP6AMZ+L9rGJaOWSBR0A4BCWeoDhK+xI3pWebnOXTQFFu5QJH/9uHJgEV/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="DT/PzmJz";
-	arc=none smtp.remote-ip=209.85.210.174
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=MERz27Iz;
+	arc=none smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C259C606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 04:02:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C259C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2FCF606A33A
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 04:03:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2FCF606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DT/PzmJz
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8a070b3f44aso95406b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 20:02:04 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=MERz27Iz
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ac91ac8924so210594a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 20:03:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793764924; x=1794369724; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lZNKZ1iGqEzwGtaZav+D5kkPTnq7sCsxBbTcImnHm48=;
-        b=DT/PzmJz6iXTIH3eH8qxmQYGC3torY5BgNYOYU21FHiVW3Uy0FtH3+f0Ia+5pvGBGp
-         GgoOfDe9HPYslzeoTHFIBXCLRGpeEMWjGVVP2mVg8bJgB3duhgumzyrVN+S3Q6Se0TrX
-         L2b3/F9JWmq0v4Wlp5dvl7+D2K7Pry5WeknEyMjLIBHElJOfXXDl1EoJbWve6ND67/Ho
-         yR0Yo2VlGZLjAL9MI/9pekxiFuyB2dQudGg/U+zixjE3rJgCo8hGOK57S7B1lFsU9pyC
-         GouToCPHRmae+NOO9QoLyahtLyISHqj6OVVJ7V+FZRreYowc9w3Wo5g3v+TrSthZRSmR
-         haEA==
+        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1793765014; x=1794369814; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oVa6CCAH519bjAZCKZQVejZVAzQohLPWeK+tg1l7Elc=;
+        b=MERz27IzX+cyAEO5f7M7AI+Agfhb6pOP5uavhmGmnNMxNVUG41wDXBUgbHw4bLXNmu
+         VqD858h/zhWh1znZwytYyJuv+4JSXJJqsiqts9sh0oa+/M5lzl0hSBajBTaEsexdwwLq
+         FKnBxVeJD9ta8PwUFMvFQljYmL5ZefFdINfdpnxEKGwzaJzNpl1yn8nZy1kLwpdVGxHW
+         T0RoWaGi9HEGFZ5qb3jc2ONUSYlEb0FRNAXi9lCx7s7EyOekag4iyQfWWILum2s6tyG6
+         id6MyY/2RA0L8O9eOzHjzs0ritGgH0rHuFQ8KwfIfHW7LZH11qLVTxiH7r/LawO/bnrP
+         Zy4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793764924; x=1794369724;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lZNKZ1iGqEzwGtaZav+D5kkPTnq7sCsxBbTcImnHm48=;
-        b=Rwbey3japt1xV5XRORxQC4RkxSNXhZO6Yr8tMVM2VkS0h09rlctuNn0yCIpwRIN3zi
-         ge4PIQI1LYs+O+dUNnnTMB5OlWhNkTUfkSnfSjd0TdXXeNW1k4KPVbjKH5a4zRlesV6L
-         ytxdYPKwy8pw3qnYeP7lq8pEyitcMLUu08gBIhb0PQ0X2vIkW8W3sGWnBEWxZUimhqeR
-         MWz2mR+IYCO7J3KEcGrRTzIo86c9G8AtyQiwn8fPSJDem8X57pwbKqrWvuM0tZR8n8Yg
-         kx1sxVig4PP2d5NuLKXDGO0/05SW0u79iUg81X1tx21catgpCgd7MOAWJmzgeJ3GTMpo
-         p3Uw==
-X-Forwarded-Encrypted: i=1; AKwUvBzEe498GzxKjoGz+hD6C/s5Oj6bCMpUQj5jEKr5208PhDBhZtC6SqetsNKbOySzU8NdgPPm2pVUeCk626c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+fjDUCBmEI+LgCEO0B5eKpLNpYdD5hQQO4P33KQjo+nHic84Zo
-	qIoVfhai/ThJZE4ckC/KQ20kFi9n6Q2jhytIEh4opzYljuIaLdLX7woQGUMu4s5sAT+bgg==
-X-Gm-Gg: AYBFou2nHZlbAIK4YX4SnSwOy3Tgw1jiHdek/r2kjhYnv91xsau9dMU4iqTFFHxNUkf
-	ZY/5RFbPkIB6ol9tbitXGcw6Lu5cJ7nk4+aEsyEYhnUYHvb7cBsdg6AjelzV3b5Q7o9fcah8PEA
-	NHVopdwNsIbfyXuEOSK0GSuhlsBUXbdvlR3Zw0PBpJCTlmh3Fbahg8tpfRXGWWNpI9IJH+ZnrBv
-	qap5ks3Vn0+5TddlGlGB8p8L4BdoPkARwak/1TUyGAGnnBLbhMMet3H1Elqyk06aZ+NqGM4SdIJ
-	5/hIWRraKi6WFZx9Ai1KFoFVym9d/xG6rVp0S2G0h1wjxxRDLhP4Sn/oXXhUkcalbgf9P03Dulp
-	vV+cM29hCglj4Fty/2hrvkYcIrZ9LW2cBkkI9TetWnsolyPYgCfS3bFiOQBZr7zfOJ+nn62QOO2
-	cxwj7i6QPLLj6MxElQMrcqZelWUQpH/WQxAbo5UnEgYrtk2goCIAPfBL3Wn0Y1FmP4COlVTH7Ln
-	j9swRvNJragXIStVymj6yI0H4nQCoYTNt07JnC667sRJxyotQjHf2RCePuhn24O/O14I78HgTiZ
-	Cq6hJxBs75sT48H1n6S8scqlG+3orRdMUV6SrWeoTaM=
-X-Received: by 2002:a05:6a21:7309:b0:3e2:490d:5127 with SMTP id adf61e73a8af0-3e928a86e51mr13327063637.2.1793764923903;
-        Tue, 03 Nov 2026 20:02:03 -0800 (PST)
-Received: from gmail.com ([183.13.19.101])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b09ba4f45esm292653b3a.45.2026.11.03.20.02.01
+        d=1e100.net; s=20260707; t=1793765014; x=1794369814;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oVa6CCAH519bjAZCKZQVejZVAzQohLPWeK+tg1l7Elc=;
+        b=s6QJ6u7H4fnJCMskzMSPpldQy2uiIAeb3KcYsunb7i6cTUMCwugBbmqgyt1tyhQXVM
+         pedq5rnJdXJPWD/PvkhvQp9BqNR9BZ3jdvVHfIAOvHFCWeb4FnJYrW+cHhylZB8gwxYJ
+         Ouhxtmx3basaV8XjxOEFpw0browkZAIvvH5hBLS9UKLmx4UV7AFHB6CL4Js6/m4U0w3G
+         lMKnpbExFPUVGPDQ71mPIodBQlJdAD4IoqXzOA8h3Xy42NFKgSC/+WAHAzRKgwq62TtG
+         X3kUulbDCcZ7KkUCgpTpTlFyFcDL1J8R1EqCBSO1dgJ6h60gtbpNrybiwAHEvoEx2ah3
+         xLNA==
+X-Forwarded-Encrypted: i=1; AKwUvBzHYhJSVhQYPL8ttCazkC3la7adtmYj6vOQH0znw56kPhWjX2/k/KsXeB8m0W05/mVu1Oplw8xGsQSNoTo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8dV2SQ/4P8QXkqNqlCBF4WRdJtY8/H6GZz2OYpw4nSMgJyJMPt
+	wmnIe/pSVNSPXHrKiO9mkEA2JXgqMWfSOscYociN0geJ3dvtv4mPGNTMxdSQQ+592cA=
+X-Gm-Gg: AYBFou2baMD8grwcfzRi4kFB4Q/Ka0e1vI486iG0/qj3EfALQERBb5BnQU4nToAIdZr
+	F5mXPISbTa9u+ypUxV5XQfrMerr0WaXCY1ZrFvcYJfMLjCBe0TZdxwT2/1n+gsgcxjUy2gQ3tpC
+	VWKk1///L2zIXKsS+uC5HOgOkrZUm2TFPOESFqrTtGeYpJBJWVxDoRYT8niBOAVf3NQTv2ygnUc
+	yxzYtqMbLjuhFDMoiDB23bLH0dx2UsrfTouFzZICOR7UpRQ/SStSiWPcVZQF5Qh0K/PYXZjRXcn
+	peQpaEvPJXQZHZEqOzFHtAjdUZdkqVCfI44D15cBMQDJmlZ5ab1RHy1f7F2LVsY3fCcecyBGIEk
+	baLhEDUQNrcrZ+UlvBQL+TJzfMN7clb/3HOAtyBD6aqlgkvS+UBQ+uPFofNxCYw1TNspy2o5TkJ
+	2v53JOfdjpsObw6Tck5pV5ts/jmbM53yV62ltOig+BcDYepuvsOs8TIwx3xBsxgK7Zh/bemsYx7
+	RDve6E0ufYXRDhQ1W1rbwjBR06lwn4xBtnN42s5kVtydZV6TJIwqOOdDNpYWRNhJ7WPkIbgaV+/
+	yU6V+jagC3MeZihelZHclqwQh3ffMlSTwk3POE/ON8MXh2hcGijzskoSnywRKYqzI/LWY8YdHKF
+	Fc3sB8+i9GpsL0wSqcc38BO1Lu/BegJO7hCJD
+X-Received: by 2002:a17:90a:c2d0:b0:3ae:533e:7e3c with SMTP id 98e67ed59e1d1-3ae8981bf57mr11461672a91.35.1793765013727;
+        Tue, 03 Nov 2026 20:03:33 -0800 (PST)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:744:cf40:a7b2:e78f])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b093d481a3sm1817053a91.1.2026.11.03.20.03.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 20:02:03 -0800 (PST)
-Date: Wed, 4 Nov 2026 12:01:58 +0800
-From: Yonghao Zhang <hyz3367@gmail.com>
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: arnaud.pouliquen@foss.st.com, andersson@kernel.org,
-	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/4] remoteproc: core: Roll a failed attach back with
- detach() when available
-Message-ID: <20261104040158.ddydw7d5smp7vope@gmail.com>
-References: <20260929075453.2324597-1-hyz3367@gmail.com>
- <20260929075453.2324597-4-hyz3367@gmail.com>
- <atZQEuXMwMpvmoBz@p14s>
+        Tue, 03 Nov 2026 20:03:33 -0800 (PST)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Sagi Grimberg <sagi@grimberg.me>,
+	Max Gurtovoy <mgurtovoy@nvidia.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: "Martin K . Petersen" <martin.petersen@oracle.com>,
+	Mike Christie <michael.christie@oracle.com>,
+	linux-rdma@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+	stable@vger.kernel.org
+Subject: [PATCH v8 2/6] IB/isert: drain the QP without holding isert_conn->mutex
+Date: Wed,  4 Nov 2026 13:03:13 +0900
+Message-ID: <20261104040318.1844865-3-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261104040318.1844865-1-yhlee@isslab.korea.ac.kr>
+References: <20261104040318.1844865-1-yhlee@isslab.korea.ac.kr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,242 +106,260 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atZQEuXMwMpvmoBz@p14s>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 19, 2026 at 11:14:58AM -0600, Mathieu Poirier wrote:
-> @Arnaud Pouliquen - please review this patch to make sure it doesn't break
-> STM32.
+isert_disconnected_handler() drains the QP with isert_conn->mutex held.
+The drain waits for the flush completions of the send and receive queues,
+and those are reaped by ib_cq_poll_work() on ib-comp-wq, where
+isert_login_recv_done() takes isert_conn->mutex before it looks at the
+connection state.  If a login receive completes while the handler holds
+the mutex, the completion handler blocks on the mutex and the drain blocks
+on the completion that handler would have reaped.
 
-Hi Arnaud,
+Return from isert_conn_terminate() whether this caller moved the
+connection to ISER_CONN_TERMINATING, and drain after dropping
+isert_conn->mutex.  Only the owner of isert_conn->node drains, so two
+callers cannot drain the same QP; the send and receive queues reserve room
+for one drain each, and a second concurrent drain hits the WARN_ONCE in
+__ib_drain_sq() and returns without draining.
 
-Mathieu asked for a STM32 point of view on 3/4. The patch does not touch
-stm32_rporc.c, but it changes which callbacks the __rproc_attach()
-calls when the subdevice registration fails after attach() succeeded.
-On STM32 that unwind currently runs:
+Two test-only delays open the window, one in isert_login_recv_done() and
+one before the drain.  Three runs of 7.4-rc1 plus patch 1 of this series
+printed ten hung task warnings each, eight, five and five of them waiting
+in ib_drain_qp().  Three runs with this patch printed none, and
+PROVE_LOCKING reported no splat in two runs a side.
 
-    stm32_rproc_stop():
-      mbox_send_message(STM32_MBX_SHUTDOWN, "detach")
-      stm32_rproc_set_holdboot(true)
-      reset_control_assert()                  -> the core is reset
+  INFO: task kworker/0:1:10 blocked for more than 10 seconds.
+        Not tainted 7.4.0-rc1-NS1-00002-g7b7ecb49489e #121
+  "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+  task:kworker/0:1     state:D stack:26248 pid:10    tgid:10    ppid:2      task_flags:0x4208060 flags:0x00080000
+  Workqueue: ib_cm cm_work_handler
+  Call Trace:
+   <TASK>
+   __schedule+0x180f/0x4bb0
+   ? _raw_spin_lock_irq+0x1/0xe0
+   ? __pfx___schedule+0x10/0x10
+   schedule+0x70/0x1f0
+   schedule_timeout+0x1cd/0x200
+   ? __pfx_schedule_timeout+0x10/0x10
+   ? rxe_qp_from_attr+0x1497/0x18c0
+   ? __pfx__raw_spin_lock_irq+0x10/0x10
+   ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+   ? _raw_spin_lock_irqsave+0x86/0xe0
+   __wait_for_common+0x29e/0x420
+   ? __pfx_schedule_timeout+0x10/0x10
+   ? __pfx___wait_for_common+0x10/0x10
+   __ib_drain_sq+0x251/0x340
+   ? __pfx___ib_drain_sq+0x10/0x10
+   ? __pfx_ib_drain_qp_done+0x10/0x10
+   ? irq_work_queue+0x1c/0xb0
+   ? __pfx__printk+0x10/0x10
+   ? __pfx_process_timeout+0x10/0x10
+   ib_drain_sq+0x146/0x1a0
+   ib_drain_qp+0xd/0x50
+   isert_disconnected_handler.isra.0+0xc4/0x3f0
+   isert_cma_handler+0xd74/0x27d0
+   ? kasan_save_stack+0x42/0x60
+   ? kasan_save_stack+0x33/0x60
+   ? kasan_save_track+0x14/0x30
+   ? kasan_save_free_info+0x3b/0x60
+   ? __kasan_slab_free+0x43/0x70
+   ? kfree+0x121/0x390
+   ? cm_process_work+0x8b/0x330
+   ? __pfx_isert_cma_handler+0x10/0x10
+   ? kthread+0x2c8/0x3b0
+   ? ret_from_fork+0x36e/0x5a0
+   ? ret_from_fork_asm+0x1a/0x30
+   ? _raw_spin_lock_irqsave+0x86/0xe0
+   cma_cm_event_handler+0x3e/0x240
+   cma_ib_handler+0x190/0x750
+   ? __pfx_cma_ib_handler+0x10/0x10
+   cm_process_work+0x41/0x330
+   cm_work_handler+0x582b/0xc160
+   ? _raw_spin_lock_irqsave+0x86/0xe0
+   ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+   ? hrtimer_start_range_ns+0xa6/0x2c0
+   ? __pfx_cm_work_handler+0x10/0x10
+   ? finish_task_switch.isra.0+0x1d9/0xa70
+   process_one_work+0x697/0x1060
+   ? __pfx___schedule+0x10/0x10
+   ? __pfx_process_one_work+0x10/0x10
+   ? _raw_spin_lock_irq+0x81/0xe0
+   ? __pfx_cm_work_handler+0x10/0x10
+   ? assign_work+0x11d/0x370
+   worker_thread+0x45b/0xd10
+   ? __pfx_worker_thread+0x10/0x10
+   ? __pfx_worker_thread+0x10/0x10
+   kthread+0x2c8/0x3b0
+   ? recalc_sigpending+0x15c/0x1e0
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork+0x36e/0x5a0
+   ? __pfx_ret_from_fork+0x10/0x10
+   ? __switch_to+0x572/0xdc0
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork_asm+0x1a/0x30
+   </TASK>
 
-and with the patch it would run:
+Fixes: 6d1fba0c2cc7 ("iser-target: Rework connection termination")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+ drivers/infiniband/ulp/isert/ib_isert.c | 75 ++++++++++++-------------
+ 1 file changed, 36 insertions(+), 39 deletions(-)
 
-    rproc_reset_rsc_table_on_detach():
-      restore the pristine resource table in remote memory
-    stm32_rproc_detach():
-      mbox_send_message(STM32_MBX_DETACH, "stop")
-      stm32_rproc_set_holdboot(false)         -> the core keeps running,
-                                                 auto-reboot allowed
+diff --git a/drivers/infiniband/ulp/isert/ib_isert.c b/drivers/infiniband/ulp/isert/ib_isert.c
+index ef2edaa3218fee..61b214012a70b0 100644
+--- a/drivers/infiniband/ulp/isert/ib_isert.c
++++ b/drivers/infiniband/ulp/isert/ib_isert.c
+@@ -556,43 +556,21 @@ isert_put_conn(struct isert_conn *isert_conn)
+ 	kref_put(&isert_conn->kref, isert_release_kref);
+ }
+ 
+-static void
+-isert_handle_unbound_conn(struct isert_conn *isert_conn)
+-{
+-	struct isert_np *isert_np = isert_conn->cm_id->context;
+-
+-	mutex_lock(&isert_np->mutex);
+-	if (!list_empty(&isert_conn->node)) {
+-		/*
+-		 * This means iscsi doesn't know this connection
+-		 * so schedule a cleanup ourselves
+-		 */
+-		list_del_init(&isert_conn->node);
+-		isert_put_conn(isert_conn);
+-		queue_work(isert_release_wq, &isert_conn->release_work);
+-	}
+-	mutex_unlock(&isert_np->mutex);
+-}
+-
+ /**
+  * isert_conn_terminate() - Initiate connection termination
+  * @isert_conn: isert connection struct
+  *
+- * Notes:
+- * In case the connection state is BOUND, move state
+- * to TEMINATING and start teardown sequence (rdma_disconnect).
+- * In case the connection state is UP, complete flush as well.
+- *
+- * This routine must be called with mutex held. Thus it is
+- * safe to call multiple times.
++ * Return: true if this caller moved the connection to ISER_CONN_TERMINATING.
+  */
+-static void
++static bool
+ isert_conn_terminate(struct isert_conn *isert_conn)
+ {
+ 	int err;
+ 
++	lockdep_assert_held(&isert_conn->mutex);
++
+ 	if (isert_conn->state >= ISER_CONN_TERMINATING)
+-		return;
++		return false;
+ 
+ 	isert_info("Terminating conn %p state %d\n",
+ 		   isert_conn, isert_conn->state);
+@@ -601,6 +579,8 @@ isert_conn_terminate(struct isert_conn *isert_conn)
+ 	if (err)
+ 		isert_warn("Failed rdma_disconnect isert_conn %p\n",
+ 			   isert_conn);
++
++	return true;
+ }
+ 
+ static int
+@@ -635,26 +615,44 @@ isert_disconnected_handler(struct rdma_cm_id *cma_id,
+ 			   enum rdma_cm_event_type event)
+ {
+ 	struct isert_conn *isert_conn = cma_id->qp->qp_context;
++	struct isert_np *isert_np = cma_id->context;
++	bool owned = false, bound = false, terminated = false;
+ 
+ 	mutex_lock(&isert_conn->mutex);
+ 	switch (isert_conn->state) {
+-	case ISER_CONN_TERMINATING:
+-		break;
+ 	case ISER_CONN_UP:
+-		isert_conn_terminate(isert_conn);
+-		ib_drain_qp(isert_conn->qp);
+-		isert_handle_unbound_conn(isert_conn);
++		mutex_lock(&isert_np->mutex);
++		if (list_empty(&isert_conn->node)) {
++			bound = isert_conn->state == ISER_CONN_BOUND ||
++				isert_conn->state == ISER_CONN_FULL_FEATURE;
++		} else {
++			owned = true;
++			list_del_init(&isert_conn->node);
++		}
++		mutex_unlock(&isert_np->mutex);
+ 		break;
+ 	case ISER_CONN_BOUND:
+ 	case ISER_CONN_FULL_FEATURE: /* FALLTHRU */
+-		iscsit_cause_connection_reinstatement(isert_conn->conn, 0);
++		bound = true;
+ 		break;
+ 	default:
+-		isert_warn("conn %p terminating in state %d\n",
+-			   isert_conn, isert_conn->state);
++		break;
+ 	}
++
++	if (owned)
++		terminated = isert_conn_terminate(isert_conn);
++	else if (bound)
++		iscsit_cause_connection_reinstatement(isert_conn->conn, 0);
+ 	mutex_unlock(&isert_conn->mutex);
+ 
++	if (!owned)
++		return 0;
++
++	if (terminated)
++		ib_drain_qp(isert_conn->qp);
++	isert_put_conn(isert_conn);
++	queue_work(isert_release_wq, &isert_conn->release_work);
++
+ 	return 0;
+ }
+ 
+@@ -665,8 +663,6 @@ isert_connect_error(struct rdma_cm_id *cma_id)
+ 	struct isert_np *isert_np = cma_id->context;
+ 	bool owned;
+ 
+-	ib_drain_qp(isert_conn->qp);
+-
+ 	mutex_lock(&isert_np->mutex);
+ 	owned = !list_empty(&isert_conn->node);
+ 	list_del_init(&isert_conn->node);
+@@ -677,6 +673,7 @@ isert_connect_error(struct rdma_cm_id *cma_id)
+ 		return 0;
+ 	}
+ 
++	ib_drain_qp(isert_conn->qp);
+ 	isert_conn->cm_id = NULL;
+ 	isert_put_conn(isert_conn);
+ 
+@@ -2479,11 +2476,10 @@ isert_accept_np(struct iscsi_np *np, struct iscsit_conn *conn)
+ 	isert_conn = list_first_entry(&isert_np->pending,
+ 			struct isert_conn, node);
+ 	list_del_init(&isert_conn->node);
+-	mutex_unlock(&isert_np->mutex);
+-
+ 	conn->context = isert_conn;
+ 	isert_conn->conn = conn;
+ 	isert_conn->state = ISER_CONN_BOUND;
++	mutex_unlock(&isert_np->mutex);
+ 
+ 	isert_set_conn_info(np, conn, isert_conn);
+ 
+@@ -2547,6 +2543,7 @@ isert_free_np(struct iscsi_np *np)
+ 
+ 		isert_info("cleaning isert_conn %p state (%d)\n",
+ 			   isert_conn, isert_conn->state);
++		ib_drain_qp(isert_conn->qp);
+ 		if (promoted)
+ 			isert_put_conn(isert_conn);
+ 		isert_put_conn(isert_conn);
+-- 
+2.43.0
 
-with the rproc left in RPROC_DETACHED, so the next rproc_boot() attaches
-again instead of reloading firmware.
-
-I have two things that can't verify from here:
-
-- whether the firmware copes with the detach notification at a point
-  where the virtio devices were only half-registered, and 
-- whether releasing holdboot, allowing the remote to auto-reboot, is the
-  desired outcome of a failed attach on STM32.
-
-For reference, the sequence was exercised on an Allwinner T153 with an
-E907 core: a failed attach unwinds through detach(), the processor is
-re-attached and rpmsg traffic resumes.
-
-The other .detach implementations in tree (ti_k3 dsp/m4, xlnx_r5,
-imx_rproc) are no-ops or plain dispatchers, which is why the question is
-really about STM32's holdboot/mailbox semantics.
-
-Thanks,
-Yonghao
-
-> 
-> On Tue, Sep 29, 2026 at 03:54:52PM +0800, Yonghao Zhang wrote:
-> > When the subdevice registration that follows ops->attach() fails,
-> > __rproc_attach() rolls back with an unconditional ops->stop() call.
-> > That is wrong on three counts.
-> >
-> 
-> It isn't wrong, simply implemented during a time where any kind of fault in the
-> attach()/detach() scenario called for a stop().  I would certainly appreciate a
-> less reproachful tone.
-> 
->  
-> > An attach-only implementation, one without stop() such as
-> > commit 1168af40b1ad ("remoteproc: k3-r5: Add support for IPC-only
-> > mode for all R5Fs"), dereferences NULL right there.  A processor that
-> > is being attached to was started by another entity and is not ours to
-> > power off: detach() is the matching undo of attach(), and stop()
-> > should only be used as a last resort, when there is no detach() or
-> > it fails.  This is reachable today: when the re-attach of an
-> > RPROC_FEAT_ATTACH_ON_RECOVERY processor fails (imx_rproc and
-> > xlnx_r5 use the feature), the unwind stops a processor which,
-> > per the feature's own contract, "does not need help from Linux to
-> > recover... Linux just needs to attach".  And the unwind leaves
-> > the accounting inconsistent -- no resource table bookkeeping
-> > is done, unlike on the rproc_stop() and __rproc_detach() paths,
-> > and a processor powered off through the fallback keeps its
-> > RPROC_DETACHED state, so the next rproc_boot() tries to attach to a
-> > core that is no longer running.
-> > 
-> 
-> Remove the above paragraph.
-> 
-> > Roll the attach back with detach() first, along with the same
-> > rproc_reset_rsc_table_on_detach() bookkeeping __rproc_detach() does,
-> > and fall back to stop() only when detach() is unavailable or failed.
-> > A failed resource table reset does not abort the unwind: this is an
-> > error path, and detaching from the remote processor, or powering it
-> > off as the last resort, takes precedence over the bookkeeping.  A
-> > successful fallback moves the processor to RPROC_OFFLINE so the next
-> > boot reloads firmware instead of attaching to a dead core;
-> > implementations with neither handler keep the processor running and
-> > untouched, which is all an attach-only core needs.  The rollback is
-> > factored into rproc_unwind_attach().
-> > 
-> > The unwind runs the same resource table resets as the detach and
-> > stop paths, which free clean_table and leave a cached copy of the
-> > installed table in rproc->cached_table.  Make rproc_attach()'s error
-> > cleanup, which runs right after, null clean_table after freeing it
-> > and release that copy along with table_ptr, or a failed attach
-> > double-frees clean_table and leaks the copy.
-> > 
-> > Fixes: d848a4819d85 ("remoteproc: Introducing function rproc_attach()")
-> > Signed-off-by: Yonghao Zhang <hyz3367@gmail.com>
-> > ---
-> >  drivers/remoteproc/remoteproc_core.c | 65 ++++++++++++++++++++++++++--
-> >  1 file changed, 62 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-> > index 19e0ea3e7240..c52212a1d180 100644
-> > --- a/drivers/remoteproc/remoteproc_core.c
-> > +++ b/drivers/remoteproc/remoteproc_core.c
-> > @@ -1348,6 +1348,59 @@ static int rproc_start(struct rproc *rproc, const struct firmware *fw)
-> >  	return ret;
-> >  }
-> >  
-> > +static int rproc_reset_rsc_table_on_detach(struct rproc *rproc);
-> > +static int rproc_reset_rsc_table_on_stop(struct rproc *rproc);
-> > +
-> > +/*
-> > + * Undo an attach whose subdevice registration failed.  The remote
-> > + * processor was started by another entity and is not ours to power
-> > + * off, so roll back with detach() when available and fall back to
-> > + * stop() when there is no detach() or when it failed.  stop() is
-> > + * the only rollback that does not rely on the remote side.  A
-> > + * processor powered off through the fallback is marked RPROC_OFFLINE,
-> > + * so the next boot reloads firmware instead of attaching to a dead
-> > + * core; with neither handler there is nothing to roll back with and
-> > + * the processor is left running.
-> > + *
-> > + * The resource table resets are best-effort: when one fails, the
-> > + * unwind carries on with detach()/stop() anyway.  Unlike
-> > + * __rproc_detach() and rproc_stop(), which bail out before touching
-> > + * the processor when their reset fails, this is already an error
-> > + * path, and detaching the remote processor -- or, failing that,
-> > + * powering it off -- is the minimum it must still deliver.
-> > + */
-> > +static void rproc_unwind_attach(struct rproc *rproc)
-> > +{
-> > +	struct device *dev = &rproc->dev;
-> > +	int ret;
-> > +
-> > +	if (rproc->ops->detach) {
-> > +		ret = rproc_reset_rsc_table_on_detach(rproc);
-> > +		if (ret)
-> > +			dev_err(dev, "can't reset rsc table on detach: %d\n",
-> > +				ret);
-> > +
-> > +		ret = rproc->ops->detach(rproc);
-> > +		if (!ret)
-> > +			return;
-> > +
-> > +		dev_err(dev, "can't detach from rproc %s: %d\n",
-> > +			rproc->name, ret);
-> > +	}
-> > +
-> > +	if (rproc->ops->stop) {
-> > +		ret = rproc_reset_rsc_table_on_stop(rproc);
-> > +		if (ret)
-> > +			dev_err(dev, "can't reset rsc table on stop: %d\n",
-> > +				ret);
-> > +
-> > +		if (rproc->ops->stop(rproc))
-> > +			dev_err(dev, "can't stop rproc %s\n", rproc->name);
-> > +		else
-> > +			rproc->state = RPROC_OFFLINE;
-> > +	}
-> > +}
-> 
-> 
-> Please remove all the dev_err() above.  An error messages are already generate
-> in __rproc_attach() when something goes wrong.
-> 
-> > +
-> >  static int __rproc_attach(struct rproc *rproc)
-> >  {
-> >  	struct device *dev = &rproc->dev;
-> > @@ -1373,7 +1426,7 @@ static int __rproc_attach(struct rproc *rproc)
-> >  	if (ret) {
-> >  		dev_err(dev, "failed to probe subdevices for %s: %d\n",
-> >  			rproc->name, ret);
-> > -		goto stop_rproc;
-> > +		goto unwind_attach;
-> >  	}
-> >  
-> >  	rproc->state = RPROC_ATTACHED;
-> > @@ -1382,8 +1435,8 @@ static int __rproc_attach(struct rproc *rproc)
-> >  
-> >  	return 0;
-> >  
-> > -stop_rproc:
-> > -	rproc->ops->stop(rproc);
-> > +unwind_attach:
-> > +	rproc_unwind_attach(rproc);
-> >  unprepare_subdevices:
-> >  	rproc_unprepare_subdevices(rproc);
-> >  out:
-> > @@ -1562,6 +1615,7 @@ static int rproc_reset_rsc_table_on_detach(struct rproc *rproc)
-> >  	 * rproc_set_rsc_table().
-> >  	 */
-> >  	kfree(rproc->clean_table);
-> > +	rproc->clean_table = NULL;
-> 
-> This change is not needed.
-> 
-> >  
-> >  	return 0;
-> >  }
-> > @@ -1597,6 +1651,7 @@ static int rproc_reset_rsc_table_on_stop(struct rproc *rproc)
-> >  	 * won't be needed.  Allocated in rproc_set_rsc_table().
-> >  	 */
-> >  	kfree(rproc->clean_table);
-> > +	rproc->clean_table = NULL;
-> 
-> 
-> This change is not needed.
-> 
-> >  
-> >  out:
-> >  	/*
-> > @@ -1675,6 +1730,10 @@ static int rproc_attach(struct rproc *rproc)
-> >  	/* release HW resources if needed */
-> >  	rproc_unprepare_device(rproc);
-> >  	kfree(rproc->clean_table);
-> > +	rproc->clean_table = NULL;
-> > +	kfree(rproc->cached_table);
-> > +	rproc->cached_table = NULL;
-> > +	rproc->table_ptr = NULL;
-> 
-> ->table_ptr doesn't need to be set to NULL.
-> 
-> Thanks,
-> Mathieu
-> 
-> >  disable_iommu:
-> >  	rproc_disable_iommu(rproc);
-> >  	return ret;
-> > -- 
-> > 2.34.1
-> > 
