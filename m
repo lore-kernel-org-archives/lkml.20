@@ -1,89 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793828045;
-	b=oNs++X7rpjqDPv55zzXB9wp+COlkMfl8zvVm6wLtDbnF0XYKKReowjyeIP25H2L39rJV
-	 rTdHtlL+O1Lz8wPHCCAf9q/TcBmBeVS/oBpTKQPHFfEKuEGYCMcWrnlJY9lY1th32pxnI
-	 vGEPmx64y9MCXoHY5XgbcpeNyxpGsYbSWRWp82CYooA7IGpANdXPylDkZmD5wCdtMBlu0
-	 XqxUKVwwSiYzptjsFwK/OScnVns4FjxfH131IFikHHBjSOEGASxT9q4A7LkymlGn/L2jo
-	 /S5kuRazVmG98dOxLWc7rY2sXBPryy9L206BkhXsVMmipkEGr6NgPrIt+TSemG56D0w==
+	t=1793828053;
+	b=GcfdflqI+98i6Sgy6MrSCMp2s3+9bZNn9t4JKjErh5HeAicg3bqYqsh6634VRa9tTuX1
+	 vj872Qz88rJvTvGWwAkfoHta0TLc+KiXhMs65qtRegUN6HgDi/07vrBdxa6pe28VoxsCN
+	 k/s91Sdf4DYtGFImfBeLOe1S4Ejko/39BwOf7J5osWoOEqdAzoCtNE2urbSePUunVvGIR
+	 drugCYLPfYcnrI0nCiQImgI+uSKV6GPAIoa94IbqG+mp2qaWOPGbNROCYIAUvH0caalbG
+	 9nNZVgcPiR0qXLUq9IP0W22Ky0ezRLF8y1zsdLWh5yyLA7PjD7DvWAL628JhzpbR3kA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793828045;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=9nKvJbaUcji5RiFFkvoszphTBDYEbMKLXoOUcUhjA9Y=;
-	b=bjQICjKS5FnXTFPUFmeZLuNVZag3Pijcv8E/OYuOSvSV+xb+gJBUn34Azy/yP7D/uRou
-	 Zt6aEE0zckN2C0dv1WTTWPv+v0hAiF5z6O3biXh2ZXWgdHGWp5Fi53AbwhkjFH+QmOlEs
-	 7GV3978d7h85Hc0nrwkjQ4p2+OUU6wEzvBK3mrjjVl8NI8M7eqcLCo/JlFE4YEMKuHLs9
-	 aqQ1E3ip45EgK0qbfXuxpqSHfXZetPzk41f/pxp6sGY1iHJypyoMPe5w3Hc9pxUuPWRIE
-	 /7yVl6VdjyuZTMclTDwUPRwGZgiM7pYQnM0u5VH0PdgnC9lpGrwrRnSU1OcRlhXVOHg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793828053;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=FH6Ed6uXwagBrJj5nKpBfnX8VXTtOJ7yhG1753pBTbo=;
+	b=4Ju4zGovqNIt7Q1PFAu88dzRwVoSReROyj5c+h18R3j4xA3MZwkxoIpnx/5cN35Wcc6c
+	 LdCky9F64zWCZHPC5rPcKwI9QOGumIUVH7g8YhlUnb1CSJfvF7JU/fH1cKVJe4g5Emlea
+	 66hkBgRcCwxaMYpQd2mjpezYOoAk4IdMkBdqbOo2gr1dUbdmT1H+WZmPeVCYFAFDrjs52
+	 5xV81gCMN8egsqyk7oYCq2AnzxXjeNxF+dgr4+6O6Vsn2Yq4tStCi7CubiIoWgYit++Y+
+	 MErKKM7zVmP/VaRAtlxovCUn+LbCjNCKp5ChbGlSE4WgswECDQDrueklNn6yD5ERxww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="El/1Rl9a";
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=ZHRNeaU5;
+	arc=none smtp.remote-ip=199.89.1.16
+Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C882606BA35;
-	Wed,  4 Nov 2026 21:34:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C882606BA35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9AE6606D15D;
+	Wed,  4 Nov 2026 21:34:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9AE6606D15D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=El/1Rl9a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793828044; x=1825364044;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=dSHD22sqoPeJn+6jn0TgmhqlpAHpJfnJ/nqGrnYSGlk=;
-  b=El/1Rl9a2hDoOzX1KY/EmvJKihDFF3W8O6fWO/I0jMFR8YAcjrvzFNYN
-   L2So0F6xSefrZQXMCfEyAWBZWosqwkhOZFtBf3BUVNEPETRLbNb+wMbjM
-   qletnCiq4BvTGah6PTzEYf/b64ShjpEDrqhYwhadLl89eTJDIEO3em+yI
-   L1NGV8jGX8nceTRcZStwAs2Ao3NIAGlISFH5KbfEknR9wZPQVBKbt3pZH
-   9PY+AAwCnZQNvLnsX0h5K626KAi82vAYjaaHOrW1l/BG9HLaLT2sGzaMu
-   9+A3MymaqZH+ezpQELVH5zikAqJy06ryGHRiXkjFgZXQYcUxwTdaF75xO
-   Q==;
-X-CSE-ConnectionGUID: cMaTYde5SL+vi4ZDRXWtCg==
-X-CSE-MsgGUID: tPDOqx38Th6lkhncZTTQiQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2605453"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2605453"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 13:34:03 -0800
-X-CSE-ConnectionGUID: KwuCGyO9ScCeYbqAy0WSvA==
-X-CSE-MsgGUID: d1PmHtYQSVS2sjsse1bh1w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="8605631"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 13:33:59 -0800
-Date: Wed, 4 Nov 2026 23:33:56 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
-	Len Brown <lenb@kernel.org>, Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 9/9] gpio: shared: generalize most code to firmware nodes
-Message-ID: <auukxCs4Be4idQPj@ashevche-desk.local>
-References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
- <20261104-fwnode-for-each-prop-v1-9-6e28fe1c72c4@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=ZHRNeaU5
+Received: from localhost (localhost [127.0.0.1])
+	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jKdxJ14hYzlfvqH;
+	Wed,  4 Nov 2026 21:34:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1793828050; x=1796420051; bh=FH6Ed6uXwagBrJj5nKpBfnX8
+	VXTtOJ7yhG1753pBTbo=; b=ZHRNeaU5FGdEbIAgkUhj72kvt2ThOfqxCvCCFdvA
+	1kUjUJY4N0XzvyV9pAkHy5qCTSu2onu05kmGX+IURsIvq3zQ3ezCBq2kH7xl+IaG
+	sigyMKnlxjbNPh92Xjf6JSbwQZZDfdhF3cVn0/OU/28JJowjj0NaMn5P406WZZni
+	uqz/n+FYALAXT7swAP53hoaNFHZGA5oI+T1jucwPPndo19hJHQBxOmPJ0IAuADS0
+	j0yGBiAjH3vRamJ3dK8GDg1FqXmggQXGgjSV6rNv66lQCqsKa9omYuNPCi52qVdS
+	Ffnt145jE/JVbSkL7BTn7CkLvOVHHQlIwrGxTYB4j8Tuow==
+X-Virus-Scanned: by MailRoute
+Received: from 013.lax.mailroute.net ([127.0.0.1])
+ by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id u-4KdqZzh3jD; Wed,  4 Nov 2026 21:34:10 +0000 (UTC)
+Received: from [IPV6:2a00:79e0:2ed2:d:3e34:690f:8410:3e04] (unknown [104.135.182.40])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jKdxF6GYkzlfvq9;
+	Wed,  4 Nov 2026 21:34:09 +0000 (UTC)
+Message-ID: <d6b1da22-2a18-4966-83df-86cb9031fdde@acm.org>
+Date: Wed, 4 Nov 2026 13:34:08 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,41 +70,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104-fwnode-for-each-prop-v1-9-6e28fe1c72c4@oss.qualcomm.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/2] ufs: mcq: poll OCS after sq cleanup for device
+ management commands
+To: Bean Huo <beanhuo@iokpp.de>, Kiwoong Kim <kwmad.kim@samsung.com>,
+ linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+ alim.akhtar@samsung.com, jejb@linux.ibm.com, martin.petersen@oracle.com,
+ kwangwon.min@samsung.com, hy50.seo@samsung.com, cpgs@samsung.com,
+ h10.kim@samsung.com
+Cc: stable@vger.kernel.org, stanleyjhu@google.com
+References: <20261104094914.180788-1-kwmad.kim@samsung.com>
+ <CGME20261104094925epcas2p1f25905de00c2548e1e1349fba5f18551@epcas2p1.samsung.com>
+ <20261104094914.180788-3-kwmad.kim@samsung.com>
+ <41f787035d4a5d68b403bb0f443fe6ab533ff1ca.camel@iokpp.de>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <41f787035d4a5d68b403bb0f443fe6ab533ff1ca.camel@iokpp.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 04, 2026 at 03:03:51PM +0100, Bartosz Golaszewski wrote:
-> Ahead of adding support for sharing of GPIOs for other types of firmware
-> nodes, convert as much code in gpiolib-shared.c as possible to using
-> fwnode APIs and guard the remaining OF-specific bits with CONFIG_OF
-> guards.
+On 11/4/26 12:17 PM, Bean Huo wrote:
+> READ_ONCE() is enough to read OCS, but the lock also is to make sure
+> ufshcd_compl_one_cqe() has finished?  the window is very small, and the lock
+> only costs something on this error handling path.
 
-...
+I overlooked that lrbp->utr_descriptor_ptr->header.ocs is what is being
+polled instead of the OCS field in the CQE. Kiwoong, can you please
+restore the code that obtains hwq->cq_lock?
 
->  #include <linux/string.h>
-> +#include <linux/string_helpers.h>
+Thanks,
 
-As commented before...
-
-...
-
->  static LIST_HEAD(gpio_shared_list);
->  static DEFINE_IDA(gpio_shared_ida);
->  
-> -#if IS_ENABLED(CONFIG_OF)
-> +
-
-Do we need an extra blank line?
-
->  static struct gpio_shared_entry *
->  gpio_shared_find_entry(struct fwnode_handle *controller_node,
->  		       unsigned int offset)
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Bart.
