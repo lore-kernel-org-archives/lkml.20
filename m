@@ -1,54 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793801615;
-	b=ryygX25JOdJQ9l2/Liz5t1QvxaCsD3YJ1D+QIn0Li6JgwgNKmM2ve4QNm6EqB6C+lu5m
-	 WN5b6XOTXugRVzdml/EUQsZw9eJCdAfezFUKgT9cU9krG7l8BbeCR3Jl7hfErzdHaIGpp
-	 C87/12BW8zn2ehyzjnYl8W/AUdYP2mK03UOzQXW5ImvgAIg0LxBy4xTtG3umkfKUNGoZZ
-	 oHe+bFHnZLlPY4NXw0nhcFqiW0jWCr3Dcz5iPP0HHCUypkPfqId1J9S7Ujq75WXS7fIFl
-	 GPPl1itWMQUQoKN1gidT3lp8sO6Fx/lngarcEsxNAF0MEANZpAkm64C0VTTCt0SRLvA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801615;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=mt9uukvO/9C1HAHMlfgdaKRlWs1vCFtkTulFeEpmqg0=;
-	b=3T+iFp72jfHai2PxxFaJcCLnLdf7oX69sq/lvED2ycZXuAYqtGLIF4oTCGRRB77V0yR3
-	 NRyKAZQS1Uiy2G7hbVo0MpgeSuQoCR9S71sev6/sigp1pi6GssL/OG4jsCfWINEjrqikm
-	 OakTYV1NX6QFt4BlwdYhqVHCPa2lDYlHv+vu6oWNvCIH/JM+AGxmN9/a8bMTjNK1d8Fjw
-	 ZdS+6O/S6mVgWai4cegJ9yYVcLckRMtjKuzk6Vzcne3Gyy6hAPwG1KjroeQ9lMUpcZkjf
-	 /hUJfqHcUWMgLQ7RT4vFx+K1y1OmgFq+6tO/bGx2wEW7b8ZmxvuRbxNzbJJfcgd1Org==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=jwpI9Mll;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793801626;
+	b=Tl38m7GCOuZiE9k6/VGEcjeG/2GkC9BudsCi++8h3wGRMNM3NNEB5fPkzr8dEVZfLPlD
+	 bPZTV7VHzcqqPyjBVJD+0dLr8WuP2LOYk137uG1NhvWEMNgzG70+LIkbbRn75XSKtsGxq
+	 ypHHJbIUyYQtntbh9AHXVnEvg03gPBCc+GRmdyCuCXoDc3SDuJ8fCh0myxBAntw8f7LO6
+	 T95rZLwRgSTaBRGo73Uev66YE6bMxphM3KgG/7Ej5XNv9pqY5YF2kgxnqYt+UkPihSZSC
+	 sGjCWpivjB0aVxE2h+wX9ptPCErkDnnv67ZzJuXoCBfcuTmo4BXbxwmwm1DmVqo214g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801626;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=C39tlu6xlshMWq2hwsMtOj8GLZZ3XOveWxHL0ZGLUl8=;
+	b=atx7/KO+pbt1VdQ9VgaGcjmbLc3QAu/PkSHwl4u2XR6A0DabVJWMphXNeN9qhKcfF6yT
+	 GG+0P79x5mJKFHkApDcDVFMxM9OxueJEopn4dWSNMtFoFnN89V0EfjXDuaymNQeB5DsqB
+	 72i8kvNyHfbu7mjqA5SGwrlD6FT77Ye2Oglq4D+h4ODrmtPjCT71zfptOUxTVM+xTY7JM
+	 VpS1gyyhBH4ehjobpQvDNosR176Q4SPiVlZbYCbReCLkM79kZ2vZneLiyWp6/VJHDHZaz
+	 Vj2m6RjIoqkHIOjqQXx7UZeWFg69J0iz62boG3aMFkdXEFDJ/kvVBu4Ky8BQwd2X+MQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Evfek09f;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=mmqt+Q1j;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4FA4606D807;
-	Wed,  4 Nov 2026 14:13:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4FA4606D807
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FE97606EE93
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:13:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FE97606EE93
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=jwpI9Mll
-ARC-Seal: i=1; a=rsa-sha256; t=1793801575; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=YH/9Mw5RpS3ux1AdkRwrWuP+fPo3YP+1F7eZNKm3ejoF0qGUubnrwMG8wRpYMVP0YAmYz0rUUKE5hT8epvhQABEMrQUHXpSFeh2XOyxLKfxuD8TfK7U+hnVNG2i0ztMoTe+iwWbzqvmDfA7Nd4u4e8/SjlevhgRz8wPgSfws4MI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793801575; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=mt9uukvO/9C1HAHMlfgdaKRlWs1vCFtkTulFeEpmqg0=; 
-	b=gDH7YEnRiFWKQcsw5PX8TD/aYxF4SgPzigwXbPJN2QHJkeA1hLkzBtAanJxfdbhr6dbuSjg71uGuNwg+j8mHZn/uzMzpJzKHdDh1BozC7diAAzfMJdJBrBF/npMK6j79f5jV5QuE/CG5RMFCsLfEo7H8/ig9Lw1sExgoFMCHpp0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=jwpI9MllYCVdkFmYSYcOpG2xbiIWM1FqKRM2wkx50QqhghjmlBDCDfwn+FtKnqsfiaEalmnJ1AymNXpaWX7cyyrbwU0Fpy7MI3tN39k2OoTpvfoXZVC8QUKbDzwHU8VXVUzA9e0JlzPCSMXyb641ONrU4q2/1sZEls72M8FKHlA=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=mt9uukvO/9C1HAHMlfgdaKRlWs1vCFtkTulFeEpmqg0=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793801572872552.3022511319283;
-	Wed, 4 Nov 2026 06:12:52 -0800 (PST)
-Message-ID: <6b6a5799-b7d6-4351-9e76-1d8bc7fa2689@collabora.com>
-Date: Wed, 4 Nov 2026 17:12:49 +0300
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Evfek09f;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=mmqt+Q1j
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793801619;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=C39tlu6xlshMWq2hwsMtOj8GLZZ3XOveWxHL0ZGLUl8=;
+	b=Evfek09fxHUgg+q/tq4fvPAzJbHTYMQzd/yTceZKyIUBs0IljbGCq26EijJ4nCMUFe9Hc0
+	PaD8M9BQs4jFqElqKWuCwwN79TekM183O0cMpZUU4djmxXz2izt+CZrx4TNwPTDZjx9Vrq
+	6dFbKyDbYBJ9bmYM5tce8wgGIgqhups=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-386-JFd2Q905PkSxNdC-gfLRvw-1; Wed, 04 Nov 2026 09:13:38 -0500
+X-MC-Unique: JFd2Q905PkSxNdC-gfLRvw-1
+X-Mimecast-MFC-AGG-ID: JFd2Q905PkSxNdC-gfLRvw_1793801617
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-4902ce85f72so638562f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:13:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793801617; x=1794406417; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C39tlu6xlshMWq2hwsMtOj8GLZZ3XOveWxHL0ZGLUl8=;
+        b=mmqt+Q1jLBJ5qfdX9Trw0Nt9nJEV2+9qd3k9y4/cbx+4mJlCsizDVidStqFpBHHdmv
+         ZOhfM1LLFqA+wFzCyrlsE4MdyHYwBVVLrXrxbtOm28xzqn+oe/G3gytRxO6ql8cGL68m
+         lvKUBEHIyO8vhWQjF/cnG2ChO4jATV0cLpbF5Gu33rwi1Fo8B/O+RaNXru+YJm6fkgcm
+         WYqG0RGbNz4VoszIVQKkZA9RMejtfLHb8Y7EBEApw2eC5ZTuId8BO/JwKD8dy5NO+7OV
+         3QdMSwAb6ZEkxZd4+BNcg+llu4p+hVBSfT+V1xUJydBLPOblgixaVyyvCPbLKSUSE+8V
+         zesg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793801617; x=1794406417;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=C39tlu6xlshMWq2hwsMtOj8GLZZ3XOveWxHL0ZGLUl8=;
+        b=zK2U0ZPc9EZcsbcPdWomdUDoJ+VW4BkialWGXnzTj3VB16aYBazG6zQbl7ATZG+0I4
+         PyYurV6g1B2GjBWhUk3hE+wezzVmsFNZ8p9LZWcY67t846UWiYT345IhkwF96gan8B3N
+         LI0FjZKKDpRnSSu6Thp2YMJ7DMrfI45K28PuijpM0xJsGv9ce5sin0m7iqKp2INFbMgy
+         P9GIMWziFOmtQmiKo1oSmvv6BRbohZXKG1c0DPMISh9F6v5jo0/2j3cRuZL76QfltvRk
+         lOSqsah/lK5cpxhWviYdsuUR74sH2Njdq+yZEtP1rW2vMurM4UPBLvKZFHgecUt0T8FC
+         0TNg==
+X-Forwarded-Encrypted: i=1; AKwUvBxnKwdL+owl4jxSExo0WRScfmLRNI1+J86Q12Q7gis8xmO7C2p4/Y9LWR5jFbccZcB3AqGwlAlKy/RlaJg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+6zJ6RZdDoFugg2ig0nzh5VDTyxy2AucICeV3MgvfVLZGJWfQe
+	beKRFsS5MozaWGay2rJFR8PQKATE8BeSjgq+3o3mydXx8W5+VZgyidL4yRpy4BzIp2r6LywxOGP
+	X3EZ+2XQM1tftq2HdXGUlPXmln/+D7nAIpv+CQuLrZ8xLjKUAWwE9QcT4dXS385bwsA==
+X-Gm-Gg: AYBFou2U4F41Bo6xZVeUwDyu8gNGWJBSPqa3yxAEcNmiMKEMQDgGup8bv5t03hu9vdE
+	uA2ng2fG6UmJxZ+1sfotRSoknlptIO1/VtuI+pyXSqwaU3aGiQ3Rzu2oulAlTGDROeTE4igbRnz
+	a5q11ZehT/nEgfqB4ANlZkCagmrBvmMAs+HPFEoYHNafdjAXyGAGPW7LUhXw8qsStkB3dhK3Fou
+	3efFSdC6vlZrW/aSgzA5rkhB/DF0aMVR8ka4Dnh50/aYnykZ03nMxXUVgV1AfQZp8095VJmo1wL
+	PhHm/Gew0Y7ukC7v7nK0sk/J0al/OqQ48V86fYQB2UQq8VSjI2o0ZK2ilz9r3R6ooHEE/5PPtpT
+	ZUnJFsGX1nVNfOOrz64hNgtd6Od1E7WKJknZbAKIc7fbflGsj3kJrG02QmO4U7qx59JrFsPzAvm
+	1AIZbWMFKQtOVMcL9cIHIwQCMkZhSWfolEO9ysvUJD67c=
+X-Received: by 2002:a05:6000:2313:b0:488:7d08:edbc with SMTP id ffacd0b85a97d-48e6e30ba6fmr37096687f8f.24.1793801616573;
+        Wed, 04 Nov 2026 06:13:36 -0800 (PST)
+X-Received: by 2002:a05:6000:2313:b0:488:7d08:edbc with SMTP id ffacd0b85a97d-48e6e30ba6fmr37096644f8f.24.1793801616114;
+        Wed, 04 Nov 2026 06:13:36 -0800 (PST)
+Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fe7189883sm4443181f8f.0.2026.11.04.06.13.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 06:13:35 -0800 (PST)
+Message-ID: <b5187890-a0df-45c9-aeed-3b1fefba57ab@redhat.com>
+Date: Wed, 4 Nov 2026 15:13:33 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,274 +113,118 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 10/10] media: synopsys: hdmirx: get the 5V state from
- the upstream subdev
-To: Sascha Hauer <s.hauer@pengutronix.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Dingxian Wen <shawn.wen@rock-chips.com>,
- Shreeya Patel <shreeya.patel@collabora.com>
-Cc: Gerald Loacker <gerald.loacker@wolfvision.net>,
- Lucas Sinn <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, kernel@collabora.com,
- linux-kernel@vger.kernel.org
-References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
- <20261005-hdmirx-media-v3-10-71a11a2e3e76@pengutronix.de>
+Subject: Re: [PATCH net v2] net/mlx5: macsec: free struct mlx5_fs_id after an
+ RCU grace period
+To: Tariq Toukan <tariqt@nvidia.com>, Cosmin Ratiu <cratiu@nvidia.com>,
+ "joasantonio108@gmail.com" <joasantonio108@gmail.com>,
+ Mark Bloch <mbloch@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>,
+ "leon@kernel.org" <leon@kernel.org>
+Cc: "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
+ "edumazet@kernel.org" <edumazet@kernel.org>,
+ "davem@davemloft.net" <davem@davemloft.net>,
+ "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
+ "sd@queasysnail.net" <sd@queasysnail.net>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "horms@kernel.org" <horms@kernel.org>, "kuba@kernel.org" <kuba@kernel.org>,
+ Boris Pismenny <borisp@nvidia.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>
+References: <179313582625.87630.11382992904624255106@gmail.com>
+ <e91e786d3bf20ed981ab2d214ae3358d137d597e.camel@nvidia.com>
+ <94dfe8e7-5eaf-45be-94f5-7d2e2b38fdb2@nvidia.com>
 Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20261005-hdmirx-media-v3-10-71a11a2e3e76@pengutronix.de>
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <94dfe8e7-5eaf-45be-94f5-7d2e2b38fdb2@nvidia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-On 10/5/26 16:28, Sascha Hauer wrote:
-> From: Gerald Loacker <gerald.loacker@wolfvision.net>
+On 11/4/26 13:49, Tariq Toukan wrote:
+> On 04/11/2026 13:20, Cosmin Ratiu wrote:
+>> On Tue, 2026-10-27 at 18:17 -0300, Joas Antonio dos Santos wrote:
+>>> macsec_fs_id_del() removes a struct mlx5_fs_id from its rhashtable
+>>> with
+>>> rhashtable_remove_fast() and then frees it with kfree() right away.
+>>>
+>>> The TX (SCI) table is read locklessly from the transmit path:
+>>> mlx5e_macsec_handle_tx_skb() and mlx5e_macsec_tx_build_eseg() call
+>>> mlx5_macsec_fs_get_fs_id_from_hashtable(), which does
+>>> rhashtable_lookup() under rcu_read_lock() and then reads
+>>> mlx5_fs_id->id. A transmit that looked the entry up just before it
+>>> was
+>>> removed reads freed memory.
+>>>
+>>> Before commit d4ece08f4b1d ("net/mlx5: Maintain fs_id xarray per
+>>> MACsec
+>>> device inside macsec steering") the SCI table held struct
+>>> mlx5e_macsec_sa directly, and mlx5e_macsec_del_txsa() freed it with
+>>> kfree_rcu_mightsleep(). That commit moved the table into macsec_fs.c
+>>> with the new struct mlx5_fs_id, but frees it with a plain kfree().
+>>>
+>>> Add an rcu_head to struct mlx5_fs_id and free it with kfree_rcu().
+>>>
+>>> The same issue was flagged by the Sashiko AI review as a pre-existing
+>>> problem while reviewing the HW-GRO for PSP series.
+>>>
+>>> Fixes: d4ece08f4b1d ("net/mlx5: Maintain fs_id xarray per MACsec
+>>> device inside macsec steering")
+>>> Link:
+>>> https://lore.kernel.org/all/20260909065542.4B80D1F00ACA@smtp.kernel.org/
+>>> Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+>>> Assisted-by: Yaga Agent HackerSec Claude:claude-opus-5-5
+>>> ---
+>>> v2:
+>>> - Drop the macsec.c hunk: the sc_xarray_element free was already
+>>> fixed
+>>>    by ad17ad50b8dc ("net: mlx5e: Fix use-after-free of the MACsec
+>>> xarray
+>>>    entry on RX SC deletion"). (Simon)
+>>> - Embed an rcu_head and use kfree_rcu() instead of
+>>>    kvfree_rcu_mightsleep(). (Simon)
+>>> - Fixes: now points at the commit that introduced the kfree().
+>>> - v1:
+>>> https://lore.kernel.org/all/179285888829.90275.17386097105525068016@gmail.com/
+>>>
+>>> Testing: compile-tested only (arm64, W=1, CONFIG_MLX5_MACSEC=y, no
+>>> new
+>>> warnings). I do not have
+>>> MACsec-capable ConnectX hardware, so this was not run on a device.
+>>>
+>>>   drivers/net/ethernet/mellanox/mlx5/core/lib/macsec_fs.c | 3 ++-
+>>>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/macsec_fs.c
+>>> b/drivers/net/ethernet/mellanox/mlx5/core/lib/macsec_fs.c
+>>> --- a/drivers/net/ethernet/mellanox/mlx5/core/lib/macsec_fs.c
+>>> +++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/macsec_fs.c
+>>> @@ -94,6 +94,7 @@ struct mlx5_fs_id {
+>>>       refcount_t refcnt;
+>>>       sci_t sci;
+>>>       struct rhash_head hash;
+>>> +    struct rcu_head rcu;
+>>>   };
+>>>
+>>>   struct mlx5_macsec_device {
+>>> @@ -684,7 +685,7 @@ static void macsec_fs_id_del(struct list_head
+>>> *macsec_devices_list, u32 fs_id,
+>>>
+>>>       xa_erase(fs_id_xa, fs_id);
+>>>
+>>> -    kfree(fs_id_found);
+>>> +    kfree_rcu(fs_id_found, rcu);
+>>>
+>>>       if (macsec_fs_is_macsec_device_empty(macsec_device)) {
+>>>           list_del(&macsec_device->macsec_devices_list_entry);
+>>> -- 
+>>> 2.39.5
+>>
+>> Thank you for the fix, it looks good.
+>>
+>> Reviewed-by: Cosmin Ratiu <cratiu@nvidia.com>
 > 
-> On a board whose HDMI connector belongs to a device in front of this
-> receiver, the connector's +5V line goes to that device and hpd-gpios is
-> absent. tx_5v_power_present() then reads a NULL descriptor, which
-> gpiod_get_value_cansleep() reports as zero, so the receiver never sees a
-> source and hdmirx_plugin() never runs.
-> 
-> Ask the device in front instead. Remember the subdev bound through our
-> async notifier in source_sd, and without a GPIO of our own have
-> tx_5v_power_present() call its g_input_status(), taking
-> V4L2_IN_ST_NO_POWER as "no 5V". There is nothing to debounce here; the
-> subdev does that on its side of the connector. A subdev without that op
-> is bound anyway, with a warning: a receiver that sees no source beats
-> one that refuses to probe.
-> 
-> Changes reach us the way they do on the GPIO path, as an edge that makes
-> the hotplug worker look again. Once the subdev is bound its
-> sd->v4l2_dev is ours, so v4l2_subdev_notify() lands in the callback
-> installed here, and V4L2_DEVICE_NOTIFY_RX_POWER_PRESENT stands in for
-> the 5V interrupt this board does not have. The value the notification
-> carries is not used. The worker asks the subdev itself, so nothing is
-> cached that could go stale against bind, unbind, or a notification that
-> arrives early or late. Bind and unbind queue the work as well, for a
-> source that was connected all along and for one that leaves with the
-> subdev. With a GPIO of our own, notifications are ignored.
-> 
-> source_sd is set and cleared under work_lock. Every caller of
-> tx_5v_power_present() already holds it except port_no_link(), which
-> VIDIOC_QUERY_DV_TIMINGS reaches without it; take it there.
-> hdmirx_notify() reads sd->v4l2_dev, which relies on
-> v4l2_device_unregister_subdev() waiting for running callbacks before it
-> clears the pointer, see "media: v4l2-device: wait for notifications
-> when unregistering a subdev".
-> 
-> Without a det_irq there is nothing to disable_irq() across the cancel in
-> hdmirx_disable_irq(), so a notification could queue the hotplug work
-> right afterwards - including from hdmirx_suspend(), on its way to gating
-> the clocks. Disable the work items instead of cancelling them.
-> disable_delayed_work_sync() also turns every later attempt to queue them
-> into a no-op, whoever makes it, and hdmirx_enable_irq() enables them
-> again. They start out disabled at probe, which keeps the worker queued
-> by hdmirx_fwnode_bound() off the hardware before the EDID is written.
-> It also covers the way out: hdmirx_fwnode_unbind() queues the work from
-> inside v4l2_async_nf_unregister(), in hdmirx_remove() and on the probe
-> error path, just before the devm allocated hdmirx_dev goes away, and
-> that queue is now ignored.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Gerald Loacker <gerald.loacker@wolfvision.net>
-> Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
-> ---
->   .../media/platform/synopsys/hdmirx/snps_hdmirx.c   | 101 +++++++++++++++++++--
->   1 file changed, 95 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> index a937ee23e230c..7f04958de1702 100644
-> --- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> +++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> @@ -142,6 +142,7 @@ struct snps_hdmirx_dev {
->   	struct mutex phy_rw_lock; /* to protect phy r/w configuration */
->   	struct mutex stream_lock; /* to lock video stream capture */
->   	struct mutex work_lock; /* to lock the critical section of hotplug event */
-> +	struct v4l2_subdev *source_sd; /* under work_lock: 5V without hpd-gpios */
->   	struct reset_control_bulk_data resets[HDMIRX_NUM_RST];
->   	struct clk_bulk_data *clks;
->   	struct regmap *grf;
-> @@ -237,6 +238,23 @@ static bool tx_5v_power_present(struct snps_hdmirx_dev *hdmirx_dev)
->   	int val, i, cnt = 0;
->   	bool ret;
->   
-> +	/*
-> +	 * Without a GPIO of our own the connector belongs to the subdev in
-> +	 * front of us. Ask it; it debounces on its side of the connector.
-> +	 */
-> +	if (!hdmirx_dev->detect_5v_gpio) {
-> +		u32 status;
-> +
-> +		lockdep_assert_held(&hdmirx_dev->work_lock);
-> +
-> +		if (!hdmirx_dev->source_sd ||
-> +		    v4l2_subdev_call(hdmirx_dev->source_sd, video,
-> +				     g_input_status, &status))
-> +			return false;
-> +
-> +		return !(status & V4L2_IN_ST_NO_POWER);
-> +	}
-> +
->   	for (i = 0; i < 10; i++) {
->   		usleep_range(1000, 1100);
->   		val = gpiod_get_value_cansleep(hdmirx_dev->detect_5v_gpio);
-> @@ -465,7 +483,13 @@ static int hdmirx_get_detected_timings(struct snps_hdmirx_dev *hdmirx_dev,
->   
->   static bool port_no_link(struct snps_hdmirx_dev *hdmirx_dev)
->   {
-> -	return !tx_5v_power_present(hdmirx_dev);
-> +	bool present;
-> +
-> +	mutex_lock(&hdmirx_dev->work_lock);
-> +	present = tx_5v_power_present(hdmirx_dev);
-> +	mutex_unlock(&hdmirx_dev->work_lock);
-> +
-> +	return !present;
->   }
->   
->   static int hdmirx_query_dv_timings(struct file *file, void *priv,
-> @@ -2268,13 +2292,22 @@ static void hdmirx_delayed_work_res_change(struct work_struct *work)
->   	mutex_unlock(&hdmirx_dev->work_lock);
->   }
->   
-> -static irqreturn_t hdmirx_5v_det_irq_handler(int irq, void *dev_id)
-> +/*
-> + * A 5V edge. Neither source of one says more than "look again": the
-> + * hotplug worker samples tx_5v_power_present() and acts on what it finds.
-> + */
-> +static void hdmirx_5v_edge(struct snps_hdmirx_dev *hdmirx_dev)
->   {
-> -	struct snps_hdmirx_dev *hdmirx_dev = dev_id;
-> -
->   	queue_delayed_work(system_dfl_wq,
->   			   &hdmirx_dev->delayed_work_hotplug,
->   			   msecs_to_jiffies(10));
-> +}
-> +
-> +static irqreturn_t hdmirx_5v_det_irq_handler(int irq, void *dev_id)
-> +{
-> +	struct snps_hdmirx_dev *hdmirx_dev = dev_id;
-> +
-> +	hdmirx_5v_edge(hdmirx_dev);
->   
->   	return IRQ_HANDLED;
->   }
-> @@ -2526,14 +2559,18 @@ static void hdmirx_disable_irq(struct device *dev)
->   	disable_irq(hdmirx_dev->dma_irq);
->   	disable_irq(hdmirx_dev->hdmi_irq);
->   
-> -	cancel_delayed_work_sync(&hdmirx_dev->delayed_work_hotplug);
-> -	cancel_delayed_work_sync(&hdmirx_dev->delayed_work_res_change);
-> +	/* A subdev in front of us can still notify, keep it from queueing. */
-> +	disable_delayed_work_sync(&hdmirx_dev->delayed_work_hotplug);
-> +	disable_delayed_work_sync(&hdmirx_dev->delayed_work_res_change);
->   }
->   
->   static void hdmirx_enable_irq(struct device *dev)
->   {
->   	struct snps_hdmirx_dev *hdmirx_dev = dev_get_drvdata(dev);
->   
-> +	enable_delayed_work(&hdmirx_dev->delayed_work_hotplug);
-> +	enable_delayed_work(&hdmirx_dev->delayed_work_res_change);
-> +
->   	enable_irq(hdmirx_dev->hdmi_irq);
->   	enable_irq(hdmirx_dev->dma_irq);
->   	if (hdmirx_dev->det_irq > 0)
-> @@ -2680,6 +2717,19 @@ static void hdmirx_v4l2_release(struct v4l2_device *v4l2_dev)
->   	kfree(hdmirx_dev);
->   }
->   
-> +static void hdmirx_notify(struct v4l2_subdev *sd, unsigned int notification,
-> +			  void *arg)
-> +{
-> +	struct snps_hdmirx_dev *hdmirx_dev =
-> +		container_of(sd->v4l2_dev, struct snps_hdmirx_dev, v4l2_dev);
-> +
-> +	if (notification != V4L2_DEVICE_NOTIFY_RX_POWER_PRESENT ||
-> +	    hdmirx_dev->detect_5v_gpio)
-> +		return;
-> +
-> +	hdmirx_5v_edge(hdmirx_dev);
-> +}
-> +
->   static int hdmirx_fwnode_bound(struct v4l2_async_notifier *notifier,
->   			       struct v4l2_subdev *subdev,
->   			       struct v4l2_async_connection *asc)
-> @@ -2708,6 +2758,21 @@ static int hdmirx_fwnode_bound(struct v4l2_async_notifier *notifier,
->   		return ret;
->   	}
->   
-> +	if (hdmirx_dev->detect_5v_gpio)
-> +		return 0;
-> +
-> +	if (!v4l2_subdev_has_op(subdev, video, g_input_status))
-> +		dev_warn(hdmirx_dev->dev,
-> +			 "%s cannot report 5V and there is no hpd-gpios, no source will be detected\n",
-> +			 subdev->name);
-> +
-> +	mutex_lock(&hdmirx_dev->work_lock);
-> +	hdmirx_dev->source_sd = subdev;
-> +	mutex_unlock(&hdmirx_dev->work_lock);
-> +
-> +	/* The source may have been connected all along. */
-> +	hdmirx_5v_edge(hdmirx_dev);
-> +
->   	return 0;
->   }
->   
-> @@ -2719,8 +2784,28 @@ static int hdmirx_fwnode_complete(struct v4l2_async_notifier *notifier)
->   	return v4l2_device_register_subdev_nodes(&hdmirx_dev->v4l2_dev);
->   }
->   
-> +static void hdmirx_fwnode_unbind(struct v4l2_async_notifier *notifier,
-> +				 struct v4l2_subdev *subdev,
-> +				 struct v4l2_async_connection *asc)
-> +{
-> +	struct snps_hdmirx_dev *hdmirx_dev =
-> +		container_of(notifier, struct snps_hdmirx_dev, notifier);
-> +
-> +	/* With a GPIO of our own the connector is ours and stays put. */
-> +	if (hdmirx_dev->detect_5v_gpio)
-> +		return;
-> +
-> +	mutex_lock(&hdmirx_dev->work_lock);
-> +	hdmirx_dev->source_sd = NULL;
-> +	mutex_unlock(&hdmirx_dev->work_lock);
-> +
-> +	/* The source went with it. */
-> +	hdmirx_5v_edge(hdmirx_dev);
-> +}
-> +
->   static const struct v4l2_async_notifier_operations hdmirx_async_ops = {
->   	.bound = hdmirx_fwnode_bound,
-> +	.unbind = hdmirx_fwnode_unbind,
->   	.complete = hdmirx_fwnode_complete,
->   };
->   
-> @@ -2779,6 +2864,9 @@ static int hdmirx_probe(struct platform_device *pdev)
->   			  hdmirx_delayed_work_hotplug);
->   	INIT_DELAYED_WORK(&hdmirx_dev->delayed_work_res_change,
->   			  hdmirx_delayed_work_res_change);
-> +	/* Until hdmirx_enable_irq(), after the EDID is written. */
-> +	disable_delayed_work(&hdmirx_dev->delayed_work_hotplug);
-> +	disable_delayed_work(&hdmirx_dev->delayed_work_res_change);
->   
->   	hdmirx_dev->cur_fmt_fourcc = V4L2_PIX_FMT_BGR24;
->   	hdmirx_dev->timings = cea640x480;
-> @@ -2818,6 +2906,7 @@ static int hdmirx_probe(struct platform_device *pdev)
->   	}
->   	hdmirx_dev->v4l2_dev.ctrl_handler = hdl;
->   	hdmirx_dev->v4l2_dev.release = hdmirx_v4l2_release;
-> +	hdmirx_dev->v4l2_dev.notify = hdmirx_notify;
->   
->   	ret = v4l2_device_register(dev, &hdmirx_dev->v4l2_dev);
->   	if (ret < 0) {
-> 
+> Acked-by: Tariq Toukan <tariqt@nvidia.com>
 
-Acked-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+While I have your attention, there is another mlx patch pending:
 
--- 
-Best regards,
-Dmitry
+https://lore.kernel.org/all/20261028145805.54595-3-fourier.thomas@gmail.com/
+
+/P
+
