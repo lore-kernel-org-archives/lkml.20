@@ -1,76 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793829345;
-	b=rLRsRyvOfm3iFqy8hL9s1TCFPbNZQl3Ae/CiyeFU3j8TpNS79lAgn0GJIwDFFXigoZK4
-	 WnN+sok2z9K9aZOdHXuJzndQ0GNojsBcTgp+bstUL7mLKPrNt973KBHSE+dWjKv0+4Z4j
-	 JiBDymzkrVuKCpd+ATRttmRmsJmPuObuc/nUoNyO75n21gCgKYWTo2vEIooZ3VuNNPsJy
-	 Qtl1jalxJQt/WydMhyRYnDf3A8oHPdAoGadvo306FcfGkRFzj5Aar6Sm3kR1MeZ+jN8sw
-	 yHGepP/ttWUrPucShtZ+GBsQNGxdIylpV5rQPVkabpFZWb9/gbaugblNutUX7TD4xKQ==
+	t=1793829359;
+	b=a5Faj9cBP08W5CYLFq0VnuOC3+zVDS00HYyvclW68V8c3cxZ2YSfPwy/rX2L3KIPoV9Q
+	 FztiQwyT5/XAuXDHCdaNAEhRnP7G5hJBJVKYlakniak1hsAxWCBfy0hJOSbHCUVSgZ6S+
+	 PLlg5ohJH3cHD5yAaWLcV97TdeWrMoUmMfr0+nmVYb79MtyWfKn0R6bmdCwF3HsSVtQxs
+	 PloayIpA3LeOkG1qLD5ATqU3pPbB/1c0W+yC73qkhtp2oUsdfVUkeYyi6/LONpfa9ffMz
+	 QJlinXiJUYxqnzJ0Lvg/6TCSZHDKqBeKDdlZJlb0USZSWfa+Wo0cDam622Vs0rnmYtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793829345;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-MBO-RS-ID:X-MBO-RS-META;
-	bh=1KM15pS674xkwzoKzXbfoGMlVw+mkKvC51O5xmcBcQ4=;
-	b=t0hlo8Su6lomWJQzGd5Nqf93NnCFkZGN/E4qEFYkYo58I5M1xYL/Q0GmuGDY7G/kXQta
-	 CMneGgDo2QQn5xGf+UEVPpZ4248MSEhr4/8wn6iOyGyV8MNPgckEOn5mT67SeecdpXZQq
-	 BLnondLiFeJKxjVaxRxOA6JIJ4+xuHYTyee7Ar69cAoZna+/7aPudC/yw85sA8NHWI1QV
-	 V2cTDK7LazoKN70nLEvnry9peKwrKCS789KT6NjushurHNEcEll0TtDw92/7GV4eq2+5H
-	 Pt2RP4LaQ7ffmtHIEf2uithoCC/I/4zR1aH+x05FJ2m2udkKB3rnl5RJ/GTSEUj9mdA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793829359;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=D4h2FEETnVEpGv52rXuV56YLxzG2GQ7jhklvjDnNRjw=;
+	b=nkP9hgz2mY35jm5HxKPjuEkwslRziTFOLQgEIxM2fbyD7uWRIxOOplAC91BF+A9AN3KE
+	 kwtnnPEG913bopJ8zQY326bg6NVAIMUNDyXHAk+vkkmKZtVTcSJLF8I1CITuGakMRGqy1
+	 dj8fMfd8nHfgb+uCHUodxdMY5wyMWO4yNXRzYkAiCLjxX/h69E5Rgcr3OMWHW8eEM1qFl
+	 uxN5TxqhKSL2LPC2GBxuzM+bOANGitbC548Q2t1oeluZQFvw10uEOn2Arjo46FnEBw0Uy
+	 sv6rHixU+tc9AWBPgs/yGv9uQ6wUJhv7V170edBqrzg2VaxffDXrzE6ncgbDIatsDFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=h6Zhmgkl;
-	arc=none smtp.remote-ip=80.241.56.161
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dk4t3nQ2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC3E560A5BD2;
-	Wed,  4 Nov 2026 21:55:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC3E560A5BD2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB2E6086E42
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:55:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=h6Zhmgkl
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jKfQ45tJbzKmTr;
-	Wed, 04 Nov 2026 22:55:40 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1793829340;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1KM15pS674xkwzoKzXbfoGMlVw+mkKvC51O5xmcBcQ4=;
-	b=h6ZhmgklkVRwYt1n9X/n8y/F+89/7eFCzwSd2uXk55wsQ90Ro6crnRQRb1W+/3wBdTgGDs
-	rCgkbMrz+lPdFeq24VLUNk86fQWkG/Qmp6KRJki29gFw+aDzt0BI8/eGO4DfWF53mgQ00F
-	Vvtx/YuT8JfVPVJ335jZeVFTJMhxMS42kLvwZcgTlLMKk0LyIdGepefjq/dY3M4DDG5hHI
-	ls+7WPGd5m0yNMYTHmVUO2Wherq54OuGJFTmtAuOPtrmGN2wy+kpaCmxF3cjZ8PU9+jfvm
-	S2Z82043mZWjhHxFE2StoOuBkYEgjH39Nnh2b8Y0RWgBlymNfCmoHckwWGJ6/g==
-Date: Wed, 4 Nov 2026 22:55:35 +0100
-From: Anthony Ruhier <aruhier@mailbox.org>
-To: Pragnesh Papaniya <pragnesh.papaniya@oss.qualcomm.com>
-Cc: Sudeep Holla <sudeep.holla@kernel.org>, 
-	Cristian Marussi <cristian.marussi@arm.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>, MyungJoo Ham <myungjoo.ham@samsung.com>, 
-	Kyungmin Park <kyungmin.park@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>, 
-	Dmitry Osipenko <digetx@gmail.com>, Thierry Reding <thierry.reding@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>, 
-	Pankaj Patil <pankaj.patil@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	Amir Vajid <amir.vajid@oss.qualcomm.com>, 
-	Ramakrishna Gottimukkula <ramakrishna.gottimukkula@oss.qualcomm.com>
-Subject: Re: [PATCH RFC 07/10] PM / devfreq: Introduce the QCOM SCMI Memlat
- devfreq driver
-Message-ID: <auukrIsbbd3q-qh-@tour-anthony.aruhier.fr>
-References: <20260724-rfc_v8_scmi_memlat-v1-0-cb732bcff1f4@oss.qualcomm.com>
- <20260724-rfc_v8_scmi_memlat-v1-7-cb732bcff1f4@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dk4t3nQ2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C35261F000C1;
+	Wed,  4 Nov 2026 21:55:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793829359;
+	bh=D4h2FEETnVEpGv52rXuV56YLxzG2GQ7jhklvjDnNRjw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dk4t3nQ2AyRHkhM4jWCe+9MmcV7SZgCX4BWc2JWJDka0i7hrsK4FyrAPoA+m0TwSS
+	 yyeysme84OC2s9OdiT5qaV74+IFr0N3l1EIWLnzK9XhF9m4HsN3ZYh31KRYI+c00nq
+	 uHxVWrvOP1x0FSHaJhWMFmx7r4ZbjGqjGquJe2ZXbaSbbCrl3I6zXhtjSz7Ue2MPqx
+	 ZpNkbjQoHfHcu0lXzceooyku2oNsU2CHYX/joAhPueGGFDW/dEpc2wc4PYiRvFzL2Y
+	 pxtmcMNuUL6kOyCCWYiok3y2G1MwzfJq7nyMnY+feLaBf8QvllWxBSIZJ/AgHgsHuh
+	 gsXrqpGYqNdBg==
+Date: Wed, 4 Nov 2026 21:55:53 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Vladimir Kondratiev <Vladimir.Kondratiev@mobileye.com>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Will Deacon <will@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Mark Rutland <mark.rutland@arm.com>, Gary Guo <gary@garyguo.net>,
+	Yury Norov <yury.norov@gmail.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>, cfu@wavecomp.com,
+	torvalds@linux-foundation.org, olof@lixom.net,
+	aleksa.paunovic@htecgroup.com, arikalo@gmail.com,
+	Boqun Feng <boqun@kernel.org>, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] riscv: accept the atomic extensions this kernel
+ was built with
+Message-ID: <20261104-saddlebag-starring-4380fcc9293c@spud>
+References: <20261101-lrsc-only-v4-0-4e1d010463b3@mobileye.com>
+ <20261101-lrsc-only-v4-2-4e1d010463b3@mobileye.com>
+ <20261103-pushcart-very-04a34d0ffb0e@spud>
+ <507f3761-1104-4d15-8fb0-c2fca037ddd4@mobileye.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,56 +69,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="FgSR+QDkNdZGN1o1"
+Content-Disposition: inline
+In-Reply-To: <507f3761-1104-4d15-8fb0-c2fca037ddd4@mobileye.com>
+
+--FgSR+QDkNdZGN1o1
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260724-rfc_v8_scmi_memlat-v1-7-cb732bcff1f4@oss.qualcomm.com>
-X-MBO-RS-ID: bdc02223a3e50c9f112
-X-MBO-RS-META: 5mbzo6rkf8d9aucpqd6mxur6iz7r7xd3
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Wed, Nov 04, 2026 at 01:23:52PM +0200, Vladimir Kondratiev wrote:
+> On 11/3/26 23:41, Conor Dooley wrote:
+> > That got me thinking though, I feel like this breaks some of the
+> > extension parsing logic in other ways.
+> >=20
+> > If you putting zalrsc and zaamo in your devicetree, we never do any
+> > backwards processing to set the a extension (we don't do this for any
+> > extensions by design, we only populate "child" extensions based on their
+> > "parent"). If there's some userspace thing that expects to see a in
+> > cpufeature or w/e it'd break. There shouldn't be since a has always been
+> > supported but who knows. You need custom userspace anyway so I honestly
+> > don't give that much of a shit about this going wrong.
+> >=20
+> > What does "worry" me is hwprobe. Currently you've not modified hwprobe
+> > at all to correctly state that you do not support
+> > RISCV_HWPROBE_BASE_BEHAVIOR_IMA. (and brings up the question of whether
+> > you support RISCV_HWPROBE_BASE_BEHAVIOR_IMA_FD etc!)
+> >=20
+> > Maybe, again you don't care cos of your custom userspace, but this needs
+> > to be holistic if it is being done at all.
+> > Personally, I don't want to lower the minimum requirements - the people
+> > designing this stuff to run linux should have checked to see what our
+> > requirements were (and have always been...).
+>=20
+> I will drop this patch and keep advertising "a" because formally it is
+> true - all "a" including amo instructions do work but rather slow. Also,
+> not worth to complicate logic here for (so far) one very special SoC.
 
-On Fri, Jul 24, 2026 at 12:48:12PM +0530, Pragnesh Papaniya wrote:
-> From: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-> +	for (i = 0; i < info->memory_cnt; i++) {
-> +		struct scmi_qcom_memory_info *memory = info->memory[i];
-> +		const struct scmi_qcom_memory_range *range = &memory->cfg->memory_range;
-> +		struct devfreq_dev_profile *profile = &memory->profile;
-> +
-> +		/*
-> +		 * CPUCP re-evaluates and re-votes at most once per cpucp_sample_ms,
-> +		 * so a new operating point can appear only that often. Polling at half
-> +		 * that period guarantees each distinct vote is observed in trans_stat
-> +		 * before it can change again.
-> +		 */
-> +		profile->polling_ms = max(1U, info->cfg_data->cpucp_sample_ms / 2);
-> +		profile->get_cur_freq = scmi_qcom_devfreq_get_cur_freq;
-> +		profile->initial_freq = range->max_freq_khz > 1 ?
-> +					(unsigned long)((u64)range->min_freq_khz * HZ_PER_KHZ) :
-> +					range->min_freq_khz;
-> +
-> +		faux_device_set_drvdata(memory->fdev, memory);
-> +
-> +		memory->devfreq = devfreq_add_device(&memory->fdev->dev, profile,
-> +						     DEVFREQ_GOV_REMOTE, NULL);
-> +		if (IS_ERR(memory->devfreq)) {
-> +			ret = PTR_ERR(memory->devfreq);
-> +			memory->devfreq = NULL;
-> +			ops->stop_activity(ph, NULL, 0, MEMLAT_ALGO_STR, MEMLAT_STOP_TIMER);
-> +			return dev_err_probe(&sdev->dev, ret, "failed to add devfreq device\n");
-> +		}
-> +	}
+By that logic, do not complicate the kernel at all with this zalrsc-only
+stuff and drop patch 1 too. Please do this properly or do not do it at
+all. If we are introducing the ability to configure the kernel so that
+it runs on systems with only zalrsc, people should be able to run the
+kernel on such systems without a) failing to boot or b) incorrectly
+reporting to userspace what the hardware is capable of doing.
 
-I tried it on Hamoa (Yoga Slim 7x, x1e80100), loaded scmi_qcom_memlat_devfreq,
-and I see the apss_cpucp_mbox IRQ firing 3100 times per second. It raised the
-power consumption while idle, screen off, from 0.9W to 1.4W.
+> For this SoC, we will compile user space with upfront knowledge of all
+> hardware features.
 
-The polling seems to be the issue, as I didn't see hectic changes of frequency.
-Raising the polling from 2ms (default) to 20ms makes the power usage goes back
-to around 0.95W, with ~150 interrupts/s from apss_cpucp_mbox. It's still higher
-than with memlat off, but it seems to be a better trade-off for now.
 
-Can you check on similar platforms (hamoa, glymor) if you see the same issue?
 
-Thanks,
---
-Anthony Ruhier
+--FgSR+QDkNdZGN1o1
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauup6QAKCRB4tDGHoIJi
+0tyTAQCr6BHIWi2JnJO0X/6lATO17o3V+TmKTbRxO0npO1HrHwD+L47N3tNstjUd
+VjHMaGKyJDMgYEPbpqH1R4fmYsBEuAk=
+=stpy
+-----END PGP SIGNATURE-----
+
+--FgSR+QDkNdZGN1o1--
