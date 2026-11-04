@@ -1,110 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793831432;
-	b=eFJdeZ8O/d44ZrgU1MkBhO+GQZzNvvzfnxLqJBnR6B4thzURa0WiTARhTM/N0PKqH/99
-	 OrLKPaMqh1xCEwj2QpwpEX/UTb1Oi2zcmZ8DYjdNhLvu4WX1lo8sS3DSbcj7v/V/MwFm0
-	 OV715FE/vIicG+Xiv7hXzxdyoYeVnTccM1kXEzKki8JXU961PGOqApgwGmtYgWTXdI6KR
-	 qKogIN6bjFlJMi1Qu2DgX88oznPMGPOX/Zu954tUKUo/gHk4uI2GSjm2ysk2HzKBRCxoX
-	 gfR8WB00svP89d9uU4zVpjWru91LiGkuWGKXj+sLgNq3Ilrpp5ZZQQsI0PnfsXyINEQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793831432;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793831486;
+	b=KalZ02L9at9JGBUlndpNzEAWylTRKjqwk/jyx4pzvzxLq3eRHaGDc3Y88yvsiLQnmsfC
+	 ESp88hicw2TRh7fvGUigba23k+Nmr03Ekgt+6yBNnaq4gmzcZXaK/rzapWTKMAEIW/Dse
+	 Cvd8F0qDFGw6gtfLwszzsMZ6sMdEZuwqaUFlfE9bJkrwAK7H5oQYH71mdv3U7fQ5RcLTj
+	 7QZwg7BMUeTXJmhFD4mrc2fU6Cpe7EjhUFAto359jrWMa3+i04zQCuC/q+hxFGnWp9gLn
+	 mLkX35rrasqsn+HHbscnB9RfRBIDU+c2lGV6tZnxima+Vm0CU1xi2O+t6M2eor7HoOg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793831486;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=45IHMvHuNfQHmQp3e/l7ZQyBPSv/bWU1s+/SnIhe5+k=;
-	b=E0Q5d2T4xaDVCzTlSSBxy4Ja9FxcEoLsu4Nc/HTWxn2DFRuGWihGX8pzamAI8t9C9dLo
-	 LGtYMnDWg9hRbnylvODM5B3okNENWOcb1YazVpl+gL0rH1seCCrPjdtAvqq1GrIkuc0Bk
-	 jsQR6Mi/SK5grEcpyuHzoRAbX26a9p/RO0s4Q/l2ujSKy1tFxPPtq/pauE3diL4yByxpH
-	 NXMWE+/dD5/GFrIN0wbALIwUUhel1nI1zKpYckJzHvXQT9dHeh+fOmYtonGs1OpoNOIK7
-	 alorYGMoyrTPSmtveXmUuJKhN/bUwlojp3Q4aM4dsm2vXrraLpTtUTmCbCDf9Ne8MWA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VmCDTdmf;
-	arc=none smtp.remote-ip=209.85.215.177
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=9ElVEracKYqU2HPS7pij1Ejie+xyil1NNct20nME2rU=;
+	b=4f0GLxfNZyzGaQPDDSBjkE9jCxPE6hhFTNzxHlSchxzFSxieCXjRf0ojwAnbxNRxxMg/
+	 tcQM1rgZmNCKPtt1UPAM+InSNYroFfGty5+ZEeXeexj8DstTkALvnAOI3L6DEpwZV+lLY
+	 VIoplcWLqZw+tHfyBrjsYv3Mss2V5JKhdGaFMzw7uwwW+pvN4eD57RXjLj19CBosZrhlK
+	 aup2yfVZqJQJiw25igOKvnbv7s5T0fFAc3s2SKKKGIGjwZ94t5BW5f8rT8Pd7e8VCiRRy
+	 EjoiBwNwq9ctKTHQSRBTRabef5bfb1U7BMrOpG6+X9+pQMGn7v4by2sdbhl82n5Zq4Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yvKTEN8B;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45B0A606B385
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:30:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45B0A606B385
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C439606B2E3
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:31:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C439606B2E3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VmCDTdmf
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cc7e79c1eaaso665859a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:30:32 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yvKTEN8B
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b566cf56c1so971096a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:31:25 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793831484; cv=none;
+        d=google.com; s=arc-20260327;
+        b=J/JyGohyqwgUrwTsgNnlWiF3SZgKiXGMUCaKGbuEunt+xlT/k7xx5wmWdahZW0FKmC
+         SdHjH94ObdyZHwOZDYwqXdj7Piuh8MtUyBWPnP7aMUssgDFpoJ+O4GTgyjaLdgrDR7d+
+         iXNtuXfg4/QoNzhjiWfjntvKQ2la0C4HueclwJhRIvJ36nWgmLH6HsCcGWgagCD/OdmB
+         r3022T7WiJvNAO5vDq1k9rihC7ZIpj1D/CVGdo4fOT6DVjLBEeTmLz+0/9ntgMqOZGkH
+         ry1lp0deqgSYoDweyQtkMguurgVo0fXN9qkBwS+chxRHdMoSU1st27DBEb+iMGYz06n1
+         vtnQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=9ElVEracKYqU2HPS7pij1Ejie+xyil1NNct20nME2rU=;
+        fh=tcyrEDjrE6/4fZTQP7RHA8C1AC9y9RWrLN/zU/WOyRM=;
+        b=OBIclfw74rqOphXNnbWDYlATmDHxsevfde5Bvm0OXoVKVxaOqxEncPzS7wfGR+611E
+         NmK+U4Ax4vWDcSX0oi3NaolSyW8pX0g/cuau7AzEQi3j2d0xYjBG45qoqklGy3/UmOOe
+         xxG7QiVgRvt7o4dcMQJY3aUiSuw6WysP3nHuAI47qOjNIbiHNfNyB6x3FlLyFXrJjZxv
+         NCGhnG++TX/BmVkpx04UOKnC2hA5f3F+j09xUMI8byJom5L45TvzWtAs63ADcX+HX+Wx
+         POByKJC5aC+shVn653YUd8BA+jPhANSDD8F7H1Hx9RaKIcauwa3N4J7giJvGxBjR1OPO
+         JaTQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793831432; x=1794436232; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1793831484; x=1794436284; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=45IHMvHuNfQHmQp3e/l7ZQyBPSv/bWU1s+/SnIhe5+k=;
-        b=VmCDTdmfDiEtr9yM2FdmWCc4yMP/1y8DakkQBlW45XJJe9w+jmKxKqWx4N4uoWJW4N
-         PFBX2dF3I+8GWGgm6IMacs6RY5sGxuYFaH0QAgqo0mK53bpzKMXunQ9id5HxqTpbOs5b
-         VU5noO1GKyjU9lMcQwcxSupOZiF7GwtdckoYSJyXREY8s+YeNEHkgptPyTvPQi26P5dD
-         CXBXYBmWj/xyW3H2FrfElD4s7U2eZUu3T46zVK3b4XsLLAUNzFBCOd8MArf15SVBCcB8
-         AmTF1a+80XpZ1vAccIK0mKyOSg8ZONEP2q0MWLQ2bTUtAU18LViRqzWzDXzepgYN06Hj
-         4aFg==
+        bh=9ElVEracKYqU2HPS7pij1Ejie+xyil1NNct20nME2rU=;
+        b=yvKTEN8BO7H7/D5zBeHdDcwqdSxjk3mykZyNtP1VoCsE7rk3hjiqmRW6NKgrRSK4v3
+         ey3Un7v+fOM0Jy6V/e/j8/soOTulVrQKy0mjxiMojmIhtqBEPgo5EPUkKNkyCH+GyryP
+         d9b5zrUX3apuYVEKPTZOPd0D1etIsRz0Cf1ggf6kj1GFug26qAwX8nAZnW8q9UXRqvRz
+         5vIYcVjMxmqBu+oKWVq9yeJz+g2wqbBsbWOcNskUPkPUgpNkMxVOxJcFPrLTuu4WXwal
+         nTPo4j5LtX2nDMipiegNtwnkogd263vVFN+5SyA99NkKIJUM9993X9dNxmEyZySOvb35
+         OmvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793831432; x=1794436232;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793831484; x=1794436284;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=45IHMvHuNfQHmQp3e/l7ZQyBPSv/bWU1s+/SnIhe5+k=;
-        b=H3yzaChrzFpTb2ycZiZWA7iFXR7uAdNzxmc1ny+9AdivdJTWrmOR+fmDkL9avBkSVq
-         3U/r/RUzc0NXV8YvOOP/YxyqrThr9IKRtK9paqTRT6y+eeur6PgcWRyjaDwHI3OmFUGr
-         UrknBqszNBNrbgAzaedK8gvJPhdK+rYMyZhW5Hcc+uLayW0+6JAv2qeDkihE/HLNxkd5
-         idWZwyfL/rB8MZicrn5szvS8nwzqRFOWpM+xuOFATIg8GH+l5BvZ0O1QUR17t9bOmDBy
-         Ku4PxD/JSfrRGdJU+1TiSyWCRegJd4+rM+yQzkDT3aDwWgLFEc+Rlj/a+jI27SJID5zr
-         KgTg==
-X-Forwarded-Encrypted: i=1; AKwUvBzd+k7AbBO4p0wVPkmK6SaHMSTa4OqSrB2pcPqwZmfxKp/NnduLrIzn7Y/qyk2625M6Palj8PKa0wn+PjU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z82bfI7lLqahOam2bBVT4PzPSxEdOTP3iJ84McbHzb1SQsLM3cb
-	a5scu1Vjfbtbx4QJQGPtrdH+KGAV58SqhW91koqSLIJHhUdjw3OaOKaZZtceCv0QZA==
-X-Gm-Gg: AYBFou1SD5iIH8CyQFWNM7zejmvPRva2bhVYCoCcNVyp0wRBsnIXOAQ9xkW2gR9Mjry
-	84DNZ1NFmWmtfwPtMl2ZD/saAE2kXU5IH9RECkyao27UxiUhxsmeBZ5aKlHW7ojeHrFOfxMOMUm
-	LaGiyTqd8W7UxfQtaRp6N3DHur/jqKvNzPpnxiGsrEdPePuzbVCdi2yIBgL/iVGic7CTxUQ1PSZ
-	r9dMlxQjE+ZrORP6m4f+oP/T/AEVg7zDqz6eRMq9ibEu/jeQESCz/ECcwL3D/J2Cr4ExDuNGUg6
-	gwcsEhSdu+4ArKjVdWqsQsDBx77Bnbj3MtmZWFNAQcDx1H2OBNzhjnGOKPa+ISPj5ynoJP0XlVQ
-	HTvLJcWsinmm8cZninjCvPdQ7bhHH60lXvUt9ry0/gcqdEeWn/qvVOdFSZeJHyUvbRhuRSyFqYq
-	ZNWkr9bbZECE9YZ4iV8vAroYMjoQpNl8uDln7MQocTY98lqQm3LSnEzGSG9HuEFPZx09Wy4HW3C
-	+7EAWhVwJQoUrEjEgx5HHl8i/77tGePRBY9XBM5nEqZ8oK329b3yzEKeOHCF9kL3S3dSknvrhAW
-	4cYaynUbwAvGoxFxO5r8hMrd5J6flW7YPOVu/U8+G/I96DEpy18MEH46t4/97xHh
-X-Received: by 2002:a17:90b:3d8e:b0:3ac:8897:7baa with SMTP id 98e67ed59e1d1-3ae8979a140mr13152373a91.40.1793831430846;
-        Wed, 04 Nov 2026 14:30:30 -0800 (PST)
-Received: from google.com (33.79.127.34.bc.googleusercontent.com. [34.127.79.33])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b31638fdsm743618a91.8.2026.11.04.14.30.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 14:30:29 -0800 (PST)
-Date: Wed, 4 Nov 2026 22:30:26 +0000
-From: David Matlack <dmatlack@google.com>
-To: Pratyush Yadav <pratyush@kernel.org>
-Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-mm@kvack.org, Alexander Graf <graf@amazon.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Christian Brauner <brauner@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Hugh Dickins <hughd@google.com>, Jonathan Corbet <corbet@lwn.net>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Samiullah Khawaja <skhawaja@google.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>
-Subject: Re: [PATCH v3 07/10] mm/shmem_luo: Retrieve tmpfs files onto a tmpfs
- mount chosen by userspace
-Message-ID: <auuyAseOISaOWwbO@google.com>
-References: <20261103010216.3447716-1-dmatlack@google.com>
- <20261103010216.3447716-8-dmatlack@google.com>
- <2vxzecd0k1dg.fsf@kernel.org>
+        bh=9ElVEracKYqU2HPS7pij1Ejie+xyil1NNct20nME2rU=;
+        b=qbpbBwyeXKYmpvc5Hd/WIthfE1WA89qnLfEfMNTOZ9y/fZQoTtQfxTlczgtAkgLeoe
+         z61IxUz5IaXF2qcPjBhsY/dm9GpZe0N7N5NJ1ymnO/XY5ETQ2z+WAhUHWR0tYdZE+JZ1
+         gGxBj2mso1ObZfsBr0cwPqk1LVi90s/6Fm46SO5ZQHK0K3PlEoVP1Yq9pjvY2+AEZptE
+         HiMU0gvK6KddzwuTFO3Ngea1aMiObZHAjXCpdWr6CgkBcieTGdabszacxozRnz13U0kV
+         0ggYSPGV/zNKeYJ8efbB0GXVl4MR79kHWerQV3HJbY3td29o8oZEB5DvtVTNYoy9g1Rg
+         NVGg==
+X-Forwarded-Encrypted: i=1; AKwUvBwoD6SB5C7agbcwMwPef8HQUYq4srsG62sjDEC0jYOmb6x8Qxh66dyoOfrNz5lEOOTVSSszLg4xiBgvLb8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9p9vaWjK9+Sqbvhy4P7CifBhjNU6Q+/fuMjtxJfVKNaT/5SQJ9
+	TsSK/Fxh18/uYYKeLLnZi7ygtIs4ZKFFxXPeKJR7+OKZYdEdcPY4sRfcVbZ01F9ZXmabL4zFmbO
+	GdlK+4DLUoSenZ7jj0qF379PjEZtRDj8=
+X-Gm-Gg: AYBFou1R+22prpCfO18TYZyTMRKoQpbb6/JekUEs5zuwqvzImIN/7OYXEBB0UqGvvI+
+	R0K81YNk1D9SGQxVAj074blcynA/EHoIG0zOSjjDorFWSa83k6yVActW/asjfW3QeDEz2qaLBWO
+	d4H1/uu1ndxs3vum7ZaU351MOImuDPBnF9eUhPyu+ldmM1bn0DfxjXunwCDXwQjfXgZyIW+u45L
+	U/37WbD8oJJJA4wLKcquxdN/HZxbAttEw44+oe0yVQbjKAYK7WkkxNrBgEZ5ar/dluOpeUrq7iS
+	Bz/F2sn0cp5lJpBCj7sfbkJ1uyMq2HM5hCRvvp1l8yoKodNt23yz+rLP1Rnea96zEf1HwnRFo0i
+	SZsANFlCpuHEYEBYGllyTveeNRUm0RCy85E2BnOOXfxDTeHCSAangXNrpqv3ldQ8LNhdu4YihUB
+	P/6lhEpDwhsp3wHTIX4KEx1VA=
+X-Received: by 2002:a05:6402:3812:b0:6b4:bf13:b4a3 with SMTP id
+ 4fb4d7f45d1cf-6b54cd6c670mr4543415a12.43.1793831483988; Wed, 04 Nov 2026
+ 14:31:23 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,26 +105,219 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2vxzecd0k1dg.fsf@kernel.org>
+References: <20261104-alpha-profileme-v6-0-63362e9290a3@gmail.com> <20261104-alpha-profileme-v6-10-63362e9290a3@gmail.com>
+In-Reply-To: <20261104-alpha-profileme-v6-10-63362e9290a3@gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Wed, 4 Nov 2026 23:31:11 +0100
+X-Gm-Features: AclHuK_FQC2kU8FbgVaSurfMsLUUgjteliOMC1CNRp4DejscmYttK5_od5jdt6g
+Message-ID: <CA+=Fv5Q1rPBSyqRqzQES3E8Recy9itKzWTNBSxaDZ+QpbLxmbQ@mail.gmail.com>
+Subject: Re: [PATCH v6 10/13] alpha/perf: report the data source of ProfileMe
+ memory accesses
+To: Matt Turner <mattst88@gmail.com>
+Cc: Richard Henderson <richard.henderson@linaro.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, linux-alpha@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-11-04 05:27 PM, Pratyush Yadav wrote:
+Hi Matt,
 
-> > + * If @flags contains unknown flags or O_PATH, if @mode contains unknown mode
-> > + * bits, or if @dirfd is not on a tmpfs mount, the retrieve fails with -EINVAL.
-> > + * If the file can't be created, the retrieve fails with the same errors as
-> > + * open(). A retrieve that fails before the preserved contents are restored can
-> > + * be retried.
-> 
-> How is userspace supposed to tell if preserved contents were restored?
+On Wed, Nov 4, 2026 at 7:49=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
+te:
+>
+> Whether a ProfileMe sample's memory access missed the DTB is only in the
+> PERF_SAMPLE_RAW data, as a DTB miss trap.
+>
+> Set PERF_SAMPLE_DATA_SRC for the samples of memory instructions, so that
+> the memory sort keys see them. One that trapped on a DTB miss gets an L1
+> miss in mem_dtlb. PALcode fills the DTB, so one that retired without
+> that trap hit it, and gets an L1 hit. mem_op comes from the opcode, as
+> I_STAT does not say whether the access was a load or a store. A load
+> into $31 or $f31 is a prefetch, except for ldq_u, a UNOP that is left
+> out. Samples that fall back to the interrupted PC get none.
+>
+> On an EV7, a loop that loads one word from each page of 64 MB in random
+> order had as many DTB hit samples on the load as misses: the miss trap
+> aborts the load, and its refetch hits. A prefetch into $31 takes the
+> same trap, and its samples are reported as PFETCH misses and hits.
+>
+> I_STAT[TRP] is ignored for an instruction killed before it was mapped. On
+> an EV7, TRP and MIS were seen set for killed instructions that are not
+> even branches.
+>
+> Suggested-by: Ian Rogers <irogers@google.com>
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Matt Turner <mattst88@gmail.com>
+> ---
+>  arch/alpha/include/asm/wrperfmon.h | 12 ++++++
+>  arch/alpha/kernel/perf_event.c     | 86 ++++++++++++++++++++++++++++++++=
+++++++
+>  2 files changed, 98 insertions(+)
+>
+> diff --git a/arch/alpha/include/asm/wrperfmon.h b/arch/alpha/include/asm/=
+wrperfmon.h
+> index 7fbbfd74926a..dc24c7cb45db 100644
+> --- a/arch/alpha/include/asm/wrperfmon.h
+> +++ b/arch/alpha/include/asm/wrperfmon.h
+> @@ -100,6 +100,18 @@
+>  /* ProfileMe status, from the EV67/EV68 Hardware Reference Manuals. */
+>  #define EV67_I_STAT_OVR_SHIFT 30
+>  #define EV67_I_STAT_OVR_MASK 0x7UL
+> +#define EV67_I_STAT_TRAP_TYPE_SHIFT 34
+> +#define EV67_I_STAT_TRAP_TYPE_MASK 0xfUL
+> +#define EV67_I_STAT_TRP (1UL<<39)
+> +#define EV67_I_STAT_MIS (1UL<<40)
+> +
+> +/* I_STAT[TRAP_TYPE] values */
+> +#define EV67_TRAP_DTB_DOUBLE_3 2
+> +#define EV67_TRAP_DTB_DOUBLE_4 3
+> +#define EV67_TRAP_DTB_SINGLE 6
+> +
+> +#define EV67_PCTR_VAL (1UL<<1)
+> +#define EV67_PCTR_PM_KILLED_BM (1UL<<26)
+>
+>  /* PMPC bits 63:2 hold the profiled PC. Bit 0 set means a PALmode addres=
+s. */
+>  #define EV67_PMPC_PAL (1UL<<0)
+> diff --git a/arch/alpha/kernel/perf_event.c b/arch/alpha/kernel/perf_even=
+t.c
+> index c9ab40ff76ad..0723e1042145 100644
+> --- a/arch/alpha/kernel/perf_event.c
+> +++ b/arch/alpha/kernel/perf_event.c
+> @@ -20,6 +20,7 @@
+>  #include <linux/overflow.h>
+>  #include <linux/prandom.h>
+>  #include <linux/sched/task_stack.h>
+> +#include <linux/uaccess.h>
+>
+>  #include <asm/hwrpb.h>
+>  #include <linux/atomic.h>
+> @@ -1053,6 +1054,88 @@ static void alpha_profileme_set_regs_user(struct p=
+erf_event *event,
+>                                   sizeof(u64);
+>  }
+>
+> +/* TRP, and MIS with it, are stale for an insn killed before it was mapp=
+ed. */
+> +static bool alpha_profileme_trp(unsigned long i_stat, unsigned long pctr=
+_ctl)
+> +{
+> +       return !(pctr_ctl & EV67_PCTR_PM_KILLED_BM) && (i_stat & EV67_I_S=
+TAT_TRP);
+> +}
+> +
+> +/* What the memory instruction at pc does, or PERF_MEM_OP_NA. */
+> +static u64 alpha_profileme_mem_op(unsigned long pc)
+> +{
+> +       u32 insn;
+> +       bool r31;
+> +
+> +       if (pc < TASK_SIZE) {
+> +               if (copy_from_user_nofault(&insn, (const void __user *)pc=
+,
+> +                                          sizeof(insn)))
+> +                       return PERF_MEM_OP_NA;
+> +       } else if (copy_from_kernel_nofault(&insn, (const void *)pc,
+> +                                           sizeof(insn))) {
+> +               return PERF_MEM_OP_NA;
+> +       }
+> +
+> +       /* A load into $31 or $f31 is a prefetch, except for ldq_u: a UNO=
+P. */
+> +       r31 =3D ((insn >> 21) & 0x1f) =3D=3D 31;
+> +
+> +       switch (insn >> 26) {
+> +       case 0x0b:                                      /* ldq_u */
+> +               return r31 ? PERF_MEM_OP_NA : PERF_MEM_OP_LOAD;
+> +       case 0x0a: case 0x0c:                           /* ldbu, ldwu */
+> +       case 0x20: case 0x21: case 0x22: case 0x23:     /* ldf, ldg, lds,=
+ ldt */
+> +       case 0x28: case 0x29:                           /* ldl, ldq */
+> +               return r31 ? PERF_MEM_OP_PFETCH : PERF_MEM_OP_LOAD;
+> +       case 0x2a: case 0x2b:                           /* ldl_l, ldq_l *=
+/
+> +               return PERF_MEM_OP_LOAD;
+> +       case 0x0d: case 0x0e: case 0x0f:                /* stw, stb, stq_=
+u */
+> +       case 0x24: case 0x25: case 0x26: case 0x27:     /* stf, stg, sts,=
+ stt */
+> +       case 0x2c: case 0x2d: case 0x2e: case 0x2f:     /* stl, stq, stl_=
+c, stq_c */
+> +               return PERF_MEM_OP_STORE;
+> +       default:
+> +               return PERF_MEM_OP_NA;
+> +       }
+> +}
+> +
+> +/*
+> + * Report the DTB access of a memory instruction. PALcode fills the DTB,=
+ so
+> + * one that retired without a DTB miss trap hit it.
+> + */
+> +static void alpha_profileme_data_src(struct perf_sample_data *data,
+> +                                    unsigned long pc, unsigned long i_st=
+at,
+> +                                    unsigned long pctr_ctl)
+> +{
+> +       u64 op, dtlb;
+> +
+> +       if (alpha_profileme_trp(i_stat, pctr_ctl)) {
+> +               if (i_stat & EV67_I_STAT_MIS)
+> +                       return;
+> +               switch ((i_stat >> EV67_I_STAT_TRAP_TYPE_SHIFT) &
+> +                       EV67_I_STAT_TRAP_TYPE_MASK) {
+> +               case EV67_TRAP_DTB_SINGLE:
+> +               case EV67_TRAP_DTB_DOUBLE_3:
+> +               case EV67_TRAP_DTB_DOUBLE_4:
+> +                       dtlb =3D PERF_MEM_TLB_L1 | PERF_MEM_TLB_MISS;
+> +                       break;
+> +               default:
+> +                       return;
+> +               }
+> +               op =3D alpha_profileme_mem_op(pc);
+> +       } else if (!(pctr_ctl & EV67_PCTR_PM_KILLED_BM) &&
+> +                  (pctr_ctl & EV67_PCTR_VAL)) {
+> +               dtlb =3D PERF_MEM_TLB_L1 | PERF_MEM_TLB_HIT;
+> +               op =3D alpha_profileme_mem_op(pc);
+> +               if (op =3D=3D PERF_MEM_OP_NA)
+> +                       return;
+> +       } else {
+> +               return;
+> +       }
+> +
+> +       data->data_src.val =3D PERF_MEM_NA;
+> +       data->data_src.mem_op =3D op;
+> +       data->data_src.mem_dtlb =3D dtlb;
+> +       data->sample_flags |=3D PERF_SAMPLE_DATA_SRC;
+> +}
+> +
+>  /*
+>   * Handle the close of a ProfileMe window on PCTR0.
+>   *
+> @@ -1168,6 +1251,9 @@ static void alpha_perf_event_profileme(struct perf_=
+event *event,
+>                 data.sample_flags |=3D PERF_SAMPLE_WEIGHT_TYPE;
+>         }
+>
+> +       if (exact && (event->attr.sample_type & PERF_SAMPLE_DATA_SRC))
+> +               alpha_profileme_data_src(&data, pc, i_stat, pctr_ctl);
+> +
+>         if (!alpha_perf_event_set_period(event, hwc, 0))
+>                 return;
+>
+>
+> --
+> 2.55.0
+>
 
-Through the error code, like Pasha said on patch 3. I'll reword this in
-v4 in terms of errors instead of kernel internals: errors from checking
-the argument and creating the file, e.g. -EINVAL, -EBADF and the errors
-that open() returns, can be retried after fixing the argument. Errors
-while restoring the contents, e.g. -ENOMEM, or -ENOSPC when the contents
-don't fit on the mount, are permanent, and retrieving the token again
-returns the same error.
+I tested this on my EV67 ES40 with a page-stride workload. At the
+ldq into $31 I saw 89 PFETCH hits and 87 PFETCH misses. The load
+and store sites also showed both DTB hits and misses. All 215 samples
+at the ldq_u UNOP had no memory data source.
 
-Thanks for the review. I'll address the rest in v4.
+Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
+Tested-by: Magnus Lindholm <linmag7@gmail.com>
