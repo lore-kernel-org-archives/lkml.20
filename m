@@ -1,77 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793823032;
-	b=uPZjODRJsDjCY6RcG5BeOk9BvuaIRceCfwMdC7chQRPloRlqtjJURiGW4vVF7gJNmDL4
-	 IArNFiY1qaRPKaOos583l3ND7GyCEQSuIDzX1Jh/IoSsClrw96V9ztUKOqmP9mSsUX6Mu
-	 1pu5qjHZTtouPkpIQw1QDiLJgCE1BQNxlSXoIAv9kwb2pSeNUwRJSg+fErlmPeKGut68+
-	 nkeOJ6GIzTir8/7nmHTWijiFZBw66hjSIysLuRjBu2ZnIGBY6mSW0UqXBN7s4N1u+BbYU
-	 gAZwYDJpqrvcdHX/06ei61oIdXL51A7FPXNK8v6rfc1h/842DvXvBWdtrR4Fvgajuug==
+	t=1793823058;
+	b=D4JcqHSzlgVld2qwiUf/dkEmcmjhKYY1kL1gyfhzGLrqEkA2vrySUGz+lBwmr7qjh/R6
+	 sc4Nw3O3Knspyi3nDHS0ZpoWnWlsuSO6B168uQa7sNEshN0YuWmlAJXwFwQCTvl9FSqko
+	 F7dxui96RGioTiiQRmB70AgyJ88PqGGqLtduFzxFvg/q2P8RCu2j5VV+12J9ftSO0hGwT
+	 PSJXZQER9b/0+QFCfC/NFwxsuUfqTRmQAN+byCsene6Y19XUwQciwzohU4zEVNiApg6PK
+	 9TYxKsehAZURmQG76PVON8k2V0j2A9/TkwXE2JHVGcIZ5fv3CBahIwNESlEg1hVbUhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793823032;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=jAzcbpxGxlJz+yxpkYcjDqzUxEzlIqSdDP9I0n3QAvE=;
-	b=4R0OriRgfZxFaLfHamby81GW295q2Y6n9hBBwxSvfrVqp3Ck4BF3WKog+0h4m+4kgRFt
-	 VLZ8ffPHgUXDO5ghanxe65XhEqoN8DsUb1m/JfvuNit5gTcrzNU1Nl+rn3IhcFdNt0caJ
-	 JfSTtAzWbjhnw7ZzEeogWRORZlYztMEIdPkVtu4kOxP7y22ufwEUMiTAY6TF4TsGtV1kb
-	 qbq1ZinsRNql4X0GogrI3imriuS7NIgN/YaQnXO7MA+wQBowPA8kWocl4BbpdEy+x5leC
-	 46P6P/9QgIkjF/0k0gxnaPc5WhlOjMwwrc+VfHvyoLeE2KXA5u9FUnMH/57OYcx9dlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793823058;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=cZ6yFI7uUXsNpfZcP6QwBP/s11ZaCftZOiY0AOuJYFY=;
+	b=JsMhWVsXMMvv/kMkIIIcR6Ura/sLz8ZUHCa/giPSV+NGpuFX5Ia1UtFx/52rtXFq56vt
+	 Z8pZzVbns4rQxDReP2odg0NTF7m/7wj1zvzd1pBlKi+WkObN5IkNmlt3Lrz3DsKl/IXEv
+	 y6Skn3c2XlxdCIK8muLudO/54dBApKf2liQxHRMFDAOlkRZFerHqi9Tmpgx6eFt9nOrj8
+	 YldmIdb6rR5BCgWvmJpyLy/4tSP2KIq7YkGVET5Sto8IsUBZClMZi23IS9mq5GWjltyfM
+	 DcJchyoA+GdGOIM4rQl36bKN43BuBd0ZkSCv4P9ZoK7qWZxP8wmVQa/Amft+A4swvUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=telaak.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.215.180
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n6CfLZuA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 840D46070F39
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:10:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 840D46070F39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cd6028ff33fso576495a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:10:31 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793823031; x=1794427831;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=jAzcbpxGxlJz+yxpkYcjDqzUxEzlIqSdDP9I0n3QAvE=;
-        b=fk/O4iMyF4XQ+fvRPNSRPkrlcwNZ+7lyDZKOKPBKuwPE556ex5bXekRHyTYt2VQEq8
-         18AW17PY7S+xKIET4Oq+q656FSEnt5+BQY6p0df2kTYvvX5Ru7Kv1YkhjbmVwzo76LSX
-         VahSLD49Ca0pfJBBuPlI3vGzpV7cYREb9e3b1FXzm5oLtxjKQGfi5z7WsRIyAsLEMDWU
-         xOuB14YPiqKnYf4cctyJ1S5/1HgEn3/5aWHzgEvcnHZfa6hZxKvl+j9yrhfQeKJKK/6A
-         ttMidMIDVFHRyAD/DiEXsmD7UDpj19wDdLHRcJNpTUrux+KwWa33vbNlhp+TLTib9p3n
-         5tJA==
-X-Forwarded-Encrypted: i=1; AKwUvBxT9QGdkFKmHoBXKzeVbbNCYsXyX5qLzg8N0QH834f6IiJJ07TsKzu8n3MCWNE4MwkvNq45lEr9ACSTQW8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9iWiz3YzUDqRxbNltZ2QqIZoRa80ij4QPASU4LKSyOdrRFAz3U
-	tEYipv4jtkoN9AkxXqvhyjJC4Aoc3Bq+3C2CeaRXTrqK+hvV819JGZLSEZt88gdH
-X-Gm-Gg: AYBFou1udP9TOCwfYhenRrOAn/oG/gxBS/51DWsH0pld8OgweCSc099K7aaEmgtKnyi
-	Dv7/YPgyitI3RZ9teTAxsUQT18q7N/SPHdScj/ZQRjzQuYKpJk/l/jIHqkLzLwkBwZtfRb8EGq3
-	LCjUH71jd+eRK8+xP6TseTviMTiH/4vxHbvSPKoUBk4ZpIfFDvUGnVGWg3Ns/tStGZ8VCqlYEKk
-	HawEsDsfkmm7pRmXbOZ5KIOoESpkHeAANyfMzPaob06eGzSlnx2VqN5qbRBG563Z8Te7rqWhvx/
-	TJRMXueWisDs9F63JGfa4n1kVu7WTsPKTj0kqBXSIJCF1iY0PjIyRA9Jlt8W1o/R6j0RXWIbKk3
-	ZyEF/NIUk9nhUspaHeJvOJjgAfjkxpBa6wlwh8I7O91/b4MOd1AY6Ho7g+OytP1jj5FQUcMx459
-	vZpHm26WAfT4+ubAbwtWdlbDY4SVJoJ8hxgR+mWKxapazHyjh9C6Qy2FQKpRin9jhdRCnr7qgs1
-	gotnnLQbA8d0ahXIvDyaWBc0/Q5h8HbH1bdlgmeKfFF+dusF/maWNTlvRCA77aebDktnGHJ5Grt
-	lEx7UD9Y/usKH76RsgXiBjvrIB5FmcE/slc7FRtSa1zScl+4m7BBezfpZKD1kgDxqkOQkmph3hF
-	r/NJmNnG1KmdZdQtC2v6G/41EigdPcRseOVfhRuJW8RA=
-X-Received: by 2002:a17:90b:588d:b0:3ab:9c73:147 with SMTP id 98e67ed59e1d1-3ae8970ef58mr14269653a91.14.1793823030845;
-        Wed, 04 Nov 2026 12:10:30 -0800 (PST)
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com. [74.125.82.173])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b32b2b57sm429330a91.15.2026.11.04.12.10.30
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 12:10:30 -0800 (PST)
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso2504350eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:10:30 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwkxkxycHVAfTCNF+mdRlpvyyPloG7aq4hNr7zxVjnG6s0J8LJS3zUEYFwKgKXqW3M7HRPlw3+JcHVezgc=@vger.kernel.org
-X-Received: by 2002:a05:693c:88ce:20b0:36a:1f8:a5a4 with SMTP id
- 5a478bee46e88-36a4241f808mr25514235eec.38.1793823029345; Wed, 04 Nov 2026
- 12:10:29 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7589D6070F3B;
+	Wed,  4 Nov 2026 20:10:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n6CfLZuA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCB371F000C1;
+	Wed,  4 Nov 2026 20:10:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793823058;
+	bh=cZ6yFI7uUXsNpfZcP6QwBP/s11ZaCftZOiY0AOuJYFY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=n6CfLZuAume0uCWHjBTy8MGLChXDsG2YSrXEf3W3ANF0TYe0v4ydfu4iDhKsx1VWQ
+	 EiBceW5hAsWsQ+MJN4mITvSpMkFEmcVNEmUvbNHXnGSQt8srZJ861FH1LrzAS/4fv4
+	 4tnk5jnYX7977eLJ5k3FT7l7ZMawroT/TvRGIYf1LT9GS8eayXQx+Zu8kQYrh/49TO
+	 PIgWy9WesJxttg1upq0t75ZceWVS5AK2qYbQdtOKQ+zy5DmqMUsApu1sxRAlOvCacv
+	 vZYb1OqqfdPXcMWWWXhRU8eR+Rp3JTkdHxe/rCMek9fW0wPafZ3ppHeOFqICDoAAhi
+	 jKnblf+ZyyN3A==
+Date: Wed, 4 Nov 2026 17:10:55 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+	linux-kbuild@vger.kernel.org, Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org,
+	Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Thorsten Leemhuis <linux@leemhuis.info>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/7] kbuild: build the userspace tools in tools/ with
+ the kernel
+Message-ID: <auuRTxKE-I8Tyji-@phoenix2>
+References: <20261102021253.2545235-1-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,30 +71,186 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-sf19a2890-sysm-v1-0-a4fac07df823@telaak.dev>
- <20261104-sf19a2890-sysm-v1-4-a4fac07df823@telaak.dev> <e4474a7501c9e2a355dcc80d632bcfa10e1959e8.camel@pengutronix.de>
- <CAJsYDV+PSoAU9qNyRoEKuFoc4oeBkw8b=vdcCap4Mx3dCA1kAw@mail.gmail.com>
-In-Reply-To: <CAJsYDV+PSoAU9qNyRoEKuFoc4oeBkw8b=vdcCap4Mx3dCA1kAw@mail.gmail.com>
-From: Joseph Telaak <joseph@telaak.dev>
-Date: Wed, 4 Nov 2026 15:10:18 -0500
-X-Gmail-Original-Message-ID: <CAPY4CJ4zbB2P1qSihNYJ0j9Z8qL_21S+bQZKAKt6W5Baqzg6jA@mail.gmail.com>
-X-Gm-Features: AclHuK9y6rKZ3LjTVpypr_d_uuxBPp6tSISF5kZ9UZgLTLqFDDhVhOAbPmN46Wo
-Message-ID: <CAPY4CJ4zbB2P1qSihNYJ0j9Z8qL_21S+bQZKAKt6W5Baqzg6jA@mail.gmail.com>
-Subject: Re: [PATCH 4/4] clk: siflower: Add SF19A2890 peripheral clock and
- reset manager driver
-To: Chuanhong Guo <gch981213@gmail.com>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Yao Zi <me@ziyao.cc>, linux-mips@vger.kernel.org, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261102021253.2545235-1-sashal@kernel.org>
 
-> These are reset lines from the same IP block for different clock domains.
-> They have to be asserted together even though there are two lines.
-> [...]
-> The gmac lines are for two sides of the same async axi bridge.
-> Asserting them separately causes a bus lockup.
+On Sun, Nov 01, 2026 at 09:12:46PM -0500, Sasha Levin wrote:
+> The userspace programs under tools/ are disconnected from the rest of the
+> kernel's build system. Each has its own makefiles and build framework, and
+> "make" never builds them: apart from the few host tools the build itself needs,
+> such as objtool and resolve_btfids, nothing under tools/ is compiled as part of
+> a kernel build.
+ 
+> That makes them easy to break. Most people, and most of the build bots, check a
+> change with "make allmodconfig && make", which doesn't cover tools/ at all. A
 
-Thanks. v2 will explain it in the commit
-message and keep one reset per group.
+Well, by definition nothing that changes in the kernel should break at
+least tools/perf, see:
+
+tools/include/uapi/README
+
+"
+Why we want a copy of kernel headers in tools?
+==============================================
+
+There used to be no copies, with tools/ code using kernel headers
+directly. From time to time tools/perf/ broke due to legitimate kernel
+hacking. At some point Linus complained about such direct usage. Then we
+adopted the current model.
+"
+
+So tools shouldn't be using anything outside tools and people updating
+tools/ living shared headers should test the other subsystems that use
+it.
+
+Recently I added:
+
+⬢ [acme@toolbx perf-tools-next]$ make -C tools/perf help | grep headers
+  check-headers         - check which header copies are out of sync with the kernel
+  sync-headers          - sync those header copies with the kernel, creating commits
+⬢ [acme@toolbx perf-tools-next]$
+
+That calls:
+
+acme@phoenix2:~/git/perf-tools-next$ tools/perf/scripts/sync-headers.sh --help
+Usage: sync-headers.sh [OPTIONS]
+
+Sync tools/ header copies with the kernel sources and create commits.
+<SNIP>
+The script:
+  1. Runs 'make -C tools/perf check-headers' to find stale copies.
+  2. For each stale header, identifies the kernel commits that changed it,
+     including the merges that brought content of their own.
+  3. Copies the kernel header into the tools/ tree, skipping it when only
+     the tools/ copy changed (it is ahead) or when it carries intentional
+     edits, and stopping for manual investigation when both sides have
+     content the other lacks.
+  4. For beauty headers, runs the relevant beauty script(s) before and
+     after, showing new/changed string table entries.
+  5. Builds perf and the other consumers of the header to verify nothing
+     breaks.
+  6. Creates a git commit per header (or group) with the standard commit
+     message format.
+
+     -----
+
+See point #5.
+
+Having more people testing that perf continues to build if the existing
+rules described above is only good and I thank you for the work you are
+doing, I just wanted to clarify how tools/perf/ has been working with
+this over the years and the recent extra scripting around the updates
+that we do while maintaining tools/perf.
+
+- Arnaldo
+
+> change that breaks a tool passes every build check and is only noticed when
+> someone happens to build that tool by hand, often much later.
+> 
+> We keep seeing this in tools/testing/: selftests that stop building after a
+> change elsewhere in the tree, or after a backport to a stable tree, and stay
+> broken until someone tries to build them. Others brought up the same concern at
+> LPC.
+> 
+> This series lets the kernel build also build the tools it is configured for:
+> 
+> - tools/Kconfig adds a "Build userspace tools from tools/" menu
+>   (CONFIG_TOOLS_BUILD) with one entry per tool and per selftests
+>   directory, so .config records what gets built, and a tool that breaks
+>   can be turned off on its own.
+> 
+> - "make tools_build" builds the selected tools for the target, each with
+>   its own build system as it is built standalone, into tools-build/ in
+>   the object tree.
+> 
+> - With CONFIG_TOOLS_BUILD=y, "make all" builds them too. allmodconfig
+>   and allyesconfig enable every entry that applies to the target when
+>   the compiler can link glibc programs for it (currently x86_64 and
+>   arm64), so the usual build test catches tools breakage. Other
+>   toolchains are unaffected, as are "make vmlinux", "make modules" and
+>   external module builds.
+> 
+> This is useful beyond build testing: the tools are built for the same
+> target, from the same tree, as the kernel they go with.
+> 
+> The selftests need "selftests: lib.mk: define LINK.c, COMPILE.S and LINK.S
+> when make has none" [1], which is not in mainline yet. Without it, most of
+> them fail to build in tools_build.
+> 
+> I used LLM coding assistants to write and review these patches. I reviewed
+> and tested every change.
+> 
+> Changes in v3:
+> - Rebase onto v7.4-rc1 and drop the RFC prefix.
+> - 3/7: The perf-tools-next changes are in mainline now, so MINIMAL=1 sets
+>   NO_PYTHON_MODULE instead of NO_LIBPYTHON and also sets NO_MYPY and
+>   NO_PYLINT. This is the version that was posted on its own [2]. Add the
+>   Acked-by tags from Namhyung and Arnaldo.
+> - 4/7: Add Namhyung's Acked-by.
+> - 5/7: Add Shuah's Reviewed-by. Add entries for the selftests new in v7.4
+>   that build with only a C library: filesystems/configfs,
+>   filesystems/file_stressor, filesystems/freeze and nfsd.
+> 
+> Changes in v2:
+> - 1/7: Add Thomas's Reviewed-by.
+> - 2/7: Put each "depends on" condition on its own line. Allow UML: the
+>   tools are built for the architecture UML runs on (HEADER_ARCH), as
+>   their build systems do not know ARCH=um. Drop the
+>   PYTHONDONTWRITEBYTECODE export, as 5479e1a13b75 ("perf tools: Put
+>   Python bytecode in output directory") in perf-tools-next keeps perf's
+>   bytecode in its output directory.
+> - 3/7: New. Add MINIMAL=1 to perf, which turns off every optional
+>   feature, as Ian suggested.
+> - 4/7: Build perf with MINIMAL=1 instead of a list of NO_* variables.
+> - 5/7: As with "make kselftest-all", a selftest that fails to build no
+>   longer fails the build unless FORCE_TARGETS is set, and
+>   kselftest_deps.sh lists the libraries it needs that the compiler
+>   cannot link with. Also rebuild the selftests when headers under
+>   tools/arch change, the vDSO test when kernel headers change, and the
+>   x86 tests when the x86 headers they include change.
+> 
+> v2: https://lore.kernel.org/r/20261016143143.3613501-1-sashal@kernel.org
+> v1: https://lore.kernel.org/r/20261011233647.2454648-1-sashal@kernel.org
+> 
+> [1] https://lore.kernel.org/r/20261011223358.2327625-6-sashal@kernel.org
+> [2] https://lore.kernel.org/r/20261018135321.3986899-1-sashal@kernel.org
+> 
+> Sasha Levin (7):
+>   kbuild: factor the userspace ABI flags out into KBUILD_USERABI
+>   kbuild: add "make tools_build" to build userspace tools from tools/
+>   perf build: Add MINIMAL=1 to build without optional features
+>   tools: build perf in tools_build
+>   tools: build kernel selftests in tools_build
+>   kbuild: build the tools selected in tools/Kconfig as part of "make
+>     all"
+>   Documentation: describe building tools with the kernel
+> 
+>  .gitignore                                 |   5 +
+>  Documentation/dev-tools/kselftest.rst      |   4 +
+>  Documentation/kbuild/kbuild.rst            |   4 +-
+>  Documentation/process/submit-checklist.rst |   5 +
+>  Makefile                                   |  24 +-
+>  lib/Kconfig.debug                          |   2 +
+>  tools/Kconfig                              | 342 +++++++++++++++++++++
+>  tools/Makefile.kbuild                      | 209 +++++++++++++
+>  tools/perf/Makefile.config                 |   8 +-
+>  tools/perf/Makefile.perf                   |  42 ++-
+>  tools/perf/tests/make                      |   8 +-
+>  11 files changed, 635 insertions(+), 18 deletions(-)
+>  create mode 100644 tools/Kconfig
+>  create mode 100644 tools/Makefile.kbuild
+> 
+> 
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> prerequisite-patch-id: 68eb8785244b88ec7e696e716420e2d9b1367dbc
+> prerequisite-patch-id: 37c57cf4c2a9700788cd1755912753f363cbb3f9
+> prerequisite-patch-id: 5243b7b03f2c12a6e66c353b0c083f7f21fd7ba2
+> prerequisite-patch-id: 7153a847ba7b05e49a670caba5d5b8fa2508eff1
+> prerequisite-patch-id: 67a995618952454c30eb77960a5bf6f897d22547
+> prerequisite-patch-id: bc69d99570e4326ce7736b244838e1e97cc13358
+> prerequisite-patch-id: 7a28872d234cdfa7bd5ec851e9dde01a65e91130
+> prerequisite-patch-id: a71f47de3fd339d680c9f18e80f5bcde7eae0abf
+> -- 
+> 2.53.0
