@@ -1,55 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.204.27.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801871;
-	b=RQZAkWROHxBAmYgDsy9ZtToqlEwQWWaHYeWl6dqO2C2moVeXblgMLAgFBrNuLpNYRMwb
-	 SPROYno37rq6ZC20eDKCeuUJ6yyVzA0tvq2NK/0NYjnEuNKFK97U1cEb/h35u/EyZPR+1
-	 HSUFjrvkx99FlDp3u4MCDkVGRYGooufDOq6vdI0e9hbtUChoWaTO6256E3FCIeM7b7vW9
-	 qx532b/KWdmbpakZ/daKK1C148eqaT23u8WwEk7yd+5lzx9avwzcjQDT8U8qadZx5DON5
-	 CkkKF6WD/H5vCKtJ7ZpyPiEAJEHbYKCNDhPHDJN9ESDO9BFXO87Lh37Vmie90MdnR1A==
+	t=1793801896;
+	b=CXZqmHVpjFAHC0h9Zg9djbgnaDCZz1eGlHa9EmeFhkh5Rx7ic+p8ibczy2FiQ42AlQqg
+	 R9n0pstMRBY24VSguHknJ50NkJFIu7x0qKCtCQFRMY//uO46gEbGWplaayCV2f4RrHgB6
+	 7HlvTR7w+VS/20Th/HYkQbbq1kFwTJfLXo7AJPpBSUhfrP1VSWko66BpjNkBdMki1E3mA
+	 6EOcxW9T8IenBNiqZHQlVlwmYwarVkQ5qVQDlpGvAeYnJ+oz2eML6MAlPNyqByChtQWBR
+	 cUqJQY0g0OCiCaFQqnXjgrzzRvQS9nXgsc9WP4UEZPEwWJLI7lfBjHjSqZ6fcVXYqYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801871;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=mLazd9emzOWsv3JaPQ5UUfvKLht8lch/HQcvpq8y3GY=;
-	b=zNlSc2PVBwTCwzxz4YmnqlUr2nU2wX214AYUONB3bCjnJp6Yu6nBo8P/yYi8b3wSuLqm
-	 5fS+0H+G3DJNkLVOoMLJdy6bY8G2gFkdxog3dyAGelCYNVBOfmMuMoYPaHWiXMnYqupY6
-	 GT+QXk0zqW9RINVm1sYXAn/cmpFbQnqqdXipi0pm4ytgaJqD90JqElj+s7aNqrugosOre
-	 kcwudj0ZoExsgSLp7HNOkrdnjtEJ+doPNWkrw1VvYNb7yJ7SIXAphGH3dGvj1aHYvPBGk
-	 g3mYpZh8hap+BG8OSvpTkGaAuMbNA9C2tIwToeLsTP3QwhuTJuuFEQnmlG0fhd7bVow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801896;
+	h=DMARC-Filter:Received:Received:Received:Received:From:To:CC:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-Originating-IP:X-ClientProxiedBy;
+	bh=Heu5ugd+NF0d+Fg6h0LqroScBdG/hqP0uH0kgS5XAn8=;
+	b=cGAR6xeUTYo0M6GsxuA5oQZQrxiIU1QvsHhbukwQyLHuzfi3MAKvW4QuOlohSwd/nP0q
+	 bnMnqjnyy9qGzJOz4Tc4FKyDy247KTSkosSO0TLA7Yu0wIaL+V+8dh+hg+ZHGFWF4Obrq
+	 KwDTRUDt3ALl734c4znaEJCnaD9k4cXYbRDobipmPWMweXyIWN9FssEMuiyds761icJcR
+	 kvV6Uv1d4M0T5BkUYWKlpErr/q5H/lMt0Pb5IunPrQ3bb00I4J6HKEok4h0uVb4omajat
+	 T9X3aBB3TpowAgDljH+B4PRlm/lY3tInn97/Rn5eAWga8v/DLkqjhFvhKI7/7/HONjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Iamqxdwk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19F17606A338
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:17:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Iamqxdwk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF2E81F00919
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:17:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793801870;
-	bh=mLazd9emzOWsv3JaPQ5UUfvKLht8lch/HQcvpq8y3GY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Iamqxdwk2AMMca8i7/sa2z4aGVs1ZDXisqqarwuSEFO+3gX2/sSG4TUL+BC4uv/Bv
-	 L3j6c6puWYceKcRFV8e0mZmapVSU/u/ObthL2mpXj80NEkeGUTAj06Vf6WjZ9NrM59
-	 Q7KUn1rKqcnYl4SnHEq5ay1vrWT+gP0zKBNZiRRbxJWWmgPin+8mVjjZZtnnXG9bf7
-	 KByMP3W5TDkbOFQKDC2nhkOPA9VZmXeDF30DJP5h12OjObuRjoUEsvEetY9BLKQqnA
-	 klLIqTxkaJzOkmnYBs6TI3dyDt/Tt0qK1cI62kKq/CzOKxdqBwTnaXxvS+hYTLHTTF
-	 nuMpT3N5zxsGw==
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5bcb4f23ddeso672227e87.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:17:50 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBzf3q25n+wmGOV1y1mHutyEygDmY3yKXB5owlJzrkEV3DnCoN1wkCjWz2ttF+vvg2lg891CI//wcEW/AdE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9D0AwiCPd4m1uYufTYeK3wUPXfGoRM9WBpfmZ9vOKG+li7ewWE
-	YumYfTgGxrnbFchiB14pHH/v2GMmIOXNIKF9oZsWMHmtd155tC5brWMQ8B8c0cTt0nhonj2jt1M
-	UNZmI/K0Agxt6v41kIAckB9X2uYom5+M=
-X-Received: by 2002:a05:6512:114c:b0:5bf:b7d8:f38a with SMTP id
- 2adb3069b0e04-5bfd95730ddmr5925507e87.37.1793801869245; Wed, 04 Nov 2026
- 06:17:49 -0800 (PST)
+	dmarc=pass header.from=hygon.cn;
+	spf=pass smtp.mailfrom=hygon.cn;
+	arc=none smtp.remote-ip=101.204.27.37
+Received: from spam01.hygon.cn (unknown [101.204.27.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 764DF606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:18:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 764DF606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
+Received: from maildlp2.hygon.cn (unknown [127.0.0.1])
+	by spam01.hygon.cn (Postfix) with ESMTP id 4jKSFn6l56zwVJQ;
+	Wed,  4 Nov 2026 22:17:49 +0800 (CST)
+Received: from maildlp2.hygon.cn (unknown [172.23.18.61])
+	by spam01.hygon.cn (Postfix) with ESMTP id 4jKSFl3tlczwVJQ;
+	Wed,  4 Nov 2026 22:17:47 +0800 (CST)
+Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
+	by maildlp2.hygon.cn (Postfix) with ESMTPS id A7C6B301C0DA;
+	Wed,  4 Nov 2026 22:17:12 +0800 (CST)
+Received: from jianyong.hygon.cn (172.19.20.52) by cncheex04.Hygon.cn
+ (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Wed, 4 Nov
+ 2026 22:17:45 +0800
+From: Jianyong Wu <wujianyong@hygon.cn>
+To: <mingo@redhat.com>, <peterz@infradead.org>, <juri.lelli@redhat.com>,
+	<vincent.guittot@linaro.org>, <yu.c.chen@intel.com>,
+	<tim.c.chen@linux.intel.com>
+CC: <dietmar.eggemann@arm.com>, <rostedt@goodmis.org>, <bsegall@google.com>,
+	<mgorman@suse.de>, <vschneid@redhat.com>, <kprateek.nayak@amd.com>,
+	<linux-kernel@vger.kernel.org>, <wujianyong@hygon.cn>,
+	<jianyong.wu@outlook.com>, <liuyibin@hygon.cn>, <zhongyuan@hygon.cn>
+Subject: [PATCH] sched/cache: Fix group_llc_balance being unreachable above the first NUMA level
+Date: Wed, 4 Nov 2026 22:13:13 +0800
+Message-ID: <20261104141313.185433-1-wujianyong@hygon.cn>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,88 +61,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104070149.41393-1-lizhaoxin04@baidu.com>
-In-Reply-To: <20261104070149.41393-1-lizhaoxin04@baidu.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 4 Nov 2026 15:17:36 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0i_fmYOzgiJhoe_NdWfEopnDGb_GHuKXtMp5HD_-2_uLQ@mail.gmail.com>
-X-Gm-Features: AclHuK98DawDgpC2GZl5mXQB82W_aFxlZCFZTOvGX1cOlWUoWcXsJEy8Rra_a3E
-Message-ID: <CAJZ5v0i_fmYOzgiJhoe_NdWfEopnDGb_GHuKXtMp5HD_-2_uLQ@mail.gmail.com>
-Subject: Re: [PATCH] cpufreq: intel_pstate: Use rdmsrq_safe() to read MSR_MISC_PWR_MGMT
-To: Li Zhaoxin <lizhaoxin04@baidu.com>
-Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
-	"Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Viresh Kumar <viresh.kumar@linaro.org>, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: cncheex06.Hygon.cn (172.23.18.116) To cncheex04.Hygon.cn
+ (172.23.18.114)
 
-On Wed, Nov 4, 2026 at 8:02=E2=80=AFAM Li Zhaoxin <lizhaoxin04@baidu.com> w=
-rote:
->
-> From: lizhaoxin04 <lizhaoxin04@baidu.com>
->
-> Commit ed7cad0504e3 ("cpufreq: intel_pstate: Relocate platform
-> preference check") moved the intel_pstate_platform_pwr_mgmt_exists()
-> call to the beginning of intel_pstate_init(), right after the vendor
-> check, so it now runs before "no_load" (intel_pstate=3Ddisable) and the
-> other checks.
->
-> MSR_MISC_PWR_MGMT is model-specific and KVM does not emulate it. In a
-> KVM guest using a CPU model listed in intel_pstate_cpu_oob_ids[] (for
-> example "-cpu host" on Emerald Rapids), reading it raises #GP and the
-> unchecked rdmsrq() emits a warning with a call trace on every boot, even
-> with intel_pstate=3Ddisable:
->
->   unchecked MSR access error: RDMSR from 0x1aa at rIP: 0xffffffffa4009342=
- (native_read_msr+0x2/0x50)
->   Call Trace:
->    <TASK>
->    intel_pstate_platform_pwr_mgmt_exists+0x3b/0x220
->    intel_pstate_init+0x1e/0x500
->    do_one_initcall+0x59/0x350
->    ...
->
-> Before that commit, such guests typically returned from
-> intel_pstate_init() earlier, either because of intel_pstate=3Ddisable or
-> because intel_pstate_msrs_not_valid() failed on the zero ratios that
-> KVM reports in MSR_PLATFORM_INFO by default, so the MSR was not read.
->
-> Use rdmsrq_safe() and treat a failing read as "no OOB mode". The
-> exception fixup already zeroes the result of a failed unchecked read,
-> so apart from the warning going away there is no functional change.
->
-> Fixes: ed7cad0504e3 ("cpufreq: intel_pstate: Relocate platform preference=
- check")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Li Zhaoxin <lizhaoxin04@baidu.com>
-> ---
->  drivers/cpufreq/intel_pstate.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/cpufreq/intel_pstate.c b/drivers/cpufreq/intel_pstat=
-e.c
-> index 0e6ae4cdda5d..67447280e86a 100644
-> --- a/drivers/cpufreq/intel_pstate.c
-> +++ b/drivers/cpufreq/intel_pstate.c
-> @@ -3649,12 +3649,12 @@ static struct acpi_platform_list plat_info[] __in=
-itdata =3D {
->  static bool __init intel_pstate_platform_pwr_mgmt_exists(void)
->  {
->         const struct x86_cpu_id *id;
-> -       u64 misc_pwr;
-> +       u64 misc_pwr =3D 0;
->         int idx;
->
->         id =3D x86_match_cpu(intel_pstate_cpu_oob_ids);
->         if (id) {
-> -               rdmsrq(MSR_MISC_PWR_MGMT, misc_pwr);
-> +               rdmsrq_safe(MSR_MISC_PWR_MGMT, &misc_pwr);
->                 if (misc_pwr & BITMASK_OOB) {
->                         pr_debug("Bit 8 or 18 in the MISC_PWR_MGMT MSR se=
-t\n");
->                         pr_debug("P states are controlled in Out of Band =
-mode by the firmware/hardware\n");
->
+sched_balance_find_src_group() only considers group_llc_balance when
+sds.prefer_sibling is set:
 
-Applied as 7.4-rc material, thanks!
+	if (sds.prefer_sibling && local->group_type == group_has_spare &&
+	    (busiest->group_type == group_llc_balance ||
+	     sibling_imbalance(env, &sds, busiest, local) > 1))
+		goto force_balance;
+
+sds.prefer_sibling mirrors SD_PREFER_SIBLING of the busiest group's child
+sched domain, and sd_init() clears that flag on every SD_NUMA domain.
+So on any domain whose child is itself a NUMA domain, i.e. on systems
+with more than one NUMA level such as multiple nodes per socket, groups
+tagged with group_llc_balance by llc_balance() can never take the
+force_balance path, and the group_llc_balance test there is dead code.
+
+Such a group falls into the !group_overloaded branch below and in the
+common case ends up in out_balanced, so a task that was placed beyond
+the first NUMA level is never pulled into its preferred LLC.
+
+On a 2-socket Hygon system (8 nodes, 32 LLCs, 4 cores per LLC), with
+"spin 3"/"spin 4" (3/4 busy threads of one process), all threads were
+in one LLC in only 41/140 and 0/142 samples; every failing case had a
+straggler on the other socket. With this patch: 195/196 and 180/196.
+
+Only require sds.prefer_sibling for the sibling_imbalance() case, which
+is what it was originally introduced for.
+
+Fixes: f38cc2f0d8a3 ("sched/cache: Prioritize tasks preferring destination LLC during balancing")
+Reported-by: Yibin Liu <liuyibin@hygon.cn>
+Signed-off-by: Jianyong Wu <wujianyong@hygon.cn>
+---
+ kernel/sched/fair.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 57360f5cdde4..205a0891b0a0 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -13294,9 +13294,10 @@ static struct sched_group *sched_balance_find_src_group(struct lb_env *env)
+ 	 * Try to move all excess tasks to a sibling domain of the busiest
+ 	 * group's child domain.
+ 	 */
+-	if (sds.prefer_sibling && local->group_type == group_has_spare &&
++	if (local->group_type == group_has_spare &&
+ 	    (busiest->group_type == group_llc_balance ||
+-	    sibling_imbalance(env, &sds, busiest, local) > 1))
++	     (sds.prefer_sibling &&
++	      sibling_imbalance(env, &sds, busiest, local) > 1)))
+ 		goto force_balance;
+ 
+ 	if (busiest->group_type != group_overloaded) {
+-- 
+2.43.0
+
+
