@@ -1,95 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793782578;
-	b=3nvz9WHteQ8No/ZkiWanKoRrxCpoUyccDvPuHwp7ZndwSFMwNMjMtYF40y5iepYJ/tSS
-	 A019yFkZTwlU6OIB8vwCWZ0Zt1HUcEnYzxodR1tW97Z4wQPkNUPUbuE7U8JamkOrOMQQJ
-	 IPqvemIEm3lIqQXmlBasrZa31omZzUH7b6o0/VYe+fBJCtI5qkMl4uv9GUzJiXuUxI2bs
-	 ZTtIlfFK/G7tNW9/9kYBoMiRkZJUJPG/WQeIQVZGMSGxKCdyjscVj6ww2vjfWBgIXsjUu
-	 fnWrACQVdE/aSVoVpvg7bOTpsphvRENPJP1UmiqeEA0lxgtxuwAc5F264JTdtaD4mZQ==
+	t=1793782580;
+	b=AwxzNd8nYO3tQEMO5R4buUMgxJ6PKpPWZtzhCdhATiJzvdSs/BJCnqPIGYmSWop0G0OI
+	 sWqMzlTZN+a0DiJx8/lkTqU/vdm0F3JVrgDQmwlwVaHAyVdsPN6qI1kAJ1bG/8BLYA9SV
+	 LBs5ANXy9vCYWfo0R35E+bElWsSTgKrZfRpqUkNUEsS+kULfI6Y02OE/cMFC5OHZ6IWlW
+	 uY6erBkOa+2eKq59R5mFaCCtapjWVZ7I6voSckZcwQ8mAHh+v9WmLp5ztzYDirIRP7uOU
+	 BQof6qzFcJg7klFF7UUHjCGJTuYeNPgShl6TSA4aUDoH+N6KBGQThDw7f9oNL2tkPWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793782578;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-TM-AS-GCONF:X-Proofpoint-Reinject:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=rMQ9ivpPC+eYfH05XZvd5us0dsMxs+C8hqULavuLw+A=;
-	b=rJ2jS8+745FpWW94lq47tRjrHwEEG2mC2PVOSn4McIvXIUoOp/E65R5nDmt4O/l6u16C
-	 CKUeioAtLr0AXA3odck1FyDIHjW3EFgC7RvfC5iPh32iaC0wppS/9ND0flZQJuvLvgB4y
-	 WkKtua+jRz5F4DAwqVX1CI8VI1OfP0EMjxtrUWkOV6A6KG8ouzToRm0gVBos3UZrqV0Gq
-	 NY/Onp3hr8/p/AX87dCH0wX5cr4Z4Ac8QJSl/lpCEZJr2qsFSugzsX/RjTamROgLol+el
-	 Z8CPhh9uqPSr+/T01TKvVOa7Hju8skNhEcWKMifu3lm1se8WON8N0y+BXy2YOjdOEaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793782580;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=UGaAgMpnljfOyuN0SyGCmbKUbOqRCYoSBuFFDyHRatM=;
+	b=VvDV0EEG8QSGP7XB2OdSSv2cWnh1UQnyZsPsImyInvva3EVeO3dlFAkcBFsAB7xOjM0V
+	 5QnUFBKDSWh4tmg+6Gpk5s1vmvhoha9caxISgBgGuLgtDCsVOF0vYEZjxl2jAe6QOy1Vm
+	 /PCF5S7TaMpdTatIsu3Ia5Yv/pfi8CQNw5v6iKr58lQA9fpDxZCDBzEi6fp36EAPTJIas
+	 /Ya4HgYetu5K5wNuEna9fOd8ZO0Dfkyr3Z9FgghvZ9Osk91Soav15nwZRqzgUlXJkq4tG
+	 octYeUyIIBiefrRMEEy62LWo2vmIyNp70vzqFtzI3CD6SkT2M1e/Z6wu0E87QKwklgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=pCJe5MDA;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BO+mjVab;
+	arc=none smtp.remote-ip=192.198.163.8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DFF2606A328;
-	Wed,  4 Nov 2026 08:56:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DFF2606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8C7E606A337;
+	Wed,  4 Nov 2026 08:56:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8C7E606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=pCJe5MDA
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A48j3Tu2664578;
-	Wed, 4 Nov 2026 08:56:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=rMQ9ivpPC+eYfH05XZvd5us0dsMxs+C8hqULavuLw
-	+A=; b=pCJe5MDAXNwLsH7tJIKgOAue4mX3Y4eOr9dD1f2FHR1NDU9acf2VgNfHU
-	GRGN3DCO5D5ZlEJLbBaUYKR4FxEYflq1/eO7PH+tOed1aqc/cyMlE5WWCaAOSr6I
-	NCm5z4j8IJey0H0nstdutn7yoOnz2/9AK6WfcACOQjkaTqwiuUP8GGg804jaIcEs
-	o27YUCuU0iZ8e6felbreB0F3fs9zmwi1AapFALDAL8Z66k63/GtWxnrRQ04Sc/UB
-	obczUsYDvLyKsjDKRxRzPk/QHu+YZuRHBAIJDIPCAPT1KHrLg5ROJlNlk+qQ2u7o
-	Efa+7jjk7YIuKMzIMovv2e/+N2jug==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn80sttx9-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 08:56:11 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A48Jt5X3779821;
-	Wed, 4 Nov 2026 08:56:10 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hqcrcda87-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 08:56:10 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A48u68642009014
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 4 Nov 2026 08:56:06 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5D9B42004E;
-	Wed,  4 Nov 2026 08:56:06 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1C5F02004B;
-	Wed,  4 Nov 2026 08:56:06 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with SMTP;
-	Wed,  4 Nov 2026 08:56:06 +0000 (GMT)
-Received: by tuxmaker.boeblingen.de.ibm.com (Postfix, from userid 55271)
-	id E56BB160E2C; Wed, 04 Nov 2026 09:56:05 +0100 (CET)
-From: Alexandra Winter <wintera@linux.ibm.com>
-To: David Miller <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@google.com>
-Cc: Hidayath Khan <hidayath@linux.ibm.com>,
-        Thorsten Winkler <twinkler@linux.ibm.com>,
-        Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
-        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>
-Subject: [PATCH net-next] MAINTAINERS: Add Hidayath as net/iucv maintainer
-Date: Wed,  4 Nov 2026 09:56:05 +0100
-Message-ID: <20261104085605.2040729-1-wintera@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BO+mjVab
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793782580; x=1825318580;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=WEdnh3Um7RLyVQ8huXyPus5xQBPLH8vtUBUJSepuOP0=;
+  b=BO+mjVab5YgIj25H2esws5VfMXuKu+IrdHJPGy7f+r767gi1Zd76MtLn
+   wFsHDeOSh3UcJQkVANx+dm2yExwKEYNkCqwHz6ahn/+YA7ebuRHSQ/Q0v
+   M61Pv4I+OXP4rtk5lwagd38mavUdcFbFbYqpwEscGuB4X4nu4s8yuHJog
+   Ylne3u+KyvC9am1gJlCgq4nJ9ri0kSUZY96Edfg1PRdlLwb6F2F4/h1nX
+   rhMcxn8qKq9/M5D6MKrqqlPLTTWXeUaiHl5SDWJkrLUP+ebRlIpIrN+LJ
+   syyT/ccpCCw0bau8VN12bFeOqfr8+PhFftdNuzFiCgmUlx7TsUTWlJ3Vk
+   w==;
+X-CSE-ConnectionGUID: VU6EbLnxSH6iXe+ZcoluUw==
+X-CSE-MsgGUID: +cgAn+SaR1uA/NcKk7enrg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2416683"
+X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
+   d="scan'208";a="2416683"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 00:56:17 -0800
+X-CSE-ConnectionGUID: /gOq8NuZS6ib1xsECxEouA==
+X-CSE-MsgGUID: 6RQJzOOWQ9OH1ccyCgP24A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
+   d="scan'208";a="6515010"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 00:56:15 -0800
+Date: Wed, 4 Nov 2026 10:56:12 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Eileen Blessing Kabi <kabiblessing5@gmail.com>
+Cc: outreachy@lists.linux.dev,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andy Shevchenko <andy@kernel.org>, linux-staging@lists.linux.dev,
+	dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: fbtft: fix spelling mistake "writte" ->
+ "written"
+Message-ID: <aurzLD-baoebpE2N@ashevche-desk.local>
+References: <20261103221142.45100-1-kabiblessing5@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,63 +82,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: xcBPiexbBR8YK9Guig7h2QWi77xLSr4X
-X-Proofpoint-ORIG-GUID: shkmZdV_Q4Shn9hctiQmjQNWGzlOELQq
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAzNCBTYWx0ZWRfX8tDffGo2UTL+
- HhriY+MKNuM/dSLWOTu1GeFFQIehK5GSgrtTlKg/Y6nNdNByTsin8kRI1fWMPvbokUzLQfEtKhz
- 8LkUjlseb084W7LqDdqWKmB2Kklha+vKtgqpDXg/zYzlbkSopEzxF0dJtsshFfr/WlA817EwR8h
- kLIH1DtJmoqKAN1On2VMdJEegoOBe28bPei6qaOsTwe9fxNK6LXcIpzgrh/JdBKGKeG2SBWM6KJ
- XUfYL4RWnr2lpClBr9YG1cFlREFP5+aaScc3RWSGkIohiiEyg7UKZF6f7dEe/TCH/9DkxTJg2Xf
- Ak/7CG5YBQk57L5NELOSd3EQIOYhGFaE8Z2ZGjKcCKnMwPnJKPnbxM9n7rmov4rhKX0Uu416V8S
- sZtOYyRgdqoT6+Eu0IFxf7jJPgXSK+aTOhHDXQT1ExrOj7CueNITPooAVhzSOv6k8acInyr9XeV
- imP92/p4sNe+eju9nfg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAzNCBTYWx0ZWRfX1Zew4mRSKeN7
- T5x6zKFd5hzZVAb644ZK7qqnuBcI1a1bXMbDM4It50Uad9nDGM0xBGlNJRQokVo3SEUvuaBrDVl
- Tx+/CEU6rrcyN3/DgH6S0wBbAe9DJHQ=
-X-Authority-Analysis: v=2.4 cv=FIqOVOos c=1 sm=1 tr=0 ts=6aeaf32b cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8 a=VwQbUJbxAAAA:8
- a=z1mcxeMOiUYAy7at5kUA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_02,2026-11-03_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0
- bulkscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040034
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103221142.45100-1-kabiblessing5@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hidayath Khan takes over maintership of s390's iucv transport mechanism a=
-nd
-af_iucv sockets from Thorsten Winkler.
+On Tue, Nov 03, 2026 at 10:11:41PM +0000, Eileen Blessing Kabi wrote:
+> Fix the spelling of "written" in the write_vmem() kernel-doc comment.
+> 
+> Found with codespell.
 
-Thank you for your support Thorsten, and thank you Hidayath for taking on
-this task.
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-Acked-by: Hidayath Khan <hidayath@linux.ibm.com>
-Acked-by: Thorsten Winkler <twinkler@linux.ibm.com>
-Signed-off-by: Alexandra Winter <wintera@linux.ibm.com>
----
- MAINTAINERS | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+-- 
+With Best Regards,
+Andy Shevchenko
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 09713dc4c6a7..e15ed4a004a2 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -24680,7 +24680,7 @@ F:	drivers/iommu/s390-iommu.c
-=20
- S390 IUCV NETWORK LAYER
- M:	Alexandra Winter <wintera@linux.ibm.com>
--M:	Thorsten Winkler <twinkler@linux.ibm.com>
-+M:	Hidayath Khan <hidayath@linux.ibm.com>
- L:	linux-s390@vger.kernel.org
- L:	netdev@vger.kernel.org
- S:	Supported
---=20
-2.53.0
 
