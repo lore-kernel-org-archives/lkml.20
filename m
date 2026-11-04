@@ -1,57 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793797168;
-	b=gV37lZ7xM1lB4FvS0g/8pFgZW31LH1fT1mZnu7ADeqwePU/6kzuGGsOMqUurf/utgTcn
-	 SkE7RmtfNVlR7gapCENCgXLly9tCI7QG7peXns3aZSIr7xyzkhz56w0ymvF1iqM8+jqaP
-	 4hs1t+yxgyVF6Z5h6rBQpyt/hUmJIvRjUMCX+nCo9VR8/g/gX70svfvySwYDmA8KRBPFv
-	 hGWcljyeWytefXqXJbI39LMHOfZw9v2xkC6AoPAIcsrOrQN30PU/ECaT6O6duFcjXv0ei
-	 y4sz3Kg9AJA2Nn78I2SkdTb5g0VqDtI1/RNVdtziYIgl5qy95+jMkytrrixmtF+4vpA==
+	t=1793797173;
+	b=0QZqEEcI/Vw8R5I734V+xGTnJBv6CQR0zyeh7UGKlPaAsRIAsNNeDW9ca94h+PSY1f8d
+	 2yk3CBOdRqMplyTl/IkWB8vgPPUDzIrI8uBkLJNZ7qdIKHQuPxiJnsre+ol9Ec0g18l2S
+	 kv1B0Qn0kXRFEs9F5KoD+eTaJGrEKTsCwEhbYUwuwDndUEU2jwV2OUJniqlrNn+PWKjBz
+	 9jDWBxGeMvxN7oTasHYDyyb4y86a93GLyBYZGouUr3b/7A2QNNpB/tOgdF4ZIZzyb7X4r
+	 9o0KDnT+TJrySRQ3tftNOfK6sH+GXCA4z9SIQ36jhbh8KFhq/iP9b4mW7W3hNsHQapQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793797168;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=pNxgrMHWVSbBxJj3lxfx9KSjiconvC2KNEq5RdZwjAw=;
-	b=aiMysFYUKomImU5/NA7hXuORn9NzCVxysS90JTYABnyZRIIKIDAisgrQ8Hlri+/BEvt2
-	 j7JeKNxDuDzYcAjQE1CjtlVTqJJFzMK5UsS3F2/3OrwOHApvE4vgAScaMxhZM+yDWaW41
-	 Vi6nH0ZfmM2EIOug1h9+DWlQVnWAFpsRHX7Ahsmm+RnJAOk6vGcw0G8+opqrBqE+TAjjo
-	 ty6s/6zOWLD+sEmdy1KHmP/wCOZ4v3XOpuPvjG5L5CutjKJRdy1QRcNcnpVadZL6ewoaY
-	 tEI03h9Cnd07h5dXq0RMSwSY/ZbwVT1KZVve2awayhb5gjshAfnxIOwR468OaF4VJOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793797173;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=FXIxVU2ErnALAGekxCaTow6hX1frtF5kYcG5ZZqHi8U=;
+	b=AJuiRrSB1RwHPqkVZwai8+FTkS8kKMlWH4BeQgNSOpQ1eEaLTVZbuPszm/7AaBA2oNze
+	 udm3GEV7pNExVhXRva4k9M9OlL5w8FKYbJFyVxU9XEaX/V3g1voCk0SC0apKk9Eq4RNd3
+	 Hj7S4GJ/XN1zSX65MO6G4EGnmhfWz7XbSjC7ZGnC6IIWA+KUZJAxsS1oToVpxvcDady5L
+	 JMBxxWvuYDrulgTruRMegcq301xVu1HXq51Fxi10Cmvzmgb51ZC5ge2TI2t2JZb5XKe6b
+	 SwpA0ec7hktG4hs3BDfbzu21GiX/ngM5P0g/V5WAgxJUql5gvBSKHak1rzoZ0A8uDYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=XG+KLW43;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aDFAnskj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B35606A32F
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 12:59:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08B35606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C33E606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 12:59:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=XG+KLW43
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793797166;
-	bh=K8BLkcf/SQbFI3BsLcfZZ5IkoqAFtMgOjn1kywYClq8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=XG+KLW43Aafh7ugqxgWUYrZVN12y9qQORQ4SP3Jcl93vPJijrwfNKhSSAQMNI2qVG
-	 xhwH/OlCGhdhTxSJCzRgSY24/J8p8nYrnwyfJTyDVqW3ZFud8WSqBE41IBWdiC51bn
-	 oWohAisBzh+C9Lnw7AEJqt68wZ9WBJLgf0ddjm62oRMIo9ZuzlnIZEK7bSCYKM42S2
-	 NC2W9nk94kLMc+E80xofYiN11yBNbvQE+XxZwqgG6IxxP/qrFkCl+JJbjH751W1apd
-	 NTZGnHHUJ33JcItd/hYFAPnscV4hxSRwnu7gU7Ay3YppYv1YCk0S30nLlqr3vJiepM
-	 U2wHt2ULrdatw==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id B345A17E0418;
-	Wed, 04 Nov 2026 13:59:25 +0100 (CET)
-Message-ID: <b01dd5c9-258a-429c-b223-ecb329aa8409@collabora.com>
-Date: Wed, 4 Nov 2026 13:59:25 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aDFAnskj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A3DB1F00A1E
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 12:59:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793797173;
+	bh=FXIxVU2ErnALAGekxCaTow6hX1frtF5kYcG5ZZqHi8U=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=aDFAnskjLaH9szPZ+eelP8i0JxzV/ADplIik6LrHEHu3VibxmCnue2v8685Le0+dK
+	 cobUa9XuLqBS2tW+SnBCUvh8cQhdHgxXdtvxqY6d481KmL2ng4MFnFV/wR8o0C6o01
+	 btC+5MRcc1xptAPJOMRCwpQXGVWkLgyO7aE/qFzQZmJnA/7uvOuTZ5cXFi4TtKRbdN
+	 uQpNzORgEbX5APoBw/97Us7h3e9+6hbuS+tn9irYEqJKgjXIEhDnZGwPpRl8fw+BDJ
+	 cMQ6mZyfqIT1yNPf27APP/9/R6NH1INYXZdj6jZY+QL5rJzmmIH1EVVn/QwwX7d8pI
+	 Ffe0NU/NIRZ6Q==
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5bcb440d1cbso413956e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 04:59:33 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBx9wTzXTf0eEY8B28WGe/wgVlGXCvu7HVgpYt3h8LoNwf78kabN2jRxgt/H3LpzDnNlK2zyYAGnOOb9VPw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/m6qwETWNs5NWHbMf7aniptcqkVQrSSQiCfcD5jMPaJMmUYv+2
+	P1u4PToAsKeukt7rpgScvCaWqg2GA8FfhjEiaGID673HozGNeZIPCbuu545OxOJ2MJWnaX/SnIw
+	HKhGbpSnF3veFDj83izH1b6DA+EnVFno=
+X-Received: by 2002:a05:6512:104b:b0:5bf:e241:cd4e with SMTP id
+ 2adb3069b0e04-5bfe241ce90mr4030103e87.13.1793797171870; Wed, 04 Nov 2026
+ 04:59:31 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,32 +59,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mailbox: Convert to subsys_platform_driver()
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>,
- Jassi Brar <jassisinghbrar@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Michal Simek <michal.simek@amd.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org
-References: <20261104113324.1634161-1-peng.fan@oss.nxp.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20261104113324.1634161-1-peng.fan@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261021015004.1537738-1-dmitry.torokhov@gmail.com>
+In-Reply-To: <20261021015004.1537738-1-dmitry.torokhov@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 4 Nov 2026 13:59:17 +0100
+X-Gmail-Original-Message-ID: <CAD++jLkRkeftTeknrSVT9MGqA2Ep7rJ01eW+s2oFw2rj+h5HJg@mail.gmail.com>
+X-Gm-Features: AclHuK9FrROF_lbQblFxEWPuulWTuq7jZ-GLjM6cpqXKsEAap45D_vvWiQC8Ya4
+Message-ID: <CAD++jLkRkeftTeknrSVT9MGqA2Ep7rJ01eW+s2oFw2rj+h5HJg@mail.gmail.com>
+Subject: Re: [PATCH 1/3] Input: soc_button_array - use resources to set up IRQ
+ info for gpio-keys
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Andy Shevchenko <andy@kernel.org>, linux-input@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/4/26 12:33, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
-> 
-> Replace the open-coded subsys_initcall()/module_exit() platform driver
-> registration with subsys_platform_driver().
-> 
-> No functional change.
-> 
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+On Wed, Oct 21, 2026 at 3:50=E2=80=AFAM Dmitry Torokhov
+<dmitry.torokhov@gmail.com> wrote:
 
-For MediaTek:
+> In preparation for transitioning the driver to use static device
+> properties instead of platform data to configure gpio-keys driver,
+> switch to using IRQ resources attached to the gpio-keys platform device
+> to communicate the IRQ selection.
+>
+> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
+Yours,
+Linus Walleij
