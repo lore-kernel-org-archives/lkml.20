@@ -1,89 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793823735;
-	b=snw1MxC+Y9Phu+FEmEEpyBNqRZpJci/oT6m/cFZjLRaht0Br+w78u+GVqq6K1BEymOZX
-	 Pr1It1c28m/FsXxwh2mTlQHCT5Cp+HYp3afjQPX9Q6V2Ti4+KmCc2zT0lo2q4kPLQdZct
-	 Vm/FIDbpvNsCxS66OeuzdonjM+aLsNMjkDwkVAScy+I5bqEOiJPTMJANmE4/SENJVrrYN
-	 yCzDT+VNlOLmi9y3cJOtp6/CskR1V0alsjLCl6YgSZskdJhcP0Nm/P2z8YzsI0Ph75Bzv
-	 L+Lzpq/CkQFT6kN6+tAaxJS4BHsyWAKfNd5+2udjARYEJoOjisnkDcLItiBC/tX+rZg==
+	t=1793823801;
+	b=kFZLqXoMkyiYp9rMr8TS7x+HmjC6aNOM1AVvTmbWGpABxv5+wygspRst80ZAveCeRtxN
+	 /Dl8sU3SoGWag4fAg1k58WiMQD0Y6u88GNKCHoJS3Ab2lAMDkTXHXukuWyEbTL5FqOPTW
+	 MY2d3q2Iuz/W1i0PYqSM8PBaDVNFKKx8THlfGwixASDgWpk9SjYFqqxw531E8ENLUQqWv
+	 6r1NFjzCFBUFXtYIO834kogacs8Mkww9aPFmYaTcNPAyc9fMVwSYu6BmPvcOBzxqiv2Qr
+	 XuLvM3xzBGxxPu7SfkJcPTHG57pKufFsHu5VdCdafSFeKksnT2hSQ5uRCMJeTm+8O3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793823735;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=1q6t4nFYUEkBz7z+xoP8zNbSPnKXpREiK7TaFNztaTo=;
-	b=Eez26wAjAga7wURtg2c77IChf7yNGZK3vnyN/3qXbTqBZ3gZKfpE4P3RfdWEUVS60eIb
-	 3jzegSF/adJ+PaR5TFzxEBv166N3zm323u7DSw0H+MgoZpZO5E6GwRku+zz9dXPA65h6X
-	 nJZuIBweI2d77BE4hGoSpkL7Gb8+fjXG6AWpyOBwx95+/X3T8Oe9e3uueSIzLzbeRPk9B
-	 Xy/NVLPw/5VMKfeMCwwFk8VnRv/blskkmNLs1nZWbr6AX3Rnqondi/32ehIyudg70Ke+r
-	 oD1fJVsRQATC4nHYC8QAjGctQyUfG7dShOp/Ioh2x530pmk0ajpFWpmZWVaMjTLh5rA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793823801;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=0j93TeNA9tJq3iswKqqlnki/W9UfBZdAqtf2r5wDRjA=;
+	b=z/Q6FX7LDvGXhIc4ACHBd4/C9e7MZNhZxTEy56zHwuKfrs5BHWp+2Y7ShJztFou8HQD2
+	 M9eQppa1PmwwtKFzgpNC0g5zQGvA51XZ8D7Jr9YmSK/+q1rb9kpcufR5KMHzCY3VLnkaf
+	 yhPMGFrwAggg025Aw1kjC87P5xYG7TOpgGeK7VMfzT01d/cREDLz9jR2hmkExXsTX0S7M
+	 +ar0wKJ4Ia57O2n7FEEkjeB0dW16XuBgmvb7VflArYDADCkmumGQgIRY1oWzpVUq5NfV9
+	 gj733IC3de8uo/UCWWnJju8ydzxgyH1cPuIx9fHtZbJ+gr+K1nUNpZ+gYkcKZvtkOIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YsG8D40s;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=fatecpompeia.edu.br;
+	spf=none smtp.mailfrom=fatecpompeia.edu.br;
+	dkim=pass header.d=fatecpompeia-edu-br.20260707.gappssmtp.com header.i=@fatecpompeia-edu-br.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=j+TomhfB;
+	arc=none smtp.remote-ip=209.85.128.179
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32B39606EEB6;
-	Wed,  4 Nov 2026 20:22:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32B39606EEB6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6AFC6070307
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:23:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6AFC6070307
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fatecpompeia.edu.br
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fatecpompeia.edu.br
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YsG8D40s
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793823735; x=1825359735;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=FMIi+WxOIJkYfJDxyuNJSMRa8IbgzEpLC7IDMUiiy1k=;
-  b=YsG8D40s2/oX+b3QxvcyuL5/ukIX1pF80hex6Qe11aBxcPQd9kGxCiN0
-   dw143qIQxx4m7hDZK9q6VJz+9YNlBoi9/1q06aCfbeypH/rVLcZ5zk8Bx
-   6Q0rcGxSPjuLLY1F805m7D1nipq5OULCI8cUDigh8c3Lc+zHVX1TeYS8+
-   lV8E4YDCU6X3Zy3yJjAgcnUwRD8gbX9R16Sj2TvUeqAHAvhaLSXKVTgtw
-   LaSTL1HzbR4B4yWKpjAlxB/U3z7mV5GBuJgCtB2irb0u0AxHX0ASirCuN
-   u8wQq/vO0aIGZPsZGc3pNy0xCz6dz9FpJwh0yljXvuupRBQGUBtT0GDke
-   w==;
-X-CSE-ConnectionGUID: CteQ1Q+LTK6b8DWdvTrC0Q==
-X-CSE-MsgGUID: SrSIdXVLSbG07R0HQbZzAQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2478703"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2478703"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:22:14 -0800
-X-CSE-ConnectionGUID: HM934INXTnu1L+MDYncFlw==
-X-CSE-MsgGUID: 0wCh21S1QnKZTYVCTCWxzg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="7170684"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:22:10 -0800
-Date: Wed, 4 Nov 2026 22:22:07 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Michael Hennerich <michael.hennerich@analog.com>,
-	Trevor Gamblin <tgamblin@baylibre.com>,
-	Joshua Crofts <crofts@kernel.org>,
-	Sergiu Cuciurean <sergiu.cuciurean@analog.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-pwm@vger.kernel.org, linux-doc@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=fatecpompeia-edu-br.20260707.gappssmtp.com header.i=@fatecpompeia-edu-br.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=j+TomhfB
+Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8b0d63f60bcso16653767b3.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:23:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fatecpompeia-edu-br.20260707.gappssmtp.com; s=20260707; t=1793823800; x=1794428600; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0j93TeNA9tJq3iswKqqlnki/W9UfBZdAqtf2r5wDRjA=;
+        b=j+TomhfBAaKVUi75g2hFwXy80DA2hHOKpyyOCjlerB6w7qOvX0K82SYVW0B1OMQZQk
+         4seWrqB4v/ga4ZVzEqiXjHqfcj3Tt8FT1j5OQpFmImIc7Jjd/Zx14xvGqsYLYWpHFmFR
+         zF1go7sn4Y+Z2dk9BNECnIQhpT6792Q2s8qaSasJbUOL+r9wQ2vur6h9ODHcyEw7hBNR
+         xeg3VA8opyCHP208kGs8krToRuYv/U7XZ3Ur681J/lhP3TPzszA87EbuaQSof/gvftqB
+         I7CzXRiJi+zGOObGPW+zsQIBYKS4voMPgePcXQQdoqhwCO+tI78RqQfozDv+1qiTvyYd
+         eddQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793823800; x=1794428600;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0j93TeNA9tJq3iswKqqlnki/W9UfBZdAqtf2r5wDRjA=;
+        b=GKf5tQFHvYjsB4hoWaZ0HcwG2Z0zNmWrpWSh7uVQgX51TVHN2nBRrjKAKY5zDcGgRh
+         v1D9/EoKVlir0Q3Xw8G8HNPpYkGtwGkNMAtzLcE5GYoQhyThlm2wZXEOC/Xd0pcTzlgk
+         KFfo4InlmwvRZcChE2e3WvHVjV8ZBcOIdZxVXVgUnsZuwZNjbdrN1Fpmw+hANQSDgiJm
+         N/JZlBwtBW0jCPo1+E4O7p8q79yf0mqnNGbSDgtJcN6js6Q4cX9ecVMrZ8qpp/2rwBFK
+         gD2gdKdGFH7Q+pFH3CeTwwVPAJd/Xk97vQhhSozHfc1nBcjiuffYJi1Tewzz4au85H/9
+         1XUA==
+X-Forwarded-Encrypted: i=1; AKwUvBz5BKVz8Xgwi9co1CsqmC0bRYj0UxHBfs9Lb45O8HvcHl2Q3QDBr66k4XFxZNAIpu0PnaqClW+6FNod6c4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8+s/z/Upv/v8+d6+/77PuoCP34PsFv1B0qkqG4WdKrdF5kUTFv
+	hu/nh0GdSWJQzAstrp2FJW/42pH7MxyyWW2B+VdJnHw+X44dG4wPXzaC4++fm9K1StE=
+X-Gm-Gg: AYBFou2tnet/PDeFUGSfJBXXbiRsyoEHSdUDnA4dHgLTNCT1UoEDmYe/D7TCnwTMSAQ
+	OUAWgoT62EeGmvBxg/tsiZNzqaV0g5PZaqzY0O+7jXObDe4s6VGMS54TgSVn/pOM9267/VdtPUz
+	uSp028yLs8VwD1P/7gbBQZaqiAOgcfqqIzgcvBUrMec4o4QV/7BHiHwS5RrzgzHEebhCl5LhIgn
+	tUgXjrJ62Wc5zWJ4bzyQHHX4Ag4aZZQtGXy2ke9Ms+F5d4UlFvpEyNf2keFJ7weB5b0/W3rkUCB
+	h/FBvQbeK3bK/EoRK49V4skx+XjxR3NwlUcBNBqviWqLm8gCKJoNrkQaQCbxtnpcbwEq6CTEydx
+	W++q8l26rP/rNuUE0xzD6JjVcVXBcYTGTFu3WWk0kIkt/Cgsz4h8sOfkXxRFYnbOQghAyBvXOBU
+	A0cdOfgvCZWL831EQ6JJHWvv2GA+05VCfdAOeURAyXrVsOcG4nH8CN/CWE7MMAJ/6BwI5JLlt1+
+	d8YIvnYp7IQl72HPjj02JitFBdNbWV049qTkDD9++aIuy8if3rC1KQGrmgZSItdX6Z5wfSVExZ3
+	J0orAqu9p+wYUpepuTVd2kg4WVw6QHptqpBXZ+mT1m5EPDdYpBm2p9jp8MugETXWB8Cn2bllIOc
+	PfaM=
+X-Received: by 2002:a05:690e:1686:b0:67b:e1e4:6766 with SMTP id 956f58d0204a3-67be1e46985mr3226996d50.108.1793823799719;
+        Wed, 04 Nov 2026 12:23:19 -0800 (PST)
+Received: from localhost.localdomain ([104.28.244.23])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67bf91b6e7dsm1298292d50.13.2026.11.04.12.23.17
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 04 Nov 2026 12:23:19 -0800 (PST)
+From: Allan Siriani <allan@fatecpompeia.edu.br>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 5/5] iio: adc: ad7625: add LTC2387 and ADAQ2387x
- support
-Message-ID: <auuT754d-bwSeL1Z@ashevche-desk.local>
-References: <20261104132143.215581-1-Nicolae-daniel.Deaconescu@analog.com>
- <20261104132143.215581-6-Nicolae-daniel.Deaconescu@analog.com>
+Subject: [PATCH 0/4] media: qcom: camss: fixes for SoCs without IOMMU, RDI and CSID1 streaming
+Date: Wed,  4 Nov 2026 17:23:09 -0300
+Message-Id: <20261104202313.72494-1-allan@fatecpompeia.edu.br>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,311 +99,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104132143.215581-6-Nicolae-daniel.Deaconescu@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 03:21:43PM +0200, Nicolae-Daniel Deaconescu wrote:
-> 
-> Add the LTC2387-16, LTC2387-18, ADAQ23875, ADAQ23876 and ADAQ23878 as
-> chip data of this driver. They are read through the same two PWMs and
-> IIO backend. They differ in a few ways that the chip data and a few
-> quirks cover, see the binding patch for the list:
-> 
-> - Data is output at double data rate on one or two lanes, so the CLK
->   burst is the number of bits divided by 2 or by 4 pulses long.
-> - The burst of one conversion starts at least t_FIRSTCLK after its CNV
->   and has to end at most t_LASTCLK after the next CNV, so at the maximum
->   rate it runs into the next conversion period.
-> - They have no EN pins.
-> - The ADAQ parts divide the scale by the gain of their front end.
-> 
-> The changes are:
-> 
-> - Add chip info for the five parts, with a maximum sampling frequency of
->   15 MSPS, and the OF and platform device ID entries for them.
-> - Add struct ad7625_ddr_timing with t_CNVH, t_FIRSTCLK and t_LASTCLK, and
->   point the chip info of the new parts to it. A non-NULL pointer marks a
->   part with DDR output.
-> - Add ad7625_set_sampling_freq_ddr(). Unlike for the AD762x and AD796x,
->   the sampling period is raised until the CLK burst fits t_LASTCLK, so the
->   maximum rate isn't limited to 10 MSPS by the period clamp.
-> - Build the waveforms in whole steps of the PWMs, which are read with
->   pwm_get_waveform_step_might_sleep() when probing and each time the
->   sampling frequency changes.
-> - Get the second PWM as "clk" for the new parts and "clk_gate" for the
->   existing ones, and don't get a reference clock for the new parts, as the
->   step already tells the clock rate of the PWM.
-> - Add ad7625_parse_ddr() to read adi,use-two-lanes and adi,gain-milli. The
->   gain defaults to the fixed gain of the ADAQ23875 and to 1 for the
->   LTC2387, and is required for the ADAQ23876 and ADAQ23878, whose gain is
->   pin strapped and has to be one of the supported values.
-> - Divide the scale by the gain of the front end for the new parts.
-> - Enable the supplies of the new parts, and read their optional
->   ref-supply, using the internal reference when it is absent.
-> - Set the number of lanes of the backend for the new parts. This can only
->   be skipped if the backend can't set it and one lane is used.
-> - Limit the default sampling frequency of the new parts to the clock rate
->   of the PWMs.
-> - Move the setup of the EN pin mode into ad7625_set_initial_mode(), which
->   does nothing for the parts without EN pins. The code that sets the pins
->   of the existing parts is unchanged.
-> - Include math64.h and minmax.h for the helpers that the new code uses.
-> - Add the new parts to the Kconfig help and Documentation/iio/ad7625.rst,
->   and new maintainer entries.
+These fixes came out of bringing up the CAMSS on MSM8226 (Moto G 2013,
+"falcon", MT9M114 front camera on RDI), where the CAMSS is not behind an
+IOMMU. The MSM8226 support itself will be sent separately; the problems
+fixed here are generic.
 
-...
+1. The write masters take one base address per plane, but the buffers
+   come from vb2_dma_sg and only the first scatterlist entry is used.
+   Without an IOMMU the buffer is physically scattered and the frame is
+   written over unrelated memory: on a 1280x960 RAW10 capture only the
+   first 656 lines (the first 1 MiB segment) land in the buffer, and the
+   device reboots within a few frames. Use vb2_dma_contig when the device is not IOMMU mapped, and
+   refuse non contiguous DMA mappings on the vb2_dma_sg path.
 
->  config AD7625
-> -	tristate "Analog Devices AD7625/AD7626 High Speed ADC driver"
-> +	tristate "Analog Devices AD762x, AD796x, LTC2387 and ADAQ2387x ADC driver"
+2. In frame based (RDI) mode the VFE 4.1 write master buffer size is
+   never programmed. Program WR_BUFFER_CFG as the downstream driver does.
 
-This does not scale. Please, make it more generic and make sure the text in the
-top comment of the driver along with MODULE_DESCRIPTION() is quite similar to
-this (maybe without "driver" word).
+3. video_stop_streaming() bails out on -ENOIOCTLCMD from a subdev
+   without .s_stream() (e.g. the MT9M114 pixel array), leaving the
+   pipeline started and the buffers with the driver: vb2 WARNs and the
+   next STREAMON / "media-ctl -r" fail with -EBUSY.
 
-...
+4. csid_set_power() powers up the VFE of the same index as the CSID,
+   and fails with -EINVAL when there is none. On MSM8916/MSM8226 (two
+   CSIDs, one VFE behind the ISPIF) streaming from CSID1 fails with
+   "Failed to power up pipeline: -22". Skip the VFE power up there.
 
->  	  * AD7626 16-Bit, 10 MSPS PulSAR Analog-to-Digital Converter
->  	  * AD7960 18-Bit, 5 MSPS PulSAR Analog-to-Digital Converter
->  	  * AD7961 16-Bit, 5 MSPS PulSAR Analog-to-Digital Converter
-> +	  * LTC2387-16 16-Bit, 15 MSPS SAR Analog-to-Digital Converter
-> +	  * LTC2387-18 18-Bit, 15 MSPS SAR Analog-to-Digital Converter
-> +	  * ADAQ23875 and ADAQ23876 16-Bit, 15 MSPS uModule Data Acquisition
-> +	    Systems
-> +	  * ADAQ23878 18-Bit, 15 MSPS uModule Data Acquisition System
+Build tested (W=1) on next-20261104 for ARM with COMPILE_TEST.
 
-Why not keep this list sorted by a part number?
+Runtime tested on the MSM8226 (Moto G 2013) with the same changes applied
+to a 6.16 based kernel, not yet on linux-next: on the rear AR0543 (RAW10
+1280x960, CSIPHY0) every buffer gets exactly sizeimage bytes and nothing
+past it, and STREAMOFF/STREAMON and "media-ctl -r" work repeatedly. On the
+front MT9M114 (UYVY) the first frame after STREAMON can still run 128
+bytes past sizeimage (one burst); later frames are exact. Patch 1 alone
+already stops the memory corruption.
 
-...
+Allan Siriani (4):
+  media: qcom: camss: use contiguous buffers when there is no IOMMU
+  media: qcom: camss: vfe-4-1: program the RDI write master buffer size
+  media: qcom: camss: always stop the pipeline in stop_streaming
+  media: qcom: camss: do not fail CSID power up without a matching VFE
 
->  struct ad7625_chip_info {
->  	const char *name;
->  	const unsigned int max_sample_freq_hz;
-
->  	const bool has_power_down_state;
->  	const bool has_bandwidth_control;
->  	const bool has_internal_vref;
-
-Side note: What the point in const to these (plain booleans, integers)?
-Chip info as a whole should be const, no?
-
-...
-
-> +	/*
-> +	 * The LTC2387 and ADAQ2387x output data on one or two lanes at double
-> +	 * data rate, have no EN pins and learn their timing from the PWMs.
-> +	 * They are the parts with @ddr_timing set.
-> +	 */
-> +	const struct ad7625_ddr_timing *ddr_timing;
-> +	const char * const *supplies;
-
-Again, why the second const here...
-
-> +	int num_supplies;
-> +	/* Gain * 1000 of the ADAQ front end, 0 if the board has to provide it. */
-> +	const u16 default_gain_milli;
-
-...and the const here?
-
-milli is multiplier and not a unit. But if you think it's better this way, I am
-not going to object.
-
->  };
-
-...
-
-> +static const char * const adaq2387x_supplies[] = {
-> +	"vdd", "vio", "vs-p", "vs-n"
-
-When not on a single line, add a trailing comma.
-
-> +};
-
-...
-
-> +static const struct ad7625_chip_info ltc2387_16_chip_info = {
-> +	.name = "ltc2387-16",
-> +	.max_sample_freq_hz = 15 * MEGA,
-
-No, we have HZ_PER_MHZ for this.
-
-> +	.chan_spec = AD7625_CHAN_SPEC(16),
-> +	.has_internal_vref = true,
-> +	.ddr_timing = &ltc2387_ddr_timing,
-> +	.supplies = ltc2387_supplies,
-> +	.num_supplies = ARRAY_SIZE(ltc2387_supplies),
-> +	.default_gain_milli = 1000,
-
-As I mentioned above this multiplier without unit is confusing.
-Simply
-
-	.default_gain = 1 * MILLI,
-
-?
-
-> +};
-
-Same comments to all added chip info:s.
-
-...
-
-> +	/*
-> +	 * The waveforms are whole steps, so nothing should have to grow. If it
-> +	 * did, a minimum time of the part is no longer met.
-> +	 */
-> +	ret = pwm_round_waveform_might_sleep(st->cnv_pwm, &cnv_wf);
-> +	if (ret)
-> +		return ret < 0 ? ret : -EINVAL;
-> +
-> +	ret = pwm_round_waveform_might_sleep(st->clk_gate_pwm, &clk_gate_wf);
-> +	if (ret)
-> +		return ret < 0 ? ret : -EINVAL;
-
-Don't nest branches, you can just move ret == 0 check out of that in both cases.
-
-...
-
-> +static int ad7625_parse_ddr(struct device *dev, struct ad7625_state *st)
-> +{
-> +	int ret, i;
-
-Why is 'i' signed and why can't it be defined inside for-loop?
-
-> +	st->two_lanes = device_property_read_bool(dev, "adi,use-two-lanes");
-> +
-> +	/* A fixed gain part has no adi,gain-milli, the others are pin strapped. */
-> +	st->gain_milli = st->info->default_gain_milli;
-> +	if (st->gain_milli)
-> +		return 0;
-> +
-> +	if (!device_property_present(dev, "adi,gain-milli"))
-> +		return dev_err_probe(dev, -EINVAL, "adi,gain-milli must be set\n");
-> +
-> +	ret = device_property_read_u16(dev, "adi,gain-milli", &st->gain_milli);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to read adi,gain-milli\n");
-
-	const char *propname;
-	...
-	propname = "adi,gain-milli";
-
-	// Why do we even need the presence check?
-	if (!device_property_present(dev, propname))
-		return dev_err_probe(dev, -EINVAL, "%s must be set\n", propname);
-
-	ret = device_property_read_u16(dev, propname, &st->gain_milli);
-	if (ret)
-		return dev_err_probe(dev, ret, "failed to read %s\n", propname);
+ drivers/media/platform/qcom/camss/Kconfig     |  1 +
+ .../media/platform/qcom/camss/camss-vfe-4-1.c | 34 +++++++-
+ .../media/platform/qcom/camss/camss-vfe-4-7.c |  3 +-
+ .../media/platform/qcom/camss/camss-vfe-4-8.c |  3 +-
+ .../platform/qcom/camss/camss-vfe-gen1.c      |  5 +-
+ .../platform/qcom/camss/camss-vfe-gen1.h      |  3 +-
+ .../media/platform/qcom/camss/camss-video.c   | 78 ++++++++++++++++---
+ drivers/media/platform/qcom/camss/camss.c     | 17 ++--
+ 8 files changed, 115 insertions(+), 29 deletions(-)
 
 
-> +	/* The scale shifts the gain by up to 17 bits, so it has to stay small. */
-> +	for (i = 0; i < ARRAY_SIZE(ad7625_gains_milli); i++)
-> +		if (st->gain_milli == ad7625_gains_milli[i])
-> +			return 0;
-> +
-> +	return dev_err_probe(dev, -EINVAL, "unsupported adi,gain-milli %u\n",
-> +			     st->gain_milli);
-> +}
-
-...
-
-> +static int devm_ad7625_ddr_regulator_setup(struct device *dev,
-> +					   struct ad7625_state *st)
-> +{
-> +	int ret;
-> +
-> +	ret = devm_regulator_bulk_get_enable(dev, st->info->num_supplies,
-> +					     st->info->supplies);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to enable supplies\n");
-> +
-> +	ret = devm_regulator_get_enable_read_voltage(dev, "ref");
-> +	if (ret < 0 && ret != -ENODEV)
-
-Too many ENODEV checks, see below how to deduplicate.
-
-> +		return dev_err_probe(dev, ret, "failed to get REF voltage\n");
-> +	if (!ret)
-> +		return dev_err_probe(dev, -EINVAL, "REF voltage must not be 0\n");
-
-	ret = devm_regulator_get_enable_read_voltage(dev, "ref");
-	if (ret == -ENODEV)
-		/* Without ref-supply the internal reference is used. */
-		st->vref_mv = AD7625_INTERNAL_REF_MV;
-	else if (ret < 0)
-		return dev_err_probe(dev, ret, "failed to get REF voltage\n");
-	else if (ret == 0)
-		return dev_err_probe(dev, -EINVAL, "REF voltage must not be 0\n");
-
-	st->vref_mv = ret / (MICRO / MILLI);
-
-> +	/* Without ref-supply the internal reference is used. */
-> +	st->vref_mv = ret == -ENODEV ? AD7625_INTERNAL_REF_MV : ret / (MICRO / MILLI);
-> +
-> +	return 0;
-> +}
-
-...
-
-> -		/*
-> -		 * If neither sampling mode is available, then report an error,
-> -		 * since the other modes are not useful defaults.
-> -		 */
-> -		if (st->can_wide_bandwidth) {
-> -			ret = ad7960_set_mode(st, AD7960_MODE_WIDE_BANDWIDTH,
-> -					      st->have_refin, st->vref_mv);
-> -		} else if (st->can_narrow_bandwidth) {
-> -			ret = ad7960_set_mode(st, AD7960_MODE_NARROW_BANDWIDTH,
-> -					      st->have_refin, st->vref_mv);
-> -		} else {
-> -			return dev_err_probe(dev, -EINVAL,
-> -				"couldn't set device to wide or narrow bandwidth modes\n");
-> -		}
-> -
-> -		if (ret)
-> -			return dev_err_probe(dev, -EINVAL,
-> -					     "failed to set EN pins\n");
-
-AFAICS the above can be moved to a helper in the separate patch and moved as a
-couple of lines only in this patch.
-
-...
-
-> +	if (st->info->ddr_timing) {
-> +		ret = iio_backend_num_lanes_set(st->back, st->two_lanes ? 2 : 1);
-> +		/* Without the op, a backend can only be left on one lane. */
-> +		if (ret && (ret != -EOPNOTSUPP || st->two_lanes))
-> +			return dev_err_probe(dev, ret, "failed to set the number of lanes\n");
-> +	}
-
-Same problem, too many (hidden) branches makes code unreadable.
-
-	if (st->info->ddr_timing) {
-		if (st->two_lanes) {
-			ret = iio_backend_num_lanes_set(st->back, 2);
-		} else {
-			ret = iio_backend_num_lanes_set(st->back, 1);
-			/* Without the op, a backend can only be left on one lane. */
-			if (ret == -EOPNOTSUPP)
-				ret = 0;
-		}
-		if (ret)
-			return dev_err_probe(dev, ret, "failed to set the number of lanes\n");
-	}
-
-...
-
-> +	/* The DDR parts reject rates above the clock of the PWMs. */
-> +	if (st->info->ddr_timing)
-> +		default_sample_freq = min_t(u32, default_sample_freq, st->step.clk_rate_hz);
-
-No min_t().
-
+base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.43.0
 
