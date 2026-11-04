@@ -1,54 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.150
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793825719;
-	b=WFhdZedxksBpoghTMlMozyazprBGrath0/0Sl3sMhXBM1aL9tQuwj/fg8htM629mE+hy
-	 UffNSdk47vc0sZ1VJTl0T585NHXh2cwwuDZ+pMpw4Cz5nrvVjtntyH/xJU51LuvvUd3Kd
-	 KKRmZ1Fdwk2Bj+ZJyMZydF8TuUqN5sHhAqwPQNQOjmBRCNdrVLvkA8Uw3T00caqcbku9P
-	 sp3kOEB2IPNEL4Zs6vb+nWRzQlzPMP/I3EQR1y2zJK3393ODfLIM1xmoc6avJ8BGKnDEH
-	 XLEV5dyDRrlVhwwjzy7vjHkmFSVbyhyIz7HTSroF7fG8VRfpcCysEvagjVfjFQH8bJA==
+	t=1793825732;
+	b=PTtOqdhTUZvU7bJwdoE0MPmVAvOLT1tQD2EWmt0h1mZIAMoW1AgSt9CZEurMb+FCFLL4
+	 8fb7Yn+Uxpl/zwQirpOcUnqlIucB/qJ895a0sjyumxZxw6ZlOSIVYyvJrmbl+qGWsQ7St
+	 xEtGQcIFcEbs4AhCllZWn3OCvJ0PCl1n0wifP/LyJpwCsQOUSHoLmI8r2qGoE62eVJUWf
+	 fFL/Dw/4fyWU1OZDxBvyCRoBnSim3PEVgmn8dwetdiBP29cZZC/XGKo7D4Bm6NZfA9Mkv
+	 wFI3GoKcuRlAz0sPMn6+qc20UcpvOcTLNmzaLU2YMYjsdGs1+gticNHLPIderi1W3NQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793825719;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=MT1dhAso7qHFLq0iaAatVFL/NEYT/vU7az8cSYFYlWo=;
-	b=uVq3Wtd5DPa+h4FBqm8rIv1PTwCaA02YIUk8nkYl7sNKH9JRLgYlVAaIH5X3gfz7jDGV
-	 eyasd/p/SvZ9150HDNynF6dsWdf9bdDnRjtEUBZLaruQf3gOoyys3GGBlkbvGcIWtgzLB
-	 d+AJzRKWNeolesjKcY1j9eWNULb5c+bzyCCH34xejbD22537r29gVq40enuo0sVtDatNd
-	 04fuN5iK6wFcZeAxuDw2CbipA1xYBWqXpJXDKuzROcCMrfa3YnakXbH+JPmhFyikakXTT
-	 DhTEoWh0RaJzomEDAAeIj856q8EJtM+BBQgcdE3n9LDOyWE0DnU3QVAFAMZQ3odpVYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793825732;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=nqmtpTylBeemZ9sXvm4RoTldTKYD0S9LlWDnxIkCY/A=;
+	b=axOKGFIANdzxXtvntxSo3qDmKBh7Uot6Nt45OfbxohxmRaeZ/JOG63bb7e/ucEh5B8F/
+	 w/A+xRT/gty1RQW1h5OhETt1SwLh1w4054l9trRGhD5WL13N42xcrJA+HOk4jIMr9jAJ2
+	 G1vHlfnu6eiSORSPVa/S3ULV7fWEr1NUxo3RO0jMOj22hAgRykZQ3B6qsJNRKwwbz7L5T
+	 gwArW5qH+wjOfLyzfqO0TVNDgvguha4BtTWGL+HNdzNX4DzW5XwmxhdsC9emkwSeQ4qyP
+	 nFu4bOgWWRphlq34+DOOhujnyAGmUxqqpcWzCJEouUiR6pLayppBJ7bWMWETzP1sGSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AGjp0GgY;
-	arc=none smtp.remote-ip=91.218.175.150
-Received: from mta0.migadu.com (out-150.mta0.migadu.com [91.218.175.150])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nv00Ezch;
+	arc=none smtp.remote-ip=209.85.214.198
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 416D26078736
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:55:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 416D26078736
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F1E7609A807
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:55:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F1E7609A807
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AGjp0GgY
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=2wHMPTNxJIGUJZhji4UnCl9+7oU4WjoytLuAWQg1w+c=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793825716; v=1; x=1794430516;
- b=AGjp0GgY2fjHDNP0ww5fk78cTUV9tQRQLb0s2XkFRLG8JEGvB4xvY/7fSI/259Bk4hpW7QmH
- pDdNHkN3dbN6WT+OfO6J1o6AIauNSvU7N+20bmGBft5xrxuiKhd+6lePbDG9iUBZile2pYIfx17
- U9nR8ia6tGBhcjNsY3AAW9sQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e97d27abcf91b971;
-	Wed, 04 Nov 2026 20:55:12 +0000
-X-Mizu-Trace-ID: e97d27abcf91b971
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <1bb8be94-400c-4c81-a4ce-84e4f78387c8@linux.dev>
-Date: Wed, 4 Nov 2026 12:55:08 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nv00Ezch
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e8e16d22d8so15709835ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:55:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793825730; x=1794430530; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=nqmtpTylBeemZ9sXvm4RoTldTKYD0S9LlWDnxIkCY/A=;
+        b=nv00EzchfADywfLnw8bnPJd54ZSCE5AZp4mq5J7FWO1xpj1EZQPpBgHX56dUDJN2Bq
+         qkGS/iTTaluJq8BvapCO89KLhmGQLgMDho93pxTv6ImxamjecdigipmSJ1SzdLt6WU2h
+         sTlA8mQxSh1p39MoKb/Rw1NGU9nViRsWHViqVqUN7nyiYeOAE1b3bQYXWrzdIgnWbSS6
+         lQG1NFsVQWiCQPZQokw7njfp6NOFZh8kM7AVJLpUV1Wf8gZchQkM21H0VdBgGgsLdHWK
+         zW6aozP+k0Sw+Mv8UsPLrXy7VcBTEwJXCk07KWF1cmU9LEPVLyTIPVaWjLP1Klkv/3cU
+         c0Ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793825730; x=1794430530;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nqmtpTylBeemZ9sXvm4RoTldTKYD0S9LlWDnxIkCY/A=;
+        b=ue2ZymSjjHlchBiUSOKX3toL9A94BUDYNrF47cbR7FozAjI52fqGXlL5OPQ5igmhLj
+         yoTUWjrts9BVejbY1wqpU14whaHX90KI1xsvjiC5tN8Z3p/NnRqKy/qX/GhurXVzONnC
+         2BG3pS/dXpUV6J7GxXQLIKc7PUKzNjM8tAm8nWYQvdSGPfPa94efIGzlbo8VhQ/zVlUE
+         oG0mWF3DXiq4He3FSyMIjzShAQy1w85q6Rjal51/5e7mS13BHqfrMNd6xHL0u1X0Ztz5
+         lkhlIBmoYfggheV8TY4E7KzV+Sy+eG7FPgo5oAzy4D6QjIXWBZak/ruMvPJzCEDWWvFb
+         aFpA==
+X-Forwarded-Encrypted: i=1; AKwUvBw8WiVsH/1Y7pzZ8ueqGjzG0oTBXjw2IbJxct8XzH8dMbeKr6Ib2OSzsAITLCF+Ioc/4CiTNFvmk+SZGgA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9QXn12rZ7yLNXbmPDc4ZGgVmNOSYNZNFATwzB1Z2E/6ymJ3hfc
+	tNgGP6PBriUEXG3IqB3n4AFln/VqOeCrqpOtq7JnmX26b7W4Q1rPFe5auiTfbMUDGEAIPrKKqWn
+	107cJKw==
+X-Received: from plbbf12.prod.google.com ([2002:a17:902:b90c:b0:2e9:5442:b91a])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:26cf:b0:2e9:b7ca:cd5e
+ with SMTP id d9443c01a7336-2eb36523137mr166930145ad.62.1793825730369; Wed, 04
+ Nov 2026 12:55:30 -0800 (PST)
+Date: Wed, 4 Nov 2026 12:55:29 -0800
+In-Reply-To: <CAO9r8zNy+r=dZFYthHQzOprD2xnMZ0OuC1SG_xJt10fs5iMjmw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,145 +79,129 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v3 03/12] bpf: Prepare linked scalars for
- relations narrower than 64 bits
-To: Eduard Zingerman <eddyz87@gmail.com>, ast@kernel.org,
- daniel@iogearbox.net, andrii@kernel.org, memxor@gmail.com
-Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
- john.fastabend@gmail.com, shuah@kernel.org, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-References: <20261020161907.2115379-1-vineet.gupta@linux.dev>
- <20261020161907.2115379-4-vineet.gupta@linux.dev>
- <49019042b63d5718a9419e8fac035cf9104ae8bf.camel@gmail.com>
-From: Vineet Gupta <vineet.gupta@linux.dev>
-Content-Language: en-US
-In-Reply-To: <49019042b63d5718a9419e8fac035cf9104ae8bf.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20261020234535.3182385-1-jmattson@google.com> <20261020234535.3182385-2-jmattson@google.com>
+ <CAO9r8zNy+r=dZFYthHQzOprD2xnMZ0OuC1SG_xJt10fs5iMjmw@mail.gmail.com>
+Message-ID: <auubwbLDZLy8ZkjR@google.com>
+Subject: Re: [PATCH 1/4] KVM: SVM: Always update LBR MSR intercepts on full
+ MSR intercept recalc
+From: Sean Christopherson <seanjc@google.com>
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Jim Mattson <jmattson@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Like Xu <likexu@tencent.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/29/26 3:51 PM, Eduard Zingerman wrote:
-> On Tue, 2026-10-20 at 09:18 -0700, Vineet Gupta wrote:
->> Two scalars sharing an ->id are always related by full 64-bit equality
->> today: reg == base + delta over all 64 bits (this is true for
->> BPF_ADD_CONST32 as well, which implies upper bits to be all zero).
->> Sign-extension needs a genuinely low32 equal only relationship kind
->> with bit 31 supplying upper 32-bits.
->>
->> Today the following 2 relationships exist
->>
->>    #define BPF_ADD_CONST64 (1U << 31)
->>    #define BPF_ADD_CONST32 (1U << 30)
->>
->> Model them differently as
->>
->>    enum bpf_reg_link_kind { BPF_REG_LINK_NONE, BPF_REG_LINK_FULL,
->>                             BPF_REG_LINK_ZEXT, BPF_REG_LINK_SEXT };
->>
->> So BPF_ADD_CONST64 becomes BPF_REG_LINK_FULL and BPF_ADD_CONST32 becomes
->> BPF_REG_LINK_ZEXT with the exact same semantics as today. But this paves
->> the way for a future BPF_REG_LINK_SEXT in the same framework.
->>
->> The implementation needs to change as well. Today the above 2 bits are
->> shoe-horned into ->id, needing masking and OR'ing to get ->id and kind
->> bits: with more types and bits needed, move them out into an enum
->> bitfield of its own. To avoid growing the storage (and stay within the
->> 1K allocator bucket), borrow 2 bits out of ->map_uid, 31 -> 29, which is
->> still far more ids than a program can generate.
->>
->> ->id becomes a plain identifier, so check_scalar_ids() loses its "compare
->> the compound id, then the base id" dance in favour of one check_ids().
->>
->> With the kind out of ->id it also leaves the idmap key, so regs_exact()
->> and regsafe()'s explore_alu_limits arm have to compare it explicitly.
->>
->> One case changes behaviour -- old {r2.id=A+delta32} against
->> cur {r2.id=B+delta64} was accepted and is now rejected, correctly, since
->> alu32 and alu64 deltas diverge in sync_linked_regs().
->>
->> Clearing a link is no longer just ->id = 0: any stale ->link_kind needs
->> to be cleared out as well. And given this needs to be done in the newly
->> added kernel/bpf/scev.c, it is moved into bpf_verifier.h as
->> bpf_clear_scalar_id().
->>
->> The helper also zeroes ->delta, which the open-coded clear left behind.
->> Unlike ->id that field is inside the memcmp() prefix state comparison
->> uses, so a leftover value could keep two otherwise-identical states
->> apart; clearing it can only help pruning.
->>
->> Suggested-by: Eduard Zingerman <eddyz87@gmail.com>
->> Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
->> ---
-> Nice refactoring.
->
-> Acked-by: Eduard Zingerman <eddyz87@gmail.com>
+On Tue, Oct 20, 2026, Yosry Ahmed wrote:
+> On Tue, Oct 20, 2026 at 4:45=E2=80=AFPM Jim Mattson <jmattson@google.com>=
+ wrote:
+> > diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+> > index fe0cba4731b2..55b3ee840365 100644
+> > --- a/arch/x86/kvm/svm/svm.c
+> > +++ b/arch/x86/kvm/svm/svm.c
+> > @@ -721,14 +721,11 @@ void *svm_alloc_permissions_map(unsigned long siz=
+e, gfp_t gfp_mask)
+> >         return pm;
+> >  }
+> >
+> > -static void svm_recalc_lbr_msr_intercepts(struct kvm_vcpu *vcpu)
+> > +static void svm_set_lbr_msr_intercepts(struct kvm_vcpu *vcpu)
+> >  {
+> >         struct vcpu_svm *svm =3D to_svm(vcpu);
+> >         bool intercept =3D !(svm->vmcb->control.misc_ctl2 & SVM_MISC2_E=
+NABLE_V_LBR);
+> >
+> > -       if (intercept =3D=3D svm->lbr_msrs_intercepted)
+> > -               return;
+> > -
+> >         svm_set_intercept_for_msr(vcpu, MSR_IA32_LASTBRANCHFROMIP, MSR_=
+TYPE_RW, intercept);
+> >         svm_set_intercept_for_msr(vcpu, MSR_IA32_LASTBRANCHTOIP, MSR_TY=
+PE_RW, intercept);
+> >         svm_set_intercept_for_msr(vcpu, MSR_IA32_LASTINTFROMIP, MSR_TYP=
+E_RW, intercept);
+> > @@ -740,6 +737,22 @@ static void svm_recalc_lbr_msr_intercepts(struct k=
+vm_vcpu *vcpu)
+> >         svm->lbr_msrs_intercepted =3D intercept;
+>=20
+> Hmm I was going to ask if we can set svm->lbr_msrs_intercepted based
+> on whether or not svm_set_intercept_for_msr() actually set the
+> intercept, so that it also captures intercepts due to MSR filtering. I
+> assume that we didn't do this because MSR filters can result in
+> different interception status for different LBR MSRs, and we don't
+> want to track them individually?
 
-Thx.
+NAK.  In the past, KVM had a bitmap to do exactly that, and it was a trainw=
+reck.
 
-> ...
->
->> diff --git a/kernel/bpf/log.c b/kernel/bpf/log.c
->> index 5432c0fc442b..a6f205653a9e 100644
->> --- a/kernel/bpf/log.c
->> +++ b/kernel/bpf/log.c
->> @@ -651,8 +651,8 @@ static void print_reg_state(struct bpf_verifier_env *env,
->>   		verbose(env, "%s", btf_type_name(reg->btf, reg->btf_id));
->>   	verbose(env, "(");
->>   	if (reg->id)
->> -		verbose_a("id=%d", reg->id & ~BPF_ADD_CONST);
->> -	if (reg->id & BPF_ADD_CONST)
->> +		verbose_a("id=%d", reg->id);
->> +	if (reg->link_kind)
->>   		verbose(env, "%+d", reg->delta);
-> Nit: it would be nice to see if the link is full or zext.
+> Hmm even if we do track them individually (e.g. as a bitmap), it would
+> add a bit of complexity here because we'll need to plumb that into
+> svm_set_intercept_for_msr(), right?
+>=20
+> I suppose if we go with "lbr_msrs_intercepted just means KVM wants to
+> intercept", then we should probably rename it accordingly?
 
-Done in v4.
+Probably, but that can be done on top.  And I'd like to change all of these=
+ flags
+(all two of them?) to be consistent.
 
->>   	if (reg->parent_id)
->>   		verbose_a("parent_id=%d", reg->parent_id);
->> diff --git a/kernel/bpf/scev.c b/kernel/bpf/scev.c
->> index 48500d73105a..f0aa314233c8 100644
->> --- a/kernel/bpf/scev.c
->> +++ b/kernel/bpf/scev.c
->> @@ -2285,7 +2285,7 @@ static void scratch_widened_reg_id(struct bpf_verifier_env *env, struct bpf_reg_
->>   {
->>   	switch (base_type(reg->type)) {
->>   	case SCALAR_VALUE:
->> -		reg->id = 0;
->> +		bpf_clear_scalar_id(reg);
->>   		break;
->>   	case PTR_TO_PACKET:
->>   	case PTR_TO_PACKET_META:
->> diff --git a/kernel/bpf/states.c b/kernel/bpf/states.c
->> index 953700822fa7..a1b90a31747a 100644
->> --- a/kernel/bpf/states.c
->> +++ b/kernel/bpf/states.c
-> ...
->
->> @@ -574,13 +561,14 @@ static bool regsafe(struct bpf_verifier_env *env, struct bpf_reg_state *rold,
->>   		 * Linked register tracking uses rold->id to detect relationships.
->>   		 * When rold->id == 0, the register is independent and any linking
->>   		 * in rcur only adds constraints. When rold->id != 0, we must verify
->> -		 * id mapping and (for BPF_ADD_CONST) offset consistency.
->> +		 * id mapping and that the link kinds agree, along with any delta
->> +		 * they carry.
->>   		 *
->>   		 * +------------------+-----------+------------------+---------------+
->> -		 * |                  | rold->id  | rold + ADD_CONST | rold->id == 0 |
->> +		 * |                  | rold->id  | rold linked kind | rold->id == 0 |
->>   		 * |------------------+-----------+------------------+---------------|
->>   		 * | rcur->id         | range,ids | false            | range         |
->> -		 * | rcur + ADD_CONST | false     | range,ids,off    | range         |
->> +		 * | rcur linked kind | false     | range,ids,delta  | range         |
->>   		 * | rcur->id == 0    | range,ids | false            | range         |
->>   		 * +------------------+-----------+------------------+---------------+
-> Nit: "linked kind" -> "link_kind".
->       also, the table should show when link_kind equality is required.
-> ...
+> >  }
+> >
+> > +static void svm_recalc_lbr_msr_intercepts(struct kvm_vcpu *vcpu)
+> > +{
+> > +       struct vcpu_svm *svm =3D to_svm(vcpu);
+> > +       bool intercept =3D !(svm->vmcb->control.misc_ctl2 & SVM_MISC2_E=
+NABLE_V_LBR);
 
-Done as well. I'll carry the Ack.
+Eww.  The naming is all kinda of funky, and I strongly dislike the duplicat=
+e code.
+E.g. svm_set_lbr_msr_intercepts() recalcs, it's not a pure "set".  I'd much=
+ rather
+pass a @force param, e.g.
 
-Thx,
--Vineet
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index e6b8c0423813..2d70fb37103e 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -728,12 +728,12 @@ void *svm_alloc_permissions_map(unsigned long size, g=
+fp_t gfp_mask)
+ 	return pm;
+ }
+=20
+-static void svm_recalc_lbr_msr_intercepts(struct kvm_vcpu *vcpu)
++static void __svm_recalc_lbr_msr_intercepts(struct kvm_vcpu *vcpu, bool fo=
+rce)
+ {
+ 	struct vcpu_svm *svm =3D to_svm(vcpu);
+ 	bool intercept =3D !(svm->vmcb->control.misc_ctl2 & SVM_MISC2_ENABLE_V_LB=
+R);
+=20
+-	if (intercept =3D=3D svm->lbr_msrs_intercepted)
++	if (intercept =3D=3D svm->lbr_msrs_intercepted && !force)
+ 		return;
+=20
+ 	svm_set_intercept_for_msr(vcpu, MSR_IA32_LASTBRANCHFROMIP, MSR_TYPE_RW, i=
+ntercept);
+@@ -747,6 +747,11 @@ static void svm_recalc_lbr_msr_intercepts(struct kvm_v=
+cpu *vcpu)
+ 	svm->lbr_msrs_intercepted =3D intercept;
+ }
+=20
++static void svm_recalc_lbr_msr_intercepts(struct kvm_vcpu *vcpu)
++{
++	__svm_recalc_lbr_msr_intercepts(vcpu, false);
++}
++
+ void svm_vcpu_free_msrpm(void *msrpm)
+ {
+ 	__free_pages(virt_to_page(msrpm), get_order(MSRPM_SIZE));
+@@ -803,7 +808,7 @@ static void svm_recalc_msr_intercepts(struct kvm_vcpu *=
+vcpu)
+ #endif
+=20
+ 	if (lbrv)
+-		svm_recalc_lbr_msr_intercepts(vcpu);
++		__svm_recalc_lbr_msr_intercepts(vcpu, true);
+=20
+ 	if (cpu_feature_enabled(X86_FEATURE_IBPB))
+ 		svm_set_intercept_for_msr(vcpu, MSR_IA32_PRED_CMD, MSR_TYPE_W,
