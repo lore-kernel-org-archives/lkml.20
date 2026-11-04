@@ -1,47 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793766205;
-	b=m3nNQ4xak8yy+JQJkthXLK8Ol7b1fnqeN7UgmOdza8/d3+2I6GLKHKJ2TpzIVnNqhEb7
-	 gjt8No4sP62aSHHD6osIGNt7iQPLO38F7U89wxqGnF2LjF0u+HlwIMM1EEhgtb6YsJFWY
-	 dvKpW7JbQKozofrz2uqiXeQwnI/6NH+fRHMma4Ik/R9ciwuFSpm6/8kcXcUkeBFnQwsIL
-	 fNo7yHglwv0EbS82SfWE0FLT7eEF1OhLSgwbxq9zUxtjXP9EJr7b8ST4SOGOhU2qvfP+F
-	 JiohASj0cRjedyy3+qXnD9pT4vPM1sWdc/aHWdeZNY9zhKm97AEZuGDN/aKxbo6cDLA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793766205;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=uCAHVmV4ytAMq2LlYEaEh6YDhPAp9jBh4zwszcofGcc=;
-	b=5cAoB1W0il1dUBqO3oxXo3AGWCL9rUIQpP+EMf/b6m1kGzvTRwH+UboBWqiZrS5kqKjN
-	 NJ00fhxJ/VMvQRL3OVqn3fF8LXZZjgq6lH/F5ZUpHALOmcM8zofc9IzEoEK3DoHaOtCNr
-	 HYuBTiH93CUOdcWEL2FfYh/MtDGD84wCeLY6cx23E4s5ya8+fO7MFTpN602hpqG6wF6cI
-	 RRldnbVxO+X9ymphhbC3N6EdmT9xXLDgyZUFjd+87bcZYqaLHUKO74D4HbzRQ+R8m1Wgx
-	 k9R2V8VxPEO0wh64kYjSC3J/gx5yxvt4+06oIq1xQv9JgL5osfP1agGEAK5j5VPgL2g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="O/OYjPXR";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793766225;
+	b=qzG2zCz6ZvqRd7HOfNQqwOjdE3MlHpS/H47nae7eGtVwHLuM8nIyosvNp21pnGAHR9Of
+	 6RoG080lnlnjyIx75Ymhxo8Xq3/zuAnKhhocET536HsT+XTcHLdtJY6Pi0II7S1OZ/X2K
+	 pJoI9pYqgPvExmwnNLmbXs5cXlsqVgImeTsF3B+r9Ju714bVsQoec/MWNOpRF7ltA87rs
+	 kHYLc00zpEXsT1x8FTz3UiGYinWnelAMjMJ8bNwM+CNt/z+Db1vkoioyHgF+UZQM12OTI
+	 UMUyL0bft0UpdgHw3hZdFymJq66UVFCxf80Jj7/jv3ArxTI6VpGjLtdGjY7hysXg0Sg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793766225;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Content-Type:Content-Transfer-Encoding;
+	bh=YRNZziqNeCRhg2/OKwe5SR/k0fV6elgIBlSt+p0bAm0=;
+	b=M3BK+xlPK5fOlGKYWLmStsEZ3oXxAIcTCW5luM+7Jr5Ik6xlfXUIuRR84iYIjaMnFxDx
+	 4fzKNPjWSsnrOi1IbTTEcOiQdpOat7GdgD0dZt+9tPiJzfwvFVZQlazo4zD6gIm2rwtEJ
+	 q2nodX9oP43rumi3GsrWKAw9cLIj0L+2aBzYJnSKkb8PNknzz3h6CrbU83kHkpnnT0kA8
+	 77fN46rvSVa1J5+MldnU2iFCoMw84jdBz/TZABlEnZciXLh9NzNu4XxKYwAUeTuHuoXOF
+	 ljyh7n2eji5Q8bBgnaEYxNCyGCCXiQOP7+OzIBF+yMXUqLeraFgz9VEmaFJaz8xkUEQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fR6BXAGP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5E57606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 04:23:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E4B606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 04:23:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2E4B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O/OYjPXR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14BA51F000C1;
-	Wed,  4 Nov 2026 04:23:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793766204;
-	bh=uCAHVmV4ytAMq2LlYEaEh6YDhPAp9jBh4zwszcofGcc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=O/OYjPXR2iQmBOSPQgs7xbN6I/kLS9cLV7uBRE9nnAwA+Pc8e13aPQWew+0YR8m7T
-	 6UbnzwwKqEPsxd4/dfACqtlZceYMXpilIl1i8hwavYneMBQRAQJoS5jGWRc2sRWScx
-	 TNxFZIq4Tn5h8ngaMNoQQQxf6cXdrURQ8ddjXZjn4GZxm3VC4Y/ocjw4yCJ8PD0Wr5
-	 4To/MPiJqQpWByY1bjhnHToN0NNp+9mGdN629pmVHMlaDLKlgd2i9tI5TqF+j/iVB7
-	 NzDWB8LMtIO7cATdZR7OT2+HZaQ0mgCouKgP1oZQwLShysm+hXY1VjCQoH9vhwo0Jz
-	 8Xn37dcftZfgw==
-Message-ID: <bba7f6da-82ee-46cc-bd8f-b0e3e027f5e2@kernel.org>
-Date: Tue, 3 Nov 2026 20:23:23 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fR6BXAGP
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-533202fe429so160521cf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 20:23:44 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793766224; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FMY4DcCCoMEqAOZT5/A7KDkTkMBVIqu/plg1U7W7ERXsekgdPkx0uWvt1DQe9C+2fI
+         56bU1C835EL8BzdbHGekOpj2HdMUvF2KQxcFItot5flUzAY44V+A8hwAVdVd5NJrBq2p
+         2XMz7xC+5JC/hVOs8U9GfS35Wo459UPwFCn5IyVLB7FSKmGUYZVxYWz2j3Kiws5ULqJn
+         oOlVoFWzSM0yweTnmh7xWofwBXVVhQQyaJNWKVdpYD962kFKbNwGio75EiIBLuHkA4Nj
+         NxGj7edhzmR3IloUB56aqd56CZNkPdHbQvDKrWrcDOWReC9R/MMX1gVcsg43acEPMJKk
+         a1Yg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=YRNZziqNeCRhg2/OKwe5SR/k0fV6elgIBlSt+p0bAm0=;
+        fh=Z/s9t7sOr2P4PQr3V0HNkHNUophNYTbIrbdUN9VfXXM=;
+        b=gsJuCh8lWEIjeKbedJfoMOcyXOLLlDnvwVeC/cDKFOo0VS2bXxRMihuIsjFrlrG+wc
+         XS22z2WDJQdm2Y4SL06+g8I+IingwmXPGe7Ya8kGfygk5i1yviBFLCXZshp4OG/aUNaS
+         mryrmwQePSL3S1ZIHXuNo1jk4sWvLqqDb71aVjQHJz8e31G4haPg7oO4Co2ppWz4Ftav
+         shPRzZ48bhF9gJOggAtii6mU0ayhJ3yi+8/VJRUqcu+N37wOya8Np0pbBmFpEZWHy5Ky
+         Zm26kofqkGsoKMwZNYgl63ooox1C13Agjmb84iXJcRbOVzuTX25cQSmNvDOdvMmczgf3
+         oJSw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793766224; x=1794371024; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:to:subject:message-id:date
+         :from:in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YRNZziqNeCRhg2/OKwe5SR/k0fV6elgIBlSt+p0bAm0=;
+        b=fR6BXAGP/rO2SR67/BLSYdj14V4i1fTa+NE/DjoGSW1B7HKANQT7CR7qD74FxQdpOf
+         NwKo9XHnikjAn4UAp7G4t04Vcm8+pRkRExNBzdb5Haq/ezLLl0iR7ucUemSoHGa01gio
+         QUgQW7m+FDhXAXdg8eXJ34BSg2u+lYS+BG4pyk4pGN9z6qWPQ17uEVyOnD63uYiawdoZ
+         7pz6N1nCVQTnnWXIwbhKKXAZyVN3yzAQdQY+0lUQzYtHwjGlJtjFZ45H/1KWK6GAuvOY
+         x5yGcmfGjt26ALuU5Qxy8V+rTkSs42WaSWndNM3rJvGGe0Ak1DEJpMR+Yz4ei8TM+Zgu
+         iPAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793766224; x=1794371024;
+        h=content-transfer-encoding:content-type:to:subject:message-id:date
+         :from:in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YRNZziqNeCRhg2/OKwe5SR/k0fV6elgIBlSt+p0bAm0=;
+        b=B5l/wccchxxxiokApiczrC4ChaqcuvWBx2c0+j3ymRPLSarLSTydEZfjF/IpcmAd2G
+         u4GUMMrhnLIUKOhOlWvISgVZdtvvewgMQw2oBRsb6y6ROHORzm5PRVRTAtepQSOEQwpE
+         HdJUtuj2/qfQtLZqNFBz8OyCCYbbv6eoDwgujeY/hgGQyZtDM/AMmL2ljam9bRk+oX2m
+         9wPtiu+FZsHHOB1HFvrQIWqjDizbvgWVzDyt47XJIM4+1FfeJhwulXmDvAP7f/Z5JZmy
+         zsE5G8ExPb/3iejXAZ6BVDfKLCy+R6lglogdAqkR4sR5TeZf7Elg69reczqf3gLQZdCX
+         zOfw==
+X-Forwarded-Encrypted: i=1; AKwUvBye9lllDH2oi9gAeomkpzhlbnrIiCjk+lMtKTP+T5Npwx4E5icCA905XVIAXZtZRfG9X3zZVsea14irt7Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+p3rJmHK5dB5/G5oUzLbEQXKwOebZXPhY9zcl+eoRyVSSrMlKn
+	eNEvKJbHfSEdLkaN1pf94tA5SSgD/wnIrq3nbrhIUwM9FojhzX7VI/nTq6RobOhrA+q/t2Ya3q5
+	XqoHvHW2ap5zKrYhll6YLnARGSJs1Ic4uksY+9Rfc
+X-Gm-Gg: AYBFou1p5hmQuKQ1ii1a7A7fwkI5tYIZMLYntxg3YLwaaffxG8Ut4qcimt5DX78cDAN
+	rVFHFcZ4Law8gH07mJJjxgmPDUrYw1RVOYUuGARyVG/JqKfDkwfKb0hCnngNU2zb5t995lQLI5c
+	g2gWxL6IEpgYPCwYzRnI9ZV/BNQ6E1FPnHDI8hhN53vbgmVgCAJitDHvC3hGG08QzmscC66ZynH
+	vtYv4PIBSJNPQsfdFqfVUo9M29lw3tVNcoTtv7odkW8RaKvTZ4Z5ViQEseEVoJxUFJdw6jiSn6D
+	0eYp4phPgpNJMNIgrI8T9/YvIvjkhKuOjMi9LAWBTBpPHJbbqNXtOV816VtipQlj6ghWYBZpi7O
+	c6OYAYfBuUmyoHDQDLVRCk7UbCYsWzmvYOYWKUQ==
+X-Received: by 2002:a05:622a:1b20:b0:545:7949:80a5 with SMTP id
+ d75a77b69052e-54b829d9c94mr3580391cf.12.1793766223068; Tue, 03 Nov 2026
+ 20:23:43 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,260 +103,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] lib: extract 32bit mul/div helpers from nios2 into
- GENERIC_LIB
-To: Simon Schuster <schuster.simon@siemens-energy.com>,
- Dinh Nguyen <dinguyen@kernel.org>, Andrew Morton
- <akpm@linux-foundation.org>, Arnd Bergmann <arnd@arndb.de>
-Cc: Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org,
- Vineet Gupta <vgupta@kernel.org>
-References: <20261103-nios2-remove-usage-of-libgcc-v2-0-5fabbedc49ec@siemens-energy.com>
- <20261103-nios2-remove-usage-of-libgcc-v2-1-5fabbedc49ec@siemens-energy.com>
-From: Vineet Gupta <vgupta@kernel.org>
-Content-Language: en-US
-In-Reply-To: <20261103-nios2-remove-usage-of-libgcc-v2-1-5fabbedc49ec@siemens-energy.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261025215508.1237480-1-irogers@google.com>
+In-Reply-To: <20261025215508.1237480-1-irogers@google.com>
+From: Ian Rogers <irogers@google.com>
+Date: Tue, 3 Nov 2026 20:23:28 -0800
+X-Gm-Features: AclHuK-09ccaNUB_xQI1MlbkOynuoqVxYzBV14tH6-b6vEZf1TaXgfzq7UrUzCk
+Message-ID: <CAP-5=fVsz3rX=T7_DAmdgDEK=LWGfSLr_7ZHJ8Z4-hehT035xQ@mail.gmail.com>
+Subject: Re: [PATCH v1 1/2] perf/core: Include attr.defer_output in is_sb_event()
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/3/26 05:30, Simon Schuster wrote:
-> From: Dinh Nguyen <dinguyen@kernel.org>
+On Sun, Oct 25, 2026 at 2:55=E2=80=AFPM Ian Rogers <irogers@google.com> wro=
+te:
 >
-> As suggested in 426c73b7-b4dc-4b68-9aa5-6145a13280bc@app.fastmail.com,
-> the software emulation of div/mul/mod on 32-bit platforms from nios2
-> might be of use to other smaller architectures as well when trying to
-> drop their libgcc dependency (e.g., arc, openrisc).
-> Therefore, extract and add them to lib/, guarded by respective
-> CONFIG_GENERIC_LIB_* options.
+> Events configured with attr.defer_output =3D 1 receive deferred callchain
+> sideband records (PERF_RECORD_CALLCHAIN_DEFERRED) via perf_iterate_sb().
+> Include attr->defer_output in is_sb_event() so that such events are
+> attached to the sideband event list even when no other sideband flags
+> (such as mmap or comm) are enabled on the event.
 >
-> Symbols covered:
-> s32 __mulsi3(s32 a, s32 b);
-> s32 __divsi3(s32 a, s32 b);
-> s32 __udivsi3(s32 a, s32 b);
-> s32 __modsi3(s32 a, s32 b);
-> s32 __umodsi3(s32 a, s32 b);
->
-> Suggested-by: Arnd Bergmann <arnd@arndb.de>
-> Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
-> Co-developed-by: Simon Schuster <schuster.simon@siemens-energy.com>
-> Signed-off-by: Simon Schuster <schuster.simon@siemens-energy.com>
+> Fixes: c69993ecdd4d ("perf: Support deferred user unwind")
+> Signed-off-by: Ian Rogers <irogers@google.com>
+
+Ping. +Steve and Masami
+
+Thanks,
+Ian
+
 > ---
->   include/linux/libgcc.h | 10 ++++++
->   lib/Kconfig            | 15 ++++++++
->   lib/Makefile           | 10 ++++++
->   lib/divmod.c           | 94 ++++++++++++++++++++++++++++++++++++++++++++++++++
->   lib/mulsi3.c           | 24 +++++++++++++
->   5 files changed, 153 insertions(+)
+>  kernel/events/core.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/include/linux/libgcc.h b/include/linux/libgcc.h
-> index 0d68f9d6a6a7e..f5db35a9bc146 100644
-> --- a/include/linux/libgcc.h
-> +++ b/include/linux/libgcc.h
-> @@ -7,6 +7,7 @@
->   #define __LIB_LIBGCC_H
->   
->   #include <asm/byteorder.h>
-> +#include <linux/types.h>
->   
->   typedef int word_type __attribute__ ((mode (__word__)));
->   
-> @@ -34,6 +35,15 @@ long long notrace __lshrdi3(long long u, word_type b);
->   long long notrace __muldi3(long long u, long long v);
->   word_type notrace __ucmpdi2(unsigned long long a, unsigned long long b);
->   
-> +/*
-> + * Software 32-bit multiply for cores built without the hardware multiplier.
-> + */
-> +s32 notrace __mulsi3(s32 a, s32 b);
-> +s32 notrace __divsi3(s32 a, s32 b);
-> +s32 notrace __udivsi3(s32 a, s32 b);
-> +s32 notrace __modsi3(s32 a, s32 b);
-> +s32 notrace __umodsi3(s32 a, s32 b);
-
-Shouldn't the 'u' prefixed functions have unsigned int args, result.
-It seems libgcc/?divmod.c doesn't but ARC does have nint_t for those 
-which is unsigned.
-Nios it seems was removed from gcc?
-
->   #ifdef CONFIG_HAVE_ARCH_LIBGCC_H
->   #include <asm/libgcc.h>
->   #endif
-> diff --git a/lib/Kconfig b/lib/Kconfig
-> index 1e42f5167c68b..16c2f2008b82c 100644
-> --- a/lib/Kconfig
-> +++ b/lib/Kconfig
-> @@ -611,6 +611,21 @@ config GENERIC_LIB_CMPDI2
->   config GENERIC_LIB_UCMPDI2
->   	bool
->   
-> +config GENERIC_LIB_DIVSI3
-> +	bool
-> +
-> +config GENERIC_LIB_MODSI3
-> +	bool
-> +
-> +config GENERIC_LIB_UDIVSI3
-> +	bool
-> +
-> +config GENERIC_LIB_UMODSI3
-> +	bool
-> +
-> +config GENERIC_LIB_MULSI3
-> +	bool
-> +
->   config GENERIC_LIB_DEVMEM_IS_ALLOWED
->   	bool
->   
-> diff --git a/lib/Makefile b/lib/Makefile
-> index a2afe954805cb..352a012baecba 100644
-> --- a/lib/Makefile
-> +++ b/lib/Makefile
-> @@ -337,6 +337,16 @@ obj-$(CONFIG_GENERIC_LIB_LSHRDI3) += lshrdi3.o
->   obj-$(CONFIG_GENERIC_LIB_MULDI3) += muldi3.o
->   obj-$(CONFIG_GENERIC_LIB_CMPDI2) += cmpdi2.o
->   obj-$(CONFIG_GENERIC_LIB_UCMPDI2) += ucmpdi2.o
-> +obj-$(CONFIG_GENERIC_LIB_MULSI3) += mulsi3.o
-> +
-> +divmod-needed := $(or \
-> +	$(CONFIG_GENERIC_LIB_DIVSI3),\
-> +	$(CONFIG_GENERIC_LIB_MODSI3),\
-> +	$(CONFIG_GENERIC_LIB_UDIVSI3),\
-> +	$(CONFIG_GENERIC_LIB_UMODSI3))
-> +obj-$(divmod-needed) += divmod.o
-> +
-> +
->   obj-$(CONFIG_OBJAGG) += objagg.o
->   
->   # pldmfw library
-> diff --git a/lib/divmod.c b/lib/divmod.c
-> new file mode 100644
-> index 0000000000000..cc1df6f9978ce
-> --- /dev/null
-> +++ b/lib/divmod.c
-> @@ -0,0 +1,94 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/* Copyright Altera Corporation (C) 2026. All rights reserved.
-> + */
-> +
-> +#include <linux/libgcc.h>
-> +#include <linux/export.h>
-> +#include <linux/types.h>
-> +
-> +static u32 udivmodsi4(u32 num, u32 den, int modwanted)
-> +{
-> +	u32 bit = 1;
-> +	u32 res = 0;
-> +
-> +	while (den < num && bit && !(den & (1U << 31))) {
-> +		den <<= 1;
-> +		bit <<= 1;
-> +	}
-> +
-> +	while (bit) {
-> +		if (num >= den) {
-> +			num -= den;
-> +			res |= bit;
-> +		}
-> +		bit >>= 1;
-> +		den >>= 1;
-> +	}
-> +
-> +	return modwanted ? num : res;
-> +}
-> +
-> +
-> +#ifdef CONFIG_GENERIC_LIB_DIVSI3
-> +s32 __divsi3(s32 a, s32 b)
-> +{
-> +	int neg = 0;
-> +	s32 res;
-> +
-> +	if (a < 0) {
-> +		a = -a;
-> +		neg = !neg;
-> +	}
-> +
-> +	if (b < 0) {
-> +		b = -b;
-> +		neg = !neg;
-> +	}
-> +
-> +	res = udivmodsi4(a, b, 0);
-> +	if (neg)
-> +		res = -res;
-> +
-> +	return res;
-> +}
-> +EXPORT_SYMBOL(__divsi3);
-> +#endif
-> +
-> +#ifdef CONFIG_GENERIC_LIB_MODSI3
-> +s32 __modsi3(s32 a, s32 b)
-> +{
-> +	int neg = 0;
-> +	s32 res;
-> +
-> +	if (a < 0) {
-> +		a = -a;
-> +		neg = 1;
-> +	}
-> +
-> +	if (b < 0)
-> +		b = -b;
-> +
-> +	res = udivmodsi4(a, b, 1);
-> +	if (neg)
-> +		res = -res;
-> +
-> +	return res;
-> +}
-> +EXPORT_SYMBOL(__modsi3);
-> +#endif
-> +
-> +#ifdef CONFIG_GENERIC_LIB_UDIVSI3
-> +s32 __udivsi3(s32 a, s32 b)
-> +{
-> +	return udivmodsi4(a, b, 0);
-> +}
-> +EXPORT_SYMBOL(__udivsi3);
-> +#endif
-> +
-> +#ifdef CONFIG_GENERIC_LIB_UMODSI3
-> +s32 __umodsi3(s32 a, s32 b)
-> +{
-> +	return udivmodsi4(a, b, 1);
-> +}
-> +EXPORT_SYMBOL(__umodsi3);
-> +#endif
-> diff --git a/lib/mulsi3.c b/lib/mulsi3.c
-> new file mode 100644
-> index 0000000000000..6596a6598de05
-> --- /dev/null
-> +++ b/lib/mulsi3.c
-> @@ -0,0 +1,24 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/* Copyright Altera Corporation (C) 2026. All rights reserved.
-> + */
-> +
-> +#include <linux/libgcc.h>
-> +#include <linux/export.h>
-> +#include <linux/types.h>
-> +
-> +s32 __mulsi3(s32 a, s32 b)
-> +{
-> +	s32 res = 0;
-> +	u32 cnt = a;
-> +
-> +	while (cnt) {
-> +		if (cnt & 1)
-> +			res += b;
-> +
-> +		b <<= 1;
-> +		cnt >>= 1;
-> +	}
-> +
-> +	return res;
-> +}
-> +EXPORT_SYMBOL(__mulsi3);
+> diff --git a/kernel/events/core.c b/kernel/events/core.c
+> index c4217c996f5a..b43883a42566 100644
+> --- a/kernel/events/core.c
+> +++ b/kernel/events/core.c
+> @@ -5347,7 +5347,7 @@ static bool is_sb_event(struct perf_event *event)
+>             attr->comm || attr->comm_exec ||
+>             attr->task || attr->ksymbol ||
+>             attr->context_switch || attr->text_poke ||
+> -           attr->bpf_event)
+> +           attr->bpf_event || attr->defer_output)
+>                 return true;
 >
-
+>         return false;
+> --
+> 2.56.0.307.g5fe7bd680c-goog
+>
