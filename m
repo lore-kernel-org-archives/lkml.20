@@ -1,76 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.240
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793810570;
-	b=1eRDJhCitR/GAivLo8iberfnlGU+OeSjEJcamJhd4sudFe4jamXv/loZfQssKKZyQB5f
-	 si8rjgWZtjwPQM3EVWXKURa594iSlDYVTi/h/pTZ6rklPLJM80gbId9P7AllCg+PvLs12
-	 e76GNUxty48acmVmizGh00oP5/ZkYuoH0VRcgNdkwkrsyInm0EZMXETZoLsbeMTgD9dnl
-	 2VHcdo2LfZjGta0Y7ZcuHJYU4x53Q8UEliYV73HUa5Ca1ZKQlN5L6pMloq4vczYIBS9eO
-	 IyDQEorMWN/xXv+byPWvARheMFVt7eTO2Cg5MlejbN/cdCq/KQDL7NpuBG4FQ9j9LNw==
+	t=1793810648;
+	b=lngONGd7e/pRDlZ1fUC7s457yCUc9LJoeea8a4rdqvOB7Xd8AoZOy3/m/2pBL+EK+1gP
+	 CGtSq99IY4qJGo5BPiDct8qNghQGUOWOGMB43OikQVBbNrVfqZJ+fK5695gbCNzdh3mR4
+	 tmfRoHd1vLyFogrAEJKf3gYqbFSV4jzrEe0Cj1h+9NInMob4hq/cowlksAt1EyHbXumEa
+	 TADcKOZnxE42jNfTxpS0ihh0sBBpm1/hWIGK6DYA1SD7urtW33dBIIKffeXbUNZPx1o9M
+	 OBps0r0j/Y58VXIGxfauqE4uXwBemOR1phW9kbijNDRtyJ66R9CiKA02lkx3Qop5NGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793810570;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=KJ+1oCAIH39mLuoRRIwRDFkQlDS7B45Vb+3W30Jd5To=;
-	b=iQd7VwrrEdxC1/KP4GdnetRCKaTpGuFWo4Mf/RhCXvFoGmdlooygipAZTfpv5F3El3mb
-	 DqdajqkrIrYdTKiAgK6PyYyuPEOJhJFaYp3nINWWcLyvEyWcbSUtPv/XoTSfKNwVRhH52
-	 VDt/5o2mwGenVg57x0evMivlKlKVm+r2bwDasf6/6K0e0gwuJowpKBIygxYE3bntXWVMA
-	 h0WocD56TRe9k6kWniUpGG6cOZmLqRutmoeO7C8s40Z/UpwWEZAsPsI9wrULet+NtVnmf
-	 LMNxBpukKYve0YXCoU+bI9D5NJ6I0QSJgflicbFLTWiprKjKD0ZwfrPEgrnGZFiHQEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793810648;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=I7kpJ9bmVWK/UO5I+NSSFOntWVhRXJuKLPMqQRb2MYM=;
+	b=vV6t1dbIP1MtjjcVslocatC7qrXhZ6Y5eI4yjLWvVxrLj7BJuF7y5zRZqOjxBVaT+EKc
+	 iS+jWSbOdrB++uilSY0sBrmP7wGeykWOK6r+HIsMolFw9fgGN7M4oOwXvuU7fnq26Jk8k
+	 ZF94X3KgbLHiCkQgdrYb8IAdvsC+UJHX6PD6fbFz71yrFsQ5nka+cu1X8uZgpTr+y8E/v
+	 geZG6HAzsIATjRdjHTFuBSQO6BtZqMbiuMMjlLLjmC78OI2rMgrE5Hy1lTQO8QQQDIj5e
+	 3p0jXVriP2WFIBopHvN0/rqbz8Mgd/2OTljY+4r92BB3b8uPa4AUjUkpStl7oiejYHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.221.172
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
+	dmarc=pass header.from=wyuan.org;
+	spf=pass smtp.mailfrom=wyuan.org;
+	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=keTZX67M;
+	arc=none smtp.remote-ip=95.215.58.240
+Received: from mta1.migadu.com (out-240.mta1.migadu.com [95.215.58.240])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E7EF606A329
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:42:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E7EF606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5ec3561ad43so457670e0c.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 08:42:50 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793810569; x=1794415369;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=KJ+1oCAIH39mLuoRRIwRDFkQlDS7B45Vb+3W30Jd5To=;
-        b=IbaIBijijCjDgiyXFY+oEeHm2va5bhp/mIi9nHVgRUw7U7NWDZI8sEjXa9CtSpqtAq
-         FJcXYFRzhZgLupHZh3P/6aV5cOPcOtPICEPdg6Hmv8qfCCEE82l9x2y37/vHm3pl88M9
-         q90sjvn+ne+YTPd//iV0d0rvn3GTomEtA5kOBA4q4pE1sRcQFmKAuFOUEWFl7jlk5JSm
-         0QWp6FXGYGOOB0hYdNdekUn02wXaRAd38v3Uf6Ifdr7sLLT+6vkHenjjHwQZQABFpvPk
-         vCLVcYWbZ9PSSjQ5vK5F06PFKgWibH7otv1zl4eScYjiBASdpjB5mldyTyAavoCyqbyF
-         t8uw==
-X-Forwarded-Encrypted: i=1; AKwUvBye3Nk5Kfle2+uiyJhBKvsmVRJK2p/5pLAW3qFK5+Ga9c7wyhVK+aocWGCxx9A/AMtsa1oiupy4/v7QBS8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/LZdJiaLkmWt+6s9R16dxilcg8pAPictzqVEQ6nwxZlkZwp1t8
-	uXGVjdsEEzv2m2vZi7+8C8dZUJkmuF/tptIrIak8ssTVRGixSl09N9lKYUN/wK5kTl0=
-X-Gm-Gg: AYBFou3d8lG8rVlJdoSRChmYI5mnGPdUlJ5NndNCmV7oHDHPm5ObNGVknUy2k50YE1F
-	DSbhT88avMRAmL1AdWihp3Xi+nRytShk5jnN3KmdOX86NgCqgKH4TpfDfPAGaA45tkHCnHoE1Qj
-	lgTurHQohJyERDe+PIGn5WXP0SDZUwX/XS78E0ub8qjRe7Yl9WWGfdOFqBRIelKFwHddrzfRgGL
-	78WenrrJP5p8QsiQvbj+KKanv2c0nSdlruaZgHAxUoSsmsK6l3S9Pg+/XdJygOn0Pl0k5nmDnLM
-	mU+iVGN6JQEIyxQHlc4gBHO+B/6RPzEgVkrRlEiLfGl5fVVfgVrKKdYtLLFJi4cVMI8DmdQM3H0
-	H6IIRffEVZ82ws6pzqvSPf+KgTDnAorg6PW/4vEzD31JEe4yd1TMmCZVCdS2+Tufu1klaameLm1
-	HZJ7saWaaDiJE1fCu1GkX/xAQL+oEd6j/zABSLNOKSghz7yHhp/cY7WI6Tv6MwAcgHBytBC470D
-	6lS54pgBjfEyek+YduKFEwMeajCpNf0khSu4rZeOoeyhdGPRhd80ymcGLPYcbIJprkSOW+YnLa3
-	LZm/2jn8+c60zZzd6CqvBaa3nbAArnLw/lFPryZTZzdrD3gUPOSdiLX2IRSzcmzrcA==
-X-Received: by 2002:a05:6122:21a6:b0:5ea:e18b:32e3 with SMTP id 71dfb90a1353d-5ec68951b9emr7512923e0c.15.1793810569330;
-        Wed, 04 Nov 2026 08:42:49 -0800 (PST)
-Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com. [209.85.217.48])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eca89b81b3sm2056545e0c.2.2026.11.04.08.42.48
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 08:42:48 -0800 (PST)
-Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-7bec5112765so552571137.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 08:42:48 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwTooNQvxKX6fiYZvpPrHaBlQpF8DPhuVL/Sdht61G82J5pDmugSE370h6G10Atqz3wCOx5JbTV+HHlMVU=@vger.kernel.org
-X-Received: by 2002:a05:6102:290c:b0:7a8:10eb:96ce with SMTP id
- ada2fe7eead31-7d07277c1d1mr6700629137.4.1793810568003; Wed, 04 Nov 2026
- 08:42:48 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55782606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:44:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55782606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=keTZX67M
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=19ke9AC0ONOuEpkyW1MiqquFiHABSQgTQTbt1nq39WY=;
+ c=simple/simple; d=wyuan.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793810640; v=1; x=1794415440;
+ b=keTZX67MWO7g+YCbimIGYsTaPw9RafSgoiBFyoT9h6F/3Vf7ggEBkJfzHH1fyx6GDRIzX9q5
+ zoHYSy3B2gTIXsnnLZgbG1nzmg7XKnGTl1cftu+9/luTzJ0QRpCbhVe29NcLnSyqPClASFOciav
+ H/JDnqjgohBx1dg3ZMCUgEn0geynWvkAQyIDS9dwggoyqUaqk/83Qfdy+pca+pcVpj5ym2eqLq7
+ EbV+F5g3PTvZ15B1y1pJBm3gb6PpV8yBUyaXGAExqEnalOBMgNkGGxIIWeslUOJBLnGxWAlPX0L
+ djg5vAiSmYPMje05MprwkdElE2i6zbjtRaOJsYhoWeLoQ==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7a3a2425bbc08809;
+	Wed, 04 Nov 2026 16:44:00 +0000
+X-Mizu-Trace-ID: 7a3a2425bbc08809
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 5 Nov 2026 00:43:49 +0800
+From: Weijie Yuan <kernel@wyuan.org>
+To: Dongliang Mu <dzm91@hust.edu.cn>
+Cc: Weijie Yuan <wy@wyuan.org>, Alex Shi <alexs@kernel.org>,
+	Yanteng Si <si.yanteng@linux.dev>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] docs/zh_CN: improve maintainer/pull-requests
+ translation
+Message-ID: <autgxXMPKmncF3vq@wyuan.org>
+References: <20260905-configure-git-v2-0-ab194db8c6b9@wyuan.org>
+ <20260905-configure-git-v2-2-ab194db8c6b9@wyuan.org>
+ <96be0e40-f9aa-41b1-90c2-3c209b5091a3@hust.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,86 +72,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260929113921.119489-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260929113921.119489-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <20260929113921.119489-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 4 Nov 2026 17:42:37 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdV5Sn9FaMNEaxQKF7_rm5hvM-pfC2-KU14=96DFGp85jg@mail.gmail.com>
-X-Gm-Features: AclHuK-yEEtBzpAX8urnUe9YWbbPPxJguJG6y14QRK8iWGHBOGMP4whb2TqDpDg
-Message-ID: <CAMuHMdV5Sn9FaMNEaxQKF7_rm5hvM-pfC2-KU14=96DFGp85jg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] clk: renesas: r9a09g057: Add ADC clocks and reset
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <96be0e40-f9aa-41b1-90c2-3c209b5091a3@hust.edu.cn>
 
-Hi Prabhakar,
+On Wed, Nov 04, 2026 at 11:58:50PM +0800, Dongliang Mu wrote:
+> 
+> On 9/5/26 6:06 PM, Weijie Yuan wrote:
+> > After the last update to the Chinese translation, the English document
+> > removed the explicit section label, replaced the configure-git
+> > cross-reference with a direct path, and changed "tree for forever" to
+> > "tree forever".
+> > 
+> > Update the translation through commit 3a1b9c4d8edb
+> > ("docs: Remove redundant word "for"").
+> > 
+> > Remove the abandoned Chinese section label and point the configure-git
+> > reference to the Chinese translation.
+> > 
+> > Some of the existing wording did not read very smoothly, so polish a few
+> > expressions. And also correct some Git terminology.
+> 
+> Merge the above two paragraphs into the first paragraph and keep the line
+> "Update the translation through commit " at the end of commit message.
 
-On Tue, 29 Sept 2026 at 13:39, Prabhakar <prabhakar.csengg@gmail.com> wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->
-> Add clocks and reset entries for the ADC controller.
->
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Oops, yes. Will do in v3.
 
-Thanks for your patch!
+> > Signed-off-by: Weijie Yuan <wy@wyuan.org>
+> > ---
+> > I did make quite a few changes to make the reading more fluent. However,
+> > to some extent, this might also be unnecessary. If you think there are
+> > too many, I will remove the less essential ones. Thanks.
+> 
+> It's fine.
 
-> --- a/drivers/clk/renesas/r9a09g057-cpg.c
-> +++ b/drivers/clk/renesas/r9a09g057-cpg.c
+OK, thanks.
 
-> @@ -173,11 +183,18 @@ static const struct cpg_core_clk r9a09g057_core_clks[] __initconst = {
->         DEF_PLL(".pllgpu", CLK_PLLGPU, CLK_QEXTAL, PLLGPU),
->
->         /* Internal Core Clocks */
-> +       DEF_FIXED(".pllcm33_div2", CLK_PLLCM33_DIV2, CLK_PLLCM33, 1, 2),
->         DEF_FIXED(".pllcm33_div3", CLK_PLLCM33_DIV3, CLK_PLLCM33, 1, 3),
->         DEF_FIXED(".pllcm33_div4", CLK_PLLCM33_DIV4, CLK_PLLCM33, 1, 4),
->         DEF_FIXED(".pllcm33_div5", CLK_PLLCM33_DIV5, CLK_PLLCM33, 1, 5),
->         DEF_FIXED(".pllcm33_div16", CLK_PLLCM33_DIV16, CLK_PLLCM33, 1, 16),
->         DEF_DDIV(".pllcm33_gear", CLK_PLLCM33_GEAR, CLK_PLLCM33_DIV4, CDDIV0_DIVCTL1, dtable_2_64),
-> +       DEF_CSDIV(".adc_pclk_gear", CLK_PLLCM33_ADC_PCLK_GEAR, CLK_PLLCM33_DIV2,
+> > ---
+> >   .../zh_CN/maintainer/pull-requests.rst             | 127 +++++++++++----------
+> >   1 file changed, 66 insertions(+), 61 deletions(-)
+> > 
+> > diff --git a/Documentation/translations/zh_CN/maintainer/pull-requests.rst b/Documentation/translations/zh_CN/maintainer/pull-requests.rst
+> > index ce9725f4674c..4509ec2a2bea 100644
+> > --- a/Documentation/translations/zh_CN/maintainer/pull-requests.rst
+> > +++ b/Documentation/translations/zh_CN/maintainer/pull-requests.rst
+> > @@ -5,19 +5,18 @@
+> >   :译者:
+> >    吴想成 Wu XiangCheng <bobwxc@email.cn>
+> > -
+> > -.. _pullrequests_zh:
+> > + 袁维杰 Weijie Yuan <wy@wyuan.org>
+> I had some internal discussion between zh_CN maintainers. The "译者" and
+> “校验” can be kept to motivate old or new contributors to submit more
+> patches. How do you think about this?
 
-".pllcm33_adc_pclk_gear"?
+Actually I agree with this benefit and I did mention this here [1], but
+I also can't say no to Jon's viewpoint [2].
 
-> +                 CSDIV1_DIVCTL0, dtable_8_10),
-> +       DEF_FIXED(".adc_pclk_gear_div2", CLK_PLLCM33_ADC_PCLK_DIV2,
+Take it further:
 
-".pllcm33_adc_pclk_gear_div2"?
+From what I have seen, keeping these two fields does have that benefit.
+I also asked some past contributors about this change, and some frankly
+admitted that they wanted their names to remain on the page to satisfy
+their "vanity". Without these fields, they might move on to other
+projects. (I have no comment on that now.)
 
-> +                 CLK_PLLCM33_ADC_PCLK_GEAR, 1, 2),
-> +       DEF_CSDIV(".adc_adclk_gear", CLK_PLLCM33_ADC_ADCLK_GEAR, CLK_PLLCM33_ADC_PCLK_GEAR,
+That said, given Jon's much longer experience, wanting to keep things
+simple makes sense too. There have been several requests to update email
+addresses over the years, and maintaining them indefinitely seems
+unnecessary. As I recall, one recent suggestion was to stop updating
+them and leave the old addresses in place to give credit to the
+affiliations they represented, such as Alex's alibaba.com address. But
+routine changes, such as moving from gmail.com to outlook.com, really
+are a nuisance to keep up with.
 
-".pllcm33_adc_adclk_gear"?
+On the other hand, if we do not accept the update of email addresses,
+leave an outdated address there and a reader actually tries to contact
+the translator, getting a bounce because the address is no longer valid
+is not a good experience either. So it makes sense to leave the primary
+responsibility with the people listed in MAINTAINERS. A reader willing
+to dig a little deeper can also use git log or git blame to find out who
+worked on the translation.
 
-> +                 CSDIV1_DIVCTL1, dtable_2_16),
+So.. I dunno.? Or as I said, I fully respect your decisions on this,
+because I'm finding it a bit hard for me to weigh the trade-offs here.
+Maybe we could just let Jon be the BDFL on this one. ;-)
 
->         DEF_SMUX(".smux2_xspi_clk0", CLK_SMUX2_XSPI_CLK0, SSEL1_SELCTL2, smux2_xspi_clk0),
->         DEF_SMUX(".smux2_xspi_clk1", CLK_SMUX2_XSPI_CLK1, SSEL1_SELCTL3, smux2_xspi_clk1),
->         DEF_CSDIV(".pllcm33_xspi", CLK_PLLCM33_XSPI, CLK_SMUX2_XSPI_CLK1, CSDIV0_DIVCTL3,
+Thanks.
 
-> @@ -669,6 +690,7 @@ static const struct rzv2h_reset r9a09g057_resets[] __initconst = {
->         DEF_RST(13, 13, 6, 14),         /* GPU_0_RESETN */
->         DEF_RST(13, 14, 6, 15),         /* GPU_0_AXI_RESETN */
->         DEF_RST(13, 15, 6, 16),         /* GPU_0_ACE_RESETN */
-> +       DEF_RST(15, 6, 7, 7),           /* ADC_ADRST_N */
-
-ADC_0_ADRST_N?
-
->         DEF_RST(15, 7, 7, 8),           /* TSU_0_PRESETN */
->         DEF_RST(15, 8, 7, 9),           /* TSU_1_PRESETN */
->  };
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+[1] https://lore.kernel.org/linux-doc/atDVxZQUiJfsqEBr@wyuan.org/
+[2] https://lore.kernel.org/linux-doc/87o6cvrs27.fsf@trenco.lwn.net/
