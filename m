@@ -1,79 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793776957;
-	b=geihjqE3qzpbS+lHioC62Uq6yJ48ndo/n20tMF3nJ8CMrAjFfstp+i3GyAru8KfZoh8i
-	 Uif6HvbOF2agGZWNrpzYUmqsVvz54zqFzA28gQLGH3jg9DWHN5SJLbj/ALtJSy3YAEPgq
-	 Ks4HNrAUykYfXj3cPM/GCMkai79XOV2+MSPl17dTpV846LEvVruhR0QAomJK4OKizdsy1
-	 3nABvlmQ3mhQNKEMis7mkXlX6ztDcJ6MI+GkoaV3YAviquXEKDnQhXO+sVm/8yXrlOQti
-	 SpDqn+JK1/hp0DtzYFV7ctdHs+6MOgdKgy4mAKboKIx7dS/xYopGbhZ8oCy9Z0hFKDA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793776957;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=p8ts80LviUGClPDc+CzAUBQMvTPSUXFtWsdkH5RwrIQ=;
-	b=v/WK46t82OXF5WDHGUTBSh2pquLMpDKesScx+oOnK5GKlhGVdd/dGZLRBhtkjdY6dNlO
-	 oJFszX8X9q3ZpuNjNim9OtLv4g36uK4XBPSt4luT1flWyWM7cJtUarQmrOs+1scBEhbYU
-	 U2CvGTFiZbnfULuj358SnmH6/A+mU+FRYARiLqK3KI/ec4h9nIA0BF8irX5uEr5xvqmC+
-	 O745eK9d3p1MqlCgt+CwlQRRq/dXQ0cQ7Z5pVF/5dZ7HRJmdk9Q2EaXPfMrtcLvn7hbCs
-	 C8NIyI30iSrb5dqwKqsc7WQuil8+CG1+JUuTAA8vMnvtCHlksGXIMZzSx1KzoaWqOqg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BH14mN4R;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793777029;
+	b=blRchioDa0FxImUIUJ0xysMN89/+jKh3phxdON28RIzrXiJOJKViAcnw0c9hhPef3MxV
+	 4vssbH+IhZuz+Y9pRJDJR+2knYFmfQSPJ9SB8YpZv26Mr1pY2/GsMkfMElvQsZ0yS2b+g
+	 vBFXSa/tP+dCjv3w5M4nGg/2hHVViRlG+Dem89mC7/11LyxEFbPCw0PwYVX5D1vfKzvC4
+	 jw5Suf9Bg0NyPwv1kT/VIjBo+f1ibuUH0rno1Tj1hyacaf5tIFPxhASy3vpkQ0HIJXCz+
+	 RnxfuZSm4vR3MTQNjdlSonPz8rqGR4zpLBxjnKiduUhNqDCYEbeTuaAQSb8SfDypMOA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793777029;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=NBOQ40gBeaDYVe8Awm5p4ozUA0tAVvF4nJgh2RDLTZA=;
+	b=GrxOrvmy+ZOZu8qmU4a48j0nkkVr5CJceDQvJXHrffu4po/hifyNtmyMvsrYLfurl6ln
+	 tu/1vzYtL/V49yb939DkQfYn4+ezv3XhfGiPyh/ceJk3APAN3+FmhLrNQL8jffNBAcxB5
+	 mAuKYiWslmcV0hj60ZmTDa/hCrklxP235TjkDN6DRxv2IwRX3a5PFAz6p4Wsmi3QcKD/g
+	 /PoHAM8aVQhORSrRhO9TLV6djee0SXD3QV3oaigdy1fcm4wt3Q5KF2PYUJJFx/+Mhlehe
+	 hbtRmIhC449A7nIGX6CR4BPveXclhr1ofujD9DCx1ixW4OnbCdKqESC+dW08qnjei5A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fAzoyO7l;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DB52606A32F;
-	Wed,  4 Nov 2026 07:22:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01AEA606A31B;
+	Wed,  4 Nov 2026 07:23:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BH14mN4R
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793776957;
-	b=wvbrLnFFA0rVbNM7t+6kR98FdKmUmHratE3rCQsn/IZdza031Uba9exO1f4Llv9JFfCc
-	 J1p3kUD9GoxFrucUYNpZLqnh1zC/PRCAO7i3vKzlPkH3EyCwDFqhIiylzU8MwdsdfiUnu
-	 k6yTxgMaPuN3FoQh562GN6Gc1OMzVUWOlfAfmMATxAE8r+c53awCSxBt3A3dEsj6OEiSl
-	 yiYejSWVQGVlWYG0Pjq5MqZ41nNpXeykAO79JtjpjoKjN+KgYbEjqAlRvQPlVx5apIxh1
-	 46UEgYCGT/JcIMGZi7m2YigzMihlslxJOoR6sdcVLarFdTvJeQdMMmbDZTOt1mxjynw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793776957;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=p8ts80LviUGClPDc+CzAUBQMvTPSUXFtWsdkH5RwrIQ=;
-	b=gBugSeqlzO/ntwxlLkwNHD+QhPclr/sI5mm/oFk5XzsZEhU+er1B3DRYYA+AXAfnAd/w
-	 LqvUuEv9ra8OG3dStocmF72qMVuMO1DBhoR8c8t0Ekkj4lT1Ys9anDBod2dgMLAlc56G7
-	 LRjqSygf0cNFm+ZO0EIq0CgtJU+tgvle0WOYx9D6IpP/zH3NM6jtgfgtym48SZEgEPy4r
-	 uSdLkoIbKSyqaGQRGRisDZ6QblboY/Tw7xv0tiEd1ZU/4+SVbdy6M3bBb/yYDHeBEyaeM
-	 WZZKHReUQO7KLmu+8JGf5rLvR7QDUJDVWqmfRpGtqt32cT8BCl1CPz7d6ET3tbdAzGw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8CF8D1F000C1;
-	Wed,  4 Nov 2026 07:22:36 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fAzoyO7l
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C3B71F000C1;
+	Wed,  4 Nov 2026 07:23:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793776957;
-	bh=p8ts80LviUGClPDc+CzAUBQMvTPSUXFtWsdkH5RwrIQ=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=BH14mN4Rc/V+Rjt2J2qqDRJ7v6esZjCOYZVOEJPS0dkI+ooPIz2BTmsR0zMSGCBA5
-	 7z+DcccTdfHB8thy714aPE+mjiv2hvJo9nsgXCaEVQswbzKo3mxQ81khJsPuNCZ0Xt
-	 3hFmwhi3AhdsUCwqohB0S85cEK/BezgCZ6g27rdBG/lVQoNUK4Fq4mgCLFarQLFSEU
-	 wdm4SX8xtURrcWUUjyY7MrLc14+t/LcBxarBev6ScedvR1vtldbjW1OUbSLTff+Up0
-	 +P5mz7vBBJFhqAvIK7gcYPXJaDqhOcNw2egJuCEVWClCPmOux88NU1ADoznt+1YCx3
-	 /74BDjfcTw1Rw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2071146CED;
-	Wed,  4 Nov 2026 07:22:36 +0000 (UTC)
-From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
-Subject: [PATCH net-next 0/2] net: stmmac: Add the Siflower SF19A2890 glue
-Date: Wed, 04 Nov 2026 02:22:23 -0500
-Message-Id: <20261104-sf19a2890-gmac-v1-0-a15965a49574@telaak.dev>
+	s=k20260515; t=1793777028;
+	bh=NBOQ40gBeaDYVe8Awm5p4ozUA0tAVvF4nJgh2RDLTZA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fAzoyO7l7JrQauRVoEzkU2YbVbg3GZqLoQ1vbvKVgH8kKLf+jgVdZxVK2J5pSVAQL
+	 igHw5zbRXGhLbFPt+6lEcO8n/DMrkktk0R1AX7yS00jD4BRA/50zagFe3mZ/c1n3zS
+	 XDzqw/t2zI2Is/qsU5wgGD+XARqXmJio2t4k4O/1/1DlI2m29fAlsYM94VHedruACU
+	 QT8dAv05U6y1yXEoOuDyxkHzcTTF/Z6pdNibFjrneUGC58mrUzESj2HUCPPF5jhi93
+	 TDrFG+NTMNMwg7Q8eQunznuVUUt2kQEY4UDVM7lVI4kwhKurhlq8vTVoKgRIh2K2Vt
+	 z5rnAZ5/U8I1A==
+Message-ID: <c0313537-532f-4c9c-86fb-067838829427@kernel.org>
+Date: Wed, 4 Nov 2026 08:23:42 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,94 +51,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: PCI: Add linux,pci-domain-reuse property
+To: Cui Chao <cuichao1753@phytium.com.cn>, Will Deacon <will@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Wang Yinfeng <wangyinfeng@phytium.com.cn>, linux-pci@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261102095150.2370959-1-cuichao1753@phytium.com.cn>
+ <20261102095150.2370959-2-cuichao1753@phytium.com.cn>
+ <8112d8ca-2234-490c-a4a2-c3b01adfbc88@kernel.org>
+ <b49779cf-5132-4539-86c2-e4f806b1675d@phytium.com.cn>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <b49779cf-5132-4539-86c2-e4f806b1675d@phytium.com.cn>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAC/d6moC/y2NwQqDMBBEf0X23IUkiCT9leIhphu7gmmbjSKI/
- 9609jjMvDc7CGUmgWuzQ6aVhZ+pBn1pIDx8Ggn5XjMYZTqtlUGJ2nljncJx9gHbOLRW2Wg7F6B
- Cr0yRt5/wBokKJtoK9GcjyzBRKF/ff5vpvdTPcgL9cXwAoL3q7ZEAAAA=
-X-Change-ID: 20261102-sf19a2890-gmac-4fb4808f869c
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Richard Cochran <richardcochran@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
- Jose Abreu <joabreu@synopsys.com>, 
- Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Chuanhong Guo <gch981213@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, linux-mips@vger.kernel.org, 
- netdev@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org, Joseph Telaak <joseph@telaak.dev>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793776955; l=2659;
- i=joseph@telaak.dev; s=20261104; h=from:subject:message-id;
- bh=4aX1WuQkiEXgDzkE3OQjN92P69c1uJb0rksZC2QCI/c=;
- b=5W2C6p3JKlr/OYkYYzwVZ7Y5b/m53N4KDQeoxViOd9QSaRTx62D8T06k382412ER3M30amjJg
- EQ22G8hgj8LDsd9xPfExPXtkSI+BUGn7ruvO4K5Ikn+zcvgJNRsHte8
-X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
- pk=oQI+UfddlZ0wK2ac4WKOGNjUl1ZEN8j9ZVFSqEDoNP0=
-X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
- auth_id=1404
-X-Original-From: Joseph Telaak <joseph@telaak.dev>
-Reply-To: joseph@telaak.dev
 
-The Siflower SF19A2890, a MIPS SoC for home routers, has a DesignWare
-GMAC 3.73a. Its interface type and RGMII clock delays are set in a
-small configuration block next to its clock and reset manager. This
-series adds a binding and the glue.
+On 03/11/2026 03:57, Cui Chao wrote:
+> 
+> On 11/2/2026 6:00 PM, Krzysztof Kozlowski wrote:
+>> On 02/11/2026 10:51, Cui Chao wrote:
+>>> Add a new optional boolean property 'linux,pci-domain-reuse' for PCI
+>>> host bridges.
+>>>
+>>> By default, the 'linux,pci-domain' property must be unique across all
+>>> host bridges. This property allows a host bridge to explicitly opt-out
+>>> of this uniqueness check, permitting multiple host bridges to reuse the
+>>> same software domain number.
+>> Why isn't this deducible from the compatibles?
+> Hi Krzysztof,
+> 
+> Thanks.
+> 
+> The compatible cannot express this. "pci-host-ecam-generic" only
 
-The glue is based on Chuanhong Guo's driver, which read the RGMII delays
-from a factory flash cell in the delay line's own units and always
-applied them. Here the delays come from rx-internal-delay-ps and
-tx-internal-delay-ps and are applied only when those are present. The
-interface type is set through set_phy_intf_sel.
+You have vendor specific compatibles, no?
 
-The delay line's step is not documented, so I measured it: sweeping
-each delay register over 0-255 with the link at 1000 Mb/s, the working
-windows repeat every 145 steps (TX) and 144.5 steps (RX), which is one
-8 ns period of the 125 MHz RGMII clock. So a step is about 55 ps. The
-TX eye is about 3.1 ns wide and the RX eye about 1.75 ns; the delays the
-bootloader programs, 17 and 10 steps (935 and 550 ps), sit inside both.
+> describes how configuration space is accessed; it does not describe
+> whether two host bridge instances may share one Linux PCI domain.
+> 
+> The same compatible is used on systems where every host bridge must
+> have a unique domain and on this system where two RCs intentionally
+> share a domain with disjoint bus ranges and resource windows.
+> Comparing the compatible strings of the nodes therefore cannot
+> distinguish our case.
 
-On the GL.iNet GL-SFT1200 the GMAC is the CPU port of a MaxLinear GSW150
-switch over RGMII with no delays on the board; the GMAC adds both.
+OK, so let's look at your DTS - where is it posted for upstream?
 
-The MAINTAINERS entry that covers these files comes with the MIPS series
-"MIPS: Add support for the Siflower SF19A2890"; this series applies on
-its own. That entry is also why checkpatch's question about updating
-MAINTAINERS for the new files is left unanswered here.
+> 
+> Adding a vendor-specific compatible only to trigger this Linux policy
+> would not describe a different hardware programming model either.
+> What actually makes reuse valid is the platform-level relationship:
+> the bus ranges and resource windows are disjoint.
+> 
+> If you prefer to avoid a new property, I can rework this to derive or
+> validate reuse from the non-overlapping bus-range and resource layout
+> instead. Would that be the preferred direction?
+> 
 
-Tested on a GL-SFT1200 with the GSW150 driver:
-- each of WAN, LAN 1 and LAN 2 links at 1000 Mb/s full duplex and
-  passes iperf3 both ways (160-205 Mb/s out, 262-273 Mb/s in, well
-  under line rate; I have not looked into where the limit is);
-- 10 GB each way through LAN 1, after which every CRC, alignment,
-  error, drop, overflow and underflow counter on eth0 and lan1 is 0;
-- 50 link down/up cycles, after which the link and traffic recover;
-- the MAC address from the factory partition, and ethtool reporting the
-  link with no PCS workaround.
+This one is clear paste of LLM output to a message.
 
----
-Joseph Telaak (2):
-      dt-bindings: net: Add Siflower SF19A2890 GMAC
-      net: stmmac: Add Siflower SF19A2890 glue
-
- .../bindings/net/siflower,sf19a2890-gmac.yaml      | 110 ++++++++++++++
- .../devicetree/bindings/net/snps,dwmac.yaml        |   1 +
- drivers/net/ethernet/stmicro/stmmac/Kconfig        |  11 ++
- drivers/net/ethernet/stmicro/stmmac/Makefile       |   1 +
- .../net/ethernet/stmicro/stmmac/dwmac-sf19a2890.c  | 158 +++++++++++++++++++++
- 5 files changed, 281 insertions(+)
----
-base-commit: 7b6ab4dbc156e2f96419715130b3d5738a306c93
-change-id: 20261102-sf19a2890-gmac-4fb4808f869c
 
 Best regards,
---  
-Joseph Telaak <joseph@telaak.dev>
-
-
+Krzysztof
