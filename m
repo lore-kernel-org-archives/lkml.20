@@ -1,60 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.168
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793809102;
-	b=LQIrIq1+G27ctJIBPqGArrcyF+utoDFL0NZzlMaob8w9tWCck4qSiiJxjG7Yxoqg2ORF
-	 MvTcd2C6d9CZF2BLm/L89DAi1alEZAy2NIRS+bewT0Y6NzqdhbKirB7XpBAqbmlYvrb9w
-	 bX/eKTMXXaq8BD//vEFZvX50baVGtWGghIcS+mx5Womtg8Cf56kPLQbjckfrpOPLq/QwQ
-	 w/Za2fWM16PXFxUzKCEXtdw9eBSM+VkLZF/Yzxf+ZWvua7B3XfSb/kdlDdJwP5komsLWc
-	 PGoUgYArQHFamAK1p7qj3/eNRI9sPqhNJQLWBCqcZgWnmYfxQeZGTWvIqzhUqLuSDug==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793809102;
-	h=DMARC-Filter:DKIM-Signature:Date:Subject:In-Reply-To:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:From:To:Cc:Message-ID:
-	 References:X-SimpleLogin-Type:X-SimpleLogin-EmailLog-ID:
-	 X-SimpleLogin-Want-Signing;
-	bh=/rQmXVkHiDzs2uGaSf1glcnE9dLrPSRCk+lZ+qfQqGw=;
-	b=O2yQZbKcVocCZmv3e1alo2FocN9AbzsX6rqRAhX0F6OjbCqtUU4tmvLAQ6BghIT39PIo
-	 DA5+WxuMTjorPRrw10XmUpNpD0YMJWv292UXWfx5VkMgUVeYGnu5hw6afbRD0E6j3hyna
-	 VsOUAEanKrgv7Qz80+6k68udg1BiNnxLsSnKZhAuypoV092u+WKiTd8FONPnbtaZisZxo
-	 eVg0Za/nh1MO+EHPLtQrBF5dQ074oczXsnfxxGxRmeLKB8MuY0Nzr8jHMmdqwgDvUY9jJ
-	 YOuDOfEYbIbAgEY/GTZK5MfnEgsHMft9VoNf71qbT5/ePwNkfbroPECeVQcyQhwstLQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=eldare.de;
-	spf=pass smtp.mailfrom=eldare.de;
-	dkim=pass header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=xSx87DqC;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.168
-Received: from mail-200168.simplelogin.co (mail-200168.simplelogin.co [176.119.200.168])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793809110;
+	b=th35LXH4zd12Ja6Aq+qK9BqWMEXjBfgsX+vbU+0T68dp22CtMEDg6qvzweoEln7QMVnX
+	 55KC4rDqrt5ETaZNpm1fYXvCH/5MvZJtYw5Kl/MV3xipcFR4X64DcHbfTg9C8nCsW8j67
+	 +BlkvOprlBglR8T2k9jyYqiAt8Leur6nmEMKIgzke5DzhBIDUdes7p+eFMub+74LMNa52
+	 bSlB/aToGdE6aa0NICT7PeOTMjHeCYkdXMx8vUNlaCuibkMMU4UMKB+5UAPRkgrt1xTdU
+	 /JnxAOCxiuI1JTAWE0c1FNbUY1wrRCO6U2mGbLf7o3TmeYpBLg7JEP/9GfAF+oeRBuw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793809110;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Subject:From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:
+	 X-Last-TLS-Session-Version;
+	bh=oSfws3W30fOYudbmrQezA5vgk29hrsCEgX3XIqUkwoQ=;
+	b=4ZNr0/eQPJCDvCFAqRCpk+lT7CaXzLFP73P/b6q0HpYo1VcQ0QCNf87JwH87TUfauJRE
+	 AJmgRTeWay7DyT9j1//fRVCfi+xfLB03njNGlvUVU8I1gkmgvuMtzc8hO4/+BroBalYFh
+	 9JMIdQmwW5hAqMVCq8ljVVuTNzkbq/a36k39tJ9kHVU4fImbHnROXv23txsRK7iUzSYN/
+	 ZWtAZqcY2ARjKs6RfSSAiS1aN3dFi9JTo65xaSmAtJ8vvnw36LWdzie5Q+8DGsqxwmX0y
+	 yvJDTc1QDg9Wof2GcdRiVX8FXwe62/I/ce1rcsZ7prlopK4gAedOnKl5BTLm8QuLjHA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=fiV8FBWD;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F7BB60A3810
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:18:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F7BB60A3810
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=eldare.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eldare.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FDD5606EEA9
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:18:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FDD5606EEA9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=xSx87DqC
-ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1793809095;
-	cv=none; b=rNhBcnJBGT5vY8TOubhM6rBFm8SpI5iq4ZgabOm1hxruxsHuBUYIyFsZHbdhSEN0sz6AKzcuEPYF4UAUqOUHEMnhUjNAP17OBPueumFM/lgP/iLKS4rj3VI4+WSH1jk1+eEWubTiLRjNG82mCv2Tsyh9doGyea56QPc8FK63GudWo75yEnMgrXWg9ttlllMsIyqkbr1NDvGqi3/0Xn4R+Ff8cxNTc4zEJWy1C3Hdx4RLBOIh72mWpW6ntFss+jv49g/1v6Oa0QlEy7E5aRM1/sqV+Q/3AJleRygPu87il5hybWx/loqfJSbU1DllVwgs40HM6hCDIVjmSR6mQp76SQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626;
-	t=1793809095; c=relaxed/simple;
-	bh=/rQmXVkHiDzs2uGaSf1glcnE9dLrPSRCk+lZ+qfQqGw=;
-	h=Date:Subject:In-Reply-To:From:To:Cc:References; b=mdjmSQwQR4rSeVppfo1dQetXWHxhh4XNQGQkQ8UQBQVVGc6mS6EVNj/SzaPXsbyB1MERpuLubET4XK2g09jyD3mCSLz4I46IAfLWANB2UAv3BPLErb0AzE7IFqrqN56bvCU1fSIYfP2UhhHBFVq0zOoYtzSrj/ijnZ6Qrc2poG3AHovfouG4NMKUn8K+BnMB8xrhEwold2IHc/3vVYvZbGHqV2FGAmr1OOBjyC9B88bSEX/8vWjf0SrDWjPDIYiNfwdQbY0rlVaZnr+nKqgZ+0sorfmyl7TkYox4Rdk8r0bTGZUNHI4yXwVfU5BYvDSUvHx1M4XwpsgrGs25P/os1w==
-ARC-Authentication-Results: i=1; mail.protonmail.ch
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=eldare.de; s=dkim;
-	t=1793809095;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/rQmXVkHiDzs2uGaSf1glcnE9dLrPSRCk+lZ+qfQqGw=;
-	b=xSx87DqCQq+Fct0l999tAxbeu/mkF5mEzDxj2RgbXVt2RT84a6q03GkZR80mtxSUGeNhXN
-	CDFeabpFPCjfRpci/FftoVLVlcKd5pq8+5K1HQz6ar3BNJs49aJJNw39wCrpiipVod1alh
-	KiKGZESQXgxJANgZXScTRCMj6oHeow0=
-Date: Wed, 04 Nov 2026 16:18:06 +0000
-Subject: Re: [PATCH net v2] vsock/virtio: clear vqs[] to avoid a UAF on a
- failed PM restore
-In-Reply-To: <20261030101918-mutt-send-email-mst@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=fiV8FBWD
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id B88451A1451;
+	Wed,  4 Nov 2026 16:18:26 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 69CF960770;
+	Wed,  4 Nov 2026 16:18:26 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 42897103291FD;
+	Wed,  4 Nov 2026 17:18:23 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793809105; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=oSfws3W30fOYudbmrQezA5vgk29hrsCEgX3XIqUkwoQ=;
+	b=fiV8FBWDpx5QcgNQ/9XNu+R88Az0OSeLN0zKlNqdCZ5Rn84ykN3DgxsJO17APexg5YwPY8
+	3VVBWs5KR6edjF1oRFKQvtZAcD0aJltb4cI/kqwDhk5UZ0iYx1WmXhhSNDlFF9Pkp+xyx0
+	WnpH7B1QNDm4iQeeQcBJvT0q/fihds1StaUUqU3ogBJ1KSlv3S1tWDwxM5AftIGqMyrClN
+	W+yUmUUauqS6PGgb4sUY4Cp/mT/VcwSZR6UeiMCeC1POucJrN5eigh16G4jO0qqDAcbCwn
+	qwt3tuPyCxOQNa18me0RkD8L9UK9pL3n5l8fJQklt+GAFOvaDCY0XkbEWXyesw==
+Message-ID: <5496704ade7e7f2ea2d7bedf2a68e31daa76518c.camel@bootlin.com>
+Subject: Re: [PATCH] mmc: sdhci-cadence: enable probing from ACPI
+From: Paul Cercueil <paul.cercueil@bootlin.com>
+To: Adrian Hunter <adrian.hunter@intel.com>, Tanmay Kathpalia
+	 <tanmay.kathpalia@altera.com>, Ulf Hansson <ulfh@kernel.org>
+Cc: linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org, Thomas
+ Petazzoni	 <thomas.petazzoni@bootlin.com>
+Date: Wed, 04 Nov 2026 17:18:21 +0100
+In-Reply-To: <d9a9f45c-931f-4799-8c17-3f39bf4dc50d@intel.com>
+References: <20261103093501.218232-1-paul.cercueil@bootlin.com>
+	 <c8dc0612-7ba2-45f0-9aa9-5e312fc8aab4@intel.com>
+	 <21015d0ab9c99bbe8b187792836ecd267e02d4dd.camel@bootlin.com>
+	 <d9a9f45c-931f-4799-8c17-3f39bf4dc50d@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,48 +76,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: jrmmhm.kernel@eldare.de
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Stefano Garzarella <sgarzare@redhat.com>,Stefan Hajnoczi
- <stefanha@redhat.com>,Bobby Eshleman <bobbyeshleman@meta.com>,Jason Wang
- <jasowangio@gmail.com>,=?utf-8?q?Eugenio_P=C3=A9rez?=
- <eperezma@redhat.com>,Xuan Zhuo <xuanzhuo@linux.alibaba.com>,"David S.
- Miller" <davem@davemloft.net>,Eric Dumazet <edumazet@kernel.org>,Jakub
- Kicinski <kuba@kernel.org>,Paolo Abeni <pabeni@redhat.com>,Simon Horman
- <horms@kernel.org>,virtualization@lists.linux.dev,kvm@vger.kernel.org,netdev@vger.kernel.org,linux-kernel@vger.kernel.org,stable@vger.kernel.org
-Message-ID: <179380909424.8.665274581449917096.1746194870@eldare.de>
-References: <20261028-vsock-restore-uaf-send-v2-1-675aad6da714@eldare.de>
- <auSZtMqcTz3r1nRk@sgarzare-redhat>
- <20261030101918-mutt-send-email-mst@kernel.org>
-X-SimpleLogin-Type: Reply
-X-SimpleLogin-EmailLog-ID: 1746194899
-X-SimpleLogin-Want-Signing: yes
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Oct 30, 2026 at 10:21:09AM -0400, Michael S. Tsirkin wrote:
-> On Fri, Oct 30, 2026 at 02:51:26PM +0100, Stefano Garzarella wrote:
-> > Do we really need to write in a commit message that checkpatch.pl --str=
-ict
-> > is clean?
+Le mercredi 04 novembre 2026 =C3=A0 18:05 +0200, Adrian Hunter a =C3=A9crit=
+=C2=A0:
+> On 04/11/2026 16:38, Paul Cercueil wrote:
+> > Hi Adrian,
+> >=20
+> > Le mercredi 04 novembre 2026 =C3=A0 16:30 +0200, Adrian Hunter a =C3=A9=
+crit=C2=A0:
+> > > On 03/11/2026 11:35, Paul Cercueil wrote:
+> > > > Use the device property API instead of the OF-specific property API=
+.
+> > > > This way, the driver will also probe from ACPI.
+> > > >=20
+> > > > Note the change in the core's probe function for SD6HC. We can't ha=
+ve
+> > > > named clocks in ACPI.
+> > >=20
+> > > Do you mean in the future?=C2=A0 ACPI does not provide clocks at all
+> > > at the moment does it?=C2=A0 Otherwise, clocks registered directly by
+> > > clk_register_clkdev() can have names.=C2=A0 Maybe I misunderstand,
+> > > but perhaps clarify the commit message.
+> >=20
+> > I sent another patch in parallel of this one, that adds basic support f=
+or
+> > clock
+> > resources introduced in ACPI 6.5:
+> >=20
+> > https://lore.kernel.org/linux-acpi/20261103084718.8222-1-paul.cercueil@=
+bootlin.com/T/#u
+> >=20
+> Would have been worth mentioning that in a cover letter.
+>=20
+> Seems like it gives the clock a name
+>=20
+> +		snprintf(name, sizeof(name), "%s-clk%u", dev_name(dev), data-
+> >idx++);
+> +
+> +		err =3D devm_clk_hw_register_clkdev(dev, clk, name,
+> dev_name(dev));
+>=20
+> =C2=A0but clk_find() doesn't look like it would match then - the comment =
+says:
+> =C2=A0*=C2=A0 An entry with a NULL ID is assumed to be a wildcard.
+> =C2=A0*=C2=A0 If an entry has a device ID, it must match
+> =C2=A0*=C2=A0 If an entry has a connection ID, it must match	<------
 
-No, v3 will drop it.
+You're missing part 3 ;)
 
-> Yea please write it yourself and make it concise. My eyes glazed over
-> in the 1st paragraph.
+https://lore.kernel.org/linux-arm-kernel/20261103084915.8405-1-paul.cercuei=
+l@bootlin.com/T/#u
 
-Point taken. v3 will have a commit message shorter than the diff.
+I also considered not giving them a name (which wouldn't require the clkdev
+patch), but thought that there's probably some ACPI tables out there that
+provide more than one fixed clock for the same device, so it felt like the
+safest option.
 
-> > This is already in the commit description, no?
-
-Yes, v3 will have it in the commit message only.
-
-> > I guess this issue could be spread around virtio drivers, so would be n=
-ice
-> > to add common API in the virtio core to be used in all of them.
-
-Agreed, that would be a good follow-up; this patch stays the minimal fix.
-
-Thanks for the reviews,
-Jerome
-
+Cheers,
+-Paul
