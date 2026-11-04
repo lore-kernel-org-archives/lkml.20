@@ -1,95 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.153
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819560;
-	b=Xd94Fd7SLT0rOZqQZklunnHYd048RznoKU0xDQxudVZBA9WOt3LbTmsnosRjodZCT+Q7
-	 sM3hOaaIh99cMe94bF80U86EOBMB2TWEX4WMYQ01G/fbDK/efRf7hZNUi54h/apcr4LAK
-	 d5VRZn/WKbvpcsz16eRwvEbQr4EiRr+BySNs+4HrBEtt0wPPZ2U6SNf04Lor8L16jmUOO
-	 mIdBGtCXpe2FC6QIw1b7/kBiW6aw9Mba2aU8fgxAdI55o2gxrA+2XhKiTKF7eWGDZ0Rre
-	 lDfCMPYnPKLU7ootPfmHol8C+nXYuwI2hm0EwIMgDHZhKhvrUjDRpgrB8agWHYOVc1A==
+	t=1793819619;
+	b=VGNfn/DmGXFBw5PeldcC9Vu7nsLA+DExuA6hVkkXZ15sFs+fXlZNrZGNl9zzqjV6sRRj
+	 p3nJnGZE4um2DcSPw7jstmcLWGtC5RW083yX/RO92sPjsyu8ThsOyerFMKDWqC1FGJWhO
+	 61LGU46+hWnoDHpmU/QZkaUWWiVo9G+gqO7jLJ59FJ3pXimlT4DuKWGisHapbSWOGIvow
+	 ssqE7bd1S/RQmwUsUARwoeZ+/T3IW7371MvxT1RkI4l7Nh+rVn9HtDn3JKNYu+8kMOf3q
+	 4ZulJ7T3ktZJ4eJsxVgztJzH0cUe9g6GRMhQxm3Cc/tolrAG1AG9dvj7pARVtviBq5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819560;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=2eBasa7agXmVq6bqhWG9P4J2rj64c5jg7X5XSFiq59I=;
-	b=WAGIl4k6eTbjv57ghz/yBMM3Tfc4HEGAT76s41vXir5CL9ay8D1dVmqyNnf2ORi7wSqK
-	 dJLiZv5dqVHzbRL6oMAd7HKWhmKGuNwnHo06Yu4zW+xTGV3/S1yTMRWQIiGDCzJTlCJfl
-	 e2EJji+jVZNokUm8iaNhicjlAk3FSAHdTLK1iAaK8xIf9wa5SFeBKSEkCnyl6m+qD0TM2
-	 QSAug86HR+DmzRCk7OCeUU1546euUIe37YPcBvCKhlSb4GK/jn4G+kNHZ4iOSUv141Zgn
-	 7JqqOySM2jyJePO7Xt9OoPy0Gz/Lkykm2CKT50B2/IhoYfRpbEPAdO2Cx6pZbGLNRtQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819619;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=R/Zw9aXDdwSnJl1ZKIXFjhqLEWW0pCJMnlQQQIRFmbU=;
+	b=WQtyh3xcPnSjD9hh5scLes6Nq9GT7C6r7DkkezgO4FAQC+7DTXKYnaVjEYgQe51dNB1f
+	 k1HFDJ22DspDegqPPkIB5PT+s9a6tHej/RJZYjXF44ZmVCQc8WWcj0I+Zu2L29i7DCkrn
+	 I//OKXXB5nWRibTgYB85bjM76rjkXZ2wFCur9tdJpViB89UMtIUaBIIfMLtQC8E5ILaxU
+	 LKNyaQ5KC7585fZJAaNUmx1p+POXi9yFcnjpnwyuce5H9GtEM410CaAoqKziCz0K4tlCw
+	 Pk1xiJhyvLqwNJmEg52MV6GqI3GI3fPzdhwCIX1yThR+7l3/RT9nDSPISp+4dGU/b7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Eqj5Og8j;
-	arc=none smtp.remote-ip=74.125.229.4
-Received: from mail-dy2-f4.google.com (mail-dy2-f4.google.com [74.125.229.4])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=bur.io;
+	spf=pass smtp.mailfrom=bur.io;
+	dkim=pass header.d=bur.io header.i=@bur.io header.a=rsa-sha256 header.s=fm1 header.b=POZTX9LU;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=MH8LmMLt;
+	arc=none smtp.remote-ip=202.12.124.153
+Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BBB3606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:12:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BBB3606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F45E606A32C
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:13:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F45E606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bur.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bur.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Eqj5Og8j
-Received: by mail-dy2-f4.google.com with SMTP id 5a478bee46e88-36e06480786so12456eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:12:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793819559; x=1794424359; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2eBasa7agXmVq6bqhWG9P4J2rj64c5jg7X5XSFiq59I=;
-        b=Eqj5Og8j+BJqXcySMWz1SZiTErQxINNNlbsUZj31hS7lGoG6Gq9yCzn7VNE6Om5jkB
-         kOR/Wp5R7NWosG0U9+7d8IAIP1sv4mt+75u/LDEIaa20TqtV4Ul83r/2HgwP0B10j0+V
-         pvaOhvJEZbZ5eAGpy9LPLKRGp40zyGTb3678OrokeIryxlwDK3f5uUw2nAEFNFjZWazt
-         wGwi+9gouE314rfJTQmK3m8GFxdq+kOnUNcIQoNk8YQeF7zg1n5UXZXWtIbtFAjfsKUo
-         g57vlJFrdxiyU5wSrlEijhSz1DSvlhKvPoHNLF/BG/9+9zLelsLukMg0MYJi7JMpGp9L
-         Gfmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793819559; x=1794424359;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2eBasa7agXmVq6bqhWG9P4J2rj64c5jg7X5XSFiq59I=;
-        b=Ce3LT4IdCB6lwT5/49iDzcIA17TECbvBzzEbMxHrfoTUFVmcZ/CC877pppVGuaywRu
-         9LcvSDOhRGztvc4Mq1Ky/eMrfKBNhc7w0JvQcwF/oXAoFVIyuptXyEF8zVK9jyLvIUgJ
-         eMyeJNhtUSp69twjdFhUoGe2+09ZuCaFfgrPxx4JA6FaNYqaHA2NZr25HSakBMuwUWj+
-         zwhNJ3u2qlwb8c8y5R8JeQtFaTfdRwjrg0gTpqtm/mkFSEnZC3ApUpgRA7JdvAcKsakt
-         Fo6tRJ3zMllSN/I5poSWEI6cxfYcu/IE91rABUUVh1Ld4ND42V//z3nJr0kKnVOaxcjx
-         KEgA==
-X-Forwarded-Encrypted: i=1; AKwUvByuv94D6FGmA7atIAUTJ55ZBf7cElQ+kmPF0hpKEPGCq1r/xh7KIkUCI9H55kCKpb493ZPplm/lvDts7kQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8NM6QK6mFR2mE9nTSrIg9CjE9zTpq+ktLaXI1zqUm/Copps8A4
-	nJIpplg9UvzBZNCyffgZnLoK01z7QUymzAXhidjCvFemvDBkX5sTu5Ot
-X-Gm-Gg: AYBFou0m9YX9shw6H7e2p/pwNszyC4M+8GjsTgyz8VWEmg/M2VUQzFF+HzZCZhloQlg
-	ZWbM7OpUjlSzeFODnNr4t3TLliHmAKvm9cIzhGdyUt9m4FmPgf238ayBr8qK96wGUZajmKqk0n/
-	M/RPJ+s4QYN38PhWbj9JuAcN2N1DpfAHlRdfmw8mzptr5RByRemCfnGCZs3YIT6hRfmSUvtMhAM
-	VbufQLbkdiChVH8UX0HGauXPLMHVZvU8XMwIdWZDW6Elga8blQWWmh4HYTXRblHXqhl+CB+I7rR
-	Hg0eQNmqQJ+Jf/ciqRfQTKbSPTRO8uaXhIr8xyvJ3uSEwVFsy4YmBlSnE7FYvUVfMei7o4zQTbO
-	HJqiJ/hWCJUNrf5mNfXNEHHxJWD6KOASxr6sAAN+JVrQ3Y8hXPEk159KAiL6aghV0kiD+Z89E4r
-	ls1sG/w+BMvUZghB++g545tuTsP+YUPCjT48TyqM5mVwalUXO08tT8sVJderFC2fPOZkiMcRODg
-	fJRcus0g/bBHQ+/xyROQs2wQ9bIt7DDO06W0vz75jOhJmyoV+knLFWt8Vc7GRP/S54U+vo1kmOU
-	3EBcUKnio2kWUGYSEJGeU4DGDtEqFiuHcbpURKwDqHV1MEaLKTrCqnuIV/1FXO43YC/dvU6H9wb
-	XmKTYp26BG6iKyAnKrp0VNVV7G62JXf9nTXBUdw==
-X-Received: by 2002:a05:7301:6189:20b0:358:ec5c:bef1 with SMTP id 5a478bee46e88-36a42425486mr23614256eec.39.1793819558461;
-        Wed, 04 Nov 2026 11:12:38 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36dad72dc52sm1916864eec.0.2026.11.04.11.12.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 11:12:38 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: richard@nod.at
-Cc: chengzhihao1@huawei.com,
-	lin.nan@h3c.com,
-	linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH] ubifs: account for short copies in ubifs_write_end
-Date: Wed,  4 Nov 2026 19:11:31 +0000
-Message-ID: <20261104191132.89515-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=bur.io header.i=@bur.io header.a=rsa-sha256 header.s=fm1 header.b=POZTX9LU;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=MH8LmMLt
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 0B3087A0124
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:13:38 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Wed, 04 Nov 2026 14:13:38 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bur.io; h=cc:cc
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1793819616; x=1793906016; bh=R/Zw9aXDdw
+	SnJl1ZKIXFjhqLEWW0pCJMnlQQQIRFmbU=; b=POZTX9LU2E6wDR8Nk8+asgrzQo
+	mtR8oUIR9YUGkoQZu6TZpu5yucBssLAS1/VJmIFkmNS4dXl7jdcrK3rmlnQssiXE
+	hszPBz0F9wMNVGApxIQ0/IuhBnVsstgdip9iGWXasC74zxeUe7yRXMY06pijdHfi
+	OzCOb5VQoQMaZv8HcCc4m2I1qTkYvOyNwUVdA/DSJz17OpEK46elDKc5/xuE9eba
+	4ob93FOmSrdemKuzQq1WNcZWhfqz95xFO+1h3exDPuhtFJob9ynnVWXN6J4LzSI1
+	Yvkel7UUcJXiN93aEWGRKsnH7rdmh1Qvj4NfZplZHAOzT9UqVfHr5fF1V88w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1793819616; x=1793906016; bh=R/Zw9aXDdwSnJl1ZKIXFjhqLEWW0pCJMnlQ
+	QQIRFmbU=; b=MH8LmMLtfylWiZNGUml7ghUGNIjs5o/++I86NbGdhlRL5uReTej
+	kjFN21IS+cndRNhqsYo2D/iYka/oT20UtMe4g7yBBWnNTTZCtah/TZc8M5pZ2iqY
+	cPmk3QtaLHOyW92HrB7n6aikdEPySuG0wmrLJUNDkhZ54hIXFCM0x73lnE1cPpIJ
+	aynxMLixFuY/YhXf9r4fLoJ8J1ZMp85b9INZXkdP9TebDJofnYfIYTgoIVu0+NMs
+	nqw2Q40cUO93uKxwB3w4yGO1bdVxrmWYv+y0/zEM288DMfBtL31U7pEFt+tAwjqZ
+	s6S0byqcUbkOwkSCEp1w3A+oTHYEj+oOV5Q==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=bur.io a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793819616; d=bur.io;
+	mf=PGJvcmlzQGJ1ci5pbz4=;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:BP92ZvH8BinaQTKlTT/LBQPXtJ/mfoerULzKCUf/6YHbSaO
+	VeSbW1s3wtOh3vFezWp8ppJBDW6ehTt9HgucXKXl2ioZd/+OSthihjK1ltg+dms8
+	GALXtOnL1tRWMZX6PY0QJv2cT8HBSPdVl14fFf2KrddKeI1dazq2eCATZTG7GHFQ
+	3TmplpebBMkHOLFEzlhyxMvwFV5DM5/CL0HS+Z/tVjxOvtv2p1mZPK36BLNaJ9rk
+	+/UrdRPG8Ke6j6iwUYEXzQqCzIyPyLH+9Q6THKUNVRGJrSU4VJR7/zqC4cDV+O/d
+	/zfOaaYywVO0QzGnJ6EtXQO29B97/zn9o72ao5A==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:Do8AOxKL1PsfOei2cabABuc9oDk2PzvdE2E9ovZgXjE=:TQ1NRrE5MaF4AJMFyxsnn3nsn/bl1cE5HhilxM8818Q=;
+X-ME-Sender: <xms:4IPrar7Uq59_38tKTfVYtW7gBQTIjSsgt0IGrRzES_PiNhVTiIwJ5A>
+    <xme:4IPrahX_FVJ0WP5ilf6c9rdlEBiMYFM2uxtAkEq5Vy21Dwj31gHq6rapL6wV5cYh3
+    18ruduXOJMMeYaqrzO3mmfyY4P6hi76b6VoojhgQCRogDw4FJUFcfIt>
+X-ME-Received: <xmr:4IPrajJ27dzA2zkzrKZgGmfDmdPKKNeBL0LLQjt846bray0zUeDNqR57>
+X-ME-Proxy-Cause: dmFkZTFKfU6gmjaNjQRv4742HxQNz5qcx43PvODO8cE3Klpvbcsys2xeAxDTiJH4S2RWI1
+    Bpt+51ElFQGLyu6bY6plLJYbOmTBK1uGkS2ry0KT+xOVrbuzxxdyiPhLUV+PcVRWJ2YpSz
+    4dqymtddmmnJJYnaXsDTphJx7vIqeQsy8L8VhZmVhnZekTEFGcEWgUuuadx3qnzcGihSiy
+    2x+l5N1zaKj4UNT/qANWul4pfxzeALBBBlMMlidwJEmpsUA6SzOfVNMKfALwMI8MczuESS
+    wZpnn2iIj75CbS4mp+kdNfjH5rokU/i8KyjYwywKwQvy3JqpGu8S+ftex0SAOCXFeVTgGT
+    Mkg/R0HVYIho62aIg4LI2fegY5nVCJs96m6+LgpwZjS+syCEQ5AicE6wP1s5an0NQcoZeE
+    Tg3QTl7HaOgUoYQAWIUxsJGzmkQ0jX7JuUw7a23XsZl+FO5jEOJgOtu17xUDirEQ5Hs0II
+    9jBKzjdY0q8K66dMwQ1+k5PAemiUlmSfbTgqqD6ZVDh/ZzHhchf6xQNJXz0VI8efAWK2N0
+    ZBrytpVzvbTq6MAnmK2sS1/y1m7Vq0qgZPytkNGmP1SU7cKwxr6DrCPvP8pSuwbxO9aXnH
+    irAtSgAWFR/607Tj+2RJ54ntbBeQMEuKbdVuAbkI0mJaxD7xk/x7zoT9j1Nw
+X-ME-Proxy: <xmx:4IPrajsmMDPyBCrYxVGYYfCzrmlYTBvdthRetLLV4cwA7wdTMmye1w>
+    <xmx:4IPragKC4-nwDO_cuo5rsCQZ76l9gOH4Tu1KspjXcMPo0j3l2MXGtw>
+    <xmx:4IPrajMo-cLUU6Cyanm0RON7nVYiud8w5CNXJSXtYu61YOKQBdgh1w>
+    <xmx:4IPrarXHVYONAtwO7NIqjUg3uP3EUCT7uv_08NgVNgl0gEsBQGksGA>
+    <xmx:4IPrajQQUWOnqdw0eAen1Pu_kvMvMR9LvuEjbVoI6yETpFPXXF-fX5az>
+Feedback-ID: i083147f8:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 4 Nov 2026 14:13:36 -0500 (EST)
+Date: Wed, 4 Nov 2026 11:13:50 -0800
+From: Boris Burkov <boris@bur.io>
+To: Siddharth Mishra <smish149@asu.edu>
+Cc: dsterba@suse.com, wqu@suse.com, josef@toxicpanda.com, fdmanana@suse.com,
+	mason@kernel.org, linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/5] btrfs: skip tree blocks in
+ btrfs_get_extent_owner_root()
+Message-ID: <20261104191350.GA3301639@zen.localdomain>
+References: <20261104102323.4090290-1-smish149@asu.edu>
+ <20261104102323.4090290-2-smish149@asu.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,83 +124,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104102323.4090290-2-smish149@asu.edu>
 
-ubifs_write_end() updates i_size and ui_size to pos + len even when
-fewer bytes were copied. A one-byte write at EOF from an unreadable
-buffer can fail with EFAULT while extending the file by one byte.
-Partial writes can also extend the file past the last byte copied.
+On Wed, Nov 04, 2026 at 03:23:19AM -0700, Siddharth Mishra wrote:
+> [BUG]
+> With simple quotas enabled on a filesystem without the skinny-metadata
+> feature, deleting a subvolume triggers the following warning:
+> 
+>  ------------[ cut here ]------------
+>  WARNING: fs/btrfs/extent-tree.c:393 at
+>    btrfs_get_extent_inline_ref_type+0x1b9/0x2d0, CPU#1: btrfs-cleaner/84
+>  RIP: 0010:btrfs_get_extent_inline_ref_type (fs/btrfs/extent-tree.c:393)
+>  Call Trace:
+>   <TASK>
+>   btrfs_get_extent_owner_root (fs/btrfs/extent-tree.c:3128)
+>   btrfs_lookup_extent_info (fs/btrfs/extent-tree.c:187)
+>   walk_down_proc (fs/btrfs/extent-tree.c:5647)
+>   walk_down_tree (fs/btrfs/extent-tree.c:6170)
+>   btrfs_drop_snapshot (fs/btrfs/extent-tree.c:6392)
+>   btrfs_clean_one_deleted_snapshot (fs/btrfs/transaction.c:2728)
+>   cleaner_kthread (fs/btrfs/disk-io.c:1553)
+>   kthread (kernel/kthread.c:436)
+>   ret_from_fork (arch/x86/kernel/process.c:158)
+>   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+>   </TASK>
+>  ---[ end trace 0000000000000000 ]---
+>  BTRFS error (device vda): eb 30720000 iref 0x3ee6 invalid extent
+>    inline ref type 0
+> 
+> Writing to a snapshot (update_ref_for_cow()) or a metadata balance
+> (relocate_block_group()) trigger the same warning.
+> 
+> [CAUSE]
+> Without skinny-metadata, the extent item of a tree block is an
+> EXTENT_ITEM with the TREE_BLOCK flag, and a btrfs_tree_block_info sits
+> between the btrfs_extent_item and the first inline ref:
+> 
+> 	item 3 key (30441472 EXTENT_ITEM 16384) itemoff 16079 itemsize 51
+> 		refs 1 gen 5 flags TREE_BLOCK
+> 		tree block key (256 INODE_ITEM 0) level 0
+> 		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 		(176 0x5) tree block backref root FS_TREE
+> 
+> But btrfs_get_extent_owner_root() always takes the first inline ref
+> right after the btrfs_extent_item:
+> 
+> 	ptr = (unsigned long)(ei + 1);
+> 
+> So for such a tree block it reads the lowest byte of the first key
+> objectid as the inline ref type. For the key above that byte is 0, and
+> btrfs_get_extent_inline_ref_type() warns. If the byte happens to be
+> BTRFS_EXTENT_OWNER_REF_KEY (172), the key bytes are returned as the
+> owner root.
+> 
+> The filesystem is valid. It can be reproduced with:
+> 
+>   mkfs.btrfs -f -O ^skinny-metadata $dev
+>   mount $dev $mnt
+>   btrfs quota enable --simple $mnt
+>   btrfs subvolume create $mnt/sv
+>   btrfs subvolume delete $mnt/sv
+>   btrfs subvolume sync $mnt
+> 
+> [FIX]
+> Owner refs are only added to data extents, never to tree blocks, so
+> return 0 for an extent item with the TREE_BLOCK flag before looking at
+> its inline refs. This covers both the EXTENT_ITEM and the METADATA_ITEM
+> layouts, and gives the same result as on a skinny-metadata filesystem,
+> where the first inline ref of a tree block is never an owner ref.
+> 
 
-Use pos + copied for size updates and cancel the budget when no data
-was copied. Keep the appending decision based on the requested length
-to match the inode budgeting and ui_mutex locking in ubifs_write_begin().
-If a short copy ends within the old size, release any unused inode budget
-without reducing the size, and still unlock ui_mutex.
+Nice catch, LGTM.
+Reviewed-by: Boris Burkov <boris@bur.io>
 
-Fixes: 1e51764a3c2a ("UBIFS: add new flash file system")
-Link: https://lore.kernel.org/linux-mtd/20261027061226.3506517-1-lin.nan@h3c.com/
-Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
- fs/ubifs/file.c | 29 +++++++++++++++++++----------
- 1 file changed, 19 insertions(+), 10 deletions(-)
-
-diff --git a/fs/ubifs/file.c b/fs/ubifs/file.c
-index 99dd52715ee..8ebd3f4cddf 100644
---- a/fs/ubifs/file.c
-+++ b/fs/ubifs/file.c
-@@ -523,8 +523,8 @@ static int ubifs_write_end(const struct kiocb *iocb,
- 	struct inode *inode = mapping->host;
- 	struct ubifs_inode *ui = ubifs_inode(inode);
- 	struct ubifs_info *c = inode->i_sb->s_fs_info;
--	loff_t end_pos = pos + len;
--	int appending = !!(end_pos > inode->i_size);
-+	loff_t end_pos = pos + copied;
-+	int appending = !!(pos + len > inode->i_size);
- 
- 	dbg_gen("ino %llu, pos %llu, pg %lu, len %u, copied %d, i_size %lld",
- 		inode->i_ino, pos, folio->index, len, copied, inode->i_size);
-@@ -552,6 +552,11 @@ static int ubifs_write_end(const struct kiocb *iocb,
- 		goto out;
- 	}
- 
-+	if (unlikely(!copied)) {
-+		cancel_budget(c, folio, ui, appending);
-+		goto out;
-+	}
-+
- 	if (len == folio_size(folio))
- 		folio_mark_uptodate(folio);
- 
-@@ -562,14 +567,18 @@ static int ubifs_write_end(const struct kiocb *iocb,
- 	}
- 
- 	if (appending) {
--		i_size_write(inode, end_pos);
--		ui->ui_size = end_pos;
--		/*
--		 * We do not set @I_DIRTY_PAGES (which means that
--		 * the inode has dirty pages), this was done in
--		 * filemap_dirty_folio().
--		 */
--		__mark_inode_dirty(inode, I_DIRTY_DATASYNC);
-+		if (end_pos > inode->i_size) {
-+			i_size_write(inode, end_pos);
-+			ui->ui_size = end_pos;
-+			/*
-+			 * We do not set @I_DIRTY_PAGES (which means that
-+			 * the inode has dirty pages), this was done in
-+			 * filemap_dirty_folio().
-+			 */
-+			__mark_inode_dirty(inode, I_DIRTY_DATASYNC);
-+		} else if (!ui->dirty) {
-+			ubifs_release_dirty_inode_budget(c, ui);
-+		}
- 		ubifs_assert(c, mutex_is_locked(&ui->ui_mutex));
- 		mutex_unlock(&ui->ui_mutex);
- 	}
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.50.1 (Apple Git-155)
-
+> Fixes: 8d2990914073 ("btrfs: add helper for inline owner ref lookup")
+> Cc: stable@vger.kernel.org # 6.7+
+> Signed-off-by: Siddharth Mishra <smish149@asu.edu>
+> ---
+>  fs/btrfs/extent-tree.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/fs/btrfs/extent-tree.c b/fs/btrfs/extent-tree.c
+> index 9b0a5c6b9..3ab4f2696 100644
+> --- a/fs/btrfs/extent-tree.c
+> +++ b/fs/btrfs/extent-tree.c
+> @@ -3117,6 +3117,9 @@ u64 btrfs_get_extent_owner_root(struct btrfs_fs_info *fs_info,
+>  		return 0;
+>  
+>  	ei = btrfs_item_ptr(leaf, slot, struct btrfs_extent_item);
+> +	if (btrfs_extent_flags(leaf, ei) & BTRFS_EXTENT_FLAG_TREE_BLOCK)
+> +		return 0;
+> +
+>  	ptr = (unsigned long)(ei + 1);
+>  	end = (unsigned long)ei + btrfs_item_size(leaf, slot);
+>  
+> -- 
+> 2.54.0
+> 
