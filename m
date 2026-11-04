@@ -1,95 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793770089;
-	b=n0IWgbuu7rzwZJivXcGUAwo6mQVtsz9CcIfa8rV+R05B6dxnKFEuvwReqf1BuSqrtFub
-	 Ev0wJwv/C8+VZAMtG0h1KL2wWNb2UIm5IlrHd18pBZ5LA97PvQ3e8IgGnPfRzFVWfCK1F
-	 YHt2utMiL5SwfTJtgxTyCEiIBG1rAn/XBZp6WLPYr/TDePdsqnqKTpF2lpE0+wjvKTJl8
-	 13FIAwa6waHcGGuPWJ4nZ8YBBbcXN0aoQPl176EhlJ8b/i3elx5kcFcOgb4cNmbKQbD8u
-	 dwz9VtLlqhIaflNE5BFCZTuJ2cpKbRyriXMjgh0rhYi+M3AI4gZKU+U4wZ34t2bVEIg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793770089;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793770175;
+	b=Awuh43pQZitYPQ35TE4jmlnirA1Xo3O3jamRlLlizSX4TNa3LXnf5+1bouErNpDZXgi2
+	 yF9jOhenLT/vV7kG0mI5yS09BiePNQJolgGTmdaPLwl7HGHd6oMewI2Ir5iJr64RLCaDi
+	 Fg7XKD3DEj41/WJ1K61yfu1MsTibNSlsPiOYHjfvFhuVRAZXzwJBVPx82a0zqc1hpzuta
+	 nWuQ10o65U79wgUZXeFbDyToSfpFn9L3w3Z7ap2//iwyDcEbKIhwjL2PKEWWla8mxNb3O
+	 QxHrh1GNCXG1mQJIbGwBiIGeC/MeA0EAHTO+/FFsHWoWzVHS5N19AwybY7wq7STJDPA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793770175;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=irQAokomBOrEvq1E25b1/yaWaEKJedcNM9avak0rsxM=;
-	b=jstwFn+7Ta+vU4H/A+z04y1KpshVNYArkCfBZt/3dXrTtYRPJb9un9fHdSnC/jYyXF7Z
-	 BxdwiaIxKim95NM4DVw+CigLqzd0qcFRCqgl/M3LxTv80cqbxpnpiufEZJ1SSK0yCKJ3E
-	 kf7Xj9K21+AQEd+vxE4A6By0odNpqG3LUF8WiOMyojED/LH9sE3kdgOnfaJlz/Gq/+cer
-	 Tqyj48KBOMwyZ/ykXwbXgj3ANfHaDT54HoMd8b9LiR7Lgb6xY6O2GR4Su8aFmLhw08hkc
-	 2Lob7J/3aKsMjf1CwRO9w8eF6heBuhoCBO/Q0aAXoOfF3HfiTjVPAN+VfmFblnIIJlg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oAnu04eU;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=cZhQHFa3fDIYYUFeduNwTqrhejieaNOw9vQ/LVe4bqc=;
+	b=oDpef0o29MmD/SfJT5VRLe9CqNKsaPKYL6QfsrzVaRw1YXFEoi8+/kCMjITHOdwdkU/F
+	 XgXkzWeY+WYSzgAU1Leh4ok/UMKpoag9vaVTn8saHLd6aRYNbB8Dd6hjvCz0eoidRDbsA
+	 dUgaRo+W8mnS3Pz22uCGJRNrvK4G757ua7Vylo2R1xU2PTgokSFi4kGJmtXSGzycrlWe1
+	 m4oqKWm40e4/CiFlm7OfOmusHyr5uIRvqe0U3BvKmDuKtrFUfS9yUOFdLM9K8T67PZY+b
+	 srxXY2slOpJBPfgNTAhAFnI79J6c4l1CSAOnMndY47YE6yc6CG9v06RWzUeM0UBiUqQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ionos.com;
+	spf=pass smtp.mailfrom=ionos.com;
+	dkim=pass header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=DM0AV0nR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.42
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70123606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 05:28:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70123606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 477B9606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 05:29:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 477B9606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oAnu04eU
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48fbe12cfdcso135845f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 21:28:08 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=DM0AV0nR
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4395d31228so45352466b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 21:29:34 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793770173; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FgxV51qAePv5tAcwxTurxBKqVGQj5/2TAHdOG9VLk6Bjgw1q4/jcy4vZjLHmOXUjcX
+         DYzChuNWZj/NL2AOREQjCCnacI69WfFmagYtY/CyJ0sTIhrgzYiODjYdrufVlE0K9j2/
+         0j/RIkFlUBfDDl9cMmd+5ZCCrx2tvRSfw19q2+tUFBED7mVAKPdoJNib2jvFdjDjTY9x
+         wIu9JODx1KplAod7titHuXu5yZVcMIQZ+k0KJ2018gmIIulpSbVwSrDOYBK+xucnPi/a
+         zOJA5iLWsBwNiK3EiIFJY49tOYV3DZLwuzM41253piMzV/F4/AE9CAIgVR2HX4o6jW3S
+         eZuw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cZhQHFa3fDIYYUFeduNwTqrhejieaNOw9vQ/LVe4bqc=;
+        fh=WNlXumUSoZ5vhOlx5EjPUSQwPZmUhu+9pSys4Vbq5co=;
+        b=CncgpmRX0/u9tQKmJg14uir9fj1MY0ZyZ+fgaJIRcU14TqvI9XpxAyZQA+ZP7gcDup
+         OgheAyAa34aqepy0Jo/NL3SOm0CEJjXNovmS7gHpBNUeZW4ZHTKymHVFIEYtPvTr+gkX
+         Jj8iM3Jqj10+eYFZM8vPAtfC5VjtbC5qBNw8a4c7FE7++viSubP5OBV7pkVgj7v70+mk
+         agVLd8fVMYuhNU9IslafmxWNYILhDTL0oF5jrIUc9MLillo8cNdpXxd7rzbXLcXlAwgY
+         iq4JxTrxDJhVFIDiBcOs1i5qW2J7PXkWk7uayfF6mlTM5PSEq6ovkSugQvphI7DSJYPA
+         EiIQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793770087; x=1794374887; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=irQAokomBOrEvq1E25b1/yaWaEKJedcNM9avak0rsxM=;
-        b=oAnu04eU+s3LGkUx1jwkqz7Twro5AjH5asleqtuon57Etq/k0ktcWSor0iWMB0/l3m
-         fJ9E75NjnOf3htVo3Mixg2r95tpRcUZ5aPiupyVY7H+nuJbKLr3nB/AZ/LcopLRhFPTk
-         l4/oooMuHStQY89DRz/4dC3LlbRlJPq9rY9ijo4IpoVZaKejlzAD6U7ZtMgLUYlakxe3
-         JkFzpM+ndtOyjIsFDAWfOKQwsMqXL6lKHnRkqr/MeoRMW9UfqANYsTNdFdQBR2k7Ex6A
-         VJ2jwbWIaT46VKs4uL6gotYb4fngQ1RtXzxNxYKkb97QymYrMszkXGOYcYCrIZdchKaN
-         Wypg==
+        d=ionos.com; s=google; t=1793770173; x=1794374973; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cZhQHFa3fDIYYUFeduNwTqrhejieaNOw9vQ/LVe4bqc=;
+        b=DM0AV0nR1BQA1P628Ldhvee2oaahZdOYA41MY0kthaIFX8ItSKnuUbPYPordN7Rhhv
+         7RavjYmkHbKJaolJWCWy7JCck5RN83uyUWRBVB+jtOYrAEWR48gWoe9nryCfs7ljeT9i
+         U64lUH24PFncHMDevpMzEOBp+yFm7h/NWItiD/hZxHQXf3Y70OWU4d/w2RQnJKF5adYT
+         c/iPdVD8t6Zhy5tC39vz6u6n/I1oRkqXC+C5ExcKoohZbonOUaFw024ucQYIgLT365Nz
+         OYjBuBtU15rlAkJbNY+tlc3hylia9xY8rfYGTK7WEtclpdQN/gov7OwFIsqeXW8pHOrE
+         3fKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793770087; x=1794374887;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=irQAokomBOrEvq1E25b1/yaWaEKJedcNM9avak0rsxM=;
-        b=xhfHSDy1BGo01Z+kmqM2o/sKcJheTXV37X/06oJO2tF4gCfiIo504XlGKTSmX2rL8c
-         szFS0FBpsRhB5e/DGBbcApRw54aqt4B0XYQ1P3u5DdceB2F0Cgs+Sf/KeY3pQlFRFvyK
-         mmYRoUdfRCRGzdSMdyYMuEI3HL84IherPm5cCEcANkyNoteUVT2VrHT9GYfLjaAL/Xij
-         zsa9E7d+z4+aZ1AaWkMnzWNkSKzCle7hFMf4Fi3tfoI8NrepBGCtE8/5GR31p1M5prdx
-         XF4Oh7KrNaiLhvQHLgwZcQAQBZ46nVdklMl83VTOqa5oPKlIFKHrkw1WhGJlZQYXh7m5
-         yAAw==
-X-Forwarded-Encrypted: i=1; AKwUvBxqd3pw+E03lHbd+BnzdCJOqeOIUcUIfCTY01FypAKqnA1ZrJbedEAvrBIxOV2s6oE/Pbll6iiL3HlDVG4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/uWkCRfhWyT/A5WwwdbuNCvJxUJ83/VWpY39J9GcNx1iPhdwDq
-	2DVJ1ZsG4gKvRiEGoixWChwf6dSCUESpuPin77gVLoMxx9JmFh0FWV07
-X-Gm-Gg: AYBFou0Qa2iw/zFO1TyGGI5auYxNjqBWqAQbgqrzjVDW5NIGMAt+sNTUsb3KLdn1HME
-	dHE2VZihsfd4qGgmP4H1dL/79JRIwtAKMYcx4Xr15nmHALVoIRmgxeJBzzgIvcT3Dn7by+w//Vh
-	BzjVkDRsOEnH+azvROzoHiG2ULdWBQRkho2Jd9WoE4MKTUNptsJo+hxNIBo3rPvSzd6fjA49vSa
-	nhdxazXCwB6wRno4PbnnlRXCelQacyjXGtHBbJAf4s4V6Xk6Z2s4c8p7ggXwfsKZYtAHHoDLlmS
-	1V7TbB4uIcSxpo3PwJPabLwWvALqhjwtbCvaNYwB8xIe/2W6ZAZjOcdgkJaiV1I+cmWO8KLqDGj
-	W5h+XKOIR/W4xZ0dAFrjW1nvR9W1LtvqYJ/0zs26RSj4ZlCfOSxJUqblcru+uRhEXGUgwqed2j5
-	+R/PuKjeZLb/NDqO1kjjBoQrt6kZUfPSaRtO6sNXeFlK0CMVHLNWIR4BZ+5QALBHpERDFtqbzKO
-	yzRLaJgU3PnStEJ60RKrrfYM6qHycR2p5lQmGNyKA+X726yU+hkx54S4XNkicjVlId4euquSoPc
-	LThe3WQZk6Hms7HGTKVll6Oimscmo0YKgWXO9TDP76wQADUFREafBe36LSjkNnWZn/30IV9ixnZ
-	T/8GgwQ==
-X-Received: by 2002:a05:6000:4301:b0:48d:ff0d:cfa5 with SMTP id ffacd0b85a97d-48e6e50049emr34787634f8f.47.1793770087179;
-        Tue, 03 Nov 2026 21:28:07 -0800 (PST)
-Received: from recorder.play.pl ([2a02:a31a:a1b6:b080:1f0e:f037:ff95:4265])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed92a753sm1917062f8f.45.2026.11.03.21.28.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 21:28:06 -0800 (PST)
-From: Greg Sikorski <sikorski.grzegorz@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
-	"Jiangong . Han" <jiangong.han@windriver.com>,
-	linux-kernel@vger.kernel.org,
-	Greg Sikorski <sikorski.grzegorz@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: em28xx: fix NULL pointer dereference on disconnect of dual-TS devices
-Date: Wed,  4 Nov 2026 06:28:00 +0100
-Message-ID: <20261104052800.44551-1-sikorski.grzegorz@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1793770173; x=1794374973;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cZhQHFa3fDIYYUFeduNwTqrhejieaNOw9vQ/LVe4bqc=;
+        b=KiXXnJZB3VRaCwouRtizfF28XiITeiJzCtt5su0gvm+9H7vP3Rn1heIffHU/z2G/xa
+         nj8EGx+14OVGk2AHDaskj0DDaY7HmrFKYhoSbq//87Zj055CV3+Tilg8+fckQvPnmWVU
+         d6D0tkPsGtMAkApkoED1toEYxoA14d+RAxYpdptx9xvzI8Wpje/DmJysay3bOToGZqRM
+         1iwQcc4rhozgJuKXf6NlPAorwrrtMotrlBJgTugmFdj4VmCZrR/A4EdHErdZSpvCHEF/
+         6uKBMsDdWnt5cjBmUU240FQ+gE38mQFkgAzLAZ0KX8zwGv1yTLg6uqlmdo23HekQeBCV
+         sRyg==
+X-Forwarded-Encrypted: i=1; AKwUvBwiNkrJGVC8f3+tAC6psBkwzxnwtI5j8qDZu94yZFLxvYXozbqkb1evcvMMcN6fXBZgap1sGYwJ/bPrfU8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/nEZcXjAkfjOoB4WXQhc6HyDpvi4kPFOV35XFCvZAhY3hUois3
+	0rZ1/rqeZi6ryMyMFw01Q6EWDGe/cD1dVaQlWCxEtekhp4KL8m0bksDiLia98zvyDqZOBS5LnkB
+	VVUmAj5XfNGH/zvwC3orkUWgZdz+DPRkMn93FoOgr2g==
+X-Gm-Gg: AYBFou0EYXb5Y7JzXlxdir6GgMuQAUHuARoVJDlCFcqwaLLCUUJTje/+IGoOEoTSeKS
+	aM25bYBtO1PfBtlg8paOZNkmzQnkxiG5qdIdTpipne+uXv1IIh4ZqaFGAecF9tdbUbkLOh+njj6
+	BSwRTZExJja6+nFHfrVCg5mXkNS3G/jDVpD4aFaq9zHuh8p0rMgSsCQflRvnbjl8onXfwWNeuzv
+	ZMvF4faCAl9NI7/zpClPb8Fy0WL93tyTuKkybYjvidHaMJfQXRi89+tMl1LGAO/VdiMg7Lmxwe5
+	AEpp0tNODswHukDdR33sr5khiAgEGCI1ULt7S11d33+0HbqBX7ZODd6wiSulqf+KVr58/7AKfU4
+	nHsuLGdFbbU1grCgTQX600IV4y60qaNH5ckBuKF74G2tgH6p65w3zD14xhZWpBXGbrA==
+X-Received: by 2002:a17:906:dc95:b0:c46:2987:2169 with SMTP id
+ a640c23a62f3a-c4ca7a4f156mr1344359266b.24.1793770172638; Tue, 03 Nov 2026
+ 21:29:32 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,71 +104,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261103113711.1832834-1-max.kellermann@ionos.com>
+ <20261103113711.1832834-3-max.kellermann@ionos.com> <CAGsJ_4wYYiHvDj4Bqbp_hg1H9-WsZvEBJ9h5eNdX-Kuib_f3DQ@mail.gmail.com>
+In-Reply-To: <CAGsJ_4wYYiHvDj4Bqbp_hg1H9-WsZvEBJ9h5eNdX-Kuib_f3DQ@mail.gmail.com>
+From: Max Kellermann <max.kellermann@ionos.com>
+Date: Wed, 4 Nov 2026 06:29:21 +0100
+X-Gm-Features: AclHuK-8AA5Oj5_0e3X9V5IdkisojDeCpVwYIMpIa2E1dyyt14UIk9YqekGGG90
+Message-ID: <CAKPOu+-BArn2FDfOWthdJHHbkeEBVAZ9z29XRT88tiXYO9rmHw@mail.gmail.com>
+Subject: Re: [PATCH v2 2/5] mm/vmscan: move code to lru_gen_{add,del}_memcg()
+To: Barry Song <baohua@kernel.org>
+Cc: akpm@linux-foundation.org, kasong@tencent.com, qi.zheng@linux.dev, 
+	shakeel.butt@linux.dev, axelrasmussen@google.com, yuanchu@google.com, 
+	weixugc@google.com, baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, 
+	david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
+	rppt@kernel.org, surenb@google.com, mhocko@suse.com, hannes@cmpxchg.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, rcu@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Commit 826915b6b65e ("media: em28xx: fix use-after-free of
-dev_next->devlist on disconnect") made em28xx_close_extension() unlink
-dev->dev_next->devlist from em28xx_devlist. On a regular dual-TS board
-(e.g. Hauppauge WinTV-dualHD, 2040:8265) the secondary device is never
-added to that list: em28xx_duplicate_dev() kmemdup()s the primary device
-during probe, before request_modules() -> em28xx_init_extension() links
-the primary one, so dev_next->devlist is { NULL, NULL }. With
-CONFIG_LIST_HARDENED the inlined list_del() validity check dereferences
-the NULL prev pointer and every disconnect oopses in usb_hub_wq with
-em28xx_devlist_mutex held; the device never re-enumerates and the USB hub
-thread stays stuck until reboot:
+On Wed, Nov 4, 2026 at 4:22=E2=80=AFAM Barry Song <baohua@kernel.org> wrote=
+:
+> Also, MEMCG_LRU_OLD has been removed as I replied to you in v1[2]
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  Workqueue: usb_hub_wq hub_event
-  RIP: 0010:em28xx_close_extension+0x80/0x130 [em28xx]
-  Call Trace:
-   em28xx_usb_disconnect.cold+0x87/0xed [em28xx]
-   usb_unbind_interface+0x9b/0x2c0
-   ...
-   usb_disconnect+0xe7/0x300
-   hub_port_connect+0x7f/0x930
+Oh, I rebased on linus/master and not mm-text.  I saw MEMCG_LRU_HEAD
+was removed there which caused a rebase conflict, and thought your
+mention of removing MEMCG_LRU_OLD was a mixup on your side, but it was
+really me.  I'll post v3 (as soon as I have figured out the rest of
+your reviews).
 
-Initialise the list head in em28xx_init_dev(), which runs for both
-devices (for the secondary one after the kmemdup()), and unlink both
-entries with list_del_init(). That is correct whether or not dev_next was
-ever linked, so the use-after-free fixed by 826915b6b65e stays fixed.
+--=20
+Max Kellermann
+Principal Architect
+Hosting Technology
 
-Fixes: 826915b6b65e ("media: em28xx: fix use-after-free of dev_next->devlist on disconnect")
-Cc: stable@vger.kernel.org
-
-Signed-off-by: Greg Sikorski <sikorski.grzegorz@gmail.com>
----
- drivers/media/usb/em28xx/em28xx-cards.c | 1 +
- drivers/media/usb/em28xx/em28xx-core.c  | 4 ++--
- 2 files changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/usb/em28xx/em28xx-cards.c b/drivers/media/usb/em28xx/em28xx-cards.c
-index 8440eafad..4d2ea2e27 100644
---- a/drivers/media/usb/em28xx/em28xx-cards.c
-+++ b/drivers/media/usb/em28xx/em28xx-cards.c
-@@ -3845,6 +3845,7 @@ static int em28xx_init_dev(struct em28xx *dev, struct usb_device *udev,
- 	const char *chip_name = NULL;
- 
- 	dev->intf = intf;
-+	INIT_LIST_HEAD(&dev->devlist);
- 	mutex_init(&dev->ctrl_urb_lock);
- 	spin_lock_init(&dev->slock);
- 
-diff --git a/drivers/media/usb/em28xx/em28xx-core.c b/drivers/media/usb/em28xx/em28xx-core.c
-index 62a1c25a2..ab1e1e18b 100644
---- a/drivers/media/usb/em28xx/em28xx-core.c
-+++ b/drivers/media/usb/em28xx/em28xx-core.c
-@@ -1263,8 +1263,8 @@ void em28xx_close_extension(struct em28xx *dev)
- 		}
- 	}
- 	if (dev->dev_next)
--		list_del(&dev->dev_next->devlist);
--	list_del(&dev->devlist);
-+		list_del_init(&dev->dev_next->devlist);
-+	list_del_init(&dev->devlist);
- 	mutex_unlock(&em28xx_devlist_mutex);
- }
- 
--- 
-2.53.0
-
+cm4all | Im Mediapark 6a | 50670 K=C3=B6ln | Germany
+General information about the company can be found here:
+https://www.cm4all.com/impressum
+A member of the IONOS Group
