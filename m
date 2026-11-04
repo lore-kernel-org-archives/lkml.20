@@ -1,80 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793829341;
-	b=MNP90IjmutBjCd8qiuobX3qWVDKB8tqeBOGQp20/AY1eMfbkDlNk3i/UZdD31cNF7lE2
-	 Tshoz/uMpG9iyUcOspErBFgO3Sm0/E1vM+wqpOhjt70B9RoN1/R/D4+bfAhw+0rRuwtZC
-	 zdZM8x0P4968JMcbk3aJDZ+adlhvyZiUM/AU+7Sw/qGLvjE/DyA93PKQ6+OL+4Bjck/7L
-	 gfkfNgrwMoKB0euk/JzvGuldSumUSwSR7aeB1RpaD9jRKw71g/WvjSJUmHlYIR/NFejYl
-	 Hb1tzsGYdwb1hcr8ySS2crUc2raiS0f4pSwppnOcN2xDAPZfW23Q4qxNbMo4I+VlBWw==
+	t=1793829345;
+	b=rLRsRyvOfm3iFqy8hL9s1TCFPbNZQl3Ae/CiyeFU3j8TpNS79lAgn0GJIwDFFXigoZK4
+	 WnN+sok2z9K9aZOdHXuJzndQ0GNojsBcTgp+bstUL7mLKPrNt973KBHSE+dWjKv0+4Z4j
+	 JiBDymzkrVuKCpd+ATRttmRmsJmPuObuc/nUoNyO75n21gCgKYWTo2vEIooZ3VuNNPsJy
+	 Qtl1jalxJQt/WydMhyRYnDf3A8oHPdAoGadvo306FcfGkRFzj5Aar6Sm3kR1MeZ+jN8sw
+	 yHGepP/ttWUrPucShtZ+GBsQNGxdIylpV5rQPVkabpFZWb9/gbaugblNutUX7TD4xKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793829341;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=mNv4xjMMy7I5DQm+piFsVss84RDUYiAkm8TSEYtVupw=;
-	b=go46UjkzCvP1jpjUlfffGxgo3NwzaXghxXLOoNzRjsWRrfkO1KcN7aAFHqbjWXp3DqFB
-	 hmrdbB5HKovtUrpcC65KQiwUpddZIPniNysesr5gL5B6hNxXwA/SzbEfFREy5kwCC8vAF
-	 Ka2PMbQYIKWUOEK0Kw0Zgr8QPQGumbRjAfbISPJfVUPBhHUFHUPQs63feY7ZP4BTDlnh7
-	 IWOLCdGAmjdvzS7qF0hmjKyx/uZpF/1jv4WxvY40GzYeCn/hQ3FSj1DZZXvrMZxeWCoIR
-	 YMCv41d1H9nqtTW5WmEx1ovykJzZmqonFrHtQfnuC7Lpe/uq7ZVw+o3z5qf9O5wyk1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793829345;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-MBO-RS-ID:X-MBO-RS-META;
+	bh=1KM15pS674xkwzoKzXbfoGMlVw+mkKvC51O5xmcBcQ4=;
+	b=t0hlo8Su6lomWJQzGd5Nqf93NnCFkZGN/E4qEFYkYo58I5M1xYL/Q0GmuGDY7G/kXQta
+	 CMneGgDo2QQn5xGf+UEVPpZ4248MSEhr4/8wn6iOyGyV8MNPgckEOn5mT67SeecdpXZQq
+	 BLnondLiFeJKxjVaxRxOA6JIJ4+xuHYTyee7Ar69cAoZna+/7aPudC/yw85sA8NHWI1QV
+	 V2cTDK7LazoKN70nLEvnry9peKwrKCS789KT6NjushurHNEcEll0TtDw92/7GV4eq2+5H
+	 Pt2RP4LaQ7ffmtHIEf2uithoCC/I/4zR1aH+x05FJ2m2udkKB3rnl5RJ/GTSEUj9mdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KRixRl9F;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=h6Zhmgkl;
+	arc=none smtp.remote-ip=80.241.56.161
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F171C607491C;
-	Wed,  4 Nov 2026 21:55:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F171C607491C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC3E560A5BD2;
+	Wed,  4 Nov 2026 21:55:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC3E560A5BD2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KRixRl9F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793829340; x=1825365340;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=dTKkmVA2sw1NSzd9GEd1jGm3jnMpihGVWC4Korlnq8k=;
-  b=KRixRl9F6R6ois8phQEPTCrmsGi+Bw2XxFI7vgE4FJweDEl6F2m6135W
-   cNHLsNlQALHNpYkNswmOBfUOJgJl40DGqeuUUIr/hs/cek0MyR6FpckM8
-   uQMArJG4f9gMxtA9QQkyol2Zua72yAKnCCXGrMY8yf4xngIgifbIjtWSk
-   1WO+VpOz+SGvdIYBtm9+3cMNXLOmL278qFSSvBgb7w8x08D9sXzYU9r4B
-   cZFgEMtmJNYEa+lgxrZfJsl8pWDYC8bdjai7VuIXSMXEDqUJ81ditsie7
-   dRsMfkedXUb7VfUdhICM4ukSUEFq5OfSGw2y25h/+aDni+looAp0rvKBl
-   g==;
-X-CSE-ConnectionGUID: hTbf9BYPR6u0e0lUoCRp6A==
-X-CSE-MsgGUID: LGxuMFe5RXmDsCe1QxkDHw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2607141"
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="2607141"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 13:55:39 -0800
-X-CSE-ConnectionGUID: 6E8Y/IVmRJ2LTESdn8bWGA==
-X-CSE-MsgGUID: wxIaTqaoRWCrl8aEME/UCA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="8609220"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 13:55:37 -0800
-Date: Wed, 4 Nov 2026 23:55:35 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Kent Gibson <warthog618@gmail.com>,
-	Adrian Ambrozewicz <aambrozewicz@nvidia.com>,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 5/5] gpio: cdev: don't overwrite the whole flags field
- when configuring lines
-Message-ID: <auup1z79S7Rv6cMe@ashevche-desk.local>
-References: <20261104-gpio-desc-flags-atomic-v1-0-e23cedf619ba@oss.qualcomm.com>
- <20261104-gpio-desc-flags-atomic-v1-5-e23cedf619ba@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=h6Zhmgkl
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jKfQ45tJbzKmTr;
+	Wed, 04 Nov 2026 22:55:40 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1793829340;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1KM15pS674xkwzoKzXbfoGMlVw+mkKvC51O5xmcBcQ4=;
+	b=h6ZhmgklkVRwYt1n9X/n8y/F+89/7eFCzwSd2uXk55wsQ90Ro6crnRQRb1W+/3wBdTgGDs
+	rCgkbMrz+lPdFeq24VLUNk86fQWkG/Qmp6KRJki29gFw+aDzt0BI8/eGO4DfWF53mgQ00F
+	Vvtx/YuT8JfVPVJ335jZeVFTJMhxMS42kLvwZcgTlLMKk0LyIdGepefjq/dY3M4DDG5hHI
+	ls+7WPGd5m0yNMYTHmVUO2Wherq54OuGJFTmtAuOPtrmGN2wy+kpaCmxF3cjZ8PU9+jfvm
+	S2Z82043mZWjhHxFE2StoOuBkYEgjH39Nnh2b8Y0RWgBlymNfCmoHckwWGJ6/g==
+Date: Wed, 4 Nov 2026 22:55:35 +0100
+From: Anthony Ruhier <aruhier@mailbox.org>
+To: Pragnesh Papaniya <pragnesh.papaniya@oss.qualcomm.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>, 
+	Cristian Marussi <cristian.marussi@arm.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>, MyungJoo Ham <myungjoo.ham@samsung.com>, 
+	Kyungmin Park <kyungmin.park@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>, 
+	Dmitry Osipenko <digetx@gmail.com>, Thierry Reding <thierry.reding@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>, 
+	Pankaj Patil <pankaj.patil@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	Amir Vajid <amir.vajid@oss.qualcomm.com>, 
+	Ramakrishna Gottimukkula <ramakrishna.gottimukkula@oss.qualcomm.com>
+Subject: Re: [PATCH RFC 07/10] PM / devfreq: Introduce the QCOM SCMI Memlat
+ devfreq driver
+Message-ID: <auukrIsbbd3q-qh-@tour-anthony.aruhier.fr>
+References: <20260724-rfc_v8_scmi_memlat-v1-0-cb732bcff1f4@oss.qualcomm.com>
+ <20260724-rfc_v8_scmi_memlat-v1-7-cb732bcff1f4@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,50 +82,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261104-gpio-desc-flags-atomic-v1-5-e23cedf619ba@oss.qualcomm.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260724-rfc_v8_scmi_memlat-v1-7-cb732bcff1f4@oss.qualcomm.com>
+X-MBO-RS-ID: bdc02223a3e50c9f112
+X-MBO-RS-META: 5mbzo6rkf8d9aucpqd6mxur6iz7r7xd3
 
-On Wed, Nov 04, 2026 at 04:37:00PM +0100, Bartosz Golaszewski wrote:
-> linehandle_flags_to_desc_flags() and
-> gpio_v2_line_config_flags_to_desc_flags() read the flags word with
-> READ_ONCE(), modify the local copy and write it back with WRITE_ONCE().
-> 
-> The per-request config_mutex does not exclude sysfs, the irq core or
-> drivers touching the same descriptor, so bits they set or clear
-> concurrently can be lost.
-> 
-> Build the mask of bits owned by the line configuration and their new
-> values locally and apply them with gpiod_update_flags(). The whole
-> group changes in a single atomic step.
+Hi,
 
-...
+On Fri, Jul 24, 2026 at 12:48:12PM +0530, Pragnesh Papaniya wrote:
+> From: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+> +	for (i = 0; i < info->memory_cnt; i++) {
+> +		struct scmi_qcom_memory_info *memory = info->memory[i];
+> +		const struct scmi_qcom_memory_range *range = &memory->cfg->memory_range;
+> +		struct devfreq_dev_profile *profile = &memory->profile;
+> +
+> +		/*
+> +		 * CPUCP re-evaluates and re-votes at most once per cpucp_sample_ms,
+> +		 * so a new operating point can appear only that often. Polling at half
+> +		 * that period guarantees each distinct vote is observed in trans_stat
+> +		 * before it can change again.
+> +		 */
+> +		profile->polling_ms = max(1U, info->cfg_data->cpucp_sample_ms / 2);
+> +		profile->get_cur_freq = scmi_qcom_devfreq_get_cur_freq;
+> +		profile->initial_freq = range->max_freq_khz > 1 ?
+> +					(unsigned long)((u64)range->min_freq_khz * HZ_PER_KHZ) :
+> +					range->min_freq_khz;
+> +
+> +		faux_device_set_drvdata(memory->fdev, memory);
+> +
+> +		memory->devfreq = devfreq_add_device(&memory->fdev->dev, profile,
+> +						     DEVFREQ_GOV_REMOTE, NULL);
+> +		if (IS_ERR(memory->devfreq)) {
+> +			ret = PTR_ERR(memory->devfreq);
+> +			memory->devfreq = NULL;
+> +			ops->stop_activity(ph, NULL, 0, MEMLAT_ALGO_STR, MEMLAT_STOP_TIMER);
+> +			return dev_err_probe(&sdev->dev, ret, "failed to add devfreq device\n");
+> +		}
+> +	}
 
-> -	unsigned long flags = READ_ONCE(*flagsp);
+I tried it on Hamoa (Yoga Slim 7x, x1e80100), loaded scmi_qcom_memlat_devfreq,
+and I see the apss_cpucp_mbox IRQ firing 3100 times per second. It raised the
+power consumption while idle, screen off, from 0.9W to 1.4W.
 
-> +	unsigned long val = 0;
+The polling seems to be the issue, as I didn't see hectic changes of frequency.
+Raising the polling from 2ms (default) to 20ms makes the power usage goes back
+to around 0.95W, with ~150 interrupts/s from apss_cpucp_mbox. It's still higher
+than with memlat off, but it seems to be a better trade-off for now.
 
-Why variable renaming?
+Can you check on similar platforms (hamoa, glymor) if you see the same issue?
 
-...
-
-> +{
-> +	const unsigned long mask = BIT(GPIOD_FLAG_ACTIVE_LOW) |
-> +				   BIT(GPIOD_FLAG_EDGE_RISING) |
-> +				   BIT(GPIOD_FLAG_EDGE_FALLING) |
-> +				   BIT(GPIOD_FLAG_OPEN_DRAIN) |
-> +				   BIT(GPIOD_FLAG_OPEN_SOURCE) |
-> +				   BIT(GPIOD_FLAG_PULL_UP) |
-> +				   BIT(GPIOD_FLAG_PULL_DOWN) |
-> +				   BIT(GPIOD_FLAG_BIAS_DISABLE) |
-> +				   BIT(GPIOD_FLAG_EVENT_CLOCK_REALTIME) |
-> +				   BIT(GPIOD_FLAG_EVENT_CLOCK_HTE);
-> +	unsigned long val = 0;
-
-Ditto.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Thanks,
+--
+Anthony Ruhier
