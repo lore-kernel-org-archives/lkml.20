@@ -1,76 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793821072;
-	b=cc7RmyfioHmOwYcgBA9176UJP+IbjvwZL8C5p+kyia/eSUzcBop683LlzMj0aiRLx6vM
-	 zuYGnn3nf7uRtkcTw+bHFmZNNO6y1ZLZu7i02H65Ew646mIbPycJbhSdiRMsXz64P1bZx
-	 F8UvPbLm2XmrHIeMUz7le/OvSRg46bZUDJbWPS7DZ/40dUCrYNpWgoAp0eTjg/LOmIsEw
-	 XFu3YasxxTMUtz52qr0na+oy6StCS+W49dV3nlp4UqtgSQuHkbCf46ZpIxioxeLQPh3Az
-	 gdSyqaVf7+2hcHOCHfyIDGToodgWgzpxUc1YiokCrIJfhyV4jbldWkgp+VUPqRH1kog==
+	t=1793821055;
+	b=Dk5XZCsekEUoxsUiZG7dX+PkVnfaL+nkXErm5bhKvCffcqmUG4uYgZcpMyOyX+I6sAo0
+	 Z7aZ1f2UGpPKEjEg/8rIzoIp8EAX39NIpJ6vO+oCzMkWJVQ/HI8/WTKw/8pSla35AgMiX
+	 uyRQktS3Nw3+DsJ3g56FcZP8y+pHPZhF1k3B85MfCJhpDAnyXy7ZyQfOdeLNvWLxmjoG3
+	 EVhs8q1JjpJF+jS9P01oEK0ZsCjdfPJI5NAzCewiQQyLReFqFxByAaf5RBHjZc4zEzrzM
+	 51ADHfrI7TXTG66j4/9ylFPqzIsiUFZjQVyhIrHYCLTZTfEWQg5touOQ9p/4yWG6v5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793821072;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=/5MszlfJHB7Xr7Xp5GjEvhWx25u5UBjAyc2/c9bnue0=;
-	b=gWOL/9xcToOD3NIdBiG3wIYndnxiaDAHDHWE9apbCYXrUhGwaCIsY0/Br7ATR78ddeyl
-	 gCO69AS/gr3RTDqH7AuVlFmtN64CAkUHpkJ0KoBQ6aQIVLCzbMJDNJxXe/gOxJN2RbRS/
-	 lG8yQYElHSta5KHebElx6IVpJ9Jz/4AI1IsME3GyTsTECUzjjIlsBIIxhoH0LEyT/uE2O
-	 iXb2aOsItdrAS0YtSunXMUFVFS0QPRGR3O+qNUPFTzTGgbEtQ3PriMqXKip00LxAoozo8
-	 4Iy1PlIQtLopb70+B3SejQunoiGPWDmLImu0K4gbJWwuppYsM91XwqE494Umz4kLtDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793821055;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=FBXs+Ai9hCvv2gTN7UF7ctcncQyXKpM3GPgKiB4YAT8=;
+	b=gBz6dmOubyjO1hiRoWxjF4scqgxXSCqBzHjURBY86Ju+dBDKmHrkePJX84rReSlFXmsl
+	 4mI+akJY79sLhPAN12P7e89+baqE+oaOOquG6O62NreYo5IL4Vi8TanozQi3AH4H1sujo
+	 o2hrKH5ugBob/SsFu+cuw+BindHAZpplNPMtsvJ1+0FzuQnkD/EpD/KDqOdiMmy0k4FSG
+	 rxFKx81V7yg6aB34/MyEVYzvwjU3QVrazczBVhKwpH4ZWK3qPKMiRhdXWtdqwAB3l/ufY
+	 jLKKB3FOvO1jsHl+x00Jel9B8RBchmTcnlVHtxJO63QPHjsSZiY4clvnJPa84OiKSwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gJSq+Ubr;
-	arc=none smtp.remote-ip=209.85.214.200
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oZGa4uxN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AF2C60B4C01
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:37:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AF2C60B4C01
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65EA9607E738;
+	Wed,  4 Nov 2026 19:37:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gJSq+Ubr
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2ed05900df7so8858995ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:37:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793821071; x=1794425871; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/5MszlfJHB7Xr7Xp5GjEvhWx25u5UBjAyc2/c9bnue0=;
-        b=gJSq+Ubr/frgSSD/tMBcT+f/kIR/X/CwpTlD2bbtEwjhhi/+7hJcvCLXB4IDL5V/qy
-         0+bqsQxIR/t3oEcE59hSTJ+W72qYXOOEgW2ZEriC6BJrsT25yqSEtIMBN47ZOPwQwFWG
-         F09buADkQ/trjIAMVNHiW4Q15+CfcFtOoR9LnDt5A+X0L0eFj1vmhP+XBx/Xdw5jIJe3
-         bUJna5nkRV02U3UPBg8vELTNy1bogwnSGNgalHMSLWcpVlAKsOwLSREX1jesGpUwlHV9
-         0ZQ/YrbnQFOhvhaTw+uAJCPwi+9GbI2gBvYy2qC2s+UpLpC9HaizJLtW6AlznPEGfb7w
-         YaHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793821071; x=1794425871;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/5MszlfJHB7Xr7Xp5GjEvhWx25u5UBjAyc2/c9bnue0=;
-        b=OgBMsyDmanWkFMqJ1S9NJ/goA7kVfZzvEgiNynzhqY+jaUOiXgx+bbBZc6+3RrBpn/
-         IUzVTmnxrQYWxS8rCB8+dJqXIS7ybUnj9nYWmELMP6MvkjJdqGorQVj+9oGa4tbrM6G7
-         ymo/agwKz1rKd5AKI2wDab2RfWH4h6tAyKlZGa4Iw1N150s3jNVJOkrVxO9bXQ+39X5Z
-         J0xCsiifAW4vuBam5pgbPcxhmaI9H6QswM5nmHUo0jHV8a8PeRjxwS4U48Vm/mceMBT0
-         RiWN3oGfB7F3Jm8GjnXciESTn6eOBOxF1jakdkW6Wn6H5G0DBEaLDIX8JIxKTUa4gFTv
-         Zy0g==
-X-Forwarded-Encrypted: i=1; AKwUvBy1MYl1OBx2rA0C0JNBg7X8pIp8XUMAYpRtgPSCtlQNTT7Ia/W7uoSLfIPOZgXPsjiQdB8+l0otPmxTU7I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8i9QDkOKFgGjauvjcPpQ9b3LcexKW0h0zhSZaEkhQ52TPchVGI
-	ofD84UReLa8xN3oCMncIjOx0SNDMjH/Z4fmPTgkgWDeJBktHg1paMv6nXvAADjjYJ/ySRS32TGJ
-	GGshHGA==
-X-Received: from plww1.prod.google.com ([2002:a17:902:d101:b0:2e9:4a78:9294])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:1986:b0:2e9:4d9f:a65b
- with SMTP id d9443c01a7336-2eb3651d564mr160599195ad.53.1793821071087; Wed, 04
- Nov 2026 11:37:51 -0800 (PST)
-Date: Wed, 4 Nov 2026 11:37:50 -0800
-In-Reply-To: <c9a6455eb88c24d4271b7a7c86f7a4e90799e40a.camel@infradead.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oZGa4uxN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8DB91F00919;
+	Wed,  4 Nov 2026 19:37:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793821055;
+	bh=FBXs+Ai9hCvv2gTN7UF7ctcncQyXKpM3GPgKiB4YAT8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=oZGa4uxNa4f8lPnKCnZcOshs5bIS38FNrm9Me6KMthFTmP+MOwFabIXkXu/wyKAZr
+	 eMuwJ+f88gJjEcbCjCfZt9K+REs55uNNlIGT+aTII7ZPio3yO+n12ryLYxF/Wa4AGF
+	 RTs/sXBBLK+HuDFmMw4GQx8DcZDiGoyEhXa9KRIJsWTr/ApICfUXhkzLdIecTTSsZM
+	 nHz+oFP0Qjh5+4b8BIeAsHx40sCyakErwgtYM1ptBy94JFV23RAvKVaGe6b4yCL5Fu
+	 zKdbeftWi3Cfr5diHQHdPhNunK20Crp1slFjQ4GoZOScF/vgZqztop91HodBl1uB/4
+	 9Lcb7Om7gZE0g==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>
+Subject: [PATCH RESEND v2 07/23] powerpc/rtasd: let procfs own the wait queue of the rtas error log
+Date: Wed,  4 Nov 2026 20:37:20 +0100
+Message-ID: <20261104-work-procfs-arch-v2-7-2aeb952c9597@kernel.org>
+In-Reply-To: <20261104-work-procfs-arch-v2-0-2aeb952c9597@kernel.org>
+References: <20261104-work-procfs-arch-v2-0-2aeb952c9597@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,78 +113,72 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20260806233609.212337-1-seanjc@google.com> <aqLv9GwBNymyHs8q@google.com>
- <c9a6455eb88c24d4271b7a7c86f7a4e90799e40a.camel@infradead.org>
-Message-ID: <auuJjiowddGlysWI@google.com>
-Subject: Re: [PATCH v6 00/51] x86: Try to wrangle PV clocks vs. TSC
-From: Sean Christopherson <seanjc@google.com>
-To: David Woodhouse <dwmw2@infradead.org>
-Cc: Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, "K. Y. Srinivasan" <kys@microsoft.com>, 
-	Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
-	Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, 
-	Ajay Kaher <ajay.kaher@broadcom.com>, Alexey Makhalov <alexey.makhalov@broadcom.com>, 
-	Jan Kiszka <jan.kiszka@siemens.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Juergen Gross <jgross@suse.com>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	John Stultz <jstultz@google.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Miroslav Lichvar <mlichvar@redhat.com>, x86@kernel.org, linux-coco@lists.linux.dev, 
-	kvm@vger.kernel.org, linux-hyperv@vger.kernel.org, 
-	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	xen-devel@lists.xenproject.org, Michael Kelley <mhklinux@outlook.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>, 
-	Thomas Gleixner <tglx@linutronix.de>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1920; i=brauner@kernel.org; h=from:subject:message-id; bh=URY8OmvUYSj7cGs0MgqVpOcYmOKyD/AnlDpC5EfxAis=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97vhysuHhtP2XD0+QvcrjIThN4YyziduaSa0B5Ze45 bccDt8i3VHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjCRdXcYGf47m6tcV9TUtJW6 6rN1+ac5lkXuOyKb82c41N9Z+KfrawEjw4GOwjOGH8J1JW9/u80gYm/VabKvXdx4/nGt/Pjujku VLAA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 10, 2026, David Woodhouse wrote:
-> On Thu, 2026-09-10 at 10:59 -0700, Sean Christopherson wrote:
-> > On Thu, Aug 06, 2026, Sean Christopherson wrote:
-> > > The primary goal of this series to fix flaws with SNP and TDX guests =
-where a
-> > > PV clock provided by the untrusted hypervisor is used instead of the =
-secure
-> > > TSC that is controlled by trusted firmware.
-> > >=20
-> > > The secondary goal is modernize running under KVM.=C2=A0 Currently, K=
-VM guests will
-> > > use TSC for clocksource, but not sched_clock.=C2=A0 And Linux-as-a-KV=
-M-guest doesn't
-> > > support paravirt enumeration of the TSC/APIC frequencies, even though=
- QEMU
-> > > provides that information by default.
-> > >=20
-> > > The tertiary goal is to clean up the PV clock code to deduplicate log=
-ic across
-> > > hypervisors, and to hopefully make it all easier to maintain going fo=
-rward.
-> > >=20
-> > > The quaternary goal is to clean up the TSC calibration code, which wa=
-s made
-> > > stupidly hard to follow by hypervisor code mixing in with the native
-> > > calibration routines, instead of being implemented as a pure alternat=
-ive.
-> > >=20
-> > > Note, the VMware and Xen changes still probably should get acks from =
-those
-> > > maintainers, as my understanding of what they're trying to do may be =
-flawed.
-> >=20
-> > This (thankfully) still applies cleanly.=C2=A0 What can I do to help mo=
-ve this forward?
->=20
-> Nudge Thomas to spot that this is guest-side and we want him to pick it u=
-p, I guess?
+rtas_log_poll() sleeps the poller on rtas_log_wait, which the blocking
+read sleeps on as well. procfs owns the queue poll() uses now, so leave
+the poll_wait() to it and wake its pollers along with the readers.
 
-Amazingly, still applies cleanly on 7.4-rc1 and tip/master.  I know we're s=
-hortly
-after the merge window, but this has been sitting idle for months and addre=
-sses
-issues that are impacting a variety of end users.
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ arch/powerpc/kernel/rtasd.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
-Note, this also provides meaningful hardening for SNP and TDX.  /me stares =
-intently
-in the direction of Dave and Boris.
+diff --git a/arch/powerpc/kernel/rtasd.c b/arch/powerpc/kernel/rtasd.c
+index 360ed2e30fd5..fa9574131f40 100644
+--- a/arch/powerpc/kernel/rtasd.c
++++ b/arch/powerpc/kernel/rtasd.c
+@@ -33,6 +33,7 @@
+ static DEFINE_SPINLOCK(rtasd_log_lock);
+ 
+ static DECLARE_WAIT_QUEUE_HEAD(rtas_log_wait);
++static struct proc_dir_entry *rtas_log_entry;
+ 
+ static char *rtas_log_buf;
+ static unsigned long rtas_log_start;
+@@ -259,6 +260,7 @@ void pSeries_log_error(char *buf, unsigned int err_type, int fatal)
+ 		WARN_ON_ONCE(!irqs_disabled()); /* @@@ DEBUG @@@ */
+ 		spin_unlock_irqrestore(&rtasd_log_lock, s);
+ 		wake_up_interruptible(&rtas_log_wait);
++		proc_poll_notify(rtas_log_entry);
+ 		break;
+ 	case ERR_TYPE_KERNEL_PANIC:
+ 	default:
+@@ -343,7 +345,6 @@ out:
+ 
+ static __poll_t rtas_log_poll(struct file *file, poll_table * wait)
+ {
+-	poll_wait(file, &rtas_log_wait, wait);
+ 	if (rtas_log_size)
+ 		return EPOLLIN | EPOLLRDNORM;
+ 	return 0;
+@@ -529,17 +530,15 @@ arch_initcall(rtas_event_scan_init);
+ 
+ static int __init rtas_init(void)
+ {
+-	struct proc_dir_entry *entry;
+-
+ 	if (!machine_is(pseries) && !machine_is(chrp))
+ 		return 0;
+ 
+ 	if (!rtas_log_buf)
+ 		return -ENODEV;
+ 
+-	entry = proc_create("powerpc/rtas/error_log", 0400, NULL,
+-			    &rtas_log_proc_ops);
+-	if (!entry)
++	rtas_log_entry = proc_create("powerpc/rtas/error_log", 0400, NULL,
++				     &rtas_log_proc_ops);
++	if (!rtas_log_entry)
+ 		printk(KERN_ERR "Failed to create error_log proc entry\n");
+ 
+ 	return 0;
+
+-- 
+2.53.0
+
