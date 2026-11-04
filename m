@@ -1,73 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793810220;
-	b=HkLsDAdi561eKHWI1mMIdD76mf7XxVSk4NplVsS+9MEQPftEj0aF2zl+s9TjN+rDO5Fo
-	 JxuO2I9W4IH4kD2wle4d9nLDHqXpn8pJx309HwmxnPqqzoMm82B/rfMQA24hYfbXRYzyT
-	 hYXyssAZYL4mzBCb3tL1XMrBR60mH8VQfU4iQVFTSYLNKgbpro5zxbGKSknVpnW0hNVD0
-	 DiL5dzrqXIFYl2XvmzCoFNtoSxaJhajevWsKzjQUjaH7TVIWjAihfzUu9hIpGq7LHIYVn
-	 XrzfI7ONY6yZvjLGrHXFtq82x/v/Pb0F9m6NMRH/j4YyS7U9gkZzULK9ulcIuPVKgIQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793810220;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=r6w6jR99bB94qAc68qR7iE7VIhnx4AziUbUQ0fbongs=;
-	b=X2FbpJOT0NfThrlAzb17uK4JiP5ph13G3HfOCIYs2dkTKFYBJ3e9yUQPqes1Qam3gtJR
-	 VEZ+ybSMez/+e+gx7op2S6Bc7u3zvV1De4k9FUhSL2OfF53GzRybjLUmjH4gsTOKiBJ8f
-	 f53T+IlGbPFJoVAVCMrwtSO9lcrr70G6ZAi0eGygD/+qqGupCCExWqCTBlYwpXt0FLkyJ
-	 I6TL+t8IGtDg2pzPl24aGPA4mPgji2mHdm2gkBMv9AZRyUkK3byo71ShVn56ozIgGZ+rW
-	 d5bfPbhmLdAgfnTavj0XILC4uEZ/3F9zbLfQmouSjxqnNHknlUn9ECv9Zmx+/yw9kmA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hu04Qx2P;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 42EAA606A326;
-	Wed,  4 Nov 2026 16:37:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42EAA606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793810244;
+	b=elnkmEiJQyNHDbKppvDlvYvagEp06gbegcyN8giCGk7fKPLsxW09aAWVJM0xOmNw/zPD
+	 jHUzrRaOfW99YgbKpDeysV8zyM809dgG/k3ArWtIXfn8qHv9WiCA0HQlhvqDGi+efgrSd
+	 eZvzBkmgxR3SOtOCqP/qjJfBRZgE+Yx9/db1USTJ6P8j9wFqLusJ3UsDYWu2GulrKn4JZ
+	 fYXDGQwiJxehS8r1XUi+SE552L4smyrQnKhf69yQMDuUfhSB25GQ+dLKwaZSUBL9IVXiU
+	 wHvFgmFDznO20F/0i7VmuiVJ5GjiM8fPrFvMmutRWMWEvL8qXottk/C+ny0rpueKB+g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793810244;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=kOH9xJas8+AahnE/juo87CvpZQxHzo4/Iy//5/OPJsU=;
+	b=xcG6qp8QT1t0ZfM1RWxHXlVDGkDkzJgikyJtT7drhi1uWcxo1BilRayiD3PyrDZOuMtg
+	 /nUGgiycQHFs8sRGZYX/07CjC2V0FgIc8iqh/x6aAkf/1xH3HPl3Otu6tpWTpPC/xTthN
+	 Pa/udhqT23IphWK3BBbe360AqKfrKCrustjGWhSW++DA4TpZSjgFbbihUPrlcK99CDwov
+	 XJh27SvX8hKjQWRkHfUqkZVmOi6We0/KPe9jXtiDj7GNVA9/W1/8/51RH8qnF8E4HgCIM
+	 p+kceFAZdAQOSvNeXdF6fUH8TG67Jy/qsO8fX6CSUQfgZRlo9MixmWuuOmVPaETQRWQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KcNpY4LT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D88BA606D826
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:37:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D88BA606D826
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hu04Qx2P
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 79F6A169C;
-	Wed,  4 Nov 2026 08:36:56 -0800 (PST)
-Received: from localhost (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 25CEC3F632;
-	Wed,  4 Nov 2026 08:36:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793810219; bh=VvHXa2PKN/PXsjHg761V8vVCnlwth46l0sbGcvt/N9g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hu04Qx2PtBWMFTy6e0QSl/q4rHhJYgWmAcqqx4YB+BkD26yFTgCa6wz1MabgdLErS
-	 y/K0GBMMcE/iG9/bglXlhZ1TyoXSxJzGMQFJvutQFbhwI7+wuCYK4FKLpb+og8meRX
-	 Xi58ZxsS0WFud0JY03LcT8OWOOJDupHT0yuu82rI=
-Date: Wed, 4 Nov 2026 16:36:57 +0000
-From: Leo Yan <leo.yan@arm.com>
-To: James Clark <james.clark@linaro.org>
-Cc: Leo Yan <leo.yan@linux.dev>, Adrian Hunter <adrian.hunter@intel.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@arm.com>, Will Deacon <will@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>,
-	linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	linux-doc@vger.kernel.org, John Garry <john.garry@linux.dev>
-Subject: Re: [PATCH v3 05/18] perf test: cs-etm: Increase window size in
- disassembly test
-Message-ID: <20261104163657.GJ9176@e132581.arm.com>
-References: <20261102-james-cs-unformatted-per-thread-fix-v3-0-dbcb0c281b9b@linaro.org>
- <20261102-james-cs-unformatted-per-thread-fix-v3-5-dbcb0c281b9b@linaro.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KcNpY4LT
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a2167bd087so7890865e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 08:37:23 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793810242; cv=none;
+        d=google.com; s=arc-20260327;
+        b=AtOoHFDb4nATDl/x90cxBsvovrJnRw4zZE7+qowss27g0LwOBrSzLl5rjPBhUEy4ro
+         qY0AAhTWArWC7uLSyqysFpAeFb5butMX+6CwuLHGnP3rgyE0PM1AvUTgdnKZ1/npQLAk
+         1J2ryKt7xtg9ybdl8ZXns4ZJw0uSsPLks4KUA28IlRNe9S1AU57eWHfjNMwsQbQC8CFk
+         n0+beqlT6mgPJ+vKeVdkQXc+Pa8q4FkHmbUsglIfINLGWETP/4FyP8cv6pOlT7Chmmyu
+         i247AxQ4BqzFCNGzt4LPonB4MT6D8SKYnFVa5YA2GMtp940z1IcptLXnLmLTCLwrcfCy
+         Rf5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=kOH9xJas8+AahnE/juo87CvpZQxHzo4/Iy//5/OPJsU=;
+        fh=GYyt/aycVxm6Fx+G2NC2n3iNdbSwx9d73Yk1DOvJu4A=;
+        b=CnGlVzt+icxtQI5DloW6QuuXdWobCGDSg8fca+HOHneJyu0EKfeWImBWU47Lw8KdFJ
+         jrfSCpsutfeoCTsVdV7uqjiDe6inqP+gTja47uIJpL2C+/HaTzVfOYqwsL5vgQh2hhjj
+         Dry7qcmEHCPWs6zlGPhgB2HoCZQKqzaJDljAXAdtBsHZSKA2OlQLaBCIRBPNNQbZC3IL
+         Q1inApsPODEZQs3vTvZ+6Hh7AV2t9ai4aE27OZGxmO55opV1R93JWfE9zSEo4fFHnPXQ
+         lfG2NKwxSWHh9BP1UKnjoyax/2UXXeVdLMi1AhZi0PrppZqVTFXhWdUOD1PomexegbCF
+         3zdQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793810242; x=1794415042; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kOH9xJas8+AahnE/juo87CvpZQxHzo4/Iy//5/OPJsU=;
+        b=KcNpY4LTajUYkY15evQM96oq7bDWCsojOVUtdz8fIhHjyhtmUlDr6dx19Fz4gjEIF9
+         QnmAFuaRrNlGGMlP2yTxyqitzkAHNwslLXfSk4MfeObhMQitBLxTV6JDGpQsDqe+GRI3
+         7oSRTSThVSyY2g0i2WoE0RUKaRQCtpasJh0knr2AqoaxsFRR3ayr/1Qy2y6UEL3tQzq+
+         FmFn4MSo5GX/hYi9x7m2dycKVD7KEEtd7HuZ3IELPV/t4eYgn3PfME6q8sNXuC4Iw1i0
+         bvnKFmXc7+dEutRnKGOWsqrmvVde4indjgLJ9YRz+RrG3WEWQ7JJ6pDlucGFZIc7RIO5
+         aTUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793810242; x=1794415042;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kOH9xJas8+AahnE/juo87CvpZQxHzo4/Iy//5/OPJsU=;
+        b=bRSXiOxDObiBY8WgXsNnsIItu8fB9OJoipPUWKB0YtS/jmc/5eeLqOhgZ640XiwvwD
+         8ae3kDuoKHMC0wuy4FNAQScS2PGFtv7JldMM8XJsKwGAOLBfN/IFXFYEzPBcZF7zAkvD
+         1wp05Qv/e43SPasvs7ZYeaSARgIKgu2161lzGN+eHrgrFfA4iZDTpqdpyhNM98fltDT3
+         yc8otdmT4D5mxDmJyCi7e4gJaVHnhhbSEdLDHrWjOlGnJrVVDdrcJ+5vvgLO4YiddFMc
+         /HT+JzMET1SM+TOMRcIKBVuCZ5AmMJtHZFCHTpd+pLQvqx0IM8WfmBc61YKh0pawiR75
+         mfNw==
+X-Forwarded-Encrypted: i=1; AKwUvBxKhwxfT6MkOhgGByzhTbr9zSClB89OdZJ4Yb5tzdhHfZn+u6JB7BRk0OoV9zousQ/6raGjwu+dUZXoyWE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+OWA+z4w/iVTnotpXOpquM/lYs7oBaP1x+1KrA+71o7PcQEAN3
+	qxoVrNCKvtu8LuenCNAhkqMRBAK7JmixlpBqR5sGf+SzhXJGylKnyLh+aY5Eqq/EChO8qiNp5il
+	yT6+VJxBC0OFEez0E/6OJCzz3F1fOh5k=
+X-Gm-Gg: AYBFou3QQBahZx3bquBVaX2K9fLVhS5dlH4mRmxfiNun4puuGkzkNJhQxNvVA+UJ6c0
+	R52riSby9zFAnTcX2rTIbI2fTSobdIMguHM4WqUhxPcwwUeIKCGVVLagf7TSNrrFAdkQex2Hfxd
+	B93AtNZgil6vA/6tmzGdI3pbUVhbd93DMLN3jCInWAendBS4GoHiVEGwz20t2Kg8myCUURl+1fk
+	efj1omHeSqyKcB/9WZgpOiGUal821Ik48oEATpeotwA1HBhRhH9xiMqpiFlev7cagseKYj/FOYp
+	wDJ3fOuSoDStui5B3GT0PkU6f4Tz5QKSVTcRAkmZY+benU/O640ctGHVFrERMsgJFwl5F84PQri
+	OoidmkIiYETRoSqvtPgGPKnguhhGovmbwyvjr0zydF6nNCmNr29R+Kz+U5wB4PLK+TnbuW//ULB
+	6fKJAsp5Yvkf7+0XsNsT2ldLUxJp4QsdsUC721nUUxLeB0ukd95Vx5SN0laxGg8mYle01TFiGtR
+	A==
+X-Received: by 2002:a05:600c:4454:b0:4a5:1cf1:b7bd with SMTP id
+ 5b1f17b1804b1-4ac1794032cmr383478795e9.16.1793810242092; Wed, 04 Nov 2026
+ 08:37:22 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,27 +106,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102-james-cs-unformatted-per-thread-fix-v3-5-dbcb0c281b9b@linaro.org>
+References: <20261104-swap-hibernation-slots-v4-0-0ba9393609e1@tencent.com> <20261104-swap-hibernation-slots-v4-1-0ba9393609e1@tencent.com>
+In-Reply-To: <20261104-swap-hibernation-slots-v4-1-0ba9393609e1@tencent.com>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Wed, 4 Nov 2026 09:37:10 -0700
+X-Gm-Features: AclHuK-ITyynx-LQrFm_lWP_ZygTvkXkWXKJmodVXCRLU9qFllIRAK9LXJR_isA
+Message-ID: <CAKEwX=NyfTtr_6uM1cVcpQB=1tOFtcWb4Vdya=VD0v7XCSE2ug@mail.gmail.com>
+Subject: Re: [PATCH v4 1/3] mm, swap: only allow swapped-out slots into the
+ swap cache
+To: kasong@tencent.com
+Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
+	Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
+	Jianyue Wu <wujianyue000@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
+	"David Hildenbrand (Arm)" <david@kernel.org>, Kairui Song <ryncsn@gmail.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 02, 2026 at 12:15:19PM +0000, James Clark wrote:
-> When we increase the default timestamp interval in a later commit, less
-> trace will be recorded. At the moment the amount of trace overflows the
-> 64K buffer, so the exit snapshot trace is what happened at the end of
-> the process rather than the beginning. With the new default interval,
-> the entire execution will be contained in one buffer and the first few
-> samples are always various instruction and data faults. These go to the
-> kernel so don't result in ranges that can be disassembled.
-> 
-> Increase the window to 6 samples to ensure something with a branch can
-> be disassembled even with the fault samples.
-> 
-> Signed-off-by: James Clark <james.clark@linaro.org>
+On Tue, Nov 3, 2026 at 9:25=E2=80=AFAM Kairui Song via B4 Relay
+<devnull+kasong.tencent.com@kernel.org> wrote:
+>
+> From: Youngjun Park <youngjun.park@lge.com>
+>
+> __swap_cache_add_check() turns away folio entries and slots with no count
+> and lets everything else in.  That is safe only when the caller owns the
+> slot.  Cluster readahead owns nothing, it walks a raw page_cluster sized
+> window of offsets around the faulting entry, so it can land on any slot.
+>
+> A bad slot gets in.  The check reads the count with __swp_tb_get_count(),
+> which shifts the count bits out without looking at the type, and
+> SWP_TB_BAD has all of them set, so the slot reads as SWP_TB_COUNT_MAX.
+> Readahead then allocates a folio and reads the offset off the device for =
+a
+> slot nothing will ever swap in, and the folio entry that replaces it drop=
+s
+> the bad marker.
+>
+> Readahead used to be guarded by swap_entry_swapped(), which goes through
+> swp_tb_get_count() and gets -EINVAL for a bad slot.  That call went away
+> when the swap cache checks moved into __swap_cache_add_check(), and the
+> raw accessor there does not do the same type test.
+>
+> Require a shadow entry instead.  A slot dropped from the swap cache alway=
+s
+> gets one, empty if there is no workingset value.  The type test runs firs=
+t,
+> so the count is only read off a countable entry, and the check as a whole
+> runs before the folio allocation in __swap_cache_alloc().
+>
+> The large folio walk in the same function does the same raw reads.  A bad
+> slot cannot be in its range, but the range is not pinned, so a slot freed
+> and then taken by hibernation still trips the countable assertion there.
+> Give the walk the same shadow test, the folio check folds into it.
+>
+> Reproduced with a badpages list written into the swap header by hand.
+> Readahead took over four bad slots before this patch and none after.  It
+> needs a crafted header, so a normal setup will not hit it.
+>
+> Fixes: e1e6750df3b4 ("mm, swap: add support for stable large allocation i=
+n swap cache directly")
+> Acked-by: Kairui Song <kasong@tencent.com>
+> Signed-off-by: Youngjun Park <youngjun.park@lge.com>
+> Signed-off-by: Kairui Song <kasong@tencent.com>
 
-I don't mind to set even a bigger sample number (like 50). I did test
-and 50 samples just add 0.5s run time.
-
-Either is fine:
-
-Reviewed-by: Leo Yan <leo.yan@arm.com>
+LGTM!
+Reviewed-by: Nhat Pham <nphamcs@gmail.com>
