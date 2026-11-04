@@ -1,60 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.170
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793810933;
-	b=xIOKjrGal+p7QEJPu6AacSVsmsGAirTXlTHJoqaFrQDbHqOJts5YBBmD1EIt3Xi+UoG2
-	 AGrxs1cSLif0pd2aMAIDz+FzZqU1nVt6z/RTHpm1tSwidt2cE+imdvh2b88+kUXs8zBVw
-	 G+I9apjXb5jC72lirAYO3t7pMJwjkJjQRpfQqW+gsY4gWQjz5m3y1iOd8170c2pV+b4ef
-	 TQc+wn07V0UDBvvJuTShky4zONkWNNlDilqrWgKquJLbya9CDSoo8oJLM0Lc8TAkC13U2
-	 HShWGanOwMwe+I831Kadu/p+DnRRmjWcsz1Xcnai2T5dgHHucDUlJTSbpMoGpViwcmw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793810933;
-	h=DMARC-Filter:DKIM-Signature:Date:Subject:In-Reply-To:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:From:To:Cc:Message-ID:
-	 References:X-SimpleLogin-Type:X-SimpleLogin-EmailLog-ID:
-	 X-SimpleLogin-Want-Signing;
-	bh=+6NWrTkD19j6pXo7fX9iBIpL0RSF2GXs9ygbR1u2JBY=;
-	b=jY2FFA4/rJt6zMJhwXrtjCdyV1BkzMGq9UJR6NBh2G76dxeyiA+6bbUyS8h4Z2NV7PsO
-	 6qcbxviEF8BCohhS3GbA8CEFhsa+ZvSHvjh/334sHzhnaC0e2r+Gr+cNuhtjgTaHtcEy/
-	 bh9u/bsA+SeXC27n105Dw4oRXsv/XUJyj8Zo4nWqZZ1l8vm/CWSuIR2s0MBoTarXa7lwh
-	 P/nHI8+qwS4PEyLf4aMw0KxV3txgYL3iw4hAzDs/WAyfEqhSJCulMN7dFieVvHvY9ZwFd
-	 pyaRVJ7y3gWc66jMVegA0tQBLkBMXDWaD3vPc8apgAciaz+/vcjlGNUUDWFZ2QKVCsQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=eldare.de;
-	spf=pass smtp.mailfrom=eldare.de;
-	dkim=pass header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=LPPJmNY1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.170
-Received: from mail-200170.simplelogin.co (mail-200170.simplelogin.co [176.119.200.170])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793810952;
+	b=D0cn8o3faXdzG3cj82zFhEUPT66zOzTLaioRRrsGtjEzeZZB3yQLd3Eb+ItgI7S6WpMI
+	 EbfMnWr4x5dUF57LJPcDClWHbSBm9EjZSmm9L+qlGc28sGd8zrQcrrLW+uR8a4cIMzapk
+	 uSswsa8dHdZDKJBtPQmOJnxu4ZTjHDxQsstAjK8EwlNELtJ/QJmED3DhLdwNjYxr0raEK
+	 LoTTsmnYpA5TDIoNghmeKEhL0jVNUAIBNW7iV8L1Zy6yPRuaS8H+zvJL8jyMTIprwFYYk
+	 etnrFI4qx47LtW6Xkbcqv+Stibl9FOnL95RFN81lrIG7u7hX1I5T8dnBZeY4URE5jDQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793810952;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=G9/vz5aGr5AAQX1eE3o2mOmq/g+Bwv5XIHzp9+kVsUo=;
+	b=JdY832r6+kVF96/RFn10K0xH9l4tfnHqQyvX4j+g0B2yCxVpRDL7IEMe/jV5ipN1CHpp
+	 Td0vctJ0fwt9/K6gipjYfhFfR2O39oTSic1ufsPcpfjbrLve3qqYJEaP1Pu2V6rCl7SnA
+	 D41YTyrxq/2x89JELNr3MQod7Y1tA/Cah8w46MAombtzP12cTI/GQYIDzuN+qc9gN5YX4
+	 28aiLyQTb1pbekcCWPARYsgNU2HHQDWzzRkkZbTTgAiHMS2BlXho9p7eMoFPtSmAULOH0
+	 +wTqFGVgsOTu9rys2P9tRujpq+HVFKQPinTFEVtgrKhvi/2D5FZfYZhvulm7NL3DfYA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hXumGixM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30578606D81C
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:48:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30578606D81C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=eldare.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eldare.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E0BC606EEA6;
+	Wed,  4 Nov 2026 16:49:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=LPPJmNY1
-ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1793810931;
-	cv=none; b=vNNsw+udY1vYJbNjVyXwt+DnayQTkYHfuxdNl6jI5OCNzzieV8/Nz0cRI/Hzotb28MjUX8GK2YJ63FX1ZcfAoLkUA0L3/q8uYOiUhkj/BYiDxwlynlmlOzV/qPAucZIR90h1LCMhlbuDKFOSpMtgPJKZnfLW/pFRstqDAynH1MF/ofxEKMuzLJ0tMHcbhpWBnURWh/qq8y/H/iDgV7/0kYMGNMjH5/VKgh51SpxC/ZITgr4j1aZLhjdzaqSYi1mQ8P418bbRhm4bRGGGe44WL5QjCV4oa1wOqbHZxrzv5+eBYx0r9ade+r7ojwlvd9CwOSvKbiyR9ZjjPfuwzOZOlQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626;
-	t=1793810931; c=relaxed/simple;
-	bh=NZfHjc8GabK+5fWc9xU1eIPV8ar6IHlihuK1W6X9Wrk=;
-	h=Date:Subject:In-Reply-To:From:To:Cc:References; b=CqyEDSrkOyrGgTHIQxjYSBNbn0RoKwBxczaaIB1oItAJIJuOZTRvi3RxUaI04S5DJsIqeMIu8AJQMZrH1cXtnj3oleyut6juWA0tS2ZzH1xCP/SicTmUPqAFg1W+S/k0UJcNuYLD3IOewaK6wX1dm5arJ8t3GdjwaJM/oh7a4nVeV+viOz8m21+D/s7BAQ8wVvXMmtyo+DFRaFjh3GbZnM0W/GsCW+PV9mjEUJOeZK3o1utvXHg+rjMwWI/I7qszBGXSaqpWerOpLgBVGpvGBtyb+vwSEBfWAUn+EjcrkQOcP3XZZ9cd47mzAYFHbDXHgOJLDe8ZATGP/WDMKul1wg==
-ARC-Authentication-Results: i=1; mail.protonmail.ch
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=eldare.de; s=dkim;
-	t=1793810931;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+6NWrTkD19j6pXo7fX9iBIpL0RSF2GXs9ygbR1u2JBY=;
-	b=LPPJmNY1E9Afuj8tm1dblKOuW0bxHTT/z8wxoKA1SWLuokKtwfZQdsa1q0vyV1i4itNXSH
-	t70Rmwl3JdmySaKgnjxgXHQ1Z0I0pGT/edUTIiU72xqAa7fNWOwaigxF9i/aB33SlYt8la
-	BTYSyUnSSDLMgNBg2V3RfWM23P7RpDs=
-Date: Wed, 04 Nov 2026 16:48:44 +0000
-Subject: Re: [PATCH net v3 1/2] vsock/bpf: release sock lock while waiting for
- data in recvmsg
-In-Reply-To: <auSkQOU6qmj0NPEt@sgarzare-redhat>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hXumGixM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 505481F00A23;
+	Wed,  4 Nov 2026 16:49:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793810951;
+	bh=G9/vz5aGr5AAQX1eE3o2mOmq/g+Bwv5XIHzp9+kVsUo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=hXumGixMAubV3OEkonpQZWF2Zv7VRg4aE+zzeQw/UjUFDniN7Cwpyg1GYrvzFQ+MT
+	 6aXu1iLu9/inDTayB8g+qaqtu9Vt9pe9Bz0jlia8ZmXhnl+prbVW56dp8YOEViAXtL
+	 BrVqLMuwQk2lMKzF/+aLBBLijT1j+ClwtMkziZFVZN1q+hwE2vZxlvbvrGAECTrY61
+	 ozXvU7J0bEi10KVRYTfm4YwnBf2UEIlWaGu9YF/NLiV1W3zP4DnHE4Kl5bpT1H8mM5
+	 qJlaY4jhELf22LNZfFAFJmJ5ghYzN4xcwLG2Joel0h/vRJhljytPiVQai8+f8Xg073
+	 CfIfVmsvBg+qg==
+From: Drew Fustini <fustini@kernel.org>
+Date: Wed, 04 Nov 2026 08:35:20 -0800
+Subject: [PATCH v10 3/6] riscv_cbqri: Make RESCTRL_FS available on RISC-V
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,85 +52,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: jrmmhm.kernel@eldare.de
-To: Stefano Garzarella <sgarzare@redhat.com>
-Cc: Bobby Eshleman <bobbyeshleman@meta.com>,"David S. Miller"
- <davem@davemloft.net>,Eric Dumazet <edumazet@kernel.org>,Jakub Kicinski
- <kuba@kernel.org>,Paolo Abeni <pabeni@redhat.com>,Simon Horman
- <horms@kernel.org>,"Michael S. Tsirkin" <mst@redhat.com>,Michal Luczaj
- <mhal@rbox.co>,virtualization@lists.linux.dev,netdev@vger.kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,stable@vger.kernel.org
-Message-ID: <179381093020.9.4719932034061956856.1746278795@eldare.de>
-References: <20261028-kbh3-1-022-fix-v2-v3-0-bc0752b2d3db@eldare.de>
- <20261028-kbh3-1-022-fix-v2-v3-1-bc0752b2d3db@eldare.de>
- <auSkQOU6qmj0NPEt@sgarzare-redhat>
-X-SimpleLogin-Type: Reply
-X-SimpleLogin-EmailLog-ID: 1746278810
-X-SimpleLogin-Want-Signing: yes
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-dfustini-atl-sc-cbqri-dt-v10-3-1636a003a3c0@kernel.org>
+References: <20261104-dfustini-atl-sc-cbqri-dt-v10-0-1636a003a3c0@kernel.org>
+In-Reply-To: <20261104-dfustini-atl-sc-cbqri-dt-v10-0-1636a003a3c0@kernel.org>
+To: Adrien Ricciardi <aricciardi@baylibre.com>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Atish Patra <atish.patra@linux.dev>, Babu Moger <babu.moger@amd.com>, 
+ Ben Horgan <ben.horgan@arm.com>, Borislav Petkov <bp@alien8.de>, 
+ Chen Pei <cp0613@linux.alibaba.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, 
+ Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>, 
+ Gong Shuai <gong.shuai@sanechips.com.cn>, Gong Shuai <gsh517@gmail.com>, 
+ guo.wenjia23@zte.com.cn, James Morse <james.morse@arm.com>, 
+ =?utf-8?q?Kornel_Dul=C4=99ba?= <mindal@semihalf.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn, 
+ Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>, 
+ Peter Newman <peternewman@google.com>, 
+ =?utf-8?q?Radim_Kr=C4=8Dm=C3=A1=C5=99?= <radim.krcmar@oss.qualcomm.com>, 
+ Reinette Chatre <reinette.chatre@intel.com>, Rob Herring <robh@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Sunil V L <sunilvl@oss.qualcomm.com>, Tony Luck <tony.luck@intel.com>, 
+ Weiwei Li <liwei1518@gmail.com>, yunhui cui <cuiyunhui@bytedance.com>, 
+ Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>, 
+ Drew Fustini <fustini@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, 
+ Jonathan Cameron <jic23@kernel.org>, 
+ Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>, linux-kernel@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, x86@kernel.org, devicetree@vger.kernel.org, 
+ linux-doc@vger.kernel.org
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1293; i=fustini@kernel.org;
+ h=from:subject:message-id; bh=UWi5ylAaXEFSGdYN0vodmPAxCjO4JUBgxFx5++XYyJM=;
+ b=owGbwMvMwCV2+43O4ZsaG3kYT6slMWS9TmK9Lmnw6catL0euah36aP1tTm9r+YtPu3sutRYV+
+ 2w6vfRwT0cpC4MYF4OsmCLLpg95F5Z4hX5dMP/FNpg5rEwgQxi4OAVgIhIPGBl2NSSH+YSemvT4
+ 3VHPbkPHlZeDhd9K/in3u5DwYHKqyrRSRoYLDc9lNj/XqPkzLXB/1ATfmXfucm2wzu/cmbqvQXc
+ Sx2lGAA==
+X-Developer-Key: i=fustini@kernel.org; a=openpgp;
+ fpr=1B6F948213EA489734F3997035D5CD577C1E6010
 
-On Fri, Oct 30, 2026 at 03:18:10PM +0100, Stefano Garzarella wrote:
-> Ditto about commit message, please put more effort on writing something
-> readable by a human.
+Enough CBQRI support is now present to enable ARCH_HAS_CPU_RESCTRL.
+Have RISCV_CBQRI select it so that RESCTRL_FS can be enabled on
+RISC-V, and default RISCV_CBQRI to y. RISCV_ISA_SSQOSID is default n,
+so this only affects kernels where the user has already opted into
+Ssqosid, and on those the CBQRI support is what makes the extension
+useful.
 
-Agreed, I'll rewrite both messages myself for v4, much shorter.
+This is a separate patch so that no commit makes RESCTRL_FS selectable
+before the resctrl glue it depends on exists. Enabling the resctrl
+filesystem itself stays a user choice under MISC_FILESYSTEMS.
 
-> >+            if (sk->sk_err) {
-> >+                    ret =3D -sk->sk_err;
->
-> Why?
+Tested-by: Chen Pei <cp0613@linux.alibaba.com>
+Reviewed-by: Sunil V L <sunilvl@oss.qualcomm.com>
+Signed-off-by: Drew Fustini <fustini@kernel.org>
+---
+ drivers/resctrl/Kconfig | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Same as vsock_connectible_wait_data(): an error that arrives during the
-wait is returned to recv(). Without the check the loop still ends, since
-every path that sets sk_err also closes the socket or sets peer_shutdown,
-but recv() then returns 0 or -ENOTCONN instead of the error.
+diff --git a/drivers/resctrl/Kconfig b/drivers/resctrl/Kconfig
+index 0d7ca2dec308..ed2e4bedb21b 100644
+--- a/drivers/resctrl/Kconfig
++++ b/drivers/resctrl/Kconfig
+@@ -35,6 +35,8 @@ config ARM64_MPAM_RESCTRL_FS
+ menuconfig RISCV_CBQRI
+ 	bool "RISC-V CBQRI support"
+ 	depends on RISCV && RISCV_ISA_SSQOSID
++	select ARCH_HAS_CPU_RESCTRL
++	default y
+ 	help
+ 	  Capacity and Bandwidth QoS Register Interface (CBQRI) support for
+ 	  RISC-V cache QoS resources. CBQRI exposes cache capacity
 
-> >+            if (sk->sk_state !=3D TCP_ESTABLISHED) {
-> >+                    ret =3D sock_flag(sk, SOCK_DONE) ? 0 : -ENOTCONN;
-> >+                    break;
-> >+            }
->
-> I'm thinking if we should split this in multiple patches.
-
-From reading the code, it can be split without breaking bisect: first
-loop on all exit conditions with the lock still held, then drop the lock
-around wait_woken(). The order is fixed, since dropping the lock alone
-brings back the early -EAGAIN, and the loop alone does not fix the
-deadlock, so both would carry the Fixes tag. That is why I kept it as one
-patch, but I'm fine either way. Split it like that for v4, with the
-current 2/2 on top, or keep it as one?
-
-> >+            if (!timeo) {
-> >+                    ret =3D -EAGAIN;
-> >+                    break;
-> >+            }
->
-> Is the move of this check changing some user visible error?
-> I mean before this patch it was one of the first checks, is this okay?
-
-Yes, for non-blocking reads, intentionally: -sk_err, 0 on peer shutdown
-and the not-connected result now come before -EAGAIN, as on the native
-recvmsg path. I'll say so in the commit message.
-
-> >+            if (signal_pending(current)) {
-> >+                    ret =3D sock_intr_errno(timeo);
-> >+                    break;
-> >+            }
->
-> Why? Should be a separate patch?
-
-No, the loop needs it: with a pending signal wait_woken() returns at
-once, so without the check the loop spins until SO_RCVTIMEO expires, or
-forever if none is set. I checked it by removing the check: a signalled
-reader without SO_RCVTIMEO never returned and used a full CPU. The
-native path does the same.
-
-> >+            if (data < 0) {
->
-> Why not data <=3D 0  and void the other if?
-
-Right, will do in v4.
-
-Thanks,
-Jerome
+-- 
+2.43.0
 
