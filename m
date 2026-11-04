@@ -1,89 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793784774;
-	b=T8UR/cTid7UjxwnJD/eQR9S4L6nJAVs0all8pe8zMMJuWbpDRkkRX+A86uBkEUdk8FIC
-	 KHujSFASnKiO3BYlA0rYfrqGHOI5tIlq94Yp4cTysYDP/faB1TezNxuHg2pEg9HlWN364
-	 OspGF9DfA+QOsgqXsl2cU6gzErzwpXjd+GG+yNIJFiM9t7BXLYEMjAzsFNrt10hki4Ie3
-	 h8724BWaEyXtEA672uxprCAogniy9ClmpOMEVoLeDrx2KpDaW6SWc2pICrwm8wRixMFmi
-	 kSIDSqnG+SUuDfIpX/5sLWHGaREFPS1QkxO11gr6gLsj49LeTJ3UEESTg5wXq0lbIBA==
+	t=1793784815;
+	b=JRST7GIhEwdrkYenApchqabhqq2/BJI19IrORiJbtfCw+BLY5ULoaO6Pj2FW6AsaqMWX
+	 P+A2clU6yB47v2NhW5Jog5pZBwRnaVM039Yw7hTyeS6vC/ks9Zu/mEMwO+EEe2iEeEbnF
+	 9sGqQ2bdLlpP939+dtjUIldCyjBH/fmrbysCUc13fQ8KOkAWxxHHnN7FY7ssThNyQo7Wa
+	 Ap4e0/QETdUcJOBKCD/faduRrxzRb+cNH1hAqqYeHIlrx5HcyEoq7tc/h7NReDkgsu7LK
+	 DUd2Zp4wku/iWFrD+m6+1GsZDT9t01z7exccbO4YddtihZn1kN+G8wOLMKJsm6jQTng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793784774;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=SkhmiTU3L0W+PtMKZoljzuVT2by2BnJf0VMN53m+45o=;
-	b=aKmHYVXbKyJ+lc6oRN+Ju5MJYMw9Ed7NYrlnPwwYI9zjSZGmsgAvUdtxNZ6o0fNfWcPg
-	 zHHMEz0mgmrHVkNsHA8AQyjRWHGOJncb2DXEjc2W/+5BRjLsJRqaQx4TlzECYfyzTIED0
-	 gJHoPgtGa3HhdaN5fWFo74hexO75Lf0oldp+fZff4YSZYsR3ZaZI/p6ONoVub4KHbbKgp
-	 P1Rx+UY/q5aKtVbDifC9xkia19EVZRPCOii8j25yBYFDsVL/IKuqP05X9VPqqGojpyBgh
-	 U/r8g+eRWbjRvzp+spXDCs/hIEfYlx6A6SUVM9d6bM6F2oOF10ggwIGpa4JWEhvP1OA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793784815;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:Sender:
+	 X-CM-SenderInfo;
+	bh=r0PEJzNKBU2nu93jlbbvh9mzyYmpqDjhBFUhNv69jUI=;
+	b=M9aeubmI4E5Wp1G+Be6vMY+ghDl/AOWgm76w5TdyUJkHBpkpd4TzeQ5cRJIgCl8bTpjq
+	 u4zbjIK/Mj77HEX5VYzE9DemsuLseF7dG1/fvmqjX/QBX0yxAsZajBVlxYVHCEzO9GHEK
+	 NAeXPjhEjWcVHY/bejE2Mfnhi8DcBqScLIjk/CDixchyW8/gD5XV5j2UW4TuyEt4zodE/
+	 BJgyLlJGk7OAdxKHAVJJchg9Wpaxdlrc25SHlBpO2JU1LjU8BmNBdqCNGr+ffRCHD+knB
+	 jaXxkI2/s/URy46A1nYTw1MV7jH9jcQeL4ZVwDWih8zUYqvmaI8lkPNc8Dxtn62ydrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=PNEhKOfw;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=qYzLaOXn;
+	arc=none smtp.remote-ip=220.197.31.5
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67844606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:32:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67844606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6B2E606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:33:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6B2E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=PNEhKOfw
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a208d93758so4369935e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:32:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793784771; x=1794389571; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SkhmiTU3L0W+PtMKZoljzuVT2by2BnJf0VMN53m+45o=;
-        b=PNEhKOfwl/GuGjZwc+xP+byiJz0jf2rJdMD9L0G10b/XBzi7OQLl0CeP8G8++Adrfz
-         b0NzEvUlsGOGJKy8R8hFb6bxrhB/vOORhRPYfieI7ZqpbZOBO2U9906DVVgNDZFBxVh6
-         ZapxX8CIv2VXXLDvnRhvjWvSDrN0V8aEgTcXnLgVG3W3iK92urgdkRcBjdv23Z9rqnHz
-         CrfaHUH7T4R0O+AngDYsXzxUuTAa3yYpy/wOdnASGGrP55rnbnxgWDxkR7kpIK0wPqhS
-         cbUiLiRZ/2MM24unVeOsnOh13omNn4DnhrJlLy0PX0Fdd/shUphEuKWGcaBEX2F6ovuv
-         jbJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793784771; x=1794389571;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SkhmiTU3L0W+PtMKZoljzuVT2by2BnJf0VMN53m+45o=;
-        b=zPKWxSdQfdRH0IRl6rWp7/ycv7201ndYc0UcFN7KnZKsWTI5kpdehGfFSI8Qoa/wMM
-         YuhgDl4DIsomrOsHLGQI892LRXPexj3YYip4B0x0MM0+YtzOgrqvY9prgrwDbv2qDhwT
-         M9DQzqDcKsKzj2Jmi8Nw+p27AqHs6LfgW+76wqM21ZgRHWeiyWRpBwxLwwf2ueh3q9qk
-         P+2KoJbTO3qNg5GT1I518qFaRBKEmjwjWxB9ISEDnVxAFPVHPiEwcyG15/I8a1eD5xlx
-         xxDePBFQAOjjJa8cRtfBNFQkfKxc29wnBUuUwts9CZgnYlCURPZQE1vh0ROH+diVyLFN
-         0qrA==
-X-Forwarded-Encrypted: i=1; AKwUvBwbHL/rYdAfOZNHPhbPgVrekYCB4TWwdsIXn39THHZklJtntuUD5MvI8LWIQbVwYFB5nOHWS9ymypftUrk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/3E7A0/0Dp0MEKCU6XdbaNax6fPIJp0HbPWYfoRJRayUl7fDcH
-	oQvUmImS9Z9fUB/wtPEtOcHZMWU9k9zb2mDhH6+CnepWlBpmulrllyP/RK174iyLd+w=
-X-Gm-Gg: AYBFou1HxUshq2DoN/ha8HFrp6Hx8zr5f9fqD5Prc74LxM2U+K0CfRHRus4CyNAyGHk
-	9+Bo+JwHOxHjTcCLIvzUC8dTtd9hmDlvUAyXJoY6MBFtHeA0QDNrgqKUJ6Y6K0adY98au+nQ01C
-	y+PrFmL6RomxhQahg+ea9YZQuz2kmWdP9uQpUeEfRvlNbISTVWTjIcx4+3bShpvDNsNDtha6x7p
-	PLVBf447pjpZjPf2EUBbPXy+DeEYWDUwWl1avN9SG5R9LWUoZ5SMtMbm14eCYB4jskN2yuFERQP
-	jH3ZPeDdYfQyt1PeCgxxPhOM8YWxvafOlDvT6DC6n6hrseHW34n0O0OQZHfVQqV5O8v0OdiGera
-	hiaMH76oeJIhhWERM6KC2QoRNvejt+1hMUrIUsPQwN3G+HH1O/g7HrPxfXZibr3TM9JRq6tN2Vz
-	4mX9J9gKim+UgkzrVthioBrNzvHI4fTAZWlvF0CXJwOVSQOpIDMgqTmsHGg516cSKsQztOBk2ON
-	5qd34sVMatH8M6hThT1v5dTQp8ZH/O6P+LKwhCNCufrry2juXBp4c0PuxYZ34ZgpmN7u+7p549Y
-	dFWimIRzTc67nJC4R03oPjenxl10gWfLwMCu8THY6hUrEye6eu8GNDsCAAagffXjgZsojqWt+dC
-	kzQ==
-X-Received: by 2002:a05:600c:840e:b0:4a1:813f:2a60 with SMTP id 5b1f17b1804b1-4ac17d168b1mr393740865e9.11.1793784771558;
-        Wed, 04 Nov 2026 01:32:51 -0800 (PST)
-Received: from [192.168.1.62] (140.30.66.37.rev.sfr.net. [37.66.30.140])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fedc09675sm2799433f8f.55.2026.11.04.01.32.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 01:32:51 -0800 (PST)
-Message-ID: <1995c873-084e-462c-83eb-5bc454882c18@baylibre.com>
-Date: Wed, 4 Nov 2026 10:32:50 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=qYzLaOXn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=r0
+	PEJzNKBU2nu93jlbbvh9mzyYmpqDjhBFUhNv69jUI=; b=qYzLaOXnQ+XuFt2Uxh
+	D+aIuoRGuiJpI5FZTthUOt4hWjGRIGqjeDrRDvG7pSPMx7Oo0Y2LPzF0/6tgpVZK
+	BBNY49tdFCbrap/6MH9ptRzwxwwi5S0m0zJJAoWe8xsKx1g6mEASeVCaCPJ9NScW
+	HZymOP1W8Z+ZzA1gaNtan6qaw=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wDnD67e++pq7mqsFA--.5728S2;
+	Wed, 04 Nov 2026 17:33:20 +0800 (CST)
+From: Yongxin Yang <yangyongxin@kylinos.cn>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Bradley Morgan <include@grrlz.net>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] perf/profile: Report failure to create /proc/profile
+Date: Wed,  4 Nov 2026 17:32:58 +0800
+Message-Id: <20261104093258.1802802-1-yangyongxin@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260824024251.279751-1-yang_yongxin123@163.com>
+References: <20260824024251.279751-1-yang_yongxin123@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,67 +62,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/11] pinctrl: scmi: report an off setting as not set
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Sudeep Holla <sudeep.holla@kernel.org>,
- Cristian Marussi <cristian.marussi@arm.com>,
- Linus Walleij <linusw@kernel.org>, Peng Fan <peng.fan@nxp.com>,
- Oleksii Moisieiev <oleksii_moisieiev@epam.com>,
- Andy Shevchenko <andy@kernel.org>, Dhruva Gole <d-gole@ti.com>,
- Bartosz Golaszewski <brgl@kernel.org>, arm-scmi@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261030-clegoffic-pinctrl-scmi-gpio-v1-0-52d92843ad97@baylibre.com>
- <20261030-clegoffic-pinctrl-scmi-gpio-v1-4-52d92843ad97@baylibre.com>
- <aunHoe9PfumHp0Gh@ashevche-desk.local>
-Content-Language: en-US, fr
-From: =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>
-Autocrypt: addr=clegoffic@baylibre.com; keydata=
- xjMEafx9bxYJKwYBBAHaRw8BAQdAtc85GIwDXLz0rh9thWXC80Lji0otVDVncXT4qaS4j1fN
- K0Nsw6ltZW50IExlIEdvZmZpYyA8Y2xlZ29mZmljQGJheWxpYnJlLmNvbT7ClgQTFgoAPhYh
- BJjMiHuM4ZUwFqUPr36EW4KtCh6TBQJp/H1vAhsDBQkJZgGABQsJCAcCBhUKCQgLAgQWAgMB
- Ah4BAheAAAoJEH6EW4KtCh6Tt+sA/jVC35rY1npFlOy7YnncTdrID8Qf855JA78IzXgvzpGp
- AP9FkuuT80m66PP3DvgYX9kVnG17mSDKO0+v2W18v6ZgCM44BGn8fW8SCisGAQQBl1UBBQEB
- B0DMwF4u//aQyzsFlO8rPJ/cqsAuPH80IeIA3HOEo5mlVgMBCAfCfgQYFgoAJhYhBJjMiHuM
- 4ZUwFqUPr36EW4KtCh6TBQJp/H1vAhsMBQkJZgGAAAoJEH6EW4KtCh6TdSgBAMDS0MiWCivt
- LjzZc9bs+P/xdXywUjDKq3lpQGJ6vZ0GAP9vI6DnN7vwVK6jt6/+0aBGkog5Ura9+WwRFEdM
- vLfPDQ==
-In-Reply-To: <aunHoe9PfumHp0Gh@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnD67e++pq7mqsFA--.5728S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Zr43ZF1UuF4kXF4rZr47Jwb_yoW8CrWkpF
+	WY9FyUGrWkGrykGayrAFn7Cry5Z393Ww42qF9xu347Zry3Kw40vr1FvrWF9FWjqrWkCw1F
+	qF4qv3yvyr1UZaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UypBfUUUUU=
+Sender: yang_yongxin123@163.com
+X-CM-SenderInfo: 51dqwsp1rqw5tlqrjji6rwjhhfrp/xtbC4wGMKmrq++HBUAAA3P
 
-Hi Andy,
+create_proc_profile() discards the result of proc_create(): when the
+entry cannot be created, the function still returns 0 and profiling
+setup silently pretends to have succeeded.  The local variable err is
+never assigned anything but 0 and only hides that.
 
-On 11/3/26 12:38 PM, Andy Shevchenko wrote:
-> On Fri, Oct 30, 2026 at 04:58:35PM +0100, Clément Le Goffic wrote:
->> A get of a setting that is on or off, the flags and the pulls, returned
->> 0 as a value, so every one of them showed as set on every pin. Return
->> -EINVAL when the platform answers 0, which is how pinconf reports a
->> setting that is not active.
-> 
-> ...
-> 
->> +static int pinctrl_scmi_map_pinconf_arg_get(enum pin_config_param param,
->> +					    u32 *value)
-> 
-> I would dare to keep it on a single line.
+Report the failure and return -ENOMEM instead.
 
-Alright, I'll do it here and wherever in the serie.
+create_proc_profile() is a subsys_initcall and do_initcall_level()
+discards the initcall return value, so the error message is what the
+user will actually see.
 
-> 
->> +{
->> +	if (pinctrl_scmi_pinconf_inactive_flag(param, *value))
->> +		return -EINVAL;
->> +
->> +	if (param == PIN_CONFIG_DRIVE_STRENGTH)
->> +		*value /= MILLI;
-> 
->> +	return 0;
->>  }
-> 
+Signed-off-by: Yongxin Yang <yangyongxin@kylinos.cn>
+---
+Link: https://lore.kernel.org/all/20260824024251.279751-1-yang_yongxin123@163.com/
 
-Thanks,
+Changes in v3:
+- Do not silently ignore a proc_create() failure: report it with pr_err()
+  and return -ENOMEM, as suggested by Andrew Morton.  This is no longer a
+  pure cleanup, so 'No functional change.' is dropped.
+- Drop the Reviewed-by from Bradley Morgan: v3 changes the behaviour, so
+  the tag no longer covers the code he reviewed on v1.  Bradley is Cc'd
+  again for a fresh review.
 
-Best regards,
-Clément
+ kernel/profile.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/kernel/profile.c b/kernel/profile.c
+index 13be6fc9fd00..818098cc094a 100644
+--- a/kernel/profile.c
++++ b/kernel/profile.c
+@@ -240,15 +240,17 @@ static const struct proc_ops profile_proc_ops = {
+ int __ref create_proc_profile(void)
+ {
+ 	struct proc_dir_entry *entry;
+-	int err = 0;
+ 
+ 	if (!prof_on)
+ 		return 0;
+ 	entry = proc_create("profile", S_IWUSR | S_IRUGO,
+ 			    NULL, &profile_proc_ops);
+-	if (entry)
+-		proc_set_size(entry, (1 + prof_len) * sizeof(atomic_t));
+-	return err;
++	if (!entry) {
++		pr_err("profile: failed to create /proc/profile\n");
++		return -ENOMEM;
++	}
++	proc_set_size(entry, (1 + prof_len) * sizeof(atomic_t));
++	return 0;
+ }
+ subsys_initcall(create_proc_profile);
+ #endif /* CONFIG_PROC_FS */
+-- 
+2.25.1
+
