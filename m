@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818269;
-	b=jPTMXBs+NWjrLqvMnZNj+Llw3zBRSsSM55XBSLyPWxJzOJHoi6ub9P76p00PxoKlhC0v
-	 Ax+qXpb3H64DvNtsMa8VhlPYSI8cYpBkbL31NmIEFT+lAmrszu5wUeKmg0UkTc1jo9DIx
-	 0xHOOlFHEwucQ2EfPSaPLpXHL0nLfSTF3c5x/gQrOJcULLEEMbqLuwvnFqZjz92HeCvjQ
-	 OvFYvSgOzaCYSV3TmHqA6qnr4ttyN6lGbRZaZ/5ohnwckmZu9Ck0yzC9j9mEYbFbIc8V9
-	 WUXUsNxzwTDJDAUeexgb8V12BzORYzlvMeWpDbvR63LKUfTjqXmK4hgydgrUo7cMcLA==
+	t=1793818270;
+	b=G1xE9cffzsIbBPw5Tdy07/Xwl8N5HuODRuVYO0GqQGgbWyisVEmALXwQsfnBPG07I1Aw
+	 nuIWbPAh0LQkZcWuD2tpiTHhf62cRJ18ZuopI/9tbEWT7E022/zpvNzwQ3VLyCtDbKcI7
+	 l7QtRnC/3Oa3yjEf6XvxXOZ3HgeUz/tZgqZZGmqncCvVGVVNIon8ZSGjexkBgHLS9vUiC
+	 Tyjvq70pUnVwtZQLH90JuJ/SbNuGYeEWNDvDMihyjCD8co0BSua/xwgrsL/04GuwBGMP/
+	 rDjmGDpsP1Qz97QCXmUuAs/LPy3A2/3tmY9luEJtEsaw3UtQWdPVeh33y2LGzchouvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818269;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818270;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=/4cAdjhJ5ziYfojLwWjxoShpT2PFrhIuz2koL1okuLg=;
-	b=u9IIvI9WiIN5OLhx1qzxhGBo302nld2gWY2r6X0ju/Xd1g4yk5fFciZS7WyBwW1JNW+z
-	 Tblg9KDuapzDmdep11X8hpLk80gv19S5Kp+rW9he5aNgJ4dJ1G3FbDKOTE0hJGOxdfSc7
-	 Av8lZdg2TKx80l64RhUk1jR3ygPxKZnSEQG9XgtqKSqSxzqG36xdday1eNDcABR1NApTC
-	 h3nCihG6ThcbvfTzY9Rk769yYqUtSvwb1a0PMH6ANv0blZ2QuxzwcfZogutGY+o75JZMa
-	 bXRIswcY8nupt5/2K1LA9ahIkQuNZnV9pzBHNAKjU2ADusB170DME/zUjP5/m2YbOcg==
+	bh=EE1tegHqZxxgsCR7I30x3UYB/s9Pg5GG16sEf30gdDI=;
+	b=swuDQ+jEYe98wFZ+ixcXGeUGYKUcnZ1tTFNOQVMScYsXkFV/iVjNAQNeY6PydNIXEAq6
+	 3js7KTaWCQzFlLc6zmFgUZLo12blsjqcJl6RpYviq4JU9MPpcJBMleE6SFxeEndLzSaQ1
+	 KxnoVnDGeiAbskhqShqWUDN3n++ZXpI4vvN2p9XAGjKL8vmivaFyGj5BkYf3UwQkeE5oL
+	 zphA2N6tCYVIJOzKEDJ46cpKmrV/yEuNaP2M0rsZV1kCWciMCog6n46gB7uw3xs7C/Gne
+	 E2x36YoK+I+toEIHPtReKzIFKOXuSQlNO25yI4o5nEQUvlAKrMLXfIXtHM+sk6GMMZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cnMvd3z6;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=P4U7DTje;
 	arc=none smtp.remote-ip=198.175.65.9
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34F6B606D82D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ECF6608363A
 	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:51:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34F6B606D82D
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6ECF6608363A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cnMvd3z6
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=P4U7DTje
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1793818269; x=1825354269;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=FzwbThUHiPixMrUYQwwXHx90odvwWYSfDleapC/xuNU=;
-  b=cnMvd3z6TfxBfckI99yVD7JiQtffRQcvgTdt/LKPp0bnv/Nj2W+VepGU
-   xQR+vkYydbf2qTVhkv5swh8CTUXENM5ryzf+/sCPN5tWlJ1NWEFTts0na
-   hcUITXWCc88wFrV3GJWV7IFO13kmRIvzGabptcBCrb44sa+o8EDSF5mT0
-   jR8Fq7odkE0ge1xOv6Nb/tBZfh2zCVMpZHdBbPxJj09qjkzl79MId9977
-   xxkwRbX9RdS5+GNz93qpsXwhovzyOkkcNvPGL2Mm6P0K5jsE/FsC9QMfs
-   kzktSvibWxmi9scN8Tpiz4TJylg7EohfTgngVf7+I7VoSBkA9Lp82UBBe
-   A==;
-X-CSE-ConnectionGUID: zjreGVj5TueHlpKSwTb8kQ==
-X-CSE-MsgGUID: xpTBIwlzRaO0oCQb+hpNUg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2485083"
+  bh=a6r2p6/RrQBxHQ1ZP3GC6Tq5XV1iZ6WaaW9WD3raEvo=;
+  b=P4U7DTjemRI+4LC0o5N3beuBxalnMarKNoh8BXEisiyssG/fvspHWn1W
+   6jvYtH6wvMOu9i26FiRcBOXxPVlNNMYEwKvjR+nP7eIheWGHyWreufVDs
+   IVRW9vWIGJKPEgxqFJyWbyfoqOnfiXZ959QkckTjTmv3HSGiRRxnEM1lo
+   swXM/NSEAvqfF8AbKns9fTpPiKPy36AvP2Zh/J5aIX9bNUJtEdfeBu6MC
+   5DuzX4HO3dy9qc7fepZr+lquiIfmtkyDAuIaD9JtDAkMZ0GTzKmHLTn+0
+   8ofHQeO8/NB8i3sfXABwJaRneZEhSCKy2RoGP8OP0WF0bnY8K7b2g7leT
+   w==;
+X-CSE-ConnectionGUID: BMneX4AKREG8w+sxd0dLww==
+X-CSE-MsgGUID: tgqZlSCnSaGyEeLY3vaAPw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2485095"
 X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2485083"
+   d="scan'208";a="2485095"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
   by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 10:50:58 -0800
-X-CSE-ConnectionGUID: IgOnguxIQ1G18OPVf5kWKg==
-X-CSE-MsgGUID: NEXUPpWIQnOAZMGrnKMOqw==
+X-CSE-ConnectionGUID: Oh2KFefCRO2IiRxjMTatWw==
+X-CSE-MsgGUID: FP5ox3IOSV60rCejB4uc7Q==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="7336847"
+   d="scan'208";a="7336862"
 Received: from chang-linux-3.sc.intel.com (HELO chang-linux-3) ([172.25.66.174])
-  by fmviesa010.fm.intel.com with ESMTP; 04 Nov 2026 10:50:57 -0800
+  by fmviesa010.fm.intel.com with ESMTP; 04 Nov 2026 10:50:59 -0800
 From: "Chang S. Bae" <chang.seok.bae@intel.com>
 To: linux-kernel@vger.kernel.org
 Cc: x86@kernel.org,
@@ -71,9 +71,9 @@ Cc: x86@kernel.org,
 	peterz@infradead.org,
 	david.kaplan@amd.com,
 	chang.seok.bae@intel.com
-Subject: [PATCH v4 8/9] x86/nmi: Simplify offline microcode handler invocation
-Date: Wed,  4 Nov 2026 18:23:21 +0000
-Message-ID: <20261104182322.578066-9-chang.seok.bae@intel.com>
+Subject: [PATCH v4 9/9] x86/microcode: Remove microcode_nmi_handler_enable
+Date: Wed,  4 Nov 2026 18:23:22 +0000
+Message-ID: <20261104182322.578066-10-chang.seok.bae@intel.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261104182322.578066-1-chang.seok.bae@intel.com>
 References: <20261104182322.578066-1-chang.seok.bae@intel.com>
@@ -88,41 +88,61 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The microcode loader now uses the stop-machine facility for NMI-based
-loading. The offline handler is the only remaining user of the microcode
-NMI static key.
-
-The handler already checks whether it is enabled, and how fast an offline
-CPU handles the NMI does not matter. Instead of the static key, check the
-build option.
+Remove the static key, as there is no more user.
 
 Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
 ---
- arch/x86/kernel/nmi.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/x86/include/asm/microcode.h     | 10 ----------
+ arch/x86/kernel/cpu/microcode/core.c |  8 ++------
+ 2 files changed, 2 insertions(+), 16 deletions(-)
 
-diff --git a/arch/x86/kernel/nmi.c b/arch/x86/kernel/nmi.c
-index e3660b8b8f38..11c965445bdc 100644
---- a/arch/x86/kernel/nmi.c
-+++ b/arch/x86/kernel/nmi.c
-@@ -553,7 +553,7 @@ DEFINE_IDTENTRY_RAW(exc_nmi)
- 		raw_atomic_long_inc(&nsp->idt_calls);
+diff --git a/arch/x86/include/asm/microcode.h b/arch/x86/include/asm/microcode.h
+index e6c09dc48efb..cb5c8e71fad7 100644
+--- a/arch/x86/include/asm/microcode.h
++++ b/arch/x86/include/asm/microcode.h
+@@ -80,14 +80,4 @@ static inline u32 intel_get_microcode_revision(void)
  
- 	if (arch_cpu_is_offline(smp_processor_id())) {
--		if (microcode_nmi_handler_enabled())
-+		if (IS_ENABLED(CONFIG_MICROCODE_LATE_LOADING))
- 			microcode_offline_nmi_handler();
- 		return;
- 	}
-@@ -715,7 +715,7 @@ DEFINE_FREDENTRY_NMI(exc_nmi)
- 	irqentry_state_t irq_state;
+ void microcode_offline_nmi_handler(void);
  
- 	if (arch_cpu_is_offline(smp_processor_id())) {
--		if (microcode_nmi_handler_enabled())
-+		if (IS_ENABLED(CONFIG_MICROCODE_LATE_LOADING))
- 			microcode_offline_nmi_handler();
- 		return;
- 	}
+-#ifdef CONFIG_MICROCODE_LATE_LOADING
+-DECLARE_STATIC_KEY_FALSE(microcode_nmi_handler_enable);
+-static __always_inline bool microcode_nmi_handler_enabled(void)
+-{
+-	return static_branch_unlikely(&microcode_nmi_handler_enable);
+-}
+-#else
+-static __always_inline bool microcode_nmi_handler_enabled(void) { return false; }
+-#endif
+-
+ #endif /* _ASM_X86_MICROCODE_H */
+diff --git a/arch/x86/kernel/cpu/microcode/core.c b/arch/x86/kernel/cpu/microcode/core.c
+index 73a46c6c74de..330c62f6dd32 100644
+--- a/arch/x86/kernel/cpu/microcode/core.c
++++ b/arch/x86/kernel/cpu/microcode/core.c
+@@ -323,7 +323,6 @@ struct microcode_ctrl {
+ 	bool			nmi_enabled;
+ };
+ 
+-DEFINE_STATIC_KEY_FALSE(microcode_nmi_handler_enable);
+ static DEFINE_PER_CPU(struct microcode_ctrl, ucode_ctrl);
+ static atomic_t late_cpus_in, offline_in_nmi;
+ static unsigned int loops_per_usec;
+@@ -600,13 +599,10 @@ static int load_late_stop_cpus(bool is_safe)
+ 	 */
+ 	store_cpu_caps(&prev_info);
+ 
+-	if (microcode_ops->use_nmi) {
+-		static_branch_enable_cpuslocked(&microcode_nmi_handler_enable);
++	if (microcode_ops->use_nmi)
+ 		stop_machine_nmi_cpuslocked(microcode_nmi_handler, NULL, cpu_online_mask);
+-		static_branch_disable_cpuslocked(&microcode_nmi_handler_enable);
+-	} else {
++	else
+ 		stop_machine_cpuslocked(microcode_update_handler, NULL, cpu_online_mask);
+-	}
+ 
+ 	/* Analyze the results */
+ 	for_each_cpu_and(cpu, cpu_present_mask, &cpus_booted_once_mask) {
 -- 
 2.53.0
 
