@@ -1,50 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793759512;
-	b=eSU9yNfQqx/EsLqLwa2KXYk3b+4tExOEQ+uvRVQtc/ZAFS0nNaAPybFE7CUKB7Tdv/33
-	 rKv4p2qTiCtcYuYBsjCGWiBPTFZhyUUYVHIewHXY+rtT6Dvh5Sa4Kjq8Z/9oCr0qEEPBq
-	 j1nntrXkckAG0+Lh6FrAV0QDzHmiPaFh9InMwkqCqvu2fdiWoucCDpCb2dbPljb/2qtdd
-	 L95lVWg1WV/vOwViiVrO0Rox2Ed+SlMgypdTK4uwkTuWWyat3iuycp2L1q9tVlG0UiM6I
-	 3I6+eegRFd4eniTTDfbHwA3PnkGVDkbV/QQnQZaIk61RdCWpuosPWt5q9AnXEOsoF0A==
+	t=1793759583;
+	b=X4MfnPUumS6MPcctnNKMK/fZenhoitHtKJdXPlNRvLGC3YjqQNBOXcbNl9zuPwdcb6dI
+	 PsQv3FdR0sDnUmI3AzMjEp27clvzBYqR+na1NQ68X2Z9NSM4LaOeIT4Z60Iky/KhvI4fF
+	 fpSJRcivzUaITilsYVZepx0HVDkkOONLwT1M7i++1OisyzJBP2m863kvDWCvzufT91eVe
+	 e2E5KesL3cg9R7xUet5/D2zgMVM1XFd2hzkekrS9qw9OZC6Lw2iQZgg3nNdjOTJOtG4hY
+	 ldK8k+IES7clJBlBHDmAXz8GVYhrNLbJ7hQLOy3F8zga5m3JgCuHsf50NkRTIhwEI/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793759512;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=CLjlAhK88hPBCjk1t6tnIG3Isu3g2YYgjIIVTxIgq2I=;
-	b=B9w8PH1ERc9DTu0ANFspInb+kd0HdhcrCWvHU/yVaUsdWw3xGj8BrH7j3dh4fYJbjaTU
-	 K6dkBQa5NFPUCZDvDkOb8KRhpp7cUYfU7HcWtxCZAChTtN//4JygKom/eeS3tNyf9d9tg
-	 JySnpcUgYwEIaVryUmUA/Bddvl/ZPjEWj/8Z+6jDLAa1A905JcUlzcuM4u6tGxARQTX0n
-	 dgSgqIiNQn/GYLagIVy6rbmw1/859RUfpmKV9SsyCAe3WDq2SVoTlHLtK4RRHw80MwAg6
-	 VZ0m1FYD8b4uRHn6HM2S0oyi1X0j1l+mIFNLUZ8PC35F4FclSJBNoQJY4grT7gUGDJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793759583;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=m/fiQwvRsckBioNPagh+isR8nYC+OvCHr28EC1k2Icg=;
+	b=AG5qdds3xl53FyKCZIErtl9CKk+S11NY2qlcfLuB73QM4tETEqXoOIVY6FdTDZtHA8v3
+	 rjeExXk3IdvaD2zItsj8l660KemsdvM/KyiGmeqeGW/FnbJihU80ll4PjASC9cjIfnBKG
+	 uV2kQMLC7213PIyg/nbAdHMluga7QrQB7yVDSI/UTKLN6BYxYB8oFWq0HnaVpVJSL4+DG
+	 NoLg1m3zIufK6OdbqhPBMfm/wHgL25wdQOBQrrMe3mnHDIfWqggU3ZDHSQZJ46Cc/iG8e
+	 901ZxmhqPO8UV1OJ27u0OD3soLr0MwYDb+oMzyu7kS4VTkSN/eTfvf+H6SSKGXg/9FA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=KXX9sqou;
-	arc=none smtp.remote-ip=115.124.30.98
-Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.197
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7248D606A32D;
-	Wed,  4 Nov 2026 02:31:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7248D606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=KXX9sqou
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793759508; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=CLjlAhK88hPBCjk1t6tnIG3Isu3g2YYgjIIVTxIgq2I=;
-	b=KXX9sqouKslSC5rwUSgsFfkCfpKZi855/Y5CmR1WrJv7M0ZXwvC7HL9DYtMenu7bIQdQgkDckGM9UPmdDIkdRRGWfR+ZUniTC80hZacof7EHUtUEVw4ZejW08RLz6s/OFqQDiqxGU1zDOGGFvOMJvu/MqmYypbRoOIdm2AGeQ6g=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R721e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0XE4LGOC_1793759506;
-Received: from 30.221.132.49(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0XE4LGOC_1793759506 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 04 Nov 2026 10:31:47 +0800
-Message-ID: <922240f9-8233-4466-a787-2f7ddba7c490@linux.alibaba.com>
-Date: Wed, 4 Nov 2026 10:31:46 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15C71606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 02:33:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15C71606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4cc89e86e9eso343529b6e.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 18:33:02 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793759582; x=1794364382;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=m/fiQwvRsckBioNPagh+isR8nYC+OvCHr28EC1k2Icg=;
+        b=VMu8Z3X+9QkCdKWmlZ5YFJUQmkukXBAvkFIGnZVzSM4g7C9BMeg4qubn1vti2JB76l
+         iP3kP4uEr7y8WJTWCf4Y1dAg8ykhxzZxCH3AwEBXKkQpGgp/J9gCPjxFGVX2E3VpdG4K
+         XiVbFKqnbMvrTdZf2p2YNhbCjYFqSDi6M+qL/R7FBHY0btBCjPuVTfNG/GNnTwEVuv2I
+         ES5cYYb2UFvenENok4R/a37nFcwHbEX5IBYx68ZsK+ob4h22F6SyfkTTxSALIktAmfC2
+         H5E1IM+KB05h/qU+joYfijJoEcpv61j+bcgndSB7l5vjXpyIFEaoeLxMDU1QcVGbBqQr
+         PAng==
+X-Forwarded-Encrypted: i=1; AKwUvBypfeJoolOjH8TaLqHyQF3uQ3wAlDvjGUseXhPgSTyWU4cK3nRsPMREazM7/m6zdKMM93vTv8THv2OmQZU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8yMrHoBKMIpa4q2ILaKqwIMxPCvoFrMKGO0qlws+sIyjS39TIN
+	N30nI/H5oAqPPYMgx/3Dtsr+CXa0kCZ1UNreP0M+KLegdqhrbRAguzF2aHeazmGsAA/cVLx1izm
+	z+UvIRnh248G+fbEMUbdtyQiMs4FzKv9tw3IMHa7x9Ceuu38czjBEUVdftbU=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,87 +58,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] fscrypt: Cap data units at the page size
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: linux-fscrypt@vger.kernel.org, jaegeuk@kernel.org, tytso@mit.edu,
- linux-ext4@vger.kernel.org, adilger.kernel@dilger.ca, jack@suse.cz,
- yi.zhang@huawei.com, ojaswin@linux.ibm.com, ritesh.list@gmail.com,
- linux-kernel@vger.kernel.org
-References: <20261103153132.4154855-1-libaokun@linux.alibaba.com>
- <20261103153132.4154855-2-libaokun@linux.alibaba.com>
- <20261103224006.GC2281@quark>
-Content-Language: en-US
-From: Baokun Li <libaokun@linux.alibaba.com>
-In-Reply-To: <20261103224006.GC2281@quark>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:5390:b0:53c:71bd:e937 with SMTP id
+ 5614622812f47-5640ddb2d34mr10697604b6e.10.1793759582174; Tue, 03 Nov 2026
+ 18:33:02 -0800 (PST)
+Date: Tue, 03 Nov 2026 18:33:02 -0800
+In-Reply-To: <20261104023115.3828365-1-fei.yu@intel.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aea995e.bf891901.a11b2.0000.GAE@google.com>
+Subject: Re: [syzbot] [dri?] [mm?] WARNING in drm_syncobj_array_find
+From: syzbot <syzbot+95416f957d84e858b377@syzkaller.appspotmail.com>
+To: fei.yu@intel.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Eric,
+Hello,
 
-Thank you for your feedback.
+syzbot tried to test the proposed patch but the build/boot failed:
 
-On 2026/11/4 06:40, Eric Biggers wrote:
-> On Tue, Nov 03, 2026 at 11:31:29PM +0800, Baokun Li wrote:
->> diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
->> index e602c31b3844..0dc158563e71 100644
->> --- a/fs/crypto/fscrypt_private.h
->> +++ b/fs/crypto/fscrypt_private.h
->> @@ -203,7 +203,9 @@ static inline int
->>  fscrypt_policy_v2_du_bits(const struct fscrypt_policy_v2 *policy,
->>  			  const struct inode *inode)
->>  {
->> -	return policy->log2_data_unit_size ?: inode->i_blkbits;
->> +	if (policy->log2_data_unit_size)
->> +		return policy->log2_data_unit_size;
->> +	return min_t(unsigned int, inode->i_blkbits, PAGE_SHIFT);
->>  }
-> 
-> This would make the interpretation of the default value
-> log2_data_unit_size=0 depend on the page size, which (unlike i_blkbits)
-> is not part of the filesystem's on-disk format.
+failed to apply patch:
+error: corrupt patch at line 131
 
 
-This is indeed a point we struggled with before.
 
-The problem is that on a filesystem with LBS enabled, once fscrypt is
-enabled, log2_data_unit_size=0 causes data corruption.  So we default
-to a sub-block data unit size to avoid it.
+Tested on:
 
-In the previous discussion it was said that for cross-machine
-compatibility, users would explicitly set a data unit size of 4K or
-smaller.  So this change did not consider cross-machine or cross-page-
-size compatibility.
-
-> 
-> I think that for a sub-block data unit size to be used, it should need
-> to continue to be explicitly specified.  Otherwise the default would
-> become ambiguous.
-
-This does change the semantics of the default value, and supporting a
-data unit size larger than the page size later would be even worse.
-
-What I had in mind before was to keep the default as min(bs, PS) and
-allow DU > PS only when explicitly specified, which seemed to give
-better compatibility.  Cross-machine or cross-page-size cases seem
-uncommon, and existing machines have probably already avoided them by
-specifying a 4K or smaller DU.
-
-Keeping the existing default semantics and returning an error in the
-LBS case for the user to specify seems feasible.  But then
-test_dummy_encryption and the xfstests cases that use the default would
-need to specify the DU explicitly, otherwise the LBS + encrypt test
-coverage would drop a lot.  That is, in the kernel or the tests we
-always have to set a default DU size.
-
-If you confirm that we should take the route where LBS requires an
-explicit data unit size and the default is rejected, I can adapt the
-kernel and xfstests in v2.  Or should we go back to the more compatible
-DU > page size approach?
-
-Looking forward to hearing your thoughts.
-
-
-Cheers,
-Baokun
+commit:         05441d69 Merge tag 'cocci-7.4-rc1' of git://git.kernel..
+git tree:       upstream
+kernel config:  https://syzkaller.appspot.com/x/.config?x=94cb1a71158c9027
+dashboard link: https://syzkaller.appspot.com/bug?extid=95416f957d84e858b377
+compiler:       
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=169ff4dd580000
 
