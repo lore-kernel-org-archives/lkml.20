@@ -1,102 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.227
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793816153;
-	b=x8WsztwnNc3giBxkFdo4x03rF6KXWOL8pF4KjTsKAd2++M0jlAjP1HFm+7xw+E2ihXQs
-	 SK6Efl3WIgO1wuVu4rivzuQ+AcYgw8q2zvwPyllhH5wx8dP+hvrfAjXmOET1y8oQWaPt3
-	 w11/5nSSchZCQkjs7HE5AVQLggNdKqfSw66kPItOI2MHVznGY/hAzEwrqMpGxVEHsnzWO
-	 7gbwfj5/8aIOu9X2sNib0Qha/3wgmRZu08y7REcFg+iEfitGDdx6ilXQ16f3XX7hCT+Zu
-	 EmiKdKasdBvrGyj3LC+f+KQML6GqeD7d0Q0PBoSuLGwbmO1oA2NQCWvvdAplm6v2LxA==
+	t=1793816160;
+	b=JShCCmEleYiKv7aeCitS+8cC+7lnn0BER2Gkdm9PU02xeqg2zNtADZwFJI5T9BjdeZN9
+	 TeYe4B9Ob0N2s6Yalvkx3KO8f3sH05+ZcCjcNnjYamGJXyoIctC4qDESmqN6WRmsYfj2K
+	 UHh5QeO7s/sW0DwfGwCxgPcah4N4XV7LvRVCTEjnkowSo24isa0DMvO0/UuASCCQL00eo
+	 RuD32FBw8Z3nbXNylRLtKhGksU3+QCEizhetK5+gHn5j0MxPcBHEq4j3hJjH6mvocG63e
+	 ncBY15RVPIMwvTKxFCTfJu4+xeQSBjniOHjtS4X3rePK3paq4Pm8nuDeHzoB14uwXrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793816153;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-DetectorID-Processed;
-	bh=F2zJEatOU4CyFqJt2nHtTite5aLEewM7QlV0X2jkmG4=;
-	b=kpnxhWDYia1Xfw8MYbi5IdS4FvQQkpPOcKBs57GTMLLhvbBzQUUl4HMa0C+Lys8A7Cdj
-	 iF57hsmhDEsNW676zF9vyMM1fgtzkJkt4Wu2BV7BwPMJoVg1dTcvX8S8QXIiwwlAIeWXL
-	 i2DUUb1uXqjTAMl7UjlBTp3eRjPRlA2Z4TJRHhhZS62mMYQxqjHaf50RxqoWoQ2vvfYkC
-	 RaHE+xyHzs5krRqpDsyL1wYFm4lxj3pgR3GiLxWxrTdIFgSBh/LskaejTcIZXiBa7CmCE
-	 HDK+igS9Vl/5acr+2OUTLNwXWR0j+EPw6WxIwcGc5GHf0BwzznN0TVrFYSTK3M0J7Ow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793816160;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=DnkyCFwfTEyghMwBbYx5eIEahNaTNIOnK3R3J4LlqI0=;
+	b=3xW43U5mr0t+u8AjriLLBGp1/kHZRofMh3LZwrMc/Cp33sKfj7B9wy2FIb4JYHFGhtPB
+	 yRaaoSRxegwrOIaoZX3aJH2WZQjCm4xCahrBTaHsa02B7ja2mmUv8NsBo1RKIOBJGcv3k
+	 mtHSRP5OaGo5QY5pZygutsjzp/MdGO6nlbqxp33ntluXGWHgTadyVtHxunG7v67H5thZv
+	 riRnfFKg3mFTzij40RoGuSbz3/1AtxlfVFqN9AN0KQ6rKvQMMwxZKrzRcCjmoEmSnGSdO
+	 MtwP4PxaGyW2IiwkP5tP0Bneb22w2apwtjJ1QHFGhmcHhJBPO72PlGKYAuAuJECHTWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=HL0miFsj;
-	arc=none smtp.remote-ip=209.85.215.227
-Received: from mail-pg1-f227.google.com (mail-pg1-f227.google.com [209.85.215.227])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dh++Upn4;
+	arc=none smtp.remote-ip=209.85.210.170
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1164606A32E
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:15:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1164606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 505E4606A330
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:16:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 505E4606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=HL0miFsj
-Received: by mail-pg1-f227.google.com with SMTP id 41be03b00d2f7-cc147d86bebso606076a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:15:52 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793816152; x=1794420952;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=F2zJEatOU4CyFqJt2nHtTite5aLEewM7QlV0X2jkmG4=;
-        b=BMCClA7fDq3mZ5f8gDdwkheIsiK8zdWvhkx19gzUQmhZG4wHEqg4dJFkBNKJvBOC0V
-         fFyOcUsI3yqSa3rEU7YKIsDeq3nDSkLl97rQpdbkQXzyBQ5Zxlzl8r/hUi25upVGse8j
-         lPU/bkOEd2uxw/QH0ds4ApTmjh869RsU31R8WKncg/8/v9NjjuGiHUyFxobiDVuHdohs
-         TnivkGckpllj16iUX65Jq1xR2iVCr/r+E5wHPFvNCjpdAHOgLKB7xcimkGeDWwVprBXz
-         RBTxRLymPcgK/wms7vfBUnZI0sizPD0qJ8VCGymGjNr3JfS2igxikzp0zhm1Ny8AjQ1I
-         S96g==
-X-Forwarded-Encrypted: i=1; AKwUvBxL25bTcBFc99iG6AbOm//PdXQYSuEVijcrB/OY+rQIusiRgTekq074pjiLcaFQsumoarR3AkHrFBuigKw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8wJ6QEUG0mx+KgH7g6lTRMNXfWwMYbJidrNl+M365fdBZ7ONHt
-	zCU9MORvAJv0At3bjO55KRZj1ee1wV1YJYRZEGACbquVfvjLbtVrjmUDPUP90Vekzbxb91f1Yyx
-	5O4uLjpqM3zMlgXNxYfalgTStoSShnFivW/W/tdwhiMtZYlLpQAb2gkMFchPX9Y7iraRbdCgHbN
-	/8TallhvXqBwNnHfPBNgFMLvWXzBDXn+xp97nDYX92YZSFNBlLNWWhAjwJZGfIfxopJ9BZONf4+
-	iIsaTx+MAXhkcyD885nB95Prls=
-X-Gm-Gg: AYBFou1+s5TIj8Uoj5dq2nEcK/QOZO8pFPIE5ohI1aze/wg7KNYOmem69BpM4kYG2w2
-	q63HIKzem/EwQcabXdbz6U6AlKgoxS80lb+9TrJyvGmkxS0cz81b1/JjSQ5Epv/7BCQt93EYapI
-	BhqBIMnA/B66/okVpW4uE86LOOEaXynwKTS++nqEH5hMkXwzOqRCSBfpYpXq8lD5Ri14BtpjU8R
-	u4gRf+1C9MwhHU7vhMqNSE1xyLut97NSBEGiDeKmoUyWNJ42fwgQeLvTvhIdZITUXunQwIcLUDY
-	xwdzI1AXQtENPHgP8hGSwVaZGna9pZYh8O8hoaRgCHvzvSWQzouBYk5aFaJ+pXYQyI9UD6oECFM
-	/Y0g4SdSFUUe20vQK7+nLxEYdRsZillCfEM8VMrxFKaoenOJl0w94NhwYOYYitk67OFVJTVZpR3
-	/CBZA5VA0KRZRM+UjlxFBhoDsAaMP60m11EXp1o4+E
-X-Received: by 2002:a17:90b:3e4c:b0:3ac:36c7:c144 with SMTP id 98e67ed59e1d1-3b0afc6476bmr161186a91.28.1793816151966;
-        Wed, 04 Nov 2026 10:15:51 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b0a7d138d4sm362446a91.2.2026.11.04.10.15.51
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 04 Nov 2026 10:15:51 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3425098ae4bso2998876eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:15:50 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dh++Upn4
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8a05e3f0d23so540408b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:16:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793816150; x=1794420950; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1793816160; x=1794420960; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DnkyCFwfTEyghMwBbYx5eIEahNaTNIOnK3R3J4LlqI0=;
+        b=dh++Upn4ZWf7TCTz0JkNT4qSQSDu2Uaew4OU6cXSrs7FN7XOMXZsdZov0rgiApzPdc
+         j/ns2tZ0F2dx8nx41mTa8X6jql6kq29Him+xrNExnL/EM7kKeBV8ig+90HaAGgqZAnT0
+         LMettOORnr9NA//uos5+vFkmDNagJBGWiOQsed3rCndc7d9bJkQuY7waS+JLgLTTTOOy
+         mBOzI23pKm7CIAMKMPrEoPNirsQWVh5aoYVmAVqFVvbXlVpht9LmGTxRgpyaAIIXSUp/
+         oTAYhipNNWLuQs/zyCPXYHTZAnXDgPYTakhqHWuy2hrQCEQL/YrC2pcCxPGbjZ7j36ME
+         pQzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793816160; x=1794420960;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=F2zJEatOU4CyFqJt2nHtTite5aLEewM7QlV0X2jkmG4=;
-        b=HL0miFsjjSv/CpcIZvjozOqslbWgvwdETERSoQyxZWMArhUne4FYR8HI7sww73FYyY
-         EDsPzEWXEnYRKC7dWJ25onLVOA/iTK5NeNkPYcIKmzue754w8uaF2Z9gkdGEwoLgiAlG
-         sY07/JG7OJiLR2TbVPHP+hbuw1eBoKWOvkpZA=
-X-Forwarded-Encrypted: i=1; AKwUvBz4Qn0oO3OGpAfLqtV7hTZS6sUl8Myf1OljVYwXAUPqouW5mhzhS9JFx5wkc9WGe55wOZUF5yWxFVUcASU=@vger.kernel.org
-X-Received: by 2002:a05:7022:b881:b0:145:ac96:3917 with SMTP id a92af1059eb24-1b24f4d380fmr308740c88.21.1793816149686;
-        Wed, 04 Nov 2026 10:15:49 -0800 (PST)
-X-Received: by 2002:a05:7022:b881:b0:145:ac96:3917 with SMTP id a92af1059eb24-1b24f4d380fmr308704c88.21.1793816148953;
-        Wed, 04 Nov 2026 10:15:48 -0800 (PST)
-Received: from [10.14.197.69] ([192.19.161.248])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c30521sm10038316c88.13.2026.11.04.10.15.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 10:15:48 -0800 (PST)
-Message-ID: <1113b8a2-70ce-40ea-b8bf-9a40c8116dcc@broadcom.com>
-Date: Wed, 4 Nov 2026 10:15:46 -0800
+        bh=DnkyCFwfTEyghMwBbYx5eIEahNaTNIOnK3R3J4LlqI0=;
+        b=EGHys9S5My+GiKyaSXUyknxYXZxBbYTCt++GLHq+ca5VoyDul0tPxh8Jdo0W9ohW7P
+         DpyxdIfilEqgS3ztCWpu/bkS7ZlVOTlUw/we6irAp4+qMHAGa8ywGHCuQ782hwS2BOQt
+         TghO6XbLgvKolRnxydYOV0tYqZpI5pBJkotHRz97K94DfYbSy2iAm3NDYIKoJ2lt1QDc
+         nBCmbyzZtCuAkNjkK9b5vElcQCuYt6InGspRsXLRTMbw5QpME1csl4CNusazYg2ioR9Y
+         pDJUGrKkmz4ZbvTbX+oNrSAK+PmoqngRJW05XQceOdto/yCJixwgQaWXBy1nsymJlQxm
+         0+bA==
+X-Forwarded-Encrypted: i=1; AKwUvByrgegk0AlhQmvKLpMpJHAAGQwENVAocyXpYYlx1rP/k8xxNIsgsL0TQ5T/dO0g0Db7fuf6SpeXKc6swDI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+zSKLdjCvqSgRpfuTIEEREnUTOC6cemFbsm0ppTWAAxrtzKGXf
+	9g4/DvhiDC65B5KZ7Se31V90ssk8ityx8AQeXu0m9kjOnFZvFtpEck1BcafUolu4ew==
+X-Gm-Gg: AYBFou0UOM5Lxf/DR14tVJF+DAvQQHkKpXSXUqujVgiOw1BvT2ylkru+Svcnsd+XCr4
+	kM6inIlNvSqvTrWl+kja1quQRLJuVANOgbHx4JU4DQsjMP0AnSXdLVmL2eZbKRxzggfiqYshmc+
+	Y6fsTUVV7YCDDT7HZZKMBn8ufRotNRCtP9599gSqfdOFen09uQu8H1SDfDqvI+qtDAVrLI8mwla
+	JUDeXSr5Dzbt1O10tbU0nH8guKgjFtMBEu12sJvY6bzWt04rEmXcmR0iBccp5QYvBo3lA3aS/Gs
+	NPxGUMRWerj8nbHtOxElEPv7YTvW4HWF33FUvD77ztpJMRll8I5r32vctgHrkW+7NVGRdjXD8QB
+	jBzRI2Qsgby7aIY5lBIZ+/vD8MsoIjnhrZuBbUKMzdmq4bchLlvEpQdimJP3rjxWzdQLJ0FMz5H
+	j77mFYekaujcO37hGdMdYTUJrUqPCN2PKkwRlH37MI+gIcWlSKXm9aDotehKoRlth+29HgAbvJW
+	zuarL04eJjwsSWVnz89F4UXyBGLZB5hw+fCw+bmOPek3xCrnOyqHF9Zj26U4fvg7dM8eIp2jSMs
+	CjWWkJi1e+he+8DvTTo9VfHoS9rg2+mQ2eaIwitshjgWZKbMzAGqXDJ+PdFChh7u
+X-Received: by 2002:a05:6a00:3c89:b0:886:46c:8a1f with SMTP id d2e1a72fcca58-8a9bf0466d7mr13529775b3a.35.1793816159117;
+        Wed, 04 Nov 2026 10:15:59 -0800 (PST)
+Received: from google.com (33.79.127.34.bc.googleusercontent.com. [34.127.79.33])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b09bd3ad6fsm1246841b3a.55.2026.11.04.10.15.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 10:15:58 -0800 (PST)
+Date: Wed, 4 Nov 2026 18:15:54 +0000
+From: David Matlack <dmatlack@google.com>
+To: Alex Williamson <alex@shazbot.org>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, stable@vger.kernel.org,
+	Abhishek Sahu <abhsahu@nvidia.com>,
+	Raghavendra Rao Ananta <rananta@google.com>,
+	Shuah Khan <shuah@kernel.org>
+Subject: Re: [PATCH 5/5] vfio: selftests: Add test for device power state
+ transitions
+Message-ID: <aut2WmTGY9M8BM4U@google.com>
+References: <20261029203324.1637772-1-dmatlack@google.com>
+ <20261029203324.1637772-6-dmatlack@google.com>
+ <20261103153553.6caa7d7d@shazbot.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,81 +102,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/5] bcma: scan: accept wrapper-less cores on
- wrapper-less backplanes
-To: Alessio Ferri <alessio.ferri@mythread.it>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Jonas Gorski <jonas.gorski@gmail.com>
-Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org
-References: <20261104-bcm6362-wlan-v3-0-e46562b2ac12@mythread.it>
- <20261104-bcm6362-wlan-v3-3-e46562b2ac12@mythread.it>
-Content-Language: en-US
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20261104-bcm6362-wlan-v3-3-e46562b2ac12@mythread.it>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103153553.6caa7d7d@shazbot.org>
 
-
-
-On 11/3/2026 3:30 PM, Alessio Ferri wrote:
-> The scan drops every component that publishes no master or slave
-> wrapper in the EROM (NMW = NSW = 0), apart from a few known cores,
-> because without a wrapper bcma has no agent registers to gate and
-> crash. Since usually bcma is loaded early, it ends as a loop-crash.
+On 2026-11-03 03:35 PM, Alex Williamson wrote:
+> On Thu, 29 Oct 2026 20:33:24 +0000
+> David Matlack <dmatlack@google.com> wrote:
+> > +/*
+> > + * Put the device into D3hot via config space and then close it. VFIO must
+> > + * return the device to D0 when it is closed.
+> > + */
 > 
-> Some backplanes, such as the integrated WLAN of the BCM6362, have
-> no wrappers on any core. ChipCommon and the 802.11 core are gated
-> through a SoC-level register block owned by the host driver, whose
-> aread32/awrite32 ops emulate the agent registers, and core 0x837
-> needs no gating.
-> 
-> Add a wrapperless flag to struct bcma_bus, set by the host driver
-> before bcma_init_bus(), and accept these cores without wrappers when
-> it is set. Other hosts keep rejecting them.
-> 
-> Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
+> But we're only testing that it's re-opened into D0, there are multiple
+> ways that could have happened.  It's pretty common that a guest
+> shutdown might put devices into a low power state and it's brought back
+> to D0 on close, on reset, on the next open, or even on the reset in
+> open.  So I don't think we're testing what we claim to test here.  I'm
+> not sure this specific D0 transition is observable, even if we were to
+> resort to pci-sysfs.
 
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
--- 
-Florian
+You are right, this comment is not accurate. The goal of this test is
+to exercise closing a device while it is in D3hot. The close should
+succeed and the device should be in D0 after it is next opened. The
+transition from D3hot to D0 could happen during close, open, or anywhere
+in the middle, without changing the uAPI.
 
+I'll fixup the comment, changelog, and test name in v2.
