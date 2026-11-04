@@ -1,79 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793776869;
-	b=HU61x60ocQ1Ola1gUva57gTy0VLncLzK8azbepsIvbAwvgpQK2gm0N/sVtGJflARTg8P
-	 jfmlywt3Fg+SYwpFUtqs5kvMdE8G7FdbJ01m2XUs2yoB3bhx5W6phy8iZ41pI4h1GMIxs
-	 rEqWt1FxZuEoHf526EZiUA7GmEZK4lhJfmHGB1Dh9rU7we0kt9P+vX8Y3GMG2SA4ABTCN
-	 bSP1yzCH+aP1liXtx8/8ngRc/gu5ql2jiCQIGNFBGWR5P1MONoxv3eTigVXSLEgcSxiYm
-	 sthdfNZS/wKpQ95OuqST/0VVWQUSI0PVVoBAW2IHTvcYdfSW2NOZ0Q6Gc6K4UC/QLBw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793776869;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=3SZrotQFvmPueH/4BQAu3CKol44iMpmtrxjOSk9/PG0=;
-	b=ISvcZiKPZ2FlxkCCBxMI6ZVB0FMpho9He3HM3P854TAkLsayP0i3kvrlKDe4gWv1AW8Y
-	 6JQXijSVuvqJ5nfayPA4Jl71EIqOE1EdVcX0tMFl6dAns0wq9MjplsK03rge1rp3ZTAzd
-	 kvXipQac5jmTL2wWgyRvhE0ik0a9/o9eAyjd7+sIa1zu90awT/X7cjKdkITuxSuZUGHCz
-	 jX8TS6VMWCByrtN2LvwhM9bbGZU6AmlwbzrZq6KFluCSE/Iqeu5dU1huBmJ1IRtQBfn2A
-	 5PK5EUWfFfchtC61biznVJh5AX0x7ZAzf0CYrKZEAJibI7Io0pS3CKgrF7TcY1jdmrg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JZ5x2YIp;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E421606A32F;
-	Wed,  4 Nov 2026 07:21:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JZ5x2YIp
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793776869;
-	b=hFa595XfNmurYX5VGtVX9/H8HvZ9V6T5FBW+9rLNOON4PTaLgTAbYpWDc4hjyjusztk7
-	 nqPFSa0WJkU/x+yXka843JlT9Pwed/TLK2vmUlvRRsPBry2TC/HN1qkYsKdBzRLvDy2Sv
-	 m3IB25n0KZ/8+ei0v7f7/OoBiBtW3YH5I7IBFtISSzxn63i5YCAMYQlEQ/en7TvYZKuJ2
-	 Pp+fsmzgG5VY/BK96CgE6pFI0HBXpvvTncryVi9uplwAUCiRIXcXiEKDTCzTJ8M+zwZLQ
-	 3Zo+O9ECWrY9hkE3FrAt4LONDMCqkQ8tnnGJxTB6guHhsw4eD1ZsW2+P8AYCB+TjBwQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793776869;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=3SZrotQFvmPueH/4BQAu3CKol44iMpmtrxjOSk9/PG0=;
-	b=RqLNYM1p6rtn5kb2yyDO3qnvdY66OonO3ncV14D6YPlcVAXM+GxqvHpvywzFjrCfSeoE
-	 +Ash1b8UmcphF4PEYg8DK+mcc8KBHpYMX7fAiGCqO218v5g7XrOMgqRiIzBYyrLODYmpC
-	 hDuvEuDGZipQdXuLWgZKGkZvjQqJamaccp7S2Uo4tTmW14E6+TOK9pnCDltV5wGyosiTw
-	 zQW9RfAnka7lMXgqIyLd4phpIrvn6iFP2HTBPXFCbUfaSDuEnvT3eYT4XOpZXnDwrq9Rk
-	 5U+bAzb2qFzhVXvJvbQPJCLhcFWK/w0IqSU9Q3DVszDSfVXdYnctpkmnr9xTfb6wjwA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793776883;
+	b=ePnXdQdSRoqV30wJ+hbIfpA/67muTHyNT6n1RlMQkNrHAGWuGiP68H64mMgtMEIVyUa+
+	 z4x0R/SnkDX3dqTErSqLgVbs98ZtrMFQOzdGABZrXC82AwnwHMMx0NIbP+2i+1AJbtpXS
+	 2TjnAf9TOUYnIHJwXVaAgL0Mbf0+yu997g3cvYWs9UA1yqqEa6ScWtJ2Kuve9YY7M0qQV
+	 n8L2pVe3HCdbfD9az/L4XLsRaDGDkxB6qdaixshoQH8ropDLna7uCgFUHDWFUee3yLHGL
+	 0LE2ws9/mFl3Ps0FGoVVH0UEj0MquoBuTOQJTPOHHrbtBf/+OTmw4jAlceIxScYTOYQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793776883;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=DWUgScfm6w4+IrfkuhBQdFNaFEhNCbHPUn0mlOI8xXo=;
+	b=Ya33DKoSU96/6m8leTQEa7wd7aaZbZq/suy/d9enp/V8mYBwcGf46oH5XTbZwQrbGpiW
+	 6li+rwoJZzgThIJv8QBiYArxGEOU8SBdOSnTl9xOFnWiOpUTTAKTApQNSeyrxhwWUsfgW
+	 lLeq6yb5peZ08rRsb92Bnwut+gEoY3GigD/yKIjw1XZrBJdqWFlfjQ/+VuRXo/Kc8IroA
+	 /92GQcWl8DGKpfsogTVQzzORgAHjPjxoNW3Wf8x+iiTCcPgDSkJrYqSYjb2jWxdKjdvxU
+	 a3PzMhVyx98xjN85QNlXaK9e698eonD9NKkca95hKLmQjLGAWWjAo2yrU9zveHT5tDA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s04muIap;
+	arc=none smtp.remote-ip=209.85.214.175
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3BF061F00A02;
-	Wed,  4 Nov 2026 07:21:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793776868;
-	bh=3SZrotQFvmPueH/4BQAu3CKol44iMpmtrxjOSk9/PG0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=JZ5x2YIpgS1YwbYgrJ+V+osRrvaQCxVZky/mrqXtvcJabvVcKINVIplojL0iDt1Xk
-	 K9q0lCaYaFFezEfoV3z7v1wfOtTAdzrK2eD8r6s/KQVoh7zkEBRp07Xy+asmJWEDaI
-	 liDm09gnSCcWthFOFYMVOITyS9DJ0y66qzrh+5PCk1yafP7kPcRnTzn1pGsKaABW4V
-	 +ySt92yE1jPpuSnO/sQY7Bgds0A34d/zkhfpFsOA9DQVvG6m4ceTv6G4els+cgNe1/
-	 PnKccM87KhKDffMJVk8pfyCo4OtFW3/5FZ3yv/CT0djISJQZLFbh8nSD0ivA7ZIDUs
-	 lXwuM9VtLaFSA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C0BC046CFC;
-	Wed,  4 Nov 2026 07:21:06 +0000 (UTC)
-From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
-Date: Wed, 04 Nov 2026 02:21:00 -0500
-Subject: [PATCH 3/4] dt-bindings: clock: Add Siflower SF19A2890 peripheral
- clock/reset managers
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86AEB606A32D
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 07:21:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86AEB606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s04muIap
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e60f9af6e6so3823595ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 23:21:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793776883; x=1794381683; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DWUgScfm6w4+IrfkuhBQdFNaFEhNCbHPUn0mlOI8xXo=;
+        b=s04muIapcZ9Piy2/cGVdXuDKZlGwmNqHIPw+ja53Na+IyW+ZcXoh8Ae75YcX4BgZgj
+         YaEGSPcLeAruFsHyeaV4PUYw/pKZ4iKUuL7iyUHI3N8fi2HfAy63ylDz9BBkOcGDTdgd
+         5y7JagsYeyCU4x+ifhC0TgesXSH9fXZ7H4CY0Se79aF+aiwKFKRQpXdjVHzZ03+5+rDP
+         KEyIVv6+V3tcjXU1qdJynCrq8uQh00T7nEo1qrStmt0xMufkkb2lVwsLzmyrQt0rSlu5
+         h+myLa/Bt+Rkv/ZsmGjKEJWG96NnkJ4Y8e3ZkfXcy59ve+04qJZO6eIXj2LApM1wG7vD
+         KlIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793776883; x=1794381683;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DWUgScfm6w4+IrfkuhBQdFNaFEhNCbHPUn0mlOI8xXo=;
+        b=gEwHR+rLAbcggmz53BO0WfOiXHrlWl0XBG44GSkCcVt7DklSujWAsqv19WDZBj+ro7
+         cMvGxFIPGIiOgj0yPpNqEpHM1DW3qgNcTKHIXzJPvRDWfXe/bxcODnLRHfYlZPy931k8
+         hSrgSCusvPsIYgzFtWEn/qJEU2eLy92hIqbGiGipLI8IjAXFYeE/sBIks6f3Pmlm+1Kh
+         v/OiUub2A1kaU0LOW7/H57p2NJFGWDkQ9i/81wnp5epwLQoufQ6cG8S7IZcGygGod6Zg
+         kI3hlCMe6vwg98TTHJNEq4GBeERDKDrf1uEvr9PPaJbQ7Dy48NBV2xnNvUU4ckpBy9pi
+         GbFw==
+X-Forwarded-Encrypted: i=1; AKwUvBxr1gm+5qbzGpSadfjo4rvbT7XrcRMjPHRbbURUAT/SGxgKJSVPE1DM1i7o/5zCJ5ZrGMOFe4gUAi/j+HI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+d0qEByKJkJ4Dm3KhAmx6j4Cfd2PMyIjL+7rNQSm67luztiNpi
+	qPo8rgubsos0NqCEnHSxyCpqGL+xC22TMicLo5ZWYHRzS8rdYSHZwro=
+X-Gm-Gg: AYBFou2hxFLqtGIE4xL4E1K7b9lXlPy2I9cN/IWBzSZtHyEHNeuixR6IwkERdukeUKG
+	hxo8nYXk+wZCmOzu7Kni6yNDX9NpW6VtlyANR+4IgE4adtsl2qiVXWGWT8lwUbKyljKgKn6PSaF
+	g1IiV8QV9xsDS+F0X0QQHrMerJE0FGVnEruD9xj4zK7oNwcd96iPqULRYL/LWk4lxUb1lwQN8g9
+	O3VweDb5ctbH+lNvg2SAyi9sop2Fwczzgjiqx1xxhss40JhGqOwvVmmodKOK5bMTMFtzXjbIt8p
+	wxwq4HRIfbTv8y3LmG+BETAkDJdxvIBxWrCW5Babn6KgXe/c3NYxymT2US1b2J5rjC6Si50xhS8
+	lerQibbJkBhmItXpMxqQTq/vgs38Xi8ySaYPkt/Uw82b5e7yow+guQSRuw9E8OmDEVjxm/k5o3v
+	gh6h5Rq9/YG7TfKJNma8wGEaVgJN/KRKkkisTB1NYif6HSv6S7Zx6i8uvtgetifGTGBNh9gVoDt
+	TmZRUqcAYQ4/3Mgw4LBcc02zY/IitSHj8NU1Jz48Y34jfPW83J69MfBg/b+U0e53j7hJsbNdsA3
+	+/jcvRD7OMC2lY5Ca9Sb+y+3XomZujkR8cFM9ZMZ5eFfoVTATAzx5WP935n5RtP5H4nf
+X-Received: by 2002:a17:902:d2cd:b0:2e9:5b4e:b8a7 with SMTP id d9443c01a7336-2eb364f8fe2mr149925825ad.51.1793776882756;
+        Tue, 03 Nov 2026 23:21:22 -0800 (PST)
+Received: from freddie-kane.lan ([71.212.222.246])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed0906c514sm3950345ad.29.2026.11.03.23.21.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 23:21:22 -0800 (PST)
+From: Burke Cates <burke.cates@gmail.com>
+To: robin.clark@oss.qualcomm.com,
+	Dmitry Baryshkov <lumag@kernel.org>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Xilin Wu <sophon@radxa.com>,
+	linux-arm-msm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev
+Subject: [PATCH] drm/msm/dp: skip the link teardown after a failed enable
+Date: Tue,  3 Nov 2026 23:20:48 -0800
+Message-ID: <20261104072048.3486286-1-burke.cates@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,225 +107,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261104-sf19a2890-sysm-v1-3-a4fac07df823@telaak.dev>
-References: <20261104-sf19a2890-sysm-v1-0-a4fac07df823@telaak.dev>
-In-Reply-To: <20261104-sf19a2890-sysm-v1-0-a4fac07df823@telaak.dev>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Chuanhong Guo <gch981213@gmail.com>, Yao Zi <me@ziyao.cc>, 
- linux-mips@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Joseph Telaak <joseph@telaak.dev>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793776865; l=5702;
- i=joseph@telaak.dev; s=20261104; h=from:subject:message-id;
- bh=4KWzG/an7MCfsubmOaaiA9hvsylDSllSRf9ZeagAwwI=;
- b=BFngtlTXgARtrMOMTmNMZrMimkrw6si2n2L908ZtjYSDvyIC9x0TEz5kdqSKtHZ5h01j9OpCB
- qaJ4dn5BEwwD3CDGjlcaSN8pTt98x+RhwY4bxlvAOaKlqwLwslbMQwF
-X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
- pk=oQI+UfddlZ0wK2ac4WKOGNjUl1ZEN8j9ZVFSqEDoNP0=
-X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
- auth_id=1404
-X-Original-From: Joseph Telaak <joseph@telaak.dev>
-Reply-To: joseph@telaak.dev
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Joseph Telaak <joseph@telaak.dev>
+Commit 1bda647ce61b ("drm/msm/dp: move link-level teardown from
+display_disable to display_unprepare") moved msm_dp_ctrl_off_link() and
+the PHY exit into msm_dp_display_unprepare(). Unlike
+msm_dp_display_disable(), that function does not check power_on.
 
-Each peripheral block of the Siflower SF19A2890 has a clock and reset
-manager of its own, with a reset register, a clock gate register and a
-bus output enable. The blocks differ in which gate and reset bits they
-use, so each has its own compatible, and clock N of a manager is its
-input clock N, gated.
+When link training fails, msm_dp_ctrl_on_link() has already turned the
+link clocks and the PHY off, and .atomic_enable() returns with power_on
+still false. The next disable now runs msm_dp_ctrl_off_link() anyway,
+which writes REG_DP_MAINLINK_CTRL and pulses DP_SW_RESET with the link
+clocks off. On an ASUS Zenbook A16 (Glymur, eDP) the SoC then resets.
 
-Based on Chuanhong Guo's binding, which described every block with one
-compatible and its bit layout in properties.
+Skip the link teardown when power_on is false, as before that commit,
+but still drop the runtime PM reference.
 
-Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+Tested on the A16 by forcing link training to fail and then blanking
+the display: the SoC reset 2/2 times without this patch and 0/3 with
+it.
+
+Fixes: 1bda647ce61b ("drm/msm/dp: move link-level teardown from display_disable to display_unprepare")
+Signed-off-by: Burke Cates <burke.cates@gmail.com>
 ---
- .../clock/siflower,sf19a2890-periph-crm.yaml       | 169 +++++++++++++++++++++
- 1 file changed, 169 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/clock/siflower,sf19a2890-periph-crm.yaml b/Documentation/devicetree/bindings/clock/siflower,sf19a2890-periph-crm.yaml
-new file mode 100644
-index 000000000..7f0bce603
---- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/siflower,sf19a2890-periph-crm.yaml
-@@ -0,0 +1,169 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/siflower,sf19a2890-periph-crm.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Siflower SF19A2890 peripheral clock and reset manager
-+
-+maintainers:
-+  - Joseph Telaak <joseph@telaak.dev>
-+
-+description: |
-+  Each peripheral, or group of peripherals, of the Siflower SF19A2890 has
-+  a clock and reset manager of its own: a reset register, a clock gate
-+  register, and a bus output enable that the peripherals need as well as
-+  their clocks to answer bus requests.
-+
-+  Clock N of the manager is input clock N, gated. The reset lines are:
-+
-+    gmac-crm:  0 GMAC
-+    usb-crm:   0 USB controller, 1 USB PHY power-on, 2 USB PHY
-+    uart-crm:  0 UART0, 1 UART1, 2 UART2
-+    the others: 0 the block
-+
-+properties:
-+  compatible:
-+    enum:
-+      - siflower,sf19a2890-gmac-crm
-+      - siflower,sf19a2890-gpio-crm
-+      - siflower,sf19a2890-i2c-crm
-+      - siflower,sf19a2890-pwm-crm
-+      - siflower,sf19a2890-rf-crm
-+      - siflower,sf19a2890-spi-crm
-+      - siflower,sf19a2890-timer-crm
-+      - siflower,sf19a2890-uart-crm
-+      - siflower,sf19a2890-usb-crm
-+      - siflower,sf19a2890-wdt-crm
-+      - siflower,sf19a2890-wlan24-crm
-+      - siflower,sf19a2890-wlan5-crm
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    minItems: 1
-+    maxItems: 6
-+
-+  "#clock-cells":
-+    const: 1
-+
-+  "#reset-cells":
-+    const: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - "#clock-cells"
-+  - "#reset-cells"
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: siflower,sf19a2890-gmac-crm
-+    then:
-+      properties:
-+        clocks:
-+          items:
-+            - description: GMAC bus clock
-+            - description: GMAC register clock
-+            - description: RGMII transmit reference clock
-+            - description: Timestamp unit clock
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - siflower,sf19a2890-wlan24-crm
-+              - siflower,sf19a2890-wlan5-crm
-+    then:
-+      properties:
-+        clocks:
-+          items:
-+            - description: AXI slave clock
-+            - description: AXI master clock
-+            - description: Radio platform clock
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: siflower,sf19a2890-rf-crm
-+    then:
-+      properties:
-+        clocks:
-+          items:
-+            - description: Test clock
-+            - description: AXI slave clock
-+            - description: Boot clock
-+            - description: Low-power clock
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: siflower,sf19a2890-usb-crm
-+    then:
-+      properties:
-+        clocks:
-+          items:
-+            - description: USB controller clock
-+            - description: AXI master clock
-+            - description: USB PHY reference clock
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: siflower,sf19a2890-spi-crm
-+    then:
-+      properties:
-+        clocks:
-+          items:
-+            - description: APB clock
-+            - description: SSP clock
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: siflower,sf19a2890-uart-crm
-+    then:
-+      properties:
-+        clocks:
-+          items:
-+            - description: UART0 APB clock
-+            - description: UART1 APB clock
-+            - description: UART2 APB clock
-+            - description: UART0 clock
-+            - description: UART1 clock
-+            - description: UART2 clock
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - siflower,sf19a2890-gpio-crm
-+              - siflower,sf19a2890-i2c-crm
-+              - siflower,sf19a2890-pwm-crm
-+              - siflower,sf19a2890-timer-crm
-+              - siflower,sf19a2890-wdt-crm
-+    then:
-+      properties:
-+        clocks:
-+          maxItems: 1
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/siflower,sf19a2890-clk.h>
-+
-+    clock-controller@19e24c00 {
-+        compatible = "siflower,sf19a2890-uart-crm";
-+        reg = <0x19e24c00 0x10>;
-+        clocks = <&clk CLK_MUXDIV_PBUS>, <&clk CLK_MUXDIV_PBUS>,
-+                 <&clk CLK_MUXDIV_PBUS>, <&clk CLK_MUXDIV_UART>,
-+                 <&clk CLK_MUXDIV_UART>, <&clk CLK_MUXDIV_UART>;
-+        #clock-cells = <1>;
-+        #reset-cells = <1>;
-+    };
+Notes:
+    Test base: v7.4-rc1 with out-of-tree Glymur platform, board and eDP
+    PHY patches; drivers/gpu/drm/msm/dp as in v7.4-rc1 plus a local
+    knob that fails every training attempt. The reset is silent (no
+    pstore), so which of the two accesses triggers it is not known.
+    
+    As before 1bda647ce61b, a failure after successful training still
+    leaves the link up. Xilin Wu's hdr10 v2 09/20 handles these paths
+    more generally; this is the minimal fix for -rc. Happy to test his
+    approach instead.
+    https://lore.kernel.org/all/20261009-msm-dp-hdr10-v2-9-1835d4966da3@radxa.com/
+    
+    The bug was found and this patch drafted with an AI coding
+    assistant (Claude Code, Claude Opus 5.5); I reviewed it and ran the
+    tests.
 
+ drivers/gpu/drm/msm/dp/dp_display.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 9299ce616fdb..76784cc45228 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -1528,6 +1528,14 @@ static void msm_dp_display_unprepare(struct msm_dp_display_private *dp)
+ {
+ 	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
+ 
++	/*
++	 * Failed link training leaves the link clocks off. Avoid accessing
++	 * link registers after a failed enable, but still release the
++	 * runtime-PM reference below.
++	 */
++	if (!msm_dp_display->power_on)
++		goto out;
++
+ 	/* dongle is still connected but sinks are disconnected */
+ 	if (dp->link->sink_count == 0)
+ 		msm_dp_link_psm_config(dp->link, &dp->panel->link_info, true);
+@@ -1542,6 +1550,7 @@ static void msm_dp_display_unprepare(struct msm_dp_display_private *dp)
+ 
+ 	msm_dp_display->power_on = false;
+ 
++out:
+ 	pm_runtime_put_sync(&msm_dp_display->pdev->dev);
+ 
+ 	drm_dbg_dp(dp->drm_dev, "type=%d Done\n", msm_dp_display->connector_type);
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-Git-155)
-
+2.54.0
 
