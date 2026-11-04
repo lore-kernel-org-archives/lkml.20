@@ -1,78 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793788696;
-	b=wMJkI10OitC3ddJMtI4jbSY4vfT8l3IEDihvvg1Fs7+pvL7NnVhAnImU/ypmqVkrjppn
-	 ZitUWg2o0FLioM6T9dWs+ubKTF1OsIS/NceyUBx00McA2i7jrGVqIviMn3+LP8knM0Ech
-	 wx7Wy02CIMmfRgQm5MB/sBPkF+6Zm4LprXekqEg36eKIfmSLB90/o7fe0WZXFbbT0xltA
-	 CWZaaQHciB6ryqoXrdqbMEDqW16Z0jWYLH8ge/+2OMkKZZdKz6cxSluR2iwe/4YNW6/js
-	 3dUOuXA/j5MJnYLkJY4lWafUXaPTxkBNN2yDSHZpDaCd/QcucPgnCvVGoXLE3CuKaYA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793788696;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=7WqLBTNaocKw6zya4bDuJ8X9i+wGGcj+XzFlExge3f4=;
-	b=Zv3Bwcea9VKmpfS8163RE0RBea5iKHjiLlJwSRpLuHHCf3ZmywMQg+QqlX0e+nZdetT1
-	 W8qfUvsxGdmXviIPSa3a6iE1hGSWsjAqA5n8zAtPZeEPnQ+uTK9XTB/urErSC0EChJeSt
-	 qBtYiFfKt6fIvD7AwEFi5Gm36U+RFy0vYYEEVR0vX+qpkskR3k4HDgtNgTkqwFfrpJ1qH
-	 TW7CBwfOPGSgHYIfsqn8hElxQxkNIilpy61EtoWmGFgJzMD3DQMRY0dLfvzm7mfjyZb4B
-	 cyXKERww8V6ijrcclJxWdEfv50v+be5CNO5aMUzHt+8jByDkzGyKj7qObs80KUlr3Ww==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ntQ21sjp;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08378606A33E;
-	Wed,  4 Nov 2026 10:38:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ntQ21sjp
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793788695;
-	b=wyS7ZJu1du3tZjd2qWQNpKAADO33iHv0C0VDGEQ8m/QmzAH11KRuz3vDc2eaVXXm1t98
-	 Sb3C26YTi9anoZEExbtWj+2w3wW7C+R+anrgxUhkcx6woCoWt8X2Hlv7K7eNjOd7mVwHz
-	 yHkwu1wH5zRi0WQk7BEMwQwRWNxGtbqUcR1OyQdrH+wdabwERQMMSj/AL1s/pAoYpOJbL
-	 u+wwFwJTDVHcw9XgS8md/BlkrNRMXGMxi3Z9ICQ4JYpT/15YIadA3LUijFb6YbgyEdbnZ
-	 4VDL4TEha5QyF2jRYYrNIou/g/dMMCg0XkfPjm12gxBc5qTk7xvjze7vEQ8mewY87gg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793788695;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=7WqLBTNaocKw6zya4bDuJ8X9i+wGGcj+XzFlExge3f4=;
-	b=RogfXq8PA4ho4PTgzi4Ke5ePYp4458ASHnQcnta5KwxkvTw2N0ctgqHjNr+jxa1XbZoO
-	 HtSeFnlRM1bFfZfcMYz/aw0JlzqwN9W3MpvUf/peBc9pdte+lEhqxdTQDRAOO2lfiibhI
-	 zhzmZIbHSvvtiiRZeIks730ztSupm4E7NNHCbO9LeDfGjGRnppyxfYtb9qbpNPUKkHGxq
-	 PZ63X/NeAmL5ifxtPTVe0CENXYKchiTcG34jtTojQJwOgfdvpHJKQyxdWQS/tbF3aLqHw
-	 w6SRzQwp4Bezi4SvfC+N1CnTaJyZ7hxtiPvI6p42YTKCdlGrlXeUQyVd/lOp3eH/sAA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793788702;
+	b=jVRl1RA0iFacfdMoauer2PBigpmd2oiqZ/fb5/mZEznZsfz6QTbHLyBHtAf8AHFJxt0F
+	 fGgrkqZNJrpsR9c22ASuFn8BIPLxvw7qz5fjbZnyAW3LylFsNHF1Mn0MsAITIHdrkMEdO
+	 DwjJyn9YONzYU9+OslpPb23aq/0fRcNRZyWF6xUk/JYyfgskiNzR5NlW54DGTovkKhOK1
+	 McHAjICciLUGUwIeWcv0KPKiJP4AQA6Nu8m8dSG/TvbVG8YFZsCJa0g6p4PJpiCOICyNq
+	 Pkjljxkv56H/Ly3wLm48e+i0MpDZDygYLbVwITGKrYfrJFQtfBRPgnKSr9tayHXZ0Ag==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793788702;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=5RYDMyWIvDWHXpulkX0r+TT2+36MfHzUYVRBJn+WEvo=;
+	b=rwOjgxxgPUlqLOyLttYQa6AAgx6GfQiuYBG6PdiQQldmYX0b215zgE4pB119N6NAF0ob
+	 rwlqyxdgB6pE+5s+53PNQzffHeW4y6pMZrTyuH7WDThJ/3ltd4oueZTH2dLk56REnONpg
+	 B/0dv+ogwtU4vZBxsptUG6g1n+6jBjltatcrmee8ZsvmaSWheDM691iaOfFJOV80N+Y6P
+	 qwqABO0aPiOiJol6PCGzRd29yxYhzTKoQ07L3jn2epM0y0l0ZMJ2TT9PGr3YFvfru/MWP
+	 mE0zgjCNAGG4n/ysqBlIBysyGbkho+E9UfZNLtv7paNftsz1ZUR/syLzyrLWto9viLA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kFWCcGlL;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DXQlO9Ix;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C3ABA1F000C1;
-	Wed,  4 Nov 2026 10:38:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793788695;
-	bh=7WqLBTNaocKw6zya4bDuJ8X9i+wGGcj+XzFlExge3f4=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=ntQ21sjpfglYdrNuDKbx+zsOFjNf5KR6yy6Wg+OBjFiBjci8wzKwraHKrc0d9dHMM
-	 2zXNZg1+TKYTetvnYa6qKaR6+K/xEHt9wwAw10MYuSbHWudAK7VA6Pr5W40vcmt1H5
-	 eBuqGrjy3HMX03pZ5wV7cOMFa5vVI9qffefkMKaoBdSNj3GsOV3cmocW5Ka8aknp5j
-	 GdYZTgVHHbCM+VmGrjsQH5JNGpZSHA3My56t21vGu/2K6kobBdMH5xRhYn+U02raGN
-	 r4tSQdqJZPuW7oSxkuNNCQtUwz7Oj+o5EeQq32Z0W+k0zmWJzyjQXGHXDEkGRBuovF
-	 VgdfMmhYs3LQw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 24F0346DA7;
-	Wed,  4 Nov 2026 10:38:14 +0000 (UTC)
-From: Mark Korenberg via B4 Relay <devnull+socketpair.gmail.com@kernel.org>
-Date: Wed, 04 Nov 2026 15:38:13 +0500
-Subject: [PATCH] btrfs: tag all metadata I/O with REQ_META
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5738F606D81A
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:38:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5738F606D81A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kFWCcGlL;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DXQlO9Ix
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A48KwZf715530
+	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 10:38:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	5RYDMyWIvDWHXpulkX0r+TT2+36MfHzUYVRBJn+WEvo=; b=kFWCcGlLKrgmTcPV
+	lyTb+uihxB9GLLYLojwz8jsDGIFTWyysD1ul7OJ1cnfkmvyayJ4/W6XkVjHq8ZZb
+	NY4jXSuraBOaEHIXxiaxroBDKCJdPmJMaYvkhWykGx55Zw4D+0yXxLWFuBoY16mJ
+	Ba2oKQG/Ho/0PxJHBZ5YP0/JlLIQ06ju0CztdkOPnFSfnHlH2V+w0I8EjGNAbg7f
+	Mhr2j1/fu8YReE3vTYouRA/THkGfmGkkQZHYgScrtPw0KYzsmq00+9u7gmFh02Nr
+	fSbD3wgJw6anpPe5zntniAHt70e8yeTCdftFTDl/u5ipMn5sdmQl3c96xRe5aUJE
+	5N4JTQ==
+Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqn8y39we-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:38:21 +0000 (GMT)
+Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-99859876e19so114363241.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 02:38:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793788700; x=1794393500; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5RYDMyWIvDWHXpulkX0r+TT2+36MfHzUYVRBJn+WEvo=;
+        b=DXQlO9Ixf5MaxB4Nk5/UzinqSZGfjBhcIsx5+MwmoEphUppYoIv9YLBYsWwsSt9n4R
+         R/RKpaocVo5ZvJ1I26KwxLnHF7ONgfIYW+XdP/MDMdp12QAWuhW/Kp1MXZjVl/Ay4d0T
+         oq5C3m2j8YbHIBSQxTnJhWmv7eutzODEE0BUtQQ4EWAAkgwXaccKsk/q7qtdC7P7wmY6
+         clV+F3ro+V+FYfTBXMKTYdQKQj+eslxmlFi23iUWCCZasAPrIOXvK+/JGa5/qBx7BbL/
+         pPjagCvFQ0dyw4ULrz462nEP8wv+FUVdppyvEEF+c+Muz+uvk6i2qBbBTHbW2NjAYhLC
+         LlHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793788700; x=1794393500;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5RYDMyWIvDWHXpulkX0r+TT2+36MfHzUYVRBJn+WEvo=;
+        b=1i8ECoQ+Z3rOEMIuI6x3T/6OME033b0FmMDQTGS4yKX/WJAc6eqxIlbQ5kIszvA8sa
+         /nPvXU3nA6fwntwpsZr6mACJTN/Q/R8pOpe1ay3s0DZ12M/9a/AwAofMaTrIPTNyOLtc
+         c++nDOOnUhtQAce+YsN54H8PWQ/avkALwRqcS3VG3kFqNLRJtY1CKTAWzm+ft69beYfM
+         CxNbAnyYnijD76JWFMgrQPaySObFhTAWDo6Uk4aaIodEZ9P52yzipLReHr2LboQTprYK
+         PIJa3vugHs2pRDpTzSd/lXF25dmr7mz0Xo7W5kvPyw4TVhYLMXm4rZ6XAGGqUtpc7HKt
+         ibtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxJSd0Zg3GqSS4JXHxUr+U+JSaOgR/1IxMIjPUJLIb4EK7jJ9FZ8you5klpiarYp8y9yQw5/+JYs1EIfQ4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9H3hp3lIoSz3Yd7Ng56H2fxiR201zze1oHuzzqbjQU1H66np9P
+	+yRM/hVqCwuEsGMQLH5JyAkTlgOI/k8S9l9YemaTjBYVMYu8j0xOJ0eCdcGZwf53c9iDbOzT6ZJ
+	lU+aeuC28CgPQunK7Q6rseK45NNghDVvB8uBJ8dk5g6MoB8lMT0RD7eDvqmNnvIQRB5w=
+X-Gm-Gg: AYBFou3/wrAFFzR5Bwi51c0CfNGMg3446CKZ8Hk+zEsnYhHagdJuCxwZiM2Mt978Cgj
+	mWqk574rF/s9cW5fukA4qxQ/nNidS8H0t1WeSVDXsceWfLzxams+PNFxMuFik+fs7xebWxMLxnX
+	sx3uGbD9EYa6paIL7OFVP2mFbx70zHSFP3sG6gVfUVxTmJsOn+FJkQkzk63UCtH64+pakZFDFye
+	TG5oixWJkiazKeJxZ2hKxFDiilr5ythy4/qPAbHScuORLYTc4qSN46MMhUs/tMsQ1HV/EJH26TS
+	ltcL9LGJWzRrj5RwPi0kOQMJBy0zrk+LA0VW0LpY72os4YEnS9GkxOj7abh8WLjPe6QEcqv1rNu
+	61l4dNU/dZ/fZAhEqUMfV9OBKE1rZIdNxxAFCsW8vNGJLbAYigZTju0Z443JaUioLBXnkUVmbp/
+	8rkw==
+X-Received: by 2002:a05:6102:4493:b0:7cb:bb33:8412 with SMTP id ada2fe7eead31-7d072552d95mr5297515137.10.1793788700172;
+        Wed, 04 Nov 2026 02:38:20 -0800 (PST)
+X-Received: by 2002:a05:6102:4493:b0:7cb:bb33:8412 with SMTP id ada2fe7eead31-7d072552d95mr5297510137.10.1793788699703;
+        Wed, 04 Nov 2026 02:38:19 -0800 (PST)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fecac17c1sm3084576f8f.10.2026.11.04.02.38.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 02:38:18 -0800 (PST)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Date: Wed, 04 Nov 2026 11:38:11 +0100
+Subject: [PATCH v11 4/5] gpio: shared: detach the proxy device from struct
+ gpio_shared_ref
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,236 +118,251 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261104-btrfs-sb-read-req-meta-v1-1-e06b4d059897@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MOwqAQAwFryKpDbjiB72KWOxq1BT+kkUE8e4Gp
- 3gwxZsHlIRJoU0eELpYed9MXJrAsPhtJuTRHPIsr5zLCgxRJkUNKORHmxNXih7rQGVTe6N0YOd
- DaOL7D3f9+3590TW5aAAAAA==
-X-Change-ID: 20261104-btrfs-sb-read-req-meta-7be597aaaa51
-To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>
-Cc: Qu Wenruo <wqu@suse.com>, Mark Harmstone <mark@harmstone.com>, 
- linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Mark Korenberg <socketpair@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793788693; l=8044;
- i=socketpair@gmail.com; s=20260603; h=from:subject:message-id;
- bh=mYH3/gnnOZUSAhAg/m5d4wWs4j5FYwgoK/14jQ1efxc=;
- b=anZ01FKCWN9aFwRKCMSDidaF09ljwxpxtqjTu4+J+D4mLTyRtxHqg/1Ebg3vHvzEnqqce2nNl
- 2mdA+kPyCbDDYWrQKrdpKdQVpSSglshizFCSC+5P4RIGaelMFvxgKRy
-X-Developer-Key: i=socketpair@gmail.com; a=ed25519;
- pk=2iAMjWhs7kA9X8ccetT2YVX8dvniXua2okQogw3Don8=
-X-Endpoint-Received: by B4 Relay for socketpair@gmail.com/20260603 with
- auth_id=806
-X-Original-From: Mark Korenberg <socketpair@gmail.com>
-Reply-To: socketpair@gmail.com
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-gpio-shared-fwnode-lookup-v11-4-42b9963d26c7@oss.qualcomm.com>
+References: <20261104-gpio-shared-fwnode-lookup-v11-0-42b9963d26c7@oss.qualcomm.com>
+In-Reply-To: <20261104-gpio-shared-fwnode-lookup-v11-0-42b9963d26c7@oss.qualcomm.com>
+To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6269;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=oS8Wea8tAKoUySXn3SQwqrzDeA3aYvYl2VhOi30LNKw=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq6wsSacQXfDkiWcnPa+a2X3KgiQV3Pl9JSBe3N
+ iyBGgseTw2JAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCausLEgAKCRAFnS7L/zaE
+ w+Y7D/4jfK0XBdP+4N6/mdC3fjnp9eorlOhO52EI4OTp53v/HbZFkEIO96bbCQt+cFZrS7KLdbV
+ MmGQLyMXOqLKtvWx2V8NCcVcqC0Ov5OQjfIVNDlzGfiJhp2g+5hX90S6/+B/LhpA5tBJ5wQ2t6t
+ bcHKbc5NRu5kLvtOEo+mP+xaCvHZDr3P+cklEERpLtnkmX+PIAbsDTmA2UKHSbswQvkUt66zM7k
+ DYsVDKoaMmylWPZVHzQjWWdBPiKPQzSuaodF3eQ1mTKyjpSDElROMXUs+m0flud7ZvZvEHVfTYR
+ ypwZd+rQQpgy+UT6aBLmCr8vcxXSODcjuUuBAbOJKSz30etXUm3smbWzpOLoMPK4hpjhzcTIe9+
+ U75fxQv6TLz5idLmPMGrdv9EwjcuygM5KLawRDsWv81lUKX7SDHzZhK5kNoXqa57kHJRbUDxW/g
+ oMXBFCvirYLHiPazRxEdBgBI9Uys17Tjd5XoLaPeoKsKt4HJ+0HxUjjRonUNPPVubrEJPepK/4z
+ BQPih01j+Bn1Vi/BZECn/7jt1Zu685VJG7SeK4ZTZqLRqglCGWlVezjuhQurYW4DnfzG0ZSGjgd
+ sIaD+ODbjzjlPC8svJ45zBUvf34DwYVtgfs8fcyVKoEzbrV6zlKoUzUcfU2GjnFw9qwzRDPwR0q
+ 4oUFgj99LhJiUDw==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Proofpoint-GUID: 2IcRU140mNSsyy0PBSimqwdrGuBDGLwq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA0MiBTYWx0ZWRfX8d7Wuze8UP6n
+ 1cUeh7cTAoLVMCJxbEY70oQE+Uypmsr6JsQY6vZW7RZmLFzJ0ZDaElZE1UYT6hBgzrp3yMRunTz
+ WqKC9mMt1KS6EQzh/MDASyrBLvO8mikZAjMPlxd7OHSasmERmxGwC98UpUSHqj3vAxdhmPbmuoO
+ LEMlNbbLwoKQOf5AxYgtX7BGdXFslB8XKpCE9K3uCsQTRTxivr1yT0W5PWPjhy4RwafyQzlYoYq
+ XEvM36iCVjL9cebvbjOsxz/faB7Hw3LsdPg3YE6UjwQp3YXmg81w1xLfZkbAP/Day6LJSg+4Z8U
+ 2D3M2A29sSXUTqqKgRqsOf2wCg9YNf64xzUfZ2j5zJNbd+MeWhwN1LWLa1drHMOixfCngnvrdbq
+ P4q6zQ5Ru6XYpBxs71Alndy93gaq3H/k7G31MTXrBNl3l56/B+ZSa+iENt9+dUSFYWb4CkrGdj9
+ F9KjY+YNqG5bsp3LeCQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA0MiBTYWx0ZWRfX14v64f918oeh
+ 74vxi9gf35ga//nCkw8mbq4FdJC+wrGTsFTWrYssF0pYSMa1uMDci7kKRnzEmgaKawiDHrcwgER
+ UxF9crrgVaHrabQfUAI9V7RsjgXBJZ0=
+X-Proofpoint-ORIG-GUID: 2IcRU140mNSsyy0PBSimqwdrGuBDGLwq
+X-Authority-Analysis: v=2.4 cv=NP5AaE6g c=1 sm=1 tr=0 ts=6aeb0b1d cx=c_pps
+ a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=nd_FmhSvACMRRlF81YkA:9 a=QEXdDO2ut3YA:10 a=TOPH6uDL9cOC6tEoww4z:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_02,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 bulkscore=0 suspectscore=0 adultscore=0
+ phishscore=0 lowpriorityscore=0 malwarescore=0 spamscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040042
 
-From: Mark Korenberg <socketpair@gmail.com>
+Sashiko reported a pre-existing issue with the reference-counted
+auxiliary device being embedded in struct gpio_shared_ref. We
+unconditionally memset() the struct when setting up the GPIO shared
+proxy parent while there may still be references to it held by users.
 
-Tree block reads and writes and super block writes carry REQ_META, but
-several other paths do metadata I/O without it, so the block layer and
-drivers (blktrace, BFQ, blk-cgroup, wbt, ublk) see it as data I/O:
+While in practice this would never happen and sashiko seems to have
+confused the parent auxiliary device and the separately allocated struct
+device embedded in struct gpio_device, it's still a bad pattern and
+could lead to memory corruption if a user deliberately took reference to
+the auxiliary device via one of the lookup functions and kept it over
+the GPIO parent's teardown.
 
-- scrub reads super blocks with a bare REQ_OP_READ;
-- btrfs_repair_bbio_failure() rewrites a bad tree block copy without it;
-- RAID5/6 rbios build new per-device bios from a bare op, so all tree
-  block writes on RAID5/6, and recovery reads, lose the flag;
-- scrub and dev-replace read, repair and copy metadata block groups
-  without it;
-- remap relocation copies metadata block groups without it.
+Move the auxiliary device struct out of the shared reference structure
+and allocate its memory separately on proxy setup.
 
-Tag these by the chunk type: metadata and system chunks get REQ_META,
-mixed chunks do not, as they also hold data.  All bios of a block group
-then carry the same flag and stay mergeable (blk-cgroup does not merge
-bios that differ in REQ_META).
+Since we're already touching that field: change the name to something
+more meaningful: it's more important to point out this is the proxy
+device instead of indicating its type in the name.
 
-This does not change the btrfs submission path: scrub and remap bbios
-skip checksumming, and scrub_read_endio() and scrub_repair_read_endio()
-do not wait for other I/O, so running them on endio_meta_workers is
-fine.  With blk-cgroup, metadata scrub I/O is now issued as root and
-charged back, like other metadata I/O.
-
-bdev_rw_virt() takes an enum req_op, but gfs2 and xfs already pass
-REQ_META through it.
-
-Signed-off-by: Mark Korenberg <socketpair@gmail.com>
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
-I noticed this in the request log of a ublk zoned device: tree block
-reads and writes arrive with UBLK_IO_F_META, while the super block
-reads at mount do not.  An audit of all bio submission sites in
-fs/btrfs then found the paths listed in the commit message.
+ drivers/gpio/gpiolib-shared.c | 71 +++++++++++++++++++++++++++----------------
+ 1 file changed, 45 insertions(+), 26 deletions(-)
 
-The super block reads at mount are the one case I left alone, along
-with a few others:
-- btrfs_read_disk_super() and sb_write_pointer() read through the
-  block device page cache, which cannot pass REQ_META.  That is on
-  purpose since 8f32380d3f29 ("btrfs: use the page cache for super
-  block reading"), to stay coherent with mkfs and udev.  The same goes
-  for btrfs_scratch_superblocks().
-- Discards free space, and the empty preflush of write_dev_flush()
-  covers the whole device.
-
-Testing: virtme-ng VM, memory backed null_blk, tracefs
-block:block_bio_queue, every bio classified as super block or by the
-chunk type of its dev extent:
-- RAID5 metadata and data: copy /usr/include, scrub, then replace
-  devid 1 with a new device
-- DUP metadata with one copy of a leaf corrupted, read the directory
-  until "read error corrected"
-
-Bios of metadata chunks, with REQ_META / without:
-
-                                before      after
-  RAID5 writes (and RMW reads)  0 / 274     245 / 0
-  scrub                         0 / 390     369 / 0
-  scrub, super blocks           0 / 6         6 / 0
-  dev-replace                   0 / 258     243 / 0
-  repair write                  0 / 1         1 / 0
-
-No data bio carries REQ_META, before or after.  No new warnings, W=1
-build clean.
-
-Not tested: the remap relocation part, btrfs-progs 7.1 here cannot
-create a remap-tree filesystem.  Mark, could you give it a look?
-
-The audit, the patch and the test were drafted with the help of an AI
-assistant (Claude Opus 5.5).
----
- fs/btrfs/bio.c        |  3 ++-
- fs/btrfs/raid56.c     |  3 ++-
- fs/btrfs/relocation.c | 13 ++++++++-----
- fs/btrfs/scrub.c      |  5 +++--
- fs/btrfs/volumes.h    | 10 ++++++++++
- 5 files changed, 25 insertions(+), 9 deletions(-)
-
-diff --git a/fs/btrfs/bio.c b/fs/btrfs/bio.c
-index 2e12a6d7e16f..efbce4d549ff 100644
---- a/fs/btrfs/bio.c
-+++ b/fs/btrfs/bio.c
-@@ -951,7 +951,8 @@ int btrfs_repair_bbio_failure(struct btrfs_bio *bbio, const struct bvec_iter *or
+diff --git a/drivers/gpio/gpiolib-shared.c b/drivers/gpio/gpiolib-shared.c
+index 6b183864933870e54780715c4dd9179faf800d09..7270a861bb5d787d41b7e2f055d707415774256f 100644
+--- a/drivers/gpio/gpiolib-shared.c
++++ b/drivers/gpio/gpiolib-shared.c
+@@ -35,11 +35,10 @@ struct gpio_shared_ref {
+ 	/* GPIO flags this consumer uses for the request. */
+ 	enum gpiod_flags flags;
+ 	char *con_id;
+-	int dev_id;
+ 	/* Protects the auxiliary device struct and the lookup table. */
+ 	struct mutex lock;
+ 	struct lock_class_key lock_key;
+-	struct auxiliary_device adev;
++	struct auxiliary_device *proxy_dev;
+ 	struct gpiod_lookup_table *lookup;
+ 	bool is_reset_gpio;
+ };
+@@ -94,10 +93,6 @@ static struct gpio_shared_ref *gpio_shared_make_ref(struct fwnode_handle *fwnode
+ 			return NULL;
  	}
  
- 	repair_bio = bio_alloc(smap.dev->bdev, max(1, length >> PAGE_SHIFT),
--			       REQ_OP_WRITE | REQ_SYNC, GFP_NOFS);
-+			       REQ_OP_WRITE | REQ_SYNC |
-+			       (is_data_inode(inode) ? 0 : REQ_META), GFP_NOFS);
- 	repair_bio->bi_iter.bi_sector = smap.physical >> SECTOR_SHIFT;
- 	while (cur < length) {
- 		struct page *page = bio_iter_page(&bbio->bio, iter);
-diff --git a/fs/btrfs/raid56.c b/fs/btrfs/raid56.c
-index a8a8004bb14c..1b5cdcdeced3 100644
---- a/fs/btrfs/raid56.c
-+++ b/fs/btrfs/raid56.c
-@@ -1205,7 +1205,8 @@ static int rbio_add_io_paddrs(struct btrfs_raid_bio *rbio, struct bio_list *bio_
- 	/* put a new bio on the list */
- 	bio = bio_alloc(stripe->dev->bdev,
- 			max(rbio->bioc->stripe_len >> PAGE_SHIFT, 1),
--			op, GFP_NOFS);
-+			op | btrfs_chunk_req_meta(rbio->bioc->map_type),
-+			GFP_NOFS);
- 	bio->bi_iter.bi_sector = disk_start >> SECTOR_SHIFT;
- 	bio->bi_private = rbio;
+-	ref->dev_id = ida_alloc(&gpio_shared_ida, GFP_KERNEL);
+-	if (ref->dev_id < 0)
+-		return NULL;
+-
+ 	ref->flags = flags;
+ 	ref->con_id = no_free_ptr(con_id_cpy);
+ 	ref->fwnode = fwnode;
+@@ -306,31 +301,43 @@ static int gpio_shared_of_scan(void)
+ }
+ #endif /* CONFIG_OF */
  
-diff --git a/fs/btrfs/relocation.c b/fs/btrfs/relocation.c
-index b2ac5b836b21..af17be38eea3 100644
---- a/fs/btrfs/relocation.c
-+++ b/fs/btrfs/relocation.c
-@@ -4146,8 +4146,9 @@ static int copy_remapped_data_io(struct btrfs_fs_info *fs_info,
+-static void gpio_shared_adev_release(struct device *dev)
++static void gpio_shared_proxy_dev_release(struct device *dev)
+ {
++	struct auxiliary_device *adev = to_auxiliary_dev(dev);
+ 
++	ida_free(&gpio_shared_ida, adev->id);
++	kfree(adev);
  }
  
- static int copy_remapped_data(struct btrfs_fs_info *fs_info, u64 old_addr,
--			      u64 new_addr, u64 length)
-+			      u64 new_addr, u64 length, u64 type)
+-static int gpio_shared_make_adev(struct gpio_device *gdev,
+-				 struct gpio_shared_entry *entry,
+-				 struct gpio_shared_ref *ref)
++static int gpio_shared_make_proxy_dev(struct gpio_device *gdev,
++				      struct gpio_shared_entry *entry,
++				      struct gpio_shared_ref *ref)
  {
-+	const blk_opf_t meta = btrfs_chunk_req_meta(type);
- 	int ret;
- 	const u64 copy_len = min_t(u64, length, SZ_1M);
- 	struct page **pages;
-@@ -4172,12 +4173,12 @@ static int copy_remapped_data(struct btrfs_fs_info *fs_info, u64 old_addr,
- 		to_copy = min_t(u64, to_copy, BIO_MAX_VECS << PAGE_SHIFT);
+-	struct auxiliary_device *adev = &ref->adev;
+-	int ret;
++	struct auxiliary_device *adev;
++	int ret, id;
  
- 		ret = copy_remapped_data_io(fs_info, &priv, pages, old_addr,
--					    to_copy, REQ_OP_READ);
-+					    to_copy, REQ_OP_READ | meta);
- 		if (ret)
- 			goto end;
+-	guard(mutex)(&ref->lock);
++	adev = kzalloc_obj(*adev);
++	if (!adev)
++		return -ENOMEM;
  
- 		ret = copy_remapped_data_io(fs_info, &priv, pages, new_addr,
--					    to_copy, REQ_OP_WRITE);
-+					    to_copy, REQ_OP_WRITE | meta);
- 		if (ret)
- 			goto end;
+-	memset(adev, 0, sizeof(*adev));
++	id = ida_alloc(&gpio_shared_ida, GFP_KERNEL);
++	if (id < 0) {
++		kfree(adev);
++		return id;
++	}
  
-@@ -4344,7 +4345,8 @@ static int move_existing_remap(struct btrfs_fs_info *fs_info,
- 		goto end;
- 	}
+-	adev->id = ref->dev_id;
++	adev->id = id;
+ 	adev->name = "proxy";
+ 	adev->dev.parent = gdev->dev.parent;
+ 	adev->dev.platform_data = entry;
+-	adev->dev.release = gpio_shared_adev_release;
++	adev->dev.release = gpio_shared_proxy_dev_release;
  
--	ret = copy_remapped_data(fs_info, new_addr, dest_addr, dest_length);
-+	ret = copy_remapped_data(fs_info, new_addr, dest_addr, dest_length,
-+				 bg->flags);
- 	if (unlikely(ret))
- 		goto end;
- 
-@@ -5161,7 +5163,8 @@ static int do_remap_reloc_trans(struct btrfs_fs_info *fs_info,
- 		}
- 	}
- 
--	ret = copy_remapped_data(fs_info, start, new_addr, length);
-+	ret = copy_remapped_data(fs_info, start, new_addr, length,
-+				 src_bg->flags);
- 	if (ret) {
- 		btrfs_abort_transaction(trans, ret);
- 		goto fail;
-diff --git a/fs/btrfs/scrub.c b/fs/btrfs/scrub.c
-index 98362c91bce4..269948b1caeb 100644
---- a/fs/btrfs/scrub.c
-+++ b/fs/btrfs/scrub.c
-@@ -934,7 +934,8 @@ static struct btrfs_bio *alloc_scrub_bbio(struct btrfs_fs_info *fs_info,
- 	 * enough to contain the full stripe.
- 	 */
- 	bbio = btrfs_bio_alloc(round_up(stripe->stripe_len, PAGE_SIZE) >>
--			       PAGE_SHIFT, opf,
-+			       PAGE_SHIFT,
-+			       opf | btrfs_chunk_req_meta(stripe->bg->flags),
- 			       BTRFS_I(fs_info->btree_inode),
- 			       logical, end_io, stripe);
- 	bbio->is_scrub = true;
-@@ -2957,7 +2958,7 @@ static int scrub_one_super(struct scrub_ctx *sctx, struct btrfs_device *dev,
- 	int ret;
- 
- 	ret = bdev_rw_virt(dev->bdev, physical >> SECTOR_SHIFT, sb,
--			BTRFS_SUPER_INFO_SIZE, REQ_OP_READ);
-+			BTRFS_SUPER_INFO_SIZE, REQ_OP_READ | REQ_META);
- 	if (ret < 0)
+ 	ret = auxiliary_device_init(adev);
+-	if (ret)
++	if (ret) {
++		ida_free(&gpio_shared_ida, id);
++		kfree(adev);
  		return ret;
- 	ret = btrfs_check_super_csum(fs_info, sb);
-diff --git a/fs/btrfs/volumes.h b/fs/btrfs/volumes.h
-index 891bc2432870..66796f09eae8 100644
---- a/fs/btrfs/volumes.h
-+++ b/fs/btrfs/volumes.h
-@@ -709,6 +709,16 @@ static inline enum btrfs_map_op btrfs_op(const struct bio *bio)
++	}
+ 
+ 	ret = auxiliary_device_add(adev);
+ 	if (ret) {
+@@ -341,6 +348,10 @@ static int gpio_shared_make_adev(struct gpio_device *gdev,
+ 	pr_debug("Created an auxiliary GPIO proxy %s for GPIO device %s\n",
+ 		 dev_name(&adev->dev), gpio_device_get_label(gdev));
+ 
++	scoped_guard(mutex, &ref->lock) {
++		ref->proxy_dev = adev;
++	}
++
+ 	return 0;
+ }
+ 
+@@ -480,7 +491,7 @@ int gpio_shared_add_proxy_lookup(struct device *consumer, struct fwnode_handle *
+ 			char *key __free(kfree) =
+ 				kasprintf(GFP_KERNEL,
+ 					  KBUILD_MODNAME ".proxy.%u",
+-					  ref->adev.id);
++					  ref->proxy_dev->id);
+ 			if (!key)
+ 				return -ENOMEM;
+ 
+@@ -511,10 +522,17 @@ int gpio_shared_add_proxy_lookup(struct device *consumer, struct fwnode_handle *
+ 	return -ENOENT;
+ }
+ 
+-static void gpio_shared_remove_adev(struct auxiliary_device *adev)
++static void gpio_shared_remove_proxy_dev(struct gpio_shared_ref *ref)
+ {
+-	auxiliary_device_delete(adev);
+-	auxiliary_device_uninit(adev);
++	struct auxiliary_device *proxy;
++
++	scoped_guard(mutex, &ref->lock) {
++		proxy = ref->proxy_dev;
++		ref->proxy_dev = NULL;
++	}
++
++	auxiliary_device_delete(proxy);
++	auxiliary_device_uninit(proxy);
+ }
+ 
+ static void gpio_shared_teardown_entry(struct gpio_device *gdev,
+@@ -534,7 +552,7 @@ static void gpio_shared_teardown_entry(struct gpio_device *gdev,
+ 			ref->lookup = NULL;
+ 		}
+ 
+-		gpio_shared_remove_adev(&ref->adev);
++		gpio_shared_remove_proxy_dev(ref);
  	}
  }
  
-+/*
-+ * REQ_META for I/O to a chunk of type @type that holds only tree blocks.
-+ * A mixed chunk also holds data and gets no flag, otherwise its data
-+ * would be tagged as metadata.
-+ */
-+static inline blk_opf_t btrfs_chunk_req_meta(u64 type)
-+{
-+	return (type & BTRFS_BLOCK_GROUP_DATA) ? 0 : REQ_META;
-+}
+@@ -588,11 +606,11 @@ static int gpio_shared_setup_entry(struct gpio_chip *gc,
+ 			 fwnode_get_name(ref->fwnode) ?: "(no fwnode)",
+ 			 ref->con_id ?: "(none)");
+ 
+-		ret = gpio_shared_make_adev(gdev, entry, ref);
++		ret = gpio_shared_make_proxy_dev(gdev, entry, ref);
+ 		if (ret) {
+ 			gpiod_free_commit(desc);
+ 			list_for_each_entry_continue_reverse(ref, &entry->refs, list)
+-				gpio_shared_remove_adev(&ref->adev);
++				gpio_shared_remove_proxy_dev(ref);
+ 
+ 			return ret;
+ 		}
+@@ -617,7 +635,9 @@ int gpiochip_setup_shared(struct gpio_chip *gc)
+ 
+ 	list_for_each_entry(entry, &gpio_shared_list, list) {
+ 		list_for_each_entry(ref, &entry->refs, list) {
+-			if (gdev->dev.parent == &ref->adev.dev) {
++			guard(mutex)(&ref->lock);
 +
- static inline unsigned long btrfs_chunk_item_size(int num_stripes)
- {
- 	return offsetof(struct btrfs_chunk, stripe) +
++			if (ref->proxy_dev && gdev->dev.parent == &ref->proxy_dev->dev) {
+ 				/*
+ 				 * This is a shared GPIO proxy. Mark its
+ 				 * descriptor as such and return here.
+@@ -752,7 +772,6 @@ static void gpio_shared_drop_ref(struct gpio_shared_ref *ref)
+ 	mutex_destroy(&ref->lock);
+ 	lockdep_unregister_key(&ref->lock_key);
+ 	kfree(ref->con_id);
+-	ida_free(&gpio_shared_ida, ref->dev_id);
+ 	fwnode_handle_put(ref->fwnode);
+ 	kfree(ref);
+ }
 
----
-base-commit: df5b88a7914e18488908ddf13e14e31ab39f954c
-change-id: 20261104-btrfs-sb-read-req-meta-7be597aaaa51
-
-Best regards,
 -- 
-Mark Korenberg <socketpair@gmail.com>
-
+2.47.3
 
