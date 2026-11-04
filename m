@@ -1,64 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801459;
-	b=fYUUt2CLfeKmKbRORK+yhw7WcnD+TD2ZtxZKVqhedOJb9EYPxNtRd+KS7f7aSmJep52u
-	 lC3pmIIuKwvex5yHvbeywdtrs/Rf3GwR9xceB/Kx9i5SgN+KxWxZN536UV5aHRiuA81yS
-	 vWlqfU9ChDwG71sd4NVtW75hGwAgoaOJ+Qi4vt3O3n634aADHJL7S7IYpK0rzar0nZxLB
-	 zwMgzzWuNOf9e+XzQgi6KU/+DqSe2gnyz+P3aKxr8rnAlZY4CxdnQ+k08QT2hUenII8he
-	 j/IerNFIb8pIzSOZas6xxJrAhKru8+wBzeqvaLFEYS+KVQ1Fxii/v7Gbb6Uy8mTdQXQ==
+	t=1793801472;
+	b=O5MtesnbfkGTZgsSqS2AvC1ldUh8hm6Zgc9ZIrHOYB8lNry6S8/sEGix1Uri+qsLsjgE
+	 wZ6sKWAybettoruuNYyF4D/P0kF0n7eEE0aXTiivTCdVIY5PpFCTQjS21aDfY/O9yODpa
+	 BU0C7acRf8o1Vf4MWiaBr4YTkkWBK8bAOOZLyCa9L0R7pSwdzQ3yIClsjBjF9n7IP1Lux
+	 fQfEB+xL3EWcDgO0dbG6GTiXWOSIwSund5u0PUAABtU4KsPw/MS0twS+oTSpqU1qbO9Y1
+	 khaoVm9RYpXw5pkrBlFfDGHkCgEWrUoJXJzSFvDvaNva5DY9HxDgj8yGONdv295I/4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801459;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=bVcACiTZbNDhVU6xhENZ6o8aAhkqXOgSLVPaqMsdjow=;
-	b=CXktM9dT34BolYCBRDRtQ4eo1x099cTsZP0wFlnQMiXcjN3pcddDlMn4j5tI+STkBO8Z
-	 4C6fVsaXgnDJ5+qsbx4IA0c8JNl5yFPnoq/rLbwLyrg99yvHAbOgviXr2CnVnNr+XtItK
-	 Qw1imnKs9Ax9ILmR8tyYHEtRRvHSo1gsfLp7l6fz5qB775Oy5xLpP5e9aj9jt7UqotLPK
-	 zGNnWg9wFXQiiWVm1VdUA811urm232wKlpcBl7okoFY5ykMWh80sd9c0pJl4sqv4wKHK7
-	 SRLmM3tfg6l07nDZ/Ocx2Q5Unb1eWpsxRvGFUkp6jlA4iRcQdVC6zsNsW+ubCBAKupw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801472;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=5v/IeceO5lEoHHhAzzAauPQ1V+NlTtQgDK8PwjgXsvo=;
+	b=QyLn1SAB7u5GoToyChgADlW2eMck8bkB7GBCPTx53gx9HXe4dm2MK2y4NOBXwF2X74dk
+	 Oalq5PfhB8R6zu2hxuLHsBfgsLgmYNartj5FOdRQakdx+Fp8NlZV1IJdH9zKRGQBmkT3F
+	 2shN+/kumvSffEYYkj63rnJqKEt9Z3yfRHEtxVwOtCNIGPaJ+zY4FK8fwk7zLKE6rAlFW
+	 gEKeJzG+TlZ/4aoIoKt5OzPe1/XaOeLSvOQRC7gTJTIcBsmszOpFmuH2mwNlgkqFZq2/9
+	 5XhjIO200v4+SKAS4OLmk5UYSPxKEfPnFXSYjm4g5puLdxENIRhLC8NXgzuQ3loKO3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=WULk1VAc;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B88EE606A31B;
-	Wed,  4 Nov 2026 14:10:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B88EE606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=WULk1VAc
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C13492247;
-	Wed,  4 Nov 2026 06:10:53 -0800 (PST)
-Received: from e143914.arm.com (e143914.arm.com [10.2.213.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9C8EE3F628;
-	Wed,  4 Nov 2026 06:10:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793801456; bh=sDhQxKPD1vSwIgQ2ErCUWBV8m6RtnHjEWH3mc/dFqzQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WULk1VAc+HzOBfaTnepFre3WCClsuYTx9JkrYFxlufYmpigJKEj8cwoxge34L9nKc
-	 SSd7nZLFd4dmbIGocT7OBeFFhvnXku+zHo4BXN766Ceqc0j6GajB4vi08PBW2hv+yt
-	 2XevTCqECkAH3RgQMYSwvjv75HxW68Q2ydhOHW+k=
-Date: Wed, 4 Nov 2026 14:10:45 +0000
-From: Joey Gouly <joey.gouly@arm.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Will Deacon <will@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Shuah Khan <shuah@kernel.org>, Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Quentin Perret <qperret@google.com>, Fuad Tabba <tabba@google.com>,
-	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	kvm@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 00/16] KVM: arm64: selftests: Tests for protected VMs
-Message-ID: <aus8xb_xT64WKHDu@e143914.arm.com>
-References: <20261104084842.132944-1-fuad.tabba@linux.dev>
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=160.30.148.35
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25BEE606A31B;
+	Wed,  4 Nov 2026 14:11:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25BEE606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jKS650Q6Qz8Xrrd;
+	Wed, 04 Nov 2026 22:11:09 +0800 (CST)
+Received: from xaxapp04.zte.com.cn ([10.99.98.157])
+	by mse-fl1.zte.com.cn with SMTP id 6A4EAx4n033482;
+	Wed, 4 Nov 2026 22:10:59 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp02[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Wed, 4 Nov 2026 22:11:02 +0800 (CST)
+X-Zmail-TransId: 2afa6aeb3cf6ea8-37d90
+X-Mailer: Zmail v1.0
+Message-ID: <20261104221102824qAKUWNkiSgZ1yRnQM8hI9@zte.com.cn>
+In-Reply-To: <20261104220832716LXKf7OaS9dt1VJ8Q959AG@zte.com.cn>
+References: 20261104220832716LXKf7OaS9dt1VJ8Q959AG@zte.com.cn
+Date: Wed, 4 Nov 2026 22:11:02 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,130 +58,68 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104084842.132944-1-fuad.tabba@linux.dev>
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
+Cc: <linux-kernel@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIIDIvM10gYXRhOiBsaWJhdGEtc2NzaTogcmVqZWN0IHVuc3VwcG9ydGVkIEFUQS0zMiBzZXJ2aWNlIGFjdGlvbnM=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 6A4EAx4n033482
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Wed, 04 Nov 2026 22:11:09 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AEB3CFD.000/4jKS650Q6Qz8Xrrd
 
-On Wed, Nov 04, 2026 at 08:48:26AM +0000, Fuad Tabba wrote:
-> Hi folks,
-> 
-> This series adds selftests for protected VMs. A test skips on a host
-> without pKVM, and so does any case where the host doesn't have the
-> required feature, e.g., PtrAuth, SVE or hugetlb pages.
-> 
-> A couple of points:
-> 
-> - Each area gets its own test rather than cases folded into existing
->   tests such as psci_test, hypercalls, set_id_regs, etc. A protected
->   guest requires its own boot path, and has to share the ucall pool
->   before its first ucall. On top of that, a protected guest gets the
->   opposite result for many of those tests' checks.
-> 
-> - pkvm_exceptions skips its breakpoint, watchpoint and single-step cases
->   while a protected guest's ID_AA64DFR0_EL1.DebugVer is 0. pkvm_id_regs
->   reads the same field to choose between the hidden and the exposed
->   debug view. With the patch that adds self-hosted debug to protected
->   guests [1], both tests run the debug cases with no change.
-> 
-> The series is structured as follows:
-> 
->   01:     external_aborts: an abort injected before a vCPU's first run.
->   02-04:  Generic selftest changes: creating a protected VM, the pKVM
->           function IDs and the ucall pool's address.
->   05-06:  Protected-VM library: boot trampoline and helpers.
->   07-16:  The tests, one per area.
-> 
-> Based on Linux 7.4-rc1 (6628e7d4c6b25).
+From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-Hi!
+ata_scsi_var_len_cdb_xlat() handles a variable length CDB only when its
+service action is ATA_32 (ATA PASS-THROUGH (32)).  For any other service
+action it returns 1, which tells ata_scsi_translate() that the command
+has been handled and that scmd->result and the sense buffer were set by
+the translation function.
 
-I started to also write some realm tests a bit, you can check it out
-here:
-	https://gitlab.arm.com/linux-arm/linux-jg/-/tree/cca-kselftest
+No sense data is set in that path, so ata_scsi_translate() frees the qc
+and calls scsi_done() with scmd->result still zero.  The command thus
+completes with SAM_STAT_GOOD even though no ATA command was issued and
+no data was transferred.  Before ATA PASS-THROUGH (32) support was added,
+such CDBs were not claimed by ata_get_xlat_func() and were rejected by
+ata_scsi_simulate() with ILLEGAL REQUEST/INVALID COMMAND OPERATION CODE.
 
-It's WIP/prototype, but it may be good to have some sharing, if
-possible.
-For example I also added a 'pre-boot' stub, which looks like your
-pvm-entry.S:
+Fail unsupported service actions with ILLEGAL REQUEST/INVALID FIELD IN
+CDB and point the field pointer at the SERVICE ACTION field.
 
-	https://gitlab.arm.com/linux-arm/linux-jg/-/commit/cd3ae35d89974b02b7051a0c45cc68b4df8f9d3e
+Fixes: b1ffbf854e08 ("libata: Support for an ATA PASS-THROUGH(32) command.")
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+---
+Tested on 7.3.0-next-20261030 (QEMU/TCG guest) with an ATA disk
+(ata_piix, /dev/sda); no special hardware is needed.
 
-However I extracted the registers needed for the stub like this:
+A 32-byte VARIABLE_LENGTH_CMD CDB with service action 0x1234 (not
+ATA_32) and a 512-byte data-in buffer is sent with SG_IO.  A valid
+ATA PASS-THROUGH(32) READ SECTORS CDB is the control and is accepted
+on both kernels.
 
-	https://gitlab.arm.com/linux-arm/linux-jg/-/commit/f559d5b61fa1a37e2d7b23704bd367e079cf8eae
-
-This is because the current Realm branch I'm working on top of rejects
-writes to those system registers (TCR_EL1, CPACR_EL1 etc). Which is why
-I had to modify these functions, along with __aarch64_vcpu_add() and
-some others.
-
-I'm not sure how much there is to gain by sharing overall, but good to
-bring it up early!
-
-Thanks,
-Joey
-
-> 
-> Cheers,
-> /fuad
-> 
-> [1] https://lore.kernel.org/all/20261102093950.2922035-1-fuad.tabba@linux.dev/
-> 
-> Fuad Tabba (16):
->   KVM: arm64: selftests: Inject an abort before a vCPU's first run
->   KVM: selftests: Allow arm64 tests to create protected VMs
->   tools: arm-smccc: Add the pKVM memory sharing function IDs
->   KVM: selftests: Export the ucall pool's guest physical address
->   KVM: arm64: selftests: Add protected-VM boot trampoline
->   KVM: arm64: selftests: Add protected-VM library helpers
->   KVM: arm64: selftests: Add pkvm_host_abi host-interface test
->   KVM: arm64: selftests: Add pkvm_psci multi-vCPU PSCI test
->   KVM: arm64: selftests: Add pkvm_mem_share hypercall test
->   KVM: arm64: selftests: Add pkvm_smccc hypercall test
->   KVM: arm64: selftests: Add pkvm_id_regs register and trap test
->   KVM: arm64: selftests: Add pkvm_vcpu_regs register-state test
->   KVM: arm64: selftests: Add pkvm_irq interrupt test
->   KVM: arm64: selftests: Add pkvm_isolation host-access test
->   KVM: arm64: selftests: Add pkvm_lifecycle teardown test
->   KVM: arm64: selftests: Add pkvm_exceptions debug and SError test
-> 
->  tools/include/linux/arm-smccc.h               |  22 +
->  tools/testing/selftests/kvm/Makefile.kvm      |  12 +
->  .../selftests/kvm/arm64/external_aborts.c     |  21 +
->  .../selftests/kvm/arm64/pkvm_exceptions.c     | 261 ++++++++
->  .../selftests/kvm/arm64/pkvm_host_abi.c       | 428 ++++++++++++
->  .../selftests/kvm/arm64/pkvm_id_regs.c        | 306 +++++++++
->  tools/testing/selftests/kvm/arm64/pkvm_irq.c  | 268 ++++++++
->  .../selftests/kvm/arm64/pkvm_isolation.c      | 225 +++++++
->  .../selftests/kvm/arm64/pkvm_lifecycle.c      | 110 +++
->  .../selftests/kvm/arm64/pkvm_mem_share.c      | 394 +++++++++++
->  tools/testing/selftests/kvm/arm64/pkvm_psci.c | 632 ++++++++++++++++++
->  .../testing/selftests/kvm/arm64/pkvm_smccc.c  | 117 ++++
->  .../selftests/kvm/arm64/pkvm_vcpu_regs.c      | 221 ++++++
->  .../selftests/kvm/include/arm64/pkvm.h        |  74 ++
->  .../selftests/kvm/include/ucall_common.h      |   1 +
->  tools/testing/selftests/kvm/lib/arm64/pkvm.c  | 245 +++++++
->  .../selftests/kvm/lib/arm64/pvm-entry.S       |  58 ++
->  tools/testing/selftests/kvm/lib/kvm_util.c    |   5 +-
->  .../testing/selftests/kvm/lib/ucall_common.c  |   9 +-
->  19 files changed, 3406 insertions(+), 3 deletions(-)
->  create mode 100644 tools/testing/selftests/kvm/arm64/pkvm_exceptions.c
->  create mode 100644 tools/testing/selftests/kvm/arm64/pkvm_host_abi.c
->  create mode 100644 tools/testing/selftests/kvm/arm64/pkvm_id_regs.c
->  create mode 100644 tools/testing/selftests/kvm/arm64/pkvm_irq.c
->  create mode 100644 tools/testing/selftests/kvm/arm64/pkvm_isolation.c
->  create mode 100644 tools/testing/selftests/kvm/arm64/pkvm_lifecycle.c
->  create mode 100644 tools/testing/selftests/kvm/arm64/pkvm_mem_share.c
->  create mode 100644 tools/testing/selftests/kvm/arm64/pkvm_psci.c
->  create mode 100644 tools/testing/selftests/kvm/arm64/pkvm_smccc.c
->  create mode 100644 tools/testing/selftests/kvm/arm64/pkvm_vcpu_regs.c
->  create mode 100644 tools/testing/selftests/kvm/include/arm64/pkvm.h
->  create mode 100644 tools/testing/selftests/kvm/lib/arm64/pkvm.c
->  create mode 100644 tools/testing/selftests/kvm/lib/arm64/pvm-entry.S
-> 
-> 
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> -- 
-> 2.47.3
-> 
+  unpatched                            patched
+  status 0x00 (SAM_STAT_GOOD)          status 0x02 (CHECK CONDITION)
+                                       sk 0x05, asc 0x24
+diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
+index a61fb0331279..d29b54688b53 100644
+--- a/drivers/ata/libata-scsi.c
++++ b/drivers/ata/libata-scsi.c
+@@ -5027,7 +5027,13 @@ static unsigned int ata_scsi_var_len_cdb_xlat(struct ata_queued_cmd *qc)
+ 	if (sa == ATA_32)
+ 		return ata_scsi_pass_thru(qc);
+ 
+-	/* unsupported service action */
++	/*
++	 * Unsupported service action.  Set the sense data explicitly, as
++	 * returning 1 without it makes ata_scsi_translate() complete the
++	 * command with the SCSI result still zero, that is, with
++	 * SAM_STAT_GOOD.
++	 */
++	ata_scsi_set_invalid_field(qc->dev, scmd, 8, 0xff);
+ 	return 1;
+ }
