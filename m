@@ -1,116 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793816485;
-	b=ffewem6BQl7xGL7ch01DXBYjT+wcwtA98+UqKhUxRsq77sSE5BUOGOU6IuW0t/uyZ6cs
-	 FPhoja2VKDC1YpkMG6RFECBaw9zZ3bODqLS6BKE1DIUdgKpg2HBfIbH4tA6PZf/7EKP++
-	 ig2eioOjmrLiSs6GWQ54j7lAq+qnlOTEvcXm/UHJtGyyF+CrOt5WQfT/2LZx3R4VcZlak
-	 yuh2gqkdUg6s3MB5UViG3iueOU3SQSZ36tWxhiU5bbVddF+JInqiz3ZOFGi0wIN+QKdin
-	 mxAz0qN3i4IUAaTPeJhXzJbhfD404fH37Hz41uFBCYsemIIZ5Z/aj0gpjKPLxopuctw==
+	t=1793816499;
+	b=n5ejACTQnfhJCYut1eu3CWyqVbeuYuXs22sK0lAI4+0kMDJh2br6rp+cxAdRf/jh8xlw
+	 h9G5v7E0Y7IYF+LS4x1tkdY1qBUxBcJRPC6Zb39ZgmLFM/SrWMeG5IMMCl6qUp/ppkrlF
+	 wwGRdmr6pYfk+ghPUxflk9elxVJZN+iLbcDdBFy5i+8t7+8Lq2nNmnbAF4OkvCxeEJR9p
+	 ZJZkjEDioDgOgwBtIkrdnFrmpxJPHPONjj80mdJMR8gW7y0arentTl0zbZOhUO1HbIYBF
+	 yLJESH8ajrEavE3DsLFJQDQAmVyz28GoeSNhXr4mPgMSvIHO/C3cgxV62F+81cKDLEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793816485;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=k5d9AKGgnASGpBaA9KpcVgjLXomk+I+wEOEeX7xp7Ws=;
-	b=IfM/gV8b/J19liUJxoiGNT9fffXSxCrF2r5zmXwaRPNdZpuZMEYdEoEBrwSoYzrVVtT9
-	 qTiHLlsKVEtavCe6GmKKt+5uh2zEoxhy9Vc+jsNL4nqt5qMTjvqXboe6aqg5s6bwjowh8
-	 db7kl+8D0Jzfm/L4QHUTRcYfQ86at2WAQ5dIsPHskVgmMUHohq0hqUFxxrj/ln5kA7B7x
-	 r4bJAIJmxIXtnM9ikzutRX0/n6l6sESqUYt0lGL5LVda7hj/crOz0RlxU7Lhc4gZGojTr
-	 9Ybx/D99p/twvxNFCK6W/kZDT+g41GL7l1KHifdAXPZJLDQtElCV4+LDi0lwZvd+7zw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793816499;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=CM4gwMdxZlYgGsSUl0RsbvLHliJnK+Q/M3nlTsRIEQw=;
+	b=RxAbeC3dqt8OzSRIpPDnjJvy+TX0atYGqowhzYxX/diP90E5JvHeAVp/CCu1dKHSTX8H
+	 g2Xh5bYTQ+2N5Vtn6mTTn1QgrFoNLDkcVOBVAtT/c2FSc/KQNLqi5JctBZsexT3w2VDlV
+	 ihqYosF/LM3Z7uruBx2XWyAiV1Auqi6fVrLi/GM6XTqKfyGrdE2JNmCPjYIxoEc3Eehh8
+	 2EUMaSo3FzkhVz7pD4kA5SW5s6oZ/aW/1Arou1uLCXKrUkFFL+fctMki9j5K3UOZCiYqO
+	 v72QO1xv1pZfQrAExEcHIajJjp5vJzr5k9hmGaxV4c9w+Gt/zGgiSrQaOijkAK/Olog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iXWY16W4;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dChGoWYf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C378E6082BEC
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:21:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C378E6082BEC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F5BD606A8FC;
+	Wed,  4 Nov 2026 18:21:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iXWY16W4
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-4910b863b84so87603f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:21:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793816478; x=1794421278; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=k5d9AKGgnASGpBaA9KpcVgjLXomk+I+wEOEeX7xp7Ws=;
-        b=iXWY16W4ged8/qBPTv5M6NGbA7HDoliiumzdMwssxWszKa97bd7qAJfPEk9xnXHT8K
-         5qgWRXyMB95iVCtmxVosUVT56W+9r9IuWvOSHifkoMdE4TezSTaRQXs/gZfy0ez+TF2Q
-         7sXFpCnPBd156fT6hUQVoZlPtbkbW6dWE/YpjNBmJpOZSl0WH/zN3Doyn8CQCQAAqNkA
-         4EHDsdZ2KdPbO8YicddvuokiwCraM3lpO+l86nxZXOOmrdyAcumvig21MR9T1UtPspt8
-         pkaAXGFIDTJDfS3Mcx0DlB5Kj4OEA37j8UWBdAIHYES9nh+upNxS/tam489kYvAs7WG6
-         Vd/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793816478; x=1794421278;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=k5d9AKGgnASGpBaA9KpcVgjLXomk+I+wEOEeX7xp7Ws=;
-        b=A8MWmh4CzlAdvcoG1PuPIepQ9F9CwWfJh0GhfJSEOyHAxwRWdCn6KFLV1Vk0xQTiIb
-         UGpo3GCIsbY17uWip5bKNjBSWelG/yBCNXd9FuQWGyvLQUs0MQSoGmN+uj0mbVZxlXZ4
-         pJenuBH8amfv4Khb1I8U4lJYKUPVQWJTDdtIHsotq9MOXTegDYfYFe2dcwjwyRvRDjk8
-         blg+6wGIvKDoTrzwQKnnEqK2nfg9h2IbWxljBgHrG3VHyV5ZxwpH0pcYAlDgL76iLMKO
-         TFrVfMhrdUJ85pBY05HCTOHimjqSs/8IAeM6fZ7rwpCBfaBVbtCNNWtdv/1cneGRf+xV
-         l3Fw==
-X-Forwarded-Encrypted: i=1; AKwUvBzhNRlSpDeE8KP85l72ARB/JYwo9N+8jJm0WVPHLv9dM5xA+RbwHQoNMla83VIxEygQNy+Oc45/FI/cxDM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ME724n3L1NNRnNYq+jCf/P075V6pfbAoPZYJyd527L3Ucafhq
-	L8iYVn1uHtvvQLGgpdxqmRfGV2/caf+VYqIyIeO/8yKz6p7JOTKQe+xf
-X-Gm-Gg: AYBFou3aDZllVHbcrAjeJE7Mt3WeiYPITOWAoAIigzGR0OfCrm/Th+zimYdMjGAjE9o
-	hyCLfSgr9g+J44T2jJl7qKXA39XpLyRZ6XKpEUz7yiEJ4VZDuJUCzXffc+zzBhjgIqK678tdUsa
-	jVHeOZl4i7EKds978ePqyrMwUihzyjgUKql2jw0ds2RIwWcO/vbQxA3qAp32P3crPU+66OxD6z2
-	erNMZYXZBd9AI9xe+9uqFeCzBjjWom6igG/gmta3D3CtK1UXB9VaPRIbkFJ3yKHNSKfIT4eErTi
-	u5IWD+Z8TI+yat9Ja0v0NhCntxq+gt7G21E2HVoYXpZgQp+mkSumPQ/JCSUSSsgRiRTI1IdCmqe
-	s0CE9xc8r1tX9qtcSwAPhzVUBzLRneZmcl+V27lOxQ8CTQc7s7Wxwv268mRQ9ZuM6WC28znk56/
-	sJeKJhCw0ek/vwaf+4kFmBtQQQbkyTwQPE4jPzMaTHt0cXvZ11vqTOQV5tOGsYzgO1EXA0+wuuB
-	cO9j4d4uTmYuFT8gPYHEynDos5zTh7Otmk42KjN/iX9oSmXMIU8qHianffz2+Fb3jv6nnT5Bs6P
-	LpqtFvPz4e/8+BX5ak0aZZ8NAho0/uLVnIO6t13mtxE9Rgfbd2tp4goQ26aT8oMoVlhb2ZxELwX
-	NXNFUcW76Ddh4rQPR1kqGfepNjMdwsv/vzx4azg==
-X-Received: by 2002:a05:6000:41f0:b0:48c:54ec:ea3 with SMTP id ffacd0b85a97d-4911963185fmr440964f8f.13.1793816477918;
-        Wed, 04 Nov 2026 10:21:17 -0800 (PST)
-Received: from iku.lan ([2a00:23c8:254f:fd01:b079:a2f1:caf7:b446])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed0844e2sm4073202f8f.28.2026.11.04.10.21.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:21:17 -0800 (PST)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <clement.leger@linux.dev>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Russell King <linux@armlinux.org.uk>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-renesas-soc@vger.kernel.org,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH net-next v4 06/14] dt-bindings: net: dsa: renesas,rzn1-a5psw: Add RZ/T2H and RZ/N2H ETHSW support
-Date: Wed,  4 Nov 2026 18:20:54 +0000
-Message-ID: <20261104182105.1102555-7-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104182105.1102555-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20261104182105.1102555-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dChGoWYf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E75571F00919;
+	Wed,  4 Nov 2026 18:21:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793816498;
+	bh=CM4gwMdxZlYgGsSUl0RsbvLHliJnK+Q/M3nlTsRIEQw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=dChGoWYfGsjl1UeA7R0Fromsfxfmd3GfHNkY+ncLIbdQx/0WJAOhNYdJ+MiNUOHvO
+	 F/Pk660DbLd341wKj1EgwDPw1fr6rvo9SV4Yqn90qevJgNVLWMSg5mwVND1/blefw/
+	 TWY/kGKZhWc8bUUcEAQcEnJ4CD2XZzH6u+S4n5ZGvZqX4znmApkaw3ndKa3IivSW75
+	 GY1z4YHdlTTwapkjYxz428JrFDYXCyMxaX5Wickxoie36Se7XBumA8R7k41Gr3E4zE
+	 DJgasaO95PWY1jGhDUC6Wdy5Yef8UCdiuyF5kK3fTLzcXRIsBVOyj00xqnmO8eCgW/
+	 0WHp2ifwLqt/Q==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Wed, 04 Nov 2026 18:20:25 +0000
+Subject: [PATCH v5 07/11] objtool: cache relocations, do less work,
+ eliminate relocation hash
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,249 +53,515 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-build-speedup-v5-7-0f6018be8dae@kernel.org>
+References: <20261104-build-speedup-v5-0-0f6018be8dae@kernel.org>
+In-Reply-To: <20261104-build-speedup-v5-0-0f6018be8dae@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, 
+ Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+ Aaron Tomlin <atomlin@atomlin.com>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: ljs@kernel.org, linux-kbuild@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+ linux-m68k@lists.linux-m68k.org, linux-modules@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=14469; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=PJHj3nulYv1Yc9CmOuSxqGVQjo1JlgVzbt/GHTD8fns=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJel+faR5Zovxa+fu/zDadI12ubI1fvnKT+50X09uDTs
+ 2atb9n0oKOUhUGMi0FWTJHl+Rfx/UEiYfM6L/i7wcxhZQIZwsDFKQAT+RDMyDBD3CHQoWi7tmHS
+ q7cWOhE7s2cFfDTV1tDhvZv7PWSz/mFGhp8iQWxVt8QUTXj/KB13v/U7vG0Zg+f+fT9vXP1X+uW
+ YMxcA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Instruction relocations are looked up by destination in objtool via a hash
+which is keyed on a 16-byte (OFFSET_STRIDE) window within the section being
+walked.
 
-Extend the A5PSW DSA binding to cover the ETHSW variant used on newer
-Renesas RZ/T2H and RZ/N2H SoCs. ETHSW is derived from the A5PSW switch
-found on RZ/N1 but differs in register layout, clocking and interrupt
-topology, and exposes four ports in total (including the CPU/management
-port) instead of five.
+It iterates through each 16-byte window, looking up relocations over
+several passes, before moving on to the next 16-byte window, caching only
+when a relocation is not found saving further lookups in this case.
 
-Update the schema to describe these differences by adding dedicated
-compatible strings for RZ/T2H and RZ/N2H.
+Improve upon this by introducing a per-section relocation cache storing the
+first relocation at or after each 64-byte window of data (an empirically
+determined index range), indexed by chunk.
 
-Use the RZ/T2H compatible string as the fallback for RZ/N2H, reflecting
-that both SoCs integrate the same ETHSW IP.
+The lookup is implemented an array lookup and touches no shared state, so
+can be used from multiple threads.
 
-Add myself as a co-maintainer of the binding to support ongoing work on
-the ETHSW family across RZ/T2H and RZ/N2H devices.
+The index runs over the relocations in offset order. Usually this is how
+they are input, however if not, each section is sorted once, storing
+their offsets in reloc_order[].
 
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+This is done lazily on lookup, so nothing pays the cost that doesn't have
+to, and if everything is sorted nothing does.
+
+The output of objtool before and after this change was confirmed to be
+byte-for-byte identical both for x86_64 defconfig and allmodconfig with
+gcc and clang.
+
+objtool on the gcc allmodconfig vmlinux.o goes from 10.5s to 9.0s, clang
+from 9.8s to 8.3s and gcc defconfig from 2.08s to 1.79s, with peak memory
+down ~90 MiB on allmodconfig.
+
+Similar performance was also noted on a worst case scenario for unsorted
+input (gcc but lld for linking), which confirms that the sorting mechanism
+works correctly with little overhead.
+
+objtool on vmlinux.o is on the serial tail of every build that links
+vmlinux, no-op builds are unchanged.
+
+Whole build, 128-thread Threadripper 9980X, best of N runs:
+
+                                         before   after     delta
+                                         -------------------------------
+  x86 defconfig, touch mm/vma.c, gcc        8.3s     8.2s    -0.14s (-2%)
+  x86 defconfig, touch mm/vma.c, clang      7.6s     7.3s    -0.25s (-3%)
+  x86 defconfig, clean, gcc                28.9s    28.6s    -0.22s (-1%)
+  x86 defconfig, clean, clang              29.4s    29.1s    -0.28s (-1%)
+  x86 allmodconfig, touch mm/vma.c, gcc    29.4s    28.0s     -1.4s (-5%)
+  x86 allmodconfig, touch mm/vma.c, clang  27.9s    26.2s     -1.7s (-6%)
+
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
-v3->v4:
-- Restricted the reg property for ethernet-ports to maximum 3 for RZ/T2H
-- Added RB tag from Rob
+ tools/objtool/elf.c                 | 280 ++++++++++++++++++++++++++++--------
+ tools/objtool/include/objtool/elf.h |  10 +-
+ 2 files changed, 221 insertions(+), 69 deletions(-)
 
-v2->v3:
-- Added a restriction to disallow port@4
-- Updated commit message
+diff --git a/tools/objtool/elf.c b/tools/objtool/elf.c
+index 98a110e3e8f5..bd463b5df38c 100644
+--- a/tools/objtool/elf.c
++++ b/tools/objtool/elf.c
+@@ -316,35 +316,220 @@ struct symbol *find_global_symbol_by_name(const struct elf *elf, const char *nam
+ 	return NULL;
+ }
+ 
+-/* If there are multiple matches, return the first one in the range */
++static bool is_dwarf_section(struct section *sec)
++{
++	return !strncmp(sec->name, ".debug_", 7);
++}
++
++/* Index the first relocation at or after each 64 byte window of the base. */
++#define RELOC_CACHE_INDEX_SHIFT	6
++
++static unsigned long reloc_cache_index(unsigned long offset)
++{
++	return offset >> RELOC_CACHE_INDEX_SHIFT;
++}
++
++static void reloc_cache_free(struct section *rsec)
++{
++	free(rsec->reloc_cache);
++	free(rsec->reloc_order);
++	rsec->reloc_cache = NULL;
++	rsec->reloc_order = NULL;
++	rsec->nr_cache_windows = 0;
++	rsec->nr_indexed = 0;
++	rsec->sorted = false;
++}
++
++/* The relocation at a position of the section's offset order. */
++static struct reloc *reloc_at(struct section *rsec, unsigned int pos)
++{
++	unsigned int reloc_idx = pos;
++
++	if (rsec->reloc_order)
++		reloc_idx = rsec->reloc_order[pos];
++
++	return &rsec->relocs[reloc_idx];
++}
++
++static bool relocs_in_order(struct section *rsec)
++{
++	const unsigned int nr_relocs = sec_num_entries(rsec);
++	unsigned int i;
++
++	for (i = 1; i < nr_relocs; i++) {
++		struct reloc *prev = &rsec->relocs[i - 1];
++		struct reloc *reloc = &rsec->relocs[i];
++
++		if (reloc_offset(reloc) < reloc_offset(prev))
++			return false;
++	}
++
++	return true;
++}
++
++/* qsort() passes no context, so the relocations being sorted live here. */
++static struct reloc *sort_relocs;
++
++static int compare_reloc_order(const void *a, const void *b)
++{
++	const unsigned int *idx_a = a;
++	const unsigned int *idx_b = b;
++	const unsigned long offset_a = reloc_offset(&sort_relocs[*idx_a]);
++	const unsigned long offset_b = reloc_offset(&sort_relocs[*idx_b]);
++
++	if (offset_a < offset_b)
++		return -1;
++	if (offset_a > offset_b)
++		return 1;
++
++	/* Equal offsets stay in file order. */
++	if (*idx_a < *idx_b)
++		return -1;
++	return 1;
++}
++
++/*
++ * gcc emits the relocations of its jumps in a second pass, so its objects,
++ * and a vmlinux.o lld links from them, are out of order: sort them once.
++ */
++static int reloc_order_build(struct section *rsec)
++{
++	const unsigned int nr_relocs = sec_num_entries(rsec);
++	unsigned int i;
++
++	rsec->reloc_order = malloc(nr_relocs * sizeof(*rsec->reloc_order));
++	if (!rsec->reloc_order) {
++		ERROR_GLIBC("malloc");
++		return -1;
++	}
++
++	for (i = 0; i < nr_relocs; i++)
++		rsec->reloc_order[i] = i;
++
++	sort_relocs = rsec->relocs;
++	qsort(rsec->reloc_order, nr_relocs, sizeof(*rsec->reloc_order),
++	      compare_reloc_order);
++
++	return 0;
++}
++
++/* Grow the index to cover the base section, new windows start past the end. */
++static int reloc_cache_resize(struct section *rsec)
++{
++	const unsigned int nr_windows = reloc_cache_index(sec_size(rsec->base)) + 1;
++	unsigned int *cache;
++
++	if (nr_windows <= rsec->nr_cache_windows)
++		return 0;
++
++	cache = realloc(rsec->reloc_cache, nr_windows * sizeof(*cache));
++	if (!cache) {
++		ERROR_GLIBC("realloc");
++		return -1;
++	}
++
++	while (rsec->nr_cache_windows < nr_windows)
++		cache[rsec->nr_cache_windows++] = rsec->nr_indexed;
++	rsec->reloc_cache = cache;
++
++	return 0;
++}
++
++/*
++ * Index the next relocation. It must follow the previous one in position and
++ * offset, otherwise the index is dropped and the next lookup rebuilds it.
++ */
++static int reloc_cache_add(struct section *rsec, unsigned int pos)
++{
++	struct reloc *reloc = reloc_at(rsec, pos);
++	const unsigned long offset = reloc_offset(reloc);
++	const unsigned long window = reloc_cache_index(offset);
++	unsigned long first_window = 0;
++
++	if (pos != rsec->nr_indexed)
++		goto unsorted;
++
++	if (pos) {
++		struct reloc *prev = reloc_at(rsec, pos - 1);
++		const unsigned long prev_offset = reloc_offset(prev);
++
++		if (offset < prev_offset)
++			goto unsorted;
++		first_window = reloc_cache_index(prev_offset) + 1;
++	}
++
++	if (reloc_cache_resize(rsec))
++		return -1;
++	if (window >= rsec->nr_cache_windows)
++		goto unsorted;
++
++	while (first_window <= window)
++		rsec->reloc_cache[first_window++] = pos;
++	rsec->nr_indexed = pos + 1;
++
++	return 0;
++
++unsorted:
++	reloc_cache_free(rsec);
++	return 0;
++}
++
++static unsigned long num_relocs_sorted;
++
++static int init_reloc_cache(struct section *rsec)
++{
++	const unsigned int nr_relocs = sec_num_entries(rsec);
++	unsigned int pos;
++
++	reloc_cache_free(rsec);
++	if (!relocs_in_order(rsec)) {
++		if (reloc_order_build(rsec))
++			return -1;
++		num_relocs_sorted += nr_relocs;
++	}
++
++	rsec->sorted = true;
++	for (pos = 0; pos < nr_relocs; pos++) {
++		if (reloc_cache_add(rsec, pos))
++			return -1;
++	}
++
++	return 0;
++}
++
++static bool reloc_in_range(struct reloc *reloc, unsigned long offset,
++			   unsigned int len)
++{
++	return reloc_offset(reloc) >= offset && reloc_offset(reloc) < offset + len;
++}
++
++/* If there are multiple matches, return the first one in the range. */
+ struct reloc *find_reloc_by_dest_range(const struct elf *elf, struct section *sec,
+ 				       unsigned long offset, unsigned int len)
+ {
+-	struct reloc *reloc, *r = NULL;
+-	struct section *rsec;
+-	unsigned long o;
++	struct section *rsec = sec->rsec;
++	unsigned long cache_idx;
++	unsigned int pos;
+ 
+-	rsec = sec->rsec;
+ 	if (!rsec)
+ 		return NULL;
+ 
+-	for_offset_range(o, offset, offset + len) {
+-		elf_hash_for_each_possible(elf, reloc, reloc, hash,
+-					   sec_offset_hash(rsec, o)) {
+-			if (reloc->sec != rsec)
+-				continue;
++	if (!rsec->sorted && init_reloc_cache(rsec))
++		exit(1);
+ 
+-			if (reloc_offset(reloc) >= offset &&
+-			    reloc_offset(reloc) < offset + len) {
+-				if (!r || reloc_offset(reloc) < reloc_offset(r))
+-					r = reloc;
+-			}
+-		}
+-		if (r && (reloc_offset(r) & OFFSET_STRIDE_MASK) == o)
+-			return r;
++	cache_idx = reloc_cache_index(offset);
++	if (cache_idx >= rsec->nr_cache_windows)
++		return NULL;
++
++	/* The index gives a lower bound, scan on from there. */
++	for (pos = rsec->reloc_cache[cache_idx]; pos < rsec->nr_indexed; pos++) {
++		struct reloc *reloc = reloc_at(rsec, pos);
++
++		if (reloc_offset(reloc) >= offset)
++			return reloc_in_range(reloc, offset, len) ? reloc : NULL;
+ 	}
+ 
+-	return r;
++	return NULL;
+ }
+ 
+ struct reloc *find_reloc_by_dest(const struct elf *elf, struct section *sec, unsigned long offset)
+@@ -352,11 +537,6 @@ struct reloc *find_reloc_by_dest(const struct elf *elf, struct section *sec, uns
+ 	return find_reloc_by_dest_range(elf, sec, offset, 1);
+ }
+ 
+-static bool is_dwarf_section(struct section *sec)
+-{
+-	return !strncmp(sec->name, ".debug_", 7);
+-}
+-
+ static int read_sections(struct elf *elf)
+ {
+ 	Elf_Scn *s = NULL;
+@@ -1071,8 +1251,10 @@ struct reloc *elf_init_reloc(struct elf *elf, struct section *rsec,
+ 	set_reloc_type(elf, reloc, type);
+ 	set_reloc_addend(elf, reloc, addend);
+ 
+-	if (!is_dwarf_section(rsec->base))
+-		elf_hash_add(reloc, &reloc->hash, reloc_hash(reloc));
++	if (rsec->reloc_order)
++		reloc_cache_free(rsec);
++	else if (rsec->sorted && reloc_cache_add(rsec, reloc_idx))
++		return NULL;
+ 	set_sym_next_reloc(reloc, sym->relocs);
+ 	sym->relocs = reloc;
+ 
+@@ -1126,12 +1308,11 @@ struct reloc *elf_init_reloc_data_sym(struct elf *elf, struct section *sec,
+ 
+ static int read_relocs(struct elf *elf)
+ {
+-	unsigned long nr_reloc, max_reloc = 0, nr_hashed = 0;
++	unsigned long nr_reloc, max_reloc = 0;
+ 	struct section *rsec;
+ 	struct reloc *reloc;
+ 	unsigned int symndx;
+ 	struct symbol *sym;
+-	bool hashed;
+ 	int i;
+ 
+ 	list_for_each_entry(rsec, &elf->sections, list) {
+@@ -1146,23 +1327,6 @@ static int read_relocs(struct elf *elf)
+ 
+ 		rsec->base->rsec = rsec;
+ 
+-		/*
+-		 * DWARF relocations are never looked up by destination, they
+-		 * only need to be on their symbol's list.
+-		 */
+-		if (!is_dwarf_section(rsec->base))
+-			nr_hashed += sec_num_entries(rsec);
+-	}
+-
+-	if (!elf_alloc_hash(reloc, nr_hashed))
+-		return -1;
+-
+-	list_for_each_entry(rsec, &elf->sections, list) {
+-		if (!is_reloc_sec(rsec))
+-			continue;
+-
+-		hashed = !is_dwarf_section(rsec->base);
+-
+ 		/* nr_alloc_relocs=0: libelf owns d_buf */
+ 		rsec->nr_alloc_relocs = 0;
+ 
+@@ -1184,21 +1348,24 @@ static int read_relocs(struct elf *elf)
+ 				return -1;
+ 			}
+ 
+-			if (hashed)
+-				elf_hash_add(reloc, &reloc->hash, reloc_hash(reloc));
+ 			set_sym_next_reloc(reloc, sym->relocs);
+ 			sym->relocs = reloc;
+ 
+ 			nr_reloc++;
+ 		}
+ 		max_reloc = max(max_reloc, nr_reloc);
++
++		/* DWARF relocs are never looked up, so are not worth indexing. */
++		if (is_dwarf_section(rsec->base))
++			continue;
++		if (init_reloc_cache(rsec))
++			return -1;
+ 	}
+ 
+ 	if (opts.stats) {
+ 		printf("max_reloc: %lu\n", max_reloc);
+ 		printf("num_relocs: %lu\n", elf->num_relocs);
+-		printf("num_relocs_hashed: %lu\n", nr_hashed);
+-		printf("reloc_bits: %d\n", elf->reloc_bits);
++		printf("num_relocs_sorted: %lu\n", num_relocs_sorted);
+ 	}
+ 
+ 	return 0;
+@@ -1345,8 +1512,7 @@ struct elf *elf_create_file(GElf_Ehdr *ehdr, const char *name)
+ 	if (!elf_alloc_hash(section,		1000) ||
+ 	    !elf_alloc_hash(section_name,	1000) ||
+ 	    !elf_alloc_hash(symbol,		10000) ||
+-	    !elf_alloc_hash(symbol_name,	10000) ||
+-	    !elf_alloc_hash(reloc,		100000))
++	    !elf_alloc_hash(symbol_name,	10000))
+ 		return NULL;
+ 
+ 	null		= elf_create_section(elf, NULL, 0, 0, SHT_NULL, 0, 0);
+@@ -1526,6 +1692,8 @@ struct section *elf_create_section(struct elf *elf, const char *name,
+ 	sec->sh.sh_type = type;
+ 	sec->sh.sh_addralign = align;
+ 	sec->sh.sh_flags = flags;
++	/* Relocations objtool adds are indexed as they come. */
++	sec->sorted = type == SHT_RELA;
+ 
+ 	if (name) {
+ 		sec->name = strdup(name);
+@@ -1651,16 +1819,6 @@ static int elf_alloc_reloc(struct elf *elf, struct section *rsec)
+ 	}
+ 
+ 	memcpy(new_relocs, old_relocs, nr_relocs_old * sizeof(struct reloc));
+-
+-	for (int i = 0; i < nr_relocs_old && !is_dwarf_section(rsec->base); i++) {
+-		struct reloc *old = &old_relocs[i];
+-		struct reloc *new = &new_relocs[i];
+-		u32 key = reloc_hash(old);
+-
+-		elf_hash_del(reloc, &old->hash, key);
+-		elf_hash_add(reloc, &new->hash, key);
+-	}
+-
+ 	free(old_relocs);
+ done:
+ 	rsec->relocs = new_relocs;
+diff --git a/tools/objtool/include/objtool/elf.h b/tools/objtool/include/objtool/elf.h
+index a82517a76a0f..baa4f76b1800 100644
+--- a/tools/objtool/include/objtool/elf.h
++++ b/tools/objtool/include/objtool/elf.h
+@@ -59,6 +59,8 @@ struct section {
+ 	const char *name;
+ 	int idx;
+ 	bool _changed, text, rodata, noinstr, init, truncate;
++	bool sorted;
++	unsigned int *reloc_cache, *reloc_order, nr_cache_windows, nr_indexed;
+ 	struct reloc *relocs;
+ 	unsigned long nr_alloc_relocs;
+ 	struct section *twin;
+@@ -106,7 +108,6 @@ struct symbol {
+ };
+ 
+ struct reloc {
+-	struct elf_hash_node hash;
+ 	struct section *sec;
+ 	struct symbol *sym;
+ 	unsigned long _sym_next_reloc;
+@@ -127,13 +128,11 @@ struct elf {
+ 	int symbol_name_bits;
+ 	int section_bits;
+ 	int section_name_bits;
+-	int reloc_bits;
+ 
+ 	struct elf_hash_node **symbol_hash;
+ 	struct elf_hash_node **symbol_name_hash;
+ 	struct elf_hash_node **section_hash;
+ 	struct elf_hash_node **section_name_hash;
+-	struct elf_hash_node **reloc_hash;
+ 
+ 	struct section *section_data;
+ 	struct symbol *symbol_data;
+@@ -575,9 +574,4 @@ static inline u32 sec_offset_hash(struct section *sec, unsigned long offset)
+ 	return ol;
+ }
+ 
+-static inline u32 reloc_hash(struct reloc *reloc)
+-{
+-	return sec_offset_hash(reloc->sec, reloc_offset(reloc));
+-}
+-
+ #endif /* _OBJTOOL_ELF_H */
 
-v1->v2:
-- Added full names for SoCs
----
- .../bindings/net/dsa/renesas,rzn1-a5psw.yaml  | 158 +++++++++++++++---
- 1 file changed, 136 insertions(+), 22 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5psw.yaml b/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5psw.yaml
-index 250c59e58439..338e499b42b1 100644
---- a/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5psw.yaml
-+++ b/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5psw.yaml
-@@ -4,43 +4,108 @@
- $id: http://devicetree.org/schemas/net/dsa/renesas,rzn1-a5psw.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
--title: Renesas RZ/N1 Advanced 5 ports ethernet switch
-+title: Renesas RZ/N1 A5PSW and RZ/T2H, RZ/N2H ETHSW Ethernet Switch
- 
- maintainers:
-   - Clément Léger <clement.leger@bootlin.com>
-+  - Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
- 
--description: |
--  The advanced 5 ports switch is present on the Renesas RZ/N1 SoC family and
--  handles 4 ports + 1 CPU management port.
-+description: >
-+  This binding describes the Ethernet switch IPs used on Renesas SoCs:
- 
--allOf:
--  - $ref: dsa.yaml#/$defs/ethernet-ports
-+  - The A5PSW (Advanced 5-Port Switch) found on the RZ/N1 family, which
-+    provides 4 external ports and 1 CPU/management port.
-+  - The ETHSW (Ethernet Switch) found on the RZ/T2H and RZ/N2H families,
-+    which is derived from the A5PSW IP with some register layout
-+    differences, additional timestamping support, and a total of 4 ports
-+    including the CPU/management port.
- 
- properties:
-   compatible:
--    items:
--      - enum:
--          - renesas,r9a06g032-a5psw
--      - const: renesas,rzn1-a5psw
-+    oneOf:
-+      - items:
-+          - enum:
-+              - renesas,r9a06g032-a5psw
-+          - const: renesas,rzn1-a5psw
-+
-+      - const: renesas,r9a09g077-ethsw
-+
-+      - items:
-+          - const: renesas,r9a09g087-ethsw
-+          - const: renesas,r9a09g077-ethsw
- 
-   reg:
-     maxItems: 1
- 
-   interrupts:
--    items:
--      - description: Device Level Ring (DLR) interrupt
--      - description: Switch interrupt
--      - description: Parallel Redundancy Protocol (PRP) interrupt
--      - description: Integrated HUB module interrupt
--      - description: Receive Pattern Match interrupt
-+    oneOf:
-+      - items:
-+          - description: Device Level Ring (DLR) interrupt
-+          - description: Switch interrupt
-+          - description: Parallel Redundancy Protocol (PRP) interrupt
-+          - description: Integrated HUB module interrupt
-+          - description: Receive Pattern Match interrupt
-+
-+      - items:
-+          - description: Switch interrupt
-+          - description: Device Level Ring (DLR) interrupt
-+          - description: Parallel Redundancy Protocol (PRP) interrupt
-+          - description: Integrated HUB module interrupt
-+          - description: Receive Pattern Match interrupt 0
-+          - description: Receive Pattern Match interrupt 1
-+          - description: Receive Pattern Match interrupt 2
-+          - description: Receive Pattern Match interrupt 3
-+          - description: Receive Pattern Match interrupt 4
-+          - description: Receive Pattern Match interrupt 5
-+          - description: Receive Pattern Match interrupt 6
-+          - description: Receive Pattern Match interrupt 7
-+          - description: Receive Pattern Match interrupt 8
-+          - description: Receive Pattern Match interrupt 9
-+          - description: Receive Pattern Match interrupt 10
-+          - description: Receive Pattern Match interrupt 11
-+          - description: Switch timer pulse output interrupt 0
-+          - description: Switch timer pulse output interrupt 1
-+          - description: Switch timer pulse output interrupt 2
-+          - description: Switch timer pulse output interrupt 3
-+          - description: Switch TDMA timer output interrupt 0
-+          - description: Switch TDMA timer output interrupt 1
-+          - description: Switch TDMA timer output interrupt 2
-+          - description: Switch TDMA timer output interrupt 3
- 
-   interrupt-names:
--    items:
--      - const: dlr
--      - const: switch
--      - const: prp
--      - const: hub
--      - const: ptrn
-+    oneOf:
-+      - items:
-+          - const: dlr
-+          - const: switch
-+          - const: prp
-+          - const: hub
-+          - const: ptrn
-+
-+      - items:
-+          - const: switch
-+          - const: dlr
-+          - const: prp
-+          - const: hub
-+          - const: ptrn0
-+          - const: ptrn1
-+          - const: ptrn2
-+          - const: ptrn3
-+          - const: ptrn4
-+          - const: ptrn5
-+          - const: ptrn6
-+          - const: ptrn7
-+          - const: ptrn8
-+          - const: ptrn9
-+          - const: ptrn10
-+          - const: ptrn11
-+          - const: tp0
-+          - const: tp1
-+          - const: tp2
-+          - const: tp3
-+          - const: tdma0
-+          - const: tdma1
-+          - const: tdma2
-+          - const: tdma3
- 
-   power-domains:
-     maxItems: 1
-@@ -52,14 +117,21 @@ properties:
-     unevaluatedProperties: false
- 
-   clocks:
-+    minItems: 2
-     items:
-       - description: AHB clock used for the switch register interface
-       - description: Switch system clock
-+      - description: Timestamp clock
- 
-   clock-names:
-+    minItems: 2
-     items:
-       - const: hclk
-       - const: clk
-+      - const: ts
-+
-+  resets:
-+    maxItems: 1
- 
-   ethernet-ports:
-     type: object
-@@ -94,6 +166,48 @@ required:
-   - clock-names
-   - power-domains
-   - ethernet-ports
-+  - interrupts
-+  - interrupt-names
-+
-+allOf:
-+  - $ref: dsa.yaml#/$defs/ethernet-ports
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: renesas,r9a09g077-ethsw
-+    then:
-+      properties:
-+        interrupts:
-+          minItems: 24
-+        interrupt-names:
-+          minItems: 24
-+        clocks:
-+          minItems: 3
-+        clock-names:
-+          minItems: 3
-+        ethernet-ports:
-+          patternProperties:
-+            "^(ethernet-)?port@[0-3]$":
-+              properties:
-+                reg:
-+                  items:
-+                    - maximum: 3
-+            "^(ethernet-)?port@4$": false
-+      required:
-+        - resets
-+    else:
-+      properties:
-+        interrupts:
-+          maxItems: 5
-+        interrupt-names:
-+          maxItems: 5
-+        clocks:
-+          maxItems: 2
-+        clock-names:
-+          maxItems: 2
-+        resets: false
- 
- examples:
-   - |
 -- 
 2.56.0
 
