@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793778139;
-	b=gynZJNhP9W+Ne32tg6koZMRz3bbfXoUmoa2oQaDhe9/1eCgOlcGwNBo7/xlaHjpSymSZ
-	 2UBjVh3GVZuCOUkk70p/NU0/ABiKvRZSvq9b0+Erbqh9p0icLt0KA8+n4xr2GBfhd2JVY
-	 VQASkjbS3p3xScLEm99u1vLpVVGujzSIsxV5SbCAInDXfj8GtNEeOOaxiV8qq3arkmXri
-	 1PA/uQFZ/q0snw2fcxWDYzNlRxsvokq3Cgu6j1PD+K7n2Z0xDihTjpwhyyCAB0DIFjAXc
-	 BJ215+1VKBCg6FVhsQS+me55roAGBudpAH9o9EHVH1cC2BwjaZ00njw0Jch9ymMpjLA==
+	t=1793778147;
+	b=Qh7Ywn/Hn71pRaHlVNpus97gqfEUn65UyfYBH95j0qSabE3An7unCTIwL/pX98SlMIBo
+	 wb3xT/DGke3CTxWZD/9DO4pNbhfWbRg8n2bwJxF/lO2h0xXQx4NZWMgyE/RMGZYiCI0fH
+	 PJXynAdUNxbK9CJza86DdXWXT3AT71KwBGGddkLTobxfwSnGtr9BaOwMtVOvCHZADAoso
+	 LvNzHEjvlqFFcU3OxDLdbcorVox1EMstA6/y9+HY45SoZy48KUd765pzNryoD7DEd4+FX
+	 dyaOj58dg/7GsMa8QzUPXITAqjPK7o72t2w4qU93rp1Miem0jqhFleZeaShUh1UIeGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793778139;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793778147;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=DmsYpFlGwWZ6wODCprWn4/pAbquT0OQazWJnECBB6Is=;
-	b=xwO9xV2h1Gzv7ZE8KIerJBV36Y/yl60S1kt+3jiiw/pc873ligPVtHL6dnxxGRuqQztq
-	 BhwzcaCEHIeoXPt23VAD9yoZckA31W6KsE72exoeRVNMq+Hw2/98KRCN+TxzLfVL2FwHT
-	 4CUXhSoGuigbs/7kT8G5S/sq5oD6NVXtzXdHZXTdMULkAp8XsqO9OU3JJ61urjojvVudU
-	 JwaVl0BvtryFrpMGGqBaZLuXPlOYJzgQcEpEbneU3OX5gY2vArEqCAV81ALpwIejprtna
-	 DOi45Qfz9sTeUF/InPydWGzPgGkjThA+IrvZOSZOzTc+FiYrBDHcViH6ocLVFdHm2rw==
+	bh=ywH8oMKlX3jURbfZOh+Ks/EFVKolkyAyAwEMCJeFd2Q=;
+	b=l1TyhGmTyz61FspAih0W/eaPvg4ksJ+Z5SDWW1KAyI6RrL+Dvl4X5zAs5FSjpKWTLWRe
+	 Nj8Gj4VWwJoCgytH1bm7zDyZ++FvI5oD213HKoWB5vVi4y/qmAvI9IZHT0rENkC/z88ra
+	 C+rI+Dnn9YpV+tEh67PDwzoZt0Y2L00o2iCjbQ1aUPANzxEFG882bW1JIG8LFKDnyJQ4A
+	 RTMHrz9TAnw+O5aXAFUF4zXr3uNzjffQiJfNgWNaO24mqKvlAb/cO55LSy/rrQD8ccJUl
+	 +LxhNss4zm6QneyItFYKVxoObJRhPxl+Lj0IJ9fsvb/Tu8uolELx+uzb/FCjPJBFU0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GOFw0+rQ;
-	arc=none smtp.remote-ip=74.125.82.50
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0DpKyaGe;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 444D4606A337
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 07:42:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 444D4606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F4144606D807
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 07:42:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F4144606D807
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GOFw0+rQ
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1aefd1bf74aso306561c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 23:42:19 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0DpKyaGe
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1a8cc11ac42so545543c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 23:42:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793778138; x=1794382938; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793778146; x=1794382946; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DmsYpFlGwWZ6wODCprWn4/pAbquT0OQazWJnECBB6Is=;
-        b=GOFw0+rQ4Ki57IB4ZW29BzoZiSL96hz+qgDdjQj/oPScTAJi6HjnRAB21NRT9r425C
-         xFTZYWbk9VXMZLFutBr+ixjINLhyH8eUmPnDgjRXZEi5NmM/N21ZUhJB+gezsya3SppW
-         f40oBw4DuuBXQ7h+VNBCbpqg17daldox5cbY9/+Pt5zItqHpb4bCcdRp/ZejRi/NDrV6
-         +o78jxmwCzV6VS3Wpiz5z380+tdLFoyj3ipB3Ths2yn0XTFclU6/E7BXA1sN1/j+SqI+
-         F/NYKZ1PW5nmiThlTwpH/cXt5B2wsfDpzxDVU1aULl4tiIoVGfBTP3SNUpB/e0nuxS1O
-         VdlA==
+        bh=ywH8oMKlX3jURbfZOh+Ks/EFVKolkyAyAwEMCJeFd2Q=;
+        b=0DpKyaGeelhqhK2VnYs46HrdUzesWLRZfRJMpxsYlXLJfFzF8EcddpY8RtqVyvHT+f
+         tfiH3hjXHQbDJ9x82BGbO/9IbqSX8HiA3bzRD8cZUzlzp7rjNXhO7EPV4mF2RCW+OIKI
+         H+XkeaqccD2kbJ1tj36g/VyOiv/0mlRaBt5jSlAUzEvCakkK4z/+lYc6CTncQktehuWA
+         /+GSGNTZO38C4wbB8KcKw9o++AU30XfMdPElbWPWpOdY8ISO9fBxv23Az1OE1ul8hDIi
+         3lhVrJuLFddh4/1sLboE136iaqVLBMWNi7c/dr9kPrnqoWtiErXslU41gTOjQaorcBI8
+         U1Hg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793778138; x=1794382938;
+        d=1e100.net; s=20260707; t=1793778146; x=1794382946;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DmsYpFlGwWZ6wODCprWn4/pAbquT0OQazWJnECBB6Is=;
-        b=HVQoY74waXUaANdN/66Hcp5VtsBXvlvOtyK/oIWstk9WBaDCj3ajDODipa87tpXIXr
-         0SGDzefWdz2txmwVT7tWyVdo7Geohvb0Rg9lsVwOAt9msYC2py0fSpzuQRt7yhktgZ4M
-         Kk6OyyhT21Fhcp1jabWw6urubxCgtbJP+qOsGTEgintoAo3dR988MMfiLJ1RXA4KxXao
-         lvwRd20jUUcmgGvq9NPGd7Yg9M/LV7Stn+22CGRpGiiumX3SJ7oJIxQbggdp4uyVBgvA
-         W8gELFgbzte+e0X2uGkrIzja1rbhmPoNSDmE5/96z/J3ZObYXBaxevUuoeQl3ZWb594M
-         bVvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzb64u6ucZe+lFQEDpN6rkgKh+35bvErrHR0FBK1SwZGDYchimbg5jU4rYJL7p1DnGkvaJtWZa0ZeMEE7g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z95kIf6yeiivmJA58b63gsomrGSMhsvzP9/a43hhF1f4zUpmmjw
-	wVBRQ+S5kMTOnjAr08v67hY0W+DWJyfEkRmF4sqKfU7eCW5BECz/12zT
-X-Gm-Gg: AYBFou1mzwrbbet/J1uYpmtJwIS9hXQi6bGV2jHv6b2zJfb74TukjANRM5PgjQafGRZ
-	gIDfRK7Pg8QyQ4XoArmAqBKAWfkMQuC5gPRgHsKdyGshqpOvx1gkqHri/k12MDfBA33/JnfiYmK
-	yFkM3MCg7xBjay5lMEOgDnAQ8Qw8RImhUFiUKM8wrSpTl3ZZ3bobg5plpwizIlcjKhL7bKCPxmB
-	ebYOXvtjHMgDgAWpmimQSQP5CzJ99cc/AumAha97rb6udaujottiVW6cehCoZawne+8ujak4uK5
-	Jfm+dZmWTFDprEirwOLXFcjy3VYBk0+kLLdUxkkPnnphawJeTES3XqzHCuJG4b2rSVe4fSvt73o
-	Wi6H9JEu3fxykSjd4TRmMjcKzcldvVuSkhlKh9vsUsYmTyVfA/48oTJ2dQ49jkYRhBJ3pr6mC0A
-	OfCzo3G1uUGaKq7yRPHhvnTwQqgZc/YG/r70yUFXs3qVdAa6ZyKeTzstyxRZCa0o3uVkkYPs14W
-	EVy5QtdWuTE/cr98aPZM9cRs7upL4qxhDvL5wC7vEInK0ev7JJ2WEN3VRlnC2fe7Ev9kWsgAgnX
-	cbOt9sN8ehu9VJ/ELpA31adQeg1NrvuegAz+54g4qmaGGycVnM1UyQ==
-X-Received: by 2002:a05:701b:4555:10b0:1b1:f02b:2317 with SMTP id a92af1059eb24-1b1f03a6afamr11492019c88.22.1793778138147;
-        Tue, 03 Nov 2026 23:42:18 -0800 (PST)
+        bh=ywH8oMKlX3jURbfZOh+Ks/EFVKolkyAyAwEMCJeFd2Q=;
+        b=Zu1UNSw3MD1MYijR7Ar4gJ89Y8troch3eOVR9zYpA8RGernm7jU9kNLX3hsG52LtqN
+         g+MpRcOGioEe71wmJLLCDQX+McBomFbP/fLsSUYUxeI6iu55nWtOkb1fS7kREE4kQWXO
+         HCMe2ffWAF0/lpqLZLhXe9tSMEbdNnSMJy0P7vS8gwSjXgroLmMQen5goQxCVP266Gol
+         eOOTkeJTJOoseBZUerEDgDBLgdMsCwZ2fh7vF+rNU0Vu6+eoSh2eqWSxvik8e2m7qeG/
+         xdIN2YafVnEHJz2dwfUXh0t3jwXnN7Y+6Vn29qO7aWt8s3zC3ifjYi594/LzL0zU8J/r
+         s2vg==
+X-Forwarded-Encrypted: i=1; AKwUvBwhPPAH0Jv5qZbjk/UKOcJQc9QVYpM+u9H/6IuDyJeXDy31CQ9cjMMStbmWI5Zsu/pS+MFkdHYPbJOQqR8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+4B6Sc7hzcgHogDYzNXD0UOzZVNcMB7SWS4aF2ZTakSnlyIWU0
+	s1QKbR3RJc7PeIH3sul+W+SkCz4g+T2CHO+PDw2J/AKNtL8GX+2QGt3X
+X-Gm-Gg: AYBFou25aCQbif3J/m8PaTPDoz7XvjS8a2+F3LT5pPHAPNjveNJU+sfChlhCi50IJWK
+	GX3qPm4rOcBx/Tsr/O0Vv49oOUZ28Vy6AXQ+AmunPPnKhFFAn0xiKA1pippS1O5fgaNaSM0US+X
+	CVoFiigNTCNK24M1YwbF2YpGgdb57vA+G+N7ZhdCQzqsVryxAFVUnfFKUNGTmZCmJ9TqCLcWCLO
+	CvWOQgT2nouyx+P6JNUZ1KSbeqw0FEvtR5yQadKdcbatr2zLcYdNIzNgXi9/iq3VxH6qk3XAXBm
+	RdwX9F9TNPTLVnTnXTVRLc3gNLxaaY0PSn9cuvVnrvF06/V2SPfTDge9hct0VLfEDf85KbFJCMA
+	miuhFwzk21Bkm62dVWJurWTZ/Lezh4hfeaURz7lzQMQp1uiFv4OUbA1xsK3V10QsbP2qQYrLsqS
+	JFBo2SROrkCS1lGW+P0jHDMitW2We+3/HuL77x8KHESjh0ydr2bvWleax5ghE4G5JFb6liDTbKi
+	1wlepIemKxN67y2l2fqn8+TE5pRPplPxqbXBimHbOX5m5CMuZkf9wLqrDQqICc3ujtg7atZc+j5
+	tIMBV/0u4wb6eXPCMYKgljeY+/abowFKgQKrWpEaPcqONH2pWii8
+X-Received: by 2002:a05:7022:f507:b0:190:d9bb:281f with SMTP id a92af1059eb24-1ac5e3225aamr22064013c88.18.1793778144624;
+        Tue, 03 Nov 2026 23:42:24 -0800 (PST)
 Received: from 192.168.1.71 ([2402:a00:163:2ce9:c926:5826:36de:3b37])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c1c290sm5318385c88.5.2026.11.03.23.42.13
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c1c290sm5318385c88.5.2026.11.03.23.42.19
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 03 Nov 2026 23:42:17 -0800 (PST)
+        Tue, 03 Nov 2026 23:42:23 -0800 (PST)
 From: Ajit Singh <blfizzyy@gmail.com>
 To: linux-usb@vger.kernel.org
 Cc: devicetree@vger.kernel.org,
@@ -89,9 +89,9 @@ Cc: devicetree@vger.kernel.org,
 	conor+dt@kernel.org,
 	linux-kernel@vger.kernel.org,
 	Ajit Singh <blfizzyy@gmail.com>
-Subject: [PATCH v1 1/2] dt-bindings: usb: ti,tusb1046: document HPD_IN override
-Date: Wed,  4 Nov 2026 13:12:01 +0530
-Message-ID: <20261104074202.76712-2-blfizzyy@gmail.com>
+Subject: [PATCH v1 2/2] usb: typec: mux: tusb1046: support HPD_IN override
+Date: Wed,  4 Nov 2026 13:12:02 +0530
+Message-ID: <20261104074202.76712-3-blfizzyy@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261104074202.76712-1-blfizzyy@gmail.com>
 References: <20261104074202.76712-1-blfizzyy@gmail.com>
@@ -106,45 +106,83 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-For boards where HPD_IN is not asserted by hardware, the TUSB1046
-can force it high over I2C using the HPDIN_OVERRIDE bit in the
-General register (0x0A).
+For boards where HPD_IN is not asserted by hardware, software can
+force it high over I2C using the HPDIN_OVERRIDE bit in the General
+register (0x0A).
 
-Document the optional ti,hpd-in-override property to force HPD_IN
-high when DisplayPort mode is selected.
+Add support for the optional ti,hpd-in-override property to force
+HPD_IN high when DisplayPort mode is selected. Clear the override
+when switching to USB or Safe mode, and preserve the existing
+bit value when the property is absent.
 
 Signed-off-by: Ajit Singh <blfizzyy@gmail.com>
 ---
- Documentation/devicetree/bindings/usb/ti,tusb1046.yaml | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/usb/typec/mux/tusb1046.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/usb/ti,tusb1046.yaml b/Documentation/devicetree/bindings/usb/ti,tusb1046.yaml
-index e1501ea6b50b..58e9fde3ca71 100644
---- a/Documentation/devicetree/bindings/usb/ti,tusb1046.yaml
-+++ b/Documentation/devicetree/bindings/usb/ti,tusb1046.yaml
-@@ -20,6 +20,14 @@ properties:
-   reg:
-     maxItems: 1
+diff --git a/drivers/usb/typec/mux/tusb1046.c b/drivers/usb/typec/mux/tusb1046.c
+index 34ef81f75693..c21b1f8b9786 100644
+--- a/drivers/usb/typec/mux/tusb1046.c
++++ b/drivers/usb/typec/mux/tusb1046.c
+@@ -21,6 +21,7 @@
+ /* General register bits */
+ #define TUSB1046_GENERAL_FLIPSEL BIT(2)
+ #define TUSB1046_GENERAL_CTLSEL  GENMASK(1, 0)
++#define TUSB1046_GENERAL_HPDIN_OVERRIDE BIT(3)
  
-+  ti,hpd-in-override:
-+    type: boolean
-+    description: |
-+      Force the HPD_IN signal high through the HPDIN_OVERRIDE bit in the
-+      General register while DisplayPort Alt Mode is active. This is useful
-+      on boards where HPD_IN is not driven by the downstream DisplayPort
-+      sink.
+ /* Mux modes */
+ #define TUSB1046_CTLSEL_DISABLED          0x0
+@@ -32,6 +33,7 @@ struct tusb1046_priv {
+ 	struct i2c_client *client;
+ 	struct typec_switch_dev *sw;
+ 	struct typec_mux_dev *mux;
++	bool hpdin_override;
+ 
+ 	/* Lock General register during accesses */
+ 	struct mutex general_reg_lock;
+@@ -44,6 +46,7 @@ static int tusb1046_mux_set(struct typec_mux_dev *mux,
+ 	struct i2c_client *client = priv->client;
+ 	struct device *dev = &client->dev;
+ 	int mode, val, ret = 0;
++	bool dp_active = false;
+ 
+ 	if (state->mode >= TYPEC_STATE_MODAL &&
+ 	    state->alt->svid != USB_TYPEC_DP_SID)
+@@ -67,9 +70,11 @@ static int tusb1046_mux_set(struct typec_mux_dev *mux,
+ 	case TYPEC_DP_STATE_C:
+ 	case TYPEC_DP_STATE_E:
+ 		mode = TUSB1046_CTLSEL_4LANE_DP;
++		dp_active = true;
+ 		break;
+ 	case TYPEC_DP_STATE_D:
+ 		mode = TUSB1046_CTLSEL_USB3_AND_2LANE_DP;
++		dp_active = true;
+ 		break;
+ 	case TYPEC_STATE_SAFE:
+ 	default:
+@@ -80,6 +85,13 @@ static int tusb1046_mux_set(struct typec_mux_dev *mux,
+ 	val &= ~TUSB1046_GENERAL_CTLSEL;
+ 	val |= mode;
+ 
++	if (priv->hpdin_override) {
++		if (dp_active)
++			val |= TUSB1046_GENERAL_HPDIN_OVERRIDE;
++		else
++			val &= ~TUSB1046_GENERAL_HPDIN_OVERRIDE;
++	}
 +
- required:
-   - compatible
-   - reg
-@@ -39,6 +47,7 @@ examples:
+ 	ret = i2c_smbus_write_byte_data(client, TUSB1046_REG_GENERAL, val);
  
-             mode-switch;
-             orientation-switch;
-+            ti,hpd-in-override;
+ out_unlock:
+@@ -131,6 +143,8 @@ static int tusb1046_i2c_probe(struct i2c_client *client)
+ 		return -ENOMEM;
  
-             port {
-                 endpoint {
+ 	priv->client = client;
++	priv->hpdin_override =
++		device_property_read_bool(dev, "ti,hpd-in-override");
+ 
+ 	mutex_init(&priv->general_reg_lock);
+ 
 -- 
 2.50.1 (Apple Git-155)
 
