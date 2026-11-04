@@ -1,60 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818580;
-	b=wfeAkn0VvVwLO1lcT+70kx4nD6EkWHfp+gvzZFMVNZHEqH2Y7pqj5Pzv6X8devAj08cR
-	 pTlc1wsO7QcKGBZMC3F9PAy0JSNYpvyynTAR16Agl3O6XkLXCiPNKj8KyCfwb10/PhRxt
-	 vMsYfUktf8Fn46KzMDnzYeNaq4f8QRmZBHlIS3Jd1ouvezl2Vbriz+jr6/yGCTsW/y9wz
-	 DaZdtYXJf8mRkzCpzrbNAuhhW5cYfxAwcqwhfXpnfFuHAWcXM20T1KCF2B9qhoUfNiQFh
-	 4oJD4Pql58TAVegva+QaO78mnaLgdBxYtH6WQzTpfqJtcGSJAO6GwK8dwx2Sy8yVLCg==
+	t=1793818588;
+	b=XmMmvKD/Ak+jzmfMsgzdeNrrYVbfkwK5cyxY80CSDBatIDyHlA42uheQLT/3GJbSPSPI
+	 5xiQMjbDJRDlym4tqhanXAj3p/pmTI5ONH1h+nErN3JeQ73aglJbiZGOZVfB8rQpl2kOc
+	 9200gxd1aKk937QlHfAJiBga0BE8JDwrYW9kxytH8SM+SzLjjswHlSXjXZzx04uKr9ryp
+	 m+cfMpXy6eJ4P6jEOSfFvKiyCTQmZpkGND5UfSvqby5q+AKPAv8X83Rsv8jErK4EfF/Ow
+	 /U5KntO2Gn0WBVatFnym8Og02hoUYOHBrfdwMZTDYruRwL5GnHe3g8zSHPidK8B2pOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818580;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=PoEnk5w0FeXgmUszIA38mVTO0/9NRJVsUtjtCXZXtvk=;
-	b=LVmqmGFq+fb8CiatE99dXHAj0z/o/mWzMJQZGFtOFkMd0L0jn8Jbhq/4P4CPn0wGrG5h
-	 L5+NsE+XPakwLVjzZFCrihtvwmQZfgjARACOBIuZa4ZjmBd4cXqSdKjlYDjLESJ4xOUxR
-	 Cwx2WH0nEkahVQLxvfN6t33bGz9oMkuEqXu6N9T9yYhC705EAotXLIMWnCam2RiA87zHn
-	 PHpqhEqIsgUfpiwFKw3tfYBlwJkhheyIHYeHWpfWSCfuDt3Wlc1yD9NnsSQ/RCutNz1Ya
-	 rdPqDJqaMeiR1/Rzr6ipBV05buvApGVt2LEcqTjsXNs2TTnKFwRA2SDajWhMdI70dow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818588;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=TTXLEOh52+t3Z29jkjHnAsnETSdAT4Q1PIg8lVq9/7c=;
+	b=fzDDNHK9FxxAiRnwQWAQqvTi06PJ3uFK179dI/gR4c0i+c1z2dKcvt9grmCgH/U8nE0E
+	 UBEoP/0NIN5hroBIhmdqOfhnGX87Jczf1r2/QBkhiPK7NQ6ul7z6yoc9vxqZq/LFpXot6
+	 68Cp2es1OUtUtDLvofgPnGtH6Evr0RJMd/4HoF9zxbpl82caBpKjJBohOBauIJ9PFv9+b
+	 sEC6/x2vJgCmhScdxcRxF7ojn+wicx23d9nPjNJXy1Gr8u4XRwL0FemPeQQOqyZL8+tUf
+	 fhJSlh7t2LpY/EVBva52Q3zWyps73rFUo+2TtDEYpWXjAsn/CPN/6fzIrhLaL8MakYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=qGr2NKGN;
-	arc=none smtp.remote-ip=185.70.43.16
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RIug1IpG;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2381E606A332
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:56:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2381E606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5001A606A330
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:56:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5001A606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=qGr2NKGN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1793818576; x=1794077776;
-	bh=PoEnk5w0FeXgmUszIA38mVTO0/9NRJVsUtjtCXZXtvk=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=qGr2NKGNyA8oQsQN5aT4QbA2ipKJFBAk8gaR7VbT56KzBAQptM3M/5H80lBsj1Z6y
-	 st0Heiowa4h9BebEodOu+qHAiYNvhldpzxLdsK25Znd6fzCkoYv2HflgHYT2ALeb5S
-	 KfMc19qLA2Ryo1oPN4cI9zmoOSpiLCC0edOufl2dfT4JD+lalPs66QLXzlg//+EZ4w
-	 sPUK0j1IYsw17fZ3ghLls+jifpHIM9woX2ZgFi7X84+DHRuGfiBQ22AZN26xuQjaIP
-	 j6RtAb6MW/4H6BMwrV1oisuevt3F2ZPdGKJOHESBKDo9wSWnRkQKp6bC9bhM2p99R/
-	 +zZ5hAWz9jNsg==
-Date: Wed, 04 Nov 2026 18:56:12 +0000
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, jitao.shi@mediatek.com, dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, kernel@collabora.com, justin.yeh@mediatek.com, jason-jh.lin@mediatek.com, CK Hu <ck.hu@mediatek.com>
-Subject: Re: [PATCH v9 05/13] drm/mediatek: mtk_dsi: Enable interrupt at component bind time
-Message-ID: <hXDHNenOxP_1Fjv3k-eSNDIFG2yGsdvlxFOCpn0SMdRImzGWQfDVFE-0px1K0-Z472dL3IuLWE5BWIQeOo_U12SjzZOeJ3FNLIxus-KoGNE=@protonmail.com>
-In-Reply-To: <20260916110825.102631-6-angelogioacchino.delregno@collabora.com>
-References: <20260916110825.102631-1-angelogioacchino.delregno@collabora.com> <20260916110825.102631-6-angelogioacchino.delregno@collabora.com>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: 1252c7109e566e88ba7843d515915c4f14738510
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RIug1IpG
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4ae34ad9bb6so1224255e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:56:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793818587; x=1794423387; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TTXLEOh52+t3Z29jkjHnAsnETSdAT4Q1PIg8lVq9/7c=;
+        b=RIug1IpG9hagKHeKOy07bwDTTc2rnw0DHJJK79cxJ+t/LNDc4vqM/DHT1KSa1I7YY5
+         QH4bIPtyoJYI/7vEfnyNGoQaYFtMCyKqNTIAv2Cxbbk383rzwFNCIJStDRqtRXlgW7tn
+         Kw78HcHOm7aQ0g8159uGEA2gGE38Cx5LFFieG9YnEWEMYFpEOR+uAqkT8xnU61oGdDx0
+         Xe93Fsx4rI79sM0lyso6dtC462Bzl1r9O0Kp6sxJ8XEOkhqVVWVgu4Alo7b+77rGEehI
+         LcXfaNjB/K8/Rpz54EhcA1LhZ+Kw+vmVLGb65QVAERHnaSkWlfFh7hzMM1GvSb3/W+2i
+         6y2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793818587; x=1794423387;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TTXLEOh52+t3Z29jkjHnAsnETSdAT4Q1PIg8lVq9/7c=;
+        b=nFhPDkNvPuwyEyZRgJngBPMRud3RXJMciL5tUgHT8h2bEcEhSbU1kcRlgzHSLH80Gk
+         YahWDE9EvqqyZuvQElelzsk3kXYwN9OlPxwItjcLeNR7xKmD/QFCyu88uh9tS13jspes
+         F2WAVZH+xng4JN+AwlIOF1Sub+WvgmpzmLnHYVlGVEUb0oyCfRBoHvUUBvAvBKX9fycf
+         UyU9Po0GZCfLOmFudEbzd/2wT9efYkC3GdcO9/v6xVc4nvusA477/yBX/mcwMiQiOaWP
+         qJn1YpMj/hZhE+2avDHeVZa1PkJZE8FZPrAQ6E9RoEbGosGVcNzimWQRGNBZ8EKEUuye
+         UDoA==
+X-Forwarded-Encrypted: i=1; AKwUvBxJnVbs5cSqxC+jz558IyMW+bxYTdvyXWe5CGe+GE8UqUhEOrqfShaCf+3psjbju0MglVQbUA4WHL17/OU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+TeelfPptw5sqUONP5SMD5XDZ59WlodHY47Fqcs9bAUzFy2qnw
+	bFkHF23GcxWx/pwe0RjSMv92+ukCGXNap0XXQsLelOKbYz8bBDJsOBYs
+X-Gm-Gg: AYBFou0I9+GkbrureSgBhHhat86LKAqFFY7PvqfGibaHykeub6IjUJkq6hnQbXJnbyN
+	5R2652qSF/4OXPYVmMibVk3mhf6iCHMP4UQ+VjtaTq5hmivRpQPuBppPk2bsGJMuTLfgoEzxh6B
+	5Oareq1tnP45gKArrbtPevM1kR15hje4Y67T2CD2Dv5ntqwOIj+qbn820EbV47VtYWcoF8sTh69
+	diKDGjWvt7XJNLs6lBfLUWEmfr+6udG8lvGOGFwx4+MZ1CTd6YzDMLHB2UE9YTbGDfxQMyLv/d/
+	GBQIkxfOS1WSPncdmasKZC2lavCAiDKBMAYfG7lH4SrHsDhHNnsYx/pU465dGkfOowtvu+1VzsI
+	qVScJFTQmjwjG7SGHlnLJQddSy8hofV7u3t89FFlOzNdRQ+nkRFw0E50A3XGxJP0niJYoI+nFL1
+	zTxrvZZi2SAgsM3vOdU7vWxAoKfEyxohOR5xiIYvo74az7H9K0EJdlXTCABUmslwy+Tkqi1+INW
+	K6fY1a/tMaa4BdTYBeOOIzG1tJd18MpVka/GfL5+PhQreKzYSQOsjCMvaQvl0VTdzG2b9/XWv1Y
+	NGR1sAi2L8qP6lVyfxWRhXZ3RpxktzENiYVVnb5qfIc+vxCQGPgNOIF61Fh5Oli588vHwcVUNxm
+	3
+X-Received: by 2002:a05:600c:4897:b0:4ad:5ec2:d3b3 with SMTP id 5b1f17b1804b1-4ad5ec2d3e4mr198521645e9.1.1793818586595;
+        Wed, 04 Nov 2026 10:56:26 -0800 (PST)
+Received: from scheduler.schedules ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b4527fed5bsm96749275e9.3.2026.11.04.10.56.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 10:56:26 -0800 (PST)
+Date: Wed, 4 Nov 2026 21:56:23 +0300
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>
+Cc: peterz@infradead.org, mingo@kernel.org, tim.c.chen@linux.intel.com, 
+	qyousef@layalina.io, yu.c.chen@intel.com, vincent.guittot@linaro.org, 
+	juri.lelli@redhat.com, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
+	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
+	linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com
+Subject: Re: [PATCH v2] sched/cache: Don't use fits_capacity() to compare
+ thread and CPU counts
+Message-ID: <aut98iS5gqInpZ2-@scheduler.schedules>
+References: <20261104020954.2388172-1-zhanxusheng1024@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,126 +102,89 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+In-Reply-To: <20261104020954.2388172-1-zhanxusheng1024@gmail.com>
 
-On Wednesday, September 16th, 2026 at 2:08 PM, AngeloGioacchino Del Regno <=
-angelogioacchino.delregno@collabora.com> wrote:
 
-> Having the DSI interrupt enabled before actually binding the DSI
-> component to the display controller driver is both useless and
-> dangerous: the main purpose of this interrupt is to signal CMD
-> done, LP RX data ready, or VideoMode done, or to reset the HW
-> engine if this doesn't come.
->=20
-> Should this interrupt come too late (during probe), the HW will
-> be reset only at the next occurrence of a timeout, which slows
-> down boot and may render artifacts to the DSI display.
->=20
-> Moreover, clearing the DSI interrupt while the display controller
-> is not ready yet, may result in an interrupt storm.
->=20
-> In order to prevent this from happening, request the interrupt
-> with IRQF_NO_AUTOEN, and enable it only when binding DSI to its
-> display controller component master.
->=20
-> Reviewed-by: CK Hu <ck.hu@mediatek.com>
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@coll=
-abora.com>
+Hi Zhan!
 
-This was necessary on mt6595, otherwise it would get stuck.
+On Wed, Nov 04, 2026 at 10:09:54AM +0800, Zhan Xusheng wrote:
+> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
-Acked-by: Roman Vivchar <rva333@protonmail.com>
-Tested-by: Roman Vivchar <rva333@protonmail.com> # mt6595, mt6768
+I said myself that I'll review this someday. But forgot when to :/.
 
-> ---
->  drivers/gpu/drm/mediatek/mtk_dsi.c | 24 +++++++++++++-----------
->  1 file changed, 13 insertions(+), 11 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
-k/mtk_dsi.c
-> index 28ba532210ff..6ac6daa61e68 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-> @@ -225,6 +225,7 @@ struct mtk_dsi {
->  =09int refcount;
->  =09bool enabled;
->  =09bool lanes_ready;
-> +=09int irq;
->  =09u32 irq_data;
->  =09wait_queue_head_t irq_wait_queue;
->  =09const struct mtk_dsi_driver_data *driver_data;
-> @@ -1101,6 +1102,8 @@ static int mtk_dsi_bind(struct device *dev, struct =
-device *master, void *data)
->  =09=09return ret;
->  =09}
->=20
-> +=09enable_irq(dsi->irq);
-> +
->  =09return 0;
->  }
->=20
-> @@ -1109,6 +1112,8 @@ static void mtk_dsi_unbind(struct device *dev, stru=
-ct device *master,
->  {
->  =09struct mtk_dsi *dsi =3D dev_get_drvdata(dev);
->=20
-> +=09disable_irq(dsi->irq);
-> +
->  =09drm_encoder_cleanup(&dsi->encoder);
->  }
->=20
-> @@ -1342,7 +1347,6 @@ static int mtk_dsi_probe(struct platform_device *pd=
-ev)
->  {
->  =09struct mtk_dsi *dsi;
->  =09struct device *dev =3D &pdev->dev;
-> -=09int irq_num;
->  =09int ret;
->=20
->  =09dsi =3D devm_drm_bridge_alloc(dev, struct mtk_dsi, bridge,
-> @@ -1375,9 +1379,9 @@ static int mtk_dsi_probe(struct platform_device *pd=
-ev)
->  =09if (IS_ERR(dsi->phy))
->  =09=09return dev_err_probe(dev, PTR_ERR(dsi->phy), "Failed to get MIPI-D=
-PHY\n");
->=20
-> -=09irq_num =3D platform_get_irq(pdev, 0);
-> -=09if (irq_num < 0)
-> -=09=09return irq_num;
-> +=09dsi->irq =3D platform_get_irq(pdev, 0);
-> +=09if (dsi->irq < 0)
-> +=09=09return dsi->irq;
->=20
->  =09dsi->host.ops =3D &mtk_dsi_ops;
->  =09dsi->host.dev =3D dev;
-> @@ -1386,17 +1390,15 @@ static int mtk_dsi_probe(struct platform_device *=
-pdev)
->=20
->  =09platform_set_drvdata(pdev, dsi);
->=20
-> +=09ret =3D devm_request_irq(&pdev->dev, dsi->irq, mtk_dsi_irq,
-> +=09=09=09       IRQF_NO_AUTOEN, dev_name(&pdev->dev), dsi);
-> +=09if (ret)
-> +=09=09return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n=
-");
-> +
->  =09ret =3D mipi_dsi_host_register(&dsi->host);
->  =09if (ret < 0)
->  =09=09return dev_err_probe(dev, ret, "Failed to register DSI host\n");
->=20
-> -=09ret =3D devm_request_irq(&pdev->dev, irq_num, mtk_dsi_irq,
-> -=09=09=09       IRQF_TRIGGER_NONE, dev_name(&pdev->dev), dsi);
-> -=09if (ret) {
-> -=09=09mipi_dsi_host_unregister(&dsi->host);
-> -=09=09return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n=
-");
-> -=09}
-> -
->  =09dsi->bridge.of_node =3D dev->of_node;
->  =09dsi->bridge.type =3D DRM_MODE_CONNECTOR_DSI;
->=20
-> --
-> 2.55.0
->=20
->=20
+Hope I'm not too late.
+
 > 
+> invalid_llc_nr() checks that a process's running threads stay below 80%
+> of the LLC's cores, scaled by llc_aggr_tolerance, with fits_capacity().
+> fits_capacity() is meant for capacity values; here it only supplies the
+> 20% margin.
+> 
+> Give the check its own helper. x * 5 < y * 4 is the same comparison as
+> x * 1280 < y * 1024, so there is no functional change.
+
+Magic of 256.
+
+> 
+> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> Reviewed-by: Tim Chen <tim.c.chen@linux.intel.com>
+> Reviewed-by: Qais Yousef <qyousef@layalina.io>
+> ---
+> Qais's series changes fits_capacity() to take a CPU number as its
+> second argument [1]; this call would then pass the CPU count as a CPU
+> number without a warning.
+> 
+> v2: reword the comment (Tim); move the reason above out of the
+>     changelog; add the Reviewed-by tags.
+> v1: https://lore.kernel.org/all/20261102021536.1026143-1-zhanxusheng1024@gmail.com/
+> 
+> [1] https://lore.kernel.org/all/20260504020003.71306-5-qyousef@layalina.io/
+> 
+>  kernel/sched/fair.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index cfc982205b98..a7467fe425e6 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -1469,6 +1469,12 @@ static bool exceed_llc_capacity(struct sched_cache_group *grp, int cpu)
+>  	return false;
+>  }
+>  
+> +/* Number of running threads below 80% of LLC's cores for default setting */
+> +static inline bool fits_llc_nr(u64 nr_threads, unsigned int nr_cpus)
+> +{
+> +	return nr_threads * 5 < (u64)nr_cpus * 4;
+> +}
+> +
+>  static bool invalid_llc_nr(struct sched_cache_group *grp, struct task_struct *p,
+>  			   int cpu)
+>  {
+> @@ -1485,8 +1491,8 @@ static bool invalid_llc_nr(struct sched_cache_group *grp, struct task_struct *p,
+>  	if (scale == INT_MAX)
+>  		return false;
+>  
+> -	return !fits_capacity((READ_ONCE(grp->nr_running_avg) * cpu_smt_num_threads),
+> -			(scale * per_cpu(sd_llc_size, cpu)));
+> +	return !fits_llc_nr(READ_ONCE(grp->nr_running_avg) * cpu_smt_num_threads,
+> +			    scale * per_cpu(sd_llc_size, cpu));
+>  }
+>  
+>  /*
+> -- 
+> 2.43.0
+> 
+
+Yeah well they behave the same.
+
+
+Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+
+I'll normally say Thanks, but I'll try 'cheers' for today.
+
+
+Cheers,
+
+Kayra
+
