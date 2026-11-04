@@ -1,68 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.240
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793810648;
-	b=lngONGd7e/pRDlZ1fUC7s457yCUc9LJoeea8a4rdqvOB7Xd8AoZOy3/m/2pBL+EK+1gP
-	 CGtSq99IY4qJGo5BPiDct8qNghQGUOWOGMB43OikQVBbNrVfqZJ+fK5695gbCNzdh3mR4
-	 tmfRoHd1vLyFogrAEJKf3gYqbFSV4jzrEe0Cj1h+9NInMob4hq/cowlksAt1EyHbXumEa
-	 TADcKOZnxE42jNfTxpS0ihh0sBBpm1/hWIGK6DYA1SD7urtW33dBIIKffeXbUNZPx1o9M
-	 OBps0r0j/Y58VXIGxfauqE4uXwBemOR1phW9kbijNDRtyJ66R9CiKA02lkx3Qop5NGw==
+	t=1793810649;
+	b=aBoxkEDqt4dxvR/5Gh7gRYw4/YyRQ4JbT1jpucmrsb8zXOLzu3iVh+mebLGIex+ffukS
+	 j5hYDlc341r7+i315nppqXqldCmwRpuaeOF+G5nWLvTi2zTROKlHRYtUs816BQqudPwnA
+	 cJrJpEqiAemIpx41z2ydq94vkAbeudZvi3zeSArBjXBaPadpLFvZGQO9Ea8u78UypGD+l
+	 rv+gOWPMq1AG5m0u4jt07Jt+xMswTtHvlyz7pzcer3cjf4r93hfVTpkdMY2/aThAH7l4A
+	 JXPONzRVMz6/eoaEW18A2r5a4zfyGN4gQuRzJAxeWmrS0jmTv3PAzzlzDXxzw7CzdYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793810648;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=I7kpJ9bmVWK/UO5I+NSSFOntWVhRXJuKLPMqQRb2MYM=;
-	b=vV6t1dbIP1MtjjcVslocatC7qrXhZ6Y5eI4yjLWvVxrLj7BJuF7y5zRZqOjxBVaT+EKc
-	 iS+jWSbOdrB++uilSY0sBrmP7wGeykWOK6r+HIsMolFw9fgGN7M4oOwXvuU7fnq26Jk8k
-	 ZF94X3KgbLHiCkQgdrYb8IAdvsC+UJHX6PD6fbFz71yrFsQ5nka+cu1X8uZgpTr+y8E/v
-	 geZG6HAzsIATjRdjHTFuBSQO6BtZqMbiuMMjlLLjmC78OI2rMgrE5Hy1lTQO8QQQDIj5e
-	 3p0jXVriP2WFIBopHvN0/rqbz8Mgd/2OTljY+4r92BB3b8uPa4AUjUkpStl7oiejYHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793810649;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=nV2r7k/wz3b04bHgUI3RSPi8hDfS8dQ4mmisBszesNM=;
+	b=tGdizXuWF2H4+He47s19K6m8ZUkSb0leeGCEx491h7bcHShws3lsnPJo/AqOeKSPsp1V
+	 GoVBxBbzgLWMHOyHsX5D0IPXWZQfOS8zyFg2OLa1EyKlTCbilKOWScM+BxynD3R1rbXoy
+	 VxZM5U0HK5lliK5/RN1Mn0qQZk2XnY5lrkm/2j8REIcImfn/dPE6GZIiNUwO38Ay1em01
+	 9wazA57uZPaGjUFV1MIpmwbXTB/W9mtIoRxnQkLDPUt1hu07WgThSXv7r/FqERKcWKLYf
+	 mwz3vPCnCZl54rT6x60hyGoPYcU9tmwZ7oDJsS00i2FsHShc4nRXijcZ39CmQ9OK8bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wyuan.org;
-	spf=pass smtp.mailfrom=wyuan.org;
-	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=keTZX67M;
-	arc=none smtp.remote-ip=95.215.58.240
-Received: from mta1.migadu.com (out-240.mta1.migadu.com [95.215.58.240])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fKEZ2WTE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55782606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:44:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55782606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0A8F606A31B;
+	Wed,  4 Nov 2026 16:44:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=keTZX67M
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=19ke9AC0ONOuEpkyW1MiqquFiHABSQgTQTbt1nq39WY=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793810640; v=1; x=1794415440;
- b=keTZX67MWO7g+YCbimIGYsTaPw9RafSgoiBFyoT9h6F/3Vf7ggEBkJfzHH1fyx6GDRIzX9q5
- zoHYSy3B2gTIXsnnLZgbG1nzmg7XKnGTl1cftu+9/luTzJ0QRpCbhVe29NcLnSyqPClASFOciav
- H/JDnqjgohBx1dg3ZMCUgEn0geynWvkAQyIDS9dwggoyqUaqk/83Qfdy+pca+pcVpj5ym2eqLq7
- EbV+F5g3PTvZ15B1y1pJBm3gb6PpV8yBUyaXGAExqEnalOBMgNkGGxIIWeslUOJBLnGxWAlPX0L
- djg5vAiSmYPMje05MprwkdElE2i6zbjtRaOJsYhoWeLoQ==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7a3a2425bbc08809;
-	Wed, 04 Nov 2026 16:44:00 +0000
-X-Mizu-Trace-ID: 7a3a2425bbc08809
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 5 Nov 2026 00:43:49 +0800
-From: Weijie Yuan <kernel@wyuan.org>
-To: Dongliang Mu <dzm91@hust.edu.cn>
-Cc: Weijie Yuan <wy@wyuan.org>, Alex Shi <alexs@kernel.org>,
-	Yanteng Si <si.yanteng@linux.dev>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] docs/zh_CN: improve maintainer/pull-requests
- translation
-Message-ID: <autgxXMPKmncF3vq@wyuan.org>
-References: <20260905-configure-git-v2-0-ab194db8c6b9@wyuan.org>
- <20260905-configure-git-v2-2-ab194db8c6b9@wyuan.org>
- <96be0e40-f9aa-41b1-90c2-3c209b5091a3@hust.edu.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fKEZ2WTE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B56331F00919;
+	Wed,  4 Nov 2026 16:44:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793810648;
+	bh=nV2r7k/wz3b04bHgUI3RSPi8hDfS8dQ4mmisBszesNM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fKEZ2WTEZWvhk5E1QImCHa+zgLWKLh42i4IGhtK9/lzjld+huug8FmkAYfQDRt6tC
+	 TFKmHyD3Do2Fj4MXTKNJ88+lq7+mZuIprb4dr/KyAPpd8PTzj+n1e/r15AjwCkKoYM
+	 Pk90ig60K1LT9scXLdl9ONZdFPmiSU4VH4Oderv4vM1xm/Z7FUgSVj4KJkFDMlcpHN
+	 4O9okUk+cOFfPObPOqej4sixBNFiOS+ZBnKVQBpeuvAEfwaMIB0g9I7z/7ZqDzzi9j
+	 Duj0q6vf+zquCFglJhnIgPt687O4BXxkTgt1LjpWIHrbdVRJklt4dEZtClbp8EEOn7
+	 Hc+QUn6MTfGhA==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
+Cc: Naveen N Rao <naveen@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, "David S. Miller" <davem@davemloft.net>, linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org, tz2294@columbia.edu, Mani Tofigh <mt4022@columbia.edu>
+Subject: Re: [PATCH 3/3] kprobes: Arm reused optprobe on cooling list
+Date: Thu, 05 Nov 2026 01:44:04 +0900
+Message-ID: <undine-1793810644673369233-54123b0cf19aa6b9@undined.local>
+X-Mailer: UndineD 0.1
+In-Reply-To: <20261103-kprobes-optprobe-state-v1-3-6aaac612abe6@columbia.edu>
+References: <20261103-kprobes-optprobe-state-v1-0-6aaac612abe6@columbia.edu> <20261103-kprobes-optprobe-state-v1-3-6aaac612abe6@columbia.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,93 +59,62 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <96be0e40-f9aa-41b1-90c2-3c209b5091a3@hust.edu.cn>
 
-On Wed, Nov 04, 2026 at 11:58:50PM +0800, Dongliang Mu wrote:
-> 
-> On 9/5/26 6:06 PM, Weijie Yuan wrote:
-> > After the last update to the Chinese translation, the English document
-> > removed the explicit section label, replaced the configure-git
-> > cross-reference with a direct path, and changed "tree for forever" to
-> > "tree forever".
-> > 
-> > Update the translation through commit 3a1b9c4d8edb
-> > ("docs: Remove redundant word "for"").
-> > 
-> > Remove the abandoned Chinese section label and point the configure-git
-> > reference to the Chinese translation.
-> > 
-> > Some of the existing wording did not read very smoothly, so polish a few
-> > expressions. And also correct some Git terminology.
-> 
-> Merge the above two paragraphs into the first paragraph and keep the line
-> "Update the translation through commit " at the end of commit message.
+On Tue, 03 Nov 2026 13:46:01 -0500, Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org> wrote:
 
-Oops, yes. Will do in v3.
+> diff --git a/kernel/kprobes.c b/kernel/kprobes.c
+> --- a/kernel/kprobes.c
+> +++ b/kernel/kprobes.c
+> @@ -536,6 +536,7 @@ static struct optprobe_generation optprobe_gens[OPTPROBE_GEN_MAX];
+>  static int optprobe_cur_gen;
+>  
+>  static void optimize_kprobe(struct kprobe *p);
+> +static void __arm_kprobe(struct kprobe *p);
 
-> > Signed-off-by: Weijie Yuan <wy@wyuan.org>
-> > ---
-> > I did make quite a few changes to make the reading more fluent. However,
-> > to some extent, this might also be unnecessary. If you think there are
-> > too many, I will remove the less essential ones. Thanks.
-> 
-> It's fine.
+If reuse_unused_kprobe() leaves arming to register_aggr_kprobe()
+(via arm_kprobe()), this forward declaration of __arm_kprobe() will not be needed.
 
-OK, thanks.
+>  static struct task_struct *kprobe_optimizer_task;
+>  static wait_queue_head_t kprobe_optimizer_wait;
+>  static atomic_t optimizer_state;
+> @@ -1067,6 +1068,13 @@ static int reuse_unused_kprobe(struct kprobe *ap)
+>  	if (!kprobe_optready(ap))
+>  		return -EINVAL;
+>  
+> +	if (optprobe_queued_cooling(op)) {
 
-> > ---
-> >   .../zh_CN/maintainer/pull-requests.rst             | 127 +++++++++++----------
-> >   1 file changed, 66 insertions(+), 61 deletions(-)
-> > 
-> > diff --git a/Documentation/translations/zh_CN/maintainer/pull-requests.rst b/Documentation/translations/zh_CN/maintainer/pull-requests.rst
-> > index ce9725f4674c..4509ec2a2bea 100644
-> > --- a/Documentation/translations/zh_CN/maintainer/pull-requests.rst
-> > +++ b/Documentation/translations/zh_CN/maintainer/pull-requests.rst
-> > @@ -5,19 +5,18 @@
-> >   :译者:
-> >    吴想成 Wu XiangCheng <bobwxc@email.cn>
-> > -
-> > -.. _pullrequests_zh:
-> > + 袁维杰 Weijie Yuan <wy@wyuan.org>
-> I had some internal discussion between zh_CN maintainers. The "译者" and
-> “校验” can be kept to motivate old or new contributors to submit more
-> patches. How do you think about this?
+Instead of arming the probe directly here, consider let
+register_aggr_kprobe() to arm it:
 
-Actually I agree with this benefit and I did mention this here [1], but
-I also can't say no to Jon's viewpoint [2].
 
-Take it further:
+if (ret == 0 && kprobe_disabled(ap) && !kprobe_disabled(p)) {
+	ap->flags &= ~KPROBE_FLAG_DISABLED;
+	if (!kprobes_all_disarmed) {
+		ret = arm_kprobe(ap);
+		...
 
-From what I have seen, keeping these two fields does have that benefit.
-I also asked some past contributors about this change, and some frankly
-admitted that they wanted their names to remain on the page to satisfy
-their "vanity". Without these fields, they might move on to other
-projects. (I have no comment on that now.)
 
-That said, given Jon's much longer experience, wanting to keep things
-simple makes sense too. There have been several requests to update email
-addresses over the years, and maintaining them indefinitely seems
-unnecessary. As I recall, one recent suggestion was to stop updating
-them and leave the old addresses in place to give credit to the
-affiliations they represented, such as Alex's alibaba.com address. But
-routine changes, such as moving from gmail.com to outlook.com, really
-are a nuisance to keep up with.
+The reason a cooling probe didn't fire in the first place is that
+reuse_unused_kprobe() unconditionally cleared KPROBE_FLAG_DISABLED.
+Because a cooling probe was already unoptimized and disarmed,
+it should remain disabled while on the cooling list.
 
-On the other hand, if we do not accept the update of email addresses,
-leave an outdated address there and a reader actually tries to contact
-the translator, getting a bounce because the address is no longer valid
-is not a good experience either. So it makes sense to leave the primary
-responsibility with the people listed in MAINTAINERS. A reader willing
-to dig a little deeper can also use git log or git blame to find out who
-worked on the translation.
+If reuse_unused_kprobe() does not clear KPROBE_FLAG_DISABLED when
+optprobe_queued_cooling(op) is true, register_aggr_kprobe() will
+naturally arm the probe via arm_kprobe(ap) only if the newly attached
+probe is enabled (!kprobe_disabled(p)), handle any error unwinding
+if arm_kprobe() fails, and keep it disabled if 'p' is disabled.
 
-So.. I dunno.? Or as I said, I fully respect your decisions on this,
-because I'm finding it a bit hard for me to weigh the trade-offs here.
-Maybe we could just let Jon be the BDFL on this one. ;-)
+> +		/* Already disarmed. It will be optimized again upon finalize */
+> +		if (!kprobes_all_disarmed)
+> +			__arm_kprobe(ap);
 
-Thanks.
+Arming the probe here unconditionally when it is on a cooling list
+introduces a bug when the new probe 'p' being registered is disabled
+(e.g., registered via tracefs before being enabled or with KPROBE_FLAG_DISABLED).
 
-[1] https://lore.kernel.org/linux-doc/atDVxZQUiJfsqEBr@wyuan.org/
-[2] https://lore.kernel.org/linux-doc/87o6cvrs27.fsf@trenco.lwn.net/
+Thanks,
+
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
