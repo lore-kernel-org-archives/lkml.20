@@ -1,60 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793827109;
-	b=fNwNuf+c5C5ysaEkIGPtzvjoDnXpoZ7HMVn9lFohvNMF5V43xp06togR7s9C9kVKQmW0
-	 /YBd2+LzvsQ4MGKW78vhSWXsO965oKBXQKjbAje0+e1Hv2X9rAmjzUcl/KmIeyvYL6UZ3
-	 oaI7ZhnbYiDIvoJcEgwbmkR1IzG8TnBev7qPmYaZPxAjsODOw/zr5wNcghgl+sbhq7VCB
-	 s/hYrbREyWqv/EViEJB8L+5xqFwsxyqUi38xnO4R5EP6WV7yjAQsyNK4wjFnF1T4j9cT6
-	 CGP1VL/2PC9ejJL2lj1NvH9YmW+EuCLA2o/bctODWr6epTLZegZzIQu0ASHKyZ5Ycgw==
+	t=1793827169;
+	b=z1o6wpVQYKd+BUL5N71Mojxu49kgqvZIe9YEmaK0cnTgLf7gnBtBQA6z6m72N17pZZXQ
+	 6qeHsDsVQivQsF8bGgvK2CFAJ9KjXEqb6QCrcE1VcB1vix5hswkF3ZJA6+MMsTRXNsdiA
+	 sJqgwdFfu+4gwOXX+1UWq4B9+TJySAMl0+rByjpbPx9n1v22PwWeQeyjNrR8xBFBdn80D
+	 9Jds3kG8SGgHfn5TYWF0Gew96e2GZhGbsXzClbVTC8AIei9fJIHTGt1cAY2Hyy2jVnQ8Y
+	 7tVr2c+inU+me5JKJidxGApsJ3mesB197td9P/B67yoIjapRLFD6808RRgdq1Vv99Ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793827109;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=yaFgj1eDp7Y/u38ZPUdrhSnfnXtmtVwv/VbWSHbZvLU=;
-	b=dTuN18HuBMpq1p4CocLy/Sv1Nn0xn79434wKmagXvvUtFWDaDJIF3YEdQwLCmnfZRvt3
-	 cywtvX25D6Ew0O2vXNdPkg0IVtBKOOvgF6/pU12C+kZmUf3w48ZT4V7KvMec6T6GzxkHP
-	 9Vti+x5OhBkHU7WvmNSVqRJNDdp7Bsa/j9EagR0Y2xxYiyPiOPzgiwmDWrL4Ta+9fhVVk
-	 4S46BzDmydwBhegxeeAD2EqlyjWiTkWyGcOS+gjfjctaHVLL+GShUnpO7nWCYybGXMt6b
-	 hTbAGFYDSdqBSDvdZWYOA3SozUmJ9whNSEUyz49Z3K4XqlIDAL3z9ECL5+fr80x7HJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793827169;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=3DpEQ4BV8ncjuBOzZJCc6LJDmuPNTxkR4oFZHyN7ZmM=;
+	b=AA0DWok3Fv5LH2ZOv1amCpOM08EE90YjkmBiOJCsz09FxM6UbxMC8hGq0ej3wMNJyfPT
+	 h/XeMRQJilMjSvQTT4zHDGOuFyb2X0THQme9fisLI9ybhS/UnGBlXvhgLWhO/nMwvJvZn
+	 sYjmRENnq1GtKuYtPOdgJ91hXLMcNoTXTBeD5JJnTaxV5gaySw/hXu6CGxLneSL3TfOmr
+	 lLndHU/K6iesfuydRNqkwT9pOiey1gQamar1ofzE450px2GHFFvgurZVq80AEi5b6/MQQ
+	 7CoJXJbgIfk3ti4z2/xvCe8orC0DNBeugpP0IO8XV8PYGHHj8eRL4YMOKSVnzLn2HhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SBg5sUgn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=packett.cool;
+	spf=pass smtp.mailfrom=packett.cool;
+	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=jNvCIdSw;
+	arc=none smtp.remote-ip=95.215.58.12
+Received: from mta1.migadu.com (out-12.mta1.migadu.com [95.215.58.12])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD88606AE33;
-	Wed,  4 Nov 2026 21:18:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE1666074F99
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:19:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE1666074F99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SBg5sUgn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E17CF1F0093A;
-	Wed,  4 Nov 2026 21:18:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793827108;
-	bh=yaFgj1eDp7Y/u38ZPUdrhSnfnXtmtVwv/VbWSHbZvLU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SBg5sUgnY1XdJBkwcT9hQnBe2Wp623X9Ws+Vxvdo9ppb2koYF5yMqLv8SnfZOH0SQ
-	 jZgrf2PllUaH42Vr3/aDRujDolbIdnQ1gvnf2zOOoaqXx/U94Px6B0JzQZfGyIDNIP
-	 rofNurVJQr2nNe0gAe4sdz4JKsh2+lA+AFe7HZqaZPPQg0faxFy9WKQQ8P7H9tsR0m
-	 PM3E2JlX6Xs/e6pWw4sGZ6kwDixdsz+V25uJ8JSWk0fhk1IJcb84Di7LsYooL+8WlR
-	 gkfaP+fbjoM69KfyTC2eTMWjJG3+1IehVY2+VBAoz2PnmYLvpPEtCcILtXzhZP3cxr
-	 5s90yU3296R5g==
-Date: Wed, 4 Nov 2026 18:18:25 -0300
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: James Clark <james.clark@linaro.org>
-Cc: lirongqing <lirongqing@baidu.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] perf intel-bts: Free the old snapshot reference array
- after growing it
-Message-ID: <auuhIWt8Xz9jXBot@phoenix2>
-References: <20261104022042.1894-1-lirongqing@baidu.com>
- <c1e052c6-531b-4c1e-b671-b5a214ae24c4@linaro.org>
+	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=jNvCIdSw
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=h8kZr+2P5FyKEJmL9Drkm4bpXOy70o/S/a6qT+o6Brk=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793827165; v=1; x=1794431965;
+ b=jNvCIdSwx8XbP6Z/yh4PauQlvjl2yBv9KSsBzTA8ni3TJC+OI+iwREUiak5pSkhymMK8zDB6
+ AwCAdorhppQ4hJWw8PNnXwolKNXcKo3AOKrNT7oXkc9w6rwXN5vkQ6889UpJo4l0LQ4x+f80RfI
+ JBhmZuvtUWJJYLP9rNGRD9pqEh+mvbY62A2waA//loj/jd+jOR6m33ZOeVUerY33QO5cpXxG9J8
+ YFjB5WO5gfu0/3+gWEGDp72EXkBj+SfhErYhS0i4yyWtHScgjFkPSdJLl6ip5eY//j7HGsIXTY6
+ V5unKt6xyV7Fr8/bWxW9I1fdH3KEl5VkFNeNLKzN3SQHQ==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c5aecda40ac6f06c;
+	Wed, 04 Nov 2026 21:19:25 +0000
+X-Mizu-Trace-ID: c5aecda40ac6f06c
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <c5405525-78ee-4480-b482-4dedc49661a7@packett.cool>
+Date: Wed, 4 Nov 2026 18:19:13 -0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,47 +60,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c1e052c6-531b-4c1e-b671-b5a214ae24c4@linaro.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] media: qcom: camss: Add support for SM8150
+To: mail@andrewgigena.dev, Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org
+References: <20261104-sm8150-v7-4-rc1-camss-v1-0-7a9534a9a22f@andrewgigena.dev>
+ <20261104-sm8150-v7-4-rc1-camss-v1-3-7a9534a9a22f@andrewgigena.dev>
+Content-Language: en-US
+From: Val Packett <val@packett.cool>
+In-Reply-To: <20261104-sm8150-v7-4-rc1-camss-v1-3-7a9534a9a22f@andrewgigena.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 10:00:15AM +0000, James Clark wrote:
-> 
-> 
-> On 04/11/2026 02:20, lirongqing wrote:
-> > From: Li RongQing <lirongqing@baidu.com>
-> > 
-> > The snapshot reference array grows when a mapping index exceeds its
-> > capacity. Its old entries are copied into a new allocation, but the old
-> > array is abandoned when snapshot_refs is replaced.
-> > 
-> > Release the old array after copying it so expanding past sixteen
-> > mappings does not leak it.
-> > 
-> > Fixes: d0170af7004d ("perf tools: Add Intel BTS support")
-> > Signed-off-by: Li RongQing <lirongqing@baidu.com>
-> > ---
-> >   tools/perf/arch/x86/util/intel-bts.c | 1 +
-> >   1 file changed, 1 insertion(+)
-> > 
-> > diff --git a/tools/perf/arch/x86/util/intel-bts.c b/tools/perf/arch/x86/util/intel-bts.c
-> > index d44d568..9403681 100644
-> > --- a/tools/perf/arch/x86/util/intel-bts.c
-> > +++ b/tools/perf/arch/x86/util/intel-bts.c
-> > @@ -299,6 +299,7 @@ static int intel_bts_alloc_snapshot_refs(struct intel_bts_recording *btsr,
-> >   	memcpy(refs, btsr->snapshot_refs, cnt * sz);
-> > +	free(btsr->snapshot_refs);
-> >   	btsr->snapshot_refs = refs;
-> >   	btsr->snapshot_ref_cnt = new_cnt;
-> 
-> I made the same fix here [1] as well as turning BTS snapshots into the
-> generic one. But that doesn't have a fixes tag, so maybe this patch is still
-> useful.
-> 
-> Reviewed-by: James Clark <james.clark@linaro.org>
-> 
-> [1]: https://lore.kernel.org/all/20261102-james-cs-unformatted-per-thread-fix-v3-10-dbcb0c281b9b@linaro.org/
+Hi,
 
-Thanks, applied for v7.4.
+On 11/4/26 5:54 PM, Andrew Gigena via B4 Relay wrote:
+> From: Andrew Gigena <mail@andrewgigena.dev>
+>
+> Add CAMSS platform data for the Qualcomm SM8150 SoC. The camera
+> subsystem contains four CSIPHY, four CSID (two full and two lite), two
+> VFE and two VFE-Lite instances.
+>
+> The hardware reuses the existing 3-phase 1.0 CSIPHY, Gen2 CSID and
+> VFE 17x implementations; the CSIPHY uses the SC8280XP lane register
+> layout. Add CAMSS_8150 to the version enum and to the shared code
+> paths, then add the per-block clock, regulator, power domain,
+> interrupt and interconnect resources.
+>
+> Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
+> ---
+Wow, what an unbelievable coincidence — I just went looking for this and 
+found these patches on gitlab in order to test on the similar sc8180x, 
+and half an hour later you've submitted it to the lists! :D
+>   .../platform/qcom/camss/camss-csiphy-3ph-1-0.c     |   2 +
+>   drivers/media/platform/qcom/camss/camss-vfe.c      |   2 +
+>   drivers/media/platform/qcom/camss/camss.c          | 262 +++++++++++++++++++++
+>   drivers/media/platform/qcom/camss/camss.h          |   1 +
+>   4 files changed, 267 insertions(+)
+>
+> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+> index dac8d2ecf799..851decb0691e 100644
+> --- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+> +++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+> @@ -1141,6 +1141,7 @@ static bool csiphy_is_gen2(u32 version)
+>   	case CAMSS_8650:
+>   	case CAMSS_8775P:
+>   	case CAMSS_X1E80100:
+> +	case CAMSS_8150:
+It should probably go higher in the sort order, before 8250?
+>   		ret = true;
+>   		break;
+>   	}
+> @@ -1236,6 +1237,7 @@ static int csiphy_init(struct csiphy_device *csiphy)
+>   		regs->lane_array_size = ARRAY_SIZE(lane_regs_sm8250);
+>   		break;
+>   	case CAMSS_8280XP:
+> +	case CAMSS_8150:
+>   		regs->lane_regs = &lane_regs_sc8280xp[0];
+>   		regs->lane_array_size = ARRAY_SIZE(lane_regs_sc8280xp);
+>   		break;
+Interesting, why do these match 8280xp and not, say, 8250?
+> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+> index 2680a9914765..dd28058e98a7 100644
+> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
+> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+> @@ -354,6 +354,7 @@ static u32 vfe_src_pad_code(struct vfe_line *line, u32 sink_code,
+>   	case CAMSS_8650:
+>   	case CAMSS_8775P:
+>   	case CAMSS_X1E80100:
+> +	case CAMSS_8150:
+Sort order here too
+>   		switch (sink_code) {
+>   		case MEDIA_BUS_FMT_YUYV8_1X16:
+>   		{
+> @@ -2010,6 +2011,7 @@ static int vfe_bpl_align_rdi(struct vfe_device *vfe)
+>   	case CAMSS_8280XP:
+>   	case CAMSS_8300:
+>   	case CAMSS_845:
+> +	case CAMSS_8150:
+>   	case CAMSS_8550:
+>   	case CAMSS_8650:
+>   	case CAMSS_8775P:
+> [..]
 
-- Arnaldo
+
+Thanks,
+~val
+
