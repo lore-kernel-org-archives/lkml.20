@@ -1,97 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.43
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793831193;
-	b=siOEWjm/Fzc5JzGjbkIRPQDJoQ8TXlQeUuUP72cteaS6ugTdDEB/aZVOnANKRJqdJODR
-	 DcgvaHtC/wfe+5Wqzxt3xoUZgRRhLwA3c0hpPAEyjz8Cre6vyugvQ82rU6vi4j3UFC7U6
-	 1p4OTcTImV2nTuCW5lnSox5bWmG43nYhdoreGXatZYqhUzC5EQJ3mLiwcXKR71pmEHW8S
-	 rcQDUxRXyukPmt1vC7T9A+ketzIkiAyW2uRr7+wU0R8eCcggfU3st6ltXIuE7SwDPIa7H
-	 KrEmz0cXN2pC4uLbvhljrLYCfBoAXDlJGOtIvBTHLcB5BGNDVgGD10LhCnYuzpRsrPg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793831193;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=9OWHZGyN+/phkIGg4cLIcv2N+SmxQEX4nd4X23tehho=;
-	b=D20urtYaAEMA5wpLHtwdRIi9v0tiZpB0aVxMme74shsOjugu9jePiCFN2pgGf5nMYM6e
-	 +/I5n4I8IubCNcoRrJUP42Y3J1480QDYIq8qm3PS2+/+KWEJjLyTQJWegt8m8qE9R2dOf
-	 kLD5abcHHkqGyKwYUPXdpntCcMfODukqdopHtekC0ybp9ZuA9WhVDjAOBbiSnMI/207EB
-	 z5IuEYztRyJCKy9phuCw3/8hpdx4mOWgHLVvYZcXdJXjtzCnKvFL/oeY7HtFR/JAQs3eG
-	 2w2af1AcdLKoyNzVtAnP532ubNiKY7cPq8rtb0nWClBwrLtzIxYc2UhDXXzHAYJkbRA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qVMOSdef;
-	arc=none smtp.remote-ip=209.85.222.43
-Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com [209.85.222.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.22
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793831215;
+	b=l00D026qxrCpgsm7/iqIKtjRofApdQtdABMmbpPXkjhH5OAQL9bRFkNAJ1gxH2BKtq+J
+	 tekbmvn6845Hbe58REfIxdGiiW41J972Lf2+agrLtjd4Fk1aj3Yz7IHAwPHMT4X4ZuTYa
+	 1qrgmUEJAdZSjvHk4TyOX0HNVlTvOGjc1SXj0/NdfGKvjag0tnpf8KO2LcbPHVKNC0m2h
+	 UuZifHSWo/hNAs+Tg6DoMBGxialt30KKj+ti7eurcEQZLeUyC//Ii+Lo0WenXqsDnFN/b
+	 1qvUT2KWcAAhzB5ijSbOvTfJMr5YfPhTed43VX56h8T7s0bCHTB3EjsxiotmBLaSSJQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793831215;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=3lHFtNoXN9+qA99ptczfl1VTdL7qOlB4XR0As2iekug=;
+	b=shKM5ix0H1HRWfH6AOv/8lipcQmyWsjHtPpbZM+BYfigu6NUNett+h7OalsWueBfDcj7
+	 5AkyV2Zbb3zlNlFYWQv8yfxPS5Dx5AwkP2hnYQdZT8ob8t37W2CA2/JB7vTAXyDTorrn1
+	 Eo+BH5pE8pRCwkB8cGAIHT72W8fbBvzMNnyLfZ/y4gnCRyAiQrKrXLhW25Nd0zGPEJibB
+	 E5EOGOD7CwnQlkzkzbeoJsm4J9NbWIXSoEmEtFNs8kWFf9RDiep/9YflOp1lGUykMgp2N
+	 XJ1/oN163k/MTPQqFSyqJ+UBsRhCL4TsQ6Cm2E9VpqVVugBUMuBThX9KyHw1fYUnkjQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Ie7kqqyt;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.22
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012022.outbound.protection.outlook.com [52.101.66.22])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97DB6606AB10
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:26:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97DB6606AB10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2103606AB04;
+	Wed,  4 Nov 2026 22:26:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2103606AB04
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qVMOSdef
-Received: by mail-ua1-f43.google.com with SMTP id a1e0cc1a2514c-999b2b06bd7so367097241.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:26:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793831191; x=1794435991; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9OWHZGyN+/phkIGg4cLIcv2N+SmxQEX4nd4X23tehho=;
-        b=qVMOSdefGWOPaPhYgIsTT0/yu/T1lgjF8OEFRqSM2f2ZDa1Va/tu3lWDeXvMSDjUCe
-         JUleXfuq8jlUzkzkdU5pKHhwpEcEAKVzemhf5cq9Sz9qvnGHqpEG5eCkf+rlgSJCfFIM
-         HAcixp4IuzoD2l83xDIZLlKDmaLRZst55kLFR5HXOGq9Avx+ynl0m2xtW/GNoBzq4frL
-         oFAEaYVbR9Sho2NO7OAbA6rwDygZZ5fOKijj3LebjdXnxSWbIt/RhYSeMxHMIFb1R/Qw
-         87dAtqTytU3Fcz0IGkf29OLrg2bZfsmzyoOPjDeRFCD/No+ZVfkpY3qunq98TEWRnG9I
-         2A5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793831191; x=1794435991;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9OWHZGyN+/phkIGg4cLIcv2N+SmxQEX4nd4X23tehho=;
-        b=0Bo2LF+NXJ07YWvj2S2bus+5kQjhSp0whBywfdDT6Eu+a08DdYmYIJeh8kyYPIT4i/
-         iG1+hbU+DgH5C6/KS2qjhMisv3yJytVKeRpriVQJk2dICugm93h9qHvUvD/6fGbw4q5I
-         AJd/LA4D46VTgKWueJ+WwOuHjHvsPbnFGWf97chtTT+WyH6a6ItdV7kBMd1jqEggpsxU
-         H/Ough1R3KgQfvV/cW8dBESE43KGlI3DRJGk19KR3uzRlKvuc5WxVanXzvP0mYi0bX+l
-         w5FAGnsK0r1/ytzizVmhssdqqD++L0x13F9u3KzR7/kL6HuIgfIL4r6MT7W7VJVSiMZH
-         YUWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwfiKrvkXEcYFQDGvcYtA9CrzLEzZwMY1QlNuepOIuzBEIB/w9LUioOGqk9EGmr/o6WZD6/7So109f64GA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9gPjz6Y1gITFHwlxxqMpiM/9hMRBW2fjqnKqLwebCNMVrZkU0a
-	E4poK6TkcOaxBEBQZbw31TfZC3+ShVIooCYAbShBhyBm3QD4ov/JqrZz
-X-Gm-Gg: AYBFou3JtDObKWW7Ruq9D2hKAdQfECaw9rTwxmb7jM+eyYPxQ2wPywlv2MMYDRX1Az/
-	P7l/ey97ZASWCxz3MwQVMMpkXi4yi0Iu2+BvblqK0wOQw9CDxSugpx5g3+Y015nSFOqOW1Q8uis
-	7My9+NIigC0V4NToSkd7GDqmTunlk2k8hAqt9Ef4TdQDPG7SvWx7lh7vszUvBU7XRDvbEEbewq+
-	hRZw310C/XW6aT9ipsMyYy9nWM0a1PkO7wHkyRnJwiVYoNDpMmk+0WYM+HZ/i1IF6q7Pg0Zomgs
-	vm0PCl/NobjypzAcJzpY1NjzNDp8rfp0xlFIM/oCwlmJooxDLR4sCRP0ZgO/auv+0H2UU+O0T+6
-	LMMpI7qWH/kIOf2YfXhrCHkyVFgWLD+k9qUlhSxyfeQzbqR3b5zr70sjd2vMPC/mkgVOTzdwr/W
-	tEu5drFpFMNKrOP7ZwBeGL7eUC6ycrE+Sne/Ej/W1KQeGyI4d/AmBLQd8A/6SSNDLswf8MgloIe
-	qf+VnTWNt5aOGAjksv7/SqcRmaezmMNHQd2/NsjbLAR+PV+AWMm2mnnBD1T1Tx7qwyvQKa/zoPg
-	95pIMXO31vNCPCIGIOcTUv2+AXsWw53RH233H+U/cQ8v7sRjELK73qiYIpnD3Q==
-X-Received: by 2002:a05:6102:2d0e:b0:7cc:174b:f7d8 with SMTP id ada2fe7eead31-7d072247ab2mr7611158137.1.1793831191511;
-        Wed, 04 Nov 2026 14:26:31 -0800 (PST)
-Received: from bridge.vpn.bridge.ufsc.br ([2804:14d:ba6b:8339:9401:67ca:4be7:55d0])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eca89b6568sm2863977e0c.1.2026.11.04.14.26.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 14:26:30 -0800 (PST)
-From: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Thomas Gleixner <tglx@kernel.org>,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>,
-	syzbot+fbe07bcf949966f3c00f@syzkaller.appspotmail.com
-Subject: [PATCH] ring-buffer: Do not WARN when trace_rb_cpu_prepare() fails to allocate
-Date: Wed,  4 Nov 2026 19:25:58 -0300
-Message-ID: <20261104222558.863948-1-christian.aurichzm@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Ie7kqqyt
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DFY6V5ChVCvgnsi6COtHUmON5LLt3PbhIk3Fus1PEmjYMyl+gTsOohqPf60EO/qzLWlH/9KeFsgmIRb90979kc8KOHm/lcgdc/BbpGoz3JHzy+QwZS7HV1y+6e0oFJmsHbsDJcjvgOHZeq6I38pDopRfYPFugpEZZkp2kP1hFjl+8dvb5LrKrBh7pNRJPBLzpU+kRViRfQDlVZ4L/xTxLbzwO5RgPz7yxp9wVJ7omynhJV39x+JFOVhfcLvS3fT3J5+ihjcuz+5Uw/dk/ci+/zgXR9qWoaU8yXwMuVr83H55AtI77XuzKk9/wfIepkY2Krc+/KniQJRgTchIhS5UKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3lHFtNoXN9+qA99ptczfl1VTdL7qOlB4XR0As2iekug=;
+ b=lm5GEXMsNDTdZMMgXhNMdsnz0KW96Fngq6ajFoy6/S+ZLcG28CVlZ51AWsv5aQKYB51fO9HPsKxMhpkVlR4EyyAAHZ69kjuo4VqVnpojslrzxouheZvDcdb2Bg6u1tC++NhZAgsnD41MXGvwNM7/L2Uo3DggWnThFgyyzJVy9artYTfifu1Sh9TPC4ifyfWmxW5Fgyamznalft59MjyNieU0lYr7YADczzPe0pK7hVMExzgQkqiWGTTzFDu2nc1gy4EMOOsOrW6OjYQA84xYkANYmrki7prPMX2u8OOgk9XRz6VpYrE5yTw35ybIH91jj14A35EuTLTouib3wvIbiw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3lHFtNoXN9+qA99ptczfl1VTdL7qOlB4XR0As2iekug=;
+ b=Ie7kqqyt6FRBsYsdy9eolS0c228WVYUulqnDM3FlkZf/7god0jIdwlijtz7Q/g6JzSZ+DG2lEgcL7KlyAT1eI37jpIq8EQaQlmGEbEWVCtbXKgLmvBEAFPbC0FM7ybdsw0YrDSr8nZXW6W/D6hVXGAW3VxWV0P+GiRtNVSpTMKuliQPhCy6cwpeQAP9RAAGV09EtbCyAsCVqq4bLAK+MF7yAo2jKtLhnfGA2BUWhc8Lt3ckUeZcg0D/MJPYV2ZNpxeUQ+bcFlR39vvvXUBhs2hUtbBscF/nnd46vU+CM8T/MEFrIBQRiwj14Z6jxosfPHsHnhuYnIxQHItaRe3Rd2Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by MI7PR04MB524858.eurprd04.prod.outlook.com (2603:10a6:290:103::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
+ 22:26:52 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
+ 22:26:52 +0000
+From: Frank.Li@oss.nxp.com
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Avi Weiss <thnkslprpt@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	linux-media@vger.kernel.org,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Javier Martin <javier.martin@vista-silicon.com>,
+	Sylwester Nawrocki <s.nawrocki@samsung.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: mx2-emmaprp: return failed buffers on bus errors
+Date: Wed,  4 Nov 2026 17:26:40 -0500
+Message-ID: <179383119778.3940211.930787543638451593.b4-ty@b4>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261029144956.1632798-2-thnkslprpt@gmail.com>
+References: <20261029144956.1632798-2-thnkslprpt@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PH7P222CA0003.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:510:33a::18) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,47 +102,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|MI7PR04MB524858:EE_
+X-MS-Office365-Filtering-Correlation-Id: a105dd21-5ebf-4173-da2e-08df3ac2b964
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|19092799006|376014|1800799024|23010399003|10067099003|22082099003|18002099003|56012099006|11063799006|261026140227099003|261022105027099003|261022075727099003|261028144727099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	VC4cG0i4ikKscO2+pBuguOKgG6UPM0KS132/MTxIT2KwviiI/SMSAXTTlE3LtdjnqyZoZFUR0Ts3/z8IyEWzd6le3uuSU3uT9ev1BPDlnQ5rYsB4k0rX8j/8ejVXJ4gKuKLPeYTcF5BWBiR+231hbAk3pH5pIo0kYAkD7tf9MDdUCGik4ezxJvQ7HiqQ0cWNGfLMScmfJ+mnVJRFCOwN4EofxZylG53TLCnIAuI/jzzOFy2TTlEPBzbmioTDpF6A3esBGAdtQAbYzmoCIO2wfjhjQYhp+iCeWRdNQX7xBAugKAxDDU/rolHk6R+3NWoYNUZXjbBr1GGD6gZKNB1Y3Ib0f9UUDCQYqjs/uti35b6PURypesYa1RR0vkogEdeuTULbYWpvoPmhxxlKkeHO/3LgjPGmFMv1Cx0iiBrrko/FziVsdyjQWbdJsMHHELLLGMdOoFB2Thty3X+rf1D+ZSqvodpKSKcxg2zHqX28X2BKanYV0Gnz6sAn4XU3p3vIv7LuxON0dzq3MTQEyij/jB8gg5X6j5Kzz5SOAB0Jj9Zph5izpTBuwPdoYinjVV5jFEOmFAW529qpQnyd5xShrEElqjkbubGFK3FKJK+PMVXm+fGTvP7pPoKr2oTi91Qan5u29OpWwkyFb2F4Vk3B/nRdZwZYtapLVtUaR+EKkv4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(376014)(1800799024)(23010399003)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006)(261026140227099003)(261022105027099003)(261022075727099003)(261028144727099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bE9TT20wYTFEaDFqRGZ5OXgwV2dYTkZwR3NlS3I1UFpFVUZGald1L3JtdStV?=
+ =?utf-8?B?VXFITmFZM3hrZFAvb2o4NEtSSGFreW5EVnZYZHdGakUwcE1VcXE4RXM1d0pk?=
+ =?utf-8?B?bFF3S05IY3dMZTZOcE52RGxUcGJOdkxkQndiT3pUV0hIQWl1UFRZaDlsMGFx?=
+ =?utf-8?B?dnFLbDB0cndiT1JMRmwxTXFUS0F2Z3ZrYkFuaGUrWEZUSHJNUDRjV0JZN2FJ?=
+ =?utf-8?B?aTVIdEdRYk9vSVkvMFlBQ1FaQjZnTmpsVFlDZGpyN3Z0QXZWdkRBODVib1JG?=
+ =?utf-8?B?M0NsS0F6QW1EVkVPbjR0OXRkbUk1OTRXb3YxUWkvWDdwVThrd1lkZmQ4OGtY?=
+ =?utf-8?B?eWR1NEozNGxQa2grZ1hmdHY5NG9SMWNocXRqdnRzTHRNQ3lHbndTQzA4VFFP?=
+ =?utf-8?B?NldQbUJkMVpJTTVZd2l6dnhjYWczRFAvY2NPb2U3SmxSM1prbFRtajFLb2ZQ?=
+ =?utf-8?B?aytBN3hJcHJqdCtpaDNXUUdNdG5Ocm5nRHE3UnhVRmRsTzhHbkVHbklkc0E4?=
+ =?utf-8?B?WHY5dWpldm1OZjdXSmVyeUpzdDY4WVJiTnVLTnN3ci8rbDdEblZvQnhBdFZI?=
+ =?utf-8?B?Q2dWVXd2U0dIaGpTTURRYnQ0anNCWVJieWdKcEswRkluK2NCM0Y1ZVlsczNJ?=
+ =?utf-8?B?U2pHUlVWdkZ3UlovUEFDbVNUUVZ5RzV0SjdQL0JkNG5WVzlXNjZpTFdQT2VP?=
+ =?utf-8?B?RUlZbTFEZTVzYWl0SU4zVWxTeVpLTml4NWJkZTl0SEpyeXVjR2p0dDA2K0ow?=
+ =?utf-8?B?TjRDem5kRzBVdVI2VVlQckdGVG5MaXdYS2lIZTVZVGtBaDBSMEtCdGp0cFFK?=
+ =?utf-8?B?TEpKallXRUduQ3JOWnltaUdnWndNTGRpTXZYWjVZNXhocG1JMXJkSHRqK3Ja?=
+ =?utf-8?B?aER6UVZQZTZaU0NCcExRaU5kL2lWRkdhRHV4Nkx2NGRXWGh4eFZWbml2Q0hm?=
+ =?utf-8?B?b2tseERaRFBMSkpqVjRNUXlwVnJ2TUk1dFdrUkRUdndCcjFnQ3ZtNnVqdjFY?=
+ =?utf-8?B?RVliZEdIMTNSenhSQzhDb1dtT3B4cGxaZ2VFZHUxM01NVURkNHVTcmhGYzF5?=
+ =?utf-8?B?L2YydmdtblFXZGxuV3RTWHhVS21jRUFPbUpMM0hlZzJnVGVyV2JEcUVvYWY3?=
+ =?utf-8?B?MjZHTVUvV2hINXMwOGhTMzAvcHJwUDlzWS84bk52eE9ZbjlPc2FBZDU1M0Jp?=
+ =?utf-8?B?dytBQUJ0Q2hHc01RU2hyT3BQM0tZWVZJbDN0cWdWOXk5S2E3VlR4S1dSazVx?=
+ =?utf-8?B?dWxRdThpTEVJMXMvOU0zU2c0U2dsMFdRTERzZHpDWGpEdTR3YkpISEtoNHVt?=
+ =?utf-8?B?MFVURUU5Q2VWSFNzRUtSNmx2YzZFL1kwaGhkaW94Z2dlWWtHYytoMHI1K0g0?=
+ =?utf-8?B?SHFJZEJPQ1c2VEQ5TTRRM0UvNVIzcVZpVWt0L2JzLzhYNTFkZmhqRmFrZTJE?=
+ =?utf-8?B?T0xER0xxZitmREZyL05LcFNMR29UNnpYOWtUbWtsVmx2cU52NlIyTnJhTUsz?=
+ =?utf-8?B?ODR1ellKYmhncVdVKzk5WGhlSzFza0Z6OW9ZY0E0VDJtRVVPOGk5RG1Lb21i?=
+ =?utf-8?B?R0ZuZUVkNlRVckt0SzYzNlE1TXZ4cWhRNW1NU0tFTGxmaTBNUWZjSlRzUStY?=
+ =?utf-8?B?M3FXVzdib3VyMjVEbUNSTEFNK3NMZ3poL3YzQUJNRDJVNXB2RHE0cUpGVUVj?=
+ =?utf-8?B?VlUyc3NNWDYyUWE4dlJXMFZFWFFneEtVVHlUdkJ5TjBsaStqc3liczNMVURu?=
+ =?utf-8?B?VC9VbW5nT2hnSkJtVHR6Nm5pV2VuSWswQ1c2NUM4Ui9VUHA1eFpLUHhZODVN?=
+ =?utf-8?B?UlZZT0w4dHRQTkI4KzcvN0lDVitBQzB3QWg2TG1tWmVEV0twTjRSV1VPZnNv?=
+ =?utf-8?B?OURjUytnSGx2SVh3QmtSeGZhY2VaVjNLdGhNVFVTdkhGN0p4WlUraStUYWw3?=
+ =?utf-8?B?dHZUSWt0ajRMWURBZU1CL1NCV1lTN0M0cU1qWWpwUGJ5T2ZYbEpOUzVGZ0xF?=
+ =?utf-8?B?aUxMU1hKa3JXUElSelZDbXV3RlZCbjBQK0NYTmQ4TTFiT3E4dXVzV3RENXlC?=
+ =?utf-8?B?SkdIUEFlOG41M2xYTnhmck9CZUZHcm5IejR6MnpJSE9FckpNckhLTzh6bGgz?=
+ =?utf-8?B?aFlYeDBmamZ3clFoNklyamVOc3hDai8wSjgzb1pURm1VQUJoZUVmV0xqaktp?=
+ =?utf-8?B?QnNlZEdZK0JBQ0UvMGtCM2N5TGhrMkh1QlNIU3h5Z1JSelRrYmVONlZjREEv?=
+ =?utf-8?B?Ry9VZS9sL0FMVkVWazNxUjROemZQSEJXVHVsQWY0b3lRcmFnN0ltOXhXeVRk?=
+ =?utf-8?B?RjVvYWdhZTQ5VUpzRHhTbkFtYjkzTUtZUkI2WlAzMkVEOTlzNTdsKzV0OHZX?=
+ =?utf-8?Q?n54a/j3VYO5YURSlrYlRnplHGcTZq6BTItse0?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a105dd21-5ebf-4173-da2e-08df3ac2b964
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 22:26:51.9233
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xfWUY1p8ARo1vuml8/cb0dyZjxWDbacCeCfQbSz3ImDl7bK8H64+1EK/dWjs/X3jGiGmPqUbwRZoHcKWTvorxNaxrbg+8p6N6+GNG0ck6PaWLxN8ho9ZktFhK4Dvx/iB
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI7PR04MB524858
 
-Creating a tracing instance allocates the buffers of the other CPUs
-through trace_rb_cpu_prepare(), which WARNs if the allocation fails.
-But __rb_allocate_pages() bails out on purpose when si_mem_available()
-is too low or the task gets killed, so a mkdir in instances/ with a
-large trace_buf_size is enough to trigger it:
+From: Frank Li <Frank.Li@nxp.com>
 
-  WARNING: kernel/trace/ring_buffer.c:8094 at trace_rb_cpu_prepare+0xf1/0x100
 
-The same failure for the current CPU, or in ring_buffer_resize(), just
-returns -ENOMEM. Use pr_warn() here instead.
+On Thu, 29 Oct 2026 16:49:57 +0200, Avi Weiss wrote:
+> emmaprp_irq() resets the PrP engine on a read or channel-2 write
+> bus error but leaves the source and destination buffers queued.
+> v4l2_m2m_job_finish() releases the job without returning either
+> buffer, allowing the same pair to be scheduled again.
+> 
+> Complete both buffers with VB2_BUF_STATE_ERROR before finishing
+> the job so userspace can dequeue the failed pair.
+> 
+> [...]
 
-Fixes: b32614c03413 ("tracing/rb: Convert to hotplug state machine")
-Reported-by: syzbot+fbe07bcf949966f3c00f@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6a707c4f.13bfb6d0.1ecdd5.027e.GAE@google.com/
-Signed-off-by: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
----
+Applied, thanks!
 
-Notes:
-    Tested in QEMU on 05441d697f7f (4 CPUs, 1G, trace_buf_size=350M): mkdir
-    in instances/ WARNs every time before and only prints the message after.
-    Same with a mkdir killed during the allocation.
+[1/1] media: mx2-emmaprp: return failed buffers on bus errors
+      commit: 2e0758dcfb305acabbfeb5f38ad1a9f8f874898d
 
- kernel/trace/ring_buffer.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 1fd28a72e6ee..c018559ad61a 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -8091,8 +8091,7 @@ int trace_rb_cpu_prepare(unsigned int cpu, struct hlist_node *node)
- 	buffer->buffers[cpu] =
- 		rb_allocate_cpu_buffer(buffer, nr_pages, cpu);
- 	if (!buffer->buffers[cpu]) {
--		WARN(1, "failed to allocate ring buffer on CPU %u\n",
--		     cpu);
-+		pr_warn("failed to allocate ring buffer on CPU %u\n", cpu);
- 		return -ENOMEM;
- 	}
- 
+Best regards,
 -- 
-2.43.0
-
+Frank Li <Frank.Li@nxp.com>
