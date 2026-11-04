@@ -1,79 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.166.143.168
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793794045;
-	b=2t/87nYo5kUTFr/LvdjLMEP+ZqwCgZca2wEG9olMQR2CeuOC/FwgfTnDOd//NSnDX7sC
-	 G4u1GdeQXLAS33el2DGBRFXNWsx/hJrsEUHIYn5mCP9Oca/DIruQKF7uXHe1TmxLmlKRY
-	 4chH/mU+Tj3aRe2HVQdmOK4tmM/dBYvNAxSgQR4Sfa+vbVbST7VtIUxQz7jznSYRsvNMn
-	 UnNKawwcMsMeNfttk/RbPLaJDkWywXzzs6TCAbtka3rtXLjWCjEbbNlJv2CbbrmVVPPee
-	 a2JxzeZDOm0KI/W1WO7ZDgdHL3DJFRrBnEAm8fSB2Dn0GID019l0O8ZO4Mou/TF2NqA==
+	t=1793794062;
+	b=B5M2e9WXWyTHdwL8sgva19vhmc6nSQ3NxRLA5/8zja0fih+zbq/h+gyUsz5fN5NdtxKo
+	 Y8e/aZfiVCML+6yj2K2fyNibpzlY5mbEq70Wjp8dq+saHbRmKs1MUoByMUhv2CDKzV0vo
+	 gfEPZW14ey79SER3VRGSh5Ee6P07+0rt+9fNfViSqAhrYeSh9Xy2NJtBbcXSuCLe61z2o
+	 tsmHfBm4BP9+0n3l5EvwDaCAl/BRVKjil+Q8HoMH4tiZrocsweW1MuX6zjk5JMp+WqjMB
+	 HWWKfBepWvCkGfojHDaYFS7wdbXu9IvSsxJtyJmBwZ2739abeJA2nDAgU1jfKPHmNqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793794045;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=8+W0mSMm7N8RjDXvVbUUQnnEK8LSP7BZWWdgDt4N+BI=;
-	b=xHvOJU4wW2EvHJch+ZE4Thf6M8oTCXja5E8N/XMSukptUvO1QmQkyM+W8VJ1hX5BVHrb
-	 fUOop+YA3RdikKj8TQSc2KcBG1GX0kYEsamNJSTS6R3Op5+Iy7biv2MkaPKh47yMOnE12
-	 HBGO9EHZfrjMv4QYkGN8YxYmQbn41WF8QqLawxkkgu0Sl6HfalbOdEGcH+8Vfy0zj8VEg
-	 gc/6ZLAoo9Yh+Y02igxATIsabwIXmipDJfi1jxu4+Kuf/Nxd68lcKXaiOIS4rDHKDI3ct
-	 ZIWYpUuFEbgozcT8tmuq+FNv3L7/7i+y2mMmaxm1q2Hwj/glsEVq+vXGcg6GguVScHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793794062;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Infomaniak-Routing;
+	bh=2XuYXPihSJV5rInteSJnmLXHY6vbrjdvlanCtAK/q74=;
+	b=Np0KMK2SwOy0qBKaoryNqUzYD5s40DRaMpWsElwxAWHHH37rEqcgrhLHRj6eC2QAn3/1
+	 AR8Bgs/FPM0bSPS8plVtAZ2qVU0U2O/ho/Av+Kxew2xhx8OtsA/EWEaolQCEmlH9EvJkf
+	 gfKLtgvyczYXQ+aLuaqdr0/0nrLOK3VaOd5MBqcJpSLe24I0OGAxvJBIbH+Z6yB8zVwx6
+	 HaKbjv/AG+ZEja+6IWDaSp2byyU7cftdq08ZJzgTMhJZm6j+h1aKucww5asBTCsjO34C1
+	 HrnSv2K071NL/NSd4hPX8Eu3U9IsOu7YSOWxG5ZPa6LQIRG5L34C3c8ucmWY6oQ5CWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ip7AW2cG;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=daylightlinux.ch;
+	spf=none smtp.mailfrom=daylightlinux.ch;
+	arc=none smtp.remote-ip=83.166.143.168
+Received: from smtp-8fa8.mail.infomaniak.ch (smtp-8fa8.mail.infomaniak.ch [83.166.143.168])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28840606A31B;
-	Wed,  4 Nov 2026 12:07:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28840606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ip7AW2cG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793794044; x=1825330044;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=1IqsFAjVSNcz2M1zl3RMPs7mGuQtKqGY99mHg4reN1c=;
-  b=Ip7AW2cGbbYdk0Z5k4IneG7AYKW/SwOuzDBbfP7JTP7nqHEZ1csJE3o8
-   vV7yRQ+D9U9CgdEvjlrRvaRtlIzM4QY/iurMC9CMi/DcNd+nU5rFRWMfv
-   519wawUJC8RC2kk+6S9EzgpRWP2pOEHvlEnJAPbkps1/081DOQbpqjWFB
-   w/SCkotWBYp2HiXNDZlEdgo97zAah1eN5zzjDFbOnCiEqb7UObk2nU8zq
-   gbf1wH9n89emDyPR//dza1vU+v60IfoZCPgIZERXtdDzqzIvwumWzpyZl
-   m6O9su3w30sKA4g5i6ebz1lKVduBIPw07O3UITBtrNx4nw+ju0Lr4fig1
-   Q==;
-X-CSE-ConnectionGUID: 0lxy8M9rQdCo4u82+twumA==
-X-CSE-MsgGUID: EQRsotq3TIaFS2wI2xp9gw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2423774"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2423774"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 04:07:24 -0800
-X-CSE-ConnectionGUID: sGoH/EGZQaOyEyZWcgAm1g==
-X-CSE-MsgGUID: +9k1wlIGQ1Gq8Il7SswsRg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="6529338"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 04:07:22 -0800
-Date: Wed, 4 Nov 2026 14:07:19 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>,
-	Janusz Krzysztofik <jmkrzyszt@gmail.com>,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/7] gpiolib: of: return -ENOENT from of_gpio_count()
- stub
-Message-ID: <ausf98EcpdfUCPG7@ashevche-desk.local>
-References: <20261103-b4-gpiolib-free-v2-0-ea46767c9cf8@gmail.com>
- <20261103-b4-gpiolib-free-v2-3-ea46767c9cf8@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B1E0606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 12:07:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B1E0606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=daylightlinux.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=daylightlinux.ch
+Received: from smtp-4-0001.mail.infomaniak.ch (unknown [IPv6:2001:1600:7:10::a6c])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jKPMV4ZHFzmZr;
+	Wed,  4 Nov 2026 13:07:34 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=daylightlinux.ch;
+	s=20261016; t=1793794054;
+	bh=2XuYXPihSJV5rInteSJnmLXHY6vbrjdvlanCtAK/q74=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=kOuLkqa0hsBlLwehXMM6WhiaIHvfRQIiJ68LnpudJSEsxydwWKYrHXdn7Kzkglc2A
+	 q7khi1FxsppcWNxASytHh4OH7Tz2KIFgYyKVYDouCsDo22vmVcPuq+DKeeM73fuyqC
+	 ryQDeDBqs5B0hLI4M9A0Y4/aNh9uVjbdMPN4mNc8TZg5SiyrcXwocqp0yjR3yBS6HS
+	 MIiDUm5wZX4hwrACE1/+mag2wmH+cYFvW/U0JlJtrNGSwuWEXrTChwmge9OXuLasGx
+	 9L6V1DN/6oMgfbUB3SotoaX4F/PYvJ2amCvoyKMKhRivnucbdxpGSGQImQTBYcdFWp
+	 kx2fI333AqMmA==
+Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4jKPMV0GZ5zsrr;
+	Wed,  4 Nov 2026 13:07:34 +0100 (CET)
+Received: from unknown by raspberrypi with local (Exim 4.96)
+	(envelope-from <info@daylightlinux.ch>)
+	id 1xOZm9-00GsqB-23;
+	Wed, 04 Nov 2026 13:07:33 +0100
+From: Hamdy Abou El Anein <info@daylightlinux.ch>
+To: nathan@kernel.org
+Cc: nsc@kernel.org,
+	linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	hamdy.aea@protonmail.com
+Subject: [PATCH v3] scripts: check-function-names: propagate nm failures
+Date: Wed,  4 Nov 2026 13:07:33 +0100
+Message-ID: <20261104120733.7633-1-info@daylightlinux.ch>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261104120357.7007-1-info@daylightlinux.ch>
+References: <20261104120357.7007-1-info@daylightlinux.ch>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,27 +70,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103-b4-gpiolib-free-v2-3-ea46767c9cf8@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 
-On Tue, Nov 03, 2026 at 07:40:31PM -0800, Dmitry Torokhov wrote:
-> gpiod_count() and its firmware backends are expected to return either a
-> positive number of GPIOs or a negative error code (-ENOENT) when no
-> GPIOs are assigned. However, the !CONFIG_OF_GPIO stub for
-> of_gpio_count() returns 0 instead of -ENOENT. This causes gpiod_count()
-> to skip the platform_gpio_count() fallback (which triggers when
-> count < 0) and erroneously return 0 to callers.
-> 
-> Change the stub to return -ENOENT to match the real of_gpio_count()
-> implementation and the other error-returning stubs in gpiolib-of.h.
+From: Hamdy Abou El Anein <hamdy.aea@protonmail.com>
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+The symbol-name check pipes nm through awk and grep. If nm cannot read
+an object file, its failure status is lost and the script reports
+success without checking any symbols.
 
+Keep nm output streaming while carrying its exit status through the
+filter. This avoids buffering the full vmlinux.o symbol table in a
+shell variable during the serial kernel link, as the v2 did.
+
+Tested with a malformed object (failure), a valid object (success), an
+object defining startup (failure), and a synthetic large nm stream
+(success).
+
+AI assistance: ChatGPT/Codex identified the issue and prepared the
+change, commit message and executable regression tests.
+
+Signed-off-by: Hamdy Abou El Anein <hamdy.aea@protonmail.com>
+---
+ scripts/check-function-names.sh | 25 ++++++++++++++++++++++---
+ 1 file changed, 22 insertions(+), 3 deletions(-)
+
+diff --git a/scripts/check-function-names.sh b/scripts/check-function-names.sh
+index 94883e690627..b25e630cc594 100755
+--- a/scripts/check-function-names.sh
++++ b/scripts/check-function-names.sh
+@@ -13,9 +13,28 @@ if [ ! -f "$objfile" ]; then
+ 	exit 1
+ fi
+ 
+-bad_symbols=$(${NM:-nm} -p "$objfile" | awk '$2 ~ /^[TtWw]$/ {print $3}' |
+-	      grep -E '^(startup|exit|split|unlikely|hot|unknown)(\.|$)')
+-
++# Keep nm output streaming while preserving its exit status.
++bad_symbols=$(
++	{
++		${NM:-nm} -p "$objfile"
++		nm_status=$?
++		printf '\n#nm_status %s\n' "$nm_status"
++	} |
++	awk '
++		$1 == "#nm_status" {
++			if ($2 != 0)
++				nm_failed = 1
++			next
++		}
++		$2 ~ /^[TtWw]$/ && $3 ~ /^(startup|exit|split|unlikely|hot|unknown)(\.|$)/ {
++			print $3
++		}
++		END {
++			if (nm_failed)
++				exit 1
++		}
++	'
++) || exit 1
+ if [ -n "$bad_symbols" ]; then
+ 	echo "$bad_symbols" | while read -r sym; do
+ 		echo "$objfile: error: $sym() function name creates ambiguity with -ffunction-sections" >&2
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.56.0
 
