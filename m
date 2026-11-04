@@ -1,64 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.198.212.57
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793772395;
-	b=heBIOJ2j4gyvgGthhytzlBDZiBmr2oerB5RS3cLeMLlBUogaEMQxLtbvWSqQ1U3suNsj
-	 n/aXl0yuHQDfBHgsTMzPdrKUYBgn8rlK7sQ9C5a+dG8aaga1WB9Fp02q+k1Pi0LTfKqrk
-	 JF1rHaitnLFQ25i/wxTY/zlZLNQ1fVvmmwQHalW4tJIKQI044o6rfyQXUkDRI543PnVUB
-	 jTCgcfzuIlhYPD7bYsQarN0ICymk9MpAyxZV7RS5Zp9u60nPoD8/d9PXFjItnn5tnysqa
-	 kIS7rhVA9j6sLAdtddsOHzfZDdSlgCcpx9IIJ7iRYe3dzD3BKP6Uggtm4SUkdv7bjTQ==
+	t=1793772408;
+	b=X5/dftDOBBTFmltYsEqScDTwOLgpCe6Q7VilDJBoi5iDtGz7+MDt40xbCKSEQ7iAHKmK
+	 WY8lyMNCN7T6D9bJZhU+FFQWnd7dZU5uOg9J+p1iQkZNSgnx0Yt6AzEaJUx3akUXgodhP
+	 c4oj1y2DszIjxkYV20AQwuPIQ5RdVzuDdRd7nE2Z9lEmHKHGmX37Kn+LbGv1V9CuFHwex
+	 IGNRuO/vUXqx8RdqWjmSDgwNs6QzDGSvGFjtRYuDEXmVyLvXZl4cUwnx5I1ji0tECzaa1
+	 2JqVD1Skk9RS/KQAicdQCPxBcyp0Od8+GYYyMtf+ng0GxXdvfi+rnwYHAqfP6j6gNIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793772395;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:MIME-Version:Content-Type:Content-Disposition:Sender:
-	 X-SA-Exim-Connect-IP;
-	bh=yLLLuTM3wXid61Vzg0o0cfpDiZWBka4KCVHeQ1ECfBI=;
-	b=xm4j1mkdvNx1ka70slz2eAPTaDykCDpY+qJrzSwOPrK3+NoAp9ZQdAMup6R5UowS27e5
-	 Oc55u3KeskKvRSjbA1P8T6FvU1r6rTgXJf8CG4j9W3PyJdgksXjlC3NNSpubhw08TjOyz
-	 cgghDeEAkISBf6m+mrt/hbM9FJ9zTKgnLahb6bEGGGdfwP9fS3s/DevPN+r+vKF9cT/YE
-	 Gw/HDe/hTmQhPoeA42cGg+aZ6dsyeJnedt63HUcLuInLt+ZpsP5ArBSRW6xJMHqVpzbfR
-	 SBrcchqhjIGpMmrMbdywKkZ3TWoy6cZWamZOdzJQ97akFbSl91thu7FVs2qW7jSFTHg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793772408;
+	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=M04nz7JtAfGC0XufPbKSIPgja8ArZeDnQQ1b67GA2MU=;
+	b=ctoSDlUaJ3bAdxXkotR5QWwjEAORcjrDB5sm+HvqsHJkJ7O5LcQXObfZO8XOZ8aqtOJH
+	 rNS4XYbRwJBl3ea1VMq4Sn2qdy2ibsiYJNyfLe9AHqdhVqPwVM9abuqMaaq9XEZ7oNqwT
+	 d6nkbcho9PWKrKOTId5V+JgpWZZtCRSSHkIPLd75WeWvZZkXaqKVu85cZLi9/YvTLMCB2
+	 HYncUVS2XrV8I+3RYQvwKHADDi4ZfsjlpOomzpHw3pgWxGXTWWk5CIUrTEP0X9txe9iYG
+	 YPUP8f0LzmARzUUeDT5r/OWNyGttLXKQ7G8UqV4ph0ntZOgaMD2JSvjV5U7j6oOCReQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.hr;
-	spf=pass smtp.mailfrom=griffin.linux.hr;
-	dkim=pass header.d=griffin.linux.hr header.i=@griffin.linux.hr header.a=rsa-sha256 header.s=20261029 header.b="OTZR//tO";
-	arc=none smtp.remote-ip=193.198.212.57
-Received: from griffin.linux.hr (griffin.linux.hr [193.198.212.57])
+	dmarc=pass header.from=motor-comm.com;
+	spf=pass smtp.mailfrom=motor-comm.com;
+	arc=none smtp.remote-ip=115.124.28.4
+Received: from out28-4.mail.aliyun.com (out28-4.mail.aliyun.com [115.124.28.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 732B8606A31B;
-	Wed,  4 Nov 2026 06:06:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 732B8606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.hr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=griffin.linux.hr
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=griffin.linux.hr header.i=@griffin.linux.hr header.a=rsa-sha256 header.s=20261029 header.b=OTZR//tO
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=griffin.linux.hr; s=20261029; h=Sender:Content-Type:MIME-Version:Message-ID
-	:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=yLLLuTM3wXid61Vzg0o0cfpDiZWBka4KCVHeQ1ECfBI=; b=OTZR//tOE8pI44FvyeAB5QncRJ
-	L/fpakmzuNdCKVlHYgRlDf0iyjxuX/GNg/q2iULMUHrewEe57nnEQOD70+it5Lt3bTofnv/WLpR5r
-	WrEfV4rR0wtYtcMfdnVDEPaUIW10FsOPocIrmQOFfBJxyLIXimfMlz4NGg8EevLeBBHX4RM9ZTNa6
-	GFHU4a2Vj6uwAk/vW9wfjde2Zf9TXrVSpMakAqrUG4NNUNTSIF0+6RPWdOhN096ZF9Y7n4sGh6RY2
-	WRn3fDKgqhoo9NHkgVErbFSRGdbTbK0TqWXvf0eBAMFjsqlJwF7qhjH5EziVEgSrkVxFY8D+esih3
-	SG9hqGJg==;
-Received: from vkosturj by griffin.linux.hr with local (Exim 4.96)
-	(envelope-from <vkosturj@griffin.linux.hr>)
-	id 1xOU8a-0000D8-0g;
-	Wed, 04 Nov 2026 07:06:20 +0100
-Date: Wed, 4 Nov 2026 07:06:20 +0100
-From: Vlatko Kosturjak <kost@linux.hr>
-To: Valentina Manea <valentina.manea.m@gmail.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Hongren Zheng <i@zenithal.me>, linux-usb@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95544606A332;
+	Wed,  4 Nov 2026 06:06:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95544606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.06713194|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0178532-0.000305542-0.981841;FP=16929337455097241330|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037006180;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=18;RT=18;SR=0;TI=SMTPD_---.jwJZ9G7_1793772396;
+Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jwJZ9G7_1793772396 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Wed, 04 Nov 2026 14:06:41 +0800
+From: Kyle Switch <kyle.switch@motor-comm.com>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	Frank.Sae@motor-comm.com,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] usbip: vhci: do not give back URBs with an unchecked
- actual_length
-Message-ID: <aurLXADfuLjs-dm-@griffin.linux.hr>
+Cc: ming.xu@motor-comm.com,
+	xiaolin.xu@motor-comm.com,
+	jianmin.wang@motor-comm.com
+Subject: [PATCH net-next v28 0/3] net: phy: Add driver for Motorcomm Quad 2.5GbE phy
+Date: Wed,  4 Nov 2026 14:06:33 +0800
+Message-Id: <20261104060636.3901918-1-kyle.switch@motor-comm.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,84 +65,179 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Sender: Vlatko Kosturjak <vkosturj@griffin.linux.hr>
-X-SA-Exim-Connect-IP: <locally generated>
+Content-Transfer-Encoding: 8bit
 
-vhci_recv_ret_submit() copies actual_length from the RET_SUBMIT header
-into the URB before usbip_recv_xbuff() checks it. When the server reports
-more data than the URB's transfer buffer holds, usbip_recv_xbuff() rejects
-the reply and shuts the connection down, but the URB is still given back
-with the oversized actual_length (and status -EPROTO).
+This patchset mainly implements the phy8824 driver. The phy8824 is
+an Ethernet PHY that provides one 10G SerDes output to four 2.5G ports.
+The driver mainly covers two application scenarios:
+ 1. external PHY8824
+ 2. PHY8824 embedded in a switch.
+The patchset mainly consists of three parts:
+ 1. the DTS for the phy8824
+ 2. a generic template testmode configuration api.
+ 3. the phy8824 functional functions.
 
-Completion handlers trust actual_length. usbfs copies that many bytes from
-the transfer buffer to user space in copy_urb_data_to_user(), whatever the
-URB status, so the kernel reads past the kmalloc()ed buffer. With
-CONFIG_HARDENED_USERCOPY this is a BUG in the context of the process
-reaping the URB:
+changes in v28:
+1) Rebase.
 
-  usb 1-1: recv xbuf, 0
-  usercopy: Kernel memory exposure attempt detected from SLUB object 'kmalloc-rnd-05-16' (offset 0, size 22)!
-  kernel BUG at mm/usercopy.c:102!
-  RIP: 0010:usercopy_abort+0x6c/0x80
-  Call Trace:
-   copy_urb_data_to_user+0x122/0x160
-   processcompl+0xe3/0x160
-   usbdev_do_ioctl+0x14d/0x1900
+changes in v27:
+1) Remove unuse macros and "," after yt8824_read_page() and
+   yt8824_write_page().
+2) Modify the function description for yt8824_restore_working_status()
+   and yt8824_config_init().
+3) Add UTP power up operation after init success in yt8824_config_init().
+4) Set sds_initialized to 1 in resume.
 
-Without it, the adjacent heap contents are copied to user space.
+changes in v26:
+1) Rebase
 
-This was hit with a buggy user-space USB/IP device implementation (it
-answered an IN URB with more data than requested) while pcscd read from
-the device; any server, buggy or malicious, can trigger it.
+changes in v25:
+1) Correct the naming of some register name macro definitions used for
+phy8824 initialization to follow the conventional naming style.
 
-Do not trust actual_length when the transfer buffer could not be
-received: give the URB back with actual_length 0. A short read leaves the
-buffer partly unfilled too, so this covers both failure cases.
+No functional change.
 
-Fixes: b348d7dddb6c ("USB: usbip: fix potential out-of-bounds write")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vlatko Kosturjak <kost@linux.hr>
----
-Tested on host 7.0 (Ubuntu 7.0.0-34-generic) in QEMU with a small reproducer: a
-user-space program that attaches a fake device to vhci_hcd through a Unix
-socketpair (no network or usbip tools needed), answers a 16-byte bulk IN
-URB with actual_length 22, and reaps the URB through usbfs:
+changes in v24:
+1) Fix the typo during sds init.
+2) Add priv->sds_initialized to indicate whether the SDS extended
+registers shared by the four channels have been initialized.
 
-  unpatched, CONFIG_HARDENED_USERCOPY=y:  the BUG above
-  unpatched, hardened_usercopy=off:       reaped actual_length 22 for a 16-byte
-                                          buffer; with 200 extra bytes, 200 bytes
-                                          of adjacent heap reach user space
-  patched:                                reaped status -EPROTO, actual_length 0
+changes in v23:
+1) Remove meaningless comments in driver.
+2) Using #define to replace magic numbers during PHY8824 init.
 
-The vhci_rx.c hunk is the same in v7.0 and in mainline. Happy to send the
-reproducer (about 300 lines of C plus a QEMU script) if useful.
+changes in v22:
+1) Using motorcomm,package-mode to replace phy-mode in DTS.
+2) The corresponding parsing has also been updated, using
+   "motorcomm,package-mode".
 
-The 2026 hardening of RET_SUBMIT (number_of_packets, iso frame lengths)
-does not cover this path; it is the non-isochronous actual_length.
+changes in v21:
+patch 1: 1) Add maintainer for motorcomm,yt8824.yaml.
+    2) Using 10g-qxgmii instead of usxgmii.
+patch 3: 1) Change the usxgmii space to serdes space.
+         2) Add lock operation during phy-package init in probe()
+         3) Add check for whether auto-negotiation is enabled
+         when updating the link status in read_status().
 
- drivers/usb/usbip/vhci_rx.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+changes in v20:
+patch 1: Add phy-mode description in properties in motorcomm,yt8824.yaml
 
-diff --git a/drivers/usb/usbip/vhci_rx.c b/drivers/usb/usbip/vhci_rx.c
-index a678e7c89..720dafa72 100644
---- a/drivers/usb/usbip/vhci_rx.c
-+++ b/drivers/usb/usbip/vhci_rx.c
-@@ -78,6 +78,14 @@ static void vhci_recv_ret_submit(struct vhci_device *vdev,
- 
- 	/* recv transfer buffer */
- 	if (usbip_recv_xbuff(ud, urb) < 0) {
-+		/*
-+		 * The transfer buffer was not filled: either a short read or
-+		 * an actual_length larger than transfer_buffer_length, which
-+		 * usbip_recv_xbuff() rejects. Do not give the URB back with
-+		 * that actual_length: completion handlers trust it, e.g.
-+		 * usbfs copies actual_length bytes out of transfer_buffer.
-+		 */
-+		urb->actual_length = 0;
- 		urb->status = -EPROTO;
- 		goto error;
- 	}
+changes in v19:
+patch 2: Replace the int type with the u16 type for test_mode.
+patch 3: 1) Merge yt8824_utp_normal_test_mode_paged() and
+         yt8824_utp_invalid_test_mode_paged() into 
+         yt8824_utp_set_template_test_mode().
+  2) Add a fatal error return when phy-mode is missing in
+         the DTS.
 
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+changes in v18:
+1. Split the template_testmode() into a small patch 
+   and optimize the implementation.
+2. Optimize the definition and initialization of 
+   interface_mode by adopting the existing approach.
+
+changes in v17:
+patch 1: Remove redundant description.
+         Use phy-mode instead of motorcomm,interface to describe the
+         interface.
+         Add the required checks.
+patch 2: Use phy-mode to get interface mode.
+         Need return after init configuration is done to avoid falling
+         into the error path.
+
+changes in v16:
+1. Add DTS documentation.
+2. Fix redundant initialization.
+
+changes in v14:
+1. Refactor the error return path to preserve and return the initial error,
+   rather than letting later errors mask it.
+
+changes in v13:
+1. Fix the lock release issue on the error path to prevent potential
+   deadlock or resource leak.
+2. Add a func yt8824_restore_defaults() to restore configuration on
+   the error path,ensuring the hardware/device is left in a known
+   good state upon failure.
+
+changes in v12:
+1. Refactor the yt8824_read_status() function to ensure proper state
+   synchronization between hardware registers and the phy_device structure.
+
+changes in v11:
+1. Clean build_clang warning.
+
+changes in v10:
+1. Within the interface that swaps to the USXGMII reg space,the lock
+   include shared_lock and mdio mutex must remain held throughout 
+   the entire operation and should only be released after all steps
+   have completed.
+2. Improve the template interface in phy-c45.c
+3. Fix the handling of some failure paths.
+
+changes in v9:
+1. Add shared_lock mutex prevents UTPs from interfering with each other 
+   due to swapping reg space.
+
+change in v8:
+1. Clean up format warning.
+2. Fix exception handling code logic based on Sashiko/Gemini.
+3. Remove interrupt/handle function
+
+changes in v7:
+1. Refactor the using of mdio lock
+  In all cases of swapping to the USXGMII side interface, lock the MDIO bus
+  at the beginning, switch to the UTP address space after the operation is
+  completed, and then release the lock.The purpose of doing this is to
+  ensure that it will not affect other UTPs operating in the UTP address
+  space.
+2. Rename YT8824_RSSR_FIBER_SPACE to YT8824_RSSR_USXGMII_SPACE.
+
+changes in v6:
+1. Add  test mode helper in phy-c45.c
+2. Refactor the using of swapping paged for utp and fiber
+
+changes in v5:
+1. Fix diffs issue which caused by unexpected whitespace.
+2. Fix "exceeding 80 columns" warning.
+
+changes in v4:
+1. Remove motorcomm,yt8xxx.yaml, will update in other patch thread
+2. Fix locking issue. Since every interface requires switching of space, 
+   the bus is already locked during the space switching process in
+   phy_select_page(), other operations within the interface cannot 
+   be locked again before unlock in phy_restore_page().
+3. Fix warning log identified during the inspection process using
+   checkpatch.pl.
+4. Fix the way of using common api in phy_package.c
+
+
+changes in v3:
+1. Using common apis defined in phy_package.c to handle shared top
+extend register space.
+2. Add dts demo in motorcomm,yt8xxx.yaml.
+3. Fix unnecessary redundant judgments.
+4. Fix BMCR registers operation using magic number.
+5. Rename function based on its approximate functionality.
+
+changes in v2:
+1. Remove duplicate code and replace it with existing api.
+
+Kyle Switch (3):
+  dt-bindings: net: Document Motorcomm YT8824 PHY package
+  net: phy: Add support for Template Control register for PMA
+  net: phy: Add driver for Motorcomm Quad 2.5GbE phy
+
+ .../bindings/net/motorcomm,yt8824.yaml        |   78 +
+ MAINTAINERS                                   |    2 +
+ drivers/net/phy/Kconfig                       |    4 +-
+ drivers/net/phy/motorcomm.c                   | 1935 ++++++++++++++++-
+ drivers/net/phy/phy-c45.c                     |   23 +
+ include/linux/phy.h                           |    1 +
+ include/uapi/linux/mdio.h                     |   12 +
+ 7 files changed, 2052 insertions(+), 3 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
+
+-- 
+2.25.1
+
