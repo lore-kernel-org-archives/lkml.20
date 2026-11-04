@@ -1,50 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793776438;
-	b=exj8h3mtKNa3IlfWMjHH5YCmc1HvqBQjWrKyQk8SfO/D8XMrGFOcxHLHuSjIWIOjRT+f
-	 9Vu4eKKhyiOUsMnaqXeUBveFcEycs+klbEDdy+wf/g5xoRfd/gZupoEsgAzH0PoIobVrY
-	 QhkmyGB0rSxLmgHLyR1rMJg6aLn0cPni+/H3TWkgpAjCVsoQ1Gx4AI5lMhX+C3xwVFLpP
-	 AW1NlnwDvgjNStwB79Utc6w8okle+REw1ZrfoR8OHEJht8fZoEk8jhb/h0YfWlPJnXSOR
-	 SApdFK4msycU/6mkSupwbcT9nshXZhrIHJlWJ91jhYbcnicVFi8xKTDzUEEUL1yT6YQ==
+	t=1793776479;
+	b=ZDFUwKVj6zP3X1fjeoZf0v4qiZ2wUFIgv14GxM6rcxNwQgWXGwHkw14QI9IwF1Ls2CdV
+	 +MueOlqzQa/r7JZR3v1of9C1tkKdGoJlAckUQ4ZRpAFZTx24c7fo7xz+kbVT96kBPW8e3
+	 Cq/1Ocsq1Bqy65IcOV/xO4F9j8eV8HYlGld3a4Ckw+nsUsIEzTiLyam6m72h4DaRe89Y8
+	 U3JC6kFKEdofb2AI8svkd6rqKiWb3tFuDJ4JR6/u0WRJMiVdfCm72vtBbHVAbecTdsUad
+	 wnUiU0v15zYBG2gsTNP1G64d7eceVoNe8NibVI2S6Koylk90BQ0jCbQLTpJ7KFcynvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793776438;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=oPFoL03LicYyqNzWV6HqHKTBbJIAib1QU0AIbZccpAs=;
-	b=1euKeJpdZMH1ZT1Cl72x6Vf5BoB6ZUqFfmk8wzyN2Ac1azkKda/QnFVr32WHBZZnUsu0
-	 iS/xTMX9UUPZqBp4q7fMvdW9NdmDtX2lgvg80N7+Vt+AWGuoimBxIJ0Vaq3lYfifQxtIo
-	 sXXae4C2TXqi3O2IkJ3ZA9rEqMhxKlIrGBYqUp8ijDeseSbdxW6HH/rjq1L7c0sgY8so2
-	 5jG//hv8v46QQSDB6jZwU5sfu+pjUcAbZuQRuB6Js3R93UoLVgolkXbjZ+zi7gct098vX
-	 QAe1C7hf6u2yiYe1jJIuWqcYA7RNXcX3xlTTc75VbQp1L40gW6xu3igu+5zWa7736ng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793776479;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:Sender:
+	 X-CM-SenderInfo;
+	bh=+dgTcsvGsxlfZFuOnaFwJUNgk5C+nOXTH/L5UK5A4b0=;
+	b=j+6smgy03iiLtr9wA+1RlYcIBM/lAsNFVOZ3JYyS5E7c8MIa5g1081WEQciQHBJPnsnL
+	 WXw+XnBQs7yUaXSm0XfV7RGfvMlDNL7mWNOsSHOviQLNHDxOnwzuw1rd0pZSI1kV/BjId
+	 28TlRwttAEemiWn2ww472VIZx6p23upL7zBa6u1g/7UhTQcN5rsOck/OZ6cLPv2nMeF/y
+	 itJOoTEQ/jPLdlq3dhRSowvL9v5tUD+JJA/tkM3qRipiCeAX/W0lN72YyBDdGyyTTVyy1
+	 4wBCFnmuRId5avricM/xUDsISH51RdSZ+l5cLMCXOeBgeHaeos5fF/JCrtp+4JeLwlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lst.de;
-	spf=pass smtp.mailfrom=lst.de;
-	arc=none smtp.remote-ip=213.95.11.211
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=DlGbcIBB;
+	arc=none smtp.remote-ip=220.197.31.2
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF436606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 07:13:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF436606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id C983D68BEB; Wed,  4 Nov 2026 08:13:45 +0100 (CET)
-Date: Wed, 4 Nov 2026 08:13:45 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: Bart Van Assche <bvanassche@acm.org>
-Cc: Christoph Hellwig <hch@lst.de>, Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>,
-	linux-kernel@vger.kernel.org, Marco Elver <elver@google.com>,
-	"Paul E . McKenney" <paulmck@kernel.org>,
-	Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Nathan Chancellor <nathan@kernel.org>
-Subject: Re: [PATCH 07/14] nvme-fabrics: Annotate nvmf_lookup_transport()
- with __must_hold_shared()
-Message-ID: <20261104071345.GA28939@lst.de>
-References: <cover.1793654853.git.bvanassche@acm.org> <f7be25530c5ddb30da2f13638a35e2daa8002c0c.1793654853.git.bvanassche@acm.org> <20261103075116.GA3844@lst.de> <c587609c-58fa-49af-b5d1-dbfd98c60ff7@acm.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B0A606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 07:14:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85B0A606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=DlGbcIBB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=+d
+	gTcsvGsxlfZFuOnaFwJUNgk5C+nOXTH/L5UK5A4b0=; b=DlGbcIBBoy6bmZtUX/
+	UIaSQcCY0b4BcrE0QbCNZLFoTzH/5y0ay3xiUgdDPMe5DbjVBv6ApwjWFFD6ktbP
+	TG+6xqXU+OTaoVqRaYSrOzEh3cmwTWFqXqqCtSCZ3HRimUfrm/7Z+8WmsPZMQrc4
+	w7U5AdLsozbd+bX5oP+FRrVek=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wC3UzdO2+pqGl4+FA--.8814S2;
+	Wed, 04 Nov 2026 15:14:23 +0800 (CST)
+From: Yongxin Yang <yangyongxin@kylinos.cn>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Bradley Morgan <include@grrlz.net>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] perf/profile: Remove unused local variable err
+Date: Wed,  4 Nov 2026 15:14:02 +0800
+Message-Id: <20261104071402.1543517-1-yangyongxin@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260824024251.279751-1-yang_yongxin123@163.com>
+References: <20260824024251.279751-1-yang_yongxin123@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,29 +62,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c587609c-58fa-49af-b5d1-dbfd98c60ff7@acm.org>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wC3UzdO2+pqGl4+FA--.8814S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7AFWUGFy3JrWUCrWDJFWrZrb_yoW8Gr4UpF
+	WY9FyUGw4kXr1DGay5ZF4kCFyag34DXw4IgF9I934fZry5tr48Xrn0vrWY9FWFqrZ8Cr4j
+	qay2vrWYy34jvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Uyv3nUUUUU=
+Sender: yang_yongxin123@163.com
+X-CM-SenderInfo: 51dqwsp1rqw5tlqrjji6rwjhhfrp/xtbC4xBg-Wrq21BtJAAA3s
 
-On Tue, Nov 03, 2026 at 12:37:51PM -0800, Bart Van Assche wrote:
-> On 11/2/26 11:51 PM, Christoph Hellwig wrote:
->> I'm only seeing this one of 14 patches, so I have no idea what to do
->> with it.
->
-> Hi Christoph,
->
-> If I have to repost this patch series I will Cc you on the entire
-> series. The cover letter and the rest of this patch series are
-> available here:
-> https://lore.kernel.org/lkml/cover.1793654853.git.bvanassche@acm.org/
->
-> As explained in the cover letter, the purpose of this patch series is
-> to prevent that lockdep_assert_held() suppresses the need to annotate
-> the functions in which it occurs with __must_hold().
+In create_proc_profile() the local variable err is only ever assigned 0 and
+then returned, so it can never hold anything but 0.  Drop it and return 0
+directly.
 
-So what is the point of the series?  Do you want individual patches
-in the maintainer trees?  Do they even work standalone?  Do you want
-ACKs to merge them together?   That's the reason why you should never
-ever selectively CC anyone - persons or lists.  It just does not work.
+No functional change.
+
+Reviewed-by: Bradley Morgan <include@grrlz.net>
+Signed-off-by: Yongxin Yang <yangyongxin@kylinos.cn>
+---
+Link: https://lore.kernel.org/all/20260824024251.279751-1-yang_yongxin123@163.com/
+
+Changes in v2:
+- Rebased onto current mainline; the file has moved 24 lines since v1.
+- Reword the changelog: err is read by the return statement, so there is no
+  compiler warning to fix; the variable is simply always zero.
+- Add Reviewed-by from Bradley Morgan, given on v1.
+
+ kernel/profile.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/kernel/profile.c b/kernel/profile.c
+index 13be6fc9fd00..2d3bef69d3be 100644
+--- a/kernel/profile.c
++++ b/kernel/profile.c
+@@ -240,7 +240,6 @@ static const struct proc_ops profile_proc_ops = {
+ int __ref create_proc_profile(void)
+ {
+ 	struct proc_dir_entry *entry;
+-	int err = 0;
+ 
+ 	if (!prof_on)
+ 		return 0;
+@@ -248,7 +247,7 @@ int __ref create_proc_profile(void)
+ 			    NULL, &profile_proc_ops);
+ 	if (entry)
+ 		proc_set_size(entry, (1 + prof_len) * sizeof(atomic_t));
+-	return err;
++	return 0;
+ }
+ subsys_initcall(create_proc_profile);
+ #endif /* CONFIG_PROC_FS */
+-- 
+2.25.1
 
