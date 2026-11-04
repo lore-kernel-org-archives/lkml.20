@@ -1,75 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793805042;
-	b=Q3efE86M1ZEVdpxXkUvRg4VDcrIxp6tpAzplHuyRVfPOE24e41rDCBzfGEeQ67Vez4fQ
-	 5Kj8QRxNV4RWQw6wzv1nfHD/Hkjwam1FTGQn3yKXPS0TVzIhACCjutBH1Jci713r9BgVY
-	 2Al+F469N4dCVGpAs6gPetxjFc6dm/MzaLJWaPEPl0PphLWweP/QrFZxMfR2jEBrLwvJJ
-	 N8M/sVASAmuoqOwwHmQgG8tiMK/LMdCdjhDpGVmxV1af62Wpwp813i/UJZGhNQ8PEaL2V
-	 JLJUJmol+vbVM+mV+7bW1cxilt9pb+e9yifHO/if3R1NdmpyAddffevTyNTB39SeTxA==
+	t=1793805112;
+	b=P03DMtvFTC8XbENaFkb95F1yWeHONn31ksT5gPZxlP9SAm0Ob5VChn66E8DlfAypWT3I
+	 PE7Ms9OKa5VHAj/q2WF6zkQT6u/PhHQoxpSj9p0pqrQlthnGIewYVtxWat/HJS1+ZIbrW
+	 fXMk1QUVn761TVduFjkpLxWSeeOiRZ4OJfsofGQano43AhV8ua4pTDhWPoTep17uOcGmk
+	 97r8a89wRQH+EB5bpypiYYYeOmasiLbZWpkZv2RnmJyaKHOaiVbZcnfon9gXVSzPKUNMB
+	 IgiXcuei56WPPT0+nkAaj3SlRCOajNv0OEEReVmRlPqC2F0HwoDu5cb1RLELZqS23sQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793805042;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:X-Mailer:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=INoEaO6i1XuDk1klXJSyLtLXz/khjGFC70VaxLfFDy4=;
-	b=3ek7RwcbcwhGAhfyIDR46JMjk6JBiAsXKerxhA2oT7L8Y+9Xi2Nzl1jLvQISbjygAKdz
-	 sgAKTtdbXL8Sp7fHOg2n1zT/zrgFoETFB+hwwSpXJO+kDbhRaChHKHBy1qPdwFGCUZEtd
-	 KuhjeN3+Wd8x3FEdByAUzsE1w9wD2V2/hwUs6AW3ZfMV481/VbibZSh8zkGL6s1gKT/Qa
-	 EYeFOPlAsRacwK8ggJ69/VnqNMhISPWBTmELYbbwDK4457jo+RdgL+zAMZMlDhVYGzsmb
-	 GNnxaZlMD6Xyuc/NbmL28hUwb/85qcmmOf1RXMreyHezzwocgB3Ms7GPuiUwaQNFzTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793805112;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=vFY3rUifhZYZptpkXHuxi9V9dsY7EaxoNRnnnDD65QE=;
+	b=yTBmYO/AfJi9hYTuBDMdKJ5q4iuv9ik3aL1CEfBL9G5iX2hEk1ux8BgpPInZis0LnFcp
+	 mIqCMbUWjvxt0bgHgeuvcjdh/gdMLcLXKd3nZx4ExdbNq56/EA3V82Hn2iSnA6nyViwqk
+	 0Pyjq4PM2QJtBs3DLNtcbMqKRQq8ifAM1HP1ipONTRInt1Nf4Ty8zbnK0/YLhGCTUSNyy
+	 kCZyXYNcrMpbfI8p3QdMqYVrHk1VNmGb7dEoQzfUswNYED7WJXBgAoaU99s2i2gpD6U7e
+	 wSUKHby/VFElG2pRbZepchm94GQNgpKtUwi8buZK6hExDZ+gce3Ugz+RmzGYphKoLGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ITte3e9L;
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 190EA606A31B;
-	Wed,  4 Nov 2026 15:10:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 190EA606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Nsf1Rb/c";
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E2A2606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:11:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E2A2606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ITte3e9L
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Nsf1Rb/c
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-36d6e342f98so642538eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 07:11:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=ITte3e9LXd+Hmk4ifU53fesRV4BbUy+MVBm9O9OqoX63jBa3sTckbxL1wexF9PMCvHsWYOVurdTEe
-	 E8YLzQpVfy5FmaUqwCokozq9vS75ozaLuWOFVgd3n/yWEwDKXSgFdIXOjkSzlufy/5GLkkjaDJbmTM
-	 n2ek/gkO4Lg1rVNw=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66aeb4ae768a-6aea1;
-	Wed, 04 Nov 2026 23:10:31 +0800 (CST)
-X-RM-TRANSID:2ee66aeb4ae768a-6aea1
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain (unknown[112.23.104.16])
-	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66aeb4ae444a-257ec;
-	Wed, 04 Nov 2026 23:10:31 +0800 (CST)
-X-RM-TRANSID:2ee66aeb4ae444a-257ec
-From: Xia Yan <yanxia@cmss.chinamobile.com>
-To: netdev@vger.kernel.org
-Cc: dsahern@kernel.org,
-	idosch@nvidia.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	linux-kernel@vger.kernel.org,
-	kuniyu@google.com,
-	xeb@mail.ru,
-	yana06070@163.com,
-	netdev-bot+sashiko@kernel.org
-Subject: [PATCH net-next v2] ip6_gre: fix changelink conflict checks for L2 tunnels
-Date: Wed,  4 Nov 2026 23:10:18 +0800
-Message-ID: <20261104150330.70963-1-yanxia@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
-X-Mailer: git-send-email 2.43.0
-X-Mailer: git-send-email 2.43.0
+        d=gmail.com; s=20260707; t=1793805111; x=1794409911; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vFY3rUifhZYZptpkXHuxi9V9dsY7EaxoNRnnnDD65QE=;
+        b=Nsf1Rb/c9ysjs+EGyo/zIpNmDSF8Sogm2rYTyBq5rZBKjMKJeq1e3MKnxQXzZFa5OM
+         FAmPY9bNy/aWOh6AVPNxkvuImZLEYY/USMBaPKDH31mopM3mNGvj9yGIbrSg56tFNoMS
+         T6ItdwGfaY+kZYNsnhv+6V7H4RJ0ieb0wmCUR3OaB9jM8dcLMWf4jiWGHffpW87Qid2h
+         2jhgW0rCcEh/VYBWsrNdV5K3nZqIk02rnzSejaqZ2D+9CULpMtdye1Hb9hVb9yJRutq2
+         edD44dVG7Ea0zKUUNdBltY+n0ngBUeeBR04iXyY1dqmWG0Hiy8US+fBJHukzE4pWH69k
+         Xrug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793805111; x=1794409911;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vFY3rUifhZYZptpkXHuxi9V9dsY7EaxoNRnnnDD65QE=;
+        b=rzX8gDV7xdiFnd7ikiH6IAt7omRCM+5Dy8WFRfut6bBqMNsYPmQeIXbZUBlRinmed8
+         zUNtIkhl+kJm8J4BEKBR3EXiaU3DKhLa4CSgjFv2Iy/dDZabMPbHAE8kU08Y+Y3YLmIl
+         7T180DpGPqKnxUpsU/eNDLwr9es2CF6gx1Bhf8y69xqITIh9LyES1vjruNktGvBDxp3I
+         TLhQCebzVC11/eQ2r0/sls391oumKYBBkD8E37MZYMNkBWLnT3mbHbSQ1JdCHL34rsH1
+         xplovJEq8P2DXyUIkjriE1dlVFssuFbBAmbEEI3zYoJ6VE+XJFZfjOgn4VuZz1cYFKsr
+         jbXA==
+X-Gm-Message-State: APuU4Z8/8qrYfE6LAHYYRUg+4qiWQ2esPiXT43bSFiAnfT5URuElPVD3
+	Un1l9KyekK4ddTixedkQjaKY1pIBOPxLvcSVffnFXHodq2h3lDA1CY8=
+X-Gm-Gg: AYBFou1+x0377bwoVRyamoZrQae4haf+kaSHSri+gLe++aYTf1zp6Ze6aRAAEIojQdl
+	hsaJ/nNJ9LpSi8PaAzTPQp9Nve9ICT7fkvqy+eJR6P7AvFpfnJewRr+8Rior9g1hiWg4jzWHO+i
+	Z9Nc6I6JsU3+8tSX27G7nLTQ69v6ksfkSCV3nwEpeedIEh2E9PQeRcDAeYo3kU70DMSvln+Qpx9
+	ENf4Unxd2Go9TD4A276mof3m9y3ha6lHWain+u7yIiiDkbXydV4x1M7lWxKWEUuMRJm2APQk4el
+	ffntTH6TQazT7mDy/sp3otVtORYE+k3F4OxtYHurDGsnD0Pw4T/8+FHK+N75uzcpg6m3XyRH9jH
+	BmO0hzvGbZK1n7t+z0OlgJnWUtjUSeJxyZ1bZ3UplLlKfvhc8f3OjzwD+TnAxioLL+WwNwhMHeg
+	tjuqWostObQhmZkI664cXee3gxeFclSD0nrZXCYfNVpIeCm5J4VMngv5IR6o6JoiU5y7DA/E7v1
+	u73NMuHonJcpgZ/UTFjU5EqsFztTDNupvn58JNzoHrQH3DAsRubLvaS16XDTfbDf4F/EI01Kvwn
+	9i2ZNYMY3GqDAP6QIjK/GYUp/CheQxsMOKGwTOIqMTgxYvyFfZ/gpnNuTWyWrtd8jU4ebw==
+X-Received: by 2002:a05:7301:1a15:b0:34d:7ae5:8d78 with SMTP id 5a478bee46e88-36a42418401mr22538914eec.31.1793805110881;
+        Wed, 04 Nov 2026 07:11:50 -0800 (PST)
+Received: from localhost.localdomain ([45.127.46.119])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca3989670sm11062900eec.25.2026.11.04.07.11.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 07:11:48 -0800 (PST)
+From: Nikhil Gautam <nikhilgtr@gmail.com>
+To: linux-iio@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	jic23@kernel.org,
+	dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	Nikhil Gautam <nikhilgtr@gmail.com>
+Subject: [PATCH v5] iio: chemical: ccs811: Make sampling frequency configurable
+Date: Wed,  4 Nov 2026 20:41:38 +0530
+Message-Id: <20261104151138.9968-1-nikhilgtr@gmail.com>
+X-Mailer: git-send-email 2.39.5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,100 +98,293 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ip6gre_changelink_common() calls ip6gre_tunnel_locate(), which only
-looks for ARPHRD_IP6GRE devices. The same changelink helper also handles
-ip6gretap and ip6erspan devices.
+Allow userspace to configure the CCS811 IAQ measurement rate through
+the IIO sampling_frequency attribute.
 
-This lets an L2 tunnel change its parameters to match another L2 tunnel,
-since the duplicate check looks for an L3 device instead. Incoming
-packets can then be delivered to the wrong interface. An L3 tunnel with
-matching parameters can also make a valid L2 update fail with EEXIST.
+Support the three IAQ measurement modes with sampling frequencies of
+1 Hz, 0.1 Hz, and approximately 0.016667 Hz, corresponding to
+measurement intervals of 1, 10, and 60 seconds.
 
-Use ip6gre_tunnel_find() with dev->type, as the newlink paths do. Skip
-collect_md entries while walking the bucket: they can coexist with
-ordinary tunnels with the same lookup parameters, and their uniqueness
-is checked through separate per-net pointers. Keep searching past them
-so that a real duplicate later in the bucket is still rejected.
+Preserve unrelated bits in the MEAS_MODE register when updating the
+drive mode, and cache the selected mode after a successful register
+write. Expose the supported frequencies through
+sampling_frequency_available.
 
-Found while comparing the duplicate checks in newlink and changelink.
-Confirmed with ip link commands. For example, with an IPv6 underlay
-named under already configured:
-
-  ip link add tap1 type ip6gretap local fd26:106::1 \
-      remote fd26:106::2 key 100 dev under
-  ip link add tap2 type ip6gretap local fd26:106::1 \
-      remote fd26:106::2 key 200 dev under
-  ip link set tap1 up
-  ip link set tap2 up
-  ip link set tap2 type ip6gretap key 100
-
-Before the fix, the last command succeeds and received frames move from
-tap1 to tap2. After the fix, it fails with EEXIST and tap2 is unchanged.
-The collect_md case was raised during v1 review and confirmed with
-namespace tests. The reproducers use existing interfaces without kernel
-changes or fault injection.
-
-Tested under UML with standalone namespace tests for ip6gretap and
-ip6erspan, including duplicate updates, L2/L3 coexistence, IPv4/IPv6
-traffic and normal updates. Additional tests cover both ordinary and
-metadata creation orders, all four L2 kind combinations, a real duplicate
-behind metadata, and L3 ioctl changes. They reproduce the collect_md
-failure with v1 and pass with this change.
-
-Full x86_64 W=1 builds with allmodconfig- and allyesconfig-derived
-configurations also pass, with unchanged warning sets.
-
-Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
+Signed-off-by: Nikhil Gautam <nikhilgtr@gmail.com>
 ---
+Changes in v5:
+- Add an index enum shared by the sampling frequency and drive mode tables.
+- Make loop counters unsigned and use reverse xmas tree declaration order.
+- Use a local i2c_client pointer in ccs811_update_sampling_freq().
+- Drop the redundant ret variable in ccs811_write_raw().
+
+Changes in v4:
+- Move the changelog below the cutter line.
+- Use a two-dimensional sampling frequency table with a matching
+  drive mode table, and look entries up with simple loops.
+- Use IIO_DEV_ACQUIRE_DIRECT_MODE() in write_raw().
+
+Changes in v3:
+- Reuse the sampling frequency array instead of duplicating frequency values.
+- Separate register updates from locking and wakeup handling.
+- Use a separate variable for the updated MEAS_MODE register value.
+- Simplify the sampling frequency getter.
+- Mark the completed drive-mode configuration TODO as done.
+
 Changes in v2:
-- Target net-next and drop the Fixes and stable tags, as requested by
-  Ido Schimmel.
-- Skip collect_md entries during lookup to avoid rejecting valid updates
-  and to find ordinary duplicates behind metadata entries.
-- Extend standalone UML validation to cover ordinary/metadata ordering,
-  all four L2 kind combinations, and L3 lookup paths.
+- Fix the Clang build error caused by guard() in the switch statement.
 
-v1: https://lore.kernel.org/netdev/20261028115710.27806-1-yanxia@cmss.chinamobile.com/
+ drivers/iio/chemical/ccs811.c | 154 ++++++++++++++++++++++++++++++++--
+ 1 file changed, 148 insertions(+), 6 deletions(-)
 
-Runtime and build validation used net-next 7b6ab4dbc156.
-Kernel selftests were not run.
-
-The allmodconfig- and allyesconfig-derived builds had WERROR, KASAN and
-KCSAN off. The allyesconfig-derived build also had KUNIT_ALL_TESTS,
-MCTP_TEST and MCTP_TRANSPORT_USBLIB_TEST off. The full default-to-derived
-configuration diffs and the unchanged before/after warning sets are
-retained in the validation archive.
-
- net/ipv6/ip6_gre.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
-index b5d6ed8..07f7220 100644
---- a/net/ipv6/ip6_gre.c
-+++ b/net/ipv6/ip6_gre.c
-@@ -306,6 +306,9 @@ static struct ip6_tnl *ip6gre_tunnel_find(struct net *net,
- 	head = __ip6gre_bucket(ign, parms);
+diff --git a/drivers/iio/chemical/ccs811.c b/drivers/iio/chemical/ccs811.c
+index d126ee12ffe5..6d675534c5b6 100644
+--- a/drivers/iio/chemical/ccs811.c
++++ b/drivers/iio/chemical/ccs811.c
+@@ -9,7 +9,7 @@
+  * IIO driver for AMS CCS811 (I2C address 0x5A/0x5B set by ADDR Low/High)
+  *
+  * TODO:
+- * 1. Make the drive mode selectable form userspace
++ * 1. DONE. Was: "Make the drive mode selectable form userspace"
+  * 2. Add support for interrupts
+  * 3. Adjust time to wait for data to be ready based on selected operation mode
+  * 4. Read error register and put the information in logs
+@@ -54,6 +54,7 @@
+ #define CCS811_STATUS_FW_MODE_APPLICATION	BIT(7)
  
- 	hlist_for_each_entry(t, head, hash_node) {
-+		if (t->parms.collect_md)
+ /* Measurement modes */
++#define CCS811_MODE_MASK	GENMASK(6, 4)
+ #define CCS811_MODE_IDLE	0x00
+ #define CCS811_MODE_IAQ_1SEC	0x10
+ #define CCS811_MODE_IAQ_10SEC	0x20
+@@ -64,6 +65,24 @@
+ 
+ #define CCS811_VOLTAGE_MASK	0x3FF
+ 
++enum {
++	CCS811_MODE_IAQ_1SEC_IDX,
++	CCS811_MODE_IAQ_10SEC_IDX,
++	CCS811_MODE_IAQ_60SEC_IDX,
++};
++
++static const int ccs811_samp_freq[][2] = {
++	[CCS811_MODE_IAQ_1SEC_IDX]  = { 1, 0 },
++	[CCS811_MODE_IAQ_10SEC_IDX] = { 0, 100000 },
++	[CCS811_MODE_IAQ_60SEC_IDX] = { 0, 16667 },
++};
++
++static const u8 ccs811_drive_mode[] = {
++	[CCS811_MODE_IAQ_1SEC_IDX]  = CCS811_MODE_IAQ_1SEC,
++	[CCS811_MODE_IAQ_10SEC_IDX] = CCS811_MODE_IAQ_10SEC,
++	[CCS811_MODE_IAQ_60SEC_IDX] = CCS811_MODE_IAQ_60SEC,
++};
++
+ struct ccs811_reading {
+ 	__be16 co2;
+ 	__be16 voc;
+@@ -79,6 +98,7 @@ struct ccs811_data {
+ 	struct iio_trigger *drdy_trig;
+ 	struct gpio_desc *wakeup_gpio;
+ 	bool drdy_trig_on;
++	u8 drive_mode;
+ 	/* Ensures correct alignment of timestamp if present */
+ 	struct {
+ 		s16 channels[2];
+@@ -103,6 +123,8 @@ static const struct iio_chan_spec ccs811_channels[] = {
+ 		.modified = 1,
+ 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+ 				      BIT(IIO_CHAN_INFO_SCALE),
++		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SAMP_FREQ),
++		.info_mask_shared_by_type_available = BIT(IIO_CHAN_INFO_SAMP_FREQ),
+ 		.scan_index = 0,
+ 		.scan_type = {
+ 			.sign = 'u',
+@@ -163,16 +185,21 @@ static int ccs811_start_sensor_application(struct i2c_client *client)
+ 	return 0;
+ }
+ 
+-static int ccs811_setup(struct i2c_client *client)
++static int ccs811_setup(struct ccs811_data *data)
+ {
+ 	int ret;
+ 
+-	ret = ccs811_start_sensor_application(client);
++	ret = ccs811_start_sensor_application(data->client);
++	if (ret < 0)
++		return ret;
++
++	ret = i2c_smbus_write_byte_data(data->client, CCS811_MEAS_MODE,
++					CCS811_MODE_IAQ_1SEC);
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	return i2c_smbus_write_byte_data(client, CCS811_MEAS_MODE,
+-					 CCS811_MODE_IAQ_1SEC);
++	data->drive_mode = CCS811_MODE_IAQ_1SEC;
++	return 0;
+ }
+ 
+ static void ccs811_set_wakeup(struct ccs811_data *data, bool enable)
+@@ -188,6 +215,55 @@ static void ccs811_set_wakeup(struct ccs811_data *data, bool enable)
+ 		usleep_range(20, 30);
+ }
+ 
++static int ccs811_update_sampling_freq(struct ccs811_data *data,
++				       int val, int val2)
++{
++	struct i2c_client *client = data->client;
++	unsigned int i;
++	u8 drive_mode;
++	u8 mode;
++	int ret;
++
++	for (i = 0; i < ARRAY_SIZE(ccs811_samp_freq); i++) {
++		if (val == ccs811_samp_freq[i][0] &&
++		    val2 == ccs811_samp_freq[i][1])
++			break;
++	}
++
++	if (i == ARRAY_SIZE(ccs811_samp_freq))
++		return -EINVAL;
++
++	drive_mode = ccs811_drive_mode[i];
++
++	ret = i2c_smbus_read_byte_data(client, CCS811_MEAS_MODE);
++	if (ret < 0)
++		return ret;
++
++	mode = (ret & ~CCS811_MODE_MASK) | drive_mode;
++
++	ret = i2c_smbus_write_byte_data(client, CCS811_MEAS_MODE, mode);
++	if (ret < 0)
++		return ret;
++
++	data->drive_mode = drive_mode;
++
++	return 0;
++}
++
++static int ccs811_set_sampling_freq(struct ccs811_data *data,
++				    int val, int val2)
++{
++	int ret;
++
++	guard(mutex)(&data->lock);
++
++	ccs811_set_wakeup(data, true);
++	ret = ccs811_update_sampling_freq(data, val, val2);
++	ccs811_set_wakeup(data, false);
++
++	return ret;
++}
++
+ static int ccs811_get_measurement(struct ccs811_data *data)
+ {
+ 	int ret, tries = 11;
+@@ -215,6 +291,24 @@ static int ccs811_get_measurement(struct ccs811_data *data)
+ 	return ret;
+ }
+ 
++static int ccs811_get_sampling_freq(struct ccs811_data *data,
++				    int *val, int *val2)
++{
++	guard(mutex)(&data->lock);
++
++	for (unsigned int i = 0; i < ARRAY_SIZE(ccs811_drive_mode); i++) {
++		if (ccs811_drive_mode[i] != data->drive_mode)
 +			continue;
 +
- 		if (ipv6_addr_equal(local, &t->parms.laddr) &&
- 		    ipv6_addr_equal(remote, &t->parms.raddr) &&
- 		    key == t->parms.i_key &&
-@@ -2055,7 +2058,7 @@ ip6gre_changelink_common(struct net_device *dev, struct nlattr *tb[],
++		*val = ccs811_samp_freq[i][0];
++		*val2 = ccs811_samp_freq[i][1];
++
++		return IIO_VAL_INT_PLUS_MICRO;
++	}
++
++	return -EINVAL;
++}
++
+ static int ccs811_read_info_raw(struct ccs811_data *data,
+ 				struct iio_chan_spec const *chan,
+ 				int *val, int mask)
+@@ -249,6 +343,24 @@ static int ccs811_read_info_raw(struct ccs811_data *data,
+ 	}
+ }
  
- 	ip6gre_netlink_parms(data, p_p);
++static int ccs811_write_raw(struct iio_dev *indio_dev,
++			    struct iio_chan_spec const *chan,
++			    int val, int val2, long mask)
++{
++	struct ccs811_data *data = iio_priv(indio_dev);
++
++	switch (mask) {
++	case IIO_CHAN_INFO_SAMP_FREQ:
++		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
++		if (IIO_DEV_ACQUIRE_FAILED(claim))
++			return -EBUSY;
++
++		return ccs811_set_sampling_freq(data, val, val2);
++	default:
++		return -EINVAL;
++	}
++}
++
+ static int ccs811_read_raw(struct iio_dev *indio_dev,
+ 			   struct iio_chan_spec const *chan,
+ 			   int *val, int *val2, long mask)
+@@ -293,13 +405,43 @@ static int ccs811_read_raw(struct iio_dev *indio_dev,
+ 		default:
+ 			return -EINVAL;
+ 		}
++	case IIO_CHAN_INFO_SAMP_FREQ:
++		return ccs811_get_sampling_freq(data, val, val2);
+ 	default:
+ 		return -EINVAL;
+ 	}
+ }
  
--	t = ip6gre_tunnel_locate(net, p_p, 0);
-+	t = ip6gre_tunnel_find(net, p_p, dev->type);
++static int ccs811_read_avail(struct iio_dev *indio_dev,
++			     struct iio_chan_spec const *chan,
++			     const int **vals, int *type, int *length,
++			     long mask)
++{
++	if (mask != IIO_CHAN_INFO_SAMP_FREQ)
++		return -EINVAL;
++
++	*vals = (const int *)ccs811_samp_freq;
++	*type = IIO_VAL_INT_PLUS_MICRO;
++	*length = ARRAY_SIZE(ccs811_samp_freq) * 2;
++
++	return IIO_AVAIL_LIST;
++}
++
++static int ccs811_write_raw_get_fmt(struct iio_dev *indio_dev,
++				    struct iio_chan_spec const *chan,
++				    long mask)
++{
++	if (mask == IIO_CHAN_INFO_SAMP_FREQ)
++		return IIO_VAL_INT_PLUS_MICRO;
++
++	return -EINVAL;
++}
++
+ static const struct iio_info ccs811_info = {
+ 	.read_raw = ccs811_read_raw,
++	.write_raw = ccs811_write_raw,
++	.read_avail = ccs811_read_avail,
++	.write_raw_get_fmt = ccs811_write_raw_get_fmt,
+ };
  
- 	if (t) {
- 		if (t->dev != dev)
-
-base-commit: 7b6ab4dbc156e2f96419715130b3d5738a306c93
+ static int ccs811_set_trigger_state(struct iio_trigger *trig,
+@@ -460,7 +602,7 @@ static int ccs811_probe(struct i2c_client *client)
+ 		return -ENODEV;
+ 	}
+ 
+-	ret = ccs811_setup(client);
++	ret = ccs811_setup(data);
+ 	if (ret < 0) {
+ 		ccs811_set_wakeup(data, false);
+ 		return ret;
 -- 
-2.39.0.windows.2
-
-
+2.39.5
 
