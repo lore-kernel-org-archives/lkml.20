@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793816107;
-	b=MM5rjdsE6vYgTnDGdYad570r0msyHYXwTyCZbWlhxuIx8KSFJ/jIma5+tN98loZ5+iAE
-	 I0u+/8cHpdPpLoKwmiDH4viFEs9g+YQD6iOFfiQRxEt1RgJU0pQdWIazfMX2YU6IRlb7v
-	 NzXGcZzypnCxsQSJdE3bYTKd4ClY0LdaexBdmqVr2g0kCYslMxAMEiaKfBmsDQcHfaWpx
-	 voAc4u/XGpA7PSw2u8GxJLgXDNpI0xUmW1qHpRkM2mYBJSL2K6li0PU/QYDqyqqeXHIqg
-	 w2oCVpbZVSTfdEsWETckYdMiQNtkBv9iE8WsJODlAR0Od6KmrsHh8kej8Px1C/BtnwA==
+	t=1793816118;
+	b=fv7sZfUjij6Iy7GWBaU5QlH8hiK/ZRlPL2cxzwYuY0zSXck8jPbyuSQvdXJiPIGLqD4O
+	 7l+SF41BdKpOTnIXaaQev8g2uO6JV26ROLr9G30RoAIztJxmRPVtDqbd92dpgB1a25b5b
+	 DGOTunjjpcCYjX9fNNrVYFYH3DwUCcdu3Y+v4ZYYs9ssgFkaPdYpvzezzTCFkkcUZCMIB
+	 vyM0GeXVgICMQL038BX56pkc4ltRlRp3jpA8CHxmUSrJcnmu9Zc+jvu0MJwPfWjdr424E
+	 2PX2qI1EBweo5xi1Zise2lqwuO/P6fl0uMPOYWW5gpdO34q7KDYcwLG86KRqxLy51dA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793816107;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793816118;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
 	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
@@ -15,88 +15,88 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
 	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
 	 X-DetectorID-Processed;
-	bh=yHIKm5DcPdY+mPn/+7ZVXqf5/F7GQhUZ0K5Xi+pYbx4=;
-	b=zP26qsv/1p937wV9W5OtvG4HiZXZbcdnv4gywqLBUAy5tlZDsaHq/sW/hY5lEPTly4YO
-	 DfLOcbejVhDFj4PmfVtSoTrt5+nRyDH8tMrNRYv9JCmJYM8C+1bsllv/XamMmhStO7OeO
-	 LUcsQIxGnZTVkw+GlVJLsmmznnlZrbeWqFn6k0qp6+q3IObgZfQSjxuGmULaxeR+LYQPs
-	 Gm6b2uXMMA2+HIY7Vh5Ce916MFBaTCR8oQBjzVvTLi1jP8dtomEu1pfdMaoHkgj74scKJ
-	 nU/QDaQN5gFwjgTda7Qzw1JxcniLtMuCFDAcKuciQ48Ysty/WxrikI6s1FgD8lE9lZA==
+	bh=3gMaAWh6NQk15R7de3+ypmCGtyxD6uFeXuRwji4RdbQ=;
+	b=E2Vf+6kInd0ZFWoSQLrl4aQJ+aUq12LGQj3O+Vn+lcaVGT4pErsO3gmI/tkj+NrhtI85
+	 fdmRarWUSrVvX7SRwsZ2TnAv8mJcmYsQwVt7ldbGG6JK+j4f+lxNpHPKcXzs3GaVZbbFW
+	 RN7+wwoW85LeqttB3A8miBG1j7Sr2ioN7PRoVO/tIcxPduYZ3tqJFYMooV75BNQbc9YP+
+	 23389Bi2Yx40OWBOnwk0DsUW0AtLDsJ7ztQTBFg3e/6xlgu32U3W7Wkwyd2LMxtn8dTAB
+	 zdDjXUcoXIR8RXIPhuT3SeNEhKVWYrX9bbrdCIi8YaN9HtQN5ylu4hyNcKwJs+aRAxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=broadcom.com;
 	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=EGXSYVIR;
-	arc=none smtp.remote-ip=209.85.216.98
-Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=fFU22zeE;
+	arc=none smtp.remote-ip=209.85.216.100
+Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com [209.85.216.100])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E563606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:15:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E563606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B307606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:15:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B307606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=EGXSYVIR
-Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3acdcfa2bd3so915678a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:15:06 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=fFU22zeE
+Received: by mail-pj1-f100.google.com with SMTP id 98e67ed59e1d1-3b0a519049aso426682a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:15:17 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793816106; x=1794420906;
+        d=1e100.net; s=20260707; t=1793816117; x=1794420917;
         h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=yHIKm5DcPdY+mPn/+7ZVXqf5/F7GQhUZ0K5Xi+pYbx4=;
-        b=zC/cGfiCC8o1lh2Ej7P0YdH2ZyzxeyTZete+ZW1MxONVXUr4ie4jiVldpnity2HXIj
-         LWhyQOppYbtIlDXVBe0ZKGiPHEzbWYPjflXpKJ7FesAdEUET8ro6Cz+SCfOg1FND6rxg
-         9NCVa6N3LvshZ97Ucb3P3LD8uAqvv7RpVt48ZF447YL93JAFPCh4AaS5AC/T/aDUtN7K
-         EkHVkaOuqgBBaie05j0Wdxny3j1clXBTSqwilsBtBJR7BbrGL2krkcK5nUfxgJCW/E3T
-         HsUpApEOykhfYpLH6DsT/w9VRwCMhzd6LmO7OnE10hiwb7oqKVc/W0hsvX2pQ9tSXDgg
-         yyug==
-X-Forwarded-Encrypted: i=1; AKwUvBy7nv6yR1IZebmvryU6pX9W2UeSR9dDAfJafeGptIFlQzvaVjEdQXeBEohme/bjwicfJtHpZgKgTlUvld8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+w6dHb+Vxe3kDntmZFqSC6RGiLepVIxU47nHKKvsZ6N6J1htA3
-	bS9sBP6KJmfNpvQAbnJrPTpJVQq6GLPuzEtmkyMV8vHHtOUXeLw2Dzsep8i5d5d6/9Xytj+xLNw
-	hMHBl/A1bZbcEmx6Ns5pUe1z8nCuGNbkKM3uCf6Ciozi5uf2QEd9qj/UDrO5UzaRt0ZeULGg8fx
-	isRTL+QmFs7O9t9dV5vkFSseERZZQ9Co7K0ow8UUnYa+9GkKJWFlgJ8tC68J2k8vRpx2E46Zgrb
-	KMdnOG6lnXjkITRSE38vf9kk6M=
-X-Gm-Gg: AYBFou1qtM+9N3Iw6KcYQtbzx2U8lgRcnXcqeM1m9h/P+rX7YZqOHS20A7V8heXZYmN
-	DfRTbFNOXND1dhY/QisRY5PKq2rfr+n1sgA3tJYikaqTGHB8R5l2+U/bijneLQ/tupI6VrynhCC
-	aA3hc8qmRl6qaTbKe0GkcQq+y57A2MYKP+/irnYKAKfE8/SYYugYoG79Rhg/Y3ir9ZEyq4Zf4L3
-	ZJkgDGeS8nnS4cD6zDnAWm6IOJefCzPHsLwdW29Z+JnSgRH4cLEjKZCRMsP4Kx8ggfkdv4W5unf
-	KP8x5bYW7ONk6QIxxY0Adfyb4ayPld+QYf7qOiMwWXX2n3pzLjOklM17eAMViVeFTvDehXaY754
-	i+K4dugD4h3fgwHOBHf/rmAyao/P4gCkDvFbY4eYeZEJvrQWvGVCtYoMX03ASv8fXAf/XhGdFpU
-	JrTjlMWZRKvcG/16UrkLK9rDbWp69rk7CyIJ9K51lR
-X-Received: by 2002:a17:90b:4c81:b0:3ab:188b:c5bf with SMTP id 98e67ed59e1d1-3ae897c85e6mr14199581a91.18.1793816106347;
-        Wed, 04 Nov 2026 10:15:06 -0800 (PST)
+        bh=3gMaAWh6NQk15R7de3+ypmCGtyxD6uFeXuRwji4RdbQ=;
+        b=MGYTMAWB0CcFJfRa1Ya3WpXClS8IVj3BWNkfPv9klq6saYrTezEPKqLEP/smtUg2KA
+         yNB5TmrxRxFS0Xl4Aa7OZ/MXCAuD8xXRsyUKkb7EYA6QU2WN6KCVvjNfe/UxZ210q0pd
+         +xCw9GP+jNq1sefDCfy5qJYNDfi5rgnrbHgk+GrUYTel4uhTrh4urTsIIhTeymc7u3Uk
+         docLub47iuranSBSIILUvVQjMiHzhe4GsUZFlRRxKcZ79XiGCboQYEHUTuv9SlbRPJAP
+         ctUquPkE1qVcg+U3RBY9tu3Euhbxyg5Fb6EkLWtqxwhzGZmXorQ4sTVYaerJ68Pmf6es
+         ge1A==
+X-Forwarded-Encrypted: i=1; AKwUvBxzuKI/bQ/IM8btXILmaUwvEZY84IcBBGpydRCyhrV+hxOV04CQ5pIR+sjz+humm4HbTEoHOYxdXnTXbNw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+GL1DAkHbRKYabhxetqqEnlwXSkKfGudYNI0mviwyMeMA0+62X
+	riBNCdENefrPvYwtc+UIAnOlCLsL5AaaLK/xWU90azyZ8ST5DaG8t0DpzT2LbCExpgjQkFtQiyJ
+	gRbCsnjAEg8y5QeaXW48uZ9KKyJpjr339mRlNUYBhqDQYesXcKgv4SEFW5qRV0BDlSu4OeN7vh8
+	VJmU9OkVAbJG8QNAdKyDH+LbTKbLJ8MYOdvOhT5yesWEnmpL/MM6VmBBibhjphYPZ79e0p/YJ0J
+	X/Rw8lJACON4yMfZcpkkpfM4Bs=
+X-Gm-Gg: AYBFou3seXmI4qHNDMGejggEDbp6Y0sVm8S0uq6/DYeZPwTBvgXjd1Fq4rJXDt0K7fu
+	j3smyGy1dUD1CN5cSm1L57f/4vNdZRU4aI1/e3c7D3WqxOWBxRHnqmBuL8uYIIYLnKPYUFkgyEk
+	LlqP2Pg+J+f2bqOw+pKJzJvDubJIpdOMtcjMBtWPsvFrS5d05YtAjCaDiFxEnnlcs89OfeoPt+I
+	cB4F2r/dVchzHbabtda2pU+l6uQCcaLNIf6XU68nGMV1+GtFjVdau6hPjgq9mNUyQqRv0hL5DBm
+	C4/eUWQH9obQIARCKMLD7SCoLsTFAKOINx15st1TXnN4O6xOHQfFpw3j8APXJIv//mSEPb6Uamm
+	gNMmUkU8S7EKLCYZ6k3AAWJQE4DpJzKqvjUStvDv9VKU5TwRTpXatEDpQ8TLh7eB9bvzNokG5mE
+	E2uOiUUT1TAcw3tRS93/eiEHwGDe0JyzDY2rP7RkCj
+X-Received: by 2002:a17:90b:164d:b0:3ac:bc3d:6fe5 with SMTP id 98e67ed59e1d1-3ae89576062mr15612513a91.7.1793816117458;
+        Wed, 04 Nov 2026 10:15:17 -0800 (PST)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b0b3195213sm50744a91.3.2026.11.04.10.15.05
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b0b315a3f7sm51590a91.1.2026.11.04.10.15.17
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 04 Nov 2026 10:15:06 -0800 (PST)
+        Wed, 04 Nov 2026 10:15:17 -0800 (PST)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f559420f3so115871385a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:15:05 -0800 (PST)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-91c0f73807eso14307766d6.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:15:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793816105; x=1794420905; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1793816116; x=1794420916; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yHIKm5DcPdY+mPn/+7ZVXqf5/F7GQhUZ0K5Xi+pYbx4=;
-        b=EGXSYVIRjU+yC9p/pkiP4FmlZ7QPalCdWd91uyVuCVl9P13YvX0uKHk30CVtKBMRAp
-         Sy6ezxnASpzlE7eDAwkMkge85iOilLuunY8SVz+9A6oMGhyv2n7g1qaz5L+3l64pRJIM
-         hsMmPsTaq1NGjqXiJ4hpMEVAmwrUloIxoVObs=
-X-Forwarded-Encrypted: i=1; AKwUvBz2cVvgp2WIOjRV3z9a559CRAeNWbXe7hr6z/WXSLUSsELL06hZoCNvBARuMOK69CVQuyeH0YUZFZAo/xY=@vger.kernel.org
-X-Received: by 2002:a05:620a:3942:b0:93b:d7a2:dd32 with SMTP id af79cd13be357-9442178e1edmr2712097585a.66.1793816104966;
-        Wed, 04 Nov 2026 10:15:04 -0800 (PST)
-X-Received: by 2002:a05:620a:3942:b0:93b:d7a2:dd32 with SMTP id af79cd13be357-9442178e1edmr2712092585a.66.1793816104498;
-        Wed, 04 Nov 2026 10:15:04 -0800 (PST)
+        bh=3gMaAWh6NQk15R7de3+ypmCGtyxD6uFeXuRwji4RdbQ=;
+        b=fFU22zeEOUr9v1KGFgGKhFk6YuxSVedNvOcme4Px9/eBMcFh9dKyJAPf/bi5voOqie
+         EaG1Ce+t4FxlJ8mjQ8R/Sn/OWtj5BK9lrDsKVGpfWrPll1QDqICGtbrf1IurlCZK8qPf
+         aI/hcSHaPEL5OjGxjizH0TF6X3Q5+uSGpLwyY=
+X-Forwarded-Encrypted: i=1; AKwUvByjXbbIokTYwGpfDbQX4FcQ+RL4jKlXzTOlbUuqLDKSU7nxS4TB8dq+g/CCQoKTq7t9Ccbl++BVqiog8JQ=@vger.kernel.org
+X-Received: by 2002:a05:6214:8110:b0:91c:61e8:f9cb with SMTP id 6a1803df08f44-91e792ee5eamr60525346d6.35.1793816115985;
+        Wed, 04 Nov 2026 10:15:15 -0800 (PST)
+X-Received: by 2002:a05:6214:8110:b0:91c:61e8:f9cb with SMTP id 6a1803df08f44-91e792ee5eamr60524216d6.35.1793816115094;
+        Wed, 04 Nov 2026 10:15:15 -0800 (PST)
 Received: from [10.14.197.69] ([192.19.161.248])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d468f69asm262751685a.1.2026.11.04.10.15.00
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91e7dfba098sm25119636d6.12.2026.11.04.10.15.12
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 10:15:02 -0800 (PST)
-Message-ID: <2a28ff89-f14d-4e2f-bda1-058bfbe54852@broadcom.com>
-Date: Wed, 4 Nov 2026 10:14:58 -0800
+        Wed, 04 Nov 2026 10:15:14 -0800 (PST)
+Message-ID: <675d9836-4958-460e-83e5-159627c8b0de@broadcom.com>
+Date: Wed, 4 Nov 2026 10:15:11 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,8 +107,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/5] MIPS: dts: bcm6362: add the integrated WLAN
- backplane
+Subject: Re: [PATCH v3 2/5] bcma: scan: support big-endian backplanes
 To: Alessio Ferri <alessio.ferri@mythread.it>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
  <conor+dt@kernel.org>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
@@ -120,7 +119,7 @@ To: Alessio Ferri <alessio.ferri@mythread.it>, Rob Herring <robh@kernel.org>,
 Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org
 References: <20261104-bcm6362-wlan-v3-0-e46562b2ac12@mythread.it>
- <20261104-bcm6362-wlan-v3-5-e46562b2ac12@mythread.it>
+ <20261104-bcm6362-wlan-v3-2-e46562b2ac12@mythread.it>
 Content-Language: en-US
 From: Florian Fainelli <florian.fainelli@broadcom.com>
 Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
@@ -155,18 +154,25 @@ Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
  MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
  7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
  95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20261104-bcm6362-wlan-v3-5-e46562b2ac12@mythread.it>
+In-Reply-To: <20261104-bcm6362-wlan-v3-2-e46562b2ac12@mythread.it>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
 
 
-On 11/3/2026 3:31 PM, Alessio Ferri wrote:
-> Describe the bcma backplane of the integrated WLAN macro,
-> with its clock, resets, power domain and the interrupt of the 802.11
-> core. It is default disabled, boards having the WLAN need to
-> enable it.
+On 11/3/2026 3:30 PM, Alessio Ferri wrote:
+> On some SoCs the bcma backplane is a big-endian peripheral, so the
+> ChipCommon ID/EROM pointer registers and the EROM itself read wrong
+>   with readl().
+> 
+> Add a big_endian flag to struct bcma_bus, set by the host driver
+> before bcma_init_bus(), and use ioread32be() for scan-time accesses
+> when it is set. Core register accesses after the scan already go
+> through the host ops, which the host driver provides with the right
+> endianness.
+> 
+> Nothing changes for other devices.
 > 
 > Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
 
