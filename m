@@ -1,47 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793779814;
-	b=Bpmji+D1lE8MWkzwhpWo4bSndOcVU8yF10SDMzRjHWBJUL+/StzFzz/p8p5uKqDUxe6d
-	 o/0lsc6YWdMawHpe5gWg3KR5w9k+BMBctyR14j0sS9Gr9fXwByLrn8vEB7iORTEBiikAb
-	 90pKOrBsfv7v/4kmvAmibR/jHR22XmcMoPA1GyRkxjcQ6412+NSkC35ZaRFkICIaQtuz4
-	 WyL2h68pRNvWexrfUUc7hKgw0/LTurNFJQ1Djcm0wvTWsHalkrZxT5KRT0XgLzNZeDABN
-	 cm3qDvTAwBRccGo9x6+x9CerL0QYN8sb8xTlDcu0c3XpqMQGw8K1ens3fvQFLbcO8iw==
+	t=1793779841;
+	b=NcYqgOREDGuGVtVnOTxv8qwFXhv1ex1jFD54/uKNnd587ryTEB7tCPcu1QbUMRl2YO9/
+	 jRDbuzof6XGzV2fFXLmoLNqS5+ZqxUr/bE8Z9ZUZjN8UHZq2WfHYl6bzjF6MGUr7bpz/3
+	 9t/nrvFmCm/RxOIynl6V3D40Ry5vIcmma3OyyuwuRjcT4W2zAP+8LeJDta9W+XWx0Rsey
+	 Xz/eTqfb7g405vJMo7GsPEW9at0VK+EChZdV22yAqOzPkKG9KWK11A9f+VJkqprJgdUWa
+	 j3YoXXA9xXcOeZyL9JncNWBIUszxZB3j4L3Vlx/3pScn1m0xt7jjm+96o/wpK96qZ8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793779814;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ig4cNXieuTOvvTi83XT+rrmuyz/PrNyQl1mTni3mESc=;
-	b=dA3srioPJS2gP2BPbaqtJ9VfjjxNOw6idPSOcIeiYEX9r3xt5hLFIHDd7E1a+uoLUUQq
-	 kBqo7aocjQ0K7Y0NcsDdEmHoBTYMESbiQaehV5A41rH5SW80+kT3UFSfRu1MzmsPGnYGB
-	 x6JdgNQESLVxWshJQ8fgO+zwqDd5K2XGLp+tJNaSPmJDandZX0qpvb572fHjL5BOt1JLL
-	 1l5Fuq5LM6/l4dOhCQHMNPbT7Fv7uF7jaBiXFziTJczlqgnzzYzCyeXnjkbTEPQqUu4nI
-	 Kr96LIOFgSiDroLsl1zgV8Wo2aVKtJXqxMpqQc4+gJGijKwNlV0T7LUpDwYZSyAuy3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793779841;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=AIXih/+g+9WTOCjrd3v2llW1L1i6Jm4IJcUxf1FA9ws=;
+	b=GoTDKIcpiYuXGpCVg1IuGlgfvdwrDPHA8CKM3ADcXNMwswbAjNHij3f7l5HR4RTpG33z
+	 4M8Kd7zcAqWsr1BWtqJelnvI93AgAbKVOil7eQD0WgNin2POPZllaIb55/GqmYMMnZCUm
+	 i0lxhxYcpPEuy3mG34LJ+V6ukChN3fSUU9sYRCQRrvkbK029IwfhdraeG8Ak02Is5a0oE
+	 MKIpmHFWHg+m2aLzNzLWmWwM5dqF4fxl8VMWNjuGRyueM7V4XQH+2eHyma1rsfEFLqfA1
+	 TAUk2WyIbyqjTW+5Av4lDt9nXuUxgd7IRu6qE7blRYUoAC4aaOiSCOrqxMsqHDfvOvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jwExKOP3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BfssRooC;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=h56TphMe;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B9DB606A31B;
-	Wed,  4 Nov 2026 08:10:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9530F606A333
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:10:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9530F606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jwExKOP3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A0D71F000C1;
-	Wed,  4 Nov 2026 08:10:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793779814;
-	bh=ig4cNXieuTOvvTi83XT+rrmuyz/PrNyQl1mTni3mESc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jwExKOP3QR6CYk53tnJfDHsm1P7S4Y5BvypI44fOhaK5rS33YU2JrdfZzJ+Nb8Mt0
-	 oKwsW37DpM/ec3AcgIvPELrMmO+2GBY66G/5JWTUH6Ls1FkjBn+Ym2k8Er26n/o/Dd
-	 To8kGaXLdEEtXjK5MaxBNYxzPxsEieFLOLYyirvH513RNZ6qlHkjuf9gmEBdDVjFiF
-	 8XDjR9MUD1RvttjWjDCCycpgfiVbDO/cT4YJjAqY9QzUHwFrul2JRFZomd0M2Mb6bN
-	 SrdUkY1gkpWMyLtxEjmVsmSezzPgXQg5aJSgD2dqHlBFDjb/cCOS6rtAndRgNIcY5e
-	 uRBGYsqfyX82A==
-Message-ID: <742ef130-6c59-497e-821d-00ab7f2082cc@kernel.org>
-Date: Wed, 4 Nov 2026 09:10:07 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BfssRooC;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=h56TphMe
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793779839;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AIXih/+g+9WTOCjrd3v2llW1L1i6Jm4IJcUxf1FA9ws=;
+	b=BfssRooC5UFgIECUtCytQtm25wzxNrUZdc/+TUBauFqbZtl34J183AjfVT2j4XJykLb7vF
+	UgtixEUBB9r6JmwU/HhGz1LGmHk7+90ioEenJLjALabxEfRoTx+iE6dfsgk5/4CnJOGOQO
+	8Oo5u/ugCfXhIOrWc6GUgRhBPiBK0A4=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-292-rnrMdm6wPg-52xH9hhTfeA-1; Wed, 04 Nov 2026 03:10:38 -0500
+X-MC-Unique: rnrMdm6wPg-52xH9hhTfeA-1
+X-Mimecast-MFC-AGG-ID: rnrMdm6wPg-52xH9hhTfeA_1793779837
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48e6d6e780fso202652f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 00:10:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793779837; x=1794384637; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AIXih/+g+9WTOCjrd3v2llW1L1i6Jm4IJcUxf1FA9ws=;
+        b=h56TphMeazGFab3XJ5SBMl+iJ45Yb80vSGCPMbVFEIGmQYcRU/nOViZvvQkcako54G
+         eqKr9ulvIpeug/TB2FLfbP6GTPqT+RKhFEVLIhBKCrq299+HrCGgtcZ+1HtNQv2gEAoH
+         Sp0QFRk1xy8eW+dFZauJYGqd97dwZsPcO//MofnckUw7QXxLNuU2bJ9pW6ejHcbUUa/+
+         gOa2xq+m2P4SeanDXJjfAtV7ZQeirGA0328AuAtc+6qPbwtMI0EOpITi7g/X9NBKX1bv
+         aGJPlfDJP+OAUw9hXLgT188vR4ZIaHgTamf+BCaIO6WFBuspvd8IfDtsCY4ATqN+EumI
+         adDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793779837; x=1794384637;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AIXih/+g+9WTOCjrd3v2llW1L1i6Jm4IJcUxf1FA9ws=;
+        b=Q7XYnh07dsI0Ladnj1S+azk5tq6FuxpM39Z8fEVIoyn00ZCm4mvchjWHF2ZXtBus9C
+         Cubs3YyFmY6dRdK5CZHGPHD573rsNkq4GgIZNOReLdcvFwUEB1yLgWu2kiHCbGSFI7Ae
+         y6SILNHuXwXFPcjSNobQA99UOBmxn5v/aIicSsbLglBa7bKq1i8yaWtOLUesJH9GMtWA
+         xucT2r7itXcl07A8+n1kXlJm9oIIC16d+qRXolydUCG2MLbDh2ZVVZcKzKzlOopoNcea
+         YdX7s2y9tJNJ6F4XKa53j3CpREbFQIVSyTL3kn3otD46qd1zuoFCXg0enLEHihueoS73
+         0sbQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw0IKiAvvNWBvslgs08fJUNC80qY+VAlNEHJe5jZ6PhhUuwR2us9GQn2+vaHZR6MoB6MNdH/tTrBmvLnFI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/FsEh4Afi4mJ8OD4My5ojQ+htDZY/x3Ecq59ySFfT3dAL7JpmU
+	Bo51awGunpmZUe/JkU/58xcnH6Fpp1cjfHLOP+suQKDaK8zq6kiR4pweT9q9FMzpvalqKSFhFmC
+	Wd7DQPaOZNjopv9mrh/Ab/CNnN5hvEOBKKqjOjqyZfxJx1NpbePhxd2Mp9w0wqKnR1g==
+X-Gm-Gg: AYBFou1jATq31/uaoNesoQk1/PGFZdxqo5fcn/7YOjEuo5BfrvN7e3OKxH1qpSfjf4+
+	uGr3f39NreomD2LCcetrab3nK7FTRjwwNbgl0hcwVh9isjNNllQcVs1KAqLqViaYJwCib47cAOZ
+	5EoDU/dbcTrc7qd2l6WCnl92CgjeyaHejAbf0yjZwWUoUpLnLBiz6VeNokudHjwHGeW8jPQ4R6f
+	4zksnTc1gh8mMZOYDOWGy2bSkuUTheCIDOunwOE6KMkPm5343DiD6VynyUY7BCQee/BZAXNEn0s
+	CddHl4AXnTWWQiV/MiZEzKcduDn+qzBZyt4k8NebDKoO9VsX1j1FQ1k+vfiX1XbGkvSgMeWZNZx
+	1JLYawB7vGD8/rFl4Hv8MDa1bDk5OaS6rTmg3Z4LqRm5S8iy11EL3m8QUaDK+Ui+9k89pmf1qTc
+	Qhfq7ZahSkEosHwMsKqjbcN2EiiSgRI82F+AHTOQTQZnc=
+X-Received: by 2002:a05:6000:40dc:b0:48e:412:3829 with SMTP id ffacd0b85a97d-48e6e3071f9mr35514460f8f.15.1793779837112;
+        Wed, 04 Nov 2026 00:10:37 -0800 (PST)
+X-Received: by 2002:a05:6000:40dc:b0:48e:412:3829 with SMTP id ffacd0b85a97d-48e6e3071f9mr35514390f8f.15.1793779836215;
+        Wed, 04 Nov 2026 00:10:36 -0800 (PST)
+Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fece99b33sm2302373f8f.23.2026.11.04.00.10.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 00:10:35 -0800 (PST)
+Message-ID: <1e517947-48cb-4733-9e51-8a165d3ba534@redhat.com>
+Date: Wed, 4 Nov 2026 09:10:34 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,91 +113,133 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 8/8] arm64: dts: allwinner: a523: describe the UART
- integration
-To: James Hilliard <james.hilliard1@gmail.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev
-References: <20261029-submit-h616-uart-fifo-v1-v5-0-53b433aebbf8@gmail.com>
- <20261029-submit-h616-uart-fifo-v1-v5-8-53b433aebbf8@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH net] net/sched: fix rate estimator use-after-free when
+ clearing NOLOCK
+To: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>,
+ Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ AutonomousCodeSecurity@microsoft.com, tgopinath@linux.microsoft.com
+References: <20261030030453.31928-1-cenzhang@linux.microsoft.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261029-submit-h616-uart-fifo-v1-v5-8-53b433aebbf8@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20261030030453.31928-1-cenzhang@linux.microsoft.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 29/10/2026 19:47, James Hilliard wrote:
-> Identify the Allwinner UART integration on all eight CPUX controllers.
-> The specific compatible selects FIFO-depth discovery through FCC and the
-> Allwinner receive-trigger mapping. Each controller supplies its own depth,
-> so the same compatible covers the different FIFO capacities.
+On 10/30/26 04:04, Cen Zhang (Microsoft) wrote:
+> qdisc_create() creates the rate estimator requested by TCA_RATE before
+> qdisc_graft() converts a lockless child of a locking parent. The
+> conversion in qdisc_clear_nolock() frees the per-CPU statistics, but
+> the estimator keeps its own copy of the cpu_bstats pointer and its
+> timer keeps reading the freed per-CPU memory on every estimator tick.
 > 
-> Retain snps,dw-apb-uart as a fallback. The common SoC description supplies
-> these UART nodes to the A527 and T527 boards as well.
+> An unprivileged local user can trigger this. The estimator timer can
+> access freed per-CPU statistics in softirq context and panic the kernel:
 > 
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+>    BUG: unable to handle page fault for address: ff9d8b20ffa47920
+>    RIP: 0010:gnet_stats_add_basic+0x77/0xc0
+>    Call Trace:
+>     <IRQ>
+>     est_fetch_counters+0x31/0x50
+>     est_timer+0x52/0x170
+>     call_timer_fn+0x9f/0x210
+>     run_timer_softirq+0x6e/0xb0
+>     </IRQ>
+>    Kernel panic - not syncing: Fatal exception in interrupt
+> 
+> Fix by doing the NOLOCK conversion in qdisc_create(), right before
+> the estimator is created, instead of in qdisc_graft(), so that the
+> estimator captures the final statistics pointer. Removing the
+> conversion from qdisc_graft() is safe: a new qdisc is created by
+> qdisc_create() with the parent it is grafted under, and since
+> commit bc50835e83f6 ("net: sched: Disallow replacing of child qdisc
+> from one parent to another") an existing qdisc can only be grafted
+> again under its original parent. Either way the qdisc was already
+> converted for that parent at creation.
+> 
+> Fixes: 8a53e616de29 ("net: sched: when clearing NOLOCK, clear TCQ_F_CPUSTATS, too")
+> Cc: stable@vger.kernel.org
+> Cc: AutonomousCodeSecurity@microsoft.com
+> Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
 > ---
->  arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi | 16 ++++++++--------
->  1 file changed, 8 insertions(+), 8 deletions(-)
+> 
+> The bug was found and this fix was developed with the assistance of an
+> LLM-based code analysis tool.
+> 
+> Backport note: trees without commit bc50835e83f6 (v6.14) still allow
+> regrafting an existing child qdisc under a different parent and need
+> an additional fix for that path, for example cherry-picking that
+> commit as well.
+> 
+>   net/sched/sch_api.c | 14 ++++++++------
+>   1 file changed, 8 insertions(+), 6 deletions(-)
+> 
+> diff --git a/net/sched/sch_api.c b/net/sched/sch_api.c
+> index f36c41224bcc..d89f3f0a3c5f 100644
+> --- a/net/sched/sch_api.c
+> +++ b/net/sched/sch_api.c
+> @@ -1247,10 +1247,6 @@ static int qdisc_graft(struct net_device *dev, struct Qdisc *parent,
+>   		unsigned long cl;
+>   		int err;
+>   
+> -		/* Only support running class lockless if parent is lockless */
+> -		if (new && (new->flags & TCQ_F_NOLOCK) && !(parent->flags & TCQ_F_NOLOCK))
+> -			qdisc_clear_nolock(new);
+> -
+>   		if (!cops || !cops->graft)
+>   			return -EOPNOTSUPP;
+>   
+> @@ -1327,6 +1323,7 @@ static int qdisc_block_indexes_set(struct Qdisc *sch, struct nlattr **tca,
+>   
+>   static struct Qdisc *qdisc_create(struct net_device *dev,
+>   				  struct netdev_queue *dev_queue,
+> +				  struct Qdisc *parent_qdisc,
+>   				  u32 parent, u32 handle,
+>   				  struct nlattr **tca, int *errp,
+>   				  struct netlink_ext_ack *extack)
+> @@ -1405,6 +1402,11 @@ static struct Qdisc *qdisc_create(struct net_device *dev,
+>   			goto err_out4;
+>   	}
+>   
+> +	/* Only support running class lockless if parent is lockless */
+> +	if ((sch->flags & TCQ_F_NOLOCK) && parent_qdisc &&
+> +	    !(parent_qdisc->flags & TCQ_F_NOLOCK))
+> +		qdisc_clear_nolock(sch);
+> +
+>   	if (tca[TCA_RATE]) {
+>   		err = -EOPNOTSUPP;
+>   		if (sch->flags & TCQ_F_MQROOT) {
+> @@ -1817,7 +1819,7 @@ static int __tc_modify_qdisc(struct sk_buff *skb, struct nlmsghdr *n,
+>   create_n_graft2:
+>   	if (clid == TC_H_INGRESS) {
+>   		if (dev_ingress_queue(dev)) {
+> -			q = qdisc_create(dev, dev_ingress_queue(dev),
+> +			q = qdisc_create(dev, dev_ingress_queue(dev), NULL,
+>   					 tcm->tcm_parent, tcm->tcm_parent,
+>   					 tca, &err, extack);
+>   		} else {
+> @@ -1834,7 +1836,7 @@ static int __tc_modify_qdisc(struct sk_buff *skb, struct nlmsghdr *n,
+>   		else
+>   			dev_queue = netdev_get_tx_queue(dev, 0);
+>   
+> -		q = qdisc_create(dev, dev_queue,
+> +		q = qdisc_create(dev, dev_queue, p,
+>   				 tcm->tcm_parent, tcm->tcm_handle,
+>   				 tca, &err, extack);
+>   	}
 
+Jamal: could you please have a look?
 
-DTS cannot be combined in this patchset and must be split. Don't mix
-patches from independent subsystems when you send something explicitly
-targeting only one subsystem.
-See also: Documentation/devicetree/bindings/submitting-patches.rst
+Side note: I'm not sure if you are aware but we process the pending patches
+in this order:
 
+https://netdev.bots.linux.dev/suie.html?delegate=netdev
 
-Best regards,
-Krzysztof
+And you can restrict the list to the tc subsystem selecting the appropriate
+filter with the funnel icon in the top right.
+
+/P
+
