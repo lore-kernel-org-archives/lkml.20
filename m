@@ -1,94 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793785753;
-	b=v9RHB53CrxZsU5ho7VsYJH6bjyi8K1qvfMhQ3zTT66g1dw98eL2b2Y7DV/A2BSdsE4RQ
-	 jq3YMsqsrpdkcBhz9hEe82LhFUy3K5HLoy8rhKdYAUyg1wFf3Zxkiu2OmRw4Sdb08j70W
-	 JG40MXY8Y4ZEqxDvwXfR1U7xf8/kp9bSgBzBqGEzrnf/bn7plOAL/bHYbORtgFSa9f2BN
-	 ISAk34Qi5kYtbl+5P/R7ej55lwrJVEUnf3rSJPcf2xSq5M6hRexJrRMBERM6je7mJrzUg
-	 JMH0IrdkgAakdkuoubzt9bsICvA4UlPIOqppsOGgl8MFv14BVlVXnS4yA5Pawze04gg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793785753;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=QvnqhMiQKHRR27GMYC+YdENygmxCKW4KOUosSBxSS88=;
-	b=j6FYn/q+yngLaDD5kFFO1YMgtTpOeh6WPW9GJWnHAjg64dbxRKO96FV2w2B51wBAORZO
-	 EPoTfMtWBSNG+ZKzhZ/jxYrg5xvPGXyZuiAL49A3mYMn19Qtbe6X8RlJibNU7q9QIsgoE
-	 L6yBr8cg/I3lyAgJpo69Z/Kx+BRBe+NS5HT+CNqCBqw7nVHuZgtlTof3qaAarJV3mb1/l
-	 dESMXdtpn4ezau9Mp8i2MCR9x5Tfw/rkJghFBli/vjN9bqFreiJIhAL/PD1mzg+0Tm5I0
-	 BUOT78XRPOsnhiw+ggxKrUsgdjua7TLaLuLDokBU6sM7UqTboHuufm/TC2L8nvWQMzg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=IkfaS74c;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.25
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793785773;
+	b=CrIC3BaQio+O5znfVHpw6hw33BC9Q3DPRRwH4chXiTDQem/E8K1x6YIaFfHG72AQooTN
+	 NcwSp1K7tOnnOSTMGbWs7K/yIvF/n5oq5VSefBrwPQBE6YJigQWhWQelyXeGM9rIaRG/T
+	 7cZvofcideM/l1mJ0c8o7s0y7+k6VmCCcQuq3f55m1lTqZ0nUq0FwBGqz2tMpX3NYg0xA
+	 rIv8WjTDFMA74NY8HUOTS4WmhNixlEWpHcVNENwnwV/9mIncMCUb5dPzfksExbOvAmUQc
+	 zGADFcZZbJG8FQModFXf3oHrS2svEzp2pEvACF9rzbF/q6Ic+2dzLrtttkhG29+gKkQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793785773;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:
+	 X-Msg-Generator:Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:
+	 cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:References;
+	bh=TRvgzI3qXoA2HIsl7Zv36AwD/K99XeT08hxCxLH0B9A=;
+	b=uhU1o3xJJc/uTxzlQtvDuFB+0nCS0+kFgDKZR2F9r1cXLNdtcP22r6SUrFTZVNCtoBa2
+	 2GvOGE1jP6Ed9sjrDHcED/YrsD0CCvDV0H4UcliwgWXp2XbueYexODsZufe9nAXIEKwIK
+	 4Ib+fmMjPWtX/ZOlLM7mJvHV3ZaJB+l/St0tGRMA4dQ+nFywucc16tS15335sZ67DhAPz
+	 +azXW/YRiNSUQ/N2+0dc7LkPrF+oDNZI5xFtRlaSLsMEw/nusZimI9TQh77l58z0GzBwd
+	 5+9JYdtR+xEcvss6H/l37VZ2JSOg4hpsr7F7/p2ZEk3dgbfwlxieVWGNLd57kbMQNbw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b="Enuw6Be/";
+	arc=none smtp.remote-ip=203.254.224.25
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18E03606A31B;
-	Wed,  4 Nov 2026 09:49:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18E03606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44366606D80E
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:49:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44366606D80E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=IkfaS74c
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 65847200B28;
-	Wed, 04 Nov 2026 10:49:08 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793785748;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QvnqhMiQKHRR27GMYC+YdENygmxCKW4KOUosSBxSS88=;
-	b=IkfaS74c65eAhcryPily3TNci+GwLLswrwIgHLKmGkh6XtLSi7UwQWvc7tG8QW38Fftb22
-	bUSwln1AZjFvIOwvy/nxy8leW+jinWUhyp2uBonlcX2oituKJDhumLXLgmZ6hN0BzJBaRx
-	D18DyM5rtn34BSDD0e6wUZEUz7MqKNxF8FpDyt/vCiovThE7XHNTwKSBYGigyoXR7ObCNq
-	9oVFRCSOztP61HTOTXY3corPxyKQHOzc7mldiRSG+7KfpLiWd4GMnUhuqBS5v/fSWK6REV
-	CwinXIYMtDL3EP8UyAzVUJUqupPTsPsVXG2mP6UkBbVZDvh0tdghwgzJ/8+XVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793785748;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QvnqhMiQKHRR27GMYC+YdENygmxCKW4KOUosSBxSS88=;
-	b=UY68rmlj89SL9bNmW212Hale4W1eQlcxzP8pgvdEVw9xSbBCA2Q1JHbSo2+P6l3H5CtGed
-	EFEaLSuh9gJUmZJQWbHYx58DW7lS3FKcdK7Ka5qg/+7/ZXpJB1rqqvwOoOUtHlQnWPkxl7
-	zsQd1yILz6/d+qnd8dc1Xw7XRFyn7mHDItJVPAnPu1XED60PKrilpBFYaBSL3KXYBNm5Ux
-	nKwhnVRx5bx6P87n+kb/TBn42OEROcTLoA36FbbwmxkhyX8rOgIcEAfrSt4MObO8Ae/G2Z
-	gQdrFtIVocRRG9OARVMZPZ2G4vpQEVIizU3J4WSbH/1Vy1qWQiQaDpwJdkqUXw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793785748; a=rsa-sha256;
-	cv=none;
-	b=eA9bFlkYULuczfBtzogxkGzAgRbJbmGzr7VDRWd/stxclJjCpVXH6xt+wr1EqVpwST16dq
-	hO9p1dOSCGRc94Gbgi3BnlQwHTrZChRT/TkJlyKpg5SonHaXUQK0Q4QG0lbDYFZ39/ieeJ
-	vBkfayiqjcuNRZFilSPJ+7JJT9IpmIZTQf0hyASn6yFGI38sNqBhKVPIgJbaeFjP0igY3B
-	Bt62ZpiASMVFtm6sz8hGe7P3bTa9GqfrjD+ee2CCnCdh7XGw8oLXZpoJXYRZ4V3UUVIBtR
-	+Mxb6MFCfSlBtMk1NOmIt340QO1oajx878JOlDCwOKWNO6wvRVtxiZ86jSfWIQ==
-Message-ID: <783234169f479ba1e8c4dd19896de1cd4755eec1.camel@pengutronix.de>
-Subject: Re: [PATCH 4/4] reset: toshiba: introduce a TC9564 SoC reset driver
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Alex Elder <elder@riscstar.com>, sboyd@kernel.org,
- bmasney+clk@redhat.com, 	jbrunet+clk@baylibre.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: daniel@riscstar.com, mohd.anwar@oss.qualcomm.com, 
-	lorenzo.bianconi@oss.qualcomm.com, fabrice.gasnier@foss.st.com, 
-	alexandre.torgue@foss.st.com, marex@nabladev.com, 
-	changhuang.liang@starfivetech.com, devicetree@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Wed, 04 Nov 2026 10:49:08 +0100
-In-Reply-To: <20261104004332.2141282-5-elder@riscstar.com>
-References: <20261104004332.2141282-1-elder@riscstar.com>
-	 <20261104004332.2141282-5-elder@riscstar.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Enuw6Be/
+Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261104094926epoutp02b12d39347dd4b9848c4e601dc6e8a563~kzqaDepQZ2049720497epoutp02X
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:49:26 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261104094926epoutp02b12d39347dd4b9848c4e601dc6e8a563~kzqaDepQZ2049720497epoutp02X
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793785766;
+	bh=TRvgzI3qXoA2HIsl7Zv36AwD/K99XeT08hxCxLH0B9A=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=Enuw6Be/L+mBjg2oVC5+RSVFKOJwQQccVwFBHQH0k4gaPLc70afM/6qI+AhMXzWup
+	 3e6HMBG16SLZHcJyMyxqwVTJnL0HOKl3PRWJ+4cnPkM0iIxjrKU2RzS0t7ejXhYGh8
+	 GrjzzIbnxfDJcYg71aLmmYpcQLIKnzvXvs++Lcho=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
+	20261104094925epcas2p1e0a2e776fff768fdd0843272e1111a98~kzqZdRQRs2536525365epcas2p19;
+	Wed,  4 Nov 2026 09:49:25 +0000 (GMT)
+Received: from epcas2p4.samsung.com (unknown [182.195.38.199]) by
+	epsnrtp04.localdomain (Postfix) with ESMTP id 4jKLJ50ynNz6B9m6; Wed,  4 Nov
+	2026 09:49:25 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas2p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261104094924epcas2p2318e84e3593e6e77e4c933dd3e4adfc6~kzqYNm1OW0383403834epcas2p27;
+	Wed,  4 Nov 2026 09:49:24 +0000 (GMT)
+Received: from apsw.samsungds.net (unknown [12.80.211.160]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261104094924epsmtip1c5ccc89e3fc1e99c0ce0e3ac43ad2fdb~kzqYIF6UC0106301063epsmtip1C;
+	Wed,  4 Nov 2026 09:49:24 +0000 (GMT)
+From: Kiwoong Kim <kwmad.kim@samsung.com>
+To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	alim.akhtar@samsung.com, jejb@linux.ibm.com, martin.petersen@oracle.com,
+	bvanassche@acm.org, kwangwon.min@samsung.com, hy50.seo@samsung.com,
+	cpgs@samsung.com, h10.kim@samsung.com
+Cc: stable@vger.kernel.org, stanleyjhu@google.com, Kiwoong Kim
+	<kwmad.kim@samsung.com>, Bean Huo <beanhuo@micron.com>
+Subject: [PATCH v5 1/2] ufs: core: skip ABORT TASK for device management
+ commands
+Date: Wed,  4 Nov 2026 18:49:13 +0900
+Message-ID: <20261104094914.180788-2-kwmad.kim@samsung.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261104094914.180788-1-kwmad.kim@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,167 +82,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261104094924epcas2p2318e84e3593e6e77e4c933dd3e4adfc6
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-234,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261104094924epcas2p2318e84e3593e6e77e4c933dd3e4adfc6
+References: <20261104094914.180788-1-kwmad.kim@samsung.com>
+	<CGME20261104094924epcas2p2318e84e3593e6e77e4c933dd3e4adfc6@epcas2p2.samsung.com>
 
-On Di, 2026-11-03 at 18:43 -0600, Alex Elder wrote:
-> Define a new platform driver that manages reset signals implemented by
-> the Toshiba TC9564 SoC.  There are 13 reset signals available, but
-> currently only the resets that are (or will soon be) used are defined
-> to be controllable.
->=20
-> Two registers manage the state of the resets.  The registers are
-> accessed via a regmap supplied by a system controller.  Access to
-> the memory region is provided via a BAR on a PCIe endpoint function
-> embedded in the TC9564 SoC.
->=20
-> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Alex Elder <elder@riscstar.com>
-> ---
->  MAINTAINERS                  |   7 ++
->  drivers/reset/Kconfig        |  12 ++++
->  drivers/reset/Makefile       |   1 +
->  drivers/reset/reset-tc9564.c | 135 +++++++++++++++++++++++++++++++++++
->  4 files changed, 155 insertions(+)
->  create mode 100644 drivers/reset/reset-tc9564.c
->=20
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index ee01aed56508d..8389b11fe6e1a 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -28355,6 +28355,13 @@ F:	Documentation/devicetree/bindings/soc/toshiba=
-/toshiba,tc9564-config-syscon.ya
->  F:	drivers/soc/toshiba/tc9564-syscon.c
->  F:	include/dt-bindings/soc/toshiba,tc9564.h
-> =20
-> +TOSHIBA TC9564 RESET DRIVER
-> +M:	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-> +M:	Alex Elder <elder@kernel.org>
-> +M:	Daniel Thompson <danielt@kernel.org>
-> +S:	Maintained
-> +F:	drivers/reset/reset-tc9564.c
-> +
->  TOSHIBA WMI HOTKEYS DRIVER
->  M:	Azael Avalos <coproscefalo@gmail.com>
->  L:	platform-driver-x86@vger.kernel.org
-> diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
-> index eda9c698a95f3..8c1b08f4eebe6 100644
-> --- a/drivers/reset/Kconfig
-> +++ b/drivers/reset/Kconfig
-> @@ -358,6 +358,18 @@ config RESET_SUNXI
->  	help
->  	  This enables the reset driver for Allwinner SoCs.
-> =20
-> +config RESET_TC9564
-> +	tristate "Toshiba TC9564 reset support"
-> +	depends on SOC_TOSHIBA_TC9564_SYSCON
-> +	select MFD_SYSCON
-> +	default SOC_TOSHIBA_TC9564_SYSCON
-> +	help
-> +	  This enables support for the reset controller embedded in the
-> +	  Toshiba TC9564 SoC.  The state of reset lines is controlled
-> +	  via MMIO to a region managed by a system controller; this
-> +	  ensures access to the region is coordinated between this and
-> +	  the clock and XGMAC (stmmac) drivers.
+In MCQ mode, ufshcd_mcq_abort() falls through to ufshcd_try_to_abort_task()
+for all timed-out commands. However, device management commands (query, NOP)
+use reserved requests and are not SCSI I/O commands. The ABORT TASK task
+management function is designed for SCSI I/O UPIUs and is not applicable to
+device management UPIUs.
 
-Drop the second sentence, explaining driver details to a user that just
-needs to decide whether to enable the driver or not is not helpful.
+This is only reachable since device management commands were converted to
+scsi_get_internal_cmd(); before that, a timed-out query was handled by
+ufshcd_wait_for_dev_cmd() -> ufshcd_clear_cmd() and never reached
+ufshcd_try_to_abort_task().
 
-> +
->  config RESET_TENSTORRENT_ATLANTIS
->  	tristate "Tenstorrent atlantis reset driver"
->  	depends on ARCH_TENSTORRENT || COMPILE_TEST
-> diff --git a/drivers/reset/Makefile b/drivers/reset/Makefile
-> index 489fafd6bbe3f..6ddded26309ef 100644
-> --- a/drivers/reset/Makefile
-> +++ b/drivers/reset/Makefile
-> @@ -45,6 +45,7 @@ obj-$(CONFIG_RESET_SKY1_AUDSS) +=3D reset-sky1-audss.o
->  obj-$(CONFIG_RESET_SOCFPGA) +=3D reset-socfpga.o
->  obj-$(CONFIG_RESET_SUNPLUS) +=3D reset-sunplus.o
->  obj-$(CONFIG_RESET_SUNXI) +=3D reset-sunxi.o
-> +obj-$(CONFIG_RESET_TC9564) +=3D reset-tc9564.o
->  obj-$(CONFIG_RESET_TENSTORRENT_ATLANTIS) +=3D reset-tenstorrent-atlantis=
-.o
->  obj-$(CONFIG_RESET_TH1520) +=3D reset-th1520.o
->  obj-$(CONFIG_RESET_TI_SCI) +=3D reset-ti-sci.o
-> diff --git a/drivers/reset/reset-tc9564.c b/drivers/reset/reset-tc9564.c
-> new file mode 100644
-> index 0000000000000..fcd58d5f1962f
-> --- /dev/null
-> +++ b/drivers/reset/reset-tc9564.c
-> @@ -0,0 +1,135 @@
-[...]
-> +static void reset_manage(struct reset_controller_dev *rcdev,
-> +			 unsigned long id, bool assert)
-> +{
-> +	const struct tc9564_reset *reset =3D &tc9564_reset[id];
-> +	struct regmap *regmap =3D dev_get_drvdata(rcdev->dev);
-> +	u32 mask =3D reset->mask;
-> +
-> +	regmap_update_bits(regmap, reset->offset, mask, assert ? mask : 0);
+Fix this by checking ufshcd_is_scsi_cmd() in ufshcd_try_to_abort_task(). When
+the request is a reserved (device management) command, skip the TM path and
+call ufshcd_clear_cmd() directly instead.
 
-Just propagating the error value ...
+Fixes: 08b12cda6c44 ("scsi: ufs: core: Switch to scsi_get_internal_cmd()")
+Signed-off-by: Kiwoong Kim <kwmad.kim@samsung.com>
+Reviewed-by: Bean Huo <beanhuo@micron.com>
+Reported-by: Bart Van Assche <bvanassche@acm.org>
+---
+ drivers/ufs/core/ufshcd.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-> +}
-> +
-> +static int reset_assert(struct reset_controller_dev *rcdev, unsigned lon=
-g id)
-> +{
-> +	reset_manage(rcdev, id, true);
-> +
-> +	return 0;
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index bcc2512bf34b..7fc80926eeec 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -8046,6 +8046,9 @@ int ufshcd_try_to_abort_task(struct ufs_hba *hba, int tag)
+ 
+ 	lrbp = scsi_cmd_priv(cmd);
+ 
++	if (!ufshcd_is_scsi_cmd(cmd))
++		goto clear_cmd;
++
+ 	for (poll_cnt = 100; poll_cnt; poll_cnt--) {
+ 		err = ufshcd_issue_tm_cmd(hba, lrbp->lun, tag, UFS_QUERY_TASK,
+ 					  &resp);
+@@ -8091,6 +8094,7 @@ int ufshcd_try_to_abort_task(struct ufs_hba *hba, int tag)
+ 		return err;
+ 	}
+ 
++clear_cmd:
+ 	err = ufshcd_clear_cmd(hba, tag);
+ 	if (err)
+ 		dev_err(hba->dev, "%s: Failed clearing cmd at tag %d, err %d\n",
+-- 
+2.43.0
 
-... makes this even shorter.
-
-> +}
-> +
-> +static int reset_deassert(struct reset_controller_dev *rcdev, unsigned l=
-ong id)
-> +{
-> +	reset_manage(rcdev, id, false);
-> +
-> +	return 0;
-> +}
-> +
-> +static int reset_status(struct reset_controller_dev *rcdev, unsigned lon=
-g id)
-> +{
-> +	const struct tc9564_reset *reset =3D &tc9564_reset[id];
-> +	struct regmap *regmap =3D dev_get_drvdata(rcdev->dev);
-> +	u32 val;
-> +
-> +	regmap_read(regmap, reset->offset, &val);
-> +
-> +	return val & reset->mask ? 1 : 0;
-
-Consider using regmap_test_bits() here.
-
-> +}
-> +
-> +static const struct reset_control_ops reset_control_ops =3D {
-> +	.assert =3D reset_assert,
-> +	.deassert =3D reset_deassert,
-> +	.status =3D reset_status,
-> +};
-> +
-> +static int tc9564_reset_probe(struct platform_device *pdev)
-> +{
-> +	struct reset_controller_dev *rcdev;
-> +	struct device *dev =3D &pdev->dev;
-> +	struct device_node *parent_np;
-> +	struct regmap *regmap;
-> +	int ret;
-> +
-> +	parent_np =3D dev_of_node(dev->parent);
-> +	if (!parent_np)
-> +		return dev_err_probe(dev, -EINVAL, "no devicetree node\n");
-> +
-> +	/* Note: MMIO regmap (no error checking needed when used) */
-
-I suggest you just add the unneeded error checks and drop this comment.
-
-> +	regmap =3D device_node_to_regmap(parent_np);
-
-Can't you just use "dev_get_regmap(dev->parent, NULL)" ?
-
-regards
-Philipp
