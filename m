@@ -1,98 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793823812;
-	b=PlaVoOoN/S3rFllR7sKMz0gEHLva3fJ3hOdFnBUCmqsy6nfPEvC6pirlBE0jsi7Spq6/
-	 hsEYrdgBQV3q8NPO75NppCwMkxJi/6RLfQZxvVu5u1bwzdWwzdGT/PrBebfEx8PuOg1z5
-	 Nqm2O+xkHL0H3cvQoDKoiImCOFbem6AbAYUnDpJ8KUp/8KgPN2nwrvtFZIirrmNi3Gboq
-	 D34K+jYtpBZvflFfvfwFzKfwQRs6v6WUh0FxbqPhaVDxn60W+CV/ikj1NX4mS+wbG86y2
-	 Z7+2fRLFZlQQJryd4ytndVDESbd6swyT/tPKl0o4GoMNDV0T5sTYD+1MCHMKkWRWPyA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793823812;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=SxUNGC6LHFE1YR9ZyIoWZKeW0R1pf1aABtzjxttvXsY=;
-	b=cCdcmu0viFWKMKe5EKDZzDMbAHNjAABEwRLXLVR9MceDQGIFQHk52I7GwDpA9GeiFZFh
-	 xwgkSjNYqmXqcfGNOYXB7KyMnG/cPFfiqyQDc5Af9ot4HjzzWrnvVAEQVVFqDnRYHqTJl
-	 jIs3VYanZLrqSTdCRgV2qLc3evs6pYSIOuD8IveHU2yMRDj7a5giYz4mZS82p4nmtWoQ9
-	 Hso+m6oV3diNINAjZ7BfqoZMPlTwSI5bM67QZ/1OQ8BaMvy4s231ClFjqhcBAW5GyMR+T
-	 D4dF1iCkqQadRQGSJB9F8JIw2WMgCCK2VSlJcZoFksBo4PN17k3qHnq9nzPlQTXuz5Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=fatecpompeia.edu.br;
-	spf=none smtp.mailfrom=fatecpompeia.edu.br;
-	dkim=pass header.d=fatecpompeia-edu-br.20260707.gappssmtp.com header.i=@fatecpompeia-edu-br.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=VEpxIxb0;
-	arc=none smtp.remote-ip=74.125.224.44
-Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.193.77
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793823880;
+	b=NyctYR3LSt8Vobl2siUGUzfkzY0Fnrf/x6hwuvWG+YUUuw7Aj93Wt7LVlOGP7jJtt7Nc
+	 i7E2xR3Pv6OurEZDmmymEOMq2ghUdcfibvrva9n09dhsQGMzF6oLRyD5X3BcWmH/9xtms
+	 pGa4uw8tY+mTGUhSYxvg9APLuDoIdrW0eAllBit7k6aSqJxWXLPcy3gCbsJQPUHUN84Rg
+	 3aDXbZFEuNrqkZqEr6XOIwKrtxrxVjQf8AjkWUYNlX/g3yn5narg5mDTTfBsnnO4gdVgb
+	 qVwJ0/WLEj7WEIoSG4XRjq8scYj6/uSLPlTBcm+qlk9tPGetb2FhSYZr283WBJ1Dk2A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793823880;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=0H/vkr1QIIVFGm6wA+u77NSKYBFbLOovJyYs+oqgtDw=;
+	b=Y+f0DK+uZwVVBJvyymxdfsF83JID+ocyf+64KlQ2fZ4kRcbsAF0CD4CDUIVM/k19VQC1
+	 noqpNLDyUc5ox8n2QdN3fs2EpTNKJMOuId1I9UhD7t/zyAJeHRaVHo8LBv4ALNaWQNJU0
+	 aLWF9FfSy//uIHJLtTZKeem9MxYJrvCuZcQqjTQKZFJVovvADUS1nTi/tEPskS73TexNU
+	 X3kuqidzHCgWbBVh8P5aXeGNfV3JVKaPUlYGaJSQnb9Ule2juNu4RMom+PqFcVTy+zl2s
+	 67WmBFLlKO8uqEkS1q2NK5vFLNpeEt7vXL2b+712CKiNuuVi0+u1PwZRBzEHzj4sWyQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=dGM4dceA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.193.77
+Received: from YT6PR01CU002.outbound.protection.outlook.com (mail-canadacentralazon11022077.outbound.protection.outlook.com [40.107.193.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3079F607350A
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:23:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3079F607350A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fatecpompeia.edu.br
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fatecpompeia.edu.br
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2577B607030B;
+	Wed,  4 Nov 2026 20:24:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2577B607030B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fatecpompeia-edu-br.20260707.gappssmtp.com header.i=@fatecpompeia-edu-br.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=VEpxIxb0
-Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-67be5d0e9cbso952504d50.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:23:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fatecpompeia-edu-br.20260707.gappssmtp.com; s=20260707; t=1793823811; x=1794428611; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SxUNGC6LHFE1YR9ZyIoWZKeW0R1pf1aABtzjxttvXsY=;
-        b=VEpxIxb0a8wfXYvhkeSKmMTvunJIxcraVVKLZX+mTN3NdQQ/vfiZmqDdf8VgZ0/5dP
-         /sxmC9qMzBLR9O+p0fnIKEwySN6MXmp4fXaHIWnvwAVAmSR+QgNXzYQCwxutgObDrsOA
-         wOWyFEM2xmRTkxqM9af2+03nc9dwDEziudLWUCTU6l4Km59522R/+GZgl182BbmPhYry
-         UcLTpiqNhxMOQH0wmgPaQQTq5ZA7y8NlOzdnaW6ZNgN0wayNDdF8ozseUBUaRkHkhvhR
-         3am3i+xX8J8obrfm2Oyr8K99WvBf70H6l0DvTSzcw3jWngrK9O2ODq3E6VBOjlZmcTCd
-         6Ung==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793823811; x=1794428611;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SxUNGC6LHFE1YR9ZyIoWZKeW0R1pf1aABtzjxttvXsY=;
-        b=YwEmmbCj9QE2DaL7oWAUwT/+klK8u4A0eBQS1p+vVNfen9cO+oEBKBnx9T2lRqurQR
-         vrTAEkyt11EbxlqFppOL0Ey9ujLcvoKM0ErzJq825uVZPkaUiLJZUZgEVcP+upG9OJ5J
-         xuyvkkWoku9fFytLpvwFJ8aHYnITlSNmWFGxT93a5xfoUf6o3fLOEUMLbB0u3bxdbcoH
-         SQdEc25vqiaL+BZ75QR5f8lrPBRbJH/jdJBKeEGTVg5weZFLwjGoaTs/L6RtkPcXSZWx
-         PpCLqRbIBuRBPm9kIbbNowtYWyGnVURQQ7vKnaTpUbZtU+TXnmRmSZwk4tMNArTwV7xo
-         V/8g==
-X-Forwarded-Encrypted: i=1; AKwUvBzplubN4uZ8mrwnRtwgUnWIDC8qohNDWA4GalWiUa2Za5M1NozVaiL7nHi2QaTKFyCzVnqDV3Oh3SZxHQk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9D8d8ZZL2Cf41n22CrnH3RjzIxFGW5QJmWeUeZeWjFmbXSE6P6
-	62k+D+8G0eoP32pzHgIRV5E6WFpqH/nRNF3QjcCnI9P//lN2WXjKawKQo0ghozOfIwo=
-X-Gm-Gg: AYBFou0gcgGmaONKG+NXaC8Qkw0/Mdy236QHiKml//TdWEUF/9KHlvrdbq2d3ynm0qE
-	PsPA10RsiCtItPmIuHZkk/wR/EVwpgbmtP8Un3apCYAU8H7yjoSIQynJgdAda3cJNIhaC36Upqa
-	VdJ8plf1cEwV0IBhi31ww8F22R7EblIwThUmNg+fVeFVBy9gqRmXmvGIQtN6ZJaAOBBBG6slib1
-	ewuDdJ3pZYwYiBdEq8yK0haBDlDbcvXqSd13F9ubhGdEch/H2ZvY/GZWCMIpw626HMFbAYmUZ0d
-	7TVzCSgYnw9F+twEPSw95glA9kMkRQZwCFSxYsz3t50esZTVg228FGxHtyL7QdxoZp7tX8iVyXn
-	iXaqFDEY0bOt3a1L0bNxjnT4iUd4kRWU4WpKYK0Ibh911Xg0ikjq8EYRkw428z7LGau6J2rh9aV
-	/0kNUqIaBo4WU2xAvWlt0g3F1s+e8fsOif13oMcOjH/Fm/u+AyKZ9bwdUmR9B0JkJArr9O3TVGc
-	pYX72teKBbzx866yTp0v1FusihOCjJcp3G8OeVn+ltIjPryekYur5U4r3Y0muwQ6uuSdU5SXIwu
-	MkeS8o8CnDok/ooSScIt8ol2mYwBLMSxPkGrLmnkwjROVMB5bfai5nixcuU+H/y9c52l7VB8447
-	wRsYrtEA6nEU33Fz06JAzxzgM
-X-Received: by 2002:a05:690e:12cb:b0:67b:bf6b:d9e3 with SMTP id 956f58d0204a3-67bbf6bdd12mr6448256d50.48.1793823811217;
-        Wed, 04 Nov 2026 12:23:31 -0800 (PST)
-Received: from localhost.localdomain ([104.28.244.23])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67bf91b6e7dsm1298292d50.13.2026.11.04.12.23.28
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 04 Nov 2026 12:23:30 -0800 (PST)
-From: Allan Siriani <allan@fatecpompeia.edu.br>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 4/4] media: qcom: camss: do not fail CSID power up without a matching VFE
-Date: Wed,  4 Nov 2026 17:23:13 -0300
-Message-Id: <20261104202313.72494-5-allan@fatecpompeia.edu.br>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20261104202313.72494-1-allan@fatecpompeia.edu.br>
-References: <20261104202313.72494-1-allan@fatecpompeia.edu.br>
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=dGM4dceA
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OJUbDWcYYDPnUluRxwX5BaQ3WieIeVJPIB/rVkhukO9Hg5r87+b+d9m1SddiQ2OZWhnR+9PaaktElidNY2cmIdIwLxlRHMFfsQuoeMSqHndvsWFkG7j9MqEuACjOiDA3bIUr7HsxfqhSb+5y60LG8/xGh3UgigK2quQ7Arp1/2yAqGa8gbc4AejzX4dd10WBJzVapHSILHsszfjCd2+dnVo4p5+MwCLhfOq3pBcYZ2tUcDT2ls3DssFi2ePruEPEZZmGK1QadmbM3ebfbHaLiQgZj1/PI3o8NTUpYvDZHCGJ6ej+HAcXPPxfFTwiBlQ0q5vUHmNuxXiqJmwYNyjgQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0H/vkr1QIIVFGm6wA+u77NSKYBFbLOovJyYs+oqgtDw=;
+ b=rpDxRNj9XJDiP/gDWCeU8Ba2ladolLX0+vWDiGD8k4O6AE/t0y+uRDOgeSRlqcz3unRXAOhYsD6G/ZMgZvFyarK5gVTChuY7gPNzsrqAUzidnijPwYPgO6FDdl9mOxlOKZTgKj3UMZqZMppzcRJur87YDNo5Q7vbME6i4dykylk5svjXT6UlxyX/C7WLqoSK6UCBwetNHqLag0gxGpNPovYlkX3f8s6p1R375sgnsRTMdlXPmo5MGa6rfpJjUBlGlygaDqj/Im22U+Y8F2UfMYiddDjm/EI0XkHrmt9Q42hW6bVOeFpaZngj8cVHB7FF3tZGWi/uWr979TuRLSWvrg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
+ dkim=pass header.d=efficios.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0H/vkr1QIIVFGm6wA+u77NSKYBFbLOovJyYs+oqgtDw=;
+ b=dGM4dceA6A0IMUAntpdBbe8Ta2rsv5f6/GgmprXfMbuha9yFLJAEcJiKmZcKHTearGlEdGyMlDCdVHA7DQ9+GlzZ4mu0yfegVpvCA5utfRJcdD65HPTiPy2XR1Tu49gPjoDUL0ySIpBlesVsdaDh0m6letnwUgmQJzDVLeKVvQOiLMCnHVIwtLMSvrMCwOYePCHwJnafWt3GbjxtC7ZNZEcFAE6pA0KGZWrBuW2HCek69XGnq23/WGw+SBO33ZK61XBurIdWf26rFmp8gx1eNAfNdPniSji8qVld7Q+Ns1l1EQrU2SuSDcQdlT+bl9YZ+SpbgFDKc6IrmZuZf50M5Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=efficios.com;
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10) by YT2PR01MB9493.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:a5::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Wed, 4 Nov
+ 2026 20:24:34 +0000
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0592.009; Wed, 4 Nov 2026
+ 20:24:34 +0000
+Message-ID: <e37fd4f5-4422-4f04-bcb3-cb640e67697d@efficios.com>
+Date: Wed, 4 Nov 2026 15:24:33 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/12] sched/deadline: bandwidth accounting fixes and
+ selftests
+To: Juri Lelli <juri.lelli@redhat.com>, Peter Zijlstra
+ <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>
+Cc: linux-kernel@vger.kernel.org, Dietmar Eggemann
+ <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+ Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>,
+ Luca Abeni <luca.abeni@santannapisa.it>,
+ Claudio Scordino <claudio@evidence.eu.com>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Shuah Khan <shuah@kernel.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Clark Williams <clrkwllms@kernel.org>, cgroups@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev
+References: <cover.1793804635.git.mathieu.desnoyers@efficios.com>
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Content-Language: en-US
+In-Reply-To: <cover.1793804635.git.mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0082.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:4::15) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,59 +113,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YT2PR01MB9493:EE_
+X-MS-Office365-Filtering-Correlation-Id: aad52cba-8b66-4da8-808e-08df3ab1a41c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|7416014|23010399003|366016|10067099003|22082099003|18002099003|56012099006|261022075727099003;
+X-Microsoft-Antispam-Message-Info:
+	lst81HHEgBtGD9QyEOqlU1/pWf+vrkiIEE3ohekAUXfdiMvH9FJsfaRVSyCjpFWg8H7agCwGrv2SMkLg7/EZBZnBIbVTR84GuwbufDgNPMRryWM6ZAK53DUN2Z8jU51oR1vOREmrCupytCYuXe/Vi/wUV3uNFVccXtJw7Li6Bwh5+IlqDVxBp86LuxCvXx8mYEJw+89jV2sWqU4EwX0r6qfCB6ll3BjwJG+jciYM+oBQH2Y3+XXpkQdOV3pPvobwnDGB1E7Gi68SFf0WDpgZDEZxG11AKvPX1ZGY1WsSquBYM0wN1FTTmCvZekMrh/AxD71I9LH0OOh27JuIfaB3rhOjkDMh89v9o7foC6mDbnjHn/zNlsdDCrCmeCPGFWjiHd3MQ39XVVd2ov15E/MmbtEdoamIOGOn2mnZdf1J6bWagq0M+2y5O0CSJ446JIJ5DVfpwiUgOYQzYsbHVCuRk9yayqxwrF/FK4NwQhfaoWE+SzHe8ncV6GL9vTOAoFluSvr4gg2ZPR/5Qg4G5RvIc+o9+8Q4R9FIA6RYXI2yQqa4DK6qPQPJCP66S7MSSgdPT8dzIMtXlIem9sX1iSJT64doLiFUnrsi2i0PtsY4gUw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(23010399003)(366016)(10067099003)(22082099003)(18002099003)(56012099006)(261022075727099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?azc4QVdSL2VhUEo5T3B0ODJLbUllR3dueTRhWXF2bURjNEp0L0FtVGJBUUE3?=
+ =?utf-8?B?Vlh3TTk0eFNVcWZXRmkxU2kvY1lYYTI1ejRZT1hOUUlpMjRuZ1ZlOFpZU3Fo?=
+ =?utf-8?B?NG1NalIxN1AwenFaYXladnRjY3hkdWFoaEtzdE8wZ2lhYStoK2VibkpBa3RB?=
+ =?utf-8?B?NGNyM0xiVmVFVVhhY1NYSzFFNkRDVnJORWtSbXA5cUdjTlh4TDVBZy9WaU1T?=
+ =?utf-8?B?bHNkNWhma3BQL2NuOHR5VkZwSkFma0wyRjJFQThEdzRQZnlVK2xzWDE3U296?=
+ =?utf-8?B?bWorS0dBOHhvMWpDR3JaWUdPWDU3WVE3cEFTM2Jmck9xQmYrUEZhbTNzcWJO?=
+ =?utf-8?B?YzVhQU1hZyt2dEtkdWRjdHFQa21RbnF1b2FmdE9yY3c1UDVVUnNha0ZEdHNQ?=
+ =?utf-8?B?aW5OSURFR09ndzdabHZYaUlpWVRJQ1ZiYWlSTnNWc2QvUGZjNnZNSHVDSjlG?=
+ =?utf-8?B?aWwzN3FWZEM4SzBvMVFRbEZ2U3hqVjUybDFJMk5tRFoxQWhDVW43VzVDR2pU?=
+ =?utf-8?B?ZGZFVUtyRWFabVMwdTdKYmgxampsQTFmdHV3K2hRcVp6cWNaMkdQWXJheGNK?=
+ =?utf-8?B?ZW9oSHFzYkZKaS8wSEVTVEI0ZmxYNXArd2pTNmJrOXhFMHEyWlM4S2ZWUEZU?=
+ =?utf-8?B?enpkM3RQYVpwV21Ld29XT0xrQUtFRWgrbjV5cExobnVtU2ZGclZvdS9aL3RP?=
+ =?utf-8?B?Tzg3MVZHbGJZTFJteFJFMlQvSG5aaUxiK3FkUkozZ0p5cVp2ZTJDSEczTkNB?=
+ =?utf-8?B?eWJmQzJJNURIZ3orTC9xOVpGMXlJNlRCNTMwZ3NZakpjRzFFUzlRd1Ntdm41?=
+ =?utf-8?B?MEVOdEZKVTVETm80MjFYMUIrbFIrN2dMd1ZWZ1VxVVh2MXpYbG9WeWlGMEdC?=
+ =?utf-8?B?ZkdSSU9Mc0VqVkM0cXVEbHUzMlEvbC9OZzRwOFdBNnMyVUdCRXg4U2E5TE1p?=
+ =?utf-8?B?TU1nTTFrT2w1TzN2d04rZ3VPR01vWW5sdjhUcm8wcDdKbW5pWGx2cXhIUFZB?=
+ =?utf-8?B?TE1haEhiQ1lIRE9lVi9ubUYzbmtpMlVTMDZPZlhIb1FiQkw1TjRsN2hWWXd6?=
+ =?utf-8?B?c3BZbVBlTjZTdFJ1YjZnb1dwVk9jeWhlZ3Irb0UwdG94TDJpTWJnZXcvRHlE?=
+ =?utf-8?B?azFGNGNSSWpqSmNDcm45NVJLQkdOWUE0S2ZhQjlvRVFOd1N0amdVMkN4WmlV?=
+ =?utf-8?B?RVo4NEt3RXV5eEhFZDlXeXF2TnRXaEFPZVZ5MFU0cjJzbTJEOU9sKzlBL1Vw?=
+ =?utf-8?B?WFEzOW1ZNys5UHFlWjlIU1Vja3lYZzZzV3kxMGpXY0JJeUY3VEQyUXlta3Np?=
+ =?utf-8?B?N1hjU2llOWNkSXhpVFJCTlhobzFNdnlQRUljNTlPcWNKUmFPbWxUa2YyeTkw?=
+ =?utf-8?B?QkI3Yi9BV0liUGQ3M1MzclVqbmJQVkxNM3BJZ0RLT25jRUZneXMyZGszU3Iz?=
+ =?utf-8?B?eStpYlVuNTJGMHVUUFVLbVNZcmdlUDBpcVJJMEFFb1N0cDFZWk5NSVVlVDl3?=
+ =?utf-8?B?S0VmbEhoNnhpeXM5ZFduQ1VpZkt6U3NBZ3JXRXpKUzdFREJrc21ZaXR3clNr?=
+ =?utf-8?B?RktFYW45NWVBeGlDQlBLcW1yaXk1bklUaDBhMUZsV2d1WXJ1aTQ3czdiU3N3?=
+ =?utf-8?B?dWNML3VLbUNuZFROZUlGOEJuQ0cvY0t3SXcrUkdKeXFXbzM0anZVT2FzbWdt?=
+ =?utf-8?B?czRKV2g4a0RhV2FIZmF6WFlQcmM0ZDExTVRsN09ZNytFSVhNNzFpV2NvT2xt?=
+ =?utf-8?B?aCtvUXNwVGJ2bkxERWxYYmNuNTFOMnRaUzJ3ODVKNmREdFI4QUIwbGp4ZlhC?=
+ =?utf-8?B?MjlQRG9iWkY4dUYrd1dYaHJLV2IyeEh1T3pDUHdUU0Jtb1ZJdTZqZitlVVlI?=
+ =?utf-8?B?SExFb2NMNzBwdE9pTUxLV3dKU0tCcEI2WXlpYU0yUlJjU0NCaWNRNXdyQkV2?=
+ =?utf-8?B?ME4yMWFYYnhTUEFnUlJNSTNEZ1oreEZWT0Mxd1hoZ2QycmVGOGptMDN5U1Qy?=
+ =?utf-8?B?ZkN0cUgrcm0wbVkxWng0RmZmTHNEbEpGV01rTzdQVGVacXViT1FhZlRhK1Ft?=
+ =?utf-8?B?Mzkyc0NOemdCcWszc0pDUWl5dm1ocTZvSkZUQTh5TmNZKy9CSDdmS1hrdTU3?=
+ =?utf-8?B?ZnhDdUdVMVdiTDc2TEY5RXB1SzBOR3RWYkplWEhOUTJzK1B3bnZOSnd5SHlY?=
+ =?utf-8?B?WG9lSnBoYTNiaWdwWlRFWlhYUmpISkFXbTBBNGRudmJsVUd4TThvN0JVOHZV?=
+ =?utf-8?B?RlV1aXNMaXRsTFFZbGZzMjk5SU1iZUNoN3NKSGdCZW5HVVNhSkpnR2ozeGtR?=
+ =?utf-8?B?ZmwrVHJkUE5KUnZTVytEODJvZjhIV08yckt2NTlGZ05yRE13K0pzdG9NNHh0?=
+ =?utf-8?Q?lV/HSec8+MZaOx9Y=3D?=
+X-OriginatorOrg: efficios.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: aad52cba-8b66-4da8-808e-08df3ab1a41c
+X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 20:24:34.7864
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: u2mTX76HYBpWuK88xzs+N1WoCjoluWhMuMPLyZrsuo8lJThfsijBHIo9ue73kt+qGq34rUSv40AUdXtXO2Dzvr/yREgjikycDAJAH/5+mL8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT2PR01MB9493
 
-csid_set_power() powers up the VFE with the same index as the CSID
-before the CSID itself, through parent_dev_ops->get(). The VFE
-implementation, vfe_parent_dev_ops_get(), returns -EINVAL when there is
-no VFE with that index.
+On 2026-11-04 10:10, Mathieu Desnoyers wrote:
+> Hi Juri,
+> 
+> Please find in this series eight fixes to SCHED_DEADLINE bandwidth
+> accounting, on top of your four in sched/urgent, with the selftests that
+> catch them.
+I'm taking care of issues found by Sashiko, including additional
+preexisting bugs. I'm also taking care of yet more preexisting
+sched deadline bugs identified by a round of Fable review
+over my updated series.
 
-On the ISPIF based SoCs there are more CSIDs than VFEs: MSM8916 (and
-MSM8226) have two CSIDs and a single VFE, and the ISPIF routes either
-CSID to it. Streaming from CSID1 then fails right away with
+v2 will include fixes for 17 sched deadline bugs, most of which have
+reproducers.
 
-  qcom-camss ...: Failed to power up pipeline: -22
+Thanks,
 
-although the pipeline CSID1 -> ISPIF -> VFE0 is valid.
+Mathieu
 
-Return 0 when there is no VFE of the same index: there is nothing to
-power up for that CSID, the VFE in the pipeline is powered by its own
-subdev. vfe_parent_dev_ops_put() already ignores such indexes.
-
-Signed-off-by: Allan Siriani <allan@fatecpompeia.edu.br>
----
- drivers/media/platform/qcom/camss/camss.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index c54185c93..532f6d36d 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -4631,15 +4631,16 @@ static int camss_read_version(struct camss *camss)
- 
- static int vfe_parent_dev_ops_get(struct camss *camss, int id)
- {
--	int ret = -EINVAL;
--
--	if (id < camss->res->vfe_num) {
--		struct vfe_device *vfe = &camss->vfe[id];
--
--		ret = vfe_get(vfe);
--	}
-+	/*
-+	 * On the ISPIF based SoCs any CSID can feed any VFE, and there may be
-+	 * more CSIDs than VFEs (MSM8916: two CSIDs, one VFE). A CSID without a
-+	 * VFE of the same index has no parent to power up: the VFE that ends
-+	 * up in the pipeline is powered by its own subdev.
-+	 */
-+	if (id >= camss->res->vfe_num)
-+		return 0;
- 
--	return ret;
-+	return vfe_get(&camss->vfe[id]);
- }
- 
- static int vfe_parent_dev_ops_put(struct camss *camss, int id)
 -- 
-2.43.0
-
+Mathieu Desnoyers
+EfficiOS Inc.
+https://www.efficios.com
