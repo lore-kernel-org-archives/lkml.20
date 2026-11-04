@@ -1,48 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.68.154.128
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793825233;
-	b=nYebYUV3jkybQ4KqpQVNIfidZm0RqjFLslJ3SX3xH2GgIJqTF6Z4F96NRTvrF94zRxOH
-	 WGyKzJ3aUQPe/hf1T4f/u+jnU+ZuaEz5Lk3YJlH1y6nueGmhJs1ayaQZl60UM2zYn4D0e
-	 PLFo+Fh+wY7du2wgXft8Ecehtuu6Y0nIBTY2XOyrcVqpPTwgNaqLuYME7DPmzRwtAyPhD
-	 WISC4D8EYTrRa9MxshIMNEaQEwSi1zUbKNTnHn2Kr4EaTRScVe68dVDp2wpmlp1RDhih1
-	 4KiL1seGZWBDA9TiGx9D+5efxxjjizbHS7P9ZnV+3id28DU7/gVKMWOV0AJiBby3DfQ==
+	t=1793825385;
+	b=iWX3H6WTVYy0uNMVa89Q7i7s1rQHveKa7EVJSbiOxC/3JJT8I3J1MnBYchcmpONVAqKD
+	 xpkDXcaJJFJPqn22dqSAOIK2X1f3yJI45oOgxuYx00Kw94MmslIoKPlUxA3t6tL6mHYO6
+	 2mBdyNrczxI8nCOji69fzEiQctuvAQUp2yV3hVhuhYNLgmlIofIQcqDq/hSF4TkSG9anM
+	 pYNYar5R1cWUCohNTnHL8QFCPnKxIJgXw+tmvwDims95Pf6KsAVwlq5kV9WkvIeBBrWAs
+	 RV0FCNJj0a5hOv3cD2f1LU06xOehsamyPYQ3IJmySmEpYYsulVH2CnwS5a22S17mPGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793825233;
-	h=DMARC-Filter:DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:
-	 In-Reply-To:References:Message-ID:X-Sender:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=+rWeXBCnG2bPiyFYcz+aSr1pSzI4h2JfNW1yBA3JrYQ=;
-	b=aOacKCPgftSTNW0NsaQo8QUxa2a3HcdIlqG+fbo61dXQZk4FxpoCi+2voBiVMpGn8jU8
-	 Mekjci+x4gaDPDL1ZPkeGGE/ukROAUKjcu23kQlBN6SUF+bLiVEIUbyq7bB7FZVRJRkJ/
-	 opJhDgP4+7zAKTgH+0HuP+H0k57VP8juJYMiXQIwUzILV/1gHBcG2RtV8kcrSSuo3AD1p
-	 GYFWZBXW7mLLpg1nFXTLS20V94Y4mmL6mWKf+sGmKyweHk1TSH77t92w4tKrFKLmBBFrb
-	 qH6ilMwifZcyw4nftGQDtsqa4yv1Vh6N+J5Zw1eQsjqgwSr4t0idd6tnLj7c9E5mqIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793825385;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=UMblCDkeaLJ4fgfQ6iI8HG5CBwVvaHr3bsDOTNNKxfs=;
+	b=r1eHRzmbBe5grKrXzhDZqzkm0J7HDqqhb20Pckr+Q016tQv1XyG43qxe7rfrM2fApFpb
+	 1DrDXFDvaCQP6LkyWIrlropqSCrHTAHdm5RVrS8S3i1k3hDXshNGXEk8n24ASV5pP02Xt
+	 7j4tApuNLCzTbgscOnB2Df0le/JjRB00cgIQ1/cXanei0RQgmqblhlQ739t1cE73Hexxg
+	 kDKJ1NXC1eFhauPNGFB1GO7NG6iNkzRsl6VcEvuzDc1DOdzIdFUAePyOmg6ZMwH7Augq6
+	 kQz0hgD1NNhdMF4ucIcRmOxcXXUbQ966NtmREuZoFmumsrEp8KJuhZwJsAzDrRgfHPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fromdisposition.org;
-	spf=pass smtp.mailfrom=fromdisposition.org;
-	dkim=pass header.d=fromdisposition.org header.i=@fromdisposition.org header.a=rsa-sha256 header.s=mail header.b=lvCoPKo3;
-	arc=none smtp.remote-ip=51.68.154.128
-Received: from 4do.net (4do.net [51.68.154.128])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BmTArU4P;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5D116096913;
-	Wed,  4 Nov 2026 20:47:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5D116096913
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fromdisposition.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fromdisposition.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE702606CA08;
+	Wed,  4 Nov 2026 20:49:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE702606CA08
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fromdisposition.org header.i=@fromdisposition.org header.a=rsa-sha256 header.s=mail header.b=lvCoPKo3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fromdisposition.org;
-	s=mail; t=1793825224;
-	bh=+rWeXBCnG2bPiyFYcz+aSr1pSzI4h2JfNW1yBA3JrYQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=lvCoPKo3VtWq0PrkYK9Ggzvu+aO7MmhG0iJvAM/Rxbn8AhrNbt1OPAckzY2zF1tQX
-	 Ayk+hv0vPCA1LbeTRADkjmEoOkXQI7R4n8HAQ8MhjfLSOjXDOsSWudaBGkYzsHyefj
-	 Zq6Gv/coOVwpmAPVuh2r8WqUDjTkSMoaBo3rpUB0FavPpilA9VhEpGmPPYnK/cnU60
-	 gWBqlm2tZQSFPMbp+XqSGTGn1r8kZl+DDais7iAjHYbD8qL2s3i9ZEZK6GXf7vMPqJ
-	 ldB24j8PXn8qtJaboFaAIKfMU5lPEuIzVfI1KlvQAPI1O/hMQhObdKjQTiS/BdM9w/
-	 EWB/DmX7WTARw==
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BmTArU4P
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793825385; x=1825361385;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=JTdqZrMRPi6WcLGmJnwa/CJMl4RUCZus4mIGMek1G50=;
+  b=BmTArU4PLciQsuQaWsj83LMbIlvlugcIi/qan22ZNk4144OEvVJ3s0aQ
+   zua/n0ChL0NXCRh7fomWDWJipXWH8Ec/gps/7dk8wYihZlf8Fu0djxPpM
+   85Ld71j/HpPlSSpNikhcaotx5Ick1Sb7WjSIivuM3lh1nFyCioZo9KoKO
+   sJBj3aGYXAkUcjnNQFWvnxSm5LI54S4YX/cbyj7AtwSLVKMkoFLk0ZHhF
+   NXIa2tnFKb6Xuo8uWFmoZq+/+dhkOvZs0nBJUhL+HZ1BUnECsZjL2Tjqz
+   wx36QzrSeZ+q8QV2QeMxMuLGoyBhA1DUiVj5gpMV2oR82c6RWQADWrrHZ
+   Q==;
+X-CSE-ConnectionGUID: Sa3j6XpuT1GpDV7IzRTWBQ==
+X-CSE-MsgGUID: hdwdZJygQFKmbKQTzUmKLw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2635597"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2635597"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:49:45 -0800
+X-CSE-ConnectionGUID: OcTARpEbSGOe3Qh4k5qXIQ==
+X-CSE-MsgGUID: TWlF8PfzSsqQNcZHM0fkZg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="8676414"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:49:42 -0800
+Date: Wed, 4 Nov 2026 22:49:39 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Frank.Li@oss.nxp.com,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	John Ogness <john.ogness@linutronix.de>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Zhaoyang Yu <2426767509@qq.com>,
+	Haoxiang Li <haoxiang_li2024@163.com>,
+	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-kernel@vger.kernel.org>,
+	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
+	imx@lists.linux.dev
+Subject: Re: [PATCH v2 1/2] tty: serial: pch_uart: replace chan->device->dev
+ with dmaengine_get_provider_device()
+Message-ID: <auuaYxoZm2T25cU5@ashevche-desk.local>
+References: <20261104145211.3209669-1-Frank.Li@oss.nxp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,41 +87,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Wed, 04 Nov 2026 20:47:04 +0000
-From: Demeter Barna <me@fromdisposition.org>
-To: Michael McAllister <me@michaelmcallister.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ASoC: qcom: q6asm: Correct the 24-bit capture format
-In-Reply-To: <179355993304.51321.11135059681945648585.q6asm-capture-format-v1@michaelmcallister.org>
-References: <179355993304.51321.11135059681945648585.q6asm-capture-format-v1@michaelmcallister.org>
-Message-ID: <f3485a790ffdafe635b84b5d68730dad@fromdisposition.org>
-X-Sender: me@fromdisposition.org
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104145211.3209669-1-Frank.Li@oss.nxp.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 2026-11-01 19:05, Michael McAllister wrote:
-> Recording in S24_LE on my Moto G10 produces badly scaled samples that
-> wrap at full scale. The PCM V2 DSP interface places 24-bit samples in
-> bits 31:8 of each 32-bit word, but ALSA S24_LE expects bits 23:0.
+On Wed, Nov 04, 2026 at 09:52:06AM -0500, Frank.Li@oss.nxp.com wrote:
+> 
+> Use the dmaengine_get_provider_device() API instead of directly
+> accessing chan->device->dev to get the DMA provider device.
+> 
+> No functional change. Prepare make to struct dma_device private to the DMA
+> engine.
 
-I see the same on SM8350 with v7.4-rc1. Without the patch, S24_LE
-recordings from the DMICs wrap at full scale, while the actual signal
-sits in the upper 24 bits. With it, capture offers S32_LE with 24
-significant bits, the recording matches the S16_LE one, and both
-PipeWire and plughw work.
+Krzysztof, this patch was a split from the bundle by a reviewer request (not me
+FWIW), and author obeyed. So, you can do the same in cases when you got something
+you want to review independently on other content which most likely is a noise
+(to you).
 
-Playback has the same problem: the DSP also takes 24-bit samples from
-the upper 24 bits, so S24_LE playback comes out barely audible. Offering
-S32_LE with 24 significant bits for playback as well brings it to the
-expected level. I suspect this has gone unnoticed because userspace
-hides it: distributions for these devices tend to force S16LE in their
-PipeWire configuration to work around quiet audio.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Would you like to cover playback in a v2, or should I send a playback
-patch on top of yours?
 
-Tested-by: Demeter Barna <me@fromdisposition.org> # SM8350
