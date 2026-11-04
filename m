@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793760611;
-	b=fO3/fjtKvUV1bdluemLN+L4PnaVIhVuKIDk3i3mKcLyYQXyde08C0uoZ/OgXqyQANTr0
-	 LV6IOk+QGR1qnFNZiIB4e1P3gCeBCGQuIFWNvsqDqkfV699upMfrB5xPVgHbBcOrxSwEJ
-	 Mg7YGcT54jIwN7kYtg8GIBPS3bCxNqeuZCYff9RiCGjbO80TDKZbBH4dgHocqRpQOI5RI
-	 Xkt1tCJDL30Bs/+uogTY/+zbuj/S6LcN4Hsg2EunyDSYOq+i+0bOJc6df8sQoZgI+vOs1
-	 NuY9kV6kJJnl3NG8MSHIg0yx/bVGl/Vh8clivs2Ex1oPx4FmGaTvqTUipoSjn5hPytA==
+	t=1793760610;
+	b=i7aN/Z0IuBBivv+qX7wsp9Jj/Sn/iror6RJ4gX3p23ghhx9EtBbgn/O3uxCgiyrkPBWH
+	 9Rr2Ie6GIZRcc+3Sf3VjbN5Z/ui4lCK89oIApgxhuNjp5z60TQbyE+P8QY8gSi+uiwch8
+	 cAxMFrkZylZ9c6jdv9aaLHhwbOgfuo48e15Zu/YrP184wCocQyiuWDBlgyzbsbeG2+eDC
+	 ywX7Rh5wrEqQD4NSm+VkIQ065+ONN82/sCzMU+dgGLwxihwwDqeV4Yh76HcmmhyPVTuLk
+	 4Rnc6ZPjNgjGYomlc70WWvYZ8TGOH1TmOFJxUrGV/pX4/jSzSmGnA5QqteVIGlv0QpQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793760611;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793760610;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=F7QhiC+uktKN1qhh3NgDDNa1dxCZvyPt8+LJosFTr00=;
-	b=QwoD3ozdqLAiw6rr43ua2TuPqlTxklWnS8/aEgGtSdFuSbeqINALo3xaP/fNqDOAnVuN
-	 KwNYx0hVF7MLBupHtsvgcJcL1FHqoeBMdNs+ISBMVxjl6nyPlK/TPLKIAR3fYCvutxKza
-	 V8FVVRdXl+hJDtY5OxfHCPpCMBLRPtebn6OaHCmisDQQJM3oLRjWUlmmrFVQ1uWmHmawy
-	 OKzPMLrrjhQ4xLgO1X1qHj7T1K/YZhsBNkeya+VYz0iPi+KOffpgktsrN9lcWLbkyG9k4
-	 JwX+YAjzuHBCOYK8dVaJTyPIvm7snl+6NKNjYBdhjC65FTHGdBhdTTm1ddAjslaUkRw==
+	bh=OiIrbyUqNjGlmZPocZZ9a/deqRZ6PWlaIOlTeNMjAoY=;
+	b=LW7IvBsIhWajzK5f9SmoQmhi3Vqr92mjN3wNy+4NCtfrI87sx7FcnAmTeaiJviCTbtkL
+	 fwXMZtktuZfeVbxs1HHfF5qDUKmRXKHsu7eUIdPC9rn+q1kx3B1z4xxzaAgCZyZfxAdmB
+	 u3iZwyoTmHqNIT5K2oX85OF1c1ceIvI/ncPT98QF1wN4WeEcUC9mL59Px23P8Kk8uGrxv
+	 FKqQ+5UrkUCJT7xG/pRMhHnLYqm8/9YXMVqt+R8Yp/i7+IaiVqqjs/O7sW/qKGgSC39gT
+	 DJoKRcaaI4SENg65G240pLvOO+YeBTudqpmMr+gNByxh11jXew9dsnBmGJHfOpXHa+A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H1TffzeN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FYQPYF+v;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C621606EEA4;
-	Wed,  4 Nov 2026 02:50:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3ED8606D818;
+	Wed,  4 Nov 2026 02:50:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H1TffzeN
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FYQPYF+v
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793760610;
-	b=dWBtBQ0dUUiHmTOQEnE6GfxtL2mxo7wSIuxoG89n4Hh1CeWFFHbg1qcr8ZhzBqZFZR6e
-	 Zc3xhlnRYU3eCAklSSgCy4DcjYwtvcc0pYOD69pp79DVNfz3cq0JHXGwUepQJcFJg31WY
-	 gilvRC2CkXh27H0nF7qqoG2kw3RR5BybmetL/HKp/CpDcm2dSnB/ruBwDMNI2lg6Jrjn1
-	 /6AyjX5TE7pVahxh+GRGp+1autwld0lAg79BGW1dzn8QmIJRg4cv8XdisvxREsEjl3ITB
-	 B0AS5h/N4VAm39sfOEz+0yKnK46XfKljxlZxVZP2VbDY/XDUUu3GpQeJlcRAcXDSTfA==
+	t=1793760609;
+	b=mp0KzIXzo39aIs6HbD9lsSA42Wmr+iHZY4DFMNiHwfOTvVq0I0YRXwrEqTNap79hT/bv
+	 70jWIqipGZMWUxS3TlkXaVOYFGI3o2kNUWmYW8Fq1BsZxRn+t81uiy2TS3jc8SfEr7PLX
+	 6z/mfVz5k4HlCTzbU72b/CgTx+Vea94WOvjoJ25Te6egWq6d7E0FMIa9xgdCrwouT+Pea
+	 xjlmvT2ydjIykOclHCFBQCcBIxEY5KDTIGoyVSsrT26qicO3uw/sDx2dmHAOk0sGbjvpc
+	 9EntawX8y2hyy+/tXOkBc8NuoHrINp3VcrjNL63ZbpK7wXtUPJGL1XhOhefA/surm5A==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793760610;
+	c=relaxed/relaxed; t=1793760609;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=F7QhiC+uktKN1qhh3NgDDNa1dxCZvyPt8+LJosFTr00=;
-	b=dZwaCIqcxKkEcelHKWUGwqwRrhGBMTwGRt0bp3q2cPLlqroEheJQsyzP63wqYZcycCZF
-	 811FnIuP6OvTI6nh8Z0YLZ5rbtIFlxd6S6N3qaeBmYBxFV4L6XSNIWPUg63hVFbDYS7P7
-	 kB+4D8DR3QSXa9QZUchl+XiqRqzLped77ryHMrQbittBwkUr0jE5LY8Oo2s5x/9TPUfbs
-	 kKudIFt58naiWDXadJheDEUQMMyHIB6hwkOJN/1Esq5JLfbWt7k5jzB/gYpIr4SCEL4dz
-	 NUCa/GZyw0sZjX5ZgLmxy58MlzY8ODraqW5fy2vpKdovKVxT6QE99cWbc3xqTVX6Niw==
+	bh=OiIrbyUqNjGlmZPocZZ9a/deqRZ6PWlaIOlTeNMjAoY=;
+	b=TNXsFrQzTkb5Zy1UK4/vVD7la6HDUWTieWvyuTg4P/1fHWhdqEXshYX09vOJlesYL+Ed
+	 mDSblZwIh1uyiik7YI4xdKyFYMOkQAW9Fg0B8KZGXZNMc+yw5LwuiPZM0XOWUmJbirQ3E
+	 AR0dzJZQRHCQXcGDVkzMpfed6KMTx8qBWr921SE2EkwuGxSn+L7YMHtQPVl88z8J3ZctR
+	 g2SXeAlQuTj9pNocKwnRE4OfK/qy+ercZhGp5+0nWBrfeouNuDbHI0ENB1VIzrkuQ9CJo
+	 BzglDXUO7qRiMv3WII/n0WePoAYakDpFYrhg9WLZXLr2mc/HbGzcTUrzkRfqhciqYyQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 068251F00A1E;
-	Wed,  4 Nov 2026 02:50:06 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 903061F00A1C;
+	Wed,  4 Nov 2026 02:50:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793760610;
-	bh=F7QhiC+uktKN1qhh3NgDDNa1dxCZvyPt8+LJosFTr00=;
+	s=k20260515; t=1793760609;
+	bh=OiIrbyUqNjGlmZPocZZ9a/deqRZ6PWlaIOlTeNMjAoY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=H1TffzeNGPJtAXGuq6NmcVp6RCPvKO+NrVP++yU4fMLmB9vp465cxLJp3S91tMSg6
-	 AQWhQQs1+VlQPUn+0Yx1J5bwQ5qgSK5x6iPshle3UjGy/eUL4UDZkW/qo9mtpCq4g8
-	 03DFoFeUZXrRU9pVFjG8JJO3Uk+vwg04y5gJIdhpjvwrXcVD9zUCPRf1vPbzTXqBu1
-	 k1FAqSquGL6bvPjD6BOoMIIg4SwtGuNS08ETQqzmOnVFjbwnFsJQzRYdADoFoboeyi
-	 xprmX6vF7Q5BIwothKI9sjwfORofCjiXyez8yEoRY0tF6eWCpIb4PO7/kxzr9iRGZ2
-	 /qBhSUxiHHnwg==
+	b=FYQPYF+v3M7IBnbaRWA2TmiAPUhenpZDen6bejbvOMm4xKqK8ptuHW4Q64NGww75a
+	 LvJmPXJgH141xYYzIfi6nhrLQMNiaAvNVLS6YTAc7lKLv/lt3kx4WRQLyOrfX/ZlNu
+	 /iTtRIvYYzfX+jvcNPwlJZLKg0pFzYBF8YvVWstQi4lwzEkyRJZdLhpWiqxpfPkgLp
+	 BiLPzH/tAbOZygaLpL70TvXB0mNTwK0XLrcWVVvbp3TFszNABbv2t8le4am53bF0cI
+	 H4NmMqJbTWiqnAvwazf5F8zKEW1eZ+W/satc5VWp/sw4SoMDbCgFtemGijalYifO2s
+	 Zzp3mHzl7CUbA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id EF8FD46C2B;
+	by lkml.kernel.org (Postfix) with ESMTP id D5EA846C23;
 	Wed,  4 Nov 2026 02:50:02 +0000 (UTC)
 From: Nathan Lynch via B4 Relay <devnull+nathan.lynch.amd.com@kernel.org>
-Date: Tue, 03 Nov 2026 20:49:55 -0600
-Subject: [PATCH v4 14/25] dmaengine: sdxi: Add unit tests for descriptor
- ring reservations
+Date: Tue, 03 Nov 2026 20:49:53 -0600
+Subject: [PATCH v4 12/25] dmaengine: sdxi: Add client context allocation
+ API
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-sdxi-base-v4-14-3668ccc7aab8@amd.com>
+Message-Id: <20261103-sdxi-base-v4-12-3668ccc7aab8@amd.com>
 References: <20261103-sdxi-base-v4-0-3668ccc7aab8@amd.com>
 In-Reply-To: <20261103-sdxi-base-v4-0-3668ccc7aab8@amd.com>
 To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>
@@ -98,11 +98,11 @@ Cc: Bjorn Helgaas <bhelgaas@google.com>,
  dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-pci@vger.kernel.org, Nathan Lynch <nathan.lynch@amd.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793760600; l=6959;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793760600; l=5580;
  i=nathan.lynch@amd.com; s=20260722; h=from:subject:message-id;
- bh=aKi4Ay4MoaaY5cf3ziwzqNP5NjJiIfhtNK1EskqUWzk=;
- b=k5kVxI7V5fAJrf8LM7B0y8xNArZD18+smrSlG93ovsDSA0VLriOzibjXjcat6psavSME3KbZw
- C1LPsu33jzuBExFWSKN0fUSp86lxXJBMQPzIygHlbweRxoWavRbv5lW
+ bh=s3/aA+ghx7EHiz0PJ5BUniUhaPMmaPPtDV5GetgQpPg=;
+ b=YM/jp2N7IF/SRJF5UZuFwp+BBrrRLpGxYbSx5FsAbYuiBlLNNH2gFM/j3/8zwVHYTqiQhQWjI
+ W9yCc/FTBcTDf129S7OfwZzQbi7NRzG/gTEduf3bYqx5V3zmDHbmCcD
 X-Developer-Key: i=nathan.lynch@amd.com; a=ed25519;
  pk=pO5+BCw/TENGLvwX5NYZOZmZihcxjkxeFSMuk47erps=
 X-Endpoint-Received: by B4 Relay for nathan.lynch@amd.com/20260722 with
@@ -113,217 +113,199 @@ Content-Transfer-Encoding: 7bit
 
 From: Nathan Lynch <nathan.lynch@amd.com>
 
-Add hardware-independent KUnit tests for full-ring and single-slot
-reservations, invalid counts, inconsistent indices, insufficient space,
-and bounded reservations and descriptor access after ring wrap.
+Allocate and publish client contexts, track their IDs in a per-device
+xarray, and release them during device teardown.
 
-Include the SDXI KUnit configuration and test build support. Run with:
-
-  tools/testing/kunit/kunit.py run \
-    --kunitconfig=drivers/dma/sdxi/.kunitconfig
-
-Co-developed-by: Wei Huang <wei.huang2@amd.com>
-Signed-off-by: Wei Huang <wei.huang2@amd.com>
 Signed-off-by: Nathan Lynch <nathan.lynch@amd.com>
 ---
- drivers/dma/sdxi/.kunitconfig |   4 ++
- drivers/dma/sdxi/Kconfig      |  10 +++
- drivers/dma/sdxi/Makefile     |   3 +
- drivers/dma/sdxi/ring_kunit.c | 147 ++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 164 insertions(+)
+ drivers/dma/sdxi/context.c | 95 ++++++++++++++++++++++++++++++++++++++++++++++
+ drivers/dma/sdxi/context.h | 12 ++++++
+ drivers/dma/sdxi/device.c  |  4 ++
+ drivers/dma/sdxi/sdxi.h    |  2 +
+ 4 files changed, 113 insertions(+)
 
-diff --git a/drivers/dma/sdxi/.kunitconfig b/drivers/dma/sdxi/.kunitconfig
-new file mode 100644
-index 000000000000..16a1ae04b156
---- /dev/null
-+++ b/drivers/dma/sdxi/.kunitconfig
-@@ -0,0 +1,4 @@
-+CONFIG_KUNIT=y
-+CONFIG_DMADEVICES=y
-+CONFIG_SDXI_CORE=y
-+CONFIG_SDXI_KUNIT_TEST=y
-diff --git a/drivers/dma/sdxi/Kconfig b/drivers/dma/sdxi/Kconfig
-index b91b44231a04..7217375c9216 100644
---- a/drivers/dma/sdxi/Kconfig
-+++ b/drivers/dma/sdxi/Kconfig
-@@ -26,3 +26,13 @@ config SDXI_PCI
+diff --git a/drivers/dma/sdxi/context.c b/drivers/dma/sdxi/context.c
+index ebce30dc462a..f52479ecf96a 100644
+--- a/drivers/dma/sdxi/context.c
++++ b/drivers/dma/sdxi/context.c
+@@ -44,6 +44,10 @@ static void sdxi_free_cxt(struct sdxi_cxt *cxt)
+ {
+ 	struct sdxi_dev *sdxi = cxt->sdxi;
  
- 	  To compile this driver as a module, choose M here: the module
- 	  will be named "sdxi-pci".
++	/* Release the id if this is a client context. */
++	if (cxt->id)
++		WARN_ON(xa_erase(&sdxi->client_cxts, cxt->id) != cxt);
 +
-+config SDXI_KUNIT_TEST
-+	tristate "SDXI unit tests" if !KUNIT_ALL_TESTS
-+	depends on SDXI_CORE && KUNIT
-+	default KUNIT_ALL_TESTS
-+	help
-+	  KUnit tests for parts of the SDXI driver. Does not require
-+	  SDXI hardware.
-+
-+	  If unsure, say N.
-diff --git a/drivers/dma/sdxi/Makefile b/drivers/dma/sdxi/Makefile
-index bfcb443f1e64..00e3f1cb0808 100644
---- a/drivers/dma/sdxi/Makefile
-+++ b/drivers/dma/sdxi/Makefile
-@@ -7,3 +7,6 @@ sdxi-core-y := \
+ 	if (cxt->cxt_ctl)
+ 		dma_pool_free(sdxi->cxt_ctl_pool, cxt->cxt_ctl,
+ 			      cxt->cxt_ctl_dma);
+@@ -248,3 +252,94 @@ int sdxi_admin_cxt_init(struct sdxi_dev *sdxi)
  
- obj-$(CONFIG_SDXI_PCI) += sdxi-pci.o
- sdxi-pci-y := pci.o
+ 	return devm_add_action_or_reset(sdxi->dev, free_admin_cxt, sdxi);
+ }
 +
-+obj-$(CONFIG_SDXI_KUNIT_TEST) += \
-+	ring_kunit.o
-diff --git a/drivers/dma/sdxi/ring_kunit.c b/drivers/dma/sdxi/ring_kunit.c
-new file mode 100644
-index 000000000000..7df85fc5549c
---- /dev/null
-+++ b/drivers/dma/sdxi/ring_kunit.c
-@@ -0,0 +1,147 @@
-+// SPDX-License-Identifier: GPL-2.0-only
 +/*
-+ * SDXI descriptor ring management tests.
-+ *
-+ * Copyright Advanced Micro Devices, Inc.
++ * Temporary owner for context id until it can be assigned to a
++ * context object; enables scope-based cleanup.
 + */
-+#include <kunit/device.h>
-+#include <kunit/test-bug.h>
-+#include <kunit/test.h>
-+#include <linux/container_of.h>
-+#include <linux/dma-mapping.h>
-+#include <linux/module.h>
-+#include <linux/overflow.h>
-+#include <linux/packing.h>
-+#include <linux/string.h>
-+
-+#include "ring.h"
-+#include "submission.h"
-+
-+MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");
-+
-+/* A submission queue backed by plain memory; no device or DMA required. */
-+static struct sdxi_sq *alloc_sq(struct kunit *t, u32 count)
-+{
-+	struct sdxi_sq *sq;
-+
-+	sq = kunit_kmalloc(t, struct_size(sq, ring, count),
-+			   GFP_KERNEL | __GFP_ZERO);
-+	if (sq)
-+		sq->count = count;
-+	return sq;
-+}
-+
-+static void valid(struct kunit *t)
-+{
-+	struct sdxi_ring_state r;
-+	struct sdxi_ring_resv resv;
-+	struct sdxi_sq *sq;
-+
-+	sq = alloc_sq(t, SZ_1K);
-+	KUNIT_ASSERT_NOT_NULL(t, sq);
-+
-+	sdxi_ring_state_init(&r, sq);
-+
-+	KUNIT_EXPECT_EQ(t, sdxi_ring_try_reserve(&r, sq->count, &resv), 0);
-+	KUNIT_EXPECT_EQ(t, resv.range.start, 0);
-+	KUNIT_EXPECT_EQ(t, resv.range.end, sq->count - 1);
-+	KUNIT_EXPECT_EQ(t, sdxi_ring_resv_count(&resv), sq->count);
-+	KUNIT_EXPECT_EQ(t, le64_to_cpu(sq->write_index), sq->count);
-+
-+	/* A ring-sized reservation maps slot i onto ring entry i. */
-+	for (unsigned int i = 0; i < sq->count; i++) {
-+		KUNIT_EXPECT_EQ(t, sdxi_ring_resv_index(&resv, i), i);
-+		KUNIT_EXPECT_PTR_EQ(t, sdxi_ring_desc(&r, i), &sq->ring[i]);
-+	}
-+
-+	sq->cxt_sts.read_index = cpu_to_le64(1);
-+	KUNIT_EXPECT_EQ(t, sdxi_ring_try_reserve(&r, 1, &resv), 0);
-+	KUNIT_EXPECT_EQ(t, le64_to_cpu(sq->write_index), sq->count + 1);
-+	KUNIT_EXPECT_EQ(t, sdxi_ring_resv_count(&resv), 1);
-+
-+	/* The index space is unwrapped: index sq->count is entry 0. */
-+	KUNIT_EXPECT_EQ(t, sdxi_ring_resv_index(&resv, 0), sq->count);
-+	KUNIT_EXPECT_PTR_EQ(t, sdxi_ring_desc(&r, sq->count), &sq->ring[0]);
-+}
-+
-+static void invalid(struct kunit *t)
-+{
-+	struct sdxi_ring_state rs;
-+	struct sdxi_ring_resv resv;
-+	struct sdxi_sq *sq;
-+
-+	sq = alloc_sq(t, SZ_1K);
-+	KUNIT_ASSERT_NOT_NULL(t, sq);
-+
-+	sdxi_ring_state_init(&rs, sq);
-+
-+	KUNIT_EXPECT_EQ(t, sdxi_ring_try_reserve(&rs, 0, &resv), -EINVAL);
-+	KUNIT_EXPECT_EQ(t, sdxi_ring_try_reserve(&rs, sq->count + 1, &resv), -EINVAL);
-+
-+	sq->cxt_sts.read_index = cpu_to_le64(1);
-+	KUNIT_EXPECT_EQ(t, sdxi_ring_try_reserve(&rs, 1, &resv), -EIO);
-+
-+	sq->cxt_sts.read_index = 0;
-+	sq->write_index = cpu_to_le64(sq->count);
-+	sdxi_ring_state_init(&rs, sq);
-+	KUNIT_EXPECT_EQ(t, sdxi_ring_try_reserve(&rs, 1, &resv), -EBUSY);
-+
-+	sq->cxt_sts.read_index = cpu_to_le64(sq->count);
-+	sq->write_index = cpu_to_le64(sq->count + 1);
-+	sdxi_ring_state_init(&rs, sq);
-+	KUNIT_EXPECT_EQ(t, sdxi_ring_try_reserve(&rs, sq->count, &resv), -EBUSY);
-+}
-+
-+static void bounded_reservations(struct kunit *t)
-+{
-+	struct sdxi_ring_state rs;
-+	struct sdxi_ring_resv resv;
-+	struct sdxi_sq *sq = alloc_sq(t, SZ_1K);
-+
-+	KUNIT_ASSERT_NOT_NULL(t, sq);
-+	sdxi_ring_state_init(&rs, sq);
-+	KUNIT_EXPECT_EQ(t, sdxi_ring_try_reserve_range(&rs, 0, 2, &resv), -EINVAL);
-+	KUNIT_EXPECT_EQ(t, sdxi_ring_try_reserve_range(&rs, 3, 2, &resv), -EINVAL);
-+	KUNIT_EXPECT_EQ(t, sdxi_ring_try_reserve_range(&rs, 2, sq->count + 1, &resv),
-+			-EINVAL);
-+
-+	sq->write_index = cpu_to_le64(sq->count - 2);
-+	KUNIT_ASSERT_EQ(t, sdxi_ring_try_reserve_range(&rs, 2, 10, &resv), 0);
-+	KUNIT_EXPECT_EQ(t, sdxi_ring_resv_count(&resv), 2);
-+	KUNIT_EXPECT_EQ(t, resv.range.start, sq->count - 2);
-+	KUNIT_EXPECT_EQ(t, sdxi_ring_try_reserve_range(&rs, 2, 10, &resv), -EBUSY);
-+	sq->cxt_sts.read_index = cpu_to_le64(1);
-+	KUNIT_EXPECT_EQ(t, sdxi_ring_try_reserve_range(&rs, 2, 10, &resv), -EBUSY);
-+	sq->cxt_sts.read_index = cpu_to_le64(5);
-+	KUNIT_ASSERT_EQ(t, sdxi_ring_try_reserve_range(&rs, 2, 10, &resv), 0);
-+	KUNIT_EXPECT_EQ(t, sdxi_ring_resv_count(&resv), 5);
-+	KUNIT_EXPECT_PTR_EQ(t, sdxi_slot_desc(sdxi_ring_resv_slot(&resv, 0)),
-+			    &sq->ring[0]);
-+}
-+
-+static struct kunit_case testcases[] = {
-+	KUNIT_CASE(valid),
-+	KUNIT_CASE(invalid),
-+	KUNIT_CASE(bounded_reservations),
-+	{}
++struct sdxi_cxt_id {
++	struct sdxi_dev *sdxi;
++	u16 index;
 +};
 +
-+static int setup_device(struct kunit *t)
++static void sdxi_cxt_id_dtor(const struct sdxi_cxt_id *cxt_id)
 +{
-+	struct device *dev = kunit_device_register(t, "sdxi-mock-device");
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(t, dev);
-+	t->priv = dev;
-+	return 0;
++	if (cxt_id->index == 0)
++		return;
++	WARN_ON(xa_erase(&cxt_id->sdxi->client_cxts, cxt_id->index) != NULL);
 +}
 +
-+static struct kunit_suite generic_desc_ts = {
-+	.name = "SDXI descriptor ring management",
-+	.test_cases = testcases,
-+	.init = setup_device,
-+};
-+kunit_test_suite(generic_desc_ts);
++static struct sdxi_cxt_id sdxi_cxt_id_ctor(struct sdxi_dev *sdxi)
++{
++	struct xa_limit limit = XA_LIMIT(1, sdxi->max_cxtid);
++	u32 index;
 +
-+MODULE_DESCRIPTION("SDXI descriptor ring tests");
-+MODULE_AUTHOR("Nathan Lynch");
-+MODULE_LICENSE("GPL");
++	return (struct sdxi_cxt_id) {
++		.sdxi = sdxi,
++		.index = xa_alloc(&sdxi->client_cxts, &index, NULL,
++				  limit, GFP_KERNEL) ? 0 : (u16)index,
++	};
++}
++
++DEFINE_CLASS(sdxi_cxt_id, struct sdxi_cxt_id, sdxi_cxt_id_dtor(&_T),
++	     sdxi_cxt_id_ctor(sdxi), struct sdxi_dev *sdxi)
++
++static bool sdxi_cxt_id_valid(const struct sdxi_cxt_id *cxt_id)
++{
++	return cxt_id->index > 0;
++}
++
++/*
++ * Transfer the reserved ID to the context and store its pointer in client_cxts.
++ * sdxi_free_cxt() releases the ID.
++ */
++static void sdxi_cxt_id_assign(struct sdxi_cxt *cxt, struct sdxi_cxt_id *cxt_id)
++{
++	/* We reserved the space in the constructor so this should not fail. */
++	WARN_ON(xa_store(&cxt_id->sdxi->client_cxts,
++			 cxt_id->index, cxt, GFP_KERNEL));
++	cxt->id = cxt_id->index;
++	cxt_id->index = 0;
++}
++
++/*
++ * Allocate a context for in-kernel use. Starting the context is the
++ * caller's responsibility.
++ */
++struct sdxi_cxt *sdxi_cxt_new(struct sdxi_dev *sdxi)
++{
++	/*
++	 * Ensure an ID is available before allocating memory for the
++	 * context and its control structures.
++	 */
++	CLASS(sdxi_cxt_id, id)(sdxi);
++	if (!sdxi_cxt_id_valid(&id))
++		return NULL;
++
++	struct sdxi_cxt *cxt __free(sdxi_cxt) = sdxi_alloc_cxt(sdxi);
++	if (!cxt)
++		return NULL;
++
++	sdxi_cxt_id_assign(cxt, &id);
++
++	cxt->sq->doorbell = sdxi->dbs + cxt->id * sdxi->db_stride;
++
++	if (sdxi_publish_cxt(cxt))
++		return NULL;
++
++	return_ptr(cxt);
++}
++
++/*
++ * Release all tracked client contexts during device teardown. Hardware access
++ * to client resources must have ceased before release.
++ */
++void sdxi_client_cxts_exit(struct sdxi_dev *sdxi)
++{
++	struct sdxi_cxt *cxt;
++	unsigned long index;
++
++	xa_for_each(&sdxi->client_cxts, index, cxt)
++		sdxi_free_cxt(cxt);
++	xa_destroy(&sdxi->client_cxts);
++}
+diff --git a/drivers/dma/sdxi/context.h b/drivers/dma/sdxi/context.h
+index ae1584d00b54..28cd7ed401f8 100644
+--- a/drivers/dma/sdxi/context.h
++++ b/drivers/dma/sdxi/context.h
+@@ -39,5 +39,17 @@ struct sdxi_cxt {
+ };
+ 
+ int sdxi_admin_cxt_init(struct sdxi_dev *sdxi);
++struct sdxi_cxt *sdxi_cxt_new(struct sdxi_dev *sdxi);
++void sdxi_client_cxts_exit(struct sdxi_dev *sdxi);
++
++static inline struct sdxi_cxt *to_admin_cxt(const struct sdxi_cxt *cxt)
++{
++	return cxt->sdxi->admin_cxt;
++}
++
++static inline bool sdxi_cxt_is_admin(const struct sdxi_cxt *cxt)
++{
++	return cxt == to_admin_cxt(cxt);
++}
+ 
+ #endif /* DMA_SDXI_CONTEXT_H */
+diff --git a/drivers/dma/sdxi/device.c b/drivers/dma/sdxi/device.c
+index d5a5b8d43391..8786be71d3e3 100644
+--- a/drivers/dma/sdxi/device.c
++++ b/drivers/dma/sdxi/device.c
+@@ -19,6 +19,7 @@
+ #include <linux/sizes.h>
+ #include <linux/slab.h>
+ #include <linux/time.h>
++#include <linux/xarray.h>
+ 
+ #include "context.h"
+ #include "hw.h"
+@@ -436,6 +437,7 @@ int sdxi_register(struct device *dev, const struct sdxi_bus_ops *ops)
+ 
+ 	sdxi->dev = dev;
+ 	sdxi->bus_ops = ops;
++	xa_init_flags(&sdxi->client_cxts, XA_FLAGS_ALLOC1);
+ 	dev_set_drvdata(dev, sdxi);
+ 
+ 	err = sdxi->bus_ops->init(sdxi);
+@@ -454,7 +456,9 @@ void sdxi_unregister(struct device *dev)
+ {
+ 	struct sdxi_dev *sdxi = dev_get_drvdata(dev);
+ 
++	/* Stop/reset is best effort if the hardware cannot be quiesced. */
+ 	sdxi_dev_stop(sdxi);
++	sdxi_client_cxts_exit(sdxi);
+ }
+ EXPORT_SYMBOL_NS_GPL(sdxi_unregister, "SDXI");
+ 
+diff --git a/drivers/dma/sdxi/sdxi.h b/drivers/dma/sdxi/sdxi.h
+index 631a605ea62f..aaa43eab00b3 100644
+--- a/drivers/dma/sdxi/sdxi.h
++++ b/drivers/dma/sdxi/sdxi.h
+@@ -12,6 +12,7 @@
+ #include <linux/dev_printk.h>
+ #include <linux/io.h>
+ #include <linux/types.h>
++#include <linux/xarray.h>
+ 
+ #include "mmio.h"
+ 
+@@ -61,6 +62,7 @@ struct sdxi_dev {
+ 	struct dma_pool *cxt_ctl_pool;
+ 
+ 	struct sdxi_cxt *admin_cxt;
++	struct xarray client_cxts; /* context id -> (struct sdxi_cxt *) */
+ 
+ 	bool has_mailbox;
+ 
 
 -- 
 2.56.0
