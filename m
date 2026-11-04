@@ -1,77 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.58.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793782034;
-	b=WriPUe2Uq+02TaukiW5DrqJvFQDitsRN3qXHzXuTtZPxqlknGuwpfrBd7j2yxlzb3Rbh
-	 0Vt/Y8ZbC9zRNfm/KEFNSiKLkibQcTEqVIWwGR+gQtohmOt6pAQ7A9Y/VyLJqYB5Z4edC
-	 eiyeLBDfJRU7avP1d8xCdRBGM3A7xgPcHK9nsKjxxYcS7hNKs+TcgOrBaO7XxQRt5StZy
-	 n3lnJ+xbJtT3UQA5ezoG6SjfgQClhhxY8xuonMIt0UeO1+4WDLBFgkuo2UgD2HeBwL7Dr
-	 L/SyQmbFr+YkExQMNdqL08X+9A0Wz3DaC50czt2njIQR2vXS1IaQZ6h+4gD51GzJupQ==
+	t=1793782049;
+	b=lNqgwLnCw5ffL1R2h75E0O8ZABhzAgM3nbAiYh4sI04RliQuzRPganERI1lCpPeoe/+n
+	 nlKVQgJ4yuKEMWKB/KAX+QkSpDqqkCX8q02lm3S7Rin3GRZuAkqr54Jim8CVNXu9y6K5i
+	 rUoqKFXS4Of0U+Qz4+eY2ytpg/DOq7NekKS58/ghF9qZq1HAacgqbmrZQPqVCQENW4pmV
+	 R2pq2lhG1L9EsI1C1PS9O+2sAYv7FkeJerXPo1/8P8Ve0efaBQYm0Frtywy+x/Yr/d4T5
+	 BD5eN1U+MznLIidhDM+7o3BFizajllf9h8c3aAMfIHJcao9hf26wfZ9l4TdgclSH2+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793782034;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=bKYL0tIwOuQrMDxrCyv61nKmyjjc86ptxINLaNUCb9M=;
-	b=ImWHQCVP8eQirNDMZIqrpuHLQVApXEy5xoPTDwxSnIc5rIsuLrHQth9x91y+1hS2s6FR
-	 8HGpGezGIL0MT5b/NdJ6wNgC3mSdlbCDQzFAtf6LT5LklM//aJg0ov4+cn9pGX1fR/UXf
-	 yyGP3SV90WZHEr5N+FjlZSXejiGLb8/UG0aG6fdboTrBlPfIDPa7+J11KJ43yzfX+uRUw
-	 0W3OYIJ79/seenxVTpP02JV1mnFIDU6j8GbNO31Su+arX59ANXxGIkYFYYD/vmxjySTvo
-	 kv3Qr+txnB8B4JyaqZV4xgPaIAk2O8qbIg3rrJ9nCowEXiSk25/Nde8p1M7/fyWAhnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793782049;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=SikW6QyWShPPm+9vJqKGpIuLHnANOtAHXWhBfwLtRyU=;
+	b=ZT3GL+7PqVkc/0uyCvZ3IY/H2rPBje/4W0FCxAWWLAVKsARfj+PGbJXd35qXInJImEae
+	 PpnzW/XIQmxiT5B/ahEPGP97fPY1wuqOJeh1sngxEuXAovMaeA3zVSP2XRqefiTNJCa15
+	 1MBGTIw4M36arik8Y0VsPCXJIOQ5jDw5McxeC7onR0upd4+osqp2FpV6INqw+f0Ci6wCb
+	 QL/6ycxnbrO0CCfv75sFe4PgzHDlh2ur5NERVIWFIKVhKz+h97d463nO0bSN5DzmVSSt9
+	 hsHLjvUjvoPNec/51JzSmWdKJX2/P7tkktVHIy96Z8XoV79ETFdoa5sp6BNPsebDiPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=telaak.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.210.49
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=MXtkShpX;
+	arc=none smtp.remote-ip=162.62.58.211
+Received: from out162-62-58-211.mail.qq.com (out162-62-58-211.mail.qq.com [162.62.58.211])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B5A0606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:47:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B5A0606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-8253bc5a613so320534a34.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 00:47:13 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793782032; x=1794386832;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=bKYL0tIwOuQrMDxrCyv61nKmyjjc86ptxINLaNUCb9M=;
-        b=T/Cys6b4MjHyhSl05U088YkGzW5dY96ESo7T1pZyUYtVxE8hGzp1AQvQKIH+jHGC8u
-         qVC3j7fkJzmz6ZposDRfmnel7xDwKa58DD6z0CgHs1afoFtwrlXmWwXc5viihw43l+wW
-         aWeuqo5YL5ZaQuP3tzHH9hWcqYlJqE8O82VzcAFVadDxnYXHYAqVixlxHqiyDxSc0DAq
-         jsaRoAEsO0IblIxNJC1keX5L7qNhYUVkcoGSKSSZjo8cc2+Aanp3fr8NoGginTcRVVwa
-         b46OE9q+tebkGubgdFRiy6eu14zD4sOaIAyZspYho83NO9aSkxCqRdcM/LeIaW5JV9+S
-         aAyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxicyIT1aQmshKEMzWHeukabHyzZuXBW8Amz4NRVWYpLFHHUvj0rjGCRc6JNywIi/4emfy7ozIjuWwithc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8NPbbX9zya5ciyiOVIOyT5gCRJLxZ95whXdOagSmCXA0Hkd0UH
-	UIiRBTd/HXCM4//ZGs+b4s6kTWhq0WT7jQ5Hqf1sqcENRxnU4GY1IICi6GvbOTTR/nM=
-X-Gm-Gg: AYBFou1ixlt2gzOwt3wbgPpaSeuqFftTbQ3IZgTceR5c5CRXoLEFr7HS30Ppt0ybNR2
-	sADOUAFDYW8uiXenx+xYcfMZRRt+f8t2EMzZTxbbNhc1XcTLi3aKX7rmG1mpu9DTihH0fAhfVrY
-	RTmLXIXAnIRhIC+NJhrUeXg3RdnLn1kDV2jMpgbVhTzgEOwwzPeKMaCoTYeDcY8xjr1fCvLbVqq
-	6CjQ7CJC5LqLgMo0d0KGqZJZW0Yc+//I0ZS3HrdGL5qPbhq0u+G9+jTLCFnlEX1PKaA2luJ6QeN
-	GTztqALnSD1xgdeDfmkf8tbmxaW2LYiVBrMevuW4V1SzfauQfb3YWjkt2twGqMh/li3QhDkJyuk
-	J07kJ0uvNvLTyrzXwZLMYLwtIFAnbI/ar7Z7Syld1ty0C4ggHcejHw8IHVn1NKm1ObLn1mEshh/
-	m5l6vVKtZf72Hp+CKc7GZVpOkpUbJk/Io9d9ujDgqrv+nOXdRTzOBtgeaBnxFa5Nql0BSmhQDrr
-	ep+/qbrEv2MHaegXUuSYuxkacoP/DRUm82lwa0Ua07tajXNuHb0CyK68lz3pZTOw+oxptYUC4m6
-	c42xhrSTr7m6tS8Bj6OhEPhC4HX+yFBkVYr+3eUC+UAOGyOoyvRGoEovqEzlvneQYZlFIp48rhQ
-	Vek67/wWX2T4dECM5yK+uDad64nKFKrE7OIqIYVoy
-X-Received: by 2002:a05:6808:4fce:b0:4d6:9222:99f7 with SMTP id 5614622812f47-5640dde6011mr11564153b6e.55.1793782032466;
-        Wed, 04 Nov 2026 00:47:12 -0800 (PST)
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com. [209.85.210.43])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9fdebe2sm1156758b6e.16.2026.11.04.00.47.11
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 00:47:11 -0800 (PST)
-Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-843b6f8e2c7so580933a34.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 00:47:11 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBzT30PlF1FP1SyXVa+0po5E0/89/YhrD1rcWF+8o5zsBNhyMPos5hQtFNQjfgH+EXX9DHA9tT5K/huoC2k=@vger.kernel.org
-X-Received: by 2002:a05:693c:6407:b0:36a:7b3c:4e0a with SMTP id
- 5a478bee46e88-36a7b3c4f8dmr7297124eec.24.1793781644445; Wed, 04 Nov 2026
- 00:40:44 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08F97606A326;
+	Wed,  4 Nov 2026 08:47:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08F97606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=MXtkShpX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793782042; bh=SikW6QyWShPPm+9vJqKGpIuLHnANOtAHXWhBfwLtRyU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MXtkShpXNPHRNF9GbVB0vGh2mkdgIJkWaGYuyTrjNM5G1f2fA0NcG++7VggvNzuDD
+	 24Oocehg2T0UvdTXKJ7iKQpJ/XFj7VS3fY2aPygzwpnYDrYJCh2iWZQnrbRuIgC7DR
+	 uUmuWDcar8Nk1HrZsrn64YqLTylXAc4IsJFH4S0c=
+Received: from shuai-VMware-Virtual-Platform.. ([218.28.192.28])
+	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
+	id BD38AA11; Wed, 04 Nov 2026 16:47:19 +0800
+X-QQ-mid: xmsmtpt1793782039t1bbnb9rz
+Message-ID: <tencent_7AA5D3581EE4D99A947097C4F02730DCCF09@qq.com>
+X-QQ-XMAILINFO: MhLcXbI0hPoHPaMb0xENbO95KO7fvhYaPi13zOgmgRW4/bAl3c3/yP6732NiKY
+	 fodR/3UumoR4uAJ4hURhxvAo0QEkH8ztoePnPhXPHYtC0+6/l1jLMgfL7sRdrGf50VjTZihPphGh
+	 gaGTBhg3/sTKj/5stiqUFbQ6AFr3AGTFyLlHZNUdGtxhIp5l6gf40BvfntvhfFwM3OVsaHhYk763
+	 Cutmi2ur43rGlUfxF5ajPdea7l5fWXENLYdrbPzBqpn60Ca/uWiUvxpp6b+LOioCJXA8ee7xU5IY
+	 NkxtC/c9XXtTUScnIBboZXDEgdAyY1xfsw8DfcRYIG33Ei9QlIndNJakroXYbdMziKEdvg/Za+WY
+	 6TAprsoBd7a0Yd5jMxpj68HzqgkHGCEsXoWZV5gf+GA2hwfFFtBGS+tYD4WqqLfIvPEEFr6MG7Pm
+	 K5S0AzjO7RElh41vAQQkHp5YFDLp7dG64b6A87RoP/M/E2h6mQRsEBKQidiBUVMxGt3C7jRlXHgR
+	 3IxuOrxijxAVc2I6Ql21I3qoSyr57UPUsCVIiak6Xy10W+WNQ0ppTyZoukbhf6rnVS+6OthxQRDj
+	 F5QJrjBMh8tGBUV0k0Z9xuMZ9oz/R9IGheDSDu/kT8RmRgAL4xKHH8VigI9rE/j77OHrCbFvBFnN
+	 JwDJ3HeO/gEUeY6az1wVfYR+McRqJhvu02KdapE2n6+Vke3Eq6lqsnAWpJrZ2g77gJs8uZ7QCHIT
+	 VBZDXIhqKNIk56dbZGmQLYQ+8HOBYAZEaaIZ2iIADcoMP0JlYX1KsZmuOHcW8ROpKU7odRhZzvn0
+	 3hf3lInTgCY37bjOwOYW8ZtgugTwkUBn/mS1v8YgctCDYRg1LUhu/HVmLc7/sQ78nLxLcyNBxdIW
+	 TNFegfrOtYSetceZtVCXcX+bnEBFkXC0kGivYHRP5E1OHZYxYlchsGv6pkPlWZ1369sB7wjNFKfc
+	 ODjJtS86tS5iJJaDztuviNXcMq8lj6P3soQslyMxwMmLFfaMnaoQppib46JMJ93af0UT1NhKGD6f
+	 63bVR94rRJyKCu33xvD3CfD+g8kdm01/v6Ugw7ubfHNQJe0oQPq/ljf7R07sfe7vkwo160pqK7UH
+	 Tirypes5wypdUs0/PWWtHnyss0d1leITQvoFAGnByV9YrJWQcDbFspTSBp6g==
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+From: Shuai Liu <847807867@qq.com>
+To: linux-ext4@vger.kernel.org
+Cc: tytso@mit.edu,
+	adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	linux-kernel@vger.kernel.org,
+	syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com,
+	sashiko-bot@kernel.org,
+	Shuai Liu <847807867@qq.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] ext4: fix slab-use-after-free in do_split()
+Date: Wed,  4 Nov 2026 16:47:19 +0800
+X-OQ-MSGID: <20261104084719.715372-1-847807867@qq.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <sashiko-outbox-196874@kernel.org>
+References: <sashiko-outbox-196874@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,30 +90,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-sf19a2890-gmac-v1-0-a15965a49574@telaak.dev>
- <20261104-sf19a2890-gmac-v1-2-a15965a49574@telaak.dev> <6e8d69e3-9404-4a80-874e-0133f942229e@bootlin.com>
-In-Reply-To: <6e8d69e3-9404-4a80-874e-0133f942229e@bootlin.com>
-From: Joseph Telaak <joseph@telaak.dev>
-Date: Wed, 4 Nov 2026 03:40:32 -0500
-X-Gmail-Original-Message-ID: <CAPY4CJ5RZFkQh5G0BbgC7FesQQbQ53AJQv6pYoK+YEVo8k62bA@mail.gmail.com>
-X-Gm-Features: AclHuK9Odzf_wS7Gr7Do7DU0hVIY-1521pU5hfzHYwAlyguOls_NqIQeDv60H-0
-Message-ID: <CAPY4CJ5RZFkQh5G0BbgC7FesQQbQ53AJQv6pYoK+YEVo8k62bA@mail.gmail.com>
-Subject: Re: [PATCH net-next 2/2] net: stmmac: Add Siflower SF19A2890 glue
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Richard Cochran <richardcochran@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jose Abreu <joabreu@synopsys.com>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Chuanhong Guo <gch981213@gmail.com>, 
-	Russell King <linux@armlinux.org.uk>, linux-mips@vger.kernel.org, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-> This is only used during the probe sequence, you can simply pass it as
-> function parameters, this avoids using up memory to store that :)
+do_split() allocates a new directory block with ext4_append() to hold
+the second half of the entries of the leaf block being split, then
+dx_move_dirents() copies entries from the old block (*bh) into the new
+one (bh2).  Nothing verifies that the newly allocated block differs
+from the block being split.
 
-Thanks, v2 will pass the device to the delay helpers and drop the
-member.
+On a filesystem whose block bitmap is inconsistent with the directory
+tree, a block already referenced as a directory leaf can still be
+marked free, so ext4_append() can return that same block.  With
+concurrent operations on such a filesystem (as exercised by the
+syzbot reproducer), the block can even be freed between allocations,
+resulting in bh2 aliasing *bh.  dx_move_dirents() then copies the
+block onto itself, corrupting directory entries mid-copy: a rec_len
+field can be overwritten with name bytes, so the subsequent wipe of
+the stale entry memset()s a bogus length, causing the slab-use-
+after-free reported by syzbot.
+
+Fix this by checking for bh2 == *bh right after ext4_append() and
+bailing out with -EFSCORRUPTED before any directory block contents
+are modified, reporting the corruption via ext4_error_inode_block().
+
+Reported-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=09bec78ee77613a3efdd
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shuai Liu <847807867@qq.com>
+---
+
+Changes in v2:
+  - Release both buffer_head references when bh2 aliases *bh to avoid
+    leaking one reference (Sashiko)
+  - Pass the physical block number instead of the logical block number
+    to ext4_error_inode_block() (Sashiko)
+  - Pass a positive errno to ext4_error_inode_block(), as is the
+    convention (Sashiko)
+
+ fs/ext4/namei.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
+index 354fc2d22df1..c664ae84320a 100644
+--- a/fs/ext4/namei.c
++++ b/fs/ext4/namei.c
+@@ -1928,6 +1928,14 @@ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
+ 		*bh = NULL;
+ 		return ERR_CAST(bh2);
+ 	}
++	if (bh2 == *bh) {
++		ext4_error_inode_block(dir, (*bh)->b_blocknr, EFSCORRUPTED,
++				       "cannot split aliased directory block");
++		brelse(bh2);
++		brelse(*bh);
++		*bh = NULL;
++		return ERR_PTR(-EFSCORRUPTED);
++	}
+ 
+ 	BUFFER_TRACE(*bh, "get_write_access");
+ 	err = ext4_journal_get_write_access(handle, dir->i_sb, *bh,
+-- 
+2.43.0
+
