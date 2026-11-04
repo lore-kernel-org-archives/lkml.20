@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793760615;
-	b=Z/+LHdt+546QVDt8+OCeUt3m4F8wbRJ7F/V4mbpu60u7Z05EO/4M/oQI/HCc8Obd65+3
-	 I/dVeo7q85bam052qEassqIl18dDPyKhhGPmB1r38NvGEGXeYpqWaakraHCLsKvCn8tkP
-	 2wPTCXyruFKBbbFqFljGUOqB6QgsdCS7+OwKf+7cFPU3rI4UKd92Jy/MXa8cLbCDsw+WD
-	 wqdy+FpWD7DznjQP47FKzUUXKxSgUrK2ZKn/OL8mk1D2nO8oGgQBHIG8oh7AC266dMcJr
-	 I72+dJ+TqHA6VBrAjzV0e/2v4V7FGPhh6hm/+p/qqs3kudZtQRkkgRGvJf1h2SnBc1Q==
+	t=1793760613;
+	b=Os41R16AefoF0z46JF0INn8K4K/9RS3SddajqPgiit/90gQ7SM3bCikQjRp87kZxMKhM
+	 EtHGSqrR0OdRjMTCDCvp4uY7VENsbT2HXmb4DmyZSX3V466ERxe+7Dc4fRjLQgVbMy0kO
+	 rdFVZ7IDymflhYyWVn0rmaq3yyP96+t80oBDiAm6guj1ZTcjaQwZNwX8FGuFGruBJRred
+	 4a/28JyVijl4nI5ethlzKlzJKGqkQKeQyZhkIi1HszteMaHIke5kXL2vwJkrvGQLYObQI
+	 +yX6absQ90poF+9XYwqyPVSjLvCJIJx/AvNV3lqavP99/p4SXtSfc6XnirNtXRE+oSg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793760615;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793760613;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=nQ+/aTzdk9aNxMxYlKvZEaPddEMhbLOjsT6Rq35WT1w=;
-	b=hwYFoOoYDlXnzsDDKFJ4IasO3hQpA/guXx1hZuBzFz6NdOqShzH8Flwt6R2Q16uk7LyA
-	 enDLyHl2pXqusrsJjnkEMwoXIOyiTWqD5B1nkgTuhYrVyfAUhwqWTKu3BQhh9H5J2FnXX
-	 uSFksnlrZhP1R4DD064zMUP5LVn9qJwEn8FWujPbrSXDcW1MWo/QBjloCcCJnrTizDpiJ
-	 t8M/XB+pO96nK3D5/Fh3hpN4n08i4EwkdoXahB8sdiULu0WsIMq2MHJzH71ku/36cPcVD
-	 P6wQVnYYp5rQl4ZxgIdzQz+6pWItaao6C+Rr5EmZroI6IrVSW8XhagH2VAFm9134mQg==
+	bh=pJkwV1AZ/ozwsddEeAyrFXDEUnf8mg/u8l9xIyCSEp0=;
+	b=xYOan/Hhx03O4JWeuSA9KsMvcU6+enFhjU796ypJbq+grFXL/yBth4kvJetKjwl9O6Eo
+	 eXaDToGewqR6fiVxfHVSHsmsQKh2m50IMTm7KA6nYiJtL2Q3KClkHXWtbeC1JiUW592HR
+	 dOc9grDlspiiMaj3yrE7GFq+0nggIqVgY3an3KvuBmaHoS17ann+lhqGnaq43tCmpAvtn
+	 zjfJs6jnvSIQWFO/3zsboiZRo/NTJV5GkkkaASgiBeZJiU3z59IEq5S3Q02nmBUoLYp/4
+	 1fwZd2TzDD4J28YldT+fPeCrkgywn2ovL5ge8PmPQsr9tSrjT0quKG751PJImpu1XEQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K+XWZENW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WOfvVnfY;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9455606A339;
-	Wed,  4 Nov 2026 02:50:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A5CF606EEBE;
+	Wed,  4 Nov 2026 02:50:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K+XWZENW
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WOfvVnfY
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793760614;
-	b=ZjSEnU2xCoYQdS0OVcGP0h5QXi7Zj2JHgGgPEF+MKC0wa9T65LD+6eMWuapDzxLxfZc4
-	 8TEU4n4CJIfWuH2GxhbdaW+PQA5sM109dQ0/dKBIBH421na6qF3RPRtcth8EXiyKS63O1
-	 R+HEFkCGs+OKCHNa33MhyuiGOE9N2zyzPshQR4iiz2nlj0o9YaNhP6IHsqm/4EALM56LQ
-	 oQnLBsXadfprDvRbqMLcd/fosQJfuiGItt07AxrFb7w7Onf4dFo8qIfC8GjZsrIEuZbUp
-	 21XkSQKHulWSzWCfnNo9MRZICzZBr0B6YCZLXoWoJtETs77LjtsBIQKk3tRbl2SHFNw==
+	t=1793760612;
+	b=KnfJmHw4ke+JBlczQciE9MSXmb9TMk3bbb2dcRuKjgMwdUe4eKjAflkR9lFYoT88tu42
+	 gQwHe41qT6ezMeAlmr/iGANevpe5U8ieC+fjey3+NO6SC4ApFaKam5xOLE4JyctVTahFi
+	 7GfjVWnEgNZnZMkwhFOcgHtfKROXv/UQEFbA2aBos/lPx/XOJA1wPnwKOTtrmjZVjxUtu
+	 8NA9JF9gb9KNDwh966XaBYBvk3lAwxUPv+ak0eli2V2elHWonS6QKckbuYtpGOyyHo4lK
+	 iQNcjbT1tS2KaEyvWKlePp67uPj5doF/54FhpqipLAJJV9VRpgrzmpeyBmQKUoQtA2A==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793760614;
+	c=relaxed/relaxed; t=1793760612;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=nQ+/aTzdk9aNxMxYlKvZEaPddEMhbLOjsT6Rq35WT1w=;
-	b=luf0zZsiJ461kxQqiW9su90aKAR/4cgxvNL0VPnAf/mr5DGkZvVhlw6zwiJ1+wI5hAg+
-	 5iv9EoJQemhVRv9YzI1yeQtfXiRkSrnshSytS4sxLCnxJqohO3bb3kW7iqEb3LtAU42lz
-	 VgyumYQOYILfqxqsEWXsk8/k9qEvWVbnVsAFWWxdA9cLf/blrLlCjj/5gX0Sbd94AQltP
-	 pMvPGXGOAx1T1cXI9ZssnViQ3uD+Z7wCbTUexVGDPl7CB9LF/TfIpM7aFL5o/JWQvCxLS
-	 vOWFHwcykKKBZXMPCXQUIVWSzbW5JekQWnp9rWTDw/eIxXbCGm5z2bfeMGD9T3t/p0Q==
+	bh=pJkwV1AZ/ozwsddEeAyrFXDEUnf8mg/u8l9xIyCSEp0=;
+	b=jUR9albBI6MIstrc/p45no2GfgV5ChuW49UEIHezae68JTkrOtgXSjekCgAY4kr6lzoB
+	 Y7Ytobic+VsfofSjN80z766Pj02p2f8LugLYlMonWtzgBuCvaQ0kHc9hjF2X/kgJpZyD/
+	 rWhqcFPZ+pemvFHoVISUOnfukAXy160uw6M5hzOrvD77yUYEdJllyVmnTIqEqXN9Mzxc3
+	 JzXFG/MYANlTlbX2znvwBHT6nHj3ssqzE/VK4zvTL3adJkJwyGD0zFPNzMX2jiS5AL31u
+	 IrWYiH/VMVDM/tkDyDK3GpqVslosDeGqRJkf5jCCtfCedXEog8Mu1suxqKyWLdcKjPw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 04E811F00A27;
+	by smtp.kernel.org (Postfix) with ESMTPS id C368C1F000C1;
 	Wed,  4 Nov 2026 02:50:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793760614;
-	bh=nQ+/aTzdk9aNxMxYlKvZEaPddEMhbLOjsT6Rq35WT1w=;
+	s=k20260515; t=1793760612;
+	bh=pJkwV1AZ/ozwsddEeAyrFXDEUnf8mg/u8l9xIyCSEp0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=K+XWZENWO5FhtTumYvqCT5I46gWPzNENQofuINI0jW2EBct8HMm5ftSBmCW6Fb2gH
-	 AixAnSa22yO6fpgslhZQ4OVP56ehUaKf0J7Jd/ctnik2Le8NyTJe9HuX1PFMxQjv9S
-	 eCuTkv5ZKbD3sIOzYF3ZQzFy9j1OHvg493h/APFGxSj9KCMzhNnlBjfc8q0jqAR1u6
-	 qYbOGJaM9WQpeJ3unOmOQmma32YofEYEJnNtMgCPEX2WZ+TNbZ70lQNCkUYxI0yqO6
-	 0wjWwfzW7IMNU/LgGhRFShILIm2XP29u1/JaitfGh6u9GhFDMRvz/54BToLlwsilAB
-	 HpQ8rl/w784aA==
+	b=WOfvVnfY0ZILuLXT+8VPVvHJ72N7TXrKbX6Tgkz9h0nTRrdbD2Zxr2+BN4iTcqO+H
+	 vYfRu9sXRHKL/NpBm5wVJOKU+al36C2G9bIKgdPjf+oyv02Uu+rfW6H20HxaLJz31a
+	 FFOiamyMFbmqG2Z4NNlkyZ28vFvUaTf1Lbtzoj/2p1g2FGI40jLlctnrgmaZp4rhwC
+	 Zb0d21dqf66BHamBBG9RW/MWCzGlCIWhIoF4JpApn1cPbGX/qTkYBD0Gydfl68F1S5
+	 OhpKRXaVt9fVf882F1/sbw83bONzij+mDXkdtVQB6JbL68HPQ0LYxtBDnMFl9L08Av
+	 u21pC+1AdgJYQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 42FA646C3F;
+	by lkml.kernel.org (Postfix) with ESMTP id 6CB2146C4B;
 	Wed,  4 Nov 2026 02:50:03 +0000 (UTC)
 From: Nathan Lynch via B4 Relay <devnull+nathan.lynch.amd.com@kernel.org>
-Date: Tue, 03 Nov 2026 20:50:00 -0600
-Subject: [PATCH v4 19/25] dmaengine: sdxi: Encode context start, stop,
- update, and sync descriptors
+Date: Tue, 03 Nov 2026 20:50:03 -0600
+Subject: [PATCH v4 22/25] dmaengine: sdxi: Encode copy and interrupt
+ descriptors
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-sdxi-base-v4-19-3668ccc7aab8@amd.com>
+Message-Id: <20261103-sdxi-base-v4-22-3668ccc7aab8@amd.com>
 References: <20261103-sdxi-base-v4-0-3668ccc7aab8@amd.com>
 In-Reply-To: <20261103-sdxi-base-v4-0-3668ccc7aab8@amd.com>
 To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>
@@ -98,11 +98,11 @@ Cc: Bjorn Helgaas <bhelgaas@google.com>,
  dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-pci@vger.kernel.org, Nathan Lynch <nathan.lynch@amd.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793760600; l=8953;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793760600; l=6594;
  i=nathan.lynch@amd.com; s=20260722; h=from:subject:message-id;
- bh=z+jEsoZr//SenqycV7TSGDKA13KLnuBAx156cLS9unw=;
- b=CbXLeHHyPhln/azPixNqzw0lgJEdJR9vfmdgvwWy6nRVf+hz4IO2KYCvkoh5PaPvQW4MrR1Yt
- ajkynDN0lNGCfXtL4T99h/3fwR0A6+0LzUWpLzCI8U/McF17gHD+IuM
+ bh=4OfmiWXNOOdRLke0kwqMsLzBi0UssOb0ELX27UixZjI=;
+ b=nM9DDTdToud/GBbjuwOI3PdKaLnIaSatmvPyRBB2V5ZWOKEpXjSrQIe6tw8QbLGHcbZaUA3l4
+ SiGaZOvnxOuDy/jrC2CoREW64JYKiGP3bRZ712u6L87WYsuSuitJhRR
 X-Developer-Key: i=nathan.lynch@amd.com; a=ed25519;
  pk=pO5+BCw/TENGLvwX5NYZOZmZihcxjkxeFSMuk47erps=
 X-Endpoint-Received: by B4 Relay for nathan.lynch@amd.com/20260722 with
@@ -113,327 +113,242 @@ Content-Transfer-Encoding: 7bit
 
 From: Nathan Lynch <nathan.lynch@amd.com>
 
-Add layouts and encoders for administrative context start, stop, update,
-and synchronization descriptors. Parameters select the context range,
-update level, and synchronization filter. Encoders set mandatory fields
-and produce little-endian descriptors with VL clear; callers attach
-completion storage and publish them.
+Add copy and interrupt descriptor layouts and encoders. Both encoders
+accept operation-specific parameter structs.
+
+Copy descriptors are used to implement memcpy offload for the DMA
+engine provider, and interrupt descriptors are used to signal the
+completion of preceding descriptors in the ring.
+
+Conditionally expose sdxi_encode_size32() for unit testing.
 
 Co-developed-by: Wei Huang <wei.huang2@amd.com>
 Signed-off-by: Wei Huang <wei.huang2@amd.com>
 Signed-off-by: Nathan Lynch <nathan.lynch@amd.com>
 ---
- drivers/dma/sdxi/Makefile     |   1 +
- drivers/dma/sdxi/descriptor.c | 119 ++++++++++++++++++++++++++++++++++++++++++
- drivers/dma/sdxi/descriptor.h |  58 ++++++++++++++++++++
- drivers/dma/sdxi/hw.h         |  77 +++++++++++++++++++++++++++
- 4 files changed, 255 insertions(+)
+ drivers/dma/sdxi/descriptor.c | 101 ++++++++++++++++++++++++++++++++++++++++++
+ drivers/dma/sdxi/descriptor.h |  23 ++++++++++
+ drivers/dma/sdxi/hw.h         |  27 +++++++++++
+ 3 files changed, 151 insertions(+)
 
-diff --git a/drivers/dma/sdxi/Makefile b/drivers/dma/sdxi/Makefile
-index d12eebe03870..e9c180ea6fa4 100644
---- a/drivers/dma/sdxi/Makefile
-+++ b/drivers/dma/sdxi/Makefile
-@@ -3,6 +3,7 @@ obj-$(CONFIG_SDXI_CORE) += sdxi-core.o
- sdxi-core-y := \
- 	completion.o  \
- 	context.o     \
-+	descriptor.o  \
- 	device.o      \
- 	ring.o
- 
 diff --git a/drivers/dma/sdxi/descriptor.c b/drivers/dma/sdxi/descriptor.c
-new file mode 100644
-index 000000000000..424453ff7ba0
---- /dev/null
+index 424453ff7ba0..25b5d2862e79 100644
+--- a/drivers/dma/sdxi/descriptor.c
 +++ b/drivers/dma/sdxi/descriptor.c
-@@ -0,0 +1,119 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * SDXI descriptor encoding.
-+ *
-+ * Copyright Advanced Micro Devices, Inc.
-+ */
+@@ -5,14 +5,115 @@
+  * Copyright Advanced Micro Devices, Inc.
+  */
+ 
++#include <kunit/test-bug.h>
+ #include <kunit/visibility.h>
+ #include <linux/bitfield.h>
++#include <linux/bug.h>
++#include <linux/range.h>
++#include <linux/sizes.h>
+ #include <linux/types.h>
+ #include <asm/byteorder.h>
+ 
+ #include "hw.h"
+ #include "descriptor.h"
+ 
++VISIBLE_IF_KUNIT int __must_check sdxi_encode_size32(u64 size, __le32 *dest)
++{
++	/*
++	 * Sizes are encoded as value - 1:
++	 * value    encoding
++	 *     1           0
++	 *     2           1
++	 *   ...
++	 *    4G  0xffffffff
++	 * See SDXI 1.0 Table 6-8: DSC_DMAB_COPY Descriptor Format,
++	 * for example.
++	 */
++	if (size > 0 && size <= SZ_4G) {
++		*dest = cpu_to_le32((u32)(size - 1));
++		return 0;
++	}
 +
-+#include <kunit/visibility.h>
-+#include <linux/bitfield.h>
-+#include <linux/types.h>
-+#include <asm/byteorder.h>
++	/* Inhibit warning stack traces while testing. */
++	if (!kunit_get_current_test()) {
++		WARN_ON_ONCE(size == 0);
++		WARN_ON_ONCE(size > SZ_4G);
++	}
 +
-+#include "hw.h"
-+#include "descriptor.h"
++	return -EINVAL;
++}
++EXPORT_SYMBOL_IF_KUNIT(sdxi_encode_size32);
 +
-+int sdxi_encode_cxt_start(struct sdxi_desc *desc,
-+			  const struct sdxi_cxt_start *params)
++int sdxi_encode_copy(struct sdxi_desc *desc, const struct sdxi_copy *params)
 +{
 +	u64 csb_ptr;
 +	u32 opcode;
++	__le32 size;
++	int err;
 +
-+	opcode = (FIELD_PREP(SDXI_DSC_FE, 1) |
-+		  FIELD_PREP(SDXI_DSC_SUBTYPE, SDXI_DSC_OP_SUBTYPE_CXT_START_NM) |
-+		  FIELD_PREP(SDXI_DSC_TYPE, SDXI_DSC_OP_TYPE_ADMIN));
++	err = sdxi_encode_size32(params->len, &size);
++	if (err)
++		return err;
++	/*
++	 * Reject overlapping src and dst. "Software ... shall not
++	 * overlap the source buffer, destination buffer, Atomic
++	 * Return Data, or completion status block." - SDXI 1.0 5.6
++	 * Memory Consistency Model
++	 */
++	if (range_overlaps(&(const struct range) {
++				   .start = params->src,
++				   .end   = params->src + params->len - 1,
++			   },
++			   &(const struct range) {
++				   .start = params->dst,
++				   .end   = params->dst + params->len - 1,
++			   }))
++		return -EINVAL;
++
++	opcode = (FIELD_PREP(SDXI_DSC_SUBTYPE, SDXI_DSC_OP_SUBTYPE_COPY) |
++		  FIELD_PREP(SDXI_DSC_TYPE, SDXI_DSC_OP_TYPE_DMAB));
 +
 +	csb_ptr = FIELD_PREP(SDXI_DSC_NP, 1);
 +
 +	*desc = (typeof(*desc)) {
-+		.cxt_start = (typeof(desc->cxt_start)) {
++		.copy = (typeof(desc->copy)) {
 +			.opcode = cpu_to_le32(opcode),
-+			.cxt_start = cpu_to_le16(params->range.cxt_start),
-+			.cxt_end = cpu_to_le16(params->range.cxt_end),
++			.size = size,
++			.akey0 = cpu_to_le16(params->src_akey),
++			.akey1 = cpu_to_le16(params->dst_akey),
++			.addr0 = cpu_to_le64(params->src),
++			.addr1 = cpu_to_le64(params->dst),
 +			.csb_ptr = cpu_to_le64(csb_ptr),
 +		},
 +	};
 +
 +	return 0;
 +}
-+EXPORT_SYMBOL_IF_KUNIT(sdxi_encode_cxt_start);
++EXPORT_SYMBOL_IF_KUNIT(sdxi_encode_copy);
 +
-+int sdxi_encode_cxt_stop(struct sdxi_desc *desc,
-+			  const struct sdxi_cxt_stop *params)
++int sdxi_encode_intr(struct sdxi_desc *desc,
++		     const struct sdxi_intr *params)
 +{
 +	u64 csb_ptr;
 +	u32 opcode;
 +
-+	opcode = (FIELD_PREP(SDXI_DSC_FE, 1) |
-+		  FIELD_PREP(SDXI_DSC_SUBTYPE, SDXI_DSC_OP_SUBTYPE_CXT_STOP) |
-+		  FIELD_PREP(SDXI_DSC_TYPE, SDXI_DSC_OP_TYPE_ADMIN));
++	opcode = (FIELD_PREP(SDXI_DSC_SUBTYPE, SDXI_DSC_OP_SUBTYPE_INTR) |
++		  FIELD_PREP(SDXI_DSC_TYPE, SDXI_DSC_OP_TYPE_INTR));
 +
 +	csb_ptr = FIELD_PREP(SDXI_DSC_NP, 1);
 +
 +	*desc = (typeof(*desc)) {
-+		.cxt_stop = (typeof(desc->cxt_stop)) {
++		.intr = (typeof(desc->intr)) {
 +			.opcode = cpu_to_le32(opcode),
-+			.cxt_start = cpu_to_le16(params->range.cxt_start),
-+			.cxt_end = cpu_to_le16(params->range.cxt_end),
++			.akey = cpu_to_le16(params->akey),
 +			.csb_ptr = cpu_to_le64(csb_ptr),
 +		},
 +	};
 +
 +	return 0;
 +}
-+EXPORT_SYMBOL_IF_KUNIT(sdxi_encode_cxt_stop);
++EXPORT_SYMBOL_IF_KUNIT(sdxi_encode_intr);
 +
-+int sdxi_encode_cxt_upd(struct sdxi_desc *desc,
-+			const struct sdxi_cxt_upd *params)
-+{
-+	u64 csb_ptr;
-+	u32 opcode;
-+	u8 cflags;
-+
-+	opcode = (FIELD_PREP(SDXI_DSC_SUBTYPE, SDXI_DSC_OP_SUBTYPE_CXT_UPD) |
-+		  FIELD_PREP(SDXI_DSC_TYPE, SDXI_DSC_OP_TYPE_ADMIN));
-+
-+	cflags = FIELD_PREP(SDXI_DSC_CXT_UPD_PCD, params->level);
-+
-+	csb_ptr = FIELD_PREP(SDXI_DSC_NP, 1);
-+
-+	*desc = (typeof(*desc)) {
-+		.cxt_upd = (typeof(desc->cxt_upd)) {
-+			.opcode = cpu_to_le32(opcode),
-+			.cflags = cflags,
-+			.cxt_start = cpu_to_le16(params->range.cxt_start),
-+			.cxt_end = cpu_to_le16(params->range.cxt_end),
-+			.csb_ptr = cpu_to_le64(csb_ptr),
-+		},
-+	};
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_IF_KUNIT(sdxi_encode_cxt_upd);
-+
-+int sdxi_encode_sync(struct sdxi_desc *desc, const struct sdxi_sync *params)
-+{
-+	u64 csb_ptr;
-+	u32 opcode;
-+	u8 cflags;
-+
-+	opcode = (FIELD_PREP(SDXI_DSC_SUBTYPE, SDXI_DSC_OP_SUBTYPE_SYNC) |
-+		  FIELD_PREP(SDXI_DSC_TYPE, SDXI_DSC_OP_TYPE_ADMIN));
-+
-+	cflags = FIELD_PREP(SDXI_DSC_SYNC_FLT, params->filter);
-+
-+	csb_ptr = FIELD_PREP(SDXI_DSC_NP, 1);
-+
-+	*desc = (typeof(*desc)) {
-+		.sync = (typeof(desc->sync)) {
-+			.opcode = cpu_to_le32(opcode),
-+			.cflags = cflags,
-+			.cxt_start = cpu_to_le16(params->range.cxt_start),
-+			.cxt_end = cpu_to_le16(params->range.cxt_end),
-+			.csb_ptr = cpu_to_le64(csb_ptr),
-+		},
-+	};
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_IF_KUNIT(sdxi_encode_sync);
+ int sdxi_encode_cxt_start(struct sdxi_desc *desc,
+ 			  const struct sdxi_cxt_start *params)
+ {
 diff --git a/drivers/dma/sdxi/descriptor.h b/drivers/dma/sdxi/descriptor.h
-index b19d5d329e43..9138f7c85f3a 100644
+index 9138f7c85f3a..cf071a281941 100644
 --- a/drivers/dma/sdxi/descriptor.h
 +++ b/drivers/dma/sdxi/descriptor.h
 @@ -9,6 +9,7 @@
   */
  
  #include <linux/bitfield.h>
-+#include <linux/minmax.h>
++#include <linux/kconfig.h>
+ #include <linux/minmax.h>
  #include <linux/ratelimit.h>
  #include <linux/types.h>
- #include <asm/byteorder.h>
-@@ -61,4 +62,61 @@ static inline void sdxi_desc_set_csr(struct sdxi_desc *desc)
- 	desc->opcode = cpu_to_le32(opcode);
+@@ -16,6 +17,10 @@
+ 
+ #include "hw.h"
+ 
++#if IS_ENABLED(CONFIG_KUNIT)
++int __must_check sdxi_encode_size32(u64 size, __le32 *dest);
++#endif
++
+ static inline void sdxi_desc_vl_expect(const struct sdxi_desc *desc, bool expected)
+ {
+ 	u8 vl = FIELD_GET(SDXI_DSC_VL, le32_to_cpu(desc->opcode));
+@@ -80,6 +85,24 @@ static inline struct sdxi_cxt_range sdxi_cxt_range_single(u16 nr)
+ 	return sdxi_cxt_range(nr, nr);
  }
  
-+struct sdxi_cxt_range {
-+	u16 cxt_start;
-+	u16 cxt_end;
++struct sdxi_copy {
++	dma_addr_t src;
++	dma_addr_t dst;
++	u64 len;
++	u16 src_akey;
++	u16 dst_akey;
 +};
 +
-+static inline struct sdxi_cxt_range sdxi_cxt_range(u16 a, u16 b)
-+{
-+	return (struct sdxi_cxt_range) {
-+		.cxt_start = min(a, b),
-+		.cxt_end   = max(a, b),
-+	};
-+}
++int sdxi_encode_copy(struct sdxi_desc *desc,
++		     const struct sdxi_copy *params);
 +
-+static inline struct sdxi_cxt_range sdxi_cxt_range_single(u16 nr)
-+{
-+	return sdxi_cxt_range(nr, nr);
-+}
-+
-+struct sdxi_cxt_start {
-+	struct sdxi_cxt_range range;
++struct sdxi_intr {
++	u16 akey;
 +};
 +
-+int sdxi_encode_cxt_start(struct sdxi_desc *desc,
-+			  const struct sdxi_cxt_start *params);
++int sdxi_encode_intr(struct sdxi_desc *desc,
++		     const struct sdxi_intr *params);
 +
-+struct sdxi_cxt_stop {
-+	struct sdxi_cxt_range range;
-+};
-+
-+int sdxi_encode_cxt_stop(struct sdxi_desc *desc,
-+			  const struct sdxi_cxt_stop *params);
-+
-+struct sdxi_cxt_upd {
-+	enum sdxi_cxt_upd_level {
-+		SDXI_CXT_UPD_LVL_CTL = 0x4,
-+		SDXI_CXT_UPD_LVL_L1  = 0x6,
-+		SDXI_CXT_UPD_LVL_L2  = 0x7,
-+	} level;
-+	struct sdxi_cxt_range range;
-+};
-+
-+int sdxi_encode_cxt_upd(struct sdxi_desc *desc,
-+			const struct sdxi_cxt_upd *params);
-+
-+struct sdxi_sync {
-+	enum sdxi_sync_filter  {
-+		SDXI_SYNC_FLT_CXT  = 0x0,
-+		SDXI_SYNC_FLT_STOP = 0x1,
-+		SDXI_SYNC_FLT_AKEY = 0x2,
-+		SDXI_SYNC_FLT_RKEY = 0x3,
-+		SDXI_SYNC_FLT_FN   = 0x4,
-+	} filter;
-+	struct sdxi_cxt_range range;
-+};
-+
-+int sdxi_encode_sync(struct sdxi_desc *desc, const struct sdxi_sync *params);
-+
- #endif /* DMA_SDXI_DESCRIPTOR_H */
+ struct sdxi_cxt_start {
+ 	struct sdxi_cxt_range range;
+ };
 diff --git a/drivers/dma/sdxi/hw.h b/drivers/dma/sdxi/hw.h
-index edc43190148c..51b2bcbeca90 100644
+index 51b2bcbeca90..71579eb3ac26 100644
 --- a/drivers/dma/sdxi/hw.h
 +++ b/drivers/dma/sdxi/hw.h
-@@ -142,12 +142,89 @@ struct sdxi_desc {
- #define SDXI_DSC_SE  BIT(1)
- #define SDXI_DSC_FE  BIT(2)
- #define SDXI_DSC_CSR BIT(4)
-+#define SDXI_DSC_SUBTYPE GENMASK(15, 8)
-+#define SDXI_DSC_TYPE    GENMASK(26, 16)
+@@ -160,6 +160,25 @@ struct sdxi_desc {
+ 	static_assert(offsetof(struct tag_, csb_ptr) ==			\
+ 		      offsetof(struct sdxi_dsc_generic, csb_ptr))
  
- /* For csb_ptr field */
-+#define SDXI_DSC_NP BIT_ULL(0)
- #define SDXI_DSC_CSB_PTR GENMASK_ULL(63, 5)
++		/* SDXI 1.0 Table 6-8: DSC_DMAB_COPY Descriptor Format */
++		define_sdxi_dsc(sdxi_dsc_dmab_copy, copy,
++			__le32 size;
++			__u8 attr;
++			__u8 rsvd_0[3];
++			__le16 akey0;
++			__le16 akey1;
++			__le64 addr0;
++			__le64 addr1;
++			__u8 rsvd_1[24];
++		);
++
++		/* SDXI 1.0 Table 6-12: DSC_INTR Descriptor Format */
++		define_sdxi_dsc(sdxi_dsc_intr, intr,
++			__u8 rsvd_0[8];
++			__le16 akey;
++			__u8 rsvd_1[42];
++		);
++
+ 		/* SDXI 1.0 Table 6-14: DSC_CXT_START Descriptor Format */
+ 		define_sdxi_dsc(sdxi_dsc_cxt_start, cxt_start,
+ 			__u8 rsvd_0;
+@@ -215,11 +234,19 @@ static_assert(sizeof(struct sdxi_desc) == 64);
  
-+#define define_sdxi_dsc(tag_, name_, op_body_)				\
-+	struct tag_ {							\
-+		__le32 opcode;						\
-+		op_body_						\
-+		__le64 csb_ptr;						\
-+	} __packed __aligned(64) name_;					\
-+	static_assert(sizeof(struct tag_) ==				\
-+		      sizeof(struct sdxi_dsc_generic));			\
-+	static_assert(offsetof(struct tag_, csb_ptr) ==			\
-+		      offsetof(struct sdxi_dsc_generic, csb_ptr))
-+
-+		/* SDXI 1.0 Table 6-14: DSC_CXT_START Descriptor Format */
-+		define_sdxi_dsc(sdxi_dsc_cxt_start, cxt_start,
-+			__u8 rsvd_0;
-+			__u8 vflags;
-+			__le16 vf_num;
-+			__le16 cxt_start;
-+			__le16 cxt_end;
-+			__u8 rsvd_1[4];
-+			__le64 db_value;
-+			__u8 rsvd_2[32];
-+		);
-+
-+		/* SDXI 1.0 Table 6-15: DSC_CXT_STOP Descriptor Format */
-+		define_sdxi_dsc(sdxi_dsc_cxt_stop, cxt_stop,
-+			__u8 rsvd_0;
-+			__u8 vflags;
-+			__le16 vf_num;
-+			__le16 cxt_start;
-+			__le16 cxt_end;
-+			__u8 rsvd_1[44];
-+		);
-+
-+		/* SDXI 1.0 Table 6-18: DSC_CXT_UPD Descriptor Format */
-+		define_sdxi_dsc(sdxi_dsc_cxt_upd, cxt_upd,
-+			__u8 cflags;
-+			__u8 vflags;
-+			__le16 vf_num;
-+			__le16 cxt_start;
-+			__le16 cxt_end;
-+			__u8 rsvd_0[44];
-+		);
-+/* For use with cxt_upd.cflags */
-+#define SDXI_DSC_CXT_UPD_PCD GENMASK(2, 0)
-+
-+		/* SDXI 1.0 Table 6-22: DSC_SYNC Descriptor Format */
-+		define_sdxi_dsc(sdxi_dsc_sync, sync,
-+			__u8 cflags;
-+			__u8 vflags;
-+			__le16 vf_num;
-+			__le16 cxt_start;
-+			__le16 cxt_end;
-+			__le16 key_start;
-+			__le16 key_end;
-+			__u8 rsvd_0[40];
-+		);
-+/* For use with sync.cflags */
-+#define SDXI_DSC_SYNC_FLT GENMASK(2, 0)
-+
-+#undef define_sdxi_dsc
- 	};
- } __packed __aligned(64);
- static_assert(sizeof(struct sdxi_desc) == 64);
+ /* SDXI 1.0 Table 6-1: SDXI Operation Groups */
+ enum sdxi_dsc_type {
++	SDXI_DSC_OP_TYPE_DMAB    = 0x001,
+ 	SDXI_DSC_OP_TYPE_ADMIN   = 0x002,
++	SDXI_DSC_OP_TYPE_INTR    = 0x004,
+ };
  
-+/* SDXI 1.0 Table 6-1: SDXI Operation Groups */
-+enum sdxi_dsc_type {
-+	SDXI_DSC_OP_TYPE_ADMIN   = 0x002,
-+};
+ /* SDXI 1.0 Table 6-2: SDXI Operation Groups, Types, and Subtypes */
+ enum sdxi_dsc_subtype {
++	/* DMA Base */
++	SDXI_DSC_OP_SUBTYPE_COPY    = 0x03,
 +
-+/* SDXI 1.0 Table 6-2: SDXI Operation Groups, Types, and Subtypes */
-+enum sdxi_dsc_subtype {
-+	/* Administrative */
-+	SDXI_DSC_OP_SUBTYPE_CXT_UPD      = 0x01,
-+	SDXI_DSC_OP_SUBTYPE_CXT_START_NM = 0x03,
-+	SDXI_DSC_OP_SUBTYPE_CXT_STOP     = 0x04,
-+	SDXI_DSC_OP_SUBTYPE_SYNC         = 0x06,
-+};
++	/* Interrupt */
++	SDXI_DSC_OP_SUBTYPE_INTR = 0x00,
 +
- #endif /* DMA_SDXI_HW_H */
+ 	/* Administrative */
+ 	SDXI_DSC_OP_SUBTYPE_CXT_UPD      = 0x01,
+ 	SDXI_DSC_OP_SUBTYPE_CXT_START_NM = 0x03,
 
 -- 
 2.56.0
