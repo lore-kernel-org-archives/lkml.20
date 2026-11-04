@@ -1,78 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793760614;
-	b=VlH81uev64qf9G1ST7mokDNpYmoY0jUEy3Vu38nCBE6Q6vYhNI5M32DATpN6mYXASEaf
-	 dNZHc1gEwL9WUaeQkXZeVJummireYW/mSIkO/vLJlfoD9X1MrMMPXPgrX5z7Xl6iKpfDW
-	 t3yF0wbnJN1/EjeKSSWWXzv+G2biqfns2w0ZlRovLnJgvux49Pu0exneRIctDOwIfqIiA
-	 1p/4N55dfEtemczND3bzxduszzsox/zeSBWxvVaESgBOyGSysJuaHh2ulgX2QqCJdVMUf
-	 VsV6G6d4HDO1JgbnXnlTBRC3hAnePhNkbvg3Q+K8ORKZYkWmbR0wLd87M4VowwfXsfw==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793760612;
+	b=szg+ySxtGWhe+0ldcOxkcmW6LLJlIbecCelrlJdDxiH52kF7UHNcUiJi5ec8VKpZTfeS
+	 5/ymxVF/gkOLWJn9jUDYXoYgBPpYEGu9sXETAG3sqYR5C10EJ1LT+dJ8cONAwzCzab9zE
+	 i5lMnkrwcFMW9BORW8XbgkreMPWijtGQdaQTmHHbBPeoGSdrPVateFr4ZFjSYzkXvyAAv
+	 0Irr5KFEN9K1ub73U4Nt4tz1c4ss+2ZGvj7PY/EBgs+zQLnoJRuWOtc5sTZ3DmQRgaqHv
+	 do9J/RcFyiBavV3weJmmjJuFEEa0B7GMvBiJ/ZChgGpggJXnRkeb6H1GHaIEc2uz4jg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793760614;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793760612;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=p1k1cj/IjuS30zQriKnNMxwIYJzueUJJUuqmDDig3Tg=;
-	b=zvttexkKvZTUh3y88RoJ7wDgCGjLEFuF8W0gnmmMukykHzLhjQU2CIeiV4ttO/3CMjLH
-	 d13c8PWz358cGqu7V2uwfTtZObWMbQQBR6FGoqwSQg3wK2wVjjAl1WXAufTE/h5YocwV9
-	 a0AHjKdWxZfPrvwr0S1eJnw73b8Yj8sta2gsiwB5fd7CYPP09wycWuW92PmPxy8oVIN/W
-	 W/39I4zFIm65eBop4MR6l7zjA5w7mdjECu75A1n0aPAYe6jkvs1mmHtcsleG5HL4HzhAo
-	 pR2trqa3IW3B9zw7s4FziLMCpN+HNyGjaidZzm8srmllTe01F/Dg7ghFptfKtpzTRiw==
+	bh=W/yTEFtT5krI96k0Fj9SYNvXC4dyTZ5ENLTLLo+6RDA=;
+	b=C25amqFLxefzJZgy7oQlEd8V//fHF15qVUpLCbkmrflC9kBRj28vI4fU8UhU6lrCKayI
+	 pTctosFk2gtgD3zufe3eHd+7BbT7quOjcnB8FKkDG20QiQbURUMcr0mLyDdjgFtXnT8Cl
+	 Jq+3rn300jZq+Tzn8Y86aJEH3EXoYugwRi9gmhs3Zd3P+mbVfci+mwaeG1ApsGGJO2WMm
+	 PeBnqeVuLvb0cKWH5AP8sTti5ODGKF9Dskv78wRAX1vx/+ifyz46j9BqSM+eTi0jzte8o
+	 QyrxM7ffiDWqT/rSRfLYOlm/00s0RZfTOxdtOb0/f8nueBAVchy/+R0B4cqA4DT32ZA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bz9lwCgg;
-	arc=fail smtp.remote-ip=100.103.45.18
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OhzVOsvI;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98525606D834;
-	Wed,  4 Nov 2026 02:50:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66A41606EEAE;
+	Wed,  4 Nov 2026 02:50:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bz9lwCgg
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OhzVOsvI
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793760613;
-	b=WT6F4XZjCedCPKeeddjnd2cAc8JgAR4fy3tipCWvq5Na3y/c7ooi2PGN8LcJeR6O/x+9
-	 gHPMc2t7G5Tf6lcU5j0tEp2CRI+jV+ODdURFQUCuhPSGDtbCddmgc1l5LQ8L4W34rsTUn
-	 A9UgO5DttxrDJnJVFTGR04ItbOi+ZkCg0SE7THX4kg/+GJg1isGEQp6TVLHXFnlmvTIJa
-	 8gu6a9W9qpb9ltHI/sl4iddZgoQx0Z2VwZNb229U2yB5bP+9Qq3T8r1XD09vxNEYR1FLr
-	 KTKdwGCOvrJwphhZy42hS43ceBgngy2pQdIF1sZ/JJXTjV7fxad2QjH4sNNfG93b0Iw==
+	t=1793760612;
+	b=C2cM4ZVT4YscGi3yySrr5AR1SQWLmfw5rP3py1LOeK/+aXHTHbsxWjqogr0bessMP/yy
+	 d5wN4Ro1srQvZXpaNLkMTcUF000s3lLnvn1vmv5adzTEZh10wFieVkHiU2kKOgOFr3TLp
+	 MsVYohbFX2N1Ymmm54hzP+N4QrAy4uvuZSfzeDk6ivdPdhA2mgbdbyWn8Dd+NsT2hMzB+
+	 OkNx7kkMo6iZWitEHJ5kZfUtXsDneL1qM4Vi/B6wKiHb3JiMalFG+EB4H35f9J0buTnSH
+	 SMsdpoa41weklx9NvbMPWQasYC1QWnJat3ORVfHWpsZzlqC7gfGjFj/VDEeGJva94PQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793760613;
+	c=relaxed/relaxed; t=1793760612;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=p1k1cj/IjuS30zQriKnNMxwIYJzueUJJUuqmDDig3Tg=;
-	b=H6WwWol08Xzy5YlQQI74WpE4xBIagyjPU8B1VU1yvbw+2T/WcfMJCYOVVA2hJBWaUUIe
-	 kdMxKMgjgFFgGt3dXAKMzkxI1Car+Mv1woPbvmaLxYNqb6zgEPdDZeU6/SjYTXbFYnOH3
-	 vETE/BkngfPcMljJjbZGVXjK6JusLz+UsLt9DnrWf723ZNnw1TFha4nDBXlUCYHg1Gyhn
-	 XnJIxhGDiQMvZUcJwI4KedaCBq90eNggEJKLba7nWyWr6BBKyD9EaNMuezmpHF3PEpLm0
-	 B8GoVNBdgVTxhnmplo99vRauWY4AeNWLHRNPsYXfZUs1fdnU3wo19LqNVlSb8jU/mXg==
+	bh=W/yTEFtT5krI96k0Fj9SYNvXC4dyTZ5ENLTLLo+6RDA=;
+	b=O/2TbdtF2m8mwh11zahI8IXQ3OlX6n9YfHQvQfyjGIOUmCF1KSrIiSJUVSt597bB+8g/
+	 WM9vEvkY05GAhsSkvpVLrL2zfa1eGbhIlLD6Bg43HQwy3Qy3hmECRPs4hg1UgNZRMPv2m
+	 37efIhNv2EhcoHfL5/Hvj7Q1CYR29t8fYq3if6ueabDLAPlM2uk1uN5CIXsfEZCOgKUvc
+	 diM4ZX0NVjWxkxixP4FxdKy6bXjY8+cyMWKKD6YVBHOhr8prEtKBCC8/+7HWykIWzcsfU
+	 JhSQiAHLpVgfvSvJOMlLLb5rxZIXGW0gqry0VcXDYu7hCRvJ6wxm2CXTIdjDP/4ygmg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id AC7371F00A2E;
-	Wed,  4 Nov 2026 02:50:09 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 01E061F00A1F;
+	Wed,  4 Nov 2026 02:50:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793760613;
-	bh=p1k1cj/IjuS30zQriKnNMxwIYJzueUJJUuqmDDig3Tg=;
+	s=k20260515; t=1793760612;
+	bh=W/yTEFtT5krI96k0Fj9SYNvXC4dyTZ5ENLTLLo+6RDA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=bz9lwCggyw/YNON1wkA5IEEVf38HA94EmmPD0pLKaV6TVq6ifXD4EpvBVzmXfTf2p
-	 YAOzCsWd6MGy+OyjOaLJlidy66Jk72PB63qGWk1L/QPrXruUqJBVTVXOgaFlUxDpYa
-	 sOH0GwWsd3AxTVjN2dxznO0ex1MSRwx9jnSYx/6G+Jr2Lfv7h2k4WrRpxhq1xvJzSr
-	 PX2ydvk7P9vHYGMzEozIbLZzgR0qXn5bRrSI4WUVJLRSy71bnauCi+WZmgWxUG4gp2
-	 wJf+/rE1If35mB0BvKt6MlpTCDckmEQWsuiIm4hWcvQkxjD75qY/Dt3W4ULk48kavX
-	 07RwxsGQVqg0A==
+	b=OhzVOsvIlhyZehW3gOxd9qBfrN+5dei/L83d2wEiAA6Ln9+UhFB/jxF5oZH5OH98m
+	 /M4UbVLABRzwhxQMXmNTvsZEJltZ5dFF8+SMUI7a/K7+9F9K7kyRAB8xnu9JEqR6c2
+	 v2DTrfMdiNfBPkFNZ6LzQe0pFjc1cikn4TF+aa3zdIHciJN27yuHw1983HoPu1vxJD
+	 brdqEwKWrbi7zaeaAa7S3hrA+MqQtEk09pI657FWn7+1RychIMbKILPuqz6fpMXYZX
+	 27ID2Kl0bV4Fvpw7+493AUoSUDrMhGabfvY+Vn+8LhPBIQUu/y1tJtHmsWGzUDa0A7
+	 x+bUmLbZWL59Q==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 938B546C57;
-	Wed,  4 Nov 2026 02:50:03 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id E265446C27;
+	Wed,  4 Nov 2026 02:50:02 +0000 (UTC)
 From: Nathan Lynch via B4 Relay <devnull+nathan.lynch.amd.com@kernel.org>
-Date: Tue, 03 Nov 2026 20:50:06 -0600
-Subject: [PATCH v4 25/25] dmaengine: sdxi: Add DMA engine provider
+Date: Tue, 03 Nov 2026 20:49:54 -0600
+Subject: [PATCH v4 13/25] dmaengine: sdxi: Add descriptor ring management
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,7 +83,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-sdxi-base-v4-25-3668ccc7aab8@amd.com>
+Message-Id: <20261103-sdxi-base-v4-13-3668ccc7aab8@amd.com>
 References: <20261103-sdxi-base-v4-0-3668ccc7aab8@amd.com>
 In-Reply-To: <20261103-sdxi-base-v4-0-3668ccc7aab8@amd.com>
 To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>
@@ -97,11 +97,11 @@ Cc: Bjorn Helgaas <bhelgaas@google.com>,
  dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-pci@vger.kernel.org, Nathan Lynch <nathan.lynch@amd.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793760600; l=18622;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793760600; l=10534;
  i=nathan.lynch@amd.com; s=20260722; h=from:subject:message-id;
- bh=AqslvRIJqipXUigrtSUCawVvtsuLxqVBRVUFuCdd4cA=;
- b=f9GNTgpXoPYE1dXKWFwLEiIkP4Jg6wWBK4zUk3MKouyAnwPSM+IYoX6+P/h9E1O6gDlYHZaAK
- goqBC3hiE+7AE5mJeQ2fWl58jBcUiT68rbT5xMROV+4B221IdRy7JGA
+ bh=gwpMo5yt4RWU8vsQKUuKNSDl6X5I8qYOPUC619Zy4NE=;
+ b=ElzlA5xjdjg9N7bzZKBZq2ehqM65JYXVsMYDgAAVXkr2wVXlxe8A25VisVa9KLu6TJ6P47ILB
+ zOR1bIJfQeWDl/XhxoVaDA9fBXhWUHespju0QyI2zBTcO6OL3Cd/WNv
 X-Developer-Key: i=nathan.lynch@amd.com; a=ed25519;
  pk=pO5+BCw/TENGLvwX5NYZOZmZihcxjkxeFSMuk47erps=
 X-Endpoint-Received: by B4 Relay for nathan.lynch@amd.com/20260722 with
@@ -112,608 +112,356 @@ Content-Transfer-Encoding: 7bit
 
 From: Nathan Lynch <nathan.lynch@amd.com>
 
-Register a virt-dma memcpy provider with a configurable number of channels
-per function. Publish transactions in cookie order, batching copies behind
-fenced completion interrupts. Keep transactions pending when ring slots or
-completion blocks are unavailable.
+Introduce software state and reservation helpers for driving an SDXI
+submission queue. A spinlock serializes space checks and write-index
+updates; blocking reservations use a bounded, killable wait.
 
-Published descriptors cannot be withdrawn. Termination frees submitted and
-pending transactions and retains published transactions for reaping without
-completing cookies or invoking callbacks.
+Provide exact-size and bounded-size reservations, with descriptor access
+through a ring slot carrying its index and ring state. Reservations
+publish the write index and cannot be rolled back, so callers must
+populate and publish every reserved slot.
 
-Synchronize by polling and reaping transactions under the channel lock,
-then flushing virt-dma callbacks. The wait is uninterruptible and bounded
-to ten seconds. On timeout, suppress remaining callbacks and retain unreaped
-status blocks until context teardown; this timeout path does not establish
-hardware quiescence for client buffers.
+Allocate and initialize ring state with each administrative or client
+context, and free it during context release.
+
+The hardware read index bounds descriptor reuse. Completion handlers
+wake blocked reservations as hardware consumes slots.
 
 Co-developed-by: Wei Huang <wei.huang2@amd.com>
 Signed-off-by: Wei Huang <wei.huang2@amd.com>
 Signed-off-by: Nathan Lynch <nathan.lynch@amd.com>
 ---
- drivers/dma/sdxi/Kconfig  |   1 +
- drivers/dma/sdxi/Makefile |   1 +
- drivers/dma/sdxi/device.c |   2 +
- drivers/dma/sdxi/dma.c    | 509 ++++++++++++++++++++++++++++++++++++++++++++++
- drivers/dma/sdxi/dma.h    |  11 +
- 5 files changed, 524 insertions(+)
+ drivers/dma/sdxi/Makefile  |   3 +-
+ drivers/dma/sdxi/context.c |   9 +++
+ drivers/dma/sdxi/context.h |   2 +
+ drivers/dma/sdxi/ring.c    | 143 +++++++++++++++++++++++++++++++++++++++++++++
+ drivers/dma/sdxi/ring.h    |  94 +++++++++++++++++++++++++++++
+ 5 files changed, 250 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/dma/sdxi/Kconfig b/drivers/dma/sdxi/Kconfig
-index 314b3e725ccb..85e23608405c 100644
---- a/drivers/dma/sdxi/Kconfig
-+++ b/drivers/dma/sdxi/Kconfig
-@@ -4,6 +4,7 @@ config SDXI_CORE
- 	# SDXI 1.0 9 MMIO Control Registers.
- 	depends on 64BIT
- 	select DMA_ENGINE
-+	select DMA_VIRTUAL_CHANNELS
- 	help
- 	  Enable support for Smart Data Accelerator Interface (SDXI)
- 	  Platform Data Mover devices. SDXI is a vendor-neutral
 diff --git a/drivers/dma/sdxi/Makefile b/drivers/dma/sdxi/Makefile
-index 1e261fb03225..3a1d36997b44 100644
+index cdf8a455077b..bfcb443f1e64 100644
 --- a/drivers/dma/sdxi/Makefile
 +++ b/drivers/dma/sdxi/Makefile
-@@ -5,6 +5,7 @@ sdxi-core-y := \
+@@ -2,7 +2,8 @@
+ obj-$(CONFIG_SDXI_CORE) += sdxi-core.o
+ sdxi-core-y := \
  	context.o     \
- 	descriptor.o  \
- 	device.o      \
-+	dma.o         \
- 	ring.o
+-	device.o
++	device.o      \
++	ring.o
  
  obj-$(CONFIG_SDXI_PCI) += sdxi-pci.o
-diff --git a/drivers/dma/sdxi/device.c b/drivers/dma/sdxi/device.c
-index 30c4e687cedf..265ebea1e350 100644
---- a/drivers/dma/sdxi/device.c
-+++ b/drivers/dma/sdxi/device.c
+ sdxi-pci-y := pci.o
+diff --git a/drivers/dma/sdxi/context.c b/drivers/dma/sdxi/context.c
+index f52479ecf96a..b26eec3805fb 100644
+--- a/drivers/dma/sdxi/context.c
++++ b/drivers/dma/sdxi/context.c
 @@ -23,6 +23,7 @@
- #include <linux/xarray.h>
  
  #include "context.h"
-+#include "dma.h"
  #include "hw.h"
- #include "mmio.h"
++#include "ring.h"
  #include "sdxi.h"
-@@ -424,6 +425,7 @@ static int sdxi_device_init(struct sdxi_dev *sdxi)
- 	if (err)
- 		return err;
+ #include "submission.h"
  
-+	sdxi_dma_register(sdxi);
- 	return 0;
+@@ -56,6 +57,7 @@ static void sdxi_free_cxt(struct sdxi_cxt *cxt)
+ 				  cxt->akey_table, cxt->akey_table_dma);
+ 	if (cxt->sq)
+ 		sdxi_sq_free(sdxi, cxt->sq);
++	kfree(cxt->ring_state);
+ 	kfree(cxt);
  }
  
-diff --git a/drivers/dma/sdxi/dma.c b/drivers/dma/sdxi/dma.c
+@@ -72,6 +74,10 @@ static struct sdxi_cxt *sdxi_alloc_cxt(struct sdxi_dev *sdxi)
+ 
+ 	cxt->sdxi = sdxi;
+ 
++	cxt->ring_state = kzalloc_obj(*cxt->ring_state, GFP_KERNEL);
++	if (!cxt->ring_state)
++		return NULL;
++
+ 	cxt->sq = sdxi_sq_alloc(sdxi, DEFAULT_DESC_RING_ENTRIES);
+ 	if (!cxt->sq)
+ 		return NULL;
+@@ -243,6 +249,7 @@ int sdxi_admin_cxt_init(struct sdxi_dev *sdxi)
+ 	sq->cxt_sts.state = FIELD_PREP(SDXI_CXT_STS_STATE, CXTV_RUN);
+ 	cxt->id = SDXI_ADMIN_CXT_ID;
+ 	cxt->sq->doorbell = sdxi->dbs + cxt->id * sdxi->db_stride;
++	sdxi_ring_state_init(cxt->ring_state, sq);
+ 
+ 	err = sdxi_publish_cxt(cxt);
+ 	if (err)
+@@ -324,6 +331,8 @@ struct sdxi_cxt *sdxi_cxt_new(struct sdxi_dev *sdxi)
+ 
+ 	cxt->sq->doorbell = sdxi->dbs + cxt->id * sdxi->db_stride;
+ 
++	sdxi_ring_state_init(cxt->ring_state, cxt->sq);
++
+ 	if (sdxi_publish_cxt(cxt))
+ 		return NULL;
+ 
+diff --git a/drivers/dma/sdxi/context.h b/drivers/dma/sdxi/context.h
+index 28cd7ed401f8..14ce4f5f9b74 100644
+--- a/drivers/dma/sdxi/context.h
++++ b/drivers/dma/sdxi/context.h
+@@ -36,6 +36,8 @@ struct sdxi_cxt {
+ 	dma_addr_t akey_table_dma;
+ 
+ 	struct sdxi_sq *sq;
++
++	struct sdxi_ring_state *ring_state;
+ };
+ 
+ int sdxi_admin_cxt_init(struct sdxi_dev *sdxi);
+diff --git a/drivers/dma/sdxi/ring.c b/drivers/dma/sdxi/ring.c
 new file mode 100644
-index 000000000000..512855c83da2
+index 000000000000..a15c8751a7be
 --- /dev/null
-+++ b/drivers/dma/sdxi/dma.c
-@@ -0,0 +1,509 @@
++++ b/drivers/dma/sdxi/ring.c
+@@ -0,0 +1,143 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/*
-+ * SDXI dmaengine provider
++ * SDXI descriptor ring reservations and write index management
 + *
 + * Copyright Advanced Micro Devices, Inc.
 + */
-+
-+#include <linux/cleanup.h>
-+#include <linux/delay.h>
-+#include <linux/dev_printk.h>
-+#include <linux/container_of.h>
-+#include <linux/dma-mapping.h>
-+#include <linux/dmaengine.h>
-+#include <linux/iopoll.h>
-+#include <linux/list.h>
++#include <kunit/test-bug.h>
++#include <kunit/visibility.h>
++#include <linux/io-64-nonatomic-lo-hi.h>
++#include <linux/jiffies.h>
 +#include <linux/lockdep.h>
-+#include <linux/module.h>
-+#include <linux/overflow.h>
++#include <linux/range.h>
++#include <linux/sched.h>
 +#include <linux/spinlock.h>
++#include <linux/types.h>
++#include <linux/wait.h>
++#include <asm/barrier.h>
++#include <asm/byteorder.h>
++#include <asm/div64.h>
++#include <asm/rwonce.h>
 +
-+#include "../dmaengine.h"
-+#include "../virt-dma.h"
-+#include "completion.h"
-+#include "context.h"
-+#include "descriptor.h"
-+#include "dma.h"
 +#include "ring.h"
-+#include "sdxi.h"
-+
-+static unsigned short dma_channels = 1;
-+module_param(dma_channels, ushort, 0644);
-+MODULE_PARM_DESC(dma_channels, "DMA channels per function (default: 1)");
++#include "hw.h"
++#include "submission.h"
 +
 +/*
-+ * Each channel owns an SDXI context. Transactions enter the ring in cookie
-+ * order. Each transaction produces one copy descriptor with its own completion
-+ * block, and batches end with a shared fenced interrupt descriptor. Each copy
-+ * owns its completion block until reaped. Transactions awaiting capacity remain
-+ * pending. Termination retains published transactions for reaping while
-+ * suppressing their callbacks.
++ * Initialize ring management state from a submission queue. Caller is
++ * responsible for allocating and initializing @sq.
 + */
-+
-+struct sdxi_dma_chan {
-+	struct virt_dma_chan vchan;
-+	struct sdxi_cxt *cxt;
-+	unsigned int vector;
-+	unsigned int irq;
-+	struct sdxi_akey_ent *akey;
++void sdxi_ring_state_init(struct sdxi_ring_state *rs, struct sdxi_sq *sq)
++{
++	WARN_ON_ONCE(!sq);
 +	/*
-+	 * Transactions awaiting ring slots or completion blocks; protected by
-+	 * vchan.lock.
++	 * See SDXI 1.0 Table 3-1 Memory Structure Summary. Minimum
++	 * descriptor ring size in bytes is 64KB; thus 1024 64-byte
++	 * entries.
 +	 */
-+	struct list_head pending;
-+};
++	WARN_ON_ONCE(sq->count < SZ_1K);
 +
-+struct sdxi_dma_txd {
-+	struct virt_dma_desc vdesc;
-+	struct sdxi_copy copy;	/* Copy operation parameters */
-+	/* Completion ownership is acquired at issue and released after reaping. */
-+	struct sdxi_completion completion;
-+};
-+
-+static void sdxi_dma_reap_locked(struct sdxi_dma_chan *sdchan);
-+
-+struct sdxi_dma_dev {
-+	struct dma_device dma_dev;
-+	size_t nr_channels;
-+	struct sdxi_dma_chan sdchan[] __counted_by(nr_channels);
-+};
-+
-+static struct sdxi_dma_chan *to_sdxi_dma_chan(const struct dma_chan *dma_chan)
-+{
-+	const struct virt_dma_chan *vchan;
-+
-+	vchan = container_of_const(dma_chan, struct virt_dma_chan, chan);
-+	return container_of(vchan, struct sdxi_dma_chan, vchan);
-+}
-+
-+static struct sdxi_dma_txd *
-+to_sdxi_dma_txd(const struct virt_dma_desc *vdesc)
-+{
-+	return container_of(vdesc, struct sdxi_dma_txd, vdesc);
-+}
-+
-+static void sdxi_dma_txd_free(struct virt_dma_desc *vdesc)
-+{
-+	struct sdxi_dma_txd *txd = to_sdxi_dma_txd(vdesc);
-+
-+	kfree(txd);
-+}
-+
-+static struct dma_async_tx_descriptor *
-+sdxi_dma_prep_memcpy(struct dma_chan *dma_chan, dma_addr_t dst,
-+		     dma_addr_t src, size_t len, unsigned long flags)
-+{
-+	struct sdxi_dma_chan *sdchan = to_sdxi_dma_chan(dma_chan);
-+	struct sdxi_cxt *cxt = sdchan->cxt;
-+	u16 akey_index = sdxi_akey_index(cxt, sdchan->akey);
-+	struct sdxi_dma_txd *txd;
-+	struct sdxi_copy copy = {
-+		.src = src,
-+		.dst = dst,
-+		.src_akey = akey_index,
-+		.dst_akey = akey_index,
-+		.len = len,
++	*rs = (typeof(*rs)) {
++		.sq = sq,
 +	};
-+
-+	/*
-+	 * Validate now, with a throwaway encode onto the stack. The real
-+	 * encode into the ring happens at issue.
-+	 */
-+	if (sdxi_encode_copy(&(struct sdxi_desc){}, &copy))
-+		return NULL;
-+
-+	txd = kmalloc_obj(*txd, GFP_NOWAIT);
-+	if (!txd)
-+		return NULL;
-+
-+	*txd = (typeof(*txd)) {
-+		.copy = copy,
-+	};
-+
-+	return vchan_tx_prep(&sdchan->vchan, &txd->vdesc, flags);
++	spin_lock_init(&rs->lock);
++	init_waitqueue_head(&rs->wqh);
 +}
++EXPORT_SYMBOL_IF_KUNIT(sdxi_ring_state_init);
 +
-+static enum dma_status sdxi_tx_status(struct dma_chan *chan,
-+				      dma_cookie_t cookie,
-+				      struct dma_tx_state *state)
++/*
++ * Non-blocking ring reservation. Callers must handle ring full (-EBUSY).
++ *
++ * Reserving publishes the write index before the caller has written the
++ * descriptors. Callers are required to publish every reserved slot.
++ */
++int sdxi_ring_try_reserve_range(struct sdxi_ring_state *rs, size_t min_nr,
++				size_t max_nr, struct sdxi_ring_resv *resv)
 +{
-+	struct sdxi_dma_chan *sdchan = to_sdxi_dma_chan(chan);
-+	struct virt_dma_desc *vdesc;
++	struct sdxi_sq *sq = rs->sq;
++	u64 ridx, widx, available;
++	size_t nr;
 +
-+	/* Under the lock for a consistent cookie snapshot; the IRQ reaps. */
-+	guard(spinlock_irqsave)(&sdchan->vchan.lock);
-+
-+	/* vchan_find_desc() only returns issued txds, which own a completion. */
-+	vdesc = vchan_find_desc(&sdchan->vchan, cookie);
-+	if (vdesc) {
-+		struct sdxi_dma_txd *txd = to_sdxi_dma_txd(vdesc);
-+
-+		if (sdxi_cst_blk_check(txd->completion.cst_blk) == SDXI_COMPLETION_ERROR)
-+			return DMA_ERROR;
++	if (!min_nr || min_nr > max_nr || max_nr > sq->count) {
++		WARN_ONCE(!kunit_get_current_test(),
++			  "Reservation of size %zu..%zu requested from ring of size %u\n",
++			  min_nr, max_nr, sq->count);
++		return -EINVAL;
 +	}
 +
-+	return dma_cookie_status(chan, cookie, state);
++	guard(spinlock_irqsave)(&rs->lock);
++	/* SDXI 1.0a 5.3: Read_Index advances at execution start. */
++	ridx = le64_to_cpu(READ_ONCE(sq->cxt_sts.read_index));
++	widx = le64_to_cpu(sq->write_index);
++	if (ridx > widx)
++		return -EIO;
++	if (widx - ridx > sq->count)
++		return -EIO;
++
++	available = sq->count - (widx - ridx);
++	if (available < min_nr)
++		return -EBUSY;
++	nr = min_t(u64, max_nr, available);
++
++	/* The device reads this; it must not observe a torn value. */
++	WRITE_ONCE(sq->write_index, cpu_to_le64(widx + nr));
++	*resv = (typeof(*resv)) {
++		.rs = rs,
++		.range = {
++			.start = widx,
++			.end = widx + nr - 1,
++		},
++	};
++	return 0;
++}
++EXPORT_SYMBOL_IF_KUNIT(sdxi_ring_try_reserve_range);
++
++int sdxi_ring_try_reserve(struct sdxi_ring_state *rs, size_t nr,
++			  struct sdxi_ring_resv *resv)
++{
++	return sdxi_ring_try_reserve_range(rs, nr, nr, resv);
++}
++EXPORT_SYMBOL_IF_KUNIT(sdxi_ring_try_reserve);
++
++/*
++ * Wait up to one second for ring space; return early on success, a
++ * non-transient error, or a fatal signal.
++ */
++int sdxi_ring_reserve(struct sdxi_ring_state *rs, size_t nr,
++		      struct sdxi_ring_resv *resv)
++{
++	int ret, left;
++
++	left = wait_event_killable_timeout(rs->wqh,
++					   (ret = sdxi_ring_try_reserve(rs, nr, resv)) != -EBUSY,
++					   HZ);
++
++	/* success or hard error from try_reserve() */
++	if (left > 0)
++		return ret;
++
++	/* timed out */
++	if (left == 0)
++		return -ETIMEDOUT;
++
++	/* killed: -ERESTARTSYS */
++	return left;
++}
++
++/* Completion code should call this whenever descriptors have been consumed. */
++void sdxi_ring_wake_up(struct sdxi_ring_state *rs)
++{
++	wake_up_all(&rs->wqh);
 +}
 +
 +/*
-+ * Fill capacity with complete, fenced batches in cookie order. Return true
-+ * if descriptors were published; the caller kicks once with the lock held.
++ * Map a logical (unwrapped) ring index onto its entry. The ring size is
++ * not constrained to a power of two, hence the division.
 + */
-+static bool sdxi_dma_drain_locked(struct sdxi_dma_chan *sdchan)
++struct sdxi_desc *sdxi_ring_desc(const struct sdxi_ring_state *rs, u64 index)
 +{
-+	struct sdxi_cxt *cxt = sdchan->cxt;
-+	struct sdxi_ring_state *rs = cxt->ring_state;
-+	bool pushed = false;
++	struct sdxi_sq *sq = rs->sq;
 +
-+	lockdep_assert_held(&sdchan->vchan.lock);
-+
-+	while (!list_empty(&sdchan->pending)) {
-+		struct virt_dma_desc *vdesc;
-+		struct sdxi_ring_resv resv;
-+		struct sdxi_desc *desc;
-+		size_t claimed = 0, copies, i = 0;
-+
-+		/* Claim a pending prefix, stopping at a flag boundary or capacity limit. */
-+		list_for_each_entry(vdesc, &sdchan->pending, node) {
-+			struct sdxi_dma_txd *txd = to_sdxi_dma_txd(vdesc);
-+
-+			if (!sdxi_cst_pool_get(cxt->cst_pool, &txd->completion))
-+				break;
-+			claimed++;
-+			if (vdesc->tx.flags & (DMA_PREP_INTERRUPT | DMA_PREP_FENCE) ||
-+			    claimed == rs->sq->count - 1)
-+				break;
-+		}
-+		if (!claimed)
-+			break;
-+
-+		/* Ring reservations cannot be undone; acquire completions first. */
-+		copies = 0;
-+		if (!sdxi_ring_try_reserve_range(rs, 2, claimed + 1, &resv))
-+			copies = sdxi_ring_resv_count(&resv) - 1;
-+
-+		/* Return claims not covered by this (possibly failed) reservation. */
-+		list_for_each_entry(vdesc, &sdchan->pending, node) {
-+			struct sdxi_dma_txd *txd = to_sdxi_dma_txd(vdesc);
-+
-+			if (i == claimed)
-+				break;
-+			if (i++ < copies)
-+				continue;
-+			sdxi_cst_pool_put(cxt->cst_pool, txd->completion.cst_blk);
-+			txd->completion = (struct sdxi_completion) {};
-+		}
-+		if (!copies)
-+			break;
-+		for (size_t i = 0; i < copies; i++) {
-+			struct sdxi_dma_txd *txd;
-+			struct sdxi_slot slot = sdxi_ring_resv_slot(&resv, i);
-+
-+			vdesc = list_first_entry(&sdchan->pending,
-+						struct virt_dma_desc, node);
-+			txd = to_sdxi_dma_txd(vdesc);
-+			desc = sdxi_slot_desc(slot);
-+			(void)sdxi_encode_copy(desc, &txd->copy); /* validated at prep */
-+			sdxi_cxt_attach_cst(slot, &txd->completion);
-+			sdxi_desc_make_valid(desc);
-+			list_move_tail(&vdesc->node, &sdchan->vchan.desc_issued);
-+		}
-+
-+		/*
-+		 * FE waits for all copies before notifying and before parsing
-+		 * subsequent copies (SDXI 1.0a 5.3, steps 7-9). One terminator
-+		 * satisfies both flags and supplies internal completion IRQs.
-+		 */
-+		desc = sdxi_slot_desc(sdxi_ring_resv_slot(&resv, copies));
-+		sdxi_encode_intr(desc, &(const struct sdxi_intr) {
-+			.akey = sdxi_akey_index(cxt, sdchan->akey),
-+		});
-+		sdxi_desc_set_fence(desc);
-+		sdxi_desc_make_valid(desc);
-+		pushed = true;
-+	}
-+
-+	return pushed;
++	return &sq->ring[do_div(index, sq->count)];
 +}
-+
-+static void sdxi_dma_issue_pending(struct dma_chan *dma_chan)
-+{
-+	struct sdxi_dma_chan *sdchan = to_sdxi_dma_chan(dma_chan);
-+
-+	guard(spinlock_irqsave)(&sdchan->vchan.lock);
-+
-+	list_splice_tail_init(&sdchan->vchan.desc_submitted, &sdchan->pending);
-+	if (sdxi_dma_drain_locked(sdchan))
-+		sdxi_cxt_kick(sdchan->cxt);
-+}
-+
-+static int sdxi_dma_terminate_all(struct dma_chan *dma_chan)
-+{
-+	struct sdxi_dma_chan *sdchan = to_sdxi_dma_chan(dma_chan);
-+	struct virt_dma_chan *vchan = &sdchan->vchan;
-+	LIST_HEAD(head);
-+
-+	/*
-+	 * Prepared descriptors remain caller-owned. Free submitted and pending
-+	 * transactions, and move published transactions to desc_terminated in ring
-+	 * order for callback-free reaping.
-+	 */
-+	scoped_guard(spinlock_irqsave, &vchan->lock) {
-+		list_splice_tail_init(&sdchan->pending, &head);
-+		list_splice_tail_init(&vchan->desc_submitted, &head);
-+		list_splice_tail_init(&vchan->desc_issued, &vchan->desc_terminated);
-+	}
-+	vchan_dma_desc_free_list(vchan, &head);
-+
-+	return 0;
-+}
-+
-+/* Bound the wait for issued and pending copies to complete. */
-+#define SDXI_DMA_SYNC_TIMEOUT_US	(10 * USEC_PER_SEC)
-+
-+/*
-+ * Reap without relying on the completion IRQ, and report whether the
-+ * device is done with every txd that has been or may be placed in the
-+ * ring. Pending txds count because dma_chan_put() synchronizes without
-+ * terminating first.
-+ */
-+static bool sdxi_dma_idle(struct sdxi_dma_chan *sdchan)
-+{
-+	struct virt_dma_chan *vchan = &sdchan->vchan;
-+
-+	guard(spinlock_irqsave)(&vchan->lock);
-+
-+	sdxi_dma_reap_locked(sdchan);
-+	if (sdxi_dma_drain_locked(sdchan))
-+		sdxi_cxt_kick(sdchan->cxt);
-+
-+	return list_empty(&vchan->desc_terminated) &&
-+	       list_empty(&vchan->desc_issued) &&
-+	       list_empty(&sdchan->pending);
-+}
-+
-+static void sdxi_dma_synchronize(struct dma_chan *dma_chan)
-+{
-+	struct sdxi_dma_chan *sdchan = to_sdxi_dma_chan(dma_chan);
-+	struct virt_dma_chan *vchan = &sdchan->vchan;
-+	LIST_HEAD(head);
-+	bool idle;
-+	int err;
-+
-+	/*
-+	 * Callers cannot handle failure, so the wait is not interruptible.
-+	 * Every completion was reaped under vchan.lock, so the tasklet that
-+	 * runs its callback is already scheduled for vchan_synchronize().
-+	 */
-+	err = read_poll_timeout(sdxi_dma_idle, idle, idle, 100,
-+				SDXI_DMA_SYNC_TIMEOUT_US, false, sdchan);
-+	if (err) {
-+		/*
-+		 * Suppress callbacks for outstanding transactions. Completion blocks
-+		 * not released by the reaper stay claimed until context teardown.
-+		 */
-+		scoped_guard(spinlock_irqsave, &vchan->lock) {
-+			list_splice_tail_init(&vchan->desc_issued,
-+					      &vchan->desc_terminated);
-+			list_splice_tail_init(&sdchan->pending, &head);
-+		}
-+		vchan_dma_desc_free_list(vchan, &head);
-+		dev_err(dma_chan->device->dev,
-+			"timed out waiting for DMA channel %d to drain\n",
-+			dma_chan->chan_id);
-+	}
-+
-+	vchan_synchronize(vchan);
-+}
-+
-+static void sdxi_dma_reap_locked(struct sdxi_dma_chan *sdchan)
-+{
-+	struct virt_dma_chan *vchan = &sdchan->vchan;
-+	struct virt_dma_desc *vdesc, *tmp;
-+
-+	lockdep_assert_held(&vchan->lock);
-+
-+	/*
-+	 * Terminated txds are still in the ring. Release them once the device
-+	 * is done, without completing their cookies or invoking callbacks.
-+	 */
-+	list_for_each_entry_safe(vdesc, tmp, &vchan->desc_terminated, node) {
-+		struct sdxi_dma_txd *txd = to_sdxi_dma_txd(vdesc);
-+
-+		if (sdxi_cst_blk_check(txd->completion.cst_blk) == SDXI_COMPLETION_PENDING)
-+			break;
-+
-+		list_del(&vdesc->node);
-+		sdxi_cst_pool_put(sdchan->cxt->cst_pool, txd->completion.cst_blk);
-+		sdxi_dma_txd_free(vdesc);
-+	}
-+
-+	/* Reap completed transactions in cookie order. */
-+	while ((vdesc = vchan_next_desc(vchan))) {
-+		struct sdxi_dma_txd *txd = to_sdxi_dma_txd(vdesc);
-+		enum sdxi_completion_state state;
-+
-+		state = sdxi_cst_blk_check(txd->completion.cst_blk);
-+		if (state == SDXI_COMPLETION_PENDING)
-+			break;
-+
-+		if (state == SDXI_COMPLETION_ERROR)
-+			txd->vdesc.tx_result.result = DMA_TRANS_ABORTED;
-+
-+		list_del(&vdesc->node);
-+		sdxi_cst_pool_put(sdchan->cxt->cst_pool, txd->completion.cst_blk);
-+		txd->completion = (struct sdxi_completion) {};
-+		vchan_cookie_complete(&txd->vdesc);
-+	}
-+
-+	sdxi_ring_wake_up(sdchan->cxt->ring_state);
-+}
-+
-+static irqreturn_t sdxi_dma_cxt_irq(int irq, void *data)
-+{
-+	struct sdxi_dma_chan *sdchan = data;
-+
-+	guard(spinlock_irqsave)(&sdchan->vchan.lock);
-+
-+	sdxi_dma_reap_locked(sdchan);
-+	/* Consumed completion blocks may let stalled pending txds proceed. */
-+	if (sdxi_dma_drain_locked(sdchan))
-+		sdxi_cxt_kick(sdchan->cxt);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static int sdxi_dma_alloc_chan_resources(struct dma_chan *dma_chan)
-+{
-+	struct sdxi_dev *sdxi = dev_get_drvdata(dma_chan->device->dev);
-+	struct sdxi_dma_chan *sdchan = to_sdxi_dma_chan(dma_chan);
-+	int vector, irq, err;
-+
-+	sdchan->cxt = sdxi_cxt_new(sdxi);
-+	if (!sdchan->cxt)
-+		return -ENOMEM;
-+	err = vector = sdxi_alloc_vector(sdxi);
-+	if (vector < 0)
-+		goto exit_cxt;
-+
-+	sdchan->vector = vector;
-+
-+	err = irq = sdxi_vector_to_irq(sdxi, vector);
-+	if (irq < 0)
-+		goto free_vector;
-+
-+	sdchan->irq = irq;
-+
-+	/*
-+	 * Note this akey entry is used for both the completion
-+	 * interrupt and source and destination access for copies.
-+	 */
-+	sdchan->akey = sdxi_alloc_akey(sdchan->cxt);
-+	if (!sdchan->akey) {
-+		err = -ENOMEM;
-+		goto free_vector;
-+	}
-+
-+	*sdchan->akey = (typeof(*sdchan->akey)) {
-+		.intr_num = cpu_to_le16(FIELD_PREP(SDXI_AKEY_ENT_VL, 1) |
-+					FIELD_PREP(SDXI_AKEY_ENT_IV, 1) |
-+					FIELD_PREP(SDXI_AKEY_ENT_INTR_NUM,
-+						   vector)),
-+	};
-+
-+	err = request_irq(sdchan->irq, sdxi_dma_cxt_irq,
-+			  IRQF_TRIGGER_NONE, "SDXI DMAengine", sdchan);
-+	if (err)
-+		goto free_akey;
-+
-+	err = sdxi_start_cxt(sdchan->cxt);
-+	if (err)
-+		goto free_irq;
-+
-+	return 0;
-+free_irq:
-+	free_irq(sdchan->irq, sdchan);
-+free_akey:
-+	sdxi_free_akey(sdchan->cxt, sdchan->akey);
-+free_vector:
-+	sdxi_free_vector(sdxi, vector);
-+exit_cxt:
-+	sdxi_cxt_exit(sdchan->cxt);
-+	return err;
-+}
-+
-+static void sdxi_dma_free_chan_resources(struct dma_chan *dma_chan)
-+{
-+	struct sdxi_dma_chan *sdchan = to_sdxi_dma_chan(dma_chan);
-+	LIST_HEAD(head);
-+
-+	sdxi_stop_cxt(sdchan->cxt);
-+	free_irq(sdchan->irq, sdchan);
-+	sdxi_free_vector(sdchan->cxt->sdxi, sdchan->vector);
-+	sdxi_free_akey(sdchan->cxt, sdchan->akey);
-+	/* virt-dma does not know about the driver's pending list. */
-+	scoped_guard(spinlock_irqsave, &sdchan->vchan.lock)
-+		list_splice_tail_init(&sdchan->pending, &head);
-+	vchan_dma_desc_free_list(&sdchan->vchan, &head);
-+	vchan_free_chan_resources(to_virt_chan(dma_chan));
-+	sdxi_cxt_exit(sdchan->cxt);
-+}
-+
-+int sdxi_dma_register(struct sdxi_dev *sdxi)
-+{
-+	struct device *dev = sdxi->dev;
-+	struct sdxi_dma_dev *sddev;
-+	struct dma_device *dma_dev;
-+	unsigned int nr_channels = dma_channels; /* writable module param; snapshot it */
-+	int err;
-+
-+	if (!nr_channels)
-+		return 0;
-+	/*
-+	 * TODO: Require IntrGrp support before registering the DMAengine provider
-+	 * (SDXI 1.0a Table 6-1).
-+	 */
-+
-+	sddev = devm_kzalloc(dev, struct_size(sddev, sdchan, nr_channels),
-+			     GFP_KERNEL);
-+	if (!sddev)
-+		return -ENOMEM;
-+
-+	sddev->nr_channels = nr_channels;
-+
-+	dma_dev = &sddev->dma_dev;
-+	*dma_dev = (typeof(*dma_dev)) {
-+		.dev                 = dev,
-+		.src_addr_widths     = DMA_SLAVE_BUSWIDTH_64_BYTES,
-+		.dst_addr_widths     = DMA_SLAVE_BUSWIDTH_64_BYTES,
-+		.directions          = BIT(DMA_MEM_TO_MEM),
-+		.residue_granularity = DMA_RESIDUE_GRANULARITY_DESCRIPTOR,
-+
-+		.device_alloc_chan_resources = sdxi_dma_alloc_chan_resources,
-+		.device_free_chan_resources  = sdxi_dma_free_chan_resources,
-+
-+		.device_prep_dma_memcpy = sdxi_dma_prep_memcpy,
-+
-+		.device_terminate_all = sdxi_dma_terminate_all,
-+		.device_synchronize = sdxi_dma_synchronize,
-+		.device_tx_status = sdxi_tx_status,
-+		.device_issue_pending = sdxi_dma_issue_pending,
-+	};
-+
-+	dma_cap_set(DMA_MEMCPY, dma_dev->cap_mask);
-+	INIT_LIST_HEAD(&dma_dev->channels);
-+
-+	for (size_t i = 0; i < sddev->nr_channels; ++i) {
-+		struct sdxi_dma_chan *sdchan = &sddev->sdchan[i];
-+
-+		sdchan->vchan.desc_free = sdxi_dma_txd_free;
-+		vchan_init(&sdchan->vchan, &sddev->dma_dev);
-+		INIT_LIST_HEAD(&sdchan->pending);
-+	}
-+
-+	err = dmaenginem_async_device_register(dma_dev);
-+	if (err)
-+		return dev_warn_probe(dev, err, "failed to register dma device\n");
-+
-+	return 0;
-+}
-diff --git a/drivers/dma/sdxi/dma.h b/drivers/dma/sdxi/dma.h
++EXPORT_SYMBOL_IF_KUNIT(sdxi_ring_desc);
+diff --git a/drivers/dma/sdxi/ring.h b/drivers/dma/sdxi/ring.h
 new file mode 100644
-index 000000000000..d38870ea7d91
+index 000000000000..fb6c7ab36b57
 --- /dev/null
-+++ b/drivers/dma/sdxi/dma.h
-@@ -0,0 +1,11 @@
++++ b/drivers/dma/sdxi/ring.h
+@@ -0,0 +1,94 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +/* Copyright Advanced Micro Devices, Inc. */
++#ifndef DMA_SDXI_RING_H
++#define DMA_SDXI_RING_H
 +
-+#ifndef DMA_SDXI_DMA_H
-+#define DMA_SDXI_DMA_H
++#include <linux/bug.h>
++#include <linux/io-64-nonatomic-lo-hi.h>
++#include <linux/range.h>
++#include <linux/spinlock.h>
++#include <linux/types.h>
++#include <linux/wait.h>
++#include <asm/barrier.h>
++#include <asm/byteorder.h>
++#include <asm/div64.h>
++#include <asm/rwonce.h>
 +
-+struct sdxi_dev;
++#include "hw.h"
 +
-+int sdxi_dma_register(struct sdxi_dev *sdxi);
++struct sdxi_sq;
 +
-+#endif /* DMA_SDXI_DMA_H */
++/*
++ * struct sdxi_ring_state - Software state for driving a submission queue.
++ *
++ * @lock: Guards the write index.
++ * @sq: The submission queue being driven.
++ * @wqh: Pending reservations.
++ */
++struct sdxi_ring_state {
++	spinlock_t lock;
++	struct sdxi_sq *sq;
++	wait_queue_head_t wqh;
++};
++
++/*
++ * A claim on a contiguous span of the ring's logical index space. The
++ * indexes are monotonic and unwrapped; sdxi_ring_desc() maps them onto
++ * ring entries.
++ */
++struct sdxi_ring_resv {
++	const struct sdxi_ring_state *rs;
++	struct range range;
++};
++
++void sdxi_ring_state_init(struct sdxi_ring_state *ring, struct sdxi_sq *sq);
++void sdxi_ring_wake_up(struct sdxi_ring_state *rs);
++int sdxi_ring_reserve(struct sdxi_ring_state *ring, size_t nr,
++		      struct sdxi_ring_resv *resv);
++int sdxi_ring_try_reserve(struct sdxi_ring_state *ring, size_t nr,
++			  struct sdxi_ring_resv *resv);
++int sdxi_ring_try_reserve_range(struct sdxi_ring_state *rs, size_t min_nr,
++				size_t max_nr, struct sdxi_ring_resv *resv);
++struct sdxi_desc *sdxi_ring_desc(const struct sdxi_ring_state *rs, u64 index);
++
++/* Number of slots held by @resv. */
++static inline size_t sdxi_ring_resv_count(const struct sdxi_ring_resv *resv)
++{
++	return range_len(&resv->range);
++}
++
++/*
++ * Logical index of slot @i of @resv, suitable for passing to
++ * sdxi_ring_desc(). @i must be less than sdxi_ring_resv_count().
++ */
++static inline u64 sdxi_ring_resv_index(const struct sdxi_ring_resv *resv,
++				       unsigned int i)
++{
++	/* Keep a caller's mistake inside the slots it owns. */
++	if (WARN_ON_ONCE(i >= sdxi_ring_resv_count(resv)))
++		return resv->range.start;
++	return resv->range.start + i;
++}
++
++/* A reserved descriptor slot identified by its ring and logical index. */
++struct sdxi_slot {
++	const struct sdxi_ring_state *rs;
++	u64 index;
++};
++
++/* Slot @i of @resv. @i must be less than sdxi_ring_resv_count(). */
++static inline struct sdxi_slot sdxi_ring_resv_slot(const struct sdxi_ring_resv *resv,
++						   unsigned int i)
++{
++	return (struct sdxi_slot) {
++		.rs = resv->rs,
++		.index = sdxi_ring_resv_index(resv, i),
++	};
++}
++
++static inline struct sdxi_desc *sdxi_slot_desc(struct sdxi_slot slot)
++{
++	return sdxi_ring_desc(slot.rs, slot.index);
++}
++
++#endif /* DMA_SDXI_RING_H */
 
 -- 
 2.56.0
