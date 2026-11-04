@@ -1,88 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793812690;
-	b=SGmD81fxZc1GCW1qrtwNOzuElMQRHjmXgVoiLdQmwnLcIkf6SrGaTJQzmmRGL6lw69+S
-	 2wPy1IqJ6MlsAUJWWPAs0STWh38fyE33154nLFbEcCJVJemv4MdMJoFdqdWDPKZIKHzs4
-	 sVWEHWyggLggXW1JqgXj+5F/qdTYy+KM1im4h2zP2d1pONolJd29PhGT6rHRE/l62jUgV
-	 qxgOIWytwejomsqc+/g46x5mtGyEhKEd1hZzYFfzjHz3wbIPJa+QdZVpT32pXK6S8fmVD
-	 g7UUbkBLqO//elTs2vMgzysQFP6JOd/U7jOW46UJCY/OxhkYoIQrISI3dHA/uik2XGA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793812690;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=8/NfmLQ3EYgwoCetf8WIbYR9sd0SW9xVRHDNR83SE2k=;
-	b=v8KS/FButZgjg7/998zFSeQSlQtzcu7OpVKlezTg5JFTcpHGYstx4ndFS/5w0PwPSjKZ
-	 jzjDp9IfA96efJelua6xv1wBu/hHo8jbDKGpJx5I9l1gCr48oRLOGQwrs9pq9fXX781LT
-	 jT9SiLIbVwbUy5PWFIvOdS9v+Mt9vFINB2SCmfIIjgdX1WWChN92bqvwvwD6r7grX6cjM
-	 QamMnB/Yk1Fd8imhsFXAVC0AktaGG8W1R+n19/5N1t2Koy9QPba0GhApeXVP8q+D+PQmz
-	 GqrljVdmIGA4+UCjziFa9+OwRBy9s3s/Kk/k/LzUE+b4FcU+BPSu6oks2JrTJpYHIBA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=A71cIeR3;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.37
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793812875;
+	b=LLpaD3377WM/7KjqOFlyTMIIJbWoXLz0Ve7+cNy6rJvi/xdojPcSLhlh6SMZjCPlTXgg
+	 F7oVMnyCV8P3TPTmbsjLP2sMpHM94Zax4ln8XOmwPSz/BdreDPvGgCW3hBhikn4Xf5fif
+	 EkwwFvJdfrp/SKXyseeYuFYaKx3277M9L9Q4JL1gh3Wp1uCH6KN3b0f2bsdx1sRvTgwrv
+	 Gt+2ukK8yhj4prwEmIi8c0FNv4RUMY78QZXsnmf55p03wpG5WQPVj+upzITH+HWuneDVJ
+	 7s0cp7sCXEGbTn0+OXDeYpMolizvc9ccO+hsfKjM0e3wl52rq2sMHoveMW3KRvUK+3g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793812875;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=TSxfE+gz+1en2rtNkrs5hrLfsLrTU1M7/SodrHVMk5A=;
+	b=BNHOMQ93NQATfdExZ9vH/kuJQi0mEGHphpQ1VU1b/naePJm0SesSKu2xhRYRHNRB4yrn
+	 5jvY0eAQFuV9FcfbrWe94RQoxpWCJrr6Hs425Txla+/gZkNEyReuFCvtVw6ixkuVP4zVB
+	 zTQ9SSYYPjki2uLm5wsMVPksXyxTb7yD8DcmCgt/1t3xu8HqbUJ8miYuErB0VArGse5lv
+	 Qf7D0vl59eEefE/X0lTm+7DgPXII0Q8p7WLbQKmyDJsjQ5v99GEV3AhdPw4Du5X213PoN
+	 gZHaF+IbIkPJSun7c8iNYggqVKJzv9iXavQTMhAvcvxW5zWdwv2GG+DWv1EnfhYf4IA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=kjDfs4VL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.37
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011037.outbound.protection.outlook.com [52.101.65.37])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED71606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 17:18:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2ED71606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6746C606A31B;
+	Wed,  4 Nov 2026 17:21:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6746C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=A71cIeR3
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso8656485e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 09:18:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793812687; x=1794417487; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=8/NfmLQ3EYgwoCetf8WIbYR9sd0SW9xVRHDNR83SE2k=;
-        b=A71cIeR3AARNC1XBZ/bBp1ZicrZksc7yqu6Ryaj/NLf79YbXXoFX7Z9JC6B8Oop1YG
-         cuzMQtJqj2z70GJnOB0NmhqzMYIpHSFuO93N4FXB5WTUsfK45VNB10QGVTm++r2D5X9G
-         E0XhphC1qgdaQtvfFq883+BWD+jWIE0Jqq1CWKDeGS7TVXDqU2yref+D2hsuE1W4koTi
-         yYuoQD+VgVk0He7b/dMRDhA9BQJQ5fcxAmGooiV/YefeufX5JvF70sGjpI+QKIKlmD/x
-         LzY9g9iPw1dqD7qe325U6QVeTcnp+JkzbuPtYoHozLZKi3VVQIC8PfUZGMtQZg7Rsfgo
-         Bl4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793812687; x=1794417487;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=8/NfmLQ3EYgwoCetf8WIbYR9sd0SW9xVRHDNR83SE2k=;
-        b=eUvfgwKf89MrmfHslxPYX5uK7lVVmIIWCIyp7z30Rc9gvT/eu2j3zN+36OwvuRo87M
-         CA6LrYE96w98bn0PqjTxUjVqjdNmyyidJ2ODKw2j0xEV91ngMtTpMZ9iZoc9qrn4BRU+
-         RQYkdGaB2vBDSf++Y0rPAxkhhChfjI7Pco6BDwySaD6m9ROh45lPdwdwUriEs/f0h1BG
-         uHfv6mDR7b+6A4C2VEAvA7tJWjPusD+FcLdrmXP5LI+p34b76gU+/OprreaxDpTHsI9M
-         ZBcXOemWZV9MMEHbmocgj97A0WMOTtdGTmA2yQf/wRULlSGQUXFZm/uI4pp+YqOOJiBk
-         fh6g==
-X-Forwarded-Encrypted: i=1; AKwUvBxpYXGkN3qV7KVAEztNa0ods54iks1sABIlnkqkTVzGDbiZHLdcPmVgZEIJd9u3RedHmeUr3m+tMr08BhY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/wjUAdCQvt4FrWz3BZnkZapRZTNA0w22b2+SIbUTNdix0oPnF9
-	kLU/qjN0paflsY++5DCvOZalWaARlMCEXujkuiBqlrzVYGHCgsYpY2JRdz373BdM25E=
-X-Gm-Gg: AYBFou3sLCg0dls/cA7WR3t9+Z11HUNGnPqoOz63cIrV3KqehP9A5UMEHBjOJhiISHQ
-	y8kBI5UZZeX8L3lD5mNhdch0DA6+FTgOiWQ1JjZ5yl3NpveVBfqYw4/46DK4s3E3JpYD85/8Bfi
-	P9bcPVN+ncymVStf1YWQo7F0alLB5PzM1R2i81+eP+gL2uo9oChFbnydSrSsieQBI162DGG9tC2
-	kAKJlPagZSqgY/r+8wsBAOaFTjpTGrK8wZLpDwZjd+ylK3fevH12xuRSYA1Ty4ZSatp3XGLTrAF
-	VXNBGGDkDYu4tm6Ao0JHdA7bSH5yCRQfq7cnzh0wWPcbqm6FyVl6F+gaI7mIacP3fB8ayFd+/Po
-	+S2bfUEM5UX2bJKEW5M8vqJAjRkWt6VpEnmczjr6i5uV4ids4ZfjPWxBh8/XJkHawj1I9Y9qWQL
-	P9vubaqcRtwSUu5F2iPNx5o5LmEvMiz2J0T3X+lmP+tRB8PB4uIpPSOqaBwv8Wg5Wci1SV4bbZ6
-	47HdmEM+8RxvQWGp+1CRMTxm0vKuGCONZEVca2gownLG2flvEpRrGHqoWjYMtaeb85VYFjz9/ge
-	v3hSN2VEY114zMIGOV4knWci0wSicogCmsaMYEDIB0vZ3Df9A3BegA7lOR+mkoy9vAnYvkITgWR
-	6CenCTwSm/g==
-X-Received: by 2002:a05:600c:46ce:b0:4a6:7d6:821f with SMTP id 5b1f17b1804b1-4ac189928e9mr373130175e9.29.1793812687472;
-        Wed, 04 Nov 2026 09:18:07 -0800 (PST)
-Received: from ta2.c.googlers.com (231.141.38.34.bc.googleusercontent.com. [34.38.141.231])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b43c17ecdasm99030535e9.5.2026.11.04.09.18.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 09:18:06 -0800 (PST)
-From: Tudor Ambarus <tudor.ambarus@linaro.org>
-Date: Wed, 04 Nov 2026 17:17:58 +0000
-Subject: [PATCH v9] arm64: dts: exynos: gs101: Add thermal management unit
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=kjDfs4VL
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CHHjjDR3XNg4Y83tt+cCsNs/hR6p2NQmmCIWct2dggsCK3Jj5lKKbgcbOkZlMqfMDNmF3clf/im7+SUAusc/aPPYuC5UzqGQG8ppbXNdI9cP7l8BlnirNt/B3I0l0jJ1wfRYo3bX8KKQNnKCezzbV5Grn4mrBBnZhDI49h6GgjxJBkEmLbpEYmLObYmX7QujELeI5r7n7Y9/1IqIiP/8CEyJxXz46fXGcF+fRz2x8XZToCuehWJDf+9TxVyl+XAGFkQArZI1PrRiXjRg42h49wP8x6EOAI9gZSP6NQVOdm9KKF5mHzBOQGc6K22hbb8xVhPBuyXZU/yEbAJvyQKajA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TSxfE+gz+1en2rtNkrs5hrLfsLrTU1M7/SodrHVMk5A=;
+ b=Mc15A1lBctr3eSRjo+49tvvyS+AxvM4frAwtfnnsjmvsFQLAx+wEAi/x+RkIe0/HyUT9aMFUQRDZq+jsoAWl0maud5OyPqxcZd3NQdeYFt6ap+l0eTUZq4GCfoq6V53ygunUBbz9sWSjf0In6YJCE9yu3iorVl9ngYUU3pMuGWo3j+PVurc1Zw3dtF5iYRlT9iJyra/3G7LB3XeH8/Oa0nQXooKaxKV6/6gmQVSn2IMnLDd21AOsyuODg+Fg8jWFHiE21LNQFfl1AQ14L5KSOz+Xq0FrGCG201iGKv+oajsqK01cIb6pjwsiDeJ1ACoPWiJwFq9bxVFBTZqw9j0mdg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TSxfE+gz+1en2rtNkrs5hrLfsLrTU1M7/SodrHVMk5A=;
+ b=kjDfs4VLJxaP6oRu3jKybldJAsHcuyf1Qxhlq22/tauIXHo8OEOy2rgTuglMlN2aPgzGwEjmG7ZdrMjWGsnbCpLoIXMfzvCuPM/EuTHYyDfjxG0YFosGs4YzMbeOxgVrXZlnFXZeipDYSeF8SBAg+8LAIpDRTl4+ApRKijikcdj4HsGC3NR21uO8Oz5azgsSfYD9IOcxBSRdaxZGD6qKtIlrLgx95kMQzAIzIxPWQgBZ03AWDLU75igmQh/rglcemAow3yhCe3yhuKXDqfWwWoo/+0CgIQTVqPuYcKbActi1JVWdqlGR+ZQWopY0y/MFhgtVxxaapJFcmnAUIGXNNQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by DB9PR04MB11597.eurprd04.prod.outlook.com (2603:10a6:10:60f::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
+ 17:21:10 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
+ 17:21:10 +0000
+Date: Wed, 4 Nov 2026 11:21:01 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Gustavo Pimentel <Gustavo.Pimentel@synopsys.com>,
+	Serge Semin <fancer.lancer@gmail.com>,
+	Cai Huoqing <cai.huoqing@linux.dev>,
+	Niklas Cassel <cassel@kernel.org>,
+	Devendra K Verma <devverma@amd.com>, dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v7 2/7] dmaengine: dw-edma: Avoid resetting an LL on
+ stale stopped status
+Message-ID: <autpfbvm-mcvXrEr@SMW015318>
+References: <20261104161227.1742005-1-den@valinux.co.jp>
+ <20261104161227.1742005-3-den@valinux.co.jp>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104161227.1742005-3-den@valinux.co.jp>
+X-ClientProxiedBy: PH8P222CA0017.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:510:2d7::27) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,306 +103,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261104-acpm-tmu-dts-v9-1-e5c53cd8b440@linaro.org>
-X-B4-Tracking: v=1; b=H4sIAMVo62oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyLHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQwMT3cTkglzdktxS3ZSSYt201OREi9SkFAtTwxQloJaCotS0zAqwcdG
- xtbUAfAtwa14AAAA=
-X-Change-ID: 20261104-acpm-tmu-dts-feca8ebd851d
-To: Peter Griffin <peter.griffin@linaro.org>, 
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Tudor Ambarus <tudor.ambarus@linaro.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793812686; l=8231;
- i=tudor.ambarus@linaro.org; s=20241212; h=from:subject:message-id;
- bh=FzMgyf0GkXAyHz8KN3lxfqbJvyM58XZDMZmsVFVF56M=;
- b=VcLAybzUpRdt0QacvThY4kiJAnifS9EwqcYep0QB5ESA/2J7Rlxdlz45MZVYRS2cA2JubWltF
- cvCADLbjES+ChWqPWNh7RaCINiQSKBd1jYJmS8Hh2Qrrd2hE2vlSM92
-X-Developer-Key: i=tudor.ambarus@linaro.org; a=ed25519;
- pk=uQzE0NXo3dIjeowMTOPCpIiPHEz12IA/MbyzrZVh9WI=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DB9PR04MB11597:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf8636c1-5786-4de5-775f-08df3a980523
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|7416014|19092799006|4143699003|11063799006|56012099006|261028144727099003|261022105027099003|261009223027099003|261022075727099003|261102123227099003|261026140227099003|261026121527099003|261021121427099003|261021123027099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	EVR3WINkEt2l2cB8kt1zYKEgbNh2bupeMNMz4UPy5UUTXmXHG+fC9/atlmLhqQhvzdvN8oZn/h4d3H78+MFZ40/yostZ3dWGMkUDWAbByIWgvThWM3u3HuqraUvFpk91YmT79Yp/vMaweJ13W0mlL6qR6meQOKQlgdFmwCeadCXNHrmjdsSkJmo2oivOM9/XCUldtnL24ebHTfZ+R7XTX6Z/jF1V05RXIY1iT39hgX7iZlxHrAwKxKPglgO5iu3auQABoal8rE5AOxsCBz/Rxh6QTc8FrK/u2z7gYpma5YVmrhiNWtkbHTt/mMdGpyE2+0dF42iw7LmcflY46Ki1Oxh9sNj6LgG8lG9dSIIOMI6Wg+JE+rQbjFZi66bKtkInlFSehxcxqbG7b4owfJ0BzMopMV8H+wkN3M9/giRCflgRLIA4IVRn3nLuALf9YkECAea6GeZqS0xEisggs8wSjroEMc5KV5rvj7mzXa6yf2WzRb6c7Yn5yb33s/GoFt34xVqwxnvilC9jYmzwLsntPlFWceNF9WsHrraJ7asFpklES6W88i8oyUKCZWGS6XSvmi7xDY85YFv6hf6+OaUmaPgf5j+G44jes8JlRjsnvLh47LLrK12er6+0undJgBcdS37kA8fVWBoDUpbFhAqAuZmvOzdkDKxGEhnXIiQ6FZo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(19092799006)(4143699003)(11063799006)(56012099006)(261028144727099003)(261022105027099003)(261009223027099003)(261022075727099003)(261102123227099003)(261026140227099003)(261026121527099003)(261021121427099003)(261021123027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?isUrhriQUAEcwo8INVZ/Pdy5ZSUR8t0jlrfVzL+4mbqsm3pPyVN73G5FMyYU?=
+ =?us-ascii?Q?pdlni3ly5hMxrXF3b01jZnq8U1sYCZSzwAvHECQVE6dzf81d8FLaKyDazE7V?=
+ =?us-ascii?Q?u82VvQXc4EV8BRLpcEBoiEY3yJFHYU2BEAczKEbKEpxhEl0QjTMqBwpP33iX?=
+ =?us-ascii?Q?ikVJnG9pf5BxZKXigvqoc8k5VsAwVnh1lfPB3bwXOANueEvl2/Pq9fW2JwjG?=
+ =?us-ascii?Q?9i2rSV0d4SxZmGs+5/sF5bZbX49D8oeAUgzzq87pvYclP+H/73oqlaQDL8aW?=
+ =?us-ascii?Q?5WZVukl90ccGYK9SIcXp7ejOoJSC4RC46+dsj0E8vdjcyQQWGmaBOoD23eJD?=
+ =?us-ascii?Q?4iWfUfSXoqwgkr+KMNQagutgLMP0k517OJWTSWlKnKm1e6wDCXR4p87dVFYG?=
+ =?us-ascii?Q?fWJdWkhl7XOZt/tHTvnCpUMDHaqNF/F5kdqdxGqnatxLEZsDbWu8c9QiQ4A0?=
+ =?us-ascii?Q?G8x+2QdO4jH1D2mCCJlkS84AByiueadTutLjcs+QaEqJtuqRTWfSve42weUm?=
+ =?us-ascii?Q?dcaHM6OtvjpkOn2I6pGQMiyHwyrC/nwPipW90u16/2vIN2q8ATVnWyqjHsUx?=
+ =?us-ascii?Q?TOS8WKkpb1y2kbCmRRW2C9QSQr+PPIYuYYTFjRayHJseL1AtvMlcZKY7EKgC?=
+ =?us-ascii?Q?prHYT/bgI85/ZAnn968Cq3GtG2ewp1EeJ6DB9dKyMoIyJMcQyyKEyPYftSYo?=
+ =?us-ascii?Q?D42AeIkwYfv3RaKil05x7tLXWQr4zB/tDPXUUkrymIzdTkEn22D28IZjF15U?=
+ =?us-ascii?Q?eMbHMj1ynLLioDlDHDGYq+CNIIOK+UkInDEnEXJvKzHMKHznb3M892PGjQnS?=
+ =?us-ascii?Q?S9LpzyXPvmJaZdNdcHQs3hnOcw5sG+MBMjV5KbemuQCRIPXmUxECVDr3jCUO?=
+ =?us-ascii?Q?Z+hWQwwlDZmKBrk6ngH5lJr5QbS6p/GHRlXVXTZLj4DbUSeGbqDTIwE7CoBN?=
+ =?us-ascii?Q?NrrKvVjqjgw8KDE7Jc/j9k8ni/qFDbCKg+EsrsF2xlY+7/EZz0RPOrsRQbOp?=
+ =?us-ascii?Q?e53gGS9Onfxw0Efc7FIlGeDCbA30mHHxCBPz2BqQWs5NKdMgQt7eBZtbyduO?=
+ =?us-ascii?Q?1IBsvP3zEYYi6ITx1xYRKEbDSLvId1B/erLg8X55+yl90ZfK9Oqp6AtxPriw?=
+ =?us-ascii?Q?mq0GhLEDBU7T24nBUZB97cBLmYWdX3NFJg8iYfLs3gSQjb4gunfcdzvQUzKj?=
+ =?us-ascii?Q?uTuza205KnMIZgULIqJsgIawkdIPF3PTzc+oDYB2xT3QWR+j4jU29JygSYfB?=
+ =?us-ascii?Q?jMjhCrBRabP0iEqhDUHH7Ac3BN8J916eGWdlLF4oSox1PGeJWAP84aIDke4Y?=
+ =?us-ascii?Q?3dduDt8Q7+5FxMIKsFxZT9ddUdDASODDipBLLMV7d76e/qgi0CM54FhwVhPj?=
+ =?us-ascii?Q?GPYZ5RyvKc9DPyZX+7NM/DKCEJpZbZv+qio1pT4T0+/a6Uwy8t4mLhpBXcG4?=
+ =?us-ascii?Q?IkDShwOzcwED9VLga6R/Hz5vn2IVrwx16+VNXkN2taWgFlGCBxYUzPdb5UP5?=
+ =?us-ascii?Q?bU7jfNhGdLEBKi5hvfHMCCqRYuVszqYk5yoP7mzSMgqavokLpG2cz+qR6uhF?=
+ =?us-ascii?Q?FyjJqxjeDbybwr8OjB46/lM/Ht+v8sWyHheNGipGgQXLpptTCG6R8cuMi5NT?=
+ =?us-ascii?Q?hPbrBe0SViIBUy8wkqfCjLfDfpsYQKBLhR8qVijPIRZ1c8gpjgqfo0LUYxtz?=
+ =?us-ascii?Q?1XFAp/NU+Pg2a70ncXeeU5Y0ooTfcENht+jeAuBeTm/qSh403Spb2o7NpuvJ?=
+ =?us-ascii?Q?NFoeOoDg8BgSjxTE2gJFp6CDKz/eemaOEXkjqoeTWson9zseCkK5?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf8636c1-5786-4de5-775f-08df3a980523
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 17:21:10.7702
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: liBua687hqYRRmMujjiIo0X0hGUXLLOtFuSiekUjoGdts6+inxINLdBdafJ6yGkmM8Cn8UbQSV/TDALsO6dt32iUhLxEPZqtanmcm8tH/Qhw0yoHHrwjmmlbNT78TeF0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB11597
 
-Add the TMU node and thermal zones for the little, mid and big CPU
-clusters, and make the CPUs cooling devices.
+On Thu, Nov 05, 2026 at 01:12:22AM +0900, Koichiro Den wrote:
+> CS can still report STOPPED briefly after a doorbell write, before the
+> DMA engine starts consuming the published LL entries. Finishing
+> termination relying solely on that value can reset the ring while a
+> transfer is about to start, leaving hardware and software ring positions
+> out of sync and stalling subsequent transfers.
+>
+> Require LLP to reach the published tail, on top of the standard criteria
+> (ie. CS=STOPPED and zero transfer size) before
+> dw_edma_finish_termination(). Non-LL mode behavior is unchanged.
+>
+> Cc: stable@vger.kernel.org
+> Fixes: db79c4e264ef ("dmaengine: dw-edma: Make DMA link list work as a circular buffer")
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> ---
 
-Trips are ordered by temperature rather than by name, as the
-power_allocator governor relies on the order of the passive trips.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-Signed-off-by: Tudor Ambarus <tudor.ambarus@linaro.org>
----
-Hi,
-
-Add the device tree description of the Thermal Management Unit (TMU)
-on the Google GS101 SoC.
-
-The GS101 TMU bindings and driver have been merged in v7.4-rc1 through
-the thermal tree. This patch is split off from v8 [1].
-
-Changes since v8 [1]:
-- dts: set polling-delay-passive to 250ms so thermal governors (step_wise,
-  power_allocator) periodically evaluate and adjust CPU cooling states while a
-  passive trip point is violated, place generic #thermal-sensor-cells before
-  samsung,acpm-ipc (André), fix tab indentation in cpucl1-thermal
-  cooling-maps, and use GPL-2.0-only SPDX identifier.
-- dts: order thermal zones by name and place cooling-maps before trips to
-  follow the DTS coding style, and keep trip points ordered by temperature
-  as power_allocator selects its switch-on and maximum trips by passive
-  trip order.
-- defconfig: drop the patch. CONFIG_EXYNOS_ACPM_THERMAL defaults to
-  ARCH_EXYNOS and is already built as a module in the arm64 defconfig
-  via CONFIG_EXYNOS_ACPM_PROTOCOL=m, so savedefconfig removes the line.
-
-[1] https://lore.kernel.org/linux-samsung-soc/20260603-acpm-tmu-v8-0-0f1810a356e6@linaro.org/
-
-Thanks,
-ta
----
- arch/arm64/boot/dts/exynos/google/gs101-tmu.dtsi | 136 +++++++++++++++++++++++
- arch/arm64/boot/dts/exynos/google/gs101.dtsi     |  18 +++
- 2 files changed, 154 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/exynos/google/gs101-tmu.dtsi b/arch/arm64/boot/dts/exynos/google/gs101-tmu.dtsi
-new file mode 100644
-index 000000000000..5ca8360ee97e
---- /dev/null
-+++ b/arch/arm64/boot/dts/exynos/google/gs101-tmu.dtsi
-@@ -0,0 +1,136 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Google GS101 TMU configurations device tree source
-+ *
-+ * Copyright 2020 Samsung Electronics Co., Ltd.
-+ * Copyright 2020 Google LLC.
-+ * Copyright 2026 Linaro Ltd.
-+ */
-+
-+#include <dt-bindings/thermal/thermal.h>
-+
-+/ {
-+	thermal-zones {
-+		cpucl0-thermal {
-+			polling-delay-passive = <250>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tmu_top 2>;
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&little_mitigate>;
-+					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+
-+			trips {
-+				little_switch_on: little-switch-on {
-+					temperature = <80000>;
-+					hysteresis = <2000>;
-+					type = "passive";
-+				};
-+
-+				little_mitigate: little-mitigate {
-+					temperature = <90000>;
-+					hysteresis = <5000>;
-+					type = "passive";
-+				};
-+
-+				little_hot: little-hot {
-+					temperature = <100000>;
-+					hysteresis = <5000>;
-+					type = "hot";
-+				};
-+
-+				little_critical: little-critical {
-+					temperature = <105000>;
-+					hysteresis = <2000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		cpucl1-thermal {
-+			polling-delay-passive = <250>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tmu_top 1>;
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&mid_mitigate>;
-+					cooling-device = <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+
-+			trips {
-+				mid_switch_on: mid-switch-on {
-+					temperature = <80000>;
-+					hysteresis = <2000>;
-+					type = "passive";
-+				};
-+
-+				mid_mitigate: mid-mitigate {
-+					temperature = <90000>;
-+					hysteresis = <5000>;
-+					type = "passive";
-+				};
-+
-+				mid_hot: mid-hot {
-+					temperature = <100000>;
-+					hysteresis = <5000>;
-+					type = "hot";
-+				};
-+
-+				mid_critical: mid-critical {
-+					temperature = <105000>;
-+					hysteresis = <2000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		cpucl2-thermal {
-+			polling-delay-passive = <250>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tmu_top 0>;
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&big_mitigate>;
-+					cooling-device = <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+
-+			trips {
-+				big_switch_on: big-switch-on {
-+					temperature = <80000>;
-+					hysteresis = <2000>;
-+					type = "passive";
-+				};
-+
-+				big_mitigate: big-mitigate {
-+					temperature = <90000>;
-+					hysteresis = <5000>;
-+					type = "passive";
-+				};
-+
-+				big_hot: big-hot {
-+					temperature = <100000>;
-+					hysteresis = <5000>;
-+					type = "hot";
-+				};
-+
-+				big_critical: big-critical {
-+					temperature = <105000>;
-+					hysteresis = <2000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/exynos/google/gs101.dtsi b/arch/arm64/boot/dts/exynos/google/gs101.dtsi
-index b218ff50d228..395e4716f8fd 100644
---- a/arch/arm64/boot/dts/exynos/google/gs101.dtsi
-+++ b/arch/arm64/boot/dts/exynos/google/gs101.dtsi
-@@ -91,6 +91,7 @@ cpu0: cpu@0 {
- 			compatible = "arm,cortex-a55";
- 			reg = <0x0000>;
- 			clocks = <&acpm_ipc GS101_CLK_ACPM_DVFS_CPUCL0>;
-+			#cooling-cells = <2>;
- 			enable-method = "psci";
- 			cpu-idle-states = <&ananke_cpu_sleep>;
- 			capacity-dmips-mhz = <250>;
-@@ -103,6 +104,7 @@ cpu1: cpu@100 {
- 			compatible = "arm,cortex-a55";
- 			reg = <0x0100>;
- 			clocks = <&acpm_ipc GS101_CLK_ACPM_DVFS_CPUCL0>;
-+			#cooling-cells = <2>;
- 			enable-method = "psci";
- 			cpu-idle-states = <&ananke_cpu_sleep>;
- 			capacity-dmips-mhz = <250>;
-@@ -115,6 +117,7 @@ cpu2: cpu@200 {
- 			compatible = "arm,cortex-a55";
- 			reg = <0x0200>;
- 			clocks = <&acpm_ipc GS101_CLK_ACPM_DVFS_CPUCL0>;
-+			#cooling-cells = <2>;
- 			enable-method = "psci";
- 			cpu-idle-states = <&ananke_cpu_sleep>;
- 			capacity-dmips-mhz = <250>;
-@@ -127,6 +130,7 @@ cpu3: cpu@300 {
- 			compatible = "arm,cortex-a55";
- 			reg = <0x0300>;
- 			clocks = <&acpm_ipc GS101_CLK_ACPM_DVFS_CPUCL0>;
-+			#cooling-cells = <2>;
- 			enable-method = "psci";
- 			cpu-idle-states = <&ananke_cpu_sleep>;
- 			capacity-dmips-mhz = <250>;
-@@ -139,6 +143,7 @@ cpu4: cpu@400 {
- 			compatible = "arm,cortex-a76";
- 			reg = <0x0400>;
- 			clocks = <&acpm_ipc GS101_CLK_ACPM_DVFS_CPUCL1>;
-+			#cooling-cells = <2>;
- 			enable-method = "psci";
- 			cpu-idle-states = <&enyo_cpu_sleep>;
- 			capacity-dmips-mhz = <620>;
-@@ -151,6 +156,7 @@ cpu5: cpu@500 {
- 			compatible = "arm,cortex-a76";
- 			reg = <0x0500>;
- 			clocks = <&acpm_ipc GS101_CLK_ACPM_DVFS_CPUCL1>;
-+			#cooling-cells = <2>;
- 			enable-method = "psci";
- 			cpu-idle-states = <&enyo_cpu_sleep>;
- 			capacity-dmips-mhz = <620>;
-@@ -163,6 +169,7 @@ cpu6: cpu@600 {
- 			compatible = "arm,cortex-x1";
- 			reg = <0x0600>;
- 			clocks = <&acpm_ipc GS101_CLK_ACPM_DVFS_CPUCL2>;
-+			#cooling-cells = <2>;
- 			enable-method = "psci";
- 			cpu-idle-states = <&hera_cpu_sleep>;
- 			capacity-dmips-mhz = <1024>;
-@@ -175,6 +182,7 @@ cpu7: cpu@700 {
- 			compatible = "arm,cortex-x1";
- 			reg = <0x0700>;
- 			clocks = <&acpm_ipc GS101_CLK_ACPM_DVFS_CPUCL2>;
-+			#cooling-cells = <2>;
- 			enable-method = "psci";
- 			cpu-idle-states = <&hera_cpu_sleep>;
- 			capacity-dmips-mhz = <1024>;
-@@ -646,6 +654,15 @@ watchdog_cl1: watchdog@10070000 {
- 			status = "disabled";
- 		};
- 
-+		tmu_top: thermal-sensor@100a0000 {
-+			compatible = "google,gs101-tmu-top";
-+			reg = <0x100a0000 0x800>;
-+			clocks = <&cmu_misc CLK_GOUT_MISC_TMU_TOP_PCLK>;
-+			interrupts = <GIC_SPI 769 IRQ_TYPE_LEVEL_HIGH 0>;
-+			#thermal-sensor-cells = <1>;
-+			samsung,acpm-ipc = <&acpm_ipc>;
-+		};
-+
- 		trng: rng@10141400 {
- 			compatible = "google,gs101-trng",
- 				     "samsung,exynos850-trng";
-@@ -1937,3 +1954,4 @@ timer {
- };
- 
- #include "gs101-pinctrl.dtsi"
-+#include "gs101-tmu.dtsi"
-
----
-base-commit: 2c222a46655e0191e70ca92258ad3b3ead32787c
-change-id: 20261104-acpm-tmu-dts-feca8ebd851d
-
-Best regards,
--- 
-Tudor Ambarus <tudor.ambarus@linaro.org>
-
+> Changes from v6:
+>   - New patch. Resolve issues found during terminate/pause test under
+>     dma load.
+>
+>  drivers/dma/dw-edma/dw-edma-core.c | 24 ++++++++++++++++++++++--
+>  1 file changed, 22 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/dma/dw-edma/dw-edma-core.c b/drivers/dma/dw-edma/dw-edma-core.c
+> index b08bb31657c9..fb38d51037c5 100644
+> --- a/drivers/dma/dw-edma/dw-edma-core.c
+> +++ b/drivers/dma/dw-edma/dw-edma-core.c
+> @@ -146,6 +146,23 @@ static bool dw_edma_ll_pending(struct dw_edma_chan *chan)
+>  	return chan->ll_head != chan->ll_done;
+>  }
+>
+> +static bool dw_edma_ll_stopped(struct dw_edma_chan *chan)
+> +{
+> +	return dw_edma_core_ch_status(chan) == DMA_COMPLETE &&
+> +	       !dw_edma_core_ch_transfer_size(chan);
+> +}
+> +
+> +static bool dw_edma_ll_drained(struct dw_edma_chan *chan)
+> +{
+> +	int idx = dw_edma_core_ll_cur_idx(chan);
+> +
+> +	if (idx == chan->ll_max)
+> +		idx = 0;
+> +
+> +	return idx >= 0 && (u32)idx == chan->ll_head &&
+> +	       dw_edma_ll_stopped(chan);
+> +}
+> +
+>  static void dw_edma_core_ll_start(struct dw_edma_desc *desc)
+>  {
+>  	struct dw_edma_chan *chan = desc->chan;
+> @@ -455,7 +472,9 @@ static int dw_edma_device_terminate_all(struct dma_chan *dchan)
+>  		dw_edma_finish_termination(chan);
+>  	} else if (chan->status == EDMA_ST_IDLE) {
+>  		dw_edma_finish_termination(chan);
+> -	} else if (dw_edma_core_ch_status(chan) == DMA_COMPLETE) {
+> +	} else if (chan->non_ll ?
+> +		   dw_edma_core_ch_status(chan) == DMA_COMPLETE :
+> +		   dw_edma_ll_drained(chan)) {
+>  		/*
+>  		 * The channel is in a false BUSY state, probably didn't
+>  		 * receive or lost an interrupt
+> @@ -790,7 +809,8 @@ static void dw_edma_done_interrupt_locked(struct dw_edma_chan *chan)
+>  		if (!vd)
+>  			break;
+>
+> -		dw_edma_finish_termination(chan);
+> +		if (chan->non_ll || dw_edma_ll_drained(chan))
+> +			dw_edma_finish_termination(chan);
+>  		break;
+>
+>  	default:
+> --
+> 2.54.0
+>
