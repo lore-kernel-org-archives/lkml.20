@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793784106;
-	b=D3en+H2XCFvgRruhrhTi9wR42gEWCXMy77FhJ4xbCjVDcTmQd+J9Y8i77RK+YkQJHpkp
-	 9diToFW2yX32Mamy2eIiUu+spKffeBjMbbcigtOMhYAmHSNARefQ/uO92TO3DLkuFLFTe
-	 78DxWIymB6H3XO5UGiw394jAtPSr2aRikL6FAwDHV+ThRtOZiGyZ2j1tat9CEmNly7cAB
-	 U9c3pMTgeZjXPuWYxUBgmqLTnEE68hNMOil/xEo2HlWmhOuGGBKZjVvixyQc9lnm46/mu
-	 nvLIsVhCtuI59B6RkLzV39ZBDNli3xLgrPMwrQowsV7L1amKTR4Tx8aIPYpIeYa782Q==
+	b=QREV5iquGo3e+86SSw4fnS+OzAxYjJyL/PJG6Tng2wch94vvOWLnvK8sGh9yf+5wU9ub
+	 6AfWGSiFnWFY17RbYc5+xs4Sp52gHG06CinmJ2piW2BuVb6lr4mz13XRTGi/51w/z7RY4
+	 iEZ4UEFC6/7eJkSSpoL0nJL9dcKWeqf0OkK1xridH4OkcCptrMybW3F6YlQxR5mWSHzdZ
+	 tBeDssqjTpiNBCb7ft+2zpPiPTAQzyRG+UszbzPxmkgFGctDdYbyn5gFlXPq7LjIbkqvh
+	 bkxq2FqV8whmQAuqmw63TWrLiQmBthJjYRcnriYgXQ9JmPkWAK3NMAwsCO/Sv2RtrnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793784106;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=T/AZ7gxbICQBy82Z/aLCx5YwZpMWKUdrGG/VPdsaF5s=;
-	b=nx4KARfup+w5BDh7ZG0GBJW9j7zfz/yeXJdiUsaV8ofssUjrZ+YsQyT6TdwjFPX0mM+k
-	 F4ifAgePtDvvFI0l28JgpTuctpL3gtR96m5vDUgRNaMrKVCzFpJopbO08gGuAlyqBPxGH
-	 h7v/qQqpTOYuMRKohM//GseQlQ8BPxu5mK7MWIL5S2vmn7dbsQvGEC5IOcmUycLnPlr1u
-	 bprYpalwA/7la+3ctnLtkUyYu47So0yIoE6mRseuobebKQimCqtvxHAB2CPsTzUBbLHnH
-	 AL8yoRKu5Spmr1WARqsxx7u+/0KQtRw8Ixz41AKK0C2gRfzW2awZiRkl7ok+pid6quA==
+	bh=FUTrBVeEBeSqgAwOYecgCuWeUkNamd5uPVfxib86X5w=;
+	b=LvYaVyXWSo6U3BFHnrthne+37P2V3s/BQE0W+W1PmEu/4TGLUeeWS2gbQxz2GIeyfX0B
+	 PnwhmZSKNcNQybOXMG8RsyPPuHe+e+cXHJMY2I90w/T6I4L2jw27Ss7WkSkB20q1XOMyd
+	 il7sSqMna9f9XfjSwxcbrHh3gguaXmwaUkR2e6t608i0a6cmBcewqDGBI092mmmdzwwDm
+	 qXvL9uzpo+Qy8H5T18YIId4Qs80EmkW6nTTjnatgMTKzTFnoYu6epk55lTk2X2zOqsUQk
+	 Wj2iWbl0shVLz44OTJ7cFszMHNlvbULtXytlL/8lpiU4IMTOy9+wnXVQAOs+5n5YRJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fepx8XML;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Y5GxxxL6;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98E4C606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:21:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98E4C606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 360A5606D80A
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:21:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 360A5606D80A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fepx8XML
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-36d6e342f98so42395eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:21:40 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Y5GxxxL6
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-15ea896ddc8so882427c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:21:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793784100; x=1794388900; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793784105; x=1794388905; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=T/AZ7gxbICQBy82Z/aLCx5YwZpMWKUdrGG/VPdsaF5s=;
-        b=fepx8XML0SaNsiRjtVLibg48wRMIKJRsiEbBjwoiF6B+n02lviTdyXjVzdjKAFFxnL
-         ugx5Z6VpS1a+gvrMAhACIzMWHxyvLJgu0T691Qe2Bnb4At4Lu9zi+OFE11ZwcSoqUqYT
-         cFMnGPzGCZ81NlyJPB0I6epjB/OdrESX0sXRKqkn3S2TG/M4adKeyGyB47/iFpbXstuq
-         mBB64flN6PblrdxokA2fZZDA50SqbC+h/TDhXwihDJVFjY7MFdu8esde8RZn5eQT8V1a
-         bjs7GAbh9kfU63MogdJzShsGCLDdv/TU09o/DK2M2XQh1+kx9osqM4tUZBD+bL/rGvBE
-         R2PQ==
+        bh=FUTrBVeEBeSqgAwOYecgCuWeUkNamd5uPVfxib86X5w=;
+        b=Y5GxxxL694GA0u65M5HeSizsw0G1/A0HtGyGQ0/QMpvPCahYGASJFuF8dQL5b11Cba
+         PmSm04Gqi0KwImonMu6A93wmVeQf4kzfl/ZkqtASFbG4nRzS0azBnT3024OMPgYL5nAK
+         //kRfoX4/mKPFVhBMXg1S/8qOYdoDirsVQ5SSQPoLfs4MRAh43FuGOEkaLgtfbH+YSYc
+         KcpSaYxVffHaQrmbbuqHI/k4cMzEKpDbQU5qJoglSap/qrEOH8tfYLweet5GcXqonTwh
+         X2TAdNgSIydKkZO+Ih1m+NezHG7ShmqePw/GAKqMzKC0FO0SVlrC6t/PktqfrPjd6nLA
+         VLtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793784100; x=1794388900;
+        d=1e100.net; s=20260707; t=1793784105; x=1794388905;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=T/AZ7gxbICQBy82Z/aLCx5YwZpMWKUdrGG/VPdsaF5s=;
-        b=1XLX6aUb/gnMNJu0nXLMyeLP1tpsswMQ6p6t6no7JuJOHp/sx6I1vM5N6rsPUyMMBd
-         a5wtaa/7GzFxbZFTQHAgMfD3qRYmu2OwNwNWGoEbUQ5tXTdBhw7Q7hGNQFPMA1CGyXyZ
-         E075uOdfyBcHtGC5Wg0JwaA5+Z83DkSb4s9zwajDOG4Z33Icsyw5Dq+eWTaFEFf7cU3u
-         qDQu6DndZPcD0zqYZLtWPhziSx+/m4piSPjKerKWTpy4y4knaSbLWqPuNlqiN1zO+3YQ
-         ZO70+6XQE25fEQ/2zwvlSQeEGMeugsbXCNbFslXmspX35D5QiPPSkmMIcdFRTMTH9hkl
-         s7nw==
-X-Forwarded-Encrypted: i=1; AKwUvBzDJRPxIzT2Xd5IvaO9lv2mCaxXDYKnQy7a9Hh153581Gax+2zRsLagMuuQaXiqQ57qnNkxu2eDlHEC2Io=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ItXmg6AgFuNQQN1BpNkAVhKdmxFZzkEJN4w9mZRqxVere9ZSW
-	k+ZXnpkVwrcGP3doF089XgsiiNKMP1/tHQ7eIZhBNnYbkeU+r9uV1ZVi
-X-Gm-Gg: AYBFou2jcG2eA5xQu2L3Rovb6NX7nDF6Au/L3nS9D0nfowRyfEJpmiSKgBXMmR0fHer
-	5o4LAgqXO6nMq/bNLmShBaJnhQSvjruR8wuKI/bGyAsFly3dmqvySGAm3/pQgs30AzkTrrPiR35
-	5IuF8Bzhw+sZJ3zr1kp0DLD2UKMGTfJYUspCiqzoM1kxn/wQrh6kN0BVZ7HoTvs0owdnobE8RzE
-	zmayn+K2VRnsY2KyzDxCeBWxkMe8dnJ5QtD5t+TvxqqH/YGKuu0nrZDzs6ORP3lFDEQweYUSLCh
-	AxFDnx4ZQp3U1bWfcQOLviMyaDsJ+cAeVnDg388Xd2RhMlDw60NPvcxAvDufx0vyGYbsHx7BVlL
-	SE92qyV8Y1XoIPZrY2xwXmNSFTpIm2zzgQod84cpkqKAvq8GG0OXakdGw/YNJ87UHyHh9UAe5gg
-	UvDm910EwLHFRwaj68Dj9nQosoXqXCeysd4K+x/BobgCFVDltxM6mc70RJZGZBZn/sl7StKYmQN
-	jSALEtlXdmjlHqEHel+tMnZqcE+xBK4XiuJoyk2tEiWB4wLQ2a6297gFI6uXX1RxULlc8EkhF2Q
-	Mn4L65lK0581GFNLo7mGsW+jukK8k4v0uNWfEQO+xdS39FHupN++sSQZw5iMRFuQdffNnnWHJk2
-	OTlooG51wCf20vQuylcBj5jqHNUy22uGqyxxmmkBhLvHvSmBE+BT5vvmMogTe1AxAJA3gk0X6Jg
+        bh=FUTrBVeEBeSqgAwOYecgCuWeUkNamd5uPVfxib86X5w=;
+        b=gUzZWADK2TkHx+vpvdU7PSPC7ax8f7gpxN4WaOWvzVWkJtouUidVYPC7TYZQdbAfXC
+         wumr8wLVaPpj2Ap1ncso5T8SPWq0qKDkyIXwC0jSoIlPZLG78eXvAOYKDJS6Fou+9e7F
+         ZvydiZ+DD1OFcrmE+/zeOgSWv7yxJW2O4JdCHzHiTuSr/TjY2ieEe/xjNinQrdzWqKhp
+         MntgTcaW3i1EY+stPy2EkPThpxeGGaQmxHKLpprAjVa291bbls9JdAEA2iBYl1hn5sSF
+         FkAw/LUskR6QC5+DubL1Wo4ryjpMKPb/JMVYUVKT3XWqzZf+BRckwkQ2WhWP7ILtgzHw
+         2k7A==
+X-Forwarded-Encrypted: i=1; AKwUvBxq6DUmkm25qAPPd/37aQ6DHKvzE5stqldtfwDbnGY4JHFjqRq+D6WntnOiAEo9/uc3yjlGOpIPmeBzN7g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8qodLFYhVe7MDEBH9BEDH3TmskcRfk9hrEqklnaPzCgNC0V+yN
+	CLXYPabLEI/vRBut9as5WzMGn2Vif7qH0PeML+7GsjlOnkK3bQelpmp4
+X-Gm-Gg: AYBFou2DzAHD1I8TGRUvquHYulyLkIH18NyZfRvT3LXJFk6khFnm+6b8JAoYm3AP/Du
+	6NejlcZvB7QtQmmH+tetUD2b4Ck2NKAgAN+lWBn2A8Wu1nVudbJupL4OJwHEP+oMuHBXwLEaooN
+	JNqT36E80a2RuTcu3A1AjpZJbEIdh05QcQAtMRQ3hSfNaEMAztgQdpUtK0CHVr+7sRqJu0CNZdG
+	xUQXLY0An6qYox/A76+cXxYmHV3WiJ5eMs6pU9gNpJ59b28FZhEaulN0iOsyS0tqSaExE7S2cop
+	0+Dh4DC0x/mQ+aXl6O2aapT3ZiURFRxPMpt6tQESWC2v/9+brHnoGRqd4Qe0jpWt8/R4kU6tD/n
+	efyWRfmsJA3wz0qrspzfa3/YbniNRssp/84GZb3HuWD4CENPqpSnQVK5AvcuVZzF3ZVDJnBOQ0q
+	AXVaJxkPzVddZEA8fPeEMTiz7KWG1gBwizaRz/U8JkhAeID8MnUkx26zfn33utNit9LKnmxeL1+
+	5YIyRhYApU8Ks4avE6F3VVt1/3+GOMvjSfd/DpcvEKAE62f3x/DEZVtDLloUTQ/qmnyoy1rhZeM
+	2XdOVOkhXwfVeeA9CQwyt+WsWSpSN2F+u7N7OZDC4t15t6SHRVll0QACweiP68VGi9Oco66YHwH
+	Lm0ILiafJKx+7urRW/WQ9LnP60NRRkgWuIV00pFZsyjXi/j+Z2jr/yPGRVJDSnoOF4+8K7mnlgQ
 	==
-X-Received: by 2002:a05:7022:b059:20b0:1ad:3402:733f with SMTP id a92af1059eb24-1ad3420f9a1mr22983816c88.44.1793784099122;
-        Wed, 04 Nov 2026 01:21:39 -0800 (PST)
+X-Received: by 2002:a05:7022:ea46:20b0:1a9:e382:cedc with SMTP id a92af1059eb24-1ac5d8894f8mr25984685c88.46.1793784104893;
+        Wed, 04 Nov 2026 01:21:44 -0800 (PST)
 Received: from ramen-dev-security-2.asia-south1-c.c.ramen-dev-345017.internal (90.156.200.35.bc.googleusercontent.com. [35.200.156.90])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245b87c4asm6058628c88.3.2026.11.04.01.21.33
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245b87c4asm6058628c88.3.2026.11.04.01.21.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 01:21:38 -0800 (PST)
+        Wed, 04 Nov 2026 01:21:44 -0800 (PST)
 From: Anil Kaushik <anilkaushikwireless@gmail.com>
 To: netdev@vger.kernel.org
 Cc: "David S . Miller" <davem@davemloft.net>,
@@ -97,9 +97,9 @@ Cc: "David S . Miller" <davem@davemloft.net>,
 	Alice Ryhl <aliceryhl@google.com>,
 	linux-kernel@vger.kernel.org,
 	Anil Kaushik <anilkaushikwireless@gmail.com>
-Subject: [PATCH net v5 1/2] genetlink: Reject joining multicast groups no family owns
-Date: Wed,  4 Nov 2026 09:21:24 +0000
-Message-Id: <20261104092125.211537-2-anilkaushikwireless@gmail.com>
+Subject: [PATCH net v5 2/2] netlink: Check a group again if it was released while joining it
+Date: Wed,  4 Nov 2026 09:21:25 +0000
+Message-Id: <20261104092125.211537-3-anilkaushikwireless@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20261104092125.211537-1-anilkaushikwireless@gmail.com>
 References: <20261104092125.211537-1-anilkaushikwireless@gmail.com>
@@ -114,92 +114,303 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-genl_bind() checks the GENL_MCAST_CAP_* flags of a group only when a
-family owns it. For a group ID that no family owns, it returns 0, so any
-user can join it.
+genl_bind() checks a group under cb_lock, but netlink_setsockopt() and
+netlink_bind() set the membership bit only after it returns and the lock
+is dropped. If the family is unregistered in between, its members are
+cleared before this socket is one. The socket then becomes a member of a
+group ID that no family owns, or that a family registered in the
+meantime got, and the GENL_MCAST_CAP_* flags of that family are never
+checked for it.
 
-A family registered later can get that ID, and the socket stays a member:
-nothing checks it again. An unprivileged user can join the free IDs, load
-a family module with CTRL_CMD_GETFAMILY, which calls request_module(),
-and then receive the notifications of a group with
-GENL_MCAST_CAP_NET_ADMIN or GENL_MCAST_CAP_SYS_ADMIN. For example the
-drop_monitor "events" group always gets ID 1, and is free until the
-drop_monitor module is loaded.
+Count per group in the netlink table how many times its members were
+cleared, which genetlink does when it frees the group IDs of a family.
+Read the count before and after ->netlink_bind(), and again once the
+table is grabbed. If it changed since the first read, the group was
+released, so check it again against its current owner.
 
-Fix by returning -ENOENT from genl_bind() when no family owns the group.
-Nothing is ever sent to such a group, so joining it has no use.
+If the count changed only after ->netlink_bind() returned, the family
+that was bound is gone, so ->netlink_unbind() is not called for it.
+Otherwise it is called before the new check, as ->netlink_bind() most
+likely reached the new owner. The core cannot tell for sure: if a family
+is unregistered and another one registers just after ->netlink_bind()
+returned, and before the second read, the new family gets an unbind
+without a bind. The check is still done again. In the tree, only the
+thermal family has these callbacks, and it is never unregistered.
 
-bind() takes a mask of groups, and most IDs in it can have no owner. Such
-a mask used to work, so keep it working: netlink_bind() skips an ID when
-the bind callback returns -ENOENT, and joins the others. Only genl_bind()
-returns -ENOENT. A skipped ID is not joined, so it is no longer in the
-groups that getsockname() reports. setsockopt() returns the error, as it
-asks for one group.
+The counts are gone once the last kernel socket of the table is released.
+A socket can still be joining then: connector releases its kernel socket
+if its init fails, and try_module_get() works during init. Return -ENOENT
+in that case, after ->netlink_unbind() if ->netlink_bind() already ran:
+the socket is not a member, so nothing else would undo it.
 
-Found by the Sashiko review of the gtp multicast group fix. Tested as an
-unprivileged user who joins all free IDs, then loads gtp and
-drop_monitor:
+bind() can then fail after it gave the socket its port ID. This only
+happens when a family is unregistered meanwhile.
+
+Found by the Sashiko review of the previous patch, not seen in
+production. Triggered in a VM as an unprivileged user, with a test-only
+msleep() after the bind callback, and a test family that registers again
+with GENL_MCAST_CAP_NET_ADMIN:
 
 Before:
-  joins: ok=62 EPERM=2
-  gtp/gtp (ID 15): member
-  NET_DM/events (ID 1): member
+  setsockopt() and bind(): the socket is a member of the group
 
 After:
-  joins: ok=19 ENOENT=43 EPERM=2
-  gtp/gtp (ID 15): not member
-  NET_DM/events (ID 1): not member
-  bind(), an owned group and free IDs: ok, member of the owned group only
+  setsockopt() and bind(): -EPERM, not a member
+  setsockopt(), no family owns the group yet: -ENOENT, not a member
+
+With a test module that releases its kernel socket while a socket joins,
+and the msleep() after the first or the second read:
+
+Without the check on the counts:
+  setsockopt(): NULL pointer dereference in netlink_setsockopt()
+
+With it:
+  setsockopt() and bind(): -ENOENT, one unbind for the one bind
 
 genl_bind() was added, with its first capability check, in the commit
 in the Fixes tag.
 
-Link: https://lore.kernel.org/netdev/179324692107.3134.14443689892607921337@kernel.org/
+Link: https://lore.kernel.org/netdev/179340003139.3131.11274717768928642724@kernel.org/
 Fixes: 4d54cc32112d ("mptcp: avoid lock_fast usage in accept path")
 Signed-off-by: Anil Kaushik <anilkaushikwireless@gmail.com>
 ---
- net/netlink/af_netlink.c | 6 ++++++
- net/netlink/genetlink.c  | 3 ++-
- 2 files changed, 8 insertions(+), 1 deletion(-)
+ net/netlink/af_netlink.c | 110 ++++++++++++++++++++++++++++++++++++++-
+ net/netlink/af_netlink.h |   1 +
+ 2 files changed, 110 insertions(+), 1 deletion(-)
 
 diff --git a/net/netlink/af_netlink.c b/net/netlink/af_netlink.c
-index fec2879c497d..94c1390e8dc5 100644
+index 94c1390e8dc5..6f47a797df1b 100644
 --- a/net/netlink/af_netlink.c
 +++ b/net/netlink/af_netlink.c
-@@ -1033,6 +1033,12 @@ static int netlink_bind(struct socket *sock, struct sockaddr_unsized *addr,
- 			err = nlk->netlink_bind(net, group + 1);
- 			if (!err)
- 				continue;
-+			/* no one owns this group, still join the others */
-+			if (err == -ENOENT) {
-+				__clear_bit(group, &groups);
-+				err = 0;
-+				continue;
-+			}
+@@ -780,6 +780,8 @@ static int netlink_release(struct socket *sock)
+ 			old = nl_deref_protected(nl_table[sk->sk_protocol].listeners);
+ 			RCU_INIT_POINTER(nl_table[sk->sk_protocol].listeners, NULL);
+ 			kfree_rcu(old, rcu);
++			kfree(nl_table[sk->sk_protocol].mc_gen);
++			nl_table[sk->sk_protocol].mc_gen = NULL;
+ 			nl_table[sk->sk_protocol].module = NULL;
+ 			nl_table[sk->sk_protocol].bind = NULL;
+ 			nl_table[sk->sk_protocol].unbind = NULL;
+@@ -990,6 +992,9 @@ static int netlink_bind(struct socket *sock, struct sockaddr_unsized *addr,
+ 	struct net *net = sock_net(sk);
+ 	struct netlink_sock *nlk = nlk_sk(sk);
+ 	struct sockaddr_nl *nladdr = (struct sockaddr_nl *)addr;
++	struct netlink_table *tbl = &nl_table[sk->sk_protocol];
++	unsigned int bound_gen[BITS_PER_TYPE(u32)];
++	unsigned int gen[BITS_PER_TYPE(u32)];
+ 	int err = 0;
+ 	unsigned long groups;
+ 	bool bound;
+@@ -1023,9 +1028,18 @@ static int netlink_bind(struct socket *sock, struct sockaddr_unsized *addr,
+ 			return -EINVAL;
+ 	}
+ 
++retry:
+ 	if (nlk->netlink_bind && groups) {
+ 		int group;
+ 
++		netlink_lock_table();
++		if (!tbl->mc_gen) {
++			netlink_unlock_table();
++			return -ENOENT;
++		}
++		memcpy(gen, tbl->mc_gen, sizeof(gen));
++		netlink_unlock_table();
++
+ 		/* nl_groups is a u32, so cap the maximum groups we can bind */
+ 		for (group = 0; group < BITS_PER_TYPE(u32); group++) {
+ 			if (!test_bit(group, &groups))
+@@ -1042,6 +1056,15 @@ static int netlink_bind(struct socket *sock, struct sockaddr_unsized *addr,
  			netlink_undo_bind(group, groups, sk);
  			return err;
  		}
-diff --git a/net/netlink/genetlink.c b/net/netlink/genetlink.c
-index 5cc1037d4917..f038f04ef4ea 100644
---- a/net/netlink/genetlink.c
-+++ b/net/netlink/genetlink.c
-@@ -1825,7 +1825,7 @@ static int genl_bind(struct net *net, int group)
- {
- 	const struct genl_family *family;
- 	unsigned int id;
--	int ret = 0;
-+	int ret = -ENOENT;
++
++		netlink_lock_table();
++		if (!tbl->mc_gen) {
++			netlink_unlock_table();
++			netlink_undo_bind(BITS_PER_TYPE(u32), groups, sk);
++			return -ENOENT;
++		}
++		memcpy(bound_gen, tbl->mc_gen, sizeof(bound_gen));
++		netlink_unlock_table();
+ 	}
  
- 	down_read(&cb_lock);
+ 	/* No need for barriers here as we return to user-space without
+@@ -1063,6 +1086,31 @@ static int netlink_bind(struct socket *sock, struct sockaddr_unsized *addr,
+ 	netlink_unlock_table();
  
-@@ -1841,6 +1841,7 @@ static int genl_bind(struct net *net, int group)
- 			continue;
+ 	netlink_table_grab();
++	if (nlk->netlink_bind && groups) {
++		unsigned long gone = 0;
++		bool released = false;
++		int group;
++
++		if (!tbl->mc_gen) {
++			netlink_table_ungrab();
++			netlink_undo_bind(BITS_PER_TYPE(u32), groups, sk);
++			return -ENOENT;
++		}
++		for_each_set_bit(group, &groups, BITS_PER_TYPE(u32)) {
++			if (gen[group] != tbl->mc_gen[group])
++				released = true;
++			if (bound_gen[group] != tbl->mc_gen[group])
++				__set_bit(group, &gone);
++		}
++		/* see netlink_setsockopt(), undo all but gone and retry all */
++		if (released) {
++			netlink_table_ungrab();
++			netlink_undo_bind(BITS_PER_TYPE(u32), groups & ~gone,
++					  sk);
++			bound = true;
++			goto retry;
++		}
++	}
+ 	netlink_update_subscriptions(sk, nlk->subscriptions +
+ 					 hweight32(groups) -
+ 					 hweight32(nlk->groups[0]));
+@@ -1692,6 +1740,8 @@ static int netlink_setsockopt(struct socket *sock, int level, int optname,
+ 		break;
+ 	case NETLINK_ADD_MEMBERSHIP:
+ 	case NETLINK_DROP_MEMBERSHIP: {
++		struct netlink_table *tbl = &nl_table[sk->sk_protocol];
++		unsigned int gen = 0, bound_gen = 0;
+ 		int err;
  
- 		grp = &family->mcgrps[i];
-+		ret = 0;
- 		if ((grp->flags & GENL_MCAST_CAP_NET_ADMIN) &&
- 		    !ns_capable(net->user_ns, CAP_NET_ADMIN))
- 			ret = -EPERM;
+ 		if (!netlink_allowed(sock, NL_CFG_F_NONROOT_RECV))
+@@ -1701,12 +1751,51 @@ static int netlink_setsockopt(struct socket *sock, int level, int optname,
+ 			return err;
+ 		if (!val || val - 1 >= nlk->ngroups)
+ 			return -EINVAL;
++retry:
+ 		if (optname == NETLINK_ADD_MEMBERSHIP && nlk->netlink_bind) {
++			netlink_lock_table();
++			if (!tbl->mc_gen) {
++				netlink_unlock_table();
++				return -ENOENT;
++			}
++			gen = tbl->mc_gen[val - 1];
++			netlink_unlock_table();
+ 			err = nlk->netlink_bind(sock_net(sk), val);
+ 			if (err)
+ 				return err;
++			netlink_lock_table();
++			if (!tbl->mc_gen) {
++				netlink_unlock_table();
++				if (nlk->netlink_unbind)
++					nlk->netlink_unbind(sock_net(sk), val);
++				return -ENOENT;
++			}
++			bound_gen = tbl->mc_gen[val - 1];
++			netlink_unlock_table();
+ 		}
+ 		netlink_table_grab();
++		if (optname == NETLINK_ADD_MEMBERSHIP && nlk->netlink_bind &&
++		    !tbl->mc_gen) {
++			netlink_table_ungrab();
++			if (nlk->netlink_unbind)
++				nlk->netlink_unbind(sock_net(sk), val);
++			return -ENOENT;
++		}
++		/* The group was released around ->netlink_bind(), and may have
++		 * a new owner now, so check it again. If it was released only
++		 * after ->netlink_bind() returned, the owner that was bound is
++		 * gone: no ->netlink_unbind() for it. Otherwise assume that the
++		 * current owner was bound.
++		 */
++		if (optname == NETLINK_ADD_MEMBERSHIP && nlk->netlink_bind &&
++		    gen != tbl->mc_gen[val - 1]) {
++			bool unbind = bound_gen == tbl->mc_gen[val - 1];
++
++			netlink_table_ungrab();
++			if (unbind && nlk->netlink_unbind)
++				nlk->netlink_unbind(sock_net(sk), val);
++			goto retry;
++		}
+ 		netlink_update_socket_mc(nlk, val,
+ 					 optname == NETLINK_ADD_MEMBERSHIP);
+ 		netlink_table_ungrab();
+@@ -2037,6 +2126,7 @@ __netlink_kernel_create(struct net *net, int unit, struct module *module,
+ 	struct sock *sk;
+ 	struct netlink_sock *nlk;
+ 	struct listeners *listeners = NULL;
++	unsigned int *mc_gen = NULL;
+ 	unsigned int groups;
+ 
+ 	BUG_ON(!nl_table);
+@@ -2058,7 +2148,8 @@ __netlink_kernel_create(struct net *net, int unit, struct module *module,
+ 		groups = cfg->groups;
+ 
+ 	listeners = kzalloc(sizeof(*listeners) + NLGRPSZ(groups), GFP_KERNEL);
+-	if (!listeners)
++	mc_gen = kcalloc(groups, sizeof(*mc_gen), GFP_KERNEL);
++	if (!listeners || !mc_gen)
+ 		goto out_sock_release;
+ 
+ 	sk->sk_data_ready = netlink_data_ready;
+@@ -2075,6 +2166,7 @@ __netlink_kernel_create(struct net *net, int unit, struct module *module,
+ 	if (!nl_table[unit].registered) {
+ 		nl_table[unit].groups = groups;
+ 		rcu_assign_pointer(nl_table[unit].listeners, listeners);
++		nl_table[unit].mc_gen = mc_gen;
+ 		nl_table[unit].module = module;
+ 		if (cfg) {
+ 			nl_table[unit].bind = cfg->bind;
+@@ -2085,6 +2177,7 @@ __netlink_kernel_create(struct net *net, int unit, struct module *module,
+ 		nl_table[unit].registered = 1;
+ 	} else {
+ 		kfree(listeners);
++		kfree(mc_gen);
+ 		nl_table[unit].registered++;
+ 	}
+ 	netlink_table_ungrab();
+@@ -2092,6 +2185,7 @@ __netlink_kernel_create(struct net *net, int unit, struct module *module,
+ 
+ out_sock_release:
+ 	kfree(listeners);
++	kfree(mc_gen);
+ 	netlink_kernel_release(sk);
+ 	return NULL;
+ 
+@@ -2119,6 +2213,17 @@ int __netlink_change_ngroups(struct sock *sk, unsigned int groups)
+ 	if (groups < 32)
+ 		groups = 32;
+ 
++	if (tbl->groups < groups) {
++		unsigned int *mc_gen;
++
++		mc_gen = kcalloc(groups, sizeof(*mc_gen), GFP_ATOMIC);
++		if (!mc_gen)
++			return -ENOMEM;
++		memcpy(mc_gen, tbl->mc_gen, tbl->groups * sizeof(*mc_gen));
++		kfree(tbl->mc_gen);
++		tbl->mc_gen = mc_gen;
++	}
++
+ 	if (NLGRPSZ(tbl->groups) < NLGRPSZ(groups)) {
+ 		new = kzalloc(sizeof(*new) + NLGRPSZ(groups), GFP_ATOMIC);
+ 		if (!new)
+@@ -2163,6 +2268,9 @@ void __netlink_clear_multicast_users(struct sock *ksk, unsigned int group)
+ 	struct netlink_table *tbl = &nl_table[ksk->sk_protocol];
+ 	struct hlist_node *tmp;
+ 
++	/* the group can be given to another user, see netlink_setsockopt() */
++	tbl->mc_gen[group - 1]++;
++
+ 	sk_for_each_bound_safe(sk, tmp, &tbl->mc_list) {
+ 		/* bitmap predates the group, can't be a member */
+ 		if (group - 1 >= nlk_sk(sk)->ngroups)
+diff --git a/net/netlink/af_netlink.h b/net/netlink/af_netlink.h
+index 778a3809361f..d5e2e404fd11 100644
+--- a/net/netlink/af_netlink.h
++++ b/net/netlink/af_netlink.h
+@@ -64,6 +64,7 @@ struct netlink_table {
+ 	struct listeners __rcu	*listeners;
+ 	unsigned int		flags;
+ 	unsigned int		groups;
++	unsigned int		*mc_gen;
+ 	struct mutex		*cb_mutex;
+ 	struct module		*module;
+ 	int			(*bind)(struct net *net, int group);
 -- 
 2.25.1
 
