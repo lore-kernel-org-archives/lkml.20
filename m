@@ -1,61 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793836141;
-	b=wpYsJty6iNJSoNtYKlTrZXcIUh01dLNDyM6jLxGn686f0XKx3u/N/cLoslHnb8qOdaME
-	 8Jv7/m5TjDuC+VWohzf5OL60VFSmmTiNm1bYkyubTst8JNh668t6mwKbeGJr27UgGbYQ+
-	 FkA+fY4KjNGvgPq8nqVuzZDfX5ggJsyJ8D7HNASRyne/FMp5Ta6EVi6dqlVvz27/Z84ns
-	 83tBgJkDQODWbmhXK1y3jygfuySmFYxB1vdxJD/M03XDlSRX9e43QMRZSHLZRgs0m1tnu
-	 ZvHhDDHaex7vsLIHenRXsqRqELADy/AWFEwSsbCP37EciCxH8FipAXFORPvpvu/Ayow==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793836141;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=ih8e64eIFh4zy0l5Dkq2nWyyFdIYsw0j6wRXY/x4Y+s=;
-	b=IXwOveMcShnyhe8693VzkBw0TVzyx5Vs1p9n384Hym/qllUasfzuC921B1yTmdhcjutS
-	 yDkqNtT9Arnjj2tpyouwM3dSOljZXOW2hWXplvqAKOcTi10MLO2zthSS74ESqn0vCCz+2
-	 n1jPcFr9Y7JRV2KR5KRwt3b4kWNu7zpZ5DT2+ZbackE38mJytOgxxeiTJTEmWXl5R+WdV
-	 nNr/rT+24lSq5K00jfT7awQtjYEpBmEVp8u9Mo0/6mWa9fBA8Ed3atDv6jUrJfn+2fBuF
-	 EslUiSoJlnsR0oiSyLxz0ic1m9q4XR5YKVmWC3Aja0zezRXYCM0NIS85OgtLbR5oRaA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Qm8n+J44;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793836192;
+	b=QKEm2DTtetYZeI3IB+1jg8MhJhwOT8t4XjyGaq37WmClQsz41KClDhrGUPRXqpV47nMh
+	 1EcDdSQb00qkOgWNUjEzMNyY+SyFxptn8YtPtwp7Pb8zxrWu3S/4XufrTNuoLPzw1+qfL
+	 JZgySrBpOKsd5Uk1fLn/OgcjI88pwcCjk6zwN2Qn7kvwfPcHiHSuX/zHGSnH81fQ8e5WN
+	 zw7UTazFgt1WJ5B2LFO07xzg0/tzY3MFKYKzkjw+2eUnIiZgz61pbLq9J+pPD9kMrAByF
+	 zf/5Yi6e27mpFU5oN2+BxHhNapQ8JLOmVyjI3wap3yGU0FElyI1pCSurbQiTvELRMsQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793836192;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=NUKXnf2zRVnphDvWIJPgNPk0+Yxezthn/bgjikrOQVU=;
+	b=kxue2T/yiIWBMf3HfH2uM+xtuBFzUrzVysdQxa5/EfKI+WlJuKtEVdCX8K8ac8ow7mYB
+	 gCzNyP8H2b8jx702rl8gh3CUq1gXxOj0eLsL+YYkTRosjGO1QXfQVqeCIqa0hs8woPRsA
+	 KxV6QLIHglElaWJJ4gJVmgr68QbjGcVyCEdb436qcxgCexE+k68ovnYPR5DLtf+hZG+kX
+	 5yszM8NcLPUYc/OEmBEgi6HIihVDnCdKkd6JYI9PS6/3QCu51/9s/oifq9fREO7n293Pw
+	 Y51tZRiNXq1VPmvJpYQEL1qLxldnoa/oKYLFhNXYq1Eq6HO/2fT+1YBRVA+Ju31FrIQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LOCKWL1w;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 012ED606A328;
-	Wed,  4 Nov 2026 23:49:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 012ED606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97636606A32D
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:49:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97636606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Qm8n+J44
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793836139;
-	bh=UgCQbv933a+8c/5JcSutP3El6g81sTPPXpwKWLLRMhU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Qm8n+J44JfZX65sYoK3d/RyOskjZXcxUYqPw06XQGdAFFT6frZ0VeJgAgKOumLRVw
-	 fkGmiKiIerzK03IRK5Q+oZ1KsLN3so2eRJ+2vjLYzhk65cuNiolSoKzZKfnCF35GOU
-	 i/VAjNRd8y1822vzbb5erDl/FSr8TsQYJbHxCFwZB4asH0vuQickH07Owtf261wnDv
-	 iri6bUCDKUDrSFwhUhXLGXw3NgpTi9n4I1CfIwirfxGzFRSLYA9F9CmxCrMts+YiD6
-	 lLbPxK1n/woVqT+AMoeFFQhRkFqbNEShmT5xOVs/QPnwZ1tS2eelu06vqhkfMsiiDV
-	 KFr4/xrnPgFYQ==
-Received: from jupiter.universe (unknown [100.64.1.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2912D17E07EC;
-	Thu, 05 Nov 2026 00:48:59 +0100 (CET)
-Received: by jupiter.universe (Postfix, from userid 1000)
-	id DE194480029; Thu, 05 Nov 2026 00:48:58 +0100 (CET)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 05 Nov 2026 00:47:02 +0100
-Subject: [PATCH v8 1/9] PCI: dw-rockchip: Fix LTSSM set functions
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LOCKWL1w
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6ae14cdc63aso2459a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 15:49:51 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793836190; cv=none;
+        d=google.com; s=arc-20260327;
+        b=p1kd46PbyQetiIuRYzL/CmBbPiGPGGYhpTvAQN41KEcKKfnhM4hdefJWVTNF3fyTe1
+         9lib2JxgJAVzDgX0PV+Keu8e/pHhyAyp7rF+WQ9+Gec87UY0t2aW9zrM08+H00pnMLZ+
+         QbLLPDQu8VLWAa93fQSMCEonnENdFsEgBMxU1/ngkFnQOTqNRKcQP/uSzeCH6TILJ409
+         iP/KgYtFI9wLl5SKVK3bfpyV6LeAU+NXVsuRXp0/tm5etZZDjX58Faix7zJTO1ebZHPO
+         cOe58ziBJvWDSvfjc1TQ6+5+JqhjMsA8+U2H3oaf7/TiHdTAxLWjkSX3wSE6FLgg2iMJ
+         XH2A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=NUKXnf2zRVnphDvWIJPgNPk0+Yxezthn/bgjikrOQVU=;
+        fh=7tZL6EYYF03u8yGDw6VFFhLpdOtHfkKJmlBKdYx2u+0=;
+        b=cb1uSZFtTq4xJlB+MQF4v+HWWOZiizWzl/+mEtB6QXEiCtiQZrk8o0kms/ldyDT1W+
+         F5o4Pk3ZuA6RE9hQjHAC8AmN3+3d4XnZ3WNxsFmzFRMFuJABeT9Ac8SKSKIbXZeLgFgk
+         1VP31dXEhoGT5II/tH0oB93my8ZLFWTtGeyB3IPFF1+x/81qbeaTzIDxIOkXE5H3rscc
+         epCGHTA00aOmFA99vA3vdhGmDTSEYGk4v4duV5k+0CFce5PtTDumbzLRvcFLzBDzODDN
+         ftB42ZFpNuF4dh51Q60B8OLEjKlIuJ+81D5tgP+L/gYddSLg+8fgAwpRKLs+jljBJn9e
+         g6Sw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793836190; x=1794440990; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NUKXnf2zRVnphDvWIJPgNPk0+Yxezthn/bgjikrOQVU=;
+        b=LOCKWL1wvKSW1uuETVBSc+7qqp1PzGIzHAP+Uros1fuOIBAPEzBSwpC0UJ+I1tzFVX
+         f+gD9FJI+nKStfEI775giljQXjuR5F1aCTV/9gG71Dxtz/dNG9MddBnSJRJWFTC8pA1u
+         KsWWbOC32wZ1UHU0b7SVXbxwcH7M6CDM38v0UUeeF30VT7eGffugx7+gw6qupZcATfOU
+         crQGq8b5f8m5gVJt8wY/OMfA0BeZzHLvzdNvTvFOmCj5xJrQpWC4gJZK5rg6XLWD39y6
+         fgfK6Uah7rxjWM1xdj2/wGOtdElIqqEGxTGfOs+5FFTJhcNXih9IYUmo1ffThwpLZS9C
+         nEWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793836190; x=1794440990;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NUKXnf2zRVnphDvWIJPgNPk0+Yxezthn/bgjikrOQVU=;
+        b=Ck651pqRS5w4M6/Y3J6glZ/kFYgtSM/aMDLdmzLi3zblAbdrmbJZ2qFVFc52nynmzT
+         GfTFWsUKCPlHeUj0kdglxUgIzVVF+q5BqVJAySVuXy4OcY2hyDrnc5jlhGjQpCQthGmq
+         DvkvaYb6W4N3djFSqEoYZ7pj0bEbUpuptX0Ldj5CVnyIrAt/Nr+FPdacFAcbofHkDTXe
+         PcOcECYoSd82QdjhKs5tcW4uDEsdu083rs2HyvNLQC9ERAZadySocMqKrawmSoqpV8lA
+         BLrmGFkpHz+UIrQKs6xKznLEkfX+PDTxSLEY2pEbjwX7BwL2r22rLPdS4qZQWyRZE82K
+         xE1Q==
+X-Forwarded-Encrypted: i=1; AKwUvByrM+AYPyqUS2vy/xohNIN8MQBowgD8Uo1iP5XiEECkC/SbWJFpOey13pc7m4zFjZYV22iZF1Vi0v2lhIk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/RmCNF2nyJ0ggdY2YgwAuMdZAytFD4FpLysrYzS66CKjSu/GTn
+	1NRvJVMtNtrTJS66YtWkOHSRTtU6lBIUvxCjWAV8/znjEaggwqCR60cbVC8/Fy6SJ2MkqXdFpfk
+	f47FhWAqdXVr85LFnsYB/6X9RZoyjI54k9hgmkTHpnoxF7DpUzm3/rm3e
+X-Gm-Gg: AYBFou0tFIFOWnXesoEMo8V2omtqUSQaQVYqEnNrgi2FMXCCR8UHtztWzgvK/pRWPqK
+	KMKbev6Z0sqDBaQvls9mifaMET4gJLzLXLkPBUkA0dtvq80Xeu6dQokieFveihVynmk6a6VQY0A
+	f0QBtUUA4jNH9wzcWCEMbges7ZX3ONFE4nSKaSBVSyo+NRDVwOv0gKBLIro8bVacpHDmQ4SbrG/
+	ETrZ8ML0JIT2+Z6xHUYTtk5CAXjognDu+C5qRo5LJjX4EDZNt2eC1PSYHQ9KL4mbp4hFVijfmfu
+	0f81l9lAFlNhppI069n3gTDxN8/S8f177EN09RzL6MJ5+XXLgRudLfxAV86z9twv/S2/YGJ3quh
+	539ml3S9CZdCiimf4kzHknGXKOh5ORBfnbRJT4ze1NeS93wWmLjmNbCbeKw==
+X-Received: by 2002:a05:6402:515b:b0:6af:b196:68bf with SMTP id
+ 4fb4d7f45d1cf-6b57bf23d30mr13524a12.7.1793836189727; Wed, 04 Nov 2026
+ 15:49:49 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,84 +104,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-rockchip-pcie-system-suspend-v8-1-0434b4f373bc@collabora.com>
-References: <20261105-rockchip-pcie-system-suspend-v8-0-0434b4f373bc@collabora.com>
-In-Reply-To: <20261105-rockchip-pcie-system-suspend-v8-0-0434b4f373bc@collabora.com>
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, Heiko Stuebner <heiko@sntech.de>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Jingoo Han <jingoohan1@gmail.com>, 
- Shawn Lin <shawn.lin@rock-chips.com>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>, 
- "Yury Norov (NVIDIA)" <yury.norov@gmail.com>, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Alexey Charkov <alchark@flipper.net>, linux-pci@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, kernel@collabora.com, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1832;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=UgCQbv933a+8c/5JcSutP3El6g81sTPPXpwKWLLRMhU=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGrrxGpFQVbXyHb7+I8+tDu3owlAbTMkrJDIK
- lISlnuEfH0aLYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq68RqAAoJENju1/PI
- O/qaejQP/0Sk6dJKuxoSnM1A3fzLEz3uvILAVCH96QHTRNDv+nhzghnRStut1rg73Q27kHemgTN
- mx8aRXOtQEIVDrfvUOWT6jggQ425yJcmnYh9HIBHLKENYLk4mB+otYhlOONAie/zFTUHX07WY7w
- u7y1t/SN1XmNncfmCjIy1GbQ6yr4bhRRI5qy7gxtrCeDopXIC1vDo/OC/eFh74asYAcN3WOrFRz
- bxwAZnzntbfP5sP+1qqjHG46i761pMoGvOpLyjn7VCXdOX930Lywo2djTL0q+cP4KwqTNKlbCez
- r6rwx3VGrD2zva4PSeddfeR9qXWE3m+FWookxWL/wY7jXun8qf7mxQbNlmbEBo/a7eccJ+fy8gH
- Grxnr86eeRul4NKzdVp0BaMd6qh0uK9OHxtFBcyTHN1neO0JzC8H2yS21pXgwaoXO1pS/mlYBIB
- ob421laggOLTQojRNvvh0OqLczsI5QPTvbrfwEYoINoEVnt9XgFGrZa5jbGtHRd3mLI1PJdWPt/
- HgbEWJB5CYC/S/0gcnKayAew31ynxkOp+KkjRhQqkCigknLCLPpDHHKd3x2t7Bl3IPMTU+gvUJL
- N17g0RqoUAXbQmMHPN//mn5LD+lfCSI8zHAWrLMUf7eCQ1u/q+gAKSRZvAPKwWF0NfamoHlBVtz
- /XlLTh2/h3UBLAFv+7Us0eg==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
+References: <20261020234535.3182385-1-jmattson@google.com> <20261020234535.3182385-3-jmattson@google.com>
+ <auuZcZhBhrkZd9qM@google.com>
+In-Reply-To: <auuZcZhBhrkZd9qM@google.com>
+From: Jim Mattson <jmattson@google.com>
+Date: Wed, 4 Nov 2026 15:49:37 -0800
+X-Gm-Features: AclHuK_NOce6L67eEel5xBWyuJ8EA4SaVhlYOcLwPr6ufXLfVFjSolSkCGb1uQw
+Message-ID: <CALMp9eTpWP6XSYPJQjBwPsNWmPzLNh+EDGivMFZsUnixqpGkVA@mail.gmail.com>
+Subject: Re: [PATCH 2/4] KVM: VMX: Refresh LBR MSR intercepts on full MSR
+ intercept recalc
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Yosry Ahmed <yosry@kernel.org>, Like Xu <likexu@tencent.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Before the Rockchip PCIe driver has been switched over to the
-FIELD_PREP_WM16 macro, PCIE_CLIENT_ENABLE_LTSSM and
-PCIE_CLIENT_DISABLE_LTSSM were setting bits with a mask of 0xc = 0b1100,
-which means BIT 2 and BIT 3. After the conversion it only sets bit 2,
-with bit 3 being handled by a separate define named
-PCIE_CLIENT_LD_RQ_RST_GRT. Apparently the conversion missed to make use
-of this new macros resulting in the third bit not being set.
+On Wed, Nov 4, 2026 at 12:45=E2=80=AFPM Sean Christopherson <seanjc@google.=
+com> wrote:
+>
+> On Tue, Oct 20, 2026, Jim Mattson wrote:
+> > Re-apply the LBR MSR intercepts in vmx_recalc_msr_intercepts() if the
+> > LBRs are currently passed through, so that changes to userspace MSR
+> > filters are reflected in the MSR bitmap.  Unlike SVM, which can simply
+> > rewrite the intercepts in either direction, leave the bitmap alone if
+> > the LBRs aren't passed through, as a filter can only force interception=
+,
+> > never prevent it, i.e. the bitmap is already correct.  Note, clearing
+> > msr_passthrough to force vmx_passthrough_lbr_msrs() to re-apply the
+> > intercepts on the next VM-Enter isn't an option, as doing so would
+> > leave stale passthrough bits behind if the guest LBR event is no longer
+> > active.
+> >
+> > vmx_recalc_msr_intercepts() is invoked in response to
+> > KVM_REQ_RECALC_INTERCEPTS, which is raised on MSR filter updates, but i=
+t
+> > skips the LBR MSRs, and vmx_enable_lbr_msrs_passthrough() does nothing
+> > if lbr_desc->msr_passthrough is already set.  If the LBR MSRs are passe=
+d
+> > through when userspace installs a filter that denies them, they remain
+> > passed through, and the guest can access them without exiting to
+> > userspace.  Conversely, if a filter forced interception when the guest
+> > LBR event became active, relaxing the filter leaves the MSRs needlessly
+> > intercepted.  Either way, the bitmap remains stale until the guest LBR
+> > event is torn down and recreated.
+> >
+> > Only x2APIC MSRs are exempt from userspace filtering (see
+> > kvm_msr_allowed() and the KVM_X86_SET_MSR_FILTER documentation), and th=
+e
+> > filter is honored when LBR passthrough is first enabled, so KVM's
+> > behavior shouldn't depend on whether the filter is set before or after
+> > the guest enables LBRs.  Drop the LBR MSRs from the comment claiming
+> > that they can't be filtered by userspace, and clarify that
+> > lbr_desc.msr_passthrough tracks KVM's desired interception, which may
+> > not match the MSR bitmap when userspace filters are in play.
+> >
+> > Fixes: 9254beaafd12 ("KVM: vmx/pmu: Reduce the overhead of LBR pass-thr=
+ough or cancellation")
+> > Cc: stable@vger.kernel.org
+>
+> Meh, this isn't stable material.  Unlike SVM, where LBR virtualization is=
+ tied
+> to a pile of other crud, if userspace wants to filter LBRs on Intel it sh=
+ould
+> just not expose LBRs in the first place.
 
-Fixes: 30e919570581 ("PCI: dw-rockchip: Switch to FIELD_PREP_WM16 macro")
-Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
----
- drivers/pci/controller/dwc/pcie-dw-rockchip.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/pci/controller/dwc/pcie-dw-rockchip.c b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-index bd86e32cc2b1..c35c5583c797 100644
---- a/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-+++ b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-@@ -322,14 +322,16 @@ static void rockchip_pcie_ltssm_trace(struct rockchip_pcie *rockchip,
- 
- static void rockchip_pcie_enable_ltssm(struct rockchip_pcie *rockchip)
- {
--	rockchip_pcie_writel_apb(rockchip, PCIE_CLIENT_ENABLE_LTSSM,
--				 PCIE_CLIENT_GENERAL_CON);
-+	u32 val = PCIE_CLIENT_ENABLE_LTSSM | PCIE_CLIENT_LD_RQ_RST_GRT;
-+
-+	rockchip_pcie_writel_apb(rockchip, val, PCIE_CLIENT_GENERAL_CON);
- }
- 
- static void rockchip_pcie_disable_ltssm(struct rockchip_pcie *rockchip)
- {
--	rockchip_pcie_writel_apb(rockchip, PCIE_CLIENT_DISABLE_LTSSM,
--				 PCIE_CLIENT_GENERAL_CON);
-+	u32 val = PCIE_CLIENT_DISABLE_LTSSM | PCIE_CLIENT_LD_RQ_RST_GRT;
-+
-+	rockchip_pcie_writel_apb(rockchip, val, PCIE_CLIENT_GENERAL_CON);
- }
- 
- static bool rockchip_pcie_link_up(struct dw_pcie *pci)
-
--- 
-2.53.0
-
+The functionality is not equivalent. For whatever reason, MSR
+filtering can be modified dynamically.
