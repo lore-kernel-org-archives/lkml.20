@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793798800;
-	b=pGNz7i4ULMZXQ1P3HEa9kVc7u+Zv5W5r21siy8BFTHw0Pz/jzxuEhr6i7lVQH1VvFXDp
-	 DkBd6W2KGhEuIhazIDj1eO8iuy31EBFBUMocqLVfeLCGQQwAQo8n16JNC9e0KsLiaO/iA
-	 AJqQcfDP9fiQiyAeH1Qgz0mgBRKmks1vj0ta48Za81x9nWVW9PRmfefi78gZjvng14LFp
-	 yuHkWAOyFCpBiqPqZuqNI2Fh0wrWTDmFkjPwuzbD5Uo3qavajxzq3u+gkBzVJpkntlLZy
-	 qMDxFkW2iluHaiMHo8uMGC9tgU0m6zG8/Zyr9QneuZWux+7c+WXMFa65iRDzQCh5oTw==
+	b=vTTK79zDzQiQEtPbOBMNwX+rbqnjuqqv7/7hlcchfH6GZXnhfrqWNX6VnIcRo5Y169dy
+	 SNoNPiKqwzO2baZnxdzZ9k/Ko60DIeLpZpOMp0//clh9cFocMnbrX+2e7ZgSiwhpTFy74
+	 sMu8HsgdsUuq5osA97wmG6TFGx5e2GOVPyFF26cHDyHLck1Vl+fcCpGM6WtAfWJYA8kRE
+	 dTaoZum9M+pAAJ1GI/h6Rh8E6hCQJv/mQA7mpOZUH62/zNmc3cDLah9TaI/t6gZ7Jiq+M
+	 okqyspWbBFmtjjPPUosSUzQwJARjRLyFgmCJ8qO2UnawVmIwZrS3WYldVWLYkY5PJVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793798800;
 	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer;
-	bh=8VWJRnYdDgWYkOmrdLY6+pVRG5C1TOFKHJS7YbR/EkI=;
-	b=z17Fc/F+3yR2ykhNhsZU81Bd4QpS3dBpMe/Tnh/kfBSMCvwopOxPay7TeNOik5dGDHkz
-	 AJC+dpslN2KceNQvetLMLjlkxzWEIRJokbYC8c501aa2q3lVNszxNM1CvoxoyONlVv4Un
-	 cLLalTnlB+FOStxgdsRFgnbXJJuMTJ7TGjsV/VFil0UjbwPSDP3lfGHFjHBO4NpXWlGv1
-	 6zpZ/7QdTQLnWo1zGgZW2A8MD4qxe0D1rGGJsFDEmd1Tq0OxP9fnDglJ6Bn3fYC5Y32pD
-	 Xmpsimm5E0xH6r/pKJQTG722CWqGbnl+sHhUQMFh/pJdPyz/11N3sMY6XVHPNNt/u3Q==
+	bh=Ik+9As5zWEcnd1lAIe1HIcwapOrmjAd0LfPgVKhdxYI=;
+	b=ZvmTEwOCOy9O9V7KSlH9NNjvsSyyUTF2CDoKkvW8r4YbX3u+xM8+dJRqkt438nZVsHrd
+	 TJfjnK98dMbVViOMkKPH/CzfBvvNPMVvxl9mygHli7CenDgwYbKPdxhBlfOnCGK6hMTW1
+	 N5J5wh4wn4KsDdt5d3C6EUr1T09vg9q+8Vwh/aGjcXDb6+JKj0R6WON1RSqePSXEkA+Xe
+	 C1w7h5Bj0SXMWcdpHR8k3MmPYjkdrYdg3e1u7RGw/3Pu0MBTr/zj//sTV73CDcCiKQ3rs
+	 S/L1PD84x3MmsQXAOyBFjJdkvLPErlcsKsgjSvFek0+COy7pNSj1uy9ur9JrRgB+y6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=RtFrHXQt;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=ZVsJ+f+x;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79D33606D80B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:26:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79D33606D80B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45343606A338
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:26:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45343606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=RtFrHXQt
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=ZVsJ+f+x
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793798797;
-	bh=odezEJtCWSTeuZEkWqlhIsVy5xrCmes4RvPVe14Uicw=;
+	s=mail; t=1793798798;
+	bh=3VGBjuDZL44zL70KHrZsYKKN7DSrcaF1kiG0fCuaNZo=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=RtFrHXQtUAsk3aPL9EFJoE+VFt+0B5tTnL1oZyD55di3QHr/wAn16NClUj0gd/ARV
-	 nVGx6uBM2MK7Qfk6t5zefbOSPzGLWfzOwg+G6QzhK6DGZ+MDz7tCMnE9qQyzQtyrq5
-	 rdQ9bLIFSJ7U42yeTDEahNxApHGBjRKydcBh2+/EcixtOa1WukZYMialWUAXPtb0ll
-	 yJhG82jWmra8fubPgM8Grlao054sZIi4PrpSqERbJRFUs0uz6txNWWkDl3uDjOzKIZ
-	 FG2z6CP7psrKgwqJGTR/AYAloErD0QptLHbSUQ+wCCPxFg2Sm7tqla2ijBq52sreA6
-	 OxvZhsFiic6lA==
+	b=ZVsJ+f+xpeCaD5tMSD15u5CA1x0UCLzL2K+tHR4B6PjfPBC+wSmOcys6XQa9zSHb0
+	 5e8pgzELClB40c8m2alRnZTGoWXV4EkjQI5MUBBTXMjv8W97CroghOjdmOU4lFRCdi
+	 qFXMyrHh9Ba6qS/h/CVFUF561HUV+jqErM9ZBOo2N8ltcWV672FFnvl8Tz+RGiaW0x
+	 70109CpEkUvAEa92gobummi/3M4nqPV6DqppjmAS3zDGa0tYRZ8NtS33mxN/0aneMo
+	 WuWP5oyYitZQGM9ko7f9iEwD5MSM5B5vvKiIQBFIjzfcwCGVDC/g/CRPTXvq/bj1pa
+	 vNG6isDZr3V7g==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id B711B17E0418;
-	Wed, 04 Nov 2026 14:26:37 +0100 (CET)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 81E2E17E066C;
+	Wed, 04 Nov 2026 14:26:38 +0100 (CET)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Wed, 04 Nov 2026 15:26:21 +0200
-Subject: [PATCH 2/3] drm/display: hdmi: Use committed state to decide on
- SCDC resync
+Date: Wed, 04 Nov 2026 15:26:22 +0200
+Subject: [PATCH 3/3] drm/display: hdmi: Reset sink scrambling on
+ non-scrambled modesets
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,7 +65,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-hdmi-scdc-scramb-fixes-v1-2-16a9bb3d64a6@collabora.com>
+Message-Id: <20261104-hdmi-scdc-scramb-fixes-v1-3-16a9bb3d64a6@collabora.com>
 References: <20261104-hdmi-scdc-scramb-fixes-v1-0-16a9bb3d64a6@collabora.com>
 In-Reply-To: <20261104-hdmi-scdc-scramb-fixes-v1-0-16a9bb3d64a6@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -73,81 +73,128 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+ linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-drm_connector_hdmi_sync_scdc() uses the scrambler_enabled flag to decide
-whether the sink-side SCDC status is worth checking on a hotplug/detect
-event.  That flag tracks the source-side scrambler status, which is not
-necessarily in sync with what the committed mode actually requires.
+drm_connector_hdmi_disable_scrambling() only clears the sink SCDC status
+when the connector is known to be connected.  That is never true when a
+source driver disables scrambling at boot to clean up after the
+firmware, as vc4 does from vc4_crtc_disable_at_boot(), where
+connector->status is still unknown and no EDID has been read.
 
-In particular, a source driver may deliberately set scrambler_enabled at
-init to force a disable at boot and resync hardware left enabled by the
-firmware, as vc4 does.  If the pipeline doesn't get disabled afterwards,
-e.g. because no display was active at probe time, the flag remains
-stale.  A subsequent detect (e.g. an HPD event) then finds scrambling
-disabled on the sink while the flag claims otherwise, and triggers a
-CRTC reset.  This results in a one-time spurious flicker on an otherwise
-correctly configured non-scrambled mode.
+A sink left scrambling by the firmware thus keeps both Scrambling_Enable
+and the 1/40 TMDS bit clock ratio set.  If the first modeset picks a
+mode below 340 MHz, no disable happens in between, since the CRTC was
+never active in atomic state, and drm_connector_hdmi_enable_scrambling()
+returns early, leaving the sink trying to descramble an unscrambled
+stream.
 
-Verify conn_state->hdmi.scrambler_needed instead, as it is computed
-during atomic check and reliably describes the requirements of the
-active mode.
+Instead of blind SCDC writes at boot towards a possibly absent sink,
+reset the sink status from drm_connector_hdmi_enable_scrambling() when
+no scrambling is required.  By then the sink has been probed, and HDMI
+2.0 expects a scrambling capable sink to have Scrambling_Enable cleared
+below 340 MHz anyway.  The reset runs regardless of source scrambler
+support, since the firmware may have left the sink scrambling.
+
+Factor the reset out into a helper also used by the disable and error
+paths, gated only on drm_scdc_sink_supports_scrambling(), which suffices
+because drm_display_info is zeroed until the first EDID read and reset
+on disconnect, making the connector->status check redundant.  As the
+helper now runs on every non-scrambled modeset, read SCDC_TMDS_CONFIG
+first and only clear the bits actually set, so the common case costs a
+single DDC read.
 
 Fixes: d653818324ed ("drm/display: hdmi: Add HDMI 2.0 scrambling management helpers")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/sashiko-outbox-170670@kernel.org/
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/display/drm_hdmi_helper.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/display/drm_hdmi_helper.c | 45 ++++++++++++++++++++++++-------
+ 1 file changed, 36 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/display/drm_hdmi_helper.c b/drivers/gpu/drm/display/drm_hdmi_helper.c
-index 872f7e32e8d2..974d5de6d380 100644
+index 974d5de6d380..278cfda38e18 100644
 --- a/drivers/gpu/drm/display/drm_hdmi_helper.c
 +++ b/drivers/gpu/drm/display/drm_hdmi_helper.c
-@@ -653,7 +653,6 @@ EXPORT_SYMBOL(drm_connector_hdmi_disable_scrambling);
- int drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool plugged,
- 				 struct drm_modeset_acquire_ctx *ctx)
- {
--	struct drm_connector_hdmi *hdmi;
- 	struct drm_connector_state *conn_state;
- 	struct drm_device *dev;
- 	struct drm_crtc *crtc;
-@@ -663,7 +662,6 @@ int drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool plugged,
- 	if (!connector || !plugged || !ctx)
- 		return 0;
+@@ -470,6 +470,28 @@ static bool drm_scdc_sink_supports_scrambling(struct drm_connector *connector)
+ 	       info->hdmi.scdc.scrambling.supported;
+ }
  
--	hdmi = &connector->hdmi;
- 	dev = connector->dev;
- 
- 	/*
-@@ -677,14 +675,21 @@ int drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool plugged,
- 
- 	/* TODO: Also handle HDMI 2.1 FRL link training */
- 
--	if (!drm_connector_hdmi_scrambler_supported(connector) ||
--	    !READ_ONCE(hdmi->scrambler_enabled))
--		return 0;
--
- 	conn_state = connector->state;
- 	if (!conn_state)
- 		return 0;
- 
-+	/*
-+	 * Rely on the committed connector state rather than on the current
-+	 * scrambler status: a source driver may force scrambler_enabled at
-+	 * init to get a disable at boot (e.g. vc4), and that value would
-+	 * remain stale until the first disable actually happens, leading to
-+	 * a spurious CRTC reset whenever the active mode needs no scrambling.
-+	 */
-+	if (!drm_connector_hdmi_scrambler_supported(connector) ||
-+	    !conn_state->hdmi.scrambler_needed)
-+		return 0;
++static void drm_connector_hdmi_reset_sink_scrambling(struct drm_connector *connector)
++{
++	struct drm_device *dev = connector->dev;
++	u8 config;
++	int ret;
 +
- 	crtc = conn_state->crtc;
- 	if (!crtc)
++	if (!connector->ddc || !drm_scdc_sink_supports_scrambling(connector))
++		return;
++
++	ret = drm_scdc_readb(connector->ddc, SCDC_TMDS_CONFIG, &config);
++	if (ret) {
++		drm_dbg_kms(dev, "Failed to read TMDS config: %d\n", ret);
++		return;
++	}
++
++	if (config & SCDC_SCRAMBLING_ENABLE)
++		drm_scdc_set_scrambling(connector, false);
++
++	if (config & SCDC_TMDS_BIT_CLOCK_RATIO_BY_40)
++		drm_scdc_set_high_tmds_clock_ratio(connector, false);
++}
++
+ static int drm_connector_hdmi_try_scrambling_setup(struct drm_connector *connector)
+ {
+ 	bool done;
+@@ -522,6 +544,11 @@ static void drm_connector_hdmi_scdc_work(struct work_struct *work)
+  * the sink side and retry the operation, as some displays refuse to set the
+  * scrambling bit right away.
+  *
++ * When @conn_state doesn't require scrambling, the sink-side SCDC status is
++ * reset instead, so that a sink left scrambling by a state the driver did not
++ * control, e.g. set up by the firmware before boot, doesn't end up out of sync
++ * with the source.
++ *
+  * The work item is cancelled by drm_connector_hdmi_disable_scrambling(), hence
+  * source drivers must ensure the display pipeline is shut down on unbind, e.g.
+  * via drm_atomic_helper_shutdown(). Otherwise the work may outlive the driver's
+@@ -541,8 +568,14 @@ int drm_connector_hdmi_enable_scrambling(struct drm_connector *connector,
+ 	if (!conn_state)
+ 		return -EINVAL;
+ 
+-	if (!conn_state->hdmi.scrambler_needed)
++	if (!conn_state->hdmi.scrambler_needed) {
++		/*
++		 * Resync the sink here, where it is known to be connected
++		 * and its capabilities have been parsed.
++		 */
++		drm_connector_hdmi_reset_sink_scrambling(connector);
  		return 0;
++	}
+ 
+ 	if (!drm_connector_hdmi_scrambler_supported(connector)) {
+ 		drm_dbg_kms(dev, "Source doesn't support scrambling.\n");
+@@ -581,8 +614,7 @@ int drm_connector_hdmi_enable_scrambling(struct drm_connector *connector,
+ 		WRITE_ONCE(hdmi->scrambler_enabled, false);
+ 		cancel_delayed_work_sync(&hdmi->scdc_work);
+ 
+-		drm_scdc_set_scrambling(connector, false);
+-		drm_scdc_set_high_tmds_clock_ratio(connector, false);
++		drm_connector_hdmi_reset_sink_scrambling(connector);
+ 	}
+ 
+ 	return ret;
+@@ -619,12 +651,7 @@ int drm_connector_hdmi_disable_scrambling(struct drm_connector *connector)
+ 	if (hdmi->scdc_work_initialized)
+ 		cancel_delayed_work_sync(&hdmi->scdc_work);
+ 
+-	if (connector->ddc &&
+-	    connector->status == connector_status_connected &&
+-	    drm_scdc_sink_supports_scrambling(connector)) {
+-		drm_scdc_set_scrambling(connector, false);
+-		drm_scdc_set_high_tmds_clock_ratio(connector, false);
+-	}
++	drm_connector_hdmi_reset_sink_scrambling(connector);
+ 
+ 	return hdmi->funcs->scrambler_disable(connector);
+ }
 
 -- 
 2.55.0
