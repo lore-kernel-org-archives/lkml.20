@@ -1,95 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793787471;
-	b=0JL2Kk0eca8ozhkFoLJH2mPhFLhI0ibfchHt4ChpvpBPmfjrwb8fnCAImCj78wMYDwLF
-	 0yT2KKtZyvGaQdcTMMnYwSV4LBZRhSh2rrQf02vv+wrTVqmuGlHiRz9wQ4ydMlQSOaDD1
-	 hFqEYkfotj0KnBNsBcjfe0wpiLYkiJ5asY0K9nXuiw2NCeMsWjW7VWiZ5MeN5xvuJ9T94
-	 oIHkNI5d2h4WI9z8XKr3Z/I1RgF3pYorSS4wNXKRshCvVuVKO/d/jOzzx4kUuWR09xkYA
-	 F+++BPQ7HqyRF+iZFn1JuvT5UJpbpvAbtxVr/Pdm39aYuEbXugQ9l6BdYJ6igGdY+7g==
+	t=1793787467;
+	b=rO7eMrLVPhmPo/nmd1tA0NACAK48PdB0zXvbcCXh7GO4ZMecD6M263Lc1jNbBWEHXer3
+	 RfkcMsrCA8M4Ubn85FhVMnIoAJFeC2f+jVwxpedbdN5En3SC2A7/tQQ+Sd7gIEs+8kTi/
+	 G8NI7orTrQO/u+bbpKZiIiiD3yDGQ10bbOpUCpXnAau2Zm96wDSufVyewvGA6cA+dZ32R
+	 QZoRRel919+hH7ZCo8JmAfnWivz3ZsdLz/iKKm/WMD9gX073R0TPj3I3neC2+3QwvOl7Y
+	 U3fL9dWL49ByZyn8hcn/dcm0udrl8dIvxaFryq21Pk2AqKbca4oJPogbEgDo/+mlb6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793787471;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793787467;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=jbuhfSlfgFZ1tnBuSoCDBMKfZMfXYTX6enIbhL3dWk8=;
-	b=C4StturJXacAQ2ANcX569EvF6V5YIolkfuMQX/u2iZ4rVbntS88QZzKlRDugNpb/qeuI
-	 ol7os+dFvI2pim2nfHz411yV693eLWegoCAmnOyLcoPF8eZ7JDs7FjEbNxYVe8bVEX4Mc
-	 03Pvb491wt/hUWIb9f1Uznc1jbtx3RvZ0v0vuh6cQEfKaAbx/Cj1snns7Qf0Gl40r9hz3
-	 9hjwfHK4PIWl0qQRhM67EvLUow3WNkfYe3fS5guNUYDqFyZdXAKsoFFEKucEiTOYn6uv+
-	 6pd+A3E3TrVmQDq8gvnQ6p8+dUZpkkpq44KD8pdQ0cPIiMQYMqSsLItpQWsASEN0i8Q==
+	bh=nafaEA1OVG7CjcE+9vFCf00bZY6KpgzCNwfvKtVMnW4=;
+	b=VQkmiW6TAis4c+AuNFS5Nk2dFoWuNiPQtjftibAsMIjUZ5IALwYu1Aat+L8nEOL7TnOS
+	 zaDvmPc5yU+YQzJiXMMjaN3DGM1Njlj1HZ8K5wxo5hXp2XiHA5tDqnjfsZEjzluq7ou9d
+	 VY6eAokRM7/91ecZc35sHm3RBFtNWjdppsW0BUUo9f6218pu6pJu4TsfJnc8phMNW8kn8
+	 XpDHDzYEGVnTq1+fU59TSuhu8RER9YURPPPZguHmRN4nUnSr+tjZzR4l16lJBDr9afeNp
+	 zcJpz9BR9RhF+v6ml1/8dM4+jSbKeiptIAAgpMZcQlA9yw9o8o7C9g4FkbUe3C+0P+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amarulasolutions.com;
 	spf=pass smtp.mailfrom=amarulasolutions.com;
-	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=CyNEMifS;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=eHnPGaGy;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B206D606A32F
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:17:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B206D606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64B57606A32E
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:17:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64B57606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=CyNEMifS
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so3347435e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 02:17:50 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=eHnPGaGy
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48e00eee27dso269468f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 02:17:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1793787469; x=1794392269; darn=vger.kernel.org;
+        d=amarulasolutions.com; s=google; t=1793787465; x=1794392265; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jbuhfSlfgFZ1tnBuSoCDBMKfZMfXYTX6enIbhL3dWk8=;
-        b=CyNEMifSVUvkTiaf6KkOAei9iz6weszH54eAirXWayP4n7wL9TezYOigHf5joDbBja
-         S8wK3tnIvZ92VTIq1L9pyaHv2pKagv+UCZZ7nZkVKoW5RvgTdmPteRu/OxZrHiL9upkY
-         VhCzMqfWkaHnZgpb+uJjSCGYWdmBxAPIldN3Y=
+        bh=nafaEA1OVG7CjcE+9vFCf00bZY6KpgzCNwfvKtVMnW4=;
+        b=eHnPGaGy9vjCz3endU7ujp9oiZUhTPhQRDiNW3N/hOwyLbS95T+qAJ0YpwEurjgD4h
+         W8PW5edMps4nIXks6isfmzvTgbMPYOe61Q+xtyVIiNv/kxY8yAPP38hl4xgFROOY2FL9
+         pvRFjtaaOel13Fqy/pwiop+UvoLlnaknkrkcE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793787469; x=1794392269;
+        d=1e100.net; s=20260707; t=1793787465; x=1794392265;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jbuhfSlfgFZ1tnBuSoCDBMKfZMfXYTX6enIbhL3dWk8=;
-        b=nwXxsdeaPUaaJHvQT/l6deiMTRumQevGzQ+yRR3XGRVmPszeX5L4/SPO21mNED3le2
-         rqNbOSrB/Wz+1c0un0uN8gnIZ/Z8Kz2VDFW9sWNrRqXk3i9L0MskUJ6w2ZnAXRuKP7K2
-         gBtYSDDlbAZkiONp3qbKngbnEiy4ijgNfkvegfuXsij9pzAIyP8OGOO9a44KTFkdj1OB
-         DK5Xl4DEgxbbIbZCbIxqFluivCeEVjXJ8980LZ2w2IO117QH7X0p1opu9El43Y/3hl7r
-         odG0S8S3O6EH4/gzTh7ksHI1E9ateD/3bGD/+Q7WkDJdEhx/kSbX+hC671IP/nLdeUey
-         HQKQ==
-X-Gm-Message-State: APuU4Z+Np5nAZ8Y2rFZp9gqWyGPXxtbRjcYnF+2b18RzJC7jrjJNn/HQ
-	VwjqrL7Lde1lvKhGH/6PXFKiGovyvBLOCAqIFa1sR6X7i/ebFeI1Op6OPBPSoKHJEY9LvD6QZ3a
-	1CKaS
-X-Gm-Gg: AYBFou2WHrOVneRqX3CfzOPIGjiWXEqprsUF5PcDik1PrDkBiffdD41Bjewz2EghCwU
-	80YezrgRrlC6OJ7I7AQigBV5xt+NOhQ5qtgpbm0bxayqvCSxKk8WyGBg9WZDpExAjMdwTxV51sz
-	+qOT21+MzXSu4HgVtoztfiztq07wPBIQ7pAi+lUY4Wnk98YbKfr9sq7fodTieeUXpOmw3DmN2CJ
-	a60dPnjlLUby7ANCeDOz39atAxpKiJST93AD+GB90aWLxk+8npU9ys5bkmZ6CZs575FaMSAYgS4
-	nvryDmSRCXUXOOKvu0gm0j7p70cONRXZS67CWmEaCzN37b8nvgHzt5J7aCuc9Xh37t8PqVm3w/m
-	ZbpinXdQCPUQhj/cr2PQ3B6CRFS5K0+j7IPsejAt54N0hIsIIpWQjHnVoHhUi9JXCbBa/rqOhQt
-	Whdj2JoM0QnPQpxYRylkAvMpWQ3uwvTiurtREVyUwTA9f2EjeDJmeXPHfahbN6C5wJlAKxwJQzt
-	ptz9ofJdd56sscKg9cQKNwwulKrJbTqRBpn8J/J+pmQlFeSwlvu6sjRo74T+U2sGEc5Ba2d57ci
-	5YuwCa6oETJ+mUtphrZ5XIcHyoiF+4lF9d9MDSQtisXuv6BaZogxup6n8ZoQmhgVv8iZWBc988R
-	kBiY+cAOOJg4MHV+/RI3pG805/EF6WwdJ9xxgckyuVyHYP3PS960S
-X-Received: by 2002:a05:600c:1f93:b0:4a1:7e76:d02f with SMTP id 5b1f17b1804b1-4ac180f299emr332117065e9.14.1793787469058;
-        Wed, 04 Nov 2026 02:17:49 -0800 (PST)
+        bh=nafaEA1OVG7CjcE+9vFCf00bZY6KpgzCNwfvKtVMnW4=;
+        b=z9BQg/HgSKjqpLwUP5ceejyKX5PKC3e0d8sP0UtxcVEiy/TrucUWy5aZsbdOu2ka0C
+         /qdQczZdR7QgxL4V5Xv0N/tTNSfhWijC3BFcT1iyqUDM1cge+oraiBOXqZTlnixKpB17
+         ePxfNw7m0HWoL7+PaxOC+MDUfrgp8IdENYqefKU7+naH29olba1GbT+N3CE7JKCSl7+g
+         8+Edl/QKdmzPFTzFLJ3OPnwl9SUFopHj5iFciqQxSYqV0iA0+QYArn6yiwFjhL7x1laK
+         lb3AlnQ0FKtQCzv1MQkF2pi3TUHpso5S1rxlsoYNr5raXTDLtCIWIEdVhzt5nIjgZzfd
+         ySXw==
+X-Gm-Message-State: APuU4Z9hL/nP+nB0yUwjMSwF+FNJBeWFofm/u6hdCHIeFh2EAPfpqYFM
+	ygWHhRVxzfERCyHLCxlebNnzmEPKzaLAAGR9lhAsL2LNX4f1GiEhGYnS9P6jog0w1hFkgEVJW01
+	FCcD6
+X-Gm-Gg: AYBFou24g8iCcl7iGnFy9nMpcS47AoV86//WqJqbSXj1pMeSmG2Ht0LIEgOOo0CSEk0
+	8VggwABFKuulqESaWEK60DE+FKngGqC00P3WNtDEz25fn+MxNOLhCbD6BneXYjx826GhaceOLtu
+	sOa6qTam0Hq7iht+PDg8MGLKBhvWxU4cAZWK9oobcrhWyp0EIuZS2BFJQ7GFLWfUqvQZCVD5spA
+	xK3VEHg+d5eH9I9xwLy8d5kGvFN3eIuMJLU78vrCBNcrpc1dvTR06Ns6RwbfkmWiJGk4NYLE0R3
+	xY1BD1vERLOmgXNVOAONYYrFPk+qMXk4CLVO6alHu5PB+I/1oRvO2EzYDDF0ftX42Bq9GLn+yJC
+	oohlGnI1JPiFnUTLKZbsLcdW2QehJuOBTOQ3YUbNir7zOZnVsJjYt8Y4HIM58zzYFQQynSWV7fj
+	5ifV7+D1eSOINzvugpBT/akeExhi8ht7YwE5+Fc/aZu0Zy+l6Yus1r3EevlVzQrgtiEIhmxzEx3
+	CNcXAGPXCynLQ7iQgSPnsEv7FAD7H0264NPsG92PgA5i3TfEIWoYTgVhqMtPDrbVNLjXc89n0Mn
+	40L/3ojR9rf0PMDtDz4IM9MhOOpB5tzW0OylgE0nmGMXJbO00Gn8f54i+LZzcQjlyO0rJP61h5t
+	p6hIcrFRku2JLXs2xm6XPKALHrB4WHQ+aUB0FEXGwsDPzP264XBoV
+X-Received: by 2002:a5d:5d06:0:b0:48d:ef7a:e59f with SMTP id ffacd0b85a97d-48e6e2fa482mr34138879f8f.17.1793787464715;
+        Wed, 04 Nov 2026 02:17:44 -0800 (PST)
 Received: from dario-ThinkPad-P14s-Gen-5.amarulasolutions.com ([217.201.213.4])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feeb51a9csm3035105f8f.59.2026.11.04.02.17.47
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feeb51a9csm3035105f8f.59.2026.11.04.02.17.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 02:17:48 -0800 (PST)
+        Wed, 04 Nov 2026 02:17:44 -0800 (PST)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 To: linux-kernel@vger.kernel.org
 Cc: michael@amarulasolutions.com,
 	linux-amarula@amarulasolutions.com,
 	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
 	Brian Masney <bmasney+clk@redhat.com>,
+	Conor Dooley <conor+dt@kernel.org>,
 	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Stephen Boyd <sboyd@kernel.org>,
-	Tero Kristo <kristo@kernel.org>,
-	linux-clk@vger.kernel.org,
-	linux-omap@vger.kernel.org
-Subject: [PATCH v4 3/3] clk: ti: dpll: apply the spread spectrum configuration right away
-Date: Wed,  4 Nov 2026 11:16:57 +0100
-Message-ID: <20261104101732.4043372-4-dario.binacchi@amarulasolutions.com>
+	devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org
+Subject: [PATCH v4 1/3] dt-bindings: clock: ti: dpll: deprecate the ti,ssc-* properties
+Date: Wed,  4 Nov 2026 11:16:55 +0100
+Message-ID: <20261104101732.4043372-2-dario.binacchi@amarulasolutions.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261104101732.4043372-1-dario.binacchi@amarulasolutions.com>
 References: <20261104101732.4043372-1-dario.binacchi@amarulasolutions.com>
@@ -104,116 +107,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The spread spectrum clocking (SSC) registers are only programmed by
-set_rate(), which the clock core skips when the requested rate is
-already the current one, e.g. when the bootloader has set it up.
-As a result, the SSC configuration is not applied, as it was with the
-vendor specific properties.
-
-Apply it from set_spread_spectrum() instead, reprogramming the DPLL
-at its current rate.
+The common clock binding provides assigned-clock-sscs to configure
+spread spectrum clocking (SSC), supported by the clock core since commit
+a7f16660af39 ("clk: conf: Support assigned-clock-sscs"). Deprecate the
+vendor specific ti,ssc-deltam, ti,ssc-modfreq-hz and ti,ssc-downspread
+properties in favor of it, so that new DTs use a single way to describe
+the same thing.
 
 Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 ---
 
 Changes in v4:
-- Split the already applied check into the disabled and enabled cases
-- Keep the reverse Christmas tree order for the variables list
+- Add Reviewed-by tag of Krzysztof Kozlowski
 
 Changes in v3:
-- Skip reprogramming only if the configuration is already applied
-  to the hardware
+- Deprecate the properties instead of dropping them
 
-Changes in v2:
-- Check the DPLL lock state instead of its parent, as the reference
-  and bypass clocks can be the same clock
+ Documentation/devicetree/bindings/clock/ti/dpll.txt | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
- drivers/clk/ti/dpll3xxx.c | 56 ++++++++++++++++++++++++++++++++++-----
- 1 file changed, 50 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/clk/ti/dpll3xxx.c b/drivers/clk/ti/dpll3xxx.c
-index 052233f2e12b..b48ea0492378 100644
---- a/drivers/clk/ti/dpll3xxx.c
-+++ b/drivers/clk/ti/dpll3xxx.c
-@@ -690,17 +690,22 @@ int omap3_noncore_dpll_set_rate(struct clk_hw *hw, unsigned long rate,
-  * @hw: pointer to the clock to set the spread spectrum configuration for
-  * @ss_conf: spread spectrum configuration
-  *
-- * Stores the spread spectrum clocking (SSC) configuration of the DPLL. The
-- * configuration is programmed along with the DPLL multiplier and divider
-- * at the next rate change. The hardware supports center-spread and
-- * down-spread only. Returns 0 on success, or a negative error value on
-- * failure.
-+ * Stores the spread spectrum clocking (SSC) configuration of the DPLL and,
-+ * if the DPLL is locked, reprograms it at its current rate to apply it.
-+ * Otherwise the configuration is applied at the next rate change. The
-+ * hardware supports center-spread and down-spread only. Returns 0 on
-+ * success, negative error value otherwise.
-  */
- int omap3_noncore_dpll_set_spread_spectrum(struct clk_hw *hw,
- 					   const struct clk_spread_spectrum *ss_conf)
- {
- 	struct clk_hw_omap *clk = to_clk_hw_omap(hw);
- 	struct dpll_data *dd = clk->dpll_data;
-+	struct clk_spread_spectrum old_conf;
-+	struct clk_rate_request req;
-+	unsigned long rate;
-+	u32 ctrl;
-+	int ret;
+diff --git a/Documentation/devicetree/bindings/clock/ti/dpll.txt b/Documentation/devicetree/bindings/clock/ti/dpll.txt
+index 14a1b72c2e71..8759c328e841 100644
+--- a/Documentation/devicetree/bindings/clock/ti/dpll.txt
++++ b/Documentation/devicetree/bindings/clock/ti/dpll.txt
+@@ -57,11 +57,14 @@ Optional properties:
+ 	- ti,min-div : the minimum divisor to start from to round the DPLL
+ 		       target rate
+ 	- ti,ssc-deltam : DPLL supports spread spectrum clocking, frequency
+-			  spreading in permille (10th of a percent)
++			  spreading in permille (10th of a percent).
++			  Deprecated, use assigned-clock-sscs instead.
+ 	- ti,ssc-modfreq-hz : DPLL supports spread spectrum clocking, spread
+-			      spectrum modulation frequency
++			      spectrum modulation frequency.
++			      Deprecated, use assigned-clock-sscs instead.
+ 	- ti,ssc-downspread : DPLL supports spread spectrum clocking, boolean
+-			      to enable the downspread feature
++			      to enable the downspread feature.
++			      Deprecated, use assigned-clock-sscs instead.
  
- 	if (!dd || !dd->ssc_enable_mask)
- 		return -EOPNOTSUPP;
-@@ -709,9 +714,48 @@ int omap3_noncore_dpll_set_spread_spectrum(struct clk_hw *hw,
- 	if (ss_conf->method == CLK_SPREAD_UP)
- 		return -EINVAL;
- 
-+	ctrl = ti_clk_ll_ops->clk_readl(&dd->control_reg);
-+
-+	if (!memcmp(ss_conf, &dd->ssc_conf, sizeof(*ss_conf))) {
-+		/* Already disabled */
-+		if (ss_conf->method == CLK_SPREAD_NO &&
-+		    !(ctrl & dd->ssc_enable_mask))
-+			return 0;
-+
-+		/* Already enabled */
-+		if (ss_conf->method != CLK_SPREAD_NO &&
-+		    (ctrl & dd->ssc_enable_mask))
-+			return 0;
-+	}
-+
-+	old_conf = dd->ssc_conf;
- 	dd->ssc_conf = *ss_conf;
- 
--	return 0;
-+	/* Disabling SSC does not need to reprogram the DPLL */
-+	if (ss_conf->method == CLK_SPREAD_NO) {
-+		omap3_noncore_dpll_ssc_program(clk);
-+		return 0;
-+	}
-+
-+	/* Not locked: SSC is programmed along with the next rate change */
-+	if (((ctrl & dd->enable_mask) >> __ffs(dd->enable_mask)) != DPLL_LOCKED)
-+		return 0;
-+
-+	rate = clk_hw_get_rate(hw);
-+	clk_hw_init_rate_request(hw, &req, rate);
-+	ret = omap2_dpll_determine_rate(hw, &req);
-+	if (!ret && req.rate != rate)
-+		ret = -EINVAL;
-+	if (!ret)
-+		ret = omap3_noncore_dpll_set_rate(hw, rate,
-+						  clk_hw_get_rate(dd->clk_ref));
-+	if (ret) {
-+		pr_warn("clock: %s: rate %lu can't be kept with SSC enabled\n",
-+			clk_hw_get_name(hw), rate);
-+		dd->ssc_conf = old_conf;
-+	}
-+
-+	return ret;
- }
- 
- /**
+ Examples:
+ 	dpll_core_ck: dpll_core_ck@44e00490 {
 -- 
 2.43.0
 
