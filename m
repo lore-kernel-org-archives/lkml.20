@@ -1,70 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.171
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793824250;
-	b=Bx2gq/68F6AjXwrNrVT9LvJ7t/0zj5UAjV9sO4D6jp9bkAbhPQ+9gLEYetRsnEYtkaRZ
-	 Eirf73uQxgKSs/oE6zohBpUwAwh6C4MOrmRbMZmUWSZOBG5PgNjTU+gRJB+NVDy3k3Wzu
-	 QTTeJcCkJp0ZEEy1JB9W84RS1RxObl2vAGpuQZWXpRVz6othG5lPqlDEQKqr6Yhr01sx4
-	 Wf1AHeJuO7g+u1SPegP3x3sOShAbHtECCB1fPQdkM2Htl6abXY8GNI4/RK73TzjSAZYcZ
-	 c/FEeK2sRs1IjhePG5+WP6VeiswV78JqkbcsoKHeHIMM4Eq3SldCx96IS3jOdHqKsjg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793824250;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793824269;
+	b=0Kq1LesNJFZzXFxtlBppb7I9VxDH7hUFYABNogSGZv82/Z9Pv71C/vjAR8XqF/E+eem3
+	 FW6XjOfK7NeT5PCVWsAZfgMu4iHFSrMmJFwrmoOSbDxCEbipOKjwkMEzqEBYBsy7Pc8nB
+	 r4bUaCkRsPABQKE8vk0WiI9joKGbj97aZMBxRNIRIt6oupytMDnTZG3A7EKA+55vExZ/Y
+	 0JoF6mf9mmvPOr6U/rHfWdulnyHvc2In2IknpS86FWNHkWKwA0/KuxS2cjeKURDmHL8xA
+	 TdRYrxm3Ey7/TnLXTEc/IX5mCXST60duWusGCF1ESbdGxBfidBVhPSbYNirCZQ1nOeQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793824269;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-MBO-RS-ID:X-MBO-RS-META;
-	bh=JIMiU9y0vbuCD/B9Q5lvFFGjmQ5GlwLyj7wmrnkHlyg=;
-	b=j+KXVuvPawmnvr10i8Lwlhxi0bIefkgqa6rzteyOaUMEgj8CUaSHSoISB3fihzVTRs7s
-	 UC8zRzYaUL555pXPmU4SsO0WUPjlpFxXXgfMf4bfai4ANjCgv5eyZUG1+Ry2UyoaQq9PO
-	 qxwDY2rA+LHkA4cPgUkIV/zoFuMM2bA8Hr8BZaVkHIqI691q7sFGAyUpl1m39FbKnpU9E
-	 Tqm5GdHsBvLZGgVkzcHp6e5OTJBpSYa8jE/3Go/lYofH6emi1N/5qg7NVGHy5/fgM0tEK
-	 WsI32WM6OjmfsYF1inbHc+96PdpSX1t1YCXzIm5auXZ5LOCZ6mnyPv0kJ4931SHCfAw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=B2jez2gn;
-	arc=none smtp.remote-ip=80.241.56.171
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+	 X-ZohoMailClient;
+	bh=U4L4/KbrFieS+0UXgWqlk7B9bXIXbAaNfkWea0yLlQ8=;
+	b=wAaXD7osfHnD9L4UQRpbIf5eUZx28sisfPlfnUg3cIoFwO6cEWEaAasrGHN73khYXyGP
+	 dNru62KvrYuXqxHYF2aej1Lw0rkxTr/ga1lhtdFcr6Z1+Wa6gIcljpEUpLMtFqAhJCT+Y
+	 RMTM1OxO+1i6gxJ3DNH1szE/uQXK/wbIqbS/tK1yrk6+VYMTN5DmHDIyfGxoKnojl0TU/
+	 xjqDhMCWTtXK+k1YR2krgZcD0psuoTWNk6Wq3Sn+FXdyO7KIIEiOYGgnPnMlJCVFKBWgj
+	 1OI89i+KckX41216wObwxVTUeOawO6U4VwM0O2EH6zj91sYliq7mltt9BgWIjfnwsyA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ph4ntom-rev.uz;
+	spf=pass smtp.mailfrom=ph4ntom-rev.uz;
+	dkim=pass header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b=svDicBJE;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.54
+Received: from sender5-of-o54.zoho.com (sender5-of-o54.zoho.com [165.173.182.54])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BBF9606A840;
-	Wed,  4 Nov 2026 20:30:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BBF9606A840
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 920E2606AE05;
+	Wed,  4 Nov 2026 20:31:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 920E2606AE05
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ph4ntom-rev.uz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ph4ntom-rev.uz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=B2jez2gn
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jKcX50jDBzMlCp;
-	Wed, 04 Nov 2026 21:30:45 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1793824245;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=JIMiU9y0vbuCD/B9Q5lvFFGjmQ5GlwLyj7wmrnkHlyg=;
-	b=B2jez2gnt5yTgJFBiUcy3vBZd4MMeVLOjZ1E+S0wNg18H1AxJ9ZNSzbcaNEKjgXwITvTho
-	s82bYij3bzAz6GSJtqSYYZXXxu8DoB8zDo6Mgiv00t3tupNFo9UX31hBjUyhVKway+P4yn
-	0utTnn5NiRMNI+Ua+WuaOhKojsK+odEB0DMvUyeqdap7AkQaB1I3Ud1N+UgPpVkPTdH+Hh
-	tP2zgupLJciwpgyUGSpe5+X+2bcXHEpIbIvMpc6i8+agi01uDUAn+TWM++R26ubWJwcCHB
-	4YNQ8UVRLnPOniFkG1efNIqO2yCzMP3zLtu9UY4a0b3em/LYvz8gIop5PegiAw==
-From: Manuel Ebner <manuelebnerli@mailbox.org>
-To: SJ Park <sj@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>
-Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
-	Daniel Pereira <danielmaraboo@gmail.com>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4] Docs/admin-guide/mm/damon/lru_sort: fix grammar and style
-Date: Wed,  4 Nov 2026 21:29:58 +0100
-Message-ID: <20261104202959.128646-2-manuelebnerli@mailbox.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b=svDicBJE
+ARC-Seal: i=1; a=rsa-sha256; t=1793824260; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=WTQgkwmxQCnVladPaclBCcO6R7KEAzRweReUOxNlbvWGqKjSfuJSfCTmzrZq3XQ4AfAdzRSiR29yFYK91AxhmiVLEX9lVf7mvmAMFzE640uctSo6EYkdM1OJ5n/3K/TbLg3fe0CGKmI7Xq4Ky3OaiSoskOE4ww87txBUXdrM2L0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1793824260; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=U4L4/KbrFieS+0UXgWqlk7B9bXIXbAaNfkWea0yLlQ8=; 
+	b=eu7xexcKlNTbDlFmQCfxi1kmIKLByX6VoOaRPhBiB38PbFPANuCspBDdcdpoHWsqxi3Z0KzasivOS7P0h1dmc6nLw0kr31xUKyqFHLRLNm8eBVQWiiVTD9H6XG20D1Cqp6puIJvIqlCdSxajuQ2tWa5oaoeoaBgN2Maa5tZbKIc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=ph4ntom-rev.uz;
+	spf=pass  smtp.mailfrom=owner@ph4ntom-rev.uz;
+	dmarc=pass header.from=<owner@ph4ntom-rev.uz>
+DKIM-Signature: a=rsa-sha256; b=svDicBJEiPu6BCxyyNEhad72cl3N/Ue3fqcTNo7paY6aXWxm6M1fyNFmfmp2Qrc6dd4DzCZoNRYFioUbyRnlXBZtDMbPkkO/bTCxdvmLflxZIwzk3mdukJQx1Zq2hq4cKSuHBN0EpmeGAPKf0ndSK2PfQMl5XeLBOzz6dc3WmlrmnyiGQ3B9zL8OOFovXD2Hy70hZuQgyR5NYWU+Ty9F+2ELU1X90SJhKcmZCOJlY3zEZZ5o0evugitmmGSO+BmOPcYggssq5VhVmT1UvD+xFOoQkNoXIZvW5ynlW2/51+4dHoybw9K5pKQE7jxbUBIKcnVSbYb3D6TzFigNtZY/qg==; c=relaxed/relaxed; s=zoho; d=ph4ntom-rev.uz; v=1; bh=U4L4/KbrFieS+0UXgWqlk7B9bXIXbAaNfkWea0yLlQ8=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1793824257718589.5105838531466;
+	Wed, 4 Nov 2026 12:30:57 -0800 (PST)
+From: Enver <owner@ph4ntom-rev.uz>
+To: linux-wireless@vger.kernel.org
+Cc: pkshih@realtek.com,
+	kvalo@kernel.org,
+	linux-kernel@vger.kernel.org,
+	Enver <owner@ph4ntom-rev.uz>
+Subject: [PATCH v3 0/3] wifi: rtw89: monitor RX filtering, raw injection and channel restore
+Date: Thu,  5 Nov 2026 01:30:48 +0500
+Message-ID: <20261104203051.564-1-owner@ph4ntom-rev.uz>
+X-Mailer: git-send-email 2.56.0.windows.4
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,209 +67,60 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 8310e9f3ba41376803e
-X-MBO-RS-META: q14mur6h1s4sx8s85bqojgytr34moh6g
+X-ZohoMailClient: External
 
-Fix tenses. Split long sentences thereby improve readability.  Replace
-'set as' with 'set to'. Replace [] with () to make the file uniform.
+This series supersedes the v2 monitor-mode series:
+https://lore.kernel.org/linux-wireless/179371849554.20972.16232816164394690660@ph4ntom-rev.uz/
+https://lore.kernel.org/linux-wireless/179371849554.20972.4737532522625772373@ph4ntom-rev.uz/
 
-Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
-Reviewed-by: SJ Park <sj@kernel.org>
-CC: Daniel Pereira <danielmaraboo@gmail.com>
+Changes in v3:
+- remove redundant RX filter, sleep-register and scheduler operations;
+- add rollback and error reporting for monitor firmware join state;
+- restore channel and RF calibration after monitor interface recreation;
+- disconnect the firmware role if channel restoration fails, while
+  preserving the original error and protecting VIF teardown with RCU.
+
+The post-stress RX failure was traced to missing channel restoration
+after stop/start. When monitor_chanreq is unchanged, mac80211 does not
+issue a channel-change callback, so rtw89_set_channel() is not called.
+Forcing a different channel and then restoring it confirms that RX
+recovers without reloading the driver.
+
+Patch 3/3 identifies the commit that introduced monitor-specific RF
+calibration and completes its restart lifecycle.
+
+Validation on RTL8852AE, Linux 7.1.5+kali-amd64:
+- 25 monitor recreate cycles with raw TX: 16,670 post-stress frames,
+  225 beacons and 30/30 injection responses from one AP;
+- 25 recreate cycles without raw TX: 20,517 post-stress frames;
+- no new kernel alerts in the normal stress runs;
+- managed scanning and association work;
+- forced -EINVAL rollback testing verifies join_info(true) before
+  link cleanup and returns the original error to mac80211;
+- sequential application of all three patches succeeds;
+- full Linux 7.3.0 build, W=1, sparse and checkpatch pass.
+
+Both APs responded at baseline. In the final post-stress injection run,
+one AP answered 30/30 probes; the other AP is not listed as answering
+in the parsed report, so this is not claimed as a 30/30 result from
+both APs.
+
+Earlier review requested the default R_AX_CTRL_FLTR value and a real
+raw-socket reproducer. The measured default value is 0x55555555.
+The actual reproducer is scripts/verify_hardware.py, including raw
+AF_PACKET injection, monitor recreation and PCAP/dmesg collection.
+The NULL-VIF path is reached through ieee80211_xmit(sdata, NULL, skb);
+it is not asserted that every injection supplies a NULL VIF.
+RCU publication, reader locking, clearing and synchronize_rcu() are
+used to protect monitor VIF lifetime during TX and teardown.
+
+Only RTL8852AE has been tested. Other rtw89 chips, DBCC/MAC 1
+configurations, long-term operation and historical runtime of the
+Fixes commit have not been verified. No claim is made for successful
+over-air injection of every control-frame subtype.
+
+Development and validation assistance: Kimi Code (Moonshot AI).
+The assistant helped analyze the failure, inspect firmware, draft the
+patch and run the validation. The submitter reviewed the final changes
+and takes responsibility for the submission.
 ---
-Daniel thanks for the Feedback.
-SJ, could you please reapply this patch, if you think it's worth it.
-Thanks
- Manuel
-
-[v4]
- Fixed issues pointed out by Daniel Pereira
-  typos in subject, log message and diff
-  https://lore.kernel.org/all/CAMAsx6epLXuUjaV3J0=SWAuLvajr4h58DTM9gL+LMmaCyjcxUg@mail.gmail.com/
- trusworthy -> trustworthy
-  I think this is in another patch.
-
-[v3]
- https://lore.kernel.org/all/20261017083535.1261388-2-manuelebnerli@mailbox.org/
- Split long line
- Fix path in subject / One-line summary
-
-[v2]
- https://lore.kernel.org/20261015072947.802821-2-manuelebnerli@mailbox.org
- Collect R-b: from SJ.
-
-[v1]
- https://lore.kernel.org/20261013191327.663331-2-manuelebnerli@mailbox.org
- Wordsmith commit message.
- Fixup a few trivial wording.
----
- .../admin-guide/mm/damon/lru_sort.rst         | 63 +++++++++----------
- 1 file changed, 31 insertions(+), 32 deletions(-)
-
-diff --git a/Documentation/admin-guide/mm/damon/lru_sort.rst b/Documentation/admin-guide/mm/damon/lru_sort.rst
-index b93ca9b085..90a6cff893 100644
---- a/Documentation/admin-guide/mm/damon/lru_sort.rst
-+++ b/Documentation/admin-guide/mm/damon/lru_sort.rst
-@@ -5,20 +5,19 @@ DAMON-based LRU-lists Sorting
- =============================
- 
- DAMON-based LRU-lists Sorting (DAMON_LRU_SORT) is a static kernel module that
--aimed to be used for proactive and lightweight data access pattern based
-+aims to be used for proactive and lightweight data access pattern based
- (de)prioritization of pages on their LRU-lists for making LRU-lists a more
--trusworthy data access pattern source.
-+trustworthy data access pattern source.
- 
- Where Proactive LRU-lists Sorting is Required?
- ==============================================
- 
--As page-granularity access checking overhead could be significant on huge
--systems, LRU lists are normally not proactively sorted but partially and
--reactively sorted for special events including specific user requests, system
--calls and memory pressure.  As a result, LRU lists are sometimes not so
--perfectly prepared to be used as a trustworthy access pattern source for some
--situations including reclamation target pages selection under sudden memory
--pressure.
-+As page-granularity access checking overhead could be significant on huge systems,
-+LRU lists are normally not fully nor proactively sorted but rather partially
-+and reactively sorted for special events.  These events include specific user requests,
-+system calls and memory pressure.  As a result, LRU lists are sometimes not
-+suitable to be used as a trustworthy access pattern source.  These situations
-+include reclamation target page selection under sudden memory pressure.
- 
- Because DAMON can identify access patterns of best-effort accuracy while
- inducing only user-specified range of overhead, proactively running
-@@ -28,9 +27,9 @@ pattern source with low and controlled overhead.
- How It Works?
- =============
- 
--DAMON_LRU_SORT finds hot pages (pages of memory regions that showing access
--rates that higher than a user-specified threshold) and cold pages (pages of
--memory regions that showing no access for a time that longer than a
-+DAMON_LRU_SORT finds hot pages (pages of memory regions that show access
-+rates that are higher than a user-specified threshold) and cold pages (pages of
-+memory regions that show no access for a duration that is longer than a
- user-specified threshold) using DAMON, and prioritizes hot pages while
- deprioritizing cold pages on their LRU-lists.  To avoid it consuming too much
- CPU for the prioritizations, a CPU time usage limit can be configured.  Under
-@@ -63,10 +62,10 @@ enabled
- 
- Enable or disable DAMON_LRU_SORT.
- 
--You can enable DAMON_LRU_SORT by setting the value of this parameter as ``Y``.
--Setting it as ``N`` disables DAMON_LRU_SORT.  Note that DAMON_LRU_SORT could do
-+You can enable DAMON_LRU_SORT by setting the value of this parameter to ``Y``.
-+Setting it to ``N`` disables DAMON_LRU_SORT.  Note that DAMON_LRU_SORT could do
- no real monitoring and LRU-lists sorting due to the watermarks-based activation
--condition.  Refer to below descriptions for the watermarks parameter for this.
-+condition.  Refer to below descriptions of the watermarks parameter for this.
- 
- commit_inputs
- -------------
-@@ -74,9 +73,9 @@ commit_inputs
- Make DAMON_LRU_SORT reads the input parameters again, except ``enabled``.
- 
- Input parameters that updated while DAMON_LRU_SORT is running are not applied
--by default.  Once this parameter is set as ``Y``, DAMON_LRU_SORT reads values
-+by default.  Once this parameter is set to ``Y``, DAMON_LRU_SORT reads values
- of parameters except ``enabled`` again.  Once the re-reading is done, this
--parameter is set as ``N``.  If invalid parameters are found while the
-+parameter is set to ``N``.  If invalid parameters are found while the
- re-reading, DAMON_LRU_SORT will be disabled.
- 
- Once ``Y`` is written to this parameter, the user must not write to any
-@@ -86,37 +85,37 @@ violate this rule, the kernel may exhibit undefined behavior.
- active_mem_bp
- -------------
- 
--Desired active to [in]active memory ratio in bp (1/10,000).
-+Desired active to (in)active memory ratio in bp (1/10,000).
- 
- While keeping the caps that set by other quotas, DAMON_LRU_SORT automatically
- increases and decreases the effective level of the quota aiming the LRU
--[de]prioritizations of the hot and cold memory resulting in this active to
--[in]active memory ratio.  Value zero means disabling this auto-tuning feature.
-+(de)prioritizations of the hot and cold memory resulting in this active to
-+(in)active memory ratio.  Value zero means disabling this auto-tuning feature.
- 
- Disabled by default.
- 
- autotune_monitoring_intervals
- -----------------------------
- 
--If this parameter is set as ``Y``, DAMON_LRU_SORT automatically tunes DAMON's
-+If this parameter is set to ``Y``, DAMON_LRU_SORT automatically tunes DAMON's
- sampling and aggregation intervals.  The auto-tuning aims to capture meaningful
- amount of access events in each DAMON-snapshot, while keeping the sampling
--interval 5 milliseconds in minimum, and 10 seconds in maximum.  Setting this as
--``N`` disables the auto-tuning.
-+interval to 5 milliseconds in minimum, and to 10 seconds in maximum.  Setting this
-+to ``N`` disables the auto-tuning.
- 
- Disabled by default.
- 
- filter_young_pages
- ------------------
- 
--Filter [non-]young pages accordingly for LRU [de]prioritizations.
-+Filter (non-)young pages accordingly for LRU (de)prioritizations.
- 
- If this is set, check page level access (youngness) once again before each
--LRU [de]prioritization operation.  LRU prioritization operation is skipped
-+LRU (de)prioritization operation.  LRU prioritization operation is skipped
- if the page has not accessed since the last check (not young).  LRU
- deprioritization operation is skipped if the page has accessed since the
- last check (young).  The feature is enabled or disabled if this parameter is
--set as ``Y`` or ``N``, respectively.
-+set to ``Y`` or ``N``, respectively.
- 
- Disabled by default.
- 
-@@ -235,7 +234,7 @@ max_nr_regions
- Maximum number of monitoring regions.
- 
- The maximum number of monitoring regions of DAMON for the cold memory
--monitoring.  This can be used to set upper-bound of the monitoring overhead.
-+monitoring.  This can be used to set the upper-bound of the monitoring overhead.
- However, setting this too low could result in bad monitoring quality.  Please
- refer to the DAMON documentation (:doc:`usage`) for more detail.  1000 by
- defaults.
-@@ -268,7 +267,7 @@ This parameter is for setting and getting the :ref:`address unit
- 
- ``monitor_region_start`` and ``monitor_region_end`` should be provided in this
- unit.  For example, let's suppose ``addr_unit``, ``monitor_region_start`` and
--``monitor_region_end`` are set as ``1024``, ``0`` and ``10``, respectively.
-+``monitor_region_end`` are set to ``1024``, ``0`` and ``10``, respectively.
- Then DAMON_LRU_SORT will work for 10 KiB length of physical address range that
- starts from address zero (``[0 * 1024, 10 * 1024)`` in bytes).
- 
-@@ -291,22 +290,22 @@ If DAMON_LRU_SORT is enabled, this becomes the PID of the worker thread.  Else,
- nr_lru_sort_tried_hot_regions
- -----------------------------
- 
--Number of hot memory regions that tried to be LRU-sorted.
-+Number of hot memory regions that were tried to be LRU-sorted.
- 
- bytes_lru_sort_tried_hot_regions
- --------------------------------
- 
--Total bytes of hot memory regions that tried to be LRU-sorted.
-+Total bytes of hot memory regions that were tried to be LRU-sorted.
- 
- nr_lru_sorted_hot_regions
- -------------------------
- 
--Number of hot memory regions that successfully be LRU-sorted.
-+Number of hot memory regions that were successfully LRU-sorted.
- 
- bytes_lru_sorted_hot_regions
- ----------------------------
- 
--Total bytes of hot memory regions that successfully be LRU-sorted.
-+Total bytes of hot memory regions that were successfully LRU-sorted.
- 
- nr_hot_quota_exceeds
- --------------------
--- 
-2.55.0
-
