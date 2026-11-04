@@ -1,82 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=207.46.229.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793771893;
-	b=axQtgLO8YUrxiYrwqOpQ/oSSwko4vU89paZaGtPcAS6EB9RxZQwI2uOpkYPj68rcP/Hv
-	 dwm7mNj3lKX5ml6wFC6rgMrvBqleABNG3ZxL/EXi0/A/t6fUa04Y78uT2PkmS4TgaVIVV
-	 1h2m5QfUPuDoTgvcJg1ViQhZ8S6dzpC3KvhRtTkmnHvf+sN6wtIjY2/Nv0bFEZ1TRzKDd
-	 5yj/l3OIUlk2tDNbObxD1DtfqKVG/tjqe9NzTS7AWouTUUjm87WomEKYydocvyFG0wbRW
-	 v/sfSekQnn8MpHhdqtyWiNKX2ChwjnlHT5nWCrFhLeN9SRNZPIN5hhAAcw9W5qmCJfA==
+	t=1793771919;
+	b=hqPH3GybiuMBAeEcIKkoonI99fkBjIfkck3V2/3t1Lt+Wa6vfXwohQkbOMkJvBJHOEAp
+	 s+IDEN09elUTmvPWrVL+UPC1M2dHv6QYA/sfY5XLuPYLvWemPvvS7DztTOkx6jdHhixb3
+	 37paNvBrgLEJBEXVYgOyqBN/yEF6uaPnl+jzawRY2dqT9uyD7XMMeuYk0C/z7Fg9seQjU
+	 PAauxkCfkU8v4Ti0wZ4Mz22kzQcem4wTJOSgZuyE/pMTxw7TP8fXuO8MM1shAuEAu3D0q
+	 PDZtrjVE5NeSRFqYzqgZgNd2GIp0AJx/WVSaaTFrFqnKHWw1CmlXgInq43RWKAez2Rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793771893;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=GuMgcgXi2d8E9GAegF23L5yqInpKNepyztEiRzZzVFY=;
-	b=LXFi7uljD7TW2q5DuSQifGEGblCXhir29e4N/ZmjyZrPKogzpJSXnUGJuxQ9ixdAq9bH
-	 zqYKTIW2tgAD7Uhf9SVnVuUwNe43RezB2nzr57RTzCNVvzRM/Ysln45gaMLo52OYVOz7+
-	 1RzaXfHpjKPbn9EF3RVxEeYEDHLfkkvt2pu1repyZlHe7tJtEyOLVsgNd8o+0r6EmbKcL
-	 fBxb94yYwSjBinJVDqRsVJKK9Vdb+VP+dEW2FrNh0iuClt+B5zYgx4MgyzLIiKjz7BSOH
-	 Ao78lqoq1y+fFU8SDpqSVWtBs62/+YfA/cHwtFSUK9UsvjFjcsUgOyUSaDUldqVRNnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793771919;
+	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=EwVD3mFImzWJJerA1LCoTsK6ZMs366FMZK6FXa3P1uA=;
+	b=yooDxtPei/JT7ysEUCkRv5LtKQmiMOmD3PujnLusm8IbrNXn5Yq3Mc4PxyWCS7JFNYpZ
+	 zpPHK6memic4XstvqOxYtuk+FazR8M0HFP4QdrkSv5umKzBlMV2lrGK9B/W1hRY1k43it
+	 UvjMRjagby6Wvx1EGuKtw4fiOx1sdIb0c7FxiF9JEk0nyyXHRGkzIYPAUk91sdU1Q+1/I
+	 TxHleDc9+coUO8RizgZ0MCU4XwN91zzMLtb9ple3ADc4ByzNn1r4U06GVgpamMptMgy3n
+	 YPTHVAnjKX/jaqulNoGI4INJLBFPOnTwgfoXuXkyTa3xn4bfOJkC7eIJuxC29EjGM3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gondor.apana.org.au;
-	spf=pass smtp.mailfrom=gondor.apana.org.au;
-	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=nKNhpjXt;
-	arc=none smtp.remote-ip=180.181.231.80
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B317F606A328;
-	Wed,  4 Nov 2026 05:58:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B317F606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=nKNhpjXt
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=GuMgcgXi2d8E9GAegF23L5yqInpKNepyztEiRzZzVFY=; 
-	b=nKNhpjXtNFPq3RPGi6Z3gnojYnP7E9wP8YpuIKrmvFVH9l758u0Z2rhJDSDgSCm6+owCN0gKm3Q
-	wSMC9l9y9ZHRsw+HtyemNhMuTKV2aSYs8iccdsfHA4+09FuaAXGjPpmJtncoSiwlMorNl1NAO0Mol
-	WDM04nQVzydHwNsEojj9PVyNGoPhm24p4i14e9NI3qQvnvvpMU0cyHWwhj6s8MIatcCvJDPZcM/5g
-	fAqdX2giQB8BmTQoPALJXawvKupLSiQ51WcQZzIkEDNecXkW3yQ2Ob+kNh6lX73ziNnpXftTo8+NP
-	9Ds7ZSeaaTHFcLIa6C+fEFpi2IQ+kFqTi/Pw==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xOU0V-0000000AkBq-1V5g;
-	Wed, 04 Nov 2026 13:58:00 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 04 Nov 2026 13:57:59 +0800
-Date: Wed, 4 Nov 2026 13:57:59 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: "Liam R. Howlett (Google)" <liam@infradead.org>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Uladzislau Rezki <urezki@gmail.com>, Michal Hocko <mhocko@suse.com>,
-	Baoquan He <bhe@redhat.com>,
-	Alexander Potapenko <glider@google.com>,
-	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
-	Marco Elver <elver@google.com>, Michal Hocko <mhocko@kernel.org>,
-	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org,
-	Lorenzo Stoakes <ljs@kernel.org>, Chris Mason <mason@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org,
-	"David Hildenbrand (Arm)" <david@kernel.org>
-Subject: Re: [PATCH 4/4] rhashtable: fix vmalloc() deadlock in atomic rehash
-Message-ID: <aurJZ81qnbiHH_P1@gondor.apana.org.au>
-References: <auKshDXKQXt1kvjy@gondor.apana.org.au>
- <auMbCuecFeRmBFSK@pc636>
- <jfvq7vkx73vzp2ukq6nwnb3v3g2ezdcyppba4oa5lpzmz6ls6t@akc46gonndgy>
- <urkgmijyytg3rrislm5fdzmfggqavzpiry23f6lpkqonvy2tqx@d56stj3eixfa>
- <auaFhOa5EBz4gJwK@gondor.apana.org.au>
- <xdzcyoou73blpfdlgy47i2ktrcsffnclerzojpgrxphid54gjc@nicdcvzqx447>
- <auqtTjXhD8is-y9f@gondor.apana.org.au>
- <CAHk-=wiE0KG+jkhmJWifXuAVivtB63WCWtdEpGAex7-T0SHd2g@mail.gmail.com>
- <aurAxRpCwzeyXeVj@gondor.apana.org.au>
- <CAHk-=wgPvbYRcKpQ8WTH-EYZRgMG0KSH+cZxY5-Hyf+X7JjWsw@mail.gmail.com>
+	dmarc=none header.from=hust.edu.cn;
+	spf=pass smtp.mailfrom=hust.edu.cn;
+	arc=none smtp.remote-ip=207.46.229.174
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 85E53606A31B;
+	Wed,  4 Nov 2026 05:58:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85E53606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
+Received: from hust.edu.cn (unknown [172.16.0.52])
+	by app1 (Coremail) with UTF8SMTP id IAEQrMDGC6KByepqQ9VuAQ--.54369S2;
+	Wed, 04 Nov 2026 13:58:25 +0800 (CST)
+Received: from [100.81.40.43] (unknown [10.12.191.55])
+	by gateway (Coremail) with SMTP id _____wAHlkB7yepqGxscAA--.38438S2;
+	Wed, 04 Nov 2026 13:58:21 +0800 (CST)
+Message-ID: <6233ee75-1872-4077-97b6-5d0c00cf8236@hust.edu.cn>
+Date: Wed, 4 Nov 2026 13:58:19 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,30 +45,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAHk-=wgPvbYRcKpQ8WTH-EYZRgMG0KSH+cZxY5-Hyf+X7JjWsw@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/2] docs/zh_CN: update translation of
+ doc-guide/sphinx.rst
+To: Jiandong Qiu <qiujiandong1998@gmail.com>, alexs@kernel.org,
+ si.yanteng@linux.dev, wy@wyuan.org
+Cc: corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <cover.1793279600.git.qiujiandong1998@gmail.com>
+From: Dongliang Mu <dzm91@hust.edu.cn>
+In-Reply-To: <cover.1793279600.git.qiujiandong1998@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:IAEQrMDGC6KByepqQ9VuAQ--.54369S2
+Authentication-Results: app1; spf=neutral smtp.mail=dzm91@hust.edu.cn;
+X-Coremail-Antispam: 1UD129KBjvJXoW7tF17Cw4UWry3JrWDGr1rJFb_yoW8CrykpF
+	WYgFs5Ga1kJr13tFW7G3y7AF18XF4fAa1UtFW2qw15ZrsYqr1UXrWxKrZ09ayDXa929Fs0
+	vF4avFZY9ryjyFJanT9S1TB71UUUUjDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUQCb7Iv0xC_Cr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
+	v20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vE
+	x4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAaw2AFwI0_JF
+	0_Jw1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF
+	0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0EF7xvrVAajcxG14v26r
+	4UJVWxJr1lYx0E74AGY7Cv6cx26r4fZr1UJr1lYx0Ec7CjxVAajcxG14v26r4UJVWxJr1l
+	Ox8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxkIec
+	xEwVCm-wCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r4fZr1UJr1l4I8I3I0E
+	4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_JF0_Jw1lx2IqxVAqx4xG67AKxVWUJVWUGw
+	C20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48J
+	MIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMI
+	IF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E
+	87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUVYhFDUUUU
+X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
 
-On Tue, Nov 03, 2026 at 09:39:03PM -0800, Linus Torvalds wrote:
+
+On 10/29/26 9:29 PM, Jiandong Qiu wrote:
+> Hi all,
 >
-> None of that says why.  It only repeats what I already said: it seems
-> to be due to kmsan doing bad things.
+> It has been quite a while since v3. Thanks to Weijie for the reminder,
+> and to Dongliang for reviewing the series. Sorry for the long delay
+> in sending this update.
+>
+> This series refreshes the translation of doc-guide/sphinx.rst.
+> Since the updated version refers to process/changes.rst, I also add
+> the missing zh_CN translation for that file to ensure a consistent
+> reading experience.
+Reviewed-by: Dongliang Mu <dzm91@hust.edu.cn>
+>
+> Changes in v3 -> v4:
+> - add changes.rst to the Chinese process toctree and remove its TODO entry
+> - sync changes.rst through commit fd5425b67355
+>    ("docs, resolve_btfids: Document kfunc BTF annotation emission")
+> - remove Assisted-by tags from both patches
+> - fix a typo in the sphinx.rst commit message
+> Changes in v2 -> v3:
+> - sync changes.rst with the latest commit.
+> Changes in v1 -> v2:
+> - drop the separate llvm.rst anchor patch
+> - remove the `_sphinxdoc_zh` anchor from .../zh_CN/doc-guide/sphinx.rst
+> - add Assisted-by tags
+>
+> Link: https://lore.kernel.org/linux-doc/20260619140245.1982921-1-qiujiandong1998@gmail.com/ # v1
+> Link: https://lore.kernel.org/linux-doc/20260621131215.1303439-1-qiujiandong1998@gmail.com/ # v2
+> Link: https://lore.kernel.org/linux-doc/20260706151358.2103703-1-qiujiandong1998@gmail.com/ # v3
+>
+> Jiandong Qiu (2):
+>    docs/zh_CN: add process/changes.rst translation
+>    docs/zh_CN: update sphinx.rst translation
+>
+>   .../translations/zh_CN/doc-guide/sphinx.rst   | 167 ++++--
+>   .../translations/zh_CN/process/changes.rst    | 528 ++++++++++++++++++
+>   .../translations/zh_CN/process/index.rst      |   2 +-
+>   3 files changed, 662 insertions(+), 35 deletions(-)
+>   create mode 100644 Documentation/translations/zh_CN/process/changes.rst
+>
 
-Fair enough.
-
-When I was told that folks needed vmalloc under GFP_ATOMIC I didn't
-question it any further:
-
-https://lore.kernel.org/all/aeiHkG7X_dieMdw5@milan/
-
-Looking back, it does look like it was never explained who these
-folks are.
-
-Ulazislau, so who needs vmalloc GFP_ATOMIC support in the kernel?
-Or is it only used by out-of-kernel code?
-
-Thanks,
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
