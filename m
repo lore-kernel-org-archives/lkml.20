@@ -1,41 +1,41 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793792925;
-	b=QBdBbIKrl9z2KhQ2iiuQnfr1/OowOIljXfDk5NaFEzHCHCmXRWdT6seuvfr2el49+zrN
-	 IKYc9aVBkWU8aFlDk4RJwtmTjyoRchK72beVfSiSfxCwp3EkSIHmvt3jCK5uDnRcl2L20
-	 eTMIXizNLnQu9ONz0064szlHwAtdNgzSESug9pSPnAqSYjpPMgalprWKXdOqsTqVpeuLY
-	 Zwem81NjZRVRtXI27QHv039SsQijZS8SixYYgt19ccI5YMyyGSQd/sRWaqMkDYEN2ACnM
-	 jzDsVs9bBMSeFth+81fSlHVgbqPCE9Iv51CnKMzmP3pI9JKU2hbUKJBHDW3gLEkxG/w==
+	t=1793792926;
+	b=BGRu8vJZyQ1rQrFXUocYfyDHCKiLUZrn56NQE4pNV2kYodTis27VdKWSI3TuzDICcltE
+	 kccbs6h3o3+cAao33kA+HzcHw+XYZDbrkuCtwEnsnHdMPlWPO3lvEHgWkOXmpmjRHWNGI
+	 KH4v74LKyMJ1JNTzQnhp6NAXHbD9ljmZ5gaaSEG15s9ZE9oeZx6bfmbQ5w5qKZzX0ZWRl
+	 Dsu0FFjgzSRhnJ2cKRWw/Fzry65uShBNv0MDRbArEBILUsh1obbF9miB6TFdzcJ0EEgFR
+	 nJ60m9wRFnhXFIQUOspLFkGc40/Qv+U2MGH0Y9YLNkbAIBqvc7HDPLjmQHlx2+xGmmA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793792925;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793792926;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=e5Ch97kX/P1BvyP/wOOgUJMslmbVg22VYVvr+9XMWTo=;
-	b=OXtMQgZPqrmRqPkryCd1jhwft8Ji6x6I8X1FWFRQIUoFECR9sXCQJsCB1418UpQwktoI
-	 l5Wa0DhGcX9Z+epw2X9eRuBdCKz/q6YTA0Yk/bwkjfdfyTN948n92HzuHYxs9BPC+dZri
-	 1+jCoysyuHW3RKO1l3+3dWhIscHKRr/QT/tY4Rzr11I2EHuNMYzqVBuzPASFyg5GZHFtg
-	 QdHYdO6vmplRT6qPWvQwCiEqFxNwFQptkkfD+zb5ZjypW2EcKdZb8PatajpGraCf/6SHn
-	 TTv2sgJY6SmPcW0s5N86Yk7nw6I4Xezxpq900E+uNJSQf6yiVvLCRs3+U6FatFik0XQ==
+	bh=3bGWlhAYviDwoR40GqMnNAhKLsxh99UIMeOoR0q6Ev4=;
+	b=Yia9aYkL6bgc4wXdB0ccad+sAEF+KfyT8TtoAtxKPhY68/z4IsptWc62W2cjZCIBFQ8/
+	 UJFJC3V80j5JKJk4Y081J1ZrD6wenNXuhitkeyZ+6vGTmo+dRIrehN/yAVSvk91lohxjp
+	 R3Ux/SLBD9Koh1zS3xTodgfywUPyWb/bgPk+WLUAJNTRr6k8JCR6uOKdjqsklmVRccvr1
+	 WskeI5LG6k37iTEH44CWByKCZmuUmu/Rf1JMWpqxr3Za5fG0V/NOo3oSiWmbvyS+dtqXs
+	 HUpXsGdOxFPM8vTqBFY3zF22NIlpCxPkgZkrxp4UYj3b2Ky3/p09kvZ56RzhaXJlOQQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=bg83ae0o;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=UX486yM6;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C0F2606A32C;
-	Wed,  4 Nov 2026 11:48:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C0F2606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C15C606A32D;
+	Wed,  4 Nov 2026 11:48:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C15C606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=bg83ae0o
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=UX486yM6
 Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.pengutronix.de [IPv6:2a0a:edc0:0:1101:1d::ac])
 	(Authenticated sender: relay-from-dude04.red.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 8869C202101;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 79322200FB6;
 	Wed, 04 Nov 2026 12:48:42 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1793792922;
@@ -43,40 +43,40 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=e5Ch97kX/P1BvyP/wOOgUJMslmbVg22VYVvr+9XMWTo=;
-	b=bg83ae0oBmebPSB/nvMf7Bi5ZgONSRtHAfurQ0r7OfU4glk7tsEXMozBoa4niX63wHxY34
-	7ZkyPMq+TDUArUCMLS8dXuC237otmWeCCxgEFa2zIhRIwD0Zx7EyV+7njNB3h2C56w2cyO
-	w+jh/CbRjEw8ajEuk4PLGsKZVrHOilP4JV3Yrn5KFTSUdfvTQwnv7lLm4TohqIlL0yMNOI
-	LbydZUNwMf3G0yrDtHXeir79TvJvqpTgnw/GBKUi+jOCdcn9AaWVE4loVbcJ3ckU34DAMK
-	S/Dc7PyM5X1Wf96QEENLyR63JjwA3cx+7U5z8ByPQJYjIQFsw/M8muptqinSkw==
+	bh=3bGWlhAYviDwoR40GqMnNAhKLsxh99UIMeOoR0q6Ev4=;
+	b=UX486yM6TdwjU1NYbaUMthBlcqapV+yg/WPC3oniSHCjQm/4mRoBNaWzuqD8Bh/EJuFHgf
+	kTeheWET13feOqJLx+0omf5yICrB0w18mc/XWrric/mgLR6A2FB/J52UoPdu1aVloMjTkK
+	Dxtj5wOtldieJJlY8KlJAUKhjlvUZXTZ82TNCSXB2/miirFx/R5oyqs5DNjkcTDdzrxaJb
+	7DvYPyQkE+YXfL7ffTHJZtn11OKTzkSfmI0NpltOHjBM54jMMv9q2QqVRoAfugWCqDBv6R
+	AjGRAChgU0rdkIWqba6lZ2V9w995Ts/ZNonfov1hpg51Dpa60u8n7AG9C6vyBQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1793792922;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=e5Ch97kX/P1BvyP/wOOgUJMslmbVg22VYVvr+9XMWTo=;
-	b=XXV1f1TklJHJ0xd6roXiDmic8ApLIIqmZAjD2rdsHaGoLjQV0ql2ogD0yN0SkERm6qFX0A
-	tAkCR8fVHRcqwuLO1yFFzUL65KGTk0iIDSa5vSfqpGh5XgLO/R3UFbFOJyCv2jd1flg6Mb
-	4yP88dttDDFQ7cUYap06LURqcTWt2SFXZk1D8gfrhwZfZYQpEKFs/NrqX7XeDU47h8vCrV
-	MyQb327Fn9A6tuyr9l/Jwi2qQWh+gorGrrlI2EWPGxr/ZeYPfXPuNsKkRNmWEJISvSERJJ
-	x9h3D3WeA6k8eOK90ghej/0aMAoD8BBDb1Arl3Ty0lSw+9rl+n4oTNpfOFmQ9Q==
+	bh=3bGWlhAYviDwoR40GqMnNAhKLsxh99UIMeOoR0q6Ev4=;
+	b=P/CqPzbOP662H/wi2fFQCOKmIHZoxu5ouGL5kBZaItmANNb931JveodIyytCYgZrz9vMjA
+	M8vAoP6RbsYW94xK6GMPr6nAlIIOLFVlJG/5gOl+a2vvdGeyKh3sII+GYAZ6AiKvIPia2D
+	V5qXKKJvqyrDxTLP7yEiFin643Ws/o4LEdSteDwv//xqeV9EVnINQAR8ckX7x7cdPDh97T
+	d+D84ew7duyzUxdSMDPN8Na1Rq1GWwgbYiGA5Lip3bAao27RR7HNJor4looCBHALTvDqUl
+	2AsMDiYGip5g8lk3A+T9zqU9K/K/SRoFFIhVFFnTiBpruQUObd3IlXCk2sE0ww==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=relay-from-dude04.red.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
 ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793792922; a=rsa-sha256;
 	cv=none;
-	b=HhF9oTME1wgJ7twVU2b1yAg56ZLqLlYYGyUalOqwMUIiKujtf6JBrVwX/TjgfhOG3IudyI
-	BRhNhQmxqhtuuZI/ep0miBcRVAhGJdu8AHbkTR57QQYe0QLbaX6gdrlYYr3+XjRL6yRm9T
-	kI8MF0EuxYiFuSle8QS/eBaMFOBugh6iSrsa45aC462FWf82SoqinEHZPIqBBNuTfMs/M2
-	CfExprDzQxh1YPzdyiGVlK2Y677MucgtLbFL0FUxIWeWM7J5J0a8g4XTwhaYW9mwG1QYRA
-	zJ17soqJ8wYvqbDVhJSVaexm6ZO30okn2rgXxWdfIxaf/hSrQdb9Q0skGauPzw==
+	b=fH12q1G+0OhL1li+1KSCz7rHOAGPwnPdkvg9+fbIFvE7HmmCCxG8ackqJK4qmt1E5MGxv1
+	1V4nHVU9Fe9+WEa0bOBZafaKtwgi++WF0UFs9bXp5KqGcVwAEaq+tiugGgNv0UTGHX7UPf
+	4GW9U/xxpqj37br/6SFz6d1WyMJBR7e3PZEM38X3UD7A2si7EyTmKzjVlPIwjYL1X2vcdp
+	NYRRNIDaYcQ75uhCUMwdoNU8vyTmLiLbEORBNsZzm6q/l3UeejdhcFGhAxG+2lkbmw50pl
+	TUs3qYFbGZVW9jVAlbTkW//m0piamAcD9AtYijgh2A4TD516TE78wYbmmdVncQ==
 Received: by dude04.red.stw.pengutronix.de (Postfix, from userid 1058)
-	id 61EC0381511; Wed, 04 Nov 2026 12:48:42 +0100 (CET)
+	id 5F6A938041E; Wed, 04 Nov 2026 12:48:42 +0100 (CET)
 From: Oleksij Rempel <o.rempel@pengutronix.de>
-Date: Wed, 04 Nov 2026 12:48:30 +0100
-Subject: [PATCH net-next 3/3] net: dsa: forget the port ageing time when
- the port leaves the bridge
+Date: Wed, 04 Nov 2026 12:48:28 +0100
+Subject: [PATCH net-next 1/3] net: dsa: microchip: ksz9477: apply a shorter
+ ageing time at once
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,7 +88,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-ksz-stp-ageing-v1-3-2c2bc7217dea@pengutronix.de>
+Message-Id: <20261104-ksz-stp-ageing-v1-1-2c2bc7217dea@pengutronix.de>
 References: <20261104-ksz-stp-ageing-v1-0-2c2bc7217dea@pengutronix.de>
 In-Reply-To: <20261104-ksz-stp-ageing-v1-0-2c2bc7217dea@pengutronix.de>
 To: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
@@ -102,40 +102,92 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  Oleksij Rempel <o.rempel@pengutronix.de>
 X-Mailer: b4 0.14.2
 
-A port that leaves the bridge keeps its cached dp->ageing_time, and it
-still counts for dsa_switch_fastest_ageing_time(). A port that leaves
-during an STP topology change keeps the switch at the short value until
-the port joins a bridge again.
+On a KSZ9893 a new Age Period applies only after the running one has
+ended, and an entry keeps the Age Count it was stored with. When the
+bridge shortens the ageing time for an STP topology change, stale
+entries outlive the topology change: 61 to 79 s were measured at
+forward_delay 4 s, where the bridge asks for 8 s.
 
-Clear the cached value when the port leaves the bridge. The switch is
-not reprogrammed on leave. If the leaving port held the shortest ageing
-time, for example during a topology change, the switch keeps that value
-until the next ageing time change or bridge join in the DSA tree.
+Pulse Fast Aging when the programmed ageing time gets shorter or the Age
+Count smaller. On a KSZ9893 it removed the dynamic entries of the user
+ports and started the new period at once; 2 ms was enough, the datasheet
+gives no pulse length.
 
-Found by code inspection. On a KSZ9893 with lan1 and lan2 in a bridge,
-setting the ageing time to 10 s, removing lan2 and setting 300 s left
-the switch at 10 s without this patch and at 300 s with it.
+Tested on a KSZ9893 with kernel STP. Other chips using this function
+were not tested.
 
 Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
 ---
- net/dsa/port.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/net/dsa/microchip/ksz9477.c | 36 ++++++++++++++++++++++++++++++++----
+ 1 file changed, 32 insertions(+), 4 deletions(-)
 
-diff --git a/net/dsa/port.c b/net/dsa/port.c
-index 3195d8b7c69c5e0fbc4007421218c2ff1db0ce47..21b237332cc77b9f99520e71dae01c2c9b49d496 100644
---- a/net/dsa/port.c
-+++ b/net/dsa/port.c
-@@ -414,7 +414,10 @@ static void dsa_port_switchdev_unsync_attrs(struct dsa_port *dp,
- 
- 	/* Ageing time may be global to the switch chip, so don't change it
- 	 * here because we have no good reason (or value) to change it to.
-+	 * But forget the port's value, so that the shortest ageing time of
-+	 * the ports still in a bridge is the one programmed next time.
- 	 */
-+	dp->ageing_time = 0;
+diff --git a/drivers/net/dsa/microchip/ksz9477.c b/drivers/net/dsa/microchip/ksz9477.c
+index 72528a53b67d2d269d9a0505b0cc0c2348f06fad..b54f388b227f19c58c35ce3642935387c11e9356 100644
+--- a/drivers/net/dsa/microchip/ksz9477.c
++++ b/drivers/net/dsa/microchip/ksz9477.c
+@@ -1289,13 +1289,16 @@ static void ksz9477_phylink_get_caps(struct dsa_switch *ds, int port,
+ 	ksz_phylink_get_caps(ds, port, config);
  }
  
- static int dsa_port_bridge_create(struct dsa_port *dp,
++/* No pulse length in the datasheet; this one worked on a KSZ9893. */
++#define KSZ9477_FAST_AGE_PULSE_US	(2 * USEC_PER_MSEC)
++
+ static int ksz9477_set_ageing_time(struct dsa_switch *ds, unsigned int msecs)
+ {
+ 	struct ksz_device *dev = ds->priv;
++	u8 data, mult, value, old_period;
++	u32 old_secs, new_secs, max_val;
+ 	u32 secs = msecs / 1000;
+-	u8 data, mult, value;
+-	u32 max_val;
+-	int ret;
++	int ret, err;
+ 
+ #define MAX_TIMER_VAL	((1 << 8) - 1)
+ 
+@@ -1314,8 +1317,13 @@ static int ksz9477_set_ageing_time(struct dsa_switch *ds, unsigned int msecs)
+ 	if (ret < 0)
+ 		return ret;
+ 
++	ret = ksz_read8(dev, REG_SW_LUE_CTRL_3, &old_period);
++	if (ret < 0)
++		return ret;
++
+ 	/* Check whether there is need to update the multiplier. */
+ 	mult = FIELD_GET(SW_AGE_CNT_M, value);
++	old_secs = mult * old_period;
+ 	max_val = MAX_TIMER_VAL;
+ 	if (mult > 0) {
+ 		/* Try to use the same multiplier already in the register as
+@@ -1337,7 +1345,27 @@ static int ksz9477_set_ageing_time(struct dsa_switch *ds, unsigned int msecs)
+ 	}
+ 
+ 	value = DIV_ROUND_UP(secs, data);
+-	return ksz_write8(dev, REG_SW_LUE_CTRL_3, value);
++	ret = ksz_write8(dev, REG_SW_LUE_CTRL_3, value);
++	if (ret < 0)
++		return ret;
++
++	/* On a KSZ9893 a new period applies only when the running one ends,
++	 * and entries keep the Age Count they were stored with. If the total
++	 * time or the Age Count got smaller, pulse Fast Aging; on a KSZ9893
++	 * that removed the dynamic entries and started the new period.
++	 */
++	new_secs = data * value;
++	if (new_secs >= old_secs && data >= mult)
++		return 0;
++
++	ret = ksz_rmw8(dev, REG_SW_LUE_CTRL_1, SW_FAST_AGING, SW_FAST_AGING);
++	if (!ret)
++		fsleep(KSZ9477_FAST_AGE_PULSE_US);
++
++	/* Clear the bit even after an error. */
++	err = ksz_rmw8(dev, REG_SW_LUE_CTRL_1, SW_FAST_AGING, 0);
++
++	return ret ?: err;
+ }
+ 
+ void ksz9477_port_queue_split(struct ksz_device *dev, int port)
 
 -- 
 2.47.3
