@@ -1,41 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=94.136.29.106
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793806248;
-	b=sW9UPum1aR1ZtVYR1tZzKhz4sZxpzUJSB2z9ARuWXSuOP60pvpedPiSpwCGQpntqsH3B
-	 kURzh+EPBHujF4snh3zrxSYmCR7WP3zSOwPJb4xN3pGVXlVFx3QCfFATVlFzyEqMkD8Qr
-	 fivVfqnl1IInxlz+DSMFXkLx9CKJpgcLGfJtpl3gBQv1Y24va7v0ebrhxJQuPP+XnHXYJ
-	 VoTI0QgLyT7OTT97RC4z0yyqbYFxCZPdG+6nuIXsDP60sXJYtRkDL9lDSJyfXwpnAEpEQ
-	 ePxe+TWXdJxyn53Fb9V631jSIoAt9aT1a1MbC7SOn96Wfb+6P5q7tjqtLfTXlFzszKQ==
+	t=1793806262;
+	b=UN4quTk9UXh8QmZAg3aA8lirFsPOJHRaU/MQ6MsrLC9ddjebXN0zhGXuXb+zczt5Nkt7
+	 Ht/rffWnu0sFOzOlQMH6fKvYleOQjW1yDqczf2+YU3yvVQ7ISzOka0Fp0u8HbrVT1gMR1
+	 AQFWYeqVsmn/0p4XEIkqaw2gEQEuKWgNmst3BGoooHJWJNYgQxFoiDZbtKxoD9LhDn1KF
+	 e0vq1xDXX8Is2KumaUZhf/TOGh9q4ISRYabBFs733aIBw2qrMKl2uGSaw+9ZHsqlT3yCW
+	 ZIlJPZTbZ3b7mxBQ1FWFQ/3u5knAijMPNOHBYzZXpKwZZdGPjYmIoygb5BbGGQVijQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793806248;
-	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Bm-Milter-Handled:X-Bm-Transport-Timestamp;
-	bh=PF+2F/qylNUl5uG+AA1s4jIY53tBQkCikmrmstbxPec=;
-	b=rRB+LXZT432XuLXx36+MRwhjh9jm/tt0tl0EHxDlWhqn0/gKXuGHFAiGQlbgeFGSimpA
-	 cIj60JcSOlqs7PK7KgO/NGgYra+xKb1Pfa9f+Okgm2X7oXa6nRGRGWqPYg9b1J1Wmpv+l
-	 BFriL6qA4mKn6tcoNinkZ486EFyCENWa33gXz1IUfLWOdPWSWD0I8LTnKgN095ork5qfc
-	 XayITXsHVNRvEau+DS3feItgJt1VlnsQB6BKzJj0V1hy+n4hP5n+xvNTlLspnYCJYPfTV
-	 yUKBD0R+4d18Yl6iNRTGxWaWt8SmB2gbX1m9dTYbXdgkrIK3MhRQTBTgpsZHU/oe5Cg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793806262;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=xOsBO93hajnWNY2Hf6kly8jqaYUdftjDsXMR8RGD+WE=;
+	b=EbCwacCcjz2jQumQ/0v6gMD0tqBBlyhHdqMv4io2ZXDnAcuWGjp9YlQz50/e6CxC7ccZ
+	 fw3dRv8WosJCDB1KFngABQpwwntP1tTZHQtnaAr2U1aOzyPr7csRG0c0OwpA53+ee4IMf
+	 J+LaI+RJzpyQkmm9yUBSa4rj2R3mB+727dskyKRuQYOlmFHa5HQuDo0INyiCwPtsLuum7
+	 uTuLKuUN+vBXdOtm+F1fZ5N2pezFqNE91TpNgz3pMaeR/lL6J2fHrs67x3djNfm/QMe3K
+	 8ZMb+w0v+u+vvk3lJ969ZtnKEgwQoirhF8jWKKsadDSriKv+idkm/WvYuYiXTRj7UNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=proxmox.com;
-	spf=pass smtp.mailfrom=proxmox.com;
-	arc=none smtp.remote-ip=94.136.29.106
-Received: from proxmox-new.maurer-it.com (proxmox-new.maurer-it.com [94.136.29.106])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=he2Y6aJV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFD11606A339;
-	Wed,  4 Nov 2026 15:30:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFD11606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proxmox.com
-Received: from proxmox-new.maurer-it.com (localhost.localdomain [127.0.0.1])
-	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id CD08C45307;
-	Wed, 04 Nov 2026 16:30:43 +0100 (CET)
-From: Gabriel Goller <g.goller@proxmox.com>
-Date: Wed, 04 Nov 2026 16:29:44 +0100
-Subject: [PATCH RFC net-next] vxlan: always report local address
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A6A606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:31:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=he2Y6aJV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99B741F00A02;
+	Wed,  4 Nov 2026 15:31:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793806261;
+	bh=xOsBO93hajnWNY2Hf6kly8jqaYUdftjDsXMR8RGD+WE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=he2Y6aJVK4TJGRxByYTxTEKkmjtPPXVEDxrVpXoSEgqw9bxGUi9dy6hnAm+7k2GNl
+	 63QGb3oU3hXogSqrTZRSiK3z/Tr8SvLi7G11nSgKehqyA1aFQi7TXoZgZyEGKXAV1r
+	 4icL8Cz0i/PGNEgR7n+H3Ak+J75RUcp2kkAjmCORwpnV3y/13iR36jqOUyIsOsE9cl
+	 HsswmXa3eHoDdn2yZHU1miNOAQmzJW74xpbvCzI0GuUeiYabBtebTzRpFs3557P8IF
+	 Psz/rXJRuFadQwUdZyl5VOQSrxtQfvomsijILRKP5S7RLBVoKI23wfQ3MOyOFnaW7p
+	 z1AjIwvn/eJSw==
+Date: Wed, 4 Nov 2026 15:30:58 +0000
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Douglas Anderson <dianders@chromium.org>
+Cc: Jassi Brar <jassisinghbrar@gmail.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mailbox: Only reset txdone_method to POLL if controller
+ supports polling
+Message-ID: <20261104-amazing-azure-malamute-a82ab3@sudeepholla>
+References: <20261103164235.1.Ica21c7a396cf407fca02b7c0fb3a16150feaab90@changeid>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -45,77 +56,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-vxlan_preserve_local-v1-1-e9b51f2132b4@proxmox.com>
-X-B4-Tracking: v=1; b=H4sIAHRP62oC/yWMTQrCMBBGr1JmbaBprRK3Qg/gtkiJcaojYSpJD
- IHSuzvV5ffz3gIRA2GEU7VAwEyRZpagdxW4p+UHKrpLhqZuDlrXe5WLtzy+AwqYcfSzs165drK
- mM2iOugNBZZ6o/LQDXPrz1jEmxVgSXP+H+Lm90KVNDuv6Bb/H/geJAAAA
-X-Change-ID: 20261104-vxlan_preserve_local-c3fa959e9715
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: Ido Schimmel <idosch@nvidia.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Gabriel Goller <g.goller@proxmox.com>
-X-Mailer: b4 0.17-dev
-X-Bm-Milter-Handled: 55990f41-d878-4baa-be0a-ee34c49e34d2
-X-Bm-Transport-Timestamp: 1793806243156
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103164235.1.Ica21c7a396cf407fca02b7c0fb3a16150feaab90@changeid>
 
-When a VXLAN device has no local address, link dumps and notifications
-contain neither IFLA_VXLAN_LOCAL nor IFLA_VXLAN_LOCAL6. If the device
-also has no remote or group address, userspace can't tell whether it is
-an IPv4 or IPv6 device, even though the kernel stores the family. FRR
-runs into this when it finds existing VXLAN devices after a restart.
+On Tue, Nov 03, 2026 at 04:42:36PM -0800, Douglas Anderson wrote:
+> In mbox_controller_register(), a mailbox controller's default
+> txdone_method is initialized to MBOX_TXDONE_BY_IRQ if mbox->txdone_irq
+> is set, MBOX_TXDONE_BY_POLL if mbox->txdone_poll is set, or
+> MBOX_TXDONE_BY_ACK if neither is set. Only controllers with
+> mbox->txdone_poll set initialize mbox->poll_hrt and require
+> mbox->ops->last_tx_done to be implemented.
+> 
+> When a client with cl->knows_txdone = true binds to a channel whose
+> controller uses MBOX_TXDONE_BY_POLL, __mbox_bind_client() overrides
+> chan->txdone_method to MBOX_TXDONE_BY_ACK. Commit 33cd7123ac0b
+> ("mailbox: reset txdone_method TXDONE_BY_POLL if client knows_txdone")
+> attempted to restore chan->txdone_method to MBOX_TXDONE_BY_POLL when
+> the channel is released, but did so unconditionally whenever
+> chan->txdone_method == MBOX_TXDONE_BY_ACK:
+> 
+>   if (chan->txdone_method == MBOX_TXDONE_BY_ACK)
+>           chan->txdone_method = MBOX_TXDONE_BY_POLL;
+> 
+> For controllers whose native txdone_method is MBOX_TXDONE_BY_ACK
+> (!txdone_irq && !txdone_poll), releasing a channel (or failing in the
+> controller's startup() callback) corrupts chan->txdone_method to
+> MBOX_TXDONE_BY_POLL even though the controller does not support
+> polling and has not initialized poll_hrt or ops->last_tx_done.
+> 
+> Check chan->mbox->txdone_poll before resetting chan->txdone_method to
+> MBOX_TXDONE_BY_POLL in mbox_clean_and_put_channel().
+>
 
-Report the local address even when it is unset, as IFLA_VXLAN_LOCAL
-0.0.0.0 or IFLA_VXLAN_LOCAL6 ::, so the attribute type shows the
-family.
+Reviewed-by: Sudeep Holla <sudeep.holla@kernel.org>
 
-Signed-off-by: Gabriel Goller <g.goller@proxmox.com>
----
- drivers/net/vxlan/vxlan_core.c | 19 +++++++++----------
- 1 file changed, 9 insertions(+), 10 deletions(-)
+> Fixes: 33cd7123ac0b ("mailbox: reset txdone_method TXDONE_BY_POLL if client knows_txdone")
+> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> ---
+> Found by code inspection and only compile-tested.
+> 
+>  drivers/mailbox/mailbox.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/mailbox/mailbox.c b/drivers/mailbox/mailbox.c
+> index efacd24a085d..cfc49cfb057c 100644
+> --- a/drivers/mailbox/mailbox.c
+> +++ b/drivers/mailbox/mailbox.c
+> @@ -343,7 +343,7 @@ static void mbox_clean_and_put_channel(struct mbox_chan *chan)
+>  	scoped_guard(spinlock_irqsave, &chan->lock) {
+>  		chan->cl = NULL;
+>  		chan->active_req = MBOX_NO_MSG;
+> -		if (chan->txdone_method == MBOX_TXDONE_BY_ACK)
+> +		if (chan->txdone_method == MBOX_TXDONE_BY_ACK && chan->mbox->txdone_poll)
+>  			chan->txdone_method = MBOX_TXDONE_BY_POLL;
+>  	}
+>  
+> -- 
+> 2.56.0.385.gac671c819a-goog
+> 
 
-diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
-index 223539099778..95dcdf610cd1 100644
---- a/drivers/net/vxlan/vxlan_core.c
-+++ b/drivers/net/vxlan/vxlan_core.c
-@@ -4773,18 +4773,17 @@ static int vxlan_fill_info(struct sk_buff *skb, const struct net_device *dev)
- 	if (cfg->remote_ifindex && nla_put_u32(skb, IFLA_VXLAN_LINK, cfg->remote_ifindex))
- 		goto nla_put_failure;
- 
--	if (!vxlan_addr_any(&cfg->saddr)) {
--		if (cfg->saddr.sa.sa_family == AF_INET) {
--			if (nla_put_in_addr(skb, IFLA_VXLAN_LOCAL,
--					    cfg->saddr.sin.sin_addr.s_addr))
--				goto nla_put_failure;
-+	/* Report the address family even when the local address is unspecified. */
-+	if (cfg->saddr.sa.sa_family == AF_INET) {
-+		if (nla_put_in_addr(skb, IFLA_VXLAN_LOCAL,
-+				    cfg->saddr.sin.sin_addr.s_addr))
-+			goto nla_put_failure;
- #if IS_ENABLED(CONFIG_IPV6)
--		} else {
--			if (nla_put_in6_addr(skb, IFLA_VXLAN_LOCAL6,
--					     &cfg->saddr.sin6.sin6_addr))
--				goto nla_put_failure;
-+	} else {
-+		if (nla_put_in6_addr(skb, IFLA_VXLAN_LOCAL6,
-+				     &cfg->saddr.sin6.sin6_addr))
-+			goto nla_put_failure;
- #endif
--		}
- 	}
- 
- 	if (nla_put_u8(skb, IFLA_VXLAN_TTL, cfg->ttl) ||
-
----
-base-commit: 7b6ab4dbc156e2f96419715130b3d5738a306c93
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git main
-change-id: 20261104-vxlan_preserve_local-c3fa959e9715
-
-Best regards,
---  
-Gabriel Goller <g.goller@proxmox.com>
-
-
+-- 
+Regards,
+Sudeep
