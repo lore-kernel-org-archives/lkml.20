@@ -1,111 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793777662;
-	b=LWnzsSruiPA+TN04n7DgoROWqA3qPFG9hkc3+HBUQG//WIy/EUu4+y+ertjyHLB2O9za
-	 2iOH1GfIy/DOu3mlZ7FQg/M98QrkgV/VzeDMqTgO7pAN9JXJwwguGgV7m1yNvZg0EMCvk
-	 w02zCxKE5myu4TpvolQrrKzgNNGRjH4EY4FR9hZo4B4bt70HHTbWDRSST/JEZ5FqHF/9C
-	 mBVNYoObTT9Mya1f9PwBaBBL5az3FXzy0F2lB/W+3xT8WUddXileHIvQWHWjUX8tk7v63
-	 hcEOZtcV3uyz+8ge3qiGsubNZf4rLR62K/55JcBaCN2SRqrUFhTTuyzWXzhcWNQB9iQ==
+	t=1793777741;
+	b=x8VZoqof9E1Tyaa0vwlg6chf9u5HgB/Rmqd5j6zCc9ZA7v9EPJqIAhzMKHLL/qI/HbgR
+	 yuP7OFQ/k6HBy/8gkg9WFY75rEXTtSiDv5oP8+/XbSCCzRwRnvmdIS8BEDrO+K0rXDdRV
+	 c/fFokuMkwpxVzJaTkDp73xxI5+Q3LlUbZjHXx1/N6KxZPoNoYR0LPQzOt3WcY5joylmZ
+	 rtzvJ4ZuJc/VbCO/+ZkXuVYHpMdOB/OXXyS2mri49G7G37eN7/nm4VgQ8t7uM5NJAPsv8
+	 ER/+zZA8shCBRA4mn2cQjxbXws+B8xSX4w3IIIbj4m6Qjh2sH+aJ7YZJK67fbhZ5Egg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793777662;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=n9WJmtjmaiG9H73C8oCIeI1tkQAyaNAnEi147NL4GLA=;
-	b=yY2J0UqSKpXngzjYNEhBZFq4wX2iW0O2C5C4QbyPsXqyZtMY7SI4CjOnNhGfOylogCr5
-	 27nmcO56UgAPc4ej1hGxOX0CxkIdaDJPnq90B7cdcrGNYIjffjmC5S/UgprAAXyLyXEYk
-	 ZrH0eAuEIvF8Rz7Jlh8tak0xTcEql6ko8VbmKY5u2J9dUFWluMN//TzuDGCgHjNhFtrty
-	 +CeJmLz+fYV3hhCRWOArLeyoht+V8C1IECOImDE44V5qTBdZ8CooGOBqm/DOlcqJvO/b2
-	 SndDjALwqWiWbY4Kr48TXvKAxr4VDyHRRDOrbw8fPDG3Ab0TAs5gG4pBCJMwbTFEp/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793777741;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=626tgi66kdQ74LDjwP+3KRmCPjqcDRZiyS0c4wH+xZo=;
+	b=Vmz0lOdtI7FodMOp6j+EK6i+5SS5G+JwhORV7gMBtOavBGDZ4zDWaWDFL99OFH90we17
+	 vsPcpXyM2zHCi2toXLA7LlD0ix6YT+yPNQ7ZfOOrjORjBMLAAk+Qu5JwFNDvY5Ob7kcEg
+	 Dl7evW4a4tdvC1gbjHuH+PnOGb2Eoba/yYnYyah2+pIgRzoCvYjeOUsVqkGdXi+3i3T5F
+	 aJER6sIrNlqgXG8MkD/HdEodCJqi/LmPz9RAbSMpBuaHpeZ8Chd3YAhhpVZ+70QF1rAJV
+	 qRkKlWaivq7Bhw5lVhBH51X5YWlnE4Qo0cRIteGI8gJaizvqyi5xzA0437V66eA2G2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=einSExJF;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=I2OgySH1;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=j7Hga9j8;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+kIlFVu8;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ft0cH+sk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9FEE606A329;
-	Wed,  4 Nov 2026 07:34:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9FEE606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7916606A31B;
+	Wed,  4 Nov 2026 07:35:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=einSExJF;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=I2OgySH1;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=j7Hga9j8;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+kIlFVu8
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id E2EFE1F7BA;
-	Wed,  4 Nov 2026 07:34:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793777660; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=n9WJmtjmaiG9H73C8oCIeI1tkQAyaNAnEi147NL4GLA=;
-	b=einSExJFc7yKcZbI6vV/BouuaDJI7GbTlUr+FhamRfYL+jCiTJj8uTwbCUcO45Vvi4zXLA
-	GPbwKidkjOwXaHbIkTFAIz8J/xIZlFsXzNYfRhjMBY4wp7LqNGbz5Aff5tKjRgKcuOYO2v
-	KXXOlSMf+vbCjxOKgI0ne/nckY2X0ok=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793777660;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=n9WJmtjmaiG9H73C8oCIeI1tkQAyaNAnEi147NL4GLA=;
-	b=I2OgySH1HUh3jlKvjk/42B4NlHH+p8k0rrx3LNYk/qRwxJKRwu5+PqyPkPwvZgDPfjDh0q
-	gH3DV1D+5cXiX6CQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=j7Hga9j8;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=+kIlFVu8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793777659; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=n9WJmtjmaiG9H73C8oCIeI1tkQAyaNAnEi147NL4GLA=;
-	b=j7Hga9j8NF9UX49c9hpZ7IVWXNlMGVB4eMVnkA40cuOVEIBCV6t22PatZlnCbCbHEJS7B+
-	dKGgIHFXZnv7GEVUlkzihIdQC2BlZoflmbuZ56kvRQsHWFpNEzSzt1uyLvTBykjPJaSqnv
-	WBaDJ5ul1NBPvzlAlVmdxuxBptkPeNM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793777659;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=n9WJmtjmaiG9H73C8oCIeI1tkQAyaNAnEi147NL4GLA=;
-	b=+kIlFVu8ahLNvacutHdv+O0GxNVlAGELWlvHKY2H5Csi35mImCQ/juBC5BWSPHPlaNSiwS
-	w950UX90Qs5YWGAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 93A1A134A5;
-	Wed,  4 Nov 2026 07:34:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 32qVGvvf6mqtPwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 04 Nov 2026 07:34:19 +0000
-Date: Wed, 04 Nov 2026 08:34:19 +0100
-Message-ID: <87h5hxuk1w.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Sinan Turunc <enscrpt@pm.me>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] ALSA: usx2y: Reject buffers smaller than two packets
-In-Reply-To: <87se1hukq1.wl-tiwai@suse.de>
-References: <20261103132247.713-1-enscrpt@pm.me>
-	<87se1hukq1.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ft0cH+sk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD4741F000C1;
+	Wed,  4 Nov 2026 07:35:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793777740;
+	bh=626tgi66kdQ74LDjwP+3KRmCPjqcDRZiyS0c4wH+xZo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ft0cH+skR6Jai/YWZUujt1P54xcE1puevc9ipPrWElFsmW5Yo5uCQ7/pjxbVglbHL
+	 icwWlOQvPfwwLemZ4gAeyJqVZ9wsxK1wi4OT/OPbJdZ7aBZJ6yEg9daydHYXD6qlj9
+	 JkekAveuP/lZs1EMzICXWA6wKbUrDtGnwHJm82pN0cSRKJh83RdQZOZvK77KovPnl9
+	 9TBtth5CWuUJrOCknXc6kJTt4p2MuWkLKP0yzfKi7fmHzIaYkvfe/CTmdQbpjy0NXR
+	 ZeQxfAA3ZMN0cJ3FrHka+3qbZn7GHaw266l7ndA7lERRDNivnueOi5FtPlDxR9EpKO
+	 7+KtdpLFDQMMw==
+Date: Tue, 3 Nov 2026 23:35:37 -0800
+From: Namhyung Kim <namhyung@kernel.org>
+To: Aaron Tomlin <atomlin@atomlin.com>
+Cc: peterz@infradead.org, mingo@redhat.com, acme@kernel.org,
+	mark.rutland@arm.com, alexander.shishkin@linux.intel.com,
+	jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com,
+	chjohnst@mail.com, neelx@suse.com, sean@ashe.io,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH perf-tools-next v12 04/10] perf ftrace: Add basic task
+ call stack management
+Message-ID: <aurgSbFGfN0VC2L6@z2>
+References: <20261026025735.546101-1-atomlin@atomlin.com>
+ <20261026025735.546101-5-atomlin@atomlin.com>
+ <auWTUJd4VJUI32S3@z2>
+ <5s4fy255agvlgqdg4b4f5ekvhgmpjndydvsaadeq56cubrtgot@mrflkcricted>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,85 +62,229 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Queue-Id: E2EFE1F7BA
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-12.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[pm.me:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Score: -12.51
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <5s4fy255agvlgqdg4b4f5ekvhgmpjndydvsaadeq56cubrtgot@mrflkcricted>
 
-On Wed, 04 Nov 2026 08:19:50 +0100,
-Takashi Iwai wrote:
+Hello,
+
+On Sat, Oct 31, 2026 at 06:27:42PM -0400, Aaron Tomlin wrote:
+> On Sat, Oct 31, 2026 at 12:05:52AM -0700, Namhyung Kim wrote:
+> > On Sun, Oct 25, 2026 at 10:57:29PM -0400, Aaron Tomlin wrote:
+> > > The function_graph tracer records kernel function entries and exits with
+> > > nested indentation. To perform call graph analysis and subsequent inlined
+> > > function reconstruction, userspace must track the active call stack on a
+> > > per-task and per-CPU basis.
+> > > 
+> > > Introduce basic call stack management for the function graph tracer:
+> > > 
+> > >     1.  Data structures
+> > > 
+> > >         Define struct ftrace_stack_frame to track function names,
+> > >         indentation, and inlined status.
+> > > 
+> > >         Define struct ftrace_task_state with a dynamically resisable call
+> > >         stack array, tracked in a hash table keyed by PID alongside per-CPU
+> > >         active task bindings (ftrace_cpu_tasks).
+> > > 
+> > >     2.  Trace stream processing
+> > > 
+> > >         Implement find_func_column() to isolate context columns (CPU,
+> > >         timestamps, duration) from function graph trace lines across
+> > >         standard and verbose layouts.
+> > > 
+> > >         Implement ftrace_process_fgraph_line() to parse function entries
+> > >         ("{") and exits ("}"), pushing and popping frames on the tracked
+> > >         stack and matching bare closing braces against preceding frames.
+> > > 
+> > >     3.  Integration in __cmd_ftrace()
+> > > 
+> > >         Stream complete trace lines through ftrace_process_fgraph_line()
+> > >         in __cmd_ftrace() and clean up allocated CPU states on exit via
+> > >         ftrace_cpu_states__clear().
+> > > 
+> > > Tested-by: Ian Rogers <irogers@google.com>
+> > > Reviewed-by: Ian Rogers <irogers@google.com>
+> > > Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
+> > > ---
+> > [SNIP]
+> > > +/**
+> > > + * ftrace_process_fgraph_line - Process and output a function graph trace line
+> > > + * @ftrace: Perf ftrace context
+> > > + * @line: The trace line to process
+> > > + * @out: File stream to output to
+> > > + *
+> > > + * Parse function entries and exits, maintain the task's call stack, and
+> > > + * output the trace line.
+> > > + *
+> > > + * Return: 0 on success, or a negative error code on failure.
+> > > + */
+> > > +int ftrace_process_fgraph_line(struct perf_ftrace *ftrace, const char *line, FILE *out)
+> > > +{
+> > > +	const char *pipe_char;
+> > > +	const char *after_pipe;
+> > > +	const char *func_start;
+> > > +	struct ftrace_task_state *cs;
+> > > +	int cpu = -1;
+> > > +	int leading_spaces;
+> > > +	int top_raw_indent;
+> > > +	int match_idx;
+> > > +	int i;
+> > > +	bool is_exit;
+> > > +	bool has_open_brace;
+> > > +	bool has_semicolon;
+> > > +
+> > > +	pipe_char = find_func_column(ftrace, line, &cpu);
+> > > +	if (!pipe_char)
+> > > +		return print_line(ftrace, line, out);
+> > > +
+> > > +	cs = get_cpu_state(ftrace, cpu);
+> > > +	if (!cs)
+> > > +		return print_line(ftrace, line, out);
+> > > +
+> > > +	after_pipe = pipe_char + 1;
+> > > +	func_start = skip_spaces(after_pipe);
+> > > +	leading_spaces = func_start - after_pipe;
+> > > +
+> > > +	if (*func_start == '\0')
+> > > +		return print_line(ftrace, line, out);
+> > > +
+> > > +	is_exit = (*func_start == '}');
+> > > +
+> > > +	if (is_exit) {
+> > > +		char exit_name[128];
+> > > +
+> > > +		extract_exit_func_name(func_start, exit_name, sizeof(exit_name));
+> > > +
+> > > +		top_raw_indent = -1;
+> > > +		for (i = cs->depth - 1; i >= 0; i--) {
+> > > +			top_raw_indent = cs->stack[i].raw_indent;
+> > > +			break;
+> > > +		}
+> > 
+> > This loop doesn't look natural.  Why not just use an if statement?
 > 
-> On Tue, 03 Nov 2026 14:23:03 +0100,
-> Sinan Turunc wrote:
-> > 
-> > usx2y_urb_capt_retire() splits the copy into the ALSA ring buffer once
-> > at the buffer end and wraps hwptr_done once, which is only correct when
-> > one packet holds at most buffer_size frames. The packet size is the
-> > endpoint's maxpacksize from usb_maxpacket(), while the hw constraints
-> > allow 64-byte periods with periods_min 2, so a packet can be larger than
-> > the whole buffer.
-> > 
-> > The endpoint is known at probe time, so constrain
-> > SNDRV_PCM_HW_PARAM_BUFFER_BYTES in snd_usx2y_pcm_open() to at least
-> > twice the endpoint's packet size. Two packets, matching the line6 fix.
-> > The bound makes the copy safe, but it does not make every larger buffer
-> > progress: the position is reported once per URB of 4 packets, so a
-> > buffer that divides one URB's data returns to the same position at every
-> > callback. That was already the case before this patch and is not changed
-> > here. Keep a guard in usx2y_urb_capt_retire() that drops an oversized
-> > packet with a ratelimited error, for the case that should no longer be
-> > reachable.
-> > 
-> > Reproduced on 7.3-rc7 with a USB/IP device presenting the US-122
-> > interface layout and 1024-byte packets into a 512-byte buffer:
-> > 
-> >   BUG: KASAN: out-of-bounds in i_usx2y_urb_complete+0x1285/0x1ac0
-> >   Read of size 18446744073709551104 at addr ffff88800e448800 by task vhci_rx/83
-> > 
-> > With this patch a 1024-byte buffer is refused at hw_params; a 2048-byte
-> > buffer is accepted and safe but barely advances (hw_ptr 9216 after 30 s,
-> > for the reason above); a 3072-byte buffer streams for 30 s with no
-> > report and with the position moving inside the buffer.
-> > 
-> > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Sinan Turunc <enscrpt@pm.me>
+> Hi Namhyung,
 > 
-> Applied now.  thanks.
+> Thank you. I completely agree.
+> 
+> A loop that unconditionally breaks on the first iteration is
+> unnecessary here. I will replace it with a simple conditional check in
+> the next revision:
+> 
+>     top_raw_indent = -1;
+>     if (cs->depth > 0)
+>         top_raw_indent = cs->stack[cs->depth - 1].raw_indent;
+> 
+> All subsequent similar instances will be addressed accordingly as well.
+> 
+> > > +struct ftrace_stack_frame {
+> > > +	char *name;
+> > > +	bool inlined;
+> > > +	int indent;
+> > > +	int raw_indent;
+> > 
+> > Can you please add comments that explain why it has two indents?
+> > Also inlined field may be added later.
+> 
+> Certainly. The two indent fields serve distinct purposes once inlined
+> frames are injected into the output.
+> 
+>     - raw_indent: Records the original leading whitespace count after "|"
+>       as emitted by the kernel's function_graph tracer. Because the kernel
+>       only traces real stack frames, raw_indent is used to match entry and
+>       exit frames against the raw trace stream.
+> 
+>     - indent: Records the adjusted visual indentation (in spaces) used when
+>       rendering the frame to output, accounting for any extra indentation
+>       added by preceding synthetic inlined frames so that the closing "}"
+>       aligns with its opening "{".
+> 
+> Agreed, these fields are not used yet. I will move inlined and
+> inlined_depth into the subsequent patch that introduces inlined function
+> display, and add explanatory comments to both structures.
+> 
+> > > +};
+> > > +
+> > > +struct ftrace_task_state {
+> > > +	struct hlist_node	node;
+> > > +	pid_t			pid;
+> > > +	struct ftrace_stack_frame *stack;
+> > > +	int			max_stack;
+> > > +	int			depth;
+> > > +	int			inlined_depth;
+> > > +	int			overflow_depth;
+> > 
+> > Ditto.  What are these depths?
+> 
+>     - max_stack: Current allocated capacity (in frames) of the dynamically
+>       resized 'stack' array.
+> 
+>     - depth: Current number of active frames stored on stack.
+> 
+>     - inlined_depth: Number of active synthetic inlined frames currently on
+>       stack, used to compute the extra visual indentation offset for
+>       child frames. This will also be moved to the later patch.
+> 
+>     - overflow_depth: Number of nested call frames entered while stack is
+>       saturated (at the maximum depth cap or on allocation failure), used
+>       so their matching exit braces can be consumed without prematurely
+>       popping valid parent frames.
+> 
+> I will document all of these fields with comments in the next revision.
+> 
+> Please see an example. When synthetic inlined frames are injected, the
+> visual display column (indent) shifts right relative to the kernel stream
+> (raw_indent):
+> 
+>     1.  What kernel function_graph emits:
+> 
+>            |  foo() {                 <-- raw_indent = 2
+>            |    bar() {               <-- raw_indent = 4
+>            |    } /* bar */           <-- raw_indent = 4
+>            |  } /* foo */             <-- raw_indent = 2
+> 
+>     2.  Rendered output and stack state:
+> 
+>         When perf injects inlined function inline_helper() onto cs->stack,
+>         inlined_depth becomes 1. Every subsequent child frame shifts right
+>         by (inlined_depth * 2) spaces so bar() nests visually inside
+>         inline_helper(), while still retaining raw_indent = 4 to match the
+>         kernel's closing "}" event:
+> 
+>            Rendered Output            cs->stack[idx] and ftrace_task_state
+>            ---------------            ---------------------------
+>            |  foo() {                 [0] foo:
+>            :                              raw_indent=2, indent=2, inlined=false
+>            :                              (depth=1, inlined_depth=0)
+>            :
+>            |    inline_helper() {     [1] inline_helper:
+>            :                              raw_indent=4, indent=4, inlined=true
+>            :                              (depth=2, inlined_depth=1)
+>            :
+>            |      bar() {             [2] bar:
+>            :                              raw_indent=4, indent=6, inlined=false
+>            :                              (depth=3, inlined_depth=1)
+>            :                              ^
+>            :                              '-- indent = raw_indent (4) +
+>            :                                           inlined_depth * 2 (2) = 6
+>            :
+>            |      } /* bar */         <-- kernel function_graph emits "}"
+>            :                              at raw_indent=4. Matched against [2]
+>            :                              via raw_indent=4, but printed at
+>            :                              [2].indent (6 spaces)
+>            :
+>            |    } /* inline_helper */ <-- Popped automatically; printed at
+>            :                              [1].indent (4 spaces)
+>            :
+>            |  } /* foo */             <-- kernel function_graph emits "}"
+>                                           at raw_indent=2. Matched against [0]
+>                                           via raw_indent=2, printed at
+>                                           [0].indent (2 spaces)
+> 
 
-... and I noticed Sashiko warnings now, so dropped again from the
-queue.  Could you verify whether those complaints are valid or not?
+Thanks for the example,  the comment also look good.
 
+Namhyung
 
-thanks,
-
-Takashi
