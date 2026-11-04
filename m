@@ -1,110 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793821956;
-	b=5ImmeBhC4njlDReX7azQ/xBUhAk1bVcOGSHxIXZuDIryWt1iXFCfQ2D3tmE+PCJbHnol
-	 zgxD1LVMrMx4u8+NI2hAV8G4fwfAcO8lihaiJY2z0qS4X36mLnw4B8Z9LyF6Pb7xANhOH
-	 t532O66xPgnBZS8D70RvH30Wc07MqXcJLy7yX7krqlRwceIGqme1t304RULBMAcwrFc6+
-	 eDGYjJJpLhztnGxTa+ERlIc3UcZTymjT1i5mM3pZXx7LoZ1lPXeHoqzVku+lWIbKXlrES
-	 MXHCkgQYi4UisRzTA6UDDNLHW0fWmpa9PxEJjk56OZMnBMEKukAkOcM2aW3Nn0f9Rbw==
+	t=1793821983;
+	b=KNqvzGyMbSLhx/zebnF7HfKmHg80qrT8Sc7LKdHB6riUarXP/ceTpN0lKlnFO1M2cbZX
+	 2gROmEnWBPjKjZuJgQu6cQLpXWxYWjTV2wpaPGP2/mdOkx5dU7zcqmZFTjLTYJJPW2GZf
+	 QmpLRV2i7PqcIPiS5c/Bz0cFXK9kjwi76OQjiG/CiWaNVoTze7asP+7W0N3nPiIyBOcSB
+	 67BlEoZm56tPKgUOFjuRABvDxxbYjATbjutxiqh2CkM/VS4M5CQ6ck2v8rcl1lIT6pvsV
+	 Zeyfh0fE5mKfocYPC64Mpkt4uDSJFrOMhxnVCY+E218iUfNPC1sUWEJ8Fm0tlbRWrGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793821956;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=yr3akMspnIWFpqWJkjrAgv6glOgJhJX8fSAifemHFwA=;
-	b=bYJZFrpN/s4tezcsRcny9S2RAZ6c9Az9L8yQysuo4gbdbpJAAWOFVhUQTqUNDxDbyKk2
-	 dDpD2I2iIVw/vpHJg5qeCLYx3wkiMMZcJkXp1h1RkKwhh6GMhxojKg/vvA4J5WHA1CCLG
-	 mnYTamMhsmRRygCkgs9HGIF/B30R+cGeQCMP6v3wVq0KQ9BD3uADW/3J0/fV5HrwNxdGU
-	 lS5lJ8K+7W5NZRx6BL/vol3KNAqm3M55T3RNNnUqHWEnFwCBkIwdCn1YpI/hlJr/b4846
-	 EW0lGAA+ZtupX4bJ4woW4pgKCFZY3eaJZrYs67X1kK0jFi69Ue/nwN8GqLbLGKrzFOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793821983;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=veFu+GeN/zVA2n2SaVCI85ywkvL139Q8TkIg1x4TZdo=;
+	b=0/3R0oFMwtUhtuMb1stbZTOEpPctofgTDmpSRHSZjeeXx3g2cJjxYXvkoGNZjz/mlvNe
+	 eq9WkA7RYlmvEKpWINv0Pli2fGh4F+mWC8qz7KuEXPO9Xv7TUtMyS2EMzaUPor0O1Owhd
+	 qA0BC2rNREuyziz26bYTFfUS5bVGMMtpwUURtGzOMmJoSz3sfCxDSpbjHtHuByc5Vu7Pv
+	 5xkJT+L8v4jrnOD/CYiUvnymSPbPWjXTpTIhMXCDe3F6fV8Ht1OHcKpTxRwZpIqCLUkyn
+	 hlwi0J8zOQRdnaZeI5ch2hFbEbmsgtiwXdYIqfmSpwtupIJe3wICSgj+zGBDKZhm3VQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Wdi/cBrV";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ANJA3a98;
+	arc=none smtp.remote-ip=209.85.222.46
+Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com [209.85.222.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB4C6609529D;
-	Wed,  4 Nov 2026 19:52:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5008E60D9EAE
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:53:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5008E60D9EAE
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wdi/cBrV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 742AB1F00A17;
-	Wed,  4 Nov 2026 19:52:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793821955;
-	bh=yr3akMspnIWFpqWJkjrAgv6glOgJhJX8fSAifemHFwA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Wdi/cBrV+aPpgWRwzXpiA+ib3De0K0pQhXbyKJhu1iexPEaDfaOTHNqiiiqzPXo1n
-	 sHBvBkYLvUp265kZxirmL7Ost0iN+Glcw1jB+xXLZfNzc7jQ/+vNrfyJuIub3D24aH
-	 FJeeaeTI1JKYgVteizb9BzRe2OXphrQw0/Z3qIHs6/g1diX9mzri9ugVAFK0faPBni
-	 4fNDrMwo9L4EM/Oii/TzK2gV2q/Po1jRRBmUKKs+oPw3OgQB1bIjbd27ca1yrbdHfk
-	 Mgqqa9yGsWvWaLe2ghGBqK/zKktWtu1oUQAE7grmxfWRAs9G65+CGMdjqpjfo1wZXs
-	 QP7jFCWB/AzOQ==
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Jann Horn <jannh@google.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Chris Mason <mason@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Christoph Hellwig <hch@lst.de>,
-	Greg Kroah-Hartman <gregkh@suse.de>,
-	Joel Granados <joel.granados@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Jan Kara <jack@suse.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ANJA3a98
+Received: by mail-ua1-f46.google.com with SMTP id a1e0cc1a2514c-9906c85122cso373536241.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:53:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793821981; x=1794426781; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=veFu+GeN/zVA2n2SaVCI85ywkvL139Q8TkIg1x4TZdo=;
+        b=ANJA3a98FFvvIOpxw+9fKDajX7EDD2IFRKvH9PU+9a1uY4sPHSSxrQo6Gb2VOB+q6K
+         Kkuup/Ar+oQar2+ucZvjAcMmZUaUYNVkQ0ouI10/NGnVLlAzJCDC1NlovCQiY8+xDL4A
+         8U6aybAiThMxApJAxERlQ2os7ZsctB0tjT4eR4ehvvNbZncPKM7cu2G5kC3PGyDVjf2A
+         9fCnF085z2qqlhcj17L1776oNFU884YV0+F1bDpYIqPccQNEmbId1ZnPdxl2RYBt3fMy
+         8rabLD5Z2wZQuLs07BRvCqsYJ1ogEMzYz4hv+c5y1wE5JRRHUyuV+jXF87+Lx4rEuzuJ
+         8rjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793821981; x=1794426781;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=veFu+GeN/zVA2n2SaVCI85ywkvL139Q8TkIg1x4TZdo=;
+        b=sg0n+XulfQzBdN4w+3akW/fzXi182qVfwSWK2/3iZw0FB/vbL2faFfNXC4aQR9NT9W
+         QlW5d03zdSNGIC3lgmZZRbldc1zGXcy8mXvEg9WmaxGqI6DSHVX2VbtdQLAdwyWo7yX8
+         6M4aFl3h/51vIiRfrFXo0Y3ZEZ55pBv3K7ro0Yss47LeneSyWVv+osfRcZARpvwUXjne
+         SVGgghfVmKJzgScXclgBM3l9wz+VX4h6Gz/zDf1lmO2mStINTj0PTMjXUjxt2IpwjreH
+         W3vpYrGw9nr9FoOEBcPuN78waUGv+yVLjyspo3rsuSRzs5wLtcRwCNZH74T1JmuTwYPp
+         xPQw==
+X-Forwarded-Encrypted: i=1; AKwUvBwrkvOWbbSGzCNiS9tcBwPG4i5Y8LOMW06HnM116sgSwyVO0kCQXJIfRWYKjwN5ADqGn/7MTq4CNLILofU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8hRB9wbp583E+BmJhG6IbMG6bqJJOqYy21qlqmWxiSYPCF4rGH
+	4mXZM1961VXDQ31shtdyxopRF5tOCuNa4+eUfDiFPnAsst9FRCQpdQg=
+X-Gm-Gg: AYBFou0QWhSwODjeKdYf7eUgNicZD309b1Q514Uw/CxRsmAjEg5+zdIbhuthNgmTfn1
+	3c7S5XDD7fAkLwqaOmiyuJbzZW7rywzRiEuEg6R75znyaBo1OBtgahWwSFtRIpJM4D0oAib/Y+m
+	QVbz2qyP8s1zZJ5GuWPxySzS1y7lWmJ0ki3jDqOQVSCTgaC/iQNsCk9yp0xKrEig91Kye4EMCIs
+	232yHzTMa0IGq5Oi0G5mkGI0mnOddhakAHMtOh7h9c4YFrkV9GAcLPMMi74RThnbc2a1lvYJ8eJ
+	nRb/fgEZlDNvnzsdNNSa4Ij1uWU6bxKvjoCtdiSqM4VtU6BrGOCX/xPgmOs80aI+4FnD0NpqZKx
+	x/B2PGZGG1aZDAqveO022qjrpfRm7qAsIDurRdCSYqj5aND+RggOsSDCByqG0PkSuW05hCmC8We
+	Gyte+ZGwOlt4Gp62RYAy7CYySSopvIlYnsp8n5LJOACn3YHi2WOciItcoDywEdJoiL/1049Tlw9
+	5qrVWBOexsYNe22YTsb8YmFNXnA36R1Lv8ZM68+9dlVL5J6MpbtPFVoGoUykkkUUn0P/pknJCEH
+	XdYO+hosOR4yzKKxZOGIRyIpWihfMbJVeZ19Vj4njnBRC988c3HxEpuaefuH0KbSLBQe9iASpWt
+	mgAc5
+X-Received: by 2002:a05:6102:6449:b0:7cb:bc5e:7dad with SMTP id ada2fe7eead31-7d072baa450mr6439786137.10.1793821981337;
+        Wed, 04 Nov 2026 11:53:01 -0800 (PST)
+Received: from localhost.localdomain ([186.158.238.108])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d26fd3e101sm2387237137.3.2026.11.04.11.52.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 11:53:00 -0800 (PST)
+From: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>
+To: Igor Korotin <igor.korotin@linux.dev>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Georgios Androutsopoulos <georgeandrout13@gmail.com>
+Cc: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Benno Lossin <lossin@kernel.org>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Boqun Feng <boqun@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Gary Guo <gary@garyguo.net>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
 	linux-kernel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	netdev@vger.kernel.org,
-	ntfs3@lists.linux.dev,
-	platform-driver-x86@vger.kernel.org,
-	coreteam@netfilter.org,
-	kexec@lists.infradead.org,
-	linux-pci@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	ibm-acpi-devel@lists.sourceforge.net,
-	jfs-discussion@lists.sourceforge.net,
-	linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-sh@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	samba-technical@lists.samba.org,
-	sparclinux@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
-	linux-doc@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-atm-general@lists.sourceforge.net,
-	Takashi Iwai <tiwai@suse.de>,
-	linux-input@vger.kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	linux-modules@vger.kernel.org,
-	linux-debuggers@vger.kernel.org,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Chuck Lever <cel@kernel.org>
-Subject: [PATCH RESEND v2 11/30] latencytop: let procfs copy in writes to /proc/latency_stats
-Date: Wed,  4 Nov 2026 20:52:21 +0100
-Message-ID: <20261104-work-procfs-fs-v2-11-319e0f9a8aae@kernel.org>
-In-Reply-To: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
-References: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
+	rust-for-linux@vger.kernel.org
+Subject: [PATCH v2 0/2] remove TryFrom<&Device> implementations for pci and platform
+Date: Wed,  4 Nov 2026 16:50:13 -0300
+Message-ID: <cover.1793818280.git.nico.antinori.7@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,46 +111,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1161; i=brauner@kernel.org; h=from:subject:message-id; bh=9/PXHkkWFBWwJpiw0GjnsftfBxXIsWStv0RQuWJfsao=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97rHYoefdeeu3Wu6hdxnVaz7v/WWclHzHXeCSxcHZu dEaxyrZOkpZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACZiz8Xwz0LT9mYft9DOxTmH s3zMX0Q82m1+d9ocNc7ZMcs3fnzYeY2R4XCAwMyUHolzwR/2ZJ/ocma7der9hQWXfd9w6kXPqxW I5gUA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Implement ->proc_write_buf() so procfs copies in what is written before
-it pins the entry. The write only clears the statistics and doesn't look
-at what was written anyway. Writes larger than PAGE_SIZE - 1 bytes fail
-with -EINVAL now.
+Hello,
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- kernel/latencytop.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+This patch series removes `TryFrom<&Device<Ctx>>` implementations for
+pci and platform's `Device` struct.
 
-diff --git a/kernel/latencytop.c b/kernel/latencytop.c
-index b764f47606d3..35f73ca07656 100644
---- a/kernel/latencytop.c
-+++ b/kernel/latencytop.c
-@@ -267,8 +267,7 @@ static int lstats_show(struct seq_file *m, void *v)
- }
- 
- static ssize_t
--lstats_write(struct file *file, const char __user *buf, size_t count,
--	     loff_t *offs)
-+lstats_write(struct file *file, char *buf, size_t count, loff_t *offs)
- {
- 	clear_global_latency_tracing();
- 
-@@ -277,7 +276,7 @@ lstats_write(struct file *file, const char __user *buf, size_t count,
- 
- static const struct proc_ops lstats_proc_ops = {
- 	.proc_show	= lstats_show,
--	.proc_write	= lstats_write,
-+	.proc_write_buf	= lstats_write,
- };
- 
- static int __init init_lstats_procfs(void)
+I made this a series because both TryFrom implementations were
+introduced in a series:
+https://lore.kernel.org/all/20250321214826.140946-1-dakr@kernel.org/
 
--- 
-2.53.0
+Changelog:
+v2:
+ - Replaced "Closes:" tags with "Link:" tag in both patches.
+ - Added mention to the soundness problem in the commit messages.
+ - Removed bindings::dev_is_platform C binding since it has no other
+   usages.
+ - Solved Sashiko from v1: "[Low] rust: pci: unused
+   rust_helper_dev_is_pci() left in rust/helpers/pci.c": Deleted the
+   binding. Platform was in the same situation as mentioned in the
+   previous item.
+Link to v1: https://lore.kernel.org/rust-for-linux/cover.1792417858.git.nico.antinori.7@gmail.com/T/#t
+
+Best regards,
+Nicolás
+
+Nicolás Antinori (2):
+  rust: pci: remove TryFrom<&Device> implementation for &pci::Device
+  rust: platform: remove TryFrom<&Device> implementation for
+    &platform::Device
+
+ rust/helpers/helpers.c  |  1 -
+ rust/helpers/pci.c      |  5 -----
+ rust/helpers/platform.c |  8 --------
+ rust/kernel/pci.rs      | 21 ---------------------
+ rust/kernel/platform.rs | 21 ---------------------
+ 5 files changed, 56 deletions(-)
+ delete mode 100644 rust/helpers/platform.c
+
+--
+2.47.3
 
