@@ -1,60 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.122
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793789576;
-	b=NApQg7aqKrEyhLF0SdR+BAAZJGFWti9cWkkjMXFUGTtMvLCzV+pOleeRrLJ/zL55P57C
-	 VtlFAekb7WUkjnIj5RvB+jxmvO3b2xqWG+O1usEBkHkgjyljc20IU+PwsAZo3m8GRo8dt
-	 9TN9hSlDiw9/h57RuYgsvXbHcpyTBY8HB5kpJzuHPff2VMs9tCdA2pYIy52X24y/QULCG
-	 XSkbsNxuI7spQQBSjtQgt9ZO3ZNSMxo3U5AF2Gxoa+MOq9a/Vv6xZU5DpVgoxn5gOnwUp
-	 59BdFONZhET5Iks6nDBl1VEbKI0S+BijPWOJD4hq8RkEstxJNTei1L7kpknvJUTUt4Q==
+	t=1793789641;
+	b=Wp5c1uyzIyvjMwu4iQV28gJjLf6sxyghepSrgpRv0igIJk5HrAwlhBlacHjMonj7nUOB
+	 r7C4d6SnaSsx7RL7KqNDeNoF2qF5K2BKw7Af7R+dVZfFQPYMrvFiJUpfepn9g8Tq6gU3u
+	 aEaCHGJ/m2qnX/mrvjrNI73cuXtKeNn8/G6i5TwLWGk7CQQdYyhQrW3tai5l/pYlPDt5M
+	 1awJ/EsyF03HSIXAmq+5uk8g3QnUUNG1OMrh9omGgBBiR47+KNHd0uS8oXvN91AkPoOkQ
+	 LUrqjMZuxNvUYK01DkLPJJB8YEjnFmGB93YUZvvN4qJFv9OFBhVz4GIpXk56uRcAjkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793789576;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=69sOAaA7NA2b3m6dktP9zhaeMiKA9rSl3hu7ujLgf98=;
-	b=U1hJzwIAVkCQ0FE7LTiF5D932sZyvBtHAksSMOQ5nS/Cu6dJLBtzUtaxvTV4ZCgQRRti
-	 leLWt/u2DI2wkM4rDJvB4bEYbf6Vt0GoIuWhEhlTUCXt1lF51tzH1fldfEUOdxGK70u6M
-	 MdGw08mc4Q74QTPJcEGTAOiQvkZOZQmI8Dt4lkqMMnmwokiLIw5b0eRIbH28z3xaCrQxa
-	 mWz8qBHC8mFRenevRfrfbykmIvh5nk5KeumqI9k1yGGI1ZXC5uMagjSaOZ8XcR6qRcOex
-	 iwMwxK9D7xFb55X0drqj6tW29kkSOk91kYF7nk6MgfI0KSKGcuD8kb6BbkQQXHoiYCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793789641;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
+	bh=mr6TqXgtbsRpH7YcJhsJ3zQQdGBC5zTXONlOxYcraG8=;
+	b=5o8S2CQkHqf5sDZoGaCZGr+TCRV/QOCP3N0xROnD4e+B/7F+tJv4ehDJYWz0KHibhZkq
+	 IZ6D6kfD+ssCvvm0S4dYybhvByJMVgP1+U4QCKAnfqjctPHpUqqg1wobvS+b2YBiZt+4X
+	 Nn/MQrLxAVDALhTcB2/EqjpiFoHjoTI8zCjKUlLRd0F9xJSZFfOk7xJ0R4AMiSfDjuVhh
+	 NIS2mxMNc3khJoblGQp/Y2CFTmZ9Ro2rB1Lv0Zf3UMiNn0fIBbg4Wly3VKZjUUlPg5Vb4
+	 kotoiqar/paThqNvMytDNsjkhz8ZG5dDgvhjZEa30yAdd3LsuJKWAkXj4CUlO2Xc5jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=di4AyDx+;
-	arc=none smtp.remote-ip=109.224.244.122
-Received: from mail-244122.protonmail.ch (mail-244122.protonmail.ch [109.224.244.122])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MgXQOSBv;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37EE6606A326;
-	Wed,  4 Nov 2026 10:52:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37EE6606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F27606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:54:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44F27606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=di4AyDx+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793789574; x=1794048774;
-	bh=69sOAaA7NA2b3m6dktP9zhaeMiKA9rSl3hu7ujLgf98=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=di4AyDx+cGtbzzUSnMBOShTKNEmTHb5qXxl7wb6IZX+aGFNw1UsaUrVaxXvQdxmuR
-	 q/F55FUsy2MUUxxfc3DVy9ubWJ3LKHW8o4ksIrUGUJGGfP6dx1SdZo2b5JH1Bm/oME
-	 8pJyHNZ0LAci7FQoDtqbolOBh2IGoFs9qVPdWvC8Z6WAhj13wsJ6oWR+XzFpR9APJD
-	 TxI7smnaE80BEwNep6D5gv8LL+g54oDx+lgi7NMYfx+VTaM+bM9UwDo7qn7UGm9IFO
-	 HsRiOZ9mdWWVSwE1zni3kWEMM0u0PoTmsV5gYk2RgsprH5K6UCjSJdSGYbSDJyMMi/
-	 HAZ7HJNvufOdg==
-Date: Wed, 04 Nov 2026 10:52:50 +0000
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-From: Sinan Turunc <enscrpt@pm.me>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH v3 1/2] ALSA: usx2y: Require a buffer of two URBs
-Message-ID: <20261104105228.1124-2-enscrpt@pm.me>
-In-Reply-To: <20261104105228.1124-1-enscrpt@pm.me>
-References: <20261104105228.1124-1-enscrpt@pm.me>
-Feedback-ID: 48393780:user:proton
-X-Pm-Message-ID: 08b5656d1fcd589bd257b3d2aba585f6fe85efdd
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MgXQOSBv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793789640;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=mr6TqXgtbsRpH7YcJhsJ3zQQdGBC5zTXONlOxYcraG8=;
+	b=MgXQOSBvMR60WYfIgpu9f3Wfv1u0uZ3ByWposmVCSco8UK+pdbg0cSUjrGWA4BgpBUNK1v
+	GG2MZ0CTwkBGwMpg9Gzu2rIMFp1D3J0+d+whIhtXjESshQ2C4BqAMiodNBdy/leCBih1Sh
+	0zq8NHvrb6V7I41Wiv9nwd+keMkbmlQ=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-679-6F5HHHkzOV2WTNhpUocNng-1; Wed,
+ 04 Nov 2026 05:53:58 -0500
+X-MC-Unique: 6F5HHHkzOV2WTNhpUocNng-1
+X-Mimecast-MFC-AGG-ID: 6F5HHHkzOV2WTNhpUocNng_1793789636
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8FB7819560B1;
+	Wed,  4 Nov 2026 10:53:56 +0000 (UTC)
+Received: from thuth-p1g4.redhat.com (unknown [10.44.48.42])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6005930000E8;
+	Wed,  4 Nov 2026 10:53:54 +0000 (UTC)
+From: Thomas Huth <thuth@redhat.com>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	linux-crypto@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] lib/crypto: Add a sentence about zeroizing raw key structures
+Date: Wed,  4 Nov 2026 11:53:52 +0100
+Message-ID: <20261104105352.135540-1-thuth@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,103 +77,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-usx2y_urb_capt_retire() wraps the ring buffer once per packet and
-usx2y_urb_play_prepare() once per URB of nr_of_packs() packets of up to
-50 frames. Both assume that the data fits in the buffer, and the hw
-constraints only require about two 1 ms periods, so a packet larger
-than the buffer on capture, or a URB larger than the buffer on playback,
-violates that assumption.
+Let's make it clear that raw key material has to be zeroized, too.
 
-Constrain SNDRV_PCM_HW_PARAM_BUFFER_SIZE in snd_usx2y_pcm_open() to at
-least two URBs, 2 * nr_of_packs() * 50 frames, for both directions. The
-bound is in frames and derived from the driver's own packet limit, so it
-does not read the endpoint, whose altsetting is only selected in
-prepare. Two URBs rather than one, because the position advances by a
-URB on playback and only moves when a URB is less than the whole buffer.
-Keep a guard in usx2y_urb_capt_retire() that drops a packet larger than
-the buffer, for the case the constraint makes unreachable.
-
-With nrpacks above about 655 (S16_LE) or 436 (S24_3LE) the bound exceeds
-buffer_bytes_max, so hw_params fails for those module settings. That is
-intended: the driver cannot be safe with a URB larger than half the
-largest buffer.
-
-Reproduced on 7.3-rc7 with a USB/IP device presenting the US-122
-interface layout and 1024-byte packets into a 512-byte capture buffer:
-
-  BUG: KASAN: out-of-bounds in i_usx2y_urb_complete+0x1285/0x1ac0
-  Read of size 18446744073709551104 at addr ffff88800e448800 by task vhci_r=
-x/83
-
-Tested on 7.3-rc7 with the same device, S16_LE at 44100 Hz, nrpacks 4,
-so the bound is 400 frames. A 128-frame capture buffer and a 200-frame
-playback buffer are refused at hw_params with EINVAL. A 400-frame buffer
-streams for 30 s in each direction with the position advancing inside
-the buffer and no KASAN report; the capture guard did not fire. The
-same 400-frame capture buffer with S24_3LE, which selects altsetting 2
-in prepare, streams for 30 s with the same result.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sinan Turunc <enscrpt@pm.me>
+Suggested-by: Eric Biggers <ebiggers@kernel.org>
+Signed-off-by: Thomas Huth <thuth@redhat.com>
 ---
-v3: bound the buffer in frames by two URBs instead of two packets, so
-the playback copy is covered and the bound no longer reads the endpoint
-before the altsetting is selected (both from the review of v2). The
-open() comment that described playback as wrapping per packet is
-corrected. Both directions tested on 7.3-rc7, see above.
-v2: constrain the buffer at open instead of clamping in the copy.
+ Suggested here:
+ https://lore.kernel.org/linux-crypto/20260930201434.GA61218@google.com/
 
- sound/usb/usx2y/usbusx2yaudio.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ Documentation/crypto/libcrypto-zeroization.rst | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/sound/usb/usx2y/usbusx2yaudio.c b/sound/usb/usx2y/usbusx2yaudi=
-o.c
-index a3a0bc13632..ee224b4dfb0 100644
---- a/sound/usb/usx2y/usbusx2yaudio.c
-+++ b/sound/usb/usx2y/usbusx2yaudio.c
-@@ -51,6 +51,17 @@ static int usx2y_urb_capt_retire(struct snd_usx2y_substr=
-eam *subs)
- =09=09=09dev_dbg(&usx2y->dev->dev, "%s: 0 =3D=3D len ERROR!\n", __func__);
- =09=09=09continue;
- =09=09}
-+=09=09/*
-+=09=09 * snd_usx2y_pcm_open() constrains the buffer to hold at least
-+=09=09 * two URBs, so this cannot happen for a conforming device.
-+=09=09 * Drop the packet rather than exceed the single wrap below.
-+=09=09 */
-+=09=09if (unlikely(len > runtime->buffer_size)) {
-+=09=09=09dev_err_ratelimited(&usx2y->dev->dev,
-+=09=09=09=09=09    "%s: packet of %i frames exceeds %lu-frame buffer, drop=
-ping\n",
-+=09=09=09=09=09    __func__, len, runtime->buffer_size);
-+=09=09=09continue;
-+=09=09}
-=20
- =09=09/* copy a data chunk */
- =09=09if ((hwptr_done + len) > runtime->buffer_size) {
-@@ -888,6 +899,16 @@ static int snd_usx2y_pcm_open(struct snd_pcm_substream=
- *substream)
- =09runtime->private_data =3D subs;
- =09subs->pcm_substream =3D substream;
- =09snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_PERIOD_TIME, 1=
-000, 200000);
-+=09/*
-+=09 * Capture wraps the ring buffer once per packet and playback once
-+=09 * per URB of nr_of_packs() packets of at most 50 frames (see
-+=09 * usx2y_urb_play_prepare()). Both need the buffer to hold more than
-+=09 * one URB, and the position only advances when a URB is less than
-+=09 * the whole buffer, so require two URBs. The bound is in frames and
-+=09 * does not depend on the altsetting, which is selected in prepare.
-+=09 */
-+=09snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_BUFFER_SIZE,
-+=09=09=09=09     2 * nr_of_packs() * 50, UINT_MAX);
- =09return 0;
- }
-=20
---=20
+diff --git a/Documentation/crypto/libcrypto-zeroization.rst b/Documentation/crypto/libcrypto-zeroization.rst
+index 76b6506711634..fe9f94413d1f2 100644
+--- a/Documentation/crypto/libcrypto-zeroization.rst
++++ b/Documentation/crypto/libcrypto-zeroization.rst
+@@ -47,7 +47,9 @@ The following types of structures hold sensitive material and should be
+ zeroized after use:
+ 
+ - **Key structures** (e.g. ``struct aes_key``, ``struct hmac_sha256_key``):
+-  contain expanded round keys or prepared key material.
++  contain expanded round keys or prepared key material. Note: Arrays and
++  structures that contain raw key material (e.g. raw AES keys) of course
++  need to be zeroized as well as soon as the data is not required anymore.
+ 
+ - **HMAC/MAC context structures** (e.g. ``struct hmac_sha256_ctx``,
+   ``struct aes_cmac_ctx``): contain inner and outer hash states derived from
+-- 
 2.56.0
 
