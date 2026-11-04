@@ -1,69 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793782661;
-	b=GebGMPTUTOlINVlEMkGYgKNAzKRPc/nU8uMslgbfdG8eliXQkNLdThRuR63C3sP1zwHE
-	 R42RVmo6OPW45DMS05utECMdG+c7HP8cnefxFOFkkx1Q/JyYm53aoFSINjuO45vVNRAKM
-	 0Ww1Eo6ulEc1LE/Wwqe+Dkd1QjYtbk0gouJfd2ymtGJ6wlmkNMABt3Nz/zth4ljgJrSjs
-	 I1q/y6Sc7Eko2xsrD2apXdIYDDrJeLvP/cYoErTh7YO0UHOklGtcwuLy6QUW3jXNQlcmw
-	 G7+bB/SYXAM2dtv3ciWqzc2xCuVm3IB1Qb1ThoqKIeZAydE4dx2DDN9k46YOGF377aA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793782661;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=QhWsA6KUNbQJR1l3jYUSHTDtf6TXykLxyo3+xLwgmSY=;
-	b=0ZbBMEfltkQv+Sy1UsFW6XeiKo/BaSBPjcHz3feC0R9a7hqMzE5r1B836pTnWZs2FMt2
-	 Uut1bni/e6fVPvLLuE1QIfl0AMsXMHq4KBc978lb/Xr6hNfFhA3xUSr4RyDA1JlyZa4oX
-	 23mURdvVUAOZyhN9OG/8DVjzW7IqqSsMNWhw2n9kS47MRRwulr5gMB0ZJkizd99N0fOHr
-	 727zH85+1SHMsXzKD36294h6vwNEdVuvuqdGs6gUG8u9TRn7igseXtD0fW6EaTtIDN+N/
-	 h6O2mQAuSXiVnOtykY3vdFVc/4cTxTiZHJEKz+DbLjPoJYd6mpR7Ud+qoLF8RuZnuoQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=VRaKuVPH;
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F2359606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:57:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2359606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793782669;
+	b=xm+I/5zhr5fIIFGeYHyRw6oKfdO0kodFzhbWDkWFoKmk/BIY/KGcqQDFxaamEL0tTbP/
+	 TYG3e5R2LLTwrxgnOpmIZN5DrI/gG2l7255iOgPltVgPqgHEwcuM3V9SOASHKwUygyj9f
+	 yyL1FDEBO/tWZVp5EwIP9k36Xcts+qD4FT5uzprrk7TKkV1X0gjieZGwisGvKaASl6MiZ
+	 Rp9kaYFUecxVub2RlipyG94UZX5O2Am4XzF1qS5tnWvFBxtbsgMsbvRQL+8lYV+vmP/GO
+	 /Us+J5jzPNJVFri3q3xtyaAFp31fcCaNZonK5GGNqoRkFMpgwJ6gp/X7v++x07vtAaw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793782669;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=EsWY/yTZXFYVprtWvUf3XnhiSXDepU5aallNWHc59Og=;
+	b=UUNHwcWwMOz8B8jV2S6W4Hrb6DC2MQAILz+/h2EwtL6U/C4oDr0g0fiEsso0UGxkVysS
+	 KK43fMi59yG+J+r23bowINCjSwelU03C6KwGAa7By7Ie3L+gmsUHcdd8ZHybJfN2kEX6i
+	 33TquBJNakT9q2xtBinob+osXm8fw0Pw5fAZWQzOb3G89qEyg5KP5pYVKUvIJqZIhw2/7
+	 eT6sWrbpKpYAbRd3EGp2bRFv2Euwcyv8EoKj3ocxaeGg+mSpEf/HZa9zAptvu7bN4YfZ0
+	 oXaTF0BGuS602lARI3TriEiIY/wFVKBgBd04xWr92xxeUFcI8dhZYqp2UnpJvOQOwfw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZmTzG+gG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A734606A31B;
+	Wed,  4 Nov 2026 08:57:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=VRaKuVPH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=VRaKuVPHtyF+SUq90ZRWm13D5iHZ89zPZoYo0KRoljG8PmCEYWAhQfpW8tgyBk75XfibZJfxCQGka
-	 xtYol8l1Dve8JUMoAPhJgaPlImSdtwUIamassf/GABtkSA9Uz1YsltWoLnITnzu3VtbdpFjm6026hf
-	 7blJixSZI/+HyFls=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66aeaf37f540-68d41;
-	Wed, 04 Nov 2026 16:57:38 +0800 (CST)
-X-RM-TRANSID:2ee66aeaf37f540-68d41
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from fedora (unknown[223.108.79.101])
-	by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee56aeaf37cab6-1bfcb;
-	Wed, 04 Nov 2026 16:57:38 +0800 (CST)
-X-RM-TRANSID:2ee56aeaf37cab6-1bfcb
-From: Yiqing Wu <wuyiqing@cmss.chinamobile.com>
-To: David Woodhouse <dwmw2@infradead.org>,
-	Richard Weinberger <richard@nod.at>
-Cc: Al Viro <viro@zeniv.linux.org.uk>,
-	David Howells <dhowells@redhat.com>,
-	linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+ae2d1f6d474e1725bdc0@syzkaller.appspotmail.com
-Subject: [PATCH v2] jffs2: fix use-after-free in jffs2_garbage_collect_thread
-Date: Wed,  4 Nov 2026 16:57:25 +0800
-Message-ID: <20261104085725.241655-1-wuyiqing@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261103090018.157034-1-wuyiqing@cmss.chinamobile.com>
-References: <20261103090018.157034-1-wuyiqing@cmss.chinamobile.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZmTzG+gG
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793782669;
+	b=pF25pVi15PUvV/N1uYk64uWWWbJ15808G6pOdzt+EeJWoSxarojJjQja6iunnLrR5D1v
+	 D5qb4iMQtlBbi4sciegpxeAyQq1nYOnEjP7C/y0bB0P/OZyVygIdC5bxHnPwClQHulnV0
+	 lb5qZB7SKXNjTLgSsgWwEDZEMpDFX3eFIft9bZi7tWTjXe7bl5On5PckD+2Aevv9Eq7/2
+	 P5QfJB2faFXvnrHvvPUyLdiSegL6WLr4KpWbQ7b1KmvbTST1MkSfSi4dLOAhpxU93rZtU
+	 xylK0FNYKBwFfC/ZPU2vqfSDNWlHfKti47qBDUjPhddnMrJzoZzzHXItiGjTUzyYBpw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793782669;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=EsWY/yTZXFYVprtWvUf3XnhiSXDepU5aallNWHc59Og=;
+	b=QKfsJ+hZXfREJ8QUC6qf25bbxLgbx0BxPADKq9GWxPxdN46ZIQNFcr5JpVfP38Wyzm+b
+	 DW3XI3Fbl1mBhDTt50s/Ox9Dl6u8Oq5yz6UXJYlwGhIc+gg+3wF1sByNvepqefDver2lw
+	 29maVY8HFAAeWLvVyR/IpADBSB83WaC9eFSVf3ZwiS0INi/41pmC013QIh7PDWlej4DUF
+	 mk8kP/sZDRSK3/zKNmaiBbPSsI2kCqU17HEWXmdTBKe2imfUx07tlJNPsIUIE4ROs3UJn
+	 9iI0qGzXGRxB10+9bq4JC4cjHMLIJ7+8wx6bXaBl3dLFuZ+jmbC3MFsOsnUzMDZv6GA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id AA13C1F000C1;
+	Wed,  4 Nov 2026 08:57:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793782669;
+	bh=EsWY/yTZXFYVprtWvUf3XnhiSXDepU5aallNWHc59Og=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=ZmTzG+gGRt63kk9MWzueKzLUU17ctl9W8ua5PjpxJKK8DdAz9xtMjSVHzHjANGPt0
+	 aepwr8IamHmADaJ2zhVojQiDuEE4AfgUk6FYsq9G2+4akJauvcHPWJx9Gd7g5BcFvB
+	 OSypO+k6ZBYxPY+rQ9xr6e4Jx1yqUoIxVfy8cETXL116nxZ4y/yOj6F4tH8jX7Z/Ia
+	 GNWplZk8f6JUyD20EknYYdIuSexTtWlQSuEWaqtOgFhuKB+A6TYJ/nWThznYLuHdHn
+	 5TTq4lUamziQES3BFEjhAEgmoOU31lTeeUeF2VLEcE4+Hs0thYaB0DbtDWEOSnheHU
+	 AOPfD8dTntSpw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 18D0746D55;
+	Wed,  4 Nov 2026 08:57:48 +0000 (UTC)
+From: Cunhao Lu via B4 Relay <devnull+1579567540.qq.com@kernel.org>
+Date: Wed, 04 Nov 2026 16:56:03 +0800
+Subject: [PATCH v4 1/2] dt-bindings: power: rockchip: Add RK3572 power
+ domains
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,158 +83,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-add-board-ok3572-c-pmdomain-v4-1-15cf8b5a6e59@qq.com>
+References: <20261104-add-board-ok3572-c-pmdomain-v4-0-15cf8b5a6e59@qq.com>
+In-Reply-To: <20261104-add-board-ok3572-c-pmdomain-v4-0-15cf8b5a6e59@qq.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Elaine Zhang <zhangqing@rock-chips.com>, Ulf Hansson <ulfh@kernel.org>
+Cc: Cunhao Lu <1579567540@qq.com>, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+ Finley Xiao <finley.xiao@rock-chips.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793782666; l=2834;
+ i=1579567540@qq.com; s=20261015; h=from:subject:message-id;
+ bh=oyvMUU7R4CjKJ/p4yd/DxcdPfUMgGd3L5BZrnlpZr8A=;
+ b=QJ1uWl+F7GBiGoGGJ+woFdBVjA8OLhcGVy1YEOIXpoJqX/+/qBrkXK6SqOvk0bgcpYc8HWZHY
+ 0xT8khOcz40B93eyVSzKyNNqLh007MZTtht5ngy3HAw9FuuZPoli+1X
+X-Developer-Key: i=1579567540@qq.com; a=ed25519;
+ pk=sUTWrzlIwT4C7ctjNfVZAzzg0G7QUn2XxRGpYsw4RtM=
+X-Endpoint-Received: by B4 Relay for 1579567540@qq.com/20261015 with
+ auth_id=1177
+X-Original-From: Cunhao Lu <1579567540@qq.com>
+Reply-To: 1579567540@qq.com
 
-jffs2_do_remount_fs() decides whether to (re)start the garbage collect
-thread from the requested flags:
+From: Finley Xiao <finley.xiao@rock-chips.com>
 
-	if (!(fc->sb_flags & SB_RDONLY))
-		jffs2_start_garbage_collect_thread(c);
+Describe the RK3572 power controller and define its 14 power-domain IDs.
+Require the system GRF phandle used to check firmware shift-ready status.
 
-The flags which actually take effect, however, are computed by
-reconfigure_super() as
-
-	sb->s_flags = (sb->s_flags & ~fc->sb_flags_mask) |
-		      (fc->sb_flags & fc->sb_flags_mask);
-
-and fspick(2) creates its reconfiguration context with both sb_flags
-and sb_flags_mask set to zero, i.e. "no change requested".  So after
-
-	fd = fspick(AT_FDCWD, mnt, 0);
-	fsconfig(fd, FSCONFIG_CMD_RECONFIGURE, NULL, NULL, 0);
-
-on a filesystem which was mounted read-only, jffs2 starts the GC
-thread (because fc->sb_flags carries no SB_RDONLY) while the superblock
-keeps its SB_RDONLY (because fc->sb_flags_mask is zero).  The classic
-mount(2) remount path is not affected: it always passes a full
-MS_RMT_MASK, so the flags it hands to the filesystem do take effect.
-
-jffs2_kill_sb() then refuses to stop the GC thread for a read-only
-superblock:
-
-	if (c && !sb_rdonly(sb))
-		jffs2_stop_garbage_collect_thread(c);
-	kill_mtd_super(sb);
-	kfree(c);
-
-so at unmount the thread is neither signalled nor waited for, and
-kfree(c) frees the jffs2_sb_info out from under the still-running
-jffs2_gcd_mtd%d kthread.  It dereferences the freed object when it
-wakes up from its 50 ms idle sleep:
-
-  BUG: KASAN: slab-use-after-free in rt_spin_lock
-  Read of size 1 at addr ffff88804f2b02c0 by task jffs2_gcd_mtd0/12364
-  Call Trace:
-  rt_spin_lock kernel/locking/spinlock_rt.c:56
-  spin_lock include/linux/spinlock_rt.h:45 [inline]
-  jffs2_garbage_collect_thread fs/jffs2/background.c:94
-
-Fix the desynchronisation, and harden the unmount path against it:
-
-  - jffs2_do_remount_fs() now derives the flags which will be in
-    effect after the reconfiguration the same way reconfigure_super()
-    does, and only starts the GC thread if the filesystem will
-    actually be writable.
-
-  - jffs2_kill_sb() unconditionally stops and waits for the GC thread
-    before freeing c.  Without a running GC thread this is a no-op,
-    and the thread can no longer outlive the jffs2_sb_info, no matter
-    which future path manages to start it on a superblock that stays
-    read-only.
-
-Fixes: ec10a24f10c8 ("vfs: Convert jffs2 to use the new mount API")
-Reported-by: syzbot+ae2d1f6d474e1725bdc0@syzkaller.appspotmail.com
-Closes: https://syzbot.org/bug?extid=ae2d1f6d474e1725bdc0
-Signed-off-by: Yiqing Wu <wuyiqing@cmss.chinamobile.com>
+Signed-off-by: Finley Xiao <finley.xiao@rock-chips.com>
+Signed-off-by: Cunhao Lu <1579567540@qq.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 ---
-v2:
-  - jffs2_fill_super() initialises the superblock locks before the
-    rp_size sanity check can fail the mount, so that the now
-    unconditional jffs2_stop_garbage_collect_thread() does not take an
-    uninitialised c->erase_completion_lock when a mount bails out
-    early.  (Read-write mounts with an oversized rp_size already
-    reached that path even before this change.)
-  - v1: https://lore.kernel.org/all/20261103090018.157034-1-wuyiqing@cmss.chinamobile.com/T/
+Changes in v4:
+- Describe the system GRF register as firmware shift-ready status.
 ---
- fs/jffs2/fs.c    | 13 ++++++++++++-
- fs/jffs2/super.c | 16 ++++++++++------
- 2 files changed, 22 insertions(+), 7 deletions(-)
+ .../bindings/power/rockchip,power-controller.yaml  | 17 ++++++++++++
+ .../power/rockchip,rk3572-power-controller.h       | 30 ++++++++++++++++++++++
+ 2 files changed, 47 insertions(+)
 
-diff --git a/fs/jffs2/fs.c b/fs/jffs2/fs.c
-index 05cf860307c7..a124f5309c2b 100644
---- a/fs/jffs2/fs.c
-+++ b/fs/jffs2/fs.c
-@@ -396,6 +396,7 @@ void jffs2_dirty_inode(struct inode *inode, int flags)
- int jffs2_do_remount_fs(struct super_block *sb, struct fs_context *fc)
- {
- 	struct jffs2_sb_info *c = JFFS2_SB_INFO(sb);
-+	unsigned int sb_flags;
+diff --git a/Documentation/devicetree/bindings/power/rockchip,power-controller.yaml b/Documentation/devicetree/bindings/power/rockchip,power-controller.yaml
+index b41db576f95d..fbf3e0ab4cd9 100644
+--- a/Documentation/devicetree/bindings/power/rockchip,power-controller.yaml
++++ b/Documentation/devicetree/bindings/power/rockchip,power-controller.yaml
+@@ -43,6 +43,7 @@ properties:
+       - rockchip,rk3528-power-controller
+       - rockchip,rk3562-power-controller
+       - rockchip,rk3568-power-controller
++      - rockchip,rk3572-power-controller
+       - rockchip,rk3576-power-controller
+       - rockchip,rk3588-power-controller
+       - rockchip,rv1126-power-controller
+@@ -57,6 +58,22 @@ properties:
+   "#size-cells":
+     const: 0
  
- 	if (c->flags & JFFS2_SB_FLAG_RO && !sb_rdonly(sb))
- 		return -EROFS;
-@@ -411,7 +412,17 @@ int jffs2_do_remount_fs(struct super_block *sb, struct fs_context *fc)
- 		mutex_unlock(&c->alloc_sem);
- 	}
- 
--	if (!(fc->sb_flags & SB_RDONLY))
-+	/*
-+	 * Start the GC thread only if the filesystem will actually be
-+	 * writable after the reconfiguration.  Note that reconfigure_super()
-+	 * applies the flags as
-+	 * (sb->s_flags & ~fc->sb_flags_mask) | (fc->sb_flags & fc->sb_flags_mask),
-+	 * so a zero sb_flags_mask (as e.g. used by fspick()) leaves the
-+	 * superblock read-only.
-+	 */
-+	sb_flags = (sb->s_flags & ~fc->sb_flags_mask) |
-+		   (fc->sb_flags & fc->sb_flags_mask);
-+	if (!(sb_flags & SB_RDONLY))
- 		jffs2_start_garbage_collect_thread(c);
- 
- 	fc->sb_flags |= SB_NOATIME;
-diff --git a/fs/jffs2/super.c b/fs/jffs2/super.c
-index 81396a092ba8..9ac22b6479f7 100644
---- a/fs/jffs2/super.c
-+++ b/fs/jffs2/super.c
-@@ -267,12 +267,12 @@ static int jffs2_fill_super(struct super_block *sb, struct fs_context *fc)
- 	c->mtd = sb->s_mtd;
- 	c->os_priv = sb;
- 
--	if (c->mount_opts.rp_size > c->mtd->size)
--		return invalf(fc, "jffs2: Too large reserve pool specified, max is %llu KB",
--			      c->mtd->size / 1024);
--
- 	/* Initialize JFFS2 superblock locks, the further initialization will
--	 * be done later */
-+	 * be done later.  This must precede any error return: kill_sb() stops
-+	 * the GC thread even on mounts which failed before it could start,
-+	 * and jffs2_stop_garbage_collect_thread() takes
-+	 * c->erase_completion_lock.
-+	 */
- 	mutex_init(&c->alloc_sem);
- 	mutex_init(&c->erase_free_sem);
- 	init_waitqueue_head(&c->erase_wait);
-@@ -280,6 +280,10 @@ static int jffs2_fill_super(struct super_block *sb, struct fs_context *fc)
- 	spin_lock_init(&c->erase_completion_lock);
- 	spin_lock_init(&c->inocache_lock);
- 
-+	if (c->mount_opts.rp_size > c->mtd->size)
-+		return invalf(fc, "jffs2: Too large reserve pool specified, max is %llu KB",
-+			      c->mtd->size / 1024);
++  rockchip,grf:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: System GRF with firmware shift-ready status.
 +
- 	sb->s_op = &jffs2_super_operations;
- 	sb->s_export_op = &jffs2_export_ops;
- 	sb->s_flags = sb->s_flags | SB_NOATIME;
-@@ -345,7 +349,7 @@ static void jffs2_put_super (struct super_block *sb)
- static void jffs2_kill_sb(struct super_block *sb)
- {
- 	struct jffs2_sb_info *c = JFFS2_SB_INFO(sb);
--	if (c && !sb_rdonly(sb))
-+	if (c)
- 		jffs2_stop_garbage_collect_thread(c);
- 	kill_mtd_super(sb);
- 	kfree(c);
--- 
-2.56.0
++allOf:
++  - if:
++      properties:
++        compatible:
++          const: rockchip,rk3572-power-controller
++    then:
++      required:
++        - rockchip,grf
++    else:
++      properties:
++        rockchip,grf: false
++
+ required:
+   - compatible
+   - "#power-domain-cells"
+diff --git a/include/dt-bindings/power/rockchip,rk3572-power-controller.h b/include/dt-bindings/power/rockchip,rk3572-power-controller.h
+new file mode 100644
+index 000000000000..c2316fa859df
+--- /dev/null
++++ b/include/dt-bindings/power/rockchip,rk3572-power-controller.h
+@@ -0,0 +1,30 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR MIT) */
++/*
++ * Copyright (c) 2026 Rockchip Electronics Co., Ltd.
++ * Author: Finley Xiao <finley.xiao@rock-chips.com>
++ */
++
++#ifndef __DT_BINDINGS_POWER_RK3572_POWER_CONTROLLER_H__
++#define __DT_BINDINGS_POWER_RK3572_POWER_CONTROLLER_H__
++
++/* VD_NPU */
++#define RK3572_PD_NPU		0
++
++/* VD_GPU */
++#define RK3572_PD_GPU		1
++
++/* VD_LOGIC */
++#define RK3572_PD_NVM0		2
++#define RK3572_PD_NVM1		3
++#define RK3572_PD_DSMC		4
++#define RK3572_PD_PHP		5
++#define RK3572_PD_AUDIO		6
++#define RK3572_PD_IMG		7
++#define RK3572_PD_VDEC		8
++#define RK3572_PD_VI		9
++#define RK3572_PD_VENC		10
++#define RK3572_PD_VO		11
++#define RK3572_PD_VOP		12
++#define RK3572_PD_VOP_PRE	13
++
++#endif
 
+-- 
+2.34.1
 
 
