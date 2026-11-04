@@ -1,55 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793816528;
-	b=qP6KopehnuyTE+kbGr2p5ZSnkt3BtR7McNDj2vdOIGzoXb7rvNfy1ejXJ9EwwBf+g/T/
-	 7Mj82dW7HMvTHKbxeufBy54IKSNL1MhxbW7AeDoP/nuzLipPxBJS8ffVgXIpMCTb7Zq3a
-	 Ak5kgWxH6fYJff1On4dkiQ2nP9qwzn0mEfOT6ilOvUy6yXJ7m/ggZ2gMSpQ88cZ9Q39/q
-	 zNTILsisRGzQ9crov8o/vQdS421GLaDCuRco+TrTZA6+YYMXoJ27RO0KTWbvSWGa0OeYy
-	 BC6aerYdvNx09kbPYr/YuNnLgzEBW10Tm9YFnb3SKV4MbafLx2/VJpMcF8aVROE5FOg==
+	t=1793816546;
+	b=D69OtpLF6BypvvhtHaLwLTD2kUOrFGrt0uf4HkBA76tkwnQnZ97XMM/b+rTH1KAQaj72
+	 I+Rb9/6QV2QOQJR3awnzV49g1A3Zdr/SYic9BFhk5HCexdzPruKc2/1g+KLuaJAXPbz1F
+	 LqDKobG5Ht7LjDXxP7egIMGbuO0yk4SwmGUhZNRka+qeNSYg5kJTQGz6rFjRt02QSw/0z
+	 3RftZtik+Jg6TijaESEmPuvFU5B7oc//pZa9GReVaFycA1kX0u25UPdARvD1H+WxXjQv8
+	 1M8WSA6ZSw8urKgiKdz25jxBKbesXfuhN52B7Hd1zbrtZKAjHIP1XXBl4QXHua/EbGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793816528;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-AI-Review-Draft;
-	bh=JNs0M1imMEHipxcpvSbptLi3SJicLaqdT0Bu4i3250I=;
-	b=1zYQKYJXvKbNGBO2wSg2ZjYODvnH8KDpBL2j3yRsBazBEXBf6sxOhFiS6Muhacfgj2WI
-	 xEjckkA+adimuWtZwJx5sGhcM+Ep2qyfbzvDgOXiGcS2DWn/IgsrZVDTKBXVxVZm4dTlH
-	 61YBKIbnCbx1zBMNamo9sUxRotg0IAHo3T/hAnIVr2wlWpW4PdG7ues44D2Dbg1z+q2TQ
-	 qJcxjb/a7h4fqiA3w24QHoQPfFEVwexSaJVsIuk+S5G4ZtUJ3hp1kNs+np+H70aXYigaV
-	 1RydMAD8YgZFwGFCm71ih03DFGwwvwTPNKq/2rN0WD45IBYV9P/T6MiIjq6B5Ii4uXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793816546;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=7yTbv8YwAcrsjOA+FlcAgBBThQQJhOAfCviYuR8q++4=;
+	b=HVqis6PrIkL/FKUQUP/s/MMe75xxNqKA044teA+/KdwKrOd71/1zMjDV43Mr1LNdBkom
+	 /O7iPA/99th/WdEbmP+JZq6zDaKIBMNxUBOazrvOS+Gr1EGQ7v/aJqwpTA+6lO+BiOrCO
+	 PxGtLUzUV8EKhvy0byZABSxXwQaI9BEgeOaCoYHIH5FqlbX+vPgptjTn2LId/xyspsOMK
+	 D9IYZDsWC2tbgq4PTmEOdkAhasdSUd1te0+4x7fLQ7/8juJiEgFtwkBHe319UIKqwhcZR
+	 zA3zsRDWnm8oTOPVp/BBsK7WIOpR39oKPqMx34PsJW2DBJjkfHGjbTn3CEbjoawCUYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BJ0KZ36u;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BBouw2Mw;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685866082BC2;
-	Wed,  4 Nov 2026 18:22:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFE27606ECCE;
+	Wed,  4 Nov 2026 18:22:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFE27606ECCE
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BJ0KZ36u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C001E1F000C1;
-	Wed,  4 Nov 2026 18:22:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793816528;
-	bh=JNs0M1imMEHipxcpvSbptLi3SJicLaqdT0Bu4i3250I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BJ0KZ36ua1ERZAwaHDvovWlKa7f23khTkrQPL5k65bz6FSIoYbbmapOy9lqzOn2f7
-	 WfqR+GsMWTtjK8jLPpjGjTQdgKgnI2RPmQBfsjX1DXIO+yfk9QaAV2/Xgv5bT1sR5l
-	 rjx6U9XKQHzOvWXPLmSiD7XBtuaFotfj7gR8rCQ1EXB5WNsIEbqDT/KqL0gJ6aHsZ5
-	 sXD96zRFMmGlHWmQ3nDXwisZUEI7zSoIG2qvt7hVYV3sf4APwjKTDrm6V34AmLHmgh
-	 3netpB9dPGr9eATxIJ5UxUxAFkUDmvgsBx7WzIlm6WBc0KtMkq1KaVgrcU7mlVktLH
-	 WpsvQrZFA8grQ==
-Date: Wed, 4 Nov 2026 18:22:04 +0000
-From: Lee Jones <lee@kernel.org>
-To: Danish Khateeb <danishkhateeb03@gmail.com>
-Cc: Pavel Machek <pavel@kernel.org>, Andrew Davis <afd@ti.com>,
-	linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] leds: tca6507: Fix use-after-free on unbind
-Message-ID: <179370065155.793788.12273630752864277064@kernel.org>
-References: <20261028174348.64014-1-danishkhateeb03@gmail.com>
- <20261028174348.64014-2-danishkhateeb03@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BBouw2Mw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793816546; x=1825352546;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=TXUULsJLLY4XFiOhJ4L2NPJsEAXhKf1mCdwiwhKVxNI=;
+  b=BBouw2MwXZiKiXZCHRqKtYAA9IX8BxtOl5xTFz4aARpxkHzOJa7SrGvT
+   7Ppp7FRAdYiHMdfc3aLOXBEKn2YikXPwkfBXgqNGHTna+ulNvw5TzfLPH
+   LlQ4mVfsm6tJwBJeyiAZzlGRQBz6MhvOFOoxHbX+Im+Y3qh1rVuhE5q+I
+   VC2asTwf6mov8RcR/f0h7PKq1tP3GAQZHgbb0x/8t+brOjnvzVqV4zwLD
+   QV21957WnoXuEYtddTZNVwNRZQANclXB01NzecwZdVvwvXl1DaPe2MVP4
+   eV2oGuDrJyT3zNgIOiSHaTFVkDdk/CfcJEA4IuaRq8veNzHswptBiHyKC
+   Q==;
+X-CSE-ConnectionGUID: nM97NloKSi2Au9q2j12yLA==
+X-CSE-MsgGUID: I0AMJWPlSzKFGfXK1rzxxQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2483642"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2483642"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 10:22:25 -0800
+X-CSE-ConnectionGUID: SvtWUMwESrWYh+QXd6WClA==
+X-CSE-MsgGUID: NDz4HI44Q5GVKK8nWJ8RoQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="7117725"
+Received: from soc-pf446t5c.clients.intel.com (HELO [10.24.80.90]) ([10.24.80.90])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 10:22:25 -0800
+Message-ID: <bca530a5-5f9c-4be1-aeda-d1c97fbc9623@linux.intel.com>
+Date: Wed, 4 Nov 2026 10:22:24 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,97 +72,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028174348.64014-2-danishkhateeb03@gmail.com>
-X-AI-Review-Draft: <20261028174348.64014-2-danishkhateeb03@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 6/6] PCI/portdrv: Bind DPC service based on
+ host_bridge->native_dpc
+To: Yazen Ghannam <yazen.ghannam@amd.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Lukas Wunner <lukas@wunner.de>,
+ "Rafael J . Wysocki" <rafael@kernel.org>,
+ Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
+ Oliver O'Halloran <oohall@gmail.com>, Len Brown <lenb@kernel.org>,
+ linux-pci@vger.kernel.org, linux-acpi@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261020181924.3003553-1-sathyanarayanan.kuppuswamy@linux.intel.com>
+ <20261020181924.3003553-7-sathyanarayanan.kuppuswamy@linux.intel.com>
+ <20261104163514.GE716491@yaz-khff2.amd.com>
+Content-Language: en-US
+From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+In-Reply-To: <20261104163514.GE716491@yaz-khff2.amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, 28 Oct 2026, Danish Khateeb wrote:
 
-> Since the LEDs are registered with devm_led_classdev_register(), they
-> are unregistered only after tca6507_remove() has cancelled the work.
-> Unregistering an LED that is on turns it off, which queues the work
-> again from led_assign(), and the work then runs after devres has freed
-> the chip:
->
->   BUG: KASAN: slab-use-after-free in assign_work+0x414/0x5b0
->   Read of size 8 at addr ffff888010d5c0c0 by task kworker/1:2/65
->   ...
->   Last potentially related work creation:
->    ...
->    queue_work_on+0xb6/0xc0
->    led_assign+0x223/0x340 [leds_tca6507]
->    led_classdev_unregister+0x26b/0x340
->    release_nodes+0xb3/0x140
->    devres_release_group+0x247/0x470
->    i2c_device_remove+0xbf/0x1b0
->
-> Set up the work with devm_work_autocancel() before the LEDs are
-> registered, so that devres cancels it after they are gone, and drop
-> tca6507_remove().
->
-> Fixes: 1b5c2fa7081c ("leds: tca6507: Use devm_led_classdev_register() to simplify remove path")
-> Cc: stable@vger.kernel.org
-> Acked-by: Andrew Davis <afd@ti.com>
-> Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
-> ---
->  drivers/leds/leds-tca6507.c | 15 +++++----------
->  1 file changed, 5 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/leds/leds-tca6507.c b/drivers/leds/leds-tca6507.c
-> index 9afe2722986c..0f987e551f03 100644
-> --- a/drivers/leds/leds-tca6507.c
-> +++ b/drivers/leds/leds-tca6507.c
-> @@ -71,6 +71,7 @@
->   * not recognised when matching.
->   */
->
-> +#include <linux/devm-helpers.h>
->  #include <linux/module.h>
->  #include <linux/slab.h>
->  #include <linux/leds.h>
-> @@ -735,9 +736,11 @@ static int tca6507_probe(struct i2c_client *client)
->  		return -ENOMEM;
->
->  	tca->client = client;
-> -	INIT_WORK(&tca->work, tca6507_work);
->  	spin_lock_init(&tca->lock);
-> -	i2c_set_clientdata(client, tca);
-> +
-> +	err = devm_work_autocancel(dev, &tca->work, tca6507_work);
-> +	if (err)
-> +		return err;
 
-This is replaced in patch 2.  I'm not sure I see the point.
+On 11/4/2026 8:35 AM, Yazen Ghannam wrote:
+> On Tue, Oct 20, 2026 at 11:19:23AM -0700, Kuppuswamy Sathyanarayanan wrote:
+>> get_port_device_capability() binds the DPC service if the port has a DPC
+>> capability and either "pcie_ports=dpc-native" was given or the OS
+>> controls AER.  This repeats decisions that are already made elsewhere.
+>> It also ignores host_bridge->native_dpc, which is meant to say whether
+>> the OS owns DPC.
+>>
+>> Make host_bridge->native_dpc the single decider:
+>>
+>>   - In acpi_pci_root_create(), assume DPC control whenever _OSC grants
+>>     AER control.  PCI Firmware r3.3, sec 4.5.2.4, requires platforms to
+>>     retain AER if they retain DPC.  Put the other way, firmware that
+>>     grants AER does not keep DPC.  PCIe r7.0 sec 6.2.11 recommends that
+>>     the OS link control of DPC to control of AER.  Commit 97ca178c899d
+>>     ("PCI/DPC: Allow DPC on all Downstream Ports when OS controls AER")
+>>     relied on this link.  Keeping it means DPC still works with firmware
+>>     that predates the _OSC DPC control bit.  Such firmware grants AER but
+>>     masks DPC.  The OS cannot tell such firmware from firmware that
+>>     retains DPC on purpose, so log a message when it assumes DPC control
+>>     that _OSC did not grant.  Only do this if the OS requested DPC
+>>     control, i.e., if CONFIG_PCIE_DPC is enabled.
+>>
+>>   - "pcie_ports=native" and "pcie_ports=dpc-native" are already folded
+>>     into the _OSC control mask, so they are reflected in native_dpc.
+>>
+>> Then bind the DPC service if the port has a DPC capability and
+>> host_bridge->native_dpc is set.
+>>
+>> The only change in behavior is for firmware that grants DPC control but
+>> retains AER control.  PCI Firmware r3.3, sec 4.5.2.4, does not forbid
+>> this.  The OS now uses DPC there because firmware granted it.  Since
+>> "PCI/DPC: Reinstate support for AER-incapable ports", dpc_probe() no
+>> longer requires AER control.
+>>
+>> Signed-off-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+>> ---
+>>  drivers/acpi/pci_root.c    | 16 ++++++++++++++++
+>>  drivers/pci/pcie/portdrv.c |  6 +-----
+>>  2 files changed, 17 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/drivers/acpi/pci_root.c b/drivers/acpi/pci_root.c
+>> index 5c674d5b6bb8..b380b6d8874d 100644
+>> --- a/drivers/acpi/pci_root.c
+>> +++ b/drivers/acpi/pci_root.c
+>> @@ -1056,6 +1056,22 @@ struct pci_bus *acpi_pci_root_create(struct acpi_pci_root *root,
+>>  	ctrl = root->osc_control_set;
+>>  	ext_ctrl = root->osc_ext_control_set;
+>>  
+>> +	/*
+>> +	 * PCI Firmware r3.3, sec 4.5.2.4, requires platforms to retain AER
+>> +	 * if they retain DPC.  Put the other way, firmware that grants AER
+>> +	 * does not keep DPC.  PCIe r7.0 sec 6.2.11 recommends that the OS
+>> +	 * link control of DPC to control of AER.  Firmware that predates
+>> +	 * the _OSC DPC control bit grants AER without DPC, so assume control
+>> +	 * of DPC whenever we control AER.
+>> +	 */
+> 
+> Oh, I see now that this got rewritten.
+> 
+> But it really does repeat the same info from the commit message. So IMO
+> it can just be removed or summarized further.
 
-Why not do everything at once?
+Agreed.  I'll shorten it in v3 to something like:
 
->  	for (i = 0; i < NUM_LEDS; i++) {
->  		struct tca6507_led *l = tca->leds + i;
-> @@ -766,20 +769,12 @@ static int tca6507_probe(struct i2c_client *client)
->  	return 0;
->  }
->
-> -static void tca6507_remove(struct i2c_client *client)
-> -{
-> -	struct tca6507_chip *tca = i2c_get_clientdata(client);
-> -
-> -	cancel_work_sync(&tca->work);
-> -}
-> -
->  static struct i2c_driver tca6507_driver = {
->  	.driver   = {
->  		.name    = "leds-tca6507",
->  		.of_match_table = of_match_ptr(of_tca6507_leds_match),
->  	},
->  	.probe    = tca6507_probe,
-> -	.remove   = tca6507_remove,
->  	.id_table = tca6507_id,
->  };
->
-> -- 
-> 2.56.0
->
+	/*
+	 * Firmware that predates the _OSC DPC control bit grants AER but
+	 * masks DPC.  Link DPC control to AER control, as PCIe r7.0 sec
+	 * 6.2.11 recommends.
+	 */
+
+> 
+>> +	if (IS_ENABLED(CONFIG_PCIE_DPC) &&
+>> +	    (ctrl & OSC_PCI_EXPRESS_AER_CONTROL) &&
+>> +	    !(ctrl & OSC_PCI_EXPRESS_DPC_CONTROL)) {
+>> +		decode_osc_control(root, "OS assuming control (AER granted) of",
+>> +				   OSC_PCI_EXPRESS_DPC_CONTROL);
+>> +		ctrl |= OSC_PCI_EXPRESS_DPC_CONTROL;
+>> +	}
+>> +
+>>  	/*
+>>  	 * If the user specified "pcie_ports=native", use the PCIe port
+>>  	 * services regardless of what _OSC says, i.e., proceed as though the
+>> diff --git a/drivers/pci/pcie/portdrv.c b/drivers/pci/pcie/portdrv.c
+>> index b77680fd3b75..f1beb440a3dc 100644
+>> --- a/drivers/pci/pcie/portdrv.c
+>> +++ b/drivers/pci/pcie/portdrv.c
+>> @@ -258,12 +258,8 @@ static int get_port_device_capability(struct pci_dev *dev)
+>>  		pcie_pme_interrupt_enable(dev, false);
+>>  	}
+>>  
+>> -	/*
+>> -	 * With dpc-native, allow Linux to use DPC even if it doesn't have
+>> -	 * permission to use AER.
+>> -	 */
+>>  	if (pci_find_ext_capability(dev, PCI_EXT_CAP_ID_DPC) &&
+>> -	    (pcie_ports_dpc_native || host->native_aer))
+>> +	    host->native_dpc)
+>>  		services |= PCIE_PORT_SERVICE_DPC;
+>>  
+>>  	/* Enable bandwidth control if more than one speed is supported. */
+>> -- 
+> 
+> Besides my comment on the comment, looks good to me.
+> 
+> Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
+> 
+
+Thanks!
+
+
+> Thanks,
+> Yazen
 
 -- 
-Lee Jones
+Sathyanarayanan Kuppuswamy
+Linux Kernel Developer
+
