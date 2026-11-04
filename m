@@ -1,77 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.27
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793782248;
-	b=2OB+ARH4yslsckbiuTvmn+RT5y+B2jPrdf1zpa0sMxw2VJROwksnbEfo91tyEEjIU5li
-	 CVcFz0x2reEvcrcbw/P/xzvqykvCcIee/rArH2SpfPPZTkq3xoPl11JBntiNKj/EqkdmW
-	 wKUASOZFf01bzKbdvlJfXHJO3zfJUex2xSZuqJupX8vbUxEbeYlCjrzvOUvSS9UEfjKXF
-	 5LMDOu3fLuRnkRBykNr7z6f/IuMz4S2WxTAJmSTqNKoRZAREVxduCUXhuGS4sAb+XvNoB
-	 gocXYIUCXhjss4e0tb/RfEoOLrwDhSyY7psPvmb83dMEHKvW78N9R3SRgNfIehubXTw==
+	t=1793782251;
+	b=qL64znGspf7y9wOkH6aZUpDC51LAsPALEhPcOY1zld0JefiKCIyg7S482uTdy+ELn/Nx
+	 y4b+xI5R1KkKtwboKEfcvRmpIF1M4PGBTggWtmxro56bvUJWNVfVgYHwVgpw+YyTkzI1Y
+	 FTCxr64gjIbvqxO2nG4syxGj4dWKTLJpMlvM10QSUdNAJuZs5YqqqSZqd7I4f5zvo6KwT
+	 3GlRLZrlqWWRvfk1WPyrmR5yjnp8HVuBeqagRYaljuK6cSP23GPmZ7G1UHEM7SJw+dg1K
+	 p87vCF+WaQMP1Rku+u/oxikfRhfURO8e+y4HQ44eX93NV7OGN32gxnNEFgBDuBcPQDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793782248;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793782251;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=YYtZXvG9+UdS+4Z9GxZSoWsbkG0GwWt2msV5s/Y8pAo=;
-	b=sHxmreiEFG3nLA8nkw6HHpWp8hgw95QfbUfIp7SimMTyJurhNX+WHpXrmZlv6zRRQgO3
-	 1hkHCNFPSgeNYub3k0CPssO5s8MyP1lg+IP3uHc8p8rK6qjOQkiy1fHG5p+zSkuhvtsYg
-	 eEwTcmxSHgqHZBF24GrpkqMABCrudge7766x3qXYfcHzw5DwPIfmnfSBvZtKRE8L0iWRN
-	 bfxpuEfmJPMumyrB+/Y+komlX++zrwt4E+/WcAgEdXdWVk8ZFSDuvonQH6koL+lapLSgR
-	 YPe3TwQo3PuhdNzu5eEKyw10HFPqrWRTws3NpGsFwC8JTzjolMhXGIzYCCzUXZmPd+Q==
+	bh=uCivgI0h3vh+RWF9zWybe8D2nHGtyr7jy67Tn3KDSIE=;
+	b=RFH4h70Q5/iSoLNygM1wYZwmKhhdVu86d/aDHQOz8UC9kl47yom1HXbZsn7ObRfOZDUP
+	 9McxpX9WXLdocmhe5evvhhbo3x3oz1tXbEB/IpCuhI62YLfd9zIj4kwxu6poE5jZvfiWw
+	 4cHP47bCefLdtYTPdqbBDj3BhBBUUrDHmJHTFfnPcrLAdAGnRc3DcL/b7JBm5u0YnjPDc
+	 uwTD7Jrnxy91waW0vCN5EPGzo+cru1bWHKxhRGobg6bPfOJ5XWSWdSVSdAN+mNH/MbN38
+	 aX+QQzr7amV2wdOKMon/q8JY8mjks3lvAB1tvTjLxS6G+AvcbTCqEpG1t3JEyH3X5Eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="phcI9/rK";
-	arc=none smtp.remote-ip=91.218.175.89
-Received: from mta0.migadu.com (out-89.mta0.migadu.com [91.218.175.89])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=jaeyeong.cc;
+	spf=pass smtp.mailfrom=jaeyeong.cc;
+	dkim=pass header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=dNHUWXtz;
+	arc=none smtp.remote-ip=79.135.106.27
+Received: from mail-10627.protonmail.ch (mail-10627.protonmail.ch [79.135.106.27])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B26E606A338
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:50:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B26E606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2AD5606D818
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:50:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2AD5606D818
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jaeyeong.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaeyeong.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=phcI9/rK
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Ia4ROUhNRdc6AFPTEZfdVXbpoKxOmfz2LXLKwxYl31Q=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793782245; v=1; x=1794387045;
- b=phcI9/rKxlOSpz5zlsSr4yNnVqAYZwezIzSGB3yDKYoTKTLeyRDJRVNPlVQgDjHWTrUCRfBQ
- MmHPJkztcGO+aTRitHsXqMgHolxmrL0g+GAsvq+XVEVmOKvwETHesP0OPve8WPOwOz5F7DVYvL8
- LLds8dZ/Y0uYZX9u6M9uAGA8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3647c177266f6c99;
-	Wed, 04 Nov 2026 08:50:44 +0000
-X-Mizu-Trace-ID: 3647c177266f6c99
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
-Cc: Will Deacon <will@kernel.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Quentin Perret <qperret@google.com>,
-	Fuad Tabba <tabba@google.com>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	kvm@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 16/16] KVM: arm64: selftests: Add pkvm_exceptions debug and SError test
-Date: Wed,  4 Nov 2026 08:48:42 +0000
-Message-ID: <20261104084842.132944-17-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261104084842.132944-1-fuad.tabba@linux.dev>
-References: <20261104084842.132944-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=dNHUWXtz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaeyeong.cc;
+	s=protonmail2; t=1793782246; x=1794041446;
+	bh=uCivgI0h3vh+RWF9zWybe8D2nHGtyr7jy67Tn3KDSIE=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=dNHUWXtzmqm924h2HGx4qSnt52bhbBfd0wRi9GAscXbmZJ6FsfvC3Bm8jrZA2uRta
+	 mZ8+jS1nBTMtGSBLhQgtx7Rm5/QUuVd9MR+v5uT8dZ3fQdmJlEdxdPwo6M4z3hr7tt
+	 l8n6cLFaXz6X3JyuLIh7N1uM6OV6I86orElws5iBy0Tv244QROTM7rwNXy79nlmDq5
+	 MjiJ64GUQronRpAYXTuHkSaFnRZwxHIGRgDbx11qiidWAJL29yraOucR34ZxAWBq7M
+	 xHOz3Bf9sp+LO7HO4AGcLKzOFbViR2/n7ojro4A5WhkIXHGHfYArGas8JWxkk718/J
+	 yznI32wubhTBw==
+Date: Wed, 04 Nov 2026 08:50:40 +0000
+To: Bernard Metzler <bernard.metzler@linux.dev>
+From: Jaeyeong Lee <lee@jaeyeong.cc>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] RDMA/siw: Ignore peer close events on listening endpoints
+Message-ID: <179378222423.73361.5194383282780549988@jaeyeong.cc>
+Feedback-ID: 177356447:user:proton
+X-Pm-Message-ID: 004983994917d98c56b9e4d809bd14795bfd3cd2
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,304 +61,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-pKVM can hide self-hosted debug from a protected guest, which then reads
-ID_AA64DFR0_EL1.DebugVer as 0. A virtual SError the host injects has to
-be delivered by EL2, since the host can't see whether the guest has it
-masked.
+A TCP child socket inherits the listener callbacks and sk_user_data before
+kernel_accept() associates it with a new connection endpoint. If the peer
+closes during this window, siw_cm_llp_state_change() queues a PEER_CLOSE
+work item against the listening endpoint.
 
-Verify that the guest's own handler takes a hardware breakpoint, a
-watchpoint and a single step, and that an injected SError is pending in
-ISR_EL1.A while PSTATE.A masks it and is taken once unmasked. The debug
-cases skip while ID_AA64DFR0_EL1.DebugVer is 0.
+The worker releases that endpoint without removing it from the listener
+list. A later listener teardown then walks the dangling entry, causing a
+use-after-free in siw_destroy_listen().
 
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+With a listener backlog of at least two, an unauthenticated TCP peer can
+reach this path by resetting a new connection before the accept worker
+runs.
+
+Ignore close notifications while the endpoint is still listening. Once
+the child is accepted, its sk_user_data points to the new endpoint and
+close notifications continue through the normal path.
+
+Static analysis identified the issue. It reproduced twice on Linux
+7.4-rc1 with SIW over loopback in QEMU. KASAN reported the endpoint
+allocated by siw_create_listen(), freed by siw_cm_work_handler(), and
+reused by siw_destroy_listen(). The same reproducer completed without
+KASAN or lockdep reports after this change on one- and two-CPU guests.
+
+Fixes: 6c52fdc244b5 ("rdma/siw: connection management")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jaeyeong Lee <lee@jaeyeong.cc>
 ---
- tools/testing/selftests/kvm/Makefile.kvm      |   1 +
- .../selftests/kvm/arm64/pkvm_exceptions.c     | 261 ++++++++++++++++++
- 2 files changed, 262 insertions(+)
- create mode 100644 tools/testing/selftests/kvm/arm64/pkvm_exceptions.c
+ drivers/infiniband/sw/siw/siw_cm.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
-index 214f38e3f67a7..1045136aacc16 100644
---- a/tools/testing/selftests/kvm/Makefile.kvm
-+++ b/tools/testing/selftests/kvm/Makefile.kvm
-@@ -190,6 +190,7 @@ TEST_GEN_PROGS_arm64 += arm64/nv_pre_fault_memory_test
- TEST_GEN_PROGS_arm64 += arm64/external_aborts
- TEST_GEN_PROGS_arm64 += arm64/mmio_sign_ext
- TEST_GEN_PROGS_arm64 += arm64/page_fault_test
-+TEST_GEN_PROGS_arm64 += arm64/pkvm_exceptions
- TEST_GEN_PROGS_arm64 += arm64/pkvm_host_abi
- TEST_GEN_PROGS_arm64 += arm64/pkvm_id_regs
- TEST_GEN_PROGS_arm64 += arm64/pkvm_irq
-diff --git a/tools/testing/selftests/kvm/arm64/pkvm_exceptions.c b/tools/testing/selftests/kvm/arm64/pkvm_exceptions.c
-new file mode 100644
-index 0000000000000..f7f9b666dd089
---- /dev/null
-+++ b/tools/testing/selftests/kvm/arm64/pkvm_exceptions.c
-@@ -0,0 +1,261 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * pkvm_exceptions - debug exceptions and a virtual SError in a protected VM.
-+ *
-+ * Copyright (C) 2026 Google LLC
-+ * Author: Fuad Tabba <fuad.tabba@linux.dev>
-+ */
-+
-+#include "kvm_util.h"
-+#include "pkvm.h"
-+#include "processor.h"
-+#include "test_util.h"
-+
-+/* Debug register programming bits, as debug-exceptions.c has them. */
-+#define DBGBCR_LEN8	(0xff << 5)
-+#define DBGBCR_EXEC	(0x0 << 3)
-+#define DBGBCR_EL1	(0x1 << 1)
-+#define DBGBCR_E	(0x1 << 0)
-+
-+#define DBGWCR_LEN8	(0xff << 5)
-+#define DBGWCR_RD	(0x1 << 3)
-+#define DBGWCR_WR	(0x2 << 3)
-+#define DBGWCR_EL1	(0x1 << 1)
-+#define DBGWCR_E	(0x1 << 0)
-+
-+#define SPSR_SS		(1 << 21)
-+
-+#define NR_STEPS	3
-+
-+enum { CMD_INJECT_SERROR, CMD_CHECK_SERROR };
-+
-+extern unsigned char hw_bp, ss_start;
-+
-+static volatile u64 ex_pc, ex_addr;
-+static volatile u64 ss_addr[NR_STEPS + 1];
-+static volatile int ss_idx;
-+static volatile char write_data;
-+static volatile bool serror_taken;
-+
-+static bool debug_exposed;
-+
-+/* Masks debug on return so the breakpointed instruction runs. */
-+static void hw_bp_handler(struct ex_regs *regs)
-+{
-+	ex_pc = regs->pc;
-+	regs->pstate |= PSR_D_BIT;
-+}
-+
-+/* Records FAR, the accessed address, and masks debug on return so the access completes. */
-+static void wp_handler(struct ex_regs *regs)
-+{
-+	ex_pc = regs->pc;
-+	ex_addr = read_sysreg(far_el1);
-+	regs->pstate |= PSR_D_BIT;
-+}
-+
-+/* Records the stepped PC and sets SPSR.SS so that the next instruction is stepped too. */
-+static void ss_handler(struct ex_regs *regs)
-+{
-+	__GUEST_ASSERT(ss_idx <= NR_STEPS, "step %d past the stepped range", ss_idx);
-+	ss_addr[ss_idx++] = regs->pc;
-+	regs->pstate |= SPSR_SS;
-+}
-+
-+static void reset_debug_state(void)
-+{
-+	asm volatile("msr daifset, #8");
-+
-+	/* Clear the OS lock and double lock so debug exceptions are permitted. */
-+	write_sysreg(0, osdlr_el1);
-+	write_sysreg(0, oslar_el1);
-+	isb();
-+
-+	write_sysreg(0, mdscr_el1);
-+	write_sysreg(0, dbgbcr0_el1);
-+	write_sysreg(0, dbgbvr0_el1);
-+	write_sysreg(0, dbgwcr0_el1);
-+	write_sysreg(0, dbgwvr0_el1);
-+	isb();
-+
-+	ex_pc = 0;
-+	ex_addr = 0;
-+}
-+
-+/* A zero DebugVer means EL2 hides self-hosted debug, so the case has nothing to test. */
-+static bool guest_debug_exposed(void)
-+{
-+	bool exposed = SYS_FIELD_GET(ID_AA64DFR0_EL1, DebugVer, read_sysreg(id_aa64dfr0_el1));
-+
-+	GUEST_SYNC(exposed);
-+	return exposed;
-+}
-+
-+static void enable_monitor_debug(void)
-+{
-+	asm volatile("msr daifclr, #8");
-+	write_sysreg(read_sysreg(mdscr_el1) | MDSCR_EL1_KDE | MDSCR_EL1_MDE, mdscr_el1);
-+	isb();
-+}
-+
-+static void guest_hw_breakpoint(void)
-+{
-+	pkvm_guest_init();
-+	if (!guest_debug_exposed())
-+		GUEST_DONE();
-+
-+	reset_debug_state();
-+	write_sysreg(DBGBCR_LEN8 | DBGBCR_EXEC | DBGBCR_EL1 | DBGBCR_E, dbgbcr0_el1);
-+	write_sysreg((u64)&hw_bp, dbgbvr0_el1);
-+	enable_monitor_debug();
-+	asm volatile("hw_bp: nop");
-+	GUEST_ASSERT_EQ(ex_pc, (u64)&hw_bp);
-+
-+	reset_debug_state();
-+	GUEST_DONE();
-+}
-+
-+static void guest_watchpoint(void)
-+{
-+	pkvm_guest_init();
-+	if (!guest_debug_exposed())
-+		GUEST_DONE();
-+
-+	reset_debug_state();
-+	write_sysreg(DBGWCR_LEN8 | DBGWCR_RD | DBGWCR_WR | DBGWCR_EL1 | DBGWCR_E, dbgwcr0_el1);
-+	/*
-+	 * BAS = 0xff watches all eight bytes only from a doubleword-aligned DBGWVR.
-+	 * FAR still holds the byte's address.
-+	 */
-+	write_sysreg((u64)&write_data & ~7UL, dbgwvr0_el1);
-+	enable_monitor_debug();
-+	write_data = 'x';
-+	GUEST_ASSERT_EQ(write_data, 'x');
-+	GUEST_ASSERT_EQ(ex_addr, (u64)&write_data);
-+
-+	reset_debug_state();
-+	GUEST_DONE();
-+}
-+
-+static void guest_single_step(void)
-+{
-+	pkvm_guest_init();
-+	if (!guest_debug_exposed())
-+		GUEST_DONE();
-+
-+	reset_debug_state();
-+	write_sysreg(read_sysreg(mdscr_el1) | MDSCR_EL1_KDE | MDSCR_EL1_SS, mdscr_el1);
-+	isb();
-+	ss_idx = 0;
-+	/* Unmasking makes the step active-pending, so the first one is taken at ss_start. */
-+	asm volatile("msr daifclr, #8\n"
-+		     "ss_start:\n"
-+		     "mrs x0, esr_el1\n"
-+		     "add x0, x0, #1\n"
-+		     "msr daifset, #8\n"
-+		     : : : "x0");
-+	GUEST_ASSERT_EQ(ss_addr[0], (u64)&ss_start);
-+	GUEST_ASSERT_EQ(ss_addr[1], (u64)&ss_start + 4);
-+	GUEST_ASSERT_EQ(ss_addr[2], (u64)&ss_start + 8);
-+
-+	reset_debug_state();
-+	GUEST_DONE();
-+}
-+
-+static void serror_handler(struct ex_regs *regs)
-+{
-+	GUEST_ASSERT_EQ(ESR_ELx_EC(read_sysreg(esr_el1)), ESR_ELx_EC_SERROR);
-+	serror_taken = true;
-+}
-+
-+/*
-+ * The guest sees the injected SError in ISR_EL1.A while PSTATE.A masks it, and
-+ * takes it on unmasking. EL2 has to deliver it through HCR_EL2.VSE, because the
-+ * host can't read a protected guest's PSTATE.A for serror_is_masked().
-+ */
-+static void guest_serror(void)
-+{
-+	pkvm_guest_init();
-+
-+	GUEST_SYNC(CMD_INJECT_SERROR);
-+	GUEST_ASSERT(read_sysreg(isr_el1) & ISR_EL1_A);
-+	GUEST_ASSERT(!serror_taken);
-+
-+	local_serror_enable();
-+	isb();
-+	local_serror_disable();
-+
-+	GUEST_ASSERT(serror_taken);
-+	GUEST_SYNC(CMD_CHECK_SERROR);
-+	GUEST_DONE();
-+}
-+
-+static void serror_sync(struct kvm_vcpu *vcpu, struct ucall *uc)
-+{
-+	struct kvm_vcpu_events events = {};
-+
-+	switch (uc->args[1]) {
-+	case CMD_INJECT_SERROR:
-+		events.exception.serror_pending = true;
-+		vcpu_events_set(vcpu, &events);
-+		memset(&events, 0, sizeof(events));
-+		vcpu_events_get(vcpu, &events);
-+		TEST_ASSERT(events.exception.serror_pending, "vSError not pending after injection");
-+		break;
-+	case CMD_CHECK_SERROR:
-+		vcpu_events_get(vcpu, &events);
-+		TEST_ASSERT(!events.exception.serror_pending, "vSError still pending once taken");
-+		break;
-+	}
-+}
-+
-+static void test_serror(void)
-+{
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+
-+	vm = pkvm_vm_create_with_one_vcpu(&vcpu, guest_serror);
-+	vm_install_exception_handler(vm, VECTOR_ERROR_CURRENT, serror_handler);
-+	pkvm_run_loop(vcpu, serror_sync);
-+	kvm_vm_free(vm);
-+}
-+
-+static void debug_sync(struct kvm_vcpu *vcpu, struct ucall *uc)
-+{
-+	debug_exposed = uc->args[1];
-+}
-+
-+static void run_debug_guest(void *guest_code, int ec, handler_fn handler, const char *name)
-+{
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+
-+	vm = pkvm_vm_create_with_one_vcpu(&vcpu, guest_code);
-+	vm_install_sync_handler(vm, VECTOR_SYNC_CURRENT, ec, handler);
-+	pkvm_run_loop(vcpu, debug_sync);
-+	kvm_vm_free(vm);
-+
-+	if (debug_exposed)
-+		ksft_test_result_pass("%s\n", name);
-+	else
-+		ksft_test_result_skip("%s: self-hosted debug not exposed to protected guests\n",
-+				      name);
-+}
-+
-+int main(void)
-+{
-+	TEST_REQUIRE(pkvm_supported());
-+
-+	ksft_print_header();
-+	ksft_set_plan(4);
-+
-+	run_debug_guest(guest_hw_breakpoint, ESR_ELx_EC_BREAKPT_CUR, hw_bp_handler,
-+			"hardware breakpoint");
-+	run_debug_guest(guest_watchpoint, ESR_ELx_EC_WATCHPT_CUR, wp_handler, "watchpoint");
-+	run_debug_guest(guest_single_step, ESR_ELx_EC_SOFTSTP_CUR, ss_handler, "single step");
-+
-+	test_serror();
-+	ksft_test_result_pass("virtual SError taken on unmasking\n");
-+
-+	ksft_finished();
-+}
--- 
-2.47.3
+diff --git a/drivers/infiniband/sw/siw/siw_cm.c b/drivers/infiniband/sw/siw=
+/siw_cm.c
+index ed49818793dde..518f09a2d37cf 100644
+--- a/drivers/infiniband/sw/siw/siw_cm.c
++++ b/drivers/infiniband/sw/siw/siw_cm.c
+@@ -1361,6 +1361,8 @@ static void siw_cm_llp_state_change(struct sock *sk)
+=20
+ =09case TCP_CLOSE:
+ =09case TCP_CLOSE_WAIT:
++=09=09if (cep->state =3D=3D SIW_EPSTATE_LISTENING)
++=09=09=09break;
+ =09=09if (cep->qp)
+ =09=09=09cep->qp->tx_ctx.tx_suspend =3D 1;
+ =09=09siw_cm_queue_work(cep, SIW_CM_WORK_PEER_CLOSE);
+--=20
+2.43.0
+
 
