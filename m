@@ -1,84 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793786133;
-	b=iaCcleo2CRznbUxJL1ybg+RUMXYxt10Pk59Gcy8sz6Fkjy8dNZW6vrWN14PDW/HZreYA
-	 BfDxpZ3Y8kSZsxtZNtAKQHczJzowiWIbF5wGYfntPngxedac20NogEAbYCW8REkM+BwEC
-	 +Ba0HegRk+SFKatqOq95bbZRUXiQiXiY223m7TtpKpWBpTSM8VoznSLZRvcy4xzbIbyzy
-	 synF+UIOiD2ozIFx0N7mpFKhEzIjNTaUCgqeDsoeP3MWJEmfiRPTynRph0268pjulJgQO
-	 KmrLZWpNO4VFxIR60kFYZFks3vpU9klEq+j5Ihv4QsUGKn983z+cThNiGd1hiXTcOeg==
+	t=1793786138;
+	b=AOby1MVGIcLUXVGQrClPB64D2v8QY/zIKK1aU1O5+PnWD+cfdAypOiYpNc1rg1ybZffg
+	 FH50CEqgLzgu3Vbw/P27g7u82p/WUPcMUUnV/xfr/J9UjAbj4NkRucQOrxxxfkZ3MAcWV
+	 Zc30yS99e9/BcDykDkYh3lkw+Gg4q4UW3iu1xEbZbTKtWqVzFcFgkR86cZ17IF27SKKnQ
+	 SAUCyCVrAERTcAc8g76ZAi7apOG9E0/1vCr93jspUSk7GyK7TXO1OIM3/YFgwZAFAoJWp
+	 jye17G73514R/IWAmhst9wKW4VIOnK8yQHBcKO8hLiy39k4rzBdo2+iuqhGlXD9BqVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793786133;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
-	bh=nEzm0f9wIfJEdapVfEq9CE/LOLIcXbtblnU6tynrdyA=;
-	b=AKUTZyQjr8Q3wjxTnWbPfEM1NWqrr6rOg4JXQI1Ft9nHNL7r0u3viuD0FCoBpnhtv/EV
-	 5xGRKIwiQfCmmnrCHJwU1770T6h60sIlRO6+ZiUFqo93kFtsvcjNIeZVq5GXLvJk3jH0t
-	 8AgEBahpLiLKaloYj+VOWKA76xPPeJmNV8CzifE16+kx9abtQ9SBXspcspInnqMRFfVEn
-	 hYsNVZFY+QiQasxIVxqMetdgyYZ8PjiA+UZ9n4snoXOitlf8tqgKCr15eOgyQvQ2wmCXP
-	 AJ5M2C8029gT+hbEPYt+VJCBbAGtqg5j3jHP+w2so/A6BN7qGZmP5Dy3k9Ri8UsAArw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793786138;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Ci8AQvKazANwLNbOXSd+IPKnNkJbp750aHA9N2kTOY4=;
+	b=J76w5nxaSgSCT2dW3AnNWLDPzGjVGgUhx+G0cVLRNgE4o13/qsyYP0C/wPxGAl7SKugB
+	 TRIq0oHiIfYPrtEXmrf7YsTaldY0uD3PXzq2dvksaSSD8hVI2S3Q9K0DT17d6Hs93XiNj
+	 c71CXfVWFj81b6ZUiS+EY0nFHwIzVPQOQ/n1TaqvZyJqEl9NIrV6fo1wwN77caF1MTslt
+	 4nCnZGt+0dSnYZIg0tWtq/skAT+aWRNZeXP4LY/XSBMOfwUgU9yTXTfvwek4f/25YwcVU
+	 H+cM+qCWcmbTWf9pCNPhoSt1mbbXvwM8RXVVwCfI9Drl2eI5M4FWad5mxL4GbYBOgOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hsal.es;
-	spf=pass smtp.mailfrom=hsal.es;
-	dkim=pass header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=G5ShxsmN;
-	arc=none smtp.remote-ip=80.241.56.152
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FZlHAuPr;
+	arc=none smtp.remote-ip=209.85.214.172
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C80B2606A33F
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:55:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C80B2606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5526606D80D
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:55:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5526606D80D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=G5ShxsmN
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jKLR00h0wzKshv;
-	Wed, 04 Nov 2026 10:55:24 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
-	t=1793786124;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nEzm0f9wIfJEdapVfEq9CE/LOLIcXbtblnU6tynrdyA=;
-	b=G5ShxsmNKBATmZQRW7cTRdHK9/895xLoBX1VdSxG/340BxyJxgWwRjKETQodNCklUtGJp4
-	1w92++pVtctxvUdByOzxMBD77aCaCRo4vBSPvFBOcb7+eLej5V12pCooGLGb17d6oV/gKp
-	1jiu3IJV/nAmMwgQI9sBp1NUAH9sHcKtm2y+t6dAuR6+6wCkoZ6jCR2uq7FUDU2+wGu1vg
-	IIpAmZnv858fMLkbOPUWHsI2vqKCMjlSwDaYwoYLw7sfw010zbueoGIo8kZeM7/Bm1m2dO
-	cqiRC6QYECtHnN7ELAKX2/l0hBFcaW0+siClsfujBrB4CSU/bXi3boUgvOpR+w==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=hugo@hsal.es
-From: Hugo Sales <hugo@hsal.es>
-To: alexander.deucher@amd.com,
-	sunpeng.li@amd.com,
-	harry.wentland@amd.com,
-	siqueira@igalia.com,
-	amd-gfx@lists.freedesktop.org
-Cc: Hugo Sales <hugo@hsal.es>,
-	ray.wu@amd.com,
-	simona@ffwll.ch,
-	alex.hung@amd.com,
-	mario.limonciello@amd.com,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FZlHAuPr
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e9995ce866so3951605ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:55:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793786137; x=1794390937; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ci8AQvKazANwLNbOXSd+IPKnNkJbp750aHA9N2kTOY4=;
+        b=FZlHAuPrxkiE4R486YNGdSqJ0DOM/TEfF17AtksIy+33Ts7KOBBUFMGJIR278IcSdf
+         huCCksALqoAbBtAuoLbTnvPewb/7Sv0Z6Q5geunIgkZKBbBMTdq2FlGrOWfVX751/Vv7
+         u/b6Becz6cL23zNwg5FEblnVC9zLhTFy4D82s3hf5O4u/8pLMIVDRnMoqjYx3IBRK2YA
+         sryoXhZVeaqZlxk2HJlrnTNN1PQz5wihHQG7kKvVRbcU2JbvKTcHH4rkwkJTf1G2+AWg
+         0YEh3TXvwVuIfcClJPkFtP3vt7zet6JPQrzpD9uIvoQ74VHNm6kaFxWe4KA75MUQy/jX
+         IdlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793786137; x=1794390937;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ci8AQvKazANwLNbOXSd+IPKnNkJbp750aHA9N2kTOY4=;
+        b=pEjaDK3W1rv00XuLE3pemllek6KdpuC73IfRjioIXai7RNYWdeXm6+gN/cLi6Bjr6U
+         z35cL0Of0DP6XnDhPp/wjT/5UPHNMnzo4fczmYon+c8k70/KBnJ7ip3RDHS+rZqs2J+f
+         Ef7uh3O5kHwWb6fqisvN4GWeNX6vrsg/sP0WxgS/JvGL/0t27RAZW0/MkL76OT9DzdQn
+         J2i0erPUKoDiL5aRJvpEkAxClUtykJ0lkuKsZHD/6qvx6J/AjEVAuqz/FiE90zoC0JYd
+         RGx/CfUW3Iu2bSXKl0Dzcp92dTBx8uxwgC7pFIU6GsSyIksMQVLucNuIGfcipmHghw8f
+         ABRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx/2eofBU8OmGTYHL/bAuAGhS3Bu6Zou6uoq5nvRZ1mZmb7HVrMQNujNESF3EieVxM0m14UIED4Kck2+uw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9jV5JylB6u+RxqVPhFk8x2gHMKgZKYLZr3ZzFDO1tw0BasFTTJ
+	zAjFatPkY1PWqozopi2fNFfvaOJL7RLIrVF9y8BdsQM//8uhg28Y+Gccqq1wBeew
+X-Gm-Gg: AYBFou1NzhJevTRLfwGrN89GmjkHIzEWRcERrZK+GgUzRNKGFIfOtbcbFle+tIRCb36
+	nJlPfACqZvUwRQOYcj0pNDbHgp6YBfWvWWooGdO8ZojRodCV9hwegFCN4N48EPqRkaBmipcKGfk
+	9LX2f8bLxhsajnXeScjf3aZBEZCVmfKfmkR+vS54ebOPPaU+RGMBKa6/vk6uNnoM8Y1FCfcjv2N
+	86zf8Ei4n+fRJuQ5ef9uD8CcSmbxR64o1sDbqix8WrKWW53TcdukqdDwVvYmV4buCxkdrFFekks
+	jqZqDQMUifopbwVVZdmMEnbP9XM4XCLXKk6+IYi9ep3zPgBt8p6h2U9pU9nl9hHxYVN1YzBSasr
+	9baKJ7vEGzj4DBnQ55hpcTEm9FtTyRoYvWVKBGwFDdch3xkG31DUAZF3d6XLMzSsxBAj2963Vs0
+	YC38JowT1Z6yxbWP2gxvC+TJ6iIEQ3Ff8hrYlAhjych58uIXF2LKfVZebIzvu38AEBsp+5wiggW
+	wOz6qGyMHBt4nZuC30CPRVRDGnTaZ0BSaBiV4pD//MvB1FcT5DgeQ5iV/FLymX4gVCXZ/gzJH5z
+	lhkVHRQWCWu5b51hnNpkzP7U4XUUxF4hxt7rBStSqTGc4KwNWw==
+X-Received: by 2002:a17:902:cec9:b0:2e8:5202:aa8c with SMTP id d9443c01a7336-2eb364f0a21mr145807865ad.48.1793786137198;
+        Wed, 04 Nov 2026 01:55:37 -0800 (PST)
+Received: from localhost.localdomain ([152.136.45.109])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed08fe1e6asm5591535ad.22.2026.11.04.01.55.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 01:55:36 -0800 (PST)
+From: Qing Zhang <diasyzhangqing@gmail.com>
+X-Google-Original-From: Qing Zhang <diasyzhang@tencent.com>
+To: Andreas Gruenbacher <agruenba@redhat.com>
+Cc: gfs2@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	lohita.mudimela@amd.com,
-	bhawanpreet.lakha@amd.com,
-	dri-devel@lists.freedesktop.org,
-	roman.li@amd.com,
-	airlied@gmail.com,
-	christian.koenig@amd.com
-Subject: [PATCH RFC RFT 3/8] drm/amd/display: Interpolate when reading PWM back as a percentage
-Date: Wed,  4 Nov 2026 09:55:11 +0000
-Message-ID: <20261103-backlight-curve-rfc-v1-3-6e4813a8f2eb@hsal.es>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261103-backlight-curve-rfc-v1-0-6e4813a8f2eb@hsal.es>
-References: <20261103-backlight-curve-rfc-v1-0-6e4813a8f2eb@hsal.es>
+	syzbot+bad65435361712796381@syzkaller.appspotmail.com,
+	diasyzhangqing@gmail.com,
+	Qing Zhang <diasyzhang@tencent.com>
+Subject: [PATCH] gfs2: Fix refcount of quota data restored at mount
+Date: Wed,  4 Nov 2026 17:55:30 +0800
+Message-ID: <20261104095530.4178727-1-diasyzhang@tencent.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <683e2b6d.a00a0220.d8eae.005b.GAE@google.com>
+References: <683e2b6d.a00a0220.d8eae.005b.GAE@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,88 +101,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3255; i=hugo@hsal.es; h=from:subject:message-id; bh=HyET8yh6KxhaLvP97OZzQMRmQctJKYkCURBLUwScGt8=; b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsl7xRPkEltiWRfG0eHOvYXr55tJb30cnH2xJlFj40 +ixave1zBkdpSwMYlwMsmKKLLo3PBlYJk6emVP0fAnMHFYmkCEMXJwCMBEOM4a/Iu+2PsqboXo7 ISDn0OXpZ1QLos9NtDewPxg5JWVTsYDIAUaGqawdHdVKYTeWz+K6LW45f9KStTs27p657GHbvFn XSm/c4AcAZWJMKQ==
-X-Developer-Key: i=hugo@hsal.es; a=openpgp; fpr=193D095149CF7E8737B39064D912B0DB205A91C1
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jKLR00h0wzKshv
 
-backlight_pwm_to_millipercent_legacy() finds the closest backlight_lut
-entry and returns its whole percent. That was the exact inverse while
-backlight_millipercent_to_pwm_legacy() only returned LUT entries. Now
-that it interpolates, a request of 1.5% programs a PWM halfway between
-two entries, which reads back as 1% or 2%, and setting the value read
-back moves the backlight by up to half a LUT step
+gfs2_quota_init() resets the lockref count to 0 despite setting
+QDF_CHANGE, which owns a reference released by do_qc().  Quota syncing
+can therefore consume a concurrent user's reference, leaving the
+count at 0 and triggering the assertion in __qd_hold().
 
-Interpolate between the two entries around the PWM instead. A PWM equal
-to a LUT entry still reads back as that entry's whole percent
+Keep the initial reference from qd_alloc().  During cleanup, clear
+the in-memory change and slot state and drop the QDF_CHANGE reference
+for objects with no other references.  Leave the on-disk quota change
+records untouched for recovery on the next mount.
 
-Signed-off-by: Hugo Sales <hugo@hsal.es>
+Fixes: bb73ae8ff394 ("gfs2: Fix initial quota data refcount")
+Reported-by: syzbot+bad65435361712796381@syzkaller.appspotmail.com
+Closes: https://syzbot.appspot.com/bug?extid=bad65435361712796381
+Signed-off-by: Qing Zhang <diasyzhang@tencent.com>
 ---
-Converting a percentage to PWM, back, and to PWM again now moves the
-PWM by about a two-thousandth of the LUT step around it, plus rounding.
-On the GV301QH LUT, whose steps are at most 1799, that keeps every PWM
-within 1 of where it started. A curve with much wider steps can move
-further, but by far less than the half step it could before
+If QDF_CHANGE remains set at teardown, a concurrent sysfs quota_refresh
+can make cleanup skip a restored object during remount-ro or unmount.
+The last external put then leaves the QDF_CHANGE reference behind,
+whereas before this patch it could dispose of the object with the
+journal shut down.  Feedback on handling this reference safely would
+be appreciated.
 
-KUnit: dm_test_pwm_lut_readback from patch 6 fails without this patch
-and passes with it
----
- .../gpu/drm/amd/display/modules/power/power_abm.c  | 33 ++++++++--------------
- 1 file changed, 11 insertions(+), 22 deletions(-)
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
-diff --git a/drivers/gpu/drm/amd/display/modules/power/power_abm.c b/drivers/gpu/drm/amd/display/modules/power/power_abm.c
-index d9c1f1401b604..83d79c20281ec 100644
---- a/drivers/gpu/drm/amd/display/modules/power/power_abm.c
-+++ b/drivers/gpu/drm/amd/display/modules/power/power_abm.c
-@@ -409,34 +409,23 @@ static unsigned int backlight_pwm_to_millipercent_legacy(
- 			break;
- 	}
- 
--	/* In this case, exact match is not found. Check if mid/min/max
--	 * value is actually closer.
--	 */
-+	/* No exact match, so on a sorted LUT lut[max] < pwm < lut[min] */
- 	if (max < min) {
--		unsigned int min_delta;
--		unsigned int mid_delta;
--		unsigned int max_delta;
--
--		min_delta = (core_power->bl_prop[inst].backlight_lut[min] > pwm) ?
--				core_power->bl_prop[inst].backlight_lut[min] - pwm :
--				pwm - core_power->bl_prop[inst].backlight_lut[min];
--
--		mid_delta = (core_power->bl_prop[inst].backlight_lut[mid] > pwm) ?
--				core_power->bl_prop[inst].backlight_lut[mid] - pwm :
--				pwm - core_power->bl_prop[inst].backlight_lut[mid];
-+		unsigned int lower = core_power->bl_prop[inst].backlight_lut[max];
-+		unsigned int upper = core_power->bl_prop[inst].backlight_lut[min];
-+		unsigned long long span, den;
- 
--		max_delta = (core_power->bl_prop[inst].backlight_lut[max] > pwm) ?
--				core_power->bl_prop[inst].backlight_lut[max] - pwm :
--				pwm - core_power->bl_prop[inst].backlight_lut[max];
-+		if (pwm <= lower || pwm >= upper)
-+			return BACKLIGHT_MILLIPERCENT_MAX * mid / max_index;
- 
--		if ((min_delta < mid_delta) && (min_delta < max_delta))
--			mid = min;
-+		span = upper - lower;
-+		den = span * max_index;
- 
--		if ((max_delta < mid_delta) && (max_delta < min_delta))
--			mid = max;
-+		/* LUT entries fit in 16 bits, so this stays far below 2^64 */
-+		return (unsigned int)div64_u64((max * span + pwm - lower) *
-+					       BACKLIGHT_MILLIPERCENT_MAX + den / 2, den);
- 	}
- 
--	/* No interpolation, just take closest index */
- 	millipercent = BACKLIGHT_MILLIPERCENT_MAX * mid / max_index;
- 
- 	return millipercent;
+ fs/gfs2/quota.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
+diff --git a/fs/gfs2/quota.c b/fs/gfs2/quota.c
+index b2984fb7b35c..29eb7adc4284 100644
+--- a/fs/gfs2/quota.c
++++ b/fs/gfs2/quota.c
+@@ -1470,7 +1470,6 @@ int gfs2_quota_init(struct gfs2_sbd *sdp)
+ 			if (qd == NULL)
+ 				goto fail_brelse;
+ 
+-			qd->qd_lockref.count = 0;
+ 			set_bit(QDF_CHANGE, &qd->qd_flags);
+ 			qd->qd_change = qc_change;
+ 			qd->qd_slot = slot;
+@@ -1542,6 +1541,12 @@ void gfs2_quota_cleanup(struct gfs2_sbd *sdp)
+ 	spin_lock(&qd_lock);
+ 	list_for_each_entry(qd, &sdp->sd_quota_list, qd_list) {
+ 		spin_lock(&qd->qd_lockref.lock);
++		if (qd->qd_lockref.count == 1 &&
++		    test_and_clear_bit(QDF_CHANGE, &qd->qd_flags)) {
++			qd->qd_change = 0;
++			qd->qd_slot_ref = 0;
++			qd->qd_lockref.count = 0;
++		}
+ 		if (qd->qd_lockref.count != 0) {
+ 			spin_unlock(&qd->qd_lockref.lock);
+ 			continue;
 -- 
-2.56.0
+2.43.7
 
