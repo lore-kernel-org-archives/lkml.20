@@ -1,70 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.17
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793832296;
-	b=K6Y8y9lAXaKBRa08LHHGwvKG2YumXiIMPhEa/P5niBRnc2I11UPemIWDyfo8VZYOoRr3
-	 AZGQwn8QgXcY+6iGAmL+uAASNeM4DQ/hhU8r6HShULK9uRc8uxThmiKNNksEdHZjYcCIu
-	 lajeAaSzb5GJRTItdE55RNcDQ2DBU7V+WX78gDz5Sfff2L80zzX6wsQBcXzvXKqXPDK4J
-	 8NJVWl+gomLvZ7HeIQuR2snN7XP31P9L/W15n5vY+CxB5ntzUAA3qjKnm3FMAvGWma8Vp
-	 RewG8Lr8pOuvSQEqBTm6jWZeW9TK9V1mUIaZqCtqm3C+CFFGQAryxoPnpqRH6ApbULA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793832296;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793832325;
+	b=TSchzniFYpotV7Pc4EbGnXuZxPqV30XQoETmwUKM9nU//GvwoVBpHKLvRjGxoavq6e96
+	 rawlw7Vo2I+H7xdF6FGt7h0crzn67AiGdeY4iGDlpCR1qRRdCjhUhT4JmjPQJ1QQiDZZQ
+	 vGgPbySCKI0VMTookdaxMCrjaUDDYglOcL3PfD4mAuKPPXfn+IXALyUtrYXLjT6sBCAKJ
+	 tdZhipawoPznGLXTANN3aPLhUdxOkI0n9J6TjsuStp+nEnJGfOXRDFqznZDezGoiG27J3
+	 8Xb2RKsT94PKoXkmW1FefQv03kRm5zjB9hBfq0npGKATFgmQ4xk9Joi2RHncZoDB5lQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793832325;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=hfEBpFMF8c5rPBNt+LYZXTPFb+iq379xlL3xl7YzuZI=;
-	b=Ld0iaqfHKyGeUhVk1abTUM/RCYJ+xQ9Nlo12rjVio91k6u/W45JCRkjC9L4iw9wMaM7o
-	 BL1aePrpLHD8WcyDupnU8qThx1vrSuHz9hi+9GaEcNLUG5cFXTRRjIGVFs7CKmeBNh+XZ
-	 pTaisJy4dA7rBUX41ofUJbFAr2RzmV1hZWONiBSAUvsJEIMUBF6wOprn83esgfLt65TTR
-	 FxLeQxkYetDzZsEHlLPFNZbYeUNkBJk45Eljcmzx+MY77jSTLR/6FbdjgLwDJH7aty336
-	 88rbrZWuBQYLHn1qOrGdgH09mvgTiY3ABdlhVZe2SD4YEjPIjqQB0ddX4S2MZXnOR0g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iav.lv;
-	spf=pass smtp.mailfrom=iav.lv;
-	dkim=pass header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=BYGnZrOn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.17
-Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	bh=jC7wzUlJenFIhu426Ht6bZZy8FBuUFtiZJAgit2LxZA=;
+	b=K3Zz5QQrlR/4zzXhnLYiUo/8YMP+26caGXWUWnfilMufNgPgh26kE96MP99aTCRCFquy
+	 YuA/aeK08oGrqjBVLpnX4eBnq6NC3DL70vfPEK62CqGrJndsDJSNcC8DecdTRHZZY22k6
+	 S0iNGZmMlD5kZUWC3iU+prcCGkcjgdx0DjIhIaFmk/PbZ7QNTgmvYPZKFRM7nMr6Zr4wf
+	 VkJayyBHAXehhpm569ZMLXT94f8UTyCvm7ahNjObvQJPHUDEhr2AG3fC49lzKSGn3kgnM
+	 u0AjaM3ZJOq5dJJNoLL1u5LOSP8NLGSCCiPfWAtVGCSMD3qrKM0LUPkxG3JMqHjJI8g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l7kwhkh+;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78064606A31B;
-	Wed,  4 Nov 2026 22:44:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78064606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD279606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:45:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD279606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=BYGnZrOn
-ARC-Seal: i=1; a=rsa-sha256; t=1793832249; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=czcY0hthCcdpo/TlC7/oZP4c135oFGtQ2rnKgsYDTGav7RHuFWvzSIB8gBH+4RqdF8p3m8thmeULrUAHhoTL7ier9zAPyzgvlbZiyXTAgp/rXnyN/plx4tk0+gHb1P1tRV6nP1YrB+v5WIXaz+VmKoprHzQS1yIjVuaqFXFA1Pk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1793832249; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=hfEBpFMF8c5rPBNt+LYZXTPFb+iq379xlL3xl7YzuZI=; 
-	b=Q34j5cG7k69XSj0S0HCHtiAe/peBNU75X9Aiz2NvI1AAlUD5GqTJLP5kE8EZocGWbAcXKK3csinOTR7jxcIgwVUkPErq+GIP8Bs6+gj+8mrh83nXALy74OZhf0Twet/xhwHre1Gf1qaAcw5AHiDBkgse4uoX0ZhBPVKdkN/WAiM=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=iav.lv;
-	spf=pass  smtp.mailfrom=iav@iav.lv;
-	dmarc=pass header.from=<iav@iav.lv>
-DKIM-Signature: a=rsa-sha256; b=BYGnZrOnNsNC8iSfDlWmzPc8iCkDgbyVP6wke9/Tg6vGPoDBXjKcMBHOrIgEaZOBnlLUWq/3MxG4ZLYhfmnTpuistWJZqMH8GjbPJhzTa8wU+YNAAt5fRY90rc0Yujiym9mf5TAXC22v6wvJcJhTx57MXLcuvbsIw9GNv1S7Lzo=; c=relaxed/relaxed; s=zoho; d=iav.lv; v=1; bh=hfEBpFMF8c5rPBNt+LYZXTPFb+iq379xlL3xl7YzuZI=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zoho.eu with SMTPS id 1793832247813832.2603239285348;
-	Wed, 4 Nov 2026 23:44:07 +0100 (CET)
-Date: Thu, 05 Nov 2026 00:44:06 +0200
-From: Igor Velkov <iav@iav.lv>
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: iav@iav.lv, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Heiko Stuebner <heiko@sntech.de>,
- Philipp Zabel <p.zabel@pengutronix.de>, Jingoo Han <jingoohan1@gmail.com>,
- Shawn Lin <shawn.lin@rock-chips.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, "Yury Norov (NVIDIA)" <yury.norov@gmail.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Alexey Charkov <alchark@flipper.net>, linux-pci@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, kernel@collabora.com
-Subject: Re: [PATCH v7 00/10] PCI: dw-rockchip: add system suspend support
-Message-ID: <20261105-dw-rockchip-suspend-v7-tested-by-1@iav.lv>
-In-Reply-To: <20261104-rockchip-pcie-system-suspend-v7-0-6ae6875939a2@collabora.com>
-References: <20261104-rockchip-pcie-system-suspend-v7-0-6ae6875939a2@collabora.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l7kwhkh+
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a2072b9832so336305e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:45:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793832323; x=1794437123; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jC7wzUlJenFIhu426Ht6bZZy8FBuUFtiZJAgit2LxZA=;
+        b=l7kwhkh+Nt2G/jrfyS1YlKGEnk4++f3fHPPQdRzEtHxZonaOHzEUrY1TrOXe9QtGz3
+         YaUb1vGwFSrpU8BMe4QfZLTVBjvjqnqchoEwqpRPCtXZl2hSf3seYmuo3Rw+jC8jY7rZ
+         wEoKT/ASSfsPvPvAEgtoRycJCqm8zEmErW/ZEjgZG5eZfhAyp9+YSY/asO+2u/UpwKhz
+         mmEMKxogHskLSNyTQcc1MTKfm295P+XWVtqueWjKbmjA2hL1Ufvnfw6qeEvzSXl/jH4/
+         j1j+MjLDj0uapJV6QbvPUEVciupzAtkE4SEK4V6snhJ3QJLKTYvlzOr30IETf8eTXrpk
+         9gTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793832323; x=1794437123;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jC7wzUlJenFIhu426Ht6bZZy8FBuUFtiZJAgit2LxZA=;
+        b=l62s0HoBBgux8it0ZwNyu17X+fkOxZ5+lPioSzd4eJWIG2cl6BPJatBoW9M/x1oKvf
+         WyTydfRAk8j4kV4G0BMq9Y8aQURGAm6QPeMUkFtvSIhcjINYNNslFoHsLraSlSPdpRBD
+         mfxFh9ATDxztVn/Vb/vh7uh0jmDK2zmNjf29G+0LXvY1PcX9kvG8tV5du5gXB9AYrJwL
+         57jocUG43il4v9adCn+e+i9zdKcko6VpoC2s4vPz4SJ8T2FHRIUWjgW4fA1FwSR68hpQ
+         Xx0xk22VUhYrXDpopzb+TAgGbFPMT4pi5GZ7uojRePiaZ/1vKhtqU4uPgZAmdc+n6e8s
+         nqtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxouKyiv2H0iaHgz118PrZU2XU6wR4UYiahdx8oL0WGC5Ret0ORUK25LtUwcjAQ/9L6f2X1tWX73lYKnn8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/t8uBTGl3XizMGXzFIWLg+9jFNKV4KYejSBFSP7tYMAPT0S4Wh
+	ACULt5TdlO9T30zAmh981MkE0vTz5XV2czNXSp0y/ymUZsUkicVFlUzn
+X-Gm-Gg: AYBFou0LgFuoUW1yDlt0SlkWU5pypisOxOJIy0qaqTr98q6HPkXz7cgYaRn+uJDlgFh
+	P2woO/q/e8fon6Tt/zZ9Gy+vUDUObrWwcXGM7pRStCbQKZICasx2vVyv1/zeJFPgidE25nP81md
+	eBajvV/C9ABQH0rzTcHOZ9x97+54v0HOuAc5vMwO1XSYQo9r8xXSJwaKz/1G1WtEBkPHzbgNKnr
+	ZYpm8t8N5sUIWE4T2GlBIvgKYbYLIYHsQkzk1kNYEg528Bl80vF/J/mJrUt86SnrdW2HwY1IRu0
+	c0Z7LpqolfPOh93WqG9UUSlmlrEXn5JNcoWwJBxrwfvRmxyCHjqK2KmAB0pjAvcPCbKkR1rsg/J
+	cm35yGLAEwvzfoVADk640emh5e8Zp7AXUvkb7I0opdlMwAG7oQlINc1Rn/qeadZLmJ7Ai9WIpDE
+	zIJL2V2h2M+fc/XSCBs79OCriYh7LjDEApRphOYgM7/apDChx5eVnuPTu0EJCqeeO4JFHpy32Nx
+	I7FQswKZF1X/9ONBHMb4oNulvdOUlyuIj+k+SocIthf0UEPs2YUMOn8vg39dXe/NN4QGocVOGHD
+	dhLvtCHj/LiB4Ot3mtLWCtdBSCpQiKrEBAcZn4xOw4W1Ks78wQ9CyIM8DQZyPVUGA694R0aOc1G
+	YSeNJLhQsrTjLW/ebrj3bik6a7MVfzouZcgQGUADSWPLe7x2eznl3f4yYaRcdrLzT9+ZMQEEGOc
+	1kj5H4Mq+DFo4sgH/tbcrNlMCg0ssUqkzlqwl+KDmkN/35UrgDnav9FQ==
+X-Received: by 2002:a05:600c:6219:b0:4b2:4b5e:8141 with SMTP id 5b1f17b1804b1-4b55d4f759cmr11989045e9.9.1793832323021;
+        Wed, 04 Nov 2026 14:45:23 -0800 (PST)
+Received: from localhost.localdomain (dynamic-2a00-1028-8388-a84e-947d-5f15-1dc3-a8b4.ipv6.o2.cz. [2a00:1028:8388:a84e:947d:5f15:1dc3:a8b4])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b4320efc7csm36604235e9.2.2026.11.04.14.45.22
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 04 Nov 2026 14:45:22 -0800 (PST)
+From: Josef Schlehofer <pepe.schlehofer@gmail.com>
+To: netdev@vger.kernel.org
+Cc: marcin.s.wojtas@gmail.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	maxime.chevallier@bootlin.com,
+	w@1wt.eu,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v3 0/5] net: mvneta: fix the TX queue arbitration and the mqprio offload
+Date: Wed,  4 Nov 2026 23:45:13 +0100
+Message-ID: <20261104224518.66487-1-pepe.schlehofer@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,12 +103,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-Tested on ODROID-M1 (RK3568, NVMe on pcie3x2) with 7.3.1, Jonas'
-EHCI/OHCI clock patch and f845c1e2d2d4 ("PCI: dwc: Add suspend_poweroff
-flag for platforms with RC power loss") backported: s2idle 10/10,
-deep 10/10, the NVMe stays usable after resume.
+The NETA TX arbiter is left at its reset default, which serves the TX
+queues in fixed priority. Under load a busy queue starves the others.
+OpenWrt has worked around this since 2017 by sending all TX traffic
+of its 32-bit boards through queue 0 [1].
 
-Tested-by: Igor Velkov <iav@iav.lv>
+Patch 5 serves the queues in weighted round robin. mvpp2 also sets its
+TX queues to round robin, in mvpp2_defaults_set(). An mqprio offload
+keeps the fixed priority, as its traffic classes may rely on it. Without
+the offload the queues are served in WRR, also when skbedit or a
+software mqprio picks them.
+
+While working on it, four older bugs in the mqprio offload showed up.
+Turning the shaper off leaves the per-queue rate limits in place
+(patch 1). Deleting the qdisc never reaches the driver (patch 2). A
+failed setup is not undone (patch 3). Opening the interface or changing
+its MTU sets every rate limit to 10.23 Mbit/s (patch 4).
+
+The series was tested on a Turris Omnia (Armada 385). With an mqprio
+offload and "queues 4@0 4@4" on a 100 Mbit/s link, one stream on queues
+4 to 7 got 94 Mbit/s and three streams on queues 0 to 3 got 0.2 Mbit/s
+together. The other NETA variants were not tested, but the driver
+already programs registers of the same block (MVNETA_TX_MTU and the
+token sizes) on all of them. Suspend and resume were not tested.
+
+With patch 2, replacing an offloaded mqprio qdisc under a new handle
+with another qdisc that sets traffic classes loses them. The new qdisc
+is set up before the old one is torn down, and the driver now acts on
+that teardown. The core does the same when the old qdisc is a software
+mqprio. A taprio qdisc left without traffic classes sends nothing.
+
+Changes in v3:
+- Patch 5 (patch 3 in v2): keep the fixed priority while an mqprio
+  offload is set up. Moved to the end of the series.
+- Patch 4: braces around the loop bodies.
+- Patch 2: the commit message also mentions a taprio replacement. The
+  code is unchanged.
+- Patches 1 to 3: Reviewed-by tags added.
+- v2: https://lore.kernel.org/netdev/20261103125021.70845-1-pepe.schlehofer@gmail.com/
+- v1: https://lore.kernel.org/netdev/20261102112816.12322-1-pepe.schlehofer@gmail.com/
+
+[1] https://github.com/openwrt/openwrt/blob/a5e96c837ead549820867bb83c1ad471e39f5ace/target/linux/mvebu/patches-6.18/700-mvneta-tx-queue-workaround.patch
+
+Josef Schlehofer (5):
+  net: mvneta: lift the per-queue TX rate limits
+  net: mvneta: fix the removal of the mqprio offload
+  net: mvneta: unwind a failed mqprio setup
+  net: mvneta: keep the TX rate limits across open and MTU change
+  net: mvneta: serve the TX queues in weighted round robin
+
+ drivers/net/ethernet/marvell/mvneta.c | 112 +++++++++++++++++++++++---
+ 1 file changed, 100 insertions(+), 12 deletions(-)
+
+
+base-commit: f56daaadfecae1f760d0fb34385b256d3af68970
+-- 
+2.54.0 (Apple Git-157)
+
