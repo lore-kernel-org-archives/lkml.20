@@ -1,70 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.105
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793756954;
-	b=MhP7JEd1+yCorWBQsTCzD0USlhHIWNpxFhiwRlWmMA5Z+5bmi/gR7gS4JYG5pWQXLoYO
-	 j/LWAzlA+Ss4TuEqh7N5kRrrgRqeyqVIVXPiqL0StaPBKOYgOmSk/IJ3huXY3QUw2lGbP
-	 xW/6UBV9Vlna2aucesBtvZAnVviY7iwbaqDK3UFDrNQ+JKOQOvNzpTeRf3Q/e9FFHv9lu
-	 I5qeWtqK1DG5LDYqV92m5vubFLz8C2zmr70mTbBpumqa0Sc/N2p8iaYd0smfDJdwiKpLe
-	 kGvR8fBw8yvcbo6YcrcXLfYvSSpVHQUeo4UkYFV9koyepicRHD4gCoMIDZiSuJQxWjw==
+	t=1793756988;
+	b=bO+6UP5RBwvziUAxBK7W4REgYFH/fBKRVicztdWa9D+/CEucqhz+oNE49YfwJ3Dsgh3x
+	 0LCFFOaWURWVxVDZMkPgJv77dq1/BU/BVehGbFYkdt4KrVbn5FQA4ucxLYKD4mfsM5R3u
+	 TpB4fGzaYqZQXA9EhVcncK8McwI1FAnRIqjwl0RjeHV/J0kPdhkH0xDTGQnAlqw1Rb8H4
+	 3NuEA6nAVA4aeSndoRg433bcBAVF8NseuLJKHroP2f+R/YIDzf3tz/qDfZ4e8midRl6tL
+	 fsLTnTedAPIu47WTB2qPQQjSuovd41Vtzq9osNJgOkdZ1l+ucSCIvx/jn3Z/7lz7Z0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793756954;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=B9+nhlrF2Dcltc/b/gA0HI4sU+fSxvFt8AwHcya3lHg=;
-	b=hzMJ3dI9QMPcC2weW3MEvWEMQ0F6fxkpEA7pCxykZwFQwgCWzbl/OfP0Sl9CY662haXW
-	 jJGgQsryzKONHwzAtksiPldRTmEvJGdjbQO2BfveM/XciyUFQZImryimgRNSmCVoWRt3G
-	 gboW3oIdrv4LgzscUWnxgP8zjlRpm3Erkz5fxTCPzcZD0LuanFImB7RDl8h2AjyMz+zpE
-	 fQi4vzjOuKJjmHVivjK0h1vE3Fnxn85/dXRCa8z2rB6fgDylWdCDCRyEXqDFIniLFIOgS
-	 D2WK6690cIgqr/yED70ZM6V42JIDDU5hBCOzsiSDX8OVaObXHZG5GeEFenG4UW3XPUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793756988;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=x2y/jrRuW1kOVkeI/kyVA0jAKmFvPNzDOon3GN/uQPs=;
+	b=jzZwcwW8xPWHAaTte5Xaf0/7Om/olMwVJ+Adani6cpWHfb5pcQHBpMTSPG8bfUxlk0hB
+	 /Ceik9PBtvKriDGiS5DoQqhiyeaIXuykHqAhsicoJw4SS8z4WNQcedHSmDpGakVjZiPxD
+	 MmAWeXtODMcRGwLn/AV3LAA0LrlNLrvSjJ8h56fzfbIma4+lT+seParBcYpEACTlILZek
+	 vFh5JEtL1LbX0JbKpRa0KIX+EgEsy1WC5HfzdkhAQCE+Xvn3ipajXBw+sJsYTQSweS9h2
+	 N7oRBYE9OJcwR1V7NJ81VsRfHGye6cwyoxsAL5ufm1HArGWHuGvV766HibJArdpKG5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HqMO2M+b;
-	arc=none smtp.remote-ip=91.218.175.105
-Received: from mta0.migadu.com (out-105.mta0.migadu.com [91.218.175.105])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OmwWK6LW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0779606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 01:49:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0779606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 807C1606A326;
+	Wed,  4 Nov 2026 01:49:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HqMO2M+b
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ly87kVwc8IX3qQC1upPNiV4ixKwflXWdxxSQPtJr530=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793756951; v=1; x=1794361751;
- b=HqMO2M+bRcA7d5R9RDSl1FBdrLqgrYDcwMZAKym1rjmisJgBs7rAmFMp6SRNNCdG8J6TC0+s
- LSSSD7eWz5trXaj39FV4OSwUNz8JxwrM97UqDhBGlxvyy7t+w3jP714WXWxCaD1eGHtyoUemErJ
- tqP1hUt7AWbSTkKxi1unSuBo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id bf8193c6aca9eaae;
-	Wed, 04 Nov 2026 01:49:10 +0000
-X-Mizu-Trace-ID: bf8193c6aca9eaae
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 4 Nov 2026 09:49:00 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
-	Fernando Fernandez Mancera <fmancera@suse.de>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
-	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	llvm@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH nf-next] selftests: netfilter: nf_queue: drop the no-op
- loop initializer
-Message-ID: <auqPDIM0z0MbuBhS@fedora>
-References: <20261103165419.687806-1-sashal@kernel.org>
- <20261103165419.687806-5-sashal@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OmwWK6LW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB6F51F000C1;
+	Wed,  4 Nov 2026 01:49:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793756988;
+	bh=x2y/jrRuW1kOVkeI/kyVA0jAKmFvPNzDOon3GN/uQPs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=OmwWK6LWBHsuAIc4CYoOo4VUNuEAq0PQhJmAv7o+GvrlV5bzf986F8gS2Sab+y2ak
+	 xlR1BPQ1Jv6VBdQ+bXTlY90xFEk9UWsSm3jo2B6AeGiwn5t7OBAHyF9JN2xXGNTMnI
+	 yLDIR9UQkeg1t0V9BAnwBMCLpZajvT0Da9uqCzSREaPgsL2m45nQ9mL5X3GkfPNQ1q
+	 c3B88X8x9zAwOVf0Dlt28RjnQHpYvBxGyueX93U8kcg2Yso6pfX7Wl/QQXrFHxhne3
+	 r6jWAD+UuNtiiyAhllQQkIEoWDHlhDdc2VCiiW9EFXTv5yfpJFAF4mY05eBIGk9epR
+	 J1mQ/X/+5KJSw==
+Date: Wed, 4 Nov 2026 01:49:40 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ andy@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com
+Subject: Re: [PATCH v3 0/2] iio: gyro: mpu3050: Fix runtime PM refcount leak
+ in trigger enable path
+Message-ID: <20261104014940.565b8fb0@jic23-hlaptop>
+In-Reply-To: <20261103092002.1332-1-laixiangwu@cmss.chinamobile.com>
+References: <20261103092002.1332-1-laixiangwu@cmss.chinamobile.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,40 +60,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103165419.687806-5-sashal@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 03, 2026 at 11:54:18AM -0500, Sasha Levin wrote:
-> The out-of-order verdict loop starts with "for (ooo_count; ...", and
-> clang warns about the unused expression:
-> 
->   nf_queue.c:354:10: warning: expression result unused [-Wunused-value]
-> 
-> Leave the initializer empty.
-> 
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
-> KernelCI's clang builds show this warning.
-> 
->  tools/testing/selftests/net/netfilter/nf_queue.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/tools/testing/selftests/net/netfilter/nf_queue.c b/tools/testing/selftests/net/netfilter/nf_queue.c
-> index cca6c3cfa9e46..bc0b2f601a0a4 100644
-> --- a/tools/testing/selftests/net/netfilter/nf_queue.c
-> +++ b/tools/testing/selftests/net/netfilter/nf_queue.c
-> @@ -351,7 +351,7 @@ static int mainloop(void)
->  		if (opts.out_of_order) {
->  			ooo_ids[ooo_count] = id;
->  			if (ooo_count >= 15) {
-> -				for (ooo_count; ooo_count >= 0; ooo_count--) {
-> +				for (; ooo_count >= 0; ooo_count--) {
->  					nlh = nfq_build_verdict(buf, ooo_ids[ooo_count],
->  								opts.queue_num, opts.verdict);
->  					if (mnl_socket_sendto(nl, nlh, nlh->nlmsg_len) < 0) {
-> -- 
-> 2.53.0
-> 
+On Tue,  3 Nov 2026 17:20:00 +0800
+Xiangwu Lai <laixiangwu@cmss.chinamobile.com> wrote:
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+> From: laixiangwu <laixiangwu@cmss.chinamobile.com>
+> 
+> Hi Jonathan,
+> 
+> This is a repost of the v2 series as a new top-level thread, as
+> requested. There are no code changes since v2.
+> 
+> For context, this series fixes a runtime PM refcount leak in the
+> mpu3050 data ready trigger enable path: patch 1 splits the enable
+> and disable paths out of mpu3050_drdy_trigger_set_state() into
+> separate helpers, and patch 2 applies the fix on top, using
+> pm_runtime_resume_and_get() instead of pm_runtime_get_sync(), which
+> also keeps the usage counter balanced when the resume fails.
+> 
+> Changes in v3:
+> - no code changes, the series is reposted as a new top-level thread
+>   (v2 was mistakenly sent as a reply to the review comments).
+Future reference. Don't do that unless specifically asked to do
+so. Obviously you should never be in that position again, so this
+is mostly for anyone else who sees your patch!
+
+Thanks,
+
+Jonathan
+
