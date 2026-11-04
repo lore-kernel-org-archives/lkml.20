@@ -1,88 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793778865;
-	b=l2xbMlv+FLWUz+b9wFGZF8t6w9Juk/gSklqRXgN+Xjqkhl6a+JoIhsLCrP3QLleSVzrj
-	 3uiutkQQMH4tL5AWCjJ5PrGg5JmR34sW4LcaXAn6S+DKwlCORmclBIRvUYnmNeT/oQJoa
-	 m3jrGiiEOwkJZSIJx3VJMgeuvVwbSb/QTQZs+BmWoPM6wkpq9IEkZoFuST1qzQcdqnevp
-	 /K7dssqzwd2DAByYyDe8PVGSnZiQRovWU12eIydWJN4Z6H9fHLORKfISUjtdG8yqZPsbn
-	 +lJ/FbZqVb/Rh1EVljhVY+Ska72K305r8SkQCn1feSz1ToeE8BD7NXuiSSJwWvTlFOg==
+	t=1793778945;
+	b=0b4u/7kswAHDpqtxlClqaLTeDSiRluMk/vsC55WLRcnWRBm24Rd1HEuFI/7xlKUxSZR2
+	 hT+Zope++sF9ZnqhJUt2va/BBLFAXs3f5FX22s+RVDZSOglzqGEUFFc2Uh322it/hK+j4
+	 CKyR3EGRABPrzWi1wXkwACHE6Bz0hRVch8LFREAX9XLeXiUdFWM5An0TNbfcLbYKnwR5M
+	 YIzfyw9+2DUr1LpFnyd3Nf17kI7KTQrHyjHyL3WgNTGsxYFv1Gs0tJLl55Dh6+szc8Wb/
+	 8HKaz6BxAQmxcleirClgMkxwfpzxz/qKwDsq42VDo+fkFPxcK47DkVDrIum0/BuU65A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793778865;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Of08z6Vz8zX3aCMA4M/zY4MdFGWoIDjVyq3Rd8DU6CE=;
-	b=hMKF5RdfmwexrlyR7z4W//Fo3PhnNUYO+jIwNMXeKJxxTIP4uiRV/FvaGYMV6urA1AX4
-	 cRYPnqZ/4oNBRXoan4v7FWf9ONpiftqiEjGGg/DbxNqpivqqSeuPoFWDsuJoBxnJP/2+G
-	 BNos/48fIoT3iBGGVqHmWmfxXlJKNHGXYQc8pzpH019ifxkVNi2Esr8eQvGYmUwnOUWDn
-	 JtLtvwbLacw1443MBJR8Ai4TF7d0rQ421bYb3ToZa50qe9+Ez6m/SWQE68SJH5z5WV3hT
-	 xTTeBnbv0j/lI2aLpapf31jOJx6qSsZLdkBwxIKFpSZL1+k2S4THPbrd15r6CyTsZYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793778945;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=I2RVWsP67jO+YLENwruOvOgNLvlMuyI5Iq8dOZmwn9A=;
+	b=25e3MJ7wUgRbG5SlxUMVq34zDtPFUXgRxNc8GSyn1BqNZRfeCdzu00316tIdivjrVwHC
+	 YNvU5+Ms2JMfUqibp1WQ0Nin8wcc6addeSFk5nE37FwxVNiuXYVOmQubjoFZ/z4OgPvBQ
+	 7gB3ZRprx3+rSDsTbOKsoPIafQC23S8aT/GlEjammKPqIrXzvCzjKcCpCiGU+/04IU5QS
+	 NVJ74kQ2BvL+s3Ns5KaFRLjCviJ/TXEYM9Yv9w0vNG+glt2XaO15ETvj6gbDMKo6GNVOC
+	 pz39pfSANyqOY/LR2x+gDdTCkEHUyiya7syEb5A/nyrpmDdco5/O5QwSaWgcynTskSQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VLB5jRJH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=ionos.com;
+	spf=pass smtp.mailfrom=ionos.com;
+	dkim=pass header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=NKOMzLqu;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 700F7606A333;
-	Wed,  4 Nov 2026 07:54:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA5C0606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 07:55:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA5C0606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VLB5jRJH
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793778865;
-	b=MK7NojtCwLDROdzNkc/0U/bWQY3FElUlCc8J/W1e1OJieQO/KVHE4+2BvxL8CVB8mWYV
-	 jFL1tJmqDJ2x7l2Bv2kjw114fT2Q1Sbh/ZcWcsrbpFaRULCyib8UdW8/z6fw/eknfK3SL
-	 BXxImKaLijcDxDw4JMYhZqOOTdrQooEhh/GCaJxnqAOTmAfNKnH9/kLGVj3R1VpEcNqrS
-	 EwSVVSggcJbRGwM0h+COB8zo0Ey4o7d1XId8eHIGMshag4yVrnIXFTfvnd94nQFHjWoiK
-	 0Ef2d4N+fgWYHzm9GwrmZUwWxGO+lVCutprAiTzykzgsJWHfeZsUobZ9EW4xeVQqD1A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793778865;
-	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Of08z6Vz8zX3aCMA4M/zY4MdFGWoIDjVyq3Rd8DU6CE=;
-	b=JBXAM0niG15zTG8o9WWoQ5AJBuyIVub2pCkmzitq+Xf6IWfmOU7iLhbOO2AoJzbnnYhR
-	 NVPBdxAaewdupEqTppru26seLgMMM8Hj16/lNXFGhNiyRq4JShZX6MnleIUK/cGvIEZ4p
-	 O6Ri8LQHQHjjqbUPYfmEAlqZCWe+0ePLrRZIc7LN//JfyGQg9bS6Pf26dBXicUvsdhwul
-	 Lv14uMI5J8x7nBx94ZA+P2tr8gLpPsWh9TSfzheezkdDompOsRQwvbF4h7rt4SbfqMwLv
-	 fZe3urQXVAmrHpHbXKdXFolq6gvOBEGThx/9FZ2X5jLdADpsvaxOhCEs+jqtef28MRg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=90.182.112.124
-Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPSA id C8C791F00919;
-	Wed,  4 Nov 2026 07:54:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793778865;
-	bh=Of08z6Vz8zX3aCMA4M/zY4MdFGWoIDjVyq3Rd8DU6CE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=VLB5jRJH6ANTcDNh/MxCplOqJlp/+2F/W778/hWLNovUE6myojf/A/3vrHDBbjQHj
-	 7EpPLarmxGnsWEpRjF5Q280Drj8sY/6SV0YF1MHc4jaFGkSwomoiKZsAlLw4rBve2S
-	 dnt0IP7jxJk03xYjatd0yNTUOv1op3bcZJ2TwTSLENJaNnWmRoZm42PAW3wZa6S1Bj
-	 yX4rtC6BrEdz4mkU+yCw5kZ/1NpcwMDPcYoE8rrA+7yCoCaCAm0y2B9csuX2vg0TRa
-	 /F+HtguXqxKXoerOWjE1NcE8ZyzyvlxLauc8zNYJ15XJySIJqvX4EWd9Aro95xk2UJ
-	 6f92BkDTdPjWw==
-Date: Wed, 4 Nov 2026 08:54:16 +0100
-From: Joshua Crofts <crofts@kernel.org>
-To: Ariana Lazar <ariana.lazar@microchip.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
- David Lechner <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-hwmon@vger.kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Marius Cristea <marius.cristea@microchip.com>, Andy Shevchenko
- <andriy.shevchenko@intel.com>
-Subject: Re: [PATCH v5 1/5] unaligned: introduce be56 unaligned accessors
-Message-ID: <20261104085416.00004b55@kernel.org>
-In-Reply-To: <20261103-pac1711-v5-1-71c20101a52e@microchip.com>
-References: <20261103-pac1711-v5-0-71c20101a52e@microchip.com>
-	<20261103-pac1711-v5-1-71c20101a52e@microchip.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key, unprotected) header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=NKOMzLqu
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c434376dbebso67782766b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 23:55:44 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793778943; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Wew1sfiVCnU12z/ZN2H9Z1ZG5hOEklB6PMgdnOw5tQE5KcVhPGEZJG2qe3DoZmqTep
+         hT1Lzi8XNPlerh409BjXMVSq3HE8wdvmCIsOMVfbRJILpn3WdjLQOH5VR2G4ObBFUd7i
+         ucz6gCkuqduvHUuy1UyPrXa/YiZhTx9Xxg//700uJXbWqPMRR4d5O4CScHl4fHncmjUz
+         UuzvczR9rl0EwKs83LTZn/mF1Ewwi6Bbq/6TBPmkhD85yv+uNBDSPbRCNs0ppIq4wCpZ
+         Ylf6JPNOSvdfxP1CMJzg7at/YV5D+Qld70kKwZGStkJfbEir4eR57E6qMLXDPFrr13Y7
+         HIaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=I2RVWsP67jO+YLENwruOvOgNLvlMuyI5Iq8dOZmwn9A=;
+        fh=ULjv5COK3Sgo+nIh0K5/T3x0Ghp7O/oYNUUwcS0kyQM=;
+        b=hHteGf/s6QH75b/eeFKQsp2dYLEgAM4+ybARjUr7a1oupVKrF7TTAOqVx954g5wR/D
+         zWJoZgB7eHDkKNXpXQHAIQLjwTl5B2+1/LMc6dhXNhr5XxH+2YCd2yX0feaTnj/NnP6c
+         Tj3LHWbT3myMjmxGmTQ3bTbXCcrzxkKystv/4ZwhcwG+xqUX1d1xg8GKuzV8o9OrJ3cG
+         pTiEiZdkjS4Rtq8jwJiwAkUUuYFU657NUaEaLdID7UZi7YyEvpbi8worMJdEbaJhjRBN
+         oQBbCrl9XXskomwth1Nne9+QA5DTPcXKqdWHH6IUnNtqRPTat277E4h+CanCl+LTy+Kz
+         p9AQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ionos.com; s=google; t=1793778943; x=1794383743; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=I2RVWsP67jO+YLENwruOvOgNLvlMuyI5Iq8dOZmwn9A=;
+        b=NKOMzLque/B3IbjV1F0xMbnbjbWqqn7qybulR3GxXFLjFXT8Y2Tc7fD9nqgT4YqJpd
+         ObHw5JByjNple4pqFlJ1DDzScPnIhWw9tDjLkj2aZ5fMNTYSk9jGA0M4zhoufUWiGBny
+         KrGByfcsWxbtyeRH4GNDRQDFqfwxfPaskD5Jg80mcv+4yNsC7M2vO4tYnNPqdmH/ZyXq
+         w6ig9HrisdS1owywLx7CwLMLAudVThFimnudgZCr54Qh30jR+4h4NPt59UQ+KYbaBUbU
+         b1hIdDZrCUvFIXd6824CAjg+8jzHLDgoCheqJZj35aLTGamm9fEsn98PPoPSeeVjae6y
+         3FyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793778943; x=1794383743;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=I2RVWsP67jO+YLENwruOvOgNLvlMuyI5Iq8dOZmwn9A=;
+        b=SR+Dv/76Vr1LGGS9RhjWbgau4i1uaCLUs8REuN6fFnNL3qiv6ff/7f9Yit2+j+Gfk0
+         DBNWFlz1YmW2cRzDV6Gffk06gddoaNudfCwdCokSzaEPiYudUXryIFd0Q9cq1tOibY0a
+         M1TrKueYtP/kXn2Bd3Gp3WxHVCinBjTNygUi0pN4pFYKZWeWSha3l08NU6CL1VeBnfLU
+         EQ/JLhjrikj5pIZbtGmhmRRbn6gvHiFFfb8KTZX5xQsVI7mWz1r6camP2S5Fa7fvkzFt
+         +mG4xoTBIcVb60rRJkLkFEPRvkuCntwxWlSb+yNWiEphyEtRhYH1PEsJO5sxZGn3/vk3
+         kIOA==
+X-Forwarded-Encrypted: i=1; AKwUvBy5JuPwum7XIdsm09fNC2HM74+KLBMCKKhhmHjfnE6bhby/P7LJy96yERUyblhI/sHfdKmmzhMj4f4yin0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9d60Z2BdwWTBunrZjNLrCuJnxOHKDa8gyuUXnB1BG3YjzbQnpb
+	DZ3lmNMgulLGm0m4+HJAoNgLfgIFCq0GAN+wnWuIzoiOlV77EFV5kef+tcQQpAQ4vl50ABBK3s5
+	2D4IavLyKv1p5Coki45HKnnCxtZkpoOSVd54QHja9Iw==
+X-Gm-Gg: AYBFou2F4sX3o4PmriRaoB+rJenpUrt0sU9xG1YHDonu48Er3knmB8TsQGRXdpiqCTq
+	JZ6JKgxR+RxZ/VC9aQo0eMfkSqVjfpmL2bJBEVu/Lj+dNYr8jXvRVWbadG9SZV1YdxOGkLCtYBn
+	P6EYARGpoyiaNDaCsQUnAIYh/FtBUyQvwojda43xgbVibTFm76AWg7cTbqFqjRwXGlvfhpacKAn
+	gz77OJWqbzkda9aysJoKHxxVCe+OiIvxzwUtK64liWaeUCO8zYMc4NFkCqKfcGg8Bx1qk7f/76i
+	JvVl/PNNFYhxvLowsz5+TY7uiJrBX5ZupF3RcIJfQvffpbJYF7xFO6PnKnuGLw/D8etwgT6agZD
+	ty2ZfvtprH/KVWRR8kvgPDWOuzxl02imtsQOOW47JAOnbFh3Uz2HsvV/9TbIEGGdnoQ==
+X-Received: by 2002:a17:906:9946:b0:c4d:939:526b with SMTP id
+ a640c23a62f3a-c4d0939530bmr123502666b.0.1793778943224; Tue, 03 Nov 2026
+ 23:55:43 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,26 +104,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20261103113711.1832834-1-max.kellermann@ionos.com>
+ <20261103113711.1832834-4-max.kellermann@ionos.com> <CAGsJ_4y+LX-CSnDJ59VT2nc-i=rB=4iMuBQYawMCktk-_SPykg@mail.gmail.com>
+In-Reply-To: <CAGsJ_4y+LX-CSnDJ59VT2nc-i=rB=4iMuBQYawMCktk-_SPykg@mail.gmail.com>
+From: Max Kellermann <max.kellermann@ionos.com>
+Date: Wed, 4 Nov 2026 08:55:31 +0100
+X-Gm-Features: AclHuK9db34czdLJDGuWdv4eeJ4Wz3rR25lYZqq6bke9pbWo9X2wFnS-q5qCw2o
+Message-ID: <CAKPOu+9XP8CP-EiLqd_Q-F6EWUQPgi4Ysz7wu8LZijR+j0_uyQ@mail.gmail.com>
+Subject: Re: [PATCH v2 3/5] mm/mglru: cache the last memcg node, make tail
+ insertion constant time
+To: Barry Song <baohua@kernel.org>
+Cc: akpm@linux-foundation.org, kasong@tencent.com, qi.zheng@linux.dev, 
+	shakeel.butt@linux.dev, axelrasmussen@google.com, yuanchu@google.com, 
+	weixugc@google.com, baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, 
+	david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
+	rppt@kernel.org, surenb@google.com, mhocko@suse.com, hannes@cmpxchg.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, rcu@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 3 Nov 2026 16:37:11 +0200
-Ariana Lazar <ariana.lazar@microchip.com> wrote:
+On Wed, Nov 4, 2026 at 4:40=E2=80=AFAM Barry Song <baohua@kernel.org> wrote=
+:
+>
+> On Tue, Nov 3, 2026 at 7:37=E2=80=AFPM Max Kellermann <max.kellermann@ion=
+os.com> wrote:
+> >
+> > Rotating or onlining a memcg currently uses hlist_nulls_add_tail_rcu()
+> > which walks the destination bin to find its tail while holding
+> > `memcg_lru.lock` with interrupts disabled.  With thousands of cgroups,
+> > this takes a long time and causes severe lock contention.
+>
+> This is the main cause of the soft lockups and RCU stalls,
+> right? If so, we may want to add a Fixes tag.
 
-> From: Marius Cristea <marius.cristea@microchip.com>
-> 
-> The MAX34417, IIO driver, is using some unaligned 56 bit registers.
-> Provide some helper accessors in preparation for the new driver.
-> 
-> Signed-off-by: Marius Cristea <marius.cristea@microchip.com>
-> [narmstrong: update commit message and move to include/linux/unaligned.h]
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Yes. I added (for v3): Fixes: e4dde56cd208 ("mm: multi-gen LRU:
+per-node lru_gen_folio lists")
 
-This patch is missing your Signed-off-by tag. Even if you're just
-carrying someone's patch, the SOB serves as proof that you have the
-right to do so.
+This commit added lru_gen_rotate_memcg() which calls
+hlist_nulls_add_tail_rcu() (full linked list walk under spinlock).
 
--- 
-Kind regards,
-Joshua Crofts
+> The fix itself may not be directly applicable to stable
+> kernels, but based on the logic of this patch, we should
+> be able to work out a backport, right?
+
+The primary copy of these patches lives in our kernel branch that is
+based on 6.18 LTS.  So I already have a set of patches that can be
+backported more easily.  Do you want me to submit these versions, too
+- and if yes, how?
+
+For me, it is not entirely clear if a stable backport is really
+necessary (thus I did not Cc stable).  It's not a bug; just awful
+performance when you have thousands of memcgs, but few people have
+that.  But that's up for you to decide.
+
+> Another option is to leave the cleanups in patches 1 and 2
+> out for now, and make patch 3 self-contained as the first
+> patch in your series, if that makes backporting easier.
+
+I don't think that makes backporting any easier - they are not really
+cleanups, but refactoring to make [3/5] as simple&small as possible.
+I wouldn't squash them; it improves nothing but makes review harder.
+
+> I'd appreciate it if you could also mention Ridong's earlier
+> work in the changelog:
+>
+> https://lore.kernel.org/all/20251119083722.1365680-1-chenridong@huaweiclo=
+ud.com/
+
+Aye.
+
+> > +       if (at_head || !last)
+> >                 hlist_nulls_add_head_rcu(&lrugen->list, head);
+>
+> Do we still need at_head now that MEMCG_LRU_OLD has been removed?
+
+Yes, for the "!last" case.  This is, unfortunately, a special case.
+If you prefer, we could move this special-casing to the hlist_nulls
+API so callers need not be aware of it.
+
+--=20
+Max Kellermann
+Principal Architect
+Hosting Technology
+
+cm4all | Im Mediapark 6a | 50670 K=C3=B6ln | Germany
+General information about the company can be found here:
+https://www.cm4all.com/impressum
+A member of the IONOS Group
