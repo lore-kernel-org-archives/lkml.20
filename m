@@ -1,49 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793796055;
-	b=wCnt9nzHa1LXN4n1Bv1P62e4xEa4kM3aeh+6wG+Q1naT/AnHiy3RPdQymLfIR3+9kRiZ
-	 Lnum0c3W70UkfNu9GaZzXsW6MU35gwoQpEufh2D1jsqXWDlmOyxwLqFK6Jt8ZipVRLVYt
-	 SYkg/ciGSqJgPUt0zGvmIwfu2im2pUvJzETqNUwltcgdFGQT+TAdwywpDMXP0OtKYzV44
-	 IknAkEnkN++dIDi/s7l+SO74HNsA1YrqIbAYAiWQokxrSJQuKyJCuO7H3ZnurjzSQcsHi
-	 qzAaCmCzQhSgmhZpIu0WfKHCMUdmwi5xdl4Nds2wKWgVWNA5oKztbffF70zjmYUQU5Q==
+	t=1793796070;
+	b=zbVK0iZUG3QaDmfp85aqnccm0rGdYjs6M961fSU+/rBB/9s86GgRy+jhZG/Z9/zQ7p35
+	 ioTZkLOtez0rQJuuzWhcJSE29uNx+9xOGMm/ScN8jMsyw1CJr5Si/ACUjJn9Zn39fd+Da
+	 aSio+yhjoANyweAjuj0fTbPtohpx/Eh891CrjvsJbpEQe591H8izehbNPME/6uM5E+LQf
+	 gvXlWfexNhikyzEsX99BAVFdCihDFDc07EeHhBi4EZLGNIGxtICoRQnoan5Xz3ixXigrP
+	 65Pe3RmDkoYekUmOScKHDfWhi2tznqgrQje6+en5/CKpe3QNpF7SMI92SW6mEAuCOxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793796055;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Qu7Yw+WD0W+wi9N7j2myB2cji10J5fDY+ApcA841Sz0=;
-	b=UQHZMRNFxbFa2q1G5Zjx/LP3GHwv+7RaoUOeJ+1fpuxjks3zaAvobyjAC1W4h0D9pYQ6
-	 pXLlIOC7aBOpQCVxolUCM6s0BZ5ZBMzrz1C3UCrgEWLAs9KBTTTbswN9HO21c4P3+fsu3
-	 81+nvW/m++OktjkBWb2nYYQn2nBPgKSYzhdUuUxHVvHpw9YwGTpe9GY6PihnIjaLHl3W+
-	 Y7oC/xuHAyEim91LWfeCj3+Cd6LDy38GpoWVYzvLy6su2/IF38+SSVsZML9gpc3bkVUbG
-	 UDagzaUiGVGrcktnnWS/X9c1gzY2WeolIKE5IP7TUEN6maiSzUkFjDQKgF9L8aVeZ5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793796070;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=JFSSkNgtw9qZg2rx70HlBlm2wqAAOtu/7zBcOSJ/emI=;
+	b=GkPm8zikGCn9zD6vsmAyj7NIpIg5njW0rJWZZEl76Se8UTv4DXRHwAFPaq9lwm7aNjfH
+	 iZvsSFKjY3SC4d2nXIso21k9FhDxzA2mBhGrRQqDklV6cthHc9hW5O0HfYBpYgsJs3N+a
+	 5vzoV6mzT53Do1opAk/qO3LkMgBG85lCb+iYZpHxzeKpt8VWeX9A6SMnmHxB8szXgYash
+	 qaDKR76XnL7ChOGpQlbfOUVGq5ZQYgITHgZNfllot7rv0zDyso3OLiorf4CJTh9ujGad2
+	 UgHhxxs0C8NtgNSRRahPi3RFhBAuPsl15LL7luilP+Rvhq9f+nODV4NZnuOo6lCqczw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="Z8d/Rftc";
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CA6AF606A33C;
-	Wed,  4 Nov 2026 12:40:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA6AF606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="nPrA/j3h";
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDA61606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 12:41:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDA61606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Z8d/Rftc
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B39E42247;
-	Wed,  4 Nov 2026 04:40:43 -0800 (PST)
-Received: from [10.57.15.10] (unknown [10.57.15.10])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9316B3F628;
-	Wed,  4 Nov 2026 04:40:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793796046; bh=5+mieZXs7MNZ6sx1ZeGlRyjEfTaZXcaiheHN4KGpcWE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Z8d/Rftc+Q2HeWZuWw7ukw5Gdmi0vl/xhp9ZizZjw5lfOEn+oQcL441mnR/5kg0cu
-	 i0U6AgxBZee+rjErsMfHAv0kHpCQqkVphcjRBIaN0pzAIt1E+1oN8jIAqoF6V/1Cv6
-	 SbR4JSBoLZVfaYUjz0XVmjAKT71XZPO4aLqMw0cs=
-Message-ID: <d7135fe4-5e92-4c42-8d6b-3afbc3b1bb33@arm.com>
-Date: Wed, 4 Nov 2026 12:40:42 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nPrA/j3h
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso4379955e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 04:41:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793796068; x=1794400868; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JFSSkNgtw9qZg2rx70HlBlm2wqAAOtu/7zBcOSJ/emI=;
+        b=nPrA/j3hW/O99kGx7s7SfheqzoTdHcd7g8W0JNdsUl00HXqTn8wSNxBLgNloX3FIyX
+         YO7/f3D5E18Qlkt79cbst05LdOHDR1AS7pXXPq35ksVs9SsYj8NXcmqHvvlOAleTHGTu
+         UC8fEr2kVQZS96YagjQZxneYbBb+do3+oaK1SEufyUS6kp0xBIFmLzNOEDZGwyHx91xR
+         Lwq5mYGeo66/wTMaofcA4vh3sHp3wRFyQI25eoefUO1zLsJ7YjYDQrMLR289PvmRvLIq
+         u/lgVyiFQb4CPuwsnhFgppKQLDDoRdfZZZ8teZ5djHsGe5TPjk34aWGZCNdLTF8QEomL
+         6ecw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793796068; x=1794400868;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JFSSkNgtw9qZg2rx70HlBlm2wqAAOtu/7zBcOSJ/emI=;
+        b=rFFuSg6AIhbosKEvrct4lY8egNzs6NuDICuFtHBEvwV/uCcUCmSAlxx+Cegvwpl/5g
+         Ry9/hohuYZIfiZSZTzooy8VtgSm+dUI6cepEuOayKNX8ivLKQFGUE8V2B95jM6+9gKkH
+         hDCH3UbmVb90AhVibW+ZD8gLRQmtZ7oKteH00CZZIkz2g+ICVT7Lnd9p5Re3716zfPI6
+         iO0FygIz2u2YfRcWR3d5rbXoHJT6HzQQVHpJV5wx9yokzyUQgrihT9D7+BHrzdbtkJdp
+         exX0DnKGgq7p/boWEcpF0wR6hZt7Lzxk2F9jZUJf7cWOwPZMHKI5HDM7qyNHyc4CbGq9
+         +1/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy0GDv9jxqqJvKl7WmE2hzaXSiMRxOSNbp0nUzQ+urlMb6scJ1WIJvXoGHMnvQNlhhMvYQ2JkA4yvH6Kts=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9VZNeCbqUTjIMEmJuXMBF4eUUhYt15YrunFhxuuZbGSmvFk7J3
+	IMCLuUbca5oPzw3eEfKGdhvO3otRI/HFMXSGN9XJe0sQU9zwJVL2D5OQItsfJA==
+X-Gm-Gg: AYBFou0tVEnVq4EN2nrQywLnmK5tUzCy33soeapaBIuGTHQHE0nvMmLlZKReIpvDkRl
+	gRYEVhIvURLIKr+bgqAXdGKAc4uKli8fZ6TR+p9skFkjrWmK87f1NMNSuNK/bcD3xb5WrK/vMZ8
+	cr9ColBaTTudaP1iI/5oA7fnDxlxBV3MgdUDWYCKvlooEf5epKl7AyhFwIfiSGUVXnRPqsW0l8j
+	RadxZrUc1mqt05Cf4jUks990zJyDccxBdYpGW2lAZ3eROAkoneS3vC8TNjc0RVedxB0EXxMtuTS
+	1sToaG+m7Ex5zysegBdHGKk99VEflV92RhT7lb0T+nvFeSva8urDON45yvs1N4T3J3wmENiZI4X
+	3V1qJazgm+R8oevYOT/KCTVo5q4RNlzFuUYxlw1CHAadFh/7lvFGzIU3o6veRqkYaTYi+J4D+lc
+	pOvU6meQVxPlCMOyxOelS9lnQQ5jCBaISnhStH7wWGPTxZGGX/fMpTYFiMRYN4gS2rA51HUYZmB
+	QCyJe+vjAyY9D569aetAV1sCg+/JE0g5MSlteT9+2ms7lT6yVeBY1b34gwv3wbtc5l10a/xmhmu
+	8VwBpeX0xa4e1sGM9wRw1AkuA29qLDJZPzs3mEN/ust/3fhNlI4=
+X-Received: by 2002:a05:600c:3ba5:b0:4a2:a6e:80f5 with SMTP id 5b1f17b1804b1-4ac16fa356cmr437727975e9.11.1793796068291;
+        Wed, 04 Nov 2026 04:41:08 -0800 (PST)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b433ebd278sm46347145e9.3.2026.11.04.04.41.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 04:41:07 -0800 (PST)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Abdulrasaq Lawani <abdulrasaqolawani@gmail.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Animesh Agarwal <animeshagarwal28@gmail.com>
+Cc: patches@opensource.cirrus.com,
+	linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-tegra@vger.kernel.org
+Subject: [PATCH v2 0/7] ASoC: dt-bindings: Add/Update #sound-dai-cells to Tegra related codecs
+Date: Wed,  4 Nov 2026 14:40:50 +0200
+Message-ID: <20261104124057.240288-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,138 +108,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma: swiotlb: Round restricted DMA pool size down to
- IO_TLB_SEGSIZE
-To: Marek Szyprowski <m.szyprowski@samsung.com>,
- Michael Kelley <mhklinux@outlook.com>,
- "iommu@lists.linux.dev" <iommu@lists.linux.dev>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Cc: Claire Chang <tientzu@chromium.org>,
- Konrad Rzeszutek Wilk <konrad@kernel.org>, Giorgi Kobakhia
- <gkobakhi@asu.edu>, "stable@vger.kernel.org" <stable@vger.kernel.org>
-References: <CGME20261103155032eucas1p10934ce1bc0c0e2f1fa86891fb2626862@eucas1p1.samsung.com>
- <20261103155016.1107958-1-m.szyprowski@samsung.com>
- <MN2PR02MB686381EADCEECF16B23214D0D4692@MN2PR02MB6863.namprd02.prod.outlook.com>
- <8276a107-7115-48e3-a40a-2660fe1beaa5@samsung.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <8276a107-7115-48e3-a40a-2660fe1beaa5@samsung.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 2026-11-04 7:37 am, Marek Szyprowski wrote:
-> On 03.11.2026 22:18, Michael Kelley wrote:
->> From: Marek Szyprowski <m.szyprowski@samsung.com> Sent: Tuesday, November 3, 2026 7:50 AM
->>> All other paths creating a swiotlb pool ensure that nslabs is a multiple
->>> of IO_TLB_SEGSIZE, and the swiotlb code relies on that. Since commit
->>> 0b84e4f8b793 ("swiotlb: Add restricted DMA pool initialization") a
->>> restricted pool can have an arbitrary size taken from the device tree.
->>>
->>> If the pool size is not a multiple of IO_TLB_SEGSIZE, the last segment is
->>> partial and swiotlb_release_slots() reads mem->slots[index + nslabs],
->>> which is one past the end of the slots array when the freed buffer ends
->>> at the end of the pool:
->>>
->>>   BUG: KASAN: slab-out-of-bounds in swiotlb_release_slots
->>>   Read of size 2
->>>
->>> Round the pool size down to a multiple of IO_TLB_SEGSIZE, wasting a bit
->>> of memory, and warn about it.
->> I'm not familiar with the macro scenarios where a device has a
->> restricted pool specified in DT. But I wonder if it would be better to
->> round up instead of down. DT has specified that the device should
->> have a restricted DMA pool of a certain size, and rounding down gives
->> the device a smaller pool than was requested. Could DMA operations
->> then fail because of not having a large enough pool? Rounding down
->> also allows the pool to end up being size zero, which this patch
->> detects and results in a definite failure at device initialization time.
->>
->> What's the tradeoff in rounding up instead?The device restricted
->> pool at least as large as requested. Presumably, being larger than
->> requested doesn't cause any problems for the device or its driver.
->> The downside is using up to 256 KiB more system memory than
->> expected. In an embedded system with only a few MiB of system
->> memory, maybe that's a relatively big problem. I don't know the
->> scenarios well enough to judge whether using a bit more system
->> memory is better or worse than the device not having all the
->> restricted pool space it said it needed for DMA.
-> 
-> The main problem with enlarging the restricted pool is that the memory
-> has been already allocated (reserved) by the generic of_reserved_mem
-> code before the rmem_swiotlb_device_init() is called. There might be
-> even another reserved region just after the one being processed by
-> rmem_swiotlb_device_init(). The reserved region might be specified in
-> the device tree exactly, by pointing its base address and size. In
-> such case the rmem_swiotlb_device_init() really cannot do anything
-> else than using the provided already allocated region partially.
-> The only thing that might be improved is freeing the 'wasted' part
-> of the region back to the memory allocator if You think that
-> printing a warning is not enough.
+Add/Update #sound-dai-cells to some codecs often used by Tegra devices.
+Document #sound-dai-cells property for i2s and ac97 nodes of Tegra20
+and Tegra30 devices since they all provide a single dai cell. Add these
+properties to SoC level Tegra audio-related nodes. This is required for
+creating more complex audio paths.
 
-Realistically, the granularity of any physical memory protection system 
-is going to be based on at least 4KB pages, so I don't see much excuse 
-for any restricted pool not being aligned to at least the current 2KB 
-segment size - if anything I reckon we could just consider it a DT error 
-and fail the init rather than worry about rounding either way.
+---
+- fix dai cells in wlf,wm8994
+- fix commit message in maxim,max98088
+---
 
-Note that freeing parts of a restricted pool for any other use would not 
-be a thing anyway, as they are by definition not a "reusable" region.
+Svyatoslav Ryhel (7):
+  ASoC: dt-bindings: maxim,max98088: Document #sound-dai-cells property
+  ASoC: dt-bindings: realtek,alc5632: Document #sound-dai-cells property
+  ASoC: dt-bindings: realtek,rt5631: Document #sound-dai-cells property
+  ASoC: dt-bindings: wlf,wm8903: Document #sound-dai-cells property
+  ASoC: dt-bindings: wlf,wm8994: Update #sound-dai-cells property
+  ASoC: dt-bindings: nvidia,tegra20/tegra30: Document #sound-dai-cells
+    property
+  ARM: tegra: Add '#sound-dai-cells' property for audio-related nodes
 
-Thanks,
-Robin.
->> Your commit message also mentions "wasting a bit of memory".
->> What is wasted in the round down case? The rounding down is
->> done before the pool memory is allocated. I would have thought
->> the wasting would occur in the round up case, where the restricted
->> pool is given more memory than the device said it needed.
->>
->> Michael
->>
->>> Reported-by: Giorgi Kobakhia <gkobakhi@asu.edu>
->>> Closes: https://lore.kernel.org/all/20261026032007.1957949-1-gkobakhi@asu.edu/
->>> Fixes: 0b84e4f8b793 ("swiotlb: Add restricted DMA pool initialization")
->>> CC: stable@vger.kernel.org
->>> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
->>> ---
->>>   kernel/dma/swiotlb.c | 15 ++++++++++++++-
->>>   1 file changed, 14 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
->>> index 2c57b49ac7c0..a68f35192582 100644
->>> --- a/kernel/dma/swiotlb.c
->>> +++ b/kernel/dma/swiotlb.c
->>> @@ -2007,6 +2007,19 @@ static int rmem_swiotlb_device_init(struct reserved_mem *rmem,
->>>   	 */
->>>   	if (!mem) {
->>>   		struct io_tlb_pool *pool;
->>> +		unsigned long aligned_nslabs = ALIGN_DOWN(nslabs, IO_TLB_SEGSIZE);
->>> +
->>> +		if (aligned_nslabs != nslabs) {
->>> +			dev_warn(dev, "Restricted DMA pool size %zu is not a multiple of %lu, rounding down to %lu bytes\n",
->>> +				 (size_t)rmem->size,
->>> +				 (unsigned long)IO_TLB_SEGSIZE << IO_TLB_SHIFT,
->>> +				 aligned_nslabs << IO_TLB_SHIFT);
->>> +			nslabs = aligned_nslabs;
->>> +		}
->>> +		if (!nslabs) {
->>> +			dev_err(dev, "Restricted DMA pool is too small\n");
->>> +			return -EINVAL;
->>> +		}
->>>
->>>   		mem = kzalloc_obj(*mem);
->>>   		if (!mem)
->>> @@ -2034,7 +2047,7 @@ static int rmem_swiotlb_device_init(struct reserved_mem *rmem,
->>>
->>>   			mem->cc_shared = true;
->>>   			ret = set_memory_decrypted((unsigned long)phys_to_virt(rmem->base),
->>> -						   rmem->size >> PAGE_SHIFT);
->>> +						   (nslabs << IO_TLB_SHIFT) >> PAGE_SHIFT);
->>>   			if (ret) {
->>>   				dev_err(dev, "Failed to decrypt restricted DMA pool\n");
->>>   				kfree(pool->areas);
->>> --
->>> 2.43.0
->>
-> Best regards
+ .../devicetree/bindings/sound/maxim,max98088.yaml      |  8 +++++++-
+ .../devicetree/bindings/sound/nvidia,tegra20-ac97.yaml |  8 +++++++-
+ .../devicetree/bindings/sound/nvidia,tegra20-i2s.yaml  |  8 +++++++-
+ .../devicetree/bindings/sound/nvidia,tegra30-i2s.yaml  |  8 +++++++-
+ .../devicetree/bindings/sound/realtek,alc5632.yaml     |  8 +++++++-
+ .../devicetree/bindings/sound/realtek,rt5631.yaml      |  8 +++++++-
+ .../devicetree/bindings/sound/wlf,wm8903.yaml          |  8 +++++++-
+ .../devicetree/bindings/sound/wlf,wm8994.yaml          |  2 +-
+ arch/arm/boot/dts/nvidia/tegra114.dtsi                 | 10 ++++++++++
+ arch/arm/boot/dts/nvidia/tegra124.dtsi                 | 10 ++++++++++
+ arch/arm/boot/dts/nvidia/tegra20.dtsi                  |  7 +++++++
+ arch/arm/boot/dts/nvidia/tegra30.dtsi                  | 10 ++++++++++
+ 12 files changed, 87 insertions(+), 8 deletions(-)
+
+-- 
+2.53.0
 
