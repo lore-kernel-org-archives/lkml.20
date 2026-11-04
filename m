@@ -1,103 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793772820;
-	b=Bg6nN7XzTzkJ1rM+nQHgjeu0tsZGhc8ZOiDBmCadhlxnEpH+kIGp/Q9uD3J6tESjOpr9
-	 Wkj1rrCdFyQtaV0cZnFxThyC69iFzabG5C/df5xVg1BaoAiEXPUIwa0dzNiYuPxdZcPtl
-	 zR75KH6fW7ieJ3RHidtcHXRR7KeDuTbQ2DRVHQltg2liL3c+uPMdY/d4pBXNqwkXwUvs9
-	 MM6Flqop7ZCtqd3WJvjz0wCS8ofLAQhjqyNbbI54nvStMU1T9uhgdu/MC1DHa05bpayc2
-	 z/2TX2Kdz5d3JaOBzdctH+5wZQJ2s997+wpyknpZkwQfW4uMQtpDoxaKLG1HzRQi4DQ==
+	t=1793772853;
+	b=yjQQncoXJROKBCtERZDkTT2ypzi2k2otP9dQlVUqPEa5qMVW9QLPqJKYxD5oiBusp5ys
+	 p2cFwnusvv8FwdpnRdqJ8mo6pd3s0vJvVgN6fh4YBVqBam4BbbADep60k8hzJSdOBRj8T
+	 TsQ6CmQxQdivBtNElvg1SuzpcKRzoXc38uDVyg/Znm2hpOj7ly8f2H7iQ6NnRcX/Vo2eH
+	 6rIOXpoXLdWVahD070MgoONCTpREKQPiqRvJPIqnYwmUbKkUR6PxvtIZ5WRiTSnQm7uJN
+	 8UqpPSf0OVchNYVAhgBc8FqvYXRxThVeN+O9j1Fd3K7Ic+eo5bZIiyIEt5e+hcNrnmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793772820;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Vj9ktI48o7ufwGrRMOBI3Uxhb/8/rPw557mUsRk3qaM=;
-	b=e4UtvlN5YHaZzlanFKDU8x7B/pT270AG64e/Pz6ifnDhCT/JA1bEMWro/Z6mq6OSo/zu
-	 dgqMqKRTV/pWHBkWXjSiS7qZuXDr0kLxoDIVcwJ4g/bo0Sd3jz7XJP/L3/lJka7jb24p5
-	 NX6eP7RGWFDuoEcdbkOzjesCYfvPEdEuf+qCo49ybOVRnQqvK0ncrS0Fe0GxeZG1txxQu
-	 eMm5ZuQYTfLkUPwBugdopv6H6CSoKyN8QNWDRj/OYISDnAF0rmfy0sf1BiwAr0d56+9Jl
-	 V1YobWm9EzE8dO0FH9lWpxdUBBcYy+ynH042BJ6yIcTWKRBQh8c7AgQyESKmgewAkkA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793772853;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:Sender:
+	 X-CM-SenderInfo;
+	bh=oPru1ixeqET8VA3w2O2W4/Wbh3CD3rwDs6Utxb/ih1k=;
+	b=W2a+mhl5AktFVfKVXBzz/bJhXlOvgAqZxnVldr/Vti/rf2sImi7vjByy5i5ctOANjO7j
+	 pp8lVm0nGxRqPvCY4TZXfZs2A62ylkljPX3zcl8ME/NCbLw04tkIuSoIg86K8VSuWZeZT
+	 Xin7cOE1h7V5PAM+UbIbPSpkljiA9fx9NVNFdwo0vpTplswPQM7HPMVTwXj1niZ2NVexX
+	 WHYV3s+Ci+STjFaTxNXMEBjU+7/11k8gvfgj1bdiHJiPUFf3pgKdN1zXnaExftPJ/p5id
+	 Zrw77pLWNljmR0PgjKS/VQbk0Y1X3KzSh9ABcXXA020nLKJWx6BdQrNea/0ZxW6/aiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=isslab.korea.ac.kr;
-	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=I+iLkkqw;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=cKtbVfNf;
+	arc=none smtp.remote-ip=117.135.210.5
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B4D606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 06:13:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55B4D606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3577606A31B;
+	Wed,  4 Nov 2026 06:14:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3577606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=I+iLkkqw
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3535a54bed9so443414eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 22:13:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1793772817; x=1794377617; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Vj9ktI48o7ufwGrRMOBI3Uxhb/8/rPw557mUsRk3qaM=;
-        b=I+iLkkqwfwuAggym/kUWMbPAvyClX/edd9SOd5Q+2Ht2LKoaF0iJJaSlkQDacb6gU1
-         QPfWhvVsHabfsJUSytf0Z09bkekWtKfMPViypQRq9cPQR87bw+TBN6ZGB89hC8I4M3ZL
-         iGMMPkRlJZInSUAhsI9zwvlMDmcd2UvAT+nIQ6oHd6PSqz32CVURE5IA3WSuDmAJGnCt
-         tIFKq/uqSL/5nGMeIcRa0Uy868XTDdnCa9ipaWh5d4ZrmBoC7MK8DXSjXGOpwCWIEqQd
-         CF37MBLtALZ+bW44NRfcXRmHXl6AKQyVoRuIyZD9dHpefYrnarn1jelFxBobWgB0DiXX
-         3B9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793772817; x=1794377617;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Vj9ktI48o7ufwGrRMOBI3Uxhb/8/rPw557mUsRk3qaM=;
-        b=Yv5OWWMHl5AdLUJRD9r5uxliOoZbbl9HfEGSEz6mUAKUnYa9ggDtQrC7zZRh9/K+Al
-         LAmKQzBjjEj4w4BeG4d7hVarg4Mzxw33Q6So6mz1sMwadEggi3rPJ0usVul/8WPqNNh0
-         3hKzYZTQy63/4f/KKWT/wC0Nd6K20h/WxFy6SZiGd/WVOgoKLh2G2WoqYUHNes+SK7dH
-         48NXD1/bM87WARg9yJOupcLPAnHk4lTYV2DnC/DOotcAjCnzN1g7sj6f8+T76zxf4mtc
-         ZK+UX88b95tccZjTR4j6DB6m7UuNLuWkuUFIRlbI8eJE7S0uLGmdm1fnBnTvZfSyEbJ9
-         IyjQ==
-X-Forwarded-Encrypted: i=1; AKwUvByNbAlUpaJIP1saaISatVeAqFX2zcocIXFMWoUdF2MmU55QiPXFarnSlqjvEcV/SWKW4OCIvLIEhVIrdhc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8iPITv41nUaN/wr3SOwVxX92AO1oRuh0zUzMXnEF8pWs+f5Z2T
-	YyaRARt/2TwL3PSUjSugaHAJaplROiSBfE9KWRgi1Hh1TGpa3W0yWXiBfBGh4eef2Uks733Lm+h
-	Ol+K92AY=
-X-Gm-Gg: AYBFou3mcup2D7+ALjhSAyzNfQ7P0NtQKg8seJabe/TOm69IiRF8H7IPsQ5wbuB3jAr
-	9iP9jSU9TFsHcQ9U7nKZIEBEcXLV2rXrDcC7bxjuAh842YW0U6Jc9gYQDbGoI1spqcS5epIBtOa
-	aoUOsbqH94VBMRmkppOPxe0qKhTeXG3Ytcaq2VrEs7Y2kyv7fHQ005MsMBnAzxpdlt3UcjSjIyl
-	pmJjPIS1Bq58RJshQAFAEZ6+f3NTIH+9RMY2dD0KBwIuwbV0hVQjttRaHR+6TnUaMAi6Bh1vnKL
-	+pt8bmqmxYOQFS+7GwLmgAMq/t5XVg4eAmLPQ2aybqvB88tlizzH95YaVaaiMlHy6u7kNqdnSga
-	gHBFaQZEPisDZF/m7JSODqjie1gDOzDaLbx+aMYYI36b4eNuUfwcl02QYg7vAVgUrJZzSvzS0kq
-	Wjr2xZOXyf+xnV3JCinaNYbKj5qmQvn8P8ysy9g+ZVUsKKkOcQlb2MSM2kHgC03A3rxEdzdsRrc
-	IkThYbImDM4uKhKrMrC3vKKGsAgr+Fr49jWf9h4oNYLLHaymoIY+9etX5lr8bj4+XKWaP6wRC8h
-	kjmlU3WV6XwHp8LuLHqHJY8N03FCeDaaPNUOV6HeOaFtppPJEzhuygsaJz0rH1JL/AKJMHorAk+
-	ny/0ESyTNwYdbaXlxgwopaazL4XeGG5rzUYO570vfmz2dgJ5mOblt3dTaYw==
-X-Received: by 2002:a05:7300:d58d:b0:35e:f1a5:9ba6 with SMTP id 5a478bee46e88-36a4221aca2mr24932065eec.5.1793772816686;
-        Tue, 03 Nov 2026 22:13:36 -0800 (PST)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:744:cf40:a7b2:e78f])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38fe477sm3776719eec.17.2026.11.03.22.13.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 22:13:36 -0800 (PST)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Joshua Washington <joshwash@google.com>,
-	Harshitha Ramamurthy <hramamurthy@google.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Willem de Bruijn <willemb@google.com>,
-	Praveen Kaligineedi <pkaligineedi@google.com>,
-	Jeroen de Borst <jeroendb@google.com>,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
-	stable@vger.kernel.org
-Subject: [PATCH net] gve: bound the device reported rule count in the flow rules query
-Date: Wed,  4 Nov 2026 15:13:29 +0900
-Message-ID: <20261104061329.1881388-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=cKtbVfNf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=oP
+	ru1ixeqET8VA3w2O2W4/Wbh3CD3rwDs6Utxb/ih1k=; b=cKtbVfNfcrgz+EqJjM
+	uJMjn5JBynLc51/wtpw8sPMbptGzOc2aGnJxUNT8e8z2dI89S0HiaYkncyvi3BSS
+	zlbs4ZvP/zHsvjST6D6qLK8LPbJ84VseoSO+GmWhYFJavL+2zxjzpcQvKxeuS+y3
+	oNbnPm78ZZR4mENSnTg3HV8Y0=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgD3_1QBzepqJQjCDw--.33545S2;
+	Wed, 04 Nov 2026 14:13:23 +0800 (CST)
+From: Yongxin Yang <yangyongxin@kylinos.cn>
+To: Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Ira Weiny <iweiny@kernel.org>,
+	Dan Williams <djbw@kernel.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>
+Cc: Tony Luck <tony.luck@intel.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Shuai Xue <xueshuai@linux.alibaba.com>,
+	Len Brown <lenb@kernel.org>,
+	Li Ming <ming.li@zohomail.com>,
+	Robert Richter <rrichter@amd.com>,
+	Ben Cheatham <benjamin.cheatham@amd.com>,
+	linux-cxl@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v7] cxl/core: Create EINJ debugfs files regardless of EINJ init order
+Date: Wed,  4 Nov 2026 14:12:56 +0800
+Message-Id: <20261104061256.1449275-1-yangyongxin@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <1a5ceda1-f039-4946-b8d7-2bc97ed48c00@amd.com>
+References: <1a5ceda1-f039-4946-b8d7-2bc97ed48c00@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,169 +80,90 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PigvCgD3_1QBzepqJQjCDw--.33545S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWFykZrW8Jw45ArW7Kw45ZFb_yoW5CF4xpa
+	1Du3sYyry8uFWakry3Aa4UZFyYqwn5Wry7Cr98u343CF4kCrn8AFnYyrWY93WDuF4kJa4S
+	q3Zayr1jkF1Yyr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jTUDJUUUUU=
+Sender: yang_yongxin123@163.com
+X-CM-SenderInfo: 51dqwsp1rqw5tlqrjji6rwjhhfrp/xtbC-wTJZ2rqzQQFNwAA3u
 
-gve_adminq_process_flow_rules_query() turns num_queried_rules, which the
-device wrote into the admin queue buffer, into a copy length:
+The einj_types file under the CXL debugfs directory is never created when
+cxl_core is built in.  cxl_core_init() runs at subsys_initcall level, while
+einj_init() registers EINJ at device_initcall level, so the
+einj_cxl_is_initialized() check in cxl_core_init() always sees EINJ as not
+up yet and the debugfs_create_file() below it is never reached.
 
-	num_queried_rules = be32_to_cpu(descriptor->num_queried_rules);
-	rule_info = (void *)(descriptor + 1);
-	...
-	rule_info_len = num_queried_rules *
-			sizeof(*flow_rules_cache->rules_cache);
-	if (sizeof(*descriptor) + rule_info_len != total_memory_len) {
-		dev_err(&priv->dev->dev, "flow rules query is out of memory.\n");
-		return -ENOMEM;
-	}
+Change the file creation condition from EINJ being initialized to a compile
+time check for ACPI_APEI_EINJ_CXL and return -ENODEV until EINJ is up.
 
-	memcpy(flow_rules_cache->rules_cache, rule_info, rule_info_len);
+The same check also guards the inject files under every downstream port
+directory.  Gate that directory creation on CONFIG_ACPI_APEI_EINJ_CXL as
+well, and check einj_cxl_is_initialized() in cxl_einj_inject() to reject
+writes until EINJ is up.
 
-Nothing bounds that length.  The test above does not, because
-total_memory_len is descriptor->total_length and the same device wrote it,
-so it only asks the device to agree with itself.
-
-There are two consequences.  For GVE_FLOW_RULE_QUERY_RULES the copy runs
-past the cache: at 47 rules it writes 4136 bytes into the 4048 byte
-rules_cache, and rules_cache_num is then set to that count for the ethtool
-paths to walk.  For GVE_FLOW_RULE_QUERY_IDS the destination is large
-enough, but the descriptor and the rule array share one
-GVE_ADMINQ_BUFFER_SIZE block and the array starts after the descriptor, so
-counts of 1021 to 1024 read past that 4096 byte block.  Those words reach
-userspace through ETHTOOL_GRXCLSRLALL, which needs no CAP_NET_ADMIN
-because net/ethtool/ioctl.c exempts it, and gve_get_flow_rule_ids() asks
-the device again on every call.
-
-Bound the count by the space the array actually has, the admin queue
-buffer less the descriptor, before the multiply that cannot then overflow
-either.  That is 46 rules and 1020 ids, and it is never larger than the
-destination cache.  The total_length test stays, since it still catches a
-descriptor whose payload was truncated.
-
-Reproduced with a KUnit harness that injects the device reply and is not
-part of this patch.  Unpatched, 47 rules gave the report below, and 1021
-and 1024 ids copied 4084 and 4096 bytes from the descriptor's end, 4 and
-16 bytes past the block.  With the patch all three are rejected with
--EINVAL, and 46 rules and 1020 ids still work.
-
-  BUG: KASAN: slab-out-of-bounds in gve_adminq_process_flow_rules_query+0xe7/0x390
-  Write of size 4136 at addr ffff8880027ae000 by task kunit_try_catch/33
-
-  CPU: 0 UID: 0 PID: 33 Comm: kunit_try_catch Tainted: G                 N  7.3.0-dirty #8 PREEMPT(lazy)
-  Tainted: [N]=TEST
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x3f/0x50
-   print_report+0xcd/0x620
-   ? gve_adminq_process_flow_rules_query+0xe7/0x390
-   kasan_report+0xde/0x110
-   ? gve_adminq_process_flow_rules_query+0xe7/0x390
-   kasan_check_range+0x105/0x1b0
-   __asan_memcpy+0x3c/0x60
-   gve_adminq_process_flow_rules_query+0xe7/0x390
-   gve_fr_rules_overflow_test+0xc9/0x430
-   ? __pfx_gve_fr_rules_overflow_test+0x10/0x10
-   ? __pfx___set_cpus_allowed_ptr+0x10/0x10
-   ? __pfx_read_tsc+0x10/0x10
-   ? ktime_get_ts64+0x192/0x250
-   kunit_try_run_case+0x1ca/0x4b0
-   ? __pfx_kunit_try_run_case+0x10/0x10
-   ? kthread_affine_node+0x247/0x360
-   ? __pfx_kthread_affine_node+0x10/0x10
-   ? __pfx_kunit_try_run_case+0x10/0x10
-   ? __pfx_kunit_generic_run_threadfn_adapter+0x10/0x10
-   kunit_generic_run_threadfn_adapter+0x7b/0xe0
-   kthread+0x36a/0x4f0
-   ? __pfx_kthread+0x10/0x10
-   ret_from_fork+0x34d/0x620
-   ? __pfx_ret_from_fork+0x10/0x10
-   ? __switch_to+0x22/0xde0
-   ? __pfx_kthread+0x10/0x10
-   ret_from_fork_asm+0x19/0x30
-   </TASK>
-
-  Allocated by task 33:
-   kasan_save_stack+0x33/0x60
-   kasan_save_track+0x14/0x30
-   __kasan_kmalloc+0x8f/0xa0
-   __kvmalloc_node_noprof+0x1e8/0x4e0
-   gve_fr_ctx_init+0x24d/0x920
-   gve_fr_rules_overflow_test+0xae/0x430
-   kunit_try_run_case+0x1ca/0x4b0
-   kunit_generic_run_threadfn_adapter+0x7b/0xe0
-   kthread+0x36a/0x4f0
-   ret_from_fork+0x34d/0x620
-   ret_from_fork_asm+0x19/0x30
-
-  The buggy address belongs to the object at ffff8880027ae000
-   which belongs to the cache kmalloc-4k of size 4096
-  The buggy address is located 0 bytes inside of
-   allocated 4048-byte region [ffff8880027ae000, ffff8880027aefd0)
-
-  The buggy address belongs to the physical page:
-  page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x27a8
-  head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-  flags: 0x4000000000000040(head|zone=1)
-  page_type: f5(slab)
-  raw: 4000000000000040 ffff888001042140 dead000000000122 0000000000000000
-  raw: 0000000000000000 0000000000040004 00000000f5000000 0000000000000000
-  head: 4000000000000040 ffff888001042140 dead000000000122 0000000000000000
-  head: 0000000000000000 0000000000040004 00000000f5000000 0000000000000000
-  head: 4000000000000003 ffffea000009ea01 00000000ffffffff 00000000ffffffff
-  head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
-  page dumped because: kasan: bad access detected
-
-  Memory state around the buggy address:
-   ffff8880027aee80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-   ffff8880027aef00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  >ffff8880027aef80: 00 00 00 00 00 00 00 00 00 00 fc fc fc fc fc fc
-                                                   ^
-   ffff8880027af000: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-   ffff8880027af080: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-
-Fixes: 57718b60df9b ("gve: Add flow steering adminq commands")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Fixes: 8039804cfa73 ("cxl/core: Add CXL EINJ debugfs files")
+Reviewed-by: Ben Cheatham <benjamin.cheatham@amd.com>
+Signed-off-by: Yongxin Yang <yangyongxin@kylinos.cn>
 ---
- drivers/net/ethernet/google/gve/gve_adminq.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+Link: https://lore.kernel.org/all/de14c4ef-e3d8-432f-9ce8-87c468d6d2ad@amd.com/
+Link: https://lore.kernel.org/all/7a22cc6a-deba-40e6-8033-97d1234420ba@amd.com/
+Link: https://lore.kernel.org/all/63e782a6-e33a-46ce-a455-5d207a60661f@amd.com/
+Link: https://lore.kernel.org/all/1a5ceda1-f039-4946-b8d7-2bc97ed48c00@amd.com/
 
-diff --git a/drivers/net/ethernet/google/gve/gve_adminq.c b/drivers/net/ethernet/google/gve/gve_adminq.c
-index 8b215fca9c1b63..02c1f398f6e395 100644
---- a/drivers/net/ethernet/google/gve/gve_adminq.c
-+++ b/drivers/net/ethernet/google/gve/gve_adminq.c
-@@ -1542,14 +1542,20 @@ static int gve_adminq_process_flow_rules_query(struct gve_priv *priv, u16 query_
+Changes in v7:
+- Drop the RCH mention from the third paragraph, as suggested by Ben.
+
+ drivers/acpi/apei/einj-cxl.c | 3 +++
+ drivers/cxl/core/port.c      | 7 +++++--
+ 2 files changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/acpi/apei/einj-cxl.c b/drivers/acpi/apei/einj-cxl.c
+index e70a416ec925..22a7eb4dc75e 100644
+--- a/drivers/acpi/apei/einj-cxl.c
++++ b/drivers/acpi/apei/einj-cxl.c
+@@ -30,6 +30,9 @@ int einj_cxl_available_error_type_show(struct seq_file *m, void *v)
+ 	int cxl_err, rc;
+ 	u32 available_error_type = 0;
+ 
++	if (!einj_cxl_is_initialized())
++		return -ENODEV;
++
+ 	rc = einj_get_available_error_type(&available_error_type, ACPI_EINJ_GET_ERROR_TYPE);
+ 	if (rc)
+ 		return rc;
+diff --git a/drivers/cxl/core/port.c b/drivers/cxl/core/port.c
+index 625e4aa427db..a949228de936 100644
+--- a/drivers/cxl/core/port.c
++++ b/drivers/cxl/core/port.c
+@@ -806,6 +806,9 @@ static int cxl_einj_inject(void *data, u64 type)
  {
- 	struct gve_flow_rules_cache *flow_rules_cache = &priv->flow_rules_cache;
- 	u32 num_queried_rules, total_memory_len, rule_info_len;
-+	u32 rule_info_max_len;
- 	void *rule_info;
+ 	struct cxl_dport *dport = data;
  
- 	total_memory_len = be32_to_cpu(descriptor->total_length);
- 	num_queried_rules = be32_to_cpu(descriptor->num_queried_rules);
- 	rule_info = (void *)(descriptor + 1);
-+	rule_info_max_len = GVE_ADMINQ_BUFFER_SIZE - sizeof(*descriptor);
++	if (!einj_cxl_is_initialized())
++		return -ENODEV;
++
+ 	if (dport->rch)
+ 		return einj_cxl_inject_rch_error(dport->rcrb.base, type);
  
- 	switch (query_opcode) {
- 	case GVE_FLOW_RULE_QUERY_RULES:
-+		if (num_queried_rules >
-+		    rule_info_max_len / sizeof(*flow_rules_cache->rules_cache))
-+			return -EINVAL;
-+
- 		rule_info_len = num_queried_rules * sizeof(*flow_rules_cache->rules_cache);
- 		if (sizeof(*descriptor) + rule_info_len != total_memory_len) {
- 			dev_err(&priv->dev->dev, "flow rules query is out of memory.\n");
-@@ -1560,6 +1566,10 @@ static int gve_adminq_process_flow_rules_query(struct gve_priv *priv, u16 query_
- 		flow_rules_cache->rules_cache_num = num_queried_rules;
- 		break;
- 	case GVE_FLOW_RULE_QUERY_IDS:
-+		if (num_queried_rules >
-+		    rule_info_max_len / sizeof(*flow_rules_cache->rule_ids_cache))
-+			return -EINVAL;
-+
- 		rule_info_len = num_queried_rules * sizeof(*flow_rules_cache->rule_ids_cache);
- 		if (sizeof(*descriptor) + rule_info_len != total_memory_len) {
- 			dev_err(&priv->dev->dev, "flow rule ids query is out of memory.\n");
-
-base-commit: 787268686c64be60023743b527645a907e38ccca
+@@ -819,7 +822,7 @@ static void cxl_debugfs_create_dport_dir(struct cxl_dport *dport)
+ 	struct cxl_port *parent = parent_port_of(dport->port);
+ 	struct dentry *dir;
+ 
+-	if (!einj_cxl_is_initialized())
++	if (!IS_ENABLED(CONFIG_ACPI_APEI_EINJ_CXL))
+ 		return;
+ 
+ 	/*
+@@ -2515,7 +2518,7 @@ static __init int cxl_core_init(void)
+ 
+ 	cxl_debugfs = debugfs_create_dir("cxl", NULL);
+ 
+-	if (einj_cxl_is_initialized())
++	if (IS_ENABLED(CONFIG_ACPI_APEI_EINJ_CXL))
+ 		debugfs_create_file("einj_types", 0400, cxl_debugfs, NULL,
+ 				    &einj_cxl_available_error_type_fops);
+ 
 -- 
-2.43.0
+2.25.1
 
