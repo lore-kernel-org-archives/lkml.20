@@ -1,64 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793803883;
-	b=wxBARkWG7nSDk6j0Xs24OI9dAGnxERmGeaf2fcxKAv1Egp7u4OGSwTC9DAMvCZlNcUNV
-	 jmtD09RO9vpZQJ5uL75l+LRezkB5T4qaA3WXn/AbP7146j8oe6GGNYyp/oPgqrL8/zs1Z
-	 bXOfZbnYRPjIAi45nxLd+sXhr8beucEhQICSFupXV1Zd3hfqVKvxKOP1XJp3bB4WOND8G
-	 P7ZEmaeA9TQzZhGQA2MDidUfTnlp1LxQUTojVKXYjkIruLh8pPYYsXsq+7gVZEXI0vOB5
-	 BSPX08kWBc+m5JiNHal8fENmRgnDxuEzxRwGAfA4spQVIUkEUXsEiBhCSd629JKAZLg==
+	t=1793803873;
+	b=u+yuofNmRNJza4xVtacaIYRmxqEB0DWqxrjpi6XoJYqP/n5MOS4yPHMY0Gmvsl+Huf3I
+	 EYeCpSRISG1H4yY3E3AXHTV82wIT+qXrctg+t8VTHKQBwRP8oGjz9BNdHZxy+ElLdc77C
+	 bD8H3fVvfzp5bRcKJLSV5+T1+nfzK3TNAbeP9bo4rf8eVatdxDD885Tk5g4jq7FCPwWrJ
+	 e7mYOdBDQRtJw991oCEsiKrgqrqbtf5pN43Y6XZjl1cSU701zdPN5APswFFHpVLUHhsGU
+	 qXOrAkiz75z9NAtOTPo10uwvxYnte3JZNzT6FdGf6owefMKI8cfDCx40s5p0OvB8T4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793803883;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793803873;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=G02WW4a+pnsj4Xew0EG1BLUmC46o+u7VzGgK76hwDrM=;
-	b=kMRxB4UIxi9vtKb+JilH9WtrSXXFeaMRcl0FXkvZbjk1ZOdd1kXOotasvpJDj4p/b8YW
-	 s5fDWEuh6G8bAs4kY5BrxxnCsV+kt5WL3K9sjdXx81gIp6FbaxTQEi9O1huXHAhvvklmh
-	 guAP0rfx18kn1jSV4fpfkOWxS5EbgoGfDfjaJyyA5g9CbWZy5Lao2gAZRa1gsnstglVn7
-	 4/XX8e5nYt0LtJTwtSleSg5/338YQYAD8nkJL0YKaRFMmBXB1jSQ/O30oCElrHvu/AiOu
-	 gxWsBptESX9xhk74tDYO1AHXbOjLYZXVy5s5mYU4tcumB+qVn8eOfv/b+a8GKsuVXJg==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=guZZOTMvdWvpwXd98lRwAqTeba+/rqzZZrUH8hxfm+c=;
+	b=iv/NA37UV8K4BIoL1xJqCgL/Rl+ksph4gtfp7wNb4oaVMjOfhNBe+N2Uyc93zzaq7YU4
+	 +aqAa984lHTvgtSCbMPVQF8qph8xTgKdkrkASaaIR8HkVD+DJB3+caHhah25KnR7xylHF
+	 Qaon0wUoQuk4t1rlf/Tfyu7qv87y2QkrJIck5Vcx+nAdj55mifPfN4kTPvELAvCAx3r2/
+	 oC/1LSwSv1keO0aIdpthbi/JO3cNVAf/I/Gvf0XHqOwTLKkHmcRmWFi/Nwciig+kWkOgN
+	 pqNk21gptSD9jyElyonFdVg9lwvmoGC4EuzzLwuOVjztaLpM7nTetLQHinRltORs1xw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y54fUfDF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="BDCxHm8/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEAD6606A31B;
-	Wed,  4 Nov 2026 14:51:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AB1F606A32F;
+	Wed,  4 Nov 2026 14:51:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y54fUfDF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 860061F000C1;
-	Wed,  4 Nov 2026 14:51:21 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BDCxHm8/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB9261F000C1;
+	Wed,  4 Nov 2026 14:51:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793803882;
-	bh=G02WW4a+pnsj4Xew0EG1BLUmC46o+u7VzGgK76hwDrM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Y54fUfDFAQrOERrbEmmDGyONtEjxV7NTUFGA4jt0noaGH1QxTVGPopcQ5mZ8qDWUK
-	 By1vSyiX2o7SFTzrey5CiXT3eZvr2jSfz9Gki3PrdwZOBpi+Q1BAgMNWrBv8IGzio3
-	 cN441jq2bIQ9zp7H47Jr3vVCExi9HFu1mJM0HXs6IDibH3KpyAdMMV19Qx135qk2zi
-	 qozlbpiYZiZO1NiAmAo/RPonKUo2fPR+3nv82kaePMtoNin11it4cIfs4efSU5fXYd
-	 BQdYu/Y0fBxfp7LyFZmt1zZzxpxqKMfTaYlyJANnBugtho8oE3zOJxmDNQPlDoIKyc
-	 BG5dIrKL4OQfA==
-From: Sasha Levin <sashal@kernel.org>
-To: Tao Cui <cui.tao@linux.dev>
-Cc: Johannes Weiner <hannes@cmpxchg.org>,
-	Yosry Ahmed <yosry@kernel.org>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Tejun Heo <tj@kernel.org>,
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-mm@kvack.org,
-	cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
+	s=k20260515; t=1793803873;
+	bh=guZZOTMvdWvpwXd98lRwAqTeba+/rqzZZrUH8hxfm+c=;
+	h=From:To:Cc:Subject:Date;
+	b=BDCxHm8/mkVyxxh6Vm4Uj0VIEBolsQ/hKQwU+PTdDvG5jGVowl9pF7hvNUB1M4WJG
+	 cqnS5hBBkd0VQ3/xWpQPDwdVF6toJtClef/wZUHSDhO5evcNfhCEUL8/pXJnyRO3QL
+	 DOR8jWMR9qYXw5QidGKug6FW6fNxpv1sXj0yBFr9J0J7grPANiGH4G1ya47wAntbl+
+	 gfjnINHJDMsNr7lDi2ESQBeG2rTzeqrA1X8+0ZVQvrvSP31iOO0TQLA5hHimxKj/UI
+	 nbG9xi/hCFuPa6EvZ6U1Caxub6OJTDz812XG2P26UHWvgVt/eL7cOuRtxsqUefXVfX
+	 v0XLyOkGflzrA==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-pwm@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selftests/cgroup: test_zswap: use the total RAM in bytes
-Date: Wed,  4 Nov 2026 09:51:20 -0500
-Message-ID: <20261104145120.3806026-1-sashal@kernel.org>
+Subject: [PATCH] pwm: Remove orphan HiSilicon hibvt driver
+Date: Wed,  4 Nov 2026 08:51:02 -0600
+Message-ID: <20261104145104.950566-1-robh@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <0fd8f5aa-2636-4171-9300-3e04ab98d393@linux.dev>
-References: <20261103163919.641249-1-sashal@kernel.org> <0fd8f5aa-2636-4171-9300-3e04ab98d393@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,20 +60,374 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 09:22:31PM +0800, Tao Cui wrote:
-> One small thing: could you add a Fixes tag? The issue seems to date
-> back to a549f9f31561a ("selftests: cgroup: add test_zswap with no kmem
-> bypass test"), which introduced the sysinfo block, and 6f615890b848
-> later reshaped it into the current GB(4) comparison with the warning.
+Remove the HiSilicon hibvt PWM driver as none of the SoCs exist
+upstream. The hi3516cv300 only has pwm, clock and ethernet drivers.
 
-Yes, the original check against 5000000000 could never be true on
-32-bit either, and it already used totalram as bytes:
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+---
+ .../devicetree/bindings/pwm/pwm-hibvt.txt     |  23 --
+ drivers/pwm/Kconfig                           |  10 -
+ drivers/pwm/Makefile                          |   1 -
+ drivers/pwm/pwm-hibvt.c                       | 285 ------------------
+ 4 files changed, 319 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/pwm/pwm-hibvt.txt
+ delete mode 100644 drivers/pwm/pwm-hibvt.c
 
-Fixes: a549f9f31561 ("selftests: cgroup: add test_zswap with no kmem bypass test")
+diff --git a/Documentation/devicetree/bindings/pwm/pwm-hibvt.txt b/Documentation/devicetree/bindings/pwm/pwm-hibvt.txt
+deleted file mode 100644
+index 54dbc2a0e648..000000000000
+--- a/Documentation/devicetree/bindings/pwm/pwm-hibvt.txt
++++ /dev/null
+@@ -1,23 +0,0 @@
+-Hisilicon PWM controller
+-
+-Required properties:
+--compatible: should contain one SoC specific compatible string
+- The SoC specific strings supported including:
+-	"hisilicon,hi3516cv300-pwm"
+-	"hisilicon,hi3519v100-pwm"
+-	"hisilicon,hi3559v100-shub-pwm"
+-	"hisilicon,hi3559v100-pwm
+-- reg: physical base address and length of the controller's registers.
+-- clocks: phandle and clock specifier of the PWM reference clock.
+-- resets: phandle and reset specifier for the PWM controller reset.
+-- #pwm-cells: Should be 3. See pwm.yaml in this directory for a description of
+-  the cells format.
+-
+-Example:
+-	pwm: pwm@12130000 {
+-		compatible = "hisilicon,hi3516cv300-pwm";
+-		reg = <0x12130000 0x10000>;
+-		clocks = <&crg_ctrl HI3516CV300_PWM_CLK>;
+-		resets = <&crg_ctrl 0x38 0>;
+-		#pwm-cells = <3>;
+-	};
+diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
+index 729776086879..aacd800687e7 100644
+--- a/drivers/pwm/Kconfig
++++ b/drivers/pwm/Kconfig
+@@ -282,16 +282,6 @@ config PWM_GPIO
+ 	  To compile this driver as a module, choose M here: the module
+ 	  will be called pwm-gpio.
+ 
+-config PWM_HIBVT
+-	tristate "HiSilicon BVT PWM support"
+-	depends on ARCH_HISI || COMPILE_TEST
+-	depends on HAS_IOMEM
+-	help
+-	  Generic PWM framework driver for HiSilicon BVT SoCs.
+-
+-	  To compile this driver as a module, choose M here: the module
+-	  will be called pwm-hibvt.
+-
+ config PWM_IMG
+ 	tristate "Imagination Technologies PWM driver"
+ 	depends on HAS_IOMEM
+diff --git a/drivers/pwm/Makefile b/drivers/pwm/Makefile
+index 5630a521a7cf..7e2c34cc4f6a 100644
+--- a/drivers/pwm/Makefile
++++ b/drivers/pwm/Makefile
+@@ -23,7 +23,6 @@ obj-$(CONFIG_PWM_DWC)		+= pwm-dwc.o
+ obj-$(CONFIG_PWM_EP93XX)	+= pwm-ep93xx.o
+ obj-$(CONFIG_PWM_FSL_FTM)	+= pwm-fsl-ftm.o
+ obj-$(CONFIG_PWM_GPIO)		+= pwm-gpio.o
+-obj-$(CONFIG_PWM_HIBVT)		+= pwm-hibvt.o
+ obj-$(CONFIG_PWM_IMG)		+= pwm-img.o
+ obj-$(CONFIG_PWM_IMX1)		+= pwm-imx1.o
+ obj-$(CONFIG_PWM_IMX27)		+= pwm-imx27.o
+diff --git a/drivers/pwm/pwm-hibvt.c b/drivers/pwm/pwm-hibvt.c
+deleted file mode 100644
+index 29ad8d0b5536..000000000000
+--- a/drivers/pwm/pwm-hibvt.c
++++ /dev/null
+@@ -1,285 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-or-later
+-/*
+- * PWM Controller Driver for HiSilicon BVT SoCs
+- *
+- * Copyright (c) 2016 HiSilicon Technologies Co., Ltd.
+- */
+-
+-#include <linux/bitops.h>
+-#include <linux/clk.h>
+-#include <linux/delay.h>
+-#include <linux/io.h>
+-#include <linux/module.h>
+-#include <linux/of.h>
+-#include <linux/platform_device.h>
+-#include <linux/pwm.h>
+-#include <linux/reset.h>
+-
+-#define PWM_CFG0_ADDR(x)    (((x) * 0x20) + 0x0)
+-#define PWM_CFG1_ADDR(x)    (((x) * 0x20) + 0x4)
+-#define PWM_CFG2_ADDR(x)    (((x) * 0x20) + 0x8)
+-#define PWM_CTRL_ADDR(x)    (((x) * 0x20) + 0xC)
+-
+-#define PWM_ENABLE_SHIFT    0
+-#define PWM_ENABLE_MASK     BIT(0)
+-
+-#define PWM_POLARITY_SHIFT  1
+-#define PWM_POLARITY_MASK   BIT(1)
+-
+-#define PWM_KEEP_SHIFT      2
+-#define PWM_KEEP_MASK       BIT(2)
+-
+-#define PWM_PERIOD_MASK     GENMASK(31, 0)
+-#define PWM_DUTY_MASK       GENMASK(31, 0)
+-
+-struct hibvt_pwm_chip {
+-	struct clk *clk;
+-	void __iomem *base;
+-	struct reset_control *rstc;
+-	const struct hibvt_pwm_soc *soc;
+-};
+-
+-struct hibvt_pwm_soc {
+-	u32 num_pwms;
+-	bool quirk_force_enable;
+-};
+-
+-static const struct hibvt_pwm_soc hi3516cv300_soc_info = {
+-	.num_pwms = 4,
+-};
+-
+-static const struct hibvt_pwm_soc hi3519v100_soc_info = {
+-	.num_pwms = 8,
+-};
+-
+-static const struct hibvt_pwm_soc hi3559v100_shub_soc_info = {
+-	.num_pwms = 8,
+-	.quirk_force_enable = true,
+-};
+-
+-static const struct hibvt_pwm_soc hi3559v100_soc_info = {
+-	.num_pwms = 2,
+-	.quirk_force_enable = true,
+-};
+-
+-static inline struct hibvt_pwm_chip *to_hibvt_pwm_chip(struct pwm_chip *chip)
+-{
+-	return pwmchip_get_drvdata(chip);
+-}
+-
+-static void hibvt_pwm_set_bits(void __iomem *base, u32 offset,
+-					u32 mask, u32 data)
+-{
+-	void __iomem *address = base + offset;
+-	u32 value;
+-
+-	value = readl(address);
+-	value &= ~mask;
+-	value |= (data & mask);
+-	writel(value, address);
+-}
+-
+-static void hibvt_pwm_enable(struct pwm_chip *chip, struct pwm_device *pwm)
+-{
+-	struct hibvt_pwm_chip *hi_pwm_chip = to_hibvt_pwm_chip(chip);
+-
+-	hibvt_pwm_set_bits(hi_pwm_chip->base, PWM_CTRL_ADDR(pwm->hwpwm),
+-			PWM_ENABLE_MASK, 0x1);
+-}
+-
+-static void hibvt_pwm_disable(struct pwm_chip *chip, struct pwm_device *pwm)
+-{
+-	struct hibvt_pwm_chip *hi_pwm_chip = to_hibvt_pwm_chip(chip);
+-
+-	hibvt_pwm_set_bits(hi_pwm_chip->base, PWM_CTRL_ADDR(pwm->hwpwm),
+-			PWM_ENABLE_MASK, 0x0);
+-}
+-
+-static void hibvt_pwm_config(struct pwm_chip *chip, struct pwm_device *pwm,
+-					int duty_cycle_ns, int period_ns)
+-{
+-	struct hibvt_pwm_chip *hi_pwm_chip = to_hibvt_pwm_chip(chip);
+-	u32 freq, period, duty;
+-
+-	freq = div_u64(clk_get_rate(hi_pwm_chip->clk), 1000000);
+-
+-	period = div_u64(freq * period_ns, 1000);
+-	duty = div_u64(period * duty_cycle_ns, period_ns);
+-
+-	hibvt_pwm_set_bits(hi_pwm_chip->base, PWM_CFG0_ADDR(pwm->hwpwm),
+-			PWM_PERIOD_MASK, period);
+-
+-	hibvt_pwm_set_bits(hi_pwm_chip->base, PWM_CFG1_ADDR(pwm->hwpwm),
+-			PWM_DUTY_MASK, duty);
+-}
+-
+-static void hibvt_pwm_set_polarity(struct pwm_chip *chip,
+-					struct pwm_device *pwm,
+-					enum pwm_polarity polarity)
+-{
+-	struct hibvt_pwm_chip *hi_pwm_chip = to_hibvt_pwm_chip(chip);
+-
+-	if (polarity == PWM_POLARITY_INVERSED)
+-		hibvt_pwm_set_bits(hi_pwm_chip->base, PWM_CTRL_ADDR(pwm->hwpwm),
+-				PWM_POLARITY_MASK, (0x1 << PWM_POLARITY_SHIFT));
+-	else
+-		hibvt_pwm_set_bits(hi_pwm_chip->base, PWM_CTRL_ADDR(pwm->hwpwm),
+-				PWM_POLARITY_MASK, (0x0 << PWM_POLARITY_SHIFT));
+-}
+-
+-static int hibvt_pwm_get_state(struct pwm_chip *chip, struct pwm_device *pwm,
+-			       struct pwm_state *state)
+-{
+-	struct hibvt_pwm_chip *hi_pwm_chip = to_hibvt_pwm_chip(chip);
+-	void __iomem *base;
+-	u32 freq, value;
+-
+-	freq = div_u64(clk_get_rate(hi_pwm_chip->clk), 1000000);
+-	base = hi_pwm_chip->base;
+-
+-	value = readl(base + PWM_CFG0_ADDR(pwm->hwpwm));
+-	state->period = div_u64(value * 1000, freq);
+-
+-	value = readl(base + PWM_CFG1_ADDR(pwm->hwpwm));
+-	state->duty_cycle = div_u64(value * 1000, freq);
+-
+-	value = readl(base + PWM_CTRL_ADDR(pwm->hwpwm));
+-	state->enabled = (PWM_ENABLE_MASK & value);
+-	state->polarity = (PWM_POLARITY_MASK & value) ? PWM_POLARITY_INVERSED : PWM_POLARITY_NORMAL;
+-
+-	return 0;
+-}
+-
+-static int hibvt_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
+-			   const struct pwm_state *state)
+-{
+-	struct hibvt_pwm_chip *hi_pwm_chip = to_hibvt_pwm_chip(chip);
+-
+-	if (state->polarity != pwm->state.polarity)
+-		hibvt_pwm_set_polarity(chip, pwm, state->polarity);
+-
+-	if (state->period != pwm->state.period ||
+-	    state->duty_cycle != pwm->state.duty_cycle) {
+-		hibvt_pwm_config(chip, pwm, state->duty_cycle, state->period);
+-
+-		/*
+-		 * Some implementations require the PWM to be enabled twice
+-		 * each time the duty cycle is refreshed.
+-		 */
+-		if (hi_pwm_chip->soc->quirk_force_enable && state->enabled)
+-			hibvt_pwm_enable(chip, pwm);
+-	}
+-
+-	if (state->enabled != pwm->state.enabled) {
+-		if (state->enabled)
+-			hibvt_pwm_enable(chip, pwm);
+-		else
+-			hibvt_pwm_disable(chip, pwm);
+-	}
+-
+-	return 0;
+-}
+-
+-static const struct pwm_ops hibvt_pwm_ops = {
+-	.get_state = hibvt_pwm_get_state,
+-	.apply = hibvt_pwm_apply,
+-
+-};
+-
+-static int hibvt_pwm_probe(struct platform_device *pdev)
+-{
+-	const struct hibvt_pwm_soc *soc =
+-				of_device_get_match_data(&pdev->dev);
+-	struct pwm_chip *chip;
+-	struct hibvt_pwm_chip *hi_pwm_chip;
+-	int ret, i;
+-
+-	chip = devm_pwmchip_alloc(&pdev->dev, soc->num_pwms, sizeof(*hi_pwm_chip));
+-	if (IS_ERR(chip))
+-		return PTR_ERR(chip);
+-	hi_pwm_chip = to_hibvt_pwm_chip(chip);
+-
+-	hi_pwm_chip->clk = devm_clk_get(&pdev->dev, NULL);
+-	if (IS_ERR(hi_pwm_chip->clk)) {
+-		dev_err(&pdev->dev, "getting clock failed with %ld\n",
+-				PTR_ERR(hi_pwm_chip->clk));
+-		return PTR_ERR(hi_pwm_chip->clk);
+-	}
+-
+-	chip->ops = &hibvt_pwm_ops;
+-	hi_pwm_chip->soc = soc;
+-
+-	hi_pwm_chip->base = devm_platform_ioremap_resource(pdev, 0);
+-	if (IS_ERR(hi_pwm_chip->base))
+-		return PTR_ERR(hi_pwm_chip->base);
+-
+-	ret = clk_prepare_enable(hi_pwm_chip->clk);
+-	if (ret < 0)
+-		return ret;
+-
+-	hi_pwm_chip->rstc = devm_reset_control_get_exclusive(&pdev->dev, NULL);
+-	if (IS_ERR(hi_pwm_chip->rstc)) {
+-		clk_disable_unprepare(hi_pwm_chip->clk);
+-		return PTR_ERR(hi_pwm_chip->rstc);
+-	}
+-
+-	reset_control_assert(hi_pwm_chip->rstc);
+-	msleep(30);
+-	reset_control_deassert(hi_pwm_chip->rstc);
+-
+-	ret = pwmchip_add(chip);
+-	if (ret < 0) {
+-		clk_disable_unprepare(hi_pwm_chip->clk);
+-		return ret;
+-	}
+-
+-	for (i = 0; i < chip->npwm; i++) {
+-		hibvt_pwm_set_bits(hi_pwm_chip->base, PWM_CTRL_ADDR(i),
+-				PWM_KEEP_MASK, (0x1 << PWM_KEEP_SHIFT));
+-	}
+-
+-	platform_set_drvdata(pdev, chip);
+-
+-	return 0;
+-}
+-
+-static void hibvt_pwm_remove(struct platform_device *pdev)
+-{
+-	struct pwm_chip *chip = platform_get_drvdata(pdev);
+-	struct hibvt_pwm_chip *hi_pwm_chip = to_hibvt_pwm_chip(chip);
+-
+-	pwmchip_remove(chip);
+-
+-	reset_control_assert(hi_pwm_chip->rstc);
+-	msleep(30);
+-	reset_control_deassert(hi_pwm_chip->rstc);
+-
+-	clk_disable_unprepare(hi_pwm_chip->clk);
+-}
+-
+-static const struct of_device_id hibvt_pwm_of_match[] = {
+-	{ .compatible = "hisilicon,hi3516cv300-pwm",
+-	  .data = &hi3516cv300_soc_info },
+-	{ .compatible = "hisilicon,hi3519v100-pwm",
+-	  .data = &hi3519v100_soc_info },
+-	{ .compatible = "hisilicon,hi3559v100-shub-pwm",
+-	  .data = &hi3559v100_shub_soc_info },
+-	{ .compatible = "hisilicon,hi3559v100-pwm",
+-	  .data = &hi3559v100_soc_info },
+-	{ }
+-};
+-MODULE_DEVICE_TABLE(of, hibvt_pwm_of_match);
+-
+-static struct platform_driver hibvt_pwm_driver = {
+-	.driver = {
+-		.name = "hibvt-pwm",
+-		.of_match_table = hibvt_pwm_of_match,
+-	},
+-	.probe = hibvt_pwm_probe,
+-	.remove = hibvt_pwm_remove,
+-};
+-module_platform_driver(hibvt_pwm_driver);
+-
+-MODULE_AUTHOR("Jian Yuan");
+-MODULE_DESCRIPTION("HiSilicon BVT SoCs PWM driver");
+-MODULE_LICENSE("GPL");
+-- 
+2.53.0
 
---
-Thanks,
-Sasha
