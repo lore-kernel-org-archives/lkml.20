@@ -1,80 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793820315;
-	b=Sen6Wezikl1jR3taGw1rYx4/R44M7CLfW8MN5mko1TawENQRuncMYxPjQa/j/niajMow
-	 gKws8zB1XM3TYX+3EN5TBOFKb9OqMG9gOM79wwHs0ocmcjqDMW9SkrP3SuZlZETe8lDRl
-	 UvZZDoXbSsF6Vr4D60OVXdU5ZMbL0skRXWq3d6BmzQ6T4kMSodF3lmvX4yTjBc1esGaN0
-	 InSCub8Hg0+ePwEQSipaW3X+/17EAnzjpJt6eIfvTPm9axoYL9VfOT1/VEzSyinqE3l0s
-	 VnKrRIFGtzEgU8pT3QatTE1PEb70xczIMyb/ZZOmCw+cRRA5z5JFZd6mqdBViAGLYFg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793820315;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=CxaIAJs6w/X8Iq5pOusNCO7dYPXXz9Eag9FYVsxJWoY=;
-	b=qsUwPtmaRX38o3sJ5Mq2ubP92FQcDER3n+k1NYjltEc4a1TkYkkqMA03/7NHYls6VBDB
-	 czNBqpzxF4cLUwXDzT0E1xH9J0Vo4LXc83Sxd2J3UXxXFHeM0RSsL0B0dn0VucjtaoLO1
-	 0kxL4uE819AbZK1tBYQKlLcBGiKjptEU5brAAVt3WsFD/lP7+f2BIb0BOgJ59q7GImZmf
-	 lCdQw6MoVtoFBV5L/vyZo0nu2kbsYWE4P0Uu1HbO0e28k9dw4sY7XroI10E2HOZ95aIH4
-	 a9S6jgciX0ihswpYQpTZ07HM6gurCLEjuFGwOrlC8oXQDTKIPRbHgZ9ENBXRDSCi2rQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AbbZJMeF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16F6C60807AE;
-	Wed,  4 Nov 2026 19:25:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AbbZJMeF
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793820314;
-	b=ehNBLN1w/3L/hGNmcMbT6C8OkOlvr0ZaVmGzwtShaziPjphoOEs1v2YM/Bt6xMIT8fNS
-	 I+HpYtU86+wFawj6cBBjIr4oWV9f5sOSo0aLNiFWWTKXPnTlpTeSs+cms1KHx0nG7Y0hV
-	 HNRKLzhJw8CYBtm5bnyRuqxfqIv5u+sF90EBx1blzyB0WQA2dlkRUx//jrxtXL7UOEcZ+
-	 BKsVfCsCa/s4NTBegWNjRffywxbof8o5cS30ezcD072h5uTVKb6aqWPCTaAluwV7bRKSv
-	 8LTYN5c+JtLISGnNk4ZIpfjy5n3jsDMM3Lppp3HI2DUKajWeV7T85d72zl6/2vhrAcA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793820314;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=CxaIAJs6w/X8Iq5pOusNCO7dYPXXz9Eag9FYVsxJWoY=;
-	b=xfSgj17ES72g6TPezoKWowioEeu6jz8G2LxMqBzci5cSktW/baQbD4mkDigvrYOUcJwB
-	 0Mek55z+U6TD9Y3HCXxG6Stmt3wYEBu9Hplecw/2jKX0c2SrwzMwNQe3b9/oMJLgfeUs2
-	 wVzsiutv54KoSbIVpy1pZw8F3x6q2XrDjQdfXTt1tPvmhPM1WmOqCNk8GNtyfKgH2sHLu
-	 urNuBFaixxBPwY0JN1hhU7BGqJ0WcHL7lYLRKVKHR2tAcbWDZ8KdtAUTy2h465colRYV3
-	 SRU4cP8BTiN2/YXN3eiCcXGMV1lSPhFIVza4TC5Se7ewJFvk55IybTYxleZp+3xSXLA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.52
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793820310;
+	b=SKCdr8ncgC3iHcu/jTvQkkJm2xO4g3uMOSSuFceCzAEfzWcIENRAYvYFwSavzeIucJPe
+	 clNIbAmACTttltyIbE06fry71U/1ENSb1kp217ZVoHisLzjNOtcNnruvl4AMK9RDaeTQW
+	 3HiwQViFiT4lp5s4Asno+bAtsynDJ0+5+ZMth8sFafrqkiaAZpZG/5IuT6UKlrakxAX2t
+	 eUWjGYUEBRVhXSK9AfHbsZnC2FtS44SwKZpqoigEIdqjOlJaBbEgQfc555VxO2SSVQuhn
+	 x2N42Oh5jLrQSJ0hZVoWuRZ0fpPCPK6E7Ei7mjgJlsVCvGHH+IVxq/ZpMgbGNEwZ1KA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793820310;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=eGQwnQ2neaJQ1jlowOf5tkGQBWxndnEwh30xNQGSIkQ=;
+	b=srZ3I9uw3dKXnJk1YPzpnFAZhRCq9rXlKS//pAWB14JsTbAWipRvxARWsbRkG8hFhSZ7
+	 1YdR5odgfEqPtzaQl3qvodSbnS2PIoqI7oelIlfD3E9b9TQKZSzfyEgrnSqsZXUzHVawh
+	 PD9Y9KPwI0sa5lOFimlQ9nbFbuDQ8CZDPnqUQsqgcyIo9pCv+ukeVB+EBTSwMUDQZzqjW
+	 rMWMgD+RVlxQSfcAFfabENo94Bt1qQFIfuyUh7/9jJNj4ogig+/2JZGRRrX7Ai7emy781
+	 cVuB0+0i52sAk7zoRDDlKe34mdgTqcRdQWNGc2baBR7OLAGg7ehTwljfcYIAaDk3xXw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xlkBuxiW;
+	arc=none smtp.remote-ip=209.85.210.52
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E23781F00A2A;
-	Wed,  4 Nov 2026 19:25:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793820314;
-	bh=CxaIAJs6w/X8Iq5pOusNCO7dYPXXz9Eag9FYVsxJWoY=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=AbbZJMeFc4PHrh47U/yNvbWaigx7U6OP/k1jXwX7BlzS+ZZdxDrylVufmFtoeGbvz
-	 XQ/QgQU2sMWWudrkw0KAh8qaaGlbm3KO8Nxw9spaZYhxEFw+mYUW58d4fqqpZZVftc
-	 M7/xSEDew1wmVwkNXD7NcNQcIXGQHcWNLoCMRJPm8Jj1YPU5jZkIu+JmTxn0rkOD6B
-	 cEwUr7AoUB7iwZDoI75qQAHDz/XF7agTHTf0rdLPp/3DzPCCb6ZA0ZQaUu3piHA+kb
-	 cdnj+/7i47glpMDyZKpgHe8Le36hnNJRVUPwLcgt7dL15tSIjA5J0aOl6Unm5cMneF
-	 zO8dPIg2TZikw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 3446B46F5E;
-	Wed,  4 Nov 2026 19:25:06 +0000 (UTC)
-From: Mark Korenberg via B4 Relay <devnull+socketpair.gmail.com@kernel.org>
-Subject: [PATCH 0/2] ublk: don't let one stuck device block control of all
- ublk devices
-Date: Thu, 05 Nov 2026 00:25:04 +0500
-Message-Id: <20261105-ublk-del-gendisk-hang-v1-0-913a91a4314d@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46344607F2B4
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:25:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46344607F2B4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xlkBuxiW
+Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-84a248254f4so621267a34.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:25:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793820309; x=1794425109; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eGQwnQ2neaJQ1jlowOf5tkGQBWxndnEwh30xNQGSIkQ=;
+        b=xlkBuxiWK9mHFZ6iN9g5y0fn16X1yn8UtEixLRdZoFQcpS9PdMwLdnlMrc4WbhdhAk
+         4SF8uJyzjT/KxvKs9sPQi70xklj1OFYTi9nUPICSitilZ+yxHJ50ss9xnE+zczj3FAJi
+         J68fk/5fDuCYRUhQGTYbx+rrKWWtyHiczRhwTTbuCPgH2qnG1rmrjDb04FqMblkYZ1mc
+         vicUzM5h3sq06bE8GkOhNKzef9nYi1s+jJTe/76FuZLPTctqdFP+KswhdQJuyBiyYjip
+         KaREhMZd0iFR64nR/VgRuNUYXFNoQ3HqY3iAcnB3p5yGnyge/AdHM7M/JCQBb8e8vQ01
+         QTVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793820309; x=1794425109;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eGQwnQ2neaJQ1jlowOf5tkGQBWxndnEwh30xNQGSIkQ=;
+        b=q11kCkg1YBizrHSCjSdhyWOG6lJ9ucPDCj6Ai84fVZ5p7Ip7Rx+eANvYzdX83Ji9yo
+         NXMuZx9Fo0y4lmal10Rs/7ycgFVaJ6Wo4q3uTC4ambQZUk4W9MxsDyr7E3xuc78Wjrmt
+         ZshK/8DfwXHgHkoL8BT1wZi2NcedQzR4xgMIrqG8l8IDhTm2YjsiYf8ebGCuFKIGGZZY
+         uOvOt+7aRP1MwQshxkH1MYjFWwQJ26u/YH2ogpWGTyG7M2gE03pCis6sDUhmZba03V1O
+         FspF2kv3l9on3lySnII6iZew3c+lakW6fIZWlKPZ/gDsZe2Ol2Yhx33CQuJY5FjsN04I
+         FsjA==
+X-Forwarded-Encrypted: i=1; AKwUvByDK75wyDggcWg5DP3ZIY1AhliAjblkDB2rngCJh/ls6kpSez7sfb1ZRB5l19eTmJs4o7XMC4hZtpF5Vg0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+NZ2oCXQfFmx+Va+PpElgBAzJjaX/Mi4DO2qZXIk1vzLC+hE8N
+	5B07bGn3xCNywzJ658AbOGvV9oCZwqExkP/xZ5rkOFM6ri2nLTrs+NRwakrj0R78
+X-Gm-Gg: AYBFou15239vAKlcWqeV6GsgbPUcaJ2zXmpsOLi3aEhCoMaZhTy2RAP/Xik7eE26jMW
+	a+yVo/ORGpaSzqqup0KTc8EnP9ySH0Sz7KGRDJRhP40zQs5LNXSJ0qJaOhvOKE8y5cPo4teks5D
+	ZVVvFj7TQ5ONxF75d18be3MXapM5bFx/YNvFup9OoOqTwea5uzsapL2ww1KOJre0SqDJKLZ1mou
+	yGINm5oZFKnqItxKNDMBPw0BXxCcCIw97sd18mA1UrDx1vf4keNuOFzZX9T1W/QJoKt5jU01A2L
+	yNfZwracQAS2IbyhtAkcqnRHcVqwTIwJyX/GH6h7+Jgle8tn8Zd66L8GfAeXmRVzBTs1hNspmjg
+	qJDWTtdj9PyFQvHITAZNB2SSIyWjuGFvu7trwKSXUdMJlDEQYwY/rArcTYbj7y1dsTP2qND7Q0o
+	cXZNT4PmY/jullqedPH8TlbmlTY3AtTwjmLkhGuAPmPJm1Ecy2JADuwLQ/W8rNTlM8LsB/MFfyR
+	mxlx/jmxSw83tLoZiAxujjYstcHKW9JqsCyQ1B+FwBjc0sD7DduTDKyDfwyWrPYflJtchOV8gEL
+	wmj0oN0VPYaDzIhWaX7a8+h2qk3FwvvEbigK9N8qdcG+P3dbosJo8z/UFJINlkftueaayaJ9bvT
+	sHOmX8mK8/K7lwiYMirR1zzKdhm4PEQ9zi74sRYmyLX4DltviWUwst3NkgUwmewtV3M8MUTTxyv
+	krj4jO53TJayASX9u5/wcxLRODS2VcFf/X9Piv9zuI7u8ZXlU3HXPr
+X-Received: by 2002:a05:6808:2218:b0:52b:7641:33a6 with SMTP id 5614622812f47-5640deea502mr12233182b6e.14.1793820309111;
+        Wed, 04 Nov 2026 11:25:09 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9c7bbcesm2328723b6e.1.2026.11.04.11.25.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 11:25:08 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Wed, 04 Nov 2026 12:24:54 -0700
+Subject: [PATCH v12 4/5] arm64: dts: allwinner: h616: add PWM controller
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,96 +95,107 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAIBAAvxJ7bkEtPfSV6JC51mJYKEUQ/T3rO
- DAzN2RKTBm66oZEJ2feYgFZVzAtY5wJ2RUGJZSRUrR42DWgoxVnio5zwM9Ca5vGa2OU9hpKuyf
- yfP3ffnieFzecOzVnAAAA
-X-Change-ID: 20261104-ublk-del-gendisk-hang-bb33f56625f5
-To: Ming Lei <tom.leiming@gmail.com>
-Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ming Lei <ming.lei@redhat.com>, 
- Mark Korenberg <socketpair@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793820305; l=3412;
- i=socketpair@gmail.com; s=20260603; h=from:subject:message-id;
- bh=ed+++DV3HtIipUSehjA+fspJo3hIwQmkBnnMsoaxA5M=;
- b=IRpKMhVeG5cfku6a00obCR56pJkuAzujaK89yVgM4ezrw36H1p/L9VE5WEKVSQ7iEkUZVW/kf
- Ls89C11kNhtASBn32zNZiGKz3OIhRn7PTHGBmfXdZ8XEZPQNBsywi/o
-X-Developer-Key: i=socketpair@gmail.com; a=ed25519;
- pk=2iAMjWhs7kA9X8ccetT2YVX8dvniXua2okQogw3Don8=
-X-Endpoint-Received: by B4 Relay for socketpair@gmail.com/20260603 with
- auth_id=806
-X-Original-From: Mark Korenberg <socketpair@gmail.com>
-Reply-To: socketpair@gmail.com
+Message-Id: <20261104-h616-pwm-v8-v12-4-8ed39b0dba69@gmail.com>
+References: <20261104-h616-pwm-v8-v12-0-8ed39b0dba69@gmail.com>
+In-Reply-To: <20261104-h616-pwm-v8-v12-0-8ed39b0dba69@gmail.com>
+To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Richard Genoud <richard.genoud@bootlin.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Paul Kocialkowski <paulk@sys-base.io>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ John Stultz <jstultz@google.com>, Joao Schim <joao@schimsalabim.eu>, 
+ bigunclemax@gmail.com, linux-pwm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-If the filesystem on a ublk device is stuck, removing that device
-blocks in del_gendisk(), which syncs the filesystem. DEL_DEV holds the
-global ublk_ctl_mutex across the removal, so ADD_DEV and DEL_DEV of
-every other ublk device hang too, until reboot. It doesn't matter
-whether the server is alive: when it dies, the release work does the
-same syncing del_gendisk() under ub->mutex, and DEL_DEV waits for
-ub->mutex holding ublk_ctl_mutex.
+From: Richard Genoud <richard.genoud@bootlin.com>
 
-I hit it with btrfs on a ublk zoned device whose writeback deadlocked
-on its own (a btrfs bug, handled separately): killing the server as a
-last resort didn't help, and no new ublk device could be created on the
-machine afterwards.
+The H616 has a PWM controller that can provide PWM signals, but also
+plain clocks.
 
-Patch 2 removes the global part: DEL_DEV doesn't take ublk_ctl_mutex.
-It relies on patch 1, which fixes an older race the mutex partly hid:
-ADD_DEV makes a new device findable by its id before its char device is
-added, and if adding it fails, a DEL_DEV that found the device removes
-a char device that was never added. With a failure injected into
-ublk_add_chdev() this oopses on master in kill_device() from
-cdev_device_del(); with patch 1, DEL_DEV gets -ENODEV.
+Add the PWM controller node and pins in the device tree.
 
-Reproducer, without btrfs or zoned: XFS (or ext4) on a ublk loop
-device, its external log (journal) on dm-linear over null_blk:
-
-  dmsetup suspend --nolockfs --noflush <log>
-  write a file; syncfs                  # blocks, as expected
-  kill -9 <ublk server>                 # optional
-  DEL_DEV 0                             # directly, as libublk does
-  ADD_DEV 1                             # null target
-  dmsetup resume <log>                  # everything unwinds
-
-           DEL_DEV 0                         ADD_DEV 1
-  master   D, survives SIGKILL               hangs on ublk_ctl_mutex
-  series   D, survives SIGKILL (see below)   ok
-
-The stuck device itself still can't be stopped or deleted until its
-filesystem moves: its STOP_DEV and DEL_DEV sleep uninterruptibly, in
-del_gendisk() or on ub->mutex. When the server is gone, nothing can be
-written anyway, so that removal should be a surprise one done without
-ub->mutex, but marking the disk dead isn't enough (the filesystem's
-->shutdown() and the writeback flush in bdi_unregister() can block the
-same way), and doing the removal without ub->mutex races with the
-release work, recovery and a new server attaching. I'll send that part
-separately as an RFC.
-
-Tested in a VM with lockdep on top of master c339f4010dea, XFS and ext4,
-with and without the server killed; block for-next has no ublk_drv.c
-changes on top of it. The ublk selftests give the same results with and
-without the series (integrity_01/03 fail on both, no
-CONFIG_BLK_DEV_INTEGRITY here); a stress of DEL_DEV racing ADD_DEV of
-the same id shows no warnings, also with KASAN and KCSAN.
-
-This series was developed with the help of an AI coding assistant
-(Claude); I reviewed and tested the changes and take responsibility
-for them.
-
+Signed-off-by: Richard Genoud <richard.genoud@bootlin.com>
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
-Mark Korenberg (2):
-      ublk: publish a new device by its id only once it is set up
-      ublk: don't take ublk_ctl_mutex in DEL_DEV
+ arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi | 47 ++++++++++++++++++++++++++
+ 1 file changed, 47 insertions(+)
 
- drivers/block/ublk_drv.c | 60 +++++++++++++++++++++++++++++-------------------
- 1 file changed, 37 insertions(+), 23 deletions(-)
----
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
-change-id: 20261104-ublk-del-gendisk-hang-bb33f56625f5
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
+index c6b3a3f8359a..b6580f0c6e0f 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
+@@ -293,6 +293,17 @@ watchdog: watchdog@30090a0 {
+ 			clocks = <&osc24M>;
+ 		};
+ 
++		pwm: pwm@300a000 {
++			compatible = "allwinner,sun50i-h616-pwm";
++			reg = <0x0300a000 0x400>;
++			clocks = <&osc24M>, <&ccu CLK_BUS_PWM>;
++			clock-names = "mod", "bus";
++			resets = <&ccu RST_BUS_PWM>;
++			#pwm-cells = <3>;
++			#clock-cells = <1>;
++			status = "disabled";
++		};
++
+ 		pio: pinctrl@300b000 {
+ 			compatible = "allwinner,sun50i-h616-pinctrl";
+ 			reg = <0x0300b000 0x400>;
+@@ -397,6 +408,42 @@ nand_rb1_pin: nand-rb1-pin {
+ 				bias-pull-up;
+ 			};
+ 
++			/omit-if-no-ref/
++			pwm0_pin: pwm0-pin {
++				pins = "PD28";
++				function = "pwm0";
++			};
++
++			/omit-if-no-ref/
++			pwm1_pin: pwm1-pin {
++				pins = "PG19";
++				function = "pwm1";
++			};
++
++			/omit-if-no-ref/
++			pwm2_pin: pwm2-pin {
++				pins = "PH2";
++				function = "pwm2";
++			};
++
++			/omit-if-no-ref/
++			pwm3_pin: pwm3-pin {
++				pins = "PH0";
++				function = "pwm3";
++			};
++
++			/omit-if-no-ref/
++			pwm4_pin: pwm4-pin {
++				pins = "PI14";
++				function = "pwm4";
++			};
++
++			/omit-if-no-ref/
++			pwm5_pin: pwm5-pin {
++				pins = "PA12";
++				function = "pwm5";
++			};
++
+ 			/omit-if-no-ref/
+ 			spi0_pins: spi0-pins {
+ 				pins = "PC0", "PC2", "PC4";
 
-Best regards,
 -- 
-Mark Korenberg <socketpair@gmail.com>
-
+2.53.0
 
