@@ -1,53 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.101.248.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793797351;
-	b=KUfoJ96l+K/iuyuOSiTrzIzp2+q/Mo3E/ERb7qAe6q0ROCLlsjkxMH5KIdpcE3a4dm6V
-	 llDiA5X1OYhk/kcXjYxRYIK4dzbwzNkMpUwx+Lw8KZLym6g8DUKX3aIgKPp54jOeWauPu
-	 UoC3Ulfq8WNNiWzHD5a0naq4/f3sVgYcgFilHIXYuSaRohAluNHN47lp6a7hpfbc2DJjx
-	 6ZW/cuYEmM0JDLeFlmu8MzfNwheM7cZShf4vRx7EXLaAakBblrMZyZykf4iMfj2fEuabk
-	 SU5onaJR33PIlKVOdoyEa4OIsOApo+fomaXR97y8re0xB+c2KtCRW6WgquKpaWYy+Xw==
+	t=1793797346;
+	b=wBC5iFHkQzxWUv44OyoZTlu2KD1Qyb9l8SA308Le27reFn5gO/+ltp4g6yGJinBZMa0N
+	 /JBWI6FbJI2FbkUCWtjeDpxXsTws+d9etSO6hgA/y1GjdGQF2dw9h7g19czEjTLncbSn7
+	 Fpb6zvZjJDCHEdIstS/9laPGeSZfEiJa0Q8Ka7AMdP5kyvCdahH/t3UXTD1KJUDlyNDz0
+	 pabspX0P1r7fMTnMa11vHYu9WzQNUoDuV1U8OpTjFdbZLGzP2xK6QjQHJN1L/38evvY0F
+	 Uy0JMfHGtO3ohM6mn0oiKU7WMezrZjPhqUUE/H+NqHMTtfe/FJb88nPwzSU+biF0o5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793797351;
-	h=DMARC-Filter:Received:X-Originating-IP:Date:X-CM-HeaderCharset:From:
-	 To:Cc:Subject:X-Priority:X-Mailer:In-Reply-To:References:
-	 X-CM-CTRLMSGS:Content-Transfer-Encoding:Content-Type:MIME-Version:
-	 Message-ID:X-Coremail-Locale:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=jNpu1OXlcahzM8AU/QfArie42XcbbMskS/FTZIb3Vd0=;
-	b=oFrriJgMNJkIXuXCIjahMP1OnsDfdLaPGO7fqRTwlW4UWitg/2tD5JPokxDqfdmugB+G
-	 jzZwkB4cmNy/HVamFx/Gvnx4yOjSmMAGDa1qAhGAgCriioddlKpwk/bee8Y5GziZmSUAh
-	 4NW2SkWkIlT0nf8l1zLOC5U1gsRZuASH9DDtNRsqhRBFLyby+CkjINTu90V+ZRMMlMZVy
-	 0o79EHm8M+wjZ5aVlhqSHPZlt1CCF2j+150PoKlv799SC4QeJnPDqWnvUdLbPHQQWUzA+
-	 yS6oh9P49LELpGYyVBDTSiYuK2qrCJCNRObChSI1QVPZ5lW/PIyHiycoSTjHKC8purg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793797346;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=R5z5YvwsAVG0TIHGlZc17HJ/f1VSVEW4yJDbx1J4Pa8=;
+	b=noxc0u7JnDdDo0GSOq/C6oZy3zf2aHWTSYFylhVdg+QjNUyqWqM1bcG9vcHzLo7Y5LYB
+	 qNBoEqUpum2v4B8m0C8HOhyfo+4OJZ7BsTVYUNqti3AfFl6UHuUeo6rJ6saaz04gkf4Vo
+	 DWd6WjMh0MxoXig4DRHXwVT57ZVzDCklGGk+sXmaJMuzEuxRQtT4TMI3GFaEWwuXNMNNW
+	 aPdS/MRXY+ZB9z8p/M3yv5XTHkQVlTsW0a3fBgOr3hWG9EEgcJ/05DnbNYMvUAcjwyqBQ
+	 8X8lfUokfTv0FPMAIybtIsAzfmbvD6+fFtqtzXJ5JwkhUR/D2n6VxOVVIDNrnfAEBCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hust.edu.cn;
-	spf=pass smtp.mailfrom=hust.edu.cn;
-	arc=none smtp.remote-ip=46.101.248.176
-Received: from zg8tndyumtaxlji0oc4xnzya.icoremail.net (zg8tndyumtaxlji0oc4xnzya.icoremail.net [46.101.248.176])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C5872606A329;
-	Wed,  4 Nov 2026 13:02:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5872606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
-Received: from xuhx$hust.edu.cn ( [10.12.190.107] ) by ajax-webmail-app2
- (Coremail) ; Wed, 4 Nov 2026 21:02:26 +0800 (GMT+08:00)
-Date: Wed, 4 Nov 2026 21:02:26 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?5b6Q5pmX57+U?= <xuhx@hust.edu.cn>
-To: heikki.krogerus@linux.intel.com
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: usb: typec: class: three lifetime/locking gaps around the
-  mux/switch handles and mode_selection (drvdata UAF after provider unbind;
- no concurrent protocol for set/put; unlocked state_update vs delete)
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2025.3-cmXT6 build
- 20260810(6c94e3b5) Copyright (c) 2002-2026 www.mailtech.cn hust
-In-Reply-To: <2026102727-data-sequel-ce41@gregkh>
-References: <4c7f9772.192e1.1a17d5c2ed5.Coremail.xuhx@hust.edu.cn>
- <2026102727-data-sequel-ce41@gregkh>
-X-CM-CTRLMSGS: =?B?1Xu18jiH6nJ5xwDR7hwMki1N8jM=
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L9Fv5dfL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 860FD606A334;
+	Wed,  4 Nov 2026 13:02:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L9Fv5dfL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A6481F0093A;
+	Wed,  4 Nov 2026 13:02:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793797346;
+	bh=R5z5YvwsAVG0TIHGlZc17HJ/f1VSVEW4yJDbx1J4Pa8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=L9Fv5dfLLTMJXYbvGiF5rbr8/tlmUKq9mAbGskCz69Fepi9o0lTAiImutY7NZIf45
+	 AW3AIIppWI7Y1Eo5HbZeD2RxnjIFfTTFdQ2qbxni4DrmF40JJUyKk9RCb/A0ipNnDU
+	 tSiB+JybC1GLtNhXeMP75glv0L4+ccGD3PD/QqrXs6yF8TlVJFvB0Fyih/PjmCMiWd
+	 fWzGlrT0iDsG6FHyb7OKql/Mc1iLPoI3eEEAOC3ly2LQ0I7AJvfTcpsI0VwiSC7eyx
+	 Kj6QiqrAHTwTIcxacFzh6zliZih3y3HAvChl5X3ZHxdQf59HxQgr88PqY9lzkqZFq9
+	 ZRQZs7NyVh8aw==
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 71C021980054;
+	Wed,  4 Nov 2026 08:02:17 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Wed, 04 Nov 2026 08:02:21 -0500
+X-ME-Sender: <xms:2CzranS2EpKURin0G4hnjEcA-XIYjizqdzj1L34C-iYhHgwjZFmlvA>
+    <xme:2CzrauD6sINbifwl_EL7N6fatl-EwvW6Iz2uzGPTga-A4Kh8qaMGGrCK3veFDsFZn
+    x_Q8gBrLKGaApWfCDJZHQ8Yn_8m2t6juOs9I_YQwf9nHg3HdAjeu8Y>
+X-ME-Received: <xmr:2CzravdgjL5paFZN8TGaniMogwwSa4P5ITQgOD7SHvzokZT5RkAheghLneE>
+X-ME-Proxy-Cause: dmFkZTGcnWxWNdwzviArTqwO8SleswujEAoF3G5cAnzgWuj9VIXYzVn8L/YtSSoCVpDQCx
+    AFAjkaMBKJDECegKseyQPi3BoJ2ULdzgEWHQh0kOOdV3qcZ96T5qYw8zvnYBduU6y+7gOl
+    ju1hRqdfaUd029Zpq0M1QKVfvNYpVJXA03mIXM/FVYF2n1TVZdGxcwDBil6kVRafbiJtv0
+    QuPNDwYksKVrYzT4QGS7HIxmz8ayVgiPQk5G9zoQji1nSBMTr/zV+0QH6w0a9BT4L54N+d
+    cRhB7KhKgiZgmWNJc1G8l9d+gvjQ75B75nEIsy2loqzEXGvtqjUcmfJ5UhZu2fDzNX4RZ+
+    6oR/S6KZE3B+Oj59PydT7wq4+cy2/+Do57EyU/spfCtxf/P36vf5deC7qOxvjMAtoOJNe8
+    NXXd1ZuH7iDV5jJ0bBxXLG1LqVa7P9BOmaxRW5JTT1/jF3adOCntQdSPvAU4twjqIyOJnD
+    il3SYhGq0rYp1kMyeBc99l97LZnhmPCerSKBxilv0VoIbfSZ/r0kRgqeaaq8vWQFyTKMq9
+    JqWfqAb8kO8+Eaq32Gnd9ghE13syUX2tJAxCvmgtCsp/xZfVlMEAx0mCJon0C/Z+o5ex05
+    Jd9V0ubEBlvCJwgW+XBjmEPpFPlMDPilID7ueQ2EeSfc1TgzPHQ9hBJktdzQ
+X-ME-Proxy: <xmx:2CzramtPXpgB2FliWICvrfCmxHoDBpddpqlwsiVkAgXkl_L2UGuOFA>
+    <xmx:2CzrahKBPlFz1_S-h2kDV4eQag1o75hM52YPpdAksDz-esYOivVMhQ>
+    <xmx:2Czrai8zhJ2PidkxiL8I5CBOjunxDPKYeAZuTmY9ByGh0DE_oK2frQ>
+    <xmx:2CzravA-GhBiS8ZZfrEuFcX1Wz4UiF357WeoQPRfuE8Y_xsXbdoslg>
+    <xmx:2Szrasux01fJtrJ1m7E-uwxYNXvJvpS0zmf0fC_8GnCixRdtOO5rgn5m>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 4 Nov 2026 08:02:16 -0500 (EST)
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Hugh Dickins <hughd@google.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Harry Yoo <harry@kernel.org>
+Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	Miklos Szeredi <miklos@szeredi.hu>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>,
+	Kairui Song <kasong@tencent.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Ilya Gladyshev <ilya.gladyshev@linux.dev>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	fuse-devel@lists.linux.dev,
+	kernel-team@meta.com
+Subject: [RFC PATCH v2 09/18] mm/memory-failure: handle folios with PG_rcu_free
+Date: Wed,  4 Nov 2026 13:01:05 +0000
+Message-ID: <20261104130118.2507513-10-kas@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261104130118.2507513-1-kas@kernel.org>
+References: <20261104130118.2507513-1-kas@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,121 +131,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <537efe25.1e59c.1a1a6a753b2.Coremail.xuhx@hust.edu.cn>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:IQEQrMCWvXbiLOtq_6pxAA--.12180W
-X-CM-SenderInfo: bgsqjkayqyjmo6kx23oohg3hdfq/1tbiAQIBB2rqCWyibAACss
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWkKw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
+Content-Transfer-Encoding: 8bit
 
-VGhlIHR5cGVjIGNsYXNzIGxheWVyIGxlYXZlcyB0aGUgbGlmZXRpbWUgb2YgaXRzIG11eC9zd2l0
-Y2ggbWFjaGluZXJ5CnRvIGNhbGxlciBkaXNjaXBsaW5lIHRoYXQgbm90aGluZyBlbmZvcmNlcyBv
-ciBkb2N1bWVudHMsIGFuZCB0aHJlZQpjb25jcmV0ZSBnYXBzIGZhbGwgb3V0IG9mIHRoYXQuICBU
-aGUgcmVwb3J0YWJsZSBvbmUgaXMgdGhlIHByb3ZpZGVyCmRydmRhdGEgZ2FwOiBhIG11eC9zd2l0
-Y2ggaGFuZGxlIGhvbGRlciBrZWVwcyBhIGRldmljZSByZWZlcmVuY2Ugb24KdGhlIHByb3ZpZGVy
-J3MgY2xhc3MgZGV2aWNlIChjbGFzc19maW5kX2RldmljZSgpIHRha2VzIGdldF9kZXZpY2UsCmRy
-aXZlcnMvYmFzZS9jbGFzcy5jOjQ3MCksIHNvIGFmdGVyIHRoZSBQUk9WSURFUiBkcml2ZXIgdW5i
-aW5kcywKdHlwZWNfbXV4X3VucmVnaXN0ZXIoKSBvbmx5IGRvZXMgZGV2aWNlX3VucmVnaXN0ZXIg
-LS0gdGhlIG11eF9kZXYKc2hlbGwgKGFuZCBpdHMgLT5zZXQgY2FsbGJhY2sgcG9pbnRlcikgc3Vy
-dml2ZXMgYXMgbG9uZyBhcyBhbnkgb3duZXIKaG9sZHMgYSBoYW5kbGUsIHdoaWxlIHRoZSBwcm92
-aWRlcidzIGRldm0gcHJpdmF0ZSBkYXRhIGlzIGZyZWVkIHRoZQptb21lbnQgaXRzIC5yZW1vdmUg
-cmV0dXJucy4gIFRoZSBuZXh0IG9yaWVudGF0aW9uL21vZGUgY2hhbmdlIHRoZW4KY2FsbHMgbXV4
-X2Rldi0+c2V0KCkgKG11eC5jOjM5My00MTIpIGludG8gZS5nLgpxbXBfY29tYm9fdHlwZWNfbXV4
-X3NldCgpIChwaHktcWNvbS1xbXAtY29tYm8uYzo0ODA0KSBvcgpya191ZHBoeV90eXBlY19tdXhf
-c2V0KCkgKHBoeS1yb2NrY2hpcC11c2JkcC5jOjEzNDYpLCB3aGljaCBmZXRjaApkZXZtIGRydmRh
-dGEgb2YgYSBmcmVlZCBvYmplY3QgLS0gdXNlLWFmdGVyLWZyZWUgcmVhZC93cml0ZSB3aXRoCktB
-U0FOIHZpc2liaWxpdHk7IHRoZSBzYW1lIHNoYXBlIGFwcGxpZXMgdG8gdGhlIHN3aXRjaC9yZXRp
-bWVyLXNpZGUKcHJvdmlkZXJzIHdpdGggZXhwbGljaXQgcmVtb3ZlcyAocHRuMzY1MDIsIG5iN3Zw
-cTkwNG0pLiAgVHdvIG1vcmUKZ2FwcyBpbiB0aGUgc2FtZSBsYXllciBhcmUgY29udHJhY3Qtc2hh
-cGVkIGFuZCBjdXJyZW50bHkgc2hpZWxkZWQKb25seSBieSBjYWxsZXJzOiAoYSkgdGhlIGFnZ3Jl
-Z2F0ZSB0eXBlY19tdXgvdHlwZWNfc3dpdGNoIGhhbmRsZXMgYXJlCmZyZXNobHkgYWxsb2NhdGVk
-IHBlciBnZXQgd2l0aCBubyByZWZjb3VudC9sb2NrL1JDVSwgdHlwZWNfbXV4X3NldCgpCndhbGtz
-IHRoZSBjYWxsYmFjayBsaXN0IHVubG9ja2VkIGFuZCB0eXBlY19tdXhfcHV0KCkga2ZyZWVzIG9u
-IHRoZQpmaW5hbCBwdXQgKHRoZSBvbmUgaW4tdHJlZSB2aW9sYXRvciBvZiB0aGUgcmVzdWx0aW5n
-ICJkcmFpbiBiZWZvcmUKcHV0IiBkaXNjaXBsaW5lIC0tIHBtaWNfZ2xpbmtfYWx0bW9kZSAtLSBp
-cyByZXBvcnRlZCBzZXBhcmF0ZWx5KTsgYW5kCihiKSBtb2RlX3NlbGVjdGlvbi5jJ3MgZXhwb3J0
-ZWQgc3RhdGVfdXBkYXRlL2RlbGV0ZSBwYWlyIGhhcyBubwpjb21tb24gbG9jayBvciBsaWZldGlt
-ZSBwcm90b2NvbCBhdCBhbGwgKGRlbGV0ZTogcGFydG5lci0+c2VsID0gTlVMTCwKY2FuY2VsX2Rl
-bGF5ZWRfd29ya19zeW5jLCBtb2RlX2xpc3RfY2xlYW4gLS0gd2hpY2ggZG9lcyBOT1QgdGFrZQpz
-ZWwtPmxvY2sgLS0gbXV0ZXhfZGVzdHJveSwga2ZyZWU7IHVwZGF0ZTogdW5sb2NrZWQgcmVhZCBv
-ZgpwYXJ0bmVyLT5zZWwgdGhlbiBtdXRleF9sb2NrICsgbGlzdCBhY2Nlc3M7IHRvZGF5J3Mgb25s
-eSBwcm90ZWN0aW9uCmlzIHRoYXQgZXZlcnkgaW4tdHJlZSBjYWxsZXIgaG9sZHMgdWNzaSdzIGNv
-bi0+bG9jaywgcGVyIHRoZQplbnVtZXJhdGlvbiBiZWxvdykuICBGaXhlczogYSBkZWFkLWZsYWcg
-KyAtRU5PREVWIGNoZWNrIGluIHRoZSBzZXQKcGF0aCBmb3IgKHRoZSBkcnZkYXRhIGdhcCksIGEg
-ZG9jdW1lbnRlZCBkcmFpbitwdXQgY29udHJhY3QgKG9yIGEKY2xhc3MtbGF5ZXIgcHJpbWl0aXZl
-KSBmb3IgdGhlIGhhbmRsZSBwcm90b2NvbCwgYW5kIGEgbG9jay9saWZldGltZQpjb250cmFjdCAo
-b3IgaW4tZGVsZXRlIGxvY2tpbmcpIGZvciBtb2RlX3NlbGVjdGlvbi4KClRoZSBkZXRhaWxlZCBk
-ZXNjcmlwdGlvbjoKCiogR2FwIDEgKHJlcG9ydGFibGUgVUFGKTogcHJvdmlkZXIgZHJ2ZGF0YSBv
-dXRsaXZlZCBieSB0aGUgaGFuZGxlCgogIExpbnV4IDcuMzogdGhlIG93bmVyIHRha2VzIHRoZSBo
-YW5kbGUgdmlhIGNsYXNzX2ZpbmRfZGV2aWNlKCkKICAobXV4LmM6Mjk1KSB3aGljaCBnZXRfZGV2
-aWNlKClzIHRoZSBtdXhfZGV2IChjbGFzcy5jOjQ3MCk7IHRoZQogIGZpbmFsIHR5cGVjX211eF9w
-dXQoKSAobXV4LmM6Mzc2LTM5MSkgZHJvcHMgaXQ7IHRoZSBwcm92aWRlcidzCiAgdW5yZWdpc3Rl
-ciAobXV4LmM6NDc4LTQ4Mykgb25seSBkZXZpY2VfdW5yZWdpc3Rlcigpcy4gIFNvOgoKICAgICAg
-cHJvdmlkZXIgdW5iaW5kOiAucmVtb3ZlIC0+IHR5cGVjX211eF91bnJlZ2lzdGVyIChzaGVsbCBr
-ZXB0KQogICAgICAgICAgICAgICAgICAgICAgIC5yZW1vdmUgcmV0dXJucyAtPiBkZXZyZXMgcmVs
-ZWFzZXMgdGhlCiAgICAgICAgICAgICAgICAgICAgICAgcHJvdmlkZXIncyBwcml2YXRlIGRhdGEg
-KHFtcC91ZHBoeS9wdG4pCiAgICAgIGxhdGVyIG1vZGUvb3JpZW50YXRpb24gY2hhbmdlIG9uIHRo
-ZSBvd25lcjoKICAgICAgICAgICAgICAgICAgICAgICB0eXBlY19tdXhfc2V0KGhhbmRsZSkgLT4g
-bXV4X2Rldi0+c2V0KC4uLikKICAgICAgICAgICAgICAgICAgICAgICAtPiB0eXBlY19tdXhfZ2V0
-X2RydmRhdGEoKSAtPiBGUkVFRCBkYXRhCgogIEluc3RhbmNlcyB3aXRoIHRoaXMgZGV2bS1kcnZk
-YXRhIHBhdHRlcm46IHFjb20tcW1wLWNvbWJvIChzZXQKICA6NDgwNC00ODA2LCBkZXZtIHFtcCwg
-cmVnaXN0ZXIgOjQ5MjQsIHVucmVnaXN0ZXIgZGV2bSBhY3Rpb24KICA6NDg5NC00ODk4Lzo0OTMw
-KSwgcm9ja2NoaXAtdXNiZHAgKHNldCA6MTM0NiwgcmVnaXN0ZXIgOjE0MTMtMTQxNSwKICB1bnJl
-Z2lzdGVyIDoxNDAyLTE0MDYpOyBwdG4zNjUwMi9uYjd2cHE5MDRtIGhhdmUgZXhwbGljaXQgcmVt
-b3ZlcwogIGJ1dCBkZXZtIHByaXYvcmVnbWFwLCBhbmQgdGhlaXIgb3duIHB1dCBkb2VzIG5vdCBj
-b3ZlciBhbiBvd25lcgogIHN0aWxsIGhvbGRpbmcgdGhlIGhhbmRsZS4gIE5vdGhpbmcgZWxzZSBj
-bG9zZXMgdGhpczogbW9kdWxlIHJlZnMKICBwaW4gY29kZTsgdGhlIHBhcmVudC1kZXZpY2UgcmVm
-ZXJlbmNlIHBpbnMgdGhlIHByb3ZpZGVyIGRldmljZQogIHN0cnVjdCwgbm90IGl0cyBkZXZtIGRh
-dGE7IHRoZSB1bnJlZ2lzdGVyJ3MgZGV2aWNlX2RlbCBoYXMgbm8KICBrZXJuZnMtZHJhaW4gc2Vt
-YW50aWNzIGZvciB0aGlzIHBhdGggKHNldCBpcyByZWFjaGVkIHZpYSB0aGUKICBvd25lcidzIHBy
-aXZhdGUgcG9pbnRlciwgbm90IHN5c2ZzKS4KCiAgRml4OiBtYWtlIHRoZSBjbGFzcyBsYXllciBt
-YXJrIHRoZSBtdXgvc3dpdGNoIGRlYWQgYXQgdW5yZWdpc3RlcgogIChXUklURV9PTkNFIGZsYWcp
-IGFuZCBoYXZlIHR5cGVjX211eF9zZXQoKS90eXBlY19zd2l0Y2hfc2V0KCkKICByZXR1cm4gLUVO
-T0RFViBvbiBpdCAoUkVBRF9PTkNFKSwgb3IgcHJvdmlkZSBhIGRyYWluIHByaW1pdGl2ZTsKICBh
-IHRyYW5zaXRpb25hbCBwcm92aWRlci1zaWRlIG9wdGlvbiBpcyB0byBhbGxvY2F0ZSB0aGUgZHJ2
-ZGF0YQogIHdpdGggdGhlIGNsYXNzIGRldmljZSBzbyB0aGUgbGlmZXRpbWVzIGNvaW5jaWRlLgoK
-KiBHYXAgMiAoY29udHJhY3QpOiBhZ2dyZWdhdGUgaGFuZGxlcyBoYXZlIG5vIGNvbmN1cnJlbnQg
-cHJvdG9jb2wKCiAgbXV4LmMgYWxsb2NhdGVzIGEgZnJlc2ggYWdncmVnYXRlIGhhbmRsZSBwZXIg
-Z2V0ICg6ODItMTI5LzozMjAtMzY4KQogIHdpdGggbm8gcmVmY291bnQvbG9jay9SQ1U7IHR5cGVj
-X211eF9zZXQoKSAoOjM5My00MTIpIHdhbGtzIHRoZQogIGNhbGxiYWNrIGxpc3QgdW5sb2NrZWQ7
-IHR5cGVjX211eF9wdXQoKSBrZnJlZXMgb24gdGhlIGZpbmFsIHB1dDsKICBhbmQgdHlwZWNfdW5y
-ZWdpc3Rlcl9hbHRtb2RlKCkgZXZlbiBzdWdnZXN0cyB0aGUgZnJhZ2lsZSBvcmRlcgogIChwdXQg
-YXQgY2xhc3MuYzo3MTIgYmVmb3JlIGRldmljZV91bnJlZ2lzdGVyIGF0IDo3MTMpLiAgSSBhdWRp
-dGVkCiAgYWxsIG93bmVyczogVUNTSS9jcm9zL3RpcGQvZ2Fva3VuIHNlcmlhbGl6ZSBzZXQtdnMt
-cHV0IGJ5IHRoZWlyCiAgb3duIGNvbnN0cnVjdGlvbiAod29yayBkcmFpbnMsIGZyZWVfaXJxLCBu
-b3RpZmllciB1bnJlZ2lzdGVyIC0tCiAgdGFidWxhdGVkIGluIG15IG5vdGVzOyB0aGUgb25lIGlu
-LXRyZWUgdmlvbGF0b3IsCiAgcG1pY19nbGlua19hbHRtb2RlLCBoYXMgbm8gY2FuY2VsL2ZsdXNo
-IGF0IGFsbCBhbmQgaXMgcmVwb3J0ZWQKICBzZXBhcmF0ZWx5KS4gIFRoZSByZXRpbWVyIGNsYXNz
-IGRvZXMgaXQgcmlnaHQgKGtyZWYnZCBkZXZpY2UsCiAgcmV0aW1lci5jOjY1LTgxKSAtLSB0aGUg
-bXV4L3N3aXRjaCBhZ2dyZWdhdGUgaGFuZGxlcyBhcmUgdGhlCiAgaGlzdG9yaWNhbCB3ZWFrIHNw
-b3QuICBGaXg6IGRvY3VtZW50IHRoZSBkcmFpbitwdXQgZGlzY2lwbGluZSBpbgogIGluY2x1ZGUv
-bGludXgvdXNiL3R5cGVjX211eC5oIChpdCBjdXJyZW50bHkgc2F5cyBub3RoaW5nIGFib3V0CiAg
-Y29uY3VycmVuY3kpIG9yIHByb3ZpZGUgYSBjbGFzcy1sYXllciBkcmFpbitwdXQgcHJpbWl0aXZl
-LgoKKiBHYXAgMyAobGF0ZW50KTogbW9kZV9zZWxlY3Rpb24gc3RhdGVfdXBkYXRlIHZzIGRlbGV0
-ZQoKICBtb2RlX3NlbGVjdGlvbi5jOjE3Ni0xOTcgKHN0YXRlX3VwZGF0ZTogdW5sb2NrZWQgcmVh
-ZCBvZgogIHBhcnRuZXItPnNlbCBhdCA6MTc5LCB0aGVuIG11dGV4X2xvY2soJnNlbC0+bG9jaykg
-KyBsaXN0IGFjY2VzcykKICB2cyA6MjcxLTI4MyAoZGVsZXRlOiBwYXJ0bmVyLT5zZWwgPSBOVUxM
-OyBjYW5jZWxfZGVsYXllZF93b3JrX3N5bmMKICAoY292ZXJzIG9ubHkgdGhhdCB3b3JrKTsgbW9k
-ZV9saXN0X2NsZWFuKCkgYXQgOjEwMi0xMTAgd2hpY2ggZG9lcwogIE5PVCB0YWtlIHNlbC0+bG9j
-ayBhbmQga2ZyZWVzIGV2ZXJ5IG5vZGU7IG11dGV4X2Rlc3Ryb3koKTsga2ZyZWUKICAoc2VsKSku
-ICBBbnkgb3ZlcmxhcCA9IFVBRiAobG9ja2luZyBhIGRlc3Ryb3llZCBtdXRleDsgcmFjaW5nIHRo
-ZQogIGxpc3QgY2xlYW51cCkuICBUb2RheSB1bnJlYWNoYWJsZTogdGhlIHNpbmdsZSB1cGRhdGUg
-ZW50cnkKICAodWNzaV9hbHRtb2RlX3VwZGF0ZV9hY3RpdmUsIHVjc2kuYzozNTQtMzg0KSBpcyBv
-bmx5IGNhbGxlZCB1bmRlcgogIGNvbi0+bG9jayAodWNzaS5jOjEwMjkvOjE1MjIvZGlzcGxheXBv
-cnQuYzoyNTUgdmlhIHRoZSBsb2NrZWQKICB1Y3NpX2Nvbl9tdXRleF9sb2NrL3RodW5kZXJib2x0
-LmM6MTA5KSwgYW5kIHRoZSBvbmx5IGRlbGV0ZQogIGltcGxlbWVudGF0aW9uIChjcm9zX2VjKSBp
-cyBsaWtld2lzZSB1bmRlciBjb24tPmxvY2sKICAodWNzaS5jOjEzMTctMTMxOCBmcm9tIDoyMDA0
-LzoxNTEzLzoxNDAyLzoyMTU2KSAtLSB0aGUgaGVhZGVyCiAgKHR5cGVjX2FsdG1vZGUuaDoyNDct
-Mjg1KSBkb2N1bWVudHMgc3RhdGVfdXBkYXRlIGFzIGEgZ2VuZXJpYwogIGFsdG1vZGUtZHJpdmVy
-IGVudHJ5IHBvaW50IGJ1dCBzdGF0ZXMgbm8gbG9ja2luZyBwcmVjb25kaXRpb24sIHNvCiAgdGhl
-IGZpcnN0IGZ1dHVyZSBjYWxsZXIgdGhhdCB0cnVzdHMgdGhlIGhlYWRlciByZWludHJvZHVjZXMg
-dGhlCiAgVUFGLiAgRml4OiBpbi1kZWxldGUgbG9ja2luZyAobXV0ZXhfbG9jay91bmxvY2soJnNl
-bC0+bG9jaykgYmVmb3JlCiAgdGhlIGNsZWFudXApIG9yIGEga3JlZi9SQ1UgYW5jaG9yLCBhbmQg
-ZG9jdW1lbnQgdGhlIGNvbnRyYWN0LgoKICBUaGVzZSB0aHJlZSBhcmUgcmVwb3J0ZWQgdG9nZXRo
-ZXIgYmVjYXVzZSB0aGV5IGFyZSB0aGUgc2FtZSBsYXllcgogIGFuZCB0aGUgc2FtZSByb290IHN0
-eWxlOiBzYWZldHkgb3V0c291cmNlZCB0byB1bmRvY3VtZW50ZWQgY2FsbGVyCiAgZGlzY2lwbGlu
-ZS4gIFRoZSBjbGFzcyBsYXllcidzIG93biByZXRpbWVyIGltcGxlbWVudGF0aW9uIHNob3dzCiAg
-dGhlIGZpeCBwYXR0ZXJuLgoKCiAgUGxlYXNlIGtlZXAgbWUgaW4gQ2M7IEkgYW0gbm90IHN1YnNj
-cmliZWQgdG8gdGhlIGxpc3RzLgoKCgpSZWdhcmRzLApIYW54aWFuZyBYdQp4dWh4QGh1c3QuZWR1
-LmNuCg==
+A page whose free waits for an RCU grace period has refcount 0 and is
+neither on the LRU nor in the buddy allocator.  memory_failure() and
+soft_offline_page() cannot handle such a page: get_any_page() retries a
+few times and gives up.  Soft offline of the page fails, and a hard
+error is ignored.  If the page is part of a large folio, the folio is
+later freed with the poisoned page in it, and that page can be handed
+out again.
+
+Free the waiting pages first when the page looks like one of them, and
+again on each retry in get_any_page(): the page can be freed while it
+retries.  memory_failure() has to do it before it sets PG_hwpoison.  The
+free of a poisoned order-0 page drops the page instead of returning it
+to the buddy allocator, so a later drain would still leave the error
+ignored.
+
+A folio with PG_rcu_free that is still in use may be copied by a reader
+that holds no reference.  When memory_failure() succeeds, its caller can
+unmap the page from the direct map under such a reader.  Wait for a
+grace period before returning success.  By then the page has left the
+page cache, or is an order-0 folio with PG_hwpoison, which a reader that
+starts after the grace period has to check.
+
+Wait at the end, not right after setting PG_hwpoison.  A large folio is
+split later, and until the new folios are in the page cache, a reader
+can still copy the poisoned page as part of the large one.
+
+Both callers hold mf_mutex and can wait for the grace period.
+
+Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+---
+ mm/memory-failure.c | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
+
+diff --git a/mm/memory-failure.c b/mm/memory-failure.c
+index 7dde7c3c9a0c..398463b2e82d 100644
+--- a/mm/memory-failure.c
++++ b/mm/memory-failure.c
+@@ -1419,6 +1419,19 @@ static int __get_hwpoison_page(struct page *page, unsigned long flags)
+ 	return 0;
+ }
+ 
++/* A page waiting for a grace period is not in the buddy yet: free it */
++static void mf_free_rcu_pages(struct page *p)
++{
++	if (!zone_rcu_free_waiting(page_zone(p)))
++		return;
++	if (page_count(p))
++		return;
++	if (is_free_buddy_page(p))
++		return;
++
++	rcu_free_sync();
++}
++
+ #define GET_PAGE_MAX_RETRY_NUM 3
+ 
+ static int get_any_page(struct page *p, unsigned long flags)
+@@ -1443,6 +1456,7 @@ static int get_any_page(struct page *p, unsigned long flags)
+ 	}
+ 
+ try_again:
++	mf_free_rcu_pages(p);
+ 	if (!count_increased) {
+ 		ret = __get_hwpoison_page(p, flags);
+ 		if (!ret) {
+@@ -2440,6 +2454,7 @@ int memory_failure(unsigned long pfn, int flags)
+ 	if (res != -ENOENT)
+ 		goto unlock_mutex;
+ 
++	mf_free_rcu_pages(p);
+ 	if (TestSetPageHWPoison(p)) {
+ 		res = -EHWPOISON;
+ 		if (flags & MF_ACTION_REQUIRED)
+@@ -2447,6 +2462,13 @@ int memory_failure(unsigned long pfn, int flags)
+ 		if (flags & MF_COUNT_INCREASED)
+ 			put_page(p);
+ 		action_result(pfn, MF_MSG_ALREADY_POISONED, MF_FAILED);
++		/*
++		 * The memory_failure() that set PG_hwpoison may have failed
++		 * without waiting for lockless readers, and the caller may
++		 * unmap the page once this returns 0.
++		 */
++		if (!res && folio_test_rcu_free(page_folio(p)))
++			synchronize_rcu();
+ 		goto unlock_mutex;
+ 	}
+ 
+@@ -2612,6 +2634,13 @@ int memory_failure(unsigned long pfn, int flags)
+ 
+ identify_page_state:
+ 	res = identify_page_state(pfn, p, page_flags);
++	/*
++	 * The caller may unmap the page once this returns 0.  Lockless
++	 * readers that started before the page got PG_hwpoison, or before a
++	 * split left it in a folio of its own, may still be copying it.
++	 */
++	if (!res && folio_test_rcu_free(folio))
++		synchronize_rcu();
+ 	mutex_unlock(&mf_mutex);
+ 	return res;
+ unlock_page:
+-- 
+2.54.0
+
