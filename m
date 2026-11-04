@@ -1,59 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.15.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793790753;
-	b=W1OD+QoKmmj1v3boop8DE+eXbCLEPNAEtFTv3y8hCU9nDM+qe+Z/Me80julebJ9T8Tv0
-	 JYHZCqqm3LNK7QY8qIJq6+rewoyg5yPHmn2AzcJGUaeBYsi8lzOPJI4ngQOoUrxiEifi9
-	 kLwdAaBmdIQN08p2kcLyNNG30Id4MINcsIR6kAiAe3ZFlUp55wFN9cDhsCMs5sA9MDTlk
-	 5TlUpS75nTHn/9It+DjSy+IDgf6nL2vpvQ1H2boiwcMx25XbOBA924UZQWe5GKI47kQFb
-	 Fcu+5SGSw3mGhVPaiQbaDxz61hH7Ei0nO1RUUm+WfGTJFNOXgjA2stuKZayWc+oPxog==
+	t=1793790787;
+	b=DKnfEYQxkqka5wcUbmpKuFzZtBlOvfQLsOoQSXuXrbAOMBmS3VIbgMVtF5mdDQy9Sm2u
+	 dan14oRmwch9yvTK0pbcK1P2i7RMzcxqP1rvSgx7zpTov5OgqoMqtZ8XHjGJ23XtBWJij
+	 bItuOocezL0sZLkR/uWLAx7HZ77T0GXVIPi8e6/AWpZzi6y012TvYS2QA4is4Jl+7nduZ
+	 3jvVrT/elj0sm13BhlpruPvkn7zy9OIJKoPomskyjFSbPdahW000YtLAWwlgFcZ//RLF2
+	 wJcAvMO3VO4kUdXmw1uBqK8FP1J7UvXETPODQNayrhiQKEwfjqjcORc+4mnLu/djHbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793790753;
-	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
-	bh=4IVs2I6BQUGApkdf4lP8lToqI5JAWoaEnyulw32K3vg=;
-	b=yYmF8/5wDHDNJfQmHxpl/RoZHtYdg+EBA29PSBhmj6+sKJBS1wz5ZVi4TnsK2p4MBje/
-	 WPyvVf+fixd5KcaSpY46MFAXqUXEes0oECOGRJwHDNh0GwKlbQUspix8dCS7ef6RqIaJe
-	 ADH3DnuquNbS2c63LnA32TwcBlM2dXb61f+dxKDk9OwLxxg4xAERQlJxQwBEti/hDlxSP
-	 tFsySv2DuLfZaG42MIG8hwDh9f/BkK5Odo65GMk5GOytTwEvBbMNzl++MuDH8fHUyCaxd
-	 LdNYF3yJM1ODl2EoH2A1joSq5btzXr3h2znpnyk0LLGxPgufKpnPke+itTpjXquOGtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793790787;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=vyZpc5+vZeCU+0YbT+Y0OwhtiWtaEkOrtE7aWiCWgK4=;
+	b=38zC8l31moSuTHkeyssrKVmgcbYQUtBcTt3Ov3m/uzkCc+vzKJdUxSpd4acJugnqZ6VK
+	 yF1fbbh9WtwyBpZumxZasMY2fqzUnoPQFp9wnY5ALAntVy2p8JJyGmVgpMFfw7ciV7vgP
+	 9G5ttvw9nGV/ucZ4laLv/qiozblTlxRFMbc8ZNtYoKiB7CD72YsjdNvUxoCX9KHWTXoxb
+	 Skx0/mQda+cHp898mjeTGXw6UgLMr6tSVtVskrjFXofqBeRAPw0Z0acha6xPgaYKqvx2r
+	 ybpBKxmbYya7yjLAhPd9R19ioR3lZ8ZWmWxC8J0M5TfVrGtPonQkcUMKvxnjzK6eIPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=web.de;
-	spf=pass smtp.mailfrom=web.de;
-	dkim=pass header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=ddbtBrjJ;
-	arc=none smtp.remote-ip=212.227.15.4
-Received: from mout.web.de (mout.web.de [212.227.15.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ItNIRzeU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55298606A329;
-	Wed,  4 Nov 2026 11:12:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55298606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C77AC606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:13:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=ddbtBrjJ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1793790740; x=1794395540; i=markus.elfring@web.de;
-	bh=4IVs2I6BQUGApkdf4lP8lToqI5JAWoaEnyulw32K3vg=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=ddbtBrjJpCwOvsUojyE2a2/SD0GEV0dyxl2rHT+MT0uKTDRkmdTSkyKa4A2q14ME
-	 tRFUY//smob4gpjzlGxM8kqEhVIyx9lQmQqsxW8GAH0/txUgYww6PM0WhQun67lKw
-	 rI3bMWoq6JzqP5bDnITHaHWCRb0XYJjPTrFz9HJP4cad/prlx4R3MLvDcnudaoQ5i
-	 s2ysGzFLrltrlcMDN2IFgvfNdD+3qbf5UUHPdJ79nuDsFvputp3ie0TvdYl4vT2Y1
-	 LOhsvYvGodNtervKcxO8LegKRwKqPEwU5NsQGh28pQsJBwgS+oGIutjuGALxmI/Fz
-	 uIf0EA3IpnOlAyMEHA==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb005
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1MQxs3-1xBgtH2MbP-00TjHy; Wed, 04
- Nov 2026 12:12:20 +0100
-Message-ID: <1aa14886-503b-4e35-8ab1-f63c1942c7f1@web.de>
-Date: Wed, 4 Nov 2026 12:12:10 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ItNIRzeU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 644FD1F000C1;
+	Wed,  4 Nov 2026 11:13:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793790786;
+	bh=vyZpc5+vZeCU+0YbT+Y0OwhtiWtaEkOrtE7aWiCWgK4=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=ItNIRzeUCfLh7VLRjA7RqFdH2THL2WsDuFALEBn1ViJ/UAmrzrjvuVduLgaHG9UGD
+	 uLU7WrNMUrT8YZfIh/atL8ivqynj7BZJ4urPCLUr4hKCSRxem9IO8hBAzFh32CZYWD
+	 lQUzMZgh6Uvb21AH9q5E/YEeZZ2p8GjqFgJaHcJW2IlxDjiiywIm+mGGv0ZL1VYrjV
+	 +JM6pFnC6/RDh+GId69/Dim7/bfPjAX43zGioDxgZsNbk2m/9hdfn+wvRc26nB69oZ
+	 1HX/uYRTV+TdqXNOvrA94drCkaDn8eUmTPnL6BEel7abtzvA+Iv063SsLiDPIzx9Cc
+	 WCll3/KlTeDDw==
+Message-ID: <37b8dccd-f15f-4f19-b07a-db6b04b627a1@kernel.org>
+Date: Wed, 4 Nov 2026 19:13:03 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,128 +52,386 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC] Replacing special goto statements by direct returns?
-To: Julia Lawall <julia.lawall@inria.fr>, cocci@inria.fr
-Cc: tools@kernel.org, kernel-janitors@vger.kernel.org,
- LKML <linux-kernel@vger.kernel.org>
-References: <52418f50-b3ff-461d-8e66-c10f70e35b2a@web.de>
- <161f567a-f33-7865-8787-844a299ef9c1@inria.fr>
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <161f567a-f33-7865-8787-844a299ef9c1@inria.fr>
+Cc: chao@kernel.org, Daeho Jeong <daehojeong@google.com>
+Subject: Re: [f2fs-dev] [PATCH 04/20] f2fs: support subpage blocks in
+ directory operations
+To: Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, kernel-team@android.com
+References: <20261102193952.3002018-1-daeho43@gmail.com>
+ <20261102193952.3002018-5-daeho43@gmail.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20261102193952.3002018-5-daeho43@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Provags-ID: V03:K1:JebthncGfwuVXPr1DYhkIAV8c7xV0vnUxPKZgLIvW51HNQwxnkH
- QgU/NdJUEW4akGI455DgRTJekIFVu208xOZomT89AYEy6VSwoe99snNVtf/rjQ+4f4c2xt/
- iafcxEufdmi03/BVCiGRsMbzcvhQsEUGTEfU4lGeXZ6OiJNPpkwp4Nec7c+XAfxGGZeuyBi
- JULLvJpX6BUaVISgG+eig==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:qu5W9QmvmTk=;x8TQW3vaTlT8+RJy8VtBZkkR+Qp
- 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
 
-> I think you can do:
+On 11/3/26 03:39, Daeho Jeong wrote:
+> From: Daeho Jeong <daehojeong@google.com>
+> 
+> With subpage blocks, a directory folio holds several dentry blocks.
+> Address a dentry block within its folio by its block index, and mark
+> only the modified dentry block dirty. When an empty dentry block is
+> freed, clear only the state of that block and keep the folio dirty if
+> other blocks in it are still dirty.
+> 
+> Signed-off-by: Daeho Jeong <daehojeong@google.com>
+> ---
+>  fs/f2fs/dir.c    | 120 +++++++++++++++++++++++++++++++++--------------
+>  fs/f2fs/f2fs.h   |   2 +
+>  fs/f2fs/inline.c |   6 +--
+>  3 files changed, 89 insertions(+), 39 deletions(-)
+> 
+> diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
+> index 3eb0b7255951..aa3511c6f8fe 100644
+> --- a/fs/f2fs/dir.c
+> +++ b/fs/f2fs/dir.c
+> @@ -37,6 +37,31 @@ static inline bool f2fs_should_fallback_to_linear(struct inode *dir)
+>  extern struct kmem_cache *f2fs_cf_name_slab;
+>  #endif
+>  
+> +static inline pgoff_t f2fs_dentry_to_lblk(struct f2fs_sb_info *sbi,
+> +					  struct folio *folio, void *de)
+> +{
+> +	size_t off = round_down((size_t)(de - folio_address(folio)),
+> +				(size_t)F2FS_BLKSIZE(sbi));
+> +
+> +	return f2fs_folio_lblk(sbi, folio) + (off >> sbi->log_blocksize);
 
-Which computation tree logic variations do support data processing
-for unreachable source code fragments?
+return f2fs_folio_lblk(sbi, folio) + F2FS_BYTES_TO_BLK(sbi, off);
 
-Regards,
-Markus
+> +}
+> +
+> +void f2fs_mark_dentry_folio_dirty(struct inode *dir, struct folio *folio,
+> +				  pgoff_t bidx)
+> +{
+> +	struct f2fs_sb_info *sbi = F2FS_I_SB(dir);
+> +
+> +	if (f2fs_has_subpage_blocks(sbi)) {
+> +		size_t off = f2fs_folio_byte_offset(sbi, folio, bidx);
+> +
+> +		f2fs_ffs_mark_subrange_uptodate(folio, off, F2FS_BLKSIZE(sbi));
+> +		f2fs_ffs_mark_subrange_dirty(folio, off, F2FS_BLKSIZE(sbi));
+> +	} else if (!folio_test_uptodate(folio)) {
+> +		folio_mark_uptodate(folio);
+> +	}
+> +	folio_mark_dirty(folio);
+> +}
+> +
+>  static unsigned long dir_blocks(struct inode *inode)
+>  {
+>  	return F2FS_BYTES_TO_BLK(F2FS_I_SB(inode),
+> @@ -190,15 +215,16 @@ static unsigned long dir_block_index(unsigned int level,
+>  }
+>  
+>  static struct f2fs_dir_entry *find_in_block(struct inode *dir,
+> -				struct folio *dentry_folio,
+> +				struct folio *dentry_folio, pgoff_t bidx,
+>  				const struct f2fs_filename *fname,
+>  				int *max_slots,
+>  				bool use_hash)
+>  {
+> +	struct f2fs_sb_info *sbi = F2FS_I_SB(dir);
+>  	void *dentry_blk;
+>  	struct f2fs_dentry_ptr d;
+>  
+> -	dentry_blk = folio_address(dentry_folio);
+> +	dentry_blk = f2fs_folio_lblk_address(sbi, dentry_folio, bidx);
+>  
+>  	make_dentry_ptr_block(dir, &d, dentry_blk);
+>  	return f2fs_find_target_dentry(&d, fname, max_slots, use_hash);
+> @@ -289,7 +315,7 @@ static struct f2fs_dir_entry *find_in_level(struct inode *dir,
+>  	unsigned int nbucket, nblock;
+>  	unsigned int bidx, end_block, bucket_no;
+>  	struct f2fs_dir_entry *de = NULL;
+> -	pgoff_t next_pgofs;
+> +	pgoff_t next_blkofs;
+>  	bool room = false;
+>  	int max_slots;
+>  
+> @@ -306,11 +332,11 @@ static struct f2fs_dir_entry *find_in_level(struct inode *dir,
+>  	while (bidx < end_block) {
+>  		/* no need to allocate new dentry pages to all the indices */
+>  		struct folio *dentry_folio;
+> -		dentry_folio = f2fs_find_data_folio(dir, bidx, &next_pgofs);
+> +		dentry_folio = f2fs_find_data_folio(dir, bidx, &next_blkofs);
+>  		if (IS_ERR(dentry_folio)) {
+>  			if (PTR_ERR(dentry_folio) == -ENOENT) {
+>  				room = true;
+> -				bidx = next_pgofs;
+> +				bidx = next_blkofs;
+>  				continue;
+>  			} else {
+>  				*dentry_block = dentry_folio;
+> @@ -318,7 +344,8 @@ static struct f2fs_dir_entry *find_in_level(struct inode *dir,
+>  			}
+>  		}
+>  
+> -		de = find_in_block(dir, dentry_folio, fname, &max_slots, use_hash);
+> +		de = find_in_block(dir, dentry_folio, bidx, fname, &max_slots,
+> +				   use_hash);
+>  		if (IS_ERR(de)) {
+>  			f2fs_folio_put(dentry_folio, false);
+>  			*dentry_block = ERR_CAST(de);
+> @@ -354,7 +381,7 @@ struct f2fs_dir_entry *__f2fs_find_entry(struct inode *dir,
+>  					 const struct f2fs_filename *fname,
+>  					 void **dentry_block)
+>  {
+> -	unsigned long npages = dir_blocks(dir);
+> +	unsigned long nblocks = dir_blocks(dir);
+>  	struct f2fs_dir_entry *de = NULL;
+>  	unsigned int max_depth;
+>  	unsigned int level;
+> @@ -370,7 +397,7 @@ struct f2fs_dir_entry *__f2fs_find_entry(struct inode *dir,
+>  		goto out;
+>  	}
+>  
+> -	if (npages == 0)
+> +	if (nblocks == 0)
+>  		goto out;
+>  
+>  	max_depth = F2FS_I(dir)->i_current_depth;
+> @@ -468,7 +495,8 @@ void f2fs_set_link(struct inode *dir, struct f2fs_dir_entry *de,
+>  		f2fs_folio_wait_writeback(folio, true, true);
+>  		de->ino = cpu_to_le32(inode->i_ino);
+>  		de->file_type = fs_umode_to_ftype(inode->i_mode);
+> -		folio_mark_dirty(folio);
+> +		f2fs_mark_dentry_folio_dirty(dir, folio,
+> +				f2fs_dentry_to_lblk(F2FS_I_SB(dir), folio, de));
+>  	}
+>  
+>  	inode_set_mtime_to_ts(dir, inode_set_ctime_current(dir));
+> @@ -539,12 +567,12 @@ static int make_empty_dir(struct inode *inode,
+>  	if (IS_ERR(dentry_folio))
+>  		return PTR_ERR(dentry_folio);
+>  
+> -	dentry_blk = folio_address(dentry_folio);
+> +	dentry_blk = f2fs_folio_lblk_address(F2FS_I_SB(inode), dentry_folio, 0);
+>  
+>  	make_dentry_ptr_block(inode, &d, dentry_blk);
+>  	f2fs_do_make_empty_dir(inode, parent, &d);
+>  
+> -	folio_mark_dirty(dentry_folio);
+> +	f2fs_mark_dentry_folio_dirty(inode, dentry_folio, 0);
+>  	f2fs_folio_put(dentry_folio, true);
+>  	return 0;
+>  }
+> @@ -737,7 +765,8 @@ int f2fs_add_regular_entry(struct inode *dir, const struct f2fs_filename *fname,
+>  		if (IS_ERR(dentry_folio))
+>  			return PTR_ERR(dentry_folio);
+>  
+> -		dentry_blk = folio_address(dentry_folio);
+> +		dentry_blk = f2fs_folio_lblk_address(F2FS_I_SB(dir),
+> +						     dentry_folio, block);
+>  		make_dentry_ptr_block(dir, &d, dentry_blk);
+>  		bit_pos = f2fs_room_for_filename(d.bitmap, slots, d.max);
+>  		if (bit_pos < d.max)
+> @@ -764,7 +793,7 @@ int f2fs_add_regular_entry(struct inode *dir, const struct f2fs_filename *fname,
+>  	f2fs_update_dentry(ino, mode, &d, &fname->disk_name, fname->hash,
+>  			   bit_pos);
+>  
+> -	folio_mark_dirty(dentry_folio);
+> +	f2fs_mark_dentry_folio_dirty(dir, dentry_folio, block);
+>  
+>  	if (inode) {
+>  		f2fs_i_pino_write(inode, dir->i_ino);
+> @@ -902,25 +931,28 @@ void f2fs_delete_entry(struct f2fs_dir_entry *dentry, void *dentry_block,
+>  	struct folio *folio;
+>  	unsigned int bit_pos;
+>  	int slots = GET_DENTRY_SLOTS(le16_to_cpu(dentry->name_len));
+> +	struct f2fs_sb_info *sbi = F2FS_I_SB(dir);
+> +	size_t block_offset;
+>  	pgoff_t index;
+>  	int i;
+>  
+> -	f2fs_update_time(F2FS_I_SB(dir), REQ_TIME);
+> +	f2fs_update_time(sbi, REQ_TIME);
+>  
+> -	if (F2FS_OPTION(F2FS_I_SB(dir)).fsync_mode == FSYNC_MODE_STRICT)
+> -		f2fs_add_ino_entry(F2FS_I_SB(dir), dir->i_ino, TRANS_DIR_INO);
+> +	if (F2FS_OPTION(sbi).fsync_mode == FSYNC_MODE_STRICT)
+> +		f2fs_add_ino_entry(sbi, dir->i_ino, TRANS_DIR_INO);
+>  
+>  	if (f2fs_has_inline_dentry(dir))
+>  		return f2fs_delete_inline_entry(dentry,
+>  				f2fs_dentry_cache(dentry_block), dir, inode);
+>  
+>  	folio = f2fs_dentry_folio(dentry_block);
+> -	index = folio->index;
+>  
+>  	folio_lock(folio);
+>  	f2fs_folio_wait_writeback(folio, true, true);
+>  
+> -	dentry_blk = folio_address(folio);
+> +	index = f2fs_dentry_to_lblk(sbi, folio, dentry);
+> +	block_offset = f2fs_folio_byte_offset(sbi, folio, index);
+> +	dentry_blk = folio_address(folio) + block_offset;
+
+Use f2fs_folio_lblk_address() for cleanup?
+
+Thanks,
+
+>  	make_dentry_ptr_block(dir, &d, dentry_blk);
+>  	bit_pos = dentry - d.dentry;
+>  	for (i = 0; i < slots; i++)
+> @@ -928,18 +960,31 @@ void f2fs_delete_entry(struct f2fs_dir_entry *dentry, void *dentry_block,
+>  
+>  	/* Let's check and deallocate this dentry page */
+>  	bit_pos = find_next_bit_le(d.bitmap, d.max, 0);
+> -	folio_mark_dirty(folio);
+> +	f2fs_mark_dentry_folio_dirty(dir, folio, index);
+>  
+>  	if (bit_pos == d.max &&
+>  	    !f2fs_truncate_hole(dir, index, index + 1)) {
+> +		if (f2fs_has_subpage_blocks(sbi)) {
+> +			bool dirty;
+> +
+> +			dirty = f2fs_ffs_clear_subrange_dirty_and_test(folio,
+> +					block_offset, F2FS_BLKSIZE(sbi));
+> +			f2fs_ffs_clear_subrange_uptodate(folio, block_offset,
+> +							 F2FS_BLKSIZE(sbi));
+> +			if (dirty)
+> +				goto keep_dirty;
+> +		}
+>  		f2fs_clear_page_cache_dirty_tag(folio);
+>  		folio_clear_dirty_for_io(folio);
+> -		folio_clear_uptodate(folio);
+> -		folio_detach_private(folio);
+> +		if (!f2fs_has_subpage_blocks(sbi)) {
+> +			folio_clear_uptodate(folio);
+> +			folio_detach_private(folio);
+> +			inode_dec_dirty_block(dir);
+> +		}
+>  
+> -		inode_dec_dirty_block(dir);
+>  		f2fs_remove_dirty_inode(dir);
+>  	}
+> +keep_dirty:
+>  	f2fs_folio_put(folio, true);
+>  
+>  	inode_set_mtime_to_ts(dir, inode_set_ctime_current(dir));
+> @@ -961,20 +1006,21 @@ bool f2fs_empty_dir(struct inode *dir)
+>  		return f2fs_empty_inline_dir(dir);
+>  
+>  	while (bidx < nblock) {
+> -		pgoff_t next_pgofs;
+> +		pgoff_t next_blkofs;
+>  		struct folio *dentry_folio;
+>  
+> -		dentry_folio = f2fs_find_data_folio(dir, bidx, &next_pgofs);
+> +		dentry_folio = f2fs_find_data_folio(dir, bidx, &next_blkofs);
+>  		if (IS_ERR(dentry_folio)) {
+>  			if (PTR_ERR(dentry_folio) == -ENOENT) {
+> -				bidx = next_pgofs;
+> +				bidx = next_blkofs;
+>  				continue;
+>  			} else {
+>  				return false;
+>  			}
+>  		}
+>  
+> -		dentry_blk = folio_address(dentry_folio);
+> +		dentry_blk = f2fs_folio_lblk_address(F2FS_I_SB(dir),
+> +						     dentry_folio, bidx);
+>  		make_dentry_ptr_block(dir, &d, dentry_blk);
+>  		if (bidx == 0)
+>  			bit_pos = 2;
+> @@ -1080,7 +1126,7 @@ int f2fs_fill_dentries(struct dir_context *ctx, struct f2fs_dentry_ptr *d,
+>  static int f2fs_readdir(struct file *file, struct dir_context *ctx)
+>  {
+>  	struct inode *inode = file_inode(file);
+> -	unsigned long npages = dir_blocks(inode);
+> +	unsigned long nblocks = dir_blocks(inode);
+>  	void *dentry_blk = NULL;
+>  	struct file_ra_state *ra = &file->f_ra;
+>  	loff_t start_pos = ctx->pos;
+> @@ -1089,6 +1135,8 @@ static int f2fs_readdir(struct file *file, struct dir_context *ctx)
+>  	unsigned int n = (unsigned long)ctx->pos / entries;
+>  	struct f2fs_dentry_ptr d;
+>  	struct fscrypt_str fstr = FSTR_INIT(NULL, 0);
+> +	pgoff_t f_last = nblocks ? f2fs_lblk_to_folio_index(sbi, nblocks - 1) : 0;
+> +	pgoff_t f_index, ra_pages;
+>  	int err = 0;
+>  
+>  	if (IS_ENCRYPTED(inode)) {
+> @@ -1106,9 +1154,9 @@ static int f2fs_readdir(struct file *file, struct dir_context *ctx)
+>  		goto out_free;
+>  	}
+>  
+> -	for (; n < npages; ctx->pos = n * entries) {
+> +	for (; n < nblocks; ctx->pos = n * entries) {
+>  		struct folio *dentry_folio;
+> -		pgoff_t next_pgofs;
+> +		pgoff_t next_blkofs;
+>  
+>  		/* allow readdir() to be interrupted */
+>  		if (fatal_signal_pending(current)) {
+> @@ -1118,23 +1166,25 @@ static int f2fs_readdir(struct file *file, struct dir_context *ctx)
+>  		cond_resched();
+>  
+>  		/* readahead for multi pages of dir */
+> -		if (npages - n > 1 && !ra_has_index(ra, n))
+> -			page_cache_sync_readahead(inode->i_mapping, ra, file, n,
+> -				min(npages - n, (pgoff_t)MAX_DIR_RA_PAGES));
+> +		f_index = f2fs_lblk_to_folio_index(sbi, n);
+> +		ra_pages = f_last - f_index + 1;
+> +		if (nblocks - n > 1 && !ra_has_index(ra, f_index))
+> +			page_cache_sync_readahead(inode->i_mapping, ra, file, f_index,
+> +				min(ra_pages, (pgoff_t)MAX_DIR_RA_PAGES));
+>  
+> -		dentry_folio = f2fs_find_data_folio(inode, n, &next_pgofs);
+> +		dentry_folio = f2fs_find_data_folio(inode, n, &next_blkofs);
+>  		if (IS_ERR(dentry_folio)) {
+>  			err = PTR_ERR(dentry_folio);
+>  			if (err == -ENOENT) {
+>  				err = 0;
+> -				n = next_pgofs;
+> +				n = next_blkofs;
+>  				continue;
+>  			} else {
+>  				goto out_free;
+>  			}
+>  		}
+>  
+> -		dentry_blk = folio_address(dentry_folio);
+> +		dentry_blk = f2fs_folio_lblk_address(sbi, dentry_folio, n);
+>  
+>  		make_dentry_ptr_block(inode, &d, dentry_blk);
+>  
+> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+> index 114d3d7bcd3e..3822824326d7 100644
+> --- a/fs/f2fs/f2fs.h
+> +++ b/fs/f2fs/f2fs.h
+> @@ -4193,6 +4193,8 @@ void f2fs_delete_entry(struct f2fs_dir_entry *dentry, void *dentry_blk,
+>  int f2fs_do_tmpfile(struct inode *inode, struct inode *dir,
+>  					struct f2fs_filename *fname);
+>  bool f2fs_empty_dir(struct inode *dir);
+> +void f2fs_mark_dentry_folio_dirty(struct inode *dir, struct folio *folio,
+> +				  pgoff_t bidx);
+>  
+>  static inline int f2fs_add_link(struct dentry *dentry, struct inode *inode)
+>  {
+> diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
+> index 49905aa08418..ba0aff8e5643 100644
+> --- a/fs/f2fs/inline.c
+> +++ b/fs/f2fs/inline.c
+> @@ -463,10 +463,6 @@ static int f2fs_move_inline_dirents(struct inode *dir,
+>  	memcpy(dst.dentry, src.dentry, SIZE_OF_DIR_ENTRY * src.max);
+>  	memcpy(dst.filename, src.filename, src.max * F2FS_SLOT_LEN);
+>  
+> -	if (!folio_test_uptodate(folio))
+> -		folio_mark_uptodate(folio);
+> -	folio_mark_dirty(folio);
+> -
+>  	/* clear inline dir and flag after data writeback */
+>  	f2fs_truncate_inline_inode(dir, ientry, 0);
+>  
+> @@ -484,6 +480,8 @@ static int f2fs_move_inline_dirents(struct inode *dir,
+>  	f2fs_i_depth_write(dir, 1);
+>  	if (i_size_read(dir) < F2FS_BLKSIZE(F2FS_I_SB(dir)))
+>  		f2fs_i_size_write(dir, F2FS_BLKSIZE(F2FS_I_SB(dir)));
+> +
+> +	f2fs_mark_dentry_folio_dirty(dir, folio, 0);
+>  out:
+>  	f2fs_folio_put(folio, true);
+>  	return err;
+
