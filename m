@@ -1,127 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793797381;
-	b=Cxk5fhq9tVgcm4DDGKYVnJIM5sqKvQw9KzsdvbmmHBzsVvyf8WTewTRmNb2WF3zCzdPg
-	 fS3alPPbdSG2m0SmwFQmbNE0Z0TIxHAQNdE570Q3HjXv8Leolb9fFtYuW5ZOIU+LIQPY5
-	 KJlFafXWhwLb+MzW4uwknsjTX9Vd3cL3IeFCbfvcLHHTtLzpL6/2sA4NDY+6065Ov1x+z
-	 zBoKxr/Em1x+ZtSaexY/RLpzwrd6vy2Ybrxo4Vcm1cwqd32OulGfPbwP2vitDKGbp31Op
-	 h6K8ob80Bvn2PaZH4ujWSsyesqLiybW110OElfV1URqE2DGBb3rVHq/UMOFfWPjCxTw==
+	t=1793797372;
+	b=UE8BVcqlTBWVM2B17nc/AqfLc3jSSqZwMQUOTmLvX++x0miozio9srF1ksE8Z2CfQIvh
+	 es8CAyBko/bqg0cEMv0pshlY+Ld06GkvBdXvEOeGFW/aTARD/Zjpxsdm06OrUxLU2p7gS
+	 lJuRnMNoS9uccQleQqKGWsSUKGsds4BQPP2rn6S3jl9bm4tacaChPvKHyN7Zuq0KrH8dV
+	 skdsAF4+aClV97RF7MKVS8KSqhPvBqrBVFBegpYn9nZmBkmMemx4GNAZ/NE/EITWxBnXS
+	 qyUTTIbQrEb4Nq96RXpL1x6fsnp2ZlYErkVhccaqPJhZD2BpKMvZNwdreA6mNeSVuIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793797381;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=rz5gqclVsI7Nyi3wdIsP2V0gZuIMwOehVRh4pvFPagk=;
-	b=2nLG6X5Uu/lHE7Om71FyaoiwYmALEfiQqsrzOR0HdD39yT7yzlR7wuAG6jlnZGrDepEh
-	 Xk01jhG/XBI2A+XShCjp6bocbeFQi3Rk+RGNm7Pes927VWH0Eo0YRgNFQ5yJm3dl+1u2c
-	 iw0ZJGmJGEhpTi42EfgaoNjhU41aPM5RwzINoIj2ZnVTcr/OlODI55y0GIjAer+ADXQh2
-	 7fHu5aYbLwtfGyHb7fu5NUM45nrm8++Fovjgtr7giqzTgyanME7S1mHIyPXf01RD8Jwct
-	 KD1D845fwFz3xlL4FQ0ampLwwgAE8bj8MrkS9AYa/XHjvha/ByUIuAUpn9wAJig8n8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793797372;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=SRGqHpvlbItrb8SBzeCSixfB+wFJyGeT6RoSoZOZfJY=;
+	b=u5+Zdu4STBov13TEVYinNSjqdwVAAO1/uNrLbb3V1Gvk0GhVzd4UV3SUGz6gASgZMUAx
+	 GKdcyj6x7/aMRTZJJXUuZS33D/iMi09NGW/1pzTcKk4x3diC2oLric9/YV9pkKBK7rqlR
+	 kE93LDmI0US3oMXovRo1G72NCoPXtfooJ56+qw6nPPKLiGCBu7GkdlI1p3Z9o3pUAsaOK
+	 C2XqEPrm5o71h27CBMpP91wrvQ3ZI/NcrGclb2vAOUGvZWxZ69qqR7Liv2WMc+2r8iFc5
+	 Q3NMpIOQNS/uPxLp5F0/ROtw6pTq/TF7SSQ57x+IGKbDLWwhRFSeTelGDj5iu4cNirA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LcdXsSLP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OewmQ6qB;
+	arc=none smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B8A1606D816;
-	Wed,  4 Nov 2026 13:03:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4B0C608361B;
+	Wed,  4 Nov 2026 13:02:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4B0C608361B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LcdXsSLP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2F091F000C1;
-	Wed,  4 Nov 2026 13:02:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793797381;
-	bh=rz5gqclVsI7Nyi3wdIsP2V0gZuIMwOehVRh4pvFPagk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LcdXsSLPAg5DKaj/aTv9PSu2NP1TfKv/KnATTp80uFZvAj/RMdBW+1ZOPeFrFXIx7
-	 C8QG6ERv/NLY32h5WhymVgGeNa+YQYciUPxku0pk8GVL18LnAMrB2tjXMT35BVtc1f
-	 RKHAHigPew3UGAZSjvFYrFmd/K1cEReTLTZLPr6jKunichT+DFykWt/XzltrNGwlxj
-	 wZP27+w9nPxPszO97Il7WVkaoQE/QEWONuTFLsBkK3oKjpihaYjzEp9BjCpS5snY85
-	 FpI1lwH5PeatNZSbHRappTVAIgHvJ3XURdvAarRP31JRYg3s/AIJ3b1+rDwU6eY0Om
-	 XcDyC66dIpPig==
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfauth.ams.internal (Postfix) with ESMTP id AFE2F1980054;
-	Wed,  4 Nov 2026 08:02:53 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Wed, 04 Nov 2026 08:02:57 -0500
-X-ME-Sender: <xms:_SzrajjhOxjr2XwmQIqse1UH4LUbP5FMftC_A5W_XWSuGXPGh7Ne8Q>
-    <xme:_SzralRIVATV3PkPWnjCM5SvKMZ0McdyzgmUKTIQJtK-L_e3PbBXnMpYJOjbb0UGt
-    9u8BTkQyp3pWleC3fWEBloQXw-hlE-bVCkfIqL5wIp8dHO3NAWZouI>
-X-ME-Received: <xmr:_SzraluTmjoqOwcQy9e6ka_pj-2Ujp5hVDTOHn6Ct-5eQUDjaP9sMcvxvkM>
-X-ME-Proxy-Cause: dmFkZTFyj9iBgTb70dT7Nrskf29uuOyI8LMvpppsr+ztaR0SBDghph+zBPTBpK5ZS8w9Hs
-    ZfoFoa0Z54ye4qFPVN9z+iBcUmGJLuDx+F5E+GwM0Yai8h0Kc4rjSxG6WPfOH2iKPLuf3P
-    s2X5S/AicHnwf5qqVsIRpEEeMef/YyNBtQ+L8UUZ6s+iWkyfT6d384myBgsvxs/VTn39m/
-    MUnuiW24J8M/zjUd3ANt41C4Bw9zgbZVxkihnU4ozkl0ylLdfdgBXUdCPFEeO2l/cn91tf
-    naFqCjfGvhGtglGyOuDPbmSg5ttJSGEvGw0VM28OvYSuugU2nbyQInHmfNiv9aGwbOcLH4
-    On74nzUC3nPKqfDN/sMhYaGYO1MhljVDfGE2vC9FhLtaOGURgAAOil+k7jNMbJdmEX0NvH
-    swNaHl/JaFLs6rjXZGOyd5xvwPmbfq1hTp5NWLUbQ12f+BXP5EvzTG4tMGeerrxcrufkjh
-    EzwpMH60K5EW6Z37zOiO9WWgNGElXeReO7uYKlOLtTpSMyfzof0LBZaT33gmHu1A7UQtNY
-    npzMWa+RFPD0Yae0NV8sWf7t87X19860EPPgf/BtLIW4Vsla8t/wiVOklLjsi1yFPg05B2
-    P13+BfYZVFRbqLI4WVn7+IhSyz5k7yg8mJzNRGz+x/GOLEdoSNUNQCEsYylg
-X-ME-Proxy: <xmx:_Szrav-b31d6zMJAwAENaJdU8AZEIB2CijIOzOdlc-_ugaDjKdk7Hw>
-    <xmx:_SzrahYUifZzOGQwa65MAOu6uQsW36D4cuUMV9Bs5zReC8nLjx-3AQ>
-    <xmx:_SzrauNjCv6ipufU8vee145tFV4L_LJ8ioWtu4UN3clsM2caO2UP1w>
-    <xmx:_SzrapSz7raAMh0YiZbyG2yxTyALTmGivrf6UazVsdQ5EDkaFvVucg>
-    <xmx:_Szrap-zRACVOvdl3tdSQLZ_LHA2ubYpNiblmBUTaBM0i1IvgdP3_fM6>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 4 Nov 2026 08:02:52 -0500 (EST)
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Hugh Dickins <hughd@google.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Harry Yoo <harry@kernel.org>
-Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Miklos Szeredi <miklos@szeredi.hu>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Kairui Song <kasong@tencent.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Ilya Gladyshev <ilya.gladyshev@linux.dev>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	fuse-devel@lists.linux.dev,
-	kernel-team@meta.com
-Subject: [RFC PATCH v2 15/18] mm/filemap: don't store f_ra.prev_pos for FMODE_RANDOM files
-Date: Wed,  4 Nov 2026 13:01:11 +0000
-Message-ID: <20261104130118.2507513-16-kas@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261104130118.2507513-1-kas@kernel.org>
-References: <20261104130118.2507513-1-kas@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OewmQ6qB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793797371; x=1825333371;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=GAcKRv5e4ziBm7pGbCW6+/a3seuaUkhBJrvH+Iricig=;
+  b=OewmQ6qBL2HnZJn/Gq7xl4l/cnxiAglRMGbB8dRhJ19WE3+WGyXP6W5i
+   lOohrAxekR4CvA1+wUCgm4kuOA4w5o+PE4VOZHXO+JvihYeWUr+in9/7+
+   5w7O8oUusciB31tMJ0FEEDCc0uxYz8ay/9/ufnT/slNt4SQbbacFY8O7V
+   c7i4nO5Xy7DrojXmFBNXNzBuaz9STyagYWbIv0cE83wQZVqmH/bynjXt9
+   I4yTjqaukhanGXQtRDIuTAH6AR06bO7iwOL5bB7FEo8x23c/xgA45U/vG
+   CCNCnRyGiQnqy2AXXZGUHlZSAkJJ4TS+yn0cYWaCY/MrYkUYrFIxHUdkb
+   Q==;
+X-CSE-ConnectionGUID: tn8iwtxrSHeVDRNaEbJRug==
+X-CSE-MsgGUID: BWkLRxpQS6K11zOBWVXTBA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2582775"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2582775"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 05:02:50 -0800
+X-CSE-ConnectionGUID: 8XsczXFPSj2Ko1poeOs+TA==
+X-CSE-MsgGUID: ctcZfa2CQkiSXMpzoWuq7g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="7056592"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.19])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 05:02:48 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id F18E3121B88;
+	Wed, 04 Nov 2026 15:02:56 +0200 (EET)
+Date: Wed, 4 Nov 2026 15:02:56 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Valerii Sokolov <valerii.sokolov@pm.me>
+Cc: Bingbu Cao <bingbu.cao@intel.com>, Tianshu Qiu <tian.shu.qiu@intel.com>,
+	Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	Sarang Sapre <sarang.sapre@intel.com>,
+	Divyamani Tripathi <divyamani.tripathi@intel.com>,
+	Manik Bajpai <manik.bajpai@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 07/11] media: intel/ipu6: fix IOVA leak on first entry
+ failure in ipu6_dma_map_sg()
+Message-ID: <austAJyXh0xorYV0@kekkonen.localdomain>
+References: <20261103211031.1573726-1-valerii.sokolov@pm.me>
+ <20261103211031.1573726-8-valerii.sokolov@pm.me>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -131,59 +90,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103211031.1573726-8-valerii.sokolov@pm.me>
 
-filemap_read() writes the end of every read to file->f_ra.prev_pos, in
-the cache line that fdget() and fdput() write when threads share the
-file table.
+Hi Valerii,
 
-Applications that read a file at random offsets from many threads, such
-as RocksDB, set POSIX_FADV_RANDOM on it.  Readahead then never reads
-prev_pos: page_cache_sync_ra() forces the read first.
+On Tue, Nov 03, 2026 at 09:11:03PM +0000, Valerii Sokolov wrote:
+> If ipu6_mmu_map() fails for the first scatterlist entry,
+> ipu6_dma_map_sg() calls ipu6_dma_unmap_sg() with nents == 0. That
+> returns immediately, so the IOVA range allocated with alloc_iova() is
+> never freed.
+> 
+> Free the IOVA directly when no entry has been mapped yet.
+> 
+> Fixes: 9163d83573e4 ("media: intel/ipu6: add IPU6 DMA mapping API and MMU table")
+> Reviewed-by: Antti Laakso <antti.laakso@linux.intel.com>
+> Signed-off-by: Valerii Sokolov <valerii.sokolov@pm.me>
+> ---
+>  drivers/media/pci/intel/ipu6/ipu6-dma.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/pci/intel/ipu6/ipu6-dma.c b/drivers/media/pci/intel/ipu6/ipu6-dma.c
+> index 90f530a937..a923a1e4bd 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu6-dma.c
+> +++ b/drivers/media/pci/intel/ipu6/ipu6-dma.c
+> @@ -444,7 +444,10 @@ int ipu6_dma_map_sg(struct ipu6_bus_device *sys, struct scatterlist *sglist,
+>  	return nents;
+>  
+>  out_fail:
+> -	ipu6_dma_unmap_sg(sys, sglist, i, dir, attrs);
+> +	if (i)
+> +		ipu6_dma_unmap_sg(sys, sglist, i, dir, attrs);
+> +	else
+> +		__free_iova(&mmu->dmap->iovad, iova);
 
-Skip the store for such files after a read that filemap_read_rcu() did
-in full: without folio references, the file's line is what the threads
-contend on.  Keep it on the slow path, which takes folio references:
-skipping it there made reads slower in my testing.
+This should be handled in ipu6_dma_unmap_sg(). I'd release the iova in the
+beginning and reverse the order of the nents / iova checks.
 
-filemap_read() compares the start of a read with prev_pos, to tell a
-read that goes on in the same folio from another access to it.  On an
-FMODE_RANDOM file it can now be stale; with many threads on one file it
-was another thread's read already.
+I'll merge the rest now.
 
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
----
- mm/filemap.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+>  
+>  	return 0;
+>  }
 
-diff --git a/mm/filemap.c b/mm/filemap.c
-index 182ae7d5db56..5998de3d6697 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -3078,8 +3078,13 @@ ssize_t filemap_read(struct kiocb *iocb, struct iov_iter *iter,
- 	if (fast_read) {
- 		already_read += fast_read;
- 		last_pos = iocb->ki_pos;
--		if (!iov_iter_count(iter))
--			goto out;
-+		if (!iov_iter_count(iter)) {
-+			file_accessed(filp);
-+			/* Readahead of a random file ignores it: skip the shared store */
-+			if (!(filp->f_mode & FMODE_RANDOM))
-+				ra->prev_pos = last_pos;
-+			return already_read;
-+		}
- 	}
- 
- 	do {
-@@ -3161,7 +3166,6 @@ ssize_t filemap_read(struct kiocb *iocb, struct iov_iter *iter,
- 		}
- 	} while (iov_iter_count(iter) && iocb->ki_pos < isize && !error);
- 
--out:
- 	file_accessed(filp);
- 	ra->prev_pos = last_pos;
- 	return already_read ? already_read : error;
 -- 
-2.54.0
+Regards,
 
+Sakari Ailus
