@@ -1,100 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.170
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793819661;
-	b=YuitBBHIivjkMQTpE1JfEHhWuljBBicCHfCzTfbjomE6wzBwetM4GzoXOXR5Gl9ExxJ5
-	 KG+GRLKGPpBYr16rpALHXaow30pK8mAKD4Vv8ySZR2HGZdpPsVsl92SHhwgvLyU/61ghy
-	 a1BXumrhtvqm7jhLnD1RzEWVg2rCMkn3Aj7m4a4NpldNJnCEo+9C3RMHKWWQtiiQQzuEe
-	 enE5T7pmtfnZFe1ZKAkoCm5K+W5NDVtJPDZmeInZkUM4F4eNz86ci7srb/17H7Tw37eyO
-	 aECRFTuYRJUYUSmBvh5BU/L+nInbpxkgU+CdAP5GLPYCmzHRbI2eGGJOexs3CNENpJw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819661;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793819710;
+	b=bExXr1YhxTCZkraRkbchefxrO5xE1HN2WWxrCcJXabIHTrRSpP9OrlXAJCQXGuXNDMDS
+	 QJCPNvUPQhpovDh6zqq6VKtCev37i5L0Dfqwa1WULmzc+7QIjZCr08q3XQaUA6FcgbPgV
+	 LqCUIpCKWCd2mO8X59bJrb2sEpYxjWSNLO0XvcPlkt8gAzMrXSgneeBiOjYR3cyPn87vb
+	 TYntGYWF7SKRewNuBA+XNQWML6WErzKMVz2yNuoqOaKV3eIBhowvKuXfsM7lMkMMp2r67
+	 PSagCcRKnnrx5WOSg1ReyCSXwsodyYyDX2IPnd9xYOjJPm6c8B0NhXOP1aFndSNDwrA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819710;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ke/7n0XLIEYiHaAKGZFuuKbcPuEg3xzGKtrQJnxCMlA=;
-	b=DSCwt2iPD5kQvZ9jrpG8YA+o2rqJkbNtBDuFEpUw8HRr52KOIifiUb2Pnxk713hWme5T
-	 HCIxDOK2/H0PkglwwLwRRM3Lx+vAVB96bTymckwOP6Jgh19QizRElQe74vb5i2N6desCp
-	 Vv76ek87jNoSkMAAKHXdtFca85MPkVaW4U2+To8ajZSTXnj1hcZ3b6zaWMSCQ56Hj2XHF
-	 Qc2djwChbcQ4/uoyHc6x9wWDWD6jBV5z4WaWZgL9itLJwe3Y7me6KKGsSF0ZH0oGBtgU8
-	 CViOhjF5qGaNWb4wPsYx/AT1yiNPjlNwL56Ff1yNSmT72h1nzT4N031duYGNi8BH91w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=criticallink.com;
-	spf=pass smtp.mailfrom=criticallink.com;
-	dkim=pass header.d=criticallink.com header.i=@criticallink.com header.a=rsa-sha256 header.s=google header.b=KyPOF0j4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.170
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Content-Type;
+	bh=fJF7oJyRnRKwnIF54ui40VQH4dCqd67YhvJqsB+AsGw=;
+	b=KRyx85A6JPXfqd/L4bBqLKLZgnp32MI/KflzAYLesUqStt/ARbbbP33h+63cyEWgSexG
+	 BtDLd5a1qkjtta3AZWjzfafT8G4AT60PjhheSvpUw3XH3LN9RrdUnCAOdgawdh8cSpNGp
+	 jAAGQelCbul3RqK29vFTiZXx83rid9Xqafp7uVbD5FaVzxvwwPxkpp8fViohh8lA1GDkT
+	 fWPZ0KBGOtMof3r8nq19Ys2UT/GwZArsiEM7UzHwPpLk88pckrJUXwF3nTfoPz1A0THWM
+	 cJ5jp/1Na2m7AKalfzI/VoZWsRbsLZVIWeSuPLZuL45UHqKiLi6MC0hXVBtII5/raYA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=B9EBJFFK;
+	arc=none smtp.remote-ip=209.85.214.200
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50881606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:14:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50881606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=criticallink.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=criticallink.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F7A606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:15:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29F7A606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=criticallink.com header.i=@criticallink.com header.a=rsa-sha256 header.s=google header.b=KyPOF0j4
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8ac9d666d4eso13443207b3.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:14:20 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793819659; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HO/oF8vmM42KS+oj/4KExcVcMu6udp6gyBEU2xcr3fGfRl3TYxjz6f5LbByf2iuYqj
-         gougmsZjR4T5Q1+MBaUSUI8u3ADDiD3yF9sEneGaoBHGb/XEN9Y9UtLve7SCJSsrv5WB
-         v1f6v0aVw0xUGfPXxTABXRLGg7KQ6qAI3dLZVIJ8lexIaM+mIUEaFeXeBoXUsCeL8p+T
-         sFz2RWj8+zlfSMHjJXktYj6p7POy/0Dk9UkyczFfnuuQCucWywcF/1GtO+9nKmeeEiep
-         8ETcpfTPHRHLrWWguHxrUSq/AZEKvgbv/55ByRfHBHeIE/OiOS6TqNs9B9Xr2M+IHWA3
-         TFmg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ke/7n0XLIEYiHaAKGZFuuKbcPuEg3xzGKtrQJnxCMlA=;
-        fh=+DH0hnHuvqmxsF1YM9Y8Ao7HfKNrBw2/Nqfp3faKOso=;
-        b=X56QjCWtI4K6PnNMBtyreXSiWSZ6ogws27MKIKdYY8WFSEFlBoQhAyAicKI2VXfp81
-         hLDSJhtftoZi5vLw248PgohqrauL14b5NWuNKtPE4yBvVT4BaDiVU8kIkSbY/xz38qUc
-         LGJQcsU7wBI4HEzYOwtut5csMVEGLUeZxv6fX9klX/GwzgJIaHU3xhHziQI/1vyACL6w
-         kHkY20nHy5BuawI6vnJ1LBQ86va98O2yj14jkITSkWeu//UFkaTRLnsocfzi38+MRfBP
-         WybDTPCMNYq6Oeg+43Zd+1OXesfJ3ORmekAriVdDTGwkcaNtzm6s9aMGNReEDOPy2RPK
-         EUBA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=B9EBJFFK
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2eced5a4cb9so9988085ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:15:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=criticallink.com; s=google; t=1793819659; x=1794424459; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ke/7n0XLIEYiHaAKGZFuuKbcPuEg3xzGKtrQJnxCMlA=;
-        b=KyPOF0j4HfonU6LaDyDbWBtub+I/n+ff+iKTumhe8EbWz6taew+Mhbaa17Irr8zjLL
-         jSimCbaDOGMrERtDuQScolSF7LlR1K4VgWajwNRMI85kqBL4+xXxjOrBScEkCl46ZMGL
-         ++pc7MrSy3xIss3WdW1LIqleuASAVnMD84pvPhyFsSVexneQR++peFoqpvRVXZpI8mvY
-         e5p0gS/4DRC4jHoD7sQcgkvjOby9V80BOFg6o4gbSWQ3pZBxHpyFoRUJuIuKTJVUcUHW
-         ow+RfnMEYF8yKe2mwkFLk7Xm8LBZclX/JhJwwq8rx4VgYgst2+4X178kgh0A1hVSVfE/
-         0ByA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793819659; x=1794424459;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1793819709; x=1794424509; darn=vger.kernel.org;
+        h=content-type:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ke/7n0XLIEYiHaAKGZFuuKbcPuEg3xzGKtrQJnxCMlA=;
-        b=px9mpkcnjCH3IJUl2mv+c9UhG5QMrwS4IUKSxEp1kGGZtg7A9gyJrDpd+5Y84jUbtf
-         Oh3XIWBMxxekEI9eUdkV3QNvnivlpaMUydSdppPD/LGzxdhe4J2CUeNTC6KKaUu+RawU
-         NjL/afVvEc+zH/z7AzFeutoSMabQ3KTV+jEOGca3MB8B/iNS02AF9nO5iHo+efIKxGd+
-         w2D1/8ss4BURknk3prt/73VHt/TaAtwCh33TjLB3xW3s+istlRwBgWyTv25llaN97S3Q
-         6CvM7D26qKYVB1vcgkOej6lZ+WrktgZ54eZ775N8Y86ie/rZQDZXpMLai9NtLmfLsfap
-         LPVQ==
-X-Forwarded-Encrypted: i=1; AKwUvByQn8EAYKy4yQa5oyfPEAgr010mqvFt1oge45+IJa6cBZHh4f96sOB8/Yn2W6cKIN/pTd65pFKJksCyvqg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z89xpV5pHWq0KW64XnqMoE+L11uVTM51tohA2yCJ8pENDPDpHpE
-	ji+aR5/TAbtqnCUhod3pd2BgtFvTiJ3NfLtqBRqNN34dcFiS7ZcGIr/Y88K/bMzojGC0IoBEdKC
-	8tRZ+fxo17MYfiAZep+cVsX5tsW5oWDlziwtrK1bO
-X-Gm-Gg: AYBFou1KyS5YeF6liG5qrCIC15YeQyvRNBB0H6dd19HBZ+gZCacN0wHrv1IMDl4N9a6
-	CwnQveFotuPNCdyuG28nhuMGOcoj2qjkcgjU2VIAn6vHVdVzyBk6D5UatHd1xwhPUW/ooZL+dNt
-	zc6821S2Zzg1Xq+FBLpY3lPauI/lQpBPyxTUTN8HaYck378XHEfHOjG+Gly8sWQCRlombY9UUz0
-	lukrobsyRaT/d5SbzlnXrejX4TH1wjAw9s5sKsJUn8i4xMBoXdCOWNTLNQpXInvOyHSlgHqM6Gn
-	1NUEltJ1uFQPTReMm6QpWNeY86jbWvQqwG1EgwZ1gS7j9KBmk/oUC/LbKAKldU0VdMdC/WcRpqF
-	yI5ANC6bqKpAyUA3nDixllU8wPTnmAGlZ/x4=
-X-Received: by 2002:a05:690c:6604:b0:8b0:e680:615f with SMTP id
- 00721157ae682-8b2b65aebecmr111771367b3.9.1793819659192; Wed, 04 Nov 2026
- 11:14:19 -0800 (PST)
+        bh=fJF7oJyRnRKwnIF54ui40VQH4dCqd67YhvJqsB+AsGw=;
+        b=B9EBJFFKOPLa8N76mvIDQWxG8tktJJ1rFUa7UxoNWRzGeo2kjOkI3VVGPeNm6HIz+X
+         TlXdC1p7yba6bgKUEEoTS8nYjXcRdtfswPfEIF/QgJZj6DVy/IJCMFjpy2rAzt8N5gMG
+         b+yZqgldnlY4F/IwM2bUsmRYsy5dTu8OghEgLTHF28YHfCCSkC6tvAABJKPNofXNQCI+
+         RlL1FvgkKGWrAkqB+EI28qiCaIPLHBBEawESnvXW1/ZqZRS71CT3ToxEuMr0YI15bj5P
+         JXh5oK+JROscK2tKBdZp2oeAvmdPn7GEr8SBwnSjVjFn7+6OoBiVIZEe57PAJxfEuoXD
+         Q68w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793819709; x=1794424509;
+        h=content-type:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fJF7oJyRnRKwnIF54ui40VQH4dCqd67YhvJqsB+AsGw=;
+        b=ir3a2ieu0Iq3dRer2JqmiZncQN4hEbF/1AMsdQ5OHorLK2f3A15PyLsHN4MM9NAyLz
+         CdDvDJ0Wq55QElwIgqmmfaxR+yw9a0wSPudhYfQLc2cixoPCiHN4qF/0hsGRGZXmxm4N
+         1LDWLetTubzGyPDI1WOmW2DipSmb8OwwUXRvcz6eFQ35pjdfsfACX8hCBhaKmraVVDRv
+         7NcKBSdAI9bn9cD4p5O/mLK2/UwykEn8g9PLD2Jqm/3Tvae4EfKULnm2U6fftWX69+4i
+         K/BGPlKPbBcXh0VX6nbpctzU70e097TYs190bn75fbbAALtMbcbrp591dtYowiYBANdF
+         U6vQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwt3NO11c6JRqHuTTCTPwj4wBrORoKENPCrtxZ2HRrsl5sh3PPn1cH6JdXAUFbAEQOdsVrzD6jVs46Vuw4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9mtRiwWGWMSUNzc9BaZrnsMoMu5wg6SalbddS+aRfUO27zXrGT
+	995UOuxobmXGDjEzMwgT2ACAxVL2PJDmwYKLPsFkIAYz3i7XcZyaWe9Z7lnR8gSL192ZUot/dpC
+	ITZ0kLQ==
+X-Received: from plbmm7.prod.google.com ([2002:a17:903:a07:b0:2e9:696a:93ef])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:ec85:b0:2e9:6788:937e
+ with SMTP id d9443c01a7336-2eb364d1716mr142995105ad.42.1793819709207; Wed, 04
+ Nov 2026 11:15:09 -0800 (PST)
+Date: Wed, 4 Nov 2026 11:15:08 -0800
+In-Reply-To: <20260701002152.546245-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,54 +77,73 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20250901101525.1090334-1-a-dutta@ti.com> <20260603191259.3723777-1-jcormier@criticallink.com>
-In-Reply-To: <20260603191259.3723777-1-jcormier@criticallink.com>
-From: Jon Cormier <jcormier@criticallink.com>
-Date: Wed, 4 Nov 2026 14:14:06 -0500
-X-Gm-Features: AclHuK9TU28yjjkJtRYMVXwCpIjDK5UJp8IOoxReP5fQzz76P4ZZMUxg_o-GJ44
-Message-ID: <CADL8D3bBHupbuEFCMOFnFMEh7h-wDs9Eu4LqQDSQpzWO3TnjgA@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] AM57 timer fixes
-To: Anurag Dutta <a-dutta@ti.com>
-Cc: aaro.koskinen@iki.fi, andreas@kemnade.info, khilman@baylibre.com, 
-	rogerq@kernel.org, tony@atomide.com, linux-omap@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, u-kumar1@ti.com, vigneshr@ti.com, 
-	sinthu.raja@ti.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+References: <20260701002152.546245-1-seanjc@google.com>
+Message-ID: <auuEPPzOjkdnQBFb@google.com>
+Subject: Re: [RFC PATCH] x86/irq: Drop redundant irq_{enter,exit}() calls from
+ posted MSI handler
+From: Sean Christopherson <seanjc@google.com>
+To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-On Wed, Jun 3, 2026 at 3:13=E2=80=AFPM Jonathan Cormier
-<jcormier@criticallink.com> wrote:
->
-> Tested this series on a Critical Link MitySOM-AM57x board (AM572x /
-> DRA752-GP, 20 MHz SYS_CLK1).  With counter_32k disabled and DMTimer 12
-> registered as the system clocksource via these patches, system clock
-> drift dropped from +553 ppm (counter_32k 32,787Hz instead of 32,768Hz)
-> to +2 ppm over a 50.8 h measurement window
->
->   /sys/devices/system/clocksource/clocksource0/available_clocksource:
->   dmtimer
->
-> Note: to make the fix apply to non-beagle-x15 DRA7/AM57 boards, I moved
-> the &timer12_target and &counter32k overrides from am57xx-beagle-x15.dts
-> into dra7.dtsi.  Worth considering for v3 so other boards (MitySOM,
-> am57xx-idk, AM572x-EVM, etc.) pick up the fix automatically rather than
-> each needing the same per-board override.
->
-> Tested-by: Jonathan Cormier <jcormier@criticallink.com>
-Conflict, dmtimer12 is used by the secure software on the secure boot
-processors...
->
-> Thanks,
-> Jonathan
+On Tue, Jun 30, 2026, Sean Christopherson wrote:
+> Drop the unnecessary irq_{enter,exit}() calls from the posted MSI handler,
+> as the wrapper provided by DEFINE_IDTENTRY_SYSVEC() does all of the
+> necessary bookkeeping (the x86 specific entry/exit code provides a
+> superset of functionality).
+> 
+> Note, in the series[1] that added DEFINE_IDTENTRY_SYSVEC(), the follow-up
+> patches that actually use DEFINE_IDTENTRY_SYSVEC() drop all
+> {entering,exiting}_irq() pairs (including entering_ack_irq()), where
+> {entering,exiting}_irq() were little more than wrappers to
+> irq_{enter,exit}().
+> 
+> TODO: Explain what, if anything, can go wrong?
+> 
+> Link: https://lore.kernel.org/all/20200521200513.656533920@linutronix.de [1]
+> Fixes: 1b03d82ba15e ("x86/irq: Install posted MSI notification handler")
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> ---
+> 
+> RFC purely because I have no idea what can go wrong, and I'd like to document
+> any potential issues in the changelog.  I'm confident in the change itself,
+> or I've failed miserably at reading the code. :-)
+> 
+> Found by inspection when looking at a bizarre code fetch from RIP=0 #PF that
+> traces back to the irq_enter() (no reproducer for the #PF at this time).  I
+> don't know if the redundant bookkeeping contributed in any way, but the calls
+> to irq_enter() and irq_exit() really stand out, because AFAICT, these are the
+> *only* calls to those APIs in x86.
+> 
+>  arch/x86/kernel/irq.c | 2 --
+>  1 file changed, 2 deletions(-)
+> 
+> diff --git a/arch/x86/kernel/irq.c b/arch/x86/kernel/irq.c
+> index 30122f0b3af9..0ac63628a585 100644
+> --- a/arch/x86/kernel/irq.c
+> +++ b/arch/x86/kernel/irq.c
+> @@ -430,7 +430,6 @@ DEFINE_IDTENTRY_SYSVEC(sysvec_posted_msi_notification)
+>  	/* Mark the handler active for intel_ack_posted_msi_irq() */
+>  	__this_cpu_write(posted_msi_handler_active, true);
+>  	inc_irq_stat(POSTED_MSI_NOTIFICATION);
+> -	irq_enter();
+>  
+>  	/*
+>  	 * Loop only MAX_POSTED_MSI_COALESCING_LOOP - 1 times here to take
+> @@ -456,7 +455,6 @@ DEFINE_IDTENTRY_SYSVEC(sysvec_posted_msi_notification)
+>  	handle_pending_pir(pid->pir, regs);
+>  
+>  	apic_eoi();
+> -	irq_exit();
+>  	__this_cpu_write(posted_msi_handler_active, false);
+>  	set_irq_regs(old_regs);
+>  }
+> 
+> base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+> -- 
+> 2.55.0.rc0.799.gd6f94ed593-goog
 
-
-
---=20
-Jonathan Cormier
-Senior Software Engineer
-
-Office:  315.425.4045 x222
-
-http://www.CriticalLink.com
-6712 Brooklawn Parkway, Syracuse, NY 13211
+Ping.  I don't care terribly about landing the fix, but I would love input on
+what, if anything, could go wrong.
