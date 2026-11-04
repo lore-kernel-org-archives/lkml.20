@@ -1,97 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.30
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793821470;
-	b=qz5kn+3h8UoXbuZQn6k7xbAJQ7R6c/gdLxOk1b84TghUWMEpRIL4uMxmEyDI2QE/M/ha
-	 7Rsi0xIggTEWBF6vrA9YMv7OCuqJJ5AsN110m/D+H+oDQx61Bd/ZP7tzO7uM9a0YOY7HG
-	 EcQ8uIxThu/xwL9qaDxg7FAJdzVB/IMTMbpK8fulEoKd6cjUXi2Uh5qeGmx8lesb7aK+M
-	 CC1VWzrKCl1Ryv/ecX6ZmI92i+clhXE+ys5H+4ZbTTxz0iKAPDwQwDuZ7hLW79hBXzlOu
-	 hQ+ZLO2fXbCtzlA8RrKizIdM35udg0JiWoiFsu9hFis+eN054y1kxZshQIdqfWxofiA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793821470;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=28Bg4YpkIxeHR66hYThqqxPtMscbSd99+p1fYKc9Z4o=;
-	b=EKvRatwyqSD2fI4K4KDdRQbQpQUg9xY3B1ncZo3tnb0uv1THGYQTeytbcefFHeQQXk6J
-	 ayCS/GtzCbFcAH8SRQfE1AlycuxK1/BRXxninT3ydVEiFFQZILu73xUZPFDGcVrtCwYvy
-	 ceM4CelnT08UXa3Legv5sSYDmOAsoe49JnOFh7QjrKY01MMpT2Fy0a2BgjCtJu794j1lp
-	 GnVj0Am2NyK3Vexq/t8rn6OdmrLs9nJLbr3oXhLzFXG+BuNrVUtfb0tvQG1b0yE2a1d2B
-	 CJaQQ1cUshFhmD2zJsW4lHM5s8+X/3wJrIgAkVYCTW+4kMDK+lXy+8/YZxfTgPfRBdw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=I2Wbx9v5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.30
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013030.outbound.protection.outlook.com [52.101.72.30])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793821480;
+	b=ZfnS9YIpIxM6ZPFSnJjQxYcm4WUvQf9r2MkjJxECn1vtw2jv6nTz4i8LYd4jglxDDTGI
+	 rFOxh9sDhqrnFjTv+hpcs0uVge2Uy+jHBPI/lxHwmUsUE4QPQsdFEIbhjLGIPzn/O2fjf
+	 1wEHIGP/lj2JWFovCHXPOekCSyjUJZUQUsNDYx89GkxO4Elk7yFUeWfQtjdn08ddYrlg/
+	 ak62LKq8Go7BW21KVPYHTXhytZA+qAmFOM58wRdPCWqMk9zmOZWmnFbHjmZQUuJHHI5bA
+	 69eFt5yCNWeGUqt4rfSNHChl3tqvz3U9785Ag37ejm/GEvHcuI2JIZ17QLekKh1OSHw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793821480;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=0F908CJPgWsUmGeEXwOdb+LqVbJ68uHDJ1pDvsTQFww=;
+	b=rdIWhOA9GpTDEzkcEISkANv0VUSndDVgzNaMkM2+LPJR0f3Z8XWiujdNbUieAUUlwcmX
+	 a6AKzqAg7FRXidDk+8xjmg039S8UrmajMkzVRC+zujgHs8RNJ4oV50kk1qkwQFO4Ay9XO
+	 iCZ6qAuImML1bHceRa8P5ZZzGG7YLTXSmsqkICCiAYyIwAIQ4Ly05aty6wdDPpNUEbeYn
+	 H0wWIq//WKCm4deekU5tyoeGaw5XiA+gbuaY18ChywDSsvefu4w4IJX0HRHzL9z69JaQd
+	 ZmtcNHFBvJaHPp9glnFGakm/jKLvxfxCl3B4LACUDO46yN0CSbpraGZYtpWzuvO8vUA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nBYfqhzO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2467D607030E;
-	Wed,  4 Nov 2026 19:44:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2467D607030E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A482607031F;
+	Wed,  4 Nov 2026 19:44:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=I2Wbx9v5
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q1dqX1zjeNhImHs7kXeYE3hFlB+w1WJwprkBHbKKDrev0zWp1awvHQrDGOv7wRkDluxMTAMWJyzgNi0xE9QzxW9z9aS6Y0veOJANizzU0lQ8CfhPof7JXegSC9GTGj8qW7ZnAed6y758m2warjb64FtBlh1uCHfwEiZ2memliSczIoNKzqZr81+1NKdE+70Ox8chhCOYFL3L5igz6pCj9rIadyyrnu4bN+Ag7YircyGQYrVk5TnfCsrLzA4F0NQNlCboGxpzoKl7nXCO3yAEP9v4D3+5JfeoHV6se5yItE4OWkthZrTUyEMoMynNA6J31vlM2Sn+pSWvoA+N+BpTWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=28Bg4YpkIxeHR66hYThqqxPtMscbSd99+p1fYKc9Z4o=;
- b=s1JHr7dXaON7BY6mOwKljQncexhIgsTTRqkvelmg9Ufcmcs/N0OyM8lxR7T13EclZemGl55eiS/Lz+aezPN91BEWNE5xXVU/Yu+/DM02NhVl9RldyfzgPwIp+fPmkBy2HUVWQudHSZuATu1fduolACp3z0DsnRxftvRYCN4XwA8XhwbPwGKfauK54dtboENyYiVzCrsI1KavKOPZvho/KlYft/2vHer8lT0neByxLvbRwtZfGreZFJK5iz0Dz1zlKsh2P8C7MJBOnXpC20KpenSTal+VdRfPyRnHl6meTRTzpddvjPiy6y0VRMuQUsFO4/7ui0x+zEV2YTNyNtkh3Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=28Bg4YpkIxeHR66hYThqqxPtMscbSd99+p1fYKc9Z4o=;
- b=I2Wbx9v5iBwptNe8xtInRgqwmFZHm/XhxahAEflBMX0ihTBK+xfZmZLbsJ6vrpyrtJSq1bA2sOEKn3k3s9j+oK7MY1F195cN0QGuKl7MPUqY+CFhWTy8/T4PFMKd99PcZhAXWFxdEFKaxzSjkV6EIkTE+xcBvsTBYpPP56VLJDRoLbYEoPlyDSzz82nyxu5exd8HOOuphnKLl9U00BN+b1Q+nsGBMtUrJubddxZY6vd6sN5QKpgqu2e4988z+Lpe9Yw40P7/JsvmxU4mZcKs+Fqaz63ggOtWdsLPz3eD7F/kwtEGUGUt859FE9HRQ8NraVVgPLJyQ/l4qGx/s/9O8Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by GVQPR04MB658120.eurprd04.prod.outlook.com (2603:10a6:710:108::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Wed, 4 Nov
- 2026 19:44:26 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 19:44:26 +0000
-Date: Wed, 4 Nov 2026 13:44:18 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Jelly Jia <Jelly.Jia@cixtech.com>
-Cc: vkoul@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, robin.murphy@arm.com, sboyd@kernel.org,
-	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
-	devicetree@vger.kernel.org, Frank.Li@kernel.org,
-	cix-kernel-upstream@cixtech.com, dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org, joakim.zhang@cixtech.com
-Subject: Re: [PATCH v2 4/5] dmaengine: arm-dma350: Honour dma-channel-mask
-Message-ID: <auuLEgmZFGJ0Ol0g@SMW015318>
-References: <20261104124437.296753-1-Jelly.Jia@cixtech.com>
- <20261104124437.296753-5-Jelly.Jia@cixtech.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104124437.296753-5-Jelly.Jia@cixtech.com>
-X-ClientProxiedBy: DS1PR05CA0008.namprd05.prod.outlook.com
- (2603:10b6:8:457::19) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nBYfqhzO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72EC61F00A17;
+	Wed,  4 Nov 2026 19:44:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793821479;
+	bh=0F908CJPgWsUmGeEXwOdb+LqVbJ68uHDJ1pDvsTQFww=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nBYfqhzOfWIGHsy8c53G5+e95/eOlSF+s0+PYDPiLShDcgF0zVxjVzadNTSbzeGPS
+	 Gev4jrZfOjt5GDc4cXiN0YSRT4TEvVxeJ2FuLYhPV1dedrvI3+Pu2yeGrj82/WNN7U
+	 zCQG6VqNrlF0Qr0UfEw+wC6aUxsz8RLux0n+F+FKqEtWOUz0g4EnG8ntHPfCxNd+jn
+	 UZguQOMxrmrHjsx8VQXG8JjtzywqCzawniFug93OojMezHRM7T0Hoqz+lfYQibeFF9
+	 cZni/cwUgquBfE2XXxNA/dGO3y/WvuRn97YHSCiffyy1RTxslKI+LzMpvfOv8McSjk
+	 yCxQsEs373mbw==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>
+Subject: [PATCH RESEND v2 09/26] s390/cio: let procfs copy in writes
+Date: Wed,  4 Nov 2026 20:44:25 +0100
+Message-ID: <20261104-work-procfs-drivers-v2-9-245e54e87116@kernel.org>
+In-Reply-To: <20261104-work-procfs-drivers-v2-0-245e54e87116@kernel.org>
+References: <20261104-work-procfs-drivers-v2-0-245e54e87116@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,129 +114,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GVQPR04MB658120:EE_
-X-MS-Office365-Filtering-Correlation-Id: ffa0eb96-22f5-4858-8b01-08df3aac08bf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|19092799006|23010399003|376014|7416014|1800799024|6133799003|10067099003|22082099003|18002099003|56012099006|11063799006|4143699003|261026140227099003|261022105027099003|261028144727099003|261009223027099003|261021121427099003|261021123027099003|261102123227099003;
-X-Microsoft-Antispam-Message-Info:
-	r8B0bXDyJLQgRs+XQFx+R5/1IusRhR7cqrjfDde3iWDg+a1jrmUx1gabfPNb+1fnLvu+YOaJrCED9ZObBKnSq/DQEoU0Vn2F0nv5aVF/4wU6utiXbMhbtzTo+A3NRaHtpJy9czCR4mpjKguF/FRzvZagZcDEI3UIb4wz7ppQR+0AvcM9J2N3cw4YdxIdrCTZdY8V/a1h6YNhRGTi6KRjmh7EQWLrapB48dPzzHocz9I8Gz+60Y9EQkmiw6BbYwKIhPc8kdAwVGv3avEmPEPt0sl9uWxrO9vlJJYThgf/dGCrs6lxqoEGBWxjYRJJfxaMrxJRVnST1lGIrth74p3hMhpey429pL5+SLBHimM0hBVGE/DLW513aA88lTEyvE4Sj+jMBSPFzK7gMxa0k3O6tzfokK1EgYrXw+1wo3Tre9R64sMqr2CHZ76W1l6H4h9E/LReQhleqfe9WQGIEZSQ5CCSx5v9BDQ1otg3kFmthTzagHZ1dT9vmS9UbGEfe4csugAMQaO5PATrF5LhIIY1oaN0PVom7iTyXKvPsSOEVE0l/RUN9hP8kopCQje5AG7kut8JUrjUZWnuL0pNl+xb8secuQoPztPYeezol+0ogQAkCjqlhSfmgxEaaObB7zxIZzpZoyQzAh0+3VdRmCx/+KHfZ2YcKaMOvqK+vZQy0Z8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(23010399003)(376014)(7416014)(1800799024)(6133799003)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(261026140227099003)(261022105027099003)(261028144727099003)(261009223027099003)(261021121427099003)(261021123027099003)(261102123227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?4kF3Qp0VdoSct+Ka7zJbOJJ2NJpjyoox5V9/XPWWJsU4T3Q74+58P1IJOH6Z?=
- =?us-ascii?Q?JRnGRrQVga1ZK68pQBH6YM66TVhnj1Lv8URil3NjBb2E3loqcibIrAzjgzHg?=
- =?us-ascii?Q?GfGH5hmDTw4mreMACTxfbJHHAXvTAV9x3GNDpXsUks5lEzHvyRyWMPa5oFGm?=
- =?us-ascii?Q?Rfzl7Wnd4UYrEo3PGONJRsm5tlVH9VUUbiD2kn1g6JGC/2LumH6kBV/0AYsm?=
- =?us-ascii?Q?vNDQ136jLyfVdXKrcS6yD5jGjmnKZqYL0dxQK+iX2IQAtc3Jg04R6wLGglQ4?=
- =?us-ascii?Q?K7cziSDCHcRyM7mxlJmT/sxZEDxqtWWxM9lx50oKX/RkRCh3aLQpWxLVcPri?=
- =?us-ascii?Q?Kzovei+VrFXfvemM1xRLFwAhw5FcJm79PnZm6yDTbp3whfvje7dXBKeP0wzf?=
- =?us-ascii?Q?DEGbSrR2h+Ms7jFLptSNknhCxpaw6CLvc1WDPOvwp9mrsMr8cDxmSIn+215V?=
- =?us-ascii?Q?wU7sVDBmRN/M1lVEGmTV31TErDjFgJ9REDmpH/pWynkxzdRCMXmnnjO2vAwf?=
- =?us-ascii?Q?OzMsnON/TGLzc4xcFuuUToRb4jyCAgjVeEuaaoVRJqyuVd1BNNQnBfvV/BqG?=
- =?us-ascii?Q?lRlRSqsqEzRW+gLcafexM0w45QWE8gQTMkzAexR4Fb9Ryq3NXGmypkduGlPn?=
- =?us-ascii?Q?uS+DoBndGmgOqUB5W4akC3CNz8glNvfH2tCGJqrktvGwJw6xcd8QxFvyxfvu?=
- =?us-ascii?Q?/2zqu3FzRmBL8Ks+e5qGiHxZ6Sij33AJsPZgOmY2wJtAfmNQUh3E/xseNTXA?=
- =?us-ascii?Q?MgW1+4FhtWQkr3a7aAqkX78ceiAQA8/tAeECABYfP8e3227wwK3pKvrZ1fTL?=
- =?us-ascii?Q?JnFOs+sVZeF8yw/odmiIed3zho6hHqq6g/4ru/Y7M453wZ/YTotvGoju/vu7?=
- =?us-ascii?Q?JPceVTW67sYABtpE/otkcm0yEdd2tdMZphfa4rxAIjNAeHnF3hYHcX0VnIpd?=
- =?us-ascii?Q?CY+++g8tNOQ1KhVNJeV5e2Hhi4o4x7wocOguxBZ6MkDyj4dKMSHftJsa6v91?=
- =?us-ascii?Q?uDur89ZXYXWrEN0pjD7nhkv5vVurobjXHvFzVQxcAmDG5FOJD6aKJGlWuoAf?=
- =?us-ascii?Q?I74jbzPO6R3eoClfbP+uDa0B7YA1KOpKZ2on5eDYdk3zgzxM46JpGHCLE12p?=
- =?us-ascii?Q?OIlgbYxYVvTgPHaEYadEN0m59v7xH0kcfByx2Q2JqdCqZ0ZED+0R8ix+CATh?=
- =?us-ascii?Q?+DTpGcCmKNfzFQ6GugMD2Y+I/nPvSE5Ug31eZxB6y1FTHpBSNealJBfzdmxS?=
- =?us-ascii?Q?PYY0tQT/Ed2bBKq0/0V6gErh94xH20jBGOEPJsP9LOU0CF3SkrhfCY1kMvtj?=
- =?us-ascii?Q?2RTBSvuWhgB6ESoi1AWrpLdnG/88yDZy9HVlcyNedgX2AQDGMR1HFywEsfWA?=
- =?us-ascii?Q?DJeAStn6BDQV0KjL48HvxIruIa1igd4O11d5+rTrenKWzEymmwMWpFPXH+4L?=
- =?us-ascii?Q?e4FHhNyzzCw0WLUSVKnE/HdyTwa5k9W03fJeS7ingKGsbghj20396yYHyhZ0?=
- =?us-ascii?Q?D1FOO6nCTS/wgOmUA1nkL9cLuXww++yITbwOhOC2DGXj+iLv9DVv8M1BbFQl?=
- =?us-ascii?Q?catkQSa3dswAItDCVZehzPHE/zZlutwYN90Ziy2Me17kKvxIiq25pSyl53qd?=
- =?us-ascii?Q?4C8DCVIfj207KFFeXWCQiT4WDWXSBruhr4v56xTEAz6chyOQoLyGzSfz5mLY?=
- =?us-ascii?Q?HTA+VYgdMY/xIZs2lIXHa8VxrUZJdzisB2i01kwl/iMnOgVLQnb4mL6aTccp?=
- =?us-ascii?Q?1NpTBdYWiBmB6G+Kn1DntciVNdZnv4OD1WAqLScJcjd91PUipf/9?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ffa0eb96-22f5-4858-8b01-08df3aac08bf
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 19:44:26.7281
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: o0tRTX0k1y+ZvxOaIpQzqJdusJEH88dVoYRG0tBcDm6ts73VMwIdX+wRDDWJFL1NWQHJzk9NLoPL+AFkWbYkEDTKxdEgLrzro6ar9Qm1o4EjVQ4DJHAn2SWjYnEgP9KT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVQPR04MB658120
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3388; i=brauner@kernel.org; h=from:subject:message-id; bh=lEA79OgzD1RbbuI3leV0mq7RtW4au2plI+2F9ffJvH8=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97qo1Prvbv2jWnmkmH6pDufs/6rfzTKnoEu5evTnGy 2WLm6V9RykLgxgXg6yYIotDu0m43HKeis1GmRowc1iZQIYwcHEKwERk/zIybEjl+VB/KeuDnbef yim235O4L5f4ub8sDT0fcZyRo2NjBCPDPrXc7kQ1lzbL+Yvap+65J7Y7TdL2ycNNJx9pnjvSsWU KKwA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 08:44:36PM +0800, Jelly Jia wrote:
-> DMA-350 channels may be reserved for firmware or another processor.
-> Read the optional dma-channel-mask property and register only the channels
-> whose bits are set. If the property is absent, preserve the existing
-> behaviour and expose every hardware channel.
->
-> Skip masked channels before accessing their channel registers or
-> initializing their interrupts and virt-dma state. This avoids clearing
-> or configuring channels reserved for firmware or another processor.
->
-> Signed-off-by: Jelly Jia <Jelly.Jia@cixtech.com>
-> ---
->  drivers/dma/arm-dma350.c | 20 +++++++++++++++++++-
->  1 file changed, 19 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/dma/arm-dma350.c b/drivers/dma/arm-dma350.c
-> index 2f22f8a0ab47..b24e569a1dd8 100644
-> --- a/drivers/dma/arm-dma350.c
-> +++ b/drivers/dma/arm-dma350.c
-> @@ -1253,9 +1253,10 @@ static int d350_probe(struct platform_device *pdev)
->  	struct clk *clk;
->  	struct d350 *dmac;
->  	void __iomem *base;
-> +	u32 chan_mask = U32_MAX;
->  	u32 reg;
->  	int ret, nchan, dw, aw, r, p;
-> -	bool coherent, memset;
-> +	bool coherent, has_chan_mask, memset;
->
->  	clk = devm_clk_get_optional_enabled(dev, NULL);
->  	if (IS_ERR(clk))
-> @@ -1328,6 +1329,19 @@ static int d350_probe(struct platform_device *pdev)
->  	dmac->dma.device_caps = d350_caps;
->  	INIT_LIST_HEAD(&dmac->dma.channels);
->
-> +	/*
-> +	 * dma-channel-mask is optional. Firmware-reserved channels stay
-> +	 * clear; if the property is absent, Linux may use every channel.
-> +	 */
-> +	has_chan_mask = device_property_present(dev, "dma-channel-mask");
-> +	if (has_chan_mask) {
-> +		ret = device_property_read_u32(dev, "dma-channel-mask",
-> +					       &chan_mask);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "failed to read dma-channel-mask\n");
-> +	}
-> +
->  	reg = readl_relaxed(base + DMANSECCTRL + NSEC_CTRL);
->  	writel_relaxed(reg | INTREN_ANYCHINTR_EN,
->  		       base + DMANSECCTRL + NSEC_CTRL);
-> @@ -1337,6 +1351,10 @@ static int d350_probe(struct platform_device *pdev)
->  	for (int i = 0; i < nchan; i++) {
->  		struct d350_chan *dch = &dmac->channels[i];
->
-> +		if (has_chan_mask &&
-> +		    (i >= 32 || !(chan_mask & BIT(i))))
-> +			continue;
-> +
+Implement ->proc_write_buf() for cio_ignore and cio_settle so procfs
+copies in what is written before it pins the entry. cio_ignore parses
+the list from that copy, up to the first NUL like strncpy_from_user()
+handed it to it before. Writes larger than 64k still come up short, now
+through PROC_ENTRY_SHORT_WRITES. Writes to cio_settle larger than
+PAGE_SIZE - 1 bytes fail with -EINVAL now, it never looked at what was
+written.
 
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ drivers/s390/cio/blacklist.c | 33 ++++++++++-----------------------
+ drivers/s390/cio/css.c       |  4 ++--
+ 2 files changed, 12 insertions(+), 25 deletions(-)
 
-max nchan is 8 (in your cover letter), why need check i >= 8 here?
+diff --git a/drivers/s390/cio/blacklist.c b/drivers/s390/cio/blacklist.c
+index 4e02f78f6102..1ec7915be6b3 100644
+--- a/drivers/s390/cio/blacklist.c
++++ b/drivers/s390/cio/blacklist.c
+@@ -12,7 +12,7 @@
+ 
+ #include <linux/hex.h>
+ #include <linux/init.h>
+-#include <linux/vmalloc.h>
++#include <linux/sizes.h>
+ #include <linux/proc_fs.h>
+ #include <linux/seq_file.h>
+ #include <linux/ctype.h>
+@@ -355,39 +355,24 @@ cio_ignore_proc_seq_show(struct seq_file *s, void *it)
+ }
+ 
+ static ssize_t
+-cio_ignore_write(struct file *file, const char __user *user_buf,
++cio_ignore_write(struct file *file, char *buf,
+ 		 size_t user_len, loff_t *offset)
+ {
+-	char *buf;
+-	ssize_t rc, ret, i;
++	ssize_t ret, i;
+ 
+ 	if (*offset)
+ 		return -EINVAL;
+-	if (user_len > 65536)
+-		user_len = 65536;
+-	buf = vzalloc(user_len + 1); /* maybe better use the stack? */
+-	if (buf == NULL)
+-		return -ENOMEM;
+ 
+-	if (strncpy_from_user (buf, user_buf, user_len) < 0) {
+-		rc = -EFAULT;
+-		goto out_free;
+-	}
+-
+-	i = user_len - 1;
++	/* the parser never saw what follows a NUL */
++	i = strnlen(buf, user_len) - 1;
+ 	while ((i >= 0) && (isspace(buf[i]) || (buf[i] == 0))) {
+ 		buf[i] = '\0';
+ 		i--;
+ 	}
+ 	ret = blacklist_parse_proc_parameters(buf);
+ 	if (ret)
+-		rc = ret;
+-	else
+-		rc = user_len;
+-
+-out_free:
+-	vfree (buf);
+-	return rc;
++		return ret;
++	return user_len;
+ }
+ 
+ static const struct seq_operations cio_ignore_proc_seq_ops = {
+@@ -398,9 +383,11 @@ static const struct seq_operations cio_ignore_proc_seq_ops = {
+ };
+ 
+ static const struct proc_ops cio_ignore_proc_ops = {
++	.proc_flags	= PROC_ENTRY_SHORT_WRITES,
+ 	.proc_seq_ops	= &cio_ignore_proc_seq_ops,
+ 	.proc_state_size = sizeof(struct ccwdev_iter),
+-	.proc_write	= cio_ignore_write,
++	.proc_write_buf	= cio_ignore_write,
++	.proc_write_size = SZ_64K,
+ };
+ 
+ static int
+diff --git a/drivers/s390/cio/css.c b/drivers/s390/cio/css.c
+index 54b8b8639694..efd3df3e90ba 100644
+--- a/drivers/s390/cio/css.c
++++ b/drivers/s390/cio/css.c
+@@ -1278,7 +1278,7 @@ static int __init channel_subsystem_init_sync(void)
+ subsys_initcall_sync(channel_subsystem_init_sync);
+ 
+ #ifdef CONFIG_PROC_FS
+-static ssize_t cio_settle_write(struct file *file, const char __user *buf,
++static ssize_t cio_settle_write(struct file *file, char *buf,
+ 				size_t count, loff_t *ppos)
+ {
+ 	int ret;
+@@ -1292,7 +1292,7 @@ static ssize_t cio_settle_write(struct file *file, const char __user *buf,
+ 
+ static const struct proc_ops cio_settle_proc_ops = {
+ 	.proc_open	= nonseekable_open,
+-	.proc_write	= cio_settle_write,
++	.proc_write_buf	= cio_settle_write,
+ };
+ 
+ static int __init cio_settle_init(void)
 
-Frank
+-- 
+2.53.0
 
->  		dch->base = base + DMACH(i);
->  		writel_relaxed(CH_CMD_CLEAR, dch->base + CH_CMD);
->
-> --
-> 2.54.0
->
