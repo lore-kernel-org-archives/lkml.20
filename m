@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793813765;
-	b=34xbTy452nvvU0lBw6w/YoSZzfiq8zgKSItxO+3IakQjIgq9+mcj4JhL1oCRykp19f+e
-	 dXCtnPyjzClcyxdalPrOzU0ZuSj0p5RUgwNTioZaMVn5OOw9TuenBhVIo2+ntPFeoSWqa
-	 05dSnd+riED6bcTEuCeb8+rlPnA+W1Mhs1d4Nl4oaCZCZ8iSSBTqpPkGBYxhALdaJvJQE
-	 9vkSuRK+oc0UDIQbWOAo87upcRYRaYOTT8dzcgQGK3/+/yRi/XAOmh7d0xY9hYMVBzvfr
-	 Pr0abFEgVICkv7dHuBlDquuCxMVGbxjCa8frXoqejMYOGeJocisOsNQdOLwRZV176OQ==
+	t=1793813854;
+	b=Z84S0ykAmiRGpCBDpKj24+qnQLlq2axUAHAfcvhKo3Mc4IAXqfc0UsV84Nf7iTvitfwk
+	 VBS6+CyubQSjhtERE5nEVPBPBLogUyh+4xGkpCf96yBdjLh39S0Bb3WsX2nG2nPkjX3zb
+	 U3TyMBoxhiDgKqcWBnlu7p+oDExSQMPJqC/+BAGbJpckzgFIFQmh3kTkX+baPuWZvrnrM
+	 xlLkMgJWF1OrmWFFp8GIbk4YzVKUr2gAc1foO80mBi1+iXqNJ3Uqzq8L8nGxGuSOQzKwF
+	 hpgkunNOjb2kWiDw4mDp67AAjeeR9Ykh4cnJ/H65/kALt2K86D1BIGpSRCMAlud93ZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793813765;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793813854;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
 	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
 	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=G20Wy6mvQhIhx6DbI6mVst9t/UsYM5tKx7o8MtawhC8=;
-	b=2LvNpdNcxqxF10dvbBE//+rE4mBEIJaNC9VOvoIvNC5eSky44/0fE9A3yc/a0cZaAErJ
-	 94j7VPqHcA3cQXiUddPa1HIILkAHiEwpuS12IU8vcjTKQkEXAPVogKdsTlxTJzGC95osr
-	 bC/HxY7CWMakOn1YCECv7PaGCAeYR/W9R3TXRbZwxvA7LcVJRE8xNGCrRF5kyZuLcee0J
-	 ybag1MflbcmQSI+1juka/RyMsO6JUVirR/QOtll/DrWiZ/5KBJs/3QUJ6QmsAYeb4pURK
-	 sTdiJWeiqeixdUP/1IKvsJrEZhw0xyRhTXSjo4tWdgFjwvSpjEuKS302QcmdR/Rtj5A==
+	bh=sVm5vm53TcuuiHKOjBSbO/ogRlTrTCzTLWf1Fg0Jk+M=;
+	b=DgYPAk/HFAERtp1dcw/ZEUxr5a9WGutPJgX+5ey6OMW1u8X0UlTpxpX+TUiq9u+hE/z6
+	 am6B0elkQj3/rbFPyiyWFZpGVeIjrIS4SbiBwchv0vBrzcGxdSIyr8/cpstXGfENWyFwc
+	 ECJofUKdv2koF7B6uc9cVfACVJ0aXYngFBRDRpiu4jjNNwZ9pDJT8/MfUBxAvs4L+B37q
+	 mXGn3b9pXIpfLxnGuWjGgjVmumrBh0PuGhqQ1QTEsKhjB6ytxgHhZZwzQjQJqb3oeM2+v
+	 ZBinR5ySqQa2nGoPTeJH4tbOEdfKFGBq00bpsQEORq6obsqvSiU8uHa34xk02bYiXYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ndfZr0Qf;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=f3KMWRYV;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D1F82606ECC0;
-	Wed,  4 Nov 2026 17:36:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1F82606ECC0
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D0C4D606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 17:37:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0C4D606A328
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ndfZr0Qf
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=f3KMWRYV
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B2A391BB0;
-	Wed,  4 Nov 2026 09:36:00 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1EBD71BB2;
+	Wed,  4 Nov 2026 09:37:30 -0800 (PST)
 Received: from [10.57.90.115] (unknown [10.57.90.115])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 783133F673;
-	Wed,  4 Nov 2026 09:36:01 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5F4203F673;
+	Wed,  4 Nov 2026 09:37:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793813763; bh=8YUIckxR/Kf62QtZ2ufF3DzvzhbMTOa7JbCXcU787hI=;
+	t=1793813853; bh=FBb/TbKhVIoXQAmd1m4CKiunRWfUuceXTHGcjdsZEyU=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ndfZr0Qfl4BmjWFbLIDOfv7FasvdeCY1iV9z4z1mlwaskQYTjslhGpmaPhLOTjzFU
-	 AihpTEpECsvh4sn6Rx9EoLuW14kAiy4hZEduQSYinChn7Nz4vrSYooKESOowNOJmSQ
-	 QiDM1orkqob7nAvLCkHGiY7JpvCAU51GAtv86Hxs=
-Message-ID: <7da011fa-5bb1-4090-8421-eeebb42c1b26@arm.com>
-Date: Wed, 4 Nov 2026 17:35:59 +0000
+	b=f3KMWRYV1SWzQkyLugtLAI/c/yVkDJFoo0FBPJWCCNqunjwaTJZv9YIFhry9sQReZ
+	 JRCNFuz5tkzhe7L/UuGVwWe5P2DVL8shSKujBCwo0MzH8ibadvS1hHNL1S16G1MNHH
+	 1OwhC3wXS4Eir2T7Pwe9p3CwjycllOaPL76mnxLk=
+Message-ID: <e5ce1693-6f03-4a66-84da-7f64f48ef691@arm.com>
+Date: Wed, 4 Nov 2026 17:37:29 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,117 +54,87 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/10] irqchip/gic-v5: Serialise ITS invalidation commands
+Subject: Re: [PATCH 10/10] irqchip/gic-v5: Release ITS MMIO region on DT probe
+ failure
 To: Lorenzo Pieralisi <lpieralisi@kernel.org>
 Cc: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
  Radu Rendec <radu@rendec.net>, Timothy Hayes <timothy.hayes@arm.com>,
  Catalin Marinas <catalin.marinas@arm.com>,
  Jonathan Cameron <jic23@kernel.org>,
  "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Sashiko AI <sashiko-bot@kernel.org>, stable@vger.kernel.org
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 References: <20261102-host_gicv5_fixes-v1-0-743b61626fc5@arm.com>
- <20261102-host_gicv5_fixes-v1-4-743b61626fc5@arm.com>
- <auiyrFXjX0hGgd7D@red-moon>
+ <20261102-host_gicv5_fixes-v1-10-743b61626fc5@arm.com>
+ <auikDS0RE5E13z8I@red-moon>
 Content-Language: en-GB
 From: Sascha Bischoff <sascha.bischoff@arm.com>
-In-Reply-To: <auiyrFXjX0hGgd7D@red-moon>
+In-Reply-To: <auikDS0RE5E13z8I@red-moon>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 02/11/2026 15:56, Lorenzo Pieralisi wrote:
-> On Mon, Nov 02, 2026 at 01:32:57PM +0000, Sascha Bischoff wrote:
->> The ITS uses DIDR and EIDR to select the translation to invalidate.
->> These registers are shared by all interrupts targeting the ITS. Event
->> invalidation can run concurrently for different IRQs, and device
->> invalidation can overlap it. The per-IRQ descriptor lock does not
->> serialise the commands, so one CPU can accidentally issue an
->> invalidation using another CPU's DeviceID or EventID.
-> 
-> "Another CPU's DeviceID or EventID " can probably be explained better
-> (or just removed because it is unclear) I understand there is a link to
-> Sashiko's report but it is worth updating the log IMO.
-> 
-> "using the DeviceID or EventID associated with an IRQ that is invalidated
-> on another CPU" or something like that.
-> 
->> Add a raw spinlock to each ITS and hold it across the command register
->> writes and the STATUSR.IDLE poll for both invalidation paths. A raw
->> spinlock is required because the forwarding path calls the event
-> 
-> Can you please define "the forwarding path" more explicitly ?  See above.
 
-I've tried to clean up this commit message to give the required context.
 
-Thanks for the feedback!
-
+On 02/11/2026 14:54, Lorenzo Pieralisi wrote:
+> On Mon, Nov 02, 2026 at 01:33:03PM +0000, Sascha Bischoff wrote:
+>> of_io_request_and_map() reserves the ITS configuration frame region.
+>> If ITS initialisation fails after mapping it, the error path only
+>> unmaps the registers and leaves the region reserved.
+>>
+>> Keep the resource description and release the region on that path.
+>>
+>> Fixes: 57d72196dfc85 ("irqchip/gic-v5: Add GICv5 ITS support")
+>> Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
+>> ---
+>>   drivers/irqchip/irq-gic-v5-its.c | 7 +++++++
+>>   1 file changed, 7 insertions(+)
 > 
-> Thanks,
-> Lorenzo
+> A minor note on coding style below, other than that:
+> 
+> Acked-by: Lorenzo Pieralisi <lpieralisi@kernel.org>
+>>
+>> diff --git a/drivers/irqchip/irq-gic-v5-its.c b/drivers/irqchip/irq-gic-v5-its.c
+>> index c0f3982229194..91abe63cb5cf9 100644
+>> --- a/drivers/irqchip/irq-gic-v5-its.c
+>> +++ b/drivers/irqchip/irq-gic-v5-its.c
+>> @@ -1188,6 +1188,7 @@ static int __init gicv5_its_init_bases(void __iomem *its_base, struct fwnode_han
+>>   
+>>   static int __init gicv5_its_init(struct device_node *node)
+>>   {
+>> +	struct resource res;
+> 
+> FIR tree ordering.
+
+Argh, yup. Missed that one when making this change. Fixed!
 
 Thanks,
 Sascha
 
 > 
->> invalidation helper with the IRQ descriptor lock held.
->>
->> Fixes: 57d72196dfc8 ("irqchip/gic-v5: Add GICv5 ITS support")
->> Reported-by: Sashiko AI <sashiko-bot@kernel.org>
->> Link: https://sashiko.dev/#/patchset/20261016155741.979985-1-sascha.bischoff@arm.com?part=11
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
->> ---
->>   drivers/irqchip/irq-gic-v5-its.c | 9 +++++++++
->>   1 file changed, 9 insertions(+)
->>
->> diff --git a/drivers/irqchip/irq-gic-v5-its.c b/drivers/irqchip/irq-gic-v5-its.c
->> index 28e39b065de0e..6d98f3dbe34b6 100644
->> --- a/drivers/irqchip/irq-gic-v5-its.c
->> +++ b/drivers/irqchip/irq-gic-v5-its.c
->> @@ -16,6 +16,7 @@
->>   #include <linux/of_address.h>
->>   #include <linux/of_irq.h>
->>   #include <linux/slab.h>
->> +#include <linux/spinlock.h>
+> https://docs.kernel.org/process/maintainer-tip.html
+> 
+>>   	void __iomem *its_base;
+>>   	int ret, idx;
 >>   
->>   #include <linux/irqchip.h>
->>   #include <linux/irqchip/arm-gic-v5.h>
->> @@ -28,6 +29,8 @@
->>   struct gicv5_its_chip_data {
->>   	struct	xarray			its_devices;
->>   	struct	mutex			dev_alloc_lock;
->> +	/* Event and device invalidation commands share DIDR. */
->> +	raw_spinlock_t			inv_lock;
->>   	struct	fwnode_handle		*fwnode;
->>   	struct gicv5_its_devtab_cfg	devtab_cfgr;
->>   	void	__iomem			*its_base;
->> @@ -129,6 +132,8 @@ static int gicv5_its_itt_cache_inv(struct gicv5_its_chip_data *its, u32 device_i
->>   	eidr = FIELD_PREP(GICV5_ITS_EIDR_EVENTID, event_id);
->>   	eventr = FIELD_PREP(GICV5_ITS_INV_EVENTR_I, 0x1);
+>> @@ -1197,6 +1198,11 @@ static int __init gicv5_its_init(struct device_node *node)
+>>   		return -ENODEV;
+>>   	}
 >>   
->> +	guard(raw_spinlock_irqsave)(&its->inv_lock);
+>> +	/* Save the region to release if ITS setup fails after mapping it. */
+>> +	ret = of_address_to_resource(node, idx, &res);
+>> +	if (ret)
+>> +		return ret;
 >> +
->>   	its_writeq_relaxed(its, didr, GICV5_ITS_DIDR);
->>   	its_writel_relaxed(its, eidr, GICV5_ITS_EIDR);
->>   	its_writel_relaxed(its, eventr, GICV5_ITS_INV_EVENTR);
->> @@ -371,6 +376,9 @@ static int gicv5_its_device_cache_inv(struct gicv5_its_chip_data *its,
->>   		  FIELD_PREP(GICV5_ITS_INV_DEVICER_EVENTID_BITS,
->>   			     its_dev->itt_cfg.event_id_bits)	|
->>   		  FIELD_PREP(GICV5_ITS_INV_DEVICER_L1, 0x0);
->> +
->> +	guard(raw_spinlock_irqsave)(&its->inv_lock);
->> +
->>   	its_writeq_relaxed(its, didr, GICV5_ITS_DIDR);
->>   	its_writel_relaxed(its, devicer, GICV5_ITS_INV_DEVICER);
+>>   	its_base = of_io_request_and_map(node, idx, of_node_full_name(node));
+>>   	if (IS_ERR(its_base)) {
+>>   		pr_err("%pOF: unable to map GICv5 ITS_CONFIG_FRAME\n", node);
+>> @@ -1213,6 +1219,7 @@ static int __init gicv5_its_init(struct device_node *node)
 >>   
->> @@ -1112,6 +1120,7 @@ static int __init gicv5_its_init_bases(void __iomem *its_base, struct fwnode_han
->>   		return -ENOMEM;
+>>   out_unmap:
+>>   	iounmap(its_base);
+>> +	release_mem_region(res.start, resource_size(&res));
+>>   	return ret;
+>>   }
 >>   
->>   	mutex_init(&its_node->dev_alloc_lock);
->> +	raw_spin_lock_init(&its_node->inv_lock);
->>   	xa_init(&its_node->its_devices);
->>   	its_node->fwnode = handle;
->>   	its_node->its_base = its_base;
 >>
 >> -- 
 >> 2.34.1
