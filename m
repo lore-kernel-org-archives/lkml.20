@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793803873;
-	b=u+yuofNmRNJza4xVtacaIYRmxqEB0DWqxrjpi6XoJYqP/n5MOS4yPHMY0Gmvsl+Huf3I
-	 EYeCpSRISG1H4yY3E3AXHTV82wIT+qXrctg+t8VTHKQBwRP8oGjz9BNdHZxy+ElLdc77C
-	 bD8H3fVvfzp5bRcKJLSV5+T1+nfzK3TNAbeP9bo4rf8eVatdxDD885Tk5g4jq7FCPwWrJ
-	 e7mYOdBDQRtJw991oCEsiKrgqrqbtf5pN43Y6XZjl1cSU701zdPN5APswFFHpVLUHhsGU
-	 qXOrAkiz75z9NAtOTPo10uwvxYnte3JZNzT6FdGf6owefMKI8cfDCx40s5p0OvB8T4g==
+	t=1793803887;
+	b=qyxL7WnBwpeNoZ2G+8GyYD32D38+flQdfCizXyYqT7Hwfp33x4dgdApLkuZNViLvjxm/
+	 xo1XKnj3/Lynia6VsVI0gal6WHtzsGZgrn447FInKftpWrhqW8myXBuRD4NlQkN02FitH
+	 8FnwIeq7YNCfdGD4+DAZ8Ugq9kvlCLtvFpeEefU8P3Cz0lP3CjGafrEA9sd3UNV+WZqYr
+	 +LbJ6QNgnsrEhe3AFvSXsd7o2nPK7ec7pwPpPPkOzEOjAOyP3SKA3EHGV3YGlf7+FvYn7
+	 4PXlIncBCWC8VcKv6WP3sRV8qg30mbbYOiOpJmmEvsgBhrfghHD/6okAhZmk+6+KP5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793803873;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793803887;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=guZZOTMvdWvpwXd98lRwAqTeba+/rqzZZrUH8hxfm+c=;
-	b=iv/NA37UV8K4BIoL1xJqCgL/Rl+ksph4gtfp7wNb4oaVMjOfhNBe+N2Uyc93zzaq7YU4
-	 +aqAa984lHTvgtSCbMPVQF8qph8xTgKdkrkASaaIR8HkVD+DJB3+caHhah25KnR7xylHF
-	 Qaon0wUoQuk4t1rlf/Tfyu7qv87y2QkrJIck5Vcx+nAdj55mifPfN4kTPvELAvCAx3r2/
-	 oC/1LSwSv1keO0aIdpthbi/JO3cNVAf/I/Gvf0XHqOwTLKkHmcRmWFi/Nwciig+kWkOgN
-	 pqNk21gptSD9jyElyonFdVg9lwvmoGC4EuzzLwuOVjztaLpM7nTetLQHinRltORs1xw==
+	bh=rz19ZukOAiKFRngbtnVhWHGTjfs5u+6TxsCAOoKwaNU=;
+	b=uBzqd+MTtNuxak60OpLhFy2+tYP0mmvTfhyGsa2Dj6yvI93gX05fsK0sm8rYogpz8y2z
+	 JVYqaisREyydy6hl6W5I5bQlbeJB2DsqJAeLFZb1XD8o7lLUGaumB6voo8UcMplVELNP1
+	 D+XS6npsiVIId25QmMEgdSdIdjl9ifys2bSKMrVE9C5mFA+0fClHsL8r77XLseTdsgU3H
+	 5xz1epreUcf/1/yUSo+4E4+mrQeejTFPGK34/0ZUtGqKP4nv7rJ5/XPALjzUuivxx1PU5
+	 NfJeiSCqqYLfggxJUAloPeLDMvV+BJQfdX/RKdHd9KKqaOakkC6rzI2FqV4wRVQqvNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="BDCxHm8/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RYmAWIrd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AB1F606A32F;
-	Wed,  4 Nov 2026 14:51:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 086E8606A32F;
+	Wed,  4 Nov 2026 14:51:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BDCxHm8/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB9261F000C1;
-	Wed,  4 Nov 2026 14:51:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RYmAWIrd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CDA11F00A02;
+	Wed,  4 Nov 2026 14:51:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793803873;
-	bh=guZZOTMvdWvpwXd98lRwAqTeba+/rqzZZrUH8hxfm+c=;
+	s=k20260515; t=1793803886;
+	bh=rz19ZukOAiKFRngbtnVhWHGTjfs5u+6TxsCAOoKwaNU=;
 	h=From:To:Cc:Subject:Date;
-	b=BDCxHm8/mkVyxxh6Vm4Uj0VIEBolsQ/hKQwU+PTdDvG5jGVowl9pF7hvNUB1M4WJG
-	 cqnS5hBBkd0VQ3/xWpQPDwdVF6toJtClef/wZUHSDhO5evcNfhCEUL8/pXJnyRO3QL
-	 DOR8jWMR9qYXw5QidGKug6FW6fNxpv1sXj0yBFr9J0J7grPANiGH4G1ya47wAntbl+
-	 gfjnINHJDMsNr7lDi2ESQBeG2rTzeqrA1X8+0ZVQvrvSP31iOO0TQLA5hHimxKj/UI
-	 nbG9xi/hCFuPa6EvZ6U1Caxub6OJTDz812XG2P26UHWvgVt/eL7cOuRtxsqUefXVfX
-	 v0XLyOkGflzrA==
+	b=RYmAWIrd94owKJCFH1jduse8vXh/JC8+/sqgsJTNh/M8/mYUQUWdoCNdgcQdV+WcO
+	 U8JaGTevnGV9+5ClRYXQwtGGm0IoMEBpP/5qekVDhrvOH0C6E4QXF+bS5kijsmHw2d
+	 we3VM+rDtmolHm/a1S1VPhdqH3gxaE3ZyekVC4jNLr7YdlhulbeEqdEDwfzVnnN2oX
+	 sZb9Za3fU3vP9Ol4qUfaMBdx0imWXxSkWxqi+EO+Q5PqtO0VodrUgAz30aQgoUQ3ZL
+	 z2UJGha+PUMkWMXvxjAcso1xoVWVPFtQ60JM5bSSoObZ56jv8pgjgkqkBNTtO4W7X8
+	 bkSiLNBtUVNAA==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+To: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-pwm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] pwm: Remove orphan HiSilicon hibvt driver
-Date: Wed,  4 Nov 2026 08:51:02 -0600
-Message-ID: <20261104145104.950566-1-robh@kernel.org>
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH] clk: hisilicon: Remove hi3516cv300 driver
+Date: Wed,  4 Nov 2026 08:51:16 -0600
+Message-ID: <20261104145118.952453-1-robh@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,372 +63,418 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Remove the HiSilicon hibvt PWM driver as none of the SoCs exist
-upstream. The hi3516cv300 only has pwm, clock and ethernet drivers.
+Remove the hi3516cv300 clock driver as there is no such platform
+upstream and only drivers for clocks, pwm and ethernet. There's also
+been no changes other than common cleanups in 10 years since the driver
+was added.
 
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- .../devicetree/bindings/pwm/pwm-hibvt.txt     |  23 --
- drivers/pwm/Kconfig                           |  10 -
- drivers/pwm/Makefile                          |   1 -
- drivers/pwm/pwm-hibvt.c                       | 285 ------------------
- 4 files changed, 319 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/pwm/pwm-hibvt.txt
- delete mode 100644 drivers/pwm/pwm-hibvt.c
+ drivers/clk/hisilicon/Kconfig                 |   9 -
+ drivers/clk/hisilicon/Makefile                |   1 -
+ drivers/clk/hisilicon/crg-hi3516cv300.c       | 317 ------------------
+ include/dt-bindings/clock/hi3516cv300-clock.h |  36 --
+ 4 files changed, 363 deletions(-)
+ delete mode 100644 drivers/clk/hisilicon/crg-hi3516cv300.c
+ delete mode 100644 include/dt-bindings/clock/hi3516cv300-clock.h
 
-diff --git a/Documentation/devicetree/bindings/pwm/pwm-hibvt.txt b/Documentation/devicetree/bindings/pwm/pwm-hibvt.txt
-deleted file mode 100644
-index 54dbc2a0e648..000000000000
---- a/Documentation/devicetree/bindings/pwm/pwm-hibvt.txt
-+++ /dev/null
-@@ -1,23 +0,0 @@
--Hisilicon PWM controller
--
--Required properties:
---compatible: should contain one SoC specific compatible string
-- The SoC specific strings supported including:
--	"hisilicon,hi3516cv300-pwm"
--	"hisilicon,hi3519v100-pwm"
--	"hisilicon,hi3559v100-shub-pwm"
--	"hisilicon,hi3559v100-pwm
--- reg: physical base address and length of the controller's registers.
--- clocks: phandle and clock specifier of the PWM reference clock.
--- resets: phandle and reset specifier for the PWM controller reset.
--- #pwm-cells: Should be 3. See pwm.yaml in this directory for a description of
--  the cells format.
--
--Example:
--	pwm: pwm@12130000 {
--		compatible = "hisilicon,hi3516cv300-pwm";
--		reg = <0x12130000 0x10000>;
--		clocks = <&crg_ctrl HI3516CV300_PWM_CLK>;
--		resets = <&crg_ctrl 0x38 0>;
--		#pwm-cells = <3>;
--	};
-diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
-index 729776086879..aacd800687e7 100644
---- a/drivers/pwm/Kconfig
-+++ b/drivers/pwm/Kconfig
-@@ -282,16 +282,6 @@ config PWM_GPIO
- 	  To compile this driver as a module, choose M here: the module
- 	  will be called pwm-gpio.
+diff --git a/drivers/clk/hisilicon/Kconfig b/drivers/clk/hisilicon/Kconfig
+index e70bcfa9105b..e522c70ba8d3 100644
+--- a/drivers/clk/hisilicon/Kconfig
++++ b/drivers/clk/hisilicon/Kconfig
+@@ -3,15 +3,6 @@ config COMMON_CLK_HISI
+ 	bool
+ 	default ARCH_HISI
  
--config PWM_HIBVT
--	tristate "HiSilicon BVT PWM support"
+-config COMMON_CLK_HI3516CV300
+-	tristate "HI3516CV300 Clock Driver"
 -	depends on ARCH_HISI || COMPILE_TEST
--	depends on HAS_IOMEM
+-	select RESET_HISI
+-	select COMMON_CLK_HISI
+-	default ARCH_HISI
 -	help
--	  Generic PWM framework driver for HiSilicon BVT SoCs.
+-	  Build the clock driver for hi3516cv300.
 -
--	  To compile this driver as a module, choose M here: the module
--	  will be called pwm-hibvt.
--
- config PWM_IMG
- 	tristate "Imagination Technologies PWM driver"
- 	depends on HAS_IOMEM
-diff --git a/drivers/pwm/Makefile b/drivers/pwm/Makefile
-index 5630a521a7cf..7e2c34cc4f6a 100644
---- a/drivers/pwm/Makefile
-+++ b/drivers/pwm/Makefile
-@@ -23,7 +23,6 @@ obj-$(CONFIG_PWM_DWC)		+= pwm-dwc.o
- obj-$(CONFIG_PWM_EP93XX)	+= pwm-ep93xx.o
- obj-$(CONFIG_PWM_FSL_FTM)	+= pwm-fsl-ftm.o
- obj-$(CONFIG_PWM_GPIO)		+= pwm-gpio.o
--obj-$(CONFIG_PWM_HIBVT)		+= pwm-hibvt.o
- obj-$(CONFIG_PWM_IMG)		+= pwm-img.o
- obj-$(CONFIG_PWM_IMX1)		+= pwm-imx1.o
- obj-$(CONFIG_PWM_IMX27)		+= pwm-imx27.o
-diff --git a/drivers/pwm/pwm-hibvt.c b/drivers/pwm/pwm-hibvt.c
+ config COMMON_CLK_HI3519
+ 	tristate "Hi3519 Clock Driver"
+ 	depends on ARCH_HISI || COMPILE_TEST
+diff --git a/drivers/clk/hisilicon/Makefile b/drivers/clk/hisilicon/Makefile
+index 2978e56cb876..323b9bc563e4 100644
+--- a/drivers/clk/hisilicon/Makefile
++++ b/drivers/clk/hisilicon/Makefile
+@@ -8,7 +8,6 @@ obj-y	+= clk.o clkgate-separated.o clkdivider-hi6220.o clk-hisi-phase.o
+ obj-$(CONFIG_ARCH_HI3xxx)	+= clk-hi3620.o
+ obj-$(CONFIG_ARCH_HIP04)	+= clk-hip04.o
+ obj-$(CONFIG_ARCH_HIX5HD2)	+= clk-hix5hd2.o
+-obj-$(CONFIG_COMMON_CLK_HI3516CV300)	+= crg-hi3516cv300.o
+ obj-$(CONFIG_COMMON_CLK_HI3519)	+= clk-hi3519.o
+ obj-$(CONFIG_COMMON_CLK_HI3559A)	+= clk-hi3559a.o
+ obj-$(CONFIG_COMMON_CLK_HI3660) += clk-hi3660.o
+diff --git a/drivers/clk/hisilicon/crg-hi3516cv300.c b/drivers/clk/hisilicon/crg-hi3516cv300.c
 deleted file mode 100644
-index 29ad8d0b5536..000000000000
---- a/drivers/pwm/pwm-hibvt.c
+index b66140f74c51..000000000000
+--- a/drivers/clk/hisilicon/crg-hi3516cv300.c
 +++ /dev/null
-@@ -1,285 +0,0 @@
+@@ -1,317 +0,0 @@
 -// SPDX-License-Identifier: GPL-2.0-or-later
 -/*
-- * PWM Controller Driver for HiSilicon BVT SoCs
+- * Hi3516CV300 Clock and Reset Generator Driver
 - *
 - * Copyright (c) 2016 HiSilicon Technologies Co., Ltd.
 - */
 -
--#include <linux/bitops.h>
--#include <linux/clk.h>
--#include <linux/delay.h>
--#include <linux/io.h>
+-#include <dt-bindings/clock/hi3516cv300-clock.h>
+-#include <linux/clk-provider.h>
 -#include <linux/module.h>
 -#include <linux/of.h>
 -#include <linux/platform_device.h>
--#include <linux/pwm.h>
--#include <linux/reset.h>
+-#include "clk.h"
+-#include "crg.h"
+-#include "reset.h"
 -
--#define PWM_CFG0_ADDR(x)    (((x) * 0x20) + 0x0)
--#define PWM_CFG1_ADDR(x)    (((x) * 0x20) + 0x4)
--#define PWM_CFG2_ADDR(x)    (((x) * 0x20) + 0x8)
--#define PWM_CTRL_ADDR(x)    (((x) * 0x20) + 0xC)
+-/* hi3516CV300 core CRG */
+-#define HI3516CV300_INNER_CLK_OFFSET	64
+-#define HI3516CV300_FIXED_3M		65
+-#define HI3516CV300_FIXED_6M		66
+-#define HI3516CV300_FIXED_24M		67
+-#define HI3516CV300_FIXED_49P5		68
+-#define HI3516CV300_FIXED_50M		69
+-#define HI3516CV300_FIXED_83P3M		70
+-#define HI3516CV300_FIXED_99M		71
+-#define HI3516CV300_FIXED_100M		72
+-#define HI3516CV300_FIXED_148P5M	73
+-#define HI3516CV300_FIXED_198M		74
+-#define HI3516CV300_FIXED_297M		75
+-#define HI3516CV300_UART_MUX		76
+-#define HI3516CV300_FMC_MUX		77
+-#define HI3516CV300_MMC0_MUX		78
+-#define HI3516CV300_MMC1_MUX		79
+-#define HI3516CV300_MMC2_MUX		80
+-#define HI3516CV300_MMC3_MUX		81
+-#define HI3516CV300_PWM_MUX		82
+-#define HI3516CV300_CRG_NR_CLKS		128
 -
--#define PWM_ENABLE_SHIFT    0
--#define PWM_ENABLE_MASK     BIT(0)
--
--#define PWM_POLARITY_SHIFT  1
--#define PWM_POLARITY_MASK   BIT(1)
--
--#define PWM_KEEP_SHIFT      2
--#define PWM_KEEP_MASK       BIT(2)
--
--#define PWM_PERIOD_MASK     GENMASK(31, 0)
--#define PWM_DUTY_MASK       GENMASK(31, 0)
--
--struct hibvt_pwm_chip {
--	struct clk *clk;
--	void __iomem *base;
--	struct reset_control *rstc;
--	const struct hibvt_pwm_soc *soc;
+-static const struct hisi_fixed_rate_clock hi3516cv300_fixed_rate_clks[] = {
+-	{ HI3516CV300_FIXED_3M, "3m", NULL, 0, 3000000, },
+-	{ HI3516CV300_FIXED_6M, "6m", NULL, 0, 6000000, },
+-	{ HI3516CV300_FIXED_24M, "24m", NULL, 0, 24000000, },
+-	{ HI3516CV300_FIXED_49P5, "49.5m", NULL, 0, 49500000, },
+-	{ HI3516CV300_FIXED_50M, "50m", NULL, 0, 50000000, },
+-	{ HI3516CV300_FIXED_83P3M, "83.3m", NULL, 0, 83300000, },
+-	{ HI3516CV300_FIXED_99M, "99m", NULL, 0, 99000000, },
+-	{ HI3516CV300_FIXED_100M, "100m", NULL, 0, 100000000, },
+-	{ HI3516CV300_FIXED_148P5M, "148.5m", NULL, 0, 148500000, },
+-	{ HI3516CV300_FIXED_198M, "198m", NULL, 0, 198000000, },
+-	{ HI3516CV300_FIXED_297M, "297m", NULL, 0, 297000000, },
+-	{ HI3516CV300_APB_CLK, "apb", NULL, 0, 50000000, },
 -};
 -
--struct hibvt_pwm_soc {
--	u32 num_pwms;
--	bool quirk_force_enable;
+-static const char *const uart_mux_p[] = {"24m", "6m"};
+-static const char *const fmc_mux_p[] = {
+-	"24m", "83.3m", "148.5m", "198m", "297m"
+-};
+-static const char *const mmc_mux_p[] = {"49.5m"};
+-static const char *const mmc2_mux_p[] = {"99m", "49.5m"};
+-static const char *const pwm_mux_p[] = {"3m", "50m", "24m", "24m"};
+-
+-static u32 uart_mux_table[] = {0, 1};
+-static u32 fmc_mux_table[] = {0, 1, 2, 3, 4};
+-static u32 mmc_mux_table[] = {0};
+-static u32 mmc2_mux_table[] = {0, 2};
+-static u32 pwm_mux_table[] = {0, 1, 2, 3};
+-
+-static const struct hisi_mux_clock hi3516cv300_mux_clks[] = {
+-	{ HI3516CV300_UART_MUX, "uart_mux", uart_mux_p, ARRAY_SIZE(uart_mux_p),
+-		CLK_SET_RATE_PARENT, 0xe4, 19, 1, 0, uart_mux_table, },
+-	{ HI3516CV300_FMC_MUX, "fmc_mux", fmc_mux_p, ARRAY_SIZE(fmc_mux_p),
+-		CLK_SET_RATE_PARENT, 0xc0, 2, 3, 0, fmc_mux_table, },
+-	{ HI3516CV300_MMC0_MUX, "mmc0_mux", mmc_mux_p, ARRAY_SIZE(mmc_mux_p),
+-		CLK_SET_RATE_PARENT, 0xc4, 4, 2, 0, mmc_mux_table, },
+-	{ HI3516CV300_MMC1_MUX, "mmc1_mux", mmc_mux_p, ARRAY_SIZE(mmc_mux_p),
+-		CLK_SET_RATE_PARENT, 0xc4, 12, 2, 0, mmc_mux_table, },
+-	{ HI3516CV300_MMC2_MUX, "mmc2_mux", mmc2_mux_p, ARRAY_SIZE(mmc2_mux_p),
+-		CLK_SET_RATE_PARENT, 0xc4, 20, 2, 0, mmc2_mux_table, },
+-	{ HI3516CV300_MMC3_MUX, "mmc3_mux", mmc_mux_p, ARRAY_SIZE(mmc_mux_p),
+-		CLK_SET_RATE_PARENT, 0xc8, 4, 2, 0, mmc_mux_table, },
+-	{ HI3516CV300_PWM_MUX, "pwm_mux", pwm_mux_p, ARRAY_SIZE(pwm_mux_p),
+-		CLK_SET_RATE_PARENT, 0x38, 2, 2, 0, pwm_mux_table, },
 -};
 -
--static const struct hibvt_pwm_soc hi3516cv300_soc_info = {
--	.num_pwms = 4,
+-static const struct hisi_gate_clock hi3516cv300_gate_clks[] = {
+-
+-	{ HI3516CV300_UART0_CLK, "clk_uart0", "uart_mux", CLK_SET_RATE_PARENT,
+-		0xe4, 15, 0, },
+-	{ HI3516CV300_UART1_CLK, "clk_uart1", "uart_mux", CLK_SET_RATE_PARENT,
+-		0xe4, 16, 0, },
+-	{ HI3516CV300_UART2_CLK, "clk_uart2", "uart_mux", CLK_SET_RATE_PARENT,
+-		0xe4, 17, 0, },
+-
+-	{ HI3516CV300_SPI0_CLK, "clk_spi0", "100m", CLK_SET_RATE_PARENT,
+-		0xe4, 13, 0, },
+-	{ HI3516CV300_SPI1_CLK, "clk_spi1", "100m", CLK_SET_RATE_PARENT,
+-		0xe4, 14, 0, },
+-
+-	{ HI3516CV300_FMC_CLK, "clk_fmc", "fmc_mux", CLK_SET_RATE_PARENT,
+-		0xc0, 1, 0, },
+-	{ HI3516CV300_MMC0_CLK, "clk_mmc0", "mmc0_mux", CLK_SET_RATE_PARENT,
+-		0xc4, 1, 0, },
+-	{ HI3516CV300_MMC1_CLK, "clk_mmc1", "mmc1_mux", CLK_SET_RATE_PARENT,
+-		0xc4, 9, 0, },
+-	{ HI3516CV300_MMC2_CLK, "clk_mmc2", "mmc2_mux", CLK_SET_RATE_PARENT,
+-		0xc4, 17, 0, },
+-	{ HI3516CV300_MMC3_CLK, "clk_mmc3", "mmc3_mux", CLK_SET_RATE_PARENT,
+-		0xc8, 1, 0, },
+-
+-	{ HI3516CV300_ETH_CLK, "clk_eth", NULL, 0, 0xec, 1, 0, },
+-
+-	{ HI3516CV300_DMAC_CLK, "clk_dmac", NULL, 0, 0xd8, 5, 0, },
+-	{ HI3516CV300_PWM_CLK, "clk_pwm", "pwm_mux", CLK_SET_RATE_PARENT,
+-		0x38, 1, 0, },
+-
+-	{ HI3516CV300_USB2_BUS_CLK, "clk_usb2_bus", NULL, 0, 0xb8, 0, 0, },
+-	{ HI3516CV300_USB2_OHCI48M_CLK, "clk_usb2_ohci48m", NULL, 0,
+-		0xb8, 1, 0, },
+-	{ HI3516CV300_USB2_OHCI12M_CLK, "clk_usb2_ohci12m", NULL, 0,
+-		0xb8, 2, 0, },
+-	{ HI3516CV300_USB2_OTG_UTMI_CLK, "clk_usb2_otg_utmi", NULL, 0,
+-		0xb8, 3, 0, },
+-	{ HI3516CV300_USB2_HST_PHY_CLK, "clk_usb2_hst_phy", NULL, 0,
+-		0xb8, 4, 0, },
+-	{ HI3516CV300_USB2_UTMI0_CLK, "clk_usb2_utmi0", NULL, 0, 0xb8, 5, 0, },
+-	{ HI3516CV300_USB2_PHY_CLK, "clk_usb2_phy", NULL, 0, 0xb8, 7, 0, },
 -};
 -
--static const struct hibvt_pwm_soc hi3519v100_soc_info = {
--	.num_pwms = 8,
+-static struct hisi_clock_data *hi3516cv300_clk_register(
+-		struct platform_device *pdev)
+-{
+-	struct hisi_clock_data *clk_data;
+-	int ret;
+-
+-	clk_data = hisi_clk_alloc(pdev, HI3516CV300_CRG_NR_CLKS);
+-	if (!clk_data)
+-		return ERR_PTR(-ENOMEM);
+-
+-	ret = hisi_clk_register_fixed_rate(hi3516cv300_fixed_rate_clks,
+-			ARRAY_SIZE(hi3516cv300_fixed_rate_clks), clk_data);
+-	if (ret)
+-		return ERR_PTR(ret);
+-
+-	ret = hisi_clk_register_mux(hi3516cv300_mux_clks,
+-			ARRAY_SIZE(hi3516cv300_mux_clks), clk_data);
+-	if (ret)
+-		goto unregister_fixed_rate;
+-
+-	ret = hisi_clk_register_gate(hi3516cv300_gate_clks,
+-			ARRAY_SIZE(hi3516cv300_gate_clks), clk_data);
+-	if (ret)
+-		goto unregister_mux;
+-
+-	ret = of_clk_add_provider(pdev->dev.of_node,
+-			of_clk_src_onecell_get, &clk_data->clk_data);
+-	if (ret)
+-		goto unregister_gate;
+-
+-	return clk_data;
+-
+-unregister_gate:
+-	hisi_clk_unregister_gate(hi3516cv300_gate_clks,
+-				ARRAY_SIZE(hi3516cv300_gate_clks), clk_data);
+-unregister_mux:
+-	hisi_clk_unregister_mux(hi3516cv300_mux_clks,
+-			ARRAY_SIZE(hi3516cv300_mux_clks), clk_data);
+-unregister_fixed_rate:
+-	hisi_clk_unregister_fixed_rate(hi3516cv300_fixed_rate_clks,
+-			ARRAY_SIZE(hi3516cv300_fixed_rate_clks), clk_data);
+-	return ERR_PTR(ret);
+-}
+-
+-static void hi3516cv300_clk_unregister(struct platform_device *pdev)
+-{
+-	struct hisi_crg_dev *crg = platform_get_drvdata(pdev);
+-
+-	of_clk_del_provider(pdev->dev.of_node);
+-
+-	hisi_clk_unregister_gate(hi3516cv300_gate_clks,
+-			ARRAY_SIZE(hi3516cv300_gate_clks), crg->clk_data);
+-	hisi_clk_unregister_mux(hi3516cv300_mux_clks,
+-			ARRAY_SIZE(hi3516cv300_mux_clks), crg->clk_data);
+-	hisi_clk_unregister_fixed_rate(hi3516cv300_fixed_rate_clks,
+-			ARRAY_SIZE(hi3516cv300_fixed_rate_clks), crg->clk_data);
+-}
+-
+-static const struct hisi_crg_funcs hi3516cv300_crg_funcs = {
+-	.register_clks = hi3516cv300_clk_register,
+-	.unregister_clks = hi3516cv300_clk_unregister,
 -};
 -
--static const struct hibvt_pwm_soc hi3559v100_shub_soc_info = {
--	.num_pwms = 8,
--	.quirk_force_enable = true,
+-/* hi3516CV300 sysctrl CRG */
+-#define HI3516CV300_SYSCTRL_NR_CLKS 16
+-
+-static const char *const wdt_mux_p[] __initconst = { "3m", "apb" };
+-static u32 wdt_mux_table[] = {0, 1};
+-
+-static const struct hisi_mux_clock hi3516cv300_sysctrl_mux_clks[] = {
+-	{ HI3516CV300_WDT_CLK, "wdt", wdt_mux_p, ARRAY_SIZE(wdt_mux_p),
+-		CLK_SET_RATE_PARENT, 0x0, 23, 1, 0, wdt_mux_table, },
 -};
 -
--static const struct hibvt_pwm_soc hi3559v100_soc_info = {
--	.num_pwms = 2,
--	.quirk_force_enable = true,
+-static struct hisi_clock_data *hi3516cv300_sysctrl_clk_register(
+-		struct platform_device *pdev)
+-{
+-	struct hisi_clock_data *clk_data;
+-	int ret;
+-
+-	clk_data = hisi_clk_alloc(pdev, HI3516CV300_SYSCTRL_NR_CLKS);
+-	if (!clk_data)
+-		return ERR_PTR(-ENOMEM);
+-
+-	ret = hisi_clk_register_mux(hi3516cv300_sysctrl_mux_clks,
+-			ARRAY_SIZE(hi3516cv300_sysctrl_mux_clks), clk_data);
+-	if (ret)
+-		return ERR_PTR(ret);
+-
+-
+-	ret = of_clk_add_provider(pdev->dev.of_node,
+-			of_clk_src_onecell_get, &clk_data->clk_data);
+-	if (ret)
+-		goto unregister_mux;
+-
+-	return clk_data;
+-
+-unregister_mux:
+-	hisi_clk_unregister_mux(hi3516cv300_sysctrl_mux_clks,
+-			ARRAY_SIZE(hi3516cv300_sysctrl_mux_clks), clk_data);
+-	return ERR_PTR(ret);
+-}
+-
+-static void hi3516cv300_sysctrl_clk_unregister(struct platform_device *pdev)
+-{
+-	struct hisi_crg_dev *crg = platform_get_drvdata(pdev);
+-
+-	of_clk_del_provider(pdev->dev.of_node);
+-
+-	hisi_clk_unregister_mux(hi3516cv300_sysctrl_mux_clks,
+-			ARRAY_SIZE(hi3516cv300_sysctrl_mux_clks),
+-			crg->clk_data);
+-}
+-
+-static const struct hisi_crg_funcs hi3516cv300_sysctrl_funcs = {
+-	.register_clks = hi3516cv300_sysctrl_clk_register,
+-	.unregister_clks = hi3516cv300_sysctrl_clk_unregister,
 -};
 -
--static inline struct hibvt_pwm_chip *to_hibvt_pwm_chip(struct pwm_chip *chip)
--{
--	return pwmchip_get_drvdata(chip);
--}
--
--static void hibvt_pwm_set_bits(void __iomem *base, u32 offset,
--					u32 mask, u32 data)
--{
--	void __iomem *address = base + offset;
--	u32 value;
--
--	value = readl(address);
--	value &= ~mask;
--	value |= (data & mask);
--	writel(value, address);
--}
--
--static void hibvt_pwm_enable(struct pwm_chip *chip, struct pwm_device *pwm)
--{
--	struct hibvt_pwm_chip *hi_pwm_chip = to_hibvt_pwm_chip(chip);
--
--	hibvt_pwm_set_bits(hi_pwm_chip->base, PWM_CTRL_ADDR(pwm->hwpwm),
--			PWM_ENABLE_MASK, 0x1);
--}
--
--static void hibvt_pwm_disable(struct pwm_chip *chip, struct pwm_device *pwm)
--{
--	struct hibvt_pwm_chip *hi_pwm_chip = to_hibvt_pwm_chip(chip);
--
--	hibvt_pwm_set_bits(hi_pwm_chip->base, PWM_CTRL_ADDR(pwm->hwpwm),
--			PWM_ENABLE_MASK, 0x0);
--}
--
--static void hibvt_pwm_config(struct pwm_chip *chip, struct pwm_device *pwm,
--					int duty_cycle_ns, int period_ns)
--{
--	struct hibvt_pwm_chip *hi_pwm_chip = to_hibvt_pwm_chip(chip);
--	u32 freq, period, duty;
--
--	freq = div_u64(clk_get_rate(hi_pwm_chip->clk), 1000000);
--
--	period = div_u64(freq * period_ns, 1000);
--	duty = div_u64(period * duty_cycle_ns, period_ns);
--
--	hibvt_pwm_set_bits(hi_pwm_chip->base, PWM_CFG0_ADDR(pwm->hwpwm),
--			PWM_PERIOD_MASK, period);
--
--	hibvt_pwm_set_bits(hi_pwm_chip->base, PWM_CFG1_ADDR(pwm->hwpwm),
--			PWM_DUTY_MASK, duty);
--}
--
--static void hibvt_pwm_set_polarity(struct pwm_chip *chip,
--					struct pwm_device *pwm,
--					enum pwm_polarity polarity)
--{
--	struct hibvt_pwm_chip *hi_pwm_chip = to_hibvt_pwm_chip(chip);
--
--	if (polarity == PWM_POLARITY_INVERSED)
--		hibvt_pwm_set_bits(hi_pwm_chip->base, PWM_CTRL_ADDR(pwm->hwpwm),
--				PWM_POLARITY_MASK, (0x1 << PWM_POLARITY_SHIFT));
--	else
--		hibvt_pwm_set_bits(hi_pwm_chip->base, PWM_CTRL_ADDR(pwm->hwpwm),
--				PWM_POLARITY_MASK, (0x0 << PWM_POLARITY_SHIFT));
--}
--
--static int hibvt_pwm_get_state(struct pwm_chip *chip, struct pwm_device *pwm,
--			       struct pwm_state *state)
--{
--	struct hibvt_pwm_chip *hi_pwm_chip = to_hibvt_pwm_chip(chip);
--	void __iomem *base;
--	u32 freq, value;
--
--	freq = div_u64(clk_get_rate(hi_pwm_chip->clk), 1000000);
--	base = hi_pwm_chip->base;
--
--	value = readl(base + PWM_CFG0_ADDR(pwm->hwpwm));
--	state->period = div_u64(value * 1000, freq);
--
--	value = readl(base + PWM_CFG1_ADDR(pwm->hwpwm));
--	state->duty_cycle = div_u64(value * 1000, freq);
--
--	value = readl(base + PWM_CTRL_ADDR(pwm->hwpwm));
--	state->enabled = (PWM_ENABLE_MASK & value);
--	state->polarity = (PWM_POLARITY_MASK & value) ? PWM_POLARITY_INVERSED : PWM_POLARITY_NORMAL;
--
--	return 0;
--}
--
--static int hibvt_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
--			   const struct pwm_state *state)
--{
--	struct hibvt_pwm_chip *hi_pwm_chip = to_hibvt_pwm_chip(chip);
--
--	if (state->polarity != pwm->state.polarity)
--		hibvt_pwm_set_polarity(chip, pwm, state->polarity);
--
--	if (state->period != pwm->state.period ||
--	    state->duty_cycle != pwm->state.duty_cycle) {
--		hibvt_pwm_config(chip, pwm, state->duty_cycle, state->period);
--
--		/*
--		 * Some implementations require the PWM to be enabled twice
--		 * each time the duty cycle is refreshed.
--		 */
--		if (hi_pwm_chip->soc->quirk_force_enable && state->enabled)
--			hibvt_pwm_enable(chip, pwm);
--	}
--
--	if (state->enabled != pwm->state.enabled) {
--		if (state->enabled)
--			hibvt_pwm_enable(chip, pwm);
--		else
--			hibvt_pwm_disable(chip, pwm);
--	}
--
--	return 0;
--}
--
--static const struct pwm_ops hibvt_pwm_ops = {
--	.get_state = hibvt_pwm_get_state,
--	.apply = hibvt_pwm_apply,
--
--};
--
--static int hibvt_pwm_probe(struct platform_device *pdev)
--{
--	const struct hibvt_pwm_soc *soc =
--				of_device_get_match_data(&pdev->dev);
--	struct pwm_chip *chip;
--	struct hibvt_pwm_chip *hi_pwm_chip;
--	int ret, i;
--
--	chip = devm_pwmchip_alloc(&pdev->dev, soc->num_pwms, sizeof(*hi_pwm_chip));
--	if (IS_ERR(chip))
--		return PTR_ERR(chip);
--	hi_pwm_chip = to_hibvt_pwm_chip(chip);
--
--	hi_pwm_chip->clk = devm_clk_get(&pdev->dev, NULL);
--	if (IS_ERR(hi_pwm_chip->clk)) {
--		dev_err(&pdev->dev, "getting clock failed with %ld\n",
--				PTR_ERR(hi_pwm_chip->clk));
--		return PTR_ERR(hi_pwm_chip->clk);
--	}
--
--	chip->ops = &hibvt_pwm_ops;
--	hi_pwm_chip->soc = soc;
--
--	hi_pwm_chip->base = devm_platform_ioremap_resource(pdev, 0);
--	if (IS_ERR(hi_pwm_chip->base))
--		return PTR_ERR(hi_pwm_chip->base);
--
--	ret = clk_prepare_enable(hi_pwm_chip->clk);
--	if (ret < 0)
--		return ret;
--
--	hi_pwm_chip->rstc = devm_reset_control_get_exclusive(&pdev->dev, NULL);
--	if (IS_ERR(hi_pwm_chip->rstc)) {
--		clk_disable_unprepare(hi_pwm_chip->clk);
--		return PTR_ERR(hi_pwm_chip->rstc);
--	}
--
--	reset_control_assert(hi_pwm_chip->rstc);
--	msleep(30);
--	reset_control_deassert(hi_pwm_chip->rstc);
--
--	ret = pwmchip_add(chip);
--	if (ret < 0) {
--		clk_disable_unprepare(hi_pwm_chip->clk);
--		return ret;
--	}
--
--	for (i = 0; i < chip->npwm; i++) {
--		hibvt_pwm_set_bits(hi_pwm_chip->base, PWM_CTRL_ADDR(i),
--				PWM_KEEP_MASK, (0x1 << PWM_KEEP_SHIFT));
--	}
--
--	platform_set_drvdata(pdev, chip);
--
--	return 0;
--}
--
--static void hibvt_pwm_remove(struct platform_device *pdev)
--{
--	struct pwm_chip *chip = platform_get_drvdata(pdev);
--	struct hibvt_pwm_chip *hi_pwm_chip = to_hibvt_pwm_chip(chip);
--
--	pwmchip_remove(chip);
--
--	reset_control_assert(hi_pwm_chip->rstc);
--	msleep(30);
--	reset_control_deassert(hi_pwm_chip->rstc);
--
--	clk_disable_unprepare(hi_pwm_chip->clk);
--}
--
--static const struct of_device_id hibvt_pwm_of_match[] = {
--	{ .compatible = "hisilicon,hi3516cv300-pwm",
--	  .data = &hi3516cv300_soc_info },
--	{ .compatible = "hisilicon,hi3519v100-pwm",
--	  .data = &hi3519v100_soc_info },
--	{ .compatible = "hisilicon,hi3559v100-shub-pwm",
--	  .data = &hi3559v100_shub_soc_info },
--	{ .compatible = "hisilicon,hi3559v100-pwm",
--	  .data = &hi3559v100_soc_info },
+-static const struct of_device_id hi3516cv300_crg_match_table[] = {
+-	{
+-		.compatible = "hisilicon,hi3516cv300-crg",
+-		.data = &hi3516cv300_crg_funcs
+-	},
+-	{
+-		.compatible = "hisilicon,hi3516cv300-sysctrl",
+-		.data = &hi3516cv300_sysctrl_funcs
+-	},
 -	{ }
 -};
--MODULE_DEVICE_TABLE(of, hibvt_pwm_of_match);
+-MODULE_DEVICE_TABLE(of, hi3516cv300_crg_match_table);
 -
--static struct platform_driver hibvt_pwm_driver = {
--	.driver = {
--		.name = "hibvt-pwm",
--		.of_match_table = hibvt_pwm_of_match,
+-static int hi3516cv300_crg_probe(struct platform_device *pdev)
+-{
+-	struct hisi_crg_dev *crg;
+-
+-	crg = devm_kmalloc(&pdev->dev, sizeof(*crg), GFP_KERNEL);
+-	if (!crg)
+-		return -ENOMEM;
+-
+-	crg->funcs = of_device_get_match_data(&pdev->dev);
+-	if (!crg->funcs)
+-		return -ENOENT;
+-
+-	crg->rstc = hisi_reset_init(pdev);
+-	if (!crg->rstc)
+-		return -ENOMEM;
+-
+-	crg->clk_data = crg->funcs->register_clks(pdev);
+-	if (IS_ERR(crg->clk_data)) {
+-		hisi_reset_exit(crg->rstc);
+-		return PTR_ERR(crg->clk_data);
+-	}
+-
+-	platform_set_drvdata(pdev, crg);
+-	return 0;
+-}
+-
+-static void hi3516cv300_crg_remove(struct platform_device *pdev)
+-{
+-	struct hisi_crg_dev *crg = platform_get_drvdata(pdev);
+-
+-	hisi_reset_exit(crg->rstc);
+-	crg->funcs->unregister_clks(pdev);
+-}
+-
+-static struct platform_driver hi3516cv300_crg_driver = {
+-	.probe          = hi3516cv300_crg_probe,
+-	.remove		= hi3516cv300_crg_remove,
+-	.driver         = {
+-		.name   = "hi3516cv300-crg",
+-		.of_match_table = hi3516cv300_crg_match_table,
 -	},
--	.probe = hibvt_pwm_probe,
--	.remove = hibvt_pwm_remove,
 -};
--module_platform_driver(hibvt_pwm_driver);
 -
--MODULE_AUTHOR("Jian Yuan");
--MODULE_DESCRIPTION("HiSilicon BVT SoCs PWM driver");
--MODULE_LICENSE("GPL");
+-static int __init hi3516cv300_crg_init(void)
+-{
+-	return platform_driver_register(&hi3516cv300_crg_driver);
+-}
+-core_initcall(hi3516cv300_crg_init);
+-
+-static void __exit hi3516cv300_crg_exit(void)
+-{
+-	platform_driver_unregister(&hi3516cv300_crg_driver);
+-}
+-module_exit(hi3516cv300_crg_exit);
+-
+-MODULE_LICENSE("GPL v2");
+-MODULE_DESCRIPTION("HiSilicon Hi3516CV300 CRG Driver");
+diff --git a/include/dt-bindings/clock/hi3516cv300-clock.h b/include/dt-bindings/clock/hi3516cv300-clock.h
+deleted file mode 100644
+index ccea1bab7a6f..000000000000
+--- a/include/dt-bindings/clock/hi3516cv300-clock.h
++++ /dev/null
+@@ -1,36 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-or-later */
+-/*
+- * Copyright (c) 2016 HiSilicon Technologies Co., Ltd.
+- */
+-
+-#ifndef __DTS_HI3516CV300_CLOCK_H
+-#define __DTS_HI3516CV300_CLOCK_H
+-
+-/* hi3516CV300 core CRG */
+-#define HI3516CV300_APB_CLK		0
+-#define HI3516CV300_UART0_CLK		1
+-#define HI3516CV300_UART1_CLK		2
+-#define HI3516CV300_UART2_CLK		3
+-#define HI3516CV300_SPI0_CLK		4
+-#define HI3516CV300_SPI1_CLK		5
+-#define HI3516CV300_FMC_CLK		6
+-#define HI3516CV300_MMC0_CLK		7
+-#define HI3516CV300_MMC1_CLK		8
+-#define HI3516CV300_MMC2_CLK		9
+-#define HI3516CV300_MMC3_CLK		10
+-#define HI3516CV300_ETH_CLK		11
+-#define HI3516CV300_ETH_MACIF_CLK	12
+-#define HI3516CV300_DMAC_CLK		13
+-#define HI3516CV300_PWM_CLK		14
+-#define HI3516CV300_USB2_BUS_CLK	15
+-#define HI3516CV300_USB2_OHCI48M_CLK	16
+-#define HI3516CV300_USB2_OHCI12M_CLK	17
+-#define HI3516CV300_USB2_OTG_UTMI_CLK	18
+-#define HI3516CV300_USB2_HST_PHY_CLK	19
+-#define HI3516CV300_USB2_UTMI0_CLK	20
+-#define HI3516CV300_USB2_PHY_CLK	21
+-
+-/* hi3516CV300 sysctrl CRG */
+-#define HI3516CV300_WDT_CLK		1
+-
+-#endif	/* __DTS_HI3516CV300_CLOCK_H */
 -- 
 2.53.0
 
