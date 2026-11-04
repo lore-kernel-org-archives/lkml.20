@@ -1,53 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793784363;
-	b=dLeDP7tBedFvgikGgCt7fDl+Db/yjDqWuPHj2c2yRNPEYiDbh+amdynuVWKNN1OLLj4r
-	 9oAC7olVKUkg/eq8LmdUqf72SE6ofxh0+tvyukjYZ5qplMaAp6akm9GsGo0KQVwtWSF7w
-	 NdsnNqsOIy8rKTA+6z62E1427EAeoCxzboGyuVd/zWYFMlEXKv+BdzI3ppfrNSFvLEGPa
-	 h5hjqZgagsUNfJ6Zgx8NA0TLtA0svx6afSYcH+F3iFQbxSXn3ZCiW4miwInElSsYhMR/m
-	 M1GFh+w83Ycgbv9GA3eNl9XpyJePjxaDL9tZG7ZhmRnIBEiLRV0kRQrZDAuDQ/hO5dw==
+	t=1793784380;
+	b=bdeFa7+CAMzpmLbm2oTlXbRSsgqu8fbQe+JtJ5deBm26b054BZRgFLnl+1iB9OummV9m
+	 ShYhJRCMVH78D7ZcVehJJwltG+cunCTZjBx9VCFu8mgZ8/NGSa/6Y1gr3Ln5VZbImgkv7
+	 gdUd8i3Dk7w4pXLapvoQt/STUT3I8k0RxT5/s7OxWIwb2A4dR+4frul9siEk0Psyp0O2h
+	 hpkONIHOZ5G74ORgmWiLiAE5B/Ag/5UHeieZBDNzM2S63IH4cCn8KGD/2aCeNrdSwhKAc
+	 P/ELCgOqltp1ZDH0NbAeXBP41c53M3FQlC04VZB2KMe55eGniEgTWSWJjjLscqVjpAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793784363;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=PFrZ5dbTOXlM0VvYXkehn2Hkl3Ka9277tqCUBifKvOA=;
-	b=wglWET2wc3ofs7J8h5X3f/LHt+DdBwLhii6SEIYfS4Q/Tbf0SPqV5HIbgZblaaNApFNd
-	 ENdFVNjyZjhwWtJZX9unArY574eXu6nwT0gaEmPDNUMQlUX2O22GJXinDvbnYnsP/pauF
-	 n6+eeKiTHpaZ6sz/Ax8jkB5i4Jz/usxPzLDZh6+335qVzjadqEV4Lvcf5Gewg3j/PhMLs
-	 LW9Q8LRruy/dpN+R+iS0pGeVZEZOp/p5zSswi+yZpzfCAIrf5ZnCGLjpgaSbw+tnGA+ex
-	 kGeg5G0gpiGWhzXj8h28WjZ395l7x0Kvr62EZd8wcoNwxxpDsQ/Tcpnou26Faq5WJJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793784380;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=jO8RZUMPW/vjoyBppE3yfXu2wagzR2MyCjUuJjqye9M=;
+	b=XNaswyGGnx4EO6svv1x0wxI+L/EFUCN/RrYbQUHyaySba8pmo8GBNIDuU0fgMSFpzEhD
+	 1o3Gw6GvP20CERyFZqYqU3WvoIm5HkhUSdGy8+PrbgM/llY+Wq/ToqpuxIiS+iOSaj2D3
+	 FRAit5MDyLieRI1ltH5M6AZ58lK+vO+qw+Y1kvQoz4AykjAfDjTCBVDIikAzAwuxJ6jQD
+	 iPIYjwfHB7IO2p9+rJf9sh/tgOUgxdccZLoVcXK4J9Yw76qvQjuNfrMKI3jdUxgCKrEWe
+	 RQcGGxaQGJZhlaY6rLZud8FGRGuiU3wda/C3zvvc56gvb8ow7l5BiuHKcDQWHHxHNFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R4CTqFTj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89AB7606A334
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:26:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89AB7606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4e937c5bd4fso421292b6e.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:26:03 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793784362; x=1794389162;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=PFrZ5dbTOXlM0VvYXkehn2Hkl3Ka9277tqCUBifKvOA=;
-        b=fulsF4+P7+fsKS3SdmU8/w8lAHrXyYktd8pxsLZIg/y0i28mbrF+vmfW2kKGgApSvy
-         RXZJs//LNsp9ux4K6CJOPdbqsjbZ6X1p3IE1heAhoSL2r7QYK6nmobq0kfp3ta2DV/aF
-         /atH023sWqXmIW0Jx1FUdY3M3ldOG9VabL8Jk071ZpK2aN8sidd1x7OIEgbvoGbSfuY/
-         TSD6jpUqc+XoQXEJdnfQFGoJy699AMY8v6gzTmJeQ+C2/y+osUecsE8MAA+TXQSQ9UmP
-         AUJGViQbpfxtAPe/xrerrFZ8m6THCnCPEzZLEwKTAFayHbflt9TYkZhGr8bb6O1faeAz
-         6RIg==
-X-Gm-Message-State: APuU4Z+buuyV+wHvmvS/Fszff7ZEpG7U3SFHZDxac1vBzhn0ZD6U7Q4Y
-	Wqb3eP5iLnljij3YXwqn2aODmxKVcSBoFiqNKLgSPkgc64cj5mXutbUkJAv6z6iRGY3al/a1NX8
-	wPsXL679btLpRbb+XresDZYVkKtLrxnT2bMFEGiGsui4mPhA0pUfA9hqB/ak=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B3C606A31B;
+	Wed,  4 Nov 2026 09:26:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R4CTqFTj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0ACE1F000C1;
+	Wed,  4 Nov 2026 09:26:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793784380;
+	bh=jO8RZUMPW/vjoyBppE3yfXu2wagzR2MyCjUuJjqye9M=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=R4CTqFTjBBDNzn8x1tMAI+kqr16iG+4thqQZtngIWTePJZToJp7T/nz0s8xJnDjZH
+	 hOkjNdjHzLZT413BYVEU7FZPe+HpFF4PUH9s29mR+hwl8WjizpsGD+GEvP+dWcmggU
+	 y/m2UjGT25C4plJdBZ8kzvsPhDyA35VnDbyb+nQccUyD3L7HIqL6cAWaM1pZmOWEtp
+	 8IqBSIbzvDLTcQChkA0RoxADmLZsLIWgamzDaT/lyyxQUXdskYg7Ncmh0a8JxWNTEG
+	 sbCrMwjpJIp8HxEneuDLHb/tclw7LNNGKfXhJ3TXtBCJUgK2K8s+gJGN7RnMKVWz+9
+	 CS+zoympO+RDQ==
+Message-ID: <sashiko-outbox-196956@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH net v3 1/1] af_packet: avoid waiting for TPACKET_V3
+ copies at retirement
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jingxuan Xie" <jingxuanxie@deeproute.ai>
+Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20261103092541.273847-2-jingxuanxie@deeproute.ai>
+References: <20261103092541.273847-1-jingxuanxie@deeproute.ai>
+ <20261103092541.273847-2-jingxuanxie@deeproute.ai>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 09:26:19 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,36 +60,119 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-Received: by 2002:a05:6808:14cf:b0:4cb:d056:b14f with SMTP id
- 5614622812f47-5640d91b353mr9627782b6e.1.1793784362623; Wed, 04 Nov 2026
- 01:26:02 -0800 (PST)
-Date: Wed, 04 Nov 2026 01:26:02 -0800
-In-Reply-To: <179378340638.11608.18306459463443605471@cmss.chinamobile.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aeafa2a.bf891901.a11b2.0003.GAE@google.com>
-Subject: Re: [syzbot] [driver-core?] WARNING in firmware_fallback_sysfs (2)
-From: syzbot <syzbot+8f06445357a052a92657@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
-	xujiahao@cmss.chinamobile.com
-Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] af_packet: premature packet drops in prb_retire_current_block() =
+on SMP
+--
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+commit ed9927a1021a4ff736d3e13140014c9d82d1ba49
+Author: jingxuanxie <jingxuanxie@deeproute.ai>
 
-Reported-by: syzbot+8f06445357a052a92657@syzkaller.appspotmail.com
-Tested-by: syzbot+8f06445357a052a92657@syzkaller.appspotmail.com
+af_packet: avoid waiting for TPACKET_V3 copies at retirement
 
-Tested on:
+This commit replaces blocking write_lock() calls on blk_fill_in_prog_lock
+with write_trylock() in the TPACKET_V3 block retirement paths so that
+callers holding sk_receive_queue.lock do not block waiting for in-progress
+packet copies. When write_trylock() fails during frame lookup,
+prb_retire_current_block() returns false and the packet capture record is
+dropped.
 
-commit:         05441d69 Merge tag 'cocci-7.4-rc1' of git://git.kernel..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=1047668d580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=ea9128325cfe7743
-dashboard link: https://syzkaller.appspot.com/bug?extid=8f06445357a052a92657
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=143035a5580000
+> diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+> index cf6429f094772..8fd6372ab59bd 100644
+> --- a/net/packet/af_packet.c
+> +++ b/net/packet/af_packet.c
+[ ... ]
+> @@ -946,8 +948,8 @@ static void *prb_dispatch_next_block(struct tpacket_k=
+bdq_core *pkc,
+>  	return (void *)pkc->nxt_offset;
+>  }
+> =20
+> -static void prb_retire_current_block(struct tpacket_kbdq_core *pkc,
+> -		struct packet_sock *po, unsigned int status)
+> +static bool prb_retire_current_block(struct tpacket_kbdq_core *pkc,
+> +				     struct packet_sock *po, unsigned int status)
+>  {
+>  	struct tpacket_block_desc *pbd =3D GET_CURR_PBLOCK_DESC_FROM_CORE(pkc);
+> =20
+> @@ -963,13 +965,14 @@ static void prb_retire_current_block(struct tpacket=
+_kbdq_core *pkc,
+>  		 * the timer-handler already handled this case.
+>  		 */
+>  		if (!(status & TP_STATUS_BLK_TMO)) {
+> -			/* Waiting for skb_copy_bits to finish... */
+> -			write_lock(&pkc->blk_fill_in_prog_lock);
+> +			/* Do not wait for copies while holding the queue lock. */
+> +			if (!write_trylock(&pkc->blk_fill_in_prog_lock))
+> +				return false;
+>  			write_unlock(&pkc->blk_fill_in_prog_lock);
+>  		}
+>  		prb_close_block(pkc, pbd, po, status);
+> -		return;
+>  	}
+> +	return true;
+>  }
+> =20
+>  static int prb_curr_blk_in_use(struct tpacket_block_desc *pbd)
+> @@ -1097,7 +1100,8 @@ static void *__packet_lookup_frame_in_block(struct =
+packet_sock *po,
+>  	}
+> =20
+>  	/* Ok, close the current block */
+> -	prb_retire_current_block(pkc, po, 0);
+> +	if (!prb_retire_current_block(pkc, po, 0))
+> +		return NULL;
 
-Note: testing is done by a robot and is best-effort only.
+[Severity: Medium]
+Does using write_trylock() here cause premature packet drops and delayed
+block retirement during normal multi-core traffic, even on non-PREEMPT_RT
+kernels and when free blocks are available in the ring?
+
+In tpacket_rcv(), a CPU reserves a slot in the current block via:
+
+  tpacket_rcv()
+    packet_current_rx_frame()
+      __packet_lookup_frame_in_block()
+        prb_fill_curr_block()
+          read_lock(&pkc->blk_fill_in_prog_lock);
+
+and then drops sk->sk_receive_queue.lock before running skb_copy_bits(),
+tpacket_get_timestamp(), and dev_parse_header() concurrently with other
+CPUs.
+
+While CPU 0 is mid-copy on the last packet of a block, CPU 1 can arrive in
+tpacket_rcv() with a packet that does not fit in the current block and call
+__packet_lookup_frame_in_block() -> prb_retire_current_block(). Even though
+CPU 0 has not been preempted (and on non-PREEMPT_RT kernels read_lock()
+disables preemption), write_trylock() on CPU 1 will fail immediately,
+causing tpacket_rcv() to drop the packet, increment tp_drops (setting
+TP_STATUS_LOSING), and skip dispatching the next free block.
+
+Furthermore, when CPU 0 finishes its copy and calls
+prb_clear_blk_fill_status(), it only releases the read lock without closing
+the block. If the dropped packet on CPU 1 was the end of a burst, won't the
+full block remain unretired in TP_STATUS_KERNEL until
+prb_retire_rx_blk_timer_expired() fires (and could be delayed by another
+full interval_ktime if write_trylock() in the timer handler also coincides
+with an active copy)?
+
+Finally, when __packet_lookup_frame_in_block() returns NULL here,
+tpacket_rcv() jumps to drop_n_account:
+
+  drop_n_account:
+        spin_unlock(&sk->sk_receive_queue.lock);
+        atomic_inc(&po->tp_drops);
+        drop_reason =3D SKB_DROP_REASON_PACKET_SOCK_ERROR;
+
+        sk->sk_data_ready(sk);
+
+which wakes user-space waiters even though no block was retired to
+TP_STATUS_USER. On PREEMPT_RT, could waking a higher-priority user-space
+reader thread on every dropped packet preempt the copier thread holding
+blk_fill_in_prog_lock and prolong the state where write_trylock() keeps
+failing?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103092541.2738=
+47-1-jingxuanxie@deeproute.ai?part=3D1
