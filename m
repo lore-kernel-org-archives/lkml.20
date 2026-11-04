@@ -1,61 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793809027;
-	b=0AY4VM0JK4hidoPXi4KIYE/amokovuyz7SACdmAodBy1/DmcZGrskckDpMEp9LYvjE5c
-	 tMRh10JBO9+1v8gFM7hrswr3VqckaJDbbExEJn/M0Wahx/LzJ111kFx28VFX8FXwvBN1F
-	 w8dCEXGp1/MzWoTDdhL/G3dapLk7xniXaYEpV791+amhLVFGit5ZAuK6qyqvCvcd7wvTw
-	 cU7UML3JY22e/uoPpq+A/7h2z8lySxjIqXthGuS1bwMSaU5AKgaXw7Ag87Wra/vWrngdn
-	 HB0e/58BseeZqCnypqoTTf7LlnW5AzfQQ7UPzdmPZSmkT9pYaNOL2XqbglxMaXd+/HA==
+	t=1793809026;
+	b=hVYDIkjij/DivzNEXnDBG2jwhgIDgOxK3b1be/y/RzXk5MjemUJbeYGV5uE2rilcVx/2
+	 JO34AEWhQT6ASWP1rEhJVrVi1JohfGQmyqYKJTlfyQDSYFPHN8d4kUVkVGotAHbjwHDU9
+	 ViHzV4NIhyUegRTVCyFEL71m9CMJN+Jr0SfXUrAnYGjX3F5e1fDtWEhvlf67Mcv1zqbe0
+	 DloVYF92Aj0N85QHNYWWjZc6fvP8hEH2d7pgCpZo+o7Oj2phzHEoKJtcPyIml8qAcvu92
+	 UUrDjTce1YZUrqw8uVOXzQ+dTsTvONQ1tAyLaY1ezasIt5Pfz+n3syYxF6HTsTH4ezQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793809027;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=A3AytZ7ZaNVSp18p5DGuHQpWKC9sgEycNzeYgQtV80w=;
-	b=1Zpp1SmELY7IdAf5jKv1OyYMGBXLD+ouqwJ1coDFqEyhmnFzPzvN/58a6uA3cU9wKEYe
-	 sAa6evu7hjPpHbDGPOTBl+v2FvuUZDJsyf7St5cVbA77JGmG9qCB2HprE7Ua4gg39Zput
-	 kCTb2ljrLF1ooeRxNA3d7JqohBPkkJ4WRW4Wo7bH5vZP3RDuzOm+U/S5eVQnMcY+bGSPN
-	 MtYvSfe55JqHspOJK4Q73xCbIryBi71FrtV/kyjzqDGvb2Bt5AszKWm65b3P2FUx4n4Cc
-	 W52fQExP90v4QvhCdicjeV+biC8bmUUOzwpZDMAzxao8sTk+LsnkZqIAfUqnqgmSkhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793809026;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=xRth4yeDFpzrxgf4NoUNAjDIGdLtIAMqrqUwOU1lcqQ=;
+	b=FcCpDyMACrN00cO37pGr39R+kkdJ25O/aYuwGMk+FhqJWktpm10HHUH9wU0+B9EdCg1p
+	 ALohfVIsoN1kcHIfhUTJksHYU0qn+OLMoLUEVX5wTmnWMHj9amVNTHcgXaLfX5Awm6OJ4
+	 QpQ4mGLMMvpCKB6SYqZJNTB4zbgn3xB5l128vRkbQsh1zqGBjJhDSYVa8wiStnyEkFmko
+	 e0EtN1Imb44Ip0aEJt7IaHJFoBu+4EXAAie91xBfY/KXxZ516Yctkn/2LOdU9XklaUUOp
+	 GifitYqMLElyzqTrF6O7LaWFYI7SxzmSzSiYYsSRNPUzTwDzhAY5FpYs3R5ePVjxhHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CvaDYaS6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 062C0606A32D
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:17:06 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=MP3PW0NX;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 63E5F606D810;
+	Wed,  4 Nov 2026 16:17:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63E5F606D810
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CvaDYaS6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B43B1F00A02;
-	Wed,  4 Nov 2026 16:17:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793809026;
-	bh=A3AytZ7ZaNVSp18p5DGuHQpWKC9sgEycNzeYgQtV80w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CvaDYaS6roz6OuWmaTO4onmX3U9yYr0BE8m5rm0DCkpyatubDOhAxYPtRn8l204bG
-	 U3kHiBPuv+/WcQaO7+eJAyO0KuE+X8tNbiikTvL/KviFjtVr/4+j+rUTd7hJORtLNc
-	 rnpzVjLPAgVbBA8fHg730iXxEMVWnkhaPBnhAaespFP1EUjZRjVRNfSqJCfQi6ghMj
-	 McPc2w4flIF1Z7hrZ4u9iezPCJpD7wA3fMisMeQ20ctjfkRbuPRG4Me5epuSJAv+3B
-	 AhlnJUvRTh4bD6hwEnQK1Dn8gOsrcqKN0mw7ol6g368nL2/G67E2fBK921faviYcE4
-	 EOVzF6E9k4egA==
-Date: Wed, 4 Nov 2026 17:17:00 +0100
-From: Thorsten Blum <blum@kernel.org>
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	"Rob Herring (Arm)" <robh@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>, linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] powerpc/wii: Remove redundant 0x prefixes
-Message-ID: <autafPSMB2SdfUvz@kernel.org>
-References: <20261103170305.455444-3-blum@kernel.org>
- <124acf19-a676-46bb-a414-08d957d9cc7b@infradead.org>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=MP3PW0NX
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A332E1BB2;
+	Wed,  4 Nov 2026 08:17:01 -0800 (PST)
+Received: from e127648.cambridge.arm.com (e127648.arm.com [10.0.130.179])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id C78073F632;
+	Wed,  4 Nov 2026 08:17:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793809024; bh=qIKE6fRAvvucF8X+oC+cTY3pdNWfornKDodJuwNdvmQ=;
+	h=From:To:Cc:Subject:Date:From;
+	b=MP3PW0NXkOkxOMAm+wWeViJbs3Qpafe7RVfxckrGxOZRq67r37reRQbtfiLzDzfaF
+	 jpLjQzZt+ATmqn2/LrlKwtjdLP/kq6v5cpM4YFWtM8diJsS3oGDUohWDwsOoqgp3SH
+	 XGary0VHU1DPDVGk0RlpxtIu/LAk2DElzv9GKUxo=
+From: Christian Loehle <christian.loehle@arm.com>
+To: "Rafael J . Wysocki" <rafael@kernel.org>,
+	viresh.kumar@linaro.org
+Cc: linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	sumit.gupta@nvidia.com,
+	zhanjie9@hisilicon.com,
+	superm1@kernel.org,
+	zhangpengjie2@huawei.com,
+	Christian Loehle <christian.loehle@arm.com>
+Subject: [PATCH] cpufreq: Preserve global boost state on failed updates
+Date: Wed,  4 Nov 2026 16:16:57 +0000
+Message-Id: <20261104161657.546370-1-christian.loehle@arm.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,31 +64,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <124acf19-a676-46bb-a414-08d957d9cc7b@infradead.org>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 03, 2026 at 12:22:18PM -0800, Randy Dunlap wrote:
-> On 11/3/26 9:03 AM, Thorsten Blum wrote:
-> > The %pa format specifier already includes the 0x prefix. Remove the
-> > redundant prefixes to avoid printing 0x0x.
-> > 
-> > Fixes: 7b69600d4da0 ("powerpc/wii: fix resource printk format warnings")
-> > Signed-off-by: Thorsten Blum <blum@kernel.org>
-> 
-> Acked-by: Randy Dunlap <rdunlap@infradead.org>
-> 
-> There are other cases of this elsewhere in the kernel sources.
-> Are you addressing those also?
+cpufreq_boost_trigger_state() restores the opposite of the requested
+state when updating policy boost state fails. For example, a failed
+write of 0 when global boost is already disabled enables the global
+flag without enabling any policies.
 
-Some yes:
+Save the original global boost state using a mutex and restore it on
+failure.
 
-https://lore.kernel.org/lkml/20261103213242.480649-2-blum@kernel.org/
-https://lore.kernel.org/lkml/20261104155414.126812-3-blum@kernel.org/
-https://lore.kernel.org/lkml/20261104160931.137174-3-blum@kernel.org/
+Fixes: 121baab7b88e ("cpufreq: Force sync policy boost with global boost on sysfs update")
+Fixes: 6f19efc0a1ca ("cpufreq: Add boost frequency support in core")
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+---
+On a platform without boost_supported the unfixed behaviour is:
+# cat /sys/devices/system/cpu/cpufreq/boost
+0
+# echo 1 > /sys/devices/system/cpu/cpufreq/boost
+echo: write error: invalid argument
+# cat /sys/devices/system/cpu/cpufreq/boost
+0
+# echo 0 > /sys/devices/system/cpu/cpufreq/boost
+echo: write error: invalid argument
+# cat /sys/devices/system/cpu/cpufreq/boost
+1
 
-I probably won't be touching any of the remaining ones in drivers/
-anytime soon.
+ drivers/cpufreq/cpufreq.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-Thanks,
-Thorsten
+diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
+index 54dde8419bdc..d95c849f79c5 100644
+--- a/drivers/cpufreq/cpufreq.c
++++ b/drivers/cpufreq/cpufreq.c
+@@ -2810,18 +2810,24 @@ int cpufreq_boost_set_sw(struct cpufreq_policy *policy, int state)
+ }
+ EXPORT_SYMBOL_GPL(cpufreq_boost_set_sw);
+ 
++static DEFINE_MUTEX(cpufreq_boost_mutex);
++
+ static int cpufreq_boost_trigger_state(int state)
+ {
+ 	struct cpufreq_policy *policy;
+ 	unsigned long flags;
++	bool boost_enabled;
+ 	int ret = -EOPNOTSUPP;
+ 
++	guard(mutex)(&cpufreq_boost_mutex);
++
+ 	/*
+ 	 * Don't compare 'cpufreq_driver->boost_enabled' with 'state' here to
+ 	 * make sure all policies are in sync with global boost flag.
+ 	 */
+ 
+ 	write_lock_irqsave(&cpufreq_driver_lock, flags);
++	boost_enabled = cpufreq_driver->boost_enabled;
+ 	cpufreq_driver->boost_enabled = state;
+ 	write_unlock_irqrestore(&cpufreq_driver_lock, flags);
+ 
+@@ -2841,7 +2847,7 @@ static int cpufreq_boost_trigger_state(int state)
+ 		return 0;
+ 
+ 	write_lock_irqsave(&cpufreq_driver_lock, flags);
+-	cpufreq_driver->boost_enabled = !state;
++	cpufreq_driver->boost_enabled = boost_enabled;
+ 	write_unlock_irqrestore(&cpufreq_driver_lock, flags);
+ 
+ 	pr_err("%s: Cannot %s BOOST\n",
+-- 
+2.34.1
+
