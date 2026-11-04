@@ -1,114 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.132.180.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793815743;
-	b=Kxw2He1kvTUj56PfQeI4KuluuA41seFSrvUg0HkzlgWhUcU4FXrhaCb9H6xx/vRL3uYT
-	 NMUSYwGTtIuwknEDNMCdXFlIJrnD0yZNmuKTYB9M9Fwki8qtD4TSFO46PgsxHs4rmIMOF
-	 SleCxN+171LSdVyTJCwHIiJ8EjmGTr7Pecjx8Z5xAnG8fLOJLDHW5eDqft98Yx81YmLjX
-	 aAMmzvhXdLCKN6iauA/oNDGkeknDWpZIOclV40xmf7TkyetcI8vw+SZ+SMZTphLMSWVeu
-	 Mwy271PqCrEofXa2W8pfzCQaEtvNHimbbFFh+eaYUhAK1c3X1jLoo8KjxRM3ITnYWyg==
+	t=1793815764;
+	b=SOLPUS/7vRBjiSEwX/STOLk5nTGfP0sRUaF/pjehofEQdJGn97yUecxq/kO2L5Qod3Z0
+	 1HM8vRgbZIE0yGy8m+3z7/8HWNIWAK0C8yqxXGLkNsLx+7nXSUJSddWDkdA8A0CecWP41
+	 tIlfz+ld0Z8Oh+x11j4LEmzVsUut09aZSjwSipAPL/zDWtlsj0Kfrs+Pvp6tE14ghhRF2
+	 /lwEQkFqWI+U+sA9esg8qpXdHmDREYw/QbXvjWNF2M71IxMg31LcDTaDhuyZ+eZFAuRKM
+	 TKvDBGh99SNcKo/ZcW7grsuPMjxyv4ALVVgjk/j+HQMeG1/qW/3JqXyPE6hKvRaSDbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793815743;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=CVsLTmxNWfxUI2tna4xY+A80o8Oxx2HIRrZYrtR1B4I=;
-	b=J7Exaty2SjcNCwt4Kt5ur9LX6UFZhdf5FOXCpF6A5UNjfRGSA6HctKbv4Qx5+jR2lM/0
-	 BZgZ8czbIN+cjoS/G3yEAWdivWFm+J6OaanpZO7dJ35ad+N+w7xJXRa+/OkKIPwIEGYQE
-	 56xRgyCz5Ny4iToWiPYeXt9h+PS0HoV5M4C5LFCijOhASMb+NRtKu3TIxjHS1p5IgZ0h4
-	 dwgZTDsmUiP8qKCt3Qxx510ilipqfBqbI37e/jKHddDBJKt5+ppMjWTmRHDlt/FR/zoD0
-	 cBvaOBaqxaLFeWo/H6kurT91GowYV6pv8wy95jSZwlDCi59T+3D/JEoUDQ+GkukFByg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793815764;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Subject:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Originating-IP:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info;
+	bh=pjNsJuSyk+KdbCQYEO9VeI9WWox/RTBAHSmTb6zQJyM=;
+	b=MmgGG1MNxbmZGfqiyL1OcpQByf2PP1K5yqfUZHM2UHFGUmsFdAZ55G59cxuPLLz/jNqW
+	 hln7moRpXHEb1sCOpJa+mBKvuTFdR0cAoqK9OKoINTB2UesyZXcRIYSTMs85KZAjAASTr
+	 Z9si19CzJiFK/SoOeScojf4bP0MxQIgvMOzTrdt1iPsjXXEPe1Hkqot2espljTna+5yU7
+	 g7b09ru3FEg3WRxjLpPkc3LYC4aHp2gxtcJYeeWQWku2bnEB183svemufUnN405VcBOpK
+	 80gj7/AUZ6oLoFTMAdY5t6w1F3wINlkqU+cTxRwnUfQrvcIq3cfdcCy/oZMbq1RrNOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=jMHFvJcX;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=gI3xRHBo;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=imgtec.com;
+	spf=pass smtp.mailfrom=imgtec.com;
+	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b="LAe47/dh";
+	arc=none smtp.remote-ip=185.132.180.163
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5223E606A68D
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:09:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5223E606A68D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB0D8606B093
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:09:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB0D8606B093
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=jMHFvJcX;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=gI3xRHBo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793815742;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CVsLTmxNWfxUI2tna4xY+A80o8Oxx2HIRrZYrtR1B4I=;
-	b=jMHFvJcX8kntV+r04c9x2fHTRNwVi3bcMNz8A9vI6yMBiSAR6XEBlr+8yGKwNiZ6YP0FYI
-	ECaoKrBJiLHVx4283P1yZxaEXptMVoqfbdU7YzyV0AokwJQtxFk3U9u2DVF6RmrYpEVdrT
-	+3TLp34FLv4Iq/ibHeTnnkj2GMxffrM=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-556-E6a_tLSnOrWmhB-WhjHYRw-1; Wed, 04 Nov 2026 13:09:01 -0500
-X-MC-Unique: E6a_tLSnOrWmhB-WhjHYRw-1
-X-Mimecast-MFC-AGG-ID: E6a_tLSnOrWmhB-WhjHYRw_1793815740
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a0284121c6so8155945e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:09:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793815740; x=1794420540; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CVsLTmxNWfxUI2tna4xY+A80o8Oxx2HIRrZYrtR1B4I=;
-        b=gI3xRHBoBPHra4uf8B3TF81iGQwj+b5ToRgFlTvBtklAGBC2R9Dm6eEFszb+QmRcPb
-         gSOvDqSanECFNd4THvL5cJNGifHoD8HaF1ZIXSbvw4q76DyMt889/1I2Uxm+v3qaaLFN
-         wxIJLgAOkXI0KiGaLIH+vloXauOuy8YbjHqP0xL0zzcQG3yzdUVIyP9chVWwPbkYnRxO
-         TwTAScwnoDlx+w9LVa8pI9S9rwC/2h/7kHxYdP7FNtKdkceSK25cH7qEOwLwoZmzuhku
-         lpzIVgIa6H2yFmr1mIrH5UFodTCF2qcAuRUiJY6VmW+RJTYXwQjXHgexrTkZ9/B5thIu
-         bLHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793815740; x=1794420540;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CVsLTmxNWfxUI2tna4xY+A80o8Oxx2HIRrZYrtR1B4I=;
-        b=QJmS4DuD1fqXAyHkAGinMGt6gj9nVN9mHu06lVIdHjiZxCbo7c6mn1eLwM6OkcwUT3
-         MnM8A6xAp2wF1E4ZrcWqBlxbb1J1cykm2Eg6jxiPdHuGvL/h6ZCOUB+RYgIS5HykKNkv
-         rd6EgzyPrUJ5R94KemT6JzbzkYNI6j+wQE9RTpuHwIBEoQSDvjRhDkAYB/dSBTqq1mU4
-         X2r8iokp/7jX8h3+kZwe87bi5MMON7v7pgZ92R0EtfOEFt74J4J7pYKy2U50EVYYrulz
-         Xff9wb4Ele9E3/90uLIJxAP63GOSnAic152X7OdIp8bBvRdWzMo0lEKL4Zp2+U4NN5k8
-         ucuA==
-X-Forwarded-Encrypted: i=1; AKwUvByLz4ka90PCz7O5eVCWAXyzSH6+6dT0ONhx+tqiOb2MZsBHI05wFl4gSqm++m8vqnd5qMa4jioHUoPNy24=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/nH4EfIo0u2M+NL189/u67eWVXYexq2kqghqa+0aJ9j8NEDEEm
-	h+uDapLKkUxDPgRZf7qT2cNLxfuBsY4AMh2QWQWoZW9ecrVbbH1kkzYc73YetsEQ6rNgW9EC5+W
-	25x1xqQ/y/AWj2cakdPlamlkcTWd5m4J9BxQAGFtYk/AZrTt+Z+7fgwwie/sYa5Mryw==
-X-Gm-Gg: AYBFou0/1c23DLOSB9WrcFgG0qvFHWNqu/ckzU8KO1qsld3r2moJIqiZZ/2QKxgwkwX
-	d0DHaWx+riKbWMCHsY9bUaG52HBACRU2RTRUzeClvoS4e9KYq+b/f+zUJGctqY5ScEp9k3mnQh6
-	h3y93OysWEnqHe6opzdvPPfHXL8dBA6mxQT7Y7KVxPpBzbmX2LTyX8FRkzVkpBnqpuc/QW6O9En
-	1zkwpkp95vbPBi16YXGAp/saoORFiKL3PAfYya6LYIx9TG7Ku8/lWd2Fw1DR0kQBKyqMs0J02v5
-	fWDaHb0LWFZbccd1J7wNPC/y8+e476FeOZxazUFZdU1uvWnwz6w49gd1ssP9AG3BV35kMwGu7fn
-	A7QtoQpTkZFAzQJWTjzrohmtQ1czk/jcByr0AQ2Ru4WssBuYD22H4El5Un5DCp3sVdUWFZR7CpS
-	7e4p/gO7SnfH7Iyit9ccLUcHkJ6Q==
-X-Received: by 2002:a05:600c:3d05:b0:4a1:faa1:3813 with SMTP id 5b1f17b1804b1-4ac187a6960mr382690305e9.27.1793815739737;
-        Wed, 04 Nov 2026 10:08:59 -0800 (PST)
-X-Received: by 2002:a05:600c:3d05:b0:4a1:faa1:3813 with SMTP id 5b1f17b1804b1-4ac187a6960mr382689845e9.27.1793815739327;
-        Wed, 04 Nov 2026 10:08:59 -0800 (PST)
-Received: from debian (2a01cb05923c9a00ac19e47fa8c3a9d7.ipv6.abo.wanadoo.fr. [2a01:cb05:923c:9a00:ac19:e47f:a8c3:a9d7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56e2ae73csm2041325e9.1.2026.11.04.10.08.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:08:57 -0800 (PST)
-Date: Wed, 4 Nov 2026 19:08:55 +0100
-From: Guillaume Nault <gnault@redhat.com>
-To: Hengyu Liang <hengyul@cs.unc.edu>
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
-	pabeni@redhat.com, netdev@vger.kernel.org, horms@kernel.org,
-	jchapman@katalix.com, tparkin@katalix.com,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v2] l2tp: only return sessions of the given tunnel in
- l2tp_session_get()
-Message-ID: <aut0txiHZnAZjad8@debian>
-References: <20261030032617.4065353-1-hengyul@cs.unc.edu>
+	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=LAe47/dh
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4FobEo1657645;
+	Wed, 4 Nov 2026 18:09:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=dk201812; bh=pjNsJuSyk+KdbCQYEO9VeI9
+	WWox/RTBAHSmTb6zQJyM=; b=LAe47/dhSBhE5lUOSiImuv7IyUS8QRSs/0//D5z
+	NCTBC/qCU5cjPhzBNhVF3RUfJgSv+ZNCE/uvp5EAmrZQOrfBS6cMhZY9p2qEAzHI
+	xBb95QuWfM50dSqc5p/NAxZWqcVE8y4XVORDZhua5ZmsDr8rQSdwgaj9M8fk1Tna
+	Ut3Q2UPl460g1mgNm0pbd+Vbdm1uub+oh1dSs4Vs4TqFsCUxSoSm1UHKlukjAoOq
+	dW9hY+QxghPtS9x/f32dvfNrvXO84c3QUuWTcmzijbR1wRSMfAtOQDqtypMnaKoa
+	pnIsHyE0j/2m7fnepzAujauJsh4EWNM4+clnU+G79648eLQ==
+Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4hn99wkmed-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 04 Nov 2026 18:09:04 +0000 (GMT)
+Received: from [127.0.1.1] (172.25.6.177) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 4 Nov
+ 2026 18:09:03 +0000
+From: Luigi Santivetti <luigi.santivetti@imgtec.com>
+Subject: [PATCH 0/2] drm/imagination: improve UAPI heap and static areas
+ query ioctls
+Date: Wed, 4 Nov 2026 18:08:13 +0000
+Message-ID: <20261104-ioctl-query-count-stride-fixes-v1-0-2bf86dd7cf29@imgtec.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,42 +70,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030032617.4065353-1-hengyul@cs.unc.edu>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAI1062oC/yXMQQoCMQxA0asMWRuY1iLiVcSFk6YakVaTdlCGu
+ btVl48PfwFjFTY4DAsoz2JScofbDEDXc74wSuwGP/qdc2NAKVTv+Gysb6TSckWrKpExyYsNw3Y
+ KMXnyifbQJw/lX+iP4+lva9ONqX6vsK4fCeHHnIIAAAA=
+X-Change-ID: 20261104-ioctl-query-count-stride-fixes-43b4df2c2fc8
+To: Alessio Belle <alessio.belle@imgtec.com>,
+        Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+        <linux-kernel@vger.kernel.org>, <frank.binns@imgtec.com>,
+        <brajesh.gupta@imgtec.com>,
+        Luigi Santivetti <luigi.santivetti@imgtec.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793815743; l=1593;
+ i=luigi.santivetti@imgtec.com; s=20260707; h=from:subject:message-id;
+ bh=xQyPxfd4QGmnSCNzsGAIyncGyvz89flV5K4WdxnoUtQ=;
+ b=vURyLlXd1KbmpdGbNbV0E/f4Y5JsIdy0/d5KRvc9lxpE3cEkMrBct7urdbDXlkRYT/I3B4YKO
+ YOjVf3518MjDM/++S0/zOHN1DPIWHyEKnuJO6KaX6SdQTF6wwcz3nn2
+X-Developer-Key: i=luigi.santivetti@imgtec.com; a=ed25519;
+ pk=jS7sCDyWFMopn8iAXVN+AdJi+Z3fZPQKsS5NdQtI+sc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA3MiBTYWx0ZWRfXw54tsl+tYKw1
+ oBRookO87fdFX1Hx7/hylm2AowTbKY/HzxYN6bRNB6wURci30vkalkglQXnkOU34cM9deBfkrsO
+ AUaIYhSIdij8Zt2xoHuhoKsrQDwx+c9Z55Ms2snI/YNGuD25ory2JFf0pW2TACPgXGfulQpHnSP
+ CRew19/C0f1pfde5bf4xSSKp9S089RSUww+FqOiEjVnMqAVq3nnrulOS1dNbNmApPgiQqIYB5TB
+ UjDorXYGuOnAI/nLy+CLElxHPameANxRdXyWMvzfUwD2MLntFr/72rdnzvYu7GwjT+VJ0SZVY6G
+ MLK9diAwzhdfr4uyBVR6yx3VpoZtBHYJrNwwEhZ9cUF8wXQwzuIYQjp0F6WNrrko0NGr+Lk+Jhy
+ MYuflhFLGWAhyAjT0HX567knzp9Gi2poM9xRYOGgj9iDLuhspVvOpudhR38amUSMT2380KCPz6J
+ D51wwMYmH9csW6hBfDA==
+X-Proofpoint-ORIG-GUID: -17OB5HslvA0FV_h0hOc548wq19sqg57
+X-Proofpoint-GUID: -17OB5HslvA0FV_h0hOc548wq19sqg57
+X-Authority-Analysis: v=2.4 cv=BZlNQbt2 c=1 sm=1 tr=0 ts=6aeb74c0 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=2JH569OHYJkA:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=e5mUnYsNAAAA:8 a=r_1tXGB3AAAA:8 a=lIUuuAuNjz2pWeUZIKMA:9 a=QEXdDO2ut3YA:10
+ a=Vxmtnl_E_bksehYqCbjh:22 a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA3MiBTYWx0ZWRfX9wjciJamEXhT
+ pkO21RaAz0XrFhPnDCX2ndvhl4ayRLKMLMb18Oo6JDQF/SF3W6/Vy2h4wFaKved5aLv7/UNd/Gn
+ +SR2nL7LX7TMI5NbqhMw3SrqO/4PFdM=
 
-On Thu, Oct 29, 2026 at 11:26:17PM -0400, Hengyu Liang wrote:
-> Commit 5f77c18ea556 ("l2tp: use IDR for all session lookups") made
-> pppol2tp_connect() and the netlink session commands find sessions with
-> l2tp_session_get(), passing the socket of the tunnel they name.
-> 
-> L2TPv3 session IDs are unique per network namespace, except that
-> sessions carried over UDP are only unique per UDP socket, the socket of
-> their tunnel. However, l2tp_v3_session_get() only checks the socket when
-> another session has the same session ID. Otherwise it returns the
-> session, whichever tunnel it belongs to. As of now, a session command
-> that names the wrong tunnel acts on a session of another tunnel, and a
-> PPPoL2TP socket for a second L2TPv3 tunnel fails with EEXIST, because it
-> finds session 0 of the first tunnel.
-> 
-> The issue can be reproduced with:
-> 
->     ip l2tp add tunnel tunnel_id 3 peer_tunnel_id 3 encap udp \
->         local 127.0.0.1 remote 127.0.0.1 udp_sport 5003 udp_dport 6003
->     ip l2tp add tunnel tunnel_id 4 peer_tunnel_id 4 encap udp \
->         local 127.0.0.1 remote 127.0.0.1 udp_sport 5004 udp_dport 6004
->     ip l2tp add session tunnel_id 3 session_id 7 peer_session_id 7
->     ip l2tp del session tunnel_id 4 session_id 7
->     ip l2tp show session
-> 
-> Before that commit, the delete fails with "No such device", and session
-> 7 of tunnel 3 is still listed. After that commit, the delete succeeds,
-> and session 7 of tunnel 3 is gone.
-> 
-> This patch will make l2tp_session_get() return NULL when the L2TPv3
-> session it finds does not belong to the given socket. The receive path
-> calls l2tp_v3_session_get() directly and is not changed.
-> 
+This series is about better protecting userspace when either one of the
+heap or the static data areas query IOCTL is made as we go forward and
+extend the UAPI introducing new heaps or new fields to their related
+data types.
 
-Acked-by: Guillaume Nault <gnault@redhat.com>
+Please refer to each patch commit message which describes in some detail
+the nature of the issue and the solution for it.
+
+In general terms this series makes the UAPI more flexible, introducing a
+distinction between a legacy (or minimum) and a current (or maximum) value
+for both the stride and the count that is returned to userspace.
+
+With the new pattern in place, an older[*] version of userspace defaults
+to requesting and to obtaining the legacy (or minimum) value of both stride
+and count and this makes safe to update their maximum value going forward.
+
+[*] before https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/44456
+
+Signed-off-by: Luigi Santivetti <luigi.santivetti@imgtec.com>
+---
+Luigi Santivetti (2):
+      drm/imagination: clamp stride of heaps and static areas for legacy UM
+      drm/imagination: clamp count of heaps and static areas for legacy UM
+
+ drivers/gpu/drm/imagination/pvr_drv.h | 33 ++++++++++++++++++++++
+ drivers/gpu/drm/imagination/pvr_vm.c  | 32 ++++++++++++++++++---
+ include/uapi/drm/pvr_drm.h            | 53 +++++++++++++++++++++++++++++++----
+ 3 files changed, 108 insertions(+), 10 deletions(-)
+---
+base-commit: 33ed26235db93162935d1719bc6f538c384a2fd8
+change-id: 20261104-ioctl-query-count-stride-fixes-43b4df2c2fc8
+
+Best regards,
+--  
+Luigi Santivetti <luigi.santivetti@imgtec.com>
 
