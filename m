@@ -1,108 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.77
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793769536;
-	b=unDY0p8AZ29JVZ8cNh2P5iNOrjsKYlJHhRX5EXy2IpQ2Oqasky5m34ZOjttGqsnmWJso
-	 yTVU+crRV6v6GRiN5RIQ6QNYAH2drMqJKlDr1uqfMQ6+ciUFwgnURyulei/Wg+sFBpmZk
-	 l//Bprgnw1oFuixZIdX4S2QOOTr0wShIF/2u7uMOxo9Mh675g1HSI9D4yHBy+Chjbl819
-	 znc0p36gdM5SR84MDoncW8SeKdr4oQfU9sgX4qh8UzTRpRilX89YcEFp/AA6HOTUgpEpV
-	 CMNjQ2RmKhzIDvNCHg/M1jUKEYKiZeuYM72S4WgXoFFLX++HvWoy96nwDMDnGALduTA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793769536;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=3zw7mODbL60TzsxJg3cHiPzGSN6gF0uMBrvSx8x/wa8=;
-	b=4S8AoSjcxO0Fxme3zWYnoBoig33Ngvnaig3qDvdX7qr6pWnXTU3MSHk/asT4SAI//s0v
-	 TNCa16TKEkX1cHa9mBnbTdgd/H3QSUOOutEymg0M+/sSAiMwz1KNXZ4nLw7t/U0G8+CiQ
-	 ySpxcHB4Xf8N3l318LgcGHaL6LckSVJuX5lAJ4MeYx2ijYJTgtXBxVwfEsRCV+f4NA0Dh
-	 BvbM6QAE2iTJDoUoYbJaH9Bkq9GK54DDDnLmnho2oH/5fkAWgI1mRzgTixgBODs6hwp6Q
-	 MWqX0mpNoF5oXqihGHF1eFMqwI+CzjIYQnk3TyUMKjoxaw/tYoG8fxuQVtwlQ9uvUFQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amlogic.com;
-	spf=pass smtp.mailfrom=amlogic.com;
-	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=gkL3UzfT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.77
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023077.outbound.protection.outlook.com [40.107.44.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793769586;
+	b=11GP9e5kROksbFY2aExmE6v8Ton9mggvBTJ2yxagL9/2lJndEk8/BaB6FJKJwuBanfuo
+	 IRNCPKSkh6ERLQYKZ9jwGSWdcx0QuzimhAYVPTVkLeLg2WRtA4o96wXQcW+99hCuyt5R4
+	 Lz2ybfN4yl/Rwv73ney8o+9WHtybJfNRFxglexzcU24y6SK4xkb9cEi/ueQe6yPnYEtiP
+	 eAE+0+DzKPNmWu/FcYxz7LTh+ygGRd7cObFbDEdXsxY0raVpV+hp6FT3+E+PRLb+Yn4gv
+	 Ryj10gydbjLQUSKmWzPAYhdtRwBAf2OolfE44KuoauIOPEgjHAUcbUTvut3LywpeQag==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793769586;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Y66vBh+3OjeC/M09B6lCrJHfyOQPIK6q8FMDKTT+hpU=;
+	b=SF/CXd/IHkwrXA2WZOrpHSjBPzivtMi2FkfojC54w1zsVn8firNdSjUgKmCwoTUOakUw
+	 8o/NjdEbiNyN/WmJPKUOdXQbX9A/D+KX3gzRJnhsf5LrWULIibJcQwujCwjKlwQxYr3ma
+	 j1uESNVHMs5ZJkGCkz9Wjgj5jDjd1kMoKBZgTpCiK4UPj8cgqkN6IWPd6Gaiq/l+5db1D
+	 VYGp7b7bZWxp5SPH5rceIqKhr3TvwC4aeMgijrqtucVrJVG44pGVhr98fvP+RoQRyXr6L
+	 zUfNX4sJXNbGStvaZO3yFyqYB48OjomGKFWWEkNVF6zJeMWbtOmPqd/bfLhBZd/1dCQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LCJMNaYH;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ixAwNKjr;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 956FD606A329;
-	Wed,  4 Nov 2026 05:18:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 956FD606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71849606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 05:19:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71849606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=gkL3UzfT
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PT51n5CHMhXcAbCiKeP3A2vDhbGYUHV+BxgQcIa1VQ5LTOYzCXHPEcI1oom71YEAivSlLYw8nZDsoxQ1C0Oe4I/hOKNtolLv7qm5rwDoyufQAINmL7oQrpv5hHdjCeAEO8qtsZ/Q4sPA+vNzXXKP1gZPCH9oNoF0TRwc/VxAu3OcsUbJpNanv09AxdShB2ws+BehKGSAJARK8GT3DkBXG+Zpjtgu2gKxSrasCXloc8F1y3bgL+3tMI3MU9eZyQLcXkJdjS2DBiOGuMB9Vq6FvS+Bsf0/683oAifEc1JlwTzkpR6HXs3FMiCBg5GKyQjAH3pIeXyklSXmcFC3+3scKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3zw7mODbL60TzsxJg3cHiPzGSN6gF0uMBrvSx8x/wa8=;
- b=eL5cqWRpzJ6ZOba+QWptvNqqKvVlD8msigggQMGyY/OSi1Fx77peon5vQFyluHnqfXkG7h6UFXELaSqLebCJxjmpEQebQXMrzPnhlFpBj7vuBBZSmb2D3EeDci0jBo1k4KXv0hNb9xYF8gBcNKQ/uDf/lq1tHfFGTyHTGIe1cHQmVCIIu+fd1nU165GXoQYQy8yQd1oLwYnDTbGxUhNVkY7k+s+bGrURQkgSLQjq2VBp7ppmfThdTme0xAlO/npuQUbJ14znCR9FcnLCvsA8ktzPxNYuipMOjoFnmuMw3ttBvk5EAOPzhSZyhstCMu14eDPTBr/WRYyJW8nwbMJprg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3zw7mODbL60TzsxJg3cHiPzGSN6gF0uMBrvSx8x/wa8=;
- b=gkL3UzfTCgXkufcy6nEvPCQuB1eIUZI+FMg7F1WmOO6U7arJw+69uvwNinPj5+3sJbtXyXz6xwhmzw2VTwCjt9ua0nv+sO15WAnRXWHAuu/Ad/Kjmqz4H6ZE++cpbmf25WEq1t0FuctPeWEiib+4EdZJiOZ8M6oTo2StH0ShXuUqmsXyHKRKYkaT2CIeCPogaVGipbv7/Yghki7r7PoIcjT1q/uC6s9v2y1s23gw/5UitPgmFe+mY3d3q4F7ZONLWqPDeFm9eatlDXdUxCzUZaab4LbkhV+18tKZw+s4E3vIdi0BSqGXOvcwggyGbBGgOGn6V5E6pZHqTQkMxLZRQA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from TYZPR03MB5743.apcprd03.prod.outlook.com (2603:1096:400:74::7)
- by SEZPR03MB6569.apcprd03.prod.outlook.com (2603:1096:101:74::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
- 05:18:50 +0000
-Received: from TYZPR03MB5743.apcprd03.prod.outlook.com
- ([fe80::7f51:5771:90c4:8c40]) by TYZPR03MB5743.apcprd03.prod.outlook.com
- ([fe80::7f51:5771:90c4:8c40%3]) with mapi id 15.21.0569.011; Wed, 4 Nov 2026
- 05:18:49 +0000
-Message-ID: <e2b65a8f-a1c3-47f6-896d-22884907d7b1@amlogic.com>
-Date: Wed, 4 Nov 2026 13:18:45 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] i3c: master: svc: Add amlogic a9 support
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, imx@lists.linux.dev,
- linux-hardening@vger.kernel.org, xianwei.zhao@amlogic.com,
- Kelvin.Zhang@amlogic.com
-References: <20261102-a9_i3c-v2-0-0c474bfccffa@amlogic.com>
- <20261102-a9_i3c-v2-1-0c474bfccffa@amlogic.com>
- <aukKRUYfEABgIruC@lizhi-Precision-Tower-5810>
- <2210c679-0577-49b9-b8c9-fffe1d88baed@amlogic.com>
- <auqkKAKRZZ0pA-R3@SMW015318>
-Content-Language: en-GB
-From: Junyi Zhao <junyi.zhao@amlogic.com>
-In-Reply-To: <auqkKAKRZZ0pA-R3@SMW015318>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SI1PR02CA0020.apcprd02.prod.outlook.com
- (2603:1096:4:1f4::9) To TYZPR03MB5743.apcprd03.prod.outlook.com
- (2603:1096:400:74::7)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LCJMNaYH;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ixAwNKjr
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A40RJQr193758
+	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 05:19:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Y66vBh+3OjeC/M09B6lCrJHfyOQPIK6q8FMDKTT+hpU=; b=LCJMNaYH6N5a4qfb
+	AMsqRxjQ9Sv1D7qbDHZTHjggja1g24ojO+q5ldBJ3fJSp+30pRV7E/SKJpJTVroR
+	L6Ul8XGUjYTx7i4v88WZhlzgdXUnJyD4KfQDKNOM5GB3puAjspWmdMR+Dp0flvhc
+	OwxwxptqAvh88n/vJErz+pnwXmszu74kDBW/0qA4u9bayIB5jw50RUmtOMkbjagz
+	pJzKywW729Y6JF6nzTyuYXNhjXIDflejcSoVXfbg8Hg9CiEyQV6wCMBFDNFK05Bc
+	wKJrmlavURCofrB3733yQd3t3f6pq4GNJNo95+7fhlDgyzDSc+ivjYGMjNIXd+2s
+	Xd+5Rw==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqn8nj32n-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 05:19:45 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-341eff9e381so624036eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 21:19:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793769585; x=1794374385; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Y66vBh+3OjeC/M09B6lCrJHfyOQPIK6q8FMDKTT+hpU=;
+        b=ixAwNKjr/ZDJ+Z+DR1wJWiCka6AzOHtg3gxwqkYfGvAkyr9yX6gg09+5JVPozzOvTc
+         w255ErIDWbh/ATfk0n8hL4T0TzM3TnKXYw0hGhkCIhYj0sH9CovgqZvQNQFzqqzb1e9V
+         qnkMn4bj21Yx+WfJUWZiFxaGidliUxbuMUwMBQc+neM8EtKEL6Zju6PDhQ1uZeiImhYk
+         sZZtG9+9SlvvF0DF52+f2f6J6LhcSXpoTpvJJCfcsbmeyKepRF2Gd6wVUYM+y8jxAj7c
+         h/zfEHMLirSuJOq1IxDCFkLoAvQYgq6w9Tc0QyT6M9BcM0xt6FP4tJBKoMS3RozyCSTO
+         y1dA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793769585; x=1794374385;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Y66vBh+3OjeC/M09B6lCrJHfyOQPIK6q8FMDKTT+hpU=;
+        b=bdl+OC6uBeMALFb7NaGDUXQqigGdf+s47k25DvonKl6jg4YeJcd0S6uvCYB2xOYSiS
+         pk5ChKR/MYOLFk1mNEVptbyrsk1pdx92BGSobFNAUGckL81HYwEqfaHCChvMwFK7ENx3
+         AwYGHRx7QeBDzMtkbh1e/8V+4Sb5FSeDJp0Aqn0xw2h18cpGTRemr3WD/+xlkoGMrZGJ
+         LvbJ9u2AooS/QNkfS4tUY5YV6QjF+W8bzCKAUz4sy1SAvb0AKfG4rVS7LaYVrTCO4zbL
+         PzAy//OKvWuWi4KeVgJotd1aEG0/RStEiobs4kx0bx16Zgp5EOc2IJr+EC241bT3iVKz
+         OvoA==
+X-Forwarded-Encrypted: i=1; AKwUvBwWh3/lCJS0ZsIoqVlbGPmqbD6ml6wgAgBzr3aHeIu4kqxdfQlZepDpeXi8BQ1NTysBIYMMt8i5XyuALFI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+RSkY4DlqEUhzL4qwFOHunJN+4UaMEOmj2ukc3Zj/vCk4ZHSTh
+	kRkFi3YY456us6uSWkGX2gipW4EPgMETFK9tnp7dbLzaJz6ispfVwY30HKv9WNlR6yqmP6CNw2J
+	vHVszCHKef11hVrWLCoRI9iFFxSj8+01bRwd1Y0sgUxD3x/EvuRXIQTIgSxm2L6YJ3HQ=
+X-Gm-Gg: AYBFou2Ri3z9aGFLXrBt7scN0mMHZ0k4PhgJTqaGuA0gl2PIKfimcM0Pw30VxMb3BFW
+	mQjCoTSxyBgJqL3wJ0ZvUtcm/GjDwIUa/a/d9LywExPfPiV/sC+Cenis6hK7qyJ6DpEY8fI3dvP
+	YMLYQ4VNGFsmVRVc2HIMdbdVMd/FiegnSGonjNV1beNnvDtWGAN9F1i3OjPR3DDoPHS6KrNxMuj
+	WRZXmr6KscGQCJEl5MW0NPMB4k7Y9l412ssd8JP+kR0vP3jov22IP8tEHKypefnU4AX7qrYgUaS
+	ksz8JBZ1oZlyXK+YbK9au4fWd+X/Oi877hUgKzPeS2khg9mz0WDCMWGPx+hgwfL/ctnPaakaIDA
+	dbuSWMbbQsFcnpIpfTwO6rToNfd7TNiSWA8hJXgbSMVt/sz8YXlPAoTSi9wjMD3ahEthphO1Ei+
+	2A
+X-Received: by 2002:a05:693c:894e:20b0:368:7c9d:1577 with SMTP id 5a478bee46e88-36a4238420dmr22199209eec.20.1793769584593;
+        Tue, 03 Nov 2026 21:19:44 -0800 (PST)
+X-Received: by 2002:a05:693c:894e:20b0:368:7c9d:1577 with SMTP id 5a478bee46e88-36a4238420dmr22199169eec.20.1793769583908;
+        Tue, 03 Nov 2026 21:19:43 -0800 (PST)
+Received: from [10.218.18.30] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca39c5f0csm3356074eec.29.2026.11.03.21.19.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 03 Nov 2026 21:19:43 -0800 (PST)
+Message-ID: <ae386ef8-324c-4704-bc0f-a1eca3280399@oss.qualcomm.com>
+Date: Wed, 4 Nov 2026 10:48:48 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,157 +116,190 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYZPR03MB5743:EE_|SEZPR03MB6569:EE_
-X-MS-Office365-Filtering-Correlation-Id: df342855-50f4-4565-6d2c-08df3a331bd7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|261102123227099003|11063799006|4143699003|56012099006|261026121527099003|261022105027099003|261028144727099003|261021121427099003|261026140227099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	NhcrMH284r1KyuDLas8MM18ijMVBzeYQ/LKCykFlw7FRLvuE0nCeME5Dqai5LxdUtClc9aaIq05cmV9TYF8+SG/68Txb7BGHNZWtD//h4SKSy0x8wmkO1dOX+5PHevbkFpZYdHvewl9zaSs2jAbaap2LtXnbYuXDrirbm+IlVy3tKRitPK5S86758+QFk4AbfITTCp+zVS3qhC88q9XCSJ4eLJBrwUwScQSTWv8ocWDDYFJFIJx6/tKxw6nBxSwLKNgwo4Q+FDI4Einby+F67r2BjvphTEFg48hP8gByjdYIdfAGgnffKTjEm4BDgaV0gPPjLywfpsUqfE4SRcCqyaFO/NtmSq5M/L8Yomn7MiRDab43/Np1to6zcWFQx0Kh/8ZHqK7Th1EpwB3hAd7jH/XOMeKmqgHRg0BJFDwMfW25aq3E5JWX/NAeTS3oXqhrO/CuagykSWlo+lKSnLbjS23NIlGHNU1OnHf+O/Bip24A9aGi8w3O96hSYn/9QbeHjq9vRDUmsIhV9TXMXjAMLYy9aP2Lw+WLLOVsAaTf49wbJ2V9VJFNDDGHIjBg4taRC7IfLe44D+aNbx9iRH+RXyOqUoSwXeQYOnbJvaAyUckOX5mbVVWkvzifeNvikQ0UgPdU3D7OdOss2lJotzHPX/kEzJxAqFHq0m/QMx8eULA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB5743.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(261102123227099003)(11063799006)(4143699003)(56012099006)(261026121527099003)(261022105027099003)(261028144727099003)(261021121427099003)(261026140227099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MmlNNmk0b015bzZhendlejN0a2ZvRjdpbk90Tk9YclA0VmdWRnAwT3orQVlw?=
- =?utf-8?B?Yy9nTW1ibkxkVVIrZFFxbGpuSHhKMkNvQlpZSWN2am4wM0JuR0hUc0l2MTVq?=
- =?utf-8?B?NVkvVW1SMDF4emVVZmZXZGZWeTczY1B1c0NMdVI4RXlqb0dqTTFYZkFERlRu?=
- =?utf-8?B?clhLenh2L2k4TXhickh2YVBZY2t1bS93dGNrZVVhYWs3dVBSb3NOTUdmVUR5?=
- =?utf-8?B?NUNzQmJEWFYyVDBxUitRRjNuSXEzVDVCb0gwN2J6VGh0akVDQnFna2hwWWZk?=
- =?utf-8?B?dHlubndhR1hOM290L28weFVCWklKR2RIT2liUjdYY3RMUEcxaC9OQzRwdDhP?=
- =?utf-8?B?Q1p0UWVDMmM2ZTZNeGFqMXBHMFRVU0pqdE1zc2tCSjlKblRWendSNWRTMjZ3?=
- =?utf-8?B?aTVUdzBTWmQ3UDBhV2E1L1FuUmxUcDhyUUtVOTVNRC9lWUxJbTBCQXlac3J4?=
- =?utf-8?B?bHdWdk96akNZTXNOL0lRWERFcFhkWThnbFJuVVhvMno0ZENIeVFjSms3ZHBL?=
- =?utf-8?B?cldLYW10eER6V3ZKS2JlNElkWTJic3pGcnJEeWxFM3NnZmQvckgxbEprc0Z6?=
- =?utf-8?B?Z1FsOWlMVTlXb2lwcUxCdFhrbDJQV1dCam5vd211MnFndS84cHNHQnh4V2R4?=
- =?utf-8?B?UEhCc0NuVzhoQWZDLzVLaGlacDRGVWFvQ3NXNVl3cTNGVkJsTnhaZFN5bThJ?=
- =?utf-8?B?c0hlakY0Mjlsd3NOejNvSEdiWUFFZ3pnNDA3QmhHN2lwWFBXbmR4aEx4NFNo?=
- =?utf-8?B?M1BVcFdhN3NEOUtYaGVhQlNZdm9oeFJHdUd0T2JSb3lMTzFRV2tYekFKWlUx?=
- =?utf-8?B?VDR3dlRONmpWMk54ekpIQW0zRTJQbHorYTJRQThKdEY1SHkycUt1QUx2RTZV?=
- =?utf-8?B?TlcwMGx2L1pVRktRSGFmaGJ4VUh6aWk3cG9wS0NlQU5jOWdSUndOU2pzeGRq?=
- =?utf-8?B?eXRrRVNNMHlITFNjZHpRcTFienhHM3hsaDlqUlJmYjZyUk5hc2VwYUxOUDUy?=
- =?utf-8?B?TzJ2OGMrcEdmeFRTcVNFd2NaMDJPZmQ4czJWaXoyVHErUkRCdGtxZUFSOHBP?=
- =?utf-8?B?ZldxMjkzMXJFMXR4YUhXdmNPRUI4RnM2bjNEMitWNXhFakVDcWxkVzZibTNt?=
- =?utf-8?B?c25PTlJzNWYvUnlNVVBpMGN3dUhNRHViSUFTQnlIeWJxOXRrTWN4YTJhN2Rt?=
- =?utf-8?B?Q3VkWmtlWEp2RWd2RmYwVG5oS21NNWI0bUUxZ0dEZVhjUTdhNVo0OVQzSFlF?=
- =?utf-8?B?eHliWFBkWHdHZ0VMYnowbkNJQWRrc2NtSzA3ZC9SWUxNUm1sZUxvMlBoSFpD?=
- =?utf-8?B?VnVTRldjMVl3Z0JDc1JXMmxsNWFFM2JISVdnY2NnYzdlNk5NOVVjRitPSGpJ?=
- =?utf-8?B?RUJiTjBZSzhGNVd1OTdlSXpCNmc4SlBMOERkSG4rakRRV3cxV0s0eDBzdXh0?=
- =?utf-8?B?K3c0TmJGV2xvWjRmS3RpelF2dVVGYWY3MExpd08yYmJla1BtSUpVSFRqM2RO?=
- =?utf-8?B?YXg4NEJPSDc4LzBmdDRNVjdlNStIVjFJd0RxSVMxZHdTYVR3S2ZQZlkxWGND?=
- =?utf-8?B?QzJsajlTTHhBb1NIeFV2RWVFQXkyOUlWZkZqcm1XL2NCQ29MNnVESmVFdkh0?=
- =?utf-8?B?dmxkd09vVEtUYUJ3dmE2VUJPR050RkNzM2d4bWJsNkp0ZDhBZFNKMnBYQi9z?=
- =?utf-8?B?ZDY1d2I4VFNOenhSbWhhVUQwQy91VFpUeFh0amJ2OFZNN3lGMHNmSkRHYWp6?=
- =?utf-8?B?d2xIamdaaEVoWmltUDlSZDBBaXBKUi9qZGR6WlR0TzYwYXN5RWtWOGtTdG1S?=
- =?utf-8?B?Q1pwQ3FDUDhxZUJGK2JqTU9ZQzVuS21EZ04yekYxRVdNeEg3ZmxoSGs1VlVk?=
- =?utf-8?B?RWsycTN1N2x2WHVVWGVNcDBqTEw1MTl0U3h4LzVTN0ZwZ3k0NzYwa1BYTFhX?=
- =?utf-8?B?NU93SVBuTFBuQzhrYk5sQ1Rua0ZQc1BoaDJMMVRVVUdIVjlDd0Jkbk52ajho?=
- =?utf-8?B?b3lHOHhyNDJwRFpFRzdrcm5GdThrVEFwRFlnWHVXaXMzazZtRmgxUlg2Vnpm?=
- =?utf-8?B?RWd2R2NWbzZYT2YzOGNRcDVzWmRKTzYwb3JnVmt4eWx2MU5HNE9aOUFTV2ds?=
- =?utf-8?B?ZEtxTVJ1aTMxaUFNT04zbVdFMENvNGhaSVg0Z2dxOHJkSm8wL3oxbzJDRE5N?=
- =?utf-8?B?UmVFU082MU1QZk9ZY01ycjZFT3Z2ZGEvSXE3bEhmVlBFYkY2WnZtazFkNmVj?=
- =?utf-8?B?MXJqUTA0WFZ0UTFsYzQ0U3RzQWhhTnZYazVQZzVjNUNTNSt5bUVsOUNwSlhr?=
- =?utf-8?B?aXlzbUpmMHRldkRGOFlkTFQwTHFvQmhuSE52azY5ZnBZRWRHSEREQT09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: df342855-50f4-4565-6d2c-08df3a331bd7
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB5743.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 05:18:49.8478
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Kv6POOZ1Skfw5P17xWvu+gaGVCogkZ9TmhDhiZdFJQ+AxYYX/p4phazTg5TuwMxnUwla1OL9ifzACZm7NRkXFQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR03MB6569
+User-Agent: Mozilla Thunderbird
+Subject: Re: [BUG] mm/memory_hotplug: panic due to race between compaction and
+ memory hot-unplug
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+        Wei Yang <richard.weiyang@gmail.com>
+Cc: Yuan Liu <yuan1.liu@intel.com>, Oscar Salvador <osalvador@suse.de>,
+        Mike Rapoport <rppt@kernel.org>, linux-mm@kvack.org,
+        linux-kernel@vger.kernel.org, Chen Yu <yu.c.chen@intel.com>,
+        Jason Zeng <jason.zeng@intel.com>, Vlastimil Babka <vbabka@kernel.org>
+References: <20260903095543.3752338-1-yuan1.liu@intel.com>
+ <1d625a60-9473-4f48-a384-7d756ccb7135@kernel.org>
+ <20260910031609.qbn2qcxzbitau5xc@master>
+ <12147238-575e-49ea-aa83-ea25c660ee38@kernel.org>
+Content-Language: en-US
+From: Ketan Kishore <ketan.kishore@oss.qualcomm.com>
+In-Reply-To: <12147238-575e-49ea-aa83-ea25c660ee38@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAyMSBTYWx0ZWRfX8Osf4MJ1D2O+
+ EJpTFHa2gaqomPIfQybdK9eCbVTHsmMSie640MXvSpVVwxHqx1FvLvXGs8VvT4GSgRYAbbuMpXE
+ I24nlc+K0JomPNorFb1+caZMy4Oi+Kdw6ooYcVUQuX1/qhwo8fXza/yYDHOWRa0CwOJldfnQgQB
+ EmANUgBK8e/BhUts9Je5CdKQXkmGQ3zi2ifY4ogxMVSHo2m6dz2z4kxP8R2lu+Vgzq1sFpIb4vm
+ bRhTGrBpHLMEv2dNIrufI71sqCHf/iEtwk0261DA288wjpSd6OijqPzQet/jDibUoTHCQSXemLj
+ ryO4zbIcrCKMumIADDdBhbbOw3v+6Na1ALfticS1KZPBp1n2v5MvtNNu96VA6bS9fkh6SqolFN/
+ mvRqMkc8V3fIwLc7FnyfZPlAqN8YFRILakXhl9KXSV0RSK43uBKk0tfoIVQ6V3LYP16GJ7K6uA9
+ GKvT8pHP9yIu6k5glNw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAyMSBTYWx0ZWRfX4q0jJsFt7lYM
+ 2UNVErGs87UT0GwOuim9kKqyxhy6x0ajw64/4Vr+qer6/sgT47yoLtK8C3nvHdn+U16Z/0lzAdD
+ Xia9sDaPNDFJHazaqv7D7WGJn9VP1s0=
+X-Proofpoint-GUID: 1z9wftSbdg5hg-XEokMgrL35T-x3jnQ-
+X-Proofpoint-ORIG-GUID: 1z9wftSbdg5hg-XEokMgrL35T-x3jnQ-
+X-Authority-Analysis: v=2.4 cv=As17T+9P c=1 sm=1 tr=0 ts=6aeac071 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=VxVhGbjf2C-XuTbq:21 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=YA6iiL-fw10CvUDPNLYA:9 a=QEXdDO2ut3YA:10 a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_01,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0
+ malwarescore=0 adultscore=0 clxscore=1011 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040021
 
-Hi Frank,
-	thanks for your detail.
 
-On 04/11/2026 11:19, Frank Li wrote:
-> [ EXTERNAL EMAIL ]
-> 
-> On Wed, Nov 04, 2026 at 10:44:59AM +0800, Junyi Zhao wrote:
->> Hi Frank,
->>
->> Thanks for the review.
->>
->> On 03/11/2026 06:10, Frank Li wrote:
->>> [ EXTERNAL EMAIL ]
+
+On 9/10/2026 1:10 PM, David Hildenbrand (Arm) wrote:
+> On 9/10/26 05:16, Wei Yang wrote:
+>> On Mon, Sep 07, 2026 at 04:27:50PM +0200, David Hildenbrand (Arm) wrote:
+>>> On 9/3/26 11:55, Yuan Liu wrote:
+>>>> Hi all,
 >>>
->>> On Mon, Nov 02, 2026 at 07:05:39PM +0800, Junyi Zhao wrote:
->>>> Amlogic a9 SoCs integrate the Silvaco I3C IP, and their peripheral
->>>> clocks vary from the vanilla implementation:
->>>>
->>>>     - The EE-domain controller (amlogic,a9-i3c) takes two clocks,
->>>>       "pclk" and "fast_clk", and the fast clock rate must be
->>>>       programmed before the controller can be used.
->>>>
->>>>     - The AO-domain controller (amlogic,a9-ao-i3c) exposes only "pclk":
->>>>       its bus clock is generated by an internal divider located in the
->>>>       controller's own register space.
->>>>
->>>> Add a vendor_init callback to handle this clock setup.
->>>> Add a vendor_quirks field to describe AO-specific behavior.
->>>>
->>>> Signed-off-by: Junyi Zhao <junyi.zhao@amlogic.com>
->>>> ---
-> ...
->>>> +     int (*vendor_init)(struct svc_i3c_master *master);
->>>> +};
->>>> +
+>>> Hi!
 >>>
->>> why need move this struct
+>>>>
+>>>> While stress testing memory hotplug on a VM guest running an
+>>>> unmodified vanilla mainline kernel (7.3.0-rc1, as reported by
+>>>> uname -r), we hit a kernel panic in the guest when memory
+>>>> hot-unplug runs concurrently with memory compaction.
+>>>>
+>>>> The kernel was built from mainline at commit:
+>>>>
+>>>>      cee9395acd80 ("Linux 7.3-rc1")
+>>>>
+>>>> To be more specific, after a large virtio-mem hot-unplug, the guest
+>>>> kernel takes a fatal page fault in suitable_migration_target(), called
+>>>> from isolate_freepages() during compaction.
+>>>
+>>> Sounds like a real problem we should tackle.
+>>>
+>>>>
+>>>> We are not sure whether this race is reachable under realistic
+>>>> workloads or only under this synthetic stress test. Sharing it here
+>>>> in case it is useful, and in case this is already a known issue.
+>>>> Thanks.
+>>>>
+>>>>
+>>>> Call trace (top to bottom)
+>>>> ==========================
+>>>> - RIP: suitable_migration_target+0x5/0x70
+>>>>     isolate_freepages() <- compaction_alloc() <-
+>>>>     migrate_pages() <- compact_zone() <- compact_node() <-
+>>>>     sysctl_compaction_handler().
+>>>>
+>>>>
+>>>> Why the race happens
+>>>> ====================
+>>>> CPU0 (compaction free-scanner)          CPU1 (virtio-mem hot-unplug)
+>>>> ----                                    ----
+>>>> page = pageblock_pfn_to_page()
+>>>>     /* checks pass, section ONLINE */
+>>>>     /* returns valid struct page* */
+>>>>
+>>>>                                           offline_pages()
+>>>>                                             /* section -> offline */
+>>>>                                           __remove_pages()
+>>>>                                             vmemmap_free()
+>>>>                                             /* struct page UNMAPPED */
+>>>>
+>>>> suitable_migration_target(page)
+>>>>     PageBuddy(page)
+>>>>       read page->page_type
+>>>>       *** not-present fault -> panic ***
+>>>>
 >>
->> because callback need param struct svc_i3c_master *master， and if not，
->> compile error. undefined.
+>> Does it mean, the combination of pfn_to_online_page() / PageBuddy(page) is not
+>> safe, when there is hot-remove, even for other users. Not only compaction.
 > 
-> Most likely svc_i3c_master need save a point for drvdata in future.
+> There is an inherent race between any
 > 
-> You add forward declear before drvdata
+> pfn_to_online_page() user that then takes a look at the memmap (PageBuddy,
+> whatever).
 > 
-> struct svc_i3c_drvdata;
+> Usually, that's not really relevant, because for things to go terrible wrong
+> (instead of only being slightly suboptimal :) )
 > 
-
-will do.
-
->>
-> ...
->>>> +static int aml_ao_i3c_tail_clocks(struct svc_i3c_master *master, struct clk *parent)
->>>> +{
->>>> +     struct device *dev = master->dev;
->>>> +     struct aml_i3c_ao_clk *ao;
->>>> +     struct clk_init_data init = {};
->>>> +     char name[64];
->>>> +     int ret;
->>>> +     struct clk_bulk_data *new_clks;
->>>> +     struct clk *fclk;
->>>
->>> keep revise Chemistry order
->>>
->> will change order：
->>        struct aml_i3c_ao_clk *ao;
->>        struct clk *fclk;
->>        struct clk_bulk_data *new_clks;
->>        struct device *dev = master->dev;
->>        struct clk_init_data init = {};
->>        char name[64];
->>        int ret;
-> 
-> 
-> longest is first
-> 
-> struct device *dev = master->dev;
-> struct clk_bulk_data *new_clks;
-> struct clk_init_data init = {};
-> struct aml_i3c_ao_clk *ao;
-> struct clk *fclk;
-> char name[64];
-> int ret;
+> You have to run both, memory offlining *and* memory removal.
 > 
 
-will do. thanks the detail.
+Hello
 
+We faced similar issue internally on one of our target's guest VM run,
+where kcompactd de-referenced a vmemmap pointer for a PFN after the 
+hot-unplug path had already freed that vmemmap,with no lock preventing 
+the two from running simultaneously.
+Call trace:
+   suitable_migration_target+0x0/0x8c (P)
+   migrate_pages_batch+0x1b4/0xc74
+   migrate_pages+0x150/0x654
+   compact_zone+0x5bc/0xb30
+   compact_node+0xa0/0x18c
+   kcompactd+0x228/0x4d0
+
+Would it be okay to introduce something like "try_get_online_mems" as 
+shown below to try a readlock in compaction path for hot-unplug to wait
+for kcompactd to complete before freeing the vmemmap?
+
+get_online_mems()
+-> percpu_down_read(&mem_hotplug_lock);   /* may sleep */
+
+try_get_online_mems()
+-> percpu_down_read_trylock(&mem_hotplug_lock);	/* won't sleep */
+
+   kcompactd / compaction                  memory hot-remove
+   ----------------------                  -----------------
+   try_get_online_mems() -> true
+   holds read lock
+   uses PFNs and struct page pointers
+
+                                           mem_hotplug_begin()
+                                             percpu_down_write()
+                                             waits for readers to leave
+
+   finishes compaction
+   put_online_mems()  // releases read lock
+
+                                           writer acquires write lock
+                                           offline/remove memory
+                                           free vmemmap
+                                           mem_hotplug_done()
+
+And to skip compaction if taking the lock is not successful here.
+
+Appreciate any suggestions or feedback.
+Thankyou.
+
+> For things like
 > 
-> Frank
+> page = pfn_to_online_page()
+> if (PageBuddy(page))
+> 
+> That's unlikely to hit (no reports), and we could likely easily fix it with the
+> help of RCU.
+> 
+> It gets more problematic when we do things like
+> 
+> page = pfn_to_online_page()
+> ... do all other kind of stuff
+> if (PageBuddy(page))
+> 
+> (what we have here)
+> 
+> Using RCU is usually not easily possible. Mostly only comapction does something
+> like that.
+> 
 
