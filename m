@@ -1,116 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793790689;
-	b=sBreXi6fl6EOizzTXOJ5dqX1/83GxDn7O6BCRIRLbBlW70B6BxrtJg6UPAo/ioC6iR0D
-	 06KoNJZj/xB4Fc8Pw0vU4XZmh+kpOte/4SN6AFmY/CLSETs2XMx76sEUtjNKJrR6cjs7r
-	 3r1GcrkwXFzsRZq4/wzXdQdW3O3PDVdwG9xnTifFDrOzn9UG8QrRdsxW1CYADm19uKkvh
-	 qzV+9sOjNnXY4S6UL75zCQNrdEXvG3r9opGINrzSjAK3fpRXqzDlq5qewL/adxCFLCVNw
-	 vwveX4n00zDCgGxQeXo4e9Fclx+kQDwXjFfDQqmNHbe2Dd5lkHSsWv/6qd4NUXK3XuA==
+	t=1793790733;
+	b=OPMk00yU/QFRwxstPCSvD2huTq9AeRl65C4pizKpP/i2IKlzS9WeQwTNneT9lY30ba+l
+	 6CftXIJKXDwoNPi28XIICzk6+oLkdJFYHj1ELQom6CGp2y6qOwjmKTRf4ke3yuuuVWRyy
+	 ipIzXh2cFW6JeFhD5UIUI5Qf2Yzim/SZhsrRf5O0oOeShZSACSSHEVv5exlr53Vv2Rqm+
+	 K34HOPzbmYXl72ABZhlwMQ/fh7wwT+PY9hVkQnPR0zRGtnGpgGgpbm22m9PdbuzLNvn8X
+	 3g3m22It83slIF7iVr7mCwMjX1fbPI5wvimN5+ELo4wXGj42pXo5acLr747jjUfYjVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793790689;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793790733;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=9dGhPXkF5fybGQPWWCMqIGqZtY7L/k+cbfx9SzNUbl0=;
-	b=cI84LWeW529KMdghF6QxyNxlIBP1DYlbZf0MEvu5b3k6+uOW2xo/r0inKWqws7lsZKYE
-	 ptqq66yAQHw4nmiat8eV8oANcF7VVtBVQgAN1Z8vPizrkrO1dlHvVi/13RLXfdh8p8G15
-	 ijm67RfXJ2kTgk1HNNDy7XpVrMyoBmYYzxzM3KnLQRE5q3ro/hUg/xnudr2JNX20ntbVm
-	 yhPkrCnY9naTxBMD5rEkMnMCMDnk2MYQCYwrFXR6NhijAQQzIQ18kBPde4wVWAsjYVS3H
-	 Qc6p353l49bL4BOPaZhpcM5dsJFtmeZ/8dCQGUM2+9pbXQXAoCDo77lBoA53qsMlTmA==
+	 Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:X-Mailer:
+	 References:In-Reply-To;
+	bh=JXUkcfVdYHLS91Uwpurj9n2UACTGti9F49kfa1ZCWrU=;
+	b=DPx8VctMS16440SIbFV4h0h9g/POtm83MBG8OzUp6vOloUBtwXqRwEZ8vHvTbtj/W2FK
+	 tUCRxR1vTUf82o5Z0Y0SBXTCK6Lbr6808POwydMIEcfe9Qn6cYF0bl8+3c8Jm0Jj/aBBo
+	 8SVZ2rZ+YC+KwYx1jBiUWFinnmtREZdxU2Cef8iu795f0QHji8UkaOtsIKgngOrWTBEai
+	 mWZM9uqUWzG+Rw2GGFrmM1F+tGKUiCFajqvO7JOrF7NGZQFoC5CRAPv8EejbPJKGQCC67
+	 L9rscwD4w4T3Yp6+4qnIWVVNJJnONi/ZIcVefnxrJenKPQyTrIuvAHCvWuTEQiu6UwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0e8FYXJx;
-	arc=none smtp.remote-ip=209.85.218.45
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=JWOpqRwe;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA9B3606A333
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:11:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA9B3606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5376E606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:12:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5376E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0e8FYXJx
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c3f04e0e65fso83055766b.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 03:11:28 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=JWOpqRwe
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso5501895e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 03:12:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793790687; x=1794395487; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9dGhPXkF5fybGQPWWCMqIGqZtY7L/k+cbfx9SzNUbl0=;
-        b=0e8FYXJxpc02eZ5f5Z3Dy627r9wHcblee3p00UDAVss7m0HHieZ7BNV8ugV7wINDTl
-         ahbP/wDIakMygyWdzNmy24SMpvBdrMOWcDTDLB6nfyGOdm8l9hulDVGPeduCDyqmMWAT
-         nrpDIY7GWyqY923w2NmqbOhX3OlevSe/Xs5CZakOOb8wR6zxmaaia+dGWSLIqHTb4g1l
-         D7pMgrksLKPwHJVEeVN2Fwew3Xugipcs78Yg/HhLvX48/9N7OQ/UZ3DRM4HxtxPsMOou
-         Ym4nI7LOsjzSKOCqATVO63v78fZ2r3Pj5/jAjXlzlyKHJd0VHgoTM3ob/3hbQPSJl0ux
-         9iAA==
+        d=baylibre.com; s=google; t=1793790731; x=1794395531; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=JXUkcfVdYHLS91Uwpurj9n2UACTGti9F49kfa1ZCWrU=;
+        b=JWOpqRwecaopor8yH0ZefUJnXs5kKZeycMNKPt5Ui5Eg2fVW6tAtCKrb5rRUcgrXBD
+         8uJIxtHhhpRbn50+INj6AHW75qtRtdXLPaT91ZgN6nZTNl8+IWWmDlnQSSP3sMOhzksT
+         3Ryi9R/M0KH93x8QtwCpuCp4Lq1tthpgfNafQ+MYg28KRs28IVviCFXz3CKAKu26bkVB
+         +kLa1w3eHYUfumKIySZo0FJYRP5AGAB+7m86Iu4bor0bZVu8oDC3YGMf8PpeN8GnUAQ6
+         mdftDgku7QnpdqbjF1R0cJ79LW7Jm6U2A1vZ4PfZdFgBZHpZVe8b3YFwnVyiyqewsN3M
+         IgBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793790687; x=1794395487;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9dGhPXkF5fybGQPWWCMqIGqZtY7L/k+cbfx9SzNUbl0=;
-        b=t/bgzRxzoHPmcOknv+kdzh69aZ3Xy/SmtR882LV8AYtYzFKvy8hgQ2q73Z+0gr1uWz
-         U0G8xDfGJE1AnE2u6Q3GAZm9f99fMkM6DOAKl3gK+kWbkRHAwDned0GNiavdvAEuTvPs
-         +x8AcjjrQmVE2u12m8TE5TKzz/KUxEA9CtYj6hD7Ji18Or5rfFzJf67isCQarNmruyYl
-         5ltLJtkQkdX7bGt5mzz93KNheopWksw+S/Yqxf4nrjS/5ZTLjpvXdK6T7RhevOjncTBJ
-         DDam7Uv0mu5JioQ0LfHyM/FOsNEKx0ZPL8cWpiiIeJMUB0IzN+Z/1CiuqVN/fDdSfJMg
-         2aGw==
-X-Forwarded-Encrypted: i=1; AKwUvBwL+zl3RvPsZ8BH4LYR7wFIH8sumXH2NIpkN91MqAo77Dtb/SYus8tj+pNMlQBtCQTolgXxwQFvd4WJDxg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8B4oXnaD64RZHteIGzbVBAQZYRJ+WNtvC9c3Rfji6E/BKsAiol
-	JZR4AN4hynqtbl6K+UvgAa9MeY2xzAfp1ADVCrk61z4z4SrVXcjNfGen
-X-Gm-Gg: AYBFou3qj0/ZoGVDVrXHFP9ggZFmir0p3sF/0u7aFTl3jZrvD69cGd8Ud00+4lrjI5M
-	T/+dFB2w6uZgGo2RzC4U3/iYwyy14qJJ7gGmwRzsgcHX97dfnIwijGKsmpn70JEwfP0rRBU4nrh
-	Qnx9vOq5OBqxc8sEUwKcJ8RsXywrIynlggaF5yEj0BYxeNbfqklqVnVlJtxUnCGlDmrIni6c6cU
-	W3Am+8OCz20iXCebOcAnNXpqnX7oxXnlfXEgQAJ/KZpWKw/a+NljhwBSlDwVoYvq83sJI7yAblh
-	m9OcRJFt+gWHT27IYoXoSseEZH2+HDEKDyT3aF+B7E8kKPS3q3c/Kg1Xr9zBVXB5MCzO0P4oZ2D
-	cp5D2uy3FqhZiPotJWgXh5jyzMCi15UYZeuwqFgf6OY3l54DtVYLBTMKJ5TCLs6KViPcjNhrxA2
-	D56U4Cl2+NjEM1mEB479ioT+BWAa4BdlRLCgdk8/I8KV5E3uTc/2ZFHh7Zs6rde4TnURoCZH33a
-	qvZsAXCpd84NUGQeITMTRDZP2VwPCLdilZLfejeWBkSTMbqZ7FtwsVQ2VMhZ17Xnzc2twdQBhqS
-	KNPqj079BGJQDQ==
-X-Received: by 2002:a17:907:980c:b0:c40:36ca:9d1b with SMTP id a640c23a62f3a-c4ca7aaffdfmr1376456066b.40.1793790686850;
-        Wed, 04 Nov 2026 03:11:26 -0800 (PST)
-Received: from milan ([2001:9b1:d5a0:a500::24b])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d0e4a4bb5sm55813666b.80.2026.11.04.03.11.25
+        d=1e100.net; s=20260707; t=1793790731; x=1794395531;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=JXUkcfVdYHLS91Uwpurj9n2UACTGti9F49kfa1ZCWrU=;
+        b=a6WUQ9bjYMwrc2VU5F5PFud6Pq7ixa6GWOh/C7efE88X4T3w8nskY0t1sMXn8v170f
+         yE0GKGjaT0+pZDaLKgCwnTMEGHJ1QlKvQ1OsSD12fnrZnd4eTl27zlzvdK6RclLq6Xl3
+         8P7SKn1eKQaq+UpJJbwykI1YB+UsnGzjBC9Sy8de1/YvQXqEZq+IYvu/f1ho3soOz5ef
+         DbfEGZTIpfbrr/EYT79eYVPrmE0OGz2AWCWuEazuubexnD5s8hg3ZS8QYB1cUybCIFea
+         JTQcNTIXKD8/wNPr5JyQQ3zx00s4oDLlZiTkUoaUHMXg4+wsPdGOR6W1JuiG5N8R7wie
+         8qDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw0OpwmRu4dkGHIL2TlEo82PIjz9saGBW+aBEyMsLFaWipC5IzIdS57j+4OU4+LGiybJl9l+S6jBICkBzk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+WINSmaa6TVDWwABNc/oOYOxIll8s1xo0bmw6zSDf6lJziF73B
+	sWzYRDN8SnR8lLPtCtzfUdiY4VOfyIOOKKt/2HKWK9LD+/i9UP4u2Rotc/+sPt0VUl0=
+X-Gm-Gg: AYBFou0whalUFmdRVaZCi8/IDJVfYhsIeYa23HqWVtCSLgDW2ak+rFFB/tqj+NkaM4n
+	oFBAP+nJ3JBJTWC0ca+SV8S7MpgpZ81x20qxGJfcJuH+hyQynHq9MqVhd0vPyM2NVRhZ8Nb02GP
+	YNKiukR9ymKLphw6gbXQEvs8ghAKtzdiwuEMp4AR9dx67vFlvBX7MnSQnD9NWSUvQo1NEf+meaZ
+	IhZsEeUrEP3nTgfGa3Wt55s6o33knLRvyti626ilpsZr0w/GkzzhXCmlGUJSpy9TFto+x78tnMU
+	ECsIQjJ8xE7gRBwT5QhrbwOQ2WdPOLjeJlMS6B/ijo/zR0APccbQa2Pucn/EDhM7v5UU/CJe2jX
+	t8n0pusJbfEQPn3K32WfH57yHJs0t1ilIH3oXcvqr2a0LZUJ817JUesWqzYp56tRbr+CjRR0NsE
+	FyzjTyaALYLHStiazX2UdfugRbjnNbTEg/CP+pWeAPeZP+DgZl0pLskU0bgb1w5run4GwWFyB2N
+	elXCEbfqQQGsPnWuPDYPFNlZI/7k4N3JQM6DgI8prKb+05pX6jE50nuTQFTEnHHFi0qRT+uDvBj
+	jXK+zdX1L7hyJNRhQnYqllZC
+X-Received: by 2002:a05:600c:4f55:b0:4a3:d327:6ed with SMTP id 5b1f17b1804b1-4ac182dcba3mr394806835e9.17.1793790730347;
+        Wed, 04 Nov 2026 03:12:10 -0800 (PST)
+Received: from localhost ([2001:4090:a244:81d0:bc85:7836:468a:a1a8])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2ab010a66sm180489085e9.13.2026.11.04.03.12.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 03:11:26 -0800 (PST)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@milan>
-Date: Wed, 4 Nov 2026 12:11:24 +0100
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	"Liam R. Howlett (Google)" <liam@infradead.org>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Uladzislau Rezki <urezki@gmail.com>, Michal Hocko <mhocko@suse.com>,
-	Baoquan He <bhe@redhat.com>,
-	Alexander Potapenko <glider@google.com>,
-	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
-	Marco Elver <elver@google.com>, Michal Hocko <mhocko@kernel.org>,
-	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org,
-	Lorenzo Stoakes <ljs@kernel.org>, Chris Mason <mason@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org,
-	"David Hildenbrand (Arm)" <david@kernel.org>
-Subject: Re: [PATCH 4/4] rhashtable: fix vmalloc() deadlock in atomic rehash
-Message-ID: <ausS3LQNkdc6lBy3@milan>
-References: <auMbCuecFeRmBFSK@pc636>
- <jfvq7vkx73vzp2ukq6nwnb3v3g2ezdcyppba4oa5lpzmz6ls6t@akc46gonndgy>
- <urkgmijyytg3rrislm5fdzmfggqavzpiry23f6lpkqonvy2tqx@d56stj3eixfa>
- <auaFhOa5EBz4gJwK@gondor.apana.org.au>
- <xdzcyoou73blpfdlgy47i2ktrcsffnclerzojpgrxphid54gjc@nicdcvzqx447>
- <auqtTjXhD8is-y9f@gondor.apana.org.au>
- <CAHk-=wiE0KG+jkhmJWifXuAVivtB63WCWtdEpGAex7-T0SHd2g@mail.gmail.com>
- <aurAxRpCwzeyXeVj@gondor.apana.org.au>
- <CAHk-=wgPvbYRcKpQ8WTH-EYZRgMG0KSH+cZxY5-Hyf+X7JjWsw@mail.gmail.com>
- <aurJZ81qnbiHH_P1@gondor.apana.org.au>
+        Wed, 04 Nov 2026 03:12:09 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,68 +86,87 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aurJZ81qnbiHH_P1@gondor.apana.org.au>
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=1a89969498c359d1a140827ed6acbf92f89987135f1280b4d5669bb50fa6;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Wed, 04 Nov 2026 12:12:04 +0100
+Message-Id: <DMMDQQGAJSRP.2RFOOW1YOKT8F@baylibre.com>
+Cc: "Kendall Willis" <k-willis@ti.com>, <linux-can@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 2/2] can: tcan4x5x: Add suspend error handling
+From: "Markus Schneider-Pargmann" <msp@baylibre.com>
+To: =?utf-8?q?Martin_Hundeb=C3=B8ll?= <martin@geanix.com>, "Markus
+ Schneider-Pargmann" <msp@baylibre.com>, "Marc Kleine-Budde"
+ <mkl@pengutronix.de>, "Vincent Mailhol" <mailhol@kernel.org>, "Sean
+ Nyekjaer" <sean@geanix.com>
+X-Mailer: aerc 0.21.0-146-gb5c16ebe1835
+References: <20261016-v7-3-topic-mcan-suspend-fix-fix-v2-0-7efa2b172cce@baylibre.com> <20261016-v7-3-topic-mcan-suspend-fix-fix-v2-2-7efa2b172cce@baylibre.com> <9aba5682e371f5969d3ddca1c6a763485bc25285.camel@geanix.com>
+In-Reply-To: <9aba5682e371f5969d3ddca1c6a763485bc25285.camel@geanix.com>
 
-Hello, Herbert!
+--1a89969498c359d1a140827ed6acbf92f89987135f1280b4d5669bb50fa6
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-> >
-> > None of that says why.  It only repeats what I already said: it seems
-> > to be due to kmsan doing bad things.
-> 
-> Fair enough.
-> 
-> When I was told that folks needed vmalloc under GFP_ATOMIC I didn't
-> question it any further:
-> 
-> https://lore.kernel.org/all/aeiHkG7X_dieMdw5@milan/
-> 
-> Looking back, it does look like it was never explained who these
-> folks are.
-> 
-> Ulazislau, so who needs vmalloc GFP_ATOMIC support in the kernel?
-> Or is it only used by out-of-kernel code?
+Hi Martin,
+
+On Fri Oct 16, 2026 at 12:04 PM CEST, Martin Hundeb=C3=B8ll wrote:
+> Hi Markus,
 >
-There are users in kernel. For example:
+> On Fri, 2026-10-16 at 11:57 +0200, Markus Schneider-Pargmann wrote:
+>> diff --git a/drivers/net/can/m_can/tcan4x5x-core.c
+>> b/drivers/net/can/m_can/tcan4x5x-core.c
+>> index a5b8829aa519..b69312413d62 100644
+>> --- a/drivers/net/can/m_can/tcan4x5x-core.c
+>> +++ b/drivers/net/can/m_can/tcan4x5x-core.c
+>> @@ -575,11 +575,20 @@ static int __maybe_unused
+>> tcan4x5x_suspend(struct device *dev)
+>> =C2=A0{
+>> =C2=A0	struct m_can_classdev *cdev =3D dev_get_drvdata(dev);
+>> =C2=A0	struct spi_device *spi =3D to_spi_device(dev);
+>> +	int ret;
+>>=20
+>> =C2=A0	if (cdev->pm_wake_source)
+>> =C2=A0		enable_irq_wake(spi->irq);
+>>=20
+>> -	return m_can_class_suspend(dev);
+>> +	ret =3D m_can_class_suspend(dev);
+>> +	if (ret)
+>> +		goto err_disable_irq;
+>> +	return 0;
+>> +
+>> +err_disable_irq:
+>> +	if (cdev->pm_wake_source)
+>> +		disable_irq_wake(spi->irq);
+>> +	return ret;
+>
+> Wouldn't this be better written in the shorter form:
+>
+> 	ret =3D m_can_class_suspend(dev);
+> 	if (ret && dev->pm_wake_source)
+> 		disable_irq_wake(spi->irq);
+>
+> 	return ret;
+>
+> ?
 
-drivers/GPU
-    /* Allocate the file in vmalloc memory, it's likely to be big */
-    iter.start = __vmalloc(file_size, GFP_NOWAIT);
+Thanks for your review. I personally prefer the variant with a goto. It
+is not as compact but it is extendable if this function needs another
+instruction with error handling at some point.
 
-AMD-GPU:
-    kvzalloc(size, GFP_NOWAIT);
-    kvzalloc_objs(struct amdgpu_coredump_ring, GFP_NOWAIT);
-    kvzalloc(ring->ring_size, GFP_NOWAIT);
+Best
+Markus
 
-Virtio ring-testing:
-    (alloc_ring(0)), gfpflags_allow_blocking(0) does not allow blocking.
+--1a89969498c359d1a140827ed6acbf92f89987135f1280b4d5669bb50fa6
+Content-Type: application/pgp-signature; name="signature.asc"
 
-net/ipv4/udp.c:
-    err = bpf_iter_udp_realloc_batch(iter, batch_sks, GFP_NOWAIT);
+-----BEGIN PGP SIGNATURE-----
 
-etc...
+iKMEABYKAEsWIQSJYVVm/x+5xmOiprOFwVZpkBVKUwUCausTBBsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIRHG1zcEBiYXlsaWJyZS5jb20ACgkQhcFWaZAVSlP6
+PQD+LtlVjH3/wReXE9RPzwo6wtqTfo+QNCgoDCb1Raz8jGcBAPtyCB2nUPxKiL0p
+tOVeJ7sfKgFNAASX6epFGzYIeAkP
+=tpW6
+-----END PGP SIGNATURE-----
 
-Apart of above, the obvious user of GFP_ATOMIC is the bridge forwarding
-database. The br_fdb_add_local() holds br->hash_lock with bottom halves
-disabled, on rehash event it invokes rhashtable_insert_rehash() to allocate
-a new bucket table with GFP_ATOMIC | __GFP_NOWARN. In that scenario kvmalloc()
-can fallback to vmalloc().
-
-This path runs and exists because syzbot hit the old in_interrupt() check
-there, leading to 04aa71da5f3 ("mm/vmalloc: do not trigger BUG() on BH
-disabled context").
-
-The vmalloc() fallback improves the chance of completing the insert on
-the spot to minimize -ENOMEM hit rate thus minimize queuing the
-irq_work_queue(&ht->run_irq_work) to retry allocation in process context.
-
-According to XFS code and comments it wants non-blocking support for
-kvmalloc().
-
-But indeed the v4 cover letter didn't name a consumer. The bridge
-report came later.
-
---
-Uladzislau Rezki
+--1a89969498c359d1a140827ed6acbf92f89987135f1280b4d5669bb50fa6--
