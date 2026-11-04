@@ -1,55 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.158
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793799687;
-	b=DzrrdVeGqH+wetvdi2XmS9zZhAt918zITExghO1BBYn+zlRtZcQnhVOsS8asJXf+tRNb
-	 cCgI0HgY3EXX6xsxzR9smZyzEXBVPD7tGGhb2WLKJPMk8GJT1s8S9/SlYxckX0Qm6HZB8
-	 JrZxQPKlQvKgHF2z0fTx0EbyBBqgwYo88tsQDO4XRo6KxGbFNaYkh7RmCB6UmuUb37bjv
-	 f9YsDn4tY4rmhdCzpSCJApD78MthYUca871M/YKD4kQs2f1O3RlP6KmnYSsiIKBHS9W+e
-	 QMpCISBgiESCeI3BzsaZy9R8ZhYA7qMsguEqI4lzZWmrbO9Nt+TYqtsmqW/cgVbkfKw==
+	t=1793799699;
+	b=w06vcBepAxpr/BmefiQylujdI4Ad9FqEZnHJzmnnbMD0WN221wx8ucbV6DowGst8Ty2+
+	 ixBRaPCY1VFFEO0oN4zCdnmmwN8lsfaHxLhNhcra/qyfhUt71ZV9feXTsZAkHs3fI74sF
+	 nsu9atUjlbweP5bavziiCNBy9i9YPhLV7bHOSGL1snbxBx51bJc0caxKT0waBI7XICPdw
+	 PAmPWjM8y9UqmxP595z34dIHc7+H3p8xv8p+bL1E4aWfPnr3j7GZeC4LVePPX1fVwU6Tk
+	 +3Cn0MiMGhQAJF6CHf+GlkzQ97Tknu2gDKPN7cXN8q83ehzrZS9ceA5+NnTudnIagAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799687;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=DsqUBkIa7Olvd6FTVJf/qEImpffvzM2i9AQMrT58Pf8=;
-	b=ihmx3vZTwhFXW3RYRCmvQ3v5HhlzHnwMdm/Vx7lU9MR3xo/MbFfv91C/QGSNbYeWrn4n
-	 n1czvH4tFNUIus8JvYZpoylfdsRYEOpaQX8k4XNUblBdIpE/MPh1AzB7PXXkkwXbRO2F7
-	 ZGQ8sXKIGAAlLRihi2SVLkJr35BUTSeh6PGBrT+in/R8R+q3o2L44+ecn6kBFAdxYqO3D
-	 ND2yW1vlgh0ay7pASFZ7QryjP9+OUawysIObU5U3di/bip7yBDrCcSIomKu9I5uOEt+/V
-	 ODn3P5rTU6DXrX5oZVf56L5efIVE7YwB3er6OT2nHf65/doPrwOTFxaXwfCuC9mNGJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799699;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=I4MrJ0us0cyVl7cuFGdkMVaNQnyIC3GHJZjZ2WZ4bC8=;
+	b=VhGODXrmaMgtJv/tPOVcib4Phb8T05rX0c0jY7QaxHVaVW/0vvukQbmzCLzGr6FNW0zw
+	 5o4zbEWOXb7bhKS0RVuRQIT0tVTQel2owWUjXOiFf5G7bkyNlGov5zvqgDIHf7O2T0VdB
+	 CEYmdlH8GQWcrWqOqX5AFf97fB/uiVK1YWBasSzeHLKKei9tfjJYgldgMPFKNbvWmWXfT
+	 CyBRob5pyviMxXLO3hU1gFMWGXHbtxH3YHY+HaAz8+h18z5MJL6nWVOMqdIOROeHRJ0LE
+	 9dzUCbPHDO9OMxZf956/rS7GyVEehYUaCTCkckk4dYcvjBIbUn4jUHDTfFVb3tSHQPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JT20OMQf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=jannau.net;
+	spf=pass smtp.mailfrom=jannau.net;
+	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=D+HmIwUw;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=vCvhrDvr;
+	arc=none smtp.remote-ip=202.12.124.158
+Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87E17606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:41:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A1C606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:41:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1A1C606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JT20OMQf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA0F91F000C1;
-	Wed,  4 Nov 2026 13:41:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793799687;
-	bh=DsqUBkIa7Olvd6FTVJf/qEImpffvzM2i9AQMrT58Pf8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JT20OMQfzen2gkICb9s6vngZ0xsFXQq5MlNq6Skcb+xj9wzC/iCl2g+QGbxcP5NOl
-	 IGOYNVl5TlTBFFAX4U/NFcPTyG2gsE05k5bQkfWW0uunf4p+pagOugov4KaGmrXQGK
-	 76Ap8MewNhhcIG6oGXpx4RdaU7Gvr5NO8u2kC1O9qfuyccQ8dIUBPSjhFcK5OusjME
-	 kGXAPwzyYGyb8H1feJ1k4FlpwfTXxwkxcovpL4mFWnekhw0Zd+5cu88Xjbgldz0aPf
-	 Mw8iLWTUGMmDgJc/gaYGgbRKY2Xi420o4PDMxWZthB7FHROvtAN7j2oTd9cQ1qdf6b
-	 5HFAFGCD1mTMA==
-Date: Wed, 4 Nov 2026 13:41:22 +0000
-From: Will Deacon <will@kernel.org>
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Zhao Gongyi <zhaogongyi@bytedance.com>, mark.rutland@arm.com,
-	oleg@redhat.com, ruanjinjie@huawei.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] arm64: ptrace: don't warn on missing siginfo in a
- group-stop
-Message-ID: <aus2Aq12Z-PKvoW7@willie-the-truck>
-References: <20261023110710.10145-1-zhaogongyi@bytedance.com>
- <at-czRUYRPRxi9dy@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=D+HmIwUw;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=vCvhrDvr
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 14CEA7A0104
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:41:38 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Wed, 04 Nov 2026 08:41:38 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1793799695; x=1793886095; bh=I4MrJ0us0c
+	yVl7cuFGdkMVaNQnyIC3GHJZjZ2WZ4bC8=; b=D+HmIwUwPxSkAgYq97euIVpaVk
+	pb85DgJrUPm3owN2cUP7z7hAqlWWIiMMFAAeW91CrZ2nDI5hvzn1PXQ56JVpjA/X
+	V2G15tzcNrUK1Olupqm6n9+g0MCUsHh1G14wC1il9Zgi8HBGJSRn2ttJI8hqLYPt
+	WIlPQsyfDkQfhaBrPsNhA43ozhs2wR93JcDmg1r6RYuS8259//nNrLpTyK4Esve4
+	huiywvAPrz+Tn150hsJH9S0XOnVYJCsoUxIxi2fAgjxO0xz4ExLP2p7VfiRikUsN
+	YDjiEZvjSsDRmI/GQerdEohfeOV62iNdg9ahB0ToDYtfg01sPMjvD1KiEe6A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1793799695; x=1793886095; bh=I4MrJ0us0cyVl7cuFGdkMVaNQnyIC3GHJZj
+	Z2WZ4bC8=; b=vCvhrDvrELQ9UKx0dx7NpVOUb0B0UVL0n2JbKguTUtYYxk/8UrU
+	h5P3fZRGgz8jQaWyWkt9co88K9dnejZwA4AIVmbThDKPZew/d8cGCPPdT14BC7D/
+	WWm1OyPk5MMu6KCG1TgFhxsPLIk1Nzu3yksu/sN+ZpgDDFsi3fEDZfTcLCUdZrtL
+	/JMpP3Ej63+gdcLmgwFs0rSZPf2gpS+X+DLiYyptx3SxPuZaohUeoybqxxjxOXOS
+	v+ae2GjtfDH4n5GtRh1HYOTsN6BoYvALX1uXlV0FEVN6n+68p8XTF+Ujk+TQ034T
+	BfETYGD2041wzm8eZqlVUd6Mi/a0r/uLLQw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=jannau.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793799695; d=jannau.net;
+	mf=PGpAamFubmF1Lm5ldD4=;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:gNt21fdw2G5EOkhft9bhtDBuBl8H7wDl6SaAqw7wWEooiye
+	vBABh/M3a+PO+j19bq4YZ7bHpfHlFsaj7376RAm4uU3QYpD5s+aZrs3vnEab1E5K
+	8wLmRZekqhKIaTKDH8LTG9Gy+57fj87r2HsiRoAaZkVpF1QkJItk5gmLUqRPjivV
+	C1W/MCvaEGcNctgPeTn7XAJgw6xCCX8K/vAnicXteGy1N4xeZhu2+eK2mAJts0iR
+	ANoBDPLEFig99LOkgCP4I51iGl8nlJaJ5nAU9Vz3WXjCWwpjU3lg/bvOEXrrTZ8C
+	Zos8b3k3kIgQXb7dJTZIEp3wWjqlZD98DbJlZkg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:EN7Cd8aiweMGl5lHrs2+4ANErcvjvC2KutppetHvMv0=:S98jBY3/ksFURwsVuG+I1Wx0g75J28yvU2mCrNKvD+0=;
+X-ME-Sender: <xms:DzbraqRb1u2fUxgk9OWwD8uhHCHE-69W2wt2oLhE5ulelmT9Ct1Iog>
+    <xme:DzbrarsbD9fPMSbYH4KvBp6q6Y8l6UlnJQczxVxs9rBGu32ZXvZFyyqUFD-64dYz4
+    h7_WK4o8Q9ggxjwQ_W3UD3Ov65Nq1LaOv56FGZAFgYqVavgp8SRmj4A>
+X-ME-Received: <xmr:Dzbrat9snqEtjp_T7CU1W4h0-amHAD8sv05_FEestw-mG8YpvHKUTvguZpzjzRNjawCAyE1HRNTbHjrRImzccP-tWzz5hLbhPvI>
+X-ME-Proxy-Cause: dmFkZTGfAP7AcWTt7GSuE9cecOERqrNYgIUKwhLeSq+w+fwSyelYEqmcbQvAwFer7F/mE1
+    PEpvxOME6dPfjCLp8Qigws1yULz0Wwf2BWE3Vvd7RsEIfU52IeZ9O9eEWHI/FJJlm/63Vr
+    Q078hKiAl8k8Dc/19fKH+O2MKTgaX2GHpSclPxdmHaoCWfF+tjJOc7H4spAMAresvHH1nL
+    Jz4T/QHWPL7ZtzAVf7SCpdBye4DhZLMBZmLQU+hGR0IpZYHQJxo1S0CLTr4jOG6DBLmAJE
+    sR8O5nm4cb6ZIeuWQHOEpFf5R7CT6vFUMHgunron6jQaPRGVriUzoUC0U+LGnfzo7UL1LV
+    lfhjvQdBNIXLYe2T1kVM9kJ7XfHozMyaD/rinhqZG/tsRPIPyO4CwUaBbleQ6EZoua00dc
+    WVHRRQ1AnEZJk7AocDB8+w6K2nKIN+CuNFmuwGFaG7HKqwRvXmFHRFKpHR20yvolyLacal
+    HmgE/KXswW3bf1h5+AzuvlYRrHgPyEvM+O50CGWE8bmmgg3zaR4+qTwj3WCoe/d7pY6Bgz
+    QDerj1Dhk7jkuDGzypho+lNkQRzudP7J5vBMco0NJuq4XWSBaZT8pALwfU9kWSmeoAxOO8
+    vCZWI/MuSOXohmvPUh8HFfzXmrHjQeT8qvvV9Kjl/M/YhpZ3ZMdcvCszukkA
+X-ME-Proxy: <xmx:DzbrasaNfgg67RAEW2UdHxG47kEXZMeIcjjBGAw7L4hxV_hCZX8cMA>
+    <xmx:Dzbrahr0icTSs6q48i0QnExe8xnr42Ba9ov0tCi9Z2kt6vt43TeGPw>
+    <xmx:DzbrasbmLNHmVCwx9csVrrADHwO94ACgwJVUNKVQuGblCliSdoYhxA>
+    <xmx:Dzbras5FmyRhNjiPVQSXxvGi_nNNiw8NGtveszWYfZfItfuttzglMA>
+    <xmx:DzbraonyxuFy2n_wEuUZAN3vMDT6N5NfA8DvoI37hPilvs6CmCtHltiF>
+Feedback-ID: i47b949f6:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 4 Nov 2026 08:41:35 -0500 (EST)
+Date: Wed, 4 Nov 2026 14:41:33 +0100
+From: Janne Grunau <j@jannau.net>
+To: Yureka Lilian <yureka@cyberchaos.dev>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>, Marc Zyngier <maz@kernel.org>,
+	Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] PCI: apple: Integrate pwrctrl API
+Message-ID: <20261104134133.GA756133@robin.jannau.net>
+References: <20261104-apple-pcie-pwren-v2-0-216a4066965f@cyberchaos.dev>
+ <20261104-apple-pcie-pwren-v2-2-216a4066965f@cyberchaos.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,73 +131,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <at-czRUYRPRxi9dy@arm.com>
+In-Reply-To: <20261104-apple-pcie-pwren-v2-2-216a4066965f@cyberchaos.dev>
 
-On Mon, Oct 26, 2026 at 06:32:45PM +0000, Catalin Marinas wrote:
-> On Fri, Oct 23, 2026 at 07:07:10PM +0800, Zhao Gongyi wrote:
-> > PTRACE_ATTACH to a group-stopped child can enter do_jobctl_trap(),
-> > which calls ptrace_stop() without siginfo. If the tracer writes
-> > NT_ARM_SYSTEM_CALL, system_call_set() can change syscallno from
-> > NO_SYSCALL before calling update_syscall_orig_x0_after_ptrace(). The
-> > WARN_ON_ONCE(!info) then fires, although this is a valid ptrace stop.
-
-I can't quite get my head around what it means to set NT_ARM_SYSTEM_CALL
-in this context. Suddenly, in_syscall() will return true, which has
-implications for things like signal handling that seem bizarre if we're
-not actually in a syscall. Should we be avoiding this situation to start
-with?
-
-> > Remove the warning and guard the syscall-exit-stop check against a
-> > missing siginfo. Keep recognizing both SIGTRAP and SIGTRAP | 0x80:
-> > syscall-exit-stops use either value depending on whether the tracer
-> > enabled PTRACE_O_TRACESYSGOOD. With no siginfo, allow the final
-> > assignment to synchronize orig_x0 from x0.
-> > 
-> > Fixes: 88b839ce497c ("arm64: ptrace: Keep 'orig_x0' in-sync with x0 on syscall entry")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
-> > ---
-> > Changes since v1:
-> > - Remove the warning and early return, as suggested by Oleg.
-> > - Keep recognizing syscall-exit-stops with or without PTRACE_O_TRACESYSGOOD.
-> > 
-> > v1: https://lore.kernel.org/r/20261016024536.18938-1-zhaogongyi@bytedance.com
-> > 
-> > Tested on arm64 KVM at af32da41b032 with this v2 applied.
-> > At a group-stop, PTRACE_GETSIGINFO returned -EINVAL and an
-> > NT_ARM_SYSTEM_CALL write succeeded. Syscall-entry and seccomp
-> > x0 rewrites worked. At syscall-exit-stops, NT_PRSTATUS writes succeeded
-> > with and without PTRACE_O_TRACESYSGOOD (si_code 133 and 5,
-> > respectively). No kernel warnings occurred.
-> > 
-> >  arch/arm64/kernel/ptrace.c | 6 +-----
-> >  1 file changed, 1 insertion(+), 5 deletions(-)
-> > 
-> > diff --git a/arch/arm64/kernel/ptrace.c b/arch/arm64/kernel/ptrace.c
-> > index f743cbec1..22fb9eeed 100644
-> > --- a/arch/arm64/kernel/ptrace.c
-> > +++ b/arch/arm64/kernel/ptrace.c
-> > @@ -573,10 +573,6 @@ static void update_syscall_orig_x0_after_ptrace(struct task_struct *target)
-> >  	if (regs->syscallno == NO_SYSCALL)
-> >  		return;
-> >  
-> > -	/* We should only be called when target is in a ptrace stop */
-> > -	if (WARN_ON_ONCE(!info))
-> > -		return;
+On Wed, Nov 04, 2026 at 12:40:30PM +0100, Yureka Lilian wrote:
+> Integrate the PCI pwrctrl framework into the Apple PCIe host driver to
+> provide standardized power management for PCI devices.
 > 
-> That's a slight semantic change since this function may now update
-> orig_x0 even when !info. However, I think it makes more sense as the aim
-> of commit 88b839ce497c ("arm64: ptrace: Keep 'orig_x0' in-sync with x0
-> on syscall entry") was to update orig_x0 in all cases other than
-> syscall-exit-stop. We can't have the latter with !info.
+> Notably, this allows enabling powering on the WiFi, SD card reader on
+> various Macs by means of the pwrctrl framework before probing the ports.
 > 
-> I'll wait for a couple of days to see if Will has any comments and queue
-> it.
+> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+> ---
+>  drivers/pci/controller/Kconfig      |  1 +
+>  drivers/pci/controller/pcie-apple.c | 23 +++++++++++++++++++++++
+>  2 files changed, 24 insertions(+)
+> 
+> diff --git a/drivers/pci/controller/Kconfig b/drivers/pci/controller/Kconfig
+> index d246bbe37948..791892a6c0c6 100644
+> --- a/drivers/pci/controller/Kconfig
+> +++ b/drivers/pci/controller/Kconfig
+> @@ -46,6 +46,7 @@ config PCIE_APPLE
+>  	depends on OF
+>  	depends on PCI_MSI
+>  	select PCI_HOST_COMMON
+> +	select PCI_PWRCTRL_GENERIC
+>  	select IRQ_MSI_LIB
+>  	help
+>  	  Say Y here if you want to enable PCIe controller support on Apple
+> diff --git a/drivers/pci/controller/pcie-apple.c b/drivers/pci/controller/pcie-apple.c
+> index c2cffc0659f4..2d32092e2122 100644
+> --- a/drivers/pci/controller/pcie-apple.c
+> +++ b/drivers/pci/controller/pcie-apple.c
+> @@ -30,6 +30,7 @@
+>  #include <linux/msi.h>
+>  #include <linux/of_irq.h>
+>  #include <linux/pci-ecam.h>
+> +#include <linux/pci-pwrctrl.h>
+>  
+>  #include "pci-host-common.h"
+>  
+> @@ -825,6 +826,28 @@ static int apple_pcie_init(struct pci_config_window *cfg)
+>  	if (WARN_ON(!pcie))
+>  		return -ENOENT;
+>  
+> +	// Ensure all ports can be powered on before attempting initialization
+> +	for_each_available_child_of_node_scoped(dev->of_node, of_port) {
+> +		ret = pci_pwrctrl_create_device(of_port, pcie->dev);
+> +		if (ret) {
+> +			dev_err(pcie->dev, "Failed to create pwrctrl device: %pe\n", ERR_PTR(ret));
 
-I was trying to limit the scope of this hack as much as possible, so I
-think I'd prefer the early return tbh (i.e. just drop the WARN_ON_ONCE()
-and update the comment).
+This should power down devices it already powered up and destroy the
+created devices. As far as I can see -EINVAL is the only possible error
+so the platform devices should be cleaned up
 
-Will
+> +			return ret;
+> +		}
+> +
+> +		ret = pci_pwrctrl_power_on_device(of_port);
+> +		if (ret) {
+> +			if (ret != -EPROBE_DEFER) {
+
+-EPROBE_DEFER can be persistent, devices should be powered and
+destroyed here as well.
+
+> +				dev_err(pcie->dev,
+> +					"Failed to power on device: %pe\n",
+> +					ERR_PTR(ret));
+> +				for_each_available_child_of_node_scoped(dev->of_node, of_port) {
+> +					pci_pwrctrl_destroy_device(of_port);
+
+this misses to power down already powered up devices.
+
+One way to avoid the need to power down devices after
+pci_pwrctrl_create_device() failures would be to split the loop into
+two.
+
+The power handling is now done on a per port basis as asked in v1 but it
+is more or less a re-implementation of pci_pwrctrl_create_devices(),
+pci_pwrctrl_destroy_devices() and pci_pwrctrl_power_on_devices().
+For pcie-apple those are essentially loops over the the available ports
+with error handling.
+
+One annoying side effect of this change. I a single device fails to
+power-on we will break ethernet on desktop Macs although it does not
+need power control. So maybe ignoring errors except -EPROBE_DEFER would
+be the better implementation. -EPROBE_DEFER itself is still a problem as
+the power control for some ports are a optional dependency for other
+ports.
+
+Janne
