@@ -1,78 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793758451;
-	b=B+1rLcGkpz6DQExmWNXpPoitnEqg7W6nJXMz7jDK2ygYuIZw5NlYvhwxn+fWRM+wSLcd
-	 cpB64FzXSy4OXCpkwyLXwy1gPc2C4oQweoUR2QcprYe2m7G858zguxBK9De7xb4pCw7Y7
-	 pE/ivRTHqM5L/w3A3ISV3I2BEpd9+P8heb/ZgblGpk4CON3yGB3FumzyreDwRPsVug8ni
-	 6BdOGdV80RLBzOOzdrDIqXpWWFPSVe7ONu6uO4w926k4G9wdeSf9oC4WMg7yI/5KYG4e7
-	 zwFFcC3GOH5bAylKCcU8TSrnLy0QBBOdYTwMSwCIiTp62fdcEQT5ZDpM9X+REZSLg7w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793758451;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=QuWnynJaFtZ4mUeHAMb8ZXbGT8gjmXFWO9hN7OPXEGM=;
-	b=yZyjoWcT7pJyBiuH5yCif9le81zRq521juUE6DbDZPoYyvyu5XlgXFItc407K+rBzQHe
-	 RjaaPKTWIvGdzPT5KZFh9NB9vzpKgyJu7uuvL1eMObT2g1JTZrKuuENSlJ5/aqI9S6y/a
-	 cJaCMEe+zKc9OADRQrbc9LrcjyM9ksCDheNH5VeqLEDZFN8WqO154jXAWkvBlp8HVp3eI
-	 6gyEF6RW9VBVgG5dnbjS+F8dUFImWfoxrPpJt5eCMVni0Ksv3F0ncKE9K6yBTCBkSNfHV
-	 GlbgkuOS/S/736YNEP9pFiCeozj5RRHdLKgV4dMZq5VvAAIsMnPaeZGnfPKUyBovFrA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z9VAbBQK;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56CB9606A329;
-	Wed,  4 Nov 2026 02:14:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z9VAbBQK
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793758450;
-	b=aFNKdRUX2+JWSIZgrvzWn/cw2aFplahu5cvVHPy6UCoJuHwEV5vGZiJy7x5quLo494WP
-	 6LHHL2eytQ9MAWOFQY9XnadkaBuZj9TFkb6WCr9Hyc/xrc9XHL+ub1+HBRZ/8x7TKkFyI
-	 HzrGn+2kwRLwalswlgliirIfsFpxwEs6Zz8wHfaNyCD/t+XOkhuuS86obWAL/FQdwqjtG
-	 G8Z8OCWwmm1t+pdh44IOqSlvWp7zJNaflWCmbggjjliYSkWEjY+o2cWu0gduIzaDCKjhA
-	 lCa8p75QmRZ77yCmBm6foE98KmWnMLXp2rZUOsvRT8TfsNnnwZIMx0zrJHLrGy9uNgA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793758450;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=QuWnynJaFtZ4mUeHAMb8ZXbGT8gjmXFWO9hN7OPXEGM=;
-	b=YP3cQskzF694e/w5lVmfMMdnim+0c2o9GQ+G8JCXm4FazUhSnzDtnRAs5ICHCzmgG2cc
-	 NX7wnuj763UkSre32zlH60Mmi9ntr9X7VlIA9Z+Vki+VNiZd8mlURMHMhiNWXKaQa7qqx
-	 oehGKraWcbFgL5cvsSqzVgacTqUSZnrxRHYIzQrIaKgWLdp0e9+ykWBhQMpi98XGIeOcC
-	 /WjnP64Qr1EJeme8QGbWJnh50zNKqF8/BmL0W5xyytmBIP3iZg3Ay8wPQh2VG1/GpWgxV
-	 wQSafkV/3RS7MBXaM5WB9wNhou1se+PPo9FwjTJlcpFcISfM1HUoBBAxetfaxjIQagw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.181
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793758462;
+	b=1lXFOarsAAS1m3xNiGM5sefXQJSlgFqNCmUsqGgPBMw0jXIVoQYT9HZHDfNnxqoIGlXW
+	 JMYpk1TL2V5lrG9NqVaNlWxbFzvj1s4o63kVSnXkX0pgNDnqlMtXlq+WQeAdSNja58ks4
+	 ild84GLfu6KoB7iSkoLKcwUmEutqi/UfbLxu71LayjP80GpRocCfm+iq+NQ6K3oZbKspU
+	 9f6783ZJVPERC/PuzJKIzKs52Ci9ws56o1uzX0etcziSnFwHqSxpRSXMcDF9Ptp0s5XYX
+	 syuhZq6Iv2t6zX4Kp8Lp16t4Un8G4uC/sM+/yY3dSn/zBgVjVGz2hyxnIOmoEPq6zcw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793758462;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=kQRkHn5yKaAdkSvzW1LOnqRKeYkGthj+jza5xxN1gEk=;
+	b=Q1q0Fg4Lcg+jCkiSk3OMvqdWoutfyxI+yzPLXeMLfmGx9BDtG+HGn7+s42N1MNhH5UpO
+	 WsDXYiZyR05GtQsBECJLSgrUDMqgXJMJ1J+1BCiGmQ/FaLR5xyi1FoY4FxQOZL8/UDgeT
+	 LIFGp52TnbYf3AItYGL/LaIRDzo9+amYPGYN5X6Sj6emwPZnDfZ5NpJJD14Yqg+egtY8u
+	 g0UE5h8edJ2rlTVyKQYBPxzBKzLMuBNnAjHs5N5i6MRVXVx/OBou9wG/Bc9+TQVmII9Ym
+	 qbZ31+j27v38Mztvygaw78yK+5uRp62kGGMj7MNhEMF0V11xSsd9CVz4XS8QFKkFyRA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LMBjXx2u;
+	arc=none smtp.remote-ip=209.85.214.181
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4D07D1F00919;
-	Wed,  4 Nov 2026 02:14:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793758450;
-	bh=QuWnynJaFtZ4mUeHAMb8ZXbGT8gjmXFWO9hN7OPXEGM=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=Z9VAbBQKfPvU6iJQrlyB6F6w5GXNLz0eGsV78q2Avwaa8u/lWLDGL7eTGuKDPhp2K
-	 0OldadH4+sT874n2OP0UOLIxjQGh4PXAw3gW0p6w5MmPfEopZ0doDaq26xrxxNOHU+
-	 zWwY2YBeM5lNvQwrsgBnWNHr/Dg/edD75x8bJF6x46DALoud6P54iKAE8klgCAHzd1
-	 9fjv3u6y/NfoEvEDwGYodFlu7Em8urPS5LwBhiW2vD6WCB5UtIX2uKJwkz+KM5YbWj
-	 H/H/USBhktkaFMxjXnXJ5vh7ZxzT6LhrFu0zqP+CbFh3fFWFGWwQINTzxnU/S42fk+
-	 ffxGO2IfzeQ1w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A02FF46BB9;
-	Wed,  4 Nov 2026 02:14:09 +0000 (UTC)
-From: Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org>
-Date: Wed, 04 Nov 2026 10:13:53 +0800
-Subject: [PATCH v2] clk: meson: Fix PLL enable timing
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1014C606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 02:14:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1014C606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LMBjXx2u
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2e9f6a16aedso1068145ad.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 18:14:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793758461; x=1794363261; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kQRkHn5yKaAdkSvzW1LOnqRKeYkGthj+jza5xxN1gEk=;
+        b=LMBjXx2uClDkSh56yde79rrXj0XM9/iiOSgerllt7NLaWaj6hrg0RXE/pYS6LjdyHx
+         70fwp2wU57BwDq4qG7q9H6cTp5ahuzUunJm0X+3B5NnR3FVWyD+glsum4i+C8DWpFoXQ
+         HcowhVg/YE36o5WLf7qKDZ9+/nibJ7k7LJR4L7qnZFS8y4LZe88VQQK51Vg1OUUg4Pg3
+         zhx9JAn1CU71oTNN5A/61sNjEK/pCPORdeqYhVowm6TVk/JEFVQ8F+vuZeHHRGcI6v3q
+         kHLFuSFSsf9gU4EVJEunK6vYIXUiCTIXcJCAn1GO6bPfBTLrHgwQuza5WkEftfgyFYQG
+         E5lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793758461; x=1794363261;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kQRkHn5yKaAdkSvzW1LOnqRKeYkGthj+jza5xxN1gEk=;
+        b=2EUEiJcyVtudbwTX5hQaE+YhauClMdp58UMXH3z/M1EuiYAU4p9dsa2YUoTJCBbNst
+         dQ+JLOLpHs9DZ8i6Zwxuy3kC/7JoS94jIaAJR1uXDYfa32wp/b9fOv7CfOtSS4HiqMfJ
+         /A/rE2zu9hFXGQq8WFhJX6hd5MhFsWogUT+nAE9l5ryUi6o5D2dZQOToXgAnoqXX3fLZ
+         1RCJBI1SiiudV8ukhRjZOhIqhpGRI5bu9a8UMzODZC4aZtAsC7BEkUQHR68AYI18BXfJ
+         uRwxreeEow23dZXATAU3DPKrllbzx2XwODzm9xijHevenRaIg6EXG3fLNCPxjfOL5jLT
+         iXuA==
+X-Forwarded-Encrypted: i=1; AKwUvByqpwNpXWCalrl+qz/qsiYGO1SVjV73AwrGtt0WJzTOIjfH5At52yVqvVRfO1mtYs46WZpU0p8OyKjkv90=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9xWkol2TmlMmltzMn/IuUT0xUiG5ToL3EH9067MIAsjqzz++E1
+	1pS/nfCl/gRmV7JDsaZXXP3cWbHJB4/i/9H/keZv9rYW199mZ2WXXp+7
+X-Gm-Gg: AYBFou0aH3x8yZGINHuBVK6CiiJ6WXGbzvIXRw8hu8ev92pqcyivpFPd20EhADe6ANR
+	ZVcTI1xLDDs2w7UY1+xqM1M4r0GRipzCT3FbIkZ/TgG+FdBp4fyXJtRc47wYlnicP8KMJdwrRMs
+	D8g4oIwbc+WmwKeoo31+fQlzygpgd4Ao1xDtuTtB1efCP7Omd+QdA1KOJtQoDPTmu0/TeqIJ0Dy
+	YEk6AZvklIB9KiQcylRZZGfXigKbkkgpwAGxSv60u5459kSrpjzQj48QsshUWIVUhSLyVU4eLH6
+	q42qCgo9mx7Q+Qfe8rwSEqXXEI71DVZ8syPyQCuAj4wC8e3uHAL1i96rO3rNQO59lv7JW6SJYYG
+	mt0XNhpA/EBAyjRApfLyGvRK5f0BgqF56K+9Wk6Z+3IqGqDl/yu91nVNVDrF4a6B+SCypPG/bbv
+	Yd8MqcIz2LQpaoW5SFVBwPdXP9GwvNNv1E79y4AbdtwDA/gcdKq+MGQjkci345z1I2/OdHKjrTE
+	PVqOKIRtgK44bHFLV03IewdscEZPqrkJzzExayB5PcrhxVOE/DTbA8zWbXk5vgf3WDTXkUVRXft
+	L/f+lkGx5rxWxpyocbCWHk3DbZYmkic7yEK5aNJQCifkTws=
+X-Received: by 2002:a17:90a:d383:b0:3b0:97b8:d6bd with SMTP id 98e67ed59e1d1-3b097b8d83dmr437238a91.12.1793758461354;
+        Tue, 03 Nov 2026 18:14:21 -0800 (PST)
+Received: from ubuntu24.vpn.host.chaitin.net ([124.77.157.93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c9b0ec5sm6727440a91.16.2026.11.03.18.14.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 18:14:20 -0800 (PST)
+From: BeaCox <0xbeac@gmail.com>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: David Howells <dhowells@redhat.com>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] KEYS: Protect pkey method checks against type removal
+Date: Wed,  4 Nov 2026 10:14:14 +0800
+Message-ID: <20261104021414.50696-1-0xbeac@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <aun7J2NGn57RGS5J@kernel.org>
+References: <aun7J2NGn57RGS5J@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,117 +102,223 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261104-fix_enable_timing-v2-1-05cdaf34fcdb@amlogic.com>
-X-B4-Tracking: v=1; b=H4sIAOCU6moC/22NQQqDMBBFryKzbkqSioaueo8iEuMkDmgiiYQW8
- e5Nhe7KrN7n/zc7JIyECe7VDhEzJQq+gLxUYCbtHTIaC4PkshFctszSq0evhxn7jRbyjqlaDla
- reiwHZbdGLKXT+ewKT5S2EN/niyy+6c+m/tiyYIK13PKGo7lZqR96mYMjczVhge44jg9Nqm6Dt
- AAAAA==
-X-Change-ID: 20261027-fix_enable_timing-842bfa84d4d4
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jerome Brunet <jbrunet@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Dmitry Rokosov <ddrokosov@sberdevices.ru>
-Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Chuan Liu <chuan.liu@amlogic.com>, Jian Hu <jian.hu@amlogic.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793758448; l=2881;
- i=jian.hu@amlogic.com; s=20260415; h=from:subject:message-id;
- bh=xxrXTMztdBF0a6VBQPK0bEnfAifBskZXSA2NITGHqh4=;
- b=3C/aE4+3IjlZRhPCE2+cmWyBrKfwj3h7F6xGKTAv7WFzD7Xvq/R7XnrXwbaqnesEhZ/KTy9XC
- HvDa3fB608+Bphq7/Q9ei3vd0wOxU7GPwFeplrgBqV81rLq7WR33XbQ
-X-Developer-Key: i=jian.hu@amlogic.com; a=ed25519;
- pk=zHUE+rNtH9z+Sb8au1/elWknjFQmy5QDVkBoxleuOIA=
-X-Endpoint-Received: by B4 Relay for jian.hu@amlogic.com/20260415 with
- auth_id=735
-X-Original-From: Jian Hu <jian.hu@amlogic.com>
-Reply-To: jian.hu@amlogic.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Jian Hu <jian.hu@amlogic.com>
+keyctl_pkey_params_get() looks up the key, and keyctl_pkey_query(),
+keyctl_pkey_e_d_s() and keyctl_pkey_verify() then dereference
+key->type->asym_* outside key->sem.  A reference keeps the key alive, but
+does not pin the module providing its type.
 
-The hardware requires a 50us delay after setting the PLL enable
-bit to allow the PLL power-up sequence to complete.
+unregister_key_type() calls key_gc_keytype(), which retypes every
+remaining key of the type to key_type_dead under key->sem for writing.
+The pkey paths read key->type again after their checks, so a concurrent
+module unload can turn the checked callback into the NULL key_type_dead
+member and call through a NULL function pointer, e.g.:
 
-Without this delay, GP0 and HIFI PLLs on Amlogic T7, SM1 and C3
-may fail to lock under stress testing.
+  KEYCTL_PKEY_SIGN task              Module unload and key GC
+  ------------------------           ------------------------
+  keyctl_pkey_e_d_s()
+    if (!key->type->asym_eds_op)     unregister_key_type()
+                                       GC: down_write(&key->sem)
+                                       GC: retype to key_type_dead
+                                       GC: up_write(&key->sem)
+                                     free_module()
+    in = memdup_user(...)
+    key->type->asym_eds_op(...)      -> NULL call
 
-Add a 50us delay after enabling the PLL and another 50us delay
-after deasserting the PLL reset.
+In-tree, turris-signing-key provides such methods.
 
-Testing on GXL shows that the PLL works correctly without the
-additional delay and continues to lock successfully after the
-50us delay is added.
+Hold key->sem for reading around the method check and the matching call,
+so that the type cannot be retired in between.  Each keyctl handler takes
+and releases the lock itself; the semaphore is not passed out through the
+parameter block.  User buffers are copied outside the critical section.
 
-On A1, remove the redundant 10us delay before enabling the
-self-adaption current module, as the new PLL enable delay already
-covers this timing requirement.
+This is the same type-removal problem recently fixed for the read
+(925c84e3cc21) and update (aef3a8a4f988) methods.
 
-Fixes: b6ec400aa153 ("clk: meson: introduce new pll power-on sequence for A1 SoC family")
-Signed-off-by: Chuan Liu <chuan.liu@amlogic.com>
-Signed-off-by: Jian Hu <jian.hu@amlogic.com>
+Fixes: 00d60fd3b932 ("KEYS: Provide keyctls to drive the new key type ops for asymmetric keys [ver #2]")
+Cc: stable@vger.kernel.org
+Signed-off-by: BeaCox <0xbeac@gmail.com>
 ---
-For example, enabling the GP0 PLL at 1512MHz may lose lock and
-result in an output I/O error:
+Hi Jarkko,
 
-echo 1512000000 > /sys/kernel/debug/clk/gp0_pll/clk_rate
-echo 1 > /sys/kernel/debug/clk/gp0_pll/clk_prepare_enable
-sh: write error: I/O error
+Thanks for the review.  v2 keeps the semaphore ownership local: each keyctl
+handler takes and releases key->sem itself, and the parameter block no
+longer carries the lock out of the helper.
 
-Tested on: T7, C3, S4, AXG, GXL, SM1 and A1.
----
+The type check and the matching ->asym_*() call are now in the same
+read-side critical section.  keyctl_pkey_params_get_2() only covers its
+->asym_query() call; the input buffers are copied before taking the lock
+and the result is copied back after releasing it, so user memory is not
+faulted in with key->sem held.
+
+I also dropped the out-of-tree rationale.
+
+I saw your "KEYS: Pin the backing kernel module for a key type" RFC.  If
+that lands first this local fix should become unnecessary; I'm happy to
+rebase or drop this patch, whichever you prefer.
+
+v2 is below.  Tested with the same KASAN/QEMU setup: delete_module() now
+succeeds while the caller is blocked in memdup_user(); the caller then
+takes key->sem, sees key_type_dead, and returns -EOPNOTSUPP instead of
+calling a NULL method.
+
+Thanks,
+Bea
+
 Changes in v2:
-- Combine Chuan's patch to this patch.
-- Update the Fixes tag.
-- Move test details below the commit message.
-- Link to Chuan's patch: https://lore.kernel.org/all/20251031-optimize_pll_driver-v3-2-92f3b2f36a83@amlogic.com
-- Link to v1: https://lore.kernel.org/r/20261028-fix_enable_timing-v1-1-70f060ec3f2a@amlogic.com
----
- drivers/clk/meson/clk-pll.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+- Keep key->sem ownership local to each keyctl handler; do not acquire it
+  in keyctl_pkey_params_get() and release it in keyctl_pkey_params_free().
+- Copy user buffers outside the key->sem critical section.
+- Drop the out-of-tree key type rationale.
 
-diff --git a/drivers/clk/meson/clk-pll.c b/drivers/clk/meson/clk-pll.c
-index 1ea6579a760f..477eb9958a8d 100644
---- a/drivers/clk/meson/clk-pll.c
-+++ b/drivers/clk/meson/clk-pll.c
-@@ -369,20 +369,25 @@ static int meson_clk_pll_enable(struct clk_hw *hw)
- 	/* Enable the pll */
- 	meson_parm_write(clk->map, &pll->en, 1);
+ security/keys/keyctl_pkey.c | 71 ++++++++++++++++++++++++-------------
+ 1 file changed, 47 insertions(+), 24 deletions(-)
+
+diff --git a/security/keys/keyctl_pkey.c b/security/keys/keyctl_pkey.c
+index 15b6bf6399..e553f6f311 100644
+--- a/security/keys/keyctl_pkey.c
++++ b/security/keys/keyctl_pkey.c
+@@ -100,9 +100,6 @@ static int keyctl_pkey_params_get(key_serial_t id,
+ 		return PTR_ERR(key_ref);
+ 	params->key = key_ref_to_ptr(key_ref);
  
-+	/* Wait for the PLL power-up sequence to complete */
-+	udelay(50);
+-	if (!params->key->type->asym_query)
+-		return -EOPNOTSUPP;
+-
+ 	return 0;
+ }
+ 
+@@ -129,7 +126,14 @@ static int keyctl_pkey_params_get_2(const struct keyctl_pkey_params __user *_par
+ 	if (ret < 0)
+ 		return ret;
+ 
++	down_read(&params->key->sem);
++	ret = -EOPNOTSUPP;
++	if (!params->key->type->asym_query)
++		goto out_unlock;
 +
- 	/* Take the pll out reset */
--	if (MESON_PARM_APPLICABLE(&pll->rst))
-+	if (MESON_PARM_APPLICABLE(&pll->rst)) {
- 		meson_parm_write(clk->map, &pll->rst, 0);
-+		/* Wait for the PLL loop to stabilize */
-+		udelay(50);
-+	}
+ 	ret = params->key->type->asym_query(params, &info);
++out_unlock:
++	up_read(&params->key->sem);
+ 	if (ret < 0)
+ 		return ret;
  
- 	/*
- 	 * Compared with the previous SoCs, self-adaption current module
- 	 * is newly added for A1, keep the new power-on sequence to enable the
- 	 * PLL. The sequence is:
--	 * 1. enable the pll, delay for 10us
-+	 * 1. enable the pll, delay for 50us
- 	 * 2. enable the pll self-adaption current module, delay for 40us
- 	 * 3. enable the lock detect module
- 	 */
- 	if (MESON_PARM_APPLICABLE(&pll->current_en)) {
--		udelay(10);
- 		meson_parm_write(clk->map, &pll->current_en, 1);
- 		udelay(40);
+@@ -185,15 +189,25 @@ long keyctl_pkey_query(key_serial_t id,
+ 	if (ret < 0)
+ 		goto error;
+ 
++	down_read(&params.key->sem);
++	ret = -EOPNOTSUPP;
++	if (!params.key->type->asym_query)
++		goto error_unlock;
++
+ 	ret = params.key->type->asym_query(&params, &res);
+ 	if (ret < 0)
+-		goto error;
++		goto error_unlock;
++
++	up_read(&params.key->sem);
+ 
+ 	ret = -EFAULT;
+ 	if (copy_to_user(_res, &res, sizeof(res)) == 0 &&
+ 	    clear_user(_res->__spare, sizeof(_res->__spare)) == 0)
+ 		ret = 0;
++	goto error;
+ 
++error_unlock:
++	up_read(&params.key->sem);
+ error:
+ 	keyctl_pkey_params_free(&params);
+ 	return ret;
+@@ -230,9 +244,21 @@ long keyctl_pkey_e_d_s(int op,
+ 	if (ret < 0)
+ 		goto error_params;
+ 
++	in = memdup_user(_in, params.in_len);
++	if (IS_ERR(in)) {
++		ret = PTR_ERR(in);
++		goto error_params;
++	}
++
++	ret = -ENOMEM;
++	out = kmalloc(params.out_len, GFP_KERNEL);
++	if (!out)
++		goto error_in;
++
++	down_read(&params.key->sem);
+ 	ret = -EOPNOTSUPP;
+ 	if (!params.key->type->asym_eds_op)
+-		goto error_params;
++		goto error_unlock;
+ 
+ 	switch (op) {
+ 	case KEYCTL_PKEY_ENCRYPT:
+@@ -246,27 +272,18 @@ long keyctl_pkey_e_d_s(int op,
+ 		break;
+ 	default:
+ 		ret = -EOPNOTSUPP;
+-		goto error_params;
++		goto error_unlock;
  	}
-
----
-base-commit: 363f97a1ce635b86be7fd263d56a040fbd87bdbb
-change-id: 20261027-fix_enable_timing-842bfa84d4d4
-
-Best regards,
+ 
+-	in = memdup_user(_in, params.in_len);
+-	if (IS_ERR(in)) {
+-		ret = PTR_ERR(in);
+-		goto error_params;
+-	}
+-
+-	ret = -ENOMEM;
+-	out = kmalloc(params.out_len, GFP_KERNEL);
+-	if (!out)
+-		goto error_in;
+-
+ 	ret = params.key->type->asym_eds_op(&params, in, out);
+-	if (ret < 0)
+-		goto error_out;
++	up_read(&params.key->sem);
+ 
+-	if (copy_to_user(_out, out, ret) != 0)
++	if (ret >= 0 && copy_to_user(_out, out, ret) != 0)
+ 		ret = -EFAULT;
++	goto error_out;
+ 
++error_unlock:
++	up_read(&params.key->sem);
+ error_out:
+ 	kfree(out);
+ error_in:
+@@ -307,10 +324,6 @@ long keyctl_pkey_verify(const struct keyctl_pkey_params __user *_params,
+ 	if (ret < 0)
+ 		goto error_params;
+ 
+-	ret = -EOPNOTSUPP;
+-	if (!params.key->type->asym_verify_signature)
+-		goto error_params;
+-
+ 	in = memdup_user(_in, params.in_len);
+ 	if (IS_ERR(in)) {
+ 		ret = PTR_ERR(in);
+@@ -323,9 +336,19 @@ long keyctl_pkey_verify(const struct keyctl_pkey_params __user *_params,
+ 		goto error_in;
+ 	}
+ 
++	down_read(&params.key->sem);
++	ret = -EOPNOTSUPP;
++	if (!params.key->type->asym_verify_signature)
++		goto error_unlock;
++
+ 	params.op = kernel_pkey_verify;
+ 	ret = params.key->type->asym_verify_signature(&params, in, in2);
++	up_read(&params.key->sem);
++	goto out;
+ 
++error_unlock:
++	up_read(&params.key->sem);
++out:
+ 	kfree(in2);
+ error_in:
+ 	kfree(in);
 -- 
-Jian Hu <jian.hu@amlogic.com>
-
+2.43.0
 
