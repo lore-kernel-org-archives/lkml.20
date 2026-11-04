@@ -1,106 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.35
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.88
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793796588;
-	b=HmWtvlSJ6GoC9osqb9v2MYJXaJOwn6SkfzjVAfwLVbp056bGnBVyyUQmv3xdzLLiX//H
-	 qLNsE2JvH7f3PFONZBbz8hAhSJZ0wcR7l7Gywsn4PQEzZ6dPiNBKswuC+aOO+8sa9DGMm
-	 alV3sV+ZLVnAMYW6nM3EzAyIJiGQnXELETmDu2vmrzKR7oI8lrKorVbRn0jrEkgsfjFKY
-	 ep8y7VkWqHy5Vm+aldxmdJSxoyu+sxshB8fE84FhhAJ1yrABelE1zDehR6WXIo4KtJ2fA
-	 /0vgQ+3jm0wP7gQs9ta1P6/9W8UQL+njqWnishJFH9jXsisXZu9Rmh2Yq2CzthS+k6A==
+	t=1793796622;
+	b=SLsiHR+Yza774xMcuiOE3n5u+BjCZSDttptsX/EbZZ72XZkaFRqVtA4lssFsGuRrHhXj
+	 AqWsK6PiWCL0I8ZPsGJjSzyLrEYdicopG9+X5zzth0I+SHdVMgQE0aM7Bo/45S9O/1pmF
+	 pWEuG8CT5DgvbNoLwaLVzbByekqcdrWo2IHTRgoEhPA42SbuT5hU3KbLQKO1tp7hnp5or
+	 JTsLzlXtFKBsBUqQq8EcIRpnWAG7i8kTEACDff1sRs6V0lm5BfbLl0SDe8zGm2XsVfTp6
+	 jERZ9bQtyThI3hX/z9YsvjblhdGmzr7BSw0N78+YtHe/ulaZYrQ8ouRZoOJsK4Xx6kg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793796588;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793796622;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:Content-Type:
 	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
 	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
 	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=seyoCC8UDh4HywmEg4RY1Y0A5ZL97ROajEiL01nTuZA=;
-	b=ZVxU/LApnxzjZZrOR4UFW7+vJ7I+iFPo85vQ0GMoPnW3631mNUjOJ5Sm1N4dD+d/bgkY
-	 /IhQbf/ISg7GbaGdaYrqcryQ3WTmmWUs2PW931yn4F90g7Aw98Oa2050+5M3Xzx6wPKa6
-	 5Ld5zIDinaUYaiuXbkunCoAORfFB2JMdzSJeE9XYF8bRIgt1VswqzkcwNbmJO0X0IdQ6y
-	 wmq9IIMkh2kLh95AC5CfMTakLc6OfPfAzFhAX1QMeswbE0k35kn7tSUMtjiVfV0RX/YVt
-	 gBDO2jO6bOqBezKi9bPrh8+fsfJg3RY8YCk4KCZCJQjXafaErBvyUbORCpwawLc147w==
+	bh=A/zwYppY3H/BbzZu44s8fKjSB6dURflHGaaiXbNMdwY=;
+	b=uhKSaiEQ7xpE7fm96DSmAxxnCC3g80kcxW1dxzRkrc39jM7sVaaBEOWsKtWYKF5c0WvP
+	 u8/yX1YrpLmEPph87DTt06d7I7ij3467GW8eZhg8SZ20azf0ILS7flxRPVGyXW/sXC8/Z
+	 94+l8Nn16t3ny+ZlXeA76SMfs4D0HVOai91mKX8ZLFrEur05+9bjzQ6RyJVyV+wa10pZP
+	 LfjHj+M3iUhHB5ntY3EjDUlEJx802rLhQ/IxI2RHekXgT7TV+QmtlvrPaZTwUwQwchECi
+	 kg4GQszLaEeuDLyIOO5C93w+uyrYafxfmfHEGb7i1ZfwD0yfGDtwDu0dQgoJNROh6yw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=IFzuNWxs;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.35
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012035.outbound.protection.outlook.com [40.93.195.35])
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.88
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022088.outbound.protection.outlook.com [52.101.126.88])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3CB1606A328;
-	Wed,  4 Nov 2026 12:49:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3CB1606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=IFzuNWxs
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D324C606A31B;
+	Wed,  4 Nov 2026 12:50:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D324C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=a2k+Fn8I9SAPpsvbNFX0lRgTIBJWjnHlKXvXMEXimWOPcgrRK3du6glKs0Fen+5MTMPgLBZlBR5IwKfFX4swfQeMnCbhtD5dD+WPbUd0SCyK7QGdMEJCPsmGVKYhxCF8wlm5EXtnPHzykAygmwfKp928QBRkmvQpWGvlpqmxiDwqBD0y3udDF4vYgZkNZ2LmcOSBgwpNb9PEg/w2GZnjCHMd0UFli/0Hav0a7mlzJ8idDNSQT/0zvqTbEeb3BGRJrJehvautu/MQ3n2EBnvsPdf6klVjtDEIBop2Lfc0DLVuZnsVnTpVXqcBlww1XJMLt0wkkFLZFWlMHgDiapdlYA==
+ b=DnirZDgihYq5V9rP2EZ3KOzqjqmZW2gOnt40rMP9TWhm9SAb5517VDnnG8f1YSP7fk14SHarQifRRR4gZ1n9yhp1PCmeh9pXLocY55xQFZtRLJz2hf6Xwj5MRQ5Hwm/3tBcqGxTulEpv02himOs8QOh51/OvitVGZYgqB+N5KhIMcaEcEdTFAuTA7aTfrDKMSxuIrShRxQeir4zTh/ulBmNkOXY1RcyJTlN/d8VYXoUZCZt7SCDeGIRlYyyzO759eSi9fpbKT6eGsVJwOQWf5RICsFiCro7FkbxA0aa9jiK8gZIk6+Pci5363EdfZbpL0Nt515+xdMFD+P8IgtXfWA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=seyoCC8UDh4HywmEg4RY1Y0A5ZL97ROajEiL01nTuZA=;
- b=qcg72KaFoOiYuB9tvFg4JRh7Uco6ei0Ed29vp/0iEDWqXfg/uhHwTJ5PLiQPBbu2pK/OnBAUnLuMC7NoqS5oWllQxaInH8GyQUkoZ2o1Bx2bYrWRVNRtLaeR9RGd0uLVguSSSwE6S3F/Krt9rPkXhpbt4wNqxmz8zBwxl3UCK5+WbEYKmazEufZnXVx/LwfK49ZRwfM5cz1bul+a7dKIvHSpg9X+Iw3gKmby24MwJiVM95ZZPfEjnjoP7ybnWLt5VpBKsYptdCclvVveqM15h3SMmObHm2WOXo7/4WwOxzs0QqoNRgwUstQbNd8uD249a6b+m92aYK+thfMpWp1+UA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=seyoCC8UDh4HywmEg4RY1Y0A5ZL97ROajEiL01nTuZA=;
- b=IFzuNWxsLf1mH//KdIRsDjxiVuDcBJ0skGOCmgmMYM5zBJNyfZt4Hyp5RRucUoPPrR9ZmdSKHiDekRwz3CXXZGejso+F0AbgvGsU7PIJIUd7GSIhUOK9P1FCuafjkH90+yYtbQVeuVsAPrWgHiINEoeZlLqEcRxgGPnbounaTuX6GxVerBdUcMo4M+MXy3rWLHQqwBPJrmbvsA/eZ7fvGGxURtwvhIy7gCJmp56cEraY7s8UmUWc52TR4aiQSA+CPVvm0GmfTfmhnrfd0X3+Neos2aTBnpLy9m4m4Kk/CucV2OvH7uKf3Z5o3fUGx6xecMyBkn1dFtQK6aBsDlFgFw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA4PR12MB932075.namprd12.prod.outlook.com
- (2603:10b6:207:12d::15) by FT1PR12MB863618.namprd12.prod.outlook.com
- (2603:10b6:170:e::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Wed, 4 Nov
- 2026 12:49:44 +0000
-Received: from IA4PR12MB932075.namprd12.prod.outlook.com
- ([fe80::5a6f:1f74:6ccb:cf2f]) by IA4PR12MB932075.namprd12.prod.outlook.com
- ([fe80::5a6f:1f74:6ccb:cf2f%5]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 12:49:43 +0000
-Message-ID: <94dfe8e7-5eaf-45be-94f5-7d2e2b38fdb2@nvidia.com>
-Date: Wed, 4 Nov 2026 14:49:37 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] net/mlx5: macsec: free struct mlx5_fs_id after an
- RCU grace period
-To: Cosmin Ratiu <cratiu@nvidia.com>,
- "joasantonio108@gmail.com" <joasantonio108@gmail.com>,
- Mark Bloch <mbloch@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>,
- "leon@kernel.org" <leon@kernel.org>
-Cc: "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
- "edumazet@kernel.org" <edumazet@kernel.org>,
- "davem@davemloft.net" <davem@davemloft.net>,
- "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
- "sd@queasysnail.net" <sd@queasysnail.net>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "pabeni@redhat.com" <pabeni@redhat.com>, "horms@kernel.org"
- <horms@kernel.org>, "kuba@kernel.org" <kuba@kernel.org>,
- Boris Pismenny <borisp@nvidia.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>
-References: <179313582625.87630.11382992904624255106@gmail.com>
- <e91e786d3bf20ed981ab2d214ae3358d137d597e.camel@nvidia.com>
-Content-Language: en-US
-From: Tariq Toukan <tariqt@nvidia.com>
-In-Reply-To: <e91e786d3bf20ed981ab2d214ae3358d137d597e.camel@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: TL0P290CA0007.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:5::11) To IA4PR12MB932075.namprd12.prod.outlook.com
- (2603:10b6:207:12d::15)
+ bh=A/zwYppY3H/BbzZu44s8fKjSB6dURflHGaaiXbNMdwY=;
+ b=QOY24am3NTTqtFqMJSVWCvR9HUWznZMVPKzAyl74HwcCIeDIax93kliUfw0oC9LWlsV6qtJe63A+tv8/FQhZmdbb+zsIKiaOyZie45XIwIqURNh09l46fr/VSdYLG7BIBozDtl9s4Q/3jpdcBRgftejgBXSgQe0F/ByvCtE893Dpjy8E5OTiozLt5TYx6bcnpi2LFKBVkm5I9jDttlCsUvQfijR9R2zs+eAe4Fm6oHy+G3qID3Qd5UhbbIdkw5E+BR9SknhwrF+2koBRP526lxONr9+YSHhEWiBSlOpx4Ggti1VMAzLqkPlshgOgfoIyO5jf1DjN/oQtZ5Km8amz4w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from SI1PR02CA0002.apcprd02.prod.outlook.com (2603:1096:4:1f7::16)
+ by TYZPR06MB6498.apcprd06.prod.outlook.com (2603:1096:400:465::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
+ 12:50:16 +0000
+Received: from SG2PEPF000B66C9.apcprd03.prod.outlook.com
+ (2603:1096:4:1f7:cafe::90) by SI1PR02CA0002.outlook.office365.com
+ (2603:1096:4:1f7::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Wed, 4
+ Nov 2026 12:50:15 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ SG2PEPF000B66C9.mail.protection.outlook.com (10.167.240.20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 12:50:14 +0000
+Received: from ubuntu (unknown [172.20.64.99])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 714264091E31;
+	Wed,  4 Nov 2026 20:44:12 +0800 (CST)
+From: Jelly Jia <Jelly.Jia@cixtech.com>
+To: vkoul@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	robin.murphy@arm.com
+Cc: devicetree@vger.kernel.org,
+	Frank.Li@kernel.org,
+	cix-kernel-upstream@cixtech.com,
+	dmaengine@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jelly.Jia@cixtech.com
+Subject: [PATCH v5 0/5] dmaengine: arm-dma350: Add slave support and Sky1 integration
+Date: Wed,  4 Nov 2026 20:44:06 +0800
+Message-ID: <20261104124411.296640-1-Jelly.Jia@cixtech.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,153 +104,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA4PR12MB932075:EE_|FT1PR12MB863618:EE_
-X-MS-Office365-Filtering-Correlation-Id: 41d401d7-4174-4da8-5e46-08df3a72195d
+X-MS-TrafficTypeDiagnostic: SG2PEPF000B66C9:EE_|TYZPR06MB6498:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 5c5bdb58-ece7-4638-6ee8-08df3a722c46
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|7416014|376014|261022075727099003|261028144727099003|261022105027099003|261021123027099003|261021121427099003|261026140227099003|261026121527099003|261102123227099003|4143699003|56012099006|5023799004|11063799006|10067099003|22082099003|18002099003|261009223027099003;
+	BCL:0;ARA:13230040|36860700016|82310400026|7416014|23010399003|376014|1800799024|6133799003|10067099003|18002099003|3023799007|56012099006|261022075727099003|261026121527099003|261022105027099003|261028144727099003|261026140227099003|261021121427099003|261021123027099003|261009223027099003|261102123227099003;
 X-Microsoft-Antispam-Message-Info:
-	W0CTA5vkOfIgohcGsodeh9iX6S/LE93oHeec6LQqSMKItXjr/7BlzIxhajyq4yL+XdPyj1bjLLLx0VclnCPXOTc7PYKcCtKSwjZmsQG50Dt6SZsV957wMKTkcqSuPajAY1qwRzdUDtodVg8ZqSAQJJMQcSqf7at8KIfPLlk+C6ANHLtZ9LCjy3QnYzZFbBMruMJM6PW1yI7vmi7tjmVDHV9tlaObLQxuGC1t6Xh5zZA5b4zCMEND8S2bCqHo4Cd+KWLQFbMMVu6X9lxaQpXv1qZVYrK6x9ffuUjNM92g8U/1ksqO5LJ6+u3/G6kpD+Ob2oMFXUOEN8d9AHjsE3RhMMXHT45lQQpd2gOD2D4+zLNfdg4E0g79QlpSm1ki9RwNIYKoRsMTOusr5LbO8jMMcv1xUAJrm+ECCcnP+AFHDj1yTih6LVhcyS+r4+rjWfoSJomugPABu6TiHcTDP6zUhEA79x6S6vgZ4AOhijtZ0BAVkNsOGECAauUVZI5tF87mMgOBeO1eK7IVxiuQlaVdtG1w/c/fyiGT9MdpCiVIV0UEXxBV9O/wpFqBUpND3c9xXLMnKruhS4EfOIIEIigFNi9vUJ6rVwtHWBMOROa6Myk8CmP/oUButZIW0puy5JW0By2oLHLa9Cf0yDkMSsPZ3Cd0PWtbekUTqSOP1idLx5U=
+	ZP3NkVLR6rTCxou5s5BxmTAXC4MX8LKRHJu6mr9FjtapsraiDRyg29pdRczEaNRsg6EHcfhUkz9oizgFbjDAx5mNZaYpyj0hOXZ0xAyv/XSURtro1n7rdBVDcMqQzK+rKOedBOWYMwnC+diHqypvqhrOIOzXDu/YsnDS1IVkxlEyKUR7y6p4k3vSx6wa6jq8NQ9bPdIKZyi4VxaxDP0wUiUD11XgT+Z9DQaXY51zxZ+QlB6+zQ9rNAIaY+K42Zr0OnKpK8ON+LSzgZ0XNDB3t13bcT4ZMsAuUaVWEvtDuGc3bJSmTE2YiQ8hcDDEdfdvPPvQT8mTt+4A2dote881lOM8pU1DzKK3XKCJzGwuk6lkCUkwEN7sx2rzo3J+3jaZMs2xvUgKsgGtelOxhnFGMPikG8ft2uLTVyoIgc2L0TIYYmzA2g4qR0aT5+/wOeCPdCTmq3StvSDfb/3UbG0jD9W4Hdr2W2p6Us+vp6bpWVydtMOyTsppNxsNHfAXPNGRVpeYgEhyycfysVhFk0BVHlFC975tl0vzSPI3saaDmithJ1OAA+mMsu6BguCvGnfsesBpJQNCBt9+ycGk+g0aEBFmaA+EPYPNcBcnvm82vT98ERi8gB1+f/O2MX1S9DjelNU98s1S6DKLERXdDgk+2Q==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA4PR12MB932075.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(7416014)(376014)(261022075727099003)(261028144727099003)(261022105027099003)(261021123027099003)(261021121427099003)(261026140227099003)(261026121527099003)(261102123227099003)(4143699003)(56012099006)(5023799004)(11063799006)(10067099003)(22082099003)(18002099003)(261009223027099003);DIR:OUT;SFP:1101;
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(7416014)(23010399003)(376014)(1800799024)(6133799003)(10067099003)(18002099003)(3023799007)(56012099006)(261022075727099003)(261026121527099003)(261022105027099003)(261028144727099003)(261026140227099003)(261021121427099003)(261021123027099003)(261009223027099003)(261102123227099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Wmo4NG1wVWVWdmpnZVJYdEpZL2twSUluOFltRFVUc3Y4L3ZYRUtNQ3FhOGth?=
- =?utf-8?B?cGxwN3V2cm1teFhzbm5XeC9ZRkY1R0RoVFlFbG5JV2x1bGdnVFhkUEdPS3NL?=
- =?utf-8?B?bUtxK1Nmb01FZmo4dUpFSUZUMzY0MGtuOW1TL1NQMlBPb2FCdU53TkZDMnUx?=
- =?utf-8?B?cjJkeHRpSlFxWkNqT1ZCdG54WHB5QnpTUS96bnlFN3VxdHozM3pkUFpHeEZt?=
- =?utf-8?B?aFQyRGsyNHpBa3ptRHk1cjVVdGNteWVrZENmUjlhUXB0Mk12ZisxMkdhSWY2?=
- =?utf-8?B?SHhTdmt3NTVRT2RiS0s4N1A0TEJzV2oyMGZOL2NTc1JTV1p3RUE2S1BNLzdR?=
- =?utf-8?B?WjI4eCtiekxuMVM5aWRxVkc4Y3g2bWJIOHZPbzNGdGNkcHJXb0FOS0d3S1BE?=
- =?utf-8?B?R1NtSi84WS96UW9KNmRUeUlXeG1NUFpkZytzVUcvRWZyOXZ6QWc3US9MZ3VG?=
- =?utf-8?B?Z3k1QURNOXBLOGZQcDlBZktlRmhOVDE5U0FVOVhBMXlGTVRLTW9VbEUrZ0ht?=
- =?utf-8?B?MTlMbHBhWm8yVkphV0tUT0hDRFJLbW1TMTlXdkx2SmEzZHp4dXo5TUlDUnp4?=
- =?utf-8?B?dGZ3cXdHUkI0dFI2a0NlUFFna1o4NzZMVW9TVzFuWFVGMlpzejNhalEwd0NZ?=
- =?utf-8?B?QWpEWHZmU3FHZzVneCtwR2RZVDhTT1NMbERiVjEvcTRGK2hQdm5qRUZwTXV3?=
- =?utf-8?B?QVdRRWdDYlJCS0xSeU1MWDZiamRvN1djaVIxY1c1bzRZMis0OVJkRzlaMzE4?=
- =?utf-8?B?VnZIL2tvVUxHT3ExK3NDMTFRblBkaGhzYzd2OFpWaDdvdVJSVzkvd1lnVkdP?=
- =?utf-8?B?YWg3TmdjcTdoNDJqc1R5UGZKdFByYWQ1Z3gyWEY4WGtrWTg2bDZIaVFrUlN4?=
- =?utf-8?B?RVlkRXBVZUdCVTlYbXY2ODdyK0s1SjBZWTlJTVYrUm5XUGRmaWJybWRmc1Bn?=
- =?utf-8?B?T1Q2ZkQrdXVHM3RCNEpQc2gxT2t6MXE3cG5BQmRJYUVkSWdsWDRRNCtrV2ZX?=
- =?utf-8?B?V240QkFlOFhKQmpzdytHampQZ3dPNU1Dc2lBS3hMc2FUMVRkTUtqMHJndHkz?=
- =?utf-8?B?czFGb0RmTVJuUDRHZGZZNjRjRk9SVFlHMTJrSFdmcTR3ckFhU0FLSjhSR2Iw?=
- =?utf-8?B?dnBGTldyTTJQbWllVHF6NmZERmNpdTBaRGY5d1BoOHJRM0pYNTkxakFiR0Iy?=
- =?utf-8?B?RWJnVWEvWVRBZ3FQa3VBc2lzcTZjTWdMcXZaWWR3R2RrejA3eDlyTW1FRGlW?=
- =?utf-8?B?UlhpbmtNcllKU1kzbllXY2RJdjExc3pKSlUrZVozcGVMRXloSzNSR2RoVDRm?=
- =?utf-8?B?Tmlqc0R4SGc4MEdFRzVzd2MwNXczbzF5MXlkbGJRMi9NNllYWi96UHR0a1JU?=
- =?utf-8?B?aEdnWEJiUjd3TFJoYTU2YklneG94dXByc2VJQzRxc2h3UHRWMWtQejdIdEJz?=
- =?utf-8?B?dWI1K2dmUGlwc05XVjY1N3ZueUR1Zi9CbERsOHNSUmwzRVVadFZoUmF0eXlz?=
- =?utf-8?B?VnJNd0tIbzZ3NG9aQXAycnJSNXQxbXUzMFV5dlZzWjE5cy9nWS9ZL201NnN4?=
- =?utf-8?B?K0h4dEpZbmhxdjl4cnc1NS9Fb2o1QWZUeU5ENmQ1eVYwaU1kbmNEdlBEeFhB?=
- =?utf-8?B?R2JtOFNEK1prY0JTNlFkU05sUGxweGFXS3N3cmlmQnMySEdJYmZkME9maHl4?=
- =?utf-8?B?NzZ6VFFGTDFkU0lKaEY4RkVydkFkRkw5eVVlL3N2bllTVldIalpRaWtQdUVi?=
- =?utf-8?B?TTk0VlFTR2xJcTBqU0tPaFVMZ1FMNVQzc2tIMEQzTmtPOEZtN3padHZrRDdR?=
- =?utf-8?B?T0hnRmVORktJT2ZwMnFlZzA0LzF1MmRXcVZIMEZTd1h1TU5hNXMyM3VEMFZa?=
- =?utf-8?B?MzN4clgrOXB1YjE1dENYTnJOUDlLN3QzUmJNTFNEcmVRK2QrdXlzUk52K0s1?=
- =?utf-8?B?TGlpcFBOK09NTDgvWWtrcHUxWmlqN3RBeEpNSFdlRHo0N042QTg0WWZ3dU1H?=
- =?utf-8?B?RXJnbjJ6WGY0dDhwRk9WRGh5TWRTVFRIeWJyZE5wbVJJbFVCU21kZnJtWEt3?=
- =?utf-8?B?allucklpNGZsOFROSUlHWFB1VFNySWN4ZEtFQ0YwcWhEc3pLOHFWckN5ME9J?=
- =?utf-8?B?UmJWVzhOQ1ZPQXJFajVBWjRXRHV5YVd4cjdUY016M1J5Mmc2Rzd2OWlJNEVu?=
- =?utf-8?B?cWdwUEt3YVVJd0pGZVVnVDgrMTZPdFF3SVl0eG1OOHNPZ01xeHFEbnFsOWhH?=
- =?utf-8?B?aUZjNFdySHlqVmZwLzZCS1lPWFRhYjBBVFpiMVlHUU1SUzdmUXFBK3c4Tzg2?=
- =?utf-8?Q?h3tOnjbqfOkzpiDxFZ?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 41d401d7-4174-4da8-5e46-08df3a72195d
-X-MS-Exchange-CrossTenant-AuthSource: IA4PR12MB932075.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 12:49:43.8364
+	DCHTL7T57ihp0TctpK3IRbfCOW0v0Dh2Ezcn+973+bBFXTuYpfr34caEo/Xt0pBWPJyRTxceRJJW+06GdNJE3uVujwY31p12a8cyViGZpse7AeYVnyckubZOzLv+fCZ43tHlNI0Z3el6T+aHNhlM29c7xWV2Fvt5G3JskDILV05rseDjIBu7y86lSsEsCCCCpmzlGP7NTnDm1cIb2CZ+rEPPNFCnjDPraPIoJBsHRapmC7zMysyg9U3gqxp1Ht24Byt20lmbsST9u5AwirC8XVQ/jn2egUDbK/8rIaDG8kvjnqZ0vzuKvaSHTI6nZD8RvZjlGk7NVbnilVtqqQCrSzHrAhID6sbEFtceWGA2XZjCa7sCKlxcwhhxgPIdXAL1wVIa46QUx8rLdVxdqx2dNIq1XCfK4CdUCRdWTHiYPpeZD7gnatBCaiPMdwMz65Sl
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 12:50:14.8547
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QEfb1RUVQsS8e+Bi3IIL0oY4XecMZz4VzXN5ZKyzdFAo7jOZS00WnkE8fxdKZOG3mUeZWBWp849EX/q1KSzQZg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FT1PR12MB863618
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5c5bdb58-ece7-4638-6ee8-08df3a722c46
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG2PEPF000B66C9.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR06MB6498
+
+Hello,
+
+This series adds scatter-gather and cyclic slave transfer support to the
+Arm DMA-350 driver, then describes the clock, reset and DMA address view
+of the CIX Sky1 FCH integration.
+
+Patch 1 fixes the source-trigger bit. Patch 2 adds peripheral transfers
+with descriptor-owned resource mappings, coherent linked commands and
+hardware-based residue reporting. Patches 3 and 4 document and handle
+optional integration clocks and resets. Patch 5 describes the FCH DMA
+address windows and adds its bus clock.
+
+The controller nodes use arm,dma-350. The driver changes use standard
+integration resources and introduce no CIX-specific register programming.
+The companion AUDSS interrupt-path series builds on this one and manages
+the AUDSS interrupt gates in the CRU driver.
+
+Changes since v4:
+- Allow slave configuration updates while descriptors exist, and take a
+  locked configuration snapshot when preparing transfers. (Sashiko.)
+- Derive cyclic residue from the hardware link pointer rather than a
+  software period count. Retry changed samples and retain cached residue
+  when a usable sample is not obtained. (Sashiko.)
+- Stop advertising undefined bus widths; validate trigger support and
+  transfer widths per channel and report per-channel capabilities.
+  (Sashiko.)
+- Remove the stopping flag and always poll STOPCMD during synchronization.
+  Serialize IRQ status sampling, acknowledgement and descriptor selection
+  under the channel lock. (Sashiko.)
+- After dmaengine_terminate_async(), the DMAengine API requires clients to
+  call dmaengine_synchronize() before issuing new transfers. The start path
+  continues to rely on that requirement. (Sashiko.)
+- Rebase onto Linux 7.4-rc1 and regenerate DTS context on the clean base.
+  Keep patch 1 unchanged and retain Frank's Reviewed-by.
+
+Link: https://lore.kernel.org/r/20261023093017.3248454-1-Jelly.Jia@cixtech.com
+
+Signed-off-by: Jelly Jia <Jelly.Jia@cixtech.com>
+
+Jelly Jia (5):
+  dmaengine: arm-dma350: Fix source trigger bit
+  dmaengine: arm-dma350: Add slave and cyclic transfer support
+  dt-bindings: dma: arm,dma-350: Document optional clocks and resets
+  dmaengine: arm-dma350: Support integration clocks and resets
+  arm64: dts: cix: Describe the Sky1 FCH DMA-350 integration
+
+ .../devicetree/bindings/dma/arm,dma-350.yaml  |  16 +-
+ arch/arm64/boot/dts/cix/sky1.dtsi             |  36 +-
+ drivers/dma/arm-dma350.c                      | 821 +++++++++++++++++-
+ 3 files changed, 828 insertions(+), 45 deletions(-)
 
 
-
-On 04/11/2026 13:20, Cosmin Ratiu wrote:
-> On Tue, 2026-10-27 at 18:17 -0300, Joas Antonio dos Santos wrote:
->> macsec_fs_id_del() removes a struct mlx5_fs_id from its rhashtable
->> with
->> rhashtable_remove_fast() and then frees it with kfree() right away.
->>
->> The TX (SCI) table is read locklessly from the transmit path:
->> mlx5e_macsec_handle_tx_skb() and mlx5e_macsec_tx_build_eseg() call
->> mlx5_macsec_fs_get_fs_id_from_hashtable(), which does
->> rhashtable_lookup() under rcu_read_lock() and then reads
->> mlx5_fs_id->id. A transmit that looked the entry up just before it
->> was
->> removed reads freed memory.
->>
->> Before commit d4ece08f4b1d ("net/mlx5: Maintain fs_id xarray per
->> MACsec
->> device inside macsec steering") the SCI table held struct
->> mlx5e_macsec_sa directly, and mlx5e_macsec_del_txsa() freed it with
->> kfree_rcu_mightsleep(). That commit moved the table into macsec_fs.c
->> with the new struct mlx5_fs_id, but frees it with a plain kfree().
->>
->> Add an rcu_head to struct mlx5_fs_id and free it with kfree_rcu().
->>
->> The same issue was flagged by the Sashiko AI review as a pre-existing
->> problem while reviewing the HW-GRO for PSP series.
->>
->> Fixes: d4ece08f4b1d ("net/mlx5: Maintain fs_id xarray per MACsec
->> device inside macsec steering")
->> Link:
->> https://lore.kernel.org/all/20260909065542.4B80D1F00ACA@smtp.kernel.org/
->> Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
->> Assisted-by: Yaga Agent HackerSec Claude:claude-opus-5-5
->> ---
->> v2:
->> - Drop the macsec.c hunk: the sc_xarray_element free was already
->> fixed
->>    by ad17ad50b8dc ("net: mlx5e: Fix use-after-free of the MACsec
->> xarray
->>    entry on RX SC deletion"). (Simon)
->> - Embed an rcu_head and use kfree_rcu() instead of
->>    kvfree_rcu_mightsleep(). (Simon)
->> - Fixes: now points at the commit that introduced the kfree().
->> - v1:
->> https://lore.kernel.org/all/179285888829.90275.17386097105525068016@gmail.com/
->>
->> Testing: compile-tested only (arm64, W=1, CONFIG_MLX5_MACSEC=y, no
->> new
->> warnings). I do not have
->> MACsec-capable ConnectX hardware, so this was not run on a device.
->>
->>   drivers/net/ethernet/mellanox/mlx5/core/lib/macsec_fs.c | 3 ++-
->>   1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/macsec_fs.c
->> b/drivers/net/ethernet/mellanox/mlx5/core/lib/macsec_fs.c
->> --- a/drivers/net/ethernet/mellanox/mlx5/core/lib/macsec_fs.c
->> +++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/macsec_fs.c
->> @@ -94,6 +94,7 @@ struct mlx5_fs_id {
->>   	refcount_t refcnt;
->>   	sci_t sci;
->>   	struct rhash_head hash;
->> +	struct rcu_head rcu;
->>   };
->>
->>   struct mlx5_macsec_device {
->> @@ -684,7 +685,7 @@ static void macsec_fs_id_del(struct list_head
->> *macsec_devices_list, u32 fs_id,
->>
->>   	xa_erase(fs_id_xa, fs_id);
->>
->> -	kfree(fs_id_found);
->> +	kfree_rcu(fs_id_found, rcu);
->>
->>   	if (macsec_fs_is_macsec_device_empty(macsec_device)) {
->>   		list_del(&macsec_device->macsec_devices_list_entry);
->> --
->> 2.39.5
-> 
-> Thank you for the fix, it looks good.
-> 
-> Reviewed-by: Cosmin Ratiu <cratiu@nvidia.com>
-
-Acked-by: Tariq Toukan <tariqt@nvidia.com>
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.54.0
 
