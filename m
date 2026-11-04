@@ -1,60 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793809026;
-	b=hVYDIkjij/DivzNEXnDBG2jwhgIDgOxK3b1be/y/RzXk5MjemUJbeYGV5uE2rilcVx/2
-	 JO34AEWhQT6ASWP1rEhJVrVi1JohfGQmyqYKJTlfyQDSYFPHN8d4kUVkVGotAHbjwHDU9
-	 ViHzV4NIhyUegRTVCyFEL71m9CMJN+Jr0SfXUrAnYGjX3F5e1fDtWEhvlf67Mcv1zqbe0
-	 DloVYF92Aj0N85QHNYWWjZc6fvP8hEH2d7pgCpZo+o7Oj2phzHEoKJtcPyIml8qAcvu92
-	 UUrDjTce1YZUrqw8uVOXzQ+dTsTvONQ1tAyLaY1ezasIt5Pfz+n3syYxF6HTsTH4ezQ==
+	t=1793809023;
+	b=HdRwNUABDee8esFJGQlruH2ShVZLTPSuXmizISeaSiHdaF2ATL4djMbOnPHgRy0Azbd0
+	 ndX0xqNTCSmpfKgjDRewKfrLz8Ec2dJW7ldICjNG3jlilABxZ0vQiFtyp5jeaUMTHthwN
+	 L20w+Opb5s0356fQcVWcbSzWEgRAYD0sgVbdm6uccOx0bbbEYvlqmNphQ4E6XztcXd3ea
+	 ZfNRfruOia+JAKRalI1Z/0zFMDh3t1YZnqswO/lgf5L2qmgCLrWPfX+7yBA5U6HpIR2UV
+	 UWcSisLiu4siF6DX+aEqNonNsvGJe+UwmDCv9zJ/3yhy+pFEGo2IjGzMyt/xKBj4WGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793809026;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=xRth4yeDFpzrxgf4NoUNAjDIGdLtIAMqrqUwOU1lcqQ=;
-	b=FcCpDyMACrN00cO37pGr39R+kkdJ25O/aYuwGMk+FhqJWktpm10HHUH9wU0+B9EdCg1p
-	 ALohfVIsoN1kcHIfhUTJksHYU0qn+OLMoLUEVX5wTmnWMHj9amVNTHcgXaLfX5Awm6OJ4
-	 QpQ4mGLMMvpCKB6SYqZJNTB4zbgn3xB5l128vRkbQsh1zqGBjJhDSYVa8wiStnyEkFmko
-	 e0EtN1Imb44Ip0aEJt7IaHJFoBu+4EXAAie91xBfY/KXxZ516Yctkn/2LOdU9XklaUUOp
-	 GifitYqMLElyzqTrF6O7LaWFYI7SxzmSzSiYYsSRNPUzTwDzhAY5FpYs3R5ePVjxhHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793809023;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=VC0kuAI8YTTP8xqxIGPPjehsRscbtuqmLo3CRUhyHGY=;
+	b=CAZYzAS9e1WRqyVsUgPECbwXF+LiICQEk9YTQl0xYzCfSyhD985Urh8OBq06HP18L3eX
+	 9TLsAu4/xwFqp5zOm2QNwjbabhqoshhnM8AVHOXd8yk/ZPl0cqfqmoO4Kb+UgouNQ7tkj
+	 4C/nMfRSzuyT0jrAXlQHipBf3vTRMGuWdLDXyXCh0+2Da3tLb+7HWXy1x48bQf4bXKoQU
+	 2ui/GQAQv6kQmmeF3FGwubKt+LKjlTfhfge0phEqEw++3la9dTIMwPyQqLbdnamWMLcQW
+	 FBQfbRh1Vi0NBGKEoTZApuxWhmkXoRwPyAfQ54t9Oee3JMzWEcsvFg5ys5nRNk8QxDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=MP3PW0NX;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 63E5F606D810;
-	Wed,  4 Nov 2026 16:17:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63E5F606D810
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G6PfgsQi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72255606A32E;
+	Wed,  4 Nov 2026 16:17:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=MP3PW0NX
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A332E1BB2;
-	Wed,  4 Nov 2026 08:17:01 -0800 (PST)
-Received: from e127648.cambridge.arm.com (e127648.arm.com [10.0.130.179])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id C78073F632;
-	Wed,  4 Nov 2026 08:17:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793809024; bh=qIKE6fRAvvucF8X+oC+cTY3pdNWfornKDodJuwNdvmQ=;
-	h=From:To:Cc:Subject:Date:From;
-	b=MP3PW0NXkOkxOMAm+wWeViJbs3Qpafe7RVfxckrGxOZRq67r37reRQbtfiLzDzfaF
-	 jpLjQzZt+ATmqn2/LrlKwtjdLP/kq6v5cpM4YFWtM8diJsS3oGDUohWDwsOoqgp3SH
-	 XGary0VHU1DPDVGk0RlpxtIu/LAk2DElzv9GKUxo=
-From: Christian Loehle <christian.loehle@arm.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
-	viresh.kumar@linaro.org
-Cc: linux-pm@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G6PfgsQi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 109AD1F00919;
+	Wed,  4 Nov 2026 16:16:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793809023;
+	bh=VC0kuAI8YTTP8xqxIGPPjehsRscbtuqmLo3CRUhyHGY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=G6PfgsQitDZ1twMbvHRuDjOQSiduhDAjzyHbaIUOA6txxiAu2D1QHpHqF0/SkSCSc
+	 sEoUEK79ryNJpGzvRuao/UGmwpcO7/Lf+tJTzvwJFZ59Ltkqe7WTpIj2vI6SbEjcTf
+	 gEsWQ6vV3YdSU+TpI3tPB2WQmGTxR14A6bHR5wZdepMyI4ffpQoUsnjEsghEou0lBI
+	 lhjNM2aE0+/Rq9F3VITQHpiDvyea+t8LHJ5lxExc+TfbmvQP7q/6ZqdSH2jcQbex8W
+	 MZmP+pS0wOCrYFfo4B8d5v9Lt6HFsyzBrHrXD/OvjVVvAUk6qg6TimK4glFad8+ebP
+	 pMer4fiajWMXg==
+From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+To: iommu@lists.linux.dev
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Alex Williamson <alex@shazbot.org>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jacob Pan <jacob.pan@linux.microsoft.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Joerg Roedel <joro@8bytes.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Krishna Reddy <vdumpa@nvidia.com>,
+	Lukas Wunner <lukas@wunner.de>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Samuel Ortiz <sameo@rivosinc.com>,
+	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
+	Steven Price <steven.price@arm.com>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Vasant Hegde <vasant.hegde@amd.com>,
+	Will Deacon <will@kernel.org>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	kvm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-coco@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	sumit.gupta@nvidia.com,
-	zhanjie9@hisilicon.com,
-	superm1@kernel.org,
-	zhangpengjie2@huawei.com,
-	Christian Loehle <christian.loehle@arm.com>
-Subject: [PATCH] cpufreq: Preserve global boost state on failed updates
-Date: Wed,  4 Nov 2026 16:16:57 +0000
-Message-Id: <20261104161657.546370-1-christian.loehle@arm.com>
-X-Mailer: git-send-email 2.34.1
+	linux-pci@vger.kernel.org,
+	linux-tegra@vger.kernel.org
+Subject: [PATCH v8 01/15] PCI/TSM: Move core code into its own directory
+Date: Wed,  4 Nov 2026 21:46:18 +0530
+Message-ID: <20261104161632.3547423-2-aneesh.kumar@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261104161632.3547423-1-aneesh.kumar@kernel.org>
+References: <20261104161632.3547423-1-aneesh.kumar@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,71 +88,92 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-cpufreq_boost_trigger_state() restores the opposite of the requested
-state when updating policy boost state fails. For example, a failed
-write of 0 when global boost is already disabled enables the global
-flag without enabling any policies.
+Multiple patch series modify drivers/pci/tsm.c, and some add new files
+to the PCI/TSM subsystem. Move tsm.c to tsm/core.c so these series can
+share the directory layout and reduce merge conflicts.
 
-Save the original global boost state using a mutex and restore it on
-failure.
+Update the build rules, local header include, and MAINTAINERS entry for
+the new location.
 
-Fixes: 121baab7b88e ("cpufreq: Force sync policy boost with global boost on sysfs update")
-Fixes: 6f19efc0a1ca ("cpufreq: Add boost frequency support in core")
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+No functional change.
+
+Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
 ---
-On a platform without boost_supported the unfixed behaviour is:
-# cat /sys/devices/system/cpu/cpufreq/boost
-0
-# echo 1 > /sys/devices/system/cpu/cpufreq/boost
-echo: write error: invalid argument
-# cat /sys/devices/system/cpu/cpufreq/boost
-0
-# echo 0 > /sys/devices/system/cpu/cpufreq/boost
-echo: write error: invalid argument
-# cat /sys/devices/system/cpu/cpufreq/boost
-1
+ Documentation/driver-api/pci/tsm.rst | 2 +-
+ MAINTAINERS                          | 2 +-
+ drivers/pci/Makefile                 | 2 +-
+ drivers/pci/tsm/Makefile             | 7 +++++++
+ drivers/pci/{tsm.c => tsm/core.c}    | 2 +-
+ 5 files changed, 11 insertions(+), 4 deletions(-)
+ create mode 100644 drivers/pci/tsm/Makefile
+ rename drivers/pci/{tsm.c => tsm/core.c} (99%)
 
- drivers/cpufreq/cpufreq.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-index 54dde8419bdc..d95c849f79c5 100644
---- a/drivers/cpufreq/cpufreq.c
-+++ b/drivers/cpufreq/cpufreq.c
-@@ -2810,18 +2810,24 @@ int cpufreq_boost_set_sw(struct cpufreq_policy *policy, int state)
- }
- EXPORT_SYMBOL_GPL(cpufreq_boost_set_sw);
+diff --git a/Documentation/driver-api/pci/tsm.rst b/Documentation/driver-api/pci/tsm.rst
+index 232b92bec93f..c95c513019b5 100644
+--- a/Documentation/driver-api/pci/tsm.rst
++++ b/Documentation/driver-api/pci/tsm.rst
+@@ -17,5 +17,5 @@ Subsystem Interfaces
+ .. kernel-doc:: include/linux/pci-tsm.h
+    :internal:
  
-+static DEFINE_MUTEX(cpufreq_boost_mutex);
+-.. kernel-doc:: drivers/pci/tsm.c
++.. kernel-doc:: drivers/pci/tsm/core.c
+    :export:
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 93abbb315065..561914074d01 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -28487,7 +28487,7 @@ S:	Maintained
+ F:	Documentation/ABI/testing/configfs-tsm-report
+ F:	Documentation/driver-api/coco/
+ F:	Documentation/driver-api/pci/tsm.rst
+-F:	drivers/pci/tsm.c
++F:	drivers/pci/tsm/
+ F:	drivers/virt/coco/guest/
+ F:	include/linux/*tsm*.h
+ F:	samples/tsm-mr/
+diff --git a/drivers/pci/Makefile b/drivers/pci/Makefile
+index 41ebc3b9a518..211f195ff2c9 100644
+--- a/drivers/pci/Makefile
++++ b/drivers/pci/Makefile
+@@ -35,7 +35,7 @@ obj-$(CONFIG_XEN_PCIDEV_FRONTEND) += xen-pcifront.o
+ obj-$(CONFIG_VGA_ARB)		+= vgaarb.o
+ obj-$(CONFIG_PCI_DOE)		+= doe.o
+ obj-$(CONFIG_PCI_IDE)		+= ide.o
+-obj-$(CONFIG_PCI_TSM)		+= tsm.o
++obj-$(CONFIG_PCI_TSM)		+= tsm/
+ obj-$(CONFIG_PCI_DYNAMIC_OF_NODES) += of_property.o
+ obj-$(CONFIG_PCI_NPEM)		+= npem.o
+ obj-$(CONFIG_PCIE_TPH)		+= tph.o
+diff --git a/drivers/pci/tsm/Makefile b/drivers/pci/tsm/Makefile
+new file mode 100644
+index 000000000000..464414c11a72
+--- /dev/null
++++ b/drivers/pci/tsm/Makefile
+@@ -0,0 +1,7 @@
++# SPDX-License-Identifier: GPL-2.0
++#
++# Makefile for the PCI/TSM infrastructure
 +
- static int cpufreq_boost_trigger_state(int state)
- {
- 	struct cpufreq_policy *policy;
- 	unsigned long flags;
-+	bool boost_enabled;
- 	int ret = -EOPNOTSUPP;
- 
-+	guard(mutex)(&cpufreq_boost_mutex);
++obj-$(CONFIG_PCI_TSM) += tsm.o
 +
- 	/*
- 	 * Don't compare 'cpufreq_driver->boost_enabled' with 'state' here to
- 	 * make sure all policies are in sync with global boost flag.
- 	 */
++tsm-y := core.o
+diff --git a/drivers/pci/tsm.c b/drivers/pci/tsm/core.c
+similarity index 99%
+rename from drivers/pci/tsm.c
+rename to drivers/pci/tsm/core.c
+index 5fdcd7f2e820..76ef03a1b3ec 100644
+--- a/drivers/pci/tsm.c
++++ b/drivers/pci/tsm/core.c
+@@ -15,7 +15,7 @@
+ #include <linux/sysfs.h>
+ #include <linux/tsm.h>
+ #include <linux/xarray.h>
+-#include "pci.h"
++#include "../pci.h"
  
- 	write_lock_irqsave(&cpufreq_driver_lock, flags);
-+	boost_enabled = cpufreq_driver->boost_enabled;
- 	cpufreq_driver->boost_enabled = state;
- 	write_unlock_irqrestore(&cpufreq_driver_lock, flags);
- 
-@@ -2841,7 +2847,7 @@ static int cpufreq_boost_trigger_state(int state)
- 		return 0;
- 
- 	write_lock_irqsave(&cpufreq_driver_lock, flags);
--	cpufreq_driver->boost_enabled = !state;
-+	cpufreq_driver->boost_enabled = boost_enabled;
- 	write_unlock_irqrestore(&cpufreq_driver_lock, flags);
- 
- 	pr_err("%s: Cannot %s BOOST\n",
+ /*
+  * Provide a read/write lock against the init / exit of pdev tsm
 -- 
-2.34.1
+2.43.0
 
