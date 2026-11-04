@@ -1,57 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793803887;
-	b=qyxL7WnBwpeNoZ2G+8GyYD32D38+flQdfCizXyYqT7Hwfp33x4dgdApLkuZNViLvjxm/
-	 xo1XKnj3/Lynia6VsVI0gal6WHtzsGZgrn447FInKftpWrhqW8myXBuRD4NlQkN02FitH
-	 8FnwIeq7YNCfdGD4+DAZ8Ugq9kvlCLtvFpeEefU8P3Cz0lP3CjGafrEA9sd3UNV+WZqYr
-	 +LbJ6QNgnsrEhe3AFvSXsd7o2nPK7ec7pwPpPPkOzEOjAOyP3SKA3EHGV3YGlf7+FvYn7
-	 4PXlIncBCWC8VcKv6WP3sRV8qg30mbbYOiOpJmmEvsgBhrfghHD/6okAhZmk+6+KP5g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793803887;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=rz19ZukOAiKFRngbtnVhWHGTjfs5u+6TxsCAOoKwaNU=;
-	b=uBzqd+MTtNuxak60OpLhFy2+tYP0mmvTfhyGsa2Dj6yvI93gX05fsK0sm8rYogpz8y2z
-	 JVYqaisREyydy6hl6W5I5bQlbeJB2DsqJAeLFZb1XD8o7lLUGaumB6voo8UcMplVELNP1
-	 D+XS6npsiVIId25QmMEgdSdIdjl9ifys2bSKMrVE9C5mFA+0fClHsL8r77XLseTdsgU3H
-	 5xz1epreUcf/1/yUSo+4E4+mrQeejTFPGK34/0ZUtGqKP4nv7rJ5/XPALjzUuivxx1PU5
-	 NfJeiSCqqYLfggxJUAloPeLDMvV+BJQfdX/RKdHd9KKqaOakkC6rzI2FqV4wRVQqvNw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RYmAWIrd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.175
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793803900;
+	b=A0n64nx+rrtIlql063IRkHmFWGVWAZWahN1wOcSk0+xQu5HRTrefC9iGVnQScAtwoASR
+	 +NLAAziKliAp2UfHWSX+u/Kke8M0PHJdo+E68J+oFxD5577JEuN+WzPaJGBAfr5s1PsF6
+	 dOytmQ4JYyYHgd0Z7VsYiKE8d/nltjdbOf1V3vb4750vkV8cqb2VoPQINeMaZ3BMDhzoi
+	 ejx6VmOZJRMQczWUXkEkP5+HQuGpZWRzpxaZha64Ui/Ri1WBDduod0WuOSNOrNY597SH3
+	 tBgyjvE8YwHlMylh74C9cbjSDD9kvYb9EhrvgFujl9HX2llNJPdRajFwYjrfx5+y49w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793803900;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=KlMV/XWOLH5Lp9S17+M0Me/y6BklUFxP6uaDz/8Mgcc=;
+	b=Q431grEwi+TTOFM72pZ8I3wtC4t4eRkZN65TmtyAxifTZd/rMPdgeKneMqmPiBaP7oQq
+	 XiTym3DdTqVpCp4t0Kef9E2iHegz25LkUcKgdz5PCtOBIWtKoo7lhpzHfuLXXxdGGH7NZ
+	 IFEVpa2vV344NK/63V4/pckIJQXs8DzDcKchdcwRrhzXm0+TrGx7n6xWIvg4Ga7B5OftW
+	 tCvKfhmWxAcwqyMjIHcCV3sAl4d4dQjOFH33z4xhT0SFEoZh290lXySdLu8SNLWD1/ly+
+	 EK+Mv6YLkFxGy2zC8tZpnNEPhseh8AOsYXkP0fiIXNugpDdMUDAsWeE7jnO1xn2yF1g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=axHDqkHu;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.175
+Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 086E8606A32F;
-	Wed,  4 Nov 2026 14:51:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9981E606A329
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:51:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9981E606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RYmAWIrd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CDA11F00A02;
-	Wed,  4 Nov 2026 14:51:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793803886;
-	bh=rz19ZukOAiKFRngbtnVhWHGTjfs5u+6TxsCAOoKwaNU=;
-	h=From:To:Cc:Subject:Date;
-	b=RYmAWIrd94owKJCFH1jduse8vXh/JC8+/sqgsJTNh/M8/mYUQUWdoCNdgcQdV+WcO
-	 U8JaGTevnGV9+5ClRYXQwtGGm0IoMEBpP/5qekVDhrvOH0C6E4QXF+bS5kijsmHw2d
-	 we3VM+rDtmolHm/a1S1VPhdqH3gxaE3ZyekVC4jNLr7YdlhulbeEqdEDwfzVnnN2oX
-	 sZb9Za3fU3vP9Ol4qUfaMBdx0imWXxSkWxqi+EO+Q5PqtO0VodrUgAz30aQgoUQ3ZL
-	 z2UJGha+PUMkWMXvxjAcso1xoVWVPFtQ60JM5bSSoObZ56jv8pgjgkqkBNTtO4W7X8
-	 bkSiLNBtUVNAA==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH] clk: hisilicon: Remove hi3516cv300 driver
-Date: Wed,  4 Nov 2026 08:51:16 -0600
-Message-ID: <20261104145118.952453-1-robh@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=axHDqkHu
+Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-8b2d14968c9so8744077b3.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:51:39 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793803898; cv=none;
+        d=google.com; s=arc-20260327;
+        b=O9QW2YwKVbqfX3f5Yp7JDZagHy7ZoUl+hrkqR2yQ23DGV2RYIYW/jIXYIgLS76eiiJ
+         GoDj1n9usmM3CzlXxLymr42PQjx6sQdMObItT6xJ9PXV5weHHEdBx6hsu761bFL5iFI6
+         dV5wqExmBekLycS1Iv1YajLFgZEQEVvdij3vePQMwH71rJw6jpZXkf6n1Dtzv76OYIMo
+         MyNq/MqrqC5fo97UJq9RvR7RceVKtlBAp3jpjINcfhY0KTERqQ92vwLcxDlgD+xzjAzp
+         dvW2Pbr88omCIy0ph2cY4obUTJoOPki05BxRecR76ZlGApajEaY6gp2EqE0kHe/YSkmz
+         bjmg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=KlMV/XWOLH5Lp9S17+M0Me/y6BklUFxP6uaDz/8Mgcc=;
+        fh=DCY0urqTCauIzCUzAXK8HNGMqenrs6NbeLw+4c7+A0M=;
+        b=gxsnsKaIciDxpiwaR3Qn2Hux3EQSSyr34ymGN63KgVIt+YugT43r79cfhHBWRHf07V
+         m+yGW7lOB8JyGWkVCbntu1BAt54e2x1ertTLb1YYDBm/bVAMz5AxVtlbaHm3EKXPRxCG
+         niHqekrrKITcRNzoDcAZI90L0dDO3Dx48kWJ4W0m42ryuOI0Hett3sMJ4UmWGhOKj8r2
+         SnsQQZ+tWFSK5hEqCi89QDnho+RDSISqZYMSenhKn0zGwdbanOv7mEF25H6N6q5x+KE1
+         48U0W+4Y4bVl0DFE6m/EikuVcKQJoCVusNhOtBIko8NWNatOE1GNKaZPeG9YUMDCkC9j
+         XWeA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793803898; x=1794408698; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KlMV/XWOLH5Lp9S17+M0Me/y6BklUFxP6uaDz/8Mgcc=;
+        b=axHDqkHu8OL3IOSKcPa5pPZ2Z0r/tneF+Ew1dKtGN/TiIIuV0BKCFQHKB43yt13X7+
+         cOfaiqppQtfvZJ9y1cgOyZYuP5b2Hp4ihyBkt0W7HUTc6+MpHG6QbM7BDGMqJCtRK5Kh
+         j4430YHf0RzItFGW7Q7cEh1vBXZ4JpSx4e8QuGkNbUpV7hv+xJQAgCOb4jLWy6EqL8h6
+         IpyxydKW5glmHSGghZPG0rl6k6dqdS+5ZFMKPERUfhq/W2TgSZZiI8UqRF0ubwhEX2re
+         ugibYrY3IWiCFcZmStw1fID923csWXSEKEjkeywPZOofjIlyqFyxFyTJJVF9MJeHmW/f
+         71Gg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793803898; x=1794408698;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KlMV/XWOLH5Lp9S17+M0Me/y6BklUFxP6uaDz/8Mgcc=;
+        b=YXmvobXaeD6oqCrnHu0Zg4lArDJ5XYSBJsKLAGRj2tHyocqRiGGZe60MgmTlTG1b/6
+         PiFrwOEE5mE0qRb44YJI72uJCQ7cyhFlWABF+SEgP+UYprBNdDoW4NZcgqQVz6ZlGvxY
+         bzfGOqt0QR/4xFWollrB5VQgXMMfhp26qZxCNlydT6sSRxfmQfq2tUvhGcLNZq4Ba8L2
+         r7oeHgnb0xX6tKbKvmv4L9TxHVzi9eNxKl7E3Mo0WGyTJ4pXKGaVow7M9un2GM3AmBX6
+         ALVLMUm6IsdMQpqyGP2QkywzEvLcaOlp0j+Sm6iEwv6Fy0w5j8QjE0wsG7xK3RsD5KB2
+         X0sw==
+X-Forwarded-Encrypted: i=1; AKwUvBx/qpTHMAvVeluruGqXZauIHFflzsZggs9grVB2FlL+X1VlMOfFte5NgaM+XZkLCTxSCQHR9GSUfShBNn8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z97xMp1RiNqnBHyVjew6mylXFkTfMbiIU3KGNtZ2F+6vWQEZnGo
+	vxOM1OSuoOr9/Lji18tUoOuh1/ZRYfOgOI7rbr05ydFnakSbiqF51foo87qQhH+Yij9bHViZA0c
+	rs3Y+DRUgpnDtV0luHKZICQ7QptgBrKI=
+X-Gm-Gg: AYBFou3lgcAxVELL2xFos1jZh5f+TQI8yFa3qH9f/Cv1gaqyQtzW92iRmNFTHRn8d0x
+	cwje76xDB173r0QaiaHRFLWGjle2OkZV0UYlbVi+5R+fuAJojNwz+YnJX9an6MGJdD0RuHY93mA
+	2bp1Bt9HZ9GGrvgV1Y1KGzTIatgQRnlBLLUDNb2f2irMUzdHlx64TGoGLEFVCMdMVs+Y8yfSgdE
+	fF+bn1ZNMhF7ge8lg9LbokSc0hJAUeENLPgijwNAnFkqfdLDyZ39HGkUG8dHG2irdcgXDJ0mwT3
+	adiT59LIrA7+XOtQMmAnlBtj02p/AO/Iaiya9gk4iTKxxMj/1lgERhDWxtTeTFIiETgBZpZUNLW
+	MmoxvQ5W2y7JOXMlLSCsMBisTznNbLftJnPyRSxR8VHGF4YyrrdErFkq0FXv0NXL7l/DUV5WmTg
+	ok00AatLfSGfLsOlPJZwJPc3z27e6w/sdv7pTmtXhmPEIJQsgRSALnRzZC
+X-Received: by 2002:a05:690c:7107:b0:8b2:e86a:8f11 with SMTP id
+ 00721157ae682-8b2e86a98c7mr53940707b3.47.1793803898497; Wed, 04 Nov 2026
+ 06:51:38 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,420 +105,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261104120138.1165715-1-radek@podgorny.cz>
+In-Reply-To: <20261104120138.1165715-1-radek@podgorny.cz>
+From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Date: Wed, 4 Nov 2026 09:51:27 -0500
+X-Gm-Features: AclHuK-Nn9lQIytK-gDLUH1LcIsaOJHK0BBKUS0y8zeOsq_7IqOseA2aP3DPxQg
+Message-ID: <CABBYNZKTROzNKZGRcU+hFu4XfgUZzPtkJ79vOrReUTtkDHrDAQ@mail.gmail.com>
+Subject: Re: [PATCH v2] Bluetooth: find an RPA peer's connection parameters by
+ its identity
+To: Radek Podgorny <radek@podgorny.cz>
+Cc: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.von.dentz@intel.com>, 
+	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Remove the hi3516cv300 clock driver as there is no such platform
-upstream and only drivers for clocks, pwm and ethernet. There's also
-been no changes other than common cleanups in 10 years since the driver
-was added.
+Hi Radek,
 
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
----
- drivers/clk/hisilicon/Kconfig                 |   9 -
- drivers/clk/hisilicon/Makefile                |   1 -
- drivers/clk/hisilicon/crg-hi3516cv300.c       | 317 ------------------
- include/dt-bindings/clock/hi3516cv300-clock.h |  36 --
- 4 files changed, 363 deletions(-)
- delete mode 100644 drivers/clk/hisilicon/crg-hi3516cv300.c
- delete mode 100644 include/dt-bindings/clock/hi3516cv300-clock.h
+On Wed, Nov 4, 2026 at 7:07=E2=80=AFAM Radek Podgorny <radek@podgorny.cz> w=
+rote:
+>
+> A bonded peer's connection parameters are stored under its identity
+> address, but hci_conn_params_lookup() matches only the exact address it
+> is given, so a caller holding the peer's RPA misses the entry.
+>
+> hci_le_create_conn_sync() is such a caller: hci_connect_le() puts the
+> peer's cached RPA in conn->dst, and __hci_conn_add() no longer converts
+> it back when the controller cannot translate an identity address. The
+> connection is then created with the controller-wide defaults in hdev
+> instead of the peer's interval, latency and supervision timeout.
+>
+> Resolve the RPA in hci_conn_params_lookup() when the exact match fails,
+> so every caller finds the same entry whichever of the peer's addresses
+> it holds. The exact match is tried first, so an entry stored under an
+> RPA is still found as before.
+>
+> hci_conn_params_add() and hci_conn_params_del() look up through the
+> same function, so given a resolvable RPA they now act on the peer's
+> identity entry instead of creating or missing a separate one.
+>
+> Fixes: 4914c4998961 ("Bluetooth: put the peer's on-air address on air whe=
+n we cannot resolve")
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Radek Podgorny <radek@podgorny.cz>
+> ---
+> Changes in v2:
+> - Resolve the RPA inside hci_conn_params_lookup() rather than at the
+>   hci_le_create_conn_sync() call site, as Luiz suggested, so no other
+>   caller can miss the entry
+> - Exact match still first, so entries stored under an RPA are unchanged.
+>   I weighed inlining this as one pass matching either address, but that
+>   lets list order rather than exactness decide between an RPA entry and
+>   an identity entry, and resolves the IRK on every RPA lookup; a small
+>   helper scanned twice seemed cleaner
+> - Rebased on bluetooth-next
+> - Link to v1: https://patch.msgid.link/20261101-for-upstream-le-conn-para=
+ms-rpa-v1-1-988629a09bc9@podgorny.cz
+>
+> Tested on the author's van (BCM4345C0 against a bonded peer that
+> rotates RPAs): with v2 the peer's stored connection parameters are used
+> again. bluetooth-next itself was only build-tested.
+>
+> Per Documentation/process/generated-content.rst: the patch and this
+> message were done with the Claude coding assistant (model as in the
+> Assisted-by trailer). The prompts asked it to fix the lookup miss named
+> in the on-air address review and, for v2, to move the fix into
+> hci_conn_params_lookup() per review. The author directed the work,
+> reviewed the result and tested it on the van.
+> ---
+>  net/bluetooth/hci_core.c | 26 +++++++++++++++++++++++---
+>  1 file changed, 23 insertions(+), 3 deletions(-)
+>
+> diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
+> index bfc5bdebc71a2..2dc12c01c4dc1 100644
+> --- a/net/bluetooth/hci_core.c
+> +++ b/net/bluetooth/hci_core.c
+> @@ -2285,9 +2285,8 @@ int hci_bdaddr_list_del_with_irk(struct list_head *=
+list, bdaddr_t *bdaddr,
+>         return 0;
+>  }
+>
+> -/* This function requires the caller holds hdev->lock */
+> -struct hci_conn_params *hci_conn_params_lookup(struct hci_dev *hdev,
+> -                                              bdaddr_t *addr, u8 addr_ty=
+pe)
+> +static struct hci_conn_params *conn_params_find(struct hci_dev *hdev,
+> +                                               bdaddr_t *addr, u8 addr_t=
+ype)
+>  {
+>         struct hci_conn_params *params;
+>
+> @@ -2301,6 +2300,27 @@ struct hci_conn_params *hci_conn_params_lookup(str=
+uct hci_dev *hdev,
+>         return NULL;
+>  }
+>
+> +/* This function requires the caller holds hdev->lock */
+> +struct hci_conn_params *hci_conn_params_lookup(struct hci_dev *hdev,
+> +                                              bdaddr_t *addr, u8 addr_ty=
+pe)
+> +{
+> +       struct hci_conn_params *params;
+> +       struct smp_irk *irk;
+> +
+> +       params =3D conn_params_find(hdev, addr, addr_type);
+> +       if (params)
+> +               return params;
+> +
+> +       /* A bonded peer's parameters are stored under its identity addre=
+ss,
+> +        * so an RPA that resolves to it finds the same entry.
+> +        */
+> +       irk =3D hci_get_irk(hdev, addr, addr_type);
+> +       if (!irk)
+> +               return NULL;
+> +
+> +       return conn_params_find(hdev, &irk->bdaddr, irk->addr_type);
+> +}
+> +
+>  /* This function requires the caller holds hdev->lock or rcu_read_lock *=
+/
+>  struct hci_conn_params *hci_pend_le_action_lookup(struct list_head *list=
+,
+>                                                   bdaddr_t *addr, u8 addr=
+_type)
+>
+> base-commit: 3f425f95ba3923d605f6a8b382e8fcdc59d479db
+> --
+> 2.56.0
 
-diff --git a/drivers/clk/hisilicon/Kconfig b/drivers/clk/hisilicon/Kconfig
-index e70bcfa9105b..e522c70ba8d3 100644
---- a/drivers/clk/hisilicon/Kconfig
-+++ b/drivers/clk/hisilicon/Kconfig
-@@ -3,15 +3,6 @@ config COMMON_CLK_HISI
- 	bool
- 	default ARCH_HISI
- 
--config COMMON_CLK_HI3516CV300
--	tristate "HI3516CV300 Clock Driver"
--	depends on ARCH_HISI || COMPILE_TEST
--	select RESET_HISI
--	select COMMON_CLK_HISI
--	default ARCH_HISI
--	help
--	  Build the clock driver for hi3516cv300.
--
- config COMMON_CLK_HI3519
- 	tristate "Hi3519 Clock Driver"
- 	depends on ARCH_HISI || COMPILE_TEST
-diff --git a/drivers/clk/hisilicon/Makefile b/drivers/clk/hisilicon/Makefile
-index 2978e56cb876..323b9bc563e4 100644
---- a/drivers/clk/hisilicon/Makefile
-+++ b/drivers/clk/hisilicon/Makefile
-@@ -8,7 +8,6 @@ obj-y	+= clk.o clkgate-separated.o clkdivider-hi6220.o clk-hisi-phase.o
- obj-$(CONFIG_ARCH_HI3xxx)	+= clk-hi3620.o
- obj-$(CONFIG_ARCH_HIP04)	+= clk-hip04.o
- obj-$(CONFIG_ARCH_HIX5HD2)	+= clk-hix5hd2.o
--obj-$(CONFIG_COMMON_CLK_HI3516CV300)	+= crg-hi3516cv300.o
- obj-$(CONFIG_COMMON_CLK_HI3519)	+= clk-hi3519.o
- obj-$(CONFIG_COMMON_CLK_HI3559A)	+= clk-hi3559a.o
- obj-$(CONFIG_COMMON_CLK_HI3660) += clk-hi3660.o
-diff --git a/drivers/clk/hisilicon/crg-hi3516cv300.c b/drivers/clk/hisilicon/crg-hi3516cv300.c
-deleted file mode 100644
-index b66140f74c51..000000000000
---- a/drivers/clk/hisilicon/crg-hi3516cv300.c
-+++ /dev/null
-@@ -1,317 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-or-later
--/*
-- * Hi3516CV300 Clock and Reset Generator Driver
-- *
-- * Copyright (c) 2016 HiSilicon Technologies Co., Ltd.
-- */
--
--#include <dt-bindings/clock/hi3516cv300-clock.h>
--#include <linux/clk-provider.h>
--#include <linux/module.h>
--#include <linux/of.h>
--#include <linux/platform_device.h>
--#include "clk.h"
--#include "crg.h"
--#include "reset.h"
--
--/* hi3516CV300 core CRG */
--#define HI3516CV300_INNER_CLK_OFFSET	64
--#define HI3516CV300_FIXED_3M		65
--#define HI3516CV300_FIXED_6M		66
--#define HI3516CV300_FIXED_24M		67
--#define HI3516CV300_FIXED_49P5		68
--#define HI3516CV300_FIXED_50M		69
--#define HI3516CV300_FIXED_83P3M		70
--#define HI3516CV300_FIXED_99M		71
--#define HI3516CV300_FIXED_100M		72
--#define HI3516CV300_FIXED_148P5M	73
--#define HI3516CV300_FIXED_198M		74
--#define HI3516CV300_FIXED_297M		75
--#define HI3516CV300_UART_MUX		76
--#define HI3516CV300_FMC_MUX		77
--#define HI3516CV300_MMC0_MUX		78
--#define HI3516CV300_MMC1_MUX		79
--#define HI3516CV300_MMC2_MUX		80
--#define HI3516CV300_MMC3_MUX		81
--#define HI3516CV300_PWM_MUX		82
--#define HI3516CV300_CRG_NR_CLKS		128
--
--static const struct hisi_fixed_rate_clock hi3516cv300_fixed_rate_clks[] = {
--	{ HI3516CV300_FIXED_3M, "3m", NULL, 0, 3000000, },
--	{ HI3516CV300_FIXED_6M, "6m", NULL, 0, 6000000, },
--	{ HI3516CV300_FIXED_24M, "24m", NULL, 0, 24000000, },
--	{ HI3516CV300_FIXED_49P5, "49.5m", NULL, 0, 49500000, },
--	{ HI3516CV300_FIXED_50M, "50m", NULL, 0, 50000000, },
--	{ HI3516CV300_FIXED_83P3M, "83.3m", NULL, 0, 83300000, },
--	{ HI3516CV300_FIXED_99M, "99m", NULL, 0, 99000000, },
--	{ HI3516CV300_FIXED_100M, "100m", NULL, 0, 100000000, },
--	{ HI3516CV300_FIXED_148P5M, "148.5m", NULL, 0, 148500000, },
--	{ HI3516CV300_FIXED_198M, "198m", NULL, 0, 198000000, },
--	{ HI3516CV300_FIXED_297M, "297m", NULL, 0, 297000000, },
--	{ HI3516CV300_APB_CLK, "apb", NULL, 0, 50000000, },
--};
--
--static const char *const uart_mux_p[] = {"24m", "6m"};
--static const char *const fmc_mux_p[] = {
--	"24m", "83.3m", "148.5m", "198m", "297m"
--};
--static const char *const mmc_mux_p[] = {"49.5m"};
--static const char *const mmc2_mux_p[] = {"99m", "49.5m"};
--static const char *const pwm_mux_p[] = {"3m", "50m", "24m", "24m"};
--
--static u32 uart_mux_table[] = {0, 1};
--static u32 fmc_mux_table[] = {0, 1, 2, 3, 4};
--static u32 mmc_mux_table[] = {0};
--static u32 mmc2_mux_table[] = {0, 2};
--static u32 pwm_mux_table[] = {0, 1, 2, 3};
--
--static const struct hisi_mux_clock hi3516cv300_mux_clks[] = {
--	{ HI3516CV300_UART_MUX, "uart_mux", uart_mux_p, ARRAY_SIZE(uart_mux_p),
--		CLK_SET_RATE_PARENT, 0xe4, 19, 1, 0, uart_mux_table, },
--	{ HI3516CV300_FMC_MUX, "fmc_mux", fmc_mux_p, ARRAY_SIZE(fmc_mux_p),
--		CLK_SET_RATE_PARENT, 0xc0, 2, 3, 0, fmc_mux_table, },
--	{ HI3516CV300_MMC0_MUX, "mmc0_mux", mmc_mux_p, ARRAY_SIZE(mmc_mux_p),
--		CLK_SET_RATE_PARENT, 0xc4, 4, 2, 0, mmc_mux_table, },
--	{ HI3516CV300_MMC1_MUX, "mmc1_mux", mmc_mux_p, ARRAY_SIZE(mmc_mux_p),
--		CLK_SET_RATE_PARENT, 0xc4, 12, 2, 0, mmc_mux_table, },
--	{ HI3516CV300_MMC2_MUX, "mmc2_mux", mmc2_mux_p, ARRAY_SIZE(mmc2_mux_p),
--		CLK_SET_RATE_PARENT, 0xc4, 20, 2, 0, mmc2_mux_table, },
--	{ HI3516CV300_MMC3_MUX, "mmc3_mux", mmc_mux_p, ARRAY_SIZE(mmc_mux_p),
--		CLK_SET_RATE_PARENT, 0xc8, 4, 2, 0, mmc_mux_table, },
--	{ HI3516CV300_PWM_MUX, "pwm_mux", pwm_mux_p, ARRAY_SIZE(pwm_mux_p),
--		CLK_SET_RATE_PARENT, 0x38, 2, 2, 0, pwm_mux_table, },
--};
--
--static const struct hisi_gate_clock hi3516cv300_gate_clks[] = {
--
--	{ HI3516CV300_UART0_CLK, "clk_uart0", "uart_mux", CLK_SET_RATE_PARENT,
--		0xe4, 15, 0, },
--	{ HI3516CV300_UART1_CLK, "clk_uart1", "uart_mux", CLK_SET_RATE_PARENT,
--		0xe4, 16, 0, },
--	{ HI3516CV300_UART2_CLK, "clk_uart2", "uart_mux", CLK_SET_RATE_PARENT,
--		0xe4, 17, 0, },
--
--	{ HI3516CV300_SPI0_CLK, "clk_spi0", "100m", CLK_SET_RATE_PARENT,
--		0xe4, 13, 0, },
--	{ HI3516CV300_SPI1_CLK, "clk_spi1", "100m", CLK_SET_RATE_PARENT,
--		0xe4, 14, 0, },
--
--	{ HI3516CV300_FMC_CLK, "clk_fmc", "fmc_mux", CLK_SET_RATE_PARENT,
--		0xc0, 1, 0, },
--	{ HI3516CV300_MMC0_CLK, "clk_mmc0", "mmc0_mux", CLK_SET_RATE_PARENT,
--		0xc4, 1, 0, },
--	{ HI3516CV300_MMC1_CLK, "clk_mmc1", "mmc1_mux", CLK_SET_RATE_PARENT,
--		0xc4, 9, 0, },
--	{ HI3516CV300_MMC2_CLK, "clk_mmc2", "mmc2_mux", CLK_SET_RATE_PARENT,
--		0xc4, 17, 0, },
--	{ HI3516CV300_MMC3_CLK, "clk_mmc3", "mmc3_mux", CLK_SET_RATE_PARENT,
--		0xc8, 1, 0, },
--
--	{ HI3516CV300_ETH_CLK, "clk_eth", NULL, 0, 0xec, 1, 0, },
--
--	{ HI3516CV300_DMAC_CLK, "clk_dmac", NULL, 0, 0xd8, 5, 0, },
--	{ HI3516CV300_PWM_CLK, "clk_pwm", "pwm_mux", CLK_SET_RATE_PARENT,
--		0x38, 1, 0, },
--
--	{ HI3516CV300_USB2_BUS_CLK, "clk_usb2_bus", NULL, 0, 0xb8, 0, 0, },
--	{ HI3516CV300_USB2_OHCI48M_CLK, "clk_usb2_ohci48m", NULL, 0,
--		0xb8, 1, 0, },
--	{ HI3516CV300_USB2_OHCI12M_CLK, "clk_usb2_ohci12m", NULL, 0,
--		0xb8, 2, 0, },
--	{ HI3516CV300_USB2_OTG_UTMI_CLK, "clk_usb2_otg_utmi", NULL, 0,
--		0xb8, 3, 0, },
--	{ HI3516CV300_USB2_HST_PHY_CLK, "clk_usb2_hst_phy", NULL, 0,
--		0xb8, 4, 0, },
--	{ HI3516CV300_USB2_UTMI0_CLK, "clk_usb2_utmi0", NULL, 0, 0xb8, 5, 0, },
--	{ HI3516CV300_USB2_PHY_CLK, "clk_usb2_phy", NULL, 0, 0xb8, 7, 0, },
--};
--
--static struct hisi_clock_data *hi3516cv300_clk_register(
--		struct platform_device *pdev)
--{
--	struct hisi_clock_data *clk_data;
--	int ret;
--
--	clk_data = hisi_clk_alloc(pdev, HI3516CV300_CRG_NR_CLKS);
--	if (!clk_data)
--		return ERR_PTR(-ENOMEM);
--
--	ret = hisi_clk_register_fixed_rate(hi3516cv300_fixed_rate_clks,
--			ARRAY_SIZE(hi3516cv300_fixed_rate_clks), clk_data);
--	if (ret)
--		return ERR_PTR(ret);
--
--	ret = hisi_clk_register_mux(hi3516cv300_mux_clks,
--			ARRAY_SIZE(hi3516cv300_mux_clks), clk_data);
--	if (ret)
--		goto unregister_fixed_rate;
--
--	ret = hisi_clk_register_gate(hi3516cv300_gate_clks,
--			ARRAY_SIZE(hi3516cv300_gate_clks), clk_data);
--	if (ret)
--		goto unregister_mux;
--
--	ret = of_clk_add_provider(pdev->dev.of_node,
--			of_clk_src_onecell_get, &clk_data->clk_data);
--	if (ret)
--		goto unregister_gate;
--
--	return clk_data;
--
--unregister_gate:
--	hisi_clk_unregister_gate(hi3516cv300_gate_clks,
--				ARRAY_SIZE(hi3516cv300_gate_clks), clk_data);
--unregister_mux:
--	hisi_clk_unregister_mux(hi3516cv300_mux_clks,
--			ARRAY_SIZE(hi3516cv300_mux_clks), clk_data);
--unregister_fixed_rate:
--	hisi_clk_unregister_fixed_rate(hi3516cv300_fixed_rate_clks,
--			ARRAY_SIZE(hi3516cv300_fixed_rate_clks), clk_data);
--	return ERR_PTR(ret);
--}
--
--static void hi3516cv300_clk_unregister(struct platform_device *pdev)
--{
--	struct hisi_crg_dev *crg = platform_get_drvdata(pdev);
--
--	of_clk_del_provider(pdev->dev.of_node);
--
--	hisi_clk_unregister_gate(hi3516cv300_gate_clks,
--			ARRAY_SIZE(hi3516cv300_gate_clks), crg->clk_data);
--	hisi_clk_unregister_mux(hi3516cv300_mux_clks,
--			ARRAY_SIZE(hi3516cv300_mux_clks), crg->clk_data);
--	hisi_clk_unregister_fixed_rate(hi3516cv300_fixed_rate_clks,
--			ARRAY_SIZE(hi3516cv300_fixed_rate_clks), crg->clk_data);
--}
--
--static const struct hisi_crg_funcs hi3516cv300_crg_funcs = {
--	.register_clks = hi3516cv300_clk_register,
--	.unregister_clks = hi3516cv300_clk_unregister,
--};
--
--/* hi3516CV300 sysctrl CRG */
--#define HI3516CV300_SYSCTRL_NR_CLKS 16
--
--static const char *const wdt_mux_p[] __initconst = { "3m", "apb" };
--static u32 wdt_mux_table[] = {0, 1};
--
--static const struct hisi_mux_clock hi3516cv300_sysctrl_mux_clks[] = {
--	{ HI3516CV300_WDT_CLK, "wdt", wdt_mux_p, ARRAY_SIZE(wdt_mux_p),
--		CLK_SET_RATE_PARENT, 0x0, 23, 1, 0, wdt_mux_table, },
--};
--
--static struct hisi_clock_data *hi3516cv300_sysctrl_clk_register(
--		struct platform_device *pdev)
--{
--	struct hisi_clock_data *clk_data;
--	int ret;
--
--	clk_data = hisi_clk_alloc(pdev, HI3516CV300_SYSCTRL_NR_CLKS);
--	if (!clk_data)
--		return ERR_PTR(-ENOMEM);
--
--	ret = hisi_clk_register_mux(hi3516cv300_sysctrl_mux_clks,
--			ARRAY_SIZE(hi3516cv300_sysctrl_mux_clks), clk_data);
--	if (ret)
--		return ERR_PTR(ret);
--
--
--	ret = of_clk_add_provider(pdev->dev.of_node,
--			of_clk_src_onecell_get, &clk_data->clk_data);
--	if (ret)
--		goto unregister_mux;
--
--	return clk_data;
--
--unregister_mux:
--	hisi_clk_unregister_mux(hi3516cv300_sysctrl_mux_clks,
--			ARRAY_SIZE(hi3516cv300_sysctrl_mux_clks), clk_data);
--	return ERR_PTR(ret);
--}
--
--static void hi3516cv300_sysctrl_clk_unregister(struct platform_device *pdev)
--{
--	struct hisi_crg_dev *crg = platform_get_drvdata(pdev);
--
--	of_clk_del_provider(pdev->dev.of_node);
--
--	hisi_clk_unregister_mux(hi3516cv300_sysctrl_mux_clks,
--			ARRAY_SIZE(hi3516cv300_sysctrl_mux_clks),
--			crg->clk_data);
--}
--
--static const struct hisi_crg_funcs hi3516cv300_sysctrl_funcs = {
--	.register_clks = hi3516cv300_sysctrl_clk_register,
--	.unregister_clks = hi3516cv300_sysctrl_clk_unregister,
--};
--
--static const struct of_device_id hi3516cv300_crg_match_table[] = {
--	{
--		.compatible = "hisilicon,hi3516cv300-crg",
--		.data = &hi3516cv300_crg_funcs
--	},
--	{
--		.compatible = "hisilicon,hi3516cv300-sysctrl",
--		.data = &hi3516cv300_sysctrl_funcs
--	},
--	{ }
--};
--MODULE_DEVICE_TABLE(of, hi3516cv300_crg_match_table);
--
--static int hi3516cv300_crg_probe(struct platform_device *pdev)
--{
--	struct hisi_crg_dev *crg;
--
--	crg = devm_kmalloc(&pdev->dev, sizeof(*crg), GFP_KERNEL);
--	if (!crg)
--		return -ENOMEM;
--
--	crg->funcs = of_device_get_match_data(&pdev->dev);
--	if (!crg->funcs)
--		return -ENOENT;
--
--	crg->rstc = hisi_reset_init(pdev);
--	if (!crg->rstc)
--		return -ENOMEM;
--
--	crg->clk_data = crg->funcs->register_clks(pdev);
--	if (IS_ERR(crg->clk_data)) {
--		hisi_reset_exit(crg->rstc);
--		return PTR_ERR(crg->clk_data);
--	}
--
--	platform_set_drvdata(pdev, crg);
--	return 0;
--}
--
--static void hi3516cv300_crg_remove(struct platform_device *pdev)
--{
--	struct hisi_crg_dev *crg = platform_get_drvdata(pdev);
--
--	hisi_reset_exit(crg->rstc);
--	crg->funcs->unregister_clks(pdev);
--}
--
--static struct platform_driver hi3516cv300_crg_driver = {
--	.probe          = hi3516cv300_crg_probe,
--	.remove		= hi3516cv300_crg_remove,
--	.driver         = {
--		.name   = "hi3516cv300-crg",
--		.of_match_table = hi3516cv300_crg_match_table,
--	},
--};
--
--static int __init hi3516cv300_crg_init(void)
--{
--	return platform_driver_register(&hi3516cv300_crg_driver);
--}
--core_initcall(hi3516cv300_crg_init);
--
--static void __exit hi3516cv300_crg_exit(void)
--{
--	platform_driver_unregister(&hi3516cv300_crg_driver);
--}
--module_exit(hi3516cv300_crg_exit);
--
--MODULE_LICENSE("GPL v2");
--MODULE_DESCRIPTION("HiSilicon Hi3516CV300 CRG Driver");
-diff --git a/include/dt-bindings/clock/hi3516cv300-clock.h b/include/dt-bindings/clock/hi3516cv300-clock.h
-deleted file mode 100644
-index ccea1bab7a6f..000000000000
---- a/include/dt-bindings/clock/hi3516cv300-clock.h
-+++ /dev/null
-@@ -1,36 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-or-later */
--/*
-- * Copyright (c) 2016 HiSilicon Technologies Co., Ltd.
-- */
--
--#ifndef __DTS_HI3516CV300_CLOCK_H
--#define __DTS_HI3516CV300_CLOCK_H
--
--/* hi3516CV300 core CRG */
--#define HI3516CV300_APB_CLK		0
--#define HI3516CV300_UART0_CLK		1
--#define HI3516CV300_UART1_CLK		2
--#define HI3516CV300_UART2_CLK		3
--#define HI3516CV300_SPI0_CLK		4
--#define HI3516CV300_SPI1_CLK		5
--#define HI3516CV300_FMC_CLK		6
--#define HI3516CV300_MMC0_CLK		7
--#define HI3516CV300_MMC1_CLK		8
--#define HI3516CV300_MMC2_CLK		9
--#define HI3516CV300_MMC3_CLK		10
--#define HI3516CV300_ETH_CLK		11
--#define HI3516CV300_ETH_MACIF_CLK	12
--#define HI3516CV300_DMAC_CLK		13
--#define HI3516CV300_PWM_CLK		14
--#define HI3516CV300_USB2_BUS_CLK	15
--#define HI3516CV300_USB2_OHCI48M_CLK	16
--#define HI3516CV300_USB2_OHCI12M_CLK	17
--#define HI3516CV300_USB2_OTG_UTMI_CLK	18
--#define HI3516CV300_USB2_HST_PHY_CLK	19
--#define HI3516CV300_USB2_UTMI0_CLK	20
--#define HI3516CV300_USB2_PHY_CLK	21
--
--/* hi3516CV300 sysctrl CRG */
--#define HI3516CV300_WDT_CLK		1
--
--#endif	/* __DTS_HI3516CV300_CLOCK_H */
--- 
-2.53.0
+Sashiko flagged quite a few issues, please have a look and lets
+resolve them before merging:
+https://sashiko.dev/#/patchset/20261104120138.1165715-1-radek%40podgorny.cz
 
+--=20
+Luiz Augusto von Dentz
