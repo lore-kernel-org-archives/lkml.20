@@ -1,59 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793777741;
-	b=x8VZoqof9E1Tyaa0vwlg6chf9u5HgB/Rmqd5j6zCc9ZA7v9EPJqIAhzMKHLL/qI/HbgR
-	 yuP7OFQ/k6HBy/8gkg9WFY75rEXTtSiDv5oP8+/XbSCCzRwRnvmdIS8BEDrO+K0rXDdRV
-	 c/fFokuMkwpxVzJaTkDp73xxI5+Q3LlUbZjHXx1/N6KxZPoNoYR0LPQzOt3WcY5joylmZ
-	 rtzvJ4ZuJc/VbCO/+ZkXuVYHpMdOB/OXXyS2mri49G7G37eN7/nm4VgQ8t7uM5NJAPsv8
-	 ER/+zZA8shCBRA4mn2cQjxbXws+B8xSX4w3IIIbj4m6Qjh2sH+aJ7YZJK67fbhZ5Egg==
+	t=1793777832;
+	b=CE/fWKhtgyIxmnGqGYPzEmHWQTYMLnw8SpPFoCAeNnGIBS/UJiH3gI/EpVJfG/OSC+ND
+	 eVzDrAkRzbZjAz6fVi3dm6E9MLBtLZhej9uPdXfWJz+NOd9h9LXD5evL5XjwvF+68My/5
+	 Hqvr/0beevivJbHQ6zeBYzb9E/W+rWZ3Ci2cUy6IY+oedjloVE6E1jI7OUn1/4BTX1hKT
+	 FiFcG4DLGj234a2l3TOzz2AHfch7U3H3WQO4czwB5UKCUoS8jzFYLO1jModm0J9fWS5F6
+	 7ieJhpE11pzYuefdlhw9YalsI8p0c3jS1vXZhe47irD4cBgRaEsTN3xtWUzbURWVbEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793777741;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=626tgi66kdQ74LDjwP+3KRmCPjqcDRZiyS0c4wH+xZo=;
-	b=Vmz0lOdtI7FodMOp6j+EK6i+5SS5G+JwhORV7gMBtOavBGDZ4zDWaWDFL99OFH90we17
-	 vsPcpXyM2zHCi2toXLA7LlD0ix6YT+yPNQ7ZfOOrjORjBMLAAk+Qu5JwFNDvY5Ob7kcEg
-	 Dl7evW4a4tdvC1gbjHuH+PnOGb2Eoba/yYnYyah2+pIgRzoCvYjeOUsVqkGdXi+3i3T5F
-	 aJER6sIrNlqgXG8MkD/HdEodCJqi/LmPz9RAbSMpBuaHpeZ8Chd3YAhhpVZ+70QF1rAJV
-	 qRkKlWaivq7Bhw5lVhBH51X5YWlnE4Qo0cRIteGI8gJaizvqyi5xzA0437V66eA2G2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793777832;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=Fin16iwd8zeVB2XbqHtY/b1SBp98Yl5BOCuh6PYlXus=;
+	b=41AG6nYXmDYjqt9miioim9rBOhVEe85u66yjrU75xI/SPjwllhWzZaJXn6DMXKBWn7fl
+	 mUmpYbVyKEaIpfBh6Vlpgoa90KcPSdU7ILDBdqu7niNTCCfLw8/nmzitoZ8vRN808W/UK
+	 GalAVlP3pCyoL52cPAtk1ugEH1i5MemA42WTzrm0bZdOxEYRn/MvuxEs+yH5aoVho5gZD
+	 r6zSmpHMeaxUzjb/ez6f0EhOtr3I1+6v95FntyvW/23Ef5rms5nqP+up0u5Mr1C2V6O5b
+	 lpvShofykQUrYoO7rEgnHUU0opNHjhbrqnV3y8x8sKbd377lAgghlo5Y1azAEtXFjPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ft0cH+sk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=oRsgo2d1;
+	arc=none smtp.remote-ip=210.118.77.12
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7916606A31B;
-	Wed,  4 Nov 2026 07:35:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 629E6606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 07:37:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 629E6606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ft0cH+sk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD4741F000C1;
-	Wed,  4 Nov 2026 07:35:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793777740;
-	bh=626tgi66kdQ74LDjwP+3KRmCPjqcDRZiyS0c4wH+xZo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ft0cH+skR6Jai/YWZUujt1P54xcE1puevc9ipPrWElFsmW5Yo5uCQ7/pjxbVglbHL
-	 icwWlOQvPfwwLemZ4gAeyJqVZ9wsxK1wi4OT/OPbJdZ7aBZJ6yEg9daydHYXD6qlj9
-	 JkekAveuP/lZs1EMzICXWA6wKbUrDtGnwHJm82pN0cSRKJh83RdQZOZvK77KovPnl9
-	 9TBtth5CWuUJrOCknXc6kJTt4p2MuWkLKP0yzfKi7fmHzIaYkvfe/CTmdQbpjy0NXR
-	 ZeQxfAA3ZMN0cJ3FrHka+3qbZn7GHaw266l7ndA7lERRDNivnueOi5FtPlDxR9EpKO
-	 7+KtdpLFDQMMw==
-Date: Tue, 3 Nov 2026 23:35:37 -0800
-From: Namhyung Kim <namhyung@kernel.org>
-To: Aaron Tomlin <atomlin@atomlin.com>
-Cc: peterz@infradead.org, mingo@redhat.com, acme@kernel.org,
-	mark.rutland@arm.com, alexander.shishkin@linux.intel.com,
-	jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com,
-	chjohnst@mail.com, neelx@suse.com, sean@ashe.io,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH perf-tools-next v12 04/10] perf ftrace: Add basic task
- call stack management
-Message-ID: <aurgSbFGfN0VC2L6@z2>
-References: <20261026025735.546101-1-atomlin@atomlin.com>
- <20261026025735.546101-5-atomlin@atomlin.com>
- <auWTUJd4VJUI32S3@z2>
- <5s4fy255agvlgqdg4b4f5ekvhgmpjndydvsaadeq56cubrtgot@mrflkcricted>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=oRsgo2d1
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261104073708euoutp0290e8f6d343cb54f39e078123d91a09cb~kx25oYiVN0940209402euoutp027
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 07:37:08 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261104073708euoutp0290e8f6d343cb54f39e078123d91a09cb~kx25oYiVN0940209402euoutp027
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793777828;
+	bh=Fin16iwd8zeVB2XbqHtY/b1SBp98Yl5BOCuh6PYlXus=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=oRsgo2d10Xs5fjaGmy+g59SkBifdAXF8fkxLlnePByDdoW/aAWfyUWRP2EoMEdE9l
+	 L8MvDVD51dJP2anrj89xr1OGy69mAlXFjo19MkmQ2LYVmBFrNwQwyAVs9ONLmEyHdT
+	 D7O3O2ukNcvGMNrleLkax8SnrMZeGRblcHVcWqRE=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261104073707eucas1p26b354ea66e62c86c08bfcbf21fde04d2~kx25Dfbbl0248702487eucas1p2-;
+	Wed,  4 Nov 2026 07:37:07 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261104073707eusmtip22cc96a6645008d9040cea9d940ec6d4a~kx24dAqup0090700907eusmtip2r;
+	Wed,  4 Nov 2026 07:37:07 +0000 (GMT)
+Message-ID: <8276a107-7115-48e3-a40a-2660fe1beaa5@samsung.com>
+Date: Wed, 4 Nov 2026 08:37:06 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,228 +64,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <5s4fy255agvlgqdg4b4f5ekvhgmpjndydvsaadeq56cubrtgot@mrflkcricted>
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH] dma: swiotlb: Round restricted DMA pool size down to
+ IO_TLB_SEGSIZE
+To: Michael Kelley <mhklinux@outlook.com>, "iommu@lists.linux.dev"
+	<iommu@lists.linux.dev>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Cc: Robin Murphy <robin.murphy@arm.com>, Claire Chang
+	<tientzu@chromium.org>, Konrad Rzeszutek Wilk <konrad@kernel.org>, Giorgi
+	Kobakhia <gkobakhi@asu.edu>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <MN2PR02MB686381EADCEECF16B23214D0D4692@MN2PR02MB6863.namprd02.prod.outlook.com>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261104073707eucas1p26b354ea66e62c86c08bfcbf21fde04d2
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261103155032eucas1p10934ce1bc0c0e2f1fa86891fb2626862
+X-EPHeader: CA
+X-CMS-RootMailID: 20261103155032eucas1p10934ce1bc0c0e2f1fa86891fb2626862
+References: <CGME20261103155032eucas1p10934ce1bc0c0e2f1fa86891fb2626862@eucas1p1.samsung.com>
+	<20261103155016.1107958-1-m.szyprowski@samsung.com>
+	<MN2PR02MB686381EADCEECF16B23214D0D4692@MN2PR02MB6863.namprd02.prod.outlook.com>
 
-Hello,
+On 03.11.2026 22:18, Michael Kelley wrote:
+> From: Marek Szyprowski <m.szyprowski@samsung.com> Sent: Tuesday, November 3, 2026 7:50 AM
+>> All other paths creating a swiotlb pool ensure that nslabs is a multiple
+>> of IO_TLB_SEGSIZE, and the swiotlb code relies on that. Since commit
+>> 0b84e4f8b793 ("swiotlb: Add restricted DMA pool initialization") a
+>> restricted pool can have an arbitrary size taken from the device tree.
+>>
+>> If the pool size is not a multiple of IO_TLB_SEGSIZE, the last segment is
+>> partial and swiotlb_release_slots() reads mem->slots[index + nslabs],
+>> which is one past the end of the slots array when the freed buffer ends
+>> at the end of the pool:
+>>
+>>  BUG: KASAN: slab-out-of-bounds in swiotlb_release_slots
+>>  Read of size 2
+>>
+>> Round the pool size down to a multiple of IO_TLB_SEGSIZE, wasting a bit
+>> of memory, and warn about it.
+> I'm not familiar with the macro scenarios where a device has a
+> restricted pool specified in DT. But I wonder if it would be better to
+> round up instead of down. DT has specified that the device should
+> have a restricted DMA pool of a certain size, and rounding down gives
+> the device a smaller pool than was requested. Could DMA operations
+> then fail because of not having a large enough pool? Rounding down
+> also allows the pool to end up being size zero, which this patch
+> detects and results in a definite failure at device initialization time.
+>
+> What's the tradeoff in rounding up instead?The device restricted
+> pool at least as large as requested. Presumably, being larger than
+> requested doesn't cause any problems for the device or its driver.
+> The downside is using up to 256 KiB more system memory than
+> expected. In an embedded system with only a few MiB of system
+> memory, maybe that's a relatively big problem. I don't know the
+> scenarios well enough to judge whether using a bit more system
+> memory is better or worse than the device not having all the
+> restricted pool space it said it needed for DMA.
 
-On Sat, Oct 31, 2026 at 06:27:42PM -0400, Aaron Tomlin wrote:
-> On Sat, Oct 31, 2026 at 12:05:52AM -0700, Namhyung Kim wrote:
-> > On Sun, Oct 25, 2026 at 10:57:29PM -0400, Aaron Tomlin wrote:
-> > > The function_graph tracer records kernel function entries and exits with
-> > > nested indentation. To perform call graph analysis and subsequent inlined
-> > > function reconstruction, userspace must track the active call stack on a
-> > > per-task and per-CPU basis.
-> > > 
-> > > Introduce basic call stack management for the function graph tracer:
-> > > 
-> > >     1.  Data structures
-> > > 
-> > >         Define struct ftrace_stack_frame to track function names,
-> > >         indentation, and inlined status.
-> > > 
-> > >         Define struct ftrace_task_state with a dynamically resisable call
-> > >         stack array, tracked in a hash table keyed by PID alongside per-CPU
-> > >         active task bindings (ftrace_cpu_tasks).
-> > > 
-> > >     2.  Trace stream processing
-> > > 
-> > >         Implement find_func_column() to isolate context columns (CPU,
-> > >         timestamps, duration) from function graph trace lines across
-> > >         standard and verbose layouts.
-> > > 
-> > >         Implement ftrace_process_fgraph_line() to parse function entries
-> > >         ("{") and exits ("}"), pushing and popping frames on the tracked
-> > >         stack and matching bare closing braces against preceding frames.
-> > > 
-> > >     3.  Integration in __cmd_ftrace()
-> > > 
-> > >         Stream complete trace lines through ftrace_process_fgraph_line()
-> > >         in __cmd_ftrace() and clean up allocated CPU states on exit via
-> > >         ftrace_cpu_states__clear().
-> > > 
-> > > Tested-by: Ian Rogers <irogers@google.com>
-> > > Reviewed-by: Ian Rogers <irogers@google.com>
-> > > Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
-> > > ---
-> > [SNIP]
-> > > +/**
-> > > + * ftrace_process_fgraph_line - Process and output a function graph trace line
-> > > + * @ftrace: Perf ftrace context
-> > > + * @line: The trace line to process
-> > > + * @out: File stream to output to
-> > > + *
-> > > + * Parse function entries and exits, maintain the task's call stack, and
-> > > + * output the trace line.
-> > > + *
-> > > + * Return: 0 on success, or a negative error code on failure.
-> > > + */
-> > > +int ftrace_process_fgraph_line(struct perf_ftrace *ftrace, const char *line, FILE *out)
-> > > +{
-> > > +	const char *pipe_char;
-> > > +	const char *after_pipe;
-> > > +	const char *func_start;
-> > > +	struct ftrace_task_state *cs;
-> > > +	int cpu = -1;
-> > > +	int leading_spaces;
-> > > +	int top_raw_indent;
-> > > +	int match_idx;
-> > > +	int i;
-> > > +	bool is_exit;
-> > > +	bool has_open_brace;
-> > > +	bool has_semicolon;
-> > > +
-> > > +	pipe_char = find_func_column(ftrace, line, &cpu);
-> > > +	if (!pipe_char)
-> > > +		return print_line(ftrace, line, out);
-> > > +
-> > > +	cs = get_cpu_state(ftrace, cpu);
-> > > +	if (!cs)
-> > > +		return print_line(ftrace, line, out);
-> > > +
-> > > +	after_pipe = pipe_char + 1;
-> > > +	func_start = skip_spaces(after_pipe);
-> > > +	leading_spaces = func_start - after_pipe;
-> > > +
-> > > +	if (*func_start == '\0')
-> > > +		return print_line(ftrace, line, out);
-> > > +
-> > > +	is_exit = (*func_start == '}');
-> > > +
-> > > +	if (is_exit) {
-> > > +		char exit_name[128];
-> > > +
-> > > +		extract_exit_func_name(func_start, exit_name, sizeof(exit_name));
-> > > +
-> > > +		top_raw_indent = -1;
-> > > +		for (i = cs->depth - 1; i >= 0; i--) {
-> > > +			top_raw_indent = cs->stack[i].raw_indent;
-> > > +			break;
-> > > +		}
-> > 
-> > This loop doesn't look natural.  Why not just use an if statement?
-> 
-> Hi Namhyung,
-> 
-> Thank you. I completely agree.
-> 
-> A loop that unconditionally breaks on the first iteration is
-> unnecessary here. I will replace it with a simple conditional check in
-> the next revision:
-> 
->     top_raw_indent = -1;
->     if (cs->depth > 0)
->         top_raw_indent = cs->stack[cs->depth - 1].raw_indent;
-> 
-> All subsequent similar instances will be addressed accordingly as well.
-> 
-> > > +struct ftrace_stack_frame {
-> > > +	char *name;
-> > > +	bool inlined;
-> > > +	int indent;
-> > > +	int raw_indent;
-> > 
-> > Can you please add comments that explain why it has two indents?
-> > Also inlined field may be added later.
-> 
-> Certainly. The two indent fields serve distinct purposes once inlined
-> frames are injected into the output.
-> 
->     - raw_indent: Records the original leading whitespace count after "|"
->       as emitted by the kernel's function_graph tracer. Because the kernel
->       only traces real stack frames, raw_indent is used to match entry and
->       exit frames against the raw trace stream.
-> 
->     - indent: Records the adjusted visual indentation (in spaces) used when
->       rendering the frame to output, accounting for any extra indentation
->       added by preceding synthetic inlined frames so that the closing "}"
->       aligns with its opening "{".
-> 
-> Agreed, these fields are not used yet. I will move inlined and
-> inlined_depth into the subsequent patch that introduces inlined function
-> display, and add explanatory comments to both structures.
-> 
-> > > +};
-> > > +
-> > > +struct ftrace_task_state {
-> > > +	struct hlist_node	node;
-> > > +	pid_t			pid;
-> > > +	struct ftrace_stack_frame *stack;
-> > > +	int			max_stack;
-> > > +	int			depth;
-> > > +	int			inlined_depth;
-> > > +	int			overflow_depth;
-> > 
-> > Ditto.  What are these depths?
-> 
->     - max_stack: Current allocated capacity (in frames) of the dynamically
->       resized 'stack' array.
-> 
->     - depth: Current number of active frames stored on stack.
-> 
->     - inlined_depth: Number of active synthetic inlined frames currently on
->       stack, used to compute the extra visual indentation offset for
->       child frames. This will also be moved to the later patch.
-> 
->     - overflow_depth: Number of nested call frames entered while stack is
->       saturated (at the maximum depth cap or on allocation failure), used
->       so their matching exit braces can be consumed without prematurely
->       popping valid parent frames.
-> 
-> I will document all of these fields with comments in the next revision.
-> 
-> Please see an example. When synthetic inlined frames are injected, the
-> visual display column (indent) shifts right relative to the kernel stream
-> (raw_indent):
-> 
->     1.  What kernel function_graph emits:
-> 
->            |  foo() {                 <-- raw_indent = 2
->            |    bar() {               <-- raw_indent = 4
->            |    } /* bar */           <-- raw_indent = 4
->            |  } /* foo */             <-- raw_indent = 2
-> 
->     2.  Rendered output and stack state:
-> 
->         When perf injects inlined function inline_helper() onto cs->stack,
->         inlined_depth becomes 1. Every subsequent child frame shifts right
->         by (inlined_depth * 2) spaces so bar() nests visually inside
->         inline_helper(), while still retaining raw_indent = 4 to match the
->         kernel's closing "}" event:
-> 
->            Rendered Output            cs->stack[idx] and ftrace_task_state
->            ---------------            ---------------------------
->            |  foo() {                 [0] foo:
->            :                              raw_indent=2, indent=2, inlined=false
->            :                              (depth=1, inlined_depth=0)
->            :
->            |    inline_helper() {     [1] inline_helper:
->            :                              raw_indent=4, indent=4, inlined=true
->            :                              (depth=2, inlined_depth=1)
->            :
->            |      bar() {             [2] bar:
->            :                              raw_indent=4, indent=6, inlined=false
->            :                              (depth=3, inlined_depth=1)
->            :                              ^
->            :                              '-- indent = raw_indent (4) +
->            :                                           inlined_depth * 2 (2) = 6
->            :
->            |      } /* bar */         <-- kernel function_graph emits "}"
->            :                              at raw_indent=4. Matched against [2]
->            :                              via raw_indent=4, but printed at
->            :                              [2].indent (6 spaces)
->            :
->            |    } /* inline_helper */ <-- Popped automatically; printed at
->            :                              [1].indent (4 spaces)
->            :
->            |  } /* foo */             <-- kernel function_graph emits "}"
->                                           at raw_indent=2. Matched against [0]
->                                           via raw_indent=2, printed at
->                                           [0].indent (2 spaces)
-> 
+The main problem with enlarging the restricted pool is that the memory
+has been already allocated (reserved) by the generic of_reserved_mem
+code before the rmem_swiotlb_device_init() is called. There might be
+even another reserved region just after the one being processed by
+rmem_swiotlb_device_init(). The reserved region might be specified in
+the device tree exactly, by pointing its base address and size. In
+such case the rmem_swiotlb_device_init() really cannot do anything
+else than using the provided already allocated region partially.
+The only thing that might be improved is freeing the 'wasted' part
+of the region back to the memory allocator if You think that
+printing a warning is not enough.
 
-Thanks for the example,  the comment also look good.
 
-Namhyung
+
+>
+> Your commit message also mentions "wasting a bit of memory".
+> What is wasted in the round down case? The rounding down is
+> done before the pool memory is allocated. I would have thought
+> the wasting would occur in the round up case, where the restricted
+> pool is given more memory than the device said it needed.
+>
+> Michael
+>
+>> Reported-by: Giorgi Kobakhia <gkobakhi@asu.edu>
+>> Closes: https://lore.kernel.org/all/20261026032007.1957949-1-gkobakhi@asu.edu/
+>> Fixes: 0b84e4f8b793 ("swiotlb: Add restricted DMA pool initialization")
+>> CC: stable@vger.kernel.org
+>> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+>> ---
+>>  kernel/dma/swiotlb.c | 15 ++++++++++++++-
+>>  1 file changed, 14 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+>> index 2c57b49ac7c0..a68f35192582 100644
+>> --- a/kernel/dma/swiotlb.c
+>> +++ b/kernel/dma/swiotlb.c
+>> @@ -2007,6 +2007,19 @@ static int rmem_swiotlb_device_init(struct reserved_mem *rmem,
+>>  	 */
+>>  	if (!mem) {
+>>  		struct io_tlb_pool *pool;
+>> +		unsigned long aligned_nslabs = ALIGN_DOWN(nslabs, IO_TLB_SEGSIZE);
+>> +
+>> +		if (aligned_nslabs != nslabs) {
+>> +			dev_warn(dev, "Restricted DMA pool size %zu is not a multiple of %lu, rounding down to %lu bytes\n",
+>> +				 (size_t)rmem->size,
+>> +				 (unsigned long)IO_TLB_SEGSIZE << IO_TLB_SHIFT,
+>> +				 aligned_nslabs << IO_TLB_SHIFT);
+>> +			nslabs = aligned_nslabs;
+>> +		}
+>> +		if (!nslabs) {
+>> +			dev_err(dev, "Restricted DMA pool is too small\n");
+>> +			return -EINVAL;
+>> +		}
+>>
+>>  		mem = kzalloc_obj(*mem);
+>>  		if (!mem)
+>> @@ -2034,7 +2047,7 @@ static int rmem_swiotlb_device_init(struct reserved_mem *rmem,
+>>
+>>  			mem->cc_shared = true;
+>>  			ret = set_memory_decrypted((unsigned long)phys_to_virt(rmem->base),
+>> -						   rmem->size >> PAGE_SHIFT);
+>> +						   (nslabs << IO_TLB_SHIFT) >> PAGE_SHIFT);
+>>  			if (ret) {
+>>  				dev_err(dev, "Failed to decrypt restricted DMA pool\n");
+>>  				kfree(pool->areas);
+>> --
+>> 2.43.0
+>
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
