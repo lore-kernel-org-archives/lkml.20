@@ -1,88 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793828515;
-	b=rJAihRL78izd+NhQBjIvMrsAdIyUvZzPvx5yF35s9e4235oeii4L52FqjASmKKkJhrA4
-	 23ZNFXSFqToY1ZPGAqv72Lj2X4i8rE5Rbut9gd+DhvM+IBCwl70tbrVZ0/yr2xAz+IIcI
-	 MsLWMwRti6EvFUu8Yf8SPLOKlr4Bgpa3Gcojz24QLTmVqGpK5cG5CQe0Bb02gD6HNKBwt
-	 WXkiYT3x/e9KrVZJPa8vUdbNR1rPSXgD0T/9otavpz5IGHfd+N97N6hLyl3lLiYm7IEAw
-	 8VzVgHCIOo12UvlkBMTy3+jHi+eoY7x3ZTLqrcGaGaRqCiacJYE3tQqiLKaX2Myj3mg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793828515;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793828604;
+	b=N30TZmRfZSN06l7Mv75byn27kA/yRGSD+OJJXUKknwghug7kkUo9R/2Zs5l0Qy2TC7ne
+	 YiukOHHvRO+JYFtTo/BSPyBhP2Ex/Ir4j5et++J2HFWy7UwB4MxPNNkmXQgtHFgPvCYet
+	 C2pInPVi/UhaSmyBfl7a6SNC8s6tomYKUNFUeQOKwpEsM/qhNrLAqTv9Jjov0eosp/iqn
+	 8O8SKOVD+6IAlMl9NObWXmhC1/PwhjQfmfXDoaV4dlLnTbfTjwhhhdRwy2FtlQo5rz/X+
+	 PIkIUaG1kpgzFCCCfiDgnrR4QDVEzwdgPsncskUf00neVzdHqNwU2cBgQUuDN15b3wA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793828604;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Q7Og+mW7oxCgirZzxRtSQUVOjU4FsOOYcTyf3uefVNI=;
-	b=tllTdfXzGtUfL58mlI84bgvHZbkphWyh3BkzzkMVPcE2CLnZlz4dbUgsaso7HC2ucwMd
-	 DRnHkZy/NOkt2/Nce1NKMhjNE6NVYF0pZ8xKGxjhaAipDskuCzWMBypRxah5MMBClazjk
-	 1+JODOQ0ww/ocEoI4+FCVeg9gAlqEyYWE8XCpqfKP3jWQUJvc5rgfumZ8ffIw2FWmi9Nu
-	 WGc/tlMVhnhn/jRDkrtyWlXmHVZNo+iHZtEWK2Th4FILYd8gFbqyM2dsXEwHvhiS9zhCL
-	 HaHSVpi5sgd6pagORhirrSuzT6H+ZBkqhWSQ0iXEHCMVrTxAHU9YDdTDy3ZSuvZv/Rg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Ljl4conW2qXat+Nx28zDcnSORLisKvQT4GcICaTQzR4=;
+	b=Y60YrOM77+nrsnrpkx7CpBwtzChugHSHyHjI1yNXGiMqDoL9Ay0tgHGq2HVVFpLykdoP
+	 o7u8Kf8boPkm+4vI3IA8zVgq8b1CQP9lib3aJ76tSkkKY+WWIHU5czXbBXYOKttDAaRJz
+	 o8XYBlFSyzI6uZv7AsqQYBepmBcc1ulGHaDRjncaCUN1l5e7ZjkPYfuDuqMTlyxH/xubS
+	 EdbUkD2kusE/QoSGomygH4MggHZX0TPgYfkwbxaiYu7ZRPZpXTMV/965/bvco3xlfPz5K
+	 QMg8U7UmtiVwokttlvyykZuSlg+9fVLre4l1/cL9nAiW73cn9eUpszp9cyFqHu+Q46Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nPqkaDeD;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z0yRGyra;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8D31606E2F2
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:41:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8D31606E2F2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED251606A331
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:43:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED251606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nPqkaDeD
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso8066485e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 13:41:54 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z0yRGyra
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-35159e0092aso123973eec.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 13:43:23 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793828603; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DHJJvAoYHkxIOe7jeLfdL4CUMOyjrfqYKNq6cJVjMrwq62C8YoTQdOvpseRXuR28hB
+         jY0yBJw8F1mODVt7iNsYYSp9EwR3fva9/Ml88dF2gh/QNolOAI0cbVvVUV5ZlbXKzjTk
+         0GMZRX3ehK1iWof9fIywXERn8zps8FvKL1TkYn3ueh2S/Z8O5MeStYm7S3wvBCCuSrgY
+         TktxaZgJluHoAfrJ/NjRaVbJQXVk9qeKUT2txwZ14nbvSiRrwPOTou+J67HKXEz2x1Hz
+         M7B6Rmew8Pn7aI0DoiRHb/wfK47lk1VdLEFwLYsB2G90b5wDM5FQuvy4XFu3IaylwVSt
+         70cg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Ljl4conW2qXat+Nx28zDcnSORLisKvQT4GcICaTQzR4=;
+        fh=WAAuvfogrL6RzsQZonFwraene9j2bcfKUq1TPyCe0f8=;
+        b=jEClMuC0jdLvRAzGCxYke/+QqdvSdQAST3NBPsNdGiCaKJhBlsNzEC6iksKOa+6v3Z
+         xR76nW/XUxV/O4XtLnlig2rkJLNK1uQfFjG1vWo2798OmVw7+HKlDxO0teUa1FyvoQSN
+         uk2uKuKvOGr2IHS9hEy7VtBGAd5in36+zom90sYR9is+luwZySL3OcXsJLtkTGi5B56P
+         ZDRkAd9jdOdMf2Mme0B1GK6GrT0gieUDMZXXHVEccpk4I+4eHRhZrGAqkWuR7DGH7Ow3
+         kCSOeR9/H4BVLqLXLxyaHr+nBaYfgR6lBDXV7aXKTKDQ4t5oxujbM79zhfDvLsbU5sPS
+         R5Ew==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793828513; x=1794433313; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q7Og+mW7oxCgirZzxRtSQUVOjU4FsOOYcTyf3uefVNI=;
-        b=nPqkaDeDDqROg1NgJ818bCBuDwWCrbuYLnYOJkqP5HpbG1l2XeD3T73FcKfmHaKkb5
-         LvPVkqWWB39JgS+5qxZVC84CARLKFzrramGeO1Jjp242vVNA/ONhj6KzGaicLXWoZiKP
-         x3vW9du2GbyB/fgp/FGvJxPCkEkf/FZBgYcV8DcZfl/4PHq+G3IhfiCSKMTQhZJCpf0d
-         yiC/ArqxMdKFcDCiCkxBb9k2Q7/KYV3GaoJ/yxA3m5YZjhyb39+jYGkFbNsOvGkZOIkT
-         wt1dujwaqjNA9dZNvDey1orpcUOn4ANTgAvAuCBbL6DVb9Byyu/6cuct49LOJ0OHYsr5
-         aZkw==
+        d=gmail.com; s=20260707; t=1793828603; x=1794433403; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ljl4conW2qXat+Nx28zDcnSORLisKvQT4GcICaTQzR4=;
+        b=Z0yRGyraJdHMewKMERkG+T9GXIPcGtvAqcvq0dB9CrMEHZDroZ5FSPpKqkSyicI0W4
+         GANDTe+2Sb/NospGxzA07Xzbimt72zo4eyQpQhX6cHkMTBxgBRfckYT94/HIS+vuH28N
+         OECJvHZhEH6RFIfSkltsAQIYGO4toD8KiTGR+bgFnhRhiRbae1QGmPV2pcW8wN3ObD6R
+         8cu5SPEDsLKoWRAMatcxCW/QwcUJHf/ckyE/uwK5mQX2V01JZiHcjjYTbGWuwtlzTZ5c
+         IANGLxowxJTqqqJJvczHc90vHKU+UjS4wsuItyU4B/OXY77S6XC4w5OY/yXtzBkvtWCt
+         kvHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793828513; x=1794433313;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Q7Og+mW7oxCgirZzxRtSQUVOjU4FsOOYcTyf3uefVNI=;
-        b=Wo0fIFBbzZYHrPZF3mtxsggSwr4qRdDUOOrqtSkPgG9TBqEzwYgNrPa45gKpOrIehl
-         PFSQZuVWpybDaI0JB3j4/GTAP4nCrBYhjbHpao48EuhwJXm4IvZzIIIDeskcMQmSMvlf
-         /M2FkBydRO682WZmTUjCMMFsdq4ReqSrD2OTK19YZJwsHLNqZsehaAkc6VUpBBGJfn3w
-         TPooZ96/TUkvJj7+m3xi5PTbh5fnUGQGqhIpKi/EzVaNirLchBlGj+HWSTU2ffHSHhJD
-         J4m6hCRyJMCxWagF/VNv14kRHIFMZiOalmsDkS8R7ZF3ntCRdzCqR0upRptEHJ9E0TiJ
-         99GA==
-X-Forwarded-Encrypted: i=1; AKwUvBw8/I9ul+WCkPq+kfPkP4tQns2E1aW61pjOswZFOX4WY6Khdur2Jo+cFCENWMlzMremIFBOg5JjCbuvxjc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8wAqlp38aWNfefnrAthtVlHiifQ59Z0sZuynjimWvs/Nx+H5Ch
-	joY41Kf+3G1BGvjIgxjGjgudEv8NUuIiTNUwyfRgmY5+e6LiGoQmGqnn
-X-Gm-Gg: AYBFou3kJsFynRynudPlXub9siayUwJ+InaClkXf0IqA3+ZFE+cT8QxwoSPbNl9zpvy
-	I8Q3PTxMycfAwKn5K77phh0g1WA8uznDSZmsbNz8wtjUJPG+MfObiPKdlZ6yPApWruBpf9eGjsR
-	SsYMIv37z+i7qRUIEF7PjcXJZZqnjjhoXxgR+3noa32bTDlw2U9kaAdcrlugAjMv2R5/8BoJte8
-	M4OfRTCsGZ568vmiQDHo0nlQsB/slhd+b+MoywhynM7UdJu7rPkFQfA8JJxvZ08umW1VTUGpv6x
-	+PSpTgoYX+sMwui3x6ouewRJYPP0kqDgD0o1PMqoUaQpRA3WPz1L9wdrvXl8iVWN+9pTEX5p4pv
-	Ka5jiCz45OF2srFcpfs3X44tGMY7i2aKyjoAy41rCiamXlk2cWvkdYtl6iK02+P6k7yiG1+H7Nu
-	a+vCwyqP8D4v/ioYhbMk/taa/+SOAUwUfmkc/C7RbytPLgKegXOwC0PXuRgfada7lz8W8/HYBf7
-	XVHQj1X/nuP1kJ43RVjA36q0Xo2o5XJDnP8SnL2cSEikEobl1eL7FluNkCqZDrfYC6VoDrBAR44
-	qTWsG9DZ6jHALzjMPJQXjO5kvtS85z+8iqPSOgRmWCkO0rL9KMIVBcr7BFhTPDxN
-X-Received: by 2002:a05:600c:6989:b0:4a7:6425:c274 with SMTP id 5b1f17b1804b1-4ac150b38d0mr378320765e9.2.1793828512992;
-        Wed, 04 Nov 2026 13:41:52 -0800 (PST)
-Received: from ?IPV6:2a03:83e0:1126:4:b226:92e7:4fdc:71f4? ([2620:10d:c092:500::6:d12b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56ea594cfsm11464455e9.5.2026.11.04.13.41.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 13:41:52 -0800 (PST)
-Message-ID: <380e70f0-476b-4ea1-91a1-621404f573f0@gmail.com>
-Date: Wed, 4 Nov 2026 21:41:49 +0000
+        d=1e100.net; s=20260707; t=1793828603; x=1794433403;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ljl4conW2qXat+Nx28zDcnSORLisKvQT4GcICaTQzR4=;
+        b=yVVKbMG0fFiYgAvLRo98JHJh6heryK/K6P9bKB77U8eyX6nl3Fq8c98M0bO2uFnXR9
+         hXxiBVfpb+aHMG/GJTcqbwnD+Et9ckbggCtC7bu1udQsk1Sted+AjjAVxkcxaMRkR7Ck
+         98MrJ/pVwGLZjV9rUlwpb8d0i6oBGi5iNyRbrFO5FRIuk5dmmJCsfCJMW5Joujz1f/2M
+         ZbOx47ULnu6hXgbyv8+UbX976IPwBvx6mr5VoPfB1AHsGduKy6bPKC6Jf9D790Iu/ffQ
+         iQnVbIr2vp4S7FIoNuM3T8Tq9CddE/bIUZdiyS7RuMpEZkmB3EbofRg3TJ6TVuBWa+nI
+         FH5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzGSnmyO+iBukKadPvtg84zfB2dCZ07pLYydRkZiQSnjXsA3JOCw0bAxGOCzz2n9aDskfIleJ78MuqLfZ4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8tEeZRLikUYHoG/8I+hB2Dgs46v7shWwTtmUn1d3zGIHw9Qi1p
+	r1/QCPl6xFf0MQ7pbDIm+j2P62xJ2U8NX8C42IoYCseDZ9YFtBZKIRXPxJpdGVuLF8csGwLN0WK
+	rYvUfLrCm9UnOxvk37DPhV/DI25dmEAg=
+X-Gm-Gg: AYBFou1YNCkFwrDRpMguZCuqbnCOQyJc6PDH6877YQ0oXQiqFF/Xt4xhAilLHq24L1M
+	tSatTRKo3h1qpsrhlAzpVCA0oWTVWeHHyWELaa7V53duXHeAR82QDPFyFRAopPfFaqqAVyn/jRD
+	XL4ADm9cB/6d3H4qsOUEaRw3PwadmpKsPauGtnr7Kof81yOrNFl9uiOQW55FlPU6fr5ugB3uH00
+	1NRuqap5JoULD/ke+ZegjMSvT759W0fVi1RqebVb1At4IGvSrhRz/+FLowlIFrG/lTBdJ+TNuLO
+	R6HY18KNRSTQMTgylUZ/tOClA//NFNqbxmzOkBL34qT2lu1K7rZeQ43d3E5DxFo5iiUYvdYG+Xz
+	WmBj8gSyyIxDGr4qOfmi/Rfndh6LMIsoZsDYVz8vi6waHCGEYAsXqzDPvJ4lX4hTmdhkjsnMVt4
+	uMbQIODc1GhypEtGPkpfT3gB21ryVwj9w0jvJAl9+x3VwF2nIdDmqSe5ZeOz9po43m8vvlXz8z0
+	l1345BaIAmDHX1uc/nZ9LPIa0PKpHz2+msyS6uuZGn4ftUI9jO7htGgPQ==
+X-Received: by 2002:a05:7300:ae18:b0:36a:13fd:b5c with SMTP id
+ 5a478bee46e88-36a4235ceddmr35158095eec.2.1793828602922; Wed, 04 Nov 2026
+ 13:43:22 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,287 +106,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf] bpf: Fail rhtab inserts and deletes with IRQs
- disabled
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>, mt4022@columbia.edu,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Mykyta Yatsenko <yatsenko@meta.com>
-Cc: Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org, tz2294@columbia.edu
-References: <20261103-bpf-rhtab-irqs-disabled-v1-1-9874d96a088c@columbia.edu>
- <DMM072L9H884.193UBSBZRTKYO@gmail.com>
-Content-Language: en-US
-From: Mykyta Yatsenko <mykyta.yatsenko5@gmail.com>
-In-Reply-To: <DMM072L9H884.193UBSBZRTKYO@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <ed89f1ce-cdca-d6f6-3e1-f0fa34eac4d@namei.org> <4ea0f231-eec4-4f41-bd2c-e5484c0535de@paulmck-laptop>
+ <b765a5d3-9844-fed8-4277-2a998980b33f@namei.org>
+In-Reply-To: <b765a5d3-9844-fed8-4277-2a998980b33f@namei.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 4 Nov 2026 22:43:09 +0100
+X-Gm-Features: AclHuK8gOlHOslpVAosDZWNzH-O8Uhmybac6kwLa9O77gIDa-8MbeUZmJg2EQs0
+Message-ID: <CANiq72kCLu8EUSitn0Z_Q=ff+gDcmw3o=aaMCLYSm-ze8Y2zvQ@mail.gmail.com>
+Subject: Re: Kernel formal methods mailing list?
+To: James Morris <jmorris@namei.org>
+Cc: "Paul E. McKenney" <paulmck@kernel.org>, Christian Brauner <brauner@kernel.org>, 
+	Julia Lawall <julia.lawall@inria.fr>, Greg KH <greg@kroah.com>, gmonaco@redhat.com, 
+	ojeda@kernel.org, aliceryhl@google.com, gary@garyguo.net, 
+	namcao@linutronix.de, sashal@kernel.org, 
+	natalie.klaus@runtimeverification.com, willy@infradead.org, 
+	linux-kernel@vger.kernel.org, Paul Moore <paul@paul-moore.com>, tytso@mit.edu, 
+	keisuke.nishimura@inria.fr, jean-pierre.lozi@inria.fr, ejratl@gmail.com, 
+	corinn_tiffany@alumni.brown.edu, kate.stewart@att.net
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Wed, Nov 4, 2026 at 9:56=E2=80=AFPM James Morris <jmorris@namei.org> wro=
+te:
+>
+> That's a possibility. Would the mm folk there would want to keep it domai=
+n-focused?
 
+I think linux-formal would be clearer, even if LKMM uses formal methods.
 
-On 11/4/26 12:35 AM, Alexei Starovoitov wrote:
-> On Tue, Nov 03, 2026 at 10:46 AM Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org> wrote:
->> A bucket lock is only ever held with IRQs disabled, so return -EBUSY
->> from deletes and from inserts of new keys when IRQs are already
->> disabled, like the other hash maps do on re-entry.  Lookups and updates
-> 
-> The other hash maps fail on re-entry only. rqspinlock detects it.
-> This check fails every insert and delete with irqs disabled.
-> That's perf_event progs, kprobes via int3, sched_switch and
-> sched_wakeup tracepoints, sched_ext ops under rq lock.
-> imo it's not worth breaking all of them for a rare deadlock.
-> 
->> This is the check Alexei suggested on the RFC of the series [1].  It also
->> stops perf_event and other programs that run with IRQs disabled from
->> inserting or deleting keys.  I can turn the reproducer into a selftest
->> if that helps.
-> 
-> It was my suggestion, sorry. It's too broad.
-> v4 of rhash picked bpf_disable_instrumentation() to keep these callers:
-> https://lore.kernel.org/bpf/20260513-rhash-v4-0-dd3d541ccb0b@meta.com/
-> 
-> Only a caller with irqs disabled can run inside the locked section of
-> this cpu. Lets trylock the bucket in that case and spin otherwise.
-> 
->   caller with irqs disabled    today      this patch   trylock
->   -------------------------    --------   ----------   -------
->   bucket is not locked         works      -EBUSY       works
->   locked by another cpu        spins      -EBUSY       -EBUSY
->   locked by this cpu           deadlock   -EBUSY       -EBUSY
-> 
-> Then no need for bpf_disable_instrumentation() in rhtab.
-> params.trylock_irqsoff is a compile time constant in the fast path,
-> like insecure_elasticity. The other rhashtable users pay nothing.
-> 
-> The diff leaves one more bug: rhashtable_insert_rehash() calls
-> kvmalloc(GFP_ATOMIC). That's not ok in NMI.
-> 
-> Something like this (compile tested only):
-> 
-> diff --git a/include/linux/rhashtable-types.h b/include/linux/rhashtable-types.h
-> index 3576b8f..a5c4e69 100644
-> --- a/include/linux/rhashtable-types.h
-> +++ b/include/linux/rhashtable-types.h
-> @@ -52,6 +52,8 @@ typedef int (*rht_obj_cmpfn_t)(struct rhashtable_compare_arg *arg,
->   * @min_size: Minimum size while shrinking
->   * @insecure_elasticity: Set to true to disable chain length checks
->   * @automatic_shrinking: Enable automatic shrinking of tables
-> + * @trylock_irqsoff: With irqs disabled insert and remove don't spin on
-> + *		     the bucket lock and return -EBUSY
->   * @hashfn: Hash function (default: jhash2 if !(key_len % 4), or jhash)
->   * @obj_hashfn: Function to hash object
->   * @obj_cmpfn: Function to compare key with object
-> @@ -65,6 +67,7 @@ struct rhashtable_params {
->  	u16			min_size;
->  	bool			insecure_elasticity;
->  	bool			automatic_shrinking;
-> +	bool			trylock_irqsoff;
->  	rht_hashfn_t		hashfn;
->  	rht_obj_hashfn_t	obj_hashfn;
->  	rht_obj_cmpfn_t		obj_cmpfn;
-> diff --git a/include/linux/rhashtable.h b/include/linux/rhashtable.h
-> index 70dac92..ba2c594 100644
-> --- a/include/linux/rhashtable.h
-> +++ b/include/linux/rhashtable.h
-> @@ -339,6 +339,33 @@ static inline unsigned long rht_lock(struct bucket_table *tbl,
->  	return rht_lock_nested(tbl, bkt, 0);
->  }
-> 
-> +/*
-> + * The bucket lock is held with irqs disabled. A caller with irqs disabled
-> + * may run inside the locked section of this cpu (NMI, kprobe, tracepoint).
-> + * It cannot spin.
-> + */
-> +static inline bool rht_lock_or_busy(struct bucket_table *tbl,
-> +				    struct rhash_lock_head __rcu **bkt,
-> +				    const struct rhashtable_params params,
-> +				    unsigned long *flags)
-> +	__cond_acquires(true, __bitlock(0, bkt))
-> +{
-> +	if (!params.trylock_irqsoff || !irqs_disabled()) {
-> +		*flags = rht_lock(tbl, bkt);
-> +		return true;
-> +	}
-> +	/* bit_spin_trylock() always succeeds on UP */
-> +	if (!IS_ENABLED(CONFIG_SMP))
-> +		return false;
-> +	local_irq_save(*flags);
-> +	if (!bit_spin_trylock(0, (unsigned long *)bkt)) {
-> +		local_irq_restore(*flags);
-> +		return false;
-> +	}
-> +	lock_acquire_exclusive(&tbl->dep_map, 0, 1, NULL, _THIS_IP_);
-> +	return true;
-> +}
-> +
->  static inline void rht_unlock(struct bucket_table *tbl,
->  			      struct rhash_lock_head __rcu **bkt,
->  			      unsigned long flags)
-> @@ -785,7 +812,9 @@ static __always_inline void *__rhashtable_insert_fast(
->  	if (!bkt)
->  		goto out;
->  	pprev = NULL;
-> -	flags = rht_lock(tbl, bkt);
-> +	data = ERR_PTR(-EBUSY);
-> +	if (!rht_lock_or_busy(tbl, bkt, params, &flags))
-> +		goto out;
-> 
->  	if (unlikely(rcu_access_pointer(tbl->future_tbl))) {
->  slow_path:
-> @@ -1066,7 +1095,8 @@ static __always_inline int __rhashtable_remove_fast_one(
->  	if (!bkt)
->  		return -ENOENT;
->  	pprev = NULL;
-> -	flags = rht_lock(tbl, bkt);
-> +	if (!rht_lock_or_busy(tbl, bkt, params, &flags))
-> +		return -EBUSY;
-> 
->  	rht_for_each_from(he, rht_ptr(bkt, tbl, hash), tbl, hash) {
->  		struct rhlist_head *list;
-> @@ -1149,6 +1179,7 @@ static __always_inline int __rhashtable_remove_fast(
->  	 */
->  	while ((err = __rhashtable_remove_fast_one(ht, tbl, obj, params,
->  						   rhlist)) &&
-> +	       err != -EBUSY &&
->  	       (tbl = rht_dereference_rcu(tbl->future_tbl, ht)))
->  		;
-> 
-> diff --git a/kernel/bpf/hashtab.c b/kernel/bpf/hashtab.c
-> index 6e21154..edc7572 100644
-> --- a/kernel/bpf/hashtab.c
-> +++ b/kernel/bpf/hashtab.c
-> @@ -2983,6 +2983,7 @@ struct bpf_rhtab {
->  static const struct rhashtable_params rhtab_params = {
->  	.head_offset = offsetof(struct rhtab_elem, node),
->  	.key_offset  = offsetof(struct rhtab_elem, data),
-> +	.trylock_irqsoff = true,
->  };
-> 
->  static inline void *rhtab_elem_value(struct rhtab_elem *l, u32 key_size)
-> @@ -3011,6 +3012,7 @@ static const struct rhashtable_params rhtab_params_long = {
->  	.head_offset = offsetof(struct rhtab_elem, node),
->  	.key_offset  = offsetof(struct rhtab_elem, data),
->  	.key_len     = sizeof(long),
-> +	.trylock_irqsoff = true,
->  	.hashfn      = rhtab_hashfn_long,
->  	.obj_cmpfn   = rhtab_key_cmp_long,
->  };
-> @@ -3143,21 +3145,11 @@ static int rhtab_delete_elem(struct bpf_rhtab *rhtab, struct rhtab_elem *elem, v
->  {
->  	int err;
-> 
-> -	/*
-> -	 * disable_instrumentation() mitigates the deadlock for programs running in NMI context.
-> -	 * rhashtable locks bucket with local_irq_save(). Only NMI programs may reenter
-> -	 * rhashtable code, bpf_disable_instrumentation() disables programs running in NMI, except
-> -	 * raw tracepoints, which we don't have in rhashtable.
-> -	 */
-> -	bpf_disable_instrumentation();
-> -
->  	if (rhtab->map.key_size == sizeof(long))
->  		err = rhashtable_remove_fast(&rhtab->ht, &elem->node, rhtab_params_long);
->  	else
->  		err = rhashtable_remove_fast(&rhtab->ht, &elem->node, rhtab_params);
-> 
-> -	bpf_enable_instrumentation();
-> -
->  	if (err)
->  		return err;
-> 
-> @@ -3268,16 +3260,11 @@ static long rhtab_map_update_elem(struct bpf_map *map, void *key, void *value, u
->  	memcpy(elem->data, key, map->key_size);
->  	copy_map_value(map, rhtab_elem_value(elem, map->key_size), value);
-> 
-> -	/* Prevent deadlock for NMI programs attempting to take bucket lock */
-> -	bpf_disable_instrumentation();
-> -
->  	if (map->key_size == sizeof(long))
->  		tmp = rhashtable_lookup_get_insert_fast(&rhtab->ht, &elem->node, rhtab_params_long);
->  	else
->  		tmp = rhashtable_lookup_get_insert_fast(&rhtab->ht, &elem->node, rhtab_params);
-> 
-> -	bpf_enable_instrumentation();
-> -
->  	if (tmp) {
->  		bpf_mem_cache_free(&rhtab->ma, elem);
->  		if (IS_ERR(tmp))
-> diff --git a/lib/rhashtable.c b/lib/rhashtable.c
-> index 500c45c..2dc13f0 100644
-> --- a/lib/rhashtable.c
-> +++ b/lib/rhashtable.c
-> @@ -650,7 +650,8 @@ static void *rhashtable_try_insert(struct rhashtable *ht, const void *key,
->  		} else {
->  			bool inserted;
-> 
-> -			flags = rht_lock(tbl, bkt);
-> +			if (!rht_lock_or_busy(tbl, bkt, ht->p, &flags))
-> +				return ERR_PTR(-EBUSY);
->  			data = rhashtable_lookup_one(ht, bkt, tbl,
->  						     hash, key, obj);
->  			new_tbl = rhashtable_insert_one(ht, bkt, tbl,
-> 
-> Pls add the reproducer as a selftest in patch 2 and cc Herbert Xu
-> on respin.
-> 
+Especially if one subscribes to both and uses filters/tagging in their
+email client and/or wants to pay more attention to one more than the
+other.
 
-The lookup infinite loop issue that bots reported looks real too,
-we can use the parameter that Alexei added in the lookup as well to 
-mitigate it for the price of possibly not finding the element that is
-in the hashtable:
-
-diff --git a/include/linux/rhashtable.h b/include/linux/rhashtable.h
-index 70dac9214617..6eefdcfa5112 100644
---- a/include/linux/rhashtable.h
-+++ b/include/linux/rhashtable.h
-@@ -612,6 +612,18 @@ static __always_inline int rhashtable_compare(struct rhashtable_compare_arg *arg
-                      params.key_len ? : ht->p.key_len);
- }
-
-+/*
-+ * The rehash links the last entry of a chain into the future table, then
-+ * unlinks it from the chain. A walk between these two steps ends in the new
-+ * chain and must retry. A caller with IRQs disabled can interrupt the rehash
-+ * on this CPU, then the retry never ends. Such a caller does not retry, it
-+ * finds the moved entries in the future table.
-+ */
-+static __always_inline bool rht_lookup_retry(const struct rhashtable_params params)
-+{
-+       return !params.trylock_irqsoff || !irqs_disabled();
-+}
-+
- /* Internal function, do not use. */
- static __always_inline struct rhash_head *__rhashtable_lookup(
-        struct rhashtable *ht, const void *key,
-@@ -644,7 +656,7 @@ static __always_inline struct rhash_head *__rhashtable_lookup(
-                /* An object might have been moved to a different hash chain,
-                 * while we walk along it - better check and retry.
-                 */
--       } while (he != RHT_NULLS_MARKER(bkt));
-+       } while (he != RHT_NULLS_MARKER(bkt) && rht_lookup_retry(params));
-
-        /* Ensure we see any new tables. */
-        smp_rmb();
-diff --git a/lib/rhashtable.c b/lib/rhashtable.c
-index 500c45cd1304..08eef1e2990f 100644
---- a/lib/rhashtable.c
-+++ b/lib/rhashtable.c
-@@ -274,7 +274,12 @@ static int rhashtable_rehash_one(struct rhashtable *ht,
-
-        head = rht_ptr(new_tbl->buckets + new_hash, new_tbl, new_hash);
-
--       RCU_INIT_POINTER(entry->next, head);
-+       /*
-+        * A lookup that does not retry can walk into new_tbl through this
-+        * pointer. Release it, so that the lookup then sees new_tbl in the
-+        * future_tbl list.
-+        */
-+       rcu_assign_pointer(entry->next, head);
-
-        rht_assign_unlock(new_tbl, &new_tbl->buckets[new_hash], entry, flags);
-> pw-bot: cr
-
+Cheers,
+Miguel
