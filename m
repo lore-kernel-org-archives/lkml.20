@@ -1,54 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793804050;
-	b=kiPs61bPPpShKqdsT3gMjK36pwl1iGZ6y0kQa77J25Fjbed1iIjfbPyr9gFhO1cM2vJ7
-	 QF6fm6zMU+/PQRIYWtTNLlMnTE1BS1MMflrkII7tYJxNojxHOHk0ajdcMcpflDjMUoZsl
-	 OyPPlI1K9ejqJdGlJnSEZXEjUDpH/gboEEG+9WeLmQiisHDlJM1Eq61Z+P2NUIK/BCWTX
-	 Tt1VU4Jrp+2u3KcIhCkpvURFi+G5ax1d+z+uI54PPqsNXy8f35zfouEzlk5NpO3AVtNvf
-	 gqkL4HgSn2eGinnS7zI9Y3wiZSBz1Ktqja1OTyFWeePZZ1SlXZH4qVsCPw4iadboGhg==
+	t=1793804105;
+	b=WHdLkNGo39OFG1/ZsSSCWEOoDzLQg7YB7Jck3HgfukE/TNiGFqh9WkeG5fDVHOO93MDt
+	 eXLqGcuxsOQR3ph56v65GT2LOlLKcAi/4ndMLbTt1abNNnGQzmd79DNjBynuRRpwzQPAQ
+	 KhCxyx/nlOyyo/nYY3FVdQUuuerd6iY2fqcf+kwYmWYHuaDcXD5YJixL+9++iks0yNwMS
+	 63xKCSqsBSXhDgeyzuFKMkA0qy0jgAEST3boDSI/bcvSDF5rhrj/nXxjwqFUJUijCj5Go
+	 ws7vQG6+V6frB2pCG7tFqkD0JW+hFrl3Bmx0ngee77XJByqlCb7cDxk4OpmMT+OpTpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793804050;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=kACk4DNsJRkoKPadv9XX9hMPYj3GrFJQKsWh+CJvnFM=;
-	b=1ElVOHC3fbUCZGff19cXjibvVTFBNrjpvefUG+s7lpFu/BU9wvfBNaHgWRpJPOCmfQbc
-	 QwOW1rQeB+y2R7MCtywY8ROSjw41JO5xSQVOqil2Ssu4YKzURmIYrL4DLO8P0b/ABn4ph
-	 DsOn+jsrn/txtokd3nf3/TWvq7Jgf+TQZZUq1Uus8OsIUXMkriq5OgKBpFR+P/co0jy6G
-	 f5sTN533Rokdj6RVwA2jf9LZxhui12XLHM/0EK+rGG1gJlejutZgPGHXHltlARzLaXOkF
-	 uin4I0ZWkrENxGunkOX9gVMrx3hod/R8W2LyMQPOE808x90FY5V801CrwVEHJHOdkWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793804105;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=T/LFH12Z4WZEglTbKhXQW4K9eV4VYPQ2vTkGE/YeZdw=;
+	b=Ea1PzFGMgkJTIZS1sO6CPIQa7ogcYHbA02eCBAyaguEpaP+oZa5Fbj3fEYC44O7VPdWK
+	 v1vZzfMdxd/C9reJ2Q5A7pYc+sp5mqyFVMzQcRhpv9EBkp3+4laKEtmNbcNRmCA40JBSq
+	 ibvuUjfBDh9MgigZNcWRdC6bnPCeq9COYtNfJdIQfSbVTsr1LdVKbUI05CDsUnPc+W9O2
+	 wCf6NcVO3izL/vTCk/irbRawaq3DaNPujBdH/dhXhrRxtIE9w1elPbg6JPS6s+kaGDgO8
+	 rcHVL9Zf4FS1uK1PJFrJ++yFk2PRaqwz7GeljmmVabf/f2dcMl4Xn10+DHfeY/Ha6yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y679kHWW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="Q/C847ur";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=CRZvQnFt;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E23BC606A32E;
-	Wed,  4 Nov 2026 14:54:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34046606A329
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:55:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34046606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y679kHWW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE0781F00A16;
-	Wed,  4 Nov 2026 14:54:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793804049;
-	bh=kACk4DNsJRkoKPadv9XX9hMPYj3GrFJQKsWh+CJvnFM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Y679kHWWNV7v0Zt3/FfQWF3YOvHs8VxmDPDjVLwwGAYnWWuZcENfuTdqBqjNdbA3s
-	 ZVPhbwE2oUcYcftPCkNLSHmk+C7YRUxV2zxlcD5nXTmFtVtOPfFJNt+Z1Tn/7En9v/
-	 xGgnVgMEOLS4qWpRKI4lqTfdPwVNnmJ5vPftfVry39tpkW+VkMTyiK3qeAipsDgDaT
-	 0TsnepRDEL93y6KbV2JuWAKGzcC3tA0gG8PYIhJ6V/Ii2MMUYajsD1d2tnmMYpDc6x
-	 fRWNJ+mitqx/SC8kCHfUz8pAeCScTKX9R6ew+4iZAMXZQ/2c0oEBh53+An3w+Bvxcr
-	 tFbIrcMOsKiTQ==
-Date: Wed, 4 Nov 2026 15:54:06 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH] clk: hisilicon: Remove hi3516cv300 driver
-Message-ID: <20261104-sympathetic-toucanet-of-patience-294ced@quoll>
-References: <20261104145118.952453-1-robh@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Q/C847ur;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=CRZvQnFt
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793804104;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=T/LFH12Z4WZEglTbKhXQW4K9eV4VYPQ2vTkGE/YeZdw=;
+	b=Q/C847urvGS1C/LPUXwQgLM2a1+ZQ2w/nJxsw6URIr41G4qLcbTr9Qq4nPrO0D4AIIF03O
+	VlskAOSM67YRERFAjFbOZZH0Ow4vSjP7/YrwuoL4u7Q42WkgFMZz445nC2qbSVfsSPvrCs
+	Bn3O9arP543geiP+zkuRUZiEfjSOG0w=
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-456-5eFa-4tNOKGtsJ_luIPFgg-1; Wed, 04 Nov 2026 09:54:59 -0500
+X-MC-Unique: 5eFa-4tNOKGtsJ_luIPFgg-1
+X-Mimecast-MFC-AGG-ID: 5eFa-4tNOKGtsJ_luIPFgg_1793804099
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ae73921fd1so854230a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:54:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793804099; x=1794408899; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=T/LFH12Z4WZEglTbKhXQW4K9eV4VYPQ2vTkGE/YeZdw=;
+        b=CRZvQnFtt5RL2jN+WGIqCWR5UoUZ94miOysWGxXcQyigJhhW5/fCZjde7BwdDj0T8D
+         RIwwb2Ow37CcUItTA//Qwr4jJV9RSpQWD+weWQwIxoGAj4xg5Ozi6CtDb4fX0gT70TGj
+         d31u+InWoE11UB4mbEkHvfD5ZjG3UQfv2LFIz1qr8FT0gSqHUROqllfIcfwtLGcV1+Dj
+         7tb1E951U0RFn7pz2S0+KuRfbOiW0gmkukOnGPSoe4I92akJZYe5zUt5k2aM8c4ASw1Y
+         FPKNO0lMyBo1MlnUuonxBIwS8o71IgnUp+Zqgmq+5mYJnAI7kJFmwaOj0oSuA/jfTEJC
+         O+Yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793804099; x=1794408899;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=T/LFH12Z4WZEglTbKhXQW4K9eV4VYPQ2vTkGE/YeZdw=;
+        b=KwIdIdPpIklKNJopw5DYohz3QdX+L8VDzkehDcRdUN9EzKb5SJAoBlVSsUCVlQSD23
+         TX9nFLrkYwzul81r49KMymRvOdrZ1/jPtLTZZrzHbxqAjJ54x16KXg31BADMu2IVs69O
+         X068g7BAHZG/RC7v4QlmCFaEYlMQbce5OCV6xBzf88tI860PVZpM5AgQ0fv7i7+1z5bf
+         R7X6XPruHXhuISrICnZrypyIeAQkyWlvOKxVKTwrX/fDUEklhZkT1qQlIgynHuPTCnZ8
+         ZuFi/xE/N/TOT33qC7XmB8Q0+Ln4bEM9dzsrCf2buNz33fl42h+bHOA+OQ57e25qQ24b
+         dznw==
+X-Forwarded-Encrypted: i=1; AKwUvByx6310Jc2o5Sl26oFII5hHdBQXCBwSgxAMv6ufYNUXv5lTt32XvhZOA2ZIIASVFkasCNtvrtIfOggQxBc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9uKlRu2ceD+ixe/T4Ry3EvPZQMnMMSiIkY0HH/wZGTxTAynQ9K
+	cdrFth8wUiGKWYE785m0Omh0jpzk6CvMqrwWr60IyYFnfuJ/IUru7mzlFGQgECcecsCQ7C+mm/J
+	qCKG32CpGlkvvTRFZ5HlgaaBvDpX6Mati3X1scj/Fw38P3xGJ3KZVc5CGH62PUxPeWXg7T+b3Cw
+	==
+X-Gm-Gg: AYBFou38azoywRbEqEzZXdhLqpjI1v1BQi10sExFRWuLsNEc1C+Nn/mjLdZq5RT2xtk
+	Q3Ui0eMxLwP5p/wPwg0Pp6bxEppmixixMlmn5vxQkWaAqLDylKHZIoRBe9pVtCPNdWaf9OgrtfH
+	L1ZCzHgQvhfl/HXC2NWxocLbgdl27i4oG4ZcgzJ7SEdhYUvuXS9dSPX1s2EtQOS6/azmFRzeIa6
+	KYMHyBS52xNk/Ipe+QtqM1tg82Nhv8m5MUpnjHWxojuPg+PDdm1A5Nv/KEMBdKOzq9ID4OBQS50
+	m+U7mbOdbw9Egm7TRQM5vcMecnQDMl51rAxuDBNSsuqtt69Xs4aoFa6rYM7tWr/D3x5MLdGkzED
+	71jmXZ/Du7R+ZGb/NLWcGc61NGE4jRqbxd1sT0/0xykJRTbFJOf7UKoknoys2Uqab76rmE/Vjii
+	5SjoT/dgc9Zsq8XnjMTgn+ojx0pvf0poW8yuZ20SFVKN4=
+X-Received: by 2002:a17:90b:48cd:b0:3b0:a970:caad with SMTP id 98e67ed59e1d1-3b0a970ce14mr563077a91.28.1793804098472;
+        Wed, 04 Nov 2026 06:54:58 -0800 (PST)
+X-Received: by 2002:a17:90b:48cd:b0:3b0:a970:caad with SMTP id 98e67ed59e1d1-3b0a970ce14mr563055a91.28.1793804097848;
+        Wed, 04 Nov 2026 06:54:57 -0800 (PST)
+Received: from ?IPV6:2401:4900:1f28:63e0:edae:927e:c670:b679? ([2401:4900:1f28:63e0:edae:927e:c670:b679])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b096994650sm2176379a91.2.2026.11.04.06.54.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 06:54:57 -0800 (PST)
+Message-ID: <99670aa8-a33c-4a36-b8dd-66b02c6b6159@redhat.com>
+Date: Wed, 4 Nov 2026 20:24:47 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,28 +113,306 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261104145118.952453-1-robh@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/8] efi: Pass KHO state to the next kernel in a
+ configuration table
+To: George Guo <dongtai.guo@linux.dev>, rppt@kernel.org,
+ pasha.tatashin@soleen.com, pratyush@kernel.org, chenhuacai@kernel.org,
+ ardb@kernel.org, shuah@kernel.org
+Cc: ilias.apalodimas@linaro.org, akpm@linux-foundation.org,
+ baoquan.he@linux.dev, ruirui.yang@linux.dev, guodongtai@kylinos.cn,
+ kernel@xen0n.name, graf@amazon.com, liukexin@kylinos.cn,
+ loongarch@lists.linux.dev, linux-kernel@vger.kernel.org,
+ kexec@lists.infradead.org, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-efi@vger.kernel.org
+References: <20261029172956.20791-1-dongtai.guo@linux.dev>
+ <20261029172956.20791-2-dongtai.guo@linux.dev>
+Content-Language: en-US
+From: Mukesh Pilaniya <mpilaniy@redhat.com>
+In-Reply-To: <20261029172956.20791-2-dongtai.guo@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 04, 2026 at 08:51:16AM -0600, Rob Herring (Arm) wrote:
-> Remove the hi3516cv300 clock driver as there is no such platform
-> upstream and only drivers for clocks, pwm and ethernet. There's also
-> been no changes other than common cleanups in 10 years since the driver
-> was added.
+Hi George,
+
+On 29/10/26 10:59 pm, George Guo wrote:
+> From: George Guo <guodongtai@kylinos.cn>
 > 
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> KHO has to give the next kernel two addresses: the KHO FDT and the
+> bootmem area list. arm64 and riscv put them under /chosen in the boot
+> FDT. LoongArch systems booting with EFI and ACPI do not require a boot
+> FDT, so KHO needs another way to pass this information.
+> 
+> Add a Linux EFI configuration table for them, under
+> LINUX_EFI_KEXEC_HANDOVER_GUID. It points to a struct linux_efi_kho_data.
+> 
+>   - On a cold boot, the LoongArch EFI stub installs the table, zeroed.
+>     Each kexec'd kernel is given the same EFI system table, so it finds
+>     the same table.
+> 
+>   - In early boot, efi_config_parse_tables() reserves the table so
+>     neither the page allocator nor kexec segments use it, and calls
+>     kho_populate() if the table holds KHO state.
+> 
+>   - Provide efi_kho_update() to update the table before kexec. Map the
+>     table during boot so updates do not require allocation or mapping
+>     at panic time.
+> 
+>   - efi_kho_table_found() tells architecture code whether the table was
+>     found at boot, so it can turn KHO off when the table is missing.
+> 
+> Only the LoongArch stub installs the table, and only with
+> CONFIG_KEXEC_HANDOVER. Elsewhere there is no table and this code does
+> nothing.
+> 
+> Signed-off-by: George Guo <guodongtai@kylinos.cn>
 > ---
->  drivers/clk/hisilicon/Kconfig                 |   9 -
->  drivers/clk/hisilicon/Makefile                |   1 -
->  drivers/clk/hisilicon/crg-hi3516cv300.c       | 317 ------------------
->  include/dt-bindings/clock/hi3516cv300-clock.h |  36 --
->  4 files changed, 363 deletions(-)
->  delete mode 100644 drivers/clk/hisilicon/crg-hi3516cv300.c
->  delete mode 100644 include/dt-bindings/clock/hi3516cv300-clock.h
+>  drivers/firmware/efi/efi.c               | 68 ++++++++++++++++++++++++
+>  drivers/firmware/efi/libstub/efi-stub.c  | 22 ++++++++
+>  drivers/firmware/efi/libstub/efistub.h   |  2 +
+>  drivers/firmware/efi/libstub/loongarch.c |  2 +
+>  include/linux/efi.h                      | 40 ++++++++++++++
+>  5 files changed, 134 insertions(+)
+> 
+> diff --git a/drivers/firmware/efi/efi.c b/drivers/firmware/efi/efi.c
+> index 0327a39d31fa..e409e4a57378 100644
+> --- a/drivers/firmware/efi/efi.c
+> +++ b/drivers/firmware/efi/efi.c
+> @@ -24,6 +24,7 @@
+>  #include <linux/initrd.h>
+>  #include <linux/io.h>
+>  #include <linux/kexec.h>
+> +#include <linux/kexec_handover.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/random.h>
+>  #include <linux/reboot.h>
+> @@ -62,6 +63,7 @@ unsigned long __ro_after_init efi_rng_seed = EFI_INVALID_TABLE_ADDR;
+>  static unsigned long __initdata mem_reserve = EFI_INVALID_TABLE_ADDR;
+>  static unsigned long __initdata rt_prop = EFI_INVALID_TABLE_ADDR;
+>  static unsigned long __initdata initrd = EFI_INVALID_TABLE_ADDR;
+> +static unsigned long efi_kho __initdata = EFI_INVALID_TABLE_ADDR;
+>  
+>  extern unsigned long primary_display_table;
+>  
+> @@ -629,6 +631,7 @@ static const efi_config_table_type_t common_tables[] __initconst = {
+>  	{EFI_TCG2_FINAL_EVENTS_TABLE_GUID,	&efi.tpm_final_log,	"TPMFinalLog"	},
+>  	{EFI_CC_FINAL_EVENTS_TABLE_GUID,	&efi.tpm_final_log,	"CCFinalLog"	},
+>  	{LINUX_EFI_MEMRESERVE_TABLE_GUID,	&mem_reserve,		"MEMRESERVE"	},
+> +	{LINUX_EFI_KEXEC_HANDOVER_GUID,		&efi_kho,		"KHO"		},
+>  	{LINUX_EFI_INITRD_MEDIA_GUID,		&initrd,		"INITRD"	},
+>  	{EFI_RT_PROPERTIES_TABLE_GUID,		&rt_prop,		"RTPROP"	},
+>  #ifdef CONFIG_OVMF_DEBUG_LOG
+> @@ -806,6 +809,23 @@ int __init efi_config_parse_tables(const efi_config_table_t *config_tables,
+>  		}
+>  	}
+>  
+> +	if (efi_kho != EFI_INVALID_TABLE_ADDR) {
+> +		struct linux_efi_kho_data *kho;
+> +
+> +		/* Keep the buddy allocator and kexec segments off the table. */
+> +		memblock_reserve(efi_kho, sizeof(*kho));
+> +
+> +		kho = early_memremap(efi_kho, sizeof(*kho));
+> +		if (kho) {
+> +			if (kho->fdt_addr)
+> +				kho_populate((phys_addr_t)kho->fdt_addr, kho->fdt_size,
+> +					     (phys_addr_t)kho->bootmem_addr, kho->bootmem_size);
+> +			early_memunmap(kho, sizeof(*kho));
+> +		} else {
+> +			pr_warn("Could not map UEFI KHO table!\n");
+This is a Linux EFI configuration table, not a __UEFI KHO table__, so
+IMHO; UEFI wording is wrong here.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> +		}
+> +	}
+> +
+>  	if (rt_prop != EFI_INVALID_TABLE_ADDR) {
+>  		efi_rt_properties_table_t *tbl;
+>  
+> @@ -1171,6 +1191,54 @@ static int __init efi_memreserve_root_init(void)
+>  }
+>  early_initcall(efi_memreserve_root_init);
+>  
+> +static struct linux_efi_kho_data *efi_kho_table __ro_after_init;
+> +
+> +/* Did the previous kernel or the EFI stub pass a KHO table? */
+> +bool __init efi_kho_table_found(void)
+> +{
+> +	return efi_kho != EFI_INVALID_TABLE_ADDR;
+> +}
+> +
+> +static int __init efi_kho_table_init(void)
+> +{
+> +	if (efi_kho == EFI_INVALID_TABLE_ADDR)
+> +		return 0;
+> +
+> +	/* Map it now: the table is also written at panic time. */
+> +	efi_kho_table = memremap(efi_kho, sizeof(*efi_kho_table), MEMREMAP_WB);
+> +	if (WARN_ON_ONCE(!efi_kho_table))
+> +		efi_kho_table = ERR_PTR(-ENOMEM);
+> +
+> +	return 0;
+> +}
+> +early_initcall(efi_kho_table_init);
+> +
+> +/*
+> + * Write the KHO addresses the next kernel should use, or zeroes
+> + * if it should boot without KHO.
+> + */
+> +int efi_kho_update(phys_addr_t fdt_addr, u64 fdt_size,
+> +		   phys_addr_t bootmem_addr, u64 bootmem_size)
+> +{
+> +	struct linux_efi_kho_data *kho = efi_kho_table;
+> +
+> +	/*
+> +	 * No table: either the architecture passes the KHO state some other
+> +	 * way, or it turned KHO off at boot because the table was missing.
+> +	 */
+> +	if (!kho)
+> +		return 0;
+> +	if (IS_ERR(kho))
+> +		return PTR_ERR(kho);
+> +
+> +	kho->fdt_addr		= fdt_addr;
+> +	kho->fdt_size		= fdt_size;
+> +	kho->bootmem_addr	= bootmem_addr;
+> +	kho->bootmem_size	= bootmem_size;
+> +
+> +	return 0;
+> +}
+> +
+>  #ifdef CONFIG_KEXEC
+>  static int update_efi_random_seed(struct notifier_block *nb,
+>  				  unsigned long code, void *unused)
+> diff --git a/drivers/firmware/efi/libstub/efi-stub.c b/drivers/firmware/efi/libstub/efi-stub.c
+> index 42d6073bcd06..0fb0d4041d1c 100644
+> --- a/drivers/firmware/efi/libstub/efi-stub.c
+> +++ b/drivers/firmware/efi/libstub/efi-stub.c
+> @@ -100,6 +100,28 @@ static void install_memreserve_table(void)
+>  		efi_err("Failed to install memreserve config table!\n");
+>  }
+>  
+> +void install_kho_table(void)
+> +{
+> +	struct linux_efi_kho_data *kho;
+> +	efi_guid_t kho_table_guid = LINUX_EFI_KEXEC_HANDOVER_GUID;
+> +	efi_status_t status;
+> +
+> +	if (!IS_ENABLED(CONFIG_KEXEC_HANDOVER))
+> +		return;
+> +
+> +	status = efi_bs_call(allocate_pool, EFI_LOADER_DATA, sizeof(*kho), (void **)&kho);
+> +	if (status != EFI_SUCCESS) {
+> +		efi_err("Failed to allocate KHO config table!\n");
+> +		return;
+> +	}
+> +
+> +	*kho = (struct linux_efi_kho_data){};
+> +
+> +	status = efi_bs_call(install_configuration_table, &kho_table_guid, kho);
 
-Best regards,
-Krzysztof
+> +	if (status != EFI_SUCCESS)
+> +		efi_err("Failed to install KHO config table!\n");
+When install_configuration_table fails, the pool allocation made
+just above using efi_bs_callis never freed, so a page of
+EFI_LOADER_DATA is leaked until ExitBootServices, This is a minor leak
+so mentioned here for review completeness.
+
+> +}
+> +
+>  static u32 get_supported_rt_services(void)
+>  {
+>  	const efi_rt_properties_table_t *rt_prop_table;
+> diff --git a/drivers/firmware/efi/libstub/efistub.h b/drivers/firmware/efi/libstub/efistub.h
+> index fd91fc15ec81..9e0034c1260a 100644
+> --- a/drivers/firmware/efi/libstub/efistub.h
+> +++ b/drivers/firmware/efi/libstub/efistub.h
+> @@ -1057,6 +1057,8 @@ efi_status_t efi_exit_boot_services(void *handle, void *priv,
+>  efi_status_t efi_boot_kernel(void *handle, efi_loaded_image_t *image,
+>  			     unsigned long kernel_addr, char *cmdline_ptr);
+>  
+> +void install_kho_table(void);
+> +
+>  void *get_fdt(unsigned long *fdt_size);
+>  
+>  efi_status_t efi_alloc_virtmap(efi_memory_desc_t **virtmap,
+> diff --git a/drivers/firmware/efi/libstub/loongarch.c b/drivers/firmware/efi/libstub/loongarch.c
+> index 2b0c87dc9908..c2df097771e4 100644
+> --- a/drivers/firmware/efi/libstub/loongarch.c
+> +++ b/drivers/firmware/efi/libstub/loongarch.c
+> @@ -74,6 +74,8 @@ efi_status_t efi_boot_kernel(void *handle, efi_loaded_image_t *image,
+>  	efi_status_t status;
+>  	u32 desc_ver;
+>  
+> +	install_kho_table();
+> +
+>  	status = efi_alloc_virtmap(&priv.runtime_map, &desc_size, &desc_ver);
+>  	if (status != EFI_SUCCESS) {
+>  		efi_err("Unable to retrieve UEFI memory map.\n");
+> diff --git a/include/linux/efi.h b/include/linux/efi.h
+> index aa15ff88539b..253e98bf9922 100644
+> --- a/include/linux/efi.h
+> +++ b/include/linux/efi.h
+> @@ -422,6 +422,7 @@ void efi_native_runtime_setup(void);
+>  #define LINUX_EFI_COCO_SECRET_AREA_GUID		EFI_GUID(0xadf956ad, 0xe98c, 0x484c,  0xae, 0x11, 0xb5, 0x1c, 0x7d, 0x33, 0x64, 0x47)
+>  #define LINUX_EFI_BOOT_MEMMAP_GUID		EFI_GUID(0x800f683f, 0xd08b, 0x423a,  0xa2, 0x93, 0x96, 0x5c, 0x3c, 0x6f, 0xe2, 0xb4)
+>  #define LINUX_EFI_UNACCEPTED_MEM_TABLE_GUID	EFI_GUID(0xd5d1de3c, 0x105c, 0x44f9,  0x9e, 0xa9, 0xbc, 0xef, 0x98, 0x12, 0x00, 0x31)
+> +#define LINUX_EFI_KEXEC_HANDOVER_GUID		EFI_GUID(0xc941b6c7, 0x7b3f, 0x4af6,  0x9e, 0x50, 0xfc, 0xb3, 0xa8, 0x86, 0x8a, 0x17)
+>  
+>  #define RISCV_EFI_BOOT_PROTOCOL_GUID		EFI_GUID(0xccd15fec, 0x6f73, 0x4eec,  0x83, 0x95, 0x3e, 0x69, 0xe4, 0xb9, 0x40, 0xbf)
+>  
+> @@ -1273,6 +1274,45 @@ struct linux_efi_memreserve {
+>  
+>  void __init efi_arch_mem_reserve(phys_addr_t addr, u64 size);
+>  
+> +/**
+> + * struct linux_efi_kho_data - KHO state passed to the next kernel
+> + * @fdt_addr: physical address of the KHO FDT, 0 if there is none
+> + * @fdt_size: size of the KHO FDT
+> + * @bootmem_addr: physical address of the bootmem area list
+> + * @bootmem_size: size of the bootmem area list
+> + *
+> + * Pointed to by the LINUX_EFI_KEXEC_HANDOVER_GUID configuration table.
+> + *
+> + * The EFI stub installs this table zeroed on a cold boot. It stays
+> + * in place across kexec; the running kernel rewrites it just before
+> + * each kexec, and the next kernel reads it during early boot.
+This statement is only true for the LoongArch and on arm64/riscv/x86 no
+table exists, so the comment describes a kernel-wide invariant that does
+not hold.
+
+> + *
+> + * The layout is fixed. Changing it requires a new GUID.
+> + */
+> +struct linux_efi_kho_data {
+> +	u64 fdt_addr;
+> +	u64 fdt_size;
+> +	u64 bootmem_addr;
+> +	u64 bootmem_size;
+> +};
+> +
+> +#ifdef CONFIG_EFI
+> +bool efi_kho_table_found(void);
+> +int efi_kho_update(phys_addr_t fdt_addr, u64 fdt_size,
+> +		   phys_addr_t bootmem_addr, u64 bootmem_size);
+> +#else
+> +static inline bool efi_kho_table_found(void)
+> +{
+> +	return false;
+> +}
+> +
+> +static inline int efi_kho_update(phys_addr_t fdt_addr, u64 fdt_size,
+> +				 phys_addr_t bootmem_addr, u64 bootmem_size)
+> +{
+> +	return 0;
+> +}
+> +#endif
+> +
+>  /*
+>   * The LINUX_EFI_MOK_VARIABLE_TABLE_GUID config table can be provided
+>   * to the kernel by an EFI boot loader. The table contains a packed
+
+-- 
+Regards,
+Mukesh Pilaniya
 
