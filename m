@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793799139;
-	b=47FqZiW4c6oLFZF62QMINnNhVGzDlMWuZoTump2IlQFH8Tfvks7TOyqLLeXlX3aWiJlC
-	 /8Js4R1Vo04RRfpwdFOvfHQvnag2u12NQ2xdv4kYyp6uv4BLgkNRGV3rbhoHNfaVF7Qfk
-	 aQEgBcX66UfsHDu/92wilRM4Y/pk8wxbsXAO1xBpryzCg7RW5FNWuhOMl9dJYx8O2cs/U
-	 gJMEZU5tL1BBRiKJk+QSVvCj9VEn/3zJQ2s2aJ7rwmBQkVyni2UJc4lgBZ3MglAsNYkAo
-	 2Zi2AOwwHfaj0yRqYhytaD6XkKwppMzeJzvkNq0I4VmQdUYKCsCTqAzfMZBLe0p1vSw==
+	t=1793799144;
+	b=BBh/jRmcnapqv/LBmGzBwilr2IvVJezbkYUKIPgCheu2UcJEbYhKwnK02e/VEDHjksrV
+	 vtOlSqN7jT6yPWo3zLyIvi9YtoYY635MQ75Owd9eM56v07qFIJfhSnpOD32pLNUpGn2Dw
+	 +K+bXNnZ9c3cdaULxR0renqdIv7BV+90YZZVWlrvtlCurkCuG7vHrxHp5JVIxVdoa825V
+	 UA9ye46JuYBWMJyQlISpzskQFsFTnLCHCfIyE+a7uyvaMSSKxE7/dmiYHoO/8s/6uzpA2
+	 7loPGiK2ztcHGE2wBhOefLzuo6FG+MtKV4UIdq4YhD3hrR+uwGlX7NE5A73uTUJi+2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799139;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799144;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Vuv7EyJ3FeJLmao5XoxH0RpJWoU3/L6ji2pLxjLqoaA=;
-	b=vTN/w+eJM6rzjOkZP/wLYfLp9rvyyEAX7x+ViWrMDjsijNa0HVmbgWXbdE2imWkcP5UW
-	 lNQUGbSjmeNHKfSMtNOBv3XkIETr9JSdWdxD4lDVTvsHCpd1xfaxW/RF/6LVUVYWxnF5T
-	 eJzyqVZOECoYeRj2x+7TUxJqSVlly7qTOlUyrXHibu6LQySl6SzIlWpznOzoUhBZTG/gh
-	 m8OjnVLzEcG0bUjesCGBdoRSLzvQfNNIs6LeLErHw6l8Cdvpb1QJwN+Sjra01x0RotPYE
-	 /on+L6xRtHHqNsHyiecjE7o/JxbFCVkPmFAv9O7xlyjl/wfIUHdmO5I1w5/AIZOkV6g==
+	bh=ZvUnOQZUAvdfLCd2VRF9QUxe4TjAvf7oYVqXhFNQnhg=;
+	b=pJBSWHKQbrmzqe/QTU73D8PFD9Xd/6qo3NClqOyZ+v1xO56BAF7Tfh2U/u4LMSi1+U8y
+	 WIwcloDx6WntFWpHG1vguhom5uaNQ7SlNmVS5He6C++Zkek6/D6m70jOXAeY5WDMKB5Yu
+	 t233BFqS51Qya0zSEk3NkTGqjBfNwMCxl9W7YdXUKVKJzaGqTkaMcp9dFD8Ld728ijHou
+	 DJOzOx+z+TEciTjlfivhCSQymIC78ZI9rPX+eWK8VzP/7H7q3bAQn5ZsHwT3TsizbT2uS
+	 pNXDGt8dYb3FC5FyfacFyUSvGakqAttDCwJKpLaOtmPhz5Bhv2BsHTlhRszauAUmPTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=goSNWRCH;
-	arc=none smtp.remote-ip=209.85.210.173
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Qp3KbvfQ;
+	arc=none smtp.remote-ip=209.85.210.179
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E5EF606A32C
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:32:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E5EF606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C923606A32D
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:32:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C923606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=goSNWRCH
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8a064fac8cbso571034b3a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 05:32:18 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Qp3KbvfQ
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-886e61fa30fso347939b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 05:32:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793799138; x=1794403938; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793799144; x=1794403944; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Vuv7EyJ3FeJLmao5XoxH0RpJWoU3/L6ji2pLxjLqoaA=;
-        b=goSNWRCHVscmN/t9HffQ+IUZzCmbR952B0O2EM6oeYF05Wwrz9962+/J3/gkCmFHCz
-         Mgz83OsGzccB4GxBcsrYYipcNHmiylhY6CJEUCMSWMes2Uk9NiUpIADmDd8cRFXXVpNJ
-         DNH5u5J4FQMgfCrU61DWj9jUiYGhl5l2/kuJiFygExqump4eO4N5MUpNcHBZJPH8Es0e
-         KdqsBirMJBUnNT/JaizVQ766q2awgFbLKcLuKufga6EPD3XkUJ6d4Fuqr3ALIhnnUnHa
-         tVD6ekgQkOwmZhlG9nVrhOt0geFTSVkc/z7TSWj9jzXIwL6/hUbypK+5ep/DHInFkJGS
-         uoXA==
+        bh=ZvUnOQZUAvdfLCd2VRF9QUxe4TjAvf7oYVqXhFNQnhg=;
+        b=Qp3KbvfQI881EP16oTf2x8KjwNYb+j/jVxdQkTDBqQRIBmWKu8WFD3ilKbnP9bN1Kr
+         M4g3P+nqGXJF216M8tprFUpopZ2lZ0hqpwTouommxTEFCX+nhVobpu0byPCgF8/rPiRI
+         zwmN3yPc9KJuj/9my/81QIkEFO/Klytb4Tja9Jnqco45g71pB7rZRT9+G77bp2OSAB2f
+         etwK/A3TWsQkA3nQ5CwPDD8uZjeKhFKkE24P4v0qi/E1tT1Wfz+gc8y+ncS+sLq3rJZ/
+         WHoDDbexq/iioOEEV8Pa+ogRW6vJtdmxT4ar01O+IunNCiPGpe+z7xHz99x/EVK/p1QC
+         lc5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793799138; x=1794403938;
+        d=1e100.net; s=20260707; t=1793799144; x=1794403944;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Vuv7EyJ3FeJLmao5XoxH0RpJWoU3/L6ji2pLxjLqoaA=;
-        b=GtrzUeRUGopaNV8N7vg6mJ28DFglRK6aOf+QRrkjunMxTSP9n+YTBWyRKvk9TFTVIE
-         vVygh8q8HTsHgz/+JJrNs23SCGsFJQeD8EwGcS6zxbh/tQBvBgLFVHs33oENX1wLjymH
-         T35L2h7/NsyLlE9zBxZ1JFRo1QjA54hn8r/A+Ow25VssITynoAmNbnwsoHdHKKpF0gyB
-         RqBqfAslWej7mSthbcbZ2XhPyiIJoGN80WrnEJKGS8+mj+vdap3GRHp0ij3gHxaEaFK8
-         Q/ta7IRhj/pe7lea/uoffVWtDHnbMvx0MjJpSsJGb+iAZdjZN4+oTfTHQSK1c9JV0hH7
-         aU9A==
-X-Forwarded-Encrypted: i=1; AKwUvBxnoBRulOwKx/HbSHOwSA+lcBGNSqNxQ21LIfTwCO4SABbuddg2Sb3H7FqN7EdkZYI/bxF+YociHAQKrM8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+tNOtl0OtOmARpzNzXvi64qAlO1ABX4ch6OZsVekVoXWUzuoEy
-	0yFFxcX/AMDx9J436Skc41/1oYM33QbPjVT/XjaSCRRcFvLxhqJPnaKm
-X-Gm-Gg: AYBFou2sgtfdkl/P7S3kTLkFUzGlxyUWSVTRqBQpScqxzm0bCsZwgFgW2zWWFSyUXQD
-	DLZ/7a0OBCnpwcu5AIOKFMs24TsiqVDVfWTWYtePIkMfaXybxEqaNiP97Fbhg0CJg5hKKZcx/MD
-	XFOxkaT9v3/6SyQoRygxSglIBE+b3JWAqSM0KWkWzpDDAKOxYqR7Hcg/aIqoBTKk1q5VZ/2QJ2l
-	VwUH9fx3oliDt8fzRa8N+6/ieUsrvsslnKOD6q9hOAzeQ9s/slzATCWdX3/fs+9PG7PL00ai05f
-	uTYOyRskc54WtIXHaIGdWEkuVRYS9VB6X6mht6Q9Gi8Bp+2msR1FhNrRy0CsQ2qGBZx0LefbPzg
-	a+89LV1WYnwHaXlRttqLJRjTsO8sUTKgj90/+kyraYI6ivKU8ltZ3w8iChmykM+bY4rxYch/Zn5
-	H3CW3mngv3LfoOL6euOUI3sgN6PLqEh4VOfk1dHSP/2necwOWH2j5cXG5aiUIz8gOUKfu0AL6TY
-	YLNJx1qYAyHNH9OTGiW7LyBKf4l9trdiPE0icB3bCyA8FxUYdkGz+Qn29XPeJhWDM/Yty+zgSlF
-	QdnXM71fOJ/f4uVdRcR1LZxBHy1QPLF8JEjWdv58Gpisoz92aQ==
-X-Received: by 2002:a05:6a00:140f:b0:89e:f8e9:205e with SMTP id d2e1a72fcca58-8a9bf71c0f3mr13345178b3a.40.1793799137622;
-        Wed, 04 Nov 2026 05:32:17 -0800 (PST)
+        bh=ZvUnOQZUAvdfLCd2VRF9QUxe4TjAvf7oYVqXhFNQnhg=;
+        b=n6+CrXjLF9kZ6zAcj7MRnjXWxS4I95IExxtH7t6PCJ1c5pDrH6KZb00KkQ1KA8PWUi
+         /ky9BefGZuCO/fahCwVwfdz1C/Mukjz3OxCXe5ptNlMVkHX0zJTTAvrzeioMf41gjW/3
+         ZE47P9GVgx9DWrDhcThZhZ5KO4XJMJtjnjhxfbGOG2ynxjOObqdjflZ+5yGbxjEafUDp
+         +eBgwr0Kwm+2DXqEL5LZvrV3qywn73wXSjGwAowKg5gTdGahK344Ob/W3ZxCvi0mLFGr
+         DnXi47wdgtHOV0cL6A3SKcNOU7BVofxesBqUeIUJkElkh0fWdXoPKT+WJRoYHVUzGplg
+         kSMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwZF1K870upEfIIKRXEOO22mZK9xRD6jxtlxH0UyAPI//wlRH/ydHv1oKxvveBTfLVFTpc7/wfkQ/6bT4w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ZYELhNwlcKE6bU+xLiTKH7t+OQ/RcdhraiK+ZpqVUVh747OEN
+	OMn1cXzkZLLNnLDMB9ooNz9HlDkvglrbMNQSVYYGKAXBCq1pjbrU5/6b
+X-Gm-Gg: AYBFou2YA27IGOuXpSq4bDZI4IuX5ZKF5IqmQl/3Gnwu/i+CanX5tYjuU2JkJeqObAI
+	FR0MNOM5rye1zhMVBPnv/hC2KbJSADUrHeI8rC/BDemHbLvCivNwJVqbOyTXLbGkLTDcZBRjbZc
+	vO6GqHmHsd7d5JHhbbhIsCWcSeEEnj6/LKiAFVPEMw1SFriXVEPUSFXQ0T2VRWEA0IClYFahETX
+	J9IcOWMs9qgFgT7t5yRPC1AbX8GYgpIJYuJcM0xNigBBatoymd5vRqm+5htIpo4GxmZ0EJo40zf
+	XyXCP9ad4Tt3SKS8+EL/PbpLKobgtvWTKzd4Bm954nT/VJZ39AQsnel0QQnVmtaGc0CmDJoJkLC
+	Tbi9d7brO95BupiI3mQV5tgP/6tKVfNShKDYav/0s+N++GKdhvsmgBU7OExBdsxmZHvZA0UA4Rv
+	1aUCuUTRUjQlkwD1f+C9bi4B/zQoq01TBeDF+AVEPe4s6c020tyaBzfJu6A77895mYDj2h3E3xE
+	QtQtknySqs8nBzTcM3p2bVtvdDnfGg7PlacH8lQ1dQfqwVfLxfGmjH35M9T7eSdMGrSTkCNNpr5
+	MrhVInqZYzgEaBnEahmxZPvmtjEhuRikpeLb9gadjoCiwaDljg==
+X-Received: by 2002:a05:6a20:cd46:b0:3eb:39fd:bad9 with SMTP id adf61e73a8af0-3eb39fdda66mr6074874637.49.1793799143604;
+        Wed, 04 Nov 2026 05:32:23 -0800 (PST)
 Received: from anatasluo-Precision-5560 ([139.226.166.21])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b09a7ce84fsm911369b3a.13.2026.11.04.05.32.12
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b09a7ce84fsm911369b3a.13.2026.11.04.05.32.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 05:32:17 -0800 (PST)
+        Wed, 04 Nov 2026 05:32:23 -0800 (PST)
 From: Longjun Luo <luolongjuna@gmail.com>
 To: jpoimboe@kernel.org,
 	peterz@infradead.org
@@ -94,9 +94,9 @@ Cc: mbenes@suse.cz,
 	llvm@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Longjun Luo <luolongjuna@gmail.com>
-Subject: [RFC PATCH v2 01/11] objtool/klp: Fix checksums and copying of wide strings
-Date: Wed,  4 Nov 2026 21:31:47 +0800
-Message-ID: <20261104133158.3187525-2-luolongjuna@gmail.com>
+Subject: [RFC PATCH v2 02/11] objtool/klp: Hash compound literals by content
+Date: Wed,  4 Nov 2026 21:31:48 +0800
+Message-ID: <20261104133158.3187525-3-luolongjuna@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261104133158.3187525-1-luolongjuna@gmail.com>
 References: <20261104133158.3187525-1-luolongjuna@gmail.com>
@@ -111,410 +111,372 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-SHF_STRINGS sections can contain elements wider than one byte. Using
-strlen() truncates their contents at an embedded zero byte, hiding
-changes and copying incomplete strings into the patch.
+Compiler-generated names for compound literals do not describe their
+contents. Changes to an anonymous array or a callback in an anonymous
+structure can leave the referring function's checksum unchanged.
 
-Find the terminating zero element using sh_entsize. Use the resulting
-length for both reference checksums and copying, and propagate errors
-through checksum calculation. Keep single-byte string handling unchanged.
+Hash compound contents and relocations recursively, using the resulting
+checksum in references. Preserve target offsets and stop at named
+objects. Reject cycles and nesting beyond three compound objects.
 
-Add a test for two- and four-byte strings, including references from data.
+Recognize GCC and Clang compound literal names in both writable and
+read-only sections. Add tests for changed array elements and callbacks.
 
 Validated the available objtool tests with GCC 16.2.1 and Clang
 22.1.8. No failures.
 
-Fixes: 0d83da43b1e1 ("objtool/klp: Add --checksum option to generate per-function checksums")
-Fixes: dd590d4d57eb ("objtool/klp: Introduce klp diff subcommand for diffing object files")
-Fixes: 873a2208ea31 ("objtool/klp: Calculate object checksums")
 Assisted-by: LLM
 Signed-off-by: Longjun Luo <luolongjuna@gmail.com>
 ---
- tools/objtool/elf.c                           | 29 +++++++++
- tools/objtool/include/objtool/elf.h           |  1 +
- tools/objtool/klp-checksum.c                  | 44 ++++++++-----
- tools/objtool/klp-diff.c                      | 14 ++--
- .../tests/generic/fixtures/identity/common.h  | 15 +++++
- .../generic/fixtures/identity/wide_string.c   | 36 ++++++++++
- .../generic/test-checksum-wide-string.sh      | 39 +++++++++++
- tools/objtool/tests/identity-lib.sh           | 65 +++++++++++++++++++
- 8 files changed, 223 insertions(+), 20 deletions(-)
- create mode 100644 tools/objtool/tests/generic/fixtures/identity/common.h
- create mode 100644 tools/objtool/tests/generic/fixtures/identity/wide_string.c
- create mode 100755 tools/objtool/tests/generic/test-checksum-wide-string.sh
- create mode 100644 tools/objtool/tests/identity-lib.sh
+ tools/objtool/include/objtool/klp.h           |   2 +
+ tools/objtool/klp-checksum.c                  | 102 +++++++++++++-----
+ tools/objtool/klp-diff.c                      |  31 ++++++
+ .../generic/fixtures/identity/compound.c      |  65 +++++++++++
+ .../tests/generic/test-identity-compound.sh   |  13 +++
+ 5 files changed, 187 insertions(+), 26 deletions(-)
+ create mode 100644 tools/objtool/tests/generic/fixtures/identity/compound.c
+ create mode 100755 tools/objtool/tests/generic/test-identity-compound.sh
 
-diff --git a/tools/objtool/elf.c b/tools/objtool/elf.c
-index a791f4ea6ec1..71f1a272e468 100644
---- a/tools/objtool/elf.c
-+++ b/tools/objtool/elf.c
-@@ -1382,6 +1382,35 @@ struct elf *elf_create_file(GElf_Ehdr *ehdr, const char *name)
- 	return elf;
- }
+diff --git a/tools/objtool/include/objtool/klp.h b/tools/objtool/include/objtool/klp.h
+index c57775d78c71..90468e141124 100644
+--- a/tools/objtool/include/objtool/klp.h
++++ b/tools/objtool/include/objtool/klp.h
+@@ -51,6 +51,8 @@ struct objtool_file;
+ struct elf;
+ struct symbol;
  
-+/* Wide strings, such as the u16 PSR setup table, end at an all-zero element. */
-+ssize_t elf_string_len(struct section *sec, unsigned long offset)
-+{
-+	size_t entsize = sec->sh.sh_entsize, size, len;
-+	const char *str;
++bool is_compound_constant(struct symbol *sym);
 +
-+	/*
-+	 * FIXME: GCC's range_string() uses a one-past-end string pointer.
-+	 * strlen() reads past the section; preserve the string base and addend.
-+	 */
-+	if (entsize == 1)
-+		return strlen(sec->data->d_buf + offset);
-+
-+	if (!entsize || offset >= sec_size(sec)) {
-+		ERROR("%s+%#lx: invalid string offset or character size", sec->name, offset);
-+		return -1;
-+	}
-+
-+	str = sec->data->d_buf + offset;
-+	size = sec_size(sec) - offset;
-+	for (len = 0; size - len >= entsize; len += entsize) {
-+		if (!memchr_inv(str + len, 0, entsize))
-+			return len;
-+	}
-+
-+	ERROR("%s+%#lx: unterminated string", sec->name, offset);
-+	return -1;
-+}
-+
- unsigned int elf_add_string(struct elf *elf, struct section *strtab, const char *str)
- {
- 	unsigned int offset;
-diff --git a/tools/objtool/include/objtool/elf.h b/tools/objtool/include/objtool/elf.h
-index a82517a76a0f..5d7ddadf9471 100644
---- a/tools/objtool/include/objtool/elf.h
-+++ b/tools/objtool/include/objtool/elf.h
-@@ -179,6 +179,7 @@ struct symbol *elf_create_section_symbol(struct elf *elf, struct section *sec);
- void *elf_add_data(struct elf *elf, struct section *sec, const void *data,
- 		   size_t size);
+ int klp_create_symid_sections(struct objtool_file *file);
  
-+ssize_t elf_string_len(struct section *sec, unsigned long offset);
- unsigned int elf_add_string(struct elf *elf, struct section *strtab, const char *str);
- 
- struct reloc *elf_create_reloc(struct elf *elf, struct section *sec,
+ int klp_sympos_init(struct elf *orig);
 diff --git a/tools/objtool/klp-checksum.c b/tools/objtool/klp-checksum.c
-index ebe25f9c5260..efaf083c03a1 100644
+index efaf083c03a1..2a515c7e2bf6 100644
 --- a/tools/objtool/klp-checksum.c
 +++ b/tools/objtool/klp-checksum.c
-@@ -67,8 +67,8 @@ static bool is_anonymous_const_data(struct symbol *sym)
+@@ -11,6 +11,8 @@
+ #include <objtool/warn.h>
+ #include <objtool/checksum.h>
+ 
++#define COMPOUND_MAX_DEPTH 3
++
+ static int checksum_debug_init(struct objtool_file *file)
+ {
+ 	char *dup, *s;
+@@ -67,6 +69,14 @@ static bool is_anonymous_const_data(struct symbol *sym)
  	       (is_sec_sym(sym) || strstarts(sym->name, ".LC"));
  }
  
--static void checksum_update_insn(struct objtool_file *file, struct symbol *func,
--				 struct instruction *insn)
-+static int checksum_update_insn(struct objtool_file *file, struct symbol *func,
-+				struct instruction *insn)
++static bool is_const_reference(struct symbol *sym)
++{
++	return is_string_sec(sym->sec) || is_anonymous_const_data(sym);
++}
++
++static int checksum_object(struct objtool_file *file, struct symbol *sym,
++			   unsigned int depth);
++
+ static int checksum_update_insn(struct objtool_file *file, struct symbol *func,
+ 				struct instruction *insn)
  {
- 	struct reloc *reloc = insn_reloc(file, insn);
+@@ -74,7 +84,9 @@ static int checksum_update_insn(struct objtool_file *file, struct symbol *func,
  	struct alternative *alt;
-@@ -77,7 +77,7 @@ static void checksum_update_insn(struct objtool_file *file, struct symbol *func,
+ 	unsigned long offset;
+ 	struct symbol *sym;
++	const void *data;
  	static bool in_alt;
++	ssize_t size;
  
  	if (insn->fake)
--		return;
-+		return 0;
- 
- 	if (!reloc) {
- 		struct symbol *call_dest = insn_call_dest(insn);
-@@ -135,10 +135,13 @@ static void checksum_update_insn(struct objtool_file *file, struct symbol *func,
+ 		return 0;
+@@ -134,10 +146,9 @@ static int checksum_update_insn(struct objtool_file *file, struct symbol *func,
+ 	sym = reloc->sym;
  	offset = arch_insn_adjusted_addend(insn, reloc);
  
- 	if (is_string_sec(sym->sec)) {
--		char *str;
-+		ssize_t size = elf_string_len(sym->sec, sym->offset + offset);
-+		const void *data;
- 
--		str = sym->sec->data->d_buf + sym->offset + offset;
--		__checksum_update_insn(func, insn, str, strlen(str));
-+		if (size < 0)
-+			return -1;
-+		data = sym->sec->data->d_buf + sym->offset + offset;
-+		__checksum_update_insn(func, insn, data, size);
+-	if (is_string_sec(sym->sec)) {
+-		ssize_t size = elf_string_len(sym->sec, sym->offset + offset);
+-		const void *data;
+-
++	if (is_const_reference(sym)) {
++		size = is_string_sec(sym->sec) ? elf_string_len(sym->sec, sym->offset + offset) :
++					      sym->sec->sh.sh_entsize;
+ 		if (size < 0)
+ 			return -1;
+ 		data = sym->sec->data->d_buf + sym->offset + offset;
+@@ -145,14 +156,6 @@ static int checksum_update_insn(struct objtool_file *file, struct symbol *func,
  		goto alts;
  	}
  
-@@ -180,19 +183,22 @@ static void checksum_update_insn(struct objtool_file *file, struct symbol *func,
- 			__checksum_update_insn(func, insn, &alt_group->feature,sizeof(alt_group->feature));
- 
- 			for (alt_insn = alt->insn; alt_insn; alt_insn = next_insn_same_sec(file, alt_insn)) {
--				checksum_update_insn(file, func, alt_insn);
-+				if (checksum_update_insn(file, func, alt_insn))
-+					return -1;
- 				if (!alt_group->last_insn || alt_insn == alt_group->last_insn)
- 					break;
- 			}
- 		} else {
--			checksum_update_insn(file, func, alt->insn);
-+			if (checksum_update_insn(file, func, alt->insn))
-+				return -1;
- 		}
- 
- 		in_alt = false;
+-	if (is_anonymous_const_data(sym)) {
+-		void *cst;
+-
+-		cst = sym->sec->data->d_buf + sym->offset + offset;
+-		__checksum_update_insn(func, insn, cst, sym->sec->sh.sh_entsize);
+-		goto alts;
+-	}
+-
+ 	if (is_sec_sym(sym)) {
+ 		sym = find_symbol_containing(reloc->sym->sec, offset);
+ 		if (!sym)
+@@ -161,8 +164,15 @@ static int checksum_update_insn(struct objtool_file *file, struct symbol *func,
+ 		offset -= sym->offset;
  	}
-+	return 0;
+ 
+-	__checksum_update_insn(func, insn, sym->demangled_name,
+-			       strlen(sym->demangled_name));
++	if (is_compound_constant(sym)) {
++		if (checksum_object(file, sym, 1))
++			return -1;
++		__checksum_update_insn(func, insn, &sym->csum.checksum,
++				       sizeof(sym->csum.checksum));
++	} else {
++		__checksum_update_insn(func, insn, sym->demangled_name,
++				       strlen(sym->demangled_name));
++	}
+ 	__checksum_update_insn(func, insn, &offset, sizeof(offset));
+ 
+ alts:
+@@ -198,7 +208,8 @@ static int checksum_update_insn(struct objtool_file *file, struct symbol *func,
+ 	return 0;
  }
  
--static void checksum_update_object(struct objtool_file *file, struct symbol *sym)
-+static int checksum_update_object(struct objtool_file *file, struct symbol *sym)
+-static int checksum_update_object(struct objtool_file *file, struct symbol *sym)
++static int checksum_update_object(struct objtool_file *file, struct symbol *sym,
++				  unsigned int depth)
  {
  	struct reloc *reloc;
  
-@@ -211,11 +217,13 @@ static void checksum_update_object(struct objtool_file *file, struct symbol *sym
+@@ -212,38 +223,79 @@ static int checksum_update_object(struct objtool_file *file, struct symbol *sym)
+ 	sym_for_each_reloc(file->elf, sym, reloc) {
+ 		unsigned long sym_offset = reloc_offset(reloc) - sym->offset;
+ 		struct symbol *target = reloc->sym;
++		unsigned int type = reloc_type(reloc);
++		const void *data;
++		ssize_t size;
+ 		s64 offset;
+ 
  		offset = reloc_addend(reloc);
  
- 		if (is_string_sec(target->sec)) {
--			char *str;
-+			ssize_t size = elf_string_len(target->sec, target->offset + offset);
-+			const void *data;
+-		if (is_string_sec(target->sec)) {
+-			ssize_t size = elf_string_len(target->sec, target->offset + offset);
+-			const void *data;
++		__checksum_update_object(sym, sym_offset, "reloc type",
++					 &type, sizeof(type));
  
--			str = target->sec->data->d_buf + target->offset + offset;
--			__checksum_update_object(sym, sym_offset,
--						 "reloc string", str, strlen(str));
-+			if (size < 0)
-+				return -1;
-+			data = target->sec->data->d_buf + target->offset + offset;
-+			__checksum_update_object(sym, sym_offset, "reloc string", data, size);
++		if (is_const_reference(target)) {
++			size = is_string_sec(target->sec) ?
++				elf_string_len(target->sec, target->offset + offset) :
++				target->sec->sh.sh_entsize;
+ 			if (size < 0)
+ 				return -1;
+ 			data = target->sec->data->d_buf + target->offset + offset;
+-			__checksum_update_object(sym, sym_offset, "reloc string", data, size);
++			__checksum_update_object(sym, sym_offset, "reloc constant", data, size);
  			continue;
  		}
  
-@@ -233,6 +241,7 @@ static void checksum_update_object(struct objtool_file *file, struct symbol *sym
+ 		if (is_sec_sym(target)) {
+ 			target = find_symbol_containing(reloc->sym->sec, offset);
+-			if (!target)
++			if (!target) {
++				if (is_compound_constant(sym)) {
++					ERROR("%s+%#lx: unresolved compound constant reference",
++					      sym->name, sym_offset);
++					return -1;
++				}
+ 				continue;
++			}
+ 
+ 			offset -= target->offset;
+ 		}
+ 
+-		__checksum_update_object(sym, sym_offset, "reloc name",
+-					 target->demangled_name,
+-					 strlen(target->demangled_name));
++		if (is_compound_constant(target)) {
++			if (checksum_object(file, target, depth + 1))
++				return -1;
++			__checksum_update_object(sym, sym_offset, "reloc compound",
++						 &target->csum.checksum,
++						 sizeof(target->csum.checksum));
++		} else {
++			__checksum_update_object(sym, sym_offset, "reloc name",
++						 target->demangled_name,
++						 strlen(target->demangled_name));
++		}
  		__checksum_update_object(sym, sym_offset, "reloc addend",
  					 &offset, sizeof(offset));
  	}
-+	return 0;
+ 	return 0;
  }
  
++/* Count only consecutive compound constants; named targets use their identity. */
++static int checksum_object(struct objtool_file *file, struct symbol *sym,
++			   unsigned int depth)
++{
++	if (depth > COMPOUND_MAX_DEPTH) {
++		ERROR("%s: compound constant nesting exceeds %u levels",
++		      sym->name, COMPOUND_MAX_DEPTH);
++		return -1;
++	}
++	if (sym->csum.state) {
++		ERROR("%s: cyclic compound constant reference", sym->name);
++		return -1;
++	}
++
++	checksum_init(sym);
++	if (checksum_update_object(file, sym, depth))
++		return -1;
++	checksum_finish(sym);
++	return 0;
++}
++
  int calculate_checksums(struct objtool_file *file)
-@@ -256,13 +265,16 @@ int calculate_checksums(struct objtool_file *file)
- 
- 		if (is_func_sym(sym)) {
- 			checksum_init(sym);
--			func_for_each_insn(file, sym, insn)
--				checksum_update_insn(file, sym, insn);
-+			func_for_each_insn(file, sym, insn) {
-+				if (checksum_update_insn(file, sym, insn))
-+					return -1;
-+			}
+ {
+ 	struct instruction *insn;
+@@ -272,10 +324,8 @@ int calculate_checksums(struct objtool_file *file)
  			checksum_finish(sym);
  
  		} else if (is_object_sym(sym)) {
- 			checksum_init(sym);
--			checksum_update_object(file, sym);
-+			if (checksum_update_object(file, sym))
-+				return -1;
- 			checksum_finish(sym);
+-			checksum_init(sym);
+-			if (checksum_update_object(file, sym))
++			if (checksum_object(file, sym, is_compound_constant(sym) ? 1 : 0))
+ 				return -1;
+-			checksum_finish(sym);
  		}
  
+ 	}
 diff --git a/tools/objtool/klp-diff.c b/tools/objtool/klp-diff.c
-index 34da55e45609..6321f691adbb 100644
+index 6321f691adbb..0391f91a8d31 100644
 --- a/tools/objtool/klp-diff.c
 +++ b/tools/objtool/klp-diff.c
-@@ -1548,12 +1548,18 @@ static int clone_reloc(struct elfs *e, struct reloc *patched_reloc,
- 	 * version of the string section.  Now copy the string itself.
- 	 */
- 	if (is_string_sec(patched_sym->sec)) {
--		const char *str = patched_sym->sec->data->d_buf + addend;
-+		ssize_t len = elf_string_len(patched_sym->sec, addend);
-+		const char *str;
+@@ -438,6 +438,37 @@ static bool is_anonymous_rodata(struct symbol *sym)
+ 	       (!is_object_sym(sym) || strstarts(sym->sec->name, ".rodata.cst"));
+ }
  
--		__dbg_clone("\"%s\"", escape_str(str));
-+		if (len < 0)
-+			return -1;
-+		str = patched_sym->sec->data->d_buf + addend;
-+		if (patched_sym->sec->sh.sh_entsize == 1)
-+			__dbg_clone("\"%s\"", escape_str(str));
- 
--		addend = elf_add_string(e->out, out_sym->sec, str);
--		if (addend == -1)
-+		addend = ALIGN(sec_size(out_sym->sec), out_sym->sec->sh.sh_addralign);
-+		if (!elf_add_data(e->out, out_sym->sec, str,
-+				  len + patched_sym->sec->sh.sh_entsize))
- 			return -1;
- 	}
- 
-diff --git a/tools/objtool/tests/generic/fixtures/identity/common.h b/tools/objtool/tests/generic/fixtures/identity/common.h
-new file mode 100644
-index 000000000000..d0f56751fcd9
---- /dev/null
-+++ b/tools/objtool/tests/generic/fixtures/identity/common.h
-@@ -0,0 +1,15 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/* Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com> */
-+#ifndef KLP_TEST_IDENTITY_H
-+#define KLP_TEST_IDENTITY_H
++/* GCC and Clang give compound literals generated names, not source identities. */
++bool is_compound_constant(struct symbol *sym)
++{
++	const char *name = sym->name;
 +
-+#ifdef __clang__
-+/* Use noinline on Clang to keep calls visible in these tests. */
-+#define NOIPA __attribute__((noinline))
-+#else
-+#define NOIPA __attribute__((noipa))
-+#endif
-+#define MODINFO static const char modinfo[] \
-+	__attribute__((used, section(".modinfo"))) = "name=vmlinux"
++	if (!is_object_sym(sym) || is_undef_sym(sym) || !sym->len ||
++	    !sym->sec)
++		return false;
 +
-+#endif
-diff --git a/tools/objtool/tests/generic/fixtures/identity/wide_string.c b/tools/objtool/tests/generic/fixtures/identity/wide_string.c
++	if (strstarts(name, ".compoundliteral"))
++		name += strlen(".compoundliteral");
++	else if (strstarts(name, "__compound_literal"))
++		name += strlen("__compound_literal");
++	else
++		return false;
++
++	while (*name == '.' && isdigit((unsigned char)name[1])) {
++		name++;
++		while (isdigit((unsigned char)*name))
++			name++;
++	}
++	if (strstarts(name, ".llvm.")) {
++		name += strlen(".llvm.");
++		if (!isdigit((unsigned char)*name))
++			return false;
++		while (isdigit((unsigned char)*name))
++			name++;
++	}
++	return !*name;
++}
++
+ /*
+  * These symbols should never be correlated, so their local patched versions
+  * are used instead of linking to the originals.
+diff --git a/tools/objtool/tests/generic/fixtures/identity/compound.c b/tools/objtool/tests/generic/fixtures/identity/compound.c
 new file mode 100644
-index 000000000000..4b25781e1827
+index 000000000000..bf607bdd6093
 --- /dev/null
-+++ b/tools/objtool/tests/generic/fixtures/identity/wide_string.c
-@@ -0,0 +1,36 @@
++++ b/tools/objtool/tests/generic/fixtures/identity/compound.c
+@@ -0,0 +1,65 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/* Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com> */
 +#include "common.h"
 +MODINFO;
++extern void observe(int value);
 +
-+#ifdef WIDE32
-+#ifdef PATCHED
-+#define TEXT U"\x014a\x0113\x00dc\x00a5\x006e\x0038"
++NOIPA int read_value(int value)
++{
++	return value + 1;
++}
++
++NOIPA int other_value(int value)
++{
++	return value + 2;
++}
++
++#ifdef WRITABLE
++#define CONST
 +#else
-+#define TEXT U"\x014a\x0113\x00dc\x00a5\x006e\x0037"
-+#endif
-+#else
-+#ifdef PATCHED
-+#define TEXT u"\x014a\x0113\x00dc\x00a5\x006e\x0038"
-+#else
-+#define TEXT u"\x014a\x0113\x00dc\x00a5\x006e\x0037"
-+#endif
++#define CONST const
 +#endif
 +
-+#ifdef OBJECT
-+struct descriptor {
-+	const void *text;
++struct config {
++	CONST unsigned int *values;
++	const char *label;
++	int (*read)(int value);
 +};
 +
-+const struct descriptor descriptor = { TEXT };
-+
-+NOIPA const struct descriptor *target(void)
-+{
-+	return &descriptor;
-+}
++#if defined(PATCHED) && defined(CHANGE_LEAF)
++#define FIRST 12
 +#else
-+NOIPA const void *target(void)
-+{
-+	return TEXT;
-+}
++#define FIRST 11
 +#endif
-diff --git a/tools/objtool/tests/generic/test-checksum-wide-string.sh b/tools/objtool/tests/generic/test-checksum-wide-string.sh
++#if defined(PATCHED) && defined(CHANGE_TARGET)
++#define READ other_value
++#else
++#define READ read_value
++#endif
++
++static CONST struct config *const first = &(CONST struct config) {
++	(CONST unsigned int[]) { FIRST, 22, 33, 44, 55, 66, 77, 88 }, "table", READ
++};
++static CONST struct config *const second = &(CONST struct config) {
++	(CONST unsigned int[]) { 11, 22, 33, 44, 55, 66, 77, 88 }, "table", read_value
++};
++
++NOIPA CONST struct config *target(int value)
++{
++#if defined(PATCHED) && defined(CHANGE_FUNCTION)
++	if (value < 0)
++		return (void *)0;
++#endif
++	observe(value);
++#ifdef AMBIGUOUS
++	return value ? first : second;
++#else
++	return first;
++#endif
++}
++
++NOIPA CONST struct config *unchanged(int value)
++{
++	observe(value);
++	return second;
++}
+diff --git a/tools/objtool/tests/generic/test-identity-compound.sh b/tools/objtool/tests/generic/test-identity-compound.sh
 new file mode 100755
-index 000000000000..426adc42337a
+index 000000000000..76b16616b32c
 --- /dev/null
-+++ b/tools/objtool/tests/generic/test-checksum-wide-string.sh
-@@ -0,0 +1,39 @@
++++ b/tools/objtool/tests/generic/test-identity-compound.sh
+@@ -0,0 +1,13 @@
 +#!/bin/bash
 +# SPDX-License-Identifier: GPL-2.0
 +# Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com>
-+# Wide strings contain zero bytes before their terminating zero element.
++# Array contents and callbacks contribute to the referring function's checksum.
 +. "$(dirname "$0")/../identity-lib.sh"
 +
-+wide_section()
-+{
-+	in_sections "$1" | sed 's/^ *\[[ 0-9]*\] *//' |
-+		awk -v width="$width" '$7 ~ /S/ && $6+0 == width { print $1; exit }'
-+}
-+
 +setup
-+for width in 2 4; do
-+	flags=()
-+	[ "$width" = 4 ] && flags=(-DWIDE32)
-+	build_pair identity/wide_string.c "${flags[@]}"
-+	input="$(wide_section patched.o)"
-+	[ -n "$input" ] || fail "missing $width-byte string section"
-+
++for change in CHANGE_LEAF CHANGE_TARGET; do
++	build_pair identity/compound.c "-D$change"
 +	assert_checksum_differs target
-+	run_diff
-+	assert_patched target
-+	output="$(wide_section out.o)"
-+	[ -n "$output" ] || fail "wide string was not copied"
-+	$OBJCOPY -O binary --only-section="$input" "$workdir/patched.o" "$workdir/expected.bin" ||
-+		fail "cannot extract input string"
-+	$OBJCOPY -O binary --only-section="$output" "$workdir/out.o" "$workdir/actual.bin" ||
-+		fail "cannot extract output string"
-+	cmp -s "$workdir/expected.bin" "$workdir/actual.bin" || fail "wide string was truncated"
-+	partial_link "$workdir/linked.o" "$workdir/out.o" || fail "wide-string output does not link"
-+
-+	build_pair identity/wide_string.c "${flags[@]}" -DOBJECT
-+	assert_checksum_differs descriptor
-+	run_diff 255
-+	assert_diff_log 'changed data: descriptor'
 +done
 +
-+pass "wide-string checksums and copies cover every element"
-diff --git a/tools/objtool/tests/identity-lib.sh b/tools/objtool/tests/identity-lib.sh
-new file mode 100644
-index 000000000000..fc7014a88bc8
---- /dev/null
-+++ b/tools/objtool/tests/identity-lib.sh
-@@ -0,0 +1,65 @@
-+# SPDX-License-Identifier: GPL-2.0
-+# Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com>
-+# Shared build helpers for the multi-TU identity fixtures.
-+. "$(dirname "$0")/../lib.sh"
-+
-+FIXTURE_CFLAGS="$FIXTURE_CFLAGS -fno-pie -fno-pic"
-+
-+# build_identity_pair <none|thin|full> <extra-cflags> <fixture.c...>
-+build_identity_pair()
-+{
-+	local mode="$1" cflags="$2" side file i
-+	local CC="$CC"
-+	local flags=() parts=() patched=()
-+	shift 2
-+	if [ "$mode" != none ]; then
-+		clang_only "LTO fixtures require clang"
-+		find_thinlto_toolchain || probe_skip "no matching clang/lld pair"
-+		flags=("-flto=$mode")
-+		CC="$THIN_CC"
-+	fi
-+	orig_obj=orig.o
-+	patched_obj=patched.o
-+	for side in orig patched; do
-+		patched=()
-+		[ "$side" = patched ] && patched=(-DPATCHED)
-+		parts=()
-+		i=0
-+		for file in "$@"; do
-+			build_one "$file" "$side-$i.o" "${flags[@]}" "${patched[@]}" $cflags
-+			parts+=("$workdir/$side-$i.o")
-+			i=$((i + 1))
-+		done
-+		if [ "$mode" = none ]; then
-+			partial_link "$workdir/$side.o" "${parts[@]}" || fail "partial link failed"
-+		else
-+			"$THIN_LD" -r "${parts[@]}" -o "$workdir/$side.o" || fail "LTO link failed"
-+		fi
-+	done
-+}
-+
-+# identity_relocs <object> <relocation-section>
-+identity_relocs()
-+{
-+	# readelf prints the section name in single quotes.
-+	in_relocs "$1" | awk -v sec="'$2'" '
-+		/Relocation section/ { active = $3 == sec }
-+		active && $1 ~ /^[[:xdigit:]]+$/ { print }'
-+}
-+
-+# The fixture's function references one static in .bss, .data or .rodata.
-+identity_object_for()
-+{
-+	identity_relocs "$1" ".rela.text.$2" | awk '
-+		$5 ~ /^\.(bss|data|rodata)\./ {
-+			sub(/^\.(bss|data|rodata)\./, "", $5); print $5; exit
-+		}'
-+}
-+
-+# After post-link, check the reference to the original symbol, not just its presence.
-+assert_original_reference()
-+{
-+	identity_relocs out.o ".klp.rela.orig..text.$1" |
-+		awk -v n=".klp.sym.orig.$2," 'index($5, n) == 1' | grep -q . ||
-+		fail "expected '$1' to reference original '$2'"
-+}
++pass "compound contents contribute to reference checksums"
 -- 
 2.55.0
 
