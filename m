@@ -1,66 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793812306;
-	b=UN83V74W5bVdWHadBjoA6pzQ4qcbqe1Emh57qRYSNIN2Il0FkH6Io4T+x2FU6kEaN7ZD
-	 lko3bo1ojbf2mrM7FDbrtlC5NvRcOE3Nggj8HESWbSXyalHrhONee8zbkPx5sa7tICM7L
-	 CsgMEnZ5kCZeScjkV70TGQE8N8kLGAv5P7h1LxW31W9sW5+7yH2xLl1vJjaaXwqCaMRbr
-	 zp2t6ZvMWSiHFh4Lix9zj0G6iiPmqZSqnyQ+WOGHW+GyGL8R5PkYNJiQs8q+AKTCfIxMM
-	 AhqhxMB46eCY0Zd6fvGwKxWZmrMFNAyqY0LNXz6cvjmMElGrP/kYm367ZZAQRNMW8yQ==
+	t=1793812421;
+	b=BxOIj4gq5wR4gLxlEpA+YznksUzROaqxi2+vwDiUHC07kbcibK9X/oxZyWKQGrEeMckC
+	 2/ZyIO01dUuMGeoeS9FfPQYP1tRO2PR1aq8qh0fnpqVizsLP2h5qDfaMdw1vTHtpWoNq4
+	 d8TN516pGfm/BejY1AofxUqbuYKBJJI6pWmt0H+E0QEc4xEnmC5nwCZci3eEdA/NBkrXh
+	 IVdnz3XEy+caXEiPpp7M2hCeKzZ0zBdhN/LiR/70+jUp7mcxWaAgEF7akG16gn3n8GaXb
+	 Ng0QPNaxXglPQtEE5Z4QL154BM33d3dEjASIEbMY435Pa9Q7iilNmwvR0AFF+b8G7pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793812306;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=mlKVFicyJ09eC0P3851CJPrmUizXit4zBavA6Qb+JgU=;
-	b=hTYoykNxwj76y0A+NPJg/kFHiOOb0GpFkNT7ibpiD4+dl2096liTcINCqNctYteuhQd9
-	 hvWfWJLMq1SEGST5iaYR0q5QlryaMpDg79olHYI9gAYQ7MfcuXz9Ptk7EGavcbUYEEh+z
-	 ZJLwwk4SGu/o+op+urFltyxwB/5Qng4l84VTnrjWOyWiMwPiusU9LsnrO3hlWzHdeSwEH
-	 ytixyUKMp58V8lDzYdFNOJ/bc0T7Iu171Ql+psHa8wyPgOfEQJOpZBVJkEFHk7geQgL11
-	 +sfQgzyxFAQD88x4p6hvadBm2Ep9GJSjH2XFoMNkEa1kjrEjPVV+DNzgI/vRayShyiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793812421;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:User-Agent:X-Spamd-Result:X-Spam-Score:X-Spam-Level:
+	 X-Spam-Flag;
+	bh=+L36k1Sd/+bCDhBzEwtHETSWJSrxy8Qp4k0ec6NLo/w=;
+	b=s2oK/H/ONfv+NPquP/DiI1f6Y4ocaG/crqbDHfzcHieaMyh2UAJ5A8lON/Ua2xWKCQI2
+	 iEI2T0t8Yx1CK5eXOe4/A1Mwlt0CixRM61Qi7h6AmeVfzDdFLsa2mexko0Y3znyk7RvRp
+	 rbc4GteBUOi809aYoie3NXc8InrjutJMv3Tq/RuAEaB/T0CPm5sUmjW/Apes1f+SxAYud
+	 fW38LSeKboyhs9JhCp+4hLL/mwiWrz9f0K4N8eh0Siu2sNCJ0hKo9/JKBK2Zq0YGOliPO
+	 F4lgvbBPXNuwD1GrIX+OcXfpVpp7nA+YcgSfszjlspPf4XOS/hQcJYCwrVf0SzTPPeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=2Lzfm64f;
-	arc=none smtp.remote-ip=199.89.1.16
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=tFe9HUFj;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ZLFotOvn;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=tFe9HUFj;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ZLFotOvn;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16344606A31B;
-	Wed,  4 Nov 2026 17:11:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16344606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E5D606A31B;
+	Wed,  4 Nov 2026 17:13:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29E5D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=2Lzfm64f
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jKX6T332pzlfcTw;
-	Wed,  4 Nov 2026 17:11:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1793812302; x=1796404303; bh=mlKVFicyJ09eC0P3851CJPrm
-	UizXit4zBavA6Qb+JgU=; b=2Lzfm64fUv5Qx9EFSr84etmN2esaCCmR2AGo1psu
-	4IquYX/jAgS4TAxWFkNP42MuyTSGrA+q2Q+2EA7FrW92hJDNfOOZnNKGYmv5NaAJ
-	Cda0+ediHESmSHOBkD39raj93GFbcZLwizHsmNcbLtx9NRQe8kNNLj7WaAIbiT+/
-	3JJtupTUZcIDW1HY5xasuxLqZIxXFoQrQyXS2NNYdcSCLVkLJhjEgougaqRIl5mh
-	O3q3s22+WQFK1lvoCvJ2eJTY4x7uWOmZwgPrsiJgjayOqntp2M9RLkvmRlliTRvM
-	ggd/5Bx+r+VchieruBNBATla6GIFYNmgPCV2lgk9q9ZMMw==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id cGQNmq_n9wrT; Wed,  4 Nov 2026 17:11:42 +0000 (UTC)
-Received: from [100.80.231.125] (unknown [104.135.182.41])
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=tFe9HUFj;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ZLFotOvn;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=tFe9HUFj;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ZLFotOvn
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jKX6Q0rwKzlffvb;
-	Wed,  4 Nov 2026 17:11:42 +0000 (UTC)
-Message-ID: <8adcbd80-f684-4e00-81b3-a2661fac895b@acm.org>
-Date: Wed, 4 Nov 2026 09:11:40 -0800
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 6AD1C21E88;
+	Wed,  4 Nov 2026 17:13:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793812419;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+L36k1Sd/+bCDhBzEwtHETSWJSrxy8Qp4k0ec6NLo/w=;
+	b=tFe9HUFjymJjrtr56g84u75Z2rf2vyYVeSQCcCCFMT1xp6lgWLUqIz03qKw4lb//fGAbw6
+	GXbEyoxK8IOW66wPu5Xy/NZdE5pLv/WH26O0Ax3bWh8xrLufIq3KeVRIuml/f7pAT7uY8d
+	hGBDe3iCA0oZajxl9SfAf9Xja1timkQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793812419;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+L36k1Sd/+bCDhBzEwtHETSWJSrxy8Qp4k0ec6NLo/w=;
+	b=ZLFotOvnGiNcRHmWrifau+kdrY9e1k6ziQgdnqgg/Xz0CeuB6DALnRhqLhvQ1C1luS5fpr
+	LN4YdwCY7RxM57Bg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793812419;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+L36k1Sd/+bCDhBzEwtHETSWJSrxy8Qp4k0ec6NLo/w=;
+	b=tFe9HUFjymJjrtr56g84u75Z2rf2vyYVeSQCcCCFMT1xp6lgWLUqIz03qKw4lb//fGAbw6
+	GXbEyoxK8IOW66wPu5Xy/NZdE5pLv/WH26O0Ax3bWh8xrLufIq3KeVRIuml/f7pAT7uY8d
+	hGBDe3iCA0oZajxl9SfAf9Xja1timkQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793812419;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+L36k1Sd/+bCDhBzEwtHETSWJSrxy8Qp4k0ec6NLo/w=;
+	b=ZLFotOvnGiNcRHmWrifau+kdrY9e1k6ziQgdnqgg/Xz0CeuB6DALnRhqLhvQ1C1luS5fpr
+	LN4YdwCY7RxM57Bg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 28ACE134A5;
+	Wed,  4 Nov 2026 17:13:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id dhh3AcNn62qtGwAAD6G6ig
+	(envelope-from <dsterba@suse.cz>); Wed, 04 Nov 2026 17:13:39 +0000
+Date: Wed, 4 Nov 2026 18:13:29 +0100
+From: David Sterba <dsterba@suse.cz>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: dsterba@suse.com, linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] affs: honor copied length in OFS write_end
+Message-ID: <20261104171329.GA4186782@suse.cz>
+Reply-To: dsterba@suse.cz
+References: <20261104103702.79093-1-dennylin0707@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,49 +111,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] PM: runtime: Update runtime_pm.rst for non-fatal
- resume errors
-To: Stanley Jhu <stanleyjhu@google.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>
-Cc: Brian Norris <briannorris@chromium.org>, Len Brown <lenb@kernel.org>,
- Pavel Machek <pavel@kernel.org>,
- Praveen Talari <praveen.talari@oss.qualcomm.com>,
- Jonathan Corbet <corbet@lwn.net>, Mark Brown <broonie@kernel.org>,
- Alan Stern <stern@rowland.harvard.edu>, Jens Axboe <axboe@kernel.dk>,
- linux-pm@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-block@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261104151651.3035537-1-stanleyjhu@google.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261104151651.3035537-1-stanleyjhu@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104103702.79093-1-dennylin0707@gmail.com>
+User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
+X-Spamd-Result: default: False [-13.00 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	HAS_REPLYTO(0.30)[dsterba@suse.cz];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	REPLYTO_ADDR_EQ_FROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,imap1.dmz-prg2.suse.org:helo];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5]
+X-Spam-Score: -13.00
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On 11/4/26 7:16 AM, Stanley Jhu wrote:
- > +  * If the resume callback returns an error code, the PM core sets the
- > +    device's runtime PM status back to 'suspended' and returns the error
- > +    code from synchronous resume helpers.  Unlike with the suspend
- > +    callback, failures in the resume callback are never considered 
-fatal,
- > +    so the helper functions described in `Section 4`_ are not 
-blocked and
- > +    a subsequent resume request can run the resume callback again.
+On Wed, Nov 04, 2026 at 10:37:02AM +0000, Hungyu Lin wrote:
+> affs_write_end_ofs() uses the requested length instead of the number of
+> bytes copied into the folio. It can therefore write data that was not
+> copied and report more bytes than the source iterator consumed.
+> 
+> generic_perform_write() then advances the file position without making
+> the corresponding progress through the source iterator. A one-byte
+> pwrite() from an unreadable buffer at EOF can repeatedly grow the file
+> instead of failing with EFAULT. Partial copies are overreported as well.
+> 
+> Limit the range written to the copied bytes. When nothing was copied,
+> unlock and put the folio without modifying block metadata or reporting
+> progress. Remove the obsolete comment: an uptodate destination folio does
+> not guarantee that the copy from the source succeeded.
+> 
+> Fixes: f2b6a16eb8f5 ("fs: affs convert to new aops")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 
-Hi Stanley,
-
-This matches what rpm_resume() does since commit eef1d74bf88f. A nit:
-suspend callback failures with -EBUSY / -EAGAIN are not fatal either,
-so "Unlike most suspend callback errors" may be slightly more accurate.
-Either way:
-
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-
-Additionally, the kerneldoc of @runtime_error in include/linux/pm.h
-("Fatal error code returned by a failing callback") could be updated
-in a follow-up patch to mention ->runtime_suspend() explicitly.
-
-Thanks,
-
-Bart.
+Thanks, added to queue.
