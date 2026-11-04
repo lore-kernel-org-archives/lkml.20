@@ -1,69 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.39
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793792426;
-	b=jbRdetKD8LK1mFXGkZpE4BBmj1rjtrZpE+TWqbs6ubjTYc0rQLaoSP9PiaDsu0B2WaWC
-	 Y6+SLlGlThEZEyu9/t2fzwBSjBgumaZRJboCMpUnviaS8r6qyiF1gsMAlA1fCbPZezYQA
-	 dk4Asofn/7fb5rbcBppBGMwppe1SPCBt90ApUApvmRWfSJBlsuN3zSW7XiAYqTJWj/uIE
-	 cOnN1TMswIpGprXHMDQ8XLpL3HElZJGRNbBXkefBYjkxnVJGhhQWrTtkz8IEe0phfsE75
-	 i8Tq8LYDT5zSpCyLuV56GhQsJ8LluPQng9W+vjoYsWjygDh3eaPNAausO3FX+sJ7qcw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793792426;
-	h=DMARC-Filter:DKIM-Signature:Message-Id:Received:References:
-	 X-Lms-Return-Path:From:Subject:Date:User-Agent:
-	 Content-Transfer-Encoding:In-Reply-To:Content-Type:X-Original-From:To:
-	 Cc:Mime-Version;
-	bh=pPsOd91eue55DvpTTpIkJaM1e+sIzdW80J0vYdNAO4k=;
-	b=NDT+WKGT+1l7u/vpM53h2o2k4uxPOgpTnUD40FmU8eapRekrykxdsn7ucetN7PVl0xrR
-	 VlMYjnuelX+082SqgZKBDmqlCG3l6j8aNj7QxdhdgL7/VVScSaroghCth6ZK6RtJUHrzn
-	 K27Ix3PIq5wCqh/h/IcHhBuEwLAeWoRa4xM3wZ8Zo3oyE2EANh8r80MFfFp+xUnvzi1uo
-	 ydTURP5wNk9CAI3aMEPIW6If4V8OxcGz2ATqEAkeUy2bjgp45DnNWYAT2OUB56xmHfeu2
-	 O+jUFpq421Bx7IGsi3OlpJw/GWDLhQBuPcLFhUQaIGdbfSRx1asDKywGS7kxgEpK+fQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=yunsilicon.com;
-	spf=pass smtp.mailfrom=yunsilicon.com;
-	dkim=pass header.d=yunsilicon.com header.i=@yunsilicon.com header.a=rsa-sha256 header.s=feishu2403070942 header.b=HDzLbzH1;
-	arc=none smtp.remote-ip=209.127.231.39
-Received: from va-2-39.ptr.blmpb.com (va-2-39.ptr.blmpb.com [209.127.231.39])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793792428;
+	b=QvdBdOJ5Rdm5QWdUJOUcT1oqAFWyH4XQKy019NIC6iMA8eoM1GICyIxjNui+arD2BDwZ
+	 h8rg75VG0AUsIrYUCxEMG9bHTVeOHwHec4whacnYpjiwY7mj/pSaH5mBsWIPE9rddfiX2
+	 wTmaFi+8n77XJRZqkN10PHVeXFdtLtrQjJTiV8C/wMVckT6be5O7RWiXhuK2UloGAfHiw
+	 44+TcU29rqPkx0Ek2ptw90YvOdXhxkyhJYPGMwpnMZ0jKvUPOOCNtku/Gw2seLFcfgH5d
+	 +ND4Vd38mPONZtGg+0YEeOKqhshX6wrhtpxDjs3pZSUA2F/rQSAGpjtD56u5RqhCIRA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793792428;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=tEpyqlnZnD5VvYTqFQOq2w5jDINj/Ab94LVMAq5qpNk=;
+	b=vmW5Jz/A/LSh12S2z+x06LUuRz2crDq3Tn/U3xRDo68UmZMlkYPpfsnvYLLnIe8yO/rr
+	 pXuz2378Arcthh7BVzWIjt2NxPds7QCUTdZngv57jBB8vyY/dGzZZYi88Cp8Vpsb2YCKT
+	 OaVEwnnSwIuCZRZatxXYZFAMUK787+uMSuNzseUymkazcGJCVsBBGaMOBkTe2Mt8heyLX
+	 0yG8gU34M9ZmMO7004Bva3TaHmG7kzFkx+x7gv0dHuxhBcZMIc6wH/EZSrJvb7nhhqFjQ
+	 LachcHX4A2kvkyAVDn4vZh5LRvY6HsnkkfBfhlIV8mfYbBICF7F8fXx8yVanqFplRiw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=virtuozzo.com;
+	spf=pass smtp.mailfrom=virtuozzo.com;
+	dkim=pass header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=selector2 header.b=VZpptrcm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.131
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11023131.outbound.protection.outlook.com [40.107.162.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA381606A32E
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:40:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA381606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yunsilicon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yunsilicon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A012606A328;
+	Wed,  4 Nov 2026 11:40:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A012606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yunsilicon.com header.i=@yunsilicon.com header.a=rsa-sha256 header.s=feishu2403070942 header.b=HDzLbzH1
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2403070942; d=yunsilicon.com; t=1793792421; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=pPsOd91eue55DvpTTpIkJaM1e+sIzdW80J0vYdNAO4k=;
- b=HDzLbzH1CGbklSWoIPIQCsDnnq06UZAZKuSmKt3YDJH38gLB5kVOCf9QDEPl9IsiLA1F6K
- taPOduA/EpHBt35OgL0LEx9N3fBzvyFW0LWclogLaRRhceiXENVI3LEHrTvh57Tm5NIEP/
- vtZHR6eA1Vr42mn9sFBpDR93YZ6QwxuB9aRqpifxhY4GxmDRHtV1iM24fY0HgKiW2RLWIn
- C9FbcBdjmPJgYf40y3NzKiQ6aDWHqsUoGlz3zGrhgrxLcaKDSH+6A/oxg7nJmSvhkdACif
- uJeys8fao+axh+3rulPua3yDvkG9/dif6gmf2E4+8PeWre9rnjEF6tmxoVPuEw==
-Message-Id: <e3354620-abb4-4584-80d2-0251a0d49d10@yunsilicon.com>
-Received: from [127.0.0.1] ([180.152.18.210]) by smtp.feishu.cn with ESMTPS; Wed, 04 Nov 2026 19:40:18 +0800
-References: <20261012114352.2471317-1-tianx@yunsilicon.com> <20261012114356.2471317-4-tianx@yunsilicon.com> <47c82da8-99cd-ec81-f264-d270fef057ee@hisilicon.com>
-X-Lms-Return-Path: <lba+26aeb19a3+759116+vger.kernel.org+tianx@yunsilicon.com>
-From: "Xin Tian" <tianx@yunsilicon.com>
-Subject: Re: [PATCH 03/15] yunsilicon: add the command queue
-Date: Wed, 4 Nov 2026 19:40:17 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=selector2 header.b=VZpptrcm
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AhoMmdRUJj5P+qSS5cR9UvmWtU5iYiwbeXLlEYOX55c9hiZCNh8cOSflqf1Ywj5+0PzRFKAoQLEthJQwYVPXm7YYu8uxwYzTQpFLhGzUpigjwc6Vi7xE+VJdbtHTGWngGt3nv4u9VoXkw3qCJAQUDqTGfLNA6Omo8ax/2fhM0t++CJgz2LL1dh8oO3vV59+HoqOZ/My61xSWZqyLTIv4EDChg2E2J+rqC+vhZLwxkyprY1LmNKGguTr2xZw1cnBZQoBg7uK4FoSwQAVbNIYRTWcUbuSRILQKCWzuG5PDnRpGTOLVcpPRuL3hamtzHDGbR3qwhIRF3LPcSxfIK7LEug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tEpyqlnZnD5VvYTqFQOq2w5jDINj/Ab94LVMAq5qpNk=;
+ b=IC9x1mzEFdcqMo0KwWvxRHxj5kOIiOIFrMI+Wg3o3Fu2r31wakKFHckSrB3JOLkqrtUBJokogxT6sZCcRhhPeBkvdppJyWFlmVDTnM1DkZa49CvrQoMwjKdeRZ39uYBm93EQ9VfkNRgwN3WHNxsn05HJ+WZyombsK9Fz2LKw25fir1II4XCGoJbEmug2ec7X95YZf3VQs9iML/wGlIl1LE0nEY7m7GjzL2rwtYsknbU1EaZNjvMJBLezmvN67/EqpwXjIDbdgAkgxMnW6DZ4Zw17Ik9Z+VsSeoLfCM8omB9WGZuUGUiN75L6sn7or4vv5s0Ijfx8UDxdXd3kSgeKnw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=virtuozzo.com; dmarc=pass action=none
+ header.from=virtuozzo.com; dkim=pass header.d=virtuozzo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=virtuozzo.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tEpyqlnZnD5VvYTqFQOq2w5jDINj/Ab94LVMAq5qpNk=;
+ b=VZpptrcmUdbrmRO2IagexqilVSYUFvzNYNK0TFUwk3+8HOtV5sdPwr9TANwpxj3j3nl+KQVxO9OGRZh5ZSp/Eo/n8FXhZXxMfMZ0WZF/1U7WFRI7ajbj6Ut/ISg0zd6xbg5vzL8Rw0rxUtc6r8ov04vHBuF6360nwPegpBT7p4Ibq58ZZaUgwoHQ+hFKMnAOm3L10PsW2nFgmzqvHCkCFrxrJogQuO75V6bB30eP9MO55VLO2XHaow47y3VHx+sPx1yjvvRK7pV3ZCCa17l0h+bEw6wPyjVzYPJmqjDMvPlv+npAPaEthMb6P/1fOCViDQfGaXBpBI8KAXatQ6jBFA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=virtuozzo.com;
+Received: from AS2PR08MB9075.eurprd08.prod.outlook.com (2603:10a6:20b:5ff::9)
+ by AM8PR08MB5698.eurprd08.prod.outlook.com (2603:10a6:20b:1c6::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Wed, 4 Nov 2026
+ 11:40:23 +0000
+Received: from AS2PR08MB9075.eurprd08.prod.outlook.com
+ ([fe80::3f57:9ced:7a37:1bd8]) by AS2PR08MB9075.eurprd08.prod.outlook.com
+ ([fe80::3f57:9ced:7a37:1bd8%4]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
+ 11:40:23 +0000
+Message-ID: <dd966816-a83d-47ea-8faf-bf80d3b2642e@virtuozzo.com>
+Date: Wed, 4 Nov 2026 12:40:21 +0100
 User-Agent: Mozilla Thunderbird
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <47c82da8-99cd-ec81-f264-d270fef057ee@hisilicon.com>
+Subject: Re: [PATCH v4 2/4] mm/huge_memory: copy file THPs at fork like
+ copy_present_ptes() does
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Peter Xu <peterx@redhat.com>
+Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
+ =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>,
+ Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>,
+ linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>
+References: <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-0-66f00b7a564c@virtuozzo.com>
+ <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-2-66f00b7a564c@virtuozzo.com>
+ <8c164738-8025-482f-828a-3f919150a930@kernel.org>
+Content-Language: en-US, ru, sr
+From: Konstantin Khorenko <khorenko@virtuozzo.com>
+In-Reply-To: <8c164738-8025-482f-828a-3f919150a930@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-X-Original-From: Xin Tian <tianx@yunsilicon.com>
-To: "Junxian Huang" <huangjunxian6@hisilicon.com>, 
-	"Andrew Lunn" <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, 
-	"Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, 
-	"Paolo Abeni" <pabeni@redhat.com>, "Jason Gunthorpe" <jgg@ziepe.ca>, 
-	"Leon Romanovsky" <leon@kernel.org>
-Cc: <weihg@yunsilicon.com>, <linux-kernel@vger.kernel.org>, 
-	<netdev@vger.kernel.org>, <linux-rdma@vger.kernel.org>
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS4P251CA0020.EURP251.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5d3::9) To AS2PR08MB9075.eurprd08.prod.outlook.com
+ (2603:10a6:20b:5ff::9)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,128 +112,120 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS2PR08MB9075:EE_|AM8PR08MB5698:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2c75a77a-1e0c-41b7-7d78-08df3a6869b2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|921020|261028144727099003|261022075727099003|261026121527099003|261009223027099003|4143699003|56012099006|261022105027099003|261026140227099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	du0WDII6tD1QtRG4Es493qUpdO0KTSKmDc83kboGkEgcTaXsuDczK5pjicAldwOk8vOIxDHCyeHcHbrQCl0LS8urebhLUuO8L5qu8+GCPmy0TMPJ4jOZZfR6ywf/7aQLofJ2OZSxqe8rg10UIeCAIoyvHhsFRZhT103KHHtYfDKK/yRl11xLpMNQIvwfdxeYBTaEfjCIpO+ksVoXUNteIuLXSIsAQ0gcA3VAx33HX7Rl4IR6mNOwbKZJ2h1LE7owuAQOR0LPMCZUUqs10of8RvQWTdOc/wsMEMCbpfZFcTaafeJzZLr7vzF4N7+pVOgPjBJwgig+9FguzuaHPX72/M+exZbswMIu2Rh4S72TXnwaGnMB8l/jLBgoL/44hxBzx3dRYjW3AZ9UdoyUYihutvwpyU6rYVMUYXpAA3x6F1OoCiwXXLnfaoL2kTV5tEnhZyjIF+WDx5WUE2eAiBwXwONzcieXOR8UquqGll0cOqB52op09OqO46JNmzSKYb6rB5RO+se4KzRkeI0nZEWXgFFA68ngaIZB7sZfjZUeBXc1C56UOl2cPHyDJmEmt+yMvxnK4jW79nQyFYlav9sZDuvPPsexKoq2KYNqRksrlbOPliDXatu3WDaCysvdiphDD+hpsjMeu6qG91s3+bk5zlJ2fXiVbkyobnjiLwMjYlSqVd0pR+khBi8dxik9TiT8t+dSAKIsyERwMlRap3RuYQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR08MB9075.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(921020)(261028144727099003)(261022075727099003)(261026121527099003)(261009223027099003)(4143699003)(56012099006)(261022105027099003)(261026140227099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Smw5V1RNTnVUa0sxTkQ1VytJQkdtaFBpemZVOGNaemZhMEl6RjZZdTlnV1Yv?=
+ =?utf-8?B?aUZyWFpYcEFqOUxtb3ZjcTc3Vkt1dHF1UENTM3JJSTNoaEg4akU0VDVpZGhY?=
+ =?utf-8?B?QmxQVm5yY1ByNzkyOFNFaCtBV3Y5RytTaER1Q3VhMUhMcFV2R0ZKTjI5ZEh3?=
+ =?utf-8?B?S1FLdjBxR000Z2p3NU5xd3h2cEpPUXgvc2ZWMlhRUjdEZndpU0w2Z2pRa3hn?=
+ =?utf-8?B?NFYzOXF0YzRRU2VoaEZrNkFRSzVMN3JRZ1V3Z0gxdGx6dU1KKzJSYitwWmI2?=
+ =?utf-8?B?eUU5SzFTcm9UbE1iOTFzODhEZThOVTBGb0hybUE4cWh4UEYzTVZlNTRiNzYr?=
+ =?utf-8?B?ZGVsbGdyS2t0a1M5TjVZSHVobGRmcXFMUFBkaGJSaU1JZ3pEK3FMQnRTVnEv?=
+ =?utf-8?B?RjQ4djEvRUtNZVJ2blFuUlZxVDZ6WGoxdXM4LzhVakp5RVU0MlZvaUVPbUN3?=
+ =?utf-8?B?b1VYZE9BQ3RRVEZvMWlyNDYrSXIzTTA4WWxGN3hSb2p3RmZhQWZ2WkxMSlJW?=
+ =?utf-8?B?SUp5NklYOXJhY0lNMVRTcUM3MXFLcVZyOGdaZzdsbFNDOVRxdkt3c0dydmlP?=
+ =?utf-8?B?S3l1QVRTZW1BQnIxUENBYXA4SGsycHZpY2RBcS9WclRhcDhlbkIwS0tKVjAy?=
+ =?utf-8?B?dEk5SEtxWkpScVdKanJ0V3FvWU1MNkNFenVCdzM3MUhUQThpQmZra21xQjNQ?=
+ =?utf-8?B?NkRHS20wZHhuODJWZTQvaFIySDhCaWs4enQwL1U4dUdtbVpqcjNSdDdZKzVz?=
+ =?utf-8?B?NmFSeEZhbHAvTTV2bER4eWgxYTVBckpyQ2xRRjBFRDh2aEREVTFQTEZkd2VT?=
+ =?utf-8?B?UkhKWDRNQlFLbDU5cDRXVjg3TS9Lc2lHR0MwcVJHR3puQmlvVGQ2Q1ZKOEUv?=
+ =?utf-8?B?S0l3NGZpcEh0Z1J4UlN4L0NaWGpFeGdjOUhqSUxIdlBtR1BQS1FYU1AyekdW?=
+ =?utf-8?B?UWprcDRLbmYxYjhjNXlnUUEyTXMrMHlPMHgrcHkrT2lKbDhaaHc2RmNvUlFY?=
+ =?utf-8?B?bVk4OG81ZTdqcFBRNytpYVUvc25ReUdOY3htMm9pTSs5SUE4RHVTMTFsNndV?=
+ =?utf-8?B?TFZUdXlWTUdlWjFJQnNsSWVOZ1NPOTArOHluMndYODQrdTdZNFFzcmZtdmdR?=
+ =?utf-8?B?SjlRekpCRnZOT2tucUdMMDlCYlYwV1Z3SDlYRTZHYkZtZkZyNUhZZ1RMSjEx?=
+ =?utf-8?B?eXBUOEluU25YNlpVS2I5WTYxcDdORzBrWFpmZ3ZxSStpOERIOEozb29WclhN?=
+ =?utf-8?B?MGg5U1VjV0lzbTk0Y3p1THNGSHMwd1hMQk9YeC91YXltd2JGaEJocXBCTFRn?=
+ =?utf-8?B?RnhPaCtpMEN1WDZSUzFKSmJVdUxTOVhaNUtuWXZXUWdpYTVZVk1aYitMdW1m?=
+ =?utf-8?B?c0lXQ0FuNzlzYXBpNUhuSEtJWFBObUJzNFVCU3VtRitLOXpDUTFCMzJ5Zllh?=
+ =?utf-8?B?bmxNWDZxQ3pNRlo2SExKTTRkWTZJRXhlaXd3NW5WZVBsRXljMHpYVVJENlo2?=
+ =?utf-8?B?OEp6M0lRak1Va2Q0dkFuTTFhMU5paUZSM2pPd09hNlFwdDFjOElpNTl0RmFq?=
+ =?utf-8?B?Wm1iWjhFbkxERENTSmVRTFVxVFNFdjdwVXBSNy9TMHBkQ2szNFkyZytDNnlU?=
+ =?utf-8?B?Z2xBTVhBYlIrRzZqYlIyZmhOZXRicnl6VXpXbkU5V1I1L1lFWnNaeURCQ3pv?=
+ =?utf-8?B?eXhwdmk0T2gydk1PaUU4OEsydzJuY210eDBIOTdURHRCd00xaFJsMnczaFcv?=
+ =?utf-8?B?eGhlcnFyQXlRWUMzVURubW94V2xDVkFNWXIwT1I5eVhRQXJJbnl0azRrNVFE?=
+ =?utf-8?B?eFBNc2JkaHFaUXVPa3N1T3oyMUVKSmMxNlV4bnZwUG9WZUNDMHRvK3BMQ0ZR?=
+ =?utf-8?B?Wjl1dFNzVXRiL2M1dGlVWmxJUnNxR2ZFcVdQYmM2RElJdndhZGlnTWpjLzNr?=
+ =?utf-8?B?SU5zZEVOYnFmOWQ5bm1vVXMzOENSNEdYVlA0WWVBZVRzazh6SzFUWnY5Ylo3?=
+ =?utf-8?B?S0Z0UW51cEs2bEx5alZuQnpDUGR0U1RiTzgxMUJtQ2JSTG1aVmtQMk9EeVF2?=
+ =?utf-8?B?ZlFacXY2cDFvM2U5eTdPRkNmeHRBa09jaGpoK1lWK0taUVJyeVR2WVhvRVp0?=
+ =?utf-8?B?RzJQSXpGU1RDeEsyRng1YUhRR0kvTm5rdldxbU55S3NndEp2NzlFYzA2a0ZN?=
+ =?utf-8?B?RndLOHlTZUlYL3BURWhLYVJQMnBKMGNtR1p4V2I2ZlZqcWNoZ3ZoUVdSQmRJ?=
+ =?utf-8?B?cXl6SzRJbmh4dTdXei8xRENnYjlmeEc0aGxTQjJNQkhyRnFOSlhoK2lhbWx0?=
+ =?utf-8?B?VkFjQkh5bVpNRTVwMVpxZUhHOGdMbEtOZWVFenhMOGhhRGZHUzhxZz09?=
+X-OriginatorOrg: virtuozzo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c75a77a-1e0c-41b7-7d78-08df3a6869b2
+X-MS-Exchange-CrossTenant-AuthSource: AS2PR08MB9075.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 11:40:23.5671
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0bc7f26d-0264-416e-a6fc-8352af79c58f
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: P3eSZaW3NPD/Cs6l241/n5QE/ciGrsPY7UyL0q7Y7hd+U4YcOmwUhdzmRxXvq+3EqPEfjCb6Wcstp1mYUw5ziQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR08MB5698
 
-On 10/13/2026 11:11 AM, Junxian Huang wrote:
+On 10/27/26 15:39, David Hildenbrand (Arm) wrote:
+> Any reason we're not adding the vma_is_cow_mapping() check on the
+> softleaf_is_device_private_write() path as well?
 >
-> On 2026/10/12 19:43, Xin Tian wrote:
->> Add the command queue that is shared by the ethernet and RDMA functions:
->> the request/response rings, the command work handling and the device
->> initialisation sequence that queries the HCA capabilities, the GUID and
->> the message opcode table.
->>
->> Signed-off-by: Xin Tian <tianx@yunsilicon.com>
->> ---
->>   .../net/ethernet/yunsilicon/xsc/pci/Makefile  |    2 +-
->>   .../net/ethernet/yunsilicon/xsc/pci/cmdq.c    | 1247 +++++++++++++++++
->>   drivers/net/ethernet/yunsilicon/xsc/pci/hw.c  |  310 ++++
->>   drivers/net/ethernet/yunsilicon/xsc/pci/hw.h  |   18 +
->>   .../net/ethernet/yunsilicon/xsc/pci/main.c    |   55 +
->>   5 files changed, 1631 insertions(+), 1 deletion(-)
->>   create mode 100644 drivers/net/ethernet/yunsilicon/xsc/pci/cmdq.c
->>   create mode 100644 drivers/net/ethernet/yunsilicon/xsc/pci/hw.c
->>   create mode 100644 drivers/net/ethernet/yunsilicon/xsc/pci/hw.h
->>
->> diff --git a/drivers/net/ethernet/yunsilicon/xsc/pci/Makefile b/drivers/=
-net/ethernet/yunsilicon/xsc/pci/Makefile
->> index 81b65232e..656cdffa1 100644
->> --- a/drivers/net/ethernet/yunsilicon/xsc/pci/Makefile
->> +++ b/drivers/net/ethernet/yunsilicon/xsc/pci/Makefile
->> @@ -6,4 +6,4 @@ ccflags-y +=3D -I$(srctree)/drivers/net/ethernet/yunsili=
-con/xsc
->>  =20
->>   obj-$(CONFIG_YUNSILICON_XSC_PCI) +=3D xsc_pci.o
->>  =20
->> -xsc_pci-y :=3D main.o hal/andes_impl.o
->> +xsc_pci-y :=3D main.o cmdq.o hw.o hal/andes_impl.o
->> diff --git a/drivers/net/ethernet/yunsilicon/xsc/pci/cmdq.c b/drivers/ne=
-t/ethernet/yunsilicon/xsc/pci/cmdq.c
->> new file mode 100644
->> index 000000000..48832b26d
->> --- /dev/null
->> +++ b/drivers/net/ethernet/yunsilicon/xsc/pci/cmdq.c
->> @@ -0,0 +1,1247 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +/*
->> + * Copyright (c) 2021-2026, Shanghai Yunsilicon Technology Co., Ltd.
->> + * All rights reserved.
->> + * Copyright (c) 2013-2016, Mellanox Technologies. All rights reserved.
-Hi Junxian,
+> (I think they are all anonymous ... just for consistency)
 
-All ten are fixed in v1, which I'll post shortly.
-> Why Mellanox?
-This is intentional=E2=80=94the code is derived from the Mellanox driver, a=
-s Leon
-noted. I'll keep it as is.
->> + */
->> +
->> +#include <linux/module.h>
->> +#include <linux/errno.h>
->> +#include <linux/pci.h>
->> +#include <linux/dma-mapping.h>
->> +#include <linux/slab.h>
->> +#include <linux/delay.h>
->> +#include <linux/random.h>
->> +#include <linux/kthread.h>
->> +#include <linux/io-mapping.h>
->> +
->> +#include "common/xsc_cmd_api.h"
->> +#include "common/xsc_cmd.h"
->> +#include "common/xsc_core.h"
->> +#include "hal/xsc_hal.h"
->> +
->> +enum {
->> +	CMD_IF_REV =3D 3,
->> +};
->> +
->> +enum {
->> +	NUM_LONG_LISTS	  =3D 2,
->> +	NUM_MED_LISTS	  =3D 64,
->> +	LONG_LIST_SIZE	  =3D (2ULL * 1024 * 1024 * 1024 / PAGE_SIZE) * 8 + 16 =
-+
->> +				XSC_CMD_DATA_BLOCK_SIZE,
->> +	MED_LIST_SIZE	  =3D 16 + XSC_CMD_DATA_BLOCK_SIZE,
->> +};
->> +
->> +enum {
->> +	XSC_CMD_DELIVERY_STAT_OK			=3D 0x0,
->> +	XSC_CMD_DELIVERY_STAT_SIGNAT_ERR		=3D 0x1,
->> +	XSC_CMD_DELIVERY_STAT_TOK_ERR			=3D 0x2,
->> +	XSC_CMD_DELIVERY_STAT_BAD_BLK_NUM_ERR		=3D 0x3,
->> +	XSC_CMD_DELIVERY_STAT_OUT_PTR_ALIGN_ERR		=3D 0x4,
->> +	XSC_CMD_DELIVERY_STAT_IN_PTR_ALIGN_ERR		=3D 0x5,
->> +	XSC_CMD_DELIVERY_STAT_FW_ERR			=3D 0x6,
->> +	XSC_CMD_DELIVERY_STAT_IN_LENGTH_ERR		=3D 0x7,
->> +	XSC_CMD_DELIVERY_STAT_OUT_LENGTH_ERR		=3D 0x8,
->> +	XSC_CMD_DELIVERY_STAT_RES_FLD_NOT_CLR_ERR	=3D 0x9,
->> +	XSC_CMD_DELIVERY_STAT_CMD_DESCR_ERR		=3D 0x10,
->> +};
->> +
->> +static struct xsc_cmd_work_ent *xsc_alloc_cmd(struct xsc_cmd *cmd,
->> +					      struct xsc_cmd_msg *in,
->> +					      struct xsc_rsp_msg *out)
->> +{
->> +	struct xsc_cmd_work_ent *ent;
->> +
->> +	ent =3D kzalloc_obj(*ent, GFP_KERNEL);
->> +	if (!ent)
->> +		return ERR_PTR(-ENOMEM);
->> +
->> +	ent->in		=3D in;
->> +	ent->out	=3D out;
->> +	ent->cmd	=3D cmd;
->> +
->> +	return ent;
->> +}
->> +
->> +static void xsc_free_cmd(struct xsc_cmd_work_ent *ent)
->> +{
->> +	kfree(ent);
-> One line function is unnecessary.
+No reason, copy_nonpresent_pte() has it there too. Will add in v5.
+
+> Is the fallthrough:
 >
-> Junxian
-Fixed in v1.
+>       add_mm_counter(dst_mm, MM_ANONPAGES, HPAGE_PMD_NR)
+>
+> really expected?
 
-Thanks,
-Xin Tian
->> +}
+Yes: copy_nonpresent_pte() counts migration and device private entries
+in the child's RSS as well. File folios reach it now, so the hunk below
+switches it to mm_counter(src_folio), as the PTE path does.
+zap_huge_pmd_folio() subtracts a file folio from mm_counter_file(), so
+MM_ANONPAGES there would leave the child's counters unbalanced.
+
+>> +    bool writable;
+>
+> Why do we need this variable?
+
+It copies __copy_present_ptes(), which snapshots pte_write() before
+the uffd-rwp branch. Looking at it again, that branch only rewrites an
+RWP marker, which is PAGE_NONE and never writable, and vm_page_prot of
+a CoW mapping has no write bit either. So the snapshot looks redundant
+both here and in __copy_present_ptes().
+
+I'd keep it in this series so the PMD path matches the PTE one, and
+drop it from both in the cleanup together with the gotos.
+
+Kiryl, does that match your understanding of the PTE path?
+
+>> +            goto copy_pmd;
+>>      }
+>
+> Likely we should clean this up later to avoid the gotos.
+
+No problem, but let's do it later, on top of this series.
+
+And on your stable question in 3/4: v5 will carry Cc: stable on patches
+1-3.
+The backport to 6.12 won't apply as is, so I'll do the backports once we
+get a failure mail on stable re-apply attempt.
+(or I need to do backports in advance? Need an advice here.)
+
+Thanks for the review!
+
+--
+Konstantin Khorenko
