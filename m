@@ -1,69 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.248.212
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793805378;
-	b=iIC0ao6Je2pV9VEWyvWar/143uQeMxzQltE93dEQgWTGVUUaTxGWZPXyMTWcDu4tHxv/
-	 gDIq/vaAUYz88GJWwssf/VaEgHmZVFS2NT1xWZLcIKoC4rO5YRsWizh1nY2GvAqalVCuD
-	 UjZqRd7wqx7Ow+oBLLeQA3K+f+vFHS2DoPeNr7LKE5WutTAH3arxMU+ET2g3+ZuCcilCq
-	 VVRYxwx3TGUGg1icKVRmnI+10DPTa2O2Stn+RTKeWQMhfflfRCGvv3G+aWSMh2P/GUixr
-	 j167kRYq7bI0VTMAopDLNwDp8I8BoV67UTdq78/HbIwKBhy1F1CQ/RBXCHIRyXI6qWg==
+	t=1793805394;
+	b=OKM9Nb91bFxAUBuum8Jj6A8Om+iorO27o1h8mIy/70Suwu9Nj0FTIwFZnW3Nwd84nLEx
+	 SGg7l+As3yHsvz0/5QTzOua+wqinDMzczaVyL4n9UMhTqtozPU8lszED5YEGh2fqV/Hty
+	 y8StjGJ9FQBPi1KErIXgewn6xSF8XpkiegH/47qmWHADPtNPASujdkaerTCBBeQCBPGIc
+	 MnGcd6VDP+vFn7rQuE8CsU/7mEzEAz7joJCj628OhC+iAGvrW2lfOImEPmXqN5+tANjLk
+	 pNAAMFQgWF3WKOBAKRABNk4+vn7LFzRpi/BI12Yh2NgQjf9fczWpVtPk74HThdc9F4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793805378;
-	h=DMARC-Filter:From:DKIM-Signature:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=OqDo8ZjWnldpjQLZtviwEAKFTnnvBemRbk1Ky+Mok18=;
-	b=Muqj2C1p7AtPVe/O7KQd7EB/K1S45ia7J9Q5fYjdCiZzv6yDwikG5zLUFS5DkEN0qP9t
-	 C8svw4EURz1DT/NMG1xSe66uBcBtlfAJ9oS9Y5Z9FPfVm42nBSOcjMJs6xJRr6CR03Zgf
-	 8f+XwSHZp3GbrYPZeFq/zRkX6a2nmgG46oiu+6Akr/3tr8wWEK8d5Jh3hmfyRd6gcJCqY
-	 9Y902tITHVAZjRajgg8AZsSxN8HP97nUGxNMOiqZxuTgoW0kKiYKEqhk/fDEVAk1dPFQE
-	 sbah1Wswm0vIu0ZA12HkRWRJKtxZPdVXpBhUKqxzlAB5kAfgWBgYNjGR/CcZkuxO1dA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793805394;
+	h=DMARC-Filter:From:X-Lima-ML-UUID:DKIM-Signature:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=HUv3aonTMOVsk8qMfoC0IbbTBHPuVDViUYD2TXVBWn4=;
+	b=nrzSOVZCv7ECxhDUI1Mns4yd78rV5ADrzwwAvcE3EhxtR9QnnsJkeEBo/OHP/8pa7RWv
+	 6mlyicl8QDfpSq5aI6HMnfg/bcAq1Y/6E5U9Gy+3andIqdo1VK8VUJ+6jY3gAkfOJOSsF
+	 lXfrL+RTnTPhBnDu+tshiKtjr4GfEleeOCgxhNhsMqSxg9hM/6sR+UrHQ7Xgi8ixb/uj8
+	 mHU89KLPB1nhscd5/TCzk5Uc9ue1/AYpV+jI8wHpuzYvmRqmRfomdOoiiwuLefLiqiiUU
+	 sifQ63z9acfsVet0xNCnBOtlEtrIKXHIWzXznlLvl8R5IW0EjXCOCRRC1BEbP36oaUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=deq.rocks;
 	spf=none smtp.mailfrom=deq.rocks;
-	dkim=pass header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=ebBIYhlM;
+	dkim=pass header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=IZmpUEBE;
 	arc=none smtp.remote-ip=91.216.248.212
 Received: from bulk0.mail-out.lima-city.de (bulk0.mail-out.lima-city.de [91.216.248.212])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DAA3606D833;
-	Wed,  4 Nov 2026 15:16:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DAA3606D833
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C57606EEA4;
+	Wed,  4 Nov 2026 15:16:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6C57606EEA4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=deq.rocks
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=deq.rocks
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=ebBIYhlM
+	dkim=pass (2048-bit key, unprotected) header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=IZmpUEBE
 From: Andre Eikmeyer <dev@deq.rocks>
+X-Lima-ML-UUID: 8235dade-8040-48b1-a247-fa48c184aae2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
-	s=securedbylima-20251205; t=1793805376;
-	bh=JfQzV030AVQ0gGFAqN90Ocdak/ZrdoDwpXmDpK8ZLe0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ebBIYhlMVX8RH7xQ6B++3qwd5Lv5lPTWN8GoEJOK4SqgVgb3H6FK2eOH04V+qeMob
-	 eJMG7K7RHrV9qvaDSkVwHEwnwJxVN0DYMWnbsRarCzoqyDI9OWT3ny3VpixW3l+6Zq
-	 kOm0dztD0n1UO+vu2xXOMFfRCSQmoh/aiDRW5iX3ffbCZFIIeTux7f/SOFsTr9kvxG
-	 5/Z1Kvr+sJzPgzyZCaiQq+KMKcvCYHMmXY5QNv++Qcu+6XKr3e3J8sDgVyDYxxR8+c
-	 IDgyOL/JXne/SsqdOgSeUC5vc/Hz4br51u8XxVVCTpj9Lh54ENj2bm1UShojJ6rbpS
-	 exvvHQ2iDJI3w==
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com
-Cc: linux-bluetooth@vger.kernel.org,
+	s=securedbylima-20251205; t=1793805392;
+	bh=cZFQiaUWCwTwbQ5cpntohWw8f+YGs8832d0mnDdIQ9U=;
+	h=From:To:Cc:Subject:Date:From;
+	b=IZmpUEBE3jPNfx5um1SWcsxAwW8F9klf4/ahjxJ/X6amEBsc4fOYTPz2VD7eK/ikk
+	 jMtWGReU6FIsAGyL0NFYtkeiEA8EB7nYynPhjMbEh0Yqx60Yaizc4aK/1e3RHjeJLD
+	 RRcrGEigVfRdv9nAPD4UCZJ7RoUbJTugBP/seOYJdjEglmJbp2g+Qwluh0xIX6tBOu
+	 HfbpaPppQ/kZkJKBGfGgCAPJqP5QoFS0xcXgIx2oZiHTJ1zjMU0uKu0GPESzDEGNS4
+	 3nxFt00uTYQ5Sj9hav5kqo8y4W0ipIjZq0UHcs6vbd82oaOceXMKlfO4R0fzdqSpA+
+	 fVFxtnfhj4ZlA==
+To: arend.vanspriel@broadcom.com
+Cc: linux-wireless@vger.kernel.org,
+	brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com,
 	linux-kernel@vger.kernel.org,
-	sven@kernel.org,
-	j@jannau.net,
-	neal@gompa.dev,
-	asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	66ton99@gmail.com,
-	josemiguelo.ochoa@gmail.com,
-	aditya.garg@linux.dev,
 	Andre Eikmeyer <dev@deq.rocks>,
-	Yossef Osman <Yossef.Osman@proton.me>
-Subject: [PATCH 4/4] Bluetooth: set the strict duplicate filter quirk on Apple Broadcom controllers
-Date: Wed,  4 Nov 2026 16:16:01 +0100
-Message-ID: <20261104151601.70493-5-dev@deq.rocks>
+	Yossef Osman <Yossef.Osman@proton.me>,
+	Aditya Garg <aditya.garg@linux.dev>
+Subject: [PATCH] wifi: brcmfmac: leave the AP 4-way handshake to the host on Apple chips
+Date: Wed,  4 Nov 2026 16:16:29 +0100
+Message-ID: <20261104151629.70790-1-dev@deq.rocks>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104151601.70493-1-dev@deq.rocks>
-References: <20261104151601.70493-1-dev@deq.rocks>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,55 +67,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-btbcm_finalize() sets HCI_QUIRK_STRICT_DUPLICATE_FILTER, but bcm_setup()
-returns before it when no patch file was loaded. The MacBookPro15,1 has
-none for its BCM4364B0 ("BCM: firmware Patch file not found").
-hci_bcm4377 does not use btbcm_finalize() and never sets the quirk. A
-service discovery then scans with "Filter duplicates: Enabled", and the
-controller reports an address once per discovery cycle of about 10.7 s.
-A Mac that changed its advertisement data on the same address was
-reported 6 s after the change, at the next cycle.
+The Apple firmware for the BCM4364 and BCM4377 lists "idauth" in its
+capabilities, so brcmfmac enables BRCMF_FEAT_FWAUTH and advertises
+NL80211_EXT_FEATURE_4WAY_HANDSHAKE_AP_PSK. hostapd and wpa_supplicant
+then pass the PSK to the driver and leave the AP side of the 4-way
+handshake to the firmware. On the BCM4364 that handshake never
+completes. The client associates, no EAPOL-Key frame is sent, and the
+firmware removes the station after about 8 s.
 
-Set the quirk in hci_bcm on that path and in hci_bcm4377.
+Measured on a MacBookPro15,1 (BCM4364/3, firmware 9.30.514.0.32.5.94,
+FWID 01-47278712) with a WPA2-PSK access point and a Samsung Galaxy
+S22 Ultra as client:
+
+  offload advertised:  NEW_STATION, DEL_STATION 7.8 s later, no EAPOL
+  offload not advertised: 4-way handshake by wpa_supplicant completes,
+                          AP-STA-CONNECTED, DHCP lease, traffic flows
+
+Clear BRCMF_FEAT_FWAUTH on the chips in Apple's T2 Macs, so the host
+runs the handshake.
 
 Tested-by: Yossef Osman <Yossef.Osman@proton.me>
 Tested-by: Aditya Garg <aditya.garg@linux.dev>
 Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
 ---
- drivers/bluetooth/hci_bcm.c     | 5 ++++-
- drivers/bluetooth/hci_bcm4377.c | 5 +++++
- 2 files changed, 9 insertions(+), 1 deletion(-)
+The KaiT2en community runs this patch with its kernels, no regression
+was reported.
 
-diff --git a/drivers/bluetooth/hci_bcm.c b/drivers/bluetooth/hci_bcm.c
-index 1ae9619ee1e..ee077c8502d 100644
---- a/drivers/bluetooth/hci_bcm.c
-+++ b/drivers/bluetooth/hci_bcm.c
-@@ -597,8 +597,11 @@ static int bcm_setup(struct hci_uart *hu)
- 	if (err)
- 		return err;
- 
--	if (!fw_load_done)
-+	if (!fw_load_done) {
-+		/* btbcm_finalize() sets this after loading a patch file */
-+		hci_set_quirk(hu->hdev, HCI_QUIRK_STRICT_DUPLICATE_FILTER);
- 		return 0;
-+	}
- 
- 	/* Init speed if any */
- 	if (bcm->dev && bcm->dev->init_speed)
-diff --git a/drivers/bluetooth/hci_bcm4377.c b/drivers/bluetooth/hci_bcm4377.c
-index 8d99a7a8f76..7105372898d 100644
---- a/drivers/bluetooth/hci_bcm4377.c
-+++ b/drivers/bluetooth/hci_bcm4377.c
-@@ -2392,6 +2392,11 @@ static int bcm4377_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 	hdev->set_bdaddr = bcm4377_hci_set_bdaddr;
- 	hdev->setup = bcm4377_hci_setup;
- 
-+	/* The controller reports an address once per scan with duplicate
-+	 * filtering, also after its advertisement data changed.
+ .../wireless/broadcom/brcm80211/brcmfmac/feature.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.c
+index 488364e..05e9750 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.c
+@@ -318,6 +318,20 @@ void brcmf_feat_attach(struct brcmf_pub *drvr)
+ 					BIT(BRCMF_FEAT_WOWL_GTK);
+ 		}
+ 	}
++	/* The Apple firmware for these chips lists "idauth", but in AP mode
++	 * its authenticator never completes the 4-way handshake and the
++	 * station is dropped after about 8 s. Leave the handshake to the host.
 +	 */
-+	hci_set_quirk(hdev, HCI_QUIRK_STRICT_DUPLICATE_FILTER);
++	switch (drvr->bus_if->chip) {
++	case BRCM_CC_4355_CHIP_ID:
++	case BRCM_CC_4364_CHIP_ID:
++	case BRCM_CC_4377_CHIP_ID:
++		ifp->drvr->feat_flags &= ~BIT(BRCMF_FEAT_FWAUTH);
++		break;
++	default:
++		break;
++	}
 +
- 	if (bcm4377->hw->broken_mws_transport_config)
- 		hci_set_quirk(hdev, HCI_QUIRK_BROKEN_MWS_TRANSPORT_CONFIG);
- 	if (bcm4377->hw->broken_ext_scan)
+ 	/* MBSS does not work for all chips */
+ 	switch (drvr->bus_if->chip) {
+ 	case BRCM_CC_4330_CHIP_ID:
+-- 
+2.56.0
+
