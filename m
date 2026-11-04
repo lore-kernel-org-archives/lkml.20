@@ -1,64 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.110
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793820943;
-	b=2Yj5fg/8IJchFWmULj2oBnRYSNnualH2UMJVYd2s+hXPJj7NsMiescQrKOF74raJjxO2
-	 r9XekJ5n+krA1owLLpRvbMqvauIQbn2X/D9SF39JfVrzlxH33Z+fZcuTsjerIcs09Xcnu
-	 l4wX1z3djjsopI8MXbR9TxbWWlMhLfcSbMsR9z7YaJtRjgC/oNzMfrJEtC3IwO/5+IegW
-	 ywSxuHcGy6WVehfCyw8b45LGPkIOa9QwoDY9PeKRQ4i6ZRSyBR1WaSkSPt59ugZawSJb5
-	 oAavceSF3ZqWM1KHQSFJrS2cIkFFKb1LXjwiT3TxKHM/xrZ1P3OfshdCwXdpIhKeDSA==
+	t=1793820967;
+	b=nbHoNWgi8eshoTZG33uuCx4QyveBPxuF1qpiCpPUvXLY1sK8R1fHzaKeLZmydE9Av0/b
+	 mxVTN5j/8l/FcUkzZGFumFzayvwaFjoQuhT/dduSFU9hI/95JdEG18eUPVRjQn3MM88NG
+	 Ov+dHwLE6qFtNjdQShz3r8JFW+c4z4Kzt/zoy6nfazpGGUqzU2U9UICiFq4FXxsLZxmou
+	 LW1oOxAmxBtF89lKXAklIGQ6ad6Vz5gEaqfG9rRCKXpz5ZQTdehk5+nGGgi408G708tDa
+	 ZDuSRDXDJKAk5WR1tFkjNA5ZwuxyNUdIBXFvum0oz/Go4gHXP1x8Mer3Xc56RHBSeNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793820943;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=VDOFL3d+ub4yjMVuoehWUSad0hDpPNXCkiwE5FaNJF4=;
-	b=UZ1j6xescpGp9jV0k+cPYDpGIyPKWP7wjKxBxLic3aJdwo79D6LkWo8Hk9hTeeXOx2vy
-	 qy0f8zClG14ZH6AJ1aGE7Fa73dHsjvM8fKv6rubTYmPbo7ga/NGzMPxjSbjpb4f3iyApC
-	 S5MlGwf50J/oFvuc/k4KYYV0cQXwlbdsF7CLl7hcXMNW0vl2BnZ/nG1qnUSg8eIwVcdPG
-	 4rNxcIFZmsoe1cfDlUCKi/fHSh+6AMUug6rhQDYRbOhQKZUFm+UfO4RJFoJkNa2lEDGCa
-	 ItEhmpyoyNPgeNzAwvqZ88K/7G1VrIJ1WLRYdVQWhlV2tNJoFoLo2dj1P+onfGMRbtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793820967;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=RCWYzTdROaZ//Ublq96X/PsjFPNs26aKqDomYMjplOg=;
+	b=tFAKMHa4gu2r2D+XwtMTixxXGmmMTtXWsiaoKcJeYEBgLhUey+3byxc4r/lrsoxl/B+1
+	 fgR5zBiHuCpjFvv+InMdR6SgTG5uHDWpWPU84csPWiSuEEAu6rpqUIRgEmBpV2PKol/rd
+	 xrh3MZkzkd7vb2hiUAIti17vB4DXm1qzCY4NvynqGkcAxf1kDqdnj4x3jo62DhFawa2NC
+	 vy6IcQXAQMKouwpJg4o3WYkLjJHo24NzzdJ8i+ckxkU0X7hqdms06U1uqCGkGEWLgFuwQ
+	 OeAIV9PoLcBD3z1gpgRVl9x5JgbqTQ/Ose3wsTcwzxkhfjjZ7FyTm7ebhZyqDl88Nbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mZGSp8cs;
-	arc=none smtp.remote-ip=95.215.58.110
-Received: from mta1.migadu.com (out-110.mta1.migadu.com [95.215.58.110])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ME/FJRfX";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81DE9606FAC3
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:35:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81DE9606FAC3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C075D606FAC9;
+	Wed,  4 Nov 2026 19:36:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mZGSp8cs
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=cIl24ltpk8q7nNI3NVoNhFWZ80fCtpJgZXOiThKH9q0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793820938; v=1; x=1794425738;
- b=mZGSp8csSsPugZW4xtZ9gkhhqTX8xQG5ljrjZcQQHqMCJwpoytj4YIDkxJ7nLndOSVzAmISA
- /HMVDXASCQkIegEiZir9zKID1yumN48Cw+nyhkB+0DcNaS3oGf55UtzNbwbBxUj1gygUowL87/r
- sJl4DNuyZyylmGw91rbCxAA4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 369e746f1d47a615;
-	Wed, 04 Nov 2026 19:35:29 +0000
-X-Mizu-Trace-ID: 369e746f1d47a615
-X-Migadu-Flow: FLOW_OUT
-From: Matthew Schwartz <matthew.schwartz@linux.dev>
-To: adrian.hunter@intel.com,
-	ulfh@kernel.org
-Cc: Matthew Schwartz <matthew.schwartz@linux.dev>,
-	Ben Chuang <ben.chuang@genesyslogic.com.tw>,
-	Victor Shih <victor.shih@genesyslogic.com.tw>,
-	Lucas Lai <lucas.lai@genesyslogic.com.tw>,
-	linux-mmc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] mmc: sdhci-pci-gli: GL9767: Wait for UHS-II wakeup before LPM
-Date: Wed,  4 Nov 2026 11:35:21 -0800
-Message-ID: <20261104193521.1488192-1-matthew.schwartz@linux.dev>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ME/FJRfX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95AA31F000C1;
+	Wed,  4 Nov 2026 19:35:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793820966;
+	bh=RCWYzTdROaZ//Ublq96X/PsjFPNs26aKqDomYMjplOg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ME/FJRfXHJFiJdRPuFY8HbJeu+GJeM1uYMSHhRXC3OyCBFoBbHe/D+KeCbkSHUcc+
+	 kLRnw4KPAQXBd/Lm2rxl+osnRqATeVzThclIJcTYxyw83fwPKWjsdttrzz2MJEJ/6F
+	 npCV8gjOwaHDC61e0ru1NTfEA8b0b9x7dSf/HzSrhuivx0LurSS5jZoyjtt0F/X5HF
+	 VXCm5Gcq8bWGfXJvVTfcnPDEXQVmN0yImiDrAgCIzYQ7ciRBherm+QOR9W6FvpFf9V
+	 +E2b6pif2bObHvbMb8emuD8Je5Z+LHQE+m9YVr5ffRfEUXrIRpnoiS5t/MTpZE9nue
+	 yYDTpnmmsO8rw==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>
+Subject: [PATCH RESEND v2 01/23] alpha: srm_env: let procfs copy in writes
+Date: Wed,  4 Nov 2026 20:35:52 +0100
+Message-ID: <20261104-work-procfs-arch-v2-1-2aeb952c9597@kernel.org>
+In-Reply-To: <20261104-work-procfs-arch-v2-0-2aeb952c9597@kernel.org>
+References: <20261104-work-procfs-arch-v2-0-2aeb952c9597@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,99 +114,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1631; i=brauner@kernel.org; h=from:subject:message-id; bh=ud6jo66qun6GxlQdhdvRvLMRIAP9XF8+raIGbqJmJWQ=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97ngrnBxmYyak9tmw1FJNeJLkRYtVzupn21htlqi1O tScYHfuKGVhEONikBVTZHFoNwmXW85TsdkoUwNmDisTyBAGLk4BmMjpJkaGRUtzVix3XJqTVWf1 dU6h87OwGM+PZ2ve597KXb144TfGWIZ/ZoovQk90zVv4S5HDJPnSp5RpZyfb5iyb8PbjaTdr44T nLAA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
 
-sdhci_gl9767_set_clock() re-enables low power negotiation right after
-releasing the UHS-II PHY reset. If the bus then goes idle before the
-UHS-II wakeup has finished, every SDHCI MMIO read returns all-ones for
-about 250 us. sdhci_uhs2_interface_detect() takes that as IF_DETECT and
-LANE_SYNC set, so a UHS-I only microSD card is treated as UHS-II. The
-attach then either fails with "SDHCI_UHS2_CAPS_PTR(65535) is wrong" or,
-if the registers come back before the CAPS_PTR read, runs DEVICE_INIT
-30 times with a 10 second timeout each and delays card detection by 5
-minutes.
+Implement ->proc_write_buf() so procfs copies in what is written to
+/proc/srm_environment/* before it pins the entry, and hand that copy to
+the console callback through the page it used before.
 
-Bit 13 of the UHS-II Status register at config offset 0x8CC is
-UHS2_WAKEUP_ACTIVATE. It stays set for about 250-300 us after the PHY
-reset release. Poll it before re-enabling low power negotiation. With
-the wait in place 12 of 12 UHS-II probes of a UHS-I card correctly
-found no UHS-II interface.
-
-Fixes: 27dd3b82557a ("mmc: sdhci-pci-gli: enable UHS-II mode for GL9767")
-Tested-by: Ben Chuang <ben.chuang@genesyslogic.com.tw>
-Acked-by: Adrian Hunter <adrian.hunter@intel.com>
-Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
-Changes in v2:
-- Rename the register and bit to PCIE_GLI_9767_UHS2_STS and
-  PCIE_GLI_9767_UHS2_STS_WAKEUP_ACTIVATE as suggested by Ben, and the
-  helpers to match
-- Use read_poll_timeout() instead of read_poll_timeout_atomic() (Adrian)
-- Describe bit 13 by its documented name instead of the inferred behaviour
-- Say "wakeup" instead of "PHY" in the subject and description to match
-- Link to v1: https://lore.kernel.org/all/20261021233313.247155-1-matthew.schwartz@linux.dev/
+ arch/alpha/kernel/srm_env.c | 12 +++---------
+ 1 file changed, 3 insertions(+), 9 deletions(-)
 
- drivers/mmc/host/sdhci-pci-gli.c | 29 ++++++++++++++++++++++++++++-
- 1 file changed, 28 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/mmc/host/sdhci-pci-gli.c b/drivers/mmc/host/sdhci-pci-gli.c
-index b55618566d651..263bb091374be 100644
---- a/drivers/mmc/host/sdhci-pci-gli.c
-+++ b/drivers/mmc/host/sdhci-pci-gli.c
-@@ -205,6 +205,9 @@
- #define   PCIE_GLI_9767_COMBO_MUX_CTL_RST_EN		  BIT(6)
- #define   PCIE_GLI_9767_COMBO_MUX_CTL_WAIT_PERST_EN	  BIT(10)
- 
-+#define PCIE_GLI_9767_UHS2_STS				0x8CC
-+#define   PCIE_GLI_9767_UHS2_STS_WAKEUP_ACTIVATE	  BIT(13)
-+
- #define PCIE_GLI_9767_PWR_MACRO_CTL					0x8D0
- #define   PCIE_GLI_9767_PWR_MACRO_CTL_LOW_VOLTAGE			  GENMASK(3, 0)
- #define   PCIE_GLI_9767_PWR_MACRO_CTL_LD0_LOW_OUTPUT_VOLTAGE		  GENMASK(15, 12)
-@@ -1190,6 +1193,27 @@ static void gl9767_set_low_power_negotiation(struct pci_dev *pdev, bool enable)
- 	gl9767_vhs_read(pdev);
+diff --git a/arch/alpha/kernel/srm_env.c b/arch/alpha/kernel/srm_env.c
+index faafc2df7886..6a1742b09a82 100644
+--- a/arch/alpha/kernel/srm_env.c
++++ b/arch/alpha/kernel/srm_env.c
+@@ -81,7 +81,7 @@ static int srm_env_proc_show(struct seq_file *m, void *v)
+ 	return ret;
  }
  
-+static u32 gl9767_read_uhs2_sts(struct pci_dev *pdev)
-+{
-+	u32 value;
-+
-+	pci_read_config_dword(pdev, PCIE_GLI_9767_UHS2_STS, &value);
-+
-+	return value;
-+}
-+
-+static void sdhci_gl9767_uhs2_wait_wakeup(struct sdhci_host *host)
-+{
-+	struct sdhci_pci_slot *slot = sdhci_priv(host);
-+	struct pci_dev *pdev = slot->chip->pdev;
-+	u32 value;
-+
-+	if (read_poll_timeout(gl9767_read_uhs2_sts, value,
-+			      !(value & PCIE_GLI_9767_UHS2_STS_WAKEUP_ACTIVATE),
-+			      20, 10000, false, pdev))
-+		pr_warn("%s: UHS-II wakeup did not complete.\n", mmc_hostname(host->mmc));
-+}
-+
- static void sdhci_gl9767_uhs2_phy_reset(struct sdhci_host *host, bool assert)
+-static ssize_t srm_env_proc_write(struct file *file, const char __user *buffer,
++static ssize_t srm_env_proc_write(struct file *file, char *buffer,
+ 				  size_t count, loff_t *pos)
  {
- 	struct sdhci_pci_slot *slot = sdhci_priv(host);
-@@ -1276,9 +1300,12 @@ static void sdhci_gl9767_set_clock(struct sdhci_host *host, unsigned int clock)
+ 	int res;
+@@ -92,13 +92,8 @@ static ssize_t srm_env_proc_write(struct file *file, const char __user *buffer,
+ 	if (!buf)
+ 		return -ENOMEM;
  
- 	sdhci_enable_clk(host, clk);
+-	res = -EINVAL;
+-	if (count >= PAGE_SIZE)
+-		goto out;
+-
+ 	res = -EFAULT;
+-	if (copy_from_user(buf, buffer, count))
+-		goto out;
++	memcpy(buf, buffer, count);
+ 	buf[count] = '\0';
  
--	if (mmc_card_uhs2(host->mmc))
-+	if (mmc_card_uhs2(host->mmc)) {
- 		/* De-assert reset */
- 		sdhci_gl9767_uhs2_phy_reset(host, false);
-+		/* Low power negotiation during UHS-II wakeup makes MMIO read all-ones */
-+		sdhci_gl9767_uhs2_wait_wakeup(host);
-+	}
+ 	ret1 = callback_setenv(id, buf, count);
+@@ -109,14 +104,13 @@ static ssize_t srm_env_proc_write(struct file *file, const char __user *buffer,
+ 		res = (int) ret1;
+ 	}
  
- 	gl9767_set_low_power_negotiation(pdev, true);
+- out:
+ 	free_page((unsigned long)buf);
+ 	return res;
  }
+ 
+ static const struct proc_ops srm_env_proc_ops = {
+ 	.proc_show	= srm_env_proc_show,
+-	.proc_write	= srm_env_proc_write,
++	.proc_write_buf	= srm_env_proc_write,
+ };
+ 
+ static int __init
 
-base-commit: 4df4d2a577db2d3d57b888bcfb1206fc74661d16
 -- 
-2.56.0
+2.53.0
 
