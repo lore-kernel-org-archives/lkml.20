@@ -1,57 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801419;
-	b=4ZbkgiAO+Zzyg8F39s3WAuZl9bIIFeD4Ua3s5wOYENZunoORKyjNfQTVOW+1/7IEQlRf
-	 PrYp0diV6ndEaqYUye3YMCSVDGW4oZIvaVayP4++LjnId78QPmliJtOhKreaV1dP1DllV
-	 5UpPx6JknEXThCgIweVuM5Squ7QHZUjkklfaKwijsQTE+vy2lR4IeGpNfk+hujpJzRsPi
-	 uKcA6mBZEHHUspIkgrM5OSoc0WIPpxjstKOjEqqCt+zH96UsqPXRjBjhg6sqCDD42XR3D
-	 GdNIcv2VQHWV4fx5HlSFek+rxHfSlf9tt7V7UrKUImO0injgKgyYi+JUWA0XqpQ6lRA==
+	t=1793801459;
+	b=fYUUt2CLfeKmKbRORK+yhw7WcnD+TD2ZtxZKVqhedOJb9EYPxNtRd+KS7f7aSmJep52u
+	 lC3pmIIuKwvex5yHvbeywdtrs/Rf3GwR9xceB/Kx9i5SgN+KxWxZN536UV5aHRiuA81yS
+	 vWlqfU9ChDwG71sd4NVtW75hGwAgoaOJ+Qi4vt3O3n634aADHJL7S7IYpK0rzar0nZxLB
+	 zwMgzzWuNOf9e+XzQgi6KU/+DqSe2gnyz+P3aKxr8rnAlZY4CxdnQ+k08QT2hUenII8he
+	 j/IerNFIb8pIzSOZas6xxJrAhKru8+wBzeqvaLFEYS+KVQ1Fxii/v7Gbb6Uy8mTdQXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801419;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=dh12uzsrER00H9vGSCK0JLMj09eT5W4ici5fSw9EpLM=;
-	b=Xr6gCbKtdh6YZldbnDUo5k1bQuW3sIXchurSp6tyHUocGXD/bF9aY1L/J6hoPCJloio7
-	 tLyGiGXaJ0INvsvhNi+YFeCkQy341oyHWvLOLMo4eghMCrlSAEap22U4S+Fjm7ja92tD8
-	 JLQijZ5VH9mYIZhj211XpcnoM3pgxGrDg8f3bFTYQZ09+FQKvC4HDcevqs+kv++C762Dd
-	 gh3Ak1wm1ZsuYcfrA22Yvwj7IuhDATOi1Qgnnm5Q9Kju/Udw/qMEqxVWqgSZ/VqI315Q8
-	 bRJtu4jwIrRxZ9KpSru8DHECnZQxGIEziVpX8pynyznAMnj/3YN7VHiaSgCfPLod9Vg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801459;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=bVcACiTZbNDhVU6xhENZ6o8aAhkqXOgSLVPaqMsdjow=;
+	b=CXktM9dT34BolYCBRDRtQ4eo1x099cTsZP0wFlnQMiXcjN3pcddDlMn4j5tI+STkBO8Z
+	 4C6fVsaXgnDJ5+qsbx4IA0c8JNl5yFPnoq/rLbwLyrg99yvHAbOgviXr2CnVnNr+XtItK
+	 Qw1imnKs9Ax9ILmR8tyYHEtRRvHSo1gsfLp7l6fz5qB775Oy5xLpP5e9aj9jt7UqotLPK
+	 zGNnWg9wFXQiiWVm1VdUA811urm232wKlpcBl7okoFY5ykMWh80sd9c0pJl4sqv4wKHK7
+	 SRLmM3tfg6l07nDZ/Ocx2Q5Unb1eWpsxRvGFUkp6jlA4iRcQdVC6zsNsW+ubCBAKupw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nqkfAV0Y;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA240606A33A;
-	Wed,  4 Nov 2026 14:10:18 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=WULk1VAc;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B88EE606A31B;
+	Wed,  4 Nov 2026 14:10:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B88EE606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nqkfAV0Y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 556691F000C1;
-	Wed,  4 Nov 2026 14:10:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793801418;
-	bh=dh12uzsrER00H9vGSCK0JLMj09eT5W4ici5fSw9EpLM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nqkfAV0YKqYczzU50N6FfRKDfLGiKQiJeav0sfvUK20eLt2aQvw9mxX73AgGQw3ar
-	 Uxldvc4tYZnU5HYGi8+MqKoQiYQsQM+Jdj/LSSN0DIpnLcprgoB0cQmPJBzGYgRitd
-	 Z94I/DZPuaDy9ORdk6k1KTGaU+jzTp9HNErMgRv4=
-Date: Wed, 4 Nov 2026 15:10:17 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Feng Ning <feng@innora.ai>
-Cc: linux-staging@lists.linux.dev, linux-wireless@vger.kernel.org,
-	luka.gejak@linux.dev, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [RFC PATCH v7] staging: rtl8723bs: fix heap buffer overflow in
- cfg80211_rtw_add_key()
-Message-ID: <2026110400-majestic-reason-751a@gregkh>
-References: <20260413113224.5201-1-feng@innora.ai>
- <2026042626-tabloid-suitor-33c5@gregkh>
- <20260427111738.33069-1-feng@innora.ai>
- <2026050417-monkhood-backless-4c3e@gregkh>
- <20260504154823.52057-1-feng@innora.ai>
- <2026050458-numbness-haven-1ae4@gregkh>
- <20261104220347.ccc09fa4-1-feng@innora.ai>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=WULk1VAc
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C13492247;
+	Wed,  4 Nov 2026 06:10:53 -0800 (PST)
+Received: from e143914.arm.com (e143914.arm.com [10.2.213.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9C8EE3F628;
+	Wed,  4 Nov 2026 06:10:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793801456; bh=sDhQxKPD1vSwIgQ2ErCUWBV8m6RtnHjEWH3mc/dFqzQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=WULk1VAc+HzOBfaTnepFre3WCClsuYTx9JkrYFxlufYmpigJKEj8cwoxge34L9nKc
+	 SSd7nZLFd4dmbIGocT7OBeFFhvnXku+zHo4BXN766Ceqc0j6GajB4vi08PBW2hv+yt
+	 2XevTCqECkAH3RgQMYSwvjv75HxW68Q2ydhOHW+k=
+Date: Wed, 4 Nov 2026 14:10:45 +0000
+From: Joey Gouly <joey.gouly@arm.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	Will Deacon <will@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Shuah Khan <shuah@kernel.org>, Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Quentin Perret <qperret@google.com>, Fuad Tabba <tabba@google.com>,
+	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	kvm@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 00/16] KVM: arm64: selftests: Tests for protected VMs
+Message-ID: <aus8xb_xT64WKHDu@e143914.arm.com>
+References: <20261104084842.132944-1-fuad.tabba@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,44 +70,127 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261104220347.ccc09fa4-1-feng@innora.ai>
+In-Reply-To: <20261104084842.132944-1-fuad.tabba@linux.dev>
 
-On Wed, Nov 04, 2026 at 02:04:29PM +0000, Feng Ning wrote:
-> The cfg80211 framework allows userspace to specify a key sequence
-> counter (NL80211_KEY_SEQ) of up to 16 bytes via NL80211_CMD_NEW_KEY
-> netlink messages, but ieee_param.crypt.seq is a fixed 8-byte buffer.
-> When cfg80211_rtw_add_key() copies the sequence counter via memcpy()
-> without checking seq_len, a heap buffer overflow of up to 8 bytes
-> occurs, overwriting bytes following seq within the same ieee_param
-> structure (key_len and the trailing key[] flexible array).
+On Wed, Nov 04, 2026 at 08:48:26AM +0000, Fuad Tabba wrote:
+> Hi folks,
 > 
-> Reject sequence counters longer than the destination buffer with
-> -EINVAL instead of copying them, as discussed during review of v6.
+> This series adds selftests for protected VMs. A test skips on a host
+> without pKVM, and so does any case where the host doesn't have the
+> required feature, e.g., PtrAuth, SVE or hugetlb pages.
 > 
-> This is sent as an RFC because it still lacks a Tested-by from real
-> hardware.  A userspace trigger program for the overflow (libnl-based,
-> NL80211_CMD_NEW_KEY with a 16-byte NL80211_ATTR_KEY_SEQ) follows in
-> a reply to this thread; anyone with an rtl8723bs device who can run
-> it against this patch would help unblock the fix.
+> A couple of points:
 > 
-> Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Feng Ning <feng@innora.ai>
-> ---
-> Changes v6 -> v7:
->   - Replace silent min_t() truncation with an explicit -EINVAL when
->     seq_len exceeds sizeof(param->u.crypt.seq), per review feedback
->     (Greg KH, Sashiko automated review)
->   - Use the existing addkey_end cleanup path so param is freed on
->     the new error return
->   - Sent as RFC: code is complete but awaits a Tested-by from real
->     rtl8723bs hardware
+> - Each area gets its own test rather than cases folded into existing
+>   tests such as psci_test, hypercalls, set_id_regs, etc. A protected
+>   guest requires its own boot path, and has to share the ucall pool
+>   before its first ucall. On top of that, a protected guest gets the
+>   opposite result for many of those tests' checks.
 > 
-> Changes v5 -> v6:
->   - Restore the changelog that was lost in v5 (per Greg KH feedback)
->   - Add Cc: stable@vger.kernel.org (user-reachable heap overflow)
->   - No code changes from v5
+> - pkvm_exceptions skips its breakpoint, watchpoint and single-step cases
+>   while a protected guest's ID_AA64DFR0_EL1.DebugVer is 0. pkvm_id_regs
+>   reads the same field to choose between the hidden and the exposed
+>   debug view. With the patch that adds self-hosted debug to protected
+>   guests [1], both tests run the debug cases with no change.
 > 
->  drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c | 8 +++++++-
+> The series is structured as follows:
+> 
+>   01:     external_aborts: an abort injected before a vCPU's first run.
+>   02-04:  Generic selftest changes: creating a protected VM, the pKVM
+>           function IDs and the ucall pool's address.
+>   05-06:  Protected-VM library: boot trampoline and helpers.
+>   07-16:  The tests, one per area.
+> 
+> Based on Linux 7.4-rc1 (6628e7d4c6b25).
 
-Please rebase this on the latest tree and see what happens :)
+Hi!
+
+I started to also write some realm tests a bit, you can check it out
+here:
+	https://gitlab.arm.com/linux-arm/linux-jg/-/tree/cca-kselftest
+
+It's WIP/prototype, but it may be good to have some sharing, if
+possible.
+For example I also added a 'pre-boot' stub, which looks like your
+pvm-entry.S:
+
+	https://gitlab.arm.com/linux-arm/linux-jg/-/commit/cd3ae35d89974b02b7051a0c45cc68b4df8f9d3e
+
+However I extracted the registers needed for the stub like this:
+
+	https://gitlab.arm.com/linux-arm/linux-jg/-/commit/f559d5b61fa1a37e2d7b23704bd367e079cf8eae
+
+This is because the current Realm branch I'm working on top of rejects
+writes to those system registers (TCR_EL1, CPACR_EL1 etc). Which is why
+I had to modify these functions, along with __aarch64_vcpu_add() and
+some others.
+
+I'm not sure how much there is to gain by sharing overall, but good to
+bring it up early!
+
+Thanks,
+Joey
+
+> 
+> Cheers,
+> /fuad
+> 
+> [1] https://lore.kernel.org/all/20261102093950.2922035-1-fuad.tabba@linux.dev/
+> 
+> Fuad Tabba (16):
+>   KVM: arm64: selftests: Inject an abort before a vCPU's first run
+>   KVM: selftests: Allow arm64 tests to create protected VMs
+>   tools: arm-smccc: Add the pKVM memory sharing function IDs
+>   KVM: selftests: Export the ucall pool's guest physical address
+>   KVM: arm64: selftests: Add protected-VM boot trampoline
+>   KVM: arm64: selftests: Add protected-VM library helpers
+>   KVM: arm64: selftests: Add pkvm_host_abi host-interface test
+>   KVM: arm64: selftests: Add pkvm_psci multi-vCPU PSCI test
+>   KVM: arm64: selftests: Add pkvm_mem_share hypercall test
+>   KVM: arm64: selftests: Add pkvm_smccc hypercall test
+>   KVM: arm64: selftests: Add pkvm_id_regs register and trap test
+>   KVM: arm64: selftests: Add pkvm_vcpu_regs register-state test
+>   KVM: arm64: selftests: Add pkvm_irq interrupt test
+>   KVM: arm64: selftests: Add pkvm_isolation host-access test
+>   KVM: arm64: selftests: Add pkvm_lifecycle teardown test
+>   KVM: arm64: selftests: Add pkvm_exceptions debug and SError test
+> 
+>  tools/include/linux/arm-smccc.h               |  22 +
+>  tools/testing/selftests/kvm/Makefile.kvm      |  12 +
+>  .../selftests/kvm/arm64/external_aborts.c     |  21 +
+>  .../selftests/kvm/arm64/pkvm_exceptions.c     | 261 ++++++++
+>  .../selftests/kvm/arm64/pkvm_host_abi.c       | 428 ++++++++++++
+>  .../selftests/kvm/arm64/pkvm_id_regs.c        | 306 +++++++++
+>  tools/testing/selftests/kvm/arm64/pkvm_irq.c  | 268 ++++++++
+>  .../selftests/kvm/arm64/pkvm_isolation.c      | 225 +++++++
+>  .../selftests/kvm/arm64/pkvm_lifecycle.c      | 110 +++
+>  .../selftests/kvm/arm64/pkvm_mem_share.c      | 394 +++++++++++
+>  tools/testing/selftests/kvm/arm64/pkvm_psci.c | 632 ++++++++++++++++++
+>  .../testing/selftests/kvm/arm64/pkvm_smccc.c  | 117 ++++
+>  .../selftests/kvm/arm64/pkvm_vcpu_regs.c      | 221 ++++++
+>  .../selftests/kvm/include/arm64/pkvm.h        |  74 ++
+>  .../selftests/kvm/include/ucall_common.h      |   1 +
+>  tools/testing/selftests/kvm/lib/arm64/pkvm.c  | 245 +++++++
+>  .../selftests/kvm/lib/arm64/pvm-entry.S       |  58 ++
+>  tools/testing/selftests/kvm/lib/kvm_util.c    |   5 +-
+>  .../testing/selftests/kvm/lib/ucall_common.c  |   9 +-
+>  19 files changed, 3406 insertions(+), 3 deletions(-)
+>  create mode 100644 tools/testing/selftests/kvm/arm64/pkvm_exceptions.c
+>  create mode 100644 tools/testing/selftests/kvm/arm64/pkvm_host_abi.c
+>  create mode 100644 tools/testing/selftests/kvm/arm64/pkvm_id_regs.c
+>  create mode 100644 tools/testing/selftests/kvm/arm64/pkvm_irq.c
+>  create mode 100644 tools/testing/selftests/kvm/arm64/pkvm_isolation.c
+>  create mode 100644 tools/testing/selftests/kvm/arm64/pkvm_lifecycle.c
+>  create mode 100644 tools/testing/selftests/kvm/arm64/pkvm_mem_share.c
+>  create mode 100644 tools/testing/selftests/kvm/arm64/pkvm_psci.c
+>  create mode 100644 tools/testing/selftests/kvm/arm64/pkvm_smccc.c
+>  create mode 100644 tools/testing/selftests/kvm/arm64/pkvm_vcpu_regs.c
+>  create mode 100644 tools/testing/selftests/kvm/include/arm64/pkvm.h
+>  create mode 100644 tools/testing/selftests/kvm/lib/arm64/pkvm.c
+>  create mode 100644 tools/testing/selftests/kvm/lib/arm64/pvm-entry.S
+> 
+> 
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> -- 
+> 2.47.3
+> 
