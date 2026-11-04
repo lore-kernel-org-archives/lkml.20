@@ -1,72 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819029;
-	b=xo1ofyyC5xp5MgcD6I/ye10qMNAZ3lRO12kshvSjEU64NaU0740c6hFBNETnciUtJH/i
-	 P6k7UC6Fwr+tIp8m1F52QR/6IPYTaVe8n/9wTW8/JuJJYjSeikqmreUc1WvgmGjLSULpX
-	 tlm+O6dzh0/olBSeEHURT1D3axQtpQr2RVt7o6EJYUt6bmBdchmyEWP3eCtZLmdFTHjJ6
-	 YVrZesUEtKHmhrZD+KoaGCjZcJx78zbtZlw7HafmDgV47pcXyibmo5/YuI7do4q4ezFWr
-	 7hVMYZNHm4Nxs4CZ2ZXAerIhHw88f7sT1A+t2sXS7XmyEfJDVQ1PlHJwielKkolPLLQ==
+	t=1793819030;
+	b=XiqmTf2S0752tW2UMu0MNKgnVYCvCKlMO8yEVr2AZAexP9EruFjetIa72WJy88Igjywb
+	 4PvoUYn1icxxSIsy/vLL1dFMiiBJjTjgO3pK1Hy7FMxTiujZJVbBdvuI7Bg/WEvA5wrd0
+	 mpBv8KcnMTFHd8M9ccP5ETrso5jKp82EngmwJiMlTpmxYG6vvqfKSeKyBeuRrQrxYfzdT
+	 Ikmq3nV3CTy/4gIlCMIFGssDc6FiptcbaNWo65WWl4I2HFvoc5UVN0dATsiAT3lbuPeGv
+	 MS+p5VIrw5YZboxccYmLUY1fF4oANgjJ4qIzmlOig+uS/MxuGDgtG/CxTixNTiv0aFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819029;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819030;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
 	 References:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=DUcpgfrjS6s9SSnfNEZAg7l7UHGbgZn+gcmgz0ne79Y=;
-	b=HEI+IY0XViNsy8IpNjax+yvtUrnz/wnUGstjGuazIukhZpBRNEm+FelaeXiMcAgCEOrh
-	 KZrSYdBGdr12GH5c3RUaXTpfC7Rvql/uOYL1ieYJfYWHKe1Jk7RlWOuCSn+yb7lABR6xz
-	 UzBUEkqqOMCIYRY1umPu8bzDjTX1GTvw5U+8DF1b/X7Z8gIGM0iJNr3zq5EtlkF2CipT6
-	 kNwq4idBB1jPKdpKsYKsTn6LVzjswUmky/iOcSsesfWD2vbolyeuDUT6G55TRKveb+8Jy
-	 /WZFOeKoGcwVxpPXGg++DiXojLdK+e8FmgeA2q4uXcWEBl6dwcFs968AhV1TLxHLbMg==
+	bh=7OmYkeQjJlaMAhfwUdrmcvladMFZs0EhQUj92Kic0fE=;
+	b=wRkvBoaJB5Svga79IcnZUOxfYys9GKIN9ZsjTHel8UnvcJ2QO4NApU1QClgwlSNzkGnk
+	 xQgDWoen8qp3FDlg91CY2DtqJOxm5r26cMkce/vuU5YKF0aCtvUTsGRPZWGMbljiDyXkJ
+	 U7QgQ/K4yC3sBXWUQGd+3aLf37iTCUuheCqeUSkwGjU0BEaVxSYM5JkV3ehTeyDQ091f1
+	 Br1DidYARywOGv7U5dm4B+uVkzIJgYz9Iz0nAlHrDn/Akvsp4VIxAsBLlZPfUT+klRekI
+	 47uQSVdTKVPAz4Bh8Gd/oIajqqFa4DRiBjU1iUHu+wg3L+D20dDPxgCUlyXXUuMSwkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--abhishekbapat.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=W3qSnieE;
-	arc=none smtp.remote-ip=74.125.82.198
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ZfVWzrV5;
+	arc=none smtp.remote-ip=74.125.82.197
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9008606A32D
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:03:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9008606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77639606D82B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:03:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77639606D82B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--abhishekbapat.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=W3qSnieE
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36a223755e4so3565643eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:03:48 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ZfVWzrV5
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-36a223755e4so3565725eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:03:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793819028; x=1794423828; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793819030; x=1794423830; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DUcpgfrjS6s9SSnfNEZAg7l7UHGbgZn+gcmgz0ne79Y=;
-        b=W3qSnieEv3jiJcclT8d/SE0uy8PNypTpF80UBiouOmsInqZ9IsEBjx+E2q2cxbxozM
-         E+D2Q9yznKCT6R8XFeit0bZB7mgVUd7TqSn7BYumptuK+yTF5VbyKCFZ2raGc9CQ2PdL
-         5EGNw+JuGsg38DUPJ6dO2BpyTLdaybBys3KOdMg203gm1TWLF+lF2QoOE/NxYNAp+6N6
-         c6tXQaEm4rUtkuRGyi7ne6hMHHsGOFGDa+thGyUaUsdI1hkf8+pmm/D80lk6n9wylfiV
-         CW37GOfaPSw4ID9yqzYt/Jtw8C89NorSON5M29/QRiKJaP4jIozUQn/CNzokqyX9q+5k
-         JUrw==
+        bh=7OmYkeQjJlaMAhfwUdrmcvladMFZs0EhQUj92Kic0fE=;
+        b=ZfVWzrV5Ph+pnMdzkqWZHB6km29f5dMyqz84Cy0eNlvyr2lRAqykfmwNbW08Af7F/m
+         nXWxvnxdfJSDtQFgn2g2q/wm9NRQy4IBOiLA9E8vkM1ec3AHrBeW5k4oiC3nKQr+T6to
+         I9HEJMbGLWKipIjLA5TIqz99BD+hvtio3/DE+fxhjhuKVurgv/hR1fpQizssAg9TMWFx
+         BUN+4XxheEZjKzgl0PNPAb/KYxtTUf8G+05ikas+WoOvJzJzlPegj5TBovbEIweuWts2
+         cJXTypM+sjYf5JEqaKl+94WVS5fKvXTUE5aZlck0kl0PatyfgRGl/LoDFEhj+i7xBtFu
+         C64Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793819028; x=1794423828;
+        d=1e100.net; s=20260707; t=1793819030; x=1794423830;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DUcpgfrjS6s9SSnfNEZAg7l7UHGbgZn+gcmgz0ne79Y=;
-        b=08V1jCz3VO4kULI41U3IBVIgQLcXkAGKQZskCf5N5A+JZvmwyS963zgqlZUd2XsPDN
-         gCJl1iQ1nRoDlwcq/pQqgr7ju1xLduan1IIUS3/Id5ZEhA+QxQgOZ7Rj5DZCH8lzYHCB
-         76ZSXmjqE11I3oawr6luluTfWxSdWUo7+HPFHhwh9QmuYIK57mJ7a+LDuhhIR1jxfhnB
-         pIQWiQtLyvmCExKRmkAc3c01X0WK03NsercAn4Id9TK59BmapZAOhd4+3sM8g0mGsP1G
-         OprdK0fBO4WOoCUnghEMd7bWnjo2xyyWT5jFc8pAbN/6Q91k2KbFEO+qMfx+bxktA2fG
-         tzYw==
-X-Gm-Message-State: APuU4Z9RhpcQBK4rFhiLEHIBt4rVCYG09BE5Zi9jXK4eEy5fKeDsjapB
-	K6GGzzlSeZIufUme9brkmd17r61QjxEQgRb5ira7S8gOh9cGfIoWCSvQZa3NyCjj4h969iWSLXd
-	lk/xUxc4+33pkH4VeTHKVyqviOKO6Hdn2VA==
-X-Received: from dybgl9.prod.google.com ([2002:a05:7300:e009:b0:36a:c06:2852])
+        bh=7OmYkeQjJlaMAhfwUdrmcvladMFZs0EhQUj92Kic0fE=;
+        b=RUH7Zj+NZz6KbExEeigQdFbCCsXsuhV/CYQsOdd0bZgqRsMZxdzhi/a5dodZPa87x3
+         XWyW/HE8y48sXUXVOP2hRvxbKAweEzOVHLZtZXbITMX9o7Go6IrQmDEeWo8Um7tFoP1M
+         +o+NL+O1GQrWiJD+WUwP2ruQ44ZJlEIVBZu2VrR+VV6owaiCQgYiAH0NVmHn3n25gAcg
+         IiiLwgMr84gXo3B+iAvrMqlc1qBPgpdiJmhTjsONjpzqPAB5oEPQRbado4bB9MtIk21F
+         b4PJFiTJrV3ER1l4CojZ1WrGMQo1UigCUGFg+rHmrt/plvhp5O9xGjjln4Zri3hdvcRN
+         POGg==
+X-Gm-Message-State: APuU4Z9djCSfmENQDqu80r/XVfHBklHjSS8A/BI/iASpVz604KLZ9nxM
+	qsNYhImQcFydCD9HElhrQPBcTiLOcZHunlMlIchEywaqE6PQhg4Q40ODAol5b0wOz0kLUwhBYhp
+	/pd+Gr00Epqv8xLrQDIz7mG/BDkGECWgcrg==
+X-Received: from dykb32.prod.google.com ([2002:a05:7300:8420:b0:353:41aa:1e9d])
  (user=abhishekbapat job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7301:3d17:b0:36c:9af3:22f3 with SMTP id 5a478bee46e88-36c9af33136mr9263147eec.37.1793819025727;
- Wed, 04 Nov 2026 11:03:45 -0800 (PST)
-Date: Wed,  4 Nov 2026 19:03:38 +0000
+ 2002:a05:7300:f3c7:b0:36b:d3dd:2e9d with SMTP id 5a478bee46e88-36bd3dd3294mr7405560eec.19.1793819029200;
+ Wed, 04 Nov 2026 11:03:49 -0800 (PST)
+Date: Wed,  4 Nov 2026 19:03:40 +0000
 In-Reply-To: <cover.1793818636.git.abhishekbapat@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,8 +79,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <cover.1793818636.git.abhishekbapat@google.com>
 X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
-Message-ID: <64ce5ba6eedf0950c22d1416b794e83afbab8ea8.1793818636.git.abhishekbapat@google.com>
-Subject: [PATCH v5 3/5] alloc_tag: Add a flags field to allocinfo_filter
+Message-ID: <14ace814ca8c05196ebecb150cf710399a040b59.1793818636.git.abhishekbapat@google.com>
+Subject: [PATCH v5 5/5] alloc_tag: Add a test for trace state toggle and filtering
 From: Abhishek Bapat <abhishekbapat@google.com>
 To: Suren Baghdasaryan <surenb@google.com>, Hao Ge <hao.ge@linux.dev>, 
 	Andrew Morton <akpm@linux-foundation.org>
@@ -88,72 +88,188 @@ Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
 	linux-trace-kernel@vger.kernel.org, Abhishek Bapat <abhishekbapat@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-struct allocinfo_filter uses a whole __u64 to hold the single boolean
-used by the accuracy filter. Adding another boolean criterion the same
-way would grow struct allocinfo_get_at, which changes the
-ALLOCINFO_IOC_GET_AT ioctl number and breaks the UAPI.
+Following the introduction of the ALLOCINFO_IOC_TOGGLE_TRACE IOCTL and
+ALLOCINFO_FILTER_MASK_TRACE_ON filters for selective memory allocation
+tracing, update the kselftests to validate this behaviour.
 
-Add a `flags` field that shares storage with `inaccurate` through an
-anonymous union, and use bit 0, ALLOCINFO_FILTER_FLAG_INACCURATE, for
-the accuracy criterion. New boolean criteria can take the remaining
-bits without changing the struct layout.
+Introduce `test_tracing_toggle_and_filter`, which validates the
+architecture by:
+1. Dynamically flipping trace execution state for a designated allocation.
+2. Query the same tag again, and check that the returned tag reports the
+   new state in its `trace_on` field.
+3. Restore the tag's original trace state, also on failure, so the test
+   does not leave tracing changed on the system.
 
-Keeping `inaccurate` in the union means userspace built against the
-older API still compiles, and the values 0 and 1 keep their meaning.
-Previously any non-zero value selected inaccurate tags; now only bit 0
-is checked, so a value such as 2 selects accurate tags instead.
+The test uses `dup_mm()` function name with the function filter in the
+IOCTL to run the above steps. If the `dup_mm()` tag is not found, the
+test is skipped.
 
 Signed-off-by: Abhishek Bapat <abhishekbapat@google.com>
+Acked-by: Suren Baghdasaryan <surenb@google.com>
 ---
- include/uapi/linux/alloc_tag.h | 16 ++++++++++++++--
- mm/alloc_tag.c                 |  2 +-
- 2 files changed, 15 insertions(+), 3 deletions(-)
+ .../alloc_tag/allocinfo_ioctl_test.c          | 114 +++++++++++++++++-
+ 1 file changed, 111 insertions(+), 3 deletions(-)
 
-diff --git a/include/uapi/linux/alloc_tag.h b/include/uapi/linux/alloc_tag.h
-index dafcba2f7e2c..2fc843bb06bc 100644
---- a/include/uapi/linux/alloc_tag.h
-+++ b/include/uapi/linux/alloc_tag.h
-@@ -68,13 +68,25 @@ enum {
- #define ALLOCINFO_FILTER_MASKS \
- 	((1 << (__ALLOCINFO_FILTER_LAST + 1)) - 1)
+diff --git a/tools/testing/selftests/alloc_tag/allocinfo_ioctl_test.c b/tools/testing/selftests/alloc_tag/allocinfo_ioctl_test.c
+index 74fd64b2370c..300460084d9f 100644
+--- a/tools/testing/selftests/alloc_tag/allocinfo_ioctl_test.c
++++ b/tools/testing/selftests/alloc_tag/allocinfo_ioctl_test.c
+@@ -48,6 +48,11 @@ static inline int __allocinfo_get_next(int dev_fd, struct allocinfo_tag_data *pa
+ 	return ioctl(dev_fd, ALLOCINFO_IOC_GET_NEXT, params);
+ }
  
-+#define ALLOCINFO_FILTER_FLAG_INACCURATE	(1ULL << 0)
++static inline int __allocinfo_toggle_trace(int dev_fd, struct allocinfo_toggle_traces *params)
++{
++	return ioctl(dev_fd, ALLOCINFO_IOC_TOGGLE_TRACE, params);
++}
 +
- struct allocinfo_filter {
- 	__u64 mask; /* bitmask of the filter fields used */
- 	struct allocinfo_tag fields;
- 	__u64 min_size;
- 	__u64 max_size;
--	/* filter criteria only; see allocinfo_counter.accurate for actual accuracy */
--	__u64 inaccurate;
-+	/*
-+	 * Filter criteria only; see allocinfo_counter for the actual state.
-+	 * Set ALLOCINFO_FILTER_FLAG_* bits in flags for the criteria selected
-+	 * in mask. inaccurate is kept as an alias of flags so that userspace
-+	 * built against the older API still compiles. Note that only
-+	 * ALLOCINFO_FILTER_FLAG_INACCURATE is checked, so a non-zero value
-+	 * with bit 0 clear no longer selects inaccurate tags.
-+	 */
-+	union {
-+		__u64 inaccurate;
-+		__u64 flags;
-+	};
- };
+ static bool match_entry(const struct allocinfo_tag_data *procfs_entry,
+ 			const struct allocinfo_tag_data *tag_data,
+ 			bool match_bytes, bool match_calls, bool match_lineno,
+@@ -289,6 +294,8 @@ static int run_filter_test(const struct allocinfo_filter *filter)
+ 	return ret;
+ }
  
- struct allocinfo_get_at {
-diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
-index 9ff9dd04d692..504c1a85050d 100644
---- a/mm/alloc_tag.c
-+++ b/mm/alloc_tag.c
-@@ -306,7 +306,7 @@ static bool matches_filter(struct codetag *ct, struct allocinfo_filter *filter,
++static const char *target_test_function = "dup_mm";
++
+ static int test_filename_filter(void)
+ {
+ 	struct allocinfo_filter filter;
+@@ -304,11 +311,10 @@ static int test_filename_filter(void)
+ static int test_function_filter(void)
+ {
+ 	struct allocinfo_filter filter;
+-	const char *target_function = "dup_mm";
  
- 	if (filter->mask & ALLOCINFO_FILTER_MASK_INACCURATE) {
- 		inaccurate = alloc_tag_is_inaccurate(ct_to_alloc_tag(ct));
--		if (inaccurate != !!(filter->inaccurate))
-+		if (inaccurate != !!(filter->flags & ALLOCINFO_FILTER_FLAG_INACCURATE))
- 			return false;
- 	}
+ 	memset(&filter, 0, sizeof(filter));
+ 	filter.mask |= ALLOCINFO_FILTER_MASK_FUNCTION;
+-	strncpy(filter.fields.function, target_function, ALLOCINFO_STR_SIZE);
++	strncpy(filter.fields.function, target_test_function, ALLOCINFO_STR_SIZE);
  
+ 	return run_filter_test(&filter);
+ }
+@@ -514,11 +520,107 @@ static int test_lineno_filter(void)
+ 	return ret;
+ }
+ 
++static enum ioctl_ret toggle_trace(struct allocinfo_tag *target_tag,
++				   bool enable)
++{
++	int fd;
++	struct allocinfo_toggle_traces toggle_params;
++
++	fd = open(ALLOCINFO_PROC, O_RDONLY);
++	if (fd < 0) {
++		ksft_print_msg("Failed to open " ALLOCINFO_PROC ": %s\n", strerror(errno));
++		return IOCTL_FAILURE;
++	}
++
++	memset(&toggle_params, 0, sizeof(toggle_params));
++	toggle_params.filter.mask = ALLOCINFO_FILTER_MASK_MODNAME | ALLOCINFO_FILTER_MASK_FUNCTION |
++				    ALLOCINFO_FILTER_MASK_FILENAME | ALLOCINFO_FILTER_MASK_LINENO;
++	toggle_params.filter.fields = *target_tag;
++	toggle_params.enable = enable;
++
++	if (__allocinfo_toggle_trace(fd, &toggle_params)) {
++		close(fd);
++		return IOCTL_FAILURE;
++	}
++
++	close(fd);
++	return IOCTL_SUCCESS;
++}
++
++static int test_tracing_toggle_and_filter(void)
++{
++	struct allocinfo_filter filter = { 0 };
++	enum ioctl_ret ioctl_status;
++	int ret = KSFT_PASS;
++	bool initial_state, target_state;
++	struct allocinfo_tag target_tag;
++	struct allocinfo_tag_data_vec *tags = calloc(1, sizeof(*tags));
++
++	if (!tags) {
++		ksft_print_msg("Memory allocation failed.\n");
++		return KSFT_FAIL;
++	}
++
++	filter.mask |= ALLOCINFO_FILTER_MASK_FUNCTION;
++	strncpy(filter.fields.function, target_test_function, ALLOCINFO_STR_SIZE);
++
++	ioctl_status = get_filtered_ioctl_entries(tags, &filter, 0);
++	if (ioctl_status != IOCTL_SUCCESS || tags->count == 0) {
++		ksft_print_msg("Could not retrieve IOCTL entries for %s\n", target_test_function);
++		ret = KSFT_SKIP;
++		goto exit;
++	}
++
++	target_tag = tags->tag[0].tag;
++	initial_state = tags->tag[0].counter.trace_on;
++	target_state = !initial_state;
++
++	ioctl_status = toggle_trace(&target_tag, target_state);
++	if (ioctl_status != IOCTL_SUCCESS) {
++		ksft_print_msg("Failed to toggle tracing\n");
++		ret = KSFT_FAIL;
++		goto exit;
++	}
++
++	filter.mask |= ALLOCINFO_FILTER_MASK_TRACE_ON;
++	if (target_state)
++		filter.flags |= ALLOCINFO_FILTER_FLAG_TRACE_ON;
++
++	ioctl_status = get_filtered_ioctl_entries(tags, &filter, 0);
++	if (ioctl_status != IOCTL_SUCCESS) {
++		ksft_print_msg("Error retrieving IOCTL entries with trace filter.\n");
++		ret = KSFT_FAIL;
++		goto exit_revert;
++	}
++
++	if (tags->count != 1) {
++		ksft_print_msg("Expected exactly 1 entry, but got %llu\n", tags->count);
++		ret = KSFT_FAIL;
++		goto exit_revert;
++	}
++
++	if (tags->tag[0].counter.trace_on != target_state) {
++		ksft_print_msg("Entry returned by trace filter does not match target state\n");
++		ret = KSFT_FAIL;
++	}
++
++exit_revert:
++	ioctl_status = toggle_trace(&target_tag, initial_state);
++	if (ioctl_status != IOCTL_SUCCESS) {
++		ksft_print_msg("Failed to revert tracing to initial state\n");
++		ret = KSFT_FAIL;
++	}
++
++exit:
++	free(tags);
++	return ret;
++}
++
+ int main(int argc, char *argv[])
+ {
+ 	int ret;
+ 
+-	ksft_set_plan(4);
++	ksft_set_plan(5);
+ 
+ 	ret = test_filename_filter();
+ 	if (ret == KSFT_SKIP)
+@@ -526,6 +628,12 @@ int main(int argc, char *argv[])
+ 	else
+ 		ksft_test_result(ret == KSFT_PASS, "test_filename_filter\n");
+ 
++	ret = test_tracing_toggle_and_filter();
++	if (ret == KSFT_SKIP)
++		ksft_test_result_skip("Skipping test_tracing_toggle_and_filter\n");
++	else
++		ksft_test_result(ret == KSFT_PASS, "test_tracing_toggle_and_filter\n");
++
+ 	ret = test_function_filter();
+ 	if (ret == KSFT_SKIP)
+ 		ksft_test_result_skip("Skipping test_function_filter\n");
 -- 
 2.56.0.506.g506a7eabc5-goog
 
