@@ -1,49 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793805893;
-	b=FXSuU6qmd29B9AoTkNGyq4FoqGFRNFXCCpHeHb7rI25KK2XDIBHrN7EZ55HWcJ/Sb2B4
-	 UZNORoW+RKNHSDroEZnfYO3zQNywi+0VspypIjPYUpsDQAIn0njLHBNukkczhixmw+AUs
-	 F0fwlfCFX+oyp3SZkTzi1cw2WadybpoE3NRrZ0ycI70ePMVofJn4wkh45U5eDxrFSZqot
-	 o7la1TpDKiobrhI+f4RtsWs37JaZMo1thVqjWKVb2xih+3iZow1xRct2oc5+rTj35L8fL
-	 WPc9BII5X5x0bgeaSzEC15zNj1H5LjGyFZ4k2P2gLFM00AfYWme7r0g2goNtOJ1gDbg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793805893;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=xpZkooV31y8XeCrxswSlMvlMuc9ffbe6HQ7JD8aBNwA=;
-	b=ZbAZBN0iiDPHGifue386Jo3P0Q8IkLbxc6qdho3dWfc6P41ZrYC7G16MxouJW4OPpH4m
-	 O5YnNcsy7yBs+SOMUZncoz/T+O98cWg8F0wcpWk1FzfShHJ/NJF3d90xErVKZwQtdLGua
-	 hxuftaRHyLk3Rp7+1VUEunv1+DHkfuyiEaT4XgjCAi8zpfdx1eGDTEsErThi0HZGcofSo
-	 vyb71cC50mvqmAI8XByEWScJ0Ann5CemjxT8yK6MZLZJN530FGRnbe7Rs8gc1AaWy0NkD
-	 OWV8alYrnJ2HpBX2VAHNrMdUEGLwsKSQvyjgy+80zt5KQzbkqVbbDgSmDCisuB9oJuQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dluzdfs9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793805885;
+	b=DuK8+Vq6FWlL3Ll2w8cWe80QMaFRTpk4c2vNjZW0KcttP1zjWK6cs8lapjNH5Cr7aOUq
+	 J/jQ2znvbHQd6Rw0e55PVB5xpXNNat2Pxsx702AdkbSrqQrurMM1APnW3d7g3uAQpfrGM
+	 iWsA6Mr+Mf7uPrA30SkgbwFXw8gCad6FKa08X8XMFTR/XUMsbQuj3qoAlpKD0uQcnDsBB
+	 HK7AJSoxUteePzrCCDx6zHxzatAzYr8+qL6hHW+o2LxWwpOjVTf6tSISxzEmK7kXrkXpu
+	 u1IWUEKWpv44SnguMR3cLaKdbuO1D+gZyypeL4lrbsVpXUXXqtHK6unPKeGkTwRePoA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793805885;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=flDP2peFOVzNvXwcnvbCxj5AquiDajQXF7kcyM2P/Mo=;
+	b=GJSajCVKUDP1nnsPbIKeR7oQ0K8JxYkRHfe+fn68qkZZvHMAWApX6qVk+wh9pDrsln8u
+	 GK7uVOrRPb+0fOHhAZ/b1WY0KUaEwyZMSCFq9HE7/fsTbolpJ3sLCvtCXVFw02WM7hxrU
+	 Wu4tVfMXb260+VSgQHedZHOQ7km/OWLjSw4fPAh9PY786hbyFlKJ4yjZFZkTNVtdfl/nf
+	 yvv41GYHOwCmrNDkpAGDs/nwJ2NbdOJphufbQKDkM3vDGe6k1bab6VCRwzqdAorFREspK
+	 FCBguXJSxtJ9FPgeDpkZmlSSAA+C3G1rhcy9B5xOglFB00bkEDhKFXb2nGqpB9pSbEw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=F2FlsQEw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.53
+Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com [209.85.160.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1BE2606A336;
-	Wed,  4 Nov 2026 15:24:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE979606A32C
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:24:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE979606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dluzdfs9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A4271F000C1;
-	Wed,  4 Nov 2026 15:24:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793805892;
-	bh=xpZkooV31y8XeCrxswSlMvlMuc9ffbe6HQ7JD8aBNwA=;
-	h=From:Date:Subject:To:Cc;
-	b=Dluzdfs9L2wE9P6kJ8u3S7So+Wa12RoDecC2qIGFtqJKUMxGYlm0Y0Tb9ynQqPMHN
-	 H1AFLZ0iFTNYFg+SKOnLp/G6gWiFQMLjxU/tytKC+yEULZLGKg/tUr+HpGbwqqVK3p
-	 857YoIRR5TeHyqMkN0tdNA6yHf5jzc7QahpH/z6F2H3vljc/9ArOPGESK45WB57iiK
-	 8Pp1zltll/KlQxPKY0d3IWHXgNek2PJDRGVSABUQOk2SsUeyuoXoHGYo5RzdhEztQU
-	 /aD6oQ4u7K8G1BK+dRcslqFGlDJiqL/PTidu3GeGRoFgRVHFQ8BvcCBiplJbmPq0pS
-	 xA5mbEgoHFNqw==
-From: Mattijs Korpershoek <mkorpershoek@kernel.org>
-Date: Wed, 04 Nov 2026 16:24:46 +0100
-Subject: [PATCH] media: ti: j721e-csi2rx: Stop DMA on failure in
- sd_enable_streams()
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=F2FlsQEw
+Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-4a6f1a4cb8cso33542fac.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 07:24:44 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793805884; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LTxTkcKqC9tPU5hxBVviUJq/D+f4yXyIaxLT4d9F5BOItO1iuSFucr320OtQRk3tyU
+         AFhuZa2GwGrxHtlZyX7aBmVrmJ1P5ITrH9vpR9RfEtmCjMjfyMNxhoIoT9RAtSB/b24l
+         j6j7pFlIYsx/KYmX3WaEajzPoDYqZsVwV5e774XwgUfuXaLUVwHQDluRdD6catCF4c4M
+         iY2mzv5yezRoM+Sv3Pv7gw1qE10D9QVFciqu1RvFbYUlD82lMMf3R8qIDy+/VqDb7adi
+         sWq/6sz+XYqE4JnQDkNyZM8pmdmBBSbNiYgwxySU+fepLwjrYFnWoJQV1k46nFLKk4uf
+         Gbow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=flDP2peFOVzNvXwcnvbCxj5AquiDajQXF7kcyM2P/Mo=;
+        fh=iGPbU5PB+ieJnxPW4n2PWaPEunljHhgXLM4usibqgzQ=;
+        b=obuf/cSBoCLfPSIrygueUNCpeBB6d6WNgUeq0xZVqRaOx6Gq9KPWjTZX1Af+krWv9V
+         jasZrNL/mkDjhnM6YBEBRFuQsZZTt7xpkpdzNjO5o5FtWBCtWDRLEKvxhUu+DAEL4+ZY
+         lPNQAi6VQNbzG1Ca07wqbohZyRpF/TomHR15NGwd3O/vOfCVhCh5z4h+eqbMZRefz1YM
+         UXGXrkujUSbkMwiwQ3il/BduUIghZ8xIwHUWLjLu5MrLqZHuxTGA30BE3xt07Auvr5jL
+         jgcAC7ZzVhUe4jiXhvtFsI8AxjVXPWVmR/gKesgp0ASsJeD83B4hM76cf3CLxB5u3dKa
+         HLnA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1793805884; x=1794410684; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=flDP2peFOVzNvXwcnvbCxj5AquiDajQXF7kcyM2P/Mo=;
+        b=F2FlsQEwuvngD0Cs3xUh/uc9NpdhUow1/QhCVrIX6rEcw4PgpCGa6Qy7QfVlZOf8eJ
+         2ELX/a1fHRXZyGSXTaDoC0QtbeCd5xbShvqfew/jAuwifMw+Zf742BHoCyqeTTiaMCOJ
+         UbT5ILvHZpsOCOcp0aKMIGxYBpY9OMXYlo6qL4WaZsaFHuPPKKICpVYqN5b8GDz5XBj+
+         /XjT8VpWUEw7P35P2OF4ep/XAtv9MPJxxz/NL3AJhJBrLY7YyqAi5eUP9zfG1dWy33SI
+         /3FKa7cAs/q+meWYCL9PdjVcA/+uZHYBHh0C5woYIDdVkZfKjTcCR1jchUfA+LouX4gg
+         5pOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793805884; x=1794410684;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=flDP2peFOVzNvXwcnvbCxj5AquiDajQXF7kcyM2P/Mo=;
+        b=0++6L5iSwZ1LNqlP1wNCqAEutDYaEeQfEqWg9hqsGkfgtTbvXHGgOABaFWk/nlpdxX
+         xfbn9l0j6feuHaON30JcoOFFidihgUEOzxIoXDA7KjVDgUiTlB65VY/lcVkqfLvTDrZF
+         hZJ8iV+4mfC/gnXHMt/P9P1vlBK5NkIxo6idlVTHHKxO8ArACgwcyhs3HHkSIST+b0KG
+         EZeEU0v3d8vw+4M/K5Z2OR4lygI/Yp7gdS9+azqFQ/qB6HXm6+Zs32MiENrOXLwLzZhm
+         GFps0FFJCV3lky9WdjeicPQEpspszNqf1zyQDic/tGk/fINTia3k4+r5mdg2u+8fvS3I
+         YsBA==
+X-Forwarded-Encrypted: i=1; AKwUvBxdr9RMSdtf1r4oJ7QeOWkiGO/469YRbw+Ij5u7BQIRW2hMahDZZw4W3SnQVetYIdc3OfwBCuQpJCZc0Uw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/zzkDokTQOV56FMrouyDuJ/5xfuMjkpT7Dg9+TVajXrMIyI5Ee
+	OLL+dZOx28K+BN+ITYpJ0q1zn6CRwMs3CdJT/nN2YYdMF8P+aH4mBuEKRhs8/x2yzKxxArwcUpz
+	DATBy8tbsSWhE30Kw6VvsiwKMSaxKESanNqCo+/aBBQ==
+X-Gm-Gg: AYBFou39l+TllzRt4HxepxdcoqkWYGprhdC4OC2wK7n/wCumjWe4DoNoaUArKJr7gB1
+	iTS9UhajLyv4Ty/ZkZA0UbDnQ77toV34nC0XB8FfyWsPn4umFlN8wroTy+Sjltk38tBIf/JoepO
+	RX+dHeXAOBH6rIFIFDEZ/vfAss+3EITOIIttGz1+9+/0r95r7FqGeTK4grmAxaKIlYiT5ZswIF6
+	DEtqQgvFWwbOi2flGN74o4D6TzQnuCIqbjBo+YtS69SQJnWsCa0E+X2tpz3cy5cghnPA0a7xSXb
+	ICfx/xywMa4Ccn9TLBFeawKdvzrTBpavj/3jaw3LWqxeKhXO9Mqs8XcnQXMw0pwQunWARCp/+7K
+	nBwvFFnS3oYH1xNlJrYw5Br3Bi8CtqpOd6AO3
+X-Received: by 2002:a05:687c:40c9:10b0:4a7:fe04:7dfa with SMTP id
+ 586e51a60fabf-4a906c5ce81mr12210477fac.0.1793805883319; Wed, 04 Nov 2026
+ 07:24:43 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,157 +104,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-j721e-csi2rx-crash-sd-enable-streams-v1-1-b77ee38c8dcf@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNQQrCQAxG4auUrA10hqLiVcRFOvNrU3SUpJVC6
- d0ddflt3lvJYQqnU7OS4a2uz1IRdg2lQcoNrLmaYhv3IbQdj4cYwMk12sLJxAf2zCjS38E+GeT
- hLPkoUZC7FHqqqZfhqstvc7787XM/Ik3fNm3bB7FjH/+IAAAA
-X-Change-ID: 20261104-j721e-csi2rx-crash-sd-enable-streams-ad8a2aed4c1b
-To: Jai Luthra <jai.luthra@linux.dev>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Yemike Abhilash Chandra <y-abhilashchandra@ti.com>, 
- Pratyush Yadav <p.yadav@ti.com>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Rishikesh Donadkar <r-donadkar@ti.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Mattijs Korpershoek <mkorpershoek@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6163;
- i=mkorpershoek@kernel.org; h=from:subject:message-id;
- bh=vaFSgLWR4VxgiWznyRDzEbr536UF8X1OdAEsBfl4+yA=;
- b=owEBbQGS/pANAwAKARkNHbRmThk1AcsmYgBq605CKigSmyGXozsXv11fBKdnSV/lhTck7bG8S
- 2RbNUuQXwmJATMEAAEKAB0WIQQu6UKnth9qvlMTrQAZDR20Zk4ZNQUCautOQgAKCRAZDR20Zk4Z
- NfYAB/9YA8+VNfWtj/VdNJAzlpnPg66FuVRg57QpqiVlnIzbW+kfjEBkkFUqtIFMJa70AR1uNW9
- nOJ8BniCINdl7mNN8ssDTycEccp5hQIV8BlpWouOwVXywTsgNKZ3EaASvSlXVKx2zMKtcH+Fvxj
- ZVUyIBNaM8USxvlJQvlBgdlPtj4dlLASnPaPa6C+WZm7lwKtKPxUkDnhpmoHSQQVNw4xiy2Up9a
- Zj7mwKK3ftiZQZn/cZidGH0x7DadVKhxTdXRAJlkL4OaUa3RAIhOW1Qjj0O1ZobOkJwI/7M8qOM
- 8uNOSsW0B1XMRyS8KSewzrb2LQ0GaS18+M4diE8634u7P03Z
-X-Developer-Key: i=mkorpershoek@kernel.org; a=openpgp;
- fpr=8234A35B45C0D26B31C1A2DA570338B018144F28
+References: <20261104104909.129656-1-thuth@redhat.com>
+In-Reply-To: <20261104104909.129656-1-thuth@redhat.com>
+From: Caleb Sander Mateos <csander@purestorage.com>
+Date: Wed, 4 Nov 2026 07:24:31 -0800
+X-Gm-Features: AclHuK9voeX4CroBKewKkDb-TCTAm3mHMofh5zqgIby-6JO5pA3M1-VHQAtqXLY
+Message-ID: <CADUfDZrwgy38Nt4bFeZd=nfHAOTScy=1PKjanTAoUFzUkydkbQ@mail.gmail.com>
+Subject: Re: [PATCH] selftests: ublk: Fix include path for out-of-tree builds
+To: Thomas Huth <thuth@redhat.com>
+Cc: Ming Lei <tom.leiming@gmail.com>, Shuah Khan <shuah@kernel.org>, linux-block@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-ti_csi2rx_sd_enable_streams() configures some hardware
-resources (PIX_RST and shim). It also marks the DMA as active.
+On Wed, Nov 4, 2026 at 2:49=E2=80=AFAM Thomas Huth <thuth@redhat.com> wrote=
+:
+>
+> When building the seltests out of tree with "make kselftest-all",
+> the compilation of the ublk tests can currently fail since they
+> are using the headers from the distro instead the headers from the
+> kernel source. For example, I'm getting:
+>
+>  kublk.c: In function =E2=80=98ublk_ctrl_dump=E2=80=99:
+>  kublk.c:190:27: error: =E2=80=98UBLK_F_IO_DESC_SIZE=E2=80=99 undeclared =
+(first use in
+>   this function); did you mean =E2=80=98UBLK_F_UPDATE_SIZE=E2=80=99?
+>    190 |         if (info->flags & UBLK_F_IO_DESC_SIZE)
+>        |                           ^~~~~~~~~~~~~~~~~~~
+>        |                           UBLK_F_UPDATE_SIZE
+>  kublk.c:190:27: note: each undeclared identifier is reported only once
+>   for each function it appears in
+>  kublk.c:191:53: error: =E2=80=98struct ublksrv_ctrl_dev_info=E2=80=99 ha=
+s no member
+>   named =E2=80=98io_desc_size=E2=80=99
+>    191 |             ublk_log("\tio_desc_size %u\n", info->io_desc_size);
+>        |                                                 ^~
+>  ... etc ...
+>
+> Fix it by using the KHDR_INCLUDES from the main selftest Makefile that
+> should contain the right include path in either case.
+>
+> Signed-off-by: Thomas Huth <thuth@redhat.com>
+> ---
+>  tools/testing/selftests/ublk/Makefile | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/tools/testing/selftests/ublk/Makefile b/tools/testing/selfte=
+sts/ublk/Makefile
+> index fc64b8f028332..ba6df7c0b530b 100644
+> --- a/tools/testing/selftests/ublk/Makefile
+> +++ b/tools/testing/selftests/ublk/Makefile
+> @@ -1,6 +1,6 @@
+>  # SPDX-License-Identifier: GPL-2.0
+>
+> -CFLAGS +=3D -O3 -Wl,-no-as-needed -Wall -I $(top_srcdir)/usr/include
+> +CFLAGS +=3D -O3 -Wl,-no-as-needed -Wall $(KHDR_INCLUDES)
 
-When v4l2_subdev_enable_streams() fails in that function, an early
-return is done without cleaning up these resources.
-This crashes the kernel when the buffer gets unmapped later:
+Sasha Levin already sent a patch for this:
+https://lore.kernel.org/linux-block/20261103130131.4069212-7-sashal@kernel.=
+org/
 
-Unable to start streaming: Link has been severed (67).
-[ 4492.749621] Unable to handle kernel paging request at virtual address fffffdffd829c388
-[ 4492.762081] Mem abort info:
-[ 4492.764862]   ESR = 0x0000000096000006
-[ 4492.768606]   EC = 0x25: DABT (current EL), IL = 32 bits
-[ 4492.773913]   SET = 0, FnV = 0
-[ 4492.776956]   EA = 0, S1PTW = 0
-[ 4492.780090]   FSC = 0x06: level 2 translation fault
-[ 4492.784959] Data abort info:
-[ 4492.787835]   ISV = 0, ISS = 0x00000006, ISS2 = 0x00000000
-[ 4492.793311]   CM = 0, WnR = 0, TnD = 0, TagAccess = 0
-[ 4492.798359]   GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
-[ 4492.803663] swapper pgtable: 4k pages, 48-bit VAs, pgdp=0000000c58227000
-[ 4492.810358] [fffffdffd829c388] pgd=0000000000000000, p4d=1000000ffbf4f403, pud=1000000ffbf4e403, pmd=0000000000000000
-[ 4492.820959] Internal error: Oops: 0000000096000006 [#1]  SMP
-[ 4492.826602] Modules linked in: imx219 v4l2_cci ds90ub953 mux_gpio j721e_csi2rx ds90ub960 cdns_csi2rx wave5 videobuf2_dma_contig videobuf2_memops v4l2_fwnode v4l2_mem2mem videobuf2_v4l2 videobuf2_common v4l2_async at24 m_can_platform videodev k3_j72xx_bandgap ti_k3_dsp_remoteproc mc m_can can_dev mc_evbase i2c_atr
-onboard_usb_dev fuse zram zsmalloc rpmsg_ctrl rpmsg_char cdns display_connector omap_hwspinlock ti_k3_r5_remoteproc phy_can_transceiver tidss ti_k3_common omap_mailbox drm_client_lib drm_dma_helper cdns_mhdp8546 ti_tfp410 drm_display_helper drm_kms_helper cec sa2ul cdns_dphy_rx drm cdns3_ti rti_wdt drm_panel_orientat
-ion_quirks backlight dm_mirror dm_region_hash dm_log dm_mod
-[ 4492.887132] CPU: 3 UID: 0 PID: 1457 Comm: yavta Not tainted 7.2.0-rc1-00371-g40ef2669cb4a #86 PREEMPT
-[ 4492.896417] Hardware name: ti Texas Instruments AM69 SK/Texas Instruments AM69 SK, BIOS 2027.01-rc1-00132-gee9fc27f2a2a 01/01/2027
-[ 4492.908128] pstate: 80000005 (Nzcv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-[ 4492.915071] pc : __zap_vma_range+0x5c8/0x1500
-[ 4492.919427] lr : __zap_vma_range+0x5bc/0x1500
-[ 4492.923770] sp : ffff800087c438e0
-[ 4492.927070] x29: ffff800087c439e0 x28: ffff800087c43aa8 x27: 0000ffffb720c000
-[ 4492.934189] x26: ffff00080dfd2060 x25: fffffdffd829c380 x24: ffff00080dfd2060
-[ 4492.941307] x23: 000000068a70efc3 x22: 0000ffffb720c000 x21: 0000000000000000
-[ 4492.948427] x20: ffff800087c43a58 x19: 0000ffffb72f9000 x18: 0000000000000000
-[ 4492.955545] x17: 0000000000000000 x16: 0000000000000000 x15: 0000ffffb72f9000
-[ 4492.962663] x14: 0000000000000000 x13: 0000ffffb7eacfff x12: 0000ffffb70fe000
-[ 4492.969781] x11: 0000ffffb7ea1fff x10: 0000ffffb7e9ffff x9 : 0000ffffb7ed9fff
-[ 4492.976899] x8 : ffff800087c43b28 x7 : 0000000000000000 x6 : ffff00080a621dc8
-[ 4492.984018] x5 : 0000ffffb720c000 x4 : 0000000000ffffff x3 : 00000000000000ed
-[ 4492.991137] x2 : 000000068a70efc3 x1 : ffffc1ffc0000000 x0 : fffffdffd829c380
-[ 4492.998255] Call trace:
-[ 4493.000690]  __zap_vma_range+0x5c8/0x1500 (P)
-[ 4493.005035]  unmap_vmas+0x54/0x11c
-[ 4493.008426]  unmap_region+0x84/0xe0
-[ 4493.011903]  vms_complete_munmap_vmas+0xec/0x1e0
-[ 4493.016506]  do_vmi_align_munmap+0x164/0x1a0
-[ 4493.020761]  do_vmi_munmap+0xa8/0x160
-[ 4493.024411]  __vm_munmap+0xa8/0x130
-[ 4493.027887]  __arm64_sys_munmap+0x20/0x3c
-[ 4493.031883]  invoke_syscall.constprop.0+0x40/0x108
-[ 4493.036662]  el0_svc_common.constprop.0+0x38/0xd8
-[ 4493.041351]  do_el0_svc+0x1c/0x28
-[ 4493.044653]  el0_svc+0x20/0x78
-[ 4493.047700]  el0t_64_sync_handler+0xa0/0xe4
-[ 4493.051870]  el0t_64_sync+0x198/0x19c
-[ 4493.055522] Code: 97fffe63 b94013e3 aa0003f9 b4002d40 (f9400400)
-[ 4493.061597] ---[ end trace 0000000000000000 ]---
-[ 4493.066226] note: yavta[1457] exited with preempt_count 1
-[ 4493.071790] ------------[ cut here ]------------
-
-Implement proper clean-up on error handling to avoid this crash.
-Also fix the error handling for media_entity_remote_source_pad_unique().
-
-Fixes: 3ed9c0a1fdba ("media: ti: j721e-csi2rx: add multistream support")
-Signed-off-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
----
-This can be reproduced on TI AM69-SK with the Arducam FPD V3Link using
-2 cameras:
-
-- Configure routing/pixel formats
-- Disconnect one camera sensor
-- Start a stream using yavta
----
- drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
-index 022ea3d616c9..865562fa5ec8 100644
---- a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
-+++ b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
-@@ -1208,8 +1208,10 @@ static int ti_csi2rx_sd_enable_streams(struct v4l2_subdev *sd,
- 	spin_unlock_irqrestore(&dma->lock, flags);
- 
- 	remote_pad = media_entity_remote_source_pad_unique(&csi->subdev.entity);
--	if (IS_ERR(remote_pad))
--		return PTR_ERR(remote_pad);
-+	if (IS_ERR(remote_pad)) {
-+		ret = PTR_ERR(remote_pad);
-+		goto err_dma;
-+	}
- 	sink_streams = v4l2_subdev_state_xlate_streams(state, pad,
- 						       TI_CSI2RX_PAD_SINK,
- 						       &streams_mask);
-@@ -1217,11 +1219,19 @@ static int ti_csi2rx_sd_enable_streams(struct v4l2_subdev *sd,
- 	ret = v4l2_subdev_enable_streams(csi->source, remote_pad->index,
- 					 sink_streams);
- 	if (ret)
--		return ret;
-+		goto err_dma;
- 
- 	csi->enable_count++;
- 
- 	return 0;
-+
-+err_dma:
-+	ti_csi2rx_stop_dma(ctx);
-+	writel(0, csi->shim + SHIM_DMACNTX(ctx->idx));
-+	if (!csi->enable_count)
-+		writel(0, csi->shim + SHIM_CNTL);
-+
-+	return ret;
- }
- 
- static int ti_csi2rx_sd_disable_streams(struct v4l2_subdev *sd,
-
----
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
-change-id: 20261104-j721e-csi2rx-crash-sd-enable-streams-ad8a2aed4c1b
-
-Best regards,
---  
-Mattijs Korpershoek <mkorpershoek@kernel.org>
-
+Best,
+Caleb
