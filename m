@@ -1,60 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793781094;
-	b=dci3v7z/fb6FYlvRZrRPEC2r5szcuEJ54dQ2IqHMggPCPdzgdEUknH9EinH85/Zku+tI
-	 d6Z56Pk6L3IH6KgRzFXBxHCRcwEfBdFsTgOiD1+YZSte+1gPFTqWAgnTEI3fqLzlP4knP
-	 XT7TRjn5u2yQjdXHB+cADvQtJsmmnyBXLZIBnWNfLni7m/RwOQqOXk4TqRsWjPyhg6CYt
-	 htF2e4gm5ki2CL7W0XP25n7/JrY4xiujmm/yzm3tKlUFAVYwui1gvj2Mm1gAgxS8UGcgj
-	 gHDa1y0mGoRq4q4ALomOfu6BAJXyNiQuO9Gj22nB9b5IL6SKsrOnfXBgBIJ1dMizEMw==
+	t=1793781125;
+	b=bD3tJ92389nax3e2i0yUwmK7aY82ZIllG9oLxLLENqK6uPKsgac2RNb/eYOt+704cD4U
+	 SFljyYjlopaSqCvP0U7mK6XQ27C3HwButawjgTJBdpISBVMKELfqITShi+vlQphWiKwWX
+	 DK16/QQp+5nZiStolaMekaDWdEOunNi9JjM4jHSb76zVXIS5QYxAUMZzAtqUNfD99C/1o
+	 tKbJvTOHSMxzlrJKdI85cZWNTSRYXeBGbyN+veN28M1/yEIvL8cPVMv9YcJrEXEekiJ5L
+	 qLtt8eN9QQ5b5f8pv3TnQyYBurJMe5fss+w3b8ZwSdLgFR/PAtBUk0CBqZv0DyOISeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793781094;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xKgha9VxvmSvw9cDdb8uf1ZW6YX/MsofjYkuzeJfmCQ=;
-	b=HFSDF4BBZD6h+kYqSYEUYUvyNUmqEju1cgwYMz6IDUQGzQUEZMmV6ZF4UdXRPfzXFKpj
-	 XsnXhG/2uZhQt9HE6ANPzlHDr7wcFcZhnC8v1r/5o2BqMjL/uTvP5+hb+HxTBefjRaFr4
-	 y3I4/dLLS/4/WzJqSt5EpX49q9xi7+36mRS0F16t4GMUo/Kr5Oqthxsa/M6t6Fvq1Xthp
-	 rxCcevO2WyDSJtUOVvF9Q6XQyzA6gCBw14zlgTE7pM7ZBm9rhmorBdVtv/tTwfH8WMa9C
-	 RdjndCHpeZYVepRonp2ZKeS2M3XmFzRIfFZRVLo0N1pY/4Vfm2+/MV53P27MPzmeAqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793781125;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=+jPqoNXEpA+7+FIrz6APb9I5eEcoubqwAjkLbTZnqws=;
+	b=hYHdws2CEO5mVCyReThFcCsq5qfQKuWTB04dwCLomVfUbmOsabYA+6vZrnn/0tl6krW7
+	 fXHcnwxpAvYAiSOF9ooR/1bts5U/Z17cHhZYkQ13MxIWgT5KtpY4EXHtzrKyJypWrTNHm
+	 96Yz7jGCvNvqBeabDUbG+Oq6ErN1TxYCcVNiwx6GrGEuuK1/kidCG0CGFf7KJih1EdM5t
+	 tPbXXSMiwLk9ZLUbDKW6jaZCwDN3d/hDOXqDNPYCSZ6uvIR3o+wLv1NtY+oDawzsgPPF1
+	 /N++UsUWAiuU4EFM1/4zvFOGmDfdbJChbI1NDBOTdpmQSPwJlp3WopF1/VOPjFKyV+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jFvckm3e;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.217.53
+Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com [209.85.217.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A7BA606A31B;
-	Wed,  4 Nov 2026 08:31:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jFvckm3e
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3D7C1F000C1;
-	Wed,  4 Nov 2026 08:31:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793781093;
-	bh=xKgha9VxvmSvw9cDdb8uf1ZW6YX/MsofjYkuzeJfmCQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jFvckm3ekBn1CkDPeV6q/8xUtgevCcgYCo0W/IbjKLZ78eszlFmsEeDV431hh/pCg
-	 inqOhJtuAJcxx+eTdLtQJdSjHVYvGiO8kk0eRl96u3ipBqrUmZ/6pVQ6/I+zSQzBs9
-	 +7uM5+HBzCZ2G+V4sEKRn5W7ojLBVmHBpMgBMzexDEtVMdzxmdxy9a9wZXDaNns8QI
-	 /wHXz3FMdiWqV5zUOguLJ6f4U3D4eNzE6mRJ6pkgx0QxlBBK28h1/G721mvF8oOURY
-	 ocRA56/jPcpbHZEE4/5ex0ipiy0oi3KooLnWlOx02a0pRsUTOn5nN6ismKsBgheaoe
-	 2OaNY8OQMu5QA==
-Date: Wed, 4 Nov 2026 09:31:30 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, David Collins <david.collins@oss.qualcomm.com>, 
-	Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>, Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, 
-	linux-input@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	David Heidelberg <david@ixit.cz>
-Subject: Re: [PATCH RESEND v7 2/2] input: misc: Add Qualcomm SPMI PMIC
- haptics driver
-Message-ID: <20261104-happy-binturong-of-persistence-b38bb2@quoll>
-References: <20261103-qcom-spmi-haptics-v7-0-418de67ef84a@oss.qualcomm.com>
- <20261103-qcom-spmi-haptics-v7-2-418de67ef84a@oss.qualcomm.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBFA4606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:32:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBFA4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-7ce78f9d6baso260693137.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 00:32:04 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793781123; x=1794385923;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=+jPqoNXEpA+7+FIrz6APb9I5eEcoubqwAjkLbTZnqws=;
+        b=FUFm2ck6nDp+I7JV3IMkD3Hu6I3qjWhIcPPFDv6M476Iwk1tAe/820aDY+s7NtmAvk
+         fPJ9l2x7hnF+n/7yc93OJ8m24uoJMkDm5BHTMv4S0M2l6YhkLNALx/vHGCrvGaDQ2ujL
+         Sv8tOhzaz8YQ8z6LE7PdElSO6bhy5Rp8pu1tl3gf6OAE46w5UlYMMUVLEQ8ymIkpNPlW
+         EooigCQr5a+tTk9Q/QUdH+y72X6HPqTx/SguhckMwpxPBjF7XRRUfAGw9Z9hFdUoC/Qz
+         DAcaBzL0GvKCv1jO1yx5CmzPhEXyzp9o4r+gn5RDGJPayKr/ArWxGJad6IAdWQQLrNfe
+         PSNg==
+X-Forwarded-Encrypted: i=1; AKwUvBw8rG5MQFy/+1OeCZq331AiT1WDJ39cxe7OrqiPMnsfjEBtP3YGnzl0oAMNbnJ74f+nWTqBokw0pyf1Pg0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8fE7pFWF+H1dBNLVVK7VpvSSni+J2+oUJzcvLUKMuFAT98nxoq
+	6Hi/j4TtVBCHons7CNmyN7XEqQjk2i4dE+hSllNJNaE6sDuKxksfzwK4rAGZlYZb
+X-Gm-Gg: AYBFou20OQbhQYUEY9+fBYGPomze/bfig7H6nKT6cBVJG3D5iDhEFvmw9ae610nXIP7
+	JoUudHDYIxxV0GnGPRjqkEjnF91iHxV6zfi5bwtxJbMN5T2KiAWpxi9ZtO5tDPo8VSW35EurK34
+	vtMPb0QpzxolWgg9s7dD2a0Zq/sfMdpYEKS1eQGdeb7zg/CXfBl2JxDKy5fB7w5MjeXe/MUSTzo
+	UvnHeTrJm4V+7ldmgdqwsRekCS9d5DOjWQzN0iG0rCMXbi/rsJzmlihfaffZIdVDF8JWCo9J4wM
+	9v6Eod8GdnGtiTniQukC0H8k6peMCB42UcBvXbgMgoNBB+R6Nc2gLCj+BKroKJdYvJO8JC8+Qu2
+	F1ssVUqCt7yuZuKo+cuIUodMEr37Ok6VKO3XX+DUMSi6j43UrSeTo3PVAgcpO2PQ1h4Z4J3KgWx
+	PaCMo57+V2pZ4qCVZuLp+l+NRD7jpTqZC75Mk06uWtdK6lmlhg2vQVbieNH61B/Ufze/+2yG4dD
+	5p99ON6uzXAr7wOe/KvCmEJFw37LlVOfb5NjlTwB+oL+Fp5Ndtyj4VP3GdsyN5ENKzQdo8UGHRu
+	jJzw1wGnSId/IpjRUbvscxgR1kEGFoaewIEYxxZhEizirYyxAC0eEV5DJtJ9W9AvSA==
+X-Received: by 2002:a05:6102:b11:b0:78a:4dff:7b3e with SMTP id ada2fe7eead31-7d054180f2cmr6766539137.15.1793781123627;
+        Wed, 04 Nov 2026 00:32:03 -0800 (PST)
+Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com. [209.85.217.53])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-998d8afc268sm1336133241.4.2026.11.04.00.32.03
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 00:32:03 -0800 (PST)
+Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-78fb1fb9508so1099540137.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 00:32:03 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxBtWsXTzoLHN7KWV2Kn8nZKLqHuThGUZuFFTkw2RpmBkI2hrUpt23sWn6R+siKDHhRK+ezxJaY8HnLLJY=@vger.kernel.org
+X-Received: by 2002:a05:6102:c09:b0:7b2:becd:1179 with SMTP id
+ ada2fe7eead31-7d0543be60emr5897841137.44.1793781122974; Wed, 04 Nov 2026
+ 00:32:02 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,30 +80,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261103-qcom-spmi-haptics-v7-2-418de67ef84a@oss.qualcomm.com>
+References: <20261103-reset-regmap-test-bits-v1-0-1b33607a76b0@pengutronix.de> <20261103-reset-regmap-test-bits-v1-6-1b33607a76b0@pengutronix.de>
+In-Reply-To: <20261103-reset-regmap-test-bits-v1-6-1b33607a76b0@pengutronix.de>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 4 Nov 2026 09:31:51 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdWSrMTXbXVuo9tQqMKnOLXe3=7oWyJRGkvRBZjBBm3nxg@mail.gmail.com>
+X-Gm-Features: AclHuK-YthVrpSjlZVBQt5vi6FrwMySVDZUmcMVvViznIkVXiwSHbJqQx6qRLRM
+Message-ID: <CAMuHMdWSrMTXbXVuo9tQqMKnOLXe3=7oWyJRGkvRBZjBBm3nxg@mail.gmail.com>
+Subject: Re: [PATCH 6/8] reset: rzv2h-usb2phy: Use regmap_test_bits in rzv2h_usbphy_reset_status
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Damien Le Moal <dlemoal@kernel.org>, Conor Dooley <conor.dooley@microchip.com>, 
+	Valentina Fernandez <valentina.fernandezalanis@microchip.com>, 
+	Daire McNamara <daire.mcnamara@microchip.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+	Michal Simek <michal.simek@amd.com>, linux-kernel@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, linux-renesas-soc@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Nov 03, 2026 at 08:51:18PM -0800, Fenglin Wu wrote:
-> Add an initial driver for the Qualcomm PMIH0108 PMIC haptics module,
-> named as HAP530_HV. This module supports several play modes, including
-> DIRECT_PLAY, FIFO, PAT_MEM, and SWR, each with distinct data sourcing
-> and hardware data handling logic. Currently, the driver provides support
-> for two play modes using the input force-feedback framework: FF_CONSTANT
-> effect for DIRECT_PLAY mode and FF_PERIODIC effect with FF_CUSTOM
-> waveform for FIFO mode.
-> 
-> Assisted-by: Claude:claude-4-8-opus
-> Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-> ---
->  drivers/input/misc/Kconfig             |   11 +
->  drivers/input/misc/Makefile            |    1 +
->  drivers/input/misc/qcom-spmi-haptics.c | 1251 ++++++++++++++++++++++++++++++++
+Hi Philipp,
 
-Fails checkpatch, does not apply, Sashiko comments.
+On Tue, 3 Nov 2026 at 15:52, Philipp Zabel <p.zabel@pengutronix.de> wrote:
+> Simplify rzv2h_usbphy_reset_status() by using regmap_test_bits().
+> No functional change.
 
-Resending buggy code will not make it better.
+Now propagates errors.
 
-Best regards,
-Krzysztof
+>
+> Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
 
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
