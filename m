@@ -1,57 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793828811;
-	b=nL9LlOfU+cVoTkHpnKVhUe3oncF9XJDh6Ni7kFwsVASMuQZdbaX2SZRAL5Myngxr0ccm
-	 brjKFEBxcmeopwBPKz6AWDG+tMxO8BEnibAc9ouGp3MZAJRWRZUacPmu3BmrH71RaBLtt
-	 oWpP9vlYfzpvAao+p4iFt94rcSki1mxLBv4cY7dOjQRb6AxU+nhX8XxMBY/DOhT+aRr3t
-	 zWBu6fYVa3bvwMP8Zf+9OqS5tTC0v2LFpjctj6NEn4Qg47oDZoOlZZDhZWlZxvpEVLyQJ
-	 SrFcIZ/2eW1p2BAN/D98shK5k0yHuZ7ewnp90QJT0HfxH9zU8ryep3GyBLmKsGSTlPQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793828811;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=B/+Tw39nWIip5+PScAXZbdossYLtNBKyZ8Bm07MqdZc=;
-	b=fj8HIcPZEy8n6ah/NmDMZiKiy876uQMOe3oIsJEyIR/4g1X6BQyQIb72K5PcfwNXSuny
-	 s4FWD/ezeBCan/9rX4snw4gZBP+e3rbuUej+M4C0Zb3cIk2l/4LwKYeAVBriTiAXnlD28
-	 /bUGPrkDz9+/rEhfl08orjZysJ5UAjHJ8fpWcEkd665Wbb1jbboH2/fFouowQfGlebNiI
-	 iPnI26q9yL4xR5nRyFgFX7eLnWcTRrn0YHD2pAd0hLVT6IsnyAGsRm3YwjBRmhEMZomIM
-	 oxVy+GMtJ9etQr0pxVN2cSwGV8xdlJL9OTPy/bfhYVRL8etIFPYxfUDbpO8mp1b4B7g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IWcDN+va;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793828814;
+	b=Pf4DKwtTk1GC9eyY8rpHOfs7QvgIT+fREoL3p9rdpoCrdDQx0IDBG9YFJ/GmW7kygDRi
+	 xbdGKhlYn97b6fcCkx4/85pgxcCwlIOMfdhDSK4Ysh9IIztA+fysnLfZai9UQB9LwTThG
+	 6yF+AVZQEN2gTDMGbdK+zDSAUncfQ8JA0PZMLObdtMqcPP2IubG9PsTRfXBO6o5q4rz6g
+	 sEJ9WUc961vxpcHenFqNCiyMXaZq6KqRtRfv9utOU3DJ+FlNyFBYmEFguj5Ycw9yQI1FQ
+	 MpASfS+PvqyjX9/g6zX+WLCz45T3F9BZMmeUq90W4eOKm9wtlLWGPNfpiITe9XeVfSQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793828814;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=nNqX6Xay+ojlP9Sd21jk1TVd8hQxs/1bBCWc6P1bX84=;
+	b=P7cK48bJNQ4DEvmc/1V0Qd9JPRCTESYRcRlM6RYxyCxuGwnItE0ZhuwO6+Q+z55rOZEO
+	 u6NGaZkP6wa/BrxWKnMdwa6hbjKAEyJNr+3knfwrep72sGxOlxzeee+6QrL7m7+5o7BKh
+	 SPp7K1+O9oB5z1Zq70btFZ9SY6AeKtaw4fUD5cU3KDJUFm2v5B4ZA7g9MpzprzL+ubm05
+	 wbd1reA9SYb7Sotf6hdCl+gweruPj3Uppdnw5bk984QHSgHHxmHVeLyKmH37uYiqAhPIU
+	 0hZ7M/2DeQD3jCjJF/YBFmDDl/RC8swigfrSSFUxYQVSvoYxlt6pBUj1uxtohkgZVxw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Ewe1JQDx;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B84D606A330;
-	Wed,  4 Nov 2026 21:46:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B2DD606F2AE
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:46:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B2DD606F2AE
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IWcDN+va
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72E4F1F000C1;
-	Wed,  4 Nov 2026 21:46:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793828810;
-	bh=B/+Tw39nWIip5+PScAXZbdossYLtNBKyZ8Bm07MqdZc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IWcDN+vaWTiwJa6L8FJaeo5XfPD0ZTQDqkTwTdnbBMO8u6comfo9C9YCmcT8wttD9
-	 x4ZCDVcQ4cTmcjvgeJDiP6GjeiKF3SdUs4CkqMatnisdjDwiXFYoc9ziBQ/4cfJuWs
-	 /+3YSB792iBITLjuhYnGE5uCKfzW4mPeQ+IGsnkUIcgxw0VRz7KoY/2SHfIEMSVpaF
-	 Qcje2eTQPYNFFAtFfzYgove5iibISSoWY6RHcci/gGDTNzsfGYnxXnRjJwDnmKfnKP
-	 HwMLZ5HV9shJOTN6yW5Rv9G7H3MnlRX/wJ33i+yWVI56H8jDUb5SwUvIxrsBqNVgS+
-	 r31A/QVMnFCUQ==
-Message-ID: <sashiko-outbox-198153@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 04/21] sched/deadline: Do not divide by zero active
- CPUs of a root domain
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
-In-Reply-To: <20261104211207.1392343-5-mathieu.desnoyers@efficios.com>
-References: <20261104211207.1392343-1-mathieu.desnoyers@efficios.com>
- <20261104211207.1392343-5-mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 21:46:49 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Ewe1JQDx
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b579ed8da6so957a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 13:46:53 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793828812; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KXRb8bH4skWY+l6KLDGBH3DBH1BaUcIjAEx0rSOGoEAMlOCXllpbkewy6JKPYF8j2Y
+         s/dMIkHVBTYAZmhv4i/hyvwB+wF6yIVxaDUB2bEXfYn/qa3iQtwM66Q/NyF4glvussGQ
+         gX+HdIaK40OCyZHlxSfzfrvW40Vav2FGXrS4gShmjLL5Kv4IKzTCXfGxNFDmwUWkIalt
+         +BbqVnKoWo0yXCWngMjVvNaQlYGpUfIcYNC1LuFzp0v20vGml6sWz6J8QPTvVCH8lU7O
+         7IdA20GQgw/jWXXAP+EYVhvwm9XPcWDSbUOC68gd/BKT82RNVr56FboiszOORJ5bIUrC
+         +3Ew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=nNqX6Xay+ojlP9Sd21jk1TVd8hQxs/1bBCWc6P1bX84=;
+        fh=6O/avXvVsCvNCVjKBDFZxMNNNV27BS2+fNZiRpLIyZ8=;
+        b=dlsgxEmTypCwr2x3CPmYDnZwig91/9OrmS9asL2Lb5UghTFJOyOb5aBv7pAT4QyJdl
+         DJgx73Y8xB9ihBEOqzaBOEmog5K6zzxsinPa0i+lwQACqHrC8X9EUZPYjnt4wQFnh2px
+         NC+OEuxrqJ2c1Os/7c3M7c6sF0GfJGRL9xa5Bsfa1zGFwb2wBlT9e3AxtoHH2hWsgf9C
+         +/n4L+o3XCAiUpEmna1z+euf+YpGvnP9UVCyH68cs3DGJiPYb4JUkTbh4Xhnm9WN9mJG
+         QtkpVXw6b24L/AUd2NiUVzkDq+epRuiB5QkBq9kQ4riKD22688qdnvJBLuSJT0tOVaAr
+         2FAw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793828812; x=1794433612; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nNqX6Xay+ojlP9Sd21jk1TVd8hQxs/1bBCWc6P1bX84=;
+        b=Ewe1JQDxh/OpRUCdClFd7Kz1BJmW0JX5ObbSRd6Ekyr6w1rdIhE7jMbdYwplY3NCKk
+         g2aFJz08a6ruEkG/lNyZxd26EKiGj86XAMxt7uOLgX25eme/UvJCfgY83ENm95r5k1h2
+         qiYJWnp7FGT0h/ykL/xzAKDzuumb6PYNgVmBtJDl0E5vVOEJZQlJ5OKiOOGlzhKY7pgK
+         V50o3jeKznfmSCKKczWrp32DcUEdqOkaOEbva0veDWOkR9ZHgsPs6Uq3t7MUWVnJtiJa
+         abilpf21PQjXpK0rSl0BW25FeskGFNYkmAYeYPtlNoFAo3KDu6Tq85Tc+PymlrpOJMrG
+         33OQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793828812; x=1794433612;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nNqX6Xay+ojlP9Sd21jk1TVd8hQxs/1bBCWc6P1bX84=;
+        b=NF7Nd7Q2uvkqigSCgXBJP1RYFc0qPsvRytiYp39CGqjpkGhFHUXii/rDv9zFdOgkBz
+         8j5oVhMFfD9NBXoQ+0QyRwiGEfaWihSVQRkILZomJ3U37S0pKcMRDieuwRQ6pdL8sheq
+         Cw7+vFV/wppwELNZjdzqjDu6/J9XSzw+O4CDiFsIBrv4W7/r0bwHEssl8YW4ZIS9AvTV
+         SJ25FKEEr8mdLYcXfCn4zQgJzGwMrN/OhM/ByzTVNqU7sRq9piMXlbdXqc8sf/6UYAjF
+         RBW4DIKaogTC2I9BT7n2TxtnntbPkjBY2rT2s7Pib1DVmygGtoYLMjdnj/MJOyxzwSZx
+         QbbQ==
+X-Gm-Message-State: APuU4Z8TuOvzxlUd+W4utzkO0j7pznXxpSNTcsPv0uTE8mCzvcEj7w6W
+	HU9h/pLkpac9N4NxFJTj/gN7OttjZXhY71EEkGs5Zciy5+9RZv9IWnEJsvnQWbmy13IOX8RcFAi
+	70b5suLr6VP7T6gjqc75ZyUGLGfTlok+bcJqCGHv2ttD0SHocsLVlKxT2YtI=
+X-Gm-Gg: AYBFou2YiJdyUwH9XkREcLfGfIcP3vdcuO9cvkg9s36s5pgJZQ5tZTu3sTkY+kEFint
+	ne7F8vo6wCblyLe0HZyvs2nBykZ4XzQ01XVltAIeJJDMPpPc7Ps/4BoWrekT15om+4xJFtp54JQ
+	K5nZqUNFDMiDp6BMbesNMvOTFxXnXzAY6WPODfST4rYRLxpjzW0KK9odLwZ+Ot+WlgGQplWQAUR
+	huusSGz46SOaEl9egmV7cE5W83juJx73st5TzAclfbTaQ65Aq629OPZLCAlhB9WAHpTuHnSGPky
+	zepFN3CVHTS0szvI4tDGFp1XP1l50o++hS8vvvzUzKePSRAsfwybnKZR2oqy4hQy9YPLMbgnpdm
+	fkRwgBL4D+thvzxs/JmA2sGveLZe5BGHWcfs+hlv4OYYgVUrMVUclhSwH8GFn4uSr5t0HCg==
+X-Received: by 2002:a05:6402:7cf:b0:6b5:65ef:440e with SMTP id
+ 4fb4d7f45d1cf-6b57cdd26d9mr4477a12.12.1793828811278; Wed, 04 Nov 2026
+ 13:46:51 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,151 +102,53 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261020180804.140766-1-smostafa@google.com>
+In-Reply-To: <20261020180804.140766-1-smostafa@google.com>
+From: Mostafa Saleh <smostafa@google.com>
+Date: Wed, 4 Nov 2026 21:46:38 +0000
+X-Gm-Features: AclHuK-hVkemMHCNU3tA_P7qPrbGUQncvgIj5WYJYosiCeTanBP84HUm7Z_PAwc
+Message-ID: <CAFgf54pn3=gsB=3zCsr=6xKU7hWtmi_sxdA772vhzdAur=fZ0w@mail.gmail.com>
+Subject: Re: [PATCH 0/2] dmaengine: qcom: bam_dma: Fixes for unbind
+To: linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org, vkoul@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, Frank.Li@kernel.org, 
+	bartosz.golaszewski@oss.qualcomm.com, pramod.gurav@linaro.org, 
+	andy.gross@linaro.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] sched/deadline: dl_b->total_bw underflow in __dl_sub() and __dl_=
-add()
---
+On Tue, Oct 20, 2026 at 7:19=E2=80=AFPM Mostafa Saleh <smostafa@google.com>=
+ wrote:
+>
+> On Lenovo Mini-x Gen 10 (X1P42100 based) I am using VFIO-platform
+> to assing the QCE/BAM to VMs.
+>
+> During unbind:
+> echo 1dc4000.dma-controller > /sys/bus/platform/drivers/bam-dma-engine/un=
+bind
+> echo 1dfa000.crypto > /sys/bus/platform/drivers/qcrypto/unbind
+>
+> I see a system reset quite often, looking more into this,
+> that seems to be related to runtime PM, with those fixes I don't
+> see that anymore.
+>
+> This patches apply on linux-next.
+>
+> Mostafa Saleh (2):
+>   dmaengine: qcom: bam_dma: Take a PM ref at remove()
+>   dmaengine: qcom: bam_dma: Do not touch remote BAM in remove()
+>
 
-commit 1283d9f058013be0f43eec132085929ecd9c1f99
-Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+A gentle ping; both patches are reviewed and I have been using this to
+test VFIO platform with kvmtool
+https://lore.kernel.org/all/20261024161902.2093581-1-smostafa@google.com/
 
-sched/deadline: Do not divide by zero active CPUs of a root domain
+Thanks,
+Mostaa
 
-This commit guards the calls to __dl_update() in __dl_sub() and __dl_add()
-with a check that cpus is non-zero to avoid dividing by zero when all CPUs =
-in
-a root domain are inactive. When cpus is zero, it leaves the dl_b->total_bw
-updates in place without updating per-CPU extra_bw.
-
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index 963fda6ddb7f6..dadda1a528ec6 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-> @@ -189,18 +189,25 @@ void __dl_update(struct dl_bw *dl_b, s64 bw)
->  	}
->  }
-> =20
-> +/*
-> + * @cpus is the number of active CPUs of the root domain, whose extra_bw
-> + * shares the change: none once they all went offline, and total_bw alone
-> + * changes then.
-> + */
->  static inline
->  void __dl_sub(struct dl_bw *dl_b, u64 tsk_bw, int cpus)
->  {
->  	dl_b->total_bw -=3D tsk_bw;
-> -	__dl_update(dl_b, (s32)tsk_bw / cpus);
-> +	if (cpus)
-> +		__dl_update(dl_b, (s32)tsk_bw / cpus);
->  }
-> =20
->  static inline
->  void __dl_add(struct dl_bw *dl_b, u64 tsk_bw, int cpus)
->  {
->  	dl_b->total_bw +=3D tsk_bw;
-> -	__dl_update(dl_b, -((s32)tsk_bw / cpus));
-> +	if (cpus)
-> +		__dl_update(dl_b, -((s32)tsk_bw / cpus));
->  }
-
-[Severity: Medium]
-Can updating dl_b->total_bw when cpus =3D=3D 0 (or on an inactive CPU) unde=
-rflow
-or corrupt dl_b->total_bw in the paths mentioned in the commit message?
-
-During a root-domain rebuild in dl_rebuild_rd_accounting(),
-dl_clear_root_domain() resets rd->dl_bw.total_bw to 0 and dl_server_add_bw()
-only adds server bandwidth back for active CPUs:
-
-kernel/sched/deadline.c:dl_clear_root_domain() {
-	rd->dl_bw.total_bw =3D 0;
-	for_each_cpu(i, rd->span)
-		cpu_rq(i)->dl.extra_bw =3D cpu_rq(i)->dl.max_bw;
-
-	for_each_cpu(i, rd->span)
-		dl_server_add_bw(rd, i);
-}
-
-kernel/sched/deadline.c:dl_server_add_bw() {
-	dl_se =3D &cpu_rq(cpu)->fair_server;
-	if (dl_server(dl_se) && dl_se->dl_bw_attached && cpu_active(cpu))
-		__dl_add(&rd->dl_bw, dl_se->dl_bw, dl_bw_cpus(cpu));
-}
-
-Likewise, __dl_server_attach_bw_locked() and __dl_server_detach_bw_locked()
-only update dl_b->total_bw when cpu_active(cpu_of(rq)) is true, because an
-inactive CPU's server bandwidth is not accounted in dl_b->total_bw.
-
-In dl_server_apply_params(), however, dl_b is updated unconditionally when
-dl_se->dl_bw_attached is set:
-
-kernel/sched/deadline.c:dl_server_apply_params() {
-	if (__dl_overflow(dl_b, cap, old_bw, new_bw))
-		return -EBUSY;
-
-	if (init) {
-		__add_rq_bw(new_bw, &rq->dl);
-		__dl_add(dl_b, new_bw, cpus);
-		dl_se->dl_bw_attached =3D 1;
-	} else if (dl_se->dl_bw_attached) {
-		__dl_sub(dl_b, dl_se->dl_bw, cpus);
-		__dl_add(dl_b, new_bw, cpus);
-
-		dl_rq_change_utilization(rq, dl_se, new_bw);
-	}
-}
-
-While a CPU sits in def_root_domain with !cpu_active(cpu) (between
-sched_cpu_deactivate() and CPU offline, or between CPU online and
-sched_cpu_activate()), its fair_server bandwidth is not in
-def_root_domain.dl_bw.total_bw. If admission control is disabled
-(dl_b->bw =3D=3D -1) and a debugfs write sets new_bw < dl_se->dl_bw,
-__dl_overflow() passes and __dl_sub() followed by __dl_add() subtracts the
-unaccounted dl_se->dl_bw from 0, underflowing def_root_domain.dl_bw.total_b=
-w.
-Even with admission control enabled, if def_root_domain also contains active
-isolated CPUs (cpus > 0), dl_server_apply_params() on the inactive
-hotplugging CPU will subtract unaccounted dl_se->dl_bw and add new_bw to
-def_root_domain.dl_bw.total_bw and the active CPUs' extra_bw. Should
-dl_server_apply_params() gate the __dl_overflow(), __dl_sub(), and __dl_add=
-()
-calls on cpu_active(cpu), matching __dl_server_attach_bw_locked() and
-__dl_server_detach_bw_locked()?
-
-For the task paths mentioned in the commit message, at this commit:
-
-1. In inactive_task_timer() (and task_non_contending()), if a task leaves
-SCHED_DEADLINE or dies before its 0-lag time and task_cpu(p) goes offline
-before the timer fires, the root-domain rebuild has already reset
-def_root_domain.dl_bw.total_bw to 0 without re-adding the departed task:
-
-kernel/sched/deadline.c:inactive_task_timer() {
-	if (!dl_task(p) || READ_ONCE(p->__state) =3D=3D TASK_DEAD) {
-		struct dl_bw *dl_b =3D dl_bw_of(task_cpu(p));
-		...
-		raw_spin_lock(&dl_b->lock);
-		__dl_sub(dl_b, p->dl.dl_bw, dl_bw_cpus(task_cpu(p)));
-		raw_spin_unlock(&dl_b->lock);
-}
-
-Calling __dl_sub() with cpus =3D=3D 0 then subtracts p->dl.dl_bw from 0 and
-underflows def_root_domain.dl_bw.total_bw. (A later commit in this series,
-commit 1e8adcf8ed27 ("sched/deadline: Keep departing bandwidth across a root
-domain rebuild"), addresses the rebuild race via dl_departed_list and
-dl_bw_gen.)
-
-2. With admission control off, if sched_setattr() switches a task asleep on
-an offline CPU to SCHED_DEADLINE, sched_dl_overflow() calls __dl_add() on
-def_root_domain (where cpus =3D=3D 0), adding new_bw to
-def_root_domain.dl_bw.total_bw. Subsequent removal in switched_from_dl() or
-set_cpus_allowed_dl() uses dl_task_root_domain_cpu(p) in an active root
-domain, leaving def_root_domain.dl_bw.total_bw elevated and underflowing the
-active root domain's total_bw. (A later commit in this series, commit
-90cd336704a1 ("sched/deadline: Record the root domain holding a task's
-bandwidth"), records dl_bw_cpu on the entity.)
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104211207.1392=
-343-1-mathieu.desnoyers@efficios.com?part=3D4
+>  drivers/dma/qcom/bam_dma.c | 18 +++++++++++++-----
+>  1 file changed, 13 insertions(+), 5 deletions(-)
+>
+> --
+> 2.56.0.212.g129ede20d9-goog
+>
