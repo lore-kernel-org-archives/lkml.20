@@ -1,78 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793781181;
-	b=Yl2w8pi/XP6OREPDYNuavOYsPZcS5upD4aS/yhokLAjert2vAsYZBhd92GC1KCuCJKTr
-	 KhDnLfXdoaKQQh4hGZ8E9zuv6jW0CEgJMVDzNmSYHynkRpSIywJUNow07G2Xi1SrBhyoC
-	 5EsghmRydzywkUF1CKuLjGgPAkQWzGDa4exCHOJICqEc3r3CaGuwrvD9Dyz9knGnjfAKX
-	 dSNDOyBGQolu02Z6ocbMo8JWJmUO1oHZn+LqxCcL0MSaIVqkjqkEyorSYe+Yy3NZskHag
-	 KiYrRdfy9jDQy/z/wcC/+euiEr4vPOI/GCw+Jpsqaq2rnv6+bGh2GlUN3m0BocfF+1Q==
+	t=1793781199;
+	b=u+IkhLHryOQAvEEGFN3a1hjk4NV9ofQvniBPOELTHON6F6Z3FSEE4s7ktjDe3MGcjrpe
+	 F4mRBDnhpxg2LFoFRxrxR5rLqXEylDWDmZKE6egSlsd1pHPVWDye/9sCBJW08hFaSIHLZ
+	 23RpeIYzimo70BLU6aQ6GzzJfuAEQktIeK0x9MQHESA7uQakKq9a2Q3t5S7UQBLQqQNsd
+	 gEtbAjjgcVT75BYT5qaDt/ODhmJoFnLXzf9cbYcTYXPOXX0JpBypXTZB+PqJgPD49BOTv
+	 OZxRDzttvHUC0ZAtNdDNIhMbLQjuvk2yhLNk/GAee8nk2wGoD8rd9maC1HInAHs2GYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793781181;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=v+la3jMKr6nPIrYEiR5T+L2vDOYUs+pDzg8N/ii9g/I=;
-	b=wyXozFb9OaTvm4D6w0WnOkPHaY+3T/3FOCvhbQEITl5nOd+tUpRv8M7HzH7Z8Z5fNvPb
-	 pWKjl8ERJrlF4Bu3vbBdoV7SqMdYWwazXUwWQ5Ir5RhdO6vqh3FgJEqHOZwrYLuzBzk4t
-	 HcyL3bmcf6kuac/axpwVUrEEXyCsi2kPwAs8NftNtaEHDVVJyGeSkjrTAzOUU4PIsnI6z
-	 ezpEL1RhTuM0XHSI8djhMbMrw8dV0CkZ2JFcnNm/ndZuBZFNEWd0Qohs5veygL4GhxhU9
-	 uAUpVa4znncQpy2Bh9ha0BvigPMGrXdzkG3tRC/pdxxfvFszNp/dyy0ZQ/C3lPTfUaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793781199;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
+	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=cb4Xh9aZZNBfvBhmip68fxld1JZtIcdH9x4WHMmXxfI=;
+	b=lyrBoxRLOAK9j2j6PWIzTdaOcRivK2Go1ubiIkoZhci0kMTksoAmGcrTXdGNgUG3IYHK
+	 CkA+cmNktHprGZZGNrCHs+E7Ughp42XaiLLg3+VXqTWfY6ySiD2/v166V8WbN5LQ2uroH
+	 hMmUhtZcz4kyu3XdUZxfAEcHWisNINSsdtxQjWrhzqdEtQoBpUqKfyrJAuDiVMdi8kEIU
+	 PBfn9UBeDyV40i4WttXNHTA7jq/B4CUWG7rDvCVXpllmoqoU0J8mw/JDy6brIxxwum+xe
+	 87n9AiOHmeVkPG49sT8zqiMrhtaFJ13iYmBeBaUiBBibqofnPD8fwfuk7S6w+p/MNWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=telaak.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.214.171
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=LJSx1YrR;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83CE8606A330
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:33:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83CE8606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e5fb79ce82so2214845ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 00:33:01 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BF49606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:33:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BF49606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=LJSx1YrR
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48b042c0728so66668f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 00:33:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793781197; x=1794385997; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cb4Xh9aZZNBfvBhmip68fxld1JZtIcdH9x4WHMmXxfI=;
+        b=LJSx1YrRDtfxmDS6br0cC4dvIZ11gWmkIetcRfRoMDmhzdBXmok/v9otSQT/+SVnag
+         maYz6bLghQyEx69WP21/CJM3IyXsPw7fq8eF7cMwf1nVxYQOKWRQL6eB0sFpR9V2lMcO
+         vZru0+2maq9fqklwak/pl8D3SpXKLUtZ2g8d4zZrfjjARzisOTb9gGEqHn0g1PEzeeeX
+         HucSqz8CGpAQTbdl24gfSwHekLb+Cu8TjVAdWsWwFYBYZDwfhoGoWNT5XqVwrgy2swsJ
+         Hkc/bG+3M407Phgnks6EC65G8dp67EalZ6ZqBS432VPeN+dQtGaXvfJ6+4DvSlhrxYrc
+         nM0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793781181; x=1794385981;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=v+la3jMKr6nPIrYEiR5T+L2vDOYUs+pDzg8N/ii9g/I=;
-        b=TRCzgwpoH7TGiBZ1ZAPPMJoeHrCbbCRxwydpFIwzOsOzXbDHsS7jf785nYHsjw/+RX
-         LRVrHyROcd+jgpRuzknXPrRP4GdAoRq5RcjkZn6c4jJQtQeWJO3L1rgneJKVvZTaFHiE
-         cj8MW5uFMNQjpXb9M2tV5xcpQT9ps78wf1R3z/hImw/bH6dmscqYUTt3l7A7eb7n8XR5
-         AF1nsbI7ygDyam8Obp8WbqqnQi1rjY4k+0ryuvlG42z+oJO7ymKRSPD7kYYaPlKYHx5R
-         KWAflkv4RNtKdQ4ZSomDnaNB6IqQ+6DXSsKgSd43wavb5j2w+GmYcED01z1xdnqEZ0Rh
-         lHRA==
-X-Forwarded-Encrypted: i=1; AKwUvBw9LeckgYpxoqoev0sMQY/j1ZvIHEoTjP+el5+1870yoIhBCYxeBroIRsMMOXcgFpnpcjG3JiHWWiZf7lM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/UPjtr7JBiYMfJpN900hHudclMquJmqJJBJX8YkW828FBSDhD7
-	Zx68fcq4zfAck8t6QHc1WptSrVu6ady1hAmoc5Gt54xzZiffWiQw50XX8AToAJ/3
-X-Gm-Gg: AYBFou1RiGdCpR9jf6H+Uj/iGOVIkZjKJQYyQnh0xkhLFU415+pBELKlRiYG0J4TUxn
-	8kcm1DjltMymThrHPlKMVhS3u4JwaK9baDoGptp/Js5So69y2hrR/NHBK3GRTZgxcvqM3eIUtIs
-	FgdyGcmPZtP/tT5dMBTLwB791qYHqj/AZVJ48bLEJfriQWbHNCQOYJtDm9FcpnxzQSrUACvMyS5
-	93eHPx98pEZ0m7WJUEPu6ODrz1YsLIexwSlb9LY8mkxCYUVGsK4PifkX69j/cTpIZAmJhCmFD9m
-	0Z7Ei2JsrL5xvAmK3eFmZqj9Sbw9faaOSfOZA44nviHEYKjhyURUfbHKXjRarwhMHeLAmBRYJgh
-	IDd+mvLI6yKyL0WOgu0dIboUC5afbeJ9E+9fq0WOyblS0BZ8pO3mVrsr322gYpUK4oDP/J8wIRA
-	eseqWfYNPUDh78lhAWuDaAidRbzumJJaDE+VtT76Pd60Q/M5O8o4kcTHoEBHBUvBIHy0NMUWU36
-	s9lF21JvYhegadmsM8AFfZHbU+iSgVZyraYutPs679qZ6AH3KB2QNkK0C6f7NBGFB+RIq0fuZV7
-	hXGwIS0k/ZtJ6Gpisz+RdR0cYVNVx7ZzcD3UT45KdjB57uczuTuqJpShVZAV49Loa4cK8SaVDDE
-	acibKiqHl02g8EMWQHPyU4XO9A7jmgo3IS0Z0M2m5bNw=
-X-Received: by 2002:a17:903:13d0:b0:2e9:9b5b:e179 with SMTP id d9443c01a7336-2eb36504ec5mr156336915ad.50.1793781180818;
-        Wed, 04 Nov 2026 00:33:00 -0800 (PST)
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com. [74.125.82.172])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed08fe4fc8sm4600455ad.16.2026.11.04.00.32.59
-        for <linux-kernel@vger.kernel.org>
+        d=1e100.net; s=20260707; t=1793781197; x=1794385997;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cb4Xh9aZZNBfvBhmip68fxld1JZtIcdH9x4WHMmXxfI=;
+        b=Mi4Yg2H0uYydKPFKiHoHY2AFjClW+sCK6tsZ5Zs8x8duh/vTj8T1cYk5lNJpPiIJkE
+         8YoNSPSYrGGUqHLdIMAZhlgfXo4U2TQr3+o143Ff823TJ7QcgOXRMnmzKLYs/xlaP0DB
+         xwnUQeODHyCjuINo9uc7FGtFpzWzsf1VnloRKFMgp5+lEhOpw+CXY3aEEgqYTm2MTl1i
+         chpWYBdkW6nJ/NtxGaNjJXKihsWsMHAczdTbliXG6ToXmzqP3s4rkXoOYa6QbPuZ15Rv
+         w8tqRS5jlTd2u8PYmiatbIphWU84hbftIJ5PhaNuL7y6qfuVv5M2gflvWcvBWuZB57Fn
+         kd/g==
+X-Forwarded-Encrypted: i=1; AKwUvBzw+MQ9lPcrkBvhRZNy0MBn/nykGULESdnUi/w2cEJTItoVAxz5ErNMoLJa6FC6ChzwmO1jUuuiX6jZk2Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9rckD69dYxljGMT0aBeDjdM0Vhe5xh3wZsiM3t6/TmNKp9aWcM
+	v8s2ds/NU8cMuzZorCmTHxH2dJe2mg74vPOIs3vix/1b3iahig7mORu1CyVWwG25XEw=
+X-Gm-Gg: AYBFou3Srd/AymEsmN4d0bOsv+iZVWWjov9RAR/2jLIPZbAzH7+z5rRPYjLy9QSxXe6
+	gbXD319twddt+ZtXWM1M/8krZEH9audc+B3fQUxsS5tsUzKBrAfIzxutMDRlE0/raTktdau15HO
+	OEnX0Re84rk4VMKqaPFIG5L+OGssGuj7xksAz9efJ40J5o+4HLbyQQjOUXljusRRSX8UK45pnky
+	Jdq5jSu+b6YvdKL2Ci8mNuET9GVr32ttRd5D8lMD60nE9dmHXWqo7M0NuWjG9IBvL20d+wm8NUk
+	wkYlrdN1DrkRCwLO6IDxIvxeiG7sanPyNSWIVkgt7EEx3m6P/967N5i6yqitYWnla6027mwiP4A
+	Um0fFmm7/TjSBGyOVPvFfyIYAbz1wwOy0Y2C87F5v4f0brPLORseBFwLAVB/dNXtsMyna1vsN12
+	9iwuXg6jlW9yz4aBsaBzViglfb+IYoWTeyek4+8SFnoKDvEFAVrWV1WbeTCgehydwjzkfO9uKp8
+	TmpNQcv7xCqX/hXsOu5HGor7A+VDQD5CNdHFpvvjRBaRM+yYouTyi0U/mDcK+C7CXTO6Y1pdu6w
+	gEOLl3xt6awSksCCJwlRDLF/tOUYFFEl3z6xhAAnA3hBWxdpfdjaFumkmrVZ8de9B8wPmMJYbjl
+	69X2Cerln
+X-Received: by 2002:a05:6000:41c8:b0:488:8437:b8b7 with SMTP id ffacd0b85a97d-48e6e2bc714mr34536225f8f.7.1793781196603;
+        Wed, 04 Nov 2026 00:33:16 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:106d:1080:6762:47bb:1e06:ff70? ([2a01:e0a:106d:1080:6762:47bb:1e06:ff70])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feda20567sm2741237f8f.51.2026.11.04.00.33.15
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 00:32:59 -0800 (PST)
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-369f33df08eso730622eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 00:32:59 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvByVouIElQ8HROnPyTY8VaP4+ZlEu5MlpeBga0iJAPAjIIzSmKomF2RQSgoaO7IKATsM8kM3Pai5eY4El+A=@vger.kernel.org
-X-Received: by 2002:a05:7301:f09:b0:35c:ba31:6fef with SMTP id
- 5a478bee46e88-36a424438d2mr23103058eec.36.1793781178690; Wed, 04 Nov 2026
- 00:32:58 -0800 (PST)
+        Wed, 04 Nov 2026 00:33:16 -0800 (PST)
+Message-ID: <676555ed-aa24-4654-a8bd-0606f1436396@linaro.org>
+Date: Wed, 4 Nov 2026 09:33:15 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,58 +93,259 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-sf19a2890-gpio-v1-0-45e463c48728@telaak.dev>
- <20261104-sf19a2890-gpio-v1-1-45e463c48728@telaak.dev> <fc273wsjhyvtoqjnuiipramnvjvti4n26yxgvr23neuawnz2zp@krm4cfn6pfkb>
-In-Reply-To: <fc273wsjhyvtoqjnuiipramnvjvti4n26yxgvr23neuawnz2zp@krm4cfn6pfkb>
-From: Joseph Telaak <joseph@telaak.dev>
-Date: Wed, 4 Nov 2026 03:32:47 -0500
-X-Gmail-Original-Message-ID: <CAPY4CJ4-voYM1Uw8+0pYArJoHknyyg5CMB-mbG=qn89agxxYug@mail.gmail.com>
-X-Gm-Features: AclHuK9LKKTlOPvX59pIytGyTkFgOT4Kv7Bs2y1OMNJDw7pUXgmS8KoRNSgAgSU
-Message-ID: <CAPY4CJ4-voYM1Uw8+0pYArJoHknyyg5CMB-mbG=qn89agxxYug@mail.gmail.com>
-Subject: Re: [PATCH 1/2] dt-bindings: gpio: Add Siflower SF19A2890 GPIO controller
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Chuanhong Guo <gch981213@gmail.com>, 
-	Qingfang Deng <dqfext@gmail.com>, linux-mips@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v5 3/3] iio: adc: add driver for the MAX34417 Four-Channel
+ High Dynamic Range Power Accumulator
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Michael Hennerich <Michael.Hennerich@analog.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux@analog.com
+References: <20261102-topic-sm8x50-iio-max34417-adc-v5-0-0ffa5e5f2d5c@linaro.org>
+ <20261102-topic-sm8x50-iio-max34417-adc-v5-3-0ffa5e5f2d5c@linaro.org>
+ <20261104023032.0a21da0d@jic23-hlaptop>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261104023032.0a21da0d@jic23-hlaptop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-> If you're a co-developer, please add your Co-developed-by: prefixed with
-> a list that looks more like:
-> [...]
-> The above is completely unreadable.
-
-Thanks, v2 will use Co-developed-by with the changes listed that way.
-
-On Wed, Nov 4, 2026 at 3:12=E2=80=AFAM Bartosz Golaszewski <brgl@kernel.org=
-> wrote:
->
-> On Wed, Nov 04, 2026 at 02:21:37AM -0500, Joseph Telaak via B4 Relay wrot=
-e:
-> > From: Chuanhong Guo <gch981213@gmail.com>
-> >
-> > Document the GPIO controller found on the Siflower SF19A2890 and other
-> > Siflower MIPS and RISC-V SoCs.
-> >
-> > Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
-> > [jt: from Chuanhong's siflower-7.1 branch; Joseph Telaak as the binding=
-'s
-> >  maintainer, GPL-2.0-only for the deprecated GPL-2.0 SPDX identifier,
-> >  example indented by four spaces, commit message, subject]
-> > Signed-off-by: Joseph Telaak <joseph@telaak.dev>
-> > ---
->
-> If you're a co-developer, please add your Co-developed-by: prefixed with
-> a list that looks more like:
->
-> [Joseph Telaak:
->   - did foo
->   - did bar]
->
-> The above is completely unreadable.
->
+On 11/4/26 03:30, Jonathan Cameron wrote:
+> On Mon, 02 Nov 2026 15:49:06 +0100
+> Neil Armstrong <neil.armstrong@linaro.org> wrote:
+> 
+>> The MAX34417 is a specialized current and voltage monitor used to
+>> determine power consumption of portable systems. The driver support
+>> getting the channels voltage, average power, accumulated average
+>> power and energy over an I2C/SMBUS serial interface.
+>>
+>> The MAX34417 datasheet only specified on how to calculate the
+>> accumulated average power, but with the Sample Per Second rate
+>> we can easily get accumulated Energy in mJ.
+>>
+>> By default the IIO driver only supports single-shot Voltage
+>> and Power sensing, but the accumulation can be enabled by
+>> enabling the Energy IIO channel which then enables the
+>> Continuous Accumulation Mode.
+>>
+>> The counter is common to all channels, so when reading a single
+>> channel we will copy all accumulators to registers, so in order
+>> to permit reading individual channels we must accumulate the
+>> other channels in the driver when Continuous Accumulation Mode
+>> is enabled.
+>>
+>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> 
+> The use of the regmap_noinc stuff to deal with the variable
+> size 'registers' is novel.  Might be worth just adding a little
+> commentary on that to somewhere. Perhaps the regmap_config as a comment.
+> 
+> Other than that, just a question about why we need the postfixes
+> for the labels. That seems superfluous.
+> 
 > Thanks,
-> Bartosz
->
+> 
+> Jonathan
+> 
+> 
+>> diff --git a/drivers/iio/adc/max34417.c b/drivers/iio/adc/max34417.c
+>> new file mode 100644
+>> index 000000000000..e679cf142141
+>> --- /dev/null
+>> +++ b/drivers/iio/adc/max34417.c
+> 
+>> +
+>> +static const struct regmap_config max34417_regmap_config = {
+>> +	.reg_bits	= 8,
+>> +	.val_bits	= 8,
+> As noted above. This isn't really true.  You are just use noinc
+> reads to pretend it is.  Those are normally only used for
+> fifo registers so I think we should have a comment here talking
+> about that choice.
+
+Well, reg_bits is 8, but val_bits is 8 for the control & status registers,
+for the data registers the value bits is variable, so it's kind of true.
+
+But I should add the readable_noinc_reg callback, yes it's not FIFOs,
+but both 3 data registers have different data width which should be
+read using the noinc to use i2c_smbus_read_i2c_block_data().
+
+I can provide my custom register read/write copied from regmap-i2c if
+you find it better to avoid abusing regmap...
+
+> 
+> It is pretty neat so I'm not against it but it might rather
+> surprise anyone looking at the datasheet!
+> 
+> 
+> 
+>> +	.max_register	= MAX34417_BULK_VOLTAGE_READOUT_REG,
+>> +	.writeable_reg	= max34417_writeable_reg,
+>> +	.readable_reg	= max34417_readable_reg,
+>> +	.volatile_reg	= max34417_volatile_reg,
+>> +	/* No cache since the only non-volatile register is read-only */
+>> +};
+> 
+> 
+> 
+>> +
+>> +static int max34417_read_label(struct iio_dev *indio_dev,
+>> +			       struct iio_chan_spec const *chan,
+>> +			       char *label)
+>> +{
+>> +	struct max34417_data *max34417 = iio_priv(indio_dev);
+>> +	const char *input_label = max34417->input_label[chan->channel];
+>> +
+>> +	if (input_label) {
+>> +		switch (chan->type) {
+>> +		case IIO_VOLTAGE:
+>> +			return sysfs_emit(label, "%s-voltage\n", input_label);
+> 
+> Why add the postfix? The channel type will turn up in the file name anyway.
+> I don't think anything prevents us having the same label for channels of
+> different types.  Is this a copy of something elsewhere?
+
+It sounded better, but you're right I'll drop those.
+
+> 
+> 
+>> +		case IIO_POWER:
+>> +			return sysfs_emit(label, "%s-power\n", input_label);
+>> +		case IIO_ENERGY:
+>> +			return sysfs_emit(label, "%s-energy\n", input_label);
+>> +		default:
+>> +			return 0;
+>> +		}
+>> +	}
+>> +
+>> +	switch (chan->type) {
+>> +	case IIO_VOLTAGE:
+>> +		return sysfs_emit(label, "channel%d-voltage\n", chan->channel);
+> Same applies here.  The postfix seems excessive.
+>> +	case IIO_POWER:
+>> +		return sysfs_emit(label, "channel%d-power\n", chan->channel);
+>> +	case IIO_ENERGY:
+>> +		return sysfs_emit(label, "channel%d-energy\n", chan->channel);
+>> +	default:
+>> +		return 0;
+>> +	}
+>> +}
+> 
+>> +
+>> +static int max34417_probe(struct i2c_client *client)
+>> +{
+>> +	struct device *dev = &client->dev;
+>> +	struct max34417_data *max34417;
+>> +	struct iio_dev *indio_dev;
+>> +	struct regmap *map;
+>> +	int rc;
+>> +
+>> +	map = devm_regmap_init_i2c(client, &max34417_regmap_config);
+>> +	if (IS_ERR(map))
+>> +		return dev_err_probe(dev, PTR_ERR(map), "regmap_init failed\n");
+>> +
+>> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*max34417));
+>> +	if (!indio_dev)
+>> +		return -ENOMEM;
+>> +
+>> +	rc = devm_regulator_get_enable(dev, "vdd");
+>> +	if (rc)
+>> +		return dev_err_probe(dev, rc, "failed to get vdd regulator\n");
+>> +
+>> +	rc = devm_regulator_get_enable(dev, "vio");
+>> +	if (rc)
+>> +		return dev_err_probe(dev, rc, "failed to get vio regulator\n");
+>> +
+>> +	max34417 = iio_priv(indio_dev);
+>> +	max34417->regmap = map;
+>> +	max34417->indio_dev = indio_dev;
+>> +
+>> +	rc = devm_mutex_init(dev, &max34417->lock);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	/* Set default input correction for all channels */
+>> +	for (int i = 0; i < MAX34417_CHANNEL_COUNT; i++)
+>> +		max34417->input_correction[i] =
+>> +			max34417_calc_input_correction(MAX34417_DEFAULT_RSENSE);
+>> +
+>> +	device_for_each_child_node_scoped(dev, node) {
+>> +		u32 rsense_uOhm, index;
+>> +
+>> +		rc = fwnode_property_read_u32(node, "reg", &index);
+>> +		if (rc)
+>> +			return dev_err_probe(dev, rc, "failure reading reg property of %pfwP\n",
+>> +					     node);
+>> +
+>> +		if (index >= MAX34417_CHANNEL_COUNT)
+>> +			return dev_err_probe(dev, -ECHRNG, "invalid reg %d of %pfwP\n",
+>> +					     index, node);
+>> +
+>> +		if (fwnode_property_present(node, "label")) {
+>> +			rc = fwnode_property_read_string(node, "label",
+>> +							 &max34417->input_label[index]);
+>> +			if (rc)
+>> +				return dev_err_probe(dev, rc,
+>> +						"failure reading label property of %pfwP\n",
+> 
+> Don't worry about going a bit longer - stcik to aligning after (
+> Or.. Maybe use a helper function for the per channel parsing.
+
+Ack
+
+Thanks,
+Neil
+
+> 
+> 
+>> +						node);
+>> +		}
+>> +
+>> +		if (fwnode_property_present(node, "shunt-resistor-micro-ohms")) {
+>> +			rc = fwnode_property_read_u32(node, "shunt-resistor-micro-ohms",
+>> +						      &rsense_uOhm);
+>> +			if (rc)
+>> +				return dev_err_probe(dev, rc,
+>> +						"failure reading shunt property of %pfwP\n",
+>> +						node);
+>> +
+>> +			if (rsense_uOhm < MAX34417_MIN_RSENSE ||
+>> +			    rsense_uOhm > MAX34417_MAX_RSENSE)
+>> +				return dev_err_probe(dev, -EINVAL,
+>> +						     "invalid shunt value %d of %pfwP\n",
+>> +						     rsense_uOhm, node);
+>> +
+>> +			max34417->input_correction[index] =
+>> +				max34417_calc_input_correction(rsense_uOhm);
+>> +		}
+>> +	}
+
