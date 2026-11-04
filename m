@@ -1,97 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.187.6.220
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793804854;
-	b=WFr+N5guGDGKI1AjitqWZEIlV0f5v8PxWuUfIXwfsaqu+mmlC/LjknBcBeGhg9wLQUUE
-	 lEwGKnz5gIMMo28ZuVdAdfx9OwefW6ssDFQwVzf8kPU5wuqCJSpEn59e9CUhi794qwIz0
-	 +jJPVSqPFWeGLojDObTC+ckEcgMBe7zgOTEbnphzx843qTysgtB9PCYku3ZB7PMGXEX/f
-	 oAAOtfReYoelc9QKDoO8rCDZwh7ON0ynhw2v7BRL3UIob1YUAfg5FysWCUJFNc0hQ6y1I
-	 T1JNYpD6l/3zdlkAp3baWEtYKcTFreQKZpp9Yk9NEejii2AgMO82keksomTzySM0UHw==
+	t=1793804893;
+	b=sBtisarjLYRq3jmCsztHHFH3bLZPovayh4m+hKcbACDy0B0Qn41kmWBGzJ7fJ9YoEutS
+	 k1RGFOYQKpVnJjhlfEcLIqFiW5qTXhbu6Vm8keqK3U6QQMbZgvyQH4Kg4nVLaBGZcJTpp
+	 ylT3nYajlJfOZ2Slcmvd81pdN7XmbF7Gxls5yrxoCjjuZ/BFQ0XyT2mth0c9UbS4m90Oy
+	 XIt59lPxXFMi8gJ39ELwG77Gl7TK/QqYZbKa9S/AvoRr7dd9Y7jMpNALRYXFF0nP1YRn9
+	 IvzhiuHnujR2PoU+F+ik2LVtjCWso6bC79yuWNTpHISzedzE40YnqufVFl6M5siNjDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793804854;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=52M0Mx3QqLQFvHEpAisibJWPHYozvMJfANyGg7k/AzQ=;
-	b=YSJOhVmlhU/BhB2Mzxf5kaEEEK2X/ANYouv+p7i5K94S8kPt5mVdQMHiosf7oTlhkjzj
-	 sfQJMN9fYgBCbPOITr3rZXyL47ktEqug+18hgbNp/udY27Hz0AB9/vR1Dn+G5hnEY2yBN
-	 I/OXIopuprJulQjGjU76zvM8+e8mBLrXIgVg5EsHefLk0ZO+5cPrMlPfXQ2LKAoZlxF5N
-	 jCKhw7mrn4NnsmczN68GMhLVjFssjGeSew05zHoMLU0tGne9INbzVFpd8Hf0G9FVBxUXl
-	 PbI6yGctw83O4QeqR6CFBf/fsB24+rtGHu1Sd7rGCyTYZERKkeoMsLm2OBFZHOhhQpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793804893;
+	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=KEA9bue78qat7JBy8LiBpNpoByZQDXeNWudllgh2GWI=;
+	b=BWADlS62Q0mtYQnKDTsvI9bua9M7WUNigx04GTAW68Pvw+sG+vxhb43mxxJxURmvdliy
+	 6uafSVl9KlCI8jDl9nJeaJ8U40eg2zdtkyZB/C2pOP1mXe0tDUJ5LBcsaADJ6TFylVDgi
+	 OXoHssH0T4OP6QGz9zhNPf31mBfP6ePNK5q5QnnMAct6BN2jaQmKMux3zW/PXRBCI8STY
+	 LYoLJY76VlBl+ZWVzzBJIzcIygUcTGu7ln6JxWMYzk84psMC4HQLfKuuCjDrp0LSq4IeR
+	 Ir/FsMERg8KOsdbzK7c0DItPChHz+U8a5CQyh+VG9lFhL59VdEE53sxKdp2b6Gsh94w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kernel.dk;
-	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=KOx9SHdU;
-	arc=none smtp.remote-ip=209.85.161.41
-Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com [209.85.161.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84DEC606D80D
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:07:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84DEC606D80D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=KOx9SHdU
-Received: by mail-oo1-f41.google.com with SMTP id 006d021491bc7-6de2f213b7aso364849eaf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 07:07:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793804852; x=1794409652; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=52M0Mx3QqLQFvHEpAisibJWPHYozvMJfANyGg7k/AzQ=;
-        b=KOx9SHdUEll96Op2QsIzCBrIWWCmZ2+ruKEdyzkwfLr2LjnDrSJIV4Ay9x00LI/xDj
-         eAB4pYrp3HN1ACvtIv8hAR7KIr3wdGmByYgXxUn0nrT2Zz5Hv9gxFWGrNl4ryqg9U/Dh
-         5cQC77vJkN3xKzbs9h2/y2/o9Tnddr3FsL86inDGwNQSzTPfE76upOHgw7mzAc2GXfGS
-         GWQyCmRGzR7/y0LupP7NQalHleWahuN6h/3rtQZeDG6dLNO2mPcziU2U0xTUb4NjL+80
-         yVEtPauJFpSjvnaRpCLFcWS1f3bwVu64DfY5zzrTSTAqKvNzcLFIL7hJF1lJWwv5Lauo
-         hFbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793804852; x=1794409652;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=52M0Mx3QqLQFvHEpAisibJWPHYozvMJfANyGg7k/AzQ=;
-        b=QEuKvacXr0OZS4lUCQ64GmfXXyLUUqfWdLcNOiPx+9ia58EdaPpkB7QPKiC9ioZVLB
-         n0w3HjKWRhmpQqL/5wUdIX0ZT1NtY6CnT8pNKjcQSpejJTWzIZ6Wxcxgee9vZlow/Wmw
-         RLeS7wdWtpcZjTURfTajihOH2dcqz3ePVTDI572jB/he2kjllxksmR8i+P5cRgH3mnh9
-         LL+ZqcU+iCA99GZyZbEdLRG8crKeg+/+nHPBLzp8YV8jsfP5XKu2mO0LynXz9ANUSDVj
-         nY5WhVpUxn5e+0qL4kTgg+u+R/eDSgsP/ZTlgxw/L+ApyuHUvmPRnVR0oouTYrJzdKfz
-         dPng==
-X-Forwarded-Encrypted: i=1; AKwUvBxkU1XKtRkPsea/StySzJEedS2a8rikoHJDlWJwOA0C7ru/h6/Iq+CHfimFlInXyDxobmCyobk7R3O/hSc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/BiDJQnw0wz4Pa1vc8ditDf2AaDdun9uQKG2EOnbQnz339nqPi
-	1V+4USyHBd+mLdcTsV/pHPrghI9JweEnCPeiXR3rEjik+gI7Lt2Jd2iD/WfChDfVYRw=
-X-Gm-Gg: AYBFou23abB85ruZCaoeux+da8c/fe6lLFf49wXpSP3OsLOgmAzojqkV21t2aPKXfdy
-	jHtiutpja8cnjr0JNEXtNcrHFNZMsI5aYs6Ow8MGIPecSvtqdM2c7AhQY/9Fyr/QkCBzVVas0NA
-	qMe1m16US18le7hYpOklX6N0kt3pnsZQLQV2K6YtzCfKHNCRzYok+G4wPBv8VRjZ1L/MvsG5E+c
-	2wpIzvh4seIj8AO3ztjOTPBIyWId4lp++3i23gMxUIGuDXbhi3rfaJ8snWi7+han2/ncnuFI9VC
-	xMQpSj14xF+qwWckRj6mnvDrhvNIwjlRfIhPPgf/O3CM6bu8tO3N56qkR/qwFV+Dh/2YkfMamFR
-	ieKGEqgvl2on2T/gO7uROpU9IK2wqYjazKBVIc357EmXaDiIXEoARRRTOXHGfrpE6laLhKREpUe
-	YU3GRcKaUwQDlDRo1YnsjNnBJfbQULAjbIVPm3qWNHK5bw0xpm7I2BI7xf8nbLynBwsWvyKl7vi
-	kQ9jUzNYwn5mNl+BuRc+ncfnbayJGf9Ayy1qOg21iPIAsUwTiGn5hdhRMyUYt8TLID9HNyG0NzY
-	2+J8cbGJjaUxbFJo+f/jzc8RU9jhpOzPF/eD4jNzJ3p6Ietn6jPeaXJDoM2+shNG5Ps+i+O++f5
-	I+wtAysLiTA==
-X-Received: by 2002:a05:6820:a284:20b0:6f6:61c5:d929 with SMTP id 006d021491bc7-714f29beb3emr6788172eaf.38.1793804852411;
-        Wed, 04 Nov 2026 07:07:32 -0800 (PST)
-Received: from [192.168.2.38] ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-716c0cdb22dsm1886033eaf.0.2026.11.04.07.07.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 07:07:31 -0800 (PST)
-From: Jens Axboe <axboe@kernel.dk>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Pavel Begunkov <asml.silence@gmail.com>, 
- Breno Leitao <leitao@debian.org>, io-uring@vger.kernel.org, 
- Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261104144623.3803717-1-sashal@kernel.org>
-References: <20261104144623.3803717-1-sashal@kernel.org>
-Subject: Re: [PATCH v2] selftests/io_uring: cast optval through uintptr_t
- in mini_liburing.h
-Message-Id: <179380485099.4021488.15926225621505501263.b4-ty@b4>
-Date: Wed, 04 Nov 2026 08:07:30 -0700
+	dmarc=none header.from=hust.edu.cn;
+	spf=pass smtp.mailfrom=hust.edu.cn;
+	arc=none smtp.remote-ip=52.187.6.220
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D73F8606A328;
+	Wed,  4 Nov 2026 15:08:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D73F8606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
+Received: from hust.edu.cn (unknown [172.16.0.52])
+	by app1 (Coremail) with UTF8SMTP id IAEQrMBmL2tXSutqynMAAA--.3192S2;
+	Wed, 04 Nov 2026 23:08:07 +0800 (CST)
+Received: from [100.81.40.43] (unknown [10.12.191.55])
+	by gateway (Coremail) with SMTP id _____wDnnzhUSutqcogdAA--.20688S2;
+	Wed, 04 Nov 2026 23:08:06 +0800 (CST)
+Message-ID: <e300822f-acc6-4e25-a2a8-00eb0ab7ea08@hust.edu.cn>
+Date: Wed, 4 Nov 2026 23:08:04 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,29 +45,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] docs/zh_CN: fix stale :Original: reference in
+ xfrm_proc.rst
+To: Weijie Yuan <kernel@wyuan.org>
+Cc: =?UTF-8?B?UsOpbmljaCBCb24gwrRDaXJpwrRj?= <renich@evalinux.com>,
+ Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Bagas Sanjaya <bagasdotme@gmail.com>,
+ Steffen Klassert <steffen.klassert@secunet.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260920073144.546566-1-renich@evalinux.com>
+ <78d0a4ea-d621-4408-8efd-d8c9bb1f6841@hust.edu.cn>
+ <autEFEW15g5I0oVT@wyuan.org>
+ <a4e6c559-5e7a-4c7e-8475-6f1970d8f3bc@hust.edu.cn>
+ <autIHApRGasgTCXO@wyuan.org>
+From: Dongliang Mu <dzm91@hust.edu.cn>
+In-Reply-To: <autIHApRGasgTCXO@wyuan.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:IAEQrMBmL2tXSutqynMAAA--.3192S2
+Authentication-Results: app1; spf=neutral smtp.mail=dzm91@hust.edu.cn;
+X-Coremail-Antispam: 1UD129KBjvJXoWxAr4ktry3Gw1UKr1DtFW7XFb_yoW5Zr47pF
+	W5tF12k3W0v3WYyrs2gw48Za10q3W8uryYgF1DG3Wrtrn8tr1SqFW3Kr1Y9F1kur1kJF13
+	Xw42gF92y3yUAFUanT9S1TB71UUUUbUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUQKb7Iv0xC_tr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
+	v20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vE
+	x4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAaw2AFwI0_JF
+	0_Jw1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF
+	0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0EF7xvrVAajcxG14v26r
+	4UJVWxJr1lYx0E74AGY7Cv6cx26r4fZr1UJr1lYx0Ec7CjxVAajcxG14v26r4UJVWxJr1l
+	Ox8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r1q6r43MxkIec
+	xEwVCm-wCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r4fZr1UJr1l4I8I3I0E
+	4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_GFv_Wrylx2IqxVAqx4xG67AKxVWUJVWUGw
+	C20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48J
+	MIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMI
+	IF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2
+	z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0pbytUUUUU==
+X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
 
 
-On Wed, 04 Nov 2026 09:46:23 -0500, Sasha Levin wrote:
-> io_uring_prep_cmd() puts the optval pointer into the 64-bit optval field
-> of the SQE with a plain cast, which warns on 32-bit architectures:
-> 
->   mini_liburing.h:272:23: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
-> 
-> Cast through uintptr_t, and include <stdint.h> for it.
-> 
-> [...]
+On 11/4/26 10:58 PM, Weijie Yuan wrote:
+> On Wed, Nov 04, 2026 at 10:46:19PM +0800, Dongliang Mu wrote:
+>> On 11/4/26 10:41 PM, Weijie Yuan wrote:
+>>> On Wed, Nov 04, 2026 at 10:32:43PM +0800, Dongliang Mu wrote:
+>>>> On 9/20/26 3:31 PM, Rénich Bon ´Ciri´c wrote:
+>>>>> Commit 03e23b18c720 ("net: Move XFRM documentation into its own
+>>>>> subdirectory") relocated Documentation/networking/xfrm_proc.rst to
+>>>>> Documentation/networking/xfrm/xfrm_proc.rst.
+>>>>>
+>>>>> The Simplified Chinese translation was not updated accordingly,
+>>>>> leaving its :Original: tag pointing to a nonexistent file and causing
+>>>>> tools/docs/documentation-file-ref-check to report an invalid reference.
+>>>>>
+>>>>> Update the :Original: path to point to the new location.
+>>>>>
+>>>>> Fixes: 03e23b18c720 ("net: Move XFRM documentation into its own subdirectory")
+>>>>> Signed-off-by: Rénich Bon ´Ciri´c <renich@evalinux.com>
+>>>> Hi Rénich Bon ´Ciri,
+>>>>
+>>>> I have proposed a patchset to revise all the inconsistency between the path
+>>>> of Chinese translation and English documentation and these invalid original
+>>>> fields.
+>>>>
+>>>> Please refer to this patch - [PATCH v3 8/9] docs/zh_CN: update
+>>>> networking/xfrm/xfrm_proc.rst translation
+>>>>
+>>>> https://lore.kernel.org/all/c641a11c-39c8-40c4-b162-10f3a3db57ff@linux.dev/
+>>> Ah, I haven't had a chance to look carefully at your series yet. Then
+>>> this patch can be discarded in what's-cooking.
+>> Haha, what's-cooking is really a good place for me to catch up all my
+>> missing patches.
+> Thank you!
+>
+> https://buding.wyuan.org/ is an experimental dashboard for us which is
+> made weeks ago, but obviously it is very rough. So now I feel that
+> what's cooking is somehow enough for us, as it seems more robust than
+> web app. ;-)
+>
+>> It seems all patches are reviewed, but some are waiting for the authors to
+>> revise.
+> Yes, thanks for your work!
+>
+> Oh, btw two of my rerolled series are waiting for your review, but I
+> think they are both good to go, while I'm certainly biased. ;-)
+>
+> * Weijie Yuan 2026-09-05
+>    [PATCH v2 0/2] docs/zh_CN: update maintainer/configure-git.rst
+>    [PATCH v2 1/2] docs/zh_CN: sync maintainer/configure-git with upstream
+>    [PATCH v2 2/2] docs/zh_CN: improve maintainer/pull-requests translation
+>
+>    Needs review.
+>    source: <20260905-configure-git-v2-0-ab194db8c6b9@wyuan.org>
+>
+> * Weijie Yuan 2026-08-23
+>    [PATCH v2 0/5] Update maintainer-pgp-guide.rst Chinese translation
+>    [PATCH v2 1/5] docs/zh_CN: update maintainer-pgp-guide translation Weijie Yuan
+>    [PATCH v2 2/5] docs/zh_CN: clarify free Nitrokey requirements Weijie Yuan
+>    [PATCH v2 3/5] docs/zh_CN: update maintainer-pgp-guide kernel.org link Weijie Yuan
+>    [PATCH v2 4/5] docs/zh_CN: add kernel.org trust repository reference Weijie Yuan
+>    [PATCH v2 5/5] docs/zh_CN: remove empty proofreader field from maintainer PGP guide
+>
+>    Needs review.
+>    source: <20260823-maintainer-pgp-guide-v2-0-bea33b2ece54@wyuan.org>
 
-Applied, thanks!
+Oops, I will review them ASAP.
 
-[1/1] selftests/io_uring: cast optval through uintptr_t in mini_liburing.h
-      commit: 699e7ba5915c8b2c76e257e157464f2bfe7ab8bb
+Dongliang Mu
 
-Best regards,
--- 
-Jens Axboe
-
-
+> They are revised per your guidance.
+>
+> Thanks!
 
