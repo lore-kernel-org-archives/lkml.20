@@ -1,103 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.175
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793822671;
-	b=bQWUfmvDYNFDwfyqejYSMCZNjnWUyReP9A42AAKcyDisivf/ulD1FkQmQM8Oyjl3HJDM
-	 tIyXSF+42kqyoAKnFbAE9LCl0uwO1fwJwBQXxAKi0UVw//Kpesa+nemvKkO/1/BTUSg19
-	 sa1hGV1qxxDZNJYF8MrLIAQDB5wef61mEO7oKEPLOsxsjZCDO1wmjtr1jdVVk1StZYePZ
-	 9uwPcZkv6ciN3fu7eNBVji3YQfRCb4D1jQDhJxlvFYbUCjrCIpAj3cqG9gRfTmZKJWdD8
-	 mJUSpkC3ykPD1UWxXWCrXPSe6EErYBNmlJd8Q+zS+vXEREyKJD52EyhCdmqFURPGPAA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793822671;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=mAUYa7DsnYJVWK5uXvFQ0zTldnyeSGGQ67HR5sn+wb4=;
-	b=I2bQiyE7vsc1sKTEI9P61oW8EKmaR2kdJSUZGhRBfsK0N0zQIKGo1b5YtDXwQYFa9aag
-	 Snnv/dI9yKyyjwDTPqjMyKkDbWcxCfq70BZIQHeZ2G8rBgFwm4MV6DyauAC2Lrk/74QQL
-	 JuKuR8+dByGVaL852JEO7Xt/4gSF3qaKMb/jduttKHp7Z+qUDFjW1JJYKz0CdyuQQ60SS
-	 8641UfmPUOCT+PLUU+i/IP4T/gp5/lp16h2Eai+f2RNavE4MP6XOxuWLIJaLXR8PQ1FET
-	 SxprkdoTWLfqfPxZ2F5l7gOm9nlj9GNU4hwp91XjXNDZTy2yjAilglWCMclUUpOla1Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iIGQtM82;
-	arc=none smtp.remote-ip=209.85.208.175
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com [209.85.208.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793822673;
+	b=3eJTtVWfLGUzt1To6/ifAJwjP+yV8ttYt86NXiwv9dNwk7KEQ4BuV3Ee50Nfv3wo3ksJ
+	 HqlrOAyHwlityEUBqVkUUX8if7UOLLKV7gv7zyLMLILRK6p0x9lwskTrfFMJ2IM/AjeDA
+	 JQSISTpJULptSlEePmb39RRg6jvT2WZp2fa8yeDNGX8WV0WKJL7wasSB5zKiD44WNXLjF
+	 wKEZPyHmEoeYXRxKutALd1b2Cv6eAW55RJoMT4QQusOsWy8k8DR7rGeGddqTd3WXmn1R3
+	 4vZaDuUKLfTAWFb4hGNOMbts7EqEmLs0VIZh+1fcmTEBg88rf53IYvjn9JZl/xypfag==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793822673;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=7+EiWiz3feVVzZelhpEeXamyojpdVGy724VHtLnzFx4=;
+	b=DwqidAUrWCAhlZmhT6vv0pu1dPWa7x3Hy8NDejlcpSehdJrkgyuqXdzo+ceI5E4xwjzb
+	 flirZaZPzvdZDoQPUEMEwxQfqagkE4Do5/wJvnhmXDUV8KWmV1+wr9hwvpMU694ZqtLCj
+	 odhKr5jmVjuWydRv204144qBnQs9yIByJN4J+sSL+sQc5cul/nHjoO8BUKR73np0nv9O2
+	 lFsLfz5rj77CVnloOTNCOL+/2DAkI+BLpTto1koS6cEIrI9rOqwpRFHDGT/maoSRTIya2
+	 pnIj9ZRorbXh49gvYJtJ83xXHEPXV2Z+CJ2DfsoIvlo+h0V2flc8E/5DaJiC0c7XltQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="XhRfVf/u";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.53
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012053.outbound.protection.outlook.com [40.107.200.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6650C606FAC8
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:04:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6650C606FAC8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41629607A962;
+	Wed,  4 Nov 2026 20:04:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41629607A962
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iIGQtM82
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3ab39af88aeso14371161fa.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:04:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793822670; x=1794427470; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mAUYa7DsnYJVWK5uXvFQ0zTldnyeSGGQ67HR5sn+wb4=;
-        b=iIGQtM82BiNLyonv+Vl1VspuOaMrUC9/Ps8jkarVh6KbuKTW0cgRyFG3800Y8PBh94
-         0O1TWzSF/QTQci3Jk8AyntkfwTrPK+ONyfVuEcW5cRCww6IwspuYxE6yDuZO/To2EWNB
-         SExxL0YrZIYwTAFcBxjHG/uRDjSNW/mA7AME+Q3Z7c7217QIh1j0Ie9cf+jgYRxX6wn3
-         0CP8WkGxtJawP+paRtQYxDz+iqhcbKsDOFdDCIiSrryfAUVwYa7zt0xC2AbpU3KnJCHW
-         P9MGnd0HI+2n2KJKUS6Mvd95vktqGYhifeMI/55MUHToq+3/nMCk15kwgFdTtDAF0d0k
-         l3RQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793822670; x=1794427470;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mAUYa7DsnYJVWK5uXvFQ0zTldnyeSGGQ67HR5sn+wb4=;
-        b=l9b91HlHlCI9Srdl8SuwWxHSjOeRror6UWbfdYbWcP81zbSiyMTSja16bxosflRQnI
-         zmXCugzk3rEop1R4un3nRwCknET8wmSqzKvwq1vusdsIMeV2lEAM5n0BCcip5sVplm1X
-         6Z/hxXCug+yLqyvF1Ej5lwVG/X6Ow6tETspzURhtu+ZfLCxSYATe5OB0adXczkJOif8e
-         zFMXek5QDb9YiBXNjz75btl6ggCyHnngH7CvjJ77be5caudJOp0SLXaqqSXnwSrH69RW
-         Yhc+6s1q6R1LWjY8/KcMPPwiKLF1VsSxAa7+vv2LOBnQ8K4bIrmXmEPJ3HulHMlT39Fn
-         Pe3w==
-X-Forwarded-Encrypted: i=1; AKwUvBzpoZaO3h5siACuayCytyqxl5KDubQkxZEdK+kmOtWROw99Hv8orcpGniVLxNLpag7gYPxS5lZ0wy746+A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/DRqcbgSEJs0gpT/y1pvUTwhEfQq8uLD5iL835aUA/+id4s4vP
-	2gjmQJ8DcrebQtpmsF7ffSHb0x6hZPaU8XeUJcq4JpN511tlIOVIUQNv
-X-Gm-Gg: AYBFou1eY2XWrKEYinEok8jsQyA13D1SDUB8O7W6BNcQaub2+HF0qGTsZLU6YYnET9B
-	YlvrH199oIMc79cHx7CFzwPHONoTQYJvkA8HIXKVRrEyNEyvpBKr79DJHAJOMDP0BF1yuTd3cGB
-	Otf4pO9lsQNLYn2Uu3QB9OSVM7llPllHW19Vvzw6U2WNvoYRDiNur6Q05rCzXaIkkdT9KCMiE8M
-	yh9XAS9mPAN0fMgduBRZMbhxr8SP3h3/hQ17jSlNA+KrKWRiED+AZ5YGCs20Z29kbDie6IEywLy
-	H3ny68BkWorxtm7DHMORDyFi3vMHvwNn/jMG7XvQ/pBjT2k5ESqh+EakKJVxb+lyPnRQ7WYAsnO
-	BbN6it/q1OUs4Rwv73TAMcVFGWtm6WBikxI/Dy09v8GF7HTXVu+BN6GH5TRlszlHgBzBq00Uzyi
-	RjvKWaZ+dVHllzBa4IsYyl7pW7Lr6CtBW4+gFFkzxOV5+hxLhSi+tmoy51lk7k2/kOAZdzlRxAt
-	/ugRJHCCmfxAtBUjbHQwUFzxx4IgwzgTd6AGBt9eCR9jl8uqYOcoSIC/nUv3G8O1wL/13Np1Zrf
-	oiEmPlSilllWZvtR8tYjOWjYkhHOd2GoH4swleLMPtytz6LWf3A=
-X-Received: by 2002:a05:651c:43d1:10b0:3ac:cf09:d6ff with SMTP id 38308e7fff4ca-3accf09d9c0mr17250161fa.24.1793822669498;
-        Wed, 04 Nov 2026 12:04:29 -0800 (PST)
-Received: from gentoo ([95.55.209.127])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3acdc6e9b60sm5848021fa.35.2026.11.04.12.04.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 12:04:28 -0800 (PST)
-From: Yaroslav Dudkov <aroslavdudkov622@gmail.com>
-To: netdev@vger.kernel.org
-Cc: dsahern@kernel.org,
-	idosch@nvidia.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	shuah@kernel.org,
-	weiwan@google.com,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Yaroslav Dudkov <aroslavdudkov622@gmail.com>
-Subject: [PATCH net v2 1/2] ipv6: ignore link state in gateway check
-Date: Wed,  4 Nov 2026 19:56:54 +0000
-Message-ID: <20261104195655.1406837-2-aroslavdudkov622@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261104195655.1406837-1-aroslavdudkov622@gmail.com>
-References: <20261104195655.1406837-1-aroslavdudkov622@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=XhRfVf/u
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BraHKOtDbwpTxb9Y7/VIxV6LIno2Gp0aJ0O1Kkl6d5CVe+t0Nbtkj3wYz2jpLSIKf6j3IcI/jetSjsX06vE6xOObJShQAyC3UyYSCcZl4g4Nx3boufXTLdskgTixNoLAs/hvC3Z4RcCkihN1E+VwgUAzQG3OJRqlL5BsfMQGucht2dQoEAqO6Is/fltm/2wBpBplenb6O4tms7skW92sLbqGoxcEJrNfclHGoK9/TlBLpQmOZwWKHpWPTDoOJnkiVUindQOwshKgP1X/8x8CdcDkQS+8z59PmyMjIkQScinCt54o1EXQZuWaenMfd1GmrEiGEJuyWu8EPhkSROk2qQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7+EiWiz3feVVzZelhpEeXamyojpdVGy724VHtLnzFx4=;
+ b=cQV8ouhvy8guLTZGL2F3zDQgQ51Q4aAaCCL0VnVOfR3ZK/Yv/jJZywOzOXf1tHRFvN5CSSyjweCOsQ0f0qE1yYVV4965UKzLumJvjMZ73/hzjBO8AkCWZbwA9Ry6liIsWgv4C0lTnVqoBs18pwKLCXBMhnEsaO0dJgp5417yLkfidZ8Kn2cX077RpvzL21iqk/NStkD3Cy2Z3pjeirnjrtanmUJg4qQ46dpj8Z0WzhJ1wGfdi1fXP37rui8w08LeTrkWZafrLhhn/Kc+CJlJA0giTm30aDvxdWg2e0laH+vkvhiupPC7hLR/AUvcl/+uU28+1yd9vHBlTvizR0Ol+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=arm.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7+EiWiz3feVVzZelhpEeXamyojpdVGy724VHtLnzFx4=;
+ b=XhRfVf/ukRkoVz9deqcEE/IMOKETJCalZ0VeRMYH/IsSurawRwOO/ilvHGm5yAoFOkt6XvcTz76WPE/HlB2UzpCyd917iELhx0SXnNe9OA34gQYudVLYXqaMQVsMl6bdQVif7zZnrPbzqCLYKTQhed7b4Ou1sfBl5/z+AJ4qhwyXZZtSIIvUULIp5rng/GHG3pHIYZ8OQJ4WuHPxDtXLvTwAxCj1izAqQhoHR/sNVvcuxLu9xqxuL5eOnJk8Jg2o8DpeoCHf3RiTvyWC583NhMUCfa5RXskH4FTB7XndMjfqeYREQ7sImUPnI1dGcx2Ixp6nM+/H5lKTLJ8I59fI5w==
+Received: from CH0PR03CA0019.namprd03.prod.outlook.com (2603:10b6:610:b0::24)
+ by CH3PR12MB8910.namprd12.prod.outlook.com (2603:10b6:610:179::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
+ 20:04:26 +0000
+Received: from BN7PEPF00000091.namprd03.prod.outlook.com
+ (2603:10b6:610:b0:cafe::70) by CH0PR03CA0019.outlook.office365.com
+ (2603:10b6:610:b0::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Wed, 4
+ Nov 2026 20:04:26 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ BN7PEPF00000091.mail.protection.outlook.com (10.167.245.69) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 20:04:25 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 4 Nov
+ 2026 12:04:01 -0800
+Received: from [10.191.53.38] (10.126.231.37) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 4 Nov
+ 2026 12:03:57 -0800
+Message-ID: <c9f66683-7902-4b5c-9f76-c55b1894ce9c@nvidia.com>
+Date: Wed, 4 Nov 2026 21:03:54 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,94 +104,293 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 RESEND 3/6] firmware: smccc: lfa: Register ACPI
+ notification
+To: Andre Przywara <andre.przywara@arm.com>, Mark Rutland
+	<mark.rutland@arm.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, "Sudeep
+ Holla" <sudeep.holla@kernel.org>
+CC: Salman Nabi <salman.nabi@arm.com>, Vedashree Vidwans
+	<vvidwans@nvidia.com>, Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
+	<vsethi@nvidia.com>, Varun Wadekar <vwadekar@nvidia.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, "Rob
+ Herring" <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, <devicetree@vger.kernel.org>
+References: <20261102165421.3651202-1-andre.przywara@arm.com>
+ <20261102165421.3651202-4-andre.przywara@arm.com>
+Content-Language: en-US
+From: Nirmoy Das <nirmoyd@nvidia.com>
+In-Reply-To: <20261102165421.3651202-4-andre.przywara@arm.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PEPF00000091:EE_|CH3PR12MB8910:EE_
+X-MS-Office365-Filtering-Correlation-Id: 052fd0e5-062f-4edc-71fd-08df3aaed38d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|23010399003|36860700016|7416014|376014|6133799003|22082099003|18002099003|10067099003|3023799007|56012099006|261022115727099003|11063799006|5023799004|4143699003|261028144727099003|261022105027099003|261026140227099003|261026121527099003|261009223027099003|261021121427099003|261021123027099003|261102123227099003|261022075727099003;
+X-Microsoft-Antispam-Message-Info:
+	7lR99gCBEv0N/IZx6DI5gUnd5UIcQD4QiqHHNSBwU0/ZgsoSNsWYKgBmHL9GC/ylgreZaEv2SUOOJvrpa0CiAuAl5ow+olSe27ABZPa1ccmqLh4yGCOFejHeaRDkWwnqkZpLZBvyJuFT6JFYcSFlKs6RTSFnUu1sOQ1hpQG+XjhVO9rCJisT+yh9BD3dohi8qIF2xktlUAnTSJeLvW+MC75qGFGy3G4dc73xVbdmCz1dYll9Nby0bCyxR4J8xnyR8+TfB83tAcxm79Ju6JhCiUAuFil1DUOzVszL3IgVgvFIEWgqqVNDtIjwm3a9jIJyV/9SI4+ad5Z3bogrVHJEXPQJu2ut+VJFTDKVajdo0Kaa7+syIbHglroanZn6JJluzj0nPQ44e2vvcIyIx8EwfOMI5orlVbmTcKYU8DRBkmRo+45Q0BB546EuXkX06oEzHOJFRSAtTJO4362SbReYvHruTgXyRmPFWeBSA8OzQTjLFRInuWxva82GqjaTOa3NNSJC65kS2BDCMDu0IwIAC+0HMv9OeUwpX0L3sbOuFLM0Aq6goYQOn7XxGJQ8Ydp1QaFkwIhzk0vlEaXqFhaQ6U4Rr0zwVs6BJgWkByFeVfkQXQaTMsA4fBU/i/nvqytl0UIZk0xQqgi6JZywphz1kGrdV7IUuQhmvkVKhcY2WVcriy/oRQBZFthtXQLyplWHTeto+U52cRFjtscPQZH3TQ==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(23010399003)(36860700016)(7416014)(376014)(6133799003)(22082099003)(18002099003)(10067099003)(3023799007)(56012099006)(261022115727099003)(11063799006)(5023799004)(4143699003)(261028144727099003)(261022105027099003)(261026140227099003)(261026121527099003)(261009223027099003)(261021121427099003)(261021123027099003)(261102123227099003)(261022075727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	7jUihncIT7+ls4lBJuKs7hLC+3bzRuG2NBccNWGRSsTMhB8H9zDYQxPIxKliHRkH4rUEuQAjUM2aNJU8NHj/sgZ0/2luHLsbHsiLwWHMfkK3XF3Sn1jfGoijM0FHbKY+zEQJqRuawZ2tnZUxe2x3eZ1F/T5wi5f7BTqwNtKROwS1H9xWWJ+PtljOzu2uyDkurZKVQBwzmML6XE9iZTVuJPyM5GvEBIIwIma+p+ahIXyJ//23y+1U+CXT4ZxvJmLSE+Meyj4HVB/Qz5ymMlq/J81HJ6WSyyn/1yewTURCjpMPDN0PbApuEmNhSlvf47gvW5vwnK0cUXCS93wRjBhMOb2+QIb478HHWfbEfj1rDUbwHD6Ig/SAMadS7q0bYXb8dpHAl8vowVUeINNsnAiLAk/6AiDZ8b6urKTV/Xa8u3JF9CFmiFfF0fkdcTiSe1at
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 20:04:25.6206
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 052fd0e5-062f-4edc-71fd-08df3aaed38d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN7PEPF00000091.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8910
 
-IPv6 route cannot be added in table when all
-following conditions are true:
-- gateway is not link-local address
-- ignore_routes_with_linkdown=1 on device
-- nexthop has no carrier
-- gateway is not present or covered by any route in table already
-Also multipath routes addition is invalidated by kernel even
-if only one of added nexthops satisfies all above conditions.
+Hi Andre
 
-Reproducer:
+On 02.11.26 17:54, Andre Przywara wrote:
+> From: Vedashree Vidwans <vvidwans@nvidia.com>
+>
+> The Arm LFA spec describes an ACPI notification mechanism, where the
+> platform (firmware) can notify an LFA client about newly available
+> firmware imag updates ("pending images" in LFA terms).
+>
+> Add a faux device after discovering the existence of an LFA agent via
+> the SMCCC discovery mechnism, and use that device to check for the ACPI
+> notification description. Register this when one is provided.
+>
+> The notification just conveys the fact that at least one firmware image
+> has now a pending update, it doesn't say which, also there could be more
+> than one pending. Loop through all images to find every which needs to
+> be activated, and trigger the activation. We need to do this is a loop,
+> since an activation might change the number and the status of available
+> images.
+>
+> Signed-off-by: Vedashree Vidwans <vvidwans@nvidia.com>
+> [Andre: convert from platform driver to smccc bus]
+> Signed-off-by: Andre Przywara <andre.przywar@arm.com>
+> ---
+>   drivers/firmware/smccc/lfa_fw.c | 154 +++++++++++++++++++++++++++++++-
+>   1 file changed, 153 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/firmware/smccc/lfa_fw.c b/drivers/firmware/smccc/lfa_fw.c
+> index db2a7fe344d5d..4b4daf79611bb 100644
+> --- a/drivers/firmware/smccc/lfa_fw.c
+> +++ b/drivers/firmware/smccc/lfa_fw.c
+> @@ -33,12 +33,14 @@
+>    * skipped by setting the force_cpu_rendezvous sysfs file to false.
+>    */
+>   
+> +#include <linux/acpi.h>
+>   #include <linux/arm-smccc.h>
+>   #include <linux/arm-smccc-bus.h>
+>   #include <linux/array_size.h>
+>   #include <linux/delay.h>
+>   #include <linux/fs.h>
+>   #include <linux/init.h>
+> +#include <linux/kernel.h>
+>   #include <linux/kobject.h>
+>   #include <linux/ktime.h>
+>   #include <linux/list.h>
+> @@ -49,11 +51,13 @@
+>   #include <linux/stop_machine.h>
+>   #include <linux/string.h>
+>   #include <linux/sysfs.h>
+> +#include <linux/types.h>
+>   #include <linux/uuid.h>
+>   #include <linux/workqueue.h>
+>   
+>   #include <uapi/linux/psci.h>
+>   
+> +#define DRIVER_NAME	"ARM_LFA"
+>   #undef pr_fmt
+>   #define pr_fmt(fmt) "Arm LFA: " fmt
+>   
+> @@ -753,6 +757,135 @@ static void clean_fw_components_tree(void)
+>   	}
+>   }
+>   
+> +/*
+> + * Iterate over all FW components and trigger activation of all activatible and
+> + * pending components.
+> + * Since we would need to re-enumerate the list of all components after a
+> + * successful activation, and this could trigger infinite loops if a firmware
+> + * component still appears as pending, we create an array of update candidates
+> + * first, then activate each one of them.
+> + */
+> +static void activate_pending_components(void)
+> +{
+> +	struct fw_component **all_comps;
+> +	struct fw_component *comp;
+> +	struct kobject *kobj;
+> +	int nr_comps = 0;
+> +	int ret, i;
+> +
+> +	down_read(&smc_lock);
+> +	spin_lock(&lfa_kset->list_lock);
+> +	all_comps = kmalloc_array(list_count_nodes(&lfa_kset->list),
+> +				  sizeof(*all_comps), GFP_NOWAIT);
+> +	if (!all_comps) {
+> +		spin_unlock(&lfa_kset->list_lock);
+> +		up_read(&smc_lock);
+> +		pr_warn("LFA: automatic activation failed: -ENOMEM\n");
+> +		return;
+> +	}
+> +
+> +	list_for_each_entry(kobj, &lfa_kset->list, entry) {
+> +		comp = kobj_to_fw_component(kobj);
+> +
+> +		if (comp->fw_seq_id == -1)
+> +			continue; /* Invalid FW component */
+> +
+> +		_update_fw_component_pending(comp);
+> +		if (comp->activation_capable && comp->activation_pending) {
+> +			kobject_get(&comp->kobj);
+> +			all_comps[nr_comps++] = comp;
+> +		}
+> +	}
+> +	spin_unlock(&lfa_kset->list_lock);
+> +	up_read(&smc_lock);
+> +
+> +	for (i = 0; i < nr_comps; i++) {
+> +		comp = all_comps[i];
+> +
+> +		ret = prime_fw_component(comp);
+> +		if (ret) {
+> +			pr_warn("LFA: LFA_PRIME failed for component %s\n",
+> +				kobject_name(&comp->kobj));
+> +			kobject_put(&comp->kobj);
+> +			continue;
+> +		}
+> +
+> +		ret = activate_fw_component(comp);
+> +		if (ret) {
+> +			pr_warn("LFA: LFA_ACTIVATE failed for component %s\n",
+> +				kobject_name(&comp->kobj));
+> +			kobject_put(&comp->kobj);
+> +			continue;
+> +		}
+> +
+> +		pr_info("%s: automatic activation succeeded\n",
+> +			kobject_name(&comp->kobj));
+> +		kobject_put(&comp->kobj);
+> +	}
+> +
+> +	kfree(all_comps);
+> +}
+> +
+> +#ifdef CONFIG_ACPI
+> +static void lfa_acpi_notify_handler(acpi_handle handle, u32 event, void *data)
+> +{
+> +	/* The spec explicitly mentions 0x80 only for the update event. */
+> +	if (event != 0x80)
+> +		return;
+> +
+> +	activate_pending_components();
+> +}
+> +
+> +static int lfa_register_acpi(struct device *dev)
+> +{
+> +	struct acpi_device *acpi_dev;
+> +	acpi_handle handle;
+> +	acpi_status status;
+> +
+> +	acpi_dev = acpi_dev_get_first_match_dev("ARML0003", NULL, -1);
+> +	if (!acpi_dev)
+> +		return -ENODEV;
+> +	handle = acpi_device_handle(acpi_dev);
+> +	if (!handle) {
+> +		acpi_dev_put(acpi_dev);
+> +		return -ENODEV;
+> +	}
+> +
+> +	/* Register notify handler that indicates LFA updates are available */
+> +	status = acpi_install_notify_handler(handle, ACPI_DEVICE_NOTIFY,
+> +					     lfa_acpi_notify_handler, NULL);
+> +	if (ACPI_FAILURE(status)) {
+> +		acpi_dev_put(acpi_dev);
+> +		return -EIO;
+> +	}
+> +
+> +	ACPI_COMPANION_SET(dev, acpi_dev);
+> +
+> +	return 0;
+> +}
+> +
+> +static void lfa_remove_acpi(struct device *dev)
+> +{
+> +	struct acpi_device *acpi_dev = ACPI_COMPANION(dev);
+> +	acpi_handle handle = acpi_device_handle(acpi_dev);
+> +
+> +	if (handle)
+> +		acpi_remove_notify_handler(handle,
+> +					   ACPI_DEVICE_NOTIFY,
+> +					   lfa_acpi_notify_handler);
+> +	acpi_dev_put(acpi_dev);
+> +}
+> +#else	/* !CONFIG_ACPI */
+> +static int lfa_register_acpi(struct device *dev)
+> +{
+> +	return -ENODEV;
+> +}
+> +
+> +static void lfa_remove_acpi(struct device *dev)
+> +{
+> +}
+> +#endif
+> +
+>   static bool lfa_smccc_has_all_functions(void)
+>   {
+>   	struct arm_smccc_1_2_regs regs = { 0 }, res;
+> @@ -813,13 +946,32 @@ static int lfa_smccc_probe(struct arm_smccc_device *sdev)
+>   	if (err != 0) {
+>   		kset_unregister(lfa_kset);
+>   		destroy_workqueue(fw_comps_update_wq);
+> +		return err;
+> +	}
+> +
+> +	if (!acpi_disabled) {
+> +		err = lfa_register_acpi(&sdev->dev);
+> +		if (!err)
+> +			pr_info("registered LFA ACPI notification\n");
+> +	}
+> +
+> +	/*
+> +	 * An ACPI notification or an interrupt are optional, but we must
+> +	 * handle errors that occurred during their setup.
+> +	 */
+> +	if (err != -ENODEV) {
 
-  ip netns add t
-  ip -n t link add va type veth peer name vb
-  ip -n t link set va up
-  ip -n t addr add fd00::1/64 dev va nodad
-  ip netns exec t sysctl -w \
-    net.ipv6.conf.va.ignore_routes_with_linkdown=1
-  ip -n t -6 route add 2001:db8::/64 via fd00::2 dev va
-  # added
-  ip -n t -6 route add 2001:db8::/64 table 100 via fd00::2 dev va
-  # RTNETLINK answers: No route to host
-  ip -n t -6 route show table all
-  ip netns del t
+On successful registration, err is zero, so this condition still 
+unregisters the inventory and destroys the workqueue before returning 
+success. Should it be:
 
-Route should be added because:
-- RT6_LOOKUP_F_IGNORE_LINKSTATE in commit d5d32e4b7668
-("net: ipv6: Do not consider link state for nexthop validation")
-was added for this
-- the same route is valid in main table (when no specifying table id
-while adding route)
-- fib6_nh_init() initializes nexthops with no carrier
-- IPv4 already does this (fib_check_nh_v4_gw() ignores link state
-using the FIB_LOOKUP_IGNORE_LINKSTATE flag)
+if (err && err != -ENODEV) {
 
-Before commit b2c709cce682 ("ipv6: Convert gateway validation to
-use fib6_info") rt6_lookup() was used for checking if nexthop is
-valid, rt6_lookup called rt6_device_match() which does not check the
-link state. After change rt6_lookup() to fib6_lookup()
-find_match() under fib6_lookup() started to invalidate linkdown
-devices, because RT6_LOOKUP_F_IGNORE_LINKSTATE is not passed to it.
 
-Adding RT6_LOOKUP_F_IGNORE_LINKSTATE to flags for ip6_route_check_nh()
-solves the problem. RT6_LOOKUP_F_IGNORE_LINKSTATE is already used
-inside the first search ip6_nh_lookup_table() and fixes the
-bug in second search fib6_lookup(). Also RT6_LOOKUP_F_IGNORE_LINKSTATE
-isn't read inside fib6_select_path().
+Regards,
 
-Fixes: b2c709cce682 ("ipv6: Convert gateway validation to use fib6_info")
-Signed-off-by: Yaroslav Dudkov <aroslavdudkov622@gmail.com>
----
-IPv4 example of this situation:
-  ip netns add t
-  ip -n t link add va type veth peer name vb
-  ip -n t link set va up
-  ip -n t addr add 192.168.0.1/24 dev va
-  ip netns exec t sysctl -w \
-    net.ipv4.conf.va.ignore_routes_with_linkdown=1
-  ip -n t route add 192.0.2.0/24 table 100 via 192.168.0.2 dev va
-  # added
-  ip -n t route show table all
-  ip netns del t
+Nirmoy
 
-Also when adding RT6_LOOKUP_F_IGNORE_LINKSTATE to flags of
-ip6_route_check_nh() makes adding this flag inside of
-ip6_nh_lookup_table() unnecessary for this call, making another call in
-ip6_route_check_nh_onlink() with flags=0 the only place where it is
-needed.
----
- net/ipv6/route.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/net/ipv6/route.c b/net/ipv6/route.c
-index 94e5ef1c4f83..73d8a2c95602 100644
---- a/net/ipv6/route.c
-+++ b/net/ipv6/route.c
-@@ -3424,9 +3424,9 @@ static int ip6_route_check_nh(struct net *net,
- 			      netdevice_tracker *dev_tracker,
- 			      struct inet6_dev **idev)
- {
-+	int flags = RT6_LOOKUP_F_IFACE | RT6_LOOKUP_F_IGNORE_LINKSTATE;
- 	const struct in6_addr *gw_addr = &cfg->fc_gateway;
- 	struct net_device *dev = _dev ? *_dev : NULL;
--	int flags = RT6_LOOKUP_F_IFACE;
- 	struct fib6_result res = {};
- 	int err = -EHOSTUNREACH;
- 
--- 
-2.54.0
-
+> +		kset_unregister(lfa_kset);
+> +		destroy_workqueue(fw_comps_update_wq);
+> +		return err;
+>   	}
+>   
+> -	return err;
+> +	return 0;
+>   }
+>   
+>   static void lfa_smccc_remove(struct arm_smccc_device *sdev)
+>   {
+> +	if (!acpi_disabled)
+> +		lfa_remove_acpi(&sdev->dev);
+>   	clean_fw_components_tree();
+>   	flush_workqueue(fw_comps_update_wq);
+>   	destroy_workqueue(fw_comps_update_wq);
