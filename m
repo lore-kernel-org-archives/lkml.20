@@ -1,57 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793807139;
-	b=3q/1l91+Eefa7pJ/WxZl3/3Gwxht3amopUCICT09YF/DEd1QxB/Ns+57QJ9+3w1JcHxy
-	 AcDhMfIMMegRn7wffsaC8K6v2sOz1/1mXljU4D+guNSUsf9/hovVOnusVnDeHCns1x7xi
-	 KWfbMlEkr20vEjb41wNSsPBqHeGHI9ogYrZ9G8Gi3J+ZVWkZdGKREHi2RP+x6vv3+BGHO
-	 PvhdOz0/lAQVZzPVYVDE/7fv7EFGxabq4gynlT8fAUn0vaA4CPplMrT8vOi9ezyvXD7lc
-	 tdZSfDTQ8usTVbhlSmvNT5TDWfXaeTmAFmQZTWX2a3MgQFZVShOtuKSSCCsuzZ2lKUA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793807139;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=FUoaVMMjdNye+38KQ9tj7X+L8nPMvUdw6lAcT7+wOes=;
-	b=RX8BfDmKPoMjTUxQKpfYhKz5BQrRd6pj2+6IIvOghjpBrRfz3hh5N5ZuBTzF1P+Kvx4w
-	 CtEhkOEJtFZG9jyn8gPYeEAefIbFUFsO/HHkj/OnfnmwWwq6U5UKYbanYr5h9bNnTDMp8
-	 bhWRtQas9S56BePY4nhuBYhPQXZY/T405iw/oIOptIKdpHAtL+hhlnU+VD5C8O7QygrWn
-	 p+hJw+r0ZkLdSpldkc3CVyM0iW1NpAt5iy8MrCjHmqJDb+2yzC9DispL1X9AY9kxtQdk5
-	 tWClyefjtt4OTJHalEOQkrNay1u8mZU8stusippfIYqdogQchm7wHy0k/6wToo9ONLA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="cuvY/XDb";
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793807133;
+	b=wMxjfpDHB1otf4XH6Cuz7cNLSn+n3Slyli6IfetsEk1inC+CvZz0F6svOd8yG8SwmkUr
+	 scuYQAwsHcnQl+R+LILWfzs4dcZq5a1AkLDy2GxWNBLzRl3xYTi4gqG7VUxYIJd3I//I6
+	 afCZ759YE4xUFAxsDZynZzT3lqpaT6bIR6AcOQBAtkmgk4pYFq4eHqOr0L3hxh3JMljl8
+	 qsdsMMjjOEOAwcRmTrPeLVswpaJlyYwI+XpPp7QaQNH5N7FqLHQzMsPUkhFNHHrdR3pow
+	 Mf9ayoAsLD0bD/8Ml7Rp+wxosNaa8ej9+dwAd10djtwOCaTkxR2RN7RPd1Rc0p6U4aA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793807133;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=UiVPtKeFBCLtUIymmIehHatACUcvqVgmWR/Go0AACwI=;
+	b=cvjK95GGcuw+aSkBXVR/fKhzbD5T5yOG2Vp8zKeCX34/Cbjb8Xg7prKWhrH7gy9QM5Bv
+	 gmBtOeRhNGPEy6o+pUY9X/6NM9mZf137P2R0yrdAC+a6wKjXujwUIE5UDmhz41Xn+zOKH
+	 ZbDnIT5H51/OV7ZkPHTl3WzjLmTr0TFJeeOd9Hi4Qg3HPODsoQZapTxNOu5znEQskTNOt
+	 h958EOcVLzliNiHMAJDwJgsY16wmDSXt4TRPqj0hhPV8Rk5oe5y8Xn0eJvR47jA5kQu2h
+	 1tR3ivtIxPUrw9ISYACrLfS8mhF0exptvzcdYODrc+VkEAnXV+yBhVU+pMDvmhgyy8A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A9sILAcN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E929C606A31B;
-	Wed,  4 Nov 2026 15:45:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBB0C606A329;
+	Wed,  4 Nov 2026 15:45:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cuvY/XDb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51DA11F000C1;
-	Wed,  4 Nov 2026 15:45:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A9sILAcN
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793807132;
+	b=TgzacdaeK/6EZOeijGzWF43hO2d9BycWAEHo8mTvT8AdzOwFaDFrnQoeT/vwcuzu/whM
+	 OfXcLXBF7mkqYWsfrD/bF499W7BcCMt25ieZVV2u3VJXw+7c2omU+EeBMRxT/Me/EdZAI
+	 DLMspBlT/s0jRWGFaTDqQmzymlaxsapkEoZRZfOBFvfqMD4dJA5fxtVlqo4oLe+3oqVaL
+	 DoM8Awi6gErFwhUj1HIQxY85PGFeWtRBmPPdWdFhjcZV5pOan8BsY3ycL5Q4RrtqLnPdJ
+	 jeW5d3Ixb1WWZKzaPlrfWt9UWEkZO5mmtHXJLJmUEh7LrmD5OK/gVsffvZHFcx504kw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793807132;
+	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
+	 References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=UiVPtKeFBCLtUIymmIehHatACUcvqVgmWR/Go0AACwI=;
+	b=P3by71RdW6whUYoXwf6Ka7Pw2Jg587oitv2MptAEfeCzDQZz6bLP9dPQXIVcURcSYPkE
+	 0jtgO8Ms5PKvJQCt2fA21psIXd0A8Djgi5u+92WhPzgQ4ZhyBvafVqtSKkzCwHApVzy+X
+	 NwEWqUzf6tkDmrxUF/pxikwWkzdRoB4TDT1nkWwhnHscxkop8Vyz5SgEQ8/0ESOtB5J7x
+	 7E8wJfeXBcXsDEr64WfDV229njYUbhsRo/CIAyrBbcm2HSQZ7mMKZh9ChSU44vCFZgZDR
+	 bMlvoQW1wBlRPzuIv7kI9mMKkXLNpJMNv12JLhoeSOfp/2F9zGkOZTtE6ixfsGNjWGQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=90.182.112.124
+Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPSA id AA2841F000C1;
+	Wed,  4 Nov 2026 15:45:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793807138;
-	bh=FUoaVMMjdNye+38KQ9tj7X+L8nPMvUdw6lAcT7+wOes=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cuvY/XDbBixltHyNv93Ycz2rwNNLqf55yE/2u8QHeUamIr6uvFMHiZuUdh09dHWJz
-	 JE9ZMdXFaLh7ezv+FKDrTFqg4SVjCTyXMbM+7+Jctq3aDN5+FTnMMF70+N0gcfRHQ6
-	 lymGY2EbsL1DgEmBqAAOd1XLCFuZwFFyu+mVNQGl1w+KE/CdB9Oz3qDWt5xM3RR/JS
-	 2rjdSjYObTRzhMOwbRDMzZzAKVm2mVtxFfB5cCL+5vCKiIr9Y7lbZizqg6NztMFegK
-	 aFXeW81h/6Lp4U9dx1JHdsaAvLTfp6yyN6D7856Z4t71kO9kpubv+sZAIp4EsbRGav
-	 KFpWkKbqjWK7w==
-Message-ID: <sashiko-outbox-197536@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 11/12] sched/deadline: Rebuild the root domains'
- accounting without cpusets too
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
-In-Reply-To: <7ea39be6af23940c33a63002ea832838fe69bb9e.1793804635.git.mathieu.desnoyers@efficios.com>
-References: <cover.1793804635.git.mathieu.desnoyers@efficios.com>
- <7ea39be6af23940c33a63002ea832838fe69bb9e.1793804635.git.mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 15:45:37 +0000
+	s=k20260515; t=1793807132;
+	bh=UiVPtKeFBCLtUIymmIehHatACUcvqVgmWR/Go0AACwI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=A9sILAcNto+WkqHN6+Vt0XkYtC7US/rjEJy/HrhymlGP7L86tnQgY3JaeKky1MgWp
+	 cjTePnup+kQkppdakRFhaERWE0dXxamWBo5enoBroAQQBdKk/rjrOyqk8e6dg0xmRq
+	 rB3QLJfM9aush7056qxVE9F7huQSTZvKfrw1aL8/njV0X8CI9Ag132IIk57RoNOpEf
+	 r0ZRFg8OYPAFm5WLt+8CUBWTaW5oOqKWlKc/oTHmmzZJfouAiM7wWPs+IO2Owv8Btx
+	 mzYND3X87sp7db3TOgKD/8c62cuiGMbKA+TzHxkTRO1+4KeMN2TyH0MviLVsoX6kST
+	 nvvhA+8GkYW3w==
+Date: Wed, 4 Nov 2026 16:45:23 +0100
+From: Joshua Crofts <crofts@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>, Jonathan Cameron
+ <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, Andy Shevchenko
+ <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matti Vaittinen
+ <mazziesaccount@gmail.com>, Rodolfo Giometti <giometti@enneenne.com>,
+ Marcelo Schmitt <marcelo.schmitt@analog.com>, Antoniu Miclaus
+ <antoniu.miclaus@analog.com>, Angelo Dureghello <adureghello@baylibre.com>,
+ Tobias Sperling <tobias.sperling@softing.com>, Eason Yang
+ <j2anfernee@gmail.com>, Marilene Andrade Garcia
+ <marilene.agarcia@gmail.com>, Cosmin Tanislav
+ <cosmin-gabriel.tanislav.xa@renesas.com>, duje@dujemihanovic.xyz,
+ herve.codina@bootlin.com, thomas.petazzoni@bootlin.com,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] iio: adc: add driver for Texas Instruments
+ TLA2528 adc
+Message-ID: <20261104164523.00002cba@kernel.org>
+In-Reply-To: <autSKpnh0hORsYT4@ashevche-desk.local>
+References: <20261104125726.1754980-1-maxime.chevallier@bootlin.com>
+	<20261104125726.1754980-3-maxime.chevallier@bootlin.com>
+	<20261104145641.000070f2@kernel.org>
+	<autSKpnh0hORsYT4@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,213 +100,55 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] sched/deadline: race between dl_rebuild_rd_accounting() and sched_=
-dl_overflow()
-- [High] sched/deadline: BUG_ON() in dl_add_task_root_domain() when isolate=
-d CPUs offline
-- [High] sched/deadline: dl_get_task_effective_cpus() picks isolated CPU fo=
-r hk tasks
---
+On Wed, 4 Nov 2026 17:41:30 +0200
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-commit c1e57d1e06a701583f3de7582594314893352edf
-Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+> On Wed, Nov 04, 2026 at 02:56:41PM +0100, Joshua Crofts wrote:
+> > On Wed,  4 Nov 2026 13:57:25 +0100
+> > Maxime Chevallier <maxime.chevallier@bootlin.com> wrote:  
+> 
+> ...
+> 
+> > > +#include <linux/types.h>
+> > > +#include <linux/units.h>
+> > > +
+> > > +#include <linux/iio/adc-helpers.h>
+> > > +#include <linux/iio/iio.h>  
+> > 
+> > + #include <asm/byteorder.h> for be16_to_cpu()  
+> 
+> Yep, but please before linux/iio/* block.
+> 
+> ...
+> 
+> > > +static int tla2528_read(struct tla2528 *tla2528, u8 channel, int *val)
+> > > +{
+> > > +	__be16 data;
+> > > +	int ret;
+> > > +
+> > > +	guard(mutex)(&tla2528->lock);
+> > > +
+> > > +	ret = regmap_update_bits(tla2528->regmap, TLA2528_CHANNEL_SEL_ADR,
+> > > +				 TLA2528_CHANNEL_SEL_MANUAL_CHID, channel);
+> > > +	if (ret)
+> > > +		return ret;
+> > > +
+> > > +	ret = i2c_master_recv(tla2528->client, (char *)&data, sizeof(data));
+> > > +	if (ret < 0)
+> > > +		return ret;  
+> > 
+> > As rare as short reads may be, perhaps add a check whether the expected amount
+> > of bits have been returned from the device?  
+> 
+> Bits? You probably mistyped bytes?
 
-sched/deadline: Rebuild the root domains' accounting without cpusets too
+Ugh yes, I was in between meetings and rushed my reply. Thanks for catching
+this!
 
-This commit implements dl_rebuild_rd_accounting() in kernel/sched/deadline.c
-for kernels built without CONFIG_CPUSETS by clearing the root domains and
-walking all threads under tasklist_lock to re-add their deadline bandwidth.
-It also moves the declaration of dl_rebuild_rd_accounting() from
-include/linux/cpuset.h to include/linux/sched/deadline.h.
-
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index a8906cf966401..0ea902b9e5d09 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-> @@ -3668,6 +3668,28 @@ void dl_clear_root_domain(struct root_domain *rd)
->  		dl_server_add_bw(rd, i);
->  }
-> =20
-> +#ifndef CONFIG_CPUSETS
-> +/*
-> + * Rebuild the root domains' accounting, where no cpuset holds the
-> + * deadline tasks of each: they are found by walking them all, which
-> + * dl_rebuild_rd_accounting() of the cpusets does per cpuset instead.
-> + */
-> +void dl_rebuild_rd_accounting(void)
-> +{
-> +	struct task_struct *g, *p;
-> +
-> +	lockdep_assert_cpus_held();
-> +	lockdep_assert_held(&sched_domains_mutex);
-> +
-> +	dl_clear_root_domains();
-
-[Severity: High]
-What serializes this rebuild against concurrent __sched_setscheduler() ->
-sched_dl_overflow() calls when CONFIG_CPUSETS is disabled?
-
-With CONFIG_CPUSETS enabled, __sched_setscheduler() in
-kernel/sched/syscalls.c calls cpuset_lock() when entering, leaving, or
-updating SCHED_DEADLINE:
-
-	if (dl_policy(policy) || dl_policy(p->policy)) {
-		cpuset_locked =3D true;
-		cpuset_lock();
-	}
-
-and sched_dl_overflow() in kernel/sched/deadline.c relies on cpuset_mutex to
-prevent a rebuild from running concurrently:
-
-	/*
-	 * Back before its 0-lag time, the task still has the bandwidth it
-	 * left with, which the new one replaces: removed from the root
-	 * domain that keeps it (dl_task_release_bw()). A rebuild cannot
-	 * run meanwhile: the caller holds cpuset_mutex.
-	 */
-	if (!err && dl_policy(policy) && !task_has_dl_policy(p)) {
-		lockdep_assert_cpuset_lock_held();
-		if (p->dl.dl_departed_cpu >=3D 0)
-			dl_task_release_bw(p, -1);
-		p->dl.dl_bw_gen =3D dl_bw_gen;
-	}
-
-When !CONFIG_CPUSETS, cpuset_lock() and lockdep_assert_cpuset_lock_held() in
-include/linux/cpuset.h are no-op stubs, while dl_rebuild_rd_accounting() on=
-ly
-holds cpu_hotplug_lock and sched_domains_mutex, neither of which is taken by
-__sched_setscheduler().
-
-Without mutual exclusion between dl_rebuild_rd_accounting() and
-__sched_setscheduler(), can they interleave and corrupt rd->dl_bw.total_bw?
-For example:
-
-1. A task entering SCHED_DEADLINE calls sched_dl_overflow(), which adds
-new_bw to dl_b->total_bw under dl_b->lock and drops dl_b->lock before setti=
-ng
-p->dl.dl_bw_gen =3D dl_bw_gen and before __setparam_dl() updates p->dl.dl_bw
-and p->prio. If dl_clear_root_domains() runs in that window, it increments
-dl_bw_gen and resets rd->dl_bw.total_bw to 0 (wiping out new_bw), after whi=
-ch
-sched_dl_overflow() writes the new dl_bw_gen into p->dl.dl_bw_gen. When
-dl_add_task_root_domain() later visits p, it sees p->dl.dl_bw_gen =3D=3D
-dl_bw_gen and skips it, leaving new_bw uncounted until p exits and underflo=
-ws
-total_bw.
-
-2. If an existing SCHED_DEADLINE task updates its parameters after
-dl_clear_root_domains() zeroes total_bw and before for_each_process_thread()
-reaches p, sched_dl_overflow() adjusts total_bw by new_bw - old_bw without
-updating p->dl.dl_bw_gen, __setparam_dl() sets p->dl.dl_bw =3D new_bw, and
-dl_add_task_root_domain() subsequently adds new_bw a second time.
-
-3. If a task switches out of SCHED_DEADLINE after dl_clear_root_domains() h=
-as
-walked dl_departed_list and before for_each_process_thread() visits p,
-switched_from_dl() moves p to dl_departed_list and clears its deadline
-priority, so dl_add_task_root_domain() sees !dl_task(p) and drops its
-bandwidth before its 0-lag time.
-
-4. Between dl_clear_root_domains() and the end of the tasklist walk,
-concurrent sched_dl_overflow() admission checks evaluate __dl_overflow()
-against a zeroed or partially rebuilt total_bw.
-
-> +
-> +	read_lock(&tasklist_lock);
-> +	for_each_process_thread(g, p)
-> +		dl_add_task_root_domain(p);
-
-[Severity: High]
-Can walking all tasks with for_each_process_thread() trigger the
-BUG_ON(cpu >=3D nr_cpu_ids) in dl_add_task_root_domain() when CPUs isolated=
- via
-isolcpus=3Ddomain are taken offline?
-
-In kernel/sched/deadline.c, dl_add_task_root_domain() computes the effective
-CPU mask and checks BUG_ON(cpu >=3D nr_cpu_ids) before checking
-p->dl.dl_bw_gen, p->dl.dl_departed_cpu, or p->dl.dl_bw:
-
-	raw_spin_lock_irqsave(&p->pi_lock, rf.flags);
-	if (!dl_task(p) || dl_entity_is_special(&p->dl)) {
-		raw_spin_unlock_irqrestore(&p->pi_lock, rf.flags);
-		return;
-	}
-
-	msk =3D this_cpu_cpumask_var_ptr(local_cpu_mask_dl);
-	dl_get_task_effective_cpus(p, msk);
-	cpu =3D cpumask_first_and(cpu_active_mask, msk);
-	BUG_ON(cpu >=3D nr_cpu_ids);
-
-And dl_get_task_effective_cpus() handles HK_TYPE_DOMAIN isolation as follow=
-s:
-
-	if (housekeeping_enabled(HK_TYPE_DOMAIN)) {
-		if (!cpumask_intersects(p->cpus_ptr, hk_msk)) {
-			/*
-			 * CPUs isolated by isolcpu=3D"domain" always belong to
-			 * def_root_domain.
-			 */
-			cpumask_andnot(cpus, cpu_active_mask, hk_msk);
-			return;
-		}
-	}
-
-Because for_each_process_thread() visits every task in the system, it visits
-unreaped EXIT_ZOMBIE deadline tasks whose bandwidth has already been releas=
-ed
-or moved to dl_departed_list (where p->prio is still < MAX_DL_PRIO, so
-dl_task(p) is true), as well as PI-boosted tasks with p->dl.dl_bw =3D=3D 0.
-Since those tasks carry no active bandwidth in def_root_domain to block
-dl_bw_deactivate(), all isolated CPUs outside hk_msk can be taken offline.
-When that happens, cpumask_andnot(cpus, cpu_active_mask, hk_msk) is empty,
-cpumask_first_and(cpu_active_mask, msk) returns nr_cpu_ids, and
-dl_add_task_root_domain() hits BUG_ON(cpu >=3D nr_cpu_ids).
-
-[Severity: High]
-Also in the dl_add_task_root_domain() -> dl_get_task_effective_cpus() path =
-on
-!CONFIG_CPUSETS, could housekeeping deadline tasks have their bandwidth
-added to def_root_domain instead of the housekeeping root domain when
-isolcpus=3Ddomain is used?
-
-In dl_get_task_effective_cpus():
-
-	hk_msk =3D housekeeping_cpumask(HK_TYPE_DOMAIN);
-	if (housekeeping_enabled(HK_TYPE_DOMAIN)) {
-		if (!cpumask_intersects(p->cpus_ptr, hk_msk)) {
-			cpumask_andnot(cpus, cpu_active_mask, hk_msk);
-			return;
-		}
-	}
-
-	cpuset_cpus_allowed_locked(p, cpus);
-
-When !CONFIG_CPUSETS, cpuset_cpus_allowed_locked() in include/linux/cpuset.h
-copies task_cpu_possible_mask(p) into cpus without masking out the CPUs
-isolated by HK_TYPE_DOMAIN:
-
-static inline void cpuset_cpus_allowed_locked(struct task_struct *p,
-					struct cpumask *mask)
-{
-	cpumask_copy(mask, task_cpu_possible_mask(p));
-}
-
-For a housekeeping deadline task where p->cpus_ptr intersects hk_msk,
-dl_add_task_root_domain() then picks:
-
-	cpu =3D cpumask_first_and(cpu_active_mask, msk);
-
-If an active isolated CPU has a lower CPU number than the active housekeepi=
-ng
-CPUs (for example with isolcpus=3Ddomain,0), cpu resolves to CPU 0, whose
-cpu_rq(cpu)->rd is def_root_domain rather than the housekeeping root domain.
-Wouldn't that account the housekeeping task's bandwidth into def_root_domain
-during the rebuild, and later underflow the housekeeping root domain's
-total_bw when the task leaves SCHED_DEADLINE or exits?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1793804635.gi=
-t.mathieu.desnoyers@efficios.com?part=3D11
+-- 
+Kind regards,
+Joshua Crofts
