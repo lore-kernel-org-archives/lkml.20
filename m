@@ -1,68 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793775474;
-	b=TKmEzr7EQm3K79Gey7NJ5Olg/MFybxMeyUqrqGF2PJe9j0SoaLSkrw9RMRvkMrDHTrZ2
-	 0TKYPHTpYaAHr/VI75ebTOGpFFcJz4LowhjaGnmaOBXKA10dvH97M6ZPn+L2BFxZoodtn
-	 WDR6vy/++PujEPMRd1/vaSUwxTMOQxbyprJIju7XdLlgM+mO2kPAgxdpLTxMdnI3hD19N
-	 we6y4VhC3wTHzKeseiKFwhnsqc6DirQ8NZwnjMYve6mKhbAubZKED42yyzKfPiPhNwy9I
-	 EFEkTqGUuj1+DTgZuaL8+mCJwJ3rUYa7k9suGr5IyCor8YmOkXg8f3IozQ+8odRLuuw==
+	t=1793775516;
+	b=OoYJr5yUPGKKVGhnBQjBgYmTWbE1/ec3bXu5ZaT876OQJmSJRiZCegRKSRL0fRHRony/
+	 mxcH8ju2WL2hoJbpMbgP27sWd5Ok4yaOmW50srgn6BJVsFvKSa289PEMSu2mReNLTDLan
+	 YsTQhjank8XLRyXIxD0+uL+iz97HMxzBFjraxr7UqZEyuVVo+VhpFVBT7l5I8VednTl+Y
+	 mdjnBDNMlhsVcdsiUASEFNIJZayFIILOWuvOK3+Vb3yR27SpuahJeJKLeXqAzaqRwgYXP
+	 /VAw8kK5j6RFM8ixzjMj8W9M/MamhEglKEjKWkrf6Ql+WZEkBck7ZjlG1v/0l6QEcrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793775474;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=CtbI9z2Ao8Mb8HCETNcNamwRtXTU4jMBmej4A4WGLvs=;
-	b=cyX0ZP+3e5m42eMc2jj2yKcP2vk1tt1/S8HLuQRFgkRZyKQed9sDVsLB6mfckldUrbzA
-	 X9LrayOi/boMlRwb2gEIU454PQF9RyxYh8PF95hINsUgVYmEtz4m9XgtaI9wqRgqfzFa2
-	 xd9s8g4o7Wccmo2g4kJHFIVZaCei2c9uzZPgC/+FCURgzYyKREHwqqEwv5aiFth8JdX7C
-	 s4IDVmuhGFl2mB2ZF8SMfvdKtoHwkF3xYRVI7hyPkfdgFxkd5St7SKAkVzeWf5qqfsbHY
-	 7LaFymUbOHklT3CsVb1jvUNSwR0nkeU3cqQa5nDw4A9OPfsjLwIgJ2sP0ulYS55hgZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793775516;
+	h=DMARC-Filter:Received:Received:Subject:To:Cc:References:From:
+	 Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:Content-Type:
+	 Content-Language:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=hdQK57f7HyDlb+RjbKtfMWetjSY2KiFfxeS/E3Ij6Cw=;
+	b=maj/Fjoa7VQozw+1j12ZfSjDGXhc87eadhbkpTXOj1MuqqRQ/D8uOR7xXaSx5RMT8+yR
+	 XQDpNdozFWBUuLSbTD8RodcuUC/g8wcRJGDcWGo0eOFWpqRVhSjMnJ4sqHbfi6dtDHdXs
+	 UxhpJGt6CWsWVxy6vO2/Fu+Y3DdNsZdKWwPlwTXkh4eqKOCcndzKoZY/46sQXvHIrcqLZ
+	 PqN1w5h5iZGa6zTou1iVCJR19cX7NMQXIAhrkIqQmRs5oC7zBndU51jgnfgHF4swdZQoS
+	 1Ka1D/Am0RrNDVWrXkk/oJc+EaCgb+m+v1tdhvfsuuhIj7oOMpLwjuCOHDGfw7uleqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PfpmsAnQ;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51B9606A31B;
-	Wed,  4 Nov 2026 06:57:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E51B9606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PfpmsAnQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793775474; x=1825311474;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=e3HUinfHssBFc/cB56hXJKEMk6fiHsv3VhTWwxJA+cs=;
-  b=PfpmsAnQijCrRLksLiRbq31a1oUKZimlpuK+7FngZaHkXM9FrvGbCjzs
-   SG1a1gs4xJ2HHfsvoXKIwUNI/Ay8XqTgeoy7yBDnnjSY9ND7okNh2wfF0
-   59JsVHVkeB+///knsyMx+GIMjHObhbJf+E7KFuT1XBo9Vl8qmLT3vf42l
-   B7MWzZh6PL/pJb9JtPIF/ChgKJYLUY5yn5IZTimjDOURYakcG3r7HtFwg
-   IUVsUztmPBiaAVJTRpBfW5tymcaQXrahUqfOsS6K2yGrEbyS1J2lyIWkF
-   txRHwp6rJaAj+wVuXs+5B0NvShEqJYCZCBJQ2Mm8qq3SqUD8iSamWd5eH
-   A==;
-X-CSE-ConnectionGUID: 2gf2/0L7TNSzmNj8xbYlsQ==
-X-CSE-MsgGUID: +fM7WvzrQG+jeFoAuzMMJQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2421503"
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="2421503"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 22:57:53 -0800
-X-CSE-ConnectionGUID: LTtAi5YgSO23D8S37DP0zA==
-X-CSE-MsgGUID: 1zbJOZF7TvqTJvio1dI5PQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="6659557"
-Received: from unknown (HELO [10.238.2.205]) ([10.238.2.205])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 22:57:48 -0800
-Message-ID: <f5a4c1d5-cb66-4efa-80c6-92b7d8f543d4@linux.intel.com>
-Date: Wed, 4 Nov 2026 14:57:45 +0800
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 85128606A31B;
+	Wed,  4 Nov 2026 06:58:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85128606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [123.138.236.242])
+	by gateway (Coremail) with SMTP id _____8AxntKY1+pq6jccAA--.16033S3;
+	Wed, 04 Nov 2026 14:58:32 +0800 (CST)
+Received: from [127.0.0.1] (unknown [123.138.236.242])
+	by front1 (Coremail) with SMTP id qMiowJAxlMyW1+pq2UQyAA--.10843S2;
+	Wed, 04 Nov 2026 14:58:31 +0800 (CST)
+Subject: Re: [PATCH v1 1/2] LoongArch: BPF: Make arena support depend on SCQ
+ extension
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: Hengqi Chen <hengqi.chen@gmail.com>, loongarch@lists.linux.dev,
+ bpf@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261102072808.23080-1-yangtiezhu@loongson.cn>
+ <20261102072808.23080-2-yangtiezhu@loongson.cn>
+ <CAAhV-H52mbZJX2vkgG_h=XfwHoio=asLjFdhTJwUYqDp4V5JMg@mail.gmail.com>
+ <8b00e5a7-4e60-19bd-7953-f76dc71e15ec@loongson.cn>
+ <CAAhV-H52bqRD1SyrZsvMkNbCpGiM5DPSGPARiasZ8G3XsE5Tgw@mail.gmail.com>
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+Message-ID: <6446c385-623c-d4cf-5a07-0c2276c6f50c@loongson.cn>
+Date: Wed, 4 Nov 2026 14:58:30 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,65 +58,150 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 22/28] KVM: nVMX: Restrict event data VMCS fields to
- FRED-supported hosts
-To: Sohil Mehta <sohil.mehta@intel.com>
-Cc: kvm@vger.kernel.org, x86@kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
- Sean Christopherson <seanjc@google.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin"
- <hpa@zytor.com>, Xin Li <xin@zytor.com>, Andy Lutomirski <luto@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Tom Lendacky <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>,
- Shivansh Dhiman <shivansh.dhiman@amd.com>,
- David Woodhouse <dwmw@amazon.co.uk>, Chao Gao <chao.gao@intel.com>,
- Zhao Liu <zhao1.liu@intel.com>, Yosry Ahmed <yosry@kernel.org>,
- David Matlack <dmatlack@google.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-References: <20260911213659.2025974-1-sohil.mehta@intel.com>
- <20260911213659.2025974-23-sohil.mehta@intel.com>
-From: Binbin Wu <binbin.wu@linux.intel.com>
+In-Reply-To: <CAAhV-H52bqRD1SyrZsvMkNbCpGiM5DPSGPARiasZ8G3XsE5Tgw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-In-Reply-To: <20260911213659.2025974-23-sohil.mehta@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJAxlMyW1+pq2UQyAA--.10843S2
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoWxAry5uFyxWryUWFy3KrW3Jwc_yoWrWFyUp3
+	yxArnrGrWUWr1kJrZxt3yrWr4Dtr98K34a9a18A348Aan8Xa48Xr10kwn5WF1Dt39Yg3WF
+	qFWrK3ZI9Fy8AabCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUvFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
+	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE
+	14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCYjI0SjxkI62AI1c
+	AE67vIY487MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8C
+	rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtw
+	CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x02
+	67AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr
+	0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxU24So
+	DUUUU
 
-On 9/12/2026 5:36 AM, Sohil Mehta wrote:
-> From: Xin Li <xin@zytor.com>
-> 
-> Prevent L1 from accessing the ORIGINAL_EVENT_DATA and INJECTED_EVENT_DATA
-> VMCS fields via VMREAD or VMWRITE when FRED support is disabled or not
-> present in KVM.
+On 11/4/26 12:29 PM, Huacai Chen wrote:
+> On Tue, Nov 3, 2026 at 10:24 AM Tiezhu Yang <yangtiezhu@loongson.cn> wrote:
 
-I think the change log should tell why the patch only restricts event data
-fields.
+...
 
+>> So, the current patch has no problem IMO.
+> OK, then I think we can use:
 > 
-> Signed-off-by: Xin Li <xin@zytor.com>
-> Signed-off-by: Sohil Mehta <sohil.mehta@intel.com>
-> ---
-> v10:
->  - Split out of "KVM: nVMX: Guard SHADOW_FIELD_R[OW] macros with VMX
->    feature checks" and renamed (Sean).
-> ---
->  arch/x86/kvm/vmx/vmcs12.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/arch/x86/kvm/vmx/vmcs12.c b/arch/x86/kvm/vmx/vmcs12.c
-> index 837cb3d568c3..67c730e31465 100644
-> --- a/arch/x86/kvm/vmx/vmcs12.c
-> +++ b/arch/x86/kvm/vmx/vmcs12.c
-> @@ -222,6 +222,9 @@ static __init bool cpu_has_vmcs12_field(unsigned int idx)
->  	case HOST_SSP:
->  	case HOST_INTR_SSP_TABLE:
->  		return cpu_has_load_cet_ctrl();
-> +	VMCS12_CASE64(ORIGINAL_EVENT_DATA):
-> +	VMCS12_CASE64(INJECTED_EVENT_DATA):
-> +		return cpu_has_vmx_fred();
->  
->  	/* KVM always emulates PML and the VMX preemption timer in software. */
->  	case GUEST_PML_INDEX:
+> return __is_defined(system_has_cmpxchg128) && system_has_cmpxchg128();
+
+If CONFIG_AS_HAS_SCQ_EXTENSION is not enabled, system_has_cmpxchg128()
+is not defined at all. If we change the code to follow your suggestion,
+something like this:
+
+```
+diff --git a/arch/loongarch/Kconfig b/arch/loongarch/Kconfig
+index b5ed4881d3c0..6f572d24d2c3 100644
+--- a/arch/loongarch/Kconfig
++++ b/arch/loongarch/Kconfig
+@@ -336,7 +336,7 @@ config AS_HAS_LVZ_EXTENSION
+         def_bool $(as-instr,hvcl 0)
+
+  config AS_HAS_SCQ_EXTENSION
+-       def_bool $(as-instr,sc.q \$t0$(comma)\$t1$(comma)\$t2)
++       def_bool n
+
+  config CC_HAS_ANNOTATE_TABLEJUMP
+         def_bool $(cc-option,-mannotate-tablejump)
+diff --git a/arch/loongarch/net/bpf_jit.c b/arch/loongarch/net/bpf_jit.c
+index d7ea515045ec..d124632b0fa9 100644
+--- a/arch/loongarch/net/bpf_jit.c
++++ b/arch/loongarch/net/bpf_jit.c
+@@ -2495,11 +2495,7 @@ bool bpf_jit_supports_arena(void)
+          * atomic cmpxchg; this is provided by not only hardware SCQ 
+extension
+          * but also assembler support on LoongArch.
+          */
+-#ifdef system_has_cmpxchg128
+-       return system_has_cmpxchg128();
+-#else
+-       return false;
+-#endif
++       return __is_defined(system_has_cmpxchg128) && 
+system_has_cmpxchg128();
+  }
+
+  bool bpf_jit_supports_fsession(void)
+```
+
+We will encounter a fatal build error:
+
+   CC      arch/loongarch/net/bpf_jit.o
+arch/loongarch/net/bpf_jit.c: In function ‘bpf_jit_supports_arena’:
+arch/loongarch/net/bpf_jit.c:2498:55: error: implicit declaration of 
+function ‘system_has_cmpxchg128’ [-Wimplicit-function-declaration]
+  2498 |         return __is_defined(system_has_cmpxchg128) && 
+system_has_cmpxchg128();
+       | 
+^~~~~~~~~~~~~~~~~~~~~
+make[5]: *** [scripts/Makefile.build:290: arch/loongarch/net/bpf_jit.o] 
+Error 1
+
+Even if we change it to use IS_ENABLED(CONFIG_AS_HAS_SCQ_EXTENSION),
+something like this:
+
+```
+diff --git a/arch/loongarch/Kconfig b/arch/loongarch/Kconfig
+index b5ed4881d3c0..6f572d24d2c3 100644
+--- a/arch/loongarch/Kconfig
++++ b/arch/loongarch/Kconfig
+@@ -336,7 +336,7 @@ config AS_HAS_LVZ_EXTENSION
+         def_bool $(as-instr,hvcl 0)
+
+  config AS_HAS_SCQ_EXTENSION
+-       def_bool $(as-instr,sc.q \$t0$(comma)\$t1$(comma)\$t2)
++       def_bool n
+
+  config CC_HAS_ANNOTATE_TABLEJUMP
+         def_bool $(cc-option,-mannotate-tablejump)
+diff --git a/arch/loongarch/net/bpf_jit.c b/arch/loongarch/net/bpf_jit.c
+index d7ea515045ec..1b87b1e4262e 100644
+--- a/arch/loongarch/net/bpf_jit.c
++++ b/arch/loongarch/net/bpf_jit.c
+@@ -2495,11 +2495,7 @@ bool bpf_jit_supports_arena(void)
+          * atomic cmpxchg; this is provided by not only hardware SCQ 
+extension
+          * but also assembler support on LoongArch.
+          */
+-#ifdef system_has_cmpxchg128
+-       return system_has_cmpxchg128();
+-#else
+-       return false;
+-#endif
++       return IS_ENABLED(CONFIG_AS_HAS_SCQ_EXTENSION) && 
+system_has_cmpxchg128();
+  }
+
+  bool bpf_jit_supports_fsession(void)
+```
+
+It still fails with the same error due to the macro visibility:
+
+   CC      arch/loongarch/net/bpf_jit.o
+arch/loongarch/net/bpf_jit.c: In function ‘bpf_jit_supports_arena’:
+arch/loongarch/net/bpf_jit.c:2498:59: error: implicit declaration of 
+function ‘system_has_cmpxchg128’ [-Wimplicit-function-declaration]
+  2498 |         return IS_ENABLED(CONFIG_AS_HAS_SCQ_EXTENSION) && 
+system_has_cmpxchg128();
+       | 
+^~~~~~~~~~~~~~~~~~~~~
+make[5]: *** [scripts/Makefile.build:290: arch/loongarch/net/bpf_jit.o] 
+Error 1
+
+Therefore, using the explicit #ifdef block in the original patch is the
+only way to ensure toolchain compatibility and compile-time robustness
+here IMO.
+
+Anyway, I will modify the patch subject, update the commit message
+and code comment to make it more clear.
+
+Thanks,
+Tiezhu
 
