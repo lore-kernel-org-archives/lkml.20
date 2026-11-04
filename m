@@ -1,49 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793811024;
-	b=SE/ptHkXMVakCM4Ng902V/YoviJIu+iKb4NbijxGiSn5PDj+nEWp+u11nyV+d+ZaubBj
-	 tKJqp2FZ77j7LlQD+o8EnsbaDml/CRfJ3ytoBmjS4FG1KAm5xVv5s9rbIYm2icJwrI6z7
-	 AxkG+LbrQl5BmPGZSDx4seb9pp1xcoPm4gA0zuDJXERYj371jsp1+a4HLs8SOQ2J5dM5P
-	 mJfE0teH38K9cBbbQIeGSyz/KVPMgNJYCfXOFBrrkUVcygrIzyMqy++Mq9tVLSdYQVp0p
-	 DSQGgb832qPZJhRn1oLVbs/GKXO4HzTMN+uz0mQqvin1IO3csg/u4shREKAYrLxgeiQ==
+	t=1793811085;
+	b=weF0xgJR+fOPwPGxGjLosLo7KTjAmhDyKXAeupKC28O/cKeveqKjeToJB6fidPP7Sfpu
+	 6vhZKVLrfqKvopdCQjqj9q4+bKJfmZd5bKADv9P2NCBjhzIAa3ZOzin+nQU2vKbZkKlMB
+	 6FxqTQ2Va5T40AS45IDJp5oO4VPdfFGUYz6YZBDshwFG8kfbvjXOisepyOcJAOpUSajwN
+	 Tn0uyi9Rm6RGaKo758OUGeU6sIod8UTNjO+24Nq87gxAbMZdEKqMSDscktQF9cO+E2pb5
+	 3/A4wiwSqn9JC+wrMcIbkGGJaU35Lv0aIJmbL8N8HRY1/aE1qJdsP52xnlU5toQ9nbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793811024;
-	h=DMARC-Filter:Received:DKIM-Signature:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:In-Reply-To:References:Subject:From:Cc:To:
-	 Date:Message-ID:User-Agent;
-	bh=RgMfHtQfX+v2Ee7n7QJ9yHGqz356fJRC9YMgowZV0Hc=;
-	b=LlDkpDIla9Bu/DNIavQ6FQ7SFPWBJixiBnxv0itH041qFyh6bxfr4Yfw+ad/cWp1CZN+
-	 57I3wiugQkht6Pkt+mwScz8eF5tuAjn7sPwFntl/QelpWdjX9XhAfnVzXTTTyomDWTDTU
-	 r12knpz2sY0gAHZXobycSDSTS96cYQDkrV8ezf2gfFAvDQRcYSSWPlyUX0xSjwPgRSEuv
-	 p9/VmjRnGxmpb9TWw4lkmp9m8nRUbS8ZAeQ3rB+xoZVWZPdri/i7Npm9TJGXfEUszVCKC
-	 EaLVDGNmTvPzd7tVviTjnMYcOC2vnoGk5K1ngkH54oN0l2Qpi6ng3hd7e2Z1oPSCCNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793811085;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=zbbi5EB9f5+AApk95dbtohhfxg6/jAjEiec/5/4qBRk=;
+	b=bayQoG01D/1Dx5psdWXiBLQjXWtW1d0ZYm74EZcMEUIiGGj9czZTv+oGJAcmiOoqHdJV
+	 DnUKO15C++oM2SEq+rT47pDOdP5Slxc2zOwcGqcGrb3mgNtQkhNu986XpA/g7U0sNn3Ln
+	 x5UTNlITJri8Zof07qR7eczrtl7DmsaXd9Z7UA6Xb90WZ2913zYCZtTdozS0f+HDLvP5s
+	 oOGqgMzsNgTpKylCMpGqYSa2S+cMkww2iLeHEpoRMBChKJrWmiV1uc+LhoLoDA3u3QJ2k
+	 /zNbdEX8I2PlEsVFSReTElagT8oFX/b0naURZqpw6LN/q9VxkgPSLda9f2hiTqTVcvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=PkZdU3xL;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2F86082BEF;
-	Wed,  4 Nov 2026 16:50:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA2F86082BEF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=mzQiPlu0;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4FDB3606A332
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:51:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FDB3606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=PkZdU3xL
-Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id BF5A4175;
-	Wed,  4 Nov 2026 17:48:03 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793810883;
-	bh=OKJRnRv1W357X1nFZqikOtPnYU0npjJNQOHsHy8nJzE=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=PkZdU3xLwbvoIPjM9WMZax2YEuaSJX0u+E1Sx4IzoksPwQ40pKVfje4W9cua4o1R6
-	 7DbTW3QlLXOOStVtr4sU7X/9+b0xUEG64dX7vkkp87qDzedJRPMEDVgKj2BPBwZN/H
-	 Fyi+bhLkuj3SZwauQkoBeVvN0g5s7msEQOlyNTFg=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=mzQiPlu0
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 91358169C;
+	Wed,  4 Nov 2026 08:51:20 -0800 (PST)
+Received: from [10.57.59.2] (unknown [10.57.59.2])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8B0523F632;
+	Wed,  4 Nov 2026 08:51:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793811083; bh=n5h36dxyGLrknPLYVKXGvjTvlGJkL6Dj2TPNHZ50mQI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=mzQiPlu0Y8hROYYzXRqRBujYVpprfUFCi9Yvf2gwKlw5RuA9QyU6ly9mitM28MwzY
+	 h3WSp82G8DR7lhaSmBGqKEGQULh+0JumSyGFxvf0qgS/Ug6hUU61vSCbk4FS2Khmdb
+	 5tYR94Xwa6evlQNAi5yy1Bcj7cgZS0n2xNhiaPNk=
+Message-ID: <2b3da819-79c4-4471-baee-19abb56bb30d@arm.com>
+Date: Wed, 4 Nov 2026 16:51:19 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,61 +53,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261102211549.1011388-1-t-lannynd@ti.com>
-References: <20261102211549.1011388-1-t-lannynd@ti.com>
-Subject: Re: [PATCH] arm64: dts: ti: k3-am62x-sk: Add orientation to IMX219 sensor node
-From: Kieran Bingham <kieran.bingham@ideasonboard.com>
-Cc: b-brnich@ti.com, praneeth@ti.com, r-donadkar@ti.com, devarsht@ti.com, Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-To: Thorsten Lannynd <t-lannynd@ti.com>, linux-arm-kernel@lists.infradead.org
-Date: Wed, 04 Nov 2026 16:50:18 +0000
-Message-ID: <179381101896.194410.4650216012053782559@ping.linuxembedded.co.uk>
-User-Agent: alot/0.9.1
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] drm/panfrost: Enable cycle counting when perfcnt
+ is enabled
+To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Rob Herring <robh@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261103-panfrost-reset-races-fixes-v2-0-454207b1d4e3@collabora.com>
+ <20261103-panfrost-reset-races-fixes-v2-1-454207b1d4e3@collabora.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261103-panfrost-reset-races-fixes-v2-1-454207b1d4e3@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Thorsten,
-
-
-Quoting Thorsten Lannynd (2026-11-02 21:15:49)
-> The IMX219 CSI2 expansion module is externally attached. Without the
-> orientation property, V4L2_CID_CAMERA_ORIENTATION (0x009a0922) is not
-> exposed and libcamera fails with:
->=20
->   ERROR CameraSensor camera_sensor_raw.cpp:465 'imx219 4-0010':
->   Mandatory V4L2 control 0x009a0922 not available
->=20
-> Set orientation =3D <2> (V4L2_CAMERA_ORIENTATION_EXTERNAL) to fix this.
->=20
-> Signed-off-by: Thorsten Lannynd <t-lannynd@ti.com>
+On 03/11/2026 20:36, Adrián Larumbe wrote:
+> From: Boris Brezillon <boris.brezillon@collabora.com>
+> 
+> If we don't do that, we end up with invalid timestamps in the block
+> headers.
+> 
+> We also need to avoid the warning on the cycle counter reference being
+> other than 0 during device reset, because of perfcnt's lingering ref.
+> 
+> Ideally this would be dealt with by splitting the reset sequence into
+> pre and post stages, so that a hypothetical panfrost_perfcnt_pre_reset()
+> would release the cycle counter reference. In the absence thereof, we
+> just make do.
+> 
+> Fixes: 7786fd108777 ("drm/panfrost: Expose performance counters through unstable ioctls")
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 > ---
->  arch/arm64/boot/dts/ti/k3-am62x-sk-csi2-imx219.dtso | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/arch/arm64/boot/dts/ti/k3-am62x-sk-csi2-imx219.dtso b/arch/a=
-rm64/boot/dts/ti/k3-am62x-sk-csi2-imx219.dtso
-> index 149c59c07182..829ed98345dd 100644
-> --- a/arch/arm64/boot/dts/ti/k3-am62x-sk-csi2-imx219.dtso
-> +++ b/arch/arm64/boot/dts/ti/k3-am62x-sk-csi2-imx219.dtso
+>  drivers/gpu/drm/panfrost/panfrost_gpu.c     | 6 +++---
+>  drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 3 +++
+>  2 files changed, 6 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_gpu.c b/drivers/gpu/drm/panfrost/panfrost_gpu.c
+> index 6081b27829e1..7d66b1b50968 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_gpu.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_gpu.c
+> @@ -94,10 +94,10 @@ int panfrost_gpu_soft_reset(struct panfrost_device *pfdev)
+>  		  GPU_IRQ_CLEAN_CACHES_COMPLETED);
+>  
+>  	/*
+> -	 * All in-flight jobs should have released their cycle
+> -	 * counter references upon reset, but let us make sure
+> +	 * Even though all in-flight jobs should have released their cycle counter
+> +	 * references upon reset, perfcnt's might still hang about.
+>  	 */
+> -	if (drm_WARN_ON(&pfdev->base, atomic_read(&pfdev->cycle_counter.use_count) != 0))
+> +	if (atomic_read(&pfdev->cycle_counter.use_count) != 0)
+>  		atomic_set(&pfdev->cycle_counter.use_count, 0);
 
-#include <dt-bindings/media/video-interface-devices.h>
+There's no point in doing the read - we might as well just
+unconditionally do the atomic_set().
 
-> @@ -72,6 +72,7 @@ ov5640: camera@10 {
->                                 VDDL-supply =3D <&reg_1p2v>;
-> =20
->                                 reset-gpios =3D <&exp1 13 GPIO_ACTIVE_HIG=
-H>;
-> +                               orientation =3D <2>;
+With that fixed:
 
-and then you can do:
+Reviewed-by: Steven Price <steven.price@arm.com>
 
-				orientation =3D <MEDIA_ORIENTATION_EXTERNAL>;
+>  
+>  	return 0;
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> index a9def452d5ef..b26da057a1a0 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> @@ -17,6 +17,7 @@
+>  #include "panfrost_device.h"
+>  #include "panfrost_features.h"
+>  #include "panfrost_gem.h"
+> +#include "panfrost_gpu.h"
+>  #include "panfrost_issues.h"
+>  #include "panfrost_job.h"
+>  #include "panfrost_mmu.h"
+> @@ -52,6 +53,7 @@ static void panfrost_perfcnt_hw_disable(struct panfrost_device *pfdev)
+>  	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
+>  
+>  	if (perfcnt->owns_as_ref) {
+> +		panfrost_cycle_counter_put(pfdev);
+>  		panfrost_mmu_as_put(pfdev, perfcnt->mapping->mmu);
+>  		perfcnt->owns_as_ref = false;
+>  	}
+> @@ -84,6 +86,7 @@ static int panfrost_perfcnt_hw_enable(struct panfrost_device *pfdev)
+>  		return ret;
+>  
+>  	perfcnt->owns_as_ref = true;
+> +	panfrost_cycle_counter_get(pfdev);
+>  
+>  	as = ret;
+>  	cfg = GPU_PERFCNT_CFG_AS(as) |
+> 
 
---
-Kieran
-
-
-> =20
->                                 port {
->                                         csi2_cam0: endpoint {
-> --=20
-> 2.34.1
->
