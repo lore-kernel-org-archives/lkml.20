@@ -1,87 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.84
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793793183;
-	b=XqyGmQ+fsi+X7MLozYW0epPqqO8wS66U/ErP168YxK/ccMWI0fPiTKxFlW8Wsg1ksgtV
-	 nfXZ40SLFqNbmML6/oyA1la1dXH6WT+jPxbwxOxgGgvmBRIJjpoNcdeAstCD7vHU4/Vyj
-	 xoUztC47wjGMfE8p9LLMDpSFqGu0f5vUTy7dY/68UEeI9XrbR8vLhCIUr39hlQi44Ib5C
-	 R4N+Z7gUPNjKquLzlFHROnRP/chkCcEro8A9SVEkgi+VSGniMwLsZgDpezwedV6HGSwsN
-	 S2UfcYHDe1n00cDEE4QAGbFvnrB9lk9CivHD7L3VWfB+hHyWQvzOYh1qvtezjuPlWbA==
+	t=1793793209;
+	b=gpP2eWmlbpa5I0ySNe1HjlQu3vXCoRt8z87fRmj2ArkFfmUcq2C2XqQX4aAq7qSwCc0P
+	 WqAC0l/eAciDzBkRYwcf0hEV1Uq+yKUSgLN1zEQH80vfbsnaLbq7mq57giRNIeo79FV8V
+	 9dimV11P6X2Tgds2au0l2s/uwjgMfFf+r29MNxJbVjE26QDgjGLTTEQWN4Fb64dfPDrE7
+	 Pq2i1X2WmRXYfr+BExcI6xiY7Q1koeMzt8qH2XsqxJTIRJ1KravjwQWEXWC/cSF8B1VIX
+	 eMtduAqhBh+RHrnpUtBhMkZS+tlIO8k+vo9nSdn8WVwG0YpiqFR/HIcTX02pPaeFFvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793793183;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 Organization;
-	bh=OafKhfZup0pb9AMVxWuUAMn398HyLxVtsw22Ue9382Q=;
-	b=Mf622e9F77FhZHQOK0ngR3lufkJxVDD/gxatVwED7CINZdkwNk6Lo/A02aTsMH+vJJJj
-	 jc2bi9292BHDm3zQ/gzx6l9+lI71wIXZggOz/Ou99RT1P/qhUs1uc3ZfjAKneZ3LOaAKv
-	 WYOeP8G0evrDVoyIV4191bDLQOUUXSs8JJ7KarUAXvBz/iJ/HVTofIVguHurODC9rEZuG
-	 eFteEr45daUIvlm5xzgMw2+NJxCcWmAQ3SJtWO+2hpkggql6qyjf+qrugKUKl5AVN9j8y
-	 zgt/v+WQfNr62/VRPIPKzO7rLv9Baf4KwjEtl7L8qncpj9OtMuHLigAK7RfbT16fi8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793793209;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=y+NYpw7VcamMXqZ0sP+WVZVi54+wDw6fM6nEwwrB8Hc=;
+	b=FvkkeEiEpYi4uMKxuKBVf0CKynHlZKA8Q14yPDkDG+prpmt6jIxt6mW218uNjCktwgvC
+	 V69+Vu74/oi8a/531/Kau5oJuSbUtkSjQmp0FvuoRJPQ0VRcGmmISGpVwicBG+rth6yiG
+	 93FmsLFFxehwAmsD6mBr6Brssaazs5tFnW+5Gj1oDhorb8mA6tE+5vOVsKPxA4pq3KyVM
+	 WXFZZ5zk6y9kLaU6ib8Ciaq84r6PRqI8QY2YgzpYLMt/hkUrD040REx47Y6hChuOyTKf6
+	 yj35cghGea0HzL0rcjfDPLmk7QKxCx9QIoaZcA7/dZkWtJIs5b7P4yark1jL9d3QHnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="KW/OpBVB";
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CvYd9Nlz;
+	arc=none smtp.remote-ip=95.215.58.84
+Received: from mta1.migadu.com (out-84.mta1.migadu.com [95.215.58.84])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73CBE606A31B;
-	Wed,  4 Nov 2026 11:53:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73CBE606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81DAF606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:53:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81DAF606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KW/OpBVB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793793183; x=1825329183;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=G+7AqyJrDdzfRSDzQ6UDHvBk+LUddlp2efD50yRE/Pk=;
-  b=KW/OpBVB3FoS+43H6uKwABBzXqNVzWgyG15hgt+o3/i3NMF2EGrJRNZG
-   zbcofnMbnnsqwnFxZ9ehsM4N2cs8d693JbBcU71Hg0TWTNHnAug3nL14+
-   2YHQAumQpRBA8Q1j4o+dkP7Mihk0P4rh9LKaGnsP2NezMFMXg805UVNLN
-   hwuM/2SShhOBU/rp6fbQdbeujDKT5dksSXbQO1qSiYOCHRk6yoQKKWoY8
-   QF/lIghwpQFp1k++Y2pBpV/HmpK54OfjaH20B7MWcn9kcbtDx/Pelsa02
-   S9TkQWwvKJSBHeg0XmmFEy+oA6HNav7zOQiqkcCn7DROd2Qbmu0/HNjTg
-   g==;
-X-CSE-ConnectionGUID: D/oxNBWYQke/6G0IU8fp5Q==
-X-CSE-MsgGUID: n6YblDEaSM2m4gRiu2c2oA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2430394"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2430394"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 03:53:02 -0800
-X-CSE-ConnectionGUID: ArT8u6cTSDmxMjwbYfNTHA==
-X-CSE-MsgGUID: vtoBEoDEQZOuxnY8UQZsYg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="6719717"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 03:52:59 -0800
-Date: Wed, 4 Nov 2026 13:52:56 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Johan Hovold <johan@kernel.org>
-Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Crescent Hsieh <crescentcy.hsieh@moxa.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	John Ogness <john.ogness@linutronix.de>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] serial: core: Don't clobber the baud rate on
- hangup via B0
-Message-ID: <auscmHSl2QlHVI2z@ashevche-desk.local>
-References: <alpine.DEB.2.21.2611030057510.15685@angie.orcam.me.uk>
- <alpine.DEB.2.21.2611032050590.15685@angie.orcam.me.uk>
- <ausSmrErzTXfKNGU@ashevche-desk.local>
- <ausW1pwp2eBCqVsM@hovoldconsulting.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CvYd9Nlz
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=pOoMwnuu6Rp2se8zYeQGNlKVFILsgpZAF6qFVCLOGW8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793793205; v=1; x=1794398005;
+ b=CvYd9NlzMZTYKXFbDOd+DVdlB3EkTnsbY8xx48lUD3mMp92Q0YRUBQDuTMjorv3yA862tWWz
+ RRM0nVuLBDZdigzqzpGEVDMB/AYcJ1d+kmuTVxoRcqqM3wDEeiJb45cIXVqQyH+F7X99Wmx+tc6
+ K7+EHYD98tUTlzQbtvDZzaP0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 817128640c2180d6;
+	Wed, 04 Nov 2026 11:53:25 +0000
+X-Mizu-Trace-ID: 817128640c2180d6
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <6e812fd1-218d-4393-a2a0-ed05f67e6b14@linux.dev>
+Date: Wed, 4 Nov 2026 12:36:17 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,37 +58,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/5] ASoC: sdw_utils: honor empty DisCo port lists when
+ creating DAI links
+To: Matthew Schwartz <matthew.schwartz@linux.dev>, broonie@kernel.org
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+ Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261103200540.3863272-1-matthew.schwartz@linux.dev>
+ <20261103200540.3863272-5-matthew.schwartz@linux.dev>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+In-Reply-To: <20261103200540.3863272-5-matthew.schwartz@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <ausW1pwp2eBCqVsM@hovoldconsulting.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, Nov 04, 2026 at 12:28:22PM +0100, Johan Hovold wrote:
-> On Wed, Nov 04, 2026 at 01:10:18PM +0200, Andy Shevchenko wrote:
-> > On Tue, Nov 03, 2026 at 10:07:58PM +0000, Maciej W. Rozycki wrote:
-
-...
-
-> > > -			baud = max(min, 9600);
-> > > +			baud = (port->hup_speed ?
-> > > +				port->hup_speed : max(min, 9600));
-> > 
-> > Outer parentheses are redundant. Also use Elvis.
-> > 
-> > 			baud = port->hup_speed ?: max(min, 9600);
+On 11/3/26 21:05, Matthew Schwartz wrote:
+> The codec_info tables give each DAI a fixed direction, so a TAS2783
+> always gets an amp feedback capture link. The ASUS ROG Xbox Ally X20
+> BIOS declares mipi-sdw-source-port-list as 0 for both of its TAS2783s,
+> so the capture port has no DisCo properties and every open of the
+> SmartAmp capture PCM fails in sdw_program_slave_port_params() with
+> -EINVAL. The PCM is probed at session start, which logs a burst of
+> transport errors on every boot, and the same failure is reported on the
+> ASUS ProArt PX13.
 > 
-> No, don't.
-> 
-> Don't use the ternary operator at all as it tends to make code less
-> readable.
+> Store the effective direction in each endpoint and, for codecs whose
+> driver takes its ports from the DisCo port lists, drop a direction when
+> the peripheral declares an empty list for it, and skip the endpoint when
+> neither direction is left. Other codecs keep the table direction, as
+> many of their drivers use fixed port masks. Since endpoints in one group
+> can now differ, the machine drivers take the stream name and DAI link ID
+> from an endpoint that is part of the stream, and only count and
+> initialize those endpoints.
+Can I suggest a more nuclear option, ignore all the port properties and
+add them directly in the driver?
+I am not aware of any other codec that relies on those properties, and
+guess what they are wrong in that unique case. all other codec drivers
+list the ports in their read_prop callback, e.g. ﻿﻿.read_prop =
+rt711_read_prop,
 
-I disagree. Elvis is readable as in Python, for example, or a simple English.
-"Assign foo to baz OR bar" <——> "foo = baz ?: bar".
+While I am at it, this TAS2783-sdw driver does some really weird things
+with data ports, all the uses of
 
--- 
-With Best Regards,
-Andy Shevchenko
+	case 0x000 ... 0x080: /* Data port 0. */
+	case 0x100 ... 0x140: /* Data port 1. */
+	case 0x200 ... 0x240: /* Data port 2. */
+	case 0x300 ... 0x340: /* Data port 3. */
+	case 0x400 ... 0x440: /* Data port 4. */
+	case 0x500 ... 0x540: /* Data port 5. */
 
-
+are not correct IMHO, the data ports are managed by the core without
+using regmap.
