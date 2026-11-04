@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793799177;
-	b=MirCLOtvqsin2XU+pj3R0Fo74RikTFgCpEA6G88FyhT6t89u/DG0TadeZjNixXQe4Rfd
-	 5KW2w8Zmp9C6WEVRBPpiB2wwAelYuaFOyC+MzmeX4c8+sDDfCe9+Wkwt3lB7/CTcTktep
-	 aRQBgATZU9t8Vmomy+OXvRDRhQTj+2yZ865xV+Lp0LEwXDH3mjPK7xAQQNZriefKaJs7d
-	 ODGtaBmMnswtCti6ThoCGw7mUo0TNPSti/Lv43ZwVbZX0++IqWzFIuzQI5ol/rm0U1EHe
-	 a5Rziz9HNkQ9VeHTRCt9ki6Oke0CUUGpRt3RAfm6drDEeY3a43PgjNIKdDTQqwuQ8oA==
+	t=1793799164;
+	b=vKrLNw4rQm2CiMxWMz7/NEXdgJmpBu/idIP1fsOSR27sNwrSkVmTFkW8TDDzvS4RGhdv
+	 1bfE6KnSLo4yEZ92wcw+4Cxkf6Rm87OmToqxCw9v4x+PceXGBF8VPhvCwBYKwdaqgAIfe
+	 wqM+3e+i+gVInyLqK+TgpfZo008B7Wya2eWUu0ig9oqMbQG40oaF4jGDTCJWIrQ98CrqN
+	 iUYJPTamsC9+B8XxCfa7vGhGSzU6IblH61QvDkx+iGh4OCM9dMhwuueCQg1vCUQqC4iR4
+	 uNKOGGIQvvYiv0a/zQyKLJnpG92S+XCilsLUOSurpcO9dxBcotB4u6BEomkhDJLBuPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799177;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799164;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=1/DJ4PbXWMSa06hjFJtt9MtTFEgJJ+zBsVbZrqqRFuQ=;
-	b=j10um/xLbQ5h5xUkqS9wpG1eq4TxxePcbbAnx7JDQ0QKoUB1xMm2e59+z8Lq9GIlHS7p
-	 lhvlRJH6Ojv3+ES2JMTnaqNyvLumMAr0rygMK9XUzfDuCwM6hb3qop2JMj3EiTr3AnD50
-	 s+9Vt/A+zCFlEtN82CYsK27oUIUn+FRHPxr7IZZnyJVZF6MPfa0OTK/7GgGumO85pcJWi
-	 6Mufr8BAt8Mrq1ZhA5Vz3ck4JuGA3+CbcZ6EZtwZYCqdFKpRR9avj/8+8NaVS2Cn5iVz1
-	 J/m2EZrsJVm4DMZolrYz3uK8dXzT1W9CQDdT6ynLTot19qdrXlAhUzXoyqpZv2uW6yw==
+	bh=0MivBmeREXA6Z3fHdh+SbjQxmO7h+43RlnHAUjYhb8M=;
+	b=Hy32zyLVggyksymr9i5yn8h9UJZZs6ShEr6RgQDxsNA4NFM9vquVuIk2A6hFYDCuyA7A
+	 qMhnSPKqCkefulvjNGG3cYO2DN1MH7helTUp4/z/5PjnolKiPb4DFMb/uCJE0XWhPaSgK
+	 556wedsmMJPMzBcKd1AttdhEunk70O1+OLOSc7f6p61q7EXLrQyGaG5NhSTMvXhx1MTZL
+	 PRJEpMiLWXPG9O40d3q4s1DQYStEPeUKn8RBJFRabLnZCs7XD2jqS8VgmOpjEJ0jiybd/
+	 hQr3c313E1YWQngQ1qmk0AywRty7/o2NW9gD3DBLXE9YeyaXGc2MMo0txAjhjEa26iQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TcQQw8Ku;
-	arc=none smtp.remote-ip=209.85.210.175
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CEC759hT;
+	arc=none smtp.remote-ip=209.85.210.169
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A7F606A33A
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:32:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22A7F606A33A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C7B9606A337
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:32:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C7B9606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TcQQw8Ku
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8a05effaf8dso450664b3a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 05:32:56 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CEC759hT
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8a05b210703so407759b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 05:32:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793799175; x=1794403975; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793799163; x=1794403963; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1/DJ4PbXWMSa06hjFJtt9MtTFEgJJ+zBsVbZrqqRFuQ=;
-        b=TcQQw8Ku9AoocpXoru5Ql8eVkF92JAGopEdIGJ1UId2hHVJD8n6jfbpmDU+AfIVUDD
-         WFDZhG97KzYeSPqSA6fwx/5IrQkjVN1SXxa0z0Afv8wEkUqclyONhPv1hf69aoHr3LY9
-         VM5ye7GkZ4e43hwi7d2lHMMNnQMi/HysSrusTeRNV0hsArCy7crBMKuBoQysSfQT7aBV
-         KyiafiEnaMvUshlH8/MOmKPtph7tBnrm8zrcjTBg5ybKwrCpMwE+kEAwc52lJqCnp0Yw
-         VRdEwuPWNcQq0I82dcw9kVLzyHEudqI/J3l21WroGyVOObbVgHGLLwx5V+Rk1viT19bU
-         lOBQ==
+        bh=0MivBmeREXA6Z3fHdh+SbjQxmO7h+43RlnHAUjYhb8M=;
+        b=CEC759hTxHP0bJYvUrs3JmYInLIte6vrHbHYN4FpK9yMofUmXAeM8RvK3M3T1UTEDj
+         rpRHGBr33PXDxKxEnG5hxFfgh5sPFTd87a5JlHZGJKvZaKAQF33+AbrumepSHv8hxRVU
+         yjFvyiaU4xG1C4AQZo7bF7SWdU+dOCCYdaOCIPvop8VWCJtWek/u/W8XpHZLl4mg8pF3
+         m2MK8YfsfJWTxFjJMGLj6FMLPYf/HnFfSsABUzYki/TTnfir6gYtloIQMw89dz1hJ509
+         1oxFZmgz2GoAVWTCy0JB7goz8/vsuB46li6b7Gg6nOWD9aZGLKxYBdat5+wv6ey1tG3d
+         Ha1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793799175; x=1794403975;
+        d=1e100.net; s=20260707; t=1793799163; x=1794403963;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1/DJ4PbXWMSa06hjFJtt9MtTFEgJJ+zBsVbZrqqRFuQ=;
-        b=LruHN5YuJN7lO3qkqqK1DQNmS92ZWqkfNiWn1dGZHIbJuSHVvfV1wWRz+XMPuWUH36
-         1rL49HQqUvQfvAWUpqLm44cyX1xYVt/MvvhGXjqgXJayTzJ9UnI8gnXKpzpVpBgQp+qZ
-         6qefCNdixSPcBmFy9oIvvz8YHuUPXZrgm067rWqhT3AF+ezGVduHdB9FSlHE580MIm76
-         G24bVbot/wq0m4+3jOKK085gpU4phpbrznt5etVsxy4z428TaRhltJ6stntL5Llcxk4B
-         78L3Td/QRcZN6p968chdcgKM1D8G4gLfuMtWVjGjFXA/TdClnt2XK2o0ELmYVYsq1jO0
-         9bbw==
-X-Forwarded-Encrypted: i=1; AKwUvByM+xKMne7dB9iobz1MUZR5ooGJ76qqCloEsIs57qn16qj1G6T0rcz5sD8W7aFMa7WM3fNIOAgC4RSbg78=@vger.kernel.org
-X-Gm-Message-State: APuU4Z89Ym8Ou0AYJMfOBB7czsDpzU9RGzNisl64+1ypwhM6h41QXasf
-	dB8dIcjxruju+erGToEk5BZ33SClRCtzaRkSfWYiJgp7QbKx1o7Vcmq3
-X-Gm-Gg: AYBFou27VhFcsRc/svAA/3wHUNv8lBqOrdXsyyUzFZSTv2DJVO+P8Wn4tbZrENI/Yaj
-	gw4FTd552T5GV6jmSA3sP3RkoCPuUm69mFSKgPK6jqLxeBpV9Df2O1/CHYlKVlLn7itVKoOPX8p
-	e9EfHs2zDRFnxvmDYdWePjApFqPPy4Pe8+VKBVYK5LNh+WRyxbiUwOT1tmCQ/yrKUBLqQUMRoxo
-	uiY4Hvii7oPjWt/L8RYGoX7lnuHL2htu+PTgCnXbsDcSYrXL2Dixk1Uaf0d/Bw3OheAGH301O+j
-	MrO2xCvUZtH6dOTh+Lfc+lsFJXZaiUSsSFvJcLEshqDYoNZ/N8Pfauo0yxv0JOwjGEkOzcHbMqb
-	7eKYmpEJLOyE+QftHVd2/KDBtGGYHxqxysQ0mnJH+YcuB+S6nsC31xTTUHA+ccgN9Kkmrs+ZmfN
-	MkXyd1T+/WEQA4J61W4MVhQ/m7TOr3Xf+unMDT/9bVR8duprnMddoqPUt1oSmJa6zotH07fZa+E
-	hMHIiTR/YDKl4d2j49jpWT1hHyO8xJnCNVNvyb3mib6H/BFVWM9yyEJk+dNwfLcKwMPjwIuQo3B
-	7Rz0Yk81zCztaFw9d2tT6OnCVUIik2QVfeQSmrEWF5/EdLCiuA==
-X-Received: by 2002:a05:6a00:3915:b0:890:a995:1f4f with SMTP id d2e1a72fcca58-8a9bb7a0dfcmr12750206b3a.20.1793799175197;
-        Wed, 04 Nov 2026 05:32:55 -0800 (PST)
+        bh=0MivBmeREXA6Z3fHdh+SbjQxmO7h+43RlnHAUjYhb8M=;
+        b=vyYu6ksDUuaTGisc0O9ImdvoQzfmUAvP4qDESYZK0UZnxQxNDYtJD14pIhbpQ24MiD
+         GyDehBRvRrDbLEjjCQOG08BhCNK9weqlywZjm14xG7NGoAUt7md4VTypLJ3aheQ3ZZDp
+         6X/7ZQwNkt5hFyAe8XQn4L8h/FVv3Tum8YQE4kwLc8l1vGO/HREnhsofWsoR1CpV7Dn8
+         CZXZ4Hh4m7hUknDWJGwuGjaOWVFtMd7hcFUlPBMQsl0BpCoBIBgHiuCiH9JYgfI7u91f
+         pdXKvu+r/MrlPC3igVzoPFJdwFnqMwlU5PKR5tCS/Rag8YAnjws7PT/Onu1vXb7OTTN4
+         1C5g==
+X-Forwarded-Encrypted: i=1; AKwUvBzvoYiB7HTn+qRIstWkIUZExFc+C2V7YuKdUmeyebqd8bDUMjdtoM1Gs2bxDLYpfFw7raEY1O3Hq9d+Wts=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+srtvaq+tXomYVJC5RW58CI2YeProKkPVvokbXUO1w0nqKeViJ
+	k4BCeSnCpuPLzWHz5AtVMo0/FoZjZAyFcwO+VIORdhgY3qy7BR80hcA4
+X-Gm-Gg: AYBFou1el4+R+qO4zENGYscW2ettYo+EF2IJliMaf226V+l6qwX5dy3jStTX0C3CFyk
+	DBAnVrxxPcATljuK6ojeoeSbFLLmb5Uvhd/SL6ol/5uxUGFleytkqUZFR96543MBnmvkuajGjsb
+	2UX4AuARmN+rY2xXfak9BpQe/zz74DsYTYrJJV6IW33m2s4QVwJ9sQ33iyH1s/8AttcngE4qXmT
+	eQdgbU0+Gq09faFbL1vUTb2QWQJwIKVE3CVc27351zxHsEeExQJ0OO3WQkrz/IMOpLzdSSOlGhA
+	0AVIoFvo1X7jJ64+R0TvmpcP9+eTBsI5hC1IxTFNVplMa0HJ9DqM0LuoSs4z8eUwyl9IQ1ApUxf
+	geoHKd+blTsTnW7PWvCZWZJQdbdS3hYitJD848Ku3vd3BoUi2OQsHYwqHrNyUPaADS3rE5AHe9I
+	w9c0I9P2TyIfRckGU62uWkyw7T2puT+KWRouJ8ojhVJoXPKgl1sc3YwmM1QmhH+K/pRvezXrSpU
+	G5YJx3PsiNl3sDxl/xjW8Qu4cN0v4zgObh+V04r/rz82pw0Giy9cUu2OxwG5mGIWQ8kPATBnDMD
+	aHU/icg9PRriycC20RucF1BriShIr1/pT0Y6VNelVmmEiA3vhw==
+X-Received: by 2002:a05:6a00:99a:b0:89f:7ac5:9d54 with SMTP id d2e1a72fcca58-8a9bdcc5a0cmr14718274b3a.17.1793799162871;
+        Wed, 04 Nov 2026 05:32:42 -0800 (PST)
 Received: from anatasluo-Precision-5560 ([139.226.166.21])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b09a7ce84fsm911369b3a.13.2026.11.04.05.32.49
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b09a7ce84fsm911369b3a.13.2026.11.04.05.32.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 05:32:54 -0800 (PST)
+        Wed, 04 Nov 2026 05:32:42 -0800 (PST)
 From: Longjun Luo <luolongjuna@gmail.com>
 To: jpoimboe@kernel.org,
 	peterz@infradead.org
@@ -94,9 +94,9 @@ Cc: mbenes@suse.cz,
 	llvm@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Longjun Luo <luolongjuna@gmail.com>
-Subject: [RFC PATCH v2 07/11] objtool/klp: Correlate symbols using DWARF identities
-Date: Wed,  4 Nov 2026 21:31:53 +0800
-Message-ID: <20261104133158.3187525-8-luolongjuna@gmail.com>
+Subject: [RFC PATCH v2 05/11] objtool/klp: Support reduced and split DWARF
+Date: Wed,  4 Nov 2026 21:31:51 +0800
+Message-ID: <20261104133158.3187525-6-luolongjuna@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261104133158.3187525-1-luolongjuna@gmail.com>
 References: <20261104133158.3187525-1-luolongjuna@gmail.com>
@@ -111,1130 +111,188 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Matching local symbols by compiler suffixes or symbol-table position
-can pair unrelated state or copy existing state into a patch.
+Read split CUs through libdw and save matching DWO files in a DWP before
+another build overwrites them. Keep the DWP beside each saved object.
+Reading saved DWP files requires libdw 0.191 or newer.
 
-Match unique DWARF identities in both directions. Use checksums to
-resolve remaining candidates within the same identity. Leave ambiguous
-symbols uncorrelated instead of pairing them by position.
+Read fixed-width array bounds as unsigned so reduced type information
+does not make nonempty arrays appear empty.
 
-Compare __UNIQUE_ID data names without their counters. Use identity
-and checksum uniqueness to preserve the original debug descriptors
-when an earlier macro shifts their counters. Add a regression test.
-
-Reuse data aliases through their representative twins. Retain a separate
-unique FILE/name fallback with warnings for unknown cases, and exclude
-link-time metadata from correlation.
-
-Reject linkage changes because later name-based resolution can disagree
-with the changed identity. Reject duplicate identities when the same
-source is compiled into multiple objects; distinguishing those instances
-would require another qualifier such as link order.
+Full LTO with --plugin-opt=dwo_dir requires
+-mllvm -split-dwarf-cross-cu-references=true to preserve separate CUs
+and their source paths. Kbuild does not enable this DWO output mode.
 
 Validated the available objtool tests with GCC 16.2.1 and Clang
-22.1.8. Only local-to-global-flip, sympos and sympos-vmlinux fail,
-reflecting the linkage and duplicate-identity policies.
+22.1.8. No failures.
 
 Assisted-by: LLM
 Signed-off-by: Longjun Luo <luolongjuna@gmail.com>
 ---
- tools/objtool/include/objtool/klp.h           |   1 +
- tools/objtool/klp-diff.c                      | 728 ++++++++----------
- .../generic/fixtures/identity/unique_id.c     |  50 ++
- .../tests/generic/test-identity-unique-id.sh  |  31 +
- .../tests/generic/test-thinlto-ambiguity.sh   |   2 +-
- .../tests/generic/test-thinlto-local.sh       |   4 +-
- tools/objtool/tests/lib.sh                    |   5 +-
- 7 files changed, 429 insertions(+), 392 deletions(-)
- create mode 100644 tools/objtool/tests/generic/fixtures/identity/unique_id.c
- create mode 100755 tools/objtool/tests/generic/test-identity-unique-id.sh
+ scripts/livepatch/klp-build | 18 +++++++++++++++
+ tools/objtool/klp-dwarf.c   | 45 ++++++++++++++++++++++++++++---------
+ 2 files changed, 53 insertions(+), 10 deletions(-)
 
-diff --git a/tools/objtool/include/objtool/klp.h b/tools/objtool/include/objtool/klp.h
-index 90468e141124..fa794bab116f 100644
---- a/tools/objtool/include/objtool/klp.h
-+++ b/tools/objtool/include/objtool/klp.h
-@@ -51,6 +51,7 @@ struct objtool_file;
- struct elf;
- struct symbol;
+diff --git a/scripts/livepatch/klp-build b/scripts/livepatch/klp-build
+index e373928123e8..95bea5b2057e 100755
+--- a/scripts/livepatch/klp-build
++++ b/scripts/livepatch/klp-build
+@@ -34,6 +34,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ FIX_PATCH_LINES="$SCRIPT_DIR/fix-patch-lines"
  
-+bool dont_correlate(struct symbol *sym);
- bool is_compound_constant(struct symbol *sym);
+ OBJTOOL="$PWD/tools/objtool/objtool"
++DWP="${DWP:-llvm-dwp}"
+ CONFIG="$PWD/.config"
+ TMP_DIR="$PWD/klp-tmp"
  
- int klp_create_symid_sections(struct objtool_file *file);
-diff --git a/tools/objtool/klp-diff.c b/tools/objtool/klp-diff.c
-index cd5e683d6468..468b8654b687 100644
---- a/tools/objtool/klp-diff.c
-+++ b/tools/objtool/klp-diff.c
-@@ -3,14 +3,15 @@
- #include <subcmd/parse-options.h>
- #include <stdlib.h>
- #include <string.h>
--#include <libgen.h>
- #include <stdio.h>
- #include <ctype.h>
-+#include <fnmatch.h>
+@@ -265,6 +266,11 @@ validate_config() {
+ 	[[ -v CONFIG_KLP_BUILD ]] ||			\
+ 		die "CONFIG_KLP_BUILD not enabled"
  
- #include <objtool/objtool.h>
- #include <objtool/warn.h>
- #include <objtool/arch.h>
- #include <objtool/klp.h>
-+#include <objtool/klp-identity.h>
- #include <objtool/util.h>
- #include <objtool/special.h>
- 
-@@ -19,7 +20,7 @@
- #include <linux/livepatch_external.h>
- #include <linux/stringify.h>
- #include <linux/string.h>
--#include <linux/jhash.h>
-+#include <linux/hashtable.h>
- 
- #define sizeof_field(TYPE, MEMBER) sizeof((((TYPE *)0)->MEMBER))
- 
-@@ -260,28 +261,6 @@ static int read_sym_checksums(struct elf *elf)
- 	return 0;
- }
- 
--static struct symbol *first_file_symbol(struct elf *elf)
--{
--	struct symbol *sym;
--
--	for_each_sym(elf, sym) {
--		if (is_file_sym(sym))
--			return sym;
--	}
--
--	return NULL;
--}
--
--static struct symbol *next_file_symbol(struct elf *elf, struct symbol *sym)
--{
--	for_each_sym_continue(elf, sym) {
--		if (is_file_sym(sym))
--			return sym;
--	}
--
--	return NULL;
--}
--
- /*
-  * Certain static local variables should never be correlated.  They will be
-  * used in place rather than referencing the originals.
-@@ -469,11 +448,19 @@ bool is_compound_constant(struct symbol *sym)
- 	return !*name;
- }
- 
-+/* __tracepoint_check records build-time checks and is discarded by the linker. */
-+static bool is_metadata_section(struct section *sec)
-+{
-+	return !strcmp(sec->name, ".modinfo") ||
-+	       !strcmp(sec->name, ".no_trim_symbol") ||
-+	       !strcmp(sec->name, "__tracepoint_check");
-+}
-+
- /*
-  * These symbols should never be correlated, so their local patched versions
-  * are used instead of linking to the originals.
-  */
--static bool dont_correlate(struct symbol *sym)
-+bool dont_correlate(struct symbol *sym)
- {
- 	return is_file_sym(sym) ||
- 	       is_null_sym(sym) ||
-@@ -486,361 +473,357 @@ static bool dont_correlate(struct symbol *sym)
- 	       is_anonymous_rodata(sym) ||
- 	       is_initcall_sym(sym) ||
- 	       is_addressable_sym(sym) ||
-+	       is_metadata_section(sym->sec) ||
- 	       is_special_section(sym->sec) ||
- 	       is_special_section_aux(sym->sec);
- }
- 
--static const char *llvm_suffix(const char *name)
-+static size_t llvm_name_len(const char *name)
- {
--	return strstr(name, ".llvm.");
-+	const char *suffix = strstr(name, ".llvm."), *p;
-+
-+	if (!suffix || !isdigit((unsigned char)suffix[6]))
-+		return strlen(name);
-+	for (p = suffix + 6; isdigit((unsigned char)*p); p++)
-+		;
-+	return *p ? strlen(name) : (size_t)(suffix - name);
- }
- 
--static bool is_llvm_sym(struct symbol *sym)
-+/* Keep object-fragment numbers, e.g. amd_northbridges.0. */
-+static bool same_llvm_name(const char *a, const char *b)
- {
--	return llvm_suffix(sym->name);
-+	size_t a_len = llvm_name_len(a), b_len = llvm_name_len(b);
-+
-+	return a_len == b_len && !strncmp(a, b, a_len);
- }
- 
--/*
-- * Determine if two symbols have compatible source file origins:
-- *
-- *   - If both symbols are local, only return true if they belong to the same
-- *     ELF file symbol.
-- *
-- *   - If both symbols are global, always return true, as globals don't have
-- *     file associations.
-- *
-- *   - If they have different scopes, also return true, as the patch might have
-- *     changed the symbol's scope.
-- *
-- * Works for both same-ELF (direct pointer compare) and cross-ELF
-- * (compare via file->twin) cases.
-- */
--static bool maybe_same_file(struct symbol *sym1, struct symbol *sym2)
-+static const char *skip_lto_priv(const char *name)
- {
--	if (!sym1->file || !sym2->file)
--		return true;
--	if (sym1->file == sym2->file)
--		return true;
--	return sym1->file->twin == sym2->file;
-+	if (!strstarts(name, ".lto_priv.") || !isdigit((unsigned char)name[10]))
-+		return name;
-+	name += 10;
-+	while (isdigit((unsigned char)*name))
-+		name++;
-+	return name;
- }
- 
--/*
-- * Similar to maybe_same_file(), but strict: no scope changes allowed.
-- *
-- * Works for both same-ELF (direct pointer compare) and cross-ELF
-- * (compare via file->twin) cases.
-- */
--static bool same_file(struct symbol *sym1, struct symbol *sym2)
-+static bool is_numeric_suffix(const char *name)
- {
--	if (llvm_suffix(sym1->name) && llvm_suffix(sym2->name))
--		return true;
--	if (!sym1->file && !sym2->file)
--		return true;
--	if (!sym1->file || !sym2->file)
-+	if (*name++ != '.' || !isdigit((unsigned char)*name))
- 		return false;
--	if (sym1->file == sym2->file)
-+	while (isdigit((unsigned char)*name))
-+		name++;
-+	return !*name;
-+}
-+
-+/* Allow compiler counters and GCC partition renames to change. */
-+static bool same_compiler_name(const char *a, const char *b)
-+{
-+	for (;;) {
-+		const char *next_a = skip_lto_priv(a), *next_b = skip_lto_priv(b);
-+
-+		if (next_a != a || next_b != b) {
-+			a = next_a;
-+			b = next_b;
-+			continue;
-+		}
-+		if (*a != *b)
-+			break;
-+		if (!*a)
-+			return true;
-+		if (*a == '.' && isdigit((unsigned char)a[1])) {
-+			if (!isdigit((unsigned char)b[1]))
-+				return false;
-+			for (a++; isdigit((unsigned char)*a); a++)
-+				;
-+			for (b++; isdigit((unsigned char)*b); b++)
-+				;
-+		} else {
-+			a++;
-+			b++;
-+		}
-+	}
-+
-+	/* A trailing counter may be absent on one side. */
-+	return (!*a && is_numeric_suffix(b)) || (!*b && is_numeric_suffix(a));
-+}
-+
-+/* Keep clone tags such as .cold, .isra and .part distinct. */
-+static bool compatible_symbol_name(const char *a, const char *b)
-+{
-+	if (same_llvm_name(a, b))
- 		return true;
--	return sym1->file->twin == sym2->file;
-+	if (strchr(a, '@') || strchr(b, '@') || strstr(a, ".str1."))
-+		return !strcmp(a, b);
-+	return same_compiler_name(a, b);
- }
- 
--/*
-- * Is it a local symbol, or at least was it local in the translation unit
-- * before LLVM promoted it?
-- */
--static bool is_tu_local_sym(struct symbol *sym)
-+static bool is_twin_candidate(struct symbol *sym1, struct symbol *sym2)
- {
--	return is_local_sym(sym) || is_llvm_sym(sym);
-+	if (sym1->type != sym2->type)
-+		return false;
-+	/* Relocations can also reach targets without DWARF identities. */
-+	if (has_dwarf_identity(sym1) && has_dwarf_identity(sym2) &&
-+	    !same_identity(&sym1->identity, &sym2->identity))
-+		return false;
-+	/* Don't match zero-length labels with sized symbols. */
-+	if (!is_undef_sym(sym1) && !is_undef_sym(sym2) &&
-+	    (!sym1->len != !sym2->len))
-+		return false;
-+	/* __UNIQUE_ID counters shift when an earlier macro is added. */
-+	if (is_object_sym(sym1) &&
-+	    (strstarts(sym1->name, "__UNIQUE_ID_") || strstr(sym1->name, ".__UNIQUE_ID_")) &&
-+	    (strstarts(sym2->name, "__UNIQUE_ID_") || strstr(sym2->name, ".__UNIQUE_ID_")))
-+		return !strcmp(sym1->identity.demangled_name, sym2->identity.demangled_name);
-+	return compatible_symbol_name(sym1->name, sym2->name);
- }
- 
--/*
-- * Try to find sym1's twin in patched using deterministic matching.
-- *
-- * Multiple symbols can share a demangled name (e.g., static functions in
-- * different TUs).  This function counts same-named candidates through a
-- * funnel of progressively tighter filters.  Each level is a strict subset
-- * of the previous one.
-- *
-- * The widest level that yields a 1:1 match wins.  Narrower levels are only
-- * needed when the wider level is ambiguous (count > 1).
-- *
-- * Candidates are pre-filtered by maybe_same_file(), which narrows most
-- * local symbols to their own TU.  For example, 19 different static
-- * type_show() functions across vmlinux.o each see only one candidate after
-- * pre-filtering, so they match immediately at Level 1.
-- *
-- * Level 1 (name): Works when the demangled name is unique after
-- * pre-filtering.  Handles most symbols: unique globals like copy_signal(),
-- * or per-TU locals like pcspkr_probe().
-- *
-- * Level 2 (scope): Filters by local-vs-global (TU-local-vs-not).  Example:
-- * parse_header() exists as both a static and a global function.  Level 1
-- * sees both (same demangled name), but Level 2 separates them by scope.
-- *
-- * Level 3 (file): Strict file matching via same_file(), which rejects scope
-- * changes.  Example: LLVM-promoted foo.llvm.12345 (global, no FILE symbol)
-- * vs genuine local foo (has FILE symbol).  Both are TU-local so Level 2
-- * can't distinguish them, but same_file() rejects the pair because one has
-- * a file association and the other doesn't.
-- *
-- * Level 4 (checksum): Distinguishes by function checksum.  Example:
-- * usb_devnode.llvm.AAA and usb_devnode.llvm.BBB are two LLVM-promoted
-- * functions from different TUs with the same demangled name.  After a TU
-- * change, the .llvm. hashes change but the functions themselves may be
-- * unchanged.  Level 4 matches each to the patched candidate with the
-- * same checksum.
-- */
--static struct symbol *find_twin(struct elfs *e, struct symbol *sym1)
-+static struct symbol *find_twin(struct elf *elf, struct symbol *sym1)
- {
--	struct symbol *name_last = NULL, *scope_last = NULL,
--		      *file_last = NULL, *csum_last = NULL;
--	unsigned int name_orig = 0, name_patched = 0;
--	unsigned int scope_orig = 0, scope_patched = 0;
--	unsigned int file_orig = 0, file_patched = 0;
--	unsigned int csum_orig = 0, csum_patched = 0;
- 	struct symbol *sym2, *match = NULL;
-+	unsigned int candidates = 0;
-+	u32 key;
- 
--	/* Count orig candidates */
--	for_each_sym_by_demangled_name(e->orig, sym1->identity.demangled_name, sym2) {
--		if (sym2->twin || sym1->type != sym2->type || sym2->dont_correlate ||
--		    (!maybe_same_file(sym1, sym2)))
-+	if (!has_dwarf_identity(sym1))
-+		return NULL;
-+	key = identity_hash(&sym1->identity);
-+
-+	elf_hash_for_each_possible(elf, symbol_identity, sym2, identity_hash, key) {
-+		if (sym2->twin || !is_twin_candidate(sym1, sym2))
- 			continue;
-+		match = sym2;
-+		candidates++;
-+	}
- 
--		/* Level 1: name match (widest filter)  */
--		name_orig++;
-+	return candidates == 1 ? match : NULL;
-+}
- 
--		/* Level 2: scope (scope changes allowed) */
--		if (is_tu_local_sym(sym1) != is_tu_local_sym(sym2))
--			continue;
--		scope_orig++;
-+/* Checksums can disambiguate only unchanged symbols. */
-+static struct symbol *find_twin_by_identity_and_checksum(struct elf *elf, struct symbol *sym1)
-+{
-+	struct symbol *sym2, *match = NULL;
-+	unsigned int candidates = 0;
-+	u32 key;
- 
--		/* Level 3: file (scope changes disallowed) */
--		if (!same_file(sym1, sym2))
--			continue;
--		file_orig++;
-+	if (!has_dwarf_identity(sym1) || !sym1->csum.checksum)
-+		return NULL;
-+	key = identity_hash(&sym1->identity);
- 
--		/* Level 4: checksum (unchanged symbols) */
--		if (sym1->len != sym2->len || !sym1->csum.checksum ||
-+	elf_hash_for_each_possible(elf, symbol_identity, sym2, identity_hash, key) {
-+		if (!is_twin_candidate(sym1, sym2))
-+			continue;
-+		if (sym2->twin || sym1->len != sym2->len ||
- 		    sym1->csum.checksum != sym2->csum.checksum)
- 			continue;
--		csum_orig++;
-+		match = sym2;
-+		candidates++;
- 	}
- 
--	/* Count patched candidates */
--	for_each_sym_by_demangled_name(e->patched, sym1->identity.demangled_name, sym2) {
--		if (sym2->twin || sym1->type != sym2->type || sym2->dont_correlate ||
--		    !maybe_same_file(sym1, sym2))
--			continue;
--
--		/* Level 1 */
--		name_patched++;
--		name_last = sym2;
-+	return candidates == 1 ? match : NULL;
-+}
- 
--		/* Level 2 */
--		if (is_tu_local_sym(sym1) != is_tu_local_sym(sym2))
--			continue;
--		scope_patched++;
--		scope_last = sym2;
-+static int correlate_by_identity(struct elfs *e)
-+{
-+	struct symbol *sym, *match;
- 
--		/* Level 3 */
--		if (!same_file(sym1, sym2))
-+	for_each_sym(e->orig, sym) {
-+		/* Compound literal names are compiler counters, not stable identities. */
-+		if (sym->twin || sym->dont_correlate || is_compound_constant(sym))
- 			continue;
--		file_patched++;
--		file_last = sym2;
--
--		/* Level 4 */
--		if (sym1->len != sym2->len || !sym1->csum.checksum ||
--		    sym1->csum.checksum != sym2->csum.checksum)
-+		match = find_twin(e->patched, sym);
-+		/* Two originals can share the same sole patched candidate. */
-+		if (!match || find_twin(e->orig, match) != sym)
- 			continue;
--		csum_patched++;
--		csum_last = sym2;
-+		sym->twin = match;
-+		match->twin = sym;
-+		dbg_correlate("%s(): %s -> %s", __func__, sym->name, match->name);
- 	}
-+	return 0;
-+}
- 
--	/* Return the widest level that yields a unique (1:1) match */
--	if (name_orig == 1 && name_patched == 1)
--		match = name_last;
--	else if (scope_orig == 1 && scope_patched == 1)
--		match = scope_last;
--	else if (file_orig == 1 && file_patched == 1)
--		match = file_last;
--	else if (csum_orig == 1 && csum_patched == 1)
--		match = csum_last;
--
--	if (!match)
--		return NULL;
-+static int extend_same_twins_by_checksum(struct elfs *e)
-+{
-+	struct symbol *sym, *match;
- 
--	if (name_orig != 1 || name_patched != 1)
--		dbg_correlate("find_twin(): %s%s -> %s%s",
--			      sym1->name, is_func_sym(sym1) ? "()" : "",
--			      match->name, is_func_sym(match) ? "()" : "");
-+	for_each_sym(e->orig, sym) {
-+		if (sym->twin || sym->dont_correlate)
-+			continue;
-+		match = find_twin_by_identity_and_checksum(e->patched, sym);
-+		/* Two originals can share the same sole patched candidate. */
-+		if (!match || find_twin_by_identity_and_checksum(e->orig, match) != sym)
-+			continue;
-+		sym->twin = match;
-+		match->twin = sym;
-+		dbg_correlate("%s(): %s -> %s", __func__, sym->name, match->name);
-+	}
-+	return 0;
-+}
- 
--	return match;
-+/* Data aliases can reuse the representative's storage without another twin. */
-+static struct symbol *reference_twin(struct symbol *sym)
-+{
-+	if (!sym->twin && is_object_sym(sym))
-+		return sym->alias->twin;
-+	return sym->twin;
- }
- 
--struct llvm_suffix_pair {
-+struct symtab_entry {
- 	struct hlist_node hash;
--	const char *orig;
--	const char *patched;
-+	const char *file, *name;
-+	struct symbol *sym;
-+	bool is_unique;
-+};
-+
-+struct symtab_hash {
-+	DECLARE_HASHTABLE(entries, 12);
- };
- 
--static DECLARE_HASHTABLE(suffix_map, 7);
-+static struct symtab_entry *find_symtab_entry(struct symtab_hash *table, struct symbol *sym)
-+{
-+	const char *file = sym->file ? sym->file->name : "";
-+	const char *name = sym->identity.demangled_name;
-+	u32 key = jhash_2words(str_hash(file), str_hash(name), 0);
-+	struct symtab_entry *entry;
- 
--/*
-- * Build a mapping of known orig-to-patched LLVM suffixes based on
-- * already-correlated symbol pairs.  All promoted symbols from the same TU
-- * share the same .llvm.<hash> suffix, so one correlated pair seeds the map
-- * for the entire TU.
-- */
--static int update_suffix_map(struct elf *elf)
-+	hash_for_each_possible(table->entries, entry, hash, key) {
-+		if (!strcmp(entry->file, file) && !strcmp(entry->name, name))
-+			return entry;
-+	}
-+	return NULL;
-+}
-+
-+static int build_symtab_hash(struct elf *elf, struct symtab_hash *table)
- {
--	struct llvm_suffix_pair *entry;
-+	struct symtab_entry *entry;
- 	struct symbol *sym;
-+	u32 key;
- 
-+	hash_init(table->entries);
- 	for_each_sym(elf, sym) {
--		const char *s1, *s2;
--		bool found;
--
--		if (!sym->twin)
-+		if (!sym->len || is_undef_sym(sym) || sym->dont_correlate ||
-+		    is_compound_constant(sym))
- 			continue;
--
--		s1 = llvm_suffix(sym->name);
--		s2 = llvm_suffix(sym->twin->name);
--
--		if (!s1 || !s2)
-+		/* Already matched symbols still count against uniqueness. */
-+		entry = find_symtab_entry(table, sym);
-+		if (entry) {
-+			entry->is_unique = false;
- 			continue;
--
--		found = false;
--		hash_for_each_possible(suffix_map, entry, hash, str_hash(s1)) {
--			if (!strcmp(entry->orig, s1)) {
--				found = true;
--				break;
--			}
- 		}
--		if (found)
--			continue;
--
--		entry = calloc(1, sizeof(*entry));
-+		entry = malloc(sizeof(*entry));
- 		if (!entry) {
--			ERROR_GLIBC("calloc");
-+			ERROR_GLIBC("malloc symtab entry");
- 			return -1;
- 		}
--
--		entry->orig = s1;
--		entry->patched = s2;
--		hash_add(suffix_map, &entry->hash, str_hash(s1));
-+		/* Assembly may inherit FILE from the preceding input. */
-+		entry->file = sym->file ? sym->file->name : "";
-+		entry->name = sym->identity.demangled_name;
-+		entry->sym = sym;
-+		entry->is_unique = true;
-+		key = jhash_2words(str_hash(entry->file), str_hash(entry->name), 0);
-+		hash_add(table->entries, &entry->hash, key);
- 	}
--
- 	return 0;
- }
- 
--/*
-- * Match by translating the symbol's .llvm.<hash> suffix through the suffix
-- * map to find the corresponding hash suffix for the patched object.
-- *
-- * Example: In the original kernel, TU drivers/base/core.c contains
-- * foo.llvm.12345 and bar.llvm.12345 (same TU, same hash).  After patching,
-- * they become foo.llvm.67890 and bar.llvm.67890.  If foo was already
-- * correlated by find_twin() (e.g., unique by name), the suffix map records
-- * .llvm.12345 -> .llvm.67890.  When processing bar.llvm.12345, this
-- * function looks up .llvm.12345, gets .llvm.67890, constructs the name
-- * bar.llvm.67890, and finds the match.
-- */
--static struct symbol *find_twin_suffixed(struct elf *elf, struct symbol *sym1)
-+static void free_symtab_hash(struct symtab_hash *table)
- {
--	const char *suffix, *patched_suffix = NULL;
--	struct symbol *sym2, *match = NULL;
--	char name[SYM_NAME_LEN];
--	struct llvm_suffix_pair *entry;
--	int count = 0;
--
--	suffix = llvm_suffix(sym1->name);
--	if (!suffix)
--		return NULL;
-+	struct symtab_entry *entry;
-+	struct hlist_node *tmp;
-+	unsigned int bucket;
- 
--	hash_for_each_possible(suffix_map, entry, hash, str_hash(suffix)) {
--		if (!strcmp(entry->orig, suffix)) {
--			patched_suffix = entry->patched;
--			break;
--		}
-+	hash_for_each_safe(table->entries, bucket, tmp, entry, hash) {
-+		hash_del(&entry->hash);
-+		free(entry);
- 	}
--	if (!patched_suffix)
--		return NULL;
-+}
- 
--	if (snprintf_check(name, SYM_NAME_LEN, "%s%s",
--			   sym1->identity.demangled_name, patched_suffix))
--		return NULL;
-+static bool known_symtab_fallback(struct symbol *sym)
-+{
-+	static const struct {
-+		unsigned char bind, type;
-+		const char *section, *name;
-+	} whitelist[] = {
-+		/* Local data defined in relocate_kernel_64.S. */
-+		{ STB_LOCAL,  STT_OBJECT, ".data..relocate_kernel", "*" },
-+		/* Static-call and paravirt macros emit top-level assembly. */
-+		{ STB_GLOBAL, STT_FUNC,   ".static_call.text", "__SCT__*" },
-+		{ STB_GLOBAL, STT_FUNC,   ".text", "__raw_callee_save_*" },
-+		{ STB_GLOBAL, STT_FUNC,   ".entry.text", "paravirt_ret0" },
-+		/* The VERW selector is assembly data placed in entry text. */
-+		{ STB_GLOBAL, STT_NOTYPE, ".entry.text", "x86_verw_sel" },
-+		/* Boot page tables defined in arch/x86/kernel/head_64.S. */
-+		{ STB_GLOBAL, STT_OBJECT, ".data", "level4_kernel_pgt" },
-+		{ STB_GLOBAL, STT_OBJECT, ".data", "level3_kernel_pgt" },
-+		{ STB_GLOBAL, STT_OBJECT, ".data", "level2_kernel_pgt" },
-+		{ STB_GLOBAL, STT_OBJECT, ".data", "level2_fixmap_pgt" },
-+		{ STB_GLOBAL, STT_OBJECT, ".data", "level1_fixmap_pgt" },
-+		/* CPU startup state defined in head_64.S. */
-+		{ STB_GLOBAL, STT_OBJECT, ".ref.data", "initial_code" },
-+		{ STB_GLOBAL, STT_OBJECT, ".data", "smpboot_control" },
-+	};
-+	unsigned int i;
- 
--	for_each_sym_by_name(elf, name, sym2) {
--		if (sym2->twin || sym1->type != sym2->type || sym2->dont_correlate)
--			continue;
--		count++;
--		match = sym2;
-+	for (i = 0; i < ARRAY_SIZE(whitelist); i++) {
-+		if (sym->bind == whitelist[i].bind && sym->type == whitelist[i].type &&
-+		    !strcmp(sym->sec->name, whitelist[i].section) &&
-+		    !fnmatch(whitelist[i].name, sym->name, 0))
-+			return true;
- 	}
--
--	if (count != 1)
--		return NULL;
--
--	dbg_correlate("find_suffixed_twin(): %s%s -> %s%s",
--		      sym1->name, is_func_sym(sym1) ? "()" : "",
--		      match->name, is_func_sym(match) ? "()" : "");
--
--	return match;
-+	return false;
- }
- 
--/*
-- * Last-resort positional matching.
-- *
-- * Finds a symbol with the same position in the symbol table among
-- * same-demangled-name candidates, similar to livepatch sympos.  Note that
-- * LLVM-promoted symbols are globals, which come after locals in the symbol
-- * table, so we have to be careful not to compare different scopes.
-- *
-- * Example: arch/x86/events/intel/core.c defines many __quirk variables via
-- * X86_MATCH_*() macros.  In the symbol table they appear as __quirk.90,
-- * __quirk.97, __quirk.101, etc., all with demangled name __quirk, same
-- * scope, and same FILE symbol.  No deterministic filter can distinguish
-- * them, so they're matched by position: the 1st __quirk in orig matches the
-- * 1st in patched, the 2nd matches the 2nd, etc.
-- *
-- * This is less deterministic than the other strategies, so it's done last.
-- */
--static struct symbol *find_twin_positional(struct elfs *e, struct symbol *sym1)
-+/* Audit unmatched symbols and pair unique FILE/name candidates. */
-+static int validate_symbol_twins(struct elfs *e)
- {
--	unsigned int idx_orig = 0, idx_patched = 0;
--	unsigned int sym1_pos = 0;
--	struct symbol *sym2, *match = NULL;
-+	struct symtab_hash orig_table = {}, patched_table = {};
-+	struct symtab_entry *orig_entry, *patched_entry;
-+	struct symbol *orig_sym, *patched_sym;
-+	int ret = -1;
- 
--	for_each_sym_by_demangled_name(e->orig, sym1->identity.demangled_name, sym2) {
--		if (sym2->twin || sym1->type != sym2->type || sym2->dont_correlate ||
--		    !maybe_same_file(sym1, sym2))
-+	if (build_symtab_hash(e->orig, &orig_table) ||
-+	    build_symtab_hash(e->patched, &patched_table))
-+		goto out;
-+
-+	for_each_sym(e->patched, patched_sym) {
-+		if (!patched_sym->len || is_undef_sym(patched_sym) ||
-+		    patched_sym->dont_correlate || reference_twin(patched_sym))
- 			continue;
--		if (is_tu_local_sym(sym1) != is_tu_local_sym(sym2) ||
--		    is_llvm_sym(sym1) != is_llvm_sym(sym2))
-+		patched_entry = find_symtab_entry(&patched_table, patched_sym);
-+		if (!patched_entry || !patched_entry->is_unique)
- 			continue;
--		if (sym1 == sym2)
--			sym1_pos = idx_orig;
--		idx_orig++;
--	}
--
--	for_each_sym_by_demangled_name(e->patched, sym1->identity.demangled_name, sym2) {
--		if (sym2->twin || sym1->type != sym2->type || sym2->dont_correlate ||
--		    !maybe_same_file(sym1, sym2))
-+		orig_entry = find_symtab_entry(&orig_table, patched_sym);
-+		if (!orig_entry || !orig_entry->is_unique)
- 			continue;
--		if (is_tu_local_sym(sym1) != is_tu_local_sym(sym2) ||
--		    is_llvm_sym(sym1) != is_llvm_sym(sym2))
-+		orig_sym = orig_entry->sym;
-+		if (reference_twin(orig_sym))
- 			continue;
--		if (idx_patched == sym1_pos)
--			match = sym2;
--		idx_patched++;
--	}
--
--	if (idx_orig != idx_patched)
--		return NULL;
--
--	dbg_correlate("find_twin_positional(): %s%s -> %s%s",
--	    sym1->name, is_func_sym(sym1) ? "()" : "",
--	    match->name, is_func_sym(match) ? "()" : "");
--
--	return match;
-+		if (strcmp(orig_sym->name, patched_sym->name) ||
-+		    orig_sym->bind != patched_sym->bind ||
-+		    !is_twin_candidate(orig_sym, patched_sym))
-+			continue;
-+		if (has_dwarf_identity(orig_sym) != has_dwarf_identity(patched_sym)) {
-+			WARN("unmatched symbol %s (FILE %s): DWARF identity is missing on the %s side",
-+			     patched_sym->name,
-+			     *patched_entry->file ? patched_entry->file : "<none>",
-+			     has_dwarf_identity(orig_sym) ? "patched" : "original");
-+			continue;
-+		}
-+		if (!known_symtab_fallback(orig_sym) || !known_symtab_fallback(patched_sym))
-+			WARN("ELF FILE/name fallback outside known rules: %s (FILE %s, binding %u, DWARF %s), orig[%u] -> patched[%u]",
-+			     patched_sym->name,
-+			     *patched_entry->file ? patched_entry->file : "<none>",
-+			     patched_sym->bind, has_dwarf_identity(patched_sym) ? "yes" : "no",
-+			     orig_sym->idx, patched_sym->idx);
-+		orig_sym->twin = patched_sym;
-+		patched_sym->twin = orig_sym;
-+		dbg_correlate("%s(): %s (FILE %s)", __func__,
-+			      patched_sym->name, patched_entry->file);
-+	}
-+	ret = 0;
-+out:
-+	free_symtab_hash(&orig_table);
-+	free_symtab_hash(&patched_table);
-+	return ret;
- }
- 
- /*
-@@ -850,96 +833,61 @@ static struct symbol *find_twin_positional(struct elfs *e, struct symbol *sym1)
-  */
- static int correlate_symbols(struct elfs *e)
- {
--	struct symbol *file1_sym, *file2_sym;
--	struct symbol *sym1, *sym2;
--	bool progress;
--
--	for_each_sym(e->orig, sym1)
--		sym1->dont_correlate = dont_correlate(sym1);
--	for_each_sym(e->patched, sym2)
--		sym2->dont_correlate = dont_correlate(sym2);
--
--	/* Correlate FILE symbols */
--	file1_sym = first_file_symbol(e->orig);
--	file2_sym = first_file_symbol(e->patched);
--
--	for (; ; file1_sym = next_file_symbol(e->orig, file1_sym),
--		 file2_sym = next_file_symbol(e->patched, file2_sym)) {
--
--		if (!file1_sym && file2_sym) {
--			ERROR("FILE symbol mismatch: NULL != %s", file2_sym->name);
--			return -1;
--		}
-+	struct symbol *sym;
- 
--		if (file1_sym && !file2_sym) {
--			ERROR("FILE symbol mismatch: %s != NULL", file1_sym->name);
--			return -1;
--		}
-+	for_each_sym(e->orig, sym)
-+		sym->dont_correlate = dont_correlate(sym);
-+	for_each_sym(e->patched, sym)
-+		sym->dont_correlate = dont_correlate(sym);
- 
--		if (!file1_sym)
--			break;
-+	if (prepare_identities(e->orig) || prepare_identities(e->patched))
-+		return -1;
- 
--		if (strcmp(file1_sym->name, file2_sym->name)) {
--			ERROR("FILE symbol mismatch: %s != %s", file1_sym->name, file2_sym->name);
--			return -1;
--		}
-+	if (correlate_by_identity(e) ||
-+	    extend_same_twins_by_checksum(e) ||
-+	    validate_symbol_twins(e))
-+		return -1;
- 
--		file1_sym->twin = file2_sym;
--		file2_sym->twin = file1_sym;
-+	for_each_sym(e->orig, sym) {
-+		if (!sym->len || is_compound_constant(sym))
-+			continue;
-+		if (!reference_twin(sym) && !sym->dont_correlate)
-+			WARN("no correlation: %s", sym->name);
- 	}
- 
-+	return 0;
-+}
- 
--	/*
--	 * Correlate in two phases: loop deterministic levels until no more
--	 * progress, then use positional fallback for the rest.  This prevents
--	 * the nondeterministic positional matching from stealing symbols that
--	 * have deterministic matches.
--	 */
--	hash_init(suffix_map);
--	do {
--		progress = false;
--		for_each_sym(e->orig, sym1) {
--			if (sym1->twin || sym1->dont_correlate)
--				continue;
--			sym2 = find_twin(e, sym1);
--			if (!sym2)
--				continue;
--			sym1->twin = sym2;
--			sym2->twin = sym1;
--			progress = true;
--		}
-+static int check_linkage_changes(struct elfs *e)
-+{
-+	struct symbol *orig_sym, *patched_sym;
- 
--		if (update_suffix_map(e->orig))
--			return -1;
-+	for_each_sym(e->orig, orig_sym) {
-+		if (orig_sym->twin || orig_sym->dont_correlate ||
-+		    !has_dwarf_identity(orig_sym) || is_undef_sym(orig_sym) || !orig_sym->len)
-+			continue;
- 
--		for_each_sym(e->orig, sym1) {
--			if (sym1->twin || sym1->dont_correlate)
-+		/*
-+		 * Identities distinguish linkage changes, but later name-based
-+		 * resolution can bind references to the wrong state. Reject them.
-+		 */
-+		for_each_sym_by_demangled_name(e->patched, orig_sym->identity.demangled_name,
-+					       patched_sym) {
-+			if (patched_sym->twin || patched_sym->dont_correlate ||
-+			    !has_dwarf_identity(patched_sym) ||
-+			    is_undef_sym(patched_sym) || !patched_sym->len)
- 				continue;
--			sym2 = find_twin_suffixed(e->patched, sym1);
--			if (!sym2)
-+			if (orig_sym->type != patched_sym->type ||
-+			    strcmp(orig_sym->identity.scope, patched_sym->identity.scope) ||
-+			    orig_sym->identity.external == patched_sym->identity.external)
- 				continue;
--			sym1->twin = sym2;
--			sym2->twin = sym1;
--			progress = true;
-+			ERROR("unsupported linkage change (%s, %s): original %s symtab[%u] (external=%d), patched %s symtab[%u] (external=%d)",
-+			      orig_sym->identity.scope, orig_sym->identity.demangled_name,
-+			      orig_sym->name, orig_sym->idx, orig_sym->identity.external,
-+			      patched_sym->name, patched_sym->idx, patched_sym->identity.external);
-+			return -1;
- 		}
--	} while (progress);
--
--	for_each_sym(e->orig, sym1) {
--		if (sym1->twin || sym1->dont_correlate)
--			continue;
--		sym2 = find_twin_positional(e, sym1);
--		if (!sym2)
--			continue;
--		sym1->twin = sym2;
--		sym2->twin = sym1;
- 	}
--
--	for_each_sym(e->orig, sym1) {
--		if (sym1->twin || sym1->dont_correlate)
--			continue;
--		WARN("no correlation: %s", sym1->name);
--	}
--
- 	return 0;
- }
- 
-@@ -1110,7 +1058,8 @@ static int mark_changed_functions(struct elfs *e)
- 
- 	/* Find added functions and print them */
- 	for_each_sym(e->patched, patched_sym) {
--		if (!is_func_sym(patched_sym) || patched_sym->dont_correlate)
-+		if (!is_func_sym(patched_sym) || patched_sym->dont_correlate ||
-+		    is_undef_sym(patched_sym))
- 			continue;
- 
- 		if (!patched_sym->twin) {
-@@ -1231,7 +1180,7 @@ static bool klp_reloc_needed(struct reloc *patched_reloc)
- 		return export->mod_ns;
- 	}
- 
--	if (!patched_sym->twin) {
-+	if (!reference_twin(patched_sym)) {
- 		/*
- 		 * Presumably the symbol and its reference were added by the
- 		 * patch.  The symbol could be defined in this .o or in another
-@@ -1376,6 +1325,7 @@ static int clone_reloc_klp(struct elfs *e, struct reloc *patched_reloc,
- {
- 	const char *sym_modname, *sym_orig_name, *sec_objname;
- 	struct symbol *patched_sym = patched_reloc->sym;
-+	struct symbol *orig_sym = reference_twin(patched_sym);
- 	s64 addend = reloc_addend(patched_reloc);
- 	char tombstone_name[SYM_NAME_LEN];
- 	struct symbol *sym, *klp_sym;
-@@ -1386,7 +1336,7 @@ static int clone_reloc_klp(struct elfs *e, struct reloc *patched_reloc,
- 	struct klp_reloc klp_reloc;
- 	unsigned long sympos;
- 
--	if (!patched_sym->twin) {
-+	if (!orig_sym) {
- 		if (!export) {
- 			ERROR("unexpected klp reloc for new symbol %s", patched_sym->name);
- 			return -1;
-@@ -1443,8 +1393,8 @@ static int clone_reloc_klp(struct elfs *e, struct reloc *patched_reloc,
- 		if (!sym_modname)
- 			return -1;
- 
--		sym_orig_name = patched_sym->twin->name;
--		sympos = klp_find_sympos(e->orig, patched_sym->twin);
-+		sym_orig_name = orig_sym->name;
-+		sympos = klp_find_sympos(e->orig, orig_sym);
- 		if (sympos == ULONG_MAX)
- 			return -1;
- 	}
-@@ -1546,6 +1496,7 @@ static int clone_reloc(struct elfs *e, struct reloc *patched_reloc,
- 	struct symbol *out_sym;
- 	bool klp;
- 
-+	/* Reject ambiguous data references before treating them as new. */
- 	klp = klp_reloc_needed(patched_reloc);
- 
- 	dbg_clone_reloc(sec, offset, patched_sym, addend, export, klp);
-@@ -2291,6 +2242,9 @@ int cmd_klp_diff(int argc, const char **argv)
- 	if (correlate_symbols(&e))
- 		return -1;
- 
-+	if (check_linkage_changes(&e))
-+		return -1;
-+
- 	ret = mark_changed_functions(&e);
- 	if (ret < 0)
- 		return -1;
-diff --git a/tools/objtool/tests/generic/fixtures/identity/unique_id.c b/tools/objtool/tests/generic/fixtures/identity/unique_id.c
-new file mode 100644
-index 000000000000..df79605bc192
---- /dev/null
-+++ b/tools/objtool/tests/generic/fixtures/identity/unique_id.c
-@@ -0,0 +1,50 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com> */
-+#include "common.h"
-+MODINFO;
-+
-+#define PASTE0(a, b) a##b
-+#define PASTE(a, b) PASTE0(a, b)
-+#define UNIQUE_ID(name) PASTE(__UNIQUE_ID_, PASTE(name, PASTE(_, __COUNTER__)))
-+#define MAX_VALUE(a, b, id) ({ __typeof__(a) id = (a); id > (b) ? id : (b); })
-+#define MAX(a, b) MAX_VALUE(a, b, UNIQUE_ID(max))
-+
-+struct descriptor {
-+	const char *function;
-+	const char *file;
-+	const char *format;
-+	unsigned int line;
-+	unsigned int flags;
-+};
-+
-+extern void emit(struct descriptor *desc, int value);
-+
-+/* pr_debug() descriptors carry a per-TU counter in their names. */
-+#define DEBUG_CALL(id, fmt, value) do { \
-+	static struct descriptor id __attribute__((used, aligned(8), section("__dyndbg"))) = { \
-+		__func__, __FILE__, fmt, __LINE__, 0 \
-+	}; \
-+	if (id.flags) \
-+		emit(&id, value); \
-+} while (0)
-+#define DEBUG(fmt, value) DEBUG_CALL(UNIQUE_ID(ddebug), fmt, value)
-+
-+NOIPA int clamp_value(int value)
-+{
-+#ifdef PATCHED
-+	return MAX(value, 1);
-+#else
-+	return value > 0 ? value : 0;
-+#endif
-+}
-+
-+NOIPA void report(int value)
-+{
-+#if defined(PATCHED) && defined(CHANGE_REPORT)
-+	value++;
-+#endif
-+	DEBUG("first", value);
-+#ifdef TWO
-+	DEBUG("second", value + 1);
-+#endif
-+}
-diff --git a/tools/objtool/tests/generic/test-identity-unique-id.sh b/tools/objtool/tests/generic/test-identity-unique-id.sh
-new file mode 100755
-index 000000000000..d4dbaafbe575
---- /dev/null
-+++ b/tools/objtool/tests/generic/test-identity-unique-id.sh
-@@ -0,0 +1,31 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+# Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com>
-+# Adding a counter-using macro must preserve existing dynamic debug descriptors.
-+. "$(dirname "$0")/../identity-lib.sh"
-+
-+setup
-+for flags in "" "-DTWO" "-DTWO -DCHANGE_REPORT"; do
-+	build_pair identity/unique_id.c $flags
-+	if [[ "$flags" != *CHANGE_REPORT* ]]; then
-+		assert_checksum_matches report
++	if [[ -v CONFIG_DEBUG_INFO_SPLIT ]]; then
++		command -v "$DWP" &>/dev/null ||
++			die "split DWARF requires llvm-dwp (or set DWP)"
 +	fi
-+	run_diff
-+	assert_patched clamp_value
-+	assert_no_section __dyndbg
-+	diff_log | grep -q 'no correlation:' && fail "dynamic debug descriptor lost correlation"
-+	if [[ "$flags" == *CHANGE_REPORT* ]]; then
-+		assert_patched report
-+		old="$(in_symbols orig.o |
-+			awk '$4 == "OBJECT" && $8 ~ /__UNIQUE_ID_ddebug_/ { print $8 }')"
-+		[ "$(echo "$old" | wc -w)" = 2 ] || fail "expected two original descriptors"
-+		run_post_link
-+		for sym in $old; do
-+			assert_original_reference report "$sym"
-+		done
-+	else
-+		assert_not_patched report
-+	fi
-+done
 +
-+pass "counter shifts preserve descriptors in unchanged and changed functions"
-diff --git a/tools/objtool/tests/generic/test-thinlto-ambiguity.sh b/tools/objtool/tests/generic/test-thinlto-ambiguity.sh
-index 34f4f3a58e20..4e0e49a9fc56 100755
---- a/tools/objtool/tests/generic/test-thinlto-ambiguity.sh
-+++ b/tools/objtool/tests/generic/test-thinlto-ambiguity.sh
-@@ -38,7 +38,7 @@ build_thinlto()		# $1 output object, $2 extra flags
- {
- 	local t
- 	for t in "" -DTU_B -DTU_C; do
--		$THIN_CC -flto=thin -O2 -ffunction-sections -fdata-sections \
-+		$THIN_CC -flto=thin -O2 -g -ffunction-sections -fdata-sections \
- 			$2 $t -c "$FIXTURES_DIR/thinlto_ambiguity.c" \
- 			-o "$workdir/tu$t.o" 2>/dev/null || return 1
+ 	[[ -v CONFIG_GCC_PLUGIN_LATENT_ENTROPY ]] &&	\
+ 		die "kernel option 'CONFIG_GCC_PLUGIN_LATENT_ENTROPY' not supported"
+ 
+@@ -588,6 +594,15 @@ find_objects() {
+ 		    -printf '%P\n'
+ }
+ 
++# Save the matching DWOs before the next build overwrites them.
++save_split_dwarf() {
++	local file="$1"
++	local dest="$2"
++
++	[[ -v CONFIG_DEBUG_INFO_SPLIT ]] || return 0
++	"$DWP" -e "$file" -o "$dest.dwp" || die "cannot save split DWARF for $file"
++}
++
+ # Copy all .o archives to $ORIG_DIR
+ copy_orig_objects() {
+ 	local files=()
+@@ -608,6 +623,7 @@ copy_orig_objects() {
+ 
+ 		mkdir -p "$orig_dir"
+ 		cp -f "$file" "$orig_dir"
++		save_split_dwarf "$file" "$orig_file"
  	done
-diff --git a/tools/objtool/tests/generic/test-thinlto-local.sh b/tools/objtool/tests/generic/test-thinlto-local.sh
-index a266263676ed..71156e0b59ce 100755
---- a/tools/objtool/tests/generic/test-thinlto-local.sh
-+++ b/tools/objtool/tests/generic/test-thinlto-local.sh
-@@ -15,9 +15,9 @@ find_thinlto_toolchain ||
+ 	xtrace_restore
  
- build_thinlto()		# $1 output object, $2 extra flags
- {
--	$THIN_CC -flto=thin -O2 -ffunction-sections -fdata-sections $2 \
-+	$THIN_CC -flto=thin -O2 -g -ffunction-sections -fdata-sections $2 \
- 		-c "$FIXTURES_DIR/thinlto_local.c" -o "$workdir/tu_a.o" 2>/dev/null || return 1
--	$THIN_CC -flto=thin -O2 -ffunction-sections -fdata-sections $2 -DTU_B \
-+	$THIN_CC -flto=thin -O2 -g -ffunction-sections -fdata-sections $2 -DTU_B \
- 		-c "$FIXTURES_DIR/thinlto_local.c" -o "$workdir/tu_b.o" 2>/dev/null || return 1
- 	"$THIN_LD" -r "$workdir/tu_a.o" "$workdir/tu_b.o" -o "$1" 2>/dev/null || return 1
+@@ -647,6 +663,7 @@ copy_patched_objects() {
+ 
+ 		mkdir -p "$patched_dir"
+ 		cp -f "$file" "$patched_dir"
++		save_split_dwarf "$file" "$patched_file"
+ 		found=1
+ 	done
+ 	xtrace_restore
+@@ -680,6 +697,7 @@ generate_checksums() {
+ 
+ 		mkdir -p "$(dirname "$dest")"
+ 		cp -f "$file" "$dest"
++		[[ -f "$file.dwp" ]] && cp -f "$file.dwp" "$dest.dwp"
+ 		"$OBJTOOL" klp checksum "$dest"
+ 	done
+ 
+diff --git a/tools/objtool/klp-dwarf.c b/tools/objtool/klp-dwarf.c
+index 99b098ee7904..98d00ea19b7c 100644
+--- a/tools/objtool/klp-dwarf.c
++++ b/tools/objtool/klp-dwarf.c
+@@ -138,6 +138,10 @@ static void normalize_source(char *path)
+ 	*write = '\0';
  }
-diff --git a/tools/objtool/tests/lib.sh b/tools/objtool/tests/lib.sh
-index 8e1aa7614dc6..44ce670c4a6c 100644
---- a/tools/objtool/tests/lib.sh
-+++ b/tools/objtool/tests/lib.sh
-@@ -67,7 +67,7 @@ klp_preflight()
  
- 	tmp="$(mktemp -d)" || bail "mktemp failed"
- 	echo 'int probe(void) { return 0; }' > "$tmp/probe.c"
--	$CC -c -o "$tmp/probe.o" "$tmp/probe.c" 2>/dev/null ||
-+	$CC -g -c -o "$tmp/probe.o" "$tmp/probe.c" 2>/dev/null ||
- 		{ rm -rf "$tmp"; bail "$CC cannot compile a trivial object"; }
++/*
++ * Full LTO with --plugin-opt=dwo_dir can merge CUs and lose TU source
++ * paths. Kbuild does not enable this output mode.
++ */
+ static int read_unit_source(struct identity_cu *cu, Dwarf_Die *die)
+ {
+ 	Dwarf_Attribute attr;
+@@ -146,12 +150,12 @@ static int read_unit_source(struct identity_cu *cu, Dwarf_Die *die)
  
- 	# $CC, $ARCH and objtool have to agree about the target, and cross runs
-@@ -139,6 +139,7 @@ EOF
- # it lives at the compile where an override cannot drop it.
- #
- #   -O2					the kernel's default
-+#   -g					required for DWARF symbol identity
- #   -ffunction-sections -fdata-sections	klp-build passes these itself, through
- #					KCFLAGS, whatever the configuration
- #   -fno-asynchronous-unwind-tables	arch/x86/Makefile sets this always, so
-@@ -150,7 +151,7 @@ EOF
- #					checksum
- #
- # A test overrides it; see tools/objtool/Documentation/klp-write-tests.txt.
--FIXTURE_CFLAGS="-O2 -ffunction-sections -fdata-sections -fno-common \
-+FIXTURE_CFLAGS="-O2 -g -ffunction-sections -fdata-sections -fno-common \
- 		-fno-asynchronous-unwind-tables"
+ 	if (dwarf_tag(die) != DW_TAG_compile_unit)
+ 		return 0;
+-	if (dwarf_attr(die, DW_AT_name, &attr)) {
++	if (dwarf_attr_integrate(die, DW_AT_name, &attr)) {
+ 		name = dwarf_formstring(&attr);
+ 		if (!name)
+ 			return die_error(die, "invalid compilation unit name");
+ 	}
+-	if (dwarf_attr(die, DW_AT_comp_dir, &attr)) {
++	if (dwarf_attr_integrate(die, DW_AT_comp_dir, &attr)) {
+ 		dir = dwarf_formstring(&attr);
+ 		if (!dir)
+ 			return die_error(die, "invalid compilation directory");
+@@ -472,6 +476,23 @@ static int add_address(struct identity_reader *reader, struct identity_die *entr
+ 	return 0;
+ }
  
- test_name="$(basename "$0" .sh)"
++/*
++ * Reduced DWARF can omit the element size of idt_table. Reading its
++ * DW_FORM_data1 upper bound (255) as -1 would misidentify it as empty.
++ */
++static int read_array_bound(Dwarf_Attribute *attr, Dwarf_Sword *bound)
++{
++	Dwarf_Word value;
++
++	if (dwarf_whatform(attr) == DW_FORM_sdata ||
++	    dwarf_whatform(attr) == DW_FORM_implicit_const)
++		return dwarf_formsdata(attr, bound);
++	if (dwarf_formudata(attr, &value) || value > INT64_MAX)
++		return -1;
++	*bound = value;
++	return 0;
++}
++
+ /*
+  * The empty features[] in virtio_input.c can share an address with the
+  * nonempty features[] in trans_virtio.c. Exclude the empty object's DIE
+@@ -498,10 +519,10 @@ static bool is_empty_type(Dwarf_Die *type)
+ 			return true;
+ 		lower = 0;
+ 		if (dwarf_attr(&range, DW_AT_lower_bound, &attr) &&
+-		    dwarf_formsdata(&attr, &lower))
++		    read_array_bound(&attr, &lower))
+ 			continue;
+ 		if (dwarf_attr(&range, DW_AT_upper_bound, &attr) &&
+-		    !dwarf_formsdata(&attr, &upper) && upper < lower)
++		    !read_array_bound(&attr, &upper) && upper < lower)
+ 			return true;
+ 	} while (!dwarf_siblingof(&range, &range));
+ 	return false;
+@@ -752,7 +773,7 @@ static int build_identities(struct identity_reader *reader)
+ 	static const Dwfl_Callbacks callbacks = { .section_address = dwfl_offline_section_address };
+ 	Dwfl *dwfl = dwfl_begin(&callbacks);
+ 	Dwarf_CU *cu = NULL, *next;
+-	Dwarf_Die die;
++	Dwarf_Die die, split;
+ 	Dwarf *dwarf;
+ 	struct identity_die *entry;
+ 	unsigned int bucket;
+@@ -767,11 +788,15 @@ static int build_identities(struct identity_reader *reader)
+ 	dwarf = dwfl_module_getdwarf(reader->module, &reader->bias);
+ 	if (!dwarf || check_relocations(dwarf))
+ 		goto out;
+-	while (!(ret = dwarf_get_units(dwarf, cu, &next, NULL, &unit_type, &die, NULL))) {
+-		if (unit_type == DW_UT_skeleton ||
+-		    unit_type == DW_UT_split_compile || unit_type == DW_UT_split_type) {
+-			ret = die_error(&die, "split DWARF is not supported yet");
+-			goto out;
++	while (!(ret = dwarf_get_units(dwarf, cu, &next, NULL, &unit_type, &die, &split))) {
++		if (unit_type == DW_UT_skeleton) {
++			/* libdw checks the DWO ID and resolves addresses through the skeleton. */
++			if (!split.addr) {
++				ret = die_error(&die,
++						"missing or mismatched split DWARF file (saved .dwp files require libdw >= 0.191)");
++				goto out;
++			}
++			die = split;
+ 		}
+ 		if (!is_unit(dwarf_tag(&die))) {
+ 			ret = die_error(&die, "invalid unit root");
 -- 
 2.55.0
 
