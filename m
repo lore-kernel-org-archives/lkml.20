@@ -1,103 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793758716;
-	b=j/XyjkStjNucsScgriT1AQpSo1c3KIXBEzayyP7OHlXkmzAv2ntM2A4CzTnj1HQ27Nrj
-	 RfQTdxSHcCO8UxMMlEFYjRIIqTpyMfWVZnjWxC99RjMtQ9lVq6m/vHwxFjeqBnH1VLhna
-	 mqTclujAQwTyT/7SHw4HC+pla5WDyzy6MrRVH4bR8BXjegWf6IZtJBOGVCew5VMbbq6Se
-	 +tpjBUzLxpAHeqd2LOdAP0To+Z4VgIiMNR8BIbNwfYqzQKEAGzA5iZbbmUuF9q+C3PME3
-	 eKq/7QNPhtiRutrws2NCnCxw8+PHW0UgaYwF6KsFjdoipGip+w3PsOG9FRHz4kaRgCA==
+	t=1793758804;
+	b=j/coQZuECYBxFZsGbX7WD7DfNosSLWGAXMLYCKP5DSaHvDCS0cMBQ9qhspMbGEC9c3vk
+	 Gkm5IzhufYZrI3DEBPlLd1O+j/g76M7/DrCEJ2rrUoXDmcZSvnhptWHD3CxuRaHtYNYyw
+	 NyuPP1pWYyP8IlvKUCFoq6XEb4njuHF8z8kWoMNG4LQXWnSTbU3+hSWrsS1+NFMZ8Vr9B
+	 PBVP1fU11fJGy1t0eZe6rJ6GPN5nlFYFDSeJZnhiLEhqQdnHYhJZxLPXWpag7m8XyO0kR
+	 U614SejHDbp+VGQikVAT5Qpng8FdL9IDcqU6vdaZPgCoF322WrBA3m0V+0R3GS2bDQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793758716;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793758804;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=I+E1FT7j2TPwT2i0hneBh3LNGnIyRwhqUFoGV1aFaFs=;
-	b=GNpdXkFm3a0iSTHOXGuUiagn5zwRmXVtCDRtBQhMJZzRavAYNHz6khyYi+LFKFUvZcLT
-	 0XMJnizhLifFpMv+zLljwGrX5D1xlno6YGdINan5yiNYLcRJG422JIz/04j/40vA3VUGB
-	 b2dTVMglggs5uy18WjR7DODSXlB9zhsKE89k18Dh0iiGMogFd0vz0Cl14Ek5IYvB5pX5y
-	 Yy3biRr8pXTaX86pRKw4yjA0kryXXhfYQmkuQfml2u6/HPUSv983ejMzw446GHJpDqdeq
-	 YxMm2MDMOlT7KMz6MLt5ZJT6SuVxjt9eDlwFQrZ/xWT4JOlye/wFnlNta6p9l7Tou3g==
+	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
+	bh=rXti7mY5F0P/rsGwIECfqLmvwSGUaMqT4P5dq57Cx/E=;
+	b=sS50VPbYMeHuagWqlJXhTwAPagLTUHyHF+r9/Jssbu2FJ0i7fW38oo8iWeA3qGIjtH+0
+	 oTfEBDmoqBD5VSyePHwrJQUHDHIyosz/Knw91fv0MLkXmcsrw9rs1s0G8m1Srv/jvXlPP
+	 5dhvwQzLNBD9LEyuHSvL5AlGbp2fsX1cKq6OrdeZdMK1VTaJqF0SwsnNG6M73PeSbQiJY
+	 H6c1n6hU24vZRuCmy1UlolXF2ZB1Qv2rbfwdWRiWatSNM4BVGLJU7ItMCdsIk3usZGd+E
+	 nJv/gosjniXYVivgY9KR5HMxdJZUsy5Zs0zPZQbjQ6cYWAd5t8szVFR4pzU1VpMYEiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yKwJHKFU;
-	arc=none smtp.remote-ip=209.85.215.175
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	dmarc=pass header.from=soleen.com;
+	spf=pass smtp.mailfrom=soleen.com;
+	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=PBzi9TIP;
+	arc=none smtp.remote-ip=209.85.221.173
+Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A4CF606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 02:18:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A4CF606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F42606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 02:20:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46F42606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yKwJHKFU
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cdaefe02d5dso143152a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 18:18:35 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=PBzi9TIP
+Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-5eaabf28c06so132214e0c.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 18:20:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793758715; x=1794363515; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=soleen.com; s=google; t=1793758802; x=1794363602; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=I+E1FT7j2TPwT2i0hneBh3LNGnIyRwhqUFoGV1aFaFs=;
-        b=yKwJHKFU2D2DhPMYMCgCzYmIt4/34+y+HODW5waB91q+93S3cWU9u7MBfBFVa0PteX
-         6urz8fIXfBJ21XmZArDNWZrvvcph1C/Vp+4/3JU67wwKWpThQrH1qz/iArCXcUSsU59o
-         dGi02BuGhVfROnsDKgtQOOlw10MyjPD3xM702XttGNZeEklm1/+TwH4hUvh8Xsy49Nna
-         lJmHkFpWT34THeTt+trsVvf8twhyKktNGlP7cWVE933LCqxALK+65nuY7eF6jQOlqjl6
-         RmctE8Cz7xVEOqiwExJULFeFVAtxJb8CpE7ocLyFsWf392b+27z+sS6Z6hjFBEksz6AM
-         toFA==
+        bh=rXti7mY5F0P/rsGwIECfqLmvwSGUaMqT4P5dq57Cx/E=;
+        b=PBzi9TIPsFLl2TMl7s8o/VQCNOJaYL9ZQIfaatArXX0Yipg0kgF/Q22Qxg0e3TPsPj
+         G7J5AJvAyRg+QuPemaLMBmz6UI38bZuLnlIfZYYpFqa5YR1W6GxX+JipDVu1Xaryz7Jp
+         k2+Gl5Ck3VPZOS86WtvarxWRgseghf/K5zcs1wx8wzvPIWVHkTsFgg2rCb90zdrXX5i8
+         Ds3R7tBrV4eXU4udYmaeWPJijUI4+OoqZkO1SCRkivf4ScPXBZaw7j5L9EvUJv4VQsk4
+         2ntuTVc8jkaDg/zQ90kByToA9Q/IyV3j59zMBVNp6RnNa3aOIQnzIXfu3Vcq26X2VFqq
+         usRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793758715; x=1794363515;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=I+E1FT7j2TPwT2i0hneBh3LNGnIyRwhqUFoGV1aFaFs=;
-        b=dZNfwmRRBaKiqWnisxc1ad2mT1bBsD9UQeii+zxpIZdu9DobdWgUnfc+VjzIslE+m4
-         ppiHVtKBQK3Wxnk1ZlO8Nl9S8VBd1rpD213SrEdo1h648U5VV7sBHTkSpKFfTLUey530
-         kb8qPFNdZbe3xflwUFjIS81UEOAPWt0TSoNeAdx++w0kXKsKJxyUFYNvwHXMRTtDpUVV
-         ukbxbtlVysm86mqnC8UX1O6k/0kvBNa7lGNtAnxzh8Zfd72fEfHfsg5SrHj+Z7KJYBOn
-         eKWHYniNGZ6XfPX/rwa16EjALKZ8/bXlC+4Aj/+vBLKgNubiSknKxesXGZxB7X6xSTx3
-         eC1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBx0ohPD+4I/Jb4yjxuiPzhG2l53miMQPW9eon7xuFLwU9zIduwI25D8ZP81bcETU2LFZwcuzmGs8Izn8sc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9F/X3W/dMlcc+XgQ1m5oxtmAKvU158TBPYvxHv8VrQRr4Mo96Z
-	NIFseMxP4/EhI6TvG511g35juab1hJvivL0t6WAhb3/rqtEFcl26van/
-X-Gm-Gg: AYBFou1+t9btNUIcughG/FeVo+KQiMKFELzK2PnsjpUNkje/fSInQyeWcsJLHmTNB1B
-	CbeohTq8UTUwPlGw1eE5BXOtUpmfkj3PuewbZeeDVDnJrGBBydt5VVCbG/qwYbQSzIQBomU5Aap
-	WmDVcf+uDov97iiSiNEe1q4EEglFmm9neI47pAM18KPkVbUYEBRL9b4pBgGmC8fZfevTsMk9iTE
-	Xxx9/xjRtn6gLMsmQ4yK9Y6LZLLJZz/lSTFA/SlhJQKNXztijM91cYp/ml7Ip4sZqcJBkBUECuE
-	eydnC6Zilpb/LGJkus4s1wekcGEVYQFp+gxb1bv9IJw3GwaObT91or/Rm0Suwj/rSEwurGwGsWO
-	wbaOutvHvekgnCfzRl7/T5h+AHfPSCq/w3PuTIZZg3/rWtrYEl/OGOEqQfpYcQy/EW9u+6S1MYh
-	ky4jMiRxQMqVd9dKANRDXBpxuA/DkxHk/JlD8KGBnVzHqR41qJmTKn2xSd5TPQih6CsoWTz56/S
-	8zCNEGZd3YJaQ9P/9r+s6+8aiWAvUQSmtUVNdQ9O+uYZjC+tplFjjwopmmlqjyP0Oq9sTueOjks
-	mkyTot83PX0QAR+AwNirNk/BzaZF53p0rz3dtG+SWb2p9BGZIdB+6XRRQQ6i0rWCKBWDnA/Hl4q
-	XNvOZ/+beZUbrXhJHgOVD+NEiptrQN6tzbeCd4h4Bzr9ziii2qLrS1M4haJdlfKJijijI
-X-Received: by 2002:a17:90b:4b8c:b0:3a8:9d0d:ca50 with SMTP id 98e67ed59e1d1-3ae897c853cmr12970769a91.10.1793758714583;
-        Tue, 03 Nov 2026 18:18:34 -0800 (PST)
-Received: from localhost.localdomain ([183.96.175.225])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb46326f8bsm346131a12.0.2026.11.03.18.18.31
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 03 Nov 2026 18:18:34 -0800 (PST)
-From: Joonho Lee <mynameisjune111@gmail.com>
-To: linux-sound@vger.kernel.org
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	anton.yakovlev@opensynergy.com,
-	mst@redhat.com,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
-	Joonho Lee <mynameisjune111@gmail.com>
-Subject: [PATCH v14 12/12] docs: describe virtio-sound capture options
-Date: Wed,  4 Nov 2026 11:17:45 +0900
-Message-ID: <20261104021745.57733-13-mynameisjune111@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261104021745.57733-1-mynameisjune111@gmail.com>
-References: <20261104021745.57733-1-mynameisjune111@gmail.com>
+        d=1e100.net; s=20260707; t=1793758802; x=1794363602;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rXti7mY5F0P/rsGwIECfqLmvwSGUaMqT4P5dq57Cx/E=;
+        b=RxVFIGgQK1fqbgGQdxL/7fe6GWYiv8hKpJKXmVUX5lvwtufc3yFiBAgtjJsGDY9RKv
+         MAeJoKniiXZmBdw6FfqohyHC96GjeXKLhjZZvX75P7bKaFr/FP0GP+GSoBp65nvhqKub
+         hushM7Tp5/TgFDdcIXWjfSQQvPIbQHJQfv7wW+BnzdLj2fFOICRr0ixKMKIsSZJYL5f3
+         2v6PZbs8IFXpo7VEqJT5sokSpnK4/i8H0rAVi3GxJcCkrRX0Fa3xJ65JILD8uWgZw0gZ
+         yQ2rtvm7HXZr1nHxJ8KaD1JXQ9CPMy2Li140jRhy12bo+nocZHCcJkUaN+Pf1ii2243M
+         DQVw==
+X-Forwarded-Encrypted: i=1; AKwUvBzpR1ICNxvhM4OMDSCqQoyc+B9mXIBrkdLVrvxwQBAMcxkPHbzu6I/Cht8pHHNLpWZCzfawmJXWQx11X7Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+9uAV6BroXAQRBVv1n3BnCvdfNIFdwrNnyLneZpC0JvYwWDB2J
+	hl8QPw++mO/SW/VVcntRDbylCqtfWOfrD6LZrr6vRTLCThCNb9TrqacVpk3xwiwNKbE=
+X-Gm-Gg: AYBFou2yEcTtxBxco/scmA8ZpA7OrYPL3aQDcUjIodKiQ07SInOJjuJRPrOLmMRTpnK
+	QVdqU+XA1AO8Hy+CtwKkfPzH7ibO1E7DDVSkoAOdGv6TJ1fQL5xpCfXEMBu948lcJBrJjGDBuce
+	2iP9xRqCY0QS3rTNHFNROgeJOyJBR4mYHvrahC4rBw0b1geqq0OAx9GQ8EW8T6e7phl6UeMSoT7
+	QNJYSQgSj2VFyklLzWOndrcOZW6lVF0SoYLzGgxOxbDIb1p4pVvh+a2qMurh7ADFc8LoqTUBYym
+	xyHU1JSqdLWtb1ohaaA+jDyS1bP8FlO+4FBKkiIlFQa0kxPMOwnO1ZqHkcZtluZtpPDLsnnxIon
+	M6qH3rSx94UrvpWUSh40KGOpXlBpgqL49VJyfeeqxu23fcOR9r4Pt8vbBA6vtg3HbJmZVUaJHzV
+	ooGr0D4vkwMdlVGTPzZinpJHw/dFTmO2bAZIGNxZeK7oQnpz+f64uke7+Wx3ZweuWuxoGaaUh+9
+	1hWujiENXEtGoBaoV1ANngUo/jZyI9j+9OlLpIRvpLyH3jr7wCGegyxTtdOn32ySAf9HTYKEB07
+	uLb9OjRxNDGcb7Xn2oKw63f90JVsDQrnzWLDOdOnPzkGEXGOMemXPUE+BrzSvMbJGdZsiIh6WcQ
+	d2QGY31PV3qz1NDad+MCIVQgLBCk7pILClFStC+1vJOP6
+X-Received: by 2002:a05:6122:130e:b0:5ca:f811:25ac with SMTP id 71dfb90a1353d-5ec6895c285mr6125913e0c.14.1793758802245;
+        Tue, 03 Nov 2026 18:20:02 -0800 (PST)
+Received: from soleen.c.googlers.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eca89b6568sm658959e0c.1.2026.11.03.18.20.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 18:20:01 -0800 (PST)
+From: Pasha Tatashin <pasha.tatashin@soleen.com>
+To: rppt@kernel.org, pratyush@kernel.org, shuah@kernel.org, 
+ George Guo <dongtai.guo@linux.dev>
+Cc: guodongtai@kylinos.cn, kexec@lists.infradead.org, 
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261029090542.13283-1-dongtai.guo@linux.dev>
+References: <20261029090542.13283-1-dongtai.guo@linux.dev>
+Subject: Re: [PATCH] selftests/liveupdate: Preserve VM workspaces with
+ run-vmtests.sh -k
+Message-Id: <179375880152.1029434.132459394322366594.b4-ty@b4>
+Date: Tue, 03 Nov 2026 21:20:01 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,56 +100,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-Document the five opt-in virtio_snd capture module parameters. State that
-capture_allow_empty, capture_allow_short, capture_packed_status and
-capture_pause_restart require capture_staging, and use the ALSA kernel
-parameter restriction tag for each entry.
+On Thu, 29 Oct 2026 18:05:42 +0900, George Guo wrote:
+> run-vmtests.sh -k keeps the test output logs, but vmtest.sh still
+> removes its workspace and qemu.serial, losing the guest output needed
+> to debug failures.
+> 
+> Forward -k to vmtest.sh when keeping logs and update the help texts to
+> match.
+> 
+> [...]
 
-Assisted-by: LLM
-Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
+Applied, thanks!
 
----
-Documentation/admin-guide/kernel-parameters.txt |   29 +++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+https://git.kernel.org/pub/scm/linux/kernel/git/liveupdate/linux.git/log/?h=fixes
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -8344,6 +8344,35 @@
- 
- 			Can be used multiple times for multiple devices.
- 
-+	virtio_snd.capture_allow_empty= [HW,ALSA]
-+			Retry a bounded number of empty startup capture replies
-+			when virtio_snd.capture_staging=1.
-+			Format: <bool>
-+			Default: false. Validate with the target device.
-+
-+	virtio_snd.capture_allow_short= [HW,ALSA]
-+			Accept non-empty, frame-aligned short capture replies
-+			when virtio_snd.capture_staging=1.
-+			Format: <bool>
-+			Default: false. Validate with the target device.
-+
-+	virtio_snd.capture_packed_status= [HW,ALSA]
-+			Read status immediately after the returned capture data
-+			when virtio_snd.capture_staging=1.
-+			Format: <bool>
-+			Default: false. Validate with the target device.
-+
-+	virtio_snd.capture_pause_restart= [HW,ALSA]
-+			Release and reprepare capture streams across pause when
-+			virtio_snd.capture_staging=1.
-+			Format: <bool>
-+			Default: false. Validate with the target device.
-+
-+	virtio_snd.capture_staging= [HW,ALSA]
-+			Enable staged capture using request-owned buffers.
-+			Format: <bool>
-+			Default: false. Validate with the target device.
-+
- 	vga=		[BOOT,X86-32] Select a particular video mode
- 			See Documentation/arch/x86/boot.rst and
- 			Documentation/admin-guide/svga.rst.
+[1/1] selftests/liveupdate: Preserve VM workspaces with run-vmtests.sh -k
+      commit: 654efa9a6c4c455aca6f034f321c013f5b784157
+
+Best regards,
+-- 
+Pasha
+
+
