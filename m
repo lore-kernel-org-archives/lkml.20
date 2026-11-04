@@ -1,50 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793814504;
-	b=KsAzi8EWU7HG6BEdqZeeLAXeu2aCSFMnkcRkxpZ9ZL8OpALWSjJwatLkb/QCM5DSDTqb
-	 kCaOx4kVCl/eCk+pF9PfcIptiCv0rZyFu6pe1I5ygWZvOmjto+syUbedExzJIKoXByCl5
-	 Y1vO577TrULb+n6vkmb+JlFBqfig9oS9Pot6JS7tz6O76wuXuYYSQFkYrzDz9ScjjR8n5
-	 fpTrx16b5XCMfmQIXZQjSrl4rpEeEOZXd7bqa7Ws5kdtg0AaASi/Y3b35fMu2sUAp43RL
-	 4op0jMy+QN9t3Ih+/06lCaMr+PXzFhM7EMwUJagYxVw1xYMUtKpwu88xXy6CUaSRe5w==
+	t=1793814513;
+	b=j+hYzi9WAzYHtQ1HFfxXlYkuriO1ds/t6KkbvhtJph8y0a0SL4f1jeKXszmf8kVWUBBy
+	 XWq6ijssSFxlMzyyS5I08ruFAUo1VifAbrYdxd3VLygNQ3T/pXFkxRplWDkNpwdj3NnR6
+	 SGH7Jy83mBd5nsVL3Myk2wE1xHKHMxj8ZBxA/WRK5JB78RHgc4eErlMQfgNyuY/RFqzGQ
+	 wxFVycO94KrnetXbx/ToZlS0aB+GF1ob6GlaWrCpYMc6Bn3ViKnLDHdjWbWEtLRUjYVPT
+	 CSDY2UG2iEw9BQc5vsQidbCVAiFkItbo7B6HTpgwDtE1r0KOVUQj7cC7PJCrJl+lvJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793814504;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793814513;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=mH4Kh7etZDYgMktnm8Hf7N33NxWU3Q5SAabtWk7R9zg=;
-	b=BklYZQv80rCiER94TzxXpyjC2DSS4pIFFiNnGwoS/9HQtI7qTq+80UpQaaIkx9b8tzIu
-	 uVaAeEKdA7Fp7Ekw25FHVDIVhO7wkmNvjWQKrCUVADsb0YSwoQUxqW93xOAvKYTWa3ZHT
-	 1Nu3TxhCbjipZosHQDVT9WJGX0WXh8ArJumF+DJBIw4m4vLiu+sGP7bsUgyjXH25TGX5r
-	 RUPEkb/kbFxAJjCdCNJTEs5l59aZXiRPJ0Sfv6E/fVOHtBh5/Z/SraDCMkDp7YcIietNI
-	 3Y0Y+471nj/SUrGVT0ggRZ0+XKugEiXiwTzSEiZIy4v12z+WZh87D/Zw0RXuIrbwxBg==
+	bh=4db3TAYZrLFjZxxwxODyZlvyyYvYf9/5/RO3Ou953XQ=;
+	b=YJVGU1pN6HqQaoSrK9cpRE9w3l9kCQwPz9cmDYZ/fVzp2WcRbR972vu0R3HlsnMS4oGH
+	 cvQhwsjOZpKgMHruOCg+zx+5wn4cfVwtfTymhd6L1rfmUQbodjKFeXfO28Nti66TLvVVS
+	 ZawFqWlLXx/+3cTmSjWpQcmflF2DrOLChvu0HKlidRkwLSt7hmZNu3+tFTQHPvQJiy4Cf
+	 +E6XkpSm5dXjvT5Sn6lRTgKbYnC1BbN3e+LHutjmfMimURpZ5mFFRoCb0odIxr3btouSm
+	 N2XyNA2NzZtliBLkGAPuXd7dEiEbdsilnhyFCFopkPHqOFTusPhnTMhJbFOMW4bNEQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=CY3C5N0i;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=FWtVy0s5;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3F995606A336
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 17:48:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F995606A336
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5DECA6082BDC
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 17:48:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DECA6082BDC
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=CY3C5N0i
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=FWtVy0s5
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 78B2D1BB0;
-	Wed,  4 Nov 2026 09:48:19 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A14B01BB2;
+	Wed,  4 Nov 2026 09:48:29 -0800 (PST)
 Received: from e133894.arm.com (e133894.arm.com [10.2.80.62])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4300B3F673;
-	Wed,  4 Nov 2026 09:48:21 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6B2FB3F673;
+	Wed,  4 Nov 2026 09:48:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793814502; bh=muYRvhfARv3v3/KeY2O26NVZR0TN5+fnh0xSFjdjX4Q=;
+	t=1793814512; bh=wwoj6e9SZ5tH3Hot4vOKxZhdLcE0F24IRGtuBeTvcps=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=CY3C5N0iE/LSA+YPtP3zijzp9X/hfvcwQjPT4FJlSSRiLew83TeVKr6HpWLzGlQsL
-	 uRmrxhFxkFamSZH/55vHRTRvubYCVTJpIYRnXc5h8uKUvUnfpFHU9k76wMZBjg9GK/
-	 CQOvVRuReS74kb93LxkmRypHdGB0NKEmnTgaysd0=
+	b=FWtVy0s5v+Ef9yrygsYgBcwMQ+o0vvB3O5uN1pBPtCJ1dZarJ+oqIK4gtaTYr9ggF
+	 vObRE+SjFBuapeo1Qaz3owt78nI2u+qnJ1AkMxS7Jk0URzbx9VvqOtSrCnec3WaFws
+	 KuHKwCSiJjov5+w/5JEzQukRKHhu951eIU/QBoOE=
 From: Sascha Bischoff <sascha.bischoff@arm.com>
-Date: Wed, 04 Nov 2026 17:47:55 +0000
-Subject: [PATCH v2 01/10] irqchip/gic-v5: Reject SPIs not backed by an IRS
+Date: Wed, 04 Nov 2026 17:48:01 +0000
+Subject: [PATCH v2 07/10] irqchip/gic-v5: Use firmware node name in ITS
+ warning
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,7 +57,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-host_gicv5_fixes-v2-1-e47ad20ea3c8@arm.com>
+Message-Id: <20261104-host_gicv5_fixes-v2-7-e47ad20ea3c8@arm.com>
 References: <20261104-host_gicv5_fixes-v2-0-e47ad20ea3c8@arm.com>
 In-Reply-To: <20261104-host_gicv5_fixes-v2-0-e47ad20ea3c8@arm.com>
 To: Marc Zyngier <maz@kernel.org>, 
@@ -70,43 +71,41 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  Sascha Bischoff <sascha.bischoff@arm.com>
 X-Mailer: b4 0.15.2
 
-It is possible to build a multi-IRS GICv5 system where there are gaps
-in the global SPI range that are not backed by any IRS. In the current
-incarnation, this results in dereferencing a null pointer.
+The common ITS initialiser can be called with an ACPI firmware node.
+If firmware leaves the ITS enabled, the warning dereferences the DT
+node pointer, which is NULL on that path.
 
-Reject cases where the firmware attempts to use those SPIs during IRQ
-allocation by catching the case where there is no chip_data associated
-with the irq (meaning that there is no IRS to back it). Spit out a
-warning about broken firmware when this is encountered as it shouldn't
-be using non-existent SPIs in the first place.
+Use the firmware node name for the warning and drop the DT-only pointer.
 
-Fixes: 5cb1b6dab2def ("irqchip/gic-v5: Add GICv5 IRS/SPI support")
+Fixes: a97efa5ba5946 ("irqchip/gic-v5: Add ACPI ITS probing")
 Acked-by: Lorenzo Pieralisi <lpieralisi@kernel.org>
 Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
 ---
- drivers/irqchip/irq-gic-v5.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/irqchip/irq-gic-v5-its.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/irqchip/irq-gic-v5.c b/drivers/irqchip/irq-gic-v5.c
-index 8c0303af71e7d..f3cce2bd28cc3 100644
---- a/drivers/irqchip/irq-gic-v5.c
-+++ b/drivers/irqchip/irq-gic-v5.c
-@@ -727,6 +727,15 @@ static int gicv5_irq_spi_domain_alloc(struct irq_domain *domain, unsigned int vi
+diff --git a/drivers/irqchip/irq-gic-v5-its.c b/drivers/irqchip/irq-gic-v5-its.c
+index c5d057f713134..8628de326f28d 100644
+--- a/drivers/irqchip/irq-gic-v5-its.c
++++ b/drivers/irqchip/irq-gic-v5-its.c
+@@ -1109,7 +1109,6 @@ static int gicv5_its_init_domain(struct gicv5_its_chip_data *its, struct irq_dom
+ static int __init gicv5_its_init_bases(void __iomem *its_base, struct fwnode_handle *handle,
+ 				       struct irq_domain *parent_domain, bool noncoherent)
+ {
+-	struct device_node *np = to_of_node(handle);
+ 	struct gicv5_its_chip_data *its_node;
+ 	u32 cr0, cr1;
+ 	bool enabled;
+@@ -1129,7 +1128,8 @@ static int __init gicv5_its_init_bases(void __iomem *its_base, struct fwnode_han
  
- 	irqd = irq_desc_get_irq_data(irq_to_desc(virq));
- 	chip_data = gicv5_irs_lookup_by_spi_id(hwirq);
-+	/*
-+	 * The global SPI range may contain IDs not covered by any IRS, i.e., it
-+	 * may have gaps, in which case there is no IRS to back the SPI. Catch
-+	 * broken firmware trying to use any of those SPIs.
-+	 */
-+	if (!chip_data) {
-+		pr_warn("Firmware bug! Unimplemented SPI (0x%lx)!\n", hwirq);
-+		return -EINVAL;
-+	}
- 
- 	irq_domain_set_info(domain, virq, hwirq, &gicv5_spi_irq_chip, chip_data,
- 			    handle_fasteoi_irq, NULL, NULL);
+ 	cr0 = its_readl_relaxed(its_node, GICV5_ITS_CR0);
+ 	enabled = FIELD_GET(GICV5_ITS_CR0_ITSEN, cr0);
+-	if (WARN(enabled, "ITS %s enabled, disabling it before proceeding\n", np->full_name)) {
++	if (WARN(enabled, "ITS %s enabled, disabling it before proceeding\n",
++		 fwnode_get_name(handle))) {
+ 		ret = gicv5_its_disable(its_node);
+ 		if (ret)
+ 			goto out_free_node;
 
 -- 
 2.34.1
