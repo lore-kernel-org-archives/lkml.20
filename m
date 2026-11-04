@@ -1,59 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793788681;
-	b=VigsNstbpoj38YeJ1GolCWXYwVqOjsvDJnx1ndBcu5k+uzGkJV7HOla29CnBSc0GCHWO
-	 FqzLlCFowxmfiwacz8HzSr6lzduzcR+OGETbUDOZvwG2e7DkHcwKc4V7/EReEwIagqtP4
-	 3EbLm9r/p79D70Qk1wsWf4vtRGxr3xNGF7OZhdlxHRoFHNXJVgSM7rznz2jRvVD/2chOr
-	 5YM9LD11AVr8rjsROX4QFe8oPjDtltjQkUS3ParN9e+zpp+dCrXiquWYxAOIElvhbJxtr
-	 eALOReiD92ySuW3e60aw98HzmkiUmH9kOZyC38tXdl/t1ACa+XABQWgnhtnw5CyKnFg==
+	t=1793788671;
+	b=AskB1RCfrWVa8KImcB3guZ7bq/KZsuLf3qaJKv7s0oxlKmDHdSTVIZ09xfZZhW6AsSnK
+	 BPRVwy8i3oK+u4XISWjJoXhTLZdzd/LFk9YOZQsgm3bx1RZbDShwTjcPmxLH9A/0bVP3R
+	 7KxxoULrVYwfN04DRtAqGe5xwyMN7USnOXzv2Hvi3cxolzKGlDnns4rNDEfi+3DoCqE9g
+	 hFV2S60sENt/sKkUQb1Sfvu6bds2M8IXaBaR+wf1/0f0kUpRV52uqyrLdPGuU5sc5yDVs
+	 pqMny8vdbaLXK5IUjLdu3sMY9kx5k7lPPqSpEdPFn4uIjRUhyN+YXoXrYYaQvtgbm8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793788681;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Hg5P+ZRZSjSwStS0M8368HqB4GPBayyeLSUkGa3qSME=;
-	b=OBWz5Y9uEjO6//OBNmNowsbTOoNwoX8cy3v5++3OFcvXYDGV/QmG0uCF+TgMYwl1x65o
-	 Gyzvomo4s3/dZppts3EpJMvAbi9VP7l5l8eTy9bh/PTGe6d1d9rkDJaPecLs0cAFJnlZ1
-	 GsjaKSAGF+9j498RSDK1iodLjKZxwdj2PBfw+93PrbOmAlDE5uWJlgXhUVkl9Eg/tibX3
-	 n6Ke7LzBlpn1cfIOq9htduol1ogyAosriDvH5MXc+jV8ChvQ+zJ6aWYaTco2FmC7AEbNw
-	 pY5u535x95OiZeciPG+10RDYOaNOQnfQol3XYFR6p0OaHpA5JTdra+VWkHRBP+MUbkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793788671;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1dkLsXb9/bTYDqyZhGVg0eEZjhAqz/Od70PIDf4k4fc=;
+	b=L//yhTQ39DPygSK82GAtg36KNr2KjQ1Vg2eFYsYgQTIYITxsazTA3/C0Uh4xe6ZnZQxM
+	 hX8RB4aCMcKccxz2Ahyzd14qQeYecOjnuToVygxaZaPfe9yCxgeuDMOHJfuMnjroZwN0O
+	 VZtZqmhx/ti0lBlU09iqf8SLhAL8sJxt3DrWuhwynHTHkPzLEedgxFlGcepGwhrUFkc48
+	 8IR57zoH7XY+yOx/waTUtaeok/hPaJ6e5NOpYp+/gtbiibuP1rqEFVBFFe7xcgaHbCx/X
+	 qkSSpDcaQFqRS0IPjmyh0OyCX6fKmjZYNRRFW8DkofRqhdgHuV9pw+z4u5JgUrtYDLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O8nd1Zka;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zn4rPmWa;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F703606A32C;
-	Wed,  4 Nov 2026 10:38:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EDD3606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:37:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EDD3606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O8nd1Zka
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C74CD1F000C1;
-	Wed,  4 Nov 2026 10:37:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793788680;
-	bh=Hg5P+ZRZSjSwStS0M8368HqB4GPBayyeLSUkGa3qSME=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=O8nd1Zka7C4i6ewawjLjcddUeG3m8bZYQTmFTBmk/+OSb7FdN5sU12nkrWhgYZcgz
-	 GnRz6AIzDwexyIMonClnB2PM9db3ZcM1qW2pIVB2NghnEAzVkx2HZ3UdAgBi7roAtg
-	 PjSEnPvMwkJfHrQflndEzJAd/hGX4TWlKe/HBiVGBgyvtdmbRNebpoaqA9rmRfzv5G
-	 JlaWRa1v1OU/oIcRa1ukKkM3ecX/NepNa3UjEyD4pi0S4S+noVezeXKITaobe/FLgg
-	 zrOZp3YzVb2YXD78yPGXTH0Uy9hTohsJ/ahpieajshCLogepHwJvYYdGfzQU1M1n1A
-	 5r6rjGwKsGTSg==
-Date: Wed, 4 Nov 2026 11:37:56 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jacky Chou <jacky_chou@aspeedtech.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Po-Yu Chuang <ratbert@faraday-tech.com>, Eric Dumazet <edumazet@kernel.org>, 
-	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v5 1/7] dt-bindings: net: ftgmac100: Make Aspeed
- compatibles standalone
-Message-ID: <20261104-helpful-courageous-hedgehog-f05bbf@quoll>
-References: <20261104-support_ast2700-v5-0-44057f4dde75@aspeedtech.com>
- <20261104-support_ast2700-v5-1-44057f4dde75@aspeedtech.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zn4rPmWa
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4b4571ff080so5468805e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 02:37:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793788668; x=1794393468; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1dkLsXb9/bTYDqyZhGVg0eEZjhAqz/Od70PIDf4k4fc=;
+        b=zn4rPmWaJ3a++hiLo7Xe3RVBG+PeT0bEuPCVcAY+8QPdo50paPEhhqtYcxONPUreWY
+         PTSi5rKZBSU+UfM2I4p6WT3/ITMxuAymkUkGT8IJHI9u77NwNIJdSGO4UiSMOYnsxqBi
+         mZ0JHuPeqeYvfugiG1VaiRh49iD5NIzkygnQHSlFf/ZI1ExufTef1Ry/Ps1rgGKgm6AX
+         GYnRZI3UrKforOJokHSRElmQp0VRHHU56egQHw/9RXEMu2jN3JbF+9s5GmxZCzV8NTgp
+         JiAk7mjeb8DyW6wgDIXKYP3/DMzg5hX8VpUTEn5Z1QV3TT9NY6wZBqtRICzqHkHlBAti
+         1G3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793788668; x=1794393468;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1dkLsXb9/bTYDqyZhGVg0eEZjhAqz/Od70PIDf4k4fc=;
+        b=DDVVyrGwHiE380fWiPVkD2JId5tFaqoWgpKPmlbmSyeaonLVaXlM7gH/MS93qoo9cV
+         oZdencq/UuJTPox9nlxMKA80NP9+TH/KCpPfx+quE2WA5Jwl9wMKrSCwBmprF0fYjbuj
+         8TMWVYNnheQbdKAf3rslKqenUAptWbXFpg+7rw5p3Xp57Bw52u6fw0Y4YyNJ9on2/5hH
+         L3vtf0+AItbqlVlEWZdu8CgMEbajjczuw2o9zXeh91ZUqhyhnurEMzrPpcQN/dP+mWyL
+         PlvcMfu7GOEBXwgfSnOhV84GxJPzMhJbVQRaSUBkz5KCYSUOvr0qIRSFFCsXZRMIGSjr
+         JPjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz+XyCmuBZ/iDuYHYR6kaU/BBMgnT/Ql72BhETSLAJJ8YRfppei25znZuY5Xub5H1Mkp57uuvfTUc5Czgg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9nhpEwPMyBvYXRXHSlGQUl3NeMnUBIj3+siKG/zKhjqjo0Yk2b
+	ptsUR7a1O+YJSV/QWoeLK8fuu98QFOYsDm6jD+Yr1/6Tkosj5y1IRTiQ
+X-Gm-Gg: AYBFou2aNHtdcSShBtToDZEmtSmxf2tjBkZNFQtW4qbBOpBaANiuwywmUbq25rZL5PG
+	/SaSyx2FKYSXRdDFDrmsKlfI/WLdyB+PjQ6KVaMKDMnRXI24B0qD9b/p0gppOvY0rzw5/8tPhy9
+	Nx1iPS84NOHrcV4SiK1pUR/n06e0nJFS9ApIRYWfUDx6xxUbi7nLqxBgXu/vOfcTIO8IMZ7yugR
+	RKwVZfwBeaBLvz5BBteIyILRl6JhfLdi6BIc6ppDlWIiPa+k8VT8RHm95Gnzaq0LBDl4MSBbRMf
+	ZAnFv5+dazAuxpLyclha8iP9fr2baNimPPLYq7JpC4jdrPY+K1vrYxI9qhunC9/9afuScR3uASQ
+	SGXDKf+YMrMeRmJIGfC0L7nRsW3CWDDIS0rE4aHrTdGIiAFPdCb6pVFOC+yKRJ7MkyUuneNfkEF
+	1cvjsmIZx2hgWS95QqLrycDccd76eIotHIty9utSFtzWRZOFsEaW/HR8r4ksNBfy9ANshiZrK3U
+	Ayk01XxzGzB14sOwdxG+MLsuVhRjbdo0CnXZDHPZVN/pghww6UFN87LX5H+eJJ5/K4o63GEBmsg
+	7ZZa4scuvMNGHFz+qnyeFQ/2+6EBaw/Mo4ieVuFUiDiQHkkBQ1oZt6ytTwwwnVzicgi8/GB7bz/
+	SPZjFRidGNj56k3cLNmBiVQ==
+X-Received: by 2002:a05:600c:698d:b0:4a2:994:575c with SMTP id 5b1f17b1804b1-4ac185bcc4emr358335545e9.34.1793788667829;
+        Wed, 04 Nov 2026 02:37:47 -0800 (PST)
+Received: from andreayoga.wind3.hub ([151.76.4.179])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b40ff10f88sm36342995e9.0.2026.11.04.02.37.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 02:37:47 -0800 (PST)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: Kees Cook <kees@kernel.org>
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	Andy Lutomirski <luto@amacapital.net>,
+	Will Drewry <wad@chromium.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Rodrigo Campos <rodrigo@kinvolk.io>,
+	Christian Brauner <brauner@kernel.org>,
+	Tycho Andersen <tycho@tycho.pizza>,
+	Sargun Dhillon <sargun@sargun.me>,
+	Hui Peng <benquike@gmail.com>,
+	Bradley Morgan <brads@mainlining.org>,
+	Cong Wang <cwang@multikernel.io>,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	bpf@vger.kernel.org
+Subject: [PATCH 0/4] seccomp: fix user-notification state transitions
+Date: Wed,  4 Nov 2026 11:37:30 +0100
+Message-ID: <20261104103736.71956-1-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,70 +107,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261104-support_ast2700-v5-1-44057f4dde75@aspeedtech.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 01:13:54PM +0800, Jacky Chou wrote:
-> The aspeed,ast2400-mac, aspeed,ast2500-mac, and aspeed,ast2600-mac
-> compatibles are currently only valid when paired with the generic
-> "faraday,ftgmac100" fallback: if a node ever bound through the
-> generic entry alone, ftgmac100_probe() would set
-> rxdes0_edorr_mask/txdes0_edotr_mask to BIT(15) instead of the Aspeed
-> BIT(30), skip Aspeed clock setup, and leave the DMA mask too narrow.
+An atomic SECCOMP_IOCTL_NOTIF_ADDFD request moves a notification from
+SENT to REPLIED, so the listener stops reporting EPOLLOUT for it.  Two
+paths move it back to SENT without waking poll waiters, so a supervisor
+waiting for EPOLLOUT, with edge- or level-triggered epoll, poll() or
+select(), can remain asleep, leaving the target blocked in the trapped
+syscall.
 
-And device would work or not? If device still works after all these
-steps above, then why isn't fallback applicable?
+Patch 1 fixes the failed descriptor install, present since commit
+0ae71c7720e3a ("seccomp: Support atomic "addfd + send reply"").  Patch 2
+fixes the restore on signal interruption, added by
+commit 832b9b176be06 ("seccomp: restore knotif->state when
+SECCOMP_ADDFD_FLAG_SEND is interrupted").  Patch 3 moves the state change
+and the wakeup into one helper, with no functional change.
 
-Be explicit, because I have no clue whether Aspeed clock setup is
-necessary for device to operate.
+SECCOMP_IOCTL_NOTIF_RECV marks a notification SENT before copying it to
+userspace.  Unless SECCOMP_FILTER_FLAG_WAIT_KILLABLE_RECV is also set, a
+signal during the copy makes the target return EINTR, even with
+SECCOMP_FILTER_FLAG_RESTART_BEFORE_RECV, while the supervisor can receive
+a withdrawn ID.  With it, the signal is held back as if the notification
+had already been received.  Patch 4 adds a RECEIVING state and marks the
+notification SENT only after the copy.
 
-> 
-> Make each of them a standalone compatible instead, so none of the
-> Aspeed compatibles require the generic fallback alongside them.
-> 
-> Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
-> 
-> ---
-> ftgmac100_of_match[] has had dedicated entries for AST2400, AST2500,
-> and AST2600 since commit 03a2aba50b2c ("net: ftgmac100: List all
-> compatibles"), so there is no known kernel + devicetree combination
-> where a node has actually bound through the generic entry and gotten
-> the wrong EDORR bit. This part is a binding correctness fix, not a fix
-> for an observed failure.
-> 
-> Note that arch/arm/boot/dts/aspeed/aspeed-g4.dtsi, aspeed-g5.dtsi, and
-> aspeed-g6.dtsi still declare their MAC nodes with the two-string
-> "aspeed,astXXXX-mac", "faraday,ftgmac100" compatible, so this will make
-> dtbs_check warn against those files until the redundant fallback
-> compatible is dropped there as well. That .dtsi change will be sent as
-> a separate series through the Aspeed/arm-soc tree, since dt-bindings
-> changes don't go through that tree.
-> ---
->  .../devicetree/bindings/net/faraday,ftgmac100.yaml         | 14 ++++++--------
->  1 file changed, 6 insertions(+), 8 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
-> index d14410018bcf..c870dd0bda7b 100644
-> --- a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
-> +++ b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
-> @@ -13,12 +13,10 @@ properties:
->    compatible:
->      oneOf:
->        - const: faraday,ftgmac100
+Patch 4 affects all filters, not only those using RESTART_BEFORE_RECV:
+RECV now fails with ENOENT if the target withdraws the notification during
+the copy.  It clears the buffer first, and
+Documentation/userspace-api/seccomp_filter.rst already asks supervisors to
+retry on ENOENT.
 
-This const goes to your new enum
+All four patches concern transitions into SENT; patch 4 takes its
+post-copy transition through the helper added by patch 3.
 
-> -      - items:
-> -          - enum:
-> -              - aspeed,ast2400-mac
-> -              - aspeed,ast2500-mac
-> -              - aspeed,ast2600-mac
-> -          - const: faraday,ftgmac100
-> +      - enum:
+Tested in vng on x86_64 with the full seccomp_bpf suite, using the seccomp
+selftest config plus CHECKPOINT_RESTORE: 146 passed, 0 failed, 0 skipped.
+Reverting the kernel/seccomp.c changes of the whole series makes
+user_notification_addfd_rlimit and user_notification_addfd_send_interrupted
+time out on their second epoll_wait() and all four during_receive variants
+fail; reverting only those of patch 4 makes just the during_receive
+variants fail.
 
-here.
+The bugs were found and the patches were written with the help of an LLM.
 
-Best regards,
-Krzysztof
+---
+Reviewer notes: 832b9b176be06 and f7952251ecc3, fixed by patches 2 and 4,
+are in v7.4-rc1.  Patches 3 and 4 only need backporting to 7.4.x:
+f7952251ecc3 adds a new flag that is not tagged for stable itself,
+unlike 832b9b176be06, and patch 3 is tagged only because patch 4 needs
+it.
+
+Patches 1 and 2 do not depend on patches 3 and 4 and can be applied
+first.
+
+The series conflicts with Cong Wang's RFC "seccomp: report the result of
+continued system calls" [1], which is based on v7.3.  After patch 4, a
+task killed while its held notification is being received is in
+RECEIVING, so the "killed unseen" check in seccomp_hold_result() would
+need to become n.state <= SECCOMP_NOTIFY_RECEIVING for the result to
+still be queued.
+
+[1] https://lore.kernel.org/all/20261020001124.974063-1-xiyou.wangcong@gmail.com/
+
+Andrea Parri (4):
+  seccomp: wake poll waiters after failed addfd send
+  seccomp: wake poll waiters after interrupted addfd send
+  seccomp: add a helper to move a notification to SENT
+  seccomp: publish user notifications after copying them to userspace
+
+ kernel/seccomp.c                              |  79 +++++----
+ tools/testing/selftests/seccomp/config        |   1 +
+ tools/testing/selftests/seccomp/seccomp_bpf.c | 162 +++++++++++++++++-
+ 3 files changed, 204 insertions(+), 38 deletions(-)
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.53.0
 
