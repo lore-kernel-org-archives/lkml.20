@@ -1,54 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793791522;
-	b=Hz58wOFP4hnZ6mXPcn3hyDxoqQINhP5AdNjyNMJJvnodkWX6hTrsP7ru0T0DG6RnocSn
-	 7qYWmQVnPj88XGEZRThr6nk6M7D2k6Q3uztCfxFVzRcYoe8oCG/d6jGClB8Fbf5RL+kAr
-	 KYDLfYZwjwGGCegbHDIqA6pLc+gP9tiEOJRNnv+Q7b3jshfA59MxDdZVbr6cRvTo+WPRm
-	 kY3F1SbRIpJFqoSABP6vCqDgcla2mw/Ftb9Kp8Q8MfhsyDlXVfgA7JcWd4H3Vfnq67ozo
-	 3gHomumnWJToMVjvPBCHlHHMDj1IYDUxSxp58MjvE9XSmM2JIRjo+S0LKhFAe7cwWTg==
+	t=1793791582;
+	b=HpMrzUq8rKA7FMr/QOZVr+oXUlbXrmaRNifJISsbwpurwyHYIoyRxOgqYcjRUffEErZB
+	 AACbuBftS0fL6GopTbRoZtUNReJVKVVGDDjfLX/NuhuydLMz+NvkHlUnhLVTpcpH6QT17
+	 FrCqU156no4QDKpusCChhlA/m11V+vMl/ZQk04CNa3SAPdDOsSztaefnpFok9mNmubgxK
+	 wNVJ0TtTqIYOcdYoysnwaQlDuqgkxXQssL/vw7w6pnSjJSBdT+jJZUtrwbiDh+3p33unY
+	 yrzn7pdBGRb2cjhXo4xcINzPHxTYNXF72NI4lvgbRmSb1FN+SZybC3SO4tglrciogrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793791522;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=+C2XbHpLqK8DQTw8gaAqePPNFIDKaUXWFXYTZBtyER8=;
-	b=N1PEffBzYheMjWgJDHt213xQgaTK2kCZla1pUxWxEdCE0mrWbsfwQ24xWwBBqalthHBi
-	 VdfUpt7zRwG7kG4I5rKQduL2moVsTSGifbIV4NC8M4RyDwjdekQWHcV9FXNoR3weA/laW
-	 /QHYEB2FaQr6yLF+QDneAVDB1LWE7G0Ql5VjQ6ISmYe0bIPxfxhEyoJqDi70dp6moBw2H
-	 VZrEs40AG3ackvKhKsAivOutI8POC8aIh83ikEvYOqF3hBXJ0qdEfp0FICDgeRWbL7+Zv
-	 UxfihLiJw+lRWlbQ9YWcg6N/WNfyg7auGafbTuq+g07qbltHDEPQELKqkZ5ssRUgoxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793791582;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=BRUvR8bERFluoJz7SlfIieeBNJFya8f/PQSjh5QOrdo=;
+	b=rkwVFQQMNNnrGPWBNpIwYvmEw82ee1CPh4ylAkMfLLMpy+ZPJSjx+hi+BzVmosM+bO5W
+	 gwUTtLGm51TKsg/k6WZahprmIqMDWtJ6ymJa8IO/M/RVUFE9oQp1jEGMwlLa2VVaF+oiG
+	 YFqdVvMfpe4HaX7NZHsV6zRkOmQGZNWLc9zkyO+sxDxFOXavOTbJx2rHMsW33RNMSPgS1
+	 KEO81av+8+jgXnH390QTk8XPOy2pQ7QgfLnIBrVq9DPc0GrA9BlIv96CgNmXFd9bWsEN+
+	 6bLJRTD7xS3muNk+iID1lrGXFO306buISgmMll45zfmB/DKhTA8pG2If2qN16s6pfxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gJGBMiAl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=HhPCNqfL;
+	arc=none smtp.remote-ip=115.124.28.4
+Received: from out28-4.mail.aliyun.com (out28-4.mail.aliyun.com [115.124.28.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD22606A31B;
-	Wed,  4 Nov 2026 11:25:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F45606A328;
+	Wed,  4 Nov 2026 11:26:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8F45606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gJGBMiAl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A72481F000C1;
-	Wed,  4 Nov 2026 11:25:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793791521;
-	bh=+C2XbHpLqK8DQTw8gaAqePPNFIDKaUXWFXYTZBtyER8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gJGBMiAlOl01q3GsTgziQ5qdj8GUN4UCJW9S34pWhM0E5ZS0Cd4/O3i/jAqQQhTRh
-	 ESTFm2nEUFoYMDN/4DyAHp3+2TuDrlo1HwxFIhEyHe8Uf0YuVUUaBqu4KbVK1W5n7l
-	 Ydrs6MguiZYpxxLVpobSsF6yar0kZlqmzss42hS+eb0wbbiZvLIYjZwKmhimvv179K
-	 Vxr/XgHjMdN9wlGSXn7TkIHfaK4mFkdRp3ohGI26BMgA6ICOJ4FZzTXt/mCuY8gkDt
-	 YBLOwz5bkoRbyDwzj9aI+OD6PnZSajGKdGuLC4fXJyQz38f8j1M3L0ZTdN4cHR11zY
-	 F0jot1F72uDhQ==
-Date: Wed, 4 Nov 2026 12:25:17 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-Cc: mchehab@kernel.org, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, kees@kernel.org, 
-	justinstitt@google.com, morbo@google.com
-Subject: Re: [PATCH] media: siano: Replace strlcat() with snprintf() in
- sms_ir_init()
-Message-ID: <ausVkYs1-3rJ5Fj0@devuan>
-References: <20261104090239.311074-1-nikitash.mariiaw@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=HhPCNqfL
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1793791575; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=BRUvR8bERFluoJz7SlfIieeBNJFya8f/PQSjh5QOrdo=;
+	b=HhPCNqfL0G90FIUlb1aHPtUfMKIYyXGhAc8F1DIqqbRKmdXP2cYaHrG9yQZQXXczvd+E4pCtzKHungfWmpD4DKlTBITrwt+sfASzUxPP4HsMdshGooYU8Y10FHWJO06+x36EhsNV+Rpm8o0J+jcCeMxygga0hJj0g44aVwbeEVo=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.08114079|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0805209-0.0665188-0.85296;FP=12488014602245263088|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032065030;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=7;RT=7;SR=0;TI=SMTPD_---.jwpn148_1793791574;
+Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jwpn148_1793791574 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Wed, 04 Nov 2026 19:26:15 +0800
+From: Guanglei Zhu <zhugl3@xiaopeng.com>
+To: peterhuewe@gmx.de,
+	jarkko@kernel.org
+Cc: jgg@ziepe.ca,
+	linux-integrity@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	liuc63@xiaopeng.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] tpm: eventlog: check the payload size before reading tag events
+Date: Wed,  4 Nov 2026 19:26:13 +0800
+Message-ID: <20261104112613.58589-1-zhugl3@xiaopeng.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <ausQu4DY8WARe_2j@kernel.org>
+References: <ausQu4DY8WARe_2j@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,103 +65,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ofeojnjmg3d27igu"
-Content-Disposition: inline
-In-Reply-To: <20261104090239.311074-1-nikitash.mariiaw@gmail.com>
+Content-Transfer-Encoding: 8bit
 
+The EVENT_TAG branch of get_event_name() casts the event payload to
+struct tcpa_pc_event and reads from it:
 
---ofeojnjmg3d27igu
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-Cc: mchehab@kernel.org, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, kees@kernel.org, 
-	justinstitt@google.com, morbo@google.com
-Subject: Re: [PATCH] media: siano: Replace strlcat() with snprintf() in
- sms_ir_init()
-Message-ID: <ausVkYs1-3rJ5Fj0@devuan>
-References: <20261104090239.311074-1-nikitash.mariiaw@gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <20261104090239.311074-1-nikitash.mariiaw@gmail.com>
+	pc_event = (struct tcpa_pc_event *)event_entry;
 
-Hi Mariia,
+	switch (do_endian_conversion(pc_event->event_id)) {
+	...
+		for (i = 0; i < 20; i++)
+			d_len += sprintf(&data[2*i], "%02x",
+					pc_event->event_data[i]);
 
-> Date: 2026-11-04 01:02:39-0800
-> From: Mariia Nikitash <nikitash.mariiaw@gmail.com>
->
-> In preparation for removing the deprecated strlcat() API[1],
-> replace the strscpy() and strlcat() calls with a single snprintf()
-> call to construct the IR device path.
->=20
-> Both the source and destination buffers have the same capacity,
+The log iterators only verify that the event header plus the declared
+event_size stays within the log buffer; they do not require the
+payload of an EVENT_TAG entry to be large enough for the fields the
+branch reads. A truncated entry makes the branch read up to 20 bytes
+of event_data[] past the end of the entry, and, for the last entry in
+the log, past the end of the buffer itself.
 
-The line above seems irrelevant, and potentially confusing.
-The size of the input is not important, because since we're appending
-stuff after it, truncation may actually happen.
+The legacy PC Client spec defines the EV_EVENT_TAG payload as a
+TCPA_PC_EVENT - event_id, event_size and event-type-specific data -
+so a conformant entry carries the 8-byte header and the hash-type
+ids carry a full digest. The log itself, however, is an ACPI table
+the firmware leaves in memory: the TPM never measures the log, so
+the kernel cannot tell a conformant log from a corrupted one. The
+iterators already work on that assumption - they stop once the
+declared event_size runs past the buffer end - and the readers
+should apply the same rule to what they take off the payload.
 
-> and the return values are unused. This preserves the resulting
-> string, including truncation behavior.
->=20
-> Link: https://github.com/KSPP/linux/issues/370 [1]
-> Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+Skip entries whose payload cannot even hold the event id, and skip
+the 20-byte digest dump when the payload cannot hold the full
+tcpa_pc_event header plus the digest, so the branch never reads
+beyond the entry it is formatting.
 
-Except for the small comment above,
+Fixes: 55a82ab3181b ("[PATCH] tpm: add bios measurement log")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+---
+v2: fold the spec rationale from the list discussion into the commit
+    log, per review - what the legacy PC Client spec defines for the
+    tag payload, why the kernel cannot trust the log to conform, and
+    how the iterators already handle it.
 
-Reviewed-by: Alejandro Colomar <alx@kernel.org>
+ drivers/char/tpm/eventlog/tpm1.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
+diff --git a/drivers/char/tpm/eventlog/tpm1.c b/drivers/char/tpm/eventlog/tpm1.c
+index 0397e33..f93a358 100644
+--- a/drivers/char/tpm/eventlog/tpm1.c
++++ b/drivers/char/tpm/eventlog/tpm1.c
+@@ -178,6 +178,10 @@ static int get_event_name(char *dest, struct tcpa_event *event,
+ 		}
+ 		break;
+ 	case EVENT_TAG:
++		if (do_endian_conversion(event->event_size) <
++		    sizeof(pc_event->event_id))
++			break;
++
+ 		pc_event = (struct tcpa_pc_event *)event_entry;
+ 
+ 		/* ToDo Row data -> Base64 */
+@@ -203,6 +207,9 @@ static int get_event_name(char *dest, struct tcpa_event *event,
+ 			name = tcpa_pc_event_id_strings[do_endian_conversion
+ 							(pc_event->event_id)];
+ 			n_len = strlen(name);
++			if (do_endian_conversion(event->event_size) <
++			    sizeof(struct tcpa_pc_event) + 20)
++				break;
+ 			for (i = 0; i < 20; i++)
+ 				d_len += sprintf(&data[2*i], "%02x",
+ 						pc_event->event_data[i]);
+-- 
+2.43.0
 
-Cheers,
-Alex
-
-> ---
->  drivers/media/common/siano/smsir.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/media/common/siano/smsir.c b/drivers/media/common/si=
-ano/smsir.c
-> index 283770d583d5..636ff228108b 100644
-> --- a/drivers/media/common/siano/smsir.c
-> +++ b/drivers/media/common/siano/smsir.c
-> @@ -55,8 +55,8 @@ int sms_ir_init(struct smscore_device_t *coredev)
->  	snprintf(coredev->ir.name, sizeof(coredev->ir.name),
->  		 "SMS IR (%s)", sms_get_board(board_id)->name);
-> =20
-> -	strscpy(coredev->ir.phys, coredev->devpath, sizeof(coredev->ir.phys));
-> -	strlcat(coredev->ir.phys, "/ir0", sizeof(coredev->ir.phys));
-> +	snprintf(coredev->ir.phys, sizeof(coredev->ir.phys),
-> +		 "%s/ir0", coredev->devpath);
-> =20
->  	dev->device_name =3D coredev->ir.name;
->  	dev->input_phys =3D coredev->ir.phys;
-> --=20
-> 2.43.0
->=20
->=20
-
---=20
-<https://www.alejandro-colomar.es>
-
---ofeojnjmg3d27igu
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrrFhwACgkQ64mZXMKQ
-wqmhyxAAn5l/sw/fVAK7OMWX6jxqedrOeQFFscoBRgFUNE/LcFtqZwfS7E2QlYgb
-5BrwzjlG8yGElowXvEzEhjR6O9EZRa3lHl4utBAGeQklT3MabBZQHbmcC+AWbt1l
-Zpho7yZcSMl232IpuLX/qWa1r6c3h4Go7leYxgicY8OlKAHd0UooMjuRiO62Byna
-tpg3PjMjvNisAy5/66GAlmSWM05BprppUAzSviTaz8b6htuUT9Nh7hH0z7mZGZIh
-13BVKH/RwX6x/gz16ovTtgZopMcxA1HUfGnX+/EVOhBXmFzBdSI/nOB+oZY32ls8
-HG6kzK/yneDwJ8Nd0vQyW3k0xsh8UFrBBXFmSNHCr0tA0NE/ZzDIluBHLDREmC02
-4iLIZ+6fe9RTo1DGYSQm+MuMbDsdji/cGUnbanq07evuXlLxm9iFWuWJzCtQrXR7
-tcR56a6deUbRBjs49GD3IvLYN38RYz9k+Q9l1w2hegfh4J/cBIrtM8D4k6FD5+TQ
-VMyGrnbPTcg6ZanQuadVjRIa7mKcNm2Cl9tEC9Wco6UQu0nRefIS32HaOBZj3HUK
-KeEN0GudrKXHc/G7Na+vleLjz923k7zNpu+cZ+5Y1UinBww86iubAleraGTniUjc
-A6D8BrfaBtESXgZkUS/Qp47QdrYh4eSFeh6N1WLO6/5RtiRDvLU=
-=DdC9
------END PGP SIGNATURE-----
-
---ofeojnjmg3d27igu--
