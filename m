@@ -1,68 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793816480;
-	b=LOqJ6sqQrnQjE4/3CBr55TLrFaowYpbWoyT9bflk3HYjYJdX5SSK+UaTrIcW0Jx0h8+B
-	 O5u5grGdogq6Sw8c6NFDki2SaBa0BNCxxfnXFjGXJeBk/NsoFnEjYHZPDTWTHU+XkDS5L
-	 lcRmSrhOe1IcUK+1TRywUyaDzJ2cTEZvtW3/Jkh3MpFTT8Z4tVE/wG9OrHxE4tsKaUzhV
-	 PGumb3jLwPf0HpsBV1bVe8yhiL6qcKP2OFIfi+fmKdcn8RoajXtLC59yqxyyYpXBl5+4D
-	 3odwXfE6XahkpzBAZxPFPMKqU/KUV/2EL7uDfPQSlRaZo1GRV4PGGZeNUZ+XTC3vJYA==
+	t=1793816481;
+	b=gK15wEE7tNKIhqxufXKLDpJQlVkc4lH4a28GMYz2/Y1yVz9Nf0xg+Xz3xGRYmgtHoErl
+	 5sD2++Fd+bVmRXFlxJFIfHL7Hyd783heh00Casm4D1wrzecNM3FbdKSrmy9ZfM0QAlb8G
+	 mLvxKx9bkPe0DQvmxd5Zkw/iV2V34gZyH1lw0lWtssXnVKZtK4BhOw7DPIjolwPqYrYpJ
+	 m6o/etrDNPlmpClHhC9tixFFYJPyDaMPkMu9L84nnGcv/HIhcTeForsBDRQhhhqzj8kMf
+	 RqlFoViWB619Mxa4YNoQOb/D9C5MLv3Cmb3lb3kbUdJd8Z//a4rR85uytl41OJQt50A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793816480;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=QPqayBP0oJU1EgJFeRWMjurJLcFQpMOEQ4l+qAchFb0=;
-	b=qGAUJww4zWqvTr5KmcbldGIR7oAYFleZZ/SxZM2uogJwUTqdyWjGlII54uZa3nko6001
-	 /lilkXVX8QUa+9bvXBagy7XpiaEAqFP/9mOdP+4QpSneWwxOPNfX4qeokJcu/iPrn5g+k
-	 1UDz84Yx7vMOrnmYl6+XDdYyHP6jYE/hHfPv64Sci3XnGXKfUmmYBsLpkUO0hrMzpG3DY
-	 Ex29f0UP1+TNamMZqM9T5N+9kaeOtAh9WYhCIq+cHwN/E4cIbFnJnpfOwLipaxDDiiLqa
-	 5AQVAqdlcT3So+tmG7S0DKPr356U119JUoie5A1pQL63TiM6Id1c9b3muETXuj+/ymw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793816481;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=OwabDHq3ZuxM1yP800nESKo0UbrLBX3Su4rzj0ky3Xs=;
+	b=TsiPS3ROOp6taeMFDyNoqB5dGRBEDCEFAzqcn2pVRHyb25EE/4mk5r58Ossk9AW7LB3u
+	 g909wfew/JW4LXnnPPVbTr+TVboExVQQKdby7Qn5PIPw8jGSo+EZRMeGbExkVuUeKq000
+	 wouv6zDHY6q+z8Ou57SGhAx83tBAVBtuS3KhRejyUttGkBS+x3CfP0V4tWRgkfc+RUStg
+	 8IRIb8MaLbJ3/vnZN09B45zkoPGv69qa1moNPmHHcQzuBLpmmEsYHqlEzsjeALUWe+rBU
+	 x7bKtj8pA8nHTXdWBwaIRIkeiO1j7u54K7P2BwSr8z8l/jGg4eV+vU+JGWuFQ548qdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mPSV50yR;
-	arc=none smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rgYBPg+z;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BC956082BE5;
-	Wed,  4 Nov 2026 18:21:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BC956082BE5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC4BB608360A
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:21:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC4BB608360A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mPSV50yR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793816480; x=1825352480;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=52qvP5hVUSS3wD3/SCmGYf1Et4sj27QHBnuPGOuVz/I=;
-  b=mPSV50yRmN/SEPytmxUn5EDF55RwHRatPuzNlx4JLrgDd7ODPKKcWkRB
-   +Gux2xv0FFIYdicxk8Hw8afEufuN4+Rb+mkbzJcr1Eug9sQpirJb5+n5Z
-   /eEt6QJjwGPspcwQ2WQ/QFePIjeANHTEvkjpsTx5b5hJWmjyEEadsjr7C
-   KxKZpzYgCJiYFzqcitVTXT4rtBqRUtYgHbFlftoeI0byk9bOC290iS35W
-   Piw1RZzmp6UpfQ7QZzvUNs9MHO4sIPURaAe9z/EKVeHARnWMLIkFlV/qr
-   kSU8Yco1q/nZpmPWR5M+UqFeqcEaVq/o4x+hzdhULVbkK0Ucfn3Qdt+Ne
-   w==;
-X-CSE-ConnectionGUID: RS/apROmRfiWnI8tqHU8Mw==
-X-CSE-MsgGUID: eUFNeQN5Sz2olyvdv8sgGg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2599908"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2599908"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 10:21:19 -0800
-X-CSE-ConnectionGUID: 8fWM/CxPQpm3FCV+T6H65Q==
-X-CSE-MsgGUID: PAoxKYT3TeKmxtL8WZMboA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="6933687"
-Received: from soc-pf446t5c.clients.intel.com (HELO [10.24.80.90]) ([10.24.80.90])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 10:21:19 -0800
-Message-ID: <78ca441d-e41d-49b6-9157-6efc3814bf6b@linux.intel.com>
-Date: Wed, 4 Nov 2026 10:21:18 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rgYBPg+z
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48df4f540ebso545440f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:21:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793816479; x=1794421279; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OwabDHq3ZuxM1yP800nESKo0UbrLBX3Su4rzj0ky3Xs=;
+        b=rgYBPg+z8aTcOOqgqb2NigaNQAKH/UEO51ZtpRUUUQlGUwVBl9l7W1aggtunfwT//8
+         h045sPyhYjb6sBMTREFpCPj3YMH2FxuBbJS9skFQpqeZeIINduFNJD135vC9sSerjMdh
+         FCOoHuGdVfF0NikfDmR1G97i7H4TJKaB028BznSDF10dhnovHyZu0mOQTNhVAvc3woZJ
+         gPtbxLjZ+4FyAJarICpUFq22ZSEu2VzoaGfoIGYwQeGB/nB1x5shbEDZQ2WZwrC8zRnb
+         1LYLI1piVZYRcIhO/LJ1Q6Am9+tII3CWRI05YX5KRvqdhbjs1Zv5AyOwTkupSYKkdLrS
+         2MjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793816479; x=1794421279;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OwabDHq3ZuxM1yP800nESKo0UbrLBX3Su4rzj0ky3Xs=;
+        b=WMtoR4MgMxtokPcKmJ3MFdE6XtW6GJ8QxxNK1GwoicknaWtg7FgPYQ0kmaSjV0HW13
+         3L29docv5sHLA3kHnSUJ9EvIWlBZ1Nh+RTKJK34Zit2RPVGSEwTjESJrMvTtyMAUKXjX
+         GIAcAiOsBbDXAm2Ews/s0mqceRdzvuUDFJehEunR9WI4REYjL1IjTiht/ppuTR/CISfd
+         Du4RD1TOBvKCzUlt1gWaNr+CrR136w/wtqROd5dSMLFmuJ8thsDDiTI9e72MJF38C61W
+         dFtHgPK45s9XYnjC3ODdtcXq0mSxvQloV+nhvDm5K2yIuY/gjVIqk4PSduWmR/Rm07bF
+         BoXQ==
+X-Forwarded-Encrypted: i=1; AKwUvByT9TDfGo+QzgEweowdxs/jlyCQtenICrvBeef6hSvr4Xhd16nZ1RTn2dzetkS7SJayxZUHWvf85bXBoxc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+P81IDA1bK+u1MAsEp45shhVqfKfdcRu/womhMNj35MihEX3zC
+	TuTVtErsVsX2AuI9E7yYZ//pKFrRAd+RQrO+N/cikz5FTWRDC45ndaxz
+X-Gm-Gg: AYBFou0ZHHCVd1My6025WAGLwewysA7CTSP4jdr9TQgqlIBPV3nJ80fTMDDfWLGVK2M
+	/1nsIdnx6wyT4+pVzrOsd8qhPpKvNAXw+7wj+svO1swxy0nRikikx+rYkYbnWbbLeK+vQYasWYV
+	uPJ/ckI1RjbHvQwhU66a8uU5Bxsk32e8c2yJmkxXabTVyI9dwdGMZafqXOSbwJWs5W7UHTSywM9
+	Il9FoGHIWpjZxjBLpvRBKU/kLoJCozhlyPfsfkMPIwuPOk9oxjZBmE7iGBOw/Sk6TPElYe8/S76
+	hXOil7N51S+HWQEF9x5m5Xt2BnLurTQr644bPyei7JQUOhcSouAD8aKgnxb6Y/o/vtC0A0Vq0OZ
+	jPwRc3djWCr/M2Bqv9SwX1OhBO6ADyPaKj9Mb/YCdZEoYBGnSTYJNwZtMkBTPDkqP0SGNBAmaXY
+	EWtqnvvtVtqsuKzfPzlWVBVB3eOt/DT/ZE4eTXAe4Yj9CwPe9DdGDumbq1m1l+DiY4xPcyqIyNK
+	8RwUvPiokySbv5Kk5b6It/XWtk0beeYzFPfdyE5RIcg9Ns6a816kGt0qCQVJX5uaWd73oek/833
+	3pV8GlxJwpsK2yfQis4/vDrKEKkrGXvWEed8BmGJ+EGewAIxC+RCfwsFHNoteh00vrXT05+Ne8K
+	3q12D52wci6eTsXPOSaL7o2dajowS1YeBUbclDg==
+X-Received: by 2002:a05:6000:24c4:b0:48d:f9dd:e3de with SMTP id ffacd0b85a97d-48e6e511219mr37783890f8f.45.1793816478980;
+        Wed, 04 Nov 2026 10:21:18 -0800 (PST)
+Received: from iku.lan ([2a00:23c8:254f:fd01:b079:a2f1:caf7:b446])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed0844e2sm4073202f8f.28.2026.11.04.10.21.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 10:21:18 -0800 (PST)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <clement.leger@linux.dev>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Russell King <linux@armlinux.org.uk>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-renesas-soc@vger.kernel.org,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Vladimir Oltean <olteanv@gmail.com>
+Subject: [PATCH net-next v4 07/14] net: dsa: rzn1-a5psw: Add support for optional reset control
+Date: Wed,  4 Nov 2026 18:20:55 +0000
+Message-ID: <20261104182105.1102555-8-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261104182105.1102555-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20261104182105.1102555-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,82 +119,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/6] PCI/ACPI: Request DPC control only together with
- AER control
-To: Yazen Ghannam <yazen.ghannam@amd.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Lukas Wunner <lukas@wunner.de>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
- Oliver O'Halloran <oohall@gmail.com>, Len Brown <lenb@kernel.org>,
- linux-pci@vger.kernel.org, linux-acpi@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261020181924.3003553-1-sathyanarayanan.kuppuswamy@linux.intel.com>
- <20261020181924.3003553-6-sathyanarayanan.kuppuswamy@linux.intel.com>
- <20261104161323.GD716491@yaz-khff2.amd.com>
-Content-Language: en-US
-From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-In-Reply-To: <20261104161323.GD716491@yaz-khff2.amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-On 11/4/2026 8:13 AM, Yazen Ghannam wrote:
-> On Tue, Oct 20, 2026 at 11:19:22AM -0700, Kuppuswamy Sathyanarayanan wrote:
->> PCI Firmware r3.3, sec 4.5.2.4, requires the OS to request AER control
->> when it requests DPC control.  calculate_control() requests DPC control
->> whenever CONFIG_PCIE_DPC is enabled, even if it does not request AER
->> control, e.g., with "pci=noaer" or when MSI is disabled.
->>
->> Request DPC control only if AER control is also requested.
->>
->> Signed-off-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
->> Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
->> ---
->>  drivers/acpi/pci_root.c | 6 +++++-
->>  1 file changed, 5 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/acpi/pci_root.c b/drivers/acpi/pci_root.c
->> index b0e0b33e3254..5c674d5b6bb8 100644
->> --- a/drivers/acpi/pci_root.c
->> +++ b/drivers/acpi/pci_root.c
->> @@ -516,8 +516,12 @@ static u32 calculate_control(void)
->>  	 * the PCI Firmware Spec, r3.2, sec 4.5.1, table 4-5,
->>  	 * OSC_PCI_EXPRESS_DPC_CONTROL indicates the OS supports both DPC
->>  	 * and EDR.  EDR is always built with DPC on ACPI systems.
->> +	 *
->> +	 * PCI Firmware r3.3, sec 4.5.2.4, requires the OS to request AER
->> +	 * control while requesting DPC control.
-> 
-> What about folding this last line into the rest of the comment above?
-> 
-> Or maybe just drop the spec details and leave that for the commit
-> message?
+Add support for an optional reset control to the RZN1 A5PSW driver.
+Obtain the reset line using
+devm_reset_control_get_optional_exclusive_deasserted() during probe
+to ensure that the Ethernet switch (ETHSW) block is properly released
+from reset before initialization.
 
-I'll fold it into the comment above in v3.
+This change prepares the driver for use on Renesas RZ/T2H and RZ/N2H
+SoCs, where the ETHSW IP block is connected to a dedicated reset line
+that must be controlled by software.
 
-> 
->>  	 */
->> -	if (IS_ENABLED(CONFIG_PCIE_DPC))
->> +	if (IS_ENABLED(CONFIG_PCIE_DPC) &&
->> +	    (control & OSC_PCI_EXPRESS_AER_CONTROL))
->>  		control |= OSC_PCI_EXPRESS_DPC_CONTROL;
->>  
->>  	return control;
->> -- 
-> 
-> Otherwise, looks good to me.
-> 
-> Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+Reviewed-by: Vladimir Oltean <olteanv@gmail.com>
+---
+v3->v4:
+- No change
 
-Thanks.
+v2->v3:
+- No change
 
-> 
-> Thanks,
-> Yazen
+v1->v2:
+- Added RB tags
+---
+ drivers/net/dsa/rzn1_a5psw.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
+diff --git a/drivers/net/dsa/rzn1_a5psw.c b/drivers/net/dsa/rzn1_a5psw.c
+index 85ff1fd2bbfb..9daa5d8245df 100644
+--- a/drivers/net/dsa/rzn1_a5psw.c
++++ b/drivers/net/dsa/rzn1_a5psw.c
+@@ -13,6 +13,7 @@
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/of_mdio.h>
++#include <linux/reset.h>
+ #include <net/dsa.h>
+ 
+ #include "rzn1_a5psw.h"
+@@ -1207,6 +1208,7 @@ static int a5psw_pcs_get(struct a5psw *a5psw)
+ static int a5psw_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
++	struct reset_control *reset;
+ 	struct device_node *mdio;
+ 	struct dsa_switch *ds;
+ 	struct a5psw *a5psw;
+@@ -1243,6 +1245,12 @@ static int a5psw_probe(struct platform_device *pdev)
+ 		goto free_pcs;
+ 	}
+ 
++	reset = devm_reset_control_get_optional_exclusive_deasserted(dev, NULL);
++	if (IS_ERR(reset)) {
++		ret = PTR_ERR(reset);
++		goto free_pcs;
++	}
++
+ 	mdio = of_get_available_child_by_name(dev->of_node, "mdio");
+ 	if (mdio) {
+ 		ret = a5psw_probe_mdio(a5psw, mdio);
 -- 
-Sathyanarayanan Kuppuswamy
-Linux Kernel Developer
+2.56.0
 
