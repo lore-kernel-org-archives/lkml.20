@@ -1,85 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793789725;
-	b=3A81eSiS6QO6op6XtS2I89XJmg/OHYFCovktlfOGbHAzSJ4kSCEeYh0J1f8vk/qlh0bd
-	 lyqYTra6K6+caqKl02VY6MCyOcbQfjDewTZMbhaqxyPewGlB4ASiuG+oJ+kMPRWkqeRhv
-	 r0qfI32x5tY3YiZw0r4XyrDv2/yPGQIArUS1xBuWvy8zYypcCD76mYAw8qh2JAuhxJ08+
-	 Lt2BPTqcqMXnEA3FvD3IqNmHtMR7b62kOPL8ubfIZzLJRmAm2W48jA9fZbYTZ2mNcD//Q
-	 /4M1IvEkNVAUrimQduByN4jxiC1gjct470kinzp34ehG+YfUxHdpCtOsIPbbGD24Etw==
+	t=1793789752;
+	b=Yo0NDjdNMgEW3apqt9URwxfBLWLUfdiX5R+RltML808HFMvz22BwO/Ydu1TY93qbpDYR
+	 AyI44Bxjy/OmN/PG5L+ajAWTaQQfeXipeSi+LQxMW7A3Nz5RworFPsBTdjSHsv88lIuY6
+	 xLewlS6Q/jUbjwQrd1NgvR+Bgbynx2JVleJpDlIn+mzxes9k0S2OwDDcHnDuLGBXy5GrV
+	 NfpRIxmuuu2EcBgA3DrP7oUY8TMM+2qL5qSEZRcRX5GNk6+u/r3DaSlHCD9tTtz2L1Ve9
+	 n1XAe8o0edNa5lGaQ7v53Ir8pDg0xgiKrLZoKxEwocqifPCqg3J4Qr+693i92oV5L8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793789725;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 Organization;
-	bh=q5EB9sWYexwM66oISVKEoWC7PirZef6I7jp1wtU1bZY=;
-	b=obqMZS7mM7YCredgzLvbHRo5Hnmige9RBTrnFvxgkIUWkaFtBNDka0Sw/MS8C946Zqrt
-	 dNNPXcefviovYM3K9qG6yyDuBPGKrTN00FWWa6l4bzMcv73JMq4tZzSX8te8V5UdivuKc
-	 XK7QY/aD9fIeYrkzQdU/WV+ymIzkcTmCV8QCPsNotqNXLQv7oKxvPmkNx5NmRUuCsuNJL
-	 DRrCqjkqFmgjwPV3faI+49zgfhBGjy06eIYHBPFsa2PxrC30L5f7hXnM5IKxqEdEaeSQp
-	 7wPl9jNJ3ubhWtHiVTYgn4zsTKOoIXg7ijOdTAWYTcd2P39mryb0dfaI9qQgAC/RFnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793789752;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ZmxlQbjY666CB2DpfDGRCp8x+UD5CCdq+P/PXnNUKNg=;
+	b=VKOFL0w7BCwmwwLcx0Z0sMEs64Srs74Np1mfpR5hAcODYx+1bQQ06EQqjU513Wv3i6g8
+	 HL7KuNOYVC3NBAMs/p4oMjxJum0E3hnpPNyG83OlB43kTzWclwgi4CwGuUfHChJ5OfyHk
+	 O4f4o92rusVd0BiK+rakpiPCT66JDWIQ5/TpgJTxQIaJJhcwveYNDHYWekBVOr/c+8IfH
+	 frWhh8xsnRCtDNnocjUb6TL7GFW9Po9uraw9NT5qvZMDVr0J+rSuLAEeJZHjTQG6O8wj2
+	 cPFw5iYpNQ/52OlL0wgqjQmiOO8eBQLlotOOU2ULSVykgsovZVNjgIKOkiMj6w6ihlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="lsrdtjg/";
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N4tv6X1+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B98E606A31B;
-	Wed,  4 Nov 2026 10:55:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B98E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DA17606A31B;
+	Wed,  4 Nov 2026 10:55:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lsrdtjg/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793789723; x=1825325723;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=y7denP/ndQ8Np+vR3riInyTK3v1TSZ+KMP6Au27fEBY=;
-  b=lsrdtjg/tyQRcHcd0sxywiPkwbQ/HgvfIOYKe/rvYR6wBLAysNSQxITb
-   boyLd41aPQYZ3EHivYYSF/sARzh3e7wthnAHyb7R5cwZx0jZyOZxMDAwk
-   0PG/BTNj2GR05LkOpF89vQZ4biQ7vsCwNyH20MzqLj4hDj7QfuQQT6+kR
-   Pkvyyk4aJ4fuRkBHVmHU0sUJZ42SR9sQ8ENAvTu0qyd2LRIUXrzyqHcAJ
-   qxfFrn5xqn5xfuEMPNyNA5K/JciPJCI3/LRiBksXIK9ODO/rJBnrzFR8x
-   vaFcMCSsihpCKHGRc4A/wYK2yyZAeNUgOAIq+A0w1Jko57iQ5UiLZ3uQS
-   g==;
-X-CSE-ConnectionGUID: ruEvMqIvQ1WRZZX7vrkydA==
-X-CSE-MsgGUID: A15xrFJITnyyVqg+6vkYHA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2415177"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2415177"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 02:55:23 -0800
-X-CSE-ConnectionGUID: BZVaxyjYQFOtcDxMqSdGUQ==
-X-CSE-MsgGUID: nR8KF5bSSo65a20nMZftCg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="6845480"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 02:55:19 -0800
-Date: Wed, 4 Nov 2026 12:55:17 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: =?iso-8859-1?Q?Cl=E9ment?= Le Goffic <clegoffic@baylibre.com>
-Cc: Sudeep Holla <sudeep.holla@kernel.org>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	Linus Walleij <linusw@kernel.org>, Peng Fan <peng.fan@nxp.com>,
-	Oleksii Moisieiev <oleksii_moisieiev@epam.com>,
-	Andy Shevchenko <andy@kernel.org>, Dhruva Gole <d-gole@ti.com>,
-	Bartosz Golaszewski <brgl@kernel.org>, arm-scmi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 11/11] pinctrl: scmi: select the GPIO function on GPIO
- requests
-Message-ID: <ausPFWOj-usp084X@ashevche-desk.local>
-References: <20261030-clegoffic-pinctrl-scmi-gpio-v1-0-52d92843ad97@baylibre.com>
- <20261030-clegoffic-pinctrl-scmi-gpio-v1-11-52d92843ad97@baylibre.com>
- <aunIVW4JeM_P2WOa@ashevche-desk.local>
- <73888927-18ec-44b1-bb14-72e72860bfc2@baylibre.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N4tv6X1+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C0C51F000C1;
+	Wed,  4 Nov 2026 10:55:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793789752;
+	bh=ZmxlQbjY666CB2DpfDGRCp8x+UD5CCdq+P/PXnNUKNg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=N4tv6X1+fuRnzcFWc7kFqvNw1R/k3c5ZOX6VF/gvjliL25lWCLvp1ly3mk/hsSILr
+	 5jbE824NhPu4esLW+cDfVZbZM9is5IPDBMpC+nkPe4VYYdavglPO44FG8HkQUtRQ8m
+	 mWe+B6lpTfbuC4ssp6a3RS8x36Gb0eXjGg21MGQCaLlg1i4VQQar9BgvkU1LwgX0DN
+	 cuNECgFq5NQfSvh/e8689Fr0/X0SK6tVY5BSlw2M0+0et4TI9pAg3WsBuabyOSmK74
+	 g2JL0gM4lqnx+sPUTyiynnb7Qxxm08kbxCd/L/hQfFjLVQoRB9AQHPjOoM/QNKp1Gw
+	 W8OnbjgUPT8GA==
+Date: Wed, 4 Nov 2026 11:55:48 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Richard Cochran <richardcochran@gmail.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Biao Huang <biao.huang@mediatek.com>, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Eric Dumazet <edumazet@kernel.org>, kernel@collabora.com, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH net-next v4 02/10] dt-bindings: net: mediatek-dwmac:
+ deprecate rx/tx delay vendor properties
+Message-ID: <20261104-glistening-woodoo-narwhal-ebb587@quoll>
+References: <20261103-dwmac-mediatek-mt8189-v4-0-c86c14fc50f4@collabora.com>
+ <20261103-dwmac-mediatek-mt8189-v4-2-c86c14fc50f4@collabora.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,35 +67,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <73888927-18ec-44b1-bb14-72e72860bfc2@baylibre.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261103-dwmac-mediatek-mt8189-v4-2-c86c14fc50f4@collabora.com>
 
-On Wed, Nov 04, 2026 at 10:38:11AM +0100, Clément Le Goffic wrote:
-> On 11/3/26 12:41 PM, Andy Shevchenko wrote:
-> > On Fri, Oct 30, 2026 at 04:58:42PM +0100, Clément Le Goffic wrote:
-
-...
-
-> >> +	int nr_functions, func, ret;
-> >> +
-> >> +	nr_functions = pinctrl_ops->count_get(pmx->ph, FUNCTION_TYPE);
-> > 
-> > Is nr_functions signed for a purpose? Can it hold an error code?
+On Tue, Nov 03, 2026 at 11:12:07AM +0100, Louis-Alexis Eyraud wrote:
+> The mediatek-dwmac bindings provides the 'mediatek,rx-delay-ps' and
+> 'mediatek,tx-delay-ps' vendor properties for describing the internal
+> RX and TX clock delays.
 > 
-> No indeed, will fix in v2.
+> The generic Ethernet controller bindings also provides standard
+> properties to describe the same kind of property with the same unit
+> (picoseconds)
+> 
+> So, ddd deprecated flag to these vendor properties and update their
 
-> >> +	for (func = 0; func < nr_functions; func++) {
-> > 
-> > 	for (int func = 0; func < nr_functions; func++) {
+typo add/ddd, but entire three paragraphs can be simpler:
 
-With the above in mind, the type of func has to be adjusted accordingly.
+"Deprecate foo bar, because they duplicate standard properties from
+generic Ethernet controller bindings". This has benefits, because you
+start everything with clear action what you are doing here shortly
+followed by "why".
 
--- 
-With Best Regards,
-Andy Shevchenko
+With commit msg fixed:
 
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
 
