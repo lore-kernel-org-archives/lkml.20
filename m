@@ -1,86 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793832073;
-	b=zrMC0zfd+zl824wT9ugrXvwTflqz7mBkT0dQyQJOi5WR99e2ZUUDMEN0hHbwK0CnD/pf
-	 vhNg34ya1Ob073Jh6Ao1haQZFTCp2QgWZZpKjTmob8j7eXA1V5iTXBgUtLo3dERPnGk05
-	 Hq6ffGFIEA1zSSuOCRahZ/NaPvu+9dMbMcIf95t8iSrTg3a25E7IwBrWpFgT8Ia6p1e2L
-	 DNnI7hC1RriSgimWu9cUN+vwMP5Oorei///uW7149BQ7IuTtaSgsv7Rg1W5OCYGne8uQn
-	 vDntZYwaeC656DISSkz2aUeCGlZiu7uQGeHv8lrmKv3AlqB68hljakfHh18wsNwshlg==
+	t=1793832089;
+	b=I8YBq2Bg0WmC9Qj320HuugrMhgB0ZIdgR3F1+EtWUH8hnwvbasp7CnHWzBAFd9LnPaDg
+	 CRyZuMVkImkNk4ojAieEpNw1b4uIH9QqJCKpzvwPSDkp+h0mHRv9sr6A5xwm60NX40wg2
+	 rgsE3c6RKAOiORzQrtRcyeLwYfLUlgQk90yRJ4xBICxyIbQwwS6N0mwEA6ec5n911Y37r
+	 lR+y4Qmh9b6kwzKC8SlfiIUZVDRydy9QwoOYDDCeDrtLAGLlAAl7QaTqATXG2YYuCfbRU
+	 uqsT/CzBJ5CFoh1UXHmCy9wtfyLga5WaAwEzQtkxGd0fREHuPb9Vma0L3De1DLRQ/mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793832073;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=/nW6715EtFswgRm8I9cbPPt4Or68BEFqTuXQQkMmvZ0=;
-	b=W2jyz4/aFv1ky07UdvUAdlIolPobOKjYEJvSuFmfQ8OmBGuysPDEPu8v0Di48QhyUuv3
-	 51xoYXHvVPC1E7rjIBD2gR9CtU6G+/n1CLMPqPEMHmYvVFTejcMHx9Y8s2hsSBBET+XjZ
-	 9hZuJ2I2BfaSOhS/9FFM9FOxCqnF019joFr6rdQwr9Lr9PjlPx3hU3LvFjPaPLqtV6ohh
-	 31OJPMUKGp239QeWNEnY5wAh4xoBA4QCIn01gKopJpOPD35SihVvJ8ocTRJvfAjCEcuol
-	 chZcyuCoDwoebKUbrD0NAF+OVSK+r9vvpP0jNc4g3+klKN7KUbhvOxrfCBDHUxmGDZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793832089;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=7qZpWURka/+lx/7Wneimm/Vla9SjK0znRO6n7QU8y1A=;
+	b=t+WkLgI7T+d8fa766M51lTa+wsSfB/5kkGwvyEXWKBqMvBncJ5BQE8UO93uz65REO67K
+	 WtODRy5/PtAGAeaemQDvrHSyZ9k3zwrGGFJ+DYzYrIcmGRtNgT94uYRNxRxu0sh3OCr4g
+	 3Z3sra3LtloPBUhzeqpobDLqgNYfXt1RriJEfEIWMYocxhCZQ8pxRQhjHQs4vqJW5xVAy
+	 sCv360W8Dd43bchWpHfWxl/S6fL5uOIXgo/7uFsl6E5OuKcdyWS47PJ5uNQ4BHf3e9ZCi
+	 xznvziVrGV2CRBj5BOpDkdUPqbF9aysF7BdKsTv2TEv9fcogkbFwHYqR6vo2mY6pEBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=VblTHW8t;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=rOqIZS4t;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83E97606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:41:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83E97606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87BC3606A31B;
+	Wed,  4 Nov 2026 22:41:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87BC3606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=VblTHW8t
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a2167bd087so10193115e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:41:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793832071; x=1794436871; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/nW6715EtFswgRm8I9cbPPt4Or68BEFqTuXQQkMmvZ0=;
-        b=VblTHW8tFX/DEh57e325ubcAiELluEymaW2vTWJuEEHyAuM3tm7KpOyqmWbQG/Op3f
-         Msw0b1pJGBWgfSh66KmwWzwckkRp6IePhYqHGIkYUFna08m/hgJZd6QQDswNo0PXVObu
-         3CpiTQiXj5E4+WZdskOIi7h0GjU40neX6tFnJ8NY1Sd2YVcZ12618lqLKskZg/T6dbYn
-         mYxG36peURPv7BA0Mr/ughxR+KzpZXsw9r8R5fYIME9yNHAVdz8a9PRP1fQI38oKuPrd
-         TvSa2T9416wZnCTTXJcP9uSG4Dwf2kTo0XZoaNmbIxIBmJpoHEd7hhkaTpqcR0TqdV4M
-         46Kw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793832071; x=1794436871;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/nW6715EtFswgRm8I9cbPPt4Or68BEFqTuXQQkMmvZ0=;
-        b=j/HDcOvjon5AYR6E4ySlgOpU/mY4bOzaqF8rwnmMeTntzpzyP5LQ6+dlvcuRYbviEz
-         HJsIfwFVbW+4jp5DQn04m1scdMYws09rsvUsRVT/9JGalO5jh2Kza5v29De7q9DXBfgi
-         hb1mUCX7mFU382yzQawJp0ZL/3HH2EViy3tkw2Ha0aDnxLdD3QeTYNI2kRwz4y30sGh7
-         Qd6Sagf2E6OFYH68FtIYvRpB6XLBoFOm6wAf13Py+H+VnW/KjcUj13zN5dHTNSJZxm9R
-         7UEK568LYIWWsmOkMatqIMhEdSTaacHC+7hAA39J/BGuaIweqNHw7GcfEy1TZUJkyR+7
-         oEbw==
-X-Forwarded-Encrypted: i=1; AKwUvByefzC8tA4hFdkAp5o8r6+pMtmGibcV8qVwjeMgbuTUQ6VPA1pB4ZGnxkXvq522SJ3Fo3Sc3wo+oxGtZwA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8YgPhDkRT0cU8nMouq4I8+GI9pXz+k18QEUUX1ipVi9j+mklIp
-	q5thnw3KsU/bjL4+nzXrXd4vy34KZRpT/SsAbR0fVIMiO97huHkdiT3pZbVYaziuA+c=
-X-Gm-Gg: AYBFou0PJ1jvgM3v7xJ0PDN/Dh0QxlpUDJe61kWO5QuzQx00Gk4sO0V3V9IwpSubZV5
-	y0/jOVt3X3Lm81YfPUN3N/fphmcAirJgcQRgfINiVmxeE9rlY6aaVo26KZoT5qW9Jt2P9kGELaW
-	3XlxKPBMEIS9e5Raf22uqcYks0q/Hyxp/3/3qCa9gwz9FXueg1hAnviWijvJ0OCjIJZnQfr0LP5
-	fDmuhWvBzx/um3Hj7jrBctl0QkRem94ug5pMwYE9vhDTf9jUwFsN4UM31om9J8J2NPYAHd6+Q5m
-	+duHibAaUQEBBUztb76sD8ZUo3I13BifgVjvZ2m0aKvwBzy9O85OfxzyajBiGVBNXznt1ieccXW
-	2GtbxeCwbC86Kxov3bVnYF9GqKmn3taSNz/0TTVkxOvg4D61bjb7WKz3suOQdM8HbUl+MNIMV/n
-	BJn9mynDWcW/QoyD4K33aF879tfSmfJJMmXPVRyn/4QcV24JU8leOegyQXquq6uDP+Gc6XKZN8f
-	JI8MFStAjB3KSwLVhv+RMkZmXcQGngUcZeVoWRbNifSa7NE0wziF4dxwWRHGoREHbyIAPCZu5wv
-	gfTM4wlyXiTnHctZw9wlqt0Zun9GYVqS5hezYrZD5Vzs8r9V7jCDg6ytD/1ATX0=
-X-Received: by 2002:a05:600c:848c:b0:4a5:dc5d:20f7 with SMTP id 5b1f17b1804b1-4ac175669d8mr428288325e9.14.1793832070829;
-        Wed, 04 Nov 2026 14:41:10 -0800 (PST)
-Received: from [192.168.0.167] ([109.76.163.117])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56f5e65c8sm16013915e9.12.2026.11.04.14.41.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 14:41:10 -0800 (PST)
-Message-ID: <ca9d806b-567d-41fd-95a6-daa6aa14d7cd@linaro.org>
-Date: Wed, 4 Nov 2026 22:41:08 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=rOqIZS4t
+Received: from killaraus.ideasonboard.com (81-175-209-152.bb.dnainternet.fi [81.175.209.152])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 230F84DC;
+	Wed,  4 Nov 2026 23:39:08 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793831948;
+	bh=l0IK2/uBObwwwOOvN1QlNu1hSSuVNS6zujcv8abfYJo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=rOqIZS4txSf/h63rLdjLG/LuplpnE5uhWks5TqjbN9vprraQnjmaG7bwLJOSj6eVs
+	 xdQedBICWzlFs5wmS9BlFTY2y1xhNvfZD9feZDjar4rNO3wxLvKGrYpj8WHeczlukE
+	 wQF8GmsShvC++n4FfU78qc7YewZteuLFStwrNR1o=
+Date: Thu, 5 Nov 2026 00:41:25 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Chad Aldreda <ca@modelmiser.com>
+Cc: linux-kernel@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+	driver-core@lists.linux.dev, linux-media@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Nick Faro <yux50000@hotmail.com>
+Subject: Re: [RFC PATCH 0/4] devres: warn about managed memory still held by
+ open files at unbind
+Message-ID: <20261104224125.GB3976471@killaraus.ideasonboard.com>
+References: <20261104215546.3990950-1-ca@modelmiser.com>
+ <20261104220749.GA3976471@killaraus.ideasonboard.com>
+ <20261104223146.4012287-1-ca@modelmiser.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,50 +69,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] dt-bindings: i2c: qcom-cci: Document SM8150
- compatible
-To: mail@andrewgigena.dev, Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org
-References: <20261104-sm8150-v7-4-rc1-camss-v1-0-7a9534a9a22f@andrewgigena.dev>
- <20261104-sm8150-v7-4-rc1-camss-v1-1-7a9534a9a22f@andrewgigena.dev>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261104-sm8150-v7-4-rc1-camss-v1-1-7a9534a9a22f@andrewgigena.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261104223146.4012287-1-ca@modelmiser.com>
 
-On 04/11/2026 20:54, Andrew Gigena via B4 Relay wrote:
-> From: Andrew Gigena <mail@andrewgigena.dev>
+On Wed, Nov 04, 2026 at 10:31:51PM +0000, Chad Aldreda wrote:
+> > Are you really expecting anyone to read all that ?
 > 
-> Add qcom,sm8150-cci as a CCI v2 compatible, with qcom,msm8996-cci as
-> the fallback.
+> Fair enough. The short version:
+
+I think you forgot about the second part of my reply.
+
+> A struct cdev, miscdevice or video_device embedded in devm_kzalloc()'d
+> driver state outlives the unbind through any open file, and the next
+> operation on that file, usually close(), is a use-after-free. It keeps
+> getting fixed one driver at a time (44f3468a0aef, 7d6358ab0286), and
+> cx231xx in 7.4-rc1 still has the shape.
 > 
-> Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
-> ---
->   Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml | 1 +
->   1 file changed, 1 insertion(+)
+> CONFIG_DEBUG_DEVRES_REFS, off by default: in device_unbind_cleanup(),
+> before devres_release_all(), walk every task's fd table once and WARN
+> when a file's private_data, i_private or i_cdev, or an object a
+> subsystem names (patch 3: V4L2's video_device), points into an
+> allocation about to be freed. A debugfs file still live during the walk
+> is judged after release, since drivers often remove those through a
+> devres action. Cost: one walk per unbind or failed probe.
 > 
-> diff --git a/Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml b/Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml
-> index 1e8def25ec0e..b545fd2378da 100644
-> --- a/Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml
-> +++ b/Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml
-> @@ -39,6 +39,7 @@ properties:
->                 - qcom,shikra-cci
->                 - qcom,sm6150-cci
->                 - qcom,sm6350-cci
-> +              - qcom,sm8150-cci
->                 - qcom,sm8250-cci
->                 - qcom,sm8450-cci
->                 - qcom,sm8550-cci
+> Patch 4 is a test driver: unbind with its nodes open gives two WARNs,
+> and KASAN then reports the use-after-frees on close. vivid, as a
+> control, is silent.
 > 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> The open problem (question 5 in the cover): the walk holds a reference
+> on each file it inspects, so a racing close can leave it the last
+> holder. It runs on a kthread so that release goes to delayed_fput
+> rather than task work queued behind the unbind, but the delayed-fput
+> worker is serialized, so a release there that needs a lock unbind
+> holds stalls the ones behind it.
+
+-- 
+Regards,
+
+Laurent Pinchart
