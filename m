@@ -1,57 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793822918;
-	b=I9oJ9zrHc2EO8Vz1Z735bIGrkh5LKSLsVt9FmCG67vhsVacn48/3QONHT8sUJFU1Q3ro
-	 OJ87bpo8Oqk09knWVxDvf2AYSRXUbsNe6mmM/b3WelKsM1DfEkH2/hlGYJyOUFsa7lPaH
-	 lBGEAsy1geO7B9P96ofZLyExvHC0ArTCgAZi1rF7vTUYJnmGzE7ilmUiYXufHEnSjDV7W
-	 y+L1U/slfd1PRH8rL9Xk/2dHkGFczz9fUHNS9Wh6ZBoNPr3QDuTYNVMxblWr0u5dd5zpI
-	 USFWd01OHFsLIYndr3Y3TmFiPc/wWM4QlbRcZaUiY/t1lBtck83pCAlG1wtb3BeAPkQ==
+	t=1793822940;
+	b=HoLT1ao9lj21KGXrC/3/MkANOgxH88yLRUKVeYPqpSFSCLNEORs0efkxrGbq1o6yuz4z
+	 0FbMOqEC4a1Y0MRXquZuV8SfI8zchqSpPMwnVEw0H+cbxtbXBfpq/PxNIj+NLHJg+DWrL
+	 egTn0jqBJVe3RXFS2aV31T4nZpT7yoVZJH01b9d0QqemGITVTzLLMlLTLeRGwaSftvvBO
+	 HhaENXMH4ljrnx+pIF/zijKwMJRPRFqvT3GN/EfXdccYXDWzKW7e4Pg4s2r4g36uFF1vy
+	 F7+L2zCaF2dyJKUoMIQ3ckhfnGd5MLudxezx6nIDOAvzjSnGw2o2LT/0bAMsZkhdOww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793822918;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:From:To:Cc:References:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=wsNUod5vNqhEN6yvuZWIIkNaCHcsLbqXqDofNYkOXuE=;
-	b=c6OSTxtw/HHjpAE7ctBglcjWsSGRm3sA8g8EK86DIru/9y8OKmWXTfuJuCDpAQbiEX8p
-	 et6mpxlUVnBqBmIqYRr8+PufLmkUZYkxqDhJLuvaqbo94wXyvW4MOScnTwOaMez8XBetd
-	 ul+O4sbT+oWmlsq10Go2LNUN6Ebd5NXSA7EjwBMNgDVMEmphQNYFmLgxUTcc9bnjfBVKS
-	 PrrqTgjeXm1976EXiMQPVPMDwdUaImt45UAVcFsbrTRJm3I3gAAbxa+NmW1M9ZMnJWOdj
-	 DMYmrbUGuQjDuc0TJuQUiOsUCAZlMT596KgqBwBrqQFUtrcUjYX5qW0t97rVibzd9yg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793822940;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Yb4jTJ8Eq+hyJ59TSJnjZuZhspqhafxO+atmMdyN59o=;
+	b=4dVD75MxSfDjLo4giqPciV7c9GApmiPCSfnXAGAcr7W9+RLAyrsdP45OSzjez+pNJjBv
+	 xI84T7fSbtrJcfngT7UsYw5Ul282yq9YQp1EnnDkt6YavPCWKqLX20/dWd75wUkJCMBhq
+	 joAzDuCtcMz72it3MewxvfwPxWzAl3lz2XTnqtEwKmtz4Qg+M1kZ5gbdW4JhcjTFiuDUT
+	 hA3sllZ3eyxVasQoM3iGFsA2rlVFZtuGYdTLVqxWRAQaZ2oeI2SgPpsLbRlKW1zB2Syqi
+	 +LFYq9wQGwT98rfWx/rL7A0oZXyT6vjTHWTtS0E1JDZJGvs09r7Jn0n/0Qe4lGWve7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=OoIw7+Pz;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=qISbhUKx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DA30606A32F
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:08:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DA30606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 303B4606A32F;
+	Wed,  4 Nov 2026 20:08:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=OoIw7+Pz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793822915;
-	bh=7v1zr+wYMpLmokLSxZ4bHQ6V9WqnMuecCHhPxyBMIZ4=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=OoIw7+Pz1YFLOtCSQQE9PbWW27kWVuBVWH5wyx6wbESOAwjlik6xUsRZRJfaIIlJM
-	 JqnC74Dke93c28AyZJGJy4SW9L8IHXtxbjriyGwzT8+6HBYMBaTSBUt9gjtZr+VqfQ
-	 s9+3v48vKkCCscN9tAyO1zIea7rkh03Rd9ne9kEfmdAOYKyfaPiHlUflxmZ3hUKRoQ
-	 ymsZL4B594XEl0k9PDWfb0xtk4JoRlkITflTghxtMaHg2qpdfKVSmNz8CkOoOhurDG
-	 y2qc7wUi16cWxlZAGdbuk4VEf8HOetYVjFlYjTN2w1IrvvTRiGivcvNw5woLHL2YPf
-	 YLbWSMZagCzPQ==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id E597A17E066C;
-	Wed, 04 Nov 2026 21:08:34 +0100 (CET)
-Message-ID: <b60a42bb-b48b-434a-a306-3ac9189027a5@collabora.com>
-Date: Wed, 4 Nov 2026 22:08:34 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=qISbhUKx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 809EC1F000C1;
+	Wed,  4 Nov 2026 20:08:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793822939;
+	bh=Yb4jTJ8Eq+hyJ59TSJnjZuZhspqhafxO+atmMdyN59o=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=qISbhUKxBQyuuu1QMm1eHQxOam3Z+yowuy9yQoTBgBrsD8lQqiIJDjLjtA4ujBTOB
+	 72Gfa70i0qTr8vdNZU36+mIlDeG+fWB9irpfXwl838HP3gc9+NH+GNpRprHnAhFci4
+	 GajYJF5pn1w7qH3GunLJ+k21ER/7RDBZ9bzvGs7I=
+Date: Wed, 4 Nov 2026 12:08:59 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: Shuah Khan <shuah@kernel.org>, Aleksei Oladko
+ <aleksey.oladko@virtuozzo.com>, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] selftests/prctl: select the tests by ARCH alone
+Message-Id: <20261104120859.28099ada5f1dbce682cb6267@linux-foundation.org>
+In-Reply-To: <20261104193639.333186-1-sashal@kernel.org>
+References: <20261104193639.333186-1-sashal@kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,67 +56,35 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 6/9] drm/vc4: hdmi: Convert to common HDMI 2.0
- scrambling infrastructure
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com>
- <20261014-vc4-common-scramb-v3-6-c68d58d959a2@collabora.com>
- <45ea1610-360f-4f6b-9ea6-30b28fbe8514@igalia.com>
- <8b1b7d8d-9656-4b3b-9f83-1526c8110ab7@collabora.com>
-Content-Language: en-US
-In-Reply-To: <8b1b7d8d-9656-4b3b-9f83-1526c8110ab7@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 10/28/26 11:44 PM, Cristian Ciocaltea wrote:
-> Hi Maíra,
+On Wed,  4 Nov 2026 14:36:39 -0500 Sasha Levin <sashal@kernel.org> wrote:
+
+> The prctl tests are only built for x86, and only when CROSS_COMPILE is
+> not set. In every other case the Makefile defines no rules, so building
+> or installing the suite fails:
 > 
-> On 10/27/26 3:35 PM, Maíra Canal wrote:
->> Hi Cristian,
->>
->> On 13/10/26 22:03, Cristian Ciocaltea wrote:
->>> Replace driver local scrambling logic with the newly introduced common
->>> HDMI 2.0 scrambling support:
->>>
->>> - Advertise source-side scrambling capability by setting supported HDMI
->>>    version based on the variant's max_pixel_clock.
->>>
->>> - Provide minimal .scrambler_{enable,disable} connector callbacks that
->>>    only toggle the VC5 HDMI_SCRAMBLER_CTL register, while delegating
->>>    sink-side SCDC programming and periodic status monitoring to
->>>    drm_connector_hdmi_{enable,disable}_scrambling().
->>>
->>> - Drop vc4_hdmi_reset_link() and vc4_hdmi_handle_hotplug(), switching
->>>    the .detect_ctx() path to drm_atomic_helper_connector_hdmi_hotplug()
->>>    which internally calls drm_connector_hdmi_sync_scdc() to trigger a
->>>    CRTC reset on reconnection.
->>>
->>> - Drop the local scrambling_work delayed workqueue and scdc_enabled
->>>    flag, now tracked by the common drm_connector_hdmi layer, as well as
->>>    the now unused output_{bpc,color_format} driver data members.
+>   make[1]: *** No targets.  Stop.
+> 
+> TuxMake sets CROSS_COMPILE for every build, native x86_64 ones
+> included, so CI systems that use it, such as KernelCI, see prctl fail
+> on every architecture and never build its tests.
+> 
+> Like breakpoints, ipc and x86, decide by ARCH alone whether the tests
+> are built, and give the Makefile empty targets on other architectures,
+> as sparc64 and drivers/s390x/uvdevice do, so that the suite builds and
+> installs nothing there.
 
-[...] 
+Well that's annoying, but...
 
-> I'm going to test both fixes and send them out as a separate series, so we're
-> not blocking on it.
+Rather than continuing to make this selftest x86-only, wouldn't it be
+better to fix things up so the other architectures also benefit?
 
-I submitted the fixes earlier today:
+In fact someone proposed doing that just last month.  Oh, it was you ;)
 
-https://lore.kernel.org/all/20261104-hdmi-scdc-scramb-fixes-v1-0-16a9bb3d64a6@collabora.com/
+	https://lore.kernel.org/20261014200127.1363472-1-sashal@kernel.org
 
-I'm waiting for Lucas' scrambling patches to land in drm-misc-next so that I can
-rebase this series and send v4.
+what happened to that?
 
-Regards,
-Cristian
