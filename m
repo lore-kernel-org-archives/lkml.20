@@ -1,79 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793829490;
-	b=lDM8XgrK+tdPKwn+T2gaas8kg/ZvKIX46skmH9bcvHI8mkQNWmt3enwliQeCpqLRkZ7m
-	 RZ8+M7tJoV356aWxXWoxvod1aPnHHJTKazudj6fxP8CKKnsZrH4BNloByqnLMge20XWON
-	 GP2xAttG21+l5/sDIvQnnZRlh3LCmPRvdgUilIbEWhksPpBSCIs5Lyh7vzxNrbDU6dUkq
-	 W7KKtoX3IyHc/PybUwN8AAhDYvz6uTlPOllyB4kdE7h1iHx08oqt/kvcrS3WzkHlZD91m
-	 rT4pSAAIzhK2B7mGLmciFRCOuiMk7EvGpMUSJ2M860IFnfRoPzaIABCNr7nUVV9C+jg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793829490;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=IjVws6NdOXZamYoE9YsCdkzyOUuQjtHci0qOQtNo5Cs=;
-	b=T21HsQBpEy2KFi8zoGiP8w7/zvTemvK68Qvv4YAdTIH4zzyREa3EL+v68/2lBPt+ZhX4
-	 BbKJXo0tauq4pwNt6Ugwg+N0APRDBCX0VqSZWKk8nRDoLvrt7+iLqNKrqWb3gIsmprCZo
-	 jbp3Fhz68tGWjF0i0rpexS920ODMYJStcpEi37jIG8Iu3EU9PLDDlArhpoqdRwFUOOpx9
-	 W+zLwM+QG7xlZtLXHC7bYVFkGZhFsojg0aPOVjx+B7LOS9+bEIkaNVPdRVIJayoiBWMWM
-	 8vIZW3g6qxtsQIHXb9Kbe/bzG0GT7b0Du7jokoCbQ7t+FlA7Wi/njSsYHqPoybXcyRA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MBGpwSNh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5952D606A878
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:58:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MBGpwSNh
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793829490;
-	b=ZVXfluaOAHmpMN9JdWl57MJY+ajzNhzl++y8x+rPWkWmpp30tKSwiVdaDgTQ1IQLk+/e
-	 WJnI5X3I0OPIQ02uUOBT1QpE63ThGM0VxCN0+kRw209inC+pIuwvBq63xxPq7dPtZRMZA
-	 2/Wb2DmRa9705zLfGKBzhZ+YDfX33encF4OM0mzt06Q11/wPOE7UFUgZkUlxAjRqdmbzR
-	 RMDCgFhPaM6jZFJMO6KRmlf+Az7wQz3T/J1AorY27ZHg5z4gWvpEqs6g8Md9bnGmERnHQ
-	 cLtjiWg7pIB6NgXAIbviBiez5z5Y8iSj+yeuw2yksqRSCjO3+y9KsF30vwBW68kro0w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793829490;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=IjVws6NdOXZamYoE9YsCdkzyOUuQjtHci0qOQtNo5Cs=;
-	b=tXYyAlT+6v6UOPyfZeQydSdVLnD/uax/9QhUfMAmxfqMufh8lBMBbjp7LHKjL7WgPAab
-	 8mmrB5qVH/Jxm/nAq3t7LfFz6FZjZUoEUAHrfp0DqY8ViepY62piVezkyWlAKGOURA3K0
-	 4Q2/YJr4LoN104bt/LkrtRzhACX3eAJbNVyB3MYqv2iyBnQeHfJJkqRn/bD5ACVnUKrDd
-	 Z7JbMsUauS8JyvVcjhDMvqV355gFmhSQ8i2S3TWOfhLiQoqUGrbm4MGuvQTNx4myFHL5i
-	 8Vgf1xqqDIg8EoY8KyKT0k3p5jsDdj1oJ8bnMD9fhHkqorSU5YK9tCCNe575DO7uwJA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793829535;
+	b=XCvyZSEgZz34Ro7aKCwdAMIceTubPjn7c1lsFQkgYIJ6X9j50C+bgtsbblPZR1rPoWR5
+	 ih/EIIMRFfyQ/KhZ5kIbclaaVCzJ57G6xf0dLCJtv/DNOd7uH0nTKJco5FIDwIO6zYxu1
+	 VgcRx+1/n3U4BB0aO+N7hSiSCvO/TRVTlkyqrF3U/aZJSZAG/Eh5Xxu5Tyx6U2c9xi14h
+	 C1nGSw9kMgKFSvKvzXDWwo9lbo5vF3rgdHuFFGtvHXiKvYGb5x4LSayPaNbdIlx/qAAWm
+	 +mHwqCP1mraaKnFfFphMpltG2uUs/GEq83JcluD42POTrFKXWCRyreqnFngSpYazGYw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793829535;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=T0H3EUcqnLUlnXch2HKXz39dCofeKBnFEr/JPTlHIHo=;
+	b=B7IdYuISNOU+KKuZ8zNVIaUk/MSJ2kHDgVY89jJxzlLfFziBxqJhWExWWKBjRXYcCKmh
+	 qPWSmEqm+8ZiG5Yii5whwGDBkqo3o8tHbecPqgnZ7zSUGw2OYuuK+n0CD0+mssB2wkQZ9
+	 G5ZBG5IZpuAD2l5El6h+WH8OJhJcFDMWQaamRdza9K/2dZqTpAIxhyn7S0yBSpvyMBfGW
+	 Nis55orOL/YV9qflnRCBEhjDYg2RP2ttZWinNf9Yv8ydwXcJSVJ5i5NS1NJz0QGxUhWv5
+	 j6wipBPhn4oCpzYinoWoSo6G9Rsoh7n+CxbCPfSKgWPkH0oweTSqWcHV1w3SKyDfHjQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="x+8HY/Sk";
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 883F81F0093A;
-	Wed,  4 Nov 2026 21:58:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793829490;
-	bh=IjVws6NdOXZamYoE9YsCdkzyOUuQjtHci0qOQtNo5Cs=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=MBGpwSNhXqeek2yJZLXNWtr+UOY1I05TmdWKjhxcCUSWNg44JMIDyyp+5ZNbW4bIz
-	 xKaOgqZMMqgbYerTH+wfgjW1as+Y04aKFBCMbhDMoZK/fuwEfml9bkIShI6PwFv/k+
-	 PCbPa+FIpOTI8WIO1CNhGrf/yxXbf6+FjPEcpah3wh47o1OaO8iMSvLdJtf89Uipfm
-	 uMoa5eiei886f8qjQmv+To/jPN5mrzIyClQPbc5hFO+rr0hAwKKEoci9THCKBH67Ss
-	 /w/DpEFod81raG+HnD9MsBDTteF7y9SwlXcpcUvYIsFtvTf0z3JLGbkvltEtL7GBvZ
-	 conz2Q9CMDCpg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id DA72346FCD;
-	Wed,  4 Nov 2026 21:58:08 +0000 (UTC)
-From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Date: Wed, 04 Nov 2026 16:58:09 -0500
-Subject: [PATCH v2] smpboot: Run the thread function only once before
- parking
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB946074FA4
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:58:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CB946074FA4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x+8HY/Sk
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a4dc547987so6600265e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 13:58:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793829533; x=1794434333; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=T0H3EUcqnLUlnXch2HKXz39dCofeKBnFEr/JPTlHIHo=;
+        b=x+8HY/SkqAoQD8boG9LMqxUpVX0GRRevt/KLtoNb/MCWHJzvoxH2HK4MgHjKnfHLo6
+         MT0RenUXW/T6DEREkpAg5YjybKZRfrSsKGryH+ZEjNZxPa5+53lMqiVrbmN7ojb+sKjB
+         Cfvm5qKqVkh/7UREcphI1uPFXNBfgzTCjEhfRmRkADQlEvjFg9f3AwJUR1Pro2c9f131
+         WKgGa3QF9KBpWIgGFg3d6ZSte18EP+wfl+jCl/Ycjns3WJFfyt98iqrK/QdCYWhk6nXA
+         HYuYFnems01bbkrMtDZ4vbjKHxnkKzoGkaLDr3C6OU4d/zz6nKlW33mWbvwzJb9CuhVw
+         3N9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793829533; x=1794434333;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=T0H3EUcqnLUlnXch2HKXz39dCofeKBnFEr/JPTlHIHo=;
+        b=LFgvKAGb+EXd4saUakS0UtjdeQb5I5jRQR/82CD6cZx+6W5Q6LZeKEEdnNZ0LofCE7
+         Ny8ltaF5ViGnrHKJNccnQylUdubL7KdqKMkgW0ccNOo4NwsKzEUduN2r7rGhQtjTPdg5
+         gapiZWFH5f+vlDOMnIts2CSEPaO3sXCTyCiAGRAx12EEsUyGGn3q45AlKufYCVOal2F3
+         U9wsq6D4xH5C81FK1zuvcBcMuWjKjWRxyeosm4ZGKTj3adYExX56WJlQxgdIwzadBFNr
+         mIZmCQ3BjoP5E9PeLcq7p6rSxD4qxnpHeIhlLF8nsnTojQkeWG7XOiPZezsI/l51EXTp
+         XlMA==
+X-Forwarded-Encrypted: i=1; AKwUvBziH465ZCwkHy16q0nABR0Cu5/JVJflmt0+kvCTv74fTlK3TFfNoV+d6nyLs1mV0Et5oMgLS6JSAimCxwQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+oiIvnCA9UGsQWNpbZZw1GG4ZESZLPia6+Z2oROyYUwjtupPIH
+	QFV7KpvSaQRkAp3umMQVK1fHEIkRR50W54hYR2MHfJ4OG9r3KkFCJlbf
+X-Gm-Gg: AYBFou21LlA3WjXnWyugWV/3pvr7l6MZWWwo4F7uwU9h8k70EJWF39fsgng3AnB+MXG
+	x8NO6JuzpaIEbzzge9PRw2ihS9Whrvli7uhMAcFsjNUhwGaVyKuPiF3dws+IgO3BCkg2GPEdaLI
+	2o6Db3ohD1usHPEXDm2bIz7h3DhFTxxQyQCI+u2B2O9hWSqUGKmbLAsb9h0/3z5Drj2VIAHEUOW
+	qbnYUxpKla5YccTaa3IghOt6kctBroRL9qjt4d2KlQACf0Lne6rJV2hLI5+PQyzYGEISDHOpUpz
+	wJujHClROMvN73N5bpIzhQXudmk8uB9NTLOR0Kew2DY4Hg1mwOPQbk0X2e/+eKWZnN73kD8aiSw
+	qcrvffRDw7FRrJjp+zLhQF5eybND/2VLF5CGnH0FiiHzjVws2DBq0d3k/ipwGbpKkXFqCP5KvC+
+	yQdVERevAtEwJj0dVWCNYPLlzTM9YVDSWJpse2/OC9LFC96W6VKmAYVKr3vmPldDy/dAIkdeHHk
+	VPTkFnTsT9oCXg2Nw16CVXdQjghoi/gyir3sNITC1YDdFqSv7XqnBuvHbnpYLEcDotn7jHNWEyk
+	GkiureOuLmxY4XrxXngBwj47it2KAg0lcvQL8AJuA+1xEB2nFKHXpbKyOmJMC7/7fX8d2qxuuRq
+	MXscrSdAD+CT+lNMr7PX5HpG9RgMQtKRx5gU5kDqFa624fw==
+X-Received: by 2002:a05:600c:c107:b0:4b1:2026:6b41 with SMTP id 5b1f17b1804b1-4b1202673f8mr162862935e9.30.1793829533381;
+        Wed, 04 Nov 2026 13:58:53 -0800 (PST)
+Received: from tachyon.internal (2.155.41.158.dyn.user.ono.com. [2.155.41.158])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56f5e65b0sm15526735e9.11.2026.11.04.13.58.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 13:58:52 -0800 (PST)
+From: =?UTF-8?q?Enrique=20Hern=C3=A1ndez=20Bello?= <ehbello@gmail.com>
+To: shawn.lin@rock-chips.com,
+	lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	mani@kernel.org,
+	bhelgaas@google.com
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	heiko@sntech.de,
+	dlemoal@kernel.org,
+	iav@iav.lv,
+	devicetree@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Enrique=20Hern=C3=A1ndez=20Bello?= <ehbello@gmail.com>
+Subject: [PATCH v5 1/2] dt-bindings: PCI: rockchip,rk3399-pcie: Add PERST# inactive delay properties
+Date: Wed,  4 Nov 2026 21:58:46 +0000
+Message-ID: <20261104215848.2087944-2-ehbello@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261104215848.2087944-1-ehbello@gmail.com>
+References: <20261104215848.2087944-1-ehbello@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,131 +113,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261104-smpboot-park-once-v2-1-ea28ec9fd85e@columbia.edu>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32Nyw6CMBBFf4XM2jFtiTxc8R+GBbSDjEpLWiAaw
- r9bcO/yJOeeu0IgzxTgmqzgaeHAzkZQpwR039g7IZvIoITKpBQKwzC2zk04Nv6JzmrCMhN5V1C
- ei9RA3I2eOn4fzVv94zC3D9LTHtqNnsPk/Oc4XeTu/esvEiWWUShUll6MEpV2r3louTmTmaHet
- u0LG6ZDX8cAAAA=
-X-Change-ID: 20261102-smpboot-park-once-9607f8e7703d
-To: Thomas Gleixner <tglx@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- linux-kernel@vger.kernel.org, tz2294@columbia.edu, 
- Mani Tofigh <mt4022@columbia.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793829488; l=4201;
- i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
- bh=QJGwfQcO8wqq1GxIL5UPd4JWg89kSii0cXanOGd1Z2g=;
- b=jvY6vvbvK02lMFAnkeDHsYc4Qi9sCaqv1F4RgTQMoxrH/twR3LBqFzch6rLOUtn6fGVnP3M4B
- g6RTc6PQ8yKAp8o0T6mQOSHkdfw9zn3AtalX33GqV5qZ3tSBlSk2inx
-X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
- pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
-X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
- auth_id=1322
-X-Original-From: Mani Tofigh <mt4022@columbia.edu>
-Reply-To: mt4022@columbia.edu
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Mani Tofigh <mt4022@columbia.edu>
+The driver holds PERST# asserted for T_PVPERL (100 ms) before releasing it.
+Endpoints disagree about what they want there: some need longer than the
+default to settle, while others stop answering configuration reads when the
+reset pulse is stretched that far, because PERST# stays asserted for the
+whole wait.
 
-Since commit 4a3b51aab6e2 ("smpboot: Don't park the thread if work is
-pending"), smpboot_thread_fn() parks only once thread_should_run() is
-false.  CPU offline waits for that with no timeout and with
-cpu_hotplug_lock held for write.
+Describe two properties so a board can state what its endpoint needs, named
+after the ones the Rockchip vendor driver already uses for the dwc-based
+controllers:
 
-When the outgoing CPU keeps receiving more packets than it can process,
-ksoftirqd always has NET_RX pending and never parks.  The offline then
-waits for as long as the packets keep coming and everything that takes
-cpus_read_lock() waits with it:
+  rockchip,perst-inactive-ms      - the delay used at probe
+  rockchip,s2r-perst-inactive-ms  - the delay used when resuming
 
-  [   41.469979] INFO: task kworker/0:1:10 blocked for more than 20 seconds.
-  [   41.470020] task:kworker/0:1     state:D stack:28392 pid:10    tgid:10    ppid:2      task_flags:0x4208060 flags:0x00080000
-  [   41.470055] Workqueue: events vmstat_shepherd
-  [   41.470077] Call Trace:
-  [   41.470082]  <TASK>
-  [   41.470091]  __schedule+0x10f1/0x4760
-  [   41.470175]  schedule+0xd7/0x2c0
-  [   41.470189]  percpu_rwsem_wait+0x1f8/0x4e0
-  [   41.470269]  __percpu_down_read+0x11f/0x3e0
-  [   41.470287]  cpus_read_lock+0xc1/0xd0
-  [   41.470301]  vmstat_shepherd+0x22/0x2a0
-  [   41.470315]  process_one_work+0x92b/0x16d0
-  [   41.470393]  worker_thread+0x4e6/0xd60
-  [   41.470507]  kthread+0x300/0x3e0
-  [   41.470542]  ret_from_fork+0x4f0/0x6f0
-  [   41.470597]  ret_from_fork_asm+0x1a/0x30
-  [   41.470623]  </TASK>
-  [   41.470635] INFO: task cpuhp/3:33 blocked for more than 20 seconds.
-  [   41.470653] task:cpuhp/3         state:D stack:27976 pid:33    tgid:33    ppid:2      task_flags:0x4208040 flags:0x00080000
-  [   41.470678] Call Trace:
-  [   41.470682]  <TASK>
-  [   41.470690]  __schedule+0x10f1/0x4760
-  [   41.470753]  schedule+0xd7/0x2c0
-  [   41.470766]  schedule_timeout+0x176/0x250
-  [   41.470849]  wait_for_completion+0x169/0x3b0
-  [   41.470918]  kthread_park+0xff/0x180
-  [   41.470934]  smpboot_park_threads+0xd5/0x160
-  [   41.470959]  cpuhp_invoke_callback+0x2b0/0x1190
-  [   41.470995]  cpuhp_thread_fun+0x2f8/0x6d0
-  [   41.471027]  smpboot_thread_fn+0x2fb/0x8a0
-  [   41.471051]  kthread+0x300/0x3e0
-  [   41.471083]  ret_from_fork+0x4f0/0x6f0
-  [   41.471132]  ret_from_fork_asm+0x1a/0x30
-  [   41.471154]  </TASK>
+Both are optional and the defaults preserve the current behaviour.
 
-That commit only needs the work queued before the park request to run
-once on its own CPU.  Softirqs left pending are taken over by the
-dead-CPU callbacks as before.  So on a park request, run the thread
-function once if there is work and then park.  With the fix, the
-offline finishes under the same load.
-
-This bug was identified and confirmed with the help of a deterministic
-hypervisor currently under development.  The C reproducer below however
-hits it within about 25s.
-
-Fixes: 4a3b51aab6e2 ("smpboot: Don't park the thread if work is pending")
-Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+Signed-off-by: Enrique Hernández Bello <ehbello@gmail.com>
 ---
-Changes in v2:
-- Use Sebastian's comment above the thread function call
-- Link to v1: https://lore.kernel.org/all/20261102-smpboot-park-once-v1-1-920282635d20@columbia.edu/
+ .../bindings/pci/rockchip,rk3399-pcie.yaml        | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/ksoftpark.c
----
- kernel/smpboot.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/smpboot.c b/kernel/smpboot.c
-index 3f60e8c6dd30..b477267903d7 100644
---- a/kernel/smpboot.c
-+++ b/kernel/smpboot.c
-@@ -119,9 +119,17 @@ static int smpboot_thread_fn(void *data)
- 		}
+diff --git a/Documentation/devicetree/bindings/pci/rockchip,rk3399-pcie.yaml b/Documentation/devicetree/bindings/pci/rockchip,rk3399-pcie.yaml
+index 720a5f9..7ac915c 100644
+--- a/Documentation/devicetree/bindings/pci/rockchip,rk3399-pcie.yaml
++++ b/Documentation/devicetree/bindings/pci/rockchip,rk3399-pcie.yaml
+@@ -40,6 +40,21 @@ properties:
+     maxItems: 1
+     description: pre-reset GPIO
  
- 		should_run = td->status == HP_THREAD_ACTIVE && ht->thread_should_run(td->cpu);
--		if (kthread_should_park() && !should_run) {
-+		if (kthread_should_park()) {
- 			__set_current_state(TASK_RUNNING);
- 			preempt_enable();
-+			/*
-+			 * Run pending work once to handle queued work prior the
-+			 * parking request. Don't try to process everything in case
-+			 * new work continues to come and the handler has a hotplug
-+			 * notifier for everything that was enqueued later.
-+			 */
-+			if (should_run)
-+				ht->thread_fn(td->cpu);
- 			if (ht->park && td->status == HP_THREAD_ACTIVE) {
- 				BUG_ON(td->cpu != smp_processor_id());
- 				ht->park(td->cpu);
-
----
-base-commit: a2b67e904401858d9f0ff6a0485c2fab506cc1bf
-change-id: 20261102-smpboot-park-once-9607f8e7703d
-
-Best regards,
---  
-Mani Tofigh <mt4022@columbia.edu>
-
++  rockchip,perst-inactive-ms:
++    default: 100
++    description:
++      Time PERST# is held asserted before it is released, which is also the
++      width of the reset pulse. The default meets T_PVPERL for a slot that
++      is powered at the moment PERST# is asserted. Some endpoints need more
++      settling time than that, while others stop responding when the pulse
++      is that long. A value of 0 selects the 100 us minimum the PCI Express
++      CEM specification sets for the pulse.
++
++  rockchip,s2r-perst-inactive-ms:
++    description:
++      The same time, applied when resuming from system suspend. Defaults to
++      the value of rockchip,perst-inactive-ms.
++
+   vpcie12v-supply:
+     description: The 12v regulator to use for PCIe.
+ 
+-- 
+2.56.0
 
