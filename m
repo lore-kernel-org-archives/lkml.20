@@ -1,97 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793834457;
-	b=Ukg5riLecp56php2ItVHS/3KWUBNXgX7ithzkuz4KzNeFaQm9AeTcl8u41QMu0bJ/gx2
-	 PxV1iIgRcVqYtDijh1saF6vG2FnmnFg/2t3J0UZE6pCkPXASa0pHms6r30vfm87X8k31a
-	 N5OUoQJvqh3rmQSe3nTBTCYW/LFK11fSLw0LVvk67WEqDv0Xhpee7NQAvqu7ohgkuJao4
-	 DqbIzA9yFRZ8Mptiexn5fmHATrltCMENzxVHXS3jXhI6jJHmuYu/d3k4ZLJNNJzH5MeWw
-	 6nS+3CA/xFEMK3fkya4KW2AA9LWvar2siGSjjVGKt9EhyykpSdw+SsGED04tXfvMNBw==
+	t=1793834602;
+	b=0YyDMOaqF31N9JZgU1gLc63g8DVNjpBuESnZpGlkMklhPDVoyh48uMxWjjfnlSrVzH2m
+	 Xa6rZiezAJwlVU2MSCUNoTCeMQWp+SvHwBzIoAZUkEhkf6rYZsn4l4w91Tg1dMFiz9hue
+	 u7uMEug7c24FiwDBxQLlimZgd3vdTw3M504q4lhyxn8/Ht+TguDeyab/2bxK7lhrJID1Y
+	 9SZRebm7/O4kTXLhTBAkAtZHqP5kcwgJKRCydxQpWxDKp9y+la31lruZrDuLBWviHfGvr
+	 2YcyiCXzSCcePdDHOmqTnGyHUO9GEpXBn+E6Bt8aAx8nsS5T39iuNbPxDexPz6oTN4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793834457;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=6pcpvaSe9ElEJt/G5lEejZAQ2sl+Ux6mleZlCU2LO+0=;
-	b=M6q6Y/X0hXN1vnTvzaQE9g9Da3UfXHdnCMi1hOy0FMgt4OyuQ0Az7jm3fIAC/E6C3Oje
-	 33If1nDWSphYW6m97PWEuo8CEcMGU9+ez0nadxKYxunRgoMwS0bl5H2lsVM/dt4yZ+pQN
-	 waR+kTs4178AuBko6IP1eR/yN8jTDj/9E3q8iEXWYvtgvoJPAuzpHZHWxnfeVl/tTIdu3
-	 RdgahhI/AQExfKeCdT7yWR8uMjM7TMEXVOe1c9Z5Ox4OxURd/zL7aoc9Bl5D22IRGfRcb
-	 cyf6XJ1LMMZys55vklAA3YFQ/bG8va1c7k2FZ+fjmss01RGnKwsYIjj9BDDkI2qTPcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793834602;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=4adyBlLdVi5msyI8kDjuQ5BAfRehV0yE12KsQNfCTuE=;
+	b=PFnYaXLB5pebycecu9FNVrrEPtIpA01TSIyjEPPbpXfsi47pTSDwPIPI3ypZdRzMM70H
+	 T+ZXTF6/FLDYJUjQc+7Izt41eXiFoPVGQrSqGjwBhhiPWjcfDXy/tbGL5eISlW/I/Z6Zv
+	 aGq0ROLKHMzF8zTEvv0PLj0DsA7g0if+IoMrcj5oCCgn3j9Q7MDvMumFyy6e88iVF5Xsr
+	 qvHAb6m9LiP32Z5eEzRwpaATI+br8ct0HEsgAIbLbiDMptXSBRVyQrIJz2Y5oo/rI2yhu
+	 KUMn7xj7nLzWzMut9fqPiIdrimDmVFFdcDfbJ8fcZWRRxgy6G95+ihn0UOynQo3qCpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="D/kVshHl";
-	arc=none smtp.remote-ip=209.85.215.172
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=IGSEwRAO;
+	arc=none smtp.remote-ip=44.202.169.37
+Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A400606A32E
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:20:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A400606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFDE5606A329
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:23:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFDE5606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D/kVshHl
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc4c02ddd62so821338a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 15:20:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793834456; x=1794439256; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6pcpvaSe9ElEJt/G5lEejZAQ2sl+Ux6mleZlCU2LO+0=;
-        b=D/kVshHlSztePvRdaME0VrDfCaifENALUV5qVvoTlOqwXmIOoRDvM8d+e2KtZbsp6n
-         MM4W7BmOwFnTIQTJV5mH+nKzcfaDfcklz4psWGxjZ5qxFEwt2QZ7sKJVdw0UY3jZj2fv
-         WvZCJQucY/GpO87C1GyoYqwyZoalSi4YsUwRR7pRgN5NQNV5NvdT5ApTpBg7QTjAyf2N
-         CEJOh5k2RQxA/sIUZLzpy+JXq+tcwClbhZFcrLP53Ro/1nbmU9majZlr+vxKyDkQdDoX
-         9ETPZ59lJPc8f9CcQ896HXzsNXUi3iujx/RpI2lBDkkIfSc0xdCdEVdycQERgRylhmwP
-         9vkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793834456; x=1794439256;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6pcpvaSe9ElEJt/G5lEejZAQ2sl+Ux6mleZlCU2LO+0=;
-        b=R4ZczF8y1b+4nt6k/w44eRhMf+C6CUjXWUxWy5AdkLMYdbOb7LKhHa+LyRA+TwQ/kZ
-         vzaDP328q5kw2BnLi1omLZkPcRhW1FyKryb00gf54hsca39oo6+4A/OiSQzPmo+QQrQ3
-         g+O0saUENSXYAK4nKmcfug7MH/CbY33IHn3uZcskz+NiuBkx5N37H73iF24D0nyvvNpU
-         iOjE3MhXMPekzBtaW5AD8e7KdbfvrGWgVjKYIj5+Vpkzpg8qcZnqsR++M5Y2hnduFBWk
-         AruRyQkQRb9TSoNO+Sbgw0T28vB9juWZqQslvoE/M3nS3KbunY0OVgJYzGchNSSBpNMi
-         R6wQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzZ9MV4n3DXzm8s2GCQPHgprYDbx3M7W8O4slUP0GFTMhc2RBEbYc8Qsl3hfkTmlISzMpK3qDMD71cGih8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Y9GsbPkUkf7H0wuDamM/TS2ycocLHY9QqHcRLYzrMb7BrY9HN
-	QEWkVLglNfLp49J5ZgDsBAv6p0ayOZ7bOEI/dMnd4ycKnstDbJnDM3Ch
-X-Gm-Gg: AYBFou3uJlgEoLxRkSyqjmRHYHCzy4O7QeBRIGT525CHmaoaUGZSApAXXXu1dLa5Lmi
-	Mqiknv2+5lz5R8W07qY6gysQqjSFXjuzTOhADFSp5IIohmhtslwoTuHosaVi5F0YRUpaOqiIDAL
-	3/vn97jkZW7AAiapPo+Shoj5BJXRNRpJa1euCrwM6jzyBR5Z95KKmRDdTMUkMvM07yXKu5WK+W/
-	fcOZRgda855ocwzjO3Nt96Bu2SY9cos4fqOalzdogmUP1afPmJRaW2X+jHoOWp8YVe9/8nyMXxw
-	8YfsSJlus1rSG2juFxAn+8VZTWmibX1CWEkkYQSca8QJaEHSvDnf++zmrQ/oC4Y1990ma280GKJ
-	y2OP+waBHcjzyD+G/gh/0dBxpygWWnuDWZXIBel4o3tlC8lORxyOwxtII0FsnuuZsih9LVZmkkU
-	VegMGU0ijIbGG6eLfA5jCjomsJ/n3fmPhZRaPsHkSDg7w81ISPm5ulyP/bT4FnNNjgaFawSzrIw
-	VJcMqCduPq6WJAy6J2m6ifN/BrlBBUwGO0AczMxcm7l37cvz/yPGAwcNMRyNxMILHSRBgGFtpme
-	hNbBVLVrk/9hNeUvG880YQsPAQ8n
-X-Received: by 2002:a17:90b:3811:b0:3b0:adba:45e9 with SMTP id 98e67ed59e1d1-3b0adc98d2emr1040635a91.58.1793834456448;
-        Wed, 04 Nov 2026 15:20:56 -0800 (PST)
-Received: from localhost ([182.216.53.174])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b094dec0e3sm2551500a91.1.2026.11.04.15.20.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 15:20:55 -0800 (PST)
-From: Jaewon Jung <jaewon8868@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: sashiko-bot@kernel.org,
-	sashiko-reviews@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org
-Subject: [PATCH v3] tracing: Keep copying markers when one instance is stopped
-Date: Thu,  5 Nov 2026 08:19:26 +0900
-Message-ID: <20261104232046.32519-1-jaewon8868@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261104085715.5838b869@gandalf.local.home>
-References: <20261103005219.3236380-1-jaewon8868@gmail.com> <sashiko-outbox-194417@kernel.org> <20261103095019.6a88e783@gandalf.local.home> <20261104063552.28094-1-jaewon8868@gmail.com> <20261104085715.5838b869@gandalf.local.home>
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=IGSEwRAO
+Received: from eig-obgw-5003b.ext.cloudfilter.net ([10.0.29.155])
+	by cmsmtp with ESMTPS
+	id OgWjxDYsRJFmFOkK8xVisl; Wed, 04 Nov 2026 23:23:20 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id OkK7xHO3dbtpUOkK8xgFY1; Wed, 04 Nov 2026 23:23:20 +0000
+X-Authority-Analysis: v=2.4 cv=dIqmmPZb c=1 sm=1 tr=0 ts=6aebbe68
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
+ a=0ogU7NcLSlclAW-9CXQA:9 a=QEXdDO2ut3YA:10 a=WfCSls34T8PcalPlSTFI:22
+ a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=4adyBlLdVi5msyI8kDjuQ5BAfRehV0yE12KsQNfCTuE=; b=IGSEwRAOsOVm
+	3S+V/y7mnIucbxkpcCBSSXGY+p+EtOklmKK07UZKkiS6eIfNp20rAongbRC9UWLD428AqVnbw0ArO
+	4lYMrv7s/AZrcwYrN5Fp+NXlft4Xu/4r1edvyGUBE4AYhRO2HHA4OQjJ/xERPtgwAhMoTDAevq+s/
+	Dc555OYMI1CxlE3CjQ6fPwvQd2Wwoy96Y2XRpuC4gtd3pmcXmOMmjaSnhdMoMHw3Gyvkk/rigHcb5
+	HvN+rutDNiniY5jOekJIVa5OuJZ00xgyRDO2MReexwdhomiwRRfSlcgMrcBPnSx5OPVEtyYNnH4Cn
+	YmFZ9U2A/HuCbW961y3VAQ==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:35844)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xOkK7-00000001dKU-2RVi;
+	Thu, 05 Nov 2026 04:53:19 +0530
+Message-ID: <6d490e67-82a2-44b0-be16-3aa46e7c0430@roeck-us.net>
+Date: Wed, 4 Nov 2026 15:23:18 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,63 +76,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] devres: add managed timer shutdown helper
+To: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>,
+ Hans de Goede <hansg@kernel.org>
+Cc: Matti Vaittinen <mazziesaccount@gmail.com>, linux-hwmon@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <CADZg-m3Mnk_QJ44HrH4SkCm+pN5QteeQv8zY9Q7EE7RQv65O8A@mail.gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <CADZg-m3Mnk_QJ44HrH4SkCm+pN5QteeQv8zY9Q7EE7RQv65O8A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xOkK7-00000001dKU-2RVi
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:35844
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 9
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfA91YZWdfIC1jujhtqpxV8z+Z/Z0C3a4GJVYDzYLxT2N3OOeEk3WTKBh9IPXbwTpD7KhXq/aamYBY85fY463aUfgVToUfmDqxI2ooTlViQqDYfTdcRvG
+ kg2YJGmnivasEKcQQXRih/hWeQJcGDPngNQxKj8W54SwQO8YOOc6w9gi+pkOqxmcT/Zjt1kikjnW/WEfNqkpDc3LrjmoDLSxa+kYNjFWwDfxy3cUNIlF89C5
 
-When several instances enable copy_trace_marker, stopping one instance
-can prevent the remaining buffers from receiving markers.
+On 11/4/26 15:03, Kirtikumar Anandrao Ramchandani wrote:
+> Provide a devres action for initialized timers. The action calls
+> timer_shutdown_sync(), draining the callback and rejecting later rearming
+> before device-managed storage is released.
+> 
+> Use devm_add_action_or_reset() so a failed action registration shuts the
+> timer down immediately.
+> 
+> Signed-off-by: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
 
-Continue copying text and raw markers even if one copy fails. Return the
-largest successful write length, or -ENODEV if no write succeeds.
+I see no benefit in this patch. The calling code now calls
+devm_timer_autoshutdown() instead of devm_add_action_or_reset().
+That does not really make a difference. Sure, we could add similar
+code for every instance of devm_add_action_or_reset() in the kernel,
+but what would be the point ?
 
-Fixes: 7b382efd5e8a ("tracing: Allow the top level trace_marker to write into another instances")
-Signed-off-by: Jaewon Jung <jaewon8868@gmail.com>
----
-Changes in v3:
-- Return the largest successful write length, as suggested by Steven.
+Guenter
 
-Tested on x86_64 QEMU:
-- Before: A failed copy prevents writes to later live buffers.
-- After: All buffers are tried, and the largest successful write length
-  is returned. If no write succeeds, ENODEV is returned.
-- Existing text/raw marker and instance selftests: 6 PASS.
-
- kernel/trace/trace.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
-
-diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index 08614af8fad1..164da1ea5e73 100644
---- a/kernel/trace/trace.c
-+++ b/kernel/trace/trace.c
-@@ -6329,9 +6329,10 @@ tracing_mark_write(struct file *filp, const char __user *ubuf,
- 	if (tr == &global_trace) {
- 		guard(rcu)();
- 		list_for_each_entry_rcu(tr, &marker_copies, marker_list) {
--			written = write_marker_to_buffer(tr, buf, cnt, ip);
--			if (written < 0)
--				break;
-+			ssize_t w = write_marker_to_buffer(tr, buf, cnt, ip);
-+
-+			if (w >= 0 && w > written)
-+				written = w;
- 		}
- 	} else {
- 		written = write_marker_to_buffer(tr, buf, cnt, ip);
-@@ -6408,9 +6409,10 @@ tracing_mark_raw_write(struct file *filp, const char __user *ubuf,
- 	if (tr == &global_trace) {
- 		guard(rcu)();
- 		list_for_each_entry_rcu(tr, &marker_copies, marker_list) {
--			written = write_raw_marker_to_buffer(tr, buf, cnt);
--			if (written < 0)
--				break;
-+			ssize_t w = write_raw_marker_to_buffer(tr, buf, cnt);
-+
-+			if (w >= 0 && w > written)
-+				written = w;
- 		}
- 	} else {
- 		written = write_raw_marker_to_buffer(tr, buf, cnt);
-
-base-commit: d7ff48d92a0f28bc0612da47c054efbc28c19562
--- 
-2.43.0
+> ---
+>   include/linux/devm-helpers.h | 25 +++++++++++++++++++++++++
+>   1 file changed, 25 insertions(+)
+> 
+> diff --git a/include/linux/devm-helpers.h b/include/linux/devm-helpers.h
+> index 708ca9131..ffe8b68b7 100644
+> --- a/include/linux/devm-helpers.h
+> +++ b/include/linux/devm-helpers.h
+> @@ -24,8 +24,33 @@
+>    */
+> 
+>   #include <linux/device.h>
+> +#include <linux/timer.h>
+>   #include <linux/workqueue.h>
+> 
+> +static inline void devm_timer_shutdown(void *res)
+> +{
+> +	timer_shutdown_sync(res);
+> +}
+> +
+> +/**
+> + * devm_timer_autoshutdown - Shut down an initialized timer on resource release
+> + * @dev: Device whose lifetime the timer is bound to
+> + * @timer: Initialized timer to shut down
+> + *
+> + * Register a timer_shutdown_sync() action. Register this action before
+> + * arming the timer, and after resources that its callback may access.
+> + * The timer is shut down immediately if action registration fails.
+> + *
+> + * The callback's resources must remain live until shutdown completes. Any
+> + * independent user of the timer must stop before the timer's storage is
+> + * released. Devres actions run in reverse registration order.
+> + */
+> +static inline int devm_timer_autoshutdown(struct device *dev,
+> +					  struct timer_list *timer)
+> +{
+> +	return devm_add_action_or_reset(dev, devm_timer_shutdown, timer);
+> +}
+> +
+>   static inline void devm_delayed_work_drop(void *res)
+>   {
+>   	cancel_delayed_work_sync(res);
 
