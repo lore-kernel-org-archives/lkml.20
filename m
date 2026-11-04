@@ -1,57 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793814033;
-	b=j0QnuX6Wd0GrYJJEwkdDEDR70XvmRiZpHRAt2e9T1ZOInrKIfSBR99iFRGzUZ4ad5++U
-	 Fxg9B9warQ4KncCm142yZL3YL6Xqqeb/zboXxTiJrSpe1g+anm/QHvQ96JFyW2h6yAJek
-	 VP1NQzSbj+dAxCqyQs76LV9crtdYQ2cxgsyAmyzYpgen7VFZiR7wg2Zl/Gp6ciIYGYOMY
-	 ESf9YVnMPA0b5ohAobsAfRSHPtcFqKSTc7wON5ibYrom/MVXWppHRqpVO1q6LdvJmNIpx
-	 elmuZamPz5qK/d23ETMqzHZbWP6BAK6g+mJ2+LTVR5imcXqjfzvh2tLH+DYMtq6bcHQ==
+	t=1793814047;
+	b=RIPBkSDLMMoxmfBK4InH4tKS7VRv2IL2jhhLvfLG0y6/u9f5I6VPb5YyXOSf+gEGJbTu
+	 OC0hcF/PyrVbW55OQF0ff6lXaIK9A4bq45fHmCCQEoDRxFzqSZJHxeVgfUWCXuEX8DA08
+	 RgPDAbSs/ZdmOEklwdVvJK2NwT2y7tqmIsqDMgpvzorbjBVDmfhJ6iAVRohMgGmj2W9la
+	 ppJ4V0h5rYOc2sJYueSLgPRBuiV2Ne6Q9aUDNkGBC40Fw/qSEQK3qZh5cBrPMV6lXp8gS
+	 hHvIyAfdqzVG0H7eZNwOzB5JgjlgP/mcGEWxULpeRVWbB7EIqQwf/aTM3OGprKS2BvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793814033;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=wdafFITQJe7oXT8wqC+Y0AsS4Xihwh+O5NxVVj5bpWM=;
-	b=zidPLUQOPpvN/D81fvBcX8+OO/3mqOhWxtGGGNQfCHFrzw0kjfPHpXYSkB+2mIkiNLDn
-	 jxYaZacdC4rSDw7pjqWfDUmuQD3FE/ijHRyZFk4a0oIh0UTeM4wWU5dp7r6U7ZqKZTuCP
-	 mEtxv5FbHKJ429v3UnwqQCJCasuVg5YNP6xvBYHa+uyz7RFtpFuZpQpkbj/wqlYuakmR3
-	 WiGCFAt4fT3t12bK2FT2vf55QeKF64SbmfdpQ+KSUgtzuMHoypLNyPlGPOjisKf50d/4i
-	 LXCjiRWV997Vw9Gm/dq5QhCMmTZKArgpL8pZ2VrFO1synDZSeYbvahY1IEweri50ang==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793814047;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=TQnRvPeX0s11xwNIzy2fTv5gyAO1V6iutDNVwBAIQGw=;
+	b=NbWS1F3gJo157dedGwPsSk56Mar9qF7wirgwcUfT6ySGLRStQ0FHBjJg34N4lh3zwq35
+	 2SroEb7UeMtkMlJUeJn+qi5/0rfIMuwXT+NMC1dbBwpL6V1DC4l9EhA446unTF9LijaoR
+	 AWR4yxdJJI+WUv4i3a1x+ut6kFp3sQ1PG2zI2VnOF2JJ6cskfk8bS91sLC12kQrI39mzw
+	 EfiRBLOwu09wtNz8uKHcVeL4op++cPX/4RV+UrgDCfyoRNNjZFLffITIAIJH7BUnWLjWJ
+	 myjhQ7qVQym0tDz5zWqmXj/uVzZfninA7y+wEuQ2bagEeUiehRdR6SJFUBFbYsvtO6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mOtwudKy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1577606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 17:40:32 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=C6OJR5TU;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 27D1E606A331;
+	Wed,  4 Nov 2026 17:40:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27D1E606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mOtwudKy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A7331F000C1;
-	Wed,  4 Nov 2026 17:40:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793814032;
-	bh=wdafFITQJe7oXT8wqC+Y0AsS4Xihwh+O5NxVVj5bpWM=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=mOtwudKy2KGqNK+6dI+1+thxM7Ld8vm2IIxn2bATElFT97LgsEcJjkPJ61Sx2gVak
-	 l3X55LWFIs21HDFqah37IAbzOTwB7/b5KVdwFWYPIagTIyVcLYRDkFM1wUyxdYu8KV
-	 xmhv4L1fxcWptxokfJHWotKU8PQiyfN1hYbLP/vhOgIZKzPQt4AOpzs6a/OJwtN77k
-	 RWPd343Kne3wTSx/QZJD4NQM2KHDwVdQ+xFtjlR5aFoKdIMq6qkHV1jF63p2eCT3mZ
-	 ktVLZCMkXdpSKw8UWcTGpEYMG1ZQ24lUqkp6h6suN21nFuF3rHBlJNjDjZuyuLOl1g
-	 80HGX0umeWZrA==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 5C5DFCE09CE; Wed,  4 Nov 2026 09:40:32 -0800 (PST)
-Date: Wed, 4 Nov 2026 09:40:32 -0800
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Breno Leitao <leitao@debian.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Petr Mladek <pmladek@suse.com>, linux-kernel@vger.kernel.org,
-	Kuniyuki Iwashima <kuniyu@google.com>, kernel-team@meta.com
-Subject: Re: [PATCH] ratelimit: Fix data race on ->burst in ___ratelimit()
-Message-ID: <6966fbb2-c849-433c-a4f6-c2b9d05479be@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261103-ratelimit_race-v1-1-07486c49ec12@debian.org>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=C6OJR5TU
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4DDE81BB0;
+	Wed,  4 Nov 2026 09:40:43 -0800 (PST)
+Received: from [10.57.90.115] (unknown [10.57.90.115])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 158A03F673;
+	Wed,  4 Nov 2026 09:40:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793814046; bh=+W72MjjHirhzVA/qDT+k2DAMSV2VvDQzAofbMpBBwSk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=C6OJR5TUg1o9qDAz7haD+JUV0dWjrhETeV6oWpF8Z1Xl0ya74LmaqfHTaz7bpxff+
+	 5PwdOYNd3un5lwbYrQrG7cslAkDMCC6/ni1jA2XCr0oALAWU14yhVn52MSttnogBJY
+	 nGIlmpqVsdnM9KYCGjy44d0lfG2ZuSJiJzOHWycM=
+Message-ID: <a2677ff9-e342-4f06-bf28-8f56aadb14a4@arm.com>
+Date: Wed, 4 Nov 2026 17:40:42 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,83 +53,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103-ratelimit_race-v1-1-07486c49ec12@debian.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/10] irqchip/gic-v5: Fix misc IRS and ITS host driver
+ issues
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Radu Rendec <radu@rendec.net>, Timothy Hayes <timothy.hayes@arm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Jonathan Cameron <jic23@kernel.org>,
+ "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Sashiko AI <sashiko-bot@kernel.org>
+References: <20261102-host_gicv5_fixes-v1-0-743b61626fc5@arm.com>
+ <aun2udtwaIo2RiRC@red-moon>
+Content-Language: en-GB
+From: Sascha Bischoff <sascha.bischoff@arm.com>
+In-Reply-To: <aun2udtwaIo2RiRC@red-moon>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 03, 2026 at 04:29:54AM -0800, Breno Leitao wrote:
-> I am seeing the following race on my debug kernels:
-> 
->   BUG: KCSAN: data-race in ___ratelimit / do_proc_int_conv
-> 
->   write (marked) to 0xffffffff83084544 of 4 bytes by task 186 on cpu 3:
->    do_proc_int_conv+0x94/0xa0
->    proc_vec+0x48a/0x8d0
->    proc_dointvec+0x16/0x20
->    proc_sys_call_handler+0x263/0x3b0
->    proc_sys_write+0x13/0x20
->    vfs_write+0x559/0x610
->    __x64_sys_pwrite64+0xce/0x110
-> 
->   read to 0xffffffff83084544 of 4 bytes by task 185 on cpu 1:
->    ___ratelimit+0x137/0x3b0
->    __printk_ratelimit+0x18/0x20
-> 
->   value changed: 0x00000001 -> 0x00000000
-> 
-> This could be reproduced by flipping kernel.printk_ratelimit_burst
-> between 0 and 1 while a kthread calls __printk_ratelimit() in a loop
-> makes KCSAN report:
-> 
-> ___ratelimit() reads ->interval and ->burst once, with READ_ONCE(),
-> because sysctl writes like the one above change them without taking
-> rs->lock. Commit 6bae8ceb90ba ("ratelimit: Fix data-races in
-> ___ratelimit().") added those snapshots.
-> 
-> Refill rs_n_left from the snapshot instead, which is also the value
-> the function has already checked to be positive.
-> 
-> Fixes: cf8cfa8a9978 ("ratelimit: Reduce ___ratelimit() false-positive rate limiting")
-> Signed-off-by: Breno Leitao <leitao@debian.org>
 
-Because we have acquired a lock between times, this might get an old
-version, but that can happen anyway and gets fixed on the next call.
 
-Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+On 03/11/2026 14:59, Lorenzo Pieralisi wrote:
+> On Mon, Nov 02, 2026 at 01:32:53PM +0000, Sascha Bischoff wrote:
+>> This series fixes issues in the GICv5 host IRS and ITS drivers.
+>>
+>> The ITS invalidation serialisation fix addresses Sashiko's report of a
+>> race between event and device invalidation commands [1]. The other
+>> patches correct IRS allocation and routing behaviour, serialise IRS
+>> synchronisation, and fix ITS L1/L2 table selection, cache maintenance,
+>> ACPI coherency handling, and resource cleanup.
+>>
+>> The IRS changes:
+>> * Reject allocation of an SPI without an IRS, preventing a null-pointer
+>>    dereference, and warn about low-quality firmware.
+>> * Only program IRS_PE_CR0.DPS when 1-of-N routing is supported as this field
+>>    is RES0, otherwise.
+>> * Serialise IRS synchronisation requests, as the IRS ignores a request while
+>>    an earlier one is still active.
+>>
+>> The ITS changes:
+>> * Serialise event and device cache invalidations because both use the ITS's
+>>    shared DIDR register, so concurrent writes are a bad idea!
+>> * Select linear device and interrupt translation tables when one L2
+>>    table covers the full ID space. Currently, this selects the wrong
+>>    path, then the L1 table code rejects the attempt to create the
+>>    table.
+>> * Check the ACPI noncoherent flag with ACPI, rather than checking the
+>>    DT's property.
+>> * Correct cache-maintenance sizing after limiting the DeviceID width.
+>> * Invalidate the device cache before freeing an ITT.
+>> * Use firmware-node names in initialisation warnings.
+>> * Release the reserved MMIO region if DT-based ITS initialisation fails.
+>>
+>> I've CC'd stable for the IRS/ITS locking fixes, the ITS table alloc
+>> issue, and the ACPI coherency fix, as these are the most important
+>> changes to backport.
+>>
+>> The series is based on v7.4-rc1. Thanks for taking a look!
+> 
+> Thank you for fixing these bugs Sascha.
+> 
 
-> ---
->  lib/ratelimit.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+Absolutely no worries. One of those times where one pulls on a thread, 
+and a few more things unravel than one expects :)
+
+V2 incoming.
+
+Thanks,
+Sascha
+
+> Lorenzo
 > 
-> diff --git a/lib/ratelimit.c b/lib/ratelimit.c
-> index e2d65d3b1c3545..d24864f12d871e 100644
-> --- a/lib/ratelimit.c
-> +++ b/lib/ratelimit.c
-> @@ -67,7 +67,7 @@ int ___ratelimit(struct ratelimit_state *rs, const char *func)
->  	if (!(rs->flags & RATELIMIT_INITIALIZED)) {
->  		rs->begin = jiffies;
->  		rs->flags |= RATELIMIT_INITIALIZED;
-> -		atomic_set(&rs->rs_n_left, rs->burst);
-> +		atomic_set(&rs->rs_n_left, burst);
->  	}
->  
->  	if (time_is_before_jiffies(rs->begin + interval)) {
-> @@ -77,7 +77,7 @@ int ___ratelimit(struct ratelimit_state *rs, const char *func)
->  		 * Reset rs_n_left ASAP to reduce false positives
->  		 * in parallel calls, see above.
->  		 */
-> -		atomic_set(&rs->rs_n_left, rs->burst);
-> +		atomic_set(&rs->rs_n_left, burst);
->  		rs->begin = jiffies;
->  
->  		if (!(rs->flags & RATELIMIT_MSG_ON_RELEASE)) {
-> 
-> ---
-> base-commit: 2637bdec0535a2044cd830eba9a79363651d9043
-> base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-> change-id: 20261103-ratelimit_race-041f9bf78da1
-> 
-> Best regards,
-> --  
-> Breno Leitao <leitao@debian.org>
-> 
+>>
+>> Sascha
+>>
+>> [1] https://sashiko.dev/#/patchset/20261016155741.979985-1-sascha.bischoff@arm.com?part=11
+>>
+>> Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
+>> ---
+>> Sascha Bischoff (10):
+>>        irqchip/gic-v5: Reject SPIs not backed by an IRS
+>>        irqchip/gic-v5: Only set IRS DPS when 1ofN routing is supported
+>>        irqchip/gic-v5: Serialise IRS synchronisation requests
+>>        irqchip/gic-v5: Serialise ITS invalidation commands
+>>        irqchip/gic-v5: Use linear DT and ITT when L2 covers all IDs
+>>        irqchip/gic-v5: Honour ACPI ITS noncoherent flag
+>>        irqchip/gic-v5: Use firmware node name in ITS warning
+>>        irqchip/gic-v5: Invalidate ITS device cache before freeing ITT
+>>        irqchip/gic-v5: Clean the allocated linear device table size
+>>        irqchip/gic-v5: Release ITS MMIO region on DT probe failure
+>>
+>>   drivers/irqchip/irq-gic-v5-irs.c   | 22 +++++++++++++++-------
+>>   drivers/irqchip/irq-gic-v5-its.c   | 29 ++++++++++++++++++++++++-----
+>>   drivers/irqchip/irq-gic-v5.c       |  9 +++++++++
+>>   include/linux/irqchip/arm-gic-v5.h |  1 +
+>>   4 files changed, 49 insertions(+), 12 deletions(-)
+>> ---
+>> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+>> change-id: 20261102-host_gicv5_fixes-1eeea29d2ea4
+>>
+>> Best regards,
+>> --
+>> Sascha Bischoff <sascha.bischoff@arm.com>
+>>
+
