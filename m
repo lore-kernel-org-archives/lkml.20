@@ -1,76 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793780383;
-	b=f0PHZ5n7pumAO+qWrIgcXeHg4+Dk4cCHj4rl3hVaJMG7CgOJxwdHVOI5rs8oktup0vMC
-	 qqOqP/jP755NX2oVBZWySzVarUwYbdu7i6IpM/zC4FriP9yp85F5qFeTwp2UdKCguj7sE
-	 ISn5oamsEqQxb+soO10DNSpInblXt9wYuL3/qn2sPnS/10/HHGXnZWc6erpxh08Ac0cTn
-	 2H1CoSSGuNTi/7zii03aqsOe2Z4AmMBBTRtcBkMsacs/S5Mk9N1OsgzN4RoIgCgz1hck6
-	 Pb0gzw4a3FUBxH6DB7dk/3YZaq+15zR8UVlu1wWm4TrJ2pVHWhoh4+bCu5nW/9ZmkDQ==
+	t=1793780418;
+	b=vXnQP8/6px3R8yCGlSswSOfT9YCcjUVj/dklE0YgYfDM7ZCDchsgc74QTR68jsssj5tJ
+	 E2XwLM0RLfmx7x1WHNy7N5Nw+hFx/8x4td3Kfl4UxQdkP5RdgMG2dXACLcJUzWMZvy/Zr
+	 /xAYO/Ss8ztfrhB4Lyh7inCnVEw5Q2YO2HtTDGhNsiIrPXOsXfANTWRR1Kca7uDzlcc+h
+	 BR2piJM4BSTwoF5CCFfVtq1a2hNyvb13VYRCwKRbX4NHbQGrsdRD1B24buk8/E2EWgeZi
+	 wv0Y6WYJKnH2TiPuEqbmzDrUt/mudWCvxkjN2kmtpdldiQ8R/eywjmzZQWUtThNZ/Xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793780383;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=42r2UWM+27wxK3ur3WfunLpFTMSv5s5Q7SbgpgMkzU0=;
-	b=hs+AbmFKnQS+pfMuYNuCP4QEdo9maUm/4dy3Fece1aW6rP2RUZpp3bGPpC1RBjhsXaBe
-	 /mz9X8W8uEU8LxTFxc3BgGOVm/+3erZx73GRtcgEgOVemekefDFdCpVmYKt7d3pJ0E1Ds
-	 wXzZi5qKW9rUKHpRS5J61p61GQDzN/Nr9Khci6xB9gGPdPaNC7L8OLU74kjAHUDouxdxO
-	 I2bIrlxDQ5vex4oNK3cUxdvfHjCC4WfYppb4crePXffgl9Y/2CbW6EPFsZ6Yb8hJHvY4r
-	 KWQV7LhRsBDmkaKs46S39YHGGwtEvMXf/TWhychFemZwbwJr5zZ2obOyyYNKPDao4qA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793780418;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=SBs5ngltfceoGz65CnfqU4ni/SkBXbisTdH2AJEoDqw=;
+	b=yvpZn3rF2gCrxtTJfSeRBoYRrMlnUAtANqZ5pYC+pbooj0m0O3IwIFiJJBRo5uJvPjRi
+	 gMtuY5Cyg+7XEwXwPhjfSmu62V0JScffZMCcuycasmbk4c5sRqvulQk8kMwBnFv6CxSmT
+	 Q6a7t0WwD7Ye62H/+gFW7z/K/tCHbHsgpGz5Yu1xLSuRUnNB+64g02Cfmn15jD866lnrO
+	 G7NilD9qjLKvjEyZCrClZRG74oSlh4rgy0xuTUso2eMdhCz2pk3pOuwDdTsbVmY7xSTnM
+	 kCCFFTcYJf1QCZN55oCpsELTDkQ24N2C/htXMN2qYFcSYPYiZbZPlNRA+IrHcb5ouDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.221.179
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=eXIA9Z1v;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=eXIA9Z1v;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A58B6606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:19:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A58B6606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5ea969fafeeso113990e0c.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 00:19:42 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793780382; x=1794385182;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=42r2UWM+27wxK3ur3WfunLpFTMSv5s5Q7SbgpgMkzU0=;
-        b=PYVkfzPxn71DRRd6xRHB2hpQop1aEBszbKxV4ZXUMn1H7fS676gPv09CBnR8vWJxi6
-         AnUFGgHufyyTiAUxGWoUEMFq61XF5KjdvSrPjzq8QhRvhH9jpo9aAk6jPXMqLge61w7D
-         K9NepebyCftmzSyTrW4a+FYKup3VymSuwzx+dMa8e+dBuISIyNVBRCYb+dStCfoaXXvP
-         3koZnfqmx4gnMcif4hp/dHhtiO3lUkSKGSNsQCBzgxM4OGEVx18nWCrmIQqyHJ1O1hjx
-         PSI3Rixp9S8Q5PKaQpBwaiz473PHybjpZFMmJYp2LNlGRkP/RSyxPjw3j/0rraaMj14U
-         n+xw==
-X-Forwarded-Encrypted: i=1; AKwUvBwUvli+I6vu8+ZVoA3JqSOB2rg+Gvm2OtCBv4xzMHbWeo03M9wuXwMD2hQuAPrDcAL2s+BIph3JCH9rzac=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8rjHILX6iD/wm+7Rrg202jLVipRwu96sKtIG+Q+5YAz4ErnvTT
-	Ot4QNYT6yxNyPrvd6BWjX0ZVCxv9sc+GhIVLHtK0ChPkF847IfIDKxO9T8q8FzwS
-X-Gm-Gg: AYBFou28KXyRqk1X7x0400jg8V5Nr01fB1L1cYYvyur8tHwObbOZRuHWMIUKMT60GPT
-	dqosn4qt7RJtbUB8QWwrQTpVhl9coJf5wgm8HZcD81lWTl1Xw54fWktG1GRp/ZIPDKWz1hRCTyS
-	r1uTE2tPLnZ2NCaU6gs659SFnij/0WjkqvLFoOpvr8c2mPoGvIRdHaLWlO/Ai0epoYkevpvZCAN
-	JyET57tIxUi+C2wsLJiMaXjxXGFa1OkCIk1np7/6kAbqAJ3zwbOvmZeV2Zi0uMdHM6Nq98qLp5K
-	v+0F5+KskF0fG8EEP1IZKAkV4YBit1GBwzjVMaRdokRN7+Dh4/TR2RJxyA5JjC7NulMoTmx/FBl
-	G6DKtlBwmKwy3T/mvPDe79yhCuy+wtfLoivC1mnCjkO+rDNv1WUhcKHc80uBl+KvOYpIPYGl/hr
-	qKhfOTBrvmu3eLZXPVXBRW5sI3TQMvAPf6E6mpGLtPj5jvEUXEtK8pf1l1g3/SWMPwiZ+1DYKLe
-	oPMED0hvIewXla46fn/M6hnNanGtCMxyiuq5WRJjWkNHD3Fu3bFlVN1ddOfuFNBQOr9pt6jg6rN
-	aNDpvdA1GGghr3NUtgyHn4gX2ewjiyaiK+xSV5fJ5mBkOo/uSY+7UUNrrbf4TVjmig==
-X-Received: by 2002:a05:6122:2087:b0:5ea:c77f:2f22 with SMTP id 71dfb90a1353d-5ec6897bc06mr6247304e0c.22.1793780381505;
-        Wed, 04 Nov 2026 00:19:41 -0800 (PST)
-Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com. [209.85.217.47])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eca8d774dcsm1130840e0c.5.2026.11.04.00.19.41
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 00:19:41 -0800 (PST)
-Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-7c2f48f3a96so99409137.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 00:19:41 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBzTggwF5pOlMVC6Ixj/bVRjZy9jkwUgCE4XQQg2MIzqO0mzQ5UpBCkWXQ0u+kYeWNN9UpS8VvAQf5nGEX0=@vger.kernel.org
-X-Received: by 2002:a05:6102:f0b:b0:7a6:cd7e:72db with SMTP id
- ada2fe7eead31-7d072cbfbd3mr6080742137.26.1793780381117; Wed, 04 Nov 2026
- 00:19:41 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9CAD606A32C;
+	Wed,  4 Nov 2026 08:20:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9CAD606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=eXIA9Z1v;
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=eXIA9Z1v
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id BD87321F36;
+	Wed,  4 Nov 2026 08:20:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1793780415; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=SBs5ngltfceoGz65CnfqU4ni/SkBXbisTdH2AJEoDqw=;
+	b=eXIA9Z1vNflgGIOD5PkcOdSYo7dHNT3ZabQ8geK1s2F/ydy0f/2FauA1E/q6xI/G4tZyCD
+	hawq/AZcyJTCwHO50k9qt0L16WZYMLIFXjQjBvzvVyyI73gPknSCO1+pjFnwMyy3uAnB33
+	nDaHGRkE17aD+t1GHtIKDO3ztODie7c=
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1793780415; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=SBs5ngltfceoGz65CnfqU4ni/SkBXbisTdH2AJEoDqw=;
+	b=eXIA9Z1vNflgGIOD5PkcOdSYo7dHNT3ZabQ8geK1s2F/ydy0f/2FauA1E/q6xI/G4tZyCD
+	hawq/AZcyJTCwHO50k9qt0L16WZYMLIFXjQjBvzvVyyI73gPknSCO1+pjFnwMyy3uAnB33
+	nDaHGRkE17aD+t1GHtIKDO3ztODie7c=
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3D980134F0;
+	Wed,  4 Nov 2026 08:20:15 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 8rhoBb/q6mp9bgAAD6G6ig
+	(envelope-from <jgross@suse.com>); Wed, 04 Nov 2026 08:20:15 +0000
+Message-ID: <d6d14b59-66a2-4a1d-ba57-15b86412ed1b@suse.com>
+Date: Wed, 4 Nov 2026 09:20:14 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,161 +81,165 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CGME20261015082334eucas1p2a3bbf3650f279abbd39d05d63e35aba6@eucas1p2.samsung.com>
- <20261015082315.56876-1-m.szyprowski@samsung.com> <20261015082315.56876-3-m.szyprowski@samsung.com>
- <CAMuHMdXcM9yvwLBSi-aYRinG3omhu5aoeNVYynfFQsnDDWR-Hw@mail.gmail.com> <b71ac175-fba5-4f61-bbdb-0b98dec9ccee@samsung.com>
-In-Reply-To: <b71ac175-fba5-4f61-bbdb-0b98dec9ccee@samsung.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 4 Nov 2026 09:19:28 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdV2ET0Y_=m3LHmL12VNhqK7tBKod0kph6GdZ7Q8XXhP8A@mail.gmail.com>
-X-Gm-Features: AclHuK8Bo6Tf1rmFVBv8cZ2-rN7MQ3PgSfZx0PHZRwoGrMuxFYn-96u56ubwNso
-Message-ID: <CAMuHMdV2ET0Y_=m3LHmL12VNhqK7tBKod0kph6GdZ7Q8XXhP8A@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] of: reserved_mem: allocate and map the
- reserved_mem array early
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: linux-mm@kvack.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Mike Rapoport <rppt@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Oreoluwa Babatunde <oreoluwa.babatunde@oss.qualcomm.com>, Wandun <chenwandun1@gmail.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, linux-riscv <linux-riscv@lists.infradead.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/CPU/AMD: Don't print reset reason in VMs
+To: Jason Andryuk <jason.andryuk@amd.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Yazen Ghannam <yazen.ghannam@amd.com>
+Cc: xen-devel@lists.xenproject.org, Ariadne Conill <ariadne@ariadne.space>,
+ Sean Christopherson <seanjc@google.com>, stable@vger.kernel.org,
+ Ingo Molnar <mingo@kernel.org>, linux-kernel@vger.kernel.org
+References: <20261104013026.185392-1-jason.andryuk@amd.com>
+Content-Language: en-US
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <20261104013026.185392-1-jason.andryuk@amd.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------LKuNJD8fzNHF2QkAVsWACpJT"
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-9.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	NEURAL_SPAM_LONG(3.49)[0.998];
+	BAYES_HAM(-3.00)[100.00%];
+	SIGNED_PGP(-2.00)[];
+	MIME_BASE64_TEXT_BOGUS(1.00)[];
+	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_BASE64_TEXT(0.10)[];
+	XM_UA_NO_VERSION(0.01)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:~];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	HAS_ATTACHMENT(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -9.80
 
-Hi Marek,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------LKuNJD8fzNHF2QkAVsWACpJT
+Content-Type: multipart/mixed; boundary="------------aF0OXbWKlvGAtnWy4QKg8fQK";
+ protected-headers="v1"; hp="clear"
+Message-ID: <d6d14b59-66a2-4a1d-ba57-15b86412ed1b@suse.com>
+Date: Wed, 4 Nov 2026 09:20:14 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/CPU/AMD: Don't print reset reason in VMs
+To: Jason Andryuk <jason.andryuk@amd.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Yazen Ghannam <yazen.ghannam@amd.com>
+Cc: xen-devel@lists.xenproject.org, Ariadne Conill <ariadne@ariadne.space>,
+ Sean Christopherson <seanjc@google.com>, stable@vger.kernel.org,
+ Ingo Molnar <mingo@kernel.org>, linux-kernel@vger.kernel.org
+References: <20261104013026.185392-1-jason.andryuk@amd.com>
+Content-Language: en-US
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <20261104013026.185392-1-jason.andryuk@amd.com>
 
-On Tue, 3 Nov 2026 at 20:25, Marek Szyprowski <m.szyprowski@samsung.com> wrote:
-> On 03.11.2026 19:04, Geert Uytterhoeven wrote:
-> > On Thu, 15 Oct 2026 at 10:29, Marek Szyprowski <m.szyprowski@samsung.com> wrote:
-> >> Get rid of the static, limited-size reserved_mem array and replace it
-> >> with array allocated by memblock_alloc_raw() and accessed directly or
-> >> through a temporary early_memremap() mapping (depending on the
-> >> architecture support). Such mapping is needed for some architectures
-> >> (like ARM64), where linear map is not yet available during early boot
-> >> scan. The array is allocated from the bottom of RAM to avoid placing it
-> >> in highmem area, because some architectures (e.g. Xtensa, C-SKY, MIPS32)
-> >> set the memblock limit to the end of lowmem only after the early scan.
-> >> The early mapping is not used on PPC64, where the scan is done before
-> >> early_ioremap_setup(), but the memory allocated by memblock is already
-> >> accessible at that point.
-> >>
-> >> Having a single, writeable array with all reserved regions removes the
-> >> need to perform two step initialization introduced by commit
-> >> 8a6e02d0c00e ("of: reserved_mem: Restructure how the reserved memory
-> >> regions are processed"), so all regions can be processed during the
-> >> early scan again.
-> >>
-> >> The reserved_mem array is allocated only after all static (defined by
-> >> the 'reg' property) regions are marked as reserved or no-map, so it
-> >> cannot be placed in any of them. Errors of the early reservations are
-> >> not recorded per region, only the fact that some of them failed is
-> >> stored and a message asking to fix the device-tree is printed. The
-> >> region specific init functions for the static regions are then called
-> >> in a separate pass, once the array is available. Then all dynamically
-> >> allocated reserved regions are processed.
-> >>
-> >> Suggested-by: Mike Rapoport <rppt@kernel.org>
-> >> Link: https://lore.kernel.org/all/asc6brs_g0ky0wOM@kernel.org/
-> >> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
-> > Thanks for your patch, which is now commit aa05faf815836c47 ("of:
-> > reserved_mem: allocate and map the reserved_mem array early")
-> > in dt-rh/for-next.
-> >
-> > This causes an early crash on BeagleV Starlight Beta:
-> >
-> >  [...]
-> >  earlycon: uart0 MMIO32:0x0000000012440000 (options '115200n8')
-> >  printk: legacy bootconsole [uart0] enabled
-> >  printk: debug: skip boot console de-registration.
-> >  efi: UEFI not found.
-> > -OF: reserved mem: 0x00000000fb000000..0x00000000fcffffff (32768 KiB)
-> > map non-reusable framebuffer@fb000000
-> > -OF: reserved mem: 0x00000000f9000000..0x00000000f9ffffff (16384 KiB)
-> > map non-reusable framebuffer@f9000000
-> > -OF: reserved mem: 0x00000000d0000000..0x00000000f7ffffff (655360 KiB)
-> > map non-reusable framebuffer@d0000000
-> > -OF: reserved mem: 0x00000000c9000000..0x00000000ccffffff (65536 KiB)
-> > map non-reusable framebuffer@c9000000
-> > -OF: reserved mem: 0x00000000fa000000..0x00000000faffffff (16384 KiB)
-> > nomap non-reusable dma-reserved@fa000000
-> > -Reserved memory: created DMA memory pool at 0x000000107a000000, size 16384 KiB
-> > -OF: reserved mem: initialized node linux,dma@107a000000, compatible
-> > id shared-dma-pool
-> > -OF: reserved mem: 0x000000107a000000..0x000000107affffff (16384 KiB)
-> > nomap non-reusable linux,dma@107a000000
-> > -SBI HSM extension detected
-> > -[...]
-> > +Oops - store (or AMO) access fault [#1]
-> > +Modules linked in:
-> > +CPU: 0 UID: 0 PID: 0 Comm: swapper Not tainted
-> > 7.4.0-rc1-starlight-00002-gaa05faf81583 #411 PREEMPT
-> > +Hardware name: BeagleV Starlight Beta (DT)
-> > +epc : __memset+0x68/0xfe
-> > + ra : fdt_scan_reserved_mem+0x3a4/0x80a
-> > +epc : ffffffff8087fd88 ra : ffffffff80a313c8 sp : ffffffff81403c20
-> > + gp : ffffffff814dc6c0 tp : ffffffff8140cf80 t0 : ffffffc4fea38ff0
-> > + t1 : 0000000080200000 t2 : ffffffc4fec03008 s0 : ffffffff81403d10
-> > + s1 : ffffffffffffffff a0 : ffffffc4fea39000 a1 : 0000000000000000
-> > + a2 : 00000000000000f0 a3 : ffffffc4fea390f0 a4 : 0000000000000008
-> > + a5 : ffffffff8087fd88 a6 : 00000000000000f0 a7 : 0000000000001000
-> > + s2 : ffffffc4fec00000 s3 : 00000000000000f0 s4 : 0000000000000000
-> > + s5 : 0000000000002de0 s6 : 0000000000000006 s7 : fffffffffefefefe
-> > + s8 : ffffffc4fec02fd4 s9 : ffffffff8148e318 s10: fffffffffefefeff
-> > + s11: ffffffc4fea39000 t3 : ffffffff8150df00 t4 : ffffffff8150df00
-> > + t5 : ffffffff8150df00 t6 : ffffffff8150df78 ssp : 0000000000000000
-> > +status: 0000000200000100 badaddr: ffffffc4fea39000 cause: 0000000000000007
-> > +[<ffffffff8087fd88>] __memset+0x68/0xfe
-> > +[<ffffffff80a2f63a>] early_init_fdt_scan_reserved_mem+0xa4/0x110
-> > +[<ffffffff80a06c8e>] paging_init+0x17c/0x46a
-> > +[<ffffffff80a046dc>] setup_arch+0xdc/0x584
-> > +[<ffffffff80a009b8>] start_kernel+0x98/0x940
-> > +Code: 0000 8793 00e7 8305 97ba 8782 b023 00b2 b423 00b2 (b823) 00b2
-> > +---[ end trace 0000000000000000 ]---
-> > +Kernel panic - not syncing: Fatal exception in interrupt
-> > +---[ end Kernel panic - not syncing: Fatal exception in interrupt ]---
-> >
-> > Reverting the commit fixes the issue.
->
-> Does moving early_init_fdt_scan_reserved_mem() to the end of setup_bootmem()
-> in arch/riscv/mm/init.c change anything?
+--------------aF0OXbWKlvGAtnWy4QKg8fQK
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Unfortunately that doesn't make a difference.
+T24gMDQuMTEuMjYgMDI6MzAsIEphc29uIEFuZHJ5dWsgd3JvdGU6DQo+IHByaW50X3M1X3Jl
+c2V0X3N0YXR1c19tbWlvKCkgZXhwZWN0cyB0byByZWFkIEZDSCBNTUlPIG9uIGJhcmVtZXRh
+bC4gIFZNcw0KPiBkb24ndCBoYXZlIGVtdWxhdGVkIEZDSCByZWdpc3RlcnMsIHNvIHRoZXJl
+IGlzIG5vdGhpbmcgdG8gY2hlY2suICBBZGQgYW4NCj4gZWFybHkgZXhpdCB3aGVuIHJ1bm5p
+bmcgb24gYSBoeXBlcnZpc29yLg0KPiANCj4gVGhlIHJlYWwgbW90aXZhdGlvbiBpcyBYZW4g
+UFYgZG9tVXMgY2FuJ3QgYm9vdCBvbiBaZW4gQ1BVcy4gIFBWIGRvbVVzDQo+IFBURSBjb250
+YWluIHN5c3RlbSBwaHlzaWNhbCBhZGRyZXNzZXMgLSB0aGV5IGRvbid0IGhhdmUgY29uY2Vw
+dCBvZiBndWVzdA0KPiBwaHlzaWNhbCBhZGRyZXNzZXMuICBkb21VcyBjYW4gb25seSBtYXAg
+cGh5c2ljYWwgYWRkcmVzc2VzIHRoZXkgYXJlDQo+IGFzc2lnbmVkLCBzbyBhIGRvbVUgZmFp
+bHMgdG8gbWFwIHRoZSBGQ0ggTU1JTyBhZGRyZXNzZXMuICBIb3dldmVyDQo+IHNldF9wdGUo
+KSBkb2VzIG5vdCByZXR1cm4gZmFpbHVyZSwgc28gaW9yZW1hcCgpIHJldHVybnMgYSBwb2lu
+dGVyIHdoaWxlDQo+IHRoZSBQVEVzIGFyZSB1bnBvcHVsYXRlZC4gIHByaW50X3M1X3Jlc2V0
+X3N0YXR1c19tbWlvKCkgZmF1bHRzIHdoZW4NCj4gcmVhZGluZyB0aHJvdWdoIHRoZSBwb2lu
+dGVyLCBicmVha2luZyB0aGUgYm9vdC4gIFRoaXMgY2hhbmdlIGZpeGVzIFhlbg0KPiBQViBk
+b21VcyBib290aW5nIG9uIFplbiBDUFVzLg0KPiANCj4gZG9tMCBjYW4gbWFwIHRoZSBGQ0gg
+TU1JTywgYnV0IGl0IGhhcyBYODZfRkVBVFVSRV9IWVBFUlZJU09SIHNldC4gIFdpdGgNCj4g
+dGhpcyBjaGFuZ2UsIGl0IG5vIGxvbmdlciBwcmludHMgdGhlIHJlc2V0IHJlYXNvbi4NCj4g
+DQo+IEZpeGVzOiBhYjgxMzEwMjg3MTAgKCJ4ODYvQ1BVL0FNRDogUHJpbnQgdGhlIHJlYXNv
+biBmb3IgdGhlIGxhc3QgcmVzZXQiKQ0KPiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZw0K
+PiBTdWdnZXN0ZWQtYnk6IEJvcmlzbGF2IFBldGtvdiA8YnBAYWxpZW44LmRlPg0KPiBTaWdu
+ZWQtb2ZmLWJ5OiBKYXNvbiBBbmRyeXVrIDxqYXNvbi5hbmRyeXVrQGFtZC5jb20+DQpSZXZp
+ZXdlZC1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0KDQoNCkp1ZXJnZW4N
+Cg==
 
-> Could You provide a full boot log from the working kernel and /proc/iomem dump?
+--------------aF0OXbWKlvGAtnWy4QKg8fQK--
 
-Sent by personal email.
-The relevant part of /proc/iomem is:
+--------------LKuNJD8fzNHF2QkAVsWACpJT
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-    80000000-cfffffff : System RAM
-      80200000-80201fff : Reserved
-      80202000-81730bf7 : Kernel image
-        80202000-80aa7e73 : Kernel code
-        81000000-813fffff : Kernel rodata
-        81600000-816dd9ff : Kernel data
-        816de000-81730bf7 : Kernel bss
-      81730bf8-817fffff : Reserved
-      88000000-88007fff : Reserved
-      9c000000-c7ffffff : Reserved
-      c9000000-ccffffff : Reserved
-    d0000000-f7ffffff : Reserved
-    f8000000-f8ffffff : System RAM
-    f9000000-fcffffff : Reserved
-    fd000000-27fffffff : System RAM
-      2772e1000-2773a0fff : Reserved
-      2773a1000-277fa1fff : Reserved
-      277fa2000-277fcbfff : Reserved
-      277fce000-277fcefff : Reserved
-      277fcf000-27ffcffff : Reserved
-      27ffd0000-27fff6fff : Reserved
-      27fff7000-27fffffff : Reserved
+-----BEGIN PGP SIGNATURE-----
 
-Thanks!
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmrq6r4FAwAAAAAACgkQsN6d1ii/Ey+X
+Ngf+NSERpLNaHp3iNP/+G4bYmYAUbmiwYtU4yyLTSMiNx1rDMcPEAKSlzfKJxhvL400QiamrqdMU
+eQQgp+A1yz3WYp+7q5AIf7XFq9uNjXAxknysZorXcaTYdi0X3OgAmyGClfHbBQ/d9FMqh1WYoFFE
+cv3Nd25TdM5PXq5WVLrK565FnrgBHJB/b6AgX+kQGHQpy5qFvEEC1eOP+mGim9KZrMIibKgLoztb
+tJaE0SFruiJehG/ueh6qSaEIKYl3KUSzNq7k2Czn/o5H83dE6eQ79k+YszaQkRDJXepCumXqmYD9
+E3DBL8fcA5OvWQVs6B6+AWbWMqkfE9MWSB0a8W88Zw==
+=Os7j
+-----END PGP SIGNATURE-----
 
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+--------------LKuNJD8fzNHF2QkAVsWACpJT--
