@@ -1,66 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793828053;
-	b=GcfdflqI+98i6Sgy6MrSCMp2s3+9bZNn9t4JKjErh5HeAicg3bqYqsh6634VRa9tTuX1
-	 vj872Qz88rJvTvGWwAkfoHta0TLc+KiXhMs65qtRegUN6HgDi/07vrBdxa6pe28VoxsCN
-	 k/s91Sdf4DYtGFImfBeLOe1S4Ejko/39BwOf7J5osWoOEqdAzoCtNE2urbSePUunVvGIR
-	 drugCYLPfYcnrI0nCiQImgI+uSKV6GPAIoa94IbqG+mp2qaWOPGbNROCYIAUvH0caalbG
-	 9nNZVgcPiR0qXLUq9IP0W22Ky0ezRLF8y1zsdLWh5yyLA7PjD7DvWAL628JhzpbR3kA==
+	t=1793828087;
+	b=3X/+bp9tswVlXVLOLC8EvGkomRUb+5tz1EbZgQipbNlH8xKRJV4NQW+kpmO9nD6977Gm
+	 AZ/FMj/gEVgKrDowKVlKjGn0h3JteknlmJ75bnDMYCxO8iC36szvXVpv8sN3lt2jeNYvm
+	 iWMoJFOKP8zjfMyInurs6pUYP60MoEUCOruO7ehLyj1rouqnX/vOz7X342pkJd/oJKof6
+	 RpeAKmEUCRQA5KCSglNaaqzP9hf9BUSPDT4pTAbhHjcKu1XkwFWSWc8WvpI0gm60G/Zcu
+	 qYE1kbJ6qluuEiArMRNL3ed+G6kH56kDcYnvucW2p4Cjz0phPiXgCI95mrH6BWj6dwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793828053;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=FH6Ed6uXwagBrJj5nKpBfnX8VXTtOJ7yhG1753pBTbo=;
-	b=4Ju4zGovqNIt7Q1PFAu88dzRwVoSReROyj5c+h18R3j4xA3MZwkxoIpnx/5cN35Wcc6c
-	 LdCky9F64zWCZHPC5rPcKwI9QOGumIUVH7g8YhlUnb1CSJfvF7JU/fH1cKVJe4g5Emlea
-	 66hkBgRcCwxaMYpQd2mjpezYOoAk4IdMkBdqbOo2gr1dUbdmT1H+WZmPeVCYFAFDrjs52
-	 5xV81gCMN8egsqyk7oYCq2AnzxXjeNxF+dgr4+6O6Vsn2Yq4tStCi7CubiIoWgYit++Y+
-	 MErKKM7zVmP/VaRAtlxovCUn+LbCjNCKp5ChbGlSE4WgswECDQDrueklNn6yD5ERxww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793828087;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ShzVspK63fdOHkKO/fREdPnfmyl4LMUNmIISdYeZBvs=;
+	b=Hjeeqk6Orbo7TM2aNw6qoM6dXoBXF9UyFNYLm9kJebxjWq1bPEnN3j9gYvAjkq/RSaMt
+	 vO7GowAgKlg1KWZpO670IoqhoJdCb0GyTNOuTSBj+xbR565/VlQ/GsaUFrkcII//OPNTz
+	 R0AaO0HJCFk84vlnD7TwJj93ITwRqGNCHNsaB6v2WSMN/HgRxDwfRgAv7h03kti2l4H6N
+	 X+X9JkLpBQ+feAWee1Gxmz+1gjF6M+HiSd+xIdyVZYk+Xn36av0e8do+F3SvdZom3mJIc
+	 xLfbcdO+cObW3ZfA5UJ9/q9IBTiPAGjDkul4ja4V2oR7Ak6du8K3EzK1sBFCxN+p38A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=ZHRNeaU5;
-	arc=none smtp.remote-ip=199.89.1.16
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PjzRGLZy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9AE6606D15D;
-	Wed,  4 Nov 2026 21:34:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9AE6606D15D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D28F2606A328;
+	Wed,  4 Nov 2026 21:34:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=ZHRNeaU5
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jKdxJ14hYzlfvqH;
-	Wed,  4 Nov 2026 21:34:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1793828050; x=1796420051; bh=FH6Ed6uXwagBrJj5nKpBfnX8
-	VXTtOJ7yhG1753pBTbo=; b=ZHRNeaU5FGdEbIAgkUhj72kvt2ThOfqxCvCCFdvA
-	1kUjUJY4N0XzvyV9pAkHy5qCTSu2onu05kmGX+IURsIvq3zQ3ezCBq2kH7xl+IaG
-	sigyMKnlxjbNPh92Xjf6JSbwQZZDfdhF3cVn0/OU/28JJowjj0NaMn5P406WZZni
-	uqz/n+FYALAXT7swAP53hoaNFHZGA5oI+T1jucwPPndo19hJHQBxOmPJ0IAuADS0
-	j0yGBiAjH3vRamJ3dK8GDg1FqXmggQXGgjSV6rNv66lQCqsKa9omYuNPCi52qVdS
-	Ffnt145jE/JVbSkL7BTn7CkLvOVHHQlIwrGxTYB4j8Tuow==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id u-4KdqZzh3jD; Wed,  4 Nov 2026 21:34:10 +0000 (UTC)
-Received: from [IPV6:2a00:79e0:2ed2:d:3e34:690f:8410:3e04] (unknown [104.135.182.40])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jKdxF6GYkzlfvq9;
-	Wed,  4 Nov 2026 21:34:09 +0000 (UTC)
-Message-ID: <d6b1da22-2a18-4966-83df-86cb9031fdde@acm.org>
-Date: Wed, 4 Nov 2026 13:34:08 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PjzRGLZy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AD941F000C1;
+	Wed,  4 Nov 2026 21:34:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793828086;
+	bh=ShzVspK63fdOHkKO/fREdPnfmyl4LMUNmIISdYeZBvs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PjzRGLZyATdRZBvdjN+WU4amzH+gIDfCBzj7SUCFI5kHr9JhSawlSa0wmKrmX5SsA
+	 PEnNgZDPzDocxjy4EVkMjIjLLI1m/sbbv8xnoXX+NeM12f8oOGl19B4cGpFvIwvo96
+	 UWFUNxTukVUkSvMDIhOgs1MhW2NpIXr9iVAr+ZuaQf8zJSPW93iJOcwnMBeVXDn85T
+	 9ezAvJ1ymvkTn/gpYXKjtedjzUzguQ0UGrZVgGn7oeNkC0/sPOvYixN4gEBp+AY3WM
+	 MnxANfDVzFYjnfTmokKlCfp5Sd48FUOLPmcRuelKXrkyeyCmIAb7KSdP9uLBGZXBZk
+	 Q7tAqPZck2KLQ==
+Date: Wed, 4 Nov 2026 15:34:44 -0600
+From: Rob Herring <robh@kernel.org>
+To: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+	linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 1/2] dt-bindings: soc: qcom,geni-se: Allow 1 or 2
+ address and size cells
+Message-ID: <20261104213444.GA348285-robh@kernel.org>
+References: <20260929-kuno-soc-support-v7-0-530f62dc4020@oss.qualcomm.com>
+ <20260929-kuno-soc-support-v7-1-530f62dc4020@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,34 +62,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/2] ufs: mcq: poll OCS after sq cleanup for device
- management commands
-To: Bean Huo <beanhuo@iokpp.de>, Kiwoong Kim <kwmad.kim@samsung.com>,
- linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
- alim.akhtar@samsung.com, jejb@linux.ibm.com, martin.petersen@oracle.com,
- kwangwon.min@samsung.com, hy50.seo@samsung.com, cpgs@samsung.com,
- h10.kim@samsung.com
-Cc: stable@vger.kernel.org, stanleyjhu@google.com
-References: <20261104094914.180788-1-kwmad.kim@samsung.com>
- <CGME20261104094925epcas2p1f25905de00c2548e1e1349fba5f18551@epcas2p1.samsung.com>
- <20261104094914.180788-3-kwmad.kim@samsung.com>
- <41f787035d4a5d68b403bb0f443fe6ab533ff1ca.camel@iokpp.de>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <41f787035d4a5d68b403bb0f443fe6ab533ff1ca.camel@iokpp.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929-kuno-soc-support-v7-1-530f62dc4020@oss.qualcomm.com>
 
-On 11/4/26 12:17 PM, Bean Huo wrote:
-> READ_ONCE() is enough to read OCS, but the lock also is to make sure
-> ufshcd_compl_one_cqe() has finished?  the window is very small, and the lock
-> only costs something on this error handling path.
+On Tue, Sep 29, 2026 at 03:18:06PM +0530, Hardeep Sharma wrote:
+> The QUP wrapper maps its serial engines 1:1 into the parent bus. On
+> 64-bit Qualcomm SoCs that bus uses two address and size cells, but on
+> 32-bit SoCs such as Kuno the soc node uses one. Requiring two cells
+> forces those SoCs to spell out an explicit ranges property instead of
+> the plain empty "ranges;" which dtc only accepts when the child and
+> parent cell counts match.
+> 
+> Allow either one or two cells so the wrapper can follow its parent bus.
+> 
+> Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/soc/qcom/qcom,geni-se.yaml | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 
-I overlooked that lrbp->utr_descriptor_ptr->header.ocs is what is being
-polled instead of the OCS field in the CQE. Kiwoong, can you please
-restore the code that obtains hwq->cq_lock?
+This fixes existing warnings, so I applied.
 
-Thanks,
-
-Bart.
+Rob
