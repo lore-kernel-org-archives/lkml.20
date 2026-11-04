@@ -1,55 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793779812;
-	b=UPK10mXgHf3uGjGA3CcbHYwrIP0K2HXIO60yw7sU5pCXrpqB1WQTmJ5wRntlxUiasdOp
-	 jUvvvM7qCBK7qrdQrTe+5oAmLo2kqjGoeHOQj1hj5bjhknJAnRK0jLSIyMb5EvQv3GJZ6
-	 KjQrdOUoC4wdgaNEuXz4huuNRHd/gvaMONDjtSNR0AmGTRvrJOLeu/snyCsRgCVQILsDG
-	 GiCrIDKqNbYaN/Cigmxa7601MIvdjf0v74rh2PNtfKVRNEHqxSpI0FLnr/ZCrNddbTf4E
-	 rdcexHM2HTeTaRpDX4RW0IZkDCxsPProRwtWDb8jXKZY9vGFlQwk0Lc3DmUi+92DnKg==
+	t=1793779814;
+	b=Bpmji+D1lE8MWkzwhpWo4bSndOcVU8yF10SDMzRjHWBJUL+/StzFzz/p8p5uKqDUxe6d
+	 o/0lsc6YWdMawHpe5gWg3KR5w9k+BMBctyR14j0sS9Gr9fXwByLrn8vEB7iORTEBiikAb
+	 90pKOrBsfv7v/4kmvAmibR/jHR22XmcMoPA1GyRkxjcQ6412+NSkC35ZaRFkICIaQtuz4
+	 WyL2h68pRNvWexrfUUc7hKgw0/LTurNFJQ1Djcm0wvTWsHalkrZxT5KRT0XgLzNZeDABN
+	 cm3qDvTAwBRccGo9x6+x9CerL0QYN8sb8xTlDcu0c3XpqMQGw8K1ens3fvQFLbcO8iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793779812;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=0pN/UiSEiZTZEf/nEIpAfugAVv0D3hEkF/wqURLysQQ=;
-	b=bTvCyqFQYWIkwrvgl2vSsYOlsTC/G3BqCUwx9I4V/W7BrLTDm+RNl96DvkVlqU1OeqOL
-	 AHBE+4dJHSPSKBMwqeNZOoQVbBNS/Xi1a9Kau+MvREyFVzuiT4QaesLI91hVpQx4iKhDV
-	 A/+xui4Yjd6sx5tfvcgwMHwDGlEDuxQK/502oFOUfCYP5MzfGJ0ESOU3Tgk1LUf0tbywa
-	 3ayPc8StRW9944SXyGSCmowFC/Ae/siuonvmyoKp6SzOYRTRC0eSw1ra6DzBTl4n+Ho3l
-	 pkwv+CP8QIyFHTUmN3BYuaeI/oaCqN3465wYlC4q+SNLwKBZpGgnWeR9n8Qh54hDKRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793779814;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ig4cNXieuTOvvTi83XT+rrmuyz/PrNyQl1mTni3mESc=;
+	b=dA3srioPJS2gP2BPbaqtJ9VfjjxNOw6idPSOcIeiYEX9r3xt5hLFIHDd7E1a+uoLUUQq
+	 kBqo7aocjQ0K7Y0NcsDdEmHoBTYMESbiQaehV5A41rH5SW80+kT3UFSfRu1MzmsPGnYGB
+	 x6JdgNQESLVxWshJQ8fgO+zwqDd5K2XGLp+tJNaSPmJDandZX0qpvb572fHjL5BOt1JLL
+	 1l5Fuq5LM6/l4dOhCQHMNPbT7Fv7uF7jaBiXFziTJczlqgnzzYzCyeXnjkbTEPQqUu4nI
+	 Kr96LIOFgSiDroLsl1zgV8Wo2aVKtJXqxMpqQc4+gJGijKwNlV0T7LUpDwYZSyAuy3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l2S7cjny;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jwExKOP3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76289606A326;
-	Wed,  4 Nov 2026 08:10:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B9DB606A31B;
+	Wed,  4 Nov 2026 08:10:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l2S7cjny
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 370B11F0093A;
-	Wed,  4 Nov 2026 08:10:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jwExKOP3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A0D71F000C1;
+	Wed,  4 Nov 2026 08:10:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793779811;
-	bh=0pN/UiSEiZTZEf/nEIpAfugAVv0D3hEkF/wqURLysQQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=l2S7cjnyBl8IM15zl9kvALPts2a7RAHC6v2h+FzHXKkh5TFEnU8ALnqhKH0OABcd4
-	 g1qW454YtYpayO038yBV/kT2yRveimPjALmITujrNuHJNkZlBf+k6lpJvO3Yax+ag2
-	 /2/MK23EEnVoRyRy4Gb1wMflcC/thgtclSYyGhj7OxiVW2ISmn7fAKq4X10yVeMw48
-	 qwAbAt5HbTETVs6gf4MeItb8/YErqVOqKvSx5I8zUU9FiVq3euS2gDQ+6Xovab3Kmm
-	 yNtd6YypXDn5BfBoj0a8U55caLkQPq8OSAPB34K/zZAnEJDNX3BZ1l6RpYwWTzMBai
-	 ClCQn1oHpuc/w==
-Date: Wed, 4 Nov 2026 10:10:08 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Wentao Liang <vulab@iscas.ac.cn>, linux-rdma@vger.kernel.org,
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dennis.dalessandro@cornelisnetworks.com, jgg@ziepe.ca
-Subject: Re: [PATCH] RDMA/hfi1: Free the trap send buffer when no address
- handle is available
-Message-ID: <20261104081008.GN264423@unreal>
-References: <20261103081915.1147987-1-vulab@iscas.ac.cn>
- <20261103-peach-mongoose-of-charisma-dee123@quoll>
+	s=k20260515; t=1793779814;
+	bh=ig4cNXieuTOvvTi83XT+rrmuyz/PrNyQl1mTni3mESc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=jwExKOP3QR6CYk53tnJfDHsm1P7S4Y5BvypI44fOhaK5rS33YU2JrdfZzJ+Nb8Mt0
+	 oKwsW37DpM/ec3AcgIvPELrMmO+2GBY66G/5JWTUH6Ls1FkjBn+Ym2k8Er26n/o/Dd
+	 To8kGaXLdEEtXjK5MaxBNYxzPxsEieFLOLYyirvH513RNZ6qlHkjuf9gmEBdDVjFiF
+	 8XDjR9MUD1RvttjWjDCCycpgfiVbDO/cT4YJjAqY9QzUHwFrul2JRFZomd0M2Mb6bN
+	 SrdUkY1gkpWMyLtxEjmVsmSezzPgXQg5aJSgD2dqHlBFDjb/cCOS6rtAndRgNIcY5e
+	 uRBGYsqfyX82A==
+Message-ID: <742ef130-6c59-497e-821d-00ab7f2082cc@kernel.org>
+Date: Wed, 4 Nov 2026 09:10:07 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,61 +51,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103-peach-mongoose-of-charisma-dee123@quoll>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 8/8] arm64: dts: allwinner: a523: describe the UART
+ integration
+To: James Hilliard <james.hilliard1@gmail.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev
+References: <20261029-submit-h616-uart-fifo-v1-v5-0-53b433aebbf8@gmail.com>
+ <20261029-submit-h616-uart-fifo-v1-v5-8-53b433aebbf8@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261029-submit-h616-uart-fifo-v1-v5-8-53b433aebbf8@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 03, 2026 at 10:21:38AM +0100, Krzysztof Kozlowski wrote:
+On 29/10/2026 19:47, James Hilliard wrote:
+> Identify the Allwinner UART integration on all eight CPUX controllers.
+> The specific compatible selects FIFO-depth discovery through FCC and the
+> Allwinner receive-trigger mapping. Each controller supplies its own depth,
+> so the same compatible covers the different FIFO capacities.
 > 
-> On Tue, 03 Nov 2026 08:19:15 +0000, Wentao Liang wrote:
-> > send_trap() allocates a MAD send buffer before checking the subnet
-> > manager address handle. If creating that handle fails, or if the subnet
-> > manager LID is permissive, it unlocks and returns without submitting or
-> > freeing the buffer. No send completion can release an unsubmitted MAD.
-> > 
-> > Free the send buffer after releasing the lock on both early returns,
-> > matching the other failures after ib_create_send_mad().
-> > 
-> > Fixes: bf90aadd630c ("IB/hfi1: Send MAD traps until repressed")
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-> > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> > ---
-> >  drivers/infiniband/hw/hfi1/mad.c | 2 ++
-> >  1 file changed, 2 insertions(+)
-> > 
+> Retain snps,dw-apb-uart as a fallback. The common SoC description supplies
+> these UART nodes to the A527 and T527 boards as well.
 > 
-> 
-> 
-> Multiple things here:
-> 1. Your team ignored completely previous feedback. Multiple times.
-> 
-> 2. You use multiple identities with this email address, thus I doubt that we
->    speak with an actual person.
-> 
-> 3. Your bot does not even bother running checkpatch, right?
-> 
-> 4. Nothing of this was reproduced nor tested.
-> 
-> 5. Finally, the same feedback:
-> You sent multiple independent patches, to multiple independent
-> subsystems. The amount of these patches clearly suggest this was
-> AI generated and most likely not tested.
-> 
-> More importantly, you sent all this work without properly organizing
-> relevant patches into patchsets. This makes reviewing difficult
-> and might cause multiple reviewers to address the same issue.
-> Replying to the entire set is impossible and requires handling each
-> patch independently, instead of applying or discarding the set.
-> Maintainers also won't see the bigger picture of your work. Quite
-> worrying.
-> 
-> This is on the verge of hostile patch: bomb us with so many
-> contributions, we won't be able to handle them in efficient manner,
-> like responding ONCE to ask you to slow down.  Considering all this
-> is untested and LLM generated, I have even more doubts whether this
-> should be considered for review.
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> ---
+>  arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi | 16 ++++++++--------
+>  1 file changed, 8 insertions(+), 8 deletions(-)
 
-Thanks, we will simply drop this patch. It is not worth to review it.
 
-Thanks
+DTS cannot be combined in this patchset and must be split. Don't mix
+patches from independent subsystems when you send something explicitly
+targeting only one subsystem.
+See also: Documentation/devicetree/bindings/submitting-patches.rst
+
+
+Best regards,
+Krzysztof
