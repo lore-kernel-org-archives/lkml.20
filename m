@@ -1,81 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793788104;
-	b=HMNthe8a9AT3j9DZiFGrxQq0aZm9M1EUjDsbD1ZHNJ18ixR8BV/Jn5rUq1a2UWTW5NHD
-	 sKYf/Gingh+go0RjIfLGWSNZGSOO5qGInuwaLrYR5kgZniRGpaFT1hLXB3jWMGRb7Zr1B
-	 Shx5/oARuQAhjygcw3rEneBWp1gdxIRHeqH8uUL23FsA1diPu9buTS9YKiY0v2ZuZa7Wn
-	 hB6VTcokqLBhnbeIiKM2vj4BDhLD7O8cfY9y4oaY/wevCMZYZfZ/yq6KShbJsafANX4li
-	 pEgd02NkHQFTlvTQT/NMt+wBHkUhTgr9ORJ+yvF5leexSq0RwAvd4XMqxeGMpixIF7w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793788104;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=pcQ3OnjWG7K/UwpkDfZwADkosGIhYHAj6eIZYtsb6WA=;
-	b=Gqii6fRIwZhcpoRCNDxZ2ew+N73nNG/IWeuujbiNvLkbQHhG3RMfP922snWIhY/qFYlO
-	 i0oNkW/EkQaP1VW4GtzX5HQUidtUgCy+z9mQ0jNC0YFxJTBycNEqAPPg7gF7GiQ46Up7w
-	 9+yEgVGCKcWmVdleLGJHtGsGtrZpBYV0voRSmj7q8RmjYWoxGkqKtfyLVcL+J4eBQr8kV
-	 TdSZwQIcqnuRA48BVztnpsADs3ZyCXUaJUKOQomnn1U9lq9U6GCxMs9th97GbA6rLDm/J
-	 YSFBkzT1s0yzULiGaYVEBWuiuMnnZJyUtGszSyZRZ/qaNF9FUiLwkvJVXAkAEdyfPCQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PjskPPlm;
-	arc=none smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793788107;
+	b=3zRze3e3ey6ugFp1HZHBYy4NS+Ul7WuGUkWGtG0FU4pb3pJ9HTBVc22MmYmDdHThB++A
+	 zqrIctIY5CT1gl2Ftaend6s5uqSXeXmPKvjqfpyyHbJAroSDOEKsoaa2DnzZ1VKy6bXKK
+	 HKJWFXxwuuuRtPWROVOnHMF7a7zkHMc0pgwdyLcUiqRzvKTZjVMNrxMpTDev9mP8Bn5r5
+	 j0Rkbjpw5G+sdrDle4TdgeBYfmDOr5IQo6FhSC728pCF7uNaBwxeBzjh0oVuevfdROp7/
+	 whwsnnVWDilc/fZXVMaTtm7Wv1MkokAzY9ohmnhOK/G8uD3EpCG4zIuW44nfHBXE07Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793788107;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=LLeYIGEM1LvlGypEmHJ5K72laj/fRggqINnoHOCWiUU=;
+	b=K24xDZ8gT0ZpUTAOcN3kvRCA9+z1IivHEoYU69cX2jQgSziSmlEhYsqebcvEJQ/MU9vf
+	 woy4Cx1zCpKofYKL5vB+OiEJuoCfmmsUJoSHeG5gjFSqqLXiWW/U3lL3LQf/W+uXxHl4L
+	 4BVrf8M8+Vh/PMDs/86FtgsMUl2SGJvStnp2wTkT/BlDDWh8BQMMuZLnikcI2OtR5Q5up
+	 Xv5oPOTDGEG/iGWPU4tEUpM7QLPbKbu8YcXkR6RoRbgf6aUigWk9Om34bn57rMeBWahZj
+	 NXlPGM+tmhLqMlAUvJudTbE1AtN4AbnwbrJNADEx8RQbAhsdyEG39CwkKYQOcDOmwQQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UgGBNkEU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 272F8606A31B;
-	Wed,  4 Nov 2026 10:28:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 272F8606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D702D606A32C;
+	Wed,  4 Nov 2026 10:28:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PjskPPlm
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793788104; x=1825324104;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=atygvYU7Ba7IjPmn3BHtBQBTMxe64OKywtVCrd+OdL4=;
-  b=PjskPPlmRJwwF4qmLT3Nv+m9xbwaItCH7mOfWsbQ950XdUZ0d/aBO6ni
-   aw3I1IfOBvNT2cnSA9jDb3h4hSfmr6/fvR6q0/OChf57gxx9+uZEbKr+y
-   7K5gI09bzKM2sNDSSVSuPzRx7pYD5xXdKBTg1cZ/I7fZ0QSfm3Id40oPd
-   5LOTyYcjOiMsNELRiGgfuvhG7/BqRJvzzS2bDQb0HtpkaWmSW1y54cTSs
-   Xsqeuai7aKKkLgVeykNoSDTqp0TYQt2zcXdFdjEAtG3gAsyykcX0DGSb5
-   SLUAIi3XOzLFVHBr+09XRIq4fdXhhi5bk4r4nlo9nmD5JSu6ZEzmUmWUW
-   g==;
-X-CSE-ConnectionGUID: Dhoyzxz+TbOOQ4rY1qYNcA==
-X-CSE-MsgGUID: dGpbnUSbTE2HImwPERW1GA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2412401"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2412401"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 02:28:24 -0800
-X-CSE-ConnectionGUID: myWvClVgSoWtTZjwJTGwVQ==
-X-CSE-MsgGUID: lWpvO8HTSUa1qE1dHwM8Sg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="6541555"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa005.jf.intel.com with ESMTP; 04 Nov 2026 02:28:22 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 8522499; Wed, 04 Nov 2026 11:28:21 +0100 (CET)
-Date: Wed, 4 Nov 2026 11:28:21 +0100
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Mark Pearson <mpearson-lenovo@squebb.ca>
-Cc: Greg KH <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] usb: typec: ucsi: Retry if notification enable timesout
-Message-ID: <ausIxWEIZyuIa1vG@black.igk.intel.com>
-References: <mpearson-lenovo@squebb.ca>
- <20260729182203.3667583-1-mpearson-lenovo@squebb.ca>
- <anMmhwSSLEAnAZZI@black.igk.intel.com>
- <b98ed1c6-37fb-4235-8ebd-df350728f797@app.fastmail.com>
- <ap6akwNAlqmJPMOz@black.igk.intel.com>
- <03186586-6a9c-4350-aa7b-a42de11ea420@app.fastmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UgGBNkEU
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793788106;
+	b=3AhJO6ZCR12aHKYFPzkZnPYNCW7fSmd25eA4Aye+zA58qZqsJpCy1iUgkT7IjT2ZuDJv
+	 QHbmJIPg7OzC/N9zWzKucHrbYsnO3R6qZbtGsysr8/bdfETAsvtjH9A+suCzao7MBNTcb
+	 RfwngBtor9EodbH1+cGuYW9KOsa+kTrEfyyQqflIZ7WDQqwNE2Dz7eLZPdwVPZxHVaQGK
+	 emYKjd8bXVjc/gM0n+0dUp8srda5OuGZW5QxfbzR3BFacGw9OyIflSJc2ihI8QOCruFy6
+	 EFWvcEhYmhlkQpqYA5iJMeipKGSOnct0vfrU4nGjBi1uPTGxEFw+d0hSvfsURCr4lYA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793788106;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=LLeYIGEM1LvlGypEmHJ5K72laj/fRggqINnoHOCWiUU=;
+	b=jbc47dQ1FrEHXlxhcQvriwZ/lENLfqrF8sEl+qJPTIhdoYwU8PEL4IAexcPKymeeA8GQ
+	 W4VXxmyaNJLJ/TEpe05SzoOiswPrf8eBHlRt9JzVscbZHkxzNiaWvJxM6ZkY6q0BEftKM
+	 LfnoG2SLKOJ5gQJvV8Nlsq2lkjq9JKLR7qk4Z0EVrEh8k4vo5mIKtr9lRkePRRNi4aOpJ
+	 sups7ge6f9mRWYt73i1S0lsj8gSExeUvo0t7Vsx6wnu4GNaYO31RrkNNCn+sU7pLmto8f
+	 OVN8xIGwfK6+aFswaOJD/R14mS13dX+JZSL2drJzgYnzEcZQmeFyULBq/+VlVTccvUQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 27FF71F000C1;
+	Wed,  4 Nov 2026 10:28:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793788106;
+	bh=LLeYIGEM1LvlGypEmHJ5K72laj/fRggqINnoHOCWiUU=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=UgGBNkEU2DHtMbFY2OhEEkgpwjAwLqxTDynbu0FHJzenuuXHbRGjjGdXNRbBg8/si
+	 E2QMN7LJgzvlI1a+yyzxwCfZ0Iy5AB/HgCcdODJm0k7tFtsTIVH4Bkhobfg62lGYq9
+	 ISKEmEnYRvqijKtmD/5YNs14eZyWTWcC9sSQ/IqVep+EivjiKSmyGps28XN8ocmfBq
+	 e/pW8sKjGNeVXTACAnW4WrNN9fV7kaqzLkpdodtM0BC3cfu3vbMwr4cQxvQU2HHI/o
+	 4denZae5EFkboJ5YaNxNnUz5q4X8xKcAJ2rDdqfgwX/oK0gHnw3MahFHTC68mstUsM
+	 +BNY/GTfvakPw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 97EE346DB2;
+	Wed,  4 Nov 2026 10:28:25 +0000 (UTC)
+From: Raffaele Tranfaglia via B4 Relay <devnull+raffaele.tranfaglia.gmail.com@kernel.org>
+Date: Wed, 04 Nov 2026 10:28:22 +0000
+Subject: [PATCH] iio: light: adux1020: harden sampling frequency table
+ lookup
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,52 +83,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <03186586-6a9c-4350-aa7b-a42de11ea420@app.fastmail.com>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261104-adux1020-rate-bounds-v1-1-2db71ad2cc21@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQqDMAyA4VeRnBdI6ihsrzJ2qDbdskMdjRVBf
+ HfrdvwO/7+BSVExuHcbFFnUdMoNfOlgfIf8EtTYDI6cZ6YrhlhXJkdYwiw4TDVHQ8/Sp3TzQqm
+ Hln6LJF1/28fzb6vDR8b5fMG+H6oMYnl4AAAA
+X-Change-ID: 20261104-adux1020-rate-bounds-61e3ff96e0f3
+To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ Andy Shevchenko <andy@kernel.org>
+Cc: linux@analog.com, linux-iio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793788105; l=1810;
+ i=raffaele.tranfaglia@gmail.com; s=20261011; h=from:subject:message-id;
+ bh=cqE5CwXxkaaFLmmwvn2ph1c33wcfTad0JYMx5iByIGE=;
+ b=HsWSTDAh+Bqk5NAHtkm9e0sJLQeq4gRYJlTkT2QJ2TcqrrvK28afb3e5qZY1ydY360J4nNLGR
+ q8mKXJR+bnDDJdhmnRE2xFLGHP0mEn/Srx/n4zGYFyM0sPumlE5GhYM
+X-Developer-Key: i=raffaele.tranfaglia@gmail.com; a=ed25519;
+ pk=mweuSGNM6vguCTdqa+aiHwMXdgk70suj2wolzCp6XGM=
+X-Endpoint-Received: by B4 Relay for raffaele.tranfaglia@gmail.com/20261011
+ with auth_id=1160
+X-Original-From: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
+Reply-To: raffaele.tranfaglia@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Hi Mark,
+From: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
 
-On Tue, Oct 27, 2026 at 04:17:12PM -0400, Mark Pearson wrote:
-> Hi Heikki & Greg
-> 
-> On Mon, Sep 7, 2026, at 7:05 AM, Heikki Krogerus wrote:
-> > On Thu, Sep 03, 2026 at 02:18:08PM -0400, Mark Pearson wrote:
-> >> On Wed, Aug 5, 2026, at 8:03 AM, Heikki Krogerus wrote:
-> >> > On Wed, Jul 29, 2026 at 02:21:50PM -0400, Mark Pearson wrote:
-> >> >> Found on Thinkpad E14 G8.
-> >> >> When UCSI notifications are enabled the FW does not ack the enablement
-> >> >> itself. Future commands will be acked correctly.
-> >> >> 
-> >> >> If this happens try enablement again and confirm acks are working
-> >> >> correctly.
-> >> >> 
-> >> >> Signed-off-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-> >> >
-> >> > Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-> >> >
-> >> 
-> >> Thanks Heikki.
-> >> 
-> >> Just curious - what is the process/timelines for this subsystem for patch
-> >> being accepted and making it into Linus's tree?
-> >> We're tracking this for being able to get it into the distro's, but I want to
-> >> make sure maintainers are happy with it first. I couldn't see it in usb-next
-> >> etc, so wanted to make sure it hadn't fallen off the radar.
-> >
-> > I'm sure Greg pick soon.
-> >
-> > Thanks,
-> >
-> 
-> Just checking on the status of this (I have users of this platform wanting the fix).
-> 
-> Let me know if anything is needed from me to get this fully accepted upstream. I can't get it pulled into the distro's until then :)
+The proximity frequency field read from the FREQUENCY register is four
+bits wide, so it can hold values from 0 to 15, but adux1020_rates[] only
+has 14 entries. The driver never programs values 14 or 15, but if a
+misbehaving device reports one of them, reading the sampling frequency
+indexes past the end of the table and returns garbage.
 
-Sorry about the delay. Maybe it would be fastest to rebase and resend
-the patch at this point.
+Reject such values with -EINVAL instead of indexing past the end of
+the table.
 
-Thanks,
+Signed-off-by: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
+---
+Found with LLM-assisted static analysis of drivers/iio, looking for
+table lookups indexed by unchecked register fields; the fix was drafted
+with the same assistant and reviewed and tested by me.
 
--- 
-heikki
+Tested on arm64 QEMU with i2c-stub and CONFIG_UBSAN_BOUNDS=y. After
+setting the frequency field in FREQUENCY (0x40) to 14, reading
+in_proximity_sampling_frequency:
+- before: two array-index-out-of-bounds reports, and the attribute
+  reads 0.025000
+- after: the read fails with -EINVAL and no report is printed
+---
+ drivers/iio/light/adux1020.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/iio/light/adux1020.c b/drivers/iio/light/adux1020.c
+index 0ea282ecc99a..d4281b9754c3 100644
+--- a/drivers/iio/light/adux1020.c
++++ b/drivers/iio/light/adux1020.c
+@@ -414,6 +414,10 @@ static int adux1020_read_raw(struct iio_dev *indio_dev,
+ 				goto fail;
+ 
+ 			regval = FIELD_GET(ADUX1020_PROX_FREQ_MASK, regval);
++			if (regval >= ARRAY_SIZE(adux1020_rates)) {
++				ret = -EINVAL;
++				goto fail;
++			}
+ 
+ 			*val = adux1020_rates[regval][0];
+ 			*val2 = adux1020_rates[regval][1];
+
+---
+base-commit: 20ce8ef9c9e04cd6c5ae0422e251a9b5936c6b7c
+change-id: 20261104-adux1020-rate-bounds-61e3ff96e0f3
+
+Best regards,
+--  
+Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
+
+
