@@ -1,77 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.207.212.86
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793786371;
-	b=4/GzR07olHPqmecpUwWvgg74s/2pL/Aig+LrP6mZehMwoRvpYBWJzhBUHNIyb2vuUq0f
-	 qJSC+Xjm0p6Wh9tmdxWFg6mvqaVy06dzKCE0Y7O681DlXaHg4hSgrYLgf/BMWPbnzueNL
-	 FIH3ptlW/KCZ+gFtAMHiePOsO14t16HBkd9wF4197GT7laK3g0MnDau1Tz7fiOXhJZBCG
-	 8S0L6OMNsgdjBopechI+qpi97AbvhD7RGRQ/Gh1ShZLxmYo6N8pJ5VuyJeOczNGPSldoO
-	 i9hT299KqAElUCNfo1LH7fTN+fmXPbg0IA9Gs+iV7jSmRCp+nDkiwtWvwUlCnRHzo3A==
+	t=1793786387;
+	b=v54SQuhkgPgaA/B4DWzl7r8gm653dq+ewa26gaWvluoChI24C6bW0rJ16G7TfY88Exd8
+	 0HWOKhZiE7mxUQT6Qq/OnUPD5kAIRwBDFXBsvu5YDLRbSjD57HdQZGcelPCBkfTeNBoxG
+	 /PStKEzx1Li1zsTbnECtDmMT5r/6orETzdPlxn3tsq7i9Xm9xkNUKBAZnpZMdKf4Vd7cU
+	 rU7DBEUAmFPMyO7pb7QHfH7egRQM4KGIXiMS6g59wGwmWY1ICvwF7dKUekVfMHqeUL2s+
+	 w2sjOkU8H6KJZoCoKw3b9qab2FzD/eTsTJZs8TLP6GHwT1RBM0elDHCpMSD5B8OyWvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793786371;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
-	 In-Reply-To:References:Subject:Message-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer:X-Originating-IP:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc;
-	bh=1fSsyTe3mItuPHE87AxLgFn5s/7wKS2nAS2QEjVqG2c=;
-	b=YfA1ZqsfEHhbAv7IN7ghGtN0RxenawbBcDdVxhnCfen1eVdmk31I+z1+QMn/7N/stMZD
-	 pcAQQVOZbMJ6YtXscxjBbtnwWiG5SMj81ahpfMBAksleQUwS3DeOK2F3e+U/ZzQOlUyzY
-	 af4b9IGXPEbOgj0ZkoDhUYJxE0KWimCLAVLUQx6atpGhmzdlCUNdzOX/S2bqaYl7HkIsN
-	 QDLiKqLIDOv9zC8VMmkpAD1n8L3QSqaD0EUJXCSpkOFPzFXEUkMAWLYWetP8F4r8RlvGf
-	 dcGrEq90n0HbZKYYm0T+D2eyBH+GHFCCE9opPaeBfTPeZly8IkuwaRi3dasyXn7BeCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793786387;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=kVV+NwTV+9ZC8EqM9XWPxOExxnVbvCg7pip7E4xE4dU=;
+	b=sXPRh+uiYip7vyeN7LqKSti3IErKMREuxNVKejrH1dub9Vgn8J1XT0sTzeIoxHWIx+bc
+	 TsPe89u/13wZnpEgBqaa164GqCR31HkKknTcuJWQfSsCNfm0nVnpjVCAMv+ko1r4q4GqI
+	 ef8l00fFpWhXHnZf/fsFATA06OUdJ6F5oogdvPSPWkJFklZwJzoQyKEXBxeYE8JsBWG2Y
+	 VSGXudv9hdR/nUxHtnTEcBOwIUIy7+tSLmgVn72nLSK/1Ugr89+an9dPQR4/4XlJO0jth
+	 cf+hPRHIkBVicnyeGNRUe9X6zXkIVDtfPSc0kIRQ3KTfX0Z8C9AjgIMg6WR66aJ7vHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=imgtec.com;
-	spf=pass smtp.mailfrom=imgtec.com;
-	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b="Ir/v+qVp";
-	arc=none smtp.remote-ip=91.207.212.86
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="by0c4k/G";
+	arc=none smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35D0E606A331
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:59:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35D0E606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75A33606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:59:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75A33606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=Ir/v+qVp
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
-	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A48Llvh1967148;
-	Wed, 4 Nov 2026 09:58:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=dk201812; bh=1
-	fSsyTe3mItuPHE87AxLgFn5s/7wKS2nAS2QEjVqG2c=; b=Ir/v+qVpC3+WjiXXa
-	U+p9GsmgquxtyeXgBYmfJPU5DOWTRacgPa63VL1Eda47a5M+9nfVImX0+GgOOvGM
-	TjFs+CAcEUrxJhTwhM++TcbTDQ/va3um3uGj+IIneThS3eJHECXSAZ0b6Sof0R7j
-	E35zoPCsACmxsEu3k44ruXGHoe2nu0+OE0gw7qPoGyZaF5irMi4ph9mHkYneaM8z
-	xNUnhdR+IvBZb7eto/cVMperdr2RhC+rLiUZZzjW5yQImXG5gQzyDUxbQVJw1Zso
-	FSfRzP9XL2H5+BOCZOywjCVDuRswjvcO4Xy7LzIMYL0PZVME+GZ7ZTqgIv1h81l0
-	6K86Q==
-Received: from hhmail02.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4hn7ft2yn6-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 09:58:59 +0000 (GMT)
-Received: from NP-A-BELLE.kl.imgtec.org (172.25.4.95) by
- HHMAIL02.hh.imgtec.org (10.100.10.20) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 4 Nov 2026 09:58:58 +0000
-From: Alessio Belle <alessio.belle@imgtec.com>
-To: Luigi Santivetti <luigi.santivetti@imgtec.com>,
-        Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Gyeyoung Baek <gye976@gmail.com>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-        <linux-kernel@vger.kernel.org>
-In-Reply-To: <20261015-pvr-mmu-sgt-offset-doc-v1-1-aab9ba54b5a4@gmail.com>
-References: <20261015-pvr-mmu-sgt-offset-doc-v1-1-aab9ba54b5a4@gmail.com>
-Subject: Re: [PATCH] drm/imagination: Update sgt_offset kerneldoc in
- pvr_mmu_op_context
-Message-ID: <179378633839.70737.2111025515404343629.b4-ty@b4>
-Date: Wed, 4 Nov 2026 09:58:58 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=by0c4k/G
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-1adbf62dd31so731893c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:59:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793786385; x=1794391185; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kVV+NwTV+9ZC8EqM9XWPxOExxnVbvCg7pip7E4xE4dU=;
+        b=by0c4k/G8PDiSTyd8V8QTZUxGYbRRFcRKl82h5qnXoTgfKo0vA+mUDh6kR5bVxygZ/
+         bv9B2U0ziou9pEVt2+CcJXB946+SaYN1P/l0s6+O6e6SyXdgKZbXjeVACwDb3tgMXG8Y
+         DqxoDy2h+bywhFbX5P6j6cLTaYXpPfZz0uDPfzT8mpoZfVjK8ZXegEgQ6maa71AiCxg+
+         ZcakC+uC2+gVBHZEJhVw/d408RRh0mANBEyXuLqZDK3dUtO4SUVgdGi6DU0Qk99rldiL
+         R6P6+vSoXRgCiLlWN2nk46QewI41qbNS7S9eaCZegKyIFwyZoUO1rHRcf1WKhzgn1tW3
+         en2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793786385; x=1794391185;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kVV+NwTV+9ZC8EqM9XWPxOExxnVbvCg7pip7E4xE4dU=;
+        b=zQcsdhDX65IPkwquYcVTsgPPaeeGubnBZkD30NIH5OYgBI/FOMdLeT+yhKM/MqEnMe
+         bkPVmDgi7Hl3R8pfEC0U13Q29tAs3sy0JHRvoM4fOKzMA2pz3bGDKLTr0CyhdZlKKWDI
+         wMuy9aclJHwtWGsqhvI4TRHa3WISoCpqDyhlVx1KM+gb+X6clc4dT/lRZTIqcX+iZD0t
+         pGsPG1NA4wClTd7XXsprF/gUkfm7Nic7LlbCp1183uRW5LrRDscMceB9b8jy3E11M/mQ
+         8fKAKxZt7Qv0MlFXXXR4l7Y/X6yDER/4uT+nzJnUcr8dxM/J3S4jWRHBZNoJ0cYXzR5p
+         PalA==
+X-Forwarded-Encrypted: i=1; AKwUvBw0BY90WmiOX4rEr4XGGtHwHqA5N4dkK/cBn2RIr6YWWXxaIoeFSUuBUrpqplMs01Pp1TwbTrF2sPrQG6s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+KUdsq14naUsOxKj2azZQ2DMVEsrD2rKGc+TJLOoJ4XM6d0soK
+	wnXzp0e3ONsyVLskSUme8GluccqxnafyGp6hmn2/fooIpg6gWL5jSlRt
+X-Gm-Gg: AYBFou0WnOMrkES58NjM2GMMpgji731jKcRS85xSpzGqKLF+lboVdb3X9oPlpdcehgQ
+	UWBY9BICNRJbJZ1P6lSwDorLS5JAO4voCuaW99Fi0+244HMwWyCYkkv8ORn57gubD7iZBJkmz0l
+	5XYS+QYv0V9CUiCt3gBuzoq5x3qxpxqcfEvb/TavRBVObxZgCb52Wg3sMuuvWTj9a++iBFTtvPl
+	+IdB0ADoMkdGRVSj0JYQOIKzFEeRBzf64/1avtZc+XfjGFvcnH4p9dlxo56tjxgIT12QRhLENg8
+	1iKo2tOVc+NH1fRX1Ac4jCl5vbo7U+tWtjH5g4rgHDROnM1MIWT9G8obYUU1eJItF4DgVt0MMjW
+	XZJdq60tdRhNwA294ZDroVeT2yEAPjbfTUZiE+MuUNcxNNd2ElTVMf9MiAsP+bg9eQB5wLPfBz0
+	JcwaswQkkz5llkpoQqxy1eZN9uKaaIbKjw3C3zvtD/aW/YzhIAhlSy5XoA9ifcNXpBFqzhg5IhO
+	ABpqp5c7QNaQcLz1oEA8jp9VxusmUknIlyyvJSIz+u2Jt1DN4vewDD590byPNbwn4djTOsITP3O
+	wHI3x23PwsHmnEjlXqCEE1rFRhTbtPRie8kOI67NLvePFSU=
+X-Received: by 2002:a05:7022:ea56:10b0:176:a225:e364 with SMTP id a92af1059eb24-1ac5de547afmr23249910c88.35.1793786385435;
+        Wed, 04 Nov 2026 01:59:45 -0800 (PST)
+Received: from localhost.localdomain ([121.101.131.247])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245b87c4asm6318999c88.3.2026.11.04.01.59.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 01:59:45 -0800 (PST)
+From: Amir Hanip <killdeath104@gmail.com>
+To: barnabas.czeman@mainlining.org
+Cc: a39skl@gmail.com,
+	abelvesa@kernel.org,
+	andersson@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	killdeath104@gmail.com,
+	konrad.dybcio@oss.qualcomm.com,
+	konradybcio@kernel.org,
+	krzk+dt@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	robh@kernel.org
+Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: Add Xiaomi Poco M3
+Date: Wed,  4 Nov 2026 16:58:06 +0700
+Message-ID: <20261104095806.18945-1-killdeath104@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <3ec43b1b00bca7506c1ca678c118f8c2@mainlining.org>
+References: <3ec43b1b00bca7506c1ca678c118f8c2@mainlining.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,40 +107,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Proofpoint-ORIG-GUID: 44fq5fSSWgxarzsvZ3VRDWW2_Ne8Q0kR
-X-Proofpoint-GUID: 44fq5fSSWgxarzsvZ3VRDWW2_Ne8Q0kR
-X-Authority-Analysis: v=2.4 cv=HaSB3SE8 c=1 sm=1 tr=0 ts=6aeb01e3 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=wPtG3T4iTXQA:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=r_1tXGB3AAAA:8 a=i62lKFUtsPXGxgjfG_QA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAzOSBTYWx0ZWRfX9orxzUlgWm1U
- QsFhZ25HGJdSB82VEK2EOIC+iHzLy+z5Nr1Sry51Dwstykr7BOzzqzy5xV/e/G+XCZz/aKGWUTp
- ND1bUfI/Sb2wIGR0NdF72iJwHHX+BDs=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAzOSBTYWx0ZWRfX+bXjpKbzS2bM
- +Tpl/6nKl0rmv+IeQX6SpR3/QpdugJ8FpFSVjPlZ62bMuHDpj111KLEVoZCNgpjHgkCqmWkqeNk
- 5KJyp/T57frBtCthiVQ/xMw86aSHSVjhWzGuL4M4YqOLU7APlxTEUX6WWfGPA/W5W8T5i/gawaF
- AWDVSUt2KjMBJ3dWVWGWDGAEL5qC4OAUOQ4UuJrM6RHAXZPDtDodM4osHbLw2itYZe2S35FW8hs
- Bp4f8D85Jam0NjHf8lr+qmAedfRTaZrYzy0w1O89F/uXl7NDd5F/aqE9r0H1P9GU9b+9RCP/WK9
- ycTfEp2ews65tkp/sMI0Lh1uKZgUIJA+I95zwvxlMbe7XrnTbeQRcqm7DEnJVlUXvwuJG4f4lp6
- zXkYprBa1t59rBNUUbQd8JQef3rmr2IqM0Psoy1hkUXk5+CNXg7K057a0yN4cvxLoK+WfWCveS7
- UToUQDWxszVfMtD+d5w==
+Content-Transfer-Encoding: 8bit
 
-On Thu, 15 Oct 2026 12:48:27 +0900, Gyeyoung Baek wrote:
-> Update the @sgt_offset struct member description missed by
-> commit 789f290b2e81 ("drm/imagination: Size page table preallocation by
-> device address").
+On Mon, 02 Nov 2026 21:11:33 +0100, Barnabas Czeman wrote:
+> I have checked it seems lemon have same adsp region like citrus.
+> `pil_adsp_region@53800000`
 
-Applied to drm-misc-next, thanks!
+Thanks for checking, Barnabas. Where did you see it for lemon, in a
+downstream DT or in the stock firmware? If lemon's stock layout also
+starts at 0x53800000, the 0x53400000/0x2600000 in the lemon DTS may
+be worth rechecking.
 
-[1/1] drm/imagination: Update sgt_offset kerneldoc in pvr_mmu_op_context
-      commit: 476d658928af91f5ccb455957be60763d8b00fd3
+I will keep the ADSP carve-out per variant in v3, since I cannot test
+lemon. Adam, if you can try lemon with 0x53800000/0x2200000, the node
+could move to the common dtsi in a follow-up.
 
-Best regards,
--- 
-Alessio Belle <alessio.belle@imgtec.com>
-
+Thanks,
+Amir
