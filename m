@@ -1,209 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.10
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793803171;
-	b=cdbBwLdkDlc8o2M+6xGzWtqui4NnB/dhHGJ6JFr2UvuhqOIRA1eRV0YMbntyOfE0LOwD
-	 KMvHe/75lRA1AB8Y+5rmq3naVbzgDvilGjzlPR47YLYMVxFBWSfUbn1V7OvHpacogzGfp
-	 M9wbDKuVYhGIAuXmc2zq2Vzx02nr1ASo+R5qsT2S9r/nCZ6tdivqHdwENQhxMTz7J7XYz
-	 +JghNkKnmhHcehohyREgYtf0qUOSeZpmAsfNkMwqCafGmFRsF2QI4qRGy2bs+hBHB/nbn
-	 Bs08u4fndcGTIpB4wL3vlmC0WImoO4bWLOTeL5CuVc1OaJUzhalEXRLMyszi11lgE6g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793803171;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:user-agent:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=EIzGhEarVZwpLYP4ccor1Q/l+dqv7pYKwYcdmVDoncI=;
-	b=3wvhN6dvVWD7vtaVe3NWxMgv2Popz4sh9LMn1vyCC/oCAfeNZZ2m7K4oGm1Y2hrqioPO
-	 rUGuqRvPCO0cJEoZ2PGvEvL2+rAwRpi0wqAEkwL3eKuoKpGZMSkuGXvyfTfQ6isCRStuW
-	 BqY5PehiwfH3qdnt9p5IK0SZaKNXiS+KKjKuHCLtQ6LHdqz4XRNn22pwC0a533BnpPmBA
-	 VVTufgmIbnppSZx0CIKsWWTANZ3SMfeaiYTOCphGwaOeuRKmOV74RhAPiJZ3xLPzcwZ6C
-	 Kpex26QqNJxcM08GS+mm3a2f5vHeED1L71HqwQQx49GrzINnEIXK4n5AvLBaMXHpW9g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=McdrtjUT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793803184;
+	b=1G5j4haawjQRn3q154QcNXpocgBeGEgu4cyz/ANUdap0BUbB5PfNpSBYsol+S/poFQuv
+	 AOTOZTFzHABCET/oqk0LnCN1cr7Gu28gek0/hOLkPowUiSEMW7cZCS8kha66FPlTNs/lg
+	 vzByk+1M5Njb09W3dLCb841v9g/++pXFaFlty0gFMlFebEaNqOLl3nz6NQPQBCUtfjyAK
+	 wMXPx4UNEn9gxRvntZrsvvpqYyq/4aYwfwoZQwwjU83mJoF463zD/i0tVS2gBds9mj7F0
+	 jNUm2Ogy3poXKb2Ou020VGBxmnpFhD7A7cuzAi6FAUBw7FxgII45ulijlz+GXxqFeJw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793803184;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=vWAUioNlml08tns8OmIh5lWoP6sA2CHZkVMFWUAY6dE=;
+	b=O7p6pFifLwfTpWBaeCVOqU6bDp9ERBfYwSJ5HI45A5NGIP5O68rDHU2H12oxyOkPj0YY
+	 4J2ivd5642eADWOGULahcpuYOVWYfKHLh74BP9DX1AiTr/MFgHAuq4TPMF07t/8QAVQQL
+	 KhSCqDO7n5ZoMCr0KpsxmRrieEeYVDaDFOKgzSW5Emq9b2CLlofGpc6RNHZ69+BgBSHwV
+	 3FjTDFkp2jw8hJ/DCtFpOUboPxZD8uIntv52hVFStu1nldmIHkLdNwJtOqrnKftLLRldJ
+	 hNRe9hWVlNcF2uGIYrjo8xPFV/h3m0TTpSXhU/4qNY/i9f2eAQBSwkICr0QvWjhENyA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=VFNYiTk3;
+	arc=none smtp.remote-ip=162.62.57.49
+Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79F0A606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:39:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79F0A606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 207D1606A31B;
+	Wed,  4 Nov 2026 14:39:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 207D1606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=McdrtjUT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793803165; x=1825339165;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=EIzGhEarVZwpLYP4ccor1Q/l+dqv7pYKwYcdmVDoncI=;
-  b=McdrtjUTLnvLCTTiG31dzp+jnj/n9aV8GwVZ3vuhSmgcWELtqaoAcBKz
-   vE/v/sU27ZBH8tqRNYvpeGtfRIoKMvJEl+rZz3HKz1VTxmixTCwQ96hcG
-   Xah5l0xGmvp5c2piB/ZmsGwEQYqZm124YtGGiEJe0xBiNSXRLRSA4pDkj
-   SqHFWqQbFa6WBHVa3NYjUZaoo/ktnJ1725lG2x/xmz9aM6/51KoZdZ91l
-   D78bnh6rSP8CovqU8njO/o89ZsJ2jp0v3xIBDwl/tBwhWz4aKP3nVfuT2
-   lMb8O3R8+87nKgj0WHVpECzQxI5AywplPr5HeKT2qLNxUf8R+yqlr8fi4
-   A==;
-X-CSE-ConnectionGUID: o20f7279TZSUeu07H6PhPQ==
-X-CSE-MsgGUID: gk/2JPGmTwmIWel+yGIQTw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2458449"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2458449"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 06:39:22 -0800
-X-CSE-ConnectionGUID: lV6sc8MESkCNWVe44nNUyA==
-X-CSE-MsgGUID: DVpjYiqCQbe2urAUIZOOBw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="6836099"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 06:39:21 -0800
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 4 Nov 2026 06:39:20 -0800
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Wed, 4 Nov 2026 06:39:20 -0800
-Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.18) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 4 Nov 2026 06:39:20 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YmOX7Y9eisdTd3fmPu/Ir23Kg4il5nU3dG2mXEx82md1/cNyDFJBnWf1FWdWNhqNkpLlN9YaGJPI3EBmZwiC1vSi6QNZh1IiwDCHf/KOccwqjZ/OqjRgOjMaMuO3dTq/8RV6yXs7g/TC5Hwbt7vn9CW/b1OYDTpWM6EsCvL2Y/mw5FoQEbXxX33pCqlCn+zr9m2zGz3HmxSLJRlCSqs4wp+OlXK3hnyyhzAqSGzJx50pYOrGHld6zR4F5QABkq+Vb9RD7i4x45MgdtMt7C7Wg/wIWw1DR0cbU2wzREsZwsdL9LUyaHc0TnX41Fhl8OAzh1/uTMxTpGiWRG4Z7FfStg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EIzGhEarVZwpLYP4ccor1Q/l+dqv7pYKwYcdmVDoncI=;
- b=MbEJi0d5goYcRc4k5SEUPzNdXkfzTRBlHLWEHlu+JTkpRRfUr7JaD8+3MGf51mtgrdR87XBXZ/W8rWMkUWGQ1nd+f/kKH9p5wn3uvzkZNvSNvRLshpfN1pimLczP6wLft9A10mhlyPT7MuCAmupfkHFQmkoY+ERNPG6RdLoqtlLpiCif6TUoF1rkqUseqGEgwSN9XfT4sB84ER67dYYCaukJWDsT8tjo+XG388JBbkI085/odbMERstDVpug0gr6noEcMndEKH/ixGHG2WlsO+ayFptrQFBdWUCM8kKZ4LmprtJJxavUGZ/XUhYy54mtlYxaqiAUcVu3gLu3ndopBw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from IA3PR11MB634048.namprd11.prod.outlook.com
- (2603:10b6:208:549::23) by CH3PR11MB8518.namprd11.prod.outlook.com
- (2603:10b6:610:1b8::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Wed, 4 Nov
- 2026 14:39:15 +0000
-Received: from IA3PR11MB634048.namprd11.prod.outlook.com
- ([fe80::760f:f0a4:7417:6e57]) by IA3PR11MB634048.namprd11.prod.outlook.com
- ([fe80::760f:f0a4:7417:6e57%5]) with mapi id 15.21.0592.009; Wed, 4 Nov 2026
- 14:39:14 +0000
-From: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-To: "Li, Xiaoyao" <xiaoyao.li@intel.com>, "linux-coco@lists.linux.dev"
-	<linux-coco@lists.linux.dev>, "nik.borisov@suse.com" <nik.borisov@suse.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Duan,
- Zhenzhong" <zhenzhong.duan@intel.com>, "x86@kernel.org" <x86@kernel.org>
-CC: "Hansen, Dave" <dave.hansen@intel.com>, "dave.hansen@linux.intel.com"
-	<dave.hansen@linux.intel.com>, "kas@kernel.org" <kas@kernel.org>,
-	"seanjc@google.com" <seanjc@google.com>, "mingo@redhat.com"
-	<mingo@redhat.com>, "Peng, Chao P" <chao.p.peng@intel.com>,
-	"pbonzini@redhat.com" <pbonzini@redhat.com>, "Tian, Kevin"
-	<kevin.tian@intel.com>, "jgg@nvidia.com" <jgg@nvidia.com>,
-	"aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>, "Verma, Vishal L"
-	<vishal.l.verma@intel.com>, "hpa@zytor.com" <hpa@zytor.com>,
-	"tglx@kernel.org" <tglx@kernel.org>, "nicolinc@nvidia.com"
-	<nicolinc@nvidia.com>, "bp@alien8.de" <bp@alien8.de>, "Gao, Chao"
-	<chao.gao@intel.com>, "aik@amd.com" <aik@amd.com>, "yilun.xu@linux.intel.com"
-	<yilun.xu@linux.intel.com>
-Subject: Re: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
- operations
-Thread-Topic: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
- operations
-Thread-Index: AQHdS9rF50k7lxnBBE+JUA+1gdhvT7cCNcsAgAISOACACwTNAIAB/ggAgALIGICAB3LugIAAwwYAgADOJgCAAMbrAIAAXtqA
-Date: Wed, 4 Nov 2026 14:39:14 +0000
-Message-ID: <b15708f7cd770fdba4082b19488422a376c2aa9c.camel@intel.com>
-References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
-	 <20260924041032.1096569-7-zhenzhong.duan@intel.com>
-	 <8c892695-7ec5-4d93-a74b-487fe535c3f4@suse.com>
-	 <IA3PR11MB913605FFABBBC42C1FF341E192982@IA3PR11MB9136.namprd11.prod.outlook.com>
-	 <03c80e1b-2a47-466a-a042-c736f640d3c7@intel.com>
-	 <IA3PR11MB91368A7BCDAF146ECDC6A4CB92602@IA3PR11MB9136.namprd11.prod.outlook.com>
-	 <IA3PR11MB9136FE2B23CA52EC68EF2139926E2@IA3PR11MB9136.namprd11.prod.outlook.com>
-	 <bd0f63af98521d76e0d34ea31f18accc063d1d27.camel@intel.com>
-	 <IA3PR11MB9136FEF30F06D8D5118B389292692@IA3PR11MB9136.namprd11.prod.outlook.com>
-	 <a63e7dbdba277b5a551ec74d09144e97f55504dc.camel@intel.com>
-	 <IA3PR11MB91363BF2AFC2ED5E126DBFA792682@IA3PR11MB9136.namprd11.prod.outlook.com>
-In-Reply-To: <IA3PR11MB91363BF2AFC2ED5E126DBFA792682@IA3PR11MB9136.namprd11.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.52.3-0ubuntu1.1 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA3PR11MB634048:EE_|CH3PR11MB8518:EE_
-x-ms-office365-filtering-correlation-id: 1ce4c060-8bab-4109-87f8-08df3a81662a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|38070700021|5023799004|11063799006|4143699003|56012099006|261021121427099003|261022075727099003|261102123227099003|261022105027099003|261026121527099003|261028144727099003|261026140227099003|10067099003|22082099003|18002099003;
-x-microsoft-antispam-message-info: pDuLftjFl+qW8E/M2XvJ1LB8VsRWVCkfVOoQ2bpCEeYj2dSPD0QQXzJ5VFJJxrC4cQatd/dxFJQZ86lQdf7iH1axLv7/+8PsWW6n5NwldLnY8TSnHduChh9MzwLmE+yWUxi3AxgEX20z9gfTBfuEc8KI8cT9XyqRizG2hGCiJhDJExKOT20DvJeLzT8ZTFcfkNdypOnRjUCB1aGr9im1xlAF7gJTTI7x2AZIlylJgIUNCHytq/uM/nNtZdC+JqJT2sLPJMKh+nFCjSvO6hR+fPCOmhGyJSQkv5VAbi+Z5ZPndn6pfOY9xx2nCYCxkkAvRe04a+RhuxAarUTz/XXuT7yWtqezpvh/xIVZegMs5rILHAn9Jxjh837E8CXiB7Fv8KjBZhJhzDv11m2N07mASgZr9y6tnrMDk+YJYzzx7EfbCsPEidhfGNP/BQ4781qrvczp6GqTs+NFKied1qgSnOJlXbxaxvdzs89VMd30rUn+S/YGr5houTraYtwO1zN8V5k+Ss6PmvH5NKb4/Y9zSaM0XUrm8FRaz0++rGVvKqAUGjOG4ARZM4dZKbLoEjZOdKjE/k3y4l60JgNIaxE4AmXasull6HiRJGCcgcRibj7+zNuj3YFKzzoHrVGWl7NhEWv/aCOHEZlprYPczHoWYZIj1or2svH9P+3tYiOxlI+cWxvXjkFQ+sHX/0+FFegOdonHPSRPioZFLcRTYNWf2yaJeQRzttbzz/spU/hQWyI=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB634048.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(38070700021)(5023799004)(11063799006)(4143699003)(56012099006)(261021121427099003)(261022075727099003)(261102123227099003)(261022105027099003)(261026121527099003)(261028144727099003)(261026140227099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?TGpQK1BHZ3MzODRKaXpqV0FPRTJud21ON3R0Zk9QUHYwdVMzMitoaURLNkdN?=
- =?utf-8?B?dDIzVUxCektqblh3YlRXSnJ2dGlxRTF3ellUZDA0ZlZCYzI4NkJtNmZBMzg4?=
- =?utf-8?B?SGVhVEg1cDl1RzNpRHMrQ3ZaMTdYNlR4dW1GOXF0OFVNYlV3WmpwRnp0b3M1?=
- =?utf-8?B?c3dzWHBEdEgxZTBaVUhuQ1FKSFlZMzRsTWxxSWw4d1Y1c2JhcnR0UnhrRXRZ?=
- =?utf-8?B?RFRqS2EyQVUwNUIzRTQ0bC9ZU0FQWnlnWnUybTFRY0dJQyt4YUlnRUQ4Mm1F?=
- =?utf-8?B?U0VDS3hsSUFNKzhSZzBadUZMUSs5bE44SDgyR1NDTEJHSWUzUkg4emJIZFFq?=
- =?utf-8?B?Z1N3dWZMMURTNE5JSTgvejJya0MxMWFManJVZ3VoM0VMMlFLV0NPb215akI3?=
- =?utf-8?B?OHRWZUhsSVMxZ2FrS0w4d0dLVXlkMzczVjRxdGdFMGN1MnJwZjliUUoxU3Vy?=
- =?utf-8?B?YUVaTWZMQTBraGNLa3JlMG40NEhjYmw1SVBUaU9xVTdRL2ZZYVg1UlhqM1Nv?=
- =?utf-8?B?aS9DY21PbVZnYmRwOUZwU240SnJ6QnRML0xjeHgwdFRoK1FDb2xqSzZRVFdH?=
- =?utf-8?B?MEU5aTVhdGxiczJCbmdLc3E5NmRqa0lFampjSjZFL3pvTVMrd0ZvRmJCSTZN?=
- =?utf-8?B?Y1RYdkZrQ3NYTjRQYVdUL0Z3c295VVB2eXFjYzBaOVJ3WCtqb1o1L0dFNzBw?=
- =?utf-8?B?c0xldDIzQTF6UXUzTFE1TGhhZ1FYNzlobUgvUXFIcmhuR2lTbFpzR3VWOTBn?=
- =?utf-8?B?K2wwanEzN1E4WnliMUR0aVltT3VPZThBanpOY3ZPTDRGZlZKbGIxSUUyV1VN?=
- =?utf-8?B?djFZb1M2U2tpdTdxNHcxYllVYkV4L3RrcWVnOWl2eWUyZ0hRNUMvTVZHWUNn?=
- =?utf-8?B?YU1pS1FJYXFwZXA2RUtCN2pWS2hDajhObzhEVTQwVHd3MkVKSmZmZE5nR1pQ?=
- =?utf-8?B?WkV1bFcyZUs0QVBNUnlzV0FGSElNVXZ4QjN2eDN5M0duY1NWQkl3ZnhTcXlP?=
- =?utf-8?B?VVdOR2VRdjFvTU9vTEY1dEYwbGM4SjdraFBWYmtjZzJRVTlka2NHaTBFYmNr?=
- =?utf-8?B?U0xLOTg4cmprckxibmJjZUZodXNXQmludmpvWExJb2Nwa3lNb0NFL0NWVU5Y?=
- =?utf-8?B?WmliS25MSlowVVdKSXFUdFA1bHZXTkM1N1hLNkVZTktKa3JMbThRTWIvKzJp?=
- =?utf-8?B?RWlTbXpXZytuYk50R0oybkNJUWM1WDZZUjlBTXlwRkpVRkpPTjhlSDBlaXNx?=
- =?utf-8?B?b3Y3Q1pVRllLSWlHdU1VZlVwbFZjdGx2Z05KQ0dNa28zdTJzdmY0Wk55ZXRU?=
- =?utf-8?B?dUxIdS9xN3Iwd0EvcnFuNG5lWnp1elV4eDFXU0t3amMvSGoxM1JFdkZPUXRH?=
- =?utf-8?B?STdJSUIyKzJoSlVXNFhVT1pCRXBLZWtvY09INzVISWIvcWRmeEhTNDYvRFBa?=
- =?utf-8?B?VXpIdlRmRTZyY0NRNXF4MEN5aWpxcjY5dDlwRTJnNG9FM0hNa0Q4cVBGSDMz?=
- =?utf-8?B?U2JHY0VwWDZsTm1MUkNVMi9Ca1FlWkp5Vzl4LzJnM2lpL0xrcW5IRDRiTVpW?=
- =?utf-8?B?OXNEUEREdy8yaDRvbVNicnA1RSs3VVBIclJPN3FjVTExRVh6SnI5UXN2aUlK?=
- =?utf-8?B?bEVmR0RIS3lUNFFzdjFmeStWalVvRGg2K213SjZibU9BZFlHSmNoWm5vb0dZ?=
- =?utf-8?B?OFB6b01ZVmoyK1NRd2RmUEV6WGNLYktUVlhoajAybHlTK3pkUGJ2Y1JIVTA5?=
- =?utf-8?B?QzdjYUJ6aFJCYTYxK2IvcUlDRzBPYnRhbjlucTJFUTljRklGMTRzKzFaT25W?=
- =?utf-8?B?YjVQMWxPaitQWDZwRFhnak4xb3o0RGNxVGRhRm9WSWdWOGdPVTEyaUFUWFhQ?=
- =?utf-8?B?SFZnRTRBdlZXQUhKTmwxc3ZkajNOdGE2M2tiMzgxblkxK0Z0YTRPanNLaGtk?=
- =?utf-8?B?ajdBb0RHMW56RUFZME95Z0hsQnZEbklDYjJMaGI0WHhVTGRBcGlYeGRUT0Nz?=
- =?utf-8?B?NHNSVE4rMUFQajE1N1NqK2RiYjVDbjJITmd6S3dsZG9WZWtOTUtRWGZ3dzNX?=
- =?utf-8?B?UEdyNHRxMWNJd2taNWRPb2d4Nnp0bldDM0E4TGl1WG1heEZ0bnhFeHM1NGkw?=
- =?utf-8?B?WVFWVlpuTHp1WUpSMnRDb3g5OGk1TnkyZjU1ckF3VWFpejZXNVU0bHpqaWVY?=
- =?utf-8?B?SCs5L3JGTUxiQlRDMkdQYnVaWlRSQktsbFRrNWNNWGJXdWY5djA3eStiQVB1?=
- =?utf-8?B?TnJ6NTF6RDR0bG56MjhuYkorWjJxNzVhbjgwZWgyYXQ3bUJaNm1RcUg2NW80?=
- =?utf-8?B?bzJQL25BNVQ4UUFLQXhhSGE1VE9GeHNncHQxSjdRTWM4TlMrZzZGcVVsbkFj?=
- =?utf-8?Q?1p3vsyQUgLj9cJCU=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <5858F5BFB076EE479C93034DE40D189E@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=VFNYiTk3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793803172; bh=vWAUioNlml08tns8OmIh5lWoP6sA2CHZkVMFWUAY6dE=;
+	h=From:To:Cc:Subject:Date;
+	b=VFNYiTk3HZHAtlSYP144+5LfvHpr7bIMVAv68aiCEXE1z8f0O+dUq01Fv850igIzf
+	 rfBWhkahIjaGahp0H7Nf0OSWiz+0p9iK73yH8Os+fMTCAgjTPVRw/x9RzE2Tdxwc/i
+	 uLSaxG5hjiYTWhxpuYqKD/ElpQoyDGBVkGdXJ9MQ=
+Received: from shuai-VMware-Virtual-Platform.localdomain ([223.88.55.29])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 9DC90C39; Wed, 04 Nov 2026 22:39:28 +0800
+X-QQ-mid: xmsmtpt1793803168tsgi7cg9a
+Message-ID: <tencent_2BD24B2CAFF21D4D0EB86262EC13D8EE6408@qq.com>
+X-QQ-XMAILINFO: OPbu+gyh5MQo/22CT/fkGfhx+YFn8vJTeKrQ7IxBsLolg0jRCoQ+Gl4DexhrCf
+	 xzGfxlmKU/J/UdFYp2+3XtqC7Hu8nhVsxQODlQNroL5fIjafDXGczSjy5je219PCoYrXKOE/kxsR
+	 +8C2RlPXSqRGdJAEblO5LOCDD76ugQgOrRntR2Jm6RlKss6C/9Mt5DyQPC6DAOgQKVS35vZIB8xa
+	 MKsUfNL1E/Ifth0MikVBpFxuAH2lDRD3AKX6/McbXehw4GcISSijeO6Zh3sVTrG4oJBh1ALSOuLx
+	 bLW+r2KIxQIbrIfS+Ac7a5BF+ZvBMWMnlk1L52NAFVfix79DNXxcXyd6V3VovG/kUK/YCiUTld4X
+	 YFHX46/MayAzBMzAR2ghp4QP7YokgOoi2uIzXBIfigv8VQLBBAgWaWQ1UdtM14NEBqzPvRsucgvn
+	 /O1EMt8SMGSaLo4vZrC415lFrCePbJz/vGjmIh0tVGFvgfyusORmUY2Mc9x3SeungIv2ppwtK6y0
+	 pcm+P8YYGZw14w3T5OfDADypvFlcCIq8FUQ9Up9viTlLpije6slL/RAa3s2cw+ZjNinRKTUPoExB
+	 uzHdVT4+esv9B9oyeXxS9g9UNcRNoM8MykMsRsMxTfV0dgFdCH+AbdEGURjAfLuNlGaPGv1sHIiw
+	 U3dPPTFWT0aGQVLkgwuafrYUEJ/x64M2fi4OzXbCHCNNfsy5eb1TTJqMAsi2ATWqMtegRJDpoyl5
+	 x3LaV2KmKqCmtPPm4hT8ZDQOxZZhIxWF5nbJwfxbcxt+2yoVry1r5pmTlQn4fDZrgzM9NQR3Kjrz
+	 bC95uzvJ3orX8QVocVADwXTv0Zaz3bFzrSrM4HJQlot+fs2l2afet/3c813CYx4pcAg4tRYdoJw6
+	 vKEmo/KXbNBfc92auye9lqhCjDe9TQXD9XbBrr4ht+k3cJ/uiRQTNAw7OKy2/Tm6mUYOLPMW64Dl
+	 QS/lFwygBVpp1K+Rj4J7NHaILMMVwFBwN4MlzMbtmz50iwb+ecoQ/BZfeL693jyR/Mw0cPSpLHn/
+	 HkBO6LsOthl/wlK+Fpk1+suKZzTeFMbUVjMYXPlybg8So+trciPlxHPzVuh2Hu+6uI/wnLdFsd0Y
+	 VVShE76neGbstJWq4lBkhVOTzNw8jS2l/rj/hM
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+From: Shuai Liu <847807867@qq.com>
+To: axboe@kernel.dk,
+	rostedt@goodmis.org
+Cc: mhiramat@kernel.org,
+	dlemoal@kernel.org,
+	johannes.thumshirn@wdc.com,
+	mkp@kernel.org,
+	mathieu.desnoyers@efficios.com,
+	linux-block@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+2fca70610179be6c24a4@syzkaller.appspotmail.com,
+	Shuai Liu <847807867@qq.com>
+Subject: [PATCH] blktrace: always record v2 format for the ftrace tracer
+Date: Wed,  4 Nov 2026 22:39:22 +0800
+X-OQ-MSGID: <20261104143922.317295-1-847807867@qq.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -213,31 +86,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: 1dRRQcDWmAOuAgqY8CK1mnMnqXvAIBLhJYMHCkGrL/6pJiJjOEtQ9p9sEsLC25nuj6Y9b0Tli8p4h5yVPZ7yNL9XTuJCF1LdT9uRyzJgJ7FEdropM1QpeReMfbqEpDrSHraSXZESpAqWjhDRT45NSkC1hkERiXNjxsYWlOb4P1ohOWyi5s28de9l3OgDiM4q8ys6DPO6b6bYQvJq37bFsEDxCrKZc4p0pQurAd8fH5EiUN2oGOoV+z3ex097gL9A79MWGP155YFhO0wq/XBgHC97tgvEkHUBRTuClNni61HMzTGPVz+/dfgx1JJAF2jFQx251d1nRy9/XKLaF4Kq/A==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB634048.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ce4c060-8bab-4109-87f8-08df3a81662a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Nov 2026 14:39:14.9121
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /K1/xpAJ3YUpMqrJG/btvn3IRm8J9R/hUv8Owytvk2nhiYFTP/rZiqEVA6HFVgjqDjqaW3PRhO09okV3T1FS65ADqq3aSm9Iyj2XceAcXfA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB8518
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-T24gV2VkLCAyMDI2LTExLTA0IGF0IDA4OjU5ICswMDAwLCBEdWFuLCBaaGVuemhvbmcgd3JvdGU6
-DQo+ID4gSSdtIG5vdCBjbGVhciB3aG9zZSBmYXVsdCB0aGlzIGlzLg0KPiANCj4gSG9zdCBzaWRl
-IGZhdWx0LCBlLmcuLCBhIG1hbGljaW91cyBWTU0gZG9lcyBub3RoaW5nIGluIFVOQklORCBURENN
-IGh5cGVyY2FsbC4NCg0KSWYgdGhlIGhvc3QgKmNhbiogYWx3YXlzIGhhbmRsZSB0aGlzLCBidXQg
-anVzdCBkb2Vzbid0LCB0aGVuIEkgd29uZGVyIGhvdyBtdWNoDQplZmZvcnQgd2Ugc2hvdWxkIHNw
-ZW5kIHRvIG9uIGhhbmRsaW5nIGl0LiBXZSBjYW4ndCBwcm90ZWN0IGFnYWluc3QgVEQgRE9TIGJ5
-IHRoZQ0KaG9zdCwgc28gZG9uJ3QgdHJ5LiBTbyB0aGlzIHNlZW1zIHNpbWlsYXIuDQoNCj4gDQo+
-ID4gDQo+ID4gPiDCoCBvciBURENNIGh5cGVyY2FsbCBwb2xsaW5nIHRpbWVvdXQoZS5nLiwgaGVh
-dnkgbG9hZCBpbiBob3N0KS4NCj4gPiANCj4gPiBIZWF2eSBsb2FkIGluIHRoZSBob3N0IGxlYWRz
-IHRvIGJyb2tlbiBmbGFnIGJlaW5nIHNldD8gVGhpcyBpcyBwcmV0dHkNCj4gPiBzaW1pbGFyIHRv
-DQo+ID4gdGhlIGlzc3VlcyBhcm91bmQgdGhlIEJVU1kgZXJyb3JzLiBZb3UgcmVhbGx5IG5lZWQg
-dG8gdGhpbmsgdGhyb3VnaCBob3cNCj4gPiB0aGlzIGlzDQo+ID4gYWxsIGdvaW5nIHRvIHdvcmsu
-DQo+IA0KPiBIbW0sIHllcywgbXkgdGltZW91dCBleGFtcGxlIHdhcyB0b28gdmFndWUgdG8ganVz
-dGlmeSBhIGJyb2tlbiBzdGF0ZSwgaXQncw0KPiByZWNvdmVyYWJsZSB3aXRoIHJldHJ5IGluIHRo
-aXMgY2FzZS4NCg0K
+The legacy BLKTRACESETUP ioctl creates a blk_trace with version 1, and
+__blk_add_trace() wrote v1 (struct blk_io_trace) records into the ftrace
+buffer. The ftrace read path, however, unconditionally parses entries as
+v2 (struct blk_io_trace2): the 32-bit pid at offset 28 of a v1 record is
+interpreted as the v2 action field. If the pid happens to equal
+__BLK_TA_BOUNCE (14), print_one_line() hits the uninitialized hole in
+what2act[] and calls a NULL .print handler, crashing with RIP 0x0.
+
+The relay path is the only consumer of v1 records (blkparse); ftrace
+always wants v2. Drop the version switch in the ftrace branch and always
+record v2, keeping the existing 0 -> 2 normalization for the sysfs path.
+
+Reported-by: syzbot+2fca70610179be6c24a4@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=2fca70610179be6c24a4
+Fixes: 4d8bc7bd4f73 ("blktrace: move ftrace blk_io_tracer to blk_io_trace2")
+Signed-off-by: Shuai Liu <847807867@qq.com>
+
+---
+Tested with the syzbot C reproducer on x86-64 QEMU: without this patch the
+kernel panics in print_one_line() with RIP 0x0; with it, reading
+/sys/kernel/tracing/trace returns 2958 bytes of correctly parsed events.
+
+Developed with AI assistance (code analysis and patch drafting); all changes
+reviewed and runtime-verified by me.
+---
+ kernel/trace/blktrace.c | 72 +++++++++++------------------------------
+ 1 file changed, 18 insertions(+), 54 deletions(-)
+
+diff --git a/kernel/trace/blktrace.c b/kernel/trace/blktrace.c
+index 8cd2520b4c99..a9e9fc30e5ef 100644
+--- a/kernel/trace/blktrace.c
++++ b/kernel/trace/blktrace.c
+@@ -385,66 +385,30 @@ static void __blk_add_trace(struct blk_trace *bt, sector_t sector, int bytes,
+ 	if (blk_tracer) {
+ 		buffer = blk_tr->array_buffer.buffer;
+ 		trace_ctx = tracing_gen_ctx_flags(0);
+-		switch (bt->version) {
+-		case 1:
+-			trace_len = sizeof(struct blk_io_trace);
+-			break;
+-		case 2:
+-		default:
+-			/*
+-			 * ftrace always uses v2 (blk_io_trace2) format.
+-			 *
+-			 * For sysfs-enabled tracing path (enabled via
+-			 * /sys/block/DEV/trace/enable), blk_trace_setup_queue()
+-			 * never initializes bt->version, leaving it 0 from
+-			 * kzalloc(). We must handle version==0 safely here.
+-			 *
+-			 * Fall through to default to ensure we never hit the
+-			 * old bug where default set trace_len=0, causing
+-			 * buffer underflow and memory corruption.
+-			 *
+-			 * Always use v2 format for ftrace and normalize
+-			 * bt->version to 2 when uninitialized.
+-			 */
+-			trace_len = sizeof(struct blk_io_trace2);
+-			if (bt->version == 0)
+-				bt->version = 2;
+-			break;
+-		}
+-		trace_len += pdu_len + cgid_len;
++		/*
++		 * ftrace always consumes v2 (blk_io_trace2) records, no matter
++		 * which format was requested through BLKTRACESETUP. The v1
++		 * layout is only meaningful for the relay buffer read by
++		 * blkparse. Recording v1 here made print_one_line() read the
++		 * 32-bit pid as the action field, which could call a NULL
++		 * handler.
++		 *
++		 * The sysfs-enabled path never initializes bt->version, so
++		 * normalize an uninitialized version to v2 as well.
++		 */
++		if (bt->version == 0)
++			bt->version = 2;
++		trace_len = sizeof(struct blk_io_trace2) + pdu_len + cgid_len;
+ 		event = trace_buffer_lock_reserve(buffer, TRACE_BLK,
+ 						  trace_len, trace_ctx);
+ 		if (!event)
+ 			return;
+ 
+ 		tracing_record_cmdline(current);
+-		switch (bt->version) {
+-		case 1:
+-			record_blktrace_event(ring_buffer_event_data(event),
+-					      pid, cpu, sector, bytes,
+-					      what, bt->dev, error, cgid, cgid_len,
+-					      pdu_data, pdu_len);
+-			break;
+-		case 2:
+-		default:
+-			/*
+-			 * Use v2 recording function (record_blktrace_event2)
+-			 * which writes blk_io_trace2 structure with correct
+-			 * field layout:
+-			 *   - 32-bit pid at offset 28
+-			 *   - 64-bit action at offset 32
+-			 *
+-			 * Fall through to default handles version==0 case
+-			 * (from sysfs path), ensuring we always use correct
+-			 * v2 recording function to match the v2 buffer
+-			 * allocated above.
+-			 */
+-			record_blktrace_event2(ring_buffer_event_data(event),
+-					       pid, cpu, sector, bytes,
+-					       what, bt->dev, error, cgid, cgid_len,
+-					       pdu_data, pdu_len);
+-			break;
+-		}
++		record_blktrace_event2(ring_buffer_event_data(event),
++				       pid, cpu, sector, bytes,
++				       what, bt->dev, error, cgid, cgid_len,
++				       pdu_data, pdu_len);
+ 
+ 		trace_buffer_unlock_commit(blk_tr, buffer, event, trace_ctx);
+ 		return;
+-- 
+2.53.0
+
