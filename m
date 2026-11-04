@@ -1,111 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793814961;
-	b=sMVo4F2hfAATDMPQebkaYzRLl6i8JAWiBRbt/guNKZ/MonyiPRRc9hTJqfYx9oHXU5dx
-	 X3RiIUzlE6HYtv+E+AVcjBqAiTrvknhqzQf5A7ngziZ+nRtV0BLM5SiiYJwgrai3q/2qB
-	 now7daNmLaL3s8Nf0+x2Cn+KUwhPHpfPljkb7vC3TLvRgyEG/bEIl/1ee6B9sCmd+IZFV
-	 0DHLE+WbE40fNj4JTVdDsKIBAgVYcA7vBB+KqWI6JRQ6XLgwvOvrcTDbb5DLAuDNyEMPP
-	 TXlx75YVWeAe7Ylw77vc7NNvVPgZAuH8q+WV4C4C8u00JAo6OEIaAcTZPLKAW5TrG8g==
+	t=1793814983;
+	b=h3QKTlyerhYC0mwxQIu/BhSApcNZOSY+BMPwi3N6gayD+NBlCQKoXyXU3odpatxlK5jt
+	 5WanxfAVOZbiVkkxEt4gavzg7NwhchnU6K03UA8jY9nWjrXywhkpgoYpA8ek/Vsw0bqCc
+	 0qfYH3tK6GlFruUjhMV08IYOGCf6sOkIDOjYNbIv3w9SBJZAjdw1YBAEnWUsdDioBpIN5
+	 A6Y/LRnWj8+QfJzRiLBpC5LpKpjw+oUZ5I9ZWeO/Q+q0jRj9v0RcG3IFT3Xx7cV3GKHni
+	 +aLRPdutxMOa7fLnz9zoC5SDvx8SlG3gV5C3eb09b8JVQqpkyYW6bhC5+qQtOde/Xpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793814961;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=x8nH5QJkKiZNUTowDxB/hMOFyVkHqFnuwosL7qreMAM=;
-	b=LuwhSFa1TDXq2oDB2sl6aLNWeMDt1BBtqJSxjWMEqgaL6C1DH7Z6uxSd02RRZAMYxgpn
-	 pG7IsA4ev9oDiVeOqVNsuU3AaDYlY7LJ8/dA4al2ki+gPpaCgZT1PX+rE0y9xNAPMS9Dv
-	 F/Lv8M8THx6d5qMaPBjLZmdnX+TYPd5tcs1vd4pj/g2V9ctQOs4J7AyqfY6zP0IqzA4Ce
-	 MsIRO/HccB/gFdDdpw5bbSEA+vVemK8grwJwI7kPUJMmxb7ePbJ1X7PirCIGWzZe2r5xy
-	 HGdAyApYSchPpet7LsUcDcerQrWGGa5sTRIHyoaEh5fPIYpHJZe+bzoeMTzbIm7PkNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793814983;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=rzXpUJyGcK8Q9EiSJqd8qoWJyxkZrBy9n/iPsMdJd00=;
+	b=WSteYQns4X0ytBk+8w05bwN//YYxNMZ+knho0EVxzj0bE9oo7H5X3uPvqwDKnqNSeQ86
+	 uLDMVhOL2kogbNvKzryPb3Zn86KnqHpoPqoYUTcJo0g76Y0Yw1ugKKNXtd/wV715XHIM8
+	 a36bsq0V2VmiS2TbP/DmexgnKECHkRqDriRAagXF7/yyOG8FQu90Yn41jM6IN6ILKV12u
+	 2GxlgE7lTKm43bTq5hoqghB1xxTp3PP244hQQkL+zBdU2GvkOmS+R/K/pMhjW2V8oJl0H
+	 kOVBp2D3JiolY7Ef3Y8RX63I+40JsNCzJzj4nuSAL1f1ZwzkDsWSKD5uS+jrbzva0YQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hoGLsylU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vjGZDyA3;
+	arc=none smtp.remote-ip=74.125.82.50
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 270F7606A32C;
-	Wed,  4 Nov 2026 17:56:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84E16606D80B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 17:56:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84E16606D80B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hoGLsylU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FAC61F000C1;
-	Wed,  4 Nov 2026 17:55:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793814960;
-	bh=x8nH5QJkKiZNUTowDxB/hMOFyVkHqFnuwosL7qreMAM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hoGLsylUTixNPsM6JjA8vEQ97GS0PU64B/S8mW42LCSUIEW0+Oup1fKeKwWKQdTUs
-	 7hA+IwbT8SOA6SNIASsjDmnoUBtHx7XyqRnT7bzWmyNx3XbQeq35t1VBobNh34XJek
-	 TdXWkSK6MqCihvsWYtZOw1/JX14O29VjTCo9F+UA4nJfcs4I9UbzXBW1IEI742yd39
-	 aSY2cFacXu9jS6PUQxhQcjsZmHKA5h2Hba77Wfcqi3vnGnQV+UzZn74wBpWJjO9vss
-	 WWfchnn/2CaHA/1giIf/i0HUORN8nxETI0UgTQa+bm9oE2krXPKY7Xy+xru556UT4i
-	 GtoMTdnZo42Nw==
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Jann Horn <jannh@google.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Chris Mason <mason@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Christoph Hellwig <hch@lst.de>,
-	Greg Kroah-Hartman <gregkh@suse.de>,
-	Joel Granados <joel.granados@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Jan Kara <jack@suse.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vjGZDyA3
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-14fc585291cso985979c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 09:56:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793814983; x=1794419783; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rzXpUJyGcK8Q9EiSJqd8qoWJyxkZrBy9n/iPsMdJd00=;
+        b=vjGZDyA3DUG6/AdGvuNo8PVYADmy06ub0XzuQlVvcB9QPSklGlTmlfIJlI8CXKaxuH
+         Nxf+wfW5TN93qvFbCGbGWB1mhJWg3sSKVAZxWUDip82m32IgFFFvY9zJerG9Ah4GFKz8
+         jSpHp/q3ap3wYdLbs9B7Stp4ZHGtXD+XPqQgM2Zj2Zm2o3Mr0widotN7c2x4xVFs/F/z
+         0JnvyA6zrUBjrNQG9RKsEhfrvpSZVkcFRyD5ZosyYdBup4cF+FuxL5Ux0hAT2RVtbOue
+         oAWIwkdgvSujlQ0ArLmQYemkukbBo9wkpqsMPcb4+l6RKHOvKgdkmXwdc9b4CQqUoD86
+         ApuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793814983; x=1794419783;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rzXpUJyGcK8Q9EiSJqd8qoWJyxkZrBy9n/iPsMdJd00=;
+        b=P3m0upJ5FN0RZPjoIF1F/+nABL7QJpDlEktQ4Dh1eq7IRaR4TGx1F+NitITM+LFvSD
+         vuJt8z5X+yx+1jw1b6aG/8hBRdvjaVii1GAwm+2r22h2t4odbfZQy3oMaSz0cRxg/z2y
+         0K0Hxw3GC/Qrc4EUxN/8kOgUPIlPPlZCvgmWwkn+Vvp6DXKgcwr3hiDdwufj3qT3RGZw
+         tuklBE2fubGSyz+ehtrgubjPLUTn+QNTrqS18Q52KNrn8iZK4Yvhl8m/BoenpYhvKe0f
+         h5k2ETCzGmzHmJOkRpCdHIybPWFn0WCSpQ2yfQxX6hbjRIeWeCCmknVzEhODgPPTiQgG
+         6R9w==
+X-Forwarded-Encrypted: i=1; AKwUvBx+RNj3FVaqgzIa+GSZFvDi5nAJgu445kfyMPtl4G2TdU3OmDm1fBK+IvD77DsPcm2ym/gDnDR6JOBVRP0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/FM23UogKQC9pIM7D0QfzNLH1uclUzMJrwlQzYjQYsU2kjo/Xg
+	/Q1iZ2QPMj4kHJZGfenamHrguS32Tpi8pXULKrUiDvTMuXl15OS5VnIV
+X-Gm-Gg: AYBFou3VkDQ00l+4kjLNsBVp7x7gq4Atm0N8jGbG1M8ccVFCq7IhPT1ViyBVy2vj2UW
+	JQlNIhuZ6/0NNONKxhRebpmRohNoxGbsa6XDAh4RnGsjNZUNJzUS5jFvAhTDE5F4RH0G/HU/osu
+	rC5APhC9x/VpZ60tIjiOc7+/Ug2enNWXhsbI5S5evUc6tJpX11WX2MQvJlDXNBv8B0drult9Aaj
+	bB3C/7tyNBPqHeTwwEh2PoZKdveZwewFlDNIlMkWYCK3SSTMEmXv+tXU1fDe/xYR8eTjDTiMOGp
+	3IXAZgQ13xMFQCeRncuOsiuSS04OiYudcz+ZH/aVr8lXBX5JcUu39xxCqR3TSswlE9mJCG5dFZl
+	AEvV6yYNk32DmCg0YsMQJ5KeOHSE1yiR/8pQLGPC9r7A8yFQqG7O5ml3BtoEqjSPnDyENDfBvLM
+	CYPN9Vwf2Sykg2+16Mmfu5t8TD8an9sS2vLr+5ujvleBtFYl4mVvn5Mbw27tkRGajwVS8K0FpXe
+	Q4ItGnpEJINI7Ya9W5NTTX1lsA5Gy3awW3vHdJPyLzIYDblazM4qCA+2yvQCRoqQaQbvc2x2Qy8
+	yegubggWbvOoh2eJR/rkS5woz3iw0WX5Wl7pHrukBreqIEB4yxyp4sHRAFlv7W//YHtvUi113Eh
+	onkSZ9itDEovKVaitJLfebKzjCEITx8tC/bbPcKhX2DcSWBz2sBMT2GF0Rt8k7sBFmo0sRuiHLm
+	lHdrfQyYZRO/5c8piiJQOmA2lURqH/lqcN2BN0AFKMyw==
+X-Received: by 2002:a05:7022:92b:b0:144:fb42:52 with SMTP id a92af1059eb24-1ac5de4e892mr29959665c88.28.1793814982418;
+        Wed, 04 Nov 2026 09:56:22 -0800 (PST)
+Received: from kapoor.iiserb.ac.in ([203.18.51.212])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245ac2f44sm10135773c88.0.2026.11.04.09.56.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 09:56:16 -0800 (PST)
+From: Arnav Kapoor <kapoorarnav43@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Gwendal Grignou <gwendal@chromium.org>,
+	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	netdev@vger.kernel.org,
-	ntfs3@lists.linux.dev,
-	platform-driver-x86@vger.kernel.org,
-	coreteam@netfilter.org,
-	kexec@lists.infradead.org,
-	linux-pci@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	ibm-acpi-devel@lists.sourceforge.net,
-	jfs-discussion@lists.sourceforge.net,
-	linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-sh@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	samba-technical@lists.samba.org,
-	sparclinux@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
-	linux-doc@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-atm-general@lists.sourceforge.net,
-	Takashi Iwai <tiwai@suse.de>,
-	linux-input@vger.kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	linux-modules@vger.kernel.org,
-	linux-debuggers@vger.kernel.org,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 36/51] proc: don't let NOMMU map procfs files
-Date: Wed,  4 Nov 2026 18:47:22 +0100
-Message-ID: <20261104-work-procfs-bugfixes-v2-36-bbf7d5546809@kernel.org>
-In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
-References: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
+	Arnav Kapoor <kapoorarnav43@gmail.com>
+Subject: [PATCH] iio: proximity: sx9360: use an int array for the sampling frequency range
+Date: Wed,  4 Nov 2026 23:26:04 +0530
+Message-ID: <20261104175608.205872-1-kapoorarnav43@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,113 +102,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3847; i=brauner@kernel.org; h=from:subject:message-id; bh=JTUUxaAv8g+OiylD/jB4kSfUdacg86Bjtrwx1fOwQ90=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9znst+bi3gVMj0u9q8/OL7/9NXaGRp93F4cL6Kpxd9 LWzfr9TRykLgxgXg6yYIotDu0m43HKeis1GmRowc1iZQIYwcHEKwEQ89Rn+WS/RVtYXufbh4oFN 2w/v2mu6PuPztYBDb9L+TapKvCWZJs3IsLjj1Za9+0LefPka4qY2Q+HryzrJUraItnPnOr5YHLr PxwcA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
 
-Every procfs file has a ->mmap since commit 786d7e1612f0 ("Fix
-rmmod/read/write races in /proc entries"), whether the entry has a
-->proc_mmap or not. On NOMMU validate_mmap_request() takes that to mean
-the file can be mapped. procfs has no ->mmap_capabilities so a regular
-file gets NOMMU_MAP_COPY, and a private mapping never calls ->mmap at
-all. Instead do_mmap() takes nommu_region_sem for writing and
-do_mmap_private() reads the file into the copy with kernel_read().
+sx9360_samp_freq_interval[] is an array of struct { int val; int val2; }
+that read_avail() hands to the IIO core by casting it to int *. That
+relies on the struct having no padding. Declare it as an array of
+int[2], like other IIO drivers do for their available ranges, so the
+layout is plain and the cast no longer drops const.
 
-Reading /proc/maps takes nommu_region_sem as well:
+No functional change.
 
-  mmap(NULL, 4096, PROT_READ, MAP_PRIVATE, open("/proc/maps", O_RDONLY), 0)
-
-  do_mmap()                          // down_write(&nommu_region_sem)
-  -> do_mmap_private()
-     -> kernel_read()
-        -> seq_read_iter()
-           -> nommu_region_list_start()   // down_read()
-
-The task hangs for good, holding nommu_region_sem and its own mmap_lock,
-and every mmap(), munmap() and exit after that hangs behind it.
-/proc/maps is 0444 so any user can do that.
-
-Give the procfs files a ->mmap_capabilities on NOMMU that allows
-nothing. That covers every entry and not just /proc/maps, procfs can't
-know which entry's read takes nommu_region_sem. Mapping a procfs file
-then fails with -ENODEV, like mapping a file without ->mmap did before
-786d7e1612f0. NOMMU never called ->proc_mmap() for a regular file
-anyway, procfs never offered NOMMU_MAP_DIRECT.
-
-Reported-by: Chris Mason <mason@kernel.org>
-Fixes: 786d7e1612f0 ("Fix rmmod/read/write races in /proc entries")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Suggested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
 ---
- fs/proc/inode.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+This is the int array conversion Andy suggested while reviewing the
+sampling frequency fix. It goes on top of that fix, commit d252425c1533
+("iio: proximity: sx9360: fix sampling frequency write and available
+range") in fixes-togreg, so it can wait until that reaches togreg.
 
-diff --git a/fs/proc/inode.c b/fs/proc/inode.c
-index b7634f975d98..9933f03ab9fb 100644
---- a/fs/proc/inode.c
-+++ b/fs/proc/inode.c
-@@ -466,6 +466,18 @@ proc_reg_get_unmapped_area(struct file *file, unsigned long orig_addr,
- 	return rv;
- }
- 
-+#ifndef CONFIG_MMU
-+/*
-+ * NOMMU never calls ->proc_mmap() for a regular file. It reads the file into
-+ * a private copy instead, with nommu_region_sem held for writing, which
-+ * reading /proc/maps takes as well. Don't map procfs files at all.
-+ */
-+static unsigned int proc_reg_mmap_capabilities(struct file *file)
-+{
-+	return 0;
-+}
-+#endif
-+
- static int proc_reg_open(struct inode *inode, struct file *file)
- {
- 	struct proc_dir_entry *pde = PDE(inode);
-@@ -559,6 +571,9 @@ static const struct file_operations proc_reg_file_ops = {
- 	.unlocked_ioctl	= proc_reg_unlocked_ioctl,
- 	.mmap		= proc_reg_mmap,
- 	.get_unmapped_area = proc_reg_get_unmapped_area,
-+#ifndef CONFIG_MMU
-+	.mmap_capabilities = proc_reg_mmap_capabilities,
-+#endif
- 	.open		= proc_reg_open,
- 	.release	= proc_reg_release,
- };
-@@ -572,6 +587,9 @@ static const struct file_operations proc_iter_file_ops = {
- 	.unlocked_ioctl	= proc_reg_unlocked_ioctl,
- 	.mmap		= proc_reg_mmap,
- 	.get_unmapped_area = proc_reg_get_unmapped_area,
-+#ifndef CONFIG_MMU
-+	.mmap_capabilities = proc_reg_mmap_capabilities,
-+#endif
- 	.open		= proc_reg_open,
- 	.release	= proc_reg_release,
- };
-@@ -586,6 +604,9 @@ static const struct file_operations proc_reg_file_ops_compat = {
- 	.compat_ioctl	= proc_reg_compat_ioctl,
- 	.mmap		= proc_reg_mmap,
- 	.get_unmapped_area = proc_reg_get_unmapped_area,
-+#ifndef CONFIG_MMU
-+	.mmap_capabilities = proc_reg_mmap_capabilities,
-+#endif
- 	.open		= proc_reg_open,
- 	.release	= proc_reg_release,
- };
-@@ -600,6 +621,9 @@ static const struct file_operations proc_iter_file_ops_compat = {
- 	.compat_ioctl	= proc_reg_compat_ioctl,
- 	.mmap		= proc_reg_mmap,
- 	.get_unmapped_area = proc_reg_get_unmapped_area,
-+#ifndef CONFIG_MMU
-+	.mmap_capabilities = proc_reg_mmap_capabilities,
-+#endif
- 	.open		= proc_reg_open,
- 	.release	= proc_reg_release,
- };
+Compile-tested only (W=1); I don't have SX9360 hardware.
 
+ drivers/iio/proximity/sx9360.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/iio/proximity/sx9360.c b/drivers/iio/proximity/sx9360.c
+index 2a9b37df8f62..def69a060c0b 100644
+--- a/drivers/iio/proximity/sx9360.c
++++ b/drivers/iio/proximity/sx9360.c
+@@ -181,10 +181,7 @@ static const struct iio_chan_spec sx9360_channels[] = {
+  * The interval is not linear, but given there is 2047 possible value,
+  * Returns the fake increment of (Max-Min)/2047
+  */
+-static const struct {
+-	int val;
+-	int val2;
+-} sx9360_samp_freq_interval[] = {
++static const int sx9360_samp_freq_interval[][2] = {
+ 	{ 0, 238535 },  /* 4MHz / (8192 * 2047) */
+ 	{ 0, 238419 },
+ 	{ 488, 281250 },  /* 4MHz / 8192 */
+@@ -376,7 +373,7 @@ static int sx9360_read_avail(struct iio_dev *indio_dev,
+ 	case IIO_CHAN_INFO_SAMP_FREQ:
+ 		*type = IIO_VAL_INT_PLUS_MICRO;
+ 		*length = ARRAY_SIZE(sx9360_samp_freq_interval) * 2;
+-		*vals = (int *)sx9360_samp_freq_interval;
++		*vals = (const int *)sx9360_samp_freq_interval;
+ 		return IIO_AVAIL_RANGE;
+ 	default:
+ 		return -EINVAL;
+
+base-commit: 340d44bdf9db0f095f99845b5ad8628781d79b6f
 -- 
 2.53.0
 
