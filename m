@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793786135;
-	b=tYQ+pMUR6iG8SKCwOz2OJ4uJt+vz7epVeFExbUte0NmAmHhClsBiw6uzNh2DipOo8hNx
-	 zfxPNBNm2KtaRCzWGLnXg0LaXYeAiG8IeW/n7zGxL/KlImKohPELOag29J4FvxzPFGLB9
-	 TwgvKd8yvg0UEYDyQIKjl2/g+IylQ6s1q3qWhcbp0PdqI33swJtiircBxduL/aFjPx3Bo
-	 KTC7fi6ezBLVr8hxW/pQNGvw5ZnKdD98pQAeTfkPy5iT6rX9gj9RGFB2QH2l+xOYKcNiv
-	 yCdeEFBlXz8Zp64d8FSMvRSeuS5yKEqmm3Z69F+gcUf0OV9mG8RrEwTtDQc/hPcFGxg==
+	b=qeP9Hlh+aqS6jAVB/VHlhnKhrDwdVrFbnYdtFH8YZarQKfBx0/bIZ3HtvZS9qwE3e4m8
+	 Zwyn140FIYSuwPxoMjPSUd5f7fwCpn3mLiqMt9WGY3cK/7Cj/OJCQ/CAmGWrTMrnqlGM2
+	 ITf3nCX25TMVZv26R4TPnHLl4zAAHyq0eq29+3T+t9WnPm6o7LcuMx/mVo4yrdQU+Ypty
+	 bKOTgJQ6xovbRvm5bJnrZDBuFjBmCbvrB/YkyBERR954/YO571slslVnzFVRu39L9OxJG
+	 XxLgyBS40PvZQix/PvPNmwu1ClWrabFJRsqIME4W78TmHzz5mOaasjLkpN4WIkftPvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793786135;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
-	bh=ibSkVX6FYpPn4JItVfLzH5GGe4yXRPmU4iWn4WAzOAY=;
-	b=ovoLy0rWxgHws0on/NuO/skPNbtwxyvffBux4J9CA+fdyiR/7hRdA02UskOc7+mUo1Cm
-	 XyDZ9CsAQYMYuFxOReD4GZPG+CzsKOY1rsH8MGAybDLr7/Pi36ufGk5biEbFxCE5f+waM
-	 fs61f6nrKkM3WLlVokWs3QgGgAjk+8hzyDF4cF1gc2fU4YqYGRrREfCzemOj8gHyxA3S2
-	 VB2OrKrqvvD7uOl3IYosfI6MD3lBq7Ey9Fofjp1v9VZtYkk48yP1dE5txwaFprtuEZZOZ
-	 NkjgurIx+ALmoAmU+QmstMOBKzVoQJOpilVvW8ix2FW5OMZ2uUcE8osVTSf0tUajzRg==
+	bh=eSX/1XUwvLJLJz6lq4o1xr498yf2Qc2aomJHi27Xy2I=;
+	b=nBOqSc5h9qdC6FKgvhbCmBhKBmF2zk2lQxTpKWw9/9Eb59mykc5EmTToLXDP3ku2eeKW
+	 92kGJgdwT4IOMPmJsBF7GF2AHAW0TQW4oj7zJvDvvZYtIROT7w8j61B0wD12nDuH2s/WS
+	 qjDl8e4Y8y3wCmedq9ynDiyHgcGh/gp5Q35nQoycgvG7slwXDY79JcaBP78t9sQxoFkfr
+	 JlXsgvz7xTPQ+lZnL2t8A1WFdw69+uA1rA2zEWIUQ1vyMIOO7UdrCMDB0jGyRTxSeqb3W
+	 SvEiGc6Z847ZPctTW65F/fRYxqcUWq5w5vPrt9M6Wr4lP4MHyhfUm145Zl9h+FMDGZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=hsal.es;
 	spf=pass smtp.mailfrom=hsal.es;
-	dkim=pass header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=VCeNUtpp;
+	dkim=pass header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=sPEUSkFO;
 	arc=none smtp.remote-ip=80.241.56.171
 Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96637606A32F
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:55:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96637606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 482E1606A32C
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:55:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 482E1606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=VCeNUtpp
+	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=sPEUSkFO
 Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jKLR14zNfzMlt9;
-	Wed, 04 Nov 2026 10:55:25 +0100 (CET)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jKLR80xYDzMlw4;
+	Wed, 04 Nov 2026 10:55:32 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
-	t=1793786125;
+	t=1793786132;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ibSkVX6FYpPn4JItVfLzH5GGe4yXRPmU4iWn4WAzOAY=;
-	b=VCeNUtppC0oEN8jHiUQ77hS8lEzhBQEHzlI62VPvRFfKGoZNsXbYW+9xGLZyxiBMXnLhSJ
-	ZYCMmj1y2QNlgecQRkDtZHMtv5iiKCPV1lvwUw2LAeD1Xy6KfPvcCyah6JaBuLfIksBZCZ
-	dmkQAunz+D0ulW3T+UU2q1b7URZ6dloJ7e5zjlBwChzPA10+IQ9UP3oKzkLDGXUfdMExtd
-	/9qJAfudD/u336JiObhuu4KVZy70uvHgHGKUEuf1wgRcjtDKLYDnraP2/Ak+19mcoKULnP
-	FVHhC/FKjaCxGW676rsmBOZyaIaI2LtSCWUQYYQQOMNUcSyjH5hcHQOUJEuDrg==
+	bh=eSX/1XUwvLJLJz6lq4o1xr498yf2Qc2aomJHi27Xy2I=;
+	b=sPEUSkFOziTu868ZeP1BoPGuOOfEouNiO242Y6cy2u8D5l/2QUMpxRRj0vwFHFO1hr9Ojj
+	AylCcZLV55S7E1wmRUsRnOAJo2V9/3DR5lQYoOWxBAl00SbUVJCy4qDFc+YctTtri8vukr
+	i+lKxLZ5Pin6h6AAKxxoUS/mvrPxad+SDy+48vhIdwBpxdlgBzIi0Rsu2gcGXaqHX11lXi
+	Tw4SnHdgBhoJ/375c8fx6UOJRquU5VaWfFuD9rP1gdHsBgu2gER4AuZk9zFklnq8DMsZUq
+	ASxrZ6McYAvlp9EeEZGa4kE2IefDL/ugzj5r7NqJtTEj6x9QbAl4mdim3jkPqA==
 Authentication-Results: outgoing_mbo_mout;
 	dkim=none;
 	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=hugo@hsal.es
@@ -73,9 +73,9 @@ Cc: Hugo Sales <hugo@hsal.es>,
 	roman.li@amd.com,
 	airlied@gmail.com,
 	christian.koenig@amd.com
-Subject: [PATCH RFC RFT 4/8] drm/amd/display: Stop rounding PWM brightness to whole percents
-Date: Wed,  4 Nov 2026 09:55:12 +0000
-Message-ID: <20261103-backlight-curve-rfc-v1-4-6e4813a8f2eb@hsal.es>
+Subject: [PATCH RFC RFT 8/8] drm/amd/display: Add KUnit tests for the AUX custom brightness curve
+Date: Wed,  4 Nov 2026 09:55:16 +0000
+Message-ID: <20261103-backlight-curve-rfc-v1-8-6e4813a8f2eb@hsal.es>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261103-backlight-curve-rfc-v1-0-6e4813a8f2eb@hsal.es>
 References: <20261103-backlight-curve-rfc-v1-0-6e4813a8f2eb@hsal.es>
@@ -90,174 +90,212 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6476; i=hugo@hsal.es; h=from:subject:message-id; bh=6Uv5ki6/5lQQciXOXLyDJYcI2VUTZe4awEsZscvRkmo=; b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsl7xRHm+28Cy3VOJTaBRhTVNuKdNIcXKf87aW2fst N7+UhD/y9hRysIgxsUgK6bIonvDk4Fl4uSZOUXPl8DMYWUCGcLAxSkAE7mqxPC/nL27J2Hhh0Ir 0ZV19a7J6sfO6G1dEvomo3HPeYcAgR+TGP4Zfmy3fH8kXV/5Us8Ps13LLm/WFV01RfNU/iS7+Vo q2tPZAbzLR88=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8862; i=hugo@hsal.es; h=from:subject:message-id; bh=iwaAc4GsJnoeuRBokxJnBL0Uww8p0y0rlvxvEudRSf4=; b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsl7xRJUUxR5LilEMfTMzmfm6zIdlHXmLLVudNCT+/ mhIuxwrmt5RysIgxsUgK6bIonvDk4Fl4uSZOUXPl8DMYWUCGcLAxSkAEwnJZmTY7n3g89q2Ixru Am2e5acCPRquXjTP3pK4gpclJvn7n49ljAwXJ7+P2xO1IIi5uOtN32POO4t+f/tVNf/btkULbO3 DPv5iBQDk+EzO
 X-Developer-Key: i=hugo@hsal.es; a=openpgp; fpr=193D095149CF7E8737B39064D912B0DB205A91C1
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jKLR14zNfzMlt9
+X-Rspamd-Queue-Id: 4jKLR80xYDzMlw4
 
-Since commit d422a66847a9 ("drm/amd/display: map PWM brightness through
-custom backlight curve"), convert_brightness_to_millipercent() rounds the
-16-bit user level to an 8-bit signal and the luminance to a whole
-percent, so the power module gets at most 101 levels
+Test the AUX mapping with the GV301QH curve on the 1..512 nits fallback
+range. A request for 0 and for max must give user_min and user_max on
+both paths, and values must match ones worked out by hand. A walk over
+every request must never go down, must leave the minimum within 1% of
+the scale and must change the output on most steps. An AUX curve whose
+max_input_signal is below 255 must still run to 100% at signal 255
 
-Interpolate on the unrounded user level and round once, to millipercent.
-The curve and its segments stay the same, and a result over 100% is
-still capped
+Check convert_brightness_from_user() on the PWM and AUX ranges in the
+test with a luminance over 100% too
 
 Signed-off-by: Hugo Sales <hugo@hsal.es>
 ---
-On the GV301QH curve, minimum 12 and 49 points, the 62452 levels from
-user_min to user_max gave 99 different millipercent values and now give
-62112
+KUnit on UML with PROVE_LOCKING: amdgpu_dm_backlight passes 83 of 83
+without this patch and 87 of 87 with it. Without patch 7 the four new
+tests fail, and so do the brightness checks added to the luminance over
+100% test
 
-The curve's first point is 2% at signal 14, and below it the curve is a
-line from 0, so the minimum, signal 12, should get 2% * 12 / 14, which
-is 1714 millipercent. It now gets exactly that instead of 2000, and
-every other level also gets the curve's value instead of the nearest
-whole percent
-
-Since patches 2 and 3 the power module's LUT keeps those steps. On
-the same curve the levels reach the panel as 57821 different PWM values
-instead of 99
-
-backlight_custom_curve_scale() maps 0..user_max to 0..output_max, with
-the curve reaching 100% at signal_max. The two weights of the
-interpolation can't go negative. A luminance is a u8, so before the cap
-the result is at most 2.55 times output_max. The divisor can pass 32
-bits, hence mul_u64_add_u64_div_u64()
-
-With no data points the mapping stays linear. Above the last point the
-curve still runs to 100% at max_input_signal, and points above
-max_input_signal are still interpolated as before. Past a last point
-above max_input_signal the curve runs on to 100% at signal 255. Before,
-the divisor wrapped there and the level stayed near that point's
-luminance. The top level still gives 100% when a point at
-max_input_signal claims less
-
-KUnit: the PWM tests from patch 5 fail without this patch and pass
-with it
+This and patch 7 are the AUX half of the series. My laptop's panel
+ignores AMD's AUX brightness, so I tested them only in KUnit and with
+the amdgpu_dm_brightness trace on a forced AUX path. Patches 1 to 6
+don't need them
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    | 79 ++++++++++++----------
- 1 file changed, 42 insertions(+), 37 deletions(-)
+ .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     | 133 ++++++++++++++++++++-
+ 1 file changed, 132 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-index 3b59699e74287..900c17e0285c9 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-@@ -39,6 +39,7 @@
- #include "modules/inc/mod_power.h"
- 
- #include <linux/backlight.h>
-+#include <linux/math64.h>
- #include <linux/minmax.h>
- #include <linux/power_supply.h>
- #include <drm/drm_edid.h>
-@@ -128,53 +129,59 @@ static inline u32 scale_fw_to_input(int user_max, u64 input)
- 	return DIV_ROUND_CLOSEST_ULL(input * user_max, AMDGPU_MAX_BL_LEVEL);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+index 06c1e084357ff..b3e6a96320164 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+@@ -1517,6 +1517,75 @@ static void dm_test_brightness_curve_pwm_steps(struct kunit *test)
+ 	KUNIT_EXPECT_GT(test, steps, (user_max - user_min) / 2);
  }
  
--static u32 backlight_signal_to_luminance(const struct amdgpu_dm_backlight_caps *caps,
--					 u32 signal)
-+/*
-+ * Map user level 0..user_max to 0..output_max through the custom curve,
-+ * which ends at 100% at signal_max, or at AMDGPU_MAX_BL_LEVEL when the
-+ * last point lies past signal_max. A point at signal s sits at user
-+ * level s * user_max / AMDGPU_MAX_BL_LEVEL, so compare
-+ * user * AMDGPU_MAX_BL_LEVEL against s * user_max rather than rounding the
-+ * user level to 8 bits
++/**
++ * dm_test_brightness_from_user_curve_floor - Test Custom curve ends are the minimum and max
++ * @test: The KUnit test context
++ *
++ * A request for 0 must reach the panel as the minimum, not as the minimum
++ * applied twice, and a request for max must reach max, on both the PWM and
++ * the AUX range
 + */
-+static u32 backlight_custom_curve_scale(const struct amdgpu_dm_backlight_caps *caps,
-+					u32 user, u32 user_max, u32 signal_max,
-+					u32 output_max)
- {
--	u32 lower_signal, upper_signal;
--	u32 lower_lum, upper_lum;
-+	u64 x, x0 = 0, x1, num, den;
-+	u32 l0 = 0, l1 = 100;
- 	int i;
++static void dm_test_brightness_from_user_curve_floor(struct kunit *test)
++{
++	struct amdgpu_dm_backlight_caps caps = {};
++	unsigned int user_min, user_max;
++
++	dm_test_enable_custom_curve(test);
++
++	set_gv301qh_caps(&caps, false);
++	get_brightness_range(&caps, &user_min, &user_max);
++	KUNIT_EXPECT_EQ(test, user_min, 3084U);
++	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 0), (u32)user_min);
++	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, user_max), (u32)user_max);
++
++	set_gv301qh_caps(&caps, true);
++	get_brightness_range(&caps, &user_min, &user_max);
++	KUNIT_EXPECT_EQ(test, user_min, 1000U);
++	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 0), (u32)user_min);
++	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, user_max), (u32)user_max);
++}
++
++/**
++ * dm_test_brightness_from_user_curve_values - Test Custom curve output on the AUX range
++ * @test: The KUnit test context
++ *
++ * Worked out by hand on the AUX range of 1000..512000 millinits. 1000 is
++ * signal 0.498, so 0.0711% from (0, 0) to the first point (14, 2), and
++ * 1000 + 511000 * 0.000711 gives 1364. 200000 is signal 99.61, between
++ * (98, 50) and (103, 52), so 50.644% and 259790
++ */
++static void dm_test_brightness_from_user_curve_values(struct kunit *test)
++{
++	struct amdgpu_dm_backlight_caps caps = {};
++
++	dm_test_enable_custom_curve(test);
++	set_gv301qh_caps(&caps, true);
++
++	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 1000), 1364U);
++	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 200000), 259790U);
++}
++
++/**
++ * dm_test_brightness_from_user_curve_aux_top - Test AUX curve ignores the PWM max_input_signal
++ * @test: The KUnit test context
++ *
++ * On AUX the curve runs to 100% at signal 255 even when max_input_signal,
++ * a PWM limit, is lower. With max_input_signal 251, 499953 is signal
++ * 249.00003, between the last point (247, 98) and 100% at 255, so 98.5%
++ * and 504335. Ending the curve at 251 would give 99% and 506890
++ */
++static void dm_test_brightness_from_user_curve_aux_top(struct kunit *test)
++{
++	struct amdgpu_dm_backlight_caps caps = {};
++
++	dm_test_enable_custom_curve(test);
++	set_gv301qh_caps(&caps, true);
++	caps.max_input_signal = 251;
++
++	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 499953), 504335U);
++	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 512000), 512000U);
++}
++
+ /**
+  * dm_test_brightness_curve_pwm_points_above_max - Test PWM curve points above max_input_signal
+  * @test: The KUnit test context
+@@ -1543,6 +1612,51 @@ static void dm_test_brightness_curve_pwm_points_above_max(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(&caps, 0x101 * 200), 100000U);
+ }
  
-+	user = min(user, user_max);
- 	if (!caps->data_points)
--		return DIV_ROUND_CLOSEST(signal * 100, AMDGPU_MAX_BL_LEVEL);
--
--	if (signal < caps->luminance_data[0].input_signal) {
--		lower_signal = 0;
--		lower_lum = 0;
--		upper_signal = caps->luminance_data[0].input_signal;
--		upper_lum = caps->luminance_data[0].luminance;
--	} else if (signal >=
--		   caps->luminance_data[caps->data_points - 1].input_signal) {
--		lower_signal = caps->luminance_data[caps->data_points - 1].input_signal;
--		lower_lum = caps->luminance_data[caps->data_points - 1].luminance;
--		upper_signal = caps->max_input_signal;
--		upper_lum = 100;
-+		return DIV_ROUND_CLOSEST_ULL((u64)user * output_max, user_max);
++static void check_curve_steps(struct kunit *test,
++			      const struct amdgpu_dm_backlight_caps *caps)
++{
++	unsigned int user_min, user_max, user, steps = 0;
++	u32 prev, cur;
 +
-+	x = (u64)user * AMDGPU_MAX_BL_LEVEL;
-+	for (i = 0; i < caps->data_points; i++) {
-+		u64 xi = (u64)caps->luminance_data[i].input_signal * user_max;
-+
-+		if (x < xi)
-+			break;
-+		x0 = xi;
-+		l0 = caps->luminance_data[i].luminance;
++	get_brightness_range(caps, &user_min, &user_max);
++	prev = user_min;
++	for (user = 0; user <= user_max; user++) {
++		cur = convert_brightness_from_user(caps, user);
++		if (cur < prev || cur > user_max) {
++			KUNIT_FAIL(test, "%u gives %u after %u, range %u..%u",
++				   user, cur, prev, user_min, user_max);
++			return;
++		}
++		steps += cur != prev;
++		prev = cur;
 +	}
 +
-+	if (i < caps->data_points) {
-+		x1 = (u64)caps->luminance_data[i].input_signal * user_max;
-+		l1 = caps->luminance_data[i].luminance;
- 	} else {
--		for (i = 1;
--		     i < caps->data_points &&
--		     signal > caps->luminance_data[i].input_signal;
--		     i++)
--			;
--
--		lower_signal = caps->luminance_data[i - 1].input_signal;
--		upper_signal = caps->luminance_data[i].input_signal;
--		lower_lum = caps->luminance_data[i - 1].luminance;
--		upper_lum = caps->luminance_data[i].luminance;
-+		x1 = (u64)signal_max * user_max;
-+		if (x0 > x1)
-+			x1 = (u64)AMDGPU_MAX_BL_LEVEL * user_max;
-+		if (x >= x1)
-+			return output_max;
- 	}
- 
--	if (upper_signal == lower_signal)
--		return upper_lum;
-+	/* x0 <= x < x1, so neither weight wraps */
-+	num = (u64)l0 * (x1 - x) + (u64)l1 * (x - x0);
-+	den = 100 * (x1 - x0);
- 
--	return lower_lum + DIV_ROUND_CLOSEST((upper_lum - lower_lum) *
--					     (signal - lower_signal),
--					     upper_signal - lower_signal);
-+	return min_t(u64, mul_u64_add_u64_div_u64(output_max, num, den / 2, den),
-+		     output_max);
- }
- 
- static u32 convert_brightness_to_millipercent(const struct amdgpu_dm_backlight_caps *caps,
- 					      u32 user_brightness)
++	KUNIT_EXPECT_GT(test, convert_brightness_from_user(caps, user_max / 100), (u32)user_min);
++	KUNIT_EXPECT_GT(test, steps, (user_max - user_min) / 2);
++}
++
++/**
++ * dm_test_brightness_from_user_curve_monotonic - Test Custom curve never drops and keeps its steps
++ * @test: The KUnit test context
++ *
++ * Every request from 0 to max, on both the PWM and the AUX range, must give
++ * a value in user_min..user_max that is no lower than the one for the request
++ * before. 1% of the range must already be above the minimum, and most
++ * requests must change the output
++ */
++static void dm_test_brightness_from_user_curve_monotonic(struct kunit *test)
++{
++	struct amdgpu_dm_backlight_caps caps = {};
++
++	dm_test_enable_custom_curve(test);
++
++	set_gv301qh_caps(&caps, false);
++	check_curve_steps(test, &caps);
++
++	set_gv301qh_caps(&caps, true);
++	check_curve_steps(test, &caps);
++}
++
+ /**
+  * dm_test_brightness_curve_pwm_luminance_over_100 - Test PWM with an ATIF luminance over 100%
+  * @test: The KUnit test context
+@@ -1550,7 +1664,9 @@ static void dm_test_brightness_curve_pwm_points_above_max(struct kunit *test)
+  * Points (100, 50), (200, 150) and (250, 120) claim more than 100%. The
+  * curve uses them as given and caps only the result, as before.
+  * Level 125 is 50 + 100 * 25 / 100 = 75%, and the curve reaches full
+- * brightness at level 150, halfway to the second point, and stays there
++ * brightness at level 150, halfway to the second point, and stays there.
++ * On the AUX range of 1..255 nits, level 125000 is signal 125, so 1000 +
++ * 75% of 254000
+  */
+ static void dm_test_brightness_curve_pwm_luminance_over_100(struct kunit *test)
  {
- 	unsigned int user_min, user_max;
--	u32 signal, luminance;
+@@ -1564,9 +1680,20 @@ static void dm_test_brightness_curve_pwm_luminance_over_100(struct kunit *test)
+ 	dm_test_enable_custom_curve(test);
+ 	set_custom_curve_caps(&caps, points, ARRAY_SIZE(points));
  
- 	if (!get_brightness_range(caps, &user_min, &user_max))
- 		return DIV_ROUND_CLOSEST_ULL((u64)user_brightness * 100000,
-@@ -184,10 +191,8 @@ static u32 convert_brightness_to_millipercent(const struct amdgpu_dm_backlight_c
- 	if (amdgpu_dc_debug_mask & DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE)
- 		return DIV_ROUND_CLOSEST_ULL((u64)user_brightness * 100000, user_max);
- 
--	signal = scale_input_to_fw(user_max, user_brightness);
--	luminance = backlight_signal_to_luminance(caps, signal);
--
--	return min_t(u32, luminance * 1000, 100000);
-+	return backlight_custom_curve_scale(caps, user_brightness, user_max,
-+					    caps->max_input_signal, 100000);
++	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 125 * 0x101), 49151U);
++	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 150 * 0x101), 65535U);
++	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 225 * 0x101), 65535U);
+ 	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(&caps, 125 * 0x101), 75000U);
+ 	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(&caps, 150 * 0x101), 100000U);
+ 	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(&caps, 225 * 0x101), 100000U);
++
++	caps.aux_support = true;
++	caps.aux_min_input_signal = 1;
++	caps.aux_max_input_signal = 255;
++
++	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 125000), 191500U);
++	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 150000), 255000U);
++	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 225000), 255000U);
  }
  
- STATIC_IFN_KUNIT
+ /**
+@@ -2268,7 +2395,11 @@ static struct kunit_case dm_backlight_test_cases[] = {
+ 	KUNIT_CASE(dm_test_brightness_from_user_curve_min),
+ 	KUNIT_CASE(dm_test_brightness_curve_pwm_values),
+ 	KUNIT_CASE(dm_test_brightness_curve_pwm_steps),
++	KUNIT_CASE(dm_test_brightness_from_user_curve_floor),
++	KUNIT_CASE(dm_test_brightness_from_user_curve_values),
++	KUNIT_CASE(dm_test_brightness_from_user_curve_aux_top),
+ 	KUNIT_CASE(dm_test_brightness_curve_pwm_points_above_max),
++	KUNIT_CASE(dm_test_brightness_from_user_curve_monotonic),
+ 	KUNIT_CASE(dm_test_brightness_curve_pwm_luminance_over_100),
+ 	KUNIT_CASE(dm_test_brightness_range_zero_signals),
+ 	/* amdgpu_dm_backlight_fill_props */
 
 -- 
 2.56.0
