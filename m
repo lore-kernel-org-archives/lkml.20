@@ -1,96 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793803687;
-	b=uvf4OOygZ2gcodZl43xGA2RGaK7Wn9u7sShHZ3lj64fYk5Y0chHGPEpiF4qL2AwHgeSY
-	 UQ21CjjeOv+VUXwttdwRL/1uHYhv0qpEF7+9FANNM8lMJE5Xv/knR5XcOdEqL8pgULrDB
-	 LIHwAwQ91vedwYCRh6JbdIBDi+c/3xi7LctnWstPLThVSHSIgGN5wn17xtGZx0BtTnEQn
-	 uR7Yw0jO958+YBydEkhLoFw0R08zraSJA1gYQVcOgP0aufKDmo4eVtKaXPxoPrcDS1OTD
-	 m9Ff+dgZ3hQSUvceZDQ1drD+v364Hl8Uphk9OusMKUMYJrljBs8VpFw70cngaUW8sog==
+	t=1793803754;
+	b=pvEEp7UnRXRTuYawkBy8zaIuQx/MNCzY7ivrOV+s2Lvk2MS9v7uyBOvTh3oOyeJkxXQl
+	 FxReHyQZPv8nAXspUGu184aFDT1KXFgtVI+8nqC4g3iyz6R7ctpeTwTtfIuQ/59TB6RHJ
+	 AvvPSGR+CbmUzC3stnvYLSGdqUDRfBn9h9D6Kl6HcVP6gTIxarzzzpix4f23PyS+lgJ0M
+	 hhHSC42D+7hcP4j3InYTFm9aVQ4n97zY13Ec88AttrWK/98+neai7HxYQ8KBwiorrm84Q
+	 YqtsEWXwI3ArQNJJBAiqJ2v8c6gLXHTJO3SADgxcIjxv+RAMElRBHPkqoVfPPMmAEvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793803687;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=gjoFlql1j75pc12XdJHKWu97116XlpTwWzrWzwPXnYE=;
-	b=F/cD9MRWPQknGCpdsBgJvAv5M0WbZOpRKqQiMjFqChFIjqnLci6alRKqJLm2/8DHLWwO
-	 mgxK48VDzqc0eZZO2Sn2eifUv8MhKjbVFDlwIv31HHgZ03LLNtjD9aDbmHge7J+XBzLXj
-	 VfON8AeFWbBE/duDnz1q52kS3WVPYltXCY+SVgLyzdZHw962H5S8UZOQ9J0/jo31Kn7t0
-	 hff9QxQEnro8Ri2saLg8sHNziADXhdTTccumQizcQsVZV8vCC/soJUo2MQohE69kICYtM
-	 ejwAMCQd9Wjt8E90YSLuCxiNZbSEDG+i21VmdbdAU3WS2udlqgS70NcaOzqhn8RjVVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793803754;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=G6B9uCJhaz/x6XC3vDz3LHbIW6JiHUlC6BCHCVTV+cE=;
+	b=GnqLcrNFubsKptj/REgli76hBwwR+BkhBrCUDgiTlT9E0DTA5vTu685tm24UNjKXWOge
+	 122SxHB5AmzKQ89DeNfqobGsCO+Nd1KmhLCFNHXXFT/RjpK0uPfOdG6E0jSIhr7LqT3Kv
+	 JVL5RAVzFHZHiKyc13IkM/cAZMrrIpDeYFj1uMGqmeRnS3qajJSd6DnRgzo88+kqhN4s9
+	 Ndk3mWCWzxzSLddySwtVsqveieJG7yU07Tc/MCPy6yIdIspbaJirl8i2SjQFca53NNOfm
+	 1MQi1NqCnBOOpZtHL/5bQCuIhTUorjmdnL4F1J3fqg2mSgwCaC8VEr8I99MKyBXwgQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=K0oPObaW;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b="VD/qdt5w";
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 389FF606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:48:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 389FF606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E2A9606A328;
+	Wed,  4 Nov 2026 14:49:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E2A9606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=K0oPObaW
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-36d6765756fso514048eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:48:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793803686; x=1794408486; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gjoFlql1j75pc12XdJHKWu97116XlpTwWzrWzwPXnYE=;
-        b=K0oPObaW21G4TEz2TguEoir/Z5hll2jVtWR3UGboqMHONn/pj6UBW6TMwQv1qbMeEB
-         ck0VrhOcyf2oQfSUKpW4jO1O/RrLX5b+bmJUyPkqakU/Lrdq3Aa7tVw2QlRT6uQhFyPp
-         Zo4g2xjGMFmgln+CvaZarwYR+RxyYQepQzUBqugCw5bd9Y6lYkrjsogv3c8HgEmNYuNz
-         0+5KmSuUGadTA3D7HTzTl4P1WcKfhX7i36blSdxId9Me7k/ln+Blu7nP2W3tdczJgXtl
-         iSVDM9XSciOJm2cHFNF0n5CzaxoVSAG4ysrMHIguSqV5JgH5BvA6JhzL75R34xgAEVEp
-         q8dA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793803686; x=1794408486;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gjoFlql1j75pc12XdJHKWu97116XlpTwWzrWzwPXnYE=;
-        b=STEQ23ZETWUkxAySiYQLWI6+Vn9GerxB7xB8FifVRxCdJxl2UQbXNooXLH2+Oowepk
-         k9TRkiWHVct8anmyGt6NbZ8szXhPkqF3/r5ejjnq41KVIchXZJ1LTdSd2KA5A7+mWT4R
-         br38vnqZqH1LNkpC7DMU52vHvzZfasayZ+54b+SDulUe1ILj+4tFic38OuET6IV758Hp
-         jpaHbgHQIOoBb5xGfpYMskVPgGAzajht+rbne/2pmmctN3mxIgvAmBr52/sQQ3TShGW7
-         c6IGE83MPxA426Dl/dAFI4jYzdBTHmkBDqoAadyojkk/fOW3heKSdnW9pjS2MMMpHeyv
-         ViHA==
-X-Forwarded-Encrypted: i=1; AKwUvBwM+rC+ZOThAHIaHsxUpvQwREzGFw7X49oTJXuwmgPjmlQN9JYcfHpD0x8hu+WeTVc08IEXXQEukFEau7s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+NfoFcVd708iJxOpdPlARV6YFraPJuKx7SAqXq0Qihu1vUnII2
-	XwlGXDl1z54b4+kKlMudmf3uQtQ94gPACW7scCVNDMkbFuqbtKhq3ciw
-X-Gm-Gg: AYBFou2hFZalt3VZ8bks5VORm2BeV+Kr4LDH9mS4Ovb01bqqWmhkpz2t3yX9SqKgMIs
-	lDYgSSPhDF6XrjDMAffvFASpgC3rgqxQLfkUqjhYSZBoicPlktiLuldqnDt9sPCw+ZLjCGzdQfR
-	Dq2qh8bK3FxJ9QadWFqbnaJt+WoWjp9PsR9CQoiLC7rUSH8axFH18VDReddZOVY6wWlYpbxdtfq
-	+RHLBXm48J4N4YaYS7M2dRMd4eH8eVGfis7IXl8obJ/A+TCAPZbdrqLUvD9DKd0Ftk4EasJ4ku2
-	TkahZoptqB3CCObcxbK7SdP6+Q0zdU9D78nrqjxUnIKe3fhVsO50+fUSUeyJX+7uN9oRHTD3mHC
-	YjxGlTLy6uwBm2C0SrATIDnQBynjFAeO+51HIEIEje2cYRFsJt/eQSuYfDlau/5shry5DCtYAVk
-	yPilPMhVj4QQJ8LFaQw+n0hooohAQMtkhY34AOCmsMGBDXZKogwYm0r22FBpmwliSfu4uQIcKRk
-	4YiB3WFGL0Skmkk/KhXX8wgvy0EnXZoElLN6gjQSbgPCCK2fzDaNgVc1k4fU/tyDZ1zdsX8H9JS
-	W3vePnWTXEoCaEnYiWfUu+q84WbkqKPxmVagozjcT6zeHP8lDvSm
-X-Received: by 2002:a05:693c:6092:b0:35e:5ca:e0df with SMTP id 5a478bee46e88-36a424609c2mr29635283eec.35.1793803686038;
-        Wed, 04 Nov 2026 06:48:06 -0800 (PST)
-Received: from ubuntu ([110.9.142.4])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca39b8eb3sm10742548eec.27.2026.11.04.06.48.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 06:48:05 -0800 (PST)
-From: Sang-Heon Jeon <ekffu200098@gmail.com>
-To: Vlastimil Babka <vbabka@kernel.org>,
-	Harry Yoo <harry@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Christoph Lameter <cl@gentwo.org>,
-	David Rientjes <rientjes@google.com>,
-	Hao Li <hao.li@linux.dev>,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Roman Gushchin <roman.gushchin@linux.dev>
-Subject: [PATCH] mm/slab: remove outdated comment in create_kmalloc_caches()
-Date: Wed,  4 Nov 2026 23:47:51 +0900
-Message-ID: <20261104144753.2266231-1-ekffu200098@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=VD/qdt5w
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=G6B9uCJhaz/x6XC3vDz3LHbIW6JiHUlC6BCHCVTV+cE=; b=VD/qdt5wbi1+bX0xSrigYbL38R
+	ZhEPk9M24lPed52CccRV86P/Xpg6Ktg+zUgAZFHBLKGW4TyFbjvV9a7LzuwMbd9Roo0Clec8kUfNP
+	SIcKmNjNuW7GjSNplvnRDC7JrXHHj5JOUBJeV8Cz7z1gP+LaHDFyWEKj9yOzQsJbz3xc=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xOcIM-00EKwu-HS; Wed, 04 Nov 2026 15:48:58 +0100
+Date: Wed, 4 Nov 2026 15:48:58 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Doug Ledford <doug.ledford@hpe.com>
+Cc: Jakub Kicinski <kuba@kernel.org>,
+	Slingshot Open Source Team <slingshot-os-team@groups.ext.hpe.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Guenter Roeck <linux@roeck-us.net>, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org, linux-kbuild@vger.kernel.org,
+	Sandeep Bhoot <sandeep.bhoot@hpe.com>,
+	Iraimani P <iraimani.pavadai@hpe.com>,
+	Mamila Santosh <santosh-kumar.mamila@hpe.com>,
+	Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
+Subject: Re: [PATCH 00/23] Subject: [PATCH net-next 00/23] net/hpe: add HPE
+ Slingshot NIC drivers
+Message-ID: <52b6596b-385e-4ed2-a6c8-d0774b4be127@lunn.ch>
+References: <20261030-cxi-netdev-submission-v1-0-8c2c391cc283@hpe.com>
+ <20261030151121.1f232b50@kernel.org>
+ <7d4583c2-e8dc-4ffb-bc45-e2121f824b14@lunn.ch>
+ <bde936b5-1b3f-4987-a3e5-36ec5c4710e6@hpe.com>
+ <2f831f13-58ff-40ca-a76f-3aca647012b6@lunn.ch>
+ <b260f39e-2ac0-4899-90d9-3e9dbadfacc4@hpe.com>
+ <e9937650-1354-4d66-95fa-3492e3821823@lunn.ch>
+ <3418b0f9-d053-4be1-81a0-fc938fc5a7ac@hpe.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,35 +83,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3418b0f9-d053-4be1-81a0-fc938fc5a7ac@hpe.com>
 
-Since commit 16a1d968358a ("mm/slab: remove mm/slab.c and slab_def.h")
-removed SLAB, no kmalloc cache is created before create_kmalloc_caches().
+> My first request was an answer to the question: Should this driver go
+> through the netdev community or should it go through the rdma community?
 
-So remove the outdated comment.
+Does it actually make a difference? You need a driver which is
+reviewable. Either the netdev community or the RDMA community needs to
+review it. Being more of an embedded person, i don't follow RDMA, so
+don't know its policies. Maybe they will accept much bigger patchsets
+for review than netdev?
 
-Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
----
- mm/slab_common.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+But you need to be careful. If you go the RDMA route, you cannot use
+any netdev UAPI APIs except in your thin layer on top. Is that
+possible?
 
-diff --git a/mm/slab_common.c b/mm/slab_common.c
-index e66c0778ee98..c4a386f0dd90 100644
---- a/mm/slab_common.c
-+++ b/mm/slab_common.c
-@@ -1029,9 +1029,7 @@ new_kmalloc_cache(int idx, enum kmalloc_cache_type type)
- }
- 
- /*
-- * Create the kmalloc array. Some of the regular kmalloc arrays
-- * may already have been created because they were needed to
-- * enable allocations for slab creation.
-+ * Create the kmalloc array.
-  */
- void __init create_kmalloc_caches(void)
- {
+A bit of an aside. Do you have the complete history of the driver?
+What did the first 10 patches do? When bringing up new hardware, you
+start small and get a little piece working. In a traditional Ethernet
+driver, you get a base driver just probing and printing Hello
+World. You then might write an MDIO bus driver, you can see the MDIO
+and MDC signals wiggle on an oscilloscope, and then find the PHY.
 
-base-commit: d15d7703166daf7bd62c844a3cb1b3a6279adb4c
--- 
-2.43.0
+I'm assuming you did something similar, small bits of code you could
+somehow test. Those small bits of code, step by step development, are
+generally easy to review.
 
+> The second request, assuming the netdev community decided that this
+> driver could/should go through here, was guidance on the sysfs usage.
+
+Generally, none. We just want a plain, boring netdev, which looks the
+same as every other plain boring netdev in the kernel. OS 101, the OS
+is there to abstract over the hardware so all hardware looks the same.
+
+Now, if your sysfs is controlling something described in 802.3,
+something which other vendors are likely to implement, them you should
+submit patches which make it an official UAPI, which all vendors can
+use. Extend ethtool etc.
+
+You can use fwctl. But you need to be careful. The netdev policy is
+that it cannot be used in a netdev. You cannot use it for anything
+which is networking, defined in 802.1/802.3 etc. But you can use it in
+your base driver, for anything which is not 802.1/802.3 etc.
+
+	Andrew
