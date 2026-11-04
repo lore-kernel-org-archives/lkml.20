@@ -1,98 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793822203;
-	b=f5sZp1tKu5uYwFV2pFOnbXs/bvVTop+ZllYCA2JvzzzB3ib9D5yNJsCVvBdyAFTxG49V
-	 TNlAZ1YrQwsWxJvQ9+6nHcuBXJnP4cejFXeCNtojPMvZ3EyrSfKqJYGGA3YFlZoOSvN8V
-	 U58QW8PcabbFswACvzJO9VwrjF4pm1QGzLbCkRJ3H+5nFADD4ByGRvCZM6ugCzbBoedeG
-	 LtAK/q6zkv2h1CNP/ofi/JqryMDoofSn7Jimu2KVi33Ie1jOfRa3L6sLI6UJsm6SqJ58p
-	 elgY2LujeKQeHC6navSRDQVjCIo7MCLFd7e91wkucp1gxT0G1Cd2GGaFuuV08BI9okw==
+	t=1793822193;
+	b=CLgwOQ2I54MJ7pjYBupfNvHZwZPWf+RHFTrtGjsZbGoLzVcejtRGoTq6fLx2SB5he50S
+	 jekpQHcTcvrDV1mxRhJckYI6C8+sapNi2Wt0pTb3N3ypvuoUqTbHG1NwCrpYEgZ6QOs6M
+	 Qr165uacb9qtn5PkZOK2cJVmKl2Toie5KDdHdzrHKlAoVWa3Q9jDnEIMQwvFpmqtHqeEj
+	 E/sj/h1hAHWHorQuI1iNMn4BPZU3OYtJ9BRwPX5QCE9m/8O9utmNrw7VJ5Z09138N/l+k
+	 8m9LzOEIqr5i0FumJgp2gUWttc7PLFLJi30bqs2YYEiiR6keOyHtpC/prF/5CICYIzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793822203;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=zR7X7uE7v/00IVsZHFoE++N3oXIHliCA4DwI/o747n8=;
-	b=f1wyc0Rg4nkFm2NxuFlP9wIvlVWSQHSzy/CnK6th7hH34WRVVTvryocCNdWihge3ssag
-	 0TutbTENVXFCYgjq45UGosAcXPvl9KEMGC6yOqtO1lQhcVU/5F9YvZIkXtyUdnH/mRbmP
-	 6puFmEXNcXxeoPhW52almX+Ospj3MTfyrp+nsrTUMfT12vQd1s2z/M8ZZj6+POnvohGMg
-	 OO8UBzCCk6fFqa9gs/HA8KJN8uSEl/6JiLIodTl67vL8z+PyuGU+SoIGolSiCwWF7NEPx
-	 64LLYqu6MRD1M5t0ZOlb12MqTIqqhVONh6x6/8BCTdtnUhWlGgyNZsWtykJuxrTMhVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793822193;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=LBl2/qBMA7OV4BMTYua5kVHXByvRuxQ8RJbkH2xlEeQ=;
+	b=KxfZ+fMcUIRncfBRU2z7GFqw11/hHRythL1xYGUqrpX86SPOX0wOYDrdNCIX1/uHnG2q
+	 6B5MRWYxqcR7VEquC3hAlADymbVsmX3h3o8tcv16/cPASymiHKgHaQ/UmKL2L2n1Pz6Xo
+	 qJtO+LZiY06P+JeD0JQzzTlGLhfmfUn29g+o3WBlvk87fW/We6swiQwArKKRK3qN14O2v
+	 NAS+RtGIhP9RqT/JChyUQB5Bq2vfZi3QTxl4ueKApKqyARyns3GtN3LvrROI+CpIHwvUu
+	 4JETGrlYL7NueHgQMvVrZ+GMqqZHJ+jdMAGWVjHyHIjwwyx+bHC+hKja3kDuhXadT1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=is.s.u-tokyo.ac.jp;
-	spf=pass smtp.mailfrom=g.ecc.u-tokyo.ac.jp;
-	dkim=pass header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b=EJyYJZ3F;
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aKP7JyYG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64808609C062
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:56:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64808609C062
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=is.s.u-tokyo.ac.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=g.ecc.u-tokyo.ac.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A268609CAC6;
+	Wed,  4 Nov 2026 19:56:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b=EJyYJZ3F
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3550c917fd3so1627462eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:56:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=is.s.u-tokyo.ac.jp; s=google; t=1793822196; x=1794426996; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zR7X7uE7v/00IVsZHFoE++N3oXIHliCA4DwI/o747n8=;
-        b=EJyYJZ3F9bdEpJPsWZ1wOgAovQVI8RhP6tOVyDAbvbsEE7x+2DxJELYyLCbGXVsL9+
-         fwezr07zwokQMgCBVmHdQIB008dsErvaHtRXGzLBKNlFsRV/29If/S5taAQeohdCORYO
-         epvtV+A0sNnWIBK2qALa1ySzZgX1RPfQyAdwSelGlO7KxQzu1X23+8iFYmUJZhVaR03b
-         bdp27EQnquqqdb25C4hHt/IRMkogBJOzu4gYQ2BlAuhfFzHf5ZjzFAUeBxGznIMGpbbs
-         fzbXhaMIZ/PGcGOV0ULoeVWUePBfHM8cdTSSpMZI/mLqEaPFWRBlITAXV4Wqw1jLL+n5
-         DiPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793822196; x=1794426996;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zR7X7uE7v/00IVsZHFoE++N3oXIHliCA4DwI/o747n8=;
-        b=Yj7SZcN+J5eryM8pyCYW5rmghy1jNW5FbDOqg4lwBCeISTzFLlWMWPQKdjRKVb8kiZ
-         nN3uWsLURMEZVICWYL/HeRiGF06YuPUCyo0Yv+yVuSiGXbBft/Gx8+mMRZ/uIL21CBv3
-         qzd8IONDTG56MZmgTETfQAK9VXse81brlo4Eod2singDouxenBRF7MirJaQRET3xjeJB
-         5vNB27cfS4ZHV06SfZ+I5PMiU7mg1hAgzNiBsFwiAf1bVvDX/NCqTA5H/6PyEj4WS7rY
-         PS4oAsUdpzSybAi6U/XzgMoIlVUyVh9L3qXwEJbssk54JqKK27ojyNuWfAOg+zKWo95D
-         PfSg==
-X-Forwarded-Encrypted: i=1; AKwUvBwaoO09K4oba+WFZas6MJtpnQ9SaW9FsWPEYib5T1QpzQOfnthqDKnYXn8kQjkMrJJUEMC3yxauANn0WbI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Uk3hOAh1fi9hL4qVydnH1Lt1EVAby5tsmGWWxrncsakMUN4WC
-	BrX5rjjEVwREzGVtDZn6Rwq6qoI57Sw1p7XARSrbXMxHSFr0WXwC/in3xt/ZJNNO1DAzZWytXLi
-	3s2rORQ==
-X-Gm-Gg: AYBFou2PITWeUDk2SDQcWTSY9xzb58tbxhEaAtmCtMWXCsmkIR3wojSDxI+nRivwHOK
-	ierjG89C6ZqgHw9mf/8NXlFp8GeAk+Hc3dv0mVV9oDJE9bQF6nmklqa5rzWwwQ3UxMsuZbIT4Kc
-	c0KjiEXUg/y4LbprPxwv1LmpE9rx1s0xXIbhx/eDsK9NVwnTOiQTs44DsHjgGlHEHTQxPV7MVYP
-	lD1DgsakE4FF5Ps9V2nsQWjg98PSjCu9ACm9FoBWMPAF3Degn5SWtqWJoMEhTF5rjbUoXuwwLDL
-	33St96RDAVC2PKCA/9b4pVH/RjzisL41TCUpqWI6BjIqgP027Ow97UnwZ3NMAOH8JP8UlkqMeMd
-	enWqENqLCUQ6pxNiR/TvYSIhAK56beFRpTP3QskYUEeDq2Y5O4xZvVkspow4/9PWDZIsW6cViHL
-	mQbLd1C2PWoSxwt/Js1XspHc4bXNq1O96Oj/vM3J4fkdui8gFttAxylNLpBy2/H7+77AIi8JPyc
-	GkwXCbspzTBLBh9AqXkCpF3jCElRj++aqpcjKgfGxTpM+Y6KQjTZfBwQ48D3s7hGC3mH/uc5RKn
-	o2CM1njzh0kmLXLFvxWy2nuFr8jwjZIdFl7dRQ==
-X-Received: by 2002:a05:7301:152e:b0:366:83dd:4713 with SMTP id 5a478bee46e88-36a4249ba39mr22383337eec.30.1793822196328;
-        Wed, 04 Nov 2026 11:56:36 -0800 (PST)
-Received: from wang0.localdomain ([133.11.33.33])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38f53a6sm8941712eec.15.2026.11.04.11.56.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 11:56:35 -0800 (PST)
-From: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>
-To: "Enrico Weigelt, metux IT consult" <info@metux.net>,
-	Viresh Kumar <vireshk@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>,
-	linux-gpio@vger.kernel.org,
-	virtualization@lists.linux.dev,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aKP7JyYG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B86BA1F000C1;
+	Wed,  4 Nov 2026 19:56:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793822192;
+	bh=LBl2/qBMA7OV4BMTYua5kVHXByvRuxQ8RJbkH2xlEeQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=aKP7JyYGkDXXcZgiOMyJDOMnJ3YKXipcdyKMOhnZ/kDushdocc5j2aUosHVgdFjuG
+	 W8NqrAjXIVJtlk3D6BRdnDPijmdfnyH55xY4/5GIe8B7ijNhQWuqM7VHbGTChu/S5p
+	 bjawb6WUZLBB8pnefyGL4zorD4j/72K+4RlaEoOxwLWCBU80eFeiO+LKNoVR3cDXsM
+	 3PJy33mjWSy8B1p5T5flpR5Cr9VBJtwZuxs51UHe1Pt2cbGiY3/+T4y9EH9bSAjyVG
+	 E7eQOJVTxndTF1qhOS06r3zzRaWFs4kd9ALYhL3GOdUn4eRB1X31/INX4f8HZSXd4y
+	 I59kxqMTzVXsw==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
 	linux-kernel@vger.kernel.org,
-	Takahiro Shinagawa <shina@is.s.u-tokyo.ac.jp>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] gpio: virtio: bound the line names block by its configured size
-Date: Thu,  5 Nov 2026 04:56:31 +0900
-Message-ID: <20261104195632.1702765-1-lian@is.s.u-tokyo.ac.jp>
-X-Mailer: git-send-email 2.56.0
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>
+Subject: [PATCH RESEND v2 27/30] mm/swapfile: let procfs own the seq_file of /proc/swaps
+Date: Wed,  4 Nov 2026 20:56:18 +0100
+Message-ID: <20261104-work-procfs-fs-v2-27-319e0f9a8aae@kernel.org>
+In-Reply-To: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
+References: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,63 +114,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1169; i=brauner@kernel.org; h=from:subject:message-id; bh=xP8svTINdkdtOq03sFDyUkKM00LKGtRsGg97ENBLGtM=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97vHhXJd8Kth7+zWufRt8tZu59658dXe75H+F8xvTV ml+XhRg2lHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjCRqbMZ/kps+sao8ittxlXf /G8XPGKtjMsDSyLXBR7ut+jjuGbTHMHwP7A9pOPMY4eI2fw/JsV8unzukJPgecs1+ql+y/k/6SR 1sAAA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
 
-virtio_gpio_get_names() walks the line names that the device returns in
-a block of gpio_names_size bytes, which the driver ends with a NUL, and
-checks each name only after stepping past it. If the block holds fewer
-than ngpio names, the walk reaches the end of the block after the last
-name, and the next iteration starts strlen() at the byte after the
-allocation. With a block that holds one name for four lines, KASAN
-reports:
+Declare the seq_operations and let procfs open and free the seq_file.
+->proc_open() only records the event count for ->proc_poll() now.
 
-  BUG: KASAN: slab-out-of-bounds in strlen+0x57/0x70
-  Read of size 1 at addr ffff8880026687c0 by task swapper/0/1
-  Call Trace:
-   strlen+0x57/0x70
-   virtio_gpio_probe+0xcb4/0xfc0
-   virtio_dev_probe+0xa7a/0xc50
-  Allocated by task 1:
-   devm_kmalloc+0x6e/0x280
-   virtio_gpio_probe+0xc06/0xfc0
-  The buggy address is located 0 bytes to the right of
-   allocated 64-byte region [ffff888002668780, ffff8880026687c0)
-
-Check that a name starts inside the block before reading it.
-
-This patch is assisted by Claude Opus 5.5.
-
-Fixes: 3a29355a22c0 ("gpio: Add virtio-gpio driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/gpio/gpio-virtio.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ mm/swapfile.c | 13 +++----------
+ 1 file changed, 3 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpio/gpio-virtio.c b/drivers/gpio/gpio-virtio.c
-index ed6e0e90fa8aa..32326d91f33d6 100644
---- a/drivers/gpio/gpio-virtio.c
-+++ b/drivers/gpio/gpio-virtio.c
-@@ -520,13 +520,13 @@ static const char **virtio_gpio_get_names(struct virtio_gpio *vgpio,
- 	gpio_names[gpio_names_size - 1] = '\0';
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index 254ce86fa923..ee4868ecc3a7 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -3410,26 +3410,19 @@ static const struct seq_operations swaps_op = {
+ 	.show =		swap_show
+ };
  
- 	for (i = 0, str = gpio_names; i < ngpio; i++) {
--		names[i] = str;
--		str += strlen(str) + 1; /* zero-length strings are allowed */
++/* procfs opens the seq_file */
+ static int swaps_open(struct inode *inode, struct file *file)
+ {
+-	struct seq_file *seq;
+-	int ret;
 -
--		if (str > gpio_names + gpio_names_size) {
-+		if (str >= gpio_names + gpio_names_size) {
- 			dev_err(dev, "gpio_names block is too short (%d)\n", i);
- 			return NULL;
- 		}
-+
-+		names[i] = str;
-+		str += strlen(str) + 1; /* zero-length strings are allowed */
- 	}
+-	ret = seq_open(file, &swaps_op);
+-	if (ret)
+-		return ret;
++	struct seq_file *seq = file->private_data;
  
- 	return names;
+-	seq = file->private_data;
+ 	seq->poll_event = atomic_read(&proc_poll_event);
+ 	return 0;
+ }
+ 
+ static const struct proc_ops swaps_proc_ops = {
+ 	.proc_flags	= PROC_ENTRY_PERMANENT,
++	.proc_seq_ops	= &swaps_op,
+ 	.proc_open	= swaps_open,
+-	.proc_read	= seq_read,
+-	.proc_lseek	= seq_lseek,
+-	.proc_release	= seq_release,
+ 	.proc_poll	= swaps_poll,
+ };
+ 
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.56.0
+2.53.0
 
