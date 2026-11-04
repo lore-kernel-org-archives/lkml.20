@@ -1,61 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793804615;
-	b=cKH1nDYOCURtGdc9kqLEWk27aYWpsokubYovUPObjiLyDSi/yVMlHmB10ay0gOrLi2pY
-	 ZyfwiuMwGOd+Dooa8Mz9G6bJFLD+RRnyr2wFoWBdvHa83uxS6i4qZY/npqBJBZg7Yo5ql
-	 AW4JFKGwmjKIm2uo2tpfQ32YdUM3gOmDrVVUA2bYpEj3TK6hGC+VAPfH6obD+NasX9Y0D
-	 s1S3mhDB3FpUM0kh01nYXfZK6MqUobgwmfpI7rHQ4JHukwESdq1w+ntKBk2xVYrbLTq7U
-	 Sy34AS8sbbRCgd9ihIUZI/zhio15lQipj2SXv6qpP2CQNFPWtj3RYJ62rDqn9teopyQ==
+	t=1793804612;
+	b=AhcIyhAVJCPlFQ+uGhu2t2NSK0v0vwxwKOzVeMst+A9jkKd104td64ZRa6CnSJPVUflS
+	 6chd/QS1GhQyJ7In6yuZXYFhYdZDuHRQWENQbx9A+J6ztV7AXK8i9GeSDKPQAublLZc7l
+	 S8eJfWVxyvWcO5kCpPDUngm/SEcy6Zs6UBRVOr3atkQd+Si8pV5hXwRJyhwhUvRp2YGHG
+	 6yJxfTX1y7AK2Knr8UiXD1GCbrlrRqR75Sb/yp9IlCMW9VKVi9Tck970Y+M/yKW5d/oyY
+	 qUa6tVJ+jnScQTqqGdHD3Y8y7WDBQavovNRm8KUO7BCF3whjsAMoKkPhsaCW4N1elRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793804615;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793804612;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=klwD3EXRgDnfqwdUpP3U5Vta6LNIT3neRNdHzC55DFo=;
-	b=r1CyFTn0poyMSJVZhTg/ZQ9UlIpDW74rXx8L/y1zWTXsBET1itdcn+u3t4BGsvqh8zHw
-	 ubQuzjk2F28YMqZPfy2yz6ncsfmKQL4zOw3xpkM8XXxzMdtUeFMH0CFJ136bOTNryEBNc
-	 2sdC/2u2+tV/9wUs14tYxDb1072uA0Fr/XhpbRXgJCCmG63tFVpc8pI82vSfOV2I4dGoe
-	 6wzHzEMSIfjlChvqlMtKmnIuW1ZyohwDNFAVZmd1i1v4cR2y4oJBq1DCEgDkMRZqreHYe
-	 JJ/ek+ieKjclya0SPDvPD2PdeBpqye1O5dN2pwrfG4aEXFT4qboV+iUNyVUtdc3FG2A==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=jcuK5iLQbBpoNUcGNqmSkFEid/wes9Tw0xAICnEgk2I=;
+	b=luth+v9R9WxmFeNCi0R6TfFeJKFj1M0/2FW3IiSMLEbkm4fESPjIsmA2UawVNNZgr10e
+	 xWVKljxxbA95nZkAE6NNXJbghKXq0JXgTrH0ScFpPoZXSj8sxdIa2FFhJ68I+u52sXpw5
+	 JKqZhK8uZyqkaNarftvpNI5vqi64TufGAiqZqWv5NZis1bAuppb6V3tbcdFHX6GNctZNS
+	 Ek9fcIsnegXoNPpJJwgxnd0tIIQrJ1G5J89R8Xs+78cJsX6cwNNDK4mQjws07/7SmkdiH
+	 3AIA1I8EIE1G1Fn2uyJ5PGpEskwV3rRzyQVBxjy7Db1uKKIdRNrgET8GvktOhOB6fmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dLQFa+PF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eIrCEFfS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82DDE606A32F;
-	Wed,  4 Nov 2026 15:03:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71EDB606A329;
+	Wed,  4 Nov 2026 15:03:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dLQFa+PF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49E0C1F00A02;
-	Wed,  4 Nov 2026 15:03:34 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eIrCEFfS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 751941F0093A;
+	Wed,  4 Nov 2026 15:03:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793804615;
-	bh=klwD3EXRgDnfqwdUpP3U5Vta6LNIT3neRNdHzC55DFo=;
+	s=k20260515; t=1793804612;
+	bh=jcuK5iLQbBpoNUcGNqmSkFEid/wes9Tw0xAICnEgk2I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dLQFa+PFz5dnPoG/7z7HtBq8sXHL9Y+k5xDxiRw9wHNHVlK1fNWW/LkrAac+fp+vW
-	 /9wXrZWl/0+WXxxXqXm9yX54f41eV3L2NcZMWlxpMSkRyYVOWkAONLOQJMvfhpTpw2
-	 qzo7vw8vcoMrNT/1qjbfNZAXUX2JgQT6lu2Z+KWWfwgv99ZQUBqAKol4DJOlVgPvkp
-	 fjjEDA5HXabNQKyHxVYjQjxEnamWqTc5aPMAoWpHPGbrUW603RjPfmI7Avt+Cw2/Pj
-	 ZYZV/6OFiaV7UvLQtinBfq7/Hky7YN+QqD9cIXgurdZlt1hFtZKA9So8CzuTS0+qVw
-	 NTrNv+0kub/ng==
+	b=eIrCEFfSSC3DJJemsJ1SUXjXY8yUkE4yg9cD/telo2KbgxpiuDRXdHES6CKYP1E79
+	 iVzm9jNzHBGXubcKZHtPPq3+0UbMb9HicYLdCLN5dA/fF7fYOGvcgvdZ/mUgv1sorK
+	 i4EJUXUfvu3hJaqXkiZR8SW7sRmW3WJ9Xtwt1JEb1EaN2jQ6VWDWqTF28DXjfN5i6e
+	 V0x0BoN1I7nS4jbhkT/jqTbJXghxAOLpUse0KcuWvNTg+2faSp1rlhEo8Qnj9EaWUG
+	 VetEJVD0KvQ3LwCux4vlvTa0efI+5NV1N4UwCJmAcFghukrCbNvlGIYP6LXkfhSG3K
+	 pPGzzumzC24+Q==
 From: Sasha Levin <sashal@kernel.org>
-To: davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com
+To: Elliot Berman <elliotjb@elliotjb.com>
 Cc: Sasha Levin <sashal@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	Theodore Ts'o <tytso@mit.edu>,
+	Andreas Dilger <adilger.kernel@dilger.ca>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Yongjian Sun <sunyongjian1@huawei.com>,
+	Jan Kara <jack@suse.cz>,
 	stable@vger.kernel.org,
-	=?UTF-8?q?=E5=BE=90=E6=99=97=E7=BF=94?= <xuhx@hust.edu.cn>
-Subject: Re: net: rtnetlink: rtnl_link_unregister() vs in-flight RTM_GETLINK dump readers -- v7.3 lacks the synchronize_rcu() fix (Fixes: 6b57ff21a310 family); A/B reproduction on stock 7.3
-Date: Wed,  4 Nov 2026 10:03:16 -0500
-Message-ID: <2026-11-04-1-daily-reply-0007-re-rtnetlink-unregister-rcu@kernel.org>
+	regressions@lists.linux.dev,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	Tom Bereknyei <tomberek@gmail.com>,
+	Kevin Fernandez <kevin@findhost.org>
+Subject: Re: [PATCH 6.1.y 0/2] Fix NULL folio dereferences from IS_ERR() checks in 6.1.191
+Date: Wed,  4 Nov 2026 10:03:13 -0500
+Message-ID: <2026-11-04-1-daily-reply-0004-re-ext4-null-folio-61@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <42fe949f.1d67d.1a1a145bcf0.Coremail.xuhx@hust.edu.cn>
-References: <42fe949f.1d67d.1a1a145bcf0.Coremail.xuhx@hust.edu.cn>
+In-Reply-To: <auk775zR0FCl4L0X@hebergement-securise.com>
+References: <auk775zR0FCl4L0X@hebergement-securise.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,13 +71,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 2026-11-03, 徐晗翔 <xuhx@hust.edu.cn> wrote:
-> Upstream already fixed this with a synchronize_rcu() in rtnl_link_unregister()
+On 2026-11-03, Kevin Fernandez <kevin@findhost.org> wrote:
+> Is the series needed on 6.1.y at all?
 
-Queued for 7.3 and 6.18, thanks.
+Yes. Elliot's two patches are queued for 6.1 and fix this oops, so it will be
+fixed in the next 6.1.y release.
 
 -- 
 Thanks,
