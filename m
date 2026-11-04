@@ -1,61 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793788747;
-	b=zQ4pm9YWJzIRHvehVCetnregGApQAaujVSyHV5KvFj3RwusOaHeNjIuAg1K5jNeA5NX8
-	 ayho53YCea7iQVjW4mw64SiYflKSIyop5kfQ3JjfnnTDA+UtTQB2GRO0iBoLWADtPkXS4
-	 PXpsaJqYk+/j2Cc5ujT7VQLFnl1LDdbDGuniYBpfpi+2KKtcudoq9jA9acFxTFQSHv42+
-	 utUZUv1hAp2iUZP6XAoO5X3ENuVEeVdwfnug4jIY3LsIDUNz9fHKJyDiHcyezPO4byoww
-	 YZZaoCOS7YUWkXcojGEKvf+Zpg1JN3KHZEV8v2IZHR0rOx2gc+Ydk7ImCttqR+RaQTQ==
+	t=1793788762;
+	b=ONxIeaD9YQtt57Udah2cQ0vMnl64dp1ujEZjxUgcnnpMFgJcIClDPOZxkPGWVXoKJT0F
+	 2UAiZcFmVqwHcu3kZx8qvoFt0FhU29yo9TasVTUI/ZsiRy3KcP+iRQRx/byKL3HHqoTrS
+	 odQqHCsokHDqgxkB6w7U1Z24V5thuU2+gSL+QGjU6LNHysUyGbwk2Y7GWQRPzK5uJ5dLY
+	 T49SBkvSwTmjKXo4+B9zZLH0rlr6PV2GurpMTXuu1Hg/Tn6xiFVBbnnx458djq/FjUR78
+	 nnHupTKizWj7A87uDgvaaI8WnXdosPgr5CH4VVPO+9R/zvVuUNEs6UxDM7coZ6nGfgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793788747;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=80POjU5WP6ctS0DqN7hA/63JAQ8Agh1hTny2C1kJcvk=;
-	b=tJFP9XVpWfaQZniGv4o5hOBSRECA+dxcwyELDKuPDLEmHMXcslqxX5fPfuxuG5e6LXQF
-	 gptFW60G85TH/bPOhBGANQJZu1JrBKmpT5+KMKCphV/6RT7JShUFK9coSuVkRTvB2Am/i
-	 H5E7YPBrbOdFuuJpmfGPo7PSwOkVqTaOMv2XvAJVFmiWJ7zvnfOirUA1FX7NHOYuOD2WO
-	 m3gh8yk0gDgYRg/iamMeFWWbuyN4Qsnf/w8tmttLja8mbDytMA1sZzj0sxxKne1McsPNB
-	 koxOl6p2O1pQinvbbbBQJbm86oH3jFk2EMRozxw7zn6G8k6YimmUol1cM+E7B+z+7AQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793788762;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=nssP4eGI3zXDuFonBDPkQJxTRjYQwrWbLZScwkFMK9E=;
+	b=Uq+x4VL8wVVapKZ/atghB3Dre9sby0nNEq5Thf9opMitxSIVSYRqPBiwsU1Cn6uSpcFl
+	 GRIoleWLcy4tJJMQgdafBe7gGxrnoOZlmTZ+lp2wme+qhKyXFnEPhfvj6s6mZBgNOLuED
+	 81WgFNTENasfXmAs1dEtSMkL90RwU3SQRVQeidR0xEMY8vjn49UscS28u/nhwQeEMDSc4
+	 qBlWbMYIkHbnyDrg/eO2Njcd5npmUF7a1mW3uO0VISp6qSwh5ynm4b8UTAR4zM4KNN5D6
+	 Dlh6dngj5EHd5DtCmyWGewDVevSN0X+y/53I7ZVKIamFndBBByIauDkPRqDZlcvNh4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V9NcNn5J;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E964B606A326;
-	Wed,  4 Nov 2026 10:39:06 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=eDsuvw7f;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 33D7A606A326;
+	Wed,  4 Nov 2026 10:39:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33D7A606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V9NcNn5J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F0A81F000C1;
-	Wed,  4 Nov 2026 10:39:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793788746;
-	bh=80POjU5WP6ctS0DqN7hA/63JAQ8Agh1hTny2C1kJcvk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V9NcNn5JoNuP7lqMLLqD7SYkPyZ8Takqfg6UfYAGIqLmdRwm1bcBkST5OHtgD9ixO
-	 ZHMIbsnyk7t+SciSGPArk66B2IlemFtbE9pfF5ErjKLfvVRRJHeCZbjz8pXajAXl7T
-	 5xwmDeRsQG9BPGKt17nyMppJpPe3PaWcY7BKzK66d4ORpnQyTdosF2ev5Fh4+6ve3i
-	 AzEwznqJpB2O201eXcbzs1UctlYLn9/ESKEW+JZ21WToA/22SY5ysRQxS2ayQDaPvu
-	 w25egIdPOceqTd/Yv0ik/oLo8A/XIQCqtBY7DrPMCj9vAzJjXx80Kdje0e+OYSdbOX
-	 uZBtDwmxZs9MQ==
-From: netdev-bot+sinfo@kernel.org
-To: Thomas Fourier <fourier.thomas@gmail.com>
-Cc: Potnuri Bharat Teja <bharat@chelsio.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Hariprasad Shenai <hariprasad@chelsio.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] cxgb4: clear the sge maps and bitmaps freed on
- adap_init0() failure
-Date: Wed, 04 Nov 2026 10:39:05 +0000
-Message-ID: <179378874585.488859.7495464009535804637@kernel.org>
-In-Reply-To: <20261104103309.24360-2-fourier.thomas@gmail.com>
-References: <20261104103309.24360-2-fourier.thomas@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=eDsuvw7f
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 272AB1650;
+	Wed,  4 Nov 2026 02:39:17 -0800 (PST)
+Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2AE4E3F628;
+	Wed,  4 Nov 2026 02:39:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793788760; bh=uv4Nu83ZWi1bXtWcHnSpsPJ7BG6d6N7mX+McDBYbtuY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=eDsuvw7fRB91gXRC27O09DhHBx6xx9ag5Cesox1gcq2YZ8yZGORGZhEXCRlb3OFoZ
+	 KitHx/tyq6HfjbQo7e/ec30gUCsMaQyAysA2e+QxXv2XSRh9Vp6SgUEQspDGAzk4lq
+	 ZH24ZRdFSyXCgXan1tWqS7NumGlOoCyoWJYBzQhk=
+Message-ID: <415f6a96-9ac2-4256-a9b9-e976bd0e73a8@arm.com>
+Date: Wed, 4 Nov 2026 10:39:15 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,21 +53,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 03/11] KVM: arm64: CCA: Check for RMI support at KVM init
+To: Kohei Enju <enju.kohei@fujitsu.com>, Steven Price <steven.price@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
+ Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>,
+ Will Deacon <will@kernel.org>, James Morse <james.morse@arm.com>,
+ Oliver Upton <oliver.upton@linux.dev>, Zenghui Yu <yuzenghui@huawei.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Joey Gouly <joey.gouly@arm.com>, Alexandru Elisei
+ <alexandru.elisei@arm.com>, Christoffer Dall <christoffer.dall@arm.com>,
+ Fuad Tabba <tabba@google.com>, linux-coco@lists.linux.dev,
+ Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
+ Gavin Shan <gshan@redhat.com>, Shanker Donthineni <sdonthineni@nvidia.com>,
+ Alper Gun <alpergun@google.com>, "Aneesh Kumar K . V"
+ <aneesh.kumar@kernel.org>, Emi Kisanuki <fj0570is@fujitsu.com>,
+ Vishal Annapurve <vannapurve@google.com>, WeiLin.Chang@arm.com,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>
+References: <20261102141304.126883-1-steven.price@arm.com>
+ <20261102141304.126883-4-steven.price@arm.com>
+ <ausEnXB1TE_moI0E@FCCLS0092175.localdomain>
+ <ausIgejq7Io9VjZL@FCCLS0092175.localdomain>
+Content-Language: en-US
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <ausIgejq7Io9VjZL@FCCLS0092175.localdomain>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi!
+Hi Kohei
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+On 04/11/2026 10:27, Kohei Enju wrote:
+> On 11/04 19:23, Kohei Enju wrote:
+>> Hi Steven,
+>>
+>> On 11/02 14:12, Steven Price wrote:
+>>> Check if the RMI support is sufficient for using in KVM. Specifically, we
+>>> will only support creating realm VMs when KVM is set to 'rmm' mode.
+>>>
+>>> Signed-off-by: Steven Price <steven.price@arm.com>
+>>> ---
+>>>   arch/arm64/kvm/Kconfig | 1 +
+>>>   arch/arm64/kvm/rmi.c   | 4 +++-
+>>>   2 files changed, 4 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/arch/arm64/kvm/Kconfig b/arch/arm64/kvm/Kconfig
+>>> index cecea0820e52..d067063a3686 100644
+>>> --- a/arch/arm64/kvm/Kconfig
+>>> +++ b/arch/arm64/kvm/Kconfig
+>>> @@ -34,6 +34,7 @@ menuconfig KVM
+>>>   	select GUEST_PERF_EVENTS if PERF_EVENTS
+>>>   	select KVM_GUEST_MEMFD
+>>>   	select KVM_GENERIC_PRE_FAULT_MEMORY
+>>> +	select ARM_RMM_RMI
+>>>   	help
+>>>   	  Support hosting virtualized guest machines.
+>>>   
+>>> diff --git a/arch/arm64/kvm/rmi.c b/arch/arm64/kvm/rmi.c
+>>> index 5ecc8b349869..9d118768550d 100644
+>>> --- a/arch/arm64/kvm/rmi.c
+>>> +++ b/arch/arm64/kvm/rmi.c
+>>> @@ -3,6 +3,7 @@
+>>>    * Copyright (C) 2023-2026 ARM Ltd.
+>>>    */
+>>>   
+>>> +#include <linux/arm-rmi-cmds.h>
+>>>   #include <linux/kvm_host.h>
+>>>   
+>>>   #include <asm/virt.h>
+>>> @@ -12,7 +13,8 @@ void kvm_init_rmi(void)
+>>>   	if (kvm_get_mode() != KVM_MODE_RMM)
+>>>   		return;
+>>>   
+>>> -	/* TODO: Check if the RMI is available */
+>>> +	if (!is_rmi_available())
+>>> +		return;
+>>
+>>  From an admin/operator's perspective, kvm_rmi_is_available would
+>> silently remain FALSE in either of the following cases:
+>> - kvm-arm.mode=rmm is set, but RMI is not available for some reason.
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+We could add a kvm_info() message for this.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+>> - RMI is available, but the admin forgot to set kvm-arm.mode=rmm.
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+But not this one. We are additionally planning to move the RMM
+activation to gate on kvm-arm.mode=rmm. I will send out a patch
+soon.
+
+Cheers
+Suzuki
+
+
