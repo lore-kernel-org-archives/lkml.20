@@ -1,110 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793803460;
-	b=G0OKaI83scvgN3uXDEiJGXpyvMQgmvdD/FEKvWAwq9QA+EMgFBWs3iGnuoRlW5T63qLg
-	 ByqhiJBG/3AAZ1XBdPMSRhT0j/0V9kxl/n3zR7OQe6Rolc2DeYjEir4+l15YPbMvJj1tI
-	 +/eClCQ+6lkpMsl083lvrndqwl2n3/NcucxL5Xu7p+F4MkdBBoAr6TZQGnzCd1GXG6H4e
-	 3XSd5j5xH23H5gSNIFYYI1AdgGZo33ZoFNgQ4O9TYsLeGTrJvdYYVskojoRB2taeEXytK
-	 vqawSGlSkDw05ft0jMSzmzHa7WRWOwCQPsBupvaDTvoO0cjIBBm2JOEbgFDdDohvHtw==
+	t=1793803471;
+	b=ZZfJ/Yz7utMMhOcSnJJeztTpc0Y0XrtU/hyGZdHwu/1Ek0GBzv/6g1pGoSdzTzoN5GWG
+	 xIINjVI60aQB/Jagp1vknX3NdeuXzpYKH2Iy8ArWl50Owqp1fjw5pxdVLix9DbxRo7t7I
+	 WhWRx/+GawvtqXaJhZjg0Cxw5oj1h3ziTCtvpkTf0KnKCmWcLmkfBvMkupEY8Hn63cPSn
+	 Ckw6MyC9yq5nGsHHcgkHefIrCkhxmb4TN1NHRIHViTpT+ssSgo3pd/o3/0aJ8oER7jBaf
+	 KY31NC2x7+cKkDuL0nqW8TJkYfU5kANF+i3RwU5MVq7SbbA5vQb3FsiN0HwTe7MB6Bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793803460;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=8r4EnvgjObaBTYwOB8OTRpqbIw8jTcrqqWSdJpOWpY8=;
-	b=FsaDLDKQfahjW9e94GNtHPCcG+ChZq+4rM0i2e/uCoO6Fl0SL3FfknD/TtmqdNWQmBDw
-	 GlLwwUV1NTOvdx/1qqdGuzfOndnOdErhZ7UYcqXZSt46dog9Rs0yDFXvYKdF0BH1yqLVg
-	 yGw7VK6JMXW6r89Axk1ARec3M62yIS1eXoRt5dZNdsaPJjyyUTb1UJ4zDwuaGVOahQCJa
-	 ZKx0NjgWsjhFMvauOBNeCXmSDSZdjUNIfjCyswdlr2kZy4h/WVX7F23pMTJ+0YfyH+Tsu
-	 JR5XDnvXqyjMsLGFoX98/mhPDde0+0oU8u5ckfeUraxIyo9EI4qx0VhBLBRzb6n5Hfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793803471;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=XLRfnTSyVrKGMhEo1BPAy8g3XpQrm9HrjoWV2plVbB4=;
+	b=CR2uGDBxJz1XoOryaQsKb+kAVqCYG7/pTZ339IMyDmBAvx1ClN7FUslIrQh9o0HHV4mH
+	 zW9AJ/kQtEazg755lkdpbpD4n1rGYYmqFzqc4/oRE/txsItJlI70/n3NPBNdqZDu9imqn
+	 Z1q1QdSobBsebutDbODJ+x4GhUVCZSquBJsRjb9XH9eYSa8Q5YKFvJJlOO1NcKDGoZXbX
+	 Dxsv52Fl9DlWHEZt7ikYFpy4wpmQ4sQWueJpmlMVPUMWux9pAPqCKAIfC80NYu61YKlPp
+	 7I/ogD0eSKEBbZYIt93jJHnVZaTZbtvUfHcw7XvaKPizX4tCm+s7/OS+6+xr4BRwofw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=eXCk2Bpz;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Hnskq3Wd;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=eXCk2Bpz;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Hnskq3Wd;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EienJjew;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20328606A334;
-	Wed,  4 Nov 2026 14:44:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20328606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2051606A31B;
+	Wed,  4 Nov 2026 14:44:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=eXCk2Bpz;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Hnskq3Wd;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=eXCk2Bpz;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Hnskq3Wd
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 59BFD21FBA;
-	Wed,  4 Nov 2026 14:44:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793803458; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8r4EnvgjObaBTYwOB8OTRpqbIw8jTcrqqWSdJpOWpY8=;
-	b=eXCk2BpzETrGfiLN86KM1mnbvpPeM2fVKig6Xa+02I+5o96Aef+rfHQVc6vU70rWmEDfhH
-	zTmM+7YpDdRIn9xDGbjxbF01thO2pjU0GxwG7XJmFkWSl6NdSBcW3SfVo21rvhcxgvWr43
-	1Vq9/jrhHvVOKolJaX43PGCHI/2PY4s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793803458;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8r4EnvgjObaBTYwOB8OTRpqbIw8jTcrqqWSdJpOWpY8=;
-	b=Hnskq3WdQOhrLz2tnxXw54ZjyX4wMC4gXi8+ubz/i/2bwPIY3yrVqSTgHQVp2SpysvIYdo
-	cN1p3CLZ2dkwWzAw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=eXCk2Bpz;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Hnskq3Wd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793803458; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8r4EnvgjObaBTYwOB8OTRpqbIw8jTcrqqWSdJpOWpY8=;
-	b=eXCk2BpzETrGfiLN86KM1mnbvpPeM2fVKig6Xa+02I+5o96Aef+rfHQVc6vU70rWmEDfhH
-	zTmM+7YpDdRIn9xDGbjxbF01thO2pjU0GxwG7XJmFkWSl6NdSBcW3SfVo21rvhcxgvWr43
-	1Vq9/jrhHvVOKolJaX43PGCHI/2PY4s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793803458;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8r4EnvgjObaBTYwOB8OTRpqbIw8jTcrqqWSdJpOWpY8=;
-	b=Hnskq3WdQOhrLz2tnxXw54ZjyX4wMC4gXi8+ubz/i/2bwPIY3yrVqSTgHQVp2SpysvIYdo
-	cN1p3CLZ2dkwWzAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0C5E3134F0;
-	Wed,  4 Nov 2026 14:44:18 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Tg4/M8FE62pKfgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 04 Nov 2026 14:44:18 +0000
-Date: Wed, 04 Nov 2026 15:44:17 +0100
-Message-ID: <87v76cu05a.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: tiwai@suse.com,
-	navonjohnlukose@gmail.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	patches@opensource.cirrus.com
-Subject: Re: [PATCH] ALSA: doc: cs35l56: Update calibration write failure message info
-In-Reply-To: <20261104113610.1057194-1-rf@opensource.cirrus.com>
-References: <20261104113610.1057194-1-rf@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EienJjew
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 802241F000C1;
+	Wed,  4 Nov 2026 14:44:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793803470;
+	bh=XLRfnTSyVrKGMhEo1BPAy8g3XpQrm9HrjoWV2plVbB4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EienJjewkDZ++J1iWGuwrgtvdGACfu0M9zuYsCSYhhK5CIM3w+bBga7Rw7zz2tnaH
+	 1/sSf5Wr9+M6gRpeBdTcT9p0eJvkQ2wGmoSo/HDDzNwyfZmgeiT+CrOnNITfeVrJW/
+	 hVVM0NT4vvzTBJg7H91OWRQ3KsKXXlvL3TaKuhs3IMUAOQrCWf+Duc+0YEODYlx9Nb
+	 b2vNm01E0zADaPz1R/6BpeDaqZXCID98bTHPKMsYSkXmS9ZZSpUjkU9JjuUyJ1ihT7
+	 ENeUV4+99U9WTVKXJtY4/q2hOExqnCLWqpoqcjRRyOTOkgctQs91Uk5IAT54yC9NTi
+	 mSNAZv5TkAQ/g==
+Date: Wed, 4 Nov 2026 14:44:26 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Chengyu Liu <lui2012qwq@gmail.com>
+Cc: lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] regulator: disable disable_work for good in
+ regulator_unregister()
+Message-ID: <1c80a8ab-673d-461c-9b24-0475110c46d0@sirena.org.uk>
+References: <20261103174911.1600930-1-lui2012qwq@gmail.com>
+ <20261104134838.326041-1-lui2012qwq@gmail.com>
+ <5e63dcea-a397-41a4-a647-a356ab67f1a9@sirena.org.uk>
+ <CAE=Q7=5Dx7DYoVO=VcO9gs8euBY3c2hfJ2yze1HQuymJj=ZH9Q@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,65 +60,46 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Queue-Id: 59BFD21FBA
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-12.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[suse.com,gmail.com,vger.kernel.org,opensource.cirrus.com];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Score: -12.51
-
-On Wed, 04 Nov 2026 12:36:10 +0100,
-Richard Fitzgerald wrote:
-> 
-> Update the descriptions of the "Failed to write calibration" and
-> "Calibration disabled due to missing firmware controls" error messages.
-> 
-> Originally "Failed to write calibration" was described as having the same
-> cause as "Calibration disabled due to missing firmware controls". This
-> was _typically_ true because the most likely cause of the write failure
-> was missing controls (because both messages would be logged in that case).
-> But it wasn't clear from the description that this was referring to the
-> _typical_ root cause being the same.
-> 
-> Reword the "Failed to write calibration" info to describe the possible
-> other reasons for this error.
-> 
-> Also slightly reword the description of "Calibration disabled due to
-> missing firmware controls" to say "firmware wmfw file" instead of only
-> "wmfw" and fix a missing "the" in the second bullet point. Also note
-> that this is not necessarily an error, only information.
-> 
-> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-
-Applied now.  Thanks.
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="KEbYb1efJ8uTenNo"
+Content-Disposition: inline
+In-Reply-To: <CAE=Q7=5Dx7DYoVO=VcO9gs8euBY3c2hfJ2yze1HQuymJj=ZH9Q@mail.gmail.com>
+X-Cookie: All rights reserved.
 
 
-Takashi
+--KEbYb1efJ8uTenNo
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Nov 04, 2026 at 09:58:35PM +0800, Chengyu Liu wrote:
+> On Wed, Nov 4, 2026 at 9:53=E2=80=AFPM Mark Brown <broonie@kernel.org> wr=
+ote:
+> > Please don't send new patches in reply to old patches or serieses, this
+> > makes it harder for both people and tools to understand what is going
+> > on - it can bury things in mailboxes and make it difficult to keep track
+> > of what current patches are, both for the new patches and the old ones.
+>=20
+> Understood, sorry about that - I'll repost v2 as a fresh thread with a
+> link to v1.
+
+No, please don't do that - that will create even more confusion as there
+will be multiple v2s floating about.
+
+--KEbYb1efJ8uTenNo
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrrRMoACgkQJNaLcl1U
+h9CKQgf/aiOEoOULnF8ThaiN6AJb8ZKctN+rZMJZLzU/mekkMGEcBdIXzZJ/935p
+RsEagDrP3UX81IN2Y6rDCSOch7p+C2P99DOOGGudbC8E3xB+boACWunxo7KZlkgT
+88NKtnaWCiTbPNnQRt7WT2fPXIrBRyl41479dWKFHt+2Q1xLJ0PXY5d991btp51K
+AJFGMvBludh326obHLEjs2lhX3hFnEN6nh5gRABiTJFjXh3EtcLstzikqSkCn2lw
+V0lsnSACmYFHzE0e7qYhAvTq6EovaktnFRrgo9QOX2Hg4FM7aahdIOOUW3veYu1r
+dvDBUuTXERDwGDwuGmCalJftYVTuaA==
+=4ju1
+-----END PGP SIGNATURE-----
+
+--KEbYb1efJ8uTenNo--
