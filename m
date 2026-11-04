@@ -1,74 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826411;
-	b=ZHkDON/HOdb9bO7JIh77NAzLRocbPvjrKfIn1ZIhRiKG7ox45UYx+c2zYRJESE101pXC
-	 VgFSFEZR58a0LAK8OxaXNvtJ7RzWjmAWg6RMpulrz9EX08ss9AE6rZNPCRqOVPMkFKTqR
-	 v0nyIhEVBpNNCgHb36n9yIGUJcAp++pZd2EJNhPPCL/R+8D4CkXcHae5Wf08jaTHE6sSq
-	 hagV//Q+y77gf91Z4EAlo4txeUGMKvhCwHVRoreGywQmqYFP0P7RVxjjgZ+Uh8skQkh8W
-	 I+Y30DRgMUq/FaRWabjCjSYdWIQhS9PPjU/yCaadUgGCknA8gsjjTT2JIpL/BE4ookA==
+	t=1793826462;
+	b=xPLPTEmD2T72gJDKGuV3x+T5/wcMc1AFPRYhB6p5cr5Z0OPEl/+eIqP0y0VvK/5qH0WG
+	 Koph7n8OoYHiR2khLXlnZlGJ45IAHdr6BYIW8PbxZ36bAHTIw52bgynMSQDsViH9ndk62
+	 fHhF1OZClYUVLhagGW17Kgoueuw3ISnd8S0dprAV1nwQmQL5u9ECN3P/4E0Tu04b/yMAx
+	 AlXBIEvqKVF9Qfk/3yrgJQtO0UzdWo3t5FmdZB8lHmLp5JhKMNCAP7oCVU2Z6hQ+WE9ZO
+	 ORbx4lsxGNoElrobllSSA/sJmDN6tjzaGB4NXWHDIWg+1oWQM5m77d/olC97zYLEE/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826411;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=bmyZRAr/fzqETDf7KUmFNioNYdP8sCPB2LYnaAnEY1M=;
-	b=GcHjYpWI3Myh3+3nGdzHjrajlIllN6vsaOyQ1djyVIq+12rQNmtSnTpDrdanbKFvGrJl
-	 eG3UqpY5PZYk9t7kcS+Y+hyMFuC3Bhy++LEanjs8md0/wiQaxagPUuO/tx/faR3WN9FzP
-	 iuK+3svll5VI6vadfoYMrK1TEllMq4eqZ1cFO/vtXOGFN8kANt+IB3bvVwaYdOZ1AVj/E
-	 hT54wkJvRSknGCs5w0N8Bvbl3GZMImWB7TvO7m8q3tFoP42teQXEm1G7bf+Lc9NNABKVW
-	 GrpYBgOIeLsqATe3TRDZksGteEVKX9fFfgZIqTIGC4oFTUUbFbFKxzmhgNLyP8BJK+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826462;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=BIWwTRYTaBPAHlWposIOtokLSiwg9bL7hag8t7zvCh4=;
+	b=If7Y6Isi0zkanQCgpGUvSr3/4msaYQk3ZqI29g/eQ0xpO7vzlfJjv7Gb75ZUn7l0+Hhf
+	 zyqegsKTAJ60XOjJnEAWeNrTDsrxN/iuyqZKbJxWcsQS/DaA9GG860F5pf+MG7aXDdQFw
+	 4nxye3Dheg/PgeSlrrTKEOmPeAuEz9o7gJRJof5nG7MTtv7m7nHtgPHanP1cBtBtaCFLr
+	 hw6IbluM5ZfTXu6YB9WLGczSThNmcTVAyRwPu5PiBsxwLgB5zUfRjNZU1HV1hpFtIgaPo
+	 B0Hasj+2cvfEFh9K26HrYFg/MMIn4PFJkVXMyY9kX1XxTGbhWjHoq1l/GLqUqJxG7Kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=3w3rUZun;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AyUYoNNM;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 335CA606D834;
-	Wed,  4 Nov 2026 21:06:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 335CA606D834
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E075606D816;
+	Wed,  4 Nov 2026 21:07:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E075606D816
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=3w3rUZun
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=bmyZRAr/fzqETDf7KUmFNioNYdP8sCPB2LYnaAnEY1M=; b=3w
-	3rUZun2YsXj23IZuBmoF5mP9RNEn61KLtokMC95mGNYEVmeQ5LRKM+EeStHEnK/IahlJq6rJk4JS5
-	u9i8JRW4Z3Cmv2BTLGhRRCi/90aK5wR3KhyUb8/hWW9L/IeqvrkgkfEQyOKeOnmz7ZNDh9u0jPmov
-	2cFKQnwvTUdSdJ4=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xOiBs-00EO5q-Cx; Wed, 04 Nov 2026 22:06:40 +0100
-Date: Wed, 4 Nov 2026 22:06:40 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Alvin =?utf-8?Q?=C5=A0ipraga?= <alvin.sipraga@analog.com>
-Cc: Iustin Stolniceanu <iustin.stolniceanu@analog.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ciprian Regus <ciprian.regus@analog.com>
-Subject: Re: [PATCH net-next 4/5] net: ethernet: adi: adin1110: Add OA TC6
- protocol support for ADIN1110
-Message-ID: <5ef1e25b-2d6d-4cb1-8030-756d60c37c47@lunn.ch>
-References: <20261103160918.409701-1-iustin.stolniceanu@analog.com>
- <20261103160918.409701-5-iustin.stolniceanu@analog.com>
- <aus-LdkVRPxR6lFu@analog.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AyUYoNNM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793826457; x=1825362457;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=O1F8JaJ8aiqw0BarEPO1tt+vgJs6Xe8tWpLSoVWHy5U=;
+  b=AyUYoNNMGT6JiRQC4+lJw8bYolDc9Avgqu6ReF7vbsD/qT8ioBOZhKL+
+   GSuA3DVfz8qUwcxqNEyLaC9mx40wKsxt4aYpNb47I7mfosur756dIk8gR
+   FnrbwPbtltg67Dr14cMYOEfiWiKhOuBb6LZnhn9QMDkynB6kZHYTJrMqC
+   r4RyrNtaroW2VxVkwWonxdT+oPqg/2ZznaAD6b+VmHH6GPyN+yNWWALmS
+   umh7N5whoVqVg1P1dSsOAMuj1fC46N5sjqkl8AaxwCR3MYFD+YLY7xCVy
+   CKhbf+mzOg3fQoBVgQnw8OK4JxSxWyWzxQfZYVynkrgdbE98iG7clB5t4
+   g==;
+X-CSE-ConnectionGUID: wGpApA3WTy25tuij3K3vFQ==
+X-CSE-MsgGUID: sMRVhrBFSGOvYK8nNqKuaA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2690643"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2690643"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 13:07:36 -0800
+X-CSE-ConnectionGUID: UIRrZ91lR6iQIZbysWdYCQ==
+X-CSE-MsgGUID: 5AcLI8a6Qoie1kFAiVTJEg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="6982505"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 13:07:30 -0800
+Date: Wed, 4 Nov 2026 23:07:28 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
+	Len Brown <lenb@kernel.org>, Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 2/9] lib: string_helpers: implement a CLASS() for string
+ arrays
+Message-ID: <auuekJTgjp8oSfgX@ashevche-desk.local>
+References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
+ <20261104-fwnode-for-each-prop-v1-2-6e28fe1c72c4@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,40 +94,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aus-LdkVRPxR6lFu@analog.com>
+In-Reply-To: <20261104-fwnode-for-each-prop-v1-2-6e28fe1c72c4@oss.qualcomm.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-> > +static int adin1110_set_rx_mode_tc6(struct net_device *dev,
-> > +				    struct netdev_hw_addr_list *uc,
-> > +				    struct netdev_hw_addr_list *mc)
-> > +{
-> > +	struct adin1110_port_priv *port_priv = netdev_priv(dev);
-> > +	struct adin1110_priv *priv = port_priv->priv;
-> > +	int ret;
-> > +
-> > +	mutex_lock(&priv->lock);
-> 
-> guard(mutex)(&priv->lock)?
+On Wed, Nov 04, 2026 at 03:03:44PM +0100, Bartosz Golaszewski wrote:
+> Provide a CLASS() for managed arrays of strings. It can be used for
+> automated release of temporary string arrays when they go out of scope.
 
-netdev Maintainers have a strong dislike for this sort of guard. Not
-in this case, but often it protects too much, since the end of the
-function is frequently passed the end of the critical section.
+...
 
-The scoped variant can be used, since that explicitly marks the end of
-the critical section.
+> +struct kstrarray {
+> +	char **array;
+> +	size_t size;
+> +};
 
-https://www.kernel.org/doc/html/latest/process/maintainer-netdev.html
+Hmm... Why struct strarray can't be used?
 
-Using device-managed and cleanup.h constructs
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Netdev remains skeptical about promises of all “auto-cleanup” APIs,
-including even devm_ helpers, historically. They are not the preferred
-style of implementation, merely an acceptable one.
 
-Use of guard() is discouraged within any function longer than 20
-lines, scoped_guard() is considered more readable. Using normal
-lock/unlock is still (weakly) preferred.
-
-	Andrew
