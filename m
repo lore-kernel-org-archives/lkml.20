@@ -1,103 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793788671;
-	b=AskB1RCfrWVa8KImcB3guZ7bq/KZsuLf3qaJKv7s0oxlKmDHdSTVIZ09xfZZhW6AsSnK
-	 BPRVwy8i3oK+u4XISWjJoXhTLZdzd/LFk9YOZQsgm3bx1RZbDShwTjcPmxLH9A/0bVP3R
-	 7KxxoULrVYwfN04DRtAqGe5xwyMN7USnOXzv2Hvi3cxolzKGlDnns4rNDEfi+3DoCqE9g
-	 hFV2S60sENt/sKkUQb1Sfvu6bds2M8IXaBaR+wf1/0f0kUpRV52uqyrLdPGuU5sc5yDVs
-	 pqMny8vdbaLXK5IUjLdu3sMY9kx5k7lPPqSpEdPFn4uIjRUhyN+YXoXrYYaQvtgbm8A==
+	t=1793788694;
+	b=2gYUcVuftPZO9B+QxkNt9ASryfukCDhjPYE19/eugJ1gOFKRDYZOn+8W4Hz9nAywtNB2
+	 T2HH67KDSLzhjhODWAbL8z+vrpsNewclIBnIuuRD+PyWidsjOkrykc2c1W0iHWGXJXDkl
+	 bOKlgUJj+xLAjhoGmoH7BSbsY96NSKb6pNyiqDOvkVZnLAwL+7YR4gya5FzsbSbzV4UnF
+	 pv3OBM/dvqNGBIBE54A0AWhEftsficIPQoIzPdq/BxQcWI/S9ewzjrpA/8DcnNrspfRT6
+	 qwvjlMzMAh2RQMbYK0NXeDlCwCJWakfLz+69ip6Wgm5NwWM9vHdY5lG8cpASl2SyLsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793788671;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793788694;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Organization:
 	 Content-Transfer-Encoding;
-	bh=1dkLsXb9/bTYDqyZhGVg0eEZjhAqz/Od70PIDf4k4fc=;
-	b=L//yhTQ39DPygSK82GAtg36KNr2KjQ1Vg2eFYsYgQTIYITxsazTA3/C0Uh4xe6ZnZQxM
-	 hX8RB4aCMcKccxz2Ahyzd14qQeYecOjnuToVygxaZaPfe9yCxgeuDMOHJfuMnjroZwN0O
-	 VZtZqmhx/ti0lBlU09iqf8SLhAL8sJxt3DrWuhwynHTHkPzLEedgxFlGcepGwhrUFkc48
-	 8IR57zoH7XY+yOx/waTUtaeok/hPaJ6e5NOpYp+/gtbiibuP1rqEFVBFFe7xcgaHbCx/X
-	 qkSSpDcaQFqRS0IPjmyh0OyCX6fKmjZYNRRFW8DkofRqhdgHuV9pw+z4u5JgUrtYDLg==
+	bh=Bky+z94GjBhGuHRVzoeUOOEZJsIpZL6CWBksx0pMhcI=;
+	b=jq+aCxRyHgY0OELOyUw+fhOVeoFCrmdWc/DMC8/YVKuACyZVoA2jGbWrINKvo/BWgpfj
+	 IAbFcILKMbf6a/wuMz2+Jx/FzUKvvlLU3Uai4agv90G4IZUpxDTjd9MDB25y5q4yb3av3
+	 uOKA1tPbttEdin+c37RFA2SiS1haEOH7DGiVOH9cENWNWQwPwIlGh0JHAGliKvtgEtBEb
+	 8plibKPZFln4NE8Lm0YKxcIXFjfUJpy9D0UCFZn1Np5e9EePEhOZ0CeoQXL64uSyvqlfo
+	 W+1HKxq/PTwV22+nhERYcmHzaqcL2aIGyhugNaRIJ5NToRwk2Dt57LDHiWa/cP8Hb8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zn4rPmWa;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XbHSzHRz;
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EDD3606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:37:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EDD3606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E64606A326;
+	Wed,  4 Nov 2026 10:38:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4E64606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zn4rPmWa
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4b4571ff080so5468805e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 02:37:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793788668; x=1794393468; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1dkLsXb9/bTYDqyZhGVg0eEZjhAqz/Od70PIDf4k4fc=;
-        b=zn4rPmWaJ3a++hiLo7Xe3RVBG+PeT0bEuPCVcAY+8QPdo50paPEhhqtYcxONPUreWY
-         PTSi5rKZBSU+UfM2I4p6WT3/ITMxuAymkUkGT8IJHI9u77NwNIJdSGO4UiSMOYnsxqBi
-         mZ0JHuPeqeYvfugiG1VaiRh49iD5NIzkygnQHSlFf/ZI1ExufTef1Ry/Ps1rgGKgm6AX
-         GYnRZI3UrKforOJokHSRElmQp0VRHHU56egQHw/9RXEMu2jN3JbF+9s5GmxZCzV8NTgp
-         JiAk7mjeb8DyW6wgDIXKYP3/DMzg5hX8VpUTEn5Z1QV3TT9NY6wZBqtRICzqHkHlBAti
-         1G3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793788668; x=1794393468;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1dkLsXb9/bTYDqyZhGVg0eEZjhAqz/Od70PIDf4k4fc=;
-        b=DDVVyrGwHiE380fWiPVkD2JId5tFaqoWgpKPmlbmSyeaonLVaXlM7gH/MS93qoo9cV
-         oZdencq/UuJTPox9nlxMKA80NP9+TH/KCpPfx+quE2WA5Jwl9wMKrSCwBmprF0fYjbuj
-         8TMWVYNnheQbdKAf3rslKqenUAptWbXFpg+7rw5p3Xp57Bw52u6fw0Y4YyNJ9on2/5hH
-         L3vtf0+AItbqlVlEWZdu8CgMEbajjczuw2o9zXeh91ZUqhyhnurEMzrPpcQN/dP+mWyL
-         PlvcMfu7GOEBXwgfSnOhV84GxJPzMhJbVQRaSUBkz5KCYSUOvr0qIRSFFCsXZRMIGSjr
-         JPjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz+XyCmuBZ/iDuYHYR6kaU/BBMgnT/Ql72BhETSLAJJ8YRfppei25znZuY5Xub5H1Mkp57uuvfTUc5Czgg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9nhpEwPMyBvYXRXHSlGQUl3NeMnUBIj3+siKG/zKhjqjo0Yk2b
-	ptsUR7a1O+YJSV/QWoeLK8fuu98QFOYsDm6jD+Yr1/6Tkosj5y1IRTiQ
-X-Gm-Gg: AYBFou2aNHtdcSShBtToDZEmtSmxf2tjBkZNFQtW4qbBOpBaANiuwywmUbq25rZL5PG
-	/SaSyx2FKYSXRdDFDrmsKlfI/WLdyB+PjQ6KVaMKDMnRXI24B0qD9b/p0gppOvY0rzw5/8tPhy9
-	Nx1iPS84NOHrcV4SiK1pUR/n06e0nJFS9ApIRYWfUDx6xxUbi7nLqxBgXu/vOfcTIO8IMZ7yugR
-	RKwVZfwBeaBLvz5BBteIyILRl6JhfLdi6BIc6ppDlWIiPa+k8VT8RHm95Gnzaq0LBDl4MSBbRMf
-	ZAnFv5+dazAuxpLyclha8iP9fr2baNimPPLYq7JpC4jdrPY+K1vrYxI9qhunC9/9afuScR3uASQ
-	SGXDKf+YMrMeRmJIGfC0L7nRsW3CWDDIS0rE4aHrTdGIiAFPdCb6pVFOC+yKRJ7MkyUuneNfkEF
-	1cvjsmIZx2hgWS95QqLrycDccd76eIotHIty9utSFtzWRZOFsEaW/HR8r4ksNBfy9ANshiZrK3U
-	Ayk01XxzGzB14sOwdxG+MLsuVhRjbdo0CnXZDHPZVN/pghww6UFN87LX5H+eJJ5/K4o63GEBmsg
-	7ZZa4scuvMNGHFz+qnyeFQ/2+6EBaw/Mo4ieVuFUiDiQHkkBQ1oZt6ytTwwwnVzicgi8/GB7bz/
-	SPZjFRidGNj56k3cLNmBiVQ==
-X-Received: by 2002:a05:600c:698d:b0:4a2:994:575c with SMTP id 5b1f17b1804b1-4ac185bcc4emr358335545e9.34.1793788667829;
-        Wed, 04 Nov 2026 02:37:47 -0800 (PST)
-Received: from andreayoga.wind3.hub ([151.76.4.179])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b40ff10f88sm36342995e9.0.2026.11.04.02.37.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 02:37:47 -0800 (PST)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Kees Cook <kees@kernel.org>
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	Andy Lutomirski <luto@amacapital.net>,
-	Will Drewry <wad@chromium.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Rodrigo Campos <rodrigo@kinvolk.io>,
-	Christian Brauner <brauner@kernel.org>,
-	Tycho Andersen <tycho@tycho.pizza>,
-	Sargun Dhillon <sargun@sargun.me>,
-	Hui Peng <benquike@gmail.com>,
-	Bradley Morgan <brads@mainlining.org>,
-	Cong Wang <cwang@multikernel.io>,
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XbHSzHRz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793788694; x=1825324694;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=aOGzTuu2joxxtbxKzL4dHVBDbu15VwOAO4OF8srkPsM=;
+  b=XbHSzHRzAm2rnwRHd7vB8V1Qc+88tBsUrSv2zvJOZaBqtc0GHJ71XFU0
+   MFhAkmc2lQqrXMpsNSkYshzccff7Sd4ATzjNUOYye0AfI1yLriML2aYlU
+   F1FZvjHo64/kmylSNmgWhiQ1x4TqFpFve4jOMghGc5/9XE8SkFAKKF3HA
+   l6kBqHLWiowO6GecyGtJdmao9dG+yJgfSJYtXP5jSjQJ6/SpCJEuvdHGg
+   udhDO+ugv1OSj4NTdbwcSnURx9K2U/I9plfhmaatqzQmhgecfHxXmhPgJ
+   Ffxq1sv0XcQvp+E/0TCAouRR7eoP+bG/Uj9kC1+mjsrMruWGwALpIp3pM
+   Q==;
+X-CSE-ConnectionGUID: v8/Hb4mlQju6rvGc/nGxgA==
+X-CSE-MsgGUID: w2GzyS0lR7+1rwhdhMjKbg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2412950"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2412950"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 02:38:13 -0800
+X-CSE-ConnectionGUID: +o7S5iu8SKeIiX9Wt7GSfA==
+X-CSE-MsgGUID: 8J3dyKC6Q4eTbNPj8Cjt7A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="6569104"
+Received: from gklab-103a-129.igk.intel.com ([10.91.103.129])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 02:38:12 -0800
+From: Dawid Glazik <dawid.glazik@linux.intel.com>
+To: Lee Jones <lee@kernel.org>
+Cc: mfd@lists.linux.dev,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	bpf@vger.kernel.org
-Subject: [PATCH 0/4] seccomp: fix user-notification state transitions
-Date: Wed,  4 Nov 2026 11:37:30 +0100
-Message-ID: <20261104103736.71956-1-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	linux-aspeed@lists.ozlabs.org,
+	dawid.glazik@linux.intel.com,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [RESEND] dt-bindings: mfd: syscon: add aspeed,ast2600-i3c-global compatible
+Date: Wed,  4 Nov 2026 12:32:06 +0100
+Message-ID: <20261104113206.3243865-1-dawid.glazik@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,81 +82,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
 Content-Transfer-Encoding: 8bit
 
-An atomic SECCOMP_IOCTL_NOTIF_ADDFD request moves a notification from
-SENT to REPLIED, so the listener stops reporting EPOLLOUT for it.  Two
-paths move it back to SENT without waking poll waiters, so a supervisor
-waiting for EPOLLOUT, with edge- or level-triggered epoll, poll() or
-select(), can remain asleep, leaving the target blocked in the trapped
-syscall.
+Add aspeed,ast2600-i3c-global to the syscon binding compatible list to
+document the AST2600 I3C global register syscon node, which is already
+used in aspeed-g6.dtsi.
 
-Patch 1 fixes the failed descriptor install, present since commit
-0ae71c7720e3a ("seccomp: Support atomic "addfd + send reply"").  Patch 2
-fixes the restore on signal interruption, added by
-commit 832b9b176be06 ("seccomp: restore knotif->state when
-SECCOMP_ADDFD_FLAG_SEND is interrupted").  Patch 3 moves the state change
-and the wakeup into one helper, with no functional change.
+Without it, dtbs_check reports this node as failing to match any schema
+on every AST2600-based board.
 
-SECCOMP_IOCTL_NOTIF_RECV marks a notification SENT before copying it to
-userspace.  Unless SECCOMP_FILTER_FLAG_WAIT_KILLABLE_RECV is also set, a
-signal during the copy makes the target return EINTR, even with
-SECCOMP_FILTER_FLAG_RESTART_BEFORE_RECV, while the supervisor can receive
-a withdrawn ID.  With it, the signal is held back as if the notification
-had already been received.  Patch 4 adds a RECEIVING state and marks the
-notification SENT only after the copy.
-
-Patch 4 affects all filters, not only those using RESTART_BEFORE_RECV:
-RECV now fails with ENOENT if the target withdraws the notification during
-the copy.  It clears the buffer first, and
-Documentation/userspace-api/seccomp_filter.rst already asks supervisors to
-retry on ENOENT.
-
-All four patches concern transitions into SENT; patch 4 takes its
-post-copy transition through the helper added by patch 3.
-
-Tested in vng on x86_64 with the full seccomp_bpf suite, using the seccomp
-selftest config plus CHECKPOINT_RESTORE: 146 passed, 0 failed, 0 skipped.
-Reverting the kernel/seccomp.c changes of the whole series makes
-user_notification_addfd_rlimit and user_notification_addfd_send_interrupted
-time out on their second epoll_wait() and all four during_receive variants
-fail; reverting only those of patch 4 makes just the during_receive
-variants fail.
-
-The bugs were found and the patches were written with the help of an LLM.
-
+Signed-off-by: Dawid Glazik <dawid.glazik@linux.intel.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
-Reviewer notes: 832b9b176be06 and f7952251ecc3, fixed by patches 2 and 4,
-are in v7.4-rc1.  Patches 3 and 4 only need backporting to 7.4.x:
-f7952251ecc3 adds a new flag that is not tagged for stable itself,
-unlike 832b9b176be06, and patch 3 is tagged only because patch 4 needs
-it.
+Resend of [1]. It was accepted on the list but is not in upstream.
 
-Patches 1 and 2 do not depend on patches 3 and 4 and can be applied
-first.
+[1] https://lore.kernel.org/all/41d66492e1a1d42f6888459288311094c8b7bc51.1777058942.git.dawid.glazik@linux.intel.com/
+---
+ Documentation/devicetree/bindings/mfd/syscon.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-The series conflicts with Cong Wang's RFC "seccomp: report the result of
-continued system calls" [1], which is based on v7.3.  After patch 4, a
-task killed while its held notification is being received is in
-RECEIVING, so the "killed unseen" check in seccomp_hold_result() would
-need to become n.state <= SECCOMP_NOTIFY_RECEIVING for the result to
-still be queued.
-
-[1] https://lore.kernel.org/all/20261020001124.974063-1-xiyou.wangcong@gmail.com/
-
-Andrea Parri (4):
-  seccomp: wake poll waiters after failed addfd send
-  seccomp: wake poll waiters after interrupted addfd send
-  seccomp: add a helper to move a notification to SENT
-  seccomp: publish user notifications after copying them to userspace
-
- kernel/seccomp.c                              |  79 +++++----
- tools/testing/selftests/seccomp/config        |   1 +
- tools/testing/selftests/seccomp/seccomp_bpf.c | 162 +++++++++++++++++-
- 3 files changed, 204 insertions(+), 38 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/mfd/syscon.yaml b/Documentation/devicetree/bindings/mfd/syscon.yaml
+index 80ff0e1caca2..dae706ca7642 100644
+--- a/Documentation/devicetree/bindings/mfd/syscon.yaml
++++ b/Documentation/devicetree/bindings/mfd/syscon.yaml
+@@ -47,6 +47,7 @@ properties:
+               - apm,xgene-mcb
+               - apm,xgene-rb
+               - apm,xgene-scu
++              - aspeed,ast2600-i3c-global
+               - atmel,sama5d2-sfrbu
+               - atmel,sama5d3-nfc-io
+               - atmel,sama5d3-sfrbu
 
 base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.53.0
+2.43.0
 
