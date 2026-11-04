@@ -1,128 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.19
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793823741;
-	b=THz8uM3af2jpr3R9DcTZayaV/MX1EttB5qaHv5AwetD5Jce/Wlu3kf8b3rxpnPo/4Qrq
-	 bRKMzE9qIVYdRkGG6XMHsCsAwWUTXbnDzZ83iHAQiqhMi7DF1K0NCREWZaeD4F6szeCkf
-	 jyiKaJz0cpNzRPlSyIMqPu/QolrIWSWTLI7h3Uy5MMLC8ogrFm/leA3yhPFNAIIL61jRI
-	 e4yzn9oT6JBbA4piGTlVJRs4B2jGfwpEEY62It+nNECy+ac8RY4qrco24dCCBpG1m6Jpn
-	 nbjXAgWB3qmZugXIzodbMVwUaCM+DSuzJswZl+BEJ/w/2ERzrvRGjP7Mc8n7s4OMdig==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793823741;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793823735;
+	b=snw1MxC+Y9Phu+FEmEEpyBNqRZpJci/oT6m/cFZjLRaht0Br+w78u+GVqq6K1BEymOZX
+	 Pr1It1c28m/FsXxwh2mTlQHCT5Cp+HYp3afjQPX9Q6V2Ti4+KmCc2zT0lo2q4kPLQdZct
+	 Vm/FIDbpvNsCxS66OeuzdonjM+aLsNMjkDwkVAScy+I5bqEOiJPTMJANmE4/SENJVrrYN
+	 yCzDT+VNlOLmi9y3cJOtp6/CskR1V0alsjLCl6YgSZskdJhcP0Nm/P2z8YzsI0Ph75Bzv
+	 L+Lzpq/CkQFT6kN6+tAaxJS4BHsyWAKfNd5+2udjARYEJoOjisnkDcLItiBC/tX+rZg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793823735;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
-	 References:Content-Type:Content-Disposition:In-Reply-To:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=0yS6m3l3Ly+Wo53GD3vhBb70FO86n+8KnEvnz3cEz9E=;
-	b=cjHRPSmoq/P4W1mU2S2RcpUevobdujXquJQl3Mj7fK5LvDXsXcm4rzjxEg/XDLT1AA7s
-	 ry8oAaqdSQhADSDC2U3rePi1zAALx7bPRLyBsMCVJCGV5LONmMXtBaCIxYTHMOPxILMSN
-	 UYU+DfNDcwt9136GFONzK0QFubGb7LB2Flls+39pPXMhN9EK8gElkD4q3YzX9JIR9UMYl
-	 EMty86yNWKRQuZzeHcsrIE/xlEabN0l0JCrKQsVpnH0ZgOEnHF/iQjvUhgStk17Fqa0GW
-	 plNxJQ2lCe1zdgjheSgwjZnyP39Gr2WEq+hcY6Gi3+nouaTRsFglpxjVtTqcF3R2TzQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=1q6t4nFYUEkBz7z+xoP8zNbSPnKXpREiK7TaFNztaTo=;
+	b=Eez26wAjAga7wURtg2c77IChf7yNGZK3vnyN/3qXbTqBZ3gZKfpE4P3RfdWEUVS60eIb
+	 3jzegSF/adJ+PaR5TFzxEBv166N3zm323u7DSw0H+MgoZpZO5E6GwRku+zz9dXPA65h6X
+	 nJZuIBweI2d77BE4hGoSpkL7Gb8+fjXG6AWpyOBwx95+/X3T8Oe9e3uueSIzLzbeRPk9B
+	 Xy/NVLPw/5VMKfeMCwwFk8VnRv/blskkmNLs1nZWbr6AX3Rnqondi/32ehIyudg70Ke+r
+	 oD1fJVsRQATC4nHYC8QAjGctQyUfG7dShOp/Ioh2x530pmk0ajpFWpmZWVaMjTLh5rA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SA5kM6tf;
-	arc=fail smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YsG8D40s;
+	arc=none smtp.remote-ip=192.198.163.8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB4606070330;
-	Wed,  4 Nov 2026 20:22:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB4606070330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32B39606EEB6;
+	Wed,  4 Nov 2026 20:22:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32B39606EEB6
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SA5kM6tf
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YsG8D40s
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793823739; x=1825359739;
+  t=1793823735; x=1825359735;
   h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=MY/P2pts76uTvUiFiu+4ljVKxE31A/4lNyJWGSVn3gA=;
-  b=SA5kM6tfvImoHy8kpS30LSmqb4IHmphkBDmwiOmGPhIB5ApVAdQu1Q3X
-   NFiRg0oggpe27yclV9+5uPTHz+C5ZT9JzztEEQYmBrqTLGYLSVL1Qyuq8
-   IfCjHxrtlXa7ELStg1XmQva0KPPJc3uJuKyHj6CgjcPKz4NHrK0gfSRzK
-   VO4ajtNFRTa3lZdPu/L9b580c9xUAP+OUE+NisFcqAR9C8SKaxnL86kVc
-   vNvjFSxFxzXl2Hx5z4NM5ci4nZuQlBzav6e/B7uHqBQdLDrdd7gXxxFzd
-   z6OEc4QSGTQe6uiMxx+b/adYSmZP6MtZCv9BaW6udvJK2fPn1XLqIRaG1
+   mime-version:in-reply-to;
+  bh=FMIi+WxOIJkYfJDxyuNJSMRa8IbgzEpLC7IDMUiiy1k=;
+  b=YsG8D40s2/oX+b3QxvcyuL5/ukIX1pF80hex6Qe11aBxcPQd9kGxCiN0
+   dw143qIQxx4m7hDZK9q6VJz+9YNlBoi9/1q06aCfbeypH/rVLcZ5zk8Bx
+   6Q0rcGxSPjuLLY1F805m7D1nipq5OULCI8cUDigh8c3Lc+zHVX1TeYS8+
+   lV8E4YDCU6X3Zy3yJjAgcnUwRD8gbX9R16Sj2TvUeqAHAvhaLSXKVTgtw
+   LaSTL1HzbR4B4yWKpjAlxB/U3z7mV5GBuJgCtB2irb0u0AxHX0ASirCuN
+   u8wQq/vO0aIGZPsZGc3pNy0xCz6dz9FpJwh0yljXvuupRBQGUBtT0GDke
    w==;
-X-CSE-ConnectionGUID: maynUo/vRsqhmDsI15XSrQ==
-X-CSE-MsgGUID: deMtMp9eQ8OD7l6z6QnInQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2628170"
+X-CSE-ConnectionGUID: CteQ1Q+LTK6b8DWdvTrC0Q==
+X-CSE-MsgGUID: SrSIdXVLSbG07R0HQbZzAQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2478703"
 X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2628170"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:22:19 -0800
-X-CSE-ConnectionGUID: ZuiO2sYcSNSTGVjTpf/j7g==
-X-CSE-MsgGUID: W5Wx83nBRmKgvY8R2f9Xew==
+   d="scan'208";a="2478703"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:22:14 -0800
+X-CSE-ConnectionGUID: HM934INXTnu1L+MDYncFlw==
+X-CSE-MsgGUID: 0wCh21S1QnKZTYVCTCWxzg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="7131825"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:22:18 -0800
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 4 Nov 2026 12:22:17 -0800
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Wed, 4 Nov 2026 12:22:17 -0800
-Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.64) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 4 Nov 2026 12:22:17 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Jmx4tyIY/Ky13P7dPCvT33/Z6q5Kht+X4YODAS1iz1yrUvJOhWkun8mBfE5mfLSsKRcFi17kO1MEwbdAnpgM2VYj6CbNbyIReGtH1/mRYFyIuT7lRBNfMff6GGQxSC77c4v+aP37EO5bVPiGtC+z92GhbRqZ5mWBn7pbB7ZQXNe4Rkddg5pX1Zc3K7XE4kbuOdoB5+P8pzYSRYIWU2XAbq4xCmlfrBC29QNgQ3/LLxT4+77PptWmI+tphqdHj71EAU4Mi3EKDzL9KIXSyuLLw/Ff7G4lyM7+6l6nhHRbTeR8QyXKoctBo2g6BEvneYrmySPa4Ppzh6obAIeq7Z59dg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0yS6m3l3Ly+Wo53GD3vhBb70FO86n+8KnEvnz3cEz9E=;
- b=Zab5qMbBQQdhXHB6fvgU1Wi/0hI4GhNbyOQjK8VXxO36ixQSZjGwBN3IpAGVyWPc4QluER8xaTyW/cu2K6193+GYlY7DKsMZDM51aFTOTfiD9XSj2DQRHzSCb+WS+Zk+M4WUVfqeltZnEB3BzAsO4/uuAONKUdGwawKHzA4lbEe1ChpPiAdc0BBQfm0sIj4JKamNEIYQ4mmyvWXAn7JiqnaFNROqdWf4onHxPmJqsXiUlmDdDqRgmMfr/8A25hYKJMXF7ynkdQRBuHmrM0ow4zpljrupjzGpexHQfw1vjnZYdYVdPmS/Cny4ip31Bu1mIqWJtBWisPaPCBdrxN4tgQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com (2603:10b6:f:fc02::9)
- by SN7PR11MB8044.namprd11.prod.outlook.com (2603:10b6:806:2ef::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
- 20:22:16 +0000
-Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com
- ([fe80::6fbf:c112:d0a8:f1a8]) by DS4PPF0BAC23327.namprd11.prod.outlook.com
- ([fe80::6fbf:c112:d0a8:f1a8%5]) with mapi id 15.21.0592.009; Wed, 4 Nov 2026
- 20:22:15 +0000
-Date: Wed, 4 Nov 2026 12:22:12 -0800
-From: Alison Schofield <alison.schofield@intel.com>
-To: Dave Jiang <dave.jiang@intel.com>
-CC: <linux-cxl@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Davidlohr
- Bueso" <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>, Vishal Verma
-	<vishal.l.verma@intel.com>, Ben Cheatham <benjamin.cheatham@amd.com>
-Subject: Re: [PATCH] MAINTAINERS: Add CXL reviewer Ben Cheatham
-Message-ID: <auuT9L8UeW_8rjDA@aschofie-mobl2.lan>
-References: <20261104175003.297974-1-dave.jiang@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261104175003.297974-1-dave.jiang@intel.com>
-X-ClientProxiedBy: MW4PR03CA0282.namprd03.prod.outlook.com
- (2603:10b6:303:b5::17) To DS4PPF0BAC23327.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::9)
+   d="scan'208";a="7170684"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:22:10 -0800
+Date: Wed, 4 Nov 2026 22:22:07 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Michael Hennerich <michael.hennerich@analog.com>,
+	Trevor Gamblin <tgamblin@baylibre.com>,
+	Joshua Crofts <crofts@kernel.org>,
+	Sergiu Cuciurean <sergiu.cuciurean@analog.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-pwm@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 5/5] iio: adc: ad7625: add LTC2387 and ADAQ2387x
+ support
+Message-ID: <auuT754d-bwSeL1Z@ashevche-desk.local>
+References: <20261104132143.215581-1-Nicolae-daniel.Deaconescu@analog.com>
+ <20261104132143.215581-6-Nicolae-daniel.Deaconescu@analog.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -132,67 +93,311 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PPF0BAC23327:EE_|SN7PR11MB8044:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7f4158b5-5f72-4706-c4cd-08df3ab15149
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|22082099003|18002099003|11063799006|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info: OfHUtvSz1FKQ4xR8WTYFPzzWsi6J/hOEfL1/yEQ4GrEJjUDw96DJDRVMUBYX2fBhDcjLdtxVh9SK2etARl1OQq3oi6sReGKyEG2I6NpNgtZ67jo/jWCjWIlLvIjrQqrCM235TyueNMz1HKPZgdlcH1I++AoIBvkwP2gpSEX5k15EUGR6pxZ31pdIwyfVHGLGdReLszjciaNa2trWV7pa024Q8HGuJFBB5+2kAEbO7vCueAEIu/pK7iPOc34859UkENWJoAhZkyUv/Bl2tap4//naApEAoolsQdkKMxpFgihcxAp8YggAS3Uz/c2AO3o5i383bVFsvXaPD5djBc7SbNgOUhLg5nrNsOe2rbXAPmzgz48vJKebJLBhK0j2XIPCXSLq4QLqe9u/Dfvho4hy2ZpcYA6BxDq/iDWpj7VhZ5exvNKE4vkZioXeo4p5dxPPI6QGWwPCWZv6ppBME9VSHC5IlxGmD5ibc7v/BwuOJ6PlTh4l94pxIslZe1c/9cUDT2OHEtvZCcx+0saluQSqM2CGKmsU+bgYop33tePKAEZs9CZ+WHRLSnbixHLt3BWMK9y1B6Zy/aZXqaO2r8sNQ/5Y4sIW/Qm9RBy5wB7QuKn/qKmCPp/NNskhf8ufeUo4PcvCtvUqJ1w+k+DC38WlSw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF0BAC23327.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(22082099003)(18002099003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?XmJHW5dhTMDlzlt/Q22ylLjQtvG5T1596a6MRQllvlomSTELeZTXLyOIFtgV?=
- =?us-ascii?Q?g0L0oXYCuxza4pK7Pix7Kp0TbbC0x+/xBzSSpF2cOeqALXBK4z2exi5bo3nH?=
- =?us-ascii?Q?/rbktpMmm/3CJVUt9BNh4xeNhR3pLba5+0k77Fcq0wLNlSwhSoshHBfXMb2z?=
- =?us-ascii?Q?PX2ojLW6Sim2+Ey8mgVZ/i+P8USW9OoThiym3FCz81uY8Fp3ArqPPDhbuDdj?=
- =?us-ascii?Q?vrU68RE8MYBNMEDuum9fDX9fWjsgZw64XDzZ1CH606o4nA6tsQIHU5FL9axh?=
- =?us-ascii?Q?9Uak49VJTRbdtP6SdJnzia5BYvD0BiooNubJkPPyVztzsLWNivsW31Nwv0vi?=
- =?us-ascii?Q?zXZ1BKpah+7MDbqgRwGhjf4m9RoaThJApRrh07aX2MBpPco+6RQC8lOZXjmr?=
- =?us-ascii?Q?sRselU4xn3cSuMBRLrq3YVx13/yP250omcZu3IQ4IxLVySxq8iXaIfjVblJj?=
- =?us-ascii?Q?B5f7IblI25weD83tZKJscQgd/wEvsUaBwMCn+O1WXJzqAWdGCTaAs58i+wzV?=
- =?us-ascii?Q?1hgu7gYM7RQmQC/ZCS1xzmpQGziZI/AC6iSTViPBVoMdXiHpZKFFMojYXn1W?=
- =?us-ascii?Q?F3XM10UKwGU3N8dlJRY2FU+bLU8LqXYkj65/eOeRRvRTchxk6/7GaoLFFPhr?=
- =?us-ascii?Q?KVoiPSiWq8qSsfYgl5aXmPiVpqgoEuanfHGw+xH3Fxpnjb+4VJls10Zbv2Ew?=
- =?us-ascii?Q?PdJLV4yRLjv0CpokoFyUJzkggWmhOCHYz2kAzHCdxfZbYnosvjgMCU6MwHTm?=
- =?us-ascii?Q?VK3J5G7tJkn61tvXpw2cm73nb+5QWLaehDgsAma/72JFcKbmJHvjlTyx25Fx?=
- =?us-ascii?Q?Ir2nN+5pKVNX8+LH1PrEkCx76EaKP6nmKTBpiUpM2vnRm4aDmnoxIkOFaRRP?=
- =?us-ascii?Q?TPdZRkyC/NesUUgNPNJS44wEjR0vtzyd0qYOpZEwtDqg3kgYayXOjviO5xMl?=
- =?us-ascii?Q?+B2/As/BHotRIukL2rISLi8bXlRTIAreTcr49EM+m3FQAcu/qCK/xo7dJKzp?=
- =?us-ascii?Q?Sb5XzrnAfRmxoaTIMwCi0kx0W0b1he4rKPZVmRdrsv/ss0biBSSCXSvUd0hG?=
- =?us-ascii?Q?LdkWtRZ0ZgSDENwPMesASyC/fKGD8E/416rRsqC5TNK21yP5nbIinbWvI5ww?=
- =?us-ascii?Q?alAZqhhiDteofMJhoiz3eozGxyiq+PZp4etsB8xqtoHbTal/6czMqCwK1G6w?=
- =?us-ascii?Q?Djs/6DN4L/8PKAmlxqqpahufNF+yXJsATTDfl7Aapd6lHSw1I3R/INyXdhA7?=
- =?us-ascii?Q?+V5Z/PxVpV06bSp0PSwaOyaGWuo627tEq3uhomYuJaYXRUGkfWO39ZuvFSMG?=
- =?us-ascii?Q?izVhT8e/RqcdKoDb5v168Hd9bxA5IO1wz037yOLDMU005+MY1eXvmGIUPvt8?=
- =?us-ascii?Q?mgvmgkbMs0F+Zum5MWh/zYqghwUm5HBHhHxL9dSyHahH8bgybSW6qXjGKIXP?=
- =?us-ascii?Q?iyOgUZOnR0uOTnuOdLgW98RYqYvMkyhZNHt7g2iumuF6lKVF19hN4RqOKCXG?=
- =?us-ascii?Q?4ZONJUYaQp1uYTFjdmGx5pLeJp+Z3DfBYz17X3RUMSSzL1tXp0P7EuctPzaE?=
- =?us-ascii?Q?1jWoBVud8jOwVCzDq/LWuFNE7W/TbvgMvbQIQygJ51hjRNuRs3xhjwV2ixns?=
- =?us-ascii?Q?PZdipbS129ef8XV9QCcq2PU3ev4HW0nBNJ7o7fc0h74VySXHEaJHMiwsplX6?=
- =?us-ascii?Q?E+u6LdSV3OkT8kiipP/udlNd0ibE9yTzleNE8/rh1zORsZ9M8x2wEqv5vZcD?=
- =?us-ascii?Q?syjnLDa8hcW/GaSm8uWBe+Ahv34yQOA=3D?=
-X-Exchange-RoutingPolicyChecked: ViFOLIj4Vz0B/S5V94JDWOscqiMpQBpbI0PgnwL9a8wLAQaI0WeGjamPP9yDItLXWaBKuww9uYhmBLujw3XBjzIAxuDe5TzHlFc90THgk5MUhWSPCLOuzgeG/NCf+5d3GavazpAV3kLQa0a7LcSUNNCiLI17bTTPLEI8DGdtEP+IiOXaGEcaMmC1ZofUnh8+zKL7DQm6tBe/kn0inrbRfP8/G4q8BcuM5IiKjkpnCG03PH3vqNkbuJCYcgiU22Ix51dx4liJ1k3NCX5GVMcTysIcw8pgmoRmvO4vNDdsFfMTr71Hj2fRgdLYtX+RRx9hlrUmrSR3Q+eUs/69kYvIFQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7f4158b5-5f72-4706-c4cd-08df3ab15149
-X-MS-Exchange-CrossTenant-AuthSource: DS4PPF0BAC23327.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 20:22:15.9245
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vEeeQ8zsLI5ImF3+mGbyl7QikqtoAW3LiJeXkUaSSijzsj67gVAbmZ7YlBMxohv5hhFtAdCrmzati9W81IiAydetzHdI5dat8U/Dv+VZ3BY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR11MB8044
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104132143.215581-6-Nicolae-daniel.Deaconescu@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, Nov 04, 2026 at 10:50:03AM -0700, Dave Jiang wrote:
-> Adding Ben as a reviewer for the CXL subsystem.
+On Wed, Nov 04, 2026 at 03:21:43PM +0200, Nicolae-Daniel Deaconescu wrote:
 > 
-> Cc: Davidlohr Bueso <dave@stgolabs.net>
-> Cc: Jonathan Cameron <jic23@kernel.org>
-> Cc: Alison Schofield <alison.schofield@intel.com>
-> Cc: Vishal Verma <vishal.l.verma@intel.com>
-> Cc: Ben Cheatham <benjamin.cheatham@amd.com>
-> Signed-off-by: Dave Jiang <dave.jiang@intel.com>
+> Add the LTC2387-16, LTC2387-18, ADAQ23875, ADAQ23876 and ADAQ23878 as
+> chip data of this driver. They are read through the same two PWMs and
+> IIO backend. They differ in a few ways that the chip data and a few
+> quirks cover, see the binding patch for the list:
+> 
+> - Data is output at double data rate on one or two lanes, so the CLK
+>   burst is the number of bits divided by 2 or by 4 pulses long.
+> - The burst of one conversion starts at least t_FIRSTCLK after its CNV
+>   and has to end at most t_LASTCLK after the next CNV, so at the maximum
+>   rate it runs into the next conversion period.
+> - They have no EN pins.
+> - The ADAQ parts divide the scale by the gain of their front end.
+> 
+> The changes are:
+> 
+> - Add chip info for the five parts, with a maximum sampling frequency of
+>   15 MSPS, and the OF and platform device ID entries for them.
+> - Add struct ad7625_ddr_timing with t_CNVH, t_FIRSTCLK and t_LASTCLK, and
+>   point the chip info of the new parts to it. A non-NULL pointer marks a
+>   part with DDR output.
+> - Add ad7625_set_sampling_freq_ddr(). Unlike for the AD762x and AD796x,
+>   the sampling period is raised until the CLK burst fits t_LASTCLK, so the
+>   maximum rate isn't limited to 10 MSPS by the period clamp.
+> - Build the waveforms in whole steps of the PWMs, which are read with
+>   pwm_get_waveform_step_might_sleep() when probing and each time the
+>   sampling frequency changes.
+> - Get the second PWM as "clk" for the new parts and "clk_gate" for the
+>   existing ones, and don't get a reference clock for the new parts, as the
+>   step already tells the clock rate of the PWM.
+> - Add ad7625_parse_ddr() to read adi,use-two-lanes and adi,gain-milli. The
+>   gain defaults to the fixed gain of the ADAQ23875 and to 1 for the
+>   LTC2387, and is required for the ADAQ23876 and ADAQ23878, whose gain is
+>   pin strapped and has to be one of the supported values.
+> - Divide the scale by the gain of the front end for the new parts.
+> - Enable the supplies of the new parts, and read their optional
+>   ref-supply, using the internal reference when it is absent.
+> - Set the number of lanes of the backend for the new parts. This can only
+>   be skipped if the backend can't set it and one lane is used.
+> - Limit the default sampling frequency of the new parts to the clock rate
+>   of the PWMs.
+> - Move the setup of the EN pin mode into ad7625_set_initial_mode(), which
+>   does nothing for the parts without EN pins. The code that sets the pins
+>   of the existing parts is unchanged.
+> - Include math64.h and minmax.h for the helpers that the new code uses.
+> - Add the new parts to the Kconfig help and Documentation/iio/ad7625.rst,
+>   and new maintainer entries.
 
-Acked-by: Alison Schofield <alison.schofield@intel.com>
+...
+
+>  config AD7625
+> -	tristate "Analog Devices AD7625/AD7626 High Speed ADC driver"
+> +	tristate "Analog Devices AD762x, AD796x, LTC2387 and ADAQ2387x ADC driver"
+
+This does not scale. Please, make it more generic and make sure the text in the
+top comment of the driver along with MODULE_DESCRIPTION() is quite similar to
+this (maybe without "driver" word).
+
+...
+
+>  	  * AD7626 16-Bit, 10 MSPS PulSAR Analog-to-Digital Converter
+>  	  * AD7960 18-Bit, 5 MSPS PulSAR Analog-to-Digital Converter
+>  	  * AD7961 16-Bit, 5 MSPS PulSAR Analog-to-Digital Converter
+> +	  * LTC2387-16 16-Bit, 15 MSPS SAR Analog-to-Digital Converter
+> +	  * LTC2387-18 18-Bit, 15 MSPS SAR Analog-to-Digital Converter
+> +	  * ADAQ23875 and ADAQ23876 16-Bit, 15 MSPS uModule Data Acquisition
+> +	    Systems
+> +	  * ADAQ23878 18-Bit, 15 MSPS uModule Data Acquisition System
+
+Why not keep this list sorted by a part number?
+
+...
+
+>  struct ad7625_chip_info {
+>  	const char *name;
+>  	const unsigned int max_sample_freq_hz;
+
+>  	const bool has_power_down_state;
+>  	const bool has_bandwidth_control;
+>  	const bool has_internal_vref;
+
+Side note: What the point in const to these (plain booleans, integers)?
+Chip info as a whole should be const, no?
+
+...
+
+> +	/*
+> +	 * The LTC2387 and ADAQ2387x output data on one or two lanes at double
+> +	 * data rate, have no EN pins and learn their timing from the PWMs.
+> +	 * They are the parts with @ddr_timing set.
+> +	 */
+> +	const struct ad7625_ddr_timing *ddr_timing;
+> +	const char * const *supplies;
+
+Again, why the second const here...
+
+> +	int num_supplies;
+> +	/* Gain * 1000 of the ADAQ front end, 0 if the board has to provide it. */
+> +	const u16 default_gain_milli;
+
+...and the const here?
+
+milli is multiplier and not a unit. But if you think it's better this way, I am
+not going to object.
+
+>  };
+
+...
+
+> +static const char * const adaq2387x_supplies[] = {
+> +	"vdd", "vio", "vs-p", "vs-n"
+
+When not on a single line, add a trailing comma.
+
+> +};
+
+...
+
+> +static const struct ad7625_chip_info ltc2387_16_chip_info = {
+> +	.name = "ltc2387-16",
+> +	.max_sample_freq_hz = 15 * MEGA,
+
+No, we have HZ_PER_MHZ for this.
+
+> +	.chan_spec = AD7625_CHAN_SPEC(16),
+> +	.has_internal_vref = true,
+> +	.ddr_timing = &ltc2387_ddr_timing,
+> +	.supplies = ltc2387_supplies,
+> +	.num_supplies = ARRAY_SIZE(ltc2387_supplies),
+> +	.default_gain_milli = 1000,
+
+As I mentioned above this multiplier without unit is confusing.
+Simply
+
+	.default_gain = 1 * MILLI,
+
+?
+
+> +};
+
+Same comments to all added chip info:s.
+
+...
+
+> +	/*
+> +	 * The waveforms are whole steps, so nothing should have to grow. If it
+> +	 * did, a minimum time of the part is no longer met.
+> +	 */
+> +	ret = pwm_round_waveform_might_sleep(st->cnv_pwm, &cnv_wf);
+> +	if (ret)
+> +		return ret < 0 ? ret : -EINVAL;
+> +
+> +	ret = pwm_round_waveform_might_sleep(st->clk_gate_pwm, &clk_gate_wf);
+> +	if (ret)
+> +		return ret < 0 ? ret : -EINVAL;
+
+Don't nest branches, you can just move ret == 0 check out of that in both cases.
+
+...
+
+> +static int ad7625_parse_ddr(struct device *dev, struct ad7625_state *st)
+> +{
+> +	int ret, i;
+
+Why is 'i' signed and why can't it be defined inside for-loop?
+
+> +	st->two_lanes = device_property_read_bool(dev, "adi,use-two-lanes");
+> +
+> +	/* A fixed gain part has no adi,gain-milli, the others are pin strapped. */
+> +	st->gain_milli = st->info->default_gain_milli;
+> +	if (st->gain_milli)
+> +		return 0;
+> +
+> +	if (!device_property_present(dev, "adi,gain-milli"))
+> +		return dev_err_probe(dev, -EINVAL, "adi,gain-milli must be set\n");
+> +
+> +	ret = device_property_read_u16(dev, "adi,gain-milli", &st->gain_milli);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to read adi,gain-milli\n");
+
+	const char *propname;
+	...
+	propname = "adi,gain-milli";
+
+	// Why do we even need the presence check?
+	if (!device_property_present(dev, propname))
+		return dev_err_probe(dev, -EINVAL, "%s must be set\n", propname);
+
+	ret = device_property_read_u16(dev, propname, &st->gain_milli);
+	if (ret)
+		return dev_err_probe(dev, ret, "failed to read %s\n", propname);
+
+
+> +	/* The scale shifts the gain by up to 17 bits, so it has to stay small. */
+> +	for (i = 0; i < ARRAY_SIZE(ad7625_gains_milli); i++)
+> +		if (st->gain_milli == ad7625_gains_milli[i])
+> +			return 0;
+> +
+> +	return dev_err_probe(dev, -EINVAL, "unsupported adi,gain-milli %u\n",
+> +			     st->gain_milli);
+> +}
+
+...
+
+> +static int devm_ad7625_ddr_regulator_setup(struct device *dev,
+> +					   struct ad7625_state *st)
+> +{
+> +	int ret;
+> +
+> +	ret = devm_regulator_bulk_get_enable(dev, st->info->num_supplies,
+> +					     st->info->supplies);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to enable supplies\n");
+> +
+> +	ret = devm_regulator_get_enable_read_voltage(dev, "ref");
+> +	if (ret < 0 && ret != -ENODEV)
+
+Too many ENODEV checks, see below how to deduplicate.
+
+> +		return dev_err_probe(dev, ret, "failed to get REF voltage\n");
+> +	if (!ret)
+> +		return dev_err_probe(dev, -EINVAL, "REF voltage must not be 0\n");
+
+	ret = devm_regulator_get_enable_read_voltage(dev, "ref");
+	if (ret == -ENODEV)
+		/* Without ref-supply the internal reference is used. */
+		st->vref_mv = AD7625_INTERNAL_REF_MV;
+	else if (ret < 0)
+		return dev_err_probe(dev, ret, "failed to get REF voltage\n");
+	else if (ret == 0)
+		return dev_err_probe(dev, -EINVAL, "REF voltage must not be 0\n");
+
+	st->vref_mv = ret / (MICRO / MILLI);
+
+> +	/* Without ref-supply the internal reference is used. */
+> +	st->vref_mv = ret == -ENODEV ? AD7625_INTERNAL_REF_MV : ret / (MICRO / MILLI);
+> +
+> +	return 0;
+> +}
+
+...
+
+> -		/*
+> -		 * If neither sampling mode is available, then report an error,
+> -		 * since the other modes are not useful defaults.
+> -		 */
+> -		if (st->can_wide_bandwidth) {
+> -			ret = ad7960_set_mode(st, AD7960_MODE_WIDE_BANDWIDTH,
+> -					      st->have_refin, st->vref_mv);
+> -		} else if (st->can_narrow_bandwidth) {
+> -			ret = ad7960_set_mode(st, AD7960_MODE_NARROW_BANDWIDTH,
+> -					      st->have_refin, st->vref_mv);
+> -		} else {
+> -			return dev_err_probe(dev, -EINVAL,
+> -				"couldn't set device to wide or narrow bandwidth modes\n");
+> -		}
+> -
+> -		if (ret)
+> -			return dev_err_probe(dev, -EINVAL,
+> -					     "failed to set EN pins\n");
+
+AFAICS the above can be moved to a helper in the separate patch and moved as a
+couple of lines only in this patch.
+
+...
+
+> +	if (st->info->ddr_timing) {
+> +		ret = iio_backend_num_lanes_set(st->back, st->two_lanes ? 2 : 1);
+> +		/* Without the op, a backend can only be left on one lane. */
+> +		if (ret && (ret != -EOPNOTSUPP || st->two_lanes))
+> +			return dev_err_probe(dev, ret, "failed to set the number of lanes\n");
+> +	}
+
+Same problem, too many (hidden) branches makes code unreadable.
+
+	if (st->info->ddr_timing) {
+		if (st->two_lanes) {
+			ret = iio_backend_num_lanes_set(st->back, 2);
+		} else {
+			ret = iio_backend_num_lanes_set(st->back, 1);
+			/* Without the op, a backend can only be left on one lane. */
+			if (ret == -EOPNOTSUPP)
+				ret = 0;
+		}
+		if (ret)
+			return dev_err_probe(dev, ret, "failed to set the number of lanes\n");
+	}
+
+...
+
+> +	/* The DDR parts reject rates above the clock of the PWMs. */
+> +	if (st->info->ddr_timing)
+> +		default_sample_freq = min_t(u32, default_sample_freq, st->step.clk_rate_hz);
+
+No min_t().
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
