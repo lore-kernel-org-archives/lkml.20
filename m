@@ -1,57 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793834293;
-	b=rHpWlTftM5eUZi3GV39oyCfXH/VTx7nZiVZ+Nvlj4zItOR7vit/tqU+HmPQg6zCqrCQi
-	 hfbpUHOtxJ6TGzieUZiT7mvtrGoAyuW2xejpRVHx0Mc/eu6InuVNbixfqXy0Atjj0mtq5
-	 Gpq9Gdbojc1Zlx6TWoBV3u+WJGLWWbCi1FyilmG+B8itf0DqVCZLexSUNsk7n7g9AtNxr
-	 VroUh3WfJ0yKB+GnbyCKd2J+N+TPvCd4wvUG5ATq/CnUPrrckH//DyzwAdjE2Qcwtsg2Y
-	 VY06jlZZ3fguwnQ4odaGvm6x8HyhWVf9YSwJcs8CuFpi0RcjCvbG5X2rXh1Y/iqiWVQ==
+	t=1793834317;
+	b=Rh78JNEeoaU1nf9VSk9f3zMonfSqnSydlG4hv/RXnZjbuJJ+sUtZFHzAQ1EW4YWPnXzV
+	 tcQD+kkzs34UO3vT3URaPce16VowjbZVxVDeG1cLKR2HrmgQTHBuupXnkftwFLoO//606
+	 TpaIse1oG2h1ONQ0yrFGBBSjEYbCgh2Y/csEvHI6NZ2oMUYx5jB2+72T4hS7EY6rE+uCD
+	 MwFOWNau2WvzsEdbEvqDN0TZW6sv/QPNgVGBSH664h9V+OHJ+ZqMCPGleP7npCCpp5p73
+	 F6uSQHWzDQUepkQykB1fxDOfQDbUJXg1/jGofW1W7h42U/eTmnX9zVp8g5AEz5eGnww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793834293;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=XACrs4pTXCils0EC/S2elwUQpJ60Uk3C828QQn96+Ao=;
-	b=hXWmm9nDWhYZArzygHB3mAWRqwTRCJ6aqVHmq2ZplcJmjXrE4+sKijch7Vxo5zl4dMwx
-	 LGY9Upxf+CqF6RnD8wIw4sO4tsINUYuDAgRakKyhUpiRm4WObIzUpU5Gt6rDWNr4dtbRa
-	 Iy1SEvlCbBUJFHA0KfR9Jc3Hdxh+ELg+L8p7YL0PXhL+0g0XbZvxMuJkMXGFtt0cRdRh6
-	 FF7YI/XbF/Q4K7xW3Q57dR+7QoJERRxaxx0rBTZuPlTZbWWfGOw0p9S2tnLEw6sWQ35B9
-	 FVFH2Clqdt/KYrHLMTlsqurCqoh15ROtPDyz0As+phGo3mFFlL3QmL7+LW9yZ+c0Wsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793834317;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=0ig/7/QrdpCDxXtWkwmfBcbB/v9MdGwTTP1BzaPF+ok=;
+	b=kPlSqw9j5odHh6glFFiiDZ01BXPLQE9V61QPMazqeO6N0ynsJr2ZEfkWzA9csGgkmTKf
+	 Cm0gk1wqmPb39EOiJZQfrOPEF8v5V5cF9YtS/q9njKQGW8aK7HpwBYPTWNZGtlMazHmF7
+	 xLWFJMkvKK6xDBFwAaLavUOJwSjkuX2d7Di0DCuSfQE7QezjYAW3kemMBzdZx+B+iraxe
+	 SwMd6sa8FlV+pPdCklwSAdzHvcWZmQhrDw00eCI/A7QHftkUE1kFYYJwClaRcYwx1WzPo
+	 HYDtgmhywlQBTzF+t34T3zseRHaiafmug/LJEYFZw1F0kjGuPW3dsyJAO2nyxNb+xxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bce0gb7H;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=andrewgigena.dev;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.208.169
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88E11606A31B;
-	Wed,  4 Nov 2026 23:18:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bce0gb7H
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2DB11F000C1;
-	Wed,  4 Nov 2026 23:18:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793834293;
-	bh=XACrs4pTXCils0EC/S2elwUQpJ60Uk3C828QQn96+Ao=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Bce0gb7HzbjKd4nzNAX1dsOpQPOfBf8OrqWiQaffUJz4ChFETNrpcJO17+Qw2yQbI
-	 0W8YofE0GTYOeJ+V/jHOfcgsKYvs4VcIUs/GOHrAGmJ83NYbI6U5rfw4H4/T+6A9kc
-	 mNneopP3A4jepFMUmZMuQ7yzuPNuAEnqgRb2xlckx8rkUHJhj9NdI0JfuXCM81+LIa
-	 mko4fZ9LqKgXXMqqTcTsv5lLCjXJJqPKca99BgJlumpYVdbGLYoQfzzoNz39wnD8D5
-	 N0dJ4PU/qbugbm48Vp0RTu/PHiHmVxD1iN8Jkl8VDbxfC9oZvo6hUirZ5DOIIquCxT
-	 +5tj2v8JoGaNw==
-Message-ID: <sashiko-outbox-198288@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 13/21] sched/deadline: Rebuild the root domains'
- accounting without cpusets too
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
-In-Reply-To: <20261104211207.1392343-14-mathieu.desnoyers@efficios.com>
-References: <20261104211207.1392343-1-mathieu.desnoyers@efficios.com>
- <20261104211207.1392343-14-mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 23:18:12 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 853FC606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:18:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 853FC606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=andrewgigena.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3a1f628b1d1so10255211fa.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 15:18:37 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793834316; x=1794439116;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0ig/7/QrdpCDxXtWkwmfBcbB/v9MdGwTTP1BzaPF+ok=;
+        b=p5n4JNnstv+0nhoWL8U3Wh0JbfApoDR9rZjMVTp0ENJUR0mR3jUOfJwBRnKBBxjs2h
+         pxk7n49J+G8EtoI34XFpZPtB24n5v5V6caPF0/T8IcfMHStpO8xJgvbPAGchrmtWtoK/
+         WCpdtW/2/wuQOpyPapcF4n7g7pGNofX3B7WDQGmfyFvNF5Z0sD1Q7o+XiqM6OM3uJlCm
+         iMIr8YEC1Qg4sr9Dw/7zDHwEtAwOFzahtWH6UijipZQYV3QRsVr2p9sQqAlHkZAqCT4E
+         UfZwKzvHDLI3HX+F/Ka67bhpslpWXmBgMPdmCrMaan8lxQtl2t8enS0Ejah1LNwLlqND
+         9ZJw==
+X-Forwarded-Encrypted: i=1; AKwUvBwZZGBndIIxZwVNwBv9aXwgd9fdiIJWHuDqIVl3sI0ukj10mNOWfZLqR5WyAKFjnCJAoyg4npu8lobVGSY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/SD27XM6v4fvTmUx6aW57Hwd7TzmphVTHOGj4+n1Hzqy2VxXvW
+	Sw8lT+Lw7+TrbZmK7f8ViflqhfCAB4JlkDdad6DJCYSntq+cM+uIsO+4R++lxLT/H7c=
+X-Gm-Gg: AYBFou2XtPnsZDh1U3ONVSx/qqh5sw/fMnn9YE3beyEoA11Y6d9yDSWnu1+i6+PEhEu
+	A/113BfqJFRBnvLODFRPpo9cYIuVaicqSjJRjrgj7wvkjTPSNXAIt6SgVvtw8sSIQ1f6Tu2TBjj
+	TXKudokYkEDPDl8R80qYGxUOHsqs945koNorugvP5kVa4GHEoZp1z/yIl3nGpv3o92x0212+Xuv
+	kvKwDUYCOVhkqpkUUZufMb8Jqs+qkwG38S2rnZWNtl2tHR5CQrhwJlpoWXspL/M+MeX8Itn/g3J
+	w5J60GUNkr0GVRbSrR0fSRB67hfEJzJyjtFzdGdqvMlHQ/nY7ZI4X/VlYrl9FspVSnsTrGtmHb3
+	SzrMWv6lWph1YcJzdBMKMa47PxWC6EyDgrdngbt3z2yWkLAkN0X7LERUAYmDVzf4a3eIUPSgjYM
+	MSZtkcy3h3GzVW8H3eEjCInG3uJ01jZ0HXABprRPHKuE5FhUWYjmyVgIieDfP5xj1FxBYTZ4AYo
+	ub6XpNevagIshbKVzuMaFWYOgef/uHk50w27nqK7QcjfaHm2uHk8YQ/YJHxBB1QZrSHZZxcG1vW
+	W7n/OJ0BTecPk3i/GdqRA9hYe4Wz9R28Xy+OkvFUyheljCKEBtDhcM/Qx6sZ8j7MoCKTKjI=
+X-Received: by 2002:a05:651c:890:b0:3ab:716d:6406 with SMTP id 38308e7fff4ca-3acb7b22a6dmr42315581fa.17.1793834315560;
+        Wed, 04 Nov 2026 15:18:35 -0800 (PST)
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com. [209.85.208.171])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3acdc7fd7bcsm6863681fa.39.2026.11.04.15.18.35
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 15:18:35 -0800 (PST)
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3ab3dd966e1so12068781fa.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 15:18:35 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwvF0p/Xrigu41kSwsdn9XYr/k7e7/L1HqHnJv6HNlApDGmRUomlH8Q9KXzJm1NoFsQOu5fZ4bgah6i+tw=@vger.kernel.org
+X-Received: by 2002:a05:651c:31d2:b0:3ac:e4b6:b93d with SMTP id
+ 38308e7fff4ca-3ace4b6bad3mr1250481fa.8.1793833951678; Wed, 04 Nov 2026
+ 15:12:31 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,261 +80,139 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261104-sm8150-v7-4-rc1-camss-v1-0-7a9534a9a22f@andrewgigena.dev>
+ <20261104-sm8150-v7-4-rc1-camss-v1-3-7a9534a9a22f@andrewgigena.dev> <c5405525-78ee-4480-b482-4dedc49661a7@packett.cool>
+In-Reply-To: <c5405525-78ee-4480-b482-4dedc49661a7@packett.cool>
+From: Andrew Gigena <mail@andrewgigena.dev>
+Date: Wed, 4 Nov 2026 20:12:04 -0300
+X-Gmail-Original-Message-ID: <CANn8Ume7MfDKhjdZAc3Qha7_k=CFFzaxzk5nK9Ke8iNOveYyRA@mail.gmail.com>
+X-Gm-Features: AclHuK9-uWrMe0XXfFl-zEd0pTQ8lUonEa8rXy8zxcLRw3JRTxzZbTIo1byB1YQ
+Message-ID: <CANn8Ume7MfDKhjdZAc3Qha7_k=CFFzaxzk5nK9Ke8iNOveYyRA@mail.gmail.com>
+Subject: Re: [PATCH 3/4] media: qcom: camss: Add support for SM8150
+To: Val Packett <val@packett.cool>
+Cc: mail@andrewgigena.dev, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	"Bryan O'Donoghue" <bod@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] sched: lock inversion and leaked dl_accounting_mutex in __sched_se=
-tscheduler()
-- [High] sched/deadline: late dl_accounting_mutex lock in dl_rebuild_rd_acc=
-ounting()
-- [High] sched/deadline: dl_rebuild_rd_accounting() walks dead and zombie t=
-asks
---
+Hi Val,
 
-commit 9c6ff828105f0cf8abfab2f4dbfe02756a888bc8
-Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Thanks for the review, and great timing on the SC8180X work.
+> It should probably go higher in the sort order, before 8250?
+Agreed. I=E2=80=99ve moved them for the next version.
+> Interesting, why do these match 8280xp and not, say, 8250?
 
-sched/deadline: Rebuild the root domains' accounting without cpusets too
+SM8150=E2=80=99s downstream DT describes the PHY as qcom,csiphy-v1.1, and t=
+he
+v1.1 2PH (D-PHY) lane sequence in cam_csiphy_1_1_hwreg.h matches the
+2PH entries in lane_regs_sc8280xp offset-for-offset:
+- 0x0004, 0x002C, 0x0034, 0x001C, 0x0014, 0x0028, 0x003C, 0x0000,
+0x0008, 0x000C, 0x0010, 0x0038, 0x0060, 0x0064
+- lane blocks at 0x0704, 0x0204, 0x0404, 0x0604
+- with 0x0728 =3D 0x04, 0x0700 =3D 0x80, 0x070C =3D 0xA5, 0x0738 =3D 0x1F
 
-This commit implements dl_rebuild_rd_accounting() and dl_accounting_mutex f=
-or
-!CONFIG_CPUSETS kernels so that root domain SCHED_DEADLINE bandwidth
-accounting is rebuilt across all tasks during CPU hotplug and suspend/resum=
-e.
+The SM8250 lane_regs_sm8250 table is a different sequence (0x0030,
+0x0900/0x0908, 0x0034 =3D 0x07, 0x0010 =3D 0x02, etc.), so it doesn=E2=80=
+=99t fit
+the v1.1 PHY. If SC8180X uses the same v1.1 CSIPHY, the SC8280XP lane
+table should be the right starting point there too.
 
-[ ... ]
+See https://android.googlesource.com/kernel/msm/+/refs/heads/android-msm-co=
+ral-4.14-android13/drivers/media/platform/msm/ais/cam_sensor_module/cam_csi=
+phy/include/cam_csiphy_1_1_hwreg.h
 
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index cbcc00ea46d31..85df2b0044bed 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-> @@ -3685,6 +3685,53 @@ void dl_clear_root_domain(struct root_domain *rd)
->  		dl_server_add_bw(rd, i);
->  }
-> =20
-> +#ifndef CONFIG_CPUSETS
-> +/*
-> + * Where cpusets are built in, cpuset_mutex keeps an admission of bandwi=
-dth
-> + * from running against a rebuild of the accounting, and
-> + * __sched_setscheduler() takes it for every change of or into
-> + * SCHED_DEADLINE. Where they are not, cpuset_lock() is a stub and this
-> + * takes its place.
-> + */
-> +static DEFINE_MUTEX(dl_accounting_mutex);
-> +
-> +void dl_accounting_lock(void)
-> +{
-> +	mutex_lock(&dl_accounting_mutex);
-> +}
-> +
-> +void dl_accounting_unlock(void)
-> +{
-> +	mutex_unlock(&dl_accounting_mutex);
-> +}
-> +
-> +void lockdep_assert_dl_accounting_held(void)
-> +{
-> +	lockdep_assert_held(&dl_accounting_mutex);
-> +}
-> +
-> +/*
-> + * Rebuild the root domains' accounting, where no cpuset holds the
-> + * deadline tasks of each: they are found by walking them all, which
-> + * dl_rebuild_rd_accounting() of the cpusets does per cpuset instead.
-> + */
-> +void dl_rebuild_rd_accounting(void)
-> +{
-> +	struct task_struct *g, *p;
-> +
-> +	lockdep_assert_cpus_held();
-> +	lockdep_assert_held(&sched_domains_mutex);
-> +
-> +	guard(mutex)(&dl_accounting_mutex);
-> +	dl_clear_root_domains();
 
-[Severity: High]
-As reported by Sashiko on v1 [1], is acquiring dl_accounting_mutex inside
-dl_rebuild_rd_accounting() too late to serialize against
-__sched_setscheduler() -> sched_dl_overflow()?
-
-Under CONFIG_CPUSETS, rebuild_sched_domains_cpuslocked() and
-cpuset_reset_sched_domains() acquire cpuset_mutex before calling
-partition_sched_domains(), holding it across the entire execution of
-partition_sched_domains_locked().
-
-Under !CONFIG_CPUSETS, partition_sched_domains_locked() runs
-detach_destroy_domains() and build_sched_domains() -> cpu_attach_domain() ->
-rq_attach_root() before calling dl_rebuild_rd_accounting():
-
-kernel/sched/topology.c:partition_sched_domains_locked() {
-    ...
-    detach_destroy_domains(doms_cur);
-    ...
-    build_sched_domains(doms_new[i], ...);
-    ...
-    update_sched_domain_debugfs();
-    dl_rebuild_rd_accounting();
-}
-
-At that point, newly allocated root_domain instances (whose dl_bw.total_bw
-only holds dl_server bandwidth and zero task bandwidth) are already attached
-to cpu_rq(cpu)->rd, while dl_bw_gen has not yet been incremented by
-dl_clear_root_domains().
-
-If __sched_setscheduler() runs on another CPU during that window, it can
-acquire dl_accounting_mutex before dl_rebuild_rd_accounting() is reached and
-call sched_dl_overflow() against the unpopulated new root domain:
-
-- A task entering SCHED_DEADLINE checks __dl_overflow() against a new
-  root_domain with zero task bandwidth, allowing total_bw to be overcommitt=
-ed
-  once dl_rebuild_rd_accounting() runs and adds both existing tasks and the
-  newly admitted task.
-
-- A departed task re-entering SCHED_DEADLINE before its 0-lag time calls
-  dl_task_release_bw(p, -1) in sched_dl_overflow(); because dl_bw_gen has n=
-ot
-  been incremented yet, dl_task_release_bw() sees dl_se->dl_bw_gen =3D=3D
-  dl_bw_gen and subtracts dl_se->dl_bw from dl_bw_of(dl_departed_cpu),
-  underflowing the newly attached root_domain's total_bw.
-
-- An existing SCHED_DEADLINE task reducing its bandwidth calls
-  __dl_overflow() and __dl_sub() on the unpopulated new root_domain, either
-  failing with -EBUSY on unsigned wrap or underflowing total_bw.
-
-Should dl_accounting_mutex be held across partition_sched_domains_locked()
-(or acquired by its callers) just like cpuset_mutex?
-
-> +
-> +	read_lock(&tasklist_lock);
-> +	for_each_process_thread(g, p)
-> +		dl_add_task_root_domain(p);
-> +	read_unlock(&tasklist_lock);
-> +}
-
-[Severity: High]
-Can walking all tasks with for_each_process_thread() in
-dl_rebuild_rd_accounting() corrupt rd->dl_bw.total_bw when encountering dyi=
-ng
-(TASK_DEAD) or unreaped zombie (EXIT_ZOMBIE) deadline tasks?
-
-Unlike css_task_iter_next() in the CONFIG_CPUSETS implementation (which ski=
-ps
-dying tasks and exiting tasks with no live threads), for_each_process_threa=
-d()
-visits tasks in do_task_dead() as well as unreaped EXIT_ZOMBIE processes un=
-til
-they are reaped, while p->prio remains < MAX_DL_PRIO so dl_task(p) is true:
-
-1. When a SCHED_DEADLINE task dies at or after its 0-lag time via
-do_task_dead() -> __schedule() -> deactivate_task() -> dequeue_task_dl() ->
-task_non_contending(), it runs under rq->__lock without holding p->pi_lock =
-or
-dl_accounting_mutex:
-
-kernel/sched/deadline.c:task_non_contending() {
-    ...
-    if (!dl_task || READ_ONCE(p->__state) =3D=3D TASK_DEAD) {
-        if (READ_ONCE(p->__state) =3D=3D TASK_DEAD)
-            sub_rq_bw(dl_se, &rq->dl);
-        dl_task_release_bw(p, task_cpu(p));
-        __dl_clear_params(dl_se);
-    }
-    ...
-}
-
-If dl_rebuild_rd_accounting() runs on another CPU between
-dl_task_release_bw() (which releases dl_departed_lock) and
-__dl_clear_params() (which zeroes dl_se->dl_bw), dl_clear_root_domains()
-increments dl_bw_gen and dl_add_task_root_domain(p) sees
-p->dl.dl_bw_gen !=3D dl_bw_gen with a non-zero p->dl.dl_bw, adding the dying
-task's bandwidth back to dl_b->total_bw where it is permanently leaked.
-
-2. If a task dies before its 0-lag time on CPU X (entering dl_departed_list
-with dl_departed_cpu =3D X and dl_bw_gen =3D G) and remains an unreaped
-EXIT_ZOMBIE while CPU X goes offline (rebuild G + 1), both
-dl_clear_root_domains() and dl_add_task_root_domain() skip it because
-!cpu_active(X), dropping its bandwidth with p->dl.dl_bw_gen left at G. If C=
-PU
-X comes back online (rebuild G + 2) before inactive_task_timer() fires,
-dl_clear_root_domains() skips the entry because dl_se->dl_bw_gen !=3D
-dl_bw_gen - 1, but for_each_process_thread() then passes the zombie to
-dl_add_task_root_domain(p), which checks only p->dl.dl_bw_gen =3D=3D dl_bw_=
-gen
-and cpu_active(cpu), adding the dropped bandwidth back.
-
-[ ... ]
-
-> diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-> index 8eddb9d47d8e7..b1fc4fadd6899 100644
-> --- a/kernel/sched/syscalls.c
-> +++ b/kernel/sched/syscalls.c
-> @@ -559,6 +559,7 @@ int __sched_setscheduler(struct task_struct *p,
->  	if (dl_policy(policy) || dl_policy(p->policy)) {
->  		cpuset_locked =3D true;
->  		cpuset_lock();
-> +		dl_accounting_lock();
->  	}
-> =20
->  	/*
-> @@ -650,8 +651,10 @@ int __sched_setscheduler(struct task_struct *p,
->  	if (unlikely(oldpolicy !=3D -1 && oldpolicy !=3D p->policy)) {
->  		policy =3D oldpolicy =3D -1;
->  		task_rq_unlock(rq, p, &rf);
-> -		if (cpuset_locked)
-> +		if (cpuset_locked) {
-> +			dl_accounting_unlock();
-> +			cpuset_unlock();
-> +		}
->  		goto recheck;
->  	}
-> =20
-> @@ -740,8 +743,10 @@ int __sched_setscheduler(struct task_struct *p,
->  	task_rq_unlock(rq, p, &rf);
-> =20
->  	if (pi) {
-> -		if (cpuset_locked)
-> +		if (cpuset_locked) {
-> +			dl_accounting_unlock();
-> +			cpuset_unlock();
-> +		}
->  		rt_mutex_adjust_pi(p);
->  	}
-
-[Severity: High]
-What happens when normalize_rt_tasks() calls __sched_setscheduler(p, &attr,
-false, false) on a SCHED_DEADLINE task while holding read_lock(&tasklist_lo=
-ck)?
-
-kernel/sched/core.c:normalize_rt_tasks() {
-    read_lock(&tasklist_lock);
-    for_each_process_thread(g, p) {
-        ...
-        if (!rt_or_dl_task(p))
-            continue;
-        ...
-        __sched_setscheduler(p, &attr, false, false);
-    }
-    read_unlock(&tasklist_lock);
-}
-
-Because dl_policy(p->policy) is true, __sched_setscheduler() calls
-dl_accounting_lock() without checking whether pi is true. On !CONFIG_CPUSETS
-kernels (where cpuset_lock() was previously a no-op stub), acquiring
-dl_accounting_mutex under read_lock(&tasklist_lock) sleeps in atomic context
-and inverts the lock order relative to dl_rebuild_rd_accounting(), which
-acquires dl_accounting_mutex before read_lock(&tasklist_lock).
-
-In addition, on the normal return path of __sched_setscheduler(),
-dl_accounting_unlock() and cpuset_unlock() are only called inside if (pi), =
-so
-calling __sched_setscheduler() with pi =3D=3D false returns 0 with
-dl_accounting_mutex (and cpuset_mutex) still locked.
-
-[1] https://lore.kernel.org/r/7ea39be6af23940c33a63002ea832838fe69bb9e.1793=
-804635.git.mathieu.desnoyers@efficios.com
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104211207.1392=
-343-1-mathieu.desnoyers@efficios.com?part=3D13
+El mi=C3=A9, 4 nov 2026 a la(s) 6:19=E2=80=AFp.m., Val Packett (val@packett=
+.cool) escribi=C3=B3:
+>
+> Hi,
+>
+> On 11/4/26 5:54 PM, Andrew Gigena via B4 Relay wrote:
+> > From: Andrew Gigena <mail@andrewgigena.dev>
+> >
+> > Add CAMSS platform data for the Qualcomm SM8150 SoC. The camera
+> > subsystem contains four CSIPHY, four CSID (two full and two lite), two
+> > VFE and two VFE-Lite instances.
+> >
+> > The hardware reuses the existing 3-phase 1.0 CSIPHY, Gen2 CSID and
+> > VFE 17x implementations; the CSIPHY uses the SC8280XP lane register
+> > layout. Add CAMSS_8150 to the version enum and to the shared code
+> > paths, then add the per-block clock, regulator, power domain,
+> > interrupt and interconnect resources.
+> >
+> > Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
+> > ---
+> Wow, what an unbelievable coincidence =E2=80=94 I just went looking for t=
+his and
+> found these patches on gitlab in order to test on the similar sc8180x,
+> and half an hour later you've submitted it to the lists! :D
+> >   .../platform/qcom/camss/camss-csiphy-3ph-1-0.c     |   2 +
+> >   drivers/media/platform/qcom/camss/camss-vfe.c      |   2 +
+> >   drivers/media/platform/qcom/camss/camss.c          | 262 ++++++++++++=
++++++++++
+> >   drivers/media/platform/qcom/camss/camss.h          |   1 +
+> >   4 files changed, 267 insertions(+)
+> >
+> > diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b=
+/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+> > index dac8d2ecf799..851decb0691e 100644
+> > --- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+> > +++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+> > @@ -1141,6 +1141,7 @@ static bool csiphy_is_gen2(u32 version)
+> >       case CAMSS_8650:
+> >       case CAMSS_8775P:
+> >       case CAMSS_X1E80100:
+> > +     case CAMSS_8150:
+> It should probably go higher in the sort order, before 8250?
+> >               ret =3D true;
+> >               break;
+> >       }
+> > @@ -1236,6 +1237,7 @@ static int csiphy_init(struct csiphy_device *csip=
+hy)
+> >               regs->lane_array_size =3D ARRAY_SIZE(lane_regs_sm8250);
+> >               break;
+> >       case CAMSS_8280XP:
+> > +     case CAMSS_8150:
+> >               regs->lane_regs =3D &lane_regs_sc8280xp[0];
+> >               regs->lane_array_size =3D ARRAY_SIZE(lane_regs_sc8280xp);
+> >               break;
+> Interesting, why do these match 8280xp and not, say, 8250?
+> > diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/me=
+dia/platform/qcom/camss/camss-vfe.c
+> > index 2680a9914765..dd28058e98a7 100644
+> > --- a/drivers/media/platform/qcom/camss/camss-vfe.c
+> > +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+> > @@ -354,6 +354,7 @@ static u32 vfe_src_pad_code(struct vfe_line *line, =
+u32 sink_code,
+> >       case CAMSS_8650:
+> >       case CAMSS_8775P:
+> >       case CAMSS_X1E80100:
+> > +     case CAMSS_8150:
+> Sort order here too
+> >               switch (sink_code) {
+> >               case MEDIA_BUS_FMT_YUYV8_1X16:
+> >               {
+> > @@ -2010,6 +2011,7 @@ static int vfe_bpl_align_rdi(struct vfe_device *v=
+fe)
+> >       case CAMSS_8280XP:
+> >       case CAMSS_8300:
+> >       case CAMSS_845:
+> > +     case CAMSS_8150:
+> >       case CAMSS_8550:
+> >       case CAMSS_8650:
+> >       case CAMSS_8775P:
+> > [..]
+>
+>
+> Thanks,
+> ~val
+>
+>
