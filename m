@@ -1,111 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793799676;
-	b=m6QPLYxcZNfz1LmhaRN0JS3Bcj3+fmWbLZJ/LkJxjInd0yIoiI3hbdZn9GJRx8QmYlmW
-	 ecRrDP9aHB/2sC6pxsQiZXIJCLbPN0rIK0l0PEVNIVNqXzgi4/kYhHl4527nOAvxT04zb
-	 GVY66eHHwPyBeNTLOQrh+q3c7e0Yzqh+JpYM6HvvSWgBjQ1EbNMmydGSlYjOQ/SO2GoMU
-	 bh8TeO4JPctnY5izgu+DpXOia9lAyRsAxiIy9s0OFP3PMPTd3P4r/LCWG/gMvbh/5Hcih
-	 GrzSqI2r+9xQwme3Zp64gTFcZ1ssARyUVin1szlQnsna45lTqgQ0W4/GxLGNfeqM+DQ==
+	t=1793799687;
+	b=DzrrdVeGqH+wetvdi2XmS9zZhAt918zITExghO1BBYn+zlRtZcQnhVOsS8asJXf+tRNb
+	 cCgI0HgY3EXX6xsxzR9smZyzEXBVPD7tGGhb2WLKJPMk8GJT1s8S9/SlYxckX0Qm6HZB8
+	 JrZxQPKlQvKgHF2z0fTx0EbyBBqgwYo88tsQDO4XRo6KxGbFNaYkh7RmCB6UmuUb37bjv
+	 f9YsDn4tY4rmhdCzpSCJApD78MthYUca871M/YKD4kQs2f1O3RlP6KmnYSsiIKBHS9W+e
+	 QMpCISBgiESCeI3BzsaZy9R8ZhYA7qMsguEqI4lzZWmrbO9Nt+TYqtsmqW/cgVbkfKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799676;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
-	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=d0fx3jue6yBdKZwD4p5LcxlMdLny64B3v9Q+ZGMsubA=;
-	b=bbBEjnp76vmr/BgrrNGShlN2OYRGXbere99SDhW8lKP3L4woGI9oAnowlKoXIKZ1CWb2
-	 g6N7/gTvsoDIq+e4X73YUUmTMcDSz1J/KT0nVz0hIzvLYQykZPtwJI7uDgwdCDPaJRuur
-	 0mKDwiOVcWJktZ32BoosHvYMeH0aLIAYZ+BcZtORQ0X4XRPF7b3wMooZxH/BMvXOF6Aol
-	 0UKKHmN13HAsYASK4lc4i0DoW/BAYJGnlOMatw20DG3InbBvmUmseM7mOPom9DMc1TfTl
-	 hELFdumwq9Qwihk8gCxIx3BAViHZA1DWG4sGwmCXpDo0uEVXXMJMKomuJjCGY/jsQTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799687;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=DsqUBkIa7Olvd6FTVJf/qEImpffvzM2i9AQMrT58Pf8=;
+	b=ihmx3vZTwhFXW3RYRCmvQ3v5HhlzHnwMdm/Vx7lU9MR3xo/MbFfv91C/QGSNbYeWrn4n
+	 n1czvH4tFNUIus8JvYZpoylfdsRYEOpaQX8k4XNUblBdIpE/MPh1AzB7PXXkkwXbRO2F7
+	 ZGQ8sXKIGAAlLRihi2SVLkJr35BUTSeh6PGBrT+in/R8R+q3o2L44+ecn6kBFAdxYqO3D
+	 ND2yW1vlgh0ay7pASFZ7QryjP9+OUawysIObU5U3di/bip7yBDrCcSIomKu9I5uOEt+/V
+	 ODn3P5rTU6DXrX5oZVf56L5efIVE7YwB3er6OT2nHf65/doPrwOTFxaXwfCuC9mNGJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=M1Dvvfjm;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hJ+fAk3O;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=M1Dvvfjm;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hJ+fAk3O;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JT20OMQf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 501EB606A31B;
-	Wed,  4 Nov 2026 13:41:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 501EB606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87E17606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:41:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=M1Dvvfjm;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hJ+fAk3O;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=M1Dvvfjm;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hJ+fAk3O
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 64F091F795;
-	Wed,  4 Nov 2026 13:41:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793799673; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=d0fx3jue6yBdKZwD4p5LcxlMdLny64B3v9Q+ZGMsubA=;
-	b=M1DvvfjmuOl6MeDPykrHeEITAQNrJbxTmMnti13XKWSzJysAKC/6g0Bz71SUbYPC6zrqLW
-	1gf2frwtAvxm99smHRiskyxL1chC7OclWFaFZlgBIjvlA+zKkcJNICW3LFBKO4ClGtLnlY
-	R7zaPHsJtd1MCowUCA/we7gL+8XKkJ8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793799673;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=d0fx3jue6yBdKZwD4p5LcxlMdLny64B3v9Q+ZGMsubA=;
-	b=hJ+fAk3O0waErwrATsWzqvdGxQn4P02zc0ezttMXg1V/DtCfNTP7PLYZmBWnN6UAiVKk6s
-	WWLHsT0wIb554nCQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=M1Dvvfjm;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=hJ+fAk3O
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793799673; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=d0fx3jue6yBdKZwD4p5LcxlMdLny64B3v9Q+ZGMsubA=;
-	b=M1DvvfjmuOl6MeDPykrHeEITAQNrJbxTmMnti13XKWSzJysAKC/6g0Bz71SUbYPC6zrqLW
-	1gf2frwtAvxm99smHRiskyxL1chC7OclWFaFZlgBIjvlA+zKkcJNICW3LFBKO4ClGtLnlY
-	R7zaPHsJtd1MCowUCA/we7gL+8XKkJ8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793799673;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=d0fx3jue6yBdKZwD4p5LcxlMdLny64B3v9Q+ZGMsubA=;
-	b=hJ+fAk3O0waErwrATsWzqvdGxQn4P02zc0ezttMXg1V/DtCfNTP7PLYZmBWnN6UAiVKk6s
-	WWLHsT0wIb554nCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 29E34134A5;
-	Wed,  4 Nov 2026 13:41:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id +ybCOPc162reOwAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Wed, 04 Nov 2026 13:41:12 +0000
-Date: Wed, 4 Nov 2026 13:41:10 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: Imre Kaloz <kaloz@kernel.org>
-Cc: "David S. Miller" <davem@davemloft.net>, 
-	Andreas Larsson <andreas@gaisler.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>, sparclinux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH] sparc64: replace move_pte() with a D-cache flush in
- flush_cache_range()
-Message-ID: <aus13nY84jxvzOHF@pedro-suse.tail5790ac.ts.net>
-References: <20261104105300.16260-1-kaloz@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JT20OMQf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA0F91F000C1;
+	Wed,  4 Nov 2026 13:41:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793799687;
+	bh=DsqUBkIa7Olvd6FTVJf/qEImpffvzM2i9AQMrT58Pf8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JT20OMQfzen2gkICb9s6vngZ0xsFXQq5MlNq6Skcb+xj9wzC/iCl2g+QGbxcP5NOl
+	 IGOYNVl5TlTBFFAX4U/NFcPTyG2gsE05k5bQkfWW0uunf4p+pagOugov4KaGmrXQGK
+	 76Ap8MewNhhcIG6oGXpx4RdaU7Gvr5NO8u2kC1O9qfuyccQ8dIUBPSjhFcK5OusjME
+	 kGXAPwzyYGyb8H1feJ1k4FlpwfTXxwkxcovpL4mFWnekhw0Zd+5cu88Xjbgldz0aPf
+	 Mw8iLWTUGMmDgJc/gaYGgbRKY2Xi420o4PDMxWZthB7FHROvtAN7j2oTd9cQ1qdf6b
+	 5HFAFGCD1mTMA==
+Date: Wed, 4 Nov 2026 13:41:22 +0000
+From: Will Deacon <will@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Zhao Gongyi <zhaogongyi@bytedance.com>, mark.rutland@arm.com,
+	oleg@redhat.com, ruanjinjie@huawei.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] arm64: ptrace: don't warn on missing siginfo in a
+ group-stop
+Message-ID: <aus2Aq12Z-PKvoW7@willie-the-truck>
+References: <20261023110710.10145-1-zhaogongyi@bytedance.com>
+ <at-czRUYRPRxi9dy@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,57 +61,71 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261104105300.16260-1-kaloz@kernel.org>
-X-Spamd-Result: default: False [-13.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	MISSING_XM_UA(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.51
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 64F091F795
+In-Reply-To: <at-czRUYRPRxi9dy@arm.com>
 
-On Wed, Nov 04, 2026 at 11:52:58AM +0100, Imre Kaloz wrote:
-> mremap() can move a page to an address of the other D-cache color,
-> leaving lines of the old color in the virtually indexed D-cache of
-> Spitfire and Cheetah CPUs.  move_pte() flushed the page for each PTE
-> moved, which is only correct while move_ptes() handles one PTE at a
-> time.
+On Mon, Oct 26, 2026 at 06:32:45PM +0000, Catalin Marinas wrote:
+> On Fri, Oct 23, 2026 at 07:07:10PM +0800, Zhao Gongyi wrote:
+> > PTRACE_ATTACH to a group-stopped child can enter do_jobctl_trap(),
+> > which calls ptrace_stop() without siginfo. If the tracer writes
+> > NT_ARM_SYSTEM_CALL, system_call_set() can change syscallno from
+> > NO_SYSCALL before calling update_syscall_orig_x0_after_ptrace(). The
+> > WARN_ON_ONCE(!info) then fires, although this is a valid ptrace stop.
+
+I can't quite get my head around what it means to set NT_ARM_SYSTEM_CALL
+in this context. Suddenly, in_syscall() will return true, which has
+implications for things like signal handling that seem bizarre if we're
+not actually in a syscall. Should we be avoiding this situation to start
+with?
+
+> > Remove the warning and guard the syscall-exit-stop check against a
+> > missing siginfo. Keep recognizing both SIGTRAP and SIGTRAP | 0x80:
+> > syscall-exit-stops use either value depending on whether the tracer
+> > enabled PTRACE_O_TRACESYSGOOD. With no siginfo, allow the final
+> > assignment to synchronize orig_x0 from x0.
+> > 
+> > Fixes: 88b839ce497c ("arm64: ptrace: Keep 'orig_x0' in-sync with x0 on syscall entry")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
+> > ---
+> > Changes since v1:
+> > - Remove the warning and early return, as suggested by Oleg.
+> > - Keep recognizing syscall-exit-stops with or without PTRACE_O_TRACESYSGOOD.
+> > 
+> > v1: https://lore.kernel.org/r/20261016024536.18938-1-zhaogongyi@bytedance.com
+> > 
+> > Tested on arm64 KVM at af32da41b032 with this v2 applied.
+> > At a group-stop, PTRACE_GETSIGINFO returned -EINVAL and an
+> > NT_ARM_SYSTEM_CALL write succeeded. Syscall-entry and seccomp
+> > x0 rewrites worked. At syscall-exit-stops, NT_PRSTATUS writes succeeded
+> > with and without PTRACE_O_TRACESYSGOOD (si_code 133 and 5,
+> > respectively). No kernel warnings occurred.
+> > 
+> >  arch/arm64/kernel/ptrace.c | 6 +-----
+> >  1 file changed, 1 insertion(+), 5 deletions(-)
+> > 
+> > diff --git a/arch/arm64/kernel/ptrace.c b/arch/arm64/kernel/ptrace.c
+> > index f743cbec1..22fb9eeed 100644
+> > --- a/arch/arm64/kernel/ptrace.c
+> > +++ b/arch/arm64/kernel/ptrace.c
+> > @@ -573,10 +573,6 @@ static void update_syscall_orig_x0_after_ptrace(struct task_struct *target)
+> >  	if (regs->syscallno == NO_SYSCALL)
+> >  		return;
+> >  
+> > -	/* We should only be called when target is in a ptrace stop */
+> > -	if (WARN_ON_ONCE(!info))
+> > -		return;
 > 
-> Drop move_pte(), which no other architecture defines, and flush the
-> whole D-cache in flush_cache_range(), which mremap() calls on the old
-> range before moving the PTEs.  This keeps the fix in sparc64 without
-> a page table walk.
+> That's a slight semantic change since this function may now update
+> orig_x0 even when !info. However, I think it makes more sense as the aim
+> of commit 88b839ce497c ("arm64: ptrace: Keep 'orig_x0' in-sync with x0
+> on syscall entry") was to update orig_x0 in all cases other than
+> syscall-exit-stop. We can't have the latter with !info.
 > 
-> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-> Link: https://lore.kernel.org/all/409079fe-ab52-4389-9fe0-d7246eb27bad@kernel.org/
-> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+> I'll wait for a couple of days to see if Will has any comments and queue
+> it.
 
-yay!
+I was trying to limit the scope of this hack as much as possible, so I
+think I'd prefer the early return tbh (i.e. just drop the WARN_ON_ONCE()
+and update the comment).
 
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-
--- 
-Pedro
+Will
