@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818159;
-	b=f+19dv2Kt8LeYWOuO63eA/zzV0O913XrngZq6clkIBF0B205vnmwGcyj+AwwEuBpne3G
-	 w8gjiPPuRWycZJaLw/Po2yeFWfb7C6JFEthT+zdNmKxCQmZ0YNHXPoZmdA0uF8AGinqCC
-	 5DCQaexL3SqeUX262QftrQLIAgNadGhmRHE7yU9BZsxAEflSL1tlzTbF3pQNdhe6Es13D
-	 E8DDhKOzAyzAGCQKP+HDS6gTi+LL7u+3Ul6K91MdAitKmEWE5xdduEp70xzDim2cLhi92
-	 pNln/MELjHDbb0NrxjOk2K2qNQ5fiy1mQw97aXQAhZ2WSmoQBVVHeDHDcO7OqxVTfmA==
+	t=1793818160;
+	b=FPzJPCOnS6sKQiI066D+JJKJR8u185oYbUXRt/WwjKhobkeB3F0fUfZvHdjdl0rQ+SZv
+	 6iFlpAfqHnVdYasWCNVdEWBrvCB22jM9S55WxGfqzm2sCTHaL1OtScnb+FrYKtpQpYfon
+	 lUJa/ucha2nneD0VRRdjjDvHACedltVE8vdaEIw6tbsyysUPCgyc0NeyHldKIa+T5MhMO
+	 Azi4t/9opnud8EzyZEyyyA6jb/+7HYYt1peRFrbYCMbGc6atEqPSHRr3gEr5iSPTVkk43
+	 rqf2XviyMTTJAGxAyaUJFanUoZmKgc8R283kSmtceqvkpDPoXM433bs5SUMkM3hEXuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818159;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818160;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=yhfMQyhA4yeVo/bZMJr9JjklAVTmBlY2c8c0GfiXoB0=;
-	b=JT6hSvMd63ACcO0MIQlwSFRsOtmll621bPslQLB2oF8HyzzEW3gA83tXZAwp9/TbRTb2
-	 e1CwGuoviL6p+z21GnxmudJDVzgALMzA5NM2BBTu+UlTZK8OIu1cMRaeSYwZhT8SdwjDg
-	 Q21R459mRxlpHIWXlyBjxe3tvGJzebcJFNaNjwcWha6ZThKzBv51UsV7iZcjXImvyA7sC
-	 NqQXYRhdfti+OVc6ShtlLVI3ZCFCcHzknBEIkqbiLlJpZCs0bBMFfg1d1mBibxio5gomG
-	 8qjew79AGoOkCx9IAkkU+l6Y+Psz76vFTEsd0xBj514/X7uV+CFFydj2kK07OQCHNbA==
+	bh=MrVZIFY9xpRe5kGm25GXPuJKC2m6ZmcUrunMXbmenrs=;
+	b=pHgEQDiwkONvetkThrYzU88ykjQqnxyLOQFVBdObGE1k+Dr0R0nQl+ZfISztJDxhT0d1
+	 ww94bqTrtDxOKKJOCdYS9bL/WmSXxLW1E43zLDfOiflueztKReUiacg/YfUOQdJNaUEyf
+	 X1Pi3DIzEP42BaA7fM341+ACtqegG+Fl+Qp/66uN4pwvomIbh+gOQ4DA07ytLF+hZhhJa
+	 JFf/KlVSRgyRwx9kiZOaIew2zPVgLM/2NTsypk4BFfA4r9jg0axX/cXPa30ZAx085/pvp
+	 MDZ/E7xSflCcwoWoDrPaaG9GxUkLDEn8VKJJGv3cY4Sx122WBUZw1CbmOco/WTPmosQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bhPpiWYE;
-	arc=none smtp.remote-ip=209.85.128.170
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ztJspIif;
+	arc=none smtp.remote-ip=74.125.224.53
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A729606D834
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:49:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A729606D834
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E5E1606D83F
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:49:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E5E1606D83F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bhPpiWYE
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8b0d91601bdso19036907b3.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:49:18 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ztJspIif
+Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-67bf3c6654fso1059290d50.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:49:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793818158; x=1794422958; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793818159; x=1794422959; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yhfMQyhA4yeVo/bZMJr9JjklAVTmBlY2c8c0GfiXoB0=;
-        b=bhPpiWYEVC0nDETzl/teZ7dUs1c1dgW2dwyyLfcoMuI3ij+wL0bdhUJbJq2VtxJqee
-         yyh/05NRv7aPFR68V41dK1j4GImbcgTKo+xlMsc+5lAGLzADoB0BQ9rXLPYtVCuXGMuO
-         Cqu1x0CfgIkIcMaOyYV30uZ7LT61qT3DHXYAq8LhW1BHFQj9gnJG/jnU/oGLsO5gqcAt
-         iWxaqW00SrjJ8TXeNIhUyb3dVchLZZjef8f2eGuamW7HC/EpX99WDGBtK3oFNmtUdUC/
-         TpFFFrkNMNcFW57AYCvOSt0rEBJDWmrzPyuMPcROjjL7jC3oXiwAEcI+Aq9sf+e2vz+Q
-         E7cw==
+        bh=MrVZIFY9xpRe5kGm25GXPuJKC2m6ZmcUrunMXbmenrs=;
+        b=ztJspIif9KEZJVeoG3u8+Vb8w3ge3wYyCCP+0qXbfwT0oDGPowkN9keJdubIUe97U/
+         Wg5I+NZCgkYfrCcYYqVNmvpfH88d6CsM6SQ8RUf+1yLsKXqlhrIWJBi+Swk6uoFsby2Q
+         ERxoeHKlj+WyGXmOVQTpVdM+N4E8YWxj7wZ26Dg0caKKpt8Ho+42PhxHXNtXkhXE2xa2
+         8eTVXSRKb4U4116u67tAgeQqDb6bcobt3HFUU98AM26xIev+PCHAAZVRGu9/nLM4104A
+         70xNwRL2XzOgTaptSxRwO3erRKs3cZ/SoIKXElqS+ucXzsFY34vLC4FQIVXrhB4bMc0b
+         9NPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793818158; x=1794422958;
+        d=1e100.net; s=20260707; t=1793818159; x=1794422959;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yhfMQyhA4yeVo/bZMJr9JjklAVTmBlY2c8c0GfiXoB0=;
-        b=zKKZjqfxmipnKuc/e0NJ1pmB0jSDffIzj+rhgUC+cpdiCugEM9P4pkcXRZ8riZi9sb
-         NmB6ggOHTRhhPPfbCIA903wXfx2wsp9LO9mgCpE7m0lDCjEkFZoL3sNnPvecScFT6sRu
-         RPN2gKJPyBvnC9w1GnGnyJC7toTqWTgF7HfESQFryKxU/wSFQ6Fwsol+UhD4l4pbokQn
-         QhzV7z6w/EmnQDZ8zMjHJyUz6tyrGroHYHNeTNmMJjbEWGp44o94FjTfkhvEUmajKw0k
-         GjHDaHS/VeCkuC+fHgiY0EyDMrB9vKYnrfVDyRchImtzG55UXh8qBFEhOJPMcRr3DqZC
-         lE2w==
-X-Forwarded-Encrypted: i=1; AKwUvBx/leOJZ0rzxa/veUX8+MXO+txVeB7CZzWQlv3H5lv7jbe1viqIglZqB/uMdNG736HXmqNkEsxChIq0ZpU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/l3mFtjghojLAm/66eU3ro6OzFeaMDvbdiFglgXE0GlB928SyB
-	NDbW57rgFM5RfGS7gfKUFNP1bXbqpk3T0iuR1LczxtOYJrWb6v0zBkC4d2nNGQ==
-X-Gm-Gg: AYBFou2sMNsMfqorP7WgMZow6ZW1hUSRzog0qtGR9QKmyMkB3TjvVSan2HhY+9F57Ih
-	n3nkhbKuQo38YqdisuOA3mT9CyF0uhHypJLVnz1SihiMo9FSf5GD4KPH4u8QB5zmdcNTNsbX1Wm
-	CaFVbv7Rc4kUgvjz91p2j6tDToiRGcr2SrkT+1iByMUsScKjPL3huMHK+rr1c9Gl/Q9WPvuiHLg
-	zEUmcd1h4aRsAPAgrrF/xlF9BcIWoyd0Xv5RCg3hsIHc7r7RtAITk6Vn5HniAwWltySD3n0Cr7M
-	OwJQfys95CGUG41Qn65fbXirO49nwdHNZXz+KD6HrjKOqsYayfOJD1ElssTzONMOUKQk2u3VJxV
-	7MlDBVm5tORmMTMl9QbcNtfo/6zq/pahlOsvsU1907eG5giwI1LjjYLm4qSjrhsMWFdJpKU+tg1
-	sE7vbwZA6yCkduhyf8EvvlM8TOA5yejcVYkw+wfkPyyX3wGKGko3xn3353oLfqx6jt/4DFi/NZ4
-	R0RFdJXlkbGG84DEKTyqktrImqoJeSxRl38Sln24OANDuMXyxPtf+eQ4yVY8fRjmVeDvGg70qX3
-	yjb+7TRIQqHcYGc0ncqYSOMfy4YZ7T2D/tavKamjRrmdlHJWc249ighvqFUO2tfjtKYbFXYRvEY
-	O553Rak+NLw==
-X-Received: by 2002:a05:690c:a012:b0:8b0:cd32:b8dd with SMTP id 00721157ae682-8b328e174b8mr1891967b3.17.1793818157715;
-        Wed, 04 Nov 2026 10:49:17 -0800 (PST)
+        bh=MrVZIFY9xpRe5kGm25GXPuJKC2m6ZmcUrunMXbmenrs=;
+        b=e72Ft4NdncMGm0VpUod4CRnSZiikYRslwBofMjsygrH/+7CV4fU2FZJdxq3P52fo7/
+         +YV1CEbgZLMcQUvCufs9xVfq4tNnGaa45Q3F2irE9n4xDxnqjMpzgsyv7AMe2tvugw2u
+         YA2ayktF74KC03+4quIHfkOytAbogtL1q+0C+SeYOrKqpMmSH1aSZZ6G9F/AUk1BPKZP
+         uBFuieAcrh6X5UL0LwmL3Ek/nAqTdukW7yr7258LTO256DHfW2dD3K1/53XYJ5ibsJYO
+         cXuXTdqo/pR2khlOwDY3kx9b3eOPGtJpXLq6JkngUp3ZA2zFZ8+VSnBaw4xq76b8gnFd
+         P/6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzq4L3DB9bt1rH/cZ5bzRraU2qmMNnjfZ0lLD5F47G2+t74ZQJqVBs28JQaF7GWZTd/OK5kz5rVs2nXzVI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8BvMGdubwlxiVQOPut6Y2ra9nDvu/sDehjwOZrfeFDEC5aXWW3
+	omahdambrVHeePkgz1ytu5Uef17W3AgcJEx9idiFZl4sbh+fOKF1ruq8VZGc0g==
+X-Gm-Gg: AYBFou2jP7UOydXxV3ofbOerWta/regznKfZjpgkFbet7MGPQQwtzoGGALA6G3S70l9
+	OJFoxop57AN+MhUkZ6YdjC6KHASM7LjNrTuXIiImFhX0lrgpo3soXjIhBAxq8/7Yyqxl7PTrwvg
+	R01d4l18ZSMZTz0ifVrscYzycOCVInq7sTL+oHYz7tXrPoKiPJ6m+Y9Yr2LYlLWFBqyi1TbApM3
+	ByW3qL6VthqgiCCVaCoRN/7nOSrgQ8jIa0pXeycoUaXsjLfO8C1rj2ygzh0zKqJCcSz2hmUAABr
+	ccWfHXgI/d/Sx/cAf2NWqwQKr2UuS76oX/4a0lr8l9hgIv8vn/sDukqX/Zpb2/GNNTZrZF2tF6n
+	3spW/UzbiZ470zmQnGvrJs3zRSNQUMGXsDTTx+T0lB5BnbXXxNUpcaZCXGQU+lyM1EtX3Db+lcB
+	3zZbZF8eZNOrLqt4Rnd5r/aTL6UDag6NTb96AtR8jCZTlsR+rvF3m+do0u9nM2lKaXL1uqRrxnb
+	Y8Bm3nQguceVD00Boknge2vLYS2HUWnymQ55wsIfLAqIinAcjxjK/MMGE0yPEGb9gLJtcoOwpwi
+	B+9XdmprfX+jSGIZJ9goECnFAJAU9Soo7v3LFnO1PKalyABb9qMiBLjzLJb3WXYXdRcNLK+016I
+	lgYvo6gfqCg==
+X-Received: by 2002:a05:690e:4105:b0:67c:41a:bf62 with SMTP id 956f58d0204a3-67c041ace87mr92159d50.31.1793818159061;
+        Wed, 04 Nov 2026 10:49:19 -0800 (PST)
 Received: from localhost ([2600:1702:7a90:6f9f:66f3:d5d6:2d12:d460])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b3098c3174sm24622517b3.12.2026.11.04.10.49.16
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67bee202bc4sm1998531d50.4.2026.11.04.10.49.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:49:16 -0800 (PST)
+        Wed, 04 Nov 2026 10:49:18 -0800 (PST)
 From: Matt Turner <mattst88@gmail.com>
-Date: Wed, 04 Nov 2026 13:49:11 -0500
-Subject: [PATCH v6 04/13] alpha/perf: do not report user registers from the
- entry code
+Date: Wed, 04 Nov 2026 13:49:12 -0500
+Subject: [PATCH v6 05/13] alpha/perf: ignore overflow interrupts the
+ counter does not account for
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,7 +96,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-alpha-profileme-v6-4-63362e9290a3@gmail.com>
+Message-Id: <20261104-alpha-profileme-v6-5-63362e9290a3@gmail.com>
 References: <20261104-alpha-profileme-v6-0-63362e9290a3@gmail.com>
 In-Reply-To: <20261104-alpha-profileme-v6-0-63362e9290a3@gmail.com>
 To: Richard Henderson <richard.henderson@linaro.org>, 
@@ -110,123 +110,164 @@ To: Richard Henderson <richard.henderson@linaro.org>,
 Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-perf-users@vger.kernel.org, Matt Turner <mattst88@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3878; i=mattst88@gmail.com;
- h=from:subject:message-id; bh=LiN+Yv+pum+ZIoYCbCmWoIHtlAzTvYQXPQL0PlKXs7o=;
- b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLJe16kIO6+MYYzv/yrI8i6s8upfOWOjyEubr61ZI+Q7v
- TgovlGu4yMLgxgXw0wxRZa49Yoss9p2LPU5Lf0LZg4rE8gQaZEGBiBgYeDLTcwrNdIx0jPVNtQz
- BDJ0jOIhcnoMGpnFxaWpRbppBUUOefkliSWZ+XnFevkFqXkF6QV6aZlpJRkZ+UXFqUAj9PJSS0x
- dHd2MDA1MLB0tzJwsHE1NnJ2dDJ3cHB2dXZ2MLM1NDJwtHU1cLc0ZuDgFYK6JamFk+Bweu9Rmmd
- 6Z7Ewduz+3pLiFvq7/vyJfTOmTgtAae5Uv/Az/rB1Vf96VKNC1K62oWrPg+80HXp6Cy+QT/Vadl
- /DaV/iVEQA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6094; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=72vScTB6O6dHaasPBS0wMYfMhBz3Vy2ucix9UsfhK9I=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLJe16lMqlN+diT4kryDcbHe+WdC+bfVo2oOrwmdU3taJ
+ z+l2Xlqx0cWBjEuhpliiixx6xVZZrXtWOpzWvoXzBxWJpAh0iINDEDAwsCXm5hXaqRjpGeqbahn
+ CGToGMVD5PQYNDKLi0tTi3TTCooc8vJLEksy8/OK9fILUvMK0gv00jLTSjIy8ouKU4FG6OWllpi
+ 6OroZGRqYWDpamDlZOJqaODs7GTq5OTo6uzoZWZqbGDhbOpq4WpozcHEKwFwT08rI8O7pi5SGVS
+ +4lQQNtcy79VoXHHkakc+WyVRp7eWT6NblzsjQxfLjRcbd7YETtxZs4tzgME0koOb7H5OX9z/Xu
+ wS0/9nODgA=
 X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
  fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-perf_get_regs_user() returns task_pt_regs() whenever a sample of a user
-task lands in the kernel. But exception entry runs with interrupts
-enabled, so the sample can land before the entry code has saved the user
-registers. Only the part PALcode pushed is valid then. An interrupt
-taken on the first instruction of entUna, say, pushes its own frame on
-top of PALcode's, which overlaps the rest of the user frame, so r7 and r8
-read as the interrupt's r23 and r24.
+The interrupt handler adds a full counter period to the count of the
+event on the counter that interrupted, which goes wrong in two cases.
 
-Report no user registers while the interrupted PC is in the entry code.
-Such a sample also gets no user stack dump. The range is all of the entry
-code from entInt to the end of the save in entSys, so it also drops the
-registers of samples that land after they were saved there.
+Rewriting a counter does not cancel its pending interrupt: wrperfmon has
+no way to, and PALcode clears the request only when delivering it. An
+interrupt pending when an event is reloaded, or when perf moves another
+event onto the counter, is then taken as an overflow of a counter that
+has not overflowed. It adds a bogus period to the count and can emit a
+false sample.
 
-An interrupt that nests on one taken in the entry code still reads the
-incomplete frame, as its own PC has left the entry code.
+And alpha_perf_event_update() already adds the period when a read finds
+that the counter overflowed before its interrupt was taken. The
+interrupt then adds it again.
 
-Fixes: 9280e99d87dd ("alpha: add HAVE_PERF_REGS and HAVE_PERF_USER_STACK_DUMP support")
+An overflow leaves the counter just past zero, below the value it was
+written with, while a counter that has not overflowed is at or above it.
+Ignore an interrupt for a counter in the latter state, unless a read
+has already counted the overflow, in which case add nothing. For this to
+hold, write the counters at most half their range below overflow, as
+armpmu_event_set_period() does. Counting events then take an interrupt
+every 2^19 events rather than every 2^20.
+
+Fixes: 979f867191f8 ("alpha: implement HW performance events on the EV67 and later CPUs")
+Suggested-by: Ian Rogers <irogers@google.com>
 Assisted-by: Claude:claude-opus-5-5
-Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
-Tested-by: Magnus Lindholm <linmag7@gmail.com>
 Signed-off-by: Matt Turner <mattst88@gmail.com>
 ---
- arch/alpha/include/asm/ptrace.h | 12 ++++++++++++
- arch/alpha/kernel/entry.S       |  9 +++++++++
- arch/alpha/kernel/perf_regs.c   | 13 +++++++++++++
- 3 files changed, 34 insertions(+)
+ arch/alpha/kernel/perf_event.c | 59 +++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 52 insertions(+), 7 deletions(-)
 
-diff --git a/arch/alpha/include/asm/ptrace.h b/arch/alpha/include/asm/ptrace.h
-index 45d1229344b6..1400ba3e7d43 100644
---- a/arch/alpha/include/asm/ptrace.h
-+++ b/arch/alpha/include/asm/ptrace.h
-@@ -14,6 +14,18 @@
- #define task_pt_regs(task) \
-   ((struct pt_regs *) (task_stack_page(task) + 2*PAGE_SIZE) - 1)
+diff --git a/arch/alpha/kernel/perf_event.c b/arch/alpha/kernel/perf_event.c
+index ecec78c355cd..dd7fc4ac1396 100644
+--- a/arch/alpha/kernel/perf_event.c
++++ b/arch/alpha/kernel/perf_event.c
+@@ -30,6 +30,9 @@
+ #define MAX_HWEVENTS 3
+ #define PMC_NO_INDEX -1
+ 
++/* hw_perf_event.flags */
++#define ALPHA_PERF_FLAG_WRAPPED		0x1
++
+ /* For tracking PMCs and the hw events they monitor on each CPU. */
+ struct cpu_hw_events {
+ 	int			enabled;
+@@ -315,10 +318,16 @@ static int alpha_perf_event_set_period(struct perf_event *event,
+ 	if (unlikely(left < alpha_pmu->pmc_left[idx]))
+ 		left = alpha_pmu->pmc_left[idx];
+ 
+-	if (left > (long)alpha_pmu->pmc_max_period[idx])
+-		left = alpha_pmu->pmc_max_period[idx];
++	/*
++	 * Start at most half the counter's range below overflow, so that the
++	 * value an overflow leaves, just past zero, is always below the value
++	 * written. See alpha_perf_event_ovf().
++	 */
++	if (left > (long)(alpha_pmu->pmc_max_period[idx] >> 1))
++		left = alpha_pmu->pmc_max_period[idx] >> 1;
+ 
+ 	local64_set(&hwc->prev_count, (unsigned long)(-left));
++	hwc->flags &= ~ALPHA_PERF_FLAG_WRAPPED;
+ 
+ 	alpha_write_pmc(idx, (unsigned long)(-left));
+ 
+@@ -338,9 +347,9 @@ static int alpha_perf_event_set_period(struct perf_event *event,
+  * zero.  The value passed via ovf by the interrupt handler corrects for
+  * overflow.
+  *
+- * This can be racey on rare occasions -- a call to this routine can occur
+- * with an overflowed counter just before the PMI service routine is called.
+- * The check for delta negative hopefully always rectifies this situation.
++ * A call to this routine can occur with an overflowed counter just before
++ * the PMI service routine is called. A negative delta detects this, as the
++ * counter is always written at most half its range below overflow.
+  */
+ static unsigned long alpha_perf_event_update(struct perf_event *event,
+ 					struct hw_perf_event *hwc, int idx, long ovf)
+@@ -359,10 +368,12 @@ static unsigned long alpha_perf_event_update(struct perf_event *event,
+ 	delta = (new_raw_count - (prev_raw_count & alpha_pmu->pmc_count_mask[idx])) + ovf;
+ 
+ 	/* It is possible on very rare occasions that the PMC has overflowed
+-	 * but the interrupt is yet to come.  Detect and fix this situation.
++	 * but the interrupt is yet to come.  Detect and fix this situation,
++	 * and tell the interrupt not to count the overflow again.
+ 	 */
+ 	if (unlikely(delta < 0)) {
+ 		delta += alpha_pmu->pmc_max_period[idx] + 1;
++		hwc->flags |= ALPHA_PERF_FLAG_WRAPPED;
+ 	}
+ 
+ 	local64_add(delta, &event->count);
+@@ -835,6 +846,32 @@ void perf_event_print_debug(void)
+ }
+ 
  
 +/*
-+ * Whether pc is in entry code that may not have completed the frame at
-+ * task_pt_regs(). See entry.S.
++ * Return the overflow that an interrupt from counter idx adds to the count,
++ * or -1 if the counter has not overflowed since it was written.
++ *
++ * Rewriting a counter does not cancel its pending interrupt: wrperfmon has
++ * no way to, and PALcode clears the request only when delivering it. So an
++ * interrupt can arrive after the counter was reloaded or given to another
++ * event. The counter is then at or above the value written, whereas an
++ * overflow leaves it just past zero, below that value.
 + */
-+static inline bool in_entry_save_code(unsigned long pc)
++static long alpha_perf_event_ovf(struct hw_perf_event *hwc, int idx)
 +{
-+	extern char __entry_save_start[], __entry_save_end[];
++	unsigned long prev;
 +
-+	return pc >= (unsigned long)__entry_save_start &&
-+	       pc < (unsigned long)__entry_save_end;
++	/* alpha_perf_event_update() has already counted this overflow. */
++	if (hwc->flags & ALPHA_PERF_FLAG_WRAPPED)
++		return 0;
++
++	prev = local64_read(&hwc->prev_count) & alpha_pmu->pmc_count_mask[idx];
++	if (alpha_read_pmc(idx) >= prev)
++		return -1;
++
++	return alpha_pmu->pmc_max_period[idx] + 1;
 +}
 +
- #define current_pt_regs() \
-   ((struct pt_regs *) ((char *)current_thread_info() + 2*PAGE_SIZE) - 1)
- 
-diff --git a/arch/alpha/kernel/entry.S b/arch/alpha/kernel/entry.S
-index 790389a15c3c..b8d7804e5aa3 100644
---- a/arch/alpha/kernel/entry.S
-+++ b/arch/alpha/kernel/entry.S
-@@ -186,8 +186,14 @@
- 
- /*
-  * Non-syscall kernel entry points.
-+ *
-+ * Between __entry_save_start and __entry_save_end the frame at task_pt_regs()
-+ * may not be complete. perf uses these to avoid reading it.
-  */
- 
-+	.globl	__entry_save_start
-+__entry_save_start:
 +
- CFI_START_OSF_FRAME entInt
- 	SAVE_ALL
- 	lda	$8, 0x3fff
-@@ -479,9 +485,12 @@ entSys:
- 	lda	$8, 0x3fff
- 	bic	$sp, $8, $8
+ /*
+  * Performance Monitoring Interrupt Service Routine called when a PMC
+  * overflows.  The PMC that overflowed is passed in la_ptr.
+@@ -847,6 +884,7 @@ static void alpha_perf_event_irq_handler(unsigned long la_ptr,
+ 	struct perf_event *event;
+ 	struct hw_perf_event *hwc;
+ 	int idx, j;
++	long ovf;
  
-+	/* PAL_callsys does not save these, unlike the other entries. */
- 	stq	$16, SP_OFF+24($sp)
- 	stq	$17, SP_OFF+32($sp)
- 	stq	$18, SP_OFF+40($sp)
-+	.globl	__entry_save_end
-+__entry_save_end:
+ 	__this_cpu_inc(irq_pmi_count);
+ 	cpuc = this_cpu_ptr(&cpu_hw_events);
+@@ -891,7 +929,14 @@ static void alpha_perf_event_irq_handler(unsigned long la_ptr,
+ 	}
  
- 	mov	$0, $1
- 	lda	$16, 7
-diff --git a/arch/alpha/kernel/perf_regs.c b/arch/alpha/kernel/perf_regs.c
-index 33ea2e831ba0..894683851b30 100644
---- a/arch/alpha/kernel/perf_regs.c
-+++ b/arch/alpha/kernel/perf_regs.c
-@@ -59,6 +59,19 @@ u64 perf_reg_abi(struct task_struct *task)
- void perf_get_regs_user(struct perf_regs *regs_user,
- 			struct pt_regs *regs)
- {
-+	/*
-+	 * Exception entry runs with interrupts enabled, so a sample can land
-+	 * before the entry code has saved the user registers. PALcode has
-+	 * pushed only its part of the frame, and the rest may hold an
-+	 * interrupt's frame. An interrupt that nests on top of one taken here
-+	 * is not caught, as its PC has left the entry code.
-+	 */
-+	if (in_entry_save_code(regs->pc)) {
-+		regs_user->regs = NULL;
-+		regs_user->abi = PERF_SAMPLE_REGS_ABI_NONE;
+ 	hwc = &event->hw;
+-	alpha_perf_event_update(event, hwc, idx, alpha_pmu->pmc_max_period[idx]+1);
++	ovf = alpha_perf_event_ovf(hwc, idx);
++	if (ovf < 0) {
++		/* The interrupt was pending when the counter was written. */
++		wrperfmon(PERFMON_CMD_ENABLE, cpuc->idx_mask);
 +		return;
 +	}
 +
- 	regs_user->regs = task_pt_regs(current);
- 	regs_user->abi = perf_reg_abi(current);
- }
++	alpha_perf_event_update(event, hwc, idx, ovf);
+ 	perf_sample_data_init(&data, 0, hwc->last_period);
+ 
+ 	if (alpha_perf_event_set_period(event, hwc, idx))
 
 -- 
 2.55.0
