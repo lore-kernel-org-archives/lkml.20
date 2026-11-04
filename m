@@ -1,127 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.31.26.27
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793797364;
-	b=uOPMiPTeYvSej3/RM5rrhOzus1IZH8AcaB9sONnocf+m1jn/zQpKGZ7LWnzAsHITemBU
-	 MhGgJjLFtG/0JBd8Yl2llY7i7bLv06Xk78YR8jK0RgocF6u0bFQNOUgTuASjVzau61qhc
-	 7oXaoaTTPC2dPup4U5DMMP4MVPomQYZyT5QuV0avlZmYxs3CBCfXW41xA2dxTYiTaPX5F
-	 DlgXsBvSntl3y/Qs+g467rnnK0wZUF/gOdNUCKZX4fk80yvkalc5sNFFvwuHn9eFX2nu8
-	 9SxgDFGfN+jHlDm+PlnzveYBYVWd6Sc0AW7NpAgOVGxk7F6VbLCGjJpzpXLjcNF81GQ==
+	t=1793797361;
+	b=1QN6ocR7YWCuNxjohfO91ww0nI7hayTOOJH5XqZuEcR5/DVxhjsIKJ/yNIVMr3u0pBaZ
+	 sm23/p3PXIgC1FGzEzSSUiVR0PSRPZPgJVYk4Sk3D4oXCRTgFqbkv0o4gNbCvml9SA0Bp
+	 CMvxxDiHQVKHkZzqlfQZQ68CiW9/JOvShDGUFytBL4NXoUXQ5H83F1y5VozWf87odTSsE
+	 rhDpZB6AEFOd5z0uan5otz01raT0Q+D1AuhmzYdW01soq5NUN/QalSFrRZo9L8hIaEM3n
+	 Tcm1+S4K1oLY24Y1CxsaDcqxcmLafy182nv9HellBTq5eHOoSV90EIfCuUeX7NrF2lQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793797364;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=m6xwni03PfAM2cWecuEikX6+gVfqDGMam7JV3RwA/00=;
-	b=1PhOIwdp3SgbkoGMTIUrJukAamHr1pX+rN4Q8bw/c6GrEbSEcYOAuU5cV+3yfz3OiZ87
-	 bQxbRgXg85+ESv919KA/emiKFpDidPdvx/Cy3PLwwFjPdz4DUUKPU4p8hZF2xtbk5SSFz
-	 W0XexnINC9W+6XE9DaTBr0dPQ5CWFiJWcMhEIV5cp7zwIjLuCgprXUZqKThwYK4KXQOxL
-	 kr6DW03skkMc59prfShsC2vdQY4wAAAXrR5s5t4/6WrUcVA1K+iFkPrh6e6uZyFniuzWt
-	 rJBq7/RBAV/HjYG1nGC3LrhPNkeVrBPde6mNQHi63Nw/c6d3whn5LKxTvE9BplLjp4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793797361;
+	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer;
+	bh=J4ABuYWkQ5zq8jCD2Src/25kn3cAI+KRj6yV2g4zeiI=;
+	b=xZZF+6/rW9keZC4G8A3OPJgyKKQOobGZ2utgSuZ16xgnuDH38P3oeUDE00m+0WYncJt2
+	 HRhg2cGHHiTl1DsV4M9wSGxo9Zq85il8aVjx4GwVGqc06OlLKUujvRK2zSZm0awnwga2Z
+	 TDjKCJF5R+zOE7qzWXCialYpJCTCW/ck1ULvffLsCu6KKa8C8pp5tqEguh2zlv/Wf0lLw
+	 AhYIfOjiaZ+LZiIkAAIccnxQnFGl9oTs55zdl4EVwXUruZplr3baVwWbl1p6MIPXykOUd
+	 biHKegPSEm65OvvfrtNswzqhz7AkIY2dqpuI8fDSsJaOsgwYIuJJQyd/xYxHk84gzmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LzmYwXyE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=rudorff.com;
+	spf=pass smtp.mailfrom=rudorff.com;
+	arc=none smtp.remote-ip=193.31.26.27
+Received: from rudorff.com (rudorff.com [193.31.26.27])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A09576082BE3
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:02:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LzmYwXyE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B810C1F00A23;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B706606EEAB;
 	Wed,  4 Nov 2026 13:02:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793797363;
-	bh=m6xwni03PfAM2cWecuEikX6+gVfqDGMam7JV3RwA/00=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LzmYwXyEtBl7P3DtPUze0sOAQFYFeVZe/GSeiZ/GrX+FkQLXA5tcl3cGcLWvwUe5q
-	 KrMhaIfd92glNlGCqIrB1UNhTQ3oGO2hbEyHPkySsYcTbTd/8scdVnUUavlqKTyt9d
-	 QqiJt+Eg7tYOv5/oX8jykMTEtlE70hlCp+7ba7bKCXiZ8KSEpj5HgDG1WcW57qrdDw
-	 bzkAjiHGRvvJwZBPUBesYfJZUsCc4AnLOmF4kRV4hymAfnljfLrufuB0AolJsgeysx
-	 lAk3Ww8ixu+em2F3dpou+QLO2afBhfXJsbFYmH7vWtsUZ5VZbPFo24d4bHZQtw2mVD
-	 GSHgemKEncy8g==
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 9737D1980052;
-	Wed,  4 Nov 2026 08:02:35 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Wed, 04 Nov 2026 08:02:39 -0500
-X-ME-Sender: <xms:6yzrah3dCOaUn4w_fdvNgr9fFu4O-dFEnxMIpYOD0MInUteHXVr-mg>
-    <xme:6yzratVGB5zIJKkPhXw8lEzQCZU7b86vxPmeqjXLIv1aF2DY1dz5NgGf3qBpAT2jg
-    3yKgrvNmPwWfm5dJK1DbjZ03e14K3FwSAXki6bLgJGPRsO8R9pv4fQ>
-X-ME-Received: <xmr:6yzrakjWZB9vBAugsnw2QrYmtFXOjLorYTPxwTqwzpUqf0ucL5L2Q_ssLLU>
-X-ME-Proxy-Cause: dmFkZTEkTGQme7AYtjF3GuVS96P2KQmK7WXeTlUb1QwwiuzIvAmashPSlbgOXzJn8Vwnwy
-    GtuimX8GVaozomoo/zh+dZJa/50iMsle5DQ+rz1xv6q7s8h1ROZ32xDIMTiguWiavpmC2D
-    BBwjWvlIRSWZcXI9bWu6+sLs7omuy7lLW9/gOc6hVkazqru7j3LnWdj5tmV/csyW0bsTmS
-    EsxaoHyCeNrVLjcn3op2UYLn5kjIXtndJ2M5CWyKjF23KtNnUBacMFKYutyyEO2UkxXzYe
-    RLi75JY7cBimTx0NOw8ItiGvjmUs48xoopmJA34QoNHmlECPZN6WTQStnLRujBuoPTyyAL
-    RZqBSN8icGx9O20vLT7l2QclXCVUSZ9An1bc6x7PXtyywU0CbZAQUO3CeU9qmOHR+OqhaU
-    mqcwjgmdE6/tw/BZqJGNjLqOwYk4vNbmC6b87jlwaNGKro2HQy5/yZdmchcMQl6O+1p70w
-    5JZHpUmu9YQmaqyxE2DudQ7HpdJ8cYa2CwbkfAcut4JoxG8dSCocdQ6MBXaECCKxkEDq8/
-    Dexam+4JamIR3UHMtV1TBxcSnuIjd5NgKAtzaKXUqojjFJQUJPxjjrAnH+LUAR3Bw+nbOQ
-    kci1Qy31il8ic/peoAbkKwEOFFOuYxDZOENv0T3jnpl5XW3RUMNCCNi6oSMA
-X-ME-Proxy: <xmx:6yzraugIm7LEaAbRjbY2LeeCKAoI4fEOj05mkdS8Rcsrpw-Xx19PyA>
-    <xmx:6yzrakvJ-3BCGQVdUzt_3K7p0vng9q_htTKIeWlcWnqAuf-9Srt58g>
-    <xmx:6yzranQpizLjex5p2e5xROmYqadHdJHjo1UnRZ8MF4JvIg-hnRXI5g>
-    <xmx:6yzralEY76JYarv8x4zscqn5ntzMUgskNp_oE8szU2yeQVcBUpdW6Q>
-    <xmx:6yzrahhmLZu8e3g1Ou8j3upRiJ6-tH-Ca4O0kYROTH4MfDk3e4TGSUkh>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 4 Nov 2026 08:02:34 -0500 (EST)
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Hugh Dickins <hughd@google.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Harry Yoo <harry@kernel.org>
-Cc: Miklos Szeredi <miklos@szeredi.hu>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Kairui Song <kasong@tencent.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Ilya Gladyshev <ilya.gladyshev@linux.dev>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	fuse-devel@lists.linux.dev,
-	kernel-team@meta.com,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Subject: [RFC PATCH v2 12/18] mm/filemap: set PG_rcu_free on the folios that reads keep coming back to
-Date: Wed,  4 Nov 2026 13:01:08 +0000
-Message-ID: <20261104130118.2507513-13-kas@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261104130118.2507513-1-kas@kernel.org>
-References: <20261104130118.2507513-1-kas@kernel.org>
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B706606EEAB
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rudorff.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rudorff.com
+Received: from [127.0.1.1] (dynamic-002-211-221-196.2.211.pool.telefonica.de [2.211.221.196])
+	by rudorff.com (Postfix) with ESMTPSA id CFE9140B57;
+	Wed,  4 Nov 2026 14:02:38 +0100 (CET)
+From: Christoph Rudorff <chris@rudorff.com>
+Date: Wed, 04 Nov 2026 14:02:28 +0100
+Subject: [PATCH v4 2/3] iio: light: gp2ap002: add led power supply
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -131,165 +45,242 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-iio-light-gp2ap002-v4-2-fa1cbaad2ce5@rudorff.com>
+References: <20261104-iio-light-gp2ap002-v4-0-fa1cbaad2ce5@rudorff.com>
+In-Reply-To: <20261104-iio-light-gp2ap002-v4-0-fa1cbaad2ce5@rudorff.com>
+To: Linus Walleij <linusw@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ Christoph Rudorff <chris@rudorff.com>
+X-Mailer: b4 0.16.0
 
-From: Linus Torvalds <torvalds@linux-foundation.org>
+Problem: no irq received. Not working.
 
-A folio with PG_rcu_free can be read without a reference, but its
-memory is held back for a grace period after it is freed.  That trade
-is worth making only for folios that readers look up again and again.
-Flagging every page cache folio would also delay the free of streaming
-reads, truncated files and reclaimed cold data, which no reader comes
-back to.
+According to datasheet page 8 "Recommended external circuit",
+it got tree pins to supply: vio, vdd and vled->leda.
 
-Set the flag in filemap_read(), under the read's reference, when the
-folio turns out to be hot:
+We were missing to power the led (pin leda)
 
- - folio_mark_accessed() finds it as accessed as the LRU records, or
- - the read goes back to bytes that the previous read through the same
-   open file has just read.
+* add leda regulator
+* use regulator_bulk_*()
+* pretty up set voltages
 
-filemap_read() does not mark accessed the folio that the previous read
-ended in, so re-reads through one open file do not make a folio hotter.
-The second test is for that folio.
+Tested on samsung-j5 (msm8916)
 
-Leave alone a folio whose next read needs a reference anyway: not
-uptodate, readahead or dropbehind.  Leave alone unevictable folios too.
-folio_mark_accessed() calls them hot after at most one access, so every
-ramfs folio that is read would get the flag.  An initramfs deleted at
-switch_root would then have the free of all its folios deferred.
+Signed-off-by: Christoph Rudorff <chris@rudorff.com>
 
-AS_RCU_READ records that an inode has had a folio flagged, so that a
-lockless read can skip the inodes that never had one.
-
-pgfree_rcu_mark in /proc/vmstat counts the pages that get the flag.
-
-Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
-[kas: count the marks, AS_RCU_READ, 64-bit only, shorter comment,
- rewrote the changelog]
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+v2: Use regulator bulk api.
+v3: pretty up, rename vled to leda
+v4: add namespace "GP2AP002", use separate value for setting vdd,
+    moved static supply-data back to global, more readable imho
 ---
- include/linux/pagemap.h       | 12 +++++++++++
- include/linux/vm_event_item.h |  1 +
- mm/filemap.c                  | 40 +++++++++++++++++++++++++++++++++--
- mm/vmstat.c                   |  1 +
- 4 files changed, 52 insertions(+), 2 deletions(-)
+ drivers/iio/light/gp2ap002.c | 92 +++++++++++++++++++++-----------------------
+ 1 file changed, 43 insertions(+), 49 deletions(-)
 
-diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
-index 0adfa6605653..6c7f58803eee 100644
---- a/include/linux/pagemap.h
-+++ b/include/linux/pagemap.h
-@@ -210,6 +210,7 @@ enum mapping_flags {
- 	AS_WRITEBACK_MAY_DEADLOCK_ON_RECLAIM = 9,
- 	AS_KERNEL_FILE = 10,	/* mapping for a fake kernel file that shouldn't
- 				   account usage to user cgroups */
-+	AS_RCU_READ = 11,	/* a folio has had PG_rcu_free */
- 	/* Bits 16-25 are used for FOLIO_ORDER */
- 	AS_FOLIO_ORDER_BITS = 5,
- 	AS_FOLIO_ORDER_MIN = 16,
-@@ -269,6 +270,17 @@ static inline bool mapping_unevictable(const struct address_space *mapping)
- 	return mapping && test_bit(AS_UNEVICTABLE, &mapping->flags);
+diff --git a/drivers/iio/light/gp2ap002.c b/drivers/iio/light/gp2ap002.c
+index de29081fd3b2..db4edcc9b849 100644
+--- a/drivers/iio/light/gp2ap002.c
++++ b/drivers/iio/light/gp2ap002.c
+@@ -123,12 +123,24 @@
+ #define GP2AP002_CON_OCON_HIGH		(0x3 << GP2AP002_CON_OCON_SHIFT)
+ #define GP2AP002_CON_OCON_MASK		(0x3 << GP2AP002_CON_OCON_SHIFT)
+ 
++enum {
++	GP2AP002_SUPPLY_VIO,
++	GP2AP002_SUPPLY_VDD,
++	GP2AP002_SUPPLY_LEDA,
++	GP2AP002_NUM_SUPPLIES
++};
++
++static const char *const gp2ap002_supply_names[GP2AP002_NUM_SUPPLIES] = {
++	[GP2AP002_SUPPLY_VIO] = "vio",
++	[GP2AP002_SUPPLY_VDD] = "vdd",
++	[GP2AP002_SUPPLY_LEDA] = "leda",
++};
++
+ /**
+  * struct gp2ap002 - GP2AP002 state
+  * @map: regmap pointer for the i2c regmap
+  * @dev: pointer to parent device
+- * @vdd: regulator controlling VDD
+- * @vio: regulator controlling VIO
++ * @supplies: bulk regulator data
+  * @alsout: IIO ADC channel to convert the ALSOUT signal
+  * @hys_far: hysteresis control from device tree
+  * @hys_close: hysteresis control from device tree
+@@ -140,8 +152,7 @@
+ struct gp2ap002 {
+ 	struct regmap *map;
+ 	struct device *dev;
+-	struct regulator *vdd;
+-	struct regulator *vio;
++	struct regulator_bulk_data supplies[GP2AP002_NUM_SUPPLIES];
+ 	struct iio_channel *alsout;
+ 	u8 hys_far;
+ 	u8 hys_close;
+@@ -445,7 +456,7 @@ static int gp2ap002_probe(struct i2c_client *client)
+ 	int num_chan;
+ 	const char *compat;
+ 	u8 val;
+-	int ret;
++	int ret, vdd_volt;
+ 
+ 	indio_dev = devm_iio_device_alloc(dev, sizeof(*gp2ap002));
+ 	if (!indio_dev)
+@@ -521,45 +532,39 @@ static int gp2ap002_probe(struct i2c_client *client)
+ 		}
+ 	}
+ 
+-	gp2ap002->vdd = devm_regulator_get(dev, "vdd");
+-	if (IS_ERR(gp2ap002->vdd))
+-		return dev_err_probe(dev, PTR_ERR(gp2ap002->vdd),
+-				     "failed to get VDD regulator\n");
++	regulator_bulk_set_supply_names(gp2ap002->supplies,
++					gp2ap002_supply_names,
++					GP2AP002_NUM_SUPPLIES);
+ 
+-	gp2ap002->vio = devm_regulator_get(dev, "vio");
+-	if (IS_ERR(gp2ap002->vio))
+-		return dev_err_probe(dev, PTR_ERR(gp2ap002->vio),
+-				     "failed to get VIO regulator\n");
++	ret = devm_regulator_bulk_get(dev, GP2AP002_NUM_SUPPLIES, gp2ap002->supplies);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to get regulators\n");
+ 
+-	/* Operating voltage 2.4V .. 3.6V according to datasheet */
+-	ret = regulator_set_voltage(gp2ap002->vdd, 2400000, 3600000);
++	/* vdd operating voltage 2.4V .. 3.6V according to datasheet */
++	ret = regulator_set_voltage(gp2ap002->supplies[GP2AP002_SUPPLY_VDD].consumer,
++				    2400000, 3600000);
+ 	if (ret) {
+-		dev_err(dev, "failed to sett VDD voltage\n");
++		dev_err(dev, "failed to set VDD voltage\n");
+ 		return ret;
+ 	}
+-
+ 	/* VIO should be between 1.65V and VDD */
+-	ret = regulator_get_voltage(gp2ap002->vdd);
+-	if (ret < 0) {
++	vdd_volt = regulator_get_voltage(gp2ap002->supplies[GP2AP002_SUPPLY_VDD].consumer);
++	if (vdd_volt < 0) {
+ 		dev_err(dev, "failed to get VDD voltage\n");
+-		return ret;
++		return vdd_volt;
+ 	}
+-	ret = regulator_set_voltage(gp2ap002->vio, 1650000, ret);
++	ret = regulator_set_voltage(gp2ap002->supplies[GP2AP002_SUPPLY_VIO].consumer,
++				    1650000, vdd_volt);
+ 	if (ret) {
+ 		dev_err(dev, "failed to set VIO voltage\n");
+ 		return ret;
+ 	}
+ 
+-	ret = regulator_enable(gp2ap002->vdd);
++	ret = regulator_bulk_enable(GP2AP002_NUM_SUPPLIES, gp2ap002->supplies);
+ 	if (ret) {
+-		dev_err(dev, "failed to enable VDD regulator\n");
++		dev_err(dev, "failed to enable regulators\n");
+ 		return ret;
+ 	}
+-	ret = regulator_enable(gp2ap002->vio);
+-	if (ret) {
+-		dev_err(dev, "failed to enable VIO regulator\n");
+-		goto out_disable_vdd;
+-	}
+ 
+ 	msleep(20);
+ 
+@@ -570,7 +575,7 @@ static int gp2ap002_probe(struct i2c_client *client)
+ 	ret = gp2ap002_init(gp2ap002);
+ 	if (ret) {
+ 		dev_err(dev, "initialization failed\n");
+-		goto out_disable_vio;
++		goto out_disable_power;
+ 	}
+ 	pm_runtime_get_noresume(dev);
+ 	pm_runtime_set_active(dev);
+@@ -616,10 +621,8 @@ static int gp2ap002_probe(struct i2c_client *client)
+ 	pm_runtime_put_noidle(dev);
+ out_disable_pm:
+ 	pm_runtime_disable(dev);
+-out_disable_vio:
+-	regulator_disable(gp2ap002->vio);
+-out_disable_vdd:
+-	regulator_disable(gp2ap002->vdd);
++out_disable_power:
++	regulator_bulk_disable(GP2AP002_NUM_SUPPLIES, gp2ap002->supplies);
+ 	return ret;
  }
  
-+static inline void mapping_set_rcu_read(struct address_space *mapping)
-+{
-+	if (!test_bit(AS_RCU_READ, &mapping->flags))
-+		set_bit(AS_RCU_READ, &mapping->flags);
-+}
-+
-+static inline bool mapping_rcu_read(const struct address_space *mapping)
-+{
-+	return test_bit(AS_RCU_READ, &mapping->flags);
-+}
-+
- static inline void mapping_set_exiting(struct address_space *mapping)
- {
- 	set_bit(AS_EXITING, &mapping->flags);
-diff --git a/include/linux/vm_event_item.h b/include/linux/vm_event_item.h
-index 7626a3e3a07a..c1a63f070aa7 100644
---- a/include/linux/vm_event_item.h
-+++ b/include/linux/vm_event_item.h
-@@ -37,6 +37,7 @@ enum vm_event_item { PGPGIN, PGPGOUT, PSWPIN, PSWPOUT,
- 		FOR_ALL_ZONES(PGSCAN_SKIP)
- 		PGFREE, PGACTIVATE, PGDEACTIVATE, PGLAZYFREE,
- 		PGFREE_RCU, PGFREE_RCU_EXPEDITE, PGFREE_RCU_DRAIN,
-+		PGFREE_RCU_MARK,
- 		PGFAULT, PGMAJFAULT,
- 		PGLAZYFREED,
- 		PGREUSE,
-diff --git a/mm/filemap.c b/mm/filemap.c
-index 3508eea44ad9..b732ecaa78a9 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -2759,18 +2759,54 @@ static inline bool pos_same_folio(loff_t pos1, loff_t pos2, struct folio *folio)
- 	return (pos1 >> shift == pos2 >> shift);
+@@ -633,8 +636,7 @@ static void gp2ap002_remove(struct i2c_client *client)
+ 	pm_runtime_put_noidle(dev);
+ 	pm_runtime_disable(dev);
+ 	iio_device_unregister(indio_dev);
+-	regulator_disable(gp2ap002->vio);
+-	regulator_disable(gp2ap002->vdd);
++	regulator_bulk_disable(GP2AP002_NUM_SUPPLIES, gp2ap002->supplies);
  }
  
-+/*
-+ * Reads keep coming back to @folio: free it only after an RCU grace period
-+ * from now on.  Not if its next read needs a reference anyway.  Not if it
-+ * is unevictable: folio_mark_accessed() calls such a folio hot after at
-+ * most one access, so every ramfs folio that is read would get the flag.
-+ */
-+static void filemap_mark_hot(struct folio *folio)
-+{
-+	struct address_space *mapping;
-+
-+	if (!IS_ENABLED(CONFIG_PAGE_RCU_FREE))
-+		return;
-+	if (folio_test_rcu_free(folio) || !folio_test_uptodate(folio) ||
-+	    folio_test_readahead(folio) || folio_test_dropbehind(folio) ||
-+	    folio_test_unevictable(folio))
-+		return;
-+	if (folio_test_set_rcu_free(folio))
-+		return;
-+
-+	count_vm_events(PGFREE_RCU_MARK, folio_nr_pages(folio));
-+	/* NULL if the folio was truncated meanwhile */
-+	mapping = READ_ONCE(folio->mapping);
-+	if (mapping)
-+		mapping_set_rcu_read(mapping);
-+}
-+
- /*
-  * filemap_read() is about to copy from @folio at @pos.  @last_pos is where
-  * the previous read of this open file ended, or how far this one has got.
-  *
-  * Reading on in the folio that the last read ended in is not another access
-  * to it: a folio read in small pieces is marked accessed once.
-+ *
-+ * The folio is hot when folio_mark_accessed() finds it as accessed as the
-+ * LRU records, or when this open file goes back to data that it has just
-+ * read.
-  */
- static void filemap_read_accessed(struct folio *folio, loff_t pos,
- 				  loff_t last_pos)
- {
--	if (!pos_same_folio(pos, last_pos - 1, folio))
--		folio_mark_accessed(folio);
-+	bool hot;
-+
-+	if (pos_same_folio(pos, last_pos - 1, folio))
-+		hot = pos < last_pos;
-+	else
-+		hot = folio_mark_accessed(folio);
-+	if (hot)
-+		filemap_mark_hot(folio);
+ static int gp2ap002_runtime_suspend(struct device *dev)
+@@ -657,8 +659,7 @@ static int gp2ap002_runtime_suspend(struct device *dev)
+ 	 * As these regulators may be shared, at least we are now in
+ 	 * sleep even if the regulators aren't really turned off.
+ 	 */
+-	regulator_disable(gp2ap002->vio);
+-	regulator_disable(gp2ap002->vdd);
++	regulator_bulk_disable(GP2AP002_NUM_SUPPLIES, gp2ap002->supplies);
+ 
+ 	return 0;
+ }
+@@ -669,23 +670,18 @@ static int gp2ap002_runtime_resume(struct device *dev)
+ 	struct gp2ap002 *gp2ap002 = iio_priv(indio_dev);
+ 	int ret;
+ 
+-	ret = regulator_enable(gp2ap002->vdd);
++	ret = regulator_bulk_enable(GP2AP002_NUM_SUPPLIES, gp2ap002->supplies);
+ 	if (ret) {
+-		dev_err(dev, "failed to enable VDD regulator in resume path\n");
++		dev_err(dev, "failed to enable regulators in resume path\n");
+ 		return ret;
+ 	}
+-	ret = regulator_enable(gp2ap002->vio);
+-	if (ret) {
+-		dev_err(dev, "failed to enable VIO regulator in resume path\n");
+-		goto out_disable_vdd;
+-	}
+ 
+ 	msleep(20);
+ 
+ 	ret = gp2ap002_init(gp2ap002);
+ 	if (ret) {
+ 		dev_err(dev, "re-initialization failed\n");
+-		goto out_disable_vio;
++		goto out_disable_power;
+ 	}
+ 
+ 	/* Re-activate the IRQ */
+@@ -693,10 +689,8 @@ static int gp2ap002_runtime_resume(struct device *dev)
+ 
+ 	return 0;
+ 
+-out_disable_vio:
+-	regulator_disable(gp2ap002->vio);
+-out_disable_vdd:
+-	regulator_disable(gp2ap002->vdd);
++out_disable_power:
++	regulator_bulk_disable(GP2AP002_NUM_SUPPLIES, gp2ap002->supplies);
+ 	return ret;
  }
  
- static void filemap_end_dropbehind_read(struct folio *folio)
-diff --git a/mm/vmstat.c b/mm/vmstat.c
-index d994de1fd739..c27caad017e3 100644
---- a/mm/vmstat.c
-+++ b/mm/vmstat.c
-@@ -1347,6 +1347,7 @@ const char * const vmstat_text[] = {
- 	[I(PGFREE_RCU)]				= "pgfree_rcu",
- 	[I(PGFREE_RCU_EXPEDITE)]		= "pgfree_rcu_expedite",
- 	[I(PGFREE_RCU_DRAIN)]			= "pgfree_rcu_drain",
-+	[I(PGFREE_RCU_MARK)]			= "pgfree_rcu_mark",
- 
- 	[I(PGFAULT)]				= "pgfault",
- 	[I(PGMAJFAULT)]				= "pgmajfault",
+
 -- 
-2.54.0
+2.39.5
 
