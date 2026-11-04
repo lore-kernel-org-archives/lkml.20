@@ -1,63 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793796836;
-	b=wTwp8szp1cUgKqmy/iWqmgVsLF4dJW7tHbmaMhvEKMzgu6aIPJB0VAy0bLyB9MCxkKQ4
-	 t+Tc42HKQ73/Hqeavxj5xBAB9lab/ZDIjhghEhMxrwxuG1eHBWKJ9UiugCTlY5TT0E9Ey
-	 iNbYJyE4Cbv2fgPJApzg9d3EH5v/aKyADltNnJSIs7O34vG9yBPgKoQ+cKxvw2e0vM8xm
-	 REfhIN/R0lFyI8ohchtM3wUv7JAxy0CmHF+eIYS0oRRMtmAsAS4Cc4kp6Y5qyse2rxIii
-	 Zn0t5rPlL50c2f+Cs3KJ0UiHtqwQMluZtGqSEx+KXRJuDzjBhrHqw5BwKCsDw0Gfj7Q==
+	t=1793796883;
+	b=bVLI01nCEWC1jveDsR8thh0eCQMpZqHU/oNmzEVSa5YehctRHh8BIG9V7RoCCFkfr+ZC
+	 WN2jHF/ZS0dXZCviZnCU1gxf+74QT19REAzthbBbhTQAGqSe2cd+Z+p56K8qZKuHBxI47
+	 MuDiahnIEIH3BpfrpSnHwEh/jpbwohONfQ0rYSq0s5KEReFqk8KndX8sHTNN3jaXFOeJx
+	 dnasOeLvauN5wuWTdKvDGEwIrdhUsKVhEpoX4jOUONoU9fpMaI/lYPL3cIBQaUarltpvw
+	 wj8xIChnkHjr1BVSl15L/wJSJr2KqprLtVNaUWiTyS6WhblgLvF2Y/prnkQ7VkAWl7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793796836;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	b=4T+b90u3VqsvDgWddU+IyKQ/VU/v6atkrI1415sJL14R18mdPpnmG0zz9gz67artOq7C
-	 LVcdI53nefzu2Npi+5Hh4+k6UWY0fQKoSTb2Ztq365IMu8smGXUDan6D/okE9Gsgiuew3
-	 fxvmLwgE3N/VacfW5kJEZbShoiapANAf3hz+tPVHAFC332ShajoVYwQkc0BFHqo/I7wJS
-	 mQ9h5OtYzMBT78yIhCUg1pVxnMzmH3eFCHqMMGgk+udaB7ne0Mk0AXuOnmZg+UChCS3sf
-	 HNL3AN2+jUex3HNGH7iqqjYc+2hMFQ9SoIurnJRGIV9E4CHDbMxHrfEqAO20ywo+Obw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793796883;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=c8OLoXUADxmTIhb1ARQ3kSmrgr4mjHrNRuEWZTw6vgM=;
+	b=nBe5xTp68MDr8972oY1CWQSRRGFHpG5fU8yEfnQeduB6AN8nT3kXNt1ParbyXv/Ydi+d
+	 J683scmDJE3d9fRi1tVQhrPgYcq+0rv6X52xW4XNAmKpr0YOLE9VUgmR2PqDE4FoQYyem
+	 5foXvckL/mM2XO5I4qfHulHYR46U/lCCuQkvfC5Q1sRQfyiOflZohRh+WrrRLHQ7Jee97
+	 rLmOmMzIED1jpxxpoZTPLbhK74Mjy1dC5e+/0eYM5kq1XhKx/vpMwLOih4GbTwmOoHdOh
+	 dZ94JR0NbRkBhGBeGN7MI6wbpNXZdKADaH43mld9AG6EkcWgapXhv0gkZBTy7z3w9NQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ELcn5Pf6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mQtWwU57;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43263606A326;
-	Wed,  4 Nov 2026 12:53:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A6BB606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 12:54:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ELcn5Pf6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D58521F000C1;
-	Wed,  4 Nov 2026 12:53:54 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mQtWwU57
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A2B71F00A18
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 12:54:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793796835;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ELcn5Pf6ekrt6q/OOW+QGXy1IWNsRt2ltoT+vgwlIrqRYQeWWtgFoQi0M1Eu85KWW
-	 mv3ZiCLceR7BT5OInMHTfPaPE9t+3w97mb09La/0CvA3dz4YF17e/3N7saIzUZ7Cbh
-	 46gDlvq5O507Xfe0dcquic7KlT2UiNUl3SIIM4gz5RANHHDN0irY7JOcoGhGZTzPO6
-	 SfMqGZJLy6fMB4k5YX9JqAV8aStM46LJ2p/5ooYS1hpUoBNxzrOrhmvlobnlI1Jysb
-	 g109tXurQA+H509haO8cJz5vmpxrYKm6kpYGXoaoZSNZyrJP9UMTJ1g+Yb/P/XBEoh
-	 UnD29lbJJTgXw==
-From: netdev-bot+sinfo@kernel.org
-To: Zxyan Zhu <zxyan0222@gmail.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- richardcochran@gmail.com, muhammad.nazim.amirul.nazle.asmade@altera.com,
- rohan.g.thomas@altera.com, o.rempel@pengutronix.de, wojciech.drewek@intel.com,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v9 0/3] net: stmmac: dwxgmac2: timestamp
- interrupt support + Agilex5 fix
-Date: Wed, 04 Nov 2026 12:53:54 +0000
-Message-ID: <179379683436.488859.17901811413050625483@kernel.org>
-In-Reply-To: <20261104125030.1183146-1-zxyan0222@gmail.com>
-References: <20261104125030.1183146-1-zxyan0222@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=k20260515; t=1793796882;
+	bh=c8OLoXUADxmTIhb1ARQ3kSmrgr4mjHrNRuEWZTw6vgM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=mQtWwU570HRWwVBIJsn0PDSTB3JR5ujGhAe3RwRSf4gp7sIoS9iNOx3wVDA9Cjldw
+	 SEWFm76qn4Xwfw0gM2tG+GU07r6txv7NuVFVkSxAG1Bjms3/qV+lkaQIIhken3m41h
+	 pLpGhKUjsNY7Xkja+NvFM1x7ZGoBEo1QvJhq+6+39cNMABSLfWudR3ThE3X1LIM+EP
+	 FBkddQToQZr8ebcdnPk+9hfpC0LUy2rtgxh3B7i7mQNE2cD9dW5bIF42CvrV8B5J4f
+	 zG2pQzMvlFuBtEtyHGK109W6UZWlkYSNgi2i1CNBxXs2IXKIPD/F/20J+PHsWRd3fr
+	 xHvn4l9pQYs7g==
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5be3ea5a7adso529453e87.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 04:54:42 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwdccS85ASz/HmfPDEpwjB4dM7Dxy6sagQXnCBPqaLo+xgI4XBqK2+wLvgG6RJd6evblZmtnYX2H0G2VUs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9qjGQjYYsXCskFwCH0eejHLRygQ5fZ6/H5VjuXnx3lCpiKDGmP
+	d4I/R2c21pEqnPVULz8gK5PtRz+slB6MpbLj5wEP8lsbXb8EMovMtg+cheNccUoJ/R3cdL2Kwpr
+	4SmvxRgF8iZBueE8S72/04JkO+MXUpjM=
+X-Received: by 2002:a05:6512:3b0e:b0:5bf:b5a1:390d with SMTP id
+ 2adb3069b0e04-5bfd9569843mr5461686e87.27.1793796880916; Wed, 04 Nov 2026
+ 04:54:40 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,29 +59,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261019-b4-imx937-frdm-scmi-pinctrl-v1-1-0576fb20964b@oss.nxp.com>
+In-Reply-To: <20261019-b4-imx937-frdm-scmi-pinctrl-v1-1-0576fb20964b@oss.nxp.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 4 Nov 2026 13:54:28 +0100
+X-Gmail-Original-Message-ID: <CAD++jLno_ViL5X7+NLvpS5EQObXR9UpsphHH37iSKumDU76_SA@mail.gmail.com>
+X-Gm-Features: AclHuK9G2TThs1q916LoUpjeeYNp5qScvCLIPbgAZ1ECJyTzREIgJY25tvkfh9c
+Message-ID: <CAD++jLno_ViL5X7+NLvpS5EQObXR9UpsphHH37iSKumDU76_SA@mail.gmail.com>
+Subject: Re: [PATCH] pinctrl: imx: Use of_device_id match table for per-SoC data
+To: joy.zou@oss.nxp.com
+Cc: Peng Fan <peng.fan@nxp.com>, Dong Aisheng <aisheng.dong@nxp.com>, 
+	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
+	Ye Li <ye.li@nxp.com>, Pengutronix Kernel Team <kernel@pengutronix.de>, NXP S32 Linux Team <s32@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Joy Zou <joy.zou@nxp.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi!
+On Mon, Oct 19, 2026 at 1:05=E2=80=AFPM <joy.zou@oss.nxp.com> wrote:
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+> From: Peng Fan <peng.fan@nxp.com>
+>
+> Replace the hardcoded of_machine_is_compatible() if-else chain and the
+> static string allowlist with a proper of_device_id match table carrying
+> per-SoC data via the .data field.
+>
+> This eliminates the static local variable anti-pattern for daisy_off
+> (lazy-initialized, shared across instances) and adopts the idiomatic
+> kernel of_machine_get_match_data() APIs.
+>
+> A new pinctrl_scmi_imx_data struct captures the daisy register offset
+> for future extensibility when new SoCs may not use register-offset based
+> daisy configuration.
+>
+> No functional changes.
+>
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> Signed-off-by: Joy Zou <joy.zou@nxp.com>
+> ---
+> Replace the hardcoded of_machine_is_compatible() if-else chain and the
+> static string allowlist with an of_device_id match table that carries the
+> per-SoC daisy register offset in its .data field.
+>
+> This drops the lazily-initialized "static uint32_t daisy_off" local and
+> lets probe do the compatible match and per-SoC data lookup in one step
+> via of_machine_get_match_data().
+>
+> No functional change intended.
+>
+> Signed-off-by: Joy Zou <joy.zou@oss.nxp.com>
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+I don't know if this is the latest version of the patch... if it is,
+look into Fabio's review comment, rebase on v7.4-rc1 and resend,
+thanks!
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
-
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Yours,
+Linus Walleij
