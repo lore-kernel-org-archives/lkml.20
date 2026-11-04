@@ -1,54 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.120
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793808956;
-	b=JPViTUfD/1Cg9EqK56rVZ/Atf2Flujp/mw01lbXSqHbCwgqh1p46k/QuLSzbPy9vbsGy
-	 +BWOWEwAahXAQUl/0udwrpzMaTtguw2wOZ4EuyoCxxswx8UskeSWwX/7NRXfTMMbWSdXs
-	 dt1G9ThAthSxpUz+zG1AbFixgar9Q46McDdnibUWQwqGhmPPCTyXS2HOAJBRK177wOFVt
-	 aJ1KH6wOmSg7QAAf9edybVe90/fdvlKJcRXJ3lAlm7xupBtzDLsFzffWTRBOhaENjrFTx
-	 zuRabaJ24isFnOpUMGHGW9QfZLaIYwuHRUuBga7BJzpaZV1gueA18iH3xzsHhvVjLfw==
+	t=1793808968;
+	b=t249Vsh0qaAvDtpY85r6vKbpwlAAeaVR+HjEPcre2A/+WhbBNshsA641mgZkwtIBYm4Q
+	 i5vVjzGe9YOuUcugECjnWubl81f5sWE0cR8daxp1xwRqOwKkdeGLajz+yqGicKNjd/n2N
+	 aJmZDMjYDGjLl7KcS0Mahnxw/S5koZLuf6Fv+oDWqdEr+rOa16+soZPlJ4n1nyKcS908M
+	 33wyv9WyPWrtiPUKeta8Y1LcKtjG31YfCg8M0t1bFcw72abcqWuJCF0G0VZn1+2p5MHuy
+	 Acdg7qU1bCUrfOwe9vFXUZKY5CMBO/buvGEV0o43Tsrkflz3Dlulf6ME6yRMCeVP87A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793808956;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=8fU8AEGdDcjq9JBv57injpYEq2ySiH6tspHTe3WsEnE=;
-	b=MZptyjYWmz0C/Wji5IDZAoLs0RM38bfWfLh7NaRZex7A0pobB2bXjpo9Mxf8WLZDgr4V
-	 pMcf+Tj8m5nnndeGMUZh5rd9s1AmC6Xm7QQltHboNeVrJzEYXNkgd1y9VDQuyK5nUZ4Sj
-	 8ltkg89Q7XZ0xMqzjyhQWp9bLbWab5tF80LAAO870QHGbQqjQZGWXCNlEs5NyXFcatDI7
-	 wZqODPJPiyn4WYDeFm2luNmbKenpjy4T5DsC2UJ6jh0WavSZslflPDZ2bpZS97QiwR0jw
-	 5uUcGq3k1CcdqFXGDs6/OYpvQ36a88Mdorbd4Bd9GHWh1ipKo5A9H1zxpYKHZpiS8Rg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793808968;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
+	 Date:Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=cZO12q2rUYGTJsRBXXjfwgfWq9/ftofCaITTyvCFUto=;
+	b=A4NFxjDnBq9/nP6nr9ssuTKWL5+NB9ADN7WF7ShXcXDpgCTMqpXS7cKrSjAmIF514cTq
+	 YmN1Vd8M9GGRWTyxZb5ydhyQZ7ApWlF+zv+88OrPgGgd9paa+gUEMA3ixj+grSIS+zmY+
+	 bAVTiK3God54VTpMlhbsRF81/rCFB3rHlyra1JVyTtfhQIL+rUoXxmQlAT8oc5nPNnLnX
+	 iYvkp2gHCDljmPiJ0VA/mWUvME/x5ZJcyPCea4g6a7Np3VIqytvY3YxEepn389fcsP9TY
+	 ONEvFX8f0fKqTpw/Hr/zNiFCKZaEqNirRKuArBjFEfYzwj9Bli+gs/9wCDycZKAP4EA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=oO5llueb;
-	arc=none smtp.remote-ip=91.218.175.120
-Received: from mta0.migadu.com (out-120.mta0.migadu.com [91.218.175.120])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=posteo.net;
+	spf=pass smtp.mailfrom=posteo.net;
+	dkim=pass header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b="KOLG1A/V";
+	arc=none smtp.remote-ip=185.67.36.66
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A483B606A32C
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:15:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A483B606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5F1B606A32C
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:16:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5F1B606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=oO5llueb
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=QhoInTD0Xt4NBSuls0AgRrgTJDXjCSOPGY4pmRsoD08=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793808948; v=1; x=1794413748;
- b=oO5llueb2uLLHAIztGoWQ9k0aJwHtRxomO9r6ciLu/m9aaoJCGqWBQobUJ4/gK0SNhXJ97nr
- ElLpG14EwNXY8YlLuxiBnZE31ra/RtD3OJcdO8OVaX39YfomEKzpN1x2NQniWCLhSg/wVqkFKSJ
- jiEDYnwTN7uWGrVGtczbdmrY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c6ae390f292ebaa1;
-	Wed, 04 Nov 2026 16:15:48 +0000
-X-Mizu-Trace-ID: c6ae390f292ebaa1
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <81096741-0e14-4469-bdbb-497aba541fbb@linux.dev>
-Date: Wed, 4 Nov 2026 16:15:46 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=KOLG1A/V
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout02.posteo.de (Postfix) with ESMTPS id 73584240101
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 17:16:05 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.net;
+	s=1984.8680eb; t=1793808965;
+	bh=cZO12q2rUYGTJsRBXXjfwgfWq9/ftofCaITTyvCFUto=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:
+	 Content-Transfer-Encoding:From;
+	b=KOLG1A/VP/BYjsOCqYOiudOKWdcUDUf0h6xyndjEuoqPFAg7estkXYby474OLgno4
+	 Rx5w1hYLvHknmBQlKmV9wk/PUNCKlI3chOwcUIpFcaRsSFTIyEAph6qS4Mzzft3Cha
+	 Ui/Ysjvq9s8ytfuTBRZSCD72bNMDHixzERVhK/JBE6CcxTTHz66z/OiZ2Llg+0h8bi
+	 fbc052edij+AoHTzX2i0I+cHtstnjO5Mx+jPW6KtY0gko9ACXYEbtXI8mtjQr9bpgZ
+	 TdPD4LiuIryRTCvWQ91cH56P9zo7GbDeJEBUsg4iHelK24xDB97Zo1CM0A/kS55AxD
+	 ya/yQ+y3luFLQ==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4jKVtB6Cxdz6tsg;
+	Wed,  4 Nov 2026 17:16:02 +0100 (CET)
+From: Mateusz Nowicki <mateusz.nowicki@posteo.net>
+To: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	linux-watchdog@vger.kernel.org
+Cc: Mateusz Nowicki <mateusz.nowicki@posteo.net>,
+	Julius Werner <jwerner@chromium.org>,
+	Evan Benn <evanbenn@chromium.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Antonio Borneo <antonio.borneo@foss.st.com>,
+	Marek Vasut <marex@nabladev.com>,
+	devicetree@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 1/3] dt-bindings: watchdog: arm-smc-wdt: allow a list of SMC ids
+Date: Wed, 04 Nov 2026 16:16:04 +0000
+Message-ID: <20261104161553.30115-2-mateusz.nowicki@posteo.net>
+In-Reply-To: <20261104161553.30115-1-mateusz.nowicki@posteo.net>
+References: <20261104161553.30115-1-mateusz.nowicki@posteo.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,55 +82,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/hugetlb: allow crashkernel to reuse hugetlb CMA memory
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, baoquan.he@linux.dev,
- rppt@kernel.org, pasha.tatashin@soleen.com, pratyush@kernel.org,
- ruirui.yang@linux.dev, corbet@lwn.net, skhan@linuxfoundation.org,
- rdunlap@infradead.org, muchun.song@linux.dev, osalvador@suse.de,
- david@kernel.org, jbohac@suse.cz, sourabhjain@linux.ibm.com,
- ruanjinjie@huawei.com, leitao@debian.org, linux-kernel@vger.kernel.org,
- kexec@lists.infradead.org, linux-doc@vger.kernel.org, linux-mm@kvack.org,
- hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev,
- kernel-team@meta.com
-References: <20261104142727.2894800-1-usama.arif@linux.dev>
- <autMHwldMudQOO3j@thinkstation>
-Content-Language: en-US
-From: Usama Arif <usama.arif@linux.dev>
-In-Reply-To: <autMHwldMudQOO3j@thinkstation>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+The SMC function id of the watchdog service is not discoverable and
+differs between firmware versions for the same SoC. Let arm,smc-id hold
+a list of ids that the driver tries in order, so a SoC dtsi can name
+every id used by firmware for that SoC. A single id stays valid.
 
+Signed-off-by: Mateusz Nowicki <mateusz.nowicki@posteo.net>
+---
+ .../devicetree/bindings/watchdog/arm-smc-wdt.yaml        | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-On 04/11/2026 15:20, Kiryl Shutsemau wrote:
-> On Wed, Nov 04, 2026 at 06:27:27AM -0800, Usama Arif wrote:
->> Use a separate suffix to make the exclusion of existing HugeTLB
->> allocations from the vmcore an explicit choice.
-> 
-> The crashkernel=size,cma documentation already says that pages allocated
-> from the range are not in the vmcore and that it should not be used if
-> dumping of userspace memory is intended. HugeTLB pages are userspace
-> memory. I don't see what a new suffix makes explicit that ",cma" does
-> not already.
-> 
-> Why not let crashkernel=size,cma take hugetlb CMA first and reserve a
-> dedicated area only for what hugetlb CMA does not cover? With
-> hugetlb_cma=6G crashkernel=2G,cma there would be no extra CMA at all.
-> With hugetlb_cma=2G crashkernel=4G,cma the crash kernel would reuse the
-> 2G and a dedicated 2G area would be reserved for the rest. Either way,
-> nobody has to learn a new option.
-> 
-> The catch is ordering. reserve_crashkernel_cma() runs from setup_arch(),
-> but hugetlb_cma_reserve() runs later, from mm_core_init_early(). The arch
-> code could record the size and leave the reservation to generic code
-> right after hugetlb_cma_reserve(). That is still memblock time, so the
-> remainder can be declared there. An early_initcall is too late for that.
-> 
-
-Makes sense to me, I will rewrite it in the above way and send v2.
-
-Thanks for the review!
-Usama
+diff --git a/Documentation/devicetree/bindings/watchdog/arm-smc-wdt.yaml b/Documentation/devicetree/bindings/watchdog/arm-smc-wdt.yaml
+index 8e9d0b7e8244..9844b23ef51c 100644
+--- a/Documentation/devicetree/bindings/watchdog/arm-smc-wdt.yaml
++++ b/Documentation/devicetree/bindings/watchdog/arm-smc-wdt.yaml
+@@ -18,9 +18,14 @@ properties:
+       - arm,smc-wdt
+ 
+   arm,smc-id:
+-    $ref: /schemas/types.yaml#/definitions/uint32
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    minItems: 1
++    maxItems: 4
+     description: |
+-      The ATF smc function id used by the firmware.
++      The ATF smc function id used by the firmware, or a list of ids for
++      firmware versions that use different ones. The ids are tried in order
++      until the firmware accepts the init call, so only ids that are known
++      to be this watchdog service on the platform belong in the list.
+       Defaults to 0x82003D06 if unset.
+ 
+ required:
+-- 
+2.56.0
 
