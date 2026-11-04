@@ -1,107 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.176
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793832125;
-	b=VMzYw07za+ZWu7yg9wmDcgy10BJobpGb5Vc1Jhb1CjP2SkIOzprYAlbVMTiv/dlzRVRN
-	 3g2S7CDBLgxnA023ZjK9TXFNBzUZVMDjsw+79sDXyJBVrgwrx3Q0YjgTLSNgmfygmq1wh
-	 SGObyALs7t1m8J5kgFHzK5Nqljp3Hfu9xW1syKf6ieUx3JHrMNzM2Kxly0lE7tdzj+5dX
-	 o1hLgwu95TZ5oUpf3sZspvxif2wMkw22rR+K3lGEAAY8BT3KDEk+0IJzZwuo0bNHW2ebB
-	 9aB5P61nuALTqUEZFy77TiJPNDKq4qOZ4dO0Gu/hiNOMwGZU0ky/8ajzxcpeDD1lPWA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793832125;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793832119;
+	b=V2hLXPow0WZRpglHRCZeho58/2KFOnolvZxMCXB6e2cmoubdRhquGKwXaAcDGOPHJzNR
+	 7nalsxr3VBKprI0fAQMCjETyROXh0U133EuVU+RK0TQnA1Trcg5Gb6fWVZt7Jn31GsWB8
+	 ATDl6WzNtW5Jvg5l7Fs0dzTJih/UepqnnhVG37LfEg4SidlSMKu3GVUEeA/Ff/kHBhcLA
+	 MAJGpkoBGHIHV7ndlwpbBPAsyMc5FiGapcVuGVjoPqUyO5v9bvwyrFdexj8TTPSN1wJX4
+	 iGXkEI1ng1M87EdpVfnEaDd8vzBVAOp5SeYZmsFPqC+j5sdREhlkwWGNh14+aYU5kAg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793832119;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:From:X-Mailer:In-Reply-To:References:MIME-Version:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=KM2UfG1CDbTrad6C0v+30S5aRLCtGDlg6Z1BK4++Wa0=;
-	b=IZNz3U9AxvyZkK6zuHO9EiFFv6N2Of6g6AbI4YB8/UQcn7k5PNI1HF6h0LJmtzVGX5We
-	 kBco91ZS2FOlRCMPlOe8aQm+lwHbeywd29sFN5XwLL5KlF5Yd0JaXU8+5mx10ghOuaqcE
-	 GmzMk7+IkhZendwtWequYxO217ZZBEASc1Dn3wh0/nAVbsKt3i5lkJjoydjGg6jsa09b4
-	 AhS0d7YNYiqzSfr0qN/RNADVfQVKW3NU4MEcyYJ4kmFNgBI2yVSHoNVgn4Jvgij02m6Ay
-	 /9lR2R3+wTOHosFXThdyde+PbTrVho2NztpDUB13DsOIS2NJAOUxmK51sp5Q8p05f8w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=7JJZFX7GjlSxlyM1xt2ZPMCBId8gHLPODjL1RlXKQBc=;
+	b=kHuIl1PmwpDWbfhaebyPDpMBdoMY5HKWBgF7YFVTy2zqVeUdEBImDnCW7ny9eUypAoCL
+	 2AcmT9drWOlzOC9t1I7Yh2hQ2j6xZOPxdcnet6CjjMbIv9WLuXDYQFgp3mtRLhmC5Jv2p
+	 0n48N2nWVOJMeXxFRFz1Q6jTPQ5BTAQAWfZe+VM+gDWOG9TpSUs8isOsapYx+bNjphxOD
+	 XO/Rw5ifhB1Tj20wV+EA2QLtTGEnoy9onqyGFw8jf63ZjSnMmXeRPxXMPrv9AT3XHfxkb
+	 pYMhLWS4F/2JQ+Cb+QSALF7vshDfnbM9tidBa2TCmBcULcTM889R36BC9PO1XrhP/CA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fwcC42mg;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.176
-Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com [209.85.167.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fFbWW6xx;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E0A6606D806
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:42:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E0A6606D806
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ECD1606A32F
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:41:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5ECD1606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fwcC42mg
-Received: by mail-oi1-f176.google.com with SMTP id 5614622812f47-4f488ba6e90so487593b6e.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:42:05 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793832124; cv=none;
-        d=google.com; s=arc-20260327;
-        b=knTNENL7NDkC+0sByKHODLZ4GT6bl7zBfsXFZV313OKul/Y7mZtVhByY61X/gPh8aI
-         NLwOoEJYIBEIS3IpwQnxCZ1e6jJcahFqSklwMCDtkQwKFxM9qfemQwzZXZ/4KMIKWOIo
-         9tFlHX5TPcXXQep2HoHo2sgKqChjut6wCqGGpwUv3P0+ObxnjSuelhBrHFb8fUrGhBaJ
-         IzcWbczviilNqFVgR2e2KCCFJLpSXYUAEl99q/C6dA5X60VvM6XAbJGpELGkf/03NTjc
-         ifHmaUD05FQB4P4UiDuyJbiUAU5dvACwp2llP72wH8cb+Q3PiNSKjK/08vOQk7xHMGyR
-         eXnQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=KM2UfG1CDbTrad6C0v+30S5aRLCtGDlg6Z1BK4++Wa0=;
-        fh=/1uFFqID4ad6c3R1HInLdTEyYzwIy4djQVrv9OAj78Q=;
-        b=Fl/2Jz1Yl4Z1TSUXw75qGWjlhbts7fr13VdjA5NzlN1j4nfLjnCbgAypDvFAX6WUGi
-         wTj7tlIUzBJnQB5/12dGWsILZyuvipord/v6maJVurtd75dYL7S01XJBetc4RlHBnwuQ
-         VXsQjXkdOsqd4FrsXG0f1Fzp2h4/5ta4Z5kUtpvjcw3eAb9OyKNBObzcCXznxuxyqiDz
-         vr6Z8aEPo9BOil8pkkFot/H/LpcGboXeIfO645b2NJis+PfkceH/ky+Oiur7z9OJBHkF
-         AdPVX7lnNeIGAOtmvct3vmDPZ34Ye9wuoHn2TlF5Z5y+RxoCLV+rD3NT638i3qf5wLAs
-         1jxg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fFbWW6xx
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so14478565e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:41:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793832124; x=1794436924; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1793832118; x=1794436918; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KM2UfG1CDbTrad6C0v+30S5aRLCtGDlg6Z1BK4++Wa0=;
-        b=fwcC42mgXei6uYTIgDjSy46/tLw8VSGxmDMR6WqglnrJQ5Hy8QbxVkJ9cRmzSMnJMe
-         ADv93wu3BDjZD5wi1nUm6pzQ9zfmyJO79Ma3714Rldi0z3/9BCG3dvVpDJp+z0cv6nie
-         T5UakgXoekVREcISWxL/Y1aXGLJlR7U0tOrfq3gBjMG5vzbslzEeGYGnmcC7gpOwZnGd
-         17dxJXlCSnNCFkviiZcAtqyoJlD1IwN1GOzwy06W+pJTRxn6vwIFcbJqxIiwIOTBTUWu
-         5xItAEXmEVXm326RbVl/s8wxkhbDxJBmVfnQfv7aBXgfZC/3HXTegFogSmXXkez2Wc1F
-         EYTw==
+        bh=7JJZFX7GjlSxlyM1xt2ZPMCBId8gHLPODjL1RlXKQBc=;
+        b=fFbWW6xxpsEYD3oBRYSPO2sNLgd6voHxFWw6v27R9u4eGWHvAoWP028d3VlkW5ygPd
+         o6GkD3FEd33GcyZ07604PYcoZhlGTKyi7yTV+yZaP3etjwvjRsXrfxPOwNLEcC/CLi4l
+         Y2wbsIk0WLLhjn2NNPIcvBBwlZV7sB3fV4JuG8oEUfVV/SoLzgEv8ZRbuyQqjkhFABkL
+         2uDqksTjbc4/Pz7HYCQudk4MYdBrxqB/+jOlKncdPyKaxwEY06P/2uRiX5WUJhlAUsPC
+         l3xvkUW1p7Q6CBtjRtHmYNEEYsoLoaNbbRp3/Csi0TcnfFU+Ub69W6XxG6U/kumHoFLd
+         RvQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793832124; x=1794436924;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793832118; x=1794436918;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KM2UfG1CDbTrad6C0v+30S5aRLCtGDlg6Z1BK4++Wa0=;
-        b=qJyCuq5Aj6D4wMZDqroWO1A2yl16ZJahMtIcaOJuT+IZviLV/i40+10oAyz6lyVzVH
-         rFgos18S/nyx1wX440dtLTIhJVrZgTM76j3AerAMxGnh3oclJn5Zb0Wsgn6lc/Q5abgu
-         yRnYUZT9vRAwM3qfNRlepYo9LnJNQoAzUPThvulBgnyLLjHNhvyxy0BarGTv0gM4pBxh
-         bjczk5kvEGl7aY7cjRgiY3nonFqGbggyBfGUYhFeLEsrIk2RKEUNasCcXe9m5bJX9mw+
-         golhL8tLXOYMHm/cYgYxesFKZgMdWp5UNhKu9fDwtA8TRzZYXJIb3BpQv99RU+rSiOEV
-         3xAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwfh3L6gIusinpa/73FH00OwadgsloIc9OHNTDrgFv/60CDjzJ7racbFRuccEc70TVJz5opKVK6+WfkyfI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9EwjL/YFdWWdsDHxKt8rGGJMCvUc5u0+5Z6alLevHvPQBPd59y
-	qFWAzTbPwPst6LPUTIlyNS3UvHjAXjnP6DvfBaVD0X7fyg2dL9d+EzUOUSR/SillwJE6iiHj1T8
-	99qVBblHsikmGQ7pAFIMNJWKUdUdhdeQ=
-X-Gm-Gg: AYBFou3Q2VuThG4p30TE6WcBmq37wCJJuD/SvTXh3k7EYQegaZ2hgFpmWRaK5wpw2iw
-	A6pW/e/+iWtcE8f99DtsZiUiDWGvAmCxZ2j8AoK9YCekV/MenUq2RF+ARJ4SKdESPV1u9vUMqaZ
-	qVCcjsOkxHzXTV5JFCfd+EqF+sYugxtF+Jf8tSuJENWNA6UZubHeyPAJFYo5dD4JGq4is47+8XQ
-	qj6lmxsM6tUa78qqdngjv1cvQ8i7nH47DEvHXOqQVukBeVG18rYGPG13EQFsHNRyQMWHh22WKaV
-	CwITstmcbLYRxUrd6kjVMdSoZ5D9AWZd7Y6cwkRwe87b14XTiengD4OfwYilmS7BR4lPXYTqKzi
-	0OmylBUGlS93kis/8Ap4Q5Ukd9Q2eTDVpJTOgAenLqarfJOqQcJU6qxIJ1K64jtPeGYJQ0QI=
-X-Received: by 2002:a05:6808:1524:b0:4f5:4ce8:7e92 with SMTP id
- 5614622812f47-5640ddc0cdcmr13133649b6e.48.1793832124318; Wed, 04 Nov 2026
- 14:42:04 -0800 (PST)
-Received: from 41474967715 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 4 Nov 2026 17:42:03 -0500
-Received: from 41474967715 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 4 Nov 2026 17:42:03 -0500
-From: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
-X-Mailer: git-send-email 2.54.0.windows.1
-In-Reply-To: <CADZg-m0e9UcuqQ7gNKn3jdyz3egU64uX15SMDbdrHXXqm2vvhA@mail.gmail.com>
-References: <CADZg-m0e9UcuqQ7gNKn3jdyz3egU64uX15SMDbdrHXXqm2vvhA@mail.gmail.com>
+        bh=7JJZFX7GjlSxlyM1xt2ZPMCBId8gHLPODjL1RlXKQBc=;
+        b=PFaireUjD5A5L/gsH3it14qalcYIvGJz9mYr1HK/fU8fpFZXjhSbEcsiXlgKeI42h0
+         6ks2p0Km4yyDDFKQ+umjCKkKtOPnQ4wd2RczxOCWnPL9n8i4DIr92lqUCm1HjF/YsLbw
+         TReDD1uymBhyK+XPXzRWglBZIwBqA/nnzxp/sgtWhVQPFu3itu5f26gdodnLqDfeb03a
+         QonsPWHhUiAWxPR4OhnqKUeid3o1WYkztDpxeh3dccC0kB02ROCgny71mDEU30GLInVN
+         vfwbG46EHKDYW8LmzPTVD3pX7y5JPiq2AejX4L7cW5dciWUef+rM/W0X3BLOp7620Rmv
+         5d2A==
+X-Gm-Message-State: APuU4Z/fYLiYvvvelzp0BGki+y3AmI7zCKZz3Uv/EU4qjQwslt5AT9wr
+	Y+NQbR05CU/Rb8scKkk3/zVfhytq+1xFQY2y7zw6uOtiSLT/OQIYSnx5
+X-Gm-Gg: AYBFou3U3w0G7t7yfkqWDSlBjWjW+ICWH/EwYZBht6w7Ps1ah9s69W0M2BUTAV9YRFU
+	RZGFjNbFYYwvwcBO7WpmX9fofSHKdyA94JNUwvXi2s9+8IUs/E3emplfE8FR64Fu4G4oQ0ExyDC
+	3FBGfukzvVTifUQ1G3VWDG13uZbvuya8oJ3dV4uWh28tJVjXwvNnrbI4aGKluoi84XrNJCVx2zx
+	PhpoIOQmf2bshZMuLVb1WdMLQ8ix6+mk0plz8t5LHYtmhbnYSCeR4rNbXLlDiYHUPqZ4UoaxeC7
+	w9VGQB1B+21bWs0LzR6LWZhxDWIgI7Na0BiXxW3nm8SppywvPBBwIxiubQGad4KnHYwjU9VoTUs
+	Q8BLTCqVawhLwawfOeJHOPDUl3jZEei/nbxJmSOxmAsygvad4rvxQ/pJ+yCXEQjynGCf4jSV8oD
+	J+qlS6c0TQzqv6R7mwUN2NuT/Md3w6fRyFOMeu8BrKLWkBkac/sV8lQrB+wdv1h5keM2coIPCBk
+	HEoijhwc0M0MB7C41E5AOxRsQfjaqUwIZc+dHQC/RwkEiaCZq9is/tAFQMWx7tYeb5SNWgf6SLe
+	UzIHXvkQtwUAIW9Bffa0dU4=
+X-Received: by 2002:a05:600c:4e50:b0:4a9:2a92:231f with SMTP id 5b1f17b1804b1-4ac16bc461emr393154585e9.7.1793832117676;
+        Wed, 04 Nov 2026 14:41:57 -0800 (PST)
+Received: from [192.168.1.22] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed551dbasm6018773f8f.37.2026.11.04.14.41.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 14:41:57 -0800 (PST)
+Message-ID: <d4b5e996-e718-452c-afa9-e9d9e08712c2@gmail.com>
+Date: Wed, 4 Nov 2026 23:41:55 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,91 +90,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Wed, 4 Nov 2026 17:42:03 -0500
-X-Gm-Features: AclHuK8c3FllifJchvsAJtZHSyoSQbjaJVAnkMCzwFSk6lXoBgXJQiVA5jTzstA
-Message-ID: <CADZg-m2gT0d7AHogkGwratOkMESe2qbLVnLgwn81rPpTnih=WA@mail.gmail.com>
-Subject: [PATCH v2] dm cache: Validate the discard block size before narrowing it
-To: agk@redhat.com, snitzer@kernel.org, mpatocka@redhat.com, 
-	bmarzins@redhat.com
-Cc: dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com, 
-	syzbot+c8564fc0a96e3ecbe4d4@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm: split out memory-failure declarations from internal.h
+To: Breno Leitao <leitao@debian.org>, Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin@linux.dev>,
+ Chengming Zhou <chengming.zhou@linux.dev>, Oscar Salvador
+ <osalvador@suse.de>, Johannes Weiner <hannes@cmpxchg.org>,
+ Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linux-cxl@vger.kernel.org, kernel-team@meta.com
+References: <20261104-memory-failure-split-v1-1-3b0a85f0b7e7@debian.org>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <20261104-memory-failure-split-v1-1-3b0a85f0b7e7@debian.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The discard block size doubles until the origin fits within the discard
-bitset limit. too_many_discard_blocks() passes this sector_t size to
-sector_div(), whose divisor is only 32 bits. Once the size exceeds that
-range, the division uses a truncated divisor, which can become zero.
+On 11/4/26 5:45 PM, Breno Leitao wrote:
+> mm/internal.h carries the memory failure declarations, but only seven
+> of the 81 .c files that include it use them.
+> 
+> Move memory failure declarations to a new mm/memory-failure.h and
+> include that from those seven files that need them.
+> 
+> Move the block as is, including take_page_off_buddy(),
+> put_page_back_buddy() and page_mapped_in_vma(): they live in
+> page_alloc.c and page_vma_mapped.c, but are built only for
+> CONFIG_MEMORY_FAILURE and called only from memory-failure.c.
+> 
+> Keep the declarations private to mm/.
+> 
+> No functional change.
+> 
+> Suggested-by: Mike Rapoport <rppt@kernel.org>
+> Link: https://lore.kernel.org/all/aumt-4kfGGtoXuh-@kernel.org/
+> Signed-off-by: Breno Leitao <leitao@debian.org>
 
-Use a 64-bit divisor when checking the block count. The selected size is
-stored in a u32, so reject sizes that cannot be represented before the
-assignment and before calculating the bitset size. This prevents a
-truncated zero size from reaching dm_sector_div_up().
+LGTM:
 
-An earlier proposal checks whether the mapped length exceeds the origin
-device. This fix also covers an origin device whose valid size requires a
-discard block size beyond the field's range.
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 
-Reported-by: syzbot+c8564fc0a96e3ecbe4d4@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=c8564fc0a96e3ecbe4d4
-Signed-off-by: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
----
-Changes in v2:
-- Resend as plain text after the previous mail client reformatted the diff.
-
- drivers/md/dm-cache-target.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/md/dm-cache-target.c b/drivers/md/dm-cache-target.c
-index 1a50724..7bacd88 100644
---- a/drivers/md/dm-cache-target.c
-+++ b/drivers/md/dm-cache-target.c
-@@ -17,6 +17,7 @@
- #include <linux/jiffies.h>
- #include <linux/init.h>
- #include <linux/kstrtox.h>
-+#include <linux/math64.h>
- #include <linux/mempool.h>
- #include <linux/module.h>
- #include <linux/rwsem.h>
-@@ -2383,9 +2384,7 @@ static int create_cache_policy(struct cache
-*cache, struct cache_args *ca,
- static bool too_many_discard_blocks(sector_t discard_block_size,
- 				    sector_t origin_size)
- {
--	(void) sector_div(origin_size, discard_block_size);
--
--	return origin_size > MAX_DISCARD_BLOCKS;
-+	return div64_u64(origin_size, discard_block_size) > MAX_DISCARD_BLOCKS;
- }
-
- static sector_t calculate_discard_block_size(sector_t cache_block_size,
-@@ -2422,6 +2421,7 @@ static int cache_create(struct cache_args *ca,
-struct cache **result)
- 	struct cache *cache;
- 	struct dm_target *ti = ca->ti;
- 	dm_block_t origin_blocks;
-+	sector_t discard_block_size;
- 	struct dm_cache_metadata *cmd;
- 	bool may_format = ca->features.mode == CM_WRITE;
-
-@@ -2521,9 +2521,15 @@ static int cache_create(struct cache_args *ca,
-struct cache **result)
- 	}
- 	clear_bitset(cache->dirty_bitset, from_cblock(cache->cache_size));
-
--	cache->discard_block_size =
-+	discard_block_size =
- 		calculate_discard_block_size(cache->sectors_per_block,
- 					     cache->origin_sectors);
-+	if (discard_block_size > U32_MAX) {
-+		*error = "Discard block size exceeds 32 bits";
-+		r = -EOVERFLOW;
-+		goto bad;
-+	}
-+	cache->discard_block_size = discard_block_size;
- 	cache->discard_nr_blocks = to_dblock(dm_sector_div_up(cache->origin_sectors,
- 							      cache->discard_block_size));
- 	cache->discard_bitset = alloc_bitset(from_dblock(cache->discard_nr_blocks));
-
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+-- 
+cheers,
+jose a. p-a
