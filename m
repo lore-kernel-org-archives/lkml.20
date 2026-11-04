@@ -1,74 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819710;
-	b=bExXr1YhxTCZkraRkbchefxrO5xE1HN2WWxrCcJXabIHTrRSpP9OrlXAJCQXGuXNDMDS
-	 QJCPNvUPQhpovDh6zqq6VKtCev37i5L0Dfqwa1WULmzc+7QIjZCr08q3XQaUA6FcgbPgV
-	 LqCUIpCKWCd2mO8X59bJrb2sEpYxjWSNLO0XvcPlkt8gAzMrXSgneeBiOjYR3cyPn87vb
-	 TYntGYWF7SKRewNuBA+XNQWML6WErzKMVz2yNuoqOaKV3eIBhowvKuXfsM7lMkMMp2r67
-	 PSagCcRKnnrx5WOSg1ReyCSXwsodyYyDX2IPnd9xYOjJPm6c8B0NhXOP1aFndSNDwrA==
+	t=1793819711;
+	b=BZzA+l1QdT6fA8BrYXbAVHzRfNqsfiplZLt0UN96HreArNqc1lbk8Cdta1YMMcg4jH4c
+	 OhLtFeBR2IotbDbH+jEUGXrvwHDDlibwMjviZkokEh5cRF6pxT7R9+yintPuw1V7ysmBO
+	 FD/Z+mf9Avj5ATTYUbYn+3SLu1AMKZW5rQ+RV8L2kRcEafW5y2qzxULZkJFHOOqX0tBbV
+	 ASj2/80Lbq36lhC4RuKu3L8+6rG5NM3oVheiHqDC0LDNyupIHKfhPHYcUpRf0WpbkJak8
+	 Ko1umrYKa9HIhSz913Pp1qvNFE2B9T6GBCiwdkiQhVumeNq3k1m/Bs2DAHCOQi1vNWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819710;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819711;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Content-Type;
-	bh=fJF7oJyRnRKwnIF54ui40VQH4dCqd67YhvJqsB+AsGw=;
-	b=KRyx85A6JPXfqd/L4bBqLKLZgnp32MI/KflzAYLesUqStt/ARbbbP33h+63cyEWgSexG
-	 BtDLd5a1qkjtta3AZWjzfafT8G4AT60PjhheSvpUw3XH3LN9RrdUnCAOdgawdh8cSpNGp
-	 jAAGQelCbul3RqK29vFTiZXx83rid9Xqafp7uVbD5FaVzxvwwPxkpp8fViohh8lA1GDkT
-	 fWPZ0KBGOtMof3r8nq19Ys2UT/GwZArsiEM7UzHwPpLk88pckrJUXwF3nTfoPz1A0THWM
-	 cJ5jp/1Na2m7AKalfzI/VoZWsRbsLZVIWeSuPLZuL45UHqKiLi6MC0hXVBtII5/raYA==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=XzHnKQ1ardUs+9dftxxB/DnpUdQxoDWmHTP8fmVOjhs=;
+	b=uB6wUGarsLRQT3J2HrGEiEEGsXMKIelBo8mphRzoYeAdhdCjyo4It37J4SKree/B+XR2
+	 tIEeSdKLsR0pRGSKUqC4+jNvLAGT98vgRky0cuCbJ1AZEbRaCw8zAJpfrylRzS3h9wpd1
+	 v75ciu3xWsmj/aWsJp0n8AGyvlrrTwVNBw4DzwYyrR7l9RDQmu2WZOyp4W4i46fYlzThc
+	 Bm/jPx5SzFulKrg6dwYhy933At5nVmnpbxDts3jyWREHNftp9oNQs6nmJ98jzQvfDEDP7
+	 45emAg7vKSZDmoEanXKWO0JW35/k3zxyVBoQ2b7CXoP9ovgibSOOa8QvTqtmfgp9Nig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=B9EBJFFK;
-	arc=none smtp.remote-ip=209.85.214.200
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XUG2JM2u;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F7A606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:15:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29F7A606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33A1B606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:15:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33A1B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=B9EBJFFK
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2eced5a4cb9so9988085ad.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:15:09 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XUG2JM2u
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4b467581b98so7877195e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:15:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793819709; x=1794424509; darn=vger.kernel.org;
-        h=content-type:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fJF7oJyRnRKwnIF54ui40VQH4dCqd67YhvJqsB+AsGw=;
-        b=B9EBJFFKOPLa8N76mvIDQWxG8tktJJ1rFUa7UxoNWRzGeo2kjOkI3VVGPeNm6HIz+X
-         TlXdC1p7yba6bgKUEEoTS8nYjXcRdtfswPfEIF/QgJZj6DVy/IJCMFjpy2rAzt8N5gMG
-         b+yZqgldnlY4F/IwM2bUsmRYsy5dTu8OghEgLTHF28YHfCCSkC6tvAABJKPNofXNQCI+
-         RlL1FvgkKGWrAkqB+EI28qiCaIPLHBBEawESnvXW1/ZqZRS71CT3ToxEuMr0YI15bj5P
-         JXh5oK+JROscK2tKBdZp2oeAvmdPn7GEr8SBwnSjVjFn7+6OoBiVIZEe57PAJxfEuoXD
-         Q68w==
+        d=gmail.com; s=20260707; t=1793819709; x=1794424509; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XzHnKQ1ardUs+9dftxxB/DnpUdQxoDWmHTP8fmVOjhs=;
+        b=XUG2JM2u+nZvhieEN/CtQxC+YK8f1dlpuK5q8KFNh33SHbdH7YjA4I3OlRDV3sjU31
+         rCT3fwtjVC25ck+94NWEXKbMlF6L34XfNpnoYarZaCcAT3x6x8ppWWoysuyJadc91PaV
+         rZtuapzO36dVc1O8aNbwh+Z1VQCxwMwtWIyQgKKJ8zxyV38ZTye+onyESvAC5xhg/Os4
+         vvXe7jPsMGKEi+fbQMNXc4gZDcy00N4YWX+DyrlJqxpNY5vHdXgU/HQ525+9mgnJTedk
+         ruA9spNK+ETHjM/+Fy21ViK+Wzf+myThBbq/54HZ5FNLgD6vL5qXwR+v8/XDy8timqaz
+         Z4Ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1793819709; x=1794424509;
-        h=content-type:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fJF7oJyRnRKwnIF54ui40VQH4dCqd67YhvJqsB+AsGw=;
-        b=ir3a2ieu0Iq3dRer2JqmiZncQN4hEbF/1AMsdQ5OHorLK2f3A15PyLsHN4MM9NAyLz
-         CdDvDJ0Wq55QElwIgqmmfaxR+yw9a0wSPudhYfQLc2cixoPCiHN4qF/0hsGRGZXmxm4N
-         1LDWLetTubzGyPDI1WOmW2DipSmb8OwwUXRvcz6eFQ35pjdfsfACX8hCBhaKmraVVDRv
-         7NcKBSdAI9bn9cD4p5O/mLK2/UwykEn8g9PLD2Jqm/3Tvae4EfKULnm2U6fftWX69+4i
-         K/BGPlKPbBcXh0VX6nbpctzU70e097TYs190bn75fbbAALtMbcbrp591dtYowiYBANdF
-         U6vQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwt3NO11c6JRqHuTTCTPwj4wBrORoKENPCrtxZ2HRrsl5sh3PPn1cH6JdXAUFbAEQOdsVrzD6jVs46Vuw4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9mtRiwWGWMSUNzc9BaZrnsMoMu5wg6SalbddS+aRfUO27zXrGT
-	995UOuxobmXGDjEzMwgT2ACAxVL2PJDmwYKLPsFkIAYz3i7XcZyaWe9Z7lnR8gSL192ZUot/dpC
-	ITZ0kLQ==
-X-Received: from plbmm7.prod.google.com ([2002:a17:903:a07:b0:2e9:696a:93ef])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:ec85:b0:2e9:6788:937e
- with SMTP id d9443c01a7336-2eb364d1716mr142995105ad.42.1793819709207; Wed, 04
- Nov 2026 11:15:09 -0800 (PST)
-Date: Wed, 4 Nov 2026 11:15:08 -0800
-In-Reply-To: <20260701002152.546245-1-seanjc@google.com>
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XzHnKQ1ardUs+9dftxxB/DnpUdQxoDWmHTP8fmVOjhs=;
+        b=0mqJiqp0vmNFeAiXoDoe3XfHnee24VfKMotrFhKgQuH24LWRXGT85oMcsHnLAiGMij
+         x379GavWqKEm4LG2XHZOkcbxcSZqOpzbhltYY88hl/ZehdusPF7wWbMVqK/gZtV2GW7T
+         ScaN/12+cLLhwtCW/lehATaql4y+LjVAQMAHI0T3wMVORn8a7XcnRUcdhzf9GsBh/EVo
+         e2XoeF5SxHk6DrCpzJm7yPrKpphZnDHGefRWNmADUMCt6JXrh1SavHyLubc2MZfoi4Zm
+         mrZsYf5Sw/hAF1jc8xlbfWG0hyBcx+m+2d2/mRh8iDipOWGOmjUUmqKRkH35bZlFJ7jo
+         in0g==
+X-Forwarded-Encrypted: i=1; AKwUvBxD7UUAi5SUKBNTK4C+hH3SD3fRlAuaTkCwGfJ928uvLmuiL4Y7o1SvhiWPhhOGnmFttGisBY43eWq6mac=@vger.kernel.org
+X-Gm-Message-State: APuU4Z847Z7GYl7hztbPhYBpz9VAG02LD0fAqHAuEpLFrCKBSzwE/t4i
+	PZngvXiq2sNJLZL/yWevUgfO+u16ntGhPHhnGGC1P2DcJW1znhL294kGGAskNAI+
+X-Gm-Gg: AYBFou3OerOiAgnyCg3wbkUyn5VGAra9LtXf0x+o31UKI/uxT9mefvbYVLdFSDoJR+g
+	4I6i25WpEgTb20RE8+QbljGPigD1NWQ9osMfp205cbFZuX1zjlXuwzwTHKSALUBWS3OIwL6VXbH
+	w0dYTx0hsNMlU7SjQiKhayTlD8N7S2nX9r3MyyNHNCtWfuocLKVQMi9DHy2E8fZZnfd0wzZubOm
+	1IT9jP91C3ay+lJXfzeknicEt/OWgHDxRF+gcRGgNCPSKB3zee/rjdaOj4TK8jvIheW8bLmIL8s
+	8g7ZUeg67pjMsLERdYpf6Wa2d7cTw3JmK1VPwGIhHfE25/1++ui7xV6oiSDgOmIlBQJUmpTYdXO
+	4PbR6UaDyfjOvvUMQUkkb21tHWkQ87ul/hBU3e2zuF3fQ5ZWVk+y9Ruf2p12lk58m8ztui1UE4O
+	Y9OnLMx7DqZAtKVIt1z4GfSOhFjGtIeesx8loa5VIGT6A3q9xpafm3/Ezfe7kSycSFBYGjW1SAD
+	we1j4gUssN2Ef23K2clw9gjVkF65qHQ2PqdcIghQzhT+Pl5rY9aTc3D8H85BP5KXJumlVp0TSgF
+	fTMp3aLwd9mMgpQOyXVEs7q/1L4IlxxG9g==
+X-Received: by 2002:a05:600c:198e:b0:4a0:2488:71cc with SMTP id 5b1f17b1804b1-4ac1932a23fmr389597675e9.32.1793819709210;
+        Wed, 04 Nov 2026 11:15:09 -0800 (PST)
+Received: from ArchOarora ([2001:19f0:6c01:2c43:5400:5ff:fef6:1b30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b452cd020csm74643035e9.4.2026.11.04.11.15.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 11:15:07 -0800 (PST)
+From: Oarora Etimis <oaroraetimis@gmail.com>
+To: Yu Zhang <yuz08559@gmail.com>
+Cc: Louis Chauvet <louis.chauvet@bootlin.com>,
+	Melissa Wen <melissa.srw@gmail.com>,
+	Haneen Mohammed <hamohammed.sa@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/vkms: clear config->dev when vkms_create() fails
+Date: Thu,  5 Nov 2026 03:15:00 +0800
+Message-ID: <20261104191500.210592-1-oaroraetimis@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261101032728.11422-1-yuz08559@gmail.com>
+References: <20261101032728.11422-1-yuz08559@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,73 +101,95 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20260701002152.546245-1-seanjc@google.com>
-Message-ID: <auuEPPzOjkdnQBFb@google.com>
-Subject: Re: [RFC PATCH] x86/irq: Drop redundant irq_{enter,exit}() calls from
- posted MSI handler
-From: Sean Christopherson <seanjc@google.com>
-To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jun 30, 2026, Sean Christopherson wrote:
-> Drop the unnecessary irq_{enter,exit}() calls from the posted MSI handler,
-> as the wrapper provided by DEFINE_IDTENTRY_SYSVEC() does all of the
-> necessary bookkeeping (the x86 specific entry/exit code provides a
-> superset of functionality).
-> 
-> Note, in the series[1] that added DEFINE_IDTENTRY_SYSVEC(), the follow-up
-> patches that actually use DEFINE_IDTENTRY_SYSVEC() drop all
-> {entering,exiting}_irq() pairs (including entering_ack_irq()), where
-> {entering,exiting}_irq() were little more than wrappers to
-> irq_{enter,exit}().
-> 
-> TODO: Explain what, if anything, can go wrong?
-> 
-> Link: https://lore.kernel.org/all/20200521200513.656533920@linutronix.de [1]
-> Fixes: 1b03d82ba15e ("x86/irq: Install posted MSI notification handler")
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> ---
-> 
-> RFC purely because I have no idea what can go wrong, and I'd like to document
-> any potential issues in the changelog.  I'm confident in the change itself,
-> or I've failed miserably at reading the code. :-)
-> 
-> Found by inspection when looking at a bizarre code fetch from RIP=0 #PF that
-> traces back to the irq_enter() (no reproducer for the #PF at this time).  I
-> don't know if the redundant bookkeeping contributed in any way, but the calls
-> to irq_enter() and irq_exit() really stand out, because AFAICT, these are the
-> *only* calls to those APIs in x86.
-> 
->  arch/x86/kernel/irq.c | 2 --
->  1 file changed, 2 deletions(-)
-> 
-> diff --git a/arch/x86/kernel/irq.c b/arch/x86/kernel/irq.c
-> index 30122f0b3af9..0ac63628a585 100644
-> --- a/arch/x86/kernel/irq.c
-> +++ b/arch/x86/kernel/irq.c
-> @@ -430,7 +430,6 @@ DEFINE_IDTENTRY_SYSVEC(sysvec_posted_msi_notification)
->  	/* Mark the handler active for intel_ack_posted_msi_irq() */
->  	__this_cpu_write(posted_msi_handler_active, true);
->  	inc_irq_stat(POSTED_MSI_NOTIFICATION);
-> -	irq_enter();
->  
->  	/*
->  	 * Loop only MAX_POSTED_MSI_COALESCING_LOOP - 1 times here to take
-> @@ -456,7 +455,6 @@ DEFINE_IDTENTRY_SYSVEC(sysvec_posted_msi_notification)
->  	handle_pending_pir(pid->pir, regs);
->  
->  	apic_eoi();
-> -	irq_exit();
->  	__this_cpu_write(posted_msi_handler_active, false);
->  	set_irq_regs(old_regs);
->  }
-> 
-> base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-> -- 
-> 2.55.0.rc0.799.gd6f94ed593-goog
+Resending, as my mail client wrapped my previous reply in an extra
+level of quoting. The content is unchanged.
 
-Ping.  I don't care terribly about landing the fix, but I would love input on
-what, if anything, could go wrong.
+On Sun, Nov 01, 2026 at 01:27:28PM +1000, Yu Zhang wrote:
+> The configfs "enabled" store returns the error without marking the
+> device as enabled, so the next "enabled" write runs
+> vkms_config_is_valid() again, which uses config->dev to print its
+> diagnostics and dereferences the freed drm_device.
+
+I traced and tested this issue path on drm-misc-next; the dangling pointer is real
+and the one-line fix is correct.
+
+I'd suggest rewording the commit message in two places:
+
+ "dereferences the freed drm_device" is only true for one of the two
+   retry cases.
+
+   a) the retry happens with a config that no longer validates: a
+      validity check takes its failure branch, calls drm_info(), and the
+      freed memory is read.
+
+   b) the retry happens with a still-valid config: vkms_config_is_valid()
+      returns true at its first check, drm_info() is never called, and
+      vkms_create() just stores a new pointer.
+
+   Only a) triggers. The reason: the stale pointer is dereferenced only by
+   drm_info() -- __drm_to_dev() loads drm->dev (drm_print.h:608) and
+   dev_printk() then walks the freed struct device -- and every drm_info()
+   in vkms_config.c sits in a failure branch of a validity check. The
+   ternary itself reads nothing: struct drm_device is the first member of
+   struct vkms_device (vkms_drv.h:252), so
+   config->dev ? &config->dev->drm : NULL is address arithmetic.
+
+> device_enabled_store(), drivers/gpu/drm/vkms/vkms_configfs.c
+>> 	scoped_guard(mutex, &dev->lock) {
+>> 		if (!dev->enabled && enabled) {
+>> 			if (!vkms_config_is_valid(dev->config))
+>> 				return -EINVAL;
+>>
+>> 			ret = vkms_create(dev->config);
+>> 			if (ret)
+>> 				return ret;
+>> 		} else if (dev->enabled && !enabled) {
+>> 			vkms_destroy(dev->config);
+>> 		}
+>>
+>> 		dev->enabled = enabled;
+>> 	}
+
+   config->dev was introduced by 2df7af93fdad ("drm/vkms: Add vkms_config
+   type"); at that point nothing read the pointer after a failed create.
+   The problem was introduced by 13fc9b9745cc, which changed the lifetime:
+   configfs keeps the config alive across a failed enable, so the pointer
+   stored in vkms_create() outlives the device and is read again by the
+   next write. So Fixes: 13fc9b9745cc is the right tag even though the
+   pointer is older; please keep it, and say so in the message so that it
+   does not read like a mis-attribution.
+
+   Background:
+
+   config->dev is the only backpointer from the configfs side to the
+   drm_device. It is used by the validity diagnostics, by vkms_destroy()
+   and by the connector hotplug path (vkms_configfs.c:555).
+
+   The configfs/drm_device lifetime separation was spelled out when this
+   design was agreed on:
+
+>>> the issue is that configfs and drm_device have independent lifetimes,
+>>> and we cannot have links between the two. The configfs structures might
+>>> have shorter lifetime thatn the vkms_device (and there's no refcounting
+>>> on configfs afaict), which means we cannot have a backpointer from
+>>> vkms_device to configfs.
+
+>>> The vkms_device->configfs backpointer needs to go, it's fundamentally
+>>> busted.
+
+   https://lore.kernel.org/all/ZjCh9DGnh2JQ3vtk@phenom.ffwll.local/
+
+   Note that dev->enabled in struct vkms_configfs_device and
+   config->dev != NULL encode the same state, which is why they can
+   diverge here in the first place. Dropping the field and passing the
+   drm_device explicitly to vkms_config_is_valid() is the real fix, but
+   it changes the signature and the hotplug path, so it belongs with the
+   vkms_config lifetime rework rather than here. Clearing the pointer on
+   the error path is the right minimal stopgap.
+
+Thanks,
+Oarora Etimis
