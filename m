@@ -1,61 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793785996;
-	b=zzoWL9rfpPrrcbhs6w3dSh9yak/wy48ggHfirBuyHJPkdInW91NrOogbtvn/q3/XfkH0
-	 w5Elr+dyH71sJbH141aQlAfI/cN7oBfLZdhx8LCE6NlMkEYG5sJ10cc7Cea5IUwJICGaX
-	 6Nw7856l+VAxKg8nj03xKApLAgmX36fDq4Nioz8cZ8TF32ghQ0n0tJgWGsxu3ev+vXXgZ
-	 oR6XpEDo+JDZ9tVKS6rxHus1bOAyRXDlUuy4C6OJYTBIhrfCMOucOzG8KHGwi/1rQ/Pgy
-	 Io9KisvzWQteUIJcSfYUQQFal9cWjrSXLoINBk+M5G3id0XLUk6odJRRqO2WCFS0oBQ==
+	t=1793786068;
+	b=zUmthn4QBZGWYl7vo8Rf5dn/VDLfuZbrtvzXQdp2clQd6YsgJY+mthjSvZePggafhyST
+	 f4vRBkWzdj3sRlAn9SWwbkIEPTPsY1j0HNkBcAYag7VTUaUNUekH+nb8e7ynpmv4j4PRn
+	 EGnHpjLyHDNWf606Pwnl0NAD4K7gSfKpFwQ3QmA8U4MKijCJh1UWABOvab1cIAsXbH+i0
+	 VmCjxHOx/KXwHgOUxKY8J2fBZ/c6554c/Jixn3aVWowAbPb+QVbrLnMtNxq5ZaIi7pKuS
+	 s+jdwKsFQgfJiuEV9ydBuqbydz5CY2v1iFRQTQbCeSvc6gqTPGJ3Y85ENPXbiU4wLAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793785996;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	b=SODkt9yezCVJhQpkC6H1JTPUhhTZ/jZ47RZtnziKxPLP5w1ExqqGFxoDHdwaRRAKsPSG
-	 E/R91GMU6wtk6ocF7Fakacuw5xx6E7ckgQeSw1hyDCld68LdxSDlaocUJjkTfoh77sar3
-	 1pNfePZbG1UbinbE7bj8ckTnIhYnJaMO0pHHe3j5feKMSwTvCzDikSO3iAkw05D5iTS8+
-	 0tY9mSBWNTVhH6q2zxPNkpjqHrFf6pHRhceN22WnHByBD6N48t12SwffxUSK7bP8c80vE
-	 neCGwGWs7i1YeYu2EehHGMDe28rimwDIkpJ5iY0h3wTojtGn1zHdguaWbrtijeb855g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793786068;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=UujO1dehyrQlC7jK+eEtk1MAPSYkYaYdKMh0bnJv77E=;
+	b=wuo2VoS/UVe5xOT/cgQWaPhP5ZX76AnKOsl4cZNaxgwN1vR+xK84+0ASOfLy4r49J+jQ
+	 PvLLpnMYfPVQrn7KTQ1DQDdLEqscdl2Sg6oB83ZDW+8XWslsJ66Qh7iyfzqcpZh9qcQf1
+	 ZHCtrRY1quUymUpWZT48JZch4yAi+IjA4WFpxTf8XsbvBR8xN/IRP6QeSRR4BXvTL4hF5
+	 lBHlp+om4cS5kM1Dkk8yZVS+8s7wX1BE1ax8kJzB/C+jy0ZU6LftNnMoVDPOCfJLMdyXS
+	 Tnl9+oaVB8/BGIk8YnHkaSsZVhK+MljTIOjWgh/y2DZ3kGusujASIGFYQKJVgzFBl/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jXp3+ySR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U73OeWfY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FB34606A31B;
-	Wed,  4 Nov 2026 09:53:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 244C8606A31B;
+	Wed,  4 Nov 2026 09:54:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jXp3+ySR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37E071F000C1;
-	Wed,  4 Nov 2026 09:53:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U73OeWfY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15FDA1F000C1;
+	Wed,  4 Nov 2026 09:54:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793785996;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jXp3+ySREkh1r6F4w3mcFr8YfJnMBx4tBSXc38UsndSWoQkrE6lJAFW6woWsdyLbo
-	 s5xdnPb/91wAdNSfCQysJDU8ALdG8hFBgaOdaxxKNGdv311j/QQBPt9DUTsC1skkLr
-	 BLR80OXLohbTbqZFJr/JjkABXVrTS1KXF4Rf7QFwBuT653wX5NaQ7o4mNTGCVsRD+s
-	 Kta++5cLN6UpgnEMajRecj1nuzPAn1u8k4ALxpWT9iW9ybXDrftNm/h9p1UDfP+VfV
-	 fKzBU9TbNCoxFzUO7vjmmATzjJAY1P76cF4tNxFHn+YCuFJ+3IL9ApXmiNzNdyLr1E
-	 p5BnvhPZ3xIQA==
-From: netdev-bot+sinfo@kernel.org
-To: Yaohan Li <shunsheng1218@gmail.com>
-Cc: david@ixit.cz, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, lauro.venancio@openbossa.org,
- sameo@linux.intel.com, linville@tuxdriver.com, aloisio.almeida@openbossa.org,
- oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: 
- Re: [PATCH] nfc: rawsock: prevent TX work requeue after socket shutdown
-Date: Wed, 04 Nov 2026 09:53:14 +0000
-Message-ID: <179378599466.488859.1763688054450677667@kernel.org>
-In-Reply-To: <179378590950.74297.14503648624087894519@gmail.com>
-References: <179378590950.74297.14503648624087894519@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=k20260515; t=1793786067;
+	bh=UujO1dehyrQlC7jK+eEtk1MAPSYkYaYdKMh0bnJv77E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=U73OeWfY2Kz7OJYEknsAwqkM8Lylw1SMu3ly2K1TjmTkwkIzk9+b4o4iCF4yTsaIr
+	 Ld18JDKF/js9QMB6DV7fsk09G5YkTkoE3s7Ywee9EtH5VM4qtSqtv+U64vF2sAOWfo
+	 8DupwOnIV/8TX+58LWAB9oHWyrcAsZDAIf9+TfCCaCkccWHlxgrvv1ZwJTmeC5NAHW
+	 wzE5B+yu5TEmAJOEE32njxrAbnKOQUiSq6mrATes7+33iPNNctDQaciJw4jc57vbZe
+	 jHj2OPWjcru/Uyo7GEFdUsJhBSxJwl1m7DXm47Ozu8cCOdWlwvoIOvlMoicHpiq0VW
+	 GYtQG4ULk5PKQ==
+Date: Wed, 4 Nov 2026 11:54:24 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Doug Ledford <doug.ledford@hpe.com>,
+	Slingshot Open Source Team <slingshot-os-team@groups.ext.hpe.com>,
+	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Iraimani P <iraimani.pavadai@hpe.com>,
+	Mamila Santosh <santosh-kumar.mamila@hpe.com>
+Subject: Re: [PATCH 00/11] Subject: [PATCH for-next 00/11] RDMA/cxi: add the
+ HPE Cassini verbs driver
+Message-ID: <20261104095424.GC478286@unreal>
+References: <20261030-cxi-for-next-v1-0-bc6e49e07037@hpe.com>
+ <20261103142826.GJ264423@unreal>
+ <20261103143004.GJ3889730@ziepe.ca>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,21 +63,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261103143004.GJ3889730@ziepe.ca>
 
-Hi!
+On Tue, Nov 03, 2026 at 10:30:04AM -0400, Jason Gunthorpe wrote:
+> On Tue, Nov 03, 2026 at 04:28:26PM +0200, Leon Romanovsky wrote:
+> > On Fri, Oct 30, 2026 at 09:35:28PM -0700, Doug Ledford wrote:
+> > > This series adds cxiverbs, an RDMA driver for the HPE Slingshot Cassini
+> > > NIC. It exposes the NIC through the verbs API using the UET reliable
+> > > unconnected (RU) queue pair type from the UET RDMA core series.
+> > > 
+> > > cxiverbs does not drive the hardware itself. It is an auxiliary bus
+> > > client of the cxi-ss1 Cassini core driver and does everything through
+> > > that driver's exported CXI interface.
+> > 
+> > <...>
+> > 
+> > > Before posting, the series was reviewed with the Sashiko AI code
+> > > review tool and checkpatch. All valid findings are fixed, except the
+> > > open items listed above.
+> > 
+> > <...>
+> > 
+> > > ---
+> > > base-commit: 306a2f8432f516069b2e673de7a07043132c034f
+> > 
+> > Sashiko failed to apply this series as this base-commit doesn't exist.
+> > ➜  kernel git:(wip/leon-for-rc) git show 306a2f8432f516069b2e673de7a07043132c034f
+> > fatal: bad object 306a2f8432f516069b2e673de7a07043132c034f
+> > 
+> > https://sashiko.dev/#/patchset/20261030-cxi-for-next-v1-0-bc6e49e07037@hpe.com
+> > 
+> > Please make sure that upstream sashiko runs on it too.
+> 
+> I don't think he can, it relies on the core code series. I Don't know
+> how to instruct sashiko how to find another series to stich it
+> together
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+This may be a radical, unheard-of suggestion, but how about merging another
+series before sending follow-ups?
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Thanks
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+> 
+> Jason
