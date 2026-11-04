@@ -1,62 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818893;
-	b=uj3mDnrqjNSPx9daWCCzTDzMYtROxViWqH5t7jqIK66cd1FA98Vhg5DK871QRCTmc8If
-	 4GXv08XtSuPcAN1rVfXTl3kFfZxN2CKjfmymB1rVnHI1FNtuD5LaChZF4gcpLfjOSEXB3
-	 3smgnLu/G1R7Ba0pLq+wGCh34EchWholtRs4bE2csTMTcoFne4Fk3rKSwmWT9K4H/KBv8
-	 ppAhLHhxiAbhrkezrM+iKwBKlOA0zI1zfqpGzNKfcQ6so4ePviNjDgUUWwjdZYYq4akI5
-	 erdu0E6jVsr72mYCQdWDea/tht+DPN0Eb7VdzUKDz8Ji+fYQst9Yot5Og5CFdmZIBVw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818893;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
-	 In-Reply-To:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=agSk+cFPktjD4lmleaUPN9v5OCRHldmWtEkAJi2dW2s=;
-	b=sOeuGxsk2l5JkYbSUoDW07Ms8HHnoEzvmegyNEMAuSHaQnfEg/uZ/0AIJpKW4N3Leyft
-	 Q2K6L+RQzdl9uiDgGD6Fr9XNPUxE1MIkxgk3jSfyX6KeVTOvbfqOa7PReycVlnGbJRZ2g
-	 bgAaLKb0UAPlrZt+cFvas5zwWszCA/iBqLqovoD4Fvhs0RPdbm0cBhfiDO4BxMntstDov
-	 nPKDnaBth3daJOFREIJYuaKHwSKpSqCQEI6n83IdxMpeMFVkEuvnz0HyGF12fbmFXxd2i
-	 lUp2mrolvmNpwdmfalwrFg9FJyC1GlcchGGVvxdHCKzQKNSe6czaGoFDWCyH/nJuqEQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mainlining.org;
-	spf=pass smtp.mailfrom=mainlining.org;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b="SRAUb/GV";
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=BrYsymwf;
-	arc=none smtp.remote-ip=5.75.144.95
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793818925;
+	b=1rusflaNsCwYUu7XSqZrYN0EwoEEC6Sf+ooLa0LDdgOUPPtffIMs6DU09+Jqo77+mkG5
+	 NhqBrYbHQzC816YI0Pqy93H2/rmlcldYj7y4XRkoxzIfBO4+ugLDT+u8OveUnQozxvRXk
+	 z0Yj6VuNizIY79KSf2xGgjdbxb92adhHovuvJMq4WjeM4YN4ehEs95KfRdAjmVwO4xSOH
+	 pSuT3BWpoDxahwtUAEcsbzE9m0NfxZV0uUklda8pIyvFgSxrNSwMl7gEHWgUodx9h0X9M
+	 /hSLxtCEF3qMBOm47g+d5Q7eSKwgkWKj3WlTxOY6rLFETknIv3MZZ7/Aj/7qWi8Gf5A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818925;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=oafn2hCqm7HTSzGstliyGNOlBVNP4XwTG5bffvWvqGc=;
+	b=y7ddZG+2u0JRj4CIc3H/4dGsgfb4BrbZvm9r2AejUBbLo7MYn1LKSk9AHcfE4mPA9DYy
+	 yJXLIRCm4VwvYunQvpLxBgw1OrguajTskM36bJaRsS4W6ym6bhJfkQ6DdX4EW/XmdZVoT
+	 L2CywV0R8HTqwweOLL9WDifaCMOnqcIABCn/iFOpscknHpB6i5Vvg3kC7hDkg9Janf2qS
+	 YCyHhTdd9f7v4Elp7Xvps8ZZ3WWfx6SDQ468yrI1xqO6K1T+MiiggbvNyBJyvF3mOPaml
+	 Ww1uB8se8+IJ10CELtA/++o8FwUwqCraJ8MP+s1rFUHo2cDLFGmZD9uK63VUAJablSQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eqTCOfeH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 464FF606A31B;
-	Wed,  4 Nov 2026 19:01:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 464FF606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A38D606A32C
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:02:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A38D606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=SRAUb/GV;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=BrYsymwf
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1793818883; bh=agSk+cFPktjD4lmleaUPN9v
-	5OCRHldmWtEkAJi2dW2s=; b=SRAUb/GVki4GpidZse7+3EsGLr/rK7VIUjf5XkxwWtAR+GjSye
-	rO+JZJMWr4ulT5YjFK81VHHIf0Ah8/UAjVrKzUUBI4IBjfdTYx0rBYOCIaVqOJAw3sIN0gi/3Fi
-	y27G+QeKjt1ILV+YaNMxf9coQt3zcGf4Uecblhc6LLCDRmoml38o3HeDCzJX3tZL92+BYkItuST
-	XUDS/SIF07Z79m2A2alWvGhnuJmkOE+QwpVptkTVFh65zuA2dsIcWjHtv76i58SvjvCN62M46ds
-	XHv7yDsi1stEUP5p6xcrzrL3Q+OAFNAJoYoVT4szncJnOjRlOCvoNwHr9ok0uxJ8UcQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1793818883; bh=agSk+cFPktjD4lmleaUPN9v
-	5OCRHldmWtEkAJi2dW2s=; b=BrYsymwfmY+Jp9PuQnFzb8bV5OJT7hhOEcP97qdIjA+lZnzSwI
-	9WYQncpk3bt4oRSUerevyLwwvdIgWdX8PoCw==;
-Date: Wed, 04 Nov 2026 19:01:24 +0000
-From: Bradley Morgan <brads@mainlining.org>
-To: joelagnelf@nvidia.com
-CC: boqun@kernel.org, frederic@kernel.org, jiangshanlai@gmail.com,
- josh@joshtriplett.org, kunwu.chan@gmail.com, linux-kernel@vger.kernel.org,
- mathieu.desnoyers@efficios.com, neeraj.upadhyay@kernel.org,
- paulmck@kernel.org, qiang.zhang@linux.dev, rcu@vger.kernel.org,
- rostedt@goodmis.org, urezki@gmail.com
-Subject: Re: [PATCH] rcu-tasks: Track barrier callbacks in debugobjects
-In-Reply-To: <20261104153046.965890-1-joelagnelf@nvidia.com>
-Message-ID: <3AB3C8E1-9709-4F46-8283-27CAB4A264D6@mainlining.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eqTCOfeH
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a208d93758so11908295e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:02:04 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793818923; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZUszrd4rUhNk2ObiS3+HTwoXg9P/bliTA+OLpdvA9jnibFSc/0V0WDAXqmGqnVXUW9
+         6ulPu/1b78WwVq9EKPaYCC4wjUVJ6Lnce9L0Kq6txG4sxfBJ4PgKZsUKyIMT1dVHbTor
+         112v2VGe1pqZTbg7cW1+w4jTAnhDDaoD6iZvkS1WRhAEthSASdjGbzLGGiCz41UEG7CO
+         I3NBcqpQrVRP1NoKTwdCloS+MXCVlVcm++JmWVwHZ227r2SfckZFI2YPlUJdhe+6aRi/
+         nSPv18kP/ozf1w8nxCEFshT5aqLd4mTnrC7NN7TMjOix/PJLehxlWxAj5JdMy58anZ7W
+         jlCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=oafn2hCqm7HTSzGstliyGNOlBVNP4XwTG5bffvWvqGc=;
+        fh=sz4N8pXBLybJaZadDVzjahK3rrB22eEaNqhaZJy1EbY=;
+        b=QVwWS334XvqLTlIPqd0BD7zhnikBBVGy/+UMMvQ0LHEYmeHpjIwCF0oO9PkH9jc91D
+         VcWAd2YqOy+FCRVdLkoKUjj1jOUDKDpIc2ldkZnKhxGTyP7/BNkwkDxWzyPHRD7zQ1a+
+         FDWxvMg2FLmWfybYRGMDAzaUwQz1aajLtYiJy+67J054wBgQajLjzfp/pSYRcDee2gT2
+         VfRUyjfqd1OJwmE9Wt+CYKmXAw4ZxvuTwZmNMPxS70p1xpI6sTRkO14kQ/9XAPxUH8pa
+         7ozjoQXaLkL0pHnzW1B/rINXwGaq2aDuzpLY4u/YbuUQATVSSgWYpMX8KxsmBBcD7aSH
+         uMGw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793818923; x=1794423723; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oafn2hCqm7HTSzGstliyGNOlBVNP4XwTG5bffvWvqGc=;
+        b=eqTCOfeHKe3l/56+nB+NKmRz+SQ2Uh2SxG3yy5zShuOF7qJgXjlby62RNT2NdNWDKV
+         xWYdzvYrJqktNSr+ev7IYg2iP7D2PKmWEkcFVmfqRlzEi4hP+Fm0ir1E+cu3t598FiRu
+         kpVN4/6B/47P1p/emIG7ZsA1B3PFz7A9cEjQety4hgfAtIXj+1iyhkNIaZL9KZcyvEw7
+         nOHJE0X2qtEmE1qIxarLgkTZemtv6NeHjn+TYM7V5FDx/3d0FerOS19sd1mSPQ2Kc1Ch
+         g/MDLT+dveL7jWzB08rgYkXhPpSj5Z4pVxAVP6zybFOfOu9M5Rx6xBA/r6h2Ax6xNPpz
+         FJIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793818923; x=1794423723;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oafn2hCqm7HTSzGstliyGNOlBVNP4XwTG5bffvWvqGc=;
+        b=xAWsRPRE8lXd+A3Kw7W667IYDdgmOFq7DoUIHAeG9NXSwmwT+9ElTotkllz5MelMH7
+         PBpMHymeKXkpyZyYwtzGf7pDIh9us1HqBW7uiGn6cse2/W11DBlsOtZRAQd+kIYqQ96h
+         bMNsll0ybEn3i7p0a4HDUYhqw9Swj+t1zTHBNrhcimNyT/9CjQheelXLcK7U16zYCc5b
+         WWSZ2gHKaJW6DJ6Hw1v6b6TwMmcj0WiEyFWnIrlCKakng2tCLr/pbiC2ck8KMOnmCRYR
+         JX43CSvYMwvhCertGZlZpchk5aMbT4pzu9s3AjENIckf1Jyn5hkHMIpmAtneiA4JHo7P
+         Fzzg==
+X-Forwarded-Encrypted: i=1; AKwUvBz84D4IsNWfdzqlouztc3Bmtrrri1I0fqTs/DKsXLwaNwYHEsq1JpALvneQ7R57XTOJyHMhBj8LMBYjZ4o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8hIJEiFbyIICPBF5EaO+HmYnx23wBGAE1750ApR9Zk6XlXO62O
+	wc88My/xgPueP/hKtHjmVJO+g8VdCdi/+UCXII9zTOLfqski1apFnoULLw1vyqpiWbR4+ZtHP9Y
+	pVvBLE7xzHlSBHysbE7aWDoAS8KZpyl8=
+X-Gm-Gg: AYBFou1Y0zk6ss5p08uEt6e2R8RDzBGp8lrQjtft1BfrALRPjmjJ7NfdUWDrtZtJ7Lh
+	Fb4tOL/oc1gDfYSR3RRo/1x7p+/oWOxWdZqxbBBqqu5vUXvc3MmQ8GhJn45FfOqZi+J2Rzc/SND
+	ZAIlnLE5KhXVNrdRJtElJAwP4PeYhm++c31b/R8C1JsA1MB3aKFzijummsWLq8GfI8/QCVvNgJA
+	xyhWmrDK8y359TCIax22YKekftrEdFn73ixLnq1u9zMGhi8UpNt9alJkKW93kynZRi7w9CaPxSD
+	b0ekB04VCy7wQEl0YzNYR+kAl5sJj732QNv8lUpMgToLW4ONYZNdxDhocDsUSzHilTXe1owbzXX
+	l1sRwizk57euwq/ykLvMlCGarKVNu6oJY9K0rkgLJOsxBYGZ1eVGcCdOt5gMBiRY/vBN3Hy7G
+X-Received: by 2002:a05:600c:8b85:b0:49f:e8bf:8f9b with SMTP id
+ 5b1f17b1804b1-4ac14fbdcf7mr351103275e9.4.1793818922672; Wed, 04 Nov 2026
+ 11:02:02 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,59 +104,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+References: <20261104090239.311074-1-nikitash.mariiaw@gmail.com> <ausVkYs1-3rJ5Fj0@devuan>
+In-Reply-To: <ausVkYs1-3rJ5Fj0@devuan>
+From: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+Date: Wed, 4 Nov 2026 11:01:49 -0800
+X-Gm-Features: AclHuK9UdU3dwq1JUXXL7zxhwPl3JamlIpuYEG9TvgYAG08j28_4tj64jKv1xfo
+Message-ID: <CAPDEY+XgvNEfMNLH9YgJLZGF_bfDFC9kTe58ssxyq=joYYzQtA@mail.gmail.com>
+Subject: Re: [PATCH] media: siano: Replace strlcat() with snprintf() in sms_ir_init()
+To: Alejandro Colomar <alx+linux-hardening@kernel.org>
+Cc: mchehab@kernel.org, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	kees@kernel.org, justinstitt@google.com, morbo@google.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 4 November 2026 15:30:45 GMT, Joel Fernandes <joelagnelf@nvidia.com>
-wrote:
->rcu_tasks_invoke_cbs() now unqueues each callback from debugobjects.
->However, rcu_barrier_tasks_generic() inserts its per-CPU barrier heads
->directly with rcu_segcblist_entrain(), bypassing the queue hook in
->call_rcu_tasks_generic(). This produces active_state and deactivate
->warnings for untracked objects when a barrier callback runs.
+On Wed, Nov 4, 2026 at 3:25=E2=80=AFAM Alejandro Colomar
+<alx+linux-hardening@kernel.org> wrote:
 >
->Activate each barrier head before entrainment and undo that activation
->when there are no callbacks to entrain behind. Successful entrainment
->is balanced by the invocation path, as for ordinary callbacks.
->
->The existing n_barrier_cbs=2 torture test reproduces the warnings before
->this change and completes without them afterwards.
->
->This fixes patch "rcu-tasks: Detect duplicate callback enqueue".
->
->Cc: Kunwu Chan <kunwu.chan@gmail.com>
->Cc: Paul E. McKenney <paulmck@kernel.org>
+> Hi Mariia,
 
-Thanks,
+Hi Alejandro,
 
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-
->Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
->---
-> kernel/rcu/tasks.h | 3 +++
-> 1 file changed, 3 insertions(+)
 >
->diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
->index d5d060a5c4b6..a20db323612b 100644
->--- a/kernel/rcu/tasks.h
->+++ b/kernel/rcu/tasks.h
->@@ -470,9 +470,12 @@ static void __maybe_unused rcu_barrier_tasks_generic(struct rcu_tasks *rtp)
-> 			break;
-> 		rtpcp = per_cpu_ptr(rtp->rtpcpu, cpu);
-> 		rtpcp->barrier_q_head.func = rcu_barrier_tasks_generic_cb;
->+		debug_rcu_head_queue(&rtpcp->barrier_q_head);
-> 		raw_spin_lock_irqsave_rcu_node(rtpcp, flags);
-> 		if (rcu_segcblist_entrain(&rtpcp->cblist, &rtpcp->barrier_q_head))
-> 			atomic_inc(&rtp->barrier_q_count);
->+		else
->+		
+> > Date: 2026-11-04 01:02:39-0800
+> > From: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+> >
+> > In preparation for removing the deprecated strlcat() API[1],
+> > replace the strscpy() and strlcat() calls with a single snprintf()
+> > call to construct the IR device path.
+> >
+> > Both the source and destination buffers have the same capacity,
+>
+> The line above seems irrelevant, and potentially confusing.
+> The size of the input is not important, because since we're appending
+> stuff after it, truncation may actually happen.
 
-Wow!
-	debug_rcu_head_unqueue(&rtpcp->barrier_q_head);
-> 		raw_spin_unlock_irqrestore_rcu_node(rtpcp, flags);
-> 	}
-> 	if (atomic_sub_and_test(2, &rtp->barrier_q_count))
+Agreed. I've removed the statement about buffer capacities from the
+commit message in v2. No code changes.
+
+
+>
+> > and the return values are unused. This preserves the resulting
+> > string, including truncation behavior.
+> >
+> > Link: https://github.com/KSPP/linux/issues/370 [1]
+> > Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+>
+> Except for the small comment above,
+>
+> Reviewed-by: Alejandro Colomar <alx@kernel.org>
 >
 
---- Thanks!
+Thanks for the review!
+
+>
+> Cheers,
+> Alex
+>
+
+Best,
+Mariia
+
+
+> > ---
+> >  drivers/media/common/siano/smsir.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/media/common/siano/smsir.c b/drivers/media/common/=
+siano/smsir.c
+> > index 283770d583d5..636ff228108b 100644
+> > --- a/drivers/media/common/siano/smsir.c
+> > +++ b/drivers/media/common/siano/smsir.c
+> > @@ -55,8 +55,8 @@ int sms_ir_init(struct smscore_device_t *coredev)
+> >       snprintf(coredev->ir.name, sizeof(coredev->ir.name),
+> >                "SMS IR (%s)", sms_get_board(board_id)->name);
+> >
+> > -     strscpy(coredev->ir.phys, coredev->devpath, sizeof(coredev->ir.ph=
+ys));
+> > -     strlcat(coredev->ir.phys, "/ir0", sizeof(coredev->ir.phys));
+> > +     snprintf(coredev->ir.phys, sizeof(coredev->ir.phys),
+> > +              "%s/ir0", coredev->devpath);
+> >
+> >       dev->device_name =3D coredev->ir.name;
+> >       dev->input_phys =3D coredev->ir.phys;
+> > --
+> > 2.43.0
+> >
+> >
+>
+> --
+> <https://www.alejandro-colomar.es>
