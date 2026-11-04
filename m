@@ -1,58 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793789903;
-	b=J2FI+lt34s3Bv/NA5YlSYwB/i3ca5kmEB1zFx7qDIOccn5uNLhWe0OGa86xBiziv2/zJ
-	 YwPbFjELUnDQdj7NOM2Utrv8ArGhswtxa7Hv1x7z0SDBmKsXO0rMWFviPUvmBMwEPicaP
-	 1GNdBrevmRfynqVIoczWmbRpvnz9MGuMuOhvRAxHrDBSUrDjqoa4b5dK2L76jYsMAkqa3
-	 mebWGgpn+n/Ck6M+ZQIe611vvddwmrTNVBucbyugul0CP6+kzwZXTOfh6TUEuswa5YyFV
-	 jmeQTGzgj6iNduXEPqDPZK8ReajjtUdER5urr7F0BuS3MBMl5Gx3S3COX8KdS+6rEPA==
+	t=1793789944;
+	b=tOHTgi1hGz3UhnxKaNcVDzO8s9NecHHi3CoGtQFn3qytvLgFRFO+7NyOH96JlbuEgxj9
+	 /K32pd9aL/ndnLE79K6RrjDZZNqXcR3PfyJlbOVNpyRiRyYJrhPIz0vzvIbeSgdjuWWhb
+	 m/UAisXT5NlfUuqCTYpRLr7DPy9WUBRkFb4NeOoZdoscIGVdSEa/g/tim/mweQg9f/Vlz
+	 ksFNWiMXsU7n+n5Cu1Kpd8804vsc62r98vKDlcQQeDKvjbbTggalYPwGUUm7NxWP7idIa
+	 viB+gYnvaX4hiAyzL/I9whEzCMRpkErnPsEJFT4k3zk2I7PYP3OW9x2/yyY5bjkri9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793789903;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Debian-User;
-	bh=Bn7S5HHmVBVlB37CW8Co6RM2gzOIX/i6AlDIxMv5sVM=;
-	b=aqZYiTPKQ0gQ/hXFCdLfxUXemkB3Xy4it71iIbXqmqwHCSwzVHLGBJUN/65GCRSR4/r/
-	 qq/EqaRvCANgC9TOx498YmqvPi6gHE83E8Zl8563lIsL9OLiLZDRz5EDDBPTXaUKmtZ+f
-	 5u8OyoNJlQEHJa57aZJq28WJBntTmLHU4jQFIxeyW/R6e8W4robepskVRjVv3lWty+dx9
-	 tOfXSq0UyUdjCYXjqx7j/GVCDJzA2x8fPD4gT/UY/1x7VKn87/dbC689u6zxk7pXCZmYV
-	 TQx3TE79WkB38TxF9LfbT+pfW7xrfJycmPlNbXqV6VvDn8FKJPh8EqRSLOr1KgUVaAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793789944;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	bh=bBTgawvztyIZVheW/rAsVHtWBMGpPSBdrEb02iHgYVo=;
+	b=wAP14omS2dOo60wBtqP//2wefyOwulplBigGdFG4i3zkQhVAtt86DZNsIWEks3+BZfzu
+	 RLVQaE8zW4eAAEU4jjTvqlsDWBeVF1JtfcskGOm7ex4JIQrwNHD299ewR87EEXr9pxJ7F
+	 p8ZHBR/YeGJUMk46GB04LaGx4hT8dvtYB3W48m50B2WGXPOFM+raDDJol3kcDgee8QyU3
+	 OzILkIXn3hs8pifMhFHT7t2b6m+54f+DQSPIUmcDgYRVeUq7wfVqIxSypoSDupIwzjHi7
+	 kI0Q0cIiV6LK4n7r7lOjw5vMyUBQvFAviHbzOJKIGgIGjeekJO4ayAbGucY3nRQFQJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=nTqmGzmy;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=veHHt0AT;
+	arc=none smtp.remote-ip=209.85.215.182
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7D0C606A31B;
-	Wed,  4 Nov 2026 10:58:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7D0C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7DAA606A32C
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:59:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7DAA606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=nTqmGzmy
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
-	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
-	bh=Bn7S5HHmVBVlB37CW8Co6RM2gzOIX/i6AlDIxMv5sVM=; b=nTqmGzmyYh6xOs1wwqqf1i1/ki
-	kpK/KS4Iqb5bw4lPth0bvDW4sU7NlGEBpLyrkI+mL3C1cIwgTq3iEoo9+mxydeRee3UrE9CK31sTW
-	oRq5hTD0/6tog4Vq2pOh5cxnGOWrInpyRMBFwaO4xOBxjWugMfvqz7k9JboiKFxhjfNAzWhd9xDv0
-	bh2VYQokBsw4+rLWytyXBD5gOqPv1ACOoZBv0JWMpf8HJXIGa+b+OtuiGhkhbC0mnXmCW6Mkvbh+t
-	rLs7/++ssZj/tPgBuN6dEtK+CLyM63s9mnYZIUdH0riXEBhmBN/M5qUAqm51L+qvSXOfaPA6Pb6bK
-	zFZnFsBQ==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xOYh8-007f9J-1K;
-	Wed, 04 Nov 2026 10:58:18 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Wed, 04 Nov 2026 02:35:51 -0800
-Subject: [PATCH] serial: amba-pl011: touch the watchdogs in write_atomic()
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=veHHt0AT
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cd8ca57ef64so664506a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 02:59:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793789943; x=1794394743; darn=vger.kernel.org;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bBTgawvztyIZVheW/rAsVHtWBMGpPSBdrEb02iHgYVo=;
+        b=veHHt0ATjkA8mDlg+Nd4K6AnUtOdd8i+sPNfn9TF2mxGCLRhq6+cTPNd0w0DYO0WwO
+         qb5NtaCQGXxgo1Hh4hWWZ0zRArNwHTTyVWnTVeZg1lXMvOLlU+w1r+cPsG5P1we3Cf7w
+         JSVbYA6jpjub2xiHwpEOmHOLZBEdzEXtYMe88IqmohHHYfws2Ug0seUFpcBpDz0B446E
+         nSlENjNPDjTpw9Gdijhn9gHm3M1+QbVjs4ra/DFYRZqH9dAYEOBfNouTO2sNlU3HBVxB
+         jE18ToGHZUWXn1g5b40KCeIxrjNEIiA5oyrGMO4UlX6HLiCc134nMAWMLECdMG5hrUFI
+         bGSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793789943; x=1794394743;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bBTgawvztyIZVheW/rAsVHtWBMGpPSBdrEb02iHgYVo=;
+        b=SZN20o8p3BOTqDngWLB27b1eDxPyz242/UVbFZdtPqCSV6UQHoE/pMlrPfkZ5Bgbir
+         eRGXunp2/Xo+b3n5fPdGuAbt3UTLHh2OEt2R9amyoxVxXGwSufoKZZznw4kDpecwZYYb
+         bQWb2DT04K/gmN620sfcb4pGydzn+NGDtTBw4y7dZytDSH/CnL1wBd1oW7ori5JeWQ+h
+         rEXO4pXIPUUNX4WNHEvsDty6Ed/+pAUK9EqEnZ1SbgRCWZlUj81TDsSlrfwbEe87tP62
+         IxQqh/AUbRtvqgINmTI/ncNBN/7Vyey4Ua2M0ByrmKfjTx/cStSLuFPxi1QhLdHKXGUV
+         sUiA==
+X-Forwarded-Encrypted: i=1; AKwUvBx3/cLcCcy9b9S0lAXmXGC0rn5Ls9h+UWMwkk3B8R2gosEZw+9bxmKO3yrcONe8lgEHyeriWlsbJRRR8ro=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/gnEXQs0AmE28K8TnxMr7ldZg9CjjB0MUoZLKaQAJ9ahI3TYp/
+	ZwdgQwu6YcqmvPzpc6okDHCO7uiDL7v9rOxAm9LkXhtEC+FdkvDlkyIt
+X-Gm-Gg: AYBFou1O15G3iUbe6+sn+PYtRbNw2m3krrlfydT0o7j52ll2Q9K0ZjuFJBw30IzHzYQ
+	Qtg8yNo94q9lRZo3f3C4w29ZXzk0BNA6NpuOvYjuzYkwUCfD8H2kNlDLX+lHixZ8U0netVB4V88
+	vLUowX+ZYJhqKNUOIxv3oRxMWDxKDlLHFqXazqGQG3rXW7KHHuAd2RhDR/kWxcxf1PuWrtm1Oep
+	8FOcktYIkElIKCq3CzwYyo985+4efcy1moyXIl1vkci0R+3MMWUPV6ifCNmh+aWIbTfBaCqIvMY
+	02nomh5L/GSXYGOOp2sKHXtLkQ6/KYu1f+9Zb2Ou4tyiEGYi6GlKhIrMr1yvip7QGeZnlzbGBOI
+	ueEF9qLR1wyFtMTYlyQq64YxLfKmHY1XqLp0gPLkgg4JhVxa5essn90JX5gknQoD04q8klV+o3l
+	RI1xtqnonxy/6+oWqfD+OxW4TlQlBChDLHESETcLTaOOnpCORLo21gsL0hv+7Dkp4KmnyKnDoMJ
+	AMuh7Gtt9+ZISvhyX2GidMB2KqpO2s18IPPXMbUMFDz4k616Pwh/LSTzsDrVFjK+/mD7XDTbq/B
+	VNpUoxZH5+MshxulU28a0ItSMZcN8n7kTwGYYukmEhnoM54wQh+mewFcwGJ0EljSWKujwDd3/r6
+	sD0Pf7iWfILduF00uIBbShzUKLL1M+gtTpkGnxUYvJmgBXxqu55cWYuKHMkcoLyefpgPRr7ae0z
+	CJLasN
+X-Received: by 2002:a17:90b:1cc5:b0:3ae:3d82:5d88 with SMTP id 98e67ed59e1d1-3ae8917bf84mr9431934a91.0.1793789942970;
+        Wed, 04 Nov 2026 02:59:02 -0800 (PST)
+Received: from minako.localnet ([2403:581e:d87e:0:739f:50a5:e171:f133])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b095314e85sm3304868a91.15.2026.11.04.02.58.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 02:59:02 -0800 (PST)
+From: James Calligeros <jcalligeros99@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Martin =?UTF-8?B?UG92acWhZXI=?= <povik+lin@cutebit.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+ Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+ Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>, asahi@lists.linux.dev,
+ linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Subject:
+ Re: [PATCH v4 02/22] ASoC: dt-bindings: cs42l42: Allow referenced dai-common
+ properties
+Date: Wed, 04 Nov 2026 20:58:53 +1000
+Message-ID: <dD3cbQkjQr2lqk83ChC6wQ@gmail.com>
+In-Reply-To: <f25646e3-d80e-4b26-b869-42608c89e665@kernel.org>
+References:
+ <20261103-macaudio-v4-0-637484efe46d@gmail.com>
+ <20261104-strict-precise-mouflon-85cbad@quoll>
+ <f25646e3-d80e-4b26-b869-42608c89e665@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,95 +117,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-pl011_touch-v1-1-e292bd834e14@debian.org>
-X-B4-Tracking: v=1; b=H4sIAIwK62oC/x3MYQqDMAwG0KuE77eFxOkmvYqMUdo4A0OldSKId
- xd8B3gHimbTAk8Hsm5WbJ7gSSpCHMP0VWcJnlBz/RThxi0/Fvms8z+OLrE8ujZyaNMLFWHJOth
- +b/37PC9uHcCCXQAAAA==
-X-Change-ID: 20261104-pl011_touch-d01385c0a5d7
-To: Russell King <linux@armlinux.org.uk>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- John Ogness <john.ogness@linutronix.de>, Petr Mladek <pmladek@suse.com>, 
- Toshiyuki Sato <fj6611ie@aa.jp.fujitsu.com>, kernel-team@meta.com, 
- Breno Leitao <leitao@debian.org>
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2087; i=leitao@debian.org;
- h=from:subject:message-id; bh=0KqdgEajat62QysY4IlhZoEcd4BHBchm7bTEv+3LG4s=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq6w/G6SG92rK0Sow+QYO/angzr0E+DRZRVbc/7
- cwO4mpL1GmJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCausPxgAKCRA1o5Of/Hh3
- bXZUD/4lr5ARtRYm3fN2tXLO98iJyaZtds8qlivX8H0PeXh5A7xm4C6bgAttXptKc92/hXUKp8q
- fc9KRfcE+/CmfExTuV/6Y11QAvS/++mChnvYYGs2C/7d8kPx3jw/jSPFXptiVwsegb9rZbYKzzn
- iwUXl9uI1/XuvlGcxRDz6GHP7r1CCzCJ3U1iQ3sUsnGcAohAfC9YAgoeXWs3zIVKy+zuNGQbCs4
- cXeEjLeggzVpH/txu1hkym6sJ9N4VZQOdQULX/1XQZh004fhCrtIreIrAQPO+8cORL+V4smiiEC
- 86wpE6flQ7P37OQ2u3ocNxEBG4z/kaf/gSnDNCzja1T/ZtSiUTF6UKWnXMybtbC7RZkn4FR2lz5
- oWm+p3nvFKAh3klJIg+X04UMq+Pip8+iEoUU4sCjYrPlv1uiJNvAzBNSp9EAUk+5gQF1zZdPpgW
- r90sVcX0A4awK4udzhmQSkWybETPDLrHqyKDzlaE04O7SL2ZlhK8ZwBmTdWxazE/RIF5BsV04IN
- IkXay+rX06rYQJQ1Hs/lN5hxsLoqKMPrL7dkiIibFH8wtdw9P7bV9EYKzo17HqwU9L0BTHekY+V
- W36J417FqkOtgJxbVHwybNsOOoIt5PB1KZ9RGdzOVi9n8x+gxHsDLaOWWeLqFaGToVeRxWHpCWN
- Sj65oa+gqmcdw3A==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
 
-In emergency context, such as WARN(), nbcon prints the pending records
-through write_atomic() with preemption disabled.
+On Wednesday, 4 November 2026 8:52:38=E2=80=AFpm Australian Eastern Standar=
+d Time=20
+Krzysztof Kozlowski wrote:
+> On 04/11/2026 11:49, Krzysztof Kozlowski wrote:
+> > On Tue, Nov 03, 2026 at 05:39:50PM +1000, James Calligeros wrote:
+> >> We may need to define both #sound-dai-cells and sound-name-prefix on s=
+ome
+> >> machines where this codec is part of a simple DAI. Allow this by
+> >> refrencing
+> >> dai-common.yaml and allowing its properties to be used.
+> >>=20
+> >> Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
+> >> ---
+> >>=20
+> >>  Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml | 5 ++++-
+> >>  1 file changed, 4 insertions(+), 1 deletion(-)
+> >>=20
+> >> diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs42l42.ya=
+ml
+> >> b/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml index
+> >> ab4c7d22dc0e..4ac0af34c464 100644
+> >> --- a/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml
+> >> +++ b/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml
+> >> @@ -9,6 +9,9 @@ title: Cirrus Logic CS42L42 audio CODEC
+> >>=20
+> >>  maintainers:
+> >>    - patches@opensource.cirrus.com
+> >>=20
+> >> +allOf:
+> >> +  - $ref: dai-common.yaml#
+> >> +
+> >>=20
+> >>  description:
+> >>    The CS42L42 is a low-power audio codec designed for portable
+> >>    applications.
+> >>    It provides a high-dynamic range, stereo DAC for audio playback and=
+ a
+> >>    mono
+> >>=20
+> >> @@ -193,7 +196,7 @@ required:
+> >>    - VL-supply
+> >>    - VA-supply
+> >=20
+> > Missing dai-cells constraint
+>=20
+> Heh, I already asked for this two weeks ago.
+>=20
+> I do not see how you responded to my comment, dropping everything from
+> DT patchwork.
+>=20
+> Best regards,
+> Krzysztof
 
-On arm64, WARN()  can run with IRQs masked, so the whole backlog is
-printed with IRQs off as well.
+Given that the binding did not have a constraint for this originally, it
+was my impression that adding one would best go in another patch unrelated
+to this series. If you think it's fine to add here then I can simply fix th=
+is
+for v5.
 
-Commit 9bd18e1262c0 ("printk/nbcon: Restore IRQ in atomic flush after
-each emitted record") does not help here, as it only restores the
-caller's IRQ state between records.
-
-pl011_console_write_atomic() busy-waits on the UART for every
-character, and at 115200 baud it prints about 11.5KB per second.
-Flushing a few hundred kilobytes outlasts the hard lockup threshold
-(10 seconds by default), so the printing CPU is reported, or the
-machine panics with hardlockup_panic set. See [1].
-
-The 8250 driver avoids this by calling touch_nmi_watchdog() while it
-polls the transmitter. Do the same in pl011_console_write_atomic(),
-once per record.
-
-Suggested-by: John Ogness <john.ogness@linutronix.de>
-Link: https://lore.kernel.org/all/87wlqtxb14.fsf@jogness.linutronix.de/ [1]
-Signed-off-by: Breno Leitao <leitao@debian.org>
----
- drivers/tty/serial/amba-pl011.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
-index e6f652905ca6f1..4fac3bca8f8255 100644
---- a/drivers/tty/serial/amba-pl011.c
-+++ b/drivers/tty/serial/amba-pl011.c
-@@ -41,6 +41,7 @@
- #include <linux/sizes.h>
- #include <linux/io.h>
- #include <linux/acpi.h>
-+#include <linux/nmi.h>
- 
- #define UART_NR			14
- 
-@@ -2734,6 +2735,9 @@ pl011_console_write_atomic(struct console *co, struct nbcon_write_context *wctxt
- 	struct uart_amba_port *uap = amba_ports[co->index];
- 	unsigned int old_cr = 0;
- 
-+	/* An atomic flush may print a long backlog with IRQs disabled. */
-+	touch_nmi_watchdog();
-+
- 	if (!nbcon_enter_unsafe(wctxt))
- 		return;
- 
-
----
-base-commit: d6bcfc94eb4da6e089c5473970cd96727292fd97
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-change-id: 20261104-pl011_touch-d01385c0a5d7
-
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
 
