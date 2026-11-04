@@ -1,54 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793800872;
-	b=CygOJVcXe2nE6Kz+N1IwHBmfw3ttp/m8zw6JP7P8bKPR0E+DyisrFan+K6nQLnifi2M9
-	 28B1NtingK0D3lfnWY0NwD8TzAWt+0kdPmQ5zrYyRYTSbWMKMf9RZXYIzbeECFXBZG1kS
-	 8FHCAtXrrmNH1/b61nnh7OW7LCfjwe6Xxhlox6ysp1mlwUo403Jw/xNOBxckf4DaEJIPa
-	 BhYrzddSiyjXTNWoRWadz415qYIvPpY8ppRLRN7huRhEK0GVlP9G0Fk2bL2oIio49+X6M
-	 9m53fB8dc4KhVuahSo5tlzRJ2tmRSsACh//dhY8RxM83wwFCXzExMH5PDdNfez3L4kw==
+	t=1793800898;
+	b=UFw1Ul746650PxzFDuXEJin6RPiRNDT+vPN1/0gwdktVvGcpBQB/3AhXpONUdUeOghEj
+	 K6mN3ejnEZdyLAp894YT1kbqGWAu+PWw4BS71tLDysD9UeO+oj5ajvduy/Hapw4X9a/8D
+	 QtjFK9oERPvO7SF07RY6J2uFrMlpEpuJdrB9Q3y99Nky44kEgn8QYFLg1kQzxnbufaUf4
+	 73hVhyAJZ/CMleNXKzGg3iPMjH/FTWhxs4lfvO1xnuBoDHyqTaWc6LVEp3yq16b8craSa
+	 NWiE4b7AaXIvLIBO60SWHMZHF9Bc8b8nrCdYaSklJThRDO4JKmV5nXVxrATvvrFzX8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793800872;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=m3E0Pwq7JWXvZRHGYLuObf22Ods68fAIICUagaAPPyU=;
-	b=Dh9JW0sxXgHCnsN5muaSohxB2HaHyVKr0OAWWnA0S+uHeZLHqzpc8GkNospm/S4ox34P
-	 QPKKg7cbRTGHG69Ag2Qs/X5GH+zZIfeiOe3fJgb2xEAVQ84TxXyfSAxwDbhbhF8Xi/Vgn
-	 Vf3rNl6LkaCiiq2BRtQ3MsA6ZQ5GKbcbuk3f6MVJizr240Y4G+103CxGyH1yOtpgn95Gr
-	 h+1H0osWynn0M4J0/PqTs0C4VBontjjaSPZYUvxFbWIq0xAZNBObGvbquzgqhKEjFg8iq
-	 n8MDFF+ryCZelun7/11QLw89ZnpoLl/TWAdYhzymk+Ud8DtH5T4Y/IjB5fSz0PmNIig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793800898;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=gjE0e4Jpg2/L+9H+FXO8WVtezi6JzsD1ckb0zbLEW4g=;
+	b=YH0aag1ho2btboKLt9VX00myrwONL806FGBnzc9igT/SFueCGWcUtX2uZzKW7TSVOjnC
+	 sDz068uc8JIekVKMZbfMbgZzLphUh53epQ19ZSb0mwPw3ZMZLrsNWk3SKrRDTZmbNEfup
+	 QjxSkd9wfay4xe/zUQKAOnUHd9FJB+lTffBlil0pvEqQUUqd2S4xZrxxUXfKpEb35pxnM
+	 v0QG4vUPqooEXaJHdDORZo3LRDBg4jhJJpam2Up6QK6R14/7daMgdlZz7mqzMFWf2L3Jh
+	 UuyGb15c39yaqQxzEmJTzcMM5MkR+8t9bf4yrUr9tVUhMGJpuH6g83cezZLtlmlATbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RCashxbx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AhPTozuL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D9FB606A31B;
-	Wed,  4 Nov 2026 14:01:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C481B606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:01:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RCashxbx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28C6A1F000C1;
-	Wed,  4 Nov 2026 14:01:10 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AhPTozuL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A21021F00A15
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:01:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793800872;
-	bh=m3E0Pwq7JWXvZRHGYLuObf22Ods68fAIICUagaAPPyU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RCashxbx8zOqnyaz+df0rlo0kpjhHeav/Uu/mKwBiXXO87NRzPDHT4p+OB4KJKFWe
-	 YCSZG3WJbMZwlvJ8xbXZF7qmYamgaDRY6YhasUCGMsey+1oYq/09DIdNF4gAggyi7I
-	 prJP36QcgezQkLLsFsp14Dx/eqSIg3iemdB+03VZ12vlWOcJlFtP+sGtbYX+GSJkCp
-	 PHchFzyfcqxjoXGvZ91oNI2z5Q5lYyIyX4AJ1f3TjHLIRs7910JIVkVm/mumtPU+yY
-	 wiOY+tz11pbZ5RuJWfPIkYav+noe8kbFC28zWl1ogioWgyH2uior+IKxciqsala3GD
-	 SX6sQSHbqMuTQ==
-Date: Wed, 4 Nov 2026 16:01:06 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: Edward Srouji <edwards@nvidia.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Doug Ledford <dledford@redhat.com>,
-	Haggai Eran <haggaie@mellanox.com>, linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Maher Sanalla <msanalla@nvidia.com>
-Subject: Re: [PATCH rdma-next] RDMA/mlx5: Free software WCs left on wc_list
- at CQ destroy
-Message-ID: <20261104140106.GE478286@unreal>
-References: <20261103-free-sw-wcs-v1-1-3885ce449012@nvidia.com>
+	s=k20260515; t=1793800897;
+	bh=gjE0e4Jpg2/L+9H+FXO8WVtezi6JzsD1ckb0zbLEW4g=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=AhPTozuL4KSFCX2IY3v/JSy++FpA7zvwoQWHbMLM8lBoWgCklGVemQWHkd2/Xpcs/
+	 JfPwdF40o/ujsRHbnoOSbUpR6WfRt7rmtwljOh2iWLoA1X95eog1gkmHN9kW54gcdp
+	 sivOTc/f81cO/jRGZuTUQLFPVZ0KsMbxQ/wTBKC8KPwHgKupZ0pZkap5LX9utCo1aV
+	 Jcs7L+dImB+nxFJLhorYA5MOxZULqGH80PdPulfH78QyxDL/VXxFHxb1ffHzos8zHb
+	 4e/VVCoJ6xUx+pjRY9P6bo9oG0KAD4GsjmTxb7cpn+w8u9aTyJfI6liEOlKpY52wpK
+	 sQ0/TIuI2LN1g==
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5bfa65c8617so382838e87.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:01:37 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwYuQfg98ppfFgFxB7AOqyisCN7KSQgiLvu8L3yko9IsQ9byobHgGQmOfPHB1RNP6hFXppWZ2K9tHByWWc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8wqvne7bhNWQoPKA8Nr3eG4SVx7tIV0zsmBgnjUFbvYRIbKLUV
+	LThOMSruRigXJq3MwnthXE9f03zb6bGVzurORfoGlJLIuJmAroR5YI8k5fO59OUTf62rxqOgeVD
+	uhiFmqHCBlBMbxTalmlai+t9dg3iILWA=
+X-Received: by 2002:a05:6512:130f:b0:5bf:b70f:5544 with SMTP id
+ 2adb3069b0e04-5bfd951f972mr4988129e87.9.1793800896344; Wed, 04 Nov 2026
+ 06:01:36 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,85 +59,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103-free-sw-wcs-v1-1-3885ce449012@nvidia.com>
+References: <20261030082932.193164-1-julian@outer-limits.org>
+In-Reply-To: <20261030082932.193164-1-julian@outer-limits.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 4 Nov 2026 15:01:24 +0100
+X-Gmail-Original-Message-ID: <CAD++jL=gqPPvLC72ioyRUJtDvqO9xUCA9B+vK95smaiEY5a8Zg@mail.gmail.com>
+X-Gm-Features: AclHuK9orhwXbJqsVZsNMjktFmZa1Og1q3CM8Pzy0ZRLDTTCV01s2sm6CKPLgxE
+Message-ID: <CAD++jL=gqPPvLC72ioyRUJtDvqO9xUCA9B+vK95smaiEY5a8Zg@mail.gmail.com>
+Subject: Re: [PATCH] ARM: fix big-endian check for IO memcpy and memset
+To: Julian Vetter <julian@outer-limits.org>
+Cc: Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 03, 2026 at 06:55:19PM +0200, Edward Srouji wrote:
-> Software WCs generated by mlx5_ib_generate_wc() are allocated one at a
-> time and linked onto cq->wc_list. The only thing that ever frees them is
-> poll_soft_wc(), i.e. a consumer actually reaping them. If the CQ is
-> destroyed while entries are still linked, those allocations are leaked.
+On Fri, Oct 30, 2026 at 9:30=E2=80=AFAM Julian Vetter <julian@outer-limits.=
+org> wrote:
 
-Is this real issue? Just put WARN_ON(!list_empty(...)) instead.
+> The commit 7ddfe625cbc1 ("ARM: optimize
+> memset_io()/memcpy_fromio()/memcpy_toio()") switched little-endian
+> builds to mmioset()/mmiocpy() and intended to keep the byte-wise
+> _memset_io()/_memcpy_fromio()/_memcpy_toio() for big-endian builds.
+> However, the check uses __ARMBE__, which is not defined by GCC. The
+> define used throughout the kernel is __ARMEB__ for big-endian ARM. So,
+> big-endian builds have been using mmioset() and mmiocpy() ever since.
+>
+> This is a problem on ARMv5 BE32 platforms like IXP4xx, where word
+> accesses to IO memory can end up on different byte lanes than byte
+> accesses. Fix the typo, so big-endian builds use the correct byte-wise
+> implementations again, as originally intended.
+>
+> Switching big-endian builds to the generic implementation from
+> lib/iomem_copy.c instead is not an option either, because it also uses
+> word accesses for the aligned parts of a buffer and thus has the same
+> byte lane problem on BE32. ARMv6/v7 BE8 mode would work with both, but
+> it is marked as broken and is expected to be removed, so it is not worth
+> treating it differently from BE32.
+>
+> Signed-off-by: Julian Vetter <julian@outer-limits.org>
 
-Thanks
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-> 
-> Drain the list in destroy_cq_kernel(). Nothing can be walking wc_list by
-> then: the poll context is the only walker, notify_work the only thing
-> that can re-arm it, and both are stopped before post_destroy_cq() runs.
-> 
-> destroy_cq_kernel() is also the error unwind for mlx5_ib_create_cq(), so
-> move the INIT_LIST_HEAD() of wc_list up next to the other list
-> initialisations, ahead of anything that can jump to err_cqb.  The driver
-> object is zero-allocated, and list_for_each_entry_safe() evaluates the
-> next linkage before testing the loop condition, so draining a wc_list
-> that is still all zeroes would oops.
-> 
-> Fixes: 25361e02c448 ("IB/mlx5: Generate completions in software")
-> Reviewed-by: Maher Sanalla <msanalla@nvidia.com>
-> Signed-off-by: Edward Srouji <edwards@nvidia.com>
-> ---
->  drivers/infiniband/hw/mlx5/cq.c | 13 ++++++++++++-
->  1 file changed, 12 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/infiniband/hw/mlx5/cq.c b/drivers/infiniband/hw/mlx5/cq.c
-> index 55ffd7d4de517e6ce3f04c98b4edcd94b12e43b3..2f7ac350c3d8f179ad1d4d8c1181b93f3151c7ce 100644
-> --- a/drivers/infiniband/hw/mlx5/cq.c
-> +++ b/drivers/infiniband/hw/mlx5/cq.c
-> @@ -933,8 +933,19 @@ static int create_cq_kernel(struct mlx5_ib_dev *dev, struct mlx5_ib_cq *cq,
->  	return err;
->  }
->  
-> +static void drain_soft_wc(struct mlx5_ib_cq *cq)
-> +{
-> +	struct mlx5_ib_wc *soft_wc, *next;
-> +
-> +	list_for_each_entry_safe(soft_wc, next, &cq->wc_list, list) {
-> +		list_del(&soft_wc->list);
-> +		kfree(soft_wc);
-> +	}
-> +}
-> +
->  static void destroy_cq_kernel(struct mlx5_ib_dev *dev, struct mlx5_ib_cq *cq)
->  {
-> +	drain_soft_wc(cq);
->  	free_cq_buf(dev, &cq->buf);
->  	mlx5_db_free(dev->mdev, &cq->db);
->  }
-> @@ -1067,6 +1078,7 @@ int mlx5_ib_create_cq(struct ib_cq *ibcq, const struct ib_cq_init_attr *attr,
->  	spin_lock_init(&cq->lock);
->  	INIT_LIST_HEAD(&cq->list_send_qp);
->  	INIT_LIST_HEAD(&cq->list_recv_qp);
-> +	INIT_LIST_HEAD(&cq->wc_list);
->  
->  	cqe_size = cache_line_size() == 128 ? 128 : 64;
->  	err = create_cq_kernel(dev, cq, entries, cqe_size, &cqb, &index,
-> @@ -1102,7 +1114,6 @@ int mlx5_ib_create_cq(struct ib_cq *ibcq, const struct ib_cq_init_attr *attr,
->  	mlx5_ib_dbg(dev, "cqn 0x%x\n", cq->mcq.cqn);
->  	cq->mcq.event = mlx5_ib_cq_event;
->  
-> -	INIT_LIST_HEAD(&cq->wc_list);
->  	kvfree(cqb);
->  	return 0;
->  
-> 
-> ---
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> change-id: 20261103-free-sw-wcs-8cf40aa66fd8
-> 
-> Best regards,
-> -- 
-> Edward Srouji <edwards@nvidia.com>
-> 
+Please put this patch into Russell's patch tracker.
+
+Yours,
+Linus Walleij
