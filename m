@@ -1,73 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793753266;
-	b=f9H8k3pCWSRrhjSXN8+TmUNYUaHBjKlDNGVXRvhLvXrREyNhCM9Nz709uNf+QFLnz+vF
-	 a0YkRF4kRMps4nKdIbGD38rKIDy4/az/YJegW8Iy1h4uiOqLoQbrK4KgngI557QgKwXKi
-	 oWp62i2tHCw6SuwuXyGI9dYTBhIiwmimEJWiVBgrvOfCMBD9kSjv9v2j/0eejsHx0KypT
-	 GEhMkSr121eznTb9eLtULxctcZRQz83EPmQ4sBvnj+lN4H0EYUA2CuwONbGbZfFFZK/Bp
-	 VU0PLcyHiepbIT0E2siThs8EzkkMuHimilB4tAIVzC6ioB5bvcdWYNGWBlc2waGvNdg==
+	t=1793753278;
+	b=Ys3CZdYUJguGLByFCE/0AO0hiKilx2l6Tw+vHmStj3+/ZZFSqEdSugtNf4DEhs2S48+m
+	 BwqMIONJnkDqzMMPg69cbWVzAkEP3SlxV3Q22uf5nBsuCIRhlS5cPhgtBObQQ+RQWYZNR
+	 Fsa54lxSQVQlylFJiPwnshED572OpbK71YOoorIASA+dE1tkgGXp9OgJrOiQCJEcfI/yA
+	 lQWOgu9+YcU4WP2L6XbsimObEI0WkL17A6492y1D0vUrxyklPuyjILMVWcBZevB0eA2CX
+	 WdqZLkViQBYgsdsJUtNYjg71zJLB3Km3ujt1Hp3EwCgjeNshvlofq1kQFVFNXO7W2eQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793753266;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
-	 References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=Ma0BJNPiyw5G435eYcqXLhH2XcRvaZWBudt7erlHK0w=;
-	b=sycLS9li7J04wsT49zE8SFjZB6we6VaCBE6ZPFynii1rRVGKpzHOk/mIAavz0sLy/Gql
-	 hK6gNpxoUbXOu+KqRO3IWI46A9Kya9HyKQM1KXTCG0W+zkllm8AE4yaLdITiniQIUZp3r
-	 BLnTv7Ywjf9z9VnBxqIjBQExDGwbAzjDnmsfLBhWdPch+hl2H3JwMKzua9uGECQLyvitQ
-	 apX4pJiAgry5T+2hYnbou6ezVGknKRDq2c0eWQhynrX0wKcR8a9W/PbEEtQtMcDkcBE6/
-	 BlkeM1TWkp7vwHHc4LiW8uYSZGmpfi5k4ceDZoRQUqyLJPxCkPjb2As88LwfpwZ+7nQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793753278;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
+	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=YN/E4Wyz1aUm1HWs+wbm+jXeIr2CMZ7iG+W7kfP+FaU=;
+	b=L6SwKJKalEjrbgLC1BupA6O6Fy5Z8D+hpWHL7lZ2ODNmaip4vgJLA+q6w40Ik1UYAUH6
+	 gwbSf1V0WVonhGezY1dD9hmyOu5adRY6vf5SHWJwVMctm7uJWL2uAVoiMVVFrF/CeUQCn
+	 5ADOclTDZs9Nly324ZO7OD0/MCgKxC8G69BuHYp7fBMYwWUfAuqw68Uq3w0Xa5Bb5nroA
+	 Znbs29evM5tpcpxyyV3QpV9DTPf+VNpdygzbWUBozba2+wTNTyG/Q+17ZJkg9GYASCqSF
+	 taFGRP7zW1b6ajUKwYhbkCmpoiKH/dproYsGVKF/oLQlmxfY4zTCnfU8s4/jHJmNSgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=edO4FVds;
-	arc=none smtp.remote-ip=209.85.210.199
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b="hW54/rkd";
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71D3F606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 00:47:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71D3F606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E475E606A326;
+	Wed,  4 Nov 2026 00:47:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E475E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=edO4FVds
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8a06750c74fso214393b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 16:47:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793753266; x=1794358066; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ma0BJNPiyw5G435eYcqXLhH2XcRvaZWBudt7erlHK0w=;
-        b=edO4FVdsKE+3sVvI0/R/flGkQfInhnICkLqzSL1RMpjIThGh+vA/Ub3j/KpnzLs20h
-         uROAcj8j0vxd/MQQJVUdsIVzDn7C6Rx9yAtAtqtN7qo3PRlj9kXTvyNUMfsDmrFggbW6
-         iyQH7kaueU7Vzf2DA+90gQoqYvDT/Xm+VASoc+04Mw9dBn38rg7t2bZibBrbDThrAgJZ
-         tkyRsgV9naVd01RBfk8VUWa3J6hkiJCsbSa0aTyuv7H9UIDhwxgTv9c8fIITjItF7Vqt
-         KmyTSbv4V2NkOEDNgCd6QGVPqKBk1wLeNfsRVtxlAzpHRt28OR7oB0skqgpAAGZx2D0j
-         IjBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793753266; x=1794358066;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ma0BJNPiyw5G435eYcqXLhH2XcRvaZWBudt7erlHK0w=;
-        b=mi//0FShqvndyYUhfpXU5ZSpxBWzZp7I0bxm5MJDqRPLPnoI6hEv4e0X2L9qEt4CfM
-         STkT9BAsns9WSSlwq0OaHgd1iiFJEPZhJYbUq+56+azqemOTcsmgfP4GEkMp080Cf23I
-         lksuBqXXC02Mx4JLwedRO8/owwjQbMTuPLc9sifvwOeS8XtXVX+vbFXq48kQ80egdGSq
-         StU8h9DujOIy+Zq+JydhYac5gv3zcsNKuZhRk9QsOlK/TbfUC07aQILVwHfip5uMBoNh
-         8x15KlDcjhNMDuWnaf0K/w0/GiPLBSkaQuzf99HR65NhLmS5AyODMkKm3EmGTFNa5d64
-         xnxg==
-X-Gm-Message-State: APuU4Z8EwDrbH+wZhV5tytpwgfTNOGQK8tzAqYy1H6q1MfHsN5ru+lkM
-	krsvgyOc80YY99ub7YIReymzlSplm1s+6U5c2QFyMpsYXj/O7Ncfs1u2sP0cOZ0cQNE6aZaUHC+
-	De9bbLw==
-X-Received: from pgbdw7.prod.google.com ([2002:a05:6a02:4487:b0:cd6:261d:5bde])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:3945:b0:3e2:9b5:b167
- with SMTP id adf61e73a8af0-3e928a51dc8mr11965695637.58.1793753265612; Tue, 03
- Nov 2026 16:47:45 -0800 (PST)
-Date: Tue, 3 Nov 2026 16:47:44 -0800
-In-Reply-To: <CABgObfbvv-fQnC35EU+TxEtNMyYA0wgJ-nA_2B1eqKrZ_2qqkQ@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=hW54/rkd
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A40lrleF3534673, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1793753273; bh=YN/E4Wyz1aUm1HWs+wbm+jXeIr2CMZ7iG+W7kfP+FaU=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=hW54/rkdtQhqxW9Ck1Z1CduipITb/T/BeRWtJaAyI1v+VwNmP0371jqjEFu3ssfWa
+	 tdOKQQDxxSeUTcFiMZlLRGwetNpFBw7SR1Qy9HBI2chK5Lm3x5OOuC4hzcB10pqIA/
+	 yCs4IUAeekllVdl3kaMytVQQlCvvT/BbdSOu+EdmrgUgct2r7fngeJEgWc2sTYlnyc
+	 6cllcUOo5/1UuwVBncbavGf7AjvxLZtPceNMx+DhL8cecfcSyXiBY209cHVf8qPHpr
+	 BZ7KhXmuL7EII2LtxLl1y1gALgMLT/yRTsd8XsRSLqKUpwZkf9JIt8S5/5z8uQtR0W
+	 NBkYlYAtB9Nsw==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A40lrleF3534673
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 4 Nov 2026 08:47:53 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 4 Nov 2026 08:47:53 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 4 Nov 2026 08:47:53 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
+ 15.02.2562.056; Wed, 4 Nov 2026 08:47:53 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Rosen Penev <rosenp@gmail.com>, "linux-wireless@vger.kernel.org"
+	<linux-wireless@vger.kernel.org>
+CC: open list <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH rtw-next v2] wifi: rtw89: acpi: check for _DSM function
+ support before evaluating it
+Thread-Topic: [PATCH rtw-next v2] wifi: rtw89: acpi: check for _DSM function
+ support before evaluating it
+Thread-Index: AQHda94e8ktfMF9qOEe8mjt2M2R0LbcdE7IQ
+Date: Wed, 4 Nov 2026 00:47:53 +0000
+Message-ID: <a5f044a803a64a1eb68815f075bda2ee@realtek.com>
+References: <20261103215557.183459-1-rosenp@gmail.com>
+In-Reply-To: <20261103215557.183459-1-rosenp@gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,335 +85,73 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261103124930.2278671-1-pbonzini@redhat.com> <20261103124930.2278671-2-pbonzini@redhat.com>
- <aunzE4yywHJOqsk4@google.com> <CABgObfbvv-fQnC35EU+TxEtNMyYA0wgJ-nA_2B1eqKrZ_2qqkQ@mail.gmail.com>
-Message-ID: <auqAsEk9o6buPNiR@google.com>
-Subject: Re: [PATCH 1/2] KVM: register asynchronous page fault waits with
- interrupts disabled
-From: Sean Christopherson <seanjc@google.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: "Kernel Mailing List, Linux" <linux-kernel@vger.kernel.org>, kvm <kvm@vger.kernel.org>, 
-	Hillf Danton <hdanton@sina.com>, Steven Rostedt <rostedt@goodmis.org>, Harry Yoo <harry@kernel.org>, 
-	syzbot <syzbot+f11512d1e5878ba5e60e@syzkaller.appspotmail.com>, 
-	stable <stable@vger.kernel.org>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 
-On Tue, Nov 03, 2026, Paolo Bonzini wrote:
-> Il mar 3 nov 2026, 15:43 Sean Christopherson <seanjc@google.com> ha scritto:
-> >
-> > On Tue, Nov 03, 2026, Paolo Bonzini wrote:
-> > > KVM cannot use a node on the stack like kvm_async_pf_task_wait_schedule() does
-> >
-> > Oh!  Yes, KVM can!  If we fully handle the PV async #PF in vcpu_enter_guest(),
-> > then the node can be put on the stack, right?  Juggling preemption and guest
-> > timing is heinous, but on the plus side it consolidates the PV async #PF code,
-> > so I think it's a net positive?  Especially when factoring in the node stuff.
-> >
-> > Fully handle PV async #PFs (when running as a KVM guest) before enabling
-> > IRQs so that it's impossible for the current task, i.e. the vCPU task, to
-> > be preempted before invoking kvm_async_pf_task_wait_schedule().  This will
-> > allow the guest-side async #PF code to eliminate its dummy allocation,
-> > which is needed only to handle the case where the page ready notification
-> > is delivered before handling the not-present #PF.
-> >
-> > Add dedicated handling for PV async #PFs instead of wrapping/piggybacking
-> > kvm_x86_ops.handle_exit_irqoff(), as the act of handling an async #PF may
-> > enable IRQs and schedule out the current task, i.e. needs to be done just
-> > before KVM itself explicitly enables IRQs, and needs to enable preemption
-> > before calling into the kernel's PV async #PF handler.
-> >
-> > Opportunistically wrap the code with CONFIG_KVM_GUEST to help document the
-> > context, and drop the CONFIG_KVM_GUEST=n stubs.
-> >
-> > Suggested-by: Paolo Bonzini <pbonzini@redhat.com>
-> 
-> More like Instigated-by. :)
-> 
-> The main advantage would be that it bypasses the missing lock issue
-> that Sashiko reported, but I don't know... That;s surely nice, but at
-> the same time it is not great having to add a new callback, 
+Rosen Penev <rosenp@gmail.com> wrote:
+> When the WiFi device has no ACPI companion, or the firmware does not
+> implement a given rtw89 _DSM function, rtw89_acpi_evaluate_dsm() calls
+> acpi_evaluate_dsm() anyway. ACPI core then warns on every probe:
+>=20
+>   ACPI: \: failed to evaluate _DSM e8c3a8d2-694b-004f-82bd-fe8607803aa7 r=
+ev:0 func:10 (0x1001)
+>   ACPI: \: failed to evaluate _DSM e8c3a8d2-694b-004f-82bd-fe8607803aa7 r=
+ev:0 func:6 (0x1001)
+>=20
+> Here the handle is NULL, and acpi_evaluate_object() returns
+> AE_BAD_PARAMETER. All callers already treat failure as "no policy
+> provided by the platform", so this is only noise.
+>=20
+> Bail out early when there is no ACPI handle, as acpi_check_dsm() would
+> otherwise hit the same warning while querying function 0. Then use
+> acpi_check_dsm() so that functions the firmware does not advertise fail
+> quietly at debug level, as rtw89_acpi_evaluate_method() already does.
 
-Agreed, though IMO it's better than adding another vCPU field.  E.g. we could
-just as easily add apf.host_cr2 instead of host_apf_node.
+Adding this check is fine to me. But my question in v1 is that=20
+acpi_check_dsm() checks func 0 to determine if BIT(func) is existing.
+Is it possible func 0 not existing, but BIT(func) existing?
 
-> duplicate the guest_time_exit/preempt_enable code into kvm_handle_pv_async_pf().
+>=20
+> Seen on an RTL8852BE in a desktop PCIe slot.
+>=20
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  v2: check handle separately. Remove Fixes.
+>  drivers/net/wireless/realtek/rtw89/acpi.c | 15 +++++++++++++--
+>  1 file changed, 13 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/net/wireless/realtek/rtw89/acpi.c b/drivers/net/wire=
+less/realtek/rtw89/acpi.c
+> index ebb6cf555747..3396d42594b3 100644
+> --- a/drivers/net/wireless/realtek/rtw89/acpi.c
+> +++ b/drivers/net/wireless/realtek/rtw89/acpi.c
+> @@ -372,11 +372,22 @@ int rtw89_acpi_evaluate_dsm(struct rtw89_dev *rtwde=
+v,
+>                             enum rtw89_acpi_dsm_func func,
+>                             struct rtw89_acpi_dsm_result *res)
+>  {
+> +       acpi_handle handle =3D ACPI_HANDLE(rtwdev->dev);
+>         union acpi_object *obj;
+>         int ret;
+>=20
+> -       obj =3D acpi_evaluate_dsm(ACPI_HANDLE(rtwdev->dev), &rtw89_guid,
+> -                               0, func, NULL);
+> +       if (!handle) {
+> +               rtw89_debug(rtwdev, RTW89_DBG_ACPI, "acpi dsm no handle\n=
+");
+> +               return -ENODEV;
+> +       }
+> +
+> +       if (!acpi_check_dsm(handle, &rtw89_guid, 0, BIT(func))) {
+> +               rtw89_debug(rtwdev, RTW89_DBG_ACPI,
+> +                           "acpi dsm func %d not supported\n", func);
+> +               return -ENOENT;
+> +       }
+> +
+> +       obj =3D acpi_evaluate_dsm(handle, &rtw89_guid, 0, func, NULL);
+>         if (!obj) {
+>                 rtw89_debug(rtwdev, RTW89_DBG_ACPI,
+>                             "acpi dsm fail to evaluate func: %d\n", func)=
+;
+> --
+> 2.56.0
 
-Yeah, I was all excited about the idea, and that excitement definitely fizzled
-when I realized preemption needed to be enabled.
-
-> Not that the extra field in vcpu->arch is beautiful, I admit that, but
-> it seems extra unwarranted complexity.
-> 
-> Unless you insist I will send a v2 that takes the lock properly.
-
-I don't insist, I agree the guest_time_exit() and preempt_enable() code is too
-ugly.  And the part that I actually care about cleaning up is not having a bunch
-of apf.host_apf_flags checks sprinkled all over, especially in the nested code.
-Which definitely doesn't require fully handling async #PF with IRQs disabled, we
-just need to handle them before calling into vendor code (I think).
-
-E.g. something like this?  Though to land it on top of your patch to add
-host_apf_node, we'd want to define pass a struct, but that should only make the
-code prettier.
-
-diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-index 0378577d9d8b..09416d3588d0 100644
---- a/arch/x86/include/asm/kvm_host.h
-+++ b/arch/x86/include/asm/kvm_host.h
-@@ -959,7 +959,6 @@ struct kvm_vcpu_arch {
- 		u64 msr_int_val; /* MSR_KVM_ASYNC_PF_INT */
- 		u16 vec;
- 		u32 id;
--		u32 host_apf_flags;
- 		bool pageready_pending;
- 	} apf;
- 
-@@ -1688,7 +1687,8 @@ struct kvm_x86_ops {
- 			       struct x86_instruction_info *info,
- 			       enum x86_intercept_stage stage,
- 			       struct x86_exception *exception);
--	void (*handle_exit_irqoff)(struct kvm_vcpu *vcpu);
-+	void (*handle_exit_irqoff)(struct kvm_vcpu *vcpu, u32 *async_pf_flags,
-+				   unsigned long *async_pf_cr2);
- 
- 	void (*update_cpu_dirty_logging)(struct kvm_vcpu *vcpu, bool enable);
- 
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index f4b12d6aef55..3cc4bf506cb1 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -4954,9 +4954,6 @@ static int nonpaging_page_fault(struct kvm_vcpu *vcpu,
- int kvm_handle_page_fault(struct kvm_vcpu *vcpu, u64 error_code,
- 				u64 fault_address, char *insn, int insn_len)
- {
--	int r = 1;
--	u32 flags = vcpu->arch.apf.host_apf_flags;
--
- #ifndef CONFIG_X86_64
- 	/* A 64-bit CR2 should be impossible on 32-bit KVM. */
- 	if (KVM_BUG_ON(fault_address >> 32, vcpu->kvm))
-@@ -4977,21 +4974,9 @@ int kvm_handle_page_fault(struct kvm_vcpu *vcpu, u64 error_code,
- 	BUILD_BUG_ON(lower_32_bits(PFERR_SYNTHETIC_MASK));
- 
- 	kvm_request_l1tf_flush_l1d();
--	if (!flags) {
--		trace_kvm_page_fault(vcpu, fault_address, error_code);
-+	trace_kvm_page_fault(vcpu, fault_address, error_code);
- 
--		r = kvm_mmu_page_fault(vcpu, fault_address, error_code, insn,
--				insn_len);
--	} else if (flags & KVM_PV_REASON_PAGE_NOT_PRESENT) {
--		vcpu->arch.apf.host_apf_flags = 0;
--		local_irq_disable();
--		kvm_async_pf_task_wait_schedule(fault_address);
--		local_irq_enable();
--	} else {
--		WARN_ONCE(1, "Unexpected host async PF flags: %x\n", flags);
--	}
--
--	return r;
-+	return kvm_mmu_page_fault(vcpu, fault_address, error_code, insn, insn_len);
- }
- EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_handle_page_fault);
- 
-diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
-index 07554089ec05..d4951dc8b1f7 100644
---- a/arch/x86/kvm/svm/nested.c
-+++ b/arch/x86/kvm/svm/nested.c
-@@ -1818,10 +1818,6 @@ int nested_svm_exit_special(struct vcpu_svm *svm)
- 		if (svm->vmcb01.ptr->control.intercepts[INTERCEPT_EXCEPTION] &
- 		    excp_bits)
- 			return NESTED_EXIT_HOST;
--		else if (exit_code == SVM_EXIT_EXCP_BASE + PF_VECTOR &&
--			 svm->vcpu.arch.apf.host_apf_flags)
--			/* Trap async PF even if not shadowing */
--			return NESTED_EXIT_HOST;
- 		break;
- 	}
- 	case SVM_EXIT_VMMCALL:
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 581bc3a23c95..5a92a22e8e6a 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -3811,7 +3811,6 @@ static void svm_get_entry_info(struct kvm_vcpu *vcpu, u32 *intr_info,
- 		*error_code = control->event_inj_err;
- 	else
- 		*error_code = 0;
--
- }
- 
- static int svm_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
-@@ -4758,11 +4757,6 @@ static __no_kcsan fastpath_t svm_vcpu_run(struct kvm_vcpu *vcpu, u64 run_flags)
- 			       vcpu_to_pmu(vcpu)->global_ctrl);
- 	}
- 
--	/* if exit due to PF check for async PF */
--	if (svm->vmcb->control.exit_code == SVM_EXIT_EXCP_BASE + PF_VECTOR)
--		vcpu->arch.apf.host_apf_flags =
--			kvm_read_and_reset_apf_flags();
--
- 	kvm_clear_available_registers(vcpu, SVM_REGS_LAZY_LOAD_SET);
- 
- 	trace_kvm_exit(vcpu, KVM_ISA_SVM);
-@@ -5088,9 +5082,15 @@ static int svm_check_intercept(struct kvm_vcpu *vcpu,
- 	return ret;
- }
- 
--static void svm_handle_exit_irqoff(struct kvm_vcpu *vcpu)
-+static void svm_handle_exit_irqoff(struct kvm_vcpu *vcpu, u32 *async_pf_flags,
-+				   unsigned long *async_pf_cr2)
- {
- 	switch (to_svm(vcpu)->vmcb->control.exit_code) {
-+	case SVM_EXIT_EXCP_BASE + PF_VECTOR:
-+		*async_pf_flags = kvm_read_and_reset_apf_flags();
-+		if (*async_pf_flags)
-+			*async_pf_cr2 = to_svm(vcpu)->vmcb->control.exit_info_2;
-+		break;
- 	case SVM_EXIT_EXCP_BASE + MC_VECTOR:
- 		svm_handle_mce(vcpu);
- 		break;
-diff --git a/arch/x86/kvm/vmx/main.c b/arch/x86/kvm/vmx/main.c
-index d75170a6199e..05e1d600dbd8 100644
---- a/arch/x86/kvm/vmx/main.c
-+++ b/arch/x86/kvm/vmx/main.c
-@@ -912,17 +912,21 @@ static void handle_nm_fault_irqoff(struct kvm_vcpu *vcpu)
- 		rdmsrq(MSR_IA32_XFD_ERR, vcpu->arch.guest_fpu.xfd_err);
- }
- 
--static void handle_exception_irqoff(struct kvm_vcpu *vcpu, u32 intr_info)
-+static void handle_exception_irqoff(struct kvm_vcpu *vcpu, u32 intr_info,
-+				    u32 *async_pf_flags,
-+				    unsigned long *async_pf_cr2)
- {
--	/* if exit due to PF check for async PF */
--	if (is_page_fault(intr_info))
--		vcpu->arch.apf.host_apf_flags = kvm_read_and_reset_apf_flags();
- 	/* if exit due to NM, handle before interrupts are enabled */
--	else if (is_nm_fault(intr_info))
-+	if (is_page_fault(intr_info)) {
-+		*async_pf_flags = kvm_read_and_reset_apf_flags();
-+		if (*async_pf_flags)
-+			*async_pf_cr2 = vt_get_exit_qual(vcpu);
-+	} else if (is_nm_fault(intr_info)) {
- 		handle_nm_fault_irqoff(vcpu);
- 	/* Handle machine checks before interrupts are enabled */
--	else if (is_machine_check(intr_info))
-+	} else if (is_machine_check(intr_info)) {
- 		kvm_machine_check();
-+	}
- }
- 
- static void handle_external_interrupt_irqoff(struct kvm_vcpu *vcpu,
-@@ -941,7 +945,8 @@ static void handle_external_interrupt_irqoff(struct kvm_vcpu *vcpu,
- 	vcpu->arch.at_instruction_boundary = true;
- }
- 
--static void vt_handle_exit_irqoff(struct kvm_vcpu *vcpu)
-+static void vt_handle_exit_irqoff(struct kvm_vcpu *vcpu, u32 *async_pf_flags,
-+				  unsigned long *async_pf_cr2)
- {
- 	if (to_vt(vcpu)->emulation_required)
- 		return;
-@@ -951,7 +956,8 @@ static void vt_handle_exit_irqoff(struct kvm_vcpu *vcpu)
- 		handle_external_interrupt_irqoff(vcpu, vt_get_intr_info(vcpu));
- 		break;
- 	case EXIT_REASON_EXCEPTION_NMI:
--		handle_exception_irqoff(vcpu, vt_get_intr_info(vcpu));
-+		handle_exception_irqoff(vcpu, vt_get_intr_info(vcpu),
-+					async_pf_flags, async_pf_cr2);
- 		break;
- 	case EXIT_REASON_MCE_DURING_VMENTRY:
- 		kvm_machine_check();
-diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
-index f0d75f5a968c..087c12e11d74 100644
---- a/arch/x86/kvm/vmx/nested.c
-+++ b/arch/x86/kvm/vmx/nested.c
-@@ -6500,8 +6500,7 @@ static bool nested_vmx_l0_wants_exit(struct kvm_vcpu *vcpu,
- 		if (is_nmi(intr_info))
- 			return true;
- 		else if (is_page_fault(intr_info))
--			return vcpu->arch.apf.host_apf_flags ||
--			       vmx_need_pf_intercept(vcpu);
-+			return vmx_need_pf_intercept(vcpu);
- 		else if (is_debug(intr_info) &&
- 			 vcpu->guest_debug &
- 			 (KVM_GUESTDBG_SINGLESTEP | KVM_GUESTDBG_USE_HW_BP))
-diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-index b341af4c6057..15f54474382b 100644
---- a/arch/x86/kvm/vmx/vmx.c
-+++ b/arch/x86/kvm/vmx/vmx.c
-@@ -5396,9 +5396,6 @@ static int vmx_handle_page_fault(struct kvm_vcpu *vcpu, u32 error_code)
- {
- 	unsigned long cr2 = vt_get_exit_qual(vcpu);
- 
--	if (vcpu->arch.apf.host_apf_flags)
--		goto handle_pf;
--
- 	/* When using EPT, KVM intercepts #PF only to detect illegal GPAs. */
- 	WARN_ON_ONCE(enable_ept && !allow_smaller_maxphyaddr);
- 
-@@ -5429,7 +5426,6 @@ static int vmx_handle_page_fault(struct kvm_vcpu *vcpu, u32 error_code)
- 		return 1;
- 	}
- 
--handle_pf:
- 	return kvm_handle_page_fault(vcpu, error_code, cr2, NULL, 0);
- }
- 
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 26e7beaff8a0..57aff240cdb6 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -8118,6 +8118,19 @@ static void kvm_update_cpu_dirty_logging(struct kvm_vcpu *vcpu)
- 	kvm_x86_call(update_cpu_dirty_logging)(vcpu, enable);
- }
- 
-+static void kvm_handle_pv_async_pf(u32 flags, unsigned long cr2)
-+{
-+	if (WARN_ON_ONCE(!IS_ENABLED(CONFIG_KVM_GUEST)))
-+		return;
-+
-+	if (WARN_ON_ONCE(!(flags & KVM_PV_REASON_PAGE_NOT_PRESENT)))
-+		return;
-+
-+	local_irq_disable();
-+	kvm_async_pf_task_wait_schedule(cr2);
-+	local_irq_enable();
-+}
-+
- /*
-  * Called within kvm->srcu read side.
-  * Returns 1 to let vcpu_run() continue the guest execution loop without
-@@ -8130,9 +8143,10 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
- 	bool req_int_win =
- 		dm_request_for_irq_injection(vcpu) &&
- 		kvm_cpu_accept_dm_intr(vcpu);
-+	unsigned long async_pf_cr2;
- 	fastpath_t exit_fastpath;
- 	u64 run_flags, debug_ctl;
--
-+	u32 async_pf_flags = 0;
- 	bool req_immediate_exit = false;
- 
- 	if (kvm_request_pending(vcpu)) {
-@@ -8506,7 +8520,7 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
- 	if (vcpu->arch.xfd_no_write_intercept)
- 		fpu_sync_guest_vmexit_xfd_state();
- 
--	kvm_x86_call(handle_exit_irqoff)(vcpu);
-+	kvm_x86_call(handle_exit_irqoff)(vcpu, &async_pf_flags, &async_pf_cr2);
- 
- 	if (vcpu->arch.guest_fpu.xfd_err)
- 		wrmsrq(MSR_IA32_XFD_ERR, 0);
-@@ -8568,6 +8582,11 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
- 	if (vcpu->arch.apic_attention)
- 		kvm_lapic_sync_from_vapic(vcpu);
- 
-+	if (async_pf_flags && !WARN_ON_ONCE(exit_fastpath != EXIT_FASTPATH_NONE)) {
-+		kvm_handle_pv_async_pf(async_pf_flags, async_pf_cr2);
-+		exit_fastpath = EXIT_FASTPATH_EXIT_HANDLED;
-+	}
-+
- 	r = kvm_x86_call(handle_exit)(vcpu, exit_fastpath);
- 	return r;
