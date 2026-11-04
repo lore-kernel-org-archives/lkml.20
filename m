@@ -1,131 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793824897;
-	b=dSqPlc5AUGWOjQwQY+w0NrZM4w/HyOHW1fYa/LwlHFD3aM4E98GFi1XzGa8m51vAS+88
-	 JfkPiFC4L4cvwL+kb5ZKEcZLXqLuS0gwIuY0PXA09YboloDMZUh6ktW+2HHh4Jmg9cXIh
-	 OYgs7PONrNXts99yKDlQXsGS/S6bT5bNN2e9qQKfmfdlg3A9dja6m12/SLjMQLaADefX/
-	 so5p0KAo+XKcgbAK/nSj2Syv1J7yros+CUEUWpLjQEd00qz88cMGqLyuKlbuMJ6Nfmp7Z
-	 49N9A/qIRh89bOPv5i9hbG2kKqhpYCwcDeOBUUq4QOhrvA5UoLK+MK9XJBH/pMe6qTQ==
+	t=1793824962;
+	b=wI7fsl88pK7hmsxUZoQhBnqrifchaaV5f/mIYXvFoPXYFvAdq8B+R0ziphQX0x3fRKcY
+	 NPp3s8vq7Nciu/gvlj4JruZfCjvytTfM0L0bYoJ8GuKfWbb0Dx2UTKFpsbRSXUMG51ZOZ
+	 2w5v3dqj+Bhnp9T0SRysA899cMXq66DLX8brB7uNvisgFIAnpr7r5QXkdx0J0+qT1zG1r
+	 kFLwL2Y4821GzbfMnaLLKPXGaNBd3sqo4XJ+R8ReRJiPTCj+9sPYszKgD5FDfvpXeyk8f
+	 3sNeQX1xHT9ydQADsM2A/HuceNsoCYoMqoVvzjs6HkJqVQ8nI6hd+H/Y2CwjpS5Phvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793824897;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=Qx7MHHrNbw+2RJi+sFRPQAnCg+8tt1jKOtfnhlR4Oms=;
-	b=mID0TMXiY9L65g4HL6ZIJd4FpihDuVFJHX9tuI8rV5/mYI4MOFhwovReOi+djotq43mV
-	 p/Rpu6908fPCXP1/e+iNrsSWrOQoyO15jgeNQjlu9xz0utYs1EnCk5JAuRS9W5C8ujr7k
-	 pUhRjBPBe9u+mST37gjFaRVGbwGEC9Bqdzep0tBeN4EPGzYrVV8CsdPS5CpGzTtcornTp
-	 gFeW5tQuf3Yo0y5c+ihziych3ZF8yqIBjV2Id6PislA+/Ml4+bS+c+/EZWJv/J10gOy6d
-	 y1B8U9TF2KAagYWOMIvkOHvnAAl1sFLveb5jqfppM0CMC0kAEBlEMaiwxbmUSuqS63A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793824962;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=h6dwKVBh50DCzDeIRT2L9U5TfDV06YRfq9HuX25Gdcw=;
+	b=Ah6TYjRTVWZItzGi5gTsKjF3bdw1h/BqqQSRk4coRv9+siq7suM0UDK+loIEgVKHI7sV
+	 gr1NSIElUz83GI3dFZKVsoIBIqKlyMym54M7CT5uQV7h+3+SE0WoRxKl8Bq4PlTwFLiFL
+	 JxS7ZG+VjAtTEjBrAMWTpQ/dEp/n+5XMt8zbHGZVkLWyE+baDLki0zXz8Y3DW7SMg9DXV
+	 q/2j5NwazWx1BoK1/5H9iJZtC0JGOiWJItFRHghvP45W+/YBek+WelPKNkvoQZnLjUMuX
+	 6tKH6WB39zLRBsWiXnEnBEBrrBPH0HR2imE6xAN4GDV0w+CTIVQeE/uCy12VlL0Mt2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GOfbVRuN;
-	arc=none smtp.remote-ip=192.198.163.18
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jy+nCzPT;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 454556076364;
-	Wed,  4 Nov 2026 20:41:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 454556076364
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D14606AC3D
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:42:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3D14606AC3D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GOfbVRuN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793824897; x=1825360897;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=qy06o8rSwtIgsUFLykqayukx7m8Y35VeFGwAllplMWQ=;
-  b=GOfbVRuNbvFhJqnu4QVO0qp5PUuXriYWkWcvbcexI3JoqKv+KTjohMXI
-   NX6SdGn/kgLm7FX/4qntpHlkNLWgPmpcV5tV151acOyBW6GYqvQN6M9fe
-   cEe5wJif/Jb+sSqa715mefUmojt49RJs3m09d0rSOHUWXEHtjuVUUutfp
-   DWTxpzkZyb3oifGcmMgZyzXZ4OqmlBrfeoTXIPmZ1b/8mBLZ+XQUEKYiJ
-   bJfrfThZzhZbvuddA/fAPyzEk2cOtG8Lb8DYWm1O/pUzm1hPkzoqWACqY
-   LCW0L/FeP4QZj5wMem+ojg6wRB6rhDQcgY5P5O+HjHPyssSUnSsAmsUYT
-   g==;
-X-CSE-ConnectionGUID: ijAbtjWzTUu27rPCfkcOgQ==
-X-CSE-MsgGUID: fxMa9hI9Q+mEKakXFFKL1Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2634921"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2634921"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:41:36 -0800
-X-CSE-ConnectionGUID: knzF51FkR/mGB1dYlMjHAg==
-X-CSE-MsgGUID: PDZ5doidQvG2tEJnuVcvCw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="7214061"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:41:23 -0800
-Date: Wed, 4 Nov 2026 22:41:21 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Frank.Li@oss.nxp.com, Mark Brown <broonie@kernel.org>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Radu Pirea <radu_nicolae.pirea@upb.ro>,
-	CL Wang <cl634@andestech.com>,
-	Ryan Wanner <ryan.wanner@microchip.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Vladimir Oltean <olteanv@gmail.com>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>,
-	Haibo Chen <haibo.chen@nxp.com>, Linus Walleij <linusw@kernel.org>,
-	Daniel Mack <daniel@zonque.org>,
-	Haojian Zhuang <haojian.zhuang@gmail.com>,
-	Robert Jarzmik <robert.jarzmik@free.fr>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>, Yixun Lan <dlan@kernel.org>,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Alain Volmat <alain.volmat@foss.st.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Sowjanya Komatineni <skomatineni@nvidia.com>,
-	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	"open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
-	"moderated list:ARM/Microchip (AT91) SoC support" <linux-arm-kernel@lists.infradead.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE" <linux-rpi-kernel@lists.infradead.org>,
-	"open list:FREESCALE DSPI DRIVER" <imx@lists.linux.dev>,
-	"open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
-	"open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
-	"open list:RENESAS RZ/V2H(P) RSPI DRIVER" <linux-renesas-soc@vger.kernel.org>,
-	"open list:SAMSUNG SPI DRIVERS" <linux-samsung-soc@vger.kernel.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>,
-	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>,
-	"open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
-	"open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
-	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Thierry Reding <treding@nvidia.com>
-Subject: Re: [PATCH v2 1/1] spi: use dmaengine_desc_set_callback()
-Message-ID: <auuYcS7-YqJKcUbE@ashevche-desk.local>
-References: <20261104152253.3279052-1-Frank.Li@oss.nxp.com>
- <autj6pr_bPaul3w0@ashevche-desk.local>
- <7f96599b-681d-4963-bdda-1274371ac84f@kernel.org>
- <f1fa853d-1703-411d-b2d2-0fb0b176c2fa@kernel.org>
- <autqC143h7Qf1R9H@ashevche-desk.local>
- <9e39502a-dd17-4fa2-98a3-9019523cb5e8@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jy+nCzPT
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so8376665e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:42:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793824960; x=1794429760; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=h6dwKVBh50DCzDeIRT2L9U5TfDV06YRfq9HuX25Gdcw=;
+        b=jy+nCzPTOhrQXB/Hv2iczYzO8CYB7TExusym3+qGfuyVkzge3vTqTobuwLFwtz+5xW
+         dY+/Tieg5C7PV9S18O99QaCzW7th9sVpyoNhQr+qHqBqX7cNpbsR0vmZrZD6P3unTXT3
+         02SnKXHoF84lpCoIptklFUYcN6MlnSfADFVvTrDQhW3e9A2kzQ5XLg2ZvhhQ06fVYAgJ
+         rA/z7ihQN+PNxiQP36ERe0sailT/sMlzSd6r5gzZRUOHMCTYRzQqHrnBWM36+k9lSxUZ
+         wxWMx3pw6lHB38v907lIl81x5WeYHUsohFC8Zzllr2d0H42CgsJ/ji7WKA8uuWbAm+r7
+         IS5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793824960; x=1794429760;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=h6dwKVBh50DCzDeIRT2L9U5TfDV06YRfq9HuX25Gdcw=;
+        b=mMcmEzukp3fH2VpYO0RjnjciuDKkx05JDhNCUABmBwORHjCwOHqBco4mQTveNKyIIJ
+         zbEs9PAks/tVfg+vGqfqJ5sXpAo89CS/F7cFJG2EAcJ4wh4numTAi6ubxcjTH13FBsMa
+         1L0k+QXUyf9sMqWzK273mbSH8F9SNsGudby7xlgpc5p6fTHpazM88M/3TxYjUmlx4qxx
+         L2MFMKj0ygglCXhEbEpaqFKxTLj543UobzBQf22HxDwgfQIYxyEPbQriyJjADPcXYqP7
+         lRXJmOJyhttxVWdAtiSsLX68coxrQZ588poRbQkLuqaFf7bxG5nZUOk7YbmdX1k0JlWt
+         FweQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy41oP25KTma+bcC57Kp/DcQcYWOeDiCsc/Oq9MuJeYDSoGk+ZYUOzxULlfVUVvflFNPsRua0/OT+dyl04=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+/cX058cIlA11lmOzlTpay1h7RHQXjZWD6wzHPADjPAj4mAP+2
+	MyOsFMVdNmMGR2E3PdiMeUgspYQ6kSqcbPYOw6NDBG0RDZy2C7EtjvBh
+X-Gm-Gg: AYBFou2yPe0C+ZKWp/AQ2Xp/h6QCwnyR6eX/bZZ4CdaYsYsrhlrDteGc/DbJjyp+Av3
+	wf/f3Jib0xCDKN3nq3OmuT/3ZlX6YEDP0b8h3vsWjeKgmz1ylKhDgeNVzOCzfdT6w+PljaAaaEO
+	sYU31jqFKqm3Ij6wU3uxf6j3/BEWU/D/6LrhQye9ETrjHYAYFGNZyW+LhciHRNKGiDxGK3nJ1Bb
+	JrJ2JqkkjEbNpZvvZP8/oPngDIfDb8blU+DWx8AJjL8oLS2Jj8yM+HM5cYZMe5TcLbp43kTes0x
+	axMvFjOe0+nuJEJV+SUXbZ33GxNEvFNExwNrDEjlUxEqUDn/UROnxrto+hknLzc6oqdPvT5qhs/
+	dGH/YOGLN/tBCRmmVyf9xtJIQDEC9jjUtLJl/6uGKFkNwA/e+KASXupOE2d3fWQP3eilrXTqQEB
+	Fz2k0wBojcwcp2yALqad42lHkIS2v2UMWUbO59CKr0e/ZssCTweWGXvmUwPMG4FFjCb1Nzm3HI8
+	jNBWD7iTw5d5j94Bremj1JYu+OWI+KPOHNXGEn2Vdtdlm/GtlWEwAYNweVBupe16wxDjraTasxz
+	/9NjReWgyJ5Ftg==
+X-Received: by 2002:a05:600c:4f55:b0:4a3:d327:6ed with SMTP id 5b1f17b1804b1-4ac182dcba3mr424220875e9.17.1793824959945;
+        Wed, 04 Nov 2026 12:42:39 -0800 (PST)
+Received: from nobara ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fecac1a1csm5716451f8f.12.2026.11.04.12.42.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 12:42:39 -0800 (PST)
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+To: Mike Rapoport <rppt@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Kees Cook <kees@kernel.org>,
+	Changyuan Lyu <changyuanl@google.com>,
+	Alexander Graf <graf@amazon.com>
+Cc: Tony Luck <tony.luck@intel.com>,
+	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	kexec@lists.infradead.org,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Subject: [PATCH v2] memblock: don't allocate new reserve_mem regions on a KHO boot
+Date: Wed,  4 Nov 2026 21:42:17 +0100
+Message-ID: <20261104204235.9066-1-azpijr@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -135,86 +104,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9e39502a-dd17-4fa2-98a3-9019523cb5e8@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 06:27:40PM +0100, Krzysztof Kozlowski wrote:
-> On 04/11/2026 18:23, Andy Shevchenko wrote:
-> > On Wed, Nov 04, 2026 at 06:08:39PM +0100, Krzysztof Kozlowski wrote:
-> >> On 04/11/2026 18:02, Krzysztof Kozlowski wrote:
-> >>> On 04/11/2026 17:57, Andy Shevchenko wrote:
-> >>>> On Wed, Nov 04, 2026 at 10:22:45AM -0500, Frank.Li@oss.nxp.com wrote:
-> >>>>>
-> >>>>> Replace open-coded assignments to callback and callback_param fields
-> >>>>> of struct dma_async_tx_descriptor with calls to the
-> >>>>> dmaengine_desc_set_callback() helper across SPI bus drivers.
-> >>>>>
-> >>>>> No functional change intended. Prepare make to struct
-> >>>>> dma_async_tx_descriptor private to the DMA engine.
-> >>>>
-> >>>> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com> # dw, pxa2xx, topcliff-pch
-> >>>>
-> >>>> (Note, you forgot to add the list of the drivers to the Rb trailers of other reviewers)
-> >>>
-> >>> These should be acks. RB creates false impression entire commit was
-> >>> reviewed. Our docs also clearly state entire commit:
-> >>>
-> >>> "Reviewed-by:, instead, indicates that the patch has been reviewed and
-> >>> found acceptable according to the Reviewer's Statemen"
-> >>>
-> >>> (not patch or part of patch)
-> >>>
-> >>> "By offering my Reviewed-by: tag, I state that
-> >>> I have carried out a technical review of this patch to
-> >>> "
-> >>>
-> >>> (not patch or part of patch)
+On a KHO boot, a reserve_mem region that can't be revived is allocated
+from KHO_NOPRSRV memory, which includes the bootmem the next kernel
+boots out of. With CONFIG_KEXEC_HANDOVER_DEBUG, preserving the region
+then fails:
 
-Documentation doesn't cover partial reviews at all.
+  WARNING: kernel/liveupdate/kexec_handover.c:1245 at kho_preserve_pages+0x168/0x180
+  failed to prepare memblock FDT for KHO: -22
 
-> >>> When you accept only part of this code, you basically Ack. I really
-> >>> dislike these half-done reviews, which later appear in logs and tell you
-> >>> nothing. You could have clear security bug here, but 10 review tags. How
-> >>> useful tags...
-> >>
-> >> And let me even bring a better example. Imagine a patch, doing massive
-> >> refactoring of core SPI stuff, 1000 lines of code, complex locking and
-> >> also simultaneously updates drivers to new API changed in this core.
-> >>
-> >> Reviewing that 1000 lines of code in core SPI with complex locking takes
-> >> someone 30 minutes. He gives Rb tag, gets credit.
-> >>
-> >> Now you come, look at SINGLE line in a driver and give Rb tag. For 10
-> >> seconds job of looking at one changed call in one driver.
-> >>
-> >> You just Acked, you did not review "the patch" (quoting submitting patches).
-> > 
-> > Your example is doubtful because the patch is combined from independent pieces.
-> > The Rb fits very well the listed drivers. The problem is that some of the
-> > people combine changes into a bundle (and not proper per-driver series).
-> 
-> The example is actually real. There are many patches changing some core
-> subsystem API stuff + many drivers, and they are done correct as one patch.
-> 
-> Looking at two lines out of 50, 100 or 1000 (here is 740!!!) is not
-> reviewing "this patch". Is acking it.
-> 
-> All of the Rbs here are half baked, meaning they did not review "this
-> patch" (quoting submitting patches document).
-> 
-> But sure, if we want to play such numbers game, I will be sending
-> reviews for single lines.
+Without it, the next kernel puts its memmap on top of the region and
+the ramoops records in it are lost.
 
-I'm not playing anything. The problem is that the patch unites the files that
-have distinct maintainers and unrelated to each other code. That's why in the
-subsystems I maintain, I almost always require to split on per-driver basis.
-Yes, exceptions are possible, but has to be quite rare.
+There is no use case for adding regions across a live update, so fail
+instead of allocating, and drop the TODO.
 
+Fixes: f99230780211 ("memblock: add KHO support for reserve_mem")
+Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+---
+Changes in v2:
+- fail on a KHO boot instead of allocating outside bootmem, as agreed
+  with Pratyush [1]. this drops v1's patch 1.
+- not an RFC anymore.
+- based on v7.4-rc1.
+
+v1: https://lore.kernel.org/all/20261021211058.83483-3-azpijr@gmail.com/
+
+[1] https://lore.kernel.org/all/2vxzfqxglrg6.fsf@kernel.org/
+
+ mm/memblock.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/mm/memblock.c b/mm/memblock.c
+index a450092a80fb..e325e0542c9a 100644
+--- a/mm/memblock.c
++++ b/mm/memblock.c
+@@ -2827,7 +2827,16 @@ static int __init reserve_mem(char *p)
+ 	if (reserve_mem_kho_revive(name, size, align))
+ 		return 1;
+ 
+-	/* TODO: Allocation must be outside of KHO_NOPRSRV region */
++	/*
++	 * On a KHO boot memblock only allocates from KHO_NOPRSRV memory here,
++	 * which includes the bootmem the next kernel boots out of. Only regions
++	 * handed over by the previous kernel are supported.
++	 */
++	if (is_kho_boot()) {
++		pr_err("reserve_mem: can't allocate \"%s\" on a KHO boot\n", name);
++		return -EOPNOTSUPP;
++	}
++
+ 	start = memblock_phys_alloc(size, align);
+ 	if (!start) {
+ 		pr_err("reserve_mem: memblock allocation failed\n");
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.56.0
 
