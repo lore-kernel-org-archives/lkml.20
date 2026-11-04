@@ -1,110 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793821972;
-	b=Eax3E8rEx1Qrs1QW1tF+SIRjX/wdigJ5QQod4hR0xJvU1n3oXtTlGBkZtn1htYNo40IW
-	 q+3XlBdJNAWTQ1O/gAPLer9MsNAtWUHYBBleVLrasGsp+hNIilOWvcKFoOnBslA/tuTLB
-	 oBBxm0cVXcrNGw9zIKnwph5PYienGTuQ6doaaYLf6GLdF7p0Q/qTwQuhRyjM2cJlYK8ID
-	 2XUvypLD/3tegHmUTuFmCWboPwty/NyS+ZHgE6eNzBE73dIsR76szAjDypjG+bKn+i8sy
-	 9lVNwyuKpvYQS4k9utCaZhEWrAXxUQxavMsrkMivArfImOgDjmJ9hBOiHAsbx7Szy+A==
+	t=1793821999;
+	b=RQkCQCFkDul/7i+26sHra38Z58/+OF1rlnZSqf30qkaw19nNy+xvutSeThYSlPEcZOKp
+	 Y8v/Fn8BS4/PEHcRSSp+ZJ4c4JBHcyZiHaEGko9PnNpisCNZzj7IwxUUiZ0siiIBgefZb
+	 m76pqmoL3srpH05EgLoG80oWMOu9zPcH6vvyRWZ+vRwxn/czgT7i9Jj+kw8g2q8bD61s/
+	 bDHCLQ/LX1g2g1YrjHE/wG1iH84tY81GiY65l59XC4COgdZ/HmOFYhOWUgB0144Pm8BFu
+	 i1ODHYpoIRtCyvhqpsQQU9ls9CtFVnshUKth21Otsr2A4qYLDNzbB6+/KYLjFT0lT4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793821972;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=e6t+ZjLlcl2UBfeg6Fa8p1cvIAPOQLpJeTR6f8fh14w=;
-	b=q70/YQhFU/ANR0072OorpHnGMGDHk82q7bSld3rv/FKh78qieuCUduTGOh+bwJ/TSUHx
-	 SW0qD9BJzk2rsctxVLtkP0eCiAdE5Z0tlcinx7yeI1Wz9u3n07ConL9696ooNwaz9fyVV
-	 9loiFcSX8/tzj9q5lifgE3trsdHBYw8vVV5IMXepjyE/7qCOlXQiB7rhYJJR6qvN72dB7
-	 2+L++8oi/f5FK0Cpxn7s7hY2ChGzPIB4QxK4lEc+HfblqbpbTH6nEYSLCCioFHNJF1ZQn
-	 3CyeAKhANEM5SBD65eqaJL8zWM7j9MDX8/kiYsX6MmfoNV6KPVQkoeAIEQg6/tMhHAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793821999;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=6/ZM+kSr71E5pYSORU1PeqM92yW7X1HiRlNL7QxACZg=;
+	b=Lzod+fH3OyjjM2HAxFPaZ5w9/zxSLp0LprcqMlYxKMnSmB9whZWSpQsJYx5Fvqrq771G
+	 W7Z7RbJiHu8AgYTJTmJUnRjWi/ySEvc++NDAfkptSUPvLzs2Ir5i+5mGHWwX5Bg4KmyBH
+	 QAHpkOUs0nA8zk6lw0js/eLY3Qadxu1VM+OPFiLqeoGaJ0ZUEXTYgnBIMexZD3EULnMut
+	 NkBW1DruaBXB+ZAkVAf36+jmy2DgUJczwyNIifXmeLZtVUWMpc5dZWN6xtYZbZLuvYHnC
+	 Ajxlw3bI20/Pv8pDkN9JqtdZeBRQcV9U3ckiFNxhu9RNy3ySQsE9l6ZtDkgtz/knqRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="KLjIE+/Q";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=W6sYwyNA;
+	arc=none smtp.remote-ip=209.85.214.199
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE3E4606C5B8;
-	Wed,  4 Nov 2026 19:52:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 975406097315
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:53:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 975406097315
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KLjIE+/Q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E41F61F000C1;
-	Wed,  4 Nov 2026 19:52:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793821971;
-	bh=e6t+ZjLlcl2UBfeg6Fa8p1cvIAPOQLpJeTR6f8fh14w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KLjIE+/QNPHQxRMuCW8dNWrCESqWYvISK46/mUNfKpIgCeoSJrgdmk8SkA+ATO7fz
-	 FQ35566DIX+9ELnqg3Z9GTJZVRHI0Yud/AS1kcEPVIP4YYuS1YcVbpva0834j+U661
-	 zMbjWJhPBVN/B6AggdgAVcfnGjd0hy36FXoA4988MkNbj3t9KGlQbCTtGn7Lq2oNiZ
-	 gGsYSEMs37D5ZgHR4oyjLALRPtfTPAqhoQzZUV4znTfOb3VdD3io2MsyW92keql0Yw
-	 gt21nsu4wFZgpw+3R20mXpoc8hVC/Rl4c9wnw34AaHdv6yMO/CIYavsN1nHMGTso6j
-	 wpMlLdPvqyidA==
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Jann Horn <jannh@google.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Chris Mason <mason@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Christoph Hellwig <hch@lst.de>,
-	Greg Kroah-Hartman <gregkh@suse.de>,
-	Joel Granados <joel.granados@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Jan Kara <jack@suse.com>,
-	linux-kernel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	netdev@vger.kernel.org,
-	ntfs3@lists.linux.dev,
-	platform-driver-x86@vger.kernel.org,
-	coreteam@netfilter.org,
-	kexec@lists.infradead.org,
-	linux-pci@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	ibm-acpi-devel@lists.sourceforge.net,
-	jfs-discussion@lists.sourceforge.net,
-	linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-sh@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	samba-technical@lists.samba.org,
-	sparclinux@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
-	linux-doc@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-atm-general@lists.sourceforge.net,
-	Takashi Iwai <tiwai@suse.de>,
-	linux-input@vger.kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	linux-modules@vger.kernel.org,
-	linux-debuggers@vger.kernel.org,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Chuck Lever <cel@kernel.org>
-Subject: [PATCH RESEND v2 12/30] locking/lockdep: let procfs own the seq_file of /proc/lock_stat
-Date: Wed,  4 Nov 2026 20:52:36 +0100
-Message-ID: <20261104-work-procfs-fs-v2-12-319e0f9a8aae@kernel.org>
-In-Reply-To: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
-References: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=W6sYwyNA
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ed08be1c84so16134315ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:53:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793821998; x=1794426798; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=6/ZM+kSr71E5pYSORU1PeqM92yW7X1HiRlNL7QxACZg=;
+        b=W6sYwyNAxuQUEpjWv8f1oH2vG0MBnCjpJ9/AtYQncZ2Z6jPn4xuWM3v4EYR9NVm6fT
+         kJlsieHkxnP/R7cR9ZfvNqyDtA1hw7cpOXvlth6a53CQ+7SUHe9kQWqvewcdNmc+V2K8
+         YkJzX7xmF5R8+nfSQXz1Wv02fKkr4DCgGIoMkC5SFKqhwAvFx5iclvD1DXFluqYSyFLa
+         9UwJdbtqIQaZOOTIHQFg3IBgq7WEwFOhRnwBXNHXOfQ9Q8pNwCgwodm0SwRh0oQUTAzS
+         B/jB52exYbrGZShO80FqS9oxSfEk1akmtFA/sBBzyb5AfhGfn1OuEP7ObIKAu8eCkk9w
+         PBzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793821998; x=1794426798;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6/ZM+kSr71E5pYSORU1PeqM92yW7X1HiRlNL7QxACZg=;
+        b=uzX7DiEr6SqVAeNeSn/WsmEBy7c2DyVs5CFO/vriGGfweRP9Fe7QzSlSiOKBFKn5li
+         AtyzWq4J7bCGUabwIw3GCaEVViFmfvVyZsehWo9ER82/jVmUFAcVrMDeoaWLSP++RXT+
+         AMfPT5czyYGZ4bq5rXa1c747+v9bmsTo5EVmd8dEOaUmTHTXf95FIu271q81g0im5NK0
+         weTnX8In7F3WV4IHKox8r/wms1ndjQwh0/qmNDnuPJsDqd0R1/ePk++a5Qk76QN2Gp4E
+         GgBoWeTKwnmhFRtQLVeoiWIcs1dtounoXjHenPfmy+S0zPRnIn1LNeVbtQXgSM7CFrnK
+         rEDw==
+X-Forwarded-Encrypted: i=1; AKwUvBxjG0QwxVxb0YGJQRFL07DjzCkGAXRe9bJvQvKaDyCKx5tv5EVmrM0XfdOYGCfYaOtBJDPF6a8g9VX3B0E=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/sQVUrGeZ/yUSzQYVbO8kJx88TYkD0daq4b0cJuGmkK/psLpJJ
+	j4QBlwzyh0K5V2uZ46tei6cP+g7qIz2yKD494eWpzza5WI5LAQ2FpsYRXZu3qscY++xMg8z3UTu
+	9lJBInQ==
+X-Received: from plbkm6.prod.google.com ([2002:a17:903:27c6:b0:2ec:f25e:f5dd])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:db07:b0:2ea:cb4f:fd3
+ with SMTP id d9443c01a7336-2eb36401dc1mr187678735ad.4.1793821997670; Wed, 04
+ Nov 2026 11:53:17 -0800 (PST)
+Date: Wed, 4 Nov 2026 11:53:16 -0800
+In-Reply-To: <20261019162445.37219-1-dwmw2@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,104 +79,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+References: <20261019162445.37219-1-dwmw2@infradead.org>
+Message-ID: <auuNLC2BJRpJZKA6@google.com>
+Subject: Re: [PATCH v4 00/12] KVM: x86/xen: Don't drop event deliveries which
+ race memslot updates
+From: Sean Christopherson <seanjc@google.com>
+To: David Woodhouse <dwmw2@infradead.org>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, 
+	Paul Durrant <paul@xen.org>, Vitaly Kuznetsov <vkuznets@redhat.com>, Fred Griffoul <fgriffo@amazon.co.uk>, 
+	David Woodhouse <dwmw@amazon.co.uk>
 Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2606; i=brauner@kernel.org; h=from:subject:message-id; bh=wBxYZkbuLq2vx9tHnE9HzeQESu+Hnu4x6fVoBaGOq2s=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97rHsKW7c7qUfM/PTyqkXDu+wq5XQEdy7ZO/qHSlN8 2c3iPGIdZSyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEzk6X+GfxavvpfVCmqsYy1b snqPxz3N8Ixjy2XenP/qsrrNPb/9wHyG/8WvPvNeb/4aOLFJQX7j5++rlv/axfqsyHddVbdZebv ZIzYA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 
-Declare the seq_operations and let procfs open and free the seq_file.
-->proc_open() only takes the snapshot of the statistics now and
-->proc_release() frees it.
+On Mon, Oct 19, 2026, David Woodhouse wrote:
+> From: David Woodhouse <dwmw@amazon.co.uk>
+>=20
+> Sashiko analysis and torture testing of the upcoming conversion of the
+> gfn_to_pfn_cache from rwlock to atomic SRCU=C2=B9 highlighted a pre-exist=
+ing
+> problem: refreshing a cache can fail while a memslot is briefly marked
+> KVM_MEMSLOT_INVALID during a memslot update, causing kvm_gpc_refresh() to
+> return -EFAULT. The Xen event channel and timer delivery paths silently
+> dropped events when this happened.
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- kernel/locking/lockdep_proc.c | 48 +++++++++++++++++++------------------------
- 1 file changed, 21 insertions(+), 27 deletions(-)
+Gah, sorry for not reacting to versions 1-3, I completely misread the cover=
+ letter's
+subject or something.
 
-diff --git a/kernel/locking/lockdep_proc.c b/kernel/locking/lockdep_proc.c
-index 1916db9aa46b..9b034b5b94bd 100644
---- a/kernel/locking/lockdep_proc.c
-+++ b/kernel/locking/lockdep_proc.c
-@@ -638,40 +638,35 @@ static const struct seq_operations lockstat_ops = {
- 	.show	= ls_show,
- };
- 
-+/* procfs opens the seq_file */
- static int lock_stat_open(struct inode *inode, struct file *file)
- {
--	int res;
--	struct lock_class *class;
- 	struct lock_stat_seq *data = vmalloc(sizeof(struct lock_stat_seq));
-+	struct lock_stat_data *iter;
-+	struct seq_file *m = file->private_data;
-+	struct lock_class *class;
-+	unsigned long idx;
- 
- 	if (!data)
- 		return -ENOMEM;
- 
--	res = seq_open(file, &lockstat_ops);
--	if (!res) {
--		struct lock_stat_data *iter = data->stats;
--		struct seq_file *m = file->private_data;
--		unsigned long idx;
--
--		iterate_lock_classes(idx, class) {
--			if (!test_bit(idx, lock_classes_in_use))
--				continue;
--			iter->class = class;
--			lock_stats(class, &iter->stats);
--			iter++;
--		}
--
--		data->iter_end = iter;
-+	iter = data->stats;
-+	iterate_lock_classes(idx, class) {
-+		if (!test_bit(idx, lock_classes_in_use))
-+			continue;
-+		iter->class = class;
-+		lock_stats(class, &iter->stats);
-+		iter++;
-+	}
- 
--		sort(data->stats, data->iter_end - data->stats,
--				sizeof(struct lock_stat_data),
--				lock_stat_cmp, NULL);
-+	data->iter_end = iter;
- 
--		m->private = data;
--	} else
--		vfree(data);
-+	sort(data->stats, data->iter_end - data->stats,
-+			sizeof(struct lock_stat_data),
-+			lock_stat_cmp, NULL);
- 
--	return res;
-+	m->private = data;
-+	return 0;
- }
- 
- static ssize_t lock_stat_write(struct file *file, const char __user *buf,
-@@ -702,14 +697,13 @@ static int lock_stat_release(struct inode *inode, struct file *file)
- 	struct seq_file *seq = file->private_data;
- 
- 	vfree(seq->private);
--	return seq_release(inode, file);
-+	return 0;
- }
- 
- static const struct proc_ops lock_stat_proc_ops = {
-+	.proc_seq_ops	= &lockstat_ops,
- 	.proc_open	= lock_stat_open,
- 	.proc_write	= lock_stat_write,
--	.proc_read	= seq_read,
--	.proc_lseek	= seq_lseek,
- 	.proc_release	= lock_stat_release,
- };
- #endif /* CONFIG_LOCK_STAT */
+KVM's de facto ABI is that userspace must "pause" vCPUs when modifying mems=
+lots.
+KVM obviously needs to ensure racing updates don't harm the host, but beyon=
+d that,
+it's userspace's responsibility to ensure vCPUs can't see mixed state.
 
--- 
-2.53.0
+> The first patch is a standalone fix which the same testing found: a guest
+> parked in SCHEDOP_poll with a zero timeout halts holding vcpu_run's
+> kvm->srcu read section =E2=80=94 unlike every other halt, which drops it =
+=E2=80=94 so the
+> VMM's next memslot update hangs, unkillably, in synchronize_srcu() until =
+the
+> guest deigns to be woken. A memslot add which normally completes in
+> microseconds blocks forever.
+>=20
+> For the KVM_MEMSLOT_INVALID case, in some cases we don't really care very
+> much: the VMM should really be using the KVM_XEN_ATTR_TYPE_SHARED_INFO_HV=
+A
+> mode which doesn't depend on memslots at all, and more faithfully represe=
+nts
+> the Xen semantics where the shared info page exists whether it's mapped i=
+nto
+> the guest at any given moment or not. But we can be more consistent, and
+> more intentional about it. So...
 
+I don't want to be more consistent or intentional though, because that risk=
+s
+signing KVM up for something it fundamentally can't support.
+
+See also: https://lore.kernel.org/all/20220909104506.738478-1-eesposit@redh=
+at.com
