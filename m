@@ -1,93 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793825475;
-	b=r5O85aZwPzA0s1ZF6MXYG3qFEsAZg5HwlEzDoHZHZmyVnNn2iminb3lUjebcbXCsYTsY
-	 Oxv2y5EA8WMdhDDmse71mG2xzBGllpzk1yawi741/vhWh3fmLRIer3EP14w4m9Rek6q/g
-	 83azroWhoR2YG2OSQZsVmyes27Qxyi29NgZ+rq7xL0WjWsopUhyaw92Z6KOHhO64Zpajo
-	 leTPUnIOtqGjbuGYnBn2ZKS8nOhGyH3QX4dE7WnNLNIvDlcjJK3APPesC/LMA6g+REIMG
-	 KkJ0HuDMYaqFOgIEQUYenZnDE73bgOgPecYTAXorlAB1Ttna1c2wuqKrTzCVOWZHW5A==
+	t=1793825501;
+	b=K6ABwXfksSHwkI7F88hPQsygBBlGMGz3nccvbJ3phrloZgcfq1JeCKtlxqkKrZCklaI5
+	 FM0ABwBCPq2vEqh6yxPBHyWuEoEaXvbpdJoMOTsh9yM2dRMmkY72DldR/YawsIzN7QuHA
+	 seiJONEFm40GRsqZiE01wjGEtFDx2JZ7wnmluekCO3zpUz8pkQD2o34CwnZwrMkqGvxIm
+	 x97Gk7AYcoDrCDD/MmNiwcF6tExZ3DqcqHEIPMxFXBhEdq9IMsUuPL0GeLyzhFbJtHZqQ
+	 BWqiPwBssJj8SmibrmWgkskZQvCNadIh5a8mZeyEyi5ogLKK9LdnymxwoBgu09bYgyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793825475;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ZcuOQZa8CoqUQadF07jVeaxK5x/sHuN3v5tWYCwYq74=;
-	b=rIX/jeXa9/a5r738buK8iDBguR69LPg/qaDk9aZV9i2QjrjtFLq29h6HMO9TDXgoegsA
-	 uxN2dYdGyY0MfWqCPSh9YGRwk95EXB94wlhFuGQUz8YVKrYoBnXfH1KUUohH0H0ztPPo2
-	 mNRAHmzNlwmmvSvUFEFeguNKKw7A/bpOc7AMZSNukQ5bwE9bzEEw7P/cBa8Cwv0vpkc09
-	 I+cl6kevkAXieHheHUIf5L/nSPNlH82gA5la6nKWnQTrjBTcXgl2R+pBi8S9XFm9gcOmL
-	 oa/5F3Yk4wfz9Fq/M93Kk9Rf4Oy/oB4dHa75ViHcRMZitoigmaFJWhBgylaVvSZUDRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793825501;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=ZfTs+ryizwPn0Cl3XX+fYi34UNKxEvbPC3g5XcJfRFc=;
+	b=dYJTLAp/5N4zIID7Y6IZ8r1bbODGWq0q+oYCKO3rjubo74iC14O62YoVwIWq8A1+kAbD
+	 wVPO3xGf5aHGJMbPwsCX9vFHrIkn4hBwXLIKCkieGIXTKSXxDdRO8mX3JOEJwScRT0YoG
+	 HIxBNwoChT5b0gzjSNSOctW5B5umvnVqDQUuv4gGpYqkCZBdixfqC17kFRZEy+cZmV4Sx
+	 t/rm5sOcQcblOC1SDbGvheGldz/u5zQ6I8KFDBMZbLEFTl65oZVP0NjXgQCuo0H/dEfjG
+	 MJYuzmwjWmxUGczVjpt9p4hovGWc7sK8SMeqy5sXLQc+ZD+wBH1d2RVI+1JrpjqV5Zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SSsn7P90;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=gYMcabrr;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B18236078013
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:51:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B18236078013
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B7886078141;
+	Wed,  4 Nov 2026 20:51:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B7886078141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SSsn7P90
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4b4571ff080so12629345e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:51:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793825473; x=1794430273; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZcuOQZa8CoqUQadF07jVeaxK5x/sHuN3v5tWYCwYq74=;
-        b=SSsn7P90dR5f2ydusgbmgYVNZkXrDNlPm4mNB1yIHi5pEHOOTuOaFP+ENyxF+wZXH8
-         RSAqv7h+MuAlWSgHTkrutPIbkQD07msDxvOHGFFqyzSpiXRwlxf+ZYjv3amHCK9BJfmF
-         1lTlMxm+X98lhq9s1uBWpF1Z6cq1eTVJcJTOXhx8DN4gAqszAYY1cxGIrbFRVGfuf+gL
-         9e+RckryyUl0RSw3gtF+oMO9IGwc6DPit7peTWgFRvvLTtQcwgSuQ4PYVD7aXpb70Kdm
-         XnofyJRNkALuYmdMO40p1ms8ignfUvtektdnlTqciXItA1Rq4mcd1bItc6knJChGTEXQ
-         xMeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793825473; x=1794430273;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZcuOQZa8CoqUQadF07jVeaxK5x/sHuN3v5tWYCwYq74=;
-        b=2c4lB5HathOs8P1Xrl4RM16z8ZJMoT8cmMjw02rf9cB3LWwqt6FfLyrpP0at3U7wME
-         B4vLAVLg+85fJA239yuAlKB+N2Lmor5ORB8HDn1K8/FQRH2ENfIZhpsAQizTNk6eafai
-         V/qe9oPRGKwJ49CRsBb3qYlDYOp60soEoAoagQtXHXbu86x9lWFw2sOxb0tKX49NsG5B
-         BV+OB6KKhrlFkljbTUNYyr3RDdgOsoqeddqQ7pIMs34fYd/yVtze2t5L9XZmh2qzSaCA
-         WWC9zxp76cPbdgPXn9KmeO9PFOJY1FxbeiaFkfUy8FKLsXi18HDuTusZL2ZHWDCn0Zxs
-         ++Xw==
-X-Forwarded-Encrypted: i=1; AKwUvBw8AXOpmvdMwWHmqwfdN7mV8B3FvI/gUvIqUJOLu6a383yZtEhx0V03u7SlCbXOsxMOtsfcQphcL/JTRKk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8l1lZyJT5Igs0G4ZdLmXy/gixyJiguztTo5k/l82koDmXsfrK/
-	yGjQSiVz/K1faElc6sznMAtPTdmJxGtXmc9pRhKybc9bSxnBX6c1+F4ZUSynN9UbcOo=
-X-Gm-Gg: AYBFou0om5NlQm4+lK9/UgPdZLRRVOsjzgEnEMdr3gYQmVUvBEby5zgKL1IMnuiaJzO
-	7MvNJG4C2nku6rRZu8aEVQCNUkhSto666683GunFCKUryyB0OHH9NnjjobMZWUt/qUdGthGygNX
-	lZeWJQ28P7Hv7Fm3WrEnN2G0XvKujqtRTP3sx+7qzAutAq0KierzZn81fDZiIZIDEVMzcF70ZTZ
-	W5AbeoWrrWeywepxU0AagVn22fZUeXG1i4uD1elSKP9apgHfbI+5zIszVPa9xAhFmjBMtb01JPa
-	441zLyHvWCQ2fhQRkXc1qwblpJalANu8y/9bIZv7JJWNyUMcsVXt6pD9MSFxf2nCd8KiA9uUjOA
-	KUwlmI1ENpKDQ9WfkSDHi81I6E8NG9xWOL8Jl4liMJtwKgu4zEANQrMW8VbmVjRY2uM1HL8qjzZ
-	aCgc8KRpy4Rof/TAnqJZrZ88gwu+8+95huzDuY7ZeVP6hc2xTe8SXvbMaGX8K+qrvnUM5Go1Vpp
-	/1jCoiVLEm12BbfPoEI8x5208RGWrp+U+vW5pkZ7V9ZWRg4eDpVQnHce24EOSlprFoQoCM0VBJq
-	3ghBKlb9tOLNTn1AM6iih9RvKytQQQ==
-X-Received: by 2002:a05:600c:1c0f:b0:4a2:150f:1601 with SMTP id 5b1f17b1804b1-4ac1709a7bdmr399320245e9.12.1793825472951;
-        Wed, 04 Nov 2026 12:51:12 -0800 (PST)
-Received: from pop-os.. ([87.248.177.225])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b572caf48bsm11214565e9.11.2026.11.04.12.51.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 12:51:12 -0800 (PST)
-From: Albu Victor-Marian <albu.victor.m@gmail.com>
-To: parthiban.veerasooran@microchip.com,
-	christian.gromm@microchip.com
-Cc: gregkh@linuxfoundation.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Albu Victor-Marian <albu.victor.m@gmail.com>
-Subject: [PATCH] staging: most: dim2: add missing Return: documentation
-Date: Wed,  4 Nov 2026 22:51:08 +0200
-Message-ID: <20261104205108.1041666-1-albu.victor.m@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=gYMcabrr
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=ZfTs+ryizwPn0Cl3XX+fYi34UNKxEvbPC3g5XcJfRFc=; b=gYMcabrrRrrv8R/JgiDQxQdpoO
+	B4xeVkOkMAmW5SkgjzvXAXfOQ6JqfSA21vWQ3ZWQJRkwxEO00Cr1X2Q8EZW3y3AT0vPDV9fkXqdBk
+	gqDbevO66SBMR4liG1+Nj0cg3+SfEF6DPc6bOe2V8Dj/iZhjs/xwOY6jPcw98oWTSJ+c=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xOhwz-00ENw1-4M; Wed, 04 Nov 2026 21:51:17 +0100
+Date: Wed, 4 Nov 2026 21:51:17 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Qingfang Deng <dqfext@gmail.com>,
+	SkyLake Huang <SkyLake.Huang@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Joris Vaisvila <joey@tinyisr.com>,
+	Ahmed Naseef <naseefkm@gmail.com>, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH net-next v4 5/6] net: phy: mediatek: add calibration
+ logic for AN7581
+Message-ID: <68eecc53-ed61-463d-bb5f-c68b507be82a@lunn.ch>
+References: <20261103221439.30502-1-ansuelsmth@gmail.com>
+ <20261103221439.30502-6-ansuelsmth@gmail.com>
+ <2b744929-609b-4529-8b6b-30feb3ebbbde@lunn.ch>
+ <6aeb7861.6171b307.11ae12.6b94@mx.google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,105 +77,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6aeb7861.6171b307.11ae12.6b94@mx.google.com>
 
-Add missing Return: descriptions to functions in dim2.c. 
+> It's safe in the measure that the worst is that link goes down during the
+> calibration... I will rework the function to assign the base address to the
+> default address for port 0 (it's hardcoded by the SoC) and use the lock and
+> read/write helper instead.
 
-Signed-off-by: Albu Victor-Marian <albu.victor.m@gmail.com>
----
- drivers/staging/most/dim2/dim2.c | 30 ++++++++++++++++++++++++++----
- 1 file changed, 26 insertions(+), 4 deletions(-)
+Are there multiple PHYs in the package? What happens if both are doing
+calibration at the same time?
 
-diff --git a/drivers/staging/most/dim2/dim2.c b/drivers/staging/most/dim2/dim2.c
-index 0e2512d166329..7ed38d5d93f05 100644
---- a/drivers/staging/most/dim2/dim2.c
-+++ b/drivers/staging/most/dim2/dim2.c
-@@ -156,6 +156,10 @@ void dimcb_on_error(u8 error_id, const char *error_message)
-  * @hdm_ch: channel specific data
-  *
-  * Transfer a buffer from pending_list if the channel is ready
-+ *
-+ * Return: 0 on success, -EINVAL if hdm_ch is not initialized, -EAGAIN if hdm_ch pending_list is
-+ * empty, dim_channel is not ready or there is not enough DBR space, -EFAULT if first MBO bus
-+ * address is 0 or dim_channel fails to start
-  */
- static int try_start_dim_transfer(struct hdm_channel *hdm_ch)
- {
-@@ -211,6 +215,8 @@ static int try_start_dim_transfer(struct hdm_channel *hdm_ch)
-  * @data: private data
-  *
-  * Wait for network status and deliver it to mostcore once it is received
-+ *
-+ * Return: 0 when the thread stops without error.
-  */
- static int deliver_netinfo_thread(void *data)
- {
-@@ -392,6 +398,9 @@ static irqreturn_t dim2_task_irq(int irq, void *_dev)
-  *
-  * Acknowledge the interrupt and service each initialized channel,
-  * if needed, in task context.
-+ *
-+ * Return: IRQ_WAKE_THREAD after acknowledging the interrupt and servicing each
-+ * initialized channel.
-  */
- static irqreturn_t dim2_ahb_isr(int irq, void *_dev)
- {
-@@ -442,7 +451,11 @@ static void complete_all_mbos(struct list_head *head)
-  * @ccfg: structure that holds the configuration information
-  *
-  * Receives configuration information from mostcore and initialize
-- * the corresponding channel. Return 0 on success, negative on failure.
-+ * the corresponding channel.
-+ *
-+ * Return: 0 on success, -EINVAL if ch_idx is negative or bigger than or equal to DMA_CHANNELS, the
-+ * buffer size of ccfg is too small, sub-buffer size of ccfg is invalid or bad channel type, -EPERM
-+ * if hdm_ch is initialized or -ENODEV if init_ctrl_async returns any error value.
-  */
- static int configure_channel(struct most_interface *most_iface, int ch_idx,
- 			     struct most_channel_config *ccfg)
-@@ -561,7 +574,10 @@ static int configure_channel(struct most_interface *most_iface, int ch_idx,
-  * @mbo: pointer to the buffer object
-  *
-  * Push the buffer into pending_list and try to transfer one buffer from
-- * pending_list. Return 0 on success, negative on failure.
-+ * pending_list.
-+ *
-+ * Return: 0 on success, -EINVAL if ch_idx is negative or bigger than or equal to DMA_CHANNELS,
-+ * -EPERM if hdm_ch is not initialized or -EFAULT if MBO bus address is 0.
-  */
- static int enqueue(struct most_interface *most_iface, int ch_idx,
- 		   struct mbo *mbo)
-@@ -637,7 +653,10 @@ static void request_netinfo(struct most_interface *most_iface, int ch_idx,
-  * @ch_idx: corresponding channel ID
-  *
-  * Destroy a channel and complete all the buffers in both started_list &
-- * pending_list. Return 0 on success, negative on failure.
-+ * pending_list.
-+ *
-+ * Return: 0 on success, -EINVAL if ch_idx is negative or bigger than or equal to DMA_CHANNELS,
-+ * -EPERM if hdm_ch is not initialized or -EFAULT if HAL failed to close channel.
-  */
- static int poison_channel(struct most_interface *most_iface, int ch_idx)
- {
-@@ -710,6 +729,8 @@ static struct {
-  *
-  * By success stores one of the CLK_{NUMBER}FS in the *val and returns 0,
-  * otherwise returns -EINVAL.
-+ *
-+ * Return: 0 on success, -EINVAL if the string in clock_speed does not match any in clk_mt.
-  */
- static int get_dim2_clk_speed(const char *clock_speed, u8 *val)
- {
-@@ -746,7 +767,8 @@ static void dim2_release(struct device *d)
-  * @pdev: platform device structure
-  *
-  * Register the dim2 interface with mostcore and initialize it.
-- * Return 0 on success, negative on failure.
-+ *
-+ * Return: 0 on success, negative on failure.
-  */
- static int dim2_probe(struct platform_device *pdev)
- {
--- 
-2.43.0
+PHY #0                            PHY #1
 
+
+phy_modify_mmd(phydev, devad, regnum, mask, cal_val);
+
+		       	      	  phy_modify_mmd(phydev, devad, regnum, mask, cal_val);
+				  ret = mtk_cal_cycle_wait(phydev_p0);
+
+ret = mtk_cal_cycle_wait(phydev_p0);
+
+    Andrew
