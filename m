@@ -1,68 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793795038;
-	b=jt4PO/P4lg1p/TprckJ2+WLX49rXLwEK6/6iaMIPpC3lRzOPv2CwyJBL7OiY4ptr8PiJ
-	 v+t4i2YyRJym1KK9umUmpXMw8agH71GZ0GOxX6cLnZlpWHJu96kE1o9N5nz4oi5PDZvHd
-	 BG2kiuZ7Q+cBSjWd/mXMG44KrJDp92o0DMbzI9Vu7E+nfHIw1BmQmjlWq9iydOZMNOshx
-	 QZATxYdGd92bU989ErO8qR0MtwVsEopbP0LD7DdVSc/vzaWQuhHfKgcjolXGDPCqZosNL
-	 y5q2swTZCM4iVz+GyTiqp49puNFu1WLpCMIZJDIHiMzWhb3fFB4yss0CCBtkqtfDl1w==
+	t=1793795091;
+	b=SvhUMxYkdhSKwz3XgshzCP2F6/Kja5wLpVFDpTXUqHW1x9+OWJowAS8ERn3r//TJqKeQ
+	 ZuAcG5Lco5fn362Q5q5hkUHDMvhtLHY+vdalP3yDfbh2FNXme9S9q2a1QlSFuyr7drKcL
+	 VJ91VhykSVcAtkm9VTSNDH0lTR1x5ty7kZ8wC1hA3nciwFhyvdetn7V3FzNR4gEJ50HyC
+	 ox6crxq6cupim1b/8JQT/lRJ4a84NWPp9mLx/Rd+NKC4jZx92NjIBFWdNw5R8XgmmFlQ+
+	 oKjga+x17p8rblAP+xAVQpBLNMQS9g/tW/oNi/VLfImk2LhsOhTL48Wv883vsEf9Qxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793795038;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Za+88lM2oxtjmrakYQ+1cqIpKaHb38fBg5z8c40LFio=;
-	b=tMn8htMw83otk9osZGZ+DAwLKBvk5OCG8GQkM+1Vn08YX/X0+ijG2if37Gfy+NUHWpjE
-	 NU4vHrMfJus0UZBWDJucrGBQuGZwxHhbJ/I1cadvVvlXWTS1X8EM368THeAPnBf0sU4mW
-	 Z7ObSFOTSEQemDS2A3EJ5ibgaY+vLzHCkIZlS6UgFIc9VTce8EAWF65iNik1Qe5qvDdPc
-	 OMhr0LfNBKdmXhg3OVjAkoXxDJhn3PZceSs8L0vTNWXGgsdhC28WVOii3UQP8tWh5ZpJF
-	 bLZrS/kTzG5wvlbiN3GXlIaK68sdDZgs+/X3EbgOYLqT/vTKezouk1dOovbksC9ZByg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793795091;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=XNmrnQLKNQ/MDoLuIp/7vZYSf99RWekPLj/FzDmiyl0=;
+	b=g7QrcMwX0Kn5yO4ifHvER16zm48BZzq3gGeg1yr6z/49WPYu7Fbvt/hpT4sV9puKlwUx
+	 eLsIZWWXCfuy4NBgxAG1EXvsnWh0ofO6MtaA7yCC8TiagVewjpr4Pku65zlAfOxLnEei0
+	 mAiyOpMLWFJwB4l+FuPw6R2M8+NyWI6SL3irkKBfkpmtnHUMsOBis4aBlwuyGUbREGqB5
+	 0F461Wru0qWu6So4SDzig73GT3WRp7ENDNU3ajlNgrUgs+ade0kwtrwZlSJsosItimonz
+	 ky0np1mkj1JzR2UwbXhoZzYT0VwhPe1HcK8P298CQhGeeWoxDhCg6utRBI7WuU/XuOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=i720krEQ;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=B8KWGY3x;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=5vTouD4T;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=HgLQC5gs;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=OdOXGJkj;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35C06606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 12:23:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35C06606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2203606A329;
+	Wed,  4 Nov 2026 12:24:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2203606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=i720krEQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793795038; x=1825331038;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=1BGhszcXd1nd2f/W1asjzyiXIgQ6Y8hOWyfjyF/i5wo=;
-  b=i720krEQiSAfIXk+lGR+Qhltid7v2lQjfhlWLHVy/mgyFDCbfbs/woiw
-   GfgCex6hPEpDKQs0VuF3WUYNjNrZ3eH//OnoAlUFHoX4jZIfFofqsZUYc
-   6UC+EJZxzw91Q/+8PpADyVWPUYXYA2SpZlfDJPy57QeudaEhU4woY5zju
-   69vuD6zo23VH4/hVizWndGXtfy+5MWf7jELKhJJlyji7yEd2EgSvx+zQu
-   /hGgXaGXXc3t6LX41vKHkPeZFu68nXQbiB3UCaI1sC1Sr4mjXa/ReO5AC
-   tPAllUwVZuuwqOU/rzzucUktbzzermXkd23exZ0i5v5T/OzLx9bNFGjuG
-   Q==;
-X-CSE-ConnectionGUID: /tgvQEAETnaqKeHjSWhnYg==
-X-CSE-MsgGUID: TzbBImzqRKK+G3Qd8aZdXA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2425499"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2425499"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 04:23:57 -0800
-X-CSE-ConnectionGUID: Qwin6OTXTPmwyFEmPMQdlg==
-X-CSE-MsgGUID: cyPe5PgjQHejj2+uFyT8eA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="6532938"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO [10.245.244.43]) ([10.245.244.43])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 04:23:54 -0800
-Message-ID: <5f114662-8c82-4781-9bb1-32e49112fbf4@intel.com>
-Date: Wed, 4 Nov 2026 12:23:51 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=B8KWGY3x;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=5vTouD4T;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=HgLQC5gs;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=OdOXGJkj
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E31461F444;
+	Wed,  4 Nov 2026 12:24:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793795089; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XNmrnQLKNQ/MDoLuIp/7vZYSf99RWekPLj/FzDmiyl0=;
+	b=B8KWGY3x9w/OD4QG98rL3PWMD5ZUPDfI+tKORnZUlzqldFWrWohOBAyvr7g5GDeZ7+7bOL
+	SDYVLs4uZl1ZWBUsEFaxIBMiA7Wx92nKt6JVn3YecFAy4td//ibZiHOJcnWIA1r5bWsAf8
+	Q+al1C6ZqVTI/Cc4fLDwQhU5kAT5svU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793795089;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XNmrnQLKNQ/MDoLuIp/7vZYSf99RWekPLj/FzDmiyl0=;
+	b=5vTouD4TXJOt8d+3D4pnInf4aD806DzEFGA6puXemTawLaDBSkpVjn9gMWIIhQkIJG6Ulg
+	ZmlbZei7xhzSCADQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793795088; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XNmrnQLKNQ/MDoLuIp/7vZYSf99RWekPLj/FzDmiyl0=;
+	b=HgLQC5gsVedS0j82/uhuLLWySwJi+GnYvnvJG/SJLuE5KsdY1Rhq6OCEVx7HE5P/5SdYrK
+	otQ4F0UKhS3HRSq/hrPa9dR8ZygzAR+JT+T3AShehkOR6BVb8vdCIyQF5ba5gtj2bkYQVH
+	AmxWEZa8ac+b/fUHHvocBIcHFbcogY0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793795088;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XNmrnQLKNQ/MDoLuIp/7vZYSf99RWekPLj/FzDmiyl0=;
+	b=OdOXGJkjcHKO3Ti5fXUDD/4TMuk7xhhY+2lyzZqKzDLKtH6ovyiCm4umqBK3JrvMLcXfxR
+	o19Oi/LHImCz86CA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B1C6D134F0;
+	Wed,  4 Nov 2026 12:24:48 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id vLJ3IhAk62rWawAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 04 Nov 2026 12:24:48 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 37672B368; Wed, 04 Nov 2026 13:24:48 +0100 (CET)
+Date: Wed, 4 Nov 2026 13:24:48 +0100
+From: Jan Kara <jack@suse.cz>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: jack@suse.cz, sortie@maxsi.org, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] isofs: handle Rock Ridge long-form dates before 1900
+Message-ID: <hgfr4dfhp6blqqkdjrmw4uihofgzjljfpks7bumzmizcdt6b2o@sbjhrm6mzx56>
+References: <20261029004902.76944-1-dennylin0707@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,55 +109,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 27/33] drm/xe: Add IOVA-based xe_res_cursor variant
-To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-References: <20260711025619.2540575-1-matthew.brost@intel.com>
- <20260711025619.2540575-28-matthew.brost@intel.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20260711025619.2540575-28-matthew.brost@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029004902.76944-1-dennylin0707@gmail.com>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-12.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_COUNT_THREE(0.00)[3];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
+X-Spam-Score: -12.80
 
-On 11/07/2026 03:56, Matthew Brost wrote:
-> Introduce xe_res_first_iova() to walk a buffer that was DMA mapped using
-> the IOVA-based DMA API (dma_iova_try_alloc() and friends). Such a mapping
-> is described by a struct dma_iova_state and is a single contiguous IOVA
-> range, so the cursor walks it as one segment.
+On Thu 29-10-26 00:49:02, Hungyu Lin wrote:
+> iso_date() stores the year relative to 1900 and rejects negative values.
+> Rock Ridge LONG_FORM timestamps encode calendar years from 1 to 9999,
+> so valid years before 1900 are returned as seconds since the Unix epoch
+> equal to zero instead of their recorded dates. For example, an 1899
+> timestamp on an image produced by xorriso is reported as 1970 by stat,
+> and cp -p preserves that incorrect time.
 > 
-> Add an is_iova flag to struct xe_res_cursor to distinguish this case.
-> When set, xe_res_dma() returns the IOVA backing the current position
-> (state->addr + cursor offset), xe_res_next() advances within the single
-> contiguous segment, and xe_res_is_vram() returns false since IOVA
-> mappings never point to same-device VRAM.
+> Use the calendar year for both timestamp formats and pass it directly
+> to mktime64(). Keep the epoch fallback for year zero, while allowing
+> valid long-form years before 1900. Short-form dates are unchanged.
 > 
-> The flag is explicitly cleared in the existing xe_res_first(),
-> xe_res_first_sg() and xe_res_first_dma() initializers so stale stack
-> values cannot leak into the new path.
-> 
-> Cc: Carlos Santa <carlos.santa@intel.com>
-> Cc: Ryan Neph <ryanneph@google.com>
-> Cc: Christian Koenig <christian.koenig@amd.com>
-> Cc: Huang Rui <ray.huang@amd.com>
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Assisted-by: GitHub_Copilot:claude-opus-4.8
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> Fixes: 5ea45f54c8d6 ("isofs: fix Y2038 and Y2156 issues in Rock Ridge TF entry")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+Thanks for the fix. I've added it to my tree. I've dropped the CC stable
+since this really isn't a serious issue...
+
+								Honza
+
+> ---
+>  fs/isofs/util.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/fs/isofs/util.c b/fs/isofs/util.c
+> index 42f479da0b28..6f9a90e58a89 100644
+> --- a/fs/isofs/util.c
+> +++ b/fs/isofs/util.c
+> @@ -25,7 +25,7 @@ struct timespec64 iso_date(u8 *p, int flags)
+>  		year = (p[0] - '0') * 1000 +
+>  		       (p[1] - '0') * 100 +
+>  		       (p[2] - '0') * 10 +
+> -		       (p[3] - '0') - 1900;
+> +		       (p[3] - '0');
+>  		month = ((p[4] - '0') * 10 + (p[5] - '0'));
+>  		day = ((p[6] - '0') * 10 + (p[7] - '0'));
+>  		hour = ((p[8] - '0') * 10 + (p[9] - '0'));
+> @@ -34,7 +34,7 @@ struct timespec64 iso_date(u8 *p, int flags)
+>  		ts.tv_nsec = ((p[14] - '0') * 10 + (p[15] - '0')) * 10000000;
+>  		tz = p[16];
+>  	} else {
+> -		year = p[0];
+> +		year = p[0] + 1900;
+>  		month = p[1];
+>  		day = p[2];
+>  		hour = p[3];
+> @@ -45,10 +45,10 @@ struct timespec64 iso_date(u8 *p, int flags)
+>  		tz = flags & ISO_DATE_HIGH_SIERRA ? 0 : p[6];
+>  	}
+>  
+> -	if (year < 0) {
+> +	if (year < 1) {
+>  		ts.tv_sec = 0;
+>  	} else {
+> -		ts.tv_sec = mktime64(year+1900, month, day, hour, minute, second);
+> +		ts.tv_sec = mktime64(year, month, day, hour, minute, second);
+>  
+>  		/* sign extend */
+>  		if (tz & 0x80)
+> -- 
+> 2.43.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
