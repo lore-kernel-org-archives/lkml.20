@@ -1,72 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793773701;
-	b=JsPA4OVRZ3xXgljxdDBzh97aZ1vqVLCtIxJUZMIUQtCd2SkYrcPaOit9dKd1n6P5Lufj
-	 JHx+wMOZvWV1lqG31oNc0CPsPQ9+HCL1zGpq+qQVo9+gVTJ8mUetddD4+00ZCAgCHLyBs
-	 JgWu9fAo2uQCqkJrd0aah0o8Bpek5jY21eplpNwbtQekvScRhSfWcyFX/9XVoodi31J/D
-	 LDk872i/bd8DAUnbXSu36HAv9kXxj0u53mWMPkd7fYA+yj0vNJOqGPDnLenZb56ES299F
-	 xt+CKHueWa2V31CH2pPG1UDBBQF64CSkiGiSu+z2WI8cSHabuxnyjBANciBiNKGs4SA==
+	t=1793773825;
+	b=wtqyKlyOimj7KRDAMvb2sXXXExQx6Z9/ME+etbGPIGJTGhA/7Ws5jQZUqeM9uV22Imdo
+	 VS6LGJZ6eODxC620vJqE5gj5/KiJR5p4UE70Wg1YtP+S8RlqfekE4zqC1wnbNAddri1Zr
+	 D5cu/yngjkNC8Sp9RI1yUBJT6b6w6pp53s+3FlXcDYPV8kB4fejo6chd5P6zB7BAcb6H1
+	 jzb39THWQbRAUsK0rQX/kKQUUHYBNX89wOkUwAt7vPdzQ6xzJUqnZ7/29DDyF30skzDY1
+	 1pIRsXV90/cipxpygtc/QbEXxfu8uLrY1mm0I2h+PP9gtAGhsrivRImUga+tt1TTO0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793773701;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=y/DotVulc/iWclWwhA+eInaLjqIepNlkZlsNgM9c/fU=;
-	b=qgXKkUFoQnHUzAbrSz89y9qQs0em+jh0YkEE9dxm0GjuvjROh6TNWxwE3SGaCEBBFwgw
-	 6ihfegrW7O1+gyq0jAYe+S1/s+FSFmNaJApqYp9yDfSo2/fi2e0CK8gPWRfmI63CwKY54
-	 pZ98qDq4BlFKl2lE99Rw72N6GIwZVTiBlCa533maygVyhzggT40wlNCNKwRbaj+XmWt7V
-	 5r57UErDpDulR9XlbtQBfq8zXFmMXsumI6jG/N1OpEIAKRR+Z4LjbYebUlrr1HJSywiWF
-	 ARlj3AtoJMyYzGGnQPbuSifx/DBEDbqYfJNDMALOKTaZJSmPGqugvcNu6G46JIooKeg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793773825;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=O8cdky/dUq4o/+8BqqMciuYE3yifM3kH+XYEckRYZPA=;
+	b=RyYYjzMWVH5TD7BowT0D155+J9eOmjcHFrGy2Z/zxHJVYeAYHbisULZaTD+eECIRGCGs
+	 pfQZNJt/kBY3JpLh8O542boXOIIEwkbNgN4QpAhZtLBj0MvgWFZja44dqoxhuyckGiARy
+	 61p52Tn5iZxBRJvpPxbr0eJTgzfvAhmvNTMawxxFnLs5uDnXxpxhvZgEBiqjNp3pOUrJ4
+	 Z2MF/utxC8yd7yJj9PJQW0+99pENZaDoVX0BaRy0tI2AiFA3uezu/NPgIIK4TCbI0nZ5s
+	 llQOYhgvrmUKUk8kn6NLmhKNk3B+6pEYh1LHhfyE2v1EWdEelXGwUBLDO8Sn1vkURBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gibson.dropbear.id.au;
-	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
-	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=foE0mRap;
-	arc=none smtp.remote-ip=150.107.74.76
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Fs1GCgGD;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IQ8bQCOa;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AD53606A326;
-	Wed,  4 Nov 2026 06:28:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AD53606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AC5F606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 06:30:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AC5F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=foE0mRap
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Fs1GCgGD;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IQ8bQCOa
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A40R0mY1191071
+	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 06:30:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=O8cdky/dUq4o/+8BqqMciu
+	YE3yifM3kH+XYEckRYZPA=; b=Fs1GCgGD/ycySmrQoZfYVeRePW0fDDhNA03IyB
+	KamdjQ9o9qlyBQ5ad2VEOngi+296N5jBIsthiYH+Sw/mgvM4/O06B7OzDkkL+CHi
+	aGRsgmrR2Q/YVABudGor5KY6wLe6p15Eogv9v7F/gI4DQnBIgu00cNoMJshxXwm0
+	3RItuhLoNnrnKGU/juSL4903NpGt3PpBmU7VJCHQoZ6UUeiPwVGvLllIefqRztsW
+	OZ6eJbzl0X6M1l5e+HwSveTrq2fb5kdEyo4AClRzmCA4/kreCioVls6HRLNkm0eF
+	ObzUOacu/Qh8LcKFPNApDUDP7W1VeQDSz8bwaQQqjp40lkOQ==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqm2pjnj1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:30:24 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3b0a13ae043so71125a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 22:30:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202610; t=1793773692;
-	bh=y/DotVulc/iWclWwhA+eInaLjqIepNlkZlsNgM9c/fU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=foE0mRapRy/MTN1iUubN+TTCEeP5y9sUqzJx75OBHVF+vLK8Q5VBOaR1PAUDiSwgC
-	 yfV9ex0Pqed/01SRsaDruoRJFMFf5hpVMciuf46LCa/0QI8ZSG4kRqIeafoagS95wY
-	 IJ1IMn4xWlufyM9NS+ugvDFY/LD6yjqx6/F7QrEjsMsWDLKlXPQ+tx0mHkYt2MS4gD
-	 nw6KRiSYN2qr4cN7PndjgsP6f7LUxa74MIU0TWR9K5bV1+I4s05MJur/5/vg233z+V
-	 PJ+lOs6tekjEYyc+PiFyRhRF8knZd3H+eHYFXUoDROiCsqyraIrQU6sWROCnfoP9eQ
-	 MHnVlh+A+RDDw==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4jKFqw6nmjz4w91; Wed, 04 Nov 2026 17:28:12 +1100 (AEDT)
-Date: Wed, 4 Nov 2026 17:12:06 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Doug Anderson <dianders@chromium.org>
-Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Saravana Kannan <saravanak@kernel.org>, Devicetree@vger.kernel.org,
-	Simon Glass <sjg@chromium.org>, Chen-Yu Tsai <wenst@chromium.org>,
-	Julius Werner <jwerner@chromium.org>,
-	Brian Norris <briannorris@chromium.org>,
-	linux-kernel@vger.kernel.org,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
-Subject: Re: [PATCH v3 07/15] devicetree: Add DeviceTree live tree
- representation
-Message-ID: <aurMrnE3vD5eCEAV@gractus.seuss>
-References: <20261101220224.1436242-1-dianders@chromium.org>
- <20261101220224.1436242-8-dianders@chromium.org>
- <auhYb6FV2dPrbVxB@gractus.seuss>
- <CAD=FV=Vzyu7Jfg43yZQmThc5O007h2Ch5J3cnc4FG3eJUj8pNQ@mail.gmail.com>
+        d=oss.qualcomm.com; s=google; t=1793773824; x=1794378624; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=O8cdky/dUq4o/+8BqqMciuYE3yifM3kH+XYEckRYZPA=;
+        b=IQ8bQCOad75JFw1EBrkB4SiTACw5Y23fI/mu0Jc3niOdXEDpDWcyb3cRHjW70woAai
+         iZKzoLkUVplvrlKOsZYcAxqUlOgWx4WY5LuS/L/2uJwTBdLA1l1yLViTYfeMtaCoE1n3
+         skFfOet3go+SnFS0dXpQEM84IQgcOPJI5eslYw3JlTyRA6/DOR5hp+qOUEB37xFc7lQK
+         AMvdEabuvOt0Bh02xNdtxFdfxQVfZX2YFfDyoYu/ZwkV32/ugPm+zYCTpNeWTJ1lo08G
+         0dfkzUdGmlqSAnaY3PkYKioSbNfxzKoAZ683lYVeFIB6aZBwjMiPkqzIpz5EXHICkoLV
+         3gbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793773824; x=1794378624;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=O8cdky/dUq4o/+8BqqMciuYE3yifM3kH+XYEckRYZPA=;
+        b=sOdUO9rsbGl/yfnPc2j6wy8tw84OwEItBWtedQp+PkcAfS2lsZBiZwbZT/woteAUqN
+         I2WA6CF5vuRdKRUte3BPcN483WttupFRS/9zvn5RPA4CRzX7H4sMzqzpGAGV5fo+Xz1I
+         KTPcxk9yNCVdNzxKV3nywPfOO5TKoLWlOjUv7tBaN9yzclb851dT4pu1Yl5i8SyPwx4M
+         JGFvXvZ6Y/y8uT3BKRMn8R/NjbcKn/rVb7CagQS+xtnFuM9yu5/ol4g4mYRk83nut4Xt
+         KqMGweItdZalmNx2D7jCcx/0X1q2wlVT5RCgCSNpAaF1BMT44yMIXr2NX6PfxemeONMe
+         QYjw==
+X-Forwarded-Encrypted: i=1; AKwUvBziOB5PkPDnh+0rlXl368aTfArB0OkPxwVmWS1ud5HaHR363P+bfhEiboQ56IF15CJUCpwg5HhRK0Veclw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9WC7DAN0vMVhhe0vPpyvl+0teu46brkT1fytme3CCPrNWU9LGR
+	wlOpDqJ8c5D/dKcm7NPU1cXX8yvyymi3VVcPq1i/CmxGOYYweSl+UH5Vwc8iuF9yBompXCirH1T
+	LNdGk9aL2UHArc9DNHOY/2CSDYFggOxK5lhowjx531Nv8+d9/xx9ch1fsOLCA+cNccDA=
+X-Gm-Gg: AYBFou1YIwgL+F8Pld8+Z2ImN4YbVjiN3C7pfRVSosnI5Jil5VzYpI9zuWJreDDLLtQ
+	t0K5+KYTdea8lZmul5ea05nuMdVvbdcgpeJL+G12/XynBkU1JU8nB4zAXf2pDBHNyjPJBZGk4Qg
+	IGPOJIB6Pdt3ukAywU7zzhKGKkaX5DKW2NS8wjv36Iuo6LJ3Mt9fjyQruRMGbk6bM5XAE2ehXWN
+	EqgB+oYNsyptBTYbWJL00iA6bIBZCkdhEOEOxDlP6puTDdeH6rYIHh4hYowVyOr9C/k1HNFpbsC
+	CUK3n3d/2Yw074kj5ArehwPzRGNX9zr+VNfX8eQ0I5wdey1gYsZVRFJyVMsnIQv6nLkJFXnMH70
+	uDlsR6ElazOozGvcKK+ruBICsVHw2i44WrADjWM5/Mc+CmVBD2miVflxCKH87GvLK3EvykNRCuX
+	6vREZ21S7rhKhL0gIKovqMmFy/5lGj/RovGUt1VBY6RTcxhSwkeqxowaZnGjr5rUVlvDFY98x7K
+	A==
+X-Received: by 2002:a17:90a:da86:b0:3ae:533e:7e40 with SMTP id 98e67ed59e1d1-3ae897eb0c2mr12837031a91.23.1793773823710;
+        Tue, 03 Nov 2026 22:30:23 -0800 (PST)
+X-Received: by 2002:a17:90a:da86:b0:3ae:533e:7e40 with SMTP id 98e67ed59e1d1-3ae897eb0c2mr12837005a91.23.1793773823150;
+        Tue, 03 Nov 2026 22:30:23 -0800 (PST)
+Received: from hu-madhgane-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b09445f7b3sm2420646a91.5.2026.11.03.22.30.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 22:30:22 -0800 (PST)
+From: Madhavan Ganesan <madhavan.ganesan@oss.qualcomm.com>
+Subject: [PATCH ath-next v2 0/2] wifi: ath12k: refactor m3/aux_uc firmware
+ memory handling
+Date: Wed, 04 Nov 2026 12:00:06 +0530
+Message-Id: <20261104-m3_and_aux_ucode-v2-0-b6c335c14dfe@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,286 +116,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="G9Gvtz0eoPTL2RSP"
-Content-Disposition: inline
-In-Reply-To: <CAD=FV=Vzyu7Jfg43yZQmThc5O007h2Ch5J3cnc4FG3eJUj8pNQ@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAO7Q6moC/3WNTQ6CMBCFr2JmbQlDQYkr72EIKe1UaqTVthAM4
+ e4WXLt5yZf3t0AgbyjA5bCAp8kE42yC4ngA2Qt7J2ZUYijy4oSYczbwVljVinFuR+kUsZrzc1f
+ XiFUlIdVenrSZ98kbiNgzS3OE5ueEsXuQjNvilu1NiM5/9vcJ98b/owlZzghLjVwrLUq8uhCy9
+ yie0g1DlgSadV2/CiWCctMAAAA=
+X-Change-ID: 20261103-m3_and_aux_ucode-8337b881155c
+To: Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+        linux-kernel@vger.kernel.org,
+        Madhavan Ganesan <madhavan.ganesan@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAyNSBTYWx0ZWRfX0OWXHUyaXwEV
+ SrHD9LdwlH2JaehQ+R9bCuM/Kbmcz/ng91hVLSyr9I2eDKE4N8fZkzpXIO7HvD8eOd7QA6SP/oj
+ XqAe4lZCqmijkzXRgGQnPmr4IZTEHA4vlOTztCPd02WPWJ609ljsYbIrZ5pyh+eR732eayayxf7
+ 8xMj8NZ8oZZo6xHt/kPABw/s+sfKIwLX1bD+uop5t75kdQV2E0rqqG3AiHDuTxrpqjYKygY20kW
+ sgbPLF+O25eMtvJJOey3o1ZcrHNmmllNb/7wi+r7NmsjBpgvU5ac13vKo4ORYQX8wmRTUn9n+4S
+ 7ReXopSyX9ywudApsl9fZBxSs/RZOp/D1VOw0brGAxQznEjI4NWqLa+PFEmCueLCM29G0ylG2gS
+ /G+zO2dDkURa9v8J5B7iGuxkbcdNydPQng4JmdTTY4r3t1Rt9z0+eR3oyKENXj9/gZf64Dqzhwy
+ mgB22+Hq6blGCvyA5DA==
+X-Proofpoint-GUID: GUPVKmVCC2eEMLLye8QT-Hk3Y_sPUKJ5
+X-Proofpoint-ORIG-GUID: GUPVKmVCC2eEMLLye8QT-Hk3Y_sPUKJ5
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAyNSBTYWx0ZWRfX7Hg7mARxJj8I
+ BRf0HlNpupyODD56djTBOK1pLP28sZkfqTk2Poz4Qqkw8Zw9jY6EvDiEJ9NoJnQqCK9dD0gPNi3
+ MYPEIAI/YMCYZyAWk1gOCC6UPzNBRN4=
+X-Authority-Analysis: v=2.4 cv=c64+0h9l c=1 sm=1 tr=0 ts=6aead100 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=xzHXWKMcZAd5FHHA1I4A:9 a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_01,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 adultscore=0 malwarescore=0 bulkscore=0
+ lowpriorityscore=0 phishscore=0 suspectscore=0 clxscore=1015
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611040025
 
---G9Gvtz0eoPTL2RSP
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+ath12k_qmi_m3_free()/ath12k_qmi_m3_load() and
+ath12k_qmi_aux_uc_free()/ath12k_qmi_aux_uc_load() carry near-identical
+logic for freeing a DMA-coherent firmware memory region and loading
+firmware into it. Factor the shared logic into common helpers.
 
-On Tue, Nov 03, 2026 at 08:29:06PM -0800, Doug Anderson wrote:
-> Hi David,
->=20
-> On Mon, Nov 2, 2026 at 1:31=E2=80=AFAM David Gibson <david@gibson.dropbea=
-r.id.au> wrote:
-> >
-> > On Sun, Nov 01, 2026 at 02:01:14PM -0800, Douglas Anderson wrote:
-> > > diff --git a/devicetree.py b/devicetree.py
-> > > new file mode 100644
-> > > index 000000000000..198ab73eda88
-> > > --- /dev/null
-> > > +++ b/devicetree.py
-> >
-> > This should probably go in a subdir, since it's not part of dtc
-> > proper.  I think putting it in pylibfdt is ok, even though it's not
-> > technically part of pylibfdt either.
->=20
-> Sounds good. For v4 I'll move `devicetree.py` to `pylibfdt/devicetree.py`
-> and update `pylibfdt/meson.build` and `tests/meson.build` accordingly.
+Patch 1 is a preparatory, no-functional-change rename of
+struct m3_mem_region to struct ath12k_fw_mem_region, since the type
+is also used for the aux_uc region and the old name no longer
+reflects its purpose.
 
-Great.
+Patch 2 refactors the shared free/load logic into
+ath12k_qmi_free_mem_region() and ath12k_qmi_fw_mem_load(), and
+rewires the m3 and aux_uc wrappers to use them.
 
-> > > +        node =3D cls()
-> > > +        for prop in fdt.properties(offset):
-> > > +            if prop.name in node.props:
-> > > +                raise ValueError(f'Duplicate property {prop.name!r}')
-> > > +            node.props[prop.name] =3D prop
-> >
-> > This is, technically aliasing the Property returned directly from the
-> > flattened tree, which seems a little risky.  Or at least it does if
-> > Property is mutable, which it appears to be as a subclass of
-> > bytearray.
-> >
-> > On consideration, that kind of seems like a pre-existing mistake - the
-> > way we use it, I think it makes more sense for Property to be
-> > immutable (a subclass of 'bytes' instead).  I wonder if making that
-> > change would break things.
->=20
-> Note that `fdt.properties(offset)` (via `get_property_by_offset()`)
-> already allocates a fresh `Property` object with copied bytes on each
-> call rather than aliasing the underlying `Fdt` buffer. Even so, having
-> `Property` be mutable is definitely footgun-prone when `Property`
-> instances are stored in `DeviceTree` or shared across nodes, and making
-> `Property` subclass `bytes` instead of `bytearray` has some nice extra
-> benefits:
-> - `Property` becomes hashable (can be used in sets/dict keys) and its
->   byte value is immutable.
-> - `fdt.setprop()` and `sw.property()` C SWIG typemaps require
->   `PyBytes_Check()`, so previously passing a `Property` directly to
->   `fdt.setprop()` raised a `TypeError` unless wrapped in `bytes(prop)`.
->   With `Property(bytes)`, a `Property` can be passed directly.
+---
+Changes in v2:
+- Addressed the review comments.
+ 
+---
+Madhavan Ganesan (2):
+      wifi: ath12k: rename m3_mem_region to ath12k_fw_mem_region
+      wifi: ath12k: refactor m3 and aux_uc firmware memory handling
+ 
+ drivers/net/wireless/ath/ath12k/qmi.c | 168 ++++++++++++----------------------
+ drivers/net/wireless/ath/ath12k/qmi.h |   6 +-
+ 2 files changed, 60 insertions(+), 114 deletions(-)
+---
+base-commit: a2da7677eb9a12e7860814b70a1f6f5b0e347d7d
+change-id: 20261103-m3_and_aux_ucode-8337b881155c
 
-Ah, nice.
-
-> Looking into compatibility for external `pylibfdt` callers if we switch
-> `Property` from `bytearray` to `bytes`:
-> - All existing tests in `dtc` pass without modification, and U-Boot's
->   `dtoc` (`tools/dtoc/fdt.py`) immediately converts the `Property` from
->   `get_property_by_offset()` to `bytes(p)` anyway.
-> - Indexing, slicing, `len()`, iteration, `struct.unpack()`, the buffer
->   protocol, and all read-only bytes/string methods work identically.
-> - Equality comparisons (`=3D=3D`) against `bytearray` still work, since
->   `b'abc' =3D=3D bytearray(b'abc')` is `True` in Python.
-> - One subtle difference is that `bytearray` has a `.copy()` method
->   (`prop.copy()`) whereas `bytes` does not (`b''.copy()` raises
->   `AttributeError`), though we could easily keep `prop.copy()` working
->   by aliasing `copy =3D __copy__` on `Property` if needed.
-> - The only things that would break in external callers (and can't be
->   shimmed on a `bytes` subclass in CPython) are:
->   1. Mutating a `Property` in place (`prop[0] =3D x`, `prop.extend(...)`),
->      which seems unlikely since `Property` is a disconnected snapshot and
->      mutating it never updated the `Fdt` blob anyway.
->   2. Explicit `isinstance(prop, bytearray)` checks.
-
-Thanks for looking into this.  That looks like an acceptable danger of
-breakage to me.
-
-> In my draft v4 branch I've queued up a preparatory patch ("pylibfdt:
-> Make Property a subclass of bytes instead of bytearray") that changes
-> `Property` to subclass `bytes` via `__new__(cls, name, value)`, updates
-> the `fdt_get_property_by_offset` SWIG typemap to return
-> `PyBytes_FromStringAndSize()`, and drops the redundant `bytearray()`
-> wrapper in `FdtRo.getprop()`. Let me know if that sounds good to you or
-> if you're worried enough about compatibility with external callers that
-> we should keep `Property(bytearray)`.
-
-Thanks!  I do wonder if we're doing this if we should update __eq_ and
-__hash__ methods to take into account the property name.
-
-> > > +        for suboff in fdt.subnodes(offset):
-> >
-> > So, this can be a later improvement, it doesn't need a respin, but
-> > this is a pretty inefficient way of unflattening the tree.  To get
-> > from one subnode to the next subnodes() needs to traverse everything
-> > in between in the flattened format - which is also what the child
-> > unflatten()s do.   So on at every level making this roughly O(d * n)
-> > where n is the number of nodes, and d is the depth of the tree.  You
-> > can unflatten in a single O(n) pass over the tree.
->=20
-> Since I'll be spinning v4 anyway, I've updated `DeviceTree.unflatten()`
-> in my draft v4 to unflatten in a single O(n) pass using
-> `fdt.next_node(offset, depth)` and a node stack.
-
-Lovely, thanks.
-
-> > > +        fdt =3D sw.as_fdt()
-> > > +        fdt.set_boot_cpuid_phys(boot_cpuid_phys)
-> > > +        fdt.pack()
-> >
-> > The pack() is harmless, but probably unnecessary - fdt_finish(),
-> > called from as_fdt() leaves an already packed tree.  Unless something
-> > resized after that point, which set_boot_cpuid_phys() shouldn't do, it
-> > should still be packed.
->=20
-> Good catch. Looking at `FdtSw.as_fdt()`, while `fdt_finish()` packs the
-> FDT header's `totalsize`, `FdtSw.as_fdt()` currently doesn't trim the
-> backing Python `bytearray` to `fdt_totalsize()` (unlike `Fdt.pack()`,
-> which runs `del self._fdt[self.totalsize():]`), leaving trailing buffer
-> slack in `fdt.as_bytearray()`. For v4 I plan to add a small preparatory
-> patch ("pylibfdt: Trim Fdt bytearray to totalsize() in FdtSw.as_fdt()")
-> so `FdtSw.as_fdt()` trims the `bytearray` to `fdt_totalsize()`, and drop
-> `fdt.pack()` from `DeviceTree.flatten()`.
-
-Ok.
-
-> > > +    def get_str(self, name):
-> > > +        """Return property `name` decoded as a NUL-terminated UTF-8 =
-string.
-> > > +
-> > > +        Args:
-> > > +            name: Property name to look up in `self.props`.
-> > > +
-> > > +        Returns:
-> > > +            Decoded string value (without the trailing NUL byte).
-> > > +
-> > > +        Raises:
-> > > +            KeyError: If `name` is not in `self.props`.
-> > > +            ValueError: If the property value is not a single NUL-te=
-rminated
-> > > +                UTF-8 string.
-> > > +        """
-> > > +        return self.props[name].as_str()
-> >
-> > Rather than having wrappers around all the class Property acccessors,
-> > would it be simpler (and only slightly more verbose) to just have a
-> > property() method, returning a Property instance and use its accessors
-> > in the caller?  Looking up properties with __getitem__ could also
-> > work, although maybe the fact that doesn't get subnodes would be
-> > confusing?
-> >
-> > I guess that would also require a bunch of new class methods on
-> > Property for the set* side.
->=20
-> Yeah, that works out nicely. For v4 I've queued up a preparatory patch
-> ("pylibfdt: Add Property.from_*() creation methods") adding
-> `from_cell()`, `from_uint32()`, `from_int32()`, `from_uint64()`,
-> `from_int64()`, `from_list()`, `from_uint32_list()`, `from_int32_list()`,
-> `from_uint64_list()`, `from_int64_list()`, `from_str()`, and
-> `from_stringlist()` classmethods to `libfdt.Property` as the
-> counterparts to `Property.as_*()`. Then in `DeviceTree` I've dropped all
-> the `get_*()` and `set_*()` wrapper methods and replaced them with a
-> single `DeviceTree.set_prop(prop)` helper (which stores
-> `self.props[prop.name] =3D prop` so callers don't have to repeat the
-> property name when setting a `Property`).
-
-Great.
-
-> > > diff --git a/tests/pylibfdt_tests.py b/tests/pylibfdt_tests.py
-> > > index ae46b29a8f5c..cfdb8f5749b6 100644
-> > > --- a/tests/pylibfdt_tests.py
-> > > +++ b/tests/pylibfdt_tests.py
-> > > @@ -11,6 +11,8 @@ import types
-> > >  import unittest
-> > >
-> > >  sys.path.insert(0, '../pylibfdt')
-> > > +sys.path.insert(0, '..')
-> >
-> > See above about location of devicetree.py.  But.. for that matter,
-> > with the code in a separate module, it probably makes sense to have
-> > its tests in a separate file, too.
->=20
-> Makes sense. For v4 I'll move the `DeviceTree` unit tests into a new
-> `tests/devicetree_tests.py` file and run it alongside `pylibfdt_tests.py`
-> in `tests/run_tests.sh`.
->=20
->=20
-> > > +    def testDeviceTreeRoundTrip(self):
-> > > +        """Test unflattening and flattening a tree via DeviceTree"""
-> > > +        tree =3D copy.deepcopy(devicetree.DeviceTree.unflatten(self.=
-fdt))
-> >
-> > What's the deepcopy for?  You're not retaining the original
-> > unflattened copy.
->=20
-> I'll drop that in v4. (It was a leftover from testing
-> `Property.__deepcopy__()` before that was split out into its own test in
-> `pylibfdt_tests.py`.)
->=20
->=20
-> > > +        self.assertIsInstance(tree.props['compatible'], libfdt.Prope=
-rty)
-> >
-> > I don't know if directly accessing the tree's internal dictionary from
-> > outside is a good idea.
->=20
-> My intent was for `props` and `children` to be the primary public `dict`
-> attributes of `DeviceTree` (rather than internal/private state), which
-> keeps property and child-node lookups, iteration, and deletion
-> (e.g. `node.props['compatible'].as_stringlist()`, `node.props.get(...)`,
-> `del node.props[...]`) idiomatic in Python without needing a parallel
-> set of dict-wrapper methods. Dropping the competing `get_*()`/`set_*()`
-> wrappers on `DeviceTree` and adding `node.set_prop(prop)` makes that
-> model much more consistent; for v4 I'll also update the `DeviceTree`
-> class docstring to explicitly document `props` and `children` as public
-> attributes for callers.
-
-Ok, makes sense.
-
-> > > +        tree2 =3D devicetree.DeviceTree.unflatten(fdt2)
-> > > +        nodes1 =3D [(path, n.props, list(n.children.keys()))
-> > > +                  for path, n in tree.walk()]
-> > > +        nodes2 =3D [(path, n.props, list(n.children.keys()))
-> > > +                  for path, n in tree2.walk()]
-> > > +        self.assertEqual(nodes1, nodes2)
-> >
-> > I don't think it's guaranteed that walk() will get the nodes in the
-> > same order each time, so you probably want sets instead of lists here.
->=20
-> Will fix in v4 by comparing
-> `{path: (n.props, set(n.children.keys())) for path, n in tree.walk()}`
-> (and using sets of paths in the other `walk()` test assertions).
->=20
->=20
-> For now I'll hold these draft v4 changes in my local tree. If you have
-> any feedback on the responses above (or any other patches in the
-> series) I can make further changes before actually sending out a v4.
-> If you'd prefer me to send out what I have now so you can review the
-> latest-and-greatest, I'm happy to do that too. If nothing else, some
-> of the changes we've made to how DeviceTree works here bleed into the
-> other patches a little, so sending a v4 before you review further
-> could be nice. ...but I also don't want to churn the series faster
-> than you're ready for it. ;-)
-
-Thanks.  And, yes, it's probably best to wait until I've reviewed the
-rest of the series.  Which might take a while, sorry.
-
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---G9Gvtz0eoPTL2RSP
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrqzK4ACgkQzQJF27ox
-2GdPiRAAnl941YgUt1m/r4XkN6rWS6Fk2m1OMHO0qI/7btYJmen2YUGwlnGJbFkb
-KLrddZ8bEsnofvUMcUPUKaKiAvpZ5xY+HzHyerKNdPfLLiImx4F+16HeDAvuLpXi
-BmJ30FeSM/94xYrRvBkudDeHWrzAxR/FKZaY3M928yrXOtzmSWL29gTzYDUcMnhh
-WshdkMkRDuSMvyM7RUI/PCZlZJ2ot7ItWRXfhb2P5fEihD7yBI5sWilzolmxGQDi
-RTqonn2KQW/tcwzaXqvXwYTD9i0i8A4RID0wJTosVuAzHd7x4XtgeEB5H5DaZnXj
-LxoD32QXrKX46GIMkQcUiMifbZByqa13/3wgzc3bOtmud2yXvPeEI4iYA240IC0f
-kY3bZfBBZSIiNTs2UAczd2+FVhkK/iiHxFPpmL1qeucUY/bxQ2Lb9/Ep7QwqPuZ3
-Sl6L7QIGVm3RdwyKVt/LVqAh0JGmik7xrWKkV0FHR+AjsPzgPe0IREt1KUfsVET8
-8LpymMecLrs+X1R9yH6sSgAgnUdWaE72ODAFR2I5410AhgXJUHYwM9ax7WnVkcIj
-w0IHXiwhvyA3c6tXyctJucXJbRr6gFtOwwhxU9QfHJnUmVgfJIYHEKt9OgT2wOaB
-fRpmvEbkG9GKi7f2RlVKO2PTfZNGpAWqejqtZy5XJwY/Xyy6u3w=
-=r6Dq
------END PGP SIGNATURE-----
-
---G9Gvtz0eoPTL2RSP--
