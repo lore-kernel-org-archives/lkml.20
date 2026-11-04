@@ -1,49 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.110
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.223
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793793037;
-	b=roveNjmq4hqKakAFfRzk5OlYcX0z3zuDJKgx/vl9YGsx2cHap2LT68HO0TROW1Ha2asA
-	 HgiQlVATwTvVaIzVSyxRZwpVyPAidzPt1qh3cIKY7/lO9bqh8kZpra0V5AwcZYeSTDFpP
-	 OeWV5cwmr7I+vAMK/J6lrnSZQwVvEzY/vnuufB23HNsPTU+JnZpmMnhnVHaqDOYsNmwLs
-	 CR/1BQc7+IRH/b7ScsJ7vtCMcpYEyroxHIj2cHo0MeSFABHpUY48NrnDPhUYewd8/mV15
-	 w+R3kwnsMXK+6FGTjd9PXWIqhuLxLKWZGRVg744y/8SFUdZhqMcU5XHs4/p+6OmtkIg==
+	t=1793793075;
+	b=V5Tm0Yq699vYWPlxo7dvEcbORx2gFAAKv4j28JJxWehFJ5412b5Z8vRVjRex/JkNF9iJ
+	 Pxzcq96rNex+d14JvCn4iH8XomS5JU4H2oq6KLKtM07RkPpSNL0b/H/hwMFLj6xWap9oc
+	 LDrfPwPj+Nn93fB8uqmXgSV734QEAQuXNCehuJGL5j9nWejlpmDJ3kmYKar5zWixXY9a4
+	 YqoDBiAzpt8bXhJKY3wwxNtODhSItNrzsarQg9K2DGbTGTIi1KRTJADlf8jJZUevNuHRh
+	 1zvwVnr69GGmurPIUzjenVxNgwc6b6ee/+mFuGDXiDZYkf4/Q+yVyeYpoaWfG7Ig4yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793793037;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=n7TyH3nFFVmHIHs1ldKKybFU/npM5rqhaAbZSesudpM=;
-	b=qw8Vin+iuks8+FLELPhblzFddgnoxWC7WFQGBTe9Mzp3zjAkTXpwG7ZGJjq+tN1Jv7zb
-	 q/6fMiDB8S814XMTtbWGTel/dFxBOx4MBaBQ6jVMyS0YkkSSkhopUnVqMXtrtQztsZ+SK
-	 ZqsqKgq+Z0mEd0Q6j5KOCdBiOqFofqdSF3NLZAflr1E78HyTavieyxAMibbSSb/ggeRuR
-	 8sUk98LZcpGdEaYxR5fgSLsJboH5i/y/ei0Z7Q08vTCkoH4CKU8psv83zBxyPA4/rk5vq
-	 fN2Y65KUG5p1B5orBWHCMJleLB2Najhl6ODreVlfR7sOR9f/T54eIeQ7xxDfpbInNZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793793075;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:CC:Subject:To:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=g11exoxlvmrxitGNcbcJpKjoh89AXFeg8RsYV6aUIHI=;
+	b=xqXVoELWkc67jOzJ7hrWI6dQK2Klz8tIw0S29t6g7yWpxoUqRk4cvU9VEUXTpRmCb5z8
+	 wolrvmhO4e1YC+SYvRS2ztXM+sp9vEp0aQZH5PRw7UbSoErDZRApVE2BiC9oyjxBS5+fW
+	 xV5ztDWgC15swoK4xQKi8+yQYHHRZ44kvKCglT7DMIqmawG8zPQn2x2Kc1yDdglvkkOi8
+	 7dGYcHRbpJ3jZeZ/Jjy5j7HZusS3mDPvEWCErLgQlEKaU74u7DT/eycAik1zBndnN3UyK
+	 4VItekBpq640safzWv+2oOoXUWvI02KqCvv5eVamxsZHhSxbIeOZaiI47PU6FIcMn4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=IyAkye7K;
-	arc=none smtp.remote-ip=115.124.30.110
-Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=TV2WdrL4;
+	arc=none smtp.remote-ip=113.46.200.223
+Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E201606A329;
-	Wed,  4 Nov 2026 11:50:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E201606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88213606A31B;
+	Wed,  4 Nov 2026 11:51:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88213606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=IyAkye7K
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793793027; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=n7TyH3nFFVmHIHs1ldKKybFU/npM5rqhaAbZSesudpM=;
-	b=IyAkye7KlN0k5MZn8XmzO48xcXyboR/u+PygsLMVtkFN2uy90dGtgdxqQRd5d16cv03e8SndsNWvc9zlrI6qdfKkfuGoUQOWHqPHljTsNvj9ktoZv3d/wAZd/044kRuTH/wrT8NX4Qni/Wo1GvxKgVHOZZPHjNPpmxnw4Wp/hm0=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R251e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XE5fcDP_1793793025;
-Received: from 30.221.129.178(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XE5fcDP_1793793025 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 04 Nov 2026 19:50:25 +0800
-Message-ID: <68eea5f0-f320-4bbb-906a-46f9fb17dd44@linux.alibaba.com>
-Date: Wed, 4 Nov 2026 19:50:25 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=TV2WdrL4
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=g11exoxlvmrxitGNcbcJpKjoh89AXFeg8RsYV6aUIHI=;
+	b=TV2WdrL4S17kV8RPOgnULouHNk3W0Dzy8ycqX7tnsKMk6uH7lgx2WLIpz0RgS777SnIxSQKAP
+	89s63YlDDlU6hUyt3N55M9q8R1Q3xQO5NUrDtjGVgvKRgbYAx/SWNBIHRVnNgeywoZ31JrSsJXG
+	N9h5KeHpfl7WHeaqfFpssTs=
+Received: from mail.maildlp.com (unknown [172.19.162.92])
+	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4jKP0F1nDFzmV7W;
+	Wed,  4 Nov 2026 19:50:53 +0800 (CST)
+Received: from kwepemo500018.china.huawei.com (unknown [7.202.195.199])
+	by mail.maildlp.com (Postfix) with ESMTPS id 0AB6040565;
+	Wed,  4 Nov 2026 19:51:04 +0800 (CST)
+Received: from [10.67.121.233] (10.67.121.233) by
+ kwepemo500018.china.huawei.com (7.202.195.199) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Wed, 4 Nov 2026 19:51:03 +0800
+Message-ID: <87245a0b-2d33-49c6-a21b-9a316c50bef7@huawei.com>
+Date: Wed, 4 Nov 2026 19:51:02 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,158 +63,79 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ocfs2: drain fs_state readers before journal teardown
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
- ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
-References: <pm-ocfs2-objects-candidate-0003-v7-1522d068e5b943786c3e@gmail.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <pm-ocfs2-objects-candidate-0003-v7-1522d068e5b943786c3e@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+CC: <shaojijie@huawei.com>, <davem@davemloft.net>, <edumazet@kernel.org>,
+	<kuba@kernel.org>, <pabeni@redhat.com>, <andrew+netdev@lunn.ch>,
+	<shenjian15@huawei.com>, <liuyonglong@huawei.com>, <chenhao418@huawei.com>,
+	<yangshuaisong@h-partners.com>, <ningwei15@huawei.com>,
+	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 net 2/4] net: hns3: fix page_pool leak in
+ hns3_alloc_ring_memory error path
+To: <netdev-bot+sashiko@kernel.org>
+References: <20261030095633.377289-3-shaojijie@huawei.com>
+ <179370110712.488856.17112299707405359724@kernel.org>
+From: Jijie Shao <shaojijie@huawei.com>
+In-Reply-To: <179370110712.488856.17112299707405359724@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ kwepemo500018.china.huawei.com (7.202.195.199)
 
 
+on 2026/11/3 18:18, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found more severe
+> issue(s) in other patches of this series. This mail is only an FYI, in case
+> you want to address the nit picks below when you respin.
+>
+> Low priority / nit picks for your consideration:
+>
+> - [Low] The commit message says the new cleanup in
+>    hns3_alloc_ring_memory()…
+>
+> --
+>
+> net: hns3: fix page_pool leak in hns3_alloc_ring_memory error path
+>
+> When hns3_alloc_ring_buffers() fails for an RX ring, the out_with_desc
+> error path in hns3_alloc_ring_memory() frees the descriptor ring. It does
+> not destroy the page_pool that hns3_alloc_page_pool() just created. This
+> patch adds a guarded page_pool_destroy() to that error path.
+>
+>> Add page_pool_destroy() to the out_with_desc error path, guarded by
+>> a NULL check, mirroring the cleanup done in hns3_free_ring_memory().
+> [Severity: Low]
+> This isn't a bug, but is hns3_free_ring_memory() the right name here? I
+> can't find a function with that name under
+> drivers/net/ethernet/hisilicon/hns3/.
+>
+> The only other RX page_pool_destroy() is in hns3_fini_ring(). That function
+> calls hns3_free_desc() first and destroys the pool last:
+>
+> drivers/net/ethernet/hisilicon/hns3/hns3_enet.c:hns3_fini_ring() {
+> 	hns3_free_desc(ring);
+> 	devm_kfree(ring_to_dev(ring), ring->desc_cb);
+>      ...
+> 	if (!HNAE3_IS_TX_RING(ring) && ring->page_pool) {
+> 		page_pool_destroy(ring->page_pool);
+> 		ring->page_pool = NULL;
+> 	}
+> }
+>
+> The new out_with_desc path does it in the opposite order. It destroys the
+> pool and sets ring->page_pool to NULL, then calls hns3_free_desc().
+>
+> That order looks harmless today. By the time hns3_alloc_ring_buffers()
+> returns an error, it has already detached every buffer it attached. Each
+> desc_cb[i].dma is zero, so hns3_free_buffer_detach() returns early and
+> never hands a page back to the NULL pool.
+>
+> Could the commit message name hns3_fini_ring() instead? It could also drop
+> the word "mirroring", since the order differs.
 
-On 10/31/26 1:13 PM, Cen Zhang wrote:
-> The per-mount fs_state open callback formats journal fields through
-> osb->journal. Its debugfs active-user guard protects the open callback,
-> but does not keep the journal allocated after journal shutdown.
-> 
-> Both unmount and the mount-error path in ocfs2_mount_volume() can free
-> and clear the journal before the debugfs subtree is removed:
-> 
->   fs_state reader                       Mount cleanup
->   ---------------                       -------------
->   enter ocfs2_osb_debug_open()
->     ocfs2_osb_dump()
->       load osb->journal
->                                         ocfs2_journal_shutdown()
->                                           free journal; clear pointer
->       read journal fields
->   leave the open callback
->                                         remove the debugfs subtree
-> 
-> Remove fs_state before cleanup releases its backing state in both
-> callers of ocfs2_journal_shutdown(). Debugfs removal prevents new opens
-> and waits for admitted open callbacks to finish. Later reads and release
-> use only the per-open snapshot buffer, so they do not need the journal.
-> 
-> Keep removal in the caller paths while the per-mount debugfs parent is
-> still present. The remaining debug files retain their teardown order.
-> 
-> KASAN report as below:
-> 
->     ==================================================================
->     BUG: KASAN: slab-use-after-free in ocfs2_osb_debug_open+0x967/0x15e0
->     Read of size 4 at addr ffff888116a56028 by task cat/502
-> 
->     Call Trace:
->      <TASK>
->      dump_stack_lvl+0x93/0xd0
->      print_report+0xce/0x630
->      kasan_report+0xe0/0x110
->      kasan_check_range+0x105/0x1b0
->      ocfs2_osb_debug_open+0x967/0x15e0
->      full_proxy_open_regular+0x193/0x310
->      do_dentry_open+0x595/0x12d0
->      vfs_open_consume+0xd1/0x400
->      path_openat+0x18d0/0x2020
->      do_file_open+0x21e/0x470
->      do_sys_openat2+0xf4/0x1b0
->      __x64_sys_openat+0x136/0x1e0
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
->      </TASK>
-> 
->     Allocated by task 495:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      __kasan_kmalloc+0xaa/0xb0
->      __kmalloc_cache_noprof+0x28d/0x610
->      ocfs2_journal_alloc+0x91/0x450
->      ocfs2_initialize_super.isra.0+0x11b8/0x3070
->      ocfs2_fill_super+0x801/0x38f0
->      get_tree_bdev_flags+0x35d/0x5f0
->      vfs_get_tree+0x93/0x320
->      fc_mount+0x1d/0x200
->      path_mount+0x592/0x1e00
->      __x64_sys_mount+0x24b/0x2d0
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
->     Freed by task 504:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      kasan_save_free_info+0x3b/0x60
->      __kasan_slab_free+0x5f/0x80
->      kfree+0x308/0x580
->      ocfs2_journal_shutdown+0x10a/0xc20
->      ocfs2_dismount_volume+0x315/0x940
->      generic_shutdown_super+0x15f/0x490
->      kill_block_super+0x40/0xa0
->      deactivate_locked_super+0xae/0x120
->      deactivate_super+0xa2/0xc0
->      cleanup_mnt+0x217/0x450
->      task_work_run+0x144/0x230
->      exit_to_user_mode_loop+0x17d/0x570
->      do_syscall_64+0x4d1/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
->     The buggy address belongs to the object at ffff888116a56000
->      which belongs to the cache kmalloc-512 of size 512
->     The buggy address is located 40 bytes inside of
->      freed 512-byte region [ffff888116a56000, ffff888116a56200)
->     ==================================================================
-> 
-> Fixes: da5e7c87827e ("ocfs2: cleanup journal init and shutdown")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-> ---
-> Changes in v2:
-> - Address the osb dereference before BUG_ON(!osb) raised by Sashiko:
->   https://sashiko.dev/#/patchset/98583
-> - Remove fs_state after BUG_ON(!osb) in ocfs2_dismount_volume().
-> - Trim the KASAN report.
-> 
-> Assisted-by: LLM
-> 
-> Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0003-v6-2f69dbb7417fcd537be6@gmail.com
-> 
->  fs/ocfs2/super.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/fs/ocfs2/super.c b/fs/ocfs2/super.c
-> index 0af2245ae303..c02896e127e5 100644
-> --- a/fs/ocfs2/super.c
-> +++ b/fs/ocfs2/super.c
-> @@ -1783,6 +1783,9 @@ static int ocfs2_mount_volume(struct super_block *sb)
->  	return 0;
->  
->  out_system_inodes:
-> +	/* Drain fs_state readers before releasing their backing state. */
-> +	debugfs_lookup_and_remove("fs_state", osb->osb_debug_root);
-> +
->  	if (osb->local_alloc_state == OCFS2_LA_ENABLED)
->  		ocfs2_shutdown_local_alloc(osb);
->  	/* Drain pending suballoc reclaim work before the journal goes away */
-> @@ -1812,6 +1815,9 @@ static void ocfs2_dismount_volume(struct super_block *sb, int mnt_err)
->  	osb = OCFS2_SB(sb);
->  	BUG_ON(!osb);
->  
-> +	/* Drain fs_state readers before releasing their backing state. */
-> +	debugfs_lookup_and_remove("fs_state", osb->osb_debug_root);
-> +
->  	/* Remove file check sysfs related directories/files,
->  	 * and wait for the pending file check operations */
->  	ocfs2_filecheck_remove_sysfs(osb);
-
-'fs_state' is created in ocfs2_fill_super(), so it looks weird to clean
-here.
-I see now ocfs2_mount_volume() also calls ocfs2_release_system_inodes()
-and ocfs2_free_slot_info(), so it seems we have to do more refactor.
-
-Thanks,
-Joseph
+Agreed, that function does not exist. Will rename to
+hns3_fini_ring() and drop "mirroring" in v4, since the
+destroy order differs (pool-then-desc here vs desc-then-pool
+in hns3_fini_ring()). The opposite order is safe in this
+error path because hns3_alloc_ring_buffers() has already
+detached every buffer.
 
 
