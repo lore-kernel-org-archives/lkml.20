@@ -1,110 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793787810;
-	b=dV60GIwA0jO+9a/CXBDGZ/lsCeBQRwdko/BZAO3JkhAzb15Rix1STkcV4lL2aK09qzZT
-	 gYqjUhvDYM9FmiJkBqam2uR/fW1mnR2KLoPZ4Hfk6BpQaBiu0ClnONEN2enPxNg0rGbO1
-	 PvEJVPaUMBG0cd6pLgFi7ZkpBCoMv2Oo/24ac2HISVC622l2VSxAviCQ+lo0gKRodaBHB
-	 Q/s56yhe8IW+bH/xNWr3XR0pJBQhNnk0BesxLqn2o6SIy1dLyR0VP4lAnNKQuHIEKLiIH
-	 kK3SUQrYlC0drKS5a3tsycx0lWrJwMRLpAgEyf9ptVFw8cFLyScRv4JgqT8d8KZO6TQ==
+	t=1793787811;
+	b=b7NgFqsAybMgVxxFr0CkYRJBk1LOFzLVxL6DXf/VUXpJoo4veMGx+g5FjGbgX+jvTOTG
+	 CWb9LvfwnnS5UrfXhyX0cBzlxJZUppW7UZ3ygaP1gop1U+D429S1/91bJ2mVyZzX17AlK
+	 4yUKkDXO1qcPcphWXnL9pj6rIqAp94t9fnEEdeUP7dI/RGqZnDwN16SwuOmVOeQTr/opV
+	 P4oCFdJhL3WezzBkRd73LvSnblsG0JConRplTIib9VjZ2nF53yjEf8dBGJP8XhLMP+mvz
+	 ORr9Xqq8qY6HWbdcqJUbmlfmV5GpoRjqiQFFgd7oOiSYzwO3QDagQtKKzJIJYPQ+BuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793787810;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793787811;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=fP2wtbL8okahCme2REeuz/5kpLBhIsTYBbFIyLkDukQ=;
-	b=j2gbt/2DIqBieVGSqSd3xPR06EZIdu5jDKYUDaVRgL83Rg8dlhhl8eN0e3JAZb2YbpSg
-	 uB9wY5/Iqtf/jekaHW4da/iTX3Z+YxnLHe/sCrhyD/yzqqOWdHEJeZDoqe0Fn+SsrmT2u
-	 b/AY3qPZUWe+J6c7ElW1krRyTkSHPdcex2aAijPbeNcrgZw5z22jrHq5bh1TacAO4yLul
-	 FHSPfVxmFdJDtCw3A2gHeiBjBLdgfi4whgiQ1RwREQGiN48lz6Skx//Gc71lqPb8yzNMs
-	 ZK6fMYWf8nHBPJcPE/ehW5IDvvKGM2Te5Av74wdaYt0470OqRotZeTKdMmMHef33/sg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=acEy7VuYeDIhb7gSnuNa7TFwjfE7RVQLbBXoX6cSqcM=;
+	b=S2Je4kRmUS6JSK2piCZy6QApK6+dipxpNvIxrPAz3aKJJywEugPprM5QsiljIjOVu0a6
+	 WtGpeo9EgHyf0RiGDlE0VEA7suycrJHGAMCjqtR+sOThiSt3rI3wnmzcpGgaxuKtreSqZ
+	 K2edtho+F0A2/s1PYm4MTY+D5cj+fD1RnbUUSwgn6TKQYTCbpfnt3fC21S9caWSnwCNeM
+	 yDye1Cv6c7obaNwqZRnzwwLaWsZstAATR3Z0qVULCM639qdVSmuoSq3yKmfzXWy8HiR7O
+	 E1urtfG81wA6Ewxg2S83qoaRn/ZxIZDI5dZmcJ65hFJXWRO/NevcI5LdDF+D+Dd9Owg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BOH80JmD;
-	arc=none smtp.remote-ip=209.85.208.46
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	dmarc=pass header.from=asu.edu;
+	spf=pass smtp.mailfrom=asu.edu;
+	dkim=pass header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=LdrZ6f43;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C959606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A1F606A326
 	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:23:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C959606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49A1F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BOH80JmD
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b56c90b38eso116a12.0
+	dkim=pass (2048-bit key, unprotected) header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=LdrZ6f43
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3282db206d3so1045548eec.0
         for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 02:23:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793787809; x=1794392609; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fP2wtbL8okahCme2REeuz/5kpLBhIsTYBbFIyLkDukQ=;
-        b=BOH80JmDvOkOft+cKPp7n1RirDBIBFL2zo4WJZDGlWTn0vLjSBwquwsHFimt4K+vA1
-         FdhAnhkpRpC7pduXSvZ+wG3rv/sxZmXhoWLS1uEqK+jTRPZWyd4Md60+3MPU2OOGKZZy
-         3r+suUFd3TMG2GtAoDCzc8Mrc8s063vNBN2gqQt2tUZCxE+/nAa4YFsisojEjNCQKoCc
-         fSK+aGOVHtKanDoGRkovZI45rCR8TKH0vZQRA7zy7t/vzRmWkA8mpNYclrLDEomrjwPP
-         RNzlTcn/803NgI+tVuOvSJdntkLED2/EKHQwTSjyVt/kTlNjRRYG4pMdP4Wm5ONavfih
-         Tulw==
+        d=asu.edu; s=google; t=1793787809; x=1794392609; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=acEy7VuYeDIhb7gSnuNa7TFwjfE7RVQLbBXoX6cSqcM=;
+        b=LdrZ6f434Y7pAnuag7QVLGn1cgp6UhyBf7/WFkjhMLKZABuk4jyPgytBF+1kVmPDSC
+         ImcfaUVx5tO9pjE3p299SNdicSSqujd+Z1GvZuEVKQ1PAsmGjl01RMaoKm8ExSsQPppq
+         TnVbiDpMhbD3frbExfnOwbYYkcua4NBpKoLy73ScevVqSVLqzpYlZkVck52n0RYmACWU
+         /Orgntc1CUTCo1gyizly70SgkBQ/Rc9S4B6RzOJBTlEVrsQIQOBLX53Pv02rHsIfJhq4
+         JRumfJtwcdPxWFKcN5Br2oQI7ZECknnaoSEjtq8X44e3RSk2U/61DFvg0Dj7PxbGhB3+
+         1q6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1793787809; x=1794392609;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fP2wtbL8okahCme2REeuz/5kpLBhIsTYBbFIyLkDukQ=;
-        b=ZPqXzIfcGiAo5UTZZ/2WRIVuxI5Dk3vWGwxs8/WHZm+1oQ08CDkILByqEY/mrv2Wcs
-         KQYti64xy9hzu86Pp2WWOcsmAZWIRFmBttuhPq1uS8VO+QPvT1t0T84jpGyKuYUWEZHm
-         1FRbAVsu/KdshnYPKBmFN2u/+xiwcSQjOtD4eeBhy3ydTMLq310m8CIgRVIP9+WiBCQQ
-         JMlBcFn6PLswJU4jcO2QTjX62BRZwLRfb26Uyvxfv9biLGW8qQVWDg2jU01fzXidPTxC
-         zKpKECWzm2ub57CNd/JIdsdB0qa6AZ7/fHFLeUVZBfWPiZf95AoejU181OW29Ecpy16a
-         nyzQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy2QfGacNStlGTqHf8ioIXhVsUF0CFc7QfoXxWGrgcqGYm7foe4JrIRQRACXc0N3r9XBfKvFZ3tOK4Lr00=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8zXdywNBATcs+k9Un9SJ3zeFc0781WX0WUpceBrRAnLWvOGw1t
-	i7RfssfCiOU7hgnwGrJ39tSaF+AOUsCQvjchL1xPKnWtvMu5dfkhFN4lVqVNeYK3+Q==
-X-Gm-Gg: AYBFou1Z3tB1MhdTVaFkF2T61dIHUDAT1zmgafZ79aI7nSjYfSsBAS6a0Fnfy71yqek
-	O6xowAUzIRohZPCqOKbAPBAalYruLyE+m4EBBSK61wf1KVI4b4C0t0vJIDddKuF7yiCuSUpJQSD
-	Z37keb307tTTcZyO4QMO8UNWa3+CAuOtJQB7e/n/aQCws8pQLcqj0/p73UNXRWputqD5X98SbLX
-	5ZDOV5jyOC/RwSNrU9MIuWt4VblaOYvDIEzUf6mfOp3swjSMGxbZ7Hj00+cuJ6AZmbTHFV0sAh/
-	cuOknxs/zYyGVyiMseQsnuqhLhOhiUTJS1ZrHjuyZ2byahgEWQ0BXjH3F4Z9xEbPRgBMvHkBxog
-	fBDoEKPfy0Ku7pvMaTsKxZMm75hFj/JPZbLfqwYTTjwFYX+pNtbe/blgqaV5f8lkD/3a0ZHQFrl
-	A/374WxKQVAeao3cOeCjLg7z7KUXxPQ6t/R9yKyrOb/3rP3jHsWGsQdk5dwtih24tBhzEu/rlw3
-	DZgnnbKPkVfDgLaFEJa72jShRXtLY3MlZWWu302/GZBSXKej4mNOdppeH/vQGJxVKM+0e178I5o
-	pJVA4btcye3udQOwxAlr7XlNFqQeBJ5gbKOT3vhr48gm0cG7WrFkKc0gvoaFbbz4itqr+A==
-X-Received: by 2002:a05:6402:a2ca:20b0:6b4:6725:f2c6 with SMTP id 4fb4d7f45d1cf-6b55abce7efmr53379a12.13.1793787808278;
-        Wed, 04 Nov 2026 02:23:28 -0800 (PST)
-Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d0e1402c6sm55414666b.2.2026.11.04.02.23.25
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=acEy7VuYeDIhb7gSnuNa7TFwjfE7RVQLbBXoX6cSqcM=;
+        b=gZXduMv35OJ6tY1hxdghn81yvg3ne9FU7kG8MJXK9sXzyNeQAw5Z8Ljg/gEXdXVUKD
+         fNvRN2lZTIun1rX6OFTpI1iZ8ZJPJAR3wfC+ms1jdCSkmDEONOtx8yS9PywUX3K73R5t
+         9x3jQOTMkTCa2nRLM2I1SknF44N2cY2ixYb1TSQOnyepxLTwGBrn2jAsDboK1cdIQGR6
+         BggDpG8MSwfSXSdJBHIHkOhgJuR/FA6XHDx7TJEC4O1MMloMilyHHpObmXNV9Q5IjHED
+         B3Vdf6QztW1NWku90Xc7A9dqYZfOUjKtYJwVuMn72vNo14MFkZHtjd6k1i7sScnIL+pY
+         1ACQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzbI/NpORGi8FEAKe7/FTu+Ias+wYuZdhTORLN/T53oicmR6T9y7KY54PNOUELdLlNDubPSAuWU7Jun0SE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+8ty+dD1OMvToAKsIJ8wMHMOBA2KpAaDtXY7rRzOAemouisfXi
+	+dgNxm7f2kTHdcII3yoIvFZTbOmbAPKYFj0Jci3+88GtDWYNxdRFRdHFtHW0NS8gbw==
+X-Gm-Gg: AYBFou0sKBHSLT+Z91sLTeVp3suQTMSqrjHE7BxuPV23uhhbMiwosI4tyDfaour373T
+	UD5/akjxD3LxFwHrc18QJvJv2cIJ0KyEIlZHItPttAzQLiPBCoOKsBFBPLiEPhFCsQdeaacKJxk
+	/pSUD1L89+an7MvSm75z9mKt62wjXSazrJQov3a3nx51rRjn2+T5XX1kXQD6aaaViPUDBKSV6P/
+	lxmt4GOIox4nJ7UswpSc6aDwb8NoJ4JmC4OKo5LsAMSLPCISdZm9JEA6NBRB5ANNFZMCgeIL63J
+	RBLSBwAKGwoRwnUC/ldOXnMxwbIt4vHE+QdQ4ONkMGzjJn8yz67qk24eKlJrRBraGcM+UEeXETw
+	7aEXT61Plxp5RJninykAev+xKN565FvLorUxhJf7mZgLa8k+D/hUb5761ngE1ANCh854BbNiojd
+	upILMX69qmnYH3EYclZ9rbSK2PKFf0a+7Lw5nKNEsDo2+eWAcSAeREDmEjxZxJLV2MIzICGqL1A
+	ie/NdRadSE2MniP3m3DN0fSW0UPSPzdchHC+aa0NBJHgwdj4ugj45PNu8zQHVTWBMJ+5WYSjj/Q
+	secT26Zxmaxr4M5EV9Jw+KPGpLvZoYB65q3Foenwsg==
+X-Received: by 2002:a05:693c:41c6:20b0:368:c6b9:d3c0 with SMTP id 5a478bee46e88-36a423cfcd3mr24401465eec.28.1793787809167;
+        Wed, 04 Nov 2026 02:23:29 -0800 (PST)
+Received: from localhost.localdomain ([2600:8800:1e00:25f0:ff01:97fc:f9e5:d7e1])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38a6160sm5749086eec.9.2026.11.04.02.23.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 02:23:26 -0800 (PST)
-Date: Wed, 4 Nov 2026 10:23:22 +0000
-From: Mostafa Saleh <smostafa@google.com>
-To: Jacob Pan <jacob.pan@linux.microsoft.com>
-Cc: iommu@lists.linux.dev, Jason Gunthorpe <jgg@ziepe.ca>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Kevin Tian <kevin.tian@intel.com>, Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>, Wei Liu <wei.liu@kernel.org>,
-	"K . Y . Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
-	linux-hyperv@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Vasant Hegde <vasant.hegde@amd.com>, Arnd Bergmann <arnd@arndb.de>,
-	linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org,
-	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>,
-	Mukesh Rathor <mukeshrathor@microsoft.com>,
-	John Starks <John.Starks@microsoft.com>,
-	Souradeep Chakrabarti <schakrabarti@microsoft.com>,
-	Yu Zhang <zhangyu1@linux.microsoft.com>,
-	Easwar Hariharan <eahariha@linux.microsoft.com>,
-	Alex Williamson <alex@shazbot.org>
-Subject: Re: [RFC PATCH 0/9] iommu/iommufd: Add hypervisor external attach
-Message-ID: <ausHmkhAegDEyeKV@google.com>
-References: <20260925190742.1575380-1-jacob.pan@linux.microsoft.com>
- <atiaKG86qcifKzBT@google.com>
- <20261026114917.00005a22@linux.microsoft.com>
+        Wed, 04 Nov 2026 02:23:28 -0800 (PST)
+From: Siddharth Mishra <smish149@asu.edu>
+To: dsterba@suse.com
+Cc: wqu@suse.com,
+	boris@bur.io,
+	josef@toxicpanda.com,
+	fdmanana@suse.com,
+	mason@kernel.org,
+	linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Siddharth Mishra <smish149@asu.edu>
+Subject: [PATCH 0/5] btrfs: owner refs and tree blocks
+Date: Wed,  4 Nov 2026 03:23:18 -0700
+Message-ID: <20261104102323.4090290-1-smish149@asu.edu>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,170 +100,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026114917.00005a22@linux.microsoft.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 26, 2026 at 11:49:17AM -0700, Jacob Pan wrote:
-> Hi Mostafa,
-> 
-> On Wed, 21 Oct 2026 10:55:36 +0000
-> Mostafa Saleh <smostafa@google.com> wrote:
-> 
-> > On Fri, Sep 25, 2026 at 12:07:33PM -0700, Jacob Pan wrote:
-> > > Hi,
-> > > 
-> > > This RFC supports guest VM device assignment from a Linux host
-> > > using the Microsoft Hypervisor (MSHV). The goal is that a common
-> > > set of flows and infrastructure can be applied for Xen and other
-> > > type 1 hypervisors.
-> > > 
-> > > Background:
-> > > 
-> > > The IOMMUFD/VFIO stack used for device assignment has largely
-> > > evolved around the KVM/QEMU model, at least as the first enabling
-> > > target. In that model, the Linux host owns the host-side physical
-> > > IOMMU programming as well as the physical PCI devices.
-> > > 
-> > > Architecturally, MSHV and Xen differ from this KVM/QEMU ownership
-> > > model. At a high level:
-> > > 
-> > >   +------------------+
-> > >   | Guest VM         |
-> > >   | virtual IOMMU    |
-> > >   +--------+---------+
-> > >            | vIOMMU ops
-> > >            v
-> > >   +------------------+    external attach     +------------------+
-> > >   | MSHV             |<-----------------------| Linux host       |
-> > >   +--------+---------+                        +--------+---------+
-> > >            | programs                                  | owns
-> > >            v                                           v
-> > >   +------------------+                        +------------------+
-> > >   | HW IOMMU         |<---------------------->| PCI dev          |
-> > >   +------------------+          DMA           +------------------+
-> > > 
-> > > For MSHV, the specific ownership model is as follows:
-> > >   1. The Linux host OS owns the physical device and exposes it
-> > > through VFIO/IOMMUFD, but it does not directly own any of the IOMMU
-> > > hardware. 2. The device node (/dev/mshv) owns the VM partition file
-> > > used by userspace. 3. MSHV owns most of the physical IOMMU
-> > > programming, including stage-2 I/O page tables.
-> > >   4. The Linux MSHV root pvIOMMU driver bridges IOMMUFD/VFIO UAPIs
-> > > to hardware IOMMU programming through MSHV hypercalls.
-> > >   5. Guest virtual IOMMU emulation is done in MSHV rather than the
-> > > userspace VMM.
-> > >   6. Stage-2 IOPT may be shared between CPU and IOMMU. It is
-> > > managed by MSHV and abstracted from the Linux host, including TLB
-> > > synchronization.
-> > > 
-> > > These structural differences from the KVM/QEMU model create several
-> > > needs for IOMMUFD support:
-> > >   1. Move a device to a guest whose I/O page table is externally
-> > > managed. This patchset refers to that operation as external attach.
-> > > Unlike conventional IOMMU vendor drivers, where translation is
-> > > managed within the driver through paging domains, external attach
-> > > means that translation is managed outside the driver, such as by
-> > > the hypervisor. 2. Identify the guest-visible device across VMM,
-> > > host pvIOMMU driver, and hypervisor namespaces.
-> > >   3. Identify the guest partition in the host pvIOMMU driver for
-> > > device attach hypercalls.
-> > >   4. Tie the device-attachment lifetime to the hypervisor partition.
-> > >   5. Coordinate guest-memory pinning and mapping for DMA between
-> > > MSHV and the external IOMMU domain attachment.
-> > > 
-> > > External attach has a few caveats compared with KVM/QEMU, where
-> > > nesting is typically handled by the host IOMMU driver in one
-> > > transaction after the userspace VMM uses IOMMUFD to form nested
-> > > domains:
-> > > 
-> > >   1. MSHV creates a temporal split between host and guest
-> > > device-domain attach. The host first attaches S2 through a
-> > > hypercall; later, if virtual IOMMU is present, the guest
-> > >      allocates S1 and establishes nesting with MSHV directly
-> > > through a pvIOMMU or emulated vIOMMU.
-> > >   2. Guest-memory pinning before mapping is covered by the
-> > > MSHV/userspace VMM contract, not by the VFIO/IOMMUFD pin-and-map
-> > > DMA flow. 3. Device capabilities such as ATS and PASID need a
-> > > contract among MSHV, the userspace VMM, and the host pvIOMMU
-> > > driver. At the time of host external attach, only S2 is attached,
-> > > so the guest's later ATS/PASID usage is not yet known. For example,
-> > > whether to expose and enable PASID in the device could depend on
-> > > whether the userspace VMM creates a guest virtual IOMMU.
-> > > 
-> > > This RFC proposes an IOMMUFD external attach model for those cases.
-> > > The normal Linux-managed paging or nested domain is not the object
-> > > that ultimately owns the translation context. Instead, userspace
-> > > identifies a VM/domain object, binds a physical device to a
-> > > VM-visible device identity, and asks the host pvIOMMU driver to
-> > > attach the device to an externally managed address space.
-> > > 
-> > > The series makes that relationship explicit in IOMMUFD. The model
-> > > is anchored around a hypervisor vIOMMU object that represents the
-> > > per-VM partition abstraction. It introduces:
-> > > 
-> > >   1. IOMMU_DOMAIN_EXTERNAL for externally managed translation
-> > > domains. 2. IOMMU_VIOMMU_TYPE_HYPERVISOR for the file-backed VM
-> > > partition. 3. IOMMU_HWPT_EXTERNAL for user-visible external type
-> > > IOMMU domains.
-> > > 
-> > > It reuses the IOMMUFD vDEVICE object to carry the guest-VM-scoped
-> > > logical device ID visible to the hypervisor.
-> > >   
-> > 
-> > This is very similar to pKVM on arm64 also, where the IOMMU is managed
-> > by the hypervisor, and for device assignment, the host doesn't control
-> > it for the guest, but the hypervisor (in EL2), and there will be a
-> > channel between the guest and pKVM directly after the guest runs. 
-> > 
-> > The host only sets the virtual to physical topology (how many vIOMMUs,
-> > vSID -> SID mappings) and describes that for the hypervisor through
-> > hypercalls.
-> > In Android, we have an out of tree uAPI through KVM/VFIO bridge
-> > IOCTLs that proxies those hypercalls.
-> > 
-> > In that case, the host just creates a virtual IOMMU and the guest sees
-> > a paravirtual one which runs with single stage collapsed translation,
-> > although I don't see a difference on the host side if nested
-> > translation was used beyond an argument change to the hypercalls.
-> > 
-> By "argument change", do you mean that the host would pass the guest S1
-> context in the device-attach hypercall for nested translation? 
-> 
-> IMHO, I don't see any change needed for the host-side attach between hw
-> nested and collapsed single stage, if guest and host attach are
-> split. I think it is up to pKVM or MSHV to handle guest virtual iommu
-> mapping for both cases.
+Simple quotas store the owner of a data extent in an inline owner ref.
+Tree blocks never get one: their owner is in the tree block header.
 
-Although the hypervisor (pKVM, MSHV) is managing the guest IOMMU in that
-case, I believe the host should be able to decide the guest virtual
-toplology, as that will impact the firmware tables populated from the
-host for example, as in the nested case the guest will see an
-architectural SMMUv3 while in the collapsed case it will see a simple
-HVC based IOMMU.
+Patch 1 fixes btrfs_get_extent_owner_root(), which also looks for an
+owner ref on tree blocks. On a filesystem without skinny-metadata it
+reads the btrfs_tree_block_info as an inline ref and warns on subvolume
+deletion, snapshot writes and balance. The filesystem is valid.
 
-> 
-> > My goal is to converge to IOMMUFD and I believe this series is the way
-> > forward, By relying on the vDEVICE virtual toplogy uAPI and the
-> > external attach introduced here.
-> > 
-> > I will try to prototype something based on that to prove that it
-> > works. However that work has a dependency on the host SMMUv3 support
-> > [1] which needs to land first.
-> > 
-> > [1] https://lore.kernel.org/all/20261015200903.2735565-1-smostafa@google.com/
-> > 
-> Same here, our pviommu root driver must land first.
-> https://lore.kernel.org/linux-iommu/20260929223622.778617-5-mrathor@linux.microsoft.com/
-> 
-> My next step is to rebase on Aneesh's v7 such that we have a converged
-> iommufd viommu layer, i will remove mshv specific helper registration
-> in this series.
-> https://lore.kernel.org/linux-iommu/20261008055955.4014342-1-aneesh.kumar@kernel.org/
-> 
+Patches 2 and 3 are hardening. The tree-checker rejects refs whose type
+does not match the extent type: inline refs in patch 2 (for example an
+owner ref on a tree block), and keyed refs in the same leaf as their
+extent item in patch 3.
 
-I see, I will add this to my review list also.
+Patches 4 and 5 are for btrfs-progs (devel 3737c260) and have the same
+cause: a tree block without skinny-metadata is taken for data. mkfs and
+btrfs check do not count such tree blocks in simple quotas, and
+btrfstune --remove-simple-quota can corrupt their extent items.
 
-Thanks,
-Mostafa
+Found by fuzzing. An AI tool helped with the analysis and the patches.
+
+Tested on btrfs for-next df5b88a7914e, KASAN and non-debug kernels:
+- Patch 1: no warning on subvolume deletion, snapshot writes and
+  metadata balance without skinny-metadata; same qgroup numbers.
+- Patches 2 and 3: crafted images with an owner ref on a tree block,
+  and with a keyed tree block ref on a data extent, are refused at
+  read time instead of aborting a transaction later. No valid
+  filesystem was rejected: skinny and non-skinny, 4K nodes, mixed block
+  groups, no quota, qgroups and simple quotas, with reflinks, snapshots,
+  balance and scrub, and filesystems from btrfs-convert, mkfs --rootdir
+  and btrfstune -x.
+- fstests btrfs/quick, and the qgroup, balance, snapshot and subvol
+  groups with -O ^skinny-metadata: no new failure.
+- Patches 4 and 5: mkfs -O squota,^skinny-metadata writes the right
+  qgroup counts; btrfstune --remove-simple-quota leaves the tree blocks
+  intact and btrfs check is clean (before: "backpointer mismatch").
+
+The crafted images are available on request.
+
+Siddharth Mishra (5):
+  btrfs: skip tree blocks in btrfs_get_extent_owner_root()
+  btrfs: tree-checker: reject inline refs not matching the extent type
+  btrfs: tree-checker: reject keyed refs not matching the extent type
+  btrfs-progs: check: count non-skinny tree blocks in simple quotas
+  btrfs-progs: tune: do not remove owner refs from tree blocks
+
+ fs/btrfs/extent-tree.c  |  3 +++
+ fs/btrfs/tree-checker.c | 56 +++++++++++++++++++++++++++++++++++++++--
+ 2 files changed, 57 insertions(+), 2 deletions(-)
+
+ check/qgroup-verify.c | 5 +++--
+ tune/quota.c          | 4 +++-
+ 2 files changed, 6 insertions(+), 3 deletions(-)
+
+
+base-commit: df5b88a7914e18488908ddf13e14e31ab39f954c
+-- 
+2.54.0
 
