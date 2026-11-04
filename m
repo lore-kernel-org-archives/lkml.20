@@ -1,51 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793759623;
-	b=DO5JESe8xWEBol52XY+itMz1z9X4xffwF2gFDwVomA2KUxyE2hl3Yr25OPSrPWHQgfKv
-	 Yt4PIzmgVml0rUfdLYrTl0Le1HiLg3uCptFm/CT7hWJ7yXYSOoBscfNwTYtyn/u7zbAa7
-	 FJoK1b77vyXQTI7P3qN/VkAkZmVbi546CRdQPO9AyPT/4bM5xfFjyvaC4ILwNdgIrEOZ9
-	 Ea0u5r+7p4l+ZDvqOwh9+8IAHLW3wMpzzdwzv8opvT75Qs8XQro82JpPJPrsT7LAf2rAP
-	 U3Xk/dKlwAY/OBAI+YeiD6z4DFClZJ2b+iwtykFgnivYsSRSOUAiWDzsukkbI4BU7gA==
+	t=1793759641;
+	b=pFs7BmvDa2HRCtiY0jx4xkobFpVTKpyyU9bFRqeE4A+soquFDQg1HYfxC7nAgDD6nYlD
+	 h4JRPnAhm5cPv2PjR4MhUw/Ghm3xrJlinWPFy1QGKLlMcHi5VicYp+g5mhNKwXFyd0wIC
+	 LJaR66ltbMkhyyNhd0nUpgpTlw5kxfUW0KoJZ6fAKu+wH85Nnn1StkipEdBvKYE1MpW6m
+	 7gRDg+/8Oo5CtIs2GNGoG/9OgPUo0+syE/hyfzo2ghDN6vuzMW04ZvomtW+qzNYnSlA2D
+	 8GEW0pygZIirABFzGmztutE2LRVxm93zUGoEPvEGM0++yUMo71ulD0WtavwrlDZ8Csw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793759623;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=3yAKRkPmS0fvUGWgcRv33GX6ZfAkV+3eGLG2Qk2/DwU=;
-	b=tpuWYCELzeu4yT5MfqfuozmjnwQ4FXfrxq8rsMS8KOutImSY5ArPnKg8O2P3a2BWx2iD
-	 pU+Oyfuq2X7IiE9aN66knHCvMVvoDhVnKGlfAFNh1t5GccVM8DX6Z6l2WlPk2pdrFwqHT
-	 kR56/8iRZ3C+nRVs/i4NLq8jjZ7urwW53SmulZ/4wcN1O00XqPj+SDahp4nQKrq605nCm
-	 hJyFRHS3TvdDP33SQYqZMObBGQ+XwPsatOLoQOxPrrXAg5A89bvkvrExgKrnkzpAEDjPs
-	 bhaO6WxNtNFFvW8XY4HVriODN5u1Gwes7XgmPsD5XSbfv0Es5ZslCt5QedV5L4IWZww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793759641;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=UngWXeSeiFLVAfajmqVKU8517kJO/u7bQBZMSqnjHsI=;
+	b=dDToMutvcFJFJFU4cAcydAMyGrabJb5MMvCyYHoe/prWJpY183/pLABEKuTLlKCLzVH3
+	 GbtM5ntfDJP5Xex0h2L3kEKVfRO1LA6VFLxuVBzjFilXhbDqWcJ8kMPRXLtdoIql06QqE
+	 o73iZGbXx0Ay3LDoyGc8zxHsV3tKd5mKIiPlwUh+y5U5Wn/6yUun21PkO3DulL90AQPep
+	 gXa6X1RHXTmsTtSseGcasfSXXn0ktUhxhMvR1tLhoNKY29dsS17z4feGtUv90CM8l8n5C
+	 ZSTj2yVrpcbjVca7iqGJciFmliqzr/PcXR87P/s5c+yXp4RFiOi8/z/Gys7/QzrXf7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.sdu.edu.cn;
-	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=fYiWCCRF;
-	arc=none smtp.remote-ip=45.254.49.198
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=MFhupODo;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E5BD606A328;
-	Wed,  4 Nov 2026 02:33:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E5BD606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF5DC606A32D;
+	Wed,  4 Nov 2026 02:34:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF5DC606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=fYiWCCRF
-Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5367d0739;
-	Wed, 4 Nov 2026 10:33:37 +0800 (GMT+08:00)
-From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Hannes Reinecke <hare@suse.com>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <mkp@kernel.org>
-Cc: linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] scsi: aic7xxx: Fix potential critical section table leaks
-Date: Wed,  4 Nov 2026 10:33:34 +0800
-Message-ID: <20261104-db9e3c75b3-scsi-aic7xxx-0@mail.sdu.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=MFhupODo
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=UngWXeSeiFLVAfajmqVKU8517kJO/u7bQBZMSqnjHsI=; b=MFhupODoadThu58oBxVFxQ34Wv
+	kJ99xDxkXM9iKu6wl2wOoczIPJV+t0RjQQ6YZT/+j1Lsb/SyRsm95imnsq2kpDbrrhjRGC/bJB/3W
+	UJzWDMZJIk5QXLk9HGwV4h5bcc/J7x7Bi1vukK8ak0XON5eesfvApAlyyHyLroTeeafE=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xOQor-00EDm8-F6; Wed, 04 Nov 2026 03:33:45 +0100
+Date: Wed, 4 Nov 2026 03:33:45 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Qingfang Deng <dqfext@gmail.com>,
+	SkyLake Huang <SkyLake.Huang@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Joris Vaisvila <joey@tinyisr.com>,
+	Ahmed Naseef <naseefkm@gmail.com>, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH net-next v4 2/6] net: phy: mediatek: move MTK GE SoC
+ registers define to dedicated header
+Message-ID: <fd99847d-e7ee-4327-8eb3-8336eb7d967b@lunn.ch>
+References: <20261103221439.30502-1-ansuelsmth@gmail.com>
+ <20261103221439.30502-3-ansuelsmth@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,36 +75,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1a467a2de03a1kunm4ff2f44e1636c1
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGUIfVkweHkpLTktMTB5CQlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0hKTE
-	1DVUpLS1VKQktLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=fYiWCCRFSj4Wm1k5IbCt1rEi6/Zk8gtUXR2DEm9PBch9wlvw6BvtabSqNKF3A22mF1ZuSDnDrDfXkRsRsZI4MhJZ+iSsy7l+Hz3CWsHtH2SZovRMa+/12NyCJ8UnHrD4RuXqqT3ssLyXI5wg4XYgSFu7sojmPF2iZVqWiXEYRus=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
-	bh=3yAKRkPmS0fvUGWgcRv33GX6ZfAkV+3eGLG2Qk2/DwU=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103221439.30502-3-ansuelsmth@gmail.com>
 
-Free each adapter's copied critical-section table during teardown. AHC
-and AHD use the same ownership pattern and both omit the matching
-release.
+On Tue, Nov 03, 2026 at 11:14:33PM +0100, Christian Marangi wrote:
+> In preparation for support of special Software Calibration for Airoha
+> PHY, move the MTK GE SoC registers define to a dedicated header.
+> 
+> This is to keep cleaner code and permit sharing these define in multiple
+> source code.
+> 
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 
-Both changed objects were build-tested with x86_64 GCC W=1, using
-defconfig with the driver dependencies enabled. No hardware or kernel
-runtime test was performed.
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-OpenAI Codex assisted with source review, patch implementation and
-commit-message drafting. The submitter has reviewed the changes.
-
-Guangshuo Li (2):
-  scsi: aic7xxx: Fix potential critical section table leak
-  scsi: aic79xx: Fix potential critical section table leak
-
- drivers/scsi/aic7xxx/aic79xx_core.c | 1 +
- drivers/scsi/aic7xxx/aic7xxx_core.c | 1 +
- 2 files changed, 2 insertions(+)
-
-
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+    Andrew
