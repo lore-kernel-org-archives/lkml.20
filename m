@@ -1,57 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793806392;
-	b=ypx8F7q14LuWGQyzanms9/M5Uq4BhReg03iK4F2br3mzNHJH3Ft/QzmxkYjyVJPky5oZ
-	 28gDgE5ANLQuMsaVFRZfJawAJlq/OOtvQ7/OiiXTKxEWv5Ysnb0Bbe23xIFK0e9FuTAFT
-	 0Lrc41UBNI8b+iZkAg+qzmO2myrTsWE5IRMa800QVLrWCmK+fFZ0xu6VaT+5VcTToBq56
-	 Gz4M4bahO89oafkP2OLKqrzzcIRA8Xcbm5/VPsUy/mBxqdkiYJnPAOvK9r3B/t6BMXCMp
-	 l0rlxt6LKXbSV6cmA3jjNs9zv/n/+tyazeuuJ3pmx8DFYkptX6XcghuJ5HPFz2zmE2Q==
+	t=1793806426;
+	b=OhR34gU0OBq5JJ6lnlFukpIVc0eQ/SB86wSwSlWYN6OESyKEEEnqcD33GUJUSbHKXFh2
+	 AzuO8SBS/t+UYSvL9pXPW2jo1x7LPx3E5LpMwuSo+N/E4qz28M0IXoHyf/zn6lBpjHDNc
+	 F0i1YxZMnX/l2mMMnx012FwYnzHLotjl5P13eNrIW0+M++eNlXc8XhyviXYpCHxtbB98k
+	 n4agvQrZ/TtgUXx/vXlJMwFKvmQLUsTqkHFzDYkJHvRasDj6XncloD8q072FQafdoiMaw
+	 WlMHKht4D/Qu8KQM5KJoPCWviEyC8+9hlH7fys49fKgth+kyVkD5Mw0bZFCZRtmD97w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793806392;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=ijgGCnSqrjIVk6YkV/Tk0OCRls1u+aL1OVhTRnPDVEw=;
-	b=DhJz8oCm8jt2j0RHAob8rtSW3dIq+4SlNRFBUq14RIPNPgK44dhZp0/sXgol8te6rVFR
-	 oAKDDQWhgHbBjME+sD+mLV0y2LbtrLCEqssVcHVxyMgI05Jr8SqUDZLgsXbGpka7rwUsH
-	 mnvk83K6+/DOK/LXOF1K1XRzyKf7tpxYrV+OA1pVkDyboW3ApdYOFAv0vUwwKWtEHX7/A
-	 LAOsHasJVcUT8/Eko+V76BQE+gh7EhYQYDVIECTRWluatCdp+/oUlO6uUp5r1dEUu8gW/
-	 8mSAEGNK49WkKyJjtad2mm3IcGlj1T1HbJBi1BPKqb7gKahFY3XRNPaorij3ypdovRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793806426;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Oc+EV5R5qicUTnDYhrGYR2No2F9ftwOjqvoIR/sc2KI=;
+	b=faVUV8LJvDpBWSkp2f0A8jTLLgD7dsdsoxNOsWd9SjyHxi4yseGuU3TIS2ZBW/pkRzH/
+	 beneoPkwz7yeD0a9672ZmnuuShlJyrjOm6/Q5v4NJ8Jak6YxW1AzhuxUkey9VKTGv0k6G
+	 ECVCbys4U11qt4SkX2kMWOyZ26vEI1PRiQMKfIpPFNQYLykwYUmdTS0uPJaUg4Mm8I5Cv
+	 DaEk1g2B/QoZ9sZ0NzQ/r+vg+uHlYNqUvvgJZKaqfYyHRWwtneAf+zdSb7u/lZBqH5y5z
+	 eHaZhWx+4Cm8TW+z5XR/cQ9L6+Sx30rXXf5If0UKpJGRMAX9v7rAt+7ARVVaLweqofA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UanPt8Ab;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=n5lDlPE1;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AdNqXRki;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A503606A31B;
-	Wed,  4 Nov 2026 15:33:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67429606A32D
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:33:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67429606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UanPt8Ab
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E62461F00A15;
-	Wed,  4 Nov 2026 15:33:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793806392;
-	bh=ijgGCnSqrjIVk6YkV/Tk0OCRls1u+aL1OVhTRnPDVEw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UanPt8Ab3aWe29Kx9mDWZ326Rw/aPLRuEWwsuAdv9JZhC43Tnn5jJh+ZlYqvkOrb2
-	 5JeVBI5fLe3ioSUGZJ0zPWZ4h81II/x2fLCfjITa0CryrCtgjAnfAzLyEv3zzC5AcG
-	 EfWSQKqWgWOpZLbdk1aZQGSbjOSvfL9Ks1+1Um98P1sSzgRUpCj8R4llYET/MexYfk
-	 v97TOqa2gYSgPqlRoh/d6KMwHtrclOCbiXka50GvrdOkGPPch2pSMIwphqL5Q5Ldrj
-	 GA5km1M+1R4LWW4h/T4TYRuBtLZkutyXneDvAkzpFAkmh43adH+DQ8lU5x5ts84jw9
-	 UnmBsQp2EFqqA==
-Message-ID: <sashiko-outbox-197510@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 05/12] sched/deadline: Do not release a departing
- sleeper's bandwidth twice
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
-In-Reply-To: <21f538f65f013a71920547ac92c76ca8ba544d19.1793804635.git.mathieu.desnoyers@efficios.com>
-References: <cover.1793804635.git.mathieu.desnoyers@efficios.com>
- <21f538f65f013a71920547ac92c76ca8ba544d19.1793804635.git.mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 15:33:11 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=n5lDlPE1;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AdNqXRki
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4Ba1G9739317
+	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 15:33:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Oc+EV5R5qicUTnDYhrGYR2No2F9ftwOjqvoIR/sc2KI=; b=n5lDlPE1Uf7O6RF6
+	4aa5Gvgir9U27o1EbZODmoUwDgwjOWiv5/ppwo6knHP4Vb9nxIjcgla/YcjcmzgN
+	dDZRaKgUUUioKyYZhYZpvPrFve1FhHOhXv8XUV9GW78Y/fZ9x5+ArmWJ1Bw9ljT0
+	mN7vyXaR2qJwjTrXUK0zXvq7d6UFeT6DM3vH6ZIHD4k2ArykiVWhcRd0ZJIflV+X
+	jX/SkjczYp89DQ7rwA2/YAMK99u0ltVdXBRSDTDAusYMP4nxtRy9UpaCnQlLZ9B0
+	nhuvFMGu1/gVjUT2ek2uOejjr3mo65yrl0G8O5I24084agccrSdLaxIDPuyRe2ql
+	G2aduA==
+Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com [209.85.160.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr163hnev-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 15:33:44 +0000 (GMT)
+Received: by mail-oa1-f71.google.com with SMTP id 586e51a60fabf-4a68926c8c4so851984fac.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 07:33:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793806424; x=1794411224; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Oc+EV5R5qicUTnDYhrGYR2No2F9ftwOjqvoIR/sc2KI=;
+        b=AdNqXRkiMfDwId68bO+bfVDeeCQG1h3ebhnQzScYGZ7xelaC2/RLLSt0T5K2wTua0v
+         eXhnOJPJyQJ3faAkV0sx75gGppi4zq1ylpfrXYoVyUMSCfTptyjD71jC37Ai7uxcryC8
+         UXboldzNzuZCtx7oNyk1Ch/zVN1TjLRxS018wfscC7Wz9ripAxqulhBUkSj6XTbKqQ9u
+         kiiSA2+YpXPfs9u0MlCdjKsSWvMVDcvWLoBaSgL4AeT9GtlcYgl2vtK7DjcVVKgtEyy8
+         XPUi9TrBLY6r+NdcPV+mU6tWN3+lrbdTLOEdDeq5xVoWn5fzcbmo6y6wQgdoTi+hrjf1
+         rFug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793806424; x=1794411224;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Oc+EV5R5qicUTnDYhrGYR2No2F9ftwOjqvoIR/sc2KI=;
+        b=ro/sQxKcyd4lSRSg06kD/ahcRowqcPBeIca2ylO8KMjQEGtp1SaNIgzaUVPm8aL53g
+         stTzXTgKDcztPd3vs9sUXbXpyeMlH0gQ0sCx9Gg8qvmgW+3LmPzd5dPd1Sgm6b2DhL8b
+         91ShJVlE1/DrlzbizGF5rGoWuRIi1KEpD4EzGV6MsFrBnDDu973sqeqEedRHSwxY/bfe
+         x9LnDhY8yp9O6No/6mInwrh590XP4kBomr4v5gCmK0bGs6LsN/Jiue6erWS0+CEPRvvk
+         bPa7y6zX2X/BQDRvtuxfVPtd7+SkKSdduBs+4IZfSFaniBcjwnOmu7ipGtqLZtHxwxeW
+         8icA==
+X-Forwarded-Encrypted: i=1; AKwUvByWVcq9/gLEdXLHlL2gYerxaQ/PIwTGuG0QsBISAAQOP4TmVGmxtofdO1Fubh0tEWz0npw9hk91W7yxVDc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+NM+dlPjKlpxXZt4g7Hx8fwv7HgtfOemxknWV3iqxl5ihXeZsY
+	AYMGrkhiUbrRdijaI9QyH0oR8ZLgHRN5pY4mXjXBHNkKv+K3a5leS8TmkWwBBg2DlFR9/dYZg8/
+	naSfKk9jdjP5OgS3nu6LBsXDQLLMY7bf3J244Mw5f7/vQfGVoQbPovKDVCZO+9hdIx14=
+X-Gm-Gg: AYBFou2cJxUGEygyCxCoJmkOQrfg5nvWqG8VHyMvJV94CD/Ggvx9P27tG9k7uifz8Qu
+	g/SkaQr7BwpxpR8Lao9dZHmsv0S9DNxnJrJX9XTZVcdR3LkXh23LnkTAfN3h0hnuWyoYOH0lfpk
+	s56a6SHv8AWkQU36VH02Qw4vVa9ahrSwqfPs34jsFMYqHCd48lKliIAr3nhAfjM9lw36uO4NKjW
+	PSTKInt5hC/929dYg0NErizJJ3lqHGa/JcvsmoCfNSdzBTPV3sMx276nQgF67LFrExIBuEfSAuV
+	h+jERoGCynK5hiLNnrUGhs7YVObwzOOl5wAJDi0Mk+XWIA53xUmgUWcq5Ux+bKowWDJdYqFiO/u
+	VUqYmAYQrVvpmGvZWGYO/Ajfo2r0RICfTP5DJhdXk7YryJhv12SGqUCYZTatWuQrusqE=
+X-Received: by 2002:a05:6808:1996:b0:4f5:c4b9:dc14 with SMTP id 5614622812f47-5640dcb744cmr12375090b6e.13.1793806423757;
+        Wed, 04 Nov 2026 07:33:43 -0800 (PST)
+X-Received: by 2002:a05:6808:1996:b0:4f5:c4b9:dc14 with SMTP id 5614622812f47-5640dcb744cmr12375050b6e.13.1793806423309;
+        Wed, 04 Nov 2026 07:33:43 -0800 (PST)
+Received: from [172.20.4.37] ([192.210.17.203])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9f9115csm1961627b6e.11.2026.11.04.07.33.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 07:33:42 -0800 (PST)
+Message-ID: <98d01186-7d87-459e-8c18-db201baef34a@oss.qualcomm.com>
+Date: Wed, 4 Nov 2026 16:33:40 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,149 +114,92 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] thermal/drivers/qcom/tsens: Drop __init from the
+ ->init callbacks
+To: Christian Schmidbauer <opensource@grische.xyz>,
+        Amit Kucheria <amitk@kernel.org>,
+        Thara Gopinath <thara.gopinath@gmail.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>
+Cc: Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+        linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261104145740.2623473-1-opensource@grische.xyz>
+Content-Language: en-US
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+In-Reply-To: <20261104145740.2623473-1-opensource@grische.xyz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: qVSpMFlHO6Zv2O7nuU9EZ3t9gzB0DRYa
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA2MSBTYWx0ZWRfXxg3sWSeH7kc1
+ veh1W9rsdUq+htjZhoJ3QzVMVQbhEAxgtEr6OMjayMpLFZOJVzpALPhQQS7jdyi7CZQzLxDWuff
+ Ijda5dOY6u26jx+d3wF2YylR9R28WOs=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA2MSBTYWx0ZWRfX3uOnZtc9h9aZ
+ +QCjiEPzftgjxSjrhD1do4kXfcwSfj6xW3vSsYwWfbGK8s9Agme03V7UZs8uCs8XBApxFmEP2Q9
+ G/+Oczr40MWsbAks2olbHzBz7KoD4bO4rceT3AnXSZaknzb/0RrN/rsl7eUPsz/IGVG480nhcBN
+ PhlMHQ9+WbX1WMgjy8mJpGlTwfJjtqhbKe2bsujP5UqZyz1i1jmb9xC31pvmDIvNlrbl9nVvYCh
+ D7aNrmQavnVUb+vSy7cXKfPWl5QGbV4TZHFehB9+o4Qy3y6tOg501sNz8kQuMc9NIfCdWRofWP8
+ ApjGANe3aY7XaxgPOVs+4XRXmOY1RFIQ8X+BnWlwJ/YtBTF0kO7zman8DLKJdcAlWCH0k6DbRR/
+ ohYjDmTpE4C/kYrZWY5Tm0f7xQz3lg5V3n+ffpuES4Xiau9uByjcd1V1mjfDU+TFD/zGF+Vgkde
+ jLSUVgGLbk4Nw3Czy9g==
+X-Proofpoint-GUID: qVSpMFlHO6Zv2O7nuU9EZ3t9gzB0DRYa
+X-Authority-Analysis: v=2.4 cv=O5OsLx9W c=1 sm=1 tr=0 ts=6aeb5058 cx=c_pps
+ a=CWtnpBpaoqyeOyNyJ5EW7Q==:117 a=3CSVYe8HblTQFsWiJzwA3g==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=7I9-Nl3zapt3FfmOfCcA:9 a=QEXdDO2ut3YA:10 a=vh23qwtRXIYOdz9xvnmn:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_04,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0
+ clxscore=1015 impostorscore=0 suspectscore=0 priorityscore=1501 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040061
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] sched/deadline: infinite loop in replenish_dl_entity() on PI donor=
- clear
---
 
-commit 0ea45c3b24aa9d9591791893080fc323c30a9de8
-Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Hi Christian,
 
-sched/deadline: Do not release a departing sleeper's bandwidth twice
+I don't see the patches along with the cover letter
 
-This commit prevents switched_from_dl() from releasing root domain bandwidth
-for tasks without their own deadline parameters or special sugov entities, =
-and
-clears the deadline parameters after releasing a departing sleeper's bandwi=
-dth
-so it cannot be released a second time.
 
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index d474fbfd9be6d..3c57e5f5fc056 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-> @@ -3567,6 +3567,8 @@ static void switched_from_dl(struct rq *rq, struct =
-task_struct *p)
->  	dec_dl_tasks_cs(p);
-> =20
->  	if (!task_on_rq_queued(p)) {
-> +		bool released =3D false;
-> +
->  		if (p->dl.dl_non_contending) {
->  			/*
->  			 * Inactive timer is armed. However, p is leaving
-> @@ -3579,12 +3581,18 @@ static void switched_from_dl(struct rq *rq, struc=
-t task_struct *p)
->  			 * release total_bw via __dl_sub().
->  			 */
->  			sub_running_bw(&p->dl, &rq->dl);
-> -		} else {
-> +		} else if (p->dl.dl_runtime && !dl_entity_is_special(&p->dl)) {
->  			/*
->  			 * No pending inactive timer: the task never ran as
->  			 * DEADLINE or the timer already fired while still
->  			 * DEADLINE (only dropping running_bw at that time).
->  			 * Nobody else will release total_bw, do it now.
-> +			 *
-> +			 * Not for a task without parameters of its own, one
-> +			 * deboosted from priority inheritance, whose mask may
-> +			 * have no active CPU for dl_task_root_domain_cpu(),
-> +			 * nor for a special one: neither has bandwidth in
-> +			 * total_bw.
->  			 */
->  			unsigned int cpu =3D dl_task_root_domain_cpu(p);
->  			struct dl_bw *dl_b =3D &cpu_rq(cpu)->rd->dl_bw;
-> @@ -3592,8 +3600,20 @@ static void switched_from_dl(struct rq *rq, struct=
- task_struct *p)
->  			raw_spin_lock(&dl_b->lock);
->  			__dl_sub(dl_b, p->dl.dl_bw, dl_bw_cpus(cpu));
->  			raw_spin_unlock(&dl_b->lock);
-> +			released =3D true;
->  		}
->  		sub_rq_bw(&p->dl, &rq->dl);
-> +		/*
-> +		 * Released: reset the parameters, as inactive_task_timer()
-> +		 * does. Kept, they would make the task one with bandwidth to
-> +		 * task_contending() and task_non_contending() once priority
-> +		 * inheritance boosts it, and a deboost while it sleeps would
-> +		 * release that bandwidth again. So would the inactive timer's
-> +		 * handler when it runs late, dl_non_contending cleared under
-> +		 * it by migrate_task_rq_dl(): it finds !dl_task(p).
-> +		 */
-> +		if (released)
-> +			__dl_clear_params(&p->dl);
+On 11/4/26 15:57, Christian Schmidbauer wrote:
+> Every function that tsens_probe() calls through priv->ops->init() is
+> marked __init, so a probe after free_initmem() jumps into freed memory.
+> On IPQ8064 with CONFIG_IPQ_LCC_806X disabled, fw_devlink defers the
+> probe of gcc and its tsens child until the deferred probe timeout,
+> which expires after init memory is freed.  On an Aruba AP-325 the probe
+> then crashes in init_common().  With CONFIG_QCOM_TSENS=m the driver has
+> the same problem once the module's init function has returned.
+> 
+> Patch 1 drops __init from init_common() in a one-line change that
+> applies to every stable tree.  Patch 2 drops it from the eight per-SoC
+> callbacks.
+> 
+> Patch 1 was tested on an Aruba AP-325 on a v7.2-rc7 based tree.
+> 
+> Not tested:
+> - Patch 2 on hardware.  None of msm8226, msm8909, msm8939, msm8952,
+>    msm8956, mdm9607, ipq5018, ipq5332 or ipq5424 was available, so patch
+>    2 is only compile-tested.
+> - CONFIG_QCOM_TSENS=m on hardware.
+> 
+> Christian Schmidbauer (2):
+>    thermal/drivers/qcom/tsens: Drop __init from init_common()
+>    thermal/drivers/qcom/tsens: Drop __init from the per-SoC ->init
+>      callbacks
+> 
+>   drivers/thermal/qcom/tsens-v0_1.c | 9 +++++----
+>   drivers/thermal/qcom/tsens-v1.c   | 7 ++++---
+>   drivers/thermal/qcom/tsens-v2.c   | 2 +-
+>   drivers/thermal/qcom/tsens.c      | 2 +-
+>   4 files changed, 11 insertions(+), 9 deletions(-)
+> 
+> 
+> base-commit: 2dc1f296b5754dd2441fc8b6613a362a47f6b98f
 
-[Severity: High]
-Can calling __dl_clear_params(&p->dl) in switched_from_dl() cause an infini=
-te
-loop in replenish_dl_entity() when p is blocked on an rt_mutex and acting as
-the priority inheritance donor for the lock owner?
-
-If a non-deadline owner holds an rt_mutex and a SCHED_DEADLINE task p blocks
-on it as the top waiter, task_blocks_on_rt_mutex() -> rt_mutex_setprio() se=
-ts
-owner->dl.pi_se =3D &p->dl and places the owner into dl_sched_class.
-
-If p's 0-lag time has already elapsed while p sleeps on the lock (so
-p->dl.dl_non_contending =3D=3D 0) and p is switched to another policy via
-__sched_setscheduler() in kernel/sched/syscalls.c, switched_from_dl() runs
-inside the sched_change guard before rt_mutex_adjust_pi(p) is called:
-
-    scoped_guard (sched_change, p, queue_flags) {
-        /* sched_change_begin() -> switched_from_dl() */
-        ...
-    }
-
-    preempt_disable();
-    head =3D splice_balance_callbacks(rq);
-    task_rq_unlock(rq, p, &rf);
-
-    if (pi) {
-        if (cpuset_locked)
-            cpuset_unlock();
-        rt_mutex_adjust_pi(p);
-    }
-
-At that point __dl_clear_params(&p->dl) zeroes p->dl.dl_runtime,
-p->dl.dl_deadline, and p->dl.dl_period while the lock owner still has
-owner->dl.pi_se pointing to &p->dl.
-
-Even once rt_mutex_adjust_pi(p) calls rt_mutex_setprio() in
-kernel/sched/core.c to deboost the owner, sched_change_begin() dequeues and
-updates the owner before resetting owner->dl.pi_se:
-
-    scoped_guard (sched_change, p, queue_flag) {
-        /* sched_change_begin() -> dequeue_task_dl() -> update_curr_dl() */
-        ...
-        } else {
-            if (dl_prio(oldprio))
-                p->dl.pi_se =3D &p->dl;
-
-If the boosted owner exhausts its runtime (or yields) either concurrently on
-another CPU before rt_mutex_adjust_pi(p) runs, or during the dequeue in
-rt_mutex_setprio(), update_curr_dl_se() sees is_dl_boosted(&owner->dl) and
-calls:
-
-    enqueue_task_dl(rq, owner, ENQUEUE_REPLENISH)
-      -> enqueue_dl_entity()
-        -> replenish_dl_entity(&owner->dl)
-
-In kernel/sched/deadline.c:replenish_dl_entity(), pi_of(dl_se) still resolv=
-es
-to &p->dl where dl_runtime and dl_period are now 0:
-
-    WARN_ON_ONCE(pi_of(dl_se)->dl_runtime <=3D 0);
-    ...
-    while (dl_se->runtime <=3D 0) {
-        dl_se->deadline +=3D pi_of(dl_se)->dl_period;
-        dl_se->runtime +=3D pi_of(dl_se)->dl_runtime;
-    }
-
-Wouldn't this trigger the warning and spin forever with the runqueue lock
-held and interrupts disabled?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1793804635.gi=
-t.mathieu.desnoyers@efficios.com?part=3D5
