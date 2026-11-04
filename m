@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826559;
-	b=h6GSh9QQbQmhuhIjB7L+xjTLso7YSzHK770AAz6nuZvEomUvLvhj7C6rdPBrYF3pdLY1
-	 2jOHwMX/PJ4BjWQQArovNHy4LCK20KMtn0Ix9b7J1KxVnwpwBmFmnW7/OjvjKjNT+07ap
-	 t5HXIFOIYOGQk2I7Na454fxhBrR+5Seco5VXFAZfk8xuHB2B3Zb4Y8MDHmlpmtJ0BJsRN
-	 1LZCgc5TrcEb5lFZQ85IOIY2ayD9qHmU7A0jCr46Kgzn1q3YMAJpWNTtpdVjpUQXcGckV
-	 IHvjMml2dI5zwsMhWd3+9VZZKAWEwuKUOgYeuib24cvcO9fty0ykb0PevEx+p36IasA==
+	t=1793826561;
+	b=qVjw0/qi5MyQ5oV1M0s2O3zhcaNSIH8QAZudngAYHDCykntGFCPnUfa3TdCTF1PPDqgR
+	 lE9ja8qKw2794TknftUCotHqFcjk0uoh6PrVDJO6Cy32a5bbtyCoIO8Hvp0EKHd2T/paX
+	 Gjca/N8lSfVB0oH+jb7F+RNyTqk4UG3U2J+krxRppIeS/sxV9WtK7psmz+IGkY7xyMR1V
+	 to2yJyyIdLqbNf7bArHFPQf141dztcKfNrd2tqN4o0vcgig3UDw6WVGDgbKX/yXCKBYVI
+	 mrgJKc7ByJWddQ0GGqYz3tVXOSQujqPm7ojDDiYsSAH3WSyt2/97WArc8QqToAtq03A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826559;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826561;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=zyZpk01DLf2QnC58+UQV1wk4CBVcfTT8UP8IdGyE7ZY=;
-	b=H/8yc5KGqoQ3kUi42rQ8baxgA4lGueDeg3NPTFA4Nq5Op9GU7VjSItFj0bpxbmChHJ85
-	 hZnrsFRbME0047SwgtPZbOxdDvaTezeHAz3u7ptqnoba+pUQ6spGBk5T4FsFAk3E4DuQP
-	 uRd0gBGybzWjd8OOsPKdXG/v+FebpcBKzCcUkKUCBHv5iKSbpQuHX3eYAEAFwOIbGfuNg
-	 OJjMmzeoR6sAHlehhxFjzuBS8R4YoZhLHrsT72qAr+sfsMMf8MMHgEN6f373xwm++6LfM
-	 yYelFPy3VSnu2lwE0G6jh0YsKJjPxSrVHXJSPmf2sIR5Q//Z0km3xPhsJwl5Hluf62A==
+	bh=X9wnpJsazkN5foWhabxg0QWUZDXf9PEJ3m6VtZwLNVE=;
+	b=DVtpVIG9qeoIKU/s7OoUBB6ePza9vEa63FLVo0CnEfWULyKYGa+u1E4idJw7evSnXnMK
+	 zEb+5bxUsHtfXRNK2L/Z25lsDhB8gIGQjEBq2ViAaOSUMkalGVplTxJ+pjxCIHFyWrl4P
+	 qrkbXtMnRkg/EQvHN/2O3ri6lnlOUK+QIChDx+D/D6Uejfc8/kFfRTLeHs5PlcjGfuxl7
+	 w8REj3/M2iasbqf9RGiQiMWyHAOrSn37SoR2SUTTH73Yy9AOV8k8GKYwf1+wg9BTkL4L4
+	 s096TMDHJP+djmYuNVjP8gLyAbRScI1YioShp+rgMfwUhRn3K7f+Y2VEeToKsg3OF/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xmPUDHJn;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LTOXDZr5;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EEC560A67A5
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:09:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EEC560A67A5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22EA460EA984
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:09:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22EA460EA984
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xmPUDHJn
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48e00eee27dso656097f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 13:09:19 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LTOXDZr5
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48fd2e38825so819064f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 13:09:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793826558; x=1794431358; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793826559; x=1794431359; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zyZpk01DLf2QnC58+UQV1wk4CBVcfTT8UP8IdGyE7ZY=;
-        b=xmPUDHJnkAI2JpFOCpLn7lbCItH22ZZ1DeIqLMRulnAOuDv4bnFCWi0nCkut1kpz+t
-         Q8lcYX71cv2THd452ojIMF7hyqTlxoPhhF9UsnBQU00ZiqVsW+uItNBQ99Up6NWjzMZY
-         rbV4d2NaZWDCEHJumFJXbbSYP6GfzQFxMoTnl+SIv68thPTInzWVLzig8X386MGJpTNU
-         pwhdPqBI3zD1ewhdNW2j/QRKMi3dAp35SYkNwBNazXqK8tAXtYmnh0kiSSo4NwBFI4vd
-         kMnk7V+k2B9lqBiChIwp9pW4JxMG2G1jf2J3g8S+n+NOzVxoS00Mhc04WDeXnFXki7v3
-         F4Fw==
+        bh=X9wnpJsazkN5foWhabxg0QWUZDXf9PEJ3m6VtZwLNVE=;
+        b=LTOXDZr5bLktgK4avwYS9F/zbl+kahrT6v5PeXdFUGhBi83GXjDQgEb3rwI+1EolRm
+         eOv7aNNuPo+vZIYwCTJ1G2HdFxD/IHyz16btWou1HvdDhyu5jO8dnkoyvHlzqySQeZQx
+         RA0EyJrCzZz1OpIcAuhJxJc3ZMSFM2BBNvHRE7HS4RYscwgX+FLutAZEhEzUY0fga0TP
+         +IC4ceEY+ZWGdzCKLo4NAXSdqt/rxYt22DJifSvRC7drARWdepAaT8Hg3elaFGxYOyLi
+         6bPWeZzIYCWNDJ1sLJunStnZN7tmWCQSq35A5+WNQHlWrpmx+mEnywfVmaPb3jWaan9P
+         jC+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793826558; x=1794431358;
+        d=1e100.net; s=20260707; t=1793826559; x=1794431359;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=zyZpk01DLf2QnC58+UQV1wk4CBVcfTT8UP8IdGyE7ZY=;
-        b=T3F2hlQFDFTKbnIVGorN6AJgnETUauo509f3MqMpnWkqqScd9vcPlzygrU46QC6vz1
-         ytBRUUUKw/OxBOwpGY3z68mRmqc0yfoJepJkMAowrhWgZWZGYuVu8I9PVbP3ME2XEHQI
-         dhyJ8cSAQEu5QuUybuCoNkHvqC/CJTHDeA4a/F5B7xLcLSoU4PWqgXIDwNUEcVSQjdgS
-         pWSuGV441nIsKmuguw2JT3zJ3tq6FCliqqmi3EDejKrlNYPu8QFlbQvVp6rRy309z3PC
-         J2MC+9RJYS5YPQM8nZKPTNKiVwAThqjEiD/1Lw4Fgjn+wNd1aCTveM1s36nm1dzen1M0
-         BTmQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxVUbjzib7tizIn9uXtLgIMFVjRLfO0rBBJFWPdcej06EHL/VztvMqJ1xJvXmuCgPEKNRQk6Xxmf087o0g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9kLs2UgexMgxr99tmWGTlAS6GHH7fgGUSz/lsHTYCICPg4uTnA
-	PnarNrx3ftX/wpuaL0P9U54SX1l0bPLhCzsBPQhseLpr4q05mNU+PQJ3qE7QLTSo
-X-Gm-Gg: AYBFou2eqT+BhQp20h2NTRHmbYT1amUdO4jhDoycb/VHizURyt1HPCVQ212YOE1+Q1Y
-	01+/chnQOYVFYR5l/eng66cxRaPgkMYqYof2eP/XrGlUxYa7EVEqfV92kpRZVtA0zgL47J5r1W0
-	iP8lkLo0A5c6q4mvm42Mowvrcym5eJ4Zk48UB7xoemYF/2jjhlUIpx2Kk52RDurQ03g6EFz69hc
-	Yxknb7M0HQMgdpJ6fTvKeXwqutqtB/isB90ygCG1oKH8gUqAK+PrDi8qjTuzzsI7V6w7H2Bm4ne
-	wRZhM+AYmhRvqki3ZbgtcTsRjIE7tE3P7/Cni7sHC3F+GkDUGzjIvPw8Vrn06VpqmR3typy0JMy
-	rL8CDZeulp5FB4EOUdi0nZ0nTTUi+w3RXFEE2tcG31HfiH4ha0wroP8DgR5e4vpbIiIHc0n6OJr
-	9/BNwx/A9oV2n/9NIMtaueoftOk0C97ciFoWRY0tenO62IM0sE7uSOA2Np4TJf3ZsGhJifumMky
-	IFgoB6kVdMN9S6+jm3dbuXyusR4aoyfcrfQ23F6+i77rahlr0r4pqBbI/XA8U8Sm/q/fKUng9t2
-	MX59Oe6roIVVY9k6buzlzvhmGLxvKJXMThshGR5xIM0ErGqrLsZql6I=
-X-Received: by 2002:a05:6000:420d:b0:490:a481:7ac8 with SMTP id ffacd0b85a97d-490a4817c00mr3361546f8f.29.1793826557552;
-        Wed, 04 Nov 2026 13:09:17 -0800 (PST)
+        bh=X9wnpJsazkN5foWhabxg0QWUZDXf9PEJ3m6VtZwLNVE=;
+        b=Ipp/PCXviBHw5JCzJscr64Mr6r4ePL50fKJyhJhJPrBslnx/sQ1NHKU1qIkdI/W5Xe
+         3p6fDXvHIhO/2GCZveu58qAw8KCe71Xacpt9gK7QO62ZLMnEvd+8ttW5Y/70FgJNZ0EW
+         tlpSRg9NmeeNIs8qGmuabyEC9mFCstlgtGgNfwt0ikp4+KDt7+1ZcpNQqUaP33bdFxS4
+         oRwfgSunvWq4mIom7ZoCkPFjYwApbtqOGeYxEk8giP7Xop3S+LTwIcFVmtcSodCz9gfo
+         wvEiTFhMWV/qLEGl7/EqPkTP2cpIFOeXDguX9xtwZ/nFjvjd/UQcQqF5QZz7aeqOJfR8
+         MNGA==
+X-Forwarded-Encrypted: i=1; AKwUvByg3ZEcrAt31ent62r59q3fSczt8TOb3/ekFFLHF5fhtHBK0GdFncPGmKtUHJeqBD6R8QUYjNWz14FFw5U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z87q9Kt2K75aMTZXQpNDLR8fWhEHzVy+ffgjdSqwsFeA5jYdzO7
+	iH5PsIFCTAI5tfZD1pq6CPUlypC8HnhTWpSoT9j6gaqlIEE7mlHniqnT
+X-Gm-Gg: AYBFou2in2g5gWgXapbJrtK3yaXggJGtwrXn4VSe7qOXLOngCmgmFdA2u95n+AT9bX1
+	cE5Xa6vtQ5D986IidnnQbhuLJfUQn+86UY1ebMq69L2b+OYM/FNHvGGFPscSUq13JuIymwOvy6q
+	9jFEQLVei3VKtlmXltdp0YYuiGm6qQS9TVFqlINBNhQ6TsBDWmO0ayD9RlGsr3RusC/pOEbUNrt
+	zkab24Z4ZQvMaG3/ZAQrOPKQBqsLqFg6I3vbhYdMDi9nhoe2EW8xPbEyW8sN2g/+gk/Elk6K/Cz
+	/vxrafTaYdsxd4ZToC62I7E/9hcP0FYiSKgF1vfQIDfebXO3QsFLU/soUDAbWnSim25b3EhryIo
+	XF3seEZiXWWsfprUshfFXR+gQB/NptIeIb4k0DUHtGKc0lqKGgPH4cIIWQ8z74mdLaNmjaaD/lt
+	hVeLUPW4heUDiniccKe0zXMdUwwVhlbGykgsF/+wjNL9ZJRv3daEdjD3NHFJcz0vH8IkbDNui3v
+	9PNwsXtU1kMkvXVMqauvXW+p9dsBcuhvC5Jcapw+bTIHBpKb/TiBAQUSzx29ZajNpRXpfXgAgCc
+	nBcvW2r4mnOcOzkv26PMHeqO1MVMme+Ig8Fg58/plu+lNw8y9Ya0LpewN32GPMY5dK2NhvxWnjo
+	=
+X-Received: by 2002:a05:600c:848a:b0:4a3:59c9:a756 with SMTP id 5b1f17b1804b1-4ac17b2ce84mr422739115e9.6.1793826559506;
+        Wed, 04 Nov 2026 13:09:19 -0800 (PST)
 Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed92a753sm6643541f8f.45.2026.11.04.13.09.17
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56fca2a4fsm12965075e9.15.2026.11.04.13.09.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 13:09:17 -0800 (PST)
+        Wed, 04 Nov 2026 13:09:19 -0800 (PST)
 From: =?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>
-Date: Wed, 04 Nov 2026 22:09:00 +0100
-Subject: [PATCH v2 14/27] selftests/landlock: Make audit_message large
- enough for any exe filter
+Date: Wed, 04 Nov 2026 22:09:01 +0100
+Subject: [PATCH v2 15/27] selftests/landlock: Close leaked file descriptors
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261104-selftests-refactor-v2-14-c52f23f7ce33@gmail.com>
+Message-Id: <20261104-selftests-refactor-v2-15-c52f23f7ce33@gmail.com>
 References: <20261104-selftests-refactor-v2-0-c52f23f7ce33@gmail.com>
 In-Reply-To: <20261104-selftests-refactor-v2-0-c52f23f7ce33@gmail.com>
 To: =?utf-8?q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
@@ -105,51 +105,154 @@ Cc: linux-security-module@vger.kernel.org, linux-kselftest@vger.kernel.org,
  =?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>
 X-Mailer: b4 0.15.2
 
-audit_filter_exe() copies the filtered executable path after the
-audit_rule_data header in struct audit_message.  The message buffer was
-sized as PATH_MAX + 200 bytes with received records in mind, but
-struct audit_rule_data alone takes 1040 bytes.  That leaves only 3256
-bytes for the path, while the kernel accepts up to PATH_MAX bytes, so a
-long path overflows the message.
+Several tests do not close file descriptors they open: the /dev/null FD
+in restrict_self_fd and restrict_self_fd_flags, and the parent's ends
+of the synchronization pipes in various ptrace, audit, signal and
+abstract UNIX socket tests.
 
-Size the buffer for an audit_rule_data followed by a PATH_MAX string.
-This only makes the buffer larger, so received records still fit.
-
-Also check that the request fits in the message and return -E2BIG
-otherwise, in case exe_len does not match the filter's buffer.
+Close them once they are not needed anymore.
 
 Signed-off-by: Günther Noack <gnoack3000@gmail.com>
 ---
- tools/testing/selftests/landlock/audit.h | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ tools/testing/selftests/landlock/audit_test.c                |  2 ++
+ tools/testing/selftests/landlock/base_test.c                 |  4 ++++
+ tools/testing/selftests/landlock/ptrace_test.c               |  4 ++++
+ tools/testing/selftests/landlock/scoped_abstract_unix_test.c | 10 ++++++++++
+ tools/testing/selftests/landlock/scoped_signal_test.c        |  1 +
+ 5 files changed, 21 insertions(+)
 
-diff --git a/tools/testing/selftests/landlock/audit.h b/tools/testing/selftests/landlock/audit.h
-index 1e533b4e26db..173dcd1088db 100644
---- a/tools/testing/selftests/landlock/audit.h
-+++ b/tools/testing/selftests/landlock/audit.h
-@@ -41,7 +41,11 @@ struct audit_message {
- 		struct audit_features features;
- 		struct audit_rule_data rule;
- 		struct nlmsgerr err;
--		char data[PATH_MAX + 200];
-+		/*
-+		 * Large enough for an audit_rule_data followed by a PATH_MAX
-+		 * string (see audit_filter_exe()), and for received records.
-+		 */
-+		char data[sizeof(struct audit_rule_data) + PATH_MAX];
- 	};
- };
+diff --git a/tools/testing/selftests/landlock/audit_test.c b/tools/testing/selftests/landlock/audit_test.c
+index 325fbb9ca297..b38d0c5d5869 100644
+--- a/tools/testing/selftests/landlock/audit_test.c
++++ b/tools/testing/selftests/landlock/audit_test.c
+@@ -977,6 +977,8 @@ TEST_F(audit_exec, signal_and_open)
  
-@@ -171,6 +175,9 @@ static int audit_filter_exe(const int audit_fd,
- 	if (filter->record_type != AUDIT_EXE)
- 		return -EINVAL;
+ 	/* Waits for the child to terminate. */
+ 	EXPECT_EQ(1, write(pipe_parent[1], ".", 1));
++	EXPECT_EQ(0, close(pipe_parent[1]));
++	EXPECT_EQ(0, close(pipe_child[0]));
+ 	ASSERT_EQ(child, waitpid(child, &status, 0));
+ 	ASSERT_EQ(1, WIFEXITED(status));
+ 	ASSERT_EQ(0, WEXITSTATUS(status));
+diff --git a/tools/testing/selftests/landlock/base_test.c b/tools/testing/selftests/landlock/base_test.c
+index 0bf8632b725f..a6d355807dab 100644
+--- a/tools/testing/selftests/landlock/base_test.c
++++ b/tools/testing/selftests/landlock/base_test.c
+@@ -352,6 +352,8 @@ TEST(restrict_self_fd)
  
-+	if (msg.header.nlmsg_len > sizeof(msg))
-+		return -E2BIG;
+ 	EXPECT_EQ(-1, landlock_restrict_self(fd, 0));
+ 	EXPECT_EQ(EBADFD, errno);
 +
- 	memcpy(msg.rule.buf, filter->exe, filter->exe_len);
- 	return audit_request(audit_fd, &msg, NULL);
++	EXPECT_EQ(0, close(fd));
  }
+ 
+ TEST(restrict_self_fd_flags)
+@@ -373,6 +375,8 @@ TEST(restrict_self_fd_flags)
+ 	EXPECT_EQ(-1, landlock_restrict_self(
+ 			      fd, LANDLOCK_RESTRICT_SELF_NO_NEW_PRIVS));
+ 	EXPECT_EQ(EBADFD, errno);
++
++	EXPECT_EQ(0, close(fd));
+ }
+ 
+ TEST(restrict_self_flags)
+diff --git a/tools/testing/selftests/landlock/ptrace_test.c b/tools/testing/selftests/landlock/ptrace_test.c
+index eb36d4d1ceaf..4fd2b440aa45 100644
+--- a/tools/testing/selftests/landlock/ptrace_test.c
++++ b/tools/testing/selftests/landlock/ptrace_test.c
+@@ -288,6 +288,8 @@ TEST_F(scoped_domains, trace)
+ 
+ 	/* Signals that the parent PTRACE_ATTACH test is done. */
+ 	ASSERT_EQ(1, write(pipe_parent[1], ".", 1));
++	EXPECT_EQ(0, close(pipe_parent[1]));
++	EXPECT_EQ(0, close(pipe_child[0]));
+ 	ASSERT_EQ(child, waitpid(child, &status, 0));
+ 
+ 	if (WIFSIGNALED(status) || !WIFEXITED(status) ||
+@@ -422,6 +424,8 @@ TEST_F(audit, trace)
+ 
+ 	/* Signals that the parent PTRACE_ATTACH test is done. */
+ 	ASSERT_EQ(1, write(pipe_parent[1], ".", 1));
++	EXPECT_EQ(0, close(pipe_parent[1]));
++	EXPECT_EQ(0, close(pipe_child[0]));
+ 	ASSERT_EQ(child, waitpid(child, &status, 0));
+ 	if (WIFSIGNALED(status) || !WIFEXITED(status) ||
+ 	    WEXITSTATUS(status) != EXIT_SUCCESS)
+diff --git a/tools/testing/selftests/landlock/scoped_abstract_unix_test.c b/tools/testing/selftests/landlock/scoped_abstract_unix_test.c
+index 67fcc3380238..df41da5f2ab0 100644
+--- a/tools/testing/selftests/landlock/scoped_abstract_unix_test.c
++++ b/tools/testing/selftests/landlock/scoped_abstract_unix_test.c
+@@ -156,6 +156,7 @@ TEST_F(scoped_domains, connect_to_parent)
+ 
+ 	/* Signals to child that the parent is listening. */
+ 	ASSERT_EQ(1, write(pipe_parent[1], ".", 1));
++	EXPECT_EQ(0, close(pipe_parent[1]));
+ 
+ 	ASSERT_EQ(child, waitpid(child, &status, 0));
+ 	EXPECT_EQ(0, close(stream_server));
+@@ -263,6 +264,8 @@ TEST_F(scoped_domains, connect_to_child)
+ 		EXPECT_EQ(EPERM, errno_dgram);
+ 	}
+ 	ASSERT_EQ(1, write(pipe_parent[1], ".", 1));
++	EXPECT_EQ(0, close(pipe_parent[1]));
++	EXPECT_EQ(0, close(pipe_child[0]));
+ 	EXPECT_EQ(0, close(stream_client));
+ 	EXPECT_EQ(0, close(dgram_client));
+ 
+@@ -433,6 +436,8 @@ TEST_F(scoped_audit, connect_to_child)
+ 	EXPECT_EQ(0, records.access);
+ 
+ 	ASSERT_EQ(1, write(pipe_parent[1], ".", 1));
++	EXPECT_EQ(0, close(pipe_parent[1]));
++	EXPECT_EQ(0, close(pipe_child[0]));
+ 	EXPECT_EQ(0, close(dgram_client));
+ 
+ 	ASSERT_EQ(child, waitpid(child, &status, 0));
+@@ -637,6 +642,7 @@ TEST_F(scoped_vs_unscoped, unix_scoping)
+ 	ASSERT_EQ(0, listen(stream_server_parent, backlog));
+ 
+ 	ASSERT_EQ(1, write(pipe_parent[1], ".", 1));
++	EXPECT_EQ(0, close(pipe_parent[1]));
+ 	ASSERT_EQ(child, waitpid(child, &status, 0));
+ 	EXPECT_EQ(0, close(stream_server_parent));
+ 	EXPECT_EQ(0, close(dgram_server_parent));
+@@ -779,6 +785,7 @@ TEST_F(outside_socket, socket_with_different_domain)
+ 	} else {
+ 		server_socket = socket(AF_UNIX, variant->type, 0);
+ 	}
++	EXPECT_EQ(0, close(pipe_child[0]));
+ 	ASSERT_LE(0, server_socket);
+ 
+ 	/* Server always has a domain. */
+@@ -791,6 +798,7 @@ TEST_F(outside_socket, socket_with_different_domain)
+ 
+ 	/* Signals to child that the parent is listening. */
+ 	ASSERT_EQ(1, write(pipe_parent[1], ".", 1));
++	EXPECT_EQ(0, close(pipe_parent[1]));
+ 
+ 	ASSERT_EQ(child, waitpid(child, &status, 0));
+ 	EXPECT_EQ(0, close(server_socket));
+@@ -1139,6 +1147,8 @@ TEST(datagram_sockets)
+ 	 */
+ 	ASSERT_EQ(1, read(pipe_child[0], &buf, 1));
+ 	ASSERT_EQ(1, recv(server_conn_socket, &buf, 1, 0));
++	EXPECT_EQ(0, close(pipe_parent[1]));
++	EXPECT_EQ(0, close(pipe_child[0]));
+ 
+ 	/* Waits for all tests to finish. */
+ 	ASSERT_EQ(child, waitpid(child, &status, 0));
+diff --git a/tools/testing/selftests/landlock/scoped_signal_test.c b/tools/testing/selftests/landlock/scoped_signal_test.c
+index 47307dd2e242..0f88a6af9c72 100644
+--- a/tools/testing/selftests/landlock/scoped_signal_test.c
++++ b/tools/testing/selftests/landlock/scoped_signal_test.c
+@@ -1120,6 +1120,7 @@ TEST_F(trace_fown, deny_scope_fown)
+ 	ASSERT_EQ(0, fcntl(recv_socket, F_SETOWN, child));
+ 
+ 	ASSERT_EQ(1, write(pipe_parent[1], ".", 1));
++	EXPECT_EQ(0, close(pipe_parent[1]));
+ 
+ 	/* Waits for the child to send MSG_OOB. */
+ 	ASSERT_EQ(1, read(pipe_child[0], &buffer_parent, 1));
 
 -- 
 2.56.0
