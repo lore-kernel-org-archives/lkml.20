@@ -1,61 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793793604;
-	b=d/IGQO/f4L9UOcaIiuWfzlFO1dFDl9TeCxDHMCcFt78Xs0LvhKTFuFORUiOm9ni0j8s1
-	 645qg0djJy8sHjY+grmfzcQT8QFI0pX+VnRBVcY1Cj+a/NXC2xQ0QrShfDoLj4ft2leiu
-	 Qyrd6aOqKtI960YhKrG1l0QcPe4OeLRe17EdGBPRQKq1Y9hRKBeGbFp2ZyE3SL7Ow0xf1
-	 r+Ct+/v8+VHN4SJL2usEERk5CQv5JMznTbE4ACCwOjyZ2Qw7z/Mgs7nJ3bvdNZJKcBdy8
-	 59AxRLUW7MQIXpe23JaOl1TkV/i2m/h9g+BD3hN3K1gHnEK9fLg0h64Fk2cRrAEY1eA==
+	t=1793793640;
+	b=zwfqrTJyDfvVoIcoUIJ3d2NVOrTX1eppeblF3qeD1t7YOt7bkrH4JWxw8ze3jZ2CYEXf
+	 /Xuv2lzt/TmDAjzimP7RqMboc7IgrqE/9R9FiNDePf6psfmRkWzgY0BX0E2Go0Gd45Uni
+	 R2HUNlaqWopWfyrnBcfdtMRWIIPAHv0fQPA3coZGnPL5Q1OggoTzeFurFJ3QAqULN5Yhn
+	 ifY4+3ngtzCKF8SNjh+ZCeVPTsn6/qrLinXdnu1GolUlLlupcpSU2j86ZrY6s9tHPar4B
+	 tHjcSzAXJ89nhb7p3IhCI8Rpse8sjnt7OMbQYUl9ed+DgVVGquA/4lqKp3+zaTyd2IA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793793604;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=jJ8X7ehvFW1TVL5y6djFbsTpKjfmqXVJak4szFfMMAs=;
-	b=PQSQ8XoUXi1sWytGpxUNZ/Qf95R0FVGScfH5CpcryhfTNOS52nmV+QheI0Knh/66P1Of
-	 zoF3b2RZTqjL51JidJuaLQxR91C9aVgSTB6kChRXjV/NmNGU1MuTbI0gDXn3PIBUoSFDK
-	 n8lVJ14ozBj+Ou42J1DXWDauL/pk17sRPViYqvW4QJeoUnbuv2c0B5ujvHQeFC3ibHp8u
-	 Uq0j2/PGvPQfmlkI+oOnAFYnY7pzDbLaPgH2nh+3LnaPID6Z2a/P5BD2vhmEyKnE1zqWr
-	 AUchVVt27IEMSxwFmyWohYOWnT5s4rdPxuysI463BVBZ2syP4PJ5dxzJJgQXQJR4ZYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793793640;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=3TangyTQ+F1EF3tLxNBi9hzZtvBvVtmUOHm+mBgsEkw=;
+	b=CeqoZYMfdyLTsEFhUQJFN1c5G1/oYEO9q/75JLUFmcyCPFhkOSxwAeVujpO5E28PWl6J
+	 zrBPsncHPV7T5C/M1ZavBkV9D5su7JIxWgBiBZCCTvXbFp+KE3ild6lfZtTepfqQ9kAgB
+	 wSQ32jgxkf5G+OuG7n038QtJNPGBNSZcW3I6n1xfwP77JOp77sYjhC/bgMvmn7XSU9gav
+	 VihDUtKuWvSexcZpQ2HO51TfTSQwMxOr7lnTbWAxG96UKKQdKDJ+B30Y/xu/ZaofSaFKi
+	 kN86DB4vqfnEHymGtBSUeOGTh8RZwBURR92zKEsFA+ju+j7lEukFhGzgzqTdTlLPcXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gu+FrPnq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=J67P1KE4;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D57B8606A32C;
-	Wed,  4 Nov 2026 12:00:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FB48606A328;
+	Wed,  4 Nov 2026 12:00:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FB48606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gu+FrPnq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03A301F000C1;
-	Wed,  4 Nov 2026 12:00:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793793603;
-	bh=jJ8X7ehvFW1TVL5y6djFbsTpKjfmqXVJak4szFfMMAs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gu+FrPnqdrGmlJP8rTwsTc3xsSUf+Vsia3jvIyTityWnn8TvjEd+mK9AMtrhRn+ww
-	 Pte6DhgOcR/eDe0Mt6yxZ89tc/Q2ZWrfHf8Wj6/AUrR2b3H13C96Sf3TxVSVdZq7Cv
-	 7QDLYkvfDZXJV4JnAH6IN/UhbS9j/IzwB1T7vwtaX9pcjv9ncdi+9kodKrsew5MWCi
-	 JFVCcZBUybJrplG9sox03+J4OMR3ayamgY0ZpGV1Fsh0teewipxFsSRYIIwOzkzYPV
-	 OAeW+lPuicqKYpZ2YKUxnefMLDXn55qr81P0rzYuhK1GdtjwoVzn9soLSlbsTnPRtx
-	 DhQzOC2ZEIETA==
-Date: Wed, 4 Nov 2026 12:00:01 +0000
-From: Harry Yoo <harry@kernel.org>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Alexei Starovoitov <ast@kernel.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
-	David Rientjes <rientjes@google.com>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-	Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, kernel-team@meta.com, 
-	cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-rt-devel@lists.linux.dev
-Subject: Re: [PATCH for-next-fixes v2 1/5] mm/memcontrol: defer
- obj_cgroup_release() to irq_work
-Message-ID: <ausdFvI5XyDNrrR0@thinkstation>
-References: <20261103-kmalloc-nolock-fixes-v2-0-19167cfe4779@kernel.org>
- <20261103-kmalloc-nolock-fixes-v2-1-19167cfe4779@kernel.org>
- <b181dade-ffa1-4b58-9927-8a2429a59ac1@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=J67P1KE4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793793639; x=1825329639;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=JrJIZS7mdC2DNBsFz30CB/vSL/nLJEAA4va9gpdgOXI=;
+  b=J67P1KE4ftpzcvv4GeJkTm4ru6w/M/3K+Tppo8OSsE/fIHo2X9HiBaS3
+   LE4jAWDrz9n+LHp7SWdXPHvNQ5X4NEfZNMQPw4jsa5vKpowg/Unnzv4sz
+   uJA+zPYJ8a7hDLG1JG0TPhFVLC+aOuCjJID7IyzIjAIj3kWTZNPUbWzBN
+   ZVkVaERoC/XF4h3sJsqYEk6UFEBkwMk/Jg4cOPL7V00DA6iHFXwX68R5Q
+   41t6GrGgBGycChWC849oN6aFHJghx775GFabbmseL+rxbIE5etLtGD+gv
+   ntQkvnEuH/MdUaHUHoCWq14YhnqdUIk9zNrM3o3i9uWPF89pWe0DpPFXZ
+   w==;
+X-CSE-ConnectionGUID: P+92gCeJQBWv7sxROXFdpQ==
+X-CSE-MsgGUID: TL+GaD8nShqMNXy4QEETdA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2424977"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2424977"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 04:00:38 -0800
+X-CSE-ConnectionGUID: UyX6S0NrR8Cn/t3ekVp3Kw==
+X-CSE-MsgGUID: RILWyBVVT9C9yvWe+V/zQg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="7047392"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 04:00:35 -0800
+Date: Wed, 4 Nov 2026 14:00:33 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Ludovic Desroches <ludovic.desroches@microchip.com>,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Viresh Kumar <vireshk@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	linux-arm-kernel@lists.infradead.org, dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org,
+	imx@lists.linux.dev, linux-riscv@lists.infradead.org
+Subject: Re: [PATCH] dmaengine: Convert to subsys_platform_driver()
+Message-ID: <auseYVGGYnxXMCUf@ashevche-desk.local>
+References: <20261104113302.1634102-1-peng.fan@oss.nxp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,53 +86,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <b181dade-ffa1-4b58-9927-8a2429a59ac1@kernel.org>
+In-Reply-To: <20261104113302.1634102-1-peng.fan@oss.nxp.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, Nov 04, 2026 at 12:02:55PM +0100, Vlastimil Babka (SUSE) wrote:
-> On 11/3/26 15:47, Harry Yoo (Meta) wrote:
-> > obj_cgroup_put() can be called from any context.
-> > __memcg_slab_free_hook() puts a per-object reference on
-> > every accounted free, and draining a per-cpu objcg stock slot puts
-> > the cached reference. When it drops the last reference,
-> > obj_cgroup_release() takes objcg_lock, frees percpu memory
-> > (pcpu_lock, via percpu_ref_exit()) and calls kfree_rcu(). Each of
-> > these can deadlock when the current context interrupted a holder of
-> > the respective lock.
-> > 
-> > Defer the release to irq_work. llist_add() and irq_work_queue() are
-> > NMI-safe, and the irq_work runs in a context where acquiring a
-> > spinlock is allowed.
-> > 
-> > Add a separate llist_node instead of reusing the list/rcu union
-> > because the list stays linked until the deferred release. struct
-> > obj_cgroup grows from 56 to 64 bytes, but both are served from
-> > kmalloc-64, so no memory is additionally consumed.
-> > 
-> > Closes: https://lore.kernel.org/20261001044056.75079-3-kmehltretter@gmail.com
-> > Fixes: af92793e52c3 ("slab: Introduce kmalloc_nolock() and kfree_nolock().")
-> > Signed-off-by: Harry Yoo (Meta) <harry@kernel.org>
+On Wed, Nov 04, 2026 at 07:33:02PM +0800, Peng Fan (OSS) wrote:
+
+> Replace the open-coded subsys_initcall()/module_exit() platform driver
+> registration with subsys_platform_driver().
 > 
-> I guess releasing objcg isn't too frequent, so it won't matter that we make
-> all cases use the defered work
+> No functional change.
 
-Yeah, objcg release itself uses a global spinlock (objcg_lock),
-so I think this is fine.
+Ah, good one!
 
-> instead of somehow trying to do that only in
-> contexts that would really need it.
+>  drivers/dma/dw/platform.c       | 13 +------------
 
-... and this is not easy as the percpu refcount callback
-doesn't know the current context.
+> --- a/drivers/dma/dw/platform.c
+> +++ b/drivers/dma/dw/platform.c
+> @@ -194,18 +194,7 @@ static struct platform_driver dw_driver = {
+>  		.acpi_match_table = ACPI_PTR(dw_dma_acpi_id_table),
+>  	},
+>  };
+> -
+> -static int __init dw_init(void)
+> -{
+> -	return platform_driver_register(&dw_driver);
+> -}
+> -subsys_initcall(dw_init);
+> -
+> -static void __exit dw_exit(void)
+> -{
+> -	platform_driver_unregister(&dw_driver);
+> -}
+> -module_exit(dw_exit);
+> +subsys_platform_driver(dw_driver);
+>  
+>  MODULE_LICENSE("GPL v2");
+>  MODULE_DESCRIPTION("Synopsys DesignWare DMA Controller platform driver");
 
-> Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-
-Thanks!
-
-> since memcg tree will be used from the next cycle, we can just keep this as
-> part of the series in the slab tree?
-
-Ah, I see. Will do.
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com> # dw
 
 -- 
-Cheers,
-Harry / Hyeonggon
+With Best Regards,
+Andy Shevchenko
+
+
