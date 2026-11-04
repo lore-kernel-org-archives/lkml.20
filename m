@@ -1,110 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793808108;
-	b=s/g2JZLGIRYxwPNCeXvWw6OZaSCY2p532dk+1wkXrnOxvlK3pDRip+yWZ+XJtNSgbzoj
-	 V9cBS49KHrZ/UZgg4U/0pXrYjICewN3jDvkK5kQ9REEdc+xX9dddva1iDD0yaH9eOvaNM
-	 QQie4cay6sPXqDyHGzQGqy0hX3gkkekAVRbk2nLfsZCTUDZZgGWgYq/O87J2qMBNmDPFR
-	 jCL3owUP15Qz29MFm8Vgu5Ij4MfgteEeZejeDtCE7awu1PfJXJZvGi7dWgVQdWyMJXtHM
-	 9d/8ra6TzcbI2blJuJZSoQK8hzPZ2jz1N5MBEl0RG5DQNn4O5XUnM6xJ29ZNe0ldsgw==
+	t=1793808110;
+	b=LwLkWn1uOH83iKbGO6LVDkLBjpnT56UR6p5EAzRdQw6SUX4iHGDMJoSp3Z58zEJtA7c/
+	 Y77bUKm6mpvuJRb7YfVKo1Re6bF2yUFmnZk06l+Higk5RbxgJofKO105dlaw/hUCax9NL
+	 VR7a9sbSJ3Q1IF5gl8jNUxAtYVDPDBx/gEsrm0ad3nFGLs5QuQ7eKGGHAKt09yGbBhQTi
+	 4S8AUK31W9G62mgYohJPeaskIod9JD3wbAdYcyB+OgCPNUIOCqvcuerUEBK67FNDfeX/k
+	 yLV7M2kvIMmLbsmAL628NEm7jUERDBXVaC46TcI3FSHj1Y6NdMFjc1pRDp4ZeeNttHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793808108;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=7TVjAetQhr+zqiL1REQZJOBOF8yETe6loWTAjtaYDT0=;
-	b=oWonf6R2eT/Igo/P5w0m4JFt4bSOYOD/AQkm5NjgLAMfzfc3j8vnGwV6aEzzKrTEtyA1
-	 L6dyF9bBBb0T59dNUzLfxFypQnN1L+y1JWWQSRsMc0/pmZ7Y/SPqgZd0LE1Hw/UivtvXY
-	 YAmQiG9l8x9p2ymg92Fyf4O5JbsXuij9AW7aE9vv6r8IC2jzfT5UY5cvSft9Uv4xnJ4Rv
-	 /FXp70dkwZDD5NKN9N9XVRMyaCnfeztjkRI/a6UeXXITDRUlxmT5pH3GnouflQfU6XIfI
-	 +h/qHA2WrwKevyoFUOpvoPWAdehZIQI82ldOI6L1xTZAPC1ZsamomcJHGyvzjbgH9bA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793808110;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ZkN5NNtXWcAd+oV6ehU/ur0cXmvwUrihiy6yQwMBF2o=;
+	b=TRCkcxqnNah4artDPlwDWgCA7bt4oFieJ+qpauSVkfuQmiHo1Z+bsWVfz7EI30bi0Bhl
+	 xP83ph9dPlcywMCXGUBuPqjUY3Ch22dzqCFJAHQAqOT6YMExP6D8iQZ/FDRNX70Rb4XnR
+	 Si+SiN3g7+s6PLlLBosdNwhQNNZySnIxuuMs9KeAe6/5/oxsbBQkdL6j1hiYYjpR0qxvL
+	 jjrIsgoXsRRRC0BIIyZz31RAsTPDza9++NAl26N7VfH1wMhf0Lk7QpbWpE5Fpe0C1Ec4S
+	 zwhNEaJb5WqI6zt4fPwVXlqbmGo2eKVFJJyZbV7X/YdMaDqT/Like1C8Ya/VS6aBkbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mndZZ8q6;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CfZQ3+Ev;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AsQu+rFT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55944606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:01:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55944606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 035A9606A33C
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:01:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mndZZ8q6;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CfZQ3+Ev
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4Fj5p63208770
-	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 16:01:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	7TVjAetQhr+zqiL1REQZJOBOF8yETe6loWTAjtaYDT0=; b=mndZZ8q6HS31pdl6
-	HNsFtLxpMXNTO5pmJCmr/NXsvnHKigi0f5KzgCkZn32BgqsFSWzgk9OlRyMzKXD+
-	yMxEVMMJfqQV3l8LXfApIZcA4kk0NAC0knuKIvFL8ysMLpnKWHWGzITV+VMz3UkS
-	mDQxV8LS+O04mkCJHjNVrxUK7KlfwnxikSLpOyPlptRWYyQ+RvEArDz8bbokYvuj
-	VF+84mZEpqfDPNb9k3MWwF8WbWXRerzOPNog2Nnw1Gn3tmvpzWHbpMSLU+ncE2hW
-	TvhkUhvT+5lqtSrml/7A7WzXwBJfVSEe2WV5B2enuHQTV1JzSp6oB37skhsqrtFg
-	kqSbOg==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr6bj0cyp-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:01:47 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36c9e87d262so1212865eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 08:01:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793808106; x=1794412906; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7TVjAetQhr+zqiL1REQZJOBOF8yETe6loWTAjtaYDT0=;
-        b=CfZQ3+Ev80cNv3HPJmUTNB3gtlG3Pt/oMko8wN72mYHQ93Yisn3zdksD4vxsk8ixWf
-         6TkZEI/qh8saqWHSxv9b24prO/aeoYLMJslkvj5nlTfTntKvLkQPwgaIqJJbH9rQ4NlU
-         HBw8Pa/CnRiUmM4pmYs7zg+iut/DCa+wqFJwnEn+BJRnpsWoVRjwBphidsr/yXVL3oot
-         Mqr/rmMMtMmozcilMPkjHUqRzWe1bqd6CfJ+bpXWgfvrektT9hP/ra0G8QzC8LzjdH3l
-         xZcGKQUcKR1s8NblXrHkEZPA9iNauCdDGaiwKIT3EfS8edfyQj2r0CzXT64kW473lmBg
-         n6wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793808106; x=1794412906;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7TVjAetQhr+zqiL1REQZJOBOF8yETe6loWTAjtaYDT0=;
-        b=tFMvqYs25cTKSra7r/yXWuXBIA+4MQbuEZisr4IaH4A5CNRiHDKz93f9sBYc4ISdok
-         T7N0P/KslWM4AuGV1hkpNbhsCHVPK53r0NhJGARETEJ0UwybyVmgKhzLBRvNEb/Jpzkx
-         WiLjBoMc/izqNM5b/LHxBmr/4OXODkoDZkFqLFX3y114ue3x5lxqdSkALnoll11I0+mh
-         4wZDVranz9Z2fyhLnwJYYp//KSA20wDCWpCak2+p9U1565gGJDHb2Wu4i0rlBXYxQsou
-         zj3IueCAsqHiYj8ZxVsy9CzfL5Tu87mXCFOpHuddV0D/6C1RbbazPzcZGTRvIa1SRNfe
-         lEBw==
-X-Forwarded-Encrypted: i=1; AKwUvBzbnD2UWxXFfw75fl9OoXj86hNTqonPMIQCsq5Abci1cFZ9YRZwRyy4bTQG5KOTypKzZ52Apf+MgCB9OTA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Ed0EShKOgmKxuSS2E7DEOCqz1NRvVvpKIewx3gOlcMVK9FX36
-	WOWJKIMqUGNx5/6u/mjeKv6GJAEe6gzl3oTnniVfWmXBpLAwwRo293yPUhVG8UKkIhG2M5gHp2+
-	CrDqu5w7S9aoMynZnzVItKAUON/mjlNMtpXb3sJ24J/DyrZ0eLvyagQ8XxcP+K8ADLEI=
-X-Gm-Gg: AYBFou0SvlhE7cYsfgCx+YmvWmCruTTEVsZ6NAF6jPx0reKiSizUiv4XXsblaO2DosD
-	tCwyhseNZ4dBF7yi80xaj37xgdoc/Q9NCkOd3T5T0Srh8QQmQJt3kx8cF4JPlBS3uY7gNRT2mic
-	GDe0WsyKShSJf1+DyrJXaZytw1kItJ3nIgqt+Q79tH9+ThlOa8P56NJi6mW8LwhTJZvGcOQnqYv
-	mK9Ie0NxT+MH7mhGZwvxGIPcNzTL/xItgN6Cmg9iQjMFy6nWBPB3gWFRgWtHc0mSCIJRte67DNb
-	ce8Zq1GUQ+Ykxp4JCGhLX2CNKpsp9csX1Pc+zLXnrLTYXqVkaqNUu5/IB7HfuMsyVvvImEW/8bi
-	VeIZ0pj+rugYE2QLmkR9veY1gc60zUF5vjDNdufat6db8OXNYM+/k4WG/ydcnM4Ay3efHB+6dGN
-	8=
-X-Received: by 2002:a05:7301:6194:10b0:369:f937:9a7a with SMTP id 5a478bee46e88-36a42437876mr25176942eec.34.1793808105972;
-        Wed, 04 Nov 2026 08:01:45 -0800 (PST)
-X-Received: by 2002:a05:7301:6194:10b0:369:f937:9a7a with SMTP id 5a478bee46e88-36a42437876mr25176880eec.34.1793808105143;
-        Wed, 04 Nov 2026 08:01:45 -0800 (PST)
-Received: from [192.168.1.10] ([115.98.177.53])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca3785430sm12698284eec.3.2026.11.04.08.01.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 08:01:44 -0800 (PST)
-Message-ID: <8ae6dc76-1dca-454b-909a-ac5a09162131@oss.qualcomm.com>
-Date: Wed, 4 Nov 2026 21:31:37 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AsQu+rFT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAA631F00919;
+	Wed,  4 Nov 2026 16:01:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793808109;
+	bh=ZkN5NNtXWcAd+oV6ehU/ur0cXmvwUrihiy6yQwMBF2o=;
+	h=From:To:Cc:Subject:Date;
+	b=AsQu+rFTDhD/fGB2x/5+olxKYihlpy4qeGGrPirRNcZ24sDepwxPNDebZdeyjRwwo
+	 fJEjlUzqeFn1bot1pAWpnVpdkhvzVWn4fyh5bbB90IqEQvc2MFHkWKh1/N8z43a4wi
+	 vbKXZAfoH8C8pYGWTQzefe79i4wFAP5WlOmPMOVBq2EcZGP/mQKlRUU476+dsmdDYq
+	 6vFmaqNyA0voX954XfYgdHK0RJKBPm4QhO+oAN21FcgrV+4p6RSLXkSy7/WOJuxfWf
+	 ugFjchP4yiRPscJlrkpHY+zGTmT206knNtfp42VpfkW8epNoYFMenpk7mZYVPUv8DS
+	 y5aGVOcJMCdVw==
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-kernel@vger.kernel.org,
+	Tzung-Bi Shih <tzungbi@kernel.org>
+Subject: [PATCH v3] reset: Add KUnit test cases
+Date: Thu,  5 Nov 2026 00:01:23 +0800
+Message-ID: <20261104160123.6784-1-tzungbi@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,133 +56,446 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Subject: Re: [PATCH 2/2] media: qcom: camss: Add Glymur specific resources
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Suresh Vankadara <svankada@qti.qualcomm.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20261102-glymur_camss-v1-0-fcb619fc7319@oss.qualcomm.com>
- <20261102-glymur_camss-v1-2-fcb619fc7319@oss.qualcomm.com>
- <20261104-smart-scorpion-of-bliss-2e8371@quoll>
-Content-Language: en-US
-In-Reply-To: <20261104-smart-scorpion-of-bliss-2e8371@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA2MyBTYWx0ZWRfX+nwcFSJhy1ON
- mOGJ/d3sRJMRHRdRadUQ+Hl8N/ESMb1jrXcWGQ9mrlbbveJUTzV68gDBpH/VfLEBOmMG+TeCMfE
- 1mGMWfmoouKftPqwxGzCLpBdta791L69y7voaQbPJz1C9yKuwbGep+muxMhYRRj7lus7ThW/dwq
- eeSnp5gflmcTXvE0YJdy84DEh5LiBY1yCxOqsjcn8YVHVieLT7EUPuj70wuj2IM4sSOTd0voQvE
- eHcMNWWKDIXGlH2NEINwWEI06aXjWdfJ2KYtO5ZQkF9EPeOYsSjelLTcidg7JMgSE9uv0zIv9nl
- xe6bpdeS1vGCLN5W/U7OJBGDqnB2T5NWuWBbYs3eHBQ0Xh9KJ6nAXBn2a5sxvWLZpkCw2JNDlwu
- xqBTVFKr6Y39sekm2ouLYsCzmdjC1ztIuwgRc1mhn1j8Qt6zJzq3tiUBAg/ZuUVO9WsUHvwS6dr
- RocjvIaTOWIpBKIszmQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA2MyBTYWx0ZWRfXwWMLxll4W5DF
- PwT/uO86XXovbcMpmgBadSgh9fSICVX0ONVpJGFincHVMN7HQphgy0ZPqqUwI39u//2oZp7iSi2
- jlMnXP1vUUefdqEbhKQUyOTS5kpApGU=
-X-Proofpoint-ORIG-GUID: BWVDIED-tebPaomKTsS2cO80PD708Pe9
-X-Proofpoint-GUID: BWVDIED-tebPaomKTsS2cO80PD708Pe9
-X-Authority-Analysis: v=2.4 cv=N/u8hG9B c=1 sm=1 tr=0 ts=6aeb56eb cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=iaXPdgsK/hfklW56b25dCw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=PAWBQAtbQnHvqMwJI70A:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_05,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
- malwarescore=0 priorityscore=1501 phishscore=0 spamscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040063
+Content-Transfer-Encoding: 8bit
 
+Since commit 9035073d0ef1 ("reset: convert reset core to using firmware
+nodes"), reset suppliers and consumers can be wired up using software
+nodes without requiring Device Tree or hardware devices.  Leverage this
+to add KUnit test cases for the reset controller framework.
 
+The test cases cover the following scenarios:
 
-On 04-11-2026 19:24, Krzysztof Kozlowski wrote:
->> Glymur uses the X1E80100 CAMSS resources, but its CSI2 PHYs are
->> described as standalone PHY nodes. Reusing the X1E80100 resources also
->> reuses csiphy_res[], where port@3 maps to CSIPHY id 4.
->>
->> Add Glymur resource data without reusing the X1E80100 CSIPHY resource
->> table, so the standalone PHY path uses the graph port number as the
->> CSIPHY id.
->>
->> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
->> ---
->>  drivers/media/platform/qcom/camss/camss.c | 17 ++++++++++++++++-
->>  1 file changed, 16 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
->> index 1db66976e51b81edeb223cebb6bbe84995d102c2..4f705a056eedbc7b09d2630ee6284b8d768cc6d5 100644
->> --- a/drivers/media/platform/qcom/camss/camss.c
->> +++ b/drivers/media/platform/qcom/camss/camss.c
->> @@ -5800,6 +5800,21 @@ static void camss_remove(struct platform_device *pdev)
->>  	camss_genpd_cleanup(camss);
->>  }
->>  
->> +static const struct camss_resources glymur_resources = {
->> +	.version = CAMSS_X1E80100,
->> +	.pd_name = "top",
->> +	.tpg_res = tpg_res_x1e80100,
->> +	.csid_res = csid_res_x1e80100,
->> +	.vfe_res = vfe_res_x1e80100,
->> +	.csid_wrapper_res = &csid_wrapper_res_x1e80100,
->> +	.icc_res = icc_res_x1e80100,
->> +	.icc_path_num = ARRAY_SIZE(icc_res_x1e80100),
->> +	.csiphy_num = 5,
-> 5? Your binding said three... Confusing.
-> 
+- Basic: Verifies that a consumer can acquire a reset control via
+  fwnode and perform reset, assert, deassert, status, release, and
+  acquire operations.
+- Use After Unregister: Verifies that after the supplier unregisters
+  the reset_controller_dev while a consumer still holds a reset_control
+  handle, subsequent consumer operations fail safely with -ENODEV.
+- Concurrent Unregister: Verifies that unregistering the
+  reset_controller_dev concurrently with an in-flight reset operation
+  waits for the active operation to complete before returning.
 
-csiphy_num = 5 is needed to cover from port@0 to port@4; it is not
-meant to describe three populated links.
+Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
+---
+Test:
+$ ./tools/testing/kunit/kunit.py run \
+        --kconfig_add CONFIG_RESET_CONTROLLER=y \
+        --kconfig_add CONFIG_RESET_KUNIT_TEST=y \
+        reset_test
+---
+v3:
+- Verify that reset_controller_unregister() blocks until active
+  consumers finish in reset_test_concurrent_unregister().
 
->> +	.tpg_num = ARRAY_SIZE(tpg_res_x1e80100),
->> +	.csid_num = ARRAY_SIZE(csid_res_x1e80100),
->> +	.vfe_num = ARRAY_SIZE(vfe_res_x1e80100),
->> +};
->> +
->>  static const struct camss_resources msm8916_resources = {
->>  	.version = CAMSS_8x16,
->>  	.csiphy_res = csiphy_res_8x16,
->> @@ -6049,6 +6064,7 @@ static const struct camss_resources x1e80100_resources = {
->>  };
->>  
->>  static const struct of_device_id camss_dt_match[] = {
->> +	{ .compatible = "qcom,glymur-camss", .data = &glymur_resources },
->>  	{ .compatible = "qcom,msm8916-camss", .data = &msm8916_resources },
->>  	{ .compatible = "qcom,msm8939-camss", .data = &msm8939_resources },
->>  	{ .compatible = "qcom,msm8953-camss", .data = &msm8953_resources },
->> @@ -6068,7 +6084,6 @@ static const struct of_device_id camss_dt_match[] = {
->>  	{ .compatible = "qcom,sm8550-camss", .data = &sm8550_resources },
->>  	{ .compatible = "qcom,sm8650-camss", .data = &sm8650_resources },
->>  	{ .compatible = "qcom,x1e80100-camss", .data = &x1e80100_resources },
->> -	{ .compatible = "qcom,glymur-camss", .data = &x1e80100_resources },
-> Why do you keep breaking the order...
-> 
+v2: https://lore.kernel.org/all/20261102155207.19252-1-tzungbi@kernel.org
+- Separate out from the revocable series.
+- Add reset_test_exit() to clean up rstc and rcdev on test exit or
+  assertion failure.
+- Clean up kthreads on error paths in reset_test_concurrent_unregister().
 
-I placed qcom,glymur-camss there to keep the match table alphabetically
-ordered, following Bryan's earlier comment about Glymur/Hawi ordering:
+v1: https://lore.kernel.org/all/20261011121246.162759-5-tzungbi@kernel.org
+---
+ drivers/reset/Kconfig     |   5 +
+ drivers/reset/Makefile    |   2 +
+ drivers/reset/core-test.c | 365 ++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 372 insertions(+)
+ create mode 100644 drivers/reset/core-test.c
 
-https://lore.kernel.org/all/23845ad3-dedd-4e24-803b-5abf3b030c4a@kernel.org/
-
-I can move it before qcom,x1e80100-camss or keep at same place if that is preferred.
-
->>  	{ }
->>  };
-
+diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
+index eda9c698a95f..c7dceec8f58c 100644
+--- a/drivers/reset/Kconfig
++++ b/drivers/reset/Kconfig
+@@ -457,4 +457,9 @@ source "drivers/reset/starfive/Kconfig"
+ source "drivers/reset/sti/Kconfig"
+ source "drivers/reset/tegra/Kconfig"
+ 
++config RESET_KUNIT_TEST
++	tristate "KUnit tests for reset controller" if !KUNIT_ALL_TESTS
++	depends on KUNIT
++	default KUNIT_ALL_TESTS
++
+ endif
+diff --git a/drivers/reset/Makefile b/drivers/reset/Makefile
+index 489fafd6bbe3..bb01198d495b 100644
+--- a/drivers/reset/Makefile
++++ b/drivers/reset/Makefile
+@@ -55,3 +55,5 @@ obj-$(CONFIG_RESET_UNIPHIER) += reset-uniphier.o
+ obj-$(CONFIG_RESET_UNIPHIER_GLUE) += reset-uniphier-glue.o
+ obj-$(CONFIG_RESET_ZYNQ) += reset-zynq.o
+ obj-$(CONFIG_RESET_ZYNQMP) += reset-zynqmp.o
++
++obj-$(CONFIG_RESET_KUNIT_TEST) += core-test.o
+diff --git a/drivers/reset/core-test.c b/drivers/reset/core-test.c
+new file mode 100644
+index 000000000000..2c485cb2acd8
+--- /dev/null
++++ b/drivers/reset/core-test.c
+@@ -0,0 +1,365 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright 2026 Google LLC
++ *
++ * KUnit tests for the reset controller.
++ *
++ * The test cases cover the following scenarios:
++ *
++ * - Basic: Verifies that a consumer can acquire a reset control via
++ *   fwnode and perform reset, assert, deassert, status, release, and
++ *   acquire operations.
++ *
++ * - Use After Unregister: Verifies that after the supplier unregisters
++ *   the reset_controller_dev while a consumer still holds a reset_control
++ *   handle, subsequent consumer operations fail safely with -ENODEV.
++ *
++ * - Concurrent Unregister: Verifies that unregistering the
++ *   reset_controller_dev concurrently with an in-flight reset operation
++ *   waits for the active operation to complete before returning.
++ */
++
++#include <kunit/fwnode.h>
++#include <kunit/test.h>
++
++#include <linux/completion.h>
++#include <linux/fwnode.h>
++#include <linux/iopoll.h>
++#include <linux/kthread.h>
++#include <linux/property.h>
++#include <linux/reset-controller.h>
++#include <linux/reset.h>
++#include <linux/sched/task.h>
++
++struct reset_test_context {
++	struct fwnode_handle *supp_fwnode;
++	struct fwnode_handle *cons_fwnode;
++	struct reset_controller_dev rcdev;
++	bool rcdev_registered;
++	struct reset_control *rstc;
++
++	int reset_count;
++	int assert_count;
++	int deassert_count;
++	int status_count;
++
++	void *priv;
++};
++
++static int reset_test_op_reset(struct reset_controller_dev *rcdev,
++			       unsigned long id)
++{
++	struct reset_test_context *ctx = container_of(rcdev, typeof(*ctx), rcdev);
++
++	ctx->reset_count++;
++	return 0;
++}
++
++static int reset_test_op_assert(struct reset_controller_dev *rcdev,
++				unsigned long id)
++{
++	struct reset_test_context *ctx = container_of(rcdev, typeof(*ctx), rcdev);
++
++	ctx->assert_count++;
++	return 0;
++}
++
++static int reset_test_op_deassert(struct reset_controller_dev *rcdev,
++				  unsigned long id)
++{
++	struct reset_test_context *ctx = container_of(rcdev, typeof(*ctx), rcdev);
++
++	ctx->deassert_count++;
++	return 0;
++}
++
++static int reset_test_op_status(struct reset_controller_dev *rcdev,
++				unsigned long id)
++{
++	struct reset_test_context *ctx = container_of(rcdev, typeof(*ctx), rcdev);
++
++	ctx->status_count++;
++	return 0;
++}
++
++static const struct reset_control_ops reset_test_ops = {
++	.reset = reset_test_op_reset,
++	.assert = reset_test_op_assert,
++	.deassert = reset_test_op_deassert,
++	.status = reset_test_op_status,
++};
++
++static int reset_test_init(struct kunit *test)
++{
++	static const struct property_entry supp_props[] = {
++		PROPERTY_ENTRY_U32("#reset-cells", 1),
++		{}
++	};
++	static const struct software_node supp_swnode = {
++		.name = "reset-test-supplier",
++		.properties = supp_props,
++	};
++	static const struct software_node_ref_args refs[] = {
++		SOFTWARE_NODE_REFERENCE(&supp_swnode, 0),
++	};
++	static const struct property_entry cons_props[] = {
++		PROPERTY_ENTRY_REF_ARRAY("resets", refs),
++		{}
++	};
++
++	struct reset_test_context *ctx;
++	int ret;
++
++	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx);
++	test->priv = ctx;
++
++	ctx->supp_fwnode = kunit_software_node_register(test, &supp_swnode);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx->supp_fwnode);
++
++	ctx->cons_fwnode = kunit_fwnode_create_software_node(test, cons_props,
++							     NULL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx->cons_fwnode);
++
++	ctx->rcdev.ops = &reset_test_ops;
++	ctx->rcdev.nr_resets = 1;
++	ctx->rcdev.fwnode = ctx->supp_fwnode;
++
++	ret = reset_controller_register(&ctx->rcdev);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++	ctx->rcdev_registered = true;
++
++	ctx->rstc = __fwnode_reset_control_get(ctx->cons_fwnode, NULL, 0,
++					       RESET_CONTROL_EXCLUSIVE);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx->rstc);
++
++	return 0;
++}
++
++static void reset_test_exit(struct kunit *test)
++{
++	struct reset_test_context *ctx = test->priv;
++
++	if (!ctx)
++		return;
++
++	reset_control_put(ctx->rstc);
++	if (ctx->rcdev_registered)
++		reset_controller_unregister(&ctx->rcdev);
++}
++
++static void reset_test_basic(struct kunit *test)
++{
++	struct reset_test_context *ctx = test->priv;
++	struct reset_control *rstc = ctx->rstc;
++
++	KUNIT_EXPECT_EQ(test, ctx->reset_count, 0);
++	KUNIT_EXPECT_EQ(test, reset_control_reset(rstc), 0);
++	KUNIT_EXPECT_EQ(test, ctx->reset_count, 1);
++
++	KUNIT_EXPECT_EQ(test, ctx->assert_count, 0);
++	KUNIT_EXPECT_EQ(test, reset_control_assert(rstc), 0);
++	KUNIT_EXPECT_EQ(test, ctx->assert_count, 1);
++
++	KUNIT_EXPECT_EQ(test, ctx->deassert_count, 0);
++	KUNIT_EXPECT_EQ(test, reset_control_deassert(rstc), 0);
++	KUNIT_EXPECT_EQ(test, ctx->deassert_count, 1);
++
++	KUNIT_EXPECT_EQ(test, ctx->status_count, 0);
++	KUNIT_EXPECT_EQ(test, reset_control_status(rstc), 0);
++	KUNIT_EXPECT_EQ(test, ctx->status_count, 1);
++
++	reset_control_release(rstc);
++	KUNIT_EXPECT_EQ(test, reset_control_acquire(rstc), 0);
++}
++
++static void reset_test_use_after_unregister(struct kunit *test)
++{
++	struct reset_test_context *ctx = test->priv;
++	struct reset_control *rstc = ctx->rstc;
++
++	KUNIT_EXPECT_EQ(test, ctx->reset_count, 0);
++	KUNIT_EXPECT_EQ(test, reset_control_reset(rstc), 0);
++	KUNIT_EXPECT_EQ(test, ctx->reset_count, 1);
++
++	/* Unregister supplier while consumer still holds rstc. */
++	reset_controller_unregister(&ctx->rcdev);
++	ctx->rcdev_registered = false;
++
++	KUNIT_EXPECT_EQ(test, ctx->reset_count, 1);
++	KUNIT_EXPECT_EQ(test, reset_control_reset(rstc), -ENODEV);
++	KUNIT_EXPECT_EQ(test, ctx->reset_count, 1);
++
++	KUNIT_EXPECT_EQ(test, reset_control_assert(rstc), -ENODEV);
++	KUNIT_EXPECT_EQ(test, reset_control_deassert(rstc), -ENODEV);
++	KUNIT_EXPECT_EQ(test, reset_control_status(rstc), -ENODEV);
++
++	reset_control_release(rstc);
++	KUNIT_EXPECT_EQ(test, reset_control_acquire(rstc), -ENODEV);
++}
++
++struct test_concurrent_unregister_context {
++	struct kunit *test;
++	struct completion started, enter;
++	struct task_struct *thread;
++
++	union {
++		/* Used by test supplier. */
++		struct completion exited;
++
++		/* Used by test consumer. */
++		struct {
++			struct completion entered, exit;
++			int expected_ret;
++		};
++	};
++};
++
++static int test_concurrent_unregister_supplier(void *data)
++{
++	struct test_concurrent_unregister_context *ctx = data;
++	struct reset_test_context *rtc = ctx->test->priv;
++
++	complete(&ctx->started);
++
++	if (wait_for_completion_interruptible(&ctx->enter))
++		return 0;
++
++	reset_controller_unregister(&rtc->rcdev);
++	rtc->rcdev_registered = false;
++
++	complete(&ctx->exited);
++	return 0;
++}
++
++static int test_concurrent_unregister_consumer(void *data)
++{
++	struct test_concurrent_unregister_context *ctx = data;
++	struct reset_test_context *rtc = ctx->test->priv;
++	int ret;
++
++	complete(&ctx->started);
++
++	if (wait_for_completion_interruptible(&ctx->enter))
++		return 0;
++
++	ret = reset_control_reset(rtc->rstc);
++	KUNIT_EXPECT_EQ(ctx->test, ret, ctx->expected_ret);
++
++	return 0;
++}
++
++static int
++reset_test_concurrent_unregister_op_reset(struct reset_controller_dev *rcdev,
++					  unsigned long id)
++{
++	struct reset_test_context *rtc = container_of(rcdev, typeof(*rtc), rcdev);
++	struct test_concurrent_unregister_context *ctx = rtc->priv;
++
++	rtc->reset_count++;
++	complete(&ctx->entered);
++
++	wait_for_completion_interruptible(&ctx->exit);
++	return ctx->expected_ret;
++}
++
++static const struct reset_control_ops reset_test_concurrent_unregister_ops = {
++	.reset = reset_test_concurrent_unregister_op_reset,
++};
++
++static void reset_test_concurrent_unregister(struct kunit *test)
++{
++	struct reset_test_context *rtc = test->priv;
++	struct test_concurrent_unregister_context *ctx;
++	int i, ret, val;
++
++	rtc->rcdev.ops = &reset_test_concurrent_unregister_ops;
++
++	ctx = kunit_kmalloc_array(test, 3, sizeof(*ctx), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx);
++
++	for (i = 0; i < 3; ++i) {
++		ctx[i].test = test;
++		init_completion(&ctx[i].started);
++		init_completion(&ctx[i].enter);
++
++		if (i == 0) {
++			init_completion(&ctx[i].exited);
++
++			ctx[i].thread = kthread_run(
++				test_concurrent_unregister_supplier, ctx + i,
++				"supplier%d", i);
++		} else {
++			init_completion(&ctx[i].entered);
++			init_completion(&ctx[i].exit);
++
++			ctx[i].thread = kthread_run(
++				test_concurrent_unregister_consumer, ctx + i,
++				"consumer%d", i);
++		}
++		if (IS_ERR(ctx[i].thread)) {
++			ret = PTR_ERR(ctx[i].thread);
++			while (i--)
++				kthread_stop_put(ctx[i].thread);
++			KUNIT_ASSERT_EQ(test, ret, 0);
++		}
++		get_task_struct(ctx[i].thread);
++
++		wait_for_completion(&ctx[i].started);
++	}
++
++	rtc->priv = &ctx[1];
++	ctx[1].expected_ret = 0x12345678;
++	/* consumer1 enters reset(). */
++	KUNIT_EXPECT_EQ(test, rtc->reset_count, 0);
++	complete(&ctx[1].enter);
++	wait_for_completion(&ctx[1].entered);
++	KUNIT_EXPECT_EQ(test, rtc->reset_count, 1);
++
++	/* supplier0 unregisters. */
++	complete(&ctx[0].enter);
++	ret = read_poll_timeout(reset_control_status, val, val == -ENODEV,
++				1000, 100000, false, rtc->rstc);
++	if (ret) {
++		for (i = 2; i >= 0; --i)
++			kthread_stop_put(ctx[i].thread);
++		KUNIT_ASSERT_EQ(test, ret, 0);
++	}
++
++	/* supplier0 can't exit.  It's waiting for all consumers. */
++	ret = wait_for_completion_timeout(&ctx[0].exited, msecs_to_jiffies(100));
++	KUNIT_EXPECT_EQ(test, ret, 0);
++
++	ctx[2].expected_ret = -ENODEV;
++	/* consumer2 must see -ENODEV. */
++	complete(&ctx[2].enter);
++	kthread_stop_put(ctx[2].thread);
++
++	/* consumer1 exits reset(). */
++	complete(&ctx[1].exit);
++	kthread_stop_put(ctx[1].thread);
++	kthread_stop_put(ctx[0].thread);
++
++	/* Subsequent access must see -ENODEV. */
++	KUNIT_EXPECT_EQ(test, reset_control_reset(rtc->rstc), -ENODEV);
++}
++
++static struct kunit_case reset_test_cases[] = {
++	KUNIT_CASE(reset_test_basic),
++	KUNIT_CASE(reset_test_use_after_unregister),
++	KUNIT_CASE(reset_test_concurrent_unregister),
++	{}
++};
++
++static struct kunit_suite reset_test_suite = {
++	.name = "reset_test",
++	.test_cases = reset_test_cases,
++	.init = reset_test_init,
++	.exit = reset_test_exit,
++};
++
++kunit_test_suite(reset_test_suite);
++
++MODULE_LICENSE("GPL");
++MODULE_AUTHOR("Tzung-Bi Shih <tzungbi@kernel.org>");
++MODULE_DESCRIPTION("KUnit tests for the reset controller");
 -- 
-Regards,
-Nihal Kumar Gupta
+2.53.0
 
