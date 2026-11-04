@@ -1,83 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793790733;
-	b=OPMk00yU/QFRwxstPCSvD2huTq9AeRl65C4pizKpP/i2IKlzS9WeQwTNneT9lY30ba+l
-	 6CftXIJKXDwoNPi28XIICzk6+oLkdJFYHj1ELQom6CGp2y6qOwjmKTRf4ke3yuuuVWRyy
-	 ipIzXh2cFW6JeFhD5UIUI5Qf2Yzim/SZhsrRf5O0oOeShZSACSSHEVv5exlr53Vv2Rqm+
-	 K34HOPzbmYXl72ABZhlwMQ/fh7wwT+PY9hVkQnPR0zRGtnGpgGgpbm22m9PdbuzLNvn8X
-	 3g3m22It83slIF7iVr7mCwMjX1fbPI5wvimN5+ELo4wXGj42pXo5acLr747jjUfYjVg==
+	b=izeXEJGIFaufyFvVe7CTahS5wXhRI0YCIm88zJjazlF4SCsJMdghcXO3x0v2Xyk+Xurk
+	 7A+I+Mjg6JHebqv+DKDtsYU3/V7GX0WbxodbtqthMfXxQaAdvJS1hgoicDQVRiCtdmEke
+	 5Smz7IcGIxoBCi9PgxZlB/foghFR4Zmghn0ihn5Yb3w/Ziw75POjETwFjOyU4qOoOXMQo
+	 xS+UTOro7NYANQSs3rXJluoMJ3HFS2GvQnqOG9DLuJUNGqT7iHCQcQwPhF3LUbvhuMWHH
+	 TNf/+CBsSFH0KTXw9jDPihLU2RsXTwTPku1VxqW1OamukR+SOkSru9FT7cnQUWYu/QQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793790733;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:X-Mailer:
-	 References:In-Reply-To;
-	bh=JXUkcfVdYHLS91Uwpurj9n2UACTGti9F49kfa1ZCWrU=;
-	b=DPx8VctMS16440SIbFV4h0h9g/POtm83MBG8OzUp6vOloUBtwXqRwEZ8vHvTbtj/W2FK
-	 tUCRxR1vTUf82o5Z0Y0SBXTCK6Lbr6808POwydMIEcfe9Qn6cYF0bl8+3c8Jm0Jj/aBBo
-	 8SVZ2rZ+YC+KwYx1jBiUWFinnmtREZdxU2Cef8iu795f0QHji8UkaOtsIKgngOrWTBEai
-	 mWZM9uqUWzG+Rw2GGFrmM1F+tGKUiCFajqvO7JOrF7NGZQFoC5CRAPv8EejbPJKGQCC67
-	 L9rscwD4w4T3Yp6+4qnIWVVNJJnONi/ZIcVefnxrJenKPQyTrIuvAHCvWuTEQiu6UwA==
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=Sq72/jE1QWYRdcK1hoiu7bRYxYUswJNBNRjBOWyiKL8=;
+	b=T702f8n8TnF2pmd0HJgPkGZeNBzKOfbWjWb6LfE/bOuDNrdvxUIZhPIO43Jh96Eg7Sin
+	 H0aZnb4NOvb+vrj6BPaRNEKkhjvRPfmQqb2Ztwz7+E4I3qq9N3oDscIqY7nWSlgnIBuxN
+	 SxFEpZR0U+eHm0iDQapb/IzmxpWt+O2wqZ0sDnKg7go67xUyO3wLfBYSr1HphxgcUsl4Y
+	 FX3zABvAJr65c0OF/DBvLEYTgpzZfUVi9pQXkS0nfTyOUZ1zGpFFjwnHYMUd2jYIbupqJ
+	 nkD4caVVT3gn2bXjftu44vyPZ8d6s0/CboGebg1dTCaV6pCmbvea5Q0RzNdgMqv5ahg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=JWOpqRwe;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=2HPcvgDB;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5376E606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:12:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5376E606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C30F606A31B;
+	Wed,  4 Nov 2026 11:12:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C30F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=JWOpqRwe
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso5501895e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 03:12:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793790731; x=1794395531; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=JXUkcfVdYHLS91Uwpurj9n2UACTGti9F49kfa1ZCWrU=;
-        b=JWOpqRwecaopor8yH0ZefUJnXs5kKZeycMNKPt5Ui5Eg2fVW6tAtCKrb5rRUcgrXBD
-         8uJIxtHhhpRbn50+INj6AHW75qtRtdXLPaT91ZgN6nZTNl8+IWWmDlnQSSP3sMOhzksT
-         3Ryi9R/M0KH93x8QtwCpuCp4Lq1tthpgfNafQ+MYg28KRs28IVviCFXz3CKAKu26bkVB
-         +kLa1w3eHYUfumKIySZo0FJYRP5AGAB+7m86Iu4bor0bZVu8oDC3YGMf8PpeN8GnUAQ6
-         mdftDgku7QnpdqbjF1R0cJ79LW7Jm6U2A1vZ4PfZdFgBZHpZVe8b3YFwnVyiyqewsN3M
-         IgBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793790731; x=1794395531;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=JXUkcfVdYHLS91Uwpurj9n2UACTGti9F49kfa1ZCWrU=;
-        b=a6WUQ9bjYMwrc2VU5F5PFud6Pq7ixa6GWOh/C7efE88X4T3w8nskY0t1sMXn8v170f
-         yE0GKGjaT0+pZDaLKgCwnTMEGHJ1QlKvQ1OsSD12fnrZnd4eTl27zlzvdK6RclLq6Xl3
-         8P7SKn1eKQaq+UpJJbwykI1YB+UsnGzjBC9Sy8de1/YvQXqEZq+IYvu/f1ho3soOz5ef
-         DbfEGZTIpfbrr/EYT79eYVPrmE0OGz2AWCWuEazuubexnD5s8hg3ZS8QYB1cUybCIFea
-         JTQcNTIXKD8/wNPr5JyQQ3zx00s4oDLlZiTkUoaUHMXg4+wsPdGOR6W1JuiG5N8R7wie
-         8qDQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw0OpwmRu4dkGHIL2TlEo82PIjz9saGBW+aBEyMsLFaWipC5IzIdS57j+4OU4+LGiybJl9l+S6jBICkBzk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+WINSmaa6TVDWwABNc/oOYOxIll8s1xo0bmw6zSDf6lJziF73B
-	sWzYRDN8SnR8lLPtCtzfUdiY4VOfyIOOKKt/2HKWK9LD+/i9UP4u2Rotc/+sPt0VUl0=
-X-Gm-Gg: AYBFou0whalUFmdRVaZCi8/IDJVfYhsIeYa23HqWVtCSLgDW2ak+rFFB/tqj+NkaM4n
-	oFBAP+nJ3JBJTWC0ca+SV8S7MpgpZ81x20qxGJfcJuH+hyQynHq9MqVhd0vPyM2NVRhZ8Nb02GP
-	YNKiukR9ymKLphw6gbXQEvs8ghAKtzdiwuEMp4AR9dx67vFlvBX7MnSQnD9NWSUvQo1NEf+meaZ
-	IhZsEeUrEP3nTgfGa3Wt55s6o33knLRvyti626ilpsZr0w/GkzzhXCmlGUJSpy9TFto+x78tnMU
-	ECsIQjJ8xE7gRBwT5QhrbwOQ2WdPOLjeJlMS6B/ijo/zR0APccbQa2Pucn/EDhM7v5UU/CJe2jX
-	t8n0pusJbfEQPn3K32WfH57yHJs0t1ilIH3oXcvqr2a0LZUJ817JUesWqzYp56tRbr+CjRR0NsE
-	FyzjTyaALYLHStiazX2UdfugRbjnNbTEg/CP+pWeAPeZP+DgZl0pLskU0bgb1w5run4GwWFyB2N
-	elXCEbfqQQGsPnWuPDYPFNlZI/7k4N3JQM6DgI8prKb+05pX6jE50nuTQFTEnHHFi0qRT+uDvBj
-	jXK+zdX1L7hyJNRhQnYqllZC
-X-Received: by 2002:a05:600c:4f55:b0:4a3:d327:6ed with SMTP id 5b1f17b1804b1-4ac182dcba3mr394806835e9.17.1793790730347;
-        Wed, 04 Nov 2026 03:12:10 -0800 (PST)
-Received: from localhost ([2001:4090:a244:81d0:bc85:7836:468a:a1a8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2ab010a66sm180489085e9.13.2026.11.04.03.12.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 03:12:09 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=2HPcvgDB
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=Sq72/jE1QWYRdcK1hoiu7bRYxYUswJNBNRjBOWyiKL8=; b=2HPcvgDB89z9MCCbZPrKTjDdSe
+	a2iOhzncH45XWbpf9h5Z8prpD2YftEz7/e5hwuvWn+QuCeuR+A985T/5nMETf+5nDv4C/OGiEYWiN
+	yHNn/W7mCluK0Avj86ssbgeDhbC5MybjVA9WWWhZe6nnpnYsMAqhE8dncxIx4P5Sw9H0FPt3JwUjA
+	V2dW8uAPnS6oH6s/atFbE1YQM3BrqEBVTBRoCa6Px+Gf2R9yjpHPLpIRsFY0/nmSSP+QIih6+Ebkj
+	gVyTKzfad0lXgE4JzqsC3FtSmP5P7yTqCtINcMmCiSDl37j6H7J+F/DKy534XRIjzr18Rpw0TYvFZ
+	34n1vy7Q==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
+ Igor Paunovic <royalnet026@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+ Robert Foss <rfoss@kernel.org>, Sidong Yang <sidong.yang@furiosa.ai>,
+ Diederik de Haas <diederik@cknow-tech.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Jiaxing Hu <gahing@gahingwoo.com>, Nicolas Dufresne <nicolas@ndufresne.ca>,
+ Jonas Karlman <jonas@kwiboo.se>, Guangshuo Li <lgs201920130244@gmail.com>,
+ =?UTF-8?B?SMO8c2V5aW4=?= BIYIK <boogiepop@gmx.com>,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
+Subject: Re: [PATCH v2 05/11] accel/rocket: request the core clocks by name
+Date: Wed, 04 Nov 2026 12:11:52 +0100
+Message-ID: <13701281.ZYm5mLc6kN@diego>
+In-Reply-To: <20260922080114.44662-6-royalnet026@gmail.com>
+References:
+ <20260922080114.44662-1-royalnet026@gmail.com>
+ <20260922080114.44662-6-royalnet026@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,87 +71,101 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=1a89969498c359d1a140827ed6acbf92f89987135f1280b4d5669bb50fa6;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Wed, 04 Nov 2026 12:12:04 +0100
-Message-Id: <DMMDQQGAJSRP.2RFOOW1YOKT8F@baylibre.com>
-Cc: "Kendall Willis" <k-willis@ti.com>, <linux-can@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 2/2] can: tcan4x5x: Add suspend error handling
-From: "Markus Schneider-Pargmann" <msp@baylibre.com>
-To: =?utf-8?q?Martin_Hundeb=C3=B8ll?= <martin@geanix.com>, "Markus
- Schneider-Pargmann" <msp@baylibre.com>, "Marc Kleine-Budde"
- <mkl@pengutronix.de>, "Vincent Mailhol" <mailhol@kernel.org>, "Sean
- Nyekjaer" <sean@geanix.com>
-X-Mailer: aerc 0.21.0-146-gb5c16ebe1835
-References: <20261016-v7-3-topic-mcan-suspend-fix-fix-v2-0-7efa2b172cce@baylibre.com> <20261016-v7-3-topic-mcan-suspend-fix-fix-v2-2-7efa2b172cce@baylibre.com> <9aba5682e371f5969d3ddca1c6a763485bc25285.camel@geanix.com>
-In-Reply-To: <9aba5682e371f5969d3ddca1c6a763485bc25285.camel@geanix.com>
-
---1a89969498c359d1a140827ed6acbf92f89987135f1280b4d5669bb50fa6
+MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 
-Hi Martin,
+Am Dienstag, 22. September 2026, 10:01:08 Mitteleurop=C3=A4ische Normalzeit=
+ schrieb Igor Paunovic:
+> rocket_core_init() hands core->clks to devm_clk_bulk_get() without ever
+> setting the .id members. The rocket_core array is allocated with
+> devm_kcalloc() in rocket_device_init(), and rocket_probe() only fills in
+> .rdev, .dev and .index, so all four clk_bulk_data entries are requested
+> with a NULL con_id (unlike core->resets, whose ids are set a few lines
+> above).
+>=20
+> clk_get(dev, NULL) ends up in of_clk_get_hw(np, 0, NULL), and
+> of_parse_clkspec() only consults "clock-names" when a name was passed,
+> so the index stays 0 for all four entries. Every entry therefore ends up
+> holding a handle to the *first* clock of the DT "clocks" property, i.e.
+> ACLK_NPUn. Nothing fails: probe succeeds and the driver believes it owns
+> four different clocks.
+>=20
+> The consequence is that rocket_device_runtime_resume() prepares and
+> enables the AXI clock four times, while hclk, pclk and - most
+> importantly - the NPU compute clock ("npu", SCMI_CLK_NPU on RK3588) are
+> never prepared or enabled by this driver at all. The NPU still works
+> only because the Rockchip power-domain driver sets GENPD_FLAG_PM_CLK and
+> its attach_dev() callback walks the device node with of_clk_get() and
+> adds every clock to the pm_clk list, so genpd happens to keep the
+> remaining clocks running. The bug is therefore latent today, but it
+> means the driver holds no reference to the clock that actually feeds the
+> NPU, which stands in the way of any future frequency scaling
+> (OPP/devfreq) work.
+>=20
+> Found on an Orange Pi 5 Plus (RK3588) by reading the live clock tree:
+> /sys/kernel/debug/clk/clk_summary shows four "fdab0000.npu" consumer
+> handles on aclk_npu0 (and likewise on aclk_npu1/aclk_npu2 for the other
+> two cores), while hclk_npu0, pclk_npu_root and scmi_clk_npu have no
+> "fdab0000.npu" consumer at all - their only consumers are the
+> "npu@fdab0000" handles created by the power-domain driver via
+> of_clk_get().
+>=20
+> Set the ids explicitly, in the order mandated by the binding
+> (Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml):
+> aclk, hclk, npu, pclk. After the change the driver holds one handle per
+> distinct clock and clk_bulk_prepare_enable() covers all four.
+>=20
+> Note that this is a user-visible tightening for out-of-tree DTs: the
+> old NULL-id requests resolved by index and succeeded no matter what
+> "clock-names" contained, while the named requests fail probe with
+> -ENOENT when one of the four names is missing. That is the right
+> outcome for in-tree users - the binding requires exactly these four
+> clock-names and rk3588-base.dtsi carries them on all three cores - but
+> a DT that relied on the permissive lookup goes from silently running on
+> the wrong clock handles to not probing at all, so record the change
+> here where git log will find it.
+>=20
+> Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU")
+> Assisted-by: LLM sparse checkpatch
+> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+> Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
+> Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, N=
+anoPC-T6 Plus
+> Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> Reviewed-by: Jiaxing Hu <gahing@gahingwoo.com>
+> ---
+> Same diff and the same message text (his copy re-wraps the lines) as
+> 01/14 of Jiaxing Hu's RK3576 series, which carries this patch as well;
+> whichever lands first, the other drops it. The trailers differ: Jiaxing
+> asked me to drop his Signed-off-by from my own posting of it, as he did
+> not pass this copy along, and Assisted-by is added because an LLM helped
+> with the checks on this v2.
+>=20
+>  drivers/accel/rocket/rocket_core.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>=20
+> diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/ro=
+cket_core.c
+> index b3b2fa9ba645a..5dd260bacbff6 100644
+> --- a/drivers/accel/rocket/rocket_core.c
+> +++ b/drivers/accel/rocket/rocket_core.c
+> @@ -28,6 +28,10 @@ int rocket_core_init(struct rocket_core *core)
+>  	if (err)
+>  		return dev_err_probe(dev, err, "failed to get resets for core %d\n", c=
+ore->index);
+> =20
+> +	core->clks[0].id =3D "aclk";
+> +	core->clks[1].id =3D "hclk";
+> +	core->clks[2].id =3D "npu";
+> +	core->clks[3].id =3D "pclk";
 
-On Fri Oct 16, 2026 at 12:04 PM CEST, Martin Hundeb=C3=B8ll wrote:
-> Hi Markus,
->
-> On Fri, 2026-10-16 at 11:57 +0200, Markus Schneider-Pargmann wrote:
->> diff --git a/drivers/net/can/m_can/tcan4x5x-core.c
->> b/drivers/net/can/m_can/tcan4x5x-core.c
->> index a5b8829aa519..b69312413d62 100644
->> --- a/drivers/net/can/m_can/tcan4x5x-core.c
->> +++ b/drivers/net/can/m_can/tcan4x5x-core.c
->> @@ -575,11 +575,20 @@ static int __maybe_unused
->> tcan4x5x_suspend(struct device *dev)
->> =C2=A0{
->> =C2=A0	struct m_can_classdev *cdev =3D dev_get_drvdata(dev);
->> =C2=A0	struct spi_device *spi =3D to_spi_device(dev);
->> +	int ret;
->>=20
->> =C2=A0	if (cdev->pm_wake_source)
->> =C2=A0		enable_irq_wake(spi->irq);
->>=20
->> -	return m_can_class_suspend(dev);
->> +	ret =3D m_can_class_suspend(dev);
->> +	if (ret)
->> +		goto err_disable_irq;
->> +	return 0;
->> +
->> +err_disable_irq:
->> +	if (cdev->pm_wake_source)
->> +		disable_irq_wake(spi->irq);
->> +	return ret;
->
-> Wouldn't this be better written in the shorter form:
->
-> 	ret =3D m_can_class_suspend(dev);
-> 	if (ret && dev->pm_wake_source)
-> 		disable_irq_wake(spi->irq);
->
-> 	return ret;
->
-> ?
+additionally, while reading the followup patches, please introduce some
+constants for the indices. ROCKET_CLK_ACLK, ... or some other name.
+Because when you access them later by index, that makes things harder
+to read and follow (especially in the future)
 
-Thanks for your review. I personally prefer the variant with a goto. It
-is not as compact but it is extendable if this function needs another
-instruction with error handling at some point.
 
-Best
-Markus
+Heiko
 
---1a89969498c359d1a140827ed6acbf92f89987135f1280b4d5669bb50fa6
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
-
-iKMEABYKAEsWIQSJYVVm/x+5xmOiprOFwVZpkBVKUwUCausTBBsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIRHG1zcEBiYXlsaWJyZS5jb20ACgkQhcFWaZAVSlP6
-PQD+LtlVjH3/wReXE9RPzwo6wtqTfo+QNCgoDCb1Raz8jGcBAPtyCB2nUPxKiL0p
-tOVeJ7sfKgFNAASX6epFGzYIeAkP
-=tpW6
------END PGP SIGNATURE-----
-
---1a89969498c359d1a140827ed6acbf92f89987135f1280b4d5669bb50fa6--
