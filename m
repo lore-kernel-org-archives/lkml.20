@@ -1,62 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793762842;
-	b=cP2aZzwIGYp4g6HD5yUHt/eC7wkPk6KbV17VzuM9NeYbd0LSeoeE0sfM0YAvcQ7gARU6
-	 SB6wjNAtJshMI7Nf0q6LWg3ag+fDvyd/D2bkfrI9WE690y+ZyJGDqXioW/Grx8oOhb4tC
-	 UO3ede/bRIjVBvmzVG+nZiIk1h21rZb4mBlSukBg5V44dgjp3dTgAm7djRN1g9pYKxnAW
-	 O0qaj1isoeVUvwvP8GwujEaPo0jnZe0dtfmTEtntdeSOEJNpSchXG2fOfhVBW8dxtnfhE
-	 1H9fRRX4Z/lkkp/DSvpDfQZn2hoqhXEGpsozV6CV/bIOOUrQtkr0i5oLK5jPbTl7CMQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793762842;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=ERoJU+YSkcdzSJp45/76zizxO7Q36Iy9/z1bkXjHy9E=;
-	b=zUZDnUMeNDthHll/NxKMPKjuviQn7EetVSxXnm1jm+Io/XlXAVKISas3GKHASnYxyY3Q
-	 zxTwpX4X0xiRY2VZH7HFmbc2x1SPsEJx4FVCiFEK98LZjssJPV8M/O8gk6MsHV9ZTmHdN
-	 CFBp5OlsiNf+/pI0ChZy5Zj9WwHUm4h2FFm4a94a0q2AKLUQVeOIsW3OaqgVEOwMYcbNH
-	 oh3CTnc958NU5An+ENamYq3309AWODAiS/o/kNB8m7iIgkRdMkRmg3xD1ECJwzopjimGd
-	 Jp74tCUg81jbkYcAubRwvyCwychVr9C70nSqJa8154cqU+89/DeQUJ0k0F1rsyZVk/g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=ccv4x4PC;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 46547606D81A;
-	Wed,  4 Nov 2026 03:27:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46547606D81A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.139
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793762887;
+	b=vAVEeJyP5qnJLE57KHO0hDKqBOrli3hu4wg/uo1kkNpX+aqwv+4LsrvGITuGmc+MWIHK
+	 lMnMAAui/gknvV+GHx7xRRvkwIRbQ7osS3R/7w6C0KFnlUtaQZduCD5LTKGUPwlL+kwHj
+	 C6fw0OjJqL+0Nzir0ZiOBVpqxencix4axwLu4ZabQAaNd+XpwSNWz1Dez0iT1CBTn1dDU
+	 OghYjGd/F/thhk1cq3l6HPQwrLUj+L/Of/FutnQ056iydl61889xlsUfbrgNWHKS96nVB
+	 9a1lN3Hrv0Vfm75gBDpb3E+CBRXlJgZh7GYUu3HJVBBZZPoC5N+dldB9q7Ybz/20m8g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793762887;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=TKN5fm3lE6PDFTg4E4wZZqhp3eyt6dK1s1483aTN3Bo=;
+	b=GfjIPa3WpzVYCsJO2d28vEdsmVaoUkqe8qp5Cl1XFwUqzqYLInq4+MCrhTmJIP1G6+Wg
+	 tGWEKAL9NXNS5v2qM4/Q00p5XCRVwx0qt0nrl3zBga5fccXh87Gm6EXL0P2M9FjJ8JMTp
+	 9IyYeRLVLaOjgpTYVfe94Yyc/dAkj0HisQZ345vpGGLiy1W8caj0tAA9S01CbDyEdft0y
+	 72I9jSYvA3RIRnNsBRuoqdle+0oyt7sKHhBwSbiwgnGDeNF/pyoF5d42XQFvbvKtNdw9n
+	 oEZeVZhy5PEBW1wMDkvX1mb3uaIS7FScb4UB0xH/mDuXCY2LLknEbUHaPy0IwUMQ0wA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Dw1w6O5E;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.139
+Received: from mail-yx2-f11.google.com (mail-yx2-f11.google.com [74.125.224.139])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E663C606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 03:28:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E663C606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=ccv4x4PC
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Dw1w6O5E
+Received: by mail-yx2-f11.google.com with SMTP id 956f58d0204a3-67a51292ce3so147877d50.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 19:28:06 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793762886; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eYdAAc1nsII26IZq6md5xJLqy0T6iqb9oSV3BfvkeG6ElHunGjO3QXMFV5BuHtjcSI
+         mz1LB7H68ssQha3TVh5159cbUIdH+0AkVgztE2j7LIUHzX9vCSw2EQG+QhNIT+Bj1ODs
+         v7gX0gnyb9BdZ6S/VdgUT2QewzX1fl4I5vwe/ZwUdwAg59ilGEHZMNiiNqMYmN76LLVu
+         kbDszGLdVcYytOA2xRiH8R5DAANNOTomqTgQYtFppXopa3i+m3tr7jMDU59F6OB3DK7/
+         nmB6UmJdCTBJUb0dEYLAI/JfOlyzCV72WefwM3fDmcEiybedwVMeipoG1eBps49DXx8P
+         Y4hw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=TKN5fm3lE6PDFTg4E4wZZqhp3eyt6dK1s1483aTN3Bo=;
+        fh=qNq+yb7yALD7deIB4E/bMvddW2jBfh9usBaSFQZngsk=;
+        b=mfE6Gp9+IlGiJRKX4UP4cmP3KZkwR863dv5BOlXrAGGwWiJDShP4qmVyQhem81j/U/
+         sAe+5UEwcTQxzOL2EMtn6PVxIg8E4BdmlqAOmM6ss6mb6JbbRjoCiPlkrpBiFCeU4XEe
+         b97yICD2wtxzpu9fAcCf27a+Rl4r7KDgYrn9sBIaUi+RK2SoO0RIm6JWPFzU31lcFPEW
+         tQWz/uvMztnBWiZ7mYQ72/voUtLOOxkHITm6dZCspmQN0gGdnjcHmGFFPB2eoVxqaWJK
+         VgV4AoHVFK/gFn4fEgsTVrn9JrFQLNwZs8ohUOXhxQV+b61R9pVWojTaFtxTRCPpnr9a
+         wBeQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=ERoJU+YSkcdzSJp45/76zizxO7Q36Iy9/z
-	1bkXjHy9E=; b=ccv4x4PCwvLbZrs/3eBDb+teoEOd4rmQRISfYzSV9PDiLobC32
-	oRf6sTqEAdnv9fipW4Vu2shWYbKlIPBDdHRyQdBzNNVa9VD3LkYeBA95rP366VRC
-	sLt0Ti+eCsis6FayCg/sgS0u+5tmeuOhtFR56zWoiAVTgRQCDGtW1C7Zg=
-Received: from xuqianhui.ustc.edu.cn (unknown [114.214.194.56])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgD3eT4KpupqijSAAA--.137S3;
-	Wed, 04 Nov 2026 11:27:13 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/3] dt-bindings: usb: snps,dwc3: describe two connectors sharing one HS bus
-Date: Wed,  4 Nov 2026 11:27:04 +0800
-Message-ID: <20261104032706.210042-2-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261104032706.210042-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261104032706.210042-1-xiaqinghuan@mail.ustc.edu.cn>
+        d=gmail.com; s=20260707; t=1793762886; x=1794367686; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TKN5fm3lE6PDFTg4E4wZZqhp3eyt6dK1s1483aTN3Bo=;
+        b=Dw1w6O5EUnpm393XQ2xHXvpYnx4DuRvEb75Qu6TwCtbbIxjyYM0Vb88t/Vc/UeEVVD
+         5B7ypa7o5ZhemJ5Yvh77dquQToqee/RAyTWH74SrjIpeqD1tqkRJAhPnu7cTIkWul2bF
+         eQalHBHwFKvLUQV9hdCGpbhUgbkd7RiMhkYOU2oD1V+niZVKMMaN4Ep5Dqxq9bsclcB0
+         SQVeemz6NVgahtYGmTIoM6/vQeRfLFt1Vn/mNVSAT+d73T39tCXkoBKrn1ScqCl7AFf0
+         iVRTJkV8FfiGoVTaNJSLcEfa084ZVqJa5OFGa6JMYCgFQCNVfuxCaG4za6Drh12gGSCF
+         Bg7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793762886; x=1794367686;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TKN5fm3lE6PDFTg4E4wZZqhp3eyt6dK1s1483aTN3Bo=;
+        b=YVAwLboct97P1LNczM9QR45KfY1ZTd1eKQcY+yFtaoY1rM83enTOd8hZraHQIBriM/
+         sqNNFfrc1VQi4xYIxuXC4oRVyreutyxb+BcuP5f4jiP9NlfLfrTLqJftyRgEFPVq972h
+         VlPVlyhYlLDi7afghn3hw2f3ancAyhHK870FUbMHHTEx39LNavIq453A6Bp4114vQmZd
+         9fHIG0Kl14hISrquhxt39UwTYfbt86F5W1nZuobHHBAGpCjVoFKrBpWZapn3yHNf40YA
+         uYpwkT1IyhXgu0+2wnanB+vqJ6KUSj5vMRbTxpfCPfBm9uwVl4b4rbsHv3TmxLEl6a0a
+         eLOg==
+X-Gm-Message-State: APuU4Z9jW3xMxeHaguc10Uc8bJqWUoLNBmbHemPh/RR4AkZZAqPBplHc
+	gmcNIgLrtW5RNkyFJTO2HEM0oZ+vrG9kcr5k8LttL01GOr8BQBUkVYl9BHofH2PLg1cFKRvSp21
+	BewwC8/cMNwwzX9Wrp80LwqCnWuAELX0=
+X-Gm-Gg: AYBFou16d3ieMoI+uUFWRhdrixFRf0JZ+5FhGibdHTda+ibpSDgDmBcBqaxjxXJwBdz
+	JqrrHwDLyW2Xt32ObxlW9AqjiRyiP7h4SOpB2IFSiZE3jcr2SIBCWAirPHjI3vHqhqG9ccqYb9E
+	olpMGeMNj5XEtFDGCwWvW70rTcNjIOUIolc16kYmd/hmqR8Ic5g75q0VXJYUdBbxmHB9JMwAFPH
+	68aH9mleUG6rJBesUKiPY2ZSfXuaJfG1uexhAQOcCkvjVYvhxovBuUxQqUEX5Ep4lEQ0iwSJkxj
+	V9+4BT9rh1lfuZYxyxpTQ0thLNcX/4CpuXEOSVWoYFpg4kgebDfr2TtTemHc4dE+RVm3RlQGCME
+	IpMZBRyTzm0rRE+qksx2PcUgIQG4zwOHSlrm/jlByW/Kv7GVyRQtiiZlcnjRwEp9/tjSdXuq9N1
+	FHU+XUw45kGL2+7Kk=
+X-Received: by 2002:a05:690e:484f:b0:679:bf13:c01b with SMTP id
+ 956f58d0204a3-67ba4e968d9mr7976806d50.17.1793762885716; Tue, 03 Nov 2026
+ 19:28:05 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,206 +104,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgD3eT4KpupqijSAAA--.137S3
-X-Coremail-Antispam: 1UD129KBjvJXoW3ArW8Jr4xCryfXr45KF1rWFg_yoW7Zw4kpF
-	Zxtan3JFWkKryfZ397A3W8uwn5Kws8JrnrJr18Ar1UAan8Gr1rXw43KwnIqayUCr97Za4Y
-	9rykW3WkXa17CaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPIb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_JFI_Gr1l8cAvFVAK0II2c7xJM28CjxkF
-	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8IcV
-	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
-	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
-	02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
-	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4
-	AK67AK6r48MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8C
-	rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8Zw
-	CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x02
-	67AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r
-	1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07br
-	HUgUUUUU=
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREBB2rqNlcjBwAls2
+References: <20261103144148.14430-1-jianyungao89@gmail.com> <aun6-mywXYg2VTL4@nidhogg.toxiclabs.cc>
+In-Reply-To: <aun6-mywXYg2VTL4@nidhogg.toxiclabs.cc>
+From: Jianyun Gao <jianyungao89@gmail.com>
+Date: Wed, 4 Nov 2026 11:27:54 +0800
+X-Gm-Features: AclHuK8-QaZQophNFvzc0AoFSF-bpUKDXP10OLzU1_aqdxeGYmQPW2wekA4osYg
+Message-ID: <CAHP3+4ChRtv5OCoRrF9-D2GYXJnu0kS4_3O7kXqYRbTtLAt8mA@mail.gmail.com>
+Subject: Re: [PATCH] xfs: fix spurious len double-counting in rmap three-way
+ merge check
+To: Carlos Maiolino <cem@kernel.org>
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	"Darrick J. Wong" <djwong@kernel.org>, Alexei Starovoitov <ast@kernel.org>, Eric Sandeen <sandeen@redhat.com>, 
+	Mykyta Yatsenko <mykyta.yatsenko5@gmail.com>, Yuzuki Ishiyama <ishiyama@hpc.is.uec.ac.jp>, 
+	Dave Chinner <dchinner@redhat.com>, 
+	"open list:XFS FILESYSTEM" <linux-xfs@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Two connectors can share the High Speed D+/D- pair of one DWC3 controller,
-with a GPIO selecting which of them is connected, while their Super Speed
-lanes stay separate.
+Hi Carlos,
 
-Describe that in snps,dwc3-common.yaml:
+Thanks for the review. To answer your questions:
 
-  - "port-select-gpios" selects which connector drives the shared bus;
-  - each connector is a port of the controller's "ports" node, "port@0"
-    and "port@2", with one endpoint per port, so that "ports" keeps
-    describing the controller's own buses as the graph bindings expect
-    (port@1 is the Super Speed lane of the PHY, described by
-    snps,dwc3.yaml);
-  - the endpoint of a connector carries "mux-state", the level of the
-    port-select GPIO that reaches it, and "usb-role-switch", declaring
-    that this connector has its own role-switch input.
+How I found it: I found this while reviewing the merge logic in
+xfs_rmap_map. After tracing the left-edge merge path, I noticed that
+ltrec.rm_blockcount is already updated at line 1119
+(ltrec.rm_blockcount +=3D len), so adding len again in the overflow check
+is redundant. When the real merged length is still within
+XFS_RMAP_LEN_MAX but the inflated value exceeds it, the three-way merge
+is incorrectly rejected, leaving the right record unmerged.
 
-The controller node must carry "usb-role-switch" as well, and dr_mode is
-required to be "otg": dwc3_get_dr_mode() otherwise forces dr_mode back to
-peripheral, dwc3_get_extcon() skips the role-switch branch and
-dwc3_drd_init() never sets the mux up, so a device tree that passed the
-schema would not describe a device tree the driver can act on.
+Testing: I ran the rmap-specific regression tests with this patch
+applied, using kvm-xfstests on a 4k-block XFS configuration with
+rmapbt=3D1 and reflink=3D1:
 
-The two connectors must claim opposite levels of the GPIO, which is
-expressed as one choice between the two assignments, and endpoint names
-use the pattern of graph.yaml so that an unnumbered or third endpoint is
-rejected instead of escaping "unevaluatedProperties: false".  When
-port-select-gpios is absent the endpoint properties are rejected, so
-existing single-connector descriptions are unaffected.
+  kvm-xfstests -c xfs/4k xfs/236 xfs/578
 
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
- .../bindings/usb/snps,dwc3-common.yaml        | 116 +++++++++++++++++-
- 1 file changed, 114 insertions(+), 2 deletions(-)
+Results:
+  xfs/236      Pass     6s
+  xfs/578      Pass     34s
+Totals: 2 tests, 0 skipped, 0 failures, 0 errors
 
-diff --git a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
-index 6c0b8b6538..0be2a6e83e 100644
---- a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
-+++ b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
-@@ -13,6 +13,40 @@ description:
-   Defines the properties of the DWC3 core as being embedded in either an
-   vendor-specific implementation or as a standalone component.
- 
-+$defs:
-+  hs-endpoint:
-+    $ref: /schemas/graph.yaml#/$defs/endpoint-base
-+    unevaluatedProperties: false
-+
-+    properties:
-+      usb-role-switch:
-+        type: boolean
-+        description:
-+          This connector endpoint has its own USB role switch. The switch is
-+          registered against this endpoint and looked up with
-+          usb_role_switch_at_endpoint().
-+
-+      mux-state:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        enum: [0, 1]
-+        description:
-+          Logical level of the port-select GPIO which connects this
-+          connector to the shared High Speed data bus.  The two connectors of
-+          one controller must use different levels; the driver rejects a
-+          device tree where two connectors claim the same one.
-+
-+    dependentRequired:
-+      usb-role-switch: [mux-state]
-+      mux-state: [usb-role-switch]
-+
-+  hs-port:
-+    $ref: /schemas/graph.yaml#/$defs/port-base
-+    unevaluatedProperties: false
-+
-+    patternProperties:
-+      '^endpoint(@[0-9a-f]+)?$':
-+        $ref: '#/$defs/hs-endpoint'
-+
- allOf:
-   - $ref: usb-drd.yaml#
-   - if:
-@@ -26,8 +60,87 @@ allOf:
-       $ref: usb.yaml#
-     else:
-       $ref: usb-xhci.yaml#
-+  - if:
-+      required: [port-select-gpios]
-+    then:
-+      # The mux path is only taken when the controller itself carries
-+      # "usb-role-switch": dwc3_get_dr_mode() forces dr_mode back to
-+      # peripheral, dwc3_get_extcon() skips the role-switch branch and
-+      # dwc3_drd_init() never calls dwc3_role_mux_init() without it.
-+      required: [dr_mode, ports, usb-role-switch]
-+      properties:
-+        dr_mode:
-+          const: otg
-+        ports:
-+          # Each connector is one port with a single endpoint: the mux-state
-+          # property on that endpoint says which level of the port-select GPIO
-+          # reaches it, so two connectors are two ports, not two endpoints of
-+          # one port.  port@1 is the SuperSpeed lane of the PHY and is already
-+          # described by snps,dwc3.yaml, so the second High Speed connector
-+          # lands on port@2.
-+          required: [port@0, port@2]
-+          properties:
-+            port@0:
-+              $ref: '#/$defs/hs-port'
-+            port@2:
-+              $ref: '#/$defs/hs-port'
-+
-+          # The two connectors must claim opposite levels of the port-select
-+          # GPIO; requiring both ports in every branch is what makes the two
-+          # cases mutually exclusive for oneOf.
-+          oneOf:
-+            - required: [port@0, port@2]
-+              properties:
-+                port@0:
-+                  $ref: '#/$defs/hs-port'
-+                  properties:
-+                    endpoint:
-+                      properties:
-+                        mux-state:
-+                          const: 0
-+                port@2:
-+                  $ref: '#/$defs/hs-port'
-+                  properties:
-+                    endpoint:
-+                      properties:
-+                        mux-state:
-+                          const: 1
-+            - required: [port@0, port@2]
-+              properties:
-+                port@0:
-+                  $ref: '#/$defs/hs-port'
-+                  properties:
-+                    endpoint:
-+                      properties:
-+                        mux-state:
-+                          const: 1
-+                port@2:
-+                  $ref: '#/$defs/hs-port'
-+                  properties:
-+                    endpoint:
-+                      properties:
-+                        mux-state:
-+                          const: 0
-+    else:
-+      properties:
-+        ports:
-+          properties:
-+            port@0:
-+              patternProperties:
-+                '^endpoint(@[0-9a-f]+)?$':
-+                  properties:
-+                    usb-role-switch: false
-+                    mux-state: false
- 
- properties:
-+  port-select-gpios:
-+    maxItems: 1
-+    description:
-+      Selects which of the two connectors drives the controller's shared High
-+      Speed data bus.  Each connector is described by "port@0" or "port@2",
-+      and the endpoint of that port carries the connector's own role-switch
-+      input and the "mux-state" level selecting it.
-+
-   extcon:
-     maxItems: 1
-     deprecated: true
-@@ -411,7 +524,7 @@ properties:
- 
-     properties:
-       port@0:
--        $ref: /schemas/graph.yaml#/properties/port
-+        $ref: '#/$defs/hs-port'
-         description: High Speed (HS) data bus.
- 
-       port@1:
-@@ -429,4 +542,3 @@ required:
- 
- additionalProperties: true
- ...
--
+xfs/236 directly exercises the rmap btree grow/shrink paths affected by
+this change. I did not observe any regressions or warnings.
+If there are specific test cases you'd like me to run, please let me know.
 
+Thanks,
+Jianyun
+
+On Tue, Nov 3, 2026 at 11:33=E2=80=AFPM Carlos Maiolino <cem@kernel.org> wr=
+ote:
+>
+> On Tue, Nov 03, 2026 at 10:41:44PM +0800, jianyungao89@gmail.com wrote:
+> > From: Jianyun Gao <jianyungao89@gmail.com>
+> >
+> > In xfs_rmap_map, the left-edge merge path already executes
+> > ltrec.rm_blockcount +=3D len at line 1119 before checking whether the
+> > right record is also contiguous and can be merged.  The subsequent
+> > overflow guard therefore must compare the already-incremented
+> > ltrec.rm_blockcount plus gtrec.rm_blockcount against XFS_RMAP_LEN_MAX,
+> > but it incorrectly adds len a second time:
+> >
+> > (unsigned long)ltrec.rm_blockcount + len +
+> >    gtrec.rm_blockcount <=3D XFS_RMAP_LEN_MAX
+> >
+> > The extra len makes the check too strict: when the real merged length
+> > does not overflow but the inflated value exceeds XFS_RMAP_LEN_MAX, the
+> > three-way merge is rejected and the code falls back to a two-way merge,
+> > leaving the right record unmerged.  This produces rmap btree
+> > fragmentation but does not corrupt on-disk metadata.
+> >
+> > Remove the spurious len from the overflow check.
+> >
+> > Fixes: 0a1b0b3855cf7 ("xfs: add an extent to the rmap btree")
+> > Cc: <stable@vger.kernel.org>
+> > Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
+>
+> Hi, even though this looks reasonably correct, how did you find this
+> issue?
+> Did you test this at all against any regressions (i.e. running it
+> against xfstests)? This is touching critical logic on the rmap trees
+> which can potentially end really bad.
+>
+> Cheers.
+>
+> > ---
+> >  fs/xfs/libxfs/xfs_rmap.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/fs/xfs/libxfs/xfs_rmap.c b/fs/xfs/libxfs/xfs_rmap.c
+> > index 14aef87837a9..c2b2f8e7502d 100644
+> > --- a/fs/xfs/libxfs/xfs_rmap.c
+> > +++ b/fs/xfs/libxfs/xfs_rmap.c
+> > @@ -1120,7 +1120,7 @@ xfs_rmap_map(
+> >               if (have_gt &&
+> >                   bno + len =3D=3D gtrec.rm_startblock &&
+> >                   (ignore_off || offset + len =3D=3D gtrec.rm_offset) &=
+&
+> > -                 (unsigned long)ltrec.rm_blockcount + len +
+> > +                 (unsigned long)ltrec.rm_blockcount +
+> >                               gtrec.rm_blockcount <=3D XFS_RMAP_LEN_MAX=
+) {
+> >                       /*
+> >                        * right edge also contiguous, delete right recor=
+d
+> > --
+> > 2.34.1
+> >
+> >
