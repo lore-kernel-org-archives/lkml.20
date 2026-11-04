@@ -1,47 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793783492;
-	b=fRZXoheOCRvhYj9b/t/d7vQOWskxL87xJ4z7PgZCrOeXpDYGnFFPEzUEDuf/HsOOFc5M
-	 jCVAysWsF4zcZA8Aw1+cj8m3S4HRkbB5KIeA1lV4bRONPUnurfl9t4gVKiQ+QEz+5UCwm
-	 Ny/5CXI3JbvU18NJjN2WHJ8q2D9R+5BK2klRsSslZhgPpA8mzxv54LfMxyCNliVo9njbh
-	 TUmhKWECVMEoGdWOfZ+WEi142ANIqfgtbE1BWG1t+LU4qPYymu/GuSuu8M2uio1tY/npv
-	 nt/yQhUS3m53VnkaBBC7m+ewkba6g72xnuqNOwqgZ4t+T13xNoZjGxyoBt+q7MPq8Gw==
+	t=1793783509;
+	b=FJdvdet4KvMRRFQ6sBXmkpydc7+wDGp3PK+S5MFHBYgZsCsFTOEJayWhzgBPxtz6CVcg
+	 iZ2NpUp1boIIXhJ+9J32O46L8Z3KbA8TIlL5kRjCs2ur5i0+rQBrlhLJyxVs0TUuQM4gi
+	 zpUbbAfLB2jXXMiCzHFxPeZQO7K7kUNIBglDrCY9xydSfZ4pjDBuRx9ik/Aj8uuE2+54B
+	 CoYlpDoJIEb8ZwMOZ82DGNEXBrKFZJhVZ+gj3XDi/vGdNIvm8djWXPYVkxzfIkL7Hdsos
+	 jtJ2bZO5kL4EAwtHyDSvg0fW1WVv8FHDNIUh6bnMzJ7jejsmLPNOWJwNbwsHv7THuOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793783492;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=+BWGMpp+CGdBx3er7fkKiPSgFKGZi9UN3j89ZX4ZK/I=;
-	b=Joq1/chdARA1ty3rD8etgIYg6mYecRUhWn1aPZZxhAKiOkVuasJpM7CGZPkZUaKK01br
-	 giD+tW2aCy85xf4Z8R3fXE584NifvFgZ6WJr31uMILCaW0WVjCrIBvIv+7sORyI/1qW39
-	 5Afm9yffyLIH33Dd5DNUxS7QMEdOuEh6kx6LUOuMlJYwJ1ivxXnU623fpjeMShORDSYLq
-	 yQe+mlcEIkMK7CfoKE1MUeayaN549OnF3zQIGXuX7CykaezNWLx/du1Gj3ZFGo9n+IjPg
-	 hGov1DZuahEyz/6SJvxJeiYmyFqNogyAkcIaGL75izERgGcslgnBD1TRI1rdnVbV7sQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793783509;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=H2B5SGJlFgy21hJZry/CquPSo2DWZ1AoJ09UdiQ0LRo=;
+	b=wBorYeqtR6SonQKe5FsZAiKdI3v4qztlPMl11BKikczzQugpvHZtVimL1MU1mHArs/Pz
+	 VyMu8XEhVWnYX8RMij/rqnQjh1JZhVkqVgpS0OE7X39cGtvq7/BdZhfSdawZzxHqatRa7
+	 uKA3qMZPQPZeFvjYvaH/ShLWFIhIAskBjRaT5CJZJoFApahyPV2WMzAKvsbfp6thfd3zg
+	 1lQhwCEIKVWPnWVMPWTh52c0LgBncUBpb6fVHLT35DRb+gydlPgUJKnCO8PL+3c4Bc4DW
+	 wqKJpN3yDiwGy7vloj0MvlE88uYUPdf4wc0Ynra8hQJhDR5rfW+Zz0I2D5TmOKmmXtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bPUGyJe8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hys0TX5T;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aQJoNn6J;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FFFC606A33D;
-	Wed,  4 Nov 2026 09:11:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 865EF606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:11:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 865EF606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bPUGyJe8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD4141F00A16;
-	Wed,  4 Nov 2026 09:11:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793783492;
-	bh=+BWGMpp+CGdBx3er7fkKiPSgFKGZi9UN3j89ZX4ZK/I=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=bPUGyJe8jTsIlbF1xVTN5nX4l/yeQqqr6KUSLqOk5CwA8zaane6up/uXHy/A6ETFN
-	 8GMdYQkC/9pvmhBP2zcSqtRvRTHOksDMwvx7gtNR3V/dSa5XbcrFjusMb5bbHlPAqY
-	 FtbHm8MMjkmKP//Sey/LKddohMLPyRf4C7s+5IntPmGQ+G5m0rp18ZxLjCBmoTbsqX
-	 6+sBf9cofe3crMJ9E65oq/xyI3vlQ9WK8JdqiYXb7nE+wHWgrx4QfKgjh+C53e4xEw
-	 hQtZGro3VXx5kNioH4KUnh6d9IwsWjAmh0kD1m7YN8VI3LyBQcu4wnCHz5d6QOS+Jm
-	 8qsGDtkKaCKQw==
-Message-ID: <45508a75-7549-40e2-a71a-807a824ea026@kernel.org>
-Date: Wed, 4 Nov 2026 10:11:14 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hys0TX5T;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aQJoNn6J
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A48KuPL715428
+	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 09:11:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=H2B5SGJlFgy21hJZry/Cqu
+	PSo2DWZ1AoJ09UdiQ0LRo=; b=hys0TX5TBZYlzyDg42eQBNIgnHgwauEItfK7UG
+	396IvuvL/C3oXqDXI9oQknLGifomiwibAuomRz92eqGThtWw2+zYdu7fIHS6TWA9
+	2wFy4DBL5AkcQRiQqpqNjIgs8xIA/UA75Lrcua8uBUcIEmnNBX34ePCJgDMtZTR4
+	cwhPuE31+CGXuIM4dsw7Kj0pMgz3c8kEbr6jczg5wsNpvbYuFmK20CmE+DVaDMc8
+	SqysNxZEPj/riPjKukVCnhEvQHPvUdeFcQ5yWF399R9UPMOqrWGyCIn3ZDsFW+6R
+	WrGYlTIHr4aY82EAORpaVKii9aXdxXe9uJYA3NYgodQgCNcw==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqn8y2y39-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 09:11:47 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3aed1b64104so838676a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:11:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793783507; x=1794388307; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=H2B5SGJlFgy21hJZry/CquPSo2DWZ1AoJ09UdiQ0LRo=;
+        b=aQJoNn6JKjkq8xh3CBcxw8grJRnv3Wtj7KpoeIcgqezEqzrspLZRxYtMysLw2cnhv3
+         Qd4V5QCrxi4pKDxARxUsjCiQkql0GcJTpIHH91aBaKHG3F4AClARi5eX/K0KfC67Xixj
+         F6vvY2K9+xxrkloaIri0hE9AGavRGIzMo4luwIMNrH+fl11CF6la5dheflhZV14s0YUy
+         r2+eSYHHU1E4yYOrONrCLcEiuEEXrv0zJJYTlfEkkqHURWlD4dVmXJi2K7F9F+lE0aP+
+         rS/tfSHW75JOxSkArCc6GrigXGbxp7lgkjmJqvt0724YvTmnRMU5mEm+uRppsMMVpvUy
+         nUtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793783507; x=1794388307;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=H2B5SGJlFgy21hJZry/CquPSo2DWZ1AoJ09UdiQ0LRo=;
+        b=N85Pm3mSLSCTDXSKoWbnNB1D2sTUc4mLQmlJ5wLuqhaBGEotYgAm/KJTwTj6iLdCkk
+         lZuvpORgV5QteN7l5bDQKhScRJ3H/WT4mkzHrYAFcOlALEaZtU6AZCTzDUv4F5trBJ/M
+         eFACv7GIK8h3jG4z9tFbjM8JXp6S0soVJFYQtUrZtQt3pUsqmn75SHn5LiIOFFRgoZ6Q
+         dNS243ZwMG7XVs0hzv9sZ3HgUDHudDBrtBSpjjESKSIyWVmEbJYpJ4623IOan1j0KRfn
+         f52VoCc0dLoyr3NF4pUkAthwaZQK6hk7j38AwfMKXyrqJCitcjFrukvPf/cB3oTORhIf
+         YqFA==
+X-Forwarded-Encrypted: i=1; AKwUvBxRryxDSaNZak7Iojq5/UPhOaHkqndU9osxu90jQSoPSq0K4qctek5AvsGV+o0O++9Ce+uwz47TGafM99k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9mQDxqC6/qMhQClatSs0GpJS6tCiqR74GDglh2XljRIOkYY+zK
+	qOIoJSEMzhCEYPZPNAbxNk3YHr4KBu0lYvVGOImm7qT9C+ghzGog9FB3uF1L8VOWCYa0AH5eQNC
+	OJvHvSLQwBdK+xQIHKEQlSRgJkv1DsO2GujLRW0UG65OBPTR98KrAEkv1yfwYToZaBCM=
+X-Gm-Gg: AYBFou34G7tF2M541VVogHSEAp4R6tou+hGKZMV2XicUkmb07ASXagrPRx0NX46/IOK
+	nVtNxOamF7reD6TO7g0zZbIMxIHt2FMQnsIRk159+VI5Mk6VEYU7k+nLkxJNkbelWafOGx1AMVT
+	SOhlSNk0UPUGs18ZdeoBW96wFS6y1bhBLKsZ3jR1LOrmP+aROo2baMKpHcPU4B/Ec0tiy8Mexrm
+	5uGh6c0CnaxSNkV+0za9G6vsw8v+u89XLjcJaGx0Qhmde12WkFywwbX7KbtbDqWzSHaaLqBBfk7
+	oNlw/62LjVh9BpV+R4s3RGBnBT5kJ4APaS6uPAYm/2TswpEMa5hZQGgDmpkfvdaPDhXjtPUYQx6
+	mMnFWnRwyP1Uh5YMXLPSasIuMkd6/Jv7iOvQyomxXN/7NNcA5Nq8tpck3HeY4F2fs1Nf0s6yt1R
+	NugtP3T41f
+X-Received: by 2002:a17:90b:2882:b0:3ac:8897:7b9d with SMTP id 98e67ed59e1d1-3ae89574cd6mr13912250a91.1.1793783506801;
+        Wed, 04 Nov 2026 01:11:46 -0800 (PST)
+X-Received: by 2002:a17:90b:2882:b0:3ac:8897:7b9d with SMTP id 98e67ed59e1d1-3ae89574cd6mr13912209a91.1.1793783506302;
+        Wed, 04 Nov 2026 01:11:46 -0800 (PST)
+Received: from hu-jshekhar-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c896cc6sm8253877a91.9.2026.11.04.01.11.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 01:11:45 -0800 (PST)
+From: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+Subject: [PATCH 0/2] drm/panel: Add support for Novatek NT37802
+Date: Wed, 04 Nov 2026 14:41:35 +0530
+Message-Id: <20261104-jshekhar-nt37802-v1-0-58e5e7fb2556@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,115 +115,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 43/47] mm/huge_memory: split huge PUDs when adjusting
- VMA boundaries
-To: Lance Yang <lance.yang@linux.dev>
-Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, mhocko@kernel.org,
- qi.zheng@linux.dev, shakeel.butt@linux.dev, ljs@kernel.org,
- kasong@tencent.com, baohua@kernel.org, axelrasmussen@google.com,
- yuanchu@google.com, weixugc@google.com, baoquan.he@linux.dev,
- baolin.wang@linux.alibaba.com, liam@infradead.org, vbabka@kernel.org,
- rppt@kernel.org, surenb@google.com, mhocko@suse.com, kees@kernel.org,
- peterz@infradead.org, jannh@google.com, pfalcato@suse.de, hughd@google.com,
- pasha.tatashin@soleen.com, pratyush@kernel.org, willy@infradead.org,
- jack@suse.cz, ziy@nvidia.com, riel@surriel.com, harry@kernel.org,
- apopple@nvidia.com, nico.pache@linux.dev, ryan.roberts@arm.com,
- dev.jain@arm.com, usama.arif@linux.dev, kas@kernel.org,
- matthew.brost@intel.com, jhubbard@nvidia.com, peterx@redhat.com,
- will@kernel.org, aneesh.kumar@kernel.org, npiggin@gmail.com,
- osalvador@suse.de, minchan@kernel.org, muchun.song@linux.dev,
- xu.xin@linux.dev, chengming.zhou@linux.dev, chrisl@kernel.org,
- shikemeng@huaweicloud.com, nphamcs@gmail.com, youngjun.park@lge.com,
- gourry@gourry.net, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
- ying.huang@linux.alibaba.com, jgg@ziepe.ca, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-cxl@vger.kernel.org, stable@vger.kernel.org, usama.anjum@arm.com
-References: <20261031-fixes_core-v3-43-d6437171ecc3@kernel.org>
- <20261104031245.9524-1-lance.yang@linux.dev>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261104031245.9524-1-lance.yang@linux.dev>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMf26moC/yXMQQqDMBBA0avIrA0k0VbrVcRFOo7NKETJqAji3
+ ZvW5Vv8f4JQZBJoshMi7Sw8hwSTZ4DehQ8p7pPBavs0RpdqFE+Td1GFtahqbZV7OF29sMQeCVK
+ 2RBr4+C/b7rZs75Fw/X3gur7pRRu/dAAAAA==
+X-Change-ID: 20261104-jshekhar-nt37802-a5a079c4cdce
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Jayant Shekhar <jshekhar@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793783500; l=1143;
+ i=jayant.shekhar@oss.qualcomm.com; s=20260925; h=from:subject:message-id;
+ bh=z3uvju1pN5NHrCsshehfOyEGWd/5HX3WCZMbJ6sj91w=;
+ b=X9Tx0Q3lQhYYdNB1elLXJJf+WfAbrOm018IM2ixlNdww4xKtt8J45R3/2Wo53DObcQkC2bOU2
+ WxpOiETXiEpAAEu/cnsw6fE8WuOgmCXUvjK5hfOcDi9qj16FdFI/EDa
+X-Developer-Key: i=jayant.shekhar@oss.qualcomm.com; a=ed25519;
+ pk=saYTwtCCpug4b0Hz0jHFoATgDtdhFVicwMzDJo2z5ZE=
+X-Proofpoint-GUID: IuYWBWq3sLSiZMhOj1gc8D5AgGzAD0R6
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAzNiBTYWx0ZWRfXxA5yw2fL6Z1q
+ 0Q/eQJFtuT53IL+CntojuxCstO6T0lASyTKcJvaTSWVTJN6qAkjLGn7YQwPIg5m98OarmjvXBWf
+ IHAxooT6KRN8gjPZEfUa4U/ic3z8LapZYltVRYEMkJXYTifv2MvUDaNyBtyrhrOfG67ZVMgbI1R
+ VanUkVNnvkFKGudNPoyiFybYySm/MTccAMZuknKqzyZLcL+FBw/eGF+rv/Rqac8XpfAXJlGnkLj
+ TfsLv22mPyE3eyjQgu+wejfc+LZ9+fchprOfnc9GgozYipwid1FZrE0qg3jfjIRPHMrXSWoslyq
+ wHUDJCiLbYxNjgQ6cSYIBCsgp+hxjnPLL1O5wuIMFJWUrKjpD7Ikc6YJl+l7wLah+nRPVjq4dLg
+ G39E2NrH9/DoVkV7D810jSZT3p6agPG4Wd6YpYBEfVD1l7N4sneAeWq8MbIMybevLuwa169aG1x
+ Mku/X/fC5Sf+PXf92rA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAzNiBTYWx0ZWRfX0F9qJvTbhJ16
+ rAYGvv4wAlyh2NNYD7z3QafvGqKeXCH7zyh9Pj4SQMAn9gcCR/ilM/e7Tp+iJ2Pb5Qeu/euYZiH
+ pcXVT9uFBrzfxwzs7V9mQr+zfgf/Bpw=
+X-Proofpoint-ORIG-GUID: IuYWBWq3sLSiZMhOj1gc8D5AgGzAD0R6
+X-Authority-Analysis: v=2.4 cv=NP5AaE6g c=1 sm=1 tr=0 ts=6aeaf6d3 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=QthHNoVtvuTdp5M_hsQA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_02,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 bulkscore=0 suspectscore=0 adultscore=0
+ phishscore=0 lowpriorityscore=0 malwarescore=0 spamscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040036
 
-On 11/4/26 04:12, Lance Yang wrote:
-> 
-> On Sat, Oct 31, 2026 at 10:40:12AM +0100, David Hildenbrand (Arm) wrote:
->> PFN mappings such as VFIO PCI BAR mappings can use PUD leaves while
->> allowing VMA splits at page granularity. However, vma_adjust_trans_huge()
->> only handles PMDs.
->>
->> After faulting a writable PUD-sized VFIO BAR mapping, changing its first
->> page to read-only with mprotect() makes the PMD walk treat the PUD leaf
->> as a PMD table. Applying MADV_DONTFORK to the first PMD-sized chunk leaves
->> the PUD spanning two VMAs: the PMD-aligned boundary skips splitting.
->>
->> Walk the page tables once at each adjusted boundary and split a huge
->> PUD or PMD leaf as needed. Handle PUD leaves even when the boundary is
->> PMD-aligned.
->>
->> Fixes: f9e54c3a2f5b7 ("vfio/pci: implement huge_fault support")
->> Cc: stable@vger.kernel.org
->> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
->> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->> ---
-> 
-> Nice work!
-> 
-> Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Add support for the Novatek NT37802 AMOLED DSI command-mode panel used
+with the Maili/Pebble platform.
 
-Thanks for the review! Please do keep reviewing, but note that more trailers
-(including this one) will likely not make it upstream as I am about to prepare
-the PR to get most of these things here upstream.
+This series first documents the panel's Devicetree binding, then adds a
+DRM panel driver and enables it in arm64 defconfig. The driver provides
+the 1440x3200@120Hz mode with DSC 1.2 over four DSI lanes, sequences
+the panel supplies and reset GPIO, and exposes DCS brightness control.
 
--- 
-Cheers,
+Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+---
+Jayant Shekhar (2):
+      dt-bindings: display: panel: Add Novatek NT37802
+      drm/panel: Add driver for Novatek NT37802
 
-David
+ .../bindings/display/panel/novatek,nt37802.yaml    |  69 +++
+ arch/arm64/configs/defconfig                       |   1 +
+ drivers/gpu/drm/panel/Kconfig                      |  16 +
+ drivers/gpu/drm/panel/Makefile                     |   1 +
+ drivers/gpu/drm/panel/panel-novatek-nt37802.c      | 544 +++++++++++++++++++++
+ 5 files changed, 631 insertions(+)
+---
+base-commit: d6bcfc94eb4da6e089c5473970cd96727292fd97
+change-id: 20261104-jshekhar-nt37802-a5a079c4cdce
+
+Best regards,
+--  
+Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+
