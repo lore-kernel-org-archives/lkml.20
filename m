@@ -1,96 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793814153;
-	b=HhH/0GcGXBJSFAnHScTdKFrV7gxNuAi3iCctl34C4n1jmyr6TUpD/HDPg9GhIGZz9wV9
-	 G8pls413BfYmEy/1YawlwwsO2i5G3R6wP35mFPSJNKVsI8DtXJgc8uxjFGfnwBLm7Keip
-	 9RfeQuTKdfRjMapdKSVu2WCTnBJar1XeXRYf22mFjDS6uuJAXVFduL5smtjof4Sn2IKsr
-	 QKqEZm7pAQE4DmfNrRY0mnfZnXKhTLn2yNbNLXojin6BOE8FfnCpVbwoQf6kRH8Lk1eQ2
-	 ccICZNIfKbBelhTR48hw9kL93ECw4fadeXBYbXk4mUK+WNkubnXN3NAAr1g5BKsCiBA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793814153;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=gSRcu9DhSo7woCqDk3it1TU/lXI/lW8eMuQxcQMusAM=;
-	b=VgBPbrU5rORp6ur0+KqljIYWIOOZg3rgun31TCmStRlb/gr/jh3qaXsATIrmLrYtKg6r
-	 a9MWJUjKC6rTFW9sIBz4pBxm931PTYwmK5bIeoPr+oliX8omno84sKyM8M/FpLGWw8uN4
-	 loaDEvjtCZf+Wh0Mt4La7j15U6TOMr0g4uOdq40Jd7jCDA22RDr2pETOIr2iisO365aiY
-	 T5p7nEaxId1NP2wpVd74GHK6a5C213RGpYE913jzeBjrv8bcLrQ6fVYoCjPhFYY6SMjGJ
-	 cgFIwS4Cmnyzq4kKsmZ0A06I+HfIyjkbfIVwi9ckvTQDLYp5WIDQchhXnF0byhJHpfQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="eXb2/tqx";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.18
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011018.outbound.protection.outlook.com [40.107.130.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D8E4606A330;
-	Wed,  4 Nov 2026 17:42:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D8E4606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793814182;
+	b=gX0ym459abBBjxG6rCsXHPnbHNOI9lb1HprTX2eeRZBopHkcXleuSd7mmQfXnI5s3Gmf
+	 1pQ08SVjEzMz1ZKieUjTtEmNRgCyiUQfo1plhUDJpjO0h/NvfiHb3M3RQIMj7IaIDTbTc
+	 YGQkfsKxZXnrMFuYFx/5v+NQFShhq2gYz6XwL2pSiCh2bkegQzUV565ihY5XRuo1UU6lx
+	 mNdwLa1f0LuH/IHP0HS5zm4/q0+Gfx6XmF/5FC2x2hCcktewAMLb9v/e/R6EkNUkNm8RI
+	 ujiubLwqjhkgqrYiPyPwJBPdRZjMHyy3PGz6ywjOpYLsGP8uUN2cEXWeCmgst5X+yOQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793814182;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=D/ufQuT616L/slKbsMvHsuyGu7FrChwnjA8syXHjneE=;
+	b=1J1VMt6RJTiu7U0Hfg3IizRseowT6M+QpmRERwWqEdNPhM3qnnIIaVKQq8OxxEXZJckX
+	 75czz8olrdZTj+cbzLhHi3XmRHnIgQILhjIw2Mdt9Tndmtg19pITwG3Lyz7a3fXTsMTJa
+	 EOVXhFgKB/Z9K+vLhXnKkJubfPNx5SBJPfCQlDhsgDfeQQo2D0t6rtkjMQvKwe9oTZFGH
+	 9KEgXQOh7P7wsKkfZF5th6+XYOsfjomrqI6cpM7MLuzpwYYW2u9AkhFhUlygJKmmaCSof
+	 X82IjD5syKvbNBQ33GmPGP5tj37oYWpaMxU47P7+YhLsvVIKiOeIAMf7zvNsZS4Uiqg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="KPcKo/04";
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 48E15606A31B;
+	Wed,  4 Nov 2026 17:43:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48E15606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=eXb2/tqx
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PsK9X5F3tfo3ujdlk8enRXJ2tVWjZMsMFxCtfUqeH4/Rq2kNH4Pw6aBnDwr+Q/7lBCXmzOediLI0V+wVa7Wg+fPRct1Rajz2Tz/HSWwWL85OIq5YE2jRIxzqhRpPkOB+ubCHzId+8RKgVxhYDcHE2DA5Nczq7Afc2nUIf2b7muDr9xR8Uc+eO9KBS893YXHlbFVCefw9p9xHB/cf3/0j/C8zkMZzhBNUoW0CU5JNGsPW2RI2q+8azoQH35CajrtMb728Ve3rhtOxytxbZDyBa3ptYxM0++HPAkN4avcbecsYfYZCmMcZfZwu68pQjoQno766LB2mhylZPlYHWbZ7Tw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gSRcu9DhSo7woCqDk3it1TU/lXI/lW8eMuQxcQMusAM=;
- b=cId671k0+0lFfNGa6mccAnjI4jqwXi/GNUjPdtavkrzIUdkxiNTNiwz9HqcFiFqM6fvEUgV5ck54S8FP4WgqW3UM2IPM2xtbp68RW8OAHtEgXQ5VAht/fzYaw8Gsj1600Gyv7lCf4Fcp1D6xsLNeggANXa1gRXpje3HgM66PA0cAhJRhaP9cRr23MBt3joKvboBygO34ldV/QyHeA4xFjTNTljoqfw6fl/ZBLJg1ISn52qMWVFCK/N1jQjSA9e3gq8DLV97wVzcTJ4DZrQ1qamLhEu8o81CRku93VbhxIJV0gCFsYF1ZGh7KxKHbAf7uLUHi7sWQwyqvNR9AFEzHbQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gSRcu9DhSo7woCqDk3it1TU/lXI/lW8eMuQxcQMusAM=;
- b=eXb2/tqxCEdHXz07ZGgKAc2FcP+p93ce/sEoyjYBeckAGr4ujBNMX0F84T7NA5IzyfAptZDPfzQw9aFajSZEFZhzpZuz49feMvuI8t/xatLrysG7drNib3MJA7KdFFx6kjJadmhiN+yqAi8+cavKT0pGAMrLt2e0v/O1vMfbdWvJH9SrtlrY2pAcylWrqvn8mEzm6aRCHWRV4lfh1MJW7bGaSpUXTkc8fQFdkfqrM+J4usWKNhTgjavU0u1P8NSY3XzPF75QY719Z/E0E3Iu/XRU/3UxnO/3gBX6qOr4vjXUXxHSnW4PjS5J9qOlLSOGLUbmzmGUytKn6+UPWnCKkw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by AM9PR04MB7490.eurprd04.prod.outlook.com (2603:10a6:20b:2d9::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
- 17:42:29 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 17:42:29 +0000
-Date: Wed, 4 Nov 2026 11:42:19 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Tony Lindgren <tony@atomide.com>, Daniel Mack <zonque@gmail.com>,
-	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Julien Panis <jpanis@baylibre.com>, "Mendez, Judith" <jm@ti.com>,
-	"Francis, Sebin" <sebin.francis@ti.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 1/4] dmaengine: ti: cppi41: Use td_queue to restore
- DMA_TDFDQ
-Message-ID: <autue--8pip-cNQk@SMW015318>
-References: <20261103-v7-3-topic-am335lpm-cppi41-v1-0-d7213446c5f5@baylibre.com>
- <20261103-v7-3-topic-am335lpm-cppi41-v1-1-d7213446c5f5@baylibre.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103-v7-3-topic-am335lpm-cppi41-v1-1-d7213446c5f5@baylibre.com>
-X-ClientProxiedBy: PH8P221CA0038.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:510:346::9) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=KPcKo/04
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7A7741BB0;
+	Wed,  4 Nov 2026 09:42:57 -0800 (PST)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 005123F673;
+	Wed,  4 Nov 2026 09:42:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793814180; bh=1CoUnHkJvq7fNArZYhXbaSulQ+DONEx5SVmufR69YZ8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=KPcKo/048miBpsrKK9qd7lPKn5afNfN0G0JjZZh9fCJDFIyzkbTShfocwDB9yrqij
+	 caTD7IYV8qxi1/LtWKV6CN2UV8LEfhbFkvQ+Nu+qArzsUR7+31CT/vKUyJ2YFX74Ul
+	 XECBPwU5it1AttvWJhBPFtDsNHd0Doa4KTaM6jw8=
+Message-ID: <2d0fbfdd-4497-492e-be26-9f4b79fe47bb@arm.com>
+Date: Wed, 4 Nov 2026 17:42:52 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,72 +53,273 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM9PR04MB7490:EE_
-X-MS-Office365-Filtering-Correlation-Id: 50a0cee9-fbc1-42f6-c9f3-08df3a9aff6f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|366016|1800799024|19092799006|261022105027099003|11063799006|4143699003|56012099006|261009223027099003|261028144727099003|261026121527099003|261026140227099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	URZmQ8+c/3eqlJMkPajBTFDcoQvgtWvyYODIf2sUTGePsZK/mgp0k7ixbh5RZoK6ZQnqhVGlYKDhZ0UlVH/ZcuhNgW8DYwgjJ9a019PU6XqVFuvyOjWotjhc1dsJmt1A7dlkdU06VmTFY0sd3IrXgOS/wMMtu9thzwswLS13Dk71VaGtYnifxRkSU0b3FYD9eZhwfr1tIhLY0fXy5wG+P/jJ3l5Qc9XpH+SMxIJYt0wLlYdYbzAfq5iW9e+BtbJ8Sj7vxfcMBXuIK897rrO/lPvbNX1GbsVJ5wFnVvZZuDXX0apJe2oMcxX0f3clhX8UiFozf+83o+yjg3Y3cXgj8W2DwlUPcTtVmAimVdCMAo98b6pi+YeHnNpr8Kj2B7vH8WF5oCjg1XTxZljg5NMtV82YwK/DZkMN7tk5LU8BHZ1Qx1qhLt8+M5ML4HO/CD5Tb6FffAJel7ZCr8pX4kI5bZACTuQ3cEmuRxTBpqmrCgKiRmMgR5VcCxlgt0ZjOimW8x7gtETjRGp40JWcZhumW3U0fzGkIOKBHNfrDaI/mNxmIdFJYwQqbHQTmeFUfWbo87jWFOfkzlvZZY1ka9zATUPZEkrYQlTzDAr/htbHigGa9wm0azFSYebfBf+LFhL5ZX+s0vDiRCjIDacbKvt1KkDe2YThAPsWu3J1pSgyJOE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(19092799006)(261022105027099003)(11063799006)(4143699003)(56012099006)(261009223027099003)(261028144727099003)(261026121527099003)(261026140227099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?4xDMaXivvzGEG0e8d1lxaSgn/FGg+89s1k3CqBcl8kuhR1hH2S8eqDu3csDb?=
- =?us-ascii?Q?22mXuWHrhyhJQVDvzAeTBpTEAMwQt2HDHUmDpbx+nmasaagXLAO1lX3mk1Sb?=
- =?us-ascii?Q?nAJ0jdsMC3rTwE/d6kHSqkAgKBzeTqFJdl67fbzRxAZEhIYNFdTqS88hDe82?=
- =?us-ascii?Q?v/SMDG5hLgD4yyPxkp7D1MMqB4FABcIVbuQn14vT19ilpw/1PtbVov34XP4B?=
- =?us-ascii?Q?nE+AF2QnvYwWSWSM/8ABHnYBuVcj/1/A57K6G7NZeaG7wk79EKjU4vRihw2E?=
- =?us-ascii?Q?t5mMaFcVc0Y9g566RODjaT4hYGzNgOq1TtJTQxOvUhVJqOislGvfR+lgNVtU?=
- =?us-ascii?Q?xuy9ZG1TeuUTRdvwf1RG1r8iCS1KzrBKa49nXoysldeCRnhOCLvuA/I9er4P?=
- =?us-ascii?Q?j/5u+og8A7w3ViQ+cKvbuLpU/0TUD3mEJKtrnZ5uWxH3DtGz75XrLSsZ1pF6?=
- =?us-ascii?Q?ZRopLBKjeVYKNd8sBd6GDlYPwQ3Tgih0Y0Ge9Ji33RbbOmSLhlmRaEVMi7yZ?=
- =?us-ascii?Q?JIoFuQjJ7F8ne9XCLLAjMZIo4wRb9VMcdw2ocIoqsnr2CIjuBhlQgbGj4d2l?=
- =?us-ascii?Q?++RH6lIrM4Ke9OgAxCsUcf+7CvDx0zmIzM1r+EOHTFJJBwwrHIvdw/hZLlTR?=
- =?us-ascii?Q?z79Pxk3hyzqfcL7I+ExJcg6TenHDSBYGA1So7MxazsICGzELboGUl3cmSI0m?=
- =?us-ascii?Q?VGWdWIzc+3/aCaWWktDFrfzooZHOV2DUikGxZOVOLzmavzsJ3RXsRHAu/YCo?=
- =?us-ascii?Q?ZNO1uM1qRuT4VbJzlneyFLeBMPOyyMV7xfxNTh7v3038emTBdQ6lxfraLe3Z?=
- =?us-ascii?Q?8Kb/gSqna0AJW5Ae3WmhuClEBl2uNYe2AG1p2amkJ689ubbM6zymWkDBzC3a?=
- =?us-ascii?Q?o0svBKQ+QVwatWRoe9hEywkU+EWXynu/WN4zKQ8EL6f0Zpf0JnZLsFrcPbyu?=
- =?us-ascii?Q?oTVBgqszn+Cc6LfpF4YKasZzrLrFEdBhpAg6MhyUQE54KkeEaS6dFLV9SQsy?=
- =?us-ascii?Q?uzktIAjaXGI4hlPGNyPrzDmlEGhngTVXJK7gzroVO6pTXe7buZc1fK8hwMZR?=
- =?us-ascii?Q?lCv8iD73Wp4ik7Qw5927g7NiTjk2w56UkGJyugrgwdsqUpXRlq+rkgQdUf32?=
- =?us-ascii?Q?ixBEbNCCQPxavy+g5HUWbssseNSRkwEkXtgFlPH8Ti5o7Wxuuv19/g4Gnl6W?=
- =?us-ascii?Q?vi9eVw1eOUu3PKR4oGMsQ7b7CTXZGHW4kGqVhlcQo3yR/WcJKyGNiCdD3nxl?=
- =?us-ascii?Q?ByFEkoYk4Kq/CjQlo23yz5bdN/PPEsHDJd7BtSigvJtUt2uuiY7rg8cdbDya?=
- =?us-ascii?Q?AuqME/uh8d945yVIuMuTkOYCWte2qwo8QMy1p1sGQSOgp4bc5dfr6yF3H467?=
- =?us-ascii?Q?152hroPAyfwe9wIqutwGRZoBFXXeUOOcut4lJm9WSATvcsgneU/4kJfvrUoA?=
- =?us-ascii?Q?ddERTpR39rRHu8WySt/ai9arlgNymeSA/JPrdCStUZVFtrsWvUVESc96+1/I?=
- =?us-ascii?Q?Uo45EUlLWeZeW7MifYLmWRXDLXvq+Y+o2ol9ML578w3rK1Yxz0ovRQ/4cMKd?=
- =?us-ascii?Q?CLn96bMr1aMlGZ7nUD1QYV00mFhLxvMKXJ8axuPqyW8l+TVro1FwNKWYOekM?=
- =?us-ascii?Q?MyPU1n7gBxik/8b5LMaRvQdxIEm/I2L/DPqRp231TaQg9Nhp3oIa/lvsPvF1?=
- =?us-ascii?Q?5IULXQj99ZIQROUJvYe+dFCFwXAbMk/AM0wFHVT09TllurmsFlOreMrpSoCV?=
- =?us-ascii?Q?zpk94i9sylQCpRgO7qK3DAA2SyOW02IhuRoFMqUkcSTScYNggCqJ?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 50a0cee9-fbc1-42f6-c9f3-08df3a9aff6f
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 17:42:29.5409
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uzL7i7e46q40ImZLte5f9/tyJ26qQms+bnK6hGwlZFLlrUqWtjyJw8uOCbSRdXOCwrvvt5bszFZoMTic3QRxF1oymnkCBqb4k1HsgayKE/ooRgUnVItP4yoA+PwabgVL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB7490
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] iommu/ipmmu-vmsa: Keep shared micro-TLBs enabled
+ while in use
+To: Koichiro Den <den@valinux.co.jp>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Magnus Damm <damm+renesas@opensource.se>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Lu Baolu <baolu.lu@linux.intel.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Marek Vasut <marek.vasut@mailbox.org>, iommu@lists.linux.dev,
+ linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261104162251.1749998-1-den@valinux.co.jp>
+ <20261104162251.1749998-4-den@valinux.co.jp>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261104162251.1749998-4-den@valinux.co.jp>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 03, 2026 at 08:37:28PM +0100, Markus Schneider-Pargmann (TI) wrote:
-> [You don't often get email from msp@baylibre.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->
-> In init_cppi41() td_queue.submit is used to setup DMA_TDFDQ. In
-> suspend/resume the same value is read, stored and restored.
->
-> To get rid of the suspend register access, use td_queue.submit in resume
-> as well to restore the value.
->
+On 04/11/2026 4:22 pm, Koichiro Den wrote:
+> PCI functions can share a micro-TLB. ipmmu_release_device() disables it
+> unconditionally, so removing one function makes DMA from the others
+> bypass translation even though they remain attached to a paging domain.
+> Switching a device to the identity domain can disable a shared micro-TLB
+> in the same way.
+> 
+> Count the users of each micro-TLB and disable it only when its last user
+> leaves. Track whether each device holds a reference so paging-domain
+> switches do not add another one and release does not drop a reference
+> the device never acquired.
+
+Shouldn't we just not touch the physical enable/disable state at all in 
+release_device? Once the device is removed, if it did happen to be the 
+last one in the group then the default domain will be torn down, so at 
+most I would think it should just be a case of ipmmu_domain_free() 
+detecting if the domain being freed is the currently-attached one, and 
+if so then resetting the uTLB to its desired default state.
+
+Thanks,
+Robin.
+
 > Cc: stable@vger.kernel.org
+> Fixes: 24dfb197c3b7 ("iommu/ipmmu-vmsa: Call arm_iommu_release_mapping() in release path")
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> ---
+>   drivers/iommu/ipmmu-vmsa.c | 121 ++++++++++++++++++++++++++-----------
+>   1 file changed, 86 insertions(+), 35 deletions(-)
+> 
+> diff --git a/drivers/iommu/ipmmu-vmsa.c b/drivers/iommu/ipmmu-vmsa.c
+> index cea9348ac10d..bfbb6795ec13 100644
+> --- a/drivers/iommu/ipmmu-vmsa.c
+> +++ b/drivers/iommu/ipmmu-vmsa.c
+> @@ -7,6 +7,7 @@
+>    */
+>   
+>   #include <linux/bitmap.h>
+> +#include <linux/cleanup.h>
+>   #include <linux/delay.h>
+>   #include <linux/dma-mapping.h>
+>   #include <linux/err.h>
+> @@ -59,14 +60,26 @@ struct ipmmu_vmsa_device {
+>   	struct ipmmu_vmsa_device *root;
+>   	const struct ipmmu_features *features;
+>   	unsigned int num_ctx;
+> -	spinlock_t lock;			/* Protects ctx and domains[] */
+> +	/* Protects ctx, domains[], utlb_ctx[] and utlb_users[] */
+> +	spinlock_t lock;
+>   	DECLARE_BITMAP(ctx, IPMMU_CTX_MAX);
+>   	struct ipmmu_vmsa_domain *domains[IPMMU_CTX_MAX];
+>   	s8 utlb_ctx[IPMMU_UTLB_MAX];
+> +	unsigned int utlb_users[IPMMU_UTLB_MAX];
+>   
+>   	struct dma_iommu_mapping *mapping;
+>   };
+>   
+> +/*
+> + * Per bus master (device) data. Several bus masters can be connected to the
+> + * same microTLB, which stays enabled until the last translated master using it
+> + * is gone (see ipmmu_vmsa_device.utlb_users[]).
+> + */
+> +struct ipmmu_vmsa_master {
+> +	struct ipmmu_vmsa_device *mmu;
+> +	bool translated;		/* Counted in mmu->utlb_users[] */
+> +};
+> +
+>   struct ipmmu_vmsa_domain {
+>   	struct ipmmu_vmsa_device *mmu;
+>   	struct iommu_domain io_domain;
+> @@ -83,11 +96,18 @@ static struct ipmmu_vmsa_domain *to_vmsa_domain(struct iommu_domain *dom)
+>   	return container_of(dom, struct ipmmu_vmsa_domain, io_domain);
+>   }
+>   
+> -static struct ipmmu_vmsa_device *to_ipmmu(struct device *dev)
+> +static struct ipmmu_vmsa_master *to_master(struct device *dev)
+>   {
+>   	return dev_iommu_priv_get(dev);
+>   }
+>   
+> +static struct ipmmu_vmsa_device *to_ipmmu(struct device *dev)
+> +{
+> +	struct ipmmu_vmsa_master *master = to_master(dev);
+> +
+> +	return master ? master->mmu : NULL;
+> +}
+> +
+>   #define TLB_LOOP_TIMEOUT		100	/* 100us */
+>   
+>   /* -----------------------------------------------------------------------------
+> @@ -281,11 +301,6 @@ static void ipmmu_utlb_enable(struct ipmmu_vmsa_domain *domain,
+>   {
+>   	struct ipmmu_vmsa_device *mmu = domain->mmu;
+>   
+> -	/*
+> -	 * TODO: Reference-count the microTLB as several bus masters can be
+> -	 * connected to the same microTLB.
+> -	 */
+> -
+>   	/* TODO: What should we set the ASID to ? */
+>   	ipmmu_imuasid_write(mmu, utlb, 0);
+>   	/* TODO: Do we need to flush the microTLB ? */
+> @@ -297,15 +312,63 @@ static void ipmmu_utlb_enable(struct ipmmu_vmsa_domain *domain,
+>   /*
+>    * Disable MMU translation for the microTLB.
+>    */
+> -static void ipmmu_utlb_disable(struct ipmmu_vmsa_domain *domain,
+> +static void ipmmu_utlb_disable(struct ipmmu_vmsa_device *mmu,
+>   			       unsigned int utlb)
+>   {
+> -	struct ipmmu_vmsa_device *mmu = domain->mmu;
+> -
+>   	ipmmu_imuctr_write(mmu, utlb, 0);
+>   	mmu->utlb_ctx[utlb] = IPMMU_CTX_INVALID;
+>   }
+>   
+> +/*
+> + * Enable this master's micro-TLBs using the domain's context.
+> + *
+> + * Several bus masters can be connected to the same microTLB, so count the
+> + * masters translated through each of them. Moving a master from one paging
+> + * domain to another keeps its reference and only updates the context selection.
+> + */
+> +static void ipmmu_attach_utlbs(struct ipmmu_vmsa_domain *domain,
+> +			       struct device *dev)
+> +{
+> +	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
+> +	struct ipmmu_vmsa_master *master = to_master(dev);
+> +	struct ipmmu_vmsa_device *mmu = domain->mmu;
+> +	unsigned int i;
+> +
+> +	guard(spinlock_irqsave)(&mmu->lock);
+> +
+> +	for (i = 0; i < fwspec->num_ids; ++i) {
+> +		if (!master->translated)
+> +			mmu->utlb_users[fwspec->ids[i]]++;
+> +		ipmmu_utlb_enable(domain, fwspec->ids[i]);
+> +	}
+> +	master->translated = true;
+> +}
+> +
+> +/*
+> + * Drop this master's references to its micro-TLBs. A micro-TLB stays enabled
+> + * as long as other bus masters connected to it are still translated.
+> + */
+> +static void ipmmu_detach_utlbs(struct device *dev)
+> +{
+> +	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
+> +	struct ipmmu_vmsa_master *master = to_master(dev);
+> +	struct ipmmu_vmsa_device *mmu = master->mmu;
+> +	unsigned int i;
+> +
+> +	guard(spinlock_irqsave)(&mmu->lock);
+> +
+> +	if (!master->translated)
+> +		return;
+> +
+> +	for (i = 0; i < fwspec->num_ids; ++i) {
+> +		unsigned int utlb = fwspec->ids[i];
+> +
+> +		if (!--mmu->utlb_users[utlb])
+> +			ipmmu_utlb_disable(mmu, utlb);
+> +	}
+> +	master->translated = false;
+> +}
+> +
+>   static void ipmmu_tlb_flush_all(void *cookie)
+>   {
+>   	struct ipmmu_vmsa_domain *domain = cookie;
+> @@ -592,10 +655,8 @@ static void ipmmu_domain_free(struct iommu_domain *io_domain)
+>   static int ipmmu_attach_device(struct iommu_domain *io_domain,
+>   			       struct device *dev, struct iommu_domain *old)
+>   {
+> -	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
+>   	struct ipmmu_vmsa_device *mmu = to_ipmmu(dev);
+>   	struct ipmmu_vmsa_domain *domain = to_vmsa_domain(io_domain);
+> -	unsigned int i;
+>   	int ret = 0;
+>   
+>   	if (!mmu) {
+> @@ -630,8 +691,7 @@ static int ipmmu_attach_device(struct iommu_domain *io_domain,
+>   	if (ret < 0)
+>   		return ret;
+>   
+> -	for (i = 0; i < fwspec->num_ids; ++i)
+> -		ipmmu_utlb_enable(domain, fwspec->ids[i]);
+> +	ipmmu_attach_utlbs(domain, dev);
+>   
+>   	return 0;
+>   }
+> @@ -640,16 +700,7 @@ static int ipmmu_iommu_identity_attach(struct iommu_domain *identity_domain,
+>   				       struct device *dev,
+>   				       struct iommu_domain *old)
+>   {
+> -	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
+> -	struct ipmmu_vmsa_domain *domain;
+> -	unsigned int i;
+> -
+> -	if (old == identity_domain || !old)
+> -		return 0;
+> -
+> -	domain = to_vmsa_domain(old);
+> -	for (i = 0; i < fwspec->num_ids; ++i)
+> -		ipmmu_utlb_disable(domain, fwspec->ids[i]);
+> +	ipmmu_detach_utlbs(dev);
+>   
+>   	/*
+>   	 * TODO: Optimize by disabling the context when no device is attached.
+> @@ -815,6 +866,7 @@ static struct iommu_device *ipmmu_probe_device(struct device *dev)
+>   {
+>   	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
+>   	struct platform_device *ipmmu_pdev;
+> +	struct ipmmu_vmsa_master *master;
+>   	struct ipmmu_vmsa_device *mmu;
+>   
+>   	if (!fwspec)
+> @@ -830,7 +882,12 @@ static struct iommu_device *ipmmu_probe_device(struct device *dev)
+>   	if (!mmu)
+>   		return ERR_PTR(-ENODEV);
+>   
+> -	dev_iommu_priv_set(dev, mmu);
+> +	master = kzalloc_obj(*master);
+> +	if (!master)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	master->mmu = mmu;
+> +	dev_iommu_priv_set(dev, master);
+>   
+>   	return &mmu->iommu;
+>   }
+> @@ -848,18 +905,12 @@ static void ipmmu_probe_finalize(struct device *dev)
+>   
+>   static void ipmmu_release_device(struct device *dev)
+>   {
+> -	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
+> -	struct ipmmu_vmsa_device *mmu = to_ipmmu(dev);
+> -	unsigned int i;
+> +	struct ipmmu_vmsa_master *master = to_master(dev);
+>   
+> -	for (i = 0; i < fwspec->num_ids; ++i) {
+> -		unsigned int utlb = fwspec->ids[i];
+> +	ipmmu_detach_utlbs(dev);
+>   
+> -		ipmmu_imuctr_write(mmu, utlb, 0);
+> -		mmu->utlb_ctx[utlb] = IPMMU_CTX_INVALID;
+> -	}
+> -
+> -	arm_iommu_release_mapping(mmu->mapping);
+> +	arm_iommu_release_mapping(master->mmu->mapping);
+> +	kfree(master);
+>   }
+>   
+>   static const struct iommu_ops ipmmu_ops = {
 
-Do you fix some problem? why only have cc stable without fixes tag?
-
-Frank
