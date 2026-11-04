@@ -1,117 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793791943;
-	b=s5quszQO6Io23OjZnfAwqH26VXK8Lp8fKyS8/mFExNDupeudTYP+qt9SORtN5Jfm8oGV
-	 JFdx6Du11ISPgz/To+4FJuq7b+Fy7ZSBvR1e3FHw2WF+zaqF0nLG6axB76Vt+h/pKya5C
-	 RB9ZNTvSm9ESa9guFIQzmyGRmDHkiVoBx+u+SQsNy3gjX7SB1C4PokKmR867SgsRVI6fw
-	 brD7ng+ySBaN+eo0+H2HAMJaZbJVm8VLrgDrrvvrwiDGEnGkOCfG9bANDljMxJKzcwyTD
-	 0As3wFJxNI+pWJkN/+5kOSfyCVXDMN8zc5OG5MeUG+NNqKt9yPppunCSNLEBd+aaXGQ==
+	t=1793791965;
+	b=trkhOI7dKZ3yS2+fA2qvyyn+24kpKruQy0rWBDgh04dgGajK89gfpn3bZTQbaRh5xFVN
+	 6uLqym9CKb0ULxRmS+WicV6QKWl5zvTRaW7r6jNLDcAs/WJnEh52U+GUpZEyG4EypoFlR
+	 AifkHBrutDXf80s3Z7lCK23I4WWHQLDBG4NbycTMPHEXU/cL7RQCJ7hjf6fRvI1ybhe7t
+	 rT8wo/UnCUGqsODfvXrtM/dloyAbtN+cekdxS3X6wVtuKYlDpnldYLMu9Vxf40GFm1jn9
+	 Q0dYo7QMFeGAmaUa0NvxCaivj/kVpcOiF0kr0G9wDX7ScNPjf7NDSGBveKGsO1XO3FA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793791943;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:cc:Subject:In-Reply-To:Message-ID:
-	 References:MIME-Version:Content-Type;
-	bh=Sn3eSe67w3OleW5NGD87sSVusifSp8lGeY/kfZic8AY=;
-	b=3+/zlPWj6zpJkg7/z1wlOCZe3z4HSAskZy2P55VDt4M2roWSJe2BdlOffx+vLVQJG/1y
-	 MpgL5Q7PlVMhenNUGUKrwX1BfOhvOl6PIricQ2+50FVGv8/X6yJF9Ze3Fs6bCRYXOOBVD
-	 WaKHzGePL6aaBKLVmnh9zPsBlHyZoKAOFOcd06RfNEGyHP6g8pqiuj1w594Vnmsl01vAQ
-	 zjornvdXg0vfHyOf115lc+Stk7d0ozq6cQSFIghKf0NIyN1k7J3fkS6akHgu1zpXqygZg
-	 +YhGbFVb8OPQ3Sq8n+arcuPyv5kKA9VRLJWi9pW3LUzPeAh56DCLfYCZyeUppwRso8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793791965;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=nSAdp7d2w4x8lFKtRcJRBiPEu1Q6p424n1DTy1d1p1c=;
+	b=y4PJorliI+d5XEhGCiXRGH8sy29oUQY3kiG8MGvxGw128nAPj4KHpe0fkTlvPIVaTTgv
+	 ZhxGCFfbLwUwODOU22W4so9jPjkDuBxOc5Bqz29Y6HyqQLpD0Iq6GJkfa+T4OroeT97Jy
+	 4Yyi3HYkRc3zA2CKGh8CC4kOt9rQqEa27eGacmfQpS1WGWflTvxIAZ2rBz2QOUCJjCz7e
+	 5VI64NvpsygRHFeodQkkOTGaA9kS6T+w/U3F+AOZ0M0i41/0axU4UtYswycTItgIYj8Nx
+	 F1zAoHQ1oo/bJsBqissjgaL5G3djwObPtYTYqFej67+O7dvZmOspABZm0sPimXQHZ3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=hnaGrckW;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Kmiu6QeM;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=MvHjrEne;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73711606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:32:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73711606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A96D606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:32:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A96D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=hnaGrckW;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Kmiu6QeM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793791941;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Sn3eSe67w3OleW5NGD87sSVusifSp8lGeY/kfZic8AY=;
-	b=hnaGrckWRQ5XfRnUO5uII6yiMJabXlmUhVnruw0jL6Xm+PNoNt6PHpXFIn00bbPC3rnAO1
-	skc+sxKcq6uLK2QEynoccIdYeHpwnGZcV66N6J+FzCckO1spsC8/B9p9I42k2hUbO2FpUB
-	Eggy7yolZRcVQS2ecQUOl65oY+ai3Oc=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-140--mcW0HIfODmGlNhIaY13EQ-1; Wed, 04 Nov 2026 06:32:20 -0500
-X-MC-Unique: -mcW0HIfODmGlNhIaY13EQ-1
-X-Mimecast-MFC-AGG-ID: -mcW0HIfODmGlNhIaY13EQ_1793791939
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4ad3d35e899so6931875e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 03:32:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793791939; x=1794396739; darn=vger.kernel.org;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Sn3eSe67w3OleW5NGD87sSVusifSp8lGeY/kfZic8AY=;
-        b=Kmiu6QeMLUsGlfnpigZik9Kqb33N5OTMRMusjT4I3PPN97mFuIPWR9tKcCVH4QJD9Q
-         PTXlPF32K3wO3c+fEWwSkU7I5atSdFhslxoVoeYKfDUv6b1ch4UbwryW7UTk0lwubeEl
-         lADRMHj+xnH9orRTaGmcwAdluhOJkYGAf9nLAjH84z4vFrQiTYuN+6YpGjQob/W0cgWh
-         IWrgQAApkSlgSNWFPLXwa4urf7WqyKFUE+/EM6i3TolcGBBt7kYLCsxjc3bYSQ/lJLbu
-         j7sc60y24+bWH/4vGxQEzMOuwqDrNg+kBhwtASABIVV3Vfw6CHBkIoW18+7EoN/MhZnz
-         I4ww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793791939; x=1794396739;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Sn3eSe67w3OleW5NGD87sSVusifSp8lGeY/kfZic8AY=;
-        b=QD52g9/tnOI/yM31OUQlIWpby8mXXDFK5K+D+uVIo/UbF5a62kmODi5UayqTI6YwZl
-         K4EuxvPRrg/d/dI55QOdjqdqziu7L8BTxfyVkCZvTz5Yn9GgRkCv8/vaG9A+2sPvZSse
-         PCIpycQma2BBut3g82x5EDJV2a5uQPx04XzNML9wvjvlFRvg5crOrNkm0f6+3wF+kZzf
-         C/drNqg487zIDVfOCrA5h2R6fDBGsBrkz8TM4t2490YX8u9Zv+vFWvcSbccXq8m5Yse1
-         ksw2vKN/aXsFx+ORLF/QHUzRFyMLyacOnq6tRpD0lbCEH2M0PKWpveaTh+hOiZAaYRzd
-         QeLA==
-X-Forwarded-Encrypted: i=1; AKwUvBwwCzOVJQ7bGzUpnCHpNB4FvyyZeo4ejkhNBbMzJZuweAwoCOrxJw9wdTwmtNh9vKTPA7ggOtEXBWdIjr4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Zl3N05Rdfj3DagLOWwbE2+qLazBJakTpdxlIGiWQhPS++97vD
-	IocuD88o3zDIxVdkCJLMm0z9G8ecBu4F7QqmJfjacisOINjRjrA61ScEsEoUlkGDA3E0329j0nB
-	oYc9oKnhE8th9X8kxEPa4SBmNppDeiN18RYPgPDWmO+59FozNRfEyb5znh2zmbR+k+w==
-X-Gm-Gg: AYBFou2Mtvh6mlaeRz8R48tUTvqhDnTuS2R3XMq3Yr1z27hgYbu189+g5a1asrV14RU
-	ZPy/XnkUhj6tDiMtr4ZsE9rB+STlxlBr3BuxKGmA0G9OFKKp8YKmAi4TF0/4fknQioTbmUTbVOC
-	Utqt1eFvdNkR1xPxbvWng6XRmhIMtU80J9I2jJkc35dwQH9EeXWA2FnmgotfSI2Sw9ycAD2dsk3
-	Jkh3Ewj7gvToODysqImPqCCrsERe4uEq+cLQqAl9i4mJfLgQ4rN/Y+fjjqerQAPEbgp1Cp69Tl/
-	Peqc/vXsCkdrziMxMJEMTpGPL1+E24Yxa8TtnnPP27D6FoItOFqRw+fPrbKTey3aKUDT/OSBAHi
-	1h7o9YMal98EY1qBTvUsiSAXuiexTBh2YWCJDmkSzUddZ99uJctta64rO3SmUROVKVxvo1VTkb7
-	Gvtb953rHSlpEZQZFLx2a8DXdTnZ15G/mh/s8XMw==
-X-Received: by 2002:a05:600c:4e02:b0:4a3:59c9:a758 with SMTP id 5b1f17b1804b1-4ac19705e02mr339637815e9.32.1793791939075;
-        Wed, 04 Nov 2026 03:32:19 -0800 (PST)
-X-Received: by 2002:a05:600c:4e02:b0:4a3:59c9:a758 with SMTP id 5b1f17b1804b1-4ac19705e02mr339637545e9.32.1793791938760;
-        Wed, 04 Nov 2026 03:32:18 -0800 (PST)
-Received: from seott-rh (p200300f6af1574019b2c5947d8ec139e.dip0.t-ipconnect.de. [2003:f6:af15:7401:9b2c:5947:d8ec:139e])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b4527fed5bsm60945795e9.3.2026.11.04.03.32.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 03:32:18 -0800 (PST)
-Date: Wed, 4 Nov 2026 12:32:17 +0100 (CET)
-From: Sebastian Ott <seott@redhat.com>
-To: Mark Brown <broonie@kernel.org>
-cc: Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
-    Suzuki K Poulose <suzuki.poulose@arm.com>, 
-    Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>, 
-    Oliver Upton <oupton@kernel.org>, Ben Horgan <ben.horgan@arm.com>, 
-    linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
-    kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Subject: Re: [PATCH v9 1/3] KVM: selftests: arm64: Report set_id_reg reads
- of test registers as tests
-In-Reply-To: <20261103-kvm-arm64-set-id-regs-aarch64-v9-1-ab32bc79fa9c@kernel.org>
-Message-ID: <4df3cceb-0d07-d787-b5b6-0a28433116f3@redhat.com>
-References: <20261103-kvm-arm64-set-id-regs-aarch64-v9-0-ab32bc79fa9c@kernel.org> <20261103-kvm-arm64-set-id-regs-aarch64-v9-1-ab32bc79fa9c@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=MvHjrEne
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 41988C8F46F;
+	Wed,  4 Nov 2026 11:33:47 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 35DFE60770;
+	Wed,  4 Nov 2026 11:32:42 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B1DD210329171;
+	Wed,  4 Nov 2026 12:32:35 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793791961; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=nSAdp7d2w4x8lFKtRcJRBiPEu1Q6p424n1DTy1d1p1c=;
+	b=MvHjrEneFWYCZlFWinNnQWxc2Ej/64pyntWK44iPlXCjj6rUOBf1i/rrTeCrUf9vIy9kB+
+	gK7TMl0m2lYTCKMseG9zh4e3+De0Mo0m7eRyZ9zB2an3rcmntu6mZuiAIvAVLZIZuaaZR9
+	OvHVrMcrONF5rZozO2M5hxT/L0SCnOMf9TnOfYy3uXvEQmPQAVD838DYJiL7uImpaUALvq
+	gQ8f7OWL1NoHXASD9I89dyQPYM1N4qlD9j1o4hZbpfiOe69MGDJ9RgYuPE9AIS9plpEmfR
+	mHoB5pFxaujF4YWP7ZsKG+uR/S4HPqSGWrD1fTzVnA/X8kGxi2nnStBa0oOzEg==
+Message-ID: <5e00fd7f-40f9-4041-8dfa-fff222b57b92@bootlin.com>
+Date: Wed, 4 Nov 2026 12:32:34 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,46 +62,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII; format=flowed
+User-Agent: Betterbird (Linux)
+Subject: Re: [PATCH net-next 3/4] net: pse-pd: realtek-pse-mcu: configure
+ global power budget
+To: Jonas Jelonek <jonas@jonasjelonek.de>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ Sander Vanheule <sander@svanheule.net>,
+ Russell Senior <russell@personaltelco.net>
+References: <20261103220312.860629-1-jonas@jonasjelonek.de>
+ <20261103220312.860629-4-jonas@jonasjelonek.de>
+From: Kory Maincent <kory.maincent@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20261103220312.860629-4-jonas@jonasjelonek.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, 3 Nov 2026, Mark Brown wrote:
-> Currently when we run guest code to validate that the values we wrote to
-> the registers are seen by the guest we assert that these values match using
-> a KVM selftests level assert, resulting in unclear diagnostics if the test
-> fails. Replace this assert with reporting a kselftest test per register.
->
-> In order to support getting the names of the registers we repaint the array
-> of ID_ registers to store the names and open code the rest.
->
-> Reviewed-by: Ben Horgan <ben.horgan@arm.com>
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-[...]
-> @@ -684,11 +719,20 @@ static void test_guest_reg_read(struct kvm_vcpu *vcpu)
-> 			REPORT_GUEST_ASSERT(uc);
-> 			break;
-> 		case UCALL_SYNC:
-> -			val = test_reg_vals[encoding_to_range_idx(uc.args[2])];
-> -			val = reset_mutable_bits(uc.args[2], val);
-> +			expected_val = test_reg_vals[encoding_to_range_idx(uc.args[2])];
-> +			expected_val = reset_mutable_bits(uc.args[2], expected_val);
->
-> 			/* Make sure the written values are seen by guest */
-> -			TEST_ASSERT_EQ(val, reset_mutable_bits(uc.args[2], uc.args[3]));
-> +			reg_id = uc.args[2];
-                         ^
-Minor nit: this could be moved above and be used in 3 more places.
 
-> +			guest_val = reset_mutable_bits(uc.args[2], uc.args[3]);
+
+On 11/3/26 23:03, Jonas Jelonek wrote:
+> Use the optional VMAIN regulator power budget to configure the MCU's
+> aggregate PoE power limit during probe. Quantize the available budget to
+> the protocol's 100 mW units and reserve exactly that amount through the
+> regulator core.
+> 
+> The regulator budget represents the usable PoE allowance. Program zero
+> reserved power so the previous firmware guard band does not further reduce
+> that allowance.
+> 
+> Require a finite budget of at least one protocol unit when vmain-supply is
+> provided. Program the budget before selecting dynamic power management and
+> ungating the ports, so enforcement starts with the regulator-derived limit.
+> 
+> Enable VMAIN before hardware initialization and register one managed cleanup
+> action to free any reserved budget and release the enable reference on probe
+> failure and driver removal. Record each successful reservation immediately
+> so subsequent initialization failures are covered by this action.
+> 
+> Read the current budget index before programming the MCU. Retain the
+> programmed MCU limit on probe failure and driver removal, as reducing that
+> limit to zero would interrupt ongoing power delivery.
+> 
+> Boards without vmain-supply retain their existing firmware-managed
+> budget.
+> 
+> Signed-off-by: Jonas Jelonek <jonas@jonasjelonek.de>
+> ---
+
+...
+
+>   
+> +static void rtpse_mcu_cleanup_vmain(void *data)
+> +{
+> +	struct rtpse_mcu_ctrl *pse = data;
 > +
-> +			match = expected_val == guest_val;
-> +			if (!match)
-> +				ksft_print_msg("%lx != %lx\n",
-> +					       expected_val, guest_val);
-> +			ksft_test_result(match,
-> +					 "%s value seen in guest\n",
-> +					 get_reg_name(reg_id));
-> 			break;
-> 		case UCALL_DONE:
-> 			done = true;
+> +	if (pse->requested_budget_mW)
+> +		regulator_free_power_budget(pse->vmain, pse->requested_budget_mW);
+> +	regulator_disable(pse->vmain);
+> +}
+
+Following patch 4 logic, you might not want to disable the PSE 
+controller power supply, this will lead to a power off of all your PIs.
+I think you should still free the power budget, to not allocate it twice 
+if the module is loaded again.
+
+Else is ok to me.
+
+-- 
+Köry Maincent, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
 
