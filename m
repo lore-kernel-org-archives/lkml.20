@@ -1,102 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793752511;
-	b=O8jdvTSpjxGhrQfm3f6edbXzrcBBUUtPMmKuChgVjVrl3KdVUcVAI4jctqX/QRNCN3lo
-	 9k5Oy23su8LtMgcZxnr81XIAD92SqcfEGYSzuQtYrOCNzWzkemYgXngRRv04fNP8S96KL
-	 qP3LZYTZGZ1SZCvswfEM4k2Ou1h4Wk8bU9b0nohwiIrn4jfXld883nQLwrE7xKrq/MvTf
-	 K78iiiM2NXVNaHSqHrtbaIGjwVVMNsYL/0w+G5gfHXtdxboOOMUbIBjdEbNES41l5XUOJ
-	 bgFFVLY4spCF7Z8/mb8h8GVQsHECZsfVhoCETVbDj8KJDbj/sMhJRCzsGU0o1PcByCg==
+	t=1793752569;
+	b=O5v4xpL2TY27dw4o3dWxIXQwnLaB+HThFLxmpArBvsMo8h9ll9Vhlfg1cc90/+oESmKD
+	 8s7l5VUcsC0MUNvDSAGZUVsREjXBwJuEkW/aHb7pdUgZVIz5FrdI747UT+f8eobrLfJ/r
+	 Nebe8cQDjcQYG8mNtpOcVLGLwmZG523rJdLEUDe0AAh01KsKLMWtjbMMFl9t5SI1vs7UI
+	 iLNeovfFdYF9oxNlaxSbX4ZxRvSmuBuNrQr1Cso0amYYyKx9qEfeTVNwMfcNa8/Foy14h
+	 js59+Ell5N0QmUL9H4r321Rsw15cKHnoOBUW7I3WnyNYySGfBOu0qFfMTJ1+ZEdwLeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793752511;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:
-	 References:Content-Transfer-Encoding:MIME-Version;
-	bh=FcHuatx2meUTlgCG0m9y4eNcSRZC+D790iV3bNU7SzY=;
-	b=rEbj1OQEUNM59/MVcDCV9thOGRBc6c3iAyjmx5BvSIGdnOuL17nPuJHuQkEZg39PGYoI
-	 A1H6wBM7xdO7SXZLFXOsM5JZCCSNYMRMMv5BrOalArVzEKL4/bonD/JPtVOSaYmAZgyXu
-	 QZavwdhjrGclIzug1gI8yRkfNgl8mVBoSPmbTpRUCtqFWF3IZe3ZIaNM0BIICnC6+8Gpg
-	 zZS6HuLhA33E3NT6TMrNKQUihK1yPV4aGIYuIvF9vrZYJhczwmqjzTJExkoAPlMN0Orun
-	 M2M//6gtm/qwAq9PMRESYKFwkh9sNiPlsUZyjazBptyoS/QqbC4wCtyOQlb8CvwFuVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793752569;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Queue-Id:X-Stat-Signature:
+	 X-Spam-Status:X-Rspamd-Server:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=vDUPKTWcIidOZTIQvMJFLhi7DccfMnmv2OT7dhJ4cfY=;
+	b=UecFzQsDDA0ftfp2qGOBHE0aQkWK0TG3Dwc0LK14Uhv4oVOmDEn41dFf/D6RQeK4WiUj
+	 Dv3ZmCT1tjKlnigoVMYUYuLvpDKPUI7TdI67QQ5HukoVshKp1SMgCRKnYYcGw9ldJLmnK
+	 9/yX2ysL61fhKdl0A9iZoiKMWMeqFPoxYv9PzrkwB57vVdCx8R6tz54wOj65i3uAI/+Fh
+	 tKsjYREgfMV+9KPX9IpjUwYjDASiTzViQQe0D0G8Y5o/VOjbXenAVTJPPI03cC7w9dwPK
+	 nFWgJus4pVeBMzcnARn8bSBUtUVqjrgFRQKAwSMQ8t0RI5B6M7Yc7BxclcMcVb1lG4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ldUqheBG;
-	arc=none smtp.remote-ip=209.85.214.173
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=3NeCSA0P;
+	arc=none smtp.remote-ip=216.40.44.13
+Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com [216.40.44.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BD66606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 00:35:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BD66606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B26F606A31B;
+	Wed,  4 Nov 2026 00:36:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B26F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ldUqheBG
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e9d7791b00so986545ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 16:35:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793752510; x=1794357310; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:from
-         :subject:cc:to:message-id:date:content-type:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FcHuatx2meUTlgCG0m9y4eNcSRZC+D790iV3bNU7SzY=;
-        b=ldUqheBG7uRnuiKhd9W2cb9bgQJMGO7+vnNvtoIXd2DCURC5f2rpCpBEehiAtlDkZc
-         nZa/6IW7UotN7sRfVuufxDTOb0nKSsvUpy8sQBXuzYEL7F7aejhmnC72UWZd6D6p48bI
-         yzTncya7rsLZU4uc4V0PGkPTlg1N+I1jDUSPa/Dq9xX/MfVgv7qiZs8NXFXZ4BbyqA+h
-         VK6zMZZcVZqDV1GpCz7bu8AXdbBwT1TJJX+A370plPPdh26D2+giv8yrFiKZd/1tCFYZ
-         YxwLYBof8lB9dfPjxPpXkudjKcGBeFcxqKmdBsuIPhaHISydHkDoIIj1t1eaQ4Kq0jGQ
-         pexw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793752510; x=1794357310;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:from
-         :subject:cc:to:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FcHuatx2meUTlgCG0m9y4eNcSRZC+D790iV3bNU7SzY=;
-        b=TmgEXQzek/kGD+NbUOpQHa2l/Y74RcMuyFEOs9A0PstQy79v821TDVzKigpwxwa3q5
-         u+mAuzrfrtuiBbToumR5HZJ8KzS7fZTcClm7y1JIEoutmgZlqXTpbSUHvKVPnhn6Agbo
-         Mml6YUZS2ex3hXfaVApsafAXoRMuqckoRZkmFC0Ua2irezaGpOuOihlNIkdADdOVyjJg
-         KDqzRbunFs3SnD7yWG89DSY1qiXL4LEcOasD/kRenM0hm5QHpaE4d+2HHkMzPPPGsWBl
-         PnMI8Rx3y+WeGEH7Xgld7ABfoAw+kcd5oI39C64i99V+1jAGXK6uKN9p2+wxUhxf9oIy
-         mrWg==
-X-Forwarded-Encrypted: i=1; AKwUvBz4i80w28iOFVZxMnb9u9gACDHu+WqKLweUY/gk9qxzyy7zTKEZ54kUZNHjuGJnYaXpvPgxS8EMlrU340g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/8YPDW/5f3By0K+2zIlX/aOtYc4XyMGDKlkMQmiPFOb/j3MORR
-	TWKM/ud1B5iscsD2T/Ll0TZ1sEZ1hVfSXIWLgONjLQWxgLSbNDvQU4Qo
-X-Gm-Gg: AYBFou1Bql1J8eaJwB9++B32sseEp4Ig+JgS8PNSR7OIys5qll7MjH7NtMt8BkSBWVU
-	/xEhs8Hok6Ehyzl4Hntn5cmfG/Ly1uiUzAyBdxwEOb74UKA0t+vUeBUdJH8gRO/ocLDvsu7QxWf
-	G7yvqojXxw0CMGuGVAl3JMD4ajVuRWUPEbmEAgJvUxjDnW4vKzr15kbfnEaatuRmQGjbL+yKxl3
-	ficUrCNhTjj0CcNk2+3TOihPJLBSQ0tLK554/kpptAxhKclw8YE3UdsPcAidUvSYOhVB9KmT/8a
-	wib7C1Hx+GXJshUu9EXGacFA0ZrDuk7v85u788ll+IbZANzYOG17mGHWx+J9TcgB3DqV2zgW6Yq
-	QsKn/w8cUN3UmkhVzAKdTfZ+/qvK7motpCK+VM56POjPLtpOMbsVIaXY436OSG0j6Q3qauKjoyr
-	Ohbffn0RJQtN8cjCpNz0WJyo7r4aoU6deHteZZeyWXfsKKng5Nzrv8GmfjaWrdckedT90plLzu0
-	n0CkybPMc1k+ADD2gLLKZv4UTXRjnffAb+UARlRq9QS7kiAhfKo8P+/6ilRejxW0557HIsWneoa
-	a/k1cuUkD1fU3+/hNj8JWeHMzOGdg1XGWP/EqGwdX/aBbrKyRuRzmwALuChjyMSaYhAFfCfc26T
-	2GFFi8YMDiDFduvn3PIEfD7naDrENtzekzA==
-X-Received: by 2002:a17:90a:e7c6:b0:3ac:6e91:3f22 with SMTP id 98e67ed59e1d1-3ae897dc106mr10674785a91.52.1793752510264;
-        Tue, 03 Nov 2026 16:35:10 -0800 (PST)
-Received: from localhost ([153.61.198.255])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b093d481a3sm1183720a91.1.2026.11.03.16.35.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 16:35:09 -0800 (PST)
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 04 Nov 2026 00:35:08 +0000
-Message-Id: <DMM072L9H884.193UBSBZRTKYO@gmail.com>
-To: <mt4022@columbia.edu>, "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii
- Nakryiko" <andrii@kernel.org>, "Mykyta Yatsenko" <yatsenko@meta.com>
-Cc: "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi"
- <memxor@gmail.com>, "Martin KaFai Lau" <martin.lau@linux.dev>, "Song Liu"
- <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>, "Jiri Olsa"
- <jolsa@kernel.org>, "Emil Tsalapatis" <emil@etsalapatis.com>, "Ihor
- Solodrai" <ihor.solodrai@linux.dev>, <bpf@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <tz2294@columbia.edu>
-Subject: Re: [PATCH bpf] bpf: Fail rhtab inserts and deletes with IRQs
- disabled
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-In-Reply-To: <20261103-bpf-rhtab-irqs-disabled-v1-1-9874d96a088c@columbia.edu>
-References: <20261103-bpf-rhtab-irqs-disabled-v1-1-9874d96a088c@columbia.edu>
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=3NeCSA0P
+Received: from omf07.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay05.hostedemail.com (Postfix) with ESMTP id 6FF0340575;
+	Wed,  4 Nov 2026 00:36:06 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf07.hostedemail.com (Postfix) with ESMTPA id E62182002D;
+	Wed,  4 Nov 2026 00:36:03 +0000 (UTC)
+Date: Tue, 3 Nov 2026 19:36:02 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Li Pengfei <ljdlns1987@gmail.com>
+Cc: mhiramat@kernel.org, mathieu.desnoyers@efficios.com,
+ mark.rutland@arm.com, corbet@lwn.net, skhan@linuxfoundation.org,
+ lkp@intel.com, linux-trace-kernel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, zhangbo56@xiaomi.com,
+ lipengfei28@xiaomi.com
+Subject: Re: [RFC PATCH v7 03/10] trace: add stackmap statistics interface
+Message-ID: <20261103193602.563c52ce@gandalf.local.home>
+In-Reply-To: <20260912083753.3426176-4-lipengfei28@xiaomi.com>
+References: <20260912083753.3426176-1-lipengfei28@xiaomi.com>
+	<20260912083753.3426176-4-lipengfei28@xiaomi.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,208 +64,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: E62182002D
+X-Stat-Signature: y4z7j8drbsddsufrz7qko7pmyy731eb9
+X-Rspamd-Server: rspamout08
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18N8quONP+xPHBazUzQOJwFF5f0cr+Y798=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=vDUPKTWcIidOZTIQvMJFLhi7DccfMnmv2OT7dhJ4cfY=; b=3NeCSA0PpiYIUdZa9hJDzYi0n9j3PbBxIZVw780WjHYqiRqJgB/lHdyqOSSTrO5Yv4AqpJO6HRXLmRQ0nD+zrBHrd7x+oTQMuPhbM5uiEK7wfb6/Ca0DfBpXL+DXf3Xkpb8u3YmgakbFzZUH0pvkK/P3bsQBOFWFI/7IlJDx/CI=
+X-HE-Tag: 1793752563-44244
+X-HE-Meta: U2FsdGVkX19mNzFCjor3J5d8cEDVJYR2GHL8av1QN0eP71rtGuyxcgLSkc1MQIn4uWYnTzbgOKxvzKptHIoBNQsq6fIKlw10Hsyq+mFurMn9R8/S51t3VKjtZ4QGnOKyZPQbDN/8KikeJGZZt/4hjwurvwX1rbEuPqgxatOFhu4LUpAmXF4LNE7rIDCXaXODUKc7lIsNEfiKnBrpbdGJsi3B8oxJ+TG6rqEWlMJufSsckOosQI0DlyMXeV+9LnAGlH/f7PLu3qxNpwCo4cgsEa86QyV8tPInuCYcu48YaRqxh0yCQSL6ATPPrtmbbjE62cTV6WMTqoQnIPH2oVCxw1EwhYpO8DpA
 
-On Tue, Nov 03, 2026 at 10:46 AM Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org> wrote:
-> A bucket lock is only ever held with IRQs disabled, so return -EBUSY
-> from deletes and from inserts of new keys when IRQs are already
-> disabled, like the other hash maps do on re-entry.  Lookups and updates
+On Sat, 12 Sep 2026 16:37:46 +0800
+Li Pengfei <ljdlns1987@gmail.com> wrote:
 
-The other hash maps fail on re-entry only. rqspinlock detects it.
-This check fails every insert and delete with irqs disabled.
-That's perf_event progs, kprobes via int3, sched_switch and
-sched_wakeup tracepoints, sched_ext ops under rq lock.
-imo it's not worth breaking all of them for a rare deadlock.
+> @@ -9411,6 +9411,18 @@ static __init void tracer_init_tracefs_work_func(struct work_struct *work)
+>  				 */
+>  				smp_store_release(&global_trace.stackmap, smap);
+>  				WRITE_ONCE(stackmap_init_state, STACKMAP_INIT_DONE);
+> +				/*
+> +				 * stat is an auxiliary observability
+> +				 * surface. If it fails to be created we keep
+> +				 * dedup enabled -- the kernel side still
+> +				 * works and stack_map alone is enough to
+> +				 * resolve and reset; trace_create_file()
+> +				 * already pr_warn()s on failure.
+> +				 */
 
-> This is the check Alexei suggested on the RFC of the series [1].  It also
-> stops perf_event and other programs that run with IRQs disabled from
-> inserting or deleting keys.  I can turn the reproducer into a selftest
-> if that helps.
+The above comment is useless. Get rid of it.
 
-It was my suggestion, sorry. It's too broad.
-v4 of rhash picked bpf_disable_instrumentation() to keep these callers:
-https://lore.kernel.org/bpf/20260513-rhash-v4-0-dd3d541ccb0b@meta.com/
+-- Steve
 
-Only a caller with irqs disabled can run inside the locked section of
-this cpu. Lets trylock the bucket in that case and spin otherwise.
 
-  caller with irqs disabled    today      this patch   trylock
-  -------------------------    --------   ----------   -------
-  bucket is not locked         works      -EBUSY       works
-  locked by another cpu        spins      -EBUSY       -EBUSY
-  locked by this cpu           deadlock   -EBUSY       -EBUSY
-
-Then no need for bpf_disable_instrumentation() in rhtab.
-params.trylock_irqsoff is a compile time constant in the fast path,
-like insecure_elasticity. The other rhashtable users pay nothing.
-
-The diff leaves one more bug: rhashtable_insert_rehash() calls
-kvmalloc(GFP_ATOMIC). That's not ok in NMI.
-
-Something like this (compile tested only):
-
-diff --git a/include/linux/rhashtable-types.h b/include/linux/rhashtable-types.h
-index 3576b8f..a5c4e69 100644
---- a/include/linux/rhashtable-types.h
-+++ b/include/linux/rhashtable-types.h
-@@ -52,6 +52,8 @@ typedef int (*rht_obj_cmpfn_t)(struct rhashtable_compare_arg *arg,
-  * @min_size: Minimum size while shrinking
-  * @insecure_elasticity: Set to true to disable chain length checks
-  * @automatic_shrinking: Enable automatic shrinking of tables
-+ * @trylock_irqsoff: With irqs disabled insert and remove don't spin on
-+ *		     the bucket lock and return -EBUSY
-  * @hashfn: Hash function (default: jhash2 if !(key_len % 4), or jhash)
-  * @obj_hashfn: Function to hash object
-  * @obj_cmpfn: Function to compare key with object
-@@ -65,6 +67,7 @@ struct rhashtable_params {
- 	u16			min_size;
- 	bool			insecure_elasticity;
- 	bool			automatic_shrinking;
-+	bool			trylock_irqsoff;
- 	rht_hashfn_t		hashfn;
- 	rht_obj_hashfn_t	obj_hashfn;
- 	rht_obj_cmpfn_t		obj_cmpfn;
-diff --git a/include/linux/rhashtable.h b/include/linux/rhashtable.h
-index 70dac92..ba2c594 100644
---- a/include/linux/rhashtable.h
-+++ b/include/linux/rhashtable.h
-@@ -339,6 +339,33 @@ static inline unsigned long rht_lock(struct bucket_table *tbl,
- 	return rht_lock_nested(tbl, bkt, 0);
- }
-
-+/*
-+ * The bucket lock is held with irqs disabled. A caller with irqs disabled
-+ * may run inside the locked section of this cpu (NMI, kprobe, tracepoint).
-+ * It cannot spin.
-+ */
-+static inline bool rht_lock_or_busy(struct bucket_table *tbl,
-+				    struct rhash_lock_head __rcu **bkt,
-+				    const struct rhashtable_params params,
-+				    unsigned long *flags)
-+	__cond_acquires(true, __bitlock(0, bkt))
-+{
-+	if (!params.trylock_irqsoff || !irqs_disabled()) {
-+		*flags = rht_lock(tbl, bkt);
-+		return true;
-+	}
-+	/* bit_spin_trylock() always succeeds on UP */
-+	if (!IS_ENABLED(CONFIG_SMP))
-+		return false;
-+	local_irq_save(*flags);
-+	if (!bit_spin_trylock(0, (unsigned long *)bkt)) {
-+		local_irq_restore(*flags);
-+		return false;
-+	}
-+	lock_acquire_exclusive(&tbl->dep_map, 0, 1, NULL, _THIS_IP_);
-+	return true;
-+}
-+
- static inline void rht_unlock(struct bucket_table *tbl,
- 			      struct rhash_lock_head __rcu **bkt,
- 			      unsigned long flags)
-@@ -785,7 +812,9 @@ static __always_inline void *__rhashtable_insert_fast(
- 	if (!bkt)
- 		goto out;
- 	pprev = NULL;
--	flags = rht_lock(tbl, bkt);
-+	data = ERR_PTR(-EBUSY);
-+	if (!rht_lock_or_busy(tbl, bkt, params, &flags))
-+		goto out;
-
- 	if (unlikely(rcu_access_pointer(tbl->future_tbl))) {
- slow_path:
-@@ -1066,7 +1095,8 @@ static __always_inline int __rhashtable_remove_fast_one(
- 	if (!bkt)
- 		return -ENOENT;
- 	pprev = NULL;
--	flags = rht_lock(tbl, bkt);
-+	if (!rht_lock_or_busy(tbl, bkt, params, &flags))
-+		return -EBUSY;
-
- 	rht_for_each_from(he, rht_ptr(bkt, tbl, hash), tbl, hash) {
- 		struct rhlist_head *list;
-@@ -1149,6 +1179,7 @@ static __always_inline int __rhashtable_remove_fast(
- 	 */
- 	while ((err = __rhashtable_remove_fast_one(ht, tbl, obj, params,
- 						   rhlist)) &&
-+	       err != -EBUSY &&
- 	       (tbl = rht_dereference_rcu(tbl->future_tbl, ht)))
- 		;
-
-diff --git a/kernel/bpf/hashtab.c b/kernel/bpf/hashtab.c
-index 6e21154..edc7572 100644
---- a/kernel/bpf/hashtab.c
-+++ b/kernel/bpf/hashtab.c
-@@ -2983,6 +2983,7 @@ struct bpf_rhtab {
- static const struct rhashtable_params rhtab_params = {
- 	.head_offset = offsetof(struct rhtab_elem, node),
- 	.key_offset  = offsetof(struct rhtab_elem, data),
-+	.trylock_irqsoff = true,
- };
-
- static inline void *rhtab_elem_value(struct rhtab_elem *l, u32 key_size)
-@@ -3011,6 +3012,7 @@ static const struct rhashtable_params rhtab_params_long = {
- 	.head_offset = offsetof(struct rhtab_elem, node),
- 	.key_offset  = offsetof(struct rhtab_elem, data),
- 	.key_len     = sizeof(long),
-+	.trylock_irqsoff = true,
- 	.hashfn      = rhtab_hashfn_long,
- 	.obj_cmpfn   = rhtab_key_cmp_long,
- };
-@@ -3143,21 +3145,11 @@ static int rhtab_delete_elem(struct bpf_rhtab *rhtab, struct rhtab_elem *elem, v
- {
- 	int err;
-
--	/*
--	 * disable_instrumentation() mitigates the deadlock for programs running in NMI context.
--	 * rhashtable locks bucket with local_irq_save(). Only NMI programs may reenter
--	 * rhashtable code, bpf_disable_instrumentation() disables programs running in NMI, except
--	 * raw tracepoints, which we don't have in rhashtable.
--	 */
--	bpf_disable_instrumentation();
--
- 	if (rhtab->map.key_size == sizeof(long))
- 		err = rhashtable_remove_fast(&rhtab->ht, &elem->node, rhtab_params_long);
- 	else
- 		err = rhashtable_remove_fast(&rhtab->ht, &elem->node, rhtab_params);
-
--	bpf_enable_instrumentation();
--
- 	if (err)
- 		return err;
-
-@@ -3268,16 +3260,11 @@ static long rhtab_map_update_elem(struct bpf_map *map, void *key, void *value, u
- 	memcpy(elem->data, key, map->key_size);
- 	copy_map_value(map, rhtab_elem_value(elem, map->key_size), value);
-
--	/* Prevent deadlock for NMI programs attempting to take bucket lock */
--	bpf_disable_instrumentation();
--
- 	if (map->key_size == sizeof(long))
- 		tmp = rhashtable_lookup_get_insert_fast(&rhtab->ht, &elem->node, rhtab_params_long);
- 	else
- 		tmp = rhashtable_lookup_get_insert_fast(&rhtab->ht, &elem->node, rhtab_params);
-
--	bpf_enable_instrumentation();
--
- 	if (tmp) {
- 		bpf_mem_cache_free(&rhtab->ma, elem);
- 		if (IS_ERR(tmp))
-diff --git a/lib/rhashtable.c b/lib/rhashtable.c
-index 500c45c..2dc13f0 100644
---- a/lib/rhashtable.c
-+++ b/lib/rhashtable.c
-@@ -650,7 +650,8 @@ static void *rhashtable_try_insert(struct rhashtable *ht, const void *key,
- 		} else {
- 			bool inserted;
-
--			flags = rht_lock(tbl, bkt);
-+			if (!rht_lock_or_busy(tbl, bkt, ht->p, &flags))
-+				return ERR_PTR(-EBUSY);
- 			data = rhashtable_lookup_one(ht, bkt, tbl,
- 						     hash, key, obj);
- 			new_tbl = rhashtable_insert_one(ht, bkt, tbl,
-
-Pls add the reproducer as a selftest in patch 2 and cc Herbert Xu
-on respin.
-
-pw-bot: cr
+> +				trace_create_file("stack_map_stat",
+> +						  TRACE_MODE_READ, NULL,
+> +						  smap,
+> +						  &ftrace_stackmap_stat_fops);
+>  			}
+>  		} else {
+>  			pr_warn("ftrace stackmap init failed, dedup disabled\n");
