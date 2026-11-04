@@ -1,100 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793820686;
-	b=DXC+M9+QGMZJ6UVB1Mf4mvXNLKCy88Q7kFQ6JeE7GYhTkP6o0IUHTY/NMlpWmnIo30AE
-	 EGQbVwHeNCaj/3t5NbVS1TxIvlQzzMJZdaMwOIqUPC/kw4WRNMdI/JDT97zk/IrxcRUds
-	 ULsGUXg6SaenHyIvZhVsZ2CuoZpaVoWWBNeXJRCABOH9KfEuKWdvjwp8u+R1KiynVlQKs
-	 239GVYZP1HvCJSnxtVlq/hisYmbEdJkG97WViPchu7GVP3sBY72TXEqLuYA7/upiZr5xX
-	 NTLv6jl36IpzxDiF3qS15i6vAsre+9X7294wdsBmDmOJKfx1R+zL+8EtfisGCg/NZag==
+	t=1793820702;
+	b=kxjaxNcezOMRTvu0LCAmDZlqeMz8TLII14Xae5GnPyGlVWJwr//Cx8IKXJvRnTlMUrFE
+	 ei5IDS2Pzwe3Ni6PyrQFxLxggW/o8TSrfBphpBkUsXBECRoXAFQ/O0BCo0WqPQKuqj+rU
+	 3oqE9Dl+OiScFJxLMYUykxjeEUUZech9hrdST+LHr69UGsLB1ynyIj+YsdBoc+rlM3JXg
+	 AWxiTOkvo3vWoBx0iBIuYsaxvtVk2iCJq+e1dDsQovz8I4W0/9uTGlgAvecqMNWq34pEH
+	 f1FrRp95/bCxF1Aa7g3gTdbvM1I3BcTfpfAJTsavA1zwGNWteKBAKYjNpnGeP3LAzlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793820686;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=ZzX+Y1+WYbWKOk6oennD0Dv0zMIBzdD9xecwmJHFZfc=;
-	b=Um+gv+X823OXAYAphEO/xgJvF9xTzM6XTstLHNfkosZ8kZLv9jCg8G6dgy8VkS+VOydP
-	 oe1w+dopLtnCYeV78cbGCIvoz/H9XkoQF7/miBEO8EzLtYTr4A2iuGKQPg9fOJgTTyABl
-	 +nhrdlOhvCKyKaHqNavC/XMbg8ReuKJ0m8wBZ0wGo7tju6Hpvu+w9mF5YcblYtC0G8ERF
-	 4GGvKYpzyTJ0iLdqqzXHw3A1q1Q7oz6BKcf6fweePkVm2kFogGUeUJPQg3WYHP9TgmMxo
-	 NbTXPl4fI+hoW9+JvHa0IGYF/0+V6C4sUzzGtv2v+/cdIyHYQlE8Q2Astx6BV3OcJ9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793820702;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=iNga88T+PVpZfmycjurDSPkD9sK5xR0SX7kfbe+Tx54=;
+	b=GHibkxIXESM2/FpyY1yLpDCgNGbH3UdcARgRNg468C89sk+IHLeOy2dFuiDE3uZDjYyS
+	 FmPGXhfQ6B+Vg3o0/93rUuLF4r8AievCU4AB5OPnixPx7WuM2TLOXBqkQ2d8J1/upd/GB
+	 jZwKptdPcIZnSZXzgy89arbPRjVGZRyerGOZ8a3vYkSGsj/UqWBAkef4VfjsTIbX1jYMz
+	 wB7s/2ukJ8tWU+oXIX9nqwzAlhoCTYwLzerPIDwLVZF1Dh3cIxPEPhMtABjBWdmWD3nbC
+	 1h9QqM3QlxBq0iXkTqhi0h2kIbpRWu2v5KCWyps/gVXUo8PX/7d4BdVTFD+u1jxhfSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ebiCagEc;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QTUtfoyG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04E866098F5A
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:31:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04E866098F5A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A250C6078176;
+	Wed,  4 Nov 2026 19:31:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ebiCagEc
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-19305bcb72cso1044795c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:31:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793820684; x=1794425484; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZzX+Y1+WYbWKOk6oennD0Dv0zMIBzdD9xecwmJHFZfc=;
-        b=ebiCagEcv9jB6n5sa23e1q9YIH20vvBybwTpWuRaFE9enzofxxJUKZky5VAXZ9U9+B
-         6hJh0sdDX/cKfI3AA1HSed1ssW4IK9a3kg8HijPbPC+3mtOPsxwBBkq5bMEQMAKstOwW
-         7jLR0kDPv0fK5mOSmCNUkdqdq3PdPFnNbKikU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793820684; x=1794425484;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ZzX+Y1+WYbWKOk6oennD0Dv0zMIBzdD9xecwmJHFZfc=;
-        b=Ra+hZS5F5qfi+SUZSLl4bPkB1Qtw2Efn1DZp2EUN+ingkpolgXpMKawr3Ztf/hA3BT
-         5xzbn7HpFO/RTcm8Tp9FKX0bHDnSkfitk2yTZfmq9Z6zrRgQTWWXi0jipBZCiwb7CYCv
-         HFGziwfpj2D98qzhai08C+6qThkzUeHLzyzDp9wbmiivbR/VzJVbFAmGjg65eA1Hm0wf
-         7PitN73E8g3wFzyawUOh4EiQQlpukzvzuhSnzxnKYFlsCq8nAfc+YoCeKyfYAnjDIm3B
-         /MyN/ks4DtPtpkMSMf1WohK8ClYxPNk4ZBDceVdg2V7lS1/hVSkkwyARzua3ME6hqMEF
-         jWvg==
-X-Forwarded-Encrypted: i=1; AKwUvBy5fWNqbIgImKauayXj76VRKNT5e3KMmJzkBpXXRRK0yyxZuX18Qr6drMFnlN6Ak5cpKuGoywFF9rS+cy8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+VoUV09sp2T0cVccmPVno8kFj9m5sGVDPr3tBK1egmKlqm4lBv
-	BfLx1hIZw8cQG7QrmrlgNWK5Cl3X0TrEWML88ew0u4fns4VEkAeLmOpcN7KhoShF7Q==
-X-Gm-Gg: AYBFou2LiBhL5962+GWIDPTs1BK5jZaX57WxzwDF503YxmusPqbN5Kh70yZ3E/oxBaV
-	XyJdxQ+1LgSpjoizzIKtKBhhF5orNDc92chTfJqMSl37W7pALK8t7/kl38wSYRAnIjHZzGOwbK6
-	VVlZQOCjajK4WeCn9+DKx66xfrieNKVWgQOiQaJ8rd029YpDdjKEoE1j5OddL8uR7Kq8UxX8ZZY
-	L37UE+4fp/indv9vEyWf6GS/S7vxGC5MkWWdiux8eEDVZsGNHHSYgm0+fPIQ3CdsP4SALUaxA68
-	XSK5fFFkUUerBHzOXMS/f2lIC1OPAqcu1RKtmvJi0wI5zANfHOGiA/TFg3ty5fsCbkg02hqICyr
-	UbHcXCqvad/c9OBtdTGsK5rvVXXi98hA7x7r6gbx3p9MtVFRMx22/XOzynC8ZOn6v8eKWTckbfk
-	3cMaiieehhMbfpC9+m2j8cSG8xE0ipy2wBnOaBpnwVyYtIcSDdCyDWmOX3zc0C+WV8Jz0pm3ZpR
-	vizJHQyt+VfP69B7nw1EpOtgu/V46BOkVXbltot1S1q2Gf4M61OpIHN+VcGXIklnAuh6EW960fR
-	P25fR16ffsLV3exynkrDw4CCqiTAEqFOm8Pb3YPs47pG6V+R7fjOX2A4UqhmhSr+GhM=
-X-Received: by 2002:a05:7022:3f0a:b0:144:fa57:c617 with SMTP id a92af1059eb24-1ac5c55546cmr28416697c88.34.1793820683864;
-        Wed, 04 Nov 2026 11:31:23 -0800 (PST)
-Received: from localhost ([2a00:79e0:2e7c:8:1a56:21f2:3dba:7453])
-        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1b245c748eesm9683024c88.23.2026.11.04.11.31.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 11:31:23 -0800 (PST)
-Date: Wed, 4 Nov 2026 11:31:20 -0800
-From: Brian Norris <briannorris@chromium.org>
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: Fabrice Gasnier <fabrice.gasnier@st.com>, linux-pm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, Ulf Hansson <ulfh@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-	Andy Shevchenko <andy@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Subject: Re: [PATCH v2 3/5] PM: runtime: Propagate last_busy from dependent
- to dependency
-Message-ID: <auuICAm4BC_8Pzs5@google.com>
-References: <20261103221717.3840215-1-briannorris@chromium.org>
- <20261103141442.v2.3.I40c0bc917fa0b13111251844e9a54feb1d9cd7d2@changeid>
- <CAJZ5v0jWCz0XDgzeETbmMfGOmvh2G9qcx7xLODrpQ9NiwsddKA@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QTUtfoyG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C04D1F00A15;
+	Wed,  4 Nov 2026 19:31:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793820701;
+	bh=iNga88T+PVpZfmycjurDSPkD9sK5xR0SX7kfbe+Tx54=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=QTUtfoyG9KimBN6AkuRRVKxf3yuHufM2Wi/2H06w/quFXdhMDoJ9b0J6ZGIpIGDK5
+	 z976qLZrwGZZUEOM/2QIyKDbUKj8FDXwDBDduM9rT2JEpxfbS5W9S6Mm8PwwlXubYy
+	 Byfx1vCeM6TyCBhpgKK3txGGQOhUx2gc7WMApbzBGlSMkxBhA0OSCSFLxKPNEU7q0h
+	 FqpNY0wnGJwPDfBnXRKv+pXROQVVMWRvXSvePhYyYWGDW0C1FBZKM6snqSFwxIPGpL
+	 n/TNrzyLKLnTrYCGsUsu1BjbO8fvjf0609ggkLleGQJeqlMRkm/wkvB/Y3xMoP4jHN
+	 3X4C+LMwgRt5Q==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>
+Subject: [PATCH RESEND v2 09/23] proc: let procfs own the seq_file of DEFINE_PROC_SHOW_ATTRIBUTE() files
+Date: Wed,  4 Nov 2026 20:31:27 +0100
+Message-ID: <20261104-work-procfs-core-v2-9-76ace653a773@kernel.org>
+In-Reply-To: <20261104-work-procfs-core-v2-0-76ace653a773@kernel.org>
+References: <20261104-work-procfs-core-v2-0-76ace653a773@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,285 +114,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1051; i=brauner@kernel.org; h=from:subject:message-id; bh=asSZ4ovZjSippDtL33YbhRRNyZXb/VmTI9lzg7rupAw=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9bq/5nqVqXtG267Wf70TxqQELt9YvquFOrjuo9Dzyi bzbsaDujlIWBjEuBlkxRRaHdpNwueU8FZuNMjVg5rAygQxh4OIUgIm8Wc7IMPEii96mWaJZ+q4z Be1mv1zvuTjM8YLV/BfT77Nf3z5H/zQjw1zRTpZdUeKsERs+f18mIsCt+iZRS73q0Q+xwL2+7nb POQA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJZ5v0jWCz0XDgzeETbmMfGOmvh2G9qcx7xLODrpQ9NiwsddKA@mail.gmail.com>
 
-On Wed, Nov 04, 2026 at 02:34:22PM +0100, Rafael J. Wysocki (Intel) wrote:
-> I should have responded to the v1 of this, but didn't manage to get to
-> it.  Sorry about that.
+Declare the show function and let procfs open the seq_file.
 
-Hehe, well that's what v2 is for :)
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ include/linux/seq_file.h | 10 +---------
+ 1 file changed, 1 insertion(+), 9 deletions(-)
 
-Thanks for looking.
+diff --git a/include/linux/seq_file.h b/include/linux/seq_file.h
+index dc0e8c62d9e0..b813b7e63d89 100644
+--- a/include/linux/seq_file.h
++++ b/include/linux/seq_file.h
+@@ -233,16 +233,8 @@ static const struct file_operations __name ## _fops = {			\
+ }
+ 
+ #define DEFINE_PROC_SHOW_ATTRIBUTE(__name)				\
+-static int __name ## _open(struct inode *inode, struct file *file)	\
+-{									\
+-	return single_open(file, __name ## _show, pde_data(inode));	\
+-}									\
+-									\
+ static const struct proc_ops __name ## _proc_ops = {			\
+-	.proc_open	= __name ## _open,				\
+-	.proc_read	= seq_read,					\
+-	.proc_lseek	= seq_lseek,					\
+-	.proc_release	= single_release,				\
++	.proc_show	= __name ## _show,				\
+ }
+ 
+ static inline struct user_namespace *seq_user_ns(struct seq_file *seq)
 
-> On Tue, Nov 3, 2026 at 11:23 PM Brian Norris <briannorris@chromium.org> wrote:
-> >
-> > When a child device suspends, it does not update the last_busy timestamp
-> > for its parent. If that parent configured autosuspend and didn't
-> > otherwise maintain its last_busy timestamp, it may now be immediately
-> > eligible to suspend. This is probably not expected -- the parent should
-> > wait for its autosuspend delay before suspending.
-> 
-> Let's first talk about what autosuspend is for: My understanding is
-> that it is there to avoid incurring the runtime PM suspend and resume
-> latency (and cost in terms of energy) in the cases when the device is
-> known or at least is expected to be needed in the near future.  IOW,
-> we want to defer the runtime suspend of the device because if it
-> suspended, it would be resumed shortly thereafter.
-> 
-> I'm not sure if that is always the case when a dependent device
-> suspends and its reference to the parent/supplier is dropped.
+-- 
+2.53.0
 
-To be clear: dropping a reference is not the point at which we extend
-the timer -- it's simply the point at which we propagate the last_busy
-timestamp.
-
-The naive algorithm is:
-Every time a device updates its last_busy, sync that timestamp to all
-its dependencies.
-
-My proposal modifies that naive algorithm so that it avoids additional
-graph walks -- it defers that "sync" step until later. (Now that I'm
-spelling this out, I feel like I should have included this in the commit
-message...)
-
-With that said:
-
-> The core calls pm_runtime_mark_last_busy() for resuming devices under
-> the assumption that they are resumed for a reason and so it is likely
-> that they will be needed in near future, but I'm not sure if that
-> assumption can be extended to a child suspend case.
-
-But that's not what I'm doing: I'm not calling mark_last_busy() -- I'm
-just making mark_last_busy() transitive to all dependencies. So any time
-we *already* say the child is busy, I also extend that to the parent --
-I'm not generating any new timestamps; I only reuse the timestamps we
-already selected.
-
-My view on the logic (using your terms above): when a child calls
-mark_last_busy(), it suggests that child might be needed in the near
-future. Whenever a child device is needed, so is its parent (barring
-ignore_children). Thus, mark_last_busy() should also refresh the
-parent's busy timestamp.
-
-Importantly (in the same topic Jonathan was already asking about): this
-does *not* mean the parent gets a whole new autosuspend delay period --
-but it *does* mean that if the parent has a longer delay period
-(presumably because it has a more expensive/slow suspend/resume latency)
-it waits a bit longer (in case the child wakes back up, for one) to
-autosuspend.
-
-In concrete terms of commit c537d3457542 ("iio: adc: stm32-adc: fix
-runtime autosuspend delay when slow polling"):
-
- * child device has 100ms delay
- * parent devices has 2s delay
-
-SEQUENCE:
- 1) child is active for longer than 2 seconds
- 2) [timestamp N] child finishes I/O, drops reference with put_autosuspend()
- 3) [N + 100ms] child suspends
-
-CURRENT BEHVIOR:
- 4) [N + 100ms] parent suspends immediately after #3
-
-PROPOSAL:
- 4) [N + 2s] parent suspends (if there was no other last_busy update)
-
-The only last_busy timestamp is N; we just use it in more places,
-because the parent was, in fact, busy at timestamp N.
-
-> One might argue
-> though that extending it to the child/consumer resume case would make
-> sense.
-> 
-> > The effect of this behavior is that a parent device may suspend sooner
-> > than its autosuspend delay, simply because its usage was accounted by
-> > its children, and not by direct references to the parent device.
-> 
-> The distinction between "direct references to the parent device" and
-> "usage accounted for by its children" is not clear to me TBH.
-
-"Direct reference" is to mean "pm_runtime_put_autosuspend()" or anything
-similar that updates last_busy. We expect that when the device in
-question is the target object for I/O or whatever is keeping the device
-busy.
-
-But if the I/O is performed by a child, then it's no longer "direct
-reference" -- it's "usage accounted by its children".
-
-> There are references to the parent device in both cases and it is not
-> like drivers can always expect all runtime PM references to come from
-> specific code paths updating last_busy.  There is at least one
-> reference controlled by user space (the "control" attribute in sysfs)
-> and dropping it may also cause the device to suspend immediately if
-> last_busy has not been updated recently.  How is this situation
-> different from the one related to child/consumer suspend?
-
-I think I've improperly directed you to focus on the "reference" part,
-which IMO is a bit of a distraction. The point is: when was the device
-"busy" (or "last used")? The 'control' attribute does not represent
-"last used"; it just represents some unrelated policy to prevent
-suspension.
-
-> > This was noticed in several cases, and some have implemented
-> > workarounds, such as in commit c537d3457542 ("iio: adc: stm32-adc: fix
-> > runtime autosuspend delay when slow polling"). At the same time, Ulf
-> > suggested these problems "should be solved in the runtime PM core" [1].
-> 
-> So I need to be explained how commit 9bdbb1139ca1 ("iio: adc:
-> stm32-adc: add power management support") works because ATM I don't
-> seem to understand it.  It looks to me like the .runtime_idle()
-> callback updates last_busy for the device for which it is called, not
-> for its parent.
-
-Note: stm32-adc-core (drivers/iio/adc/stm32-adc-core.c) is the parent.
-stm32-adc (drivers/iio/adc/stm32-adc.c) is the child.
-
-When the child suspends, the parent checks .runtime_idle(). This updates
-last_busy but still falls through to autosuspend -- that means we get a
-slightly suboptimal sequence like the following:
-
- 1) child is active for longer than 2 seconds
- 2) [timestamp N] child finishes I/O, drops reference with put_autosuspend()
- 3) [N + 100ms] child suspends
- 4) parent runtime_idle() updates last_busy to [P = approx N + 100ms]
- 5) [P + 2s] parent suspends
-
-Step 5 happens approximately 100ms later than it really should, but it's
-good enough.
-
-NB: I think this is also why greybus (gb_bundle_idle(),
-gb_interface_runtime_idle(), etc.) and USB (usb_runtime_idle(),
-dwc3_runtime_idle()) look the way they do, with a built-in
-mark_last_busy() in runtime_idle().
-
-I also think that some other areas could use some logic like this. For
-example, drivers/pci/pcie/portdrv.c has a 100ms autosuspend delay so
-that lspci doesn't cause repeated suspend/resume. But suppose config
-access for a child of a port are slow ... then the port still might
-suspend immediately, between config accesses. (Never mind that
-pci_config_pm_runtime_put() doesn't update last_busy...)
-
-> > Instead of working around the problem in drivers, we propagate last_busy
-> > timestamps from a dependent device to its dependencies any time it may
-> > allow a dependency to suspend -- i.e., when releasing a refcount for its
-> > parent or suppliers. We take care to only propagate the timestamp if it
-> > is larger than the existing busy timestamp.
-> 
-> I'm not sure why propagating last_busy timestamps when dropping the
-> reference to the parent/supplier is a good idea.
-> 
-> Why is the child's last_busy timestamp suitable for the parent in the
-> first place?
-
-I think that's an area I could improve in the commit message. But see my
-comments above ("My view on the logic") which I hope answers your
-question.
-
-> Why isn't done when dropping the reference?
-> 
-> > Note that this works best if the dependent device is using autosuspend
-> > (and therefore updates its last_busy timestamps appropriately), but even
-> > for a non-autosuspend child, this is still somewhat useful --
-> > non-autosuspend devices still automatically update their last_busy every
-> > time they resume.
-> >
-> > Link: https://lore.kernel.org/all/CAPDyKFp=KTf8=zGBSzPYqhjnZpY8xwvjCeM1e-WTKT1QLSxaDA@mail.gmail.com/ [1]
-> > Signed-off-by: Brian Norris <briannorris@chromium.org>
-> > ---
-> > Cc: Ulf Hansson <ulfh@kernel.org>
-> >
-> > Changes in v2:
-> >  * Update comments to explain when/why rpm_propagate_last_busy()
-> >    performs the update
-> >
-> >  drivers/base/power/runtime.c | 23 ++++++++++++++++++++++-
-> >  1 file changed, 22 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/base/power/runtime.c b/drivers/base/power/runtime.c
-> > index 2a117d6a776f..dd306cbabcd3 100644
-> > --- a/drivers/base/power/runtime.c
-> > +++ b/drivers/base/power/runtime.c
-> > @@ -318,6 +318,22 @@ static int rpm_get_suppliers(struct device *dev)
-> >         return 0;
-> >  }
-> >
-> > +/*
-> > + * Propagate last_busy timestamp from one device to another, typically when a
-> > + * device (@dev) releases a reference count on a dependency (@target) and might
-> > + * allow it to (auto)suspend. This can, for example, prevent overactive suspend
-> > + * when a dependency's usage is primarily driven by one of its dependents.
-> 
-> AFAIAC, you need to say much more than this to explain all of it.
-
-OK. If we agree on the what and why, I'll take another pass at this. For
-one, I imagine describing the "naive algorithm" I mention above would be
-a good start. And maybe the principles below.
-
-> > + */
-> > +static void rpm_propagate_last_busy(struct device *dev, struct device *target)
-> > +{
-> > +       s64 busy = atomic64_read(&dev->power.last_busy);
-> > +       s64 target_busy = atomic64_read(&target->power.last_busy);
-> > +
-> > +       while (target_busy < busy)
-> > +               if (atomic64_try_cmpxchg(&target->power.last_busy, &target_busy, busy))
-> > +                       return;
-> > +}
-> 
-> And I'd rather not do anything like the above unless absolutely necessary.
-
-Which part do you not like? The loop? The use of compare/exchange?
-
-The principles involved are:
-
-1) copy the timestamp
-2) avoid going backward in time (e.g., if target already updated to a
-   newer stamp)
-3) avoid TOCTOU races between reading the target stamp and replacing it
-   (e.g., if multiple children are doing this at the same time)
-
-I suppose I could compromise on #3 by only doing a single
-compare/exchange. This would remove the looping (which is admittedly a
-little hard to reason about), at the expense of getting a suboptimal
-update in the (likely rare) case of concurrent updates.
-
-Brian
-
-> > +
-> >  /**
-> >   * pm_runtime_release_supplier - Drop references to device link's supplier.
-> >   * @link: Target device link.
-> > @@ -348,6 +364,7 @@ static void __rpm_put_suppliers(struct device *dev, bool try_to_suspend)
-> >                 if (!device_link_test(link, DL_FLAG_PM_RUNTIME))
-> >                         continue;
-> >
-> > +               rpm_propagate_last_busy(dev, link->supplier);
-> >                 pm_runtime_release_supplier(link);
-> >                 if (try_to_suspend)
-> >                         pm_request_idle(link->supplier);
-> > @@ -710,6 +727,8 @@ static int rpm_suspend(struct device *dev, int rpmflags)
-> >
-> >         if (dev->parent) {
-> >                 parent = dev->parent;
-> > +               if (!parent->power.ignore_children)
-> > +                       rpm_propagate_last_busy(dev, parent);
-> >                 atomic_add_unless(&parent->power.child_count, -1, 0);
-> >         }
-> >         wake_up_all(&dev->power.wait_queue);
-> > @@ -1368,8 +1387,10 @@ int __pm_runtime_set_status(struct device *dev, unsigned int status)
-> >                 goto out_set;
-> >
-> >         if (status == RPM_SUSPENDED) {
-> > -               atomic_add_unless(&parent->power.child_count, -1, 0);
-> >                 notify_parent = !parent->power.ignore_children;
-> > +               if (notify_parent)
-> > +                       rpm_propagate_last_busy(dev, parent);
-> > +               atomic_add_unless(&parent->power.child_count, -1, 0);
-> >         } else {
-> >                 spin_lock_nested(&parent->power.lock, SINGLE_DEPTH_NESTING);
-> >
-> > --
