@@ -1,56 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.122
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793783142;
-	b=dXkwL4a6L2r4U1blBgMs51mhYoji3PucxJyg+gVWwEYpsKvj46UePDsNZ6HnPsSBrvBd
-	 QOKJBYxuphwRVd1UUdReSVVHa2lVZ/bV8T/jZatOOSXjDiUcVhx279O3hEm1d1M2H2w20
-	 unYOUqHDbKgpHaGsDriup66YYS9AlsRmqNJAI6Oxtz/jCL3Bdd/9uBSl7tzxwGaKBTg+6
-	 m/pl0Qi6v9Dczu+VqhElUB4BJmvIA48XimjQB9I9aEJpjE6SJ9+uh6+96lqdGB1MCQnZj
-	 ahw6adfYJckIqrvPKRu/Nt7SFbd3T7UdEgsv7qkHZNPsGMM21IbUBAiehf4SBVOwjug==
+	t=1793783180;
+	b=nfJHfU4hCn99Qdw+2OvELE/MD2FWusg13sZqVU7thPbWY5u0peUs8sCg8dwrVB5IYf09
+	 yIToiX70rAs5e92K6XiiEAGoAHdiABmNp062slCV5WlIVba7E3vijpWybku+WeLfI5hDg
+	 +4y/iX1ccaqKdIOQJ09aNoaNTx8O9njiIhYzLvkcOJbEReSqsnXwb9uEbNb202kQsKvyZ
+	 u0e6x6W+BTO/RJLxVxYljZMLj4pxD1pU+JfD/N4sJEjhYOiqU4x36JUpxqm5YRsOI7q1m
+	 e/LxRunrXfWZB82TwEg+ncmhAtNl3Ex5TumbuqTVlWKaFji0GMl3DnUaAObWkNj4vTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793783142;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=QXo6rTrM1au9q5KLVv52jI2Mrttkr1Jcc6AQvREIgP0=;
-	b=NbuxDiCEjdh8c93ZG8Adr9wW+KFyaxR4PtpsWYyxIocl4tDvnepnHz4N2n0sCEUHUl8B
-	 VsBXDph3fF6VOFuzZ4PBrQanZh7q6WZ+FwGYSqo3qFpIKpssQuKzzmWIdUoNUUCqoWRtM
-	 9yOl0Wcl2VfcapktSkwfTJB2lZkdDWu5UTBe8nKPSb5pOwTIAwSgrmlJseXqXj0D+lPXA
-	 PnXiP4g+XKA28/6RKpT8ap3MwnPdGifgiJypcWfCe5BBIzLhhq3Cof+JUbUten1SAi0Pg
-	 ksYDY+Ang4+GElC2m5dKT7+XneG9eFg7QM1zu5V00V7rDubnDGaB5khuE/6rmexGmRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793783180;
+	h=Received:DKIM-Signature:Date:From:To:cc:Subject:In-Reply-To:
+	 Message-ID:References:MIME-Version:Content-Type;
+	bh=TL+lpd9Tre0F9K5FTT6m3e9RtyKI/GiJUyTb5HPC2e0=;
+	b=wMTBG61MO/tVs2UbbNw5X0d9ouYm93w59PUzz/aLWRK3sx9Ub2b8/m/jRlPPLQd/CkTO
+	 GaWMrZ02qwrQHGAeSi/CLEVTAff3lMy5bIeC90Zylen3sLFu0mrFVRndYgWdoKSiDWDGx
+	 q7OQgIl589j7iIeXyGpYC26b2T1L6uo8VnXH8lGnx38Mc6tf7AeY/9IHQps7FU0VAY2vF
+	 ltsugSX7IxrKHnuoLWuOq+bhRwZoth51wdPCJC8z9ESgEdpfuM/aeed6tvF+Aepzd1DbX
+	 sjwCeqdIy6rpMvtjty0j7LhK7XPN00N/pj0z9avztN1VmUyQdcXOEKKz39+hN+/8ODQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=packett.cool;
-	spf=pass smtp.mailfrom=packett.cool;
-	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=Q9s4KaR9;
-	arc=none smtp.remote-ip=91.218.175.122
-Received: from mta0.migadu.com (out-122.mta0.migadu.com [91.218.175.122])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OAf+r0nM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D2AE606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:05:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D2AE606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FBF8606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:06:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=Q9s4KaR9
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=3N4pCaJ+co792MUr95p2MPmPG0+0WYBnyKQV28tJvMU=;
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793783134; v=1; x=1794387934;
- b=Q9s4KaR9a4C1wOZ3Eu6EJwytbpQjUU2+eaJaNhTqIYsC0ZKKZNR12kLc/gIflUsDb+Is8iwn
- lp9jkFroFo5T3Vs3enc5MEjLfSQ/RTvcGOvXMo3OgSOdicmwMJncH8q+p1rZSKTEgxoq4kIVHyK
- XtJ9Zb8WIBMRd61ORMAVCTCNbS9Zra/tQocRJPs8OReJnibWygbXDiik+8JwOwSV1Y8GdmSEMhp
- e9lL7LkdjS2z89aq/fHYrKLvfA9iLLNHYeGJl4gS5wG6MHB4imhfgYnjdMl9HLNiXBlvCiBKV1C
- yD70qlRttoRV4l8MC0qIgZT9btsD2IIOzfBqIFr2JWjPQ==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 08ec60f0a43faeb3;
-	Wed, 04 Nov 2026 09:05:25 +0000
-X-Mizu-Trace-ID: 08ec60f0a43faeb3
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <c9cb67ec-376d-475d-8d31-a3e0bbe20cb7@packett.cool>
-Date: Wed, 4 Nov 2026 06:05:14 -0300
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OAf+r0nM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3541B1F000C1;
+	Wed,  4 Nov 2026 09:06:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793783179;
+	bh=TL+lpd9Tre0F9K5FTT6m3e9RtyKI/GiJUyTb5HPC2e0=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=OAf+r0nM6knPaZzy7i2l3S9Ulid2btsFBPVL8zJPf7pnpRT+28IU4WRY1oYuVtr20
+	 i3pNFR3qpETwc1PaZ4bOwR1qkPW0GVhv+WjybdrfswfTqiMG7lB2zIb7AJAODK7/SK
+	 ySKZNzlnuyGX8U9HxctuHaayT42ZfDp/RP1gMEZIVJWnV6ozDZB15x6xaCMqOmrO6E
+	 yeJi7aMgq6pPaRL9xwqPLTg1vgiW0arxmbX+uihXXKOSHEvMU+XmmDTvj1XYQ/83Ud
+	 zkac7NnUuLafRdhCzNqytng+JNdgo0qOrNJzmZY0ZN1aE+Y2CcFWTWa7pZmprOwWHY
+	 jm+rT6f4Zu8Lg==
+Date: Wed, 4 Nov 2026 02:06:03 -0700 (MST)
+From: Paul Walmsley <pjw@kernel.org>
+To: Michael Ellerman <mpe@kernel.org>
+cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+    Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+    linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] riscv: defconfig: Disable COMPAT_BRK
+In-Reply-To: <20261029-compat-brk-v1-1-5b2cf86eb453@kernel.org>
+Message-ID: <0b81d999-2aa1-83e3-6dce-e419ec5f55ac@kernel.org>
+References: <20261029-compat-brk-v1-1-5b2cf86eb453@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,96 +58,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] arm64: dts: qcom: sc8180x: Add Microsoft Surface Pro
- X
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede
- <hansg@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rtc@vger.kernel.org
-References: <20261104070441.74127-1-val@packett.cool>
- <20261104070441.74127-3-val@packett.cool>
- <ea308aa2-8a2d-468a-ae5d-ec9a8ccdb2d2@oss.qualcomm.com>
-Content-Language: en-US
-From: Val Packett <val@packett.cool>
-In-Reply-To: <ea308aa2-8a2d-468a-ae5d-ec9a8ccdb2d2@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
+
+On Thu, 29 Oct 2026, Michael Ellerman wrote:
+
+> COMPAT_BRK defaults to y, which disables brk (heap) randomisation by
+> default (ie. randomize_va_space=1 by default) for compatibility with
+> "ancient" binaries, in particular libc5 based binaries.
+> 
+> libc5 predates RISC-V, so there can't be any libc5 binaries for RISC-V.
+> 
+> COMPAT_BRK was introduced in 2008, commit 32a932332c8b
+> ("brk randomization: introduce CONFIG_COMPAT_BRK"). But even then the
+> only non-libc5 binaries mentioned as being broken were ~5 year old
+> versions of emacs (see commit c1d171a00294 ("x86: randomize brk")).
+> 
+> Distro kernels for riscv64 also disable it, including Debian, Fedora,
+> openSUSE and Ubuntu. So even if there were riscv binaries out there
+> that rely on it, no mainstream distro would support them.
+> 
+> Most other architectures already disable COMPAT_BRK in their primary
+> defconfigs, including arm64, x86_64, powerpc, s390, loongarch and
+> sparc64, as do the riscv nommu defconfigs. It is also disabled in
+> kernel/configs/hardening.config.
+> 
+> So disable COMPAT_BRK in the riscv defconfig so that brk is randomised
+> by default, matching distro and other arch configs.
+> 
+> Signed-off-by: Michael Ellerman <mpe@kernel.org>
+
+Thanks, queued for v7.4-rc.
 
 
-On 11/4/26 5:36 AM, Konrad Dybcio wrote:
-> On 11/4/26 8:04 AM, Val Packett wrote:
->> From: Maximilian Luz <luzmaximilian@gmail.com>
->>
->> Introduce a device tree for the Surface Pro X tablet in all 3 variants
->> (SQ1 with cellular, SQ1 Wi-Fi only, SQ2 with cellular).
->>
->> Currently working:
->>
->> * Display, backlight (eDP panel)
->> * USB 2.0
->> * Wi-Fi and Bluetooth (WCN3998)
->> * NVMe on PCIe2
->> * Embedded controller (Surface SAM over UART)
->> * All remoteprocs (ADSP, CDSP, MPSS, SLPI)
->> * Volume and power buttons
-> [...]
->
-> This needs some sorting etc., but let's tackle the bigger prob first
->
->
->> +&mdss_edp {
->> +	pinctrl-0 = <&edp_hpd_active>;
->> +	pinctrl-names = "default";
->> +
->> +	status = "okay";
->> +
->> +	aux-bus {
->> +		panel {
->> +			compatible = "edp-panel";
->> +			enable-gpios = <&tlmm 130 GPIO_ACTIVE_HIGH>;
->> +			no-hpd;
-> Is there really no HPD? The pinctrl above suggests otherwise
-
-Looks like that's been pretty much copy-pasted from lenovo-flex-5g where 
-it's also set with no explanation, with the same pinctrl also existing.
-
-I'm suspecting that might've been an attempt at working around the 
-inconsistent display initialization, pre clk_rcg2_shared_ops etc.?
-
-I'll try removing it. (Also will convert gpio130 to a power supply like 
-flex-5g has it)
-
-> [...]
->
->> +&pcie2 {
->> +	// XXX: pcie1 and pcie2 are multi'd together, for now use just one
->> +	num-lanes = <2>;
-> We should be using the new phy-qcom-qmp-pcie-multiphy.c driver I think,
-> I'll try chasing down the right magic values
-Thanks!!
->> +
->> +	pinctrl-0 = <&pcie1_default_state>;
->> +	pinctrl-names = "default";
->> +
->> +	// HACK: Remove "global" interrupt
-> Why?
-
-Related to not having the proper multiphy driver support,
-
-"it seems like that interrupt is expected to signal when the device is 
-ready for use after initial setup. Unfortunately that doesn't seem to 
-work for the NVME, potentially due to the composite PHYs. Likely it's 
-just waiting forever and the IRQ doesn't get triggered. As it's 
-optional, we can just drop it for now."
-
-
-~val
-
+- Paul
