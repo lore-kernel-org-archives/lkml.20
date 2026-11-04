@@ -1,94 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793806900;
-	b=VejiqiPLvfp0xwclb4b9/Ia6f2ZaX8nvYk6GbamrPBeosLSHEs3g8hUde7Cgx8VNO65O
-	 xKhN4YEh0229jENhsq3iFUWx9hEceCDsuL2m5j1+78jmaS6KiqLsF3oyCMiFVtJKj01Op
-	 XpxLgn0S2DJIzZUE0fLLNDIE4FSlrVLsNmzGYQNAp624pqkJh5Wm+fOu7uaqbFytVu0Xe
-	 xX5uc/bfNni2ltCozNORsoYMFeBTn8ZYPdeqwrWaEJ0e9ZYv3XHIrDIMkgPqHbRAgw+sZ
-	 djqDCjURZsJN4SEX7QZVQ8PKzkz4RGyRqZ9EPMZ3cqbSl4oX3R8ZuABwFk9LqPsLzDw==
+	t=1793806964;
+	b=F1faHPCEFKpXxhUKYmLt2fYU8NLeJrcR3lRKrNMB9idU0fNugry8nkhmYJxlCSuJoqAG
+	 BFCC4rhg7eT9gBtkaXMFMXBBi6z9/A1oB51ujdmW5hZcPN3ri0P6Mb6VjeoaBxgVwfQHA
+	 ib+Q0Mmd4WIWNBl80CCjf5W/crVaCazu+aKQV0iB6Ro37Ye7vjYuMJVCdqefy4zapjMpo
+	 cpTKm7kTK/oruaFKDDWr2met/fGuJkNdIdrkj6xX5/l+BetP+4pJeFjZ7laSKiRqwPdGm
+	 MjmfmqrgIEFdI7YTNXJNtr8FFCALgrqWGP1/lllMEgLMdvNMAsEM3RDnHpK6HJ7E7IA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793806900;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=iphqSsawpRaaen7vANjen5+GcoTtHf3xRM+kRPbqxW0=;
-	b=nCD+CI9v1pOELvjkQcrF9GIHvC+JIf7ZDfzOWxmVXK+etBEPOCdqs+kfWYqqROBdfMVu
-	 ziwzJRjKB8oWMoNuBgwLyUTUa5kGXxFxiYWs6YA9Y5ALCxFrgo1iQDl3LA4nlLl/13Z0p
-	 kS7RN2eotPfHUru3qfpZ6LtVCfvXrLRYukxFTSAWzllUrb1wEZae5+P6azCBsZ/1e4BET
-	 QSPkBY0SL2Ge00rNPh1eAUywhPbTn4XUtfMgdE158dwPK1NAHEjfh2HgSPGf981Yxi4Ys
-	 bV2TXadzIH30S10bs6Ds7xgb7l0qvJi+evbPvhEITLm2cCOFggSeUQBmYTDLcka/XqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793806964;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=OOrY76HST88toXJHCO5fPSyBCbHQM5OhP9gCTyjkFSM=;
+	b=o5QeJbehOh0V8FmitlcexnwoPzBjDPxkP4iojNQ/3C8+i4f/10pi4VT58OkuHX615M24
+	 BtCSRZMnoZHmKbd6G2IOELbQRS02BWWnflpMknuGieTWiDdeRs3zU4M54z6Uinc3O3dnZ
+	 Tp7wZC1OudvuChuPMSdiuV/5aoOLDKumMvIlhwxFHHBTVm54+N2KMRY0SDbWPnCiDViZb
+	 Vn0uu4TqRqfBycBgcpnof1/hTJQrij3PGhC+uykx22/6pXDPtF4kYG9sgcpyKBoPemkX7
+	 nGdtHhi+PjRcpwBjKR9T6uS7XqKUVGDCp1vhZBdL990MYciIKbvrwtWtgGlfVe8DnGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fU4ZajU6;
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fFl7Uz8o;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF8C4606A331;
-	Wed,  4 Nov 2026 15:41:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF8C4606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0D17606A330;
+	Wed,  4 Nov 2026 15:42:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fU4ZajU6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793806898; x=1825342898;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=0locde0rhGayPBqPOc/hjAfG1PM+Mqip+KEGed79GU0=;
-  b=fU4ZajU68sAQqkWF61VeRLTcGLymZIc6QT8PJ/PuLcdvJvu4/KZKUh+a
-   M2opUq0y/wFVrcU0TfWjRJtvrNqtrnCVWTUvjiPKjCCnipmBbkobdNIZx
-   YmP7ccHfZSzQ+NBOdeGc9g18xAVPPMfUiRnwS+mEKTjNyp9rgu04jkfjd
-   nRTd6XRxmp0XXCF7TQCfp9AbC4oKZtI0MoK21X/chPx8c6XSjhAViQBc2
-   N6DiX1LG2wRQdU5C4fwpmFhyYsFNKw0qUAd8Jk7FZBppLCMatD3g3utc9
-   GkzVZl9MLnUo0uTaqJjdPIjPExBn49S8pT9owqvpABcj5dgNtuQwALLmf
-   Q==;
-X-CSE-ConnectionGUID: ZFId9FDWRbOOw9rlB0zUCw==
-X-CSE-MsgGUID: PUqg5a6pRO2QvpKGN9vt0w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2560739"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2560739"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 07:41:37 -0800
-X-CSE-ConnectionGUID: nSTyb77nT0e5ME8AG9dCFA==
-X-CSE-MsgGUID: ENib+KKCQS+GRhxNWFZi5w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="6895538"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 07:41:32 -0800
-Date: Wed, 4 Nov 2026 17:41:30 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Joshua Crofts <crofts@kernel.org>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Rodolfo Giometti <giometti@enneenne.com>,
-	Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Angelo Dureghello <adureghello@baylibre.com>,
-	Tobias Sperling <tobias.sperling@softing.com>,
-	Eason Yang <j2anfernee@gmail.com>,
-	Marilene Andrade Garcia <marilene.agarcia@gmail.com>,
-	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
-	duje@dujemihanovic.xyz, herve.codina@bootlin.com,
-	thomas.petazzoni@bootlin.com, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] iio: adc: add driver for Texas Instruments
- TLA2528 adc
-Message-ID: <autSKpnh0hORsYT4@ashevche-desk.local>
-References: <20261104125726.1754980-1-maxime.chevallier@bootlin.com>
- <20261104125726.1754980-3-maxime.chevallier@bootlin.com>
- <20261104145641.000070f2@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fFl7Uz8o
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0C281F000C1;
+	Wed,  4 Nov 2026 15:42:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793806963;
+	bh=OOrY76HST88toXJHCO5fPSyBCbHQM5OhP9gCTyjkFSM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=fFl7Uz8oVYtEPklE8rph9f+kECYmHM4odN+OluuEGLAlDcOhzQdagoT+4uHdVXU21
+	 kbD1PpUyov86RCaz88Zdp4GK+zRd8v8hL+Q8Rm/YMrHtB2hyF7OFrO+WQu2MRN8PBr
+	 YiQg/q6E8jl6T2jQK499YOt5LfWLoVwnzYnBriBaFyAeAaR6sdXMopQhqtH0DHuF7o
+	 xkrp/RMulG5w4QJpwgROdzl1hamXyKhIJ+OIaD2qB1+Kroa0JdeyX37BpWrnrSGiQj
+	 lhSgEoId4HJEzaOGNMTrH4Ie3UzfqdunRYc8lNuAK291iNj6ESSkJYAIZaicOUHMjN
+	 aJCOW8FbOwefw==
+Message-ID: <sashiko-outbox-197527@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 04/12] sched/deadline: Do not lose a throttled task
+ switched out and back
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
+In-Reply-To: <1b0485061f99455deaca614016de741f2091c4a8.1793804635.git.mathieu.desnoyers@efficios.com>
+References: <cover.1793804635.git.mathieu.desnoyers@efficios.com>
+ <1b0485061f99455deaca614016de741f2091c4a8.1793804635.git.mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 15:42:42 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,54 +60,150 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104145641.000070f2@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, Nov 04, 2026 at 02:56:41PM +0100, Joshua Crofts wrote:
-> On Wed,  4 Nov 2026 13:57:25 +0100
-> Maxime Chevallier <maxime.chevallier@bootlin.com> wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] sched/deadline: incomplete replenishment when clearing dl_thrott=
+led
+- [Medium] sched/deadline: stale dl_yielded left set by dl_task_timer()
+--
 
-...
+commit b274aa4dbc0a2822908373f43a14a8b8436d20eb
+Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 
-> > +#include <linux/types.h>
-> > +#include <linux/units.h>
-> > +
-> > +#include <linux/iio/adc-helpers.h>
-> > +#include <linux/iio/iio.h>
-> 
-> + #include <asm/byteorder.h> for be16_to_cpu()
+sched/deadline: Do not lose a throttled task switched out and back
 
-Yep, but please before linux/iio/* block.
+This commit clears dl_se->dl_throttled in dl_task_timer() when a throttled
+SCHED_DEADLINE task has been switched to another scheduling policy before
+its replenishment timer fires, so that switching back to SCHED_DEADLINE
+before the 0-lag time does not leave the task permanently throttled.
 
-...
+> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+> index 30a52e42c26d8..d474fbfd9be6d 100644
+> --- a/kernel/sched/deadline.c
+> +++ b/kernel/sched/deadline.c
+> @@ -1232,10 +1232,17 @@ static enum hrtimer_restart dl_task_timer(struct =
+hrtimer *timer)
+> =20
+>  	/*
+>  	 * The task might have changed its scheduling policy to something
+> -	 * different than SCHED_DEADLINE (through switched_from_dl()).
+> +	 * different than SCHED_DEADLINE (through switched_from_dl()). It
+> +	 * keeps its parameters until its 0-lag time and may come back to
+> +	 * SCHED_DEADLINE before then, switched_to_dl() cancelling the
+> +	 * inactive timer: it must not come back throttled, since this was
+> +	 * its replenishment. Its deadline has passed: the enqueue starts a
+> +	 * new period.
+>  	 */
+> -	if (!dl_task(p))
+> +	if (!dl_task(p)) {
+> +		dl_se->dl_throttled =3D 0;
+>  		goto unlock;
+> +	}
 
-> > +static int tla2528_read(struct tla2528 *tla2528, u8 channel, int *val)
-> > +{
-> > +	__be16 data;
-> > +	int ret;
-> > +
-> > +	guard(mutex)(&tla2528->lock);
-> > +
-> > +	ret = regmap_update_bits(tla2528->regmap, TLA2528_CHANNEL_SEL_ADR,
-> > +				 TLA2528_CHANNEL_SEL_MANUAL_CHID, channel);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	ret = i2c_master_recv(tla2528->client, (char *)&data, sizeof(data));
-> > +	if (ret < 0)
-> > +		return ret;
-> 
-> As rare as short reads may be, perhaps add a check whether the expected amount
-> of bits have been returned from the device?
+[Severity: Medium]
+Could clearing only dl_se->dl_throttled here without calling
+replenish_dl_entity(dl_se) forgive negative runtime overruns and leave
+dl_se->deadline stale when the task switches back to SCHED_DEADLINE before
+its 0-lag time?
 
-Bits? You probably mistyped bytes?
+The window between the replenishment timer and the inactive timer exists
+specifically when a task has overrun its runtime (dl_se->runtime < 0),
+making the 0-lag time later than dl_next_period(dl_se). Normal replenishment
+in replenish_dl_entity() deducts that overrun from subsequent periods:
 
--- 
-With Best Regards,
-Andy Shevchenko
+kernel/sched/deadline.c:replenish_dl_entity() {
+	...
+	while (dl_se->runtime <=3D 0) {
+		dl_se->deadline +=3D pi_of(dl_se)->dl_period;
+		dl_se->runtime +=3D pi_of(dl_se)->dl_runtime;
+	}
+	...
+}
 
+By only clearing dl_se->dl_throttled and leaving dl_se->deadline in the past
+and dl_se->runtime negative, a task returning to SCHED_DEADLINE before its
+0-lag time enters enqueue_dl_entity(), where setup_new_dl_entity() (on
+ENQUEUE_MOVE) or update_dl_entity() (on ENQUEUE_WAKEUP) calls
+replenish_dl_new_period(dl_se, rq):
 
+kernel/sched/deadline.c:enqueue_dl_entity() {
+	...
+	} else if ((flags & ENQUEUE_MOVE) &&
+		   !is_dl_boosted(dl_se) &&
+		   dl_time_before(dl_se->deadline, rq_clock(rq_of_dl_se(dl_se)))) {
+		setup_new_dl_entity(dl_se);
+	}
+	...
+}
+
+replenish_dl_new_period() unconditionally resets dl_se->runtime to the full
+pi_of(dl_se)->dl_runtime rather than deducting the prior negative runtime
+overrun, allowing the task to bypass bandwidth enforcement by switching
+policies across its replenishment point.
+
+In addition, in enqueue_dl_entity(), dl_check_constrained_dl() runs before
+the ENQUEUE_MOVE branch:
+
+kernel/sched/deadline.c:enqueue_dl_entity() {
+	...
+	if (!dl_se->dl_throttled && !dl_is_implicit(dl_se))
+		dl_check_constrained_dl(dl_se);
+	...
+}
+
+If the task returns with constrained-deadline parameters (for example, with
+a larger dl_period passed to sched_setattr() so that dl_se->deadline <
+rq_clock(rq) < dl_next_period(dl_se)), dl_check_constrained_dl() sees the
+un-advanced dl_se->deadline and re-throttles the task before
+setup_new_dl_entity() is reached. And if the task migrated to another CPU
+while in SCHED_OTHER whose rq_clock(rq) has not yet strictly passed
+dl_se->deadline when it switches back, dl_time_before(dl_se->deadline,
+rq_clock(rq)) evaluates to false and the task is enqueued onto dl_rq with
+dl_se->runtime <=3D 0.
+
+[Severity: Medium]
+What happens if the task had also called sched_yield() in the period where
+it was throttled, leaving dl_se->dl_yielded set to 1 when dl_task_timer()
+fires?
+
+In yield_task_dl(), rq->donor->dl.dl_yielded =3D 1 is set before calling
+update_curr_dl(rq) -> update_curr_dl_se():
+
+kernel/sched/deadline.c:yield_task_dl() {
+	...
+	rq->donor->dl.dl_yielded =3D 1;
+
+	update_rq_clock(rq);
+	update_curr_dl(rq);
+	...
+}
+
+If the elapsed execution time in that slice also pushes dl_se->runtime < 0,
+update_curr_dl_se() throttles the task with both dl_se->dl_throttled =3D=3D=
+ 1
+and dl_se->dl_yielded =3D=3D 1, and arms the inactive timer for a 0-lag time
+later than the deadline when the task switches out of SCHED_DEADLINE.
+
+Unlike replenish_dl_entity() and __dl_clear_params(), which clear both
+dl_se->dl_yielded and dl_se->dl_throttled:
+
+kernel/sched/deadline.c:replenish_dl_entity() {
+	...
+	if (dl_se->dl_yielded)
+		dl_se->dl_yielded =3D 0;
+	if (dl_se->dl_throttled)
+		dl_se->dl_throttled =3D 0;
+	...
+}
+
+neither the !dl_task(p) path in dl_task_timer() nor replenish_dl_new_period=
+()
+clears dl_se->dl_yielded. When the task switches back to SCHED_DEADLINE
+before its 0-lag time, wouldn't it be enqueued with a stale
+dl_se->dl_yielded =3D=3D 1 and immediately get throttled again for an entire
+new period on the next call to update_curr_dl_se()?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1793804635.gi=
+t.mathieu.desnoyers@efficios.com?part=3D4
