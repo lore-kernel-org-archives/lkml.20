@@ -1,94 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793804852;
-	b=z4s1e+dmEo3BuWV/MiHlRlBOoSmg95b9Z5CMzmvQBSqG/szyA+7mVXT8HT6L96fRZOD4
-	 5UO2B9gf8rH0u5Jb1SqcYNmKb0Yu2pH9FvhtUY8FNOXIfhcMt2gfGgnSmBUaS44gxBpjM
-	 KR2cucQPmyNagcuIEvQITJ7rw9IW7w4VzL+OrMkKPzguZYAazgs32ZNMHArsZQRAUZzcZ
-	 BYDrunFh8+Gp08j6EXLZdYQMQ/B6/yGIlUo/VHXq+VfOP5L9U2WJVpDdzAtsRu08Ap2es
-	 8bsYeHE+YKwDVWpdwAEIt4HORQjEaLPc12qCB/CBn3hTJiyLuKeR2GiUA/7T4dQWuKQ==
+	t=1793804854;
+	b=WFr+N5guGDGKI1AjitqWZEIlV0f5v8PxWuUfIXwfsaqu+mmlC/LjknBcBeGhg9wLQUUE
+	 lEwGKnz5gIMMo28ZuVdAdfx9OwefW6ssDFQwVzf8kPU5wuqCJSpEn59e9CUhi794qwIz0
+	 +jJPVSqPFWeGLojDObTC+ckEcgMBe7zgOTEbnphzx843qTysgtB9PCYku3ZB7PMGXEX/f
+	 oAAOtfReYoelc9QKDoO8rCDZwh7ON0ynhw2v7BRL3UIob1YUAfg5FysWCUJFNc0hQ6y1I
+	 T1JNYpD6l/3zdlkAp3baWEtYKcTFreQKZpp9Yk9NEejii2AgMO82keksomTzySM0UHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793804852;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793804854;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=SRwwF7d6JKQ+7rZ7FwUD8U4JtRdsbauXUbAizZTDQkg=;
-	b=DjPc/BzUAgNH5VgVPJloIv9OzEBKQQ0fSOBEDaUZsNCsBL6l3kXT8g9DJ1S+SDJHGejG
-	 O+1/2QzP4fC1fzLbTyRAwmOIEKOstwyK90rGWHUSiqG9IItyt5KCFHNlyYx4atn1YBTsv
-	 9Zao62iobUYd789l39xZtoA7YyInHRbiPwhTcUAOorG9H+4CRtZjjlENRdjQljLweVJVK
-	 cmFDeutbAagkviHspLllpfSqq+QybFLUjGum3FIv8tkfRUw357DZadePTT8zszTPAesdb
-	 Ch8Yh9kzyu5+20nNu/hFPf9oqnZPD01xTLAXJ3h/UYKFLuGS1oqRNf4+cYF96zhb+9A==
+	bh=52M0Mx3QqLQFvHEpAisibJWPHYozvMJfANyGg7k/AzQ=;
+	b=YSJOhVmlhU/BhB2Mzxf5kaEEEK2X/ANYouv+p7i5K94S8kPt5mVdQMHiosf7oTlhkjzj
+	 sfQJMN9fYgBCbPOITr3rZXyL47ktEqug+18hgbNp/udY27Hz0AB9/vR1Dn+G5hnEY2yBN
+	 I/OXIopuprJulQjGjU76zvM8+e8mBLrXIgVg5EsHefLk0ZO+5cPrMlPfXQ2LKAoZlxF5N
+	 jCKhw7mrn4NnsmczN68GMhLVjFssjGeSew05zHoMLU0tGne9INbzVFpd8Hf0G9FVBxUXl
+	 PbI6yGctw83O4QeqR6CFBf/fsB24+rtGHu1Sd7rGCyTYZERKkeoMsLm2OBFZHOhhQpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=iaPSO7yl;
-	arc=none smtp.remote-ip=209.85.161.44
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=KOx9SHdU;
+	arc=none smtp.remote-ip=209.85.161.41
+Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com [209.85.161.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28E83606D808
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:07:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28E83606D808
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84DEC606D80D
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:07:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84DEC606D80D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=iaPSO7yl
-Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-70b875f6f13so743574eaf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 07:07:30 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=KOx9SHdU
+Received: by mail-oo1-f41.google.com with SMTP id 006d021491bc7-6de2f213b7aso364849eaf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 07:07:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793804850; x=1794409650; darn=vger.kernel.org;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793804852; x=1794409652; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SRwwF7d6JKQ+7rZ7FwUD8U4JtRdsbauXUbAizZTDQkg=;
-        b=iaPSO7ylhtk6kcT1szhbnRBx/7YenRZ2KsqsxdHayRL5Vz46gvSXYRaeg7gflqS6pu
-         l11ScjSb8DAMDgP/ohO2M4OIGNXebt0EZL8kwwCzzvNFJbOkFBcA8SXIpF0WxV1s/way
-         I5YO3i1tPWzqyR4Oy/2YxxEdtcn+o5sek0iIrFbhGuC+9qtiSM2A6a892R+N4dUE4MIr
-         eMTLWEza1A/aNqm+XpJBr6XdL2MaALHkp9Avi4ptspwk20uHIgo7JCQRKZTHO9a1QKii
-         MtYUcL2RtxZi3Zo2tedy2Gl9HULVFyt9nyW5u2/Qwovq+xhJC209skaa4pwwfA1F1V1e
-         dWnQ==
+        bh=52M0Mx3QqLQFvHEpAisibJWPHYozvMJfANyGg7k/AzQ=;
+        b=KOx9SHdUEll96Op2QsIzCBrIWWCmZ2+ruKEdyzkwfLr2LjnDrSJIV4Ay9x00LI/xDj
+         eAB4pYrp3HN1ACvtIv8hAR7KIr3wdGmByYgXxUn0nrT2Zz5Hv9gxFWGrNl4ryqg9U/Dh
+         5cQC77vJkN3xKzbs9h2/y2/o9Tnddr3FsL86inDGwNQSzTPfE76upOHgw7mzAc2GXfGS
+         GWQyCmRGzR7/y0LupP7NQalHleWahuN6h/3rtQZeDG6dLNO2mPcziU2U0xTUb4NjL+80
+         yVEtPauJFpSjvnaRpCLFcWS1f3bwVu64DfY5zzrTSTAqKvNzcLFIL7hJF1lJWwv5Lauo
+         hFbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793804850; x=1794409650;
+        d=1e100.net; s=20260707; t=1793804852; x=1794409652;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SRwwF7d6JKQ+7rZ7FwUD8U4JtRdsbauXUbAizZTDQkg=;
-        b=Nx302zYR0pfEd5Ih7DY/VbOgZ3pqLA9mXSTI3Nk4wFOhgiDa7kWngUDX8XriHbmnLv
-         14EzDakHvu32eoO4diiHXO2V9npfipR3JrEGNPdATDBdEaUaUX7gzZugv088Kyyz+VPd
-         xvKUgonUM28+278W6P5eXof9aYcODq9S+TrjZ0tfHYo2mqWc6sAnk8wpO1m00WoaK4Q0
-         PXZI/yiUx8Yo7pir5XRZQswrXOfuf1JVtH0MzxgibfUDbFi1L6kPBmm2FbBn3P8sqwRf
-         gKZlKAnilRgoIfyFmdGnkADo61I2SRT9ktZ/TnWbNEiLojSsY1sMoUyVsr+re9N4EvNK
-         sSqQ==
-X-Forwarded-Encrypted: i=1; AKwUvByrxUhPBTyYEYxGJ7/SslxK2kVNfXRuAbSySiip/SOC9RU1ZCYrH9BNwlWTuGZRC3Fpda1+IxwGH0TFxdE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9igrX85lh6R4nXlBeXpp8/dpVh9xao+zS6PsNhCqcy/s3ppTA4
-	qG/5Nm48c1Nxlidwfge4x/Gc/p8cbFF83eKJYl7xpLUTfRZqwRgvxnVn/SMCWWHUYTM=
-X-Gm-Gg: AYBFou2O0VdfKadp4wEiUunrDU4diSZvTsm9g/YW+Jg9Fvf8PnM243UUJK6XOhrut2R
-	m1qgvHjj1Ie/1TIjWPd9yhoRcDy6Zcd0BIUN2MaXQRujRxQo0uDTbwfRRB/e+VAwO9MMiAYS0sj
-	QeWyPh2JcrfWDyC6hv1m5JuV+Mx+LrKV5SeXzqTcK3wVvJgAi0X/2b5WkGu8Yx1nYTyKQ7T367t
-	U70Z7P+dHn8D7yQhnkj3POEmycZZaBDOwSOaz6BQuAFTIM4W3bPQxDQLhUj/qBpbXoU3EWibvdt
-	wu5c+K8Hih91mTO+XSFTiUUX04wEuQMCXYCcYrCwXq0LQ6deuJZTZ3xer7inrtCyD93XP2wUOD4
-	CuMeq99DgVLSORdSHa1uf0c16kCf3PxJGViP6j83M9SR8OXOgU51C3z0nTByF7rJaVOmQNF9DnK
-	wVKkZ8ZtOlVlRY3evVk7Eqh2197qlUkSBfQgah4ePOCtBIPIe7GBX0XxbKjoR+ZtyXNt9NYgJVT
-	Jhw8dMU5yi3eNisTg/juls3G6n460p8lBEIT/y+9KhZiKxPi+6Gr4LZ/lfsTAgnlDgxo2ftwoEq
-	aYkk429DXyRgWYLP5gvHWvA6vRbP+Tbz3j3/HWTJTqwwbvUatMHWa+VHltUGlky00iW7y1c=
-X-Received: by 2002:a05:6820:169f:b0:6dd:4f30:258f with SMTP id 006d021491bc7-714f253a484mr9672440eaf.56.1793804849653;
-        Wed, 04 Nov 2026 07:07:29 -0800 (PST)
+        bh=52M0Mx3QqLQFvHEpAisibJWPHYozvMJfANyGg7k/AzQ=;
+        b=QEuKvacXr0OZS4lUCQ64GmfXXyLUUqfWdLcNOiPx+9ia58EdaPpkB7QPKiC9ioZVLB
+         n0w3HjKWRhmpQqL/5wUdIX0ZT1NtY6CnT8pNKjcQSpejJTWzIZ6Wxcxgee9vZlow/Wmw
+         RLeS7wdWtpcZjTURfTajihOH2dcqz3ePVTDI572jB/he2kjllxksmR8i+P5cRgH3mnh9
+         LL+ZqcU+iCA99GZyZbEdLRG8crKeg+/+nHPBLzp8YV8jsfP5XKu2mO0LynXz9ANUSDVj
+         nY5WhVpUxn5e+0qL4kTgg+u+R/eDSgsP/ZTlgxw/L+ApyuHUvmPRnVR0oouTYrJzdKfz
+         dPng==
+X-Forwarded-Encrypted: i=1; AKwUvBxkU1XKtRkPsea/StySzJEedS2a8rikoHJDlWJwOA0C7ru/h6/Iq+CHfimFlInXyDxobmCyobk7R3O/hSc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/BiDJQnw0wz4Pa1vc8ditDf2AaDdun9uQKG2EOnbQnz339nqPi
+	1V+4USyHBd+mLdcTsV/pHPrghI9JweEnCPeiXR3rEjik+gI7Lt2Jd2iD/WfChDfVYRw=
+X-Gm-Gg: AYBFou23abB85ruZCaoeux+da8c/fe6lLFf49wXpSP3OsLOgmAzojqkV21t2aPKXfdy
+	jHtiutpja8cnjr0JNEXtNcrHFNZMsI5aYs6Ow8MGIPecSvtqdM2c7AhQY/9Fyr/QkCBzVVas0NA
+	qMe1m16US18le7hYpOklX6N0kt3pnsZQLQV2K6YtzCfKHNCRzYok+G4wPBv8VRjZ1L/MvsG5E+c
+	2wpIzvh4seIj8AO3ztjOTPBIyWId4lp++3i23gMxUIGuDXbhi3rfaJ8snWi7+han2/ncnuFI9VC
+	xMQpSj14xF+qwWckRj6mnvDrhvNIwjlRfIhPPgf/O3CM6bu8tO3N56qkR/qwFV+Dh/2YkfMamFR
+	ieKGEqgvl2on2T/gO7uROpU9IK2wqYjazKBVIc357EmXaDiIXEoARRRTOXHGfrpE6laLhKREpUe
+	YU3GRcKaUwQDlDRo1YnsjNnBJfbQULAjbIVPm3qWNHK5bw0xpm7I2BI7xf8nbLynBwsWvyKl7vi
+	kQ9jUzNYwn5mNl+BuRc+ncfnbayJGf9Ayy1qOg21iPIAsUwTiGn5hdhRMyUYt8TLID9HNyG0NzY
+	2+J8cbGJjaUxbFJo+f/jzc8RU9jhpOzPF/eD4jNzJ3p6Ietn6jPeaXJDoM2+shNG5Ps+i+O++f5
+	I+wtAysLiTA==
+X-Received: by 2002:a05:6820:a284:20b0:6f6:61c5:d929 with SMTP id 006d021491bc7-714f29beb3emr6788172eaf.38.1793804852411;
+        Wed, 04 Nov 2026 07:07:32 -0800 (PST)
 Received: from [192.168.2.38] ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-716c0cdb22dsm1886033eaf.0.2026.11.04.07.07.28
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-716c0cdb22dsm1886033eaf.0.2026.11.04.07.07.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 07:07:29 -0800 (PST)
+        Wed, 04 Nov 2026 07:07:31 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
-To: Ming Lei <tom.leiming@gmail.com>, Sasha Levin <sashal@kernel.org>
-Cc: Shuah Khan <shuah@kernel.org>, linux-block@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261103163928.641519-1-sashal@kernel.org>
-References: <20261103163928.641519-1-sashal@kernel.org>
-Subject: Re: [PATCH] selftests: ublk: fix the build and file offsets on
- 32-bit
-Message-Id: <179380484851.4021488.1650834850006214841.b4-ty@b4>
-Date: Wed, 04 Nov 2026 08:07:28 -0700
+To: Sasha Levin <sashal@kernel.org>
+Cc: Pavel Begunkov <asml.silence@gmail.com>, 
+ Breno Leitao <leitao@debian.org>, io-uring@vger.kernel.org, 
+ Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261104144623.3803717-1-sashal@kernel.org>
+References: <20261104144623.3803717-1-sashal@kernel.org>
+Subject: Re: [PATCH v2] selftests/io_uring: cast optval through uintptr_t
+ in mini_liburing.h
+Message-Id: <179380485099.4021488.15926225621505501263.b4-ty@b4>
+Date: Wed, 04 Nov 2026 08:07:30 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,24 +106,20 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15.2
 
 
-On Tue, 03 Nov 2026 11:39:28 -0500, Sasha Levin wrote:
-> kublk puts pointers into 64-bit UAPI and SQE fields with a plain (__u64)
-> cast. ublk builds with -Werror, so it fails to build on 32-bit
-> architectures:
+On Wed, 04 Nov 2026 09:46:23 -0500, Sasha Levin wrote:
+> io_uring_prep_cmd() puts the optval pointer into the 64-bit optval field
+> of the SQE with a plain cast, which warns on 32-bit architectures:
 > 
->   batch.c:379:42: error: cast from pointer to integer of different size [-Werror=pointer-to-int-cast]
+>   mini_liburing.h:272:23: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
 > 
-> Cast through uintptr_t. kublk also passes 64-bit user copy offsets,
-> which start at UBLKSRV_IO_BUF_OFFSET (2 GB), to pread() and pwrite(),
-> and with glibc those are truncated to a 32-bit off_t there. Build with
-> -D_FILE_OFFSET_BITS=64 as well.
+> Cast through uintptr_t, and include <stdint.h> for it.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] selftests: ublk: fix the build and file offsets on 32-bit
-      commit: 3197517875fdcfae1e9b5a4dcaf35cbbd66c413c
+[1/1] selftests/io_uring: cast optval through uintptr_t in mini_liburing.h
+      commit: 699e7ba5915c8b2c76e257e157464f2bfe7ab8bb
 
 Best regards,
 -- 
