@@ -1,66 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793780349;
-	b=E/m+SBS8lvFgQf34vDZiIIn3MGaSE9So8fjEC/2XmcIuaUXvPhuajXMpsUznb6O/+TjX
-	 tjoARsO8anB3DpAQXiBjQGFc1YlBjsd9jnK9cVNILGC46JnUW5011OC6CMwIP0RUEqDOL
-	 1lWA4hBogYEcBsIJMHoV7QRmr+Ulvq/3WtKbv4GLSSgcjluwMikYOHOWMnu/xI67Adk7f
-	 Nm6U2WWslc04XNVrPSXrAcG1hEp3KxTT2yNdrQ74WjQcHXh2fshgIa9aelEoiDuUETFAg
-	 WAYW45LO0M+TSRmwUxtvLYxDLOgM2xjVrpse3iYjg/Fn6EceKeSGKGmPBYvoZIsE4xg==
+	t=1793780355;
+	b=Ng9+e0MxQklZKYwwCvDcjl6SYB51EbY4ZP+sSFW9YEf96NJArW+inqOLaGnCoYkXLjy7
+	 PFKAK+MvqdbUSUWbppQIxbIdpwIS7zbJRn2YVaazkkSDiCUqoRsRXhZ66NiYilSsxRsyC
+	 hC9wIAV5Y4x3HIY+GrS6ozodxP+uQB1w1RdW4ynsSUnUutF4/v/VeS6NohnjXTdukfsxS
+	 wBasQHKufO0auW9W6Fbu1b5m1jMEIG7kF50mAne+xjTzAAe8Q6awxTWe56616EsJs24Ir
+	 NHFFf+mRwLkQQ8CSGT2sC024vBBw3qhIsgPlpe2kVjVCBHjBFaHIKkiUvRa9aXk7j4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793780349;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=7JPjenQFeEsZp71b+iGe0lGbAcckPwZVykttqOk4x5Q=;
-	b=eyNTOVQOPpFlSC3cC9yYen9hTSV4Op7cTwlV8URaH7Ssjs022Bm8hIhGUNGnNZ+qKOyB
-	 IyBdaTSvnfn7rQ6QV7IgXI5pawn0an4F8LoJsEEjiqEAatUzrH72PFXwN5zZtN5Cytx2o
-	 NY955s7/tcnrHL8ME4w/2m9840RO22XIn+oVt9JHSi+55J5yF05jliIyPPWA0UcnYydtj
-	 yLN4MVWjzHgvVDC1ijU3wag8fUcVIEKcIYi7NWk0XGB/ly2Jvhf8ZZ/piCRxiuBB7+Qxj
-	 /A8ygsCFsiYmifn8V9U56p5ANZrHMz7ZsGJPjmTYkqsvMSda78/bKDcEyeogN7/It7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793780355;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Xc7V+QdXVVO/sqjZeREmJmMcVmU9QYnc9ONRFJK1OpE=;
+	b=VN7fIFYtiUyzgGq1qbC+W1Xurz+Z5xdx74bvPe5TPGZV96Dj28nJFyaWmNkSOD8yN6oK
+	 PU4Y8RNTLWHn8+R3VTo7shF3Sf+ekLLj0+RihZMec3KqNBbcf7RPb5Aw6YnW+w8nEARUX
+	 181v5bUj7xNvZMeafq+6rXoEeGiNpLuE0bn0+Ek1eyVDJ+siyeSpcakj1RGQ6PSWqe95q
+	 yL4dPMGIrP/qkh66ntxASqdE9mFcbs/Hr4ketgl0rqdUaDlQkll2MmFs7NXApWRc7rXol
+	 H93QRUuCIa4FJXlpKu+4lAIyeKNjnCGWbxjeaa8sktVEmVYRpPAv4ED/2EEbyEtfvNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VGYEVKoG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="O3/snmKj";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74B29606A326;
-	Wed,  4 Nov 2026 08:19:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C09AE606A32D;
+	Wed,  4 Nov 2026 08:19:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VGYEVKoG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C59E1F000C1;
-	Wed,  4 Nov 2026 08:19:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O3/snmKj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79D9A1F0093A;
+	Wed,  4 Nov 2026 08:19:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793780349;
-	bh=7JPjenQFeEsZp71b+iGe0lGbAcckPwZVykttqOk4x5Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VGYEVKoGNwFuMJbTOlO7VKVvGlToA5A1xtt1tUQu/WGB1i1j9NttWJM/9bq4oTWXW
-	 YZVTVn1SAkFb9cnjEgZA4Ox5ZZDmKBJ8PO155G/DBT52C1wa6Ulq19x0nZprUah0Mb
-	 ne1LR2560+AP7QCob8LSk7VejOfbXRsijZN1KCTZdFUNfq6hNch6sFesuGt/uVP6+e
-	 9CK/EoculLm9BMAlQPK2Y7oNZ34vt7qKV4AnrKtNqoVber3PRzcgsUhEWrFZI0DgNh
-	 IHPjWHTdjMgkO8vGJrvcFTFM9rujxlckBOq8SMHdvX2D8z8+i65qNanXxGjDKNXvQ+
-	 JWcHHnkEVQ3qw==
-Date: Wed, 4 Nov 2026 08:19:02 +0000
-From: Lee Jones <lee@kernel.org>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Aradhya Bhatia <aradhya.bhatia@linux.dev>,
-	Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
-	Swamil Jain <s-jain1@ti.com>, Devarsh Thakkar <devarsht@ti.com>,
-	Louis Chauvet <louis.chauvet@bootlin.com>,
-	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	Jayesh Choudhary <j-choudhary@ti.com>,
-	Aradhya Bhatia <a-bhatia1@ti.com>, Andrew Davis <afd@ti.com>
-Subject: Re: [PATCH v5 00/15] drm/tidss: Add BeagleY-AI display support (and
- some more)
-Message-ID: <20261104081902.GC792264@google.com>
-References: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
+	s=k20260515; t=1793780354;
+	bh=Xc7V+QdXVVO/sqjZeREmJmMcVmU9QYnc9ONRFJK1OpE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=O3/snmKj+Oq77n3PttxztnuIcIFYN0EpcanrM6a2w6qax1v2/dRhnuLA3toFV34K/
+	 RNs5POBA8fBvDsg3p8XPozQad0dKkQz2UHF8RzJkXPzm6e71H/u8U+nNZtcu1dm7tw
+	 IU9xCcMQfRmxLcMHfUWkNMYcWggc+r5lj1zuBRMnIPDLukGt5tuu4+SqzzGVBxggNz
+	 SbFXmnKaF1qJeIA2lSQcrg01vtQ8uuE3mi9ypgm+zxJUWP7O5WGxetbbhSbGaj/YiA
+	 dYbkX1+We1DsmnHCKotFbMMOMMByTSVOlLGzxVykQGkoKp71qJsIS8Q5I/NyKf7Ojl
+	 cLFxy1Ooy022w==
+Message-ID: <e4951dae-e010-4d75-a4c1-397e7c5cd05e@kernel.org>
+Date: Wed, 4 Nov 2026 09:19:10 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,27 +51,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] mm/slab: don't queue the page cache work under
+ krcp->lock
+Content-Language: en-US
+To: Harry Yoo <harry@kernel.org>, Zhan Xusheng <zhanxusheng1024@gmail.com>
+Cc: urezki@gmail.com, paulmck@kernel.org, qiang.zhang@linux.dev,
+ akpm@linux-foundation.org, hao.li@linux.dev, cl@gentwo.org,
+ rientjes@google.com, roman.gushchin@linux.dev, linux-mm@kvack.org,
+ rcu@vger.kernel.org, linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com
+References: <20261028134647.3176080-1-zhanxusheng1024@gmail.com>
+ <20261028134647.3176080-2-zhanxusheng1024@gmail.com>
+ <auifTNDwbBTJeu81@thinkstation>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ xsFNBFZdmxYBEADsw/SiUSjB0dM+vSh95UkgcHjzEVBlby/Fg+g42O7LAEkCYXi/vvq31JTB
+ KxRWDHX0R2tgpFDXHnzZcQywawu8eSq0LxzxFNYMvtB7sV1pxYwej2qx9B75qW2plBs+7+YB
+ 87tMFA+u+L4Z5xAzIimfLD5EKC56kJ1CsXlM8S/LHcmdD9Ctkn3trYDNnat0eoAcfPIP2OZ+
+ 9oe9IF/R28zmh0ifLXyJQQz5ofdj4bPf8ecEW0rhcqHfTD8k4yK0xxt3xW+6Exqp9n9bydiy
+ tcSAw/TahjW6yrA+6JhSBv1v2tIm+itQc073zjSX8OFL51qQVzRFr7H2UQG33lw2QrvHRXqD
+ Ot7ViKam7v0Ho9wEWiQOOZlHItOOXFphWb2yq3nzrKe45oWoSgkxKb97MVsQ+q2SYjJRBBH4
+ 8qKhphADYxkIP6yut/eaj9ImvRUZZRi0DTc8xfnvHGTjKbJzC2xpFcY0DQbZzuwsIZ8OPJCc
+ LM4S7mT25NE5kUTG/TKQCk922vRdGVMoLA7dIQrgXnRXtyT61sg8PG4wcfOnuWf8577aXP1x
+ 6mzw3/jh3F+oSBHb/GcLC7mvWreJifUL2gEdssGfXhGWBo6zLS3qhgtwjay0Jl+kza1lo+Cv
+ BB2T79D4WGdDuVa4eOrQ02TxqGN7G0Biz5ZLRSFzQSQwLn8fbwARAQABzSNWbGFzdGltaWwg
+ QmFia2EgPHZiYWJrYUBrZXJuZWwub3JnPsLBsAQTAQoAWhYhBKlA1DSZLC6OmRA9UCJPp+fM
+ gqZkBQJqFFy6GxSAAAAAAAQADm1hbnUyLDIuNSsxLjEyLDIsMgIbAwUJGtCBUAULCQgHAwUV
+ CgkICwUWAgMBAAIeBQIXgAAKCRAiT6fnzIKmZJIUEADFx/tREzUImHrEwVHeSvDFmA7tJysI
+ UVrlvrM09E7GIuzphzv7jYmo8n3ANpCczLEVr4G0syYQdTigaZgv3+FQDIIzhKih1IHhu1Ei
+ XHlywNWKnQxxQEUNi5Mwx43wQz5XVw9F1A7gtKBKNtfogO511hAbrzagrYajyQacEJ/+sfhZ
+ 9Da8ltHIXD8pcYaHUfQgEusCgmEd9+KrUwrTbckFKmYq5chuE6yJ4J0EmWknL096jIE6CnzF
+ FRslQ3B1UKDjxVsm1ZHfir5NeWszLkTvGFsddFaWTgh8UycESG6VQzKXjjewXu2pG7YQYRpj
+ QKm1W5X2TkwWkXRBZTmfmbhxIUMh3+zf5wQ463rSmDN/8v81tdqBtAW6rH/kzg1GvkaTHXn0
+ 507yEHFzBksk2viAuIxxr7km8+/KARYLIdGtx30EG8cKzAUZOK6WqxtNCsXUJNrVE8CWrCaD
+ icoNu7Fs1c5hmPHdSTnU48ce67449DdnO4neLSNhRiGlMHJgfJUmgrxu/hcYeOZ3haWmEQ2w
+ uW1Mh01OHi8QZHCEyAbABrPs9GUgccc/4eYXX9hIgxfSkYzn8f+8NuIFPWl/0uTvjgqU29FQ
+ SbzOLxHq9439Ox40G5mS5eZXRGxITYR+6TXvRGI6P/264jvflnr/pDGUttaikU+0W+1uxgKH
+ cmYbEc7ATQRbGTU1AQgAn0H6UrFiWcovkh6EXVcl+SeqyO6JHOPm+e9Wu0Vw+VIUvXZVUVVQ
+ La1PQDUi6j00ChlcR66g9/V0sPIcSutacPKfdKYOBvzd4rlhL8rfrdEsQw5ApZxrA8kYZVMh
+ FmBRKAa6wos25moTlMKpCWzTH84+WO5+ziCTsTUZASAToz3RdunTD+vQcHj0GqNTPAHK63sf
+ bAB2I0BslZkXkY1RLb/YhuA6E7JyEd2pilZOrIuBGl/5q2qSakgnAVFWFBR/DO27JuAksYnq
+ +aH8vI0xGvwn75KqSk4UzAkDzWSmO4ZHuahKtQgZNsMYV+PGayRBX9b9zbldzopoLBdqHc4n
+ jQARAQABwsF8BBgBCgAmAhsMFiEEqUDUNJksLo6ZED1QIk+n58yCpmQFAmfIHFQFCRYU6J8A
+ CgkQIk+n58yCpmS2PA//bqN1LfcotmArgElsa+0EGZSQlYgK48pm8WAeTXTngudP9IJ4SuKY
+ HR5RNjHcBeqN+Me0zxRqYzRb8nGanHEkDyf4Im8DQM8d6vbyU+FcPmG4skud4kgS1zMHnlVd
+ SXfSIwKC/hKgdHG8aBV7545Lz9X6Iohea+94wneD0aw/hqF+QWewGZhWJriWAZtvEkzNjQOi
+ 4U9F/trLten/x7bpphDSnDMKJtITbtzATT1Dq7o7VpIUK1nCTQALMuMjKCdi8OdU/+V+R3O4
+ 0PXWvX8qrvqYapVbZ+9KqT74FsuB0Ya9uXwgBF2Q6cRuETZk5vqaqKxzqoQZCO8AOz/58j6O
+ 2RHNy/mZEN+7tJ5Tsq42zVJ4jxsT8b9YplavCMsnBgDeRWhcbYhCyttoL7nYISyWg4kQYZ/P
+ wIV3OuNv2f8iKYsxNsRuClOAF82+gvqOy1/1pprFjy8uo2pkoOrb63aOP3vO5VHnRKgra6dq
+ NcaZ+c6J4H+nEJGi2SkHAUJz5oBzuThvPudLvPA/SK8sKoM01IRxSihev/S/5WLazXB1PGem
+ OCbvzC1IjWJJraxiDJ5IygokapUa2RP7+WBR22skQ3SSl6G107QgWKSyTOGWEaRmV53vxQLV
+ jXuCmzSSasTL60zq5yGrT4/DYQVSNEUiUbG4pYekxJujNeEDkUlky0Y=
+In-Reply-To: <auifTNDwbBTJeu81@thinkstation>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-[...]
+On 11/2/26 15:35, Harry Yoo wrote:
+> Here I added bit more context and adjusted comment. End result:
+> 
+> mm/slab: don't queue the page cache work under krcp->lock
+> 
+> Commit 56292e8609e3 ("rcu/tree: Defer kvfree_rcu() allocation to a
+> clean context") deferred page allocations to a workqueue. To avoid
+> deadlocks with the scheduler, it used hrtimer to queue the work instead
+> of queueing it directly.
+> 
+> Commit d0bfa8b3c411 ("kvfree_rcu: Release a page cache under memory
+> pressure") later added a backoff mechanism under memory pressure, but
+> did not consider that queue_delayed_work() with delay = 0 immediately
+> queues the work and introduced the deadlock commit 56292e8609e3 tried to
+> avoid.
+> 
+> run_page_cache_worker() runs under krcp->lock, from kvfree_call_rcu()
+> callers that may hold more, such as set_cpus_allowed_force() under
+> pi_lock, so it kicks the refill work from an hrtimer. Under memory
+> pressure it instead queues the work with a delay of
+> rcutree.rcu_delay_page_cache_fill_msec, which may be 0, and a zero delay
+> queues it at once, taking pool->lock under krcp->lock.
+> 
+> With the delay set to 0, calling kvfree_rcu() on vmalloc memory under
+> pi_lock after a drop_caches makes lockdep report:
+> 
+>   Chain exists of:
+>     &pool->lock --> &p->pi_lock --> krc.lock
+> 
+> Use the hrtimer when the delay is 0.
+> 
+> Fixes: d0bfa8b3c411 ("kvfree_rcu: Release a page cache under memory pressure")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> Link: https://patch.msgid.link/20261028134647.3176080-2-zhanxusheng1024@gmail.com
+> [ harry@kernel.org: add more context to changelog and adjust comment ]
+> Signed-off-by: Harry Yoo (Meta) <harry@kernel.org>
 
-> Changes in v2:
-> - Add Rb and Tb tags
-> - Drop "dt-bindings: mfd: syscon: Add ti,am625-dss-dpi0-clk-ctrl
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-Looks like I should have been dropped here.
+> ---
+>  mm/slab_common.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/slab_common.c b/mm/slab_common.c
+> index 41dea01a8c1f..051ca63c0b67 100644
+> --- a/mm/slab_common.c
+> +++ b/mm/slab_common.c
+> @@ -1987,7 +1987,15 @@ run_page_cache_worker(struct kfree_rcu_cpu *krcp)
+>  
+>  	if (rcu_scheduler_active == RCU_SCHEDULER_RUNNING &&
+>  			!atomic_xchg(&krcp->work_in_progress, 1)) {
+> -		if (atomic_read(&krcp->backoff_page_cache_fill)) {
+> +		/*
+> +		 * Use the hrtimer to avoid a deadlock with the scheduler
+> +		 * by waking up the worker directly. queue_delayed_work()
+> +		 * uses a timer to queue the work, so it's fine.
+> +		 * But with delay = 0 it queues the work immediately.
+> +		 * Fall back to the hrtimer in that case.
+> +		 */
+> +		if (atomic_read(&krcp->backoff_page_cache_fill) &&
+> +		    rcu_delay_page_cache_fill_msec) {
+>  			queue_delayed_work(rcu_reclaim_wq,
+>  				&krcp->page_cache_work,
+>  					msecs_to_jiffies(rcu_delay_page_cache_fill_msec));
 
-Please can you remove me as a recipient of this large set.  Thanks.
-
->   compatible", which is now implemented with the below changes.
-> - New patch "dt-bindings: display: ti,am65x-dss: Add ti,dpi-io-ctrl"
-> - Modify "drm/tidss: Add external data and sync signal edge
->   configuration" to use the 'ti,dpi-io-ctrl' with offset.
-> - New patch "arm64: dts: ti: k3-am62p-j722s-common-main: Make main_conf
->   a syscon".
-> - Modify "arm64: dts: ti: k3-am62p-j722s-common-main: Add support for
->   DSS" to set 'ti,dpi-io-ctrl' properties
-> - Drop generic desc in DT bindings for power-domains property
-> - Fix pm_runtime_get_sync() return value check
