@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793753618;
-	b=VA7Rgzo28zSSTgj2Q5u7eVstGbu9+j/KXm9QA7zBkNbBEkAITGZSyflcAj3Y1Z+O2C8S
-	 RU2SxmjdP6+otD69D0T0VImlLvZonSG/7zC35dYYhTC0tfINiJ5XFM55svkNze1YP6IcL
-	 U3B5ePUMpp+GaN52OytEVoJkdJOcUjNV3FFUuQ59D3uWylEVP0blaazkzxB4pmdz5BV4R
-	 fRIozH6j1vnWQoGLQWDEy1wWLKrQ7H2/RoEK6JaTjfrF+8+tBBNkS4sVxBo0+ySAkjqGl
-	 oVOoWeNO7o678ywKLV7sSpMkn8nrrEf0CBabT/45aVP0vzIzqsV2bn0tvJSGFN0U7IQ==
+	t=1793753616;
+	b=lBU2jV28gfdeetWB9yCGFYeD3EOpYwrxTvkXWs9L8/trNKA9ntwowTltipx33rILLFvL
+	 YTJQBXc04NpkhmL3L+pDJaT+0LSaW6gpOUopk/5Ru6xQXVmBzvblvFMpGlOpVOdRoYSNw
+	 ZUDKdV0J6vVd/hyH2ZmeB3pFYLNuFkOvN4ZSeYCLYsxBLN45nROfJm4+onjaf37OujNOd
+	 c864GN2060g1QcjPOonEtn0xN4cEyor4nxfoHU81JigAOKw4UCHkeHSnSvPutvQE5A3tR
+	 kfMwSdIoRY5oKjtzmz5puMuu1iLpmPG9QRgQtnoRI5MUeOdM9pmpKk79gQq/sycrwVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793753618;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793753616;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=P7WtagMvaiL9HNvynOHizX5PbSeh3ncD9qTxcE6rdI8=;
-	b=C/pVtDEUGk6pd1xqMBGs7aiYwCL87g4fvqpxGSA/sFZlM3J9dfjTMYS+xNb49619pe4H
-	 6RSx6lK1df8gXHiClju8mx1VXf+3wS5iGyYFe8FY2nXf8pKqfyS2mmvsqDkhjIrjrXzns
-	 yVTPdGszpOQGeujfRK2mFh1ezftrWTcoySUJOKLLE+rKrWp/Mv5QXlZhPvAf4iJ+N6ViE
-	 9SfcWumyLfM4AHZLVHN6jy+kHPwexJHjigqgh8wlvzrYWOGPedfWuAAP0XHrwbrQLBV78
-	 mb4MwFP2eoc3HzLwJLhZph6Mw3XRooAh2Fxv2t8rVQv59qox2WxnHneBnbWlcgu9MRw==
+	bh=uDc6P16e5tQ1rooADupiFR5ykf48UoP+8OE+oO9j8Bc=;
+	b=AWheMMO6222PV/zwh6C18qDSK4RfEi7gDNuPyGG/5HelFrjAeL/avu9wZmNTbAg/AokZ
+	 f28uLvSAVTmEUNm7rQ2d4RL1bULMawpcnDBMJetPNx429gbPvoEeAaPG6WGMqQbcTrfCX
+	 FmB4pAhwZriyjAEW6S85CgKPE5XOCqaTYEM52UwOuUQ1thGBcygjSjh3UHyVduB/sf+hj
+	 GLJYyppv3B1BFV9zyCHwDySEfGd0ccA7xVGZ4pGOSpydb2uBkDRGGgJqbO3RaJLkWwSiB
+	 nEsN7ZJE5uPLuofeV9QwYu/dN/zbi6DdOImaDV1DloJNZ+5kb75zQ4VKlkRgMfvaDEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ajxqoFDG;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RC8BhNeZ;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DAF2606D836
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 00:53:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DAF2606D836
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25726606D815
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 00:53:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25726606D815
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ajxqoFDG
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so1061345e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 16:53:37 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RC8BhNeZ
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so682765e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 16:53:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793753616; x=1794358416; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793753614; x=1794358414; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=P7WtagMvaiL9HNvynOHizX5PbSeh3ncD9qTxcE6rdI8=;
-        b=ajxqoFDGPNtSYcC9lgd7uYHtbRItvd7M+WnlGumvYFR5I79YEpNWqIwuoX3QDVgd0M
-         RBQHmLPhiQKBRjSbTPNYZNpl0QFRhNEZ7N1xeuwzw2GtbV26KnVbW85m4HAtRB0MpPjG
-         uXVaarlgf/Mxpx7/nFCzfmM2DBasooJRgslUZlW7TTf4M7VUxvFre6oORD3x3nS76eC7
-         hmUPHl9Hq9ydi3g21XkpuUG1eEcCyEfZdQoE0aDj/bmr97EDTJqJRXdA5b3YxpiovRwX
-         uWNVwluw6DorMKDvVHDTaRf79R4VSg3LlVYBby2q92/BstpX8CLP21tvYlhx5zKZntTT
-         tiuQ==
+        bh=uDc6P16e5tQ1rooADupiFR5ykf48UoP+8OE+oO9j8Bc=;
+        b=RC8BhNeZ463s/LzzYMyXiKAbTIJXF+wgKfuB6fEmEhUSrVsjDVYN7ot1yqkpf++aJl
+         qk53FGA5e3dZSv75QtS9CgoPUbVjxl8jtyi5OV5yGMGH0oKjDyOEiiiCMxZhJtBlDRhJ
+         VzOkFVCKNN0bL/Xt9vCmOUe9T5/e4AGk2Kmo0cT6hLexzQCSHlZVfhqqS6ZPa/YIqmtX
+         ksrZ8YkufVTNyiW89LG0c3k/N4f9EvA4+jfsn8DRJSrjDxx1Gw+bg8cLnq5q+tu+ZX/Z
+         cvNh5NsGB5RLFnagjW/dXn7kVDTwTNm55i/6PFOSOKaveyNjiv9R2RXxV+2J7SsRY34/
+         9mTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793753616; x=1794358416;
+        d=1e100.net; s=20260707; t=1793753614; x=1794358414;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=P7WtagMvaiL9HNvynOHizX5PbSeh3ncD9qTxcE6rdI8=;
-        b=tsj1LITVeeRCT+XzBtpPosnTQyrYoHl6vCCS2WhNJrHq9wkRw3Dlq6s5c/0l9cDh/3
-         bn25I9UxG6/UHihqrqsTQxceQsqgfz6UmPw4AK41hZ3uYFLErg4AG76CEn41/aBxkB26
-         J3xEUJUSiubOJqcOYbvuBoUx0CXUcyD8K/+sBbnp5Fjs4WGdSvUFMoGI4VvJvCJUkOhv
-         g14CNJNYTrNyGjUrmfkfOwdBQhFrG9Z+cfCGGs7R6CYuzayIlgR2W6ha5DBKOm9Pi1uH
-         1jqrk8IbBzadv0nASJbOsOpxEMEv2nyUDYdJnXqxNcUq6AoPMeNL0qdQF3N92IlZGu+I
-         L6Rw==
-X-Forwarded-Encrypted: i=1; AKwUvBx0HcxWG1JIjEGOmKQrNx34Ruigmvhw8izUW4SJwvE6Je2vCJHNNIJ2A+DH2/ZxZnkiAu0dbOuZ0OzEs3U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/F45ubNoNSlGOaO6cY+t1jpoRjwak1jyLwBHftttWoGkPnCVUN
-	OmlQvSItlR4cNMsU4tNOiRbwo6U2ot7C6AXkOr/18JrvM+6vy3IsFkdN
-X-Gm-Gg: AYBFou2mrUR5iTY8elxsIfaQ5a1mjovRDvDq2my/8HefaPUgNbwnghG6yKQRl1e9hH4
-	xgjC/lvX5sumVz155AlUlphI2uz5UpV0jTchWtDv1Q6hkWZzPfXrpgdZ8DeHuNPQSYcgpk0BF2J
-	YLGZnE5qbFznVspbwUBSp6r+ZIEDnoljM76GCOlEdgiXPVlQxrYAyOjgNi1Nh8Baz1OTXd88VpI
-	6KOcA3dFsl7lFKk/TqP2teB/GOaRoGgK6Nq9XOwiDNWUjKxOXw4tmbFsEJTnXcchP8okc2pCyYH
-	z1nRnu5RmZxCJJqsGQOJ0T6METE0moAELTkZgJMUkNRKvSbLgPTw1Wv/9DJVQTR7NHGMyzlJy4w
-	XhK4fhVo8E9JpKV8SXowsyU8PQoL5wBVM5Jqo/2dBx3xYpobRc9O+xaq6w2jC1jn2jEYA4PoLNA
-	Ly3IKNQi3YFr5E3IKg3WPKLgk2mcPlZ5F04HXY9nMbKRSILo/thDTyZYkOuoHBbQlUyAtMkAbWy
-	8gIo4jiLNYUByV1bftifCLmSZFtUcuOm6grGfnyzC9WdwfsoWGbJxC+8Z9nJjQALU3wnOv2xXtY
-	6uU1II1H+6ez9FfA2uw9Tk2SgMceWXiGGnFwD1p/boQ9CuE9zrRwJtAMqd9KuUMvJkg35ZJ7iqt
-	EoQPrPqet4+Fp7LiAAaTnofrBF0cp9uzKAyHCsLAknsmESSpGZtdFQCARX1fJa1YwGGU=
-X-Received: by 2002:a05:600c:4e48:b0:4a2:150f:1610 with SMTP id 5b1f17b1804b1-4ac183d16eemr320131225e9.23.1793753616358;
-        Tue, 03 Nov 2026 16:53:36 -0800 (PST)
+        bh=uDc6P16e5tQ1rooADupiFR5ykf48UoP+8OE+oO9j8Bc=;
+        b=xvuuQ8S8x4LfpuNqA+Ckxj04WxuHqevX8IkxWhQBKsANHeBR4RZFLPQkO1/EE96DGJ
+         QYTVbjU5gNWKAQbTeNhcaFyJofi5Fcnwy1ynm+q9Lm2TLrdo/jbkCQJmrR52FOBw6wk9
+         ylddVBl0t9sIfEAi2CoJpIJ8SPiHI22z5YT+6whmCMzrwUrYO0Jhd/1ZclSBgJ4FYLh+
+         1zB9TFnSUIzdSZLCMhpZKwGQgxhhKTesRSqQTzxT3EJUUSjTQ27VgLLfxQwxc95f4TiB
+         WHQzVKHDrlWF0NMPVy4i+63m5YHI/Pyp7HfHWKrGFtQpLHrn04q5NzXDEFXGEoReVljl
+         Cikg==
+X-Forwarded-Encrypted: i=1; AKwUvBxI56xd6Q6CD9LQJV4IubTAbPBWXrdlfEHNrFPgotMsLvI2up1k3xKbLDY/FKTmADizeGVbgVTf3SXRON8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8v1xnsNetfpE7toVK2IWTOLpHTOx2PSkuo1RXoERI/pVtALXPK
+	Hcz0Lduac/vMqPjDjmRLzLQaUN8aSvymV4qij80M7QV5ee7t7Wecvvvf
+X-Gm-Gg: AYBFou0EWeBfmyutzUFMhCtIoXfJf7LiNF9f2Y6yHjCy11nxtGl25sS0+TCGf4DGgbY
+	0RxtoY3OYZVwQN9TosdJroc1FFtS29CiLXgMEzX0qTq8zFD9Qyb+AGbyBwjvwvBQWuL1bKggaaQ
+	7s1X83JWIsz2m4BRe9aqY4DIRE8Oq04V/xwaARHbabeNKAJ5axi/o92vmTJRIecZ6HidQGWReN1
+	SrqNtQFQSFUBD/UbTLnChR3+0nCuWQjDJ94u7DwSt1kcCXQ8lxH8hsQMm0JtS6k8ksERWO8vF1w
+	ndubeDVY76ioEY0mYR6RJvnihGSeVx2RkcrgffB2Q0P4ybu9X/L1JhQ3FvLYSM9jWsFpzPoAT0V
+	MRK3OCwMkGqe6qJVsBJAuNjKDboDug9ICP9FZFghauOWanyPRznpQ85PVml6c4eML+8TONnSi9Z
+	pRV+ghLoOno2QiXAbk2Oq70m5Mf2PcoSxG9GU82aRSmNCQk9eZ4GzW0ZEXPdpRwtOBpKMaOX71C
+	1qf90MAEL+K+oCCww20nKAtbD/94+tQaabFxJRNRbZdJSBZdzt+/5s7P6gHfzCs5jxslziWLWRG
+	6KGyLAmYS/1rE4oIkXv6rcYAyTA24gQaWUUZcwXlHSQ/Sw+2irpCeSJa8bJRW+4GJ7s2SSnU9w4
+	jZOiEbTF/f6TtXAxjDrW2J6CsJ2/b3iy04fZs0p6X6IEJI5HNtQIAGfWVALfWYSH/EA==
+X-Received: by 2002:a05:600c:1387:b0:4a1:88df:8a2a with SMTP id 5b1f17b1804b1-4ac1793e81cmr352938745e9.13.1793753614437;
+        Tue, 03 Nov 2026 16:53:34 -0800 (PST)
 Received: from dev-dsk-fgriffo-1c-93421965.eu-west-1.amazon.com (54-240-197-234.amazon.com. [54.240.197.234])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b43c17ed95sm11899275e9.4.2026.11.03.16.53.35
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b43c17ed95sm11899275e9.4.2026.11.03.16.53.33
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 03 Nov 2026 16:53:35 -0800 (PST)
+        Tue, 03 Nov 2026 16:53:33 -0800 (PST)
 From: Fred Griffoul <griffoul@gmail.com>
 To: Sean Christopherson <seanjc@google.com>,
 	Paolo Bonzini <pbonzini@redhat.com>
@@ -87,9 +87,9 @@ Cc: Mushahid Hussain <hmushi@amazon.co.uk>,
 	nh-open-source@amazon.com,
 	kvm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 5/5] KVM: selftests: Test dirty logging of sparse nested mappings
-Date: Wed,  4 Nov 2026 00:53:31 +0000
-Message-ID: <20261104005331.50600-6-griffoul@gmail.com>
+Subject: [RFC PATCH 3/5] KVM: x86/mmu: Allocate memslot rmaps in on-demand chunks
+Date: Wed,  4 Nov 2026 00:53:29 +0000
+Message-ID: <20261104005331.50600-4-griffoul@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261104005331.50600-1-griffoul@gmail.com>
 References: <20261104005331.50600-1-griffoul@gmail.com>
@@ -106,318 +106,380 @@ Content-Transfer-Encoding: 8bit
 
 From: Fred Griffoul <fgriffo@amazon.co.uk>
 
-With memslot rmaps allocated in chunks, slot walks skip unallocated
-chunks. A walk that skips too far leaves a mapped page writable after
-dirty logging write-protects the memslot, and L2's next write to that
-page is missing from the dirty log.
+When L1 runs a nested guest, KVM allocates rmaps for all of L1's
+memory the first time it creates a shadow root, which is 8 GiB in one
+allocation for a VM with 4 TiB of memory. Only the heads of gfns that
+L2 maps are ever used, so an L1 whose L2s map a fraction of its memory
+pays mostly for empty rmaps.
 
-Add a test in which L2 writes pages at chunk boundaries and in a chunk
-surrounded by unallocated ones, and checks that exactly the pages it
-writes after dirty logging is enabled are reported dirty. A second
-pass maps L2 with 2 MiB pages and checks that eager page splitting
-splits them and logs the resulting 4 KiB SPTEs. It needs four free
-2 MiB hugepages and eager page splitting, and is skipped otherwise.
+Allocate rmaps in page-sized chunks instead, when the first SPTE in a
+chunk's range is added, and keep a per-level directory of chunks in
+the memslot. A missing chunk reads as empty rmaps. That way, the rmap
+cost follows what L2 maps, and when L2 maps every gfn it is what it
+was before plus the directory.
 
 Signed-off-by: Fred Griffoul <fgriffo@amazon.co.uk>
 ---
- tools/testing/selftests/kvm/Makefile.kvm      |   1 +
- .../kvm/x86/nested_dirty_log_sparse_test.c    | 275 ++++++++++++++++++
- 2 files changed, 276 insertions(+)
- create mode 100644 tools/testing/selftests/kvm/x86/nested_dirty_log_sparse_test.c
+ arch/x86/include/asm/kvm_host.h |  22 ++++++-
+ arch/x86/kvm/debugfs.c          |  31 +++++++---
+ arch/x86/kvm/mmu/mmu.c          | 100 +++++++++++++++++++++++++++++---
+ arch/x86/kvm/x86.c              |  22 +++++--
+ 4 files changed, 153 insertions(+), 22 deletions(-)
 
-diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
-index 17a4256e9081..61d88e0dd0ca 100644
---- a/tools/testing/selftests/kvm/Makefile.kvm
-+++ b/tools/testing/selftests/kvm/Makefile.kvm
-@@ -99,6 +99,7 @@ TEST_GEN_PROGS_x86 += x86/monitor_mwait_test
- TEST_GEN_PROGS_x86 += x86/msrs_test
- TEST_GEN_PROGS_x86 += x86/nested_close_kvm_test
- TEST_GEN_PROGS_x86 += x86/nested_dirty_log_test
-+TEST_GEN_PROGS_x86 += x86/nested_dirty_log_sparse_test
- TEST_GEN_PROGS_x86 += x86/nested_emulation_test
- TEST_GEN_PROGS_x86 += x86/nested_exceptions_test
- TEST_GEN_PROGS_x86 += x86/nested_invalid_cr3_test
-diff --git a/tools/testing/selftests/kvm/x86/nested_dirty_log_sparse_test.c b/tools/testing/selftests/kvm/x86/nested_dirty_log_sparse_test.c
-new file mode 100644
-index 000000000000..bc1c6b8760c9
---- /dev/null
-+++ b/tools/testing/selftests/kvm/x86/nested_dirty_log_sparse_test.c
-@@ -0,0 +1,275 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Dirty logging of memory that L2 maps sparsely.
-+ *
-+ * KVM allocates shadow MMU rmaps in chunks that cover 2 MiB of guest memory
-+ * at the 4 KiB level, and only for chunks that hold a mapped gfn.  L2 writes
-+ * pages at both ends of a chunk, in the next chunk, and in chunks separated
-+ * by unallocated ones.  Enabling dirty logging write-protects the memslot by
-+ * walking its rmaps, so a mapped page that the walk misses stays writable,
-+ * and L2's next write to it is missing from the dirty log.
-+ *
-+ * A second test maps the memory with 2 MiB pages in L1's TDP page tables and
-+ * verifies that eager page splitting splits the nested huge pages when
-+ * dirty logging is enabled, and that the 4 KiB SPTEs it creates are logged.
-+ */
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <linux/bitmap.h>
-+#include <linux/bitops.h>
-+#include <linux/sizes.h>
+diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+index 0378577d9d8b..4cc00dc83aba 100644
+--- a/arch/x86/include/asm/kvm_host.h
++++ b/arch/x86/include/asm/kvm_host.h
+@@ -431,6 +431,8 @@ struct kvm_rmap_head {
+ 	atomic_long_t val;
+ };
+ 
++#define KVM_RMAP_CHUNK_NR_HEADS	(PAGE_SIZE / sizeof(struct kvm_rmap_head))
 +
-+#include "test_util.h"
-+#include "kvm_util.h"
-+#include "processor.h"
-+#include "svm_util.h"
-+#include "vmx.h"
+ struct kvm_pio_request {
+ 	unsigned long count;
+ 	int in;
+@@ -785,6 +787,7 @@ struct kvm_vcpu_arch {
+ 	u64 pdptrs[4]; /* pae */
+ 
+ 	struct kvm_mmu_memory_cache mmu_pte_list_desc_cache;
++	struct kvm_mmu_memory_cache mmu_rmap_chunk_cache;
+ 	struct kvm_mmu_memory_cache mmu_shadow_page_cache;
+ 	struct kvm_mmu_memory_cache mmu_shadowed_info_cache;
+ 	struct kvm_mmu_memory_cache mmu_page_header_cache;
+@@ -1044,7 +1047,13 @@ struct kvm_lpage_info {
+ };
+ 
+ struct kvm_arch_memory_slot {
+-	struct kvm_rmap_head *rmap[KVM_NR_PAGE_SIZES];
++	/*
++	 * Per-level directories of rmap chunks, each chunk holding
++	 * KVM_RMAP_CHUNK_NR_HEADS rmap heads.  Chunks are allocated when KVM
++	 * adds the first SPTE to a head in the chunk's range.  A NULL chunk
++	 * means all of its heads are empty.
++	 */
++	struct kvm_rmap_head **rmap[KVM_NR_PAGE_SIZES];
+ 	struct kvm_lpage_info *lpage_info[KVM_NR_PAGE_SIZES - 1];
+ 	unsigned short *gfn_write_track;
+ };
+@@ -1418,6 +1427,17 @@ struct kvm_arch {
+ #define SPLIT_DESC_CACHE_MIN_NR_OBJECTS (SPTE_ENT_PER_PAGE + 1)
+ 	struct kvm_mmu_memory_cache split_desc_cache;
+ 
++	/*
++	 * Memory cache used to allocate rmap chunks while splitting huge
++	 * pages.  The rmap heads of the lower level leaf SPTEs of one huge
++	 * page are contiguous, but span two chunks if the memslot's base gfn
++	 * is not aligned to the chunk size.
++	 *
++	 * Protected by kvm->slots_lock.
++	 */
++#define SPLIT_RMAP_CHUNK_CACHE_NR_OBJECTS 2
++	struct kvm_mmu_memory_cache split_rmap_chunk_cache;
 +
-+#define TEST_MEM_SLOT		1
-+#define TEST_MEM_BASE		0xc0000000ULL
+ 	gfn_t gfn_direct_bits;
+ 	int mirror_root_level;
+ 
+diff --git a/arch/x86/kvm/debugfs.c b/arch/x86/kvm/debugfs.c
+index 923424011328..0cdb1ef1b184 100644
+--- a/arch/x86/kvm/debugfs.c
++++ b/arch/x86/kvm/debugfs.c
+@@ -89,16 +89,29 @@ static const char *kvm_lpage_str[KVM_NR_PAGE_SIZES] = { "4K", "2M", "1G" };
+ static void kvm_mmu_rmaps_stat_level(struct kvm_memory_slot *slot, int level,
+ 				     unsigned int *cur)
+ {
+-	struct kvm_rmap_head *rmap = slot->arch.rmap[level - PG_LEVEL_4K];
++	struct kvm_rmap_head **rmap = slot->arch.rmap[level - PG_LEVEL_4K];
+ 	unsigned long lpages = kvm_mmu_slot_lpages(slot, level);
+-	unsigned int bucket;
+-	unsigned long l;
+-
+-	for (l = 0; l < lpages; l++) {
+-		bucket = fls(pte_list_count(&rmap[l]));
+-		if (WARN_ON_ONCE(bucket >= RMAP_LOG_SIZE))
+-			bucket = RMAP_LOG_SIZE - 1;
+-		cur[bucket]++;
++	struct kvm_rmap_head *chunk;
++	unsigned long l, nr;
++	unsigned int index;
 +
-+/* 64 MiB, i.e. 32 rmap chunks at the 4 KiB level. */
-+#define SPARSE_MEM_PAGES	(SZ_64M / PAGE_SIZE)
++	for (l = 0; l < lpages; l += nr) {
++		nr = min(lpages - l, KVM_RMAP_CHUNK_NR_HEADS);
++		chunk = rmap[l / KVM_RMAP_CHUNK_NR_HEADS];
 +
-+/* 4 huge pages for the eager page splitting test. */
-+#define HUGE_MEM_PAGES		(4 * SZ_2M / PAGE_SIZE)
-+#define HUGE_PAGES_PER_2M	(SZ_2M / PAGE_SIZE)
-+
-+/*
-+ * Page indices L2 writes in the sparse test: both ends of the first two
-+ * chunks, both ends of a chunk surrounded by unallocated chunks, and the
-+ * last page of the memslot.
-+ */
-+static const u64 sparse_pages[] = { 0, 511, 512, 1023, 8192, 8703,
-+				     SPARSE_MEM_PAGES - 1 };
-+
-+#define NR_SPARSE_PAGES		ARRAY_SIZE(sparse_pages)
-+
-+enum test_stage {
-+	STAGE_POPULATE = 1,	/* L2 maps the pages, dirty logging is off */
-+	STAGE_ALL,		/* L2 rewrites every page */
-+	STAGE_SUBSET,		/* L2 rewrites every other page */
-+};
-+
-+static bool huge_test;
-+
-+static void l2_write(u64 page, u64 val)
-+{
-+	WRITE_ONCE(*(u64 *)(TEST_MEM_BASE + page * PAGE_SIZE), val);
-+}
-+
-+static u64 nr_test_pages(void)
-+{
-+	return huge_test ? HUGE_MEM_PAGES / HUGE_PAGES_PER_2M : NR_SPARSE_PAGES;
-+}
-+
-+/* One page in each huge page in the huge test, the sparse pages otherwise. */
-+static u64 test_page(u64 i)
-+{
-+	return huge_test ? i * HUGE_PAGES_PER_2M + 1 : sparse_pages[i];
-+}
-+
-+static void l2_guest_code(void)
-+{
-+	u64 i;
-+
-+	for (i = 0; i < nr_test_pages(); i++)
-+		l2_write(test_page(i), STAGE_POPULATE);
-+	GUEST_SYNC(STAGE_POPULATE);
-+
-+	for (i = 0; i < nr_test_pages(); i++)
-+		l2_write(test_page(i), STAGE_ALL);
-+	GUEST_SYNC(STAGE_ALL);
-+
-+	for (i = 0; i < nr_test_pages(); i += 2)
-+		l2_write(test_page(i), STAGE_SUBSET);
-+	GUEST_SYNC(STAGE_SUBSET);
-+
-+	vmcall();
-+}
-+
-+static void l1_vmx_code(struct vmx_pages *vmx)
-+{
-+	prepare_for_vmx_operation(vmx);
-+	load_vmcs(vmx);
-+	prepare_vmcs(vmx, l2_guest_code);
-+
-+	vmlaunch();
-+	GUEST_ASSERT_EQ(vmread(VM_EXIT_REASON), EXIT_REASON_VMCALL);
-+	GUEST_DONE();
-+}
-+
-+static void l1_svm_code(struct svm_test_data *svm)
-+{
-+	generic_svm_setup(svm, l2_guest_code);
-+
-+	run_guest(svm->vmcb, svm->vmcb_gpa);
-+	GUEST_ASSERT_EQ(svm->vmcb->control.exit_code, SVM_EXIT_VMMCALL);
-+	GUEST_DONE();
-+}
-+
-+static void l1_guest_code(void *data)
-+{
-+	if (this_cpu_has(X86_FEATURE_VMX))
-+		l1_vmx_code(data);
-+	else
-+		l1_svm_code(data);
-+}
-+
-+/* Returns true if L2 wrote @page in @stage. */
-+static bool page_written(u64 page, enum test_stage stage)
-+{
-+	u64 i;
-+
-+	for (i = 0; i < nr_test_pages(); i++)
-+		if (test_page(i) == page)
-+			return stage != STAGE_SUBSET || !(i % 2);
-+
-+	return false;
-+}
-+
-+static void check_dirty_log(struct kvm_vm *vm, u64 npages,
-+			    enum test_stage stage, unsigned long *bmap)
-+{
-+	u64 page;
-+
-+	kvm_vm_get_dirty_log(vm, TEST_MEM_SLOT, bmap);
-+
-+	for (page = 0; page < npages; page++) {
-+		bool written = page_written(page, stage);
-+
-+		TEST_ASSERT(test_bit(page, bmap) == written,
-+			    "Stage %d: page %lu incorrectly reported %s",
-+			    stage, page, written ? "clean" : "dirty");
-+		if (written)
-+			TEST_ASSERT_EQ(*(u64 *)addr_gpa2hva(vm, TEST_MEM_BASE + page * PAGE_SIZE),
-+				       stage);
-+	}
-+}
-+
-+static void test_dirty_log(bool nested_tdp, bool huge)
-+{
-+	u64 npages = huge ? HUGE_MEM_PAGES : SPARSE_MEM_PAGES;
-+	enum vm_mem_backing_src_type src;
-+	u64 pages_2m = 0, pages_4k = 0;
-+	gva_t nested_gva = 0;
-+	struct kvm_vcpu *vcpu;
-+	unsigned long *bmap;
-+	struct kvm_vm *vm;
-+	struct ucall uc;
-+
-+	pr_info("Nested TDP: %s, L1 TDP page size: %s\n",
-+		nested_tdp ? "enabled" : "disabled", huge ? "2M" : "4K");
-+
-+	/* Room for L1's page tables and TDP page tables of the test memory. */
-+	vm = __vm_create_with_one_vcpu(&vcpu, 2 * (npages / 512 + 16),
-+				       l1_guest_code);
-+	if (nested_tdp)
-+		vm_enable_tdp(vm);
-+
-+	if (kvm_cpu_has(X86_FEATURE_VMX))
-+		vcpu_alloc_vmx(vm, &nested_gva);
-+	else
-+		vcpu_alloc_svm(vm, &nested_gva);
-+	vcpu_args_set(vcpu, 1, nested_gva);
-+
-+	src = huge ? VM_MEM_SRC_ANONYMOUS_HUGETLB : VM_MEM_SRC_ANONYMOUS;
-+	vm_userspace_mem_region_add(vm, src, TEST_MEM_BASE, TEST_MEM_SLOT,
-+				    npages, 0);
-+	virt_map(vm, TEST_MEM_BASE, TEST_MEM_BASE, npages);
-+
-+	if (nested_tdp) {
-+		tdp_identity_map_default_memslots(vm);
-+		__tdp_map(vm, TEST_MEM_BASE, TEST_MEM_BASE, npages * PAGE_SIZE,
-+			  huge ? PG_LEVEL_2M : PG_LEVEL_4K);
-+	}
-+
-+	huge_test = huge;
-+	sync_global_to_guest(vm, huge_test);
-+
-+	bmap = bitmap_zalloc(npages);
-+
-+	for (;;) {
-+		vcpu_run(vcpu);
-+		TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_IO);
-+
-+		switch (get_ucall(vcpu, &uc)) {
-+		case UCALL_ABORT:
-+			REPORT_GUEST_ASSERT(uc);
-+			/* NOT REACHED */
-+		case UCALL_SYNC:
-+			break;
-+		case UCALL_DONE:
-+			goto done;
-+		default:
-+			TEST_FAIL("Unknown ucall %lu", uc.cmd);
-+		}
-+
-+		if (uc.args[1] != STAGE_POPULATE) {
-+			check_dirty_log(vm, npages, uc.args[1], bmap);
++		/* An unallocated chunk holds only empty rmaps. */
++		if (!chunk) {
++			cur[0] += nr;
 +			continue;
 +		}
 +
-+		if (huge) {
-+			pages_2m = vm_get_stat(vm, pages_2m);
-+			pages_4k = vm_get_stat(vm, pages_4k);
++		for (index = 0; index < nr; index++) {
++			unsigned int bucket = fls(pte_list_count(&chunk[index]));
++
++			if (WARN_ON_ONCE(bucket >= RMAP_LOG_SIZE))
++				bucket = RMAP_LOG_SIZE - 1;
++			cur[bucket]++;
 +		}
+ 	}
+ }
+ 
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index b3fcd6f2a991..1b958f66764c 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -612,6 +612,17 @@ static int mmu_topup_memory_caches(struct kvm_vcpu *vcpu, bool maybe_indirect)
+ 				       1 + PT64_ROOT_MAX_LEVEL + PTE_PREFETCH_NUM);
+ 	if (r)
+ 		return r;
++	/*
++	 * 1 rmap chunk for the faulting gfn and 1 per prefetched gfn.  Cap the
++	 * cache at that, as each object is a page.
++	 */
++	if (kvm_memslots_have_rmaps(vcpu->kvm)) {
++		r = __kvm_mmu_topup_memory_cache(&vcpu->arch.mmu_rmap_chunk_cache,
++						 1 + PTE_PREFETCH_NUM,
++						 1 + PTE_PREFETCH_NUM);
++		if (r)
++			return r;
++	}
+ 	if (kvm_has_mirrored_tdp(vcpu->kvm)) {
+ 		r = kvm_mmu_topup_memory_cache(&vcpu->arch.mmu_external_spt_cache,
+ 					       PT64_ROOT_MAX_LEVEL);
+@@ -635,6 +646,7 @@ static int mmu_topup_memory_caches(struct kvm_vcpu *vcpu, bool maybe_indirect)
+ static void mmu_free_memory_caches(struct kvm_vcpu *vcpu)
+ {
+ 	kvm_mmu_free_memory_cache(&vcpu->arch.mmu_pte_list_desc_cache);
++	kvm_mmu_free_memory_cache(&vcpu->arch.mmu_rmap_chunk_cache);
+ 	kvm_mmu_free_memory_cache(&vcpu->arch.mmu_shadow_page_cache);
+ 	kvm_mmu_free_memory_cache(&vcpu->arch.mmu_shadowed_info_cache);
+ 	kvm_mmu_free_memory_cache(&vcpu->arch.mmu_external_spt_cache);
+@@ -1236,17 +1248,65 @@ unsigned int pte_list_count(struct kvm_rmap_head *rmap_head)
+ 	return desc->tail_count + desc->spte_count;
+ }
+ 
++/*
++ * Returned by gfn_to_rmap() for heads in a chunk that hasn't been allocated.
++ * Readers see an empty rmap, and only __rmap_add() writes to a head that may
++ * be empty, after allocating its chunk.
++ */
++static struct kvm_rmap_head kvm_empty_rmap_head;
 +
-+		/* Write-protect the memslot by walking its rmaps. */
-+		vm_mem_region_set_flags(vm, TEST_MEM_SLOT, KVM_MEM_LOG_DIRTY_PAGES);
++static struct kvm_rmap_head **
++rmap_chunkp(const struct kvm_memory_slot *slot, int level, unsigned long idx)
++{
++	return &slot->arch.rmap[level - PG_LEVEL_4K][idx / KVM_RMAP_CHUNK_NR_HEADS];
++}
 +
-+		/*
-+		 * Only L2 maps the test memslot, so eager page splitting must
-+		 * have split exactly the nested huge pages L2 populated.
-+		 */
-+		if (huge) {
-+			u64 nr_huge = npages / HUGE_PAGES_PER_2M;
-+			u64 split = pages_2m - vm_get_stat(vm, pages_2m);
++/* Returns NULL if the chunk holding the head hasn't been allocated. */
+ static struct kvm_rmap_head *__idx_to_rmap(const struct kvm_memory_slot *slot,
+ 					   int level, unsigned long idx)
+ {
+-	return &slot->arch.rmap[level - PG_LEVEL_4K][idx];
++	struct kvm_rmap_head *chunk;
 +
-+			TEST_ASSERT(split == nr_huge,
-+				    "Split %lu nested 2M pages, expected %lu",
-+				    split, nr_huge);
-+			TEST_ASSERT_EQ(vm_get_stat(vm, pages_4k),
-+				       pages_4k + nr_huge * HUGE_PAGES_PER_2M);
-+		}
++	/*
++	 * Lockless walkers can observe a chunk being installed.  Pairs with
++	 * the smp_store_release() in gfn_to_rmap_alloc().
++	 */
++	chunk = READ_ONCE(*rmap_chunkp(slot, level, idx));
++	if (!chunk)
++		return NULL;
++
++	return &chunk[idx % KVM_RMAP_CHUNK_NR_HEADS];
+ }
+ 
+ static struct kvm_rmap_head *gfn_to_rmap(gfn_t gfn, int level,
+ 					 const struct kvm_memory_slot *slot)
+ {
+-	return __idx_to_rmap(slot, level,
+-			     gfn_to_index(gfn, slot->base_gfn, level));
++	struct kvm_rmap_head *rmap_head;
++
++	rmap_head = __idx_to_rmap(slot, level,
++				  gfn_to_index(gfn, slot->base_gfn, level));
++	return rmap_head ? : &kvm_empty_rmap_head;
++}
++
++static struct kvm_rmap_head *gfn_to_rmap_alloc(struct kvm *kvm,
++					       struct kvm_mmu_memory_cache *cache,
++					       gfn_t gfn, int level,
++					       const struct kvm_memory_slot *slot)
++{
++	unsigned long idx = gfn_to_index(gfn, slot->base_gfn, level);
++	struct kvm_rmap_head **chunkp, *chunk;
++
++	lockdep_assert_held_write(&kvm->mmu_lock);
++
++	chunkp = rmap_chunkp(slot, level, idx);
++	chunk = *chunkp;
++	if (!chunk) {
++		chunk = kvm_mmu_memory_cache_alloc(cache);
++		/* Publish the zeroed chunk to lockless walkers. */
++		smp_store_release(chunkp, chunk);
 +	}
 +
-+done:
-+	free(bmap);
-+	kvm_vm_free(vm);
-+}
++	return &chunk[idx % KVM_RMAP_CHUNK_NR_HEADS];
+ }
+ 
+ static void rmap_remove(struct kvm *kvm, u64 *spte)
+@@ -1620,12 +1680,22 @@ static bool slot_rmap_walk_okay(struct slot_rmap_walk_iterator *iterator)
+ static void slot_rmap_walk_next(struct slot_rmap_walk_iterator *iterator)
+ {
+ 	struct kvm_rmap_head *rmap_head;
++	unsigned long skip;
+ 
+ 	while (++iterator->idx <= iterator->end_idx) {
+ 		iterator->gfn += KVM_PAGES_PER_HPAGE(iterator->level);
+ 
+ 		rmap_head = __idx_to_rmap(iterator->slot, iterator->level,
+ 					  iterator->idx);
++		if (!rmap_head) {
++			/* Skip the rest of the unallocated chunk. */
++			skip = KVM_RMAP_CHUNK_NR_HEADS - 1 -
++			       iterator->idx % KVM_RMAP_CHUNK_NR_HEADS;
++			iterator->idx += skip;
++			iterator->gfn += skip * KVM_PAGES_PER_HPAGE(iterator->level);
++			continue;
++		}
 +
-+static u64 free_2m_hugepages(void)
+ 		if (atomic_long_read(&rmap_head->val)) {
+ 			iterator->rmap = rmap_head;
+ 			return;
+@@ -1748,6 +1818,7 @@ bool kvm_unmap_gfn_range(struct kvm *kvm, struct kvm_gfn_range *range)
+ 
+ static void __rmap_add(struct kvm *kvm,
+ 		       struct kvm_mmu_memory_cache *cache,
++		       struct kvm_mmu_memory_cache *chunk_cache,
+ 		       const struct kvm_memory_slot *slot,
+ 		       u64 *spte, gfn_t gfn, unsigned int access)
+ {
+@@ -1759,7 +1830,7 @@ static void __rmap_add(struct kvm *kvm,
+ 	kvm_mmu_page_set_translation(sp, spte_index(spte), gfn, access);
+ 	kvm_update_page_stats(kvm, sp->role.level, 1);
+ 
+-	rmap_head = gfn_to_rmap(gfn, sp->role.level, slot);
++	rmap_head = gfn_to_rmap_alloc(kvm, chunk_cache, gfn, sp->role.level, slot);
+ 	rmap_count = pte_list_add(kvm, cache, spte, rmap_head);
+ 
+ 	if (rmap_count > kvm->stat.max_mmu_rmap_size)
+@@ -1773,9 +1844,8 @@ static void __rmap_add(struct kvm *kvm,
+ static void rmap_add(struct kvm_vcpu *vcpu, const struct kvm_memory_slot *slot,
+ 		     u64 *spte, gfn_t gfn, unsigned int access)
+ {
+-	struct kvm_mmu_memory_cache *cache = &vcpu->arch.mmu_pte_list_desc_cache;
+-
+-	__rmap_add(vcpu->kvm, cache, slot, spte, gfn, access);
++	__rmap_add(vcpu->kvm, &vcpu->arch.mmu_pte_list_desc_cache,
++		   &vcpu->arch.mmu_rmap_chunk_cache, slot, spte, gfn, access);
+ }
+ 
+ static bool kvm_rmap_age_gfn_range(struct kvm *kvm,
+@@ -6977,6 +7047,8 @@ int kvm_mmu_create(struct kvm_vcpu *vcpu)
+ 	vcpu->arch.mmu_pte_list_desc_cache.kmem_cache = pte_list_desc_cache;
+ 	vcpu->arch.mmu_pte_list_desc_cache.gfp_zero = __GFP_ZERO;
+ 
++	vcpu->arch.mmu_rmap_chunk_cache.gfp_zero = __GFP_ZERO;
++
+ 	vcpu->arch.mmu_page_header_cache.kmem_cache = mmu_page_header_cache;
+ 	vcpu->arch.mmu_page_header_cache.gfp_zero = __GFP_ZERO;
+ 
+@@ -7164,12 +7236,15 @@ int kvm_mmu_init_vm(struct kvm *kvm)
+ 
+ 	kvm->arch.split_desc_cache.kmem_cache = pte_list_desc_cache;
+ 	kvm->arch.split_desc_cache.gfp_zero = __GFP_ZERO;
++
++	kvm->arch.split_rmap_chunk_cache.gfp_zero = __GFP_ZERO;
+ 	return 0;
+ }
+ 
+ static void mmu_free_vm_memory_caches(struct kvm *kvm)
+ {
+ 	kvm_mmu_free_memory_cache(&kvm->arch.split_desc_cache);
++	kvm_mmu_free_memory_cache(&kvm->arch.split_rmap_chunk_cache);
+ 	kvm_mmu_free_memory_cache(&kvm->arch.split_page_header_cache);
+ 	kvm_mmu_free_memory_cache(&kvm->arch.split_shadow_page_cache);
+ }
+@@ -7288,6 +7363,8 @@ static bool need_topup_split_caches_or_resched(struct kvm *kvm)
+ 	 * is possible but not worth the complexity.
+ 	 */
+ 	return need_topup(&kvm->arch.split_desc_cache, SPLIT_DESC_CACHE_MIN_NR_OBJECTS) ||
++	       need_topup(&kvm->arch.split_rmap_chunk_cache,
++			  SPLIT_RMAP_CHUNK_CACHE_NR_OBJECTS) ||
+ 	       need_topup(&kvm->arch.split_page_header_cache, 1) ||
+ 	       need_topup(&kvm->arch.split_shadow_page_cache, 1);
+ }
+@@ -7318,6 +7395,12 @@ static int topup_split_caches(struct kvm *kvm)
+ 	if (r)
+ 		return r;
+ 
++	r = __kvm_mmu_topup_memory_cache(&kvm->arch.split_rmap_chunk_cache,
++					 SPLIT_RMAP_CHUNK_CACHE_NR_OBJECTS,
++					 SPLIT_RMAP_CHUNK_CACHE_NR_OBJECTS);
++	if (r)
++		return r;
++
+ 	r = kvm_mmu_topup_memory_cache(&kvm->arch.split_page_header_cache, 1);
+ 	if (r)
+ 		return r;
+@@ -7392,7 +7475,8 @@ static void shadow_mmu_split_huge_page(struct kvm *kvm,
+ 
+ 		spte = make_small_spte(kvm, huge_spte, sp->role, index);
+ 		mmu_spte_set(sptep, spte);
+-		__rmap_add(kvm, cache, slot, sptep, gfn, sp->role.access);
++		__rmap_add(kvm, cache, &kvm->arch.split_rmap_chunk_cache, slot,
++			   sptep, gfn, sp->role.access);
+ 	}
+ 
+ 	__link_shadow_page(kvm, cache, huge_sptep, sp, flush);
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 26e7beaff8a0..6231c9649c95 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -10141,12 +10141,27 @@ void kvm_arch_destroy_vm(struct kvm *kvm)
+ 	kvm_x86_call(vm_destroy)(kvm);
+ }
+ 
++static unsigned long memslot_rmap_nr_chunks(struct kvm_memory_slot *slot,
++					    unsigned long npages, int level)
 +{
-+	u64 nr = 0;
-+	FILE *f;
-+
-+	f = fopen("/sys/kernel/mm/hugepages/hugepages-2048kB/free_hugepages", "r");
-+	if (!f)
-+		return 0;
-+	if (fscanf(f, "%lu", &nr) != 1)
-+		nr = 0;
-+	fclose(f);
-+
-+	return nr;
++	return DIV_ROUND_UP(__kvm_mmu_slot_lpages(slot, npages, level),
++			    KVM_RMAP_CHUNK_NR_HEADS);
 +}
 +
-+int main(int argc, char *argv[])
-+{
-+	TEST_REQUIRE(kvm_cpu_has(X86_FEATURE_VMX) || kvm_cpu_has(X86_FEATURE_SVM));
+ static void memslot_rmap_free(struct kvm_memory_slot *slot)
+ {
++	unsigned long j, nr_chunks;
+ 	int i;
+ 
+ 	for (i = 0; i < KVM_NR_PAGE_SIZES; ++i) {
+-		vfree(slot->arch.rmap[i]);
++		if (!slot->arch.rmap[i])
++			continue;
 +
-+	test_dirty_log(/*nested_tdp=*/false, /*huge=*/false);
++		nr_chunks = memslot_rmap_nr_chunks(slot, slot->npages, i + 1);
++		for (j = 0; j < nr_chunks; j++)
++			free_page((unsigned long)slot->arch.rmap[i][j]);
 +
-+	if (!kvm_cpu_has_tdp())
-+		return 0;
-+
-+	test_dirty_log(/*nested_tdp=*/true, /*huge=*/false);
-+
-+	if (free_2m_hugepages() >= HUGE_MEM_PAGES / HUGE_PAGES_PER_2M &&
-+	    get_kvm_param_bool("tdp_mmu") && get_kvm_param_bool("eager_page_split"))
-+		test_dirty_log(/*nested_tdp=*/true, /*huge=*/true);
-+	else
-+		pr_info("Skipping eager page splitting test, needs 4 free 2M hugepages, tdp_mmu and eager_page_split\n");
-+
-+	return 0;
-+}
++		kvfree(slot->arch.rmap[i]);
+ 		slot->arch.rmap[i] = NULL;
+ 	}
+ }
+@@ -10171,13 +10186,12 @@ int memslot_rmap_alloc(struct kvm_memory_slot *slot, unsigned long npages)
+ 	int i;
+ 
+ 	for (i = 0; i < KVM_NR_PAGE_SIZES; ++i) {
+-		int level = i + 1;
+-		int lpages = __kvm_mmu_slot_lpages(slot, npages, level);
++		unsigned long nr_chunks = memslot_rmap_nr_chunks(slot, npages, i + 1);
+ 
+ 		if (slot->arch.rmap[i])
+ 			continue;
+ 
+-		slot->arch.rmap[i] = __vcalloc(lpages, sz, GFP_KERNEL_ACCOUNT);
++		slot->arch.rmap[i] = kvcalloc(nr_chunks, sz, GFP_KERNEL_ACCOUNT);
+ 		if (!slot->arch.rmap[i]) {
+ 			memslot_rmap_free(slot);
+ 			return -ENOMEM;
 -- 
 2.47.3
 
