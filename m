@@ -1,61 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818612;
-	b=hIpJnSFrZw/ZtqPmTS76KVj5eNs3h6fo/nLKGcKMhdqSEoxb8IhpAmbveh2Xd/g6vvPp
-	 DkVsox0j272U7qm9CpvxedUSKyWv2DfkyPquWMpx0z/GiXSu+sJoNWFf5vX2heHxvWTp/
-	 dmtP3NKsn4a7Wh3KuJsI4RoM2dH8DPjBYIyB6p/3tdq+2P13AOLWYCJtNgMiHFOsYCQqF
-	 IU6saS+E6sJXWGO2GMUUAXr6b2u5NaxjiTHbjVwxz1RqcmUotul5I/lSHAMJ2PEzNeda5
-	 KdWflIyndSM+w2gJpiHSWWRD2whFXklja8Ybji2iCTqsgRKMwpVCbLaW6DyN3eyImSA==
+	t=1793818628;
+	b=BLS6rtYkvvR0dklxLyG/LBVBY1+xGPYHxOKFCL9Rl4TgM656URIU3+gBN7IaRlq6qWVV
+	 95cYpg7uzr2iQ4oXUabLrDsEtJQPKcFF/SFk+/LGv7EDvUfK2a6wJHCqAJ1q6Sxw/zMHW
+	 mPL3+f0LuHHJbIIAPxkI5s6xivZ0CFLtOFe19ySg1t86G/e2pqDNyk0QgzCH0d/LPQ0st
+	 WqYzJarbYAo5kslfYbnFrvRSoOyssY7O5SiPTphC89w2mCt2urJkiCouefDDhZoDLJQ/I
+	 VqI3lXuBLm3vFgMAdgQhvzUzAXbwhtzBkg/UGftjew8sKWJENcT6OHXMwaMW1YFyTVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818612;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=m+vlvrL2rWoCh47HTFHu8BLuoyQYkI1t1nnv7ELVH80=;
-	b=KyBD9f3EfnAvpKyOhRgZ+AZXe+yYdN68KjsWmmp7Kpua4nFpNJTmffw1CZMkrTjksYVq
-	 tikDK1Jj8gAfOvTceH8BeNlu1FXqfMBvvg1Rv7DFSMMXxTsSKjyNUflkO0hYnX1V6t7Jt
-	 +dAu0nYBaaFf216zonFd+HQW9fZLyD5lTFbVUb3N6lwZVhvek3HtbR4mLsPn4cJcJJswF
-	 2XeZ8uL0LIK1fM+EXM7jWM52lDrJ3urG6MefjIfKifDQGD+s+4gbH5y8xdfXJCz+JiLUT
-	 q9SEyjON/sUwGcAzEVTVTHeAF+ciMfOYhxqJxp9x4XpivRZ5C4TauqXY79+556x4m3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818628;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=C6QSFeWBFed5RRDCZFUyOzGQ53jm2iRwGaePUB0IWS8=;
+	b=LI88ji0bC8LLelLuQJEOuWkEuklCAp8rtVTh2Uz2fHKyRbv43ls+btixomHGnMUVRk42
+	 AE36vIrYPsdSvndOCRkMYsn5ZLDIRtBdV4saLBp1pcUER4VyxwXzGsH29rsYCZIxrDdtF
+	 kNg8ZMRSQ2MNx60jCrwE85fMDfDw32PloNbON+TjNEgOGS6nO6cEvrvYg59lu8bbtEsxa
+	 MlZ7w3d82JD6sEEkHjPTqJ52/7zxU+6KJF7myrHnaHSfAD0UefiICIPgyGrynmCP6iO/w
+	 w4Od8zTVzeWOkO3HN9agt7hXs5SZq1bZZcKK1WFIGRc9R3IGS+e+FHaT7ZsdN0pm5UQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=SFrBic4t;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ED7xfZRz;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51C57606EEAC;
-	Wed,  4 Nov 2026 18:56:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51C57606EEAC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C48D608363D
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:57:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C48D608363D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=SFrBic4t
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793818601;
-	bh=GczlrlSFkHiqrrX9Y3QEUwY7ZHJWrJRujiffW61qc0U=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=SFrBic4t1eXyGx+5C6OuUWS0cTNtTdxhuMiuef0fPcrf/A4aBCjSo7ohuNJHV5Oi7
-	 9PZ2VM51CgjZSd6BZ/RmMhnCDqLgjZdZOOUl75sVNaun7OJl8nH0LdzJAfime8ryQ8
-	 UMQX1RWSvTpsKSXAn2/DjnzlPqxATQVf7khhbcyzJeJZw7EHE0mwSP30KlJMrlMNpr
-	 N6QeTMXbIE82/2c6CfCxE/spYc0mZD+nd8DcxN9wtI9r9Wg90+wFXB6Qsg2LHj4SkW
-	 SG7eg4qgKZhj8EprrOdPxqA7th/Wsqsc5FYQ/PGhOVgVnvtAimQ8Ji1gNrhUp0tuSt
-	 F7dXL9Pgde7fg==
-Received: from jupiter.universe (unknown [100.64.1.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 800C317E0D5D;
-	Wed, 04 Nov 2026 19:56:41 +0100 (CET)
-Received: by jupiter.universe (Postfix, from userid 1000)
-	id DE14E48003A; Wed, 04 Nov 2026 19:56:40 +0100 (CET)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Wed, 04 Nov 2026 19:56:45 +0100
-Subject: [PATCH v7 07/10] PCI: dw-rockchip: Add pme_turn_off support
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ED7xfZRz
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso934936f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:57:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793818627; x=1794423427; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=C6QSFeWBFed5RRDCZFUyOzGQ53jm2iRwGaePUB0IWS8=;
+        b=ED7xfZRz2lRptejsNyKYEKbA3m1cOzAS3vT0nJOXZPpfcuT4umorUW1Fmb04j4+s6N
+         SuyIA1bw/z8m3lhRNHnfGILlJWkQJ8e07NaHwMU+RbPNF80omtboqeYD6EwSdPk+pqEg
+         KdpDuO0Qgg93CMsfrib+2b+ZN0cNQHNbZa/Q+GC5jyc5AzcJ1DEch2cDoNlWWTMziZr8
+         2fun2oXcFvOVwDaA5LwSX829IEklgimtT4+l/ABoYKr2HBE9+CAxwir7VA4e+pYtM6NK
+         hWBnWB894Dq41P3/Aq/UBaZ112bbq5Ph9E3lbtk1q5qPps8DCRO8ovWgR9ztrKtvseZU
+         VTxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793818627; x=1794423427;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=C6QSFeWBFed5RRDCZFUyOzGQ53jm2iRwGaePUB0IWS8=;
+        b=KyWB1C6tUdfF/2qFCHT4VvdJSrFBMGB+YDHHsXgtMbwPyxbPA4RSZ+paJsqmzsvwTA
+         wNOqvKKDIlEsCi/HOuBCT9x+9s3XuGq6q/sA+vLbo/J7h0ltS78Yk3f800JhrCu1iV4u
+         VQQzr2xG3xHeuJ7jS9OLxcIwJdvXk0R6Ff2qm788imeU3DxEcjZdNhiwKjM6LKYumC9V
+         zv9QLWPZLIN6bBQY4+9HOP4Q64/Y0egUdUXd+w9YTkMUfHSS6ddVajdWYVpjOIuAkN6I
+         PJqtU2uV6Xj1z++lp1QsEwoP7hreJLzJm8o2vefS5oH8izh0WI7zQv9w6J/3AVMoX/xh
+         4psw==
+X-Forwarded-Encrypted: i=1; AKwUvBxtVsdQtrVrPIND7cPBizvmNQXQdZF6TJ8YYRH296tL/sOfutb8vIAS7BrwC9KE/WtEh/iev7XqC6SXDWA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+YaxHZBwNXHnRWTt9CYvogmf7DBvnu3ryEMgR1yR2fiPlm2WjI
+	kJkAd12UAuXdD10k3zYzla6TJrSYuddOmDhs8RLHeoG8WBZ1BH6H/Qbd
+X-Gm-Gg: AYBFou08V8ct/T6TSNWD8ExZMY6c1Chsyhln5YmwGUrjypaRcSeDn7mnthkz/rJ1OLC
+	N38US1iKvyw7uzSlNPuqsebyf9BP/doe9MyELZRnHlnErNHOUBnP2Swku2FbMI4c1zRNhX2rkqV
+	fZ9cr87oFDOXTMJ8SelJevt70pDWksCa0/52oPs/bLlTepcGU2TLv8/Z/LlWrAbETKgl94nk5p7
+	HSyO6+jWf3aEoFbHperiHF/C7hPyGCKWrJEgudTxM/wg0zy481YThUqQD1i0SOfqMkPnOlkWb7M
+	Yjshp4thSAWnF+bBUSU/q6U7GvhhTOxHcYf+CphWGEIUwT37IdPRM7CqvbIds88MT4MAdt3jBau
+	hlEMDvIktUvZ1l+GXp44jBC6T8e+XgsdFeAH972i57qS9jD8KNv7BaqFJGGGQAny5DcCzHOz5wS
+	0CdWPvc+zlzA+rqpXlXHcQp3Uzh65CCIzEGz1i9objduVk33PWn96G9GVKDRsn0Gi4GNzFPBe2G
+	l8XQJII03DUNE+U4VjF48h1yF9HqYF2Fwi8e50eO1NWVAnFS8MkmPtat1KR3mxdtxkXurk6X9EZ
+	mgDRHtBgqbh+kIU+5COTMocJqCGc5seJ9OYhrxECCgwKZ62LPJdgbT1BqVsTvijpWkGEBrqw53b
+	itIG6FsTlQd9j+oX26lbMk9l1J0CvwUcrC0su8gQ6YhMEogQb9ihwWlsnT4YRqLjDbxGomlvaAg
+	OaiZHvg1bWvgT/Jt5iRdqXLoCTImzii7fCIPcZV9Q+/5DfOfuAg2GDqji3ZrSb+LkNvfd5UsgQL
+	CcJ4GQW/l/RMJhZV4R4dA9MoPxVTNNBdsxa8T06smSCV1nrkzVniawhdypfceFY/Tc=
+X-Received: by 2002:a05:6000:160b:b0:48e:7476:9205 with SMTP id ffacd0b85a97d-48e74769219mr22849870f8f.31.1793818626772;
+        Wed, 04 Nov 2026 10:57:06 -0800 (PST)
+Received: from jernej-laptop (APN-122-103-30-gprs.simobil.net. [46.122.103.30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed08343dsm5463560f8f.30.2026.11.04.10.57.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 10:57:06 -0800 (PST)
+From: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Chen-Yu Tsai <wens@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Samuel Holland <samuel@sholland.org>
+Cc: dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Jernej Skrabec <jernej.skrabec@gmail.com>
+Subject: [PATCH] drm/sun4i: dw-hdmi: Deinit PHY in bind error path
+Date: Wed,  4 Nov 2026 19:56:59 +0100
+Message-ID: <20261104185659.884455-1-jernej.skrabec@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,126 +106,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-rockchip-pcie-system-suspend-v7-7-6ae6875939a2@collabora.com>
-References: <20261104-rockchip-pcie-system-suspend-v7-0-6ae6875939a2@collabora.com>
-In-Reply-To: <20261104-rockchip-pcie-system-suspend-v7-0-6ae6875939a2@collabora.com>
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, Heiko Stuebner <heiko@sntech.de>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Jingoo Han <jingoohan1@gmail.com>, 
- Shawn Lin <shawn.lin@rock-chips.com>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>, 
- "Yury Norov (NVIDIA)" <yury.norov@gmail.com>, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Alexey Charkov <alchark@flipper.net>, linux-pci@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, kernel@collabora.com, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3089;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=GczlrlSFkHiqrrX9Y3QEUwY7ZHJWrJRujiffW61qc0U=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGrrf+gDBSftcDt0P5H30RR+S7GTqENWYtMho
- ys28ohmI673VYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq63/oAAoJENju1/PI
- O/qaUjQP/A+Vxv1HvRzfFOQK4QrH+eydQJky/u71WFdEcC43tVCwZ34gtuqzeGKRKUijzBqYDzg
- QaEXuQ1LNhGLxH4FbS31EgeQVp//+hjQjX8IBfq6PncFTCI2uM2ttY9SxujYDQQkeYBr2IQaTdJ
- z6/uw6DcX4nbpifW8ZT1tBJO4pAtvy4soTiZJ4qXKGc1PDNdgrMtXfGKffstrtu9gf9iIZXGmsL
- xtaj7PJ7wm9xyvKkwJAtBlBN2iODpMB4bvHO4PYvD4GrKtOuPM1cfVXp7YoGCeb2QUY04oMAAQr
- 6efMCb3JqJyMlAWUQ87cUfIIkhZcx5YjJ3SNVKuA1O8AJJhx3sosEqYcE4ymJdxGAb7VPKrzFMx
- xcvk6/h9uCLAqhxR5UoGTxzosYbwgTWJyaFbvqf3iuPM30PZIiBd4sytgUHH2tVP66WSStV4Abl
- 4wL1tkph1DkhikKuV7OvJu8JFqe9o6nS42CTzq9tIerzcfc4wXidIeh5F9/T1yg4WkjBU3DWGeI
- aCy0cFsMdrXQCVdoSStp4ZmUZPUgoDJTKJsIODYxdUVjizR3TUx1Y7EagL5UWAmYt9/naprvY5I
- Y23Q6v6rnMd3sYR1T2iedxWAr25V8m/L2Z0qkf0LIlR3QMhWiMRNkPclxvUC3IOU/NvMtvimlqW
- +xLo1T8ZZcZLV3pwxy0Aujg==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
+Content-Transfer-Encoding: 8bit
 
-Prepare Rockchip PCIe controller for system suspend support by
-adding the PME turn off operation.
+sun8i_hdmi_phy_init() enables the PHY clocks and deasserts the PHY
+reset. When dw_hdmi_bind() fails afterwards, the error path doesn't
+undo that, so the clocks stay enabled and every further bind attempt
+enables them once more.
 
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Call sun8i_hdmi_phy_deinit() in the error path, like unbind does.
+
+Fixes: c64c8e04a12e ("drm/sun4i: dw-hdmi: Fix HDMI PHY clock setup")
+Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 ---
- drivers/pci/controller/dwc/pcie-dw-rockchip.c | 47 +++++++++++++++++++++++++++
- 1 file changed, 47 insertions(+)
+ drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/pci/controller/dwc/pcie-dw-rockchip.c b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-index f089dab4acf0..417e6fbbfe09 100644
---- a/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-+++ b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-@@ -47,6 +47,10 @@
- #define  PCIE_CLIENT_ENABLE_LTSSM	FIELD_PREP_WM16(BIT(2), 1)
- #define  PCIE_CLIENT_DISABLE_LTSSM	FIELD_PREP_WM16(BIT(2), 0)
+diff --git a/drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c b/drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c
+index bd3923ef5a41..983826001f12 100644
+--- a/drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c
++++ b/drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c
+@@ -209,6 +209,7 @@ static int sun8i_dw_hdmi_bind(struct device *dev, struct device *master,
  
-+/* Interrupt Status Register for Received Messages */
-+#define PCIE_CLIENT_INTR_STATUS_MSG_RX	0x04
-+#define  PME_TO_ACK			BIT(9)
-+
- /* Interrupt Status Register Related to Legacy Interrupt */
- #define PCIE_CLIENT_INTR_STATUS_LEGACY	0x8
- 
-@@ -71,6 +75,11 @@
- #define  PCIE_CLKREQ_READY		FIELD_PREP_WM16(BIT(0), 1)
- #define  PCIE_CLKREQ_NOT_READY		FIELD_PREP_WM16(BIT(0), 0)
- #define  PCIE_CLKREQ_PULL_DOWN		FIELD_PREP_WM16(GENMASK(13, 12), 1)
-+#define  PME_READY_ENTER_L23		BIT(3)
-+
-+/* Message Request Register */
-+#define PCIE_CLIENT_MSG_GEN		0x34
-+#define  PME_TURN_OFF			FIELD_PREP_WM16(BIT(4), 1)
- 
- /* RASDES TBA information */
- #define PCIE_CLIENT_CDM_RASDES_TBA_INFO_CMN	0x154
-@@ -439,8 +448,46 @@ static int rockchip_pcie_host_init(struct dw_pcie_rp *pp)
- 	return 0;
- }
- 
-+static void rockchip_pcie_pme_turn_off(struct dw_pcie_rp *pp)
-+{
-+	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
-+	struct rockchip_pcie *rockchip = to_rockchip_pcie(pci);
-+	struct device *dev = rockchip->pci.dev;
-+	u32 status;
-+	int ret;
-+
-+	/* 1. Broadcast PME_Turn_Off Message, bit 4 self-clear once done */
-+	rockchip_pcie_writel_apb(rockchip, PME_TURN_OFF, PCIE_CLIENT_MSG_GEN);
-+	ret = readl_poll_timeout(rockchip->apb_base + PCIE_CLIENT_MSG_GEN,
-+				 status, !(status & BIT(4)), PCIE_PME_TO_L2_TIMEOUT_US / 10,
-+				 PCIE_PME_TO_L2_TIMEOUT_US);
-+	if (ret) {
-+		dev_warn(dev, "Failed to send PME_Turn_Off\n");
-+		return;
-+	}
-+
-+	/* 2. Wait for PME_TO_Ack, bit 9 will be set once received */
-+	ret = readl_poll_timeout(rockchip->apb_base + PCIE_CLIENT_INTR_STATUS_MSG_RX,
-+				 status, status & BIT(9), PCIE_PME_TO_L2_TIMEOUT_US / 10,
-+				 PCIE_PME_TO_L2_TIMEOUT_US);
-+	if (ret) {
-+		dev_warn(dev, "Failed to receive PME_TO_Ack\n");
-+		return;
-+	}
-+
-+	/* 3. Clear PME_TO_Ack and Wait for ready to enter L23 message */
-+	rockchip_pcie_writel_apb(rockchip, PME_TO_ACK, PCIE_CLIENT_INTR_STATUS_MSG_RX);
-+	ret = readl_poll_timeout(rockchip->apb_base + PCIE_CLIENT_POWER_CON,
-+				 status, status & PME_READY_ENTER_L23,
-+				 PCIE_PME_TO_L2_TIMEOUT_US / 10,
-+				 PCIE_PME_TO_L2_TIMEOUT_US);
-+	if (ret)
-+		dev_err(dev, "Failed to get ready to enter L23 message\n");
-+}
-+
- static const struct dw_pcie_host_ops rockchip_pcie_host_ops = {
- 	.init = rockchip_pcie_host_init,
-+	.pme_turn_off = rockchip_pcie_pme_turn_off,
- };
- 
- /*
+ cleanup_encoder:
+ 	drm_encoder_cleanup(encoder);
++	sun8i_hdmi_phy_deinit(hdmi->phy);
+ err_disable_clk_tmds:
+ 	clk_disable_unprepare(hdmi->clk_tmds);
+ err_assert_ctrl_reset:
 
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.53.0
+2.43.0
 
