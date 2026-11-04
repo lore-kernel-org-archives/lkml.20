@@ -1,101 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.39
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793784106;
-	b=iPnfjcLUtPNjnh5S/fGe/4djnM/D2y74PO6g8kJYknkd2Y8ulXODoh1T5be2Ckj8TSek
-	 T16vu1mJhynyK3MH2yNPbgHqDdykaGjxXdma9OxfC1nkAqn0zy3K9QA/HcomSeMfVvD2S
-	 IOai5H9adK0ibpWB1sV5O4HgyFxA1ZCeQowIJOoFeWwOauc8PEQwzBc15gFeZujTfuLmm
-	 XXqIyZtkvao4cr1+E7wf9dOfPWxMJbMS0JB2MYGzHTsptH+xmbP37/kfl3oyn/h/Duikd
-	 O51fcE9BMafa5oYHbROgFOwo1487guVxTrQ0vOXgUkY3UgU7y6/GCWKJvvxvjVNFe8Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793784106;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:From:To:Cc:
-	 Subject:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=K8tbDifdt3As6Q9wfqevWYrD4i3H34m3sIB1ycJZmG0=;
-	b=Q4BrBawMNIge8aO38W6lsGtRzFFFuzwaqjw7QUM52JeZA3L+0eoN2HnKgcaogEnOfF1g
-	 TBRXtjys1jwyIOy8tGNig3TWxqZ2w18qII2s88sbEk02zOzjLZqeQbaHLXwofE4xMGqtx
-	 a4tW+w43e4r4yNfmogQY1FCw9aNy4qEr6ndpr61FujfAPF3lvX9RB1ZCFErwsUqUBPYX/
-	 kEGDblb6UgXyzk5bF5s0mWNADucWMXLTP7b4WNNgr8XhpyVUqEKubRp46mxBhQIlGj84p
-	 hjo6u54ZopUnurSfom+c5GcR5sQiJRLIoGZ/tj3Sm/ebftgaq2hFcev49Srtft9Ifrw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=QKtz8bEL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.39
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010039.outbound.protection.outlook.com [52.101.56.39])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.242
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793784115;
+	b=w7KmdVsKEoasivxMQ9LEMqi+dZoV5qWoHdZAe7gzoxiKywK59QC6KMl472AXl9Oat/FD
+	 og51JTE2oTPTvtP1Y0x1vQ4F4OosLVO2DFsyYy7vcMb2aY4QYGCVYQjDalfOwfjoC53Ko
+	 sgUn/11witcdFWeA8bKCFQ1Rklmhnvn35R55YbfVew8D3BnpLtOjIZrGIDiosxTt+D2RL
+	 QYNkaHx3eYwbSrncdqvCgDcWYfM1ou0EpBDKRPxK2dehDQP1gcXyNKvLZqM6Ss5q23sD/
+	 MuTiYAkVM4uOxllVb4OiG4W6xLjtIptszMwdYEPii79Rdp+ylis5jbzfw/7Uc5AMWlg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793784115;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=FPknVUZzK855S9yI8MClCScYyQIbXuE8HJCc9PdRG3U=;
+	b=dOob5hXTSeHH/g2vbBqr9KKy0NhbgN0FEo2bQLalhCgUheWCua+IUL6C/ZzKg6hQpwPb
+	 G1RWhqwAGuZNtiiT5GKrDSUJAUcZRLRX5yzZ5YXdgOwB83w0oJXvc//4uYXUNyMNmZ3aH
+	 ack880pJh6jH9vBXeC6PvOnDC1HaGpL0lZ3bVEx7eOzbxf1UCuBsfulY8/F0C3nVpeL+k
+	 gHLZBt09kL6WvINFzFz9E7BqIHh7hoV302fdUBprQUrmYEGO6jMDfRunS4B7dSPHcbvMf
+	 8U4FsO2muRm0rNIETZK0mXnlnObB7zyO/Wnxvx/7PSmeIbrvHqKPiDtjz91MFOatvbw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=rh6SQqL9;
+	arc=none smtp.remote-ip=203.205.221.242
+Received: from out203-205-221-242.mail.qq.com (out203-205-221-242.mail.qq.com [203.205.221.242])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B944606A32E;
-	Wed,  4 Nov 2026 09:21:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B944606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF4A2606D821;
+	Wed,  4 Nov 2026 09:21:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF4A2606D821
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=QKtz8bEL
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lwzfwmKYsR3C4wz0Sqpjdu05sl5Yy1QulXSvyjQbUUFyTE1ijkNAdKA2NyjDAjMmYUBAV5r/IxnglNb4FBzy1h1wtHJYdLVuMWDOOoew9cgUOvbLMUMnHlX1MtRSwpntYcUmc/PYaJOGCi+fRB2DNNKWzguDLJtXgA4JUdSX2/dbM5GGTKqWSV8QD+6xqAFQ2bg3qNHOHnQ+se5jnmX+IjH/VHA71qXpcV5AymWbnvX6nehwe6aPOvTxuxEb6FmdsrcZoiDrmEJ7lkndry6AyGlKUWLYo+8K8tUmfzr1gaKO1Pg4/EtXE1n2m9iszJoQ7pUHvioN7O1cn6FbFbY24g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K8tbDifdt3As6Q9wfqevWYrD4i3H34m3sIB1ycJZmG0=;
- b=tlG2R9rLXO+IaL8wijHodEU561UPIGwDN3nPP9iei/RbHJBfKI80ggc8aC4nbYB8dboZgU2Ag3iFZG62zhMgj5uQuJPsmyUccJkolL/X4G+3MtaDcRnzNEj2U/wyieCmn70AmyT/lfA9XL8S/+okb5uZYvybJQGlTMMWpfTyHEVpjx8imL4pqgf/pByri0yR3au/j9AmpOrwulasZvRj/kLAOWKCVMcme1A+rnpmZeoCmnAG0mxMfgpBgG7HWN6l01NzR3P2DvZBHiFBug7JCzJG5unZZ+jcnK3b5W05/o1kYAJadGm7iHYUEc4V9QQXbUgJ/8o5SsdSm3raSWoX+A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K8tbDifdt3As6Q9wfqevWYrD4i3H34m3sIB1ycJZmG0=;
- b=QKtz8bELl7VJGHfv+GtsEH9+D8Z/gJPGhvDiJQOD5hULZMaBXEjMg8lcvvcqKxpQ4ojfPE9ultHk7aYqoMk5UFEkQ/tUV07U5tu8QLedOe5569716cJmDaTULXneI1xh6yOLW8Jqn+dH0znZJ/LjfmAojGgXf+v6N4u7eaZlcDzEJh2yI268pkzJgvNTcnK57xnDhKrNS4A+8T2l6veMuv9xlKVLmAinMIyYPRTVctq597jYd31fAlCNlWwLXZk/8N5sNlTWRd+DlC8YAe/ZMbqpdrlDOWgfUYLlcIcKPztGZ42kZLtpPYzB/d0vnLeB9F1HAE1oG6yhODeX63nRPA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- LV2PR12MB5773.namprd12.prod.outlook.com (2603:10b6:408:17b::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Wed, 4 Nov
- 2026 09:21:41 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0592.009; Wed, 4 Nov 2026
- 09:21:41 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 04 Nov 2026 18:21:37 +0900
-Message-Id: <DMMBE677FYSH.3FTFOWI4QHHFQ@nvidia.com>
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Benno Lossin"
- <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH 1/4] gpu: nova-core: gsp: fw: add the r000 bindings for
- the GMC API header
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261103-r000_rebase_on_cmdq-rpc-v1-0-189f9ff3bfd2@nvidia.com>
- <20261103-r000_rebase_on_cmdq-rpc-v1-1-189f9ff3bfd2@nvidia.com>
-In-Reply-To: <20261103-r000_rebase_on_cmdq-rpc-v1-1-189f9ff3bfd2@nvidia.com>
-X-ClientProxiedBy: TYCP286CA0193.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:382::6) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=rh6SQqL9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793784104; bh=FPknVUZzK855S9yI8MClCScYyQIbXuE8HJCc9PdRG3U=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=rh6SQqL974ELd4HNR1GIyIUrO8NtdFYKybZFO1xPbiJG0Hgx4WOLgJM34fDY7BPqd
+	 ucM7cXjh6W6nA+raLdv7L3OB2OzfetbLFMrbGSiqVrWyRe6cmAv/fUsjOVNEwTi0tB
+	 Hy/2ujPXc9NtJEZCKHnHCu7JleQ6BQeoozTCuAYc=
+Received: from shuai-VMware-Virtual-Platform.. ([218.28.192.28])
+	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
+	id 56998ADA; Wed, 04 Nov 2026 17:21:41 +0800
+X-QQ-mid: xmsmtpt1793784101tjhggwlnf
+Message-ID: <tencent_8E52FEA6C91DD754CC6282C41D4DFA95E505@qq.com>
+X-QQ-XMAILINFO: ONXjbYTFhCz0/J0Xyv3rdUzwB8RdVBk8NhRjXndzEyFva+U/hiLGHZ/klARgaQ
+	 3rhTelFTWkw+JjDE5Il6TA22cBOvIvTBA7ZFBPp3BwTEMNlcQn9HnPUpZpmDtIp5vwttXRI0qIAD
+	 Epv+10TZznVNFL3UBkPaVsl7DVoNhCaoGI7EkhFVyrGy0eg+VLr2wZP/oUNnbFVe8IRAOEwp3NZr
+	 B/4s2z09vSbOEx4rOMaYpzF1WY7Rn+3JudR+JyuygdYj3+SxZ7TvBbwza4AjColD/X0WiIwA1wSe
+	 IO7cR/w9VneOBHxBha0Fe6YWZJuB/zQTOktyfLNM+AWL/f7lpSkRCPoHPNN/YNN8d1lSgTwRIjRh
+	 7jKygNOv6P+YqUXmu7AoWcl0xsM4QYMEwC/By+q7vVkX3rWURTgVqnjUqIvaSVEPmGMWej+Fyq7g
+	 m2u7WSZnxgiBmjyj2l/sVGg2fCgP4kJUDvr4Or62meJBJN+XOGlG+SuAV76lyDmvK6GkaR9VchbR
+	 JilZiH2t8A2dkg79pN4khQYMJ3wc2MeNyugFRmjJSuqVVSMFst5cbrTx0OGIOIpjqCJ8xl9b/7u3
+	 wRL0psRR/kw2L7F9dPtaWDmR/GpXuY65XqgaepGiBRjACcB7EvqjZsc93TNaqGWCZLeKbQPogqPv
+	 W7rvsuStWFxntOUdYQz9Ms/RBLgkX6EdLgDkAok5mH34MHzNvVaezEMe8We25YFrMuBouDoZQ/M4
+	 YJHt3HmIVCOwiGbzm6teZiuQSKE66HPDsxK1c8IcZDMUNC7TO+h5EFLwZ7/N0ScowqLlBpP3thiU
+	 R8QBpZdqoSkbY5/vtzcGLEU6MmEWf5cWPIioPvqvrrKpIiun/TxxkblCsf90GH/eoV61EJiZqtN3
+	 rWAmL0K6X3SqgLXUu+WlZHGATZ8GmIyUJnPB5qjseZT5hXPg1msNRtcDlbmpcmOYuNF3mkf/2LSu
+	 bhXT3kql6wFl4YbIjoUsaTAX7LqqdeFLSJDOQr7RnlKOr+iyrx9HmvqAAwbSMqpXkHZlQKOmnaeS
+	 msXTqROk9sFRxdcMDOMz2SdH7H05qGJiquLK9/7YyCRhTqZb2a4xSY1h+RDE0lOVi0Hx7MSrFm3h
+	 cHBaNmOEe1DJgZwNNdBgl6pmaZ1w==
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+From: Shuai Liu <847807867@qq.com>
+To: linux-ext4@vger.kernel.org
+Cc: tytso@mit.edu,
+	adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	linux-kernel@vger.kernel.org,
+	syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com,
+	sashiko-bot@kernel.org,
+	Shuai Liu <847807867@qq.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] ext4: fix slab-use-after-free in do_split()
+Date: Wed,  4 Nov 2026 17:21:41 +0800
+X-OQ-MSGID: <20261104092141.727845-1-847807867@qq.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <sashiko-outbox-196913@kernel.org>
+References: <sashiko-outbox-196913@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,95 +90,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|LV2PR12MB5773:EE_
-X-MS-Office365-Filtering-Correlation-Id: 465590c6-5384-4ecd-5eb2-08df3a55090b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|10070799003|10067099003|22082099003|261102123227099003|18002099003|56012099006|261028144727099003|4143699003|11063799006|261022075727099003|261022105027099003|261026140227099003|261026121527099003|261021121427099003|261022115727099003;
-X-Microsoft-Antispam-Message-Info:
-	mpP3QVkEBbepFKqFYMsPUzob9LnsbXx8VSB+VEU8lWE0ViMy/HirGFnyT99BwiD1kb+KXST/yKZEINc069prazlU788cGgj1hmerwvllrhMAvQXNAljywS0qeaizGYTkyq3tFCJot6nW43AHxrNnKrgUs0tF+vhTmwN4EJ73OrnApcfgiEF3U3HLCnugAtFbDj2XtSVqa1PCa4SqGBY4eItrmFBk7fD7YzncMTLlGgHhB6ZtBqaoXcT0C8cBcffeEgmodFJm5Qv4L9vbR+6hPz48E+SrTK/XFOqMjZ39gmyvQ5nP2LIHwnk1gsoYylFKwQzrab9qE4KaUIkbtixs3mkEX13D0ZFxGJJxaTw3xc4BkF9SLGWvMRWxktVRPdyAlDhHAp/2R0Zwls++M4sGzKvh1U6lDhMEmwhDB7+fUobyxELrOWBR/sXWu4taBuC6i+gZS2CVVl+QQ16VujsDLa7aQ+/PARDzUp5RSTzV8DVg5gYOQnvKPG0BuUbVOCP0OJ7rnUx5iyBXKfJy04aCLBCf9ZF4NXmPT3qencVimQ9yejM7B7CP066SNwmLOP3v0RDUjfhwYFN6P7pq6WdjKdU2MUwZT7RUCG5wDfzyWLQKY+oHHEoJlmApRYjxXtKztFGWpSHk41G3X9iU+5xjxPQ335vlTIKKHGEcc7mq3sY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(10070799003)(10067099003)(22082099003)(261102123227099003)(18002099003)(56012099006)(261028144727099003)(4143699003)(11063799006)(261022075727099003)(261022105027099003)(261026140227099003)(261026121527099003)(261021121427099003)(261022115727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UG5hczNBUGFBdFlESkl4ZzdtRGhkbE9iQ2JFdklPV0pzVXRYRmllejI0T01m?=
- =?utf-8?B?em9iTElBdlE1cVR0RlZVendHWlVKd05SVWlkUlRwSnBCdVZCWm1RbTlUYnpQ?=
- =?utf-8?B?U2R6NGNtL3JGb0g0MFZQU2JJWExHOFZ6U0VlVHdoRFl1T2dWVFZZVThHYm5T?=
- =?utf-8?B?QzA4cHB3TCt2ckRhMzh1ZDdtbEQ5aEJUem0zbEowaUdFOXFpVFg3RjczUVl0?=
- =?utf-8?B?ZENwWUY0UHJIWkloSTc3MUNlNFZlTUhUSTlFWWdzL2dnektBbUhDUERYRHNW?=
- =?utf-8?B?SzNpc3FpdXJBV09manZTWUFNNDdzVXBaTWhLZ2ppOXhBQjNBaE1HWWhsMjlV?=
- =?utf-8?B?Q054VXppNkVzdlZIZGVyc3BCbXV5Y2lwUUx0Yk54VkM5Tit5L0FlTWdvUW9X?=
- =?utf-8?B?bkVHalpMNTRBWHVxQ1grWmhEaDJBSTZ4YXgyVmtvK0ZLajlkTi9VTmd3UUQ3?=
- =?utf-8?B?bmdMVFZmKzBaaUcybG43emt5WXVLWFIzeHRoTVJFNnk0RVpENEo0alBacnli?=
- =?utf-8?B?R1NzOGFHNGZBU3oya3ZlZitKc1IwbXZlbkt2dVJNMUp0VWNOaXF5WENscFk4?=
- =?utf-8?B?eFowVHBtcFI1NnlGU2J4aE84cStteW5jV2xhTlh0SmJ3UHo2N2RCVEFEM3dl?=
- =?utf-8?B?YzBCYmVvR203Wld4dXRTN0lGMm5naEc3VHpRcEFLSU1oaXM0NVNTRnFWMmZm?=
- =?utf-8?B?N0hEc2cvanNNRk1odVk5TDJPazZqUWlzN21TTzBhMDU3am1OMmw4M1RvZUh0?=
- =?utf-8?B?OFR4NWk4RmNnenh1Mnl3TnRMN1BtRDNXazJUcGkrTlRScXNXRnZMNjdEL3Bl?=
- =?utf-8?B?UllzOU5sc3NUWGV0NzFrK21WbWJ2b3orVEdjRFEwb1BtU1ViR3dRUEwxYkQv?=
- =?utf-8?B?ZEpnZW9nb29RWVJtb1V4RXZIdHJEU3RGVmNXSWZvNWxiZUM3NHYzbWMrR0Js?=
- =?utf-8?B?Z0FZMm9HSnpTclMrWHhpb2FYMUI2L2Z6WGdWTk5WTW5jU0ZNRkFpMFR1dlJ1?=
- =?utf-8?B?cDltZ09NcVZybTlUM3BCSWZlaFV0K0pzRmEvaTZVQ2UyREgzVndhNEtBTVZj?=
- =?utf-8?B?Uy9sS2tiQ1hzbU9NWVlmUkV3Q0NxMm4vWUczeWQ5amVaNk96OEVEczJ2aFd5?=
- =?utf-8?B?RTlSMHdpQ1k1SjFJdVB2SVVTNSs5TVVEeklnMGJxcy9sVFNDVkNyc3l5VFgw?=
- =?utf-8?B?VUpXWFVyWkVnSStXUjhFY1RpN24xdDJnM0dmblcwVzZ6ZHV0YmFoNkdQTXg2?=
- =?utf-8?B?R2JZdlk4anZqZ2NJS2VNQVhla1R4SFpycmxPVkRvTjNnYVZ0endHYVNtTFQy?=
- =?utf-8?B?dmZjenlWRVJKaG1pZmRmSURQZlVvTHZjY0FBUjRVQU05aUt6SVp4bFJjYW9z?=
- =?utf-8?B?ZE5YTWl4bGY4cEc3eExESXlWblhCRGxseERNd2VaL0d3ZUhRVU1KN1hsRURJ?=
- =?utf-8?B?aUdmR3ZCQW4yYzdGZWkvOGpOdUM1RjdaR0dzd2FLSjZvQ2JURy9CWlBwVDUy?=
- =?utf-8?B?RHhoOVBEaVpGc0I3ekF2Z2w0WHZGS0tmMlN5aUt4amhxUXgra3A3YlZEckFW?=
- =?utf-8?B?TXNicGdZTjZEbGsvcXR4S1k0VWlYSVZqbFBkT0kyUktyMXNCZGtNNHhrUERw?=
- =?utf-8?B?VHFmWkY0eTFnNTZ3OFFpdm9LTmdHVTFOVEhUZitxdVZDUkUvOVJkMnR1R0xh?=
- =?utf-8?B?UEw1cVZmczhrdDdLVUNXMlBlK0M2ZVB1Qm1YOHJxa3Y1U1JwVXVGUUVJblp4?=
- =?utf-8?B?WUxQRjRram9CZkdTWXAwS3FUVmc5RzQvUkdjaDZuU3pZR3BqcGprSSsxRWxN?=
- =?utf-8?B?TkVCTUZiSmwrRHc1UHJLMjZWVXJMcVl0M29WYTFyTlIvQXh6UHI0NkxCdTd3?=
- =?utf-8?B?czVDTi83eGUxM1YyL0puNkordHVxem81c0xIYVFRVHk1RnEybWtJcFZrbmVj?=
- =?utf-8?B?amdYaGZhYWR3dy91dStUa1pGazFLT2R2a0RodHdLY1NzUW1sdEN2OGhsRjFk?=
- =?utf-8?B?UlNnT2NzeHZJdUxFU3ZpbHRQVXh0VElUYXJaTUwxVXh6MkFyVnQ0RTQ4RnFj?=
- =?utf-8?B?ZlVHL3ZCcGhPREl0TmNLOGlOS1luOUsyeDlwWGtWOXR4TXNlZHFTamltMEl0?=
- =?utf-8?B?aDBxMHhTVXRMWHFMSEx2amRHOVNjSVJBNTdnYjlzazZBMWl4ZkxlVDA5SnhX?=
- =?utf-8?B?RzhCeDRiSnNJOUI1SWQ2aFNMc1FRdHlPTVc3VHZKU21scDUwcmRCc3FvSVlh?=
- =?utf-8?B?dUNmUEd0KzJYSTFBZUY4bWdhVUJHYThLYzk1TC9yZFpQeHYrQ0piQ0tiRUVJ?=
- =?utf-8?B?QzZhZUVReFh1ZEpwS3ZUVGZmOWJ5aTBlZk1wQndMOFlyNFh1UVpXd0VwQ0Er?=
- =?utf-8?Q?UGxVdBq4X2cNDYBbnfSXEIffOazZKthv65fwjDP/nVnTQ?=
-X-MS-Exchange-AntiSpam-MessageData-1: GNgvEgqOldLJNg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 465590c6-5384-4ecd-5eb2-08df3a55090b
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 09:21:41.1355
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UODRT2b6TxHP6uU62MTbbWemBa6+HY12xEPIoR4dqkE8Y/tf7XYWB5Gt+yMRySKFXn5V/7BQPcWdNsMcPrkYaQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5773
+Content-Transfer-Encoding: 8bit
 
-On Tue Nov 3, 2026 at 9:02 AM JST, Alexandre Courbot wrote:
-> From: John Hubbard <jhubbard@nvidia.com>
->
-> Nova-core boots the r570 GSP firmware, release 570.144. The GSP firmware
-> releases from r615 onward share one ABI, and their firmware files carry
-> no version number in their names, because each image records its version
-> internally. The driver calls that ABI "r000", so that its name does not
-> change with each release.
->
-> Add the first part of the bindings that bindgen generates from the r000
-> headers of OpenRM, the open-source NVIDIA kernel driver. The following
-> patch builds the GMC API header type on them, and the driver keeps
-> compiling against the r570 bindings until the patch that switches
-> firmware.
->
-> The headers are those of OpenRM release 615.71.09.
->
-> Assisted-by: LLM
-> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-> Reviewed-by: Timur Tabi <ttabi@nvidia.com>
-> [acourbot: split the bindings by the code that needs them, name the
->  OpenRM release.]
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-> ---
+do_split() allocates a new directory block with ext4_append() to hold
+the second half of the entries of the leaf block being split, then
+dx_move_dirents() copies entries from the old block (*bh) into the new
+one (bh2).  Nothing verifies that the newly allocated block differs
+from the block being split.
 
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+On a filesystem whose block bitmap is inconsistent with the directory
+tree, a block already referenced as a directory leaf can still be
+marked free, so ext4_append() can return that same block.  With
+concurrent operations on such a filesystem (as exercised by the
+syzbot reproducer), the block can even be freed between allocations,
+resulting in bh2 aliasing *bh.  dx_move_dirents() then copies the
+block onto itself, corrupting directory entries mid-copy: a rec_len
+field can be overwritten with name bytes, so the subsequent wipe of
+the stale entry memset()s a bogus length, causing the slab-use-
+after-free reported by syzbot.
+
+Fix this by checking for bh2 == *bh right after ext4_append() and
+bailing out with -EFSCORRUPTED before any directory block contents
+are modified, reporting the corruption via ext4_error_inode_block().
+
+Reported-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=09bec78ee77613a3efdd
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shuai Liu <847807867@qq.com>
+---
+
+Changes in v3:
+  - Also check for aliasing with the htree index block, as requested
+    by Sashiko: check *bh == frame->bh before the allocation and
+    bh2 == frame->bh after it.  An aliased index block would be
+    overwritten by dx_move_dirents() / dx_pack_dirents(), letting
+    dx_insert_block() memmove() out of bounds with a corrupted count
+    and dx_release() brelse() garbage frames read past the stack
+    array.
+
+ fs/ext4/namei.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
+index 354fc2d22df1..25bea69ab246 100644
+--- a/fs/ext4/namei.c
++++ b/fs/ext4/namei.c
+@@ -1922,12 +1922,36 @@ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
+ 	if (ext4_has_feature_metadata_csum(dir->i_sb))
+ 		csum_size = sizeof(struct ext4_dir_entry_tail);
+ 
++	if (*bh == frame->bh) {
++		ext4_error_inode_block(dir, (*bh)->b_blocknr, EFSCORRUPTED,
++				       "leaf block aliased with index block");
++		brelse(*bh);
++		*bh = NULL;
++		return ERR_PTR(-EFSCORRUPTED);
++	}
++
+ 	bh2 = ext4_append(handle, dir, &newblock);
+ 	if (IS_ERR(bh2)) {
+ 		brelse(*bh);
+ 		*bh = NULL;
+ 		return ERR_CAST(bh2);
+ 	}
++	if (bh2 == *bh) {
++		ext4_error_inode_block(dir, (*bh)->b_blocknr, EFSCORRUPTED,
++				       "cannot split aliased directory block");
++		brelse(bh2);
++		brelse(*bh);
++		*bh = NULL;
++		return ERR_PTR(-EFSCORRUPTED);
++	}
++	if (bh2 == frame->bh) {
++		ext4_error_inode_block(dir, bh2->b_blocknr, EFSCORRUPTED,
++				       "leaf block aliased with index block");
++		brelse(bh2);
++		brelse(*bh);
++		*bh = NULL;
++		return ERR_PTR(-EFSCORRUPTED);
++	}
+ 
+ 	BUFFER_TRACE(*bh, "get_write_access");
+ 	err = ext4_journal_get_write_access(handle, dir->i_sb, *bh,
+-- 
+2.43.0
+
