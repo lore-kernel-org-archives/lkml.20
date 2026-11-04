@@ -1,114 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793816487;
-	b=uyF7L+wfHP7zzGkiDdfMh+p5t5ZvKdTPFs5C6BcUHyaS8YMX2/Nfdbiu1dEpTsXwznGB
-	 tqPdDgmOKMDnBfCgUWk5JiptTqU27dP5gryMvnEu7bNQ8FXmMeFdcSrXibXahRgIkxvwN
-	 L9kPfmDBlvsstS6i2Id9kemA1qUXclpDKB2CreSV9zh7CBINxe/BJv3tRwS0kLNt+EbOL
-	 p8Y5sxNAajbA6HWI6A3N2vw7jWZUg3gHvEqW96LaQqmO4B2rCLmqns67AxvVnG5tekWyq
-	 8JxXzo375dDMEozmUELXAicG8g7QiP3pgTg4Cw5nAnYVVZwvSeHpIy+dTyEVMRn4Rig==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793816487;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=A/vQp4Ob6tZK/MQFMF+LZw+BEhdevGHfoc7PehuPwmo=;
-	b=4y24pw9jlwoyiM2F4zCxMpF9RrUqoXwufnhjfduS+WgQATMOglNv756txZvt4L2xV8Ma
-	 SQD9jU5rvqrplnZpxyDGvqEag5RpUJTXYK7aP18ORt+QZLJ8rz22kgrpVpNJdlwNTM32j
-	 AB2aP+9Vgo0/6ybMaZthU0OJkgKrhjbHqAIBoKr7Zh6UFX0saYu1SFSnehfEhsabpjjJw
-	 ahAPkU6jLkYrpHHGJUx+9CiyY4gHtNbejoSWku94juZ5ak9Rmie4h2qCvSyqBe6ExmbE1
-	 yZoycUgASDAc/8l8QLkH2A/K8sq4boy8TGp8Q5tK9XicWC5KLpr5iAcJxJpRDb9wuEg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RwbPKIq7;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=199.67.87.7
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793816502;
+	b=QnwQezsv/omss0lj8LM81qRI7waVwYAEU5zPCEj13NOwvN5tSSvkviBPq4Y+dV6kMRXo
+	 qo9JoqjPud8oiPobHrKh1mMk5MXEbKLBxXItM/OCTrnlY5/sts84rm0NV3LqA+Aqo4C/K
+	 C0Dk+CNA933IP5tgUf4TInbiC+xLlobO/QE8z5Q2LrZqHFLGqMno5RjYASJm1TS7TVayy
+	 4GwUt+zmq6IWZCkosFCWLbtQ2pp9ekCfLK528ZBqE7aRBM4p9gKF/Kbv4wx1F+fpy6MkK
+	 KUPuU4YpYJl/MBQfaPw//gds/P+rZ1aA5cJkwhVzD4sdA0aibh0U5V7U7ir0z0zpLVQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793816502;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-ZohoMailClient;
+	bh=u2s9WdNLrHGY48DAX6a2FVuI8rhMLrzkalNfdtncyi0=;
+	b=eAakC8SLdUux47BYLCNGMgl9olrgU1L6kYU+abclz+ejYrZfO/Xl5hJ9z8bq/wsNkR56
+	 DWzc1ssrwP16O+3hnrPwvfMyRdYloiBluxbuLerxcxRogVgYPZi0zDoqsamVc+xMj6Wgk
+	 Kbxu3cYeIiukETPPLNUyeQMxJtbgQma0KZqqzrK+LSR9SjFeiHGm62JqEg+j/ti3eAoCW
+	 E3eTIRvER2uU1osMZFoFRGcgQJkRPgnYGvn8Z4cAx28rLB2/gePxr3FkOM6w4MgMFVK7J
+	 LgX0wFBwGYerfRlbc3U1rH+dLdw1MdQ5uO4np/S2kVSzXqNp2dHgRwDmoLhf7UI1gSw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=chasehil.tz;
+	spf=pass smtp.mailfrom=chasehil.tz;
+	dkim=pass header.d=chasehil.tz header.i=@chasehil.tz header.a=rsa-sha256 header.s=zmail header.b=h99wbuKW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=199.67.87.7
+Received: from sender-op-o7.zohocloud.ca (sender-op-o7.zohocloud.ca [199.67.87.7])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9647D6083613
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:21:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9647D6083613
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEC61606D837;
+	Wed,  4 Nov 2026 18:21:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEC61606D837
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=chasehil.tz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chasehil.tz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RwbPKIq7
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso896031f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:21:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793816480; x=1794421280; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=A/vQp4Ob6tZK/MQFMF+LZw+BEhdevGHfoc7PehuPwmo=;
-        b=RwbPKIq7zMTbMLWlLYHeKDbhMe+TJSa8Op8YyT7vKpp+3wU4OAdCesEoDRWgVqkKXx
-         ldR581ZfsIBClZ33PESVj6+InSbkRoRX0J9zRkxulpzh0xdJlkU2bOBt3NSmPaSLwQR5
-         2ddmljiCAQ8rwDjfByTOiH5RxRdr8ghOzfIpJ0UqLWH9atfuAxT0InbkCDtbHTtHAO8e
-         OfhQCRXS2m0W41ufCJvtIHRCZzBfffSgtsx9O/fgu6iCkSLBaiSGRo1709m9aLaTi5GN
-         Ch8TET5QSaoltqkhw2ma1glWmm3uTQpmY5Z6xZNSM5q79TqtGAxAE0bsPdV4xDYJAvRp
-         vvKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793816480; x=1794421280;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=A/vQp4Ob6tZK/MQFMF+LZw+BEhdevGHfoc7PehuPwmo=;
-        b=FIhEyShKEhNj2SE+d/7UJW+cLeNU24TTfx4XPm/g/it5hovsO+QnRarSJbWSyX3apc
-         bPgKxy3uGv14yYhHq1mUFKp5OnfUTOQB59cOZxiPPizjUM8dce34poJTp2skA2BTyqzN
-         ZxvBkdN6usT2iA9DkaXvrNadbgDFa1L92g6s61gryvLLfyuj21qdAdB+2SECMYMfysVI
-         3VYrViiyLsqe9oiC2aG50FdHodS6CgJ5J52cnD1HRbNAQ1rEdeAtCEGY/LaBenkf15AE
-         OWO2geuGxIYb5ubjkGiMnRi+OZXGpbX6MqOfdlHowvQFRnNVADTSg6lrN/JAs8fB3KBp
-         rnxg==
-X-Forwarded-Encrypted: i=1; AKwUvBz1ynNJG+fq405DZvNyywefOFRlm+ezMTBkRGa2EvqRizHhSVTNTTiGzEVoADJSHpulWHixGJ9M7erMhGg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+I7/uTxDk56On9uDHV6/Yrduei+h22MhBBWnqZby7/xacXRDXo
-	54woCmS5JR+AyO4KTGQzFVwutiwzuzzIpytnb9UrAnp7g9+AyKYJdjIJ
-X-Gm-Gg: AYBFou2q4hiNLHFSFVh/jQUiX9QZbl8OdRvts60ExMAhWZJQYpf6pGcnKPx8feazbFB
-	ANvjyP/9TOwFiT1IlgsZfrjF36cnhiDCCbn0zWb+Jr7CqCpOZba8QlcZVdh8fS9NzZ3D2woMfKF
-	2TdprIwsUh0LRM+d6u3EwThRLdDju0e5LBAHn/JFnc+0eGJN8vUqlWpa28jmNvJGIreQ4pTKT/l
-	SjiYLSc9oVI8hXPlbdrkB+fX2xfalJMCkwJGV0ErBYHup8mGCbn40zkVEnNo6W/xBjWr47KBv2H
-	FMybj9KG9+pdh9U5qGDjAOFN0uSGCz7+GjBVnMDPID3RtuilrRg3mcBnVSNdj/8/+/vkfjsoGxB
-	ZFPuAWRiOlds4jBD7K4L80p4kXxv7e77xw/uAHq/ePi7wpnTd0qd1gcFCgD22bbF7S0DitR6N2A
-	MLD9ZJavPdigAybJabd6NiKDmsjkD24/g+oI9FJawblQ2xU8aMzjKCllTMxfF6LbErLPPpWbtDW
-	+EcEi6Fe3dFxJe/u3UhvQFn1ZfPnVrXxD5CC2yHLH5HWysvDmIQEsP7b6t0vWxERf9p375/B9se
-	ngJ17mXaniNFoYtNXz7N+54pELOApO11Z6Qlm9Mmgp8++jvOWBGj3gAMBRlkKEpCUg2DVRkAWgZ
-	FJVVRZvJc5TFi59IRNGPPp0nnnqY5uOMTQM0bvQ==
-X-Received: by 2002:a5d:584d:0:b0:488:8525:4979 with SMTP id ffacd0b85a97d-48e6e50b5f4mr35431995f8f.45.1793816479972;
-        Wed, 04 Nov 2026 10:21:19 -0800 (PST)
-Received: from iku.lan ([2a00:23c8:254f:fd01:b079:a2f1:caf7:b446])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed0844e2sm4073202f8f.28.2026.11.04.10.21.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:21:19 -0800 (PST)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <clement.leger@linux.dev>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Russell King <linux@armlinux.org.uk>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-renesas-soc@vger.kernel.org,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=chasehil.tz header.i=@chasehil.tz header.a=rsa-sha256 header.s=zmail header.b=h99wbuKW
+ARC-Seal: i=1; a=rsa-sha256; t=1793816464; cv=none; 
+	d=zohomailcloud.ca; s=zohoarc; 
+	b=QbFKNmdn8bUhioMjn6OK65PM/Z4DiUfBEbr9zHsGUcBeStb3zyPs907jPoCUWi30dwpaQHx7SI8ONtkObv5+2+0tz6Kxm8v/3Aolh9bIg6JY8IrGiYSY8nPGYJw5n/BZQJw5q9V/avHNrzSmqt9ynPxXvcnJHQeRUDdXSmPKmdc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomailcloud.ca; s=zohoarc; 
+	t=1793816464; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=u2s9WdNLrHGY48DAX6a2FVuI8rhMLrzkalNfdtncyi0=; 
+	b=HfBuwLD2g2sf6ASpxJexeDoWuEueMDyx8uEOjeifPcGYwwxzeVWiKWsEcyE6JDbp8mPGvq/vhkNU/6yyAKJIyG0He+46yXDXmeDLM4SGhuIijK0xY/wAZ+ESDSoJPVlGQ9dSjRoL2ZKoeeoCls1irtB+/r7FZ3VuKU8qDAeK4gc=
+ARC-Authentication-Results: i=1; mx.zohomailcloud.ca;
+	dkim=pass  header.i=chasehil.tz;
+	spf=pass  smtp.mailfrom=me@chasehil.tz;
+	dmarc=pass header.from=<me@chasehil.tz>
+DKIM-Signature: a=rsa-sha256; b=h99wbuKWGgIqPTmSDvjy18WZl85812z0aRVztLCHVmFDosJgjN4n11OTRqSxY4IIdySYkpvZqqxqkXK0TnTv9nP0jxU0uK/pbsE0tVSg6fnOuwsPgGQjgtrvXiznbG6/K95SUruvKdZaIm91g7rdzDJOzlEiUnMdWGLDm8mpplg=; c=relaxed/relaxed; s=zmail; d=chasehil.tz; v=1; bh=u2s9WdNLrHGY48DAX6a2FVuI8rhMLrzkalNfdtncyi0=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohocloud.ca with SMTPS id 1793816462556489.1415147616399;
+	Wed, 4 Nov 2026 13:21:02 -0500 (EST)
+From: Chase Hiltz <me@chasehil.tz>
+To: netdev@vger.kernel.org
+Cc: dsahern@kernel.org,
+	idosch@nvidia.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	weiwan@google.com,
 	linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH net-next v4 08/14] net: dsa: rzn1-a5psw: Add support for optional timestamp clock
-Date: Wed,  4 Nov 2026 18:20:56 +0000
-Message-ID: <20261104182105.1102555-9-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	Chase Hiltz <me@chasehil.tz>
+Subject: [PATCH net] ipv4: route: don't blackhole in-use routes when retiring fnhe routes
+Date: Wed,  4 Nov 2026 14:20:58 -0400
+Message-ID: <20261104182058.2673882-1-me@chasehil.tz>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104182105.1102555-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20261104182105.1102555-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,60 +73,121 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+When a route cached in a nexthop exception (fnhe) is replaced or
+flushed, rt_bind_exception() and fnhe_flush_routes() call
+dst_dev_put() on it. That sets dst->dev to blackhole_netdev and
+dst->input/output to dst_discard*(), but other CPUs can still be
+using the route, e.g. as a noref dst taken from the fnhe under RCU.
+Packets that reach dst_input() or dst_output() after that are dropped.
 
-Add support for an optional "ts" (timestamp) clock to the RZN1 A5PSW
-driver. Some SoC variants provide a dedicated clock source for
-timestamping or time synchronization features within the Ethernet
-switch IP.
+If dst_dev_put() runs after a forwarded packet has entered ip_output(),
+ip_skb_dst_mtu() in __ip_finish_output() can return the MTU of
+blackhole_netdev (68), and ip_fragment() can then drop a DF packet and
+send ICMP_FRAG_NEEDED with mtu 68 to its source.
 
-Request and enable this clock during probe if defined in the device tree.
-If the clock is not present, the driver continues to operate normally.
+This was hit on a 6.12 router that sent ICMP_FRAG_NEEDED with mtu 68
+for packets it forwarded. A kprobe on __icmp_send() showed that the
+skb's dst had dev == blackhole_netdev and still had the PMTU from its
+fnhe.
 
-This change prepares the driver for Renesas RZ/T2H and RZ/N2H SoCs, where
-the Ethernet switch includes a timestamp clock input.
+Commit 5018c59607a5 ("ipv4: fix race condition between route lookup and
+invalidation") fixed the same race in rt_cache_route() by putting the
+old route on the uncached list instead of calling dst_dev_put(). Do the
+same for routes retired from an fnhe. rt_flush_dev() still moves them
+to blackhole_netdev when their device is unregistered.
 
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+fnhe routes are also retired on fnhe expiry (ip_del_fnhe()) and
+eviction (fnhe_remove_oldest()). Those paths don't bump rt_genid, so
+without the obsolete marking ipv4_dst_check() could still accept the
+route. Keep marking retired routes DST_OBSOLETE_DEAD, as dst_dev_put()
+did, so that users that cached them, such as sockets, look up again.
+
+Tested on v7.4-rc1 with network namespaces: a router forwards IPv4 TCP
+(iperf3 -P 8) over an ip6tnl device whose PMTU update creates an fnhe
+for the destination, while a loop adds and deletes an IPv4 route. The
+sender drops incoming ICMP_FRAG_NEEDED, so it keeps setting DF.
+
+Over 60s without this patch, the sender received 505,291
+ICMP_FRAG_NEEDED with mtu 68, and the router dropped 67,024 packets in
+dst_discard_out() and 599 in dst_discard(). With this patch there were
+none. Neither kernel sent any without the route churn, or without an
+fnhe (ip6tnl with encaplimit none).
+
+When the sender accepted the ICMPs, its route to the destination ended
+up with "mtu lock 552" without this patch. With it, the route had no
+PMTU.
+
+Deleting the tunnel, its underlay or the peer netns under the same load
+(12 runs) completed without unregister hangs or warnings, with and
+without this patch.
+
+The same tests on a kernel with PROVE_LOCKING, KASAN, DEBUG_LIST,
+DEBUG_ATOMIC_SLEEP and the netdev/netns refcount trackers produced no
+reports. Lockdep recorded the new fnhe_lock -> uncached list lock
+dependency, and in a separate 20s run 109,305 routes were retired
+from an fnhe through the new path.
+
+Fixes: 95c47f9cf5e0 ("ipv4: call dst_dev_put() properly")
+Signed-off-by: Chase Hiltz <me@chasehil.tz>
+Co-authored-by: Claude Opus 5.5 <noreply@anthropic.com>
 ---
-v3->v4:
-- No change
+ net/ipv4/route.c | 23 +++++++++++++++--------
+ 1 file changed, 15 insertions(+), 8 deletions(-)
 
-v2->v3:
-- No change
-
-v1->v2:
-- No change
----
- drivers/net/dsa/rzn1_a5psw.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/net/dsa/rzn1_a5psw.c b/drivers/net/dsa/rzn1_a5psw.c
-index 9daa5d8245df..846216f22bc3 100644
---- a/drivers/net/dsa/rzn1_a5psw.c
-+++ b/drivers/net/dsa/rzn1_a5psw.c
-@@ -1212,6 +1212,7 @@ static int a5psw_probe(struct platform_device *pdev)
- 	struct device_node *mdio;
- 	struct dsa_switch *ds;
- 	struct a5psw *a5psw;
-+	struct clk *ts;
- 	int ret;
+diff --git a/net/ipv4/route.c b/net/ipv4/route.c
+index 3a90c8d..cd69242 100644
+--- a/net/ipv4/route.c
++++ b/net/ipv4/route.c
+@@ -573,6 +573,17 @@ static void ip_rt_build_flow_key(struct flowi4 *fl4, const struct sock *sk,
  
- 	a5psw = devm_kzalloc(dev, sizeof(*a5psw), GFP_KERNEL);
-@@ -1245,6 +1246,13 @@ static int a5psw_probe(struct platform_device *pdev)
- 		goto free_pcs;
- 	}
+ static DEFINE_SPINLOCK(fnhe_lock);
  
-+	ts = devm_clk_get_optional_enabled(dev, "ts");
-+	if (IS_ERR(ts)) {
-+		ret = PTR_ERR(ts);
-+		dev_err_probe(dev, ret, "failed get ts clock\n");
-+		goto free_pcs;
-+	}
++/* Other CPUs may still be using @rt, so don't dst_dev_put() it.
++ * rt_flush_dev() handles it if its device is unregistered.
++ * Marking it dead makes ipv4_dst_check() fail for users that cached it.
++ */
++static void fnhe_retire_route(struct rtable *rt)
++{
++	WRITE_ONCE(rt->dst.obsolete, DST_OBSOLETE_DEAD);
++	rt_add_uncached_list(rt);
++	dst_release(&rt->dst);
++}
 +
- 	reset = devm_reset_control_get_optional_exclusive_deasserted(dev, NULL);
- 	if (IS_ERR(reset)) {
- 		ret = PTR_ERR(reset);
+ static void fnhe_flush_routes(struct fib_nh_exception *fnhe)
+ {
+ 	struct rtable *rt;
+@@ -580,14 +591,12 @@ static void fnhe_flush_routes(struct fib_nh_exception *fnhe)
+ 	rt = rcu_dereference(fnhe->fnhe_rth_input);
+ 	if (rt) {
+ 		RCU_INIT_POINTER(fnhe->fnhe_rth_input, NULL);
+-		dst_dev_put(&rt->dst);
+-		dst_release(&rt->dst);
++		fnhe_retire_route(rt);
+ 	}
+ 	rt = rcu_dereference(fnhe->fnhe_rth_output);
+ 	if (rt) {
+ 		RCU_INIT_POINTER(fnhe->fnhe_rth_output, NULL);
+-		dst_dev_put(&rt->dst);
+-		dst_release(&rt->dst);
++		fnhe_retire_route(rt);
+ 	}
+ }
+ 
+@@ -1505,10 +1514,8 @@ static bool rt_bind_exception(struct rtable *rt, struct fib_nh_exception *fnhe,
+ 		if (do_cache) {
+ 			dst_hold(&rt->dst);
+ 			rcu_assign_pointer(*porig, rt);
+-			if (orig) {
+-				dst_dev_put(&orig->dst);
+-				dst_release(&orig->dst);
+-			}
++			if (orig)
++				fnhe_retire_route(orig);
+ 			ret = true;
+ 		}
+ 
 -- 
 2.56.0
 
