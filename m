@@ -1,82 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793791091;
-	b=rh8+SB0D4pmLPuaiNLUwGiE7TDalTHtKGea7kzXuzjoJJ72XXOf8ptumzthAIEM1Nrth
-	 H1r7Ju2TvpY7fBNxSZqe85atjuSaWoYu/EVA9LAWuONlMJHrWbpSw54rycmY5L4nPljAq
-	 GTByThZTVQVpYIuXLwepN1Bluxxm1rg27nXzrH6p5PNlOW2Fnisc1yC45CgbI04MlBwyj
-	 kBNKQjj9Lb0mvifi55ULwgpSbKECdzt3jfiWlxmU/RE1LCEeh4YMdHW+S+44n5KJt4FeW
-	 N9oNn1bBP/GgOc+qPj6Xh7taF9ETC43AEUWECJEObgxmzZu5KleGntL3Xwbsas1U1XA==
+	t=1793791148;
+	b=oGUp+d2tTXaNmBGb8lW+FBqGm4I5a/d2TW6xt+qPYMwTt3KsOLshLOtrBtW8Pijmieod
+	 KKQD0m2Kui+HOyH5bIgt049/ztufxESNHSBtiSs/jp3T4P7kAwBUrZWXbDbpV6WPQBk1C
+	 TzZHkvTjAM9mJ2fAcNUV7b8tH+z267yd2ai+EPk5vd1R19Qw+lFhYSc6hlRAvpFiLDebc
+	 aaL2FiNE8v54R7mBNQmcroqHkQyFv1ljo29KmLKK0bYznNSJ+9sRKWZP1y77zgdpTgg6O
+	 4ok2aA4sYzJIAGXNkB9aJ3M95avQRTsTf/TzZCjYFwF5Kba8QamRC7bEiX2OmQyvoLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793791091;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Reinject:X-QCInternal:
-	 X-QCInternal:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=4RJ6M+JjySay4WKw8KPrIRm4D2pO/biJ5kqHdcznYKs=;
-	b=pLPuewQh8lZafaZSYKCk48a43DHXgkZf3UqMJDfRpM+Pu5E5JCPJaJIOGkFpDaTfm4Y1
-	 u8KZdgoLg+Ypu3Q7d6DVfIN9JnReAyAt4a74Oe91H2SWZPDvZreNFFXNuHy0peZfDEG5r
-	 46gOxlR3hxwQeR/NODN5bSdYsbjZnpU5CJ6cUnN55KEG+Q1YQnZxzbwelSE+6zXTP1MNU
-	 rt4SGvUjLW6F077Th7+g37l+nCB7Jt9Sf4AktitMHJgBKH9+U3Zf4Z020xWBQ/kqzVu80
-	 DA7HrtxAyutBoBogVYaEN9SrzRspuvTO1g8IqpHlj6THrPg66lFY5Zd3kY66j4N51fw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793791148;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=XZJjulc9eC2Fef615j91pRgqzgY9in4xbBQCdTQZsjs=;
+	b=Nmpte9S/S2WvcBoMk8GIJFAvyFQdLdZ3a2XCSdkSJ9rvIA/f8PpLibFlY5xdtqfTnLrR
+	 9HdpxN6GUyGTzGl3hQLU9vKeFdaG0bLwphw+7+ZTRP63m+Gvxi+V1Bla4e/sG/YFnu75L
+	 zbt17EWQ9zu+5qUOkMSp/BVnAW3NcskCwOiZ+fpe82LlzZngrddXYBvHTvUOgyhoOokuQ
+	 af2bb+1gb3d55ECcaFzGIhs6e4mkK7MqE0PrBS4FAH9iwHAOes2hK57PKmlmO19lnedfq
+	 3Eai1cZmFOn4I2tWKNoO62aDkCjyNrKvYBFvx0BCLwJ33eTQTR+9WtP4oWcJEpWufEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=j8QE9k5W;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61769606A332;
-	Wed,  4 Nov 2026 11:18:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61769606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=FmETS+WD;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7A6D5606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:19:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A6D5606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=j8QE9k5W
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4B5G3P2599691;
-	Wed, 4 Nov 2026 11:17:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=4RJ6M+JjySay4WKw8KPrIRm4D2pO/biJ5kq
-	HdcznYKs=; b=j8QE9k5Wt0v6erqo4TztWoLdfNaKyNPJ4fDEvDehb1GGOzWrET+
-	swxSUMynF+C7neo6EMSs5nH2nyictmEjDGEt540M+BwX4OhgxTa1vwK16OTQSfXX
-	sr2/6PU+ZVTOnja5E4kJRhvZ2d7PPLrff81IuYEeWBU6bwdsF59QDVO9hSCPtHrb
-	pQejdEzxorad4ziEZA5Rn/ldkcsJOjio9BD1rdQ2c29OzKW3Ozia4bWWnZhK+9CL
-	EiqN2g50DLCeGRTyj2Fah+tqP7tOxX9HUwtFzOx3zNvH1YZnbYoFofVvuwuh5Hhq
-	LGKjkRZFzKlo2zJaRXlpNWYtxShtR6d3MIw==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqm2pkt9n-7
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 11:17:55 +0000 (GMT)
-Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4BGGWf2675525;
-	Wed, 4 Nov 2026 11:16:16 GMT
-Received: from hu-devc-hyd-u24-a.qualcomm.com (hu-msavaliy-hyd.qualcomm.com [10.147.246.140])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 6A4BGFd92675519
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 11:16:16 +0000 (GMT)
-Received: by hu-devc-hyd-u24-a.qualcomm.com (Postfix, from userid 429934)
-	id BAE0A21442; Wed,  4 Nov 2026 16:46:14 +0530 (+0530)
-From: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
-To: mukesh.savaliya@oss.qualcomm.com, alexandre.belloni@bootlin.com,
-        Frank.Li@nxp.com, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, shubhrajyoti.datta@amd.com,
-        shubhamsanjay.patil@amd.com, adrian.hunter@intel.com,
-        manikanta.guntupalli@amd.com, linux-i3c@lists.infradead.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, jarkko.nikula@linux.intel.com,
-        wsa+renesas@sang-engineering.com, alok.a.tiwari@oracle.com
-Cc: konrad.dybcio@oss.qualcomm.com, andersson@kernel.org,
-        jyothi.seerapu@oss.qualcomm.com, viken.dadhaniya@oss.qualcomm.com,
-        aniket.randive@oss.qualcomm.com, praveen.talari@oss.qualcomm.com
-Subject: [PATCH v7 1/3] dt-bindings: i3c: Add support for Qualcomm I3C controller
-Date: Wed,  4 Nov 2026 16:46:08 +0530
-Message-ID: <20261104111610.3739095-1-mukesh.savaliya@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=FmETS+WD
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C362B1576;
+	Wed,  4 Nov 2026 03:19:03 -0800 (PST)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CE4FE3F632;
+	Wed,  4 Nov 2026 03:19:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793791146; bh=+Gg1IlVsuPqoi6TzyejboQL7M1kxWf7eEKSdkYy3a5s=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=FmETS+WDer/mEeQGarSpt9aR/XDxHyIfvyFacEqy3082LqIMho+elaQYjK8R593Cz
+	 vOpawPRQjb5wVQRnlV2ln2h8xIONCSwXdJCiBIXOF1tMYtEej+58eMz8h/UhCO7kOE
+	 IYIdz81lAl6tw1nsIzkZyG6iyBKSI6TlRNukN06U=
+Message-ID: <33d55cde-9dc1-4d61-8053-f1c1a2e95179@arm.com>
+Date: Wed, 4 Nov 2026 11:19:04 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,175 +53,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA0NCBTYWx0ZWRfX2p0U8BCkRYnl
- 3kGCPqV4FlUTr186LmTpRbKUGRWtme32paDuP/v2zq9WeSEUKGajdajuMj769wkLAjkFZawcQ2e
- 8d8uAGN6fKW4z3V3QZ3e/ou+FCs80/k3vGWm1mxiXGxpS/9TFN9rbWarvPfQ+1prscVWDtxs1Nu
- qfDUEMg/pWkonvLV8FIpSHEGPXIiQ0u6VA6FJ/iBT7qC9dSSZZow0eU9f2XqweXI3UltBMM2Vq7
- 5xgjmuoFlgUz53+RQ594bgpo6zWbCDgGEH6OrYYsJLpx7U5FT/bbWC6qG6v4/142kmY4rSdZY/q
- mqGu4DQ3awZxvh3ICZ9K3aF/2LLUlffCpJrX2KSPKytC2uhnV5ESYsOzpIUICApSXeqSOjabU6+
- CTDxGXAqAvuBdVZ+kZWYcwc8/xWEtCGZsc8BOJuzppZDXRusW29TbBixKl10sy2s2/cEyoF8/8A
- 4PVVgrR7VkGr5sseBuA==
-X-Proofpoint-GUID: xFu2Ebln7wVPe8h_7vtNauucD1dZfn5w
-X-Proofpoint-ORIG-GUID: xFu2Ebln7wVPe8h_7vtNauucD1dZfn5w
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA0NCBTYWx0ZWRfXyFBBaOt4a6y6
- akuqsxzujPEqMH46Xw5hYSvj+JamAWLOpHFxm7rhd+gqyCVnH3pgfhu0SIwfRktRYqUTep28Q8X
- SfqIkfnQlPK9zGemgBas1B1Wuggm64M=
-X-Authority-Analysis: v=2.4 cv=c64+0h9l c=1 sm=1 tr=0 ts=6aeb1463 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=eoimf2acIAo5FJnRuUoq:22 a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8
- a=m-1na6zgiUrtrnXSVq4A:9 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_03,2026-11-03_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 adultscore=0 malwarescore=0 bulkscore=0
- lowpriorityscore=0 phishscore=0 suspectscore=0 clxscore=1011
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611040044
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: cacheinfo: Simplify init_cache_level()
+To: Thorsten Blum <blum@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261104083632.65715-2-blum@kernel.org>
+ <0534c6f4-3bb8-4249-816c-502cf8ccb287@arm.com> <ausSAhn0qRagNcrz@kernel.org>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <ausSAhn0qRagNcrz@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add device tree bindings for the Qualcomm GENI-based I3C controller.
+Hi Thorsten,
 
-The controller supports I3C SDR transfers in mixed-bus mode with both I2C
-and I3C target devices present on the same bus. The binding describes the
-I3C controller instance along with its associated In-Band Interrupt (IBI)
-controller used for handling I3C target IBI events.
+On 04/11/2026 11:07, Thorsten Blum wrote:
+> Hi Ben,
+> 
+> On Wed, Nov 04, 2026 at 10:32:58AM +0000, Ben Horgan wrote:
+>> Hi Thorsten,
+>>
+>> On 04/11/2026 08:36, Thorsten Blum wrote:
+>>> acpi_get_cache_info() already sets fw_level to 0 on failure, so drop the
+>>> redundant check and the manual assignment.
+>>
+>> This doesn't seem to be the case when CONFIG_ACPI_PPTT is not defined. Can the dummy implementation
+>> in include/linux/cacheinfo.h be called from init_cache_level()? For the implementation in
+> 
+> On arm64, ACPI_PPTT is selected when ACPI is enabled. When ACPI is
+> disabled, acpi_disabled = 1 and init_cache_level() won't call the stub.
 
-Document the required resources, interrupts, clocks, and dependencies
-needed to represent the hardware in device tree.
+Ok, that's true.
 
-Signed-off-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
----
- .../bindings/i3c/qcom,geni-i3c.yaml           | 115 ++++++++++++++++++
- 1 file changed, 115 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/i3c/qcom,geni-i3c.yaml
+> 
+>> drivers/acpi/pptt.c levels is documented as "Number of levels if success." and so would be good to
+>> mention what happens in the error case if it needs to be relied on.
+> 
+> Below the parameter descriptions, it already says:
+> 
+>   "Errors caused by lack of a PPTT table, or otherwise, return 0
+>    indicating we didn't find any cache levels."
 
-diff --git a/Documentation/devicetree/bindings/i3c/qcom,geni-i3c.yaml b/Documentation/devicetree/bindings/i3c/qcom,geni-i3c.yaml
-new file mode 100644
-index 000000000000..bab89aeee23f
---- /dev/null
-+++ b/Documentation/devicetree/bindings/i3c/qcom,geni-i3c.yaml
-@@ -0,0 +1,115 @@
-+# SPDX-License-Identifier: GPL-2.0 OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/i3c/qcom,geni-i3c.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Qualcomm Geni based QUP I3C Controller
-+
-+maintainers:
-+  - Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
-+
-+description:
-+  Qualcomm GENI-based I3C controller implementing an MIPI I3C bus master.
-+  The controller supports SDR transfers in mixed bus mode with both I2C and
-+  I3C target devices present on the same bus.
-+
-+  The controller consists of a GENI Serial Engine (SE) responsible for I3C
-+  bus transactions and an associated dedicated IBI controller(IBI_C) block
-+  used for Hot-Join, In-Band Interrupt (IBI) handling and management of GPII
-+  resources associated with the I3C controller.
-+
-+  I3C controller nodes must be child nodes of a GENI-based Qualcomm Universal
-+  Peripheral(QUP) wrapper. Refer to the GENI QUP wrapper binding described in
-+  Documentation/devicetree/bindings/soc/qcom/qcom,geni-se.yaml.
-+
-+allOf:
-+  - $ref: i3c.yaml#
-+  - $ref: /schemas/soc/qcom/qcom,se-common-props.yaml#
-+
-+properties:
-+  compatible:
-+    const: qcom,geni-i3c
-+
-+  reg:
-+    items:
-+      - description: SE (Serial Engine) register address space
-+      - description: IBI controller (IBI_C) register address space
-+
-+  clocks:
-+    maxItems: 1
-+
-+  clock-names:
-+    const: se
-+
-+  interrupts:
-+    items:
-+      - description: Core Serial Engine (SE) IRQ
-+      - description: IBI controller (IBI_C) manager IRQ
-+      - description: IBI controller (IBI_C) GPII IRQ
-+
-+  interconnects:
-+    minItems: 2
-+    maxItems: 3
-+
-+  interconnect-names:
-+    minItems: 2
-+    items:
-+      - const: qup-core
-+      - const: qup-config
-+      - const: qup-memory
-+
-+  pinctrl-names:
-+    minItems: 1
-+    items:
-+      - const: default
-+      - const: sleep
-+
-+  dmas:
-+    maxItems: 2
-+
-+  dma-names:
-+    items:
-+      - const: tx
-+      - const: rx
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - interrupts
-+  - interconnects
-+  - interconnect-names
-+  - pinctrl-0
-+  - pinctrl-1
-+  - pinctrl-names
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/qcom,sm8550-gcc.h>
-+    #include <dt-bindings/interconnect/qcom,kaanapali-rpmh.h>
-+
-+    i3c@884000 {
-+        compatible = "qcom,geni-i3c";
-+        reg = <0x00884000 0x4000>,
-+              <0x008c0000 0x10000>;
-+        clocks = <&gcc GCC_QUPV3_WRAP2_S1_CLK>;
-+        clock-names = "se";
-+        interrupts = <GIC_SPI 583 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 796 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 797 IRQ_TYPE_LEVEL_HIGH>;
-+        interconnects = <&clk_virt MASTER_QUP_CORE_2 &clk_virt SLAVE_QUP_CORE_2>,
-+                        <&gem_noc MASTER_APPSS_PROC &config_noc SLAVE_QUP_2>,
-+                        <&aggre2_noc MASTER_QUP_2 &mc_virt SLAVE_EBI1>;
-+        interconnect-names = "qup-core", "qup-config", "qup-memory";
-+        pinctrl-0 = <&qup_i3c1_data_clk>;
-+        pinctrl-1 = <&qup_i3c1_data_clk_sleep>;
-+        pinctrl-names = "default", "sleep";
-+        #address-cells = <3>;
-+        #size-cells = <0>;
-+    };
-+...
--- 
-2.43.0
+Ah yes, I should have read on.
+
+Thanks,
+
+Ben
+
+> 
+> Thanks,
+> Thorsten
 
