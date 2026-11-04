@@ -1,62 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793836144;
-	b=HeIthniQebaKcQtwBXqjzvDIltNp4EiY/14wIq0rCWgbVZfnP/rR3zLkWC32dyRuKA16
-	 tMfS4CMa/OWYo90ndRs0VKymky0o/BlOFAHxrLZRyqI8elqDXZ43uJir+lYmTxAS4sYA1
-	 1+YNUcaqjn43BBmMyIje9x7gNlC3RaMZKG5b5L7Q55UlgU+gf+fQfCkxiB0VFBdhgNPdy
-	 kTBFwInRP2N6kUvHuj5gnVnyU85xfBDLbQGD4veoBTZV74xCKrudd2O3eKEMHHKHYE8+z
-	 RSzQ1wCe8KF1k1PLHqLFKvPgcruQ8qRlaai3BUYzwiHDSfrdZh0c/gEVC3+BeMvQMiQ==
+	t=1793836142;
+	b=Y+aa/vYoxkT5lfY59GEGBKn2iMUgIrzqa43hz7XVj9iWXn7bArw1T4NFUrG4RxgaWN5n
+	 Y9nFTMQiKnsO1zyIHLxqw/ChbDG1Bf+HJ+BG5BZDnH4tvAVIwpOUqKdWTLgFDBQtjxhbz
+	 W6r/dfDoVibL5aHIDWC31pmFstAx8dcPXGapMFH2uKLwgi7v8i/WTpjFYf4sAR3bX6Qvj
+	 ooFyBAvpO9cuyDzErIUKoIPPmY5Y4Wwo7fwOtgJJE07u7G3cqLRbuTQ2/2wziHafN6aIN
+	 U0RwfnsIPj+aJ8GK/WfMu+pBzb/lpepPQkz/I5u4c+Hq5d09gx2tkhqlgS6VpJIm1Zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793836144;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793836142;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=QzOzs4jSjCgV4uneL/qfZKjvEo+4hlNjnD9lgdT5DE4=;
-	b=Sng60kMeOXKZsCcl4VG3Um/jN/IQ2PU7Nv7gsmbHln2aigQLsv9VU90EDEdXozu2Y3R0
-	 4ApTPEWhjJN5+8TSV3ZNdWIuRh+WRC1ujoELdnHF3jXJfIuYM1EyJrf7+O8+/1R0k+BU3
-	 At8CM6SkDkj776uW6A7TzogeOTECtk8SjPgPFZ4NI1fUy0rEJgZKHIIRsmPQD02TM/OIf
-	 GlLAyq2UC/nmuXdOxzCnj6dEYlH1P+KtRDwoZsCzqDGbCNKuZpdKLEsxVqLraAU2lYcKw
-	 kRaBfAwB3NkHRl9G4KJxmw5QyD63gjsT1Kn6lc5JcN4dsVPmaWpKgY9lxbOnaDD17cw==
+	bh=craZvMOKShwQznguG90P50Ynv62UhMlNseXQqGecvgg=;
+	b=R4Wi9bsDBlIAWF0lzel7EZ3dcWspp9D5fzu7p3vdCkL3vvG98Xnc4DEgF0IpkHtM/A5Y
+	 pb+4caJMF0IJJmAr9hXt03psSlCrmuOutkrF/v16YDQ+PNzYmbAhoP40iqUiI1mftV3cm
+	 LPkipgWok6nzu8V3oQVi5cKlPNDATxxRTNou/HoNWN1zrwI/8zXUi8P85OfMxcqklVyJ1
+	 kIOqVCUC4ZtF3gnpYUPhBYyvCaumS9tE4I4QmUcPy9n3kMgtiB7CEiwXHMX/qSrALErm6
+	 qHz05j+jOjBPY+2eyy+VAkaLsQpFyB26Kte31fNMgY7OO27QEuJiHFHu2YFtopcBaLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=q0SMfaL9;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=RftiUDPw;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F335606A33D;
-	Wed,  4 Nov 2026 23:49:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F335606A33D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0257C606A329;
+	Wed,  4 Nov 2026 23:49:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0257C606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=q0SMfaL9
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=RftiUDPw
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1793836139;
-	bh=LVP+Kp+zaGqKUkjgCRPI3zygD0dWAB8hTjJrI4ACTJ8=;
+	bh=GfAyb2KdZIf1ttG9EdRmi74euMuvmqM9ACQXbRgW0IQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=q0SMfaL9+E3BlaTYleBCHiMMElo0TMGIFr4mNH20jCC/SuRl8BBsdSaa35RYZ1G84
-	 RKxOyxrw6YWMfYo0tFMDS5NnmHr1BN+VD8NcWfyUzIX/NChNJ5AQQ84vwmD/+GpFSX
-	 ZKcLRS9grqX+Y13zc3vykXlIDLHbMvZ6nfA1g3OumG04OuUXjILDy1Zk2EBkD1KSUp
-	 dlPGb5ZuItX3XuE3t86sKgv2bnlgGHf8OewOP+HB8Wh2mRGFqOE6HGd3SQnGEim9Zp
-	 CzdLZFyqsb3CkaJS8HFoljF8Vk7BaLiIZmTXRbISpXHOA8eWnCUZRZhthxiuhGvAPN
-	 kZ/bM7CpF4VcA==
+	b=RftiUDPwSKfTskHKuK/mHz67+kpHqx12Jn2F/NJztC2SCx8+xR5f/86/KdFkRfrpC
+	 +xqyX3RWiUYG4DHOCeX8ytTHVbAQq8UCIK1MNapCpy/vqjICIkETH6+uE3Y0+RC2iF
+	 2NXq2u2prxWLzIrh4KDEMfayNJOvOmP7nBXea1OuyEFV1y9xYctzSmY7GFinCVDG+B
+	 gVw+IVisdFDxwMY4g6c7US8rsxEnZ2WEgzoaqD2FPHjpsjxe6dmWOYk39odXsUjpv6
+	 DVnqn56GPD0OLszSjLpGghdNaCXSpN0Yke+KCrgegiht5+uDaaHd/Oh/Ie/IgqHTgR
+	 OvCYGZTOyPFkg==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7B22E17E0D58;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2C11317E0D49;
 	Thu, 05 Nov 2026 00:48:59 +0100 (CET)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id E4D0B480035; Thu, 05 Nov 2026 00:48:58 +0100 (CET)
+	id E18AD480030; Thu, 05 Nov 2026 00:48:58 +0100 (CET)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 05 Nov 2026 00:47:06 +0100
-Subject: [PATCH v8 5/9] PCI: dw-rockchip: Add helper function for
- controller mode
+Date: Thu, 05 Nov 2026 00:47:04 +0100
+Subject: [PATCH v8 3/9] PCI: dw-rockchip: Move devm_phy_get out of phy_init
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,7 +67,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-rockchip-pcie-system-suspend-v8-5-0434b4f373bc@collabora.com>
+Message-Id: <20261105-rockchip-pcie-system-suspend-v8-3-0434b4f373bc@collabora.com>
 References: <20261105-rockchip-pcie-system-suspend-v8-0-0434b4f373bc@collabora.com>
 In-Reply-To: <20261105-rockchip-pcie-system-suspend-v8-0-0434b4f373bc@collabora.com>
 To: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
@@ -85,73 +84,67 @@ Cc: Alexey Charkov <alchark@flipper.net>, linux-pci@vger.kernel.org,
  linux-kernel@vger.kernel.org, kernel@collabora.com, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2004;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1616;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=LVP+Kp+zaGqKUkjgCRPI3zygD0dWAB8hTjJrI4ACTJ8=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGrrxGrwUWHYd3YDVNiOz2oYmsgJ/bKJ/8289
- pRQg3Jko7MnaYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq68RqAAoJENju1/PI
- O/qaNAoQAI/N8XJIfPYYHEn4H/btJZM4VYRAy29n2wI95ciz91fLqxrWrIqzk2ZLlP/CzrAVa/v
- ApnRE7fuRVJlisy9wAfP/Hd6GLIXgHmTgUlIYV4S2d6FgrW9dcJJ4uzhXt5/W/D1OaEot44qAlU
- bc6RZP1jQx7TlLky30ZGvT/VLNcDpquo4lkaNhOi1ku7uyfQWKjsn/FwFzZBn7Pseiuej0TJKYg
- 8/WHBUJG8tjc2TFLFW7bf7+2AecH3qWZFW2Z4o5JOZwkZOOYM6mHBQD9MPpOwhDqkO+WXkOM0/e
- WTTFrWZtWdqCunvqlLA+FNKdCJiDdZvnN8lyZRvC5+Km4qt9KMsEHWCFsEgsVg/6FizeYdRQfre
- ab4F6xFZT6duukVYAaD+Wkoz6IozvbJwIZ8hDOzOTD8gVYEb15xM+fkstIWJdWMQb0G9FUzs3En
- rzIyy2jyEcWea+RIPN3A9VU24C35rmMKbYp12RxCAgSdNgq+75PBnEEB6UFvkpdVm6I99+7/h3J
- ccyB1AtUhlQqE3N0Bk8juceLoaZ8O8YQ1iJrMUzuP6B4hPyzpxVtJzEVk7klz/7ykktdfpvW3sX
- IcfXMGNGLT78FNufvlt9GjdfVO8clj6EMoal4OYunKva6JCoXdNESmAPrUEbLA77FVpu/qav5Jy
- kI5Pnxk/ppBL/ogipUrUvkQ==
+ bh=GfAyb2KdZIf1ttG9EdRmi74euMuvmqM9ACQXbRgW0IQ=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGrrxGqMV+Xg9VX+SR6xfsjO6RAXuXVzfzGqS
+ GrfO2RANO34VYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq68RqAAoJENju1/PI
+ O/qa/5oQAJNNMbQ7tKg5p9pWBgN7slbywdVLPjvhqUi9Fvbhn8QDU/AKN4MotbHrtRBzRw3e+Q7
+ xUP+qukp33KYAytEw9h+VGfaHnqFvVgwkDPLeOtPJE5dDRKLlR8x1KFGC6CWPO/3/iP/Q4HPPXH
+ NjZ/EpMOeGT9MfkoZqUK/3cz05WHlSI8J0SoJ0EDEEHBnPurZS8LYoddUeYEXs5bnWosk2bFHQI
+ 31ZVC04FMOCHkXhTwwGqoG0L8ws3pSWN+AXVrFkCzmrhK1hM1WCSiuXcu6kXmY03qdPZ+ffPqXN
+ 5zjyy2DCx74X4zuzeMQCLGl1JTsv9FzhFLzCsTcY3Z1WJ4rFcYVIBcVKxTJt2EsZ9szPhKjupfT
+ uvHhcER4KYhcWQobYiKhtFP1AnXO5SfA9HuesZb0tpP27U27aB7SDyt6GeczSnObjeB7elAwaex
+ 6FwcpHLaIrdglRrPIuqKgoj9NyV64POszjEfMJFBCecHBrB33i95jm2j33F2vOcpZH1tJi+/B+z
+ /rTPVyS1H2MFwa2qbXlMXQX5HUWraP3Y9W6uPipfdMobRcYKIx9hW55jeZtm/LFOt059QD4AMfz
+ 0DSpJbgOVh8QocAO/RU3OkulqQ68l4jwMLdZ9X6bbOZdEOdBhsfFLbv9R54wLoXrGwWCViBGim7
+ iyX/8ZmGVLtWdNTS5FPQzvw==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Remove code duplication and improve readability by introducing a new
-function to setup the controller mode.
+By moving devm_phy_get() to the probe routine, rockchip_pcie_phy_init()
+can be used to re-initialize the PCIe PHY, which is for example needed
+after a system suspend/resume cycle.
 
 Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/pci/controller/dwc/pcie-dw-rockchip.c | 15 +++++++--------
- 1 file changed, 7 insertions(+), 8 deletions(-)
+ drivers/pci/controller/dwc/pcie-dw-rockchip.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/pci/controller/dwc/pcie-dw-rockchip.c b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-index 92154a790ac0..c6a4649dae2e 100644
+index 574d3dcfcf8b..a3b0fb918479 100644
 --- a/drivers/pci/controller/dwc/pcie-dw-rockchip.c
 +++ b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-@@ -695,6 +695,11 @@ static void rockchip_pcie_enable_enhanced_ltssm_control_mode(struct rockchip_pci
- 	rockchip_pcie_writel_apb(rockchip, val, PCIE_CLIENT_HOT_RESET_CTRL);
- }
+@@ -599,14 +599,8 @@ static int rockchip_pcie_resource_get(struct platform_device *pdev,
  
-+static void rockchip_pcie_set_controller_mode(struct rockchip_pcie *rockchip, u32 mode)
-+{
-+	rockchip_pcie_writel_apb(rockchip, PCIE_CLIENT_SET_MODE(mode), PCIE_CLIENT_GENERAL_CON);
-+}
-+
- static int rockchip_pcie_configure_rc(struct platform_device *pdev,
- 				      struct rockchip_pcie *rockchip)
+ static int rockchip_pcie_phy_init(struct rockchip_pcie *rockchip)
  {
-@@ -719,10 +724,7 @@ static int rockchip_pcie_configure_rc(struct platform_device *pdev,
+-	struct device *dev = rockchip->pci.dev;
+ 	int ret;
+ 
+-	rockchip->phy = devm_phy_get(dev, "pcie-phy");
+-	if (IS_ERR(rockchip->phy))
+-		return dev_err_probe(dev, PTR_ERR(rockchip->phy),
+-				     "missing PHY\n");
+-
+ 	ret = phy_init(rockchip->phy);
+ 	if (ret < 0)
+ 		return ret;
+@@ -858,6 +852,13 @@ static int rockchip_pcie_probe(struct platform_device *pdev)
+ 					     "failed to enable vpcie3v3 regulator\n");
  	}
  
- 	rockchip_pcie_enable_enhanced_ltssm_control_mode(rockchip, false);
--
--	rockchip_pcie_writel_apb(rockchip,
--				 PCIE_CLIENT_SET_MODE(PCIE_CLIENT_MODE_RC),
--				 PCIE_CLIENT_GENERAL_CON);
-+	rockchip_pcie_set_controller_mode(rockchip, PCIE_CLIENT_MODE_RC);
- 
- 	irq = of_irq_get_byname(dev->of_node, "legacy");
- 	if (irq < 0)
-@@ -776,10 +778,7 @@ static int rockchip_pcie_configure_ep(struct platform_device *pdev,
- 	}
- 
- 	rockchip_pcie_enable_enhanced_ltssm_control_mode(rockchip, true);
--
--	rockchip_pcie_writel_apb(rockchip,
--				 PCIE_CLIENT_SET_MODE(PCIE_CLIENT_MODE_EP),
--				 PCIE_CLIENT_GENERAL_CON);
-+	rockchip_pcie_set_controller_mode(rockchip, PCIE_CLIENT_MODE_EP);
- 
- 	rockchip->pci.ep.ops = &rockchip_pcie_ep_ops;
- 	rockchip->pci.ep.page_size = SZ_64K;
++	rockchip->phy = devm_phy_get(dev, "pcie-phy");
++	if (IS_ERR(rockchip->phy)) {
++		ret = PTR_ERR(rockchip->phy);
++		dev_err_probe(dev, ret, "missing PHY\n");
++		goto disable_regulator;
++	}
++
+ 	ret = rockchip_pcie_phy_init(rockchip);
+ 	if (ret) {
+ 		dev_err_probe(dev, ret, "failed to initialize the phy\n");
 
 -- 
 2.53.0
