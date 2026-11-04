@@ -1,89 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.196.107
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793808619;
-	b=KPJLg/xeGJ0rOnK6wiW2nWE7Iskp1TnVYWk/X2HLG3RMcpo5AHMuts9KS0/8JbjdN0Qz
-	 ZW1wlTYgvnX+KIH2whKd/vILuEA8pQZcQXTY7akVQ3yVZxErN0/XAFQLPYljbzN7vm7Hz
-	 51POuplYXCxqFkXhEBIe44HMgE0uwr6lA1QYXFHozPzHHbFtikYCEG8Pvb2H8etkwNAUQ
-	 pCjholt9mk41fetK9qLVTw2Dz8eYnq+yEwzyKxrJWcHS6gZ+X9+WAbm2Yi4+gtTJNX65b
-	 VLFlOOpte7rczuPz7vxGjsFjv0gq28Gx1rGQbR48SKrI+XmFHVuMlbh5sYJqx4GHMSg==
+	t=1793808705;
+	b=kUZd/y95aXw2pNAhM7aXWvgypdU6SWBO1uMlnKJsucTJnFKce3ILGoghHk/EQiA6Bpj8
+	 VKZlAo5rkI8M/h6+hE3yuZkPzWC7lzSiA+xW1wUBuPO8O+8tUiNRPyKGFPz+P7w8bntlp
+	 h4Kd/MkARlrJKqb+JsHGqINUAeSINkPqyAjUBiGVTgjnXrMW6deoSKp7slUVYwTIwexZe
+	 LbnliISGuIBeOcwkeuCobH7gNKwOyFnNErIK2nNWI+vJRphOSMbLzAGD77Srp7QxKcHQW
+	 Ju/gm8W5yRsLFJ+8OyAzcerL6gluEFTcpVmY9Q0T+IS27G3a48Si98CyKYgh1NQdLPQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793808619;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:Content-Type:Content-Disposition:In-Reply-To:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=odg2xYqxHix/PONQ4BRrf8qKH/zXOoI5v9t80hp9gFc=;
-	b=rcCrht9L2QCHdM0E5G/RbWTekYf6KDG+Pp5AQV6hTZh7QCidG5KrInJlyZZtHVvJnZYR
-	 HHombsYZPmsFyUyW8e1G3FAsqzCmqOFOi4GUIvmmU1X4A2C5QcS6woeQJur8jaVJtelIf
-	 qv+JRk6LsPremQpiYbKt22dA7gWM6juEXgkPJHCm2f8zk9R5gJVPrIILbeyPvB1aKQq3p
-	 wJl334y4pfbX9y8WXFr/qRBm8qcru8jccqesUeK1CRLX4ItAYqSUle+Vd+z/UVs9n4E3A
-	 x+3iPCz1Cwev40xyeSckMF1zOioqYqAZ78IqopXNU7lm/NX488TlbyVdH3BHfoRGNMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793808705;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=5QB6POg8HfhMxcRuf7nl0o7R4RuPToIyjSP8q7zFzGY=;
+	b=YnRNzmho7HuLz3psrLJntsLmdoff1AUmUiflWluJlh/BrvpmGDoLZennTfjGPqinBQbN
+	 FTPO2SaGaGLIfWgdQnt1Ofq9XWrZARWpfR8BJmFeHFxXxqkeMagfJ1gEy+PdYekwRpVUF
+	 9KOAoGM/gvb+9qmhJ9unvSqkwUpfGxOR+gTffVdLtBgJwcwcgYL5uK0jLFiEgZVSKn8R/
+	 Csk4iqSCdw0/TWAwObbLVBBffxEw8tsuRKWeb9XRuGPqAHPyBRq+YkdbZn/T+Fan4nysE
+	 Ou5yWhMxT+e/Bn2TGn9Sv4qVftqDut/5tQQ1r5vS+X4H+a50iYi9PBrKllpLi9pgfxA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=atomlin.com;
-	spf=pass smtp.mailfrom=atomlin.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.196.107
-Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020107.outbound.protection.outlook.com [52.101.196.107])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HL3zDrgn;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=El2IqZXW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50847606A326;
-	Wed,  4 Nov 2026 16:10:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50847606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UF7dlJGi6flFy69a7tpoO2afvo4WEozaVTk+xY5Z2soWU446iCXP2VDqwHZdd5+fMKCMiaw2uxkSyLM6iGIfkenT9HR78FcKMa60pRCu6qdYmW8cobxrHXohiGqkknC2tK7fEGMepXYW0XJcB9clwimNIa+7uC/6LFxS7NMGYN4rh4Bs9ln1Ky5s+DV4tPs9tAUOR86Vvhl6bdbIo5mt3HI+o1x3wm3T7Ov4t9YqcdxTfNEeZllHhOdxDBjXzuH53Pm0q/MItHHc6skNXQemQz720iDwRIRCkMJSCMufUuxy6rKsgyWKyDmuI74se6ClrKGc/WViX6HtufEklYNJFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=odg2xYqxHix/PONQ4BRrf8qKH/zXOoI5v9t80hp9gFc=;
- b=rgN5Edi9+lF60IJuLYRWRzm7axafw3bcOrMYV8y1XyATLwhJWpfHCsn80+J8uLxVH9mJIHTWYJGV3FzsTk+B7Woe1xcxReniz72FB3YyVckoT9pXa0rJXEZv2suTqChDCqEINUE/+qkpIsHk7bBWpP2A8OxoHJqhlUS80F71xXiJhHsmaAVM70LjclOU9hldP33PexwD54mrM21N5tl1O6K76bS//gFqx+rMUXyN27qAW8Io4d6Sjl8ZNZGsEcaio1CR6UIY/Fp3NzxWSc07rWi8vxukEICkapkNe/Sbyy6RhRUhhjv8WG9tJ8rGJBS/vs/YCvjEsm2dwSEJAgKyDQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:163::8)
- by LO0P123MB4186.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:15a::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
- 16:10:15 +0000
-Received: from LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM
- ([fe80::f71f:a9f:c4de:687a]) by LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM
- ([fe80::f71f:a9f:c4de:687a%5]) with mapi id 15.21.0592.009; Wed, 4 Nov 2026
- 16:10:15 +0000
-Date: Wed, 4 Nov 2026 11:10:11 -0500
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: peterz@infradead.org, mingo@redhat.com, acme@kernel.org, 
-	mark.rutland@arm.com, alexander.shishkin@linux.intel.com, jolsa@kernel.org, 
-	irogers@google.com, adrian.hunter@intel.com, chjohnst@mail.com, neelx@suse.com, 
-	sean@ashe.io, linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH perf-tools-next v12 04/10] perf ftrace: Add basic task
- call stack management
-Message-ID: <v25akf3qmsncyec2awcyl4btk4jybkog33fp6w2l7q33t4246a@uwmknpmfbvgo>
-References: <20261026025735.546101-1-atomlin@atomlin.com>
- <20261026025735.546101-5-atomlin@atomlin.com>
- <auWTUJd4VJUI32S3@z2>
- <5s4fy255agvlgqdg4b4f5ekvhgmpjndydvsaadeq56cubrtgot@mrflkcricted>
- <aurgSbFGfN0VC2L6@z2>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <aurgSbFGfN0VC2L6@z2>
-X-ClientProxiedBy: CH0PR03CA0368.namprd03.prod.outlook.com
- (2603:10b6:610:119::17) To LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:163::8)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF6DE606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:11:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF6DE606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HL3zDrgn;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=El2IqZXW
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4Fj1hZ1148941
+	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 16:11:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	5QB6POg8HfhMxcRuf7nl0o7R4RuPToIyjSP8q7zFzGY=; b=HL3zDrgnV5oO631M
+	Ro3PaT8ie6EQfwqRoHQijSgOKcFDtH4tbxZgzZrLgfk3JSj4kg6r56uj6bnDRrrt
+	ScyF0vqH9OisHcxgvpJae0MgpBXydaQLio0ZJVG9j3/TlNXrGtskrkqlmSW+2ZWo
+	xU0TdvyezwBVy7vz0pI70oZlvKNb9IC48femR6o7Dqp5cNKgJh905dqPo1w1jdCi
+	WDmne/ATT7DGWZMvChAmzLZWil6FP/bqc4iMtzaeY7K30odHjDYn9qZ/etBbN9Ja
+	jqK4oYFVlMganJK7VG/lFM6J4I9nVp++FG3byp+UjzBmz/u8Ss3gjnKEAxKIZrTJ
+	Koozgw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr3r8153e-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:11:43 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f32050e72so277184885a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 08:11:43 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793808703; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NJm+GyGh0ba91i1vB/VR25ctUCfy0Gmqt+0QIGHrV0h4vcx78xoUYxrx8e5yXrgZ09
+         iHHf/KCiCZ1JdLregfAdIv182YjDiBsT/crMKGXWbs4s+421rjhicaGa6KJP9t1QGjy5
+         ajDJFxUo7xg+clTSPuJnFntsgDTk0kuWX9Gf6wreOVa/uuPWd9QKLm2mgsavUrRzJNi6
+         s1S8aEzAH7HRsnwytQvbheYYNt9GlW3C34+Ko86ne+TYbdwLIwfbDQFVpUqv6lW1QpWq
+         P0/PAWdFJ5+qCLIc9ve8lQHpcRAjkN4dMUsvSnbai15G9xVN0atmDSgC4x0+mSNVHJ48
+         gQuw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5QB6POg8HfhMxcRuf7nl0o7R4RuPToIyjSP8q7zFzGY=;
+        fh=OMpNzRSGgXNyuut6KULYZO8GKavRFifm1FHKKGxMr0E=;
+        b=cJxPakH4IcyImyhIog3BvLksZW3VQkwHjN7V8NIAf7MyYpR9kzupqNBLn1lXu1wMpz
+         EDsmWlAI0SHCmvJvwIZsa5yFv+ZfyhurA3YTJa7Wj/fWesEwcCBTky2rJhkLc1bO0n4C
+         cTlP4mnIVwjL47DsjcrwfBeNXypdbPFRSnDe4bedycEc6UnRnWo0UO95L+E+pVg5yZbv
+         jyTSLTPKSsB1kVPVwpXKAF3sEfjreHsmmlW0WSAOZJRH4yF5E9+SwdcTheUxefixPX73
+         lA14Ljx4UkjHP4lixQ0dsajPM0YdSJkMxpBdw7U0ZHPt2kTl/cVNGq+R/JyWXoELExiK
+         x5SQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793808703; x=1794413503; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5QB6POg8HfhMxcRuf7nl0o7R4RuPToIyjSP8q7zFzGY=;
+        b=El2IqZXWqkDNC57tidc/K9SGVrfNUsSastdQjvvHqzAaDZRkiyFrAuM/vMIVkTVg+L
+         N+iMkAyBUdQ06Itekfz50jEiN2ymXWirP1+05uhuz2Noy5oMOlITxv6gF8NipJ7/010p
+         x2uuO1FtQY09ULWm75TENf1JvyJ0Oy0BY8VMzLaHhSwFlY54SIAOMRBzwcNLaaRyoAY+
+         T1K9YmEZgQGcaFw4GkFfyOLagtW4i2UvUoItKuXt9F6FUiquX/rzJIPWkSEDN9mRSUNz
+         JAhMQSOgwiHhAkSIrVUIa6NkJGSK33AiFXMEyOZYHL+j0vdwo16VgtjOZN16c8sHHvoE
+         AJfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793808703; x=1794413503;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5QB6POg8HfhMxcRuf7nl0o7R4RuPToIyjSP8q7zFzGY=;
+        b=FS7MzCH+iBuOLe6srKZ29f0bXLYQ12BmwdJpAqX8fz9m6u33GRUuUoU6rffT28EKId
+         u6xroBpnJdbmXDXI7Etp98Ep64WIwQxgCPqFbHHO4Bx/zI4HZ7rUsEzcGMz38SYH9KdQ
+         nXRgeh6/NS7By1f95rP0qXa4iDzcr0PMcfSHwE39w0luaCiU0Bzib+XAi4yF5z05pHot
+         nRW6A6Kw0XoDng67GO4Yu0LKn6uSJ+bzu8AhFEi2lU+1ee97B+tsJR8JUxMMgSoibDKE
+         cuKqftFDCVpp3qecMmmD3U6jfMafsLZcaUiivdmWj+ddSs+Ic6itfuNkhVM0JO3X1xCW
+         xTqA==
+X-Forwarded-Encrypted: i=1; AKwUvBw8Znrgf9o6nxX3w2jUXovhyT4hzf9RzG42XLIwCNkZVNYlN2ouZOS4jkoAY+fMqIwmrAqOq+TTiLfj4Bo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+KSv9lc37goKlMo0kNJJ/4QqE3UVUnbE4LbHnmdrx4M2pmEVGT
+	ws4c8E42w8C+RSIHwcqchu30uzFPo1BETiIUfYzrvuuyfYF62WAifCVZNJhALjpzRCcne8CYGVx
+	PCr3gdeAydw9cjEmgmgd/VuFZ85GAFyt+GVeJkkbC/jwr2/c1QS30KpclbhLBP7GH/pwxrxzmdd
+	XAS1WXGbgabmeS2sJcXxh9HvAGbf2aaqG0Ld+wNCQlUQ==
+X-Gm-Gg: AYBFou2NdGU2F5blp8NXnOSdp91tcmnwBaUT0muTHE97T0ecie9JbJLFrzdaV0v1iyv
+	BwZs5C2Ei9dEMLM3Chn/dkxl8ynYES3TZJkP6Yur7i7zhGVsZL16JCr6X2KD5CSpY1m3+I0H77z
+	5u8AEw0frmDWspSd6i783xxEZoyha3eEimDMCysFZoOk70yyxhDGvCVMmgQbZWNbpWXMPQ78xBL
+	CB3CzrZx43N05HCiEGaRUuXddAGNOKSrJcVjT3A+dUIzeW7KwlIFR8ZD/nKyNVkHM4dSlmvLEON
+	ZlOSSqoJ80kzNaKOmQhnUHiTGEDs
+X-Received: by 2002:a05:620a:8809:b0:93f:34c9:924d with SMTP id af79cd13be357-94421695deamr2551185485a.35.1793808702880;
+        Wed, 04 Nov 2026 08:11:42 -0800 (PST)
+X-Received: by 2002:a05:620a:8809:b0:93f:34c9:924d with SMTP id
+ af79cd13be357-94421695deamr2551182085a.35.1793808702357; Wed, 04 Nov 2026
+ 08:11:42 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,294 +129,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LO2P123MB4190:EE_|LO0P123MB4186:EE_
-X-MS-Office365-Filtering-Correlation-Id: 699f464d-fbd1-48f9-5f92-08df3a8e1ce7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|7416014|4143699003|56012099006|261009223027099003|261021121427099003|261028144727099003|261026121527099003|261022105027099003|261022075727099003|261102123227099003|261026140227099003|10067099003|18002099003|22082099003|6133799003|3023799007|27256017;
-X-Microsoft-Antispam-Message-Info:
-	Fm5vjVpgnsHKV8CS64B7iZGjgtBw5qdJDXAU9vg8Ajq3BICq2PYCYLPvLkyf+o6+iUakSOJQEfRREePKlwkgqubJxPQLoluK5rPntjdFk8PZrI8hfgFssGr6koy5NWpWOy6Be/+qeVNUUceH+mYGHFlpyFlAnPE+Y6Hd+k4IzRIxhV5Wc2MMMBWQvSU6LZ1e9ggp36bhcVDLloCigSjXSYwuDUpOozAs90A4sA16qxt+8v2Von3FGP/vt1bbmezoqWXy7KILkL3I5p8YYXFBb/+BDCkf4U/YRwV/CMpVRAGQxfLWN6lOGkoHvThA1gyjxqlteLjGdWOAXI5SojrkP6T2B5LU/Qf7+1mQq6pvJ2rYxLG1FN/fYrIyhg1Mu5tv+W1acm9Icy46aMx68TViHotIMVc4CbQeSKIH3x6HZE4bDBl859ehC4w6gjNnSl8pDp+QJ7W9cLIUSV9LLA1samnG82f3wjYDzA1glfwpBlpOe+s2MxVVzBfSMT9x1SFfFE3CWjGU9YM00bbHUjYnvLJSwchsr5M+I65jsjB1riqPtECeqHSisj+tCNIPCiz76Rg2iFXwsof9cj+8WWBLiaQAXu5J6PUKefwCKLXkM76UrGbL64CYo3qz0ZQZG0HQNFXAJCrQr8kWp6D6c4xVG2tFnIWteX4GyKsF04bOjKnf4fDKj71ynSuhKq9vX5CCZZpm/UeSsHxlDgEB9ieB0Q==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(7416014)(4143699003)(56012099006)(261009223027099003)(261021121427099003)(261028144727099003)(261026121527099003)(261022105027099003)(261022075727099003)(261102123227099003)(261026140227099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007)(27256017);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bkZZRVZHU1BEbW5uQnFsekFGTWpqU0tsSzdZQlowNDhSTUh1a1hWMDFpSllN?=
- =?utf-8?B?Nm1ScVV0c3BQWGlFa0VhV3pFRUxQSnV4ZTF6WWRTRmZqU0lQenpZNTgxc0x6?=
- =?utf-8?B?VTYyQTV2K09IMmNWbUhzUHd4K3doSmdvYWVzSTZmUVJSbGNwNytTS29Xc1c2?=
- =?utf-8?B?d0Q5cHZFUDdpajl6UFEzWHBQRFdQWjFWT2JOTW9WWjM1dVNVZk1DVExwRmJi?=
- =?utf-8?B?RWNkSEg4VUMxSDVXMk5TMWtQdTBsd2pOZHpSamd0WjZRRFFQQzRVOEFQV3pq?=
- =?utf-8?B?MGRkWGtxZEc2RE56a1RYbk5RdzdJQ1VRM2lNblJ3SGh4ZVQzZDdZelN2Nm50?=
- =?utf-8?B?Ulhrb2RsT0YrZ3hqU3AwMUUyTkI5SERrZU4rOXNaZzZrL2pGWHBqMmVIdUlm?=
- =?utf-8?B?eTk1Uy9NQ3pnTStFemdicDBlcGI0TFplTkQycDFIbjhuQ0NrWXNSYkNON05V?=
- =?utf-8?B?bzBYcU9UMXgwYVVUS1pWcmtpNlprVVZiSDI0OEdKKzRuVlRQZWdVNnZubk9u?=
- =?utf-8?B?QnN6Y1k0U0VzWUJ6L2lvWHRWWHk3RFpEbXF1V29pdlFodCsyNE5LQmJ4N05Q?=
- =?utf-8?B?TWdseU53a0FZQys5V3lQSVFRNWxlVWFpTmFZaW9nUlFzb2pISm05NEtQNG9l?=
- =?utf-8?B?T2Ntb3hBRDZoVTBqMXNHYzVxdW4wWGp5TkhwTjF1NXIzUjBUWE9UelF5Qm83?=
- =?utf-8?B?Y05TTy8xS2d4czgxZjE5SzJqa1hTaUJSZzBPdkxWbHhtOEVlL0ZRa0YxMGV6?=
- =?utf-8?B?OHY3N0dWdmN3WURJcm9VTFlVNkt2OEVnbVZLTW1nS1VzRTVOVkczR2xmUGJ3?=
- =?utf-8?B?QXBVd3Fjck5FN0lmMlhmLzQwK3JGYUdyOHR5aDJTNE04QllEbXJzQjBNcysr?=
- =?utf-8?B?SHBKalprbFEyWXRaWC9uQlZmUzdpb2hFbEM3bHJoL3pqb0hETEhDOGE5NS80?=
- =?utf-8?B?bmFnNU9DaU1qNGZOVHhkc05pTFp1Wko5ZDkrU3BBazZ1ZTVZK0RSRFh3bFVl?=
- =?utf-8?B?WWpPcFJiSWNVampVMzY2MnIrQU1aWFZkcnZJVEl2WGJkTFNoOWVzWEVXZndI?=
- =?utf-8?B?TWJBS2FNc0Q1NzJ4L1E0YmgrblYxdkpBZEFub25Fc1Z3L0NYTUlUSjBnUWlV?=
- =?utf-8?B?SGJaSTVsMy9qcHErU1JkeFNweTdzTityanVpNjlaZm9wL2dGM1lMbDZ0OHVz?=
- =?utf-8?B?NVZiSjk1cS9UdHBJblFlL0E2eFNoTHF5VW1qVlNjZ0I5aXhwMDd3Q3NRZndh?=
- =?utf-8?B?eUpteHZuOWJXckgwKytxVU40WG9ZR0lFalAwYUNWRDlub3JDTUlZMVBVQkM4?=
- =?utf-8?B?ait4TzFjbThhekxWeWlRVUpMYjBVTWt1MTFTUDZzYmZEbVY0NnNMN2ZWc2V0?=
- =?utf-8?B?L09QTGRNZG5EN0tXSmdFUVpNdENZR3F2V2JxRkNJZUJjYzJFMC82ZlpvZkl3?=
- =?utf-8?B?TEdBSEpUZFcwaXEvRUpGVWFOSnZxNWpWZno2RXNYL3MxTUQ2ZnZOeXk3aGl6?=
- =?utf-8?B?YUZYdG5TdWkxejNEcGgzUzBUM0pKZzF0Q3ZpQVg0NWFjZUxLNGNSdUg0MXdH?=
- =?utf-8?B?a3pKbllnMm92M1BwOUpvR2FJWWludjB4WmtSZVJ0VzdXdm0rYTBhMXdzSThS?=
- =?utf-8?B?d3lGTUxwSVZmVkZKeERCcFhuOWpNNUlJUGtsYnNENzk3aXFpS0N5N1cwdHB3?=
- =?utf-8?B?dkVRRHJwK1lOZ3NnVkxJNjd1b2ZxM2lOSE5Rd1JWd0FLSDIwM2VXdTI2Uk04?=
- =?utf-8?B?NDQzaGloVngxaDU3VVZxWlBXazRzYjVHVjE2a2ZnbHZ2ZkdUbDAyZGpIOHlM?=
- =?utf-8?B?NC9lL3hmSWRlVjZxamkwLzNSNlFMN2VVZnlsdlVjSE5ESVY1MERCU3huTC9u?=
- =?utf-8?B?SGd5NHNEQm1PSTlxMmo4bVpRSXJvYnk0eTdNaUxTeStlTm9yMmVlSDdiYW5D?=
- =?utf-8?B?S1NFRmExajUzd2Jna0wrUnlGYjZDVUNGeGRIRG5jRWpSUWkrVmVIbHJCVVZz?=
- =?utf-8?B?MGl5RWhPRmhlK0lMdW96UkIzQ21WbDg3Y3pPOTAzR0JpelJhU2JKbXh1eElB?=
- =?utf-8?B?aXIrVStadnFSc2hMNHU1MStXWFVLdldxNDlPdHpsNzByQzlSbXV5emk5Z25t?=
- =?utf-8?B?eDRRYmVUQUxheGRncGVDOE5adjYxR2IrUEZockxpejlUdElkclZWTy8zY1ZY?=
- =?utf-8?B?L2JFcHNKbi9NekVqOWlLZ3NVSDRYL1hQZTZBMzU2ZWh3Mm1YRWZzUmJ3YWVV?=
- =?utf-8?B?R3pWSXBDeUl5aHBGRklIMDROTUhQVzkyakZDbFQ2dTB0NHpnMkhWWUVEVVBX?=
- =?utf-8?B?djJYTk8wRVR0OThwVG5IR3hYQm1UdDUyLy9uVkY2N01LbUgyN1JGZz09?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 699f464d-fbd1-48f9-5f92-08df3a8e1ce7
-X-MS-Exchange-CrossTenant-AuthSource: LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 16:10:15.7066
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: V7PHAv4YLC001Wl0y04FK4Gv3QILmUYUht3+xkinpicm/txyKRg8M9RbR6BNR8BX+yhfsbKCnbdC05wGbLRdpg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P123MB4186
+References: <20261030-hawi-maili-camss-v3-0-9742bca8cef2@oss.qualcomm.com>
+ <fFfGGWaoXA-LdO6s8Xh_kQWQfncXe9YNdpcj2yNkphWHAR_V69LdLOcuhXPsbg8dEUSN4j4yygq4wPre5cz79w==@protonmail.internalid>
+ <20261030-hawi-maili-camss-v3-5-9742bca8cef2@oss.qualcomm.com>
+ <5817be6b-7180-407b-acb5-8c5fdef4edfb@kernel.org> <73b1f591-69cf-471b-9763-a0b719c74501@oss.qualcomm.com>
+ <fac8cd6d-c3f7-4ed3-b0d4-7cb8a7a6f451@linaro.org> <d92a8aaa-5cef-4416-b1c9-46ecfc6b2745@oss.qualcomm.com>
+In-Reply-To: <d92a8aaa-5cef-4416-b1c9-46ecfc6b2745@oss.qualcomm.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Wed, 4 Nov 2026 17:11:31 +0100
+X-Gm-Features: AclHuK9u3BNMbXNzSA7AiOa-yyai5dEWKspQKV0NGjgXsr23U39BsLgUr6rq0Ow
+Message-ID: <CAFEp6-3ka3ZKzCoLQ5BNv0YR+yhYXVRwV6G6rM8Lx_9hZ0RqVw@mail.gmail.com>
+Subject: Re: [PATCH v3 5/5] media: qcom: camss: Add support for Hawi
+To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+Cc: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
+        "Bryan O'Donoghue" <bod@kernel.org>,
+        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+        Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Suresh Vankadara <svankada@qti.qualcomm.com>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+        linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-phy@lists.infradead.org, linux-media@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-ORIG-GUID: CM0Nopefw5qOMUVF67ISM-tNYkg08wEQ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA2NCBTYWx0ZWRfX2w2i3S6Hnv4g
+ lLqKDOHWFzeRx8JPiA72rVIFdsWOaPPEHYDEeEB3lTI7Wl65BjC3zqwOPahR2zJTvV9EkKF+McT
+ EDi3ddi9QIG5tbaU1JKdaOXvE+IWpz/AR8VzDxkoTSkk+4COIolnwvf2wuv1GiKsQvhmnglAhfE
+ e8LF9EWC0AG9lyb+DMFjw3Xd3PeuJkO2FIP2w+7hgo94YwFuPZy5AV/d4XFo5HxlS/qQniqSVFQ
+ vzywmYzEGRB/wIrRHp/C7GVS9RbpnCBkbgEJ9M2el7gdOelRghW5BlTNIGaX+dvOAkx8ExvQr1x
+ fd2q11TGArW9EyOYVnaMcutdFNKVSWixZjoz7oNFWDO1cRwHWTfKK1/SZy28hH3ZyIJMwhclZ8S
+ EwIasJPSw6RjIr5PFQ/Wrw0hfyPrgGq8/3D665Sy6P4S6WyE/FUFZKC4vgol3j3log+YQtyagx+
+ 0ItQv6zR3fyMe06ISSQ==
+X-Proofpoint-GUID: CM0Nopefw5qOMUVF67ISM-tNYkg08wEQ
+X-Authority-Analysis: v=2.4 cv=UuP2pOwB c=1 sm=1 tr=0 ts=6aeb593f cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8 a=rMQDtz2esI8IZeRrkTcA:9
+ a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA2NCBTYWx0ZWRfX6P/R5Re/vj0c
+ cF7WEy9yR+7MM68fra4OziXP0P0XC0FiUet02nvjbNmYZyp/+lPf2NTZvh9r79j+ZQed4CcDlXw
+ gnvcN/1WevczHuIyaAIklXffclkuHAc=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_05,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 priorityscore=1501 bulkscore=0 clxscore=1015 adultscore=0
+ spamscore=0 impostorscore=0 phishscore=0 malwarescore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040064
 
-On Tue, Nov 03, 2026 at 11:35:37PM -0800, Namhyung Kim wrote:
-> Hello,
-> 
-> On Sat, Oct 31, 2026 at 06:27:42PM -0400, Aaron Tomlin wrote:
-> > On Sat, Oct 31, 2026 at 12:05:52AM -0700, Namhyung Kim wrote:
-> > > On Sun, Oct 25, 2026 at 10:57:29PM -0400, Aaron Tomlin wrote:
-> > > > The function_graph tracer records kernel function entries and exits with
-> > > > nested indentation. To perform call graph analysis and subsequent inlined
-> > > > function reconstruction, userspace must track the active call stack on a
-> > > > per-task and per-CPU basis.
-> > > > 
-> > > > Introduce basic call stack management for the function graph tracer:
-> > > > 
-> > > >     1.  Data structures
-> > > > 
-> > > >         Define struct ftrace_stack_frame to track function names,
-> > > >         indentation, and inlined status.
-> > > > 
-> > > >         Define struct ftrace_task_state with a dynamically resisable call
-> > > >         stack array, tracked in a hash table keyed by PID alongside per-CPU
-> > > >         active task bindings (ftrace_cpu_tasks).
-> > > > 
-> > > >     2.  Trace stream processing
-> > > > 
-> > > >         Implement find_func_column() to isolate context columns (CPU,
-> > > >         timestamps, duration) from function graph trace lines across
-> > > >         standard and verbose layouts.
-> > > > 
-> > > >         Implement ftrace_process_fgraph_line() to parse function entries
-> > > >         ("{") and exits ("}"), pushing and popping frames on the tracked
-> > > >         stack and matching bare closing braces against preceding frames.
-> > > > 
-> > > >     3.  Integration in __cmd_ftrace()
-> > > > 
-> > > >         Stream complete trace lines through ftrace_process_fgraph_line()
-> > > >         in __cmd_ftrace() and clean up allocated CPU states on exit via
-> > > >         ftrace_cpu_states__clear().
-> > > > 
-> > > > Tested-by: Ian Rogers <irogers@google.com>
-> > > > Reviewed-by: Ian Rogers <irogers@google.com>
-> > > > Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
-> > > > ---
-> > > [SNIP]
-> > > > +/**
-> > > > + * ftrace_process_fgraph_line - Process and output a function graph trace line
-> > > > + * @ftrace: Perf ftrace context
-> > > > + * @line: The trace line to process
-> > > > + * @out: File stream to output to
-> > > > + *
-> > > > + * Parse function entries and exits, maintain the task's call stack, and
-> > > > + * output the trace line.
-> > > > + *
-> > > > + * Return: 0 on success, or a negative error code on failure.
-> > > > + */
-> > > > +int ftrace_process_fgraph_line(struct perf_ftrace *ftrace, const char *line, FILE *out)
-> > > > +{
-> > > > +	const char *pipe_char;
-> > > > +	const char *after_pipe;
-> > > > +	const char *func_start;
-> > > > +	struct ftrace_task_state *cs;
-> > > > +	int cpu = -1;
-> > > > +	int leading_spaces;
-> > > > +	int top_raw_indent;
-> > > > +	int match_idx;
-> > > > +	int i;
-> > > > +	bool is_exit;
-> > > > +	bool has_open_brace;
-> > > > +	bool has_semicolon;
-> > > > +
-> > > > +	pipe_char = find_func_column(ftrace, line, &cpu);
-> > > > +	if (!pipe_char)
-> > > > +		return print_line(ftrace, line, out);
-> > > > +
-> > > > +	cs = get_cpu_state(ftrace, cpu);
-> > > > +	if (!cs)
-> > > > +		return print_line(ftrace, line, out);
-> > > > +
-> > > > +	after_pipe = pipe_char + 1;
-> > > > +	func_start = skip_spaces(after_pipe);
-> > > > +	leading_spaces = func_start - after_pipe;
-> > > > +
-> > > > +	if (*func_start == '\0')
-> > > > +		return print_line(ftrace, line, out);
-> > > > +
-> > > > +	is_exit = (*func_start == '}');
-> > > > +
-> > > > +	if (is_exit) {
-> > > > +		char exit_name[128];
-> > > > +
-> > > > +		extract_exit_func_name(func_start, exit_name, sizeof(exit_name));
-> > > > +
-> > > > +		top_raw_indent = -1;
-> > > > +		for (i = cs->depth - 1; i >= 0; i--) {
-> > > > +			top_raw_indent = cs->stack[i].raw_indent;
-> > > > +			break;
-> > > > +		}
-> > > 
-> > > This loop doesn't look natural.  Why not just use an if statement?
-> > 
-> > Hi Namhyung,
-> > 
-> > Thank you. I completely agree.
-> > 
-> > A loop that unconditionally breaks on the first iteration is
-> > unnecessary here. I will replace it with a simple conditional check in
-> > the next revision:
-> > 
-> >     top_raw_indent = -1;
-> >     if (cs->depth > 0)
-> >         top_raw_indent = cs->stack[cs->depth - 1].raw_indent;
-> > 
-> > All subsequent similar instances will be addressed accordingly as well.
-> > 
-> > > > +struct ftrace_stack_frame {
-> > > > +	char *name;
-> > > > +	bool inlined;
-> > > > +	int indent;
-> > > > +	int raw_indent;
-> > > 
-> > > Can you please add comments that explain why it has two indents?
-> > > Also inlined field may be added later.
-> > 
-> > Certainly. The two indent fields serve distinct purposes once inlined
-> > frames are injected into the output.
-> > 
-> >     - raw_indent: Records the original leading whitespace count after "|"
-> >       as emitted by the kernel's function_graph tracer. Because the kernel
-> >       only traces real stack frames, raw_indent is used to match entry and
-> >       exit frames against the raw trace stream.
-> > 
-> >     - indent: Records the adjusted visual indentation (in spaces) used when
-> >       rendering the frame to output, accounting for any extra indentation
-> >       added by preceding synthetic inlined frames so that the closing "}"
-> >       aligns with its opening "{".
-> > 
-> > Agreed, these fields are not used yet. I will move inlined and
-> > inlined_depth into the subsequent patch that introduces inlined function
-> > display, and add explanatory comments to both structures.
-> > 
-> > > > +};
-> > > > +
-> > > > +struct ftrace_task_state {
-> > > > +	struct hlist_node	node;
-> > > > +	pid_t			pid;
-> > > > +	struct ftrace_stack_frame *stack;
-> > > > +	int			max_stack;
-> > > > +	int			depth;
-> > > > +	int			inlined_depth;
-> > > > +	int			overflow_depth;
-> > > 
-> > > Ditto.  What are these depths?
-> > 
-> >     - max_stack: Current allocated capacity (in frames) of the dynamically
-> >       resized 'stack' array.
-> > 
-> >     - depth: Current number of active frames stored on stack.
-> > 
-> >     - inlined_depth: Number of active synthetic inlined frames currently on
-> >       stack, used to compute the extra visual indentation offset for
-> >       child frames. This will also be moved to the later patch.
-> > 
-> >     - overflow_depth: Number of nested call frames entered while stack is
-> >       saturated (at the maximum depth cap or on allocation failure), used
-> >       so their matching exit braces can be consumed without prematurely
-> >       popping valid parent frames.
-> > 
-> > I will document all of these fields with comments in the next revision.
-> > 
-> > Please see an example. When synthetic inlined frames are injected, the
-> > visual display column (indent) shifts right relative to the kernel stream
-> > (raw_indent):
-> > 
-> >     1.  What kernel function_graph emits:
-> > 
-> >            |  foo() {                 <-- raw_indent = 2
-> >            |    bar() {               <-- raw_indent = 4
-> >            |    } /* bar */           <-- raw_indent = 4
-> >            |  } /* foo */             <-- raw_indent = 2
-> > 
-> >     2.  Rendered output and stack state:
-> > 
-> >         When perf injects inlined function inline_helper() onto cs->stack,
-> >         inlined_depth becomes 1. Every subsequent child frame shifts right
-> >         by (inlined_depth * 2) spaces so bar() nests visually inside
-> >         inline_helper(), while still retaining raw_indent = 4 to match the
-> >         kernel's closing "}" event:
-> > 
-> >            Rendered Output            cs->stack[idx] and ftrace_task_state
-> >            ---------------            ---------------------------
-> >            |  foo() {                 [0] foo:
-> >            :                              raw_indent=2, indent=2, inlined=false
-> >            :                              (depth=1, inlined_depth=0)
-> >            :
-> >            |    inline_helper() {     [1] inline_helper:
-> >            :                              raw_indent=4, indent=4, inlined=true
-> >            :                              (depth=2, inlined_depth=1)
-> >            :
-> >            |      bar() {             [2] bar:
-> >            :                              raw_indent=4, indent=6, inlined=false
-> >            :                              (depth=3, inlined_depth=1)
-> >            :                              ^
-> >            :                              '-- indent = raw_indent (4) +
-> >            :                                           inlined_depth * 2 (2) = 6
-> >            :
-> >            |      } /* bar */         <-- kernel function_graph emits "}"
-> >            :                              at raw_indent=4. Matched against [2]
-> >            :                              via raw_indent=4, but printed at
-> >            :                              [2].indent (6 spaces)
-> >            :
-> >            |    } /* inline_helper */ <-- Popped automatically; printed at
-> >            :                              [1].indent (4 spaces)
-> >            :
-> >            |  } /* foo */             <-- kernel function_graph emits "}"
-> >                                           at raw_indent=2. Matched against [0]
-> >                                           via raw_indent=2, printed at
-> >                                           [0].indent (2 spaces)
-> > 
-> 
-> Thanks for the example,  the comment also look good.
+Hi Bryan, Hangxiang,
 
-Hi Namhyung,
+On Tue, Nov 3, 2026 at 6:29=E2=80=AFAM Hangxiang Ma
+<hangxiang.ma@oss.qualcomm.com> wrote:
+>
+> On 11/2/2026 8:58 PM, Bryan O'Donoghue wrote:
+> > On 30/10/2026 15:25, Hangxiang Ma wrote:
+> >>> On 30/10/2026 12:43, Nihal Kumar Gupta wrote:
+> >>>> +static const struct camss_subdev_resources csid_res_hawi[] =3D {
+> >>>> +    /* CSID0 */
+> >>>> +    {
+> >>>> +        .clock =3D { "csid", "csid_csiphy_rx" },
+> >>>> +        .clock_rate =3D { { 480000000 },
+> >>>> +                { 480000000 } },
+> >>>> +        .reg =3D { "csid0" },
+> >>>> +        .interrupt =3D { "csid0" },
+> >>>> +        .csid =3D {
+> >>>> +            .parent_dev_ops =3D &vfe_parent_dev_ops,
+> >>>> +            .hw_ops =3D &csid_ops_1190,
+> >>>> +            .formats =3D &csid_formats_gen2
+> >>>> +        }
+> >>>
+> >>> This looks strange, why is there only one clock rate ?
+> >>>
+> >>> ---
+> >>> bod
+> >> Hi Bryan, the current CAMSS CSID code always selects the first
+> >> frequency listed for each clock in the CAMSS resource table.
+> >>
+> >> In camss-csid.c:
+> >>
+> >> [...]
+> >> } else if (clock->nfreqs) {
+> >>          clk_set_rate(clock->clk, clock->freq[0]);
+> >> }
+> >> [...]
+> >>
+> >> For the CSID and CSID_CSIPHY_RX clocks, the hardware supports three
+> >> clock rates: 200 MHz, 300 MHz, and 480 MHz. If I remember correctly,
+> >> 200MHz and 300 MHz is not sufficient for the sensor's output pixel
+> >> rate, so we need to use the highest rate, 480 MHz, to meet the
+> >> bandwidth requirement. Thanks a lot.
+> >>
+> >> ---
+> >> Best Regards,
+> >> Hangxiang
+> >
+> > We have a series from Antans to address this though.
+> >
+> > We should list the clocks the SoC supports not constrain that list for
+> > one specific sensor on a test-case.
+> >
+> > ---
+> > bod
+>
+> Good to know that Antans has a series addressing this. I agree that we
+> should list all the clock rates supported by the SoC rather than
+> constraining them for a specific sensor.
+>
+> One additional concern: if the clock selection logic still always picks
+> freq[0], listing a lower rate first could leave CAMSS unable to work
+> properly with sensors that need higher bandwidth.
+>
+> Could you please share the link to the series? I'll rebase the next
+> revision on top of it.
 
-Thank you and you are very welcome.
+I don't think Atanas' series targets the CSID clocks, only the VFE
+clocks. Ideally, we should make similar changes for the CSID clocks as
+well, but for now they are not being considered here.
 
-Kind regards,
--- 
-Aaron Tomlin
+Perhaps add a few comments documenting the supported rates and use a
+single rate for the time being. Once the CSID clock changes land, we
+should be able to revisit and adapt this accordingly?
+
+Regards,
+Loic
