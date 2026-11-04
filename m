@@ -1,54 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793818846;
-	b=hICGVi7gGpNMBgnCiutQj4jixcjQ4NhOJ1CNqD4jRwDayi7GBWkXBFzXVGJRDqmr8ffl
-	 cZVnKmp5IikNwx4Z0jM/6CzVXdmnpWVOI66arex/MvqS2VxTb1UhBvgF9lHFL/ktErHcX
-	 tFME6l7wv/iXgIFvf+1MdJZGSgm8JtLLTMLPrB1PnjR/JigcuCPhSXesAnWaaLadD8oIS
-	 6kXWuPcQLjpaCrOcFHM4uKSZGNqK199lQBpDi6OcLpQ5ZTNOUCypQ9U2Ec4sY+m3zMjiJ
-	 NtO3D7Z+35ciTism5P8kd6myF4r/tVreP6U0+86bUJXbJSPe9/Sq2VrnhhTtKAsC2hw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818846;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=VzZMLJITLVDB0A5Z42maKwswLtuUp4zeciOTqXGQ8aA=;
-	b=lH1T5Y6KtXq+iHWuEEr35UNorv/PGOaUjPVS4s7SB42Jrx6f1nYTP9yQo75Gsx5ZTbOl
-	 5HlanMQ58y4jN+4DtUnNnsmIOl8pvlBqFLC8vrwZMy9ezAeVYyd7+wLO7d39gXCC0Z9Dy
-	 la2JJnT4Yusl9PJUNwm14wuOL7lYSs4VjaT8MAX9Rt3u+wZgJWb4oaqediuRdOX3aVUwL
-	 08T5R92z0JOEc1T4Kua3nQHsgjabppHNx8CHj0V028ZhgutAnWX904IybtQ2pTw+hIhWT
-	 maGhEtpj8Y66OfDVObRrrE3nY4wS9H5bnCvroD/Akcg2TleCwz6JLRsWOnFp3Pj94OA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=dOrhpNMv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793818893;
+	b=uj3mDnrqjNSPx9daWCCzTDzMYtROxViWqH5t7jqIK66cd1FA98Vhg5DK871QRCTmc8If
+	 4GXv08XtSuPcAN1rVfXTl3kFfZxN2CKjfmymB1rVnHI1FNtuD5LaChZF4gcpLfjOSEXB3
+	 3smgnLu/G1R7Ba0pLq+wGCh34EchWholtRs4bE2csTMTcoFne4Fk3rKSwmWT9K4H/KBv8
+	 ppAhLHhxiAbhrkezrM+iKwBKlOA0zI1zfqpGzNKfcQ6so4ePviNjDgUUWwjdZYYq4akI5
+	 erdu0E6jVsr72mYCQdWDea/tht+DPN0Eb7VdzUKDz8Ji+fYQst9Yot5Og5CFdmZIBVw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818893;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
+	 In-Reply-To:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=agSk+cFPktjD4lmleaUPN9v5OCRHldmWtEkAJi2dW2s=;
+	b=sOeuGxsk2l5JkYbSUoDW07Ms8HHnoEzvmegyNEMAuSHaQnfEg/uZ/0AIJpKW4N3Leyft
+	 Q2K6L+RQzdl9uiDgGD6Fr9XNPUxE1MIkxgk3jSfyX6KeVTOvbfqOa7PReycVlnGbJRZ2g
+	 bgAaLKb0UAPlrZt+cFvas5zwWszCA/iBqLqovoD4Fvhs0RPdbm0cBhfiDO4BxMntstDov
+	 nPKDnaBth3daJOFREIJYuaKHwSKpSqCQEI6n83IdxMpeMFVkEuvnz0HyGF12fbmFXxd2i
+	 lUp2mrolvmNpwdmfalwrFg9FJyC1GlcchGGVvxdHCKzQKNSe6czaGoFDWCyH/nJuqEQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=mainlining.org;
+	spf=pass smtp.mailfrom=mainlining.org;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b="SRAUb/GV";
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=BrYsymwf;
+	arc=none smtp.remote-ip=5.75.144.95
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B18B7606A32E;
-	Wed,  4 Nov 2026 19:00:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B18B7606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 464FF606A31B;
+	Wed,  4 Nov 2026 19:01:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 464FF606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=dOrhpNMv
-ARC-Seal: i=1; a=rsa-sha256; t=1793818793; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=J5Nk2Imxaf8oS1qWOaYZ/5p36mXDAYuXtOJxtp/dopGz+YZql+vQvYrpX8mB7IauHA4Xk8YQi1qu+PaPR6mB24yVfAOhT6/bxucXIyTgAr5kbwboEEEoK0r/KXXOvBMiOSZV7ITsCmtFClDMxvvdkx5UHygUVxFFFyU3jHRL1IQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793818793; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=VzZMLJITLVDB0A5Z42maKwswLtuUp4zeciOTqXGQ8aA=; 
-	b=IIHGp0XFAy4EBAI1xAOPiJGJtjBnAKa1DW4/mE+dskb/wg6rrm+SQ1O2NbrAIvdInYgZaN69e6gP4ugz8c37N7g/budnSoj0+vfCaDRddEsiHdsgyTHEUdlWXBny9WMxT0bGPo7exVlXSK9F2A5uzCRCit861dBAtMweU4FMdr4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=robert.mader@collabora.com;
-	dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=dOrhpNMv1PBqHvf04rmXTIspsXaESd9P7WOVtnMpEGyERmcXNvYese409KE9Zwza09rugcliorGeDQvjrr3MppjkVnftXWuVC1JjjPXfqzc8ZfT1DRcgWJ3GieaTP0rd+PN8zqGyAj7OxYG6dJ7ZZp98FLi16P60Y7MDl9lIIto=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=VzZMLJITLVDB0A5Z42maKwswLtuUp4zeciOTqXGQ8aA=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 179381879157175.33447173328659;
-	Wed, 4 Nov 2026 10:59:51 -0800 (PST)
-Message-ID: <86b801ce-a56c-4ff8-8915-9be369fc0ce8@collabora.com>
-Date: Wed, 4 Nov 2026 19:59:43 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=SRAUb/GV;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=BrYsymwf
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1793818883; bh=agSk+cFPktjD4lmleaUPN9v
+	5OCRHldmWtEkAJi2dW2s=; b=SRAUb/GVki4GpidZse7+3EsGLr/rK7VIUjf5XkxwWtAR+GjSye
+	rO+JZJMWr4ulT5YjFK81VHHIf0Ah8/UAjVrKzUUBI4IBjfdTYx0rBYOCIaVqOJAw3sIN0gi/3Fi
+	y27G+QeKjt1ILV+YaNMxf9coQt3zcGf4Uecblhc6LLCDRmoml38o3HeDCzJX3tZL92+BYkItuST
+	XUDS/SIF07Z79m2A2alWvGhnuJmkOE+QwpVptkTVFh65zuA2dsIcWjHtv76i58SvjvCN62M46ds
+	XHv7yDsi1stEUP5p6xcrzrL3Q+OAFNAJoYoVT4szncJnOjRlOCvoNwHr9ok0uxJ8UcQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1793818883; bh=agSk+cFPktjD4lmleaUPN9v
+	5OCRHldmWtEkAJi2dW2s=; b=BrYsymwfmY+Jp9PuQnFzb8bV5OJT7hhOEcP97qdIjA+lZnzSwI
+	9WYQncpk3bt4oRSUerevyLwwvdIgWdX8PoCw==;
+Date: Wed, 04 Nov 2026 19:01:24 +0000
+From: Bradley Morgan <brads@mainlining.org>
+To: joelagnelf@nvidia.com
+CC: boqun@kernel.org, frederic@kernel.org, jiangshanlai@gmail.com,
+ josh@joshtriplett.org, kunwu.chan@gmail.com, linux-kernel@vger.kernel.org,
+ mathieu.desnoyers@efficios.com, neeraj.upadhyay@kernel.org,
+ paulmck@kernel.org, qiang.zhang@linux.dev, rcu@vger.kernel.org,
+ rostedt@goodmis.org, urezki@gmail.com
+Subject: Re: [PATCH] rcu-tasks: Track barrier callbacks in debugobjects
+In-Reply-To: <20261104153046.965890-1-joelagnelf@nvidia.com>
+Message-ID: <3AB3C8E1-9709-4F46-8283-27CAB4A264D6@mainlining.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,73 +66,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/7] media: qcom: iris: describe QC10C as TP10
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Bryan O'Donoghue <bod@kernel.org>,
- Stanimir Varbanov <stanimir.varbanov@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Jordan Crouse <jordan@cosmicpenguin.net>, linux-media@vger.kernel.org,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-References: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
- <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
-Content-Language: en-US, de-DE, en-GB
-From: Robert Mader <robert.mader@collabora.com>
-In-Reply-To: <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-Nice, very happy to see the series!
-
-On 04.11.26 17:36, Dmitry Baryshkov wrote:
-> The comment describing the QC10C buffer layout calls it a compressed
-> P010. It is not:
-
-If I'm not mistaken the display engine / the DRM side (including Mesa) 
-describes it as P010+QCOM_COMPRESSED as well, and so does my pending 
-Gstreamer MR [1] . So if we can't pretend that QC10C == 
-P010+QCOM_COMPRESSED, then we probably need a DRM_FORMAT_TP10, wire that 
-up everywhere etc. OTOH if we want to keep the DRM side as is, then the 
-comment should reflect that, IMO.
-
-Best regards,
-
-Robert
-
-1: https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/8195
-
-> P010 stores each sample in 16 bits, QC10C packs three
-> 10-bit samples in each 32-bit word, which is what the stride computed
-> below (width * 4 / 3) assumes. Name the format correctly.
+On 4 November 2026 15:30:45 GMT, Joel Fernandes <joelagnelf@nvidia.com>
+wrote:
+>rcu_tasks_invoke_cbs() now unqueues each callback from debugobjects.
+>However, rcu_barrier_tasks_generic() inserts its per-CPU barrier heads
+>directly with rcu_segcblist_entrain(), bypassing the queue hook in
+>call_rcu_tasks_generic(). This produces active_state and deactivate
+>warnings for untracked objects when a barrier callback runs.
 >
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->   drivers/media/platform/qcom/iris/iris_buffer.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>Activate each barrier head before entrainment and undo that activation
+>when there are no callbacks to entrain behind. Successful entrainment
+>is balanced by the invocation path, as for ordinary callbacks.
 >
-> diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/media/platform/qcom/iris/iris_buffer.c
-> index eb8de60c1177..ec2bf2a2d953 100644
-> --- a/drivers/media/platform/qcom/iris/iris_buffer.c
-> +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
-> @@ -266,7 +266,7 @@ static u32 iris_yuv_buffer_size_qc08c(struct iris_inst *inst)
->   
->   /*
->    * QC10C:
-> - * UBWC-compressed format for P010.
-> + * UBWC-compressed TP10, YUV 4:2:0 with three 10 bit samples packed in 32 bits.
->    * Contains 4 planes in the following order -
->    * (A) Y_Meta_Plane
->    * (B) Y_UBWC_Plane
+>The existing n_barrier_cbs=2 torture test reproduces the warnings before
+>this change and completes without them afterwards.
 >
+>This fixes patch "rcu-tasks: Detect duplicate callback enqueue".
+>
+>Cc: Kunwu Chan <kunwu.chan@gmail.com>
+>Cc: Paul E. McKenney <paulmck@kernel.org>
+
+Thanks,
+
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+
+>Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+>---
+> kernel/rcu/tasks.h | 3 +++
+> 1 file changed, 3 insertions(+)
+>
+>diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
+>index d5d060a5c4b6..a20db323612b 100644
+>--- a/kernel/rcu/tasks.h
+>+++ b/kernel/rcu/tasks.h
+>@@ -470,9 +470,12 @@ static void __maybe_unused rcu_barrier_tasks_generic(struct rcu_tasks *rtp)
+> 			break;
+> 		rtpcp = per_cpu_ptr(rtp->rtpcpu, cpu);
+> 		rtpcp->barrier_q_head.func = rcu_barrier_tasks_generic_cb;
+>+		debug_rcu_head_queue(&rtpcp->barrier_q_head);
+> 		raw_spin_lock_irqsave_rcu_node(rtpcp, flags);
+> 		if (rcu_segcblist_entrain(&rtpcp->cblist, &rtpcp->barrier_q_head))
+> 			atomic_inc(&rtp->barrier_q_count);
+>+		else
+>+		
+
+Wow!
+	debug_rcu_head_unqueue(&rtpcp->barrier_q_head);
+> 		raw_spin_unlock_irqrestore_rcu_node(rtpcp, flags);
+> 	}
+> 	if (atomic_sub_and_test(2, &rtp->barrier_q_count))
+>
+
+--- Thanks!
