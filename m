@@ -1,110 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793821055;
-	b=Dk5XZCsekEUoxsUiZG7dX+PkVnfaL+nkXErm5bhKvCffcqmUG4uYgZcpMyOyX+I6sAo0
-	 Z7aZ1f2UGpPKEjEg/8rIzoIp8EAX39NIpJ6vO+oCzMkWJVQ/HI8/WTKw/8pSla35AgMiX
-	 uyRQktS3Nw3+DsJ3g56FcZP8y+pHPZhF1k3B85MfCJhpDAnyXy7ZyQfOdeLNvWLxmjoG3
-	 EVhs8q1JjpJF+jS9P01oEK0ZsCjdfPJI5NAzCewiQQyLReFqFxByAaf5RBHjZc4zEzrzM
-	 51ADHfrI7TXTG66j4/9ylFPqzIsiUFZjQVyhIrHYCLTZTfEWQg5touOQ9p/4yWG6v5w==
+	t=1793821073;
+	b=Yv+FrL2qHYPolROAgcSqmia8+gj0pi/AEjmoXSc01l1ucbCbCW2kLgeTxYw1v1ihX+BI
+	 gY+Lcf+rZWwHpGoauTd2glR+SZWtsK6DSXNwXEo2EhRqfTjSyEpY2ihYFGgwn8hoABkcd
+	 VBY/hke4LgoCPgj6lidhn84NC2QnVmzibriZlQ7pvmRzp5S3jeyrgSVQbw9ipsSD/kcrA
+	 phS/Bt4WJMZo8rwM82cKhBGkO6RKsuloBsogrSr86Mucb4Bb/1bu/r8ihX2JeQV13Im8o
+	 SyCbD55WhIcdZCXxbXFtAOtKww+N+TWGIGA1Wp6Bt6RLPJeJf6EWbCdxDd5aiDa3gYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793821055;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=FBXs+Ai9hCvv2gTN7UF7ctcncQyXKpM3GPgKiB4YAT8=;
-	b=gBz6dmOubyjO1hiRoWxjF4scqgxXSCqBzHjURBY86Ju+dBDKmHrkePJX84rReSlFXmsl
-	 4mI+akJY79sLhPAN12P7e89+baqE+oaOOquG6O62NreYo5IL4Vi8TanozQi3AH4H1sujo
-	 o2hrKH5ugBob/SsFu+cuw+BindHAZpplNPMtsvJ1+0FzuQnkD/EpD/KDqOdiMmy0k4FSG
-	 rxFKx81V7yg6aB34/MyEVYzvwjU3QVrazczBVhKwpH4ZWK3qPKMiRhdXWtdqwAB3l/ufY
-	 jLKKB3FOvO1jsHl+x00Jel9B8RBchmTcnlVHtxJO63QPHjsSZiY4clvnJPa84OiKSwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793821073;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=9/OFrJ8GGE9h5yRFJ66Xeugo3H18/5jrLH6ADJy3KDU=;
+	b=mbiYyP3VLAVokzqhTFL85IurDv6fJyagsfH2lQMveTlGJVpiGC1kkcLd5M1W2Ldi9HJ6
+	 TDkjR+HbOrk18epFi6mi3+2uTCpSxlu3nnQ7O4ONAoTuntDJIdLsmy3gYoRU7iy5vKzAO
+	 JgwsIdtxqmqEWI7481EoudET/qinmaxttRFtQBZxTuJ3BcJCALEcKwpXoIyn3WJ/88pc6
+	 zsXsYDh7AyKpGRUJAsNprXoqgjo6eyaE8l8Z1UYpGHSbCSVY5mpPFhaed5AopfLSJhUOh
+	 HsB8pwuQso7bce/nDN5nG+K8p9dtm+WZz48TX5EROVHzVMKLQlzMxDV8NGxvBZ16gxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oZGa4uxN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=orkRQADS;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BVcXMdxe;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65EA9607E738;
-	Wed,  4 Nov 2026 19:37:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14B5A60B4C0F
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:37:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14B5A60B4C0F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oZGa4uxN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8DB91F00919;
-	Wed,  4 Nov 2026 19:37:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793821055;
-	bh=FBXs+Ai9hCvv2gTN7UF7ctcncQyXKpM3GPgKiB4YAT8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oZGa4uxNa4f8lPnKCnZcOshs5bIS38FNrm9Me6KMthFTmP+MOwFabIXkXu/wyKAZr
-	 eMuwJ+f88gJjEcbCjCfZt9K+REs55uNNlIGT+aTII7ZPio3yO+n12ryLYxF/Wa4AGF
-	 RTs/sXBBLK+HuDFmMw4GQx8DcZDiGoyEhXa9KRIJsWTr/ApICfUXhkzLdIecTTSsZM
-	 nHz+oFP0Qjh5+4b8BIeAsHx40sCyakErwgtYM1ptBy94JFV23RAvKVaGe6b4yCL5Fu
-	 zKdbeftWi3Cfr5diHQHdPhNunK20Crp1slFjQ4GoZOScF/vgZqztop91HodBl1uB/4
-	 9Lcb7Om7gZE0g==
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Jann Horn <jannh@google.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Chris Mason <mason@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Christoph Hellwig <hch@lst.de>,
-	Greg Kroah-Hartman <gregkh@suse.de>,
-	Joel Granados <joel.granados@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Jan Kara <jack@suse.com>,
-	linux-kernel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	netdev@vger.kernel.org,
-	ntfs3@lists.linux.dev,
-	platform-driver-x86@vger.kernel.org,
-	coreteam@netfilter.org,
-	kexec@lists.infradead.org,
-	linux-pci@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	ibm-acpi-devel@lists.sourceforge.net,
-	jfs-discussion@lists.sourceforge.net,
-	linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-sh@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	samba-technical@lists.samba.org,
-	sparclinux@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
-	linux-doc@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-atm-general@lists.sourceforge.net,
-	Takashi Iwai <tiwai@suse.de>,
-	linux-input@vger.kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	linux-modules@vger.kernel.org,
-	linux-debuggers@vger.kernel.org,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Chuck Lever <cel@kernel.org>
-Subject: [PATCH RESEND v2 07/23] powerpc/rtasd: let procfs own the wait queue of the rtas error log
-Date: Wed,  4 Nov 2026 20:37:20 +0100
-Message-ID: <20261104-work-procfs-arch-v2-7-2aeb952c9597@kernel.org>
-In-Reply-To: <20261104-work-procfs-arch-v2-0-2aeb952c9597@kernel.org>
-References: <20261104-work-procfs-arch-v2-0-2aeb952c9597@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=orkRQADS;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BVcXMdxe
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4FiomN1292199
+	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 19:37:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	9/OFrJ8GGE9h5yRFJ66Xeugo3H18/5jrLH6ADJy3KDU=; b=orkRQADSaGoJA41q
+	M3ucuAKlsyuMkNqB0/eHQR0+sNhCFqnjWtlyeLMDJRZMU06NlUf80dJHdEeqOqcp
+	kzp42KOc/OY8+XBtwlEqh5LCaicasOhfM4/ZUr3NIQCmZ5zka/tNYzkQJdGIo3oG
+	9NFzvoo0Lq3bEoH82qaWTSjSFEftDL2RRkHVr2UJvfL+IVFZlmW7NkRqNC5k1ZjS
+	tDgxpjw69QdCPJ2iCGZlZwtLx7e6jyRpU+uZmExYqICFBDIEUaYiw5gz04kYN2na
+	Ic5W9DcrjPCWuIxrdyU7TX5H1vtI+PJ52jWQWg/11U50uIRp5izUpoTzEKVQpXvu
+	r5cxAQ==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr163jrjg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 19:37:52 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8a5971cf7ceso1799943b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:37:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793821072; x=1794425872; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9/OFrJ8GGE9h5yRFJ66Xeugo3H18/5jrLH6ADJy3KDU=;
+        b=BVcXMdxel8p1zLqX8GBFTbQQbpqnJet3Xe1hR425mDzvPB+MhP+4CYLIig/Esu7km5
+         zThzW9ma+2J64CBfErYWRHcR0JirH0INHwDqEgqVCte2JWg9hHzbsGVsAicZOmCcCrpJ
+         UI7VZtqsMVk8TBQPCtxYr8m5HsEF0wZSXXY9Le8Ppa2e7GnRD4gtKoACJgoSaLZT0zin
+         uibkS+dfSTq/iuTh6wxDIQpfwwtybJoUCYgL5pT7aSA9RT/10bJyoLOtjVaENgeepd6E
+         toQksNDNllbJf4njNL9eOUCy9Ls12pXVezlmlY4UTvgN10bWBoThvo3at/tMtxCy89Lt
+         qzbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793821072; x=1794425872;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9/OFrJ8GGE9h5yRFJ66Xeugo3H18/5jrLH6ADJy3KDU=;
+        b=Wf96GCzrGbOIxqg2leUn0JtYTp7Ul5HI3iN7utNctLzeKOgNh9w3tXvL8E0MqgntIs
+         cJZueZ3BQcQFAMeNbxJFcvZsRlPfIIM2Bds4BCpqqPZLuJgoBh2gmnvRfI34Low6TGqT
+         tF4O4izYesdLwdsPBe/EIgQiRNLT5r1AUuclB9bQdgpXDSh7xQMRZ4gUk+B68wOPdVjz
+         4YOYgHScGwlNbF21EWQozowbwCGyWA//1pfJC12lmOkWv7g1mdUmNNdlXxEZy1WuHYZp
+         1rILkfhOVYuv4TpJfi0kR42RlcIrU48Q1Q4i6ceW8Z4qTMOe58AbheCo0Raq4uKmEwkx
+         ka6w==
+X-Forwarded-Encrypted: i=1; AKwUvBybRVFe5hrCVrDxqTeD1G60Rlkn1COxGSgX3agQxjPtK7/teC9ydHyh9c2vKX5VAUOoBVhijO5xXgGS9sI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8wbQHYrNK+VGOA+/BI3LXUE/jx20Oo26sQXBzKb5qx4oOfh/b4
+	5czUw+ASPS0Ne5tt01DFWOG45vlGFaHdj8fdtLBdSJKOdXqqLl3pREdQsD1N99IJYxEqB4b7P9l
+	vDJofTyau0CYC25OZ/efjF2UWWREErP34FnnZB6+JxHt2vaUDAfUhysZCfGs+uqc6pw==
+X-Gm-Gg: AYBFou0+nNXq7Ky2qp2EeUsyVdXphIVO8riIWGD/5zx8pQpil0XP76VcQKyLM8nL4Ni
+	Ppe42X1M2wPrp9CEEAzXHUusLswKCnUEvgyOyTkXML9xPjFUgEaVm+DqxDyfTYmoL/BBiAWOM3x
+	PwQdY+CYk78uhIuoaSRGZXHmntbHT3Zd9ZrMjLCKAeUvk3xNScowctgdq1PEte9tBdV9Ed+D5Jk
+	r2gaxli1aUTz5c+jP18BBmRE9y0TpCVkqhmL+XAvCStK/P9pqklpAvqw2qxksNE5YDudv2UnoqC
+	N6tW/DPiKUIHWkbsWzkZD3SstfDy7IZYOSKonFgJaZol8z3991Ri+SeA300fbU9eqJ6Q20imp6H
+	dIPPezNmzANiDLQ0jdtmVjmkS6t0haVV/8YYbr8TN8FvE/5CsC38ZqrdmVl675Kw65hbMNgNDNq
+	WUQC+Z
+X-Received: by 2002:a05:6a00:1f0b:b0:878:34d7:6a24 with SMTP id d2e1a72fcca58-8a9beb69d9amr14143268b3a.38.1793821071645;
+        Wed, 04 Nov 2026 11:37:51 -0800 (PST)
+X-Received: by 2002:a05:6a00:1f0b:b0:878:34d7:6a24 with SMTP id d2e1a72fcca58-8a9beb69d9amr14143249b3a.38.1793821071128;
+        Wed, 04 Nov 2026 11:37:51 -0800 (PST)
+Received: from [192.168.1.86] ([65.181.14.223])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b09a7cc082sm1275492b3a.12.2026.11.04.11.37.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 11:37:50 -0800 (PST)
+Message-ID: <6f2f8357-59ef-491b-95f2-d58feb362ba7@oss.qualcomm.com>
+Date: Thu, 5 Nov 2026 06:37:45 +1100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,71 +116,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1920; i=brauner@kernel.org; h=from:subject:message-id; bh=URY8OmvUYSj7cGs0MgqVpOcYmOKyD/AnlDpC5EfxAis=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97vhysuHhtP2XD0+QvcrjIThN4YyziduaSa0B5Ze45 bccDt8i3VHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjCRdXcYGf47m6tcV9TUtJW6 6rN1+ac5lkXuOyKb82c41N9Z+KfrawEjw4GOwjOGH8J1JW9/u80gYm/VabKvXdx4/nGt/Pjujku VLAA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] tee: qcomtee: user: check the parameter count from the
+ supplicant
+To: Jens Wiklander <jens.wiklander@oss.qualcomm.com>,
+        HyeongJun An <sammiee5311@gmail.com>
+Cc: Jens Wiklander <jens.wiklander@linaro.org>,
+        Sumit Garg <sumit.garg@kernel.org>, linux-arm-msm@vger.kernel.org,
+        op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org
+References: <20260730062219.2836938-1-sammiee5311@gmail.com>
+ <CAGgiveUc+TkGyGDxuuCLpHO=i22-4fn1CqjqnnmWLdWWYOZfPA@mail.gmail.com>
+Content-Language: en-US
+From: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+In-Reply-To: <CAGgiveUc+TkGyGDxuuCLpHO=i22-4fn1CqjqnnmWLdWWYOZfPA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: b67qYFIqcF9qKX65iz94A1GsXybHi4mf
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA3OCBTYWx0ZWRfX3Q7o8DKgoeMV
+ yBHPGBTFV088Gpe46xI0eUjOiS4y2W0fHIjpeqGgr/F50xeUIEhwg0tsN8SE0CzZlXuwTR8tYc+
+ kebss9LZM/9TeWU+o2Sv+w4UvLcAF68=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA3OCBTYWx0ZWRfXzJtfnp8Rn6p8
+ 3Nhm54s5tDVVdQ2TrRKJQJ3eBW8JmQQfJTa8wx10sl+WuKBE/QzN+HqBO+/3FNmWKTTt+4rYydp
+ D2ezTn18E+qBVWe/gxWuPmS8CxASwthEqhfyLCUpfgMCX5xcNBmnmqt4AyIBNA1/D9AU/6gU1pP
+ ohvUMSlcKEncY+2vpF6ZqbE9XMilXJm88hxj0Ly4EFURg4pZb54QPIW/51jmgwmqcrXGfJQr/Hc
+ TIjDYJtgNcGF5nvMBCZHFcs2W+nz9zuB49bfvG+hULWtU63un4fUUcZtqK5TmXOyfntZT+BwiHd
+ AOxwhbCQiou2N6K1dcoRjkKkKSZyaPL4FIQhVecvp8RXV68k3Yqr5PcbNrJuNHzw3aJHJW5yBXB
+ C0QBGxLEziDshMwf+a/UQNYWTdhBYKQwYdiu8VEIvDqAcNPGvBaCQ4JpuOGG68gS+i+s/sjAO8R
+ 07zGAAtQM1GhkImzsVw==
+X-Proofpoint-GUID: b67qYFIqcF9qKX65iz94A1GsXybHi4mf
+X-Authority-Analysis: v=2.4 cv=O5OsLx9W c=1 sm=1 tr=0 ts=6aeb8990 cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=YVmDP9EW+FTsGeEl22X1ng==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=47U92Yqy_zLrgJxgMLYA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_05,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0
+ clxscore=1015 impostorscore=0 suspectscore=0 priorityscore=1501 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040078
 
-rtas_log_poll() sleeps the poller on rtas_log_wait, which the blocking
-read sleeps on as well. procfs owns the queue poll() uses now, so leave
-the poll_wait() to it and wake its pollers along with the readers.
+Hi Jens,
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- arch/powerpc/kernel/rtasd.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+On 11/4/2026 4:58 AM, Jens Wiklander wrote:
+> Hi,
+> 
+> On Wed, Aug 5, 2026 at 11:23 AM HyeongJun An <sammiee5311@gmail.com> wrote:
+>>
+>> The qcomtee_cb_params_to_args() walks the argument array QTEE asked for and
+>> indexes the parameter array the supplicant supplied, but it never looks at
+>> num_params. A supplicant that answers TEE_IOC_SUPPL_SEND with fewer
+>> parameters than the request needs makes that walk read past the end of the
+>> allocation.
+>>
+>> To fix this, reject a response that is too short, the way ureq_select()
+>> already does for the receive direction.
+>>
+>> Fixes: d6e290837e50 ("tee: add Qualcomm TEE driver")
+>> Assisted-by: Claude:claude-opus-5
+>> Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+>> ---
+>>  drivers/tee/qcomtee/user_obj.c | 4 ++++
+>>  1 file changed, 4 insertions(+)
+>>
+>> diff --git a/drivers/tee/qcomtee/user_obj.c b/drivers/tee/qcomtee/user_obj.c
+>> index 10452fcc7ccb..2a594ae299da 100644
+>> --- a/drivers/tee/qcomtee/user_obj.c
+>> +++ b/drivers/tee/qcomtee/user_obj.c
+>> @@ -507,6 +507,10 @@ static int qcomtee_cb_params_to_args(struct qcomtee_arg *u,
+>>  {
+>>         int i;
+>>
+>> +       /* Supplicant can not send fewer parameters than requested. */
+>> +       if (num_params < qcomtee_args_len(u))
+>> +               return -EINVAL;
+>> +
+>>         qcomtee_arg_for_each(i, u) {
+>>                 switch (u[i].type) {
+>>                 case QCOMTEE_ARG_TYPE_IB:
+>> --
+>> 2.43.0
+>>
+> 
+> Looks good. Amir, do you agree?
 
-diff --git a/arch/powerpc/kernel/rtasd.c b/arch/powerpc/kernel/rtasd.c
-index 360ed2e30fd5..fa9574131f40 100644
---- a/arch/powerpc/kernel/rtasd.c
-+++ b/arch/powerpc/kernel/rtasd.c
-@@ -33,6 +33,7 @@
- static DEFINE_SPINLOCK(rtasd_log_lock);
- 
- static DECLARE_WAIT_QUEUE_HEAD(rtas_log_wait);
-+static struct proc_dir_entry *rtas_log_entry;
- 
- static char *rtas_log_buf;
- static unsigned long rtas_log_start;
-@@ -259,6 +260,7 @@ void pSeries_log_error(char *buf, unsigned int err_type, int fatal)
- 		WARN_ON_ONCE(!irqs_disabled()); /* @@@ DEBUG @@@ */
- 		spin_unlock_irqrestore(&rtasd_log_lock, s);
- 		wake_up_interruptible(&rtas_log_wait);
-+		proc_poll_notify(rtas_log_entry);
- 		break;
- 	case ERR_TYPE_KERNEL_PANIC:
- 	default:
-@@ -343,7 +345,6 @@ out:
- 
- static __poll_t rtas_log_poll(struct file *file, poll_table * wait)
- {
--	poll_wait(file, &rtas_log_wait, wait);
- 	if (rtas_log_size)
- 		return EPOLLIN | EPOLLRDNORM;
- 	return 0;
-@@ -529,17 +530,15 @@ arch_initcall(rtas_event_scan_init);
- 
- static int __init rtas_init(void)
- {
--	struct proc_dir_entry *entry;
--
- 	if (!machine_is(pseries) && !machine_is(chrp))
- 		return 0;
- 
- 	if (!rtas_log_buf)
- 		return -ENODEV;
- 
--	entry = proc_create("powerpc/rtas/error_log", 0400, NULL,
--			    &rtas_log_proc_ops);
--	if (!entry)
-+	rtas_log_entry = proc_create("powerpc/rtas/error_log", 0400, NULL,
-+				     &rtas_log_proc_ops);
-+	if (!rtas_log_entry)
- 		printk(KERN_ERR "Failed to create error_log proc entry\n");
- 
- 	return 0;
+Yes. It's correct. The check is missing.
 
--- 
-2.53.0
+Reviewed-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+
+Best Regards,
+Amir
+
+> 
+> Cheers,
+> Jens
 
