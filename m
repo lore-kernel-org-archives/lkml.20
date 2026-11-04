@@ -1,60 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793788419;
-	b=IYqvZdY8DXblpf32ewPxFif0inW8elL9O40reSM4pwWXv7uKqBAfxfrLTyu2tLep8HyQ
-	 uydtg5UgVQtjAW+aGb3/yd0hOLLwoR9QHvHmKinxOjY1rCpwJPvrKPn+QFnkRIiy3vTe0
-	 YoCR7RiJnyqXj7bC0fWjjo1LcjtPTwJIoXDnt+mMbo97KUNuOW8qq2Frg02je6GcCieHS
-	 Y/1P8NrDPJ81AXYd+aHxU4G9FxmhdzuBSbwzgziYXm/3zAfsJCPAjc8ee4yMvo2j/EMbb
-	 AI47/7c11m3sKIbuW7EF91WnKxMsIfBhL6L8rzvO9ps6xHsp+Qb0u1fwGPkxwfdVR2Q==
+	t=1793788467;
+	b=aLtZcZnzPB8HEUA20g/ElufQtAgWBwr/GtBwVQHEzKb8N53pVUo3XFlVscc3AP80W0Hw
+	 MuS+TElEEzFrHpYmmKJdi51wdJPAPlZ4vk0aKFXjDQN4eimwFENKlTejuL03qvh4SqUsz
+	 mKI1rbucFbicLi7l5h3whUMyMizecsZo2tOiUgc1DvYZieg++EOAsydVfUuV5+swDj4+R
+	 ILD4UMduLhwUvIR8k71s4DPJRyskBkn7cBBgz2K5U0pCKfGZ5U8V8hRR4hpLxTL+tUB6g
+	 RFspVlTyfaTMNi4OHh6glItog5A0TqXsjRkX64Tg0ZUFTXYRqsmscNRpvIyAaEL31vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793788419;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=1v+vPQfoGkHCsYpx/z+qXBL8qgnFTSPKxQiCiSOUl6I=;
-	b=gMo+fDX1D6IS8R3bi47tMFK7ZrRyg2EuArDYRCpotyh55BJJhdrQshpBH785GIs4uod2
-	 o3EOo3i2rSPsy+M4XWtSaD3cm5iPmtfCYjyczNYfUSZrS8/hDAcASTt+AUVH7Alq5aEzA
-	 Un9Hdc33hflc8WIhjh8/DZ2lsI+ysqfnbbXVm97AoqIg/48Q7/rDa3V56d4mUtf1LTVpE
-	 kqQWIS2ZFxQAlbX9YoeEKWbqKMtdx3/YzFZx1d1fiNqKZnS8jS6ocVaXRHIfPguMej3Nk
-	 HjtnhKeMV+pIlPuqTPBapEI36rRDxaWfF/cvg8L7j3jaZnP5s3rxWI5Wqk7k7vNGZIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793788467;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=h/IyEnODLjG54iLprqGuhwix9RXe6REIL8RaNZR63d0=;
+	b=aeJkhMkXlv0wX6iIV0ILhnLT1ltt+BnnyFf+hvUNxFnLNhu+EUJS8fZEU/w8prF/M7sh
+	 eXXW1RhayuLSBqMfyvjsjjaFVV2Cd9xl966UOv2RO4H7A+UYttuHvj5YYz4Z73ypeiqHQ
+	 dTO88BmRUBbBMGWpWZvEvQp4uewPVpSvuRscg5jq1os1lh9C/FHvZQE4aiZtCUZNiXXqb
+	 ZOk6+t4U/7VtuRxQvUaz1rV7YMWvk+xQjE+1NBK5f/9XIrAU7ELBR6Axdgaa3ZL1+do5I
+	 B8Ct1lcyvHYFcS09pG0sb49JWUY7yxSutMDBov9hZlOfTiQR9H+bo2xW0zQS1irziAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ix+mIwtO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H0UYgqRB;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECC5B606A31B;
-	Wed,  4 Nov 2026 10:33:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B43AE606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:34:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B43AE606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ix+mIwtO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10D081F000C1;
-	Wed,  4 Nov 2026 10:33:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793788418;
-	bh=1v+vPQfoGkHCsYpx/z+qXBL8qgnFTSPKxQiCiSOUl6I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ix+mIwtOotDrvMTMvDOWVWhNcuHZp2MmOo5SOh/5vik9pHX+wphcZRkXh6OM5O2/X
-	 QIObD5khAH4S4R7YgYZDKnsYysgXsY0FjlXVSTekeUTw4h924CjD4L3wRqQzej3lgd
-	 CwyVUe4nn1IwD6qMcciN+QEbpGip/SvHoEoxH7EmHW7NG0Q29Zq8wEXx15FE21WX+V
-	 Tvt6JV0uTrbVLbs9ziTdVnWdYhkKwubFB/9nyNX00GG7eWg4np6SMcRREE6DZp3OoM
-	 8eWyK3sO+IFvb2eF7uoOg+Rd0e5cbiQbuXhD0PTS/99PTQudUVuE7OgEI7nhqxBAkN
-	 OY7T/RiIS7A1Q==
-Date: Wed, 4 Nov 2026 11:33:35 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Hongliang Yang =?utf-8?B?KOadqOWuj+S6rik=?= <hongliang.yang@cixtech.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Gary Yang =?utf-8?B?KOadqOaWsOS8nyk=?= <Gary.Yang@cixtech.com>, 
-	Fugang Duan =?utf-8?B?KOauteWvjOWImik=?= <fugang.duan@cixtech.com>, "linux-phy@lists.infradead.org" <linux-phy@lists.infradead.org>, 
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, cix-kernel-upstream <cix-kernel-upstream@cixtech.com>
-Subject: Re: [PATCH v5 1/3] dt-bindings: phy: Add CIX Sky1 USB3 PHY
-Message-ID: <20261104-ethereal-cassowary-of-revolution-ecdda2@quoll>
-References: <20261103074913.1971025-1-hongliang.yang@cixtech.com>
- <20261103074913.1971025-2-hongliang.yang@cixtech.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H0UYgqRB
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-490a1be3bf4so15143f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 02:34:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793788465; x=1794393265; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=h/IyEnODLjG54iLprqGuhwix9RXe6REIL8RaNZR63d0=;
+        b=H0UYgqRBv3N1RDy5WALaO+DwGXv+cpb7/uVGz2PG2K8C9+GnrO9hjaoFeK/wPuA1O/
+         aduIJ5lRrxepNZjuDICFbbDPyDcnpa2To1lLReQG3xRZuqdP7Mp9kF9/wswuMrDRWyTF
+         Skq9uTYmNFd1Y55lWLhjsy8jcDENfH+maLhjRXGGOa55CgtXOpNjXc56qRGJO9xHbKKW
+         3fRdYK9WrbPc4dUK/LrZRRnj/7pbPtb5x63h6O9BpkQr/IU4jqxbQ9ZRnuE/fcfoftZ0
+         D1Od0704SoghcyZft4+eIXlaRAfPKuGBudLJPaJMwiBHPSBRArYwym9jNrlkGwtuGzaF
+         abmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793788465; x=1794393265;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=h/IyEnODLjG54iLprqGuhwix9RXe6REIL8RaNZR63d0=;
+        b=WbvBQd2psJY6f84JXMt0XxgGIyeAMveAlK4P1Pj9+TZRkRK2oHU3+Sl1nVqhKNpMpE
+         TpjziAOXNiv9OKH6pvTGNzkcM3IZQmh/M8JLAdnRskb7cZg7d/6mYlG4atFEUQ+liwnh
+         y+x5pj7XCG6QYINB0sbfIjnPQaXkHZNwSawhdTaac4alplCAoipOB0irN/a9RY8zRI4t
+         n1vZwHCbMHtPb90XO/R7pvBhESM8Po2Sb1S6Nm3t4+t/rvIYcUvQoiDvZqHCfjqOMv4S
+         8Oq25TFzY/HRgubpuYuyGXkoLi/8xAavMSJ8emriU4DCVrgLkZ6RrK2HBox0uQY2DPsD
+         DqxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxuGQeI6r2r6RWAHsxtsVWKuEiOFmMp5dxsfOCcse78adgnK/GXUp5uT5+gXj7vcS/YupAQhwjS2dlP1Q8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+xzPZcUN6z3SoJdSfpS+QAg83zj0Iyw63UkKVA9q9+UBtkaZqF
+	x28VKif4b+8ZSixvZM//j7iXzfkluIqpFY2JaBs8vux6hBC4LUYFoKoWyef0uGpw
+X-Gm-Gg: AYBFou2o3fdYCMo07Us4DHJkvAr/hnz0R9NF2CLNrgkqZNW59netRV3/isUpUG69iGB
+	dKOp2aSK6yzVTu+HxfeCitevy8bcKtgy67QhtC/wViDxclBIgFBVRz8q557lLSKHNX9IuXr4K9U
+	ZBmGuOFqoE5jnUGrUzLTJqpvDvOyI+CUPSXTmZxxna9cN5+7EzsmB/ufsnJSHtnEHXjz//jznt4
+	IOmE/5YaxKdiIyVBvWin9mKoajJYVURYspwsHbEqFJn31YA1C8wvY+CoH4f4c1JVIX+Ke1d6ygx
+	M1++i3cP6klQRwB9R643JQjaUHRnAYmE8XdqNVnd8D4zBDbP9xe/dkuxwWbM4qIpEkMNRH2kCTh
+	p5gAAgndOYsAFTZaoRxvOQ7nEmE3KXc837vQYqBb+jiuqK+tqNPSI8qHurRA+kQvbAYG1nEN/8T
+	BPf0MFDmiXepPJ4OnykW5xLjyxs1Nersv0GyVoc9VTkwQTguUMEmbmeE+Ydcp55QhNsj3woTl50
+	3RWIDcn66KNWgLJ2/hMmCFMwwqcKHXNft5XuJZ44AJ1cY3xt8zOgS3VunCho5tUdKXo1dZnsmwy
+	IJKV4t7nlyEjXuaiguJ5ipTn4yTXwVBPTwxdoY6QsoZTLp+JhhI1Ud8zr6i7DRQMUcbSCq/2eHZ
+	95o8A57glvyBQhjs8bbk=
+X-Received: by 2002:a5d:608e:0:b0:48c:698b:502c with SMTP id ffacd0b85a97d-48e6e2bcec8mr28938089f8f.1.1793788464784;
+        Wed, 04 Nov 2026 02:34:24 -0800 (PST)
+Received: from thomas-precision3591.paris.inria.fr (wifi-pro-83-006.paris.inria.fr. [128.93.83.6])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48fed552afcsm3105132f8f.41.2026.11.04.02.34.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 02:34:24 -0800 (PST)
+From: Thomas Fourier <fourier.thomas@gmail.com>
+To: 
+Cc: Thomas Fourier <fourier.thomas@gmail.com>,
+	Potnuri Bharat Teja <bharat@chelsio.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Hariprasad Shenai <hariprasad@chelsio.com>,
+	netdev@vger.kernel.org (open list:CXGB4 ETHERNET DRIVER (CXGB4)),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net] cxgb4: clear the sge maps and bitmaps freed on adap_init0()  failure
+Date: Wed,  4 Nov 2026 11:33:08 +0100
+Message-ID: <20261104103309.24360-2-fourier.thomas@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,20 +103,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261103074913.1971025-2-hongliang.yang@cixtech.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 03, 2026 at 07:49:20AM +0000, Hongliang Yang (=E6=9D=A8=E5=AE=
-=8F=E4=BA=AE) wrote:
-> Add device tree binding for the CIX Sky1 USB3 PHY, a multi-port
-> SuperSpeedPlus PHY supporting up to two USB3 lanes.
->=20
-> Signed-off-by: Hongliang Yang <hongliang.yang@cixtech.com>
+The bye: label of adap_init0() frees sge.egr_map, sge.ingr_map,
+sge.starving_fl, sge.txq_maperr and sge.blocked_fl but leaves the
+pointers set. If the call of adapt_init0() from eeh_reset_done() fails,
+then a subsequent call to remove_one() may call free_some_resources(), and
+free the resource again.
 
-Also, does not match From field.
+Clear the pointers after freeing them.
 
-Best regards,
-Krzysztof
+This bug is theoretical and was found statically.
+
+Signed-off-by: Thomas Fourier <fourier.thomas@gmail.com>
+Fixes: 4b8e27a86d20 ("cxgb4: Allocate dynamic mem. for egress and ingress queue maps")
+---
+ drivers/net/ethernet/chelsio/cxgb4/cxgb4_main.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/net/ethernet/chelsio/cxgb4/cxgb4_main.c b/drivers/net/ethernet/chelsio/cxgb4/cxgb4_main.c
+index d449cca00608..9176653c7d70 100644
+--- a/drivers/net/ethernet/chelsio/cxgb4/cxgb4_main.c
++++ b/drivers/net/ethernet/chelsio/cxgb4/cxgb4_main.c
+@@ -5402,11 +5402,16 @@ static int adap_init0(struct adapter *adap, int vpd_skip)
+ bye:
+ 	adap_free_hma_mem(adap);
+ 	kfree(adap->sge.egr_map);
++	adap->sge.egr_map = NULL;
+ 	kfree(adap->sge.ingr_map);
++	adap->sge.ingr_map = NULL;
+ 	bitmap_free(adap->sge.starving_fl);
++	adap->sge.starving_fl = NULL;
+ 	bitmap_free(adap->sge.txq_maperr);
++	adap->sge.txq_maperr = NULL;
+ #ifdef CONFIG_DEBUG_FS
+ 	bitmap_free(adap->sge.blocked_fl);
++	adap->sge.blocked_fl = NULL;
+ #endif
+ 	if (ret != -ETIMEDOUT && ret != -EIO)
+ 		t4_fw_bye(adap, adap->mbox);
+-- 
+2.53.0
 
