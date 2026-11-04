@@ -1,99 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793816092;
-	b=aM9Q2z1905eTRkAdqg7b7BXOmQ9peFdA22m0km5Ei7ShKEV7N+9RJ4ZwLuISaRjY3vYU
-	 kMjcjgm9WRdBXZRKfnZspUbW3ODj+RoUMBQ/paybOpMirL07bK/80tFo15mNnBECaROqM
-	 KC1p8Zwyw4JVmtB2kJhH2GWvCBKEb03iJ1O67tRJxSFeTNSLjwkP5kD7+Vt9zWjqJyMmH
-	 6f62J50L7ZFf2DkpSljYAU1KbpbPbYXkQu3K0wNBmIAc5c0or5EXqPXFtS1HvzMl4a0Aa
-	 ZytQ6n9sEGBrF0XoHVOfalY2BC4WIh+u3nWHQJVI+SCb9fOMnR8bnQyq8NVnYDPNB/w==
+	t=1793816107;
+	b=MM5rjdsE6vYgTnDGdYad570r0msyHYXwTyCZbWlhxuIx8KSFJ/jIma5+tN98loZ5+iAE
+	 I0u+/8cHpdPpLoKwmiDH4viFEs9g+YQD6iOFfiQRxEt1RgJU0pQdWIazfMX2YU6IRlb7v
+	 NzXGcZzypnCxsQSJdE3bYTKd4ClY0LdaexBdmqVr2g0kCYslMxAMEiaKfBmsDQcHfaWpx
+	 voAc4u/XGpA7PSw2u8GxJLgXDNpI0xUmW1qHpRkM2mYBJSL2K6li0PU/QYDqyqqeXHIqg
+	 w2oCVpbZVSTfdEsWETckYdMiQNtkBv9iE8WsJODlAR0Od6KmrsHh8kej8Px1C/BtnwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793816092;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Content-Disposition;
-	bh=DfeGOvmUfDpzP4mFizKgHmdxnSnCScH5+Avbi/H3FJ0=;
-	b=OlkhYC4VAaixhHw4IzviGYR2euuNqcd3D8uz5gQuqPEEPL7QQoXqRIq1wnDs2WgBrCmt
-	 EvtZZliegDzHWbf+G7k3Qd5FX6cWM9VCUMpMonswWU9euCyjOKWvNFFnCL7ARMNa3KfW2
-	 uXIjk0d1EKY2sRqKqALKUvFpgxjSNV2E0V0srE9ljLsniZevu7KpWkHTixcXGkvj5ak8v
-	 GDcL0wSm+zc9wXl8ojpFpU4MgU4X5mpDr9Dr0vBQa91ErYpiZijh7SJBQA/ApKdAv8fWL
-	 DnfQ7JmrrlBsqKyZIzsjA0yVLU6IL92CwE0qzOZxHC20WxZKQxJgqGnQUu4i8QrbQEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793816107;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=yHIKm5DcPdY+mPn/+7ZVXqf5/F7GQhUZ0K5Xi+pYbx4=;
+	b=zP26qsv/1p937wV9W5OtvG4HiZXZbcdnv4gywqLBUAy5tlZDsaHq/sW/hY5lEPTly4YO
+	 DfLOcbejVhDFj4PmfVtSoTrt5+nRyDH8tMrNRYv9JCmJYM8C+1bsllv/XamMmhStO7OeO
+	 LUcsQIxGnZTVkw+GlVJLsmmznnlZrbeWqFn6k0qp6+q3IObgZfQSjxuGmULaxeR+LYQPs
+	 Gm6b2uXMMA2+HIY7Vh5Ce916MFBaTCR8oQBjzVvTLi1jP8dtomEu1pfdMaoHkgj74scKJ
+	 nU/QDaQN5gFwjgTda7Qzw1JxcniLtMuCFDAcKuciQ48Ysty/WxrikI6s1FgD8lE9lZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bbE59zz3;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=EGXSYVIR;
+	arc=none smtp.remote-ip=209.85.216.98
+Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73E31606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:14:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73E31606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E563606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:15:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E563606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bbE59zz3
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35b2c599f43so91551eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:14:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793816092; x=1794420892; darn=vger.kernel.org;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DfeGOvmUfDpzP4mFizKgHmdxnSnCScH5+Avbi/H3FJ0=;
-        b=bbE59zz39uwOkY0/iXOQ0Jr1I+oSgVCnw1LdD3pRukxMtscF+4ARLgd8nkwVx5VgwJ
-         b+CV8mEZ1JJi/rx/7lueEkwL1ebcPSaHF2OvlR2qTGlNOWnesDSYJUnRck8R1kU98Qc2
-         o8nr6tY6D+sicml+LQqVNBiY0r1dCLCzfBXpkjxwVVRjt4RcBlPFOZHtirCvw4G8HOwW
-         z7PI0Drkzk5BdF/XwfywBZjzbUV6ojvwwfFBKGP2JpIWwwMpNFYPFBmIK8KRImpiu7Vm
-         3v2rsqB3uSgu6/ePCjgIBVnyybXG0V1ijAuy5uOL6bv8cC8bIkSdutpkJYRuuqHYkahN
-         1CZw==
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=EGXSYVIR
+Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3acdcfa2bd3so915678a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:15:06 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793816092; x=1794420892;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=DfeGOvmUfDpzP4mFizKgHmdxnSnCScH5+Avbi/H3FJ0=;
-        b=zWvGbDYNsEKBF9IZuJ6tU+5OPCi2kr8MlFndfAEhXEdWRPQp6nKo0YHd/mn/m+ZdR1
-         Wx+dYxoUvLr0jDFdsw8+vMEcsFf+v8+q+ljJ36vG5Szhyf8lo7ZkQ07n31EOIPvrSAio
-         JsCr5r8O/W/Mf/RW3kTVXhayJQvNrnQEZGbfS3YWxjfZoqt8zi/UTzJcVBw/4gGXNULg
-         3gC7UlJv32UMMC/WRk/SfIoR+bWikHzTcPTf6mtupMM/LG855nWSojTaFZawspt3Mdti
-         xcmmE7WImcqLqjmJb5T7KAfpYAlJGUjoi3ouhNY4nS2lv+08CJd3VBoJD3TLJ1/U4f3s
-         3PJw==
-X-Forwarded-Encrypted: i=1; AKwUvBw/1bVEcpujIc1gMJpS/QPL7njhlLUsxcqaa1euct6VK8XV0A8btQiUpfnsK2y8Q76vQV7sLt3ol8ufcGU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8h9U0mj+Ww/H8Ksm74roIlyTUzOHRqbOkXs4Z53X10rtr6w0cL
-	eQ1I9pIO6Gw1FHPNO6/TGxN7afAUIF6VB2MYPtqXQGJFiDwErwzIOkOQ
-X-Gm-Gg: AYBFou3/JJr0rEpemUf7H0MsTWC/d+LvOpKiB3bju/Vi0AUfyQcr1uyncs6Y9M4YAEx
-	jXAz/+wvZzN8iFBR4Z4AzKLmB6/+lkpHjPRrMte5Syfb3Aa7W5udtbMywSpQVPmkDKqBP8ZXK1L
-	kmfPTtuQoZM3fA1wOr0IIwjNs4xkWw8Y6aPN+c2ovnN0FWIv6ZU59MJuQjHWjuzHRgwNTUIQkCQ
-	0fL6p30UdqS088C+TL7u2E1jD3afCz10Y5FjuZL2G5/8yeZWab7A2yCVyowdgc4ZQOfECq3Ea41
-	dRUs8VD15QDbZdmJlbePSK4qLZjk+j0rapbUtalThA2obVAPB6TKgeBJ4wD4n2SqTQ67cJ6VxpR
-	7jRmCUmi+QBUnCYBVMCJd6pNVHv+ludwbAnaj4WHmxH5obp8xCaPvje/w+lLuoXObARJcdepz+6
-	/YtQKbUc5pu7hF2IUkV1LEuKG92o0NGV8w6ijQ26DNkdeMphRSfvjRO9IJ3ZskJ2HM+bZQUNRB0
-	JzX/gkQS564e6ko+/BCmZT60TsGf2SkiFu98+rRWDRiftuOD4Bs+aicz88M1CMGXQliyjBWbzL2
-	a0fP2KUTvTY508lKysSWRSweEQ7FG5UfZRQw40Gzo9rRagY0T8kX6WtRaaisiU2W/Z513k6T0cw
-	TRmybx8EkEPM3R9xn
-X-Received: by 2002:a05:693c:6092:b0:369:1084:8ee3 with SMTP id 5a478bee46e88-36a423e52c8mr29585321eec.23.1793816091527;
-        Wed, 04 Nov 2026 10:14:51 -0800 (PST)
-Received: from localhost ([2a00:79e0:2ebe:8:920a:44a8:6f02:232e])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38a67edsm9024708eec.8.2026.11.04.10.14.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:14:50 -0800 (PST)
-Date: Wed, 04 Nov 2026 10:14:49 -0800
-Message-ID: <4e7b28ae9ad5de3708c549d62a4bae68@gmail.com>
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>,
-	Janusz Krzysztofik <jmkrzyszt@gmail.com>,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 6/7] gpiolib: avoid krealloc() in gpiod_get_array()
-In-Reply-To: <ausjJSZkaGKNfykE@ashevche-desk.local>
-References: <20261103-b4-gpiolib-free-v2-0-ea46767c9cf8@gmail.com> <20261103-b4-gpiolib-free-v2-6-ea46767c9cf8@gmail.com> <ausjJSZkaGKNfykE@ashevche-desk.local>
+        d=1e100.net; s=20260707; t=1793816106; x=1794420906;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=yHIKm5DcPdY+mPn/+7ZVXqf5/F7GQhUZ0K5Xi+pYbx4=;
+        b=zC/cGfiCC8o1lh2Ej7P0YdH2ZyzxeyTZete+ZW1MxONVXUr4ie4jiVldpnity2HXIj
+         LWhyQOppYbtIlDXVBe0ZKGiPHEzbWYPjflXpKJ7FesAdEUET8ro6Cz+SCfOg1FND6rxg
+         9NCVa6N3LvshZ97Ucb3P3LD8uAqvv7RpVt48ZF447YL93JAFPCh4AaS5AC/T/aDUtN7K
+         EkHVkaOuqgBBaie05j0Wdxny3j1clXBTSqwilsBtBJR7BbrGL2krkcK5nUfxgJCW/E3T
+         HsUpApEOykhfYpLH6DsT/w9VRwCMhzd6LmO7OnE10hiwb7oqKVc/W0hsvX2pQ9tSXDgg
+         yyug==
+X-Forwarded-Encrypted: i=1; AKwUvBy7nv6yR1IZebmvryU6pX9W2UeSR9dDAfJafeGptIFlQzvaVjEdQXeBEohme/bjwicfJtHpZgKgTlUvld8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+w6dHb+Vxe3kDntmZFqSC6RGiLepVIxU47nHKKvsZ6N6J1htA3
+	bS9sBP6KJmfNpvQAbnJrPTpJVQq6GLPuzEtmkyMV8vHHtOUXeLw2Dzsep8i5d5d6/9Xytj+xLNw
+	hMHBl/A1bZbcEmx6Ns5pUe1z8nCuGNbkKM3uCf6Ciozi5uf2QEd9qj/UDrO5UzaRt0ZeULGg8fx
+	isRTL+QmFs7O9t9dV5vkFSseERZZQ9Co7K0ow8UUnYa+9GkKJWFlgJ8tC68J2k8vRpx2E46Zgrb
+	KMdnOG6lnXjkITRSE38vf9kk6M=
+X-Gm-Gg: AYBFou1qtM+9N3Iw6KcYQtbzx2U8lgRcnXcqeM1m9h/P+rX7YZqOHS20A7V8heXZYmN
+	DfRTbFNOXND1dhY/QisRY5PKq2rfr+n1sgA3tJYikaqTGHB8R5l2+U/bijneLQ/tupI6VrynhCC
+	aA3hc8qmRl6qaTbKe0GkcQq+y57A2MYKP+/irnYKAKfE8/SYYugYoG79Rhg/Y3ir9ZEyq4Zf4L3
+	ZJkgDGeS8nnS4cD6zDnAWm6IOJefCzPHsLwdW29Z+JnSgRH4cLEjKZCRMsP4Kx8ggfkdv4W5unf
+	KP8x5bYW7ONk6QIxxY0Adfyb4ayPld+QYf7qOiMwWXX2n3pzLjOklM17eAMViVeFTvDehXaY754
+	i+K4dugD4h3fgwHOBHf/rmAyao/P4gCkDvFbY4eYeZEJvrQWvGVCtYoMX03ASv8fXAf/XhGdFpU
+	JrTjlMWZRKvcG/16UrkLK9rDbWp69rk7CyIJ9K51lR
+X-Received: by 2002:a17:90b:4c81:b0:3ab:188b:c5bf with SMTP id 98e67ed59e1d1-3ae897c85e6mr14199581a91.18.1793816106347;
+        Wed, 04 Nov 2026 10:15:06 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b0b3195213sm50744a91.3.2026.11.04.10.15.05
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 04 Nov 2026 10:15:06 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f559420f3so115871385a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:15:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793816105; x=1794420905; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yHIKm5DcPdY+mPn/+7ZVXqf5/F7GQhUZ0K5Xi+pYbx4=;
+        b=EGXSYVIRjU+yC9p/pkiP4FmlZ7QPalCdWd91uyVuCVl9P13YvX0uKHk30CVtKBMRAp
+         Sy6ezxnASpzlE7eDAwkMkge85iOilLuunY8SVz+9A6oMGhyv2n7g1qaz5L+3l64pRJIM
+         hsMmPsTaq1NGjqXiJ4hpMEVAmwrUloIxoVObs=
+X-Forwarded-Encrypted: i=1; AKwUvBz2cVvgp2WIOjRV3z9a559CRAeNWbXe7hr6z/WXSLUSsELL06hZoCNvBARuMOK69CVQuyeH0YUZFZAo/xY=@vger.kernel.org
+X-Received: by 2002:a05:620a:3942:b0:93b:d7a2:dd32 with SMTP id af79cd13be357-9442178e1edmr2712097585a.66.1793816104966;
+        Wed, 04 Nov 2026 10:15:04 -0800 (PST)
+X-Received: by 2002:a05:620a:3942:b0:93b:d7a2:dd32 with SMTP id af79cd13be357-9442178e1edmr2712092585a.66.1793816104498;
+        Wed, 04 Nov 2026 10:15:04 -0800 (PST)
+Received: from [10.14.197.69] ([192.19.161.248])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d468f69asm262751685a.1.2026.11.04.10.15.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 10:15:02 -0800 (PST)
+Message-ID: <2a28ff89-f14d-4e2f-bda1-058bfbe54852@broadcom.com>
+Date: Wed, 4 Nov 2026 10:14:58 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,44 +106,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/5] MIPS: dts: bcm6362: add the integrated WLAN
+ backplane
+To: Alessio Ferri <alessio.ferri@mythread.it>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Jonas Gorski <jonas.gorski@gmail.com>
+Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org
+References: <20261104-bcm6362-wlan-v3-0-e46562b2ac12@mythread.it>
+ <20261104-bcm6362-wlan-v3-5-e46562b2ac12@mythread.it>
+Content-Language: en-US
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <20261104-bcm6362-wlan-v3-5-e46562b2ac12@mythread.it>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Hi Andy,
 
-On Wed, Nov 04, 2026 at 02:20:53PM +0200, Andy Shevchenko wrote:
-> On Tue, Nov 03, 2026 at 07:40:34PM -0800, Dmitry Torokhov wrote:
-> > +	array_info->desc = descs->desc;
-> > +	array_info->size = count;
-> > +	array_info->gdev = gdev;
->
-> > +	bitmap_set(array_info->get_mask, 0, count);
-> > +	bitmap_set(array_info->set_mask, 0, count);
->
-> You don't need these, as memory is nullified.
-> Also note that we have bitmap_clear() IIRC.
 
-bitmap_set() sets bits 0 .. count - 1 to 1, not 0. Both get_mask and
-set_mask start with all count bits set (assuming all pins in the array
-are eligible for the fast path), and then gpio_descs_check_fastpath()
-clears individual bits for pins that do not qualify.
+On 11/3/2026 3:31 PM, Alessio Ferri wrote:
+> Describe the bcma backplane of the integrated WLAN macro,
+> with its clock, resets, power domain and the interrupt of the 802.11
+> core. It is default disabled, boards having the WLAN need to
+> enable it.
+> 
+> Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
 
-> >  		dev_dbg(dev,
-> >  			"GPIO array info: chip=%s, size=%d, get_mask=%lx, set_mask=%lx, invert_mask=%lx\n",
-> > -			array_info->gdev->label, array_info->size,
-> > -			*array_info->get_mask, *array_info->set_mask,
-> > -			*array_info->invert_mask);
-> > +			descs->info->gdev->label, descs->info->size,
-> > +			*descs->info->get_mask, *descs->info->set_mask,
-> > +			*descs->info->invert_mask);
->
-> Why not using %*pb for masks?
-
-Switching the debug format string from %lx to %*pb is orthogonal to this
-change, so it is better done as a separate patch.
-
-Thanks.
-
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
 -- 
-Dmitry
+Florian
+
