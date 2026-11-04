@@ -1,66 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.223
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.143
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793796289;
-	b=Y5CMzTn2Q1r5fXyR5EQ7uyQRSzECx55G7guO52TsopHH1zAPnutwwYBYTQbfJs5ogJWX
-	 /Cb53bDyhqEBxyABOG/2eEC4lpgQusnVFSzhPgcU5XjPy2FDD/EZm1J9SAT90oPABi+hu
-	 69pi5pR6O8KVC3+T0BzYRNgOCNfssVMPUsmILaproUmWVhPALx/ZGU75U5o+UndNUyXT4
-	 fLQ5lIxNzAjNPmrZofYK2gm3DC92CpceCzAzxal5zu7SBKgOhNpVjz8Q4u0+pbErDP6QE
-	 nVi0cDhO68OknC/yJSmuZEi1b5ZecIqeFDIAjHLuLd5CX5VDWaqdf2sXE57StZJ1HGA==
+	t=1793796296;
+	b=asZvW6PKD4rjuzmyi2Zk3axh4qQVRHn5TZGM7HLq6KGa3YqCyG+V9HfHq2tojPDLJiJl
+	 IwzFltGtuLIhOFrYkrjr0mu8fy4KOYNlyca+wMHUD2uQRYMHCxJGE2dRxe5Y+aBlmyiuL
+	 8h+pdOrH6Uxpv2D4KSl3IJZe+SYMqqTeFWr2yHUpf7yUimMkbc199wHR3+UiHG91AcqQ0
+	 H8wyWIus8ywATn70rwk2xwuGjWkwt9R9oEveIkxYRwyg9oLDPKHh9IQKZV+mVr7LHd7Eg
+	 fKSbxhHqEC6LCBq7z7ay8pCxoXGW4m4WFSlFXewqb6SBz23Y7FpupzkVw+NeGnJbOCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793796289;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=E7Vw/XE5thAVyI3TZeFiM04oOjnhXJsy/OqySkvTrQQ=;
-	b=Yx5Ja4nO/ON3ktGKvAtCiI/lXwHipx31mx6WmnVZG0eu8sLX6n6p7/SKv/XbYFy+or48
-	 vybrJHtz3AUA1JgMxIlrVu79WCO1CBwnnce+WUeLIaxHRb2vnCqNOOHUAOSzHef1NiJT1
-	 1CL6kGTZddjPmyoqmB1HDNdamSoartRjp6k46lmLiDST/WvsMzJTAyPrJDG3EOI/mvKlp
-	 4onQobwpz4l+uI/PWL2eroA/tDZULxfHt4MLKYHSjldaUAeu3OuqwCWImNoGzKXqaRBAP
-	 KsvDHDjNF9epQIUhZliiY3U0QqQuGp0qfdjigbQuCxpiD7QfFH3Xq4IocVy1WVfdmLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793796296;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=AOH3Su8TZJSoK9UPHpeuwIAfG494iGEabcz+aB8amog=;
+	b=NNMSdyprhihpg9sgs3RxjOCrbaIjzR+WiUIf+th9s7ylMXaHfVI1PisCi8qkyfHxgzrC
+	 93WQrARnU1+y/tLdc6n4cO5ju/jxyE7sC+k28dTnlBuxABO6mcO+WToPURJJOoFWIO7cs
+	 YVOVTTVsnIIEaCQEuF2IDXa1l2tb+gMxwkbNUtqc6/+8K9ftOpN6d0UkHC0+RXvSs/c4e
+	 7YV7eeff1fIyMsRKrxUWpTIVJy7fgV2IrF+JHIhcEbm6fVlaXnzBlpHxBoO6sDH+blsqW
+	 b5SZqvbGtociXOu8ieCrLaCqiRX2wkxkQ5KEq0aZNkeNY2haJsl+WD7kp74fVCj1EiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=qV222pOf;
-	arc=none smtp.remote-ip=113.46.200.223
-Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QylGKXh7;
+	arc=none smtp.remote-ip=95.215.58.143
+Received: from mta1.migadu.com (out-143.mta1.migadu.com [95.215.58.143])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E47C0606A339;
-	Wed,  4 Nov 2026 12:44:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E47C0606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D68606A335
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 12:44:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00D68606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=qV222pOf
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=E7Vw/XE5thAVyI3TZeFiM04oOjnhXJsy/OqySkvTrQQ=;
-	b=qV222pOffz4XdiVtpWlxIi+W+hNXn/YAUcK1nndQSUvuKi4iuZOC3b9Noqn3XuawVwEcA4Z23
-	mAX/IulpkKSKC1aK28T6wjGvRTNKam3HShwQBj1l0Uf/8XYJUd10YSYdVPypsM8/9Ukzea+4sem
-	Rutfl2N2antt2dxRKnjIPQg=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4jKQB61xQCzmVBl;
-	Wed,  4 Nov 2026 20:44:30 +0800 (CST)
-Received: from whupemk100010.china.huawei.com (unknown [7.152.184.41])
-	by mail.maildlp.com (Postfix) with ESMTPS id 11CAD40578;
-	Wed,  4 Nov 2026 20:44:41 +0800 (CST)
-Received: from vm.huawei.com (7.238.34.231) by whupemk100010.china.huawei.com
- (7.152.184.41) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 4 Nov
- 2026 20:44:40 +0800
-From: Pengfei Lv <lvpengfei20@huawei.com>
-To: <gregkh@linuxfoundation.org>
-CC: <stern@rowland.harvard.edu>, <linux-usb@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>,
-	<xuhaiyang5@hisilicon.com>, <xuetao09@huawei.com>, <caiyadong@huawei.com>,
-	<suzhuangluan@hisilicon.com>, Pengfei Lv <lvpengfei20@huawei.com>
-Subject: [PATCH] usb: core: hub: Re-guess ep0 maxpacket size on reset
-Date: Wed, 4 Nov 2026 20:44:02 +0800
-Message-ID: <20261104124402.1269650-1-lvpengfei20@huawei.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QylGKXh7
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=MxRHPNAABvoNmLp9OTJVcSokfGwwqtsziGyV/1PffQk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793796293; v=1; x=1794401093;
+ b=QylGKXh7uruaLMMEMoxZ64DR/6WRHSeRr9NW0qyTOuBE10TrPTF2dySKAaKqBH8OXK9T5lgW
+ JuVyld+yb+3T7O/1JiDm1nj1jAxQHg1Yx+8Ir/sF6OYZ8nchI3kbHqN0Ed71GeYVXqwp3PGSJvU
+ Px8botegn2j4AGcqtjnNkmgM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id fec1c38f76d92ee4;
+	Wed, 04 Nov 2026 12:44:53 +0000
+X-Mizu-Trace-ID: fec1c38f76d92ee4
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>
+Cc: kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Raghavendra Rao Ananta <rananta@google.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Fuad Tabba <tabba@google.com>
+Subject: [PATCH v2 1/2] KVM: arm64: Resume stage-2 teardown where the walk stopped
+Date: Wed,  4 Nov 2026 12:44:50 +0000
+Message-ID: <20261104124451.2148724-2-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261104124451.2148724-1-fuad.tabba@linux.dev>
+References: <20261104124451.2148724-1-fuad.tabba@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,116 +79,145 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- whupemk100010.china.huawei.com (7.152.184.41)
 
-Per USB 2.0 spec section 5.5.3, the ep0 maxpacket size is fixed for
-all device speeds except full-speed devices, where it can be 8, 16,
-32, or 64 bytes and can only be determined by reading the device
-descriptor.  During the initial enumeration of a full-speed device,
-the USB core guesses 64 bytes (hub_port_init() with initial=true);
-after reading the descriptor, the real value (e.g. 8) is stored in
-udev->ep0.desc.wMaxPacketSize and propagated to the xHCI ep0 context
-via an Evaluate Context command (xhci_check_maxpacket()).
+Since commit 4ddfab5436b6 ("KVM: arm64: Reschedule as needed when
+destroying the stage-2 page-tables"), kvm_stage2_destroy() walks the
+IPA space one block-sized chunk at a time. The walker steps over an
+invalid entry in one go, but the next walk starts at the following
+chunk, so an invalid entry larger than a chunk is visited once for every
+chunk it covers. Destroying a VM with a 52-bit IPA then takes 2^27 walks
+with 16K pages (2^22 with 4K), however little it maps.
 
-After a port reset (usb_reset_and_verify_device() -> hub_port_init()
-with initial=false), the "if (initial)" guard added by commit
-ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()") skips the ep0 maxpacket
-guess block, so udev->ep0.desc.wMaxPacketSize retains the real value
-(e.g. 8).  The xHCI Reset Device command preserves the ep0 context
-as well, so the xHC ep0 max_packet also stays at 8.
+Have kvm_pgtable_stage2_destroy_range() return the address its walk
+reached, which kvm_pgtable_walk() doesn't expose, and resume from there.
+pkvm_pgtable_stage2_destroy_range() returns the end of its range, and
+EL2's kvm_pgtable_stage2_destroy() ignores the value.
 
-When the subsequent re-enumeration then uses the "new scheme" and
-issues a 64-byte GET_DESCRIPTOR (get_bMaxPacketSize0 with size=64),
-xhci_check_maxpacket() sees hw==sw==8 and does not issue an Evaluate
-Context command.  The xHC queues a Data TRB of length 64 but applies
-ep0 max_packet=8 for short-packet detection.  If the device's first
-data packet is exactly 8 bytes and it sends no ZLP, the xHC does not
-recognise a short packet, keeps issuing IN tokens for the remaining
-56 bytes, and the control transfer hangs in the Data stage until URB
-timeout.  (A standard 18-byte descriptor returned as 8+8+2 is not
-affected because the final 2-byte packet is a short packet.)
-
-Fix this by removing the "if (initial)" guard so that the ep0
-maxpacket size is re-guessed from udev->speed on every reset.  For
-full-speed devices this re-establishes the 64-byte guess, which makes
-xhci_check_maxpacket() issue an Evaluate Context command that brings
-the xHC ep0 context back to max_packet=64 before the GET_DESCRIPTOR
-data stage; the data stage then terminates correctly via short-packet
-detection, and the ep0 maxpacket is subsequently corrected to the
-real value as usual.
-
-For high-speed, low-speed, and SuperSpeed-or-faster devices the
-re-guess is a no-op (guessed value equals the fixed real value).
-The descriptor-immutability checks (!initial && maxp0 !=
-udev->descriptor.bMaxPacketSize0) remain unchanged.
-
-Fixes: ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Pengfei Lv <lvpengfei20@huawei.com>
+Suggested-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+Suggested-by: Oliver Upton <oupton@kernel.org>
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
- drivers/usb/core/hub.c | 46 ++++++++++++++++++++----------------------
- 1 file changed, 22 insertions(+), 24 deletions(-)
+ arch/arm64/include/asm/kvm_pgtable.h |  8 ++++++--
+ arch/arm64/include/asm/kvm_pkvm.h    |  4 ++--
+ arch/arm64/kvm/hyp/pgtable.c         | 15 ++++++++++++---
+ arch/arm64/kvm/mmu.c                 |  4 ++--
+ arch/arm64/kvm/pkvm.c                |  8 +++++---
+ 5 files changed, 27 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
-index 199d3f535a89..51f66b24b353 100644
---- a/drivers/usb/core/hub.c
-+++ b/drivers/usb/core/hub.c
-@@ -4969,31 +4969,29 @@ hub_port_init(struct usb_hub *hub, struct usb_device *udev, int port1,
- 	}
- 	oldspeed = udev->speed;
+diff --git a/arch/arm64/include/asm/kvm_pgtable.h b/arch/arm64/include/asm/kvm_pgtable.h
+index 1c9c57cd6ae40..20b988e99e074 100644
+--- a/arch/arm64/include/asm/kvm_pgtable.h
++++ b/arch/arm64/include/asm/kvm_pgtable.h
+@@ -599,9 +599,13 @@ void kvm_pgtable_stage2_destroy(struct kvm_pgtable *pgt);
+  *
+  * The page-table is assumed to be unreachable by any hardware walkers prior
+  * to freeing and therefore no TLB invalidation is performed.
++ *
++ * Return: the address the walk reached, which can be past @addr + @size
++ * when the range ends within a block or an invalid entry, or @addr + @size
++ * if the walk fails.
+  */
+-void kvm_pgtable_stage2_destroy_range(struct kvm_pgtable *pgt,
+-					u64 addr, u64 size);
++u64 kvm_pgtable_stage2_destroy_range(struct kvm_pgtable *pgt,
++				     u64 addr, u64 size);
  
--	if (initial) {
--		/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
--		 * it's fixed size except for full speed devices.
-+	/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
-+	 * it's fixed size except for full speed devices.
-+	 */
-+	switch (udev->speed) {
-+	case USB_SPEED_SUPER_PLUS:
-+	case USB_SPEED_SUPER:
-+		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
-+		break;
-+	case USB_SPEED_HIGH:		/* fixed at 64 */
-+		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
-+		break;
-+	case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
-+		/* to determine the ep0 maxpacket size, try to read
-+		 * the device descriptor to get bMaxPacketSize0 and
-+		 * then correct our initial guess.
- 		 */
--		switch (udev->speed) {
--		case USB_SPEED_SUPER_PLUS:
--		case USB_SPEED_SUPER:
--			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
--			break;
--		case USB_SPEED_HIGH:		/* fixed at 64 */
--			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
--			break;
--		case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
--			/* to determine the ep0 maxpacket size, try to read
--			 * the device descriptor to get bMaxPacketSize0 and
--			 * then correct our initial guess.
--			 */
--			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
--			break;
--		case USB_SPEED_LOW:		/* fixed at 8 */
--			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
--			break;
--		default:
--			goto fail;
--		}
-+		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
-+		break;
-+	case USB_SPEED_LOW:		/* fixed at 8 */
-+		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
-+		break;
-+	default:
-+		goto fail;
- 	}
+ /**
+  * kvm_pgtable_stage2_destroy_pgd() - Destroy the PGD of guest stage-2 page-table.
+diff --git a/arch/arm64/include/asm/kvm_pkvm.h b/arch/arm64/include/asm/kvm_pkvm.h
+index fd042d2b54624..731632aa24520 100644
+--- a/arch/arm64/include/asm/kvm_pkvm.h
++++ b/arch/arm64/include/asm/kvm_pkvm.h
+@@ -349,8 +349,8 @@ int __pkvm_handle_smccc_req(struct arm_smccc_res *res);
  
- 	speed = usb_speed_string(udev->speed);
+ int pkvm_pgtable_stage2_init(struct kvm_pgtable *pgt, struct kvm_s2_mmu *mmu,
+ 			     struct kvm_pgtable_mm_ops *mm_ops);
+-void pkvm_pgtable_stage2_destroy_range(struct kvm_pgtable *pgt,
+-					u64 addr, u64 size);
++u64 pkvm_pgtable_stage2_destroy_range(struct kvm_pgtable *pgt,
++				      u64 addr, u64 size);
+ void pkvm_pgtable_stage2_destroy_pgd(struct kvm_pgtable *pgt);
+ int pkvm_pgtable_stage2_map(struct kvm_pgtable *pgt, u64 addr, u64 size, u64 phys,
+ 			    enum kvm_pgtable_prot prot, void *mc,
+diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
+index 9c83837b184d3..6bb1c0beb4dcc 100644
+--- a/arch/arm64/kvm/hyp/pgtable.c
++++ b/arch/arm64/kvm/hyp/pgtable.c
+@@ -1653,16 +1653,25 @@ static int stage2_free_walker(const struct kvm_pgtable_visit_ctx *ctx,
+ 	}
+ }
+ 
+-void kvm_pgtable_stage2_destroy_range(struct kvm_pgtable *pgt,
+-				       u64 addr, u64 size)
++u64 kvm_pgtable_stage2_destroy_range(struct kvm_pgtable *pgt,
++				     u64 addr, u64 size)
+ {
+ 	struct kvm_pgtable_walker walker = {
+ 		.cb	= stage2_free_walker,
+ 		.flags	= KVM_PGTABLE_WALK_LEAF |
+ 			  KVM_PGTABLE_WALK_TABLE_POST,
+ 	};
++	struct kvm_pgtable_walk_data data = {
++		.walker	= &walker,
++		.start	= addr,
++		.addr	= addr,
++		.end	= addr + size,
++	};
+ 
+-	WARN_ON(kvm_pgtable_walk(pgt, addr, size, &walker));
++	if (WARN_ON(_kvm_pgtable_walk(pgt, &data)))
++		return addr + size;
++
++	return data.addr;
+ }
+ 
+ void kvm_pgtable_stage2_destroy_pgd(struct kvm_pgtable *pgt)
+diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+index 1db10d8d6db73..4f1adadeffb8b 100644
+--- a/arch/arm64/kvm/mmu.c
++++ b/arch/arm64/kvm/mmu.c
+@@ -1011,8 +1011,8 @@ static void stage2_destroy_range(struct kvm_pgtable *pgt, phys_addr_t addr,
+ 
+ 	do {
+ 		next = stage2_range_addr_end(addr, end);
+-		KVM_PGT_FN(kvm_pgtable_stage2_destroy_range)(pgt, addr,
+-							     next - addr);
++		next = KVM_PGT_FN(kvm_pgtable_stage2_destroy_range)(pgt, addr, next - addr);
++		next = min(next, end);
+ 		if (next != end)
+ 			cond_resched();
+ 	} while (addr = next, addr != end);
+diff --git a/arch/arm64/kvm/pkvm.c b/arch/arm64/kvm/pkvm.c
+index 016997288fd23..f21c3326dda68 100644
+--- a/arch/arm64/kvm/pkvm.c
++++ b/arch/arm64/kvm/pkvm.c
+@@ -499,14 +499,14 @@ static int __pkvm_pgtable_stage2_unshare(struct kvm_pgtable *pgt, u64 start, u64
+ 	return 0;
+ }
+ 
+-void pkvm_pgtable_stage2_destroy_range(struct kvm_pgtable *pgt,
+-					u64 addr, u64 size)
++u64 pkvm_pgtable_stage2_destroy_range(struct kvm_pgtable *pgt,
++				      u64 addr, u64 size)
+ {
+ 	struct kvm *kvm = kvm_s2_mmu_to_kvm(pgt->mmu);
+ 	pkvm_handle_t handle = kvm->arch.pkvm.handle;
+ 
+ 	if (!handle)
+-		return;
++		return addr + size;
+ 
+ 	if (pkvm_hyp_vm_is_created(kvm) && !kvm->arch.pkvm.is_dying) {
+ 		WARN_ON(kvm_call_hyp_nvhe(__pkvm_start_teardown_vm, handle));
+@@ -517,6 +517,8 @@ void pkvm_pgtable_stage2_destroy_range(struct kvm_pgtable *pgt,
+ 		__pkvm_pgtable_stage2_reclaim(pgt, addr, addr + size);
+ 	else
+ 		__pkvm_pgtable_stage2_unshare(pgt, addr, addr + size);
++
++	return addr + size;
+ }
+ 
+ void pkvm_pgtable_stage2_destroy_pgd(struct kvm_pgtable *pgt)
 -- 
-2.34.1
+2.47.3
 
