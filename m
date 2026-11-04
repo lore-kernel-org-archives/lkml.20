@@ -1,107 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793832917;
-	b=qK767vabVS/vw/ZnBzWBt0tvmmTYJ403Pbtzy1ByqxnvJMwdIvc622Yv1PantxOiCQv8
-	 rrmFMWVlkHcW5dLVvLzfsVM5WYemu6L/42ueWLW/4uGUatEqnQ4MSU1Oa0tuEyqYV3l7E
-	 tPAps8LlNLhvepne3wCXtl97CHeBeM3aLSnUNZvWaC+a1fbkfLk+0AccTmZJMuzVYh0N5
-	 qvXz9+okCVVlOG0kXvfUWTxW06tHSLyDITOfExkPKvFjwyB/HyDqpZT38TUv2dvTD/b8v
-	 OCCnl8yJ5dj6J6X2S8l+GCWeYywrV8LX7TRU2aDKa/rld7Ez6T7yhxMrguoQVbzTGFg==
+	t=1793832919;
+	b=KNY0IRV3BgQuiucMfFBt0GRgls9eWEsNGHphdpkDVB7DVnHXfSAb353vHL38U0qkpI+C
+	 y43KoIM4zNR8lW8PbxKgEGPW0eOazkqNbfAFWjJ8O7s2MvAYMkg/2fs+vU7qJAtqiuZDo
+	 +2QBwG6DlN5juRyYv8BCfAz2akcClg4P+ZGqbLcsDIHDlT9uw2vKwR8ncN3V9tq8K1G3g
+	 6/y6tTo72E+oqHQEA9U79vHLsrPoFtjBrZohbyh8UtjjN4H8w1UwPyGCFUV07ka2zUCuy
+	 w4M2JBOd5YPX7BQmmDGIxa26FJcSSWXpAqRISeju2clAWF/Y7atRv9aUTxbEJ9NmTAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793832917;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=/zbs/VJDYV0GvGSr2Zgo/ryZBI/tPePChlLCcPRtDrw=;
-	b=WDOpfnX24zBMLRBF0xyPZESjlReQGKPB6Y/r43QhlOBzzprM2y3kB79I+xsTV4jg9dYn
-	 5zMQtPO0IZrPaptcRikKNvGEunRk/CDtxr+HtTN+IRHOWexcSGCVJ4mFROHToDD3dkfga
-	 MAq8j+UhQNa3Sh44RQEqg1i1cy3ejDphnKZLiHZsA4jSU4Gqay+VQHOga0EB0TElWEV7A
-	 3mpvCl8iNDXBU5CRfdgLxeTXOHtXZyUG2zg8iRoc5hRkArjrf1eNpDqyjBT1j74oJSU6N
-	 f1UqZ8c9EsrjxOE87MLz7Oq0lY/vbA+BC/SRdgo7+9uVWUpMvGUMvdh+eKX27EE3dpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793832919;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=mnDJw6GAIrvgHGIFoXKuODYKqpGo1OAyqHDyDG0Xkfs=;
+	b=f458BODXP8JNbM9oCeMKC9cp7xExvVZ7wyNNUb79ATjikGS8WoX2GRWU9iWIQbxXde+3
+	 cxIFuLtYYkqnSnLfzhGQduNhgK0jMhVQw4xPOtgYEY6VkPv2ZjzZn7gHm9ZWFFysjbwLM
+	 nLR3vZ6fGh1ekYUkoKYzsBXrX4zZNginjS+8tnajhCz8ehj7K3yX4A5wnq+x9ImwjVxeG
+	 vZ4B9IqCD/5niFJ+Ep+gUARhYGW0plSS2EQ3dutU7nw112Xp6bC8hkkNKbL9stQvS6Yf4
+	 IjrVJ3Sg3MpzVtfjzA936rBJ7Qs6+jCWuuZPIQ2yDYFvVMi3U1UENXUgAO2U18FNVBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=iX8ZqbG5;
-	arc=none smtp.remote-ip=209.85.214.173
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="IJOJe1/i";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22166606A32D
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:55:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22166606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1857F606D806;
+	Wed,  4 Nov 2026 22:55:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=iX8ZqbG5
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e9f6a16afcso10485ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:55:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793832915; x=1794437715; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/zbs/VJDYV0GvGSr2Zgo/ryZBI/tPePChlLCcPRtDrw=;
-        b=iX8ZqbG5kGhk9C7VPkqjhx2OKZ5xbfR9h1Aef/l6k3JjEk7yu0t/FYe5ycxHHDWtQ0
-         19wFv+lPRy1qGjlmTyU9yKNwh5CIs+A9xxTyv83krzQuMbIjXC4SjI9bZkZEQQLYjav7
-         o8p8FC8HgUrU9sHGmblpdCUujQZ1DCxQEmwArqz5qYpThbmIErnb4BXQbe4ojBPuf6GI
-         BQ1dQdM4HGHcxxDGx0eDNq0a80qflOL4oBs83Fg7eL55XCcCPExeCxPxKS4WGjOYke96
-         XTkOCjNPK5gQ2pwUT4Rzu2ckbqOm/PMxytwGmeVeJVL0CWqD87AJemcrP//eGcQkeQC8
-         F0Cw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793832915; x=1794437715;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/zbs/VJDYV0GvGSr2Zgo/ryZBI/tPePChlLCcPRtDrw=;
-        b=C4dVwoKpwlLjvPcGShSHQos21Jjh5/01rF9C2A3Crwl4EOwJMgUc1iB6hteOFxYsyj
-         yT1V7hOWNAW+91Z1o4wJvkbnG6t2l0eIpduNM1ZG69LxRe9o+BVFbHp7gtOH4V1IRXHf
-         ereJOIrHoh0m2wKsS4RorCGSPXxhXejBz0ydP/3T7djWaZU4A/aL3+3GvaUXWQrUqFJT
-         80EIBG0NQ0ihMdz90E67nS3/UFZzyUxGAibA2/WAlQuKdBZfiUtrWL3XDgKzGUKGLMsB
-         IdX4+so2EXYi7sXxaIyJyW5aumgxmLOBcs5HhxVuLwhPYlfZmn+3SaaPBdkAUbuyF6K1
-         E0Rg==
-X-Forwarded-Encrypted: i=1; AKwUvBwjYM2e35BH0GOAb3bzc314qIQeTAzRRof+L2Jtwx8i5NoXMRKOEbKEMj01ySfr5ToQXDXWuUSFqrpHpiM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/cuHMyPeuShrBk+i3DzcbpHQS98jkssSXo4PVSMh3uj7NYXnXg
-	8/+Lr9Ek0MIrqxwPQ/LGkjGHGZ2chnNIlZ3tAKlNWHOAY1jI0jVF4xjHmzEzyJxwIw==
-X-Gm-Gg: AYBFou1u82alYngDAapRlxIsjcryb37LE6R9+MGYEc6+imtvCRrI3/yVDLjLUZFHvre
-	gXJInH8y+k4z8edQlpj7ASTPn3oD9GGtsNOUGq2GAlx37FlFxp52zjieSWCQIlNOsNtEo+BHYWc
-	Gk0E0uuack4lWe2RoyDZFQo4Euc9bNRwZzcF0wt6kH+Gozt7y02x82QKU903RMA9Qdiu86QJs4T
-	saSIr2Fvo9B8mL/oG/cl6JYUlPEQSe9JX5ni966vIOJqclEE/aPbuuwjuDuNkub6ez2ip2bo0Me
-	5cuBoFNI0cpWiHOTX8FXof3EijlPqsXvRKyi7VRtFFEOI7QAuh/z+G1VUE95es5KgxnDEwUEqQq
-	Art7nSoWEwQrYfi/Ww7IXVzPHyDzBElV8jZmRlQWqaS9ursV76jHK0jw+7SZqZWdTiqt56+GHpb
-	PrfpjEo7en9/gs+z5yTUfoAE/AvIsdKqls4+KCCEt/dWUCXMjvqyDXB8bZSOROO410KGuUnlAvE
-	426nhKyU7Yz+PLvcht9DXvs+6PrHdJUleO7dnd/sTVj1feVm5qT31ZMxPwDNaz+ihLSlBKNOk/h
-	11dQWdaOhpgLePn7srm7H36FKpjsxDOqwY52RKmeJO0P8nOeyKkgr1CFqon1TcaPQg==
-X-Received: by 2002:a17:902:db11:b0:2dd:3a08:d47b with SMTP id d9443c01a7336-2ed27e06d7bmr1039485ad.13.1793832914948;
-        Wed, 04 Nov 2026 14:55:14 -0800 (PST)
-Received: from google.com (176.13.105.34.bc.googleusercontent.com. [34.105.13.176])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b09455fbdasm2528714a91.0.2026.11.04.14.55.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 14:55:14 -0800 (PST)
-Date: Wed, 4 Nov 2026 14:55:07 -0800
-From: Vipin Sharma <vipinsh@google.com>
-To: David Matlack <dmatlack@google.com>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, kexec@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, kvm@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kselftest@vger.kernel.org, linux-pci@vger.kernel.org, 
-	ajayachandra@nvidia.com, alex@shazbot.org, amastro@fb.com, ankita@nvidia.com, 
-	apopple@nvidia.com, bhelgaas@google.com, chrisl@kernel.org, christian.koenig@amd.com, 
-	corbet@lwn.net, graf@amazon.com, jacob.pan@linux.microsoft.com, jgg@nvidia.com, 
-	jgg@ziepe.ca, jrhilke@google.com, julianr@linux.ibm.com, kees@kernel.org, 
-	kevin.tian@intel.com, leon@kernel.org, leonro@nvidia.com, lukas@wunner.de, 
-	mattev@meta.com, michal.winiarski@intel.com, parav@nvidia.com, 
-	pasha.tatashin@soleen.com, praan@google.com, pratyush@kernel.org, rananta@google.com, 
-	rdunlap@infradead.org, rientjes@google.com, rodrigo.vivi@intel.com, rppt@kernel.org, 
-	saeedm@nvidia.com, schnelle@linux.ibm.com, skhan@linuxfoundation.org, 
-	skhawaja@google.com, vivek.kasireddy@intel.com, witu@nvidia.com, yanjun.zhu@linux.dev, 
-	yi.l.liu@intel.com
-Subject: Re: [PATCH v6 05/27] PCI: liveupdate: Add helpers to preserve struct
- pci_saved_state
-Message-ID: <20261104222438.GB511751.vipinsh@google.com>
-References: <20261102153656.1431701-6-vipinsh@google.com>
- <20261102230624.GA1038787@bhelgaas>
- <aukvTvnfyAvahb51@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IJOJe1/i
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE3DC1F000C1;
+	Wed,  4 Nov 2026 22:54:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793832918;
+	bh=mnDJw6GAIrvgHGIFoXKuODYKqpGo1OAyqHDyDG0Xkfs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=IJOJe1/ilgJHQLkVgZLjG8WTnd31bid7aYmQtlGoWDjGUJ6M5+DR5+rcRicIImoks
+	 i/yAZCI4AGUGWVmhQnYkfxmd75gKnSiKCoBwAEbwDRf0e1IEeit8xHV5Dt8ipao8dU
+	 jwZiinU2gw3IV8dMd1Vu3F2bGiWzVhhKzoYi2C8RYCgqPjYr/0ILxk0FbjxpotE5AK
+	 9ZmTccHWAxa4eQMkVvnPODuuez8gUXgnGm+sE6hPmI+qwCKeaIPZmdB2iwFYR6QvSK
+	 rRemK4IDg8mOiZwV+sShIuCyqG1xz8wht2UaLvAJbRbueE1EosP9CZswPj5wEIU0Fq
+	 7KnVdclfzHwsQ==
+Message-ID: <63c24437-4261-4a51-be7e-31ac0759a095@kernel.org>
+Date: Wed, 4 Nov 2026 23:54:56 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,91 +51,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aukvTvnfyAvahb51@google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/1] spi: use dmaengine_desc_set_callback()
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Frank.Li@oss.nxp.com, Mark Brown <broonie@kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Radu Pirea <radu_nicolae.pirea@upb.ro>, CL Wang <cl634@andestech.com>,
+ Ryan Wanner <ryan.wanner@microchip.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui
+ <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Vladimir Oltean
+ <olteanv@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>,
+ Haibo Chen <haibo.chen@nxp.com>, Linus Walleij <linusw@kernel.org>,
+ Daniel Mack <daniel@zonque.org>, Haojian Zhuang <haojian.zhuang@gmail.com>,
+ Robert Jarzmik <robert.jarzmik@free.fr>, Heiko Stuebner <heiko@sntech.de>,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Andi Shyti <andi.shyti@kernel.org>, Tudor Ambarus
+ <tudor.ambarus@linaro.org>, Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Yixun Lan <dlan@kernel.org>,
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Alain Volmat <alain.volmat@foss.st.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Laxman Dewangan
+ <ldewangan@nvidia.com>, Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ "open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
+ "moderated list:ARM/Microchip (AT91) SoC support"
+ <linux-arm-kernel@lists.infradead.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE"
+ <linux-rpi-kernel@lists.infradead.org>,
+ "open list:FREESCALE DSPI DRIVER" <imx@lists.linux.dev>,
+ "open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
+ "open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
+ "open list:RENESAS RZ/V2H(P) RSPI DRIVER"
+ <linux-renesas-soc@vger.kernel.org>,
+ "open list:SAMSUNG SPI DRIVERS" <linux-samsung-soc@vger.kernel.org>,
+ "open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
+ "open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
+ "open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
+ Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Thierry Reding <treding@nvidia.com>
+References: <20261104152253.3279052-1-Frank.Li@oss.nxp.com>
+ <autj6pr_bPaul3w0@ashevche-desk.local>
+ <7f96599b-681d-4963-bdda-1274371ac84f@kernel.org>
+ <f1fa853d-1703-411d-b2d2-0fb0b176c2fa@kernel.org>
+ <autqC143h7Qf1R9H@ashevche-desk.local>
+ <9e39502a-dd17-4fa2-98a3-9019523cb5e8@kernel.org>
+ <auuYcS7-YqJKcUbE@ashevche-desk.local>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <auuYcS7-YqJKcUbE@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 03, 2026 at 12:48:14AM +0000, David Matlack wrote:
-> On 2026-11-02 05:06 PM, Bjorn Helgaas wrote:
-> > On Mon, Nov 02, 2026 at 07:36:34AM -0800, Vipin Sharma wrote:
-> > > struct pci_saved_state is private to the PCI core and its in-memory
-> > > layout is not a stable ABI. Add helpers to serialize it into a
-> > > caller-provided buffer and rebuild it in the next kernel with a stable
-> > > struct pci_saved_state_ser ABI. Using caller-provided buffers allows
-> > > drivers to embed the serialized saved state directly in their own
-> > > KHO-preserved data with a single allocation and lifetime.
-> >
-> > Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+On 04/11/2026 21:41, Andy Shevchenko wrote:
+>>
+>> But sure, if we want to play such numbers game, I will be sending
+>> reviews for single lines.
 > 
-> We discussed this patch off-list this morning. I'll sharing the context
-> here since you were not there Bjorn.
-> 
-> The ABI added by this patch is not actually stable across kernel
-> versions.
-> 
-> struct pci_saved_state_ser is stable, but the contents of each
-> capability entry are not:
-> 
-> > > +struct pci_cap_saved_data_ser {
-> > > +	u16 cap_nr;
-> > > +	u16 extended;
-> > > +	u32 size;
-> > > +	u8 data[];
-> > > +} __packed;
-> 
-> @data is a memcpy() of the per-capability save buffer, and the layout
-> of that buffer is not defined by the device or the spec. It is whatever
-> registers that capability's pci_save_*_state() function happens to
-> read, in whatever order it reads them. 
-> 
-> None of that is described in include/linux/kho/abi/pci.h, so this patch
-> implicitly turns the private layout of every capability save buffer in
-> drivers/pci/ into Live Update ABI. Someone changing
-> pci_save_pcie_state() or pci_save_aer_state() has no way of knowing they
-> just broke Live Update compatibility.
-> 
-> And these layouts do change. Commit 898585172fa7 ("PCI: save and restore
-> PCIe 2.0 registers") grew the PCIe buffer from 4 to 7 registers, and the
-> AER, LTR, L1SS, PTM, TPH and DPC buffers were all added over time.
-> 
-> This is the problem I was trying to solve with:
-> 
->   https://lore.kernel.org/linux-pci/20260924173501.856380-1-dmatlack@google.com/
-> 
-> That series replaces the per-capability buffers with a single store
-> indexed by config space offset.
-> 
-> Where a saved value goes is then determined by the device's config
-> space, not by the kernel that saved it, so the PCI core can change which
-> registers it saves without changing what the data means. Serializing
-> that for Live Update should be trivial (a size/flags header plus the
-> bitmap and the values). The cross-kernel compatibility question also
-> becomes explicit and per-register ("the previous kernel saved offset X
-> and this kernel doesn't restore it") instead of a size mismatch on an
-> opaque blob.
-> 
-> Bjorn, this is also related to your last comment:
-> 
-> > I think it would be helpful if the names of "config_space[]" and
-> > "caps[]" hinted at the connection between them (both are in config
-> > space).
-> 
-> With the offset-indexed layout the two are no longer separate. The
-> header and the capability registers are all just DWORDs in the same
-> config space map in struct pci_saved_state.
-> 
-> So I'd suggest that we land the saved state series first and then rebase
-> this patch on top of it.
-> 
-> I can send a v2 of that series this week that addresses Josh's feedback,
-> rebases on top of the PCI Live Update v10 series, and includes the
-> serialization helpers. We can use that as the basis for the next version
-> of this series.
-> 
+> I'm not playing anything. The problem is that the patch unites the files that
+> have distinct maintainers and unrelated to each other code. That's why in the
+> subsystems I maintain, I almost always require to split on per-driver basis.
+> Yes, exceptions are possible, but has to be quite rare.
 
-Agree with David here. I think David's series will make things more
-explicit in saving PCI state and easier to find changes. I will review
-your series provide my feedback but don't stop your v2 on it.
+That's independent problem. Patch could be split, but it was not. Since
+it was not, receiving end should act accordingly, e.g. when performing
+incomplete review of only part of the patch, do not call that entire
+patch was reviewed by giving the Rb tag, but give Ack tag.
 
-Thanks,
-Vipin
+Best regards,
+Krzysztof
