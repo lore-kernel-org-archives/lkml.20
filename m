@@ -1,93 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793811872;
-	b=dGtvW0Vnreon/X1ArAn5BNyB0NTMPfjjLYb3LYH6yzqqzOsdgDpc8dF+SyiTQRGo3u5I
-	 UU8s2lak7325bUIUVRPYw45qqiXyn4+vZnLI/XzY3b8dx6ytUAD1u55Y4sUSAcVNTTdoN
-	 P5cHaPnFq9qlFuNqT5xjEqsA/w5vZPIG/DZOWO/ZKwKAioHfDX6lxrulY7jpA9lKY9sS6
-	 HHEJhxGlEyQtyGvktX9r29pFsZQoyW4Zi9fn2JH67wl3gzSyKI4CUDl4d+YO5I8Y/0yZS
-	 p63GRgcugrNt12Oja1OmWfQF1zkYI/9NIAsdGjgX8t7seq9N044mDPm2W0aOysscpqw==
+	b=OrB1mdzxiu77dhHZUjeKd5Dh9fwo5VcHLOj1nmUJ6x/8KJ5Xt4Vgr6yq5sZBL5LueQlB
+	 uw+T1R8fsvhQVNxRVFkTKo/78D3AH00iZ8/MWKee9meKXasIpZu0RuSd7iZPJrLDEKy+g
+	 m2amg+hREGJjrSDu8QVvPiqABO/BH5E6QXHaBlK9d0QSPCRQ3XPi5dH8whnHnorr4SPqa
+	 c3MWdNrI8QR8U1K6h3pK5Pa77k8DFfmdS/ZNHFrg2SodBl0GWbJQAYJaBshv0s4rlXrhc
+	 tQRQiIBQEv+v9AJJZw+G9dLL0hN45t+Jq+QSW3Ggcpxj8QSQUaL3XtUP2DPScrC/WVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793811872;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=F8uAXRtGsSienYNkaab0cXktgUbGtmZejNsezC1QQio=;
-	b=uebsZtatkBfKwQDgwlyxmHa2fUIUQs8GOW1N7R5aqNE/3IAI02355OHIWXDhuLOiDeNG
-	 AQwQ0oofKkJgaWpl+EUXq/MFRqSqLyp2nK29hspRAOjFi+vZvPQzF3MAUphP4ME5SccfF
-	 j0DXrKmX9bYaTEx7dwh2w+3GCUFhH8DT9Xdzv7vggEqt6GMQvLynyoqK30BEZT4gn1kuD
-	 53HqruGffEjresiDtsG6qE26GiIXZDIDfP+h+9MOkP5c6ud20ZoXJpfqLaarmMU+QcVcc
-	 HCeFbxwEEJN2AIro+IZ8kkL8Di4XPe3i2mYzV5eqcZg/qNsR3X0+EwfCNC9TQX0/j2g==
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=uk4o3l+cI6AUeTKrPcS2F8cKNnNOt3JCQtSUOlfoC4U=;
+	b=nZbAW6qdTQeX2Ti7amTkJOGIGjZ19zU2j6pA/tmTuqEQTf+3sAGrYZoQypjK0v5exUFS
+	 DuMfMk6IxsNfPltJMrcgSxGH6RS06BDTLaRy8unV+RmXVMXNh+uPDaIszElQEpYjIrkh1
+	 xanQU2SMqd0JHbnIIlJlcfxAoJNv/bRxKL1a8aWs+p0F31S4n31oItUJ8YGGESr3yehdW
+	 VpEtg5D9eAjby1MYrFcHBM+jjEmx8d3lL74Kx97QnK57PIpxf3kBjObef/9NYN+fuqcyg
+	 tH7sDHXjTTLhKaueshkC5sk26n9Y3bR9nsdrbDkIf0TeEueQoP5jyVui0nDMlGtK71Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ot3IjQ+j;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b="Wy/Nfw9n";
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABD9C606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 17:04:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABD9C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51F5E606A328;
+	Wed,  4 Nov 2026 17:04:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51F5E606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ot3IjQ+j
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48e3b22e971so519556f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 09:04:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793811870; x=1794416670; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=F8uAXRtGsSienYNkaab0cXktgUbGtmZejNsezC1QQio=;
-        b=ot3IjQ+jG2FOxRpDI5geJv/xMcVJs9tpGafAakIEQWj6jZgIhemPS9HE8xJn80Al1O
-         MNm7EwScNB108UwfZ1uBUGyk0ZW76lxRHh9HNGYTlyRhqHF8Qn9TUByemFfIzm2mZhwD
-         DjKhTmdZKsdpqpDdbCYCUfjnD9XhKVj6uD1Ccmt75PIHdi/GnaXzxBDoALNkuH859hcP
-         l6XeymxFNsCxLHi8D/8TD4U5vf+AOj7fUkzG5t7N4FaXeciLHVuKMZtrJvl1iyqoo4hs
-         CqS8Pljcq11wXHopu0VxKU4vMniQtUjbhBKWzfSFIi+Ng45gAdicbuw0muD/nkLqtf4R
-         Nqwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793811870; x=1794416670;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=F8uAXRtGsSienYNkaab0cXktgUbGtmZejNsezC1QQio=;
-        b=iC9/vpZg4lSgNNJRFGLup9VuOG3w9iD1dpoSnUS2NJ4nj0OR/2+IsA9ZefYq4eXOEq
-         pyW7MRhd45TIvGa4AghgPMdDasGWbFniKJY4J6s7Z7XmX0FDPGm2fzU785zxblcs2h2Z
-         v1VHm6rqSg3XJE15HO9uOju2etw9XXvvWKe77zhBpo567vENZRJZm1/MHSHeyhwHw8Fl
-         GmtMlMjYF6fq2mN3yINBN+H0XkBykKDW9mrHoij2YH7y6ukLlKoyUNVUS/g18iofjdzP
-         VmC+oSXU3Ec1JQ+B400wI6ANlcqo6FR5pTbv7H/9lHlLCsmvYxrlqvpoxIG/+pBzT5uw
-         UWBA==
-X-Forwarded-Encrypted: i=1; AKwUvBwC9guzWvV7OaA6BYDtHXJJgIqaYIhRv3fqADmylSo5E5tcnwazzrjTwOS5lWZBIbf4obOKjMNuMfWZzzc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/dPsUqcUBFFQi5MZW0H4JxF8aJ27Cs58wZ+vAu/SSAPBvNK3y8
-	lG2dVwEHy+tOEOEa0nKBYo4FKYlsnpCDydWmX+nyFmesSbVEEyChuy7jpZOYrg==
-X-Gm-Gg: AYBFou2rsY803BCMQRyRbPkazu/xGXNBbr6iYmt2939cPrsnqactFmBkUQPf1+SZ0o+
-	TroGGxJvxGj+pt2JQkSTjfXK6HCnANGGz2AkhxriLkGSf1LJzNRg1JmPrRgtMuHjrb/i9+ds4O+
-	df0FS2BSXXwTaNcv/BhympbU2DoUwlQLdF63P0yzBwOqs8DAjxC3oKEJUDL8BP7tdU7jXftsoMG
-	Cn1mFfll03+RQ8L3DgZPhHX1e7v/hs4jSXn9oKB7td7+W3DVjZhUkcS8g9C6JuXXoZIGWXL0Wab
-	TeFmxDG/4k+zAAFxU9u3y7g9IH1IXqoItc1tZfIwzEIQOwBno76begmaVzwNtUdPPt+aCeZiqPP
-	L1wvv0q9mpc07AISnOmebOPUAnh9KrRPeaIuYs2KzU4Viaa7RvPCU4NlRaetwZyjLlVPNcPN7wG
-	AMPTC6fT00Kff9i8ft0y9uiAbj3VXf/EJR5obvToaXhDgoYh6b3UNGFZSPg+sspRsxRib275e9Q
-	jDE+kO0DFjrc5FMeU2Esmy0Hu5uHppl3FLYPrL4fna/zYfjR/2Cbw1H5qMW2VE9ypfEpxWpTdlW
-	dmdNLFlJqR6PNgvawDjpAWXu5WtknglvgLAqIWzEuUHVKVdXyvMsPIaDa+cnIgjF/X+r/cWnbwT
-	VUHcvnHXTbm4=
-X-Received: by 2002:adf:e19c:0:b0:490:ae2:b841 with SMTP id ffacd0b85a97d-4900ae2b9a7mr4474785f8f.30.1793811869589;
-        Wed, 04 Nov 2026 09:04:29 -0800 (PST)
-Received: from User-PC.localdomain (185-80-76-65.ptr185.nosmadeira.net. [185.80.76.65])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fecac17c1sm4747263f8f.10.2026.11.04.09.04.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 09:04:28 -0800 (PST)
-From: Jeff Campbell <inca.jeff.campbell@gmail.com>
-To: Arend van Spriel <arend.vanspriel@broadcom.com>
-Cc: linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH wireless-next] wifi: brcmfmac: enable 2.4 GHz VHT on BCM4366 before AP bring-up
-Date: Wed,  4 Nov 2026 17:04:26 +0000
-Message-ID: <20261104170426.4129715-1-inca.jeff.campbell@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=Wy/Nfw9n
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=uk4o3l+cI6AUeTKrPcS2F8cKNnNOt3JCQtSUOlfoC4U=; b=Wy/Nfw9nAGXrezygvqCJUcWDuP
+	4tgj9tSVq9W21pEAPZZ9e6czTmt5vPLa3mjxAKu+VopWXU1bLEI6w1m4C9tz+LxLDoIrOpv/AFWdL
+	7ifGkJ3Gm7GGZZiRqwp4QZlll2MusDoLdUSyk1jgb6jvIbFJ+8S52iLM2w1eVpz5cNz3x54dRDXK5
+	6Krp4Nho2/k3OmuX0nuYY58Vsx5czGjZf/fTUbXYftJwo6QS7LB16RwIRSkIlulkfDnW08RGCrG3m
+	brKhMGLNMCjYQdus0nbmlMvJmgwdnIjcEmggGy5V9J+mXcRAjLgfK7U6zI+FZTcZSlrEf1cpCTZFt
+	6qBwWb9w==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xOePQ-007sJp-24;
+	Wed, 04 Nov 2026 17:04:24 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Wed, 04 Nov 2026 09:04:11 -0800
+Subject: [PATCH net] net/mlx5e: Fix queue stats access to queues without
+ stats
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,97 +63,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-mlx5e-qstats-null-v1-1-a6a003245cec@debian.org>
+X-B4-Tracking: v=1; b=H4sIAIpl62oC/yWM2w6CMBAFf4Xss5vQyiX6K8YHLgdYU6t2iyEh/
+ DtFH2eSmZUUQaB0zVYK+IrKyycwp4y6qfEjWPrEZHNbGZMX/HRLCf5obKKyn53j86WvCosaGGp
+ K3TtgkOX3vJFHpPtf6tw+0MXjRtu2A31tYDF6AAAA
+X-Change-ID: 20261104-mlx5e-qstats-null-39d642e7eef7
+To: Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>, 
+ Mark Bloch <mbloch@nvidia.com>, Leon Romanovsky <leon@kernel.org>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Joe Damato <joe@dama.to>
+Cc: netdev@vger.kernel.org, linux-rdma@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, kernel-team@meta.com, stable@vger.kernel.org, 
+ Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.15-dev-47773
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2484; i=leitao@debian.org;
+ h=from:subject:message-id; bh=DiyLilUFtJe6EmmoocnPaoco145t0qJs//3Ho1BL0Wk=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq62WVgMUdZQ4y0rzCThMu01r/F/P+jSPB3bkZk
+ b3M/nIuo0mJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCautllQAKCRA1o5Of/Hh3
+ bWRlD/99Y/6qRsFFNX71O1qu3CGXHscsZwfh3YL61/vLVI4DDqf7GnBdpkBU9zJ0Clyrp/KBMuR
+ ZkOBaMoBvm+E+HRVEaORAGGYwbNzJGN0DwfGFL6ZG/7gb0ckFh61uFAlqyendRGKcbwkN4PXVnt
+ 3784zfyNWda0EeWDNGjD+oABU4Era2v0ljujk5bsWfXnqeqI38rI85R9TonKew6agHkGDQ0cZtW
+ 1Vcg3fUW3dyFSlaOxfia3zO8rh78fEB3RQxK4K1yk9hYZ8xFv4U/KD762bj2Jfco2DxJg+VoJMo
+ Or+yg1erejs5oFsMAcHq4oCXpcD3q/N+D5MvukWOfDHxMTAmaDVgeS032FFfyqj9jTbILWpAsuT
+ 7dON+rw/NX8kXgszgNYGQNGxd7hSKHHKsigSzydZy/zsG6l2nhoWAT0k7d+pVKzudM95mBgZDSt
+ SRW8xhs+znClLYOAdvI7jvFafPY+Q4S4NxSzyn8xvajoXTDi79YBIUtx897Nh3XV4tI/5uuvWrf
+ e47uy6ZdyuJQOME4L7wlAW8Z5ufI09HuiibVAZek1y7rgYWD+a9RF21R8xw6oKM0QswLoIggMN8
+ KETDdftzW6rDlVuM/rav9jpM2r7/XW0E8XngG/IR2qj3JXDOS+dhjwQFFNLGgyT64mFI756+Lxo
+ z92N/uGV2L24xlQ==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-On BCM4366 firmware 10.28.2 (r769115) the 2.4 GHz radio defaults to
-vht_features 6: proprietary rates and 1024-QAM on, 2.4 GHz VHT off.
-brcmfmac never sets this iovar. As an AP the d11 PSM watchdog then fires
-repeatedly once a client passes traffic, the client disassociates and
-never completes DHCP.  This renders the radio unusable as an AP.
+I am seeing the following mlx5e crash in the Meta fleet:
 
-On an ASUS RT-AC86U (BCM43666 2.4 GHz radio), with every other bring-up
-setting held fixed, values 0 and 6 fail and values 1 and 7 are stable,
-so bit 0 alone decides it. The ASUS firmware for this router sets 7.
+  pc : mlx5e_get_queue_stats_rx+0x4c/0xc8
+  Call trace:
+   mlx5e_get_queue_stats_rx+0x4c/0xc8 (P)
+   netdev_stat_queue_sum+0x78/0x480
+   netdev_nl_qstats_get_dump_one+0xf0/0x268
+   netdev_nl_qstats_get_dumpit+0x7c/0x1f8
 
-Set bit 0, keeping the other bits, on the primary 2.4 GHz BSS of the
-4366 family while the radio is still down. 5 GHz is left alone: it
-keeps 6 and is stable.  This stabilizes 2.4GHz AP and clients now
-associate, DHCP and pass traffic at normal levels.
+When dumping device-wide qstats, the core calls the per-queue callbacks
+for every queue below real_num_{rx,tx}_queues, regardless of whether the
+netdev is up. Some of those queues have no stats behind them:
 
-Signed-off-by: Jeff Campbell <inca.jeff.campbell@gmail.com>
+ - RX stats live in priv->channel_stats[], which only has entries for
+   channels that have been opened (stats_nch). real_num_rx_queues can
+   be larger, for example after the channel count is raised while the
+   netdev is down, or after opening the channels failed part way.
+
+ - TX stats are looked up in priv->txq2sq_stats[], which is NULL for
+   SQs that were never activated and for HTB queues while the channels
+   are closed.
+
+In both cases the callback dereferences a NULL pointer. The dump needs
+no privileges, so any user can trigger it.
+
+Return early for RX queues at or above stats_nch and for TX queues
+without SQ stats.
+
+Fixes: 7b66ae536a78 ("net/mlx5e: Add per queue netdev-genl stats")
+Cc: stable@vger.kernel.org
+Signed-off-by: Breno Leitao <leitao@debian.org>
 ---
-Tested on an ASUS RT-AC86U, firmware 10.28.2 (r769115), AP mode, 2.4 GHz
-channel 1 at 20 MHz, one client. The router runs OpenWrt on 6.12, so this
-is wireless-next brcmfmac at 991a73f49 built as a module with a small
-local shim for the older cfg80211 API (not part of this patch), not a
-wireless-next kernel. The two builds differ only by this patch:
+ drivers/net/ethernet/mellanox/mlx5/core/en_main.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-  with patch:    vht_features 7, three speed test runs on one association,
-                 no watchdog, DHCP completes, 560/155917 tx failed
-  without patch: vht_features 6, 16 PSM watchdogs in the first 102 s after
-                 boot, client retries DHCP and gives up
-
-5 GHz stays at 6 in both builds. One speed test run there was clean, with
-no tx failures and no watchdog.
-
-The chip check covers the 4366
-family, but only the 43666 2.4 GHz radio on this board has been tested.
-
- .../broadcom/brcm80211/brcmfmac/cfg80211.c    | 32 +++++++++++++++++++
- 1 file changed, 32 insertions(+)
-
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-index 46714d871..e971057fb 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-@@ -5253,6 +5253,36 @@ brcmf_parse_configure_security(struct brcmf_if *ifp,
- 	return err;
- }
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
+index c3c2c5720c6f32..72bca10c579df9 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
+@@ -5489,7 +5489,7 @@ static void mlx5e_get_queue_stats_rx(struct net_device *dev, int i,
+ 	struct mlx5e_rq_stats *xskrq_stats;
+ 	struct mlx5e_rq_stats *rq_stats;
  
-+#define BRCMF_VHT_FEATURES_2G_ENAB	BIT(0)
+-	if (mlx5e_is_uplink_rep(priv) || !mlx5e_stats_nch_read(priv))
++	if (mlx5e_is_uplink_rep(priv) || i >= mlx5e_stats_nch_read(priv))
+ 		return;
+ 
+ 	channel_stats = priv->channel_stats[i];
+@@ -5521,6 +5521,9 @@ static void mlx5e_get_queue_stats_tx(struct net_device *dev, int i,
+ 	 * inactive sqs.
+ 	 */
+ 	sq_stats = priv->txq2sq_stats[i];
++	if (!sq_stats)
++		return;
 +
-+static void brcmf_cfg80211_4366_2g_vht(struct brcmf_if *ifp,
-+				       const struct cfg80211_chan_def *chandef)
-+{
-+	u32 chip = ifp->drvr->bus_if->chip;
-+	u32 val, want;
-+	s32 err;
-+
-+	if (chandef->chan->band != NL80211_BAND_2GHZ)
-+		return;
-+	if (chip != BRCM_CC_4366_CHIP_ID && chip != BRCM_CC_43664_CHIP_ID &&
-+	    chip != BRCM_CC_43666_CHIP_ID)
-+		return;
-+	err = brcmf_fil_iovar_int_get(ifp, "vht_features", &val);
-+	if (err < 0) {
-+		brcmf_dbg(INFO, "vht_features get failed (%d)\n", err);
-+		return;
-+	}
-+	if (val & BRCMF_VHT_FEATURES_2G_ENAB)
-+		return;
-+	want = val | BRCMF_VHT_FEATURES_2G_ENAB;
-+	err = brcmf_fil_iovar_int_set(ifp, "vht_features", want);
-+	if (err < 0)
-+		bphy_err(ifp->drvr, "vht_features 2.4 GHz enable failed (%d)\n",
-+			 err);
-+	else
-+		brcmf_dbg(INFO, "vht_features 0x%x -> 0x%x\n", val, want);
-+}
-+
- static s32
- brcmf_cfg80211_start_ap(struct wiphy *wiphy, struct net_device *ndev,
- 			struct cfg80211_ap_settings *settings)
-@@ -5397,6 +5427,8 @@ brcmf_cfg80211_start_ap(struct wiphy *wiphy, struct net_device *ndev,
- 				goto exit;
- 			}
- 		}
-+		if (!mbss)
-+			brcmf_cfg80211_4366_2g_vht(ifp, &settings->chandef);
- 		err = brcmf_fil_cmd_int_set(ifp, BRCMF_C_UP, 1);
- 		if (err < 0) {
- 			bphy_err(drvr, "BRCMF_C_UP error (%d)\n", err);
+ 	stats->packets = sq_stats->packets;
+ 	stats->bytes = sq_stats->bytes;
+ 
 
-base-commit: 991a73f4909f1348ffb4b38765cdb522a775e4c2
--- 
-2.47.3
+---
+base-commit: 241dec6f9ab74d8c3ef246764f3611666b96b9e1
+change-id: 20261104-mlx5e-qstats-null-39d642e7eef7
+
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
 
