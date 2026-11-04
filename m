@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818173;
-	b=34lnXeaHVHUhVKgjsc5D2IHXUtQSSe8rfLUsPm3rQr0xt2NwL7iSsRyZRxjA7QGGL0b+
-	 rTKfTQzc6WplKJ7Y7Er/PBl3H1unvenoa6xPpTJwJ0OCbi2kT5BAtnSJuhAbUUOeePh/L
-	 VMDWQe6cCyIDrAksb/3HgvlgfYOiBAVvSMCqud1c4iZTp6XD6w+8kvL9lsi2YvxF8iX7m
-	 fFc/Wi0zHzbMv54s9urTkitQcaorLB5Rfk+/lqkQvEj4umSW/QPeRzy5lqL2KG+kJtl7w
-	 oTd8baWvFFaXLUVu+sClyU843VXxIoTfNXkSP8ESF1arladvJXIjCbj4WekJl5t1aSw==
+	t=1793818169;
+	b=0mTCjPu+JsL4Ura/c9pasOcS/+E7YLvWKCrlcRIaW76QGhgb1vNEZ+23PWzh0OJRZD2I
+	 /0q3+kI/9fPa6JBTZiJSBz53xUP7tLmWkkTjkuKxAHkrTrUM9m260IlZwVN8GNIX+mWGs
+	 W6RO0xL+if2GnP4CNkbNnYFm8A13XhFaXFkQXXfxHMYlbI6R9cWTAWQheh7deMbyk0CKz
+	 wDupVxFaKgfoLgdRj4rx+H71YSNpnt59diWrkb4Umgr6QqQL2yYOdwDkI6qgGTfr/3XVF
+	 /5ml4UUAsv/tuxRnLK9zIHrNMWLzcQl4pweMbiOExTXqVv1HIh9+slFU623DJ0lQaxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818173;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818169;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=3yRFzoSASbTaPFKGmXJ3DuxTiEoC5V7x+OkyMhZfPEw=;
-	b=oeI8i7KWAxjKnF9+0aApNsKaqvvByn2yJ+vaRqMX9LZ6TEkWAEdWmNUFBjCNFCUEtt0l
-	 QI8To7gVsZ/GGmZWSb6dpz9euc8KkWbXxcUjZr/s/p4pjZdiF5ghZDT6XxMRJqRsqqqak
-	 Rm9dCYJ5CGKN2FEF9M/6HpXFMYhhq2t/NVM1VFlKUfKFSl9vOJgH8daXoLztXrJOmVCKt
-	 rh87EXbc8sjDoVdL00nvfGqnO9pZ1W+35bqSpq7AZCCJ4IjeVvU4Nbg3RxW0Pc2CFwgFa
-	 6vE9NP/BmlLjl7kdvhkBMDqD6dDX20PwWeQKizdjwYm9oustM4rUSvBceYKggcpOtqA==
+	bh=w3DDS5VxfGrOk4pk1sx0ix9DF6R6TCLK6co5C/H8U0g=;
+	b=Eufc0ppr6iimaSI8tYgtzgeiYwb0IbLKI+cUWwMXIDQGCVoYlD0Bjghu78bvFgVfKN0n
+	 eC5pLmha0krZcyj3m01MOnc/gxmQu3MrmsRCYbMFWC99FfycYri73S3IvcEk/O9ZjnoF6
+	 Fh22DTaTuhCx4xgC6E6VK9YktMgMksGNDVg1IEnEftN9uX3FYYFGDP/MD3xA6EarSzM7i
+	 /tsXyC5Dxe5JVlgmOoGYRyH2eNNvwBGZ0rqEd8wNjGEu0XUFRDw7MGPGeWAOi5XoV+wtr
+	 7wWhU6KjK9jKiFiweFqDdFIoAbfWTCKPTgcuOaENRyCOc9U+2CqSEdRrzf266nYxowQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nse9iesL;
-	arc=none smtp.remote-ip=209.85.128.176
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W8MRFYf0;
+	arc=none smtp.remote-ip=209.85.128.180
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23A76608362C
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:49:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23A76608362C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA8666082BF8
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:49:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA8666082BF8
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nse9iesL
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8b0d63f60bcso15297887b3.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:49:33 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W8MRFYf0
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b300713befso10365327b3.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:49:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793818172; x=1794422972; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793818168; x=1794422968; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3yRFzoSASbTaPFKGmXJ3DuxTiEoC5V7x+OkyMhZfPEw=;
-        b=nse9iesLNcVnO666FJ0bxh8JLaR/ys5aAbkHom8NtlJn6dsf4IpAS01l3fzN8K+eX8
-         sIw88vVZs6o4YGVUQe37AeOEXsjJFQj8Yt3KYqGv0pzE4o0TEHKLlHPMiAt7+WSY98hh
-         Buo5kucR2J4eKjt1iN650FP7F03g68r/hsQ2kBWyddXOds4gITB8qIfwGjsjuETedZXP
-         vofMBzf/3BjBZooJAwju+KzKxGzAazBL5mzY2wQSnTGPdOixF9FWIWFUMvu9nUWbXEE5
-         jv2F6NQO+cIcLIH7SOd2JBzcDrv8slh0yU3QD61ddVSsiCzNVtF10GbPh8VQ0aGgTwaY
-         wkNg==
+        bh=w3DDS5VxfGrOk4pk1sx0ix9DF6R6TCLK6co5C/H8U0g=;
+        b=W8MRFYf0VWsmAa88+3a65HtE3Hh6Ufrv3XV+IZjOWPRNRjwrAN0TK5PtCCWy0EeBWf
+         msMYhFbYXnuFsCe4G6pSqt9P7H0sQgVHL0aJnRcQ9tzeOP9RFkkErjh/wg0chudt0Vc+
+         xcly1vFE2QI8NfI7Smifq4mGU10b57+LPVyclIdZNjqpVqX+eVXK8Jb3QgXuNpLASWQL
+         m23pZR9gbxMWRHZCQXm9Pc+BWdPuhll19PedOH9Rf5jEfGFibJ3CgszKolbgkYJqI4O5
+         Ye9ZRQECvHMjw/aSnmwrtVK8C/TRExgkHp0n9P09K45L3evRP3hzrPAXXMflp8b46UuV
+         8dVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793818172; x=1794422972;
+        d=1e100.net; s=20260707; t=1793818168; x=1794422968;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3yRFzoSASbTaPFKGmXJ3DuxTiEoC5V7x+OkyMhZfPEw=;
-        b=oc45dRelpU/U+Fu446q4+SDspA9DjPcQg5e+Owh3Jq1lZK9wD6sS2jx16W7VxPwHDo
-         UT1ruDx7re5WUWvwwujRd5XHedbVKsqjyOb1VPzGWMj8snLMRjiG14uJHilweNLmm0o7
-         xEzAHkB4Hat+g0exLNVQSc5ZMo7o1x2V7V1cG4baN+flQwSlnCn6UvECukiSM2RXBfdv
-         TvQQ/urjkgGAkvpbSg8sg8+OE1zQ/3D7JeGgbrlh+PGRsFyuUxx17k589P/CQSkw3dNb
-         0RNg7U79GLblq+ifpMibtnTNBcys+NfpAiC+HUBnjejffz3XvOHKkcI6Wrlmt2FakM7F
-         n7fg==
-X-Forwarded-Encrypted: i=1; AKwUvBx6BtbG5Pz4zfLdcXjj5xkAcmEsh5wDXKJfBRXcEklNqzrHrDQajRDwien/4WEW+KRhUoyZY9Nr/EbrgI4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/bijXLgBrl4fmkkbu8wsUkX1zk7ojAPw1O+DenlDEdge5LtcxJ
-	x2ZBkvgI3mr9lHbugeyC6wd4raFx5InZzaRCaLJxkJ/OquqKgWmRR+JL5RoO4Q==
-X-Gm-Gg: AYBFou3QKgH2KvpNIRqwJa7w8VAWx6bUJYxg6jqz1ZbpccFpANvsk2bT0Qwxc5f6Gvt
-	NzxWWjp94biAQY/30loM5MCWiZsJii5anWGC7SEOX4Vh+7EPqCADial477lofhlLbAzFtSKgABh
-	4X2v4LswzBKsJY5cR0ODKng5L9NrhbHz6Dkf0fO1V/a2uNoDPOb7AhKBT2q0SUfLlCNG0vzYC7l
-	Svue8RuPfemvI/5XODduLn9t3+gxwIBcOXeMsp1PqljgCaKVV91Zx5Kz6TcJgWOvoydFNfNwO+B
-	4BxKRN9HQlzDKcT4raLliIVhD53kpI9ZBySZArHk73n4vCQ0+x+C3nrXf4EBB6bJJoAp/9GmRyt
-	NOgmlg7AJYGzdXnGF6kGZGtRTWpG4Cuu3Hhc2F347myYOqf4FW9/kAG1Wti6/nW+6EEZFxC2gqF
-	g+c5TuXzSu2hDFDmh43PoFVyT+N0ONVhDNdmW5I9aHQSDC+bz59f0/iKEXLE+NzLHU/tL6Y65Uo
-	WOzExOBVI3rPZU5fOZt1q6LHAskl0ZZIGQQiUDqS3dDPjGZbFz/pfeyBvSLem1+YUXW914cwDuh
-	pjthOyhDV5xT7NxyPynJyLwP+cSzu6MaqfgiZQEUMIEo1a/IRKtLlxXaUnSqxFBzoRa588Szluw
-	5luj76cLmo9o=
-X-Received: by 2002:a05:690c:6609:b0:8ae:b617:7138 with SMTP id 00721157ae682-8b2b6769adamr130667497b3.49.1793818171822;
-        Wed, 04 Nov 2026 10:49:31 -0800 (PST)
+        bh=w3DDS5VxfGrOk4pk1sx0ix9DF6R6TCLK6co5C/H8U0g=;
+        b=i2V1165h/wFUIdqMjgC0lGT6AD/NgGUn26XqiVTOo9uxsESHUML2jZ67emIQESQ/Ko
+         n2myta4xKPZ8BzuExAo9PSD1v6vlYZGsh2jqKdy8mplsq2p7ITFOJwtEke8OEOH8enuQ
+         CHheZzfHscEzyebXD4/7wPMMPHl0MFvOO1edCFNhjprTTag1iP1nrFlprZGr/AHidWYY
+         Ig0ZVAl5sE82AGTMy/94hlzUs8Giqxa5+42CMEAibh+k0W3EGE6RQWcR6N5dVyXJO+oe
+         k1o1KkkGiiFnc0KDUjwAy/mcY2wvO4u2N0sSRTqVwBSEdR80onHYQdh3e+ThU/DxKcE9
+         G4/g==
+X-Forwarded-Encrypted: i=1; AKwUvBxM/haugFm9QBFYiUh/ELM7FbhVcvASdewYGsJz0ruw18SOLcYonmOWgZ9GBxZd5T+PJ+3AGUZoVuHdYIk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/DFvpjVZV/wH9fMAEQQmTTnmbfCdNmERZwmkP7DGQUyf1pHoa7
+	H2o2odEMGKNdZSI5ltdgZkVDX5wxi2q4b/0itd/Nr6/t4KjJIILZhXAIPswgvw==
+X-Gm-Gg: AYBFou2JTkbW6zGsejlgEorTCbtcS263JL4me980CDb6DJEqt0Gzgagafdsf22bYzT/
+	jQmgqtkau5Gtb5BP8oVlDbpLVvhZ2l35xI29wqisfHPhgb7Jz7hKrrswe7XLTiLWTHaLIg8FW/4
+	MN5z1UCtI804Fp0lfcvgfO2G8KXrAY/B57FNazmKKe1I+uqX5o6/gKDIK2MDq7pLFLGQaWG1cPd
+	rwQwxlA1YBvxEst/RlAaDLsrmCFlJmaGyccVLWy2v50A9alDl9toyfrgtrhakvAKbT3kuNQl+SE
+	4a72QJQDl3pM7LsuKax8PxlSZMaAAzcNbCUpoIWi0siXkrj77q2K56vT/V8+UGSg5flzwW91+b/
+	7KA69whjY7+lTpVOaAQKW5vMszQVacnZxQwUO58Z66qbNkPieNWavEKMcL5U4bSu4zHxO+uYDuZ
+	RMJxkowIb4QXPNNZFQnta8+SOp7W6zsKzkRX/ygcG14bVMmmlXKIslbScCmK5sxDYr25fRazYJl
+	cc0nzxI7lXvvDNMy1D9udAFA85yFQYpstcwGZkMw1kNlxnU1qfJ0zzqXUd0eY70z32ApIrIIwoB
+	LiAerxJuymtKWZOhaOO4wUYD5FHe72UsXYaFlZMQCV+xKwwVHVL+AGWKMosYC2FqZBv4qmtHvB/
+	FHzxGeo3P2PgTG14HBx/dB66AwG7A/YY=
+X-Received: by 2002:a05:690c:c513:b0:8b1:e7c:cdf1 with SMTP id 00721157ae682-8b2b67224fdmr113642617b3.30.1793818167397;
+        Wed, 04 Nov 2026 10:49:27 -0800 (PST)
 Received: from localhost ([2600:1702:7a90:6f9f:66f3:d5d6:2d12:d460])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b309959603sm24730847b3.24.2026.11.04.10.49.30
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b3099ae415sm24128967b3.35.2026.11.04.10.49.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:49:31 -0800 (PST)
+        Wed, 04 Nov 2026 10:49:26 -0800 (PST)
 From: Matt Turner <mattst88@gmail.com>
-Date: Wed, 04 Nov 2026 13:49:20 -0500
-Subject: [PATCH v6 13/13] alpha/perf: honor exclude_user and exclude_kernel
- for ProfileMe events
+Date: Wed, 04 Nov 2026 13:49:17 -0500
+Subject: [PATCH v6 10/13] alpha/perf: report the data source of ProfileMe
+ memory accesses
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,7 +96,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-alpha-profileme-v6-13-63362e9290a3@gmail.com>
+Message-Id: <20261104-alpha-profileme-v6-10-63362e9290a3@gmail.com>
 References: <20261104-alpha-profileme-v6-0-63362e9290a3@gmail.com>
 In-Reply-To: <20261104-alpha-profileme-v6-0-63362e9290a3@gmail.com>
 To: Richard Henderson <richard.henderson@linaro.org>, 
@@ -110,126 +110,179 @@ To: Richard Henderson <richard.henderson@linaro.org>,
 Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-perf-users@vger.kernel.org, Matt Turner <mattst88@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4372; i=mattst88@gmail.com;
- h=from:subject:message-id; bh=5F+ywxZShd6lL0yYM9T6SyVwg0AsZTHmRlFxszcsIno=;
- b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLJe16kK3Kr3yL7459zDS9EGPMxcznddNwi8+9B/8NNU8
- /PxDducOj6yMIhxMcwUU2SJW6/IMqttx1Kf09K/YOawMoEMkRZpYAACFga+3MS8UiMdIz1TbUM9
- QyBDxygeIqfHoJFZXFyaWqSbVlDkkJdfkliSmZ9XrJdfkJpXkF6gl5aZVpKRkV9UnAo0Qi8vtcT
- U1dHNyNDAxNLRwszJwtHUxNnZydDJzdHR2dXJyNLcxMDZ0tHE1dKcgYtTAOaa79sY/oqeSAzVZv
- sy91e3jtKBC14HZ9reUzP58djGJrZI2+X5Lx2Gf4b1q9lfxO7wcL/w+MXTcGVO2ZA95Z5T53d9e
- 2tc29hdwQ0A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5788; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=pyzx6//j2OdqKwRssVgKvGUx0hM35DoDJu9pQTTqBO4=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLJe16l+84t1KFV4o8R41loz//zpjPj8reWKr1Ou/rocM
+ i3+J3t2x0cWBjEuhpliiixx6xVZZrXtWOpzWvoXzBxWJpAh0iINDEDAwsCXm5hXaqRjpGeqbahn
+ CGToGMVD5PQYNDKLi0tTi3TTCooc8vJLEksy8/OK9fILUvMK0gv00jLTSjIy8ouKU4FG6OWllpi
+ 6OroZGRqYWDpamDlZOJqaODs7GTq5OTo6uzoZWZqbGDhbOpq4WpozcHEKwFxj1crIsHZJkuAJ/Q
+ t5hT/fvja05j8hznZNd+kznyczW3/6rV7ldIyRof1V1PvYT/5rTxcGqQU9eNmRdoqzjPv7a84gQ
+ 56eO1+PcgIA
 X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
  fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-The PMU sets PERF_PMU_CAP_NO_EXCLUDE, as the counters count in every
-mode. perf record then fails for unprivileged users: at the default
-perf_event_paranoid of 2, the tool sets exclude_kernel for them.
+Whether a ProfileMe sample's memory access missed the DTB is only in the
+PERF_SAMPLE_RAW data, as a DTB miss trap.
 
-A ProfileMe sample says which mode the profiled instruction ran in, so
-the excluded samples can be dropped, as AMD IBS does with swfilt. Do
-that for ProfileMe events, counting PALmode as kernel, and ignore
-exclude_hv, as there is no hypervisor. A sample that falls back to the
-interrupted PC is dropped if either its PC or the profiled instruction
-is in an excluded mode. Aggregate events cannot tell, so event_init
-now rejects their exclude bits itself, along with exclude_idle,
-exclude_guest and exclude_host for all events.
+Set PERF_SAMPLE_DATA_SRC for the samples of memory instructions, so that
+the memory sort keys see them. One that trapped on a DTB miss gets an L1
+miss in mem_dtlb. PALcode fills the DTB, so one that retired without
+that trap hit it, and gets an L1 hit. mem_op comes from the opcode, as
+I_STAT does not say whether the access was a load or a store. A load
+into $31 or $f31 is a prefetch, except for ldq_u, a UNOP that is left
+out. Samples that fall back to the interrupted PC get none.
 
-The event count, and what PCTR1 counted during a window, still include
-the excluded modes, as they do for IBS.
+On an EV7, a loop that loads one word from each page of 64 MB in random
+order had as many DTB hit samples on the load as misses: the miss trap
+aborts the load, and its refetch hits. A prefetch into $31 takes the
+same trap, and its samples are reported as PFETCH misses and hits.
+
+I_STAT[TRP] is ignored for an instruction killed before it was mapped. On
+an EV7, TRP and MIS were seen set for killed instructions that are not
+even branches.
 
 Suggested-by: Ian Rogers <irogers@google.com>
 Assisted-by: Claude:claude-opus-5-5
 Signed-off-by: Matt Turner <mattst88@gmail.com>
 ---
- arch/alpha/kernel/perf_event.c | 47 ++++++++++++++++++++++++++++++++++--------
- 1 file changed, 38 insertions(+), 9 deletions(-)
+ arch/alpha/include/asm/wrperfmon.h | 12 ++++++
+ arch/alpha/kernel/perf_event.c     | 86 ++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 98 insertions(+)
 
+diff --git a/arch/alpha/include/asm/wrperfmon.h b/arch/alpha/include/asm/wrperfmon.h
+index 7fbbfd74926a..dc24c7cb45db 100644
+--- a/arch/alpha/include/asm/wrperfmon.h
++++ b/arch/alpha/include/asm/wrperfmon.h
+@@ -100,6 +100,18 @@
+ /* ProfileMe status, from the EV67/EV68 Hardware Reference Manuals. */
+ #define EV67_I_STAT_OVR_SHIFT 30
+ #define EV67_I_STAT_OVR_MASK 0x7UL
++#define EV67_I_STAT_TRAP_TYPE_SHIFT 34
++#define EV67_I_STAT_TRAP_TYPE_MASK 0xfUL
++#define EV67_I_STAT_TRP (1UL<<39)
++#define EV67_I_STAT_MIS (1UL<<40)
++
++/* I_STAT[TRAP_TYPE] values */
++#define EV67_TRAP_DTB_DOUBLE_3 2
++#define EV67_TRAP_DTB_DOUBLE_4 3
++#define EV67_TRAP_DTB_SINGLE 6
++
++#define EV67_PCTR_VAL (1UL<<1)
++#define EV67_PCTR_PM_KILLED_BM (1UL<<26)
+ 
+ /* PMPC bits 63:2 hold the profiled PC. Bit 0 set means a PALmode address. */
+ #define EV67_PMPC_PAL (1UL<<0)
 diff --git a/arch/alpha/kernel/perf_event.c b/arch/alpha/kernel/perf_event.c
-index 7e34eac0ea47..c75d204076fa 100644
+index c9ab40ff76ad..0723e1042145 100644
 --- a/arch/alpha/kernel/perf_event.c
 +++ b/arch/alpha/kernel/perf_event.c
-@@ -832,6 +832,18 @@ static int __hw_perf_event_init(struct perf_event *event)
- 		return -EINVAL;
- 	hwc->flags = profileme ? ALPHA_PERF_FLAG_PROFILEME : 0;
+@@ -20,6 +20,7 @@
+ #include <linux/overflow.h>
+ #include <linux/prandom.h>
+ #include <linux/sched/task_stack.h>
++#include <linux/uaccess.h>
  
-+	/*
-+	 * The counters count in every mode, but ProfileMe samples say which
-+	 * mode the profiled instruction ran in, so those that are excluded can
-+	 * be dropped. PALmode counts as kernel, and exclude_hv is ignored, as
-+	 * there is no hypervisor.
-+	 */
-+	if (attr->exclude_idle || attr->exclude_guest || attr->exclude_host)
-+		return -EINVAL;
-+	if (!profileme &&
-+	    (attr->exclude_user || attr->exclude_kernel || attr->exclude_hv))
-+		return -EINVAL;
-+
- 	if (attr->config1 & ~ALPHA_PERF_CONFIG1_FILTERS)
- 		return -EINVAL;
- 	if (attr->config1 && !profileme)
-@@ -983,7 +995,6 @@ static struct pmu pmu = {
- 	.stop		= alpha_pmu_stop,
- 	.read		= alpha_pmu_read,
- 	.attr_groups	= ev67_attr_groups,
--	.capabilities	= PERF_PMU_CAP_NO_EXCLUDE,
- };
- 
- 
-@@ -1140,6 +1151,24 @@ static u64 alpha_profileme_status(unsigned long i_stat,
- 	return status;
+ #include <asm/hwrpb.h>
+ #include <linux/atomic.h>
+@@ -1053,6 +1054,88 @@ static void alpha_profileme_set_regs_user(struct perf_event *event,
+ 				  sizeof(u64);
  }
  
-+/*
-+ * Whether exclude_user or exclude_kernel rules out a sample of the profiled
-+ * instruction at pmpc, reported at pc. A PALmode PMPC counts as kernel. The
-+ * two differ only when the sample falls back to the interrupted PC, and
-+ * such a sample is then dropped if either mode is excluded.
-+ */
-+static bool alpha_profileme_excluded(struct perf_event *event,
-+				     unsigned long pmpc, unsigned long pc)
++/* TRP, and MIS with it, are stale for an insn killed before it was mapped. */
++static bool alpha_profileme_trp(unsigned long i_stat, unsigned long pctr_ctl)
 +{
-+	bool pm_user = !(pmpc & EV67_PMPC_PAL) &&
-+		       (pmpc & EV67_PMPC_PC_MASK) < TASK_SIZE;
-+	bool user = pc < TASK_SIZE;
-+
-+	if (event->attr.exclude_user && (pm_user || user))
-+		return true;
-+	return event->attr.exclude_kernel && !(pm_user && user);
++	return !(pctr_ctl & EV67_PCTR_PM_KILLED_BM) && (i_stat & EV67_I_STAT_TRP);
 +}
 +
- /* What the memory instruction at pc does, or PERF_MEM_OP_NA. */
- static u64 alpha_profileme_mem_op(unsigned long pc)
- {
-@@ -1250,14 +1279,6 @@ static void alpha_perf_event_profileme(struct perf_event *event,
- 		local64_add(ovr, &hwc->period_left);
- 	}
- 
--	/* A dropped sample still counts, for throttling and frequency mode. */
--	if ((alpha_profileme_status(i_stat, pctr_ctl, pmpc) & hwc->config) !=
--	    hwc->config) {
--		if (alpha_perf_event_set_period(event, hwc, 0))
--			perf_event_account_interrupt(event);
--		return;
--	}
--
- 	/*
- 	 * Attribute the sample to the profiled instruction rather than to
- 	 * wherever the interrupt landed. perf takes the sample's mode,
-@@ -1303,6 +1324,14 @@ static void alpha_perf_event_profileme(struct perf_event *event,
- 		memset(pm_regs, 0, sizeof(*pm_regs));
- 	}
- 
-+	/* A dropped sample still counts, for throttling and frequency mode. */
-+	if ((alpha_profileme_status(i_stat, pctr_ctl, pmpc) & hwc->config) !=
-+	    hwc->config || alpha_profileme_excluded(event, pmpc, pc)) {
-+		if (alpha_perf_event_set_period(event, hwc, 0))
-+			perf_event_account_interrupt(event);
++/* What the memory instruction at pc does, or PERF_MEM_OP_NA. */
++static u64 alpha_profileme_mem_op(unsigned long pc)
++{
++	u32 insn;
++	bool r31;
++
++	if (pc < TASK_SIZE) {
++		if (copy_from_user_nofault(&insn, (const void __user *)pc,
++					   sizeof(insn)))
++			return PERF_MEM_OP_NA;
++	} else if (copy_from_kernel_nofault(&insn, (const void *)pc,
++					    sizeof(insn))) {
++		return PERF_MEM_OP_NA;
++	}
++
++	/* A load into $31 or $f31 is a prefetch, except for ldq_u: a UNOP. */
++	r31 = ((insn >> 21) & 0x1f) == 31;
++
++	switch (insn >> 26) {
++	case 0x0b:					/* ldq_u */
++		return r31 ? PERF_MEM_OP_NA : PERF_MEM_OP_LOAD;
++	case 0x0a: case 0x0c:				/* ldbu, ldwu */
++	case 0x20: case 0x21: case 0x22: case 0x23:	/* ldf, ldg, lds, ldt */
++	case 0x28: case 0x29:				/* ldl, ldq */
++		return r31 ? PERF_MEM_OP_PFETCH : PERF_MEM_OP_LOAD;
++	case 0x2a: case 0x2b:				/* ldl_l, ldq_l */
++		return PERF_MEM_OP_LOAD;
++	case 0x0d: case 0x0e: case 0x0f:		/* stw, stb, stq_u */
++	case 0x24: case 0x25: case 0x26: case 0x27:	/* stf, stg, sts, stt */
++	case 0x2c: case 0x2d: case 0x2e: case 0x2f:	/* stl, stq, stl_c, stq_c */
++		return PERF_MEM_OP_STORE;
++	default:
++		return PERF_MEM_OP_NA;
++	}
++}
++
++/*
++ * Report the DTB access of a memory instruction. PALcode fills the DTB, so
++ * one that retired without a DTB miss trap hit it.
++ */
++static void alpha_profileme_data_src(struct perf_sample_data *data,
++				     unsigned long pc, unsigned long i_stat,
++				     unsigned long pctr_ctl)
++{
++	u64 op, dtlb;
++
++	if (alpha_profileme_trp(i_stat, pctr_ctl)) {
++		if (i_stat & EV67_I_STAT_MIS)
++			return;
++		switch ((i_stat >> EV67_I_STAT_TRAP_TYPE_SHIFT) &
++			EV67_I_STAT_TRAP_TYPE_MASK) {
++		case EV67_TRAP_DTB_SINGLE:
++		case EV67_TRAP_DTB_DOUBLE_3:
++		case EV67_TRAP_DTB_DOUBLE_4:
++			dtlb = PERF_MEM_TLB_L1 | PERF_MEM_TLB_MISS;
++			break;
++		default:
++			return;
++		}
++		op = alpha_profileme_mem_op(pc);
++	} else if (!(pctr_ctl & EV67_PCTR_PM_KILLED_BM) &&
++		   (pctr_ctl & EV67_PCTR_VAL)) {
++		dtlb = PERF_MEM_TLB_L1 | PERF_MEM_TLB_HIT;
++		op = alpha_profileme_mem_op(pc);
++		if (op == PERF_MEM_OP_NA)
++			return;
++	} else {
 +		return;
 +	}
 +
- 	perf_sample_data_init(&data, 0, hwc->last_period);
- 	if (pc_only)
- 		alpha_profileme_drop_regs(event, &data, PERF_SAMPLE_REGS_USER |
++	data->data_src.val = PERF_MEM_NA;
++	data->data_src.mem_op = op;
++	data->data_src.mem_dtlb = dtlb;
++	data->sample_flags |= PERF_SAMPLE_DATA_SRC;
++}
++
+ /*
+  * Handle the close of a ProfileMe window on PCTR0.
+  *
+@@ -1168,6 +1251,9 @@ static void alpha_perf_event_profileme(struct perf_event *event,
+ 		data.sample_flags |= PERF_SAMPLE_WEIGHT_TYPE;
+ 	}
+ 
++	if (exact && (event->attr.sample_type & PERF_SAMPLE_DATA_SRC))
++		alpha_profileme_data_src(&data, pc, i_stat, pctr_ctl);
++
+ 	if (!alpha_perf_event_set_period(event, hwc, 0))
+ 		return;
+ 
 
 -- 
 2.55.0
