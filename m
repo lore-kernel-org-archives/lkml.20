@@ -1,50 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.92
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793784820;
-	b=jkc6ueIigIU05OUZIQnPlvZ82r8Tyi7EnTzlEKqxoDxcE0yXU6DDAmEkL/8MND6kX0jc
-	 Ve5+44+G2Jt8IUcDFhLqdTEzFIdFK2rsSyPl91yVC+bFQGsNmSnwc+iCgsxA/245nkV1P
-	 ahNlM7/mI24Xc5aowZRYxsmDURx70l8IcsUh+d1h+ct0qjPiJXIhBRkwTMDsu9s4JxFBJ
-	 xjE3M9nhe3ftINigsW3dEsk0qG1AEIUCYdTQcwF0HpeuwgmkFFYzxb35QAWXIYoSE6AmV
-	 9Sf0fC2pJmVsJ7bylqa9NIRAyAipbE1DLtNzd0aBTo2FGykQcXMpCV7JQSp2unOKAeg==
+	b=QxsWMOhz9Nx0pOI1E6+BLYXmbSLV2MRO4zMr2eoMX06lfcxaxiMJdSp5U+MYblxPLKnU
+	 +dZy3tng9ghFqHj6WJ/KTj7tyMCr0SgbO5lHIIjVIMFiCv4WaHhtRPYHIDtaLurevxpKc
+	 3WoSyTt8drPLHBPDn1S6p9TzhgkHdoI/i4R8xJr6y1NxgXadEdQkX+WScYfuBTthceoth
+	 XzC/7E1IRbJjdntBJFBxEuW9CMENMbNcXZ2vL7cSdeJBfGchoP5v8L+N7mtd55FBaqHCb
+	 EzAwU2OfwJkhUiRyXBEJsWnbHJliFLfzMQH73+jAfmfP6raDp7+QM2OzQtU+az8GDzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793784820;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=+9cDYXx0ggftXxc5g0vmsXvGR5C4OLG8lrN8nFMbIqw=;
-	b=dy4GXJXsXWoJZkhbN/Q57l2z5Ddjo1Mv2SdkF/K2COXDolpAZie6r5bCYPc1YGbz4wR0
-	 JO1fHhYS5VX1cy72o6HTZYS3/voLy77nqP8od0Qa0LfOYWIvJr+GtyTLd1WxnskXzZnL1
-	 gz5ejOGUSFcKxEz8N6NsqlpAMeSgf8lvG7HimBw3brJFfhCWOizaKgy4jqXQTxd6hmWbY
-	 jKyq+9GJU322+JtCaibVEkixPTfPK9rxWWXcKARgePa8OBJ560M56ouKPR5EzciTK+gC4
-	 lywAphrCIL8LAqbiRdHtkmtNYkVSMClG3MP9GsA8vdL/h016p8jcN2Ybdf5G5HPoNJA==
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=PUV7VlMf0EvvLzp+y5o1NyE7TTufq1+bMSMSc6a2SOE=;
+	b=MNtk2PNEqg5QZJIAsWaQEOYJTmvkQvQEbP6ndM3s3sLJo2DhgVY511ijMRNdKc+x03TB
+	 ehY9bnjFGPZqnbWty1lHYMVOXWCCYfgtcq9Y8jRyAYwq1OLJPYhngNDxvbiItTMz9XRwy
+	 +f4NnlB3WXpHQ0V+WbB5BkUdLbxQm+5plu5CgUhticZ8a49Vhb9lNK7SbinCeMY6sLeBi
+	 PDqkRF3TBnM9R53SV9t4js116G5h7C+vn+MYJxBSt0NqmIUDxNctu1kfS3Yvih4vwLLxs
+	 Y6cBlUKX4hoC6z2m5RWwwiezNoQyoKdRso9VJV1l41hgxptaykIm8eGkvQCKbLgvLTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=ClQ9gyWl;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=j7HCUZ3X;
+	arc=none smtp.remote-ip=91.218.175.92
+Received: from mta0.migadu.com (out-92.mta0.migadu.com [91.218.175.92])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC21606A33A
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:33:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDC21606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2A07606A331
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:33:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2A07606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=ClQ9gyWl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=+9cDYXx0ggftXxc5g0vmsXvGR5C4OLG8lrN8nFMbIqw=;
-	b=ClQ9gyWl1twOpBCN2mY580tl+JXv5jEoBuhP8uKZlT+i4lH91i4OyEqtZlitmT
-	Z2pTFhPOOo5G+u/dfr1yWdHWdaiOze0nk3a2HTgOdY4O5uUtbqM51lxZJrfi70yT
-	5pBo57yBFOw5jT3KOkhnHpsEoSqk7N/WprjEwoThU4xTg=
-Received: from [IPV6:2409:8900:1ec1:a6a9:a9ca:f9ce:1857:1c64] (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wA3_MvJ++pqogRYEw--.3057S2;
-	Wed, 04 Nov 2026 17:32:59 +0800 (CST)
-Message-ID: <df161e1a-7d41-4b53-875e-5c47b7b51193@163.com>
-Date: Wed, 4 Nov 2026 17:32:56 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=j7HCUZ3X
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=8dK0Lo7DM1WJ0OGxApcuKa8B214rVf6nLR5cxtZwcuc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793784817; v=1; x=1794389617;
+ b=j7HCUZ3XEX9RzkQzuaBsIvF+yJySl9qKAMKcK6gL1KSgkapo9XW5KlnO2KVE0+3NzQjJx9Vv
+ hM/+NDR6x5uRVN6nTr7lF88oFSom8RZdc+kRCGptJV5SZP8sMymD/Xvhj/41ubIyEKvqSuWXENN
+ gbzx1l+rk+a1H6zAqAw4+6BA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 5b91f46f81561111;
+	Wed, 04 Nov 2026 09:33:37 +0000
+X-Mizu-Trace-ID: 5b91f46f81561111
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 4 Nov 2026 17:33:16 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Justin Iurman <justin.iurman@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Hangbin Liu <liuhangbin@kylinos.cn>,
+	Sashiko <netdev-bot+sashiko@kernel.org>
+Subject: Re: [PATCH net] ipv6: ioam6: do not modify shared tuninfo eh.nexthdr
+Message-ID: <aur73BdyLKNrZAUZ@fedora>
+References: <20261104-ipv6_ioam_lock-v1-1-4f24c41b261b@kylinos.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,58 +68,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/5] ntfs: write unlinked file attributes before
- dropping their cache
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- Xuewen Wang <wangxuewen@kylinos.cn>
-References: <20261031052857.1542936-1-liubaolin12138@163.com>
- <20261031052857.1542936-5-liubaolin12138@163.com>
- <CAKYAXd-ec8ve6HD5eBJik-LF4PUhZjV7y0c52E2xpALLFA=j2A@mail.gmail.com>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <CAKYAXd-ec8ve6HD5eBJik-LF4PUhZjV7y0c52E2xpALLFA=j2A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wA3_MvJ++pqogRYEw--.3057S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7WFWkuFWUJw1xKF4rJF4fXwb_yoW8JFWxpa
-	yrC3srKr4DtrWIga92va15Ww1F9FWxGrW5XrykJrsrA3s5XFnrtFy3t340y3Z3tr95u3yU
-	XF409347AFZ0vFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U24iUUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6QuGUWrq+8ueAAAA3b
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104-ipv6_ioam_lock-v1-1-4f24c41b261b@kylinos.cn>
 
-
-
-在 2026/11/4 17:06, Namjae Jeon 写道:
->> @@ -4052,6 +4052,14 @@ s64 ntfs_inode_attr_pwrite(struct inode *vi, s64 pos, s64 count, u8 *buf, bool s
->>
->>          WARN_ON(!NInoAttr(ni));
->>
->> +       /*
->> +        * Attribute inodes of an unlinked file have no links either and are
->> +        * evicted at the final iput(). Do not leave their data in dirty pages
->> +        * that eviction would discard while the base file is still open.
->> +        */
->> +       if (!VFS_I(base_ni)->i_nlink && !ntfs_inode_is_named_stream(ni))
->> +               sync = true;
-> This misses data dirtied by ntfs_attr_make_non_resident(). For
-> example, with 1 KiB MFT records, create an O_TMPFILE, nearly fill
-> its MFT record with a resident EA, then write 4 KiB to the file.
-> Growing $DATA can force ntfs_resident_attr_resize() to convert
-> SECURITY_DESCRIPTOR to nonresident form to make room. the conversion
-> only dirties the folio. With patch 5, the subsequent
-> iput(tvi) can evict the zero-link attribute inode and discard the SD
-> contents before writeback. If the file is later linked with linkat(),
-> it can retain invalid SD data after close. Please also ensure that the
-> converted data is written back before dropping the last
-> attribute-inode reference.
+On Wed, Nov 04, 2026 at 05:27:23PM +0800, Hangbin Liu wrote:
+> From: Hangbin Liu <liuhangbin@kylinos.cn>
 > 
-> Thanks!
+> ioam6_do_inline() and ioam6_do_encap() stored the next header into
+> the shared ilwt->tuninfo template and then memcpy()ed it into the
+> skb. The lwtstate is used from multiple CPUs without locking, so
+> another packet can overwrite eh.nexthdr between the store and the
+> memcpy.
+> 
+> The packet can then leave with an HBH nexthdr that does not match its
+> payload (e.g. TCP labelled as UDP, or a local packet labelled
+> IPPROTO_IPV6). Set nexthdr on the per-packet Hop-by-Hop copy after
+> memcpy instead, leave the shared template read-only.
+> 
+> Fixes: 3edede08ff37 ("ipv6: ioam: Support for IOAM injection with lwtunnels")
 
-Hi Namjae,
-    Thank you for the review. I will fix this issue and send v3 soon.
+This patch should also
 
-Thanks,
-Baolin.
+Fixes: 8cb3bf8bff3c ("ipv6: ioam: Add support for the ip6ip6 encapsulation")
 
+Hangbin
