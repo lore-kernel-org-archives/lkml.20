@@ -1,74 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.198
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793800733;
-	b=XuweZAyAC1WILHem7hn2Ga1ZqQIoq/4mkgo4cZs/C6z4R/fys2XuPJ3n0WhcQ4JuSAFM
-	 dIY8lMHrjyyKD4KuVUlCa51Lazq7o+dGyAWwIuLBIDa9Xhoa+HAxYiQeeZUU9VSu0CPpW
-	 w5FGwlCGZKt77GxqmMR6wdTJCRZzAFQw8SZVjjsn+rEdk0a3JGXPbL2Z0Vm3uoZNWe8Wx
-	 aOYxLJAn4Q0/TjcSiy2H6LlLeqPEHXFF5owIVKzfHTh1otkW3DQ3RI9ziVr76a2hVynkv
-	 Evj0xjCcSOieJCnUVTlqVzljHUlVHy1wyE0EdxY+HAOOF+C/v7cqnnCUsRMiFKrPJXA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793800733;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=+hZDwNFM+9l5TJl0pTc/phM5xXNFDw6tS2mS+HIJziA=;
-	b=kjDDoalV7JsOW9c4fb8lTvXtdwLPTFUtWPizN9ihrCU+rDI9OXuO1bxgLc49rWVAZsy2
-	 h/u+NJfnN2zD43yr8+37quIExZmAx5REGh8ZFIgK72E27Nrpr/4QQeneckl4X8BZe8y94
-	 ZpkYXzjb2Vs2Qm1vFtSfZS3DyoORyMWdO0duBtzCPdLkOrC811MADJX5pokZwxfEqlxpH
-	 W/NejovI12mwdPiG1FVYif7e+sjAx0/thSgRz8NQhsYiMq2Sz9psklbvk99/u/fISo1z1
-	 5sJ3MbJWgueo1KF0hzGnDw73DGwx29EW75ErKMVD7vzfEcqRFTYbK/6ph9hGLBVHfjQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NdEAY6u+;
-	arc=none smtp.remote-ip=209.85.215.198
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793800735;
+	b=cwjfQCIhslqao3XWRbipAdDmpO0ZnFT2G7N++ZC6lHWV95DMZbLW7Lvuod1uh+JR8EyM
+	 0J5FoekB8JRHnOldnrS4m6Y17qo6Ko5320++JEhNRS0wXKK1U6pQNA8pOgWaqj36PECwF
+	 Tx8LRQDfEsUqZ2MgzOSGaDyYKrqKFwqyvv1MHZf85PdihAjbAHJGhkS8/MMaCOXv9d5mF
+	 9j4OWYx09sAi3BzRe1hJZbMmie3BwxLfqcI2mujFhXwvE1KE+4DNkFH+bl8Q/G7IXX0O9
+	 +ZTA2+UZpI9ICnEimxrcAK6YpLReNakeUw5478JhBhKcfh9P77KpzfPU4ano2LCbJAw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793800735;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=o4EIHpxl57I6a94RuHg0e1sZQ5iF0hUORfBXfBn7tP4=;
+	b=2efjp4qFTVUdeybQ3siM3m7K40yUir+c4bGPbr7XRTzaxucUzjfhHCFnjyUC01zqrDKX
+	 jFWIKQT3p2fZjYtZAuRRSaYWI4u7yYawpduLtb5Rux/amSEip/LC7+AavBi+wp9D7tBmm
+	 ylZf1T+7DGr1QgSREOXsAix4sUa6WATTCsGQZGdzUmN85SbXJyGMzvhvkN+QBJiqhGjql
+	 1y9Efh8NGxM5g3jHmLJe7AcPk4hRQRZtPkDAj3vl4r9WV0EnpU/6Y0vq+BEp9RLTOCJ+A
+	 f26L2f1XALMaGTPjsRLDynjhu1tmWMyZeLlHcyiBUtXYNnKmuA6RUOK24FTAJZlqMvw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=grische.xyz;
+	spf=pass smtp.mailfrom=grische.xyz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1043E606A331
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:58:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1043E606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NdEAY6u+
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cd65285537aso356098a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 05:58:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793800732; x=1794405532; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+hZDwNFM+9l5TJl0pTc/phM5xXNFDw6tS2mS+HIJziA=;
-        b=NdEAY6u+xEDu3Lil75qvCMq+2MrJ9IlHqk6e7I5Qt/4N0W5WDNtLytdtx69qagZt+K
-         dD9tyMSM3EgrXvvFXPRECUSHj2bDj7Z0oD1u/s37zleYkhHJP7B96X1Tn6tAS3oqVk3S
-         yZFp6NlFwo702B9CF/gzVmFZIcK3c0914F9dMU+HpP602iVaoLijrXzfJfVUr6bOR+iT
-         kHJn4iTfy1K+KOChyWY93UBeWgwosD+G6aNIt/99lRRc3uIyIuIhhj0W6WFhyl70fLgg
-         IkdXJyYKZ3ZQYmQ3mocZ13AjJfeo3m5ra57t7fjbbYSwwe5NsVItqyRFgjPzOVWaDpHu
-         s2tw==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C9E606D80D
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:58:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6C9E606D80D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grische.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grische.xyz
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b1aa377c61so837648a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 05:58:54 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793800733; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OPrYEuJgLyBmD8NjTZz+oD3Dka2npZrFNdmLdLZpTo7cIwi8US+CL5FV0ando7bhvK
+         wKV2/WBec8f6+bRDXEkTgInranfn7XP9D7q5L/UHL+rR/0sDWZ1SJ1KKMhAyj1zsx6s/
+         gIZbBhaoCqC8Ljyt+kHyTtMQ+dAzwcbAkENAWxgmueftQw/26Ac0+FeCKDE/v8ed0FYe
+         L+N6tPuNBjn0D9nV7Hqcl2PDkC/c3rSGjDa8Glb7/KZ+dMHOq4MjDbRhcakrr1aeFKFn
+         bRdaoDKhhN4AxFToSWtRw2OszE+sUWficIuxmOzQWG3xfwpAdSks8S/lZgPg9zdcRKY2
+         4HAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version;
+        bh=o4EIHpxl57I6a94RuHg0e1sZQ5iF0hUORfBXfBn7tP4=;
+        fh=83yGo0UGUb5mqZDpl1Pep/e1w674e5KsciZ4qHUK7uI=;
+        b=rajHJbRSjy5kAA5lRT3YY+HTcgi6nE+NBt+RJFGvfJpDsNSRAS+4TlreVNd5I2tBta
+         3neyiafJqGJmt3TGez4csuzfeNAPZ28My5D6a6QtcQA4N2ZEhRpvTQXqoS/0cB3kOWfu
+         1QtNz47NfaOd4zbg5handomRsd4ojfXlxv9+7EdgKKd6Iuz2QYUZMsH+5rHVskSy6DCw
+         olTNQYBCAgAK5vmrZ7mvTSmvancJLQT7yA24VP1jkC1QZEV8caEcoBEsybcISlMOykYS
+         fc32LyeV/Fj2s0WTanRcjxFDmZ6LzVht3Hx2S1MnCPbxcJaXCEaLR6UcmOwTHkrJt5lj
+         aemg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793800732; x=1794405532;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+hZDwNFM+9l5TJl0pTc/phM5xXNFDw6tS2mS+HIJziA=;
-        b=Uv9qVn2H9T+y36bNjoObfoQ0UVoaWzhCvPPIXKLp81KHKWSgIIB/n4d/UsJiBvdqqV
-         liQWnr6KNVcybjGOtlRiVo7zZUG/W2bWTiOPn553fC7zd5lsbr/+keU1dY2O9GXjytR0
-         qSVvWArmw2r7Uuif+dwMdjCbt1BkuWJB0Tu5ZiO+sd63kH5b8bhetxMhJuAFyzOU4SiW
-         h+FnCGQOrmMguad/t6f+CQciYhhWijYpAmcVURlaBSOEy7o6Gbst5QqrlW0gAeImPpGj
-         iTtDA/HXNGnRgMObbx8m8d3f684NbXcXDm1CTD1Po8On+wfCAmkfNlHNcHuR5WUEwrkm
-         MjLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwpLw38rAPOF1YJTErof07SOXWs9GbSDwMYrcGptRG65RR6Zp1XpoaNWAl/fvS7DKBFiNT2e38G9sx87Oo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8sTKFum38UK2ATbNRGwLLIk+m9ScKXegtlUpoiVbtBC3+YMQVG
-	fH7Wx734/zrnynSmQoXNfgHvr02TJ9O1Q0qbBg5lFAdR1QaqjqrUcltwfmw/8q22ziNGiA71wsK
-	6lui1jw==
-X-Received: from plle16.prod.google.com ([2002:a17:903:1670:b0:2eb:37ed:a32d])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e88d:b0:2ea:8442:db72
- with SMTP id d9443c01a7336-2eb364f19aemr150809535ad.54.1793800732154; Wed, 04
- Nov 2026 05:58:52 -0800 (PST)
-Date: Wed, 4 Nov 2026 05:58:51 -0800
-In-Reply-To: <20261103234734.45413-1-griffoul@gmail.com>
+        d=1e100.net; s=20260707; t=1793800733; x=1794405533;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=o4EIHpxl57I6a94RuHg0e1sZQ5iF0hUORfBXfBn7tP4=;
+        b=QC2ngCx5QTQGp2s6MRCHQRj3NVDbooMvVI+16RNngLNkaixAXI/mBmLjp5dlDmmUE1
+         JPFj7wSYZqyMv3TVN/J2XGREaEiLDq2RjrBHuZBFg4tcjKQ/iWwxoX5jcfisRrubuLZT
+         Pk12xJY5xCe41VlvARM0+CbMihUfT0pi60hp7Y3zoxM4TCTg7pOBpB8Mc9z+f5dztp8K
+         LJfynzG2iPI6FjrBtcIUbSOGOlZZmdSnPvHimmoHoELSYG7kxcE/bamIun6UaRWBsynO
+         kSuJKCmHJkksfEAiYnvjsXjAlRjjqUg+F7i8Bugo8ufOJfUw47xgL6xHRibpT5A4wVcU
+         8D1w==
+X-Forwarded-Encrypted: i=1; AKwUvByxJ7MyhxZFzBn/wd70RmW5CkpA9G0EQuaAdjKLKz7WMkhHAqUY7WDrPCaiQmIa+LJ5Hl/7TgZj2RP9eq8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Vo6hHmA0KyfB3SsEefrPPPbh3fD5gEKNdCntny5bZxE4qqID+
+	lX3eN+USo23YM3wU8aPcx2syV8hOYPZ2k/S94S5Gt5HQqbYucc7mfhOQJvCy27kiHiB3LrDRfP4
+	zyjtnE0+r4bGbYKBYZHMKg5cVZVnM2dZ7DY0aCdCDLQ==
+X-Gm-Gg: AYBFou0SKGDyA2pMOOKyM9L/r4D+Ev16ZEXducpHiavkbDNxvX2hEhx+aPdtvQMOFKc
+	WY4XdEwwqvRhMn7NRZ4XFTTSeyOs4DUdHOfEi2G6wSFsYyCs6zFZ8YOLJQNcpgyZbZpEeSQ3DNm
+	eaoJtoOMFjHcUrLKsmksdf3qr9UgjbMYS/wZov5Y6FW/jFDvXx5R54SWBgDyWQtSWSa1lcUjshg
+	xtVkeWftS7WLuVnYQDhCaOgnGcMWZMUjiaFvCFPiMiKeY94DbNqSs7Di6t8GHNOHr7G6RlLJHGc
+	QI9EYWvqyLD+LzFkidZpIdRyGMrwe6teC3YahnKVNNq6zwbG2TziSb3NLyYy2o/v6js3d0IX6Lk
+	ukW4CJlg+tjewzz+o197PbTmU4L+2XLUG7a0s
+X-Received: by 2002:a05:6402:10c4:b0:6b1:d439:5c5 with SMTP id
+ 4fb4d7f45d1cf-6b4d3374024mr8489250a12.3.1793800733137; Wed, 04 Nov 2026
+ 05:58:53 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,43 +87,30 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261103234734.45413-1-griffoul@gmail.com>
-Message-ID: <aus6G5VqWJv1gq7U@google.com>
-Subject: Re: [PATCH] KVM: Add helpers to allocate memslot metadata
-From: Sean Christopherson <seanjc@google.com>
-To: Fred Griffoul <griffoul@gmail.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Mushahid Hussain <hmushi@amazon.co.uk>, nh-open-source@amazon.com, 
-	kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+References: <20261020190319.884375-4-opensource@grische.xyz> <179279532482.3134.8732796861806998047@kernel.org>
+In-Reply-To: <179279532482.3134.8732796861806998047@kernel.org>
+From: opensource@grische.xyz
+Date: Wed, 4 Nov 2026 14:58:25 +0100
+X-Gm-Features: AclHuK_IvwAzwzvaVvW3vcX9pBmkxBHmo3ddDOqECYjDXhAMhYt-2sOn-aUE7ys
+Message-ID: <CALsH2cwoB3P5Td3SgZ7ARTcGRLhCANSDU9dXake6ty1XAf38Tw@mail.gmail.com>
+Subject: Re: [PATCH net 3/3] net: stmmac: dwmac1000: stop hardware from
+ dropping checksum-error packets
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, maxime.chevallier@bootlin.com, 
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
+	kuba@kernel.org, pabeni@redhat.com, o.rempel@pengutronix.de, 
+	stable@vger.kernel.org, mcoquelin.stm32@gmail.com, 
+	alexandre.torgue@foss.st.com, aaro.koskinen@nokia.com, 
+	linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Nov 03, 2026, Fred Griffoul wrote:
-> From: Fred Griffoul <fgriffo@amazon.co.uk>
-> 
-> __vcalloc() makes every allocation at least one page, so a memslot
-> that spans a single page uses 8 KiB of vmalloc for 8 bytes of
-> lpage_info, plus 4 KiB for a 16-byte dirty bitmap once dirty logging
-> is enabled. The waste grows with the number of memslots and VMs on a
-> host. kvcalloc() avoids it for small arrays, but refuses allocations
-> above INT_MAX bytes, which the rmap and write-tracking arrays of a
-> large memslot exceed.
-> 
-> Add kvm_memslot_metadata_alloc() and kvm_memslot_metadata_free(),
-> which use kvzalloc() up to INT_MAX bytes and vmalloc above, and route
-> the dirty bitmap, rmaps, lpage_info and write-tracking arrays through
-> them. That way, how KVM allocates memslot metadata is decided in one
-> place instead of at each array.
-> 
-> Suggested-by: Sean Christopherson <seanjc@google.com>
-> Link: https://lore.kernel.org/all/arr1VgGZmgUmY4hc@google.com/
-> Signed-off-by: Fred Griffoul <fgriffo@amazon.co.uk>
-> ---
-> Mushahid's patch [1] switched the lpage_info arrays and dirty bitmaps to
-> kvcalloc(). Sean suggested dedicated helpers for memslot metadata
-> instead [2], which this patch adds.
+> Does this work on dwmac1000 cores that use normal descriptors?
 
-Split this into two patches: patch 1 to add the helpers, patch 2 to add the logic
-to pivot on INT_MAX
+No, this only works on enhanced descriptors.
 
-As is, the shortlog is comically misleading.  Pretty much anyone is going to read
-this and assume it's just refactoring existing code.
+> Would it make sense to set DT only when enhanced descriptors are in use,
+> or to make ndesc_get_rx_status() report csum_none for checksum errors?
+
+v2 will set DT only with enhanced descriptors.
