@@ -1,120 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.153
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793820240;
-	b=0NixabEmI6jzByocoQb41prbgnDLmiHaUo6chK1Kqy4UMG0GH9PMZxt68nv/ZV4X7pgv
-	 AzUGDRjzY/3B8D3dL4pRRGY3eQ0g2n+/uPM5kwW58notpTv6Vrh5LOjke6cem7iQs+qIL
-	 zynjQaqgUeswRP/f09didgKmmx3auGf8N47xImiHRSNhf6vCp1s1B6uH9G6j8TEvWcczC
-	 LJ/A0oTHhEFMhaoKw3+CtYH+V057andJbjhvyZhER/aqy1Z77kCNUPwDcHhE19DYDMAPl
-	 X1EeDp2Yu6F9NBeiJ0yR/iYhqhRAMi9cOJHPe4t461KBdyAQPd380JmQaL0Y+fVYvIw==
+	t=1793820214;
+	b=LQmiWxuW82LH7nXxNkEfWkPUBX2fz1RcFt4uHfnTZO3NTCl5Gb5etQ5oTmDOv6EON2Wf
+	 rCo7+8/wKdpFGIRyFJnw4Ltk8tSnFKu45Q/QBjNzd1ETdSzdfGB0t0OmWC+Kkj9pRonqO
+	 lhNOWMuAlbQ9vkZWg0j4FPOT4Id21Ad69UDSBRsE85ZuzYEgST7t3WUUNTZLxIj7Zo0rG
+	 wZ48qh6FLWye/0KbFbNhg331qx9pNqEbmkg6a5WYF9QqywLN816noOy6/Nbdb7tzuVtVR
+	 52Rf249WzMPkLFEIPgF9CKWSGYpxxBWMlIe4mLKs4f/6tjnLQ92sn6nKu+utbvi/qaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793820240;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Y9Jf8gsE97UgH7jSi9BOOwNNQGYIDukHjqYcCr4WfCU=;
-	b=wefeXwTd9JO1AFZfCN1YDmkrtgKeVJqPUhayzfzAblVnTLtytrYoJDdf2t+8avCg7dHH
-	 77hKt/TvXDpN0iixme4H6Gw+EGv9lQ7Dud1QKDNvNC+fbR+rrn5oN5RzEGAqJOzBe3qxa
-	 CmCB24x21U2nwvokYHuRpEhXkLK9Di1WpkfGd6kAOBS2SQULgBXKkLUXL2zThBbcstjQR
-	 AqSDJNXsO6Z3aD7tu6fIGboAfwLwGP8BjjZ9qfQZA4KhoiHXrcIPv+8ONA2nW0NU3WIBe
-	 mG9sCawDnXdwzPdAjihOBGqvl+ZDZZu7Jb3ONNCtVAIKcLAAaLGomqGB4ZrVk1aBbaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793820214;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=QKQgab6F/A3kQED3xQkQ3++bbO+NbqHo8+XrgOES7ts=;
+	b=cAIPIBan7WZ9cXCNRHA4c8F29o7Qn1X45GxMGbRaFUsxu5plv+bDRLQkpediQqDVwiwO
+	 KgE4m+4eRL00Dk1I+x9OpbKXQnfMuOqllBc2XpO6DH93hDjtpDrn609RRf5vO8W9bbSHL
+	 qLXYFdkv3DpQzTIkf/6AmHI8w7nPcwm3JYgZV/mYN9vcEEiiEMzUnRv7p8n9b+v6qHkBk
+	 NvmMMCgAvrE8OjQAT5X5CRnC0CGEXjWxR7RyQbheIJGGE1KHsX7SyiQvanAn5kjvuqBeg
+	 C/7rPBWOxdX1gUJyuadpnKm6ykatzo5U6KzcUlIYG7a7RMiQyV/DTLL9dXqZuDr6wDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=bur.io;
-	spf=pass smtp.mailfrom=bur.io;
-	dkim=pass header.d=bur.io header.i=@bur.io header.a=rsa-sha256 header.s=fm1 header.b=cp3P5522;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=PtEaNfOA;
-	arc=none smtp.remote-ip=202.12.124.153
-Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ijd6v8za;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E52AA606E808
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:23:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E52AA606E808
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bur.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bur.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58C18606D4F9;
+	Wed,  4 Nov 2026 19:23:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bur.io header.i=@bur.io header.a=rsa-sha256 header.s=fm1 header.b=cp3P5522;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=PtEaNfOA
-Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 6DF157A0170
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:23:59 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-09.internal (MEProxy); Wed, 04 Nov 2026 14:23:59 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bur.io; h=cc:cc
-	:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1793820238; x=1793906638; bh=Y9Jf8gsE97
-	UgH7jSi9BOOwNNQGYIDukHjqYcCr4WfCU=; b=cp3P5522LnPlQYc4/jOdq5Axfx
-	dk/1kHmwOwrmnyTaxd1fX5rnnxa92P8sJewuymBKjrWilAxfSkNsjYPr9zpMP6Ml
-	hG8QIQK65b96KqfC1hp2Gh0btkbNZaZuR90cC44wk5xfKXpGqBfy+OVQHaCDP/0+
-	NCrehDshkTzSE8IY3Htr/vYGkj8d/ggNwHisPk2md47KzANpxttLJMy7ijjE1km6
-	JB6yZ+dyI6QPcr++YggA2ou+iKZ3bSiKSVC0t+rsPqQosnv3lxOE5IuKDmfT6o9d
-	RUGeqrJbhfE45nUg1QBXv/985S92lyCjF0mOW3jiueSL3OSMZkOfCsORcrlQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1793820238; x=1793906638; bh=Y9Jf8gsE97UgH7jSi9BOOwNNQGYIDukHjqY
-	cCr4WfCU=; b=PtEaNfOA6wl2WaQRtcFq3/fTc7nXE7EKoxlERl4zqDk4YLGAw/j
-	zvlABFTuwaEfHvkJ/Id+C0lpJU/hCofDgoYqs9sdA0pVyXL45WHJGxPrOQ8IIE2h
-	hBsgYYA/vnCu7mdom69WzzZfSWQeam1ifUqbq8mTZrUTWfY6whOwT73n4+RpysBd
-	74eb5atWD3C//KSGayZ/jq2HT62gXhM8bGD2d8BfIi7bedXGGnwmiv93wo0++Bnw
-	D5w/K0SWldWwBt3+n8yFQtHRyMoM9UXpfTiHxwoJo2zMnP6DtZc7b/84iHkXNyml
-	5ddIKsixFB954s/YEX93PU0dnOm+cKG9kfQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=bur.io a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793820238; d=bur.io;
-	mf=PGJvcmlzQGJ1ci5pbz4=;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:ZBymMUUgavr3ApxTXb7r9tFVTq9pnhNLJcLjpccoFlwLWw1
-	CggerVYYw3z3lPgtb+VIuGYxNwSCOg049yg62/vgsCdvRrphMp9ao8hjmKDvCOnj
-	nNVySYPTI0qlACYd5B7EWOZdc4BOLp/GOtIF6rFAh3vOdICVVN8L8bPVEgl8Z31l
-	+ryMRTK2fiA9B0Cb9U0ozZr+mWF9L0mTcK2m01pxdXNgk4qYw6A73Rg9hs3uRMS5
-	uGyQvN4ADkXDzPpYSgXiskLaQmpMONfP3qP7t1Sa9Ar/a9Q/Ci0pCRXqA/F280GV
-	v3NLbxLCRl8vEas37h6xHB1c5esYa+uDrhAU0uA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:X3N7vWbHgBlUjXSS/5bkc/gENMztfqbRwRAMB56lUmw=:VdrurHRSg1F9ZVa6disASsP5SQGO3olDOZmQvqVaU6E=;
-X-ME-Sender: <xms:TYbrajcSuwO6dCMPYZ_qB3QNY1juShclIP5qsGk8Qrn2xawwBUj54w>
-    <xme:TYbrajNJoZo8eV6iA86XEpEfhYX-00QVlwHhvRhm3JebRRQh0ocdeuTkV1wiS3zfX
-    bXk--pNGSPyoHM578NMinrT0Df5CZXYkdKAjzh0QBl3y_UlH88ngZRj>
-X-ME-Received: <xmr:TYbrajKLspvZd0iA9QvU9KlNalxtVoBKEPR6nnd32uklcU7EytGywhhv>
-X-ME-Proxy-Cause: dmFkZTEQ3qYdXHFTIZGeadzcrreMOjaOaREO5XS6pTV42Wh53MDHib3sq60Ws4Lz1r7e4Z
-    6BHWJ8fJYzy2ayWd3aOn6lf4RnzPXz+8r2BFYJ3l/KiCctvIAy+EOgWG4PqUp31wg2p8aq
-    dGuxoFK89azDuBYdwbMGs0fnpEKqLzcGF7b2E0b5Q9czE69CnANHt9i3jU18gFRhskWR86
-    21ZHVdRhM8BbqpQprwGPFWRweAuXPmCWpvWcxLd2Jxt/GcvizjqLnemL8ScCdy34PyCH8G
-    ywwm7tM4UthuQfQaesOxuwGxtfsGBuA2Cti1DUXK8e9z+5EDgmj39svqewfJysynpFosn8
-    /U2jXgMckjnTmiPNqrTnH5VewT8YTkbJsfB8ElH+9Y8JyNNmcXtlJYjhVy/jz4nw03f8jl
-    6i0AIFIXA18wObOSb1QIXKoqULMi7yza590EBonBVKqVasWfFyAJLqfZN7FilxPpQNBM65
-    uJ8PMnE50PiSAW9kyuAhYm0npvCTQ50/WLN+I3y0eaLFoESLmesixVsguevO+mO3ZU3gUO
-    xKCgcEWUP/kJt0nhPre7sNSSxZBiAa57fSXWSsZD/Ro57BfbfwwaYDoBv2lujyNbmKtoMQ
-    IVUU+kxbX0eHTsN0Z6IMEOr4YCniSR1Ca+xZc+ttQ3u7eAe0+bFWIyaFtEhw
-X-ME-Proxy: <xmx:TYbrajIu5EKBnzHvxjwPkpgrQdqYMprLNfMhzlK8nts3GWcxY5pvtQ>
-    <xmx:TYbrat7ng_HEEsUYQQxxxD52h7UMLBb0Rn5knshpB3UkZx5HDx2Emg>
-    <xmx:TYbratcN187FBvREJ1oz95zBISJnHdkhhv-woNAuABaJgQ60b6-kpQ>
-    <xmx:TYbraoHjUQMLtC0OecxzJlyrEDQ5odRLV-JFZ1UCGCL0s96yyUPBjg>
-    <xmx:Tobraj4V1-JDeVVX96bd4k03VK11d0-xX7fj5i3O-nL-wcR8_7GTwbHP>
-Feedback-ID: i083147f8:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 4 Nov 2026 14:23:57 -0500 (EST)
-Date: Wed, 4 Nov 2026 11:24:15 -0800
-From: Boris Burkov <boris@bur.io>
-To: Siddharth Mishra <smish149@asu.edu>
-Cc: dsterba@suse.com, wqu@suse.com, josef@toxicpanda.com, fdmanana@suse.com,
-	mason@kernel.org, linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/5] btrfs: tree-checker: reject inline refs not matching
- the extent type
-Message-ID: <20261104192415.GD3301639@zen.localdomain>
-References: <20261104102323.4090290-1-smish149@asu.edu>
- <20261104102323.4090290-3-smish149@asu.edu>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ijd6v8za
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D48D21F000C1;
+	Wed,  4 Nov 2026 19:23:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793820214;
+	bh=QKQgab6F/A3kQED3xQkQ3++bbO+NbqHo8+XrgOES7ts=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ijd6v8zaNqCLmRZYja1X4maFJ83wlAF/2YPzGzhX/4NJzDk8gpRvHBDtpnvW2kzrE
+	 pKuK7II1mOaBx0Gj+L1vraczZZkB7OeRZ9ZoB7qpwQKM+pSqrDe3QY2fA7KCW/Fq2E
+	 oXyjbE6QtyNjJgArz+0tadzVnc7sFgUV5Zt+ED3IG+SNM2u1iqpNqo6J7AwifNHxzv
+	 2i3LIYQcM2epUeP/ADp5fAb3awZdnh30Pv8kl3Wbf1o49zKnVC71mI5vqn+a8eOGO2
+	 saOpPzNjuia2w4fAF7Rtkl4Ucl9o3AVDThJjpyzmxHF+vZXftQlfa3DzlUUjytBfdL
+	 q0wb/VbaGQJDg==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH RESEND v2 30/51] net: pktgen: reject device names with a '/'
+Date: Wed,  4 Nov 2026 20:23:19 +0100
+Message-ID: <20261104-work-procfs-bugfixes-v2-30-021c84d852e0@kernel.org>
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
+References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -124,90 +115,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104102323.4090290-3-smish149@asu.edu>
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1684; i=brauner@kernel.org; h=from:subject:message-id; bh=F9CLtO30/n/hY0YqeSuPpMfy319PBmjhBXOfLkB61UI=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9bvywqoXlbXOlS3uySJpukM32T6snilzOFXlqcfhEv dGWr1sudJSyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEzE9TTD/4KNy/KDs66oZjvq T7CTumjecrWj1yL2eO6RGRVGM7v/WjIynJutWGeWKrqa/8u9wz/unp7yJ4GpNbJ15Zfil4dMVgm eYwEA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 03:23:20AM -0700, Siddharth Mishra wrote:
-> [BACKGROUND]
-> An extent item is either for a tree block or for data, and each kind
-> only gets its own inline ref types:
-> 
->   TREE_BLOCK: TREE_BLOCK_REF, SHARED_BLOCK_REF
->   DATA:       EXTENT_OWNER_REF, EXTENT_DATA_REF, SHARED_DATA_REF
-> 
-> Readers rely on this.  btrfs_get_extent_owner_root() only looks for an
-> owner ref on data extents, and btrfs_get_extent_inline_ref_type() warns
-> when a caller that expects a tree block ref or a data ref gets the
-> other kind.
-> 
-> [CAUSE]
-> check_extent_item() verifies each inline ref on its own, but never
-> checks that its type matches the TREE_BLOCK or DATA flag of the extent
-> item.  So a data ref or an owner ref on a tree block, or a tree block
-> ref on a data extent, passes the tree-checker.  For example this tree
-> block has an owner ref instead of its tree block ref:
-> 
-> 	item 9 key (30478336 METADATA_ITEM 0) itemoff 3636 itemsize 33
-> 		refs 1 gen 13 flags TREE_BLOCK
-> 		tree block skinny level 0
-> 		(172 0x5) extent owner root 5
-> 		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-> 
+"add_device" takes a name like eth0@1. Only the part in front of the
+'@' has to name a network device. The rest is free text and all of it
+becomes the name of a file in /proc/net/pktgen, where procfs takes a
+'/' as a directory separator. So "add_device lo@a/b" makes procfs look
+for a directory "lo@a" that doesn't exist and warn about it. Any user
+can do that in a network namespace of its own:
 
-I assume this was crafted manually, not via btrfs operations with
-squotas enabled, right?
+  name 'lo@a/b'
+  WARNING: fs/proc/generic.c:174 at __xlate_proc_name+0xb1/0xf0, CPU#3: bash/241
+  Call Trace:
+   __proc_create+0xd0/0x9b0
+   proc_create_reg+0x45/0xf0
+   proc_create_data+0x77/0xf0
+   pktgen_thread_write+0xd8d/0x1750
 
-> The leaf is accepted.  When the tree block is freed later,
-> lookup_inline_extent_backref() skips the owner ref, finds no tree block
-> ref, and the transaction aborts:
-> 
->   WARNING: fs/btrfs/extent-tree.c:3418 at __btrfs_free_extent
->   BTRFS error (device vda state A): Transaction 14 aborted (-EUCLEAN)
->   BTRFS info (device vda state EA): forced readonly
+With panic_on_warn that takes the machine down. And if "lo@a" exists
+because somebody added a device of that name, procfs used to register
+the new entry below that regular file, and removing "lo@a" freed both.
 
-This part is not that interesting, kinda garbage in garbage out
+Reject names with a '/'.
 
-> 
-> [ENHANCEMENT]
-> Reject an inline ref whose type does not match the extent flags with
-> -EUCLEAN, so the leaf is refused when it is read:
-> 
->   BTRFS critical (device vda): corrupt leaf: block=30441472 slot=9
->   extent bytenr=30478336 len=4096 inline ref type 172 does not match
->   extent flags 0x2
+Reported-by: Chris Mason <mason@kernel.org>
+Fixes: e6fce5b916cd ("pktgen: multiqueue etc.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ net/core/pktgen.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-but of course nice to catch more corrupt leaves
+diff --git a/net/core/pktgen.c b/net/core/pktgen.c
+index d63eeadddfcc..02af70d360bc 100644
+--- a/net/core/pktgen.c
++++ b/net/core/pktgen.c
+@@ -3831,6 +3831,10 @@ static int pktgen_add_device(struct pktgen_thread *t, const char *ifname)
+ 	int err;
+ 	int node = cpu_to_node(t->cpu);
+ 
++	/* The name becomes the name of a file in /proc/net/pktgen. */
++	if (strchr(ifname, '/'))
++		return -EINVAL;
++
+ 	/* We don't allow a device to be on several threads */
+ 
+ 	if (__pktgen_NN_threads(t->net, ifname, FIND)) {
 
-> 
-> Signed-off-by: Siddharth Mishra <smish149@asu.edu>
-> ---
->  fs/btrfs/tree-checker.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
-> index f021ac14b..db446c8af 100644
-> --- a/fs/btrfs/tree-checker.c
-> +++ b/fs/btrfs/tree-checker.c
-> @@ -1790,6 +1790,14 @@ static int check_extent_item(struct extent_buffer *leaf,
->  				   inline_type);
->  			return -EUCLEAN;
->  		}
+-- 
+2.53.0
 
-Logic itself is maybe too clever but at least quite compact. LGTM
-Reviewed-by: Boris Burkov <boris@bur.io>
-
-> +		if (unlikely(is_tree_block !=
-> +			     (inline_type == BTRFS_TREE_BLOCK_REF_KEY ||
-> +			      inline_type == BTRFS_SHARED_BLOCK_REF_KEY))) {
-> +			extent_err(leaf, slot,
-> +			"inline ref type %u does not match extent flags 0x%llx",
-> +				   inline_type, flags);
-> +			return -EUCLEAN;
-> +		}
->  		if (unlikely(inline_type < last_type)) {
->  			extent_err(leaf, slot,
->  				   "inline ref out-of-order: has type %u, prev type %u",
-> -- 
-> 2.54.0
-> 
