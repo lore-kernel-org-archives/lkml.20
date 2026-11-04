@@ -1,53 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793809525;
-	b=gWE8Gg4LtKfXoq0sK1tVfDCeBU3VVMvohQ5OiGb6AOxNjghyJOr2plTv7Q85CJwY8vEb
-	 tLaDgbz95dIJ+7ub3zbxHJJJz+1IUv1qd9dM6GZylD+zL9ep1Reim14MIQW/GR+SstEXZ
-	 xtMkLUo32vZMnvDJWKtTSNY5x32D4tub0CktZUEv0kF8LK6yXHVC64f12SWuHcAqok+ex
-	 D3qdGr6XF/ss4CXCe/1frXpaVvdw1JcjrCdq4swsZALwfV3qRPmLyWxUi9S/+L2e0vUQl
-	 yh5GT4xz+h3b6f2oeF5Kjzo4SyfAFwLAfBoUe3mFtVCXNyNbk38sL+P2dqJW4XB6eOg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793809525;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
-	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
-	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=HG7fdBO4WEcwQ4gpZzbvoeJECFEi3NHcwKvoIeLGBYg=;
-	b=b/1f+2biV6FbpF0NctU2dL+KuBYltIAZcWLMZZ8kwbOYtbaUTqe7G6w63rLmvh1Sufq3
-	 QIu61ln0VaRLx0j9BzAO3OpnIg3faD1WXULxLbO+34iUg8Rmg+Tt/+WBi3ztyLrT1Byi0
-	 uXFs1rZHXhlrHi0V5TxXTNrfgOmhkvOmHBbL3afhXtIppWDJL65+EeKII93AJoMEoKoW4
-	 nkXZxoEAiLvJThKbscDXBdyFKm+9QR8rFSW5oPWc2hX6NvlYu6/4a3HpDViq4N6KTrRdN
-	 Vo/xALH4K7V8kfWGp0iHgbGRJPrYM9WvGwmwy/QEzDBqCdSiYX8hinKyPD/jAC8r2uQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793809570;
+	b=aTofdxPieyU60oe+Q26xgGwMPLBm1wiHDy4RTqNPakMz+8w73PLHOG8NjeZ8TykURtsL
+	 vjSHh2YkTLcuMPsvmKtHK+hcCT6t6M3/xe3pks1pMar1X6yQp0WYgokpAtvNcVjF98YHx
+	 Ue8/00pdI21Az8moLXZfbQCjKpqFYw7rRAiYUkx/oyVYqn94OZBy+DMG8TyKto/ewL+IG
+	 8CghhIF/plQgbP92YQDO7wn7/Bumz1UBTWj4Y9GiYuzD6wgvHiWIi3xrhEtOAZHxckq4t
+	 y7zphu2c6nxDB29Esa4tt41BwUUwxyB9pgGa7h7FjmpLbT8AsvPcV7uc8BsLDzIxAtA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793809570;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=02xlunbPJG9twMrNC4lzpNV5WoLplwFKW8EyaQv0RmE=;
+	b=kZRvm6cwJkj9BKPZjJTRtij68GK4gWthZg9m+XVvrZ3YiBuDhrUeiMFKoKoG0U8rO9dr
+	 ptCqvyjBQ5yKGUXQzoehBlqPP+LIHUmSo8dwIMfRZoSYZHN57FanPIYLuVYpdq9BCyxMP
+	 f+ZxLlj5Ev1NZYuMjJMAHgt5Lk2fxSm8aM4wOlbBJaGmSYbZybd2DJbdPCQVe2qkE1skk
+	 bpQ0SpVjKfAZjGHrUyNpEvSLXWFdlSeTwyJ7C7FDSeqdO1pqkIYXp/EJAip4CGqwCgfAK
+	 eLXQzd0LDSWmXrmoMG2QBfwwLFzbnKNeNyWh078EjwadEe67mxdFBJ47rAndOP0Vffg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PkQndnVj;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2466F606A32F;
-	Wed,  4 Nov 2026 16:25:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2466F606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jKW4x5gWmz5BNRf;
-	Thu, 05 Nov 2026 00:25:21 +0800 (CST)
-Received: from xaxapp04.zte.com.cn ([10.99.98.157])
-	by mse-fl1.zte.com.cn with SMTP id 6A4GPCCv020169;
-	Thu, 5 Nov 2026 00:25:12 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp01[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Thu, 5 Nov 2026 00:25:15 +0800 (CST)
-X-Zmail-TransId: 2af96aeb5c6b6a7-c1505
-X-Mailer: Zmail v1.0
-Message-ID: <20261105002515934UMImG6EiHrJdKjsLu3j9d@zte.com.cn>
-Date: Thu, 5 Nov 2026 00:25:15 +0800 (CST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648B7606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:26:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 648B7606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PkQndnVj
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-54492d8a988so355341cf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 08:26:10 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793809569; cv=none;
+        d=google.com; s=arc-20260327;
+        b=laGKmGvA4gZQRTM35pY3QXjMeeJDAHERBbfpDmhFOZU1LPuAtB3OBhUikkVwuO7DQi
+         j32f3WtCKnnw5fmTxD4uQrnbkxWhAMw839oILW/jsq2gquYEJvj2Ru0BzfjYrh8cyteU
+         qSkFgrIB3Pa6PV2+dipx+0teR2cGOcoS7QWQpT33C34VcoIBs02McNFYkmW065o08X15
+         d/CgyqW5bM0h71+38NlNWAr6OdPTnXTsghpd6SQ/nnR/dY0I2l2m0t0srp28Ws8ScFrH
+         lCWnDtpsebBVkIg/l+aN50433iJH5vCHXV8XNF22GG9KBiocyjmV1JBTpJZM/EqcuUhZ
+         917w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=02xlunbPJG9twMrNC4lzpNV5WoLplwFKW8EyaQv0RmE=;
+        fh=yYkpt7l0qUxMNKGcpYTTh8qO5m1V+LIPpSopSHNZT+w=;
+        b=YuQ+94mwWnRDKQ7DsIZOI722Bgh288tn5yw0VmSeSxVj5pigLyWtsPTML7a1OQRGxP
+         9VsFQYsl0B4SiKypEJ6kfFaAsqVIQA1jJoJvaYEVKx0INalYqjaOj0STsfEaFLsuR9dg
+         41b32FtGTX+3P1IQ01GeDx3TmwB2kD0xTWulCq+8uJp1YfoVd0B1RVT4oZQy9WCQYh3i
+         I5uEWg4szS31lOoRQJSiC6+GFbQRdH1U0cb/KwQDlUs5LBxINrOhFHL6WzesoUJQKXfp
+         iMuUjrkSZSY4wkSvgD/cmrKgpHQN8fqB3JoAzxLU99JwmT+7IYINaTXh9FTr3VU6kRop
+         E8ZQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793809569; x=1794414369; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=02xlunbPJG9twMrNC4lzpNV5WoLplwFKW8EyaQv0RmE=;
+        b=PkQndnVjODxfjk8gWoorlSWxkVs/Yt5AWI09ReVaivDetcOVoiHlse74NWIkMgMaeb
+         FO2aotMPrv6Lzhpa4STmuW3+HlnXlLkdo4v/bfjyhhO7kuZDShCgQwC2McSN7nSDbAnA
+         ON0bC5dM29QNnL7HT0hpEhyAa2qFUgX+11YrSQQfiA2PV0W+vrOCmGZ+W3X52hDqBOOW
+         /QpB4VOrYkjQC4GFqDPnbDmu7Kr4n3Bz1vzOx9XcoZrrt86Uq+8zP5948IA4yQq0VNIl
+         8ehpcuEVERdPPEspxAeYIMQj+53DYvfn9JvKi4J1dhamhRs4yXIXU4g3G9VZWSm3UdiX
+         dHpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793809569; x=1794414369;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=02xlunbPJG9twMrNC4lzpNV5WoLplwFKW8EyaQv0RmE=;
+        b=CyCLy01+pOdcUMeKQ/JaAxwjPwGLcLdDgJj9RdX6eZuyTZFapdGsum90aqoASJmBxP
+         1QXL/TBe2OlfVWvyJ791lXwlrBhvgidbZJonh+Z+bYpfjQdEcg3dqH6Ud4U/s/yMU3lE
+         29W390GNfoGSiXf3SDDC7B0u0tR5KQUtKGeb6Z80OGHpS2zCgdCByeGOKxn+u5cCjxPd
+         IpMvdzozrLVrIgQBIuHVi+OxBVGgwniAmiqt+KxsULaYIzpE6SBX2nKxDz3vKmKgvpHF
+         ZwjysywTkXCnpoE3RWIGnrp3XEgxtNpg7hIFLdP4JityST6UL84iPpKjqy2Y67NXCaY9
+         g7zA==
+X-Forwarded-Encrypted: i=1; AKwUvBwEmH9o/f9eMWIBmDhUvuHEOlOlguVRAvWIhrMRjMltfWRqzOXG9+5Tffim0Lhk1DCBp3WG8RmhBqNgEms=@vger.kernel.org
+X-Gm-Message-State: APuU4Z93xPAgqypd4vGo7MUUTcDVdyPPrpBI8kFOHBs0scx1zRLnuhym
+	WVoS6ngSLABcbKKPg4Lqfnu52YeTEuka85Sk01OCYaLQSiPbudCAmhaRsNsmcAy6ZYwYegv0nhl
+	c421U3FClG2caMj7FKgIDxzI7JfI6/jSz9CvXGL8X
+X-Gm-Gg: AYBFou1LAglvH3WaaYzCF3rb3m2kJoc/lMlFPae4gtrgEfnehM3z1jcFcHyszFCV8o+
+	Kv1vjSfHh30i/X6tDRpJqG8+u6B3jnzhgSAEN8M3lOpKoV4LTAm1IZyPkUoPuD7s6JCHBUpDERR
+	ml+7VqOuRvTcN5OxgO+1rCZAhRDUhlvZO/RlpySJ4E/6MxA40DeM5/2VegnZgsJCi/nN2yJ3o0d
+	GIVzjjG33RTVx6zufp4vYXCQ+J5i2oxyD0grQOU0XYndnmzEJDlj7xFIxGSQquKE/4prGr1VyDX
+	LV9o4qf8oDA4NDB2QZ+RcH/7ohcd49yxv+XZev0vJ439XKkmM4Y9pxJTVesw9q82C5cpOkQGUZ5
+	L6gXqGl+bLlQm9Py7TnQlSsFI/meTJ5cpXHO5X8t4oaBzibNf/uPrA2g1bBQrGQYTCsXOQlcUvy
+	bV32nAJ/ZSwJs=
+X-Received: by 2002:a05:622a:4894:b0:535:9aa3:5ebb with SMTP id
+ d75a77b69052e-54b4cd278d4mr21858561cf.8.1793809568468; Wed, 04 Nov 2026
+ 08:26:08 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,150 +104,122 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <richard@nod.at>, <linux-mtd@lists.infradead.org>
-Cc: <chengzhihao1@huawei.com>, <linux-kernel@vger.kernel.org>,
-        <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIFJFU0VORF0gdWJpZnM6IHhhdHRyOiBmaXggb3V0LW9mLWJvdW5kcyB3cml0ZSBpbiB1Ymlmc19saXN0eGF0dHIoKQ==?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6A4GPCCv020169
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Thu, 05 Nov 2026 00:25:21 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AEB5C71.000/4jKW4x5gWmz5BNRf
+MIME-Version: 1.0
+References: <20261104160716.2910873-1-bwicaksono@nvidia.com>
+In-Reply-To: <20261104160716.2910873-1-bwicaksono@nvidia.com>
+From: Ian Rogers <irogers@google.com>
+Date: Wed, 4 Nov 2026 08:25:57 -0800
+X-Gm-Features: AclHuK-GeTinNBFNoWnfPGGAtOY6Xq1W9g3atyK1ujiBfiA8CNbeKnUu-zkauLA
+Message-ID: <CAP-5=fXriq3akwKxsxSuBZ0M=1OMuCe8ig_j-r6ehfCeCVAYcQ@mail.gmail.com>
+Subject: Re: [PATCH v3 0/7] perf: Add NVIDIA Tegra410 uncore PMU events and metrics
+To: Besar Wicaksono <bwicaksono@nvidia.com>
+Cc: acme@kernel.org, namhyung@kernel.org, ctshao@google.com, 
+	linux-tegra@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	vsethi@nvidia.com, rwiley@nvidia.com, skelley@nvidia.com, mochs@nvidia.com, 
+	rajjoshi@nvidia.com, treding@nvidia.com, jonathanh@nvidia.com, 
+	john.garry@linux.dev, will@kernel.org, james.clark@linaro.org, 
+	mike.leach@arm.com, leo.yan@linux.dev, mark.rutland@arm.com, 
+	alexander.shishkin@linux.intel.com, jolsa@kernel.org, adrian.hunter@intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+On Wed, Nov 4, 2026 at 8:08=E2=80=AFAM Besar Wicaksono <bwicaksono@nvidia.c=
+om> wrote:
+>
+> Add event aliases and derived metrics for the NVIDIA Tegra410 uncore
+> PMUs, and fix perf's aggregation of the Tegra410 PCIe PMU instances.
+>
+> The series covers the UCF, PCIe, PCIe target, CPU memory latency, and
+> chip-to-chip interconnect PMUs. It provides symbolic names for the raw
+> event encodings and metrics for bandwidth, frequency, and average read
+> latency.
+>
+> The PCIe and PCIe target PMUs are named nvidia_pcie_pmu_<socket>_rc_<rc>
+> and nvidia_pcie_tgt_pmu_<socket>_rc_<rc>. perf only strips the number at
+> the end of a PMU name, so the instances of each socket were treated as a
+> different PMU, and these events and metrics gave one result per socket
+> and were reported incorrectly (e.g. with --metric-only), as discussed in
+> v1 and v2. Patches 6 and 7 fix this:
+>
+> - Patch 6 adds a check of the cpumasks of all merged PMU instances to the
+>   zero-count skip in perf stat, so a socket that counts nothing shows 0
+>   instead of having its row hidden.
+> - Patch 7 treats both numbers of the NVIDIA PCIe PMU names as the
+>   suffix, so the instances on all sockets are merged as nvidia_pcie_pmu
+>   or nvidia_pcie_tgt_pmu. Per-RC results are still available with
+>   --no-aggr or -A.
+>
+> Changes in v3:
+> - Replace v2 patches 7-9 (merging PMU instances that match the same
+>   comma-separated json Unit, naming a merged counter after all of its
+>   PMUs, and the ABI document) with a special case for the NVIDIA PCIe
+>   PMU names in pmu_name_len_no_suffix(), perf_pmu__match_wildcard() and
+>   pmu_name_cmp(). Thanks to Ian Rogers for the suggestion.
+>
+> Changes in v2:
+> - Move the uncore JSON out of the sys directory and remove the
+>   "Compat" fields. Thanks to Ian Rogers for the feedback.
+> - Drop "perf jevents: Process model files before sys subdirectories",
+>   which this series no longer needs.
+> - Add UCF SLC and memory bandwidth metrics from all sources to local
+>   CMEM (read, write and read+write) and from local sources to local
+>   CMEM and to remote memory, PCIe bandwidth metrics to local
+>   destinations, and read+write bandwidth metrics for UCF SLC, UCF
+>   memory and PCIe. Thanks to Chun-Tse Shao for the suggestion.
+> - Add patches 6-9 to fix the PCIe instance aggregation. Thanks to Ian
+>   Rogers and Chun-Tse Shao for the pointers.
+>
+> v2: https://lore.kernel.org/all/20261030174816.1544471-1-bwicaksono@nvidi=
+a.com/
+> v1: https://lore.kernel.org/all/20261019164241.403644-1-bwicaksono@nvidia=
+.com/
+>
+> Besar Wicaksono (7):
+>   perf jevents: Add support for NVIDIA Tegra410 UCF PMU aliasing
+>   perf jevents: Add support for NVIDIA Tegra410 PCIE PMU aliasing
+>   perf jevents: Add support for NVIDIA Tegra410 PCIE-TGT PMU aliasing
+>   perf jevents: Add support for NVIDIA Tegra410 CPU Memory Latency PMU
+>     aliasing
+>   perf jevents: Add support for NVIDIA Tegra410 C2C PMU aliasing
+>   perf stat: Check merged PMU instance's cpumasks when skipping zero
+>     counts
+>   perf pmus: Treat both numbers of NVIDIA PCIe PMU names as suffix
 
-ubifs_listxattr() derives the size of the name list from
-ui->xattr_names + ui->xattr_cnt and uses it to reject a call whose
-buffer is too small.  It then copies every visible xattr name returned
-by ubifs_tnc_next_ent() without checking @size again.
+Other than the nit the that commit messages adding events refer to it
+as "PMU aliasing":
 
-Both counters are read from the on-flash inode node and are only
-accounting values.  A modified image can make them under-report the
-number of xattr entries while the TNC still contains more entries: the
-node CRC only protects against accidental corruption, it is recomputed
-for a crafted image.
+Reviewed-by: Ian Rogers <irogers@google.com>
 
-The usual caller first invokes listxattr(path, NULL, 0), which returns
-the too small size computed from those counters, then allocates a
-buffer of that size and invokes listxattr() again.  In the second
-system call fs/xattr.c:listxattr() allocates the kernel buffer with
-kvmalloc(size) and passes it to ubifs_listxattr(), which copies the
-names past its end.  The copied bytes are the xattr names from the
-image, so part of the overflow content is attacker controlled.
+Thanks,
+Ian
 
-Bound each copy by @size and return -ERANGE when the list does not fit.
-With a corrupt image the reported size may now be too small, but the
-following call fails cleanly instead of overflowing.  Note that nlen
-itself is already bounded by ubifs_validate_entry(), which every node
-returned by ubifs_tnc_next_ent() has passed; the missing check is only
-against the caller's buffer.
-
-While here, validate the two counters individually.  Their sum is
-computed in 32 bits, so the existing check is bypassed when it wraps
-around; rejecting the oversized values at mount time keeps the O(1)
-size query in listxattr() from returning a wrapped (possibly negative)
-length.
-
-Mounting UBIFS requires CAP_SYS_ADMIN in the initial user namespace, so
-this is only reachable with a crafted image.  Compile tested with W=1
-and checkpatch --strict.  Runtime reproduction needs a modified UBI
-image: change xattr_cnt/xattr_names in an inode node and recompute its
-CRC; a KASAN kernel then reports the overflow on the second
-listxattr() call.
-
-Fixes: 1e51764a3c2a ("UBIFS: add new flash file system")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
----
-Resend after 7 days without feedback; no code change.
-
-Link: https://lore.kernel.org/all/2026102817301132485IE4Ia6aXSqUo5KZUvgW@zte.com.cn/
-
-Tested on 7.3.0-next-20261030 (QEMU/TCG, x86_64) with mtdram and KASAN.
-The image has a file with three xattrs, i.e. 21 bytes of names.  Its
-on-flash inode counters are modified and the node CRC recomputed.
-
-low (xattr_cnt=1, xattr_names=0), unpatched:
-  first listxattr() returns 1; the second call is given a 1-byte buffer
-  but copies 21 bytes.  KASAN reports a slab-out-of-bounds in
-  _copy_to_user and ubifs_assert(written <= size) fires.
-low, patched:
-  first returns 1; the second returns -ERANGE (errno 34).
-
-wrap (xattr_cnt=0x20, xattr_names=0xFFFFFFF0; the 32-bit sum is 16),
-unpatched:
-  first returns 16; the second call is given a 16-byte buffer but copies
-  21 bytes, with the same KASAN report and assert.
-wrap, patched:
-  first returns -EINVAL; ubifs_iget() rejects the counters in
-  validate_inode() before ubifs_listxattr() is called.
-
-diff --git a/fs/ubifs/super.c b/fs/ubifs/super.c
-index 38972786817e..fe24e1949bb3 100644
---- a/fs/ubifs/super.c
-+++ b/fs/ubifs/super.c
-@@ -82,7 +82,15 @@ static int validate_inode(struct ubifs_info *c, const struct inode *inode)
- 		return 2;
- 	}
- 
--	if (ui->xattr_names + ui->xattr_cnt > XATTR_LIST_MAX)
-+	/*
-+	 * Both counters are read from the on-flash inode node.  Check them
-+	 * individually first: the addition is performed in 32 bits and can
-+	 * wrap around, which would make the check below pass for absurd
-+	 * values.
-+	 */
-+	if (ui->xattr_cnt > XATTR_LIST_MAX ||
-+	    ui->xattr_names > XATTR_LIST_MAX ||
-+	    ui->xattr_names + ui->xattr_cnt > XATTR_LIST_MAX)
- 		return 3;
- 
- 	if (ui->data_len < 0 || ui->data_len > UBIFS_MAX_INO_DATA)
-diff --git a/fs/ubifs/xattr.c b/fs/ubifs/xattr.c
-index 3b0e8a270f59..8efe2c545bf4 100644
---- a/fs/ubifs/xattr.c
-+++ b/fs/ubifs/xattr.c
-@@ -421,8 +421,25 @@ ssize_t ubifs_listxattr(struct dentry *dentry, char *buffer, size_t size)
- 		fname_len(&nm) = le16_to_cpu(xent->nlen);
- 
- 		if (xattr_visible(xent->name)) {
--			memcpy(buffer + written, fname_name(&nm), fname_len(&nm) + 1);
--			written += fname_len(&nm) + 1;
-+			int nlen = fname_len(&nm);
-+
-+			/*
-+			 * nlen is bounded by ubifs_validate_entry(): the
-+			 * node length is nlen + UBIFS_DENT_NODE_SZ + 1 and
-+			 * is itself bounded by UBIFS_MAX_DENT_NODE_SZ, so
-+			 * the name cannot run past the node.
-+			 *
-+			 * The missing bound is the caller's buffer: the
-+			 * on-flash xattr counters are not authoritative and
-+			 * a crafted image can under-report them.
-+			 */
-+			if (written + nlen + 1 > size) {
-+				kfree(xent);
-+				err = -ERANGE;
-+				break;
-+			}
-+			memcpy(buffer + written, fname_name(&nm), nlen + 1);
-+			written += nlen + 1;
- 		}
- 
- 		kfree(pxent);
-@@ -432,6 +449,9 @@ ssize_t ubifs_listxattr(struct dentry *dentry, char *buffer, size_t size)
- 	kfree(pxent);
- 	up_read(&host_ui->xattr_sem);
- 
-+	if (err == -ERANGE)
-+		return err;
-+
- 	if (err != -ENOENT) {
- 		ubifs_err(c, "cannot find next direntry, error %d", err);
- 		return err;
+>  .../arm64/nvidia/t410/uncore-cpu_mem.json     |  43 +
+>  .../arm64/nvidia/t410/uncore-nvclink.json     |  67 ++
+>  .../arm64/nvidia/t410/uncore-nvdlink.json     |  43 +
+>  .../arm64/nvidia/t410/uncore-nvlink_c2c.json  | 115 +++
+>  .../arch/arm64/nvidia/t410/uncore-pcie.json   | 249 ++++++
+>  .../arm64/nvidia/t410/uncore-pcie_tgt.json    |  83 ++
+>  .../arch/arm64/nvidia/t410/uncore-ucf.json    | 764 ++++++++++++++++++
+>  tools/perf/util/pmu.c                         |   9 +
+>  tools/perf/util/pmus.c                        |  23 +
+>  tools/perf/util/stat-display.c                |  20 +
+>  10 files changed, 1416 insertions(+)
+>  create mode 100644 tools/perf/pmu-events/arch/arm64/nvidia/t410/uncore-c=
+pu_mem.json
+>  create mode 100644 tools/perf/pmu-events/arch/arm64/nvidia/t410/uncore-n=
+vclink.json
+>  create mode 100644 tools/perf/pmu-events/arch/arm64/nvidia/t410/uncore-n=
+vdlink.json
+>  create mode 100644 tools/perf/pmu-events/arch/arm64/nvidia/t410/uncore-n=
+vlink_c2c.json
+>  create mode 100644 tools/perf/pmu-events/arch/arm64/nvidia/t410/uncore-p=
+cie.json
+>  create mode 100644 tools/perf/pmu-events/arch/arm64/nvidia/t410/uncore-p=
+cie_tgt.json
+>  create mode 100644 tools/perf/pmu-events/arch/arm64/nvidia/t410/uncore-u=
+cf.json
+>
+> --
+> 2.43.0
+>
