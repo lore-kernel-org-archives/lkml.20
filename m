@@ -1,64 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.57
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793756569;
-	b=YBz5zomqUmE3ggCQBHlzxcHk3kHiFM8xHEZuwEj1PL4RrbXRLRHkPMY1zkWJXJuxtqhq
-	 AXZ5pdfG0eEGzv4JsS0eWJsHGc3PvegXjKJ9TW/0LTARiIJeFy+yPP9vqOaSUlRgsg3YG
-	 6gm40d1hx+c7EJdfRPwP8w+hinq4XMxxGQJxv7a89yUkokrWe++3Smwb0h/+Cidybpa0c
-	 0CDVTxxwzbusjBQ6xAK0n8Y9K1EtWRxiS8n4EwIEROTajh/eUQjYvKraFX1dSYGq/6NVk
-	 jfQ4TlLAte/lXzKnVg0WB0zkEdaMUyQR4wc4B+INpOrs+d6yVMTLMNCA0/XAdaxSg1A==
+	t=1793756574;
+	b=fR6UMbOpSUAU0W5+zatd/ZdawlTbaHMg5g0vOd7smATkubv/v5EH2KVWj92fnr7LPO+G
+	 GoYxwQZzZpksaimuWCnh2fXUL+dNgSZM89OtUuY01AjgXZC3jNVTlLUYQ55hx5wVkbKDU
+	 1po6m2ugRurm6fppce/oIYz+AibjstB9AdQKryrqfltG+Icdt5vRhWDKQDKmX9b46j4k2
+	 mWT9KhX4pL7gmbPCuEfzK0cyEujuzeyG9gY+EBUV/seeqQwtrcG5Ij7ultaG4flrg3GpP
+	 8T2PxXJHgUHTwPLa+ud5/ww3zGZz/mlGuRSafpMHmsuBKflGlG8bz6kJIIGcJKd3+ug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793756569;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=nWp1QkiE8UQYLRHEuq1OCW+NhhQpDG2WoI/kzQ0ag9s=;
-	b=hTYELwSmbXyFV/Xe8pqn8QI7BOCN+fzWCbDvCPdF975Z3+rWvbBAN1bq7wL56NTRfj6s
-	 mfS9lVBdz1Op0WrJUg2lhkMDc2aQ0yhpNOov8MOJUEuK9dVfWxTzfLah4s2NFAIfa146O
-	 hZPylWEbbHG1h4/cHNzavasJebOTg7WYkxolS0/kNt5YbMzvChtaefo48DK9XPPutBZca
-	 jTVebPxtpwgGrqpBaaOwZTtEn99Cm3S1Ix22yJhALORl77G3I0Fw5kCjUF9+VEQjVbr9i
-	 j00+931cBzxMDYwYfsYU3Q++uFgTQ4MkhRGlLnkL70sN5G7OmFQXEKIfe5prnRu14DA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793756574;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=04qjylQiRjUxab0wFGioKpg+XzQ+3wNYfPCFHSRebIg=;
+	b=Ja5Ku5ktVmGrWlaNVwqwgSSKR68QnMNhT9R4HTYrNQjBe+eNaUoYHc23/xhHMCawygZi
+	 WedxEV5UUfoicmkYST3A2f4UsAf7GhVNz6lK5k8aG53DwW1zsgBCKbgaq00T9QnbfB0NP
+	 FS06/Bsi0TwDZoXwro+I1oWBkCRJXMptI9IRRkCDKMFhWKYpOzaSwEJLlMZQ/M5TJLQIf
+	 SrQr2M6eM5DDI5uoyIhlMvurOrbJCvx2G1oYaBVHYZSl+WrIM/STjncPtVoL3gZVrIILd
+	 9boyhlYSIboOo/EblgOofEpBBE3nJjPR3g6IbW2oEMkq4Wik33D8ECnrJ7hb1peEbUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="GW/Ebttp";
-	arc=none smtp.remote-ip=91.218.175.57
-Received: from mta0.migadu.com (out-57.mta0.migadu.com [91.218.175.57])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZnZ5cWJ+;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E72F606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 01:42:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E72F606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B40A2606A332
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 01:42:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B40A2606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GW/Ebttp
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=YX/s6/HwMM+QXcGKjPYZwlkwikDGqHDXoSO3cMoqP6I=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793756566; v=1; x=1794361366;
- b=GW/EbttpRAwg7oIXRQuQlJyfSFZ5C1PMpzxUmhAMreigDkimGv21maCnrZ9lz9ff58h81Y6s
- 4WgEJvpPgi88r0PfzlWrSe9aBKZDxSr/IiJ6JDL/1zPzxjXia/CelsxpCopjxeKvyZD4RqA4qe8
- Ft4mcaMLefHAhrCPkFHPyHsA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id b3c20ee6540bb41b;
-	Wed, 04 Nov 2026 01:42:46 +0000
-X-Mizu-Trace-ID: b3c20ee6540bb41b
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 4 Nov 2026 09:42:28 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Sasha Levin <sashal@kernel.org>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Dmitry Safonov <0x7f454c46@gmail.com>,
-	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
-	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selftests: net: tcp_ao: don't shift a size_t by 32
-Message-ID: <auqNhOR3Z6Lx0ggR@fedora>
-References: <20261103163921.641347-1-sashal@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZnZ5cWJ+
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a2072b9832so7702475e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 17:42:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793756572; x=1794361372; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=04qjylQiRjUxab0wFGioKpg+XzQ+3wNYfPCFHSRebIg=;
+        b=ZnZ5cWJ+ytnymUUDiWLTVDB8LUTx11Pe67lDgEa6UTMikuPe68RtvMTSngvvG/kQTZ
+         zDW+WxILFmp5F9KDBr8bZ75Du8TzTPUcpFIzuzO1RlOJ4dCf1JMNDKjZXKeuCni92DH8
+         LV2A8/2ZiAOjNVuhXVEhHVa75+tQ4F/OWopgV+krqItDpK5BawAZn5fHh8JXk7wgQZGC
+         eUqFXjsoN77aU5Y6b6d/3e68Dyj3/lYlCdkhISVvTHfvZz5OaaEkExil5VEyLaShdqGu
+         GC+wwPZbki+kaZLg3qz1MoSCl8tEssvKKP92k7ba8KFQhfKls9TS1+HIul+I1aSQ7plR
+         YOsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793756572; x=1794361372;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=04qjylQiRjUxab0wFGioKpg+XzQ+3wNYfPCFHSRebIg=;
+        b=ibBYq/zW24hGc4tTowjY+xdNsDd/DFnbW1n5pfRL/lppd0TAgzcguZuVWdI4glnKOk
+         LBQ/VgwNd5NxAoLsFXSxo/A79Vx/VzbN1iW0BxKYfaNmshlwdc1sPqCT5gXT79E1RQf8
+         0bu3JD4WV5KP2SYd3ePQhJMbHh98BOcuu4ljKoZKBaUObivU0x1sDrbFOusYtNLCm30z
+         5d6NkVCZYmwO0VVmyhxBsoQsh0TAFgCsv+m+Ij/ZVTVOoxX0ITFVsC2detVpqVmz8jRh
+         f1dZc/b3y5oHdmeSrXPcOJC2iBcIHjnwUoROa8TmU76yfy/Jo78ZdwjFjvW8r0FHrJUe
+         ox3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxaRZxaYHFs0znFPzp0cUJQi5Sz/RvsyOUNopN5LmCStaJCTDVhrZEUsqr2WL1gi8PR4zSIhS620SNWXuo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/MU1uTYFXsdN1gBPCzYoijj3ego9FaG0LwOU3npCBuVV6Zs68D
+	6VpxWlwEN9jeGIGFhfobGkj0NzTRcBkFlJDscO9sLQs/M0FruuS6dEs=
+X-Gm-Gg: AYBFou3K5kleh2sdUTXY3HtlYXOmd2XviCa8qT5fD9yCldo2GNYxc4/kpiAT4gJbXyB
+	i88ca64YdTuY8EClkZZS5cyZOEqANiuRODd5UD5vhp9NttLSbsHfxk3UcOMC+mTk0k6YkPSoIeD
+	aHo95xjwiUuKYlkJ5T0ow0204UjaH80RhxDoHiZRKIAXoRQdkyiBpyOFV//unSEvobU/2AXO4ot
+	mvnVN5+TyE+1M4OuRxmnZRx2kZ+LymFKx0L4wRpDntKfBD8G0+Jpq0I2PeUbi0RSSz6qOrpnU6R
+	ijozSwOC7IuGS0Ls0UvpbjEFBp4022jeeYMg1uKLWSyMfcQWn5UEhuEUvtc9gMJJNCqVvlSPb46
+	WvHkaudZ4UAwlcyi4AxJ2S1E0bZEyMKl83i7jvXujkHg4vagv4k75G3GVIqA49SCD00BJH/ixuv
+	K+ovuPNovJybxpJ5nxpjMY5RHaorH0m2jdx1wA1C9/nmqof5rTrctQJzu6W5KTy99PAYIfyYd5b
+	L4DSYgZUJ4T48Mu/UIGhYuk6twYfcXj1hWwEWsei8tvw0sU4G4w83PZTEcAolantTfGjXE7+RHI
+	BjZI3LyfXnc=
+X-Received: by 2002:a05:600c:4ece:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-4ac169d7e39mr333856735e9.5.1793756572002;
+        Tue, 03 Nov 2026 17:42:52 -0800 (PST)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feeb5196esm885532f8f.58.2026.11.03.17.42.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 17:42:50 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-media@vger.kernel.org
+Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH v2 media] media: v4l2-mem2mem: cancel job_work in v4l2_m2m_release
+Date: Wed,  4 Nov 2026 01:42:48 +0000
+Message-ID: <20261104014248.3761373-1-tristan@talencesecurity.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,46 +99,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103163921.641347-1-sashal@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 03, 2026 at 11:39:21AM -0500, Sasha Levin wrote:
-> gen_tcp_addr() shifts the size_t n right by 32 and masks it with BIT(32)
-> - 1. On 32-bit architectures both shifts are as wide as the type, which
-> is undefined:
-> 
->   aolib.h:230:40: warning: right shift count >= width of type [-Wshift-count-overflow]
-> 
-> Convert n to uint64_t first and mask with 0xffffffff.
-> 
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
-> Found with 32-bit builds of the selftests (gcc 16 and clang 21 with
-> -m32, with and without -D_TIME_BITS=64 -D_FILE_OFFSET_BITS=64);
-> KernelCI's 32-bit arm builds show the same warnings. The changed files
-> build without them now, and the x86_64 builds don't change.
-> 
->  tools/testing/selftests/net/tcp_ao/lib/aolib.h | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/net/tcp_ao/lib/aolib.h b/tools/testing/selftests/net/tcp_ao/lib/aolib.h
-> index 53be1744237ee..71ff975533089 100644
-> --- a/tools/testing/selftests/net/tcp_ao/lib/aolib.h
-> +++ b/tools/testing/selftests/net/tcp_ao/lib/aolib.h
-> @@ -226,8 +226,8 @@ static inline union tcp_addr gen_tcp_addr(union tcp_addr net, size_t n)
->  	union tcp_addr ret = net;
->  
->  #ifdef IPV6_TEST
-> -	ret.a6.s6_addr32[3] = htonl(n & (BIT(32) - 1));
-> -	ret.a6.s6_addr32[2] = htonl((n >> 32) & (BIT(32) - 1));
-> +	ret.a6.s6_addr32[3] = htonl((uint64_t)n & 0xffffffff);
-> +	ret.a6.s6_addr32[2] = htonl((uint64_t)n >> 32);
->  #else
->  	ret.a4.s_addr = htonl(ntohl(net.a4.s_addr) + n);
->  #endif
-> -- 
-> 2.53.0
-> 
+v4l2_m2m_release() frees the m2m_dev struct without cancelling
+m2m_dev->job_work.  When a job finishes, v4l2_m2m_schedule_next_job()
+calls schedule_work() to queue the next run.  If the driver tears down
+concurrently, v4l2_m2m_ctx_release() invokes v4l2_m2m_cancel_job() which
+handles per-context state (TRANS_RUNNING, TRANS_QUEUED) but does not
+drain the device-level job_work.  A pending work item can then fire after
+kfree and access freed memory.
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+Add cancel_work_sync() before the kfree in v4l2_m2m_release() to ensure
+the work item is drained.
+
+Fixes: 7f98639def42 ("V4L/DVB: add memory-to-memory device helper framework for videobuf")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+Changes in v2:
+- Expanded commit message to clarify that cancel_work_sync() complements
+  the per-context v4l2_m2m_cancel_job(), which handles TRANS_RUNNING and
+  TRANS_QUEUED flags but does not drain the device-level work item
+  (Nicolas Dufresne)
+
+ drivers/media/v4l2-core/v4l2-mem2mem.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-core/v4l2-mem2mem.c
+index a65cbb124cfe0..311e2e08d066d 100644
+--- a/drivers/media/v4l2-core/v4l2-mem2mem.c
++++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
+@@ -1207,6 +1207,7 @@ EXPORT_SYMBOL_GPL(v4l2_m2m_init);
+ 
+ void v4l2_m2m_release(struct v4l2_m2m_dev *m2m_dev)
+ {
++	cancel_work_sync(&m2m_dev->job_work);
+ 	kfree(m2m_dev);
+ }
+ EXPORT_SYMBOL_GPL(v4l2_m2m_release);
+-- 
+2.47.3
+
