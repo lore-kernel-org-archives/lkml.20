@@ -1,83 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793830089;
-	b=kvc2gqzdwv2pn5IFROBzljDXLdjzG8cMFYc7DM73NAtoe/UXl29KkaiwmxBr7jikKdEa
-	 Q14dQzW+D4BWerPa9ZSPWounAiisavMukRu/lo659OUQgyiPV8ck8jy1nNsg3lTPE4/sU
-	 A89BD4DueWwQp5N1i1iZHLdpcyp0+zaNqF68u08S+7wjwTxSRfh9kWZE4sbHgTJDcfbG5
-	 oYmHjtczeuQHzmjm79TmvOqt3jFCP/QizLJulVGxAUO4AoyDeKM8UExyEmqOZ2AkKVE9c
-	 m941Z8hllEkD5tGsADb9kWQ0POGDoXFrP5Ds6VtyDB7cbOX1koLeBp/xOE67BaaKHmw==
+	t=1793830173;
+	b=wECWxqZlOuD7WLej+brErNpcstJMpY4/bBqX8n7UlYeJaNr4lw7m//C5+4k4PSkDF/2n
+	 AYOcs+ho9rIxU1iH/2TvaQUGZeYMMEdSbTWvNfYZOnQZ8b8Hmpf9/Mpc4MlWYuk9nfFYg
+	 ErshdsjiSO8nAM/5pwZNIRpagjCPUpkiOmmOv/Tne+7WiuE20CgwouP6J9CAbezgjZbHT
+	 w5Dq1hd+6Zh2AWvEFZAxR21tvmOLeGjKC1SoEW7/6eSL7bMPcwydTTYjf+n1UusHofuEX
+	 q4zyD550h5Hmlg7WmMYh0zhH0VIAfyPHvNI9lwHce52yNmNgoVZY/ieWP/bCbDtaHeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793830089;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=uPpZHIHN2f+krnoJTSXhizzaZXUBHGCxVWnErBLk0sw=;
-	b=v6DOTqLZNpLt6PZcUuDIKUd52rB0mRj4pbb5jIsc2DCUIXUG74I9Ds5P9YuzflWewvaE
-	 5ZRFvRfsqCSqb7fcSjmt7A2LkugeIQ6GcN1X946f7lbCyLaSxD1vMq3E05o4DBTrHUbY4
-	 vy/+Lc2tjfRIWgW7NLrKJGL2LDu04WjdktRAprikRHgpbrWlQVu0d51Ol8qNXTqJDro9x
-	 H7rx9o09HndP1/NRo3op6Lluzab8oc9Bpg+q0sodxcFFMrz3yiVhf+9Q7Th7PnOvbGt10
-	 AqKtcL/0ytGlwa98uhSODZcnH0Aw8mJMVusmgDTx+RMiThyZnd3GXKxxEbL8j2QUyUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793830173;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=E+UNeJXu4h4RsCSjrrH6bPbPUDdq5s2pPUaiZDxgY2k=;
+	b=odXaI7L2Bsr7bWkB7HMlMLiheNrtVTyLRwE3FNO+GkEB9OEbq371EPKhrtQbHfNcq0ZV
+	 6dzQ7zC0kvougW7D72GwPVSLQz6tfNxTuRGPvplm/821vAqLvYjn6YR5iri/Cl3ZmI0rT
+	 1r7OPH2QtW29gTmsvFv4Z2Bl4kaLzl/dIKcQ3G1lqlJNUczldqHLdGkePt5jVUAvxTSL7
+	 JLQvamsXtgq0yACTV0x6HYiFc03UodKSf0GgTRYjv3BLds/eHYfoFl3tyYSBwN2bTv8kW
+	 WgY5x1U7aev5cI5dpwLjsFWvr3MgajPXzThzRh1waXK1lHqtSgYdNUNBcvTVc/kHx5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=SyA6t0X5;
-	arc=none smtp.remote-ip=44.202.169.37
-Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kCmRM1ug;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA4B4606E83B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:08:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA4B4606E83B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D546606EEA1;
+	Wed,  4 Nov 2026 22:09:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=SyA6t0X5
-Received: from eig-obgw-5003b.ext.cloudfilter.net ([10.0.29.155])
-	by cmsmtp with ESMTPS
-	id OiicxEALnJFmFOj9GxVGDd; Wed, 04 Nov 2026 22:08:02 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id Oj9FxFGx7btpUOj9FxeOYZ; Wed, 04 Nov 2026 22:08:01 +0000
-X-Authority-Analysis: v=2.4 cv=dIqmmPZb c=1 sm=1 tr=0 ts=6aebacc2
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=mpaa-ttXAAAA:8
- a=AhJusznchYkEs9MMiQMA:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=uPpZHIHN2f+krnoJTSXhizzaZXUBHGCxVWnErBLk0sw=; b=SyA6t0X5HCcBfATZNI8Kbb4ksm
-	hTB7osa3MOtNNirjIdy8uJ8HAWGaphLEybiIZNPeTBj+JeVI80v8EElmkTd4hWBuPa/Z3+pl5092+
-	g1k8ogbs00esl5aa6vfujqZm05BPnNOXAYmYbS6FjwVyliDV9z2cyOaHG4eoufGv3F7acBqjphECZ
-	a83clvz33UqYtmcmVN1kGQ5M1xWyCr2hbVp50kXGgewihE3mWC+1JybQabLER4T44tNtuEGUblraT
-	lHRp8qKk/AeTvLQK/pMznIjGWDG3GjfQaHKI0mbyQQ+eTJPQwxlS6gFmQctKCwhoIFmA/PrMwIFA4
-	RISQ6J5g==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:36806 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xOj9E-00000000ul0-2R7W;
-	Thu, 05 Nov 2026 03:38:00 +0530
-Date: Wed, 4 Nov 2026 14:07:59 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Zexin Wang <ot_zexin.wang@mediatek.com>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	light.chen@mediatek.com, Fred-WY.Chen@mediatek.com,
-	Yt.Hsieh@mediatek.com, linux-watchdog@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH] watchdog: sbsa_gwdt: Limit the MediaTek WS0 race
- workaround to revision 0
-Message-ID: <055e6366-83db-435d-af3f-4168a822a870@roeck-us.net>
-References: <20261104083714.3026535-1-ot_zexin.wang@mediatek.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kCmRM1ug
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE7241F000C1;
+	Wed,  4 Nov 2026 22:09:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793830173;
+	bh=E+UNeJXu4h4RsCSjrrH6bPbPUDdq5s2pPUaiZDxgY2k=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kCmRM1ugzpN/2iwaXPZGF+LfnjuxpbI2ljh/u5k+UuQRmMvBY7/ePTE5bfzLwxWRC
+	 um2ocyc11K4RnuGS20gQjXZt/9HqlOJVlZJG12tpbExjmbcpjnEIdD3PCMlbgsJ9/z
+	 oJZROHosh5bk7YGv7Y9vs4smaFuqi+1m1oxJQ5Dnn99BRiyaQz91SoSo98QFlbuQb7
+	 zgbUbHAV1AUb4WxB07BEIzyCUqZL36sA+lnIPr1mVbp9esBgNrabFbdw/cJRwva1rK
+	 Zd/3drgDwIg0xHSbMl/EnKIiwy0UQ5FZDsAvZ60ix0KDU7FkUWFVtLmFWe4O4piiSx
+	 FCULNZsGTWl8A==
+Message-ID: <sashiko-outbox-198201@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 06/21] sched/deadline: Do not lose a throttled task
+ switched out and back
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
+In-Reply-To: <20261104211207.1392343-7-mathieu.desnoyers@efficios.com>
+References: <20261104211207.1392343-1-mathieu.desnoyers@efficios.com>
+ <20261104211207.1392343-7-mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 22:09:32 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,44 +60,142 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104083714.3026535-1-ot_zexin.wang@mediatek.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xOj9E-00000000ul0-2R7W
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:36806
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 3
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfPvgqtqWtKAwL3T/7zZMsWFLLPsst23sWwXAFDynRzNKSlFn3rJkc7aZAD6Ze+qJhoi7Z4SqmkGeCRbOjtgBTwu5yoptLIyHJbTWI9+QSM/OjyoyZ2M1
- RymkW8Mq+KzDgJL8ophkJwQQeZvNic88f7Di8qr0cTTS5os811dVf12MAQNWu/AtCi7F9V+YyyuTdQRqT29Czc9Uwa3VZR+cX6Ql9XSeks+9QGIZ8ky+Re5R
 
-On Wed, Nov 04, 2026 at 04:37:02PM +0800, Zexin Wang wrote:
-> The WS0 race workaround is currently enabled for all MediaTek SBSA
-> Generic Watchdog revisions in single-stage mode. However, only
-> revision 0 is affected by the race condition.
-> 
-> Read the revision field from W_IIDR and enable the workaround only for
-> MediaTek watchdogs with revision 0 in single-stage mode. This avoids
-> unnecessarily restricting the minimum timeout and adjusting the
-> keepalive interval on unaffected revisions.
-> 
-> Signed-off-by: Zexin Wang <ot_zexin.wang@mediatek.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] sched/deadline: replenish_dl_entity() in dl_task_timer() skips 0-l=
+ag reset
+--
 
-Applied.
+commit a554b85972acb72b5ec447330ac07adc4a64ee34
+Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 
-Thanks,
-Guenter
+sched/deadline: Do not lose a throttled task switched out and back
+
+This commit calls replenish_dl_entity() from dl_task_timer() when a throttl=
+ed
+task has switched out of SCHED_DEADLINE before the replenishment timer fire=
+s,
+so that if the task switches back before its 0-lag time, it does not remain
+throttled with no pending timer.
+
+> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+> index 30a52e42c26d8..b646063a7b0d5 100644
+> --- a/kernel/sched/deadline.c
+> +++ b/kernel/sched/deadline.c
+> @@ -1232,10 +1232,23 @@ static enum hrtimer_restart dl_task_timer(struct =
+hrtimer *timer)
+> =20
+>  	/*
+>  	 * The task might have changed its scheduling policy to something
+> -	 * different than SCHED_DEADLINE (through switched_from_dl()).
+> +	 * different than SCHED_DEADLINE (through switched_from_dl()). It
+> +	 * keeps its parameters until its 0-lag time and may come back to
+> +	 * SCHED_DEADLINE before then, switched_to_dl() cancelling the
+> +	 * inactive timer: give it the replenishment this timer owes it, as
+> +	 * the !queued case below does, and leave the enqueue to its return.
+> +	 * A throttle left behind would never be lifted; an overrun left in
+> +	 * its runtime would be forgiven by the new period its enqueue
+> +	 * starts; and a yield left set would throttle it again at once.
+>  	 */
+> -	if (!dl_task(p))
+> +	if (!dl_task(p)) {
+> +		if (dl_se->dl_throttled && !is_dl_boosted(dl_se)) {
+> +			sched_clock_tick();
+> +			update_rq_clock(rq);
+> +			replenish_dl_entity(dl_se);
+> +		}
+>  		goto unlock;
+> +	}
+
+[Severity: High]
+What happens if the task stays out of SCHED_DEADLINE past its 0-lag time, a=
+nd
+then switches back to SCHED_DEADLINE while runnable before the replenished
+dl_se->deadline expires?
+
+When replenish_dl_entity() runs here in dl_task_timer() at the end of the
+period, it advances dl_se->deadline by one or more periods (past the 0-lag
+time) and sets a positive dl_se->runtime:
+
+kernel/sched/deadline.c:replenish_dl_entity() {
+	...
+	while (dl_se->runtime <=3D 0) {
+		dl_se->deadline +=3D pi_of(dl_se)->dl_period;
+		dl_se->runtime +=3D pi_of(dl_se)->dl_runtime;
+	}
+	...
+}
+
+If the task does not return before the 0-lag time, inactive_task_timer()
+fires, subtracts the old bandwidth from dl_b, and calls __dl_clear_params():
+
+kernel/sched/deadline.c:inactive_task_timer() {
+	...
+	raw_spin_lock(&dl_b->lock);
+	__dl_sub(dl_b, p->dl.dl_bw, dl_bw_cpus(task_cpu(p)));
+	raw_spin_unlock(&dl_b->lock);
+	__dl_clear_params(dl_se);
+	...
+}
+
+However, __dl_clear_params() only zeroes the static reservation parameters =
+and
+flags; it leaves the dynamic dl_se->deadline and dl_se->runtime untouched:
+
+kernel/sched/deadline.c:__dl_clear_params() {
+	dl_se->dl_runtime		=3D 0;
+	dl_se->dl_deadline		=3D 0;
+	dl_se->dl_period		=3D 0;
+	dl_se->flags			=3D 0;
+	dl_se->dl_bw			=3D 0;
+	dl_se->dl_density		=3D 0;
+	...
+}
+
+If the runnable task then switches back to SCHED_DEADLINE via sched_setattr=
+()
+after the 0-lag time has passed, but before the replenished dl_se->deadline,
+__setparam_dl() writes the new static parameters and sched_change_end() cal=
+ls
+enqueue_task_dl() -> enqueue_dl_entity() with ENQUEUE_MOVE (and without
+ENQUEUE_WAKEUP):
+
+kernel/sched/deadline.c:enqueue_dl_entity() {
+	...
+	} else if ((flags & ENQUEUE_MOVE) &&
+		   !is_dl_boosted(dl_se) &&
+		   dl_time_before(dl_se->deadline, rq_clock(rq_of_dl_se(dl_se)))) {
+		setup_new_dl_entity(dl_se);
+	}
+	...
+}
+
+Previously, dl_se->deadline stayed at the old deadline (which is earlier th=
+an
+the 0-lag time), so dl_time_before(dl_se->deadline, rq_clock(rq)) was always
+true after the 0-lag time and setup_new_dl_entity() initialized a fresh per=
+iod
+from the new static parameters.
+
+With dl_se->deadline pushed past the 0-lag time by replenish_dl_entity(),
+won't dl_time_before(dl_se->deadline, rq_clock(rq)) evaluate to false during
+the window between the 0-lag time and the replenished dl_se->deadline,
+skipping setup_new_dl_entity()?
+
+If setup_new_dl_entity() is skipped after the 0-lag time has already freed =
+the
+old bandwidth and reset the reservation, the task will run with stale dynam=
+ic
+dl_se->runtime and dl_se->deadline from its previous reservation. For examp=
+le,
+a task could re-enter SCHED_DEADLINE with a tiny new runtime reservation af=
+ter
+its old bandwidth was released at 0-lag, yet still consume the large
+dl_se->runtime replenished from its previous reservation, or conversely rem=
+ain
+penalized by a previous overrun after its 0-lag time has already elapsed.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104211207.1392=
+343-1-mathieu.desnoyers@efficios.com?part=3D6
