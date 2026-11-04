@@ -1,120 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.146
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793820527;
-	b=3PwuxHeSZinYeoBARgs0jjU0jTbxamVZzUgeQpkGCxN2dnkVfGh33H//qJFFA3cRDMcv
-	 XmesrFQICqWLiH2AaBhkmQrqEP9WkOdcjVYu8Z63GmeTGBZRchw3vmZVmzOWEzAp3jS9Y
-	 Kdw55lHf0qaT+LIFbS4LDZmeK0JzFZnVMVk6uNRQNpswPohjpLOyws+Oojqg+hythURDW
-	 /AY2rgdG7u9DpA+ZmRhaqp1Ooym7YtOLYCp3ssBL/dSHru8DEuvLzaNp11Ft8QTXF3NJu
-	 mta9cTyWk/XyoBQ+UIsrPCkldvGySin6wltXtbzWLVi0yrGKQ2ZUgFSGOJUU2EoqE2A==
+	t=1793820525;
+	b=DwtsAXtnTTWbqxFe/HyrJNPPvGdZsaNMXpB2xvZ9K9gSPQYxGsTE5/PNOudDLRZJ7Ei7
+	 wTYUcZkyPfn411IuYM+IrEHZn2bbjBq8vgWaUKYyq5jknEE84sMShhdJPncAw5UoPJlWV
+	 5KCEkYIOkyAbcqzu9k10QhXMVFAO18L7Y+oOfgEYeYTsPl66cUWqn4PAEguuXX1kVwNwC
+	 rAT/W4mqGafAeG3SBXMf2wWg5Hpiq/S9pbM58IILPdhJLnOvb+7jgkKki3QcIl3aJpZmJ
+	 rtOS/5RDBLL/jkVrm3UScV+jqb0Hj+2y/YUuAO+kwdgYNMbaWm2vWSTftZgQIiXqJ7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793820527;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=xo7O7OZ9IoQt+9PPHhtslfdp1sVEzka18zv7uZU02m4=;
-	b=DQw8uHrx5Pn50hTXKY9IEdTrSwqpBIzpbK8+gM566aKt/XRPerJDhjMeLDBQC2dYt7pY
-	 xDcvQ4ZWh1W55DBdj5Y4xGfD3FJXLijvBFFeyd9DD1mJPsaqY+7Svy7347yhUwxbo93dX
-	 T21hqCbjdvmVmPsSKbpK1XI856k3ruKZjV1j/9cPjbxJC6na5aqcIGJ0RCRypCtifKsoW
-	 z65r7qkmfGy4yXrglovJKWQmqAG3QUtLn4XlfXeNZ/ow07N0RPEQ8b5gflsEFATLP+2vk
-	 QkzuawHdR5KNvjyB0tnrFcGZBbfiN3Jje5sb8vKrykc9iSiQ9Lp3KZA0u1vaLvFAjUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793820525;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=KE0FjFLg86Wqg2LOdvIKebjks/LaCpUOq5x1mMvJN8E=;
+	b=40xIcFy5tLLNmYD0TxRpjO+ol9Fk5LWfIqWSV5+uBlWCVC+NPnald0wK/x0mu54N947+
+	 UBwoI4O1p5ETIj3bRqi5EDMFFOc76eoNG6+aUO/8b+1usa5lEnli+ae0f8s3zN8Vcj/Ec
+	 lcS5HXQez9lbwRqK6ahb9K4bbv2pEwhC58sTq8uwo/RbwVUQP3AF0Ul8QuML/ucDKaM24
+	 fpr0ZTyNsprDPige5hDKeRTtOJHhmArgSUT7xYqVXHpJVn0pcaofsnICuCemXELHsN3FB
+	 Z7eRZuZfqUjHPYRu0a9QKXrudiPZ3RMr1FOcR4ZDniDkUs7mIeOb0HVZ2i2kao0/plA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=bur.io;
-	spf=pass smtp.mailfrom=bur.io;
-	dkim=pass header.d=bur.io header.i=@bur.io header.a=rsa-sha256 header.s=fm1 header.b=DaaaknIo;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="fsIj/cyv";
-	arc=none smtp.remote-ip=202.12.124.146
-Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NJukzHF4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15C3E607527B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:28:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15C3E607527B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bur.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bur.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7542607524A;
+	Wed,  4 Nov 2026 19:28:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bur.io header.i=@bur.io header.a=rsa-sha256 header.s=fm1 header.b=DaaaknIo;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=fsIj/cyv
-Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
-	by mailfout.stl.internal (Postfix) with ESMTP id 7EA761D00046
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:28:46 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-11.internal (MEProxy); Wed, 04 Nov 2026 14:28:46 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bur.io; h=cc:cc
-	:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1793820525; x=1793906925; bh=xo7O7OZ9Io
-	Qt+9PPHhtslfdp1sVEzka18zv7uZU02m4=; b=DaaaknIofdNz6tOS9AbKcML3RU
-	NVHfd7/ul6uX4IX5K9tsiVbawWimrSKtNTfvw8O1Q+Y3GdzD9PMBGmDoVOKAvwJa
-	20vJ68qltE7qRfST3XUDRbPsPyppQ7myIV8DPXhVo/ZkfQfgVc7qzgaBKz53+oyF
-	DAZMYMv/FSjj/uv+JBcHt2i20UBQLxHYLl7zUcSpcdAzCMn3IEPZvV5gfFv8/QY+
-	XnKkfa46tQAKUu+QcdGrt17NdqXJZ9secg0AbfSf5EvV5dHhSVqLlIIXo/lG/kSo
-	X4yhFeyYc6nUxuNRKXOUpG+9cW1QAl8Gpn+xFH5eJPb/02udUMF5ko+nkYVg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1793820525; x=1793906925; bh=xo7O7OZ9IoQt+9PPHhtslfdp1sVEzka18zv
-	7uZU02m4=; b=fsIj/cyvJSM/3CdgGEVk0v+q9kTgbuWg4xY+KLsPjV17UKoaa0a
-	DMFYDdpC4And8jIlgwm024drU6lv33jxJa8EOt87Wlp2pIBRfE2nENyiP4ZEOFeT
-	Cle6y8anHsuJA/mgiQDT5t9UGf/tLeCCMKM1Vpa0/zLnn6tzcKKev4SB0M5Z3v2Z
-	kDlWH+KQsTlKf9BXCBdA+pn9l743DHzLxz9BtGbJMIKB4CxU4VC4ZCf+sISroJyA
-	f2NqOzdA6wltnsr8JEz+nW+AhGPcQPPkzRB2tjBCQTbgNRGIrgFiQ6U7JRSKpe1Q
-	ufG0jbpQpryNoSbFI5C2cycA6AsD5bXfbUw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=bur.io a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793820525; d=bur.io;
-	mf=PGJvcmlzQGJ1ci5pbz4=;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:lm0JhuRW2i4tis2bGFyZtrTGt5DRvo78MrGYhknlPV4N2+3
-	Vyvw+rh8Q+6IPDGsDBbi6NbjLikoqK66yRk6D73N9jKPUY54QVgv8MkYCOys/T/2
-	R+JVyDUwtu2YN9zqhKgjk0AIBvbC/iYvPcINl/Jd2KyR/RrmpBXcxrFMxEztV601
-	YZ5wIDLJJ4+cijk1vSXsBPlT1DToJ2TGWPJseQ2/NWLyDD9v+xdV5xVLk13wn7Jx
-	B2/hC5Wq5nI1gjGZkB/1d597EcP9xrK5ZMVHR2rEDPpQKVv/cwsp2vX3KrD0E6JG
-	gPW6znE5qwCcJQ5nqYTxlDSRJciFJbI/1KoS2zg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:8BF7drxOctqfl5h5+r9WUG2Zv6uBgKNCZ865yP9YMUw=:fyr48dxAe+omUVaoEPdG3rZeZQnPmzKwSeHf0bdmgYU=;
-X-ME-Sender: <xms:bYfrapMsnb6-givm3XrBhCxtdU3qEMG5wDSvbspPrT1BalmKogwkxg>
-    <xme:bYfral8qZWW2S0043deHw-7-PgLfPnUxxVxQ18bJjXJEhjHIKDThkHDUFigO4IxHl
-    4aQ7D79baSPqys0K-YmyYUSHx3lzdy_qAyXJIhC4M552RdR1L_tWvt9>
-X-ME-Received: <xmr:bYfrau7y9qlO-5Lafs6zyxzURzEilUGxdxEPMxfIlTRI801DhEqLTsTX>
-X-ME-Proxy-Cause: dmFkZTEQ3qYdXHFTIZGeadzcrreMOjaOaREO5XS6pTV42Wh53MDHib3sq60Ws4Lz1r7e4Z
-    6BHWJ8fJYzy2ayWd3aOn6lf4RnzPXz+8r2BFYJ3l/KiCctvIAy+EOgWG4PqUp31wg2p8aq
-    dGuxoFK89azDuBYdwbMGs0fnpEKqLzcGF7b2E0b5Q9czE69CnANHt9i3jU18gFRhskWR86
-    21ZHVdRhM8BbqpQprwGPFWRweAuXPmCWpvWcxLd2Jxt/GcvizjqLnemL8ScCdy34PyCH8G
-    ywwm7tM4UthuQfQaesOxuwGxtfsGBuA2Cti1DUXK8e9z+5EDgmj39svqewfJysynpFosi/
-    uVDcUB9yy0x9iqhbHsxL8HXGXXFA9dhdSJF1PNwXV+JUXEfNHz1K6aXOdCLx5iPgEeG0bg
-    4IPEOZQft8rD9A78Ydzd5HRkd1vyJyHxg/4DlVWZ4pTZhamYUwm9ERxFSdaLk6W+WTyPvp
-    w0/bD8xamTL3AxW01sljgCom8oQaQ1PZDClnlH5gDB41ZBsm95rnYZcDcW2atckh8zOxi8
-    QOt0jAD+eqCu8XBomY+URpwq5Oc+qUF+NViBkWBVJDE+Gw+ivzAcXhoZy+t/Fe7TOgebRJ
-    OcSelIynEihFhOJUWCWk9Nc9tR6Q+zE9WmP4kHcC10gkYcVrhdv2wvx/7AkQ
-X-ME-Proxy: <xmx:bYfraj5Bh3RrBHr3jb3nE7b4b5423uuACGUJap0uXyguJwFo6zkMlw>
-    <xmx:bYfravrLH44qYcViIlm89zpJZUlged1-H7v5RN6qjBefFwjihVVFJw>
-    <xmx:bYfrasNV-B1pubh-1J36QYth410FSRDf9uHLEjyVl6lNTSfXIVhhkQ>
-    <xmx:bYfrav2Kq5B2F2jwrT_R23FpAMWOMjuKtVFUX2IRLkonQ-PGrR4L1A>
-    <xmx:bYfrajo6hG4Oc8wCSC9tQOxhY4EPkVNbJmyBrVJAx5J31BYfpanSXgo3>
-Feedback-ID: i083147f8:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 4 Nov 2026 14:28:44 -0500 (EST)
-Date: Wed, 4 Nov 2026 11:29:02 -0800
-From: Boris Burkov <boris@bur.io>
-To: Siddharth Mishra <smish149@asu.edu>
-Cc: dsterba@suse.com, wqu@suse.com, josef@toxicpanda.com, fdmanana@suse.com,
-	mason@kernel.org, linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/5] btrfs: tree-checker: reject keyed refs not matching
- the extent type
-Message-ID: <20261104192902.GE3301639@zen.localdomain>
-References: <20261104102323.4090290-1-smish149@asu.edu>
- <20261104102323.4090290-4-smish149@asu.edu>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NJukzHF4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC5AB1F000C1;
+	Wed,  4 Nov 2026 19:28:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793820520;
+	bh=KE0FjFLg86Wqg2LOdvIKebjks/LaCpUOq5x1mMvJN8E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=NJukzHF4aV1KUnciVzdApjdNLx1CFG6CVAD2vCJ43JPCAnjjn1zUpxzmLM9SfrWre
+	 gCGPTz2pnkhsoLDD0ufQYz7LJbRa17CKdFnkfKWFZpzCvx3VornSWUNThr1WFvwPGn
+	 CADeWgCgoQP5K7ENKjJkvGY6u4437GknzfxpYekJnpL3cgHKr3XG5TRSEcefhaKP7V
+	 nX57prmegY0CCerzsNzag/fJkXOMUpt/ed2ZwMst0kUSU+NPQt8+F88n3teURVqhXg
+	 7vNgcQSCorU7kpZuBp2BFO4KHe0i6WajNcx/gISK920csNZ4jtjgQF1W1PAyzKkO5E
+	 yV22BOQaWeKsQ==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>
+Subject: [PATCH RESEND v2 51/51] selftests/proc: check that a faulting readlink() doesn't hold up removal
+Date: Wed,  4 Nov 2026 20:28:26 +0100
+Message-ID: <20261104-work-procfs-bugfixes-v2-51-021c84d852e0@kernel.org>
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
+References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -124,144 +114,266 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104102323.4090290-4-smish149@asu.edu>
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7257; i=brauner@kernel.org; h=from:subject:message-id; bh=tBvbDpChuad7Gf34o7zrAy5GeGJ/8Uzeoj8ryWST3Tk=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9buLeeHbphO3/N55kVVv59tmN3VuetO2e/UrKp4azz iWph8NwQkcpC4MYF4OsmCKLQ7tJuNxynorNRpkaMHNYmUCGMHBxCsBEjIIZ/vAeD7jB+vdim/Jj tQ0hkWc2r77GNq27cuqvPzkuqa9flfYz/NOXCS3acGvTlZz++E+JTd/e+ny6wif2bUN30YcXfYm /q1kB
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 03:23:21AM -0700, Siddharth Mishra wrote:
-> [BACKGROUND]
-> When the refs of an extent do not fit into its extent item, the others
-> are stored as keyed ref items with the same objectid, right after the
-> extent item:
-> 
->   TREE_BLOCK:  TREE_BLOCK_REF and SHARED_BLOCK_REF items
->   DATA:        EXTENT_DATA_REF and SHARED_DATA_REF items
-> 
-> [CAUSE]
-> check_simple_keyed_refs() and check_extent_data_ref() only verify the
-> keyed ref itself.  Nothing checks that its type matches the extent it
-> belongs to, so a tree block ref for a data extent, or a data ref for a
-> tree block, passes the tree-checker.  For example this data extent is
-> followed by a keyed tree block ref:
-> 
-> 	item 0 key (13631488 EXTENT_ITEM 32768) itemoff 3797 itemsize 198
-> 		refs 41 gen 9 flags DATA
-> 		(178 0xdea30debbf5f519) extent data backref root 256
-> 		objectid 258 offset 0 count 1
-> 		...
-> 	item 1 key (13631488 TREE_BLOCK_REF 5) itemoff 3797 itemsize 0
-> 	           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-> 		tree block backref
-> 
-> The leaf is accepted.  When the extent is freed later, the refs do not
-> add up and the transaction aborts:
-> 
->   WARNING: fs/btrfs/extent-tree.c:3418 at __btrfs_free_extent
->   BTRFS error (device vda state A): Transaction 35 aborted (-EUCLEAN)
->   BTRFS info (device vda state EA): forced readonly
-> 
-> [ENHANCEMENT]
-> Check each keyed ref against the item right before it.  Keyed refs sort
-> right after their extent item, so that item is either the extent item
-> or another keyed ref of the same extent, and both must be of the same
-> kind.  Reject a mismatch with -EUCLEAN, so the leaf is refused when it
-> is read:
-> 
->   BTRFS critical (device vda): corrupt leaf: block=31678464 slot=1
->   extent bytenr=13631488 len=4096 keyed ref type 176 does not match the
->   extent type
-> 
-> This is the keyed counterpart of the inline ref check.
-> 
-> If the item before a keyed ref belongs to another extent, its extent
-> item is in another leaf and the keyed ref cannot be checked by the
-> tree-checker.
-> 
+Add the symlink case:
 
-This one seems the most "juice not worth the squeeze" out of these
-patches, but I think the analogy to inline refs is good enough for me to
-justify it.
+- readlink() /proc/asound/<id> of a dummy card into a buffer backed by
+  userfaultfd
 
-Reviewed-by: Boris Burkov <boris@bur.io>
+- change the card's id through sysfs while the reader faults, which
+  removes the symlink with snd_card_mutex and info_mutex held
 
-> Signed-off-by: Siddharth Mishra <smish149@asu.edu>
-> ---
->  fs/btrfs/tree-checker.c | 48 +++++++++++++++++++++++++++++++++++++++--
->  1 file changed, 46 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
-> index db446c8af..d966243c9 100644
-> --- a/fs/btrfs/tree-checker.c
-> +++ b/fs/btrfs/tree-checker.c
-> @@ -1854,6 +1854,50 @@ static int check_extent_item(struct extent_buffer *leaf,
->  	return 0;
->  }
->  
-> +static int check_keyed_ref_extent_type(const struct extent_buffer *leaf,
-> +				       const struct btrfs_key *key, int slot)
-> +{
-> +	const bool is_tree_block_ref = (key->type == BTRFS_TREE_BLOCK_REF_KEY ||
-> +					key->type == BTRFS_SHARED_BLOCK_REF_KEY);
-> +	struct btrfs_key prev_key;
-> +	bool prev_is_tree_block;
-> +
-> +	if (slot == 0)
-> +		return 0;
-> +	btrfs_item_key_to_cpu(leaf, &prev_key, slot - 1);
-> +	if (prev_key.objectid != key->objectid)
-> +		return 0;
-> +
-> +	switch (prev_key.type) {
-> +	case BTRFS_EXTENT_ITEM_KEY:
-> +	case BTRFS_METADATA_ITEM_KEY: {
-> +		struct btrfs_extent_item *ei;
-> +
-> +		ei = btrfs_item_ptr(leaf, slot - 1, struct btrfs_extent_item);
-> +		prev_is_tree_block = (btrfs_extent_flags(leaf, ei) &
-> +				      BTRFS_EXTENT_FLAG_TREE_BLOCK);
-> +		break;
-> +	}
-> +	case BTRFS_TREE_BLOCK_REF_KEY:
-> +	case BTRFS_SHARED_BLOCK_REF_KEY:
-> +		prev_is_tree_block = true;
-> +		break;
-> +	case BTRFS_EXTENT_DATA_REF_KEY:
-> +	case BTRFS_SHARED_DATA_REF_KEY:
-> +		prev_is_tree_block = false;
-> +		break;
-> +	default:
-> +		return 0;
-> +	}
-> +	if (unlikely(prev_is_tree_block != is_tree_block_ref)) {
-> +		extent_err(leaf, slot,
-> +			   "keyed ref type %u does not match the extent type",
-> +			   key->type);
-> +		return -EUCLEAN;
-> +	}
-> +	return 0;
-> +}
-> +
->  static int check_simple_keyed_refs(struct extent_buffer *leaf,
->  				   struct btrfs_key *key, int slot)
->  {
-> @@ -1892,7 +1936,7 @@ static int check_simple_keyed_refs(struct extent_buffer *leaf,
->  			   key->offset, leaf->fs_info->sectorsize);
->  		return -EUCLEAN;
->  	}
-> -	return 0;
-> +	return check_keyed_ref_extent_type(leaf, key, slot);
->  }
->  
->  static int check_extent_data_ref(struct extent_buffer *leaf,
-> @@ -1953,7 +1997,7 @@ static int check_extent_data_ref(struct extent_buffer *leaf,
->  			return -EUCLEAN;
->  		}
->  	}
-> -	return 0;
-> +	return check_keyed_ref_extent_type(leaf, key, slot);
->  }
->  
->  #define inode_ref_err(eb, slot, fmt, args...)			\
-> -- 
-> 2.54.0
-> 
+- expect that to finish without waiting for the reader
+
+Skipped without snd-dummy.
+
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ tools/testing/selftests/proc/.gitignore            |   1 +
+ tools/testing/selftests/proc/Makefile              |   1 +
+ tools/testing/selftests/proc/config                |   5 +
+ .../selftests/proc/proc-remove-slow-readlink.c     | 191 +++++++++++++++++++++
+ 4 files changed, 198 insertions(+)
+
+diff --git a/tools/testing/selftests/proc/.gitignore b/tools/testing/selftests/proc/.gitignore
+index 7b8133492782..3fa89f46b9c7 100644
+--- a/tools/testing/selftests/proc/.gitignore
++++ b/tools/testing/selftests/proc/.gitignore
+@@ -22,6 +22,7 @@
+ /proc-uptime-002
+ /proc-pidns
+ /proc-remove-slow-sysctl
++/proc-remove-slow-readlink
+ /read
+ /self
+ /setns-dcache
+diff --git a/tools/testing/selftests/proc/Makefile b/tools/testing/selftests/proc/Makefile
+index bce6beca7274..df02699a3587 100644
+--- a/tools/testing/selftests/proc/Makefile
++++ b/tools/testing/selftests/proc/Makefile
+@@ -33,5 +33,6 @@ TEST_GEN_PROGS += proc-fsconfig-hidepid
+ TEST_GEN_PROGS += proc-sysctl-readdir-churn
+ TEST_GEN_PROGS += proc-pidns
+ TEST_GEN_PROGS += proc-remove-slow-sysctl
++TEST_GEN_PROGS += proc-remove-slow-readlink
+ 
+ include ../lib.mk
+diff --git a/tools/testing/selftests/proc/config b/tools/testing/selftests/proc/config
+index 052e365af5a9..1504a761b39b 100644
+--- a/tools/testing/selftests/proc/config
++++ b/tools/testing/selftests/proc/config
+@@ -3,3 +3,8 @@ CONFIG_NET_NS=y
+ CONFIG_IPV6=y
+ CONFIG_TUN=y
+ CONFIG_USERFAULTFD=y
++CONFIG_SOUND=y
++CONFIG_SND=y
++CONFIG_SND_DUMMY=m
++CONFIG_MODULES=y
++CONFIG_MODULE_UNLOAD=y
+diff --git a/tools/testing/selftests/proc/proc-remove-slow-readlink.c b/tools/testing/selftests/proc/proc-remove-slow-readlink.c
+new file mode 100644
+index 000000000000..3290225daecd
+--- /dev/null
++++ b/tools/testing/selftests/proc/proc-remove-slow-readlink.c
+@@ -0,0 +1,191 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * A readlink() that faults while copying out the link must not hold up
++ * removal of the /proc symlink. Changing a sound card's id removes
++ * /proc/asound/<id> with snd_card_mutex and info_mutex held.
++ */
++#define _GNU_SOURCE
++#include <dirent.h>
++#include <errno.h>
++#include <fcntl.h>
++#include <limits.h>
++#include <linux/userfaultfd.h>
++#include <poll.h>
++#include <pthread.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <sys/ioctl.h>
++#include <sys/mman.h>
++#include <sys/syscall.h>
++#include <unistd.h>
++
++#include "../kselftest_harness.h"
++
++#define CARD_ID		"Dummy"
++#define NEW_ID		"procslow"
++#define LINK_PATH	"/proc/asound/" CARD_ID
++#define TIMEOUT_MS	5000
++
++struct reader {
++	char *buf;
++	size_t len;
++	ssize_t ret;
++};
++
++struct renamer {
++	const char *id_path;
++	const char *id;
++	int done;
++	int ret;
++};
++
++static void *readlink_thread(void *arg)
++{
++	struct reader *r = arg;
++
++	r->ret = readlink(LINK_PATH, r->buf, r->len);
++	return NULL;
++}
++
++/* a new id removes the card's old /proc/asound/<id> link */
++static int set_id(const char *id_path, const char *id)
++{
++	int fd, ret;
++
++	fd = open(id_path, O_WRONLY | O_CLOEXEC);
++	if (fd < 0)
++		return -errno;
++	ret = write(fd, id, strlen(id)) < 0 ? -errno : 0;
++	close(fd);
++	return ret;
++}
++
++static void *rename_thread(void *arg)
++{
++	struct renamer *r = arg;
++	ssize_t ret;
++
++	r->ret = set_id(r->id_path, r->id);
++	ret = write(r->done, "x", 1);
++	return (void *)ret;
++}
++
++/* the sysfs id file of the card with @id */
++static int find_card(const char *id, char *id_path, size_t size)
++{
++	struct dirent *d;
++	int ret = -1;
++	DIR *dir;
++
++	dir = opendir("/sys/class/sound");
++	if (!dir)
++		return -1;
++	while (ret && (d = readdir(dir))) {
++		char cur[32];
++		FILE *f;
++
++		if (strncmp(d->d_name, "card", 4))
++			continue;
++		snprintf(id_path, size, "/sys/class/sound/%s/id", d->d_name);
++		f = fopen(id_path, "r");
++		if (!f)
++			continue;
++		if (fgets(cur, sizeof(cur), f)) {
++			cur[strcspn(cur, "\n")] = '\0';
++			if (!strcmp(cur, id))
++				ret = 0;
++		}
++		fclose(f);
++	}
++	closedir(dir);
++	return ret;
++}
++
++FIXTURE(dummy) {
++	char id_path[PATH_MAX];
++	bool renamed;
++};
++
++FIXTURE_SETUP(dummy)
++{
++	self->renamed = false;
++	if (access(LINK_PATH, F_OK) && system("modprobe -q snd-dummy"))
++		SKIP(return, "no snd-dummy");
++	if (access(LINK_PATH, F_OK))
++		SKIP(return, LINK_PATH ": %s", strerror(errno));
++	if (find_card(CARD_ID, self->id_path, sizeof(self->id_path)))
++		SKIP(return, "no sysfs id file for " CARD_ID);
++	if (access(self->id_path, W_OK))
++		SKIP(return, "%s: %s", self->id_path, strerror(errno));
++}
++
++FIXTURE_TEARDOWN(dummy)
++{
++	if (self->renamed && set_id(self->id_path, CARD_ID))
++		TH_LOG("couldn't name the card " CARD_ID " again");
++}
++
++TEST_F(dummy, remove_while_readlink_faults)
++{
++	struct uffdio_api api = { .api = UFFD_API };
++	struct uffdio_register reg = {};
++	struct uffdio_zeropage zero = {};
++	long psz = sysconf(_SC_PAGESIZE);
++	struct renamer rn = {};
++	struct reader r = {};
++	struct uffd_msg msg;
++	struct pollfd pfd;
++	pthread_t rt, nt;
++	int uffd, done[2];
++	char *buf;
++
++	uffd = syscall(__NR_userfaultfd, O_CLOEXEC | O_NONBLOCK);
++	if (uffd < 0)
++		SKIP(return, "userfaultfd: %s", strerror(errno));
++	ASSERT_EQ(ioctl(uffd, UFFDIO_API, &api), 0);
++
++	buf = mmap(NULL, psz, PROT_READ | PROT_WRITE,
++		   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
++	ASSERT_NE(buf, MAP_FAILED);
++	reg.range.start = (unsigned long)buf;
++	reg.range.len = psz;
++	reg.mode = UFFDIO_REGISTER_MODE_MISSING;
++	ASSERT_EQ(ioctl(uffd, UFFDIO_REGISTER, &reg), 0);
++
++	r.buf = buf;
++	r.len = psz;
++	ASSERT_EQ(pthread_create(&rt, NULL, readlink_thread, &r), 0);
++
++	/* The reader now sleeps in the copy of the link to userspace. */
++	pfd = (struct pollfd){ .fd = uffd, .events = POLLIN };
++	ASSERT_EQ(poll(&pfd, 1, TIMEOUT_MS), 1);
++	ASSERT_EQ(read(uffd, &msg, sizeof(msg)), sizeof(msg));
++	ASSERT_EQ(msg.event, UFFD_EVENT_PAGEFAULT);
++
++	/* Renaming the card removes the link that is being read. */
++	ASSERT_EQ(pipe2(done, O_CLOEXEC), 0);
++	rn.id_path = self->id_path;
++	rn.id = NEW_ID;
++	rn.done = done[1];
++	self->renamed = true;
++	ASSERT_EQ(pthread_create(&nt, NULL, rename_thread, &rn), 0);
++	pfd = (struct pollfd){ .fd = done[0], .events = POLLIN };
++	EXPECT_EQ(poll(&pfd, 1, TIMEOUT_MS), 1) {
++		TH_LOG("removing " LINK_PATH " waited for the reader");
++	}
++
++	zero.range.start = (unsigned long)buf;
++	zero.range.len = psz;
++	ASSERT_EQ(ioctl(uffd, UFFDIO_ZEROPAGE, &zero), 0);
++	ASSERT_EQ(pthread_join(rt, NULL), 0);
++	ASSERT_EQ(pthread_join(nt, NULL), 0);
++	EXPECT_EQ(rn.ret, 0);
++
++	/* The link was read before it went away. */
++	EXPECT_GT(r.ret, 0);
++	EXPECT_EQ(readlink(LINK_PATH, buf, psz), -1);
++	EXPECT_EQ(errno, ENOENT);
++}
++
++TEST_HARNESS_MAIN
+
+-- 
+2.53.0
+
