@@ -1,17 +1,17 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.143.35
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793808850;
-	b=XtAL3CrwUTiuFmZQC60Tdi8bxoD+ggfOrXnO0nrQu/g87wV8Gu/klNLctbP444ImB570
-	 aLQTLTh9Qs8yhnjjlN+WwlLVR9g7JhwaPGiqjx2TOgz9DN1ixwZH+sxU3EaqQ4Dcreqcw
-	 RIoeGa2zDJ6MgkZfL/Leuh5ohvAge45KWC6am9CZhfI5SgWAtLnLFFLMkYQjHbVf9gX1c
-	 nw/lzPyAD6tZ37LqcP21SUUW1NsymcJw52uDs26VZqOr1333J62C4ZKAASjYpNHiiAGHs
-	 j7FJmuN42LsVSR7FFJb/YuEK/ru+IO6tTtcEWXi8ZQLFDkMOY9IivM/RqKzN8dqjfHQ==
+	t=1793808864;
+	b=hcsmLhaxOOW+FSw1EnlQiI+1jz31+egKiHZmyYakevOsVGsk+jhmLgYPfm2lQa5Ohq5m
+	 F4hGXMnYS2YcpZvPPhiWo9sK7cRAGoqZlkk58h9xqlPWdUFLQMzIQYDtNphZk/FCD7q+H
+	 ARGWhvjA24tY7dlxvooZBR+xPZLRhglgf/I6Sw9H4wZ2YV+p5ILd162qrbXT6j48RqSSQ
+	 bkRGxzlJ+B5DddrZD4dz2ZM4eIqhjCrJU50AgujMnn2+1DRfz2cB+g5kbzvI49GgWLTSm
+	 se7Nz4JFR87JH9Ek9JJacRIoB06/sRRRM3vdMsoxL0kNQt7gE62H8BtGLjv2VK5xuyw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793808850;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793808864;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:CC:References:Content-Language:From:
-	 Organization:In-Reply-To:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 Received:Received:Received:Received:Message-ID:Date:User-Agent:
+	 Subject:To:CC:References:Content-Language:From:Organization:
+	 In-Reply-To:Content-Type:X-ClientProxiedBy:MIME-Version:
 	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
 	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
 	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
@@ -26,138 +26,107 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-HPE-SCL:X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=46CgSXvbPZgFGzTyRN0yMDml58spQ6BDtC9K0WW0qOY=;
-	b=dHg+OXqLEmia18J1kL8q4ZIyoaIlu92EVTpfUoq6Y4zLMKonc1qFwU+d4Ou0beouw19J
-	 mS9wMhVll5qdzVBj3+UWCEv46hutrmTPmYJ9Gzj7etbUCKymaKPnJk9QK2vwMpRRJTbNq
-	 MgVElrjUt6nTRQ+gUExjgIMZ66NxTRzeDlpCbA7fW6cFHLCmKbV++Jijd60l/FXtRA4MT
-	 ivOmgD+ca061edtiQBCXHppWuDl7K15AK3a3Um3xn+A1RAQrFTaUGXBzoDcu/lOgqsal5
-	 f2HACFUoP0CPh4QeJiYlwNa2xplkCZa12s2fhn/3lPG42uiLRHrNhCPOn0tZc0sC9sg==
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:X-HPE-SCL:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=qwP77Qu9OIfSA1PGYHBekUfp7HsFxizoBYPB0glF9h8=;
+	b=ChQYkMtstkgp3YsNoi58LsXCzmk5xCCy4vXb3X76zJ4MUCCxs4D92Q6aqg4TvTU+xEHJ
+	 2/CJKKpcYy4t6eB41AcX4Dcq1mAOpkXRrOPEIob0rUW+RolusrQoX9Iqv+fuef4Tq9jOB
+	 Td302iv1OpZ3CT8zYRICApoS8S/ZY8yHlRGiDoHP/OfehVyRV54KYc+6mZxDIaW9w9FG9
+	 r5oEjcFlfZwMBl0m4dC9ZbmfYz7iF8UcfbFcwUYVMzVXTDkzQa7A8p2RJSETSIASTYsC2
+	 EwG2VpJGCW8k8jZlBo3Lsfe+pb/yZermDq0H7XPDs1yVJwEWt3nola+Tyja9+OZwq3Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=hpe.com;
 	spf=pass smtp.mailfrom=hpe.com;
-	dkim=pass header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b=f0GoOIQF;
+	dkim=pass header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b="amTYH/7v";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.143.35
 Received: from mx0b-002e3701.pphosted.com (mx0b-002e3701.pphosted.com [148.163.143.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0EF4606A330;
-	Wed,  4 Nov 2026 16:14:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0EF4606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22096606A31B;
+	Wed,  4 Nov 2026 16:14:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22096606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hpe.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hpe.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b=f0GoOIQF
-Received: from pps.filterd (m0150244.ppops.net [127.0.0.1])
-	by mx0b-002e3701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4FhXtS1041248;
-	Wed, 4 Nov 2026 16:13:48 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b=amTYH/7v
+Received: from pps.filterd (m0134423.ppops.net [127.0.0.1])
+	by mx0b-002e3701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4FhLmB4161736;
+	Wed, 4 Nov 2026 16:14:21 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hpe.com; h=cc
 	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pps0720; bh=46CgSXvbPZgFGzTyRN0yMDml58
-	spQ6BDtC9K0WW0qOY=; b=f0GoOIQFKCtcDXhKyXgfaSJD9HTL8hlYTSA5QtY+sA
-	OpRjUljAoGGr4LTJWLWm387x8lPeqt14zHch9Pa86PBZuFXg/UBvwxJXuiifUfPu
-	u9ohwOFEI0+Km/A5+XhqC8ttWXCaObOcsReWse6YUeuHFq3F39UgDSZpkic1UoGV
-	Y7IxJOPDEXVDQlFXLtZJQJcNHO1Hg/wVAmaD9X93VxpseycQGVlArIIDmtZIOXkv
-	jIrc1P4gnQlrCtg13WKbnQJJ42XIhD/MbvgXAAm3zGq272vQA+eKErmNVB+tDLgb
-	DeKPwjaXK222NOHq65Ekyk89cSns9elHacFNF0gaHtxQ==
+	:references:subject:to; s=pps0720; bh=qwP77Qu9OIfSA1PGYHBekUfp7H
+	sFxizoBYPB0glF9h8=; b=amTYH/7vfPmc57jSgdGqRigK9kGQkYyCuKjYXo/5d/
+	2ZIsC+ahPVPLnWB7fRi2q3p7rENruXhsATLVPtQG/JDUrpcVAHMXOKJMRPXBy5ib
+	t7BsSPE6zSdBCnb9Wp4IBkyzVHI+St5qCXLoCd7fhy0GTibfk0yqrXDuegHs4P6z
+	EnMfzKauOeWfu7WHPiNPPRqUSFaMbNhYIPQpWl/yLZiuSfZL/29pTrk9lBYFQYdS
+	9TtfiGt4FnY0LFajPl3imF4qBQB4Pj+phE1bdKnrAez/R3j7RPaoNfpxYVFjw8zo
+	zR3rosXst2bQDpleu+s7soMSnnslWKsR1jm8G312kB+Q==
 Received: from p1lg14881.it.hpe.com (p1lg14881.it.hpe.com [16.230.97.202])
-	by mx0b-002e3701.pphosted.com (PPS) with ESMTPS id 4hr4w032pe-1
+	by mx0b-002e3701.pphosted.com (PPS) with ESMTPS id 4hr5aharff-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 16:13:48 +0000 (GMT)
-Received: from p1wg14925.americas.hpqcorp.net (unknown [10.119.18.114])
+	Wed, 04 Nov 2026 16:14:21 +0000 (GMT)
+Received: from p1wg14924.americas.hpqcorp.net (unknown [10.119.18.113])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by p1lg14881.it.hpe.com (Postfix) with ESMTPS id 7FC54808045;
-	Wed,  4 Nov 2026 16:13:47 +0000 (UTC)
-Received: from p1wg14928.americas.hpqcorp.net (10.119.18.116) by
- p1wg14925.americas.hpqcorp.net (10.119.18.114) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Wed, 4 Nov 2026 04:13:28 -1200
+	by p1lg14881.it.hpe.com (Postfix) with ESMTPS id A83688047A5;
+	Wed,  4 Nov 2026 16:14:20 +0000 (UTC)
 Received: from p1wg14927.americas.hpqcorp.net (10.119.18.117) by
- p1wg14928.americas.hpqcorp.net (10.119.18.116) with Microsoft SMTP Server
+ p1wg14924.americas.hpqcorp.net (10.119.18.113) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Wed, 4 Nov 2026 04:13:28 -1200
-Received: from p1wg14921.americas.hpqcorp.net (16.230.19.124) by
+ 15.2.2562.43; Wed, 4 Nov 2026 04:14:20 -1200
+Received: from p1wg14919.americas.hpqcorp.net (16.230.19.122) by
  p1wg14927.americas.hpqcorp.net (10.119.18.117) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Wed, 4 Nov 2026 04:13:28 -1200
-Received: from CO1PR08CU001.outbound.protection.outlook.com (192.58.206.35) by
- edge.it.hpe.com (16.230.19.124) with Microsoft SMTP Server (version=TLS1_2,
+ 15.2.2562.43 via Frontend Transport; Wed, 4 Nov 2026 04:14:20 -1200
+Received: from BN1PR07CU003.outbound.protection.outlook.com (192.58.206.38) by
+ edge.it.hpe.com (16.230.19.122) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 4 Nov
- 2026 04:13:28 -1200
+ 2026 04:14:20 -1200
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kH8gPiTeQzwEMKp8l5G7ceBhmLdxoO2U5InfnrbAZVj8FQpbpLX/NSqURk3hxIilJ+CF3SJYfUvD2j5ewyLoWGGT4XZZhuDLyKymzEvTEAFiV814lM51RymYvenRnTeY7NZMHMFws4feBdKvKbIQA3IwwcdwqvPn++2IOvVGBmhGVH1g8W291KyrYg/uWeSLOeraV3Yv37WcoxVYV8mJpa4Xxxlz13Qjetk9AGODjHwtmQYqM4eHIFtEEO15jKSLQw/RlZbhp85q3bTOwAgPoR/Q9kl+WGrJ9ocPzV8hhhei8rCqLWo2HU+FX9GVlkArFPHBhfMhgqXi3ccV6oQyew==
+ b=I6C//2ZjNPTNx5k6/yMyekxw/Z/LMrDJulReQ7B+lEZdgDNkgnWmqHOSwN+Uz4inzrVY2QBvnW9GIz/yDPvdhmliJQqODKC+r5U8ZusbuKec/fDDeVp2wK2gBlQ8b3ZFN5O3rKOfcI1Fn1XzecU2n80fsuAyPhmCnxJroenQI5isel0XVHw69dfmVPoxOVaZuE+8sBHDNojPiUQ6AWrQSO6cDuZAMwlIimPwSP2kzE8CPtEHI2uTCWI6RLii1w4C8eZNvOp8NDZ3o79rxTUJHCR6YbJfA1jgVoSEQSIYBtGOzsDqSpQ4/ffAzCP8jdtqTwH+6NCmLS1Ec8pWYTqd5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=46CgSXvbPZgFGzTyRN0yMDml58spQ6BDtC9K0WW0qOY=;
- b=PS8eQGRwyFPiA63T43c8jYoHf3+hLO1nKFSXyuoWBjBcmavgzeHH1PzHbIyrjFWGiL5R53uRuSmgtfB2debYRRWEeA8a2Z48IkmKJ8Q5Aw/oAkdzKmLh6cONLuRcy9XzWD0hT4qKW5t8fkp+CkvKjsdiG3MqwzDzktOdNzkYdMMkT3GWOc2Y4+RwEKDyCT6AQBe0hrcOlsnAax/kiUUoj8GCpSbkhFtG6uAqmDj8RsrUnq0VprdO/3cU12VkkaAKo/3WHhkOdLI9zBDFBAoPha+v/pud7WUyS3mMW10GgaN/R4cvBKKzCKMHdkwq/O4aay9JJjBKXSrATIEUDm69vQ==
+ bh=qwP77Qu9OIfSA1PGYHBekUfp7HsFxizoBYPB0glF9h8=;
+ b=hbeh73xXeHsBngY7CAJ5sOPlG3CqXLvrcQyUEINJkLRmxPlggpQ9iu/I1i6SBz1RNwoLY3g7/CCHei1koQL8sgLbVvDD5kSrtMFy8Y1/5kIvZNWim2Zz6g6yzZv7ZPgk/lvh6ewMIEdqdrsfQspgRXNgiZjDS59DfsKkER2dM4Papt8cYBgfECR4J0PZeteXD1uWbfpwiXesE4+IXs/PzDi8rNMzDoY6swAA2HW887WePvsWFaHvgS70L8GKjfz0mNUmrOz9TseNDpiv+atgeFqT53J8GPUEnCVz2U6M6ZI0hvOpqp4B10DHiiuUyxgcOUTzCQcqA+6uoKe7GE2NLw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=hpe.com; dmarc=pass action=none header.from=hpe.com; dkim=pass
  header.d=hpe.com; arc=none
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=hpe.com;
 Received: from DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM (2603:10b6:8:225::20)
- by PH8PR84MB3234.NAMPRD84.PROD.OUTLOOK.COM (2603:10b6:510:1c5::13) with
+ by MN0PR84MB3942.NAMPRD84.PROD.OUTLOOK.COM (2603:10b6:208:4bc::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Wed, 4 Nov
- 2026 16:13:25 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
+ 16:14:16 +0000
 Received: from DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM
  ([fe80::d136:e75e:53c5:73d8]) by DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM
  ([fe80::d136:e75e:53c5:73d8%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 16:13:25 +0000
-Message-ID: <904a4afd-9090-4e0a-a158-b0d8e8379b50@hpe.com>
-Date: Wed, 4 Nov 2026 08:13:21 -0800
+ 16:14:16 +0000
+Message-ID: <37849373-8475-45ea-8440-0849b66c2932@hpe.com>
+Date: Wed, 4 Nov 2026 08:14:13 -0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/23] Subject: [PATCH net-next 00/23] net/hpe: add HPE
- Slingshot NIC drivers
-To: Jason Gunthorpe <jgg@ziepe.ca>, Andrew Lunn <andrew@lunn.ch>
-CC: Jakub Kicinski <kuba@kernel.org>,
-        Slingshot Open Source Team
-	<slingshot-os-team@groups.ext.hpe.com>,
-        Nathan Chancellor
-	<nathan@kernel.org>,
-        Nicolas Schier <nsc@kernel.org>,
-        Richard Cochran
-	<richardcochran@gmail.com>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S.
- Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@kernel.org>, "Paolo
- Abeni" <pabeni@redhat.com>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-        Guenter Roeck
-	<linux@roeck-us.net>, <linux-kernel@vger.kernel.org>,
-        <netdev@vger.kernel.org>, <linux-kbuild@vger.kernel.org>,
-        Sandeep Bhoot
-	<sandeep.bhoot@hpe.com>,
-        Iraimani P <iraimani.pavadai@hpe.com>,
-        "Mamila
- Santosh" <santosh-kumar.mamila@hpe.com>,
-        Leon Romanovsky <leon@kernel.org>
-References: <20261030-cxi-netdev-submission-v1-0-8c2c391cc283@hpe.com>
- <20261030151121.1f232b50@kernel.org>
- <7d4583c2-e8dc-4ffb-bc45-e2121f824b14@lunn.ch>
- <bde936b5-1b3f-4987-a3e5-36ec5c4710e6@hpe.com>
- <2f831f13-58ff-40ca-a76f-3aca647012b6@lunn.ch>
- <b260f39e-2ac0-4899-90d9-3e9dbadfacc4@hpe.com>
- <e9937650-1354-4d66-95fa-3492e3821823@lunn.ch>
- <3418b0f9-d053-4be1-81a0-fc938fc5a7ac@hpe.com>
- <52b6596b-385e-4ed2-a6c8-d0774b4be127@lunn.ch>
- <20261104150435.GQ3889730@ziepe.ca>
+Subject: Re: [PATCH 00/11] Subject: [PATCH for-next 00/11] RDMA/cxi: add the
+ HPE Cassini verbs driver
+To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>
+CC: Slingshot Open Source Team <slingshot-os-team@groups.ext.hpe.com>,
+        <linux-rdma@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        Iraimani P
+	<iraimani.pavadai@hpe.com>,
+        Mamila Santosh <santosh-kumar.mamila@hpe.com>
+References: <20261030-cxi-for-next-v1-0-bc6e49e07037@hpe.com>
+ <20261103142826.GJ264423@unreal> <20261103143004.GJ3889730@ziepe.ca>
 Content-Language: en-US
 From: Doug Ledford <doug.ledford@hpe.com>
 Organization: Hewlett Packard Enterprise
-In-Reply-To: <20261104150435.GQ3889730@ziepe.ca>
+In-Reply-To: <20261103143004.GJ3889730@ziepe.ca>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------faZlha0xLctKpZXD63AboSAx"
-X-ClientProxiedBy: MW4PR04CA0167.namprd04.prod.outlook.com
- (2603:10b6:303:85::22) To DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM
+ boundary="------------owAE80pouCfQNSnXpboJkzYd"
+X-ClientProxiedBy: SA0PR11CA0207.namprd11.prod.outlook.com
+ (2603:10b6:806:1bc::32) To DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM
  (2603:10b6:8:225::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -169,186 +138,178 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR84MB3970:EE_|PH8PR84MB3234:EE_
-X-MS-Office365-Filtering-Correlation-Id: c6759db3-3f1c-43ed-0451-08df3a8e8de0
+X-MS-TrafficTypeDiagnostic: DM4PR84MB3970:EE_|MN0PR84MB3942:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1e3fd20a-cccb-4fa8-5c5e-08df3a8eac76
 X-LD-Processed: 105b2061-b669-4b31-92ac-24d304d195dc,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|6133799003|10067099003|22082099003|18002099003|8126099003|5023799004|4143699003|261022105027099003|261022075727099003|261028144727099003|261102123227099003|261026121527099003|261026140227099003|261022115727099003|261021121427099003|261021135927099003|56012099006|261009223027099003;
-X-Microsoft-Antispam-Message-Info: i9+Y6PPPBzGLNvV1wuub85rUeZx7aR4xovO87hpy/SC9qoirgfdc5txM2sPK49nLP6AWf2xIqF3saFwzlPn03yYu9PS2YVGsh25tn6WLdtqXTAcvNqrxY5Lal5aeso3XoZpfSz78J/UO43cbEW8fpREOYpfQfL1M7OZTuakE5y6IfokvPWZGyHiBmKOjsK4ihxJ5TUPyHIOdxcd6PTshHk7MKGIVy3CkqeMWk1VJDC95s42Pm9ozaTZsEnSIABQNplBoAq+7CegHBWQvGHnv/rubM+tDunSnSNHWSRsikwIB2GPX9Jur0BQxPXDKKgD9nMjS+W+meZp3+BXU87RcGpVmrmShYRUzU0rmX/OP2PInZF2HY+13idDxUcF+Qhd6Ofi4zTtU973QhBhZSRIlzrvpQEIqDb1KbsISzLw8WtF23l2aCumo2w/tXG/WFE8rA6azh5YMoye1jS8kF2hamn8BnjUIWi/uTchR3UuFgx6DFZHlkvPG3SLJ1e23IegNh8bZcjX4nUTBUuHVSrsxB19FktZhFIVRa4KHByTCCMEQa3dYUxciITmM5RzISSACrn9N2fn3lbDrcFxWLE8qEIZtqjCcT0arImGoI7rVwuGdFlu5InkQSjTjAIMdY2lRoVlHa32Sfvg7ZUqlzM9/fSGAuO+lMpRq8i9FRE4+TnM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(6133799003)(10067099003)(22082099003)(18002099003)(8126099003)(5023799004)(4143699003)(261022105027099003)(261022075727099003)(261028144727099003)(261102123227099003)(261026121527099003)(261026140227099003)(261022115727099003)(261021121427099003)(261021135927099003)(56012099006)(261009223027099003);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|5023799004|4143699003|56012099006|261021121427099003|261021130227099003|261021135927099003|261009223027099003|261021123027099003|261102123227099003|261102130727099003|261022113327099003|261022075727099003|261026135527099003|261022105027099003|261026121527099003|261022115727099003|261026130827099003|261021133027099003|261028144727099003|261026140227099003|10067099003|22082099003|18002099003|6133799003|4133799003|3023799007;
+X-Microsoft-Antispam-Message-Info: ThhBwKht1bafo7O6EPJQt6UtR5TDm0N+8vkB5ztSnD+DEQSQEO7SCKSaXitmSdgA5esuG2IWce1mDVabue5LPDNpsuikobsxlLcbtgyGVTYBq6J+mH21iKbozCLrN4c0fL8SS7+vxhAZ0XKvNuLy0/l/wIhVthQGTuw+Ww2CepWkIpOTdmUl0tFj0+O/4a7Bkfg7uBiH0Ag8q2K944sFROlWkZA5bW9lWurA3Famu47/62w0gsOhzU2o1THdEpgc6IAplVSdnxHPtWdL1yATpMZiSNupCGiWrcRXBXqyYka9/vgnr0Ocm5mnuxbF6mJ0dJIUbgIbIRt3kPeY/CCf+ukaG5Nzq1k5mCKb5jPbBqt06R9hltWLgnD1wKQdOoeiCKkvXBsFIFXt9lkFVRim4sfBz13GLc/55vfF8fGsuttutKf0fhIwKsXuilZZMIWKjZbA5RRnZ6nTzIq/R+bZLADRUuC9IitOzlPXFwTtFBwyBULhX/zglcJFe8zwWZ07JLBAfgnhj8eR2DtAVqUH9wi1r7xoCN8QHPBhId06JECwnnFviVHrQINgSZ8zNiFo1Zu4ugGHrSPutaoncCzGSZUZ+2HIzQwhbnT7eMK8NgQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(5023799004)(4143699003)(56012099006)(261021121427099003)(261021130227099003)(261021135927099003)(261009223027099003)(261021123027099003)(261102123227099003)(261102130727099003)(261022113327099003)(261022075727099003)(261026135527099003)(261022105027099003)(261026121527099003)(261022115727099003)(261026130827099003)(261021133027099003)(261028144727099003)(261026140227099003)(10067099003)(22082099003)(18002099003)(6133799003)(4133799003)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eTgvYjFlR1lZS0V0WVIwOVZETGl1SnRRU3dkTjl4TkZRQ0JYaE5IVWpaOUVm?=
- =?utf-8?B?SzhWVnIrb3RzSGdEMmx4dlZiQkFhMzJpR25WN1l5M0dJUWU5ZmVuTnAvakt5?=
- =?utf-8?B?QmFGLzljdnFFdmtVd25SRW1lbUc1enFQNnVOTlRmYVZ4MTgvemRiZ2k1cVhi?=
- =?utf-8?B?V0RNUk5OZmJzWlNCWC96VGswYUkxaFNZSmVtVTJhbnNDcTd0cGxmbmtNWEZM?=
- =?utf-8?B?dml1cloxaStzemRjWmlaRTExOW1wS2NSUW1CY21VK0Z4bE45V3VTdzlmYzRO?=
- =?utf-8?B?NnFSMDlEczArRWNKSVI5Q1lGSittR2J3LzBPSmMzYUlsdGJxejdvYXZ2MklE?=
- =?utf-8?B?aWpkOW43NUY4U3dCVE14RzRZZk1GcFg4UWpEL2MySy91TDFrdy8vRTU5K1Jh?=
- =?utf-8?B?VUg2OU5kR2tMUWJKaisrSlhjS01LbVV4TVVEYXBhanUwdFJ6ZHJDSkFxTGM3?=
- =?utf-8?B?UGNRTlRsMGdUd0VoWXp6c1lFM3hPOTJuTnQrYXdzNEYzMmNqelh0UWNnZTdQ?=
- =?utf-8?B?SGZISjVMcDJQcXBzZ1VKOEpQdXY0MEhGZU4xVWhMVURNQUljZVZ4YUg0ODUv?=
- =?utf-8?B?b2wzZnpwd081SWtrMDM5Mk45SjhObGhjYnQ0Rk41T0xsNDNvZmJJUzMyQ09t?=
- =?utf-8?B?RWxXa21JZDFtT0ZKSkIzWVhPcmlJQk8wMSsxbTR0Y3k3WG5xalBOMTRFMGYz?=
- =?utf-8?B?dEQ0dzV6TEZubDQyenMyMHVjQkFDMG1pelRWVDNlcnNPSkVTd21nL0lCSEl6?=
- =?utf-8?B?Y1MxRUV3NGtvaE9lZmlld0JQSjJkYlh5WjBiN0R5YWZsYjJzMER1MTIzdkFN?=
- =?utf-8?B?WTRyeFgwYzVkaE52S1lvek5YL21YZmZqVmxNdlNiUTNYZnpkT05pb2VlcG4w?=
- =?utf-8?B?ckxzbm1OR1FaL0FVOE1CUlV6QXRMcnlRSFZ1OHdXOW01WStpN1ZKakdxYnQ2?=
- =?utf-8?B?SzA1RDllQnloU0pWZi8wNTIwTjRBM2dpbHpZaWxTbHl4VUExNlNEUmNGVjIw?=
- =?utf-8?B?RHB0dmRPdkZSV2xkbGJnd1NTYWF5K2wzNDRFRWhBNm5TMkM4UUxTbkNTU3Zt?=
- =?utf-8?B?Q0JZR3grNUkvcGRWd3huRDY5ajRERUg0RzJmZ0NUQXJGZ2tDNXdNSWhpcEtF?=
- =?utf-8?B?MGphUnBiL1orTGJUZjJxQzFxbHh6cWprdmdHRkFaaWpxbUZLSUlmQ2FwWkEz?=
- =?utf-8?B?TUU0R2lGckFrWUh4UlZCajJXWEUzbjloRzBwdTJKdExuRWxMWDFkb05vb0Vs?=
- =?utf-8?B?bUdndmhNVFRRM0tLK1JtbzZ6S3RKblRpeFovSUZVMGUvRXBiNUZRbWJjV3hN?=
- =?utf-8?B?T3hScnMydVVlMUhpZk5xdTltN2FENWF0SWdGK2Y5b0dPUjFRZ0RLU3B2czBV?=
- =?utf-8?B?UmJyRVVVL1BkKzJEVnh5aXZCZTYvMWpTb3Iwc3A1UVFiWWJxTlhDZ01QTFdo?=
- =?utf-8?B?Z3ZDZllBcFp3WDFZU1pUbGJUQjIwOUdOTGtDQkgycVQ4OWdHZkJ3amJuSFdU?=
- =?utf-8?B?R0c0QWVFWENEL2ZFaWtxdmVMcWJBdTZsNlpjM2J5N1U0Y2dRZmZNbm54QzVT?=
- =?utf-8?B?ZzJFZ3Mya3MzV0FUeDM2cWRhZ1BUZG5zY1dHQXI5T2NOWW1ZTWZGNllLd29o?=
- =?utf-8?B?MmUwMlliN2RqT2dGKzdsYWkzWGMzOHloaVBqRmNJVUFYZkM1QlNqakxoQ085?=
- =?utf-8?B?UGo4UTZIZVQyRzBpYmw4TVBKSDdsdSt5QUY2US9XVzBncHc3WUdra3dKWFp6?=
- =?utf-8?B?bWF4NGNFb1JsZVdkZmRnVlVnVFlsQ1dPZTA0NDF3akpZN3AvRkdjTUM4eDBq?=
- =?utf-8?B?UnNIUzl2UEk2dU1LeDFWMWQraTBkWjBPdFF6cFRZQmxGVGdtRGFlaEQ2UWk4?=
- =?utf-8?B?VHRZNTcweWZBS0N3TUlMY2VBQ1RqRDhrVGNyRE9nVGtEbUt0NEFzTi9IVFVz?=
- =?utf-8?B?NlNXL3JsanQvVTR5TS9Ja2QzV1lWRS91OEpYTW5Wb09aRHcvZkFnbWlFM0NZ?=
- =?utf-8?B?RHdjaERJdUN5eGlxcjhPL3FidzFFcGFMK09ucDlHL0lHaXhkbUtXeENFUEZH?=
- =?utf-8?B?RXZ5bktUV205YS9sM3Z4Zjlic3doaEdPcjRWM3pGUGFMRFhablNMaWVqSCtY?=
- =?utf-8?B?WXM2dVZjb1M5Y2hFZFU1NnVDQlh4TkdkWlFiVEp5bVhsVGtPQ3ZxamJWdXd6?=
- =?utf-8?B?ZFQ5SkJ6NFFOM0VjWUxuRW1UTUVGR1ZMVTRhTFZ1aExzakhiRTF5anMvcGxx?=
- =?utf-8?B?d3Y0c1ZzMFRJeFNTaHNoZmh0eXQzaGJLdXJLeVUxbTVKZ2cxcUlUTE1IYnNY?=
- =?utf-8?B?VnJxT251WWdDb202dnU0QlRuN2VnUWFzZk5wZWUvZzM2QzVZZWZtUT09?=
-X-Exchange-RoutingPolicyChecked: yAz4WcX26wl59762iGCAO9G3Icy1Q13rdZnakn+Vp90rCh5bKwb0iO8dJxM5CggDurcQ9UurFrjSXwMe9YsXcZUWKp86PcuNAJZ+3LLSp1NKbojnLMBYE8dnjrSdq4RZivJSNMAeNRBDq0nCQV89ckhLDvRYyDRPSZNjLEW1aUOjxzlds4gVYrniphJ9n3OrRh3eLJLW7wCSCgO6HI6+tEndV0V+HfHTIgkJimF8c/fwgqu9tUFekSEerrC4mJlwBF2f8pfasvPeWSL8TtxaGipP8BFr3BpaTAlOM+lofwAOT30zb82UOx7TSVRypXG2IKzhx8nncCaRp5aMcCvyOg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: c6759db3-3f1c-43ed-0451-08df3a8e8de0
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aUhROEVUM0M3dnRhU1ZXcnlGbEUxOWVubTE0S21TbGk4S3V3UGxkeVpUdFJx?=
+ =?utf-8?B?MXdJWTNtUGhTc2FKTUpNK1FoMlc3cnNXMTdEWnhHU2EyeUFZMnN5VCtnQzha?=
+ =?utf-8?B?enIxWFdLbHFSN25UZzQ3M1Y1WGZ5NzNHNFVuODZYZllYVVVySEw4VlZpZHdw?=
+ =?utf-8?B?bkhlMXVQaEFIZ2xWeWRnUVBtd1hqRUYrUDFZcEg1S2VPUzB2aTRBZGlVcVAy?=
+ =?utf-8?B?RFRjNUFkcjNpQStGZmxJZ0RoVWQ0eEtOem1hcGorNmRGSUJ2aTdTR09zRERV?=
+ =?utf-8?B?RlQ0RGFCM2ZFR1hZcEhhTCt1TUFLc29lUlhuZnNIOEJKL3ZNYmdzWDAxL2Jh?=
+ =?utf-8?B?cU5jUzlsSmhyd3JoSWVaZGErNlg0MlIvQ1dQbzlnVzdQVzVLL0I1UnRod2c5?=
+ =?utf-8?B?VmJmRWpVOW1Jb0JpUXFrVDJ3dnAxRUtvNzZaRXpIQnJLTlZZVzFoM0dUV2tB?=
+ =?utf-8?B?REV5NERlaS83QlBJeEpRM2JkS296ZFlNWXlsRnovMzR6R2QwWXB6bDdpT1F5?=
+ =?utf-8?B?T1RLdjVlWTlrN09JWXlySzJLS2M1eDdUQWNXOEJCMTFqQVo1UVovU08zbCsy?=
+ =?utf-8?B?dTJSMElxRDBrSWNKcGhyOTFuNElHbXVTRXE1dnl3MXFGTFRqWEtTbUdDWDRF?=
+ =?utf-8?B?cUIzYWE1RjJvdEtFdkdjaDVxajFpOGlwaHJmaUE0dHlaNjE3QTR5L24raCtS?=
+ =?utf-8?B?M0FPNjdnay9WdUhVR1haa2E4ckdCdkJhTmkrTXlkUkZhVVhrRVNtYlRwbmNB?=
+ =?utf-8?B?QzBOYjlwUERSQXE1TUZIaGRIdDZYcExjRkpCOGdNSnlZc1A0VjRDSnN6SStK?=
+ =?utf-8?B?SUpwK3QwSjQ0dGhLM3dCQ0RJWXNuSjV5RDIwZXYxcHdReUIxSXE4c2FLYkRn?=
+ =?utf-8?B?Z2dtcHhxb1I1ZUozNVV0L0xnaU5nTXRBMTNxMTdOZXkxN1R2V2pMNnhjeG1D?=
+ =?utf-8?B?bE1Sc1llT08yVm1vUFNTZlJldmlNNXJSUlRRWkJhN1lCeFo5OGRqSkd6azBX?=
+ =?utf-8?B?YWNQMEZWVi9TM2dJMzVSZFBzZXZJT3FXTVlGSG9JaVpSUU9WMFpDcXV4UVdo?=
+ =?utf-8?B?RG1NdGJ6UlRHQndEMXRxVTl1cW1jR2xOTUNCbnVrOUJFNjUrYlcrVmZPbHRp?=
+ =?utf-8?B?d1NUdTFzdFo4NFQ1SXR4QmF2aGlaa2RHM0FhRkYydGdhS1gybWRwRlI4eHNV?=
+ =?utf-8?B?aE9XRVFmQlRtamVIQ25CMnNxZ3VqSjI0QkVHWFJmZnNYcklFQXV2d3RSaXhN?=
+ =?utf-8?B?ZHplbVROcm93RWhkS3BHWWRxRnpybzlRUDFvZHFZUUJCeWNOTzFubENjZXI2?=
+ =?utf-8?B?ekxtbldzS0RGOUJhZW5DdnM5OVl6M3Jrc1ZzMldOV1JuZzFwNzczeTRKelk1?=
+ =?utf-8?B?YzlidVM1S0p6WkZBUkMzWFlTaWhraXI1N3hiNTZLWGQyR1hlVEhHRFdBNUVK?=
+ =?utf-8?B?eGVDMERHcWVBVy92Y3ZUREozYVpuMHNRcHFEYW9tekZxWHd6Nm9nMnUzc0gv?=
+ =?utf-8?B?OCtxcDFqL3p2dmNoci9sQldHVGd4c2ZNd1FucDFwVUxyZXMxRjAwNWdFRXJu?=
+ =?utf-8?B?a0tLSUpFV0RJOHdiZXNrT2t4azJzckNVdXNlRGNzZHladk1pbE9KdUlQL0Mx?=
+ =?utf-8?B?QnRzbHFPNnRJNUJIZjlEMEJMSFk0TTlORm5CZFUvdnA4eEMyTkY1aHkyUVU2?=
+ =?utf-8?B?SGMvbEZIYU9SaXVwZDZSWWNNVkEzVWtzRVBvQ0RiUTRUa2w3clBDK2JQZEJv?=
+ =?utf-8?B?OVMycC9xakU1T1BDSFQ0dWtNKzh5YVJmMUdWd3gxWTZNYUx5bDBDaFRtdEIr?=
+ =?utf-8?B?RHdYL2NTMGR2VFZBUUR4SldwZ0cwUzNaanV0enNsR1p0YldObWNCRXg5WVJu?=
+ =?utf-8?B?RHZ3YnlRblU0dHpVRWNGS0RQR2hJbU53a0w0bDh4dDNwaHo5TGxualpCNHRr?=
+ =?utf-8?B?MlZUQWVuN25tNTBtcjJ2OHBCQmkzZkFQdy8wUCs2aytGN2V2ZDZnOWtUZmdU?=
+ =?utf-8?B?WUY2NnpMRHdaUlV3bmt2NGxQR01wVEI1OWVGZFpLd1orekRuVjhvMzBsbW9T?=
+ =?utf-8?B?RCswWFIrbitTY0RRZGFBTmwvTUt4Q29yV25NNG5TOWxydDFObkZZRmlucGhO?=
+ =?utf-8?B?UHNvRkhhU1hIODhFdVF5NlA0WTlQUzZSb1BxS2l4UUIySDVrelZNdERzMVBn?=
+ =?utf-8?B?QXY4NVdpTjQza1hEcmorODRnemJVWHBQbk5UK2c5bStLd2dBTEdiVVYvcFBz?=
+ =?utf-8?B?c3pQQmFjc0w1MElLa1A5ZExQZnk4M3JrNjBFby93bmJnY2pzanJ6VS9KU3BE?=
+ =?utf-8?B?U2JKakZZbngyTXJZdGRGUGFjRlU4NnkzRVd4TFFMTTQ1cWppUlhqUT09?=
+X-Exchange-RoutingPolicyChecked: eXPJVp0G2QywNWCZRN6bJr+mPLp8ffZ6uYT6cqJkoPw4Lr6ewzphxFpV/2P8+5d60RAGuS1OwLlCXAxnEGfwIWpfsbEtJtUYnfocMxGnKrk+RBSy8lkj3RCJ+9SqoxgkgpbuZ2LjbnzlEFQm2PQSokOEntdXbuBNWmvL/TSv6a1ajaBSGcEcs4UOBS2ptkaj9ctUPd/ew5W9zRztMi107FzdNW5nJRSilLifuoQiiLzeDpJCkUNsUUYfawXOWpgGsHmNkui4cNzZ/DCojl9ZaqIzsP0uKBOq0H/nzc8RkVYgKplIAKzfq7HvNGFnRshEm0EXmEr06inP5BTfeUp+2Q==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e3fd20a-cccb-4fa8-5c5e-08df3a8eac76
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 16:13:25.0767
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 16:14:16.3710
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 105b2061-b669-4b31-92ac-24d304d195dc
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SvHA3fTB5SsQuBjojeE7FCZjMPgQV2i0D7KUmIiqzGdHFPSlvb+LhCkzynquDHSXQv90sQp1Sovm4oZOPo4U/g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR84MB3234
+X-MS-Exchange-CrossTenant-UserPrincipalName: RQ+WWsDdU0X1Aq8c+i897EgXteL5zZZy1YE3IMfCv51yyHLsM30bPfkJ6CeawrATG8OwoDMZuLGQvMgyDCpYCA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR84MB3942
 X-OriginatorOrg: hpe.com
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA2NCBTYWx0ZWRfXzqoM72TSoOMy
- OdgxWznzeOSfprKEhC/m+wpSROMHTBuf8TWOFmViWik6bPB9eFuq22OIivI39i1B3hnU7t5ajbH
- vijolqHSQeGWcvlbUutLiz1XiCq+P2Y=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA2NCBTYWx0ZWRfX1JNfRPkAaI3t
- fsKGQYzQbufc5mjXQ/WQjgVRG7DwKPLdcrw014f/TkBP0+Bdu/66kz4ZrjEIJwM4uHE0W8zZKXc
- u4OE5RkPx1MburX1znqbidmb4zQFFIkbBL3/YVMGWAv62X0OVhfteiUK+BmxGn4gNkKarL+gGh/
- n4kndGruIKsTdm4CNkKOw84ocy7WLdAr7yl229aUl9HBrk778+9z1SKoQljPBUPjXfY87otRCsf
- 4QbhUoiBVfNtGVavhJT5bRO7ZXGW4mbjdpJH88FlNdQZEqSg/iuAjajI6NdVZQBnO3xSHtAZQ8x
- m/NbNyP4WkQeJ8+Bo3bCLUPHlmiNjqNrSTvA1xIWfQ69M6fHsVPc0t1YNOugkFjQVKCNGP9Q29Y
- 6tTTiMa1+VQiNubjvOs0Ajah6UTPGBGRqM6KZc7AQda1cWi8iVAMXqj4CHKVxFpsIXkyF8s0f2G
- O8pVJX1jAMPQUaekUUg==
-X-Proofpoint-GUID: JqdhBEobdrcT-21GdFe1Y6omQGx59BzH
-X-Authority-Analysis: v=2.4 cv=O6GsLx9W c=1 sm=1 tr=0 ts=6aeb59bc cx=c_pps
+X-Proofpoint-ORIG-GUID: V8DZaDhLuRMFcN9VZ7MP5dTEk92nhs93
+X-Authority-Analysis: v=2.4 cv=Gq7XaU1C c=1 sm=1 tr=0 ts=6aeb59dd cx=c_pps
  a=FAnPgvRYq/vnBSvlTDCQOQ==:117 a=FAnPgvRYq/vnBSvlTDCQOQ==:17
  a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
  a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=zJRp6_cAMcgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=gQcMVamqm3wCPoSYhaRC:22 a=k7r4yCLl9DVLXMiQTbtC:22
- a=MvuuwTCpAAAA:8 a=1HfDXqj56o8Xc-ynThQA:9 a=QEXdDO2ut3YA:10
- a=UQEh7bPfCiVckKZdv5AA:9 a=FfaGCDsud1wA:10
-X-Proofpoint-ORIG-GUID: JqdhBEobdrcT-21GdFe1Y6omQGx59BzH
+ a=VkNPw1HP01LnGYTKEx00:22 a=gQcMVamqm3wCPoSYhaRC:22 a=g3u0LPWLDYfGfufhFw6-:22
+ a=c92rfblmAAAA:8 a=MvuuwTCpAAAA:8 a=Y06IZwgp-2UHUbZ8XgkA:9 a=QEXdDO2ut3YA:10
+ a=o7atTUFukcLD1P7mZl0A:9 a=FfaGCDsud1wA:10 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-GUID: V8DZaDhLuRMFcN9VZ7MP5dTEk92nhs93
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA2NCBTYWx0ZWRfX2y/fKKou6BGQ
+ 76E4l/8iBABbYSZqlk0fD75H5y3MyOhAuD6Y45k5kDOMrW/H8IP8pVes4xFWndADrtMgXlKGsQZ
+ KgJXTnmp3YUcPg7aj0hNsSjE0hvseRc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA2NCBTYWx0ZWRfX/nbnSoSi/Db2
+ CuKxDO6MjxhlCwgCW7vvZDgM5ZuvpRzIssB+8oX/PPtYyUpR3G9GksH8hSXFEfDdvdePzjKQNA2
+ hYwHSuEjKGFBlhyKH8fTcyOeMrJX2Ijj1hceJ6blRooDgvnqys9qJqlg+j9qkuqSA1IIcdogZMS
+ BTXfZr+X5RW/ZfAiXlIVlgDLyZkt8s1dj/kdDGjfNesSW9fGh3bQNKs5clbBjNJh2ntEmE3WV23
+ Akdlp9xqo6L9ZPonFP9gDv0123O2ccirBmLwwW1n2O1j/B1lKyZru/0NGHWbUHNmozQ8DSfpAKx
+ agYs54TyGTxjLk1IARGllNJRDfET1RZ3Dg2T72wrwLF+1cjmfv6pKNPKUZrxpodnlPPxXyvamUB
+ oVf8qipddrxK48dkp2Bv7NL5GL+TwkOJ+Z+xHa43SSb7WvZ0AQIs/H4/y+wonR8Skwi7rXYBiqv
+ F1dJWPJVPajYzQlg9lw==
 X-HPE-SCL: -1
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-04_05,2026-11-04_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 spamscore=0 impostorscore=0 clxscore=1015
- lowpriorityscore=0 suspectscore=0 phishscore=0 bulkscore=0 priorityscore=1501
+ malwarescore=0 clxscore=1015 phishscore=0 bulkscore=0 priorityscore=1501
+ spamscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040064
 
---------------faZlha0xLctKpZXD63AboSAx
-Content-Type: multipart/mixed; boundary="------------ajiC8U4ZG7aDHbD9uli8jFui";
+--------------owAE80pouCfQNSnXpboJkzYd
+Content-Type: multipart/mixed; boundary="------------WU8MJ3JWfXgDQwfb3v2aCRh7";
  protected-headers="v1"; hp="clear"
-Message-ID: <904a4afd-9090-4e0a-a158-b0d8e8379b50@hpe.com>
-Date: Wed, 4 Nov 2026 08:13:21 -0800
+Message-ID: <37849373-8475-45ea-8440-0849b66c2932@hpe.com>
+Date: Wed, 4 Nov 2026 08:14:13 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/23] Subject: [PATCH net-next 00/23] net/hpe: add HPE
- Slingshot NIC drivers
-To: Jason Gunthorpe <jgg@ziepe.ca>, Andrew Lunn <andrew@lunn.ch>
-Cc: Jakub Kicinski <kuba@kernel.org>,
- Slingshot Open Source Team <slingshot-os-team@groups.ext.hpe.com>,
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
- Richard Cochran <richardcochran@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Guenter Roeck <linux@roeck-us.net>, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-kbuild@vger.kernel.org,
- Sandeep Bhoot <sandeep.bhoot@hpe.com>, Iraimani P
- <iraimani.pavadai@hpe.com>, Mamila Santosh <santosh-kumar.mamila@hpe.com>,
- Leon Romanovsky <leon@kernel.org>
-References: <20261030-cxi-netdev-submission-v1-0-8c2c391cc283@hpe.com>
- <20261030151121.1f232b50@kernel.org>
- <7d4583c2-e8dc-4ffb-bc45-e2121f824b14@lunn.ch>
- <bde936b5-1b3f-4987-a3e5-36ec5c4710e6@hpe.com>
- <2f831f13-58ff-40ca-a76f-3aca647012b6@lunn.ch>
- <b260f39e-2ac0-4899-90d9-3e9dbadfacc4@hpe.com>
- <e9937650-1354-4d66-95fa-3492e3821823@lunn.ch>
- <3418b0f9-d053-4be1-81a0-fc938fc5a7ac@hpe.com>
- <52b6596b-385e-4ed2-a6c8-d0774b4be127@lunn.ch>
- <20261104150435.GQ3889730@ziepe.ca>
+Subject: Re: [PATCH 00/11] Subject: [PATCH for-next 00/11] RDMA/cxi: add the
+ HPE Cassini verbs driver
+To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>
+Cc: Slingshot Open Source Team <slingshot-os-team@groups.ext.hpe.com>,
+ linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Iraimani P <iraimani.pavadai@hpe.com>,
+ Mamila Santosh <santosh-kumar.mamila@hpe.com>
+References: <20261030-cxi-for-next-v1-0-bc6e49e07037@hpe.com>
+ <20261103142826.GJ264423@unreal> <20261103143004.GJ3889730@ziepe.ca>
 Content-Language: en-US
 From: Doug Ledford <doug.ledford@hpe.com>
 Organization: Hewlett Packard Enterprise
-In-Reply-To: <20261104150435.GQ3889730@ziepe.ca>
+In-Reply-To: <20261103143004.GJ3889730@ziepe.ca>
 
---------------ajiC8U4ZG7aDHbD9uli8jFui
+--------------WU8MJ3JWfXgDQwfb3v2aCRh7
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On 11/4/26 7:04 AM, Jason Gunthorpe wrote:
-> On Wed, Nov 04, 2026 at 03:48:58PM +0100, Andrew Lunn wrote:
->=20
->> A bit of an aside. Do you have the complete history of the driver?
->> What did the first 10 patches do? When bringing up new hardware, you
->> start small and get a little piece working.=20
->=20
-> If you are implementing a driver from a datasheet, sure.
->=20
-> However a device like this was almost certainly co-designed in a chip
-> simulator along side the HW and by the time the HW was done they had a
-> mostly complete driver ready to go. The actual baked chip probably
-> never ran a driver like you are imagining.
+On 11/3/26 6:30 AM, Jason Gunthorpe wrote:
+> On Tue, Nov 03, 2026 at 04:28:26PM +0200, Leon Romanovsky wrote:
+>> On Fri, Oct 30, 2026 at 09:35:28PM -0700, Doug Ledford wrote:
+>>> This series adds cxiverbs, an RDMA driver for the HPE Slingshot Cassi=
+ni
+>>> NIC. It exposes the NIC through the verbs API using the UET reliable
+>>> unconnected (RU) queue pair type from the UET RDMA core series.
+>>>
+>>> cxiverbs does not drive the hardware itself. It is an auxiliary bus
+>>> client of the cxi-ss1 Cassini core driver and does everything through=
 
-Jason is correct here.  Something as complex as a Portals 4.0 API device
-does not have 10 small patches to print "Hello world".  It can't.
-They're too complex and there is too much setup just to get to "Hello
-world".  And yes, we have both a chip simulator and a qemu simulator
-where the testing happened.  Using those we already have Cassini3
-software ready to go, but untested until our first hardware arrives.
-That was obviously excluded from this submission.
+>>> that driver's exported CXI interface.
+>>
+>> <...>
+>>
+>>> Before posting, the series was reviewed with the Sashiko AI code
+>>> review tool and checkpatch. All valid findings are fixed, except the
+>>> open items listed above.
+>>
+>> <...>
+>>
+>>> ---
+>>> base-commit: 306a2f8432f516069b2e673de7a07043132c034f
+>>
+>> Sashiko failed to apply this series as this base-commit doesn't exist.=
 
->> I'm assuming you did something similar, small bits of code you could
->> somehow test. Those small bits of code, step by step development, are
->> generally easy to review.
+>> =E2=9E=9C  kernel git:(wip/leon-for-rc) git show 306a2f8432f516069b2e6=
+73de7a07043132c034f
+>> fatal: bad object 306a2f8432f516069b2e673de7a07043132c034f
+>>
+>> https://urldefense.com/v3/__https://sashiko.dev/*/patchset/20261030-cx=
+i-for-next-v1-0-bc6e49e07037@hpe.com__;Iw!!NpxR!jVGLxpaqGEPJ5fZJ3ZoNkSuC5=
+-NuVK2GbaWiVfqG__a0SYh3NAgK9UqQPHsk4FEdYNCqDyPzXwao$=20
+>>
+>> Please make sure that upstream sashiko runs on it too.
 >=20
-> When you are co-designing with a chip simulator things work
-> differently, you'd focus on the more risky parts of the IP and do
-> partial driver flows and so on to vet things out. Lots of carefully
-> orchestrated shortcuts. Then you take that and assemble a complete
-> driver to run more complete sim passes. As this progresses the HW is
-> changing underneath and the SW is following along.
+> I don't think he can, it relies on the core code series. I Don't know
+> how to instruct sashiko how to find another series to stich it
+> together
 >=20
-> So it is completely understandable they ended up with a completed
-> driver at the end of the process rather than a bunch of logical small
-> steps.
->=20
->> Generally, none. We just want a plain, boring netdev, which looks the
->> same as every other plain boring netdev in the kernel. OS 101, the OS
->> is there to abstract over the hardware so all hardware looks the same.=
+> Jason
 
->=20
-> Yeah, this is a reasonable place to start. I also discourage any uAPI
-> introduction into any new drivers. Start with the basics then we can
-> talk about why it needs new uAPI point by point.
-
-Yeah, I'd forgotten (in my 6-7 year break) that sysfs is uAPI.  I've got
-it now, thanks for the reminder.
+I wouldn't bother running sashiko yet.  I purposefully submitted our
+driver in full to the netdev community, knowing that they'd never take
+it that way.  But I wanted them to see the full driver and how it works
+(most notably that it is not a generic Ethernet NIC with RX/TX
+descriptor rings, but it's a Portals 4.0 API device with Portal Table
+Entries that filter incoming packets to specific destinations) and what
+size and complexity it involves.  It's not clear to me that the driver
+should be in the netdev community, but maybe rather in the RDMA
+community.  The only catch is that it passes native Ethernet packets via
+hardware, it's just how they are mapped to send commands and filter recv
+queues that's different.  So, I'm requesting they make a judgement call,
+looking at the entire driver and what it would likely become even if I
+spoon fed them small chunks at a time, and decide if it should be a
+netdev device with an RDMA aux device, or an RDMA device with an
+Ethernet aux device.
 
 --=20
 Doug Ledford <doug.ledford@hpe.com>
@@ -356,27 +317,27 @@ Doug Ledford <doug.ledford@hpe.com>
     Key fingerprint =3D AE6B 1BDA 122B 23B4 265B  1274 B826 A333 0E57 2FD=
 D
 
---------------ajiC8U4ZG7aDHbD9uli8jFui--
+--------------WU8MJ3JWfXgDQwfb3v2aCRh7--
 
---------------faZlha0xLctKpZXD63AboSAx
+--------------owAE80pouCfQNSnXpboJkzYd
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsF5BAABCAAjFiEErmsb2hIrI7QmWxJ0uCajMw5XL90FAmrrWaEFAwAAAAAACgkQuCajMw5XL93g
-Yg//cBQhzwFZcHmD+p37KvvRKw36NP72qlgXrXlPBFf/gxMsHX5Uxcfd09mhpm/5LDYVrfuAsOIs
-GDfcVZGgRQnRXepYvd99mnIaMmp9aX+mpwEzQ820dZpqX/tds3hRSEucSj0tnJYsVTWvzGsNxVlQ
-gCpKJvqT5H2zxhykt5FMOEQAiT4sZ1B5e5Rzw8UmgPaNp6IcEoASGXYB5umqxa0JCYXWuIjkPhCO
-JVR9mJWmtaeJ9+ce05g2dqrV5mKXr93wUO/sReB4RfWC2/VMxOrH2Qg9Hq2Ic8auP1LOKcOpOHwb
-SuEZG7mqy88LuiyhMCB0JSUBbuwn2bdR3+3zE/uAwgu7voCuS+Ws5iPDR6LTbkXyg1V0cxzBC/CZ
-4FDyCpvNUPEJ3Gxf4p07uZrdqU0Q8n3e8hnuFJQgutA3sO6zsqYjek8KXjbizzTs4Y/ZhmXrVv3e
-dY8JS15nBttXLljdv/Cfka2Se7jUsePu75LYb8tyQwiBGgNq2uisfQWsC1K73riEw3cvRmG5lpV7
-yHR9+3+oSEUkWt7uMlnluAjOmWg5ghTxbsWUbGOgvebJ4AgnescMlCcP/byiXLPp6vJsLo1lBfkz
-cj6cPksRtVxM2ccS2AkGU6EXQHwUR3eAJuS7PnmHY4eokhTMPjdP+XXkTyM/9WY3bqWRmm6eX5dj
-He0=
-=TdyB
+wsF5BAABCAAjFiEErmsb2hIrI7QmWxJ0uCajMw5XL90FAmrrWdUFAwAAAAAACgkQuCajMw5XL92p
+3RAArG9GJi77tWxRHK3qFPrEPwNG0rSwDxeMDPyfl6GgSVXbhvAJ0nxl5P8+QvIZREh+ZJkuKBzi
+mSy/M8VEDeYPBXzNeVsgwZkoM5ZvwxWgchKqOBX+Q58CekTxg1q41Yih4nrxedkiNKgmc2rwX9+L
+XiF8DFtw03bGpPH79Xwuy5AtuNMCW4foMOWLwuoTcDNPmfJhxQfHrR55iZFdQtvXWAukDnT9V5xx
+rYpYLw9LmGjZZ0HU1itj9dLcs+E3x0Rq1/ZmTKGzcCpy151azS4FuruO4BoqZK2+TdxSLLn1F+ha
+yPAkZsh38iFwRl6YlpqfFJp8TY2nVZ9m66iLgEDqa/O23FjwU5jUNatMK19as0CtPzIjfDL++Oob
+b6t0jX5lyiUmlL+1nSkNh5+IQQqCow/pieXw9Tb+qVypNS5/Yt/igL3nawpNOboUUHPZOFnI+1Ak
+7AsBW9fFpYT3Ce3YZ6VGWq2ckBoIgMM978Jqqp980qWcSC3bV+MEuR5lC/H9St9svXSV6qxnRJe9
+4HcYXxCl6lunKxvHyLGqeneQC+we9O91QqPmGwKuY6UW2F3PJ2YpLST50qzaSpJMEtJAI1R4GOmX
+koAQ5t1ZD8yzcZ2gdFFW0wmeu5nF1kgfviq7TI1I6lMZMK89o2MzNbRtnq2CglMAUPea2i8RFXmV
+gdY=
+=N0Bc
 -----END PGP SIGNATURE-----
 
---------------faZlha0xLctKpZXD63AboSAx--
+--------------owAE80pouCfQNSnXpboJkzYd--
