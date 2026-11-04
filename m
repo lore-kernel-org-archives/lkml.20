@@ -1,95 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793790252;
-	b=5OlwrXPJmD/EorZMcNwPikVtIP9gArD+zNzTt9odAdsRVtK5i7K3BpqRHtDDT1o6nHgP
-	 Tv0cu+tMmGXW/GEiAlijxGcV5gn8hNQt5IBoJlDhPcGtUFIyVNEDKFPhsvhx/uboowHQk
-	 P8ONZfHLCs4KLRkzzJl8FLZyrH1BYPdrHOlXe5A7zUCk7nBq4cE1N17LObeXhn0B9oBnZ
-	 5/dftLOTezcgAUoo7ZzZR+Y8CUyCb71/SRPbjzyy7lvOj6A+fJUrpHerQemBLrFDLkuYM
-	 OvIo3Lk89mZEL3x7cBG7leB4ociykMMFWyLkBBGapOpUh9HIqI/48HwwAImyiIsXzZA==
+	t=1793790255;
+	b=WHoPiucKWWq0eN+97dddo0ipgMa9jzvqVqK63h3ItmjJPilFy/smdvlA2EqAhHdiEAt7
+	 Dfd5dEMjxYF8vZusHYtU1mzu+vzd3G/BmSUdf2gkjtMZHp9Alvl0dcguGlvQQ4DZnZYZK
+	 bYNKZhyigXLfvoXFvzO5r8LQhtUZuGd1AQwb8Dvf+JwCSrxzwp2AY9btTflYUEJ9pSI/O
+	 GlCqDOQX+STjUjIO/BGdjP5UVwydGk4WKinOTPOAGiNZ84CCSrQpcmZVCGsSqSyTACM2J
+	 qbX3Di5eZJevXwtuuCdzVgYJ6+pqdsQ3rMgSsSo2g4cO6W76VflOx99tBpl9zkxA0+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793790252;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=W8Tbj15l65wdrQ6nP1bdM5KDmeBZZQ0e1b03QxB4foY=;
-	b=LIMsnkUn8WbwHN0Pm9VqfW1CqoFbx//KAwD1kn777EMo5LJf8IlldeWA7OKQ5nKkFwhN
-	 cR/6A2/0LIP5lZZBhzFufCdVaJ/aMcuY+vtyn4tlZq68fXg6e/oSDfUtbfUHWfD37lgN7
-	 s4UTeQFUxS0utuEjOv+cX++0Iz/BUxU1CU/qMJW9yCmA4t7DzkgPI0BPH+cKCcVD0I1U9
-	 epVxDNlc0u9LvqrUbukcb1C9hKNNR7Fu+nMPLMPmeSkquw6ppgLik85Uz+GYqDyBYGBXU
-	 lVhMXUplb4+FdmEztOfV17hPyvIwXrWY7tBeGY25YG9cWt7u5RYBb+1NrA6HBF/Jz0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793790255;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=di6PXeHB5ao9aED5rnI+MTd/fUST/3nbmo+6wj6cYKc=;
+	b=s+Ujy9SE4vdliwBpNlAb1RfVVG7GJwCnSC5GU5s7bGUlLmWBie8vl5clTqnYKB2y1kJI
+	 DNve2oKNVzZpsJIdz2Vic6edk5Jd2V+TlmRpEqfJC9h+wrNlh+gO9ztKH6rpCSaV13f5v
+	 m6K7HstwtK2E76iZfIiryvPyhsxOeqlJ1YvgRGzWc5+H0SYYF+iVcoQzQUXHLOXTFeLjD
+	 1CxdSloz+4ET5qJoNkStqla9wkoI2WLeF25vKrM1QPJp99b+Gdf3gRX2rA/K5Tq2llvii
+	 dTvgCD1hpbWnQ8JU32bUkAseCpwFDqQOPwB8RXVSZirSERxT7xqMTTgu0PrBEsvY5yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x6kxLp6+;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RN68OluP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15066606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:04:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15066606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DE08606A333;
+	Wed,  4 Nov 2026 11:04:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x6kxLp6+
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so5333285e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 03:04:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793790250; x=1794395050; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=W8Tbj15l65wdrQ6nP1bdM5KDmeBZZQ0e1b03QxB4foY=;
-        b=x6kxLp6+6OdHly5ZjwbVKxcP5nNxoiBGXacIlAc0bItDupUMHNN3wxAKO/SK6wXwCv
-         ZS8bJuOyDtL/3ETRewTitB5b0bLZZrkIYmBtGfiaMr/Oe1fzEX6qhI8e5c+nEb8+aRMv
-         fg+JZuc2M6ooueTPGzkXHedrOHw+nOdusL1FhG++ekipJH7kjXjZs0zzZLisCBD424xv
-         tLooMNYvxFRoLV/CKo7KTneOEm2fE2H/TBcSDQVu1ewGGKpvyDo8geX54Zvv7a40I5z4
-         TyqkhgvcOfqRMaG4InFMSmGtqEO0ss2/15WUXwuW1yeG9Efa1TQ3q4jOfrIJeYUxFkva
-         6dpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793790250; x=1794395050;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=W8Tbj15l65wdrQ6nP1bdM5KDmeBZZQ0e1b03QxB4foY=;
-        b=kSD6yupYSRssTpQxMv/ZavybH4yOuGN8MDrjidoX556zuh0WRtVpYGCrKg8nOBwpAZ
-         7LNNnXnL/H2eKNKl0RzmmmjkNyq2SEHl8VYMXeuMdOqXALOb6M+8NcPNjiJlkuqfsNy4
-         YCc4EcBDk+8thLEJBJ//JqvHYqunzT7iuCcftcqhsAHHwHhJHQMnST8utOAAA8s+1CZL
-         QxMoa1TuouZSb9qPZbBK6Sm7ERVep8yVIiO99OQo1Foz41ufspqE2SnNt6ySVNn+lPNw
-         USxR2XSAAMDj4nrEELlBPKCMSoLBJOE9O+k2k1RZ0v4mLvViONumYOfCcPFSeh0JJHNF
-         Zt9A==
-X-Forwarded-Encrypted: i=1; AKwUvBzbKsLNRjWKMlCjKyIJ7phUgiHoYFIocVvzXaJwdg8tn0OSh4JeFUcuTbnGMQlWwHaQ6pT+ux0TMFJrszo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+MrhvtZ4eWKnNeWD8sHINg5dGdBWFePvEic4WvhNR2NqAiMvZz
-	L8ZJdLUEp5pOGLvJ/HMd6j7xmmUVyX3dmgBtdgM5QEpATxYNn8QNQ4M=
-X-Gm-Gg: AYBFou0LvJVZxN2O6J3VvycapodPSjz/3zN55J6uyCAJrFMJ9PgUO49EIzCj1QJyGet
-	t57GJ06nu/qgmbxP6x+Nq+yTb/fzDvYaXaLBh+2neeOdoqaq8oTvVGVg6XHTLDB4PGFdDHVWc1L
-	J8xO+lMBDilpfkcv8nXbrn6ewcoUsFzalLYpj9sYi8y6DyXsLMgREA+CfYZ+dxkHK/XFvGh1M54
-	BvBRsJJJDZE7RJS/Pau5Pn9gI/L/Emmo7CPnTkvuPEJek3973vMAh389Vel45r5GKYDRhV7u916
-	Fvyp3nRK4LF8TtBrerK1eBRA3Fsl2seDKgWlFdTex4QvAFThBD8+1QZ5815Dw/jqj74AjPxTSlq
-	mcY/dzvwcq5Uk3UupsWKfrRXNBkgeGZGtnBNJgjqvZiunvZN7D2QpEQmI/z4KhYZdZRxEJ1Sl5V
-	XlBZl3jj38dSSoeE2wL0gzy0w/1iGoipJ8tx4RXV5K098M7+yFEa7F3Y+tMkD+NqNr9qiW5c2Nl
-	TnZeFY/Iyw2VsRx/CWs+lmQ5g0/h/bEg9Nhba8Ckq4612w02Ls5iEb5J5InEQCgF1Yxf+q3eYcU
-	FX0uUwUVbCY=
-X-Received: by 2002:a05:600c:674f:b0:4a2:1655:87db with SMTP id 5b1f17b1804b1-4ac1228a434mr377260735e9.0.1793790250163;
-        Wed, 04 Nov 2026 03:04:10 -0800 (PST)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b43c748105sm43888435e9.6.2026.11.04.03.04.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 03:04:09 -0800 (PST)
-From: Tristan Madani <tristmd@gmail.com>
-X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
-To: =?UTF-8?q?J=C3=A9r=C3=B4me=20Pouiller?= <jerome.pouiller@silabs.com>,
-	linux-wireless@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH v2 wireless] wifi: wfx: validate num_tx_confs in rx_helper before use
-Date: Wed,  4 Nov 2026 11:04:08 +0000
-Message-ID: <20261104110408.986252-1-tristan@talencesecurity.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RN68OluP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 836381F000C1;
+	Wed,  4 Nov 2026 11:04:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793790255;
+	bh=di6PXeHB5ao9aED5rnI+MTd/fUST/3nbmo+6wj6cYKc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=RN68OluPXZoITcxHSrLsbOtsG8Ly5//ASQqc92i7xUl439vTmX5vX/nLHS2JUDixb
+	 XBAAJCFj3HR1LJLIYT35y+wfcZ+kztwTZkMIjBpBgU6GDc7GpSyD1wow6zjgaVhlXc
+	 VO/mxBFb01zcyIGsMgWZFJx4Pl+ieqn7dKV8ef2YYWy3REAV1Ivb7isYDdrD/944Oq
+	 jcnBmWe2dhoZI7d/WfBQe/I9YSCD77PQkLUTea2ciL3rwJSRGA7Q5xmUDV5u9aG6wP
+	 sfp+EhNE+XCtCYmg3yJKjMb7/TPhO8GeWraaTMqCX8xs0joCsRik1yzfAwWLZE0qPc
+	 NXGm3Rei7+HpQ==
+Message-ID: <02bde189-8ab3-4a39-8abf-0c61298f406d@kernel.org>
+Date: Wed, 4 Nov 2026 12:04:04 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,64 +51,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 02/22] ASoC: dt-bindings: cs42l42: Allow referenced
+ dai-common properties
+To: James Calligeros <jcalligeros99@gmail.com>
+Cc: David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ =?UTF-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+ Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+ Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>, asahi@lists.linux.dev,
+ linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+References: <20261103-macaudio-v4-0-637484efe46d@gmail.com>
+ <20261104-strict-precise-mouflon-85cbad@quoll>
+ <f25646e3-d80e-4b26-b869-42608c89e665@kernel.org>
+ <dD3cbQkjQr2lqk83ChC6wQ@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <dD3cbQkjQr2lqk83ChC6wQ@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-rx_helper() reads num_tx_confs from a firmware multi-transmit
-confirmation and uses it to update tx_buffers_used before the message
-is dispatched to wfx_hif_multi_tx_confirm(), which iterates over the
-tx_conf_payload flexible array.  Neither path checks that the message
-is large enough to hold the claimed number of entries.
+On 04/11/2026 11:58, James Calligeros wrote:
+> On Wednesday, 4 November 2026 8:52:38 pm Australian Eastern Standard Time 
+> Krzysztof Kozlowski wrote:
+>> On 04/11/2026 11:49, Krzysztof Kozlowski wrote:
+>>> On Tue, Nov 03, 2026 at 05:39:50PM +1000, James Calligeros wrote:
+>>>> We may need to define both #sound-dai-cells and sound-name-prefix on some
+>>>> machines where this codec is part of a simple DAI. Allow this by
+>>>> refrencing
+>>>> dai-common.yaml and allowing its properties to be used.
+>>>>
+>>>> Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
+>>>> ---
+>>>>
+>>>>  Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml | 5 ++++-
+>>>>  1 file changed, 4 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml
+>>>> b/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml index
+>>>> ab4c7d22dc0e..4ac0af34c464 100644
+>>>> --- a/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml
+>>>> +++ b/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml
+>>>> @@ -9,6 +9,9 @@ title: Cirrus Logic CS42L42 audio CODEC
+>>>>
+>>>>  maintainers:
+>>>>    - patches@opensource.cirrus.com
+>>>>
+>>>> +allOf:
+>>>> +  - $ref: dai-common.yaml#
+>>>> +
+>>>>
+>>>>  description:
+>>>>    The CS42L42 is a low-power audio codec designed for portable
+>>>>    applications.
+>>>>    It provides a high-dynamic range, stereo DAC for audio playback and a
+>>>>    mono
+>>>>
+>>>> @@ -193,7 +196,7 @@ required:
+>>>>    - VL-supply
+>>>>    - VA-supply
+>>>
+>>> Missing dai-cells constraint
+>>
+>> Heh, I already asked for this two weeks ago.
+>>
+>> I do not see how you responded to my comment, dropping everything from
+>> DT patchwork.
+>>
+>> Best regards,
+>> Krzysztof
+> 
+> Given that the binding did not have a constraint for this originally, it
+> was my impression that adding one would best go in another patch unrelated
+> to this series. If you think it's fine to add here then I can simply fix this
+> for v5.
 
-Add a struct_size() check in rx_helper() before num_tx_confs is first
-used, so that both the buffer accounting and the subsequent iteration
-operate on validated data.
+Can be separate patch preceding this one, because adding constraint
+later would be an ABI break/impact.
 
-Fixes: 9bca45f3d692 ("staging: wfx: allow to send 802.11 frames")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
----
-Changes in v2:
-- Moved validation from wfx_hif_multi_tx_confirm() in hif_rx.c to
-  rx_helper() in bh.c, where num_tx_confs is first used for buffer
-  accounting, so the check fires before any side effects (Jérôme Pouiller)
-- Used struct_size() for overflow-safe payload length computation
 
- drivers/net/wireless/silabs/wfx/bh.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/wireless/silabs/wfx/bh.c b/drivers/net/wireless/silabs/wfx/bh.c
-index 0071659bc9c98..d4c904324edb7 100644
---- a/drivers/net/wireless/silabs/wfx/bh.c
-+++ b/drivers/net/wireless/silabs/wfx/bh.c
-@@ -99,11 +99,23 @@ static int rx_helper(struct wfx_dev *wdev, size_t read_len, int *is_cnf)
- 
- 	if (!(hif->id & HIF_ID_IS_INDICATION)) {
- 		(*is_cnf)++;
--		if (hif->id == HIF_CNF_ID_MULTI_TRANSMIT)
--			release_count =
--				((struct wfx_hif_cnf_multi_transmit *)hif->body)->num_tx_confs;
--		else
-+		if (hif->id == HIF_CNF_ID_MULTI_TRANSMIT) {
-+			const struct wfx_hif_cnf_multi_transmit *body =
-+				(const struct wfx_hif_cnf_multi_transmit *)hif->body;
-+			size_t needed = struct_size(body, tx_conf_payload,
-+						   body->num_tx_confs);
-+
-+			if (le16_to_cpu(hif->len) < sizeof(*hif) + needed) {
-+				dev_err(wdev->dev,
-+					"invalid num_tx_confs %d for msg len %d\n",
-+					body->num_tx_confs,
-+					le16_to_cpu(hif->len));
-+				goto err;
-+			}
-+			release_count = body->num_tx_confs;
-+		} else {
- 			release_count = 1;
-+		}
- 		WARN(wdev->hif.tx_buffers_used < release_count, "corrupted buffer counter");
- 		wdev->hif.tx_buffers_used -= release_count;
- 	}
--- 
-2.47.3
-
+Best regards,
+Krzysztof
