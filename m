@@ -1,58 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.20.114.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793768987;
-	b=oVt+UpHyi/GJqQ6oZJiskVk+dwh7XGsweOOn6g7hx/NTOUN8yqXbna57JBgIg5hl1oqE
-	 SzAm1mh9DMjW9SlwTSs1JVQCa1yQ3cpZLbBm8H/bYIHlgd2ii1++F+shZKChi2v+Ey/Wv
-	 JsfgdKNM5UEHQng9yyRq3K2rSsnQxF3cz6ntYE2mlA4dJF5fTiIlIeCEQ0nF7u1TJ4r+n
-	 eSM1ToIP+VlXhasekEj58SWK3SGBZSekWjMMMxiMCaHK+jjA9KUZ/GRozXd8PER9BjJDl
-	 RxAOBOVPbaiARHxJtyXFiAjzKl129mnJHxDHHGFV8dCazee4G6MTagtSxd+QeLe6ktQ==
+	t=1793769255;
+	b=gWkavO1OsgA3QwwHpv7Dg6qLWCnCOkp+iK0f3TOuYCp3yOFteDDzAFtRilDrnkf5l/wv
+	 fXpGCWHvRU4objuY6H43q+ywsMHRYhQRerKc/DUCcJ8GYVQXPV+4JhdcqdYlvt3avhl6A
+	 Hi8VFT0J80WBpRDE7TvMkdiZgZdYm8gzedZaEGLTheyGbnJXt3A0EK3KW8cp5mNpS9ErB
+	 cImHIksDcJMlV2EFQ4P/kWhxHLIe/wnnsBK46qKEY5obQdyk30CckBMgPn84140k8cmCg
+	 An93xLqJZq0mKA5wmK/mSHFpsRrhyexEZVstiYYaro52+hHypWOyvlN6B3+I1PmZR3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793768987;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-MBO-RS-META:X-MBO-RS-ID;
-	bh=n6w25QXldxKqXI+FaY0Sg1PYQRh/ifXRDwx1Ijoxuzs=;
-	b=GW0xjH67eGEd9CA+dBGT7rxyGVhViQnaqhgaMFSUVCadkcdkjMYO1AJ44FtxMtg6iWCS
-	 WLbraxgjPKzB/ucM0UtEqjBgfow5ok4hWIxEk5atTOzGtLPlyoX2bv4DPQ4grfNkwFyD3
-	 KetrIqLPpoFyyP61EoRWTQ5eyIaLOsiZhv5Nnr6sEPvmCnZAq5x+0HxBhRb/Gp/YspZPf
-	 sVkQ2r1LtIoISnM6yk73q8F6u7q93ZY1HmOGDIVw6wzoLKxYtULUILEvZ8K4m4czowfwq
-	 3OFyM5dD/Zw7Ar7CBpPjRvONEMMTEc8FO/koiLkEf1se2FUr7ZVqOsBgtXLwKJOi6Fg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793769255;
+	h=DMARC-Filter:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-ID:References:
+	 In-Reply-To:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=P8+jAXau/Bi0wos+mJ2Eqb8cW5DkPhqbTg/6gv3WuHQ=;
+	b=cdgIlW5bhp/eIMGeul40dHFFiotsh2fDnfSu0CuPd8NZeEZHCr8ETKc+K5YQiRvIFwpZ
+	 AWbXwmxprsqZEUiOTxMvxsn+s3h8FLqSXtWVeYJWSI5b2xGE6xtqpLSXzDRb5X6B/AvP7
+	 SeQnmPBwQ3xUy3VmMvJ6rXzMXIin8gYxobgGs4RfPGZD37REVj9NNuR5WsYmHJYC1qhXf
+	 HXpz50WhNW1Le2CYKVMt70TKHeGCO/MVJlRBN7nMS3Ginr/zzrF4OxmM7pB4/lu875yGN
+	 vaRZLejsv40qWiorD+7SEQIiqwHZmj7BJt/xWPn6M3g/HgBa/GY/zbiq7//JrdePyIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=u7SuaNAv;
-	arc=none smtp.remote-ip=80.241.56.172
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=aspeedtech.com;
+	spf=pass smtp.mailfrom=aspeedtech.com;
+	arc=none smtp.remote-ip=211.20.114.72
+Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B81606A31B;
-	Wed,  4 Nov 2026 05:09:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88B81606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=u7SuaNAv
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jKD5L4Ss5zMldY;
-	Wed, 04 Nov 2026 06:09:42 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1793768982;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=n6w25QXldxKqXI+FaY0Sg1PYQRh/ifXRDwx1Ijoxuzs=;
-	b=u7SuaNAvEoxamRy0OPW0VXMHT5yGBo6aTcsa55LdlK5lg4AxkP+mEvFluq0TtNwKCVl6Fv
-	OOiH/OfKI0OzjGs1Iji5nM3jRgfleV9ZR1hR47WXY1gyfT/kPU9m6Z1kYdTOqYWjHEgjGK
-	lX3a8ZfbN5CYoGYNMssQiamXZ60srTXlE5kyrnEHCeGXWb8tVBSwGL3lgf6u9p+6GMLdA+
-	pbYNJXfq3S7tntUAnHFbZfEwyDAwsk3EQfWNLuC8yw0RYqqkNrxspqUgFS3i43Ke6AoTwm
-	txKfMRiFM0lcD3TOkI5gZ8C8heayyInQVdeQqnDXgq8AOFLzKPsIvTOR4h4S8Q==
-Message-ID: <0128eea9-c193-4c09-8271-32307c464016@mailbox.org>
-Date: Wed, 4 Nov 2026 05:58:52 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFD03606A334;
+	Wed,  4 Nov 2026 05:14:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFD03606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Wed, 4 Nov
+ 2026 13:14:10 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Wed, 4 Nov 2026 13:14:10 +0800
+From: Jacky Chou <jacky_chou@aspeedtech.com>
+Date: Wed, 4 Nov 2026 13:13:55 +0800
+Subject: [PATCH net-next v5 2/7] dt-bindings: net: ftgmac100: Add AST2700
+ compatible
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,61 +49,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] PCI: rcar-gen4: Isolate 256B MRRS limit only to R-Car
- Gen4 SoC PCIe controller
-To: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-pci@vger.kernel.org, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Magnus Damm <magnus.damm@gmail.com>, Manivannan Sadhasivam
- <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-References: <20261028172208.20948-1-marek.vasut+renesas@mailbox.org>
- <179334040211.5551.2573230628622674128.b4-reply@b4>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <179334040211.5551.2573230628622674128.b4-reply@b4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: u4w955mh74kurmw4oy7yn3ho3zsuxdf3
-X-MBO-RS-ID: f0973c2289f1e65d280
+Message-ID: <20261104-support_ast2700-v5-2-44057f4dde75@aspeedtech.com>
+References: <20261104-support_ast2700-v5-0-44057f4dde75@aspeedtech.com>
+In-Reply-To: <20261104-support_ast2700-v5-0-44057f4dde75@aspeedtech.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Po-Yu Chuang
+	<ratbert@faraday-tech.com>, Eric Dumazet <edumazet@kernel.org>, "Heiner
+ Kallweit" <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, "Eric
+ Dumazet" <edumazet@kernel.org>
+CC: <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Jacky Chou <jacky_chou@aspeedtech.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793769249; l=1916;
+ i=jacky_chou@aspeedtech.com; s=20251031; h=from:subject:message-id;
+ bh=5qANQSIovmy+Pbyb8pie3VdsuBQOVCAKP1ZjoCqetos=;
+ b=0ANLizeKxw/1qP3KNLmXwOzfouNf8oIgzNValW7l+M5T2m7Z71c5OBS+q/WCWAFO8wv7dVhVu
+ Z4kUPHuM7PgDgleJnBQB6LbNJZiChpPmDGUg7FwmWxGrSPnV2LMx6gw
+X-Developer-Key: i=jacky_chou@aspeedtech.com; a=ed25519;
+ pk=8XBx7KFM1drEsfCXTH9QC2lbMlGU4XwJTA6Jt9Mabdo=
 
-On 10/30/26 7:06 AM, Manivannan Sadhasivam wrote:
+Add AST2700 to the FTGMAC100 compatible list and document that its
+RMII RCLK gate matches the earlier Aspeed SoCs. Allow the reset line
+for AST2700 as it follows the same reset requirements as AST2600.
 
-Hello Manivannan,
+Require "phy-mode" to be present in the device tree when the AST2700
+compatible is used, matching the driver's probe-time requirement.
 
->> diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
->> index 9a64a9f4ab0d1..1e4405181eef3 100644
->> --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
->> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
->> @@ -99,6 +99,7 @@ struct rcar_gen4_pcie_drvdata {
->>   	int (*ltssm_control)(struct rcar_gen4_pcie *rcar, bool enable);
->>   	int (*speed_control)(struct rcar_gen4_pcie *rcar);
->>   	enum dw_pcie_device_mode mode;
->> +	bool mrrs_256b_limit;
->>   };
->>   
->>   struct rcar_gen4_pcie {
->> @@ -663,7 +664,7 @@ static int rcar_gen4_pcie_host_init(struct dw_pcie_rp *pp)
->>   	if (ret)
->>   		return ret;
->>   
->> -	if (pp->bridge)
->> +	if (rcar->drvdata->mrrs_256b_limit && pp->bridge)
->>   		pp->bridge->enable_device = rcar_gen4_pcie_enable_device;
-> 
-> I'd suggest moving this check inside enable_device() callback to make it clear
-> where exactly the skipping happens.
+Add aspeed,ast2700-mac as a standalone compatible, consistent with
+the other Aspeed compatibles.
 
-If we do that, we would end up with assigning a callback which always 
-does nothing on R-Car Gen5 (SoC with rcar->drvdata->mrrs_256b_limit = 
-false), that is not good. I think it is better to simply not assign the 
-callback on R-Car Gen5 at all. Hence this here.
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
+---
+ Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+index c870dd0bda7b..0a376b849a91 100644
+--- a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
++++ b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+@@ -17,6 +17,7 @@ properties:
+           - aspeed,ast2400-mac
+           - aspeed,ast2500-mac
+           - aspeed,ast2600-mac
++          - aspeed,ast2700-mac
+ 
+   reg:
+     maxItems: 1
+@@ -28,7 +29,7 @@ properties:
+     minItems: 1
+     items:
+       - description: MAC IP clock
+-      - description: RMII RCLK gate for AST2500/2600
++      - description: RMII RCLK gate for AST2500/2600/2700
+ 
+   resets:
+     maxItems: 1
+@@ -80,12 +81,21 @@ allOf:
+           contains:
+             enum:
+               - aspeed,ast2600-mac
++              - aspeed,ast2700-mac
+     then:
+       properties:
+         resets: true
+     else:
+       properties:
+         resets: false
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: aspeed,ast2700-mac
++    then:
++      required:
++        - phy-mode
+ 
+ unevaluatedProperties: false
+ 
 
 -- 
-Best regards,
-Marek Vasut
+2.34.1
+
