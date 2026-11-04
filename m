@@ -1,101 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793767883;
-	b=cHDzTwxnEUX40iDnx4XaBc3Qu80iExXv3rrJB2Sxs32VgJYMbACZw89QaRLfeesFqYa3
-	 MoxP35zCD07tD/malHmhxYTm/1fx5hI9CUm/F5rYolO46RKGPVTWSbK0De4K7WERLTyG9
-	 bcq9mmhc3j8JAsBcVcxL8QyqW+ypf0k5BJLFpGjym36E2f+EiKmnngOgSsEp1wI2cpCDU
-	 qf141xJBjWDtGvYzog8Ogqbgb3qkRdaHBNsomnxUyljzGUVebzR25If7BD0wJasMP7cq+
-	 OAtDwHzfblgJyCloBtpEOEU8xPh+xZ9SanzrLsu5XOcZpdTqV51xfsq9HYF3XtCXQKA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793767883;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Mp8xsFriBqyXmCTwSHqo960HmvB3XMBtAen4xkqgSVo=;
-	b=EHRSmPMFynCA7eIRselyJVZBA00EuMaDJIhr2wadbMDKbKc5xukL/hdX71LHGCmDoslC
-	 uul0qUTQXN5bJ8KX9Nj2qYmnn9jx+xKWpzP7KHQoMZazfqx56vP2n2P8pukt/VZLEVo+W
-	 MRcdjL/1lqR4jBSVO/Jk7tTwZDmyVyqR048VZ9f1TAHcvLk+pojUUqoCvvAZFQNt1lTgs
-	 2idMUiTJSCJVgJ7DInOB4Fli1Ae2lWy4hdLC9oFlDDvPBQwBtWeQH3ZjkLGM8C4cOQXBc
-	 9JIgH7bl9rIAwcNk+RLGGdFlS/lXtt11xn3VEJMj/b1qke693kFqbdWoD2lzDoVZsaA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UAguqIPl;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793767910;
+	b=yUJZouRkBZ0fPvk7DmWkWov9zYyvJB77qy4g6bXGHCtg0erkLZMY/uLMHiIhx8EucEVC
+	 RqNYo+8bTQfZZ/ZDJ+lHOeJBMRFFW6wmSY153ArMarINm0q4m/G+dw3rpHnSIneKsGy8z
+	 yLsR6MjYlbx1qboDE+3SEVokl94saWOR5yzPUOhKXkUz2X8dCsSjGBl8wkamGaujDvy2k
+	 97w2TGm8MO8VxO2AuMaMOWG/mkEunwhROqwNFiwVQJGj1HZcCNNnbBfI6XyNnal3KtmmI
+	 RnQOqH4G3pd6zkFaXOa4TZwTbflFGCOd60fiU7UeCWEj6IGIzBs4fvWc9LuUJflhWAg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793767910;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=hYYmAr/X6jkEKVI/rUiLckvRRdWrzEQRkaCP6T8C01U=;
+	b=azERLw20E6urVl6oXAEduJGSCvD3QsOsj50aKvfq+yIhTNfDPdG/UcyuDM5/LNPouShK
+	 phjZ0MhTwEdxhVXtewi+rJaMVTRDXvK8C/xUx3l4XlL+H4OxtTRxYibg5wdDEJ+hpfL3R
+	 2lx9o7GYeRj6ve1seOkB5a+xQS+y7qDz2FnMCDj1Ibbvyo/ySahtsSeercQeYRjXaRnKo
+	 YvHgH77DI/cerxvvBxJbjVVgKytNsBgZLdK1+X5LoAmRZ1CeNT3+GMH2LBr/EouZAibop
+	 emWbNuKOaL1XUaXZW9P6tWSPGUwWO30y+NaGGoHmWLupwDN9oBHTxIA/vri8BZezekQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HWEwH1op;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ksY+XdiJ;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC29A606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 04:51:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC29A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 581BC606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 04:51:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 581BC606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UAguqIPl
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso669128eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 20:51:16 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793767876; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HEXklTdP7tQSVJYe3zJdcBLWbpSsKj/NXEnqdXVdJpphHkJp2yMTWZv3f4uuR/blxf
-         CqJIJScrNrEHt4ir5eXVd9fyvcw4CT60LEF8hxMoD6cu25HF1dmxrcTWob+pqwAYfunZ
-         n9rRvWg1VKHHNfGFNYKdMTrnschtzEWPW9M5tET71B9RX53SQ7wJcUVl45m8SFzLayLi
-         Q3BaXo1sge2NeCVXMTSh2znT4Da7XxGeMwZTWBy+P05f1M1MR6JXyxcNNDfM1hNM9X0Y
-         W1+zoIta2PkM8r9uD9oCqaRetTfNsBcj2Q05dO9pDQPoq/d8lIIVsP6RWFDptj7elcuL
-         pbNw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Mp8xsFriBqyXmCTwSHqo960HmvB3XMBtAen4xkqgSVo=;
-        fh=UCQg9JB5osrXdHVsBleV2PMFQYuTrqEiKTKhlFB1vbo=;
-        b=V+VvRgtbBnR/dVO6HKy75p/X3uLb0jLZz+Ai+TKZQ3BWfSmm5Oz6YPDN61Y4Cy+ED6
-         I1VhgoTMOqGKiz1sMmjoRcM/cUE9Y7bop56qZLUp7sEAPXcCmRd0pejLNetxSSjPuPdm
-         PUoAycXUA4lBIz+DO7r/AWFsRo2nwxDyUaxBJHZl3glQqBE4vToc/SfOzWSTQIiGfbE/
-         OJWTqP+NjpEQIqt6ZFva9/2Yi1P9s2NO1jptwOBKGxhdMK8bQvJHzJq+tXRXQhp6sTo5
-         Bokp4hrNOd/x4T0QcfDXmCWdJHfpAHJnJwmCy9Wk0sZNY0T8TVRQG2J1WQpp74p3Soel
-         IzCQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HWEwH1op;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ksY+XdiJ
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A40RJVP193647
+	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 04:51:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	hYYmAr/X6jkEKVI/rUiLckvRRdWrzEQRkaCP6T8C01U=; b=HWEwH1optVPYUqVe
+	aceBWshnkGrwruGAjEBFgtxvmbTNElTenKAn/vI7u4NWXTO8Uk2k1X6Kgic3a940
+	vOk4OS2grUdTrEonPEVi1hQVsoLpD6YBH19/aF51fDoZMPZZ3/zMxB0IA3RrNqtY
+	Hnv+A7XUCttti+upkzdaZCXBXqQRlD9XtuBqAukaUYcbhNUBFAsIvJWmdPkCNW5+
+	IJDJl1zfPBDzCBPuEEp7ji5BvLCddvlBbizHWDzc3ygo5b1zmftx1KaoDzlKghUP
+	Umwc+TbmUCHemb/P9DWXJTfp9H/Y5Mgmnwd3F/pp58dWOzOMa9rhsURo2HVjmEzn
+	SOfWiw==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqn8nj0d8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 04:51:48 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36a1e2485fdso562064eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 20:51:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793767876; x=1794372676; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Mp8xsFriBqyXmCTwSHqo960HmvB3XMBtAen4xkqgSVo=;
-        b=UAguqIPle6zcUMb4YAD63PWBLz5jwb6dHVKUqYbn4e1cJXWj2CFq/40p0V+SKk3GCb
-         LpxfANox8Sxh2upFoUm5uUP7zd5OtCQenbdo45g0ZWLNAl7eoFVsVNlRNjAmTA2XOT4l
-         t/gARt//D7ed3JdNS+MbiDAcoRUCivKSngGseqWi4JneUVEDGjVAUoqPe1ZYWyvARc5e
-         UOu9FfaCyAUbxmX5BQRLoMJ4ybYbL7z2KisICvRoor4T4AkNiTSnrPmodlbRHKlXKbLx
-         pkqw4hx7OQFemiBmE6gjgcWs+euiA5E6jZtZIHSzoa4+I1UEC7j7P90EQa7zOLHyPQxS
-         xinw==
+        d=oss.qualcomm.com; s=google; t=1793767908; x=1794372708; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hYYmAr/X6jkEKVI/rUiLckvRRdWrzEQRkaCP6T8C01U=;
+        b=ksY+XdiJhFHI4OU257oVI6Hf3ByyDhZKv6nJ9vsRRszTMUwOUumLyuNGANl+Mp2Lwu
+         zbLQE/gJFVHbcLWJOuj5jvvbSbm1sJKCWftNhBU5T+517y/C41Ng1Q0pp4ivVDSZ6siQ
+         SbaYO4+FM1d1896TFmgQ3y6oWWEVTlw/L1VgAVQ0ZprbR5+UGyukQYlcIx954ulaK3CQ
+         zzA4dbYsJ0Fn8zIeePzCiT9YI9hf0U0ac6EfH3xL59fFB5NPfbinU4NWFeS0wbi6mBb8
+         to+xtGjd6GHDrNhH+yNZMfr3rI4SRjpeMKFyuF1dPGGVjdke0oIYQba1Wps/wn2O0x9T
+         gCrA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793767876; x=1794372676;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793767908; x=1794372708;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Mp8xsFriBqyXmCTwSHqo960HmvB3XMBtAen4xkqgSVo=;
-        b=uOl31RaUfN05nmIbVcGS/9TlU0+wLfP0dx3ZuoFiNTdb8sYXrxUFogTF4uk9YXaLDW
-         eF5xVG2/bP7q4OCbj7LUVGrS3GVrOegSrI3QSOOjmpFp4cyiE7WIcoZP6m7sH40jkMi0
-         noTUfekicrCJ2Qi8B+Qrg1KKj+nt9N6R0/AsilC4Ok3ML6dlsTJQm8TKhUtfokxIN26o
-         0NzW3tRH0ex6UZC0I3nEOjAfH+Vi2otwLOtBHMWa5ChzZ5PH8LVfdMjrn/RMPZJKVWom
-         7vpVmCltLJCqAiqHEXW1C9I15ng9wnw2LLk97jlZMOP1YOOtNuQbRx7liCQA0MEktkZz
-         WWzw==
-X-Forwarded-Encrypted: i=1; AKwUvBxslK23dTshUc5agAOB+bWB+GUYX9v4hFHN9IZMU5/rbXELWWct/cEtfJxEN/CyP3mR8cEZJekHRB6LK7o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9lhKC3RUAikmk6QRicx/anErrnPX/YU9BRvtwXGU3+v7nicwU2
-	hVyQGAABOo1BNSeaF4aplG9X/8hO/c/cubHjqTFTPoY+0tz5vw4jUp2n1jHT6QBFJeCtmgXNP21
-	BteEbKB0O6Ypl67UaleJsLVT4amdWYFE0ckjjhKmw
-X-Gm-Gg: AYBFou3Xmkjfv3W8izaO2pb3SZ3i9Ss82Ea+QC+MGaM8PAp5bZr/m22xVeDKI1fSgq9
-	w9DcNbeezyj5b4jGdWYs2NIZ0j+w6w6F/93SFXSiSa0u2fzFiDKfFmhtf786hRvpkSNJBDxU4ae
-	i/cer8D1qiy+GNgAvhe4lZBYXXmrkC8qxRMQ6wO8YnEVbulhxU9NWST/OP2sX6pBGaYg130N3ky
-	qY96rCYv8Lw+bGwzdEcgBrWHW4FzTTh4UiVYNjZMCcnQLAOsZ8wkxA+Ifj3T+g2TW01OIkW4Lb+
-	9NTeH6tXXDlxO2lsZiy9tk+yqXt6+Vr73+zr+P4pXjHmudYPWcUExvFdoHsRoTNDrjsXMU5fkCI
-	kiiJX2Htn5O9fFbaYa3aQSsSr0KyuWbAQpGeot69Ub3P97ZeUY3Aza+Uexf1bnx9lPTn0ntJkwm
-	ZlkpSe1NsfPTSVBWvU
-X-Received: by 2002:a05:7022:7f12:b0:1ab:faad:cc9 with SMTP id
- a92af1059eb24-1ac5bbb503dmr23077930c88.11.1793767875002; Tue, 03 Nov 2026
- 20:51:15 -0800 (PST)
+        bh=hYYmAr/X6jkEKVI/rUiLckvRRdWrzEQRkaCP6T8C01U=;
+        b=TWSgxcKvr1UPupZ1062xn+6vlI73mXhHG2XhhvhNJB8M4IcGjXRlLbwDCMwUS2999R
+         TiCcDg1mgVRi7qxZ0D5RyFbfqMuKSRntC534piGwPEOl1Egh5/4dMgn1APXy+tB9Y8K7
+         MUQQpRExaDfLIpPb4YNz8A9TIWGbhjmZDVMUZlh2zb4ttpFraMjStHuMDGoKq/t57gSH
+         boo5UR6RDQx/4y90W5KAIrzy+6KBDPhckd0uFuajv/py2uzFFLPhXHQQEApMc/D57O5e
+         A1nyWlUB8dVkpYOPwN5oT3ZImaxoXIWF1QY3CuXXRlzOw0+nrsnuSQSRxvlglO9fDaB6
+         /GVg==
+X-Forwarded-Encrypted: i=1; AKwUvBznF3vGtySosBInOAQ7EMB9HIuZTCZeJhD7+115MP74+rF6SQ7dY4asUtI6LMkOzhVv9ilNWVXKAAvsnWk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9xq2F/tF2qEpZWng2TVh5PJDivp5sasv4QvM3mhckj4aVLnK3g
+	IeMTupSoa+7MJeYZHBj4NAhE4HfkSMy1bYwGgbxyy6ImsWX1gR0qz52A45jRcMo8piE14uuMezp
+	I10mWtgdeA9urYi9LR6kMUTFGDFIs1LRGlN0ZO2mJPYruu1iUutrfyp9wF8SHdpFN9GY=
+X-Gm-Gg: AYBFou0IShqEnri2bGLF1dMkPfzWDd3RjxRQRUG5jAy7WzGlWMWFM+dDl6wTnDHtqvj
+	Kot/JTqk6dGTHgxHvmp6l60tTipv+dExbkqDVdzwwlb4QqQgaom9VRD+lTZtuy/i44q4ejm1fnL
+	ap2tQBQTrTdb4+5jeD1I9MEVwB/6VNitkh83h8yYLzdCPkqzctrMaBdsraCgh5PEW4vkyRgOteM
+	pfro0DRsW83ETQcagBpuYgpxmFoZ2aPrHpAoK93hftApKUNqbkZwZqwHKBE6k42Ygtx38VL93Am
+	r4D6K6OswTbF0cjUtyQNq4nXDdGwypQwZ3x/8a9NFuo5pZmslVXKMjmDHGvZ2oit2ajhIw3A512
+	o4a6yM0Voo6Sc0AiDOavOFM5iMhtfiJcr2T1ngZpsoXvtQFvZfWxtrNFG/7PQU2B9FKzAsPxA1+
+	ilEG6suDG4gIBQnB61gMKxDlLk
+X-Received: by 2002:a05:7300:5b89:b0:36a:1732:1e7 with SMTP id 5a478bee46e88-36a424c7b7dmr34368114eec.31.1793767907789;
+        Tue, 03 Nov 2026 20:51:47 -0800 (PST)
+X-Received: by 2002:a05:7300:5b89:b0:36a:1732:1e7 with SMTP id 5a478bee46e88-36a424c7b7dmr34368044eec.31.1793767907147;
+        Tue, 03 Nov 2026 20:51:47 -0800 (PST)
+Received: from hu-fenglinw-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca394c2a3sm3427958eec.20.2026.11.03.20.51.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 20:51:46 -0800 (PST)
+From: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+Date: Tue, 03 Nov 2026 20:51:17 -0800
+Subject: [PATCH RESEND v7 1/2] dt-bindings: input: Add Qualcomm SPMI PMIC
+ haptics
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,352 +117,217 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103042210.2984373-1-bcochrane@google.com> <179376630095.488856.6614017924619723779@kernel.org>
-In-Reply-To: <179376630095.488856.6614017924619723779@kernel.org>
-From: Bryan Cochrane <bcochrane@google.com>
-Date: Tue, 3 Nov 2026 20:51:02 -0800
-X-Gm-Features: AclHuK9J1H0G53iFpSG9-VmpGKScwgpb_eB7c9i3tFYXGIKtJDzmkDwUVeNsWY8
-Message-ID: <CALuKKxG_j11CcA7ZEr9AashVAvtcRQCbramLXFxCW9QpqWQ4nA@mail.gmail.com>
-Subject: Re: [PATCH net v2] bnxt_en: Take RTNL before netif_close() when
- aborting FW reset
-To: netdev-bot+sashiko@kernel.org
-Cc: michael.chan@broadcom.com, pavan.chebbi@broadcom.com, 
-	netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net, 
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, sdf@fomichev.me, 
-	joe@dama.to, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-qcom-spmi-haptics-v7-1-418de67ef84a@oss.qualcomm.com>
+References: <20261103-qcom-spmi-haptics-v7-0-418de67ef84a@oss.qualcomm.com>
+In-Reply-To: <20261103-qcom-spmi-haptics-v7-0-418de67ef84a@oss.qualcomm.com>
+To: linux-arm-msm@vger.kernel.org, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: David Collins <david.collins@oss.qualcomm.com>,
+        Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
+        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+        linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, David Heidelberg <david@ixit.cz>,
+        Fenglin Wu <fenglin.wu@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16-dev-17187
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793767905; l=6461;
+ i=fenglin.wu@oss.qualcomm.com; s=20260324; h=from:subject:message-id;
+ bh=YcJzWuwZ1RPM60Xmk1Fr6v59EnVXQyCH0dMpsNpXZwI=;
+ b=CA5I13+mOeWUbTYUy65Pz3XTLSbPcLT/A3rPAwLHcvM32qGlUjec+jzYZ8jzlgown5Ku6PegR
+ DF9cZ2/qKLLB6MyUevlgPXPeRrHyDUCuP0w3g3K0pbFywMbY6APKuFg
+X-Developer-Key: i=fenglin.wu@oss.qualcomm.com; a=ed25519;
+ pk=hJdt3E7o54lql+miD2GaxwF74cDyhgNwMbmFOZ46bRU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAxOSBTYWx0ZWRfX3aNQKOooAuCs
+ V16+toWNHyG500UteiWlUW64aAFw8r2M7uxEmlnk7XFTv0En9gS5SVNLBXU6h3rm/5uKNS77moA
+ PwEGHO88Jf8fZaMfCwdYsoGE1COFQV9zGtxxdFxYs0W7EcWs3j5/8mf4ZsEKXycbMAkIXeBrTY8
+ twCvpMi+zrLxpy4L/M3dX9XjnK+LnY+SfanVddZeUcZlJOQR1gEQvxSn0EAKHmkXfH/4yyEMRPz
+ XUi294z7w59zWzYWHnNNyM1Q44noJm6mfwsOro4E7go10RUtIe3qhSenjeMQLjBGohPPAFyCz0i
+ 6tdP9nYvbOGzE309FJNUIUueUzI1dBULinfj5Yyig4EMtwlpiR8KrdOAKl6z931SNulfLCTrIuw
+ 7uhooW1ejW1SDP9mhxvdp84nlCH6U6Jiwwgk3mlDjq4BkjUaFcQ1aGJatU/80KBsciEYLXgHUST
+ 58wojXYHwC/7LqrB88w==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAxOSBTYWx0ZWRfX1J06cv2G796K
+ QluT/kP9wK+Zt5Yza5sm31KNOgbBhh4pmT1aMPHQPDBaChBbiID3HvPW6T5Rg77dcqDGLnpWkgL
+ HjyIime511ft7nla/bURhdYYngzpoPw=
+X-Proofpoint-GUID: grTxRlkGu-navl5zAofBH9UHYFw6MnQL
+X-Proofpoint-ORIG-GUID: grTxRlkGu-navl5zAofBH9UHYFw6MnQL
+X-Authority-Analysis: v=2.4 cv=As17T+9P c=1 sm=1 tr=0 ts=6aeab9e4 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=bI6yuv9Qsz7HNVLwNVgA:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_01,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0
+ malwarescore=0 adultscore=0 clxscore=1015 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040019
 
-On Tue, 3 Nov 2026, <netdev-bot> wrote:
-> - [High] New deadlock in bnxt_fw_reset().
-[...]
-> CPU1
->       rtnl_lock();
->       netdev_lock(bp->dev);
->       netif_close(bp->dev)
->         bnxt_close()->bnxt_close_nic()->__bnxt_close_nic()
->           while (bnxt_drv_busy(bp))
->               msleep(20);
->
-> bnxt_drv_busy() tests BNXT_STATE_IN_SP_TASK. Normally only the sp_task
-> clears that bit, and the sp_task is the thread stuck in this loop.
->
-> Would this spin forever with rtnl_mutex and the instance lock held?
+Add binding document for the haptics module inside Qualcomm PMIC
+PMIH0108.
 
-Yes, this is a valid finding, thanks. bnxt_fw_recover() can enter
-bnxt_fw_reset() from the devlink health recover path as soon as the
-reporter is in the error state, and bnxt_unlock_sp() then sets
-BNXT_STATE_IN_SP_TASK although the caller is not the sp_task. Before v2
-the instance lock was held across netif_close(), so this could not
-interleave; the unlock/relock window in v2 makes it reachable, and the
-thread that would spin in __bnxt_close_nic() is the sp_task itself, so
-nothing would ever clear the bit.
+Assisted-by: Claude:claude-4-8-opus
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+---
+ .../bindings/input/qcom,spmi-haptics.yaml          | 139 +++++++++++++++++++++
+ 1 file changed, 139 insertions(+)
 
-v3 will not drop and retake the locks in bnxt_fw_reset() at all. The
-bnxt_get_registered_vfs() failure sets fw_reset_state to
-BNXT_FW_RESET_STATE_ABORT and queues bnxt_fw_reset_task(), which then
-performs the abort through the fw_reset_abort path that already takes
-RTNL before the instance lock. bnxt_fw_reset() keeps the instance lock
-from bnxt_lock_sp() to bnxt_unlock_sp() as before, with no netif_close()
-in it.
+diff --git a/Documentation/devicetree/bindings/input/qcom,spmi-haptics.yaml b/Documentation/devicetree/bindings/input/qcom,spmi-haptics.yaml
+new file mode 100644
+index 000000000000..ce2c9e893a0d
+--- /dev/null
++++ b/Documentation/devicetree/bindings/input/qcom,spmi-haptics.yaml
+@@ -0,0 +1,139 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/input/qcom,spmi-haptics.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Haptics device inside Qualcomm Technologies, Inc. PMIC
++
++maintainers:
++  - Fenglin Wu <fenglin.wu@oss.qualcomm.com>
++
++description: |
++  Certain Qualcomm PMICs integrate a haptics module, such as the HAP530_HV haptics
++  module in the PMIH0108 PMIC, which drives an LRA (Linear Resonant Actuator) with
++  an output voltage up to 10 V. Several play modes are supported in HAP530_HV:
++
++    DIRECT_PLAY: The hardware outputs sinusoidal waveforms whose period is
++      defined by qcom,lra-period-us and whose peak voltage is defined by
++      qcom,vmax-microvolt. The driving amplitude can be scaled in the range
++      [0, 255] via a single register byte.  Hardware-based LRA auto-resonance
++      tracking is enabled by default in this mode, allowing the haptics engine
++      to follow the actual resonant frequency of the LRA and update the driving
++      period accordingly to achieve stronger vibration magnitude.
++
++    FIFO: The hardware can play an arbitrary waveform composed of a sequence
++      of 8-bit samples at a configurable play rate.  Samples are pre-filled
++      into the internal FIFO memory of the haptics module and continuously
++      replenished via the FIFO-empty IRQ until all samples have been played.
++      An 8K-byte FIFO memory bank is available in the HAP530_HV haptics module,
++      shared between the FIFO and PAT_MEM play modes. The memory partition
++      between the two modes is configurable via registers, and FIFO mode always
++      uses the 1st partition starting from offset 0.
++
++    PAT_MEM: This mode is very similar to FIFO streaming mode but without the
++      data refilling capability. It is designed mainly for short, latency-critical
++      vibrations. The memory space for PAT_MEM mode must be reserved for dedicated
++      usage, and the waveform data should be preloaded and remain unchanged
++      thereafter. The haptics module can play the waveform data from the memory
++      region specified by the PAT_MEM play start address and length registers.
++
++    In either FIFO mode or PAT_MEM mode, the following play rates are supported:
++      -- 0(T_LRA): each FIFO byte drives one full sinusoidal cycle with the
++        period defined in qcom,lra-period-us.
++      -- 1/2/3(T_LRA_DIV_2/4/8): each FIFO byte drives a half/quarter/eighth
++        sinusoidal cycle with the period defined in qcom,lra-period-us.
++      -- 4/5/6(T_LRA_X_2/4/8): each FIFO byte drives 2/4/8 sinusoidal cycles
++        with the period defined in qcom,lra-period-us.
++      -- 8/9/10/11/12/13(8KHz/16KHz/24KHz/32KHz/44.1KHz/48KHz): the FIFO
++        data is treated as PCM samples and drives the output with an
++        arbitrarily shaped waveform.  This mode is typically used to define
++        custom driving waveforms for specific vibration effects such as fast
++        attack, crisp brake, etc.
++
++    The drive voltage in FIFO or PAT_MEM mode can exceed the value defined in
++    qcom,vmax-microvolt to achieve a special vibration effect, but the waveform
++    must be short enough to prevent the LRA from being damaged by operating at
++    an overvoltage.
++
++    Also, hardware-based LRA auto-resonance tracking is normally disabled in
++    FIFO or PAT_MEM mode, as these modes are intended to drive arbitrary
++    waveforms that may not follow the resonant frequency; autonomous hardware
++    resonance correction would interfere with the intended output.
++
++properties:
++  compatible:
++    items:
++      - const: qcom,pmih0108-haptics
++      - const: qcom,spmi-haptics
++
++  reg:
++    items:
++      - description: HAP_CFG module base address
++      - description: HAP_PTN module base address
++
++  reg-names:
++    items:
++      - const: cfg
++      - const: ptn
++
++  interrupts:
++    maxItems: 1
++
++  interrupt-names:
++    items:
++      - const: fifo-empty
++
++  qcom,vmax-microvolt:
++    description:
++      Maximum allowed output driving voltage in microvolts, must be a multiple
++      of 50,000 uV. This is the peak driving voltage in DIRECT_PLAY mode,
++      which outputs sinusoidal waveforms. The value should be equal to the
++      square root of 2 times the Vrms voltage of the LRA.
++    minimum: 50000
++    maximum: 10000000
++    multipleOf: 50000
++
++  qcom,lra-period-us:
++    description:
++      LRA actuator initial resonance period in microseconds
++      (1,000,000 / resonant_freq_hz).  Used to configure T_LRA-based play
++      rates and the auto-resonance zero-crossing window. It could be also used
++      as the initial period if the LRA wants to be driven off resonance.
++    minimum: 5
++    maximum: 20475
++    multipleOf: 5
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - interrupts
++  - interrupt-names
++  - qcom,vmax-microvolt
++  - qcom,lra-period-us
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/spmi/spmi.h>
++
++    pmic@7 {
++        compatible = "qcom,pmih0108", "qcom,spmi-pmic";
++        reg = <0x7 SPMI_USID>;
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        haptics@f000 {
++            compatible = "qcom,pmih0108-haptics", "qcom,spmi-haptics";
++            reg = <0xf000>, <0xf100>;
++            reg-names = "cfg", "ptn";
++            interrupts = <0x7 0xf0 0x1 IRQ_TYPE_EDGE_RISING>;
++            interrupt-names = "fifo-empty";
++
++            qcom,vmax-microvolt = <1300000>;
++            qcom,lra-period-us = <5880>;
++        };
++    };
 
-The unconditional set_bit(BNXT_STATE_IN_SP_TASK) in bnxt_unlock_sp()
-when bnxt_fw_reset()/bnxt_fw_exception() are entered via devlink is
-pre-existing and not specific to this fix; I'd rather address it in a
-separate patch.
+-- 
+2.43.0
 
-> [Severity: Medium]
-> This is a pre-existing issue, but this path returns without calling
-> bnxt_ulp_start(). Nothing undoes the bnxt_ulp_stop() at the top of
-> bnxt_fw_reset(). Does this leave the RoCE/aux driver suspended after the
-> abort?
-[...]
-> Since this path is being rewritten anyway, could the ULP be restarted her=
-e
-> too?
-
-Agreed. With the abort routed through bnxt_fw_reset_task() in v3, rc is
-0 at the ulp_start label and bnxt_ulp_start() runs, the same as for the
-POLL_VF abort.
-
-> [Severity: High]
-> This isn't a bug introduced by this patch, but commit 004b5008016a seems
-> to have left one more netif_close() call without RTNL that this patch doe=
-s
-> not cover. bnxt_vf_reps_destroy() holds only the instance lock:
-[...]
-> If this patch is backported to stable on its own, this site from the same
-> Fixes commit would still be there.
-
-Agreed that bnxt_open_nic() -> netif_close() under bnxt_vf_reps_destroy()
-has the same problem, but it is a different call path (devlink eswitch
-mode change and SR-IOV disable) with its own locking context, so I'd
-prefer to keep it out of this fix and handle it separately. The two
-fixes can be backported independently.
-
-> [Severity: High]
-> This is also a pre-existing issue, but the same netif_close() without RTN=
-L
-> looks reachable through the TPH queue restart path. bnxt_tph_update()
-> runs from bnxt_sp_task() under bnxt_lock_sp(), which takes only the
-> instance lock:
-[...]
-> Can this trigger the same ASSERT_RTNL() warnings when the HWRM calls fail
-> on unhealthy firmware?
-
-Also pre-existing and known: the netif_close() in the bnxt_queue_start()
-error path was added by commit 325eb217e41f ("bnxt_en: bring back
-rtnl_lock() in the bnxt_open() path") precisely because that path does
-not hold RTNL. It is outside the scope of this patch.
-
-pw-bot: cr
-
-
-On Tue, 3 Nov 2026 at 20:25, <netdev-bot+sashiko@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 1 (2) =C2=B7 Medium: 0 (1) =C2=B7 Low: 0
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [High] New deadlock in bnxt_fw_reset().
->
-> Pre-existing issues:
-> - [High] This problem wasn't introduced by this patch, but the same Fixes
->   commit (004b5008016a) left another netif_close()-without-RTNL site=E2=
-=80=A6
-> - [High] This problem wasn't introduced by this patch, but the same
->   netif_close()-without-RTNL bug is still reachable through the TPH=E2=80=
-=A6
-> - [Medium] This problem wasn't introduced by this patch, but the
->   bnxt_get_registered_vfs() failure path in bnxt_fw_reset() leaves the=E2=
-=80=A6
->
-> --
->
-> bnxt_en: Take RTNL before netif_close() when aborting FW reset
->
-> This patch takes RTNL before the netdev instance lock on the FW reset
-> abort paths in bnxt_fw_reset_task(). It does the same on the
-> bnxt_get_registered_vfs() failure path in bnxt_fw_reset(), so that
-> netif_close() runs with RTNL held. The goal is to fix the ASSERT_RTNL()
-> warnings introduced by commit 004b5008016a ("eth: bnxt: remove most
-> dependencies on RTNL").
->
-> > diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/et=
-hernet/broadcom/bnxt/bnxt.c
-> > index 33c4cacc8ffe3..1ea1e8266eabf 100644
-> > --- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> > +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> > @@ -14860,9 +14860,16 @@ void bnxt_fw_reset(struct bnxt *bp)
-> >               if (n < 0) {
-> >                       netdev_err(bp->dev, "Firmware reset aborted, rc =
-=3D %d\n",
-> >                                  n);
-> > +                     /* netif_close() requires RTNL, which must be tak=
-en
-> > +                      * before the netdev instance lock.
-> > +                      */
-> > +                     netdev_unlock(bp->dev);
-> > +                     rtnl_lock();
-> > +                     netdev_lock(bp->dev);
->
-> [Severity: High]
-> Can a concurrent devlink health recover hang the sp_task here while it
-> holds RTNL?
->
-> bnxt_sp_task() is not the only caller of bnxt_fw_reset(). When
-> devlink_health_report() returns -ECANCELED,
-> bnxt_devlink_health_fw_report() calls __bnxt_fw_recover() from the sp_tas=
-k
-> without the devlink lock.
->
-> At that point the reporter is already in the error state. A userspace
-> "devlink health recover" can then reach bnxt_fw_reset() through
-> bnxt_fw_recover() at the same time.
->
-> Before this patch the instance lock was held all the way through
-> netif_close(). The new unlock/relock window seems to allow this ordering:
->
-> CPU1 (bnxt_sp_task)
-> bnxt_devlink_health_fw_report()
->   __bnxt_fw_recover()
->     bnxt_fw_reset()
->       bnxt_lock_sp()          /* clears IN_SP_TASK */
->       set_bit(BNXT_STATE_IN_FW_RESET, &bp->state);
->       bnxt_get_registered_vfs() returns < 0
->       netdev_unlock(bp->dev);
->
-> CPU2 (devlink health recover)
-> devlink_health_reporter_recover()
->   bnxt_fw_recover()
->     __bnxt_fw_recover()
->       bnxt_fw_reset()
->         bnxt_lock_sp()        /* now gets the instance lock */
->         IN_FW_RESET is set, nothing to do
->         bnxt_unlock_sp()
->           set_bit(BNXT_STATE_IN_SP_TASK, &bp->state);
->           netdev_unlock(bp->dev);
->
-> CPU1
->       rtnl_lock();
->       netdev_lock(bp->dev);
->       netif_close(bp->dev)
->         bnxt_close()->bnxt_close_nic()->__bnxt_close_nic()
->           while (bnxt_drv_busy(bp))
->               msleep(20);
->
-> bnxt_drv_busy() tests BNXT_STATE_IN_SP_TASK. Normally only the sp_task
-> clears that bit, and the sp_task is the thread stuck in this loop.
->
-> Would this spin forever with rtnl_mutex and the instance lock held?
->
-> CPU2 can wait on netdev_lock for the whole time the func_qcfg HWRM call i=
-s
-> timing out, so the window may be wide.
->
-> The commit message says:
->
->     BNXT_STATE_IN_FW_RESET stays set across the lock switch, so a
->     concurrent close marks the reset aborted as it does today and a
->     concurrent recovery request backs off.
->
-> The back-off path goes through bnxt_unlock_sp(). Isn't that the code that
-> sets the bit causing the hang?
->
-> It is older behavior that bnxt_unlock_sp() and bnxt_rtnl_unlock_sp() set
-> IN_SP_TASK no matter who the caller is. The comment in bnxt_lock_sp()
-> assumes the caller is always bnxt_sp_task(). The new window is what makes
-> the problem reachable.
->
-> >                       clear_bit(BNXT_STATE_IN_FW_RESET, &bp->state);
-> >                       netif_close(bp->dev);
-> > -                     goto fw_reset_exit;
-> > +                     bnxt_rtnl_unlock_sp(bp);
-> > +                     return;
->
-> [Severity: Medium]
-> This is a pre-existing issue, but this path returns without calling
-> bnxt_ulp_start(). Nothing undoes the bnxt_ulp_stop() at the top of
-> bnxt_fw_reset(). Does this leave the RoCE/aux driver suspended after the
-> abort?
->
-> The old goto fw_reset_exit had the same problem. Neither bnxt_close() nor
-> a later bnxt_open() resumes the ULP.
->
-> bnxt_hwrm_if_change() only queues BNXT_RESTART_ULP_SP_EVENT when
-> BNXT_STATE_FW_RESET_DET is set. That won't happen if the func_qcfg failur=
-e
-> was transient.
->
-> The matching abort for the POLL_VF state in bnxt_fw_reset_task() reaches
-> ulp_start with rc =3D=3D 0, so it does restart the ULP:
->
-> ulp_start:
->         if (!rc)
->                 bnxt_ulp_start(bp);
->
-> Since this path is being rewritten anyway, could the ULP be restarted her=
-e
-> too?
->
-> >               } else if (n > 0) {
-> >                       u16 vf_tmo_dsecs =3D n * 10;
-> >
->
-> [ ... ]
->
-> > @@ -15682,9 +15688,11 @@ static void bnxt_fw_reset_task(struct work_str=
-uct *work)
-> >               netdev_err(bp->dev, "fw_health_status 0x%x\n", sts);
-> >       }
-> >  fw_reset_abort:
-> > +     rtnl_lock();
-> >       netdev_lock(bp->dev);
-> >       bnxt_fw_reset_abort(bp, rc);
-> >       netdev_unlock(bp->dev);
-> > +     rtnl_unlock();
->
-> [Severity: High]
-> This isn't a bug introduced by this patch, but commit 004b5008016a seems
-> to have left one more netif_close() call without RTNL that this patch doe=
-s
-> not cover. bnxt_vf_reps_destroy() holds only the instance lock:
->
-> drivers/net/ethernet/broadcom/bnxt/bnxt_vfr.c:bnxt_vf_reps_destroy() {
->     ...
->         netdev_lock(bp->dev);
->         if (netif_running(bp->dev)) {
->                 bnxt_close_nic(bp, false, false);
->                 closed =3D true;
->         }
->     ...
->                 bp->eswitch_mode =3D DEVLINK_ESWITCH_MODE_LEGACY;
->                 bnxt_open_nic(bp, false, false);
->     ...
-> }
->
-> bnxt_open_nic() calls netif_close() on any failure. That includes the
-> immediate -EIO when BNXT_STATE_ABORT_ERR is set:
->
->         if (rc) {
->                 netdev_err(bp->dev, "nic open fail (rc: %x)\n", rc);
->                 netif_close(bp->dev);
->         }
->
-> There are two callers, and both hold only the devlink instance lock:
->
-> - bnxt_dl_eswitch_mode_set() for DEVLINK_ESWITCH_MODE_LEGACY
-> - __bnxt_sriov_disable()
->
-> Wouldn't this hit the same ASSERT_RTNL() in __dev_close_many()? Wouldn't
-> it also run the NETDEV_GOING_DOWN/NETDEV_DOWN notifiers without RTNL?
->
-> If this patch is backported to stable on its own, this site from the same
-> Fixes commit would still be there.
->
-> [Severity: High]
-> This is also a pre-existing issue, but the same netif_close() without RTN=
-L
-> looks reachable through the TPH queue restart path. bnxt_tph_update()
-> runs from bnxt_sp_task() under bnxt_lock_sp(), which takes only the
-> instance lock:
->
-> bnxt_sp_task()
->   bnxt_tph_update()
->     bnxt_lock_sp()
->     netdev_rx_queue_restart()
->       netdev_rx_queue_reconfig()   /* only asserts the instance lock */
->         bnxt_queue_start()
->
-> bnxt_queue_start() closes the device on its error path. This happens if
-> any of these fail: bnxt_hwrm_rx_ring_alloc(),
-> bnxt_hwrm_cp_ring_alloc_p5(), bnxt_hwrm_rx_agg_ring_alloc() or
-> bnxt_tx_queue_start().
->
-> err_reset:
->         netdev_err(bp->dev, "Unexpected HWRM error during queue start rc:=
- %d\n",
->                    rc);
->         napi_enable_locked(&bnapi->napi);
->         bnxt_db_nq_arm(bp, &cpr->cp_db, cpr->cp_raw_cons);
->         netif_close(dev);
->
-> Can this trigger the same ASSERT_RTNL() warnings when the HWRM calls fail
-> on unhealthy firmware?
->
-> >  ulp_start:
-> >       if (!rc)
-> >               bnxt_ulp_start(bp);
->
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/20261103042210.2984373-1-bcochrane%40google.com
