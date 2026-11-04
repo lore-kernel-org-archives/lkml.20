@@ -1,88 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793830623;
-	b=0HVspKGEGJnMnV/wVZhcFIAQwi0qi4u71Dm9uzXDAeupa77NG9tMagS0oMe4AFjybzYX
-	 nP/L4O/D71llTQAOT00vL0byiG3lwRsDbviwgj6TIW8AKHVp+b/Nn5Bq+wnDdO+aGAxED
-	 O7bF2f2LIfrIFMoFmA0500Xf9olGbe/FE6Wcx/SDRytMDDjsD4vRSIe9zZleZRsAjk8wB
-	 wUz8MRQzMpqHOndEn3UBkazTwUt2J5/X7J3mPEZ0U5RhacRNQ+GIG7YzWG8MKB+bR8wuX
-	 vOWsXofjJDxb11N2W8tScxDS9UMyGLo1iew8luFnicIFvoEvJ8Msqu1FJB33EnngU7Q==
+	t=1793830651;
+	b=jSBx08QBR5hT0CGQQQ8m8W0IMc6YKDtpFTfW6TuarQ02VUbbjNC2Ty7Smvl+8T3E+1Yk
+	 1Z4X3CSx0k85Fhgz80cyneO44ykfG6UjRP0vmUJnIA9+M2exPVPZsjhAJU4mIIugZwLO6
+	 FYvda1NbvUdrdCxijwfNGrqBwNDyVt2hAjnudI2HfE1Ei0RXUjfNdxRdjSdt9XQeE8zSH
+	 cFuO5lgD3LJ4cSJJfAOkqW6emS4s6GGbkuETgDEYrtnVMKj3GVraxIMgFuMSRALaSNTJS
+	 Dv6fSKoT6rZcDI1wR6q9cu/z6vdh8VdarnogieLA8DwkNs9e3Y7Dy942czwjHOt+ajA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793830623;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793830651;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=AoRyT2gWGztVgBxsNZy1AlqhQ+YolidchQOTos+xRqQ=;
-	b=m3IjT+P2OVniHnsLZFmE6TXazht80it65zxa8LhtxjQ+QhBWt/SJxrQTGc5yzDhCcnIM
-	 i1nyIyODe3gHyz+uUhkbSPfRGLayr9vzgesTjSiBNTF5WXrqPyVevSPYQ1hU1IWwqotbH
-	 Le26DMcA2AZuPn2tcqd82BIENMohPE4m1fH42OKiLFURq2/mQottQmzDVJNiQvsigJX5H
-	 UYkJ2RManoqu5b3dkmqbGBFIF8NB2GErnbtr+SD/s7TbruFmjc6ccfzDqhXbEb3tma8tM
-	 D96/3I01Axtp7mgDRi/VLi9NFvUKYE7nOykrxsfJFBqXp+hShQ9vO/m6k4xD5x9gNVw==
+	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Content-Disposition;
+	bh=Zn+s7F7I4KDGF4WBy1BDYJ2NJqBDI7huyN28B8tAPuA=;
+	b=3GECpyGpvXZYmh2CXi4LNXVt807lsdvkqG75kHKJ3WQVE2z/c07poJkLqtFwLAliLrS0
+	 KN/wKfOlxqEitkcMu3tt0akttUYtpPQYAK2vyPxPYndO28ve0zPLqFcIaIMCUMWBy8n0I
+	 Uy/y5sgnLXHK4IIblCA1gH0+l83DAfIG0quEpGzmtksK5Stn6hKRAUvPRrX+GTs4wc0Xm
+	 WqyNDlL2dVaibPigfnzby2b8eOr4r/wAs5s44yXQ39pVVPBXE2Z5A4jExsLCHAMvDQga2
+	 6R7fFk7bOboZ+thpd8Tfgex7kadIz78nu+xBWFKlLkcl40MjlTUL+5npq2T1jh/mYaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nv+wxk8b;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rq7jVyiI;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42C1D606A33E
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:17:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42C1D606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B00606B2CF
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:17:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86B00606B2CF
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nv+wxk8b
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a2d6cf958bso5848715e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:17:03 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rq7jVyiI
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso2846009eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:17:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793830622; x=1794435422; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AoRyT2gWGztVgBxsNZy1AlqhQ+YolidchQOTos+xRqQ=;
-        b=nv+wxk8bo0FBisbVMgm2EZrUnD9aCrSBU6snx1ttPufjnNqrQ0wuZ84LLHCmCMyeO0
-         h9mkD73Mer74oVO59Qy8p11Cwvh/bMwIu0Gs0u4jLC5QEHApDWzFeJTVY7DIK8s8Oue3
-         lcCaVKG8aHb5xBnfCyoK/Nbnq4fJMTUFtBw9pKzh89Jsd/te3e9LXeio/KY0LhCMzt+d
-         iOmdCmPpJh3ExKuipURvMSLSnku0yyGoBVc5WcQl3uKFvOwoMIfrjklEPuBIualrAJFA
-         4yaXV8VNnToGJFw9lXWdELhx/L0QuCh3WbB82S06IqlM1WqNDM/HpuMumR3PEM84Alq7
-         HAoQ==
+        d=gmail.com; s=20260707; t=1793830651; x=1794435451; darn=vger.kernel.org;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Zn+s7F7I4KDGF4WBy1BDYJ2NJqBDI7huyN28B8tAPuA=;
+        b=rq7jVyiId5SSUWkNa+M8D63+z01CkI/0k/D5EN9jk6cghq65qdlCLjewI2YbHL8eVD
+         TNSO1KguB2DBlQ99L4533C8P1Qbxi4dp+nDvx3kcsJqs9CHQOVjbf49hEVEuSIMYQMdY
+         NznZjBiUfe8xrRU0NhCLFFPZSezS+s4/NWU8wLuN6ouU35FirwT4Yb+/+NCCNzWSiAT3
+         ci9CvZb/hyyqoPMTWmxN6oN1cW9U3istGyfuqV0q03m0k6rzPGys7BaVTnRpJHmlO5nQ
+         P03bfVHN7CZjy9X1fO6JeQk8FSW2D7KbedN0VluV1jWjS2muSMqlSe8zPofBn1GZPQBO
+         WZXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793830622; x=1794435422;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AoRyT2gWGztVgBxsNZy1AlqhQ+YolidchQOTos+xRqQ=;
-        b=ESRqhortjo6w/LOlI007Fp5B/PYJf/SlmMbTrfGHEw/oFAbdORNUSh1tyfzKdVREMz
-         caZ5MaYpBbW4jU1s0e5nwpavrH7Jqen/0knoLyDzA428VzaMqmBLgvm4EnIe02uhqTeB
-         2fMxu6pXh48hs/0ZmB9+FPGTSuCJsMOcCuFapDUXPZ9zgJDamHogNPE/9KazG85fgGG/
-         0ek+lIhhb98ZG7u1fTQoeu/BQkXUgzs7Ft9YPoJH2bvgt2SKD6uJ+ABS/GhtecXpPqbS
-         5vp6bnC7Htkv75nvI1vyn3V1kuQntcygLYfCnlG1i6Kwld+GD/rHP98qI4p9fnIAGbc7
-         2Ctg==
-X-Forwarded-Encrypted: i=1; AKwUvBzkN+BSpMUjQAaZVzyhQRivWXOwJk8bMvSwQIUq3ikEWe3zjhhyImFfCGLQ1bSNJ10GXd4mxCBmpKaSggU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+4NVQX9rFuGQ5GZQZhEejx5C23vA04rzaFF+GE8U7Jxu26WKuU
-	1Hwkg4IeYT9KctakTrDaclbHNdY/sf3UD4cS7bxOuAZHuL9Pp2ZwrMbc
-X-Gm-Gg: AYBFou1ENkL+V68SqYfKAXTYK0zf6reUSkqI/W0WMhxXA+2zqmjv9qo4NdEUi94mv26
-	6/1A2uJk08bhGxPdmZKz4ayM95b2Mqg0nodzPB9v2kOFUVgNeGxgc4wS719oShUVVM9/byulBgC
-	Ai9NqdPhC0w9bQ3woX+AAYtG3BNdnG6qXKf95Sc1getg9zD4PB5/+ITS5tHEtPmT82mDsMoe/lG
-	SkjuuvGNFrSLAogVGD2DcT5weU6eo9gfmhcwec5HQT11asyJZYBOqZAkMIGuY4sgrO2OwdIvWzO
-	Ynh3M6OCyLc14ibWZdjls59tl9ykeglBVEAGJy/psw2lj5SLad0s/vzeV/G5LBEwSFVQ4T/MrPc
-	yPLTGzHXtCBET9VIAXKuHSHDeMhZ5SM5ScSVrOINQ1RtF1MfOF06FcGLa3vX1afW1jcOioqxHdj
-	N0zbKXbhkpQwlkOtGWXR0ilrfATIrjBpDnaAd2H+jHS2mPi8PeEKkG48qlB20/orJP63GYj5yA6
-	rq2JxniUQiEdixNbLrvhi10/hVJ/2n69pAV0TWdRYBHv5eDZ2qHWdwsdlv4jkuvQC4nyK7ok/YF
-	VbZW4/AEU32pkp8XndBx1do=
-X-Received: by 2002:a05:600c:e548:20b0:4ac:86c9:b09c with SMTP id 5b1f17b1804b1-4ac86c9b146mr248866895e9.13.1793830621562;
-        Wed, 04 Nov 2026 14:17:01 -0800 (PST)
-Received: from [192.168.1.22] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56ef2e968sm16301645e9.8.2026.11.04.14.17.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 14:17:01 -0800 (PST)
-Message-ID: <be34e0ca-4706-44a8-8264-3b9827829e9b@gmail.com>
-Date: Wed, 4 Nov 2026 23:17:00 +0100
+        d=1e100.net; s=20260707; t=1793830651; x=1794435451;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Zn+s7F7I4KDGF4WBy1BDYJ2NJqBDI7huyN28B8tAPuA=;
+        b=hYQJ9PPz6k8PMKzg7w2zOChjXWZ3gZsG0ymhSTc6M/yOPVhosA/ZjpqO+qmuA45eyu
+         5UbRRGMyP5jDsWPMYliPwJxiRGlAmoUuBc2rqAFEreE/JMXL7OIhv4NMxKjzsehhMXTF
+         +JBpNlrB45so0W8jXeLLKyLtKN9lYt1QOy/mOCqVQTQ2BuccLQ9HF6lBNm3X+UF1qwNy
+         7BxxAoy++rl+recT35HRfHdr3KmN+ZqFW/Yoep/Y6bjp9bOClfpiMsWr1HVLUF9I0HJg
+         kfp80kv1iStOCq+f4VZHUarLSrf25+Sj7P4WZ4V8AsEV3XC/8Oxv2agbShbFj/OoJK6/
+         tZ/w==
+X-Forwarded-Encrypted: i=1; AKwUvBy8RHHeKgms512vfvgyTmD9oOI/0R6725nQ9AJ7j8yVA/LNdT1kut1dLutHpi+wRR8fIKPLf0aduBR+OQ4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8zDyedpr0s9O0yfnw2ILhYrXsKrcNoGdD39INCI6nrWSxg1h9q
+	nfDve4/9GyXan0WJ8zmuyz5p+oT9UgSnnvcXLBJ4gMuXdqJzXqKsKJiw
+X-Gm-Gg: AYBFou26FsRKGjZC5Ap4o4C7rjQE0FWaE3M6CvX0jbAuPwOpIt60QIpm/LtotYm4w7i
+	llimVmNQls7Wy7YmdJcXvx2V9ZyANjtowr/4g05UFaR2m1qHPSpEk1TL+0mHyXmmVvz8qE3yu1L
+	tSUIbUhU6ZdAXNYoh7vMYCHQJyfiuT8V/eeWDrH/c5rFEXspMNljKFMWJRCaMHudkKoyOL8l/NQ
+	Fca7se3cH1+Y/x5FvEy0QkqtwzS7uYLiXu2iLPHYLbhtIETlPAK+HEz6R7FTgVNaeRn4cDK+h7o
+	/eiVadlqJrWrUpsz7Sfb8FntWoGncEgxz+eliztBN4JRpzyN00jv8KJITfGc/x7VItr+Ur5/3wx
+	cOaR+vcGWlt2nLfw6iKJlrpIwueVdF+obLVGrxIiVnXvpCBN3avlzJgnK/+3eDqHPaf9mEd1sJ7
+	YO+rj8FG1olY07GSqJTdv8KcejWH6Q5h6C4D8TGr5C6zmJeVLxgrCbGSeTFhceaVd4ozCglcC+g
+	mO+TYm9WJEck8Kp+C3AjuJiuzMS3MMqfAh1SgA2HapqvrCrcJHdnRuie7nfHIsqBDVGHe1q3oeW
+	J8y8haSv28kx1NlW7e+i2OfZUx0NNFB1VmWCiENrS8diRVtBIUbmZGmTMwTcEUxlG5axJJLTcZl
+	GaCjLag3m695DgzI=
+X-Received: by 2002:a05:7022:5f0b:b0:195:5b0a:7abf with SMTP id a92af1059eb24-1ac5bbb4cefmr23854642c88.7.1793830650490;
+        Wed, 04 Nov 2026 14:17:30 -0800 (PST)
+Received: from localhost ([2a00:79e0:2ebe:8:c8f4:b7d9:252f:4483])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c463e9sm10646970c88.14.2026.11.04.14.17.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 14:17:29 -0800 (PST)
+Date: Wed, 04 Nov 2026 14:17:28 -0800
+Message-ID: <a27ddee4a4404e7d607b09f92924b2b7@gmail.com>
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Guanglei Zhu <zhugl3@xiaopeng.com>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	liuc63@xiaopeng.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] Input: adi - bound the two-stream packet merge
+In-Reply-To: <20261103111714.472080-1-zhugl3@xiaopeng.com>
+References: <20261103084135.426629-3-zhugl3@xiaopeng.com> <20261103111714.472080-1-zhugl3@xiaopeng.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,45 +101,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] kho: skip zero-sized lowmem and global bootmem
- areas
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>
-Cc: Alexander Graf <graf@amazon.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Chen Pei <cp0613@linux.alibaba.com>, George Guo <guodongtai@kylinos.cn>,
- Kexin Liu <liukexin@kylinos.cn>, Sourabh Jain <sourabhjain@linux.ibm.com>,
- kexec@lists.infradead.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org
-References: <20261104-kho-bootmem-sizing-v2-0-b0d1a834780f@kernel.org>
- <20261104-kho-bootmem-sizing-v2-2-b0d1a834780f@kernel.org>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <20261104-kho-bootmem-sizing-v2-2-b0d1a834780f@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-On 11/4/26 5:50 PM, Mike Rapoport (Microsoft) wrote:
-> The lowmem and the global bootmem areas can have zero size, for example
-> when none or all of the memory is below ARCH_LOW_ADDRESS_LIMIT, or when
-> either of those areas is explicitly set to zero with kho_bootmem=.
-> 
-> For a zero-sized allocation memblock returns an address without reserving
-> anything, and that empty area is recorded in kho_bootmem. If there is no
-> memory below ARCH_LOW_ADDRESS_LIMIT, allocation of the empty lowmem area
-> fails and KHO gets disabled.
-> 
-> Extract a helper that checks for zero size and allocates memory from
-> memblock, and use it to skip empty areas the same way as empty per-node
-> areas are skipped.
-> 
-> Fixes: 3dc92c311498 ("kexec: add Kexec HandOver (KHO) generation helpers")
-> Reported-by: Chen Pei <cp0613@linux.alibaba.com>
-> Closes: https://lore.kernel.org/all/20261026131851.9942-1-cp0613@linux.alibaba.com
-> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Hi Guanglei,
+
+On Tue, Nov 03, 2026 at 07:17:14PM +0800, Guanglei Zhu wrote:
+> When a second device shares the wire, adi_move_bits() appends the
+> second packet to the first one at an offset taken from the
+> 10-bit length field of the ID packet:
+>
+> 	for (i = 1; i <= adi[1].ret; i++)
+> 		adi[0].data[((length - 1) >> 1) + i + 1] = adi[1].data[i];
+>
+> 	adi[0].ret += adi[1].ret;
+>
+> Nothing compares the merged packet against the size of the buffer:
+> adi[0].data is the last member of struct adi, and struct adi_port
+> holds two of them back to back, so an oversized length field makes
+> the loop write over the second struct adi - its device pointer, its
+> length and its packet - and the inflated ret later walks the reads
+> past the buffer as well. The connect path also calls
+> adi_move_bits() before the length has been validated at all.
+>
+> Reject a merge that does not fit in the buffer. Use >= for the
+> combined length so adi_get_bits() can never walk to data[ret] with
+> ret == ADI_MAX_LENGTH, and invalidate both half-streams on the
+> rejection so the unmerged packets are not decoded as standalone
+> reads.
+>
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+> ---
+> v2: per review, use >= so a combined ret of ADI_MAX_LENGTH is rejected
+>     as well (adi_get_bits() allows idx == ret, and data[idx] with
+>     idx == ADI_MAX_LENGTH reads one byte past the array), and set
+>     adi[0].ret = adi[1].ret = -1 on the rejection path so the
+>     unmerged half-streams are not decoded as standalone packets.
+>
+>  drivers/input/joystick/adi.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+>
+> diff --git a/drivers/input/joystick/adi.c b/drivers/input/joystick/adi.c
+> index e07b719..41262b7 100644
+> --- a/drivers/input/joystick/adi.c
+> +++ b/drivers/input/joystick/adi.c
+> @@ -168,6 +168,11 @@ static void adi_move_bits(struct adi_port *port, int length)
+>  
+>  	if (adi[0].ret <= 0 || adi[1].ret <= 0) return;
+>  	if (adi[0].data[0] & 0x20 || ~adi[1].data[0] & 0x20) return;
+> +	if (adi[0].ret + adi[1].ret >= ADI_MAX_LENGTH ||
+> +	    ((length - 1) >> 1) + adi[1].ret + 1 >= ADI_MAX_LENGTH) {
+> +		adi[0].ret = adi[1].ret = -1;
+> +		return;
+> +	}
+>  
+>  	for (i = 1; i <= adi[1].ret; i++)
+>  		adi[0].data[((length - 1) >> 1) + i + 1] = adi[1].data[i];
+
+In adi_move_bits(), length can also be 0 (either from the 10-bit header
+in adi_connect() or when port->adi[0].length is 0 in adi_read()), so
+please reject length <= 0 as well. It would also be cleaner to compute
+the start offset (for example, offset = ((length - 1) >> 1) + 1) once
+and use offset + adi[1].ret and offset + i in both the bounds check and
+the copy loop.
+
+Since you are hardening this driver against malformed packets on the
+gameport wire, there are a few more bounds issues in the same file worth
+addressing:
+
+In adi_read_packet(), the condition adi[i].ret < ADI_MAX_LENGTH is off
+by one because adi[i].data[++adi[i].ret] pre-increments ret, allowing a
+write to adi[i].data[ADI_MAX_LENGTH] when ret is ADI_MAX_LENGTH - 1. It
+should check adi[i].ret < ADI_MAX_LENGTH - 1.
+
+In adi_id_decode(), when ADI_FLAG_10BIT is set, adi->axes10 =
+adi->axes8 - i can underflow if i > adi->axes8, and for ADI_ID_TPD and
+ADI_ID_WGP, adi->buttons -= 4 can underflow if adi->buttons < 4. Please
+also switch the non-string byte fields and buffers in struct adi (such
+as id, buttons, axes10, axes8, hats, and data) from char/unsigned char
+to u8 (and s8 for pad) so their signedness does not vary across
+architectures. Finally, the decoded axis, hat, and button counts are
+not checked against the sizes of the static adi_abs[] and adi_key[]
+tables for the device ID before adi_init_input(), adi_init_center(),
+and adi_decode() walk adi->abs and adi->key.
+
+Could you please fold these fixes in (or split them into a small series
+if you prefer)?
+
+Thanks.
 
 -- 
-cheers,
-jose a. p-a
+Dmitry
