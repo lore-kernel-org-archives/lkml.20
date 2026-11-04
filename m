@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.25
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.45
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793800947;
-	b=HI5BafssHGdgjmmAwDtB9k8rxgveLV2lCbDRFtLRGEVeVD2rAsmDqkRMXPOiYo9XoHhG
-	 /Kq0hQrMZPSKDNasKgkerT5lJu6uNUv6BDlQNLdh3ezx77mai6s1L/qLybzJovdu5PPJ5
-	 6TjA+L1TkmOAi7stc+xyonSrWvYgqNbI4lFsv8X/1Dd8UXB0oBhS0IeLd1p5QecA9bqMq
-	 qzU4Lm02SrmsKwzYajvfiECv33+nA9Aiyo5R2l16+PueaPY4jCy+5ix+5l590YC41BIpG
-	 C1lZLGd3BW7caZuuvI7MVoe5nH0TcbWldQeXYUcbPyLk7+2IhcAd7nx7HjPIZg/0yZQ==
+	t=1793800952;
+	b=XtNI0CpkeCywCxpevhzkB6GPtpXdXF3mLgyB1+m6G+U4DKqe4W5QmxYCeSMJoprj1vJ7
+	 V7/4Sc8cOvwnsFSDITsOqyeYe6bwgX8BWc64nD3aYCzOpDvrmXdazQoobc7jepyA/T/a9
+	 YAk6yx/ea6z3LWAOabUDuWVfSBvkG0u/AbSoXoZxYJteP4lFaCpFsWjoWz3I+OQP5EmEI
+	 bSRCCe8NKYUE3VKPsryrp2vxHV+ysKJG8OQOKDX7aeOC7Dhj/xwQ/ZXGB6pexem/7n9JE
+	 9dpcxbi3Fyy4f5m/i+Oimfz1e04xO21tj06ZNJF3r5CzKyZ6YTXOw+lv4fKUXwz3L+w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793800947;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793800952;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
 	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
@@ -26,82 +26,82 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=clgnn/l0xxn+YplSr3tGwTORb9AMKRayHqXQE17fBq8=;
-	b=XPEGgdRujym01LClqoyjBNhVjiyeUJrqNxVvnBAOGl+3BrnUmqpRriNi97PgKahfQ/DB
-	 2Td5A+is2IRCEFHmzY18AoDibTKcrc0MznQc6LTyu+9dZGSXHoCkqOzudti9hKJBsiRKk
-	 b91BVrcQdNNEkHFE/jwDaF4EHnG6amobvv3VcTgND5BR4KS3Kql/z3I7YoR6RKtkGyzz/
-	 bDbKAdyi4Ua3/5vwEjgHo0FWDszybXO8M9xg7YJDEmeuPJ9UVC3m1n17BlZ6OKmA0CoMz
-	 65icBR5W+T8rdeZXwfxWzv/eZWxBpDlww1p//Xd+h2l9Nm3VJ/Tqo1L7dgz/oeu274w==
+	bh=82PBrT8GiewUmm8qTnXj6CHXuDY9tv+0OgwqybUdYOE=;
+	b=0rA8/unC424SK7YdFsjkdCiXB7n+E3QqUhWFaY9u6GRMjhnk03xbSWoUtZda6VvIVi+G
+	 5kgAXzBq906qByAdtWABzne/527GG41FXSHN8nME5P/BHhPo6o8ilHeAOVpdNKdMNUoMB
+	 0NOC4U2pk8TXUsk009VPLPTtyWF6gw19V397GFcAygDKPp0ZEYXScv7Zu0oRUmAAg8tDK
+	 jmEJP0lCpMq02yLGSx9b4I6IhkHiLmDYyF6/Lj9Hr5sEfCpayF5IwCB/E96nskxaIDoc+
+	 FU1/AfydDSVDLksG3sq5whEasOOw/OzJD3S+xRRl7c0TpRiZV0SlXApq3S9hw2aGvPg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=foss.st.com;
 	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=SE4c+EIu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.25
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012025.outbound.protection.outlook.com [52.101.66.25])
+	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=HYu+LLyW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.45
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013045.outbound.protection.outlook.com [40.107.162.45])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1FE9606A335;
-	Wed,  4 Nov 2026 14:02:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1FE9606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDFA3606A329;
+	Wed,  4 Nov 2026 14:02:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDFA3606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=SE4c+EIu
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=HYu+LLyW
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TYWf9PwAtyH/xmuQUH1XSY8yzhSTmU/5QmVFBnQQpI3RLWzG0RgZ7yFFVJxDz78ARyHXyn5/oae6tWMEetCNeWkRrzdI/IvcmhPXD8f3ToTZ+uSYUCUBQroprJyyOwvomBBCuQsdbOgfSfYUNmPute7Hhjjy0dRDwAU82OD+JhDOUWr0gHdu9B/Jpmet0XkVcvVAER8GqPMeCHVabOVE0+CYmuFwRnEIea6lqOt7ccuA09+cuVibYIyMQEVE4NgIZEwo1UGKwvn5LdhemHGaNv80f0sMPVVhcdM9SPaq7pRiB7GOav6dAZ3h/sePvnhncf2u4mnVb3Bb15U0ijlirQ==
+ b=yAqmpwGVkKcahzIryK1USJCrZrFs95hM3JN9Gd70k39Qw5z4YydnF1Fq4/aG3/l6sYwhVSsCtQGRtbeWOIhEdM4B5C8VVqezo44srSeGFe8lHoqSVsi2pw6qn4hllQpYcAjB7WacDYHyE1xc7JRv/PWFLFdpQ5AbZBXc5URJwK4ywo4+EdGpA+ESt4VfdOEGGL9DRHl3h1Gs86MxgEf+KJVj1VSeqzfGpZRjrvOqzCRYVIiCum21gXXuwPbh66RLINSvvaOSEIU+wIrJQ6zV78uMRtUkDuLM5D5uwAWo8AmX9Tx4FJmj03b3qFIaopRTLcSYCxAeLiK6YGQk0ZSd0Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=clgnn/l0xxn+YplSr3tGwTORb9AMKRayHqXQE17fBq8=;
- b=ue5sgeEcMobs3k79fq2J65BVTZ2NMX5MqkcX6qJaMylJI6kC9+63AsMJbVVznLlyKHXV8EFYXsyjhUqLwlNRVH5T62+1EbiIf46OVaCPiag5goe/0Y9d7dXc8bJ+Y2QH1cA01d/Hpgu98H19kJoJf4kK2O5Pl7Mi50EnGQIvN+y1sdPArW6lE3ZxqLEMZLcWJ8X77HbbGMDIQm2giLnviUUEOs8wXjK8zs9FEdg/OYkNkLfDOg7+6VTO4iwyYi2m/+fVjVzPK0BzJRtSGi3VxIU8e77QEmfdSTWJfQLJv72njJfK42vnBrcenpf9YH5WFwL2IG4YkOuh1lBVBpWx+A==
+ bh=82PBrT8GiewUmm8qTnXj6CHXuDY9tv+0OgwqybUdYOE=;
+ b=VnNmDciPVb7pkpjeHGjTPcLia+EzhTugher+fKBDvPnlAIw999ukQ1jhjq3Q8Kq7dzdKxXZ9AwqUz74krzU/uHhREXrTm5le976dSnHbZxwchqJoa3BHNYPU2krBB24nKlEScxHjZNzqUyGpMNJXkZX3WdKAKEpuhe4UPqVUQICbWE7k2GGylfh8x0KWt4/KRuhWXJVCcQGEoq1PHIBD9DnkeqJALWwKbreDU34Ttsn7ntPbhcdt1j/h9zwjuLC2B/v/lfSC6ZNt0qKAsAXorK4FfXfRffudG5XXZUMC5Ab+XSgE/Z2Y7Jwm+YDg61f+q+UqDgvGnRSPkdpcriWuiw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ 164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
  dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=clgnn/l0xxn+YplSr3tGwTORb9AMKRayHqXQE17fBq8=;
- b=SE4c+EIuDvpWGLv6MzGjSqErUegMg328m5mwtTUZxQN2VTDkcRw8w6JT1uk+/oTBpWILNS8KBsyzym+2LuZdvuyCuU7Bna3HUQeL8qgA4HjlOK9n5qDhGDyEjW+0lvMOZ770f3A3cnyr7iS99ZErehsijqJOSamsJeTyes/8j+GJT+LvimwE9GrjmcNA1w0dNu7Nku9K+oirGtPUQqBCTdnIkZwX0bwm0e/DOB+PqmZShMhEDERgVoMaE//73I9uLdkfD6dvo/pACw3bY0N8BSoYT3pK85KT7MiK2yBq8YkiujXV0OinCNFhgrTfdYPzCzKBMQXTrKK7vT2180uVtg==
-Received: from MI1P293CA0018.ITAP293.PROD.OUTLOOK.COM (2603:10a6:290:3::12) by
- PAXPR10MB7927.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:24d::13) with
+ bh=82PBrT8GiewUmm8qTnXj6CHXuDY9tv+0OgwqybUdYOE=;
+ b=HYu+LLyWwvC4Kqrj6+27N03C1sA2yyas0LyISOGBmzvZejncNxF4RGuqXMVvY5h0sUxDR5kx75NkwtB3kX65Gtgg09TPb2pmH+ijmXP2fvHAEIQCctK0GZ2T7IRpad1VlyLhyRtDnTHE0eSN2RLIZgv7txOusAumNTlJdzgIkesGX+y/1dLVp+zmHwbTdcWzFMMJSVqjJ5EPUF/LJp5OqGI+ct0AmSxG4Bdt+uu2J8zITTFZo8QZEWD6b2BwkWi7uznRSOPx7ezrdZAGgqpNCSMvU6LL49QcdV78fzx7Qn5DPwnfn4lA6tnDaeT4wuvqzGDV5B7Mw4w3SgzemH5HsQ==
+Received: from PR1P264CA0007.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:19e::12)
+ by GV2PR10MB6090.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:150:aa::15) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
- 14:02:24 +0000
-Received: from MI3PEPF0000848B.eurprd02.prod.outlook.com
- (2603:10a6:290:3:cafe::ac) by MI1P293CA0018.outlook.office365.com
- (2603:10a6:290:3::12) with Microsoft SMTP Server (version=TLS1_3,
+ 14:02:28 +0000
+Received: from MI3PEPF00008551.eurprd05.prod.outlook.com
+ (2603:10a6:102:19e:cafe::ac) by PR1P264CA0007.outlook.office365.com
+ (2603:10a6:102:19e::12) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Wed, 4
- Nov 2026 14:02:24 +0000
+ Nov 2026 14:02:27 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=none header.from=foss.st.com;
 Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- MI3PEPF0000848B.mail.protection.outlook.com (10.167.240.138) with Microsoft
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ MI3PEPF00008551.mail.protection.outlook.com (10.167.240.5) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 14:02:24 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 14:02:27 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 4 Nov
- 2026 15:03:05 +0100
+ 2026 15:02:56 +0100
 Received: from localhost (10.48.87.100) by STKDAG1NODE2.st.com (10.75.128.133)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 4 Nov
- 2026 15:02:20 +0100
+ 2026 15:02:27 +0100
 From: Patrick Delaunay <patrick.delaunay@foss.st.com>
-To: Ulf Hansson <ulfh@kernel.org>, Patrick Delaunay
-	<patrick.delaunay@foss.st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>
-CC: Linux STM32 <linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<linux-pm@vger.kernel.org>
-Subject: [PATCH 2/7] pmdomain: st: add STM32MP power domain
-Date: Wed, 4 Nov 2026 14:55:05 +0100
-Message-ID: <20261104145502.2.I59b2ea87f07947037b772c49c277092c887f4310@changeid>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
+	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>
+CC: Linux STM32 <linux-stm32@st-md-mailman.stormreply.com>, Patrick Delaunay
+	<patrick.delaunay@foss.st.com>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH 6/7] arm64: dts: st: add D1 domain for STM32MP23 family
+Date: Wed, 4 Nov 2026 14:55:09 +0100
+Message-ID: <20261104145502.6.I69d937a929c3e745f9d11db74298f0e1d91f0c2b@changeid>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261104135604.907283-1-patrick.delaunay@foss.st.com>
 References: <20261104135604.907283-1-patrick.delaunay@foss.st.com>
@@ -120,212 +120,357 @@ X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
  (10.75.128.133)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PEPF0000848B:EE_|PAXPR10MB7927:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3eca88c4-5af3-4fe8-ebfe-08df3a7c4096
+X-MS-TrafficTypeDiagnostic: MI3PEPF00008551:EE_|GV2PR10MB6090:EE_
+X-MS-Office365-Filtering-Correlation-Id: 66d69cf1-bec9-43f8-9f54-08df3a7c428b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|36860700016|82310400026|261022075727099003|11063799006|56012099006|261026140227099003|261009223027099003|261022105027099003|261028144727099003|261021135927099003|261102123227099003|261026121527099003|261021121427099003|261021123027099003|10067099003|18002099003|22082099003;
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|36860700016|82310400026|56012099006|11063799006|261021123027099003|261021121427099003|261028144727099003|261022105027099003|261026140227099003|261026121527099003|261009223027099003|10067099003|261102123227099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	O1tDYRQ/H56abgnZw4xSOE4gz9fGTGSfD8KL3fzE3U1V1rcHWbL3kpwLcmYD2eBjbpFfjmTa3mHbzrScnYMvagPT7E+s7NpbLw0JX7bvyZfK+aLhqoOifwySf8meZmnzKeZCz9iWPDw6moxOaeUymjreuqQYfZxSNQsFeNqfmukXIaNTIT0hWFN77Lh/7CT8CcHK7769Ksrn3mB3Lv49vSG0Q7o9DEOpcJfgWg3WlEwfyMUWtsLGr+UTBA+k5D9y9t8kRfDlLdvsLeMCTnc8UXhQBpGs73u3QzAeK9oz8pwYD2AGoAXVNjlM3NcFXXgQFUgFf3Ye6P/DwS2sx0AXaVnGVjYPbataxuDkItrY3qM97Vw/6SXm755uSLlDx8OVmTqnWCJQuMMxoOeUNPX1hZKmWAt5o3Npdl44iUD5hsFlS4i5vYai/Fp+LO+jdmVvrHJ81lkD7UgdFHY4w5pE/4M97Zv2FF4inLDw1uFy+0EkwoLVL0e4zU9+KFxa/oi9PEyMPC3J5Tl2Ftm+GxezK/8NCng17wBErzelMNqvJztmrfcxSj4FeH6WvjgepfDmiF25FcZ2NTzSbGAVNWWLVSAZWhd61RomNOJaKwpwbQ55+EKGx8jTdSbSsRjquTSZSotLSfH1NwsdtfnpG6Lv6si04vWp/Wosn/BIeZNOXiHg9JDbe4uFQzkmZEyU2ClTGfmMRHVdcrWspRdJ04w+wg==
+	BrtStDP9fHFYzFU+ya2FvxSzNH2C9dOgqneoByX96x1q3YsFnw0VBwsv8bQk/4o0WbzSVAnYZhzCl7huy6pN6l8HsZB59Dr+jWIN3iVAOXddVPkNKZ4PGRNwfmCRmYXT+PdgZKw7nthsDsoy4KwBVfo+sqIwOg69f31Pla7WXiUU5723/ynwF17a6sRJYrzYgBGMlcL6zyHqTiJP/wQdh5qrpDZus6uCA7p4r/DovfK1B0SEyu5Nu4IkGpj9gnbB/Vcmmfae3TriN6zpndrb7r/aC2aPIV+CeJnufbNg6AAfK6x5QLYZ/F87ZFB1dHvZupLD8LzGe1wsqo9naP+YSBKuvAl8+8sljCDwR1b72wG5Vq7qSaN6HCTp72filGZ7s8M/ftROYnVa2eNk9qyEkYdQP2bpanekV1tIriZJHl0ft49emnRY3BqcgeBH+xy4HdP+xjhTrO5UEMzy/BRzOJ164Q+7Ulx7mx6hL2RpFM/Sc5BZRFwr3eE/7AhuB3DFAgDbjU9ZHvQQWLO9flBqyL5H7ERIOfeQaF1PYgDgEC9L5niLub2McvZy89OPoFsxbwdolmeG+Rs9bCq9E2RG9I2Ln3xdzF7gaseUxHhT2j6qzigoBT5TtpfrwSSpZnv/j6tsDKcZUDWKohL486YdTnH2ZwyOtPpM2L5e/vKjvo4RfkeG+l5RYQ07RJpEmZFtfE2rX+TgfaiJH57omFiJ+A==
 X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(36860700016)(82310400026)(261022075727099003)(11063799006)(56012099006)(261026140227099003)(261009223027099003)(261022105027099003)(261028144727099003)(261021135927099003)(261102123227099003)(261026121527099003)(261021121427099003)(261021123027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(36860700016)(82310400026)(56012099006)(11063799006)(261021123027099003)(261021121427099003)(261028144727099003)(261022105027099003)(261026140227099003)(261026121527099003)(261009223027099003)(10067099003)(261102123227099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	YbaaWHY60epF3TWZWBYK0r77jH8PpXdBNFIWo7XHy04pwS8xqbp6cX6DkB6a26rVOdgIvyz3/20an31BSFC+xn/UMtBbtNNlwYRdfnSYe/aBtaBiuK2zeywZc3zMC+XevsHaqFSnocQ2moZEgdVp/t8uqOUcKMpFYmxTVS7W4Tii4COUZol5GX2mny7fjPo+BxK/5q2R84mw6CCymzol2W7fOCxHVSn0F++JTsR9UP1XZaOQiAOlE8hPLlOiERy3c6LT3SUA237TVPxkz3W55jegJA7lQcMYP2SwwfXzggqDcDyBQIuJP+/8vny5M3AnHPqeeMzNXzIsaRnLXxeUI8ij6Vo9gR4hKefRUP8R1fkiHCFLjzCSUlPp5fYmDkusjg58QdB9Rh3Ten7uuPgE/QkwHSZbo7g+8yFVPWB3+Zr5owleKa+CKDU65NgMgY7R
+	s77kGl+tJBiAIq9c4DbNabvNn2ev5eFcVnPMyIJpsZfJP9qPhd3yYYZuvi7OeCDP+ludPySbM2Ou+AuOq9rOW8iTpq89ZHHjtyZRukzcqerjLI9qG3+ie50SzAHZ0LQc9tzXnaGWC33ppPHJFYiPeFZHU3Ik8Uiz1yI94F72BqBoADfLOSq0JB0bJ2YM/NF532v8/VNCa2dvqYC/dIaihVueQWqpIiuqgmSzCOVI5ooiLcWMSu0hidtYJP9VsKiPr9+4/6Ev9JvP4bz/ccbbIAkCGBmLNp7PKAaxwVy2ALbAF4EA8+mYEn0igy57Zt1Z06qZelKmFgWHM5+aCNUw0FC6at5gCCPAAy4stUIjkXmVptkagtcHvijZM7H6t2BNToT7yFdXzcZUyT1CGCFpqzi9VJ8Z53hQXJG2kXJAk2I6bLB7oPSqFgU4297MZqBp
 X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 14:02:24.3518
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 14:02:27.6037
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3eca88c4-5af3-4fe8-ebfe-08df3a7c4096
+X-MS-Exchange-CrossTenant-Network-Message-Id: 66d69cf1-bec9-43f8-9f54-08df3a7c428b
 X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MI3PEPF0000848B.eurprd02.prod.outlook.com
+	MI3PEPF00008551.eurprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR10MB7927
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR10MB6090
 
-Add a generic PM domain for the STM32MP D1 domain, using the PM
-framework to manage attached devices.
-
-Make D1 a subdomain of the PSCI cluster domain, so active devices keep
-the Cortex-A35 cluster in Run1. Do not set GENPD_FLAG_ACTIVE_WAKEUP on
-D1: system wakeups are handled by EXTI1 through the RET_PD PSCI domain.
+Add the D1 power domain for devices that require the Cortex-A35
+cluster to remain in Run1. Keep S2Idle wake-up handling on the
+EXTI1/ret_pd path.
 
 Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
 ---
 
- drivers/pmdomain/st/Kconfig             |  14 +++
- drivers/pmdomain/st/Makefile            |   1 +
- drivers/pmdomain/st/stm32mp-pm-domain.c | 128 ++++++++++++++++++++++++
- 3 files changed, 143 insertions(+)
- create mode 100644 drivers/pmdomain/st/stm32mp-pm-domain.c
+ arch/arm64/boot/dts/st/stm32mp231.dtsi | 54 ++++++++++++++++++--------
+ arch/arm64/boot/dts/st/stm32mp233.dtsi |  1 +
+ arch/arm64/boot/dts/st/stm32mp235.dtsi |  2 +-
+ 3 files changed, 40 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/pmdomain/st/Kconfig b/drivers/pmdomain/st/Kconfig
-index a77a70211f61..da8a54d44158 100644
---- a/drivers/pmdomain/st/Kconfig
-+++ b/drivers/pmdomain/st/Kconfig
-@@ -1,4 +1,18 @@
- # SPDX-License-Identifier: GPL-2.0-only
+diff --git a/arch/arm64/boot/dts/st/stm32mp231.dtsi b/arch/arm64/boot/dts/st/stm32mp231.dtsi
+index 27231e140fbb..4075a9cf1d36 100644
+--- a/arch/arm64/boot/dts/st/stm32mp231.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp231.dtsi
+@@ -130,6 +130,12 @@ scmi_vdda18adc: regulator@7 {
+ 		};
+ 	};
+ 
++	d1_pd: power-domain-d1 {
++		compatible = "st,stm32mp-pm-domain";
++		#power-domain-cells = <0>;
++		power-domains = <&cluster_pd>;
++	};
 +
-+config STM32MP_PM_DOMAIN
-+	tristate "STM32MP PM domain"
-+	depends on ARCH_STM32 || COMPILE_TEST
-+	select PM_GENERIC_DOMAINS
-+	default y
-+	help
-+	  Enable support for the STM32MP Power Management (PM) domain driver.
-+	  This driver implements a generic PM domain for STM32MP SoCs, allowing
-+	  the kernel to manage power domains for various hardware blocks using
-+	  the generic power management framework. It is typically used to
-+	  control the power state of devices and peripherals on STM32MP
-+	  platforms. If unsure, say Y.
-+
- config UX500_PM_DOMAIN
- 	bool "ST-Ericsson ux500 Power Domain"
- 	depends on ARCH_U8500 || COMPILE_TEST
-diff --git a/drivers/pmdomain/st/Makefile b/drivers/pmdomain/st/Makefile
-index 6d8b617eb834..0e8131b7fe9d 100644
---- a/drivers/pmdomain/st/Makefile
-+++ b/drivers/pmdomain/st/Makefile
-@@ -1,2 +1,3 @@
- # SPDX-License-Identifier: GPL-2.0-only
-+obj-$(CONFIG_STM32MP_PM_DOMAIN)		+= stm32mp-pm-domain.o
- obj-$(CONFIG_UX500_PM_DOMAIN)		+= ste-ux500-pm-domain.o
-diff --git a/drivers/pmdomain/st/stm32mp-pm-domain.c b/drivers/pmdomain/st/stm32mp-pm-domain.c
-new file mode 100644
-index 000000000000..1a6393840f56
---- /dev/null
-+++ b/drivers/pmdomain/st/stm32mp-pm-domain.c
-@@ -0,0 +1,128 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Implements PM domain using the generic PM domain for STM32MP SoC.
-+ *
-+ * Copyright (C) STMicroelectronics 2026
-+ * Author(s): Patrick Delaunay <patrick.delaunay@foss.st.com>
-+ */
-+
-+#include <linux/device.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm_domain.h>
-+#include <linux/pm_runtime.h>
-+
-+struct stm32mp_pm_subdomain_link {
-+	struct generic_pm_domain *domain;
-+	struct generic_pm_domain *subdomain;
-+};
-+
-+static void stm32mp_pm_domain_genpd_remove(void *data)
-+{
-+	struct generic_pm_domain *genpd = data;
-+
-+	pm_genpd_remove(genpd);
-+}
-+
-+static void stm32mp_pm_domain_release_subdomain(void *data)
-+{
-+	struct stm32mp_pm_subdomain_link *link = data;
-+
-+	pm_genpd_remove_subdomain(link->domain, link->subdomain);
-+}
-+
-+static void stm32mp_pm_domain_release_genpd_provider(void *data)
-+{
-+	struct device_node *np = data;
-+
-+	of_genpd_del_provider(np);
-+}
-+
-+static int stm32mp_pm_domain_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct device_node *np = dev->of_node;
-+	struct generic_pm_domain *pd;
-+	struct stm32mp_pm_subdomain_link *link;
-+	int ret;
-+
-+	if (!np)
-+		return -ENODEV;
-+
-+	/* The OF node must specify us as a power-domain provider. */
-+	if (!of_property_present(np, "#power-domain-cells")) {
-+		dev_warn(dev, "%pOF lacks #power-domain-cells\n", np);
-+		return 0;
-+	}
-+
-+	pd = devm_kzalloc(dev, sizeof(*pd), GFP_KERNEL);
-+	if (!pd)
-+		return -ENOMEM;
-+
-+	pd->name = dev_name(dev);
-+
-+	/*
-+	 * Domain based only on PM clk framework, no GENPD_FLAG_ACTIVE_WAKEUP
-+	 * support, the wake-up path is handled by interrupt driver with its
-+	 * power domain. GENPD_FLAG_NO_STAY_ON as domain no required sync state,
-+	 * domain allow low power modes even if devices are not probed
-+	 */
-+	pd->flags = GENPD_FLAG_PM_CLK | GENPD_FLAG_IRQ_SAFE | GENPD_FLAG_NO_STAY_ON;
-+
-+	ret = pm_genpd_init(pd, NULL, false);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to init power domain\n");
-+
-+	ret = devm_add_action_or_reset(dev, stm32mp_pm_domain_genpd_remove, pd);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to add action\n");
-+
-+	link = devm_kzalloc(dev, sizeof(*link), GFP_KERNEL);
-+	if (!link)
-+		return -ENOMEM;
-+	link->domain = pd_to_genpd(dev->pm_domain);
-+	link->subdomain = pd;
-+
-+	ret = pm_genpd_add_subdomain(link->domain, link->subdomain);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to add subdomain\n");
-+
-+	ret = devm_add_action_or_reset(dev, stm32mp_pm_domain_release_subdomain, link);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to add action\n");
-+
-+	ret = of_genpd_add_provider_simple(np, pd);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to add power domain provider\n");
-+
-+	ret = devm_add_action_or_reset(dev, stm32mp_pm_domain_release_genpd_provider, np);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to add action\n");
-+
-+	ret = devm_pm_runtime_enable(dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to enable pm-runtime\n");
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id stm32mp_pm_domain_matches[] = {
-+	{ .compatible = "st,stm32mp-pm-domain", },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, stm32mp_pm_domain_matches);
-+
-+static struct platform_driver stm32mp_pm_domain_driver = {
-+	.driver = {
-+		.name = "stm32mp_pm_domain",
-+		.of_match_table = stm32mp_pm_domain_matches,
-+	},
-+	.probe  = stm32mp_pm_domain_probe,
-+};
-+
-+module_platform_driver(stm32mp_pm_domain_driver);
-+
-+MODULE_AUTHOR("Patrick Delaunay <patrick.delaunay@foss.st.com>");
-+MODULE_DESCRIPTION("ST STM32MP power domain driver");
-+MODULE_LICENSE("GPL");
+ 	psci {
+ 		compatible = "arm,psci-1.0";
+ 		method = "smc";
+@@ -187,6 +193,7 @@ hpdma: dma-controller@40400000 {
+ 				     <GIC_SPI 47 IRQ_TYPE_LEVEL_HIGH>,
+ 				     <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
+ 			clocks = <&scmi_clk CK_SCMI_HPDMA1>;
++			power-domains = <&ret_pd>;
+ 			#dma-cells = <3>;
+ 		};
+ 
+@@ -210,6 +217,7 @@ hpdma2: dma-controller@40410000 {
+ 				     <GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>,
+ 				     <GIC_SPI 64 IRQ_TYPE_LEVEL_HIGH>;
+ 			clocks = <&scmi_clk CK_SCMI_HPDMA2>;
++			power-domains = <&ret_pd>;
+ 			#dma-cells = <3>;
+ 		};
+ 
+@@ -233,6 +241,7 @@ hpdma3: dma-controller@40420000 {
+ 				     <GIC_SPI 79 IRQ_TYPE_LEVEL_HIGH>,
+ 				     <GIC_SPI 80 IRQ_TYPE_LEVEL_HIGH>;
+ 			clocks = <&scmi_clk CK_SCMI_HPDMA3>;
++			power-domains = <&ret_pd>;
+ 			#dma-cells = <3>;
+ 		};
+ 
+@@ -251,7 +260,7 @@ ommanager: ommanager@40500000 {
+ 				 <&scmi_reset RST_SCMI_OSPI2>;
+ 			reset-names = "omm", "ospi1", "ospi2";
+ 			access-controllers = <&rifsc 111>;
+-			power-domains = <&cluster_pd>;
++			power-domains = <&d1_pd>;
+ 			#address-cells = <2>;
+ 			#size-cells = <1>;
+ 			st,syscfg-amcr = <&syscfg 0x2c00 0x7>;
+@@ -268,7 +277,7 @@ ospi1: spi@0 {
+ 				resets = <&scmi_reset RST_SCMI_OSPI1>,
+ 					 <&scmi_reset RST_SCMI_OSPI1DLL>;
+ 				access-controllers = <&rifsc 74>;
+-				power-domains = <&cluster_pd>;
++				power-domains = <&d1_pd>;
+ 				st,syscfg-dlyb = <&syscfg 0x1000>;
+ 				status = "disabled";
+ 			};
+@@ -284,7 +293,7 @@ ospi2: spi@1 {
+ 				resets = <&scmi_reset RST_SCMI_OSPI2>,
+ 					 <&scmi_reset RST_SCMI_OSPI2DLL>;
+ 				access-controllers = <&rifsc 75>;
+-				power-domains = <&cluster_pd>;
++				power-domains = <&d1_pd>;
+ 				st,syscfg-dlyb = <&syscfg 0x1400>;
+ 				status = "disabled";
+ 			};
+@@ -325,7 +334,7 @@ spi2: spi@400b0000 {
+ 				       <&hpdma 52 0x20 0x3021>;
+ 				dma-names = "rx", "tx";
+ 				access-controllers = <&rifsc 23>;
+-				power-domains = <&cluster_pd>;
++				power-domains = <&d1_pd>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -356,7 +365,7 @@ spi3: spi@400c0000 {
+ 				       <&hpdma 54 0x20 0x3021>;
+ 				dma-names = "rx", "tx";
+ 				access-controllers = <&rifsc 24>;
+-				power-domains = <&cluster_pd>;
++				power-domains = <&d1_pd>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -383,6 +392,7 @@ usart2: serial@400e0000 {
+ 				       <&hpdma 12 0x20 0x3021>;
+ 				dma-names = "rx", "tx";
+ 				access-controllers = <&rifsc 32>;
++				power-domains = <&d1_pd>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -395,6 +405,7 @@ usart3: serial@400f0000 {
+ 				       <&hpdma 14 0x20 0x3021>;
+ 				dma-names = "rx", "tx";
+ 				access-controllers = <&rifsc 33>;
++				power-domains = <&d1_pd>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -407,6 +418,7 @@ uart4: serial@40100000 {
+ 				       <&hpdma 16 0x20 0x3021>;
+ 				dma-names = "rx", "tx";
+ 				access-controllers = <&rifsc 34>;
++				power-domains = <&d1_pd>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -419,6 +431,7 @@ uart5: serial@40110000 {
+ 				       <&hpdma 18 0x20 0x3021>;
+ 				dma-names = "rx", "tx";
+ 				access-controllers = <&rifsc 35>;
++				power-domains = <&d1_pd>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -435,7 +448,7 @@ i2c1: i2c@40120000 {
+ 				       <&hpdma 28 0x20 0x3021>;
+ 				dma-names = "rx", "tx";
+ 				access-controllers = <&rifsc 41>;
+-				power-domains = <&cluster_pd>;
++				power-domains = <&d1_pd>;
+ 				i2c-analog-filter;
+ 				wakeup-source;
+ 				status = "disabled";
+@@ -454,7 +467,7 @@ i2c2: i2c@40130000 {
+ 				       <&hpdma 31 0x20 0x3021>;
+ 				dma-names = "rx", "tx";
+ 				access-controllers = <&rifsc 42>;
+-				power-domains = <&cluster_pd>;
++				power-domains = <&d1_pd>;
+ 				i2c-analog-filter;
+ 				wakeup-source;
+ 				status = "disabled";
+@@ -473,7 +486,7 @@ i2c7: i2c@40180000 {
+ 				       <&hpdma 46 0x20 0x3021>;
+ 				dma-names = "rx", "tx";
+ 				access-controllers = <&rifsc 47>;
+-				power-domains = <&cluster_pd>;
++				power-domains = <&d1_pd>;
+ 				i2c-analog-filter;
+ 				wakeup-source;
+ 				status = "disabled";
+@@ -488,6 +501,7 @@ usart6: serial@40220000 {
+ 				       <&hpdma 20 0x20 0x3021>;
+ 				dma-names = "rx", "tx";
+ 				access-controllers = <&rifsc 36>;
++				power-domains = <&d1_pd>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -518,7 +532,7 @@ spi1: spi@40230000 {
+ 				       <&hpdma 50 0x20 0x3021>;
+ 				dma-names = "rx", "tx";
+ 				access-controllers = <&rifsc 22>;
+-				power-domains = <&cluster_pd>;
++				power-domains = <&d1_pd>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -534,7 +548,7 @@ spi4: spi@40240000 {
+ 				       <&hpdma 56 0x20 0x3021>;
+ 				dma-names = "rx", "tx";
+ 				access-controllers = <&rifsc 25>;
+-				power-domains = <&cluster_pd>;
++				power-domains = <&d1_pd>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -550,7 +564,7 @@ spi5: spi@40280000 {
+ 				       <&hpdma 58 0x20 0x3021>;
+ 				dma-names = "rx", "tx";
+ 				access-controllers = <&rifsc 26>;
+-				power-domains = <&cluster_pd>;
++				power-domains = <&d1_pd>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -665,6 +679,7 @@ usart1: serial@40330000 {
+ 				       <&hpdma 10 0x20 0x3021>;
+ 				dma-names = "rx", "tx";
+ 				access-controllers = <&rifsc 31>;
++				power-domains = <&d1_pd>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -711,6 +726,7 @@ uart7: serial@40370000 {
+ 				       <&hpdma 22 0x20 0x3021>;
+ 				dma-names = "rx", "tx";
+ 				access-controllers = <&rifsc 37>;
++				power-domains = <&d1_pd>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -724,7 +740,7 @@ dcmi: dcmi@404a0000 {
+ 				dmas = <&hpdma 137 0x60 0x00003012>;
+ 				dma-names = "tx";
+ 				access-controllers = <&rifsc 88>;
+-				power-domains = <&cluster_pd>;
++				power-domains = <&d1_pd>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -750,6 +766,7 @@ spi8: spi@46020000 {
+ 				       <&hpdma 172 0x20 0x3021>;
+ 				dma-names = "rx", "tx";
+ 				access-controllers = <&rifsc 29>;
++				power-domains = <&d1_pd>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -766,7 +783,7 @@ i2c8: i2c@46040000 {
+ 				       <&hpdma 169 0x20 0x3021>;
+ 				dma-names = "rx", "tx";
+ 				access-controllers = <&rifsc 48>;
+-				power-domains = <&cluster_pd>;
++				power-domains = <&d1_pd>;
+ 				i2c-analog-filter;
+ 				wakeup-source;
+ 				status = "disabled";
+@@ -781,7 +798,7 @@ csi: csi@48020000 {
+ 					 <&rcc CK_KER_CSIPHY>;
+ 				clock-names = "pclk", "txesc", "csi2phy";
+ 				access-controllers = <&rifsc 86>;
+-				power-domains = <&cluster_pd>;
++				power-domains = <&d1_pd>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -793,7 +810,7 @@ dcmipp: dcmipp@48030000 {
+ 				clocks = <&rcc CK_BUS_DCMIPP>, <&rcc CK_KER_CSI>;
+ 				clock-names = "kclk", "mclk";
+ 				access-controllers = <&rifsc 87>;
+-				power-domains = <&cluster_pd>;
++				power-domains = <&d1_pd>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -809,7 +826,7 @@ sdmmc1: mmc@48220000 {
+ 				cap-mmc-highspeed;
+ 				max-frequency = <120000000>;
+ 				access-controllers = <&rifsc 76>;
+-				power-domains = <&cluster_pd>;
++				power-domains = <&d1_pd>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -825,6 +842,7 @@ sdmmc2: mmc@48230000 {
+ 				cap-mmc-highspeed;
+ 				max-frequency = <166000000>;
+ 				access-controllers = <&rifsc 77>;
++				power-domains = <&d1_pd>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -840,6 +858,7 @@ sdmmc3: mmc@48240000 {
+ 				cap-mmc-highspeed;
+ 				max-frequency = <166000000>;
+ 				access-controllers = <&rifsc 78>;
++				power-domains = <&d1_pd>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -869,6 +888,7 @@ ethernet1: ethernet@482c0000 {
+ 				snps,tso;
+ 				st,syscon = <&syscfg 0x3000>;
+ 				access-controllers = <&rifsc 60>;
++				power-domains = <&d1_pd>;
+ 				status = "disabled";
+ 
+ 				mtl_rx_setup_1: rx-queues-config {
+@@ -900,6 +920,7 @@ usbh_ohci: usb@482e0000 {
+ 				interrupts = <GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>;
+ 				phys = <&usb2_phy1>;
+ 				phy-names = "usb";
++				power-domains = <&d1_pd>;
+ 				resets = <&rcc USBH_R>;
+ 				status = "disabled";
+ 			};
+@@ -913,6 +934,7 @@ usbh_ehci: usb@482f0000 {
+ 				interrupts = <GIC_SPI 139 IRQ_TYPE_LEVEL_HIGH>;
+ 				phys = <&usb2_phy1>;
+ 				phy-names = "usb";
++				power-domains = <&d1_pd>;
+ 				resets = <&rcc USBH_R>;
+ 				status = "disabled";
+ 			};
+diff --git a/arch/arm64/boot/dts/st/stm32mp233.dtsi b/arch/arm64/boot/dts/st/stm32mp233.dtsi
+index cebefd99906f..3fa91f7f2762 100644
+--- a/arch/arm64/boot/dts/st/stm32mp233.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp233.dtsi
+@@ -70,6 +70,7 @@ ethernet2: ethernet@482d0000 {
+ 		snps,tso;
+ 		st,syscon = <&syscfg 0x3400>;
+ 		access-controllers = <&rifsc 61>;
++		power-domains = <&d1_pd>;
+ 		status = "disabled";
+ 
+ 		mtl_rx_setup_2: rx-queues-config {
+diff --git a/arch/arm64/boot/dts/st/stm32mp235.dtsi b/arch/arm64/boot/dts/st/stm32mp235.dtsi
+index 7a87c344a4fe..561b12ba74eb 100644
+--- a/arch/arm64/boot/dts/st/stm32mp235.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp235.dtsi
+@@ -20,7 +20,7 @@ lvds: lvds@48060000 {
+ 		clock-names = "pclk", "ref";
+ 		resets = <&rcc LVDS_R>;
+ 		access-controllers = <&rifsc 84>;
+-		power-domains = <&cluster_pd>;
++		power-domains = <&d1_pd>;
+ 		status = "disabled";
+ 	};
+ 
 -- 
 2.43.0
 
