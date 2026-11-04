@@ -1,47 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793778873;
-	b=ME/eBRpyLEyAg+DA5BKzsoHaEll+QLAj9PuAKdkN8qASZNETe/wrYcZrTJ4g8QIYfUhD
-	 LvSbUsbvcDoC58PsnFIWSPb8n84FlknU/JfMF5qLCw6//XfKqqKtP8OhduSmAibsAHs8H
-	 5Wz7F5vv9yXZvxJQ1FuUd2V+UYIxU3mjubCwargdOg5FVuVy4CJRTrVSOvst91U3V09Yy
-	 N8js5aC5ydbAOxAXC/L8kyjWEvHLfZEU+pPYkfc2Jb6XkMSGPObOVZV5rvpmCbgt8NJPP
-	 Gwa67AyXUow+R+BSn1puV4DTmkGdfbEA8DXFkwbq2GHTIIp48Nw8Ci8pjG10E8htQug==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793778873;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=bMhQ8DbH8YprQQtk+DeoV/O9noCHpNTfYAfjMaX8Kxs=;
-	b=s8hzGrJovk4Lewt+8BHeNMwESPsUWPyhRNZxH7366rgzE4QgpGuqEwXDILnHUAMx9Son
-	 mU0t7GCNd1Q1HZRrFpGi1qW3VVcT+4C7HV2ISSVe8/1lPdxltH1p2dkh5au+uURoRLzod
-	 eh3+CIUijaKbaJ/4/R+1sxVLHj3wyklxpeV3RsIvxjN20VicyiIqzs0U2+Ns9IQ1qB0Tp
-	 +qvlYReMS7FFM9bemWZpVooRpxDA08FjbjLcnndsTtWUqFxo0tyzEQhuPngSPP4/4vUCw
-	 b0l3IJsZRiFyTazWfNgOiL3W+WOiVES/zN7igXn1BpaPeLsgQpFN22Vp4JZw78KdAdA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SAyLHS8K;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793778865;
+	b=l2xbMlv+FLWUz+b9wFGZF8t6w9Juk/gSklqRXgN+Xjqkhl6a+JoIhsLCrP3QLleSVzrj
+	 3uiutkQQMH4tL5AWCjJ5PrGg5JmR34sW4LcaXAn6S+DKwlCORmclBIRvUYnmNeT/oQJoa
+	 m3jrGiiEOwkJZSIJx3VJMgeuvVwbSb/QTQZs+BmWoPM6wkpq9IEkZoFuST1qzQcdqnevp
+	 /K7dssqzwd2DAByYyDe8PVGSnZiQRovWU12eIydWJN4Z6H9fHLORKfISUjtdG8yqZPsbn
+	 +lJ/FbZqVb/Rh1EVljhVY+Ska72K305r8SkQCn1feSz1ToeE8BD7NXuiSSJwWvTlFOg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793778865;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Of08z6Vz8zX3aCMA4M/zY4MdFGWoIDjVyq3Rd8DU6CE=;
+	b=hMKF5RdfmwexrlyR7z4W//Fo3PhnNUYO+jIwNMXeKJxxTIP4uiRV/FvaGYMV6urA1AX4
+	 cRYPnqZ/4oNBRXoan4v7FWf9ONpiftqiEjGGg/DbxNqpivqqSeuPoFWDsuJoBxnJP/2+G
+	 BNos/48fIoT3iBGGVqHmWmfxXlJKNHGXYQc8pzpH019ifxkVNi2Esr8eQvGYmUwnOUWDn
+	 JtLtvwbLacw1443MBJR8Ai4TF7d0rQ421bYb3ToZa50qe9+Ez6m/SWQE68SJH5z5WV3hT
+	 xTTeBnbv0j/lI2aLpapf31jOJx6qSsZLdkBwxIKFpSZL1+k2S4THPbrd15r6CyTsZYQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VLB5jRJH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D940606A32E;
-	Wed,  4 Nov 2026 07:54:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 700F7606A333;
+	Wed,  4 Nov 2026 07:54:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SAyLHS8K
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52BA61F00919;
-	Wed,  4 Nov 2026 07:54:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VLB5jRJH
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793778865;
+	b=MK7NojtCwLDROdzNkc/0U/bWQY3FElUlCc8J/W1e1OJieQO/KVHE4+2BvxL8CVB8mWYV
+	 jFL1tJmqDJ2x7l2Bv2kjw114fT2Q1Sbh/ZcWcsrbpFaRULCyib8UdW8/z6fw/eknfK3SL
+	 BXxImKaLijcDxDw4JMYhZqOOTdrQooEhh/GCaJxnqAOTmAfNKnH9/kLGVj3R1VpEcNqrS
+	 EwSVVSggcJbRGwM0h+COB8zo0Ey4o7d1XId8eHIGMshag4yVrnIXFTfvnd94nQFHjWoiK
+	 0Ef2d4N+fgWYHzm9GwrmZUwWxGO+lVCutprAiTzykzgsJWHfeZsUobZ9EW4xeVQqD1A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793778865;
+	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
+	 References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Of08z6Vz8zX3aCMA4M/zY4MdFGWoIDjVyq3Rd8DU6CE=;
+	b=JBXAM0niG15zTG8o9WWoQ5AJBuyIVub2pCkmzitq+Xf6IWfmOU7iLhbOO2AoJzbnnYhR
+	 NVPBdxAaewdupEqTppru26seLgMMM8Hj16/lNXFGhNiyRq4JShZX6MnleIUK/cGvIEZ4p
+	 O6Ri8LQHQHjjqbUPYfmEAlqZCWe+0ePLrRZIc7LN//JfyGQg9bS6Pf26dBXicUvsdhwul
+	 Lv14uMI5J8x7nBx94ZA+P2tr8gLpPsWh9TSfzheezkdDompOsRQwvbF4h7rt4SbfqMwLv
+	 fZe3urQXVAmrHpHbXKdXFolq6gvOBEGThx/9FZ2X5jLdADpsvaxOhCEs+jqtef28MRg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=90.182.112.124
+Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPSA id C8C791F00919;
+	Wed,  4 Nov 2026 07:54:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793778872;
-	bh=bMhQ8DbH8YprQQtk+DeoV/O9noCHpNTfYAfjMaX8Kxs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=SAyLHS8KaxxdieI0W2Mkl49Kr7Ijil77TWsDEUno0l/2ro8neCxtPIJH70kzAeQi0
-	 EyM3iaG9m4y/TJVzX0V0r/DK4GrVNDtm+P4FUQNMN/R1BBScd+wtCNo38mbDbIZM5B
-	 8WWpAW4aGyyDgsdHkHWcrQVESIqCGd06A/dW+AUKYgrbJ7Zym6DIyMXIc0HqCM50Yb
-	 sc4xrM0uY4LN9BVEjLHybe0g0lOvb4f+bo6Q2Yrgst4E1TuAboQH1zRsUO6k83Eeru
-	 RLh8RstvnySHlo7SLArZ9JhX47+Uak+tq3woJQANT50ystp42+DkajxWCBGNAvmUS4
-	 Cza9HPCiVFMxA==
-Message-ID: <6029d402-7916-4076-a463-6ed27dcdcba9@kernel.org>
-Date: Wed, 4 Nov 2026 08:54:25 +0100
+	s=k20260515; t=1793778865;
+	bh=Of08z6Vz8zX3aCMA4M/zY4MdFGWoIDjVyq3Rd8DU6CE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=VLB5jRJH6ANTcDNh/MxCplOqJlp/+2F/W778/hWLNovUE6myojf/A/3vrHDBbjQHj
+	 7EpPLarmxGnsWEpRjF5Q280Drj8sY/6SV0YF1MHc4jaFGkSwomoiKZsAlLw4rBve2S
+	 dnt0IP7jxJk03xYjatd0yNTUOv1op3bcZJ2TwTSLENJaNnWmRoZm42PAW3wZa6S1Bj
+	 yX4rtC6BrEdz4mkU+yCw5kZ/1NpcwMDPcYoE8rrA+7yCoCaCAm0y2B9csuX2vg0TRa
+	 /F+HtguXqxKXoerOWjE1NcE8ZyzyvlxLauc8zNYJ15XJySIJqvX4EWd9Aro95xk2UJ
+	 6f92BkDTdPjWw==
+Date: Wed, 4 Nov 2026 08:54:16 +0100
+From: Joshua Crofts <crofts@kernel.org>
+To: Ariana Lazar <ariana.lazar@microchip.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
+ David Lechner <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-hwmon@vger.kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Marius Cristea <marius.cristea@microchip.com>, Andy Shevchenko
+ <andriy.shevchenko@intel.com>
+Subject: Re: [PATCH v5 1/5] unaligned: introduce be56 unaligned accessors
+Message-ID: <20261104085416.00004b55@kernel.org>
+In-Reply-To: <20261103-pac1711-v5-1-71c20101a52e@microchip.com>
+References: <20261103-pac1711-v5-0-71c20101a52e@microchip.com>
+	<20261103-pac1711-v5-1-71c20101a52e@microchip.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,117 +92,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/3] usb: cdns3: Add CIX Sky1 glue driver
-To: =?UTF-8?B?SG9uZ2xpYW5nIFlhbmcgKOadqOWuj+S6rik=?=
- <hongliang.yang@cixtech.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Peter Chen <peter.chen@kernel.org>,
- Pawel Laszczak <pawell@cadence.com>, Roger Quadros <rogerq@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- =?UTF-8?B?R2FyeSBZYW5nICjmnajmlrDkvJ8p?= <Gary.Yang@cixtech.com>,
- =?UTF-8?B?RnVnYW5nIER1YW4gKOauteWvjOWImik=?= <fugang.duan@cixtech.com>
-Cc: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- cix-kernel-upstream <cix-kernel-upstream@cixtech.com>
-References: <20261103074929.1971195-1-hongliang.yang@cixtech.com>
- <20261103074929.1971195-3-hongliang.yang@cixtech.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261103074929.1971195-3-hongliang.yang@cixtech.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 03/11/2026 08:49, Hongliang Yang (杨宏亮) wrote:
-> +	data->rcsu_axi_base = devm_platform_ioremap_resource_byname(pdev, "axi");
-> +	if (IS_ERR(data->rcsu_axi_base))
-> +		return PTR_ERR(data->rcsu_axi_base);
-> +	data->rcsu_ctst_base = devm_platform_ioremap_resource_byname(pdev, "status");
-> +	if (IS_ERR(data->rcsu_ctst_base))
-> +		return PTR_ERR(data->rcsu_ctst_base);
-> +	data->reset = devm_reset_control_get_exclusive(&pdev->dev, "core");
-> +	if (IS_ERR(data->reset)) {
-> +		ret = PTR_ERR(data->reset);
-> +		dev_err(dev, "get reset error:%d\n", ret);
-> +		return ret;
-> +	}
-> +	data->preset = devm_reset_control_get_exclusive(&pdev->dev, "apb");
-> +	if (IS_ERR(data->preset)) {
-> +		ret = PTR_ERR(data->preset);
-> +		dev_err(dev, "get reset error:%d\n", ret);
-> +		return ret;
-> +	}
-> +	platform_set_drvdata(pdev, data);
-> +	data->dev = dev;
-> +	ret = of_alias_get_id(dev->of_node, "usb");
+On Tue, 3 Nov 2026 16:37:11 +0200
+Ariana Lazar <ariana.lazar@microchip.com> wrote:
 
-NAK, undocumented ABI. Drop entire alias and do not sneak such stuff in
-the future.
+> From: Marius Cristea <marius.cristea@microchip.com>
+> 
+> The MAX34417, IIO driver, is using some unaligned 56 bit registers.
+> Provide some helper accessors in preparation for the new driver.
+> 
+> Signed-off-by: Marius Cristea <marius.cristea@microchip.com>
+> [narmstrong: update commit message and move to include/linux/unaligned.h]
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-> +	if (ret == -ENODEV) {
-> +		if (device_property_read_u32(dev, "id", &ret))
-> +			ret = -ENODEV;
-> +	}
-> +	if (ret < 0 || ret >=  SKY1_USB_S5_NUM) {
-> +		dev_err(dev, "get alias failed.\n");
-> +		return ret;
-> +	}
-> +	data->id = ret;
-> +	data->usb_syscon = syscon_regmap_lookup_by_phandle(dev->of_node,
-> +							   "cix,usb-syscon");
-> +	if (IS_ERR(data->usb_syscon)) {
-> +		dev_err(dev, "Unable to get cix,usb-syscon regmap");
-> +		return PTR_ERR(data->usb_syscon);
+This patch is missing your Signed-off-by tag. Even if you're just
+carrying someone's patch, the SOB serves as proof that you have the
+right to do so.
 
-From where did you copy such syntax of error handling?
-
-
-
-Best regards,
-Krzysztof
+-- 
+Kind regards,
+Joshua Crofts
