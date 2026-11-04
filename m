@@ -1,49 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793830825;
-	b=gPe12VeB2Ou8j53sPwoXYUxsp+WJ2rN0C8i+ZEM2UuXVmuJUa/zoiCLPNWStU9JWUGFO
-	 nOFxJsE7pp3dmC2UwevV+0s0l2eIY3a+PYLWlhX+1TPVmMCuttbIwkeCdmYodh3zZ3esb
-	 Y9DhU6iparAefrfabqjws2NWdQuUiP35HC5DYcjA0sfcF3K0zwv3EqQ7FrmB/s2zNV46I
-	 pBjQ5uMGVLHq3P9rNmbWgV3pkfNx7QoN/ArqNHFPl059G/oZEOE04xdbGZlgPl7ls48YL
-	 V6QTks7gTV/Msw7THXRyaDfbP1WuVzjmkwMW5OwdUgNSnsV3gcHRMrtUWXQm52ai/WQ==
+	t=1793830884;
+	b=mvlkoEu1ZoycVKK4FcA9xWYfLUDAvLS7vjLvpT5uP/HzCGtfL688JD/5xTByvO0866wt
+	 SM9cOl1+It1NzfAyzdkvLy1bQzUa5/3IqpiGanmIqUzffax4ZVcl8595+S7G+mRIo82Tq
+	 tMekWggYQEpANxj57aLIbsSJ763WmfuvN9T2M4MRbIvAXco/Klr6y+V0kmeJA2L+lt2tV
+	 ic2gmmB4hunKHE4JoFwJKKvXXtO6jfmi7maoWksVZAK1Bmcq+U4p2NqPN4oYOUxvC1uga
+	 GRW5cayTJ235228pdw6TnxlzeARDNGuTIgrOb+FFuJbawMDSkZySiBaoUffgO6RSGfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793830825;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=l26EY1ejppvc6S1xS9OtShxfLhsLOgdFFgxCGty35fU=;
-	b=MgVm7qJfEGzGi5yjDBOig6y6vHYpY/DtIRItXv7BOux3wkBVlsKS1ncgUa8ITHjrquFL
-	 4qLR+iG6l3kXVwZVfn+x5yxDmK//YbxY6W8duki4McyX37ynROy9NOSeJmz/iF3Z0Ay6D
-	 cWy9mmnL86+NBhAVNOzoqiQpdaJkuMMVpomZD3ogEhw7filPaqOwhEBwkHySqM8yuwVQV
-	 NzwLJKgWaeKFmBrwbGDFws40M8q/01H2SvcIb8tEJQf1Rws9dexLUvkRLAnzk/8kr/F+/
-	 fOIqVacdY5j28LkUvSInnMmX6VIxPjxKMLYm/4Tpa/42ZJouYzO9DgxPpo+ThY9obvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793830884;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=XCCk1/UzqkHSfoEOYC+LVl2fRx92CSah9mVG5E6sbPo=;
+	b=y8eMlLmW5dlK70Mu6/ZqjWEZCBEJ6hKt/Id56CMb4iEXarf3A12YeRzq/6o1t0FOYMgv
+	 6WBzPIwdSAff5RO6MXOPg7n1RLE8Ni7WjX8NMxSrvZzXwFwtBinmjIa6YBD0PRIH6aoP4
+	 EAk33Ldp+zWTKaPP5/IwlROKd9oa9vFp6L8dUW7ZjkPshQFn35aXmmsOJBgwxvOF/j0Zb
+	 cxv4FA+abyrxY/k6joBXoqQumOOdR3RDn3njmDQa2vkuDrnks1QESIPIofKRCkTwjqjHG
+	 02AfohOQEepU+4UcbS9n4v8RPQKuYLegHwaqw6QHminrZXLgU9sXayC8Qteb2fNFTbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Aiis5fA4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N1bvsY5c;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42EE8606A326;
-	Wed,  4 Nov 2026 22:20:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89982606E83C
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:21:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Aiis5fA4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BBA81F00A16;
-	Wed,  4 Nov 2026 22:20:25 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N1bvsY5c
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63C5A1F00919;
+	Wed,  4 Nov 2026 22:21:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793830825;
-	bh=l26EY1ejppvc6S1xS9OtShxfLhsLOgdFFgxCGty35fU=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=Aiis5fA41Fu9KJipr/SgQ0+UkaITBlLkJvXKq53oqxMrhQSDfjoQu1+ldh7dRge4Y
-	 SQSsaXxWr1PLpWn1D8ox0hDnhD9BS0Co4mLefTqkeN7qiG2lUBumCCvegKJWEdqtiv
-	 pYieOdcfbBecascygyZQK9tMy5zqO5fP+ePsDMrsDVV8NxGWlese03OArLVTkTxVRX
-	 nUXjhzlg/kX13tjHoKvzroiQUvcdlSM21cj4dRB9NqYV7ElNbdkqTw60NdV7G0xk2T
-	 auHzxgfYaKM7CkiKuKiiQ6IsblCnyLXlVt9ikPwEEQc/7BVPbEQPqcgAvJiorU6RUX
-	 qPp0POZjhF/Jw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 0311A38003E1;
-	Wed,  4 Nov 2026 22:20:25 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1793830884;
+	bh=XCCk1/UzqkHSfoEOYC+LVl2fRx92CSah9mVG5E6sbPo=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=N1bvsY5cGXpvtzUUVHaK4mO1FkP1jrhiMoU0nswrfWZNzZG63gaLaJaNqep3aDO4Z
+	 owqx0fo4BNlpd8OcVDcsB6iYNTlSPadICdgSMOv12YN3LQBeY0WAp0C5K833dGMtRR
+	 jBpqiAIl7VXyVkBSk5V+fh0L/gByEituloN6DEpzVxfhf4AgXHYQQ8iD0m0KZQGnKT
+	 SvTjvGXgIPv+LaEobnW3xByM+Sp7z5wko/baLD2ewkyvKJkDwKIzPhnRdiP+BPJNvt
+	 9uofWRSFowuzshvYtFx4io+QLm0Zj0Oq0+KFdEVF34R42w3wB9OpDj+uWh/MnJ10KF
+	 NHe3cnxrL/EdA==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 20705CE09CE; Wed,  4 Nov 2026 14:21:24 -0800 (PST)
+Date: Wed, 4 Nov 2026 14:21:24 -0800
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: James Morris <jmorris@namei.org>
+Cc: Christian Brauner <brauner@kernel.org>,
+	Julia Lawall <julia.lawall@inria.fr>, Greg KH <greg@kroah.com>,
+	gmonaco@redhat.com, ojeda@kernel.org, aliceryhl@google.com,
+	gary@garyguo.net, namcao@linutronix.de, sashal@kernel.org,
+	natalie.klaus@runtimeverification.com, willy@infradead.org,
+	linux-kernel@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
+	tytso@mit.edu, keisuke.nishimura@inria.fr,
+	jean-pierre.lozi@inria.fr, ejratl@gmail.com,
+	corinn_tiffany@alumni.brown.edu, kate.stewart@att.net
+Subject: Re: Kernel formal methods mailing list?
+Message-ID: <e788b576-43a0-461c-9ae0-d7de3a6866e4@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <ed89f1ce-cdca-d6f6-3e1-f0fa34eac4d@namei.org>
+ <4ea0f231-eec4-4f41-bd2c-e5484c0535de@paulmck-laptop>
+ <b765a5d3-9844-fed8-4277-2a998980b33f@namei.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,44 +69,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH 0/2] Bluetooth: L2CAP: Match LE responses to outstanding
- requests
-From: patchwork-bot+bluetooth@kernel.org
-Message-Id: 
- <179383082342.3253812.9942140641407431585.git-patchwork-notify@kernel.org>
-Date: Wed, 04 Nov 2026 22:20:23 +0000
-References: <20261102124735.23199-1-enderaoelyther@gmail.com>
-In-Reply-To: <20261102124735.23199-1-enderaoelyther@gmail.com>
-To: Zhao Li <enderaoelyther@gmail.com>
-Cc: marcel@holtmann.org, luiz.dentz@gmail.com, johan.hedberg@intel.com,
- security@kernel.org, linux-bluetooth@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b765a5d3-9844-fed8-4277-2a998980b33f@namei.org>
 
-Hello:
-
-This series was applied to bluetooth/bluetooth-next.git (master)
-by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
-
-On Mon,  2 Nov 2026 20:47:33 +0800 you wrote:
-> An LE peer that can reach a local L2CAP listener can use unsolicited
-> responses or Command Rejects to bypass deferred setup, remove an
-> established channel, or leak an unaccepted socket and channel.
-> Authentication requirements depend on the listener's security setting;
-> whether a default configuration exposes such a listener has not been
-> checked.
+On Wed, Nov 04, 2026 at 12:56:30PM -0800, James Morris wrote:
+> On Wed, 4 Nov 2026, Paul E. McKenney wrote:
 > 
-> [...]
+> > > Thoughts? Would it be worth setting up a mailing list?
+> > 
+> > We do have (low-traffic) lkmm@lists.linux.dev, though that was intended to
+> > be specific to the Linux kernel memory model and its formal-verification
+> > tooling.
+> 
+> That's a possibility. Would the mm folk there would want to keep it domain-focused?
 
-Here is the summary with links:
-  - [1/2] Bluetooth: L2CAP: Only accept LE responses to outstanding requests
-    https://git.kernel.org/bluetooth/bluetooth-next/c/f50b32aa233d
-  - [2/2] Bluetooth: L2CAP: Clear request identifiers on incoming LE connections
-    https://git.kernel.org/bluetooth/bluetooth-next/c/15a80cc8263a
+On second thought, I have to agree with Miguel, so I suggest instead
+subscribing lkmm@lists.linux.dev to the list.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+But it could be a good fallback in case the Powers That Be object to
+creating a new email list.  ;-)
 
-
+							Thanx, Paul
