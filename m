@@ -1,109 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793779252;
-	b=zW7Oapg6XROELeSlfPsK7EhfcfXZVuByGGOwBhFeKA7SvbPvi2URDn5GTeuerpyfO/bW
-	 8ZvOg6MTPDARBLfFsLadUX/hqHh03v0gRJUNmLxsYcPMotBG8VxkXcWvhtfa4r6gAtixR
-	 4QU7kx6sB5AO6PEhjh2ssdLmKWjXBcdVk3wtp9bNKscYAND1WzrbGJWe0d6BJxS5t66QP
-	 cobAnWaAL59WkRYerjFLn2tmxFvbQ9F1kC7XCFL+bzCATVPL6+pvkKBTSxcgDgwpxmneg
-	 Ubd/NxGnGayhDa1Em8xp19D2TpXLr49xviOVBqJDK7d7zjNgH33aYjvTe95xHsiMP2A==
+	t=1793779250;
+	b=TMNNYG1Xw8NnR+u8f4gRLyjlYl4KLh5P6iPctM2NbXgWC2s8xCXU9LV4s23LrJGhF2TX
+	 lT2U941QuVEhhmOCa1XMjpJ4l2HtOjU+KXqfC4HTbIYy8icFSzZGaL31vkSa/oqxWAqSk
+	 /zbB4eP9BOZkA2E9QtND+7Pd01wc5+pM4Tse6Tkrlx25cUGkXqH+yXVQuFHjAOjYkyqcJ
+	 uNPzTPqtqV2YbA8YO1sofyCX7ilB2LHsxGIZtAvsbXfe2Fh3pk/GF4bTdCluZ8WesMoD5
+	 9aoEP6nMEaLpvbBGg3ZYDXwwyxn+kQVhFyb/N2bXmLpU321PP6hGuAJCFMhTA8uErJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793779252;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=39gK+a8D3PLdfajH6qYcSlCJPVlME+ibj0o5GjMZDos=;
-	b=LMwMGel1gkfPnj2+Ntmc2BOYYYR+hTgaDWImAFWZFu/ciDHbT2tkBoZyfyf3R6eVlaRC
-	 ja+UkzipzM5vzUo5sJ9Tory8dUwlj2rbOtIvlKBuMUfkqbx3alyN08EocKrWswR8xztqe
-	 JA693D8mwLw0OViwdh3OGg7LtTD/AKHfve6oF6IxeFLYR8cwGlxyaSZS1d8WAiRaDLocs
-	 UItEiEuUb37J8nu6zi0nXcUUcJ3bs9nGDcaoX6ZN+wCYZbsIfD3isdECEAdnUaD+RAcFX
-	 0WVKtAj/TI5xg8Yo4IYCq758FYemrX7HWFpIKvGSc2hvA5/m+5jkD2UPlZRqcPf1cdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793779250;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=In4z4+Js6PJ5Im8vPPoRP4f2dKYPIb0IHpEUKBmDhbw=;
+	b=vUuRJ5BhBuRoNvp+Mh7jmlph0MIDNeRmKwfzR6Lx3CIHoxg7wGYqi4VQ+pysRIOCwUHq
+	 SD2jvW1LYx1loqlySDDi9B8WgdtleL6a2KqVoBCK80QuHTMyUfsvMfe6dR84USrjGhu8b
+	 /mCfm8MojXpczsrN5JdFT+3falZPQzOxl9NIkTgRc2Mos8S35UgJoT4SZKbrGl1JGzxds
+	 NpjITNf/o0aB9S9nKMNQtMOew3KfP+5ZZnyYG+fjRisp1JOTOPI2QyYAkamCCIpMV7ePs
+	 FqkxSRctROIgX/e4BF3ZBpagfVl8NeM+/FyKVjhYC/cQhyQY6rqQYCcQiiWg3cvQgAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crusoe.ai;
-	spf=pass smtp.mailfrom=crusoe.ai;
-	dkim=pass header.d=crusoe.ai header.i=@crusoe.ai header.a=rsa-sha256 header.s=google header.b=YSA7plLK;
-	arc=none smtp.remote-ip=74.125.82.50
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hg+lYTkE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5F22606A32E
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:00:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5F22606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crusoe.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 714BF606A31B;
+	Wed,  4 Nov 2026 08:00:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=crusoe.ai header.i=@crusoe.ai header.a=rsa-sha256 header.s=google header.b=YSA7plLK
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1adbf62dd31so646410c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 00:00:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=crusoe.ai; s=google; t=1793779251; x=1794384051; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=39gK+a8D3PLdfajH6qYcSlCJPVlME+ibj0o5GjMZDos=;
-        b=YSA7plLKIBemS43qzGAufPyFo8kwXvCw1oRaPEW63emS/qUed7jXwmME81dzMlRK2K
-         pS86+Bylu3Ea+TAA/ExeOkM5n+mOnH5TCYuk9IeXOXAj/OG5oXtjCTMMVuzR2VSsqv6m
-         ZY3kEYBv1VrVmODJ4su9KxVlN9LbKD25t8yjJ9p+jdhn9sRk6IzREaV2ntWZvTFdXzF5
-         +C0P3C05zD1v1BpQwlZUVEOqjwAwT68H2mlgxMkxqA9hNL9NQaKCRSQMT+xsdmqxNGjm
-         3mKSFRSFIvOWlV8c9mlPECLsxsbIOBHqzVnP4V/7yxlJDHKTm3fa6liT3dikEcaBthnp
-         uWEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793779251; x=1794384051;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=39gK+a8D3PLdfajH6qYcSlCJPVlME+ibj0o5GjMZDos=;
-        b=nR7EZkG0YdZEZVlAW3ryi5VZ19JxHt4CX4ATPD2i9ycV+RXc3s6TSErTRytF8D1sJi
-         Op6Yyl0isoU+OQfr15TT5rUOIMHxnJJEvfSQY3+00ENcbpNdeeFVp7fljReQ+oPhnKzz
-         VtjMPBsEVE6vAP3Gh352Mz/lrkq7L4jl18SRxSOi6ct5sVnDcpXIngbJT5pkKnwXfPng
-         8aP6h1iXPWJzdPTJxu1FincYuqSMxYK/zf+eZcfLiAlv0fOzgE71PBe+XDOduB6GVJNj
-         V+zapSY+wmNNL4MI37x8xATHBJZ0sNYJTl+qqlGTwaEjOH14ghToSS3d0sXpIfjRDydO
-         Uu4A==
-X-Forwarded-Encrypted: i=1; AKwUvBxypkBofyeHw7lpUsTy1cRnA+yokigY2Gzwq1s5IALFUfC7jLIQ4EBtEYy+ZLH9bB8lNXX36B97fB9DtXE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8egMoac56830dX1x+2fjki+ixGe8dm5a6NhOnFhZNdL+nX1udp
-	pWaR8UrhD5waYtCO98fTV5A5vj9g9Ldx+QghdC3DgtH6iF/Gp3FesyOYdJPpng6uJtIFu9m2BjP
-	hZsvRgWw=
-X-Gm-Gg: AYBFou2wmctxy69sbj8RnJGpM6aJqCyjjCiXSz6cmrdWMZ27EbOgDixm9KU0kE7bj/K
-	YQgMV/HkvYxy7cazXn0ZPaW/L3SEmmPzKoROtpvPoac2QLGnJtRTuCnAAtzjK3rV31hx3mSpcsX
-	TSBUF6SpWozAaZvOIC8KLXnjLUxbW57OrTiSPePSBw3M1a3Ifr8n9h6elRcJJiVGJv6vix257HC
-	8VYhsso0ev+7GR4UxoWkCFom2C1FM42DeqcrQVZ4JKGYU+VmPzfQOtzidt6Y65gwLbBqS7cMlsl
-	7e3V2eNJ1UcKWgXK5V3jx7dDhDOJheFGfkYlk6GGs7vVywc6BxvXXYZ7+CNi3ONf6hozueOuBJF
-	QzvVOQaSoNfj6OwMWlE5o0d6I1OUPPcRk7NrGIqpUfsDvdr6p5ldTJl/c2D+4MMihlWyE8aobXF
-	csfdzpUcRqrXjOuC2NdqHPif5gj3N0me3MtAmTwX2WlOGz/v2tE0bs0pi16OWPzLvB9gqX2YGui
-	WhgbAE1tMJI+HdUm32K4Rv6iuQB4va3YvrCvcsxMlvu8tF2nAWIHbtIuge47PUaDLCqk5SwYDZq
-	Ch29OCb99D5c4INUf+gJ9N2Ql1ckVu9qcwXejM+/cPIunBgUQfOZECYdv3nbVpDhOIJfxm+bzA=
-	=
-X-Received: by 2002:a05:701b:4583:20b0:1b2:4871:b1f7 with SMTP id a92af1059eb24-1b24871b239mr1578681c88.39.1793779250836;
-        Wed, 04 Nov 2026 00:00:50 -0800 (PST)
-Received: from MBP-Saravanan-D.civet-hops.ts.net ([71.202.170.54])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c772fdsm6175875c88.22.2026.11.04.00.00.49
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 04 Nov 2026 00:00:50 -0800 (PST)
-From: Saravanan D <saravanand@crusoe.ai>
-To: Nilay Shroff <nilay@linux.ibm.com>
-Cc: Saravanan D <saravanand@crusoe.ai>,
-	linux-nvme@lists.infradead.org,
-	kbusch@kernel.org,
-	hch@lst.de,
-	sagi@grimberg.me,
-	axboe@kernel.dk,
-	dwagner@suse.de,
-	sgogte@purestorage.com,
-	hare@kernel.org,
-	hare@suse.de,
-	linux-kernel@vger.kernel.org,
-	iyamahata@crusoe.ai,
-	kiyer@crusoe.ai,
-	ganbalagane@crusoe.ai,
-	sjpark@crusoe.ai,
-	bchen@crusoe.ai
-Subject: Re: [PATCH v6 1/2] nvme: add per-queue sysfs directories
-Date: Wed,  4 Nov 2026 00:00:25 -0800
-Message-ID: <20261104080035.95142-1-saravanand@crusoe.ai>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <10c9db86-4313-4a1e-bec1-e4eb9ae32ef0@linux.ibm.com>
-References: <20261023230426.6425-1-saravanand@crusoe.ai> <20261023230426.6425-2-saravanand@crusoe.ai> <10c9db86-4313-4a1e-bec1-e4eb9ae32ef0@linux.ibm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hg+lYTkE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7338B1F000C1;
+	Wed,  4 Nov 2026 08:00:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793779250;
+	bh=In4z4+Js6PJ5Im8vPPoRP4f2dKYPIb0IHpEUKBmDhbw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hg+lYTkE8xQnp4pFtLYJUzu4krurZY5zInCALlUsL4ly8+wjkuMu5v7bcVfnlciiG
+	 H4eNUDWB7UvErAufuB1t/90KWD43/xnPsB3Wu/c21lxZzQD+kyORejMbRjwMCtKuuC
+	 eTRnA3MKhvkYngmFAm1SvZm1OkOmPK0ZiLeG6cskpyOxw0Fd0xMQ8PhDlbMsB7XtSY
+	 YezKrUxNyypGRKqPiJ3o+tguE45u7XtJjMICMfBQ1YPAB10Enu0dM00kZ+wBHNlj32
+	 /hie4tFhTyPbPTKbDRYrMNYbmIZ6Hnsl4i2HXPMrdQxhZkiKEgZgIGIzNG/CAPGZFv
+	 EML3rY7DTWvOQ==
+Date: Wed, 4 Nov 2026 10:00:45 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Deepanshu Kartikey <kartikey406@gmail.com>
+Cc: jgg@ziepe.ca, metze@samba.org, stfrench@microsoft.com,
+	xiongweimin@kylinos.cn, yanjun.zhu@linux.dev, ammrat13@gmail.com,
+	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+	syzbot+6699995b421c8ec7d2fe@syzkaller.appspotmail.com
+Subject: Re: [PATCH] RDMA/cma: Don't warn when device removal races with
+ rdma_resolve_addr()
+Message-ID: <20261104080045.GM264423@unreal>
+References: <20261101105615.20253-1-kartikey406@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,22 +59,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261101105615.20253-1-kartikey406@gmail.com>
 
-On 10/30/26 7:46 AM, Nilay Shroff wrote:
->> +	/* transports remove their queue directories before this point */
->> +	if (ctrl->queues_kobj) {
->> +		kobject_del(ctrl->queues_kobj);
->> +		kobject_put(ctrl->queues_kobj);
->> +		ctrl->queues_kobj = NULL;
->> +	}
->
-> Can we have a helper something like nvme_queue_dir_destroy()
-> and then call it here?
+On Sun, Nov 01, 2026 at 04:26:15PM +0530, Deepanshu Kartikey wrote:
+> rdma_resolve_addr() on an unbound ID (RDMA_CM_IDLE) first binds it with
+> cma_bind_addr() and then moves it from RDMA_CM_ADDR_BOUND to
+> RDMA_CM_ADDR_QUERY with a second cma_comp_exch(). These are two
+> separate steps. Once the ID is bound it is attached to the device, so
+> cma_send_device_removal_put() can find it and set RDMA_CM_DEVICE_REMOVAL
+> before the second step runs. The exchange then fails and hits the
+> WARN_ON() added by the commit below.
+> 
+> syzbot triggers this with RDS over rxe, where rds_connect_worker()
+> calls rdma_resolve_addr() while the rxe device is being deleted:
+> 
+>   WARNING: drivers/infiniband/core/cma.c:4120 at resolve_prepare_src
+>   Call Trace:
+>    rdma_resolve_addr
+>    rds_ib_conn_path_connect
+>    rds_connect_worker
 
-Sure, in v7 I will add nvme_queue_dir_destroy() next to
-nvme_queue_dir_create() in sysfs.c and call it from
-nvme_uninit_ctrl().
+Please never trim kernel dump stack and add full splat.
 
-Thanks,
-Saravanan D.
+> 
+> This is a valid race and not a kernel bug. If removal wins before the
+> bind, cma_bind_addr() already fails and the error is returned to the
+> caller, and err_state in the same function already ignores a failed
+> state exchange. The caller gets -EINVAL, and RDS destroys the ID on any
+> error from rdma_resolve_addr(), so nothing is leaked.
+
+Why is this a valid race? The expectation is that when a device is removed,
+the ib_client is notified first and then deleted. RDS should stop all
+communication with the underlying device so it can be unregistered cleanly.
+
+> 
+> Drop the WARN_ON() and keep returning -EINVAL, and document in a comment
+> that the state may change because of device removal.
+
+I think that it is not correct and the issue is in RDS.
+
+Thanks
+
+> 
+> Reported-by: syzbot+6699995b421c8ec7d2fe@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=6699995b421c8ec7d2fe
+> Fixes: 732d41c545bb ("RDMA/cma: Make the locking for automatic state transition more clear")
+> Tested-by: syzbot+6699995b421c8ec7d2fe@syzkaller.appspotmail.com
+> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+> ---
+>  drivers/infiniband/core/cma.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/infiniband/core/cma.c b/drivers/infiniband/core/cma.c
+> index 337a49d1acf7..46741c1fd34b 100644
+> --- a/drivers/infiniband/core/cma.c
+> +++ b/drivers/infiniband/core/cma.c
+> @@ -4117,8 +4117,8 @@ static int resolve_prepare_src(struct rdma_id_private *id_priv,
+>  		ret = cma_bind_addr(&id_priv->id, src_addr, dst_addr);
+>  		if (ret)
+>  			return ret;
+> -		if (WARN_ON(!cma_comp_exch(id_priv, RDMA_CM_ADDR_BOUND,
+> -					   RDMA_CM_ADDR_QUERY)))
+> +		if (!cma_comp_exch(id_priv, RDMA_CM_ADDR_BOUND,
+> +				   RDMA_CM_ADDR_QUERY))
+>  			return -EINVAL;
+>  
+>  	} else {
+> -- 
+> 2.43.0
+> 
