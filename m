@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793809071;
-	b=Z8e6leCRaRS+OdNeNd8mV0cHjAXvsL/UebnseOVEUNAqpzbC2rTMxw0irLIWny35H7b7
-	 wIelJChxmgfbGODL82zVnDKnFiPkNIEwhlK9Sv2IhBQaues8yqp1lHKHyP38tflab+lmb
-	 LQA27YCLedMiJNhee1YIelYLoKgmew+WPdG60rFPzsCq+7kQAH1uO+PSStnL03KosO0zK
-	 NAkI+fm0uvNHgt0CBYwRrjybMwxla/L2mHc2Gg4GWeSRMzlCZvY8/Z+JwM+rx3CL0ehYk
-	 uEpQI18AWSitRD9cjGTIYEu5LdBvCKJW9ygD9n23XD0Fjo4dpshQ8RzsHID92L2KlgQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793809071;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=4Dnk/mKLvmwjsm22r8MYC0OWvKrZqndMT9TsFKxMuLk=;
-	b=J/+MCRtdQcJpiPYbVWUI6PsbEYvPIbOh2UgFuvqaK1hTxK3tS4JNF/kAe37PX3yxgY9e
-	 Ond+yvDfMfkOEMT0cIoNuJYit75TLWbcf+sBERzMBheOudOCA7KqWCVpOMkBwC0IUFq6y
-	 9GC9b0g5cAzBScZk9RUlVPLI1gO6dqj4/kbbvsCA/YiKKkutA6R6eEErYUVsJyVKEaWXS
-	 HJ3n07DbW4RBaYwyXXqgZNyCuoDZ7tSKoj9R0v2zepnQ3mPoKZyEy0Fm98iJmlHwt++uF
-	 yt7rBHWqAdvH9XaaF/RzhlDipx99g9ALw7CbS4biUhi5noY/zuTCjOeY4pRFqxCdWGw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=D2xdbCBa;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793809062;
+	b=Afr+R6Ojb8Q63HoKSg5KANJlGgV2EoQYaoKvJSUrASUhnjbOfOHPJnI3figyJkMcAUWm
+	 vVCIQUU6ej4s2jBaBX4KzQojhh2go3K6jHEe8JLZ89bnBxBxDdzSC/oG0zjvhwdeoC2UP
+	 fwnEHJhVG9Z0WZdOTosSwbnDJJDUIqiZdnLMXaiLLgPMwQ8HhrRh7Ar5fmtzRRTwZfnGe
+	 pbi0c+F2gVqyRFk03tTocYoyzOsRun6HuNRN3TKT4vvwsO6zPpogYygxO7ECBq3AE4nWz
+	 bQ1Nz1JS95wlP+rH66jo2O+DvHapiZr4QTyk+rtRQ8Cr6b3bA32P0UgrF74sm50XKhg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793809062;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=jAWJHQIGnJ2Kk3giqYIVIkzM2se7YUrpnLQShJQtPJI=;
+	b=gcTOohlToPJ8I0wR18MnqxDk2hKJSQpC9NuN8EXctswvw0xlxUFgOZ+z5S97qqegxW3Q
+	 CA0HSJxO/mO7Mmg/oEgD3t4g4/Ko5VwR1X7HmA18Nog1/DZqFUyceHYjUut/1nM8Gv5F/
+	 6ln7XcGEBOK2PTFAGKg5nP03pTltn9fWHr7Dqawxi7bJbbOdQICJsgWCPqf+yWDKIAakI
+	 E7KO5WDPLSNTG+8DYurrFGlNmOggzFFUzwPhY1agbse5IwfxHFVOtMusO7HwYA0y39JOk
+	 eG+12Z1y4+mutUOkIw8sqlZw4HMCQfWM44lo0v4yqnXbxiUOpYqLrb9tOTysvvgXhfQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UxbUAIAm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76D2D606A336;
-	Wed,  4 Nov 2026 16:17:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76D2D606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17B8D606A328;
+	Wed,  4 Nov 2026 16:17:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=D2xdbCBa
-Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.pengutronix.de [IPv6:2a0a:edc0:0:1101:1d::ac])
-	(Authenticated sender: relay-from-dude04.red.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 79979202BB8;
-	Wed, 04 Nov 2026 17:17:43 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793809063;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4Dnk/mKLvmwjsm22r8MYC0OWvKrZqndMT9TsFKxMuLk=;
-	b=D2xdbCBaqDcoA+LN+yg+TK5eJXcB+fne/x9QbF8HxHOAqDfDwnOBSZsJHlYv6OiumNKKSK
-	smV41liSL1Ay+N0I5X2TNLgQr7AZ+YtPIiRI8FC7NVzbrkUvCahVsg2yaDZ5cXUlBUI1AY
-	kLJydR30HVN5r8wHv0dQgLSanUITzHETALDjpsu+wA2F6PXx3fP/HUyapcJ52XkwKUWxtC
-	/T4VeYOy4LvNSEKe3jRQYNjKK9+TSV3EdrcBtP9jidqdUH5xi3k38MnxcXU/FcoD4CpjoJ
-	eWqISeStBHm+uLL3sGMeRwjrCMFFLhNRu9pXRBo41uyV19jDgSgPReuLOHt9Vg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793809063;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4Dnk/mKLvmwjsm22r8MYC0OWvKrZqndMT9TsFKxMuLk=;
-	b=biHI3oladoQqDdbEtv99+fOFErq1q85bbspWWQ3Sy6QEJaN1LC+sqKWTSA4lBt9WcDp5ex
-	TmJziX99/TVK+guteA/Nz5u1sb1u0b5qrHlUsxu4VHJVR9Hu0OGB/SQJJojBbJpztWEWIy
-	aHz7MXnH/Zj6mDC1iwVBYiku4YhMOlAxFp9zJin1U/KujDKI0/03ctainNrSyf2olJ/+LZ
-	tqT2c+DpKzpAG2imMtPcO4qtH67dnfHRIIiLkfniG24QanwpUpLbECSLaW+QDC1o3CRiVU
-	zZ6xdm1FAig2gvT3z//gndHr0oz+QW0GWjSG+Y05vtpKAfhQlG2D3iHoM64uoA==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-dude04.red.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793809063; a=rsa-sha256;
-	cv=none;
-	b=ANuaVU+0Q+K88aA/Y64r0rJwi4PuwxC7YZdMdWAdoFQwNZmk3gmgOPQqRauF1Tw1BSxbbV
-	TOPVb4PEctMtT06pJx2T0dv+ojRTCF/J+F3H0Gg9dTHqePyyMt2DJ/Nam4bnAE6Zo1rbTv
-	U6mZgvuNsyeVq8e6wdIXvcbQTD+o0kFZ1SqRvtp7Lzb+ZxZhhQvcKf7ureK2j1v2cQuQNY
-	+9NxbJ2d210uUO1y1+QbR95ZODqiHAciIU+jYvu3ijkoAY2Qqgqa9htvSJ2NMuy3x7OtTD
-	CnmQi6Fx9lPfnYY4MFofc+jIC1v+F8VUo5mELuEGAnOaAsek8r/UK0RWlD4+Mw==
-Received: by dude04.red.stw.pengutronix.de (Postfix, from userid 1058)
-	id 4B46F380196; Wed, 04 Nov 2026 17:17:43 +0100 (CET)
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-Date: Wed, 04 Nov 2026 17:17:16 +0100
-Subject: [PATCH can-next v2 1/9] selftests: can: install net/lib.sh with
- the CAN tests
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UxbUAIAm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B16721F0093A;
+	Wed,  4 Nov 2026 16:17:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793809061;
+	bh=jAWJHQIGnJ2Kk3giqYIVIkzM2se7YUrpnLQShJQtPJI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UxbUAIAmYCewmxqeQMrkO9aPtyrPTCCcZXkeo2LbHTwgnwEim0uqnCZZ0qP2gwMqT
+	 OTM98r0XSZj9ZqVa0qXvNXGLytyJkx8ZKDbXPgHEWS8qUJGE7vzUjeKc/l0Sw2kuIt
+	 ArkZAxvPshwoct/9HcwRtkWx6IXU8oCeDmm53iE2INV+M/+azkMKHUsec7ZpyeBt5Y
+	 Sa4esukhYx2VCLJDj62q4hVcM40o5MpQd4cWkPfeNcxL+1ClZ0XTwjm0zcwCBFlCFg
+	 JJN+T6dcmR1nXfgfwiagp2XrZmjnsU3PyBEVpB//eD+xZJ29ZFLOeEALp8wOKng1Rt
+	 zfyLQL5K36diw==
+From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+To: iommu@lists.linux.dev
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Alex Williamson <alex@shazbot.org>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jacob Pan <jacob.pan@linux.microsoft.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Joerg Roedel <joro@8bytes.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Krishna Reddy <vdumpa@nvidia.com>,
+	Lukas Wunner <lukas@wunner.de>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Samuel Ortiz <sameo@rivosinc.com>,
+	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
+	Steven Price <steven.price@arm.com>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Vasant Hegde <vasant.hegde@amd.com>,
+	Will Deacon <will@kernel.org>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	kvm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-coco@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	Jason Gunthorpe <jgg@nvidia.com>
+Subject: [PATCH v8 05/15] iommufd/device: Associate KVM file pointer with iommufd_device
+Date: Wed,  4 Nov 2026 21:46:22 +0530
+Message-ID: <20261104161632.3547423-6-aneesh.kumar@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261104161632.3547423-1-aneesh.kumar@kernel.org>
+References: <20261104161632.3547423-1-aneesh.kumar@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,58 +87,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-j1939-selftests-v2-1-cf797c83317b@pengutronix.de>
-References: <20261104-j1939-selftests-v2-0-cf797c83317b@pengutronix.de>
-In-Reply-To: <20261104-j1939-selftests-v2-0-cf797c83317b@pengutronix.de>
-To: Robin van der Gracht <robin@protonic.nl>, 
- Oliver Hartkopp <socketcan@hartkopp.net>, 
- Marc Kleine-Budde <mkl@pengutronix.de>, Shuah Khan <shuah@kernel.org>
-Cc: kernel@pengutronix.de, linux-can@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- Felix Maurer <fmaurer@redhat.com>, Vincent Mailhol <mailhol@kernel.org>, 
- =?utf-8?q?Alexander_H=C3=B6lzl?= <alexander.hoelzl@gmx.net>, 
- Quchaosheng <quchaosheng000406@163.com>, 
- Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>, 
- Oleksij Rempel <o.rempel@pengutronix.de>
-X-Mailer: b4 0.14.2
+Content-Transfer-Encoding: 8bit
 
-Add ../lib.sh and ../lib/sh/*.sh to TEST_INCLUDES, so that they are
-installed with the CAN tests. net/lib.sh sources lib/sh/defer.sh.
+From: Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>
 
-test_raw_filter.sh sources ../lib.sh, but the Makefile does not list it.
-A full selftest install ships it with the net tests, but a selective one,
-such as "make TARGETS=net/can install", leaves it out, and the installed
-test_raw_filter.sh then fails to source it.
+TSM vDevice support needs access to the KVM associated with a VFIO device
+after the device has been bound to iommufd.
 
-Found by installing the tests with "make TARGETS=net/can install". With
-this change the installed test_raw_filter.sh runs.
+Extend iommufd_device_bind() to accept the device's KVM file and store it
+in the iommufd_device. The KVM file reference is owned by VFIO and is
+already held for the duration of the device open path.
 
-Fixes: 77442ffa83e8 ("selftests: can: Import tst-filter from can-tests")
-Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Signed-off-by: Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+[nicolinc: fix build error in iommufd_test_mock_domain()]
+Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+[aneesh.kumar: Switch to use kvm_file]
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Kevin Tian <kevin.tian@intel.com>
+Cc: Joerg Roedel <joro@8bytes.org>
+Cc: Will Deacon <will@kernel.org>
+Cc: Robin Murphy <robin.murphy@arm.com>
+Cc: Alex Williamson <alex@shazbot.org>
+Cc: kvm@vger.kernel.org
+Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
 ---
-Changes in v2:
-- New in v2. An install of net/can on its own left out net/lib.sh
-  (sashiko).
----
- tools/testing/selftests/net/can/Makefile | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/iommu/iommufd/device.c          | 7 ++++++-
+ drivers/iommu/iommufd/iommufd_private.h | 2 ++
+ drivers/iommu/iommufd/selftest.c        | 2 +-
+ drivers/vfio/iommufd.c                  | 3 ++-
+ include/linux/iommufd.h                 | 4 +++-
+ 5 files changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/tools/testing/selftests/net/can/Makefile b/tools/testing/selftests/net/can/Makefile
-index 5b82e60a03e75ace2cae949ceeab09a497c96074..3adaa13dcbfa303c4be2bb6a9b5dbdac76d68260 100644
---- a/tools/testing/selftests/net/can/Makefile
-+++ b/tools/testing/selftests/net/can/Makefile
-@@ -6,6 +6,8 @@ CFLAGS += -Wall -Wl,--no-as-needed -O2 -g -I$(top_srcdir)/usr/include $(KHDR_INC
+diff --git a/drivers/iommu/iommufd/device.c b/drivers/iommu/iommufd/device.c
+index 1b0bdf57ac8a..935f42616a65 100644
+--- a/drivers/iommu/iommufd/device.c
++++ b/drivers/iommu/iommufd/device.c
+@@ -295,6 +295,7 @@ static int iommufd_bind_noiommu(struct iommufd_device *idev)
+  * iommufd_device_bind - Bind a physical device to an iommu fd
+  * @ictx: iommufd file descriptor
+  * @dev: Pointer to a physical device struct
++ * @kvm_file: VM file if device belongs to a KVM VM
+  * @id: Output ID number to return to userspace for this device
+  *
+  * A successful bind establishes an ownership over the device and returns
+@@ -308,7 +309,9 @@ static int iommufd_bind_noiommu(struct iommufd_device *idev)
+  * The caller must undo this with iommufd_device_unbind()
+  */
+ struct iommufd_device *iommufd_device_bind(struct iommufd_ctx *ictx,
+-					   struct device *dev, u32 *id)
++					   struct device *dev,
++					   struct file *kvm_file,
++					   u32 *id)
+ {
+ 	struct iommufd_device *idev;
+ 	int rc;
+@@ -319,6 +322,8 @@ struct iommufd_device *iommufd_device_bind(struct iommufd_ctx *ictx,
  
- TEST_PROGS := test_raw_filter.sh
+ 	idev->ictx = ictx;
+ 	idev->dev = dev;
++	/* VFIO holds the file reference while the device is open. */
++	idev->kvm_file = kvm_file;
  
-+TEST_INCLUDES := ../lib.sh $(wildcard ../lib/sh/*.sh)
-+
- TEST_GEN_FILES := test_raw_filter
+ 	if (!iommufd_device_is_noiommu(idev))
+ 		rc = iommufd_bind_iommu(idev);
+diff --git a/drivers/iommu/iommufd/iommufd_private.h b/drivers/iommu/iommufd/iommufd_private.h
+index eb2e85b27e42..2560b4faa6f9 100644
+--- a/drivers/iommu/iommufd/iommufd_private.h
++++ b/drivers/iommu/iommufd/iommufd_private.h
+@@ -509,6 +509,8 @@ struct iommufd_device {
+ 	struct list_head group_item;
+ 	/* always the physical device */
+ 	struct device *dev;
++	/* ..and the VM file if available */
++	struct file *kvm_file;
+ 	bool enforce_cache_coherency;
+ 	struct iommufd_vdevice *vdev;
+ 	bool destroying;
+diff --git a/drivers/iommu/iommufd/selftest.c b/drivers/iommu/iommufd/selftest.c
+index 25387969ab75..b17cca7096b6 100644
+--- a/drivers/iommu/iommufd/selftest.c
++++ b/drivers/iommu/iommufd/selftest.c
+@@ -1071,7 +1071,7 @@ static int iommufd_test_mock_domain(struct iommufd_ucmd *ucmd,
+ 		goto out_sobj;
+ 	}
  
- include ../../lib.mk
-
+-	idev = iommufd_device_bind(ucmd->ictx, &sobj->idev.mock_dev->dev,
++	idev = iommufd_device_bind(ucmd->ictx, &sobj->idev.mock_dev->dev, NULL,
+ 				   &idev_id);
+ 	if (IS_ERR(idev)) {
+ 		rc = PTR_ERR(idev);
+diff --git a/drivers/vfio/iommufd.c b/drivers/vfio/iommufd.c
+index e9893d34d07b..3beb1b1bae36 100644
+--- a/drivers/vfio/iommufd.c
++++ b/drivers/vfio/iommufd.c
+@@ -123,7 +123,8 @@ int vfio_iommufd_physical_bind(struct vfio_device *vdev,
+ {
+ 	struct iommufd_device *idev;
+ 
+-	idev = iommufd_device_bind(ictx, vdev->dev, out_device_id);
++	idev = iommufd_device_bind(ictx, vdev->dev, vdev->kvm,
++				   out_device_id);
+ 	if (IS_ERR(idev))
+ 		return PTR_ERR(idev);
+ 	vdev->iommufd_device = idev;
+diff --git a/include/linux/iommufd.h b/include/linux/iommufd.h
+index 3087f5b2def8..b03ce0187454 100644
+--- a/include/linux/iommufd.h
++++ b/include/linux/iommufd.h
+@@ -59,7 +59,9 @@ struct iommufd_object {
+ };
+ 
+ struct iommufd_device *iommufd_device_bind(struct iommufd_ctx *ictx,
+-					   struct device *dev, u32 *id);
++					   struct device *dev,
++					   struct file *kvm_file,
++					   u32 *id);
+ void iommufd_device_unbind(struct iommufd_device *idev);
+ 
+ int iommufd_device_attach(struct iommufd_device *idev, ioasid_t pasid,
 -- 
-2.47.3
+2.43.0
 
