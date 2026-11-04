@@ -1,53 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793801574;
-	b=NtwG8jN4RyMDRFWYqSzZ+z8wW/2LPmqeJ0k0OEgomDFp7kpqt1hWq5e0mIYlYZF3r6MP
-	 RFmFI24I6UIc+d9YOzX/XY0/LtFh/c/PzAjQ3KY+XT7UUk2pH3bKTlIQtNVaLIQFhwl8q
-	 vh7gFsvAXXJxmQpGl0H9HiMfJcdpnVqjtKFbllORZ0SP5qmC8v71XqxMOLiWNueELDW9o
-	 +qn9fwWtjolViPvvZuuQWdKN81fkel7gv2a0IDQiwmuB8rknYovbuz4gYu8APEzTAYpuA
-	 o1S+5ib8N6vwMcG1b4zi5QdZvlIC/idW+wDwCnjInJyFwUNtwcktNn7QNCRk0whcmaA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=Oy9ApPbV7dbgkWvCCxmPepuv6TZwPIcnp6A09dmmEJtvaRsPZbqec2rSOunB1VlQqU+O
+	 eSLDnmLrdf6Fgz+0Pi5NBC57ehKav+Emf4gKudbqbGJJ7w+hmCRxQr/NDEj4uNwUmThcg
+	 S4kCfGsc92R15bSRtp6CpjzM1o6HsExToPeZ1u24pZpDloQQLRy5yZwR6s8ktmsh1Ghs7
+	 kkKJEtQte+AUbhkoqlXNBRFCluRY73JUy5G6w3hSAzxROMbdj+UtLEzZ/sAwYMpFPIDRh
+	 Wbmr0poQz3LdOI9b3vkWfegR/HmbBldUPBRxaLWjGzOdABrWBbIEfG2sq7EXBzkVXiw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793801574;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
-	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
-	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=6AJSYYW5ZAgrqBGJS0OC9W3bPQi0BhlyPP+rFdFD3pI=;
-	b=OBd+sDly22rspCxlR7hmjMgcY8k3tv1U+LwplY1dtzPt+ZO/UvqFRDOFEVxrJz0U/nYf
-	 kguMJuvfSe30vug9Kthok/RVv85ppi6GYIwHfpAvOKvSmNqm/OPAuJs1ZjnacJzH3h6Mj
-	 OJANNXRx8OYdOClh+XDcqev59yjwQQjPw6vPveoFVWF9FAzSM3N3DOODangdFsw9mpmm4
-	 ytW9s6b3HnMjI3YHq5d0jG7L1mrY3cNOarV2nH96KRsaKapRLQUcDG80Ku35Ym/5Ms6BU
-	 XU/f0bir4QrMNo4n9LSJK4l7lJ/0COY/43XVHLHGF+/b/KJbnB6aZ0BfqIXfz75Elog==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=38VA2H8qePqwIYJK9Lv4rw/Z1vAKKdfl7oNR3G6+SJI=;
+	b=Lxeyuz5zCptzVQM4rxyAojRka2AucpinjiKA07VUZWgn302Hq9POXHutZn3XmSOz7eBf
+	 vz+88yPggNZLsVbOY00V+6xHRYwiP8PutbZjq32anT+6Z6HkMg2BAp2lDJfcJ941l+q30
+	 rpsuczJdUB6DzVYJ1ZP47GpZYnPs7huDIp5BxIdsGT4Lt/pw9j9q5BQVB2d2kKgBBqyGY
+	 np0VsIfUOyPmFb9T0skUragqebt9391+Ti3HkgxcW+l17RReXkprelN6OIklYjK3fPtua
+	 8MTAMWyQ7h9wQxjLj+QNTt+9kab52D3aqv9PfqWLdDhbuW1dgnG+XoKmjtjiA+vUaBQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=a7FPeDjI;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58E1C606A33B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24DB7606D806;
 	Wed,  4 Nov 2026 14:12:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58E1C606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jKS7y5jVyz5B15L;
-	Wed, 04 Nov 2026 22:12:46 +0800 (CST)
-Received: from xaxapp05.zte.com.cn ([10.99.98.109])
-	by mse-fl1.zte.com.cn with SMTP id 6A4ECj8P034143;
-	Wed, 4 Nov 2026 22:12:45 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp05[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Wed, 4 Nov 2026 22:12:49 +0800 (CST)
-X-Zmail-TransId: 2afc6aeb3d61529-2e41a
-X-Mailer: Zmail v1.0
-Message-ID: <20261104221249196PEndOlhSBLk0FozQ1xnab@zte.com.cn>
-Date: Wed, 4 Nov 2026 22:12:49 +0800 (CST)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24DB7606D806
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=a7FPeDjI
+ARC-Seal: i=1; a=rsa-sha256; t=1793801529; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=ZyX5f1Cf89wW5Edr4lHQERX2kboXpsu/rNHYZt0q/9uLiyiHZ7QWaVBoxDgdjPV5OHHWTMNVw9a1C0UzavY8RNQn5MDlSMB9RaF0oviDt+5kHSYBj2k4hKcg93xbQyBEFINRWnyIGkdxqLZ/0fMPKtefBbjuZnr7NzZlP/iM5mk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1793801529; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=38VA2H8qePqwIYJK9Lv4rw/Z1vAKKdfl7oNR3G6+SJI=; 
+	b=BGfeg2Tby8KRAu8gYrjpPJ5rNrjcsZ0M0jzXUgrSmTiXgF5UBqRCFMr6ql5moxkGZAG1Rabl2VmQ80dTnkmlu3mx6j0YJVqQxe2rEUGQX2E0rUfN8ZoexAR9T9Tls+uE5gES09cWwWJvL2z+XRK6qjWk7z/RNAJ+zA414f7xUtQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=a7FPeDjIAd+oqfNMJ45F8q+IAzBsU+e7s8ymZ1Kgdq/a62ZQ01GkAyAsnFEnacs+UNWwXtFLAnlYORzOY6q5MOJTvZyYQ1M2VszAi0qE8qveT5HNsGlR8Ge8+9liZVd8SVX4oJ3QvnA2Y8T57skQ7w5cmVypM+8qIeKLtDsk6w4=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=38VA2H8qePqwIYJK9Lv4rw/Z1vAKKdfl7oNR3G6+SJI=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1793801527817488.62799176614215;
+	Wed, 4 Nov 2026 06:12:07 -0800 (PST)
+Message-ID: <73c78fe7-8772-4b9c-a4b0-685e26a57a61@collabora.com>
+Date: Wed, 4 Nov 2026 17:12:02 +0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,67 +57,97 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
-Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIXSBhdGE6IGxpYmF0YS1hY3BpOiBjaGVjayB0aGUgX0dUTSByZXR1cm4gb2JqZWN0IGJlZm9yZSB1c2luZyBpdA==?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6A4ECj8P034143
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Wed, 04 Nov 2026 22:12:46 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AEB3D5E.000/4jKS7y5jVyz5B15L
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 04/10] dt-bindings: media: snps,dw-hdmi-rx: add a port
+ for a bridge in front
+To: Sascha Hauer <s.hauer@pengutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Dingxian Wen <shawn.wen@rock-chips.com>,
+ Shreeya Patel <shreeya.patel@collabora.com>
+Cc: Gerald Loacker <gerald.loacker@wolfvision.net>,
+ Lucas Sinn <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, kernel@collabora.com,
+ linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
+ <20261005-hdmirx-media-v3-4-71a11a2e3e76@pengutronix.de>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20261005-hdmirx-media-v3-4-71a11a2e3e76@pengutronix.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+On 10/5/26 16:28, Sascha Hauer wrote:
+> Describe the OF graph port connecting the receiver to an HDMI bridge in
+> front of it. The schema sets additionalProperties: false, so without
+> this a device tree carrying the endpoint does not validate at all.
+> 
+> hpd-gpios is the +5V line of the HDMI connector, which the source drives
+> to announce itself. On a board whose HDMI connector belongs to such a
+> bridge, that line goes to the bridge and there is nothing for the
+> receiver to sense, so the property cannot be provided. The name is
+> unfortunate: the hot plug detect line the receiver drives back at the
+> source is a controller register, not this GPIO. Describe what it
+> actually carries.
+> 
+> A board has either the connector wired to the receiver or a bridge in
+> front of it, so require exactly one of hpd-gpios and port.
+> 
+> Assisted-by: LLM
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+> ---
+>   .../devicetree/bindings/media/snps,dw-hdmi-rx.yaml  | 21 +++++++++++++++++++--
+>   1 file changed, 19 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml b/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
+> index b7f6c87d0e06a..896f8ffbb5bf9 100644
+> --- a/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
+> +++ b/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
+> @@ -63,9 +63,21 @@ properties:
+>       maxItems: 1
+>   
+>     hpd-gpios:
+> -    description: GPIO specifier for HPD.
+> +    description:
+> +      The +5V line of the HDMI connector, which the source drives to announce
+> +      itself. Despite the name this is an input to the receiver; the hot plug
+> +      detect line the receiver drives back at the source is handled inside the
+> +      controller. Absent when the connector belongs to a bridge in front of
+> +      this receiver rather than to the receiver itself.
+>       maxItems: 1
+>   
+> +  port:
+> +    $ref: /schemas/graph.yaml#/properties/port
+> +    description:
+> +      Connection to the HDMI source. Present when an HDMI bridge sits in
+> +      front of this receiver instead of the connector being wired straight
+> +      to it.
+> +
+>     rockchip,grf:
+>       $ref: /schemas/types.yaml#/definitions/phandle
+>       description:
+> @@ -88,7 +100,12 @@ required:
+>     - power-domains
+>     - resets
+>     - pinctrl-0
+> -  - hpd-gpios
+> +
+> +oneOf:
+> +  - required:
+> +      - hpd-gpios
+> +  - required:
+> +      - port
+>   
+>   additionalProperties: false
+>   
+> 
 
-ata_acpi_gtm() evaluates _GTM with acpi_evaluate_object() and, after
-checking the status, dereferences output.pointer without checking it.
+Acked-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 
-acpi_evaluate_object() can return AE_OK with a zero-length result and a
-NULL output.pointer.  A _GTM method returning a reference to a method
-local does exactly that: ACPICA clears the reference when the method
-terminates, so the caller ends up with no object.  ata_acpi_gtm() then
-dereferences the NULL pointer while probing the ATA port.
-
-ata_dev_get_GTF(), the sibling function in this file, already checks both
-output.length and output.pointer before using the result.  Add the same
-check to ata_acpi_gtm().
-
-Fixes: 64578a3de723 ("libata-acpi: implement _GTM/_STM support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
----
-Tested on 7.3.0-next-20261030 (QEMU/TCG guest) with a PIIX3 IDE
-controller.  A TEST-ONLY SSDT, loaded with -acpitable on both kernels,
-adds a _GTM method that returns a reference to a method local.  ACPICA
-clears that reference when the method terminates, so
-acpi_evaluate_object() returns AE_OK with a NULL object.
-
-  unpatched                            patched
-  BUG: kernel NULL pointer             no panic; ata1/ata2 probe
-  dereference in ata_acpi_gtm          /dev/sda probes
-  Kernel panic - not syncing
-
-The diagnostic is emitted with ata_port_dbg(): a _GTM method that keeps
-returning no object is a permanent firmware deviation and the check runs
-on every reset, so a KERN_ERR would spam the log indefinitely.
-diff --git a/drivers/ata/libata-acpi.c b/drivers/ata/libata-acpi.c
-index 4433f626246b..a0b85f74eabb 100644
---- a/drivers/ata/libata-acpi.c
-+++ b/drivers/ata/libata-acpi.c
-@@ -376,6 +376,11 @@ int ata_acpi_gtm(struct ata_port *ap, struct ata_acpi_gtm *gtm)
- 	}
- 
- 	out_obj = output.pointer;
-+	if (!out_obj || !output.length) {
-+		ata_port_dbg(ap, "_GTM returned no object\n");
-+		goto out_free;
-+	}
-+
- 	if (out_obj->type != ACPI_TYPE_BUFFER) {
- 		ata_port_warn(ap, "_GTM returned unexpected object type 0x%x\n",
- 			      out_obj->type);
+-- 
+Best regards,
+Dmitry
