@@ -1,60 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793833546;
-	b=KR1qVxuuFiUplzIKxLiPV5uIHcukCWkYJFpezSSVlK1NNPksEMeuUgmkerQlcjP5BPNy
-	 gG4vms6kBAawlSMsJ5HJqHVnqrMx/5uiCJvVnlCaiLljFxZsbwvr2D98PGuPBlU08aHkR
-	 bmh2lYw4S7NXBoXAWN7lETwlZPRUVPD1NtYxIFodquvhIghkKdHdrO8yMtw3fFB2yrXOi
-	 P9j1AC+qXDNX5R6OAdZeKSSrNVB4Jj2OwziVcCtt/7h7JiJgYkuTML0fkxZ+N+VvrrRFa
-	 OoUavbWUxtorHmhQS2OBVf+TMxTgNnNuvBZO/X2hNOOw1j07QX21v+35eiAdRAmzIDg==
+	t=1793833544;
+	b=5O9+kPiDkO4f32MyR1JLDUN1ZVIJX478YF3X1HywBPRZQwIrfq3qiIAe3tKln5QcTXIG
+	 8cxd1HuVs5/TBdELgyt3lt2WNMt8MRo8/lRghD/tKjjf6UJZLDUD9Qj8nxTmqZbOE7V8x
+	 Ommg7tEd+s8tozwTBtZrAc4ZE65nUkBGkKoFw2A//C3XckzIsVi3H9t4Qqg9WpcvtCwZ4
+	 OzCkHIdtLmv1kOAo2QGTokfUbteHS2ozxUW3LSY+iBApV9BD5OY54woGotRcmFYMfLY/j
+	 sGUltHU5RRIkDfASe5rRjrGhxFDDoiTFHxZsuqa6Pc39FdxQfTiENWKgyp1vhKoaBew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793833546;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-MBO-RS-META:X-MBO-RS-ID;
-	bh=AaRO3QDvvLpHjYw6CqEO2va4UH0c/RWfxJ9Mylj/Qrc=;
-	b=wxH9tUE7v5YpycGs0GvI31nK8UeLxYlLKOVyZ/9/VhbAvPKrrYLkp1oqVmxj2ZPtuaEM
-	 qcP1PAHJNpo3CLNyW+EHzYoJAFEJjaKiBkh+sn4oMIWnPsBs5Q9DUqFXvCskMqLqy/8W2
-	 g2kP24WqfxjkRWqzoePcc8mRFjxaKIKzTd/dxYh5Nph0V9Ye9EbpiyYvtXsfWpSjTJtan
-	 01w3U/1WpsxQ3/D+WaGXDuOq14B8cIq/0HtaICv2vub9lpE9I1R9qLEjugJbSObx8xeFi
-	 Kjx7x9NrDRLzNEG8Dh2vib3WHt68KZhvXxvJ2IUhz3Qt7qMnZ9rc6fhzwMFeNGXqGAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793833544;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=MOpStKtlaMBvTw82l7hk12nLoKUsFYT90GYDj+kAndo=;
+	b=rhtT2rl+EzpIVVdfe0BP0e1NkBQrLgduoGSx43uovdYY8SRka066fgzmHqYs3FwmzCXS
+	 kpGHMAMRqnckxsAB7mpyo05o6b0glo1BnKQSfBmxvOKjjUTsRAPmUy1OO/vWzCInGRdQX
+	 /rl1o64zOnKkEOwiZIQ2ZD/egy5VG8Ac+Xp0MfjPZR3qhdVrRYRS9ihgGj/EXRzJHpt6P
+	 HOkf2G+IVrkZuO8FWHb43hP0M27ObUbwssrFrh5vabM7ixAoFe05AUrYQWRp4YPj3rSIr
+	 8X2GvdIXkt/fJqUHYPGmLlXt4Ov0JWUV53iLvaR1HcjhLmwxZpG/78IZGW8fmxeyC0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=CrQnbmTi;
-	arc=none smtp.remote-ip=80.241.56.171
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sCwcKa7X;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE66C606A33B;
-	Wed,  4 Nov 2026 23:05:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE66C606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3271606D80A
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:05:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3271606D80A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=CrQnbmTi
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jKgys4lsZzMlTy;
-	Thu, 05 Nov 2026 00:05:41 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1793833541;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AaRO3QDvvLpHjYw6CqEO2va4UH0c/RWfxJ9Mylj/Qrc=;
-	b=CrQnbmTi2PcqCseFfkQnNgUU7OOO/JNAv3LutsV5QuIUQ/A/4IsS58OXhSfLHANmJxoHBF
-	mjw7foUvylvySZKLNzDdYh8LzqyrAPitEDj5ODc/gqE5T3t/cShxgWiMXdABb4/gDNp4z2
-	838ZWoEBuSSGcptoXMAnLbUGRykgoB2GYeZsWZ44ZY4fDkTYx/jXMXpO+AQJtE255Kcm4G
-	OVlL5gJlARtd6YJ9dSCAFVkW13nwseFA5S4NtrmBjg1qqp1xLlyOWdXbYLV8e9JwfOElSV
-	YjgmGQiAjznEvYpI9R0GJzEO0T/MnvHHNFqBGp1OSRabFN+v5e1BWQ6TA8PBDg==
-From: Maurice Hieronymus <mhi@mailbox.org>
-Date: Thu, 05 Nov 2026 00:05:32 +0100
-Subject: [PATCH v4 1/7] samples: rust: remove the rust_driver_pci sample
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sCwcKa7X
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a5036bbac7so7665835e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 15:05:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793833542; x=1794438342; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MOpStKtlaMBvTw82l7hk12nLoKUsFYT90GYDj+kAndo=;
+        b=sCwcKa7XbJktqL3hxABBeqm06+tWavHjtuY13tBflSMCRtQb+wZIupMviVt6gaX6aY
+         Gb9TJwBPCahNivxGH/4ZBVweXRACmfAUBmS5eRN1ZkDU69Anp6MagJP+cxNGL7+tJgXz
+         p+Kcz18jfYceosvOUAwRmqY2+5tFQcQ5tQ2GQkpZ9xudcmbmi/Qn0s1Cd1Xza7qUK+NZ
+         /vH11hu6YvBS6n6hCopNr6WXk9fwzMrVX5v74pOHwKCe8+0dkjS1vNPQjdXhvQTlu3Ac
+         HJI8b6gp5lEsT/akwfpznC57AQHWn+lgT1UC70Yr97MslML0Ty938MRMwLso/ME8upGI
+         bZ0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793833542; x=1794438342;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MOpStKtlaMBvTw82l7hk12nLoKUsFYT90GYDj+kAndo=;
+        b=1t2gcdhB5Le5Ze/fr4nliOb8geCIS4QpdRUBdWzrrClgD9NTQRG7Z5daALSdOAScYW
+         hoh2P0woGZnfEO4hOrLoYq63BmCww6pZQNe+huJk/aZipp5GxfbUehSlOqLQTMwzjgbD
+         LuWj04/5PbymKcVlNu9j2BTdErwJyTk8G2Zpa6Wfw0mb3DeqoPlCjP3rReDmsWo5tjfc
+         B6spy5xWNs7T9h9VzQ40jvjEfkY+/BslTUeeHBi+WX8SxL6eZnsq1eUGsS91YZZS3seh
+         LyLOaRGLUzLpy6QiCmoQ+VOJo3DlQUV25CqNhTrHop1vuivfMLtW0yDOTZLALAIVuAut
+         0F1A==
+X-Forwarded-Encrypted: i=1; AKwUvBwNoBEwnl+tvXgMwRyaC/CMcRwi0ZDvYMFVfMTboSn7jBjD+AszcGYyLcAjqr08JqDFsUgKL8vW0UrgZlU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Mw0RqgHpgPLqs2fiikKKG6hXqvXqZziCUy/XMc+fEQvgNlGr9
+	95VZPZhiYkDTkDaokGC/d6hNBYOAugv9+yccMHHHJGRW/j83Cm5R5vq/
+X-Gm-Gg: AYBFou1IROE3u3Yc3FaW5FyYU4yvgT+lGLg/j/pa2wofZmgi/22vTjO9NrEJuDNpXVI
+	ESLvIiZOueR5mgK6opvu7BupsIsO6iwZMZxc+zTpL8xfciSYcbtHFaM7fyhE3oLNjX6W//XMu+O
+	4BvB6TZ1SYNJtZfvmWxg2Q3hcRQAB4chQHyrbDYyXO5RJ5PlLB3lQ+84N/OMZmooeCxLNOzIQS5
+	tmYI0EEhW5i+s/IzWAim9kWfYOOdzxScuJA/w2vD9PT6gVir5cb7rzNVBe0467mgz4jjArEBcEt
+	l0NUMx7F/xv+GD6iAYDDUeIUT06G0IRorxE+ANBo6pwWWIcaj+NUCwMDEAs4ugRIgAY1FD3NhRD
+	FVENuh8l59fFiA0Vi/jJrB5iXowKG+Dxrw7Qlb7UmLE+lAuKfNyCvHx50GGaJrry28T/mMAawuv
+	GVjepctG5tPDEyMimoeuJDsuNIEAe/HZwhGLE07G3Blyb02DwJapskMOunBhIslamMn/GZ7q2KG
+	M1BQSgKJNVhmJ53JoAM+3MJSxkvYYk3Uo2F05PIiWd9+EBSqLg1aXbeKQEJvJhH8vHvaEoFXlpZ
+	KprFOaprf6IgxOMmiWFu8Ho=
+X-Received: by 2002:a05:600c:19d1:b0:4a2:677:ad8e with SMTP id 5b1f17b1804b1-4ac1970b9f7mr379985715e9.34.1793833541916;
+        Wed, 04 Nov 2026 15:05:41 -0800 (PST)
+Received: from [192.168.1.22] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed5538basm5998977f8f.44.2026.11.04.15.05.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 15:05:40 -0800 (PST)
+Message-ID: <853a133d-f332-47dc-b7f3-eb57f34d9344@gmail.com>
+Date: Thu, 5 Nov 2026 00:05:38 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,306 +92,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261105-b4-rust-pci-edu-driver-v4-1-20ef027bb707@mailbox.org>
-References: <20261105-b4-rust-pci-edu-driver-v4-0-20ef027bb707@mailbox.org>
-In-Reply-To: <20261105-b4-rust-pci-edu-driver-v4-0-20ef027bb707@mailbox.org>
-To: Danilo Krummrich <dakr@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: John Hubbard <jhubbard@nvidia.com>, linux-pci@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- Maurice Hieronymus <mhi@mailbox.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793833536; l=7577;
- i=mhi@mailbox.org; s=20260525; h=from:subject:message-id;
- bh=JTGu5T/+T8r8ZW53Eqt0wl0+3nov7Lv/AUTxxgHOdaA=;
- b=zVR1APw9lTVBDrIpDM8mV/TsI5hl9DkTbfYoDz8nQi7TJPUJriqUw/5XNJKKmdGqgl+1k3xts
- 5IndRQrCw3kDHWPm/Re4TcqHvoFiHW0Nk/eEufDCrX1Im2a2q04ARHY
-X-Developer-Key: i=mhi@mailbox.org; a=ed25519;
- pk=AHlEkGG3hpXZHntlEzF42Ip/LFyXWOgsNUvaHqAnV80=
-X-MBO-RS-META: g8iy4igo86myawm7nzxcht3uxnehug8k
-X-MBO-RS-ID: dff117811a08da109d0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/4] mm/huge_memory: copy file THPs at fork like
+ copy_present_ptes() does
+To: Konstantin Khorenko <khorenko@virtuozzo.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Peter Xu <peterx@redhat.com>
+Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
+ =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>,
+ Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>,
+ linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
+ stable@vger.kernel.org
+References: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-0-c56d0d26f970@virtuozzo.com>
+ <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-2-c56d0d26f970@virtuozzo.com>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-2-c56d0d26f970@virtuozzo.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The EDU sample added later in this series covers everything
-rust_driver_pci demonstrates (device matching, BAR mapping, MMIO) and
-exercises interrupts and DMA on top, against a device every QEMU ships.
-Remove the old sample in favor of it, as requested by Danilo during
-review of the EDU series.
+On 11/4/26 9:40 PM, Konstantin Khorenko wrote:
+> This fixes no bug: it makes fork copy a PMD the way copy_present_ptes()
+> copies a PTE. Until now copy_huge_pmd() skipped every folio PMD of a
+> non-anonymous VMA and left the child to fault them in again, while the
+> PTEs of the same VMA are copied.
+> 
+> Treat file folios as the PTE path does: take a reference, duplicate the
+> rmap and account them. fork then pays a reference and an rmap update
+> per PMD, and saves the child a fault per PMD it touches. The next patch
+> sends PFN mappings through the same tail.
+> 
+> That covers the VMAs vma_needs_copy() sends here:
+> 
+> - private file mappings with an anon_vma;
+> - VM_COPY_ON_FORK ones: uffd-wp and uffd-rwp, VM_MIXEDMAP, and
+>   VM_MAYBE_GUARD, which shared shmem, file and DAX mappings get from a
+>   guard region.
+> 
+> The DAX huge zero PMD is copied too, with a reference taken by
+> mm_get_huge_zero_folio() as for anonymous VMAs. A migration entry of a
+> file folio is copied and accounted like copy_nonpresent_pte() does, and
+> made read-only in both processes only in a CoW mapping. A device
+> private entry gets the same CoW check, as in copy_nonpresent_pte().
+> 
+> The copy then gets the same tail as __copy_present_ptes(): write
+> protect both sides in a CoW mapping, mark the child's copy clean in a
+> shared one, and drop the uffd-wp bit where the child is not armed. An
+> anonymous THP is now write protected only when its PMD is writable, as
+> a PTE is.
+> 
+> A page table is deposited under the copy where the fault paths deposit
+> one: in anonymous VMAs, and wherever the architecture needs one.
+> 
+> Cc: stable@vger.kernel.org # needed by the next patch
+> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
 
-Link: https://lore.kernel.org/rust-for-linux/DJEQ64V8HE19.2DMBHY4XRPMG6@kernel.org
-Suggested-by: Danilo Krummrich <dakr@kernel.org>
-Signed-off-by: Maurice Hieronymus <mhi@mailbox.org>
----
- MAINTAINERS                     |   1 -
- samples/rust/Kconfig            |  11 ---
- samples/rust/Makefile           |   1 -
- samples/rust/rust_driver_pci.rs | 198 ----------------------------------------
- 4 files changed, 211 deletions(-)
+LGTM:
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 7a162e9bcab1..8f7f1e14b31e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -21595,7 +21595,6 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git
- F:	rust/helpers/pci.c
- F:	rust/kernel/pci.rs
- F:	rust/kernel/pci/
--F:	samples/rust/rust_driver_pci.rs
- 
- PCIE BANDWIDTH CONTROLLER
- M:	Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-diff --git a/samples/rust/Kconfig b/samples/rust/Kconfig
-index 31d62533ef25..7fbd49df30ce 100644
---- a/samples/rust/Kconfig
-+++ b/samples/rust/Kconfig
-@@ -107,17 +107,6 @@ config SAMPLE_RUST_I2C_CLIENT
- 
- 	  If unsure, say N.
- 
--config SAMPLE_RUST_DRIVER_PCI
--	tristate "PCI Driver"
--	depends on PCI
--	help
--	  This option builds the Rust PCI driver sample.
--
--	  To compile this as a module, choose M here:
--	  the module will be called rust_driver_pci.
--
--	  If unsure, say N.
--
- config SAMPLE_RUST_DRIVER_PLATFORM
- 	tristate "Platform Driver"
- 	help
-diff --git a/samples/rust/Makefile b/samples/rust/Makefile
-index b986b681cde5..20b55e0bdbb7 100644
---- a/samples/rust/Makefile
-+++ b/samples/rust/Makefile
-@@ -9,7 +9,6 @@ obj-$(CONFIG_SAMPLE_RUST_DEBUGFS_SCOPED)	+= rust_debugfs_scoped.o
- obj-$(CONFIG_SAMPLE_RUST_DMA)			+= rust_dma.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_I2C)		+= rust_driver_i2c.o
- obj-$(CONFIG_SAMPLE_RUST_I2C_CLIENT)		+= rust_i2c_client.o
--obj-$(CONFIG_SAMPLE_RUST_DRIVER_PCI)		+= rust_driver_pci.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_PLATFORM)	+= rust_driver_platform.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_USB)		+= rust_driver_usb.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_FAUX)		+= rust_driver_faux.o
-diff --git a/samples/rust/rust_driver_pci.rs b/samples/rust/rust_driver_pci.rs
-deleted file mode 100644
-index 13b035a95756..000000000000
---- a/samples/rust/rust_driver_pci.rs
-+++ /dev/null
-@@ -1,198 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
--
--//! Rust PCI driver sample (based on QEMU's `pci-testdev`).
--//!
--//! To make this driver probe, QEMU must be run with `-device pci-testdev`.
--
--use kernel::{
--    device::{
--        Bound,
--        Core, //
--    },
--    io::{
--        register,
--        register::Array,
--        Io, //
--    },
--    num::Bounded,
--    pci,
--    prelude::*, //
--};
--
--mod regs {
--    use super::*;
--
--    register! {
--        base: kernel::io::Region<END>;
--
--        pub(super) TEST(u8) @ 0x0 {
--            7:0 index => TestIndex;
--        }
--
--        pub(super) OFFSET(u32) @ 0x4 {
--            31:0 offset;
--        }
--
--        pub(super) DATA(u8) @ 0x8 {
--            7:0 data;
--        }
--
--        pub(super) COUNT(u32) @ 0xC {
--            31:0 count;
--        }
--    }
--
--    pub(super) const END: usize = 0x10;
--}
--
--type Bar0<'bound> = pci::Bar<'bound, { regs::END }>;
--
--#[derive(Copy, Clone, Debug)]
--struct TestIndex(u8);
--
--impl From<Bounded<u8, 8>> for TestIndex {
--    fn from(value: Bounded<u8, 8>) -> Self {
--        Self(value.into())
--    }
--}
--
--impl From<TestIndex> for Bounded<u8, 8> {
--    fn from(value: TestIndex) -> Self {
--        value.0.into()
--    }
--}
--
--impl TestIndex {
--    const NO_EVENTFD: Self = Self(0);
--}
--
--struct SampleDriverData<'bound> {
--    pdev: &'bound pci::Device,
--    bar: Bar0<'bound>,
--    index: TestIndex,
--}
--
--struct SampleDriver;
--
--kernel::pci_device_table!(
--    PCI_TABLE,
--    <SampleDriver as pci::Driver>::IdInfo,
--    [(
--        pci::DeviceId::from_id(pci::Vendor::REDHAT, 0x5),
--        TestIndex::NO_EVENTFD
--    )]
--);
--
--impl SampleDriverData<'_> {
--    fn testdev(index: &TestIndex, bar: &Bar0<'_>) -> Result<u32> {
--        // Select the test.
--        bar.write_reg(regs::TEST::zeroed().with_index(*index));
--
--        let offset = bar.read(regs::OFFSET).into_raw() as usize;
--        let data = bar.read(regs::DATA).into();
--
--        // Write `data` to `offset` to increase `count` by one.
--        //
--        // Note that we need `try_write8`, since `offset` can't be checked at compile-time.
--        bar.try_write8(data, offset)?;
--
--        Ok(bar.read(regs::COUNT).into())
--    }
--
--    fn config_space(pdev: &pci::Device<Bound>) {
--        let config = pdev.config_space();
--
--        // Some PCI configuration space registers.
--        register! {
--            base: pci::Normal;
--
--            VENDOR_ID(u16) @ 0x0 {
--                15:0 vendor_id;
--            }
--
--            REVISION_ID(u8) @ 0x8 {
--                7:0 revision_id;
--            }
--
--            BAR(u32)[6] @ 0x10 {
--                31:0 value;
--            }
--        }
--
--        dev_info!(
--            pdev,
--            "pci-testdev config space read8 rev ID: {:x}\n",
--            config.read(REVISION_ID).revision_id()
--        );
--
--        dev_info!(
--            pdev,
--            "pci-testdev config space read16 vendor ID: {:x}\n",
--            config.read(VENDOR_ID).vendor_id()
--        );
--
--        dev_info!(
--            pdev,
--            "pci-testdev config space read32 BAR 0: {:x}\n",
--            config.read(BAR::at(0)).value()
--        );
--    }
--}
--
--impl pci::Driver for SampleDriver {
--    type IdInfo = TestIndex;
--    type Data<'bound> = SampleDriverData<'bound>;
--
--    const ID_TABLE: pci::IdTable<Self::IdInfo> = &PCI_TABLE;
--
--    fn probe<'bound>(
--        pdev: &'bound pci::Device<Core<'_>>,
--        info: Option<&'bound Self::IdInfo>,
--    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
--        let vendor = pdev.vendor_id();
--        dev_dbg!(
--            pdev,
--            "Probe Rust PCI driver sample (PCI ID: {}, 0x{:x}).\n",
--            vendor,
--            pdev.device_id()
--        );
--        let info = info.ok_or(ENODEV)?;
--
--        pdev.enable_device_mem()?;
--        pdev.set_master();
--
--        let bar = pdev.iomap_region_sized::<{ regs::END }>(0, c"rust_driver_pci")?;
--
--        dev_info!(
--            pdev,
--            "pci-testdev data-match count: {}\n",
--            SampleDriverData::testdev(info, &bar)?
--        );
--        SampleDriverData::config_space(pdev);
--
--        Ok(SampleDriverData {
--            pdev,
--            bar,
--            index: *info,
--        })
--    }
--
--    fn unbind<'bound>(_pdev: &'bound pci::Device<Core<'_>>, this: Pin<&Self::Data<'bound>>) {
--        this.bar
--            .write_reg(regs::TEST::zeroed().with_index(this.index));
--    }
--}
--
--impl Drop for SampleDriverData<'_> {
--    fn drop(&mut self) {
--        dev_dbg!(self.pdev, "Remove Rust PCI driver sample.\n");
--    }
--}
--
--kernel::module_pci_driver! {
--    type: SampleDriver,
--    name: "rust_driver_pci",
--    authors: ["Danilo Krummrich"],
--    description: "Rust PCI driver",
--    license: "GPL v2",
--}
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 
 -- 
-2.54.0
-
+cheers,
+jose a. p-a
