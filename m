@@ -1,75 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793772853;
-	b=yjQQncoXJROKBCtERZDkTT2ypzi2k2otP9dQlVUqPEa5qMVW9QLPqJKYxD5oiBusp5ys
-	 p2cFwnusvv8FwdpnRdqJ8mo6pd3s0vJvVgN6fh4YBVqBam4BbbADep60k8hzJSdOBRj8T
-	 TsQ6CmQxQdivBtNElvg1SuzpcKRzoXc38uDVyg/Znm2hpOj7ly8f2H7iQ6NnRcX/Vo2eH
-	 6rIOXpoXLdWVahD070MgoONCTpREKQPiqRvJPIqnYwmUbKkUR6PxvtIZ5WRiTSnQm7uJN
-	 8UqpPSf0OVchNYVAhgBc8FqvYXRxThVeN+O9j1Fd3K7Ic+eo5bZIiyIEt5e+hcNrnmQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793772853;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:Sender:
-	 X-CM-SenderInfo;
-	bh=oPru1ixeqET8VA3w2O2W4/Wbh3CD3rwDs6Utxb/ih1k=;
-	b=W2a+mhl5AktFVfKVXBzz/bJhXlOvgAqZxnVldr/Vti/rf2sImi7vjByy5i5ctOANjO7j
-	 pp8lVm0nGxRqPvCY4TZXfZs2A62ylkljPX3zcl8ME/NCbLw04tkIuSoIg86K8VSuWZeZT
-	 Xin7cOE1h7V5PAM+UbIbPSpkljiA9fx9NVNFdwo0vpTplswPQM7HPMVTwXj1niZ2NVexX
-	 WHYV3s+Ci+STjFaTxNXMEBjU+7/11k8gvfgj1bdiHJiPUFf3pgKdN1zXnaExftPJ/p5id
-	 Zrw77pLWNljmR0PgjKS/VQbk0Y1X3KzSh9ABcXXA020nLKJWx6BdQrNea/0ZxW6/aiA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=cKtbVfNf;
-	arc=none smtp.remote-ip=117.135.210.5
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793772898;
+	b=TjdpQp2t60uu36tW+s9rciczI6pBy2sL0fvHWMX/d1XXa/OLMkAVqlhNVL+ZVOfn8DRx
+	 MuJpZCtiMn4qxEt6KyVeM4zdMGbgv4kzhzR412B956EElTwr7pRaNoBJz9PiduzacuHOt
+	 Y08MPl1O61Xo/Eu71rHBj/EP4On/yo9iKBRT4Etttn+sAOhmOZfjFxYqh1eA6WEQ50oa8
+	 Rw1Wls/vXyD6jVGwayu2VajcgNq2fweKmE0ejs1dxCJpb6ywp6Li0qCxNqzHi4NtpaT9u
+	 WQN2LghO3jpclBxTpWCYDYqwtYd8n46MzYQ3xENJi+AbFHJMxHv/hzX4pihPsXIP5TA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793772898;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=WXtfI0CtVUis1DTLl6ZkWUkR91YI6KmmXqM/+fvN/qM=;
+	b=RhCSpUv/P0q4euxJNoane+aRPKBrqXSY2AU/NeN7yFRebZKG7Vfh1rQR3SCmzvDHWu2n
+	 NaZWSb3cT1MMVxCOROwXxtw3hgAryTUUW6Y52bRWiqm0gSDHsxeFkdPhBRkyl0wvGbHUj
+	 xqY6LNe81uSk9u6wrF/sCWN2/BgJklsp0QDtt2JwMU4Bu6lIfU6KVG9WuYzvrqe0a2dVS
+	 K380vhwOrUAFSkeH+pCq9I0zOdCMGVX2fsoawP1EbDLU5rSQ0WYsM3Bbbot/OesgOz/11
+	 35oCTeHd6Wryb2qf/YC5g+H/yQ9JjJkp+C/xtTKUYm8EekU3inO1kk49wpUhWF0EnMg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O5V9G3Z8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3577606A31B;
-	Wed,  4 Nov 2026 06:14:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3577606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2620B606A329
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 06:14:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2620B606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=cKtbVfNf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=oP
-	ru1ixeqET8VA3w2O2W4/Wbh3CD3rwDs6Utxb/ih1k=; b=cKtbVfNfcrgz+EqJjM
-	uJMjn5JBynLc51/wtpw8sPMbptGzOc2aGnJxUNT8e8z2dI89S0HiaYkncyvi3BSS
-	zlbs4ZvP/zHsvjST6D6qLK8LPbJ84VseoSO+GmWhYFJavL+2zxjzpcQvKxeuS+y3
-	oNbnPm78ZZR4mENSnTg3HV8Y0=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgD3_1QBzepqJQjCDw--.33545S2;
-	Wed, 04 Nov 2026 14:13:23 +0800 (CST)
-From: Yongxin Yang <yangyongxin@kylinos.cn>
-To: Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Ira Weiny <iweiny@kernel.org>,
-	Dan Williams <djbw@kernel.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>
-Cc: Tony Luck <tony.luck@intel.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Shuai Xue <xueshuai@linux.alibaba.com>,
-	Len Brown <lenb@kernel.org>,
-	Li Ming <ming.li@zohomail.com>,
-	Robert Richter <rrichter@amd.com>,
-	Ben Cheatham <benjamin.cheatham@amd.com>,
-	linux-cxl@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v7] cxl/core: Create EINJ debugfs files regardless of EINJ init order
-Date: Wed,  4 Nov 2026 14:12:56 +0800
-Message-Id: <20261104061256.1449275-1-yangyongxin@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <1a5ceda1-f039-4946-b8d7-2bc97ed48c00@amd.com>
-References: <1a5ceda1-f039-4946-b8d7-2bc97ed48c00@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O5V9G3Z8
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b3dd83e779so472726a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 22:14:57 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793772896; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jPKlVxP5pZEiMxoUDbSjkYoYfFCZNZ7R4EWrsy0t46F8IBHFvqs5dTSql5EM/bDvSw
+         5sw3CnXMLbCpeMxcF31o7jYP6Hq/qAQk6R0hRzpKTtPkReM+zYb9fDpJJjtP7kpKYT7d
+         Iqimts6lW504TVoxrSrPrm9tYL8X8n8dffZaqYsCg5yNRQCa3Xw+X2hD+TMrilS+s98u
+         Rjd0vceph8XZne24uuLFUkFe/Kmx+BMG7XlE7LDEtRnIF3pMu7d9LiFUgAYpaf/lUkAa
+         hoPRaMDwljtXf5XvP01AH9+1apWwb8CTSkfBRGLSLPAkbzhXmL4tmcbpI+xbLopVK2GZ
+         UFzQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WXtfI0CtVUis1DTLl6ZkWUkR91YI6KmmXqM/+fvN/qM=;
+        fh=wNGR3JUExCFHeovK7O11lxu8zdH7g8khUHglkNf+Qog=;
+        b=KMN7fOVAYyvYBXCZUSfV7lwBHPgWtrDPb39b8S9pMhsgGRCBYdrttdNPHpUNdkzdA5
+         WWCtmvr+DdSEGZJkfhFjAUkRVojgTguV2rj2wxuIHqCHxK/TYEmmwSEKM00me4IyMlSn
+         ez0vIcNPSbAhvz3vnMuhjybcaTSErbM6BQo7Jy4BOgPwERjMsrNioIYWBsDy7DjF1oOr
+         NAciqSkU58+VnXHPf8WrZcvZHxXO6EyfJzrUwB/5imaeYU9CAitBvxnurFqtnYVFW9IM
+         j49y6nxj0CroMrrA5trNLd1//5Ri8CMWg1LPjmx5bla/OWRu0rlhLxountOaYPy35OeF
+         /odQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793772896; x=1794377696; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WXtfI0CtVUis1DTLl6ZkWUkR91YI6KmmXqM/+fvN/qM=;
+        b=O5V9G3Z8P+hZrzxtaR5wh4mx+r3d7HqKen9KoLNKmpLsaYappQ57NB4dhMhe6Ji3cI
+         mIG+5HfgJUMiw6hEH2jVPyvkiNYrc5FXkpUwjhPMg6jebi+EtQ4H6Jugu8o8YEwdrdJG
+         ucMo3Wcz6H4X8enRqO/M4/Kut/f3wYaN5LHuUrp5Nd7tW+NRi1MqSyyEJ08kMHTjQGuo
+         bFBU9vLvynCZcj3SR9x/RpKBWoCQFbNG/vOAL2zOkLgAi/kPFp0hP7CmbbjwDImdS8ev
+         NnGVAlXrcW43CXsvh4qt2PbIchrMG4Lq7qbxt45I57m6OCLg6wKMplwJSsXhdem5pUPA
+         6U/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793772896; x=1794377696;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WXtfI0CtVUis1DTLl6ZkWUkR91YI6KmmXqM/+fvN/qM=;
+        b=mxMmXkOARXBEYKO6LMJz6k5pn5UEPfK5ioc1Ag84swMjx8kVczdK+DCYy+58UxCkAB
+         mQnOC7EEKK4ehPGC0Gu3u364UxbWnr1m2LhueMP7YVAxepJYJCw6GAyOSZplU9rYCQVy
+         Dr3CbZt6kdq2v/hTlSQq/FinQyh9uM/d2xAgyB3q/qDgPAs/TeT+ojq14U5Ol569qBdb
+         02imHCmulKKEhmtOihFLQ4NhiqubOmmHVCVZpkh+0tU3LW520H0PuoE8MyD0LvxBEGW+
+         PCRBEqrgzuyL2XV+fjBHSGxgnB6OrwdQfq7K8JHAJ4uVpMhKOMCNh6Lkd8RqC837jMg1
+         ifaw==
+X-Forwarded-Encrypted: i=1; AKwUvBzBt7zmgS9VXHKQjun1chm4xRuM7Rg5YK2vM23Dz7KcjjUBCed9TKVsy5uzPiqmGExsbr7sGcROx0wSD6w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+mI+DaL59jKjMgXmBZpfrbdX4oekpxuwB125I7sHVa7SaiaVYc
+	3BVxdTSJAs3QGrmhH2D1KwwwcKTZuLIJFkLb8nBpdBmY5Xp57CpSW187JaK5VJTe5QxPoR+ORhn
+	Ob+eG3HOK5pMKTuUpg5HJFodN19ueqVfQJw==
+X-Gm-Gg: AYBFou1LET0fhuXCWTZPaBReeTnt7pKPXl9VEbiASakQawudGBf5ylHlpatAxNO2wn6
+	zMgVLJxxCAi1f9XpyQmCNnwOcvvODC6HjPTIN6aLC2RELXsZRMTbrZ8EtFGOVZI/4S65dmOpkL1
+	h0QWDXUlk2aJd5mmUXlQ2k0rQ2i1DP72w0wvd8ZD60y0RsemBIaL9ohTmEYLG/UjPgVOFENnQ2P
+	3bRIhdAl3NYfawzgIZYqA+eSCTwzl3AgX8jtn8dQ71EV/15aEirlttjtUQlH8j35hmcO1XiKDGA
+	11tB0HzwXylfZimAFtIvMYMklewGep7Kp5D24QRJZyacx0uMCW02MesQU/r6X4MbMuWPIfPNxdJ
+	KD/m/P+UZjFUr/axKgfeERrNtRAKytwrHuv3iAqrqXT16uEArAkm9NWzN9D5aBZX/yT3bREsZI4
+	tOAJxD9yfdoMVROdYEtHgJuv5Ow4tKxpp97qgeA7BgV++lc2HZRlEKftbRhzODWt+iqIf7g6kTX
+	U2jMM0pSfa5x4eroEZXuyToZwGOQa/tObHIpweBprVjIXP3yQ==
+X-Received: by 2002:a05:6402:378c:b0:6b5:4cde:9115 with SMTP id
+ 4fb4d7f45d1cf-6b54cde93f1mr2124654a12.14.1793772896441; Tue, 03 Nov 2026
+ 22:14:56 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,91 +106,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgD3_1QBzepqJQjCDw--.33545S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWFykZrW8Jw45ArW7Kw45ZFb_yoW5CF4xpa
-	1Du3sYyry8uFWakry3Aa4UZFyYqwn5Wry7Cr98u343CF4kCrn8AFnYyrWY93WDuF4kJa4S
-	q3Zayr1jkF1Yyr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jTUDJUUUUU=
-Sender: yang_yongxin123@163.com
-X-CM-SenderInfo: 51dqwsp1rqw5tlqrjji6rwjhhfrp/xtbC-wTJZ2rqzQQFNwAA3u
+References: <20261103215557.183459-1-rosenp@gmail.com> <a5f044a803a64a1eb68815f075bda2ee@realtek.com>
+ <CAKxU2N9OpxoKF6M5rJpNOJ1HWXx8oJ3wXHpfyGGVgQpZaMi+uA@mail.gmail.com> <55e67132a79243cc9e214f9de7788132@realtek.com>
+In-Reply-To: <55e67132a79243cc9e214f9de7788132@realtek.com>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Tue, 3 Nov 2026 22:14:45 -0800
+X-Gm-Features: AclHuK-R8dd2PGCMhHI3LZJWK6ZO8cOlM0h83Q1-A6jK8aBloOQEDV_UIvp2u9g
+Message-ID: <CAKxU2N_JCRjWXkD8SNGf-LJGOHfCsAMM1JU+AoTD6cfZZYJ03g@mail.gmail.com>
+Subject: Re: [PATCH rtw-next v2] wifi: rtw89: acpi: check for _DSM function
+ support before evaluating it
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>, 
+	open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The einj_types file under the CXL debugfs directory is never created when
-cxl_core is built in.  cxl_core_init() runs at subsys_initcall level, while
-einj_init() registers EINJ at device_initcall level, so the
-einj_cxl_is_initialized() check in cxl_core_init() always sees EINJ as not
-up yet and the debugfs_create_file() below it is never reached.
-
-Change the file creation condition from EINJ being initialized to a compile
-time check for ACPI_APEI_EINJ_CXL and return -ENODEV until EINJ is up.
-
-The same check also guards the inject files under every downstream port
-directory.  Gate that directory creation on CONFIG_ACPI_APEI_EINJ_CXL as
-well, and check einj_cxl_is_initialized() in cxl_einj_inject() to reject
-writes until EINJ is up.
-
-Fixes: 8039804cfa73 ("cxl/core: Add CXL EINJ debugfs files")
-Reviewed-by: Ben Cheatham <benjamin.cheatham@amd.com>
-Signed-off-by: Yongxin Yang <yangyongxin@kylinos.cn>
----
-Link: https://lore.kernel.org/all/de14c4ef-e3d8-432f-9ce8-87c468d6d2ad@amd.com/
-Link: https://lore.kernel.org/all/7a22cc6a-deba-40e6-8033-97d1234420ba@amd.com/
-Link: https://lore.kernel.org/all/63e782a6-e33a-46ce-a455-5d207a60661f@amd.com/
-Link: https://lore.kernel.org/all/1a5ceda1-f039-4946-b8d7-2bc97ed48c00@amd.com/
-
-Changes in v7:
-- Drop the RCH mention from the third paragraph, as suggested by Ben.
-
- drivers/acpi/apei/einj-cxl.c | 3 +++
- drivers/cxl/core/port.c      | 7 +++++--
- 2 files changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/acpi/apei/einj-cxl.c b/drivers/acpi/apei/einj-cxl.c
-index e70a416ec925..22a7eb4dc75e 100644
---- a/drivers/acpi/apei/einj-cxl.c
-+++ b/drivers/acpi/apei/einj-cxl.c
-@@ -30,6 +30,9 @@ int einj_cxl_available_error_type_show(struct seq_file *m, void *v)
- 	int cxl_err, rc;
- 	u32 available_error_type = 0;
- 
-+	if (!einj_cxl_is_initialized())
-+		return -ENODEV;
-+
- 	rc = einj_get_available_error_type(&available_error_type, ACPI_EINJ_GET_ERROR_TYPE);
- 	if (rc)
- 		return rc;
-diff --git a/drivers/cxl/core/port.c b/drivers/cxl/core/port.c
-index 625e4aa427db..a949228de936 100644
---- a/drivers/cxl/core/port.c
-+++ b/drivers/cxl/core/port.c
-@@ -806,6 +806,9 @@ static int cxl_einj_inject(void *data, u64 type)
- {
- 	struct cxl_dport *dport = data;
- 
-+	if (!einj_cxl_is_initialized())
-+		return -ENODEV;
-+
- 	if (dport->rch)
- 		return einj_cxl_inject_rch_error(dport->rcrb.base, type);
- 
-@@ -819,7 +822,7 @@ static void cxl_debugfs_create_dport_dir(struct cxl_dport *dport)
- 	struct cxl_port *parent = parent_port_of(dport->port);
- 	struct dentry *dir;
- 
--	if (!einj_cxl_is_initialized())
-+	if (!IS_ENABLED(CONFIG_ACPI_APEI_EINJ_CXL))
- 		return;
- 
- 	/*
-@@ -2515,7 +2518,7 @@ static __init int cxl_core_init(void)
- 
- 	cxl_debugfs = debugfs_create_dir("cxl", NULL);
- 
--	if (einj_cxl_is_initialized())
-+	if (IS_ENABLED(CONFIG_ACPI_APEI_EINJ_CXL))
- 		debugfs_create_file("einj_types", 0400, cxl_debugfs, NULL,
- 				    &einj_cxl_available_error_type_fops);
- 
--- 
-2.25.1
-
+On Tue, Nov 3, 2026 at 9:21=E2=80=AFPM Ping-Ke Shih <pkshih@realtek.com> wr=
+ote:
+>
+> Rosen Penev <rosenp@gmail.com> wrote:
+> > On Tue, Nov 3, 2026 at 4:47=E2=80=AFPM Ping-Ke Shih <pkshih@realtek.com=
+> wrote:
+> > >
+> > > Rosen Penev <rosenp@gmail.com> wrote:
+> > > > When the WiFi device has no ACPI companion, or the firmware does no=
+t
+> > > > implement a given rtw89 _DSM function, rtw89_acpi_evaluate_dsm() ca=
+lls
+> > > > acpi_evaluate_dsm() anyway. ACPI core then warns on every probe:
+> > > >
+> > > >   ACPI: \: failed to evaluate _DSM e8c3a8d2-694b-004f-82bd-fe860780=
+3aa7 rev:0 func:10 (0x1001)
+> > > >   ACPI: \: failed to evaluate _DSM e8c3a8d2-694b-004f-82bd-fe860780=
+3aa7 rev:0 func:6 (0x1001)
+> > > >
+> > > > Here the handle is NULL, and acpi_evaluate_object() returns
+> > > > AE_BAD_PARAMETER. All callers already treat failure as "no policy
+> > > > provided by the platform", so this is only noise.
+> > > >
+> > > > Bail out early when there is no ACPI handle, as acpi_check_dsm() wo=
+uld
+> > > > otherwise hit the same warning while querying function 0. Then use
+> > > > acpi_check_dsm() so that functions the firmware does not advertise =
+fail
+> > > > quietly at debug level, as rtw89_acpi_evaluate_method() already doe=
+s.
+> > >
+> > > Adding this check is fine to me. But my question in v1 is that
+> > > acpi_check_dsm() checks func 0 to determine if BIT(func) is existing.
+> > > Is it possible func 0 not existing, but BIT(func) existing?
+> > Shouldn't happen, but who knows.
+>
+> I don't mind taking this patch, but this is the only one point I don't kn=
+ow.
+>
+> > I can drop the acpi_check_dsm() part.
+>
+> If you drop the part, what will this patch do? almost nothing.
+The !handle check is the big one that silences it.
+>
+> >
+> > 7bf2dfccc2dd70821104d15cbab7b6fca21872be
+> >
+> > is effectively the same as this.
+>
+> Since rtw89_acpi_evaluate_dsm() is called at probe stage, I don't mind
+> acpi_check_dsm() being called on every call.
+>
+> >
+> > Note that this specific card was taken out of a laptop and placed in a
+> > desktop, hence the warning.
+>
+> So, the warnings really bother you?
+Yeah why not.
+>
+>
+>
