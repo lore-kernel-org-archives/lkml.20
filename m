@@ -1,127 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793797315;
-	b=MtY1RG9KyEWDbTn10EtH2fXcwF99VQZ7sFQyuPiuQmeszfw+n+aN5Sf5H99zhG8ROvXw
-	 6Tq+GdJn8cYcW0yTkrFzzM1AhqqDHwXtOyGfQKK3Mck/qJTr6fzpbgyxnjZgplVvPg86l
-	 Vdi8+Go+yR+2sgoWnzj+7e2kKCuChbNl39GjtcKT8buf9I7bJqGjr1rG8irim6fyviXWj
-	 qLaM62Qm7/+WC2Pi2GUhs/pd5arTw45LXzO8AG9SJZOTRoEU5RgK2RhjUxZwI2gQEbAH3
-	 vo2pi/CfAJsn/J/Qtp+nIm2oNRJtMRNrtpNbr3oToqtYEOmKGLwTguCMZDXrHbpx0fg==
+	t=1793797317;
+	b=HEzjDFI8fQvtAU1UBNINJiRMA5zXUfTldcfKZer86YSCUYuqobU5jI+Ostfi9XrkxFPv
+	 bM1d5Tc1ZjUqrbo6g33dg7lrOKJo6DbF2xpiTfuZ0UqJ2EBMMdND3msBXja//KbJF7AHb
+	 L2IRZ5zlQlLAczXuEbj0lV/u4+vwR6tOgcYaGYx6Hgl++DcNQVpnKWee/oFWZg5XxOEjv
+	 oOOjMSdKp31ZVGO07sa9XFdiavxnNpR3TLh322/SeNc0DHSe4JtZcFmb0M2Zn/LNMzj6j
+	 JToECtLVGYi1vTvnhV2f5kpSjO63zNwwDnd6CfPEZ8abznMbrp8oHl4+EhnW6sfQh8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793797315;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=B0IkSILmEXDD5SZITUdfDPnAIvH/qKn4TnRnHPUh0Ts=;
-	b=kPZOyg/YaPrZuCQLVbkgyMMWpl6wAh+5XFSbWPsIKvdl+YZ75IaKxNmYnS+u42fXt0uS
-	 FnEMHIPePK8fDNb4MuZrqTSPHzav9U6B3SDHZIPvvMhJKqhEowCvh0fjn7Bh30uZ4crbU
-	 Ta5SSIzJZk6ZEZ1Kq9TueW7slyjzA1XAQgoWPBHsU+1RVGR8rfgdXzZSJgzZrmVp5ZJ+W
-	 7JLidfaxi/5NJsjHoXHOcqmB7si74ihQYfbfFK8ChBzIL2V6x6Jhypxv2OKA7tW5WCtBe
-	 hPqMVovD+OL1clH6zLfn+FkCRlKdGt6aXk6hheXBTXXr71aPllzE7cpSxNrQpRKDODw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793797317;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=kNp1OKGwredcYBJajnfjoxaLNZXBTsBj+yElvIWNzNo=;
+	b=As9W7+KsqDHwhg0l9TsWSOTz7kDdZ06KxFjYFGW9GLpMgOJYyswstrCDk+1jszMbp8qZ
+	 GQDYEgs+txQSvSx4cq+Bd14DVm4GSHgqms1d7d1V8YXuCcwTcWFSbLMSrTpgFzwHK0n52
+	 rHrjaVM/1c0Xz78j6WXK7zCxAWV0NSQM3+B8lsv5Arfc+70BQjWzuKBk29iR9JQr9tzPv
+	 Vb8LXRCp5R0aW5qATCvST+hEHRJ3IzgwxkEEGwkLCrdRL9z2GJmXt+SLAf5j9twJx+Ey9
+	 uIxoJ0hBBGiqsi67T15T7gTXWytJqv+oB/nsl3XNvc6MYEbBpJVLpJOmc2mICyw+Hdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y0479LVW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Phc041Sg;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6168606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:01:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 339C7606D817
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:01:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 339C7606D817
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y0479LVW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3988F1F00A16;
-	Wed,  4 Nov 2026 13:01:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793797314;
-	bh=B0IkSILmEXDD5SZITUdfDPnAIvH/qKn4TnRnHPUh0Ts=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Y0479LVWvlu+9+3PzgSZV2uC+ritdufcx9vGHq+lshd7jSJrwnFMQUSbFmv56YLUu
-	 zxDh59+EATUG1ivsQ8g43sG/eklybIf9NWqqSFXXshqJEbV7gewbP3OOpT+loRVRAw
-	 lIez8+PLglXDFURuNPNWWpSAJLbB/dMnuShr8HGfjeGonV9vI5oo1NzK0ofzxwXHGv
-	 RPknIT9HORPceu97Q2j0dZC0yrQnQ9bYjb17VCgrZipldK50qc1Zu/wqJeqS+VxHvY
-	 CokeOlcHMUk4AYGTjQaQ0k/6mp2mRWgdWKopUC5lISChV+Dv+cdi14B4ZIZE4gQLHE
-	 taM+i6V2sAthA==
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 09C571980052;
-	Wed,  4 Nov 2026 08:01:46 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Wed, 04 Nov 2026 08:01:50 -0500
-X-ME-Sender: <xms:uizrapVrclNr8_pL4FSy74YnbjY1cOXxoVoji7AAq7WbjE6ZHScs-g>
-    <xme:uizrarHIgnlmMsisAjfoj2fK54I1TAh4dXp8-OUkFAl3w6198HxF8wbq76-hqWi2P
-    RnIuUix8jFG1XbaYNBT4qmdljxK_-ceewb26SVeSYHD4MAEcawnTA>
-X-ME-Received: <xmr:uizrauAHQ3OE4IfGOHvAMrb36jO459m0oSJP8_eCCD0pLL1XRoQpp93lL1s>
-X-ME-Proxy-Cause: dmFkZTGhPc1Yg5t9Q8eRQaKCLT0heVoXQqf6h4uqMuRtXQYzheOI1jp47nBw26mcWoxz9A
-    DH10HnpPYob7RxaCTf32YkHXSpJmh1hLC1IxxzXB90aJAI2wMnFT+nxhjDMKjWZ9Ablulj
-    X6EGhbUdQWvr3vCsmIbyKlTdtYm8QJi2H9b42DzXiIRq27TGzwIAKeq7xgftm17WrW++J+
-    RK/ZhBFKi/01LbyIuttpTNhw8T5nzUYT3/gbSIkELTYoQfWYa9TU1xDsUR8Sja7r663Vhq
-    dT9Vb6Q8iqTkFCbamg7ObiOCckNJsrzr7UPmHz2jvO2iFJ92ew01ZxP0mcoMzU2JutwOgh
-    Deo/g8HEwAnSd00+Sk/Osdm3LkGjObnA/8QcZNGNOZB+xfOYdGiUNVUf88aFswCacRCBmh
-    hokiHdjKaDT29DPVI5Gwiwh/q+igH0C/vvAF0DQfDnNNnYvNgvu66w2jS7vOo6qH6K+7yt
-    nAK3PvNPliSxNz0oqqpOCzOQhLaohJNb1Vx14bhmF4ydiadh2RekHpyLnGH/Zwua5u6R6F
-    aDL/oG6RE6eKtnqYtU1aAOsrFBDA4f8uYS5E4pjAfQtiTgIi2w20lgAILHMHHRHj2bJ86f
-    yYuNqEQjBPE6f07SQgmnAFPAvn5ztU/tCIiy0YSmAyRxyx7vxhdWM+6YJTRA
-X-ME-Proxy: <xmx:uizrauWsdhQjR-9OfL5yBh0fuMvI4QvIKJQsf2XESph5E8vNwllxhg>
-    <xmx:uizram6VeZZh4Bnkj3qhUglgOhGIgPmrg36SHv1dYfMuEZ53GQ2A_g>
-    <xmx:uizranG5SDaFUpvrB5AjjHOQb0cf91fdKfanwlc24rB5wyrnvLAqZg>
-    <xmx:uizrap1xHQ6bLsYSSBoA8Gn9N6eE4-tWrhS2g5H77XucroW0c3tfww>
-    <xmx:uizrar3X2nODYMoj_NapJQRjucu3zlsBRVTFnIuPjVB7eHv2vx6qE6UK>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 4 Nov 2026 08:01:45 -0500 (EST)
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Hugh Dickins <hughd@google.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Harry Yoo <harry@kernel.org>
-Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Miklos Szeredi <miklos@szeredi.hu>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Kairui Song <kasong@tencent.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Ilya Gladyshev <ilya.gladyshev@linux.dev>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	linux-mm@kvack.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Phc041Sg
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so6086885e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 05:01:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793797315; x=1794402115; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kNp1OKGwredcYBJajnfjoxaLNZXBTsBj+yElvIWNzNo=;
+        b=Phc041SgLYCqrjtXEjvGfFGBR1JLA1eo7DWMT0alOPb7jg/IIoTXYM50ovILIggbrC
+         vR9mAuAYJiXt0olkq3vNux0ybiesloKRlscheeep+0VA04qfBTGdnwVZPPTMKPAbwlc5
+         Vvjik3M37dZKksZE89oaJ/YkKMYroBF6U/l85WGcSLYuylPfbbkHkshDRFHOF3lAfgsw
+         54saGgWwrjXV+eSUFbvJfWe6I1VedSDuE+lYfjgDNozxxOgdJumqv1eQ2BCEUbLna1q1
+         4H3zacuCoAIuhpx7LiSb2kwx2WeQN9zwxo196JBIdrVKy31k/hQ5PCwZMGIHKrHDYTsb
+         khNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793797315; x=1794402115;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kNp1OKGwredcYBJajnfjoxaLNZXBTsBj+yElvIWNzNo=;
+        b=Q7WBYN8PugujVlJihqraDSD83IobYaZjAAXNBrqSChNYnZVy5XnlRU9gdhUm3PG487
+         IrtHjKQkuXGdtL4S5NFxleU0kYlwcZiiNmorehVQZ1I7Etccr7K5hVB2YXyioOazuLdJ
+         OvceH84hB6dCfO7aEAqPeUkKzCmgYZ0NZwqSwOgBbEuqmAQsBznRpy9L5KtVqdkGohnP
+         LBTc+kH1PcSJ31eaY+SjIR4N8bZ21hH/sXTmJQry++tskyuWso26qRKL8utUneQRXBk3
+         /bqd6BDMMGO9O2eh116yBvyYlsuIblXPhiFnvyuKHwLJC5s5G3st5EQr7ktB74rX1yWd
+         PDIQ==
+X-Forwarded-Encrypted: i=1; AKwUvByZePbHd7K6RMhB6Oc0T4LuwTuRd4pnmTOTej1jw03j0C5EMIaqGdx91NpO//Ig8ftdMz5IiZPfIr5Wufc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8x80nsCan2gdBXB0vtYNIbhGmpFdrKEyW3b0lSr4ukLyMg92K3
+	5Iz+7aLoktOHwpi5u3atSUVeHFIhf6gvpEMlHySYmoPFelRTGwS9r8A=
+X-Gm-Gg: AYBFou0xbumlztMyLsUjsWrx27vAmb2iPlSQpc4vSVsZloQjm3dPbCuFdHfB5dJJU8X
+	7qPtLnRMVXqbtolTZXf5+1icglUn5d82vectqideLKVVKa5qtMz/Nu3VrsaBxOkHUIkqz5Rpu1N
+	Kh0yl2bBvDOpWdJYCpPERbh6u+4rJmqk3wKSC+SRAiOKehhmsmxWYptkrj3SW8C7qgVSS9dZrKQ
+	8SKT6Qxdp5j0rZEZXRCiWtKLZBtSMrSu+o+JIcDqYhdYP05cu3lyTDo3EKGs5GNqMCIAYMn7wY6
+	L0wWETJQ+PfZDFazJ8D2+z/jBEAfIXGqzMM32Yv1rvvVp2TLssndwZSpXIOoF/d3BiJjV6w67L+
+	PyayvAn9YsQeHcVeWBG9zKVFlQJsjQ2aMdzTDCgEDLyYtrMFo0pjdJ4kSsQFpP7pLg70wppidK8
+	B/7XT7uZu7S3G1G1LYnBKrmKKQpeSy5QG94EiVW0SKugIWqk2C3NDUjt2FrzvXMZ0gjxoYOPG2Q
+	nwAxJp1opPJaZidtGoaqVQ8KV6aDbzgYgVaWzqVSzDVYp3aSukJHUIY0oERR7VzOonNzfEIxA==
+X-Received: by 2002:a05:600c:8116:b0:4a0:20b4:ba93 with SMTP id 5b1f17b1804b1-4ac17e10724mr366339745e9.16.1793797315382;
+        Wed, 04 Nov 2026 05:01:55 -0800 (PST)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2aa38bb4asm140292765e9.6.2026.11.04.05.01.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 05:01:53 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: robin@protonic.nl,
+	o.rempel@pengutronix.de,
+	socketcan@hartkopp.net,
+	mkl@pengutronix.de,
+	kernel@pengutronix.de,
+	linux-can@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	fuse-devel@lists.linux.dev,
-	kernel-team@meta.com
-Subject: [RFC PATCH v2 04/18] mm: count the pages waiting for a grace period
-Date: Wed,  4 Nov 2026 13:01:00 +0000
-Message-ID: <20261104130118.2507513-5-kas@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261104130118.2507513-1-kas@kernel.org>
-References: <20261104130118.2507513-1-kas@kernel.org>
+	kuba@kernel.org
+Subject: Re: [PATCH net] can: j1939: fix skb refcount underflow in session teardown paths
+Date: Wed,  4 Nov 2026 13:01:51 +0000
+Message-ID: <20261104130151.2659605-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <179376780412.488853.11738408007557929503@kernel.org>
+References: <20261102155345.1267524-1-tristan@talencesecurity.com> <179376780412.488853.11738408007557929503@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -131,122 +103,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Deferred folios have refcount 0 and are not on the free lists, so no
-counter shows them.  Memory that waits for a grace period is missing
-from the free count and from every LRU count.
+From: Tristan Madani <tristan@talencesecurity.com>
 
-Count it per zone in NR_FREE_RCU_PAGES: nr_free_rcu in /proc/vmstat,
-free_rcu in show_free_areas().  Preparation for freeing the waiting
-pages sooner when they hold back memory that is needed.
+On Wed, 04 Nov 2026, netdev-bot+sashiko@kernel.org wrote:
+> [Severity: Critical]
+> Does this leak every skb on session->skb_queue?
 
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
----
- include/linux/mmzone.h | 1 +
- mm/page_alloc.c        | 4 ++++
- mm/show_mem.c          | 9 ++++++---
- mm/vmstat.c            | 2 ++
- 4 files changed, 13 insertions(+), 3 deletions(-)
+Yes, this is correct.  Queued skbs carry refcount 2 (one from the
+allocation and one from skb_get in j1939_session_new /
+j1939_session_skb_queue), so the existing skb_unref + kfree_skb
+sequence is the intended teardown path.  Removing skb_unref would
+leave every skb at refcount 1 after kfree_skb, leaking it.
 
-diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-index 94f9c3ff5416..3336b9e5ee99 100644
---- a/include/linux/mmzone.h
-+++ b/include/linux/mmzone.h
-@@ -228,6 +228,7 @@ enum zone_stat_item {
- 	NR_ZSPAGES,		/* allocated in zsmalloc */
- #endif
- 	NR_FREE_CMA_PAGES,
-+	NR_FREE_RCU_PAGES,	/* freed, waiting for an RCU grace period */
- #ifdef CONFIG_UNACCEPTED_MEMORY
- 	NR_UNACCEPTED,
- #endif
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index a371e92da273..15bb66e36304 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -1348,6 +1348,8 @@ static void rcu_free_pages(struct list_head *list)
- 
- 	folio_batch_init(&fbatch);
- 	list_for_each_entry_safe(folio, next, list, lru) {
-+		mod_zone_page_state(folio_zone(folio), NR_FREE_RCU_PAGES,
-+				    -folio_nr_pages(folio));
- 		if (!folio_batch_add(&fbatch, folio)) {
- 			free_unref_folios(&fbatch);
- 			cond_resched_tasks_rcu_qs();
-@@ -1375,9 +1377,11 @@ static void rcu_free_workfn(struct work_struct *work)
- static void rcu_free_defer(struct folio *folio)
- {
- 	struct rcu_free_pcpu *r = raw_cpu_ptr(&rcu_free_pcpu);
-+	struct zone *zone = folio_zone(folio);
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&r->lock, flags);
-+	__mod_zone_page_state(zone, NR_FREE_RCU_PAGES, folio_nr_pages(folio));
- 	list_add_tail(&folio->lru, &r->pending);
- 	rcu_free_start(r);
- 	spin_unlock_irqrestore(&r->lock, flags);
-diff --git a/mm/show_mem.c b/mm/show_mem.c
-index b938cbcd774a..0d3bddbda108 100644
---- a/mm/show_mem.c
-+++ b/mm/show_mem.c
-@@ -204,7 +204,7 @@ static void show_free_areas(unsigned int filter, const nodemask_t *nodemask,
- 		" mapped:%lu shmem:%lu pagetables:%lu\n"
- 		" sec_pagetables:%lu bounce:%lu\n"
- 		" kernel_misc_reclaimable:%lu\n"
--		" free:%lu free_pcp:%lu free_cma:%lu\n",
-+		" free:%lu free_pcp:%lu free_cma:%lu free_rcu:%lu\n",
- 		global_node_page_state(NR_ACTIVE_ANON),
- 		global_node_page_state(NR_INACTIVE_ANON),
- 		global_node_page_state(NR_ISOLATED_ANON),
-@@ -224,7 +224,8 @@ static void show_free_areas(unsigned int filter, const nodemask_t *nodemask,
- 		global_node_page_state(NR_KERNEL_MISC_RECLAIMABLE),
- 		global_zone_page_state(NR_FREE_PAGES),
- 		free_pcp,
--		global_zone_page_state(NR_FREE_CMA_PAGES));
-+		global_zone_page_state(NR_FREE_CMA_PAGES),
-+		global_zone_page_state(NR_FREE_RCU_PAGES));
- 
- 	for_each_online_pgdat(pgdat) {
- 		if (show_mem_node_skip(filter, pgdat->node_id, nodemask))
-@@ -325,6 +326,7 @@ static void show_free_areas(unsigned int filter, const nodemask_t *nodemask,
- 			" free_pcp:%lukB"
- 			" local_pcp:%lukB"
- 			" free_cma:%lukB"
-+			" free_rcu:%lukB"
- 			"\n",
- 			zone->name,
- 			K(zone_page_state(zone, NR_FREE_PAGES)),
-@@ -351,7 +353,8 @@ static void show_free_areas(unsigned int filter, const nodemask_t *nodemask,
- 			0UL,
- 			K(free_pcp),
- 			K((unsigned long)this_cpu_read(zone->per_cpu_pageset->count)),
--			K(zone_page_state(zone, NR_FREE_CMA_PAGES)));
-+			K(zone_page_state(zone, NR_FREE_CMA_PAGES)),
-+			K(zone_page_state(zone, NR_FREE_RCU_PAGES)));
- 		printk("lowmem_reserve[]:");
- 		for (i = 0; i < MAX_NR_ZONES; i++)
- 			printk(KERN_CONT " %ld", zone->lowmem_reserve[i]);
-diff --git a/mm/vmstat.c b/mm/vmstat.c
-index 66ed017bde46..64068d73d6d2 100644
---- a/mm/vmstat.c
-+++ b/mm/vmstat.c
-@@ -1212,6 +1212,7 @@ const char * const vmstat_text[] = {
- 	[I(NR_ZSPAGES)]				= "nr_zspages",
- #endif
- 	[I(NR_FREE_CMA_PAGES)]			= "nr_free_cma",
-+	[I(NR_FREE_RCU_PAGES)]			= "nr_free_rcu",
- #ifdef CONFIG_UNACCEPTED_MEMORY
- 	[I(NR_UNACCEPTED)]			= "nr_unaccepted",
- #endif
-@@ -2023,6 +2024,7 @@ static int vmstat_refresh(const struct ctl_table *table, int write,
- 		switch (i) {
- 		case NR_ZONE_WRITE_PENDING:
- 		case NR_FREE_CMA_PAGES:
-+		case NR_FREE_RCU_PAGES:
- 			continue;
- 		}
- 		val = atomic_long_read(&vm_zone_stat[i]);
--- 
-2.54.0
+Withdrawing this patch.
 
+pw-bot: cr
