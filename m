@@ -1,79 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793776932;
-	b=BVl2mPlmy9/8xtFZISqfuXoMz2RdRETrKftESOeVTyiaLVR5domrQVnV2/EV81hJb2iO
-	 rbZU5pASATZLvO3eIKZXWCCsBaIvJ4Z8K8cYi0Sizmyfzef3i38TmtHQGu0IClad2085v
-	 ZCPOXzfvqgI/22g1l5iSyaZmnDwITZ5jaH7r0ulhrE9Es99oyivr7hM1jfZOmRXSfwDLu
-	 IX1YJvEmhk8WQWZZZDoWpv1JGInkE4omCjhOzA7YEo3Hn9iQkPfgd7esbrGNEXT/93GwW
-	 u8QRZMqoeg1RjxK6TBxPdgXw+FjSrX1t0ab5RWx9UbIoZeRrWRQp/XeWB3jyCgIkRuw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793776932;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=mh/QEZGtIgbMbkhZzPcGgt/dCBZ8tQKjIBv0AxgbHCo=;
-	b=e9A6uadr94zCzhZi8sQHCqWf5I/Wpu15kxsLcBkG+0MCvE0Ge9gG1ePER/WwONtxg+Ou
-	 SGKpt2DzHAmqZfKbT1EaMLHkSVYwcQNZa000HQJedRPx4uHOK3R85KVNeHj1TN5BORc1D
-	 xSzFY2ziKDw32kWBs+NH+cFUiUwrqYb7LGWa7KW9/QvaVFq95rqKzjzJduWIYzS3aO0rN
-	 +kDKJj915kan76WlijcJ1Y6hooVzUdVCL1DKRjFIjR6jU5xgF3ShFMJNsjbvGnEVwmEZk
-	 oooLqYDxCvJDNHlvJyLnLkz329/uU+i67YasFGxXWyPtJX2Td8u3v1yp4NfeniI2Qyw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GRW1z8tH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91F79606D81C;
-	Wed,  4 Nov 2026 07:22:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GRW1z8tH
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793776932;
-	b=n/t/ylrr9CSdW56ygPHnqx4yuOHpnNRYsVoLdRSXiKFuVrDF85wZdUgQm0D5/Mxco4s3
-	 3ypDC55qvTWpzNxdf7gZ9Y79M8dFYIXkdRp4WHA9nYdLJTE34NnRivZFE/hatUAsLRs97
-	 sEfBJ531NQ1e4JFVBQUwvyLRe0x81cfYOVp//rasnmuVZv+7OZ3RLNQAI/+WcPp9nwV97
-	 acuq8XIbibNgTHytDK61c5118ICd/zyIlgAASJ2mQbSbHaIFTqJB/jxlpnU82AudOMrR1
-	 qg17k1WlCy4wnkdKJ5qrFW+K8za2atnjfuSnKFQPSdJz0DPU/L4vJE3EX4L2TPj/V5g==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793776932;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=mh/QEZGtIgbMbkhZzPcGgt/dCBZ8tQKjIBv0AxgbHCo=;
-	b=sITdCSwS0HK7E4DCA+pES6hFZ/C0UD+aLwj9N1Pcl3ppoGloYBjY+Wxl3YyjeuXMBs5t
-	 OpBCWuRcYCCPe8N+cWueLcBKGOVOgKvl+toBUc9Gf6zbLCSZnUxjV8ghJr9aqAIyiK1Pa
-	 R4y6xF3LQJdvbGt6DyAJjSM7UTX3mHRhvMYQ+a2wGv2dCujpG3YB2nw6Tgda750HVLC3A
-	 IX1R20d4f284toTrTtErHGhGnEeWWJge6/H6r5qR3t0ltNxNdpDC0unqeTP02KVIKQV5Z
-	 Ne1FCwyZQP/bcBPtTblziC551SH61U1OwbpqvdaUioLbCu2jHAV6wdUXbot355mj22g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.182
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793776939;
+	b=ZGttu8Z9l97B3qcSMjPAB5uTPBS+2ICgUjvF1pES8IUYiY9Uh+SufKMJxM6cFgJqS974
+	 HsXvKL/eUbM3Wu3vZboJS9wYrXdhasq7UREoG1t4cw5qKNIvYOE9hT7YYf2X/yZsQl0bR
+	 jG05FroAfIWfunW/uSwmyOvzYlz4Wmqjyp7NnZtw5DBZDIpnSrHm8xp/TyTGmR850ZRJ+
+	 XGzJYlAI19vyUMDA/FFbhPsUHSlraQZLvY1phmnAGX2O4cXS070mOReQPBO/1Hk28IWJx
+	 QNfDkzjX1spcoeaEbrvVZMp3NkR+vRd0poX/lvNenD2vhQ2x9VDjGZUs3nhHGSOjQWw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793776939;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=trfQHpaVqDGj7pdAxkIIwslilgVOcChYAvf1fDtPzO0=;
+	b=Za7a+819oTB4/1WVtpHxARzP0OMVCeA65wHCnx2KkX3+LtYkQlN/p7pvtiU40rqepOS2
+	 IXFLlpdRj+/GRx8H7uUzlijfrK8+YnHqm+0P/+B2Ex8IF4/5sPR2GJrX+QLiNbtMIOfdh
+	 0bXj2Qu5ULMNhIUJttVeHRURwCw13UhrOPdGwvnMcsPK3yYSV7NGcMiV8Tuqbp7tEXWXd
+	 c6OUvrgo2hf+ggNtlkaweKHSptiM7zh9zyOKhO60m9nI3/1PBoiV91RHlv8i02n5rQz95
+	 ESXczaaKxaFNG3L691pZ0SEuzhvAoQ4GYY6KUDgAbc6GbKzMAeTdIyjT28rRIIyBNDg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nuqfDbJI;
+	arc=none smtp.remote-ip=95.215.58.182
+Received: from mta1.migadu.com (out-182.mta1.migadu.com [95.215.58.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 377001F0093A;
-	Wed,  4 Nov 2026 07:22:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793776932;
-	bh=mh/QEZGtIgbMbkhZzPcGgt/dCBZ8tQKjIBv0AxgbHCo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=GRW1z8tHk3uawaXey9+Y45Z6/wO6yvrLFhcrr0yhKu5plv6brpxOT849H0RRY+HKB
-	 koqDf8Q6aa3ekmPoD9bY0TsbWxhCnTiaTFQ8RwUb5qCfEwd1ifzrygkdTfLtf2sOak
-	 bPRWyLfQTg2xJUR0gJm4AZy50PsmhSI4unchvOkjC7iPsMh0cWgoq9aTUhhLmykk7g
-	 Q+2dPw/rbRbuKWGF0VPKExZVTepB+FJkeFvpMSKpjBwnx3gUAM1qY/eMKpnrwHiWCM
-	 oDV0SQh1WqoyFzmMrz89YqbJrClheWSZthROWapxayIOLRHBqVt/uyylwSCNF2XQum
-	 2pnvOKJjReGuw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C1BDE46D25;
-	Wed,  4 Nov 2026 07:22:10 +0000 (UTC)
-From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
-Date: Wed, 04 Nov 2026 02:22:08 -0500
-Subject: [PATCH 3/3] usb: dwc2: Handle OTG interrupts that GINTSTS does not
- flag
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE4BE606EE8D
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 07:22:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE4BE606EE8D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nuqfDbJI
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=pecwVT+FWwXBdSwWG68tGA8FhqyjXhg5eN//at0UjTc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793776937; v=1; x=1794381737;
+ b=nuqfDbJIDq2BB7h6N42DikY5/Xxs5nZU3Go4qtLSqXYn9QWX7gwgWu+eDZWSP6vOrgetcwYN
+ CCFa+EVJUUZp6PF54fkJX0py2yBOQAhMGZXhBuu5+/Wz2KInw4V8PSpPokKxB4t0JWeCHmmqcjd
+ jMYBd7s2CxBh8jS2ufH2fEqc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id b4b72a2dcdbcfd1f;
+	Wed, 04 Nov 2026 07:22:16 +0000
+X-Mizu-Trace-ID: b4b72a2dcdbcfd1f
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 4 Nov 2026 15:22:10 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Minhong He <heminhong@kylinos.cn>
+Cc: andrea.mayer@uniroma2.it, davem@davemloft.net, edumazet@kernel.org,
+	kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
+	horms@kernel.org, linux-kernel@vger.kernel.org,
+	Andrea Mayer <andrea@common-net.org>
+Subject: Re: [PATCH net-next 0/3] seg6_local: add USP and USD flavors support
+ (RFC 8986)
+Message-ID: <aurdIlNaqMGsBdkr@fedora>
+References: <20261103063806.132152-1-heminhong@kylinos.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,113 +67,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-sf19a2890-dwc2-v1-3-d959375e26ab@telaak.dev>
-References: <20261104-sf19a2890-dwc2-v1-0-d959375e26ab@telaak.dev>
-In-Reply-To: <20261104-sf19a2890-dwc2-v1-0-d959375e26ab@telaak.dev>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Minas Harutyunyan <hminas@synopsys.com>
-Cc: Chuanhong Guo <gch981213@gmail.com>, linux-usb@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Joseph Telaak <joseph@telaak.dev>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793776930; l=3164;
- i=joseph@telaak.dev; s=20261104; h=from:subject:message-id;
- bh=+gnzh383ADRzly7Ief5zkWrWw3Pc47lfMuoWe2KoTVw=;
- b=1yVicNsr/efnZEvvp94GLSifXj9AyCXXPcTOUGEKdU2lZ9aNrNouQYqdzn/dvoE3770lk5VEi
- 7rp+Fl7JCq0A/Y2wCu2UchGJRbWOze6EqUcUiHTKA//MwZjQaVwmei2
-X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
- pk=oQI+UfddlZ0wK2ac4WKOGNjUl1ZEN8j9ZVFSqEDoNP0=
-X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
- auth_id=1404
-X-Original-From: Joseph Telaak <joseph@telaak.dev>
-Reply-To: joseph@telaak.dev
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261103063806.132152-1-heminhong@kylinos.cn>
 
-From: Chuanhong Guo <gch981213@gmail.com>
+Hi Minhong,
+On Tue, Nov 03, 2026 at 02:38:03PM +0800, Minhong He wrote:
+> RFC 8986 defines the PSP, USP and USD flavors for the SRv6 End
+> behaviors. Currently, the Linux SRv6 implementation (seg6_local)
+> only supports the PSP flavor (combined with the NEXT-C-SID
+> flavor).
 
-The DWC OTG 3.30a found on Siflower SF19A2890 has battery charger
-support enabled. It triggers MultVallpChng interrupt (bit 20 of
-GOTGINT) but doesn't set OTGInt in GINTSTS. As a result, this
-interrupt is never handled, and Linux disables USB interrupt
-because "nobody cares".
+No, the kernel will not process PSP when it is combined with
+NEXT-C-SID at present.
 
-Handle OTG interrupt in IRQ handler regardless of whether the
-OTGInt bit in GINTSTS is set or not.
+> 
+> This patch series adds support for the USP (Ultimate Segment Pop
+> of the SRH) flavor to the End, End.X and End.T behaviors, and for
+> the USD (Ultimate Segment Decapsulation) flavor to the SRv6 End
+> behaviors that perform the decapsulation of the packet (i.e.,
+> End.DX4, End.DX6, End.DT4, End.DT6, End.DT46).
 
-On a GL.iNet GL-SFT1200 it shows differently: after a few replugs of a
-USB stick the system stops making progress, the console repeating its
-last message with the same timestamp, until a power cycle.
+Thanks for the patch. Unfortunately, I have already started this work back
+in September. I discussed my plan with Andrea at that time. Sadly, I did not
+mention this in the cover letter for my PSP support series[1], that’s my mistake.
+I didn’t expect someone would skip PSP and start with USP/USD directly.
 
-Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
-[jt: only on cores with the new otg_int_unflagged parameter, which
- SF19A2890 sets, in the one place that already handles flagged OTG
- interrupts and with IRQ_HANDLED returned; the others still handle OTG
- interrupts only when GINTSTS flags them; what a GL-SFT1200 does without
- the patch, subject]
-Signed-off-by: Joseph Telaak <joseph@telaak.dev>
----
- drivers/usb/dwc2/core.h      | 6 ++++++
- drivers/usb/dwc2/core_intr.c | 5 ++++-
- drivers/usb/dwc2/params.c    | 1 +
- 3 files changed, 11 insertions(+), 1 deletion(-)
+Kernel changes alone are not sufficient, we also need selftest updates for
+this new feature. So I’ve begun adding PSP support for End.X, along with the
+corresponding selftests. The USP/USD kernel updates are already in my local
+tree.
 
-diff --git a/drivers/usb/dwc2/core.h b/drivers/usb/dwc2/core.h
-index 015a5fb78..288baaaf4 100644
---- a/drivers/usb/dwc2/core.h
-+++ b/drivers/usb/dwc2/core.h
-@@ -367,6 +367,11 @@ enum dwc2_ep0_state {
-  * @no_clock_gating:	Specifies whether to avoid clock gating feature.
-  *			0 - No (use clock gating)
-  *			1 - Yes (avoid it)
-+ * @otg_int_unflagged:	Specifies whether the core raises OTG interrupts
-+ *			without setting OTGINT in GINTSTS, so that GOTGINT
-+ *			has to be checked on every interrupt.
-+ *			0 - No
-+ *			1 - Yes
-  * @lpm:		Enable LPM support.
-  *			0 - No
-  *			1 - Yes
-@@ -466,6 +471,7 @@ struct dwc2_core_params {
- #define DWC2_POWER_DOWN_PARAM_PARTIAL		1
- #define DWC2_POWER_DOWN_PARAM_HIBERNATION	2
- 	bool no_clock_gating;
-+	bool otg_int_unflagged;
- 
- 	bool lpm;
- 	bool lpm_clock_gating;
-diff --git a/drivers/usb/dwc2/core_intr.c b/drivers/usb/dwc2/core_intr.c
-index 9565e6a52..e7bb9709c 100644
---- a/drivers/usb/dwc2/core_intr.c
-+++ b/drivers/usb/dwc2/core_intr.c
-@@ -874,8 +874,11 @@ irqreturn_t dwc2_handle_common_intr(int irq, void *dev)
- 
- 	if (gintsts & GINTSTS_MODEMIS)
- 		dwc2_handle_mode_mismatch_intr(hsotg);
--	if (gintsts & GINTSTS_OTGINT)
-+	if ((gintsts & GINTSTS_OTGINT) ||
-+	    (hsotg->params.otg_int_unflagged && dwc2_readl(hsotg, GOTGINT))) {
- 		dwc2_handle_otg_intr(hsotg);
-+		retval = IRQ_HANDLED;
-+	}
- 	if (gintsts & GINTSTS_CONIDSTSCHNG)
- 		dwc2_handle_conn_id_status_change_intr(hsotg);
- 	if (gintsts & GINTSTS_DISCONNINT)
-diff --git a/drivers/usb/dwc2/params.c b/drivers/usb/dwc2/params.c
-index f6379e616..22ab9ce13 100644
---- a/drivers/usb/dwc2/params.c
-+++ b/drivers/usb/dwc2/params.c
-@@ -243,6 +243,7 @@ static void dwc2_set_sf19a2890_params(struct dwc2_hsotg *hsotg)
- 
- 	p->max_transfer_size = 65535;
- 	p->ahbcfg = GAHBCFG_HBSTLEN_INCR4 << GAHBCFG_HBSTLEN_SHIFT;
-+	p->otg_int_unflagged = true;
- }
- 
- static void dwc2_set_stm32f4x9_fsotg_params(struct dwc2_hsotg *hsotg)
+That said, there is a sequence for landing new features. Right now we need
+to wait for Andrea’s NEXT-C-SID and PSP series[2] to get merged into net-next
+first.
 
--- 
-Git-155)
+[1] https://lore.kernel.org/netdev/20260922-srv6_flavors_endx-v1-0-4d01c05c47b7@kylinos.cn/
+[2] https://lore.kernel.org/netdev/20261011192310.55-1-andrea.mayer@uniroma2.it/
 
-
+Thanks
+Hangbin
