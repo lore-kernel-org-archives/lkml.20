@@ -1,64 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.125
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793785098;
-	b=RofbR7O48b+ZD3KOmbEjyK6ye3oLXklhIzC0g7fVKwE9YR8s4dr3+6xaB1pa2KiLfZpr
-	 BRBytzcgR6cbXEBdIqLXrE5lVyCBRYB0LgcZolB8lWbq+/5fZqYCRO/gJpLmOXXk7BOXA
-	 BU7e63aCabB69lv35ehMPb4QzV0kISlR2iw0WASE+MUEppt/0DwfeTP1y12ClY87l2MBQ
-	 v3jAs8kkPPdpgThl55OZ8R4XICPhh45LRMBzTAY/KssGPjIBKosyN6qetQYH/nJXAt5jl
-	 Nt4wfPFalEeCIFSPLi2YPHaCjVChMPT5TWAMUYj77b3HALTa4BkyYt3ISA9Ijbpl5Cw==
+	t=1793785095;
+	b=2pX7YPErFmZalrqvXvuKhGeHVY44Jbxm+PTjxhX1lYcxBBr5jTJSYqtnoUBCUU2dAkHh
+	 r1+9u8J0K9rzhfTTLsIlvDDeoClXmqPfowoZLrgjJeKuyyhxxCoiOJkySGb2i7aq9JtlU
+	 3FzARuHfmNw/UhH7y8xbzpQtRmo/IxQAjcCXzAAWZ6khfqPFVh84noH5p8TMCfaXBeoln
+	 rePyOWERnAuYhxHID3LkacwmTE8WaLW5SqEVseL03tCjBM/huhFOIjkmbcxa82/XxvsXI
+	 Pm+KyTHU92c/BW/qPPZyoUCbtzlgqCs0j90MV/NRsg69EGuTjgXumgEjOg/2ljC4DIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793785098;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=5oRk43/W3Y6gddSCWn6cma4la8Lxnv8/S1acmO9S1Qo=;
-	b=Fsr6t+WsX4cGCJ5NOZxMCZX5XcirJTs3J+lqpgmpC+W/WDKH/95RuvB68GSDnCwPOS8E
-	 0wmh9nEzdzzSMc6pMlbFeBOsOqgILbPBcHHbr3fvymBDHLy3PrrHcKubeod/Ct9elzTkq
-	 E4+mql7YI3f2C2NUhLsIvUlZC5CyoBmMXfxypYGQNji8QHv6FcZay3Sd9O/OOCd3fTKAf
-	 OOCf0LQL9Ely8lgW0xGWGPch+hjX+eFTeUpMl640DK1y07dB/9/ah4lkEgINV0CeXK35w
-	 OxwYUHGrr/Uaxv4rZGp5RKcdVqNxU39KwZffVV98Qb+YGPW0daYEQnZSbxrLg7ECf8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793785095;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=SgGmwBv2YCkVrgEaoOotmd+kkUUxKWgTOQh7djT+JIo=;
+	b=U0dMdM74U8/3qJBMoPbIqWevjNlH8rYHakmwPPnnZvVgiHJOgO9k5O+BQiq3s8VME5Hb
+	 +HwZgbIGcOJfFcRE1MmHjFyGU/yjzLzxuVe7sB9Gs5WPTiLwQxq2ZySGMIxRadcEoAyE1
+	 FPPiRof5q9zwkZNv/C8seL3iFAXFVnm5rOMhXDrFFxn9DSkwpcLknhytx/B4xAnpbTZXl
+	 AxkuSUHYEYTVZg9m8Pvvy6k/+54OnXbLlk1/dkJWyn5pKEZrXI1H1vMgdmAy5W5e8qpCc
+	 C7FBrTQ3eEgGUEB67gMupkN11Uaj1iR83DMGcDzjTo0uQcZH1cbklQ0vnF7PE4ZapQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=e4iWoGak;
-	arc=none smtp.remote-ip=95.215.58.125
-Received: from mta1.migadu.com (out-125.mta1.migadu.com [95.215.58.125])
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=LsupHlXT;
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB05606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:38:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BB05606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23490606A332
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:38:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23490606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=e4iWoGak
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=HPJz/VqRgF2OV0uwCCoFF4MG9ZEWJG9czJUot0f7Ois=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793785094; v=1; x=1794389894;
- b=e4iWoGakmQ8XChzuurSIdGb5es9rdgR6NbMqiq6Leu8wMokL8T+QBBO3Od6rXbQsqvn6Mr4Z
- NpOO/OejmZRmffjeb+qVruWqCRLoOa6HrBte/FAA6rAMW731+W9W7+CZF7OZIq+9Zsk0vmFtFVv
- v29KtGWdpN+W6YbssireMH2c=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 44bfdfe872025a89;
-	Wed, 04 Nov 2026 09:38:12 +0000
-X-Mizu-Trace-ID: 44bfdfe872025a89
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 4 Nov 2026 17:38:00 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: lirongqing <lirongqing@baidu.com>
-Cc: Jiri Pirko <jiri@resnulli.us>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	"Nikola Z . Ivanov" <zlatistiv@gmail.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] team: fix promisc/allmulti leak in team_port_add
- error path
-Message-ID: <aur86WH_9VMrP9NN@fedora>
-References: <20261104015217.2222-1-lirongqing@baidu.com>
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=LsupHlXT
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-490a0e72588so35502f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:38:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1793785092; x=1794389892; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SgGmwBv2YCkVrgEaoOotmd+kkUUxKWgTOQh7djT+JIo=;
+        b=LsupHlXTtGcKDNw9zSXJpA+vfbnvd3q6bZoMx7nn6XJC3K1Vfp+0hYDZIqgzbN89wf
+         UcKeVwht2tgk+HpNys0OZena6mwqJVR2PJn6q8BPz3ddfJjEuBLzJ9O2ZKw7MYsQ8xA4
+         JWeNv/xbjrzvLNS/8t7rXcvjKLf7mYtYaPk+CCyKVDwCTomhlSgyO7i/6CqZfnQR0xSS
+         KbAgPvGUHQeYjiaR5vfm/jXhOOIuCi+GLkG3ntMQ4/0eFvtmCOqf881nMAC9KPkvmA9y
+         W1vE62+rz3RR+vn8biM7w+7kWnsUO6V4OjAxXh86+flowxxCXRtmeOF/tBP3giMCiMZa
+         PbUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793785092; x=1794389892;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SgGmwBv2YCkVrgEaoOotmd+kkUUxKWgTOQh7djT+JIo=;
+        b=Wy4vzzIdrgJEm7pTJhVlB8e3gF/78MfPx2ABbo7YEeC+V0/LVfIprdz9dgXivgd8FA
+         PaY34R8c9EgcOuOmXuopBHlwHz4d4m7hlrd9BoV/U4AEVNZHs7fswPZM96hzCDCiiOfo
+         5bE9O/s21JA9HrRY/C9MoLNGejb5a9EQc5OONxKK7pz1uGKQW22Dq4u4BfuPfkmyPoAc
+         H6p892ePljN9ZhmNQgXb+upl7ZMU/FNjuhazyLaUk/Y4B5AmV42G+LI9bCMjuTxZm7U2
+         bBGT0/9NuYrxvM+I98mGZdM8v09LP7H7ys6yOFEtKiLInuA28W0wH2yOTiV9SoDjjmJZ
+         S/bg==
+X-Forwarded-Encrypted: i=1; AKwUvBxQIEvNtBP84lG42QLUmBosCJ4AiGo3BCNlT0ULxr5e5oPwKJoQBiFwGuZpL9hRBVEfAWVsBIv+IG5hlnk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8FJsRwbweva+IWIOVNN/mfnkMH+rvZVhk5c8o8iC2+oClC0N2A
+	B4AuRHx0DdHGAnYKZMicyx1m5VXoZ3OGnasQAIgHmhIYy0mJMvGdkKGjEH+MsGVF8WM=
+X-Gm-Gg: AYBFou202YvzuH5UQ1FK3tlzVVUeTs56qhcSFAo3YMPIcU/Nx4HEng3glqJIdon+GgA
+	HeZEJYqqbHF/8fY2GyRRyKXnKpMn/XuuyxS7tE4tXbacq3wzM7xyqwRs/aAKa7Wc/ZYsMtAORZS
+	/PX+qY/XG85+qdIunSsRgYwZnWC8NlbIBMAuAg8UTumxd5sOZLKsYRLt6o+kyQGVm30+Njs/7YY
+	W3w6ODWr3Yg83dSlLvUjjpTryNB22+ahrSEZ7ynUqWGKilmjzd1K4CFfOIDRSSGs0NhdJrrGAJ9
+	KCgoOaRmQc4D70nazI3uSdDYlwUioxHTR2Vi+pSR9OdLpFpI3G9MfuBTAekeJnpu5giAKUQz7Xc
+	QO4Yz2vLXs+IJmpkPAfknlNZceqgDirmAKbWFVRq02vMX77/S4Mr58psB5vp+TvOiXFmMlqMfL7
+	fB0UP2YWjJYDyvn5rSi5MVfu5nu1H5/x6ZxUaJ00MMB9qkRd3Hf+pRoC5nK0pWco73tBxxIg0qb
+	irNytilzj1m6WrBLE4rFHX15MTen1rD8J30XwQ/XlZgOw0h25TJRK4zCX0oZtsFvwsdMKuFB/+j
+	js3HySb4Ml5fK4r6CRL0IWhREAP9wVV5euyUx0cJJOw5NH1xtM0YINFg
+X-Received: by 2002:a05:6000:46c6:b0:487:40d:af33 with SMTP id ffacd0b85a97d-48e6e2fa518mr22336653f8f.13.1793785092319;
+        Wed, 04 Nov 2026 01:38:12 -0800 (PST)
+Received: from [192.168.1.62] (140.30.66.37.rev.sfr.net. [37.66.30.140])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feeb5196esm2605410f8f.58.2026.11.04.01.38.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 01:38:11 -0800 (PST)
+Message-ID: <73888927-18ec-44b1-bb14-72e72860bfc2@baylibre.com>
+Date: Wed, 4 Nov 2026 10:38:11 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,73 +92,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104015217.2222-1-lirongqing@baidu.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 11/11] pinctrl: scmi: select the GPIO function on GPIO
+ requests
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>,
+ Cristian Marussi <cristian.marussi@arm.com>,
+ Linus Walleij <linusw@kernel.org>, Peng Fan <peng.fan@nxp.com>,
+ Oleksii Moisieiev <oleksii_moisieiev@epam.com>,
+ Andy Shevchenko <andy@kernel.org>, Dhruva Gole <d-gole@ti.com>,
+ Bartosz Golaszewski <brgl@kernel.org>, arm-scmi@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261030-clegoffic-pinctrl-scmi-gpio-v1-0-52d92843ad97@baylibre.com>
+ <20261030-clegoffic-pinctrl-scmi-gpio-v1-11-52d92843ad97@baylibre.com>
+ <aunIVW4JeM_P2WOa@ashevche-desk.local>
+Content-Language: en-US, fr
+From: =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>
+Autocrypt: addr=clegoffic@baylibre.com; keydata=
+ xjMEafx9bxYJKwYBBAHaRw8BAQdAtc85GIwDXLz0rh9thWXC80Lji0otVDVncXT4qaS4j1fN
+ K0Nsw6ltZW50IExlIEdvZmZpYyA8Y2xlZ29mZmljQGJheWxpYnJlLmNvbT7ClgQTFgoAPhYh
+ BJjMiHuM4ZUwFqUPr36EW4KtCh6TBQJp/H1vAhsDBQkJZgGABQsJCAcCBhUKCQgLAgQWAgMB
+ Ah4BAheAAAoJEH6EW4KtCh6Tt+sA/jVC35rY1npFlOy7YnncTdrID8Qf855JA78IzXgvzpGp
+ AP9FkuuT80m66PP3DvgYX9kVnG17mSDKO0+v2W18v6ZgCM44BGn8fW8SCisGAQQBl1UBBQEB
+ B0DMwF4u//aQyzsFlO8rPJ/cqsAuPH80IeIA3HOEo5mlVgMBCAfCfgQYFgoAJhYhBJjMiHuM
+ 4ZUwFqUPr36EW4KtCh6TBQJp/H1vAhsMBQkJZgGAAAoJEH6EW4KtCh6TdSgBAMDS0MiWCivt
+ LjzZc9bs+P/xdXywUjDKq3lpQGJ6vZ0GAP9vI6DnN7vwVK6jt6/+0aBGkog5Ura9+WwRFEdM
+ vLfPDQ==
+In-Reply-To: <aunIVW4JeM_P2WOa@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 09:52:17AM +0800, lirongqing wrote:
-> From: Li RongQing <lirongqing@baidu.com>
+Hi Andy,
+
+On 11/3/26 12:41 PM, Andy Shevchenko wrote:
+> On Fri, Oct 30, 2026 at 04:58:42PM +0100, Clément Le Goffic wrote:
+>> On a GPIO request, select the GPIO function of the pin, on the pin for a
+>> pin-only function or on its single-pin group. Without a GPIO function the
+>> mux is left as it is.
 > 
-> team_port_add() increments the port's promiscuity and allmulti
-> counts before calling team_dev_type_check_change(). If the latter
-> fails, the error path does not undo these increments, leaving the
-> port in promiscuous and allmulti mode even though it was not
-> successfully added to the team.
+> ...
 > 
-> Undo the promiscuity increment under err_set_slave_allmulti and the
-> allmulti increment under err_set_dev_type, so each error label only
-> reverts what was successfully applied, matching the cleanup performed
-> by team_port_del().
+>> +static int pinctrl_scmi_gpio_mux_set(struct scmi_pinctrl *pmx, unsigned int pin)
+>> +{
+>> +	const unsigned int *elems, *pins;
+>> +	unsigned int nr_elems, nr_pins, i;
+>> +	bool pin_only, gpio;
+>> +	int nr_functions, func, ret;
+>> +
+>> +	nr_functions = pinctrl_ops->count_get(pmx->ph, FUNCTION_TYPE);
 > 
-> With the promiscuity rollback now living under err_set_slave_allmulti,
-> the inline dev_set_promiscuity(port_dev, -1) in the dev_set_allmulti()
-> failure branch becomes redundant: that branch already jumps to
-> err_set_slave_allmulti, which undoes the promiscuity increment. Drop
-> the inline call to avoid doing it twice.
+> Is nr_functions signed for a purpose? Can it hold an error code?
+
+No indeed, will fix in v2.
+
 > 
-> Found by source code audit.
+>> +	for (func = 0; func < nr_functions; func++) {
 > 
-> Fixes: 0ae9cfc454ea ("team: Move team device type change at the end of team_port_add")
-> Signed-off-by: Li RongQing <lirongqing@baidu.com>
-> ---
-> Diff with v1:
-> 1. Remove the dev_set_promiscuity(port_dev, -1); in if (dev->flags & IFF_ALLMULTI) and move it under here.
-> 2. change Fixes tag
+> 	for (int func = 0; func < nr_functions; func++) {
 > 
->  drivers/net/team/team_core.c | 9 +++++----
->  1 file changed, 5 insertions(+), 4 deletions(-)
+>> +		ret = pinctrl_ops->function_flags_get(pmx->ph, func, &pin_only,
+>> +						      &gpio);
+>> +		if (ret)
+>> +			return ret;
+>> +
+>> +		if (!gpio)
+>> +			continue;
+>> +
+>> +		ret = pinctrl_ops->function_groups_get(pmx->ph, func, &nr_elems,
+>> +						       &elems);
+>> +		if (ret)
+>> +			return ret;
 > 
-> diff --git a/drivers/net/team/team_core.c b/drivers/net/team/team_core.c
-> index 957cc78..cfb833c 100644
-> --- a/drivers/net/team/team_core.c
-> +++ b/drivers/net/team/team_core.c
-> @@ -1365,11 +1365,8 @@ static int team_port_add(struct team *team, struct net_device *port_dev,
->  	/* set allmulti level to new slave */
->  	if (dev->flags & IFF_ALLMULTI) {
->  		err = dev_set_allmulti(port_dev, 1);
-> -		if (err) {
-> -			if (dev->flags & IFF_PROMISC)
-> -				dev_set_promiscuity(port_dev, -1);
-> +		if (err)
->  			goto err_set_slave_allmulti;
-> -		}
->  	}
->  
->  	err = team_dev_type_check_change(dev, port_dev);
-> @@ -1397,7 +1394,11 @@ static int team_port_add(struct team *team, struct net_device *port_dev,
->  	return 0;
->  
->  err_set_dev_type:
-> +	if (dev->flags & IFF_ALLMULTI)
-> +		dev_set_allmulti(port_dev, -1);
->  err_set_slave_allmulti:
-> +	if (dev->flags & IFF_PROMISC)
-> +		dev_set_promiscuity(port_dev, -1);
->  err_set_slave_promisc:
->  	__team_option_inst_del_port(team, port);
->  
-> -- 
-> 2.9.4
+>> +		for (i = 0; i < nr_elems; i++) {
+> 
+> 		for (unsigned int i = 0; i < nr_elems; i++) {
+
+Ack
+
+> 
+>> +			if (pin_only) {
+>> +				if (elems[i] != pin)
+>> +					continue;
+>> +
+>> +				return pinctrl_ops->pin_mux_set(pmx->ph, func,
+>> +								pin);
+>> +			}
+>> +
+>> +			ret = pinctrl_ops->group_pins_get(pmx->ph, elems[i],
+>> +							  &pins, &nr_pins);
+>> +			if (ret)
+>> +				return ret;
+>> +
+>> +			if (nr_pins == 1 && pins[0] == pin)
+>> +				return pinctrl_ops->mux_set(pmx->ph, func,
+>> +							    elems[i]);
+>> +		}
+>> +	}
+>> +
+>> +	return 0;
+>> +}
 > 
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+Best regards,
+Clément
