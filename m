@@ -1,80 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793769672;
-	b=AC0R9xYKixrZ6vcQnwX29QsxNG2bfdpjUu4n2R6S0aNIVpXN30GMTGOW6yk6lj3Kh9cL
-	 CV71IeFgME12Xi0Gd1drN0541XKl+EHqRpfkjPcgCc3WuaK3eDlFgCHbgr7RyjBHa0+kU
-	 TGNEf57mHDQs3HdNPs6pf3Eq/0/QI2gDW296Ads/aBJU+gnf+7WB/5wRzcBWfOyYHRyez
-	 SUdfYTYS8PA5z+nhdieq9qkwW2+M6ovU8TdOfMO7UWpvMEapOdN75av909H0zSxS7Bsyj
-	 gWvGWowCIgvVFMk7hiuH1p1eZH5wg5tjdWlhygIWq/TghIFbJSchM4Sei+AMyvRdywQ==
+	t=1793769689;
+	b=kq+8OKnj/Dx2dJ2Bpr9XSJV3X7YOKkhoDjZBGe3/tBOXx2yr+/aRJf01yPDco8VyOizD
+	 8H5LVkv6ND9cChJUkVPmBXGpKVsPsOLCSwlklHDQ3aaIKtvFWdTmJFb+99XEhRXcRidkx
+	 gxZHJZjnC5vOwC7TepmCDl1iXpDdmtwUJrQQAKlRny2p5keKjIqIf5U39ILsCeZaeLD/2
+	 7K9cvsEwMNfIMhaDcLIu9P7wqX8JIxLMPELxek1RGp3IUsVOHmQLWp1eNF4myLA0WBkNS
+	 CG/mSmuEX7RKqD2x+iXTafCfW/rxvbZQ2V7US4iScKrqK7fzg/9SU4KNAR0iVIcdBLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793769672;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
-	 References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=i47cQNWRFMeWkUEu0AHMIuU7QbYQ/oKfSyeAA21Fl2Q=;
-	b=rKpm/1cmK2vMb3h9ZpLOtiGcdv9/y23uOGPuF+3IWM6SsRheOrAaDrcFHAP3n3LTAPRt
-	 uaNgsG3DZoaUjQbAmhZlns0Eyiid4qmv+YWkwSJAkrDl+pwdgJocR5JOLByNLDz9wploQ
-	 Oh+I8Lbbg3u2LzVjHnsGQlehWo3+9K6dn4J5Dy/jCsmFwuxRtxa9WhcYKihLgfV4EZ76J
-	 mPlVOU7zw5eq0h5LinFaSF01Rr1c5G8rJLANzvIh6WaiEHWEoVpWL2IFCraZ60D4JR0oP
-	 qCfrWanrxED1l7xj4zdEYrbZ/2aRTWoJGhWLC7pPEGNrSKPAOjySngod83TOmvBgOPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793769689;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=S3sZXHpAcPchFFTmYmyd75A+OImYl038QKcmLNpDQcM=;
+	b=jdl1uq1a2z2JrUle2T9OC9Oyc9Wn8m/5mj70eWFYazixGGbxCztf3prBdUM2J/B6iQai
+	 cBsBYBFuiuMTVkMqtMr/K1cLG6j2cGcBvqOjC0U5JGESY4LOLsLWxe/uVrURb0bRbIRe3
+	 w8UGVlXe39hDTc2aRllARZ/Nf/msjbx1v5l/tA3Ck70PPrMEX+ALoSvYgFzx/wiyy6r14
+	 wQwv4Qp2t87gEUfTyFZuwbk9mjItb6mzGHLYqj9VBcBxRlCXO1yu/HuwKnnYyXkXY4adK
+	 yeKCkOIO+Mrdtc8qDTtbTRxvmMiUtCL0eNGDG52FlhCNtFUrUcpZ7jBa8dsB4QmueuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=e4z0ZDIj;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	dmarc=pass header.from=gondor.apana.org.au;
+	spf=pass smtp.mailfrom=gondor.apana.org.au;
+	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=YzLPmqXY;
+	arc=none smtp.remote-ip=180.181.231.80
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC055606A31B;
-	Wed,  4 Nov 2026 05:21:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC055606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDEE4606A31B;
+	Wed,  4 Nov 2026 05:21:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDEE4606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=e4z0ZDIj
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A45L7zY43751301, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1793769667; bh=i47cQNWRFMeWkUEu0AHMIuU7QbYQ/oKfSyeAA21Fl2Q=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=e4z0ZDIjvckzu7PH0TVp4mEQSc1OIrrFCb+IoIe7Ep1Z36w0lrCMYsHuZRCdY6SWl
-	 oYGV3G2KgWRIpD7lkjwNz8Av+lSHCKYopOyfiYCAs3UAB8vCVROqmwZpt6vXfnGGL4
-	 1prDHNxn849aZELiGc+KpKy+D3YuSqYx0VB3sR/a2p4Xy91/CVJlKO1BEIt7c3EdeB
-	 bJaC4uy4GG8lYxNKkihNY3Z0knqEyyMPVRBvbqgHvJA6jmhK0YnlsrtBCGGYVlAIB9
-	 N25fo7+yG81GAsrCgHd7xf284UpWh8dA1bsqW/4pW83DcMQMIYNhRrNYX/WOUlzSmg
-	 1AFgN2z8GxH/g==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A45L7zY43751301
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 4 Nov 2026 13:21:07 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 4 Nov 2026 13:21:07 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
- 15.02.2562.056; Wed, 4 Nov 2026 13:21:07 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Rosen Penev <rosenp@gmail.com>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>, "open
- list" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH rtw-next v2] wifi: rtw89: acpi: check for _DSM function
- support before evaluating it
-Thread-Topic: [PATCH rtw-next v2] wifi: rtw89: acpi: check for _DSM function
- support before evaluating it
-Thread-Index: AQHda94e8ktfMF9qOEe8mjt2M2R0LbcdE7IQ//+/FACAAIx78A==
-Date: Wed, 4 Nov 2026 05:21:07 +0000
-Message-ID: <55e67132a79243cc9e214f9de7788132@realtek.com>
-References: <20261103215557.183459-1-rosenp@gmail.com>
- <a5f044a803a64a1eb68815f075bda2ee@realtek.com>
- <CAKxU2N9OpxoKF6M5rJpNOJ1HWXx8oJ3wXHpfyGGVgQpZaMi+uA@mail.gmail.com>
-In-Reply-To: <CAKxU2N9OpxoKF6M5rJpNOJ1HWXx8oJ3wXHpfyGGVgQpZaMi+uA@mail.gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=YzLPmqXY
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=S3sZXHpAcPchFFTmYmyd75A+OImYl038QKcmLNpDQcM=; 
+	b=YzLPmqXY0MxXcC9TMOXwtUj7onQ5u6uagUGMGvdjIpVkTP0Dv23rLhmSumxfZZn9cA6gKZRTLLB
+	zUUP6RRaHjDRbnuMAMqEcuo7nQHB9PsSZBPM0FnxE9Q98mO389RY3/dWKz1C958KgOmh16HLIOKtc
+	x8cUnVMgGtq+BggapJkv2Bn36/SFC076gxdVbV5Jq6XjHbUfxzsEdgrOXRaPt+v+zCSF5MuA7lv1C
+	rmHeiyTOMCaynQwEazXm1jotf54Q72+cISoQelnRNRnE5jqXHmklBVLsl7GiCJ8J9VmVwxH5IB5KO
+	iBPhK7SfwtoU/iY7fhPYXRvyuSnkjDLm697A==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xOTQr-0000000Ajf4-0KeO;
+	Wed, 04 Nov 2026 13:21:10 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 04 Nov 2026 13:21:09 +0800
+Date: Wed, 4 Nov 2026 13:21:09 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: "Liam R. Howlett (Google)" <liam@infradead.org>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Uladzislau Rezki <urezki@gmail.com>, Michal Hocko <mhocko@suse.com>,
+	Baoquan He <bhe@redhat.com>,
+	Alexander Potapenko <glider@google.com>,
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+	Marco Elver <elver@google.com>, Michal Hocko <mhocko@kernel.org>,
+	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org,
+	Lorenzo Stoakes <ljs@kernel.org>, Chris Mason <mason@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org,
+	"David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH 4/4] rhashtable: fix vmalloc() deadlock in atomic rehash
+Message-ID: <aurAxRpCwzeyXeVj@gondor.apana.org.au>
+References: <20261028154218.1668182-1-liam@infradead.org>
+ <20261028154218.1668182-5-liam@infradead.org>
+ <auKshDXKQXt1kvjy@gondor.apana.org.au>
+ <auMbCuecFeRmBFSK@pc636>
+ <jfvq7vkx73vzp2ukq6nwnb3v3g2ezdcyppba4oa5lpzmz6ls6t@akc46gonndgy>
+ <urkgmijyytg3rrislm5fdzmfggqavzpiry23f6lpkqonvy2tqx@d56stj3eixfa>
+ <auaFhOa5EBz4gJwK@gondor.apana.org.au>
+ <xdzcyoou73blpfdlgy47i2ktrcsffnclerzojpgrxphid54gjc@nicdcvzqx447>
+ <auqtTjXhD8is-y9f@gondor.apana.org.au>
+ <CAHk-=wiE0KG+jkhmJWifXuAVivtB63WCWtdEpGAex7-T0SHd2g@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,38 +86,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wiE0KG+jkhmJWifXuAVivtB63WCWtdEpGAex7-T0SHd2g@mail.gmail.com>
 
-Um9zZW4gUGVuZXYgPHJvc2VucEBnbWFpbC5jb20+IHdyb3RlOg0KPiBPbiBUdWUsIE5vdiAzLCAy
-MDI2IGF0IDQ6NDfigK9QTSBQaW5nLUtlIFNoaWggPHBrc2hpaEByZWFsdGVrLmNvbT4gd3JvdGU6
-DQo+ID4NCj4gPiBSb3NlbiBQZW5ldiA8cm9zZW5wQGdtYWlsLmNvbT4gd3JvdGU6DQo+ID4gPiBX
-aGVuIHRoZSBXaUZpIGRldmljZSBoYXMgbm8gQUNQSSBjb21wYW5pb24sIG9yIHRoZSBmaXJtd2Fy
-ZSBkb2VzIG5vdA0KPiA+ID4gaW1wbGVtZW50IGEgZ2l2ZW4gcnR3ODkgX0RTTSBmdW5jdGlvbiwg
-cnR3ODlfYWNwaV9ldmFsdWF0ZV9kc20oKSBjYWxscw0KPiA+ID4gYWNwaV9ldmFsdWF0ZV9kc20o
-KSBhbnl3YXkuIEFDUEkgY29yZSB0aGVuIHdhcm5zIG9uIGV2ZXJ5IHByb2JlOg0KPiA+ID4NCj4g
-PiA+ICAgQUNQSTogXDogZmFpbGVkIHRvIGV2YWx1YXRlIF9EU00gZThjM2E4ZDItNjk0Yi0wMDRm
-LTgyYmQtZmU4NjA3ODAzYWE3IHJldjowIGZ1bmM6MTAgKDB4MTAwMSkNCj4gPiA+ICAgQUNQSTog
-XDogZmFpbGVkIHRvIGV2YWx1YXRlIF9EU00gZThjM2E4ZDItNjk0Yi0wMDRmLTgyYmQtZmU4NjA3
-ODAzYWE3IHJldjowIGZ1bmM6NiAoMHgxMDAxKQ0KPiA+ID4NCj4gPiA+IEhlcmUgdGhlIGhhbmRs
-ZSBpcyBOVUxMLCBhbmQgYWNwaV9ldmFsdWF0ZV9vYmplY3QoKSByZXR1cm5zDQo+ID4gPiBBRV9C
-QURfUEFSQU1FVEVSLiBBbGwgY2FsbGVycyBhbHJlYWR5IHRyZWF0IGZhaWx1cmUgYXMgIm5vIHBv
-bGljeQ0KPiA+ID4gcHJvdmlkZWQgYnkgdGhlIHBsYXRmb3JtIiwgc28gdGhpcyBpcyBvbmx5IG5v
-aXNlLg0KPiA+ID4NCj4gPiA+IEJhaWwgb3V0IGVhcmx5IHdoZW4gdGhlcmUgaXMgbm8gQUNQSSBo
-YW5kbGUsIGFzIGFjcGlfY2hlY2tfZHNtKCkgd291bGQNCj4gPiA+IG90aGVyd2lzZSBoaXQgdGhl
-IHNhbWUgd2FybmluZyB3aGlsZSBxdWVyeWluZyBmdW5jdGlvbiAwLiBUaGVuIHVzZQ0KPiA+ID4g
-YWNwaV9jaGVja19kc20oKSBzbyB0aGF0IGZ1bmN0aW9ucyB0aGUgZmlybXdhcmUgZG9lcyBub3Qg
-YWR2ZXJ0aXNlIGZhaWwNCj4gPiA+IHF1aWV0bHkgYXQgZGVidWcgbGV2ZWwsIGFzIHJ0dzg5X2Fj
-cGlfZXZhbHVhdGVfbWV0aG9kKCkgYWxyZWFkeSBkb2VzLg0KPiA+DQo+ID4gQWRkaW5nIHRoaXMg
-Y2hlY2sgaXMgZmluZSB0byBtZS4gQnV0IG15IHF1ZXN0aW9uIGluIHYxIGlzIHRoYXQNCj4gPiBh
-Y3BpX2NoZWNrX2RzbSgpIGNoZWNrcyBmdW5jIDAgdG8gZGV0ZXJtaW5lIGlmIEJJVChmdW5jKSBp
-cyBleGlzdGluZy4NCj4gPiBJcyBpdCBwb3NzaWJsZSBmdW5jIDAgbm90IGV4aXN0aW5nLCBidXQg
-QklUKGZ1bmMpIGV4aXN0aW5nPw0KPiBTaG91bGRuJ3QgaGFwcGVuLCBidXQgd2hvIGtub3dzLiAg
-DQoNCkkgZG9uJ3QgbWluZCB0YWtpbmcgdGhpcyBwYXRjaCwgYnV0IHRoaXMgaXMgdGhlIG9ubHkg
-b25lIHBvaW50IEkgZG9uJ3Qga25vdy4NCg0KPiBJIGNhbiBkcm9wIHRoZSBhY3BpX2NoZWNrX2Rz
-bSgpIHBhcnQuDQoNCklmIHlvdSBkcm9wIHRoZSBwYXJ0LCB3aGF0IHdpbGwgdGhpcyBwYXRjaCBk
-bz8gYWxtb3N0IG5vdGhpbmcuDQoNCj4gDQo+IDdiZjJkZmNjYzJkZDcwODIxMTA0ZDE1Y2JhYjdi
-NmZjYTIxODcyYmUNCj4gDQo+IGlzIGVmZmVjdGl2ZWx5IHRoZSBzYW1lIGFzIHRoaXMuDQoNClNp
-bmNlIHJ0dzg5X2FjcGlfZXZhbHVhdGVfZHNtKCkgaXMgY2FsbGVkIGF0IHByb2JlIHN0YWdlLCBJ
-IGRvbid0IG1pbmQNCmFjcGlfY2hlY2tfZHNtKCkgYmVpbmcgY2FsbGVkIG9uIGV2ZXJ5IGNhbGwu
-DQoNCj4gDQo+IE5vdGUgdGhhdCB0aGlzIHNwZWNpZmljIGNhcmQgd2FzIHRha2VuIG91dCBvZiBh
-IGxhcHRvcCBhbmQgcGxhY2VkIGluIGENCj4gZGVza3RvcCwgaGVuY2UgdGhlIHdhcm5pbmcuDQoN
-ClNvLCB0aGUgd2FybmluZ3MgcmVhbGx5IGJvdGhlciB5b3U/DQoNCg0KDQo=
+On Tue, Nov 03, 2026 at 08:28:36PM -0800, Linus Torvalds wrote:
+>
+> Sadly, the commit you point to doesn't talk about *why* that
+> braindamage was done. Looking at the original thread it seems like it
+> was for kmsan.
+
+Here is the link to the whole series that was applied (v4):
+
+https://lore.kernel.org/all/20251007122035.56347-11-urezki@gmail.com/T/#m50cf87c3f12015a56abe5a6359525019851f1b97
+
+This is the original RFC:
+
+https://lore.kernel.org/all/20250704152537.55724-1-urezki@gmail.com/
+
+Thanks,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
