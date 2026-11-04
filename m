@@ -1,79 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793811104;
-	b=KnhCnVat9incIuE6hdw9r2ovccMZjbYo3/jeodkO9cLwo5e4Y0htPClEjoYBzmz2HTq6
-	 WjGc4uFtV93uEz22HjebPkJoOPIvHeMBhbZhoJw9Htfr2h722Lye+cf8Qy40w8Zc+BV6K
-	 BJW8Z1sC0LZenycGQMeVh7+NgTuxpz34QQ0WKq6fS8VujTkNRbPL4kRWht9qcln13i79L
-	 wPfPB3KdWmcEA2B7kwBW4/MGOMA08KOlUZxXpQQjNsY2Vplz0U0IauAekOf3B9xJS8CZI
-	 fF0+WkzdQvBGStfAb+jZreIE6kK9QQ6PyRb6mGSkFRpiWEQLr0jfr7mLpt4vq6srPEA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793811104;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=p7OUoDHzO84rd3SaIkAYTOyNkjctPr1wXuEFD+8X+3A=;
-	b=5OfoxSMxhazSbeRZe5YPYvLE+rIZT6b252ECltY5ds8nITcUqW4twwNPZsRB/oYgxLbz
-	 tFVfQRBGQ0pYPBBhgWrLyuFSFLIf91fln9NNuvLtIW/tisbTRcd8nZ+LPEmFdQhZBkCDH
-	 CpdzVPkh4DRnpePWin7fPV2kW+g53Bl4dFLx/G1NqLLAsriOuxZZAE7AaJpdOapxfuRJ3
-	 VX8lqMY44CnIHYwJTVnUf7DXroKFBZO8fNznX3/lPq8zCqKyXXq//DxVMxzOIv32jMtMt
-	 A/3ESCQAHIRsowIgAgj8ET65GSvMtKaZGbf7f5sbqDeyOPZjVUpHSHuksRripx3NwNg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jrJH/jDl";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793811105;
+	b=0+KTzTbGAtJN3un1xXFQqEVNz2b0aVAWFwjz8j7sMZ6GwDdWYlC+V1ACEzmhxbGhbENu
+	 56EaWdhe4EI9QWD2YLclsHIT1wxZNLjzfAvMAOSxu12tNaEwKZZvj3bTfXkcWe6TX2fzm
+	 jrDIpfqj7HUdp99sU45SWBYqEMTRk3dyAJyIqS+148GoOgNP0pHxM5drNIC+UjlRQwMVp
+	 yJnZkXAPSrZsY36lWDt7LBNGLhQMWlMzYFP+vu4BKUN9w97pNXfzV3HcmcRDP0xHT5bUT
+	 qLjO/XNrVKFSseTRDPyhcsdQF69DIs30nAvDMUUYsxc1EkjFf62/S4MHEBF494zv5hQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793811105;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=O/78z3V2uKfxkMr3m/0nYuByubd+lKz6Ex43q4dvKG4=;
+	b=PebK1HMVgk6390faVHSGrC8KlKyFFL/oPJBl9ctEEyEUNrZPUnGxiZBJnvlskXBfxqLX
+	 u66eMVVXXs+HXGxcvfi4pRmHRhHCEzH/R1abAsZ3mmRxjukdQDB1JPnjfIARlGDTgOMzn
+	 BySXc97C5aiC3arWaB/PQ6ZosP0JFbsEIaKCRmx7hKM4ntkAmBNffoc8u9wDFYKc5d27L
+	 bkZ+z9kwQxT8rvALqBwGFIVuGGA+84w/utqOiAwIM/9q5BObXahC7eGphFUo8VHfwetJO
+	 x8f6JxQgj6O3vezKYTccfr2zxGjNNl4Gr7VkEh/khhCU52ZF/Bz/pEjMvAA8Q/OC7xg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="UYt6/MHc";
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA21E606A326;
-	Wed,  4 Nov 2026 16:51:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 338AD606D80F
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:51:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jrJH/jDl
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793811103;
-	b=U+AU+9t8nPQh01n/93KipqEI7ANKepaBoAI5N7ghPzts+Ti9yIOj9HtX6ZtXEl2dc9xU
-	 TmgYQA7Xwzhs6eSZlpzkpC2yZU7fkeVb/9UehvfTyrqn09vFwOkWSYApdwQVX2Iq+HkI9
-	 4spiWG8BJc3xh/y9qAmFHyWaVd7B5c3Pc4AUEduFi3iPhE2/0gx+O4LUl2R3vnV3nGkMe
-	 sipAc8jl2vyicntaN0JOy+CARXC99eA6SsmsrAiVvtwwR6wCM6KG7WrQbsYwfA7ezYa50
-	 uWuVPl1JPGN8JilZ4dRmFwaBnGfjR7S7FCcgp6IBlLozHS21qF9nYSb/rEEHS5hMo/A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793811103;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=p7OUoDHzO84rd3SaIkAYTOyNkjctPr1wXuEFD+8X+3A=;
-	b=p1JZrD/j6vZC0rRcWdacWxsy5mXO+qHFKclTRJJEjjFmza2UWAMvzft3mT0j0FrRHIZ3
-	 rvWxY9YK9YFFNAagM6xXfLoQJiz9EvVu4k0kktHPe3BQ+aR1aQ354YBQSczHuYS+4Y2Bu
-	 u21NfNYMmP09KUj30cG+djkBBkm7LRQk/aOLeDidVJtpltbjco8tMq9i1nOkF//d1yHIs
-	 fQoj2QLQYRxtd4AAUVU2mFbapUcZl/06rKtEaFm9oclNn6Tv1KzqhrNDF9pzASQSfCj2d
-	 q3pcdGr78WqlVyot6nwTt6goSGqcZlzmuxuFlgDPRIa0/nnYdV7wijxGLG1O2VmR+xA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D13161F000C1;
-	Wed,  4 Nov 2026 16:51:42 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UYt6/MHc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AFFD1F00A15;
+	Wed,  4 Nov 2026 16:51:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793811103;
-	bh=p7OUoDHzO84rd3SaIkAYTOyNkjctPr1wXuEFD+8X+3A=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=jrJH/jDlyMB5M3+0j3FDSxLfRxBGzW5YQFz2erNC3x2fXq6eLnTBk/3V7eaB4WnDr
-	 lYk/sYDX2B6hOwz+1H1HsTifA4Tfj8Ra7ZbrI2tbwmIUud6oG466pfi42msXxEWqcP
-	 zTRb5ZbLzSVCaY/NTlkE6XeNz2xG7cEPhhO9N3qTHkLbEEqSzgujrfWZJwMNjAco7w
-	 Oh94K+DW0Yu+VtWJGeqUF+d1DQtJ8hIEdgDkqNYnpeTj+MDXRcN8L5GSIAXdWweGE8
-	 B87379Oa46L09EnzIVDbksPQcfiPSmySB4ERhOwhTfPDGKOha9VTIRu1H1T9JmWV7H
-	 srn8MnHfutjbw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2C67146EC9;
-	Wed,  4 Nov 2026 16:51:42 +0000 (UTC)
-From: =?utf-8?q?Orkun_Emin_Sar=C4=B1_via_B4_Relay?= <devnull+sariorkunemin.gmail.com@kernel.org>
-Date: Wed, 04 Nov 2026 19:51:42 +0300
-Subject: [PATCH v2] io_uring: only wait for in-flight requests if the
- closing task uses the ring
+	s=k20260515; t=1793811105;
+	bh=O/78z3V2uKfxkMr3m/0nYuByubd+lKz6Ex43q4dvKG4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UYt6/MHcHZHIvd4O9cyJwHf5SJ55ABxZ49y9pmNCTwFcdmaQohBy3bVr4PZ/yrncD
+	 UVemQo3L77xrhqWNvC543xf4l9kWes4/eUUThju+bGg3oqep8nnNK5sjZFNbTGI5kV
+	 chRBn7ouEm2YMo2Mxh+TkPx38AD+lfqsDqgxOkzFgy9Dw9875iJASTk7/ltaSyfYc/
+	 3B7kJ9dcviu1Ot7jhYkwVX8nvpamlbZrciyXlsxKNvTx3OcsOZHnuY2xNekSx7ctnn
+	 3bbBvCrnUZJfjAj8hScLx9sbenhlwDT6aldbUr3u1fH04sXstwEONlZcX3fdErCzo3
+	 Rwbdt1wT9oqEw==
+Date: Wed, 4 Nov 2026 17:51:42 +0100
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Avi Weiss <thnkslprpt@gmail.com>
+Cc: anna-maria@linutronix.de, tglx@kernel.org, mingo@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] hrtimer: Refresh softirq deadline after clock changes in
+ low-res mode
+Message-ID: <autinnoNb1wz3MPk@localhost.localdomain>
+References: <20261101172344.426489-1-thnkslprpt@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,76 +58,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261104-io-uring-wait-inflight-v2-1-f38f29fe8018@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNSw6CMBRFt0I69pm28lFG7sMwqOW1PAOtaQtqC
- HsXcAEOT3LuuTOLGAgjq7OZBZwokncryEPGdKecRaB2ZSa5LIXgOZCHMZCz8FKUgJzpyXYJCmO
- qs6p0qduCreNnQEPvPXxrfhzH+wN12mqb0VFMPnz250ls3t+TSYCA/FQKxS+8QMmvdlDUH7UfW
- LMsyxdeRv3zzgAAAA==
-X-Change-ID: 20261104-io-uring-wait-inflight-5ff78a7c6cd5
-To: Jens Axboe <axboe@kernel.dk>
-Cc: io-uring@vger.kernel.org, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Orkun_Emin_Sar=C4=B1?= <sariorkunemin@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793811101; l=1703;
- i=sariorkunemin@gmail.com; s=20261103; h=from:subject:message-id;
- bh=2zAkFtlRAbKoTeetYy4EAFWZ/r67JeI0vLajPk/pxyc=;
- b=RtbouLjW9ofs3DQvgitpYlDXkyFY8PtA5hoa0+z1rlR9uW0kpvA51MXzujS+yCgydwx0R3FEt
- 5LxnsoqxBh3DvSp1QBiEehpF1vnVQ2C4db2GpQZYtTyqTBgIzMfcT7X
-X-Developer-Key: i=sariorkunemin@gmail.com; a=ed25519;
- pk=MJ3Y3somkGDQVAXOSR189QAqWOcfzYCRkL1cSQgJXnE=
-X-Endpoint-Received: by B4 Relay for sariorkunemin@gmail.com/20261103 with
- auth_id=1408
-X-Original-From: =?utf-8?q?Orkun_Emin_Sar=C4=B1?= <sariorkunemin@gmail.com>
-Reply-To: sariorkunemin@gmail.com
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261101172344.426489-1-thnkslprpt@gmail.com>
 
-From: Orkun Emin Sarı <sariorkunemin@gmail.com>
+Le Sun, Nov 01, 2026 at 07:23:44PM +0200, Avi Weiss a �crit :
+> In periodic low-resolution mode, hrtimer_run_queues() updates the clock
+> base offsets at each tick but does not refresh softirq_expires_next.
+> When CLOCK_REALTIME is moved forward, an expired soft hrtimer can
+> therefore remain pending until the old monotonic deadline is reached.
+> 
+> Reevaluate the next expiry when hrtimer_update_base() observes a new
+> clock-was-set sequence, before checking whether to raise HRTIMER_SOFTIRQ.
+> 
+> Fixes: 5da70160462e ("hrtimer: Implement support for softirq based hrtimers")
+> Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+> ---
+>  kernel/time/hrtimer.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/kernel/time/hrtimer.c b/kernel/time/hrtimer.c
+> index 17dd38a6cee7..5d1df371e931 100644
+> --- a/kernel/time/hrtimer.c
+> +++ b/kernel/time/hrtimer.c
+> @@ -2289,6 +2289,7 @@ void hrtimer_run_queues(void)
+>  	struct hrtimer_cpu_base *cpu_base = this_cpu_ptr(&hrtimer_bases);
+>  	unsigned long flags;
+>  	ktime_t now;
+> +	unsigned int seq;
+>  
+>  	if (hrtimer_hres_active(cpu_base))
+>  		return;
+> @@ -2306,7 +2307,10 @@ void hrtimer_run_queues(void)
+>  	}
+>  
+>  	raw_spin_lock_irqsave(&cpu_base->lock, flags);
+> +	seq = cpu_base->clock_was_set_seq;
+>  	now = hrtimer_update_base(cpu_base);
+> +	if (seq != cpu_base->clock_was_set_seq)
+> +		hrtimer_update_next_event(cpu_base);
 
-Since commit 13d3783a55b7 ("io_uring: wait for in-flight requests on
-ring release"), the task dropping the last reference to a ring waits
-for every request on it to complete. A process that only received the
-ring fd, e.g. over a UNIX socket, can then block in close(2) on
-requests owned by other tasks, such as a read from an unresponsive
-FUSE server.
+It took some time for me to understand the issue because retrigger_next_event()
+takes care of that already.
 
-Skip the wait for tasks that never attached to the ring and leave those
-requests to io_ring_exit_work(), as before.
+But if the clock is set and hrtimer_run_queues() happens to run before the base
+is locked and update_needs_ipi() is called, the IPI won't happen.
 
-Fixes: 13d3783a55b7 ("io_uring: wait for in-flight requests on ring release")
-Signed-off-by: Orkun Emin Sarı <sariorkunemin@gmail.com>
----
-Changes in v2:
-- Shorten the commit message and the code comment
-- Use real name in Signed-off-by
-- Link to v1: https://patch.msgid.link/20261104-io-uring-wait-inflight-v1-1-4361a0905e20@gmail.com
----
- io_uring/io_uring.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+It could be worth adding that to the changelog.
 
-diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
-index 03724419c4..5db57bf675 100644
---- a/io_uring/io_uring.c
-+++ b/io_uring/io_uring.c
-@@ -2547,7 +2547,10 @@ static __cold void io_ring_ctx_wait_inflight(struct io_ring_ctx *ctx)
- 
- 	if (current->flags & (PF_KTHREAD | PF_EXITING))
- 		return;
--	if (tctx && atomic_read(&tctx->in_cancel))
-+	/* Only wait if this task has attached to the ring */
-+	if (!tctx || !xa_load(&tctx->xa, (unsigned long)ctx))
-+		return;
-+	if (atomic_read(&tctx->in_cancel))
- 		return;
- 
- 	while (io_ring_ctx_inflight(ctx) && !fatal_signal_pending(current)) {
+Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261104-io-uring-wait-inflight-5ff78a7c6cd5
-
-Best regards,
---  
-Orkun Emin Sarı <sariorkunemin@gmail.com>
-
-
+-- 
+Frederic Weisbecker
+SUSE Labs
