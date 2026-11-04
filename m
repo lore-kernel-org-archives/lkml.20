@@ -1,100 +1,186 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793782932;
-	b=yrmAiScgTnfSpao5IAxqESdwyrWKQI+r+Oa4z8O5SUqzE/huK3A5uboOo4gyvACuH8Kw
-	 3RVn47N72DY3FiocqsuCGbbBzkLOq8R8r0xVIOY8obMVK/JS8l+vDCgK2/4hVMu/2uXum
-	 NN/a3kYTq762vZ+VN1zrwmEgve0MONjeyGHCOYMl3nX5spyOXzqqdgZ0Frg5c2ZiwrWED
-	 OBW8WRvBDyJ08tSPsyTtQCEiFAoVuBb21C3reoZP+x6YSL8HZn3NZ1H64zdu3qK8Ex+7C
-	 HhZhCFBpgNePOLy71eRWLa12QrI1JDA9TaWSpOVQ6uLRMOWcgOUJfyHnlVZfk0pKGuQ==
+	t=1793782948;
+	b=hq3RcauroGfRR71esAonQRoaWsjsJWacOSu28M/8xH62uhJKrzmzAMn9sVKHMgZAyBKl
+	 T3+cblFcvXW6h6ZkgexlQWEz7jFEuLtUX3BNldj6wPzHok14vVAfBWZGtK0i2hxT35SYt
+	 4IHkDve+BCbDOGtXbOxLXnywM+LVuZI+qEDWTrJu/CXcOIT3jTgavq20Gg31QCqpdMrIG
+	 S5PDNYlGCunNkZ4F2WhkqiVNXN8TDDtdVAiJOqKBkrVsZEs9DN++h3Jj05qPvDcb7xt7B
+	 QUVdoEKSwd576HAAzXvj6aDO/HADwJ+b4Ymic9x94TcNhr48Jct346knF+TU9PL7IFQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793782932;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Mwg8ejIP9AknwB4N84ymkkwkqfDAgYFi8CLuYr+urxk=;
-	b=mRbrh1mrvZfuh7rjQhtJyN3Wxkz0oOnHhQPW+SwL6e12Y1Laa49wTuJkY09ZRpnq9plY
-	 iactgSuE5ENTZ9UMDhKsYgiRa367/6JdWRoOVuMXaYQd2mInOvSFjdzzUC40sbHGzA14D
-	 f6sePR8UsKdbR5t+P3ILUlwCn6oplUiLYnHDePThgnGDXq1hEmkJ/ZpTmrFQP2bzgKkg+
-	 3Mvn37yB1xupZ8f5zHVVli5cu51dFkwP/qr1h8pLbM+u/zGoACusE8iOSxRTXdt3I520y
-	 MZM3XDw2mKptQglq5n9FD6fl2/k1qgE9gepmci4u7GDJHuQ9qz80SHQHCwG86ocNkfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793782948;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
+	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
+	 X-MS-Has-Attach:X-MS-TNEF-Correlator:x-ms-publictraffictype:
+	 x-ms-traffictypediagnostic:x-ms-office365-filtering-correlation-id:
+	 x-ld-processed:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=5xCal3Tehs7RyOoxLuE7lxCR4hKUABfdY45rQ77Wjt8=;
+	b=eTjI/K7P9O5o52E/aMKdRu+ZfRIdxxbOPieIHNxreTA9w5T9p/eqtisvVfgLnLHSp9iG
+	 W2rtP2tWAk3n/FWE+R8GMbDwMyzeG3m+oRyJ9LVMAPVUA9Kf+vArdK3A15MWAW6c3rt2V
+	 qHmhdVGBRBo8KO3fUT3S5fivUIrJMvueuURcISIFqhGtcgwruxhUp0ZVDOUYHPxj5C5zQ
+	 KT6O1q7hDvDt2HSFVBQUaWKAwzvOHDJbPBEz50vHT+WjuvEi+vSWCnCdjPBvej01OV4s8
+	 P/n6UaHgCcr80A2qtcTLy4MoqtxPWHExKPg6HDSjjQNGLgAbJdrViH5xUnL9g4ume3g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mD5XFs7j;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=ti.com;
+	spf=pass smtp.mailfrom=ti.com;
+	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=LCnCaROJ;
+	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=VEi7F4Iw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23137606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:02:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23137606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27F1606A31B;
+	Wed,  4 Nov 2026 09:02:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C27F1606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mD5XFs7j
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b4e814214aso462046a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:02:11 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793782930; cv=none;
-        d=google.com; s=arc-20260327;
-        b=m/CSYgHPJNBrRjCIRwAbI6yWcz0+diU0y30v6akq5nb5C9TDE2ASTdsWKncO8nZNy7
-         Ott2LllL9To1gLQ/HYp7RHNlUE7hv13OMk1P3ZUXhLc1VSnICOYOEYOUuIdwFeJz74NS
-         7wDmm76rjvQ0Q2m46e4VaQnptjFVuCK9kpVE5qgqorHcyUQtHosWfZW6EfEXziAIxDFz
-         zxQ03/4N1KT9kL7aVeQ6F2E4rE53yf0rpgZrMCTmTqRFyq3JnJgSJrJqSXFnjXfhKpl5
-         S2yANml18obZ5uuF9PX5UoFx+yZHjyLXRVnbXy5CipRTiAZN6p+OrGi2PUhIxb19eD6x
-         uWRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Mwg8ejIP9AknwB4N84ymkkwkqfDAgYFi8CLuYr+urxk=;
-        fh=BkWty4b6o0kI6jXQ9aKT2quB8takQDAc4YNZ6KQL5PI=;
-        b=p8AZooPiuyXMWGwAYvKXLrwBs+OMpg3p+hRdEKSCBJpbANnA+oNFSdwdUtULyjcHJY
-         VS4s7AsOLeHNiJQo6F3AzXsdu3dsYq6abTmp8envrlZPF5i8YnN4NOLXbBIkf3XRsSBd
-         OtEOHrZZUjxovDL2zYYFFtPOtY7KrixsPgjuE8n4KB8OGUoVo5SY8PmuSUl1WqkmaBwI
-         amp5JMlfw+9OYtTxINz26o9IXSyu1tR8zINlhIOvjATMpJ9BC4VI7rT/2rQLhNqTc3oB
-         OeoXdzotdzAbzX6I9uR0lZGW1fz1Ho9MnYY2J1hHbbWeBeOESEQzfAYwYVyZuDqB0z3a
-         U9bw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=LCnCaROJ;
+	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=VEi7F4Iw
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A48J4MS1287149;
+	Wed, 4 Nov 2026 03:02:21 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-id:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=5xCal3Tehs7RyOoxLuE7lxCR4hKUABfdY45rQ77Wj
+	t8=; b=LCnCaROJtmgLDqxL1fJVXFw+HUGZuARRag8auwXfE7dCDIxhxg2ED/onQ
+	Dc+rBgjVm9DnSJ2JkO1aFNAcFH1iJcv6I/By93XJpbVxNNfu5Rry3Iix4a+uoM/A
+	t5BpQBJqTRLbLMuHih/SRB35Qhd/Y9DNMX3xaJUoSjxxGXFxyS+m2WaAY0rLy5rf
+	qYaytaQM27gfF7/PhcH6XwnmM1NwHCq6/+CXbKS2Js3lYL0GTz/a7phNP+mdgFiJ
+	eUNhMyDmH/QloqrEW6h/wt66YsE/z784oQViCfp0ffZUP0IcKnn9/KJ1Q+0JOSpM
+	q7HhEm+eV7mhBJFt9Lh5nfj4oGdJA==
+Received: from sa9pr02cu001.outbound.protection.outlook.com (mail-southcentralusazon11013007.outbound.protection.outlook.com [40.93.196.7])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4hquyf1w2n-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 04 Nov 2026 03:02:21 -0600 (CST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NhP5gvpvCKqSoZ/O7vRDVvTvuN3yITMLoo5YcwnPOrSjKnP3GtvvQEZS3cO4AGVtzAnEFO4Ui7zkozPiC3CD+ld5MFMQlSmL9VN3a4VcL/6b+BUpFMenK/BScwRhPdW8WgeddSOxJTjGaLvhV5iQ7MaiY4ebsM1GeuFdaeOLtxQyj0m1dYJF01cNqpG1QBB8wZKUXcksxRqzps2jUn9I2LIaJSnilT38oOW9yFfBicmpvBHsRq0kfmvFch8k+1XsUk6a/y89fjPho2Of9gCrTuJNGB2XHlqJlU1qWVovZGyislifChc00L+YfxLB4nJYmWF3ICMR6MXYKrLuyrN1rg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5xCal3Tehs7RyOoxLuE7lxCR4hKUABfdY45rQ77Wjt8=;
+ b=NHgESHBf+72qEG+ywTosi5HsnkHqsUUb+YaIv71bBoV2e43oFYdhJNIcggNwaWbnA5wolPHF3UIUMz3mFWD0CAsG8Y9TDWiJb8vt+0a7/NWgrPfqJUlsSaEp1F+Np3P28MbzEdZ9auWwFgNDKak0I8iQ2uQCrn4noh/ohymltg63f/jrH0HH2syEYN+xn6PEYlrAKsQ/gs3SHQb6Y5Ytujewf/IZb98yjpvc0cT04g8jxzJgCG+w8T6lrbfTf/bKtY/XCIC7IKUVTF9D3WDIjwsDwXQpwISeD0t2s+qgmZvE/42VAhotVtNHAQ9/ufJjfZ0GadPofLgntkiabq7+RA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=ti.com; dmarc=pass action=none header.from=ti.com; dkim=pass
+ header.d=ti.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793782930; x=1794387730; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Mwg8ejIP9AknwB4N84ymkkwkqfDAgYFi8CLuYr+urxk=;
-        b=mD5XFs7jqRYRgY9Vo/7sscQpFUouFjX4n+a6lyHIDN4UJh4hj+2L64aE2qEZHtez06
-         nXnP7DXW2Wb0msSqfF7aEbSwC+Yj9fDmGSBYiljw3BYQzYoLKsyTgBQO2N7V7Pe54P3R
-         b4CrZu3J9tIjMkFmuIG+sZmAhZgz9LlRr/I5pLKiEFOFHhX1gCm0Zi3Wgvfy+UKwQZ/U
-         ASRqXyACQ03TBR41VpiRTcCC/imonGqg8LUnWbQ+0G6mtcPkW/ibMWZFv9OiXjrYJHvA
-         HvAwfXe122fXYKLIBF2zpibQcsfgPY25ZBZU0P3XfY8Sy5ut3sgJCyMwWjiTNIVR2SLW
-         BtQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793782930; x=1794387730;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Mwg8ejIP9AknwB4N84ymkkwkqfDAgYFi8CLuYr+urxk=;
-        b=HtiN+V2JTWc+dKTxFzSTpV22EQkBWt89GFN/BxH/HZRFF8JPUIhCONjMpR7myu/kyV
-         X17K0VNwxgLMOdJs0X4YOgpXIewWIhZnCpjbWQQdJ4/xJ6STJXo9YnKV/ZxUVKAxOO1L
-         PjT61WvyDxWKTTRiSbioJioIT1fZgKp8hSq+lJALU3v6d0sXukWT/D7fRHh1dv6BMHJw
-         Lp6ycBUENv2i6et7mGG5B1AcfFY9/NJA5WoVAAu0TMxpSSsirVbUpZgBvPq/AOQk7FOI
-         1QANbHdx+S1oOn04bFPxgYYfzZw+tMOM3mog7PlOcjymgmtJ0cdrbHM6UGvspyRgfD/c
-         XlZw==
-X-Forwarded-Encrypted: i=1; AKwUvBzqA17MYCYHQdMoiiUn0DQgIPJi9w7cV0b1Hhm7CNOEDQn5LQ9MN508JyJDGK5RZ2UXlMZxBz2ArMYe65I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/J87pm5ehXs4NqzGG9Jfd8coGk92MyxhEJyN5uWm14O1uJYShF
-	Lq/Oe3m7mmt6rBxc81et7rNhozMcjO7m3OW0SmCWwExsMS4Y4a5a0GFoEzqivVSAygJvxviEIpq
-	1yR0TK2ARRrlYpQI5JVY53y+daSYt/GY=
-X-Gm-Gg: AYBFou2ECsIia5bzVsTtthXRPWJCa74g+LsmQR6NrLeqv2zj0E9hUAgRLAopo3uZv38
-	+bJTDTNXVVOX+t3R0nAIW6eebD9YUGH17ecFXTdeIy9R1VTGX/8agwVGKbjKgpeqcredgLOO9en
-	i2mfkI+Azlj+Le/tRNSFPc194rxJ7ljTjsuGs0IXA4P6rl0OjsnpNPyIE8k7AzdwjNYMFaAh+uO
-	sK/oICunymrtlqY7hkaHvNasM/DNJ4roBzwREa+ozexmZAEWh5L1SERgbP52LwtesOfJKVceblf
-	RbThxTe9B4veGcY6EWG68b0pFnvsOEOPhvDMySDydm8Ccq/mO9XXQqVozVOxeEzSilt4wAq0as2
-	v0EF0/aeHzt6xs8OOtQVIyfME74cjoMat9QI6GjLmQDddzNwdRENweN88PlSobinwU4NNKA==
-X-Received: by 2002:a05:6402:789:b0:6b1:8316:ba32 with SMTP id
- 4fb4d7f45d1cf-6b4d46754a6mr9226911a12.17.1793782930241; Wed, 04 Nov 2026
- 01:02:10 -0800 (PST)
+ d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5xCal3Tehs7RyOoxLuE7lxCR4hKUABfdY45rQ77Wjt8=;
+ b=VEi7F4IwGwbItAad06Q51Cd3JGOgFaQ1E0la935bq7/C2/vvBRrehT6OJcvPmeoi6L9/rIdN4EdaWzs6LHRCmTNitFd7K6oRiAtWZvHIJvTOakAG3SousMAbFlWrYu6/MLvrd9dMYXJF/+hb7P7xmNRqk/nGSCSTmtqfpQNP6ps=
+Received: from PH8PR10MB6645.namprd10.prod.outlook.com (2603:10b6:510:223::19)
+ by SJ5PPFD9B14F409.namprd10.prod.outlook.com (2603:10b6:a0f:fc02::7d4) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Wed, 4 Nov
+ 2026 09:02:19 +0000
+Received: from PH8PR10MB6645.namprd10.prod.outlook.com
+ ([fe80::8985:7ede:7087:7bd7]) by PH8PR10MB6645.namprd10.prod.outlook.com
+ ([fe80::8985:7ede:7087:7bd7%4]) with mapi id 15.21.0546.025; Wed, 4 Nov 2026
+ 09:02:19 +0000
+From: "Adivi, Sai Sree Kartheek" <s-adivi@ti.com>
+To: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>,
+        Vinod Koul
+	<vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+        "tony@atomide.com"
+	<tony@atomide.com>, Daniel Mack <zonque@gmail.com>
+CC: "dmaengine@vger.kernel.org" <dmaengine@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        Julien Panis
+	<jpanis@baylibre.com>, "Mendez, Judith" <jm@ti.com>,
+        "Francis, Sebin"
+	<sebin.francis@ti.com>
+Subject: Re: [PATCH 4/4] dmaengine: ti: cppi41: Share register setup with
+ resume
+Thread-Topic: [PATCH 4/4] dmaengine: ti: cppi41: Share register setup with
+ resume
+Thread-Index: AQHda8rsuu1D8mtwU0ymOGdsexai17cdnsuA
+Date: Wed, 4 Nov 2026 09:02:19 +0000
+Message-ID: <406e1733-00a5-4a25-af88-a5304b4f4310@ti.com>
+References:
+ <20261103-v7-3-topic-am335lpm-cppi41-v1-0-d7213446c5f5@baylibre.com>
+ <20261103-v7-3-topic-am335lpm-cppi41-v1-4-d7213446c5f5@baylibre.com>
+In-Reply-To:
+ <20261103-v7-3-topic-am335lpm-cppi41-v1-4-d7213446c5f5@baylibre.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=ti.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH8PR10MB6645:EE_|SJ5PPFD9B14F409:EE_
+x-ms-office365-filtering-correlation-id: d7fb46f9-67e9-4939-fbb3-08df3a525498
+x-ld-processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|10067099003|18002099003|261102123227099003|22082099003|56012099006|38070700021|4143699003|261021121427099003|261009223027099003|261026121527099003|261026140227099003|261022105027099003|261028144727099003|261021123027099003;
+x-microsoft-antispam-message-info:
+ pOTBcvhmQad16No6i6zmYkUBykbpTQcopM23z6iflKL7PZnTxCMh+tC4zYW/7dRNCcTM9v+ml9scM/smjjBXpNwNytM+Rdo0OmspbraN4C+C+s7EIx1zR+gj2Gogw9992noQdQwhFt4M1WGdE4QmIA5C+Nv4qYVGCrCPnLTiepyHnoVOXAVq12j5JUGix3OWsS3LhCvHRNYZuR/4CkJ39/ZfFG1Gbe4YrXCl2p2UOCAYHxuMAsNq6eYRRbZL5tXCHiw5NF2YRbCCKgWMECsWxRLBNivWsm21bYRcgMntFIHQBYsZV0dOeKb99kTPpzx9hoSNV6yhcj7VkL4i4whyA+UWA+tzxb+jaoiznvDfqyyy26GKMzYh5H4fRsATintMmUj6EpJBSirvFfu7kSOynMPL4vPczEAemcxL+5VotkF0qJnpZG+HWiORsrfgz6/CGimywcKfQ17/wm8RdGdbXx5l+Woy1HIqj17SKfwc1lFQauXzuthHMLSMWkDDZ8g5TiYKq10ch0deLjAuPeYxkyqB3nmvzfgKr5krHVYkNDOn3cTZmzFRNbid/cu0LpcZxun5vs9d4f6PM1k5R95d2Q0BQE4ES6/KIjOYc/geoagAV/Ym21w0ACqFug8u1VoTMc0mg5MMM+6gRBXLO2pvqzXOU0VBipaeMGrJDD/XgeOVxQsPsapaYy6T6tLk1Rma0KMNF9ML1/RA0oVuVbsCxLXRxcYEf8xmbjDT9GY/UIo=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR10MB6645.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(10067099003)(18002099003)(261102123227099003)(22082099003)(56012099006)(38070700021)(4143699003)(261021121427099003)(261009223027099003)(261026121527099003)(261026140227099003)(261022105027099003)(261028144727099003)(261021123027099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?NTh1ZFI5Q3dqcTBlWGlHNDE2bFF2ZkQ2dldlWVprdStSa0ZIYUNpYkpadWpQ?=
+ =?utf-8?B?azFTbFRxc0t2c1VqdVV0QmJYc0VVbFdHTUJ2MDk5L1JTK25mbDZTbHpiU3ZG?=
+ =?utf-8?B?eXh6eDlHWkNIMEh3THNWS0FjYU1idE4rUXV2d2lpUEVXYVRDdHh1RUU2ZkUv?=
+ =?utf-8?B?bTh6K1FvVFFraDBxdG4ybEp6QzhhY3FuR3JkUEtZNDB3TUZVU0FMbFZ3K1VW?=
+ =?utf-8?B?RVFVdmZmbkdrK2Q4b0dvMXFDd3RXakFTcGxYY3hlWFkzVkE5c0JMellEeC8z?=
+ =?utf-8?B?Ulk4ODZVdWRDSmFSYXRoS2p5eitMMmd5MTA0M29GbkVxbGhsdHI0ZlJxSHY3?=
+ =?utf-8?B?QytHZE9VelBieFFhc3FrWVFNTk9PUDl6QkszWnBJODkvZys1UnE0akFtb0NC?=
+ =?utf-8?B?Q1U2M1M3YVlKVEo1QkhzZkkyTmFIWGdXcUd6dVE4Wm8rVThpSVh0ZmRUOHhZ?=
+ =?utf-8?B?dEs1UVpPOTE0bGZYaDIwQXlGTEtTKzd0UW9odE9WYklDWGpEWFd6SGhVaWwy?=
+ =?utf-8?B?OW9vSnA0YVA4aXdVYVc4RC9XMkdpSUVhWkcvUlMzMHJaeW5XNDJhdWFyYXFM?=
+ =?utf-8?B?bnBudzRISnVudDRJbmkwZDMxT1RFOU00WnFIbGR2aVlUdzkwY3kwODBsOXFi?=
+ =?utf-8?B?ejRrRmNaSS9aM0Ftc1ZPWWJFMDFoZmdvREVqOUFUZkVXQ0E5bUd6U0kyYXcz?=
+ =?utf-8?B?WmNTT09NQkdJOXcrTDB6M1pVZ2x5aTNiOEtrdE11SVkycVRGdUVVVW1id2tX?=
+ =?utf-8?B?dTFScFdQMUVzbVVuOVNxWlF6QWhkYWxpTnB4dTlyS3lWaGxZWm1lWFIzOWk2?=
+ =?utf-8?B?aDhUOEp6SHNPQ1FsY091OGpSeWJxdGxubUZQMm9zMEJjMDAwa2VrcE9Xd01p?=
+ =?utf-8?B?UVVmN0NFR3ZEem1jVXUyR25jTFQyMXBPUkRRdGErUjN1ZnR2OEtyZ3c1Y1RT?=
+ =?utf-8?B?VlpkUnZKUUIxYlJwbmJQdTA4RXVVbmx6aEJYM2xGT1l0Q1BOV1paNGdvNDRr?=
+ =?utf-8?B?alpueEl5RXNZUDJzR0Z0NEpnZlZuRnBaU1o2YTdMZi9QZnhWYnZqakZPTGg0?=
+ =?utf-8?B?Qjk3bVdpT0dsZ1J6L2h6ZXhweHhqNDcvcDlxQ2tSRWtqSEhaa3JiZUdKdWUz?=
+ =?utf-8?B?MVFPdzNOVWNML01ha1Jsa3ExRUVjUTZ0WG1yNkY0MmJSQSs3RHJ4cEoxUXZx?=
+ =?utf-8?B?SERDWHN4V01JMkNobkxQcWMySFk5bUluYU82MUlCcnNOcXc1V3NZbGM5a2VT?=
+ =?utf-8?B?enpXZHFSYUw0VmUvVStCMTA0bk5KS0g2ZTYvYXhqeldBZGFGeUdYeTUxYlhE?=
+ =?utf-8?B?M0ZnSEdQSDhpUzdVTHJubWhIbVJyb09oOVd5eWhHTWltQTdaQTdKSk5nTWlu?=
+ =?utf-8?B?MzVGWWV6aWcvZGZlV3pZcXp5QjZzNDlIejd4ZTlkMjM0QVhwRXMzTFFPSHd5?=
+ =?utf-8?B?aFhFYndzU1BQb3hDUStiY1J3Y0o3RU9ZOGtIWEx1ZnZLVERGdzJ6TFhDcTFp?=
+ =?utf-8?B?V2srUFgvenh0bTRPSHljMGg0OXpDZDhRSGpxWlp5NHVLVGZLY3hSckNGR2Yv?=
+ =?utf-8?B?YnFCQm1vUU1vWGJiUUlkYy9mbkhtV1hVcjhLU1UrY2VkdEVxc2xNdHVPeG83?=
+ =?utf-8?B?TGxjSnNRUXBHaGhsVkF1VXVtMlAxOXBENzQ1S2NjN2VpY1VBdHI4YWJ2bi9O?=
+ =?utf-8?B?aXFvRGlaWXJyMkdzT3Bwd2VZeiszSHM2M0swTzVtQ0YwT09BeTFMUDJROFRn?=
+ =?utf-8?B?QWJBb0lPckRTWHJ0dVZQTkZhclpQTEM5d3Bma2R6UmdEY2JPRnBVUk93Ykgy?=
+ =?utf-8?B?UzZiU1YrcGZuYWk1eng2c2IxdFJLNmRHMy9xS3dnOW9aYVRneVA4V2doaGJC?=
+ =?utf-8?B?a0NwMXZpamo1aHVaQ3VNYkh6UXhMRjZRdFdGaW82YTh5NnZwSHRKTmZNMnh0?=
+ =?utf-8?B?Q2szb3QrRE50R1EvQmFTS2JkdHB4c2dVaUVMRVhkNHNFeGVEWWdmU0laTU5s?=
+ =?utf-8?B?WnJQUFh1UUZtaUhibjVNWFlSVTVlUVB0bGxlanJvOXE0VUNvOUJKUFArZDdG?=
+ =?utf-8?B?aExxMURaSklSUldxS0NMNXEzdmk4NlAwRlhETDdsMjFocVdvQjM5a21xalMz?=
+ =?utf-8?B?eGREU0piMUE0ZGs2SGJ3ZHdhOXFqZWRNTHRjRGVwNTdibnUrMGtxVGFlZ2xa?=
+ =?utf-8?B?Vyt4SlRSM0ZzRHZOTThZWlA5M2pRL1JxOURCeFZLdEdka25OU0pRVDZURmdF?=
+ =?utf-8?B?QnNTVG5WcnNhM0UwVkVJekxMUDN2a1h3RDZlcjNuOTdjMThDWnZDSW00KzlE?=
+ =?utf-8?Q?qE6OmpAHzUYkHx9lY9?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <85E72878FF2715439EFECEACD6809A45@namprd10.prod.outlook.com>
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,268 +190,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103-alpha-profileme-v5-0-bbe3937fbf3a@gmail.com> <CAP-5=fVtMnaoF1JbVFJuiRqPx-2izJafs=+ov6eF_PYFE9Xrxg@mail.gmail.com>
-In-Reply-To: <CAP-5=fVtMnaoF1JbVFJuiRqPx-2izJafs=+ov6eF_PYFE9Xrxg@mail.gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Wed, 4 Nov 2026 10:01:59 +0100
-X-Gm-Features: AclHuK_p_kRsMuMD9ncCIho75MDP_bNAX_RiQ9ZE2nnbCaCy1tPAderdiMSmOj8
-Message-ID: <CA+=Fv5SO2NF6834Dq9pV5tdLrECnV4-1oNPJnD38+Or9u54eLg@mail.gmail.com>
-Subject: Re: [PATCH v5 00/11] alpha/perf: add ProfileMe sampling
-To: Ian Rogers <irogers@google.com>
-Cc: Matt Turner <mattst88@gmail.com>, Richard Henderson <richard.henderson@linaro.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Exchange-RoutingPolicyChecked:
+	Ahd6FCKJO8AeIq1bavHvqMjBRMClviSk2ooy1wu9ts+ehkKXCZ4GLYRzVfZyohP6Q/8SqqgTvNPRGQQeGDOtiQ1Y7Cd62Rkjlm9Si7ryHd3O6EHc3EY3SXmDR4b9jB8MP2mgPtix/i9NeK8OAyIVj8bfy52RWjVLSwIOudNt4eD5U6SJDUS07vXquvElrk4HjDD8SjptRGwPF6QQZm/eMqQpT125Aeli1mxg/W5b3q2ETANpW8951/qyqG5NarKMOTBYsHWOHOQZpoXmo0aaIyQHnw3646LVXeUmaNlk7opOINUiRldRGwN4HCheAvuMbjp9otbpnLICdVIbyusSqA==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR10MB6645.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d7fb46f9-67e9-4939-fbb3-08df3a525498
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Nov 2026 09:02:19.0377
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: YupVgAkYjZ5tCf4OUPw5hgZG9yFF/d4dq1Kf7aW7tayoeULJWflY/NY9xMDW3fN/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPFD9B14F409
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAzNSBTYWx0ZWRfX2pLbG09tWNC0
+ 4KI7CvbmWyofNtIFDJNLJRlZkZOQxQA6VtDn9/HIdhmTb4tvRxSzenZFKfHKCeBVuDKCjUemm6I
+ HHO9hVbTSNqZ1vNkRVQ8XzuZsdTrAvVbuYfyZN29UkfFYSeur5BEzLIQdzCKzsWX2eYtIVPjkMM
+ jK5nrBMnGrTb28Q+Wh50GQpM3Zk1rx0ldon8QHMlHUIiBkQpCoSl56kN8Oip8pq0IB2KIeWuAB1
+ JA1pTr9Mch2T5LvZpkTyaEG5/aWpnUjAq8AIrviAwAaVUKR5fc5m0Ya0g4I8B+ZJ92VHm/clyAj
+ QX0a07oOi1l4vxYqEHIuohRRlq5XNoQapTSrGvj701mz7rWVJfToUGNKyuZo5ldKTZhsxb58Hjr
+ f3bePxExvUV/4/XE8ELYM9CZjf+Hfkksc/r0rht0ZuN8Q/PmfTWj1rE2gPZ4vBkuW4kB9+2CVeG
+ cDcFR+P4bSuva9f37Mg==
+X-Proofpoint-GUID: OTZyapC-srDJmqedsoR1NINlVpXh-iyy
+X-Proofpoint-ORIG-GUID: OTZyapC-srDJmqedsoR1NINlVpXh-iyy
+X-Authority-Analysis: v=2.4 cv=MpzHeGae c=1 sm=1 tr=0 ts=6aeaf49d cx=c_pps
+ a=B1kIKGfTVomdQYahC0fm5g==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22 a=IpJZQVW2AAAA:8
+ a=sozttTNsAAAA:8 a=uEqTqNBrif_xVfBscoQA:9 a=QEXdDO2ut3YA:10
+ a=IawgGOuG5U0WyFbmm1f5:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAzNSBTYWx0ZWRfX80uyv13SN11L
+ /8zr9o9zUdhd2nvDzjwagN1iEeinJhZ41xi1WtipPxZ2EItAGkVwso3a5/WRQw7q7+DRt9Pzy2m
+ jkLIikyGOu7qsuyhL+aF7UDnLx9pSE4=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_02,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 impostorscore=0 suspectscore=0 priorityscore=1501 malwarescore=0
+ spamscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040035
 
-Hi Ian, Matt,
-
-On Wed, Nov 4, 2026 at 12:42=E2=80=AFAM Ian Rogers <irogers@google.com> wro=
-te:
->
-> On Tue, Nov 3, 2026 at 12:37=E2=80=AFPM Matt Turner <mattst88@gmail.com> =
-wrote:
-> >
-> > The 21264 from EV67 on, and the 21364, have a second performance counte=
-r
-> > mode, ProfileMe, alongside the Aggregate mode that the driver uses toda=
-y.
-> > An Aggregate mode sample reports the PC where the overflow interrupt wa=
-s
-> > taken. On an EV7 that is anywhere from 15 instructions before to 12
-> > after the one that overflowed the counter, which makes perf annotate
-> > output close to useless. In ProfileMe mode the CPU picks one fetched
-> > instruction, follows it down the pipeline, and reports its PC along wit=
-h
-> > what happened to it: whether it retired, whether it trapped and why,
-> > whether it was a mispredicted branch, stalled before map, or was killed
-> > on a wrong path, and what PCTR1 counted while it was in flight.
-> >
-> > Patch 1 fixes a constant passed to the wrong PALcode call, with no
-> > functional change. Patch 2 adds the sysfs format and event attributes
-> > the perf tool needs to name raw events. Patch 3 fixes counts lost when
-> > an event is stopped before its first start, and patch 4 stops reporting
-> > user registers that the entry code has not saved yet. Patch 5 adds
-> > ProfileMe sampling, selected with precise_ip or a new profileme config
-> > bit, so cycles:p and perf record's default event use it. Patch 6
-> > attaches the status registers to each sample as PERF_SAMPLE_RAW data,
-> > and patch 7 adds an option to randomize the sampling interval so that i=
-t
-> > cannot lock onto a loop. Patches 8 and 9 report what PCTR1 counted as
-> > the sample weight and the data source of DTB misses. Patch 10 adds
-> > filters that keep only retired, mispredicted or trapping instructions,
-> > and patch 11 makes precise events sample only retired ones.
-> >
-> > A separate series for perf-tools-next adds a decoder for the raw data
-> > to perf report -D and perf script -D, and a script that sums the status
-> > by symbol or by instruction, in the style of DCPI.
-> >
-> > The two modes cannot run at the same time, because PCTR_CTL[SL0] sets
-> > the mode for both counters. A ProfileMe event is scheduled alone, and
-> > perf multiplexes it with any other hardware events. perf stat does not
-> > ask for precise events, so it keeps using Aggregate mode.
-> >
-> > To try it:
-> >
-> >   perf record -e cycles:p -- ./workload
-> >   perf annotate
-> >
-> > I tested this on an AlphaServer ES47 (EV7). Samples from a
-> > 16-instruction loop land on all 16 instructions rather than on 4 PCs.
-> > DTB misses and unaligned traps are attributed to the faulting load. A
-> > branch on random data shows up as mispredicted in 21% of its samples,
-> > and in 0% with sorted data. A 12 minute perf record -a while building
-> > git took 4.45 million samples with no warnings. Sampling every 10000
-> > instructions, which used to wedge the CPU, ran 66 times without a hang.
-> > With precise_ip, killed instructions went from 67% of the samples of a
-> > mispredicting loop to none. On two CPUs, this version survived 62 runs
-> > that mix sampling, filters, context switches and multiplexing, with no
-> > warnings.
-> >
-> > Signed-off-by: Matt Turner <mattst88@gmail.com>
->
-> Hi Matt,
->
-> Thanks for v5, and for turning the suggestions around so quickly with
-> measurements to back each one up. Patch 8 looks good to me; a few
-> comments on the rest (appologies, I'm using Gemini to help me be
-> cleverer than I am):
->
-> Patch 5: I think Sashiko's report is right. With idx forced to 0 in
-> ProfileMe mode, a PCTR1 overflow still pending when an Aggregate event
-> is multiplexed out gets taken as a window close: it adds a bogus 2^20
-> to the count and emits a sample from a stale PMPC, possibly another
-> task's. That's the mirror image of the false sample the commit message
-> documents for the other direction.
->
-> In both cases the interrupt arrives for a counter that hasn't wrapped
-> since it was last written, whereas after a real overflow or window
-> close the counter sits just past zero. Could the handler drop an
-> interrupt when the counter hasn't wrapped relative to prev_count? It
-> would need some headroom: a counting event's period is 2^20 - 1, so
-> its counter starts at 1, and a real overflow, which leaves it just
-> past zero, would look unwrapped too. Capping left at half the counter
-> range, as armpmu_event_set_period() does, keeps the two cases apart.
-> That would fix both directions, and the caveat could come out of the
-> commit message.
->
-> Patch 9: Now that patch 11 drops DTB miss samples from cycles:p, it
-> may be worth giving retired loads and stores a data source too. As
-> PALcode fills the TB, an access that retired without a DTB miss trap
-> must have hit, so mem_dtlb =3D PERF_MEM_TLB_L1 | PERF_MEM_TLB_HIT. The
-> memory sort keys would then show DTB hits and misses side by side for
-> cpu/cycles,profileme/. LDA/LDAH and the ldq_u UNOP would need leaving
-> out, as they don't access memory.
->
-> Loads into $31/$f31 need care either way. As the comment in
-> do_page_fault() says, as of EV6 they're prefetches, which never fault
-> (or are suppressed by the PALcode). If a prefetch that misses the DTB
-> is dropped without a trap, they'd need leaving out of the hits too. If
-> it does trap, patch 9 reports it as a LOAD, where PERF_MEM_OP_PFETCH
-> would be more accurate. Running your one-word-per-page test with loads
-> into $31 would show which.
->
-> Patch 11: Kept samples still carry the full period, so with -F the
-> sample rate, and perf report's approximate event count, fall by the
-> killed fraction: to about a third on your mispredict loop. That seems
-> the right trade-off, and it's what IBS's swfilt does with the samples
-> it discards, but it may deserve a sentence in the commit message.
->
-> For the next spin of the tools series, alpha-profileme.py wants the
-> same PM_KILLED_BM check before it trusts TRP and MIS. Its example also
-> records instructions:p, which after patch 11 has no killed samples, so
-> the killed% and invalid% columns would always read 0;
-> cpu/instructions,profileme/ keeps them.
->
-> Two possible follow-ups, neither of which needs to hold up this
-> series. perf mem has no Alpha events yet; cpu/cycles,trapped/p would
-> be a natural default, or cpu/cycles,profileme/ if retired accesses get
-> a data source. And as the driver already works out the profiled
-> instruction's mode for the trap frame swap, ProfileMe events could
-> honor exclude_user and exclude_kernel by dropping samples, as IBS's
-> swfilt does, with PALmode counting as kernel. PERF_PMU_CAP_NO_EXCLUDE
-> is PMU wide, so event_init would then reject the exclude bits itself
-> for Aggregate events. That would let unprivileged users run perf
-> record at the default perf_event_paranoid of 2, where the tool sets
-> exclude_kernel for them.
->
-> Thanks,
-> Ian
->
->
-
-One detail on the wrap check: alpha_perf_event_update() also advances
-prev_count on an ordinary read. Should we cover the case where a read
-has already accounted for a real wrap before its PMI is delivered?
-
-On prefetches, the EV67 HRM, section 2.6 (p. 2-23), says loads to
-R31/F31 may generate exceptions that PALcode must dismiss. So seeing
-no Linux fault wouldn't by itself tell us the access hit in the DTB.
-
-I also checked the saved ES40 recordings: 344 of 266425 samples had
-both PM_KILLED_BM and TRP set, and 53 of those also had MIS set.
-That confirms the Python decoder needs the killed check on EV67 too.
-
-Thanks,
-Magnus
-
->
->
-> > ---
-> > Changes in v5:
-> > - Patch 5: refuse precise_ip 3, as a sample with a PALmode PMPC keeps
-> >   the interrupted PC. Thanks to Magnus Lindholm.
-> > - New patches 8 to 11, from Ian Rogers' suggestions: the sample weight,
-> >   the data source of DTB misses, config1 filters, and retired-only
-> >   precise samples. The last changes what a default perf record shows.
-> > - Link to v4: https://patch.msgid.link/20261102-alpha-profileme-v4-0-61=
-e00f5e1da8@gmail.com
-> >
-> > Changes in v4:
-> > - Patch 4: move __entry_save_end past the r16-r18 stores in entSys,
-> >   as PAL_callsys does not save them and interrupts are still enabled
-> >   there.
-> > - Patch 5: report the user registers when the profiled instruction is
-> >   in the entry code but the interrupt was taken after it, since
-> >   perf_get_regs_user() sees the PMPC rather than the interrupted PC.
-> > - Link to v3: https://patch.msgid.link/20261101-alpha-profileme-v3-0-92=
-d511b5a044@gmail.com
-> >
-> > Changes in v3:
-> > - New patch 3: clear PERF_HES_UPTODATE when an event starts counting,
-> >   so that a stop before the first start does not lose the count.
-> > - New patch 4: report no user registers for a sample taken in the entry
-> >   code, where the frame at task_pt_regs() is not complete. An interrupt
-> >   nested on one taken there is still not caught.
-> > - Patch 5: a user instruction whose interrupt is taken in the kernel no=
-w
-> >   reports its PC with no registers or user stack, as the frame at
-> >   task_pt_regs() may not be built yet. Thanks to Magnus Lindholm for
-> >   finding this and for the fix.
-> > - Patch 5: also move the counter away from overflow when a ProfileMe
-> >   event is removed, or stopped without PERF_EF_UPDATE, as
-> >   alpha_pmu_del() does not go through alpha_pmu_stop().
-> > - Patch 5: ignore an interrupt that was pending when the event was
-> >   stopped. Document that rewriting a counter does not cancel one.
-> > - Link to v2: https://patch.msgid.link/20261030-alpha-profileme-v2-0-c7=
-02f1c65272@gmail.com
-> >
-> > Changes in v2:
-> > - Patch 1: explain why bit 0 clear means all processes, although the
-> >   Architecture Reference Manual says otherwise.
-> > - Patch 3: fix a CPU wedge during high-rate ProfileMe sampling. The
-> >   ProfileMe counters are now written twice, and a stopped counter is
-> >   moved away from overflow, as EV67 HRM PALcode restrictions 32 and 38
-> >   require.
-> > - Patch 3: set the profiled PC in place in the trap frame of the
-> >   instruction's mode instead of in a pt_regs copy on the stack, so
-> >   sampled registers and stack values are those of the right frame.
-> >   A kernel instruction whose interrupt is taken in user mode gets a
-> >   per-CPU frame holding only its PC, so the user frame is not changed.
-> > - Patch 4: drop the reserved field and pack the 64-bit fields of
-> >   struct alpha_profileme_sample, so they are 8-byte aligned in the
-> >   sample record and the record needs no padding. This changes the raw
-> >   data layout.
-> > - Patch 5: compute the jitter with mul_u64_u32_shr() and saturate the
-> >   sum, so that large periods cannot overflow.
-> > - Link to v1: https://patch.msgid.link/20261028-alpha-profileme-v1-0-d4=
-4b52bf2500@gmail.com
-> >
-> > ---
-> > Matt Turner (11):
-> >       alpha/perf: pass PERFMON_CMD_LOGGING_ALL to the logging options c=
-all
-> >       alpha/perf: add sysfs format and event attributes
-> >       alpha/perf: clear PERF_HES_UPTODATE when an event starts counting
-> >       alpha/perf: do not report user registers from the entry code
-> >       alpha/perf: implement ProfileMe sampling
-> >       alpha/perf: attach ProfileMe status as PERF_SAMPLE_RAW data
-> >       alpha/perf: optionally randomize the ProfileMe sampling interval
-> >       alpha/perf: report the ProfileMe window count as the sample weigh=
-t
-> >       alpha/perf: report the data source of ProfileMe DTB misses
-> >       alpha/perf: add ProfileMe sample filters
-> >       alpha/perf: sample only retired instructions for precise events
-> >
-> >  arch/alpha/include/asm/perf_event.h      |   2 +
-> >  arch/alpha/include/asm/ptrace.h          |  12 +
-> >  arch/alpha/include/asm/wrperfmon.h       |  36 +++
-> >  arch/alpha/include/uapi/asm/perf_event.h |  31 ++
-> >  arch/alpha/kernel/entry.S                |   9 +
-> >  arch/alpha/kernel/perf_event.c           | 535 +++++++++++++++++++++++=
-+++++++-
-> >  arch/alpha/kernel/perf_regs.c            |  13 +
-> >  7 files changed, 625 insertions(+), 13 deletions(-)
-> > ---
-> > base-commit: 330517c63aa9b48227b6ab45f01003effac77ae4
-> > change-id: 20261024-alpha-profileme-6e98a977cb54
-> >
-> > Best regards,
-> > --
-> > Matt Turner <mattst88@gmail.com>
-> >
+T24gMDQvMTEvMjYgMDE6MDcsIE1hcmt1cyBTY2huZWlkZXItUGFyZ21hbm4gKFRJKSB3cm90ZToN
+Cj4gQm90aCBwcm9iZSBhbmQgcmVzdW1lIGJhc2ljYWxseSBkbyB0aGUgc2FtZSB0aGluZyBhbmQg
+c2V0dXAgdGhlDQo+IHJlZ2lzdGVycy4gQnV0IHJlc3VtZSBoYXMgaXRzIG93biBjb3B5IG9mIHRo
+ZSByZWdpc3RlciB3cml0ZXMuIFRoaXMgd2lsbA0KPiBhbHdheXMgbGVhZCB0byBkaWZmZXJlbmNl
+cyB3aGVuIGNoYW5nZXMgYXJlIG1hZGUuDQo+DQo+IENyZWF0ZSBhIHNlcGFyYXRlIGZ1bmN0aW9u
+IHRoYXQgaXMgdXNlZCBieSBib3RoIHByb2JlIGFuZCByZXN1bWUuDQo+IE5vdGUgdGhhdCB0aGUg
+b3JkZXJpbmcgaXMgc2xpZ2h0bHkgZGlmZmVyZW50IGJ1dCBJIGRpZG4ndCBzZWUgb3IgZm91bmQN
+Cj4gYW55IGlzc3VlcyB3aXRoIHRoZSBuZXcgb3JkZXIgd2hpbGUgdGVzdGluZy4NCj4NCj4gU2ln
+bmVkLW9mZi1ieTogTWFya3VzIFNjaG5laWRlci1QYXJnbWFubiAoVEkpIDxtc3BAYmF5bGlicmUu
+Y29tPg0KDQpSZXZpZXdlZC1ieTogU2FpIFNyZWUgS2FydGhlZWsgQWRpdmkgPHMtYWRpdmlAdGku
+Y29tPg0KDQoNCj4gLS0tDQo+ICAgZHJpdmVycy9kbWEvdGkvY3BwaTQxLmMgfCA0MSArKysrKysr
+KysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAy
+MCBpbnNlcnRpb25zKCspLCAyMSBkZWxldGlvbnMoLSkNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZG1hL3RpL2NwcGk0MS5jIGIvZHJpdmVycy9kbWEvdGkvY3BwaTQxLmMNCj4gaW5kZXggZTJh
+MDg5MDY2YzZkLi5iNjJhMjZjMjY1OWQgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZG1hL3RpL2Nw
+cGk0MS5jDQo+ICsrKyBiL2RyaXZlcnMvZG1hL3RpL2NwcGk0MS5jDQo+IEBAIC04NzMsOSArODcz
+LDYgQEAgc3RhdGljIGludCBpbml0X2Rlc2NzKHN0cnVjdCBkZXZpY2UgKmRldiwgc3RydWN0IGNw
+cGk0MV9kZCAqY2RkKQ0KPiAgIAkJCQkmY2RkLT5kZXNjc19waHlzLCBHRlBfS0VSTkVMKTsNCj4g
+ICAJCWlmICghY2RkLT5jZCkNCj4gICAJCQlyZXR1cm4gLUVOT01FTTsNCj4gLQ0KPiAtCQljcHBp
+X3dyaXRlbChjZGQtPmRlc2NzX3BoeXMsIGNkZC0+cW1ncl9tZW0gKyBRTUdSX01FTUJBU0UoaSkp
+Ow0KPiAtCQljcHBpX3dyaXRlbChjcHBpNDFfbWVtY3RybChpKSwgY2RkLT5xbWdyX21lbSArIFFN
+R1JfTUVNQ1RSTChpKSk7DQo+ICAgCX0NCj4gICAJcmV0dXJuIDA7DQo+ICAgfQ0KPiBAQCAtOTAz
+LDYgKzkwMCwyNCBAQCBzdGF0aWMgdm9pZCBpbml0X3NjaGVkKHN0cnVjdCBjcHBpNDFfZGQgKmNk
+ZCkNCj4gICAJY3BwaV93cml0ZWwocmVnLCBjZGQtPnNjaGVkX21lbSArIERNQV9TQ0hFRF9DVFJM
+KTsNCj4gICB9DQo+ICAgDQo+ICsvKiBQcm9ncmFtIHRoZSByZWdpc3RlcnMsIGFsc28gdXNlZCB0
+byByZXN0b3JlIHRoZSBjb250ZXh0IG9uIHJlc3VtZSAqLw0KPiArc3RhdGljIHZvaWQgY3BwaTQx
+X2luaXRfaHcoc3RydWN0IGNwcGk0MV9kZCAqY2RkKQ0KPiArew0KPiArCWludCBpOw0KPiArDQo+
+ICsJY3BwaV93cml0ZWwoY2RkLT5zY3JhdGNoX3BoeXMsIGNkZC0+cW1ncl9tZW0gKyBRTUdSX0xS
+QU0wX0JBU0UpOw0KPiArCWNwcGlfd3JpdGVsKFRPVEFMX0RFU0NTX05VTSwgY2RkLT5xbWdyX21l
+bSArIFFNR1JfTFJBTV9TSVpFKTsNCj4gKwljcHBpX3dyaXRlbCgwLCBjZGQtPnFtZ3JfbWVtICsg
+UU1HUl9MUkFNMV9CQVNFKTsNCj4gKw0KPiArCWZvciAoaSA9IDA7IGkgPCBERVNDU19BUkVBUzsg
+aSsrKSB7DQo+ICsJCWNwcGlfd3JpdGVsKGNkZC0+ZGVzY3NfcGh5cywgY2RkLT5xbWdyX21lbSAr
+IFFNR1JfTUVNQkFTRShpKSk7DQo+ICsJCWNwcGlfd3JpdGVsKGNwcGk0MV9tZW1jdHJsKGkpLCBj
+ZGQtPnFtZ3JfbWVtICsgUU1HUl9NRU1DVFJMKGkpKTsNCj4gKwl9DQo+ICsNCj4gKwljcHBpX3dy
+aXRlbChjZGQtPnRkX3F1ZXVlLnN1Ym1pdCwgY2RkLT5jdHJsX21lbSArIERNQV9UREZEUSk7DQo+
+ICsJaW5pdF9zY2hlZChjZGQpOw0KPiArfQ0KPiArDQo+ICAgc3RhdGljIGludCBpbml0X2NwcGk0
+MShzdHJ1Y3QgZGV2aWNlICpkZXYsIHN0cnVjdCBjcHBpNDFfZGQgKmNkZCkNCj4gICB7DQo+ICAg
+CWludCByZXQ7DQo+IEBAIC05MTMsMTYgKzkyOCwxMSBAQCBzdGF0aWMgaW50IGluaXRfY3BwaTQx
+KHN0cnVjdCBkZXZpY2UgKmRldiwgc3RydWN0IGNwcGk0MV9kZCAqY2RkKQ0KPiAgIAlpZiAoIWNk
+ZC0+cW1ncl9zY3JhdGNoKQ0KPiAgIAkJcmV0dXJuIC1FTk9NRU07DQo+ICAgDQo+IC0JY3BwaV93
+cml0ZWwoY2RkLT5zY3JhdGNoX3BoeXMsIGNkZC0+cW1ncl9tZW0gKyBRTUdSX0xSQU0wX0JBU0Up
+Ow0KPiAtCWNwcGlfd3JpdGVsKFRPVEFMX0RFU0NTX05VTSwgY2RkLT5xbWdyX21lbSArIFFNR1Jf
+TFJBTV9TSVpFKTsNCj4gLQljcHBpX3dyaXRlbCgwLCBjZGQtPnFtZ3JfbWVtICsgUU1HUl9MUkFN
+MV9CQVNFKTsNCj4gLQ0KPiAgIAlyZXQgPSBpbml0X2Rlc2NzKGRldiwgY2RkKTsNCj4gICAJaWYg
+KHJldCkNCj4gICAJCWdvdG8gZXJyX3RkOw0KPiAgIA0KPiAtCWNwcGlfd3JpdGVsKGNkZC0+dGRf
+cXVldWUuc3VibWl0LCBjZGQtPmN0cmxfbWVtICsgRE1BX1RERkRRKTsNCj4gLQlpbml0X3NjaGVk
+KGNkZCk7DQo+ICsJY3BwaTQxX2luaXRfaHcoY2RkKTsNCj4gICANCj4gICAJcmV0dXJuIDA7DQo+
+ICAgZXJyX3RkOg0KPiBAQCAtMTE4NywyNiArMTE5NywxNSBAQCBzdGF0aWMgaW50IF9fbWF5YmVf
+dW51c2VkIGNwcGk0MV9yZXN1bWUoc3RydWN0IGRldmljZSAqZGV2KQ0KPiAgIHsNCj4gICAJc3Ry
+dWN0IGNwcGk0MV9kZCAqY2RkID0gZGV2X2dldF9kcnZkYXRhKGRldik7DQo+ICAgCXN0cnVjdCBj
+cHBpNDFfY2hhbm5lbCAqYzsNCj4gLQlpbnQgaTsNCj4gICANCj4gICAJaWYgKHBtX3J1bnRpbWVf
+c3RhdHVzX3N1c3BlbmRlZChkZXYpKQ0KPiAgIAkJcmV0dXJuIDA7DQo+ICAgDQo+IC0JZm9yIChp
+ID0gMDsgaSA8IERFU0NTX0FSRUFTOyBpKyspIHsNCj4gLQkJY3BwaV93cml0ZWwoY2RkLT5kZXNj
+c19waHlzLCBjZGQtPnFtZ3JfbWVtICsgUU1HUl9NRU1CQVNFKGkpKTsNCj4gLQkJY3BwaV93cml0
+ZWwoY3BwaTQxX21lbWN0cmwoaSksIGNkZC0+cW1ncl9tZW0gKyBRTUdSX01FTUNUUkwoaSkpOw0K
+PiAtCX0NCj4gLQ0KPiAgIAlsaXN0X2Zvcl9lYWNoX2VudHJ5KGMsICZjZGQtPmRkZXYuY2hhbm5l
+bHMsIGNoYW4uZGV2aWNlX25vZGUpDQo+ICAgCQlpZiAoIWMtPmlzX3R4KQ0KPiAgIAkJCWNwcGlf
+d3JpdGVsKGMtPnFfbnVtLCBjLT5nY3JfcmVnICsgUlhIUENSQTApOw0KPiAgIA0KPiAtCWluaXRf
+c2NoZWQoY2RkKTsNCj4gLQ0KPiAtCWNwcGlfd3JpdGVsKGNkZC0+dGRfcXVldWUuc3VibWl0LCBj
+ZGQtPmN0cmxfbWVtICsgRE1BX1RERkRRKTsNCj4gLQljcHBpX3dyaXRlbChjZGQtPnNjcmF0Y2hf
+cGh5cywgY2RkLT5xbWdyX21lbSArIFFNR1JfTFJBTTBfQkFTRSk7DQo+IC0JY3BwaV93cml0ZWwo
+UU1HUl9TQ1JBVENIX1NJWkUsIGNkZC0+cW1ncl9tZW0gKyBRTUdSX0xSQU1fU0laRSk7DQo+IC0J
+Y3BwaV93cml0ZWwoMCwgY2RkLT5xbWdyX21lbSArIFFNR1JfTFJBTTFfQkFTRSk7DQo+ICsJY3Bw
+aTQxX2luaXRfaHcoY2RkKTsNCj4gICANCj4gICAJY2RkLT5jdHhfbG9zdCA9IGZhbHNlOw0KPiAg
+IA0KPg0KDQo=
