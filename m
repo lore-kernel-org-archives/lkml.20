@@ -1,100 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793824962;
-	b=wI7fsl88pK7hmsxUZoQhBnqrifchaaV5f/mIYXvFoPXYFvAdq8B+R0ziphQX0x3fRKcY
-	 NPp3s8vq7Nciu/gvlj4JruZfCjvytTfM0L0bYoJ8GuKfWbb0Dx2UTKFpsbRSXUMG51ZOZ
-	 2w5v3dqj+Bhnp9T0SRysA899cMXq66DLX8brB7uNvisgFIAnpr7r5QXkdx0J0+qT1zG1r
-	 kFLwL2Y4821GzbfMnaLLKPXGaNBd3sqo4XJ+R8ReRJiPTCj+9sPYszKgD5FDfvpXeyk8f
-	 3sNeQX1xHT9ydQADsM2A/HuceNsoCYoMqoVvzjs6HkJqVQ8nI6hd+H/Y2CwjpS5Phvg==
+	t=1793824975;
+	b=mZy5R8kviNLOanSKZNkAz0J3WBOgrCGDdpnOWdKCd8ljQ4HM1q4cmSOlPne7Ze8RyFui
+	 Pc0bVsHPbnRAIa6yPz0t1SierblWtovUJW5ZLsr8PDQBDJ9dSJLxpxtrka8v/CS6WAywM
+	 sri9GmSQIbBPMUhuInTzXrJzW/Cr5l1CtMm/epJX2aeed7U24a5WEDGDidlVWs75xUdFP
+	 uK+DKoPLtbqUxIz2kav5BfNgB6PShFBhM1t0tXCWGN/y4xwdZi8y3J/ii97LIl3gGtVoh
+	 ZY+0zxkWknPOdTlWtCrTx9f5cPaEjie3vKtY7g6ZXyUIgyqeccOAfgXqi06cH+jGm7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793824962;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=h6dwKVBh50DCzDeIRT2L9U5TfDV06YRfq9HuX25Gdcw=;
-	b=Ah6TYjRTVWZItzGi5gTsKjF3bdw1h/BqqQSRk4coRv9+siq7suM0UDK+loIEgVKHI7sV
-	 gr1NSIElUz83GI3dFZKVsoIBIqKlyMym54M7CT5uQV7h+3+SE0WoRxKl8Bq4PlTwFLiFL
-	 JxS7ZG+VjAtTEjBrAMWTpQ/dEp/n+5XMt8zbHGZVkLWyE+baDLki0zXz8Y3DW7SMg9DXV
-	 q/2j5NwazWx1BoK1/5H9iJZtC0JGOiWJItFRHghvP45W+/YBek+WelPKNkvoQZnLjUMuX
-	 6tKH6WB39zLRBsWiXnEnBEBrrBPH0HR2imE6xAN4GDV0w+CTIVQeE/uCy12VlL0Mt2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793824975;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-MBO-RS-ID:X-MBO-RS-META;
+	bh=H00NPaBD9E2HwhcPqCvzRgftOVaLCyMep1/8Y4uz7Cc=;
+	b=E2Onq5P7Ll/DTxj4iEPOBG3iLsiNfHOB2NLPOhLnHPVz9vQMH1Y7IRrYz9Ht0OCIH8wv
+	 oth/gpAe4dB1O82+9Tetia9IZEC64t0LxkV2lQZGoADM8Qg4+TF0RYzqMZyeXXfDNtjKR
+	 4XL1eRkaFewu1x3YEuU49DW+NskCKoVPuJ01v4Pd/Xs5+c0mcNT5VN7sislgjzA0meHeD
+	 4wHjVDswONiX/F5BFYrPYJ3NwUXdPzXANuR1nA/FQrxJCvcM2e6IrqYk3ymn5CncZwGLY
+	 tGaYtG7+EA3PEiyQgnLo0hgrs5tBy9cA28ZTQaSjoQ5JfKKBAWR5c6rFwvyMfEMjEEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jy+nCzPT;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b="gRxr81L/";
+	arc=none smtp.remote-ip=80.241.56.151
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D14606AC3D
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:42:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3D14606AC3D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C51B606C44F;
+	Wed,  4 Nov 2026 20:42:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C51B606C44F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jy+nCzPT
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so8376665e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:42:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793824960; x=1794429760; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=h6dwKVBh50DCzDeIRT2L9U5TfDV06YRfq9HuX25Gdcw=;
-        b=jy+nCzPTOhrQXB/Hv2iczYzO8CYB7TExusym3+qGfuyVkzge3vTqTobuwLFwtz+5xW
-         dY+/Tieg5C7PV9S18O99QaCzW7th9sVpyoNhQr+qHqBqX7cNpbsR0vmZrZD6P3unTXT3
-         02SnKXHoF84lpCoIptklFUYcN6MlnSfADFVvTrDQhW3e9A2kzQ5XLg2ZvhhQ06fVYAgJ
-         rA/z7ihQN+PNxiQP36ERe0sailT/sMlzSd6r5gzZRUOHMCTYRzQqHrnBWM36+k9lSxUZ
-         wxWMx3pw6lHB38v907lIl81x5WeYHUsohFC8Zzllr2d0H42CgsJ/ji7WKA8uuWbAm+r7
-         IS5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793824960; x=1794429760;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=h6dwKVBh50DCzDeIRT2L9U5TfDV06YRfq9HuX25Gdcw=;
-        b=mMcmEzukp3fH2VpYO0RjnjciuDKkx05JDhNCUABmBwORHjCwOHqBco4mQTveNKyIIJ
-         zbEs9PAks/tVfg+vGqfqJ5sXpAo89CS/F7cFJG2EAcJ4wh4numTAi6ubxcjTH13FBsMa
-         1L0k+QXUyf9sMqWzK273mbSH8F9SNsGudby7xlgpc5p6fTHpazM88M/3TxYjUmlx4qxx
-         L2MFMKj0ygglCXhEbEpaqFKxTLj543UobzBQf22HxDwgfQIYxyEPbQriyJjADPcXYqP7
-         lRXJmOJyhttxVWdAtiSsLX68coxrQZ588poRbQkLuqaFf7bxG5nZUOk7YbmdX1k0JlWt
-         FweQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy41oP25KTma+bcC57Kp/DcQcYWOeDiCsc/Oq9MuJeYDSoGk+ZYUOzxULlfVUVvflFNPsRua0/OT+dyl04=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+/cX058cIlA11lmOzlTpay1h7RHQXjZWD6wzHPADjPAj4mAP+2
-	MyOsFMVdNmMGR2E3PdiMeUgspYQ6kSqcbPYOw6NDBG0RDZy2C7EtjvBh
-X-Gm-Gg: AYBFou2yPe0C+ZKWp/AQ2Xp/h6QCwnyR6eX/bZZ4CdaYsYsrhlrDteGc/DbJjyp+Av3
-	wf/f3Jib0xCDKN3nq3OmuT/3ZlX6YEDP0b8h3vsWjeKgmz1ylKhDgeNVzOCzfdT6w+PljaAaaEO
-	sYU31jqFKqm3Ij6wU3uxf6j3/BEWU/D/6LrhQye9ETrjHYAYFGNZyW+LhciHRNKGiDxGK3nJ1Bb
-	JrJ2JqkkjEbNpZvvZP8/oPngDIfDb8blU+DWx8AJjL8oLS2Jj8yM+HM5cYZMe5TcLbp43kTes0x
-	axMvFjOe0+nuJEJV+SUXbZ33GxNEvFNExwNrDEjlUxEqUDn/UROnxrto+hknLzc6oqdPvT5qhs/
-	dGH/YOGLN/tBCRmmVyf9xtJIQDEC9jjUtLJl/6uGKFkNwA/e+KASXupOE2d3fWQP3eilrXTqQEB
-	Fz2k0wBojcwcp2yALqad42lHkIS2v2UMWUbO59CKr0e/ZssCTweWGXvmUwPMG4FFjCb1Nzm3HI8
-	jNBWD7iTw5d5j94Bremj1JYu+OWI+KPOHNXGEn2Vdtdlm/GtlWEwAYNweVBupe16wxDjraTasxz
-	/9NjReWgyJ5Ftg==
-X-Received: by 2002:a05:600c:4f55:b0:4a3:d327:6ed with SMTP id 5b1f17b1804b1-4ac182dcba3mr424220875e9.17.1793824959945;
-        Wed, 04 Nov 2026 12:42:39 -0800 (PST)
-Received: from nobara ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fecac1a1csm5716451f8f.12.2026.11.04.12.42.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 12:42:39 -0800 (PST)
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-To: Mike Rapoport <rppt@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Kees Cook <kees@kernel.org>,
-	Changyuan Lyu <changyuanl@google.com>,
-	Alexander Graf <graf@amazon.com>
-Cc: Tony Luck <tony.luck@intel.com>,
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	kexec@lists.infradead.org,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-Subject: [PATCH v2] memblock: don't allocate new reserve_mem regions on a KHO boot
-Date: Wed,  4 Nov 2026 21:42:17 +0100
-Message-ID: <20261104204235.9066-1-azpijr@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=gRxr81L/
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jKcp231Rpz8vBv;
+	Wed, 04 Nov 2026 21:42:50 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1793824970;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=H00NPaBD9E2HwhcPqCvzRgftOVaLCyMep1/8Y4uz7Cc=;
+	b=gRxr81L/7W1OMpmMQi8zxrHdkEkGVCX61P3Ffp57435m2H44samRlLlkAGhrfFfDSnFEpO
+	dL9lF7mqeyKO/ieEaGzH6Skz9NSX4RYKO2E0ggDPLqm2YZ+scJffSucG/U3ghzv6qQXFdd
+	83PmddmnFZkVXhvTvIMIGvtkuxjGSmjBg8ekTZ12crTJjMUUU8ndBSstsvLipA+JUjetac
+	X0ADAgLZPXUz8P16hO4vtYMRGmMXl5OC3qjtAKmMb7XtCtKDdU110j3mOod2Gz5hXBXYjx
+	Ng4hjeiZxchaD1ofnVeD9571xMOX0XCOmI5+1PcA4ISc8IG2O47yez4c8iLGWw==
+From: Maurice Hieronymus <mhi@mailbox.org>
+To: Lucas Costa <2000.costalucas@gmail.com>
+Cc: Maurice Hieronymus <mhi@mailbox.org>,
+	dakr@kernel.org,
+	ojeda@kernel.org,
+	bhelgaas@google.com,
+	kwilczynski@kernel.org,
+	boqun@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	a.hindborg@kernel.org,
+	aliceryhl@google.com,
+	tmgross@umich.edu,
+	daniel.almeida@collabora.com,
+	tamird@kernel.org,
+	acourbot@nvidia.com,
+	work@onurozkan.dev,
+	lyude@redhat.com,
+	linux-pci@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] samples: rust: add QEMU EDU sample driver
+Date: Wed,  4 Nov 2026 21:42:38 +0100
+Message-ID: <20261104204242.267185-1-mhi@mailbox.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261030181540.102665-1-2000.costalucas@gmail.com>
+References: <20261030181540.102665-1-2000.costalucas@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,61 +89,21 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: d0b702635722600cfdf
+X-MBO-RS-META: snz8b99mbkbxckeqh4mkxj3pwpmwuyq1
 
-On a KHO boot, a reserve_mem region that can't be revived is allocated
-from KHO_NOPRSRV memory, which includes the bootmem the next kernel
-boots out of. With CONFIG_KEXEC_HANDOVER_DEBUG, preserving the region
-then fails:
+Hi Lucas,
 
-  WARNING: kernel/liveupdate/kexec_handover.c:1245 at kho_preserve_pages+0x168/0x180
-  failed to prepare memblock FDT for KHO: -22
+On Fri, Oct 30, 2026 at 03:15:39PM -0300, Lucas Costa wrote:
+> Add a Rust PCI driver sample for QEMU's educational ("edu") device.
 
-Without it, the next kernel puts its memmap on top of the region and
-the ramoops records in it are lost.
+FYI, I have a series adding an EDU sample driver under review since June,
+currently at v3:
 
-There is no use case for adding regions across a live update, so fail
-instead of allocating, and drop the TODO.
+https://lore.kernel.org/r/20260812-b4-rust-pci-edu-driver-v3-0-5d0b5594e52b@mailbox.org
 
-Fixes: f99230780211 ("memblock: add KHO support for reserve_mem")
-Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
----
-Changes in v2:
-- fail on a KHO boot instead of allocating outside bootmem, as agreed
-  with Pratyush [1]. this drops v1's patch 1.
-- not an RFC anymore.
-- based on v7.4-rc1.
+It also covers some of the infrastructure you add here (Completion
+helpers, PCI vendor ID handling). v4 is in preparation.
 
-v1: https://lore.kernel.org/all/20261021211058.83483-3-azpijr@gmail.com/
-
-[1] https://lore.kernel.org/all/2vxzfqxglrg6.fsf@kernel.org/
-
- mm/memblock.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
-
-diff --git a/mm/memblock.c b/mm/memblock.c
-index a450092a80fb..e325e0542c9a 100644
---- a/mm/memblock.c
-+++ b/mm/memblock.c
-@@ -2827,7 +2827,16 @@ static int __init reserve_mem(char *p)
- 	if (reserve_mem_kho_revive(name, size, align))
- 		return 1;
- 
--	/* TODO: Allocation must be outside of KHO_NOPRSRV region */
-+	/*
-+	 * On a KHO boot memblock only allocates from KHO_NOPRSRV memory here,
-+	 * which includes the bootmem the next kernel boots out of. Only regions
-+	 * handed over by the previous kernel are supported.
-+	 */
-+	if (is_kho_boot()) {
-+		pr_err("reserve_mem: can't allocate \"%s\" on a KHO boot\n", name);
-+		return -EOPNOTSUPP;
-+	}
-+
- 	start = memblock_phys_alloc(size, align);
- 	if (!start) {
- 		pr_err("reserve_mem: memblock allocation failed\n");
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.56.0
-
+Thanks,
+Maurice
