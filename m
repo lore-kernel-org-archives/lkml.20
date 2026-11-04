@@ -1,83 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.80.4.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793825385;
-	b=iWX3H6WTVYy0uNMVa89Q7i7s1rQHveKa7EVJSbiOxC/3JJT8I3J1MnBYchcmpONVAqKD
-	 xpkDXcaJJFJPqn22dqSAOIK2X1f3yJI45oOgxuYx00Kw94MmslIoKPlUxA3t6tL6mHYO6
-	 2mBdyNrczxI8nCOji69fzEiQctuvAQUp2yV3hVhuhYNLgmlIofIQcqDq/hSF4TkSG9anM
-	 pYNYar5R1cWUCohNTnHL8QFCPnKxIJgXw+tmvwDims95Pf6KsAVwlq5kV9WkvIeBBrWAs
-	 RV0FCNJj0a5hOv3cD2f1LU06xOehsamyPYQ3IJmySmEpYYsulVH2CnwS5a22S17mPGg==
+	t=1793825380;
+	b=dqxwQxC3t72vT5Ogi7Nk3Q7C1/U+450b1Hc7JzkOQlxnk+Au8OY4onncbgpghZC0Kbby
+	 V7VnSch46ycTfhZwx8v+7CG21DwOu9CJXOyo8bUWWBG5anun0ItcnYCMwHZi58q3CprDG
+	 yLTbhiNcKtqw7JgNiAusLzuDlwJyvEisxoX1ETF3h4VD5XegOv8ayGlyBc3Xect7T4FYA
+	 0qaj1GU6xtVZsImuPKU1iUNWUMuRMPL78ESvxvB7XN2eY4aAxUYi3FPKF6dyRce03MBcE
+	 YMQ3V8UjbRD0VaSeD37mYPqRKLbjBkhRaAZYJKN6ZYfiAO8otWlPKuozQdHEm72esuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793825385;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=UMblCDkeaLJ4fgfQ6iI8HG5CBwVvaHr3bsDOTNNKxfs=;
-	b=r1eHRzmbBe5grKrXzhDZqzkm0J7HDqqhb20Pckr+Q016tQv1XyG43qxe7rfrM2fApFpb
-	 1DrDXFDvaCQP6LkyWIrlropqSCrHTAHdm5RVrS8S3i1k3hDXshNGXEk8n24ASV5pP02Xt
-	 7j4tApuNLCzTbgscOnB2Df0le/JjRB00cgIQ1/cXanei0RQgmqblhlQ739t1cE73Hexxg
-	 kDKJ1NXC1eFhauPNGFB1GO7NG6iNkzRsl6VcEvuzDc1DOdzIdFUAePyOmg6ZMwH7Augq6
-	 kQz0hgD1NNhdMF4ucIcRmOxcXXUbQ966NtmREuZoFmumsrEp8KJuhZwJsAzDrRgfHPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793825380;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:Date:
+	 From:To:Cc:Subject:Message-Id:In-Reply-To:References:X-Mailer:
+	 Mime-Version:Content-Type:Content-Transfer-Encoding:X-Virus-Scanned:
+	 X-Virus-Status;
+	bh=KWiRV1sGkuoDXhM09Z+91Z+gqhSc78puMi7yQgR1TGE=;
+	b=NcTrOW18xxL9EM/jO8YiG5torkkB99TioKFeEIM204Okv63E1FfMC3wT2Q9Q66TGISKn
+	 UWQY/BYHBcQNXo1DENVWhL21r3Z2aj6W+7Abm39z8x3bjaEZfElTrY/kJLDZPDgjGKhsE
+	 wT5Xz62sxqOFAsv3bFQdm27nkT19pZu+2iEAi4xqmwyHiSsnnPBJVQ2+RPU4/Seo8A5pT
+	 yHiF1C2rSuIiD9VvL9WMgo2Gwg8gD9uwpj7W1zBOAoGhVvF6nw+EELAKXE3Zp4UTWWYif
+	 XGne76xiHQI9EPjZSxON+tKjSml/lhDpDywts2baAkZlq2qYpx2Rf52EWEhw5uym+9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BmTArU4P;
-	arc=none smtp.remote-ip=192.198.163.18
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE702606CA08;
-	Wed,  4 Nov 2026 20:49:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE702606CA08
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	dmarc=pass header.from=uniroma2.it;
+	spf=pass smtp.mailfrom=uniroma2.it;
+	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=ed25519-sha256 header.s=ed201904 header.b=3lud85Yp;
+	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=rsa-sha256 header.s=rsa201904 header.b=gIjKeGI7;
+	arc=none smtp.remote-ip=160.80.4.35
+Received: from smtp.uniroma2.it (smtp.uniroma2.it [160.80.4.35])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 508AC606B2E4;
+	Wed,  4 Nov 2026 20:49:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 508AC606B2E4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BmTArU4P
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793825385; x=1825361385;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=JTdqZrMRPi6WcLGmJnwa/CJMl4RUCZus4mIGMek1G50=;
-  b=BmTArU4PLciQsuQaWsj83LMbIlvlugcIi/qan22ZNk4144OEvVJ3s0aQ
-   zua/n0ChL0NXCRh7fomWDWJipXWH8Ec/gps/7dk8wYihZlf8Fu0djxPpM
-   85Ld71j/HpPlSSpNikhcaotx5Ick1Sb7WjSIivuM3lh1nFyCioZo9KoKO
-   sJBj3aGYXAkUcjnNQFWvnxSm5LI54S4YX/cbyj7AtwSLVKMkoFLk0ZHhF
-   NXIa2tnFKb6Xuo8uWFmoZq+/+dhkOvZs0nBJUhL+HZ1BUnECsZjL2Tjqz
-   wx36QzrSeZ+q8QV2QeMxMuLGoyBhA1DUiVj5gpMV2oR82c6RWQADWrrHZ
-   Q==;
-X-CSE-ConnectionGUID: Sa3j6XpuT1GpDV7IzRTWBQ==
-X-CSE-MsgGUID: hdwdZJygQFKmbKQTzUmKLw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2635597"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2635597"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:49:45 -0800
-X-CSE-ConnectionGUID: OcTARpEbSGOe3Qh4k5qXIQ==
-X-CSE-MsgGUID: TWlF8PfzSsqQNcZHM0fkZg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="8676414"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:49:42 -0800
-Date: Wed, 4 Nov 2026 22:49:39 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Frank.Li@oss.nxp.com,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	John Ogness <john.ogness@linutronix.de>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Zhaoyang Yu <2426767509@qq.com>,
-	Haoxiang Li <haoxiang_li2024@163.com>,
-	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-kernel@vger.kernel.org>,
-	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
-	imx@lists.linux.dev
-Subject: Re: [PATCH v2 1/2] tty: serial: pch_uart: replace chan->device->dev
- with dmaengine_get_provider_device()
-Message-ID: <auuaYxoZm2T25cU5@ashevche-desk.local>
-References: <20261104145211.3209669-1-Frank.Li@oss.nxp.com>
+	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=ed25519-sha256 header.s=ed201904 header.b=3lud85Yp;
+	dkim=pass (2048-bit key, unprotected) header.d=uniroma2.it header.i=@uniroma2.it header.a=rsa-sha256 header.s=rsa201904 header.b=gIjKeGI7
+Received: from smtpauth-2019-1.uniroma2.it (smtpauth.uniroma2.it [160.80.5.46])
+	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 6A4Kmwv7026955;
+	Wed, 4 Nov 2026 21:49:03 +0100
+Received: from lubuntu-18.04 (unknown [160.80.103.126])
+	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id 3A5D8121681;
+	Wed,  4 Nov 2026 21:48:53 +0100 (CET)
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
+	s=ed201904; t=1793825333; h=from:from:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KWiRV1sGkuoDXhM09Z+91Z+gqhSc78puMi7yQgR1TGE=;
+	b=3lud85Ypuk1tJ4tH2Yskpq8GzXEWvWfGmN9+7cebU6nDqyMHSirqd70IOiIm/74cz/PBeg
+	jLQkFeBqdmDRtaDQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
+	t=1793825333; h=from:from:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KWiRV1sGkuoDXhM09Z+91Z+gqhSc78puMi7yQgR1TGE=;
+	b=gIjKeGI7fmepMSDdBPAlik4cT5XZmFCK5v/N/c5pedyglD8RjJJr/NOmaJ01XH904Vu+xZ
+	9sjCp9XD/QzLFvudkjfrFM7ku642bphdwieD9vqn0D2MkOjX4O8Gpv0K2N19MXGh0DamjS
+	p5z1qyxWzfxl6H5o6jyO/gFN3kYtYoP+QZNICk/l/QypChvSHz6M2zbcKA7ACKvy61IikD
+	FpL/nILSAQC12OE8NTobXZm/gTvou1yZMIjNHxUidllVDFySilBE09vEKxybns9UBLXKpe
+	cEPbLllIc7QziULnLD6LibaeiCdAZxW6/AgU2huu7TFG3Me21r5jubtRz0qwUg==
+Date: Wed, 4 Nov 2026 21:48:52 +0100
+From: Andrea Mayer <andrea.mayer@uniroma2.it>
+To: Hangbin Liu <hangbin.liu@linux.dev>
+Cc: "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+        David Ahern
+ <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+        Shuah Khan
+ <shuah@kernel.org>, linux-kernel@vger.kernel.org,
+        netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+        bpf@vger.kernel.org, David Lebrun
+ <david.lebrun@uclouvain.be>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Mathieu Xhonneux <m.xhonneux@gmail.com>,
+        David Lebrun <dlebrun@google.com>,
+        Stefano Salsano <stefano.salsano@uniroma2.it>,
+        Andrea Mayer
+ <andrea@common-net.org>,
+        Andrea Mayer <andrea.mayer@uniroma2.it>
+Subject: Re: [PATCH net 6/6] selftests: seg6: add test for skb checksum with
+ CHECKSUM_COMPLETE
+Message-Id: <20261104214852.853a936a50a49e2cf2acbbd4@uniroma2.it>
+In-Reply-To: <aulUayPCDOYwAm1e@fedora>
+References: <20261031225033.64-1-andrea.mayer@uniroma2.it>
+ <20261031225033.64-7-andrea.mayer@uniroma2.it>
+ <aulUayPCDOYwAm1e@fedora>
+X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,28 +98,62 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104145211.3209669-1-Frank.Li@oss.nxp.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
+X-Virus-Status: Clean
 
-On Wed, Nov 04, 2026 at 09:52:06AM -0500, Frank.Li@oss.nxp.com wrote:
+On Tue, 3 Nov 2026 11:26:35 +0800
+Hangbin Liu <hangbin.liu@linux.dev> wrote:
+
+> [snip]
+> > +
+> > +log_test()
+> > +{
+> > +	log_test_expected "$1" "$2" "$3"
+> > +}
 > 
-> Use the dmaengine_get_provider_device() API instead of directly
-> accessing chan->device->dev to get the DMA provider device.
+> We'd better use log_test_expected directly, otherwise the log_test in
+> lib.sh will be overwrite.
+
+Hi Hangbin,
+
+Right, I will call log_test_expected() directly in v2.
+
+> > +
+> > +test_command_or_ksft_skip()
+> > +{
+> > +	local cmd="$1"
+> > +
+> > +	if [ ! -x "$(command -v "${cmd}")" ]; then
+> > +		echo "SKIP: Could not run test without \"${cmd}\" tool"
+> > +		exit "${ksft_skip}"
+> > +	fi
+> > +}
 > 
-> No functional change. Prepare make to struct dma_device private to the DMA
-> engine.
+> Then we can use require_command() in lib.sh here, which will call
+> log_test() in lib.sh.
 
-Krzysztof, this patch was a split from the bundle by a reviewer request (not me
-FWIW), and author obeyed. So, you can do the same in cases when you got something
-you want to review independently on other content which most likely is a noise
-(to you).
+Yes, I will use require_command() too.
 
--- 
-With Best Regards,
-Andy Shevchenko
+> [snip]
+> > +
+> > +if [ "$(id -u)" -ne 0 ]; then
+> > +	echo "SKIP: Need root privileges"
+> > +	exit "${ksft_skip}"
+> > +fi
+> 
+> I wonder if there is any one run the selftest with none root privileges.
+> Cause almost all the selftests need ip configurations.
+> [snip]
 
+The test needs root privileges to create the namespaces, write the
+sysctls, add the tc filters and load the BPF programs. Without the
+check, a non-root user without these privileges gets a SKIP from a later
+check, for example "SKIP: dummy dev not supported", which does not say
+that the privileges are missing. With the check, that user gets "SKIP:
+Need root privileges". I would prefer to keep it.
 
+Thanks for the review,
+Andrea
