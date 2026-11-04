@@ -1,95 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.132
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793791638;
-	b=fmoGBBNZtqb5Bt3+ickYb8abDfGEg/cJfkRcyfq9x028a7l8IXFwn4U3deiZLZeU9vV8
-	 ihXM9Phe1UN8aY/9mkLsofngUkqRoMhOjQNvlEHtHAtBNZZTEn/Tj+hIoQHJUbuRu86Cj
-	 Y+GYPLx/m+auiYBUfNKfPz4Oeshfc2obz3eHE2s+FlHtKsA8vji9vZERgO4dlJW1TLXj9
-	 qD2F7SqTkqCXSEzO2kS+AfS50RiuswujXD0D7DsSuvHushsmNDSlYf4EjtwUppFzY9PnI
-	 mrWc7Zyoa5Arznq85xmpW8ryf4oVWXIbm/l99+3CRp730qS5zINv6zf3BDlUtdSZ4Lw==
+	t=1793791648;
+	b=qU9bPY0Yasj3GXGsvM9opW3KWaN9mRv5ZpePVGf8gbKJzTaq26NC5HMUWLREA1rSG70W
+	 e+Mi24FcdfNOpfjIRWrfgSTuRRRXfHSB+reOsDMdgO4GelnxwdLS6vF1fuM9jnqQqlgOf
+	 jRbfjXqUH8eiqUWecXn89PF5Kw/ZiMTEwptrfOKyktSzEaDjL5mQvmDJSxz3rSr3W/f9X
+	 GwZshkHxonjOtKYEZmtJHjoCl6pfQBD3ZNB5kbKInWkpL2lVX0EkFjOFkNZPrVnEUcuJ4
+	 wUd/iJJpk4HnK2dNXTSXHEauvUFgRCkoSROFjDGZmSCcEPCJAZmDvAXcDMzC6SAkeGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793791638;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793791648;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=4q1WGi9vPIf9vHoF8r8SkjERKMefi2tjXdzTAcwJSz0=;
-	b=I04X0rs6VA4VGfCsHxsdjRSxzbd2KtrLk2ip2A2YItBRfASnExdNObveBH8W05EFXKxp
-	 Ospbm/CaMmj4dzlU1aH9QSsRoVfgFmataw4ds2pIoke9kqhDpC+fpe9I2kR2x/KCquqWh
-	 1jfbIK570RwO76fgdNalnzGvXK4pH6VCec/A6Mz+FtSagNCXst+kU0DwTn1wElgLCh4Gi
-	 5Q09h3A4eLtd1fKmqd051ef/0loQrHP8uZCa/7GQr6ThTEhAOJHpYqmPxSFbaMpgRBsvh
-	 KUSTpMlt/qIoWX6MTWHf2qAs2NXErDUAsbjn8wvyXiLfFQatvqkGKbKbDZtiPaECzWg==
+	bh=eSRpEyiCpq6q3r3x8lXM5Pt5HeYqMgK+KLNe7ym6hQM=;
+	b=jtdr79A1BW04jpkBQd83JzVFkJ24YPI7psZXPs6mPZ3YaXWQQW0Zrnx02GbhdGnhw6rQ
+	 SQ3pZ0tmgLZuQsE64B+otRE2roFaAZK/dbdJ5+MhVVyRsxP7ILWvPAVcOvP8rvFJpmxqG
+	 4KKEA4g4/ugNP3qN81WCWZpQAl2aCWYFrjluvj4g2FkH1CshfsUTCIzCNiGz64GUoGAto
+	 CESqGt8K3QjSpZ/8nvC0IdjrJc9oofbx6m3MY9x46sLbSbUu4Jt+QFmZE3wrDOKvTGgVT
+	 cJo+CW2Gohayy6yty0MyFgrm8xoEnfEmDXn4ptt3hqKftNcY9yb7rtGhyNnQ9W3bKpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="fXDU/XhV";
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=rz+1DxXA;
+	arc=none smtp.remote-ip=115.124.30.132
+Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79034606D803
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:27:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79034606D803
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16530606A339
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:27:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16530606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fXDU/XhV
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-35b2c599f43so1165836eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 03:27:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793791638; x=1794396438; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4q1WGi9vPIf9vHoF8r8SkjERKMefi2tjXdzTAcwJSz0=;
-        b=fXDU/XhVj47pukSIzfP3AeWhUd+/e2R266iAZttUesRoZqDYjqb0FjghuZ8i9ivii8
-         T2IuCbLsJWIjZM2tDiC+330Ej3k08+Q8e5hDJHAcRWsCDDJaSb4pVb732uux83pe6UF7
-         NUTznmJGT50qUFB/FEp0AF+t1hv9t0mFlX/nmyiKNY2yOy8zOdazMa4Acwh4WKu0MCl1
-         b5iPs5JNJLODOTfyNc+hZmee41eY7q9c6h91xkmFy2K7+32pbLFNJYjg6TrsQp7lnG4p
-         OmPhvn6X03kdMbF10iYxxuNq5WzPn3z19g5hgQ/stbaOOMqAiOUBQp4Rm+KtZj76MTGN
-         Hevg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793791638; x=1794396438;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4q1WGi9vPIf9vHoF8r8SkjERKMefi2tjXdzTAcwJSz0=;
-        b=0RezuBJKClgWkDmmNobcy73FhzYyGlyy147uzTTJQnLsh8L0qAtHNn3TC5a06Oo9bE
-         Z3ODgGfYjfVQcshlrAkqPtRjXqZy1mAv3c1wjOXqsvJRIAyIVJZJ+wA+56EmJXJpQGRy
-         BPIkkJyAglZa8pnW/YPjcj+5rjyeOcjSV5mnQ+EcG13paD4lycFCpY6TRONy3CADjjW2
-         DYFFS3NtpSE7v75hlkeWDpRzo1quKrkuVI+L/A6zBsAiNWTs5MiObnNH49l3BSTZuXPr
-         PEnGFon5nJ0cInKJo4I01ZeASogxPE5urccD5Rcq3Cre6l3ICF1mdbYwNS96KFmmagPu
-         ZAZw==
-X-Forwarded-Encrypted: i=1; AKwUvBxbJTL35OYtHDJKIF1e7uy4H9qY1Qnrm+T9LFnxktBHZZ0ixUmE7KCRcektRjKRwDheRgJb/8r6KrHfm9E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+mMaypuTigdk3w0ow3PsVQlPDyBrnAnjqEnK1+wLlhpCP6Hi64
-	G9KScycY6M7hXaqKXdxYk89qIKjirZoHjVImMw0kjshfFvFopXtIhpaN
-X-Gm-Gg: AYBFou0dJAkDL5i0RNyb7CvcwcPWmys9QayPDa1LdTr/PsAgl7IjNmg+rya47Wklp3k
-	pm0UiJo49Rc0flss3N2jFoOwMYTiI/aHrmslk79c0WdqDRlewgf0LmUv9FcFyDklmtrQN5TToCe
-	x+16q4UOF1oJUvcBXluM2/ZJDkLZR3/zeYy7c9dNRON/tAzf5yP0OVmbYZzpgno13ZwwvaOWbtK
-	v3/cuacHX9jK4fx80M8TcZij5BpsOvWKTpoOLl9TdO5j+C+Uf/ycmwPfTZotdfc6W4yaycJ6Fi+
-	fKWH5gVtTdBBd+l6xV3wUH9H9aKJzBU3OvbrrPpfIzN9FnNpn7dSPNf+czN6Qbaj4LxnCn5jUyK
-	AuMlccJlDN8A6xGOkA6f6AcPGefsM/9qP/Tq/vJnP7WzBqr1sH3r2mI8QpNDdlHAllAywZyppfw
-	qZNmElWP2FvAqS8DozbryQxYWHsR54O66EJZSeNbvfvV+Kts3fSTpsYBv4gYOryEbj2LxDBHFvG
-	dBzOSitGP95P6Hyi5/QYmgWps9gyoJOinoFdDjVH7ohoC0nfEdWpK3sStKQKTYHfL5k2YDvK3z4
-	ORSbqdrOXrvIOyj9+8OontfFR1Q9FOC5Gnkpdto89XB29mv7Z1M=
-X-Received: by 2002:a05:693c:41dc:10b0:351:2958:1740 with SMTP id 5a478bee46e88-36a42445a8amr24062847eec.37.1793791637656;
-        Wed, 04 Nov 2026 03:27:17 -0800 (PST)
-Received: from Anonymous.localdomain ([223.181.62.51])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38d36besm11119601eec.11.2026.11.04.03.27.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 03:27:17 -0800 (PST)
-From: Hussain Sitamouwala <husainsitamuwala21@gmail.com>
-To: outreachy@lists.linux.dev
-Cc: sudipm.mukherjee@gmail.com,
-	teddy.wang@siliconmotion.com,
-	gregkh@linuxfoundation.org,
-	linux-fbdev@vger.kernel.org,
-	linux-staging@lists.linux.dev,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=rz+1DxXA
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793791638; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=eSRpEyiCpq6q3r3x8lXM5Pt5HeYqMgK+KLNe7ym6hQM=;
+	b=rz+1DxXAVtn13kDO3j3GHv+7mVMdJgFOpCHP9iHJgx8o+IVgufEes2G97YBhXdtuZfaBI+GSSCmzj1txHmq2Pc1mgZh8sh65FPR0+7u2gT48qrieHvvT+/ZM5HqNAv2nPj8txxxtxSvSywq7hUNwsnPl+Jw1Yqoo5cOUwSTvmUw=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R861e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=29;SR=0;TI=SMTPD_---0XE5bSHL_1793791633;
+Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XE5bSHL_1793791633 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 04 Nov 2026 19:27:15 +0800
+From: fangyu.yu@linux.alibaba.com
+To: gong.shuai@sanechips.com.cn
+Cc: alex@ghiti.fr,
+	andrew.jones@linux.dev,
+	anup@brainfault.org,
+	aou@eecs.berkeley.edu,
+	atish.patra@linux.dev,
+	baolu.lu@linux.intel.com,
+	fangyu.yu@linux.alibaba.com,
+	guoren@kernel.org,
+	iommu@lists.linux.dev,
+	jgg@nvidia.com,
+	jgg@ziepe.ca,
+	joerg.roedel@amd.com,
+	joro@8bytes.org,
+	jroedel@suse.de,
+	kevin.tian@intel.com,
+	kvm-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Hussain Sitamouwala <husainsitamuwala21@gmail.com>
-Subject: [PATCH] staging: sm750fb: fix spelling mistakes in readme
-Date: Wed,  4 Nov 2026 11:26:29 +0000
-Message-ID: <20261104112629.180890-1-husainsitamuwala21@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	linux-riscv@lists.infradead.org,
+	nutty.liu@hotmail.com,
+	palmer@dabbelt.com,
+	pjw@kernel.org,
+	robin.murphy@arm.com,
+	skhawaja@google.com,
+	tanchi25@mails.ucas.ac.cn,
+	tomasz.jeznach@linux.dev,
+	vasant.hegde@amd.com,
+	will@kernel.org,
+	zong.li@sifive.com
+Subject: Re: [PATCH v7 05/10] iommu/riscv: support GSCID and GVMA invalidation command 
+Date: Wed,  4 Nov 2026 19:27:12 +0800
+Message-Id: <20261104112712.68199-1-fangyu.yu@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <20261104092111.119394-1-gong.shuai@sanechips.com.cn>
+References: <20261104092111.119394-1-gong.shuai@sanechips.com.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,32 +89,116 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix two spelling mistakes found with codespell:
+>Hi Fangyu,
+>
+>> From: Zong Li <zong.li@sifive.com>
+>>
+>> This patch adds a ID Allocator for GSCID and a wrap for setting up
+>> GSCID in IOTLB invalidation command.
+>>
+>> Set up iohgatp to enable second stage table and flush stage-2 table if
+>> the GSCID is set.
+>>
+>> The GSCID of domain should be freed when release domain. GSCID will be
+>> allocated for parent domain in nested IOMMU process.
+>>
+>> Signed-off-by: Zong Li <zong.li@sifive.com>
+>> Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+>> Reviewed-by: Nutty Liu <nutty.liu@hotmail.com>
+>> ---
+>>  drivers/iommu/riscv/iommu-bits.h |  7 ++++
+>>  drivers/iommu/riscv/iommu.c      | 62 ++++++++++++++++++++++++++------
+>>  2 files changed, 58 insertions(+), 11 deletions(-)
+>>
+>> diff --git a/drivers/iommu/riscv/iommu-bits.h b/drivers/iommu/riscv/iommu-bits.h
+>> index f2ef9bd3cde9..65d1f2250011 100644
+>> --- a/drivers/iommu/riscv/iommu-bits.h
+>> +++ b/drivers/iommu/riscv/iommu-bits.h
+>> @@ -720,6 +720,13 @@ static inline void riscv_iommu_cmd_inval_vma(struct riscv_iommu_command *cmd)
+>>  	cmd->dword1 = 0;
+>>  }
+>>
+>> +static inline void riscv_iommu_cmd_inval_gvma(struct riscv_iommu_command *cmd)
+>> +{
+>> +	cmd->dword0 = FIELD_PREP(RISCV_IOMMU_CMD0_OPCODE, RISCV_IOMMU_CMD_IOTINVAL_OPCODE) |
+>> +		      FIELD_PREP(RISCV_IOMMU_CMD0_FUNC, RISCV_IOMMU_CMD_IOTINVAL_FUNC_GVMA);
+>> +	cmd->dword1 = 0;
+>> +}
+>> +
+>>  static inline void riscv_iommu_cmd_inval_set_addr(struct riscv_iommu_command *cmd,
+>>  						  u64 addr)
+>>  {
+>> diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
+>> index 918fce4aa8c4..5546dfcd976c 100644
+>> --- a/drivers/iommu/riscv/iommu.c
+>> +++ b/drivers/iommu/riscv/iommu.c
+>> @@ -49,6 +49,10 @@
+>>  static DEFINE_IDA(riscv_iommu_pscids);
+>>  #define RISCV_IOMMU_MAX_PSCID		(BIT(20) - 1)
+>>
+>> +/* IOMMU GSCID allocation namespace. */
+>> +static DEFINE_IDA(riscv_iommu_gscids);
+>> +#define RISCV_IOMMU_MAX_GSCID		(BIT(16) - 1)
+>> +
+>>  /* Device resource-managed allocations */
+>>  struct riscv_iommu_devres {
+>>  	void *addr;
+>> @@ -842,6 +846,7 @@ struct riscv_iommu_domain {
+>>  	struct list_head bonds;
+>>  	spinlock_t lock;		/* protect bonds list updates. */
+>>  	int pscid;
+>> +	int gscid;
+>>  };
+>>  PT_IOMMU_CHECK_DOMAIN(struct riscv_iommu_domain, riscvpt.iommu, domain);
+>>
+>> @@ -1004,7 +1009,7 @@ static void riscv_iommu_tlbi_calc(struct riscv_iommu_tlbi *tlbi,
+>>  }
+>>
+>>  static void riscv_iommu_iotlb_inval_iommu(struct riscv_iommu_device *iommu,
+>> -					  int pscid,
+>> +					  int pscid, int gscid,
+>>  					  struct riscv_iommu_tlbi *tlbi)
+>>  {
+>>  	bool use_nl = tlbi->non_leaf &&
+>> @@ -1012,8 +1017,13 @@ static void riscv_iommu_iotlb_inval_iommu(struct riscv_iommu_device *iommu,
+>>  	struct riscv_iommu_command cmd;
+>>  	unsigned int i;
+>>
+>> -	riscv_iommu_cmd_inval_vma(&cmd);
+>> -	riscv_iommu_cmd_inval_set_pscid(&cmd, pscid);
+>> +	if (gscid) {
+>> +		riscv_iommu_cmd_inval_gvma(&cmd);
+>> +		riscv_iommu_cmd_inval_set_gscid(&cmd, gscid);
+>> +	} else {
+>> +		riscv_iommu_cmd_inval_vma(&cmd);
+>> +		riscv_iommu_cmd_inval_set_pscid(&cmd, pscid);
+>> +	}
+>
+>As I understand it, the same choice is needed in
+>riscv_iommu_bond_unlink().
+>
+>The missing GVMA command does not break anything today, because every
+>caller of bond_unlink() runs iodir_update() just before it, and that
+>already sends the GVMA for the old GSCID. But depending on that
+>ordering seems fragile, and the comment in bond_unlink(), "invalidate
+>all cached entries for domain's PSCID", is no longer true now that we
+>have S2 domains.
+>
 
-"defaulty use" -> "default to using"
-"althernative" -> "alternative"
+There is no functional issue with the current code, since
+iodir_update() already performs the required invalidation.
 
-Signed-off-by: Hussain Sitamouwala <husainsitamuwala21@gmail.com>
----
- drivers/staging/sm750fb/readme | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+That said, as this series adds S2 domain support,
+bond_unlink() should indeed be updated accordingly.
+Good catch.
 
-diff --git a/drivers/staging/sm750fb/readme b/drivers/staging/sm750fb/readme
-index cfa45958b9d2..a000f833d8ce 100644
---- a/drivers/staging/sm750fb/readme
-+++ b/drivers/staging/sm750fb/readme
-@@ -30,9 +30,9 @@ About the kernel module parameter of driver:
- 		insmod ./sm750fb.ko g_option="noaccel:1280x1024@60:otherparm:etc..."
- 
- 	2) if you put 800x600 into the parameter without bpp and
--		refresh rate, kernel driver will defaulty use 16bpp and 60hz
-+		refresh rate, kernel driver will default to using 16bpp and 60hz
- 
- Important:
- 	if you have vesafb enabled in your config then /dev/fb0 will be created by vesafb
- 	and this driver will use fb1, fb2. In that case, you need to configure your X-server
--	to use fb1. Another simple althernative is to disable vesafb from your config.
-+	to use fb1. Another simple alternative is to disable vesafb from your config.
--- 
-2.53.0
+Thanks,
+Fangyu
 
+>The change, if you think it is needed, fits better in the last patch,
+>"iommu/riscv: Add IOTINVAL.GVMA invalidations". I am replying here
+>only because the code is very similar.
+>
+>Thanks,
+>Shuai
+>
