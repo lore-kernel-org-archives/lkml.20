@@ -1,88 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793785693;
-	b=NOYR1FNZXUvy1fYykvQKOwwMbxa40UoQFfHyYIQ2iWRNxcsSbaQUOAlt5kdNRxMAKIe+
-	 PqHaTCHV+C0FvbCe2WSf7/GuIUPTfKaHxOrNOAFAIQWBr/qb5AhSvZsFtbFOTywUuMw/Y
-	 jBn7JC/Od54uaN/SGJr6ZlK2r6rMHUHmooJtE9P/JlOl5oJJ0K0GPmuHcRldlkhbL1KSG
-	 5GwlRzdBNX8U4+CiUxW+PB+qMOONRUMSEtFxB+M7oVC13P4E+XvhK9DePHCRvMEIyDjWe
-	 dn9nnQ2abZTVj6dh+DhpIKY8Nk+m8ylfLHOzVNoGp+ABPbCRTTQcr0L15PnRjrWHbRA==
+	t=1793785695;
+	b=PfP8DJvr6umbAO9LtPTuL79CiwKJ1ZAXcsMD1uTzFPqMJoAyo5RYwY0UoxZafDBA96It
+	 nWz3quWbHMjiqHiIG1oRuXeqxdMOFSc/O59JSeTE8638BZaMRIJOvAJ5GN+Y4pjha2GCg
+	 547GI3qJ+YmffhHYcHxjQT9atkLR/PT4Q4iDP1H+gvHoWZEIuf8O38MUHIEtSPMCHTiY1
+	 vZcQ7zG43bS5h2ivtV2tSHjFRGDlNkzKvSXvIWIl0jHvJq8cn3yuHrd7pGo9BkoUHi0JA
+	 ncLiz5KuclQTMTySQ2oWKMHu3/Ot6o0N3pSsCLgqCR5pARan4K1z8mZxExgKap/gwJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793785693;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:Message-ID:To:Cc;
-	bh=csEO5ITGieiYfLlRHach8Sl5I2GDEIKt9+RVcncVde0=;
-	b=aU5a8WPY33ynM1VcnK2IehMSNt/PevPOeuS/RLJZsUCvNuWNk1B+4lfGUHdJhv9dxaBU
-	 1pk9JyadwZqoMcLLm4cNDCVDWvzFMWeIJVMf7it0u4mOqMn7PsmI756vxSRUMdzNqgw5R
-	 53gofqkI3hUbCT24RSYv41SKRmFPLRBZfTGVvLG16LGh50NKaVZMkoBkSvNWcy+P4F/JZ
-	 6/3ynuPg6h1n1pO5PFIsA7e0T60Ufs+2Dn5zzx1GcGkMmTLxVFV3VjFVir3Aj2jqTnTJX
-	 iP8+pzmKbRWKwUFAxBdC6p8BYtNt6CGopF5NOT3PRk+V+0BRoiOqD0gaqYEsGDbpzQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793785695;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 Mail-Followup-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=HXzV35Z8UwpB17ysmZXHbQ0RRCvEcx5jH2Iaw9wScdw=;
+	b=goBCpOZwWZu6RL55EuUpNTfCAYptVhfOjdna+Sy1H0HQXdw/vIsAnDgCXtEHAUn8r+fU
+	 CPxxHojDDXIkTARJ8PpPxY0+tb0Ql7vEUY2nthmWhvSb+NNEinCn1y8V7AXEhOW60LmNN
+	 j6FphnHar1LAKElC39NCUV6D0IU4C4SlCQyX2Ql4xiWLk7FMktLJbf3ZIoKVkikNRbkK6
+	 q4FcMkeOz7q1IGOxmNhMPcTuPgiZwfV6S83bVwjM4z2yTBMLRKTi+d5wMRYiUFjZpEC4z
+	 72o564koVtfuzNOQKXwyG01b67iJc5Jmot8uqRuMkvmjxFiQAUhn9T/r87IHv1O9Sgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=srYIPxVn;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=InY6wC0L;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFB80606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:48:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFB80606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FF9A606A33B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:48:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=srYIPxVn
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3282db206d3so995270eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:48:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793785692; x=1794390492; darn=vger.kernel.org;
-        h=cc:to:message-id:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=csEO5ITGieiYfLlRHach8Sl5I2GDEIKt9+RVcncVde0=;
-        b=srYIPxVn1p35OZGnV591eyvW5rxMAeWP3IoKZavPAoLLTkB36/TTZt9M6JWsHiHN9Y
-         Z3v/H38GN4NHtRy5cMC1aDVPFtY69ZbYjGlKwxk6WWq2FBoVC5hxWa6P4mzxYWHK1NqL
-         7mHN9tUseuPrBWxoV6lgrBnkjviN/VGEkO0cyEN4uOBBVb7tf1fYXu7FcrkbN8atxvuq
-         tbhgzBYvYelmTm9M8cl3q0bWf1p7VeYk1uSOnNeDQDXlyTvAWY6ZMyO47PD53n9doqMh
-         KDk2NIMkhZBxlQA9aIn2XF6pnmIZp/zc15jE+8b4PDqXw5TZIBvL/pdL8HJLRinZvV55
-         tc5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793785692; x=1794390492;
-        h=cc:to:message-id:subject:date:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=csEO5ITGieiYfLlRHach8Sl5I2GDEIKt9+RVcncVde0=;
-        b=nDZA7xGu6OitPwbattd+1KhAc79uqjXCgm+fhC9Z8oZP69Q/SvUB/FljsnOjf5fqfF
-         Rrx1M+Nc/wo3xSRrIHOqwnNQjcMQ9ruJshm54UakXOnFy+7EHmkfIlb7VVljYs3kOI8+
-         zgaluhZpRQZOuxQXbKfS87Cmghb/iV49KugUA0MNM3GKee+iqMoNI3FvxUGnQ7fFPyDM
-         XArJwIil13KexKoVzYorUfLP30D7Kw5hUYZ7gkZM903M0epCViKsMEG+b5MRcMGTO0MP
-         kx9LnpiKJotaQcVi6gFHYntyvsNZUeMtTuvXVV6PH+g5xDyk2SDOMrJE8iJfJsc7b+rY
-         63YQ==
-X-Forwarded-Encrypted: i=1; AKwUvBybrj/nt7DbZuU/bvefpUEL9dz761jXZB/b9+Hs8w5OMRVdDo2Pio4DCERMmm6yq/xWfzl6uP/rwPIaPYo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8N+1/R5e6ogUFi5V4k9c8lvJcsGYcaV5j+iYQpIvx7Rz2yWXO3
-	td1bm0rQnNOawKiN0ABVAz4FEhCs5sLXGAeNk5u9yh9aoPDBXI9LC9600SfXYEYB/F4YBEEp
-X-Gm-Gg: AYBFou1yLlZgOm4SytgtHtIahWie3EScNsvOySm4rogUYlqNcQ/yGP+tIFmEhHlLTyj
-	Ur6qOue7mTBZdkuEqdYp/tU7j0JD1qIbnvGFr0AzBdhsS5ffIcVvbNZwGlSi9/ZGsPDDEMagFsh
-	Aa55di6ajWpFvSBIeMWREgaRXkUltZpeymcBOHOdYuRZiwEhmUZ1n8TyouR5nXqx/5qLbkiZnTW
-	C+WiLyzWcfyR/wsEWSvAwBoLQX05y3sxTc3rrvmorpTIMD1pWtSieKVC4t7l1j9/91i1ahpVE9G
-	UAYCbA3R9/vext9KjzrdFnuRRQLv5mYGTsw3+bnOvWpY7yYhybyr8lAYzwsf2Kftg1+wyaQR/vm
-	BjeNVrVJzvBELoOYSnDrrwhpK0zW7IhUhVkCj3/Zo25iDXtNr91Nm10L80crddLureoI7PMadqo
-	oeL+jMaTJTGGm06rZvNnQdWufJqMO+nvDUS8t+rPmA+ImqQvgnSMPB8bjpNRaSj6t+4SidqDp3g
-	WxTDQ0sjvjWMUKe2DsnNna+5nLeQZNfsq2HZetdKT+6grAGp946AYao+nZBZrfRUIRKbPnkaoHx
-	6G0noBSeF00woogupzbZ9OPBErcbtqOC84kqceChzECRLtKOWiNdrJ6ft+ul5youhxk1
-X-Received: by 2002:a05:7300:a98f:b0:360:8596:657d with SMTP id 5a478bee46e88-36a42401568mr33706705eec.32.1793785691546;
-        Wed, 04 Nov 2026 01:48:11 -0800 (PST)
-Received: from [127.0.1.1] ([23.247.137.158])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36d34d5960esm3323400eec.5.2026.11.04.01.48.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 01:48:11 -0800 (PST)
-From: Yaohan Li <shunsheng1218@gmail.com>
-Date: Wed, 04 Nov 2026 17:47:54 +0800
-Subject: [PATCH] power: supply: bq24190: stop IRQ and work before supply
- removal
-Message-ID: <179378567491.72692.9015711605062239156@gmail.com>
-To: sre@kernel.org
-Cc: johannes.goede@oss.qualcomm.com, krzysztof.kozlowski@oss.qualcomm.com,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=InY6wC0L
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9089D1F0093A;
+	Wed,  4 Nov 2026 09:48:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793785695;
+	bh=HXzV35Z8UwpB17ysmZXHbQ0RRCvEcx5jH2Iaw9wScdw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=InY6wC0Lu/gE1+Uh9tivct4df3l9zhQNYnbCEA4+N7iJzhya1BjWHq7875hXbMx4i
+	 JSOVZ5adapMJadDpAl1T/blwxthLNJSOEA4t4EVO7LTnwUxSQknlv9JvKz/3z8f7av
+	 KYCJ7mxw/uUa9lvseLUNpsV+sEpSqq04qJJkMJS0aBkatvZ32QaEI/gCyICcnTkGkB
+	 ipEgO9WNm2noUsomIFuHtMj1kbeeoJKeKCEwprSSPgfc61IYJ8Pl8bvhgmCa1/YM3m
+	 pRdTX7WUeZ9fKYV8MKpHLCYG2kwNqW4v7BFC06Zf5LZaC7titPk3Z+Yl8jLsO7dz0Z
+	 DPoLcM769tPpg==
+Date: Wed, 4 Nov 2026 10:48:08 +0100
+From: Gao Xiang <xiang@kernel.org>
+To: daejun7.park@samsung.com
+Cc: Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>,
+	Yue Hu <zbestahu@gmail.com>, Jingbo Xu <jefflexu@163.com>,
+	Sandeep Dhavale <dhavale@google.com>,
+	Hongbo Li <hongbohbli@tencent.com>,
+	Chunhai Guo <guochunhai@vivo.com>, linux-erofs@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v2 2/3] erofs: treat files shared by inode_share as
+ stacked
+Message-ID: <aur_WN7z_EnoYSu-@XiangdeMacBook-Pro.local>
+Mail-Followup-To: daejun7.park@samsung.com, Gao Xiang <xiang@kernel.org>,
+	Chao Yu <chao@kernel.org>, Yue Hu <zbestahu@gmail.com>,
+	Jingbo Xu <jefflexu@163.com>, Sandeep Dhavale <dhavale@google.com>,
+	Hongbo Li <hongbohbli@tencent.com>,
+	Chunhai Guo <guochunhai@vivo.com>, linux-erofs@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+References: <20261103-erofs-fileio-bioset-v2-0-5b91af423f72@samsung.com>
+ <20261103-erofs-fileio-bioset-v2-2-5b91af423f72@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,57 +68,30 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261103-erofs-fileio-bioset-v2-2-5b91af423f72@samsung.com>
 
-bq24190_remove() unregisters its power supplies while a managed IRQ
-handler and input_current_limit_work may still access them. The
-managed IRQ is only released after remove() returns, so stopping the
-supplies first leaves a window for a callback to use freed memory.
+On Tue, Nov 03, 2026 at 03:29:32PM +0900, Daejun Park via B4 Relay wrote:
+> From: Daejun Park <daejun7.park@samsung.com>
+> 
+> A file-backed mount whose image or extra device is on a block-backed
+> EROFS passes erofs_is_stacked_file(). If inode_share shares that file,
+> erofs_real_inode() may pick an inode of a file-backed EROFS in the same
+> domain to read it. File-backed reads then nest in the same task.
+> 
+> Treat files that use erofs_ishare_fops as stacked.
+> 
+> Fixes: 34096ba919fd ("erofs: support unencoded inodes for page cache share")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://sashiko.dev/#/patchset/20261030-erofs-fileio-bioset-v1-1-caf47adbb3a3@samsung.com
+> Signed-off-by: Daejun Park <daejun7.park@samsung.com>
 
-Release and synchronize the IRQ before unregistering the supplies,
-and cancel the delayed current-limit work. Cancel the work once more
-after unregistering to drain any instance requeued by an in-flight
-power-supply callback.
+Reviewed-by: Gao Xiang <xiang@kernel.org>
 
-A KASAN test with a simulated I2C device and the in-tree charger
-driver reproduced the race during removal. The same test completed
-without the use-after-free after the change.
+I will address the first two patches upstream as fixes in these two weeks,
+and then review the remaining one as a new feature later.
 
-Fixes: 4f73a52df7d28278 ("power: supply: bq24190: Avoid rescheduling after cancelling work")
-Assisted-by: ZCode:GLM-4
-Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
----
- drivers/power/supply/bq24190_charger.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
-
-diff --git a/drivers/power/supply/bq24190_charger.c b/drivers/power/supply/bq24190_charger.c
-index 7a5867dd74c23..fd0ea5385f0dd 100644
---- a/drivers/power/supply/bq24190_charger.c
-+++ b/drivers/power/supply/bq24190_charger.c
-@@ -2265,9 +2265,24 @@ static void bq24190_remove(struct i2c_client *client)
- 		dev_warn(bdi->dev, "pm_runtime_get failed: %i\n", error);
- 
- 	bq24190_register_reset(bdi);
-+
-+	/*
-+	 * The IRQ handler and the input current limit work both access the
-+	 * power supplies. Stop them before the supplies are unregistered
-+	 * and freed below: the devm cleanup only runs after .remove() has
-+	 * returned. The second cancel catches work re-queued by an
-+	 * external_power_changed() callback which was still running while
-+	 * the supplies were unregistered (the work has a 300 ms delay).
-+	 */
-+	devm_free_irq(bdi->dev, client->irq, bdi);
-+	cancel_delayed_work_sync(&bdi->input_current_limit_work);
-+
- 	if (bdi->battery)
- 		power_supply_unregister(bdi->battery);
- 	power_supply_unregister(bdi->charger);
-+
-+	cancel_delayed_work_sync(&bdi->input_current_limit_work);
-+
- 	if (error >= 0)
- 		pm_runtime_put_sync(bdi->dev);
- 	pm_runtime_dont_use_autosuspend(bdi->dev);
--- 
-2.34.1
-
+Thanks,
+Gao Xiang
