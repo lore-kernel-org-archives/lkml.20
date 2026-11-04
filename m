@@ -1,93 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793755660;
-	b=MUT9Ncw7DnGEnGcNue/0aKPNrN4kS+xsA+vVB4LC0kqRzAWcTLllyybd6ETR27L3iyBQ
-	 22Gc+f0P2oZafu0yN9HLFszmv1d4Vryhch/fhY2POm6vFPjVTdp90EKWNRf71FvTzpHxh
-	 6Ek2/wWL84+EE9Va27HLNlo5EFoGu4yXE3FMRUraYymn7lDzntl+V4a7MPAHPRIWZdVNn
-	 8096XmFNCRLJC+K0WcXCTYwjuJ8ymASUZe8mVTK32Z2mu/8H2I10Q4GkI4FbQj35gyYmw
-	 BRcfIFQOAjrChDyVPX4Ur7O1iOnAQEBjZ2iYxcHvjh7Jriz7Uad1dDlc9QH5hWR8LgQ==
+	t=1793755707;
+	b=N9N5X7V/IXapjEXgtxNKMObFKzAbcpPkxGOSv9nxQqC3MzscTBPEdxma5iYqvm86sLnM
+	 b2OLTT6QwZjXWq40s0gsWMoLHK7HmFkWPtUNBi5YS6T7TPEMajYcnzaNlFU5bHEtgjLrN
+	 z8R7Ltom6zk5GfBX9jhYoPogQ/IXv0GmYTiGfCw7iAz9Kiw8jagHZL8HKyGXESNJy4+ir
+	 RlU7H9hFIJOAtVVpT6TOL+LPCzCoYw4PivL//dPd935PbJs1Nohe+k/n9sR1I1PEMI2i0
+	 akrjj/VzvbKnmJCb8/ZDPIszYBVl0z7pbYC62Dd7I3qRtSLHIbQs7hXFTaLErKMtjkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793755660;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793755707;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=LcfBCZa5adH08J2gOGj2C4Qobxoxc6wsW6LJTMDHw6Y=;
-	b=JPkQ0opfFgVZ9nwitTsw1IE7In1LygJSBAEqY39sS74oqQM/35UTpeWm0a2WSotyNrmL
-	 8oXMH1MFrYE1Hxs5Jo/lIcVHBPJVbC0jo/+fxGT8VJPzK2OarqSkCHyFH5fxb0Zh30egq
-	 Ttw9M79d+OWpLSNsKfI1lvfGPsnofIafEjH29wMnHaX4WJobFBXoQK2/SVU9hiHhyqGGc
-	 zApyxFcMy3qpwWwhOEFleep0Py5qVDq/1+vhZft0rrmU4ruP+ZioRrD9t/Lp/gatEElq1
-	 Wi/eUrf8cnbbGlfG5NMqRJwFRwSc7/YChGf+cDI42yvrRM7PINVKX4VEuY832KhGZKw==
+	bh=CEWS5O6NICxLw6C5QXAFqTMWmsO+xhOgA5e6wxAsh5I=;
+	b=YvqyHSs6INGgbg3KW+YuYX5ozZzpZ4/uvObGRxrqxQDjJIiJswILRewvZ7Ms1ogOtFHZ
+	 MlrfHvoQlK+ZH0bq/oOe1I9+g76soCdU/2S1i9d337xnV7o/KlyAU4w1fQrm+kvW1f4kx
+	 e1+bH5ZFTMgiiSXD0NmKIIhY7Kwhn8oyOzmUU0bqYrHIY2dzS3FApi3gekgrofGWnEKGJ
+	 chuAnxJibImJ6h02GfV7OLyQzc69APLqHri/Z0LCKHHm+soLI7bo4cWclGj+W0YGZsEKH
+	 oW6eqV3k7JoyXWj3lhFIwjtwShxmrEtauP+AQlOATieVjznpc4r+P2Aa9Ym87x9vq5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gyjMmLt4;
-	arc=none smtp.remote-ip=209.85.215.179
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HJhMxTyc;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04EB606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 01:27:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D04EB606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FBA8606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 01:28:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FBA8606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gyjMmLt4
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc4be0e5351so80650a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 17:27:39 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HJhMxTyc
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso91276f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 17:28:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793755659; x=1794360459; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793755705; x=1794360505; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LcfBCZa5adH08J2gOGj2C4Qobxoxc6wsW6LJTMDHw6Y=;
-        b=gyjMmLt4u4A5pCxKBpjcV1+7W4eE4pEpOw//Jo0IBR9CJJ0cXZCsimaSkQcfVjNmzt
-         JhIKoYGmCDw9Jyx5LmvtOvt4gh93G05bafAt/lkzpOSEwKpldMveM5k+wy83M7R1F/M2
-         AjBaCXBp1MV9JADZazesyFX8brExYJxWwBO3xs1ECJ1oNX8qWu7M9tp4ooOxvRT5Dcxu
-         czMlAV7tVQ/9cwFJoZKusQFIuVy9amhCFyYoFRbJ3xfJS+Dv74DxVnnkqu/UivFx7l5Z
-         g6H1hknBoF7NzBTiuwiens2zvQA5WbXbxy+SphHR1gzdP6x9dNtBpA+CS6TcEDHbalS9
-         ofLw==
+        bh=CEWS5O6NICxLw6C5QXAFqTMWmsO+xhOgA5e6wxAsh5I=;
+        b=HJhMxTycCUfqPBAbNdRZq0fbvxLcBFVmpm5hNmv4XI85OBDknpn28HOhjyn6y+wipA
+         7ZaleVLYsbr/Q3fg8neLy8Wg/iPAKLxTRUr6Akl9CY8JgJ8YdrZX2tpVyILH66KhQUDJ
+         v7fw3y9y4flULZb3UJ+zvN7Pr9mH5UNIylfOsVNm5gUfoekVspPGrVbyquiLfqp1gkbm
+         xxE6PjWSQWBpZfQm3eZ9RhEehwjYoZhYIC7mgyQnLRk8ZmziAWC2FcC3rV5e26YXNtT2
+         fEddyhh6+d0MYJLF5GWE9ngWw7oEAW7+uMOaYUEZSK82fsJO8rsWgUa0hEK36NRW1Pdb
+         t45w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793755659; x=1794360459;
+        d=1e100.net; s=20260707; t=1793755705; x=1794360505;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=LcfBCZa5adH08J2gOGj2C4Qobxoxc6wsW6LJTMDHw6Y=;
-        b=eLEERGPrHJGGdCxEFUAwR6uhGLKsAq37FTwTTwuxhYy5jgKGPYk8wfvedeNVxX2ESr
-         K7PXKr5NEvh1yTRWKoHLAYd7jAzt/q49UotzSaHOaioCVmWf08lVel+J9oK/PC5vMoJr
-         W13IaWUU6Qx/arY16dsaV/FYn+z6iWboqZ52hyxv1mGllV8j+AvWECv+laBodNjbSj40
-         AJI+FnsOzlDGTotsnsgNLgiv0ypeL3tAGeEaQzQUWRyDC6IHoECImQE0LUTOUB2qrzi3
-         xNcVE2cQHTHw/tK8kwU2vNFeWq2TPD946xNeargnimDCO2Lxi9YDyyPcrb9ErQWBa3z2
-         fcJA==
-X-Forwarded-Encrypted: i=1; AKwUvBwBIEzrLNomcUbzbIDDXWQElkX3ea7evlWCKLNCAfNb6u2I2ChWFGGMV+j4uqbgoUPg19uMSrTA27k0iAM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+iVQYDAfxacST+jAlMPhnh4eAdqNs8Jiax5k/BjsI7wahrU8if
-	xqMYVttlWMT1p1kQ39pQlyB0ziK0LeWCDtIUiaWQbwoAEXtDGA5+pfdO
-X-Gm-Gg: AYBFou0PzUMkVVVqoM8FG1pETRSpDoagNMFbVAz1Lh2HtxiiQifz6RlWCvrKaBEdozt
-	3AWmtL2l+Xgk0WYkAReUUgrDwJJxZuwTFJ6XpcRlFjCDtkOgq0paVuwukGOU10nlVl7At8DWu3X
-	TM1X3UEbMJPMoXmk5rn5FFP2XFURxM36l6VeSdEQJo80ViPxfFz5IlDQIRiDB99ucVbnoGu7QVa
-	gDMW/3fNNrMk7lFTV9q23fOX5DPOk71+0WkCDvwGcdDY3WT5VRonmlJpI1SWoXSHfO6p4Oohm1Q
-	ubWjQCkwQbDsQ7RwIyx6qQ32QwDjFv5nLw6U/cTIT8LiHm8tvN3qo7xFZXoDVBxW/QlEhp9ddtC
-	25eh+8fjZxvxHl+7l5M59QWvzYubDvQ7apSebtVq6InaKjhEOAjjRHj+gZJzRSx4ZWjV+d8AyLy
-	fy+byb3vKa6w1eKXyaMUeNhZA4XjCaXAPjK/mSsEcJp+Z5iNb8x0v9kV0LyGYFdL+S1o5EJhfK8
-	rWn/QMwoVYwPRKUHM+vBIHSEYnfMiNpIxX7+vs0T/X5nf0ufa9U6/aJqjPzllXkewtFS9UYzAA5
-	96NpJ4QLE+iK+eR4uBAH2yFME1nWnj/T4nnow3bsEgCdR5NqNhlbGDyvXV1NZ8RsUVohY+N58zX
-	3viHb
-X-Received: by 2002:a17:90b:3e83:b0:3ab:2737:3396 with SMTP id 98e67ed59e1d1-3ae89855ccbmr12751140a91.65.1793755659155;
-        Tue, 03 Nov 2026 17:27:39 -0800 (PST)
-Received: from evo ([183.171.191.8])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b093d481a3sm1334902a91.1.2026.11.03.17.27.37
+        bh=CEWS5O6NICxLw6C5QXAFqTMWmsO+xhOgA5e6wxAsh5I=;
+        b=QgjrbCkVIL5SAHPP8Bu7JG1GWyyjLJo0TKTU9Zsf/avKp16Fn2decj0HAJEWhNm3Ga
+         QXPKEoWu0D+poPyhoxxlFI2ZuTOJF493EUGpaApPLPQiDpLf8hAp4CGvx8/t+wjGY209
+         hWd4sMt71+tPXM9+ytcoQI1+XRyrudnUpx87peqGZpMt1FwOsOeztN0m0mzQQGWIfQOl
+         q4aTlaK/ZOCFgew3sZjccqXnVJUpaCTEFVmEQOaRdXe+NptiYYRRA+YmTehAVdVKfqDz
+         I847w5LDLNvoJ5f2WomVssprdzobxsFGYvuBMXWh1O+/gvKj6Vr/ru1wKGBctvuo9t1v
+         pJbQ==
+X-Forwarded-Encrypted: i=1; AKwUvByQTdfI9XSqLZeoMs1EdDMFD2WOX1F6lb1fQMnjZ8+HQDtnXxVyebCAAeEeHwecOCXmATW4neLES+NMi2k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/feYfQHn+DnUsjix7tGlwICKtt0OGls0Edk5F00/vED9EFBw3f
+	QbuErKF8CbJjC+RCgRzjE2lacvBYA68BBLGrIL6koh7vCjFJyTnG4To=
+X-Gm-Gg: AYBFou0WxqG10P8VP+gEztrwwlIfIGiSLm5GTOHeNcKq2K62A05FU/qPp6UKHC1dFoq
+	1wnAMSTOr1f7o3U9FruouZpetz1dMW4tpVNHMFtfCTeUiWwaIO0iLhPYIY656pGSJyO4DXhCwi8
+	+JNDF+Ddm5hEbtgsQH8fjnVk1n6+M1SxtANbLBU3VxVJMDtgPAyjsy1qUcuwjBPFIhCmXB+Bsum
+	8a06mT48DSn5Ow87BRPje3vjBxb8IfrjhdAKe0bdrpk566P+m77doVh2WV2sd4+2xaEtU3Xrt4S
+	M1L5jiO+e7APiQZkDt0bPIwsaaxsHPhMEd+iY51tN5h5IxW8ZXRB8QOVsOHFbU4xapU8XgGftwT
+	SeQrlDvr89btXmKdrnZwqtXtHbfSMmVoGD8/g0NUHi7VNWEysc/Xsi/u1zioCuA3fnGV+egK7yd
+	KftTvR98oLnrYWVDBBDzN3Sff2LMaDUE/xKtW6YgDEru29+IDEwMrdSS+ZxWWpzOxm5pF/vo4RO
+	cOqrDPXAHEKBZ020uVU4v0mpqLY3P/L9DYcZbDbeu49ybtZAgghzJx84penW4bMzAzlKGAo9g==
+X-Received: by 2002:a05:6000:41c8:b0:48d:faa6:cedf with SMTP id ffacd0b85a97d-48e6e50645dmr33085390f8f.56.1793755704707;
+        Tue, 03 Nov 2026 17:28:24 -0800 (PST)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feda2007esm898557f8f.47.2026.11.03.17.28.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 17:27:38 -0800 (PST)
-From: Ambareesh Balaji <ambareeshbalaji@gmail.com>
-To: mathias.nyman@intel.com
-Cc: gregkh@linuxfoundation.org,
+        Tue, 03 Nov 2026 17:28:23 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+To: Neill Kapron <nkapron@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Bryan Wu <cooloney@kernel.org>,
 	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Ambareesh Balaji <ambareeshbalaji@gmail.com>
-Subject: [PATCH] usb: xhci: Tear down host on Reset Endpoint and Set TR Dequeue timeout
-Date: Wed,  4 Nov 2026 01:27:25 +0000
-Message-ID: <20261104012725.147741-1-ambareeshbalaji@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH v2] usb: gadget: f_uac1_legacy: cancel playback_work and drain buffers on free
+Date: Wed,  4 Nov 2026 01:28:21 +0000
+Message-ID: <20261104012821.3253258-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,77 +99,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a command times out, xhci_handle_command_timeout() aborts the
-command ring. The aborted command is turned into a No-Op TRB, so its
-completion is handled as a No-Op and the command's own handler never
-runs.
+From: Tristan Madani <tristan@talencesecurity.com>
 
-A timed out Stop Endpoint command already halts the host and tears it
-down. Reset Endpoint and Set TR Dequeue Pointer timeouts are not
-handled, so the endpoint stays halted (EP_HALTED or SET_DEQ_PENDING)
-and its cancelled TDs are never given back. A driver waiting for those
-URBs, such as usb_kill_urb() during unbind, then waits forever.
+f_audio_free() calls kfree(audio) without cancelling playback_work or
+freeing the queued audio buffers.  If a playback work item is pending
+or running when the function is freed, the work handler references
+the already-freed audio structure via container_of.  Additionally, any
+f_audio_buf entries remaining on play_queue and the partially filled
+copy_buf are not freed.
 
-Reset Endpoint and Set TR Dequeue Pointer change endpoint state in the
-host controller only and never talk to the device, so a timeout means
-the host controller is not responding, as with Stop Endpoint. Handle
-them the same way: halt the host and give back all URBs with
-xhci_hc_died(). The endpoint state flags are not cleared here, because
-the endpoint handlers and URB dequeue check XHCI_STATE_DYING first.
+Cancel the pending work, drain all queued buffers from play_queue, and
+free copy_buf before cleaning up the ALSA card and freeing the audio
+structure.
 
-The timeout was reproduced on an AMD xHCI controller passed through to a
-QEMU/KVM guest. An endpoint halt was set on a usbhid interrupt IN endpoint
-and the doorbell of the Set TR Dequeue Pointer command queued by the
-usbhid unbind was suppressed with a kprobe, to emulate a host that does
-not answer the command. Without this change the unbind blocks forever in
-usb_kill_urb(). With it the command times out, the host is torn down and
-the unbind completes. Normal unbind and rebind of the same device is
-unaffected.
-
-Fixes: c311e391a7ef ("xhci: rework command timeout and cancellation,")
-Signed-off-by: Ambareesh Balaji <ambareeshbalaji@gmail.com>
+Fixes: c6994e6f067c ("USB: gadget: add USB Audio Gadget driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
- drivers/usb/host/xhci-ring.c | 23 +++++++++++++----------
- 1 file changed, 13 insertions(+), 10 deletions(-)
+Changes in v2:
+- Drain queued f_audio_buf entries from play_queue and free copy_buf
+  before kfree, addressing sashiko-bot [Medium] buffer leak concern
 
-diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
-index c23434001e9c..b03ff184c074 100644
---- a/drivers/usb/host/xhci-ring.c
-+++ b/drivers/usb/host/xhci-ring.c
-@@ -1755,20 +1755,23 @@ void xhci_handle_command_timeout(struct work_struct *work)
- 	usbsts = readl(&xhci->op_regs->status);
- 	xhci_dbg(xhci, "Command timeout, USBSTS:%s\n", xhci_decode_usbsts(str, usbsts));
+ drivers/usb/gadget/function/f_uac1_legacy.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/usb/gadget/function/f_uac1_legacy.c b/drivers/usb/gadget/function/f_uac1_legacy.c
+index 7c8d60c7e87d1..9fab3f9c8b9d6 100644
+--- a/drivers/usb/gadget/function/f_uac1_legacy.c
++++ b/drivers/usb/gadget/function/f_uac1_legacy.c
+@@ -942,7 +942,15 @@ static void f_audio_free(struct usb_function *f)
+ {
+ 	struct f_audio *audio = func_to_audio(f);
+ 	struct f_uac1_legacy_opts *opts;
++	struct f_audio_buf *buf, *tmp;
  
--	/* Bail out and tear down xhci if a stop endpoint command failed */
--	if (TRB_FIELD_TO_TYPE(cmd_field3) == TRB_STOP_RING) {
--		struct xhci_virt_ep	*ep;
--
--		xhci_warn(xhci, "xHCI host not responding to stop endpoint command\n");
--
--		ep = xhci_get_virt_ep(xhci, TRB_TO_SLOT_ID(cmd_field3),
--				      TRB_TO_EP_INDEX(cmd_field3));
--		if (ep)
--			ep->ep_state &= ~EP_STOP_CMD_PENDING;
-+	/*
-+	 * Bail out and tear down xhci if an endpoint command failed. An aborted
-+	 * command is turned into a No-Op, so its handler never runs and the
-+	 * cancelled TDs of the endpoint are not given back.
-+	 */
-+	switch (TRB_FIELD_TO_TYPE(cmd_field3)) {
-+	case TRB_STOP_RING:
-+	case TRB_RESET_EP:
-+	case TRB_SET_DEQ:
-+		xhci_warn(xhci, "xHCI host not responding to %s\n",
-+			  xhci_trb_type_string(TRB_FIELD_TO_TYPE(cmd_field3)));
- 
- 		xhci_halt(xhci);
- 		xhci_hc_died(xhci);
- 		goto time_out_completed;
-+	default:
-+		break;
- 	}
- 
- 	/* mark this command to be cancelled */
++	cancel_work_sync(&audio->playback_work);
++	list_for_each_entry_safe(buf, tmp, &audio->play_queue, list) {
++		list_del(&buf->list);
++		f_audio_buffer_free(buf);
++	}
++	if (audio->copy_buf)
++		f_audio_buffer_free(audio->copy_buf);
+ 	gaudio_cleanup(&audio->card);
+ 	opts = container_of(f->fi, struct f_uac1_legacy_opts, func_inst);
+ 	kfree(audio);
 -- 
-2.56.0
+2.47.3
 
