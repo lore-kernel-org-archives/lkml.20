@@ -1,57 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793830512;
-	b=Chzm1wHSE3SCBTdAllyi6wC5mEx4HHUPJ8y982l3sAlOYUlplJTMx5SS0jKJToakW2LL
-	 eUYCqFqsx8rQ9mVSuAM4Jy0fI97tHw1Y7YtNkD8Hjon81AVyIWBy4IuaggeeSvAFwu+QF
-	 QeMkXeeus5XO04ZPNEspx5SaexTiJynIyB52VmBSYRzKXe0cgFBIQifQT7Q/hraThnNbt
-	 wWWN6xWWZthbRSSopLcOYFk2hgwrJ97acMXUGViTa8Ipr0S1lYDicEe/XferF3MfDDqSn
-	 Gb5QyRSwikVgESyxPpaVOYCGoNparPVA4XQejXVRld8WzUGdB5qmxDMCiwlW00SA9kw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793830512;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=3P7gTlrJaFuH0TDPhEdUMNCwq87nzqSEsIEvJ7B0CPI=;
-	b=JlVUEHKYWEk5/7+Ud214mtGEKuR1WtI1DFnTqEUBKtP4jlYZSQgCaJAPLt9LoAjvxKlu
-	 SMmHYd/vpEfZDymoZFKgf2ThW+lPksWkMo1Qrm1u/JNWuj6GckIIfpTiRkIKwn/PB6R4I
-	 55+YKW5nbHUF3fxCNm5P3uukmmdjdw3EwOfvUBja+qeFxDzWRG6YuaE++H/s5qvhpDtaQ
-	 WAcMa8fw7zPHJLURzEpvaBi2BDik36CgneENByybPL/mmPGsZHxfcrkSdk6uUqcBXKdzi
-	 bzNKzsuqPe6jLp6T/+mh6VQLYY+/aJ3PyYi+KUJod8b4GjB796YgjQuSSNi57O7RjDg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GV2Z+Fwi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.70
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793830554;
+	b=I3GX2xFCWE2VZ1QsRt1co58yZb7VdeL1HOEmm3aVmSpp+8i52xSsnwF/52ERIH3GFRu6
+	 iXigZagoeAuVW3Ktt2/DOOcrvNnpXKlwz+viXePuYFt2CT6YKJ+0bHVKW0etqXB34Donj
+	 2PU6x5OKsOSTt1jMo4xlPX9PcYCtgGzKwFnLI0nbfiDNEXCEpJVLb4oKu6PW6wMgIfrn9
+	 UigoP4liyOwaYFWBcID+SkKNYaIGRKoVv4ou0S0QeosJsQKDWvpGkYSpnVfA11c6DLwoQ
+	 KkTk0WSt+i4zAOALJcTLom3t7yPnPEcX/qffBs98/g9XtXbmrJfUlr82cnT4nGWDezg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793830554;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=XpZyyPzddIKp+7+bodQBSlP/pYQk+xt8YSz1Sd2IPno=;
+	b=itK1F2pjfGCdd+FiDOGKH7sHu0Sk1UOmVN5HwV7GhdkLlB406rkqtAVfXKn0M1VD/Au3
+	 qYyKQnJeWVnw3c084z22ZPerW1haFbXxsXJw8f9jsMIrPLiRVtHp7DbUsXu3Ya5qi7Ke8
+	 71/29Ig7n4nGi7OUzfJNzz+o6jGe8m6x+UlyVJ8RbMTGnbBn1Glkl7DXh6JJ5kug9RjFG
+	 YhGHWK93r1qLx6YmCAwk2kSaxjDnpHzlN2/0GY1F0vvWjAPfvFH47SNYvgwBq0jMwnCdm
+	 LtxLcZGJJrtFTiEMBOhauF4yxB3ZrKfzNKpvMT2acAvFtXr7/vaJEVKykZscPSEVttQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=t7rsoS2W;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.70
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011070.outbound.protection.outlook.com [40.107.208.70])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFBC8606A851;
-	Wed,  4 Nov 2026 22:15:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22123606A85E;
+	Wed,  4 Nov 2026 22:15:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22123606A85E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GV2Z+Fwi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 435B31F000C1;
-	Wed,  4 Nov 2026 22:15:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793830511;
-	bh=3P7gTlrJaFuH0TDPhEdUMNCwq87nzqSEsIEvJ7B0CPI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GV2Z+FwiOrCOzohORPu8V0RlDDAInoj4XU/F9gJUOlYM4ogLoeSYQdEkNm9+pLYXb
-	 vbH8wvuy1orZYyw8cr07JORWhplQ2GIhGIP18sHOVdBYMi6ipWc/oLcIVge2ONX4QE
-	 yqd6Cb9NesfYDIx2xFR9FxOFTm6b0HpQSHdzierMbsd8AtEb1lTuE45khd5yQ4fslg
-	 YY6fOg+ajpIlk5G5dBbghXCtsdBsYo+dIJloVBmn+mfCu8wNZgAHJYUWCcs9RertZZ
-	 rNzMZ6OjfTvF/eqhnEhYer3JYt0Ax9F98fXsKH+2CzSjAdq91EHdCnrUexjffspMQh
-	 sxg7FZlgUj0xw==
-Message-ID: <sashiko-outbox-198212@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 07/21] sched/deadline: Do not release a departing
- sleeper's bandwidth twice
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
-In-Reply-To: <20261104211207.1392343-8-mathieu.desnoyers@efficios.com>
-References: <20261104211207.1392343-1-mathieu.desnoyers@efficios.com>
- <20261104211207.1392343-8-mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 22:15:10 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=t7rsoS2W
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nS25jIcanwS/1XaRuP9HmyAYXJIp0vqPY1hin2LBFt8YH+dOhqawsrGGLOniW+POQnQUWLvTbg/M+E6ZoWkpQmk2f+3v8tWxueAzk/gxP4uqBtTJUB3FuWTFIaNHi1OQdYR9g25V0+6NRdBnFSDkZRjdqO/z1LaxN+STRz/WghxvaLt8R22Ao20L2r+OO/gy8F7JtnTj/+K29tvCQdTsgN4LIEC3dGlqpof1Vrg/jEXWbnhRMW3HFsOvEbfvsyOvHPPmxJ1Pjx1P073q9yEWYuy7tuVwA9e2XYlzBHlMGxZLdrN0gCBYsiVEq7PHhsK4Uy+fnHmKT46+8s2mqvKxtA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XpZyyPzddIKp+7+bodQBSlP/pYQk+xt8YSz1Sd2IPno=;
+ b=P34NtDs102Kg6VOhSXeN1+axVcck26shPgK7t4xhRBPlUNbeqyiKJdVKF9uieDJgTv4JFO/vEpHQXYkmwNAWY5D4c+t491aIYAU1DR314HQHm97TW6X6HMvVxr9Qv/LmqGacSr6qlS7lf6AHRnMjw/ji+XTC/RGnqL+9G0wxMxi/lJe1b+sTPqpR0soQN9kyerlAP/shHLc07GogEPQ7yqRDHfEKtEoXs7hZd1rAMEDbjDQk+3WVR/AZHryxDlrNsKf8FnG8yVztKOZTFoX6XYwqPlx/UVx0alI54vJJ/SoVl4kfq6xAXUE5rlqIo0aPsGI6hpESWIszBp5rWLw+iQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XpZyyPzddIKp+7+bodQBSlP/pYQk+xt8YSz1Sd2IPno=;
+ b=t7rsoS2W93h6VhMx15xHm0Rl8qTP0FpHgANMh+/q77rHhmbmwd+SVwo2CmOdJyF7FL1VEkekqsRlHiTgkggrKA7eDpyetdHvmyZK4bQHpzYRnWNaw8IsQBbuQmpOon+wxcKYhe4K2fUH7rnUSmuFPf7ZZSQsH2mAmZxLjW3rsXg=
+Received: from CH2PR11CA0009.namprd11.prod.outlook.com (2603:10b6:610:54::19)
+ by IA4PR12MB360382.namprd12.prod.outlook.com (2603:10b6:207:14c::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Wed, 4 Nov
+ 2026 22:15:50 +0000
+Received: from CH2PEPF00000140.namprd02.prod.outlook.com
+ (2603:10b6:610:54:cafe::53) by CH2PR11CA0009.outlook.office365.com
+ (2603:10b6:610:54::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Wed, 4
+ Nov 2026 22:15:50 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CH2PEPF00000140.mail.protection.outlook.com (10.167.244.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 22:15:49 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 4 Nov
+ 2026 16:15:48 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 4 Nov
+ 2026 16:15:48 -0600
+Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Wed, 4 Nov 2026 16:15:47 -0600
+From: David Zhang <yidong.zhang@amd.com>
+To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
+	<max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
+	<mario.limonciello@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+	<simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+	Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	<linux-hardening@vger.kernel.org>
+Subject: [PATCH V1 0/4] accel/amdxdna: Add AIE4 debug buffer support
+Date: Wed, 4 Nov 2026 14:15:36 -0800
+Message-ID: <20261104221540.631182-1-yidong.zhang@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <yidong.zhang@amd.com>
+References: <yidong.zhang@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,180 +118,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000140:EE_|IA4PR12MB360382:EE_
+X-MS-Office365-Filtering-Correlation-Id: a20bb4e9-7867-4663-507a-08df3ac12e6d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|7416014|376014|23010399003|1800799024|10067099003|18002099003|22082099003|11063799006|261022105027099003|261028144727099003|261026140227099003|261021123027099003|261102123227099003|261009223027099003|261021121427099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	5AaXW+Y168gMmfUgn4AGaTtQi7xveD3b052Dn1GQqXQJHetKG8/IW39FWUEgN8/bUrMsLF+bU3wwhPakDa5n1WR/SNeNdCLPmyb2jYEkxg0Oc7ZpbICzWC5UbXpWVHJqdk0x5VhWEEgAWcPKA0pkNNcADygA6WY/C5Psz2qt8AWcu/FxFrp+4DPip9MJ3yXwr2x9v1gBiss6KzsKFGRDgXILVA5Wy/MpAo531lt+v4sCX+n5GQk752istWK4bG8MdHzFgFZUoqQVbL59XAVuClnkcZnCFoPXEWnUOXtIzuB9ZgDekAxrsWsvDGnllOSnpt4EOUdtfR6qQaX0Xf6TYik3QUIPavC2pPAWzz/Sg3D0ELIBLbp+HmtjMGzzdK5yVC4BaqSjWpFLurzqOMvO4u60iXQwZhz6alP8I88Id/7zSJQM4krqKQXHh1sr4zW31x6iRCkR1AHL7gXyTvo+u+TGtDD2Zvb17uSnJonRd8yvZaqICoYs+N7yoqRGLI98DFON9C5vUsHybtsypkYchaRAXkHeNLmxd37STxCvEnyrc5umDZuHqW1i0T8hKApMIj3dkGkvgbbum9Wjfm1HYbG9Txcl6g/qy6D2zNCpAI70x/oHdciUm5ckV3imWWbwL3eVW38I3Ij9TBSRy5Kqm1QH/ZLuAx/iT7lbVUsqK+GBpSpoYYP3Ml/qR6FfA2XXH8q0rR2iVM5yN+BPDoPJGg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(7416014)(376014)(23010399003)(1800799024)(10067099003)(18002099003)(22082099003)(11063799006)(261022105027099003)(261028144727099003)(261026140227099003)(261021123027099003)(261102123227099003)(261009223027099003)(261021121427099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	o/P8w5aVjGnWivTIYXB84H/O2Ct9dhqQlyn80KgK+Jj6xBv3SBBzhyNxMJjYTTbbhgCI5a7NhVJt/CeOvuvXtIR60/It3nkUxahYADEzKaaFFdvSLtqwf1Oz1Rfcc4Q9HuvgWl1OCFb6uJxQqt3UvXWqL6BzjwEGHw6cMs1QlhKVwUVvPsYY+6ZYKuZyoKpva8yNzmA7W+qb4BU7JapKgVfQjQYf3VG3kNDbG5Lv//p6xz9CKYt1hP8V4gnzBPxos9zZzlwW0E/dKLXuAD3eL+y3JfInnoHGSu+YVPs09Zot4dKwGGBFl7Po6DkVbGps3JCO4Kr4ie8LuZVCAY7IfEWKrnIozamhJm64U7xG+LtaaPtABMTyDkhKXdUzOdxkDCofn3NHVrH2n7kgyCijkAYm+Jgi+AQjnespFvNlmdkkiFMaHqJW6NduEhla5pfK
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 22:15:49.1336
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a20bb4e9-7867-4663-507a-08df3ac12e6d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF00000140.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB360382
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] sched/deadline: switched_from_dl() leaves stale params after clear=
-ing dl_bw
---
+This series adds AIE4 debug buffer support, which the xrt-smi validate
+gemm test uses to read the per-core results, and the AIE4 CERT firmware
+version query.
 
-commit 3a2d0df92966c3d09add14a543e55863d8af1e1e
-Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+- Add NPU10 and NPU11 devices.
+- Bump the driver version to 1.0.
+- Add AIE4 debug buffer support.
+- Add AIE4 CERT firmware version query.
 
-sched/deadline: Do not release a departing sleeper's bandwidth twice
+This series applies on top of drm-misc-next.
 
-This commit updates switched_from_dl() to only release total_bw when a
-departing sleeping task has its own deadline parameters and is not a
-special entity, and clears p->dl.dl_bw afterward so that subsequent paths
-do not subtract its bandwidth a second time.
+David Zhang (4):
+  accel/amdxdna: Add NPU10 and NPU11 devices
+  accel/amdxdna: Bump driver version to 1.0
+  accel/amdxdna: Add AIE4 debug buffer support
+  accel/amdxdna: Add AIE4 CERT firmware version query
 
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index b646063a7b0d5..624cabdec9652 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-> @@ -3573,6 +3573,8 @@ static void switched_from_dl(struct rq *rq, struct =
-task_struct *p)
->  	dec_dl_tasks_cs(p);
-> =20
->  	if (!task_on_rq_queued(p)) {
-> +		bool released =3D false;
-> +
->  		if (p->dl.dl_non_contending) {
->  			/*
->  			 * Inactive timer is armed. However, p is leaving
-> @@ -3585,12 +3587,18 @@ static void switched_from_dl(struct rq *rq, struc=
-t task_struct *p)
->  			 * release total_bw via __dl_sub().
->  			 */
->  			sub_running_bw(&p->dl, &rq->dl);
-> -		} else {
-> +		} else if (p->dl.dl_runtime && !dl_entity_is_special(&p->dl)) {
->  			/*
->  			 * No pending inactive timer: the task never ran as
->  			 * DEADLINE or the timer already fired while still
->  			 * DEADLINE (only dropping running_bw at that time).
->  			 * Nobody else will release total_bw, do it now.
-> +			 *
-> +			 * Not for a task without parameters of its own, one
-> +			 * deboosted from priority inheritance, whose mask may
-> +			 * have no active CPU for dl_task_root_domain_cpu(),
-> +			 * nor for a special one: neither has bandwidth in
-> +			 * total_bw.
->  			 */
->  			unsigned int cpu =3D dl_task_root_domain_cpu(p);
->  			struct dl_bw *dl_b =3D &cpu_rq(cpu)->rd->dl_bw;
-> @@ -3598,8 +3606,29 @@ static void switched_from_dl(struct rq *rq, struct=
- task_struct *p)
->  			raw_spin_lock(&dl_b->lock);
->  			__dl_sub(dl_b, p->dl.dl_bw, dl_bw_cpus(cpu));
->  			raw_spin_unlock(&dl_b->lock);
-> +			released =3D true;
->  		}
->  		sub_rq_bw(&p->dl, &rq->dl);
-> +		/*
-> +		 * Released: its bandwidth is no one's to release again, and
-> +		 * a dl_bw of 0 is what every path that would takes. Kept, it
-> +		 * would make the task one with bandwidth to task_contending()
-> +		 * and task_non_contending() once priority inheritance boosts
-> +		 * it, and a deboost while it sleeps would release it a second
-> +		 * time. So would the inactive timer's handler when it runs
-> +		 * late, dl_non_contending cleared under it by
-> +		 * migrate_task_rq_dl(): it finds !dl_task(p).
-> +		 *
-> +		 * The parameters themselves stay, where
-> +		 * inactive_task_timer() resets them with the bandwidth: the
-> +		 * task may still be the donor of a priority inheritance
-> +		 * boost until rt_mutex_adjust_pi() walks the chain, outside
-> +		 * this runqueue lock, and replenish_dl_entity() of the
-> +		 * boosted owner would never leave its loop over a dl_period
-> +		 * and a dl_runtime of 0.
-> +		 */
-> +		if (released)
-> +			p->dl.dl_bw =3D 0;
+ drivers/accel/amdxdna/aie4_ctx.c        | 284 +++++++++++++++++++++++-
+ drivers/accel/amdxdna/aie4_message.c    |  20 ++
+ drivers/accel/amdxdna/aie4_msg_priv.h   |  35 +++
+ drivers/accel/amdxdna/aie4_pci.c        |   7 +
+ drivers/accel/amdxdna/aie4_pci.h        |  10 +
+ drivers/accel/amdxdna/amdxdna_ctx.c     |   4 +-
+ drivers/accel/amdxdna/amdxdna_pci_drv.c |  19 +-
+ drivers/accel/amdxdna/amdxdna_pci_drv.h |   6 +
+ drivers/accel/amdxdna/npu3_regs.c       |  78 +++++++
+ include/uapi/drm/amdxdna_accel.h        |  51 +++++
+ 10 files changed, 510 insertions(+), 4 deletions(-)
 
-[Severity: High]
-When switched_from_dl() takes the !p->dl.dl_non_contending branch, there is
-no pending inactive timer to run inactive_task_timer() and call
-__dl_clear_params(&p->dl) later. Does clearing only p->dl.dl_bw here leave
-the departed task permanently carrying stale deadline parameters
-(dl_runtime, dl_deadline, dl_period, dl_density, flags, runtime, and
-deadline) after it switches to another policy such as SCHED_OTHER?
+-- 
+2.34.1
 
-Several paths in kernel/sched/deadline.c check dl_deadline, dl_runtime, or
-flags rather than dl_bw to distinguish a PI-boosted non-deadline task from
-a task with its own deadline reservation:
-
-1. In replenish_dl_entity(), initial replenishment for a PI-boosted task
-checks dl_se->dl_deadline =3D=3D 0:
-
-kernel/sched/deadline.c:replenish_dl_entity() {
-	if (dl_se->dl_deadline =3D=3D 0 ||
-	    (dl_se->dl_defer_armed && dl_entity_overflow(dl_se, rq_clock(rq)))) {
-		dl_se->deadline =3D rq_clock(rq) + pi_of(dl_se)->dl_deadline;
-		dl_se->runtime =3D pi_of(dl_se)->dl_runtime;
-	}
-}
-
-If the departed task is later PI-boosted by a SCHED_DEADLINE waiter while
-holding an rt_mutex, dl_se->dl_deadline is still non-zero. If its stale
-p->dl.runtime is still positive and p->dl.deadline is still in the future,
-replenish_dl_entity() skips both the while (dl_se->runtime <=3D 0) loop and
-the dl_time_before(dl_se->deadline, rq_clock(rq)) check, so the boosted
-task runs with its own stale runtime and deadline instead of inheriting the
-donor's parameters. Conversely, if the task never ran as SCHED_DEADLINE
-(p->dl.deadline =3D=3D 0, p->dl.runtime =3D=3D 0) or its stale deadline is =
-in the
-past, skipping the dl_se->dl_deadline =3D=3D 0 initialization causes the lo=
-op
-to advance from the stale deadline and trigger a false replenishment lag
-warning.
-
-2. If the task previously had SCHED_FLAG_RECLAIM set in p->dl.flags,
-retaining p->dl.flags while p->dl.dl_bw =3D=3D 0 causes dl_scaled_delta_exe=
-c()
-to call grub_reclaim() when the task is later PI-boosted:
-
-kernel/sched/deadline.c:grub_reclaim() {
-	if (u_inact + rq->dl.extra_bw > rq->dl.max_bw - dl_se->dl_bw)
-		u_act =3D dl_se->dl_bw;
-	else
-		u_act =3D rq->dl.max_bw - u_inact - rq->dl.extra_bw;
-}
-
-Whenever u_inact + rq->dl.extra_bw >=3D rq->dl.max_bw, u_act becomes
-dl_se->dl_bw (0), scaling execution time to 0 so the boosted task's runtime
-never depletes. Stale SCHED_FLAG_DL_OVERRUN in p->dl.flags can likewise
-deliver SIGXCPU to the boosted non-deadline task.
-
-3. Both task_non_contending() and task_contending() guard against
-non-deadline boosted tasks by checking dl_se->dl_runtime =3D=3D 0:
-
-kernel/sched/deadline.c:task_non_contending() {
-	if (dl_se->dl_runtime =3D=3D 0)
-		return;
-}
-
-Because p->dl.dl_runtime remains non-zero, blocking while PI-boosted (or
-deboosting while runnable) runs task_non_contending() using the stale
-parameters and sets p->dl.dl_non_contending =3D 1 with inactive_timer armed
-Even though p->dl.dl_bw is 0 at that moment, if the task then re-enters
-SCHED_DEADLINE via sched_setattr() while sleeping and PI-boosted
-(prev_class =3D=3D next_class =3D=3D &dl_sched_class), __setparam_dl() assi=
-gns a
-non-zero p->dl.dl_bw while dl_non_contending is still 1 without having
-added the new bandwidth to rq->dl.running_bw, causing inactive_task_timer()
-or migrate_task_rq_dl() to underflow rq->dl.running_bw.
-
-4. If the departed task wakes up in SCHED_OTHER and later switches back to
-SCHED_DEADLINE while runnable before its old p->dl.deadline passes,
-enqueue_dl_entity() checks dl_time_before(dl_se->deadline, rq_clock(rq)):
-
-kernel/sched/deadline.c:enqueue_dl_entity() {
-	} else if ((flags & ENQUEUE_MOVE) &&
-		   !is_dl_boosted(dl_se) &&
-		   dl_time_before(dl_se->deadline, rq_clock(rq_of_dl_se(dl_se)))) {
-		setup_new_dl_entity(dl_se);
-	}
-}
-
-Because the stale p->dl.deadline is still in the future,
-setup_new_dl_entity() is skipped and the task reuses its old unspent
-runtime.
-
-Should switched_from_dl() clear the remaining deadline parameters (or reset
-them once any PI donor relationship is adjusted) instead of leaving them
-populated when no inactive timer is pending?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104211207.1392=
-343-1-mathieu.desnoyers@efficios.com?part=3D7
