@@ -1,52 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793785981;
-	b=nWeJLyQnTeIyNLu5exb5Vq6hFKsk4xxn6E2UeLLlhOklCHvDFMJwHH2YuQwfFQ8l+qyx
-	 q6eZeFamWfdb7BGyfrKIk+cJnJJ7Ff9wMwSdHOMo590/rF63QoprsXzL105/U2WpyhYX3
-	 lGxfaN+XUd7n8+3OXvjjsHkAzUG/iBQks2qjrxXqTPHgIAg95coWh1TDKdNnlxz/5YPTk
-	 pYuh9SUCgLN/dJPynHQEMf2T2BkvXq71kQtBnL+ry9n8HemMNXzB+LN4Jn+56J9FIRIoN
-	 PZFnT07ZDO13OxKt0TXt7bDwrUB72sOhUfgs2FTiJ9qpvte96eiaLxcYm1MnXbEiUAA==
+	t=1793785996;
+	b=zzoWL9rfpPrrcbhs6w3dSh9yak/wy48ggHfirBuyHJPkdInW91NrOogbtvn/q3/XfkH0
+	 w5Elr+dyH71sJbH141aQlAfI/cN7oBfLZdhx8LCE6NlMkEYG5sJ10cc7Cea5IUwJICGaX
+	 6Nw7856l+VAxKg8nj03xKApLAgmX36fDq4Nioz8cZ8TF32ghQ0n0tJgWGsxu3ev+vXXgZ
+	 oR6XpEDo+JDZ9tVKS6rxHus1bOAyRXDlUuy4C6OJYTBIhrfCMOucOzG8KHGwi/1rQ/Pgy
+	 Io9KisvzWQteUIJcSfYUQQFal9cWjrSXLoINBk+M5G3id0XLUk6odJRRqO2WCFS0oBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793785981;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=SMFlHtV+zlqVwtQdTGK0fAEDOTs5DiBRVXXXF9T6sG0=;
-	b=VpLqJTn7U/KDvm7yAAp4qz8Vr5Z0lvN1bawV/PAK7xUNMvNppHJ5VmxiTOqaEpk8mWXB
-	 z/c0WaP4dc2wO7eB7khqwzDzqPWHmN2AGsff38jKI/CHLDb8puh8xJGzSX+6Fz46NF65H
-	 ee8o8RT7+7ChdQCqM4dsSnKjnT1WXFkenEEa6TtA8NCpnm8siVbtLqN4i7jKyLdMJzu+E
-	 6GvSIzgJHPunZIIpeX8AU3FKOLm+HxygUqR2K80WjsqxDebe9LM/pGEV5k61Fj5jQGuOb
-	 hqCtsWVA+ULNZQ4hkgej+nABHE1KL/0WsYyoPXjd+rCsGyzLYCfEEldfgHMspHDNJYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793785996;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
+	b=SODkt9yezCVJhQpkC6H1JTPUhhTZ/jZ47RZtnziKxPLP5w1ExqqGFxoDHdwaRRAKsPSG
+	 E/R91GMU6wtk6ocF7Fakacuw5xx6E7ckgQeSw1hyDCld68LdxSDlaocUJjkTfoh77sar3
+	 1pNfePZbG1UbinbE7bj8ckTnIhYnJaMO0pHHe3j5feKMSwTvCzDikSO3iAkw05D5iTS8+
+	 0tY9mSBWNTVhH6q2zxPNkpjqHrFf6pHRhceN22WnHByBD6N48t12SwffxUSK7bP8c80vE
+	 neCGwGWs7i1YeYu2EehHGMDe28rimwDIkpJ5iY0h3wTojtGn1zHdguaWbrtijeb855g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kal2aXNw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jXp3+ySR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 34BB9606A31B;
-	Wed,  4 Nov 2026 09:53:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FB34606A31B;
+	Wed,  4 Nov 2026 09:53:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kal2aXNw
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 3616F1F00919;
-	Wed,  4 Nov 2026 09:53:00 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jXp3+ySR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37E071F000C1;
+	Wed,  4 Nov 2026 09:53:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793785980;
-	bh=SMFlHtV+zlqVwtQdTGK0fAEDOTs5DiBRVXXXF9T6sG0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kal2aXNwdgPfjlApyCFt9izMtjcdbQzvW1+qvZ/c0EqD4Sf6sdy1Q8xFU0myA8j3c
-	 Ms4piHvBk6hFdDs5I4YrVIckCOTO3X+yLUSzDmRi6yDu6W4ym09DwqkVe7J6DO8UqW
-	 5kHX7W2jRnBaouaE4J0CvoL28Xz12mBYreB+rHFxjahYNhRYjDnqF4se0c0FvJp7lK
-	 0An8TNrVWiQkzLtSm+z+wUN/MG5UczFHXtmSbHNPfzwpZHCuquMMS1k6tJF/sPypHl
-	 y4asMgBuZUpbiwX1eMJTCLf5QxP2c7bHnBdrRdRVIG2l6tbaTsdQwWsdGbXWCislBW
-	 bCF31I6W4ojTg==
-Date: Wed, 4 Nov 2026 10:52:57 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Jinseob Kim <kimjinseob88@gmail.com>
-Cc: linusw@kernel.org, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] gpiolib: reset lookup flags for each hogged line
-Message-ID: <qboynvhfmvltsuopwotpf3sqdwho3qobxmw5qldooedjqodfgy@x4l6hscj5unx>
-References: <20261103224339.1180-1-kimjinseob88@gmail.com>
+	s=k20260515; t=1793785996;
+	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=jXp3+ySREkh1r6F4w3mcFr8YfJnMBx4tBSXc38UsndSWoQkrE6lJAFW6woWsdyLbo
+	 s5xdnPb/91wAdNSfCQysJDU8ALdG8hFBgaOdaxxKNGdv311j/QQBPt9DUTsC1skkLr
+	 BLR80OXLohbTbqZFJr/JjkABXVrTS1KXF4Rf7QFwBuT653wX5NaQ7o4mNTGCVsRD+s
+	 Kta++5cLN6UpgnEMajRecj1nuzPAn1u8k4ALxpWT9iW9ybXDrftNm/h9p1UDfP+VfV
+	 fKzBU9TbNCoxFzUO7vjmmATzjJAY1P76cF4tNxFHn+YCuFJ+3IL9ApXmiNzNdyLr1E
+	 p5BnvhPZ3xIQA==
+From: netdev-bot+sinfo@kernel.org
+To: Yaohan Li <shunsheng1218@gmail.com>
+Cc: david@ixit.cz, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, lauro.venancio@openbossa.org,
+ sameo@linux.intel.com, linville@tuxdriver.com, aloisio.almeida@openbossa.org,
+ oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: 
+ Re: [PATCH] nfc: rawsock: prevent TX work requeue after socket shutdown
+Date: Wed, 04 Nov 2026 09:53:14 +0000
+Message-ID: <179378599466.488859.1763688054450677667@kernel.org>
+In-Reply-To: <179378590950.74297.14503648624087894519@gmail.com>
+References: <179378590950.74297.14503648624087894519@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,20 +65,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103224339.1180-1-kimjinseob88@gmail.com>
 
-On Wed, Nov 04, 2026 at 07:43:39AM +0900, Jinseob Kim wrote:
-> gpiochip_add_hog() initializes lflags once before iterating over the GPIO
-> specifiers. In the non-OF path, an active-low line sets GPIO_ACTIVE_LOW,
-> but a later active-high line does not clear it. A single firmware hog
-> with mixed polarities therefore configures later active-high lines as
-> active-low, including inverting their initial output value.
->
+Hi!
 
-Please split the fix and the test into separate commits. The fix can go
-directly upstream while the test will be queued for v7.5.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Thanks,
-Bartosz
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
+
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
