@@ -1,101 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793791763;
-	b=2qA2HfhvPEHY9a5HCwUIRD4Iajh6GIkwHJeuFRFf2T/ioNKfZXiTEgpwpd/cMimriXtk
-	 sv3fqPN3w2GB9cIMyO7IxSBkwxml3cVULeNwLWdjVmdZn+wCUYRvFhQRCnrC3lwgNMLj9
-	 XAc5d5quGgijZBPBevMF0Gx1gbcNOgYqHI/lgy4EXkAYwW6rn6mvgtXZloCJwMxitcEjR
-	 s7yCzf4A5xrsmLk/mx+ZQFPiWIrYG/231FP+AN4Iaqns8HIFihqK0UcF8aTJnqFZJg+R2
-	 NP3J7IhUl1gt+alFQbiDnPEHxty55x01GD/4J5VjxGqgyXW9q08LcgDrmfNY2tzHsIw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793791763;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=rpE1rKAahFNtJMl6F6/W6vx4G1mPjCzL+qxRLArJSlc=;
-	b=xslpqknCDI7kLauvEmxI+fRy9MM7Le5t6zWCAXdel3hR7mb9a4cUECX//bAchrSr9F+D
-	 0mbVKMX75V3/eN0TKssVM0HR7JYl638iVeRXFPBN6cRrISg15bhtP+22Zsyqm9ROQE/F6
-	 lqH6i+WylcExiXQgcIlTpP6fBzdsFh2rbJTlcBapVkHHG1xsY0+PfvicN1EFeVzaA1NG3
-	 eAo3iYjV2SxUngl/MR/1tlu/xapx7AhpHXcqGT+WXUY2RzjUgmwPfgTj/nQ05CeBTb3Zl
-	 LwvX4+xVPGfXf1wFOG6iT5umIJ4aWp+tQlTh2b6TJPMJGfigmjjZrB570IeYpZO0fQQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="l/7/7qpJ";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.49
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793791768;
+	b=gIIYPhlHRkHKk1l3bbByZ/BW7xDomjasdK/UAM+FCw5ERE78SJITXynGZ8BlP6zfTROf
+	 XvSRpJuC+u+/FmFQAe+8+KIGAnvfsKZQWUFDCAtLHULelGSR2XDZGY9ZD5Xw40QZsx1jI
+	 YESABY4Fzl14eB5/KpGkCZeHs4WN/+I+0P4QOr4fDAJ83FqTKHDJ+PZGgRtVy4lF4tLxR
+	 rCClsd0spzDNX12CdvOyaJPYorUu4OKFpyuVy/m/1wbo1dJLB8DP4LdC5ouYwVbAT0LYE
+	 9aWvD/UboAX/60OJ3VAny/fOJHhExuCAcauxx/UKgpm5vxalI4bK6ACsO24mwWBK5dA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793791768;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Btdf0uqMiUKY16BRcSVyrMGCAxEDA4RyrShdMRLVVN0=;
+	b=XCrWrrY48yJff+rS+8t1i5UeppZCZQ21Ilu9KBrKB4jftZChpqc7JQo4nSz9dooSE0iy
+	 15yhJyHgaV0MlZ8VoH+tTk+pN+t5dOxa3J1nZ+KW+fcBe44ftHBv66XHYK68lKUlQa3lv
+	 yJWFHy4iIAcjYI3lCbIi/AB6otpx8GFOE1pM50c5/3I6pGKkEvrsnKRqK6gS/UUHCZADR
+	 qa1a+nRjePUlMebXRn9YBZYRQZSyuLstn+nrfOL3k0OT7+sGyEzqsnNnm+z6/r5X8c7Tu
+	 HGjec1kxH9O/0juTLkXc6vPUuJIc1p07nygFcNQznJgpfxMoZiX45w0Gbl4GDdpLIfQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dZ5Sy4BS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D474606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:29:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D474606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FBE0606A32F;
+	Wed,  4 Nov 2026 11:29:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l/7/7qpJ
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c4cdc606b47so84073266b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 03:29:22 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793791761; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IAeSi2MUtN8hJLTcvM2nYpAATtnvWrcghL+Oewtt1SManuKZMVZmk90057U/dfhy1I
-         shqhC/QGQWi1/zNOXs/UF6DgUism9z/uVm8WUHi4agAVtgqzcM8cK0IMln94/KnGN+Iy
-         +mbhQuts7y0CdwYIgIviHdeIAt8WkYe8+MJr7XfTisygX6lAXMshZ9ienWwmnvr22/WY
-         a1xVTYlixWbVbj0hXAOmTAjc/R5n18ruWdvYWVLUsJhqT7DB3sqQqFk9KVPaKJnoMBqg
-         0nxxgwSMRbqQJ9XgA89okPblQcLMI4Txr/t9r+eYVbugTVRu+NHWeiKMfcZHLVbUBVxi
-         nt7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rpE1rKAahFNtJMl6F6/W6vx4G1mPjCzL+qxRLArJSlc=;
-        fh=k6UgoTggyjCAcfj2wH3J6CTqBSESj2Yov6gwR8yTBkM=;
-        b=PUV9Tu1zUIB5e1Ryo5AQrgXYDPljGJ+c3s/oTUVBOf3LxNghIINxv7GWzFHlnKqKer
-         DOaYPLqp85+mk6vIAleq7ZdIsk23x/2/J0a8AfUjs3zpVu0t/rhC2BVljIsW667CRcBT
-         EPEtW++/n/kZ2CycWH7j9/8x/jdcdTYBm5jPlidzYrxT+qln0NyVlrJYME3RORE9f2c9
-         DKlt7umjdTBsS9G9tLbmxMwqefZIJ+2NyqRl9jJpkMh2yzjig93s87gsGdYcfrzgyAab
-         pBwoJLEHeek2ITwfeD6EQY1CHlrA+jtrRwh4EyXlStv19/HFr7jTns1fkYWHZj2+Wh0C
-         oryw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793791761; x=1794396561; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rpE1rKAahFNtJMl6F6/W6vx4G1mPjCzL+qxRLArJSlc=;
-        b=l/7/7qpJQGGWILO+cEorLqFkR+fwlAWkExR0InQOsPCHwWeEfi7uEKBM8qdoO6Cm0C
-         m2H1GED+U5pn0MgcU5Ai6lekFpnnxTrMnzZ/T1NrK19za9s7iS8Z89Ss7/c1TE5GGzKa
-         Q4XFMNsiaOLFnPrzh0HUoVKlfZp4p/oF2Gh/vrbCW978iU7lc4rIVSQKenvd4ua2brB9
-         JEMitMe65P87zwr/tYLBAkTcqe5BTuqPpAmaYIWNbA82oC9SAZJpzv4lsC16+RzNDjGC
-         rq/MCnIHOd5SWVbXOTB773EtKtY/ZvN0pad+htXsnx4BFn1O0NcNrKP7jMluV6zG3sKn
-         VA+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793791761; x=1794396561;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rpE1rKAahFNtJMl6F6/W6vx4G1mPjCzL+qxRLArJSlc=;
-        b=CQQEVYcwCXsZS8niB7arImY147AJgaM/EZ6ImL4+rzNQNt6gTNOLqbOECBOfgyiedd
-         xsG7ACJIZMjLZ9JEaxl3qcTKfb8oE8G9z+m9wqM5HfSAIWiaelJ3K82gTurrZ7O6doRI
-         yXY10W8cjsSs4X7/BhQVWlVpekkQillzeWPAe0KVHmLvo2VnBKFGwJ25XCD1NyzFXsBs
-         GdxNhpDv3EUIhi6m1mbUaxPzR6cSnTmjgSWXJMW45R+7Q22wrG5pDfh20BZPHKZL71pP
-         Yfmn9BdTrQyd/vVmK+r0L0d78VxAosIeIkqphvsz4KUQE2i++Kb8zFD28+MnzClbAPyq
-         ZhmA==
-X-Forwarded-Encrypted: i=1; AKwUvBwp03NrChX/T5kQpIgFGWxFdj039U0dAthaslTZ+dcRXAU71tYZHHHAaI613qoqQgrYpf5/yOJmoBQxLG0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8/6CUpqu2ae/lyZf3XvVDFnQGY5atjovcLN/E7k+V4LJVCXl53
-	kObSGyitxdEzCtSXCwAmxYEr/BRITiElTnKfSlwpOfTaEw7W5etjnKMan6icHdGMtXl4HUOEWmT
-	h7j6mbIhgbBb7g5Vf2yhfe0eKJUED5hY=
-X-Gm-Gg: AYBFou0GIM4HykY6Zu0wxhynhZXX9Zx1+DBkLFolEb1ZcjmpcSn1FXNtv0vDbtbzQoN
-	ENreXBSA6/6tjwIvWEzMbAg3JrZMB9km2gLLzOTWpHlkGeOVWCLrEppE2dxiyRZU88Y9DDJXw7j
-	at0VP7VLtSMgAHGBSiKUayihKo8ZkFl1XgJp+wujuQd+5rvfCEL4tyG9jgwJkwPysrOWsqvhm7i
-	OjXvWLpjwFUhh18jLfGYZhqVSaZIjaHU0LoxrTQdzA3YYqe7cNTpP0TcUv4AQQtitu+bzb/4mkg
-	RGOXBuaCZxKF8FOBl5p4Z38kklkc2PPfdAQQjgyJFPOPHEXruahOBP+ZvB+JCJeB1bRTam1Kwcw
-	I7Q+1ZunQJyBXIDtk0Swh5SgE10Ob9vyBPCZqe3ybAGm1++xMuihTsxoTa6QyJJAO5BWvy+CPjE
-	Xx/FUBIW+WLb00u0Qf/dA=
-X-Received: by 2002:a17:907:9603:b0:c31:8cfe:9a25 with SMTP id
- a640c23a62f3a-c4ca7a4d9bfmr1379031266b.9.1793791760796; Wed, 04 Nov 2026
- 03:29:20 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dZ5Sy4BS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 951931F00A16;
+	Wed,  4 Nov 2026 11:29:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793791768;
+	bh=Btdf0uqMiUKY16BRcSVyrMGCAxEDA4RyrShdMRLVVN0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=dZ5Sy4BSYu7R9+UVp1mhpTolnmh4Q/e+aziPeaIKS2CBRIvQCrz8OkzFENwVenppn
+	 OeqXwHjEUHoZATk3hN32IfeAdfiNqQlGz/M9gJ6ogOJJ/jJacTiCh+Mgky37BCpF7U
+	 DfBNkvqtJshG/s0wE2uv9W0LZTQwXaqz2q5DOzlfaBJWUIm8anSG+kwPoVwFKvdyDN
+	 TF+upsvAoNE38tch5WTFZQDAjplf+pkWzqLmx+N5HWmuvEyKWpzkr8+FvLINGti51F
+	 FcGyqmAhXgQAkGU9CekWFvMVovs9Xfba/OjX2eD7vGbAG2r6eayK4edCTfZcWsidUC
+	 GcbTj394uABuQ==
+Message-ID: <803d16ba-49c9-404c-8973-e4d4dc02b1e3@kernel.org>
+Date: Wed, 4 Nov 2026 11:29:23 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,209 +51,291 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023162906.2938-1-drifabdelmalekmohamedsaid@gmail.com>
-In-Reply-To: <20261023162906.2938-1-drifabdelmalekmohamedsaid@gmail.com>
-From: DRIF ABDELMALEK MOHAMED SAID <drifabdelmalekmohamedsaid@gmail.com>
-Date: Wed, 4 Nov 2026 12:29:09 +0100
-X-Gm-Features: AclHuK9n0n1wFI-BQNi_I7J_lSePj75BbeFovuuaUe5meINQJKR3eCub08MReQg
-Message-ID: <CA+xk8n_Dufvfa5_tsHxRAVaVnEjZkd9Zy5r3ORXpqjYtLsBXng@mail.gmail.com>
-Subject: Re: [PATCH v2] configfs: fix slab-UAF Write in config_item_put
-To: Breno Leitao <leitao@debian.org>, Andreas Hindborg <a.hindborg@kernel.org>
-Cc: Al Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com, 
-	syzbot+63336d70e1af377d7388@syzkaller.appspotmail.com, 
-	Ran Hongyun <ranhongyun1@huawei.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/5] dt-bindings: phy: qcom: Add common qcom,csi2-phy
+To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ gjorgji.rosikopulos@oss.qualcomm.com,
+ hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
+ jigarkumar.zala@oss.qualcomm.com, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261103214105.3605181-1-anusha.nandi@oss.qualcomm.com>
+ <Qxjw6nqG8e0t_jwSz4HC1rrgZrHc2wUez5PQn28lbXlvMq_V4_RSjlzhsFu_8OgE-pmS_GkXKICn0ObgJWomzg==@protonmail.internalid>
+ <20261103214105.3605181-2-anusha.nandi@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261103214105.3605181-2-anusha.nandi@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello,
-Just following up on this patch to see if anyone has had a chance to
-review it or if any changes are needed since we're at 7.4-rc1.
-Thanks,
-Drif Abdelmalek Mohamed Said
-
-On Fri, Oct 23, 2026 at 5:29=E2=80=AFPM Drif Abdelmalek Mohamed Said
-<drifabdelmalekmohamedsaid@gmail.com> wrote:
->
-> syzbot reported:
->
-> BUG: KASAN: slab-use-after-free in instrument_atomic_read_write
->            include/linux/instrumented.h:112 [inline]
-> BUG: KASAN: slab-use-after-free in atomic_fetch_sub_release
->            include/linux/atomic/atomic-instrumented.h:400 [inline]
-> BUG: KASAN: slab-use-after-free in __refcount_sub_and_test
->            include/linux/refcount.h:389 [inline]
-> BUG: KASAN: slab-use-after-free in __refcount_dec_and_test
->            include/linux/refcount.h:432 [inline]
-> BUG: KASAN: slab-use-after-free in refcount_dec_and_test
->            include/linux/refcount.h:450 [inline]
-> BUG: KASAN: slab-use-after-free in kref_put
->            include/linux/kref.h:64 [inline]
-> BUG: KASAN: slab-use-after-free in config_item_put+0x26/0x90
->            fs/configfs/item.c:149
-> Write of size 4 at addr ffff88803b6444b4 by task syz-executor324/5709
->
-> Call Trace:
->  <TASK>
->  dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
->  print_address_description+0x55/0x1e0 mm/kasan/report.c:378
->  print_report+0x58/0x70 mm/kasan/report.c:482
->  kasan_report+0x117/0x150 mm/kasan/report.c:595
->  check_region_inline mm/kasan/generic.c:-1 [inline]
->  kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
->  instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
->  atomic_fetch_sub_release include/linux/atomic/atomic-instrumented.h:400 =
-[inline]
->  __refcount_sub_and_test include/linux/refcount.h:389 [inline]
->  __refcount_dec_and_test include/linux/refcount.h:432 [inline]
->  refcount_dec_and_test include/linux/refcount.h:450 [inline]
->  kref_put include/linux/kref.h:64 [inline]
->  config_item_put+0x26/0x90 fs/configfs/item.c:149
->  configfs_symlink+0x6be/0x11d0 fs/configfs/symlink.c:225
->  vfs_symlink+0x18b/0x330 fs/namei.c:5823
->  filename_symlinkat+0x1cd/0x420 fs/namei.c:5848
->  __do_sys_symlinkat fs/namei.c:5868 [inline]
->  __se_sys_symlinkat+0x4e/0x2b0 fs/namei.c:5863
->  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
->  do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
->
-> Allocated by task 5712:
->  kasan_save_stack mm/kasan/common.c:57 [inline]
->  kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
->  poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
->  __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:426
->  kasan_kmalloc include/linux/kasan.h:263 [inline]
->  __kmalloc_cache_noprof+0x3d5/0x680 mm/slub.c:5563
->  _kmalloc_noprof include/linux/slab.h:991 [inline]
->  _kzalloc_noprof include/linux/slab.h:1312 [inline]
->  nvmet_ports_make+0xe6/0xf00 drivers/nvme/target/configfs.c:2054
->  configfs_mkdir+0x4f6/0x9e0 fs/configfs/dir.c:1369
->  vfs_mkdir+0x408/0x620 fs/namei.c:5439
->  filename_mkdirat+0x289/0x520 fs/namei.c:5472
->  __do_sys_mkdir fs/namei.c:5499 [inline]
->  __se_sys_mkdir+0x34/0x150 fs/namei.c:5496
->  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
->  do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
->
-> Freed by task 5712:
->  kasan_save_stack mm/kasan/common.c:57 [inline]
->  kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
->  kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
->  poison_slab_object mm/kasan/common.c:264 [inline]
->  __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:296
->  kasan_slab_free include/linux/kasan.h:235 [inline]
->  slab_free_hook mm/slub.c:2748 [inline]
->  slab_free mm/slub.c:6509 [inline]
->  kfree+0x1c5/0x6d0 mm/slub.c:6802
->  config_item_cleanup fs/configfs/item.c:128 [inline]
->  config_item_release+0x13a/0x2d0 fs/configfs/item.c:137
->  configfs_rmdir+0x885/0x950 fs/configfs/dir.c:1580
->  vfs_rmdir+0x3e9/0x6b0 fs/namei.c:5544
->  filename_rmdir+0x292/0x520 fs/namei.c:5601
->  __do_sys_rmdir fs/namei.c:5624 [inline]
->  __se_sys_rmdir+0x2e/0x140 fs/namei.c:5621
->  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
->  do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
->
-> The buggy address belongs to the object at ffff88803b644000
->  which belongs to the cache kmalloc-4k of size 4096
-> The buggy address is located 1204 bytes inside of
->  freed 4096-byte region [ffff88803b644000, ffff88803b645000)
->
-> This is a race between a thread creating a symlink and another one
-> doing rmdir on a parent (or ancestor) directory of symlink creation dir.
->
-> configfs_symlink() takes a reference on parent_item, the directory the
-> link is created in, and then drops the directory inode lock around
-> get_target(). While the lock is dropped, a concurrent rmdir can remove
-> the group that parent_item belongs to.
->
-> If parent_item is a default group embedded in a larger object, such as
-> nvmet_port.subsys_group, the reference on the embedded item does not
-> keep the containing object alive. rmdir frees the object, and the final
-> config_item_put(parent_item) in configfs_symlink() then decrements a
-> kref inside freed memory.
->
-> Fix this by not holding parent_item across the unlocked window. Drop
-> the reference before inode_unlock() and look it up again from
-> dentry->d_parent after inode_lock(). configfs_get_config_item() returns
-> NULL if the parent dentry was unhashed in the meantime, in which case
-> release the target references and return -ENOENT.
->
-> Re-looking up parent_item is not sufficient on its own.
-> configfs_get_config_item() only fails if the parent dentry has been
-> unhashed, and the rmdir path in another thread may skip that: if
-> simple_rmdir() failed, the earlier d_drop() was skipped, so the dentry
-> can stay hashed even though the directory has already been detached.
->
-> Such a directory was created as a default group (CONFIGFS_USET_DIR), so
-> configfs_rmdir() takes the CONFIGFS_USET_DIR branch and calls
-> configfs_detach_group(). detach_groups() then marks each child inode
-> S_DEAD (d_inode(child)->i_flags |=3D S_DEAD). Check IS_DEADDIR(dir)
-> after retaking the inode lock and before taking a reference on the
-> parent, and return -ENOENT. This also rejects a detached directory
-> whose dentry is still hashed.
->
-> Reported-by: syzbot+63336d70e1af377d7388@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D63336d70e1af377d7388
-> Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gm=
-ail.com>
+On 03/11/2026 21:41, Anusha Arun Nandi wrote:
+> SA8775P, QCS8300 and SC7280 CSI2 PHYs are bit-for-bit identical in
+> devicetree shape (ports, bus-type, data-lanes, operating-points-v2,
+> clocks, single "top" power-domain, vdda-phy/vdda-pll supplies).
+> 
+> Describe all three with a single qcom,csi2-phy.yaml and a compatible
+> oneOf, rather than one standalone schema per SoC. QCS8300 is further
+> required to be paired with a qcom,sa8775p-csi2-phy fallback
+> compatible, the same way other Qualcomm bindings express full
+> hardware compatibility between two SoCs (see qcom,qusb2-phy.yaml);
+> this lets the driver bind QCS8300 nodes via its qcom,sa8775p-csi2-phy
+> match entry rather than carrying a duplicate one.
+> 
+> qcom,x1e80100-csi2-phy.yaml is a separate PHY with a different shape
+> (3 clocks, 3 power-domains, different supply names, DPHY split-mode
+> support) and is left untouched.
+> 
+> Reviewed-by: Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>
+> Signed-off-by: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
 > ---
-> v2: Added check for dead dir, this would be helpful when configfs_remove_=
-dir skips
-> unhashing the dentry.
-> v1: https://lore.kernel.org/all/20261017123748.4430-1-drifabdelmalekmoham=
-edsaid@gmail.com/T/
->  fs/configfs/symlink.c | 18 +++++++++++++++++-
->  1 file changed, 17 insertions(+), 1 deletion(-)
->
-> diff --git a/fs/configfs/symlink.c b/fs/configfs/symlink.c
-> index 89178f5d371a..7d746a10c369 100644
-> --- a/fs/configfs/symlink.c
-> +++ b/fs/configfs/symlink.c
-> @@ -196,11 +196,26 @@ int configfs_symlink(const struct mnt_idmap *idmap,=
- struct inode *dir,
->          *
->          *  AV, a thoroughly annoyed bastard.
->          */
+>   .../bindings/phy/qcom,csi2-phy.yaml           | 176 ++++++++++++++++++
+>   1 file changed, 176 insertions(+)
+>   create mode 100644 Documentation/devicetree/bindings/phy/qcom,csi2-phy.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/phy/qcom,csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,csi2-phy.yaml
+> new file mode 100644
+> index 000000000000..5d25547528bd
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/phy/qcom,csi2-phy.yaml
+> @@ -0,0 +1,176 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +# Copyright (c) 2026 Qualcomm Innovation Center, Inc. All rights reserved.
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/phy/qcom,csi2-phy.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +       /* Put the reference back, retake and check after relocking*/
-> +       config_item_put(parent_item);
-> +       parent_item =3D NULL;
->         inode_unlock(dir);
->         ret =3D get_target(symname, &target_item, &target_sd, dentry->d_s=
-b);
->         inode_lock(dir);
->         if (ret)
-> -               goto out_put;
-> +               goto out_put; /* config_item_put on NULL, no problem */
+> +title: Qualcomm CSI2 PHY
 > +
-> +       if (IS_DEADDIR(dir)) {
-> +               ret =3D -ENOENT;
-> +               goto out_put_target;
-> +       }
+> +maintainers:
+> +  - Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
 > +
-> +       parent_item =3D configfs_get_config_item(dentry->d_parent);
-> +       if (!parent_item) {
-> +               ret =3D -ENOENT;
-> +               goto out_put_target;
-> +       }
->
->         if (dentry->d_inode || d_unhashed(dentry))
->                 ret =3D -EEXIST;
-> @@ -218,6 +233,7 @@ int configfs_symlink(const struct mnt_idmap *idmap, s=
-truct inode *dir,
->                                                      target_item);
->         }
->
-> +out_put_target:
->         configfs_put(target_sd);
->         config_item_put(target_item);
->
+> +description:
+> +  Qualcomm MIPI CSI2 D-PHY. Connects MIPI CSI2 sensors to Qualcomm's Camera
+> +  CSI Decoder.
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - enum:
+> +          - qcom,sa8775p-csi2-phy
+> +          - qcom,sc7280-csi2-phy
+> +      - items:
+> +          - enum:
+> +              - qcom,qcs8300-csi2-phy
+> +          - const: qcom,sa8775p-csi2-phy
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 2
+> +
+> +  clock-names:
+> +    items:
+> +      - const: core
+> +      - const: timer
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  operating-points-v2: true
+> +
+> +  opp-table:
+> +    type: object
+> +
+> +  power-domains:
+> +    items:
+> +      - description: Titan Top GDSC - Titan ISP Block, Global Distributed Switch Controller.
+> +
+> +  power-domain-names:
+> +    items:
+> +      - const: top
+> +
+> +  vdda-phy-supply:
+> +    description: Phandle to PHY supply.
+> +
+> +  vdda-pll-supply:
+> +    description: Phandle to PLL supply.
+
+Why are we departing from vdda-0p9-supply and vdda-1p2-supply ?
+
+Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        description:
+> +          Sensor input. A single sensor is described by a single endpoint
+> +          with one to four data lanes, numbered 1-4. The clock lane is
+> +          position 0.
+
+Since you've cloned and owned the yaml - you've also dropped the 
+description of DPHY split mode.
+
+> +
+> +        unevaluatedProperties: false
+> +
+> +        properties:
+> +          endpoint:
+> +            $ref: /schemas/media/video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +            properties:
+> +              bus-type:
+> +                enum:
+> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
+> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
+> +                default: 4
+> +
+> +              data-lanes:
+> +                minItems: 1
+> +                maxItems: 4
+> +                items:
+> +                  minimum: 1
+> +                  maximum: 4
+> +                description:
+> +                  Data lane positions following this endpoint's clock
+> +                  lane. Positions are a per-port logical numbering, not
+> +                  package pad or ball positions.
+> +
+> +            required:
+> +              - data-lanes
+> +              - remote-endpoint
+
+And then you've dropped the DPHY split mode defintion
+
+NAK
+
+Please either clone and own the whole DPHY split-mode circus or just 
+modify the existing definition to include your new stuff.
+
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: Output to the CAMSS CSID controller.
+> +
+> +    required:
+> +      - port@0
+> +      - port@1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - interrupts
+> +  - operating-points-v2
+> +  - power-domains
+> +  - power-domain-names
+> +  - vdda-phy-supply
+> +  - vdda-pll-supply
+> +  - ports
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/qcom,sa8775p-camcc.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/media/video-interfaces.h>
+> +
+> +    phy@ac9c000 {
+> +        compatible = "qcom,sa8775p-csi2-phy";
+> +        reg = <0x0ac9c000 0x2000>;
+> +
+> +        clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
+> +                 <&camcc CAM_CC_CSI0PHYTIMER_CLK>;
+> +        clock-names = "core",
+> +                      "timer";
+> +
+> +        interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
+> +
+> +        operating-points-v2 = <&csiphy_opp_table>;
+> +
+> +        power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
+> +        power-domain-names = "top";
+> +
+> +        vdda-phy-supply = <&vreg_l4a>;
+> +        vdda-pll-supply = <&vreg_l1c>;
+> +
+> +        ports {
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            port@0 {
+> +                reg = <0>;
+> +                csiphy0_in: endpoint {
+> +                    bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
+> +                    data-lanes = <1 2 3 4>;
+> +                    remote-endpoint = <&sensor_out>;
+> +                };
+> +            };
+> +
+> +            port@1 {
+> +                reg = <1>;
+> +                csiphy0_out: endpoint {
+> +                    remote-endpoint = <&csid_in>;
+> +                };
+> +            };
+> +        };
+> +
+> +        csiphy_opp_table: opp-table {
+> +            compatible = "operating-points-v2";
+> +
+> +            opp-300000000 {
+> +                opp-hz = /bits/ 64 <300000000>;
+> +            };
+> +        };
+> +    };
 > --
-> 2.43.0
->
+> 2.34.1
+
