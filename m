@@ -1,54 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.94
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793793213;
-	b=W7+jccotJSuz1336eTzGelu1tpaL1XG5LSxGFtf0bb7apG+tSOEwQWxz7ztPg7Em7z6u
-	 yrHP6rnotOnCnpCSgLcoSto4JzluQfgbwTK/AjjdUZj21Z9UHk5+ro/I4GN+5sYeyBcj9
-	 1BlstYd7JKJoy+lUQW776VLuZb2eeNDS8tYBEXibZvL2aIniconQzAyRnh/iZ37paosEe
-	 5Q/2zzfRKyTFfeDjGiLblMSOkqh2RSz1Nutx3UBWeYuEO1WKjI350FTiaAnOR2i276DJc
-	 116jAWckjFazNsNMP/TNATKN186D3DD6Z/pMa+bQb1weLk3+7brDtFA1ZOUmMptp+hQ==
+	t=1793793315;
+	b=aXrxVkbBblRDrLzs2hC/N6RyF2S8Anpl7FP8P55BdjgQFSn49zlGOpBuFKcULNc5XWkc
+	 p10hu5mreJR4pWvZlEy+GRr5nTNmbBiW8hYGUHasdwgv7yN0XY5jT8idz83PHH+w0EILa
+	 lZpDSzB02GuDSfhGmbtjUSoTzhX/UCU6++EQJ9Crkbfv+zK5EOcxP6yzoRN2OjUkFkRxe
+	 eHzn1u0xflEANPSMKVJ3ErImz6ZDpfXtGiIdeopdfyNUCmkf7fW8hLRPgugUxasAVoy9X
+	 7UKzdbUwMpCw9vZqKQHeT+ZuGZ+QKGmqo+YuqFx1mRaEYNIdgbK4mQ2lfhVckbeSu5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793793213;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=K3XuBnrGM9sjcbyr+vhPAVUTy0Q76eXEKQQ9/GBy7po=;
-	b=cCllJddFjro4jepv2CpEPZ3NW1CXfqz9TQCZazM1UUGOzfOWVUvA3Eom2hL1dcvq8Fgi
-	 HFCQfjCXVUVbqy6KaPC+kUEmqqxm0V0pCB62lIudus/IppXj/2AqGarCcCTUEzyDQisq1
-	 u0DXtC8XVJDnPnMBiUpWKDiGbkmYNn6gSplQIaaU7Q0XxuxskJQgmCY/akNQGZwl2njlX
-	 aYKPGinnyV7FJonIY1mN5GMQmPaQFBlOJgO7gk8fjJEZ+Z0XjD30R8nwhuGEb4tLFBXkN
-	 +SExBl+TLC6h2hJUKuF/mblSNVzb9yyljv6zaqQ6E60PVeyhFmt3DC0/2++RTFKopLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793793315;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=F12AjCeObMo8GMff5Cd9gx8f+ATT0wwVACkVrTGxlyY=;
+	b=Bbld92wi8PUwFChqYLsrxkyg95riZo9+2Yi0KgI/e9KWY04DuHeSbeMM3B4oY2vdx1HB
+	 rxUHh+xpu7I4S4p110z+ahzrx3A7aGanvL31TLWifw+P/uogT9Y23GWXAhgg2t9+CpTNa
+	 AGifOEudxUhmQ+0jjWgdlNXaQmNn2w6mBZZXKqePMqsMgWd8UoNTPi6CZ7Rbz22SRWw5K
+	 v/YHPyuxKNMuzgGoE7twflZiex/ZDagM5bIosOU14YfY0E33e/C6GCqEWPEp0EhSoaCsK
+	 rkLE9zLoCbnOepjmvqqsKzupW6wm7SXrVXNJeqKrQpCr4TvbrcLhCY1s2MuQZSZ8OIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=u8EFKRoE;
-	arc=none smtp.remote-ip=95.215.58.94
-Received: from mta1.migadu.com (out-94.mta1.migadu.com [95.215.58.94])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=QbXZ68bo;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F29E606A334
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:53:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F29E606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65DD4606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:55:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65DD4606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=u8EFKRoE
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=+A0/0+mkCu8UwikYOVQTTnJ2ULdHaDIJYUHPMTx6ARc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793793211; v=1; x=1794398011;
- b=u8EFKRoETood6w9kHal8izrceQgeK970LC7hBYJzH5K3VzPJfPuZzJRJQp1zDNWA0WKO+f/e
- fooZaZZLzLZ8vf11jpervjvXk8JKOeMsR+UdposM8SSvEVPI+txEVNsDf22aGUafXiv4uB+CBVy
- wUyZBYXdVIn6VE3GRJY1S4QI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b8301430ec0ad741;
-	Wed, 04 Nov 2026 11:53:31 +0000
-X-Mizu-Trace-ID: b8301430ec0ad741
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <d9672276-5616-4609-98c1-5b9bdd06cf05@linux.dev>
-Date: Wed, 4 Nov 2026 12:52:40 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=QbXZ68bo
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=F12A
+	jCeObMo8GMff5Cd9gx8f+ATT0wwVACkVrTGxlyY=; b=QbXZ68boAOIiNT4CEroe
+	+FbKl+6S6VOO5SNwVsO9zbCtneUsv7Kh3StDFX05+gJ0/fpFdr3nHZ0Lw/mmQfon
+	sJZwUkbYMFMPSlRCkubgjxgIOv1DeduEKrap57Juq3rb1SL1wVyZOMyyG2ZBuLdg
+	lsKZFzb/xP26QmMlKZA4aOK5sudykwK3+Cu0fd6Pxp4Ogqpd33QFXqwnQmRwt5O6
+	excbPdUWcA/fct9a5k079M22fD4lAW1nvou0qo5BdUHrT2WJG1mNe/kcF0T/U0G7
+	jTrrsNtAO9+sJLGbeUPcQXsJ1bPMGIxIAEsYz8f/EdQIpUCSmwDb6gfkxpWs8YNa
+	tQ==
+Received: (qmail 708253 invoked from network); 4 Nov 2026 12:54:59 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 4 Nov 2026 12:54:59 +0100
+X-UD-Smtp-Session: l3s3148p1@jphgDHJf3LHAwtcC
+Date: Wed, 4 Nov 2026 13:54:58 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Vignesh R <vigneshr@ti.com>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Janusz Krzysztofik <jmkrzyszt@gmail.com>,
+	Tony Lindgren <tony@atomide.com>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Vladimir Zapolskiy <vz@mleia.com>,
+	Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Linus Walleij <linusw@kernel.org>, linux-i2c@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-omap@vger.kernel.org,
+	linux-samsung-soc@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH] i2c: Convert to subsys_platform_driver()
+Message-ID: <ausdEofHrBQMLiEO@shikoro>
+References: <20261104113316.1634141-1-peng.fan@oss.nxp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,56 +89,152 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/7] ASoC: Intel: avs: Soundwire support
-To: Cezary Rojewski <cezary.rojewski@intel.com>, linux-sound@vger.kernel.org
-Cc: broonie@kernel.org, tiwai@suse.com, perex@perex.cz, amade@asmblr.net,
- linux-kernel@vger.kernel.org, vkoul@kernel.org,
- yung-chuan.liao@linux.intel.com
-References: <20261103134958.2089136-1-cezary.rojewski@intel.com>
- <bcfe64de-359c-4f16-9014-5d6f8bf30c40@linux.dev>
- <9da94716-4dde-4389-9574-12f90b52e05a@intel.com>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-In-Reply-To: <9da94716-4dde-4389-9574-12f90b52e05a@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104113316.1634141-1-peng.fan@oss.nxp.com>
 
-On 11/4/26 10:14, Cezary Rojewski wrote:
-> On 11/3/2026 6:20 PM, Pierre-Louis Bossart wrote:
->>
->>> Also, the existing code fetches the PDIs based on pre-defined "dai_id".
->>> That's not the case for the avs-driver.  It simply asks: "is any PDI
->>> free?" and assigns it for the substream if one is found.
->>> No predefining.  Again, this aligns with how HDAudio streaming is done.
->> Yeah but at the end of the day there's a 1:1 mapping between cpu_dai and
->> PDI, no?
->>
->> All PDIs are created equal, a dynamic mapping doesn't make things more
->> efficient. It just makes things more complex to debug since you don't
->> have a fixed mapping between dailinks/stream/cpu_dai/PDI.
->>
->> Put differently, couldn't the AVS driver work around that fixed mapping
->> to avoid changes to legacy platforms that have shipped many moons ago?
-> 
-> Kind disagree on the debugging part.  Having SDW streaming follow
-> closely to what is done for HDAudio from the beginning (no hardcodes)
-> makes it easier for a developer to debug stuff.  OTOH if one of these
-> two follows a completely different path, the developer has to have such
-> hardcodes in mind when debugging the PCM code or even when looking at
-> the topology.
-> 
-> At the same time, I'm not going anywhere and I do intend to work with
-> Peter and Kai to update the common code. Simply put, such a refactor
-> would be routed through SOF GH first.
-The machine driver selects the first available cpu_dai when creating a
-dailink. It doesn't really add much value to add a second level of
-freedom to select PDIs, since in practice it'll select the first as
-well. PDIs have no moral equivalent in HDaudio, it's a Cadence-specific  IP.
+Hi,
 
-Also there is already a degree of freedom in the allocation of
-stream_tag, which is used for DMA support. That one makes sense since
-DMAs may be used for non-SoundWire things (HDMI, trace, probe, etc).
+> --- a/drivers/i2c/busses/i2c-davinci.c
+> +++ b/drivers/i2c/busses/i2c-davinci.c
+> @@ -896,19 +896,7 @@ static struct platform_driver davinci_i2c_driver = {
+>  		.of_match_table = davinci_i2c_of_match,
+>  	},
+>  };
+> -
+> -/* I2C may be needed to bring up other drivers */
+> -static int __init davinci_i2c_init_driver(void)
 
-That's 2 degrees of freedom on 3 levels, do you really need full
-configurability?
+I'd vote to keep this comment.
+
+> -{
+> -	return platform_driver_register(&davinci_i2c_driver);
+> -}
+> -subsys_initcall(davinci_i2c_init_driver);
+> -
+> -static void __exit davinci_i2c_exit_driver(void)
+> -{
+> -	platform_driver_unregister(&davinci_i2c_driver);
+> -}
+> -module_exit(davinci_i2c_exit_driver);
+> +subsys_platform_driver(davinci_i2c_driver);
+
+...
+
+> diff --git a/drivers/i2c/busses/i2c-omap.c b/drivers/i2c/busses/i2c-omap.c
+> index bd659dfa702f..cd4d6d6b32c6 100644
+> --- a/drivers/i2c/busses/i2c-omap.c
+> +++ b/drivers/i2c/busses/i2c-omap.c
+> @@ -1611,20 +1611,7 @@ static struct platform_driver omap_i2c_driver = {
+>  		.of_match_table = of_match_ptr(omap_i2c_of_match),
+>  	},
+>  };
+> -
+> -/* I2C may be needed to bring up other drivers */
+
+Ditto.
+
+> -static int __init
+> -omap_i2c_init_driver(void)
+> -{
+> -	return platform_driver_register(&omap_i2c_driver);
+> -}
+> -subsys_initcall(omap_i2c_init_driver);
+> -
+> -static void __exit omap_i2c_exit_driver(void)
+> -{
+> -	platform_driver_unregister(&omap_i2c_driver);
+> -}
+> -module_exit(omap_i2c_exit_driver);
+> +subsys_platform_driver(omap_i2c_driver);
+>  
+>  MODULE_AUTHOR("MontaVista Software, Inc. (and others)");
+>  MODULE_DESCRIPTION("TI OMAP I2C bus adapter");
+> diff --git a/drivers/i2c/busses/i2c-pnx.c b/drivers/i2c/busses/i2c-pnx.c
+> index e1cc2b2bd628..9a9a12b7e981 100644
+> --- a/drivers/i2c/busses/i2c-pnx.c
+> +++ b/drivers/i2c/busses/i2c-pnx.c
+> @@ -735,16 +735,6 @@ static struct platform_driver i2c_pnx_driver = {
+>  	.remove = i2c_pnx_remove,
+>  };
+>  
+> -static int __init i2c_adap_pnx_init(void)
+> -{
+> -	return platform_driver_register(&i2c_pnx_driver);
+> -}
+> -
+> -static void __exit i2c_adap_pnx_exit(void)
+> -{
+> -	platform_driver_unregister(&i2c_pnx_driver);
+> -}
+> -
+>  MODULE_AUTHOR("Vitaly Wool");
+>  MODULE_AUTHOR("Dennis Kovalev <source@mvista.com>");
+>  MODULE_DESCRIPTION("I2C driver for Philips IP3204-based I2C busses");
+> @@ -752,5 +742,4 @@ MODULE_LICENSE("GPL");
+>  MODULE_ALIAS("platform:pnx-i2c");
+>  
+>  /* We need to make sure I2C is initialized before USB */
+> -subsys_initcall(i2c_adap_pnx_init);
+> -module_exit(i2c_adap_pnx_exit);
+> +subsys_platform_driver(i2c_pnx_driver);
+
+Use this occasion to move the comment and your code upwards right below
+the driver struct?
+
+> diff --git a/drivers/i2c/busses/i2c-sh_mobile.c b/drivers/i2c/busses/i2c-sh_mobile.c
+> index 3a55f803e4f1..1ecf14890209 100644
+> --- a/drivers/i2c/busses/i2c-sh_mobile.c
+> +++ b/drivers/i2c/busses/i2c-sh_mobile.c
+> @@ -986,18 +986,7 @@ static struct platform_driver sh_mobile_i2c_driver = {
+>  	.probe		= sh_mobile_i2c_probe,
+>  	.remove		= sh_mobile_i2c_remove,
+>  };
+> -
+> -static int __init sh_mobile_i2c_adap_init(void)
+> -{
+> -	return platform_driver_register(&sh_mobile_i2c_driver);
+> -}
+> -subsys_initcall(sh_mobile_i2c_adap_init);
+> -
+> -static void __exit sh_mobile_i2c_adap_exit(void)
+> -{
+> -	platform_driver_unregister(&sh_mobile_i2c_driver);
+> -}
+> -module_exit(sh_mobile_i2c_adap_exit);
+> +subsys_platform_driver(sh_mobile_i2c_driver);
+
+Here you have no empty line after the driver struct...
+
+>  
+>  MODULE_DESCRIPTION("SuperH Mobile I2C Bus Controller driver");
+>  MODULE_AUTHOR("Magnus Damm");
+> diff --git a/drivers/i2c/busses/i2c-versatile.c b/drivers/i2c/busses/i2c-versatile.c
+> index a1ab6ef6f071..152ab19f272a 100644
+> --- a/drivers/i2c/busses/i2c-versatile.c
+> +++ b/drivers/i2c/busses/i2c-versatile.c
+> @@ -116,18 +116,7 @@ static struct platform_driver i2c_versatile_driver = {
+>  	},
+>  };
+>  
+> -static int __init i2c_versatile_init(void)
+> -{
+> -	return platform_driver_register(&i2c_versatile_driver);
+> -}
+> -
+> -static void __exit i2c_versatile_exit(void)
+> -{
+> -	platform_driver_unregister(&i2c_versatile_driver);
+> -}
+> -
+> -subsys_initcall(i2c_versatile_init);
+> -module_exit(i2c_versatile_exit);
+> +subsys_platform_driver(i2c_versatile_driver);
+
+... while you have one here. Please make it consistent to no empty line.
+
+Other than that, looks good.
+
+Happy hacking,
+
+   Wolfram
