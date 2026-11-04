@@ -1,88 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793788064;
-	b=H7h3Sd9xk3yfG5XMPk+pSxk7EzF16ij2f7b3SodCWxAkj1CdqT1dMXvsDJ/Ltql4UwOR
-	 tkSZ/ZtilipKDYzXwxsmhgAt0Gd/MX/EYcLn1mD5PZfRgckDnujvECplHxriHZ+DFBjIs
-	 q4+/orWqXW7mWSQpDzNz2dVOV+Cq2SW58j1pi6iI1rcuQQ56sSL64EmIILnOg1LFP0kFp
-	 QogGRY6Xy18lUZm1eaIiixTx22PXY0GcS/Hfj6AMyusShd14shGd+FU36TJanFke7Q9lV
-	 cvZljkrFMSmr/zERbDckTBBWTd6zkAf/kyvfoP4Jbwnd07v3EfURYcqaP8Zd33cZRIw==
+	t=1793788073;
+	b=RIrinCbkWdbM3s2iC2rSBbex/tnp/d9DUvU/p8fgvWh9QLiEUyOdFlTyRB4UMxB5zv0E
+	 WdxMimnxnr7K6fT6r2nke1wYhDkajzKpt7QclPCh6GtfRZCYXV7pWcCYY+bYihU7I+KE7
+	 yooNDgaE5AsXV+OtS8+uKgzJaEu7tAIsUXmu6itauGZxIZNCc0xDVD3hK8nx5zRRVqiuD
+	 11bgA1YFkihOc2R4yD4hyS1Qk0iJ9AZMOngLCbB5Ak5hsPrZ1HJcRwI+aEHqI++zGPAvM
+	 8y8UZwATyDYcv4qE7iPksnAdYFGxCp+YdRX1i3rgmbTIw7W+gXaH6PkFUir6zizP+dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793788064;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793788073;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=vx0F8Ooosw/mJ+ey/EwtNuiTXbCoWfLlzJMEU9ZwgM4=;
-	b=sGazEi5DdGkOOHxZVyqBMtNwz5l8XZY10x9VQO7+S4nZOrpWEHnaC+9U8wqFESo7f8q1
-	 /aaNneRStNWZgfWx3ptvCdLqUv816evdS8W/W2WX0xgDf1Ju2Y4tOargO11WokqdD6muV
-	 tIiTkpShYqH1PEO2cZ0blBJNmeZyoLzTekxlFe3lsiKep/9SSnfeqSSi9ADeg+z2Zy3/P
-	 9Q2yeraNYBLqdLtlWRyDTuBYb37ttSHwYAtVD4/eJvFr0cIOTiKfq9+iWxwINqxJWQJGw
-	 sjLquYxj/Dl7QX0/NJRyOHwsq8ongNPynZhQsb3JaR1P5cshXvwVRjXsiPtApWgSK9g==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=oxlAWrEkafenvw/FjrtjbduyFLL/BjALYNiaNpikrTY=;
+	b=PwAIjjSwoOZAuUEkwA7W1MVw0xVixFIx2m0RQqYVSVefVcRAxxsxeZjwFA2yb0NFrqcx
+	 2bmzqUUXgf6VLC9LDpgbiWkF1HPcLpCoLEPkehcIRWC3Vonb1KbnLDidVfRQhT8GXdu3c
+	 xyxJAWkUwXMgCIQR0dbwIPn/HOzfp5JwXXFPk00xxpoR6tpHM0eshdPKk8Ul1qLIjXQMx
+	 r+PAsbHq+VPhOskjTZfX4G8Er6oC6M4yFTQ+19pyO85gxPPpTOrv6Q51MgvV40AKrydrw
+	 e6sHlIfFAoxN8trCBP2P7UV23jNE4XCISG8OJ7i5NviygMlXSa5q1aTBPfWzuk8zA5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ursulin.net;
-	spf=pass smtp.mailfrom=ursulin.net;
-	dkim=pass header.d=ursulin.net header.i=@ursulin.net header.a=rsa-sha256 header.s=google header.b=JhjSLMjd;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="ETY8VoT/";
+	arc=none smtp.remote-ip=209.85.208.42
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74123606A331
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:27:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74123606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ursulin.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ursulin.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CD51606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:27:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CD51606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ursulin.net header.i=@ursulin.net header.a=rsa-sha256 header.s=google header.b=JhjSLMjd
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48b060ec084so330992f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 02:27:43 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ETY8VoT/
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b1b12de661so9723a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 02:27:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ursulin.net; s=google; t=1793788062; x=1794392862; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vx0F8Ooosw/mJ+ey/EwtNuiTXbCoWfLlzJMEU9ZwgM4=;
-        b=JhjSLMjdbmENp3xo7DmgfsPyeYJzOZpuxaNe9VuFovMBYk+TaDfPH2r16G8aKDHF7L
-         PhRjBQ9gLPG5y/0cr6maacKxMlADbo5UPWzMB/vFa1CbBieKoIDFG7kjzY7mJ/bW+1OD
-         lEXimteyPki+QKqSm8ox35H37L2zWL9KIgxzdICJnbcQpb5ea4/fE+UnrohT095AMxWB
-         gpu5Ovj/KPQWQFhYVDYRMd0np+Cxt2/VfZGMsFrn4UuacfJf8/78tgbQT5OfxlgvVWR2
-         TA1xlfkTvsLymenxcao0C3BeaoatIodcU4wq7ffWpvBofCL2Khn6LL9PsvJNTeI8wOOo
-         mlbQ==
+        d=google.com; s=20260707; t=1793788072; x=1794392872; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oxlAWrEkafenvw/FjrtjbduyFLL/BjALYNiaNpikrTY=;
+        b=ETY8VoT/f+gDU32SGXFwti5vr5fy0yPG6zRSjejzpQMJOVav1+tZqMyte9EyF+4IgH
+         MRjXyR3rRsdcXoeKpcoHArC9/SxZlMktYBlTbH+p5n1AVBtDVR7dHfaIjeIDkHwAiBIu
+         ecAm00KOZxHMW4azoXD3Rk83uDFOqv2kDZdYCIPC4ScTXNMup6y+qGzCbcsq+sE3NSdC
+         l4bO+Ci9F2o4AJsy2FJkWpS/3buA0DTrbXiJolnxhXCLPEtLIHpVG3Okxp1grtyffcs1
+         CYgX4q74LfeC9PpDxlC43DVAJD3zZNyhwtgmvqgB+CDSbNqSP6LAuvTg0dnVsoSaa1NP
+         hlTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793788062; x=1794392862;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vx0F8Ooosw/mJ+ey/EwtNuiTXbCoWfLlzJMEU9ZwgM4=;
-        b=djJbQpFTtfetASjPBQ00G1uD+mqWsQr06g//VGUfFEuARTYJwLXdi8Tmd9hajjV40A
-         p6GsKKVavuX+sLYA1PdQoxo0Y3kccFji2SN5piNY2B8ii+ZZRIzvLbqs69AQ9LZRU5s3
-         fTwSIZLlNc7JY2r6vtNB54qX51+EJkH+fVT2Vb3T6M5mixzpq0CnyKsTxCYk4uiCW+gp
-         05KBVyEIQoaNNbug/1Xczh7mqkZwcOp0r3Vmadl7oGlVDLDB3/YrFKMws/gEg+V+qkfL
-         rEXMm825G5/8pmNj1k1RQ/EJLFlEQ9m8ZKY7gJn9d3tGGnXTrL3q0WsGnmpJFUIanJUw
-         ttsA==
-X-Forwarded-Encrypted: i=1; AKwUvBzlr/AhtCZ9FQtSCK9SP6+oktiyeXgswnMNLSLuyieWNRBPqpfvV7tQynLW53nKo0QFn246Arj/Ai+iaJ8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+pX8DAEFsRVksl9XnHfp3FmdBme3IrbOeawUyQ78dnrJJEuvJw
-	g7nmXTKztV/ebGa5ga1m6IdqaL7/b6ftKe4Smis+Mvf6Nxk7YYXZwbQKB9c8GyO5ILY=
-X-Gm-Gg: AYBFou1xoeMEBxguYlyBYziJjmRl/M1YCKifSrIFJGWx3RLskSIZsoUCDXySfmpVkli
-	psqj1rJ/IGrHzs2fyYumX2jZdrn4ai0SAFZmytUmUi0sHYAKNtKo5dhseZpmAU2qSJBvVkiF6NB
-	Nf2zCE10xSGSsZOyVrz6CZFqiEvMpK37Z8mYp4gHLecy+0BVwScyvSwhDsEmIAU3ENqGChvBWnS
-	TF0r1nHKp2NAMgl52jGjhkmZ6UXK4ANc4255RhEDk2a+MzY93cLJTm40+PY5qBQsg4euWW6MfG2
-	O6pCdB/oa80jUm/uUmNt+K84u1cuZA3C8ynn7HUAncohgiUOPO6vGsOh2qC7UIK/ELS61WjwwWT
-	BGSEqzpi39Pxed33+fQHcW3iVVMgtDKrcuIX9jGkZIAWiktvzAELGVkjXZV3xwnTstEe35ao2PF
-	tyymMLZTOcFS75bnzcUWz6FWzpfXrkLfLV/b3YLJC2EvKzBMj4YgJhNGbYrRfWYtw0HxLFMeH+B
-	rtqqaDbBEgJNe63DkTZ1yUhcZ2o2crEK5xRMTLWpe4fsHriRKUJudaZJjxEFiscz8Zxegyu9cYS
-	wsqyeL0f0eohue1cEb0afptC6jSboadRz0jrMrR7TSWM
-X-Received: by 2002:a05:6000:4559:b0:488:79d6:a4a6 with SMTP id ffacd0b85a97d-48e6e2bc780mr22710961f8f.8.1793788061116;
-        Wed, 04 Nov 2026 02:27:41 -0800 (PST)
-Received: from [192.168.0.116] ([81.79.79.1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed45d2bbsm3299891f8f.33.2026.11.04.02.27.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 02:27:38 -0800 (PST)
-Message-ID: <39be711e-cd56-4a04-87ee-6aa2a0b69779@ursulin.net>
-Date: Wed, 4 Nov 2026 10:27:36 +0000
+        d=1e100.net; s=20260707; t=1793788072; x=1794392872;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oxlAWrEkafenvw/FjrtjbduyFLL/BjALYNiaNpikrTY=;
+        b=mjiHRwf60Sn1UL7/OTDpoWzqY//AySxe8/gt3yiZyjmeyYYqWnXLMMznDEiswxh7VG
+         aniXbrPJfovU6Dp6kdqikNPVJuddgn0c+mxHcMnxkM6GYAI9KiAzcvnptFaZ1LEfcxXp
+         /FRXZVpdcqB6XS6zJWPbHR/yjSLIz9RqwCZB8JWt5x9q4SYNMHOP33f7w9pF8r3a/UYf
+         BEt5G/jrNEU5TG0E6h9nuQYXcMeCpuq/xkLDzrlMBp0o0ZWZNWoKVZYUzS9s+oKGDxBW
+         f36+f5FFytC+7m4UpNRv1Go3117q8TZ/9LaU+I/sdZmBnplHeBUK0hRV3OmkZ1bXDfVD
+         28nA==
+X-Forwarded-Encrypted: i=1; AKwUvBzL505UG2+MgI+3wtmGg7IDvQ1fz5AR59ED859NF2HmQGVrzkclFHQKdSRn3py8+tRMvSLTySQ/V05Qmyk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/9PJyXsLX/DGMQXPUvpQ3Zx6+HlpnJMc9qsAFODQ/HyzH43vGi
+	+ePr9s4xlpq4454POZYuBLjbEu/mLSpBD8pvPyUwJqjoFxphQ1su9FLnyecXwH3pzQ==
+X-Gm-Gg: AYBFou079CG/gT3KWQWyoqN3CYpFLr6wAnnqE4O5vLFW9Dl+8fYHSw/WEGFz+y5HZfC
+	sg1D4SraLtqzz5n/ian5uRpmP4GR3g0hbxhXbrCiGQfQQPwwLPps/axUDMsf0HJLABl/fRLzdmm
+	1hc0BVOd5rXDZSppsmHjKHF109UROXLRCsVF3YPu1860zL61pSCrgNQR6YjGPN66MMyPUITxDru
+	jQrMIwpGoi/iIcXd0Fr6CoKbZTPFUYwfMGwEVGtVidxPONJAtmWdnpd2vxLLB1vgRYKE31Ab/r9
+	te2Mjgp7XTUbmqMit01w041ta2uvoP2AnaNG+hy0z6muXa6skoW5yBxbRIqGVzDuxO98NpT+6vT
+	HULHnjkQnUK20zbOZVH8ZHSwjiYJO+7Md/Rue1JVGsXmfcv7Q2tn3a4UHMNLZCuTID+E94tsDFG
+	qNr4JCvNb2WuVOKh5Ce2FWlD8yEog7qF12NUK2rAxajd8mfu8jUsDtG8kbzFhhrsG3CxY1nD+SI
+	wiswrBGYg71Hby20CZY/EiLNBdLBcvZ/1H+Sa5tZWMhkMfDUpMvYTM2rCxvkn2CqPwBYFE0Y1zy
+	pO7RTcP0BIanTZ8AbSXJRv9Qkjscbrum3DDk0Ki5YmFTBvbkj7SrrgtXSSTmLhwAe+PpyyCTUpj
+	bzSi379xWKKqzmbKO
+X-Received: by 2002:a05:6402:20d9:b0:6b5:5cd3:5dc with SMTP id 4fb4d7f45d1cf-6b55cd3077fmr36964a12.1.1793788071437;
+        Wed, 04 Nov 2026 02:27:51 -0800 (PST)
+Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d0e41d670sm54601366b.23.2026.11.04.02.27.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 02:27:50 -0800 (PST)
+Date: Wed, 4 Nov 2026 10:27:43 +0000
+From: Mostafa Saleh <smostafa@google.com>
+To: Jacob Pan <jacob.pan@linux.microsoft.com>
+Cc: iommu@lists.linux.dev, Jason Gunthorpe <jgg@ziepe.ca>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Kevin Tian <kevin.tian@intel.com>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>, Wei Liu <wei.liu@kernel.org>,
+	"K . Y . Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+	linux-hyperv@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Vasant Hegde <vasant.hegde@amd.com>, Arnd Bergmann <arnd@arndb.de>,
+	linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org,
+	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>,
+	Mukesh Rathor <mukeshrathor@microsoft.com>,
+	John Starks <John.Starks@microsoft.com>,
+	Souradeep Chakrabarti <schakrabarti@microsoft.com>,
+	Yu Zhang <zhangyu1@linux.microsoft.com>,
+	Easwar Hariharan <eahariha@linux.microsoft.com>,
+	Alex Williamson <alex@shazbot.org>
+Subject: Re: [PATCH RFC 1/9] iommu: Introduce external attach domain type
+Message-ID: <ausIn5Txiy1uRjkY@google.com>
+References: <20260925190742.1575380-1-jacob.pan@linux.microsoft.com>
+ <20260925190742.1575380-2-jacob.pan@linux.microsoft.com>
+ <atiakDqtuED2cTM5@google.com>
+ <20261026161003.00003b71@linux.microsoft.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,284 +116,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/syncobj: Limit the number of handles and use
- kvmalloc for user-sized arrays
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "Yu, Fei" <fei.yu@intel.com>, dri-devel@lists.freedesktop.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org,
- syzbot+95416f957d84e858b377@syzkaller.appspotmail.com,
- Madhur Kumar <madhurkumar004@gmail.com>
-References: <20261104030930.3852781-1-fei.yu@intel.com>
- <1d8aeaae-7c89-4a99-975b-5467c33554b9@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <1d8aeaae-7c89-4a99-975b-5467c33554b9@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026161003.00003b71@linux.microsoft.com>
 
-
-On 04/11/2026 09:44, Christian König wrote:
-> On 11/4/26 04:09, Yu, Fei wrote:
->> From: Fei Yu <fei.yu@intel.com>
->>
->> The syncobj ioctls allocate several temporary arrays whose size is taken
->> directly from the u32 count_handles provided by userspace:
->>
->>   - handles and syncobjs in drm_syncobj_array_find()
->>   - points and entries in drm_syncobj_array_wait_timeout()
->>   - points and chains in drm_syncobj_timeline_signal_ioctl()
->>
->> These are kmalloc() allocations, so a count above KMALLOC_MAX_SIZE /
->> element size trips the WARN_ON_ONCE_GFP() in ___kmalloc_large_node():
->>
->>    WARNING: mm/slub.c:5459 at ___kmalloc_large_node+0x10c/0x170 mm/slub.c:5459
->>    Call Trace:
->>     __kmalloc_large_node_noprof+0x18/0x90 mm/slub.c:5502
->>     __do_kmalloc_node mm/slub.c:5519 [inline]
->>     __kmalloc_noprof+0x3f6/0x710 mm/slub.c:5556
->>     _kmalloc_noprof include/linux/slab.h:995 [inline]
->>     _kmalloc_array_noprof include/linux/slab.h:1211 [inline]
->>     drm_syncobj_array_find+0x3a/0x440 drivers/gpu/drm/drm_syncobj.c:1241
->>     drm_syncobj_timeline_wait_ioctl+0x18a/0x640 drivers/gpu/drm/drm_syncobj.c:1356
->>     drm_ioctl_kernel+0x2df/0x3b0 drivers/gpu/drm/drm_ioctl.c:817
->>     drm_ioctl+0x70e/0xba0 drivers/gpu/drm/drm_ioctl.c:914
->>
->> The wait entries are 64 bytes each on 64-bit, so with a 4 MiB
->> KMALLOC_MAX_SIZE a wait on more than about 64K handles already fails
->> today, with a warning.
->>
->> Fix this in two parts:
->>
->>   - Reject more than DRM_SYNCOBJ_MAX_HANDLES handles with -EINVAL in
->>     drm_syncobj_array_find(), which every ioctl taking a handle array goes
->>     through. The limit is derived from the largest per-handle allocation
->>     (the wait entries) and the INT_MAX size limit of kvmalloc(), so none
->>     of the allocations above can exceed it. That is about 33M handles on
->>     64-bit.
->>
->>   - Switch the six allocations to kvmalloc(), so that large but valid
->>     handle counts no longer depend on physically contiguous memory.
->>
->> Using kvmalloc() alone is not enough: the reproducer asks for more than
->> INT_MAX bytes, which hits the WARN_ON_ONCE() in __kvmalloc_node_noprof()
->> instead.
->>
->> Fixes: 3e6fb72d6cef ("drm/syncobj: Add a syncobj_array_find helper")
->> Reported-by: syzbot+95416f957d84e858b377@syzkaller.appspotmail.com
->> Closes: https://syzkaller.appspot.com/bug?extid=95416f957d84e858b377
->> Suggested-by: Christian König <christian.koenig@amd.com>
->> Signed-off-by: Fei Yu <fei.yu@intel.com>
->> ---
->> v2:
->>   - Drop __GFP_NOWARN (Christian).
->>   - Add DRM_SYNCOBJ_MAX_HANDLES, return -EINVAL above it, and switch all six
->>     arrays to kvmalloc() (Christian).
->>   - v1: https://lore.kernel.org/all/20261103085002.3100723-1-fei.yu@intel.com/
->>
->> About the limit: INT_MAX / sizeof(struct syncobj_wait_entry) is about 33M
->> handles on 64-bit. It is the largest count for which every allocation stays
->> below the kvmalloc() INT_MAX size limit, so it does not add a new policy
->> number. Today the real limit is much lower: a wait on more than ~64K
->> handles already fails with -ENOMEM (plus the warning), because the wait
->> entries are a kmalloc() allocation larger than 4 MiB. If you prefer a lower,
->> fixed limit (e.g. SZ_1M) or GFP_KERNEL_ACCOUNT for these arrays, I can
->> change it.
->>
->> Testing on v7.4-rc1 (x86_64, KASAN, virtio-gpu in QEMU):
->>   - syzbot C reproducer: base warns in ___kmalloc_large_node() (size
->>     0x100000920), patched is clean, ioctl returns -EINVAL.
->>   - wait / timeline_wait / timeline_signal / reset / signal on 200000
->>     signaled syncobjs: base fails wait and timeline_wait with -ENOMEM and
->>     the same warning; patched all succeed.
->>   - count == DRM_SYNCOBJ_MAX_HANDLES gets past the check (-EFAULT from the
->>     short user buffer), count == DRM_SYNCOBJ_MAX_HANDLES + 1 returns -EINVAL
->>     for wait, reset and timeline_signal.
->>   - kmemleak clean, checkpatch --strict clean, W=1 clean,
->>     DRM KUnit 667/667 passed.
->>   - IGT syncobj_basic, syncobj_wait, syncobj_timeline on virtio-gpu:
->>     202/202 subtests pass, same as base.
->>
->>   drivers/gpu/drm/drm_syncobj.c | 40 ++++++++++++++++++++++-------------
->>   1 file changed, 25 insertions(+), 15 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
->> index f1d4da1685457..c01cf164a4f9e 100644
->> --- a/drivers/gpu/drm/drm_syncobj.c
->> +++ b/drivers/gpu/drm/drm_syncobj.c
->> @@ -220,6 +220,13 @@ struct syncobj_wait_entry {
->>          u64    point;
->>   };
->>
->> +/*
->> + * Upper limit for the number of handles passed to a single ioctl. The
->> + * largest per-handle allocation is the wait entry array, keep it below the
->> + * INT_MAX size limit of kvmalloc().
->> + */
->> +#define DRM_SYNCOBJ_MAX_HANDLES        (INT_MAX / sizeof(struct syncobj_wait_entry))
+On Mon, Oct 26, 2026 at 04:10:03PM -0700, Jacob Pan wrote:
+> Hi Mostafa,
 > 
-> I really wonder if we should put that into the uAPI files?
+> On Wed, 21 Oct 2026 10:57:20 +0000
+> Mostafa Saleh <smostafa@google.com> wrote:
 > 
-> Not that userspace is potentially using it, but this is part of the uAPI and makes sense for documentation purposes.
+> > On Fri, Sep 25, 2026 at 12:07:34PM -0700, Jacob Pan wrote:
+> > > Add IOMMU_DOMAIN_EXTERNAL for externally managed domains that move
+> > > or attach devices to another VM address space provisioned by an
+> > > external owner, such as a type 1 hypervisor.
+> > > 
+> > > This is not a paging domain and is not sysfs-selectable as a default
+> > > domain type. It requires external owner context, such as a vIOMMU.
+> > >   
+> > 
+> > Can't we use a IOMMU_DOMAIN_BLOCKED domain for that, AFAIU, the host
+> > never inserts any mapping?
+> Right, the host does not own or install any mappings.
 > 
->> +
->>   static void syncobj_wait_syncobj_func(struct drm_syncobj *syncobj,
->>                                        struct syncobj_wait_entry *wait);
->>
->> @@ -1051,7 +1058,7 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
->>                  lockdep_assert_none_held_once();
->>          }
->>
->> -       points = kmalloc_array(count, sizeof(*points), GFP_KERNEL);
->> +       points = kvmalloc_array(count, sizeof(*points), GFP_KERNEL);
->>          if (points == NULL)
->>                  return -ENOMEM;
->>
->> @@ -1064,7 +1071,7 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
->>                  goto err_free_points;
->>          }
->>
->> -       entries = kzalloc_objs(*entries, count);
->> +       entries = kvzalloc_objs(*entries, count);
->>          if (!entries) {
->>                  timeout = -ENOMEM;
->>                  goto err_free_points;
->> @@ -1185,10 +1192,10 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
->>                                                    &entries[i].fence_cb);
->>                  dma_fence_put(entries[i].fence);
->>          }
->> -       kfree(entries);
->> +       kvfree(entries);
->>
->>   err_free_points:
->> -       kfree(points);
->> +       kvfree(points);
->>
->>          return timeout;
->>   }
->> @@ -1238,7 +1245,10 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
->>          struct drm_syncobj **syncobjs;
->>          int ret;
->>
->> -       handles = kmalloc_array(count_handles, sizeof(*handles), GFP_KERNEL);
->> +       if (count_handles > DRM_SYNCOBJ_MAX_HANDLES)
->> +               return -EINVAL;
->> +
->> +       handles = kvmalloc_array(count_handles, sizeof(*handles), GFP_KERNEL);
+> The external domain type is nevertheless useful for two reasons:
 > 
-> That kvmalloc_array() + the following copy_from_user should probably be replaced by using vmemdup_array_user(). But that should of course be a separate patch.
-
-Btw I tried to do that some time ago:
-
-https://lore.kernel.org/dri-devel/20251106132645.28208-1-tvrtko.ursulin@igalia.com/#t
-
-I have as local, more recent version which applies, but apparently never 
-sent it.
-
-Interesting part should also be the other patches from the above linked 
-series which avoid allocations altogether for the vast majority of cases.
-
-If there is interest I can re-base and re-send after this is merged.
-
->>          if (handles == NULL)
->>                  return -ENOMEM;
->>
->> @@ -1248,7 +1258,7 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
->>                  goto err_free_handles;
->>          }
->>
->> -       syncobjs = kmalloc_objs(*syncobjs, count_handles);
->> +       syncobjs = kvmalloc_objs(*syncobjs, count_handles);
->>          if (syncobjs == NULL) {
->>                  ret = -ENOMEM;
->>                  goto err_free_handles;
->> @@ -1262,16 +1272,16 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
->>                  }
->>          }
->>
->> -       kfree(handles);
->> +       kvfree(handles);
->>          *syncobjs_out = syncobjs;
->>          return 0;
->>
->>   err_put_syncobjs:
->>          while (i-- > 0)
->>                  drm_syncobj_put(syncobjs[i]);
->> -       kfree(syncobjs);
->> +       kvfree(syncobjs);
->>   err_free_handles:
->> -       kfree(handles);
->> +       kvfree(handles);
->>
->>          return ret;
->>   }
->> @@ -1283,7 +1293,7 @@ static void drm_syncobj_array_free(struct drm_syncobj **syncobjs,
->>
->>          for (i = 0; i < count; i++)
->>                  drm_syncobj_put(syncobjs[i]);
->> -       kfree(syncobjs);
->> +       kvfree(syncobjs);
->>   }
->>
->>   int
->> @@ -1572,8 +1582,8 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
->>          if (ret < 0)
->>                  return ret;
->>
->> -       points = kmalloc_array(args->count_handles, sizeof(*points),
->> -                              GFP_KERNEL);
->> +       points = kvmalloc_array(args->count_handles, sizeof(*points),
->> +                               GFP_KERNEL);
+> 1. It allows the pvIOMMU driver's domain ops to do the MSHV & Xen attach
+> and detach hypercalls 
+> 2. It allows an externally managed device to leverage the normal IOMMUFD
+> device-to-HWPT attachment interface: VFIO_DEVICE_ATTACH_IOMMUFD_PT
+> No new ioctls.
 > 
-> Looking at the code the handling of allocating the array and the just memset()ing it to zero when it is not used is really sub-optimal.
+> It also makes the lifetime and ownership clear for IOMMUFD and
+> hypervisor, the device can be returned back to host iommufd owned
+> domains once detached.
+> 
+> In pKVM case, my understanding is that you have a emulated root SMMU
+> which does not do hypercalls obviously. Then the external attach
+> is done via an "out of tree uAPI through KVM/VFIO bridge IOCTLs that
+> proxies those hypercalls."
+> 
+> Therefore, if we were to park the device in blocking domain while doing
+> external attach (as you suggested), this requires a new PV only uAPI
+> that must support pkvm, MSHV, and Xen. So it does not fit in the flow
+> supported by PV IOMMU root driver.
 
-AFAIR I tried to improve this ages ago by converting to get_user but it 
-was foiled by arm32 (IIRC) cannot do 64-bit get_user. Otherwise it would 
-have been possible to avoid the allocation and just read as we go.
+I am not sure I understand this, how can the domain type change the
+uAPI? can you please point to what breaks in the code if a blocking
+domain was used?
 
-Regards,
-
-Tvrtko
+Thanks,
+Mostafa
 
 > 
-> But that is just a side comment and should probably be changed in a separate patch as well.
+> I don't have a better solution for both pv and emulated root IOMMU
+> drivers. Perhaps others do?
 > 
-> Apart from those minor comments the patch looks good to me.
-> 
-> Regards,
-> Christian.
-> 
->>          if (!points) {
->>                  ret = -ENOMEM;
->>                  goto out;
->> @@ -1586,7 +1596,7 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
->>                  goto err_points;
->>          }
->>
->> -       chains = kmalloc_objs(*chains, args->count_handles);
->> +       chains = kvmalloc_objs(*chains, args->count_handles);
->>          if (!chains) {
->>                  ret = -ENOMEM;
->>                  goto err_points;
->> @@ -1609,9 +1619,9 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
->>                  dma_fence_put(fence);
->>          }
->>   err_chains:
->> -       kfree(chains);
->> +       kvfree(chains);
->>   err_points:
->> -       kfree(points);
->> +       kvfree(points);
->>   out:
->>          drm_syncobj_array_free(syncobjs, args->count_handles);
->>
->>
->> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
->> --
->> 2.43.0
->>
-> 
+
 
