@@ -1,61 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793794409;
-	b=dH8EGbTxb7G3Dq6SO+xxZJAHxmJx50C9fY7zyfZnxRYZ5acKmYNHEiOf+9DWwSIO3dxI
-	 kfBrC646jVzE/SA3uSDjG0QbQaXoELA4d5ye+PyDgEL2mGropbF4lofqbvifkpWB8B5Cz
-	 /W6bl4308d9HqX//o8ufw6wSARm5wuNCj2X/PPuviF7Q5fCj13TpMYZ/quhr598xG6RGH
-	 CNXtmNATsqijyxB+ioMUHGVC0y8qo+FL8rGSO68dBbdd+XsO3LX+EtvnDTQin+NwytSoG
-	 uLnuUWWF/pCOb181dEVPrCevqSo1AqL1drTC+4ZpvYHLHT1W7/raN6INbxeQc3My0Cg==
+	t=1793794412;
+	b=H0FgEga5WW7ATl0VLKQoL6XND81k6iHyLGnx1RQooBS5Eoyt3IBUXC9GWrZP78ubLpUw
+	 TGvDZ1b/iHbtdllYOOU3VPHjacIAzBV62SzO2VY+CnREHeUgJUD835lsHS1aIo8es3buG
+	 vkteENQkulcrzKFPbV6msMzlom0GiRg2tOZ9Zdyicnr2J+Qo+q/GQD+xMVwI2KkwpbOOp
+	 7GvjovAt5T+Grh5Igro/dpbKj1+MhEythGSnjTLHspev8lzJg5L7uTWtpLpZnXStiLa/L
+	 lM1Dco3CZdbp1rIk2VJ7ChCl51/Xoh1BXNhsLUBgPUSZC7LaebmT1ReN3L652JcYc2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793794409;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:User-Agent:MIME-Version:Content-Type;
-	bh=xI1Euu70YUflyL8kMW3VkLtf2BBOiDl/YP7uIS54om4=;
-	b=Wt1uU1hes96VXVTtbWgFAYFcW1bRs7YOXlNSGTyenvrFO94XkLm0edK3OVXuLSO8Gn1p
-	 VjiXWiyUPmh3uMH2d6HEqTShSqg4KJi5XObOr6dD5anApWAyYwLdEpE6FTr86EgzJh9K1
-	 KKeqyP9ViOAeQk/ts7WZJyt25bhXVNgi0B0DP3mJe8wBGUcO8zyb9wjcUUctHAkqC+U9M
-	 kPjLCsfpDTHPoRt3W1PMkQr2yvSM2g2TprigsC+P2bC1hDTJI3+mGa9dUYHAPqqLyninD
-	 3qJGHKT85VLVNK80Xuyd4jW1xziXh2/2k3LxRwgR1OwltKupcNSS7TcT5dAgv3KqEYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793794412;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=AeYVJX5tfRvbp/AEWfYF8xWqbqGtS5WJ9Eh8ZKqwqd0=;
+	b=cnjtf5pPid9JjX9riPr2/rTU0tNv27RnpDvJHLyXOM+IHoRIf1DrhLngGrxw2n/yCLxr
+	 Eb6YK8pZd/asq7GDQnJd/NByi+LWasynWbak62Jr/1XPEQ5kJ1zO/gstAw2Sp3V+dmAwl
+	 Osr3UgUegYqdN80LQfIaMOmD2CuKnKdRag/YTDxasigCcSR770b3m3JmguBZUcq58dZg8
+	 OE+fibBetnnWISsGhp0a8tUR/Yo1akrwnU5gvc8SSNdKHEKF1RTVW1MLS3h27u8EebH54
+	 lAjJGs7tnjVVnxi6WBMDoCHfij+ymTEU0ycJcOSjcqxY8n5T+TzIGUrxvUdCk8n4hSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bjt0GwCP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WdBVSscq;
+	arc=none smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 871DC606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 12:13:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2428606A32F;
+	Wed,  4 Nov 2026 12:13:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2428606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bjt0GwCP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B4871F000C1;
-	Wed,  4 Nov 2026 12:13:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793794409;
-	bh=xI1Euu70YUflyL8kMW3VkLtf2BBOiDl/YP7uIS54om4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=bjt0GwCPsVqSBZmBajC5cqnTxurvBTha5TBGNnuGjMcY/0RTazrh5fIHq8bFWGQJZ
-	 Sl3ZZM5n6doE/Ftx4asgxVmHQR2R1O/dLRdMTU+uCRc5KobE6A61lhMFJxz2AAXL/n
-	 mwLfVnHy8mP8qKSgleVvE0YCsvOODm/0zkLprwAHYenBDBa5Hu96BT20L6ne2x8mqc
-	 eaMc0NaaRIaVF4HKwPhtv0exAzuTDF+YQSqiLvhEhZtocQ5lU6tno7VrHd/Ukf5JPF
-	 lv8lFVhK9j8reWbzfJSRVa1gx4MjwWy8dUqz65qOkXdM62ndm/VwxfOTM4FL5S4tPK
-	 yqE/KXNjxSACw==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Pratyush Yadav <pratyush@kernel.org>,  Pasha Tatashin
- <pasha.tatashin@soleen.com>,  Alexander Graf <graf@amazon.com>,  Andrew
- Morton <akpm@linux-foundation.org>,  Chen Pei <cp0613@linux.alibaba.com>,
-  George Guo <guodongtai@kylinos.cn>,  Kexin Liu <liukexin@kylinos.cn>,
-  Sourabh Jain <sourabhjain@linux.ibm.com>,  kexec@lists.infradead.org,
-  linux-kernel@vger.kernel.org,  linux-mm@kvack.org
-Subject: Re: [PATCH 2/2] kho: fix bootmem sizing
-In-Reply-To: <auopkIsiqxzg4anJ@kernel.org> (Mike Rapoport's message of "Tue, 3
-	Nov 2026 20:36:00 +0200")
-References: <20261103-kho-bootmem-sizing-v1-0-45aa74098f34@kernel.org>
-	<20261103-kho-bootmem-sizing-v1-2-45aa74098f34@kernel.org>
-	<2vxz5wydnbuj.fsf@kernel.org> <auopkIsiqxzg4anJ@kernel.org>
-Date: Wed, 04 Nov 2026 13:13:25 +0100
-Message-ID: <2vxzse1glrq2.fsf@kernel.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WdBVSscq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793794411; x=1825330411;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=tZgGqzxXFoY4JHMgg+OYm9ErqS2m/vCzocnAsDoa9qk=;
+  b=WdBVSscqdU4t/e1ASFJI+GPn21UiCZ+rpILIAb3Vgwthmmq9LafbrApt
+   qufFLhzYOYnI18nf6ctywQluEyzY6jgAKKEMuTBwomCrIrWfRRr4QqTey
+   tZ9qIQtENM/DB/iSia37Mep3Bpp/ptBruAkcLbiGkvqVrwN9eYtHNYM7k
+   IAM6a8/EK5FeRL0GA9Yq6Fkhv6vQH62rb+8BOE+wXWbT9gQuapzJIjD0T
+   QKfNiWGCH0N/39tmcGGIzrKgrA2ARRVCzzZ4XKjQlDY+yksx5B/1oW0mC
+   E5bh7BrMnS5E2HIQCtIzRIAoQx4tBpD4FKkdP2zwb6zIzL5kmxh+evO4H
+   Q==;
+X-CSE-ConnectionGUID: GOgR/uDvSFqYoTCIbZHUAw==
+X-CSE-MsgGUID: mlMFhM15T3OAGsN7Kqcv8g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2446236"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2446236"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 04:13:31 -0800
+X-CSE-ConnectionGUID: yxxE5fcIS3WsDXJ4z6xMBA==
+X-CSE-MsgGUID: LqVR650HTza9C5X9xYmt4Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="6588985"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 04:13:29 -0800
+Date: Wed, 4 Nov 2026 14:13:26 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	Janusz Krzysztofik <jmkrzyszt@gmail.com>,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 5/7] gpiolib: use __free(gpiod_put_array) in
+ gpiod_get_array()
+Message-ID: <aushZraJyTywcwh4@ashevche-desk.local>
+References: <20261103-b4-gpiolib-free-v2-0-ea46767c9cf8@gmail.com>
+ <20261103-b4-gpiolib-free-v2-5-ea46767c9cf8@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,101 +83,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103-b4-gpiolib-free-v2-5-ea46767c9cf8@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Nov 03 2026, Mike Rapoport wrote:
+On Tue, Nov 03, 2026 at 07:40:33PM -0800, Dmitry Torokhov wrote:
+> Switch to using __free(gpiod_put_array) scope-based cleanup facility
+> in gpiod_get_array(), simplifying error unwinding and eliminating manual
+> gpiod_put_array() calls.
 
-> On Tue, Nov 03, 2026 at 05:01:08PM +0100, Pratyush Yadav wrote:
->> Hi Mike,
->> 
->> On Tue, Nov 03 2026, Mike Rapoport (Microsoft) wrote:
->> 
->> > Bootmem areas are sized from overlapping views of the memory reserved in
->> > memblock:
->> >
->> > * the global area is sized from all reserved memory, including memory
->> >   allocated on specific nodes, so on NUMA systems everything allocated
->> >   on a node is accounted in both the global area and the area of that
->> >   node.
->> > * per-node sizes are calculated after the lowmem and the global areas
->> >   are reserved. With CONFIG_NUMA=n all memblock regions belong to node 0,
->> >   so the lowmem and the global areas are accounted in the size of node 0
->> >   area and scaled once again.
->> >
->> > As a result, bootmem is about twice bigger than it should be on NUMA
->> > systems and about four times bigger with CONFIG_NUMA=n. On small systems
->> > reservation of the bootmem may fail and then KHO gets disabled.
->> >
->> > Make the areas cover separate parts of the reserved memory: the lowmem
->> > area covers allocations below ARCH_LOW_ADDRESS_LIMIT, per-node areas
->> > cover allocations above it on each node and the global area covers
->> > allocations that are not bound to any node. Calculate all sizes before
->> > reserving any of the areas.
->> >
->> > With CONFIG_NUMA=n the global area becomes empty and it is not reserved.
->> >
->> > Bootmem sizes in MiB in x86 QEMU VMs, before -> after:
->> >
->> >                      CONFIG_NUMA=y     CONFIG_NUMA=n
->> >   1G,  1 node         176 ->   92       320 ->   80
->> >   4G,  1 node         508 ->  332      1264 ->  316
->> >   16G, 2 nodes       1268 ->  704      2944 ->  736
->> >   32G, 4 nodes       2296 -> 1224      5196 -> 1300
->> >   64G, 4 nodes       4344 -> 2248      9664 -> 2420
->> >
->> > Fixes: 3dc92c311498 ("kexec: add Kexec HandOver (KHO) generation helpers")
->> > Reported-by: Kexin Liu <liukexin@kylinos.cn>
->> > Reported-by: George Guo <guodongtai@kylinos.cn>
->> > Closes: https://lore.kernel.org/all/20260904025101.9959-1-dongtai.guo@linux.dev
->> > Reported-by: Sourabh Jain <sourabhjain@linux.ibm.com>
->> > Closes: https://lore.kernel.org/all/20260922131217.698809-1-sourabhjain@linux.ibm.com
->> > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
->> 
->> Thanks for the patch! My LLM caught an interesting problems that is
->> worth considering.
->> 
->> On arm64, ARCH_LOW_ADDRESS_LIMIT is arm64_dma_phys_limit - 1, and
->> dma_limits_init() sets the default value to PHYS_MASK + 1, and it can
->> also be memblock_end_of_dram() in some cases. So on arm64, it is
->> possible for lowmem to span the entire RAM.
->> 
->> Currently, that results in over-allocation of bootmem, and it ends up
->> being 4x what it should be. While obviously problematic, it should still
->> work. With this patch, all memory is in lowmem, and nothing ever goes to
->> per-node bootmem (except for the node that hosts the lowmem area).
->> 
->> All this is from reading the code, I haven't tried anything out yet.
->> 
->> Not sure how to fix this though. Should we perhaps use
->> min(ARCH_LOW_ADDRESS_LIMIT, U32_MAX) for the lowmem limit?
->
-> Argh :)
->
-> Maybe we reset lowmem to zero if memblock_end_of_DRAM() <
-> ARCH_LOW_ADDRESS_LIMIT?
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-Sounds good.
+...
 
->  
->> Also, a couple nitpicks below.
->> 
->> > ---
->> >  kernel/liveupdate/kexec_handover.c | 83 ++++++++++++++++++++------------------
->> >  1 file changed, 44 insertions(+), 39 deletions(-)
->> >
->> > +
->> > +		lowmem = reserved_mem_size(ARCH_LOW_ADDRESS_LIMIT, NUMA_NO_NODE);
->> > +		global = reserved_mem_size(MEMBLOCK_ALLOC_ANYWHERE, NUMA_NO_NODE);
->> > +		global -= lowmem;
->> 
->> Nit: Please add a short comment above this to explain why you remove
->> lowmem from global.
->
-> I prefer to extend the comment above the function to say that calculations
-> for global and node that includes lowmem remove that.
+> -	descs_size = struct_size(descs, desc, count);
+> -	descs = kzalloc(descs_size, GFP_KERNEL);
+> +	struct gpio_descs *descs __free(gpiod_put_array) =
+> +		kzalloc_flex(*descs, desc, count);
 
-Sure, that works too.
+I believe in this case one line is also allowed.
+
+	struct gpio_descs *descs __free(gpiod_put_array) = kzalloc_flex(*descs, desc, count);
+
+>  	if (!descs)
+>  		return ERR_PTR(-ENOMEM);
+
+...
+
+>  		if (i == 0 && gpiod_hwgpio(desc) == 0) {
+>  			struct gpio_descs *array;
+> +			size_t descs_size = struct_size(descs, desc, count);
+
+Reversed xmas tree order?
 
 -- 
-Regards,
-Pratyush Yadav
+With Best Regards,
+Andy Shevchenko
+
+
