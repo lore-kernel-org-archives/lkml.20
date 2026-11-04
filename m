@@ -1,50 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793808462;
-	b=M0W/KTP9cUhaawtlkvSBqV5DXI2Rq0+UqmSmrOQFmNb/e49ZQCNamWf/5Xdmnc0On+vJ
-	 grVV1wtzl75UUE7C7htmst2XJDV8Tw1HeyrXX3hvJpl8BFDhCaRzsNT/yu3trizYqaAih
-	 DM/2auc5wKWpMeqjgYZqqmIsMQQXxQliN5UemcjsPbq/fixjA6Hj4ZEN43n/7oDHN14Hq
-	 FbrEmUntlEpaAhK+XmLwJnSiq0D/vunIiIRMcPesGmsF0WpyJ7Jgotd/0CNkJdGAgwR9h
-	 YjKhHHTuE+plaJbpXU+kPVWoJvglZBVUksxLirGkekWY6KMe2rEx9fl8w+bZGvFTJjQ==
+	t=1793808467;
+	b=mKfxRPlknzfHo2P/AGPy0gjmry7zielCuRYJkBSs6J3XkG4cwfHAR5ZQHol890WCGanA
+	 T6253K1H3wyKtuPn/sR9swI0gY6KJPjrY1HONrI8B1EN8jVrb5W+AzGJXJqTtLfauk1SG
+	 46/6AHS/NfM5IVHLDcM+UF0BmMN1RgQptpjgcC2mD9xcjkq9+PR3AxYaEmu2X1uGoTgzv
+	 td8xVT2rAzg6Zc8Kn5gYjp33Gt54A+0kZMGzIhDt5qhliCCRJXtSNCY3XRozalTpdrHJg
+	 ZxKDdMBGLKOsYFp2pjI+EziV3I8ulDRwSbXAxzC4f6LR3QV99OoeycYwuNm7JDzXvXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793808462;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793808467;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=tUI0nKZKutgcYVVqywY0bgNqE6wcGLtzzloSBXTvSY0=;
-	b=IjDSMbvw4zJVKH7yQ1R0ZKfvty5c6DYfgLwdYMfWEr5JVzC5j+i3l5VFDUEssVTA2/x5
-	 UcBmiChU4AcxcrJ72UuVouiZww4WTfq+IJlqf8di9wrm/1gIs2h2cMgVQWpc6izS1eulU
-	 JnSNowIpZCffTgWfMDyDXKu1utiuvOnY702l8EZgxEp6jOViTLfNpsKOoGDA6oPR0JNzP
-	 w+Ir7OpUM5crEHJothUGRzgFGom/xebSVw/tauB+TButBdiLobBhol11UznkkvS1Op3Wt
-	 iC6yyuw9Q8QbXo1r0eWmzVgWFCH5jCWKoMZg4OgZBB2adPNSba3ZUOpmc8/JiLNFWDA==
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=/9OycSbab0oLop7I27uSpsY55X6pV1loB2h/5WPOjvo=;
+	b=zaAs6S0QGbLJuUD0nL8N+2tyDuTg5QyKzdqo768b+1jj8+5v822wFuKqcOiFhD5MUeXD
+	 XcfZCJPatNFzi1qzST/VUVjSzHoKARpg5ueIGLKPcrQz3t5mKGPDqeUb+9Pvp53QIt+n4
+	 HBFQXggI3dXqfP9a3+Ue+i7QMJB2TkR8y6DSihVf110KLNsmnlQGfQVFhB8MqF7Ej2mHB
+	 VFKOn0cTcLdsuQJRHBMOPI/NCNevQtrCuAeBV1XqPT/kwb5NnKheH1L1+6BAxG3+O1DoD
+	 EvPekZf0Q2U8eL9s+nMTSKgdKGZTzl/JYiYCZKgtx9EVu5FTolSNYEhg1bgDHLEjYtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="XQNU/is/";
-	arc=none smtp.remote-ip=95.215.58.43
-Received: from mta1.migadu.com (out-43.mta1.migadu.com [95.215.58.43])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OY8vW204;
+	arc=none smtp.remote-ip=91.218.175.199
+Received: from mta0.migadu.com (out-199.mta0.migadu.com [91.218.175.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 827E0606A32C
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:07:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 827E0606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 774B8606A336
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:07:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 774B8606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XQNU/is/
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OY8vW204
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=8h6G/EKHbetMFLZ3FoTwPAwj6jQwPZCmaugSiKT4/5M=;
+DKIM-Signature: a=rsa-sha256; bh=/8Zi8wb9hfoOYhMsVXBD1wr36RrVK/LpiFnzdHHydD4=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793808459; v=1; x=1794413259;
- b=XQNU/is/dft3ETxtjnalCy4ZDdy1INN6nP91Ud3MGemBsNgDbMYrTU65cc0u6EwccevYOCUf
- PjysVVkSQsy3EbBBbFIKb818S2ixg3BPIQD4p7qP5yRYuPtSkoRRb3cLjmGe69aebS2/tD96/XW
- k9wvx0LQjVKBMNDKulLWg/qk=
+ t=1793808464; v=1; x=1794413264;
+ b=OY8vW204zgsBwFZuAGXD6wyPMllmquU8Dsff2FrbqccfCswggILmyFQFONRBI/BLPaWWZN4Q
+ HX098eHKH7pZiWMz9IbEfNI+nu9Fe1Zjq6u8dEhvjm9jvwbwRnPpKvyiTIx9td5SJ0F9H9PLj72
+ bLduD4PELTkcsM9LyMOaXp9A=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 64b2df2fbae2508c;
-	Wed, 04 Nov 2026 16:07:38 +0000
-X-Mizu-Trace-ID: 64b2df2fbae2508c
+Received: by smtp.migadu.com with ESMTPS id 81a47fa767449914;
+	Wed, 04 Nov 2026 16:07:43 +0000
+X-Mizu-Trace-ID: 81a47fa767449914
 X-Migadu-Flow: FLOW_OUT
 From: Vineet Gupta <vineet.gupta@linux.dev>
 To: Thomas Gleixner <tglx@kernel.org>,
@@ -70,27 +71,13 @@ Cc: Vineet Gupta <vineet.gupta@linux.dev>,
 	"Xin Li (Intel)" <xin@zytor.com>,
 	Brian Gerst <brgerst@gmail.com>,
 	Nikolay Borisov <nik.borisov@suse.com>,
-	linux-kernel@vger.kernel.org,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	iommu@lists.linux.dev,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org,
-	llvm@lists.linux.dev
-Subject: [PATCH 0/4] Fix the x86 defconfig build with GCC 17
-Date: Wed,  4 Nov 2026 08:07:17 -0800
-Message-ID: <20261104160722.1637541-1-vineet.gupta@linux.dev>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/4] x86/cpufeatures: Make {REQUIRED,DISABLED}_MASK_BIT_SET() return 0 or 1
+Date: Wed,  4 Nov 2026 08:07:18 -0800
+Message-ID: <20261104160722.1637541-2-vineet.gupta@linux.dev>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261104160722.1637541-1-vineet.gupta@linux.dev>
+References: <20261104160722.1637541-1-vineet.gupta@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,53 +89,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix build warnings and failures (CONFIG_WERROR=y) with a GCC 17 build.
-GCC 17 adds -Wconstant-logical-operand which is strict about operands
-of && or || that fold to a constant other than 0 or 1.
+GCC 17 adds -Wconstant-logical-operand to -Wall. It warns when an operand
+of && or || folds to a constant other than 0 or 1. An x86 defconfig build
+with CONFIG_WERROR=y now fails in prepare0:
 
-In the past similar fixes have been done for clang, e.g.
+  arch/x86/include/asm/cpufeature.h:72:36: error: use of logical '&&' with constant operand '4194304' [-Werror=constant-logical-operand]
 
-  93f56de25937 2017-04-06 mac80211: Fix clang warning about constant operand in logical operation  [v4.12-rc1]
-  ...
-  dd7fe5d9fd6a 2024-01-17 rtc: max31335: Fix comparison in max31335_volatile_reg()                 [v6.8-rc1]
+The *_MASK_BIT_SET() macros used to be || chains of
+CHECK_BIT_IN_MASK_WORD(), so the result was 0 or 1.
 
-The reason this trips only with gcc is that clang's toggle is more
-permissive:
- - it checks RHS only, not constant LHS.
- - Macros are not checked.
+Commit da414d34b555 ("x86/cpufeatures: Use AWK to generate
+{REQUIRED|DISABLED}_MASK_BIT_SET in <asm/cpufeaturemasks.h>") changed
+them to a ternary chain masked with (1U << bit). The result is now the
+raw bit value. cpu_feature_enabled(), cpu_has() and this_cpu_has() use
+this value as an && operand. clang has the same warning, but it does not
+check an operator that comes from a macro expansion.
 
-Fix is to effectively make a macro or condition return 0 or 1.
+Wrap the generated expression in !!() to restore the 0 or 1 result. All
+users test the value as a truth value, so the generated code does not
+change.
 
-The patches are split up per subsystem and can go independently via
-respective trees:
+Fixes: da414d34b555 ("x86/cpufeatures: Use AWK to generate {REQUIRED|DISABLED}_MASK_BIT_SET in <asm/cpufeaturemasks.h>")
+Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
+---
+ arch/x86/tools/cpufeaturemasks.awk | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-  1/4 x86/cpufeatures: the awk-generated *_MASK_BIT_SET() returns 0 or 1.
-  2/4 wait: ___wait_is_interruptible() with a constant state.
-  3/4 iommupt: PT_SUPPORTED_FEATURE() in the fvalog2_*() helpers.
-  4/4 drm/i915: IS_POWER_OF_2() in reg_bits.h, and two Kconfig timeouts.
-
-Tested on x86 defconfig with CONFIG_WERROR=y, at each patch:
-
- - GCC 17 trunk (20261103): each patch removes only its own errors. The
-   build has no warnings after 4/4.
- - GCC 16.1: the build has no warnings. The .text of each object file
-   does not change. The only differences come from the build timestamp
-   and the release string.
-
-Vineet Gupta (4):
-  x86/cpufeatures: Make {REQUIRED,DISABLED}_MASK_BIT_SET() return 0 or 1
-  wait: Make ___wait_is_interruptible() return 0 or 1
-  iommupt: Make PT_SUPPORTED_FEATURE() return 0 or 1
-  drm/i915: Avoid -Wconstant-logical-operand with GCC 17
-
- arch/x86/tools/cpufeaturemasks.awk          | 4 ++--
- drivers/gpu/drm/i915/gem/i915_gem_context.c | 2 +-
- drivers/gpu/drm/i915/i915_config.c          | 2 +-
- drivers/iommu/generic_pt/pt_defs.h          | 2 +-
- include/drm/intel/reg_bits.h                | 2 +-
- include/linux/wait.h                        | 2 +-
- 6 files changed, 7 insertions(+), 7 deletions(-)
-
+diff --git a/arch/x86/tools/cpufeaturemasks.awk b/arch/x86/tools/cpufeaturemasks.awk
+index 173d5bf2d999..a7856f874a6b 100755
+--- a/arch/x86/tools/cpufeaturemasks.awk
++++ b/arch/x86/tools/cpufeaturemasks.awk
+@@ -75,13 +75,13 @@ END {
+ 			printf "#define %s_MASK%d\t0x%08xU\n", s, i, masks[i];
+ 
+ 		printf "\n#define %s_MASK_BIT_SET(x)\t\t\t\\\n", s;
+-		printf "\t((\t\t\t\t\t";
++		printf "\t(!!((\t\t\t\t\t";
+ 		for (i = 0; i < ncapints; i++) {
+ 			if (masks[i])
+ 				printf "\t\\\n\t\t((x) >> 5) == %2d ? %s_MASK%d :", i, s, i;
+ 		}
+ 		printf " 0\t\\\n";
+-		printf "\t) & (1U << ((x) & 31)))\n\n";
++		printf "\t) & (1U << ((x) & 31))))\n\n";
+ 	}
+ 
+ 	printf "#endif /* _ASM_X86_CPUFEATUREMASKS_H */\n";
 -- 
 2.53.0-Meta
 
