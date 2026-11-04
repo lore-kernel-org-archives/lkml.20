@@ -1,57 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.117.225.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793824896;
-	b=Abkh+NaqNS0jrWlB5U93BKxoh9NvHK9en1/xZysyrsjNX6tCOGGRe7YDzTTTfu1vfVQl
-	 o/JiaNKzCAX8VJhPVSlt4MLxidReyYlK8qDbhXSSkvkRSjpSLuWQn59lTbsjOLCCFtxx/
-	 4l/gEx+ZIrlc1CksAA2kYx6QdRTsqzxpazW0/i9i3ZQmg1tvkCPxDV2oXJU3njfAYLH/i
-	 +KyxQVnNsMB7Oj3zu/25xmBPszbBhZmGmei15sXf+wwLLoZjSgB0J2c0rqO6k+JPTYE6P
-	 p2NF90o9MvHG2pIyQig/j3STAu4vrpfnnF+6X42CmA15L3bv3makwbvUYY5AlDTn+rw==
+	t=1793824879;
+	b=c+fZx6KJ0gb/JZFac5EC4iMrWX3c+nir4Bp28Dfhe/X8YbntqFXv0obJoL9vvA72KcDt
+	 X4lMPQn5rbjc+HmLbkjRW8W2kYBQ6sNWXFwm4EfvahbxsgSpByDkrXzIODof4KuDyeCfD
+	 9HAScssU7eXY3m8nDeBo38hGAPgZFJ7lvvS1pwcSxHIKz40/zAq1/OVkU2vRp4t6Lj1ph
+	 7hJyiQPb3PRNt6g4uPZGzKZGrZgtFtjYEoGWBnVfJ/Pa8VSNMF0tsEDIoV6fG7aNUWyPz
+	 wBAvy9s1Zjjx547jnAoxVFzeugthrWXugJVy3QPBCjeIQb5YE8HNa1bttWMfewEzU0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793824896;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=laTt9f2kh1KxkIIaLJpGIucT8RynHKwMeYwSgdrJ1mg=;
-	b=Eek7RDmrUXVsQlHDANR9N8LGQk/E16Cy4/ZZ/rkf65RJ32Cl3eYB0uHTWDIl04ts+j9m
-	 L6VExumCZKdo/aqwOjgFFbXiOZaIAd6k5UAHHobSEMVmOMcg6dH3lJUoBOPMTD8xUbVER
-	 +AWFHQ+4fS7Vok9bYEOuTl5uJUFsicqpoFCstVupMuoNcTnkIowa5ewVV/wTmQi5ysTGl
-	 JEGyNp9ftbp20+a1Ffbs3FdxWNoocqWFuKUoo2CTBVU3guQ7e8FD+M8zbsWt5AUxULemQ
-	 VzJSBEXDP91qaDi0Q+fzSq4dmHDH/2qJVxczKEuuRP95D302dcyg1PNAE3N/1yNgYUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793824879;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=8NvaapzcaIzWq7uSJ2Dmb2kXv0T6bAtnj/aHzkzSaTg=;
+	b=JCmqwNOGagr9Rl3xCAgYB0P7it259TvQPxiG6b+ZHkNBDa+SdpoqPnIpUUQ9eCrm9wYv
+	 hYAJBngj6hooMoXxPcXEynBrAWLYMsOlIs4/iS3M0aH/ugG5SOyLzKgG5qByiD4Hx9YGc
+	 jMYT4YgSv0nOIFiY+dBLWxMSeUwvWwvC2XbAsB01RWJtuDNX4qR0mRTSSAcbJ1X3/WOMB
+	 Ljxepw2GdCQwWgCAWncROAhetFpFkuJVKUtrqLvEBVRFgAbzd1TERp5Ge9SxfuNoajCE3
+	 6zlhvdfXIZEMZtn1ecFcGyx37sx+sLh9WMvvvjqYYx14ZHdTrhWk9Evt5rB+hCRvhGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=SceBkl2q;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dmarc=pass header.from=virtuozzo.com;
+	spf=pass smtp.mailfrom=virtuozzo.com;
+	dkim=pass header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=xOVKebtb;
+	arc=none smtp.remote-ip=130.117.225.111
+Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ADD06076367;
-	Wed,  4 Nov 2026 20:41:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4ADD06076367
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59D28606AC09;
+	Wed,  4 Nov 2026 20:41:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59D28606AC09
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=SceBkl2q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793824894;
-	bh=PpUF5FeUDFxgLSUk2eaNhcEnE1VL1oGMMqbduOOt5aQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=SceBkl2qXpx4gWkii9Brb6gEEq2A9y0Rv6SkPOO8FalvkdaMMRdHL/o7PN1FUBf7n
-	 qF76GpHaaSOjf7ytYmafBWZvJPz2A7n2SNxCF90I+XoYHSbX5sbN0eOo1Mh0BQ+QVL
-	 IpUrXGK2bQ+BFWA38RW7iDMyctxPsYYmIoBcjmnizuOmJcW030BlarDZOt2mi8fyh/
-	 /fGDquWqBN7WaTxV6WxC3ZKS1byvVg0wsKOQk/L5U4bh25PyrO0OwJ4AJWZASwM4Oe
-	 EY4KEndAT7a53bOXbpxajaQ1eevqot8zW9dCICn67QbsIb6MTADiXcrbd4lSoKyFVd
-	 DI0qR1DjCIhAw==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 62A3117E0564;
-	Wed, 04 Nov 2026 21:41:33 +0100 (CET)
-Message-ID: <fdbcdbbf-08a2-4788-bb96-a911cf8c3534@collabora.com>
-Date: Wed, 4 Nov 2026 22:41:33 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=xOVKebtb
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
+	:From; bh=8NvaapzcaIzWq7uSJ2Dmb2kXv0T6bAtnj/aHzkzSaTg=; b=xOVKebtbd/EVZ7lZG6G
+	8m0N9BIWb2IuyaQghh4TLmXRxLxz/MXauFib8S9ABq51e0GQptN8mnttoAgBsAvanC+trTeMr5nWY
+	SfHMybSPUg2ATor/GYqmNcJc8xNHr+H2qciP20/61cF0efUIagIBsu1lmi1mfdX2jxFjX5Xgl4pUE
+	K6T2MmUNy9fQXHtRdGWZ0vFv+aMeiYHJcDvBn6INkKKN7ITqsIeqIT1V8/sKCsC/RuaO5U1J1HcAd
+	nKhzxOcXd9UNJkXg0zQcG5Hf5ADJ5bE6+Sm9Jw7nkiTM+jsE8fdduVPJk0tvHsoPivtBaSRKpe0l8
+	yRhGpFonCnKyePA==;
+Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
+	by relay.virtuozzo.com with esmtp (Exim 4.96)
+	(envelope-from <khorenko@virtuozzo.com>)
+	id 1xOhj9-0018X2-0G;
+	Wed, 04 Nov 2026 21:41:03 +0100
+From: Konstantin Khorenko <khorenko@virtuozzo.com>
+Date: Wed, 04 Nov 2026 21:40:55 +0100
+Subject: [PATCH v5 1/4] mm/rmap: duplicate a PMD mapping as one in
+ folio_dup_file_rmap_pmd()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,51 +59,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 09/15] drm/rockchip: vop2: Consolidate HDMI PHY PLL
- clock parent switch
-To: Daniel Stone <daniel@fooishbar.org>
-Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Daniel Stone <daniels@collabora.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, kernel@collabora.com,
- Andy Yan <andyshrk@163.com>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Igor Paunovic <royalnet026@gmail.com>
-References: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
- <20261014-dw-hdmi-qp-yuv-v5-9-6fab0fe43a9b@collabora.com>
- <CAPj87rPEz=Y+dZayouddZRn2ZHSVNk9BAjBqz34PJyjDRba5=Q@mail.gmail.com>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <CAPj87rPEz=Y+dZayouddZRn2ZHSVNk9BAjBqz34PJyjDRba5=Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-1-c56d0d26f970@virtuozzo.com>
+References: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-0-c56d0d26f970@virtuozzo.com>
+In-Reply-To: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-0-c56d0d26f970@virtuozzo.com>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Peter Xu <peterx@redhat.com>
+Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org, 
+ =?utf-8?q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+ linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+ linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1295;
+ i=khorenko@virtuozzo.com; h=from:subject:message-id;
+ bh=iPYZJpAFEq5ph4FddJEQxBtKa8SgnHL269s4IuW5Tpk=;
+ b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBq65hcBG32k9kB2WWl8wXCX995WkhP71w2AQSsM
+ B5MJ9jheT6JAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCauuYXAAKCRBRlgpH+WFc
+ KjG3EACkdO7SpcAiJeF3qfGv/z8JO2DLU1rJOcZ6SnCgxtXjDTkNEPd3hDmxHcjtf9+GJyRpnND
+ bd/KybasDP+Qa55evA+W5XG46E362tSI+80ly6JgX4ZJyi+1dVbAvi2L5v1vuG99SNqhC3HNfTj
+ TeAtu64vAegOR5yW1V+mLBoGQbWXrBNEOv/W6fz3qAM5J6YZarwsmySzHjwZLZWVLRYvYrguMke
+ Vy9sqAa1voB5JtAe12r1tqpSMoZAur9G55YIgiwjoxc/qKdBy8OENrQhd5mFh/Vi5PoDKwXrbEg
+ v9OW/ZG0TnCRZKzCDWkfcOUx8XZ5hWNGi1ekVgS0EguNQ4HIzWlzshfRHnbRrT9DYcBg10zXcpQ
+ dhXgOKvbDxkYzzxNMzt7bzqppgmnCsHzwc2O4X5kHtDtLVVY714S3Z6OWuGzLvyYR7Jl8weZlPu
+ Har5Cb1McuXx8waVgTVEFo3TNc7ME9y0a6GmOw2iMw9Zox62sbKzRSbmVv7cJGypoQGwQmIoP81
+ v9rOR/+btNakWwKECAHDi5apelwxkciYj/xLN8E1pgbBDrG4CXcr/euHuH5BShb3ssVDnnK14NO
+ B3HEH6mQ8yzBLMc185k5pVVF4wN7d93B36XA38i0JzZ8QJmHCU4/9arvRr+cZHgRLdsp6l77GVr
+ CTL7Lmh6wJ6XrnQ==
+X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
+ fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
 
-On 10/30/26 1:44 PM, Daniel Stone wrote:
-> Hi,
-> 
-> On Tue, 13 Oct 2026 at 23:51, Cristian Ciocaltea
-> <cristian.ciocaltea@collabora.com> wrote:
->> +                       if (!vp->dclk_src)
->> +                               vp->dclk_src = clk_get_parent(vp->dclk);
-> 
-> Why not do this at init, where we setup the rest of our clock tree?
+folio_dup_file_rmap_pmd() passes PGTABLE_LEVEL_PTE to
+__folio_dup_file_rmap() for HPAGE_PMD_NR pages, so it adds HPAGE_PMD_NR
+PTE mappings to the folio instead of one PMD mapping.
 
-Ack. I don't recall the reasoning for not doing this in the first place.
+The helper has no caller yet, the next patch adds the first one. Pass
+PGTABLE_LEVEL_PMD, as folio_try_dup_anon_rmap_pmd() does.
 
-> The rest is:
-> Reviewed-by: Daniel Stone <daniels@collabora.com>
+Fixes: d8ef5e311d7b ("mm/rmap: convert page_dup_file_rmap() to folio_dup_file_rmap_[pte|ptes|pmd]()")
+Cc: stable@vger.kernel.org
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+---
+ include/linux/rmap.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks,
-Cristian
+diff --git a/include/linux/rmap.h b/include/linux/rmap.h
+index 74cca0e3c7264..87c88a9811933 100644
+--- a/include/linux/rmap.h
++++ b/include/linux/rmap.h
+@@ -558,7 +558,7 @@ static inline void folio_dup_file_rmap_pmd(struct folio *folio,
+ 		struct page *page, struct vm_area_struct *dst_vma)
+ {
+ #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+-	__folio_dup_file_rmap(folio, page, HPAGE_PMD_NR, dst_vma, PGTABLE_LEVEL_PTE);
++	__folio_dup_file_rmap(folio, page, HPAGE_PMD_NR, dst_vma, PGTABLE_LEVEL_PMD);
+ #else
+ 	WARN_ON_ONCE(true);
+ #endif
+
+-- 
+2.43.0
+
