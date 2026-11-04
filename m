@@ -1,54 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793759583;
-	b=X4MfnPUumS6MPcctnNKMK/fZenhoitHtKJdXPlNRvLGC3YjqQNBOXcbNl9zuPwdcb6dI
-	 PsQv3FdR0sDnUmI3AzMjEp27clvzBYqR+na1NQ68X2Z9NSM4LaOeIT4Z60Iky/KhvI4fF
-	 fpSJRcivzUaITilsYVZepx0HVDkkOONLwT1M7i++1OisyzJBP2m863kvDWCvzufT91eVe
-	 e2E5KesL3cg9R7xUet5/D2zgMVM1XFd2hzkekrS9qw9OZC6Lw2iQZgg3nNdjOTJOtG4hY
-	 ldK8k+IES7clJBlBHDmAXz8GVYhrNLbJ7hQLOy3F8zga5m3JgCuHsf50NkRTIhwEI/A==
+	t=1793759606;
+	b=5jU7KYjlXRadaBKskngrwQ3TN/US0u10nHPRae2rouMrM7Z1PU75HbhrCgHqOH3jxzEc
+	 HpLRdPXWqEXj3dv7Q0Qe8y6JBTeRGmlqtYS3Kl/HdEaCRa6O13WTpaqCUsHM+q3EtewQ0
+	 nhMGdsFE5QNT9iSmZl3F96h01s8LwXvgWiC0TANH6plizyO8bJGpcxFOZBoa+xYJ4jqbZ
+	 AilysAGIR4g1AFuBI8U2VzY/gYDMV7SIxxceaPVqyLyw3oXuI/I48VrqdPtt0G0NBlWKR
+	 wM94Em5vaCa6ewlLJHhiicvVfzaT0VPh0fD0vw+ChMlin8OK/MhKz8JL6hJiZUhIB6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793759583;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=m/fiQwvRsckBioNPagh+isR8nYC+OvCHr28EC1k2Icg=;
-	b=AG5qdds3xl53FyKCZIErtl9CKk+S11NY2qlcfLuB73QM4tETEqXoOIVY6FdTDZtHA8v3
-	 rjeExXk3IdvaD2zItsj8l660KemsdvM/KyiGmeqeGW/FnbJihU80ll4PjASC9cjIfnBKG
-	 uV2kQMLC7213PIyg/nbAdHMluga7QrQB7yVDSI/UTKLN6BYxYB8oFWq0HnaVpVJSL4+DG
-	 NoLg1m3zIufK6OdbqhPBMfm/wHgL25wdQOBQrrMe3mnHDIfWqggU3ZDHSQZJ46Cc/iG8e
-	 901ZxmhqPO8UV1OJ27u0OD3soLr0MwYDb+oMzyu7kS4VTkSN/eTfvf+H6SSKGXg/9FA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793759606;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=44sRRDwl9anK1R2znFsd4YZuaIspdZA1Io6aW5ME0gY=;
+	b=mHoMCdFkFfl4iNWM6iC7llWGZFlaKkePVFsQlLKJXOw0WMTPOBlbiVOnxtRy4KMk9f3D
+	 JZMCyvRLDTye2gRcEKhs8RmVYljlcZlSjN649agxX9nQKPJ1CGiKhnmjX0E7YcPsI5HA6
+	 jA9931HCuewm5UK+zIVJ4JDhc8ecb/CCnrUYxRh4J8b/OaX10wFfwLxDRy7wcIQKWBQaL
+	 +tw8mLmhO0HuJvF0hOcnSaSDjyXNhDGvFPmp3PyfGc8ZRcwXHfLu4fqMixORBnPwiegv2
+	 k21qhMyUW9C6PXE9b3AkqLL6hgJQCUM1383IxFBEmfsIVE6TQ9SqqsrS5dBtmJryy3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.197
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=uTbK0dvH;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15C71606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 02:33:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15C71606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4cc89e86e9eso343529b6e.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 18:33:02 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793759582; x=1794364382;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=m/fiQwvRsckBioNPagh+isR8nYC+OvCHr28EC1k2Icg=;
-        b=VMu8Z3X+9QkCdKWmlZ5YFJUQmkukXBAvkFIGnZVzSM4g7C9BMeg4qubn1vti2JB76l
-         iP3kP4uEr7y8WJTWCf4Y1dAg8ykhxzZxCH3AwEBXKkQpGgp/J9gCPjxFGVX2E3VpdG4K
-         XiVbFKqnbMvrTdZf2p2YNhbCjYFqSDi6M+qL/R7FBHY0btBCjPuVTfNG/GNnTwEVuv2I
-         ES5cYYb2UFvenENok4R/a37nFcwHbEX5IBYx68ZsK+ob4h22F6SyfkTTxSALIktAmfC2
-         H5E1IM+KB05h/qU+joYfijJoEcpv61j+bcgndSB7l5vjXpyIFEaoeLxMDU1QcVGbBqQr
-         PAng==
-X-Forwarded-Encrypted: i=1; AKwUvBypfeJoolOjH8TaLqHyQF3uQ3wAlDvjGUseXhPgSTyWU4cK3nRsPMREazM7/m6zdKMM93vTv8THv2OmQZU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8yMrHoBKMIpa4q2ILaKqwIMxPCvoFrMKGO0qlws+sIyjS39TIN
-	N30nI/H5oAqPPYMgx/3Dtsr+CXa0kCZ1UNreP0M+KLegdqhrbRAguzF2aHeazmGsAA/cVLx1izm
-	z+UvIRnh248G+fbEMUbdtyQiMs4FzKv9tw3IMHa7x9Ceuu38czjBEUVdftbU=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0294606A31B;
+	Wed,  4 Nov 2026 02:33:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0294606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=uTbK0dvH
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=44sRRDwl9anK1R2znFsd4YZuaIspdZA1Io6aW5ME0gY=; b=uTbK0dvHx1D0gtV0VNBn+6tklF
+	ucpF4DcfXrfJDac/aQj6Q7BNa56YLZ/ch5eoGtbFH6MnvMGztsQtkDhqrNyMx26aqu1SqdDs1T/GY
+	kVwjaFCvJvFiZcnbqmnkmiDtEDWaDPW1bzhWRvoOTpTU+quRF7MJynsYBjF4iRCg/xlo=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xOQny-00EDkm-4R; Wed, 04 Nov 2026 03:32:50 +0100
+Date: Wed, 4 Nov 2026 03:32:50 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Qingfang Deng <dqfext@gmail.com>,
+	SkyLake Huang <SkyLake.Huang@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Joris Vaisvila <joey@tinyisr.com>,
+	Ahmed Naseef <naseefkm@gmail.com>, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH net-next v4 1/6] net: phy: mediatek: export __mtk_tr_write
+Message-ID: <556b6194-4d03-4ef3-b9b1-8c256d42130a@lunn.ch>
+References: <20261103221439.30502-1-ansuelsmth@gmail.com>
+ <20261103221439.30502-2-ansuelsmth@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,35 +74,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:5390:b0:53c:71bd:e937 with SMTP id
- 5614622812f47-5640ddb2d34mr10697604b6e.10.1793759582174; Tue, 03 Nov 2026
- 18:33:02 -0800 (PST)
-Date: Tue, 03 Nov 2026 18:33:02 -0800
-In-Reply-To: <20261104023115.3828365-1-fei.yu@intel.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aea995e.bf891901.a11b2.0000.GAE@google.com>
-Subject: Re: [syzbot] [dri?] [mm?] WARNING in drm_syncobj_array_find
-From: syzbot <syzbot+95416f957d84e858b377@syzkaller.appspotmail.com>
-To: fei.yu@intel.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103221439.30502-2-ansuelsmth@gmail.com>
 
-Hello,
+On Tue, Nov 03, 2026 at 11:14:32PM +0100, Christian Marangi wrote:
+> Export __mtk_tr_write to directly write to debug register.
+> 
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 
-syzbot tried to test the proposed patch but the build/boot failed:
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-failed to apply patch:
-error: corrupt patch at line 131
-
-
-
-Tested on:
-
-commit:         05441d69 Merge tag 'cocci-7.4-rc1' of git://git.kernel..
-git tree:       upstream
-kernel config:  https://syzkaller.appspot.com/x/.config?x=94cb1a71158c9027
-dashboard link: https://syzkaller.appspot.com/bug?extid=95416f957d84e858b377
-compiler:       
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=169ff4dd580000
-
+    Andrew
