@@ -1,102 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.175
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793818928;
-	b=B23liFx8wCcWjL3drlpwPN7Pz2OxeOfQGrh18H9Yu/Hcp5lVRDhEjL/SifZnOaoRNswD
-	 MVg+D8yV3CLeyFsEfcfQatSVx0JdiEu8+pcjP21RgMGEemOT/sZjBXG9GkNbMLJB7B2/d
-	 tRWzqihME59RUHgfNkw7/NNGS97iA1iPTmBJUmvWYYFspP8wImrBpVp5sgMCaL0XnFkIs
-	 jQQrGu6TvZKKB+b7FKvYDSl4M58YgC8l9hv1oUbW0w9m4jw1YADRWiSn7Li2s3grVV6e3
-	 kSVmU8wllHSmO55OcN5xFs8dZ8aDNnYP2altLDyeaHAIK0IHC6oIvxysDMg1wqB2X4A==
+	t=1793818932;
+	b=VN7PEnT709o0fqmcvA4ZfcK9LQkPeCGA5DJmLJrENc8fRN44xFxYGJeufzoJImuCg6sK
+	 Mvhe7T6vIOoRDuCnR/XYJaGm4k/2jfYOSyIej39CxJSXbRaxmYkMWk6g/7frL7pZ6h6lG
+	 4WRWQC0iwuAOIKVUgFeB225cb4nG8PiIFMqRGa1PcJyoohih1DlVYAQ1z1zsEK4Eif3Fo
+	 L1P3YkPwACRIAZz8RNyrMMrM8KLvy1ZecGLaZ9k+9PinqJCMVzBrC10+cxiMm7iNwkcFP
+	 gOYYvTIlW7NLbTkzpSTij4mNGvei94K6WFhSYdg18huQc+hJ1A1A+axgok3cfd0xzxg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818928;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818932;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Received:From:MIME-Version:Date:X-Gm-Features:Message-ID:Subject:To:
 	 Cc:Content-Type;
-	bh=pwH85IO2Kmd9UvCosC1bqbkR6Q4A/lE32+TPIoCPrKY=;
-	b=ylkciTjisfD/n63AN/SIYsrMMrBx4E8ZlpBH7ega56rQcuZ3ujhFPOnus9LvXbG8e6P7
-	 44CBaeQArIPJlDkHR71xv/uXd9M1XyjQ5gHnnsKssDDjqDzpm/y+pMN0olUX/cMN6pY0I
-	 mkr0C02R3GH03rvjdeiVR8cJN0FCCr5mZY1VpwUYNhbDxdUMqtJotty1vaGj+IUqfXAwX
-	 eVEl0YmkEusKPMX0hVUozj7btxUnM40oNoSVvcnasFdGU334TctuT30esaUnd7dtI96Zj
-	 jWleO2eb1eRVjl8Q3FwHMswN+5QAS8nyFIlIWQcrASnS7JX1zTBsiBMhzBq8OUGzc5g==
+	bh=jgTZFnwXdV4AJUne0nV03xTEkp3bQhCd9JPNdkYZauc=;
+	b=E0VPgYZlc7E01Cv6lnN/ke47+phQDTk++uDipIXVLGvi7M7Uk4v5pvRW0+AJR4Cl4u1r
+	 fwvED+amGRMfLqVlIgGCB/km3SvQrcZciJkSVAN+gmi7CErgxC0f5rBv+1khnZKZpD8fU
+	 +p4PoRwhee5sE6yCzSK62mYPjzDrLraDnIhcHvgYoPHqFV+jafklTgI5KR/VR/ya/dO8v
+	 rbcaeALGN22k5+hqNixSllJKCbogP24DborVjOHaF0wTOgARobRkCbJfeyVvGjbrnqbvj
+	 aVsKdJuq0f9YTWjhx0SFue/pfaTMTjM4FPeSA43LGF1t7GB74C11LT1kRO7TTbu1Epg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VHCVkmpV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.46
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RpWxhSjZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.175
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAC12606A33E
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:02:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAC12606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FAC5606D814
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:02:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FAC5606D814
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VHCVkmpV
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ae6b4c669fso1403679a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:02:07 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793818927; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RpWxhSjZ
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e99b1e5b4cso6562845ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:02:11 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793818931; cv=none;
         d=google.com; s=arc-20260327;
-        b=FqeftlYwGx8XgccLyqt1T7pZ8j43nljg4SGjnQz25nQ49fXzx4J4iTvXil9MCBlaEw
-         mEfE7fINnyUb7qOqwBm2kz2Y86K+CL9mknlldgez5AUz+3s75r1n4f6ameomMttmFNYX
-         Uh1FoPxswqNVNnxHJ7mfAgjVQ0sy/4QzVUv4mk42R09XRYK/iIVjKEpV2Nz48Llokndk
-         QpQOeZOIuvLZjFOrcHetPvtwb3xO6u4YV93ZcFgpnC4lEcu3UkSAdlsjLpV5Cwpkllu6
-         8aICiAr/ed1VYp+aaZIB+ZMA1mG6/evvc71zm4s+fqVqDagEnUhN5UPBv+vYQ0r3ULw/
-         a85Q==
+        b=kdNeplaxp2S/IFs/q9C6tw68liLHIdO/tot15Am6yj8vG0ty8Zy6WTzAYJ4fsr7iLz
+         L3lbVZ7a/EwjoFePrHSDLkc6NTeA43lkILHzKwR2q7Wmu+TxSJYaSrHleakZ19MWrWu2
+         dPi2FLqBsiMHwu4bpeQ4WF/Z53BOTo0ozu2TBQTvREKaVusowaaxUfdsXD2aGB0+kJZ3
+         1rrLAB/FqUFleq88o2X3gFVTnz0LcVFoG87KvAjQ38piPV10fKKFd83IvEAmgcaR7iua
+         woTsD8eEi6Fr1QTp1+MwNywOJ2BrH+XiRt+Qyno4S5X9zBTscpx8v1t1U9Daif7jLuFe
+         tw2w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
-        bh=pwH85IO2Kmd9UvCosC1bqbkR6Q4A/lE32+TPIoCPrKY=;
-        fh=stLDf3Z2NjFc4VZmPHwp/r6GPV0rcJcPXJMIgL6jQ5w=;
-        b=doKfr4JuLxmagFBn16NtDk8//V3RMNWwpS++I3cjz0oDB3RXQEMLYVZYIe26E9A/9i
-         /vLWAiUO7iGAVYQ5SjSHwAxxkEkl//pGUcHcz9L6+ZRf13Swzii87oIH0eNNvzZixkAG
-         +XG5XP5sDmq1HqoQxhXcK9AvxxsqgxzqfcaBTuy+YPZeXjrZHvYsCZwEIHSCb1kltsaZ
-         DdNRt0aKiH76XJWXcHKpk0s7jDyQPxqU2+NeOeG70kM1E/NgBuWf0M8xMqx0TRvP6ogP
-         Wx1S27FG3MjlnmKc6FbZqhSfBXjNqwsTnpQW4ASIC1S3KHz4JyPMTfH8FcLrhrYl+jm5
-         QaMQ==;
+        bh=jgTZFnwXdV4AJUne0nV03xTEkp3bQhCd9JPNdkYZauc=;
+        fh=7AG3RsGSpukTzC6EFDqor+14sEtWC5ZH8DsIuWMsJoU=;
+        b=RZ/6K1BDxfqEgWdcY1MY7Fqsx7ojvMBLWXbzgqWX3CJK15Dx0ezFns2zTaZPqZ88AN
+         asLKPGy4MRJKZoFhKe+EU6Uus3auUgCMVMGau2QyLLAWFlOntXdnGwwCrMTLeSyRbLm1
+         v7h1oDd4sIGkAY75sz++auShd4bkvHEdbedJ59bug7kFSIOTSdXa/aPyFPxydMiBpQEV
+         fbNaUqBreNy3iNT2hacjs2GqK9OqonOOw86Vem3JNGGl3r4b2e2HNCnOCn0K85+Fa13x
+         RP4JTI22ugMZiEdCi6SEANYTWEcMaCQnk5h/TL/G4C36rvYfkaxJadjSzwo1NGXCO7ut
+         FVlQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793818927; x=1794423727; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793818931; x=1794423731; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:mime-version:from:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pwH85IO2Kmd9UvCosC1bqbkR6Q4A/lE32+TPIoCPrKY=;
-        b=VHCVkmpVP3TCXhWi9QOz8cxV/g2XAE60i70h7i08Dg/OT3ar6CnZuTkTEwHPe9wAh9
-         QR/RjOKxRNFrXKwJBefhf4oVOdXxpZhHcyhPUs2WPgETGk5oHkWTAQgDUU/cuq22kkUa
-         nHC/aNlXJ74z6eqRkN3uN7hzy2wCoTvNwSDQItdt+Ot1xpGXHAzKKDBh0Ugshp6wx1KF
-         9foX6WMqz/clCmlTyeOgf/GSWg8ITetP7s13rKV8ArpYudBY4UfcvOhn/4mFBPsx4ih1
-         jFV4FOPxwVk9RkPvYcMkiG66Usy3vUX5gho0dOxM4uzWqVAKRPpynI8BN+s+F2xl1VDG
-         8yEw==
+        bh=jgTZFnwXdV4AJUne0nV03xTEkp3bQhCd9JPNdkYZauc=;
+        b=RpWxhSjZXzny0jjeyIWw5RBECZYYwRFlVAUTRGWp8NNMNVKlOQdkWDV6KEVb54jGKh
+         pVWLy+/457gQkGE1m2CkdbSdOChGggxTlGl76r3coUFNTanZt6/7/3Iv7YiOQHnPZNn0
+         tvrXsnEZNQ0BgOTtUnqBGh8vje0LIAauW0XDpISibOM3Cn6VEvBQ2RvB6mU0v96yFPfA
+         iOl9fWP7S3TRyudmGJhzSdssEiM0Pr50ciDzROD1yQ5f8x91Y+WdBqjFBxDph8hDULM6
+         6Uy7f1hd1ZKMvcKbGm4qkkU4ViBaqRgOZx70ogenjUGQqXLYZrfDkL0Gfexyxu8ph+Fo
+         xjTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793818927; x=1794423727;
+        d=1e100.net; s=20260707; t=1793818931; x=1794423731;
         h=content-type:cc:to:subject:message-id:date:mime-version:from
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=pwH85IO2Kmd9UvCosC1bqbkR6Q4A/lE32+TPIoCPrKY=;
-        b=hPcou9PFRiyHiszdNtju93z8od9QH1xLdBft09XiM4XILpdM4pUCBxEfI4YQ7sdrs5
-         d09NHSfZm1yd1TiSn2ufl8FENOdAiRa6k4jcbWKEx5uObyBjghu4pxiZYuOIZixze4l3
-         YBrwwuLlBtJTlXNSQk7E+gTz78Fo9D2VFhqbeSrhbO6p9cB79Y6iKVqWpg/EmJPqK1cK
-         BMpf4OrP/yRuxjIg78nWlzRIDoUYyUyxFmAZ2NN3azWB2Sy3prshAUVlbf6iL/DebLzu
-         CHNYgdhJMapswtvrJ0lAOEWhFRgQFGtRSQ7GRvi2Bsw11Ud3hp0/TP+jAvi4ZXy9N5M/
-         L1/w==
-X-Forwarded-Encrypted: i=1; AKwUvBxdVCOU4Bh8ONI84qLYpwBWKXjwfWlodmdcvT3MjjFhoFe7dQCTyyXuuZuGhOgk9FRCrzjJ/Qx2OA2z87M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8328+f1tHUNFTNt1ZM7msIp3mYo9SNiGlmBVO7A3u6oZOWJelT
-	WaKRNkG+6eug77cSDWRN/JlUbm7xyNKdkr6e54uPwc+TAfFXk7X/+Gc/+c8C2jiBAzkHS5yUr8D
-	oI7cSDQyG6PoHPYyx6YMibmAH6dLIVo5gXbpP
-X-Gm-Gg: AYBFou1JyeYv565R+7bwbNClJ8U42ysGjPDeqbJqjQw/l2C8rFvHZ3ZmKtBXJrtZt3K
-	SnFtISjofO8FhiP5yJ79hyPS64iDXsbT+PR70rzpUQFHbl4GchnZ29PBTwowkk6JfhN9Yg9RuBr
-	EralOAp6D+nae39HXSVuej3P0Hv8rWnG+GdWLBqXMhsHvCSO+Xu+meW4pF9DAQADHMaOTx6YLNz
-	sP0kqVhihpnu7arBjixJXdODL3hu+hi+yJFu8DmFZKxGNcW9otJOX8FwAVmlBPRr5FAwOqFOTAY
-	qEyFL1NALxFi7nyIg2XZENNQtS2g63ehExtUAyzvLrYgiMfTvS5H1sOv33qfRRZn8t0+vg3tjwR
-	nS8k7sQsCfqwtOlrpFsqroPY1OUayXznQ3mSv7n9stlwagbIyoPfMIlvCJdRj/korO9KU6g1cR5
-	YeBf/f/3+sIWe+
-X-Received: by 2002:a17:90b:1a8a:b0:3a0:eec6:b065 with SMTP id
- 98e67ed59e1d1-3b0afc28fc2mr223845a91.13.1793818926988; Wed, 04 Nov 2026
- 11:02:06 -0800 (PST)
+        bh=jgTZFnwXdV4AJUne0nV03xTEkp3bQhCd9JPNdkYZauc=;
+        b=eFByRK57FtZul+BxfMKzmViijKYO9XaWptxkUQLTL7lhzbk8jIOQhoQuvZLaGKAVs+
+         yBUJQCYUpvbD4XbDsUI2cgITI1En/ac+Gs6gZna1a7WllPzEV/9ANZadjugeYTL+AxW6
+         /+YMsoKi54jn3i9TXzAO8BdxW+h8j7pYdi5MeMuAAzplkTLw4NmqBy2/QA+YzE+RTprb
+         mOM7lrFcYl4dgR+0dmvs2HfKzOo7sEA/uJMOIaH0aELrfWxPPQchRB/uoZncWjVpHjXA
+         ZClOSU0Ag/CaiJGmOUK5FI4KaGrM5DzqI/YPLK01HdpI+tAuiD1szBwOEW6xu6/UDeBJ
+         7S3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxmN5Cb/TYv5npKTrXze8uZQukJB+VoUbjUqE8gB+qmANORbpnXX95z+JTvGmDwmhK17YSmmivXU/lakNI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+q7xwG+cZyFF+Qi8B2Z82yjHofcE8VL6Xz1RoDSqa1SOLFyyHc
+	F4r57dw22lftOVagpp+AQJ2rDlfDFbxEAbjSLn3Ek2jG1NwWLnCEePXCvCZfXB5U6ekA2AlwJ3o
+	v6egg50xObuoic0bwg296HNcsSsyRQaA=
+X-Gm-Gg: AYBFou1fczjx5PWcnEyiMHqHW6dPgmFEy4zMEz0KVKh8dEQcRB0JII8r64bOR1YTP7D
+	17JgiSoqM9Xg41iajqMR5T1L5FPKbKiKWrYJ4wgkjzV16zDy2B6wpUMm2Aj7ZAHC0r498liC18G
+	whbZIZXLQObTJHQExCcLwiUBCASish39LLfZuYGsKjyvl8+YLYq0bt46h0PMuGuJ7fFm8eZaffy
+	ABb8dZiknf0EPZ5bJ4YHnsdHS5vnoGxdS4Ue0MPM1EZ/iInP/63idXogpkqV3LQMrafKWpL1BOB
+	pxw5W3XuSiKLN8P/rLII2t1RuxTrdJ8fAfE3KYvHyGuKioz8NPkhGZvJgrp7vGGg+sA7y766Yb9
+	onXgCFNJtkbQJ9DPPLBx7ualX9jrmAUC+sw2kxhRv/stm80jZAOTKBchiqLWBu+AKA8mMQnxdck
+	2mdzUsVRI6IDNb
+X-Received: by 2002:a17:902:ec85:b0:2e8:965c:aedf with SMTP id
+ d9443c01a7336-2eb364c5da0mr169489445ad.42.1793818931383; Wed, 04 Nov 2026
+ 11:02:11 -0800 (PST)
 Received: from 511566560828 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 4 Nov 2026 19:02:06 +0000
+ HTTPREST; Wed, 4 Nov 2026 19:02:10 +0000
 Received: from 511566560828 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 4 Nov 2026 19:02:06 +0000
+ HTTPREST; Wed, 4 Nov 2026 19:02:10 +0000
 From: Henrique Godoy <2dgodoy01227@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -107,47 +107,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Wed, 4 Nov 2026 19:02:06 +0000
-X-Gm-Features: AclHuK_f094t9Aarf_ICuOIqlKf8WmOIyvUEgEjQ3oNqea5atvStlotKptHyeQw
-Message-ID: <CAL1HEBAHwP68MigcYpBqTeRo5YhZY3Xfp5=HDZzvhm=SpMAA=A@mail.gmail.com>
-Subject: [PATCH 0/3] tools/mm: page_owner_sort: three input-handling fixes
+Date: Wed, 4 Nov 2026 19:02:10 +0000
+X-Gm-Features: AclHuK_dgHL72DQqlZJrR3IOIV4yjCUzHEWofjNRaIHKPE1uV2bQfEqfrreiTvI
+Message-ID: <CAL1HEBBjmor-B9E9KjpSCh=TW_wi1AcKEwBaD69_m2UkeGWbMw@mail.gmail.com>
+Subject: [PATCH 3/3] tools/mm: grow the record list instead of guessing its size
 To: akpm@linux-foundation.org
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-These three patches are fixes for tools/mm/page_owner_sort.c and are
-independent of the out-of-bounds series posted a moment ago; they touch the
-record reader and the array of records.
+main() sizes the array of records with st.st_size / 100, and add_list()
+refuses to go past it with "max_size too small??".  A dump whose records
+are shorter than 100 bytes holds more records than that, so a valid input
+is rejected and no output is written:
 
-1/3 keeps a record that ends the file.  A dump whose last record is not
-    followed by an empty line loses that record: ten records load as nine,
-    and the tenth disappears without a word.
+  $ ./page_owner_sort dump.txt out.txt
+  max_size too small??
 
-2/3 stops reading a full buffer as the end of the file.  read_block()
-    returns -1 both at the end of the file and when a record does not fit
-    in BUF_SIZE, so a dump carrying a long record is sorted as if the file
-    ended there:
+Keep the guess as a starting point and grow the array with realloc().
 
-      $ ./page_owner_sort dump.txt out.txt
-      loaded 0
+Co-developed-by: Pierre <pierre@cloudwalk.io>
+Signed-off-by: Pierre <pierre@cloudwalk.io>
+Signed-off-by: Henrique Godoy <henrique.godoy@cloudwalk.io>
+---
+ tools/mm/page_owner_sort.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-    With the patch it reports the record that does not fit, with the name
-    of the file, and exits with a non-zero status.
+diff --git a/tools/mm/page_owner_sort.c b/tools/mm/page_owner_sort.c
+index a042bf1..5b51cff 100644
+--- a/tools/mm/page_owner_sort.c
++++ b/tools/mm/page_owner_sort.c
+@@ -571,8 +571,16 @@ static bool add_list(char *buf, int len, char *ext_buf)
+ 	enum FILTER_RESULT filter_result;
 
-3/3 grows the array of records instead of deriving its size from
-    st.st_size / 100.  A dump whose records are shorter than 100 bytes
-    holds more records than that, so a valid input is rejected:
+ 	if (list_size == max_size) {
+-		fprintf(stderr, "max_size too small??\n");
+-		return false;
++		struct block_list *grown;
++		int new_size = max_size ? max_size * 2 : 64;
++
++		grown = realloc(list, new_size * sizeof(*list));
++		if (!grown) {
++			fprintf(stderr, "Out of memory\n");
++			return false;
++		}
++		list = grown;
++		max_size = new_size;
+ 	}
+ 	filter_result = filter_record(buf);
+ 	if (filter_result == FILTER_ERROR) {
+@@ -952,7 +960,8 @@ int main(int argc, char **argv)
+ 		goto out_module;
 
-      $ ./page_owner_sort dump.txt out.txt
-      max_size too small??
+ 	fstat(fileno(fin), &st);
+-	max_size = st.st_size / 100; /* hack ... */
++	/* the guess is only a starting point, add_list() grows the list */
++	max_size = st.st_size / 100 ?: 1;
 
-    Measured on a dump of 200 records of 93 bytes: before, no output at
-    all; after, all 200 records sorted.
-
-The three inputs above are the reproduction cases: 9 records loaded before
-and 10 after, "loaded 0" before and an error naming the file after, and
-"max_size too small??" before and 200 records after.
-
-The output of the tool on a realistic dump is byte for byte the same before
-and after the series, and checkpatch --strict reports 0 errors, 0 warnings
-and 0 checks on each patch.
+ 	list = malloc(max_size * sizeof(*list));
+ 	buf = malloc(BUF_SIZE);
+-- 
+2.39.5
