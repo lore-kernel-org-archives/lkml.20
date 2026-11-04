@@ -1,79 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793776888;
-	b=V30ssEp24nsxEQFZ68Y2PhkmG9t9gNJKAX5Qo4PP9AwXjPxAqLefSxLCrH8fT09AZHhY
-	 CGei51gjIzizzz/G1GrWWClSXi4xDRatJAamvUwnk14HlpjEpFXe3ZJnQBB412Ka0LkX9
-	 PWX2iKsIPJ0c9lkr5NexwVle4CqjKlMY7mutvMeeHrFfOQk+kwcszfq1jUVq336EpKyDl
-	 cY72W4aG36ZnzTwF+6ozyUdmH+wpVWWOicsr1Rm5SxugNLastxBVstADHSRJUo41smwYu
-	 49wpPwDeofYJLNUvQ5g6kfIMwiap/8Tp5eucdvV17rBzLHCJ2sSJQOmY1Pj1oexWV4Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793776888;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=0AhF5KlG+UnbOc3W/kQWIjGySJOo1aaKFPKqc9wGSsY=;
-	b=PuXxKIszruwzcbCfK3kOwoOyHtW4kf9MvSRHMMcgzarMgtIZQnJq+upT9ZNfO8n/s4vf
-	 KeE3MufMct/MNACGdfootCInvXhzh+GMkXjbs7Jr/tAfVvDy1bd1oPZNRoNP3LCcKXgVN
-	 A9Ohlh7G1CU6sb5hwYdsMRBfKDnwBG+LB+7YaCDSgrrer5J+t8BAJ8wOm6fIrOfekgyyd
-	 ds2+kxFg3MEUO5TaNIXi+cHK6gIv5oRqRWYWr97cyV6sAbDP2uAIyPgWnGFEnIio6LmO3
-	 iARWB/hoWZCDOO5/RfIB3r0BO0cIMeL3FWKrXGXB+PePc5M27/qrMlRwJYftagotP+g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oayveeWo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793776878;
+	b=Dfx1JQAHW/GnxxBgUqfMoaK76DasIp99m7ImnRLJ795CQ+HyRfSzsuoXfL8V88XqalNU
+	 WdRW8lqyxLN1FK9zTnLiutKDWEBhlQDjOhT/S1Q8bre8ZyYpv/0DfiGwTCeGhNIK4vjQK
+	 nW1PncDzFFR+DbttnFbKau6jbxfDMo8Mn5eaVuGVUGRAcwzFYsYfXgjquLqQqzkSmjMP7
+	 xhnYPIrmS599TRC9SZ4JEU3gd1TjkFXxhUG6dTakGEBWznF1V1NZaFQIuRnYM7FWKN1Kz
+	 E5INUawjMMpZmRKRu7Bn3DxTTEDERPTpOxUXia5yMhYRQAW5tORFy8c4HZSLYzjL1/w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793776878;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=rZwszdc84eriJd4ZO7DbKvYJxYBtwYicHhgWXewMqDs=;
+	b=zj27XGUb+KYPB+t8gmiH9O73L85mGUzqYKqyh0Q+zXxszqwLcv+VK1UfCZ2ltZ6YyAcg
+	 NfS4u3ml597uJOBhjMUTSnYSyHNlkvpHQPNSJW+h0lZhja5rCiQpysxIS0CJFIAwIOz3X
+	 HTea4zIi1RivoLOo+pZYfJ06gEdBJl87OPGUvy7fD0GLrD3QPgjiai5iOI5u4u0d+0roi
+	 lEYwFR+Qd2CrpKlVGYcT+3nBBjIqN5nyT/PAal41/P9XACjJ5a2DYeT864M0v6Qi5AAua
+	 acDQknt6uNZh+oirtraRe3vYsZqkAWqeURf3A4zytDdGrcsf24NvL3W4TI8S561pG/A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AZ85mUpT;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB22606A335;
-	Wed,  4 Nov 2026 07:21:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12F48606A326;
+	Wed,  4 Nov 2026 07:21:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oayveeWo
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793776886;
-	b=aoB/6T8lBxOenyJiJyUwBhBOIlJNe8lPyasSnK6lC+K3HokUISe48m7zLog9NMBgVwFS
-	 sWWWa2zwXME2KTa7v8VsEH+NZGcoTbgRB06qza8hK8tjK/Mynal/74MHq6f6qwOswEW0H
-	 C4Jls5sdQPvQlKpxiwP19xVKn52NnVueRD+PXc3eQFBppYx2mD4e015itYoVOCZtwaMIM
-	 UqGW1FRBwv/xkifGKdMMNMlsjwSA8azuqPoJusmp0sJ3cfClRXCi1dGxX0nHyePGTupbI
-	 uOpw6O0RymZfMNh2OxKyiGF7BEDExe1QMuXs1EyhIHBA8iPHKff2ZyqJonfIbreMpeA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793776886;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=0AhF5KlG+UnbOc3W/kQWIjGySJOo1aaKFPKqc9wGSsY=;
-	b=r5PRMmnalTl4MPWNg5VjnrMm3E0iNXWoAqihciukimS4EJcWz5tmjBbZgM7eBUQuH+Of
-	 tC4yruEF/oflh5m/z2kMcTwpXSv1AW+UmAM8wUoYqGOs8BdEK/43QxmabMH1pZIoDF3C7
-	 8pJy5vgWIeI1z5rEM78X9Or3SRhvjVsDTEwkmDw8ir7Z4tbD5mAinyDtaRJVy0LbcV51g
-	 m8xHjfPN0OHg6W4vopWKWjfj1mXRRcjul/GmfPYFWQDsRK3rCkK24o4Pi09I9cT8uEuWp
-	 K3RkjKv77efcQ5lkc5Kfq97BpLoWCo1hU0j0JfkeKzv2AfLmIeBcXf3d47/ukgcPFDQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 6FB791F00A21;
-	Wed,  4 Nov 2026 07:21:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AZ85mUpT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 183D71F00A2B;
+	Wed,  4 Nov 2026 07:21:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793776886;
-	bh=0AhF5KlG+UnbOc3W/kQWIjGySJOo1aaKFPKqc9wGSsY=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=oayveeWoqyu7BSn8BZ4Q9xzT65Idp6SCSHcVQp/KIv0dabiIcrhvWAhynQaUTX5N1
-	 w7pYGh3+ftYyGrWarU81QYhQ4ctcuMRmc0Jk8yR8n/fesu+PiROcliLgPrQBQvN6Nq
-	 8hCAcDDtcqyXP0XRyZxQb1xaChSszlh/t354XHuxzw/dnDbZEL43F3DwGnP6q3fJMb
-	 HLrfejRgtLYhFKdXMlOh7KcD8DPq3MhRZlvpN34O9BhfFikhfNBbmcr3dOIuKHfFtb
-	 /LjuicBbQK2ysX7UtK8Wrfha7DHuNcjG+gw2+dISEA5JpS7ZNZyo4RBBzVOSxGkMye
-	 cfCWLJ0TravGQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0565046CED;
-	Wed,  4 Nov 2026 07:21:26 +0000 (UTC)
-From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
-Subject: [PATCH 0/2] pinctrl: Add the Siflower SF19A2890 pin controller
-Date: Wed, 04 Nov 2026 02:21:16 -0500
-Message-Id: <20261104-sf19a2890-pinctrl-v1-0-4bb83afdbacf@telaak.dev>
+	s=k20260515; t=1793776877;
+	bh=rZwszdc84eriJd4ZO7DbKvYJxYBtwYicHhgWXewMqDs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=AZ85mUpTl7AZO0VzzIeRDMJ+1jZQa0dNVLHjbEIoqAKsnPYhMNuzA3CU48uwEZ7Sk
+	 jYAlHJKF7giI4fGMU9yp+os83ZQ7m/mR0QdiOAoEs3YB3WIMERCd46PkgX/cYF1Qkd
+	 KgVRsnf7CqeQ/AhW1Ib088yZ2C2eSzIwTeNaxJkST1xNIm1U21iCFTeb/tt8vE8LKv
+	 z3Rxzyeib1rNzuq0r77494Vc5FAONi72KcxbRHmM1ti6L3q0YI9XueeSco+VzXtQsh
+	 DG9/cnijtCRMwvqCdNugvmjnvl/P1kxhGo8vzIPJhw0I9WpCPXmwpO75nXtl9BY2lx
+	 Y4kriwI51Rqng==
+Message-ID: <794a43d2-74be-46ce-a779-f7227a82516e@kernel.org>
+Date: Wed, 4 Nov 2026 08:21:14 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,77 +51,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: exynos4-is: Free control handler if fimc-lite
+ subdev init fails
+To: Wentao Liang <vulab@iscas.ac.cn>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261103094617.1289377-1-vulab@iscas.ac.cn>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <20261103094617.1289377-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAOzc6moC/y2NQQrCMBBFr1JmbSATMBqvIi5iMtURiXUmFaH07
- k21ywfvvz+BkjApnLoJhD6s/CoNcNdBusdyI8O5MTjrPKJ1RnsM0R2DNQOXVOVpko05+EMm3Ht
- ou0Go5++veb78Wcfrg1JdQ5sh9B7bWd20eV4AoyN4z4oAAAA=
-X-Change-ID: 20261102-sf19a2890-pinctrl-c0ad967de156
-To: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
-Cc: Chuanhong Guo <gch981213@gmail.com>, linux-gpio@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Joseph Telaak <joseph@telaak.dev>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793776885; l=2123;
- i=joseph@telaak.dev; s=20261104; h=from:subject:message-id;
- bh=trQxyC9FnpPDYSg5QLUGaKvpgYZNU0c3D/uLunjy+mc=;
- b=cG2tGjvNZZfQ7+rF4DSN6J5m1V1K9pe3HskaPhBlnEQ4NuKy8YXfcWz42m+ZgI+QVXgPDK9fp
- tH7ds7ZtbaqDWad/X7L09Qybo2d69cxI8zjlMZ28Nj2sbsnklDVDj+J
-X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
- pk=oQI+UfddlZ0wK2ac4WKOGNjUl1ZEN8j9ZVFSqEDoNP0=
-X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
- auth_id=1404
-X-Original-From: Joseph Telaak <joseph@telaak.dev>
-Reply-To: joseph@telaak.dev
 
-This series adds a binding and a driver for the pin controller of the
-Siflower SF19A2890, a MIPS SoC for home routers. Each of its 49 pins has
-a register pair of its own: one for bias, input enable, Schmitt trigger
-and drive strength, one for the mux.
+On 03/11/2026 10:46, Wentao Liang wrote:
+> fimc_lite_create_capture_subdev() initializes fimc->ctrl_handler and adds
+> a control to it. If the control cannot be created, handler->error is set
+> and the function returns after cleaning up the media entity only. The
+> control handler still owns the memory allocated for its buckets and for
+> any control created before the failure, and fimc_lite_probe() does not
+> call fimc_lite_unregister_capture_subdev() on this error, so that memory
+> is leaked.
+> 
+> Free the control handler before returning the error.
+> 
+> Fixes: 4af813108b88 ("[media] s5p-fimc: Add support for Exynos4x12 FIMC-LITE")
+> Cc: stable@vger.kernel.org
+> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-The driver is based on Chuanhong Guo's OpenWrt driver, which exposed the
-four mux modes as functions "func0" to "func3". Here the functions are
-named after the peripheral they connect, and each lists the pins it can
-use with the mode that selects it there. The tables cover the functions
-that the vendor firmware and the OpenWrt port use; the other modes are
-not documented.
-
-checkpatch warns about -ENOTSUPP twice. That is what pinconf expects
-from pin_config_get() and pin_config_set() for a parameter the hardware
-lacks.
-
-The SoC support itself (MACH_SIFLOWER_MIPS) goes through the MIPS tree;
-until then the driver builds with COMPILE_TEST.
-
-The MAINTAINERS entry that covers these files comes with the MIPS series
-"MIPS: Add support for the Siflower SF19A2890"; this series applies on
-its own. That entry is also why checkpatch's question about updating
-MAINTAINERS for the new files is left unanswered here.
-
-Tested on a GL.iNet GL-SFT1200: pinmux-pins gives every pin its owner:
-SPI, UART0, I2C0, RGMII and MDIO, and the GPIOs for the switch reset, the
-mode switch, the SPI chip select and the reset button. The console, the
-SPI NAND, the ET6326 on I2C and Ethernet work with the mux this driver
-sets.
-
----
-Joseph Telaak (2):
-      dt-bindings: pinctrl: Add Siflower SF19A2890 pin controller
-      pinctrl: Add Siflower SF19A2890 pin controller driver
-
- .../pinctrl/siflower,sf19a2890-pinctrl.yaml        | 113 +++++
- drivers/pinctrl/Kconfig                            |  14 +
- drivers/pinctrl/Makefile                           |   1 +
- drivers/pinctrl/pinctrl-sf19a2890.c                | 536 +++++++++++++++++++++
- 4 files changed, 664 insertions(+)
----
-base-commit: f33a24cc012d34f25bb9942681bd478a1757b806
-change-id: 20261102-sf19a2890-pinctrl-c0ad967de156
+This is another posting of bot ignoring feedback and probably
+introducing vilnerabilities hidden in big spam posting.
 
 Best regards,
---  
-Joseph Telaak <joseph@telaak.dev>
-
-
+Krzysztof
