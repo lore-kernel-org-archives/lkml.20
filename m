@@ -1,49 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793756721;
-	b=ttFlVEJ1yWSwpcuAKqe0TiLuQLGzv0vCSDCkXc4cHaloxU3L0wG5deU5Qsxj6j9dHGjP
-	 AtIkY9t16SgEbwtATbno7Sue2mdQiPL/KorvKhIYBPN/kX0abPWMb1iNAW5xGN+ljK+gX
-	 OjdbXxD0jaIdSOS2nzPJYxF0mV5EINDI2d1r9TAZLcsTwKo/Nv7a049Ym5kpi3dDH6qIQ
-	 dKVX3fpZuzAahHx1kJVZYs0bet1x2ZZw5t2TAnUNzXdHO9f0Gb9Kcj13qBKj1iZFdLWxA
-	 eB1+N4Pa2z9XiiE2Z+N9rX4kxgGqDHcXov1ZL77NaFBDhD07LuXsd0bGLMjPE4RODyQ==
+	t=1793756798;
+	b=WnWaaPVdel02taxW6EJ4KizQBq5aG5l8D9pNuEPQhqtzbjQljx8BJ/bPhyc+nT4Unv60
+	 kMaSUbZRaTc2/0VzpKQFBiKGkeqMBkPS0rWIe2qfM3TgPkm3Q/WWDe4YbQGSLNwMge1Sr
+	 YrNFEweQRxHl3kYtXzu4+5YhY7Mhiqulw4Px1PsOmKy1WN7XhwD6qx+7iFf12fe4jwnGp
+	 P45+7RoJ/W9ktuH1dXOlzSjcCOzVyNHf4CziGwI8F8Sg9dLLr+tELS6u1Obk9asPwzRmR
+	 nkxRbcykZ8x5B8X8WTWCUTu9/5Ewhvde5s4jnZlBgaF15IAvfX53pvFn4j/tFVjUNLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793756721;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Yu7A9IfCons4QnPv1aLDZ6F+N4gkwUfnVBA3JUeiHFk=;
-	b=C3jYQPkDxBfT1De5yotagxP1KRrLpS/YWQqoTeTWU1ndkYOo8puJ2MGRzwW8gs9B/Mcw
-	 ksLwUPUWXJofRDo9fUHuI6IAxvTTnfKrCgklFhMGYVe1kqwnCYjXUf+4nUC4Ib3OXd+tk
-	 9+ThTA9g9a+d7pVkKBi83828g2S8uUvpJ6avaAhmgBqVcltCdhljUeLdkLI7C6gNrivLU
-	 rU8YSNgmCFj5nI5PP5MYVH0TK6kzlqF762l/JbiwTe6qIa3H8drizexvZJmnhxTrR4nRk
-	 IlAIHRdJtfLb1mnR7i1V++dSCH/aiYEAht7Yn/1lepDR89zEl4I8xgFUz3qJ1hk1M1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793756798;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=RXOjzv2ekKXMhRrGDhixdimxSCblG2FyP7f/BYRRsGo=;
+	b=lKDvcvAIXCoVXeSmdgZ+9G4603r68LeIW8XZJ81hDMBu9P8snLSRRuY2xQDGqYIHFaEa
+	 yu803P81Sj3lvhBKd6ieBlNJ9cISjckICs3EKwvtFnj7QdeCz140stllg7vGDikjFCu4O
+	 cwKZ3rTmvEVaMvcwIGWDg5mbYyuu5k3o+hiukWg3EBJQO/S92la9W6ilptv7Cwbeb04GO
+	 a/JiODjgguzuJOboQhAkur/MKt5ebWey0r3EPxIaFwBwtlpqPZFErLDvGzL7gxrCTqLfl
+	 LhoQ0RCywwM2LnF36zct1ZfINYeaI+OD4MZgF8/rASqrxysphA49u/lDnWfgfb0qYSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=IbycN2wi;
-	arc=none smtp.remote-ip=115.124.30.98
-Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=aZpBjDda;
+	arc=none smtp.remote-ip=199.89.1.16
+Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E536C606A328;
-	Wed,  4 Nov 2026 01:45:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E536C606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BEB0606A326;
+	Wed,  4 Nov 2026 01:46:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BEB0606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=IbycN2wi
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793756717; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=Yu7A9IfCons4QnPv1aLDZ6F+N4gkwUfnVBA3JUeiHFk=;
-	b=IbycN2wiHbBLY8b7g8Mj3PbaRtQ9MiA+qd19HIv4OrvXt7hLs85bF0+SCFGHBFP96fJkLLeD9n1YedeMfu0MblNwgmtrGIIfVKcd0uDytvy9XUnSJ/SbfvoJPXmk9OYKK9A3wdWTRQekMrrm1zdwVtL4vLCnD6gTLDvPuSoz1og=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R201e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=4;SR=0;TI=SMTPD_---0XE4Irvx_1793756716;
-Received: from 30.221.129.178(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XE4Irvx_1793756716 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 04 Nov 2026 09:45:17 +0800
-Message-ID: <50188292-83d9-4721-8f1f-76e4759ddb80@linux.alibaba.com>
-Date: Wed, 4 Nov 2026 09:45:16 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=aZpBjDda
+Received: from localhost (localhost [127.0.0.1])
+	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jK7b12Jh4zljKMQ;
+	Wed,  4 Nov 2026 01:46:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1793756795; x=1796348796; bh=RXOjzv2ekKXMhRrGDhixdimx
+	SCblG2FyP7f/BYRRsGo=; b=aZpBjDdak5Ql9CoGeSJUEyupksMrvDe8XjeMyPXa
+	SshmvpFs+WINcchIU4NoS/0LmMaUgrtUpG/jP7tB4Z77Gd5XDMECXusGsClfCKkT
+	kwYs0zGlk0CaYmelyWX6yO2FEcTPhjD/GzN58C3SxJoBaks4y/7GHQ5kQIobmKXr
+	wJ9wheVYLCuWK6q/F1k/61j6Futb0sgz21ksDQECbc0i7DycJoo3rcWyJrX1Ph2z
+	aL+biQ/rsOtn4PkkyUN9dhzcQs+uVfEOM54pEQu8bYn4afM2DVlb5a9+1YWe2SKc
+	dEf8jaQHEk2U/eyzJFhRK5dRa9CjiaOeCZbTrCQGcP5hyQ==
+X-Virus-Scanned: by MailRoute
+Received: from 013.lax.mailroute.net ([127.0.0.1])
+ by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id 1DqThOFT3LrU; Wed,  4 Nov 2026 01:46:35 +0000 (UTC)
+Received: from [192.168.51.14] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jK7Zy6YGlzlffvQ;
+	Wed,  4 Nov 2026 01:46:34 +0000 (UTC)
+Message-ID: <703c41b5-537f-4897-b852-fed4097a0193@acm.org>
+Date: Tue, 3 Nov 2026 17:46:32 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,88 +71,51 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] NFS: don't raise i_size for DEALLOCATE in
- _nfs42_proc_fallocate()
-To: Anna Schumaker <anna@kernel.org>
-Cc: Trond Myklebust <trondmy@kernel.org>, linux-nfs@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261103061654.2036827-1-joseph.qi@linux.alibaba.com>
- <0c67f568-586b-456a-be28-65d2ea16b633@app.fastmail.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <0c67f568-586b-456a-be28-65d2ea16b633@app.fastmail.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v4 2/2] ufs: mcq: poll OCS after sq cleanup for device
+ management commands
+To: Kiwoong Kim <kwmad.kim@samsung.com>, linux-scsi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, alim.akhtar@samsung.com, jejb@linux.ibm.com,
+ martin.petersen@oracle.com, kwangwon.min@samsung.com, hy50.seo@samsung.com,
+ cpgs@samsung.com, h10.kim@samsung.com
+Cc: stable@vger.kernel.org, stanleyjhu@google.com
+References: <cover.1793598099.git.kwmad.kim@samsung.com>
+ <CGME20261102055317epcas2p48b638d0c25fd024ce01960afd1e6dee6@epcas2p4.samsung.com>
+ <8c4bbbd746e7fc1d8c27b6b87b2d684abb74a3b3.1793598099.git.kwmad.kim@samsung.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <8c4bbbd746e7fc1d8c27b6b87b2d684abb74a3b3.1793598099.git.kwmad.kim@samsung.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi,
+On 11/1/26 9:52 PM, Kiwoong Kim wrote:
+> +static enum utp_ocs ufshcd_mcq_read_ocs(struct ufs_hw_queue *hwq,
+> +					struct ufshcd_lrb *lrbp)
+> +{
+> +	guard(spinlock_irqsave)(&hwq->cq_lock);
+> +	return READ_ONCE(lrbp->utr_descriptor_ptr->header.ocs);
+> +}
 
-On 11/4/26 4:11 AM, Anna Schumaker wrote:
-> Hi Joseph,
-> 
-> On Tue, Nov 3, 2026, at 1:16 AM, Joseph Qi wrote:
->> _nfs42_proc_fallocate() raises i_size to offset + len on success, so
->> that the cached size is not left stale when a delegation blocks the
->> post-op attribute refresh.  The helper is shared by all three
->> fallocate modes, but DEALLOCATE always carries FALLOC_FL_KEEP_SIZE
->> and never extends the file on the server, so punching a hole that
->> reaches past EOF now wrongly enlarges the cached i_size.
->>
->> The post-op update would normally restore the size from the returned
->> attributes, but nfs_update_inode() applies a differing size only when
->> no delegation is held, and then only when no write is in flight or the
->> new size is larger:
->>
->> 	if (new_isize != cur_isize && !have_delegation) {
->> 		if (!nfs_have_writebacks(inode) || new_isize > cur_isize)
->> 			i_size_write(inode, new_isize);
->> 	}
->>
->> With a concurrent mmap writer (nrequests != 0) or any outstanding
->> delegation, the shrinking server size is therefore ignored and the
->> client keeps reporting a file larger than the server has, in violation
->> of KEEP_SIZE, until some later revalidation without writebacks happens
->> to fix it up.
->>
->> Skip the i_size bump for the DEALLOCATE procedure.  ALLOCATE (mode 0)
->> and ZERO_RANGE (which nfs42_fallocate() accepts only without
->> FALLOC_FL_KEEP_SIZE) do extend the file when the range reaches past
->> EOF, so they keep the update.
->>
->> Fixes: 35168eb947f2 ("NFS: fix eof updates after NFSv4.2 fallocate/zero-range")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
->> ---
->>  fs/nfs/nfs42proc.c | 11 ++++++++++-
->>  1 file changed, 10 insertions(+), 1 deletion(-)
->>
->> diff --git a/fs/nfs/nfs42proc.c b/fs/nfs/nfs42proc.c
->> index ab86246fc364f..914499d30d47e 100644
->> --- a/fs/nfs/nfs42proc.c
->> +++ b/fs/nfs/nfs42proc.c
->> @@ -84,7 +84,16 @@ static int _nfs42_proc_fallocate(struct rpc_message 
->> *msg, struct file *filep,
->>  		loff_t newsize = offset + len;
->>
->>  		spin_lock(&inode->i_lock);
->> -		if (newsize > i_size_read(inode))
->> +		/*
->> +		 * DEALLOCATE always carries FALLOC_FL_KEEP_SIZE and never
->> +		 * extends the file on the server, so only ALLOCATE and
->> +		 * ZERO_RANGE may raise i_size here.  A wrongly raised size
->> +		 * can persist: nfs_update_inode() ignores a shrinking
->> +		 * post-op size while writebacks are outstanding or a
->> +		 * delegation is held.
->> +		 */
-> 
-> Is the comment really necessary? It's just restating things from the commit
-> message, and could quickly go stale if the behavior of nfs_update_inode()
-> ever needs to change in the future.
-> 
+READ_ONCE() is sufficient. I don't think that the spinlock helps here. 
+Additionally, if the spinlock operations are left out, the function
+ufshcd_mcq_read_ocs() is no longer necessary and can be inlined in its
+only caller.
 
-Thanks for reviewing this.
-So any review comments on the code change? I'll update the comments and
-send v2 if you're fine with fix.
+> +	/*
+> +	 * For device management commands, there is no order guaranteed between
+> +	 * OCS update and CUS update, which is why we need to wait here. SCSI
+> +	 * commands are excluded because the OCS in their UTRD is not updated
+> +	 * from the CQE.
+> +	 */
+> +	if (!err && blk_mq_is_reserved_rq(rq)) {
+> +		enum utp_ocs ocs;
+> +
+> +		err = read_poll_timeout(ufshcd_mcq_read_ocs, ocs,
+> +					ocs != OCS_INVALID_COMMAND_STATUS, 20,
+> +					MCQ_POLL_US, false, hwq, lrbp);
+> +	}
+
+An error message should be reported if the above loop times out.
 
 Thanks,
-Joseph
 
-
+Bart.
