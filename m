@@ -1,88 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793821901;
-	b=3PdbV0eq/Q7/uyYzYCK54mMhXb26+PFqPtb8qkS+fAYM2LXtzNzuKLR4zegCmTUn/piw
-	 qMi1O+g5r5bjdFHSSjio2rUZF1wNd/I9AtpMPtVqNn/jcibpIDQdxl7jHt/6oDpFCIPa5
-	 KYUgEI4g5VJ9di+he/PQOpJ2mwnCo1P5u8MMpphTaWao45EM7hzUa1SHB4P0Lw+dLzku3
-	 p05m5LhWaRflVB4/mvqu/klLVW0lU/SmqfY8Pt1hAXrfpSwC5i+tVf52+N8V8eWmEroVN
-	 rAKWa/zeSHtLWUqu9IR3K4uv0074QN2ncKlw4MOr03EyGVn1HW7pSvFDWYmGV/gNRgg==
+	t=1793821896;
+	b=TzXxoq9E/toFrojTF04ob6vmu2bCtjmGCMEiIAVDg8Qdm/Of5G2VUSFyfIFlV+jjqxct
+	 H5NmDD2/hKeb5WcMXj3oJwvDOrTS1yv4nkmtRWMQP1BsOLdkk8+64xnrfnXdokMXaXSki
+	 4msi5m4tnc7CWLS0YkGPJuy0izp4FNwEAoBmv9oR8/XSjUjnxd+Ga0oM1B3/VplvYjNIX
+	 VUjTIsQvLafIqvRnYZO4RU2fcpgu4XLt/bE8xhHIOtPh5KfpKgQxtPdudrREGFvCMVh5e
+	 x582WI646Khg/JWtQjCE1CotmCYfCDoPBWWWU6OL4JKmCI1O8ZUP+QSPLxxPLGyF6JQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793821901;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=Jo6LUuSRpij3XruLJxd10qKw5M+aELp0/drD1Vsxzoo=;
-	b=3rWPqC9stZnlxkOuHXYAqw3wsEHbQw8Ml2ugJ7rhP7b4HUTizTj4icIaZReNpKY2nEmf
-	 LN9+sZUiv2u92A3Rc/rZqYE6sxOq5JPAhcK9+bxjj/3pu8YOnqNCvqyLSBIPCN5RfMxPn
-	 VJoD3bqoAkOyBPUg2j87t8RdDFeacCUOqUXaXmV+obqfpx55BWfMCFVwnHcWUP8Dv+shM
-	 mEdQ2jpGxOph07rdRVFzKlSuqNkTTrg8USZQlnjVnkmJAE3FvdWYeJOb9JxuvGOFx4+GT
-	 PEjZg5ck2LsopY9/TTRdP/1vEopFAPkep7pzV1Wt9ZesYKtdK75uZ+vbEZVAbSEZkcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793821896;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=X/yvfG66BfgMeEDkk3c56eCZsjSg3r6CFhJDsqYaHrc=;
+	b=kjfGocJuVGwOdXyPH+i9j0Ag2NqkPQEh6isxIKNi0kMMKuyvANpqhumQUa10fAZJExXj
+	 eOUnjjD6/eCigdCF/ty4uUSNtaFbemDPMZf0gGsSeJxE2T/0GAu3xs+usy/11LZyIjaez
+	 VKG3bbgNp29V1dP27EGNN9THszFjT9AtGRpweo230RNdeQMAArMUUOrpcllm6tTWRBGnf
+	 duao7lQZ7ovivesYVmYyxvT6FsZlIT/jrQO0HJAg/kbVPqO4cHjVFH5qFtffw68FcG6Ly
+	 qTMbB2CzkyGsep6tPNcGOsLjwyh7119P2fvOKa6A6Eehqmo6MhlOZlU9A6QfLdZX3Cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nPJsetu8;
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cwHr8orF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 103AE6094217;
-	Wed,  4 Nov 2026 19:51:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 103AE6094217
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF683606C448;
+	Wed,  4 Nov 2026 19:51:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nPJsetu8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793821899; x=1825357899;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Vw6wfWuQFg8TuBapyurRLVHhY0f29ONkPajEuId3aA4=;
-  b=nPJsetu8F+fSFMEK7vr/2XTMFnqHhVvTC9LkLucCdg5zTtASUVSDi+cn
-   O+JaoJpLVFmgbkQL5mCIEjONfhjicqSy9p/9mIVW6Cj1Srz4vMfDPh59g
-   dI8beuj5fgiITxjJ4PLkJdLZ3tzhh27VyDNEBBmSdP0qtTdAsImH3Bk9g
-   gvVFsMWx7T8WMMHzjWEAnT59upW2hW497ganBvlTjGRvWjDDTbw8GB9dA
-   z1WKZ9JfDWwA13+luPjCFsWRuccLqb+PemJLzcTFMB124VzAFHPuL370U
-   nXXC4qqSydvI6i0YCu4XV5k4OogxCWNYF409Powc7mrTDjq+2FadPwXwy
-   A==;
-X-CSE-ConnectionGUID: UHKgvokfTsGDzAv3oNuzyw==
-X-CSE-MsgGUID: zpOX2XSqRFy/0/WnBrYeLg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2471383"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2471383"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 11:51:38 -0800
-X-CSE-ConnectionGUID: aeSZwbVjQWuALIH+TorRGw==
-X-CSE-MsgGUID: PH89EB/PSSag23IZdZvlwg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="7348819"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 11:51:34 -0800
-Date: Wed, 4 Nov 2026 21:51:31 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Michael Hennerich <michael.hennerich@analog.com>,
-	Trevor Gamblin <tgamblin@baylibre.com>,
-	Joshua Crofts <crofts@kernel.org>,
-	Sergiu Cuciurean <sergiu.cuciurean@analog.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-pwm@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/5] pwm: core: add pwm_get_waveform_step_might_sleep()
-Message-ID: <auuMw8tKvGynTKsr@ashevche-desk.local>
-References: <20261104132143.215581-1-Nicolae-daniel.Deaconescu@analog.com>
- <20261104132143.215581-2-Nicolae-daniel.Deaconescu@analog.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cwHr8orF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1974F1F000C1;
+	Wed,  4 Nov 2026 19:51:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793821895;
+	bh=X/yvfG66BfgMeEDkk3c56eCZsjSg3r6CFhJDsqYaHrc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=cwHr8orFnp4x7J2Xe1KsHSEJ1eg0u79nGPLRIUIwbAP0zUf7QsBysosf1FqR5ZX0Q
+	 HoxOVOzOEv9f8ZgsLKaGizKxckb+8NmWDvznCxT9hyz6XDje23Fu/BV/7vYfSBlRBo
+	 29q96vKA3sg+WRQgH3Xu5HAtJzyAV0C0X5mRTfioCWgSP85kQ3OB+8joip1pGF4lz6
+	 O/KafZ2Qaez9U/HbkLZAPk5WcEVfLztKFegfM9NGRKV58MPrNpX3BlH061wFYzdEC1
+	 0F3/Xa+OzEI16gZNDCtefEhvwseJTbeAB5Ppvs0OtDpq+EK5pYG3BV1CYUNRgxGUPi
+	 Ziv71uisF0tng==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>
+Subject: [PATCH RESEND v2 07/30] ntfs3: let procfs copy in writes to the label file
+Date: Wed,  4 Nov 2026 20:51:20 +0100
+Message-ID: <20261104-work-procfs-fs-v2-7-319e0f9a8aae@kernel.org>
+In-Reply-To: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
+References: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,130 +114,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104132143.215581-2-Nicolae-daniel.Deaconescu@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2130; i=brauner@kernel.org; h=from:subject:message-id; bh=kxB3eQnJXJ28LS46eI6OZqVe3PV4LPZGCXrTLaq4dFQ=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97jH+72CqrHDmzhLOGyVf5VS7p01fvUvn0De7C5+m2 C7Q/px3v6OUhUGMi0FWTJHFod0kXG45T8Vmo0wNmDmsTCBDGLg4BWAiHx4yMpy3rZ0/Vbh5+gyZ wzeePF8kfWTR38C3305W5Fd5HDHp+GLF8E8x2XK+7nLuldutNvMse8PlwX1u7efe4OOL3l+evkZ A7hkjAA==
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 03:21:39PM +0200, Nicolae-Daniel Deaconescu wrote:
-> A consumer that has to meet minimum times, or place an edge relative to
-> the cycles of a clock that a PWM gates, cannot do that with the waveform
-> API alone. The rounding functions round down, so a minimum has to be
-> requested with some margin, and the size of that margin is the step of
-> the PWM, which only the provider knows.
-> 
-> A provider can report the rate of the clock its timing is derived from
-> and how many cycles of that clock one step lasts. A consumer can then
-> work in whole steps, convert them to nanoseconds rounding up, and get
-> that waveform back from the hardware. Without this, a consumer has to
-> read the rate from a clock it gets on its own, which describes
-> a relationship the hardware doesn't have, and is wrong if
-> PWM divides the clock.
+Implement ->proc_write_buf() so procfs copies in what is written before
+it pins the entry, and set the label from that copy. Writes larger than
+PAGE_SIZE - 1 bytes fail with -EINVAL from procfs now. A write that
+large only ever worked when most of it was trailing newlines or came
+after a NUL, ntfs_set_label() refused a label that long with
+-ENAMETOOLONG or -EFBIG.
 
-...
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ fs/ntfs3/super.c | 27 +++++++++------------------
+ 1 file changed, 9 insertions(+), 18 deletions(-)
 
-> +/**
-> + * pwm_get_waveform_step_might_sleep - Query the granularity of the waveforms
-> + * Cannot be used in atomic context.
-> + * @pwm: PWM device
-> + * @step: output parameter
-> + *
-> + * Stores in @step the clock rate the timing of @pwm is derived from and how
-> + * many cycles of that clock one step lasts. Period, duty length and duty
-> + * offset are multiples of that step, so a waveform asked for in whole steps
-> + * is not changed by rounding. Compute the length in nanoseconds of n steps
-> + * as n * @step->clk_cycles_per_step * NSEC_PER_SEC / @step->clk_rate_hz and
-> + * round it up, because pwm_round_waveform_might_sleep() and
-> + * pwm_set_waveform_might_sleep() round down.
-> + *
-> + * The values can change when a clock changes its rate, so they are only valid
-> + * as long as the provider's input clocks are not reconfigured.
-> + *
-> + * Returns: 0 on success, -EOPNOTSUPP if the provider doesn't report it or a
-> + * negative errno
-
-> + * Context: May sleep.
-
-This is incorrect. The Returns section has to be the last one in the
-kernel-doc. It's documented.
-
-> + */
-
-> +int pwm_get_waveform_step_might_sleep(struct pwm_device *pwm,
-> +				      struct pwm_waveform_step *step)
-> +{
-> +	struct pwm_chip *chip = pwm->chip;
-> +	const struct pwm_ops *ops = chip->ops;
-> +	int ret;
-> +
-> +	if (!pwmchip_supports_waveform(chip) || !ops->get_waveform_step)
-> +		return -EOPNOTSUPP;
-> +
-> +	might_sleep();
-> +
-> +	guard(pwmchip)(chip);
-> +
-> +	if (!chip->operational)
-> +		return -ENODEV;
-> +
-> +	if (IS_ENABLED(CONFIG_PWM_DEBUG) && chip->atomic) {
-> +		/*
-> +		 * Catch any drivers that have been marked as atomic but
-> +		 * that will sleep anyway.
-> +		 */
-> +		non_block_start();
-> +		ret = ops->get_waveform_step(chip, pwm, step);
-> +		non_block_end();
-> +	} else {
-> +		ret = ops->get_waveform_step(chip, pwm, step);
-> +	}
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (!step->clk_rate_hz || !step->clk_cycles_per_step ||
-
-The second check is unneeded, the third one covers it.
-
-> +	    step->clk_rate_hz > (u64)step->clk_cycles_per_step * NSEC_PER_SEC)
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
-
-...
-
-> +/**
-> + * struct pwm_waveform_step - granularity of the waveforms a PWM can generate
-> + * @clk_rate_hz: rate of the clock the PWM's timing is derived from
-> + * @clk_cycles_per_step: number of those clock cycles one step lasts
-> + *
-> + * The period, the duty length and the duty offset of a waveform are multiples
-> + * of one step, which lasts @clk_cycles_per_step / @clk_rate_hz seconds. A PWM
-> + * that divides its input clock in hardware has @clk_cycles_per_step > 1.
-> + *
-> + * The step is the same for every waveform and for the period, the duty length
-> + * and the duty offset, so a provider whose granularity depends on the
-> + * requested period (for example through a prescaler) can't describe itself
-> + * with it. One step also has to last at least 1 ns, otherwise rounding a
-> + * length in nanoseconds up can add a whole step.
-> + *
-> + * A consumer that needs a minimum time, or that has to place an edge relative
-> + * to the cycles of the clock a PWM channel gates, can use this to ask for
-> + * the next possible value instead of one that is rounded down, and to compute
-> + * the frequency a rounded period results in without the error of the
-> + * nanosecond resolution of struct pwm_waveform.
-> + */
-> +struct pwm_waveform_step {
-> +	unsigned long clk_rate_hz;
-
-_Hz ?
-
-> +	unsigned int clk_cycles_per_step;
-> +};
+diff --git a/fs/ntfs3/super.c b/fs/ntfs3/super.c
+index cd47839872b0..cdeccbe506e8 100644
+--- a/fs/ntfs3/super.c
++++ b/fs/ntfs3/super.c
+@@ -560,37 +560,28 @@ static int ntfs3_label_show(struct seq_file *m, void *o)
+ }
+ 
+ /* write /proc/fs/ntfs3/<dev>/label */
+-static ssize_t ntfs3_label_write(struct file *file, const char __user *buffer,
+-				 size_t count, loff_t *ppos)
++static ssize_t ntfs3_label_write(struct file *file, char *buf, size_t count,
++				 loff_t *ppos)
+ {
+ 	int err;
+ 	struct super_block *sb = pde_data(file_inode(file));
+-	ssize_t ret = count;
+-	u8 *label;
++	size_t len = count;
+ 
+ 	if (sb_rdonly(sb))
+ 		return -EROFS;
+ 
+-	label = memdup_user(buffer, count);
+-	if (IS_ERR(label))
+-		return PTR_ERR(label);
++	while (len > 0 && buf[len - 1] == '\n')
++		len -= 1;
+ 
+-	while (ret > 0 && label[ret - 1] == '\n')
+-		ret -= 1;
+-
+-	err = ntfs_set_label(sb->s_fs_info, label, ret);
++	err = ntfs_set_label(sb->s_fs_info, (u8 *)buf, len);
+ 
+ 	if (err < 0) {
+ 		ntfs_err(sb, "failed (%d) to write label", err);
+-		ret = err;
+-		goto out;
++		return err;
+ 	}
+ 
+ 	*ppos += count;
+-	ret = count;
+-out:
+-	kfree(label);
+-	return ret;
++	return count;
+ }
+ 
+ static const struct proc_ops ntfs3_volinfo_fops = {
+@@ -599,7 +590,7 @@ static const struct proc_ops ntfs3_volinfo_fops = {
+ 
+ static const struct proc_ops ntfs3_label_fops = {
+ 	.proc_show = ntfs3_label_show,
+-	.proc_write = ntfs3_label_write,
++	.proc_write_buf = ntfs3_label_write,
+ };
+ 
+ static void ntfs_create_procdir(struct super_block *sb)
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.53.0
 
