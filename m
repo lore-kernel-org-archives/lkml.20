@@ -1,110 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.146
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793820492;
-	b=b0uRbB3EJR1+pu9hdDA+1ol4pMO4xSbGhOs84/Bp9qeOnafRqRMJ8xaFYyKwt2c51Vhz
-	 eHzm5FrRagNychrlSL2kc3FOQuIcAFoK5c3+l6xliXID77N9SMJs6mU0QmbU/nfPdiiAb
-	 /ISpmiDNPpuxG4rR3hLWjgeUQbX2CKT9vTJAGqsZrjWrFvBdQYEAsdAYSsm2dhK+dGfmG
-	 iWmhg7BmujX9FuxjNTNfIv/ruceipCuA0KQ5X/wuw1Ihl52swZ6GozyhxqpKvC0+aYvBm
-	 xYMX3dOP6uBl7n1WztiWs2FhfzOPtEvY2YLfi7tcZeR6kdj11tb4+gqjUP135oWyLQA==
+	t=1793820527;
+	b=3PwuxHeSZinYeoBARgs0jjU0jTbxamVZzUgeQpkGCxN2dnkVfGh33H//qJFFA3cRDMcv
+	 XmesrFQICqWLiH2AaBhkmQrqEP9WkOdcjVYu8Z63GmeTGBZRchw3vmZVmzOWEzAp3jS9Y
+	 Kdw55lHf0qaT+LIFbS4LDZmeK0JzFZnVMVk6uNRQNpswPohjpLOyws+Oojqg+hythURDW
+	 /AY2rgdG7u9DpA+ZmRhaqp1Ooym7YtOLYCp3ssBL/dSHru8DEuvLzaNp11Ft8QTXF3NJu
+	 mta9cTyWk/XyoBQ+UIsrPCkldvGySin6wltXtbzWLVi0yrGKQ2ZUgFSGOJUU2EoqE2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793820492;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=NP9uzi8hQ+GlRLcZMObnNOIDymBGDWJ+1F292ZdPL1I=;
-	b=RVOkkh6R8HFTUs5tcqeoAZhBAJP5IiDXsmXmXbC+hkcDP4bFyVVID/cZHI04lvm1JVMT
-	 GoovKU3Tnt/wO5sRJ+fq9+46u2R9DwkO79GkHW6WK399Ev61hNlRGfF3A9pM4JKeu98gM
-	 BKeGznTCqNz5fbT6ryK4vk2YcDBt/JEjFzXjQTbhfYezXlNoXgvJUVDkLDwN2X4uA9hGh
-	 0i/mRgWnMFy4NGe4A+mTtHEXrIDFWMbuEd221caw4OgzWqQ3nAQmWNdjtZZxuABZ8gCYN
-	 VPdF6gnm+oeZTLqqor9Wa5/NqtMYu5zAZAmGmhgEE6X+8olwJONsjgHa+JxdgBm6+5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793820527;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=xo7O7OZ9IoQt+9PPHhtslfdp1sVEzka18zv7uZU02m4=;
+	b=DQw8uHrx5Pn50hTXKY9IEdTrSwqpBIzpbK8+gM566aKt/XRPerJDhjMeLDBQC2dYt7pY
+	 xDcvQ4ZWh1W55DBdj5Y4xGfD3FJXLijvBFFeyd9DD1mJPsaqY+7Svy7347yhUwxbo93dX
+	 T21hqCbjdvmVmPsSKbpK1XI856k3ruKZjV1j/9cPjbxJC6na5aqcIGJ0RCRypCtifKsoW
+	 z65r7qkmfGy4yXrglovJKWQmqAG3QUtLn4XlfXeNZ/ow07N0RPEQ8b5gflsEFATLP+2vk
+	 QkzuawHdR5KNvjyB0tnrFcGZBbfiN3Jje5sb8vKrykc9iSiQ9Lp3KZA0u1vaLvFAjUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NAj0hod0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=bur.io;
+	spf=pass smtp.mailfrom=bur.io;
+	dkim=pass header.d=bur.io header.i=@bur.io header.a=rsa-sha256 header.s=fm1 header.b=DaaaknIo;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="fsIj/cyv";
+	arc=none smtp.remote-ip=202.12.124.146
+Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 515DD606AB17;
-	Wed,  4 Nov 2026 19:28:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15C3E607527B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:28:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15C3E607527B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bur.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bur.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NAj0hod0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F0181F00A1A;
-	Wed,  4 Nov 2026 19:28:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793820491;
-	bh=NP9uzi8hQ+GlRLcZMObnNOIDymBGDWJ+1F292ZdPL1I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NAj0hod0GiSh4qiNLTi1WX0FoLlXN1CGhLjOdCOe4qKNayvu6TCmjiiEC+ctqpF30
-	 Igi4m0MulaDp3RSFvu12z8/wJ0dZpMZZQme4XlhE5RIM8NWMXxDqUFA5eauZhBnQRO
-	 j2urs+dGqlCxGrcn5k38haREiKA82S2hwykYvSi0weYQCwh1ZmuLytX/pSd0D8M2hT
-	 L77+vI7tAfBbEJuHDq4CScHOXscr4x4MRY6of9vu1Cc+S8fMmRGO+jwvJWiZORMyjB
-	 7Dd2f7v8aATY8DgDMEEOJzcMqYDQ+r7ut2U0vVHHCtlWaUiln6c9F0ICijdirmp7HY
-	 syT8HsDpuWIgQ==
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Jann Horn <jannh@google.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Chris Mason <mason@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Christoph Hellwig <hch@lst.de>,
-	Greg Kroah-Hartman <gregkh@suse.de>,
-	Joel Granados <joel.granados@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Jan Kara <jack@suse.com>,
-	linux-kernel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	netdev@vger.kernel.org,
-	ntfs3@lists.linux.dev,
-	platform-driver-x86@vger.kernel.org,
-	coreteam@netfilter.org,
-	kexec@lists.infradead.org,
-	linux-pci@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	ibm-acpi-devel@lists.sourceforge.net,
-	jfs-discussion@lists.sourceforge.net,
-	linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-sh@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	samba-technical@lists.samba.org,
-	sparclinux@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
-	linux-doc@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-atm-general@lists.sourceforge.net,
-	Takashi Iwai <tiwai@suse.de>,
-	linux-input@vger.kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	linux-modules@vger.kernel.org,
-	linux-debuggers@vger.kernel.org,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Chuck Lever <cel@kernel.org>
-Subject: [PATCH RESEND v2 49/51] selftests/proc: check that faulting sysctl accesses don't hold up removal
-Date: Wed,  4 Nov 2026 20:27:58 +0100
-Message-ID: <20261104-work-procfs-bugfixes-v2-49-021c84d852e0@kernel.org>
-In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
-References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=bur.io header.i=@bur.io header.a=rsa-sha256 header.s=fm1 header.b=DaaaknIo;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=fsIj/cyv
+Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
+	by mailfout.stl.internal (Postfix) with ESMTP id 7EA761D00046
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:28:46 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-11.internal (MEProxy); Wed, 04 Nov 2026 14:28:46 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bur.io; h=cc:cc
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1793820525; x=1793906925; bh=xo7O7OZ9Io
+	Qt+9PPHhtslfdp1sVEzka18zv7uZU02m4=; b=DaaaknIofdNz6tOS9AbKcML3RU
+	NVHfd7/ul6uX4IX5K9tsiVbawWimrSKtNTfvw8O1Q+Y3GdzD9PMBGmDoVOKAvwJa
+	20vJ68qltE7qRfST3XUDRbPsPyppQ7myIV8DPXhVo/ZkfQfgVc7qzgaBKz53+oyF
+	DAZMYMv/FSjj/uv+JBcHt2i20UBQLxHYLl7zUcSpcdAzCMn3IEPZvV5gfFv8/QY+
+	XnKkfa46tQAKUu+QcdGrt17NdqXJZ9secg0AbfSf5EvV5dHhSVqLlIIXo/lG/kSo
+	X4yhFeyYc6nUxuNRKXOUpG+9cW1QAl8Gpn+xFH5eJPb/02udUMF5ko+nkYVg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1793820525; x=1793906925; bh=xo7O7OZ9IoQt+9PPHhtslfdp1sVEzka18zv
+	7uZU02m4=; b=fsIj/cyvJSM/3CdgGEVk0v+q9kTgbuWg4xY+KLsPjV17UKoaa0a
+	DMFYDdpC4And8jIlgwm024drU6lv33jxJa8EOt87Wlp2pIBRfE2nENyiP4ZEOFeT
+	Cle6y8anHsuJA/mgiQDT5t9UGf/tLeCCMKM1Vpa0/zLnn6tzcKKev4SB0M5Z3v2Z
+	kDlWH+KQsTlKf9BXCBdA+pn9l743DHzLxz9BtGbJMIKB4CxU4VC4ZCf+sISroJyA
+	f2NqOzdA6wltnsr8JEz+nW+AhGPcQPPkzRB2tjBCQTbgNRGIrgFiQ6U7JRSKpe1Q
+	ufG0jbpQpryNoSbFI5C2cycA6AsD5bXfbUw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=bur.io a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793820525; d=bur.io;
+	mf=PGJvcmlzQGJ1ci5pbz4=;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:lm0JhuRW2i4tis2bGFyZtrTGt5DRvo78MrGYhknlPV4N2+3
+	Vyvw+rh8Q+6IPDGsDBbi6NbjLikoqK66yRk6D73N9jKPUY54QVgv8MkYCOys/T/2
+	R+JVyDUwtu2YN9zqhKgjk0AIBvbC/iYvPcINl/Jd2KyR/RrmpBXcxrFMxEztV601
+	YZ5wIDLJJ4+cijk1vSXsBPlT1DToJ2TGWPJseQ2/NWLyDD9v+xdV5xVLk13wn7Jx
+	B2/hC5Wq5nI1gjGZkB/1d597EcP9xrK5ZMVHR2rEDPpQKVv/cwsp2vX3KrD0E6JG
+	gPW6znE5qwCcJQ5nqYTxlDSRJciFJbI/1KoS2zg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:8BF7drxOctqfl5h5+r9WUG2Zv6uBgKNCZ865yP9YMUw=:fyr48dxAe+omUVaoEPdG3rZeZQnPmzKwSeHf0bdmgYU=;
+X-ME-Sender: <xms:bYfrapMsnb6-givm3XrBhCxtdU3qEMG5wDSvbspPrT1BalmKogwkxg>
+    <xme:bYfral8qZWW2S0043deHw-7-PgLfPnUxxVxQ18bJjXJEhjHIKDThkHDUFigO4IxHl
+    4aQ7D79baSPqys0K-YmyYUSHx3lzdy_qAyXJIhC4M552RdR1L_tWvt9>
+X-ME-Received: <xmr:bYfrau7y9qlO-5Lafs6zyxzURzEilUGxdxEPMxfIlTRI801DhEqLTsTX>
+X-ME-Proxy-Cause: dmFkZTEQ3qYdXHFTIZGeadzcrreMOjaOaREO5XS6pTV42Wh53MDHib3sq60Ws4Lz1r7e4Z
+    6BHWJ8fJYzy2ayWd3aOn6lf4RnzPXz+8r2BFYJ3l/KiCctvIAy+EOgWG4PqUp31wg2p8aq
+    dGuxoFK89azDuBYdwbMGs0fnpEKqLzcGF7b2E0b5Q9czE69CnANHt9i3jU18gFRhskWR86
+    21ZHVdRhM8BbqpQprwGPFWRweAuXPmCWpvWcxLd2Jxt/GcvizjqLnemL8ScCdy34PyCH8G
+    ywwm7tM4UthuQfQaesOxuwGxtfsGBuA2Cti1DUXK8e9z+5EDgmj39svqewfJysynpFosi/
+    uVDcUB9yy0x9iqhbHsxL8HXGXXFA9dhdSJF1PNwXV+JUXEfNHz1K6aXOdCLx5iPgEeG0bg
+    4IPEOZQft8rD9A78Ydzd5HRkd1vyJyHxg/4DlVWZ4pTZhamYUwm9ERxFSdaLk6W+WTyPvp
+    w0/bD8xamTL3AxW01sljgCom8oQaQ1PZDClnlH5gDB41ZBsm95rnYZcDcW2atckh8zOxi8
+    QOt0jAD+eqCu8XBomY+URpwq5Oc+qUF+NViBkWBVJDE+Gw+ivzAcXhoZy+t/Fe7TOgebRJ
+    OcSelIynEihFhOJUWCWk9Nc9tR6Q+zE9WmP4kHcC10gkYcVrhdv2wvx/7AkQ
+X-ME-Proxy: <xmx:bYfraj5Bh3RrBHr3jb3nE7b4b5423uuACGUJap0uXyguJwFo6zkMlw>
+    <xmx:bYfravrLH44qYcViIlm89zpJZUlged1-H7v5RN6qjBefFwjihVVFJw>
+    <xmx:bYfrasNV-B1pubh-1J36QYth410FSRDf9uHLEjyVl6lNTSfXIVhhkQ>
+    <xmx:bYfrav2Kq5B2F2jwrT_R23FpAMWOMjuKtVFUX2IRLkonQ-PGrR4L1A>
+    <xmx:bYfrajo6hG4Oc8wCSC9tQOxhY4EPkVNbJmyBrVJAx5J31BYfpanSXgo3>
+Feedback-ID: i083147f8:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 4 Nov 2026 14:28:44 -0500 (EST)
+Date: Wed, 4 Nov 2026 11:29:02 -0800
+From: Boris Burkov <boris@bur.io>
+To: Siddharth Mishra <smish149@asu.edu>
+Cc: dsterba@suse.com, wqu@suse.com, josef@toxicpanda.com, fdmanana@suse.com,
+	mason@kernel.org, linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/5] btrfs: tree-checker: reject keyed refs not matching
+ the extent type
+Message-ID: <20261104192902.GE3301639@zen.localdomain>
+References: <20261104102323.4090290-1-smish149@asu.edu>
+ <20261104102323.4090290-4-smish149@asu.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,282 +124,144 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7877; i=brauner@kernel.org; h=from:subject:message-id; bh=nCZPyQUbx5TtYoxg9V0ET+7jSg+MEw36C1ShZRwuIz8=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9buIQvq4skXTQTjUuXmTXOeOyKTNaPto9S5ZwizNK1 bd4x7mto5SFQYyLQVZMkcWh3SRcbjlPxWajTA2YOaxMIEMYuDgFYCL1kxj+Vyjv+nbt3OspWhEb vBoP9CTYsfBOVTztsymEa5vl9nmsgYwMbxrZPeK5fOzuqipN+Wp3d03//tlX/wmFFa3eVMgRE3m LFQA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104102323.4090290-4-smish149@asu.edu>
 
-Read, write and list /proc/sys/net/ipv6/conf/<dev>/ of a tun device
-with a buffer whose first page is backed by userfaultfd and remove the
-device while the task sleeps in its copy from or to userspace:
+On Wed, Nov 04, 2026 at 03:23:21AM -0700, Siddharth Mishra wrote:
+> [BACKGROUND]
+> When the refs of an extent do not fit into its extent item, the others
+> are stored as keyed ref items with the same objectid, right after the
+> extent item:
+> 
+>   TREE_BLOCK:  TREE_BLOCK_REF and SHARED_BLOCK_REF items
+>   DATA:        EXTENT_DATA_REF and SHARED_DATA_REF items
+> 
+> [CAUSE]
+> check_simple_keyed_refs() and check_extent_data_ref() only verify the
+> keyed ref itself.  Nothing checks that its type matches the extent it
+> belongs to, so a tree block ref for a data extent, or a data ref for a
+> tree block, passes the tree-checker.  For example this data extent is
+> followed by a keyed tree block ref:
+> 
+> 	item 0 key (13631488 EXTENT_ITEM 32768) itemoff 3797 itemsize 198
+> 		refs 41 gen 9 flags DATA
+> 		(178 0xdea30debbf5f519) extent data backref root 256
+> 		objectid 258 offset 0 count 1
+> 		...
+> 	item 1 key (13631488 TREE_BLOCK_REF 5) itemoff 3797 itemsize 0
+> 	           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 		tree block backref
+> 
+> The leaf is accepted.  When the extent is freed later, the refs do not
+> add up and the transaction aborts:
+> 
+>   WARNING: fs/btrfs/extent-tree.c:3418 at __btrfs_free_extent
+>   BTRFS error (device vda state A): Transaction 35 aborted (-EUCLEAN)
+>   BTRFS info (device vda state EA): forced readonly
+> 
+> [ENHANCEMENT]
+> Check each keyed ref against the item right before it.  Keyed refs sort
+> right after their extent item, so that item is either the extent item
+> or another keyed ref of the same extent, and both must be of the same
+> kind.  Reject a mismatch with -EUCLEAN, so the leaf is refused when it
+> is read:
+> 
+>   BTRFS critical (device vda): corrupt leaf: block=31678464 slot=1
+>   extent bytenr=13631488 len=4096 keyed ref type 176 does not match the
+>   extent type
+> 
+> This is the keyed counterpart of the inline ref check.
+> 
+> If the item before a keyed ref belongs to another extent, its extent
+> item is in another leaf and the keyed ref cannot be checked by the
+> tree-checker.
+> 
 
-- unregistering the table doesn't wait for a faulting read(), write()
-  or getdents64()
+This one seems the most "juice not worth the squeeze" out of these
+patches, but I think the analogy to inline refs is good enough for me to
+justify it.
 
-- the read still gets the value that was produced before the removal
-  and the next read fails with -ENOENT
+Reviewed-by: Boris Burkov <boris@bur.io>
 
-- the write is copied in after the removal and fails with -ENOENT
-
-- getdents64() still lists what it looked up before the removal and
-  fails with -ENOENT afterwards
-
-The tables are unregistered under RTNL, so a regression stalls each
-test for five seconds before it fails.
-
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- tools/testing/selftests/proc/.gitignore            |   1 +
- tools/testing/selftests/proc/Makefile              |   1 +
- .../selftests/proc/proc-remove-slow-sysctl.c       | 215 +++++++++++++++++++++
- 3 files changed, 217 insertions(+)
-
-diff --git a/tools/testing/selftests/proc/.gitignore b/tools/testing/selftests/proc/.gitignore
-index 5b5e24e39cbd..7b8133492782 100644
---- a/tools/testing/selftests/proc/.gitignore
-+++ b/tools/testing/selftests/proc/.gitignore
-@@ -21,6 +21,7 @@
- /proc-uptime-001
- /proc-uptime-002
- /proc-pidns
-+/proc-remove-slow-sysctl
- /read
- /self
- /setns-dcache
-diff --git a/tools/testing/selftests/proc/Makefile b/tools/testing/selftests/proc/Makefile
-index dae09f333455..bce6beca7274 100644
---- a/tools/testing/selftests/proc/Makefile
-+++ b/tools/testing/selftests/proc/Makefile
-@@ -32,5 +32,6 @@ TEST_GEN_PROGS += proc-multiple-procfs
- TEST_GEN_PROGS += proc-fsconfig-hidepid
- TEST_GEN_PROGS += proc-sysctl-readdir-churn
- TEST_GEN_PROGS += proc-pidns
-+TEST_GEN_PROGS += proc-remove-slow-sysctl
- 
- include ../lib.mk
-diff --git a/tools/testing/selftests/proc/proc-remove-slow-sysctl.c b/tools/testing/selftests/proc/proc-remove-slow-sysctl.c
-new file mode 100644
-index 000000000000..e2992a26ed69
---- /dev/null
-+++ b/tools/testing/selftests/proc/proc-remove-slow-sysctl.c
-@@ -0,0 +1,215 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * A read(), write() or getdents64() of /proc/sys that faults while copying
-+ * from or to userspace must not hold up unregistering the sysctl table.
-+ * /proc/sys/net/ipv6/conf/<dev>/ of a tun device is unregistered under RTNL
-+ * when the device's file is closed.
-+ */
-+#define _GNU_SOURCE
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <linux/if.h>
-+#include <linux/if_tun.h>
-+#include <linux/userfaultfd.h>
-+#include <poll.h>
-+#include <pthread.h>
-+#include <sched.h>
-+#include <string.h>
-+#include <sys/ioctl.h>
-+#include <sys/mman.h>
-+#include <sys/syscall.h>
-+#include <unistd.h>
-+
-+#include "../kselftest_harness.h"
-+
-+#define TUN_NAME	"procslow0"
-+#define CONF_PATH	"/proc/sys/net/ipv6/conf/" TUN_NAME
-+#define MTU_PATH	CONF_PATH "/mtu"
-+#define BUF_PAGES	16
-+#define TIMEOUT_MS	5000
-+
-+enum sysctl_op {
-+	SYSCTL_READ,
-+	SYSCTL_WRITE,
-+	SYSCTL_GETDENTS,
-+};
-+
-+struct worker {
-+	enum sysctl_op op;
-+	int fd;
-+	char *buf;
-+	size_t len;
-+	ssize_t ret;
-+	int err;
-+};
-+
-+struct closer {
-+	int tun;
-+	int done;
-+};
-+
-+static void *work_thread(void *arg)
-+{
-+	struct worker *w = arg;
-+
-+	switch (w->op) {
-+	case SYSCTL_READ:
-+		w->ret = read(w->fd, w->buf, w->len);
-+		break;
-+	case SYSCTL_WRITE:
-+		w->ret = write(w->fd, w->buf, w->len);
-+		break;
-+	case SYSCTL_GETDENTS:
-+		w->ret = syscall(__NR_getdents64, w->fd, w->buf, w->len);
-+		break;
-+	}
-+	w->err = errno;
-+	return NULL;
-+}
-+
-+static void *close_thread(void *arg)
-+{
-+	struct closer *c = arg;
-+	ssize_t ret;
-+
-+	close(c->tun);
-+	ret = write(c->done, "x", 1);
-+	return (void *)ret;
-+}
-+
-+FIXTURE(proc_sys_slow) {
-+	int tun;
-+	int uffd;
-+	char *buf;
-+	long psz;
-+};
-+
-+FIXTURE_SETUP(proc_sys_slow)
-+{
-+	struct uffdio_api api = { .api = UFFD_API };
-+	struct uffdio_register reg = {};
-+	struct ifreq ifr = {};
-+
-+	if (unshare(CLONE_NEWNET))
-+		SKIP(return, "unshare(CLONE_NEWNET): %s", strerror(errno));
-+
-+	self->tun = open("/dev/net/tun", O_RDWR | O_CLOEXEC);
-+	if (self->tun < 0)
-+		SKIP(return, "/dev/net/tun: %s", strerror(errno));
-+	strncpy(ifr.ifr_name, TUN_NAME, IFNAMSIZ - 1);
-+	ifr.ifr_flags = IFF_TUN | IFF_NO_PI;
-+	ASSERT_EQ(ioctl(self->tun, TUNSETIFF, &ifr), 0);
-+	if (access(CONF_PATH, F_OK))
-+		SKIP(return, CONF_PATH ": %s", strerror(errno));
-+
-+	self->uffd = syscall(__NR_userfaultfd, O_CLOEXEC | O_NONBLOCK);
-+	if (self->uffd < 0)
-+		SKIP(return, "userfaultfd: %s", strerror(errno));
-+	ASSERT_EQ(ioctl(self->uffd, UFFDIO_API, &api), 0);
-+
-+	/* Only the first page of the buffer goes through userfaultfd. */
-+	self->psz = sysconf(_SC_PAGESIZE);
-+	self->buf = mmap(NULL, BUF_PAGES * self->psz, PROT_READ | PROT_WRITE,
-+			 MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+	ASSERT_NE(self->buf, MAP_FAILED);
-+	reg.range.start = (unsigned long)self->buf;
-+	reg.range.len = self->psz;
-+	reg.mode = UFFDIO_REGISTER_MODE_MISSING;
-+	ASSERT_EQ(ioctl(self->uffd, UFFDIO_REGISTER, &reg), 0);
-+}
-+
-+FIXTURE_TEARDOWN(proc_sys_slow)
-+{
-+}
-+
-+/*
-+ * Let @w sleep in its copy from or to the first page of the buffer, then
-+ * close the device. Unregistering the table must not wait for @w.
-+ */
-+static void stall_and_remove(struct __test_metadata *_metadata,
-+			     FIXTURE_DATA(proc_sys_slow) *self,
-+			     struct worker *w)
-+{
-+	struct closer c = { .tun = self->tun };
-+	struct uffdio_zeropage zero = {};
-+	struct uffd_msg msg;
-+	struct pollfd pfd;
-+	pthread_t wt, ct;
-+	int done[2];
-+
-+	w->buf = self->buf;
-+	ASSERT_EQ(pthread_create(&wt, NULL, work_thread, w), 0);
-+
-+	pfd = (struct pollfd){ .fd = self->uffd, .events = POLLIN };
-+	ASSERT_EQ(poll(&pfd, 1, TIMEOUT_MS), 1);
-+	ASSERT_EQ(read(self->uffd, &msg, sizeof(msg)), sizeof(msg));
-+	ASSERT_EQ(msg.event, UFFD_EVENT_PAGEFAULT);
-+
-+	ASSERT_EQ(pipe2(done, O_CLOEXEC), 0);
-+	c.done = done[1];
-+	ASSERT_EQ(pthread_create(&ct, NULL, close_thread, &c), 0);
-+	pfd = (struct pollfd){ .fd = done[0], .events = POLLIN };
-+	EXPECT_EQ(poll(&pfd, 1, TIMEOUT_MS), 1) {
-+		TH_LOG("unregistering " CONF_PATH " waited for the faulting task");
-+	}
-+
-+	zero.range.start = (unsigned long)self->buf;
-+	zero.range.len = self->psz;
-+	ASSERT_EQ(ioctl(self->uffd, UFFDIO_ZEROPAGE, &zero), 0);
-+	ASSERT_EQ(pthread_join(wt, NULL), 0);
-+	ASSERT_EQ(pthread_join(ct, NULL), 0);
-+}
-+
-+TEST_F(proc_sys_slow, read)
-+{
-+	struct worker w = {
-+		.op	= SYSCTL_READ,
-+		.len	= BUF_PAGES * self->psz,
-+	};
-+
-+	w.fd = open(MTU_PATH, O_RDONLY | O_CLOEXEC);
-+	ASSERT_GE(w.fd, 0);
-+	stall_and_remove(_metadata, self, &w);
-+
-+	/* The value was produced before the table went away, then nothing. */
-+	EXPECT_GT(w.ret, 0);
-+	EXPECT_EQ(read(w.fd, self->buf, self->psz), -1);
-+	EXPECT_EQ(errno, ENOENT);
-+}
-+
-+TEST_F(proc_sys_slow, write)
-+{
-+	struct worker w = {
-+		.op	= SYSCTL_WRITE,
-+		.len	= 5,
-+	};
-+
-+	w.fd = open(MTU_PATH, O_WRONLY | O_CLOEXEC);
-+	ASSERT_GE(w.fd, 0);
-+	stall_and_remove(_metadata, self, &w);
-+
-+	/* The table went away while the value was copied in. */
-+	EXPECT_EQ(w.ret, -1);
-+	EXPECT_EQ(w.err, ENOENT);
-+}
-+
-+TEST_F(proc_sys_slow, getdents)
-+{
-+	struct worker w = {
-+		.op	= SYSCTL_GETDENTS,
-+		.len	= BUF_PAGES * self->psz,
-+	};
-+
-+	w.fd = open(CONF_PATH, O_RDONLY | O_DIRECTORY | O_CLOEXEC);
-+	ASSERT_GE(w.fd, 0);
-+	/* start behind the dots so that it faults on an entry it looked up */
-+	ASSERT_EQ(lseek(w.fd, 2, SEEK_SET), 2);
-+	stall_and_remove(_metadata, self, &w);
-+
-+	/* What was looked up before the removal still arrives, then nothing. */
-+	EXPECT_GT(w.ret, 0);
-+	EXPECT_EQ(syscall(__NR_getdents64, w.fd, self->buf, self->psz), -1);
-+	EXPECT_EQ(errno, ENOENT);
-+}
-+
-+TEST_HARNESS_MAIN
-
--- 
-2.53.0
-
+> Signed-off-by: Siddharth Mishra <smish149@asu.edu>
+> ---
+>  fs/btrfs/tree-checker.c | 48 +++++++++++++++++++++++++++++++++++++++--
+>  1 file changed, 46 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
+> index db446c8af..d966243c9 100644
+> --- a/fs/btrfs/tree-checker.c
+> +++ b/fs/btrfs/tree-checker.c
+> @@ -1854,6 +1854,50 @@ static int check_extent_item(struct extent_buffer *leaf,
+>  	return 0;
+>  }
+>  
+> +static int check_keyed_ref_extent_type(const struct extent_buffer *leaf,
+> +				       const struct btrfs_key *key, int slot)
+> +{
+> +	const bool is_tree_block_ref = (key->type == BTRFS_TREE_BLOCK_REF_KEY ||
+> +					key->type == BTRFS_SHARED_BLOCK_REF_KEY);
+> +	struct btrfs_key prev_key;
+> +	bool prev_is_tree_block;
+> +
+> +	if (slot == 0)
+> +		return 0;
+> +	btrfs_item_key_to_cpu(leaf, &prev_key, slot - 1);
+> +	if (prev_key.objectid != key->objectid)
+> +		return 0;
+> +
+> +	switch (prev_key.type) {
+> +	case BTRFS_EXTENT_ITEM_KEY:
+> +	case BTRFS_METADATA_ITEM_KEY: {
+> +		struct btrfs_extent_item *ei;
+> +
+> +		ei = btrfs_item_ptr(leaf, slot - 1, struct btrfs_extent_item);
+> +		prev_is_tree_block = (btrfs_extent_flags(leaf, ei) &
+> +				      BTRFS_EXTENT_FLAG_TREE_BLOCK);
+> +		break;
+> +	}
+> +	case BTRFS_TREE_BLOCK_REF_KEY:
+> +	case BTRFS_SHARED_BLOCK_REF_KEY:
+> +		prev_is_tree_block = true;
+> +		break;
+> +	case BTRFS_EXTENT_DATA_REF_KEY:
+> +	case BTRFS_SHARED_DATA_REF_KEY:
+> +		prev_is_tree_block = false;
+> +		break;
+> +	default:
+> +		return 0;
+> +	}
+> +	if (unlikely(prev_is_tree_block != is_tree_block_ref)) {
+> +		extent_err(leaf, slot,
+> +			   "keyed ref type %u does not match the extent type",
+> +			   key->type);
+> +		return -EUCLEAN;
+> +	}
+> +	return 0;
+> +}
+> +
+>  static int check_simple_keyed_refs(struct extent_buffer *leaf,
+>  				   struct btrfs_key *key, int slot)
+>  {
+> @@ -1892,7 +1936,7 @@ static int check_simple_keyed_refs(struct extent_buffer *leaf,
+>  			   key->offset, leaf->fs_info->sectorsize);
+>  		return -EUCLEAN;
+>  	}
+> -	return 0;
+> +	return check_keyed_ref_extent_type(leaf, key, slot);
+>  }
+>  
+>  static int check_extent_data_ref(struct extent_buffer *leaf,
+> @@ -1953,7 +1997,7 @@ static int check_extent_data_ref(struct extent_buffer *leaf,
+>  			return -EUCLEAN;
+>  		}
+>  	}
+> -	return 0;
+> +	return check_keyed_ref_extent_type(leaf, key, slot);
+>  }
+>  
+>  #define inode_ref_err(eb, slot, fmt, args...)			\
+> -- 
+> 2.54.0
+> 
