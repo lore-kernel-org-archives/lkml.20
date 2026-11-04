@@ -1,54 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.230
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793778478;
-	b=NO5nEUosNLOFfa28uDRDMFXR4Y40N7v1S0q1Rt4vMZ9YcJBfuMHH2Yi77FVc0XugEd9m
-	 iQAhEzVnCG6uRJ7ULqcl8V0rBJ7NXWbYuMYR6DX87M8K+2uoKq6Ep84FD9TV7BsXDoXZ2
-	 Htyb7RW7m+5YSjHIL/sjkHNjeDKGIamsHDWkoBJK5/FsHNK1wTXTCUWXrTXgdLSbA4YBR
-	 rEM+vFpVVLz40o8TId8TIYnHL3v7dsD5mgIfAJxYtI/DX2uFKVWN6CbKaSjm1xHIHmSeZ
-	 lK2hVFX6Nu1mOKBAXNRFNctrQMYNw01NsZLfQEWVv6z+TZSChWEBVY3EqOrPVnowCVA==
+	t=1793778509;
+	b=u+BpXYqlN8uxSm4nk2M1pAt3PCPFyS5I9CCtFLJg9kgCfc1GC+YsKCZ4J1zgvc4LeObc
+	 0SxtwC1qVHJbNwKyFc/CZT4fMlmqEkcMWCia0JdaKbYf3z0dDM5bD3X3aRuu4+gn5qvw2
+	 ZU1RxVA8+FThY6dWhHg8UHkjgDYk6UTI2ecBe5dj8GAzgjuRxKHu86lNKeB8P8cEm/4jN
+	 aHjly3qBKvBt20yEakvvVEDDUhNMmtUAvLafmPEM347GLV8FbbZVD+0/QDG6tRb7Ogv3u
+	 U1jozUrTg4WuTsl3m3DpiNwj/n3wPM3zpozHd2c/TJtV4Bb5WyiJEuGTgDAATe3NRWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793778478;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=sDlodseTHUYdBDE8U9EBMQzIvxI2E8etBmPnHlBGbe4=;
-	b=Ld2wY7bzeouoPAyDTpa3j5rLJNlhRnOxWvcW/ubcAH8/1C7LYfOT4uKsfdejB3/m1kMR
-	 +X0o9zokzvevRAAGr+kxNujfZeqgrBZjHchWohL5/RqIMMz12upavPEsUaIYrnePS6feE
-	 R4IjbK3txf7bG/v6hq1khMkqRZfXQaryp8cv7Hn3ZFWy3HnVEaNOfiXQV/dc9jwoUuA/V
-	 sAzaALLzaZByDuXbaSJzCGNtAsMikTIUfTYKYAcdSqpUuwUmsAgIARUi7LGPSIny8YDRv
-	 s7KmP6bQY92373evLOLTRgdAMHUwwIC7kOY2QI4zUNkeuTvcZrXlaINZ43qJknW4VbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793778509;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=3/zRe9vwimyAKlujhJpIykf1rU8WDG4BW3gdKws4SSg=;
+	b=TYxTxIpyLg+BYEItQwEG/52QMo8TvHrn0QniSUfaxrtXj3PCxIE9dt8aarMu5st2wcM/
+	 UtkJj1+0mp1XQU3q7n1hrkt33IRGkH3AxnPthuhby6z1mgBIfiPnurw0plDqQWAAHhxMU
+	 DQDJl5gN0p+oFPejAvsEjUia8+MZkMOIBze/jFKVIIXKepQPW+uVAUfSpnd6ODRncBQKk
+	 ghqDbwigp3a4pypVeFgZ9bcJ46uYjaosrvr7BiwV5CaQSd3T+vYuKesFyMhqf1Qo/QmFn
+	 +FfBk9cvJ1R2TXSZLgMiZ+6hAeLZdlHkv960S0gVRwUyU9l+Ly0BIuvPLu80RkEMRYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=D+NDpLB8;
-	arc=none smtp.remote-ip=91.218.175.230
-Received: from mta0.migadu.com (out-230.mta0.migadu.com [91.218.175.230])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=isxIwnt5;
+	arc=none smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C95A1606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 07:47:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C95A1606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 399CA606A31B;
+	Wed,  4 Nov 2026 07:48:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 399CA606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=D+NDpLB8
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=0JyHOnRJ/tnwgb0cYunQfYkiNN1NIfUkDxCymd783Zw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793778474; v=1; x=1794383274;
- b=D+NDpLB8FgH/m2MD1a+Myx9jAgt9m0ChiQdW7eJlYcQ4IwUpIljY6vXpgPyKQSA3F0IWpOQI
- Q9KAxj3nxiUDPKIMa1eY6Yug1gUnZpd1eW3cs++y52JjozTVwkk80l359pxwDfpn+egfSupVSmx
- v3vZ4fB3n2PYVA3SBUvaY/0A=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6abba58bc298b535;
-	Wed, 04 Nov 2026 07:47:54 +0000
-X-Mizu-Trace-ID: 6abba58bc298b535
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <ae47e4d2-e847-4ee5-901f-56536527eadd@linux.dev>
-Date: Wed, 4 Nov 2026 15:47:47 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=isxIwnt5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793778509; x=1825314509;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=MGERo7IutoYDKFk1OSRa5qfbdpb6Z5J0rtb4cbykvQk=;
+  b=isxIwnt5oNO34+eSRV81xGsLxBxg/Tga/WKkjl+Iw42OvBLbcVxnetNw
+   kwfZkgsGx626mDnO5LXREItjw3oWtx/TCulE4t2+mBwpmniILArC7JjhV
+   8w8d89zxzF+4ZE0MYClBr+rBJnZubjG98EqVjcPRStBZknrITuT7FjXkT
+   ANmz9MnehLclnK7lUmQ5mXmLK4tA9jNMo5sgQNoNKqriQH7HIzAvwih9B
+   3tvXV8D+b/VoaisXRYCwaCJI2+RrxjDEr282Tlto/rMCB6XuiwQnLSmHN
+   VCfnwTaN1cSstjY6ZV8dDfh70sxxDud9LBWgFyb/69VkoSS0QBy0lxDkC
+   w==;
+X-CSE-ConnectionGUID: AR1OFukTR66Orp6ZuKglQg==
+X-CSE-MsgGUID: +nczM0DEQVO//jomJuWNTA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2418891"
+X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
+   d="scan'208";a="2418891"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 23:48:27 -0800
+X-CSE-ConnectionGUID: 12yQyZT5RzOj8Mi/HJRdgw==
+X-CSE-MsgGUID: btuo50MzQVK+LwpDLUyClw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
+   d="scan'208";a="6966599"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa008.fm.intel.com with ESMTP; 03 Nov 2026 23:48:25 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id 680F399; Wed, 04 Nov 2026 08:48:23 +0100 (CET)
+Date: Wed, 4 Nov 2026 08:48:23 +0100
+From: "mika.westerberg@linux.intel.com" <mika.westerberg@linux.intel.com>
+To: Chunfeng Yun =?utf-8?B?KOS6keaYpeWzsCk=?= <Chunfeng.Yun@mediatek.com>
+Cc: "konrad.dybcio@oss.qualcomm.com" <konrad.dybcio@oss.qualcomm.com>,
+	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+	"westeri@kernel.org" <westeri@kernel.org>,
+	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	"YehezkelShB@gmail.com" <YehezkelShB@gmail.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"sven@kernel.org" <sven@kernel.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"andreas.noever@gmail.com" <andreas.noever@gmail.com>,
+	"matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+	"linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>
+Subject: Re: [PATCH 1/4] thunderbolt: add platform nhi driver
+Message-ID: <20261104074823.GA176724@black.igk.intel.com>
+References: <20261030082539.1208733-1-chunfeng.yun@mediatek.com>
+ <20261030082539.1208733-2-chunfeng.yun@mediatek.com>
+ <20261030084750.GP158991@black.igk.intel.com>
+ <c93100aad298d4ae1751ec60f037eb903f398658.camel@mediatek.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,209 +93,235 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] mm: hugetlb: skip CMA allocations under
- PF_MEMALLOC_PIN
-To: Muchun Song <muchun.song@linux.dev>
-Cc: osalvador@suse.de, David Hildenbrand <david@kernel.org>,
- akpm@linux-foundation.org, azpijr@gmail.com, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, stable@vger.kernel.org,
- Qi Zheng <zhengqi.arch@bytedance.com>
-References: <cover.1793692578.git.zhengqi.arch@bytedance.com>
- <5bc00742fe249cf09a3095abccf8889d5fa71116.1793692578.git.zhengqi.arch@bytedance.com>
- <4EC5E593-7537-4659-879C-95ECC2224D2F@linux.dev>
- <8b7f6573-ed12-494f-9210-d6f6dbf01567@linux.dev>
- <2DE679F1-C87F-4222-A710-C87CDE86D333@linux.dev>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <2DE679F1-C87F-4222-A710-C87CDE86D333@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <c93100aad298d4ae1751ec60f037eb903f398658.camel@mediatek.com>
 
-Hi Muchun,
+Hi,
 
-On 11/4/26 3:07 PM, Muchun Song wrote:
+On Wed, Nov 04, 2026 at 07:34:07AM +0000, Chunfeng Yun (云春峰) wrote:
+> > 
+> > > +{
+> > > +	/*
+> > > +	 * avoid device link fail for pcie tunnel
+> > > +	 */
+> > 
+> > What's this? 
+> explain why call these functions, without enable pm of nhi->dev,
+> tb_acpi_add_link() -> device_link_add() will fail
+
+Do you have the _DSD with the "usb4-host-interface"? tb_acpi_add_link()
+should take care of runtime resuming both.
+
+> > And the comment style is not the expected.
+> will fix it.
 > 
+> > 
+> > > +	pm_runtime_set_active(nhi->dev);
+> > > +	pm_runtime_get_noresume(nhi->dev);
+> > > +	devm_pm_runtime_enable(nhi->dev);
+> > 
+> > This means we never runtime suspend? Then this is not good.
+> No, just enable the device's pm and get a count to link pcie/usb4's
+> device, and will release later.
 > 
->> On Nov 4, 2026, at 11:27, Qi Zheng <qi.zheng@linux.dev> wrote:
->>
->> Hi Muchun,
+> > 
+> > > +
+> > > +	return 0;
+> > > +}
+> > > +
+> > > +static irqreturn_t nhi_plat_isr(int irq, void *data)
+> > > +{
+> > > +	struct tb_nhi *nhi = data;
+> > 
+> > Did you run checkpatch.pl against this? If not please do.
+> > 
+> > > +	schedule_work(&nhi->interrupt_work);
+> > > +	return IRQ_HANDLED;
+> > > +}
+> > > +
+> > > +static int nhi_plat_init_irq(struct tb_nhi *nhi)
+> > > +{
+> > > +	int ret;
+> > > +
+> > > +	INIT_WORK(&nhi->interrupt_work, nhi_interrupt_work);
+> > > +
+> > > +	ret = devm_request_irq(nhi->dev, nhi->irq, nhi_plat_isr,
+> > > IRQF_NO_SUSPEND,
+> > > +			       dev_name(nhi->dev), nhi);
+> > > +	if (ret)
+> > > +		return dev_err_probe(nhi->dev, ret, "request irq
+> > > failed\n");
+> > > +
+> > > +	return 0;
+> > > +}
+> > > +
+> > > +static void nhi_plat_exit(struct tb_nhi *nhi)
+> > > +{
+> > > +	devm_free_irq(nhi->dev, nhi->irq, nhi);
+> > > +	flush_work(&nhi->interrupt_work);
+> > > +
+> > > +	pm_runtime_put_noidle(nhi->dev);
+> > > +	pm_runtime_disable(nhi->dev);
+> > > +	pm_runtime_set_suspended(nhi->dev);
+> > > +}
+> > > +
+> > > +static const struct tb_nhi_ops nhi_plat_default_ops = {
+> > > +	.init = nhi_plat_init,
+> > > +	.shutdown = nhi_plat_exit,
+> > > +	.init_interrupts = nhi_plat_init_irq,
+> > > +};
+> > > +
+> > > +static int nhi_plat_probe(struct platform_device *pdev)
+> > > +{
+> > > +	struct device *dev = &pdev->dev;
+> > > +	struct tb_nhi *nhi;
+> > > +
+> > > +	nhi = devm_kzalloc(dev, sizeof(*nhi), GFP_KERNEL);
+> > > +	if (!nhi)
+> > > +		return -ENOMEM;
+> > > +
+> > > +	nhi->dev = dev;
+> > > +	nhi->ops = &nhi_plat_default_ops;
+> > > +
+> > > +	nhi->iobase = devm_platform_ioremap_resource(pdev, 0);
+> > > +	if (IS_ERR(nhi->iobase))
+> > > +		return PTR_ERR(nhi->iobase);
+> > > +
+> > > +	nhi->irq = platform_get_irq(pdev, 0);
+> > > +	if (nhi->irq < 0)
+> > > +		return dev_err_probe(dev, nhi->irq, "get irq
+> > > failed\n");
+> > > +
+> > > +	return nhi_probe(nhi);
+> > > +}
+> > > +
+> > > +static void nhi_plat_do_remove(struct platform_device *pdev, bool
+> > > reset)
+> > > +{
+> > > +	struct device *dev = &pdev->dev;
+> > > +	struct tb *tb = platform_get_drvdata(pdev);
+> > > +	struct tb_nhi *nhi = tb->nhi;
+> > > +
+> > > +	/*
+> > > +	 * On system shutdown/reboot force a host router reset so
+> > > the
+> > > +	 * CM asserts DPR on connected tbt3 devices before the
+> > > router tree
+> > > +	 * is removed (see tb_stop()).
+> > > +	 */
+> > > +	if (reset)
+> > > +		nhi->host_reset = true;
+> > > +
+> > > +	pm_runtime_get_sync(dev);
+> > > +	pm_runtime_dont_use_autosuspend(dev);
+> > > +
+> > > +	tb_domain_remove(tb);
+> > > +	wait_for_completion(&nhi->domain_released);
+> > > +	nhi_shutdown(nhi);
+> > > +}
+> > > +
+> > > +static void nhi_plat_remove(struct platform_device *pdev)
+> > > +{
+> > > +	nhi_plat_do_remove(pdev, false);
+> > > +}
+> > > +
+> > > +static void nhi_plat_shutdown(struct platform_device *pdev)
+> > > +{
+> > > +	nhi_plat_do_remove(pdev, true);
+> > > +}
+> > > +
+> > > +
+> > > +#ifdef CONFIG_OF
+> > > +static const struct of_device_id nhi_plat_of_match[] = {
+> > > +	{ .compatible = "thunderbolt-platform" },
+> > 
+> > Not sure if this is correct? Should this have mediatek,... ?
+> still need a common one, and also add a mediatek,thunderbolt?
 > 
-> Hi,
+> but the current platform is running on uefi/acpi but not based on dts,
 > 
->>
->> On 11/3/26 6:56 PM, Muchun Song wrote:
->>>> On Nov 3, 2026, at 16:01, Qi Zheng <qi.zheng@linux.dev> wrote:
->>>>
->>>> From: Qi Zheng <zhengqi.arch@bytedance.com>
->>>>
->>>> With gigantic overcommit enabled, a fault during long-term pinning
->>>> can allocate a fresh HugeTLB folio from CMA despite PF_MEMALLOC_PIN.
->>>>
->>>> The folio must then be migrated before it can be pinned. However,
->>>> fresh gigantic migration targets are not supported, so pinning fails
->>>> when the HugeTLB pool has no suitable target, even if the original
->>>> fault could have allocated pinnable memory outside CMA.
->>>>
->>>> Honor PF_MEMALLOC_PIN in the HugeTLB CMA allocator so the fault can
->>>> try the non-CMA fallback, or fail when allocation is restricted to CMA.
->>> Wait... I think my Acked-by got ahead of me here. :)
->>> There seems to be a rather odd distinction that GUP is missing.
->>> The usual reason long-term GUP must migrate a page out of a
->>> MIGRATE_CMA pageblock is that the page was only borrowed from CMA by the
->>> normal page allocator.  The corresponding CMA bitmap range is still
->>> available, so a future CMA allocation relies on being able to migrate
->>> that page away.  A long-term pin would prevent that.
->>> However, a HugeTLB folio returned by
->>> hugetlb_cma_alloc_frozen_folio() is different.  It is the actual CMA
->>> allocation, not merely a movable page that happens to reside in a
->>> MIGRATE_CMA pageblock.  Its range has already been marked allocated in
->>> the hugetlb CMA bitmap.
->>> Therefore, CMA cannot allocate that range again until the HugeTLB folio
->>> is freed anyway.  Long-term pinning the folio does not seem to make the
->>> CMA area any less available than keeping the HugeTLB folio mapped for
->>> the same amount of time.
->>> folio_is_longterm_pinnable() currently only sees MIGRATE_CMA and does
->>> not distinguish these two cases.  In that light, rejecting
->>> PF_MEMALLOC_PIN in hugetlb_cma_alloc_frozen_folio() looks like working
->>> around an overly broad GUP classification.  It also means that
->>> hugetlb_cma_only users will fail the fault, while other users may consume
->>> a gigantic contiguous range outside the dedicated hugetlb CMA area even
->>> when that area has free space.
->>> Would it make more sense to fix the long-term GUP check instead, so that
->>> an explicitly CMA-allocated HugeTLB folio is considered pinnable, while
->>> ordinary pages merely borrowed from MIGRATE_CMA pageblocks remain unpinnable?
->>
->> Make sense!
->>
->> I'll replace this patch with an exception for HPG_cma folios in the
->> MIGRATE_CMA check. This also lets the HugeTLB allocator select preallocated
->> CMA folios during long-term pinning. MIGRATE_ISOLATE and ZONE_MOVABLE
->> remain restricted.
->>
->> Fresh CMA allocations under PF_MEMALLOC_PIN also need to skip ranges
->> in ZONE_MOVABLE. Returning -EBUSY here lets CMA try its remaining ranges.
->>
->> The incremental diff against this patch is below.
->>
->> diff --git a/include/linux/cma.h b/include/linux/cma.h
->> index 8555d38a97b1..7fd1b6e65b58 100644
->> --- a/include/linux/cma.h
->> +++ b/include/linux/cma.h
->> @@ -21,11 +21,13 @@
->> #define CMA_MIN_ALIGNMENT_BYTES (PAGE_SIZE * CMA_MIN_ALIGNMENT_PAGES)
->>
->> struct cma;
->> +struct folio;
->>
->> extern unsigned long totalcma_pages;
->> extern phys_addr_t cma_get_base(const struct cma *cma);
->> extern unsigned long cma_get_size(const struct cma *cma);
->> extern const char *cma_get_name(const struct cma *cma);
->> +bool cma_folio_is_pinnable(struct folio *folio);
->>
->> extern int __init cma_declare_contiguous_nid(phys_addr_t base,
->> 			phys_addr_t size, phys_addr_t limit,
->> diff --git a/include/linux/mm.h b/include/linux/mm.h
->> index cb993a1d0728..d15810be7d96 100644
->> --- a/include/linux/mm.h
->> +++ b/include/linux/mm.h
->> @@ -3,6 +3,7 @@
->> #define _LINUX_MM_H
->>
->> #include <linux/args.h>
->> +#include <linux/cma.h>
->> #include <linux/errno.h>
->> #include <linux/mmdebug.h>
->> #include <linux/gfp.h>
->> @@ -2975,14 +2976,16 @@ static inline bool is_zero_folio(const struct folio *folio)
->> 	return is_zero_page(&folio->page);
->> }
->>
->> -/* MIGRATE_CMA and ZONE_MOVABLE do not allow pin folios */
->> +/* Borrowed CMA pages and ZONE_MOVABLE folios cannot be pinned long term. */
->> #ifdef CONFIG_MIGRATION
->> static inline bool folio_is_longterm_pinnable(struct folio *folio)
->> {
->> #ifdef CONFIG_CMA
->> 	int mt = folio_migratetype(folio);
->>
->> -	if (mt == MIGRATE_CMA || mt == MIGRATE_ISOLATE)
->> +	if (mt == MIGRATE_ISOLATE)
->> +		return false;
->> +	if (mt == MIGRATE_CMA && !cma_folio_is_pinnable(folio))
->> 		return false;
+> should I add a dt-binding for it?
+
+Then no, that will be added when there is user for that.
+
+> > > +	{ }
+> > > +};
+> > > +MODULE_DEVICE_TABLE(of, nhi_plat_of_match);
+> > > +#endif
+> > > +
+> > > +#ifdef CONFIG_ACPI
+> > > +static const struct acpi_device_id nhi_plat_acpi_match[] = {
+> > > +	{ "ACPI0015", 0 },
+> > 
+> > Same here, where is this ID defined in the ACPI spec?
+> see acpi spec release 6.5, section 5.6.7 Device Class-Specific Objects,
+> Table 5.205: ACPI Device IDs
 > 
-> Actually, we do not need cma_folio_is_pinnable(), does the following work for you?
+> ACPI0015
+> USB4 host interface device. See Links to ACPI-Related Documents under
+> the heading “USB4 Host Interface Specification”
 
-OK, will do.
+Okay, I missed that. Then this is fine. Thanks.
 
+> > > +	{ }
+> > > +};
+> > > +MODULE_DEVICE_TABLE(acpi, nhi_plat_acpi_match);
+> > > +#endif
+> > > +
+> > > +static struct platform_driver nhi_plat_driver = {
+> > > +	.probe = nhi_plat_probe,
+> > > +	.remove = nhi_plat_remove,
+> > > +	.shutdown = nhi_plat_shutdown,
+> > > +	.driver = {
+> > > +		.name = "thunderbolt",
+> > > +		.of_match_table = of_match_ptr(nhi_plat_of_match),
+> > > +		.acpi_match_table = ACPI_PTR(nhi_plat_acpi_match),
+> > > +		.pm = &nhi_pm_ops,
+> > > +	},
+> > > +};
+> > > +
+> > > +module_platform_driver(nhi_plat_driver);
+> > > +MODULE_ALIAS("platform:thunderbolt");
+> > > +MODULE_DESCRIPTION("Thunderbolt/USB4 platform host interface
+> > > driver");
+> > > +MODULE_LICENSE("GPL v2");
+> > > diff --git a/drivers/thunderbolt/tb.h b/drivers/thunderbolt/tb.h
+> > > index e86845762e22..6dfdc47e05d2 100644
+> > > --- a/drivers/thunderbolt/tb.h
+> > > +++ b/drivers/thunderbolt/tb.h
+> > > @@ -768,8 +768,6 @@ extern const struct device_type
+> > > tb_retimer_type;
+> > >  extern const struct device_type tb_switch_type;
+> > >  extern const struct device_type usb4_port_device_type;
+> > >  
+> > > -int tb_domain_init(void);
+> > > -void tb_domain_exit(void);
+> > >  int tb_xdomain_init(void);
+> > >  void tb_xdomain_exit(void);
+> > >  
+> > > diff --git a/include/linux/thunderbolt.h
+> > > b/include/linux/thunderbolt.h
+> > > index 57502da29080..212c8fea6571 100644
+> > > --- a/include/linux/thunderbolt.h
+> > > +++ b/include/linux/thunderbolt.h
+> > > @@ -532,6 +532,7 @@ struct tb_nhi {
+> > >  	u32 *interrupt_mask;
+> > >  	bool going_away;
+> > >  	bool iommu_dma_protection;
+> > > +	int irq;
+> > 
+> > You are missing kernel-doc.
+> will fix it.
 > 
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -2982,6 +2982,9 @@ static inline bool folio_is_longterm_pinnable(struct folio *folio)
->   #ifdef CONFIG_CMA
->          int mt = folio_migratetype(folio);
+> Thanks
 > 
-> +       if (folio_test_hugetlb(folio) && folio_test_hugetlb_cma(folio))
-> +               return true;
-> +
->          if (mt == MIGRATE_CMA || mt == MIGRATE_ISOLATE)
->                  return false;
->   #endif
-
-We should move the implementation of folio_is_longterm_pinnable() to
-mm/gup.c to avoid the header dependency and build errors.
-
+> > 
+> > >  	struct work_struct interrupt_work;
+> > >  	u32 hop_count;
+> > >  	unsigned long quirks;
+> > > -- 
+> > > 2.43.0
+> > 
 > 
->> #endif
->> /* The zero page can be "pinned" but gets special handling. */
->> diff --git a/mm/cma.c b/mm/cma.c
->> index a10ea37a261d..c2814f54f86a 100644
->> --- a/mm/cma.c
->> +++ b/mm/cma.c
->> @@ -27,6 +27,7 @@
->> #include <linux/log2.h>
->> #include <linux/cma.h>
->> #include <linux/highmem.h>
->> +#include <linux/hugetlb.h>
->> #include <linux/io.h>
->> #include <linux/kmemleak.h>
->> #include <trace/events/cma.h>
->> @@ -55,6 +56,12 @@ const char *cma_get_name(const struct cma *cma)
->> }
->> EXPORT_SYMBOL_GPL(cma_get_name);
->>
->> +bool cma_folio_is_pinnable(struct folio *folio)
->> +{
->> +	/* Explicit HugeTLB CMA allocations own their bitmap ranges. */
->> +	return folio_test_hugetlb(folio) && folio_test_hugetlb_cma(folio);
->> +}
->> +
->> static unsigned long cma_bitmap_aligned_mask(const struct cma *cma,
->> 					     unsigned int align_order)
->> {
->> @@ -792,6 +799,11 @@ static int cma_range_alloc(struct cma *cma, struct cma_memrange *cmr,
->> 	int ret = -EBUSY;
->> 	struct page *page = NULL;
->>
->> + 	/* Each range lies within one zone; try other ranges if needed. */
->> +	if ((current->flags & PF_MEMALLOC_PIN) &&
->> + 	    is_zone_movable_page(pfn_to_page(cmr->base_pfn)))
->> +		return -EBUSY;
-> 
-> I don't know why we need this.
-
-I had assumed that ZONE_MOVABLE pages must always remain unpinnable.
-But Documentation/admin-guide/mm/memory-hotplug.rst explicitly states:
-
-   - Memory blocks overlapping with CMA areas cannot be offlined, this 
-applies to
-     memory blocks present during boot only.
-
-So pinning explicitly CMA-allocated HugeTLB folios does not introduce
-an additional offlining restriction. The ZONE_MOVABLE check I added
-in cma_range_alloc() is unnecessary, and I'll drop it.
-
-Thanks,
-Qi
-
