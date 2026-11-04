@@ -1,68 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793791846;
-	b=wVE248gj/G92W5DI+Ba7a9jO9bjYb7tQ169mgfiCjpDSTuUhdLY4nbKtqDp6MQEp2sVj
-	 3c4cKBwvmrQWUJnJXmXi5TxsZnRMikzBH6yhs1eDZZZ9J+hC2NmBCnFwASZN4bUvhuUvv
-	 QgpxEHL1m5vXWASchBxqPdG9A25FJbgwKnGjZUe13aLBhko3651+EaWsDgiS4H94yw4gT
-	 ktN751Ghx+gsIU4u2QPa15EwfzduWa6IFPlvqqFEkKJcPx24RhsKBLg7+AySCnsAdWclk
-	 1sSrcRK/QAI2FO8p5DbciR1e5uiJivrL2hb8fMXGdWXMjswpgnRqVpbt0ETB/C8aKtA==
+	t=1793791943;
+	b=s5quszQO6Io23OjZnfAwqH26VXK8Lp8fKyS8/mFExNDupeudTYP+qt9SORtN5Jfm8oGV
+	 JFdx6Du11ISPgz/To+4FJuq7b+Fy7ZSBvR1e3FHw2WF+zaqF0nLG6axB76Vt+h/pKya5C
+	 RB9ZNTvSm9ESa9guFIQzmyGRmDHkiVoBx+u+SQsNy3gjX7SB1C4PokKmR867SgsRVI6fw
+	 brD7ng+ySBaN+eo0+H2HAMJaZbJVm8VLrgDrrvvrwiDGEnGkOCfG9bANDljMxJKzcwyTD
+	 0As3wFJxNI+pWJkN/+5kOSfyCVXDMN8zc5OG5MeUG+NNqKt9yPppunCSNLEBd+aaXGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793791846;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=qiRnenZMo+9r0+H1Od/X/l9/yOgB8T+K8XN++fWe+Ek=;
-	b=4sUN4AgFdk6A/LM966Ua8el+3mgfvIfPAiQ1JMeTTO5gwAdAaVejGwk0+6lcSlOgaDRB
-	 Kv0y/c3iVAQuHs+icByyPkRTIggHRKYEAOG9UAJ8/A8yhL4y8y0aN9FLkeH53F5aotP6X
-	 hN/iOPok1WUFJXM2RMqjHS4pJMcBAE6JlUoybQniy8fFzPJe3a+P1HRROLSA8NK3Yo1BD
-	 zZec1VLRnO7i7u9G84CvyE9YoW6zas4vN3uEk37bdwoZ6w/O4UKHV6BigIXRZ+G6tOXFD
-	 KV+QRICxpMi4HycSfaergo//DOFpFYbdmcdHGVHwoe+JqiBNI3GEVpPqM0n/PluwvVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793791943;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:cc:Subject:In-Reply-To:Message-ID:
+	 References:MIME-Version:Content-Type;
+	bh=Sn3eSe67w3OleW5NGD87sSVusifSp8lGeY/kfZic8AY=;
+	b=3+/zlPWj6zpJkg7/z1wlOCZe3z4HSAskZy2P55VDt4M2roWSJe2BdlOffx+vLVQJG/1y
+	 MpgL5Q7PlVMhenNUGUKrwX1BfOhvOl6PIricQ2+50FVGv8/X6yJF9Ze3Fs6bCRYXOOBVD
+	 WaKHzGePL6aaBKLVmnh9zPsBlHyZoKAOFOcd06RfNEGyHP6g8pqiuj1w594Vnmsl01vAQ
+	 zjornvdXg0vfHyOf115lc+Stk7d0ozq6cQSFIghKf0NIyN1k7J3fkS6akHgu1zpXqygZg
+	 +YhGbFVb8OPQ3Sq8n+arcuPyv5kKA9VRLJWi9pW3LUzPeAh56DCLfYCZyeUppwRso8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=RBqJw7tC;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4FD1C606A329
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:30:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FD1C606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=hnaGrckW;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Kmiu6QeM;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73711606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:32:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73711606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=RBqJw7tC
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6AEC61650;
-	Wed,  4 Nov 2026 03:30:42 -0800 (PST)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 802853F632;
-	Wed,  4 Nov 2026 03:30:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793791845; bh=2en4pD6as0Aj+lkLrfYmqixWuI8RkQC0CgeUk58Ez6c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RBqJw7tC3L/DYfBd6sF3QagVaIurjKf4QdiX1AOTMWbzHps47cEWyvdGFgYeT0gjR
-	 xXEdt56lZ/69wu5uIU9JwmUFlVq2gdycx2nUERX+0IFMRsRbD6RWX79BxY9Eye8yvo
-	 x2lqesotxLmFCCGORRxpKzL873JcmL6xEkiPbP7A=
-Date: Wed, 4 Nov 2026 11:30:41 +0000
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Rik van Riel <riel@surriel.com>,
-	Yuan-Hao Hsu <aa9736195201@gmail.com>
-Subject: Re: [PATCH v2 4/4] mm: gup: batch PTE-mapped large folios in
- gup_fast_pte_range()
-Message-ID: <ausXYZLcv4ZL1TYP@e129823.arm.com>
-References: <20261102-refactor_gup_fast-v2-0-bc1ac018c834@arm.com>
- <20261102-refactor_gup_fast-v2-4-bc1ac018c834@arm.com>
- <0f7a599b-0b22-442b-bfb3-435a85abd550@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=hnaGrckW;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Kmiu6QeM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793791941;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Sn3eSe67w3OleW5NGD87sSVusifSp8lGeY/kfZic8AY=;
+	b=hnaGrckWRQ5XfRnUO5uII6yiMJabXlmUhVnruw0jL6Xm+PNoNt6PHpXFIn00bbPC3rnAO1
+	skc+sxKcq6uLK2QEynoccIdYeHpwnGZcV66N6J+FzCckO1spsC8/B9p9I42k2hUbO2FpUB
+	Eggy7yolZRcVQS2ecQUOl65oY+ai3Oc=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-140--mcW0HIfODmGlNhIaY13EQ-1; Wed, 04 Nov 2026 06:32:20 -0500
+X-MC-Unique: -mcW0HIfODmGlNhIaY13EQ-1
+X-Mimecast-MFC-AGG-ID: -mcW0HIfODmGlNhIaY13EQ_1793791939
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4ad3d35e899so6931875e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 03:32:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793791939; x=1794396739; darn=vger.kernel.org;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Sn3eSe67w3OleW5NGD87sSVusifSp8lGeY/kfZic8AY=;
+        b=Kmiu6QeMLUsGlfnpigZik9Kqb33N5OTMRMusjT4I3PPN97mFuIPWR9tKcCVH4QJD9Q
+         PTXlPF32K3wO3c+fEWwSkU7I5atSdFhslxoVoeYKfDUv6b1ch4UbwryW7UTk0lwubeEl
+         lADRMHj+xnH9orRTaGmcwAdluhOJkYGAf9nLAjH84z4vFrQiTYuN+6YpGjQob/W0cgWh
+         IWrgQAApkSlgSNWFPLXwa4urf7WqyKFUE+/EM6i3TolcGBBt7kYLCsxjc3bYSQ/lJLbu
+         j7sc60y24+bWH/4vGxQEzMOuwqDrNg+kBhwtASABIVV3Vfw6CHBkIoW18+7EoN/MhZnz
+         I4ww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793791939; x=1794396739;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Sn3eSe67w3OleW5NGD87sSVusifSp8lGeY/kfZic8AY=;
+        b=QD52g9/tnOI/yM31OUQlIWpby8mXXDFK5K+D+uVIo/UbF5a62kmODi5UayqTI6YwZl
+         K4EuxvPRrg/d/dI55QOdjqdqziu7L8BTxfyVkCZvTz5Yn9GgRkCv8/vaG9A+2sPvZSse
+         PCIpycQma2BBut3g82x5EDJV2a5uQPx04XzNML9wvjvlFRvg5crOrNkm0f6+3wF+kZzf
+         C/drNqg487zIDVfOCrA5h2R6fDBGsBrkz8TM4t2490YX8u9Zv+vFWvcSbccXq8m5Yse1
+         ksw2vKN/aXsFx+ORLF/QHUzRFyMLyacOnq6tRpD0lbCEH2M0PKWpveaTh+hOiZAaYRzd
+         QeLA==
+X-Forwarded-Encrypted: i=1; AKwUvBwwCzOVJQ7bGzUpnCHpNB4FvyyZeo4ejkhNBbMzJZuweAwoCOrxJw9wdTwmtNh9vKTPA7ggOtEXBWdIjr4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Zl3N05Rdfj3DagLOWwbE2+qLazBJakTpdxlIGiWQhPS++97vD
+	IocuD88o3zDIxVdkCJLMm0z9G8ecBu4F7QqmJfjacisOINjRjrA61ScEsEoUlkGDA3E0329j0nB
+	oYc9oKnhE8th9X8kxEPa4SBmNppDeiN18RYPgPDWmO+59FozNRfEyb5znh2zmbR+k+w==
+X-Gm-Gg: AYBFou2Mtvh6mlaeRz8R48tUTvqhDnTuS2R3XMq3Yr1z27hgYbu189+g5a1asrV14RU
+	ZPy/XnkUhj6tDiMtr4ZsE9rB+STlxlBr3BuxKGmA0G9OFKKp8YKmAi4TF0/4fknQioTbmUTbVOC
+	Utqt1eFvdNkR1xPxbvWng6XRmhIMtU80J9I2jJkc35dwQH9EeXWA2FnmgotfSI2Sw9ycAD2dsk3
+	Jkh3Ewj7gvToODysqImPqCCrsERe4uEq+cLQqAl9i4mJfLgQ4rN/Y+fjjqerQAPEbgp1Cp69Tl/
+	Peqc/vXsCkdrziMxMJEMTpGPL1+E24Yxa8TtnnPP27D6FoItOFqRw+fPrbKTey3aKUDT/OSBAHi
+	1h7o9YMal98EY1qBTvUsiSAXuiexTBh2YWCJDmkSzUddZ99uJctta64rO3SmUROVKVxvo1VTkb7
+	Gvtb953rHSlpEZQZFLx2a8DXdTnZ15G/mh/s8XMw==
+X-Received: by 2002:a05:600c:4e02:b0:4a3:59c9:a758 with SMTP id 5b1f17b1804b1-4ac19705e02mr339637815e9.32.1793791939075;
+        Wed, 04 Nov 2026 03:32:19 -0800 (PST)
+X-Received: by 2002:a05:600c:4e02:b0:4a3:59c9:a758 with SMTP id 5b1f17b1804b1-4ac19705e02mr339637545e9.32.1793791938760;
+        Wed, 04 Nov 2026 03:32:18 -0800 (PST)
+Received: from seott-rh (p200300f6af1574019b2c5947d8ec139e.dip0.t-ipconnect.de. [2003:f6:af15:7401:9b2c:5947:d8ec:139e])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b4527fed5bsm60945795e9.3.2026.11.04.03.32.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 03:32:18 -0800 (PST)
+Date: Wed, 4 Nov 2026 12:32:17 +0100 (CET)
+From: Sebastian Ott <seott@redhat.com>
+To: Mark Brown <broonie@kernel.org>
+cc: Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+    Suzuki K Poulose <suzuki.poulose@arm.com>, 
+    Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>, 
+    Oliver Upton <oupton@kernel.org>, Ben Horgan <ben.horgan@arm.com>, 
+    linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+    kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+    linux-kernel@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: Re: [PATCH v9 1/3] KVM: selftests: arm64: Report set_id_reg reads
+ of test registers as tests
+In-Reply-To: <20261103-kvm-arm64-set-id-regs-aarch64-v9-1-ab32bc79fa9c@kernel.org>
+Message-ID: <4df3cceb-0d07-d787-b5b6-0a28433116f3@redhat.com>
+References: <20261103-kvm-arm64-set-id-regs-aarch64-v9-0-ab32bc79fa9c@kernel.org> <20261103-kvm-arm64-set-id-regs-aarch64-v9-1-ab32bc79fa9c@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,216 +121,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0f7a599b-0b22-442b-bfb3-435a85abd550@kernel.org>
+Content-Type: text/plain; charset=US-ASCII; format=flowed
 
-> On 11/2/26 12:30, Yeoreum Yun wrote:
-> > GUP-fast grabs a PTE-mapped large folio one page at a time.  Every PTE
-> > costs a try_grab_folio_fast() (a refcount cmpxchg, plus the pincount
-> > atomic, a full barrier and a node stat update for FOLL_PIN), a
-> > gup_fast_folio_allowed() and a folio_set_referenced(), so a 64 kB mTHP
-> > pays sixteen of each and a PTE-mapped 2 MB THP pays 512.
-> > 
-> > The users are the hot ones: iov_iter_extract_user_pages() pins every
-> > O_DIRECT buffer through pin_user_pages_fast(), io_uring registers its
-> > buffers through it, and so does RDMA memory registration.
-> > With mTHP those buffers are PTE-mapped large folios.
-> > 
-> > After the head page has been grabbed and verified as before, extend the
-> > run to the following PTEs that map the next pages of the same folio
-> > with the same protection bits, take the remaining references for the
-> > run with try_grab_folio(), and fill pages[] from the run.
-> > The PTEs of the run are read while the reference on the folio is held,
-> > so the folio can neither be collapsed, freed nor split underneath the scan.
-> > A read-only run of an anonymous folio stops at the first page
-> > that gup_must_unshare() rejects, so the per-page exclusivity guarantee for
-> > FOLL_PIN is kept.
-> > 
-> > folio_pte_batch_flags() does the scan.  It reads the entries with
-> > ptep_get(), which is not safe without the page table lock on
-> > CONFIG_GUP_GET_PXX_LOW_HIGH (x86 PAE, mips32, sh) or with arm64 contpte,
-> > and GUP-fast reads every PTE with ptep_get_lockless() for that reason.
-> > Add FPB_LOCKLESS to make the helper do the same; it is inlined per call
-> > site, so the other callers do not change.
-> > 
-> > The order-0 path keeps its instruction sequence.  The folio flags are
-> > tested before folio_set_referenced() on purpose: a load of the flags
-> > right after that locked instruction cost about 25% on order-0 pages in
-> > the gup_test benchmark below, and reading them first brings that path
-> > back to the baseline.
-> > 
-> > gup_test ioctl over a 256 MB anonymous region, FOLL_WRITE, 65536 pages
-> > per call, median of 15 runs, two baseline boots / one patched boot, on
-> > an x86-64 VM:
-> > 
-> >                        get_user_pages_fast()   pin_user_pages_fast()
-> >                        before       after      before       after
-> >   4 kB pages           849/789 us   783 us     1174/1138 us 1094 us
-> >   64 kB mTHP           812/811 us   126 us     1215/1113 us  188 us
-> >   1 MB mTHP            799/774 us    59 us     1185/1077 us   64 us
-> >   2 MB THP, PTE-mapped 803/786 us    57 us     1159/1120 us   58 us
-> >   2 MB THP, PMD-mapped  42/40 us     40 us       46/41 us     42 us
-> > 
-> > fio O_DIRECT randread of a null_blk device (CPU bound) with the I/O
-> > buffer in 64 kB mTHP, median of 15 five-second runs:
-> > 
-> >   bs=1M psync                 126.2/125.6 GB/s  ->  220.6 GB/s
-> >   bs=1M io_uring, iodepth 16   71.2/71.6 GB/s   ->  112.1 GB/s
-> >   bs=64k io_uring, iodepth 16  50.2/50.7 GB/s   ->   60.1 GB/s
-> > 
-> > IORING_REGISTER_BUFFERS of 1 GB, median of 15:
-> > 
-> >   64 kB mTHP           6179/5998 us  ->  1599 us
-> >   1 MB mTHP            5790/5801 us  ->   893 us
-> >   4 kB pages           7173/6741 us  ->  6763 us
-> > 
-> > Signed-off-by: Yuan-Hao Hsu <aa9736195201@gmail.com>
-> > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> > ---
-> >  mm/gup.c | 46 +++++++++++++++++++++++++++++-----------------
-> >  1 file changed, 29 insertions(+), 17 deletions(-)
-> > 
-> > diff --git a/mm/gup.c b/mm/gup.c
-> > index 49681f63950ec..94a9dc45e5953 100644
-> > --- a/mm/gup.c
-> > +++ b/mm/gup.c
-> > @@ -2901,7 +2901,8 @@ static unsigned long gup_fast_pte_range(pmd_t pmd, pmd_t *pmdp,
-> >  		unsigned long addr, unsigned long end,
-> >  		unsigned int flags, struct page **pages)
-> >  {
-> > -	unsigned long nr_pages = 0;
-> > +	unsigned long nr_pages = 0, nr_batch;
-> > +	struct folio *folio = NULL;
-> >  	pte_t *ptep, *ptem;
-> >  
-> >  	ptem = ptep = pte_offset_map(&pmd, addr);
-> > @@ -2910,7 +2911,9 @@ static unsigned long gup_fast_pte_range(pmd_t pmd, pmd_t *pmdp,
-> >  	do {
-> >  		pte_t pte = ptep_get_lockless(ptep);
-> >  		struct page *page;
-> > -		struct folio *folio;
-> > +		unsigned long i;
-> > +
-> > +		nr_batch = 1;
-> >  
-> >  		/*
-> >  		 * Always fallback to ordinary GUP on PROT_NONE-mapped pages:
-> > @@ -2937,19 +2940,21 @@ static unsigned long gup_fast_pte_range(pmd_t pmd, pmd_t *pmdp,
-> >  			goto pte_unmap;
-> >  
-> >  		if (unlikely(pmd_val(pmd) != pmd_val(pmdp_get_lockless(pmdp))) ||
-> > -		    unlikely(pte_val(pte) != pte_val(ptep_get_lockless(ptep)))) {
-> > -			gup_put_folio(folio, 1, flags);
-> > +		    unlikely(pte_val(pte) != pte_val(ptep_get_lockless(ptep))))
-> >  			goto pte_unmap;
-> > -		}
-> 
-> As discussed, we should really add some more details why each of these
-> comparisons is required. Let's do that in a separate patch.
-> 
-> (I recall the pte check is required for concurrent PTE changes like
-> unmap/protection etc and the pmd check is for THP collapse on architectures
-> without IPI during TLB flushes)
+On Tue, 3 Nov 2026, Mark Brown wrote:
+> Currently when we run guest code to validate that the values we wrote to
+> the registers are seen by the guest we assert that these values match using
+> a KVM selftests level assert, resulting in unclear diagnostics if the test
+> fails. Replace this assert with reporting a kselftest test per register.
+>
+> In order to support getting the names of the registers we repaint the array
+> of ID_ registers to store the names and open code the rest.
+>
+> Reviewed-by: Ben Horgan <ben.horgan@arm.com>
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Signed-off-by: Mark Brown <broonie@kernel.org>
+[...]
+> @@ -684,11 +719,20 @@ static void test_guest_reg_read(struct kvm_vcpu *vcpu)
+> 			REPORT_GUEST_ASSERT(uc);
+> 			break;
+> 		case UCALL_SYNC:
+> -			val = test_reg_vals[encoding_to_range_idx(uc.args[2])];
+> -			val = reset_mutable_bits(uc.args[2], val);
+> +			expected_val = test_reg_vals[encoding_to_range_idx(uc.args[2])];
+> +			expected_val = reset_mutable_bits(uc.args[2], expected_val);
+>
+> 			/* Make sure the written values are seen by guest */
+> -			TEST_ASSERT_EQ(val, reset_mutable_bits(uc.args[2], uc.args[3]));
+> +			reg_id = uc.args[2];
+                         ^
+Minor nit: this could be moved above and be used in 3 more places.
 
-Yes. It's a fast path for checking the unmap/protection like THP
-collapse or KSM.
+> +			guest_val = reset_mutable_bits(uc.args[2], uc.args[3]);
+> +
+> +			match = expected_val == guest_val;
+> +			if (!match)
+> +				ksft_print_msg("%lx != %lx\n",
+> +					       expected_val, guest_val);
+> +			ksft_test_result(match,
+> +					 "%s value seen in guest\n",
+> +					 get_reg_name(reg_id));
+> 			break;
+> 		case UCALL_DONE:
+> 			done = true;
 
-might below comments is enough:
-
-/*
- * Recheck the PTE after grabbing the folio to detect concurrent unmapping
- * or protection changes, such as by KSM.
- *
- * Also recheck the PMD: THP collapse can detach the PTE table while its
- * entries remain unchanged. Checking the PTE alone would not detect
- * that we are walking a detached page table.
- */
-
-> 
-> >  
-> > -		if (!gup_fast_folio_allowed(folio, flags)) {
-> > -			gup_put_folio(folio, 1, flags);
-> > +		if (!gup_fast_folio_allowed(folio, flags))
-> >  			goto pte_unmap;
-> > -		}
-> >  
-> > -		if (!pte_write(pte) && gup_must_unshare(NULL, flags, folio, page)) {
-> > -			gup_put_folio(folio, 1, flags);
-> > -			goto pte_unmap;
-> > +		if (folio_test_large(folio))
-> > +			nr_batch = folio_pte_batch_flags(folio, NULL, ptep, &pte,
-> > +							 (end - addr) >> PAGE_SHIFT,
-> > +							 FPB_LOCKLESS | FPB_RESPECT_WRITE);
-> 
-> Batching after the checks above, when we already stabilized the folio by
-> grabbing a reference should indeed be correct.
-> 
-> Concurrent collapse should already see the raised reference and back off.
-
-Yes. but do you want to make a comment in here like:
-
- /*
- * The reference acquired above keeps the folio stable for the following checks.
- */
-
-> 
-> > +
-> > +		if (!pte_write(pte)) {
-> > +			nr_batch = gup_unshared_pages(NULL, flags, folio, page, nr_batch);
-> > +			if (nr_batch == 0)
-> 
-> !nr_batch
-
-Okay.
-
-> 
-> > +				goto pte_unmap;
-> >  		}
-> >  
-> >  		/*
-> > @@ -2958,16 +2963,23 @@ static unsigned long gup_fast_pte_range(pmd_t pmd, pmd_t *pmdp,
-> >  		 * see Documentation/core-api/pin_user_pages.rst for
-> >  		 * details.
-> >  		 */
-> > -		if ((flags & FOLL_PIN) && arch_make_folio_accessible(folio)) {
-> > -			gup_put_folio(folio, 1, flags);
-> > +		if ((flags & FOLL_PIN) && arch_make_folio_accessible(folio))
-> >  			goto pte_unmap;
-> 
-> The label is now slightly misnamed.
-
-might abort_out or out seems enough.
-> 
-> > -		}
-> > +
-> > +		if (nr_batch > 1 && try_grab_folio(folio, nr_batch - 1, flags))
-> > +			nr_batch = 1;
-> > +
-> >  		folio_set_referenced(folio);
-> > -		pages[nr_pages] = page;
-> > -		nr_pages++;
-> > -	} while (ptep++, addr += PAGE_SIZE, addr != end);
-> > +		for (i = 0; i < nr_batch; i++) {
-> > +			pages[nr_pages + i] = page + i;
-> > +		}
-> 
-> No need for {}. Rik will replace that with a proper helper later.
-> 
-> > +		nr_pages += nr_batch;
-> > +		folio = NULL;
-> > +	} while (ptep += nr_batch, addr += nr_batch * PAGE_SIZE, addr != end);
-> >  
-> >  pte_unmap:
-> > +	if (folio)
-> > +		gup_put_folio(folio, 1, flags);
-> >  	pte_unmap(ptem);
-> >  	return nr_pages;
-> >  }
-> > 
-
-Thanks!
-
--- 
-Sincerely,
-Yeoreum Yun
