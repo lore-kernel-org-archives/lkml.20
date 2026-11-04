@@ -1,78 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793800450;
-	b=SYKXWBXU1bb1DSrC4cYZwEFkBrQHeBGH6xSBF4vCbb8v3wE9AyuVzv4sEUpqJrzltM+H
-	 YccGd2Ohl9freS6Lo6rhExvJXVxR26TAGGujlvh/j8OlvsihW3H/2UJekpfZjdVhY5SP4
-	 u4DRC9onmvZj2JJKrL+GlaRfEgTXjstVJ7ycObHQGsXI/lnY4Dy7cEvKT+4yKsUHhzIJZ
-	 z8NtuL5e8wzJ4sMX4oHLUDACAVchio5cuMvdduVS7hmt1+AahMZ+hYXxUQPj/xaMfqJW4
-	 BeLz4oO9MICslnewWhmDCluP4u0Y+1uQypjGDRU/PGZaEIq7CDTfnSECLGr98KQIZLg==
+	t=1793800446;
+	b=Ek5iEkRZwqrmREkWLjtCZmruWv4D+pyzf+Uhk8s3yGJCNBV1Xkj2WpFi9UFMzRMmXk0r
+	 /TYekkhpcNzLTetDxmv1fxxREvKBQ30Ofr1mRi1fgLcgfAAieCScFFbRFuOkqJuWX3hdd
+	 RNwQoAy0dMrh/bkhcaMxttVQwbY98LdMq4tpri6mJGlAOH2E6/YSk2k+/93/tyD4M3bry
+	 LSiLPv7kvesMBLByWGFmicEY0ysLv6uXmOLFF3xXZp/eg6wFiqVAa7+rU1rQHJkba5rkZ
+	 +vpY2tX5BPLAue4pJxSgTwTFx31qm0kgmzVAvMjDZ7dPwJ4TCuvK3Rt6uvasquwBEUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793800450;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=AyfDI+vr08JlAxQNF+LWQauQ7bhDgKsQOWnNTVi2BYQ=;
-	b=dM16y1wD00Z1VY+xtuooi2BGeycZ+f2c2i0Xpf5DHcUHMAq2Kdh22EqmHoVxo6WggSm2
-	 QJtpgzAP6FniHvl6B3CilltbBlXJF3gj5UP6bcHZSq+Dx3K7UhdfoC/CMGNh5L2DcOelb
-	 3iu6kN0Cg5EIQotHjM7rZ1O1XWu9aOoftWmCLeYqTq/20e4MoyaLbAQNvOBa9WwuIysZ7
-	 QiUWP1BY2nAvK7jn6y160Id5vKavmX+pBTkyRUM7awjyra9hIw8t1pw54dydLUTdgQojr
-	 GSuauKjkpZqw30nCTkkZRjVHhW3CFbhfIyAxeLPb3O8ZUGQL1ABPQ1OgWfdQs1Bhm6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793800446;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=drgLSRnt5uPABDepZHClizyF65DMZ6f3WXlDwV1zLHo=;
+	b=LKa3i0sQw+Qdt6egAIs1z/UvICb4sy7JUXd8CX0NXvxVTRI360ccvWHSU+j0y03eKWn4
+	 eEmlnvkt7xz9S8xXktIIU7eOzGB6yxDFkTA4cFuazd1lGcoXFU4yuQt5yKxofQq4o4CBU
+	 biG72NYH30JwpYpdww4f+kftZOHwDCbb9AHu9DSFrMSRjBmnvTVVnShLzvXfCNLnNXu43
+	 qkQZ7kcxz7ccoJf5CnENnoS/d6xSxv+eQ3r2cwAa0bzxdXv8gBxBV8b49inGDFMni5nQf
+	 X4z7Jlaugz5qfr3yBrHIgzT4ruoJXI+b1svo9w1iJ0b4PSNonGbCsdTcjfqqARv6RFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=rZfSmJza;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U8155pIt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D49C5606A331;
-	Wed,  4 Nov 2026 13:54:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D49C5606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB741606A32E;
+	Wed,  4 Nov 2026 13:54:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=rZfSmJza
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 59AD6C8F46F;
-	Wed,  4 Nov 2026 13:55:13 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 5A28A60770;
-	Wed,  4 Nov 2026 13:54:08 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1C262103291F6;
-	Wed,  4 Nov 2026 14:54:00 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793800443; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=AyfDI+vr08JlAxQNF+LWQauQ7bhDgKsQOWnNTVi2BYQ=;
-	b=rZfSmJza+1mzpm0RDYrz/9vmLYC2pipHQT6G1/RCusGC1chP3hkw4yXgLVyYCADOXEbtYV
-	FGmBxIe9SOfkfEi2wXWQdSqjqupgTfoChbr7qGx4nkRX5vpsWQQHQUtTN3W73C4RhikM8J
-	4b+FwtJ9quhcNZtCuCSKV0iZngmSArvtBSck7/VLvr4zlB65oW4FY+E+w5h5JJtG1PNG9r
-	gXx3rHU/SzIW8aqGW55vZcBy1S32nHJ/2H3kK77FUhFiZoBH4P7Q0KP4R9hVl9I2aNzyRz
-	Wr25n0H17YkWUStkc62WKjtABMy0cLpyGuxZ8lDGyuepty44+N/8R2lKNMsI4Q==
-From: Herve Codina <herve.codina@bootlin.com>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Peter Rosin <peda@lysator.liu.se>
-Cc: linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Allan Nielsen <allan.nielsen@microchip.com>,
-	Horatiu Vultur <horatiu.vultur@microchip.com>,
-	Daniel Machon <daniel.machon@microchip.com>,
-	Steen Hegelund <steen.hegelund@microchip.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Herve Codina <herve.codina@bootlin.com>
-Subject: [PATCH v9 2/3] i2c: {mux,atr}: Set adapter physical device
-Date: Wed,  4 Nov 2026 14:53:05 +0100
-Message-ID: <20261104135324.492692-3-herve.codina@bootlin.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104135324.492692-1-herve.codina@bootlin.com>
-References: <20261104135324.492692-1-herve.codina@bootlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U8155pIt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62F5F1F000C1;
+	Wed,  4 Nov 2026 13:54:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793800445;
+	bh=drgLSRnt5uPABDepZHClizyF65DMZ6f3WXlDwV1zLHo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=U8155pIt5MK3hkWVH9Jb3RTFDR0rZ+jCFBzbwDEI5mKsXtKh4+AsWedGRX2LWMOXv
+	 26XccUgqD0qI0JxQGSIZ3VUf6vEj5WhwyHeW9qahVLyic8iAd7Iq6ZoEdLGU3y+B2x
+	 r633ZRP9OLYoHnS2znt/x+0uocUPSqhElvJr/7xIKE0Sbs/vS0xrWaBPBjx8N6dBbw
+	 vbj6BlPvx9AkAOASwuXxKNSD+VtHmsdCJPBX5jnYvnMUq3v9y8vcpV3DoPjrvrkhMh
+	 RYC+OLuNyEnDA4d/N7FIaDoqwJzNfEcYzB1LqzfzUJmYmhKJidPCE1pj8SIQpqyPdY
+	 2H2nwI07LSagA==
+Date: Wed, 4 Nov 2026 14:54:01 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>, 
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Suresh Vankadara <svankada@qti.qualcomm.com>, Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+Subject: Re: [PATCH 2/2] media: qcom: camss: Add Glymur specific resources
+Message-ID: <20261104-smart-scorpion-of-bliss-2e8371@quoll>
+References: <20261102-glymur_camss-v1-0-fcb619fc7319@oss.qualcomm.com>
+ <20261102-glymur_camss-v1-2-fcb619fc7319@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,49 +62,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261102-glymur_camss-v1-2-fcb619fc7319@oss.qualcomm.com>
 
-For i2c muxes and atrs (address translators), the parent of the mux/atr
-adapter device is the adapter device the mux/atr is connected to.
+On Mon, Nov 02, 2026 at 02:20:58PM +0530, Nihal Kumar Gupta wrote:
+> Glymur uses the X1E80100 CAMSS resources, but its CSI2 PHYs are
+> described as standalone PHY nodes. Reusing the X1E80100 resources also
+> reuses csiphy_res[], where port@3 maps to CSIPHY id 4.
+> 
+> Add Glymur resource data without reusing the X1E80100 CSIPHY resource
+> table, so the standalone PHY path uses the graph port number as the
+> CSIPHY id.
+> 
+> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+> ---
+>  drivers/media/platform/qcom/camss/camss.c | 17 ++++++++++++++++-
+>  1 file changed, 16 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+> index 1db66976e51b81edeb223cebb6bbe84995d102c2..4f705a056eedbc7b09d2630ee6284b8d768cc6d5 100644
+> --- a/drivers/media/platform/qcom/camss/camss.c
+> +++ b/drivers/media/platform/qcom/camss/camss.c
+> @@ -5800,6 +5800,21 @@ static void camss_remove(struct platform_device *pdev)
+>  	camss_genpd_cleanup(camss);
+>  }
+>  
+> +static const struct camss_resources glymur_resources = {
+> +	.version = CAMSS_X1E80100,
+> +	.pd_name = "top",
+> +	.tpg_res = tpg_res_x1e80100,
+> +	.csid_res = csid_res_x1e80100,
+> +	.vfe_res = vfe_res_x1e80100,
+> +	.csid_wrapper_res = &csid_wrapper_res_x1e80100,
+> +	.icc_res = icc_res_x1e80100,
+> +	.icc_path_num = ARRAY_SIZE(icc_res_x1e80100),
+> +	.csiphy_num = 5,
 
-This parent is not the physical device related to the mux/atr adapter.
-Indeed, the physical device of the mux/atr adapter is the mux/atr device
-itself.
+5? Your binding said three... Confusing.
 
-Fill the adap.physdev with the mux/atr device.
+> +	.tpg_num = ARRAY_SIZE(tpg_res_x1e80100),
+> +	.csid_num = ARRAY_SIZE(csid_res_x1e80100),
+> +	.vfe_num = ARRAY_SIZE(vfe_res_x1e80100),
+> +};
+> +
+>  static const struct camss_resources msm8916_resources = {
+>  	.version = CAMSS_8x16,
+>  	.csiphy_res = csiphy_res_8x16,
+> @@ -6049,6 +6064,7 @@ static const struct camss_resources x1e80100_resources = {
+>  };
+>  
+>  static const struct of_device_id camss_dt_match[] = {
+> +	{ .compatible = "qcom,glymur-camss", .data = &glymur_resources },
+>  	{ .compatible = "qcom,msm8916-camss", .data = &msm8916_resources },
+>  	{ .compatible = "qcom,msm8939-camss", .data = &msm8939_resources },
+>  	{ .compatible = "qcom,msm8953-camss", .data = &msm8953_resources },
+> @@ -6068,7 +6084,6 @@ static const struct of_device_id camss_dt_match[] = {
+>  	{ .compatible = "qcom,sm8550-camss", .data = &sm8550_resources },
+>  	{ .compatible = "qcom,sm8650-camss", .data = &sm8650_resources },
+>  	{ .compatible = "qcom,x1e80100-camss", .data = &x1e80100_resources },
+> -	{ .compatible = "qcom,glymur-camss", .data = &x1e80100_resources },
 
-Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-Reviewed-by: Andi Shyti <andi.shyti@kernel.org>
----
- drivers/i2c/i2c-atr.c | 1 +
- drivers/i2c/i2c-mux.c | 1 +
- 2 files changed, 2 insertions(+)
+Why do you keep breaking the order...
 
-diff --git a/drivers/i2c/i2c-atr.c b/drivers/i2c/i2c-atr.c
-index b98442ffff94..a591d39050e7 100644
---- a/drivers/i2c/i2c-atr.c
-+++ b/drivers/i2c/i2c-atr.c
-@@ -824,6 +824,7 @@ int i2c_atr_add_adapter(struct i2c_atr *atr, struct i2c_atr_adap_desc *desc)
- 	chan->adap.algo = &atr->algo;
- 	chan->adap.algo_data = chan;
- 	chan->adap.dev.parent = desc->parent;
-+	chan->adap.physdev = dev;
- 	chan->adap.retries = parent->retries;
- 	chan->adap.timeout = parent->timeout;
- 	chan->adap.quirks = parent->quirks;
-diff --git a/drivers/i2c/i2c-mux.c b/drivers/i2c/i2c-mux.c
-index 53428098ddc7..c1836114ef56 100644
---- a/drivers/i2c/i2c-mux.c
-+++ b/drivers/i2c/i2c-mux.c
-@@ -361,6 +361,7 @@ int i2c_mux_add_adapter(struct i2c_mux_core *muxc,
- 	priv->adap.algo = &priv->algo;
- 	priv->adap.algo_data = priv;
- 	priv->adap.dev.parent = &parent->dev;
-+	priv->adap.physdev = muxc->dev;
- 	priv->adap.retries = parent->retries;
- 	priv->adap.timeout = parent->timeout;
- 	priv->adap.quirks = parent->quirks;
--- 
-2.56.0
-
+>  	{ }
+>  };
+>  
+> 
+> -- 
+> 2.34.1
+> 
