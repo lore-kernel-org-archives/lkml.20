@@ -1,73 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802256;
-	b=ALs6TT6D3BSFEkLOCXD4lbZMQK1kaztbHrVt2E6nNQsM5FJbu5/fzBV7VIrBy2+yOSU1
-	 g9/IvPneA5l+yzlvIPZS8EV8snAoxTaHho+FxVN0taifBDBdYeppYAvziCxNWmjzP3Kub
-	 T/VQ0jE89Fx8qK7JfjuwItqITP7F5JOTJ6Xue9cT0VIAeYwWCcA7bxHCufX1sgiHe2FfS
-	 B+ODNmmh9Cow+K2ZXbZvKwOB6kvtpOCgU2ad/KPlFu7cfX/f6YHOXFjeuKRmeqIZfd3Ce
-	 TblhO/EShuvH+BtwnnZA0XPsdjebQCtAbOGH34Wp8PgSB4UeFy1r8OMvpxHuXjIgUfg==
+	t=1793802261;
+	b=Xl/bq+ZuhAEV+t8hM6CqQkEZMApctLaBA5EdO8pzOAclp1w9T4xd2T53Y6G5tpU5s2Iq
+	 C4J/ohJVD1oedhCOU0nwxygcKAfvQpPG+5OswEpBaXfgKM1cr6PrG9l1tMALWO+iN47il
+	 M3vyKbpvzX4Df0CnM3UpDDB8frG+TyIaSEjAxp93RJgFFX8O7tCJZBsjL99f3jeKDHq/j
+	 d91uAEfP2kxBOlVo/FoxYfEtRwqr8t7pVwNpfYiSZWP8CjMc0F/l6sfwExcOIXfRXK75w
+	 GEATlJ7zUHANQaD4V6E1iVJ+RhV5N1/P1sGY29rXQyUd7Lk2v2vdoK/3u5m4ua2agtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802256;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=LT4QhNCuGhtvYaGuZ1YT+0MRJJqhUJ12cQ6XYhOTJgY=;
-	b=mHABGTdJ0gsBtS5u3Sm4qPvSOP0Kv9ZkDc/L1pY4yF8Qow0tFhTmfIpa++qMIIMQTtT0
-	 pde3abpV5pzbZocuBmHhyS6rDFXGUQ6GaErE8KYjx3VJL8zHF0AqykoRfUc711cggO/+h
-	 iFYF627/kbZw4NeTjmtAz34iKBFFCMc6/BIagBfgHFvcy3yk+hPkW6ZshG8AW9wosQ5GK
-	 DqY57Wx1NjdJMrsNW3RQjWWp5KUTycojQ0eU/g8tJbNBTUBO43DtTwHSENqwZqxmkEQcK
-	 NegCnyVqodzEtCBt/0ts+nm8VhzoDXvNI6O1RTmL+vrxE9eNGInjQQLFnmm1n8NTq7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802261;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=1N1gYnlaZgxYcnPx7D4dYkTOaGCtR/Ql2lzdyAvqS2E=;
+	b=D8t1VmhDjDSM1AYChRwUG2zATjHbtbCBmwSFJXJXIB73O62O8WZxawN/GbPbyOBkrbdG
+	 JibIpbR2APvTIA4f9AYNltFrBOyNxe18c0kIBOGYMP0lw4Y3CDlinQn87In2DIERYGxQ3
+	 o8FnfKiM17rqGPgCJuqw9Ql60QFgq5g7pHsHq1uYsVOu9CJ3a00MgZOJikdrEVAjXMI6z
+	 UlTbaQrBy/QTAo/5Utma+OT+zJRleh2UCfwWPYAVHVp6LrmRQQbSqtWOfWh1EOYfWGjSR
+	 3wXxD89J8j4+/O6guwClismBEzped6AFxHiQ6qkZ1uOPtKYDj/ad6larrB2MMVGMdXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ejUyoupl;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 141D4606A31B;
-	Wed,  4 Nov 2026 14:24:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 141D4606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RI6WrVwT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A56606A335;
+	Wed,  4 Nov 2026 14:24:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ejUyoupl
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 36AF81D34;
-	Wed,  4 Nov 2026 06:24:12 -0800 (PST)
-Received: from localhost (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DAD8A3F673;
-	Wed,  4 Nov 2026 06:24:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793802255; bh=p/DbzJh9fxRbnRCpJa3VaWBb0VSwvoJXFXtDwP7M4UM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ejUyouplR6xIahybJGnDj5M0O72FEHZUsM4v7yfuiYbScyq64hyzW8kFrpxd5j3vu
-	 pdyVMZvfh3SZPkOBo7jMB7qqAXuV9Zf7Z0zhGTI2WMSDrSCL9ZIUSxfLYOCY7oMGPC
-	 4QacAJ6NY8RdcO9bbXighOJU3kREXelzU/b11eI4=
-Date: Wed, 4 Nov 2026 14:24:12 +0000
-From: Leo Yan <leo.yan@arm.com>
-To: James Clark <james.clark@linaro.org>
-Cc: Leo Yan <leo.yan@linux.dev>, Adrian Hunter <adrian.hunter@intel.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@arm.com>, Will Deacon <will@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>,
-	linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	linux-doc@vger.kernel.org, John Garry <john.garry@linux.dev>
-Subject: Re: [PATCH v3 04/18] perf cs-etm: Use per-CPU queues for per-thread
- mode
-Message-ID: <20261104142412.GI9176@e132581.arm.com>
-References: <20261102-james-cs-unformatted-per-thread-fix-v3-0-dbcb0c281b9b@linaro.org>
- <20261102-james-cs-unformatted-per-thread-fix-v3-4-dbcb0c281b9b@linaro.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RI6WrVwT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D4091F0093A;
+	Wed,  4 Nov 2026 14:24:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793802260;
+	bh=1N1gYnlaZgxYcnPx7D4dYkTOaGCtR/Ql2lzdyAvqS2E=;
+	h=From:To:Cc:Subject:Date;
+	b=RI6WrVwTDnukcpAgSC8v2VGtXU2eM4N2F4CasQRH5Pjzl2t+WaCbxcp8tWRHDwtPm
+	 XDTpeV2EDuKTQHODGXByjkfe5mQkGP/K+WxQ5jVwU/OR6UW+9LaXzR+UpYV+hfBqDQ
+	 uwyvB32xe0F9sZ4utMMl4klZDtf3TnU/Q+wyULQq/BtPYBSNLGvbFJvGfW/O5AIzOK
+	 VNP+9GO9X6QrjtBBQE0DbavPtla8eiGdbKzQ/Ay23/1aj8rjxyE2yjhUkQNG72SqQ+
+	 o2kkawzo0eBYvlaoK5Wla19SL6fYIZNKYUlVwdEVtdVcAdJQY53bR4e88lz1sp4duk
+	 I1nJYSf9d0YmA==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Nam Tran <trannamatk@gmail.com>,
+	Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Liang Haowen <nbg2974@gmail.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Griffin Kroah-Hartman <griffin@kroah.com>,
+	linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] leds: asus-aura-scsi: add CONFIG_SCSI_DH dependency
+Date: Wed,  4 Nov 2026 14:20:56 +0100
+Message-ID: <20261104142415.676757-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,56 +61,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102-james-cs-unformatted-per-thread-fix-v3-4-dbcb0c281b9b@linaro.org>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 02, 2026 at 12:15:18PM +0000, James Clark wrote:
+From: Arnd Bergmann <arnd@arndb.de>
 
-[...]
+Without the device handler support, the driver fails to link:
 
-> @@ -2215,6 +2209,29 @@ static int cs_etm__get_data_block(struct cs_etm_queue *etmq)
->  	 */
->  	cs_etm__flush_all_stack(etmq);
->  
-> +	/*
-> +	 * Per-thread mode still uses a queue for each CPU, but that CPU can run
-> +	 * different threads. When the TID from the AUX record on a CPU changes,
-> +	 * re-initialize the thread using the AUX record/buffer fragment TID so
-> +	 * we can start decoding even if the context ID packet was cropped or
-> +	 * they're disabled.
-> +	 */
-> +	if (etm->per_thread_decoding) {
-> +		struct cs_etm_traceid_queue *tidq = cs_etm__etmq_get_traceid_queue(etmq,
-> +							CS_ETM_PER_THREAD_TRACEID);
-> +
-> +		if (thread__tid(tidq->decode_thread) != etmq->buffer->tid) {
-> +			thread__zput(tidq->frontend_thread);
-> +			thread__zput(tidq->decode_thread);
-> +			tidq->frontend_thread = machine__findnew_thread(
-> +				&etm->session->machines.host, -1,
-> +				etmq->buffer->tid);
-> +			tidq->decode_thread = machine__findnew_thread(
-> +				&etm->session->machines.host, -1,
-> +				etmq->buffer->tid);
-> +		}
-> +	}
+ERROR: modpost: drivers/leds/rgb/leds-asus-aura-scsi.ko: symbol 'scsi_register_device_handler' undefined!
 
-Why not use PERF_RECORD_AUX events as an opportunity to update threads,
-similar to how we handle PERF_RECORD_SWITCH_CPU_WIDE?
+Add a Kconfig dependency to only show the symbol if it can
+be enabled.
 
-> +
->  	return 1;
->  }
->  
-> @@ -3288,7 +3305,9 @@ static int cs_etm__queue_aux_fragment(struct perf_session *session, off_t file_o
->  
->  	if (aux_offset >= auxtrace_event->offset &&
->  	    aux_offset + aux_size <= auxtrace_event->offset + auxtrace_event->size) {
-> -		struct cs_etm_queue *etmq = cs_etm__get_queue(etm, auxtrace_event->cpu);
-> +		/* Old per-thread files have no CPU (before v6.4) */
-> +		int queue_idx = sample->cpu == (u32)-1 ? 0 : sample->cpu;
-> +		struct cs_etm_queue *etmq = cs_etm__get_queue(etm, queue_idx);
+Fixes: 6173959c7d4d ("leds: asus-aura-scsi: Add ASUS Aura RGB LED driver for ROG NVMe enclosures")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ drivers/leds/rgb/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-For per-thread mode, auxtrace_event->cpu is -1. So this is why we
-resort sample->cpu to retrieve CPU ID. This makes sense to me.
+diff --git a/drivers/leds/rgb/Kconfig b/drivers/leds/rgb/Kconfig
+index 983f50b7ed2d..3f6786616a7d 100644
+--- a/drivers/leds/rgb/Kconfig
++++ b/drivers/leds/rgb/Kconfig
+@@ -4,7 +4,7 @@ if LEDS_CLASS_MULTICOLOR
+ 
+ config LEDS_ASUS_AURA_SCSI
+ 	tristate "ASUS Aura RGB LEDs on ROG external NVMe enclosures"
+-	depends on SCSI
++	depends on SCSI && SCSI_DH
+ 	help
+ 	  Say Y here if you want to control the RGB LEDs of ASUS ROG
+ 	  external NVMe enclosures such as the ROG STRIX Arion. The LEDs
+-- 
+2.53.0
+
