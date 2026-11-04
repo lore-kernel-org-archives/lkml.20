@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793803471;
-	b=ZZfJ/Yz7utMMhOcSnJJeztTpc0Y0XrtU/hyGZdHwu/1Ek0GBzv/6g1pGoSdzTzoN5GWG
-	 xIINjVI60aQB/Jagp1vknX3NdeuXzpYKH2Iy8ArWl50Owqp1fjw5pxdVLix9DbxRo7t7I
-	 WhWRx/+GawvtqXaJhZjg0Cxw5oj1h3ziTCtvpkTf0KnKCmWcLmkfBvMkupEY8Hn63cPSn
-	 Ckw6MyC9yq5nGsHHcgkHefIrCkhxmb4TN1NHRIHViTpT+ssSgo3pd/o3/0aJ8oER7jBaf
-	 KY31NC2x7+cKkDuL0nqW8TJkYfU5kANF+i3RwU5MVq7SbbA5vQb3FsiN0HwTe7MB6Bg==
+	t=1793803483;
+	b=QLjMcbXmNRcVGWCnKhVzbBYDPzRWJqVkWAmSCv9oClFUz1tDOZyPqEHMVVfzgUOOKb1/
+	 hcb6TiiOdOGTP/214EyjOiwaMl1zdbUqlZZztv3bfBDM3h0h2ZxdQccFqOHY5h3EDTMoz
+	 q0GeBz/NpfHnlb4zXjCh5nw8Y6CA9vRx5ksQC6W3r1aq/0RBNvhA/TfTVuUmgF/jX65LI
+	 os6uYWELz6cQOSz4hwy18FmCrsl2BbBCFSCwvGXAjUkLJCFtSPgHQzjqgB1QDZ2BDnTKt
+	 bAgQei9AjkBTL9jaZsUmr3sJkSBb+iJPMoAUBCQq3Mb9M6qf/644vItNNGfjbWboj3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793803471;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=XLRfnTSyVrKGMhEo1BPAy8g3XpQrm9HrjoWV2plVbB4=;
-	b=CR2uGDBxJz1XoOryaQsKb+kAVqCYG7/pTZ339IMyDmBAvx1ClN7FUslIrQh9o0HHV4mH
-	 zW9AJ/kQtEazg755lkdpbpD4n1rGYYmqFzqc4/oRE/txsItJlI70/n3NPBNdqZDu9imqn
-	 Z1q1QdSobBsebutDbODJ+x4GhUVCZSquBJsRjb9XH9eYSa8Q5YKFvJJlOO1NcKDGoZXbX
-	 Dxsv52Fl9DlWHEZt7ikYFpy4wpmQ4sQWueJpmlMVPUMWux9pAPqCKAIfC80NYu61YKlPp
-	 7I/ogD0eSKEBbZYIt93jJHnVZaTZbtvUfHcw7XvaKPizX4tCm+s7/OS+6+xr4BRwofw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793803483;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=gmZMoog7Knh/OMnJRYd6yhL9S4j+bQeuh5tH/D8XkYs=;
+	b=GNIzaV0jJrwB23eDJBexZlXYPQ3mb1yurVFaH7s5LbfrOTeKUxe9+bmsHAsqnVl5PirS
+	 qhqtgZK4Igd8I0bGRZznvT4JeKASUOYSweNnMjlglgRFsknjs5f8CqRBwVW1tG46e21r/
+	 eP5mapwZEF3mmAdE6FyMOmNvUtEFuQSs+q0l6E06wC8UCPeKBm97qXApnPHNDhnZFHks8
+	 GtSBsQlxLmeDOE1inJgItljvfzvWfjYYmggDZVh1Va99TaTAg5UOE4cEGF6E+MWixwCmF
+	 LRK4jevwMs2zD52TTRUpkvRMYL+ycfuk6YT5WDZef/WL9pNe2Ky8opO7CZEqY0PLh4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EienJjew;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JIpwWVJD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2051606A31B;
-	Wed,  4 Nov 2026 14:44:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27B70606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:44:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EienJjew
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 802241F000C1;
-	Wed,  4 Nov 2026 14:44:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JIpwWVJD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C54551F00A1E
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:44:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793803470;
-	bh=XLRfnTSyVrKGMhEo1BPAy8g3XpQrm9HrjoWV2plVbB4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EienJjewkDZ++J1iWGuwrgtvdGACfu0M9zuYsCSYhhK5CIM3w+bBga7Rw7zz2tnaH
-	 1/sSf5Wr9+M6gRpeBdTcT9p0eJvkQ2wGmoSo/HDDzNwyfZmgeiT+CrOnNITfeVrJW/
-	 hVVM0NT4vvzTBJg7H91OWRQ3KsKXXlvL3TaKuhs3IMUAOQrCWf+Duc+0YEODYlx9Nb
-	 b2vNm01E0zADaPz1R/6BpeDaqZXCID98bTHPKMsYSkXmS9ZZSpUjkU9JjuUyJ1ihT7
-	 ENeUV4+99U9WTVKXJtY4/q2hOExqnCLWqpoqcjRRyOTOkgctQs91Uk5IAT54yC9NTi
-	 mSNAZv5TkAQ/g==
-Date: Wed, 4 Nov 2026 14:44:26 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Chengyu Liu <lui2012qwq@gmail.com>
-Cc: lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] regulator: disable disable_work for good in
- regulator_unregister()
-Message-ID: <1c80a8ab-673d-461c-9b24-0475110c46d0@sirena.org.uk>
-References: <20261103174911.1600930-1-lui2012qwq@gmail.com>
- <20261104134838.326041-1-lui2012qwq@gmail.com>
- <5e63dcea-a397-41a4-a647-a356ab67f1a9@sirena.org.uk>
- <CAE=Q7=5Dx7DYoVO=VcO9gs8euBY3c2hfJ2yze1HQuymJj=ZH9Q@mail.gmail.com>
+	s=k20260515; t=1793803481;
+	bh=gmZMoog7Knh/OMnJRYd6yhL9S4j+bQeuh5tH/D8XkYs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=JIpwWVJDSZthuxauytHZVpUBhT35lDXWU7JnrJh15d+/c76AHM0G2XtbpGRK6yUwf
+	 VQF2Ifo55xwfPF4A+jja/aQAfhdSlde//PwWH5cD4HLluPLXbGipFmpwf5K2MD1/rS
+	 WCarMKbC+QGEzjT/HvfGYm5il6FIpFWzOIJAXbyT7DWvlPwP7sp4IDwVfaP7iJamHJ
+	 JSB4ysBFQt3OOH/W9AAYLVcbE7i1edPrUT/j5+XyWCZbRr6ELD2oLY9czFMgHOt2yn
+	 9jriZr7SV03MOvWpif0KUNFbD9vFvXzXBrB2K3XtT4X4qLY9H9Dbck14UfQ1ZczE+8
+	 bBd2U/LyYauJQ==
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5be3ea5a7adso642748e87.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:44:41 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBzx6EbaZSK0Q14r+gxPKjM7GXwgxznWiY4VQhoEjxFHQYBoUM05syZQLYxqcEGJTjE0wpVulEbX7bmUKAk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Ay3ZgeXdhtSzzmdZL4D93IBkPq7XsC4wiNaABtjgS0ZlrtUg2
+	w2R6na59AQy2Vk2JadVXX6/DKQNgzVsQCU3Db1BB5n5O49mPQYoOKVuYpxL+RwhsIWOlLXNZnW0
+	BNsQeiJD4J5SjRt4foVmEYYXw+qYBqx4=
+X-Received: by 2002:a05:6512:3e03:b0:5ba:41f0:5a45 with SMTP id
+ 2adb3069b0e04-5bfd9561f19mr5431515e87.21.1793803480211; Wed, 04 Nov 2026
+ 06:44:40 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,45 +59,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="KEbYb1efJ8uTenNo"
-Content-Disposition: inline
-In-Reply-To: <CAE=Q7=5Dx7DYoVO=VcO9gs8euBY3c2hfJ2yze1HQuymJj=ZH9Q@mail.gmail.com>
-X-Cookie: All rights reserved.
-
-
---KEbYb1efJ8uTenNo
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+References: <20261103221717.3840215-1-briannorris@chromium.org> <20261103141442.v2.1.If69ddc515c2e9fd4338441e87688b9d690d2ef36@changeid>
+In-Reply-To: <20261103141442.v2.1.If69ddc515c2e9fd4338441e87688b9d690d2ef36@changeid>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Wed, 4 Nov 2026 15:44:27 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0jb+=Wzp+awZmtk-PXB+oS+NQk+VXKCtXCFo8ELLUc9yQ@mail.gmail.com>
+X-Gm-Features: AclHuK9gTEmcX27Bq07hep_nJ7cMaPt2IP1nezlEMxrLMz_VLm2hu4KjJWZY_Xo
+Message-ID: <CAJZ5v0jb+=Wzp+awZmtk-PXB+oS+NQk+VXKCtXCFo8ELLUc9yQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/5] PM: runtime: Only queue an idle check for
+ RPM-linked suppliers (part 2)
+To: Brian Norris <briannorris@chromium.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Fabrice Gasnier <fabrice.gasnier@st.com>, linux-pm@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, Ulf Hansson <ulfh@kernel.org>, 
+	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
+	Andy Shevchenko <andy@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 04, 2026 at 09:58:35PM +0800, Chengyu Liu wrote:
-> On Wed, Nov 4, 2026 at 9:53=E2=80=AFPM Mark Brown <broonie@kernel.org> wr=
-ote:
-> > Please don't send new patches in reply to old patches or serieses, this
-> > makes it harder for both people and tools to understand what is going
-> > on - it can bury things in mailboxes and make it difficult to keep track
-> > of what current patches are, both for the new patches and the old ones.
->=20
-> Understood, sorry about that - I'll repost v2 as a fresh thread with a
-> link to v1.
+On Tue, Nov 3, 2026 at 11:23=E2=80=AFPM Brian Norris <briannorris@chromium.=
+org> wrote:
+>
+> Commit be5755f023e7 ("PM: runtime: Only queue an idle check for
+> RPM-linked suppliers") was incomplete. There are two other cases where
+> we perform idle checks on non-DL_FLAG_PM_RUNTIME suppliers -- in
+> pm_runtime_set_suspended(), and in cases where we failed to resume
+> suppliers.
+>
+> Fixes: 5244f5e2d801 ("PM: runtime: Defer suspending suppliers")
+> Signed-off-by: Brian Norris <briannorris@chromium.org>
+> ---
+> Noticed while touching this function in subsequent work.
+>
+> (no changes since v1)
+>
+>  drivers/base/power/runtime.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/base/power/runtime.c b/drivers/base/power/runtime.c
+> index 304a2b123420..9d3508d9b4a2 100644
+> --- a/drivers/base/power/runtime.c
+> +++ b/drivers/base/power/runtime.c
+> @@ -343,6 +343,9 @@ static void __rpm_put_suppliers(struct device *dev, b=
+ool try_to_suspend)
+>
+>         list_for_each_entry_rcu(link, &dev->links.suppliers, c_node,
+>                                 device_links_read_lock_held()) {
+> +               if (!device_link_test(link, DL_FLAG_PM_RUNTIME))
+> +                       continue;
+> +
+>                 pm_runtime_release_supplier(link);
+>                 if (try_to_suspend)
+>                         pm_request_idle(link->supplier);
+> --
 
-No, please don't do that - that will create even more confusion as there
-will be multiple v2s floating about.
-
---KEbYb1efJ8uTenNo
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrrRMoACgkQJNaLcl1U
-h9CKQgf/aiOEoOULnF8ThaiN6AJb8ZKctN+rZMJZLzU/mekkMGEcBdIXzZJ/935p
-RsEagDrP3UX81IN2Y6rDCSOch7p+C2P99DOOGGudbC8E3xB+boACWunxo7KZlkgT
-88NKtnaWCiTbPNnQRt7WT2fPXIrBRyl41479dWKFHt+2Q1xLJ0PXY5d991btp51K
-AJFGMvBludh326obHLEjs2lhX3hFnEN6nh5gRABiTJFjXh3EtcLstzikqSkCn2lw
-V0lsnSACmYFHzE0e7qYhAvTq6EovaktnFRrgo9QOX2Hg4FM7aahdIOOUW3veYu1r
-dvDBUuTXERDwGDwuGmCalJftYVTuaA==
-=4ju1
------END PGP SIGNATURE-----
-
---KEbYb1efJ8uTenNo--
+Applied as 7.4-rc material, thanks!
