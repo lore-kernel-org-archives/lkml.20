@@ -1,54 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793768619;
-	b=NdQygFK5yU40BatiAxzA5qZUjXlWObaCURz8YPTruqO5ijCG7fg8W9volPG0eUztahip
-	 K1cjrq7DR8p+8MJ8HCeE55eqAsTmXwsLbbruQjrKaNrnAL7LE7HJiBDmYVfcwBH1mUREI
-	 LHfGeU/kakZ5mF4LwvEMFI/fzyYBsiHr9Jx8tMO1e9iYmlXFJhLAI6dAzQUtBz6dHMikc
-	 ARqS3KH2UcUEvoVccv+4SjFfgXH5t0NPQ/ikR2JWc47Q7v0z8x/1JEOMvUNKpn8k0pBGr
-	 vJHfh8VEQSV9flfikr1+FgzGM6hq7iY+I1dQN7YF/Utlvu5nu/ZacMniRC9DB0v24Tw==
+	t=1793768638;
+	b=cFng6NVbNtKkoBky3Rn1/g0t9n1ysqXrcrr3mRN5/AHnx+0gfU9H7JJa6mZn+QSxUwGQ
+	 tzbt8mY4hH8h8BAA/oPTJQyCOiAyDfC4ENkXEDejd8PH99p9Zkoszw17o+xdSg0886NVT
+	 wbUA4B7JuQ3b/1UPKNeQEXx6F0/q925SDy73K5bPhArCENlXwraiCHCgOYbL0NyNKj546
+	 wmIFXKIS2k6LIzXLgKybkLamcTk3x7MlH6OcHHB7nTXvNu9fl3flMoB5zEn4ybFjJK7mS
+	 mlhYCvkZvuti2qsdYdWh/ghZid/w7ghSHOLhnO/g0wZRhd7/jJ1K9cp9Uet6uPbe0PQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793768619;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=NwhFy6BQ6fYDBl77314WUNOYeP2MIqXuKdbvJFIH2ek=;
-	b=r1kpDtsSZtQf65OPY6yTDZbPq912YT1OvVMIDyG2obYQ5j2v8BxN21qViZXv2S8RnINP
-	 ujDJCpG2CfIXbGh5/oKxePOjd9+eU2Ds0bkfBSrCZ0Q0LICrjYOIMZkgnH8lvB2VYYsME
-	 9hqsiBMKsoEO9VyOy1XYuQvnEltAHcQ+7BB0w/hHZYxq87K5P9qF0igufeXTv4btT4md4
-	 Pj20iswkLvrNCMc8hPHWsmucRTJYt+k6aqeACOXaclBTRV3gF/MwzRdbSJvAwQBcclfOP
-	 mwaA1qDTNOmoYUv6AP2TZOe6eOUVa4yjooS6jvrJbj2AZOvhue8rqr0JiF55HhXJqbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793768638;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=Bh8KfPuJj2iTXOUheCNI6RmSE0TesHaKpRuqz0dQaqM=;
+	b=NTUWu/PoCtlKv6b+tcln1VOM7wCgIIIS7w8rRHI2ITiRh5SXjxoG5K1FtNkIkB2zpQSO
+	 BqIy5GJzHmwVvQo6ENok+CebNxc3ejrUKXAmHJrlWcxqoR2gYDqY0zAhICJEPobJCaV9F
+	 iodhnokp+Y5jCkMZ4a6r0YIMornDc/Gd1ORYTL6da60ya68eb3bI4wpvnKIRhATHnlRBw
+	 lYOjcsKJUNI/q1jAIBNXUkWWRNvURSI1uXgdzjinFv5WTG+jiUXjAjbkmfZ3cvZMKK5Qr
+	 epUWmSYhuqonzg7WPqMQ1Du41XmmjS+gLUkFsLBBXpEHKmFSjnk+AQ8RtbHS+epasqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.200
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HMx7Sunj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A913606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 05:03:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A913606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4ab8b4887d4so363901b6e.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 21:03:38 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793768618; x=1794373418;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=NwhFy6BQ6fYDBl77314WUNOYeP2MIqXuKdbvJFIH2ek=;
-        b=qI40aBJD3pkhpx57/CDfvcgqYUCL63VAqFi/Vyn2AMto3RiEy2inbGBWiN/ZeAvmBC
-         ViTMqrUayd2MYKyFvPv2XOSevXq7q52/N5vvfckkMSwQhR5UHpdpdt3RY/v51e/3wI5k
-         y/4xrQmXBmuAFkXCEVda7by0d6caR9C45EPIyvzO2CMPbgbQk49Sgk2wj5Jf81dGyEk2
-         fsxdiKOqZmqzivhNs9pD1vE8t9g6jWF2fXOT2fO5quXfJe/81JZvWyIIBDuCGYfXIEQ8
-         wGA0eI+1Z6mQOkuiUuT8X+dFuKeSFeGLBes8xuZ7r1yhtqoZUnigofiOc7oyTwe9lyEm
-         lEVA==
-X-Forwarded-Encrypted: i=1; AKwUvBwyH6GVKDQ9BC+BEfhSE0Lz+6Tw9G4Hoa3EutGDTRvsXZB8bhyfd37CxohI7/dRSDr90zEI59X4+4nnqyQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9u27YWL15wvFAPrVqIWqULeZvmfJRayrTxim/nIka54VdX2VQi
-	766r9QA9QOC89tY80T7LrmN3hN4ch077KA8GeZgpiJevlcpLTKGYFEXSirIwAmoVDDFVRyjCYQr
-	Bel8Lp/AZDQFtyu+hZ7yRYEKc3HiuBFplhMMlTofJlAvpuxBp2yBHP1i2PQ8=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D913D606A31B;
+	Wed,  4 Nov 2026 05:03:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HMx7Sunj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED7701F00919;
+	Wed,  4 Nov 2026 05:03:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793768637;
+	bh=Bh8KfPuJj2iTXOUheCNI6RmSE0TesHaKpRuqz0dQaqM=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=HMx7SunjXBZt9ll09S6BwIUGp7QPmG2RH6JGtH8xsGsdEbPuqtgAcAtd9DMnQUIwj
+	 /ZVWbep7FxXYWKiBp+zS6cux8gRKRyyIfJDYEBfinRvbXjAEqIkXqmYENEU82PMVSK
+	 RNo6FpcV5Cdr30HISamHe6rLzabyMNuT7OqAuiIjeK5N1iONSyO/LJ5bIbYJfFhjtG
+	 wsh9WEUJy8qQU0V7BcoM9521pDS8l13CuWHk7dfrVCL1vk7CnqAIO4YfHP13dmeru+
+	 bNPc7X7+N6zdnbWRYNLanPJZVw6Jic546oakdCxfjmM0MLDhPx1PoDrGkZL+hJ5cYi
+	 JrSxXS5yVHZyw==
+Content-Type: multipart/mixed; boundary="===============0821062343041324575=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,155 +49,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:2382:b0:4b9:e5fa:8a13 with SMTP id
- 5614622812f47-5640dd44e89mr10919497b6e.24.1793768617926; Tue, 03 Nov 2026
- 21:03:37 -0800 (PST)
-Date: Tue, 03 Nov 2026 21:03:37 -0800
-In-Reply-To: <6ae3d50b.9c6421ad.36baac.0003.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aeabca9.fc50a118.dd1b.0001.GAE@google.com>
-Subject: Re: [syzbot] [sctp?] kernel BUG in __pskb_pull_tail (2)
-From: syzbot <syzbot+f15a6eff7a53f6eb7dc3@syzkaller.appspotmail.com>
-To: davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, 
-	kuba@kernel.org, linux-kernel@vger.kernel.org, linux-sctp@vger.kernel.org, 
-	lucien.xin@gmail.com, marcelo.leitner@gmail.com, netdev@vger.kernel.org, 
-	pabeni@redhat.com, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Message-Id: <d94520950f855a1d5ac4b51975988b70185ba7da61836aa84b044b69e8104bbc@mail.kernel.org>
+In-Reply-To: <20261104043006.1199857-2-irogers@google.com>
+References: <20261104043006.1199857-2-irogers@google.com>
+Subject: Re: [PATCH v3 1/4] tools build: Add explicitly sequenced -lzstd to libbfd feature fallback
+From: bot+bpf-ci@kernel.org
+To: irogers@google.com,peterz@infradead.org,mingo@redhat.com,acme@kernel.org,namhyung@kernel.org,jolsa@kernel.org,irogers@google.com,adrian.hunter@intel.com,qmo@kernel.org,jpoimboe@kernel.org
+Cc: daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,james.clark@linaro.org,leo.yan@arm.com,linux-perf-users@vger.kernel.org,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Wed,  4 Nov 2026 05:03:56 +0000 (UTC)
 
-syzbot has found a reproducer for the following issue on:
+--===============0821062343041324575==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-HEAD commit:    05441d697f7f Merge tag 'cocci-7.4-rc1' of git://git.kernel..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=162b8add580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=1cf189394a856f11
-dashboard link: https://syzkaller.appspot.com/bug?extid=f15a6eff7a53f6eb7dc3
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11b49b29580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15b49b29580000
+> tools build: Add explicitly sequenced -lzstd to libbfd feature fallback
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-05441d69.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/0edd3964be19/vmlinux-05441d69.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/84d6d8dd5648/bzImage-05441d69.xz
+TL;DR: Possible build break at this commit: the libbfd -lzstd fallback is
+removed but no consumer uses the new feature test yet, so perf may fail to
+link and bpftool may lose JIT disassembly.
 
-AI-generated root cause summary:
-When receiving an SCTP packet that is nonlinear (such as an SCTP GSO packet
-constructed with fragments in frag_list), sctp_rcv attempts to linearize the
-packet using skb_linearize() if the sk_buff is cloned (e.g., tapped by a packet
-socket or shared) or not recognized as GSO. During linearization via
-__skb_linearize() and __pskb_pull_tail(), skb_copy_bits() fails with -EFAULT due
-to a discrepancy in frag_list fragment lengths or readable offsets, triggering a
-BUG_ON assertion failure. In production builds, this BUG() results in an invalid
-opcode oops and kernel panic, causing an immediate denial of service.
+> diff --git a/tools/build/feature/Makefile b/tools/build/feature/Makefile
+> --- a/tools/build/feature/Makefile
+> +++ b/tools/build/feature/Makefile
 
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=f15a6eff7a53f6eb7dc3
+[ ... ]
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+f15a6eff7a53f6eb7dc3@syzkaller.appspotmail.com
+> @@ -249,18 +250,21 @@ $(OUTPUT)test-python-module.bin:
+>  	$(BUILD) $(FLAGS_PYTHON_EMBED)
+>  
+>  $(OUTPUT)test-libbfd.bin:
+> -	$(BUILD_BFD) || $(BUILD_BFD) -lzstd
+> +	$(BUILD_BFD)
+>  
+>  $(OUTPUT)test-libbfd-threadsafe.bin:
+> -	$(BUILD_BFD) || $(BUILD_BFD) -lzstd || $(BUILD_BFD) -liberty || $(BUILD_BFD) -liberty -lz
+> +	$(BUILD_BFD) || $(BUILD_BFD) -liberty || $(BUILD_BFD) -liberty -lz || \
+> +	$(BUILD_BFD) -liberty -lz -lzstd
 
-------------[ cut here ]------------
-kernel BUG at net/core/skbuff.c:2903!
-Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-CPU: 2 UID: 0 PID: 6002 Comm: syz.0.20 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:__pskb_pull_tail+0x1335/0x1920 net/core/skbuff.c:2903
-Code: 5b f8 48 89 df e8 2b 03 fe ff 31 ff 41 89 c4 89 c6 e8 7f 58 5b f8 45 84 e4 0f 84 1c f2 ff ff e9 84 f2 ff ff e8 5c 5e 5b f8 90 <0f> 0b e8 54 5e 5b f8 48 8b 54 24 30 48 b8 00 00 00 00 00 fc ff df
-RSP: 0018:ffffc90000648870 EFLAGS: 00010246
-RAX: 0000000000000000 RBX: 00000000fffffff2 RCX: 0000000000000101
-RDX: ffff88802ce60000 RSI: ffffffff89b30684 RDI: 0000000000000005
-RBP: ffffc900006488f0 R08: 0000000000000000 R09: 00000000fffffff2
-R10: ffff888046a12f77 R11: 0000000000000000 R12: 00000000000000e4
-R13: 0000000000000180 R14: 0000000000000000 R15: ffff888030406780
-FS:  000055558120b500(0000) GS:ffff8880d467c000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000020000001a000 CR3: 00000000385f5000 CR4: 0000000000352ef0
-Call Trace:
- <IRQ>
- __skb_linearize include/linux/skbuff.h:4025 [inline]
- skb_linearize include/linux/skbuff.h:4037 [inline]
- sctp_rcv+0x143e/0x3cc0 net/sctp/input.c:120
- ip_protocol_deliver_rcu+0x44c/0x4d0 net/ipv4/ip_input.c:207
- ip_local_deliver_finish+0x3fb/0x6e0 net/ipv4/ip_input.c:241
- NF_HOOK include/linux/netfilter.h:325 [inline]
- NF_HOOK include/linux/netfilter.h:319 [inline]
- ip_local_deliver+0x1a3/0x200 net/ipv4/ip_input.c:262
- dst_input include/net/dst.h:481 [inline]
- ip_rcv_finish net/ipv4/ip_input.c:492 [inline]
- NF_HOOK include/linux/netfilter.h:325 [inline]
- NF_HOOK include/linux/netfilter.h:319 [inline]
- ip_rcv+0x33a/0x3c0 net/ipv4/ip_input.c:612
- __netif_receive_skb_one_core+0x197/0x1e0 net/core/dev.c:6433
- __netif_receive_skb+0x1f/0x120 net/core/dev.c:6546
- process_backlog+0x487/0x1600 net/core/dev.c:6897
- __napi_poll.constprop.0+0xaf/0x450 net/core/dev.c:7966
- napi_poll net/core/dev.c:8029 [inline]
- net_rx_action+0xa40/0xf20 net/core/dev.c:8186
- handle_softirqs+0x216/0xa20 kernel/softirq.c:669
- do_softirq kernel/softirq.c:569 [inline]
- do_softirq+0xaf/0xf0 kernel/softirq.c:556
- </IRQ>
- <TASK>
- __local_bh_enable_ip+0xff/0x120 kernel/softirq.c:473
- local_bh_enable include/linux/bottom_half.h:33 [inline]
- ipt_do_table+0xd71/0x1b10 net/ipv4/netfilter/ip_tables.c:357
- nf_hook_entry_hookfn include/linux/netfilter.h:165 [inline]
- nf_hook_slow+0xbf/0x220 net/netfilter/core.c:633
- nf_hook include/linux/netfilter.h:280 [inline]
- __ip_local_out+0x541/0xb80 net/ipv4/ip_output.c:120
- ip_local_out+0x2a/0x1f0 net/ipv4/ip_output.c:129
- __ip_queue_xmit+0x876/0x1f50 net/ipv4/ip_output.c:533
- sctp_v4_xmit+0x91a/0x1070 net/sctp/protocol.c:1061
- sctp_packet_transmit+0x22fe/0x30b0 net/sctp/output.c:659
- sctp_outq_flush_transports net/sctp/outqueue.c:1174 [inline]
- sctp_outq_flush+0xb2b/0x3380 net/sctp/outqueue.c:1222
- sctp_cmd_interpreter net/sctp/sm_sideeffect.c:1826 [inline]
- sctp_side_effects net/sctp/sm_sideeffect.c:1211 [inline]
- sctp_do_sm+0xce1/0x5c30 net/sctp/sm_sideeffect.c:1182
- sctp_assoc_bh_rcv+0x392/0x740 net/sctp/associola.c:1048
- sctp_inq_push+0x25c/0x320 net/sctp/inqueue.c:91
- sctp_backlog_rcv+0x169/0x590 net/sctp/input.c:331
- sk_backlog_rcv include/net/sock.h:1194 [inline]
- __release_sock+0x39d/0x440 net/core/sock.c:3341
- release_sock+0x1e5/0x280 net/core/sock.c:3940
- sctp_sendmsg+0x1166/0x22e0 net/sctp/socket.c:2091
- inet_sendmsg+0x11c/0x140 net/ipv4/af_inet.c:864
- sock_sendmsg_nosec net/socket.c:800 [inline]
- __sock_sendmsg net/socket.c:818 [inline]
- ____sys_sendmsg+0xa23/0xc30 net/socket.c:2715
- ___sys_sendmsg+0x190/0x1e0 net/socket.c:2769
- __sys_sendmmsg+0x20c/0x440 net/socket.c:2858
- __do_sys_sendmmsg net/socket.c:2885 [inline]
- __se_sys_sendmmsg net/socket.c:2882 [inline]
- __x64_sys_sendmmsg+0x9c/0x100 net/socket.c:2882
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7ff80879fb19
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fff70bcd848 EFLAGS: 00000246 ORIG_RAX: 0000000000000133
-RAX: ffffffffffffffda RBX: 00007ff808a25fa0 RCX: 00007ff80879fb19
-RDX: 0000000000000001 RSI: 0000200000000e40 RDI: 0000000000000004
-RBP: 00007ff808837b70 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007ff808a25fac R14: 00007ff808a25fa0 R15: 00007ff808a25fa0
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:__pskb_pull_tail+0x1335/0x1920 net/core/skbuff.c:2903
-Code: 5b f8 48 89 df e8 2b 03 fe ff 31 ff 41 89 c4 89 c6 e8 7f 58 5b f8 45 84 e4 0f 84 1c f2 ff ff e9 84 f2 ff ff e8 5c 5e 5b f8 90 <0f> 0b e8 54 5e 5b f8 48 8b 54 24 30 48 b8 00 00 00 00 00 fc ff df
-RSP: 0018:ffffc90000648870 EFLAGS: 00010246
-RAX: 0000000000000000 RBX: 00000000fffffff2 RCX: 0000000000000101
-RDX: ffff88802ce60000 RSI: ffffffff89b30684 RDI: 0000000000000005
-RBP: ffffc900006488f0 R08: 0000000000000000 R09: 00000000fffffff2
-R10: ffff888046a12f77 R11: 0000000000000000 R12: 00000000000000e4
-R13: 0000000000000180 R14: 0000000000000000 R15: ffff888030406780
-FS:  000055558120b500(0000) GS:ffff8880d467c000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000020000001a000 CR3: 00000000385f5000 CR4: 0000000000352ef0
+Can this leave perf and bpftool unable to link libbfd at this commit?
+
+Nothing here reads the new libbfd-liberty-z-zstd result.  Neither
+tools/perf/Makefile.config nor tools/bpf/bpftool/Makefile calls
+feature_check for it or has a branch that uses it.
+
+On a system where "-lbfd -ldl" fails but "-lbfd -ldl -lzstd" links, the
+parent commit gave feature-libbfd=1 through the removed fallback.  Here
+feature-libbfd, feature-libbfd-liberty and feature-libbfd-liberty-z are
+all 0, while feature-libbfd-threadsafe is 1 through the new
+"-liberty -lz -lzstd" fallback.
+
+With BUILD_NONDISTRO=1, perf's Makefile.config then passes the threadsafe
+check but takes none of the EXTLIBS branches:
+
+  ifeq ($(feature-libbfd), 1)
+    EXTLIBS += -lbfd -lopcodes
+  else ifeq ($(feature-libbfd-liberty), 1)
+    EXTLIBS += -lbfd -lopcodes -liberty
+  else ifeq ($(feature-libbfd-liberty-z), 1)
+    EXTLIBS += -lbfd -lopcodes -liberty -lz
+  endif
+
+  CFLAGS += -DHAVE_LIBBFD_SUPPORT
+
+util/libbfd.o is still built, so the perf link can fail with undefined
+references to bfd_openr(), bfd_check_format() and disassembler().  bpftool
+goes down the same chain, silently drops -lbfd and -DHAVE_LIBBFD_SUPPORT,
+and loses JIT disassembly.
+
+The consumers are added later in the series:
+
+  6eb66acc776f ("perf build: Add explicitly sequenced -lzstd to libbfd
+  feature fallback")
+  155513d3a59d ("bpftool: Add explicitly sequenced -lzstd to libbfd
+  feature fallback")
+
+Would it be better to keep the old -lzstd fallback until those consumers
+land, or to reorder or squash so that each commit remains buildable?
 
 
 ---
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/41774922004
+--===============0821062343041324575==--
