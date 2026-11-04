@@ -1,108 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.90
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793793690;
-	b=cLYCaBTDMQyrpDcgNPR3V6BuadeBqBmP6TvVutts1EJlDVWmtx6/Dhe/pvuiByxFL31Q
-	 f5DgZPPQ1rbKfuf1COpHzg80c6IBpZYnqu5X2jstFYqJZmjj8Xz3Ax+D0k1H9QcwjVkFQ
-	 WIRMksGLmQLtCNTlGN7UjlCvf+TuMwcFPGyn0p2rLCVZHdCvtjKC0uIzep3vU0v5oZIwS
-	 9cwxHc2EbXQiHZ9eoqnAOkb9OYkD0e2XtP1HngRqflgAmxTSHZuBgxnvlr0bZTYvLypSu
-	 m0ZvVsDPKhDzkNWTR4yGhHOWheGzY46t4fiv10tS/jrJRZGy201xew0RfrCwpOqCK7w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793793690;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=NkhsPTWded1eSTF0X+YMyw2xIxsyUU8cDM+BAy/OvQM=;
-	b=oKWxaFlYsPSDHUnlgJuZZ8MtHzsPkaX/ICXWqV2HDfbcBO20jXohKOIJzJ/sXINUv01b
-	 xVWBSfk6DM5+yFNy0sA5NqYtAH6peRrekQBgiVYJMtfbXYDBxLAO9slv3axy2AJXHEF6a
-	 fKpMemfmm7EZtOKdMvbATZHRp9fZN44zxTUnklTItsGN2AeyHYjtsGbagDpJsrXLfWk/7
-	 OFJLROTqSPJl+DZqmMBZRtHrVx4Pdob8b3ZTPXOsaxiHRIDoJ3bCtKtjU7MaJDOVkaaGR
-	 tUX0Z/xYiE5UzujK3uz+M3sSb6d8pH7s+tFPcuzjATSh6pkwMBo92nEsVLmqhkes/2g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=virtuozzo.com;
-	spf=pass smtp.mailfrom=virtuozzo.com;
-	dkim=pass header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=selector2 header.b=bDt8cX+P;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.90
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11022090.outbound.protection.outlook.com [52.101.66.90])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793793711;
+	b=zyqEdvcoccZZd8yLESvVNPOEgEyz6OWLouNdGj134T58sZTx7e+BQY5Zr7rDXuuox5PY
+	 UduXnVTJPPqNH9vQu9z43FDnShvJAIshex6c+LZrpzCt32//ZvRPue++0NLdXlLXyUSlE
+	 8N/n85/r2NXiLfcGI+7JcRg7jftfNCqAMn3MDCt3XESj5NzQClTPe6wDI2b3C55UEIS2c
+	 801K5cZYJZVZB0CuecrNXYEZ6EeNWPivZ0YNY1Qo67W6hMnMvn8iZ4h10gAPiC6aO0IBJ
+	 gyqz/UBNjsBHN039l7odRoSRwWpocq40hRt4+soICWNkeZ1jGV6bHRkssoIe/hqkESA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793793711;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=DLnBS3asSoJkTZbmbelm2y19mDKYNH4MfMGa0K6Aq2Q=;
+	b=UXa02UjrRJ95ijKwjgS+HHncD80lAxGA5RJ+doPwYCIJQtNgT3JZwDNK2+C9T7RYZro2
+	 4rMGPP40zgzpgyf21mgpBDDaK2Iv43AzkPOP/gipVDZGevc5hV1ag58cgipclOVkCTje+
+	 g/j4CdidPPvm3Hph8VTd3jUJPJuUxLJJ3sxVppD9Kg/rOS4TqHsdOg+1QysmSdVH8AEgA
+	 HnS+uUJYzoWTEDcwl5XHGNFP61TUONu5KRggVD2zvQWbR8P/OxGLYUdJIhGrcKcE7ltxB
+	 UpskQ1IvTpsrEPRYQkFg8TzuEk4aHnjyzRPFMGbvP3DtI9fOdeQK0c5BlD5M3/XRDjA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dNzb9qxh;
+	arc=none smtp.remote-ip=209.85.210.172
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 947C9606A328;
-	Wed,  4 Nov 2026 12:01:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 947C9606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C16FB606A334
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 12:01:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C16FB606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=selector2 header.b=bDt8cX+P
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AdK3o+pxNalZwAoxmkVnqECOccVHZ3ljqezswQVM7gTu4+hOBGIkcpKKLXqW3b27xukh8UeMQJJG1W8cnq0DsjyjK0A6v7EKNMn73lIntXCUzUbWmj9YqTyNLOJl+1X/aDD+57ElwEz4WqspQzzsM3yzvUa/G+PIdrzdsTh+p4iGDdfVrmWzTXTAPtzl287qL5Ud075K1+R75F4ubAVg+lMNPIGAowr/1KX1PIbF6U4Qc6Lz4+sp6d6Ts9qvfBpRFXRun2vHIlMJrGRsPvusV2w5OxdgstW6HXe7vHBT8RMQhwb/gLPM9dcu+GHgtoOoRBEUxv+OVv4q6vzRXyiQXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NkhsPTWded1eSTF0X+YMyw2xIxsyUU8cDM+BAy/OvQM=;
- b=JSjLD8I2YC1GzvIZaEgY8kGuvgogrI9cznDC6tKR2Ste6CsWYd7F/ExB2ZoBe1LOmdKIPzQNFjyhM+Z27zGqxcozS64RHiaOLKZmwyUV2OiB+lkFDQb3S5mnxcliNmcvZVwYZh28VFvc4SYDktyt8uKE+RFWh7JB7z3jVtDpyAOw3tciIz3FUBV5WAzHJJwvA7ligaHaB2pzt5hkGQ8I2v1lUhHmz2yHx+DsvsR+FtkOYcTF9H9gMojumCk7UFRsd4IS2kN7u28w8bhweWqFv5ZglanZd7x2xozomMa2UarQNP3e/xTHruPvPDBxS5jSjis3HlV8DiQwdOqMpglDpQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=virtuozzo.com; dmarc=pass action=none
- header.from=virtuozzo.com; dkim=pass header.d=virtuozzo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=virtuozzo.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NkhsPTWded1eSTF0X+YMyw2xIxsyUU8cDM+BAy/OvQM=;
- b=bDt8cX+PaRAb+lbAjTuVrvQoC0TxJXlPLsjA/l1gERtw3IAW3G08jIw7SfSV9e/e41twuCdX4DOjjhun2RhwKwsuF5fHBED4IYKpdt+yWCHRmcnoDtk1+fBWylGDLLHpF5MU/NsHA0Ih96JbiX43+D4JldDS02LxInUJ85RTAk7j5MIrwMd0DHHrbh7PjFQcXKsCJOzQsD11oEIfvU4ttpHgbWAQP10nIPQScIyWgDjAr6ZfqjOKWJJY5uXc1+2s/hAoxRMaBxFE/CrZBTglIpoyUbibjqclb1hCvJe8qa+KL6KVcyIJS+CHgdrs4QLc99I1R1bpGpZMXq5oBaP/BQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=virtuozzo.com;
-Received: from AS2PR08MB9075.eurprd08.prod.outlook.com (2603:10a6:20b:5ff::9)
- by AS2PR08MB9871.eurprd08.prod.outlook.com (2603:10a6:20b:594::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 4 Nov
- 2026 12:01:25 +0000
-Received: from AS2PR08MB9075.eurprd08.prod.outlook.com
- ([fe80::3f57:9ced:7a37:1bd8]) by AS2PR08MB9075.eurprd08.prod.outlook.com
- ([fe80::3f57:9ced:7a37:1bd8%4]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 12:01:25 +0000
-Message-ID: <7e5a6819-9e29-4187-96ed-f716befc2bc9@virtuozzo.com>
-Date: Wed, 4 Nov 2026 13:01:23 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/4] selftests/mm: test fork of PMD-mapped shmem THPs
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Peter Xu <peterx@redhat.com>,
- Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
- =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>,
- Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>,
- linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>
-References: <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-0-66f00b7a564c@virtuozzo.com>
- <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-4-66f00b7a564c@virtuozzo.com>
- <auC4eUEN52PJF1bM@thinkstation>
-Content-Language: en-US, ru, sr
-From: Konstantin Khorenko <khorenko@virtuozzo.com>
-In-Reply-To: <auC4eUEN52PJF1bM@thinkstation>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS4P251CA0023.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:20b:5d3::20) To AS2PR08MB9075.eurprd08.prod.outlook.com
- (2603:10a6:20b:5ff::9)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dNzb9qxh
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8a07078200fso231729b3a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 04:01:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793793710; x=1794398510; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DLnBS3asSoJkTZbmbelm2y19mDKYNH4MfMGa0K6Aq2Q=;
+        b=dNzb9qxhI5NeTUc9qb/FdfarDIe0G5CEJ/bU+9pqt6dL2sS4GsN4LnAJNUX/AdeQkR
+         wzTjg26aFyWEfQLJCaT4BwAQm9rVwZd8Sj4EGGRbiYNMz03uaTodvMMcaOROM8rbp+Vj
+         oew6tPPfhn7+mJSNKk8n1kTbREm/9wWSO6+/pZ/WNMu6aFS8CE7zFJpcaUOF58ztvUik
+         Bv5Ti0n7tIW9ySPBj3n4pYfn/2qb7Ybq3O2xAcU8PO6FI8EyYqDungOl/rpp+gUYjDhV
+         yF8fSDJhMotsTunfLSk4R8jd6h3w1v1+oCkC59Qk8IZc8i3optPxrHNn/jh8Dco8I+32
+         Adug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793793710; x=1794398510;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DLnBS3asSoJkTZbmbelm2y19mDKYNH4MfMGa0K6Aq2Q=;
+        b=EwxK20Uar4Xsmh37GtK9N9TCdZ0omUsaA37GD/0yyeu5uWQyOTBNR3l5WpTYk7KNjV
+         jk+kw5vwLuKaFITBY3/v9iEs4nzkvCeU73EEZ812ITvYm+fiP6PGYgqKYu0f61XTPNcK
+         iNvHkbd98ujWz0Sv2P/lR6bUyZNSh51xNjv15tkjsDlj5pl5JPrk07FKWA0i9tqZ4ZCH
+         n1NkNlSHraayH7w3lvy2DhRZjPPjPzul8AmE6k7iN+trxpUdcFLSMdOyUC/udrwyadfr
+         2q0+9sUhkYUDlKOVpZ1RicwH19drlIcpLVvy4IL0PHt1rtXo4gBCqBvUyTP/F8ahri0p
+         LEbg==
+X-Forwarded-Encrypted: i=1; AKwUvBxGPc5mZeSP0+Uq8bUG1uiF59nAXfE82aICBF1JYZyt+z5zgYMMUp+y+KTI9XAmC1fINaqpJnm+VPQ7m+Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8VEXBB+xGeBxpODKcnyNdd1KavelRzu9TxDMcXP1cL1/ST77yE
+	teLzU+dDAytB/CD2QG+e98sqOiQKZEdijFN38J9aBYdsqP4BI+RInp2m
+X-Gm-Gg: AYBFou0KXfjHhP4PYqOdtUyp4Ioi656lpb/uBV532hhdyOF2jx/UztlzJ/70ZlSzwq5
+	b/hsLDJGibRPLnQ36P3a3IZyrs6QmHzpf2BY4p9eYw83luIg0A1hym5ArPGa+8l7EPGXkveNk2T
+	dhIAcKdtXMgcVyFN3H7aAxfxJoRBmGjvDj/KurzwqBPrQUr8EXzwnbJsePhFAJ+Psapxk7bfY1M
+	4cr5IYiU9RZUsRXUSqidAS/dWXrOBwVbT+MBDNYbY7QUPQmRSDgQGZiiA6G54HnkHn+HPqgb98r
+	A4g+1JVIUgRManAPsexexVZ/yjgxKkwvOY9or0nou2USFgXpI4dn1FKWd98+wfX2+V/P6UjhLYj
+	KDJJvxeRMHbsHhG3v+5KHbCfguPbVSCVTX0cb0j1AiCCHo8zFd0As1vFMVSP9ZXD7eEwEXQjyfG
+	ajU/cquCPVdY1k94Hp47j7mTZJhOd1bhR+KqOdEyraoyuKXWRmQ6H6obSmNOExDPp/FDYRqPbyf
+	UPC+0NMi1IV2D+8qVgut5blvnl0FiA2DNeo9eoLD4fJtiC9yDJWQGYFtSvzYBEOa3y/Zc9PAPO0
+	r4GVQwmtJlVoSd/fo9lqLAwRrfogInFjVj152a9t1pM1rINk59fXtxg2R5UetKIshXFVLiWmE8v
+	6kylP0eSMGq/XQmm3xbhWYjgpARLprPMkuN8kdoQ+l/WL+kWlvpAQo/poiyBuHv/jJpnJCTNHnq
+	8=
+X-Received: by 2002:a05:6a00:1c85:b0:899:74d0:8a72 with SMTP id d2e1a72fcca58-8a9c0b796d7mr12306362b3a.59.1793793709863;
+        Wed, 04 Nov 2026 04:01:49 -0800 (PST)
+Received: from localhost.localdomain ([58.224.60.243])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b09af918f2sm787813b3a.23.2026.11.04.04.01.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 04:01:49 -0800 (PST)
+From: Jinseob Kim <kimjinseob88@gmail.com>
+To: brgl@kernel.org
+Cc: linusw@kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] gpio: kunit: test mixed-polarity multi-line hogs
+Date: Wed,  4 Nov 2026 21:00:55 +0900
+Message-ID: <20261104120055.256-1-kimjinseob88@gmail.com>
+X-Mailer: git-send-email 2.42.0.windows.2
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,96 +97,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS2PR08MB9075:EE_|AS2PR08MB9871:EE_
-X-MS-Office365-Filtering-Correlation-Id: 02b321d7-78bb-4d9b-b60d-08df3a6b59d5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|7416014|1800799024|18002099003|22082099003|261102123227099003|4143699003|10067099003|261021121427099003|261022075727099003|56012099006|261022105027099003|261026140227099003|261028144727099003;
-X-Microsoft-Antispam-Message-Info:
-	9X6/ebo1Cyv1x5w6+PrF1KkjdYac1aMASsA6MRFeRzpRyZMBXQUmXM93wPAznWSlqePxXhqnTJ74yIiSEEgvBFbcC+a2uJGTSwYFNCwTH7J0PjVhW4nW5fwiQRyV6wn/q1EpGmTXzyORXWtcjq0XiEaLMa0xDJJdzmZvwuOaShTh5L1hXEETyF3eAQr2teeklkDmxY5CggCE6MV+onL+EBvTPE+HHwRskeisolk3gL/MjkYd/7aOrWdtGhgONHqLljcz9f8LURysAFlWclBSlC/ZJV1PaQRYlvypgQYQ+LR5zaw4qQhWVAvtfqIzwM2bgkB8rfmppe5t3JvoF5l4KwMpH2a/7psK+jHI3mNWGrrvHMMXfrQmyID+HjwG8kvzF84MncP6mKgfM5ahSUdBZn74aAEavukD/QvWzf2Fe2xvzOR3O3vqyGVIJj6qHn5HzlNm8OFsNtxxKkT+O1RZNVgjpNN5IpQaHwgGHfTbB7m2TWifCyhpe3rve10z9JmO15tN5YyspKVdx8zk9DPn8lgtSFr1TCV7RYevmQ/+DAfONqmvT8z4eB0ch5439v4mnyzIfrLgH8Km8tvJaCc/BTnx35w75QeC2ppSTCCguurvkpvjCTsDJ9Vr5gz5S5cGgPqqfB4nuXT5HccGH6BrecBpbxNWxwujpkqurlYdoeQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR08MB9075.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(18002099003)(22082099003)(261102123227099003)(4143699003)(10067099003)(261021121427099003)(261022075727099003)(56012099006)(261022105027099003)(261026140227099003)(261028144727099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?V2FzeEEyb0hnYUc3TExoMUJTV0dEdDRISllpY1NLNzc0b0dOUFRrSVp1TXVP?=
- =?utf-8?B?d1J3LzBadjZ2OHFnNFYrMzlteVNJd01LbmNKMVJ5eENhMXN4VXJHc3VBZE9p?=
- =?utf-8?B?V0pjK0ZrWjJPZmVhWEVtN2luT21FMEJnSEk4T1RCUmtDVXZwMUpVWTd6a3kw?=
- =?utf-8?B?NGl1aDVzT2lGOTN4cjNMQnJ5Q2o1ajV1b3NUVmVhaHBjckFGN012ZXlYRmVt?=
- =?utf-8?B?cVZVTXFLUU8vSW1MNDF5bVJtSy9CVnU0VHgyM3o1Z1V5ZWEzWWMwNGtJUXNa?=
- =?utf-8?B?YjNndE9QeWl5SG9oUmV2WjRTUzlMaDBCSjQzSVdVZThGWEt2Rm1pQXZjTDJV?=
- =?utf-8?B?VGJ0ZzhRdjNNM29yYzJzdS9WcEVXL3JjYkZlK21EUnlRdHJTdDBRamoyUzM5?=
- =?utf-8?B?ZE4wYnQ0Rm1EdGRjMUdiNWJkM0NCZUVRMXJNOTlVdC84ZHZqckl1ZlhYWGxB?=
- =?utf-8?B?TllvVXhDV3Rubi8ycUdrTkJmejI0WVBFSXlrSExXeTNac3VQZlVWNjZUTXYv?=
- =?utf-8?B?WHBSMDF4cEQyeUtKNWtKNEp2UGhsWlZIR2RhdTBHbVlCNUdjZmt6Mk9KcEVi?=
- =?utf-8?B?SGpYY252K1ZNajZVRllqazhZNUFuakNjOVdFSXk1UElncmtCekZxV0xER1pH?=
- =?utf-8?B?cXF3aGtvOVk4WWF5SHRUSFhWVTBDdnpDZU5NaXBkNnlKYmZ0bEpJelhkaVRk?=
- =?utf-8?B?MW5JcStsNnkwaHVVYWdidlpSc1FsNEg0dmx4NkNsYlRnMzlmSDV1OCtJbHlp?=
- =?utf-8?B?dWtMOEc2ak85aWJhOW8vdHdFMldwQXVleUhPalY4Ukpad0l2a3AxclM2RTdi?=
- =?utf-8?B?L2tiM2pYdTNhYTZDcmlwN1c4TTlKNkNwQXNCWDZQYlFmcWx1akIzTjNIUkhm?=
- =?utf-8?B?UTBKbzJNR1UxZnNZbGZ6KzRJRDdXK25UOEEzbWZkZjArTVEzS2x3ZzdEMzZL?=
- =?utf-8?B?WHBUQjJ0UWQ1ZnZwbEI3VEpjZlEvblhHc1ozZDdPamMrdUVITno1d3VzcFBn?=
- =?utf-8?B?bzQ4NnJZTkpXZWVyQlRISjIyZmlEZytZSmNSeVpzSTRnelRUK0dZRGRzYmlO?=
- =?utf-8?B?RlNDVWNIMzNmVTQrWS9kRnUveCszcWFCeE1BV0VTZ0RWU0ZOVHFIdjdzb3h1?=
- =?utf-8?B?U05PRHRlNWNOZVNXUVFJRUxud1FkaDV6ZlNMUTEvM05pWDRPcTNoeGVTSGI0?=
- =?utf-8?B?cDhwT3RRVnk2WnJvekdDTkJJZ2RQOUJ5NVBFZzF6U1dUU2NnWFBqVDFJcU9G?=
- =?utf-8?B?RkZuVlVVci90eUx0a2lGd2FmNldzQUtMdm50ZHBEQ3FIYkMwUlNQaUxXUEVT?=
- =?utf-8?B?LzdwMVRNOHFVUHhhMWJlZHg1RGY2Zmo1TExydlljM2lPZGZ1YlBqMEVmNC9S?=
- =?utf-8?B?WThObDBKMXVobk1YemQ2c2RCbGJOMDBwWXVXcGpDYmt3VEtFZG5WNGtQbVVp?=
- =?utf-8?B?cVJIU1dTaWprMG1aRzZtMDFjSXAxM3ZIb0trOU12OW1wRXpxNThYV2J1d3VI?=
- =?utf-8?B?NTVSVWNRSHh0Umx2QWREVHBCVElIdnNCWCtKUVNMQzBQSHNxZGRZSjhNY1oz?=
- =?utf-8?B?eGN3NGJCTnVEdVlZa1ZETlhCb3VBNm9Bc3FuVzc0U29sMElRZTNaR0FGbith?=
- =?utf-8?B?SU1hZ2svZy9TK0tJTDVmWFdwMXZaSmRYaUdOLzhaL0pGTjVlOXlBdFNzZDBT?=
- =?utf-8?B?cE5GeFlHd2R1VllEWUZQSmxxTnppdWhkTHM0MW14M1Z4djlOQ3JxNnpRaUhP?=
- =?utf-8?B?bVpOQmNYNHRLL2RMcWo4T2ZZYlQrMFRDTUhnaURJKy9ZUjlDdDhpang3VkZp?=
- =?utf-8?B?SW55L3J4STlCWFZ0NEZSc0NEdTcwZ2dYOHNoM3BSN05MQ2lDNHg2cmhzY0RU?=
- =?utf-8?B?L0h2NjRqYzRCRE45bkhHTXdhTWtLTmhpeWJQdkdFbUd0Qkh3d1RaQ1VkNlpP?=
- =?utf-8?B?aGIxcnNFd0tWTytuWDYyeFR3VFJFbzdiK0lTaGM1T2ttQlByUjdCS2hvVEYv?=
- =?utf-8?B?V0sxTDJ5T3BjRnFvTmJvRndGWHM4RVFWSjFXd2NRT0M5RFpxYThTQXhKZm5M?=
- =?utf-8?B?STFTc09hUHRabHMvRjgxc2VPdWpiTlkvZEY0VFI0SHVQcERpTUc5OHZIMkJB?=
- =?utf-8?B?UjZuSEZ1SXROa0MxM2hoTzVsSzk2Q3czcXd6OXUySGNRMTd5cGJLN3ZuU2JM?=
- =?utf-8?B?N0R1a3hHTTFXSkd3cHBaZGRkS0dEQndVcjB5c3FDeFFTSUV6elhxVnZwK0Qy?=
- =?utf-8?B?clFKajl5YUdqQmo4eW02NzZMOVRaZU5QQS8wbmp1L3lzSktnRjVMeUdSWnFv?=
- =?utf-8?B?bERqVjlxbHBhaU45TStTelh6dlJzckc4SnhvZGlxMFhPdXUyd3Mwdz09?=
-X-OriginatorOrg: virtuozzo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 02b321d7-78bb-4d9b-b60d-08df3a6b59d5
-X-MS-Exchange-CrossTenant-AuthSource: AS2PR08MB9075.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 12:01:25.4049
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0bc7f26d-0264-416e-a6fc-8352af79c58f
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cjJN4N2vaHqRMIuNpuGwpTBNC3tVp1MI2lliGmq0U09d4/MtAoUx64gNYaCqRlfun+cOuofKxXtji08vMaCIrw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB9871
+Content-Transfer-Encoding: 8bit
 
-On 10/27/26 15:51, Kiryl Shutsemau wrote:
-> ShmemPmdMapped is system-wide. A drop of 'own' or more from another
-> process between the two reads fails the test instead of being retried
-> as CHANGED.
+A single software-node GPIO hog can describe several lines with different
+polarities. Add a case with alternating active-low and active-high lines
+to verify that lookup flags do not carry over between GPIO specifiers.
+Check both descriptor polarity and the raw output level for a logical
+output-high value.
 
-Right. I'll send a new version where only a drop of exactly 'own'
-fails: that is the parent's share the bug takes off the counter when
-the child exits. Any other change will be retried.
+Register the additional provider and hog nodes in the existing hog node
+group and add the case to gpio_swnode_hog_tests. Reuse the existing suite
+lifecycle and test-managed GPIO device reference cleanup.
 
-> The parent's THPs can also lose their PMDs during the test: reclaim can
-> swap one out, and NUMA balancing can migrate one, which leaves the
-> counter low while the migration entry is in place. That gives
-> FAIL_COUNTER, or FAIL_PARENT from the exact count in check_huge_shmem().
+Codex assisted with the regression test and commit message.
 
-Right as well. In the new version the parent will check its own PMDs
-before it looks at the counter, and a missing one will mean a retry,
-not a failure. The same will go for a child that finds no PMDs because
-the parent has lost them. Only wrong data in the parent will stay
-FAIL_PARENT.
+Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
+---
+Test split from the combined v1 patch, for v7.5:
+- Add the case to the existing gpio-swnode-hog suite and node group.
+- Drop the duplicate suite lifecycle and keep managed reference cleanup.
+- Adapt to gpio/for-next's provider label and existing test helpers.
 
-Each retry will start over with a fresh file and mapping, since the old
-THPs may not come back as PMDs. The test will make three attempts. If
-all three are disturbed, it will skip and say which way: the counter
-kept changing, or the parent kept losing its PMDs.
+Target: brgl/linux gpio/for-next at d66b6b86d5a6278ca930112c634d03725beb7d9a.
+Dependency: apply the fix-only v2, "gpiolib: reset lookup flags for each
+hogged line", before this test. Without that prerequisite the new test
+is expected to fail. The test itself changes no GPIO implementation.
+The maintainer requested this test for v7.5, separately from the fix.
 
-Thanks for the review!
+Testing on this target: actual UML/KUnit, before 10 pass / 1 fail;
+after 11 pass / 0 fail, with the same config and test source.
+GCC W=1 and Clang W=1/private Sparse C=2 builds completed.
+The mixed-polarity case also passes alone and within the hog suite.
+No physical GPIO or runtime OF hardware validation was performed.
 
---
-Konstantin Khorenko
+Previous version: https://lore.kernel.org/linux-gpio/20261103224339.1180-1-kimjinseob88@gmail.com/
+Review: https://lore.kernel.org/linux-gpio/qboynvhfmvltsuopwotpf3sqdwho3qobxmw5qldooedjqodfgy@x4l6hscj5unx/
+
+ drivers/gpio/gpiolib-kunit.c | 61 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 61 insertions(+)
+
+diff --git a/drivers/gpio/gpiolib-kunit.c b/drivers/gpio/gpiolib-kunit.c
+index 11849aa56..38554280e 100644
+--- a/drivers/gpio/gpiolib-kunit.c
++++ b/drivers/gpio/gpiolib-kunit.c
+@@ -713,11 +713,36 @@ static const struct software_node gpio_hog_input_swnode =
+ 	SOFTWARE_NODE("hog-input", gpio_hog_input_properties,
+ 		      &gpio_test_provider_swnode);
+ 
++/* A single non-OF hog may describe lines with different polarities. */
++static const struct software_node gpio_mixed_hog_provider_swnode = {
++	.name = "gpio-mixed-hog-provider",
++};
++
++static const u32 gpio_mixed_hog_gpios[] = {
++	0, GPIO_ACTIVE_LOW,
++	1, GPIO_ACTIVE_HIGH,
++	2, GPIO_ACTIVE_LOW,
++	3, GPIO_ACTIVE_HIGH,
++};
++
++static const struct property_entry gpio_mixed_hog_properties[] = {
++	PROPERTY_ENTRY_U32_ARRAY("gpios", gpio_mixed_hog_gpios),
++	PROPERTY_ENTRY_BOOL("output-high"),
++	PROPERTY_ENTRY_BOOL("gpio-hog"),
++	{ }
++};
++
++static const struct software_node gpio_mixed_hog_swnode =
++	SOFTWARE_NODE("mixed-hog", gpio_mixed_hog_properties,
++		      &gpio_mixed_hog_provider_swnode);
++
+ static const struct software_node *const gpio_hog_swnodes[] = {
+ 	&gpio_test_provider_swnode,
+ 	&gpio_hog_output_high_swnode,
+ 	&gpio_hog_output_low_swnode,
+ 	&gpio_hog_input_swnode,
++	&gpio_mixed_hog_provider_swnode,
++	&gpio_mixed_hog_swnode,
+ 	NULL
+ };
+ 
+@@ -809,6 +834,41 @@ static void gpio_hog_input(struct kunit *test)
+ 	gpio_hog_assert(test, GPIO_HOG_INPUT_OFFSET, GPIO_LINE_DIRECTION_IN);
+ }
+ 
++static void gpio_hog_mixed_polarities(struct kunit *test)
++{
++	struct platform_device_info pdevinfo = {
++		.name = GPIO_TEST_PROVIDER,
++		.id = PLATFORM_DEVID_NONE,
++		.fwnode = software_node_fwnode(&gpio_mixed_hog_provider_swnode),
++	};
++	struct platform_device *pdev;
++	struct gpio_device *gdev;
++	struct gpio_desc *desc;
++	bool active_low;
++	int ret;
++
++	pdev = kunit_platform_device_register_full(test, &pdevinfo);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, pdev);
++
++	wait_for_device_probe();
++
++	gdev = gpio_device_find_by_label(GPIO_TEST_PROVIDER);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, gdev);
++
++	ret = kunit_add_action_or_reset(test, gpio_device_put_wrapper, gdev);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	for (unsigned int i = 0; i < GPIO_TEST_PROVIDER_NGPIO; i++) {
++		desc = gpio_device_get_desc(gdev, i);
++		KUNIT_ASSERT_NOT_ERR_OR_NULL(test, desc);
++
++		active_low = gpio_mixed_hog_gpios[i * 2 + 1] == GPIO_ACTIVE_LOW;
++		KUNIT_EXPECT_EQ(test, gpiod_is_active_low(desc), active_low);
++		/* A logical high must drive the inverse level on active-low lines. */
++		KUNIT_EXPECT_EQ(test, gpiod_get_raw_value_cansleep(desc), !active_low);
++	}
++}
++
+ static int gpio_hog_suite_init(struct kunit_suite *suite)
+ {
+ 	return software_node_register_node_group(gpio_hog_swnodes);
+@@ -823,6 +883,7 @@ static struct kunit_case gpio_swnode_hog_tests[] = {
+ 	KUNIT_CASE(gpio_hog_output_high),
+ 	KUNIT_CASE(gpio_hog_output_low),
+ 	KUNIT_CASE(gpio_hog_input),
++	KUNIT_CASE(gpio_hog_mixed_polarities),
+ 	{ }
+ };
+ 
+
+base-commit: d66b6b86d5a6278ca930112c634d03725beb7d9a
+prerequisite-patch-id: 3aa172b6fbd4d7ead61ff22c62c2be020339b988
