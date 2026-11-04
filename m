@@ -1,59 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793794699;
-	b=AXh99auZ3sC/YGDVD1RF5u8MGc2rCMs3ZvTcyNnfbDtUyWFjode4e77tvuV01GpE9pZp
-	 il1ddaMZW1ZLfMNcgpR102uw/Pixr9nDiJcsqbNWhEIcr9+97CcrN45qO7hFriG0hAzsz
-	 V5dDvm7aigzp8rnVVSHA74DB0HOg9KVwNl4rzoWcjDEAKEQmP/EG7dwgDjbvRVdgLYUfv
-	 bTfZA/OuIHfDQt1CYT1hXNC9U+4JgHMUrbnAfbB/fhH6fLTuBCrYYuW8Ia6hqUZxfXTfj
-	 IVp/ENP+yi4tCbKE0oFLmwL8Y7k6CzFWnockNgS1R+xC64DVPVWHJLHOgOzAu7DZP7g==
+	t=1793794762;
+	b=CwH9ToO74VRxvGQqQDOu13in15vguRdXr4dzFHWx/kt7sDGap1a5cyqEfifXQRDquDW0
+	 PjYRhsGXPSF1nDhptE1ojfZ9kXnIZIV4+YV6DdmRzmoyZX+Q6ru6bW1HvSgKELazmN86g
+	 K7Q7CJ6GLfGHtMwWCOi9chS7Nr5tST5Fz3dOpdp/ryLMzveUpSaY0dHkffeY5scOeWcaJ
+	 JYNKa/NvHS3XtuT9z5mllgZFPETqOUQyQvyTpImpWQvDcxAYOTG2OUBQcPu5nv8xqkZ3o
+	 EFwYOnqsshSOeEGUTTjNhCoWoaosaweS/W8Kvlfhhq+yLaykCUxfmPqDkgkzT+ji63A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793794699;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Vq0SiGMeLJwIenodVgGZUYIiDAMpKcytjEsIEBfNJlE=;
-	b=43xaOx+1KzQlQPRgMtN0ysc9Z3vNiFVT2fKy3o0xVb+xRJyI2TIsbbeL1gDkEQYwKtT1
-	 Spx3iBV7Bq5LgIJo3HYvJcwiWvg98i4FuSJhYrJEttU3qndxWxrt9xCcsgf/A4+KSiOGk
-	 6sAqFeaxWZuZnVFBLhWuHvB2sWJcY6gsquhRkgAVdyIqbYT+jDxnVXXVbuBlz5PfJeY8+
-	 PC/ASTy7l/Gfa09HKTVQkYWBSnxhneYXdAGVSb+7NXxLYaJjHkgRIEXwU+s3QH2S+E2lY
-	 6PPLfvSre8KtNshwvj9SckQUMO/PQfzCb593n1lXVhCLMMQiBuYajUWPZkIXkiYIEcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793794762;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ldwSzi/rtM4rVlpRqThCmsYc8DAQrxnXAvnD5Uo3lnA=;
+	b=sIdY4Z4YXMv8ZHl+crZNyk3fH51WLTYSz9F2BpKtR/A0NMLzyFKQiaaU+eAEGBAI6SWY
+	 SGyj5+/XlcAQvUw/DllpeayGDWgKKE/H3HcREW1zXd74JyAKo74G8k3EUoAsWnXSRuLfn
+	 v67qkznVE+2XK9kIZsUWxjsfuvXwbBeH7wnxXYDDNzM7ZveQoqMM+3cQEgyqKUhE0tznJ
+	 txCs6YZcErExdsG+6JI0G884ohL1mBYFMdlrQrLmepf3vdF5OBRfH8aON87DXftqfGK76
+	 zd+C/g/6LUq2qqGwuUWkpzNW8kDgGExP6ga9Dw6K9f5JLqGE3XtFSRGFr92N+SoPETQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZLi471CA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=kSjCLcs6;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32068606A31B;
-	Wed,  4 Nov 2026 12:18:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A515606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 12:19:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A515606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZLi471CA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1E7B1F0093A;
-	Wed,  4 Nov 2026 12:18:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793794698;
-	bh=Vq0SiGMeLJwIenodVgGZUYIiDAMpKcytjEsIEBfNJlE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZLi471CACiKnTdCvn08B7kqta0aEBj2VvHclvkQKyiUocHvz4Wy7xYoK9+WsLhKG/
-	 B3g9IWEPBCU4acr3ZWe2bENLCo3Xg+mGBXi7TgardIyGNb3FGqC/IUEn3+4IQfEICh
-	 fJFuF5OSfEgkl68Bh+l7tWF7vaitas/L11YQoZ1aKqACgh6cy788XHGrQPRPAHVFoV
-	 8zN/vGXtBPPdarcTmZd3eqWBH7qx2y7tcLg7Zu/VZc4o3qxSq09XOvF2zyddDzTYkI
-	 CCyDgOz5vdI863KmZH05i8IJpPJlrxeFmHS4gvo9XkD6IkT46ng1ObrfTkC2wIqc0w
-	 3MMAJuHYyKMSg==
-From: Sasha Levin <sashal@kernel.org>
-To: Keith Busch <kbusch@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>
-Cc: linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] nvme-pci: add NVME_QUIRK_DMAPOOL_ALIGN_512 for KIOXIA XG10d
-Date: Wed,  4 Nov 2026 07:18:16 -0500
-Message-ID: <20261104121816.3726177-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261104090332.GB30750@lst.de>
-References: <20261104090332.GB30750@lst.de>
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=kSjCLcs6
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=ldwSzi/rtM4rVlpRqThCmsYc8DAQrxnXAvnD5Uo3lnA=; b=kSjCLcs6wZfgV0J8oJPJF5iZ+3
+	0P/BdDrUVxopE3uksWX3TVoNyQERQSWYQpyi4S97lHToo6Rk8OU5H7uhFcXUN2JUMdmhXRYo3sB6c
+	unlxwnDPw6lWZNr/XpqqT8OM1+g+K7s68DG3InLTrlrYcgSHgXVYdzUnrAr+If9pMVQXU3yBrfDn6
+	4iizVAxSAFQ11L3WSl3/NhQOkTDllHuCKgVQtrtaL+3iosjpFv34R1hUGFVpbQtGkgR1KDW25U1CU
+	M00FIvlsNG4Kdl0hkiypu0+pSYK/1bmZxRJChBnl3Y8rHvUgJFWVQgd1bs6qeWrLwcOZElLgQ6Wsj
+	vEvG/Iyg==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Russell King <linux@armlinux.org.uk>,
+	Johan Jonker <jbx6244@gmail.com>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] ARM: rockchip: smp: enable secondary rk3066a/rk3188 CPUs
+Date: Wed,  4 Nov 2026 13:19:04 +0100
+Message-ID: <179379472868.648452.16899951038766297238.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261017-cpu-v3-1-25d8f4b06362@gmail.com>
+References: <20261017-cpu-v3-1-25d8f4b06362@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,42 +64,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-The KIOXIA XG10d reads past the end of a PRP list that completely fills
-a 256 byte small pool block. When that block is the last one in its
-dmapool page, the read lands on the next page, which usually isn't
-mapped. The IOMMU faults it and the controller craps itself:
 
-  arm-smmu-v3 arm-smmu-v3.0.auto: event: F_TRANSLATION client: 0001:09:00.0 sid: 0x20900 ssid: 0x0 iova: 0xff7fe000 ipa: 0x0
-  nvme nvme0: controller is down; will reset: CSTS=0xffffffff, PCI_STATUS=0xffff
+On Sat, 17 Oct 2026 15:27:09 +0200, Johan Jonker wrote:
+> Early Rockchip SoCs like rk3066a and rk3188 had boot loaders
+> that remapped the boot ROM and the internal memory. Currently
+> U-boot makes use of a common board file without remapping
+> resulting in the secondary CPUs power up hanging in a wait loop.
+> 
+> Make the various boot loader methods work by:
+> 
+> [...]
 
-Filling the block requires a slightly larger write, and those became common
-with commit 2e8e30b3cf9f ("Revert "nvme-pci: clamp max_hw_sectors based on
-DMA optimized limitation"").
+Applied, thanks!
 
-Do what we do for other disks and use 512 byte aligned small pool blocks
-for this controller.
+[1/1] ARM: rockchip: smp: enable secondary rk3066a/rk3188 CPUs
+      commit: 4e0ee307117af04d6ef7e36cf0b36ff7252e016a
 
-Cc: stable@vger.kernel.org # 6.4.x
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/nvme/host/pci.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/nvme/host/pci.c b/drivers/nvme/host/pci.c
-index 019a1e3cc0a2..2be6d1a9ad4d 100644
---- a/drivers/nvme/host/pci.c
-+++ b/drivers/nvme/host/pci.c
-@@ -4430,6 +4430,8 @@ static const struct pci_device_id nvme_id_table[] = {
- 		 .driver_data = NVME_QUIRK_BOGUS_NID, },
- 	{ PCI_DEVICE(0x1344, 0x6004),	/* Micron 4100AT */
- 		.driver_data = NVME_QUIRK_DMAPOOL_ALIGN_512, },
-+	{ PCI_DEVICE(0x1e0f, 0x0032),	/* KIOXIA XG10d */
-+		.driver_data = NVME_QUIRK_DMAPOOL_ALIGN_512, },
- 	{ PCI_DEVICE(0x1c5c, 0x1504),   /* SK Hynix PC400 */
- 		.driver_data = NVME_QUIRK_DISABLE_WRITE_ZEROES, },
- 	{ PCI_DEVICE(0x1c5c, 0x174a),   /* SK Hynix P31 SSD */
+Best regards,
 -- 
-2.43.0
-
+Heiko Stuebner <heiko@sntech.de>
