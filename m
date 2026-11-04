@@ -1,80 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793815221;
-	b=4pLIz3UOn14GVHBHrmLRgB8C4s2GzrEUEC5iwLOpQerYzBRDfdttGx0uMhZFviU49Hfl
-	 5AYrdAyzsmWLwC4g1GHH36NCzSNKhuuUvOXvBuqrX4t/hKiP++Ajx5qmrqcGqQFTMUL7W
-	 W3PNmCvzPlqE1Y1M+IM4PbK2OnE5Q2pdIjT7YuDs8H+hXOKAdMIt2oKxa1h0Mm/8Udtat
-	 kG6UDuhX63ZjXM0MYayjnvzPBzLlO9bp9d4zHnPsOrU9+PMxrrgQMNly8RCzQ1sbXmoP8
-	 BhTSEyxsd2q51hMJSwUlpDEPKumxI6+Jsb3TSUUEg+Au7+a39Gne5q4y8L6H1fERlhw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793815221;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=c02aKpRwVT41c4Cvhuz9Cocr6EuWMjLz4xwoNPqAsQ0=;
-	b=3SNQVh1/q/ibQulw/1o2+qc5BpK69NLOyyFhYNyQ93hIr9fuqzxnTnFnMpvkxGImZBA+
-	 5Prb2Ul1WnkPMAggGNEE4mLch02g2tY1abNwzcjhBZuW09i7Zuma8ANG9B9IRivO7iZQd
-	 0E3B7Tcbsf0rbI2PI/q1m+Y43vlzH1J7cOfSkiT4xV35LMZUbb9QB/8vW6PSGPvQy9Byh
-	 bapmWEOnZAvlvGpNmMdYo/xvI27UaWePnCqhFqU+ZntL4mXxUAH+CDXM16DirwiHyyRMc
-	 aCoxG099nVrLb7wzQKbw8+7QUljrRzlLX5bxWPbrE4I0KcOiyzsqDFymjPUWuUCGDFQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m6l4EM2S;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 954B4606B20A;
-	Wed,  4 Nov 2026 18:00:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m6l4EM2S
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793815221;
-	b=sRij9/AXkf/o/jywjqui97OGswmvANxX0sPKyDudSxHUKA6JZ5Q/D0+VUCRekYFxKiXh
-	 K5IKHWxAN7oQKhwmQZZzlDDfZOU2rvXRw4Su7a02H46B6mHga/YAXrAVxf+gylmltMZhw
-	 YXxv5hzN4kpq7/mqvmu5FfylHF9NGr3kPe48Ten0TqeHSFlJY3LXa36MAIVNOP+Qn0oik
-	 R0YeUhw1mNRSe3TbTqK+gFfgBAmBjrO/jucehm2/MUZq+n8RssFj/ML/unsAsgQKoj7lg
-	 bVlnNnnYNYC6M4Z0HG3y/sMs49PwsXRYQoeeK66Dp9kUv6DjaYR602PbZKUcEh53Tcg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793815221;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=c02aKpRwVT41c4Cvhuz9Cocr6EuWMjLz4xwoNPqAsQ0=;
-	b=R7wibfjmtzRQeqlPPWx7o7Qx3O/1AjEZFEFxriLzKE69LQVMvr99gsAOrE7W0Qylt7oo
-	 xLQCiW2JpGRS3/V7Oy4tHGwybB8Uflj7syjaUQ7sA7xhtE73gkCRWIHc8/DcN99TYKjbl
-	 EjiI4MAOhpogoUaVB1wWQ1BJ81nAMq4Kbko6X9rvMChkbht6BE9DXb+XuNGe0E1FHh5IN
-	 2FaWeMEP4WfcWqISLeLGNuhP3kWlNKDcQ0tTk++ojdeyFv8VIjvmav7f3T/tdwOaT3eQM
-	 e5leR5PFrpCCrbNdrOApttzebTFCwqNrK32rifnrEe/ODsPfNXfC3kUNhVS5lq6JIUw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793815227;
+	b=0v976liAkXtNR6+ZSuzvig6Z7/RgIH6woProWj7rvAfeqfE7c7WjgvZmLT1bm8KfkSMC
+	 ZEE4FK3pKVxsZsK3mIWe4u0aNQHjv5/OF8wFKoNmeYgyAbjCVRw/R3e24k9YFWhexY6h4
+	 cdCQAIvHRDiGmOapm3IJKIuSX63W6beSMcb1K3g9nPYtxRtxruD4Gm85NUH7g45rJiDcn
+	 3LLnmgU5NgtItyK25yjL8m6DMSRhEGE9Isqae2lBBLnTHlwxKAmxjdC0JrFleJnND/Mid
+	 ncIq79dRICRstpQQLxEmeXfBifYHirOFqUrjgU5u4oDZdehn+5UHH+Q7Bv9YtL2G+Lw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793815227;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=JAX2rOFX3ps0z7E54cgly2XJNYqW8YfGnVzidzlyKN4=;
+	b=Mm4DJZBEdlSoj/15dBPILMoNSpeQPEgf2ysqQZgVoj9MWSCBqFqck/LakqVTEkKwEQgb
+	 vhvyT0ernCxYjx2AgnRo+L9Ye51jizNkBNqNFWYJabpudXv+9ALIGzl08CA+V7jOXdZ7n
+	 Pw8/weMAMbVTzaG2QP7aW2zrEnr5Ol6nex15wSpsZnMC0WV5VCsI8asA0pQmgF92nfLEI
+	 5SAttq8gsssidTovSDsRugJoyMNDQ3PqkJ2M+Q6neqZV3EGn51b/TZ6RsAjK482bCxnPe
+	 3AlZ+drdw86jP3ahIDwqRdIiV0BcERyM/1EQQtWjhWvSY2hQStcykP0TY6HsQ2Mfyzw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=soleen.com;
+	spf=pass smtp.mailfrom=soleen.com;
+	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=g5iMOwTh;
+	arc=none smtp.remote-ip=209.85.217.49
+Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com [209.85.217.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 2B2F41F000C1;
-	Wed,  4 Nov 2026 18:00:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793815221;
-	bh=c02aKpRwVT41c4Cvhuz9Cocr6EuWMjLz4xwoNPqAsQ0=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=m6l4EM2S44s9Ef562sFJeFe8xeWHfGEC8fDYfRR1rjwm11QCZF1nd07QtCJRTcPHR
-	 oSjSs8R2eI/d9TqpAwh3bGNdsINcVPoLDThH/2TfoaRE4xOgb4XFdC8DkoxHTCX0Al
-	 fKAMb+WMP+h7H8BRUuEF96boDgcC9qLjBI6NCfW0/X3p+CXkG3KDw3M8dgslkuxNWb
-	 fhslAeTx3sSVI5A4OBo1gbQShavV/dhhFMvw8mZj8K+E3COukqEbHIFEqq6oDlH2nm
-	 ry1ltwEVbMq/R6iJmVjo7I1aft5xqnxtdC5uijs2D5E+oV8zJ19jtA/wOpMASehz+x
-	 JiEH+Ki3Dzd6A==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 7E12C46EFD;
-	Wed,  4 Nov 2026 18:00:19 +0000 (UTC)
-From: Mark Korenberg via B4 Relay <devnull+socketpair.gmail.com@kernel.org>
-Subject: [PATCH v2 0/2] btrfs: zoned: fix silent data loss from leaked
- active zone reservation
-Date: Wed, 04 Nov 2026 23:00:18 +0500
-Message-Id: <20261104-btrfs-zoned-active-zone-leak-v2-0-0cee2ef72171@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD6F6074A49
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:00:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FD6F6074A49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=g5iMOwTh
+Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-7a6e560f580so689870137.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:00:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=soleen.com; s=google; t=1793815224; x=1794420024; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JAX2rOFX3ps0z7E54cgly2XJNYqW8YfGnVzidzlyKN4=;
+        b=g5iMOwThX+uE+7xsUaGHYp7csSg/cw1QC0Zn78GJVNHcZU7wyhpKG7ije+QTRwPjdC
+         zecPx0d+8hWLwKjLelfE4KxCT63+V2598YFacCCjm1WZI7lh1Dkl4ywNr552sqNsZfN0
+         1D2oFE502NTv+ISi+I51HLtxJyZ+7UTOzL+27rjsur7LECqPVVL3e5hJ9+rcWX3BGctn
+         hTVH/2y2Fy6ziFzdTOkp/akeK2x3V/pd1J1poAtcCCWbctt8AwcLGbTs3sIRXhWhbJFo
+         S/CFPMAQnuLl3iONSFxM9KIU04d3YWS5O8kA3yxJkA5qXnphvXd2ZgSnUwc9FSBBfTa8
+         ejxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793815224; x=1794420024;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JAX2rOFX3ps0z7E54cgly2XJNYqW8YfGnVzidzlyKN4=;
+        b=n5+GR2ek7S88/gM1QV+gEcBwSBRJYbNG38UjwA6IDst5/zn4mxnEAw3WMeIl6MYTL7
+         Xwdlup7VBwnnoqYADUtCCLvyvar2POS4zFcN0zVlH9E6iPKEdOTy8H0SuFzQ8kHJ6IVa
+         dBeZlvHveOKZweHokqGRKRFZ106HJAwHOdBsLTsPxMiO2ym1hHdU0MKFuS++mNt6MN3J
+         XFuyWoTS9+E2kgQ08JGK8+l/+EYwsTS1yT212/f7NBJKSo+38x9kbX1JtGrVnRu3pgZt
+         aFKmRRAvw4i5RQSWu3L/lj/uSQvJGEADLfbC2yKnDrfpAbpFGoXNMIqeJ5o5V4sR0WVK
+         OqJQ==
+X-Forwarded-Encrypted: i=1; AKwUvByzpSfwd55ZVf7vOa+LNBK3PX3buEy7LZUu3mA6ZkytI3VweZPB8wbOiIaQR6JH9AObPYzTfC07FZuHzHo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9UW04D7awvINKEjVZd/NGAFOHwJWyRcwYGwrG+pXsgIiQE2WfY
+	DqCKfbKSvAmHW1AnA5dfOH54pVJiwzdTqrCpV0AjuQtvj0jTLXmseUpNRVnlWoIJ/L4=
+X-Gm-Gg: AYBFou1TFMTjG1LPViG4Moc7CFKuGckRrxyHco/JBH1VASRR9zQqOVxyPecpTgexLQc
+	ee+LuFHJ0iYFQzaca580xP6pDEabOemF9EM/JGkH/ja1wrCjujCde+IVUKDFCSJ/tHwERDWeyzU
+	udOJIU4s66B6qsR8RkXtk4C/HifUN+DsLtT/4UWFh/sZyvj64G2Kieoe0132t2RqDKOSu4jwWkF
+	Qb2YtzXh601zcQ5ZJzrsfkAFfKC2lKnwib/ugzK8YW264sgfI5ThR1XT2P8YxZ7k+HY/tWHZ11R
+	YRJ5ROcRN965wQJByS9evR/iZV6xgf6imR+GWOxjVSNwlWvF0Zv1Tfz8vFQB4dTNstr9qeBaNXE
+	EmOHyFszuJqI6EpbHkYa93ZCX5qhL4EK3+llaYWnhZvFCnc6GU2vsZnwokxVetOMyNEeI2jGQgz
+	nbHoSLYd2HenBtPkANkLV1G8Zd9MQB3/HYVmFp/UcoX5gMR0H52x6Rv9FdS8AQMfPOBdK8sMC4K
+	+j4AWAAMQSHkHaqGkhQvjwhab44bGKy9Zyux+kl+OEJkjGB+zVqD6qry6+d3dbL20znhw3EhlCm
+	y7CEIruZdiaPxFOxmGla9el60Ltkko9S8M0ka5rENgydvEEz3dCwUB+9D/pUoezHt8ZEbYJCQBz
+	HtIFuX6AeziybqdvZxRnphk6xZtZJ
+X-Received: by 2002:a05:6102:fa0:b0:7c3:9982:67d7 with SMTP id ada2fe7eead31-7d072670942mr7469213137.16.1793815224323;
+        Wed, 04 Nov 2026 10:00:24 -0800 (PST)
+Received: from google.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-998d91d2a3asm2383636241.8.2026.11.04.10.00.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 10:00:23 -0800 (PST)
+Date: Wed, 4 Nov 2026 13:00:22 -0500
+From: Pasha Tatashin <pasha.tatashin@soleen.com>
+To: David Matlack <dmatlack@google.com>, 
+	Bjorn Helgaas <bhelgaas@google.com>
+Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-pci@vger.kernel.org, 
+	Adithya Jayachandran <ajayachandra@nvidia.com>, Alexander Graf <graf@amazon.com>, 
+	Alex Williamson <alex@shazbot.org>, Chris Li <chrisl@kernel.org>, 
+	David Rientjes <rientjes@google.com>, Jacob Pan <jacob.pan@linux.microsoft.com>, 
+	Jason Gunthorpe <jgg@nvidia.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Josh Hilke <jrhilke@google.com>, Leon Romanovsky <leonro@nvidia.com>, 
+	Lukas Wunner <lukas@wunner.de>, Mike Rapoport <rppt@kernel.org>, Parav Pandit <parav@nvidia.com>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Pranjal Shrivastava <praan@google.com>, 
+	Pratyush Yadav <pratyush@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Saeed Mahameed <saeedm@nvidia.com>, Samiullah Khawaja <skhawaja@google.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Vipin Sharma <vipinsh@google.com>, William Tu <witu@nvidia.com>, 
+	Yi Liu <yi.l.liu@intel.com>
+Subject: Re: [PATCH v10 00/13] PCI: liveupdate: PCI core support for Live
+ Update
+Message-ID: <autxCZPJ9yiE2ucq@google.com>
+References: <20261013162529.1928093-1-dmatlack@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,176 +110,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43NQQ6CMBCF4auQWTumrUTElfcwLEo7hYlATds0K
- uHuVk7g8nuL/60QKTBFuFYrBMoc2S8F6lCBGfUyELItBiXUWQrVYp+Ci/jxC1nUJnGmHTiRfmD
- fn2qtlW0v0kBJPAM5fu35e1c8ckw+vPe3LH/rn+EsUWDTNNYK6Vwr69swa56Oxs/Qbdv2BRtR3
- kfIAAAA
-X-Change-ID: 20261029-btrfs-zoned-active-zone-leak-bb34aa2d981c
-To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
- Naohiro Aota <naohiro.aota@wdc.com>
-Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Johannes Thumshirn <johannes.thumshirn@wdc.com>, stable@vger.kernel.org, 
- Mark Korenberg <socketpair@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793815218; l=6777;
- i=socketpair@gmail.com; s=20260603; h=from:subject:message-id;
- bh=xSIK1HX5mQGo89AMMrRLlOySg0P+Nsrmd95DAFY59Lo=;
- b=emwMDsMWXPt6AOxgNdVxeiOFjEDbRGhbOc4MF8tqbjPKLwNWOWafh4qpVWQoMCt2ArDmJFv58
- 1WgME60WkIRBBZifEREzfeMLF3h4dTKhB8RT0kUgkjG9iTn2ot9mnnE
-X-Developer-Key: i=socketpair@gmail.com; a=ed25519;
- pk=2iAMjWhs7kA9X8ccetT2YVX8dvniXua2okQogw3Don8=
-X-Endpoint-Received: by B4 Relay for socketpair@gmail.com/20260603 with
- auth_id=806
-X-Original-From: Mark Korenberg <socketpair@gmail.com>
-Reply-To: socketpair@gmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013162529.1928093-1-dmatlack@google.com>
 
-On zoned btrfs, buffered writeback can fail with -ENOSPC after a
-balance on a device with plenty of free space, and the data is lost:
+On 10-13 16:25, David Matlack wrote:
+> This series can be found on GitHub:
+> 
+>   https://github.com/dmatlack/linux/tree/liveupdate/pci/base/v10
+> 
+> This series introduces support in the PCI core for Live Update, enabling
+> drivers to preserve PCI devices across a kexec-based kernel update
+> without interrupting the device. This functionality is critical for
+> minimizing downtime in environments where PCI devices (e.g., those
+> assigned to VMs via VFIO) must continue operating or maintain state
+> across a host kernel upgrade.
+> 
+> Specifically, this series allows preserved PCI devices to perform
+> uninterrupted memory transactions (DMA) targeting system memory
+> (specifically, preserved memfds) across a Live Update. These devices can
+> be behind a bridge but must not be VFs. Support for P2P and VF
+> preservation will be addressed in future series.
+> 
+> Series Overview
+> ---------------
+> 
+> This series implements the following to support PCI device preservation
+> across Live Update:
+> 
+>   1. Set up a File-Lifecycle-Bound (FLB) handler to track and preserve
+>      PCI-specific state (struct pci_ser) across Live Update using Kexec
+>      Handover (KHO).
+> 
+>   2. Add APIs for drivers to register devices for preservation
+>      (outgoing) and for the PCI core to identify preserved devices
+>      during enumeration (incoming)
+> 
+>   3. Automatically preserve all upstream bridges for any preserved
+>      endpoint. Use reference counting to ensure bridges remain preserved
+>      as long as any downstream device is preserved.
+> 
+>   4. Guarantee that preserved devices retain the same RequesterID (bus,
+>      device, function) for the duration of their preservation by
+>      inheriting secondary bus numbers, subordinate bus numbers, and ARI
+>      Forwarding Enable on preserved bridges.
+> 
+>   5. Guarantee that memory transactions to/from preserved devices are
+>      routed consistently by inheriting Access Control Services (ACS)
+>      flags across a Live Update, from the endpoint up to the root port.
+> 
+>   6. Modify the PCI shutdown path to avoid disabling bus mastering on
+>      preserved devices, thereby allowing preserved devices to perform
+>      uninterrupted during kexec for Live Update.
+> 
+>   7. Provide comprehensive documentation for the FLB API, device
+>      tracking mechanisms, and the division of responsibilities between
+>      the PCI core, drivers, and userspace.
+> 
+> Merge Plan
+> ----------
+> 
+> This series will be merged through liveupdate.git, matching the
+> agreed-upon tree in the MAINTAINERS entry for PCI LIVE UPDATE.
+> 
+> Testing
+> -------
+> 
+> This series was tested in conjunction with v5 of the VFIO PCI driver
+> series:
+> 
+>   https://lore.kernel.org/kvm/20260714151505.3466855-1-vipinsh@google.com/
+> 
+> The full set of patches used for testing can be found on GitHub.
+> 
+>   https://github.com/dmatlack/linux/tree/liveupdate/pci/base/v10-with-vfio
+> 
+> Testing was performed using the new VFIO selftests:
+> 
+>   - vfio_pci_liveupdate_uapi_test
+>   - vfio_pci_liveupdate_kexec_test
+> 
+> Both tests were run in a QEMU-based VM environment (using a single
+> virtio-net PCIe device connected to a root port to exercise bridge
+> support) and on bare metal using an Intel EMR server with 8x Intel DSA
+> PCIe devices and 1x NVMe device.
+> 
+> Future Work
+> -----------
+> 
+> Please see the PCI core Live Update Roadmap:
+> 
+>   https://lore.kernel.org/linux-pci/20261001232133.560284-1-dmatlack@google.com/
+> 
+> Changelog
+> ---------
+> 
+> v10:
+>  - Save and restore the ACS Egress Control Vector along with the ACS
+>    Control register, sizing the save buffer from the HwInit Egress
+>    Control Vector Size field (Alex) and drop Bjorn's R-b tag
+>  - Make CONFIG_PCI_LIVEUPDATE depend on 64BIT from the first patch
+>    rather than adding the dependency later in the series (Pratyush,
+>    Mike)
+>  - Reword kernel-doc comments to read better in the HTML docs and
+>    spell out "reference count" (Mike)
+>  - Replace the version number at the start of struct pci_ser with
+>    required_flags and optional_flags, and record the size of struct
+>    pci_dev_ser, so that the PCI FLB ABI can be extended (LPC BoF)
 
-  BTRFS error (device ublkb0): cow_file_range failed, root=5 inode=...
-    start=... len=16777216 cur_offset=... cur_alloc_size=0: -28
+Hi Bjorn,
 
-write() and close() succeed, cp and rsync exit with 0, and only the
-first syncfs() returns -ENOSPC. In the original report (ublk zoned
-device, 16 MiB zones, 7.2.11) a 3.7 GB git pack file copied with rsync
-lost 37 ranges of 16 MiB. The code involved is the same in master and
-in btrfs for-next. The v1 cover letter has the traces and more detail.
+I am planning to target this series for the 7.5 merge window through the 
+liveupdate tree, as we previously agreed. However, there are still 6 
+patches that lack an Acked-by from you. I believe you might have 
+reviewed some of them before, but the tags were lost during subsequent 
+refactoring. Could you please take another look at the following to make 
+sure everything is in order for us to merge the series:
 
-Cause
------
+PCI: liveupdate: Set up FLB handler for the PCI core
+PCI: liveupdate: Track incoming preserved PCI devices
+PCI: liveupdate: Document driver binding responsibilities
+PCI: liveupdate: Auto-preserve upstream bridges across Live Update
+PCI: Save and restore the ACS Control register and Egress Control Vector
+PCI: liveupdate: Adopt ACS controls in incoming preserved devices
 
-1. btrfs_relocate_block_group() ignores -EAGAIN from
-   btrfs_zone_finish(), which it gets for a metadata or system block
-   group with tree blocks not written yet and for the data relocation
-   block group. The block group is then removed with its zones still
-   active, and its share of reserved_active_zones is never given back.
-   On the reporter's machine the reservation was -3 before a remount,
-   with four removed block groups still on zone_active_bgs.
+Thanks!
 
-2. With a negative reservation, btrfs_can_activate_zone() always
-   reports a free active zone for data. When the active zones run out,
-   the allocator neither finishes a block group nor waits for one: it
-   allocates a chunk it cannot activate, and find_free_extent() returns
-   -ENOSPC.
-
-Patch 1 finishes the zones of the relocated block group before it is
-removed; by then it is read-only and empty, and its tree blocks are
-written. Patch 2 treats a negative reservation as zero for data, as
-it can also be negative for a short time without the leak. Patch 1 has
-to come first: patch 2 alone leaves no active zone for a new system
-block group and runs into the deadlock under "Not fixed here".
-
-Both are marked for stable 7.0 and later only, as
-btrfs_relocate_chunk_finish() appeared in 7.0. I can send backports
-for older stable trees if that is wanted.
-
-Reproducer
-----------
-
-zoned null_blk, 16 MiB zones, 16 open zones, commit=300. Each forced
-metadata+system balance after new chunks were allocated leaves one block
-group behind; then several writers lose their data:
-
-  mount -t configfs none /sys/kernel/config
-  d=/sys/kernel/config/nullb/zdev; mkdir $d
-  echo 4096 > $d/blocksize; echo 1 > $d/memory_backed; echo 1 > $d/zoned
-  echo 16 > $d/zone_size; echo 8192 > $d/size; echo 16 > $d/zone_max_open
-  echo 1 > $d/power
-  mkfs.btrfs -f -O zoned -d single -m single /dev/zdev
-  mount -o commit=300 /dev/zdev /mnt
-  for r in 1 2 3 4 5 6; do
-          dd if=/dev/urandom of=/mnt/pre$r bs=1M count=64
-          btrfs balance start --force -m -s /mnt
-  done
-  for i in 1 2 3 4 5 6 7 8; do
-          dd if=/dev/urandom of=/tmp/src$i bs=1M count=512
-  done
-  for i in 1 2 3 4 5 6 7 8; do cp /tmp/src$i /mnt/data$i & done; wait
-  sync -f /mnt; sync -f /mnt
-  echo 3 > /proc/sys/vm/drop_caches
-  for i in 1 2 3 4 5 6 7 8; do cmp /tmp/src$i /mnt/data$i; done
-
-"Zombies" are active metadata/system block groups in mountstats with a
-write pointer but used, reserved and unusable all 0; the reservation is
-3 minus the active metadata and system block groups.
-
-                    zombies  reservation  cow_file_range  syncfs  files
-                                          failures                differ
-  for-next                3           -2           31625  fail x2    8/8
-  for-next + series       0            1               0  0, 0       0/8
-  patch 1 only (v1)       0            1               0  0, 0       0/8
-  patch 2 only (v1)  deadlock in balance (see below)
-
-for-next is df5b88a7914e; the last two rows are v1 on master.
-
-Testing
--------
-
-v2 on for-next in a virtme-ng VM with CONFIG_PROVE_LOCKING and zoned
-null_blk, data checked on disk after dropping caches: buffered, small
-file and O_DIRECT writers with 16 and 128 open zones, filling the
-filesystem, and writers with balance in a loop (system, metadata and
-full balance, 10 and 16 open zones): no errors, no data loss, no
-deadlock. The transaction abort below hit 3 of the 7 runs with
-balance, as it does on master, in the commit in relocate_block_group()
-before the code changed here. v1 was also tested on master with a ublk
-device as in the report: the pack file that came out corrupted on
-master was intact with the patches.
-
-Not fixed here
---------------
-
-- Recursive ro_block_group_mutex: btrfs_inc_block_group_ro() ->
-  reserve_chunk_space() -> btrfs_zoned_activate_one_bg(info, true) ->
-  btrfs_zone_finish_one_bg() -> do_zone_finish() ->
-  btrfs_inc_block_group_ro(). Balance and writeback hang on master when
-  a system block group is relocated with no active zone left.
-- "error while writing out transaction: -EAGAIN" from the commit in
-  relocate_block_group() aborts the transaction during balance while
-  writing.
-- A failed REQ_OP_ZONE_FINISH in call_zone_finish(), and a stripe that
-  cannot be activated after others were in btrfs_zone_activate(), leak
-  the reservation as well.
-
-I used an AI assistant (Claude) for the investigation, the reproducer
-and drafting the patches and this mail; the result was reviewed and
-tested as described above.
-
----
-Changes in v2:
-- Rebase onto btrfs for-next.
-- Patch 1: finish the block group as fully written after waiting for
-  extent buffer writeback, instead of do_zone_finish(bg, false), which
-  takes it read-only again: for a system block group that can allocate
-  a system chunk under ro_block_group_mutex and take it again. Clearing
-  the data relocation flag by hand is not needed anymore.
-- Patch 1: if finishing fails, warn and remove the block group as
-  before, instead of returning the error and keeping an empty read-only
-  block group (btrfs_relocate_sys_chunks() would BUG() on the error).
-- Patch 2: say in the comments that tree-log block groups count too and
-  that the reservation is per zone.
-- Mark both patches for stable 7.0 and later only, see above.
-- Tests redone with v2 on for-next.
-- Shorter cover letter, the v1 one has the details.
-- Link to v1: https://lore.kernel.org/r/20261029-btrfs-zoned-active-zone-leak-v1-0-777dd01ff914@gmail.com
-
----
-Mark Korenberg (2):
-      btrfs: zoned: finish the zones of a relocated block group
-      btrfs: zoned: don't treat a negative zone reservation as free zones
-
- fs/btrfs/volumes.c |  1 +
- fs/btrfs/zoned.c   | 54 +++++++++++++++++++++++++++++++++++++++++++++++++-----
- fs/btrfs/zoned.h   |  9 ++++++++-
- 3 files changed, 58 insertions(+), 6 deletions(-)
----
-base-commit: df5b88a7914e18488908ddf13e14e31ab39f954c
-change-id: 20261029-btrfs-zoned-active-zone-leak-bb34aa2d981c
-
-Best regards,
 -- 
-Mark Korenberg <socketpair@gmail.com>
-
-
+Pasha
