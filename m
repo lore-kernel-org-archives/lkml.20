@@ -1,108 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801626;
-	b=Tl38m7GCOuZiE9k6/VGEcjeG/2GkC9BudsCi++8h3wGRMNM3NNEB5fPkzr8dEVZfLPlD
-	 bPZTV7VHzcqqPyjBVJD+0dLr8WuP2LOYk137uG1NhvWEMNgzG70+LIkbbRn75XSKtsGxq
-	 ypHHJbIUyYQtntbh9AHXVnEvg03gPBCc+GRmdyCuCXoDc3SDuJ8fCh0myxBAntw8f7LO6
-	 T95rZLwRgSTaBRGo73Uev66YE6bMxphM3KgG/7Ej5XNv9pqY5YF2kgxnqYt+UkPihSZSC
-	 sGjCWpivjB0aVxE2h+wX9ptPCErkDnnv67ZzJuXoCBfcuTmo4BXbxwmwm1DmVqo214g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801626;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=C39tlu6xlshMWq2hwsMtOj8GLZZ3XOveWxHL0ZGLUl8=;
-	b=atx7/KO+pbt1VdQ9VgaGcjmbLc3QAu/PkSHwl4u2XR6A0DabVJWMphXNeN9qhKcfF6yT
-	 GG+0P79x5mJKFHkApDcDVFMxM9OxueJEopn4dWSNMtFoFnN89V0EfjXDuaymNQeB5DsqB
-	 72i8kvNyHfbu7mjqA5SGwrlD6FT77Ye2Oglq4D+h4ODrmtPjCT71zfptOUxTVM+xTY7JM
-	 VpS1gyyhBH4ehjobpQvDNosR176Q4SPiVlZbYCbReCLkM79kZ2vZneLiyWp6/VJHDHZaz
-	 Vj2m6RjIoqkHIOjqQXx7UZeWFg69J0iz62boG3aMFkdXEFDJ/kvVBu4Ky8BQwd2X+MQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Evfek09f;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=mmqt+Q1j;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793801606;
+	b=PAUT/0fLdqjyFHbhNjOHG4om4w/8jf3RDWyWxIZBC0sRK5+0GxKrJLATeMahjxJl3gL9
+	 mdZmabA59QF6AOhLxj3pPLEeQTUw5ykwQsGvsJy3Ft0qfulVFQXnKhzh64gRY1Ig4ClLJ
+	 9aLG1gxYpBj0IHEu1RnoxalvyznQJ3+6k0D2kLF0fy4T3//cBXfG2S3EDcCQDAJPjiX4E
+	 CI/qse3Z71kI+Of/tV+jcdt0lCB8Y9YUvyNlAOuvuh7C8OPlMmJZOY2qvhsLBx90CSbav
+	 vKjP4vGCOL8EoVGnVVa62CPTfkcsqAekjVL6WHYryVLsZqgkBy6FfuBM2tohySMDkag==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801606;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=iUHOBjNtLmRZQXhPYVgTk3a0efFKRJVz6WaQ1KW3eT4=;
+	b=3VJnsEuIvu15mE/PvXArpNrbRf7YJvhawsbpD94fVePXrUlg/GerIhvhaHTiVnGh8L/u
+	 Dgji1hNZ66ZZiDZZa964D1ep78Rq/h0f219rbv7aKxuUf+5GexeOLDA2vXYQ6EQUdvEhV
+	 eKtjOPTcNfdIrgaZVrIMwh2W5GRk6GtFlKxuP/E2vDZsTyTqZP3MP+k0700EgXypJxcaS
+	 IANkGmy1OnLjmuWbA8X1jwfJD20zoRLzJnEmMbsXKijBpwbsVUN067+i5hkmQsLXzxvp7
+	 ajwPkw6H9koUH5aJ5/tYEtfVR+CvXkQdtwTC55MZ4kh7/BWs7NUwdg1c77cEw5qbE1A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=epTZ1ZtY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FE97606EE93
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:13:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FE97606EE93
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59032606A33C;
+	Wed,  4 Nov 2026 14:13:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59032606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Evfek09f;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=mmqt+Q1j
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793801619;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=C39tlu6xlshMWq2hwsMtOj8GLZZ3XOveWxHL0ZGLUl8=;
-	b=Evfek09fxHUgg+q/tq4fvPAzJbHTYMQzd/yTceZKyIUBs0IljbGCq26EijJ4nCMUFe9Hc0
-	PaD8M9BQs4jFqElqKWuCwwN79TekM183O0cMpZUU4djmxXz2izt+CZrx4TNwPTDZjx9Vrq
-	6dFbKyDbYBJ9bmYM5tce8wgGIgqhups=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-386-JFd2Q905PkSxNdC-gfLRvw-1; Wed, 04 Nov 2026 09:13:38 -0500
-X-MC-Unique: JFd2Q905PkSxNdC-gfLRvw-1
-X-Mimecast-MFC-AGG-ID: JFd2Q905PkSxNdC-gfLRvw_1793801617
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-4902ce85f72so638562f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:13:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793801617; x=1794406417; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=C39tlu6xlshMWq2hwsMtOj8GLZZ3XOveWxHL0ZGLUl8=;
-        b=mmqt+Q1jLBJ5qfdX9Trw0Nt9nJEV2+9qd3k9y4/cbx+4mJlCsizDVidStqFpBHHdmv
-         ZOhfM1LLFqA+wFzCyrlsE4MdyHYwBVVLrXrxbtOm28xzqn+oe/G3gytRxO6ql8cGL68m
-         lvKUBEHIyO8vhWQjF/cnG2ChO4jATV0cLpbF5Gu33rwi1Fo8B/O+RaNXru+YJm6fkgcm
-         WYqG0RGbNz4VoszIVQKkZA9RMejtfLHb8Y7EBEApw2eC5ZTuId8BO/JwKD8dy5NO+7OV
-         3QdMSwAb6ZEkxZd4+BNcg+llu4p+hVBSfT+V1xUJydBLPOblgixaVyyvCPbLKSUSE+8V
-         zesg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793801617; x=1794406417;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=C39tlu6xlshMWq2hwsMtOj8GLZZ3XOveWxHL0ZGLUl8=;
-        b=zK2U0ZPc9EZcsbcPdWomdUDoJ+VW4BkialWGXnzTj3VB16aYBazG6zQbl7ATZG+0I4
-         PyYurV6g1B2GjBWhUk3hE+wezzVmsFNZ8p9LZWcY67t846UWiYT345IhkwF96gan8B3N
-         LI0FjZKKDpRnSSu6Thp2YMJ7DMrfI45K28PuijpM0xJsGv9ce5sin0m7iqKp2INFbMgy
-         P9GIMWziFOmtQmiKo1oSmvv6BRbohZXKG1c0DPMISh9F6v5jo0/2j3cRuZL76QfltvRk
-         lOSqsah/lK5cpxhWviYdsuUR74sH2Njdq+yZEtP1rW2vMurM4UPBLvKZFHgecUt0T8FC
-         0TNg==
-X-Forwarded-Encrypted: i=1; AKwUvBxnKwdL+owl4jxSExo0WRScfmLRNI1+J86Q12Q7gis8xmO7C2p4/Y9LWR5jFbccZcB3AqGwlAlKy/RlaJg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+6zJ6RZdDoFugg2ig0nzh5VDTyxy2AucICeV3MgvfVLZGJWfQe
-	beKRFsS5MozaWGay2rJFR8PQKATE8BeSjgq+3o3mydXx8W5+VZgyidL4yRpy4BzIp2r6LywxOGP
-	X3EZ+2XQM1tftq2HdXGUlPXmln/+D7nAIpv+CQuLrZ8xLjKUAWwE9QcT4dXS385bwsA==
-X-Gm-Gg: AYBFou2U4F41Bo6xZVeUwDyu8gNGWJBSPqa3yxAEcNmiMKEMQDgGup8bv5t03hu9vdE
-	uA2ng2fG6UmJxZ+1sfotRSoknlptIO1/VtuI+pyXSqwaU3aGiQ3Rzu2oulAlTGDROeTE4igbRnz
-	a5q11ZehT/nEgfqB4ANlZkCagmrBvmMAs+HPFEoYHNafdjAXyGAGPW7LUhXw8qsStkB3dhK3Fou
-	3efFSdC6vlZrW/aSgzA5rkhB/DF0aMVR8ka4Dnh50/aYnykZ03nMxXUVgV1AfQZp8095VJmo1wL
-	PhHm/Gew0Y7ukC7v7nK0sk/J0al/OqQ48V86fYQB2UQq8VSjI2o0ZK2ilz9r3R6ooHEE/5PPtpT
-	ZUnJFsGX1nVNfOOrz64hNgtd6Od1E7WKJknZbAKIc7fbflGsj3kJrG02QmO4U7qx59JrFsPzAvm
-	1AIZbWMFKQtOVMcL9cIHIwQCMkZhSWfolEO9ysvUJD67c=
-X-Received: by 2002:a05:6000:2313:b0:488:7d08:edbc with SMTP id ffacd0b85a97d-48e6e30ba6fmr37096687f8f.24.1793801616573;
-        Wed, 04 Nov 2026 06:13:36 -0800 (PST)
-X-Received: by 2002:a05:6000:2313:b0:488:7d08:edbc with SMTP id ffacd0b85a97d-48e6e30ba6fmr37096644f8f.24.1793801616114;
-        Wed, 04 Nov 2026 06:13:36 -0800 (PST)
-Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fe7189883sm4443181f8f.0.2026.11.04.06.13.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 06:13:35 -0800 (PST)
-Message-ID: <b5187890-a0df-45c9-aeed-3b1fefba57ab@redhat.com>
-Date: Wed, 4 Nov 2026 15:13:33 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=epTZ1ZtY
+ARC-Seal: i=1; a=rsa-sha256; t=1793801566; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=HR8mwVxxXtpqO3r5Mh6STjyO33UMYReHL+LW03uGIJ42PHrOOk8mnWy6qLD+bTcqRbsC8tfHqW3PU9M2+7YAUaJCVc6PyIZmw/jEjpnaaulsQIUB96s3EzPBJPgUC38rgHcK5vA6pcth1KxQc91N1a3obHXBaic974yH5Nl1JKQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1793801566; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=iUHOBjNtLmRZQXhPYVgTk3a0efFKRJVz6WaQ1KW3eT4=; 
+	b=YRCXcDHSr8ze7HAdvryNIFILWz8EvfVoUKFzgAtOzCyInJIwkrSl3YPpr1sa/0nxjtbnrSy23b0y+20XbklrNnIUvzdXIzB3A2C+TEXpys2Zjvo87Mea2nfgr/7Nz+k32xy27r8u9uX/uhE2bj9f2TrpZT35Wb3g7FHqBXfnOF4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=epTZ1ZtYUMoSD8ZmVaH8FgLmjZ334h/xw98WqpzVo1vlVk7izWHVCzEYGdK/d5ZtiQnIH+F9sskRRuBH4UQ/HxVCv0QPIgSeWzimT8V2YNFtAlBYU0xTuJ71tZZvRgJR5N1AssSf9b0y23OL7DSOP8nxk4jhRKVPfe2vdpUW+ss=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=iUHOBjNtLmRZQXhPYVgTk3a0efFKRJVz6WaQ1KW3eT4=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1793801562925226.44317889922638;
+	Wed, 4 Nov 2026 06:12:42 -0800 (PST)
+Message-ID: <ae39979a-70c2-4f73-abed-bf5699a0addf@collabora.com>
+Date: Wed, 4 Nov 2026 17:12:39 +0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,118 +59,117 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] net/mlx5: macsec: free struct mlx5_fs_id after an
- RCU grace period
-To: Tariq Toukan <tariqt@nvidia.com>, Cosmin Ratiu <cratiu@nvidia.com>,
- "joasantonio108@gmail.com" <joasantonio108@gmail.com>,
- Mark Bloch <mbloch@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>,
- "leon@kernel.org" <leon@kernel.org>
-Cc: "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
- "edumazet@kernel.org" <edumazet@kernel.org>,
- "davem@davemloft.net" <davem@davemloft.net>,
- "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
- "sd@queasysnail.net" <sd@queasysnail.net>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "horms@kernel.org" <horms@kernel.org>, "kuba@kernel.org" <kuba@kernel.org>,
- Boris Pismenny <borisp@nvidia.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>
-References: <179313582625.87630.11382992904624255106@gmail.com>
- <e91e786d3bf20ed981ab2d214ae3358d137d597e.camel@nvidia.com>
- <94dfe8e7-5eaf-45be-94f5-7d2e2b38fdb2@nvidia.com>
+Subject: Re: [PATCH v3 07/10] media: synopsys: hdmirx: skip the 5V detect
+ interrupt without a GPIO
+To: Sascha Hauer <s.hauer@pengutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Dingxian Wen <shawn.wen@rock-chips.com>,
+ Shreeya Patel <shreeya.patel@collabora.com>
+Cc: Gerald Loacker <gerald.loacker@wolfvision.net>,
+ Lucas Sinn <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, kernel@collabora.com,
+ linux-kernel@vger.kernel.org
+References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
+ <20261005-hdmirx-media-v3-7-71a11a2e3e76@pengutronix.de>
 Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <94dfe8e7-5eaf-45be-94f5-7d2e2b38fdb2@nvidia.com>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20261005-hdmirx-media-v3-7-71a11a2e3e76@pengutronix.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On 11/4/26 13:49, Tariq Toukan wrote:
-> On 04/11/2026 13:20, Cosmin Ratiu wrote:
->> On Tue, 2026-10-27 at 18:17 -0300, Joas Antonio dos Santos wrote:
->>> macsec_fs_id_del() removes a struct mlx5_fs_id from its rhashtable
->>> with
->>> rhashtable_remove_fast() and then frees it with kfree() right away.
->>>
->>> The TX (SCI) table is read locklessly from the transmit path:
->>> mlx5e_macsec_handle_tx_skb() and mlx5e_macsec_tx_build_eseg() call
->>> mlx5_macsec_fs_get_fs_id_from_hashtable(), which does
->>> rhashtable_lookup() under rcu_read_lock() and then reads
->>> mlx5_fs_id->id. A transmit that looked the entry up just before it
->>> was
->>> removed reads freed memory.
->>>
->>> Before commit d4ece08f4b1d ("net/mlx5: Maintain fs_id xarray per
->>> MACsec
->>> device inside macsec steering") the SCI table held struct
->>> mlx5e_macsec_sa directly, and mlx5e_macsec_del_txsa() freed it with
->>> kfree_rcu_mightsleep(). That commit moved the table into macsec_fs.c
->>> with the new struct mlx5_fs_id, but frees it with a plain kfree().
->>>
->>> Add an rcu_head to struct mlx5_fs_id and free it with kfree_rcu().
->>>
->>> The same issue was flagged by the Sashiko AI review as a pre-existing
->>> problem while reviewing the HW-GRO for PSP series.
->>>
->>> Fixes: d4ece08f4b1d ("net/mlx5: Maintain fs_id xarray per MACsec
->>> device inside macsec steering")
->>> Link:
->>> https://lore.kernel.org/all/20260909065542.4B80D1F00ACA@smtp.kernel.org/
->>> Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
->>> Assisted-by: Yaga Agent HackerSec Claude:claude-opus-5-5
->>> ---
->>> v2:
->>> - Drop the macsec.c hunk: the sc_xarray_element free was already
->>> fixed
->>>    by ad17ad50b8dc ("net: mlx5e: Fix use-after-free of the MACsec
->>> xarray
->>>    entry on RX SC deletion"). (Simon)
->>> - Embed an rcu_head and use kfree_rcu() instead of
->>>    kvfree_rcu_mightsleep(). (Simon)
->>> - Fixes: now points at the commit that introduced the kfree().
->>> - v1:
->>> https://lore.kernel.org/all/179285888829.90275.17386097105525068016@gmail.com/
->>>
->>> Testing: compile-tested only (arm64, W=1, CONFIG_MLX5_MACSEC=y, no
->>> new
->>> warnings). I do not have
->>> MACsec-capable ConnectX hardware, so this was not run on a device.
->>>
->>>   drivers/net/ethernet/mellanox/mlx5/core/lib/macsec_fs.c | 3 ++-
->>>   1 file changed, 2 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/macsec_fs.c
->>> b/drivers/net/ethernet/mellanox/mlx5/core/lib/macsec_fs.c
->>> --- a/drivers/net/ethernet/mellanox/mlx5/core/lib/macsec_fs.c
->>> +++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/macsec_fs.c
->>> @@ -94,6 +94,7 @@ struct mlx5_fs_id {
->>>       refcount_t refcnt;
->>>       sci_t sci;
->>>       struct rhash_head hash;
->>> +    struct rcu_head rcu;
->>>   };
->>>
->>>   struct mlx5_macsec_device {
->>> @@ -684,7 +685,7 @@ static void macsec_fs_id_del(struct list_head
->>> *macsec_devices_list, u32 fs_id,
->>>
->>>       xa_erase(fs_id_xa, fs_id);
->>>
->>> -    kfree(fs_id_found);
->>> +    kfree_rcu(fs_id_found, rcu);
->>>
->>>       if (macsec_fs_is_macsec_device_empty(macsec_device)) {
->>>           list_del(&macsec_device->macsec_devices_list_entry);
->>> -- 
->>> 2.39.5
->>
->> Thank you for the fix, it looks good.
->>
->> Reviewed-by: Cosmin Ratiu <cratiu@nvidia.com>
+On 10/5/26 16:28, Sascha Hauer wrote:
+> From: Gerald Loacker <gerald.loacker@wolfvision.net>
 > 
-> Acked-by: Tariq Toukan <tariqt@nvidia.com>
+> The hpd GPIO is fetched with devm_gpiod_get_optional(), so a board that
+> does not wire 5V detect to the receiver leaves detect_5v_gpio NULL.
+> hdmirx_setup_irq() then calls gpiod_to_irq() on it anyway, which returns
+> -EINVAL for a NULL descriptor, and probe fails. The GPIO is only
+> optional as far as the fetch goes.
+> 
+> Set the interrupt up only when the GPIO is there. det_irq then keeps the
+> zero devm_kzalloc() gave it, so hdmirx_enable_irq() and
+> hdmirx_disable_irq() skip it as well.
+> 
+> Nothing else has to change for such a board to probe: 5V is then never
+> reported as present, which is what gpiod_get_value_cansleep() on a NULL
+> descriptor already returns. Getting the state from somewhere else is a
+> separate matter.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Gerald Loacker <gerald.loacker@wolfvision.net>
+> Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+> ---
+>   .../media/platform/synopsys/hdmirx/snps_hdmirx.c   | 34 ++++++++++++----------
+>   1 file changed, 19 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> index a28eb86e0b83c..a937ee23e230c 100644
+> --- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> +++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> @@ -2521,7 +2521,8 @@ static void hdmirx_disable_irq(struct device *dev)
+>   {
+>   	struct snps_hdmirx_dev *hdmirx_dev = dev_get_drvdata(dev);
+>   
+> -	disable_irq(hdmirx_dev->det_irq);
+> +	if (hdmirx_dev->det_irq > 0)
+> +		disable_irq(hdmirx_dev->det_irq);
+>   	disable_irq(hdmirx_dev->dma_irq);
+>   	disable_irq(hdmirx_dev->hdmi_irq);
+>   
+> @@ -2535,7 +2536,8 @@ static void hdmirx_enable_irq(struct device *dev)
+>   
+>   	enable_irq(hdmirx_dev->hdmi_irq);
+>   	enable_irq(hdmirx_dev->dma_irq);
+> -	enable_irq(hdmirx_dev->det_irq);
+> +	if (hdmirx_dev->det_irq > 0)
+> +		enable_irq(hdmirx_dev->det_irq);
+>   
+>   	queue_delayed_work(system_dfl_wq,
+>   			   &hdmirx_dev->delayed_work_hotplug,
+> @@ -2619,21 +2621,23 @@ static int hdmirx_setup_irq(struct snps_hdmirx_dev *hdmirx_dev,
+>   		return ret;
+>   	}
+>   
+> -	irq = gpiod_to_irq(hdmirx_dev->detect_5v_gpio);
+> -	if (irq < 0) {
+> -		dev_err_probe(dev, irq, "failed to get hdmirx-5v irq\n");
+> -		return irq;
+> -	}
+> +	if (hdmirx_dev->detect_5v_gpio) {
+> +		irq = gpiod_to_irq(hdmirx_dev->detect_5v_gpio);
+> +		if (irq < 0) {
+> +			dev_err_probe(dev, irq, "failed to get hdmirx-5v irq\n");
+> +			return irq;
+> +		}
+>   
+> -	irq_set_status_flags(irq, IRQ_NOAUTOEN);
+> +		irq_set_status_flags(irq, IRQ_NOAUTOEN);
+>   
+> -	hdmirx_dev->det_irq = irq;
+> -	ret = devm_request_irq(dev, irq, hdmirx_5v_det_irq_handler,
+> -			       IRQF_TRIGGER_FALLING | IRQF_TRIGGER_RISING,
+> -			       "rk_hdmirx-5v", hdmirx_dev);
+> -	if (ret) {
+> -		dev_err_probe(dev, ret, "failed to request hdmirx-5v irq\n");
+> -		return ret;
+> +		hdmirx_dev->det_irq = irq;
+> +		ret = devm_request_irq(dev, irq, hdmirx_5v_det_irq_handler,
+> +				       IRQF_TRIGGER_FALLING | IRQF_TRIGGER_RISING,
+> +				       "rk_hdmirx-5v", hdmirx_dev);
+> +		if (ret) {
+> +			dev_err_probe(dev, ret, "failed to request hdmirx-5v irq\n");
+> +			return ret;
+> +		}
+>   	}
+>   
+>   	return 0;
+> 
 
-While I have your attention, there is another mlx patch pending:
+Acked-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 
-https://lore.kernel.org/all/20261028145805.54595-3-fourier.thomas@gmail.com/
-
-/P
-
+-- 
+Best regards,
+Dmitry
