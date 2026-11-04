@@ -1,57 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818315;
-	b=wzghiuGpm8rk0GGJgnInVhInZnvIGCbeNoRAo+C6+ntLyc4bW/OkGcpr+hrGUnCffmC+
-	 oB/s3rhG01fitA98MWRxQgV/woU6vPJvLVbQGNsUThJIUK0IBHvLQ5QUg5mp9XJU1Y9ap
-	 jlN+DW6jvfJWmh4QT1LhCeCbiki8iLKV+B/JvCp0VOhLrI6fcoZe67CZrBOR+P8hHbbkX
-	 7jNzFjk+aXUgyNjFQr6E+p9Mj5tNdvEU0sekHGSnoc/EDlKulQTRZ10kVArpmgwaKgb3v
-	 lMkajmmBp1n5vkCdsXblT3euvu/YNEMV/aDaQr02RcNYzmHmoFI+Q1l2zbcU4fdc4Lg==
+	t=1793818355;
+	b=KIQSdW2GpKXCMxqPx1PXoZ26nHHpB2T51ShV5Z3dbz3rW+SysvhP4TJ+ZqfspvF54zlz
+	 cECj7EH6CiU/8gGkPeg+gDJCRqmVpI1HGTIos9IOdyoyuDHTjJ3B9vs4/6/OBoIYhb1ku
+	 5u9mHoExaY2K1CnoeC2NNALPXTRyUzzrGpxXTdbTPtafiQrBfR2x3mV3/yZ3tMET9d26Q
+	 zC4U3dQyL5IYAPHCb0nlMO2mwd+dqYVZkQuJ1/GhoWdFSrFgCM5G+VfchrhYEh/94IxUu
+	 Qg1uYSoxT1KtqSKrrs8Kb+JrtcvvG9iwz3rBbWRAGjnhDbH7mC/+d9bBVr+F3pz3/jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818315;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=FPPm4Ifo7WxrNg+H9UhHD74zvq+SEmbeIyWBnjDCO4A=;
-	b=5JK4LogjKm91GSIQ4D0opHea9qHgn8Nt73ClWxjRr7ybb88xOjpKXJWOI9HkuGL1hcwb
-	 c3E+5jGKEpGyoD5A/vWNaHSZpQTNMJJjBzQdxFRtu0ApjWUs9WauPAK4D7cwdJlssS5KO
-	 qog6Ss4z3zLL5/37EvMyDBkMF0JxwrQHvbntfd/MccsE2tUX6L9qt2zQELPTcC3CJUwV1
-	 o8aH6FyigcylCZt/11fvlvbI3nJpU7e2Wu3UcUhOxvreYu1XSv3NxMmL2i2wa/eLYcna1
-	 pkvom8B3OOTDUkHQxWhfztjWpZj9yTeQBbbnAusWbDPAQjd+ACXLBDXpety2DIgoVSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818355;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=4zBJElmewVqQvxer0r7NFF4wXHeb1cAhIrId66oRiqI=;
+	b=WearPFIDqnNuF0CtAZQhjPsIM1tf3ZbLFFW4LDik/2J+gO3xRqY4lfL7fcBlM1J5C9bE
+	 Wcci8UQlgkJgl/tGfjyOyi8cbK8gNzM80Ox9qhgYk0uyC8MVScJod0+nyOoelcroxgy3b
+	 GSQI3EWQN9UHAJTBKzHinPajj5Nl/5Fyppsr5+4EQOTUqzCUtfUhqe/CvG7milNM8LpEU
+	 +n9VVqqp3sNP4/6gos8rxhhgdSNrDFF6GegFaDVAdrrAnUgP+CiFIMohL3aOqDrXKTb8s
+	 nh/UpjIbU/3z6GPmOl9SWuJrcPMGAQBd98TMChno1kYPwtqb5ctEQSnPIBczp662uZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=vxJUKcRu;
-	arc=none smtp.remote-ip=185.70.43.100
-Received: from mail-43100.protonmail.ch (mail-43100.protonmail.ch [185.70.43.100])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jfWPZzXM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFFF2606D80D
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:51:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFFF2606D80D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35919606A32C;
+	Wed,  4 Nov 2026 18:52:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=vxJUKcRu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1793818308; x=1794077508;
-	bh=FPPm4Ifo7WxrNg+H9UhHD74zvq+SEmbeIyWBnjDCO4A=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=vxJUKcRuU1J3D9RxT0BjZUPto1pvptqtA1sdv7uTPU5Wd5CabFWDfvXI4OhKgYq1b
-	 RmVcmxn6lGV0KLIRbmf0XAMW9tsaJOJb1JcYZ3OawY1xtGMmQ4D1it1d0DyD4XwrZs
-	 49Ii/TQ1mULHm9DPR4SJjhxDYPylYoD6cZbwbtgNaM3EOHWW1hvXwL9Y3Bbxen6AiC
-	 qNZ+uGwCJzpT6M6sXxSlJZYuTLnSYT2Kma95yD57dtoS02X7DCYbjtNM6n3RuR3GEd
-	 sLq0NxA1mvS5iAVouV0Q+anJZF5XV7R5XUU5a50YPpPRfVJ5h5horz6/hQWDSX1bhx
-	 SeWJTVGccxEVg==
-Date: Wed, 04 Nov 2026 18:51:41 +0000
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, chunkuang.hu@kernel.org
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, jitao.shi@mediatek.com, dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, kernel@collabora.com, justin.yeh@mediatek.com, jason-jh.lin@mediatek.com
-Subject: Re: [PATCH v9 02/13] drm/mediatek: Implement Display Stream Compression support
-Message-ID: <8fcdd2fa-7c9c-4af5-a7b4-45fb881d88a8@protonmail.com>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: 8d12c3e225616d3655c04ed7e4412cce821e564c
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jfWPZzXM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A54E1F000C1;
+	Wed,  4 Nov 2026 18:52:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793818354;
+	bh=4zBJElmewVqQvxer0r7NFF4wXHeb1cAhIrId66oRiqI=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=jfWPZzXMYPWmUQmoX5fKi8CD5Zt6a5iMFLZl3CPrcvu3LPWfX+XB09ABlY5meibUG
+	 vnZ4JE2x60l/kaWoV9JxmJoFEMsoEy1BtimeHUXXWnDuLyXKhyTTyz2C/2QjDHgc9f
+	 i3C2eut5K0aBQJI0pM9/awDQ4l9CqboW5NGuEIEwG1BndHe4vlkRR7JfCIpi/1Rq0S
+	 uCSTPm8wEydfGc0E4t1b7CdP5VD84IOtSzmct6Zceh5F9RTzEnmga+zStlD2S3sDu+
+	 1iTpS/5xf5omijP9sn8RROBVIeugCx956GQgtW+LGUmciF/WaJeV2gNpZBcsx1bitl
+	 MH7qPEEckI6JQ==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 89EC9F40068;
+	Wed,  4 Nov 2026 13:52:33 -0500 (EST)
+Received: from phl-imap-15 ([10.202.2.104])
+  by phl-compute-10.internal (MEProxy); Wed, 04 Nov 2026 13:52:33 -0500
+X-ME-Sender: <xms:8X7ramMZtHGJ3A3lf5yc5WubAR37S401ccOs6C6dKZQquORJ03BMyQ>
+    <xme:8X7ravyUUFWXQCRGf6y4UZ7QmIF8aNFyDBoilQAqHS0MaSfGWRVTLGTNV1oOp4zh3
+    yUcIv0HSXncXqpbM_45Gka3RcptO5m6SNie8JekGTLCP6X2-fpAkKPH>
+X-ME-Proxy-Cause: dmFkZTGXN/Mt/6+UKYWeIUhVeRjK8N1s9Xsqjx+ISwdggEXtg39O6sodkPEtjFnM2V5axO
+    iM8JADVFiYM8EnDIBG1H2GuyVD7vZdG+CuHNQCWH9R05F/i/IPtxhgIKKfJOQy+81jO35Q
+    fnzywM4X7aJ0i0QmGS4FJO0/7JLnr/cwihqwO3KOUSWacNTfog8FN9R0bukZ1yhxCWsPe0
+    KaWBjErV+4pMHyfAmQN55zoQu08ElWvLKODfKciFEyPkmDFcKQQeUa9HSG24X/HviKqQ7N
+    64bqweaK7FPm03fSZ0ZXBQIqqYVLkz5oSXDgFqv6Z8FiIDO/Pt98rvj77DXumuf8djqJI7
+    WIEW0Yc76oy9JsaE90iWUukudmppmVdXoFs2GdNLE4C8wvhujntqIvi+iWbR2evIpkH2Q1
+    B/1QqhnfpK8UgGHlyP6P/2+WcRNATaZogzxW0Us0eutiB4mxj7zJ44qpgmopED85Km5Hm4
+    SrKyYXFNeg0ssF3YimQy7iNur3V8w/iSUy8knpuv9dF6fikRnlKZDd2OOFh28AJkDG7BtE
+    6MjVO+Abb9GuCM0NtIOMp1fu+mthBq2a0/y4nn60e6sajqF8ggP2CAe+K69HUXkquSB257
+    M7zT+2VKCfhwTBPGhTHMGWKMxgEOAOiMwPZe9ulv4fxX6e28wgLUWFBkLoEw
+X-ME-Proxy: <xmx:8X7raluAejDJL5VN8yCyZmkKrs4hdLGAMIYFcmSfo6mchVIhOvUcLQ>
+    <xmx:8X7raqdmFtIjvOJL5Be87mZTEA8jYpyWqGK-74UC-DY0RuzLLreRFQ>
+    <xmx:8X7raq8Pe4r-aW9zIdU8fzfJ_dnv0P9OYsQlbElEhbcS5XltGHKUuw>
+    <xmx:8X7ratTHhPASOWdOnC7O_SjoaAvl9ZNyRsEJrxLNqiPshl64h1jqzg>
+    <xmx:8X7rajpin0o3EXvq32GNu0mwBDcv4VSIC2h3lT5UVmqJlfgid5oNiCFI>
+Feedback-ID: ifa6e4810:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 6239B78273B; Wed,  4 Nov 2026 13:52:33 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,110 +77,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-ThreadId: Av7Xq62OMXVV
+Date: Wed, 04 Nov 2026 13:52:13 -0500
+From: "Chuck Lever" <cel@kernel.org>
+To: sariorkunemin@gmail.com, "Jeff Layton" <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, "Olga Kornievskaia" <okorniev@redhat.com>,
+ "Dai Ngo" <Dai.Ngo@oracle.com>, "Tom Talpey" <tom@talpey.com>
+Cc: linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org
+Message-Id: <d2539122-2d86-4306-af54-43598f4aded7@app.fastmail.com>
+In-Reply-To: <20261104-nfsd-cross-mnt-v1-2-5ec5fca0a553@gmail.com>
+References: <20261104-nfsd-cross-mnt-v1-0-5ec5fca0a553@gmail.com>
+ <20261104-nfsd-cross-mnt-v1-2-5ec5fca0a553@gmail.com>
+Subject: Re: [PATCH 2/2] nfsd: check access to the export being entered when crossing
+ mounts
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Hi Angelo,
 
-I have tested this series with my out-of-tree mt6595 (command mode=20
-panel) and mt6768 (video mode) DRM. There's no regressions, but I=20
-spotted an issue with kconfig.
 
-On 9/16/26 14:08, AngeloGioacchino Del Regno wrote:
-> Add a real driver for the Display Stream Compression (DSC) Display
-> Controller IP, implementing support for DSC v1.1 to v1.2.
->=20
-> In order to do this, it was necessary to remove the basic DSC IP
-> bypass setup from mtk_ddp_comp: this functionality is retained in
-> the new mtk_disp_dsc driver, which checks if DSC was actually
-> requested by other components (with the only one that currently
-> supports this being DSI) and, if not, it will set BYPASS mode in
-> the DSC IP.
->=20
-> Like before, the BYPASS mode is set before starting the DSC IP,
-> but unlike before, this is being done in the component start
-> callback instead of the config one.
-> Notably, the config callback is called by mtk_crtc always
-> immediately before the calling start callback, so the order of
-> register writes is retained.
-> The only real difference is that now this is being done through
-> CPU writes instead of CMDQ, but since that's called only once
-> and since it's just three registers, the performance impact will
-> not be minimal and not even measurable.
->=20
-> As anticipated, DSC handling was also introduced in the mtk_dsi
-> driver: when performing dsi_host_attach, the driver now checks
-> if the DSI panel adds the DSC configuration structure to the
-> mipi_dsi_device structure and, if it does, it will store a
-> pointer in the driver-local mtk_dsi structure's `dsc` member.
->=20
-> The DSI driver will then check whether the DSC configuration
-> that comes from the panel is valid (in regard to MediaTek DSI)
-> and will call the DRM API's DSC helpers to calculate and set
-> all of the const and RC parameters for the actual DSC setup.
->=20
-> For the time being, even though the latest MediaTek SoCs do
-> support DSC v1.2, only DSC v1.1 pre-scr support is implemented
-> as an initial contribution (which is rather big, and 1.2 would
-> make it even bigger - but that can anyway be implemented later).
->=20
-> As a last step for validation of DSC parameters in DSI, a check
-> for the hdisplay against DSC slice sidth and one for vdisplay
-> against DSC slice height was added to the mode_valid callback,
-> making sure that H/V are, as expected, multiples of slice W/H.
->=20
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@coll=
-abora.com>
+On Wed, Nov 4, 2026, at 6:56 AM, orkunsari via B4 Relay wrote:
+> From: orkunsari <sariorkunemin@gmail.com>
+>
+> Commit f0d6ad5a2f67 ("nfsd: move check_nfsd_access() call into
+> nfsd_cross_mnt()") moved the check_nfsd_access() calls from
+> nfsd_lookup() and the NFSv4 READDIR encoder into nfsd_cross_mnt().  The
+> moved call checks @exp, the export being left, which the caller has
+> already verified, rather than @exp2, the export being entered.  The
+> sec= and xprtsec= settings of a crossmnt/nohide child export are
+> therefore no longer applied when LOOKUP or READDIR returns its root
+> filehandle and attributes.  Later operations on that filehandle are
+> still checked by fh_verify().
+>
+> The same commit also removed the check that nfsd_lookup() applied after
+> a ".." lookup steps up into a parent export via nfsd_lookup_parent().
+>
+> Simply checking @exp2 instead is not enough: nfsd_lookup_dentry() also
+> serves SECINFO, which must not fail with NFS4ERR_WRONGSEC (RFC 8881,
+> section 2.6.3.1.1.5) and did not check the target export before.
+>
+> Split the crossing into __nfsd_cross_mnt(), which checks @exp2 before
+> switching to it only when asked to.  nfsd_cross_mnt() keeps checking,
+> for READDIR and the CREATE paths, while nfsd_lookup_dentry() does not.
+> nfsd_lookup() checks the resulting export whenever it differs from the
+> directory's, which covers both mount crossings and "..", as it did
+> before.
+>
+> This was found by AI-assisted code review (Claude Code).  The fix has
+> been build-tested with W=1 only; no reproducer was run.
+>
+> Fixes: f0d6ad5a2f67 ("nfsd: move check_nfsd_access() call into 
+> nfsd_cross_mnt()")
+> Signed-off-by: orkunsari <sariorkunemin@gmail.com>
 
-...
+This issue is very likely addressed by patches I posted earlier this
+week in response to a similar vulnerability report.
 
-> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-> @@ -18,6 +18,8 @@
->   #include <video/mipi_display.h>
->   #include <video/videomode.h>
->  =20
-> +#include <drm/display/drm_dsc.h>
-> +#include <drm/display/drm_dsc_helper.h>
+  - "NFSD: Check the entered export on a mount crossing" checks the
+    entered export inside nfsd_cross_mnt and in nfsd_lookup_parent,
+    which covers the ".." case that 2/2 also raises.
+  - "NFSD: Let SECINFO query an export that excludes the request's
+    flavor" handles the SECINFO concern the patch solves with its
+    __nfsd_cross_mnt split.
+  - Two follow-ups (secure-port policy, applying the entered export's
+    credentials after LOOKUP and RESTOREFH) rework the same region
+    further.
 
-...
+Let's set 2/2 aside for now, because the series I posted seems more
+thorough.
 
->   static void mtk_dsi_config_vdo_timing_per_frame_lp(struct mtk_dsi *dsi)
-> @@ -565,26 +610,68 @@ static void mtk_dsi_config_vdo_timing_per_line_lp(s=
-truct mtk_dsi *dsi)
->   =09writel(horizontal_frontporch_byte, dsi->regs + DSI_HFP_WC);
->   }
->  =20
-> -static void mtk_dsi_config_vdo_timing(struct mtk_dsi *dsi)
-> +static int mtk_dsi_set_dsc_params(struct mtk_dsi *dsi)
-> +{
-> +=09struct drm_dsc_config *dsc =3D dsi->dsc;
-> +=09struct device *dev =3D dsi->host.dev;
-> +=09int ret;
-> +
-> +=09if (dsc->bits_per_pixel & GENMASK(3, 0)) {
-> +=09=09dev_err(dev, "Fractional bits_per_pixel not supported\n");
-> +=09=09return -EINVAL;
-> +=09}
-> +
-> +=09if (dsc->bits_per_component !=3D 8) {
-> +=09=09dev_err(dev, "%u bits per component is not supported\n",
-> +=09=09=09dsc->bits_per_component);
-> +=09=09return -EINVAL;
-> +=09}
-> +
-> +=09dsc->simple_422 =3D false;
-> +=09dsc->convert_rgb =3D true;
-> +=09dsc->vbr_enable =3D false;
-> +
-> +=09drm_dsc_set_const_params(dsc);
-> +=09drm_dsc_set_rc_buf_thresh(dsc);
-> +
-> +=09ret =3D drm_dsc_setup_rc_params(dsc, DRM_DSC_1_2_444);
 
-If config doesn't have DRM_DISPLAY_DSC_HELPER (selected by few panels),=20
-linking will fail with "error: undefined symbol: drm_dsc_set_const_params".
-Should MediaTek DRM select it?
-
-Best regards,
-Roman
+-- 
+Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
