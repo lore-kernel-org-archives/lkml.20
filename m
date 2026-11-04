@@ -1,55 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793779005;
-	b=w4Jsvmnx8WRao/RL/70I5D50RTCxt6lp41DEYgV/RQ/eVHG/9SlnYU9yFPRAO+cyjRKS
-	 UU1rQLW/n090QvBwqDo9xDiSG0bA5jQnrbmLdvH2xlnd7hNNGg6gAhaOetsR4U2w/RUAm
-	 buQ92QltsCDjpD2VcH3XWQZuU16yI4KGeSUSfmngBlf6/yG6MNdth5tk5Ntco1uHCeLFy
-	 8IRFmnE8yMw9+Zc/9zk1XlyT9yBaZ7CbTxgm+NHdRwSxbTj2zML3aGZGHO8Jg19urgDfK
-	 hRmZWt8/+7FLJ41YyMcjykoAU9qMLlmdf2gd9lp/gjk/UwmJvIfKtUOrb2orQeBUgGw==
+	t=1793779013;
+	b=aCFXRuYLNDDuH+wu0CrLimdDNHmCSVhn7vwk1oVOJg3D5tqs4PtxtkjEm0fpY9DTiihw
+	 eScc3pJs8mF04MGLcTO8WUPsxEjLahGbHukVKOy3EG1bLGR1MPV79pkx7mH4g2YjfvpUp
+	 dnbAFEfFoYgjLRJ9CLfQpgmg35TlDwrlsf/3uPGRXKQj+ctzCuj6E9c+L41Tl+x6DvlkB
+	 ZlOuYX5CIMF0npu/Cl5VcZZCaXSMKOVKu1IDLLr2Duy4PUOe4Jkrn8VuLoF1R4aN9BrvF
+	 J4cn48GEfwj2N83Sy6X5L4Ma0OaU7CLia8OUVs0JuDnG2e35ZtWUXO1rmerfJZe8dpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793779005;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=HNu4ods6c1120leIpzJBlK6eHIivapUdba0o3Dpccdc=;
-	b=uW3+mloevSmSwvUeAQGnzIHmpRHtcDx03f1PSLUaEIJWNyzO8pbmeCzySuuFAQ1Dwch8
-	 ss4pKImXsvo8NIYc1sPtb2gSbb6uwq/XV75Se8EoYdvxofBoGmmLMWub9Z/5aKBxz5x/e
-	 OzBF5mOJtc9VgEm8eYMe+TKisfBACUsB15gjNEH1k5K3tR0GZux06Hns3TIR6AWCmZRcR
-	 99iJs4c2K1IfkwuHzPQiyE5Cm7XZ+G81dmirr5kxcsO5X11zUJorSu0dBpJwXRmDcsggg
-	 Gndl0FzfwhwebwQ20awr9eYCha6nNiy8OZ0oiFJpyIVNCOeeHdWG5s7f+Hy9M5/gfPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793779013;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=2uOYWGt4AO3+u8u+kd0zrEytZb9XowJ07OqUMUTGZZg=;
+	b=WPzZWVRbMqA/njfAFQc/k62216FPRqut/xwbh0RBtidhNmbIRJi+m/6rZsvXGTAeGTMf
+	 RkA+PVGrgoxgLRJxG4ywfDSlrEnQUfQ8ZuJDd6u7lNwKF+67vTgx4SMIZoWZbeD362LRI
+	 M4c1sw4tPfubUjlUFwkXnlMhu82lofT2dbaaLdcgpORTWZOflgyhRNQjzIdQCPQ9ohyrw
+	 kuC4f6OkZZnJWG4GBl5suGVSvktRrX/bQEIue5sAieRL0PbIF0sC1W7NTHrk7KQk679GL
+	 pBtCVESVMvcE3wNhfYqJH9yK3AxdaogaazRlf7D21FuoctefJspsXU5fow56rSUjePw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EIJoeGEx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 484BF606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 07:56:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EIJoeGEx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D78081F0093A
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 07:56:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793779003;
-	bh=HNu4ods6c1120leIpzJBlK6eHIivapUdba0o3Dpccdc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=EIJoeGExgzZz1jBK0fbEdK0x0YUnVwYfC/LqbcFPSvjKhaUFrq2Naa2FnzUoL6xTF
-	 IKMnljZKrx+GC74WRV9uv4ZXPZZPwfcqQrIXx/Lqegi6JdNQT6jFoNpmbK8mexTP+u
-	 fw0ynpvCwbUP+mMpB8P0eBAzq7ZWI6sXmGQp8wAoD0hF0dOSo1q7T/vbpcOj0oMhjd
-	 cVP/Y3KYlO6hDgTyaxBsxH2W/tOjDrbS53uFra842uTf2oc6XnAkxlgDOAKAvq/u7n
-	 LRtNEd9cf0O/zufCsgMycNSO9un3rDfwSMwCDmUb7ujLOgUHTsjb/m3n3d0/jUZ3Xb
-	 /i6HHgM6/6usQ==
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6ae14eecc64so431464a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 23:56:43 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwf1AHazc86rmykx1ZWiFH0oK5weTzPymbGyrpGzDmBBexniDQMgDEX+Uunqrz2D6MlapJHGqJl4LBmN3k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+i6d90FsN2Oss4JTEHHL2PgpJqFNyt+zbSbdn0p7EN2usPkWQs
-	qjJJjbpGQn6vj6zGZoGkuMIWHp8nCIO09s2DLb4qEVTC3AJZ91H8tuh+eLZwEHkEmbsrN5n0WIZ
-	jVmI7Gdo4fyyqIYwcod9YfyolKJLB7W8=
-X-Received: by 2002:aa7:d386:0:b0:6b3:c422:9257 with SMTP id
- 4fb4d7f45d1cf-6b4d4d7c182mr7792710a12.25.1793779002538; Tue, 03 Nov 2026
- 23:56:42 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C33B2606A31B;
+	Wed,  4 Nov 2026 07:56:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C33B2606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 486e9bb2d82511f19a56ed5b684f684d-20261104
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:4077d316-8174-4c66-9782-bfd9944b7806,IP:0,U
+	RL:0,TC:0,Content:0,EDM:-20,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-20
+X-CID-META: VersionHash:7db8b62,CLOUDID:0d7082b4cebb77ea3168c59fb2ef3cce,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:1|-1
+	00,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,
+	AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 486e9bb2d82511f19a56ed5b684f684d-20261104
+X-User: songxiebing@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <songxiebing@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1742231886; Wed, 04 Nov 2026 15:56:46 +0800
+From: songxiebing <songxiebing@kylinos.cn>
+To: tiwai@suse.com,
+	perex@perex.cz
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	songxiebing@kylinos.cn
+Subject: [PATCH] ALSA: mixer: oss: Fix uninitialized index in recsrc ioctls
+Date: Wed,  4 Nov 2026 15:56:42 +0800
+Message-Id: <20261104075642.1790966-1-songxiebing@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,88 +69,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104071858.757793-1-songmuchun@bytedance.com>
-In-Reply-To: <20261104071858.757793-1-songmuchun@bytedance.com>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Wed, 4 Nov 2026 15:56:30 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H5iiGZEqf_W2KmtfdqYaKY1HmeK+ZdSz1t+epAhY=X+0A@mail.gmail.com>
-X-Gm-Features: AclHuK93_XxdZekUa7K7uSHByhrComWPKbTc4AurJlwH-qxA4RI5N514mVEKT4Y
-Message-ID: <CAAhV-H5iiGZEqf_W2KmtfdqYaKY1HmeK+ZdSz1t+epAhY=X+0A@mail.gmail.com>
-Subject: Re: [PATCH v2] mm/hugetlb: fix validation of unsupported HugeTLB orders
-To: Muchun Song <songmuchun@bytedance.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Oscar Salvador <osalvador@suse.de>, 
-	Muchun Song <muchun.song@linux.dev>, David Hildenbrand <david@kernel.org>, 
-	Kiryl Shutsemau <kas@kernel.org>, Mike Rapoport <rppt@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
-	Sashiko <sashiko-bot@kernel.org>, linux-mm@kvack.org, loongarch@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 4, 2026 at 3:19=E2=80=AFPM Muchun Song <songmuchun@bytedance.co=
-m> wrote:
->
-> Commit 7ce6048d3a7d ("loongarch: drop ranges for definition of
-> ARCH_FORCE_MAX_ORDER") removed the ARCH_FORCE_MAX_ORDER ranges for
-> LoongArch. Besides dropping unreasonable upper limits, this allowed
-> values below the architecture defaults.
->
-> With 16KB pages, LoongArch defaults ARCH_FORCE_MAX_ORDER to 11,
-> matching HUGETLB_PAGE_ORDER. Forcing it to 10 while enabling HugeTLB
-> permits order-11 HugeTLB folios even though MAX_FOLIO_ORDER is 10.
-> LoongArch does not select ARCH_HAS_GIGANTIC_PAGE, so this violates the
-> generic MM assumption that folios cannot exceed MAX_PAGE_ORDER.
->
-> This invalid configuration is accepted by Kconfig.
-> BUILD_BUG_ON_INVALID() does not reject it either because it only checks
-> whether the expression is valid and never evaluates the comparison.
-> Detection is left to the runtime warning in hugetlb_add_hstate(), after
-> earlier boot paths may already have used the invalid configuration.
->
-> When an invalid HugeTLB order can be identified at build time, reject it
-> there. Otherwise, reject it at runtime before the mismatch propagates
-> further. Use MAYBE_BUILD_BUG_ON() so constant violations fail the build
-> while dynamically determined orders are checked at runtime.
->
-> Fixes: 7ce6048d3a7d ("loongarch: drop ranges for definition of ARCH_FORCE=
-_MAX_ORDER")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/sashiko-outbox-192874@kernel.org/
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> Suggested-by: Huacai Chen <chenhuacai@kernel.org>
+From: Bob Song <songxiebing@kylinos.cn>
 
-Reviewed-by: Huacai Chen <chenhuacai@kernel.org>
+snd_mixer_oss_get_recsrc2() returns success without setting active_index
+when the current Capture Source does not match any OSS mixer slot.
+snd_mixer_oss_get_recsrc() then uses that uninitialized index for
+"1 << index", and snd_mixer_oss_set_recsrc() does the same while ignoring
+the callback's return value.
 
-> ---
-> v2:
-> - Move the order check after hugepages_supported() to avoid a false
->   PowerPC BUG_ON() (suggested by Sashiko)
-> ---
->  mm/hugetlb.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-> index 779b1de33c78..b49130eb7ad8 100644
-> --- a/mm/hugetlb.c
-> +++ b/mm/hugetlb.c
-> @@ -4197,7 +4197,6 @@ static int __init hugetlb_init(void)
->
->         BUILD_BUG_ON(sizeof_field(struct page, private) * BITS_PER_BYTE <
->                         __NR_HPAGEFLAGS);
-> -       BUILD_BUG_ON_INVALID(HUGETLB_PAGE_ORDER > MAX_FOLIO_ORDER);
->
->         if (!hugepages_supported()) {
->                 if (hugetlb_max_hstate || default_hstate_max_huge_pages)
-> @@ -4205,6 +4204,8 @@ static int __init hugetlb_init(void)
->                 return 0;
->         }
->
-> +       MAYBE_BUILD_BUG_ON(HUGETLB_PAGE_ORDER > MAX_FOLIO_ORDER);
-> +
->         /*
->          * Make sure HPAGE_SIZE (HUGETLB_PAGE_ORDER) hstate exists.  Some
->          * architectures depend on setup being done here.
->
-> base-commit: 74d73ffcffe03804f97e9fb82301dadf75671282
-> --
-> 2.54.0
->
+Make get_recsrc2() return -ENOENT if no slot matches, only use the
+returned index in set_recsrc() when the lookup succeeds, and initialize
+the index variables as a defensive measure.
+
+Signed-off-by: Bob Song <songxiebing@kylinos.cn>
+---
+ sound/core/oss/mixer_oss.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/sound/core/oss/mixer_oss.c b/sound/core/oss/mixer_oss.c
+index c533d767c29a..6c8ca1d320ac 100644
+--- a/sound/core/oss/mixer_oss.c
++++ b/sound/core/oss/mixer_oss.c
+@@ -185,7 +185,7 @@ static int snd_mixer_oss_get_recsrc(struct snd_mixer_oss_file *fmixer)
+ 		return -EIO;
+ 	guard(mutex)(&mixer->reg_mutex);
+ 	if (mixer->put_recsrc && mixer->get_recsrc) {	/* exclusive */
+-		unsigned int index;
++		unsigned int index = 0;
+ 		result = mixer->get_recsrc(fmixer, &index);
+ 		if (result < 0)
+ 			return result;
+@@ -212,7 +212,7 @@ static int snd_mixer_oss_set_recsrc(struct snd_mixer_oss_file *fmixer, int recsr
+ 	struct snd_mixer_oss *mixer = fmixer->mixer;
+ 	struct snd_mixer_oss_slot *pslot;
+ 	int chn, active;
+-	unsigned int index;
++	unsigned int index = 0;
+ 	int result = 0;
+ 
+ 	if (mixer == NULL)
+@@ -222,8 +222,8 @@ static int snd_mixer_oss_set_recsrc(struct snd_mixer_oss_file *fmixer, int recsr
+ 		if (recsrc & ~mixer->oss_recsrc)
+ 			recsrc &= ~mixer->oss_recsrc;
+ 		mixer->put_recsrc(fmixer, ffz(~recsrc));
+-		mixer->get_recsrc(fmixer, &index);
+-		result = 1 << index;
++		if (mixer->get_recsrc(fmixer, &index) == 0)
++			result = 1 << index;
+ 	}
+ 	for (chn = 0; chn < 31; chn++) {
+ 		pslot = &mixer->slots[chn];
+@@ -826,6 +826,8 @@ static int snd_mixer_oss_get_recsrc2(struct snd_mixer_oss_file *fmixer, unsigned
+ 			break;
+ 		}
+ 	}
++	if (idx == 32)
++		return -ENOENT;
+ 	return 0;
+ }
+ 
+-- 
+2.25.1
+
