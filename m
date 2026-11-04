@@ -1,77 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793793512;
-	b=J/rPVNozLRXoQkRHzcQznjC/KhICW6eJ9jpB5XLkonPHkv9v8GyC7V4PF//K9fHUw7lz
-	 BBNq7RLTP3hI0qov4I3W5jRqO+Ub//GnAftyysn3Jn/dYu98Qu7HWL2So1OwEnSCxtZFa
-	 qMHfDaB7fTpB+0udwL+pUJpIIs2mGu42vtEO4xKbqqNUWLuQ3sJ41h1yCe6Im1s8G2FEA
-	 oBZ+5NlATyCXi06rm8OSa4KwPXMG5TCBPVWuY+LcbDk/iBJE1y3PAMamUrwQJQ0LiNoIA
-	 dI+AV5/LFfEUZKNBTYp+g0EHc4EZUfmH53efnG5tNT0uwkQYauB1EHnDpzq1yweYvJA==
+	t=1793793596;
+	b=gYnLi9y3lLyIL5YBs7+xRNC8PbnVfwtDuTIpzX9xrY60+cOA/ucIR7qMKJhHOpCBVzUl
+	 QKUzbmZ1gD2TpyUzfbCYd++/Kcj7g/fu7Q3KYHxOp3hB0LGXMoxM1FlTegJkfzfkzBK0x
+	 nq9C8pSt08wrrBlEKEYV9Dr63gOce1/1AYNIb3igRVGc5DSlEMEg6253VcWAX5yWKvN4v
+	 l+LKA8/7oR7G6qa94qHuy5Yl1KVIk2/Mred5iFpE1LYuV9VQu+C6hPtlzeeTq9j2pdD5x
+	 rgEvfJqsQ+9XDsH7S01jzCqqd1E+huAoWwRMAZFNeNkr9IwDbSNVa73Q77QXTtVkF1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793793512;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=HSI0Xww2UgPhD6qCDAAZFlGcjtmPKieQAs4A1FJaqGE=;
-	b=FRdjOz2PLou1nhFXFkoXSwKTgq7y8ifIrz0aE/tDamjodMeSs1N601sFl03woqMUJ56S
-	 EMw/DZu3oL14Fwgy/ueAd05MG6j9ZQUrtLmrMMYYndWi9424dmbrk7Ja/iBtvxXAqrnYx
-	 a8sKMJ3LNJWbwfN+qIbuvYngSVXotUPC21Rux/D7d8CGJGsMK5mcb+NMnCy2CAzlbEtSH
-	 MF5zAWa6l2RFKjT8mnXMUhUaExpjHsuKW5M0KlAYlDYWRHEJLymJPxactgxy39U1nHLcY
-	 6q0nQiYZ/d+7ARQt0auaZoornrZjICPYwEDuBDdPx1OC8iMF0HhFPQPHyJ+ygDr+VWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793793596;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:X-Mailer:X-Mutt-Fcc;
+	bh=dwKOL9tLsHkBpWEr8W9UBVIbsDSAVfWFuWgwO9Ic3d0=;
+	b=sVBZDo+6StRa6Fcx/OFm4McpxpHKA9rDR26zTuAIzWslK5pZgajlilLgvJdYsJGuXmGw
+	 F8LyicFga4dbJo9mMmt6o+5WlXbH/N9CSXbpeSejG6xuZ6/IHa2fYS1zvazupibJPkk3+
+	 BO57i4HxIUr/I9UJJaYOAdoxrqAMEU4gfMoFku+aL2bM/IempWlO7zojcF6ycwLxgcEXk
+	 VYHvs6Ij+hB6BeRAVnyb/GwOKgtx66y5bH4TkF/ElUM5WkWTdHrqvy5ENxdoWPtyOp1W6
+	 KL66E48YPHR9v5+72F51y8kGo1vD1Yzo8VvWbOWKfQF5zmBTaTfvV+i4aNPmczCgA4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=P4nudwVK;
-	arc=none smtp.remote-ip=192.198.163.14
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="f6GQ/Neg";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=mzvWxrLG;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACBD6606A31B;
-	Wed,  4 Nov 2026 11:58:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACBD6606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7A0D606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:59:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7A0D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=P4nudwVK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793793512; x=1825329512;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=WO3KEix7IJnsFekpM/PGTdWDQ9CMyYbj9Dej1ojiGw8=;
-  b=P4nudwVKkwWn1VHrhOTLYR4qGUQq19KdtKJU5ZcYa6joVe9yLCOIdi7W
-   sUXfguCVKNZEFUS/zHjMSfx3SZjMHE1mSVh0xkRXyF3Rp1rvvy8gRkSUh
-   6ON4MG5c+Pu6kIXTeu+aog2EJVgnd/XfSd3uKtNGqODXe5YwSZMW5zsmR
-   SFiplKxuHWR1pwy4puFl7se+kNIgV+Z4ULzLhojuAw5HdiDWhPECglk8T
-   LHk7t1nRcA8KL2r8cNGCDFOQQ78V4GdZKcR5zG1034KNlr2OCy7IJ2Oqs
-   dW9wXGYP66YqtaVnkvc8KqsPmaw9iFIOWEp9CiC13HD4yQTLIXbFwwRYl
-   Q==;
-X-CSE-ConnectionGUID: 7BHvNR2lROGQqb2HcEsuLA==
-X-CSE-MsgGUID: PM7xwYJISaWXcotqmBWWPQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2573005"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2573005"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 03:58:31 -0800
-X-CSE-ConnectionGUID: HQxZ4PyJQw+IrwV8YTVh2Q==
-X-CSE-MsgGUID: WRRryNqJTrmDLhLU/rpu5Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="6584447"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 03:58:29 -0800
-Date: Wed, 4 Nov 2026 13:58:26 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-Cc: jic23@kernel.org, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, andy@kernel.org,
-	dlechner@baylibre.com, nuno.sa@analog.com
-Subject: Re: [PATCH v4 2/2] iio: gyro: mpu3050: Fix runtime PM refcount leak
- in trigger enable path
-Message-ID: <ausd4u09AfIcviHI@ashevche-desk.local>
-References: <20261104040008.1458-1-laixiangwu@cmss.chinamobile.com>
- <20261104040008.1458-3-laixiangwu@cmss.chinamobile.com>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=f6GQ/Neg;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=mzvWxrLG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793793594;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=dwKOL9tLsHkBpWEr8W9UBVIbsDSAVfWFuWgwO9Ic3d0=;
+	b=f6GQ/NegPyQWLwkjGOrBgY/y9GxvBF3TBdFnAQQIsEMiBsXg5HfyV8AdaXXIsjXerOiVHf
+	zSTsaXufbCDNRimZr4F6sJDrCJVSCTI8NRiMmlKr8B9CcxiiLamcSwyFCrR/Y85u3W5ec0
+	ZOqeNowBkXTV9UDqIkCGMAlJ+jafMk0=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-625-6QNkom2IP6a59FxkIuicYg-1; Wed, 04 Nov 2026 06:59:53 -0500
+X-MC-Unique: 6QNkom2IP6a59FxkIuicYg-1
+X-Mimecast-MFC-AGG-ID: 6QNkom2IP6a59FxkIuicYg_1793793593
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4ad3d35e899so7277415e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 03:59:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793793592; x=1794398392; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-disposition:content-type
+         :mime-version:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dwKOL9tLsHkBpWEr8W9UBVIbsDSAVfWFuWgwO9Ic3d0=;
+        b=mzvWxrLGCkgv1cs8MgMio46A1ZW+IGzd/YtIjeMuzkDVaF5SDwe3TUJ1SdUOphZFgg
+         gglmDVyTsoY9ljCSZyOVQEmpE72oe9yUHvVSH4euifHFAm5GDHX1Miqqj2t6fV6pKkQc
+         3E6T0NFYoekNDiNMhVpGhV8CUrjqlpP2tJXwnLxr+3JRvslRatEjy+FJIoKz8ggikZfo
+         G8t0qkmHun8CeoWWG6fFQKnh1/Zjyq7xJsX+zoWictWZI1mBslzqpfP1TY4tO3RHLTsq
+         rhb3TBRWvZa9NsLSmjR1F7ot6B5Ehx2p8M+3+cmDFl22ONONXoxvFahur90NE8xJF95W
+         bRmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793793592; x=1794398392;
+        h=content-transfer-encoding:content-disposition:content-type
+         :mime-version:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dwKOL9tLsHkBpWEr8W9UBVIbsDSAVfWFuWgwO9Ic3d0=;
+        b=P+uE3k/iBnOF+sdxMzm2w0h7PP7c/sU5Kgh2wHYbRc8So46pVZzSd2pm1IRb7yl1so
+         +xK8KAlTSiUNINnUiNgrV4UQJhoif2CAvYDEY2F5sQ+/pSM/dIwanssSZPCj1DP8uIW7
+         sCi1ryfjqNKclEZNAm9NYlpZcIaWDME12gU/xHHgO1VepOcwTy6u5y/oDV4SaM39ntAa
+         HAUskz0gWo4A6dUS7QBkmFuC7zSzyqYQvyNBHqNVHzGzWAJ0b/SDzvjfAHb3NgLtxkF5
+         etO5nEtsMrRTFzSQEqh+Zx5KzAj/m9G2OouBuaTUcUOOwD5AVD1MNKMUWiNWrw4sVLMv
+         Zp6w==
+X-Gm-Message-State: APuU4Z+Xafu78LDERxKPZpynjYsHh5MvTAifmxukbacGNtgwysoSIvUN
+	NNYPaVY3wNE3xIv0z5Czc4eHH8zEQLa+EaAHuZ3ciA78td+ZXhgcTeBr672z5JWyeOoCl/KAC4o
+	gEq5D8VrlqoScLvH59SRz2rm3NyEGANgiiqeRd63Hy7EUzuRs2aI5Fh6QdmlNqGb/FQWey7A+R/
+	V9PjrRFFXGU0mTW8W5053WANsPwE9RFHI2Z9n23hhAA/s=
+X-Gm-Gg: AYBFou3CZUxuHKTmd4TvvNnQKkfH7kyFAgCNKcUK0xEzbUn+ufIZ3wHNK8i0ASyHBPK
+	gfMAaU7Mh82inXHT00msE2Wo/lPCGQolft1UscJ3a9GVFRaTVZ7b0NbfwArNTR24X1sOW76ojJ/
+	JmwSMIpIFGCoBKN+MXhGlPfKxjWR5gUROyb3ssMvDT/SgUKxkr+TpbB268PMbzw47Bf2+tvt79S
+	qdYGT3wEk3blkfKPsTn6Jt0q9c5SdO9nNBZUxkR4hyhQSClSnDvuEI+qp6eeqs/mBbu/xn53AAi
+	QM7gIQZt8xbKUDm01Q8eVtVOAToKke02UHZlko7twnYjWSjFbq1rczN5JjaGnUBhC2Wbl1Rg7E9
+	LA9B3XyCp/7/gL2D0DJ03QqwyXi58EhETNEkQwrDOvg==
+X-Received: by 2002:a05:600c:1d23:b0:4a2:167a:c946 with SMTP id 5b1f17b1804b1-4ac185bccfbmr364154745e9.13.1793793592279;
+        Wed, 04 Nov 2026 03:59:52 -0800 (PST)
+X-Received: by 2002:a05:600c:1d23:b0:4a2:167a:c946 with SMTP id 5b1f17b1804b1-4ac185bccfbmr364154215e9.13.1793793591720;
+        Wed, 04 Nov 2026 03:59:51 -0800 (PST)
+Received: from redhat.com ([2a0d:6fc0:1506:fd00:9e19:9994:44b1:e6f2])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b43c17ecdasm74195465e9.5.2026.11.04.03.59.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 03:59:50 -0800 (PST)
+Date: Wed, 4 Nov 2026 06:59:48 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: linux-kernel@vger.kernel.org
+Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	Chris Arges <carges@cloudflare.com>,
+	=?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+	Phil Sutter <phil@nwl.cc>, Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, virtualization@lists.linux.dev,
+	Max Krasnyansky <maxk@qualcomm.com>,
+	Rusty Russell <rusty@rustcorp.com.au>
+Subject: [PATCH RFC v7 0/5] more virtio-net csum hardening
+Message-ID: <cover.1793276116.git.mst@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,60 +124,233 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261104040008.1458-3-laixiangwu@cmss.chinamobile.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-Mailer: git-send-email 2.51.2.2891.g4157995a80.dirty
+X-Mutt-Fcc: =sent
 
-On Wed, Nov 04, 2026 at 12:00:07PM +0800, Xiangwu Lai wrote:
 
-> mpu3050_drdy_trigger_enable() calls pm_runtime_get_sync() when
-> enabling the data ready trigger, but all five error returns in the
-> enable path return directly without the matching
-> pm_runtime_put_autosuspend(). The disable path, in contrast, drops
-> the reference correctly.
-> 
-> As a result, a failed trigger enable leaves the runtime PM usage
-> counter incremented and the sensor can never runtime suspend. It also
-> leaves hw_irq_trigger set to true, claiming the hardware IRQ is in
-> use when it is not.
-> 
-> Use pm_runtime_resume_and_get(), which does not leave the usage
-> counter incremented when resume fails, and add an error label that
-> drops the runtime PM reference and clears hw_irq_trigger so that a
-> failed enable returns with the device in the same state as before
-> the attempt.
-> 
-> Also propagate the error from the IRQ status read that clears the
-> data ready flag instead of only printing it, so that a failure
-> anywhere in the enable path consistently rolls the trigger state
-> back.
+Sending this one as an RFC: two issues are still open.
 
-...
+I'm going to be working on other things in the next couple of weeks,
+but I thought I'd post this in case anyone wants to take this up.
 
-> static int mpu3050_drdy_trigger_enable(struct mpu3050 *mpu3050)
+Issues:
 
->  	unsigned int val;
->  	int ret;
->  
-> -	pm_runtime_get_sync(mpu3050->dev);
-> +	ret = pm_runtime_resume_and_get(mpu3050->dev);
-> +	if (ret)
-> +		return ret;
+First, the general issue is not addressed 100%: if a tunnel inner packet
+happens to have a valid header at inner_nh_offset, it will pass all
+checks, but the transport header can in fact overlap e.g. the real TCP
+header and the checksum will overwrite that.  I do not have a good idea
+how to address this without either a heavy protocol-specific anchor
+derivation or dropping well-formed offload.
 
-Why not PM_RUNTIME_ACQUIRE*()?
-Yes, to make the
+Second, completing the checksum at input breaks nf/BPF programs that
+might assume that the packet carries CHECKSUM_PARTIAL,
+then tweak the payload of a packet in flight and rely on the checksum being
+fixed up later.
 
-	mpu3050->hw_irq_trigger = false;
 
-this needs to be wrapped (two functions, outer one uses PM_RUNTIME_ACQUIRE(),
-and handles the flag).
+The sysctl added in the last patch could serve as a work-around, but it
+is a very blunt tool.
 
->  	mpu3050->hw_irq_trigger = true;
+The issues were mostly found by code inspection, but all reproduced by
+me in a VM.
+
+------
+
+As reported first by Paulos Yibelo <habte.yibelo@gmail.com> (after which
+others, credited below, found more ways the bug can affect users):
+
+allowing untrusted hardware to specify csum start/offset for
+CHECKSUM_PARTIAL was not a good idea, because, if it edits the packet
+outside the actual checksum, and depending on the setup, the networking
+stack could be looking at the packet both before and after the edit, and
+seeing different results.
+
+Previously, commit 6785011f8b16 ("ipv4: validate checksum_start before
+completing checksum") validated all known instances where this
+causes the most grief, but the real fix is to make sure
+that either only actual checksum fields are ever edited,
+or the checksum is completed before the net stack looks at it,
+so it is always consistent.
+
+
+This basically goes back to
+what we did before f43798c27684 ("tun: Allow GSO using virtio_net_hdr"),
+except in a narrow list of specified known good cases.
+
+
+Summary of the patchset:
+
+These are probabably net material (and seem to be too big for stable,
+or I would recommend backporting there, too):
+
+  net: account for ingress-resolved virtio net hdr state
+	- accounting, not the fix itself, dependency of the fix
+  um: vector: trim skbs before verifying the header
+	- fixes the um receive path: without it the checksum would be
+	  completed over the unreceived tail of the buffer
+  virtio_net: parse tunnel csum_start little-endian
+	- bugfix, a dependency of validating the header
+  net: resolve uncommon partial checksums at ingress
+	- fix itself
+  net: add a sysctl to opt out of virtio net hdr checksum validation
+	- reducing risk of the fix by adding a sysctl to disable it
+
+These are cleanups, can be deferred to net-next, too:
+
+  net: add ip4_parse()
+
+Fixes: f43798c27684 ("tun: Allow GSO using virtio_net_hdr")
+
+Changes since v1:
+	- reorder patches to fix bisectability, addressing
+	  a comment by Björn Töpel.
+	- code refactoring, different patch splitup,
+	  a sysctl knob to disable as suggested by Willem de Bruijn.
+	- fix a bunch of minor issues spotted by LLMs
+
+
+Changes since v2:
+
+virtio_net: parse tunnel csum_start little-endian
+  - new patch. correctly parsing the header is a dependency
+    of validating it, otherwise i do not know what to validate
+
+net: account for ingress-resolved virtio net hdr state
+  - make rx_csum_sw counter 64 bit so it won't wrap
+    (spotted by LLM review)
+
+net: resolve uncommon partial checksums at ingress
+  - tunnel fixes to bugs noticed by Willem de Bruijn and
+    Chris Arges
+  - restore the csum_offset checks as suggested by Willem
+
+net: add a sysctl to opt out of virtio net hdr checksum validation
+  - the knob is no longer writable by root inside a user
+    namespace: changing it now requires capable(CAP_NET_ADMIN)
+    suggested by Willem de Bruijn
+
+net: add ip4_parse()
+  - comment converted to kernel-doc format (Willem de Bruijn)
+
+um: vector: trim skbs before verifying the header
+  - new patch, found by code review
+
+
+Changes since v3:
+
+net: account for ingress-resolved virtio net hdr state
+  - um: vector: honor virtio net hdr conversion failures
+    folded in (Björn Töpel)
+  - count on tap and virtio_net, too (Willem de Bruijn)
+
+net: resolve uncommon partial checksums at ingress
+  - walk the frame on loopback, too: loopback_xmit() runs
+    eth_type_trans() on it (Willem de Bruijn)
+  - return the mismatch handling directly, GSO is implied in
+    the tunnel path so drop there outright, and fold the helper
+    into its one remaining caller (Willem de Bruijn)
+  - read the IP version through struct iphdr (Willem de Bruijn)
+  - document the ipv6_find_hdr() flags choice
+
+net: add a sysctl to opt out of virtio net hdr checksum validation
+  - renamed to virtio_net_hdr_validate, in case more validation
+    is gated by the same knob later (Willem de Bruijn)
+  - point .data at the value like the neighboring entries,
+    the per-netns registration rebases it, and the handler reads
+    the value directly - no ctl_table copy (Björn Töpel,
+    Willem de Bruijn)
+  - check the opt-out before parsing: with the knob off, packets
+    the parser cannot handle were still dropped (Willem de Bruijn)
+  - include virtio_net.h in net/core/dev.c so the static key
+    definition sees its declaration (build warning reported by
+    Jakub Kicinski)
+
+net: add ip4_parse()
+  - add the missing kernel-doc Return: section
+    (Jakub Kicinski)
+
+
+Changes since v4:
+
+net: account for ingress-resolved virtio net hdr state
+  - count on tun only: dropped the tap, macvtap, ipvtap and
+    virtio_net counters (Willem de Bruijn)
+  - the driver side branches are in their final form here now,
+    moved from "net: resolve uncommon partial checksums at
+    ingress" (Willem de Bruijn)
+
+net: resolve uncommon partial checksums at ingress
+  - no longer touches the drivers (Willem de Bruijn)
+  - a packet too small to be GSO: ignore the tunnel GSO request,
+    same as plain GSO ones, and complete wild metadata in place
+    (sashiko)
+  - document the zero copy interaction (sashiko)
+  - honor a preset skb->protocol on ethernet: the stack uses it,
+    except on loopback which re-parses the frame (sashiko)
+
+net: add a sysctl to opt out of virtio net hdr checksum validation
+  - document the netns lifetime requirement (sashiko)
+
+net: add ip4_parse()
+  - pull the whole header, options included, so that the
+    transport header offset is within the linear data
+    (Willem de Bruijn)
+
+
+Changes since v5:
+
+net: resolve uncommon partial checksums at ingress
+  - read both skb->protocol and the frame ethertype: do not
+    validate when they disagree, instead of preferring the
+    preset protocol; same check after the IP version inference
+    where there is no L2 header (Willem de Bruijn)
+  - pull the IPv4 options in the helper as introduced, with the
+    transport header offset computed before the pull
+    (Willem de Bruijn)
+  - fold the trivial protocol calculation cleanup, formerly a
+    separate patch, in (Willem de Bruijn)
+
+net: add ip4_parse()
+  - the options pull moved to the helper introduction in
+    "net: resolve uncommon partial checksums at ingress"
+
+Changes since v6:
+
+all patches
+  - rebased on the current net tree: v6 no longer applied
+    (Jakub Kicinski)
+
+net: resolve uncommon partial checksums at ingress
+  - validate header before the tunnel metadata is installed (Willem de Bruijn)
+  - some cosmetic tweaks
+
+Tested: full suite on the final tree, tunnel included.
+um part compiled only.
+
+Michael S. Tsirkin (5):
+  net: account for ingress-resolved virtio net hdr state
+  um: vector: trim skbs before verifying the header
+  virtio_net: parse tunnel csum_start little-endian
+  net: resolve uncommon partial checksums at ingress
+  net: add a sysctl to opt out of virtio net hdr checksum validation
+
+ Documentation/admin-guide/sysctl/net.rst |  19 ++
+ arch/um/drivers/vector_kern.c            |   6 +-
+ arch/um/drivers/vector_transports.c      |   4 +-
+ drivers/net/tap.c                        |   4 +-
+ drivers/net/tun.c                        |  41 ++-
+ drivers/net/virtio_net.c                 |   2 +-
+ include/linux/virtio_net.h               | 319 ++++++++++++++++++++++-
+ include/net/netns/core.h                 |   1 +
+ net/core/dev.c                           |   7 +
+ net/core/net_namespace.c                 |   1 +
+ net/core/sysctl_net_core.c               |  50 ++++
+ net/packet/af_packet.c                   |   4 +-
+ 12 files changed, 441 insertions(+), 17 deletions(-)
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+MST
 
