@@ -1,73 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793789361;
-	b=xK2OTSvLbQNoBePsqJCHe9sQbtpX2vz/one5NYYc3IA/+M7sLlA9+jm77LxiiDsd9wti
-	 b8CR/HCDTxfgotEXA3qrVT1BRSGPHqNFSZ5ouos60om0FhGwqeyzbw8VuQ22bExHVPTpK
-	 /5TKnp4Om5PZILmkx4emxCorQk8TtpHleLk5y9qE5ymqjsXNRLJFNMQO1mmhEr8xoz82N
-	 EVZnYN7jhrZXnPzk4OdE+XIyvdUeH5H/SwwTgH4kII9RZWh9jCfUo8EL7atZg+BibEz27
-	 t5Tb8mOhZjpV3rckK7sRL8lGbK5/r/BqmefGLl88Nzrhtlh85m4xQ/J7fec6YlXiEDA==
+	t=1793789369;
+	b=o6uGiu1AZCuDAO6S2Ix/X8jvpLtsxwrTOPQBnmBU4BhlOhPPnQ2nnLLh0UU4RtbiRdXx
+	 oRq8erJDh3GNr3nKO+s1fHHmHjGe5Sdp420L5LU20fF57giAFx5iMVzPMKbPwtq58xF/d
+	 CXbwLhXGOgdt+3L4w3+f0PT74aUp+2CaUmtPN8wP59e0dHxR+xytAlAUEHwJMzQzCy9aI
+	 tm8nbvlEfUmsABiF04N5pbDnI3IvBeeEtbvezNyNM1LF3pgDyi+fDGQ5ahjetLBZFBwKw
+	 8SR8ouCRCgUnDuE7JVMPP583Dw5HQsoMZypX6V2FucnLt0XNv9U6UA06ygJZKHL5prA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793789361;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Scanned-By;
-	bh=MFA7WkGo+hIbERumFRG59VaVyf5F/3/i6Y52p+XAYVU=;
-	b=SGHYn/6AOnlcRr5pWFmLl2p93OlJnySnLgrUuvvD8WIk3PTZP0/k6PlXpgnTCId+rMxM
-	 MFhGv20M4sSCisbGqYDwtRDDPbjkjaZqjZDFGNS9UQj3gjMKedDpoynXWFQ/13DFQFNhp
-	 +uDb86G53SLytC5zqazMl+QA7VzaF8CCRYiH+jhx+mlw1WlBAGB87RWNq6cK5dTitJfc8
-	 IkXltPuZUPfCwv1Wsde2MUH66ld1eq53Y8ilaEdTYZp7RjIEUanEgGlRRI1YYmdoPmfVu
-	 SwAtqs754ZQYJJmbLwUX/Fo6aB0sv/gSYeXOK2aepnleVjyozYNyvKM52s4m+UNYkjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793789369;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=LG6G8th4RYYpIMQmVioeS6bsnFXlnKDIialXfud1Kvg=;
+	b=x8vLULPq10VeJNa6RdCgUMkoguqY6AiDiSgsR1wTZtvvF7PrqXM2cOQNs80YvUubUNA3
+	 xBX7K77i2Jk4vEXdbmIZtaLy1FnYk9v00DwZzJaN28v4+MLt+wvw69CceMv2DvBeyaA6T
+	 8KrgnxM69JjkavUye/R2Kz0xE+Xq9KuHkeejLA8/oJl2qLm6n3QV46r8t7UTgRn9Q9ndv
+	 7cbx83kYqNh9z6c5otbAzqO5idiOEAZeYT6NB+y8WO9jz8zpUuy2PjiRogp92LzrI+Sqs
+	 QqynMrRSQ2JhNfLjz6GQY08kNn5OTlRzPDVHnbogz4LXUehw4+C94LC1wh5n/+wbQOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=heIo9m99;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.197
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8736606A330
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:49:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8736606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=heIo9m99
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793789359;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=MFA7WkGo+hIbERumFRG59VaVyf5F/3/i6Y52p+XAYVU=;
-	b=heIo9m99tL469yH7HV2HXPVj5poSweBOvR7qDhRmfyGP0ziMMQFgI6S9hpedi6YRMO6QiC
-	xd3JO2UdtonxQfe3qbue6gJi+O355o+SJGfTrolu/xXMCK8I04vbutAzEFvvDUPBUsL/lC
-	wcSZrv1rlsqciM91eLtGm3y+3D86m1w=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-279-7_rpUqBSPeWq-YWFmJo4VQ-1; Wed,
- 04 Nov 2026 05:49:14 -0500
-X-MC-Unique: 7_rpUqBSPeWq-YWFmJo4VQ-1
-X-Mimecast-MFC-AGG-ID: 7_rpUqBSPeWq-YWFmJo4VQ_1793789353
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4CD851800361;
-	Wed,  4 Nov 2026 10:49:13 +0000 (UTC)
-Received: from thuth-p1g4.redhat.com (unknown [10.44.48.42])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 2F3ED195608C;
-	Wed,  4 Nov 2026 10:49:10 +0000 (UTC)
-From: Thomas Huth <thuth@redhat.com>
-To: Ming Lei <tom.leiming@gmail.com>,
-	Shuah Khan <shuah@kernel.org>
-Cc: linux-block@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] selftests: ublk: Fix include path for out-of-tree builds
-Date: Wed,  4 Nov 2026 11:49:08 +0100
-Message-ID: <20261104104909.129656-1-thuth@redhat.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90406606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:49:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90406606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4cc89e86e9eso749476b6e.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 02:49:28 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793789367; x=1794394167;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=LG6G8th4RYYpIMQmVioeS6bsnFXlnKDIialXfud1Kvg=;
+        b=C1sYhE9g1BnZ2rl0+ZzQVp3TWY2u4A6HJX0pf+AIQOzLKns16qZ3IypAIbZavqH3IC
+         IDmJH8Qx3njSbkLOsj7iZxr/qDg4miN2bqqL1xOlS9/tTT8JZ0Cwg9OTZNhA3AjBqOMK
+         U510qJd8GbO1WMCcPs+kUut6xVVLzIkE/jOx52T1y9BG81EAOKHxwupGSDGiCnOXYzQU
+         utSCeL810WU3GmBWeMdy7WP+mdhteOXkoOF9mHgTUUondPQYfE+D9VGv3RXRaIf0wdqy
+         oMYc3F2VbpXQ3pRTYqW+PstTaNnoT+ern0khBaQ+zi8F6AjmBkM6YB/kYbR0Gr7EX9LB
+         +PtA==
+X-Gm-Message-State: APuU4Z+3LGAMI/bBXXpRhFxuYJX4a4I+UAk5mxr8oRUVukU8HphGqjV2
+	71spL9SG/qgwlREz1ez9JmLKpwu0jzOYGuEPRxkjIc1hCca35+7VVBnX8EgT7lGaB7MNjjF0cM+
+	YQy5lfySC0Ent+M6ojK+4fjWahVVnW2wgCvIUPT/gtN9mlbzVn6LYuyLqSxw=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,49 +57,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+X-Received: by 2002:a05:6808:2219:b0:4f4:f3c1:72c7 with SMTP id
+ 5614622812f47-564609f27admr4636573b6e.61.1793789367631; Wed, 04 Nov 2026
+ 02:49:27 -0800 (PST)
+Date: Wed, 04 Nov 2026 02:49:27 -0800
+In-Reply-To: <6ae3d50b.9c6421ad.36baac.0003.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aeb0db7.bf891901.a11b2.0004.GAE@google.com>
+Subject: Forwarded: [PATCH] net: sctp: linearize cloned gso packets in sctp_rcv
+From: syzbot <syzbot+f15a6eff7a53f6eb7dc3@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-When building the seltests out of tree with "make kselftest-all",
-the compilation of the ublk tests can currently fail since they
-are using the headers from the distro instead the headers from the
-kernel source. For example, I'm getting:
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
- kublk.c: In function ‘ublk_ctrl_dump’:
- kublk.c:190:27: error: ‘UBLK_F_IO_DESC_SIZE’ undeclared (first use in
-  this function); did you mean ‘UBLK_F_UPDATE_SIZE’?
-   190 |         if (info->flags & UBLK_F_IO_DESC_SIZE)
-       |                           ^~~~~~~~~~~~~~~~~~~
-       |                           UBLK_F_UPDATE_SIZE
- kublk.c:190:27: note: each undeclared identifier is reported only once
-  for each function it appears in
- kublk.c:191:53: error: ‘struct ublksrv_ctrl_dev_info’ has no member
-  named ‘io_desc_size’
-   191 |             ublk_log("\tio_desc_size %u\n", info->io_desc_size);
-       |                                                 ^~
- ... etc ...
+***
 
-Fix it by using the KHDR_INCLUDES from the main selftest Makefile that
-should contain the right include path in either case.
+Subject: [PATCH] net: sctp: linearize cloned gso packets in sctp_rcv
+Author: gowtham398gs@gmail.com
 
-Signed-off-by: Thomas Huth <thuth@redhat.com>
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+
+
+Fix a kernel panic bug caused by an unexpected layout geometry mismatch
+when flattening cloned non-linear SCTP GSO packets.
+
+When an incoming packet is cloned (e.g., during packet capturing via
+tcpdump or Wireshark), sctp_rcv() must flatten the packet into a single,
+continuous memory block before parsing its chunks. However, if the packet's
+internal frag_list has tracking discrepancies, calling downstream memory
+handlers like __pskb_pull_tail() triggers an operational failure.
+Because the kernel treats this failure as an invariant violation, it
+executes a fatal BUG_ON() assertion, resulting in a system-wide panic.
+
+Fix this issue by validating memory linearization early in sctp_rcv().
+By intercepting non-zero return codes from skb_linearize(), the kernel
+can detect frag_list length discrepancies before they reach the core
+network buffer handlers, allowing malformed packets to be safely routed
+to the discard routine rather than crashing the operating system.
+
+Reported-by: syzbot+f15a6eff7a53f6eb7dc3@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=f15a6eff7a53f6eb7dc3
+Fixes: 90017accff61 ("sctp: support GSO")
+Signed-off-by: Gowtham S Bhushan <gowtham398gs@gmail.com>
 ---
- tools/testing/selftests/ublk/Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/sctp/input.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/ublk/Makefile b/tools/testing/selftests/ublk/Makefile
-index fc64b8f028332..ba6df7c0b530b 100644
---- a/tools/testing/selftests/ublk/Makefile
-+++ b/tools/testing/selftests/ublk/Makefile
-@@ -1,6 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0
+diff --git a/net/sctp/input.c b/net/sctp/input.c
+index 9494cfa51106..6f66ae656d70 100644
+--- a/net/sctp/input.c
++++ b/net/sctp/input.c
+@@ -116,8 +116,13 @@ int sctp_rcv(struct sk_buff *skb)
+ 	/* If the packet is fragmented and we need to do crc checking,
+ 	 * it's better to just linearize it otherwise crc computing
+ 	 * takes longer.
++	 *
++	 * If there is a geometry mismatch, length discrepancy, or offset corruption
++	 * in the packet, skb_linearize will fail and return
++	 * a non-zero error code.
+ 	 */
+-	if (((!is_gso || skb_cloned(skb)) && skb_linearize(skb)) ||
++
++	if (((!is_gso || skb_cloned(skb)) && skb_linearize(skb) != 0) ||
+ 	    !pskb_may_pull(skb, sizeof(struct sctphdr)))
+ 		goto discard_it;
  
--CFLAGS += -O3 -Wl,-no-as-needed -Wall -I $(top_srcdir)/usr/include
-+CFLAGS += -O3 -Wl,-no-as-needed -Wall $(KHDR_INCLUDES)
- ifneq ($(WERROR),0)
- 	CFLAGS += -Werror
- endif
 -- 
 2.56.0
 
