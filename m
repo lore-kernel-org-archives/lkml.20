@@ -1,55 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793811942;
-	b=4j3vOJgakFJKFvo/SEzZR0bblWXmBmt62hH4pFCFogLZUivUp2nPZ7TtCoHA0cianyDP
-	 9RK/uzPpNMoG+hgcYGuE9vLWYrrSlqWCTqoODgQLczx+toTgGzODRoEQjSN+wRkvN7sSs
-	 g9mgce1V6RTVkMuU3VZJ+2z7ajeRpMwT60vHsiqSmLz6V1Smn8PDjx92XRmApnRGvZ8He
-	 HiIvMOgMKUe+iWmE043QoDl2K0lRi/prr31MwpaHPGXZUj6wPJXbXbgN7HoUFbdvz11Rg
-	 OqMfSJYn6tekt6DZPeWUYv2ZQpzBw1QbmBiL+qZEgjHfwfpUikjuZJFqAvTKj+uVNyw==
+	t=1793811964;
+	b=VEk1XhSI9EW/6W17w6vYux8FEZ5Lp9B50dAmLQI6OmTnooyhvB6PsDLkIMQzz2Jrz6X5
+	 z1EiJ7x79OezGF5Z0Hf6XcBi4X1TbKmrCs8pQ1AwBBb57kXBiNq1ZLsxUE0Ac7j1sUYg2
+	 NAgLkDV0zIn8/oQvGjKeCLc9YWkNsZUeKjfgPKpZ8A4H5IrZhKsvHTqSw3A0+x7HHsfHu
+	 Jzorgp0MfSs5GHzI0cD/Y+oWNTdwi4GZgSZzmfbPMy2T//n8iniBq8AfPI92f3SqlFFLg
+	 AvZ424gB6rz3VH+HyWNjDr89+mOwnScCsaVtX1UIckMkXn6KJfhhIgnfnfFgjrRl3og==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793811942;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id:X-Mailer:X-Last-TLS-Session-Version;
-	bh=n/WBX5OMEjuH4mmaE8wMJgQz+VwMOE+34PZVZKVuxJ0=;
-	b=TCTALxdlzDdV2OauOKo84NuKd9yZVOEWftd3QqfAm79PCGmQevhnquN/Og3Z0ZKpQSL7
-	 uPnNu/7J6ZwecQ5DWjPr8FuBaVTuYeTGeMPcGmB/dYEjUKzk9dQbieiLeRlWcq+07XdQC
-	 5gUOe92bbYG2D6KAj8V2CIIbuXnMR0hgne33PJDZBOFiWROzGqgCgW+hK8eGFJaHLZ37J
-	 x24+KBScMlutWuFUWYU/wlZq5cygimIkbw0wl0FtC4dRXPCTozg9Go68OHzcbuF9jk6iH
-	 6m8O94XbnRPB6ZYzACksnYq9uQ6ANXB0JDz+udfUR1SyaTMBPsxluUOFnIlwAvo0uMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793811964;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=xHp9zcciDt9BQSTYUI4c3pqvrH6NfBZKhO/JkiSc8yA=;
+	b=eLNGp0w4ZE9eNdTvJU+xULnJUSczG0EU1r0bDMx7UbmKFjF+z2YZbvhM4amAvXRXgXBc
+	 ki3I54qPklKf2zSvPdjIfZrKNQRMNLKVr+h2H0qTsMOOOTczELD9RqbkJwhrqx5pvXm4J
+	 +BmLiD28yNRsDq9KTi+h7tjjJ/2rK2GLhR14a8UJOt70llucqq071F4mcPbE5pGXARqz5
+	 mIGg13vrjQzenI8SYvV+5BSZpGLaYe/vgaFOtSwAddLEisR5/I6UebgtugxoRwC9lZnsm
+	 aHFkjXC6l+HhAW858oEWH/c9A2EiFuDc5j12FeNx0pNht2ygPZFHZpeCdl3sPaTbYbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=cHt0rs4e;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1BDE606A335;
-	Wed,  4 Nov 2026 17:05:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1BDE606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=aBYGdWw7;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 58B15606A326;
+	Wed,  4 Nov 2026 17:06:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58B15606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=cHt0rs4e
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id BF2181A1455;
-	Wed,  4 Nov 2026 17:05:39 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 7C84160772;
-	Wed,  4 Nov 2026 17:05:39 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8F71C1032920A;
-	Wed,  4 Nov 2026 18:04:59 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793811933; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=n/WBX5OMEjuH4mmaE8wMJgQz+VwMOE+34PZVZKVuxJ0=;
-	b=cHt0rs4eTkbfevy+bsHYu3dOfyVDr8TlK58Uv0FQflq65mJ6uiE7Ongs5ejyePK+KEP+Qh
-	52Ko1xJ7/WLjCdfQy2rIBBaIKGZHL/rQ4P4uqcBuYCMj9C+MVSZ2IgSJJ7xESJ/GNi6kz7
-	w0fR6VC8gImEQgBp5UEjH05YRFD0Ap4r1d+S5WNUMpBbg4isQkJHSJM5TgirmhzI8ndFsY
-	PVucwRwGjttGMK28AI6RiZR3tsKCUNgE1oN4lwmYQtjRN5zLRshP+PsmUzk6yazsr+FFvq
-	FOPMHQBQNlpROMGV4AoEetfr40B0tCcV9VEbrMrKaNuP0IOyLBObIIs2Qs9MBw==
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=aBYGdWw7
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 813BE1BB0;
+	Wed,  4 Nov 2026 09:06:00 -0800 (PST)
+Received: from [10.57.90.115] (unknown [10.57.90.115])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 909573F673;
+	Wed,  4 Nov 2026 09:06:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793811963; bh=M5dLetY60rROLOEP0RTG1zWPi4zkfIzPuDEW8MB3PWQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=aBYGdWw7WH5tD8TaTad1UX5sXkFqHy3kJFkCIO/NV+nPvDKlY2sXMTXu+pv2gHLoM
+	 z3vZUPDN/buLPybv/Q+X6+qfjoULVPVgWwTWUrdshr2BqKyGHwDH3WX9pynYyFbpe+
+	 ECT6kIX/0a74V1YeaSzu7NMMtnYPeJE0Zi4A9SSk=
+Message-ID: <ba2d9aa3-f14d-47e6-8cdc-62a6d385515e@arm.com>
+Date: Wed, 4 Nov 2026 17:05:59 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,102 +53,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 14/35] drm/panel: remove drm_panel.connector_type
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Douglas Anderson <dianders@chromium.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jyri Sarha <jyri.sarha@iki.fi>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Paul Cercueil <paul@crapouillou.net>, Marek Vasut <marex@denx.de>, 
- Stefan Agner <stefan@agner.ch>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
- Linus Walleij <linusw@kernel.org>, Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Inki Dae <inki.dae@samsung.com>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Alison Wang <alison.wang@nxp.com>, 
- Paul Kocialkowski <paulk@sys-base.io>, 
- Yannick Fertre <yannick.fertre@foss.st.com>, 
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
- Philippe Cornu <philippe.cornu@foss.st.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Jagan Teki <jagan@amarulasolutions.com>, Ondrej Jirman <megi@xff.cz>, 
- Javier Martinez Canillas <javierm@redhat.com>, 
- Igor Reznichenko <igor@reznichenko.net>, Michael Walle <mwalle@kernel.org>, 
- Dario Binacchi <dario.binacchi@amarulasolutions.com>, 
- Jagan Teki <jagan@edgeble.ai>, Jianhua Lu <lujianhua000@gmail.com>, 
- =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
- Purism Kernel Team <kernel@puri.sm>, 
- Jerry Han <hanxu5@huaqin.corp-partner.google.com>, 
- Joel Selvaraj <jo@jsfamily.in>, Icenowy Zheng <icenowy@aosc.io>, 
- Michael Trimarchi <michael@amarulasolutions.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- Casey Connolly <casey.connolly@linaro.org>, 
- Michael Tretter <m.tretter@pengutronix.de>, 
- Cristian Cozzolino <cristian_ci@protonmail.com>, 
- Junjie Cao <junjie.cao@linux.dev>, Ryan Brue <ryanbrue.dev@gmail.com>, 
- Nickolay Goppen <setotau@mainlining.org>, 
- Stefan Mavrodiev <stefan@olimex.com>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Robert Chiras <robert.chiras@nxp.com>, 
- Alexander Koskovich <akoskovich@pm.me>, 
- Markuss Broks <markuss.broks@gmail.com>, 
- Artur Weber <aweber.kernel@gmail.com>, David Heidelberg <david@ixit.cz>, 
- Dzmitry Sankouski <dsankouski@gmail.com>, 
- Yedaya Katsman <yedaya.ka@gmail.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-doc@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev, 
- linux-tegra@vger.kernel.org, linux-rpi-kernel@lists.infradead.org
-In-Reply-To: <20261026-drm-panel-funcs-v1-14-5e3070a3478f@oss.qualcomm.com>
-References: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
- <20261026-drm-panel-funcs-v1-14-5e3070a3478f@oss.qualcomm.com>
-Date: Wed, 04 Nov 2026 18:04:54 +0100
-Message-Id: <179381189476.852170.18129624398084829399.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 03/10] irqchip/gic-v5: Serialise IRS synchronisation
+ requests
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Radu Rendec <radu@rendec.net>, Timothy Hayes <timothy.hayes@arm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Jonathan Cameron <jic23@kernel.org>,
+ "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261102-host_gicv5_fixes-v1-0-743b61626fc5@arm.com>
+ <20261102-host_gicv5_fixes-v1-3-743b61626fc5@arm.com>
+ <aumlixJkwDBlv8Yf@red-moon>
+Content-Language: en-GB
+From: Sascha Bischoff <sascha.bischoff@arm.com>
+In-Reply-To: <aumlixJkwDBlv8Yf@red-moon>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, 26 Oct 2026 13:10:03 +0200, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> The connector type is stored twice, in the panel and in the bridge
-> embedded into it. Keep only the bridge one, which is what the rest of
-> the DRM core looks at.
+On 03/11/2026 09:12, Lorenzo Pieralisi wrote:
+> On Mon, Nov 02, 2026 at 01:32:56PM +0000, Sascha Bischoff wrote:
+>> IRS_SYNCR writes are ignored while IRS_SYNC_STATUSR.IDLE is clear.
+>> Calls to gicv5_irs_syncr() for different IRQs can overlap, allowing
+>> the second request to be dropped. Its caller can then observe the
+>> first request completing and assume that its own events have been
+>> processed.
+>>
+>> Serialise the request and completion poll with a raw spinlock. We use
+>> atomic polling, as the lock cannot be held over a sleeping wait.
+>>
+>> Fixes: 57d72196dfc8 ("irqchip/gic-v5: Add GICv5 ITS support")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
+>> ---
+>>   drivers/irqchip/irq-gic-v5-irs.c | 8 ++++++--
+>>   1 file changed, 6 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/irqchip/irq-gic-v5-irs.c b/drivers/irqchip/irq-gic-v5-irs.c
+>> index 4edf787f3f97f..ead76560ea08f 100644
+>> --- a/drivers/irqchip/irq-gic-v5-irs.c
+>> +++ b/drivers/irqchip/irq-gic-v5-irs.c
+>> @@ -10,6 +10,7 @@
+>>   #include <linux/log2.h>
+>>   #include <linux/of.h>
+>>   #include <linux/of_address.h>
+>> +#include <linux/spinlock.h>
+>>   
+>>   #include <linux/irqchip.h>
+>>   #include <linux/irqchip/arm-gic-v5.h>
+>> @@ -22,6 +23,8 @@
+>>   #define LPI_ID_BITS_LINEAR		12
+>>   
+>>   static DEFINE_PER_CPU_READ_MOSTLY(struct gicv5_irs_chip_data *, per_cpu_irs_data);
+>> +/* Synchronization requests must not overlap in an IRS Domain. */
+>> +static DEFINE_RAW_SPINLOCK(irs_sync_lock);
+>>   static LIST_HEAD(irs_nodes);
+>>   
+>>   static u32 irs_readl_relaxed(struct gicv5_irs_chip_data *irs_data,
+>> @@ -507,10 +510,11 @@ void gicv5_irs_syncr(void)
+>>   		return;
+>>   
+>>   	syncr = FIELD_PREP(GICV5_IRS_SYNCR_SYNC, 1);
+>> +	guard(raw_spinlock_irqsave)(&irs_sync_lock);
+> 
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Tested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Hi Lorenzo,
 
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> Why does it have to be a spinlock ?
+
+gicv5_irs_syncr() is also called while restoring the host ITTE in 
+gicv5_its_set_vcpu_affinity() once we have the GICv5 ITS support for 
+KVM. That callback runs under the irq descriptor lock via 
+irq_set_vcpu_affinity(), so it cannot sleep. I’ll clarify this in the 
+commit message.
+
+Apologies for the lack of clarify in that regard for some of these 
+commits. They logically made more sense when they were bundled together 
+with my KVM changes, but now that I pulled them out some of the commit 
+messages lack context.
+
+> 
+> Thanks,
+> Lorenzo
+
+Thanks,
+Sascha
+
+> 
+>>   	irs_writel_relaxed(irs_data, syncr, GICV5_IRS_SYNCR);
+>>   
+>> -	gicv5_wait_for_op(irs_data->irs_base, GICV5_IRS_SYNC_STATUSR,
+>> -			  GICV5_IRS_SYNC_STATUSR_IDLE);
+>> +	gicv5_wait_for_op_atomic(irs_data->irs_base, GICV5_IRS_SYNC_STATUSR,
+>> +				 GICV5_IRS_SYNC_STATUSR_IDLE, NULL);
+>>   }
+>>   
+>>   int gicv5_irs_register_cpu(int cpuid)
+>>
+>> -- 
+>> 2.34.1
+>>
 
