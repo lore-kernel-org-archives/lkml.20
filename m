@@ -1,130 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.158
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802505;
-	b=hTqiK+rl/KTPzlkAcK0S+P9x14mTYGPFu6XbdeQ43ddPnIbnCPfYzSDgoOAcwmcpfVag
-	 jz3NcO6zyTiAbFkEa0myVPW6W4h3OuAOu14SkNegH1qFPejPxQ0n9vgAODi0m1qnjWr6X
-	 z/siUTOnm1LWLx1npLbFsNRFat6VCrmWAnXhydNNhPu7qMq+QNf4v0ii7wALTawLdQZdC
-	 aFp1x8zH6xS6ePYNET5rt0MO8c1X6cyYhLaGJbhwyub72hMx2RkFwLMnfXvxCKK+SjrsK
-	 YW0iONRyEA3KyUlTgNooZ0Zn+dGWuLlXjZUe0bTqIRCHAGDeCceh4ETetXlhOdXT9bw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802505;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=RMenACrLFyywKqOpn5aq6U+iXJREF0Kb5kUB2pOgic0=;
-	b=fbUW9kW2xvj+HZGvDH0bwbE7Rch1KIWggGTvrpc7kdir9BC23+CVdVFksKy++vCRDg/8
-	 NF+fkD2xuC2SEiE3amnkf6RRAu8a5k/9A8TSfK0e3C2uYqTURSSVzd2XLOpysAC7FaipR
-	 DmKpV2S33lNPl9iR1+fpLDXMZckK7hJP+0pje0z4iXMuk+hTLc9C8xSRPB1vNiJxsO9Ht
-	 DgaTCeiHHtY0I3KR+dq0TgnmC6Exa3nTlAujR+RPGvIFr7HQfTiuzDwBwQXyPfx+RTC+R
-	 WaVtYg0+3gRj+p0F6hF/n4TAx82OizK4a7hUS7D3cV/Ky+QgBZQlo9UY6JBF1JGijsg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ragnatech.se;
-	spf=pass smtp.mailfrom=ragnatech.se;
-	dkim=pass header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=KiqHZakj;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=S36KDrgK;
-	arc=none smtp.remote-ip=202.12.124.158
-Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.139.77
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793802568;
+	b=OveD66Ljzn7d5qb4hyGa45S3J1ulT4UFZ0GC+B7f9xiSE03q0MoKP9cdeBAdUlfPesZz
+	 MfZSVfLmT4DPCjB058QATQwXVQKKmZQhGvtwCN991tfvZgUKGHbL04/XnPbABB0aJHzTD
+	 5IxhPQbVPpEiYUoS4wUW2lDyv1DZVEskrBn5mTSgqOnIuq8K3IIjURblizhCANCpRqiPF
+	 z8wS2QDZ0puAneD3rtUHdUWbzrpT+ByzHEaygRiqwu5mcdNAuMNvEBL3oM6iyj+J9aXT2
+	 HKSnOPV1xEuuDkvrYZvPKYwVyMjOY/pS9cRxe4O3Hx6LFE3u77/X928vzl7Ik3xAZWQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802568;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 Content-Type:Content-Disposition:In-Reply-To:X-ClientProxiedBy:
+	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=SfrTWaLN1myPi8fPUY5Xc3BW4SUyJ78N9h7j6XnHsOo=;
+	b=zsaUJTu+xBk9F1zGBqJ72YtSBxXdOSZnmBj8HvhYEdeTGeMXpBQ376rhXcLBICWyULgL
+	 tSnWzd95B7YHZJYNEAAlgxl63Msk5bLA5d9cl6m9b075lKe1hNAaTaLg37t0SsRYULMX/
+	 x6q4XY8t2r/hZWoKMhcY/iz5+Kvw33OC99cOy365E0Bkdh0gIGvZ6VN1ILKZ4oDyblEKF
+	 aEPjw0cKKqR+p8JsjcY4Th9BWAH+nAQUfSABzy9R6easf6d+f364JmOQxDOgkmpNabNXr
+	 mbdcYNZTt7SJ+VKcFMUL9TmaiBw2cbXCFM6tyX2a1Us+CBSD88kAgvIE57EXbX9Nguw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=analog.com;
+	spf=pass smtp.mailfrom=analog.com;
+	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=cPvCj3eE;
+	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=ZThk5Dy7;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.139.77
+Received: from mx0b-00128a01.pphosted.com (mx0b-00128a01.pphosted.com [148.163.139.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 566C1606A329
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:28:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 566C1606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29C59606A328;
+	Wed,  4 Nov 2026 14:29:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29C59606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=KiqHZakj;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=S36KDrgK
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id D149F7A0185
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:28:24 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Wed, 04 Nov 2026 09:28:24 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793802503;
-	 x=1793888903; bh=RMenACrLFyywKqOpn5aq6U+iXJREF0Kb5kUB2pOgic0=; b=
-	KiqHZakj17uPClISrKe6y+V21POMrjv/F5QixGBxI/oACddPYfDuizYbfjSge9yG
-	aLPbT7+5DJie957qLFiaejWp5Jcf54co3dSC6zFOtcB80Zbk/rjt1+twx2fR59Va
-	KZA+HY+s8HjSRaz4riIaxmc8xxafn7kUTBIXcHuZekQAmz6WOdg3jNVaRsUC1nn0
-	m/jcvFXX/uA6fTrgwAMOXX0NEqqTPz47fQhB5vm87d6ZltnIqWyc1RVB1lykYGMP
-	9qyN3wK4HhZ6uWSR3rjhaCsUYjrE63Ujq5dEP1oUAU8DTUNKCUFDeVaYbSFhem7p
-	2YVuy/vt4zq0Pbujwst9Mw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793802503; x=
-	1793888903; bh=RMenACrLFyywKqOpn5aq6U+iXJREF0Kb5kUB2pOgic0=; b=S
-	36KDrgKNxI2VnBR2PKdoyGc8LVJ/qOMGYORmXnnTtKMotsHEDRMRESw4wibtmE7Y
-	4VtXXtBYV08/7Iro03g/TIP/TMITa0Ir15YEMD0TPdrq1w7Y5LBlyU45uStPCqtK
-	gxBPOGZKBUiIul3nLhqjthq59cptrRv2mT8EmJaA5AIIjALjlsExLt5XQp57JLp/
-	lHfSKoHk21jFmgSuXF/MILmM6+V31L+UqPgesZCAfSati1XhlZAYv2UbBaPz+u/t
-	XAD7JF8eH/fNstrKm5FhNpLMpEE8TSrmunCenQVEKu5Srd5rJUMlFVYv3tU0CqAX
-	I88bniMtnpqLvQ+8FlCpA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=ragnatech.se a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793802503; d=ragnatech.se;
-	mf=PG5pa2xhcy5zb2Rlcmx1bmRAcmFnbmF0ZWNoLnNlPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:hr6/3T3Ha3je1+TZtU0vBDjB2RxsvECFh9Vv85O21FZLsAY
-	INdw4dWHwngxxDnZyFibcPk9QK26cH8EKtkioDUMbwOC/BJHgrsNulT/6CmaZiOg
-	4CUQpL74t4Xu6opCWfoKEQB69X4iRIWG87s2JeKKrReUQnOBoj0rH4tsKNIxwyAa
-	XzEISo/3kw6VUsJDQwsVWawRIxy6deN/WucBW1ACmX60YB0/+UNqPNxhahbi98DY
-	jPGuNrZkmJczXoBabgMmB3A+o/DwkwcPtYfFw1E77V5Quf0VriBej9XtkXbAZt0n
-	XikZwVrLVdBk8ZFO412EUFOMGALroqQjPIx8ZZA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-disposition,content-transfer-encoding,
-	content-type,date,feedback-id,from,in-reply-to,message-id,
-	mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:jCWgE3YJ4EvRsNPLIY/IXDctOuN2J9UFRBU50X4v1Rs=:NSZeassArK+0lGa23KaZEE+7V8nNZADT4dBkL2Q8lgo=;
-X-ME-Sender: <xms:B0HravF5Z0PLl6q9DXF3nvAHUg7mtzacr6Bic031I4F9AcaXv18Hqw>
-    <xme:B0HrakdDyD2DVpQaIvlk3nksJ7rAdv_NABTOA1gkZcTcXIBXwnVwvizDy4n478eSl
-    E8MytGaJ2mR7LycHW2yWRvca-oIVSicj5cRyBe4BwtYZxIa5LmZ52U1>
-X-ME-Received: <xmr:B0Hragp9w5vkX2mGVilvEO0W-OwFBuhh3-xiA_vvFckaV7TZFq2XrlkdxmRYqhc0sL0V34OU-v4FNS-G6LcaNOVuPjC1DmY>
-X-ME-Proxy-Cause: dmFkZTFNR1ey4euJuPa2Fv718jweYIvtwoQn7xcXHyPcrA10VXtwfnwdHUmL1Fw3WreSUq
-    DCQqdM5NVk4uUdJKvWJPAbU9tjqPam3ZmERcYg3nrpovtmvaeOfaDzplajZPOsH0T5FQKV
-    On6P/uUV2SCzUvVDaaY5ulUHOl+M5GQDf+6zswnzqojp6zGG5RIYBqVsTrrInICtothQzj
-    6lbkUoh5yz+aZQy0dRh3+PQWrWEzmGg9zCiiFMCiqBBLkmEdBCx0ezwONSmvQHDKSDFNO7
-    xWVPqlRuhlsOcZJ73JQ4nPR7gcYluIvivfzu9uIVnyNBOxruD/xoINw5/s9a/H44alVsH/
-    D5HLzZ0P2wwF54prlMIBWMVzbuk21Tc/9y+qE8d6+rvJ19Tj3IzfJBEjFbaB8n6oynDpLQ
-    ppFx0nVa/+Xqt3UbV4pln7kchTHo2wH2Q6W/BFu7QWGMMco8ZKH+fK7Yy6sZfmhOdxut3l
-    qehXWHv+ORCnmVlJaawP/3jV22cwmFkmFOJUuonjWG66OVD7cxwZZwZdcFUZyymPF4fT0U
-    UUVisPFn2eOmPQtD6/xVaIwRHm1l+w+skncUh6k34Wn4MHyupIez2Vs6R3RH57D5c+vrtC
-    g3v9bN4h/LZvYOJxW6KYLRKOt7bhC/qQtxjvxQ5MNnZ+qFHMrWqV+zGVcggg
-X-ME-Proxy: <xmx:B0HratC3NTi_VdctiC4FZ_Mv8cfjBOkphY3UjWQRIpXI1mxQ_C_O7w>
-    <xmx:B0HrahdFtIJAnroa1754QNnGrKxMkpsR889_37lMW4cNrDne4EvN-g>
-    <xmx:B0Hralu0daVY-x7frEVVpOjB2inw7kr3Ei5KJ0QzuT1hVf1Tps00nA>
-    <xmx:B0HraoiX9fl-098ID15iLCHRs-yQPnMuVMufUzgE14WMK4HxmiNFKg>
-    <xmx:B0Hrat6r3_Z7TEZ7HapiAu1dJr4lod0zhuZmDCg0hmdeOVZkP-70sOk->
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 4 Nov 2026 09:28:22 -0500 (EST)
-Date: Wed, 4 Nov 2026 15:28:21 +0100
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Li Ximo <lixicaicai@gmail.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	linux-renesas-soc@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Wang Haoran <haoranwangsec@gmail.com>
-Subject: Re: [PATCH v2] thermal/drivers/rcar_thermal: fail probe when no
- sensors are probed
-Message-ID: <20261104142821.GL1959885@ragnatech.se>
-References: <20261103084604.700540-1-lixicaicai@gmail.com>
- <20261104120840.GJ1959885@ragnatech.se>
- <CAMuHMdV-K+S3W3R58Tjk4RZH5KNdwRKNS1qYmMyshL+VNYj_rw@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=cPvCj3eE;
+	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=ZThk5Dy7
+Received: from pps.filterd (m0167090.ppops.net [127.0.0.1])
+	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4EJLX2983082;
+	Wed, 4 Nov 2026 09:29:15 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
+	 h=cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=DKIM; bh=SfrTWaLN1myPi8fPUY5Xc3BW4SUyJ
+	78N9h7j6XnHsOo=; b=cPvCj3eEz/SQF0/zFlLzXdglYRDsPGb0TJpljxhI7zXRK
+	kgx2lfoyrI0S2LeRPtM/GG1NUCVTfjSn7irNXG/SNLTEg4XRiLMv7OpgAhsaMAoi
+	Shwy5RQQVgBPT7Hz6PPd2I11TlrwjilFVTBR2meb3Txm8JmjDChzZwRdMT9fRfW9
+	wpcAk24M4Qio9gcEKY61rpixtYYIEfdIq8XWHfMoF2JWO/weU02qDyvmZPtc/+bg
+	N2+L8NZHPNzLdtysP/ahq9m+QZBUlq7lZczVyhLmHEJR8H/+bo6emaIypuygkDkF
+	m3Y1NkwlSfjpzURDl/5CQqX9Dbmu+MXuYWM4Qi9Fw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=DKIM; bh=SfrTWaLN1myPi8fPUY5Xc3BW4SUyJ
+	78N9h7j6XnHsOo=; b=ZThk5Dy7vfPZEANE+5sWCTcNOvkyepkRDCGfbO/5iWY+o
+	felHRm5UAMgRgGI2zzMPrisQdzfbRz0itDGwqS1pk1ctKHSmLDoQu7YXydGYvSg8
+	IX5nMipc+1ag8ULV/eSqjFddyHgJU2yE2TB1XKBfPQVrvIdtNBJT+2XIBEG71gN8
+	sWJTidSUZ40t3bfMMOFxOZBlyx8okKvRSfE1UrKT/Ktf959M6qD2KlMLyEZ3rHvO
+	kne+FKLEGfr34Qyn67Gs0sYQjpZLuVVveWtRf8+oQsqXVXeqU7NzA+KiWeTTlm6Q
+	UXama07fCySRWF3wj6OH75nluDu6Iwln62tXSgNmg==
+Received: from sj2pr03cu001.outbound.protection.outlook.com (mail-westusazon11012053.outbound.protection.outlook.com [52.101.43.53])
+	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4hqkb25vaf-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 04 Nov 2026 09:29:15 -0500 (EST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NWBIJvBUeY4oBBW7NJrGHMG+peN1lusbfCVguiEy3N2nE0YgLdYQL3fmmW+p1QTfanaLRIFk5pWacFzJ7KK0cfQnc9+0jxJz0xtamNEPLbDcEAKJ00LDmf44SDj1R3akuVv6ezymqs489AXMnzd7QS7GFmhbJkMAhX1qPJFeILPbgRBfXEIErwKLlDUgF0j0ikBYlzq4Va3p/vjpuAtDyJHS5GUXrlyijkai7TJ1AhcHUBuS5c3k6k+KMDsn94PI8WHxzndJjmB0CtFZRt1LQuhvk6K4NJdljSGxtElBI54FLv6QKjwA1nBRfTccsP5rM/FK3vrqV4+XCkVW3r1O5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SfrTWaLN1myPi8fPUY5Xc3BW4SUyJ78N9h7j6XnHsOo=;
+ b=iOy18xVb4+d+z/6FNHzuTTUXiJ9ZUkDcCVi18cPqhsLRImoH0uhzByLnmRhwb6Dd6yCL8gKY67qg8879hmKW2BnOKpDhiZi91PT3EvA/B/zKKmBi8Hpx5ojHhGIJQ/ICDMBFQz7LDVlfVb4ydNBmk1LC8All94odcpwyvYYCjvjs9/PNLwRQ02ZaL11+zXeJrprv9Lt214RP38MALs2YJwKGHMlZrqtQp5FL4I5sHfsX6Yu/Nm8gxCwaFSY+9zrb0v6cTmZDlhUzo7YPic4bfAj0mez6AboBKQMDBX2W0Cnc05+YXmNAAjuJeDafW8X/OlWn4GhPTbz4WhLfBrmtrQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
+ dkim=pass header.d=analog.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=analog.com;
+Received: from DM4PR03MB5981.namprd03.prod.outlook.com (2603:10b6:5:388::24)
+ by DS7PR03MB8195.namprd03.prod.outlook.com (2603:10b6:8:261::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Wed, 4 Nov
+ 2026 14:29:13 +0000
+Received: from DM4PR03MB5981.namprd03.prod.outlook.com
+ ([fe80::7af0:3071:4d42:63ed]) by DM4PR03MB5981.namprd03.prod.outlook.com
+ ([fe80::7af0:3071:4d42:63ed%5]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
+ 14:29:13 +0000
+Date: Wed, 4 Nov 2026 15:29:09 +0100
+From: Alvin =?utf-8?Q?=C5=A0ipraga?= <alvin.sipraga@analog.com>
+To: Iustin Stolniceanu <iustin.stolniceanu@analog.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+        Heiner Kallweit <hkallweit1@gmail.com>,
+        Russell King <linux@armlinux.org.uk>,
+        Marcelo Schmitt <marcelo.schmitt@analog.com>, netdev@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Ciprian Regus <ciprian.regus@analog.com>
+Subject: Re: [PATCH net-next 5/5] net: phy: adin1100: Skip the soft reset on
+ ADIN1110/ADIN2111
+Message-ID: <autAidTgykOObtzp@analog.com>
+References: <20261103160918.409701-1-iustin.stolniceanu@analog.com>
+ <20261103160918.409701-6-iustin.stolniceanu@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261103160918.409701-6-iustin.stolniceanu@analog.com>
+X-ClientProxiedBy: CPBP307CA0005.DNKP307.PROD.OUTLOOK.COM (2603:10a6:380:1::8)
+ To DM4PR03MB5981.namprd03.prod.outlook.com (2603:10b6:5:388::24)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -134,99 +131,143 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAMuHMdV-K+S3W3R58Tjk4RZH5KNdwRKNS1qYmMyshL+VNYj_rw@mail.gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR03MB5981:EE_|DS7PR03MB8195:EE_
+X-MS-Office365-Filtering-Correlation-Id: 21261d4c-38ba-4be3-0704-08df3a7fff3f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|7416014|376014|1800799024|6133799003|10067099003|18002099003|22082099003|56012099006|11063799006|4143699003|261022075727099003|261026121527099003|261021121427099003|261021135927099003|261021123027099003|261009223027099003|261102123227099003;
+X-Microsoft-Antispam-Message-Info:
+	VEvgdBt1zyuPUY7PZg9M96Hsc3Q6dd2qhTywKudYHq+9rZ/rKNcWiYYA+lmTjrBoGChh4OWqkPUK3gcNoj1ivslXj+MMoMZbz1uIDxXCLZGHoDiyJeijwn+mFeqCPvaumxQQfQCUysO4hJpo4VJJ94UJ4cF03a+wDZc/rMhxygglfmZvONI5LVaAFjYwskcXmxfIpspV9AwbppOqMIw5sfVQ4n9JUFdsIjjuQy0UD8xrEOAQZjhutk2IDwdvLice91eEyVVv3T34kaCabJ6n1KfRMHQN7BK4KypEN6EEOVhI5ImTznBonYNyedHLiChK3NBybWJ4c+S5Zqa10CeMXK+KA956YGVrsT8F6IkGKMo0wpnxld50bL03Nj/UENge5s0U53CWtuPboLrDVEGATHcHXmw+Oo7Hw9AYz08A9bJHFH3G5F3gdduLKkc938IlJ4npMHYcsL4F/U9+GvlBWJIlDJoGuoAxL06wd3MWnxjITQyV60iGlO9uLe+yaGmVhTTXDLIBBbBTQMxJ9cxcVeoPl3Qm1+ozhSEArHOjt+dME04Q2s0oor88oD9wZ2nzsoSupFGkwoo5R0F7IRCmMufe8seb+720R+jeWtXfSz9jszd3LAj6QhEyTUmUppPUKWPQvRjvLvUr1ch9E3NOOFcpcjEw/MMPSBM0dWRxNGQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR03MB5981.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(6133799003)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003)(261022075727099003)(261026121527099003)(261021121427099003)(261021135927099003)(261021123027099003)(261009223027099003)(261102123227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?U1c1WmpwendKK2pWeS9PQlFUT3VQUTJnbGtsblRFd2dxSTVqenZxSEd0RGRB?=
+ =?utf-8?B?a3F1ZXdaVWNodTNyeS9qOXVUY1J3ZTJBcjE2aDlNMEZBcVpCaThVNkxRTGI3?=
+ =?utf-8?B?cjR6QmFyNG5xR1grN3VFKzU2TlVUWjBmbDFJTmdmR3g0NWR3Zm9OczVTa2FN?=
+ =?utf-8?B?OTNkd2tOcUxTVngrVURxelYwK2FNaXdGdmdJZmV6dXlnS3hJS3JPaU4rS0Na?=
+ =?utf-8?B?SkxDczhmUWpXS3lrT3BTM05Rb045S0lXMFZzVjBFM0p4U1BBd3o0MFUwemdi?=
+ =?utf-8?B?b0xpTWxxcWhRZmJhSjNFcTkvV0RWQnRDUUVvdlY0aHJpZVpDQy9iRk0vYnhM?=
+ =?utf-8?B?M3N1NCtEb0NNYWhMVEEzc2J1dkpCQ3dHcjlYL2ZMQnNGOWEybmk2aWJOVFA5?=
+ =?utf-8?B?ZUx0ZktSZVpEbVhhQWZLTWhrTEZGa3l2UHJDOTVaakJPcU0ySndKcmx0UzI0?=
+ =?utf-8?B?RjJ5SXkvbElBK00rU3FwcjVQdnV4bkxSTWtTYno2OEh6dmJPSnhkUDRzQTRX?=
+ =?utf-8?B?c0dmNVJIVHY0T2xsdXd4YktMZGRNNjJWS0Y4SVJ6c1ZTbnM1Sy9LakszMDQx?=
+ =?utf-8?B?OUNRbXJzRlNybWJmTjNRTVNsQUp6NWd1WlZEMy9uR0FSaTZzbUk3UCtvRndU?=
+ =?utf-8?B?cHhVdDRNWURQeWhacEdySTJmNjBaVnBWb0ZOQSs5ZGlTTENjVFpGSXJBbUZY?=
+ =?utf-8?B?Skt0bERQRG9BOEoyUENENW4zVkdDLzVIS1I4emZVenIrTGZWbDdVN3NsNmJk?=
+ =?utf-8?B?U2hVTTZLU1hSOWpKV0lGTEp3RXUvYmtUU2lJTVZ2am8rcEhIR0FpVU01RWdC?=
+ =?utf-8?B?V2ZoNlF0bXR6emhROWwxcVIwOHU4dWpxRCtWUC84K1BQRWtRRFl3QXNPQXBU?=
+ =?utf-8?B?b3dCUlo2Y2RpZCtWMnRCTmE5SzdXMWtDQ3JxMWU5UHErSDJ6a1ZWYlI4VHRu?=
+ =?utf-8?B?WWR2WUkwalpXbmkwTTJRSERsM1VjTFprVHNkNWtzV3l3bVZVYnBIR1JWeTBC?=
+ =?utf-8?B?TjdscTNPd05Ld3BFc1MzTy82eThVblNjRVNUM3BsSi9lZWx6NjV4R2N4TVJj?=
+ =?utf-8?B?ZUVrc3FtZmMzSjltdVhsbWRoZjlaMnVuM0VtUUVFSlpnUU9RTUhQQ09vZnAv?=
+ =?utf-8?B?OFJYcGFGTlQxdjNpZDdtTE05LzhQWTlaWVBkMG1zM2hMRUE5WFlMQ2lwYkg0?=
+ =?utf-8?B?bllxZno3R1FBcGh5V3hENjdxdkdZcGsxZ3A0SmtySEFOSVp5bXRUajErYVp6?=
+ =?utf-8?B?dzJobTFXMFpFTmw1UnlaK20vK2tkTXl4SElQcm1BbDQ3WkFRbWlpRjFYcTE0?=
+ =?utf-8?B?cTU4VmlPd0RhelhaR0dCa3B1OFpER0tKVXhwWEhrbVZIUmgyRm94dUxmaE9j?=
+ =?utf-8?B?cm1VOTZXd3lhRDlDZVBKTDk2Z3JoL0krVGtCQ0JqK1poSkEwU2RVT3c5TERF?=
+ =?utf-8?B?blhYNlFGMEVxZzJyR09RUkx1WlpBQXZCTEx4ZktOUVRISm5Uak1rWlFRRDVi?=
+ =?utf-8?B?a0M0dG0zcUhHY1B6NExaUm9lT0d5blA0SFFURldDVjZ2YU9SQ3ExcHZKWVRL?=
+ =?utf-8?B?L3VTRnQxRm1sLytveHl2Q1piOGd3bUtYV254a2RSNjZhY3ZiZkgwN0VFWC9G?=
+ =?utf-8?B?MG8zeHlzNXRkcGE2YXJ0Vm16TE42YzZCcXA5TTZaNWVnWUNBWFVhK1k3am10?=
+ =?utf-8?B?ZGlUL2RpSDJmejhkZzNJeUo3Rkc5MDhQbVpjdWU4WHk3MHM1d2FsSFhDUzVV?=
+ =?utf-8?B?b2NhcUJBUzg3S09ObnNXbGZCZHdWNk91cVpQaFdXZjhvVjBKRFcwVjdXY2ov?=
+ =?utf-8?B?M3hPYnFUaVFMT2x2MHBuY0d1bFMrSDBCOTBPNGZSK0dQbm5iWFh2aXJFeHRn?=
+ =?utf-8?B?a2tIeFAzbjU3dmFZUk4vTHFhVzVRRnZGV3g2R2l6MXlYQVBWditPVDlPYTZl?=
+ =?utf-8?B?aWFZUXhOb25ZeHNmRXd1R0NvaXc1dUdOZlB4Y3ZpbVBXRGszMGJQUVlsREU0?=
+ =?utf-8?B?MTVTMGdlRGgxOCt2d0o0dFBKR2VGZ0Y2SnNWWi9pdEdwTmZNeWQ5UmFnRUNh?=
+ =?utf-8?B?VXlMQ1N1YXZUdFpUWlkxSWVrSFNkU1VOcUZRdC8zYjJqU082Qm5rZ3piS2Zl?=
+ =?utf-8?B?WE1NZlduNytsK1gyZTYxbmF5dnhENFpiZHFsazZhSG1JKzlhdTZtMkZ1QkRK?=
+ =?utf-8?B?TzIwdzFzRHJIbmZLTnoxZmdJL3V5NTIvdStYMGM5Qk10eXdoMkMxVzA3M25X?=
+ =?utf-8?B?TVhqa3JPLy9vdWhES2dVQ0MyWHpxbUtQQU1FV2RjT29oWHBDRVNaNFVITC9O?=
+ =?utf-8?B?OFVLQi8yaWRYSmY0a2owMVdaVzB3UE85Q2Q3VFN0d2IwSWl6bHA0dz09?=
+X-Exchange-RoutingPolicyChecked:
+	tLluWL06I43oGUPsex4dXdt1O/mnEQMiTqKhjbUjZaoOG8cvep7t20s4q/cKuL8D3wrqmpaAjDq3JC+AMa5bYV5Ygtf/PGvvsPxYQ1w1Ql0zFMtjF7pS6KoJeNw16RSeBhGY/iQreHjGTTS/BEj4lV3zemvk23+W9IM+bC2x996l1dyKf4ApchuCMsNjvfLwo8cZsX6kM8IMEBphEBmC3AZ6GLbCZrmwR+/3HS2I8C5pA/YV4mjN+NjP+4muUlkivpz347Z9sZZ4XnDVEJizeaYs2TtJSCa/UhKzEG88QBKO3rIvYvcjuMbPPXGvS9ZqX0AFa/YnzTIO5ky76YtGtQ==
+X-OriginatorOrg: analog.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21261d4c-38ba-4be3-0704-08df3a7fff3f
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR03MB5981.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 14:29:12.9323
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Llb1GYCaM/err4s7YXDLYbOOPzkQhRJtxJg9m4fjOuQPQjWXLL4+mHQRNQDbv4F9hKRZvnh1+vxo6/JaasMZSpBmX5oXwu52BFgF76NqaTY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR03MB8195
+X-Proofpoint-GUID: gFl626Q-ZjefVQ5tGf0UOK6MtIlEoSoN
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA1NyBTYWx0ZWRfXyiybEZ3ntniy
+ jYEmJxRjucM9g5TQqrKIX3EFwLMeu9Tk4OrEx8YwpG3oZsJQiSCROCa20VYSJSDTesYvo0RymHc
+ EOrillq02bVSxRrZRzSHAA7h10VMTFNggHvy3M3s5+eNM13M3ZjV
+X-Authority-Analysis: v=2.4 cv=EOOTQFZC c=1 sm=1 tr=0 ts=6aeb413b cx=c_pps
+ a=m4QPU8/Yf0DQKtM+qTkXOQ==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
+ a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
+ a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M51BFTxLslgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22 a=_jAD5XSDOtq9-5Nde2OG:22
+ a=gAnH3GRIAAAA:8 a=GfOx-84Qext_mdjycDwA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: gFl626Q-ZjefVQ5tGf0UOK6MtIlEoSoN
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA1NyBTYWx0ZWRfX5OygvvnuZ+BS
+ mZYuejUz8NMpsnRMrMdacUYC8eNrQX0W91487Xv4/3+0qdNV2xapyFnAVEfb09E7AWBsWrJFU3j
+ ZZ89BQpcDQd6ISeZ6QFbyjK/WWxgrAtc+cJeGneb1Npw62dSbhh3TEKJ/fjk8CFGm8EiUpiKmDj
+ 12VPSlIEU0FuuL80t9YgYyCJ6x5iCr86JjRPQG55EU1BhfwuQ6yKFZHT7Sw+b2k7txktnxgXxLA
+ cAKRoVl11/Hc9CPukr3B7v+YxQxJCCpGYjae5YRabFdJJqed7jO7uMCl3CzucTnEIbZGASVGD2a
+ SvoyLQesQZVLnmw8ejjeZCz4IJctTWTZNwDTdsMUq19YPmYJcJvLIq9n90VGu+TPyQjAt/QCFcV
+ xnPirjCbRrWtEzEBtXoJAvB2AkTs+u8TKTZr+ZJ9frnx00Tc/p5pTOBakStyajgwdCEfKO0j0QC
+ RkiSavQhT66Vcy3jrVg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_04,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0
+ adultscore=0 priorityscore=1501 bulkscore=0 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040057
 
-Hi Geert,
+On Tue, Nov 03, 2026 at 06:09:18PM +0200, Iustin Stolniceanu wrote:
+> The ADIN1110 and ADIN2111 MAC-PHYs integrate the ADIN1100 PHY and use
+> this driver. On these devices, CRSM_SFT_RST resets the whole chip, not
+> only the PHY, undoing the configuration done by the MAC driver before
+> the PHY is attached. MDIO reads also return stale data until the reset
+> completes.
+> 
+> The MAC driver already resets the chip before attaching the PHY, so
+> skip the soft reset on these devices.
 
-On 2026-11-04 14:14:20 +0100, Geert Uytterhoeven wrote:
-> Hi Niklas,
-> 
-> On Wed, 4 Nov 2026 at 13:08, Niklas Söderlund
-> <niklas.soderlund@ragnatech.se> wrote:
-> > On 2026-11-03 16:46:04 +0800, Li Ximo wrote:
-> > > From: Wang Haoran <haoranwangsec@gmail.com>
-> > >
-> > > rcar_thermal_probe() returns success even when zero sensors were probed
-> > > (the per-sensor loop simply falls through with i == 0), leaving
-> > > common->head empty. rcar_thermal_suspend()/rcar_thermal_resume() then
-> > > call list_first_entry(&common->head, ...) unconditionally, and
-> > > list_first_entry() on an empty list does not return NULL: it returns
-> > > container_of() of the list head, i.e. a wild pointer into
-> > > struct rcar_thermal_common, which is dereferenced at
-> > > priv->chip->needs_suspend_resume and in the MMIO accesses that follow.
-> > > A malformed DT node with no MEM resource triggers this at every
-> > > suspend/resume cycle.
-> > >
-> > > As suggested by Niklas Söderlund, fix this at the root instead of
-> > > tolerating an empty list in the PM callbacks: fail probe with -ENODEV
-> > > when no sensor was probed, since a successfully bound driver with zero
-> > > sensors is meaningless. The error path through rcar_thermal_remove()
-> > > already tolerates the empty list (it iterates with
-> > > rcar_thermal_for_each_priv()).
-> > >
-> > > This issue was found by static analysis; we do not have R-Car hardware,
-> > > so this is compile-tested only.
-> > >
-> > > Reported-by: Wang Haoran <haoranwangsec@gmail.com>
-> > > Reported-by: Li Ximo <lixicaicai@gmail.com>
-> > > Signed-off-by: Wang Haoran <haoranwangsec@gmail.com>
-> > > ---
-> > > v1: https://lore.kernel.org/r/20261026115018.3227372-1-lixicaicai@gmail.com
-> > > v2: completely rework the fix per Niklas Söderlund's review: fail probe
-> > > with -ENODEV when no sensors are probed instead of guarding
-> > > suspend/resume.
-> > >
-> > >  drivers/thermal/renesas/rcar_thermal.c | 6 ++++++
-> > >  1 file changed, 6 insertions(+)
-> > >
-> > > diff --git a/drivers/thermal/renesas/rcar_thermal.c b/drivers/thermal/renesas/rcar_thermal.c
-> > > index 9a9038671..6a1e977d8 100644
-> > > --- a/drivers/thermal/renesas/rcar_thermal.c
-> > > +++ b/drivers/thermal/renesas/rcar_thermal.c
-> > > @@ -514,6 +514,12 @@ static int rcar_thermal_probe(struct platform_device *pdev)
-> > >                       enr_bits |= 3 << (i * 8);
-> > >       }
-> > >
-> > > +     if (!i) {
-> >
-> > While this works I think it's fragile as it depends on the loop variable
-> > of the last loop. If the loop is changed, or a new one added, this check
-> > can break. Why not make it robust and check if any sensors where added
-> > to the list containing sensors (common->head)?
-> 
-> Yeah, then we could move the loop variable declarations inside the
-> for-statements...
-> 
-> > > +             dev_err(dev, "no thermal sensor probed\n");
-> > > +             ret = -ENODEV;
-> > > +             goto error_unregister;
-> > > +     }
-> > > +
-> > >       if (common->base && enr_bits)
-> > >               rcar_thermal_common_write(common, ENR, enr_bits);
-> 
-> ... if not for the next line:
-> 
->     dev_info(dev, "%d sensor probed\n", i);
-
-I like the idea of being able to move the loop variable to the 
-declarations. This could be addressed with list_count_nodes(), right?
+Is this a bugfix?
 
 > 
-> Gr{oetje,eeting}s,
+> Signed-off-by: Iustin Stolniceanu <iustin.stolniceanu@analog.com>
+> ---
+>  drivers/net/phy/adin1100.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
 > 
->                         Geert
-> 
+> diff --git a/drivers/net/phy/adin1100.c b/drivers/net/phy/adin1100.c
+> index 8f9753d4318c..7b4e68285a9d 100644
+> --- a/drivers/net/phy/adin1100.c
+> +++ b/drivers/net/phy/adin1100.c
+> @@ -232,6 +232,15 @@ static int adin_soft_reset(struct phy_device *phydev)
+>  {
+>  	int ret;
+>  
+> +	/* On the ADIN1110/ADIN2111 MAC-PHYs, CRSM_SFT_RST resets the whole
+> +	 * chip, undoing the MAC driver's setup, and MDIO reads return stale
+> +	 * data until it completes. The MAC driver has already reset the
+> +	 * chip, so skip it here.
+> +	 */
+> +	if (phy_id_compare_model(phydev->phy_id, PHY_ID_ADIN1110) ||
+> +	    phy_id_compare_model(phydev->phy_id, PHY_ID_ADIN2111))
+> +		return 0;
+
+It seems more common to have a separate struct phy_driver entry in the
+array passed to module_phy_driver() with a more precise
+phy_id/mask. Then for ADIN1110/ADIN2111 you'd omit the
+.soft_reset. Maybe Andrew knows what is preferred here?
+
+> +
+>  	ret = phy_set_bits_mmd(phydev, MDIO_MMD_VEND1, ADIN_CRSM_SFT_RST, ADIN_CRSM_SFT_RST_EN);
+>  	if (ret < 0)
+>  		return ret;
 > -- 
-> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> 2.43.0
 > 
-> In personal conversations with technical people, I call myself a hacker. But
-> when I'm talking to journalists I just say "programmer" or something like that.
->                                 -- Linus Torvalds
-
--- 
-Kind Regards,
-Niklas Söderlund
