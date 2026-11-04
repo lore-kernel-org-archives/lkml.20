@@ -1,47 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793783616;
-	b=W92pZAKuig0L2syLEjrTz53SZPyR21Wod/3s8LPlCsPHWUgBhf0+a3N2E9ndRz9lRkdz
-	 WzbdrGVmg41dJKV09a5uq95Bl6c2NKuxQcnEOQVXQ9dcsOySWBPPEhTAkFRekvEzsyY/W
-	 +yTqXyTcQEwix6tXg1vmtl9tpAWynuszQC27EMiOidOPkjtbmKZx/L3RyDTy9cAXGzDfU
-	 BA3B6GiZBUGnQM9NSqPUbOwXT12SnHzpvbkmJ7KkpJVEyyKjzq3n4Ev5QlBrXetRGgiWR
-	 GGBtIkLN6GuLLyJTExuBfP7GRE8ji+dus4ha69W5LT8T+lO7Tprg3yYceRH1XL9Rm+Q==
+	t=1793783650;
+	b=v5JRuZxOh2T3ctfnvwG/MQlQKkTraVfgCezy9d5YMtTsknSGJlQN+YDf+WzFBILHHIE/
+	 fCGBMW1HJMDJKzYulFrYgEa+jzfAIsKq7P8hOjLMEX29R2Wh5CQMpT1v9h64WE4EPpcbB
+	 OHvzDiajdEBMRDlCoMfPLMCBmM+HlSuv6uHA5QaXCpIaqPr8NwU4Ck9ZSj1JYyDaUMUi9
+	 1N2pWH2FgkSpnfxJTMO4EOwc5aaLoxk9KxfS54yDjX0uGf4DFPtqse0NAL8d1TbcEjCFD
+	 qFS72pFz/baxmMzCckVnhWVHUHyNHjAYby4Uhdi8noiR9pC0j2cPODWbuFoMCEmCaJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793783616;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=LoVFgUlolmEAFzVK6w+JrxJ56f3iy7qOBFWwy6NZkbw=;
-	b=nkKdIpWXqlbMXOdAlLomuyyxJL2pufqJIjxOxXRRMp0KCpG4Dzs4co5lCdOHmJyFrlfQ
-	 cB/pflAvpdQLsKb/2Dn+pLLz25AxkTiHpiaR8htzalcoUDCjrgOAeZmRQKYAudhcDMgzY
-	 mD3q82YiYckbAA0d7yUtRJUC4dcweMgDVwhNCIeDcXbrP1Pe4bJYeXrTZf8EUz87hyTsh
-	 kz4s8AvwJhtUySN0VbsUPxSmPIIQxXSmjf/uzEcOIJX2QsdH4aLdRo1jITRbP8bgF+4qM
-	 jv9kyDr1NrclEMgZvms2hP0SDnmRZf3JiMqM31JFCvlg0IMbO9meAXyRG6RtBA2N8Tg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793783650;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=RZxgyHLYpQfVmNKk/t6Xpk45GoPrOkICCosBntPfxgI=;
+	b=cnHb3DIMRuk2qrS/p0h8/EKpLZAQv6vWkES5b+RhMjrHqRpy/CKgdJuv05zau7gUt8wj
+	 kXm19GmyKNR45DnIso7qbAXhmSaLf2eh4U/FqLmx8OTAWaOykvGHx2jKbrxKVygtXW9gT
+	 RWL0/Cp5XgKvry7IQag9k/4A6M/cr4A3qu75ayCrJYTjD11Xvt5bWNox3F0HQL6PZOTAz
+	 aDTLLWLIrhlCxqmos80mkR+2UYtqdluY+WFPg+hSkqpOhJNelUMI1Atdd36ravGJKMVeq
+	 tQuZggspV8/FXCWC6ti7tchjjeRF/gPB41EtfDA0wuYQs8TM2HJePvodgosItBZC8ZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dRpMfbpZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ovEBdQu7;
+	arc=none smtp.remote-ip=209.85.167.48
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08749606A31B;
-	Wed,  4 Nov 2026 09:13:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0CA1606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:14:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0CA1606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dRpMfbpZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 943551F000C1;
-	Wed,  4 Nov 2026 09:13:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793783615;
-	bh=LoVFgUlolmEAFzVK6w+JrxJ56f3iy7qOBFWwy6NZkbw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=dRpMfbpZeYPKVhajyjXkLtGaqpGPvrZkk4yFqG2ypBe4K+tDcX4rTCHEt04jW5/KG
-	 2F+gxMEZuG9fPh97FKiWfCEdg8Jkd9hbf+LLNrRXCcKFvn8ZuFpn4P+uJKcQMwTJ09
-	 rh79VO2vtKtrO/B+TP5cbe5rQcohMc86qrFv09zuy8OQLIMUXYdZHWE6CAu6WuPmYE
-	 xfKiLlcRwOeZxwMqBPFoAG31ac8gFp6BGwX8n+2lfkFQTHQixGQd2zGd4yCTJ0vdqK
-	 iCa7zTYm1z7zGE+0f4dAUL13T6KfHHlugQYFxBLi62Qg3c5Sl/7BCdxw3EpxOPHEG6
-	 HvH2dL3dmOm7w==
-Message-ID: <979fb046-32dc-4af8-b6a3-177c78f1e557@kernel.org>
-Date: Wed, 4 Nov 2026 10:13:15 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ovEBdQu7
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5be3d5927ceso400586e87.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:14:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793783648; x=1794388448; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RZxgyHLYpQfVmNKk/t6Xpk45GoPrOkICCosBntPfxgI=;
+        b=ovEBdQu7mXQSVLjL2PxY7Ip5IROKkDFYz/TXSQWSy4CCdAVh7GRNasKRXcNPzYYmHJ
+         4b2hHeO44tbZpLSSutXl89L2djpPTQ3BOyipOXWssnxASfmfGdJVKX7uEA/APWp0sXN+
+         ox0avHxpHXESL0o8f1+IHjnBeGunRT1QxpDSzx3BWkHgKke9nFIqdbGV5p8kHXRTsaPe
+         xlTDptG3+G0WDaV69gejTKSjGeUU18PudEP/nXC+I+xVNClaJYZhYtV1ZjxjJBJmLlCE
+         ESW9CAEd7xLIZcHYlrmE9M2js8cjbvUdZjYt4KoOltUvVRjHO0yYTxnOX5AzwIT9NhVK
+         Q6Uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793783648; x=1794388448;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RZxgyHLYpQfVmNKk/t6Xpk45GoPrOkICCosBntPfxgI=;
+        b=MsZ2Q8bSvw1owFKf0jtMz0lXz5H426H/CUcQ7Kd0ua1OTPrVbipdnGHkLpSA4aoN82
+         PGcRgWT31jbR0hVsXQ4D0ZLXaMvHTm8OrjK0vL7cpOlqwLT7+3qJHuB3O6E94BlfLqnO
+         KW1UO2YOuCFIcPc5MUwEAw7Q7Dnz6hKTuATK0+C5kwESrpRAhsCHRQxxf/c+E/QIipgW
+         WE5B6Wxf3+dQ1Hn0AtDF8jMt77oPfNEE6SDr4xc0OPuNEup1x3CmNoJlxfHB7/sNdnXX
+         hJt/f6GBm0KoLtavf04vRzCoefALDofbGjhar1pWwhOmjArY74S5xGR94vy9u9Tgo7mR
+         yAAg==
+X-Forwarded-Encrypted: i=1; AKwUvBy4CYZuKqVJVFIHxDKuuiAC1xyxoh9qLnqkIhwZ/pgK6vEMrW6wE0JLauY2Kdi5N34oLIvD3ESusRal78o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9OQbkFLxsXKY7MmFEunLRG9IVxQ46JjgFQFHbjqoMeTkXjibf+
+	a3Yfu6RFuAsm1xJoXcAZRuJM8U+hLz8GMLu4YoNKOjSf1iJepmHSEusW
+X-Gm-Gg: AYBFou1mZQF9tk6VlsJK/vzukUbi27cp7wSbzp2p6hEydMO+BXSWz4X8fzeClKtInJO
+	gvBlGaBhPw/mgoq3xnnWZRiIJJzdMr+pW05fa4N6k/SN4Xjpu1NJeNOfDtzoaiKfngHwqWYcYdn
+	tBWgdLq2bKU/+IOEaKJ4Cuw1V8IEtQejqykSR1hInexVHuhURhjTnG8gQUe2BCJWH/1cNQ3D59s
+	u7XB1fHcSljAX56zwndRiepvzo4UiwMR2A24xsYfh9QMaZoMkYGYFqF8GGfDKE4sVmnx7aljgCI
+	h5vByRhdXmGYMvgnXNoL/nlniA+L05xBfYi1oZLTCuHds8ZFq8ZKvbYJO4ug/2smMrCz+knlOMJ
+	XtySxLUkLSp8T+xLE9a/ZcPClJ2WmTLrZA1QM1JpfwJqD8+7E48dklJljg1FfdV6UPGmU+mLQ5F
+	UOsd76MH/MRjTeywdFr4mSzmFGDh/TZ9lyJSdd7+dLLPPxlLL38H4UD4Wie8NbamPMLa5B21Dx2
+	QoBc4gIs7SHTCA87l3qU8xBmRLJfvmuyAaxqHJxN7R5g+9MmByrtGX3tqt0AvIolp/F2SBLdYH8
+	jd5C5iVjzQThlWpEZ0AP3rLUnaH2lkFFoxln+gA8YQ6vw1qUXeWW5ZLtJx+6Es/VokImVAiOqG3
+	P9EHCY7gCpbB1m7S0qUjrex8B+NuMyVqfvvzDRCFv2dA9xfD8I5MJqRHfIg==
+X-Received: by 2002:a05:6512:3c86:b0:5bf:b27b:635f with SMTP id 2adb3069b0e04-5bfd957b6e8mr5587275e87.13.1793783647544;
+        Wed, 04 Nov 2026 01:14:07 -0800 (PST)
+Received: from M-K2012N0113010.localdomain ([88.119.128.229])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bff38ab170sm313037e87.16.2026.11.04.01.14.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 01:14:07 -0800 (PST)
+From: Paulius Zaleckas <paulius.zaleckas@gmail.com>
+To: Rupesh Majhi <zoone.rupert@gmail.com>
+Cc: Paulius Zaleckas <paulius.zaleckas@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	Joel Stanley <joel@jms.id.au>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/3] iio: pressure: dps310: fix input checks and resets
+Date: Wed,  4 Nov 2026 11:13:50 +0200
+Message-ID: <20261104091351.710582-1-paulius.zaleckas@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261103223008.12675-1-zoone.rupert@gmail.com>
+References: <20261029220635.18816-1-zoone.rupert@gmail.com> <20261103223008.12675-1-zoone.rupert@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,163 +105,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 18/47] mm/khugepaged: check if PTE table is empty in
- try_collapse_pte_mapped_thp()
-To: Baolin Wang <baolin.wang@linux.alibaba.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Kees Cook <kees@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org,
- Muhammad Usama Anjum <usama.anjum@arm.com>
-References: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
- <20261031-fixes_core-v3-18-d6437171ecc3@kernel.org>
- <62268831-f6f3-4666-a32f-a77546b95432@linux.alibaba.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <62268831-f6f3-4666-a32f-a77546b95432@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11/2/26 09:20, Baolin Wang wrote:
-> 
-> 
-> On 10/31/26 5:39 PM, David Hildenbrand (Arm) wrote:
->> The existing code is rather horrible and already resulted in bugs in the
->> past: we special-case UFFD inserting anonymous folios by grabbing the PMD
->> lock early, but ignore any other markers (guard, poison through uffd) that
->> could have been inserted into the page table in the meantime, effectively
->> dropping them.
->>
->> Let's just unify and simplify the locking: try to grab the PMD table
->> lock and if that fails, flush the TLB, drop the PTE lock, take PT locks in
->> the right order and check if the page table is still empty.
->>
->> We still perform the heavy lifting (zapping the folio ptes) under PTE table
->> lock only.
->>
->> Include <linux/hugetlb.h> for now, as x86's flush_tlb_range() macro
->> depends on hugetlb helpers. This dependency needs a separate cleanup.
->>
->> Both issues this fixes are rather corner cases. Let's not CC stable for
->> now.
->>
->> Fixes: f807123d578d ("mm: allow guard regions in file-backed and read-only
->> mappings")
->> Fixes: 1043173eb5eb ("mm/khugepaged: collapse_pte_mapped_thp() with
->> mmap_read_lock()")
->> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
->> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
->> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->> ---
->>   mm/khugepaged.c | 64 ++++++++++++++++++++++++++++-----------------------------
->>   1 file changed, 31 insertions(+), 33 deletions(-)
->>
->> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
->> index ce794d9760a87..ad07c8caa3bd9 100644
->> --- a/mm/khugepaged.c
->> +++ b/mm/khugepaged.c
->> @@ -10,6 +10,7 @@
->>   #include <linux/mm_inline.h>
->>   #include <linux/kthread.h>
->>   #include <linux/khugepaged.h>
->> +#include <linux/hugetlb.h>
->>   #include <linux/freezer.h>
->>   #include <linux/mman.h>
->>   #include <linux/hashtable.h>
->> @@ -1832,6 +1833,17 @@ static enum scan_result set_huge_pmd(struct
->> vm_area_struct *vma, unsigned long a
->>       return SCAN_SUCCEED;
->>   }
->>   +static bool pte_table_empty(pte_t *pte)
->> +{
->> +    int i;
->> +
->> +    for (i = 0; i < HPAGE_PMD_NR; i++, pte++) {
-> 
-> Using PTRS_PER_PTE to iterate PTEs seems more straightforward? Otherwise LGTM.
+On Tue, Nov 03, 2026, Rupesh Majhi wrote:
+> Jonathan is holding this series for your Tested-by. Could you give it a
+> run on the ZTS8032 when you have time?
 
-As I pulled this patch out from the stable fixes, I fixed it up.
+Tested on a ZTS8032, on iio testing backported to 6.12:
 
-I realized that this helper should likely move to some header later and be
-reused elsewehere (zap_pte_table_if_empty), but that's something for a later
-cleanup.
+- 0 and 0.5 are rejected for both rates and ratios.
+- 64x at 4 Hz survives a timeout reset forced by putting the chip in
+  standby behind the driver's back.
+- A warm reboot during a FIFO capture: FIFO_EN is clear after probe
+  and reads work.
 
--- 
-Cheers,
+Tested-by: Paulius Zaleckas <paulius.zaleckas@gmail.com>
 
-David
+Paulius
