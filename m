@@ -1,63 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.248.207
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793805361;
-	b=QE1WdGIuefisTcqok8JH1D6ePhQoUEKrlQUFhKLzKbbkZP/VMA+rYL+P+riqL18D8zcA
-	 pw9S7Zqqxqa5RpA3CA4rPwXgsYfQvqDwW+qxFbIoOACTZwY5pTTjVTo9FiFRoLqwtBJ0M
-	 PxPph9lAWSStRjAYH6dZYPKPf1f38+BJB6L47J5t+rQ4FKuxNgVPAuAThVqpq9YV4fCcg
-	 voZ/ctcdVh34uO4REtXvlO0d2CbiAcJMw3/smhECY+0Tu8o3wX5Xg4TwXaVbo//0Jdee8
-	 NqKXKGmUUl+nmEkSWmEefOe4e6g4EAmm9uAEtxq3yJ3QxeZnUTnGiVNCrllX17BxlCQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793805361;
-	h=DMARC-Filter:From:DKIM-Signature:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=+9KXKbrMY4JVIjKt7Rrxi86KFu0mfg+CwGNA3d4eCsU=;
-	b=Un5aWZG78MV/ipYNCV1DL7/a2HeYuV2jG3RnslJTRPTXveRBLzEmwEbh1jLRflFVaBq9
-	 +8na885sRah3127p9CGTZuGzPwxboRZTWK7/9olbMzWofAjC/H5A+LzPD/pZbSASwVPgD
-	 cvCWsF+kbbXXgBk3zH9D+3/cRfJIeYgutMhD6loxwv7BFLpWPbqRuhhr7seR/l5qBpvkn
-	 pbbaLJlZ42NQcHM7D2hYF+WTOAJqFtuRL75J2UCwKr92X0hNFDm6pFZk1G5lhkMJQvu//
-	 Y+Y5nyG7KmeTTLnye+cUA1MC/9yxdeSU4kobtznMlQGyiP4sE3trkOBIwjgOSp99nIw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=deq.rocks;
-	spf=none smtp.mailfrom=deq.rocks;
-	dkim=pass header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=Yd2yfLKy;
-	arc=none smtp.remote-ip=91.216.248.207
-Received: from mx5.mail-out.lima-city.de (mx5.mail-out.lima-city.de [91.216.248.207])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.228.132
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793805366;
+	b=yRZB3YxqixoYU17nnWjvRgJlVrI4wxUNm4aQpy4N8/geexTttrwjesIhs1TZw7M41J4G
+	 qCfHfWYUv4gj9A+g8vKQFaHR9OyMO2JjkQtcAiv0QJ9sk+zjzwAk9Sz47LDWEulBbPr7y
+	 HkvAHzSvfTMzhuaLXpIJN0ArGKx2XJNalsKLUbPJLo4IwIRj7FA15guSngZ6w4s+xQDd6
+	 QATZElUdf7UTpHMslEvVkNL3LScRZdSFtP7FeWpaiKqNG5TUw8uP3JehvZgEFy8u/fbTY
+	 prev9br+rS4x61tWbyJ8n0a40L2Q9K0NslOT0FLvSY69vZA17OKoJvti/O5wtd9aGDw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793805366;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=kdTVz8w7xpVwwFxFrP/pPSrvcaXONHeufsr6axyMCLQ=;
+	b=4EQ0nPR3d5HL+NvIWDFTsvQ0sekiaoT+K5ScKaj4zizYYlGRc3innKjzP1XyCVOephWc
+	 DwB+c6dsKJJAHM22YtCj6BvUbkas48jp/lrCRnu0GxpGnU0NS6F8OZaWyPB0xP3C40+i8
+	 qsNTzXceHioUBxkKQdxnzYeHBm0jUQO6KTkWC/GxqA+8/kW/Ie9OnQpa7B2+4yb0LoxUP
+	 2o//3TtH0O9bgB5mzCwrQTAeAB0kyAvXlL6Q1sFmw/GoZ90zhAV1FpjEeju2b8kdJEjRO
+	 Ha5l4uNS33UkZtg2AWJwJOBzcDG8mf9/2MThKXzxPXUTPa+iP7qqecexqVYc4HeJ5zQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u+gajlXC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.228.132
+Received: from mail-ej2-f4.google.com (mail-ej2-f4.google.com [74.125.228.132])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3FF9606A32D;
-	Wed,  4 Nov 2026 15:15:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3FF9606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=deq.rocks
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=deq.rocks
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0661B606EEAF
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:16:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0661B606EEAF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=Yd2yfLKy
-From: Andre Eikmeyer <dev@deq.rocks>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
-	s=securedbylima-20251205; t=1793805358;
-	bh=jrMR9qq4yE0xMoQ3jc7cetMZuAf/5kklrRqQTRrRYmo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Yd2yfLKyrK3d+zjMJ7A4AeYFLWXnvko5p+aVyIDiKUzU/S6+M2hWayUARgTwV9/+x
-	 J7ISV1rWDbXwUtYg4JoabRHEBBSr4mxmCsMK3NqJTm1GoE+abGct+jsiW1lXqnnqph
-	 sJfU7M/G1p2jzTRWi3oJktCsDur8xFpJMgQOXkJbZtdZ1stq/8foW0bEPyI39/GhjO
-	 N4b2k2sDe3h8dX+HWRMWSd4c6n0mS2Xb7Us4If+huopJ3P4+o4EK2U+DdhmCnqcrqf
-	 3UTWfrhZ0zGJkoDGol1Cr2IHYIiWCo0PDxHxrVFk4G1bKeeGNqz7G2S9qjAP/l3sS/
-	 AxWasFZDM6QDQ==
-To: arend.vanspriel@broadcom.com
-Cc: linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	Andre Eikmeyer <dev@deq.rocks>,
-	Yossef Osman <Yossef.Osman@proton.me>,
-	Aditya Garg <aditya.garg@linux.dev>
-Subject: [PATCH 5/7] wifi: brcmfmac: add the AWDL data path
-Date: Wed,  4 Nov 2026 16:15:45 +0100
-Message-ID: <20261104151547.70333-6-dev@deq.rocks>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104151547.70333-1-dev@deq.rocks>
-References: <20261104151547.70333-1-dev@deq.rocks>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u+gajlXC
+Received: by mail-ej2-f4.google.com with SMTP id a640c23a62f3a-c4cd284c63bso57883466b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 07:16:05 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793805364; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eH4s0Nz+25krixCfyWl5iykXQ7TQCSS7B9CjkyhlG61TprwA69DzIWoc1ddNTUTfjA
+         Pd7U7CRPbwT9y1LuH/xiVbDg5y/g1Ntq6K5hHxlcickUNeL9HHP1oexZ9NdCAFnXDzdu
+         6Yek170DCD5I68bl5ikf/Nu45O9Qd8pI6JpUPQSnzSqQxEVTW8cOFdx5Wval5BMBYif4
+         ZJbNSqdD/UonO19xvpZM4D3BNKv1/poRBTXR13h7TRqJDHqx471eZl4BYgnLHoWe0Dky
+         +Jnr/FyZ6uuXm/CXS/QA/8vt/0ka5pd/Pf0VwSuPPcqgxYGmB6rlyiX5ZGpUfew0JRzw
+         MN8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=kdTVz8w7xpVwwFxFrP/pPSrvcaXONHeufsr6axyMCLQ=;
+        fh=x0c3lgs4w5Nmbrspnm/nNoImJU97QciGro58BIRmplU=;
+        b=mv+huNf4Cw64ppRHg+rMeNeSYv4CCNqYRqM0yhQ/u7vHQi7t7sL+j8dzKYVni0ZJrx
+         lo+SAsFDcGhPee6yNPEBnyI+LTmP68qlHo5inofL9SBWfflxhCZXtOCIQ4Y82VsqPpDW
+         nr/k+ND5u6ObSQmIfz6leSP8eh5mVXN357zfQahSL9Czz6eWD3BSrUp8HmDIvAVHc+Ty
+         owd8VPFL7q0AlUFLCouaEeL3gPyEaRvvrxbTsMDrYkZIFQ5vGSmJWnLsZGu+493ZwbCE
+         a0UrNu6RCvm/j3LpcytY4ltLt7qizkyGqdPBB97NtaOurMsh7w0rFtJVaPzZgWCe8m8S
+         kMow==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793805364; x=1794410164; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kdTVz8w7xpVwwFxFrP/pPSrvcaXONHeufsr6axyMCLQ=;
+        b=u+gajlXCNeu4E/N1Rfx9lpm0Dt1PdqFXsWin8HmGWdHv0m5MS4a36qkhEun0FbEaen
+         br1BcgqE5tp1xVLHFtz9cWTPjgdy0WZK3bD8tAT7OkV3sgeF2IFaTjOeTYwXcuW1zOHL
+         +6wVkSucFztQJhCk5DomsSKNt56EAFiJO0qfWWadtQC6Jlv9GzpzP2D45N/XuOYPPaCG
+         uSH4Rhvv4a1yQIcjZP4deRe2if0aMY5PEMFlZ73oZAM8r9XmM3EP1MOEzWV2wMcnsofd
+         3AOM6FEOgnGneOY1al3Q3kK7DIvdYwG2H2GLtQ//96nDGpKFnHOXJbu5uPUlbbH8fonV
+         WbyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793805364; x=1794410164;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kdTVz8w7xpVwwFxFrP/pPSrvcaXONHeufsr6axyMCLQ=;
+        b=hKXpEDaw+pdjeokqAluRNK4nX45gbRjkR/MCPZWOEb9Qmf0vLReJlZoa0Ao1Zg6D5B
+         XA1kxQwJMD0BIszxZsxraG86zdf0ZQ+C67eNGieSnxf9c74no6feb7h458yk2rnVkuAE
+         /BVFjPA7Gz96GxoT/34iyD/upeCgCsHDQ6vSXsk+icdVUjcxurDtAOLvx5tDonOjEuAi
+         7b9pYscOFwlOSyH/vv39cIaeO1II9KxgBpB7JuWoZQ2HJfqV0uJF8SOo73aOk+lST2yU
+         ww7yHK9OxfBDDl+TJfVX9KPJifjGxjOXI79UEZyFfLO5Rbzy0wg+bnixcaevKeseCMvt
+         HWXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzfvLde/evPNggjMuewZYCwZ+8WFfl07oOB43EKHB6FV3jsNq0be8/ey1OBMcR36rGWPRMW4tk9XaV93P8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+8VzcCLCct0k8/SNKJPHB3ErzLbCRBTqMTKrF62xGHQwwW0NXI
+	xPXbz7A0680PWMSCPC6G4nE7r4di1JV+JgA5lv+ufN3g4Zdj7zJGQ1VXaJFENWbbyEW97/ZQN21
+	oytsLmKwOh3qsvRDP+H5pUcLgo/XxY6A=
+X-Gm-Gg: AYBFou0M45n38F42QqjgRndZj7XZVg9foj3p/XFOB2fVtsPN4hPXVKahDHFBHfqLAam
+	GwKATjS1PwXO6wXRIrtVayUYVj8u986TkjdXMfIh5ClKTsVsPsl0pTAY85Z0PV9mYTkEzaQxVKD
+	7PXLaMxi3XpcfoEyfyfTw7nef96jDAQ0a52ZSSRlPjdsQIx+jGPAcAkxNxYLHZNkbJs/2BomcWM
+	xJJYLnnhKtXB3dOeGrUKoDCv5VUq91734UgwdbCqm5hCmjocQmHyPpa74TKMbgM+AddNpkdvQzH
+	hiiVHK8Q3fTzvuOHUtE8cq5laDt8kBVwPWNlYtLE8eynYPw8nArPFfFtW4M36o01K9OhWxEVr1Z
+	P+wGyo7IyrvA7QioMl6n7LpVHvEs/zBvppnqC9HEKg9Po3u+e+10WmeU=
+X-Received: by 2002:a17:906:99cd:b0:c46:50c6:f737 with SMTP id
+ a640c23a62f3a-c4ca7a8459cmr1547068466b.31.1793805363810; Wed, 04 Nov 2026
+ 07:16:03 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,237 +104,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261102174450.3000397-6-coiaprant@gmail.com> <20261104124020.3546166-1-amadeus@jmu.edu.cn>
+In-Reply-To: <20261104124020.3546166-1-amadeus@jmu.edu.cn>
+From: Coia Prant <coiaprant@gmail.com>
+Date: Wed, 4 Nov 2026 23:15:51 +0800
+X-Gm-Features: AclHuK-zeYM4UdtsZyf6UCuVcNw6qYpttvJKvduU9hQNxft_dHREd_O22uUfBMU
+Message-ID: <CALj3r0ijsuzadYoi0NPkSpT8smRyi607APfxLS8_u3JSH3+dPg@mail.gmail.com>
+Subject: Re: [PATCH v3 5/6] arm64: dts: rockchip: fix USB OTG power on
+ Photonicat in battery mode
+To: Chukun Pan <amadeus@jmu.edu.cn>
+Cc: bigfoot@classfun.cn, conor+dt@kernel.org, devicetree@vger.kernel.org, 
+	heiko@sntech.de, krzk+dt@kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The firmware passes AWDL data frames as 802.3 frames. An LLC/SNAP
-header with the Apple OUI (aa aa 03 00 17 f2 08 00) is followed by the
-AWDL data header 03 04, a 16 bit sequence number, two reserved bytes
-and the ethertype.
+Chukun Pan <amadeus@jmu.edu.cn> =E4=BA=8E2026=E5=B9=B411=E6=9C=884=E6=97=A5=
+=E5=91=A8=E4=B8=89 20:40=E5=86=99=E9=81=93=EF=BC=9A
+>
+> Hi,
+>
+> > regulator_5v_boost: regulator-5v-boost {
+>
+> I prefer to use vcc as a prefix for consistency.
+>
+> > +      * 5V_OUT is the OR-ed combination of the VBAT boost (via D5002)
+> > +      * and VCCIN_5V (via D16).
+> > +      * It has no enable pin of its own.
+> > +      * Model it as a fixed regulator depending on the boost converter=
+,
+> > +      * so that VBAT is boosted when running on battery.
+>
+> What are the benefits of doing this? This is not a real regulator.
+> It is the same path as 5V_BOOST. D16 controls which channel the VIN
+> of VCC5V0_USB30_OTG0 comes from.
 
-Let the AWDL network device send and receive plain Ethernet frames. Its
-transmit function adds the 16 bytes of headers and counts the sequence
-number, brcmf_netif_rx() removes them from received frames. The headroom
-of the network device covers the added header. The addresses of
-received frames are moved so that they form an Ethernet header with the
-ethertype again, which keeps packet taps consistent. Other frames on
-the AWDL interface are dropped.
+Hi,
 
-Tested-by: Yossef Osman <Yossef.Osman@proton.me>
-Tested-by: Aditya Garg <aditya.garg@linux.dev>
-Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
----
- .../broadcom/brcm80211/brcmfmac/awdl.c        | 83 +++++++++++++++++++
- .../broadcom/brcm80211/brcmfmac/awdl.h        |  9 ++
- .../broadcom/brcm80211/brcmfmac/core.c        | 23 ++++-
- 3 files changed, 114 insertions(+), 1 deletion(-)
+Thanks for the feedback.
 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/awdl.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/awdl.c
-index 485ed74f3d6..95619283471 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/awdl.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/awdl.c
-@@ -8,11 +8,25 @@
-  * an interface of type AWDL with interface_create and configures it through
-  * the awdl_* iovars. The AWDL interface has a network device but no cfg80211
-  * vif. Its interface events are handled here and not by cfg80211.
-+ *
-+ * The firmware passes AWDL data frames as 802.3 frames with an LLC/SNAP
-+ * header with the Apple OUI and an AWDL data header:
-+ *
-+ *   aa aa 03 00 17 f2 08 00   LLC/SNAP, OUI 00:17:f2, protocol 0x0800
-+ *   03 04                     AWDL data header
-+ *   seq (le16) 00 00          sequence number, reserved
-+ *   ethertype (be16)
-+ *
-+ * The network device of the AWDL interface sends and receives plain
-+ * Ethernet frames. The header is added before frames are sent and removed
-+ * from received frames.
-  */
- 
- #include <linux/etherdevice.h>
- #include <linux/netdevice.h>
- #include <linux/rtnetlink.h>
-+#include <linux/skbuff.h>
-+#include <linux/unaligned.h>
- 
- #include "core.h"
- #include "debug.h"
-@@ -26,6 +40,14 @@
- #define BRCMF_AWDL_IFIDX		2
- #define BRCMF_AWDL_IF_TIMEOUT		msecs_to_jiffies(2000)
- 
-+/* LLC/SNAP with the Apple OUI and the start of the AWDL data header */
-+static const u8 brcmf_awdl_llc[10] = {
-+	0xaa, 0xaa, 0x03, 0x00, 0x17, 0xf2, 0x08, 0x00, 0x03, 0x04,
-+};
-+
-+#define BRCMF_AWDL_SEQ_OFF		10
-+#define BRCMF_AWDL_ETHERTYPE_OFF	14
-+
- /* The BSSID of all AWDL frames */
- static const u8 brcmf_awdl_bssid[ETH_ALEN] = {
- 	0x00, 0x25, 0x00, 0xff, 0x94, 0x73,
-@@ -252,6 +274,67 @@ int brcmf_awdl_del(struct brcmf_pub *drvr)
- 	return err;
- }
- 
-+/**
-+ * brcmf_awdl_encap() - add the AWDL data header to a frame to be sent.
-+ *
-+ * @ifp: the AWDL interface.
-+ * @skb: Ethernet frame, an 802.3 frame on return.
-+ *
-+ * Called in the transmit path of the AWDL network device, which serializes
-+ * it. Return: 0 or a negative error code, the caller frees @skb on error.
-+ */
-+int brcmf_awdl_encap(struct brcmf_if *ifp, struct sk_buff *skb)
-+{
-+	struct brcmf_awdl *awdl = &ifp->drvr->awdl;
-+	__be16 proto;
-+	u8 *hdr;
-+
-+	if (skb->len < ETH_HLEN || skb_cow_head(skb, BRCMF_AWDL_HDR_LEN))
-+		return -EINVAL;
-+
-+	proto = eth_hdr(skb)->h_proto;
-+	hdr = skb_push(skb, BRCMF_AWDL_HDR_LEN);
-+	memmove(hdr, hdr + BRCMF_AWDL_HDR_LEN, 2 * ETH_ALEN);
-+	put_unaligned_be16(skb->len - ETH_HLEN, hdr + 2 * ETH_ALEN);
-+	hdr += ETH_HLEN;
-+	memcpy(hdr, brcmf_awdl_llc, sizeof(brcmf_awdl_llc));
-+	put_unaligned_le16(awdl->tx_seq++, hdr + BRCMF_AWDL_SEQ_OFF);
-+	put_unaligned_le16(0, hdr + BRCMF_AWDL_SEQ_OFF + 2);
-+	put_unaligned(proto, (__be16 *)(hdr + BRCMF_AWDL_ETHERTYPE_OFF));
-+	skb_reset_mac_header(skb);
-+	return 0;
-+}
-+
-+/**
-+ * brcmf_awdl_decap() - remove the AWDL data header from a received frame.
-+ *
-+ * @skb: frame after eth_type_trans(), an Ethernet frame on return.
-+ *
-+ * The addresses are moved behind the AWDL data header, where they form an
-+ * Ethernet header with the ethertype of the AWDL data header. Return: 0 or
-+ * a negative error code for frames that are not AWDL data frames.
-+ */
-+int brcmf_awdl_decap(struct sk_buff *skb)
-+{
-+	__be16 proto;
-+	u8 *eth;
-+
-+	if (skb->protocol != htons(ETH_P_802_2) ||
-+	    !pskb_may_pull(skb, BRCMF_AWDL_HDR_LEN) ||
-+	    memcmp(skb->data, brcmf_awdl_llc, sizeof(brcmf_awdl_llc)) ||
-+	    skb_cow_head(skb, 0))
-+		return -EINVAL;
-+
-+	proto = get_unaligned((__be16 *)(skb->data + BRCMF_AWDL_ETHERTYPE_OFF));
-+	eth = skb->data + BRCMF_AWDL_HDR_LEN - ETH_HLEN;
-+	memmove(eth, skb_mac_header(skb), 2 * ETH_ALEN);
-+	skb_pull_rcsum(skb, BRCMF_AWDL_HDR_LEN);
-+	skb_set_mac_header(skb, -ETH_HLEN);
-+	skb_reset_network_header(skb);
-+	skb->protocol = proto;
-+	return 0;
-+}
-+
- /* Called before the interfaces of the device are removed */
- void brcmf_awdl_detach(struct brcmf_pub *drvr)
- {
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/awdl.h b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/awdl.h
-index b12cbd32187..3edc0e96bb9 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/awdl.h
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/awdl.h
-@@ -13,6 +13,8 @@
- 
- struct brcmf_pub;
- struct brcmf_if;
-+struct net_device;
-+struct sk_buff;
- 
- /**
-  * struct brcmf_awdl - AWDL interface of a device.
-@@ -25,6 +27,7 @@ struct brcmf_if;
-  * @removing: interface_remove was sent, its interface event is awaited.
-  * @detached: the device goes away, no new AWDL interface is created.
-  * @ifp: the AWDL interface, NULL when there is none.
-+ * @tx_seq: sequence number of the next data frame sent.
-  */
- struct brcmf_awdl {
- 	spinlock_t lock; /* AWDL state against the event worker */
-@@ -34,8 +37,12 @@ struct brcmf_awdl {
- 	bool removing;
- 	bool detached;
- 	struct brcmf_if *ifp;
-+	u16 tx_seq;
- };
- 
-+/* Length of the LLC/SNAP and AWDL data header of AWDL data frames */
-+#define BRCMF_AWDL_HDR_LEN		16
-+
- void brcmf_awdl_attach(struct brcmf_pub *drvr);
- void brcmf_awdl_detach(struct brcmf_pub *drvr);
- int brcmf_awdl_add(struct brcmf_pub *drvr, const u8 *mac,
-@@ -43,5 +50,7 @@ int brcmf_awdl_add(struct brcmf_pub *drvr, const u8 *mac,
- int brcmf_awdl_del(struct brcmf_pub *drvr);
- bool brcmf_awdl_if_added(struct brcmf_pub *drvr, struct brcmf_if *ifp);
- bool brcmf_awdl_if_removed(struct brcmf_pub *drvr, struct brcmf_if *ifp);
-+int brcmf_awdl_encap(struct brcmf_if *ifp, struct sk_buff *skb);
-+int brcmf_awdl_decap(struct sk_buff *skb);
- 
- #endif /* BRCMFMAC_AWDL_H */
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
-index 37c558b6f0d..d64d24ce65f 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
-@@ -422,6 +422,12 @@ void brcmf_netif_rx(struct brcmf_if *ifp, struct sk_buff *skb)
- 		return;
- 	}
- 
-+	if (ifp->awdl && brcmf_awdl_decap(skb)) {
-+		ifp->ndev->stats.rx_dropped++;
-+		brcmu_pkt_buf_free_skb(skb);
-+		return;
-+	}
-+
- 	ifp->ndev->stats.rx_bytes += skb->len;
- 	ifp->ndev->stats.rx_packets++;
- 
-@@ -653,6 +659,19 @@ static int brcmf_awdl_netdev_open(struct net_device *ndev)
- 	return 0;
- }
- 
-+static netdev_tx_t brcmf_awdl_netdev_start_xmit(struct sk_buff *skb,
-+						struct net_device *ndev)
-+{
-+	struct brcmf_if *ifp = netdev_priv(ndev);
-+
-+	if (brcmf_awdl_encap(ifp, skb)) {
-+		dev_kfree_skb_any(skb);
-+		ndev->stats.tx_dropped++;
-+		return NETDEV_TX_OK;
-+	}
-+	return brcmf_netdev_start_xmit(skb, ndev);
-+}
-+
- static int brcmf_awdl_netdev_stop(struct net_device *ndev)
- {
- 	netif_stop_queue(ndev);
-@@ -667,7 +686,7 @@ static int brcmf_awdl_netdev_stop(struct net_device *ndev)
- static const struct net_device_ops brcmf_netdev_ops_awdl = {
- 	.ndo_open = brcmf_awdl_netdev_open,
- 	.ndo_stop = brcmf_awdl_netdev_stop,
--	.ndo_start_xmit = brcmf_netdev_start_xmit,
-+	.ndo_start_xmit = brcmf_awdl_netdev_start_xmit,
- };
- 
- static bool brcmf_netdev_is_brcmf(struct net_device *ndev)
-@@ -693,6 +712,8 @@ int brcmf_net_attach(struct brcmf_if *ifp, bool locked)
- 		ndev->netdev_ops = &brcmf_netdev_ops_pri;
- 
- 	ndev->needed_headroom += drvr->hdrlen;
-+	if (ifp->awdl)
-+		ndev->needed_headroom += BRCMF_AWDL_HDR_LEN;
- 	ndev->ethtool_ops = &brcmf_ethtool_ops;
- 
- 	/* set the mac address & netns */
+1. Naming: I'd prefer to keep the names as `regulator-5v-boost` and
+   `regulator-5v-out`. These match the exact net names in the schematic
+   (5V_BOOST and 5V_OUT). Adding a `vcc` prefix would break the 1:1
+   mapping between the DTS and the schematic, making it harder for
+   anyone tracing the board power.
+
+2. Regarding the 5V_OUT node: I understand your point that D16/D5002
+   are hardware ORing and there is no software control. However, 5V_OUT
+   is a distinct net in the schematic. Keeping the node makes the DT
+   power tree accurately reflect the hardware and clearly documents
+   that both the USB VBUS and HDMI 5V domains share this OR-ed source.
+
+   The `regulator-fixed` binding supports modeling always-on fixed
+   rails, so this doesn't break the regulator semantics. If the kernel
+   later supports multiple `vin-supply` inputs, we can update this node
+   to list both the boost and VCCIN_5V explicitly. For now, chaining
+   `vcc5v0_usb30_otg0` -> `5v_out` -> `5v_boost` is the most accurate
+   representation.
+
+Coia
