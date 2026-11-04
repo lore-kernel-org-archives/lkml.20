@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.94
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793793217;
-	b=JXO/uGs7O4SSpXukaiFw9CYVi7w/MnwfAm9B6t+jVGnfCq2eQFklXv3Ze2zsH3fh/iIJ
-	 5gQu37bxGQ6kUqyhj4YCQIfngMDSn35xJCy3CanzSJcVOabwUykxuwjbDwrl25INDuI3j
-	 QXSfSUazSl8uxofeE20n7CGIUgZLhdfXnDQng37ocxkaf+APBJd6SEBXlXP0sFDB4dxBp
-	 qAED3yO0addsQ0SxpyG34U0l4E7fbE4P7funpqYECJaauxCVm2AbVT9lzsF+bw3PYKhmz
-	 wprcYwLr31umFC0kb15ylvWGslvR1F2VkdUUfNDbLQXVJLLTuQmaBSJN2gjZc2dBFXA==
+	t=1793793213;
+	b=W7+jccotJSuz1336eTzGelu1tpaL1XG5LSxGFtf0bb7apG+tSOEwQWxz7ztPg7Em7z6u
+	 yrHP6rnotOnCnpCSgLcoSto4JzluQfgbwTK/AjjdUZj21Z9UHk5+ro/I4GN+5sYeyBcj9
+	 1BlstYd7JKJoy+lUQW776VLuZb2eeNDS8tYBEXibZvL2aIniconQzAyRnh/iZ37paosEe
+	 5Q/2zzfRKyTFfeDjGiLblMSOkqh2RSz1Nutx3UBWeYuEO1WKjI350FTiaAnOR2i276DJc
+	 116jAWckjFazNsNMP/TNATKN186D3DD6Z/pMa+bQb1weLk3+7brDtFA1ZOUmMptp+hQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793793217;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793793213;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=I7g8O9XnBkOnRo4UInvEGJ58/pb8j1Hf4MI5iyCwU3U=;
-	b=lPNdxaoEImVxL+QGZJsYOs2/nszHB4KsdrDERhNtHUgEQy+EMdks2w9KcZtuhOXvkqkq
-	 bsu2Nf//1nCAs8CEBihp8fjcWQkqP0mm00A6gPAcgsBUzII3cxl1F+Srh6rPzIWndk9+j
-	 lbDMrr1seUKoCmENVsU3EozYwXI49iQEZaMn4vQ32YDqD9mTxaIidKSFNzgkGNjT9Gveo
-	 JzY4ozeVXMuBE0sHKBa1l2Vb0m5R+URVka9AduUzjVb7LDEQFizN22Hs2mxC3cc+D6ejH
-	 +lxzg+wzp1HokEPFR0+DFWe6W+1x8KYVp+3tTT7jGhbd+M63Rqc8NKSNJSsLgGiCpKA==
+	bh=K3XuBnrGM9sjcbyr+vhPAVUTy0Q76eXEKQQ9/GBy7po=;
+	b=cCllJddFjro4jepv2CpEPZ3NW1CXfqz9TQCZazM1UUGOzfOWVUvA3Eom2hL1dcvq8Fgi
+	 HFCQfjCXVUVbqy6KaPC+kUEmqqxm0V0pCB62lIudus/IppXj/2AqGarCcCTUEzyDQisq1
+	 u0DXtC8XVJDnPnMBiUpWKDiGbkmYNn6gSplQIaaU7Q0XxuxskJQgmCY/akNQGZwl2njlX
+	 aYKPGinnyV7FJonIY1mN5GMQmPaQFBlOJgO7gk8fjJEZ+Z0XjD30R8nwhuGEb4tLFBXkN
+	 +SExBl+TLC6h2hJUKuF/mblSNVzb9yyljv6zaqQ6E60PVeyhFmt3DC0/2++RTFKopLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=STWBsNjy;
-	arc=none smtp.remote-ip=95.215.58.101
-Received: from mta1.migadu.com (out-101.mta1.migadu.com [95.215.58.101])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=u8EFKRoE;
+	arc=none smtp.remote-ip=95.215.58.94
+Received: from mta1.migadu.com (out-94.mta1.migadu.com [95.215.58.94])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44564606A330
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:53:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44564606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F29E606A334
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:53:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F29E606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=STWBsNjy
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=u8EFKRoE
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Ci2Pt7fChn/3//APtQJ06s/FAY3b1ZNy/PHgjeitdbk=;
+DKIM-Signature: a=rsa-sha256; bh=+A0/0+mkCu8UwikYOVQTTnJ2ULdHaDIJYUHPMTx6ARc=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793793214; v=1; x=1794398014;
- b=STWBsNjy3OEtxWmyE5iaSLwm8DvkGZrHmsrFyq66NcpMmt2CgrDej3GNo9bb9XpKcUwddJn5
- TY1G23S7w4JmV6Adwmp02sV6HWQs3XoYGMIK9JkKINLq8K5r9E9IksdnvIKyK+g/LCUkocIsmYs
- iR8pic90BS8Z4GNlRrpQphpw=
+ t=1793793211; v=1; x=1794398011;
+ b=u8EFKRoETood6w9kHal8izrceQgeK970LC7hBYJzH5K3VzPJfPuZzJRJQp1zDNWA0WKO+f/e
+ fooZaZZLzLZ8vf11jpervjvXk8JKOeMsR+UdposM8SSvEVPI+txEVNsDf22aGUafXiv4uB+CBVy
+ wUyZBYXdVIn6VE3GRJY1S4QI=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id faccf47d409c8a15;
-	Wed, 04 Nov 2026 11:53:34 +0000
-X-Mizu-Trace-ID: faccf47d409c8a15
+Received: by smtp.migadu.com with ESMTPS id b8301430ec0ad741;
+	Wed, 04 Nov 2026 11:53:31 +0000
+X-Mizu-Trace-ID: b8301430ec0ad741
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <9a335f59-79ef-4c32-b6f6-1e66dc03cc2e@linux.dev>
-Date: Wed, 4 Nov 2026 11:53:29 +0000
+Message-ID: <d9672276-5616-4609-98c1-5b9bdd06cf05@linux.dev>
+Date: Wed, 4 Nov 2026 12:52:40 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,135 +59,55 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] mm: zswap: use separate compression and
- decompression requests
-To: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
-Cc: akpm@linux-foundation.org, chengming.zhou@linux.dev, dsterba@suse.com,
- hannes@cmpxchg.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- nphamcs@gmail.com, terrelln@fb.com, yosry@kernel.org, riel@surriel.com,
- shakeel.butt@linux.dev, alex@ghiti.fr, senozhatsky@chromium.org,
- herbert@gondor.apana.org.au, davem@davemloft.net,
- linux-crypto@vger.kernel.org, kernel-team@meta.com
-References: <20261013002140.28880-1-kanchanapsridhar2026@gmail.com>
- <20261103142600.279899-1-usama.arif@linux.dev>
- <CACpmpodmeJB5FssJdfFxF+A2PkrC+=hnWGn=F_fTbbEtDfRF_A@mail.gmail.com>
+Subject: Re: [PATCH v2 0/7] ASoC: Intel: avs: Soundwire support
+To: Cezary Rojewski <cezary.rojewski@intel.com>, linux-sound@vger.kernel.org
+Cc: broonie@kernel.org, tiwai@suse.com, perex@perex.cz, amade@asmblr.net,
+ linux-kernel@vger.kernel.org, vkoul@kernel.org,
+ yung-chuan.liao@linux.intel.com
+References: <20261103134958.2089136-1-cezary.rojewski@intel.com>
+ <bcfe64de-359c-4f16-9014-5d6f8bf30c40@linux.dev>
+ <9da94716-4dde-4389-9574-12f90b52e05a@intel.com>
 Content-Language: en-US
-From: Usama Arif <usama.arif@linux.dev>
-In-Reply-To: <CACpmpodmeJB5FssJdfFxF+A2PkrC+=hnWGn=F_fTbbEtDfRF_A@mail.gmail.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+In-Reply-To: <9da94716-4dde-4389-9574-12f90b52e05a@intel.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-
-
-On 03/11/2026 22:05, Kanchana P. Sridhar wrote:
-> On Tue, Nov 3, 2026 at 6:26 AM Usama Arif <usama.arif@linux.dev> wrote:
+On 11/4/26 10:14, Cezary Rojewski wrote:
+> On 11/3/2026 6:20 PM, Pierre-Louis Bossart wrote:
 >>
->> On Mon, 12 Oct 2026 17:21:40 -0700 "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com> wrote:
+>>> Also, the existing code fetches the PDIs based on pre-defined "dai_id".
+>>> That's not the case for the avs-driver.  It simply asks: "is any PDI
+>>> free?" and assigns it for the substream if one is found.
+>>> No predefining.  Again, this aligns with how HDAudio streaming is done.
+>> Yeah but at the end of the day there's a 1:1 mapping between cpu_dai and
+>> PDI, no?
 >>
->>> On Fri, Oct 9, 2026 at 6:31 PM Usama Arif <usama.arif@linux.dev> wrote:
->>>>
->>>> Stores and loads serialize on the same per-CPU acomp request and mutex.
->>>> A low-priority store can be preempted as soon as the compressor drops
->>>> its stream lock, while it still holds the mutex. A higher-priority load
->>>> on that CPU then waits until the store runs again, which can take a
->>>> long time when other tasks are runnable.
->>>>
->>>> Give compression and decompression their own request, completion wait
->>>> and mutex. Since commit e2c3b6b21c77f ("mm: zswap: use SG list
->>>> decompression APIs from zsmalloc"), the per-CPU buffer is only used for
->>>> compression, so group it with the compression request. Independent
->>>> requests can share the per-CPU transform; the codecs and drivers
->>>> synchronize their shared state internally. Loads can still wait for
->>>> each other on the decompression mutex, and stores still serialize on
->>>> the compression mutex.
->>>>
->>>> acomp_request_free() ignores NULL requests, so drop the check in
->>>> acomp_ctx_free().
->>>>
->>>> This follows the proposal from Sergey Senozhatsky for the same split
->>>> for zram [1].
->>>>
->>>> [1] https://lore.kernel.org/all/20261005122036.718976-10-senozhatsky@chromium.org/
->>>>
->>>> Signed-off-by: Usama Arif <usama.arif@linux.dev>
->>>
->>> I have a question with regards to this patch. Is the intent to allow a
->>> decompress thread to run concurrently with a store thread for a given process?
+>> All PDIs are created equal, a dynamic mapping doesn't make things more
+>> efficient. It just makes things more complex to debug since you don't
+>> have a fixed mapping between dailinks/stream/cpu_dai/PDI.
 >>
->> The request is shared by tasks using the same CPU and zswap pool.
->> These may be different processes or threads of the same process.
->> Each operation still runs synchronously in its caller.
->>
->> The motivating case can happen entirely on one CPU:
->> 1. Task A compresses page X and releases the codec's stream lock.
->> 2. A is preempted while still holding the zswap request mutex.
->> 3. Task B runs and faults in an already stored page Y.
->>
->> With the shared request, B blocks until A runs again and releases the
->> mutex. Separate requests let B load Y while A's store is unfinished.
->> The codec/driver still synchronizes its own shared state.
->>
->>> If so, I wonder if incurring context switch/PTE/TLB shootdowns performance
->>> penalty is worth it?
->>
->> The switch to B already occurs with the existing code. This patch adds
->> no worker threads, forced migration, PTE changes or TLB shootdowns.
->> It avoids B's subsequent wait on A's request mutex. The 1-vCPU
->> benchmark in the cover letter exercises this without CPU migration.
->>
->>>
->>> With the proposed change, will zswap_store() continue to run on the "old" CPU
->>> (i.e. the one to which the process got migrated), or is it a requirement that
->>> the "old" process is in sleep state? If so, should we codify/document this
->>> requirement?
->>>
->>
->> There is no requirement for A to sleep. A can remain runnable while
->> preempted. Its zswap_store() invocation resumes in the same task, on
->> whichever CPU the scheduler selects. If it migrates after selecting
->> the context, it retains that pointer and the corresponding mutex,
->> as the existing code does. The same task cannot execute on two CPUs
->> at once.
->>
->>> On the new CPU, is the same process "runnable", and if so, how do we ensure that
->>> the "higher priority" decompress is handled while the zswap_store() prior to
->>> preemption is still not done?
->>
->> Normal scheduler policy decides when B runs. Once it runs, the split
->> removes its dependency on A releasing the shared request mutex.
->> A load starting on another CPU already selects a different context
->> today; migration is unnecessary for the benefit described here.
->>
->> Existing folio/swap-cache locking still orders accesses to the same
->> page. The example above concerns two independent pages.
+>> Put differently, couldn't the AVS driver work around that fixed mapping
+>> to avoid changes to legacy platforms that have shipped many moons ago?
 > 
-> Thanks for explaining the motivation for this change, and the detailed
-> analysis! Is it possible that this could cause compression contexts to
-> be starved of compute resources under memory pressure, potentially
-> causing deadlocks with page-faults in the worst-case scenario? 
-
-The split removes an unnecessary dependency between unrelated pages.
-Under fair scheduling, runnable reclaimers still get CPU time, and a
-fault needing memory can perform direct reclaim itself. Faults on a page
-being stored still wait for its folio lock, so I don't see a new deadlock
-cycle here.
-
-> Since
-> compression is inherently slower than decompression, could this be
-> making it easier for swap page-faults to preempt compression.
-
-On non-PREEMPT_RT kernels, software compression already runs under the
-codec's stream spinlock with preemption disabled. The delay addressed
-here is after that lock is released; the split does not make active
-compression newly preemptible.
-
-
-> On a
-> related note, should direct reclaim (only) be allowed to use a
-> non-preemptible context via a spinlock?
+> Kind disagree on the debugging part.  Having SDW streaming follow
+> closely to what is done for HDAudio from the beginning (no hardcodes)
+> makes it easier for a developer to debug stuff.  OTOH if one of these
+> two follows a completely different path, the developer has to have such
+> hardcodes in mind when debugging the PCM code or even when looking at
+> the topology.
 > 
-I would keep the current split. The codec already protects its stream,
-while the outer context must remain sleepable for asynchronous
-completion waits. A spinlock cannot safely cover those waits.
+> At the same time, I'm not going anywhere and I do intend to work with
+> Peter and Kai to update the common code. Simply put, such a refactor
+> would be routed through SOF GH first.
+The machine driver selects the first available cpu_dai when creating a
+dailink. It doesn't really add much value to add a second level of
+freedom to select PDIs, since in practice it'll select the first as
+well. PDIs have no moral equivalent in HDaudio, it's a Cadence-specific  IP.
 
+Also there is already a degree of freedom in the allocation of
+stream_tag, which is used for DMA support. That one makes sense since
+DMAs may be used for non-SoundWire things (HDMI, trace, probe, etc).
 
+That's 2 degrees of freedom on 3 levels, do you really need full
+configurability?
