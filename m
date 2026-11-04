@@ -1,102 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.180
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793826586;
-	b=GFpxz8TNLwAjzY7VmMioCtPfIK2echKPoiWbNR61SulR72P+VtT0g/i+v31gfMSDatsg
-	 6SS+odqIffO0t2NwFBsYhIfSp1gEvJojzafOiqtf/xF+/h+5OpmonUboKgD7/CbrM7SyT
-	 ccsGWUj3Lu44Y7x0YvH7MdTPbEPsnRrn2vnX/A8bfc7E4JaqLWvyX//QeJhja8gL3Rm6w
-	 A5Ld5TeDtOiKOiC71VZmFJuDH7NJDPAqiMs3axvJDTzK/PtxTpIQsJl+um3hFjEgYqlo/
-	 1wdAq90adgS6EsY8cbcazPBGbq+UDz64WgISXRHpAjYywwJLLa2RVppFDLxCTnMMdmw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826586;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793826578;
+	b=LMpvE+mBwuh0Yx3iraCdQIzRtMu5MyyJueB6bfys8NYEhTzfFbk9H+bsX1y96buzXvhG
+	 218Bt0/Dwy5tqUSvfQNVmi7hmLR4QTvg+mvy+X0ROuRVlyyfm3SaFZNhted0CQVPGeWky
+	 snI0KHyNcJrxdFhLbBCssMjbGx8BOrj2oDmx8f4s5tTloF7Zm0OQZR+gtUI+XT+6LW5AH
+	 tZR6ot6QTxBU4nG1W/v4y+TBukMXT62mIuQfKrZjqFb8Rq22OL1Sl/fKh0pZ4DHYE4Wn5
+	 c2Ho1ovlY0DSlJTkN1pf1hZWhHtqFOghKP/1CTguTDayjM81wHIRoJClT2R3DeW7zpA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826578;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=BiNdbumrOd1SkEa6d8Ju72ty6OWDEKr6FE4yt3e0p8w=;
-	b=x7qCuORMtcv0XsIa6HdkQ4/fIGAAnIWyEFZRCiafeSw3MiZYGaINRpLjYIx2S+OXAa6W
-	 Sj1jVHsjz1J5LWdvIQfF3YSTR8gqxyl0j2ySxs4q+Ay++tGlyGDmj596kpXh2PFFS1t42
-	 swqxfb3Oqb13zlXMNodQO8A0iYfto8rFAJLwM26OiYsiMM/n/AeDtFdK9Lqc4SyMIsiYd
-	 NHm8pFVrctxUP2vfoiXVJcJh8/Qpi2WgL9VytUY3wHpd+WNfEFJhlv6OOKS3WiEdgz7ua
-	 v0Nipci7ZZ8wTLiWWxNHl8nBBVw+jj7FTAGjvGI7Ee7FdJYDIqLlNdkozi71j6skJRg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=N6jISF9e7oc9q51mTvyRG0JtdU4PgALd10HFJdmI+R4=;
+	b=VrBe+5I6X3dIYgd9C3tp7K7xBSMoVE60cO5wfTALhYTlQJHnIyBz/YmVx7mw36aq5627
+	 SxpKJjJes0sVlyo0IhGlrz9ivloo99teFgaIVfi49Bl1C6J9LXfe0KB/MuOQ4xqtsFrNu
+	 3lqUGulge/OLo3wpUQ9g6BQUT+LJXvLNvwmIWYgKu6fdgUPrZ3zW1OkfKlYYrgKfvxgx+
+	 doS+G8YhitWfy50FoHhIeli7xnAciv+2ed7lyfX7t9h7JTCUqZ7++RrRgrX+yWl/9kveb
+	 BtvZoFYEbuTziSgSbaCKiceBkFvZqjv2KQ8/+eC3aLmoZr9MC8GaT6Uv19x6M3zUDGg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rRwj3MeN;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fk3jDwHG;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C042607B9F7
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:09:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C042607B9F7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60FFE607F2AA
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:09:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60FFE607F2AA
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rRwj3MeN
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3535a54bed9so1554953eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 13:09:46 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793826586; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HhHKp3GmB9fZfdBhASV1xRkwEkaSLm8vzK28l2BQ1bG+jgMoCPeh+4RzXyonRXdXhE
-         6qnsU3054eTOZ+PnQvGtcIPlM2enuEb5S6wk4A7Elgj1B0pyR7df/sqXIcrBGqTUgGLy
-         Qc9awONLA0af6iyaiGE3mW0+nZelJcqw5vUtkz1iKBMekvcxWar4c1/0P9RadTGHPaj6
-         YToLxjGglCAktBVn1fxtWv6pfbJckyVwUiUiIgsh6YpbSbUzG5YIriVgwr0+g33abTPw
-         ngtjhWyvMiVHF8JVbLoLE815RXKYxjRaGqVYkIGd3hoMSKT0snr8MPjVeUnKjmDMP/fn
-         ouBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=BiNdbumrOd1SkEa6d8Ju72ty6OWDEKr6FE4yt3e0p8w=;
-        fh=exkbna32Qkitg9et/dXOVkEU55sYRbJFze0gwFnmr7U=;
-        b=cPPf4F7HUmRdPz+YUIvdrUS1vyr1Yu/A2Rrpds4rZ84fMLfYPmexiu86CYCD6Fq+u6
-         GpbURjzOyHwI4Va8QxeCww7lS+w8up0GalGRF+S8t0uCcCUjy20TaPUPy6KzC8FHFgJ3
-         BZQyn2rADoaWuRsCsQskLt6E+UaqYn3Rek4m326Z3yR1idfg7sj/ztdeODjHmqh1/y7y
-         hsdHih0vkAtvt0eE7g+BEIKUiO2G5/Gm75vBlT2rEPg5kNGY1JyOkqIZWaMHi3FKJCo0
-         2afXTiEEA73mP2uTxRGTYLUy8waguC7i5nT1y7bcHJ2V0bZxRegoLGNPX3haaoCCZts+
-         ohKw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fk3jDwHG
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49d05d51553so7486615e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 13:09:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793826586; x=1794431386; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BiNdbumrOd1SkEa6d8Ju72ty6OWDEKr6FE4yt3e0p8w=;
-        b=rRwj3MeNjWM0dHqE/pWNUvXz2va6j4DIyFL4slC2zvEoEsmnqhlbQIm2z9/YBQtO4Y
-         mPuiC1FXZSSOwRzAnULW6qnAQLAXTUensK3N9qFZa2pcRQNE5FouU4TwO8oqDf24HpRR
-         0KLZ2+AVv6WB2x/nQ0Z/01AbM3bov48ESgFJm3LD+bFVp+7COuG1dLDpcI03V93Chw/M
-         1LygzRawRcgb2xYSBbj3wvgUBEIVJtk0Ds4+YYCq3gMkh8HgBmbpsma1Zsh3JBgaBX5A
-         7tTlZ9YjcX2+ZRU9WUh2ll+H057mzbqdJ84SnYCk7I+Fa8yhabzDfV3K0ANCId4Iiaao
-         rnZw==
+        d=gmail.com; s=20260707; t=1793826577; x=1794431377; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=N6jISF9e7oc9q51mTvyRG0JtdU4PgALd10HFJdmI+R4=;
+        b=Fk3jDwHGWZfkbPvav9AHgef12S97zgUen80Hgkty1sjNmjONAWViqROOwt1cyBEFNi
+         zD4dObV4UBbKU8lpf1GM7P4nPZNbRI690PqHxxcA0GZsAobckxCPzjbm5JTmhhASHA7A
+         hFOwxp+5X+c+sUbS0KAiZWf58KZ6bhPtMho2Dh8syFSigFZLCIiRfGbyk+V3p1S4V6IT
+         forb7NOfgWes9OPPHVgpDoJzgXY+xlf/XKazwsSv2sY/gQDkoVWGx7Px3VKoUXfjQMB0
+         0ByEl7qTLXAjWJOhr6GY0c7YJ9ff0S/i5v6kWrfl7UWdVUZJeE6Nz+Nv/cE7qHlMSURF
+         q39Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793826586; x=1794431386;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793826577; x=1794431377;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=BiNdbumrOd1SkEa6d8Ju72ty6OWDEKr6FE4yt3e0p8w=;
-        b=2LYav8qO09JNwj8S1YsPi0yKlNucPJT+Ro/F4iCUKBCfWz3hCCi1MONh4XxDVAxrRI
-         a59Xdmb/z6WLa9pdBSfRezp5SZysqj1DMy4jXfLzK5zvBvRMZ74awhVOJTVYYN+Xjd5v
-         994x0MlywlCcUbkS4550W27wGCy8/OaqSlWRNgjX4kuKfpEVUftsWdsN+VkJHqpw7YGC
-         7EuNiBSx16wmOydaygedEUAN8JNhgJHp4kL4qSw9iYPS9/duTvk7KO2UGP9LQg2Fgj0J
-         9PmWBaiubSnIkAN4n85AVqRfsnZ4Vlt0t7OrgWkNn7lw5jOy2b+X1KE37MXXhkQTN1Xs
-         vhrw==
-X-Forwarded-Encrypted: i=1; AKwUvByAySlHFwGERqEUAlpuzVHBCbuWmQMv9rI8gOD1NpAupHzK4LTHOhEssMe4nHtj0k2+zyA13Ixav+XUcYY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/3QnreGhl2oSjlbVEl98snmnXd1HinE1RHDsvZ3///6wZx0Eg4
-	j3oXIrAN//XvcBVXIllkRJbk/QCfRjsKIdhxkECxLTRO5jjQos5Cc+kriIbQeHhckXXbPWu4yVY
-	/yWjy+XxGKOo8waeKtvpDACzJ+mOw+aA=
-X-Gm-Gg: AYBFou2luPxQdRZ2hEzWeu5QSbSH6myTX7k9pYKiUJocqz5GV6F8Ae1qGWMO5gBcyCK
-	URD2P+/mYnl7sL8edG37h0S1Q7RYknxfI7WHVZlQVH5Ss2w0bAyVBodeKJ76JRt6nWrbkelUUks
-	x+YToWn9zu805QbUADZqH8Gz4Xqvf3kJ1zLywmS96XmhltXcMCxbjGwDk2slh0LwJBCkRGwpt0B
-	S7BLbVctQeizXkV26geRD1dJ0ZQWd/3jbXuMQscYSXd4K1O7AnUWqX9smz7iZ38DjfO6KU8ZmY+
-	qLdF2AwUWQ6OWD4BjfURp0fDb+Zm9hlEi3Fxp+qUUSon+TlK3qSHJAzzbRkhkDIyqJn+mjOS948
-	RtjlIFJo64+I+QyUwgTLxgtUj7Z1KOqqugFLIb/DfzSKWd53C9UiW7ELT+ZUBiM0tq1cp5mgswd
-	p89HefBgfxeByYfOQ50kk5Fz/yZ9fO2V2J6TwPpyCCL4TT11V6Tz71DzQ8Uz8Z5Bs0b45e7FI4z
-	GkkK+M=
-X-Received: by 2002:a05:7301:22a6:b0:369:f9c4:1fda with SMTP id
- 5a478bee46e88-36a42489041mr32982434eec.27.1793826585524; Wed, 04 Nov 2026
- 13:09:45 -0800 (PST)
+        bh=N6jISF9e7oc9q51mTvyRG0JtdU4PgALd10HFJdmI+R4=;
+        b=eHjxUbCqpWglGhDZUL58fc/oiI/XkQJWODHvG29Cr52/UIBRjRgbcq25yrCo1hbIHN
+         7G0a2WMHJL0E9y77sQqmfK1cGVpSbqsdEv0ppUv0kZthdLs/l/jNdF+f8CefL5XXoU0N
+         dxsJa+t3ZbEs7U0GbGE3pz/BP5MZYPo1FW1owJlCaWyjBseCW9cpuTYTST8UflLBvPiD
+         ftAcgReifDLEqgFAcRiI6Rjk89g5z40qb6SMOihYbgJrVRe4qr5Bqm44HkLWrwc+Ymcj
+         TfO19/3CVo7vF9L/WEXkeGfiFTQgzu9V0mlRGKLorlbuvYUch3EgWsf+R+fiZuNR2DD/
+         PwVg==
+X-Forwarded-Encrypted: i=1; AKwUvBxrY2LlZanKzKim1X9sDtgb4iqzdHgpNR27saI9BtY6T5f1D2/GimwPFz6bh6UR0Zup8oneUpD/IZURwRs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/fppuUXongaDhf6sKdG51XbSvzBrGu0bWfqV41daNqA5fi8b4A
+	jpOJumFpwey6fv3AMiSEThe5TMYGlDCzYeKeI+lbhPciiAKwdgQZOtgR
+X-Gm-Gg: AYBFou3mznJU/OXSiQT4C1AuRQumu3AhHxYNarZKI0OdngRr7T+fS2ylDATfQhSe0SV
+	ToB0xtFYQd00cl8LB0m61R0DoU3+ptumc9ML35sGRpPiXiJ41aJGrwysXVkjd13iot108CZfAto
+	kmIfizboz/pAUKtOGLxd8f8B/vKOnfgGuIj5zw4uUKUh5q2qwW/NXs6DT1DMA8llj4ik+RCm1hv
+	Em7ncyq/YHqwq0JNsuJOhP7Q00CyVUoUmgp3e80gchRZ2fFaQMB8SMaNyeApSg6rSuf+yS8e6Na
+	QJ500L+Ag+WiHD0o4QvPv0JqZvHSmH8mXhNoldOsIXZcsQjvBJ7T56MAWUywG7ZcWQkb5GOUlCI
+	2XvqDmsN7KB2U3sIYcSHmcpjqB6gJPSWCRzSBoDqDQT9fjzsiJqT+PLOgVWL0awMgper6HkKBXi
+	r1kd9l5JR3YxZnw/ddaqNiCpdpkzQPYvF2I69MP0oMyFKzInd8FlyJcQ3Ni70CHjhnd7mOpB7oa
+	29YRfPspTYMMq9JSnIQ5k94DwQZqnq1UiUIUHz6rgKOs10zDcpDasj1SkIduK11n0YLdoHaYJgP
+	GA3evqOsKRsGQakJJmHDOB6sL25u7Sp9hd80gCINCC1JjpOidSg0Ww==
+X-Received: by 2002:a05:600c:8b46:b0:4a0:4a8:d444 with SMTP id 5b1f17b1804b1-4ac18c73238mr397433925e9.33.1793826576862;
+        Wed, 04 Nov 2026 13:09:36 -0800 (PST)
+Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b4533873f0sm77714765e9.4.2026.11.04.13.09.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 13:09:36 -0800 (PST)
+From: =?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>
+Date: Wed, 04 Nov 2026 22:09:04 +0100
+Subject: [PATCH v2 18/27] selftests/landlock: Fix regex_escape() error
+ handling in matches_log_fs_extra()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,71 +92,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103-perf-output-v1-1-df33a0368cf2@arista.com> <auuZHBawk2--flHW@phoenix2>
-In-Reply-To: <auuZHBawk2--flHW@phoenix2>
-From: Dmitry Safonov <0x7f454c46@gmail.com>
-Date: Wed, 4 Nov 2026 21:09:34 +0000
-X-Gm-Features: AclHuK-D9hZgAv3P0BlPu9bgWKZEFr3G6b2hTXFkQu-_WGog5aWZAYQ8QHEOYEY
-Message-ID: <CAJwJo6bKK+sOwwj3iaxh+JA2+EkZ2HHhmfyd6gaNQYiQoQGxWg@mail.gmail.com>
-Subject: Re: [PATCH] perf build: Override OUTPUT when building internal libraries
-To: Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: dima@arista.com, Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, Arnaldo Carvalho de Melo <acme@redhat.com>, 
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261104-selftests-refactor-v2-18-c52f23f7ce33@gmail.com>
+References: <20261104-selftests-refactor-v2-0-c52f23f7ce33@gmail.com>
+In-Reply-To: <20261104-selftests-refactor-v2-0-c52f23f7ce33@gmail.com>
+To: =?utf-8?q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
+ =?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>, 
+ Shuah Khan <shuah@kernel.org>
+Cc: linux-security-module@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ =?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>
+X-Mailer: b4 0.15.2
 
-On Wed, 4 Nov 2026 at 20:44, Arnaldo Carvalho de Melo <acme@kernel.org> wro=
-te:
->
-> On Tue, Nov 03, 2026 at 04:55:21PM +0000, Dmitry Safonov via B4 Relay wro=
-te:
-> > From: Dmitry Safonov <dima@arista.com>
-> >
-> > After commit 1572ba36fbca ("perf tests: Improvements to build-test
-> > performance"), building perf with OUTPUT on the command line fails:
-> >   make -C tools/perf OUTPUT=3D/tmp/linux/bld/perf/ ARCH=3Dx86_64 LC_ALL=
-=3DC CC=3Dgcc HOSTCC=3Dgcc LD=3Dld
->
-> That '/bld/' is not reflected in the next line, copy'n'paste mistake?
+Use a more conventional error handling interface in regex_escape():
+Return a ssize_t, which is either the number of bytes in the output,
+or return -1 and set errno.
 
-It is, yes. The path in the build system is quite much longer, so I
-decided to cut the noise and cut it in commit. But my eyes have
-failed, and I should have re-checked it on the short path and copied
-the output, really. Heh.
+Before this change, the (log_match_cursor < 0) check in the call site
+was never true because log_match_cursor is a pointer.
 
-> >   ...
-> >   make[3]: *** No rule to make target '/tmp/linux/perf/libsubcmd/libsub=
-cmd.a'.  Stop.
->
-> =E2=AC=A2 [acme@toolbx perf-tools]$ mkdir -p /tmp/linux/perf
-> =E2=AC=A2 [acme@toolbx perf-tools]$ make -C tools/perf OUTPUT=3D/tmp/linu=
-x/perf/ ARCH=3Dx86_64 LC_ALL=3DC CC=3Dgcc HOSTCC=3Dgcc LD=3Dld
-> make: Entering directory '/home/acme/git/perf-tools/tools/perf'
->   BUILD:   Doing 'make -j32' parallel build
->   <SNIP>
->     TEST    /tmp/linux/perf/tests/shell/base_probe/test_line_semantics.sh=
-.shellcheck_log
->   GEN     /tmp/linux/perf/arch/arm64/include/generated/asm/sysreg-defs.h
-> make[3]: *** No rule to make target '/tmp/linux/perf/libsubcmd/libsubcmd.=
-a'.  Stop.
-> make[2]: *** [Makefile.perf:827: /tmp/linux/perf/libsubcmd/libsubcmd.a] E=
-rror 2
-> make[2]: *** Waiting for unfinished jobs....
->   MKDIR   /tmp/linux/perf/tests/shell/lib/
->   TEST    /tmp/linux/perf/tests/shell/lib/perf_metric_validation.py.mypy_=
-log
->   TEST    /tmp/linux/perf/tests/shell/lib/perf_json_output_lint.py.mypy_l=
-og
->   PERF_VERSION =3D 7.4.rc1.g45e09a6dbb2d
-> make[3]: *** No rule to make target '/tmp/linux/perf/libsymbol/libsymbol.=
-a'.  Stop.
-> make[3]: *** No rule to make target '/tmp/linux/perf/libperf/libperf.a'. =
- Stop.
->
-> Minor stuff, I'll fix it up and apply to perf-tools to send for 7.4-rc1,
+Signed-off-by: Günther Noack <gnoack3000@gmail.com>
+---
+ tools/testing/selftests/landlock/common.h  | 20 ++++++++++++--------
+ tools/testing/selftests/landlock/fs_test.c | 12 +++++++-----
+ 2 files changed, 19 insertions(+), 13 deletions(-)
 
-Thanks!
+diff --git a/tools/testing/selftests/landlock/common.h b/tools/testing/selftests/landlock/common.h
+index a662a68bee7b..dcfdcfecde86 100644
+--- a/tools/testing/selftests/landlock/common.h
++++ b/tools/testing/selftests/landlock/common.h
+@@ -277,11 +277,11 @@ static void __maybe_unused set_unix_address(struct service_fixture *const srv,
+  * Escapes characters that have special meaning in POSIX Basic Regular
+  * Expressions: $ * . [ \ ] ^
+  *
+- * Returns a pointer to the NUL terminator in @dst (cursor-style API for
+- * chaining), or (char *)-ENOMEM if the buffer is too small.
++ * Returns the length of the escaped string (excluding the NUL terminator), or
++ * -1 with errno set to ENOMEM if the buffer is too small.
+  */
+-static __maybe_unused char *regex_escape(const char *const src, char *dst,
+-					 size_t dst_size)
++static __maybe_unused ssize_t regex_escape(const char *const src, char *dst,
++					   size_t dst_size)
+ {
+ 	char *d = dst;
+ 
+@@ -295,21 +295,25 @@ static __maybe_unused char *regex_escape(const char *const src, char *dst,
+ 		case ']':
+ 		case '^':
+ 			if (d >= dst + dst_size - 2)
+-				return (char *)-ENOMEM;
++				goto err_nomem;
+ 
+ 			*d++ = '\\';
+ 			*d++ = *s;
+ 			break;
+ 		default:
+ 			if (d >= dst + dst_size - 1)
+-				return (char *)-ENOMEM;
++				goto err_nomem;
+ 
+ 			*d++ = *s;
+ 		}
+ 	}
+ 	if (d >= dst + dst_size - 1)
+-		return (char *)-ENOMEM;
++		goto err_nomem;
+ 
+ 	*d = '\0';
+-	return d;
++	return d - dst;
++
++err_nomem:
++	errno = ENOMEM;
++	return -1;
+ }
+diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
+index 100ef02b5d1a..10a386a573dd 100644
+--- a/tools/testing/selftests/landlock/fs_test.c
++++ b/tools/testing/selftests/landlock/fs_test.c
+@@ -7450,6 +7450,7 @@ static int matches_log_fs_extra(struct __test_metadata *const _metadata,
+ 	char log_match[log_match_remaining];
+ 	char *log_match_cursor = log_match;
+ 	size_t chunk_len;
++	ssize_t escaped_len;
+ 
+ 	chunk_len = snprintf(log_match_cursor, log_match_remaining,
+ 			     REGEX_LANDLOCK_PREFIX " blockers=%s path=\"",
+@@ -7467,13 +7468,14 @@ static int matches_log_fs_extra(struct __test_metadata *const _metadata,
+ 
+ 	log_match_remaining -= chunk_len;
+ 	log_match_cursor += chunk_len;
+-	log_match_cursor = regex_escape(absolute_path, log_match_cursor,
+-					log_match_remaining);
++	escaped_len = regex_escape(absolute_path, log_match_cursor,
++				   log_match_remaining);
+ 	free(absolute_path);
+-	if (log_match_cursor < 0)
+-		return (long long)log_match_cursor;
++	if (escaped_len < 0)
++		return -errno;
+ 
+-	log_match_remaining -= log_match_cursor - log_match;
++	log_match_remaining -= escaped_len;
++	log_match_cursor += escaped_len;
+ 	chunk_len = snprintf(log_match_cursor, log_match_remaining,
+ 			     "\" dev=\"[^\"]\\+\" ino=[0-9]\\+%s$",
+ 			     extra ?: "");
+
+-- 
+2.56.0
+
