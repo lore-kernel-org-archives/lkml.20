@@ -1,104 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793796774;
-	b=vRfzniEejPxHhdxrpi7xuEHkVCFm84aevhTjrm8XIA6dzgNswUn5EFe2kaJb6UDJBmF3
-	 XkeRK+b3hkgWmukZaael+WNut8foWxhbQ0CDYP9j/V8SRhMc2A6LPdGTXsbaCVUO9hq3Z
-	 PL7if771vI0X27SclpuflWs6F+wh239geCswjcIcwxQy78S79mu/df3cLBDkYh0hjFr1r
-	 8+yQi/zxBGivfkRZdnnWcWpd8y44jVPoJ3S+Y6jDdVvMnw5n9/cHEMRyxWhmP9o35T6ad
-	 Y1pF9ZjxuiteCu2Ve6D7mlKjlPwuyKslQliB26nT8q/4SJ/RcKuzpFQgkrQgEB4yrag==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793796774;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=EPqf68p4zgOm5bk1tzpmfEq+lDmfobnZCEG8E1tQHtw=;
-	b=DKEbscUrquyBcNYA2oB3EWYQBI1AzdIZ9nqYXPhUOAL/ZjMF6ooNuSu4ODU/9vV9dcY3
-	 S04PMj94G304hvBMJ6FxxjQ88YjVXnAZVq9Z2JpSJ2z6EVM1dQTBp6tpRfAv7NRsb7HfF
-	 oDsyxbCrK6Z0UXropMSs0qI+IiZNHvnl27USqEanAIZdWETeCthHHnVwtF7EXYtlAOoS7
-	 eLL1WU/XJ8u/Q2fSHKnmQZXiswv3vuhCpgZgiThlYi7S1qdeMY9JU4yFbSoY1Vj9EDrnj
-	 y1MtkydkGONqlcXGdXTlupkerjggKK9CAj9kbuzMNagwEqBFlFvLk1NltvuzZ/1EY6w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=charmerstraining.com;
-	spf=pass smtp.mailfrom=pythoncharmers.com;
-	dkim=pass header.d=charmerstraining.com header.i=@charmerstraining.com header.a=rsa-sha256 header.s=google header.b=YosD2RXZ;
-	arc=none smtp.remote-ip=74.125.82.45
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.146.134
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793796780;
+	b=hEnX1VJOk5CmlVcAOcJ7+oA1iJFOWhULUrGCsfch11a8+0NkfIR1mBfNWPMEw58qTkTJ
+	 qX0w9GUF65sMe7e46qosu6KAyUTB3o8iW8ZZtPkr4mG+HPxKCjZ0FbbyfxoBdsQggIPwg
+	 sWnP5H184tKxxcDSk/Bf8B5SqgKnEgV77JwYBIyzdaBNFVhEuSNGuDFGL2gwIEr/NashF
+	 MorFO33WHGeRX5cSXMA9OVz8R6TtJPkr29yMRfqGfi+ybpv14IA1YpY1eC79splH3SK1Z
+	 6T6G4StzzEJttfJ5+7UdhCc+fTiwI9t6aH0jzsrR8ENe804pPWBVTKrSUuY6Ml6E0uQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793796780;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Zb/cR5nUi8bjjrqeEtXEtrCTn+c+dWcoAbznSZCLh1Y=;
+	b=5a11jC06QlD9Ox5Q7Ht6gk4UAA/fpPQVoNy9Efa3nng1oWuquj47O0tv3lp54wuYpGkp
+	 a6bwNLG9X5w7zs83CGJlNs+7C8RQhcG0l33SueFfkCH/wdYFvgIOAqtGc/MKNU2J/bnb8
+	 sj8sxwg4NXo8Pc6pvGzjx9Ut9OzlMwNatLvSEKVUCBopvCHigZVsR8SiPUao0XvqpLyuj
+	 BrTgyn2n8ykcf9pk4jllsWJDTGcC/jYwuDRgWHw8rtUu4bVO/QunJ7kJhspa8YJYfskQa
+	 4PinGAAI0oNCVA6hh54pfQXHfv6ksCGaBw0NQcGJuM5/xLOMeRBuDWw1KCrf1VsVuXA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=deeproute.ai;
+	spf=pass smtp.mailfrom=deeproute.ai;
+	dkim=pass header.d=deeproute.ai header.i=@deeproute.ai header.a=rsa-sha256 header.s=selector1 header.b=tf+HOC1n;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.146.134
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2134.outbound.protection.partner.outlook.cn [139.219.146.134])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75B8A606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 12:52:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75B8A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=charmerstraining.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pythoncharmers.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD23F606A326;
+	Wed,  4 Nov 2026 12:52:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD23F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=deeproute.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deeproute.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=charmerstraining.com header.i=@charmerstraining.com header.a=rsa-sha256 header.s=google header.b=YosD2RXZ
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-1b244fb7fffso942585c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 04:52:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=charmerstraining.com; s=google; t=1793796772; x=1794401572; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EPqf68p4zgOm5bk1tzpmfEq+lDmfobnZCEG8E1tQHtw=;
-        b=YosD2RXZdWNvcRFJn7BVGQ+ywSx0BydGmYtEkiPOE8tPZWjHCSiZ/LoTPOJawDx9Ya
-         REG9kmxChvR7+siF6YGK3x+zexZ7PehCpgnA18UZv/DsYaEgH5BlwAgh7F729ugcVGxF
-         tleGrE9krFdotry6OGOBHMnEbxA8unjQGr+8uPlMF1NdUvH1WLdaYENBDxV4uvSV8Fcy
-         mUtpy+GjXvVLnRYe5ORBED8ZE6qb/YsEL0AiIyNetZo1F/JINFgPGioGcmD7rlaVKs1c
-         qFDsnGTNPLB1it0lLC8c+MTqlHuDIOHqSVtQWAsJ6Dq8ueWRpmWINom68vCPXq9TXH8T
-         tVNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793796772; x=1794401572;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EPqf68p4zgOm5bk1tzpmfEq+lDmfobnZCEG8E1tQHtw=;
-        b=PfwbcQ2shhMX6IxF5lrSzJqTW6IcdN4L5GMI1A1CKjpiLIB/a6MW7ZsDidbOP+oudd
-         ywZ6YyJsQEbnKFgud0mBOUrq0P/CRW2BjTTGvH7uJNzqiBjCDJd+/iNw4MDk5TMGgA7U
-         ArBAvf6q8/oYijF2C9q+tddx2Z8rgS2FldxFxdBJFzDHc14GAKrKNVm9rHci/Afp40rL
-         6NjiHS7LQOR3PdN7JyEpGW40dbZlQXWv1N4orhiJ3QWO3GDX2zwddOx8t4gratVlWmH9
-         Siq83gzwLLXXrG3ok7rkpX3OFE8pzNfPQo+RB1rJJbHW+Yq+pdMw3zFao+QGSdD0u7Fr
-         PIBA==
-X-Forwarded-Encrypted: i=1; AKwUvBxNtPvltIoKGXUslTTlfuAURWh5BCpaHlR/sUx1oYo3obZ7/xnIVN+/fR2qET/vRqn0mQE6BehrYir6xRo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/QDgQsWWFXyn+2dVdzV/GiL2J0L7mfRw02jRqk1YjFC20rNuMh
-	kEsWwInrKR8+yHB2KRkCrbatv1L+fg1siXXVAf3YWzpkpwE0F42ObQg3p+2bnmjcaxo=
-X-Gm-Gg: AYBFou1DUjRkyfR2SiWDoWQpm308rVCMIwsLXWeZbOxiy7JskAuaIuQZIcD2yZkW6t9
-	4vwJcMeMOKgPohHwzfna0a7TYImXcVvUgnnG8LWwiCZqwM/qqczslBiivmnLyeLmstdFQDHE2Fp
-	d7va8xmEAKukf4/+yCD0AS8p+cKABm/3UaEqqqQ4ACnmfvZlQ8TlzMoMCEnnyOnRyOLsbjmIHM0
-	XwEKWO7IFlKEdrQISU+Hp3f6UJhTVg7HA3zbK2m5F8PYaXXSHkC32sGZn35oerkm7gbZUs1oSnk
-	8xBS11F8msq6fKT65bJy4nQuIKWPbyrsuF/aYlOxUElUURqP6krIe2vYY1eYpeFtomHN6nMBmGr
-	mgrEGARnadFQp5k1HMsUo2GSK+qsf3vHJOfGL23Gkw+DbIgKTBKhzFb/MkW/uEBnXYYWibn7HoM
-	A201QqOE0SsIEZDbpi4Pg0F8Hvm63IJ3XgMTZXfoiYYg36efsBx2I2L7x3Cc3pAigcNe9pL5UX0
-	2Cd2/laeke2nab4gfChVJwHxIjTzGWvA2nD2+CqkhFPiYaBRZ5q40BTwrXOvqK30Lbt0ALhxQjq
-	E1iAJvefmY3FaSismQukj6fFu1FUm4ePb1F9j4klGb9ROs+9+cJK0R6b+VyTUdqcZymP7BPqY5t
-	J5yDjnHUCftrp9WbKVBOB7VqVU/43ptbTBRuC47kcKC3a0KFMoiStnVBzWTm+HgdzoKRz3RU=
-X-Received: by 2002:a05:7022:92b:b0:1ab:fe29:5055 with SMTP id a92af1059eb24-1ac5bbb9041mr29240092c88.9.1793796772092;
-        Wed, 04 Nov 2026 04:52:52 -0800 (PST)
-Received: from ip-192-168-20-3.ap-southeast-2.compute.internal (167-179-142-232.a7b38e.mel.nbn.aussiebb.net. [167.179.142.232])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c6f0dcsm9787264c88.21.2026.11.04.04.52.45
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 04 Nov 2026 04:52:50 -0800 (PST)
-From: Ed Schofield <ed@charmerstraining.com>
-To: alexdeucher@gmail.com
-Cc: atharvatiwarilinuxdev@gmail.com,
-	dev@deq.rocks,
-	aditya.garg@linux.dev,
-	alexander.deucher@amd.com,
-	kenneth.feng@amd.com,
-	christian.koenig@amd.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
-Date: Wed,  4 Nov 2026 23:52:41 +1100
-Message-ID: <20261104125241.39209-1-ed@charmerstraining.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <CADnq5_N-sobVK3qitqABjqMv2HMyGNdxX0XMXa4TZzVnMv8MLA@mail.gmail.com>
-References: <CADnq5_NCB6ur05ZvP0fe9hsgLHM0=y_Wx31G4vkpKH+F7yZ74g@mail.gmail.com> <20261103150057.1227-1-atharvatiwarilinuxdev@gmail.com> <CADnq5_N-sobVK3qitqABjqMv2HMyGNdxX0XMXa4TZzVnMv8MLA@mail.gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=deeproute.ai header.i=@deeproute.ai header.a=rsa-sha256 header.s=selector1 header.b=tf+HOC1n
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=AL75pZr7o40aTraMe2S0ttHCqZneLaU7gRADTnwCHLdmJAQtuElzS4oZbKtH2jh+0NFpeQX901kSy+qQjYQs5UScvFd5XlZRGvI3qW38WbNKq1gMSpG8AARK6N+jBgjlK6YPpB/TAXv0FGGaskBOUr+hj5G68tlgdYt5KdsSGrTN0r2YcKw95m3CHNR1y2GckT13u3SxuSuOFs58S3PYW0xk2WfBOOUcHYWhNbi9Wx9qm+L4SiJ69L4qghDVTTZjkeZ/FMqODjZ5szTK3mFt1EQb9XhUtye/nqhlKU0LiSxqgLzAZ+av1EKw27bUAZnWTgcP+sWxTsVkXG1E78qO3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Zb/cR5nUi8bjjrqeEtXEtrCTn+c+dWcoAbznSZCLh1Y=;
+ b=FxRxJK+lenIjqRMto9u9hFXGaqMNSdS2MQvXoNK+AqxbrCiTX2uCkQj28MoyirqDL/3/JeIrO4EoAowf07wbmkkqikvGcSJBpL8YIuQbacFNZX1MS/VHZ/4248ysSS/ysxidLMeA/h9uErfbrf0qDB5xuer3mHR8XqNPt50ZT8nTdBbAFjKNz4s/z37KcUur0VC14DA+3Aq4OoUThCYjq3j36QfHEpsXnF3aJ14Ctx4OnUUnWPw3LcKqRDoCTdlbQmNsWlP5Lpq29Ii4fpRbeakeIWOsKXzoj4vQBd851F4xGI1wria7IT8eIOdgV+VWH0PU0/TZ94pKqMKwFfTwXg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=deeproute.ai; dmarc=pass action=none header.from=deeproute.ai;
+ dkim=pass header.d=deeproute.ai; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=deeproute.ai;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Zb/cR5nUi8bjjrqeEtXEtrCTn+c+dWcoAbznSZCLh1Y=;
+ b=tf+HOC1nu6equ33frkRulvJml7zoE/sIKME4vxabvMqiuSLob5jHkDexad6SQtUWmIksJxt+mloS7LvAzwo9fb7eWSjXim4saicMuVbwf93EwdU6i6ct+wkhaYU5vdmC/kXxxrnAgKddeThgHYdpz8uwu77VHJblD5Vhn5mKUtE=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=deeproute.ai;
+Received: from ZQZPR01MB0980.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:a::9) by ZQZPR01MB1075.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:b::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Wed, 4 Nov
+ 2026 12:52:47 +0000
+Received: from ZQZPR01MB0980.CHNPR01.prod.partner.outlook.cn
+ ([fe80::2dda:e54d:5a3c:d686]) by
+ ZQZPR01MB0980.CHNPR01.prod.partner.outlook.cn ([fe80::2dda:e54d:5a3c:d686%6])
+ with mapi id 15.21.0592.009; Wed, 4 Nov 2026 12:52:47 +0000
+From: Jingxuan Xie <jingxuanxie@deeproute.ai>
+To: netdev@vger.kernel.org
+Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ John Ogness <john.ogness@linutronix.de>, linux-kernel@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev
+Subject: Re: [RFC PATCH net v3 0/1] af_packet: avoid waiting for TPACKET_V3
+ copies at retirement
+Date: Wed, 04 Nov 2026 20:23:24 +0800
+Message-ID: <179379500489.189393.11299513853625665657@deeproute.ai>
+In-Reply-To: <179369815762.488859.15460471694371846273@kernel.org>
+References: <20261103092541.273847-1-jingxuanxie@deeproute.ai>
+ <179369815762.488859.15460471694371846273@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SH0PR01CA0009.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:5::21) To ZQZPR01MB0980.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:a::9)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,56 +102,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQZPR01MB0980:EE_|ZQZPR01MB1075:EE_
+X-MS-Office365-Filtering-Correlation-Id: 99e5299c-8936-45a5-6434-08df3a728700
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|52116014|376014|23010399003|366016|1800799024|10067099003|22082099003|18002099003|56012099006|4143699003|261022075727099003|261022105027099003|261026140227099003|261028144727099003|261021123027099003|261009223027099003|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	AyTN2T8ER+jCIr5FYoGPN/432GZd+4vr29qJluAGOls37mBbFz6BdiZ/M4pJkqVSQWqAGJHokMQolhIAPbqcYl+ZSl3j58Fal8Gb2w13QEXRlCAbAFGbRks6bQtYCa5e6E3BSxc95DIfjsu/yMFFKUa5oBiw/j9BJD+xwXNDmRp191FaaJfSMwrmKn3kXYYmXvP6HI2r4JMo5uTpmh6Q1L3DBziFvODs/geTdI5m/2TXuc5ZDxCOoVlRbMKdmLtZOtu3hduO0jTOHDcWj/cOExjawrxKbe3TARMbjE4QIJj5uFjxXOiOFkyQshwF42c88vqyP2SUqB6uDEiA3thodnfWxUk4JEwfQ5mmpuNOI5duu5JpwYV3/P86mBaKNwF/adMN7fgoQ2ErK9rQHKJCubChQFikv83ZzEhsZYXVlJPMIYRAV+AoYzz4rWvZ2w4PDeWC6G1VwMlEHgDy1CIV9hmwERtmzWpjBclHEoapTUj8MgXeLLzT/NozLfdSj7AZe5VVElFc1F81Y4wD6guv484t03CiwHsOaM72ZDzWDVeyma0EKM+A2rGEDwhoZqky
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQZPR01MB0980.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(52116014)(376014)(23010399003)(366016)(1800799024)(10067099003)(22082099003)(18002099003)(56012099006)(4143699003)(261022075727099003)(261022105027099003)(261026140227099003)(261028144727099003)(261021123027099003)(261009223027099003)(38350700014);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NGlNNE5sSFhMVU0rdVJZc2xERGVrMURCUGUxYitEa3RCSFd5VDZmUDBqbzFy?=
+ =?utf-8?B?NzNlMXM4WnZValJPNzJiWmhKUkN2QnZRZ29IM0JOQklxNFJBUWdiS0tlRWR3?=
+ =?utf-8?B?UlAxQ3ZvNEtjZEQvKzhwM3EycmR0dk9RVCtCNzJabHdLcDV2NzZ0VUdjOHYy?=
+ =?utf-8?B?UjFLU3I5S2kvb1NrRjY0STI3RERvai9DRjFTNWFwdWpNd2JDd3dld3llSWFi?=
+ =?utf-8?B?eDZSeER1Ynk1NnZnVEdQT0pCRUNSODN6akVrQ1hzdFRaaVpKVUFhdzBnT29R?=
+ =?utf-8?B?VW9iaTdEbE56Zld0TCtQekhTKzIxalVyWnlGbkJtOUlqNHIrZ0VTbnI1RmxD?=
+ =?utf-8?B?cVlWVTJldzRndm5CTEpLdE0zRjZHUWZWWTlGVEdhbGhXZ3VBNndlZkUzQnpC?=
+ =?utf-8?B?ckFiQU9SVzVqdWwvQXBCOGRtZHgvOXBKVHBRams2c1NObVEybEhqdSt4aDdX?=
+ =?utf-8?B?Y2V0dVNuU29jbHNiRVZBQ3Y0KzE1OG9RLy8reEk5eEhsZ1FmWFo3Vk9JNzlK?=
+ =?utf-8?B?ZzREcVhoSjRFY0wxQlRkVUNJbjNOLzgzRmRVN3Rhb1luQ2hKOXF4OEdBZWhL?=
+ =?utf-8?B?SnE4QzFqcUFEdzJHNzZ5VmZRbURMeDlCVGw5VnZyRGZwcHE4K0hmTk9QTUZH?=
+ =?utf-8?B?M2VLaEh2UWYyRWJDSWZqbXEwbGZ3QTQwSDYvTTJYSmdSTDg2STFhSkZ2eWVp?=
+ =?utf-8?B?VTB2Z0x6Y0I0djVlUGdrM3dNL0xOb0tHSkJhajNjQitDR2g3MzJwRGNlck90?=
+ =?utf-8?B?aVBTdmRZazN4VlM3SGxicXo0K0hEaXBkSW9DeDUxdm9vQmVuOWdEZnVhUHE2?=
+ =?utf-8?B?bktxMmFuR2E2b1VYcEhVQVJXbWRsN0d2NFNldDI3bmdsb0QvclhaU1JNVmNh?=
+ =?utf-8?B?T05sZTIwNUNJVkh0M2RHaUlKWEQyZVpIZncwemsxYVRlK1dHSlpHKyt0WEkr?=
+ =?utf-8?B?TUlFQmNMR2NoZFRlMnU1U1lVTk9vRGtGV3JpRXBZSldQdWg2OFpxNloxNmQx?=
+ =?utf-8?B?NDU3dWhac01CM2lvb1NXUnNFcm5FcHBlWHpqSXFsMjhMMDJUNzZnUHFIYXJJ?=
+ =?utf-8?B?QlVDN0dackxQOHBpYnJIYVZDUVEwN3hBZnM4VVdoOFFIbk1oQnN6Y2NoSHBp?=
+ =?utf-8?B?cE5UcnFiWHlpNS9iVk1RTWs4MnM4N3NkNUtuSkZ6My8rSHNkRE5VWnVIWTFH?=
+ =?utf-8?B?Rmk5Yi9RZXJKd2VQNDdINkpPVGVENjRISHBYc3V5SUtyZXZka21LV0hYRHUw?=
+ =?utf-8?B?SmtNczR0UFZiZngwMTdYRFdGaWpEd1YzVUJWSFczb1o2SzZqTW5EQ0ViRXhT?=
+ =?utf-8?B?NUFvd28ybjR5VnR2OWVUdGJDR2VUeTM2Tk1aTVdZZE8wUDJlRGd1eC9PclVi?=
+ =?utf-8?B?VEZ4dUZuL1pqWkl5TGdISXJETlhvYzhnVGdVTVlQUFMrY2svUSs2ZE5INytT?=
+ =?utf-8?B?SDRSSUw1Tjk3YjFTeFB4NVJHRUIzNUJqNFlIdTZOS0lrM1ppZVNHV29yUm01?=
+ =?utf-8?B?VEgyUVpiS3N1MXJUaGtnbE5WK245VlNzUWZBU2tLTUg5NythaWt5WHhJVXZG?=
+ =?utf-8?B?UUpjaTloYzVtdU94a0hmRURaNjdTYTlXWlRrNHh4aCs4enplQmZOajNTeko5?=
+ =?utf-8?B?NTB0bHYranNZVmRZbm5sWnFaZVBUaXVMY3gzdDBkekxMakZSRFFsMi9idGl3?=
+ =?utf-8?B?TGtYdlJmS1NWalNRY2xITm5KM2U3VlhIRVJDUlVoYno5eWtCTHZCOEVmdjEv?=
+ =?utf-8?B?ak1UU09sREFOVWdoT29zV3hBeFBXSm1IT2J3eUlQdDNwb1ZGd1UyRlV5TXNI?=
+ =?utf-8?B?RFNwYldsWWdoYTc1RmVjWmJDQ3JyUndpaDlmUDZLclk0dnhZUkNFazJBTFdT?=
+ =?utf-8?B?WVI0NmdrdDhiTmc5amxHaFloV0xETUxJV2xTdmN3QnlyVXl2RWxMQm1BMGR5?=
+ =?utf-8?B?M0NSeUttR2lUQmVLK0hzSnAwVFoxNE9EUWw2VXpON2YveDFXeUsrRHMrQkRM?=
+ =?utf-8?B?NEVITW5TeTRxMk84Qms3YitWWWxpV0grNmRpd3lEN09FRzRuNG9uT2NQS1Ju?=
+ =?utf-8?B?SU1mc2J3ekpPanZmSFdQTEMzQU9wR05Xa2UzRjZDMlFzUTRVYWpPVW5kMkN3?=
+ =?utf-8?B?SFExNG9YSE1VdnFBNk1VZDNJZllmM25BZEZGMXBGWGJwaUhjZ2dneHA5eVNG?=
+ =?utf-8?B?cmZudzJGcGdlcnpTNGZJOUpad3I3MXNLTVFlTG1OT0lQam9PcS92T1BHUHlD?=
+ =?utf-8?B?MVpYZVFjendLYWY4WXYxVWVuRWQrTjBYZFBXcUd3aWpYSHpMbDNpdWdiUlQv?=
+ =?utf-8?B?SklKYTh5ZFVINytldHhrSmY2cENxNE9SME85U0ZHOFB3dU9jdy9tdz09?=
+X-OriginatorOrg: deeproute.ai
+X-MS-Exchange-CrossTenant-Network-Message-Id: 99e5299c-8936-45a5-6434-08df3a728700
+X-MS-Exchange-CrossTenant-AuthSource: ZQZPR01MB0980.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 12:52:47.7578
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: df535b4a-68e6-4339-a092-afa4f2c24fcc
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5uf5BTD7NBUVWCjcZ7bvQBbWllp0XJqemTfZHv27GGa/SkEO04SBsLZtpawTyy5n+wU9x7Q0XL9Eb9N59+ecGY4AlQnop4rOxaco+BY0v98=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQZPR01MB1075
 
-Hi Alex, hi Atharva, hi all,
+The issue was found from a field observation in a PREEMPT_RT
+deployment: a receive path blocked for hundreds of milliseconds in
+prb_retire_current_block() waiting for blk_fill_in_prog_lock, which was
+held for read by a preempted packet copy. Manual code inspection found
+the same unconditional write_lock() in both the full-block and timer
+retirement paths.
 
-Alex, I'd like to withdraw my September v4 submission. I also don't support
-applying v5 as posted or the simplified patch you attached later in this
-thread. Please remove my Co-developed-by and Signed-off-by tags from both
-versions. I no longer think deferring UCLK is the right approach for the iMacs.
+I reproduced the ordering on QEMU ARM64 SMP PREEMPT_RT by delaying a
+copier after frame reservation. Without the patch, the second send
+blocks until the copier is released; with the patch, only that capture
+record is dropped, and the block is published after release.
 
-I also excluded the MacBookPro16,1 (020f) from v4 deliberately because a tester
-found that with deferred UCLK it still hung after login, as it does without the
-patch [1], which seems to fit André's PPTable diagnosis.
+I will include this in the commit message if a v4 is needed for other
+reasons.
 
-Since then, I've been working with Atharva to get his native-5K iMac support
-upstream. His patch initializes the display before the SMU, which has also
-prevented the boot failures without deferring UCLK. On my iMac20,1 (0218), 13
-of 20 warm boots failed with the upstream order; with display first, all 40
-boots passed [4]. Another tester reported one warm and one cold boot, both
-successful, on a 0219 [2]. On an iMac20,2 (021a), changing only the
-initialization order improved warm boot success from 11 out of 20 to 100 out of
-100 [3]. His patch only applies to the iMac20,1 and iMac20,2, so it doesn't fix
-the 16,1 either.
-
-I don't think the iMacs and the MacBookPro16,1 have the same problem. The
-iMacs fail while amdgpu is loading: the SMU stops responding to
-EnableAllSmuFeatures (message 6), and the probe fails with -62. With the
-display initialized first, the same message succeeds with UCLK included,
-and the iMac boots normally. The 16,1 loads amdgpu without errors and hangs
-later, after login, with or without deferred UCLK [1]. So deferring UCLK
-seems to help the iMacs only because it moves the enable after display
-init, and it doesn't help the MacBookPro16,1.
-
-I have prepared a draft patch with Atharva as author and me as co-developer,
-incorporating his review feedback. It combines display-first initialization and
-native 5120x2880 support through two tiled connectors with suspend/resume and
-display power-management changes. The current draft is here:
-
-https://github.com/edschofield/linux-t2-patches/blob/7273823e425200e9f371e9272e02ebf9abb6f1c2/7003-amdgpu-add-support-for-5K.patch
-
-This has passed some initial automated testing on my iMac20,1 but I need to do
-more testing and get Atharva's final review and sign-off.
-
-Alex, thanks for following up on the boot issue and checking with the Windows
-team.
-
-Best regards,
-Ed
-
-[1] https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5646139127
-[2] https://github.com/t2linux/wiki/issues/743#issuecomment-6083265811
-[3] https://github.com/t2linux/wiki/issues/743#issuecomment-6131809640
-[4] https://github.com/t2linux/wiki/issues/743#issuecomment-6163146905
+Thanks,
+Jingxuan
