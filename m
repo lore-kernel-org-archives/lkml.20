@@ -1,125 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.149.25
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793805852;
-	b=b5FRQRUYUhmZeWlNh8cFU1mSCsYnjFryaWZiR5zdsrF3tKCD128zY09XgpAkfd3BHne1
-	 HSdVAffGQWA45RdPhW3sLEB14+BI3WNLSTvF8hMYp6OKS2Miu6kpbl2V/aVnNQt6pFgK4
-	 vxkF0ShYvxe5X9peXcvb5tBJoXkDdQ5uOVx8k7oJN/cJEv8q0/BYo31IdbafyBZ7lEjqn
-	 DmTCeR6Kdihel91UnkEl7m6m7Y0wg20V0d7pYhseDEBUvT1LVAVenuis0w6Jm7dAKFCIs
-	 YYEX6luWkK6LbAJakhdzrIHGh5yRjB/LEiOeUlgC4jg8k0UWkR0va35aG6WjUsMpgeQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793805852;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:Content-Type:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Reason;
-	bh=3W95A5jeKjwn+pgkmtLTXn9deLfTD8GPcWArOrOzMVo=;
-	b=iJc0HggxBTHSiyoG14M94W6YGIH7slQb+1vevCm9uywbqthWiGLFNnA5gEq2QWEc3isR
-	 NVgCoRPvBbVDpNCMiB3t2eFdosHiXZbWjaRC2Bt3+qMKvJelwip1mHK0v2fYaIFNju/3y
-	 FUkQ56JUuDUfOb9TPTg2U1/5Dldl7Yt61MnZalkerphY0C3ul0bTPfy59elBhM5+iTDny
-	 m5MIMeB/VZOuf4AhycNHfScm4RAQLTgGzo8ecOgtEEzbqLuAPzXOvNvhrtr9VEP7jK5rV
-	 VclJqkW7lJsxjJNiBrMnesTod1kRx3vPI0lR4rrmCarn5n9kRrgCyntT9oSM/htSaVg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=opensource.cirrus.com;
-	spf=pass smtp.mailfrom=opensource.cirrus.com;
-	dkim=pass header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=QyTqxoay;
-	dkim=pass header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=BBCPj3e7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.149.25
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com [67.231.149.25])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793805893;
+	b=FXSuU6qmd29B9AoTkNGyq4FoqGFRNFXCCpHeHb7rI25KK2XDIBHrN7EZ55HWcJ/Sb2B4
+	 UZNORoW+RKNHSDroEZnfYO3zQNywi+0VspypIjPYUpsDQAIn0njLHBNukkczhixmw+AUs
+	 F0fwlfCFX+oyp3SZkTzi1cw2WadybpoE3NRrZ0ycI70ePMVofJn4wkh45U5eDxrFSZqot
+	 o7la1TpDKiobrhI+f4RtsWs37JaZMo1thVqjWKVb2xih+3iZow1xRct2oc5+rTj35L8fL
+	 WPc9BII5X5x0bgeaSzEC15zNj1H5LjGyFZ4k2P2gLFM00AfYWme7r0g2goNtOJ1gDbg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793805893;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=xpZkooV31y8XeCrxswSlMvlMuc9ffbe6HQ7JD8aBNwA=;
+	b=ZbAZBN0iiDPHGifue386Jo3P0Q8IkLbxc6qdho3dWfc6P41ZrYC7G16MxouJW4OPpH4m
+	 O5YnNcsy7yBs+SOMUZncoz/T+O98cWg8F0wcpWk1FzfShHJ/NJF3d90xErVKZwQtdLGua
+	 hxuftaRHyLk3Rp7+1VUEunv1+DHkfuyiEaT4XgjCAi8zpfdx1eGDTEsErThi0HZGcofSo
+	 vyb71cC50mvqmAI8XByEWScJ0Ann5CemjxT8yK6MZLZJN530FGRnbe7Rs8gc1AaWy0NkD
+	 OWV8alYrnJ2HpBX2VAHNrMdUEGLwsKSQvyjgy+80zt5KQzbkqVbbDgSmDCisuB9oJuQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dluzdfs9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97EDB606A31B;
-	Wed,  4 Nov 2026 15:24:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97EDB606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1BE2606A336;
+	Wed,  4 Nov 2026 15:24:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=QyTqxoay;
-	dkim=pass (1024-bit key, unprotected) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=BBCPj3e7
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4F7kZL3607450;
-	Wed, 4 Nov 2026 09:24:09 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=PODMain02222019; bh=3W95A5jeKjwn+pgk
-	mtLTXn9deLfTD8GPcWArOrOzMVo=; b=QyTqxoayclUNbdZh5l4clVzEXTmPthDR
-	/XdVvx77Jo4d081xJE96ns08hKXPOR0qk9e4zKw0OoYjYJMMbj8Vi34GS+cD3/7h
-	nogDQNhJGzn/SNB48CkvPs9E32MJJXno8hyl7eBrUA6Q896NsQv2VHLXaYt4siEb
-	G1KItzXTOeZkIF2vSVjmToIYYVUTGD+Za5Pi0gODMk1Qz0C8Wcy7s9AETKVBLxfc
-	FYuG6fLtSNzW9YOGGwg8mEpk8zB2byxeVOHLdbPQU9l4NctD2nA4t3lffGiYEk06
-	wpS36Rtcic9lG9pS/b36wrq13E0x4RIkJPlozPqDweW01WoBoiAXTQ==
-Received: from ph8pr06cu001.outbound.protection.outlook.com (mail-westus3azon11022072.outbound.protection.outlook.com [40.107.209.72])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 4hndrfdfta-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 09:24:09 -0600 (CST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jaHq15jt9YK1F0FH7PiddZFj1t/QIdl1mh9UTHJkGBZE5SqjbIGgrw9PAGrtO3PkHjnipYRqaXWc9q0IoZU51C3QH7CcwM3WY77iWIM6Bb8TLApIfbZ/nllngYyaadbptkgVltcRFCOuM4kb1gBVVkT0pJdxGmyH//FxTp5yEFiDqEIHcN4oqV9els8cfbIfBo353lhzGrAMl3jhmGSDker7v/2FIeMKc0kAKEbDRCm5zIVG2CV7FWj0n/PRMwjpAs8l1u5OqJ1CcsYnrh2caLYbUy1n9m6ecPFibOG39JKmeWcgLY/fbVGeQ4TvrbqToVlEnC98V2lkzoolcI1MlQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3W95A5jeKjwn+pgkmtLTXn9deLfTD8GPcWArOrOzMVo=;
- b=I5oHpNz+acGQ1S1oRZsCIhIB+1J7jt7d6MwHyyeGkOf4m1z1il9Ewsir8I0Pt9Nn9/v/8JQFdiaOrdR4PWUaaUgWOa0tB241Kcc4ln7OW49FcsEc0laDjWfRiWEf/1PIjscsjK8Yo1Rd+P3x2LBFofsmtYKbgTadacJyu4NwPcLwQ3MaD08HuLVtQZnT3PCjd2mcxHsqpys8Ndot9LYn8at6UodCzi0UZxPDvFGlVd8aRAsXVZtQZWNhzV7oz+3njx5A1TmLBrVL6yvZmX/O98KjtNas27b29ShWxpJPLBL0knxLhjRfLAOIuvFPJCcQXu4jJekp7Q+H7nKGUhieJA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=cirrus.com
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3W95A5jeKjwn+pgkmtLTXn9deLfTD8GPcWArOrOzMVo=;
- b=BBCPj3e7hjer2mnfdzZKjW1J2bf3zfeaHkUrsnGVtuvDPbt1crkbtjZbBGdSomrtRUMgt7oRTDj7VWQ7LNKGLE6hI8CBD06OlQ+8B8T6Xd1Ms3zmraPR5gvpHszVri9QlQqPyKyQm8lJtV6r4X9CrdugfXoy605UR2Vg3LhRyqA=
-Received: from BN9PR03CA0636.namprd03.prod.outlook.com (2603:10b6:408:13b::11)
- by CH4PR19MB813067.namprd19.prod.outlook.com (2603:10b6:610:506::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Wed, 4 Nov
- 2026 15:24:05 +0000
-Received: from BN7PEPF0000009C.namprd04.prod.outlook.com
- (2603:10b6:408:13b:cafe::88) by BN9PR03CA0636.outlook.office365.com
- (2603:10b6:408:13b::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.9 via Frontend Transport; Wed, 4
- Nov 2026 15:24:05 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
- IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
- not signed) header.d=none;dmarc=fail action=oreject
- header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- BN7PEPF0000009C.mail.protection.outlook.com (10.167.248.148) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.5
- via Frontend Transport; Wed, 4 Nov 2026 15:24:03 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id D4E81406544;
-	Wed,  4 Nov 2026 15:24:02 +0000 (UTC)
-Received: from ediswws06.ad.cirrus.com (ediswws06.ad.cirrus.com [198.90.208.11])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id C642F82026C;
-	Wed,  4 Nov 2026 15:24:02 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: broonie@kernel.org
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
-        patches@opensource.cirrus.com
-Subject: [PATCH] firmware: cs_dsp: Fix memory leak on cs_dsp_power_up() error path
-Date: Wed,  4 Nov 2026 15:24:02 +0000
-Message-ID: <20261104152402.1153795-1-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dluzdfs9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A4271F000C1;
+	Wed,  4 Nov 2026 15:24:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793805892;
+	bh=xpZkooV31y8XeCrxswSlMvlMuc9ffbe6HQ7JD8aBNwA=;
+	h=From:Date:Subject:To:Cc;
+	b=Dluzdfs9L2wE9P6kJ8u3S7So+Wa12RoDecC2qIGFtqJKUMxGYlm0Y0Tb9ynQqPMHN
+	 H1AFLZ0iFTNYFg+SKOnLp/G6gWiFQMLjxU/tytKC+yEULZLGKg/tUr+HpGbwqqVK3p
+	 857YoIRR5TeHyqMkN0tdNA6yHf5jzc7QahpH/z6F2H3vljc/9ArOPGESK45WB57iiK
+	 8Pp1zltll/KlQxPKY0d3IWHXgNek2PJDRGVSABUQOk2SsUeyuoXoHGYo5RzdhEztQU
+	 /aD6oQ4u7K8G1BK+dRcslqFGlDJiqL/PTidu3GeGRoFgRVHFQ8BvcCBiplJbmPq0pS
+	 xA5mbEgoHFNqw==
+From: Mattijs Korpershoek <mkorpershoek@kernel.org>
+Date: Wed, 04 Nov 2026 16:24:46 +0100
+Subject: [PATCH] media: ti: j721e-csi2rx: Stop DMA on failure in
+ sd_enable_streams()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,89 +53,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF0000009C:EE_|CH4PR19MB813067:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 5d8a2b29-21c6-435c-f644-08df3a87a8fa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|61400799027|36860700016|82310400026|11063799006|261021121427099003|261009223027099003|56012099006|261028144727099003|261022105027099003|261102123227099003|261026140227099003|10067099003|18002099003|16102099003;
-X-Microsoft-Antispam-Message-Info:
-	WN5+HQRtSn0co3N8ecYZUfTMeJoA/xY49O6tAJHdHxVtcSIL28bhaxIIgVaLIIc07oqpoYPLBwh/xC8d7+4ybvJ4rouuIACqeNwxknIe76QP8fvNy7aXKE9/Y1j/m8vkV8iZDTUNwbRhBxd+QotXreoWVLYz9u/CapslN95e/y+r/DMAX4vfkkCoDQ309qT4/NC1ygefZ7vY2n8HmH40jfFS3+sgxWv5iMqxCcgzOWJOPxzJXvhcq2iYoeDWrKwwk6VDCmXZPhgfovpQTR9nvBFvmehu/pDXf1/eukGn86/3zuUlQFREOcmm5P+n7Iqao/1YfdP4JMk7vOrr7qqB7ffHAFrVy70uJ8lo3WV4KDXOrjevW6mOIDbVUxmAB9n4ZTfsZJsrW6vUNlzTPqQJZP70C0WpEYIQEPL2v4V81B9pd4cgsi2IuLK0XdCB5kdVVzkdV49MHHZ5Sm/qvjUbhQHeSnazPJXfSf+4Bftvd9WYkPffIF8bRU91rrae4fIfwMbFH6eogcioyX5dSGxZ50ktQsCD2aUMReQ3lDcv6wpvetNm2chZceg6QhXZPKsOgBKYROvvF3G05kGQf0C21OG3s3D+TfpXopf1bTyQu/QWFkB43tlPHg/wE5bS4CNcjNweg3k9uJMFWMiXcl8JmSnTszDeuV0qwFmuONkNeQt7tirr2jWWxTCFrfSrxP9jX3k2JX1hM+7P8m3OkuoAuQ==
-X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(61400799027)(36860700016)(82310400026)(11063799006)(261021121427099003)(261009223027099003)(56012099006)(261028144727099003)(261022105027099003)(261102123227099003)(261026140227099003)(10067099003)(18002099003)(16102099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	lfy/OVrPWGxAIxKv82mPaG0e3JpxHOV/LA88Qi7ddIHuYhhpQ5HenxLd0noMAjkIv1uJ7yGulRHEdekRmqMPmxJGmeFnzaY7DgwiBMqTV2Z6hbuYFuY3s2zBlcbbh68kyV0ZZp9nR0OU+SszZBCwLmZBdq1ovOKtVOXdwANhlbngpZa1Od37at4BWYgknFlhExM0XCCceZZ5fulAwucxW4HiXBi71jKem8sb1lU72YsSmk67v74n90wDhgYjSqwbkgu00+cGKhkeHik2KoPCbhaNEtQAAKnFkXGsj9rSndOQiGEhHw4glcc4UARPCOeP4PZ9sFn+lhnIgBjd20NCRi1jTGbFxNaZ2/fMMsKOmeFU+qc23ghHySybu4e59kZhyuWJKZ69nlcKKjiqxnt37sDS12zhs4RdNywxk8VXzaINDzrBNWTqZfn93EXxb/he
-X-Exchange-RoutingPolicyChecked:
-	Bza71QwM3ylO5c+7Vm7l+h8dQwbP8aYWQyN4b+46upT/YqdvCDNqvjNrROlQ1JgUymKg2tI3omCkR5QK4zbuiqMy15HSAFH9y2c+62FEAqL43peq7efxLhDIQrAKkubk/HDGJLD0JN/1IUVrJKtBzFmh3BmxjAjopJCF3pRek/9bbzBl+XiGhCq5SvEzL9ux+6zmJOtB64wIGX7VUj6f1klN49TmDwo/Djwx3kEiqau8vRNwiMwUPfk+qbDyaJPgCAB6XmLfydN9J5SuzHKbx6mi48+xy/IEdZ1j6QKLYkl7Da4rSWIY+HsL8J/ecX9Ik4+EustiSo0jmCvbx+BGXg==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 15:24:03.7782
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5d8a2b29-21c6-435c-f644-08df3a87a8fa
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-BN7PEPF0000009C.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR19MB813067
-X-Proofpoint-GUID: xuje7uME3PXQQ_U0FZD-5riLOFYmp4vN
-X-Authority-Analysis: v=2.4 cv=HMRWhYtv c=1 sm=1 tr=0 ts=6aeb4e19 cx=c_pps
- a=8rtS5N/ibwcsmpvebatIkg==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=zJRp6_cAMcgA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=Dj2-6B8FqX4mGL0U3gbX:22
- a=w1d2syhTAAAA:8 a=EuiA1CtSSRQH3ZlJBMgA:9
-X-Proofpoint-ORIG-GUID: xuje7uME3PXQQ_U0FZD-5riLOFYmp4vN
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA2MSBTYWx0ZWRfXxmwT9LR3dVfq
- SJa8x7S5f8s93DrOCMirfhGI9q1HX1FVVzTWX5qqcvOl1Nxb2EJsHn02a3SnmgG4BAVrHdXFxsn
- Yv56T57ISgLhies+m5tilsRd1Ctz5ALfsAK0X7Y5o3Xj+pZBEplVWmve521wP9ArYjiwavLJHQC
- xdOXzK/FF40fbBpGrc+8ei+SD+1eKGaBuB9NS1ueSLANMD6kB2DDWWJymUZPI5ivXwPmcJ+71C0
- RnOuVSU1tcoGoe09mPV4p6gNf95BA+WM7UnrOgcXrH8P/4nU+/9KDtRNVOLYp+qGh4wh+9yjBxH
- FBn9vN4RsCB8Iwc8UOw7G/99dxrlqAoF+B1IZc/YliucQ/QwKaQpyb4WMQNoz6MKH03qXo2LHUs
- 0D7KcBWp8UkJEQwcwkFufBUqQn8EX/AJ/o1DG6qMJ/UVpAXPBuN49Fl/AsGfZz/gCDfhbgQ7NWA
- WAoQjR7CW9hYPTNlrVQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA2MSBTYWx0ZWRfX8t/9ClDnByAO
- yzKvNslKIxQDIb5+AwTbWHCapRFHimyRj+RsheZy+/1n58n/vLD4rNOavkePTuXoh+DJB7/KV4d
- bkFY4BkbPyWfWZa9/JTtvR92cQrne4Q=
-X-Proofpoint-Spam-Reason: safe
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-j721e-csi2rx-crash-sd-enable-streams-v1-1-b77ee38c8dcf@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNQQrCQAxG4auUrA10hqLiVcRFOvNrU3SUpJVC6
+ d0ddflt3lvJYQqnU7OS4a2uz1IRdg2lQcoNrLmaYhv3IbQdj4cYwMk12sLJxAf2zCjS38E+GeT
+ hLPkoUZC7FHqqqZfhqstvc7787XM/Ik3fNm3bB7FjH/+IAAAA
+X-Change-ID: 20261104-j721e-csi2rx-crash-sd-enable-streams-ad8a2aed4c1b
+To: Jai Luthra <jai.luthra@linux.dev>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Yemike Abhilash Chandra <y-abhilashchandra@ti.com>, 
+ Pratyush Yadav <p.yadav@ti.com>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Rishikesh Donadkar <r-donadkar@ti.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Mattijs Korpershoek <mkorpershoek@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6163;
+ i=mkorpershoek@kernel.org; h=from:subject:message-id;
+ bh=vaFSgLWR4VxgiWznyRDzEbr536UF8X1OdAEsBfl4+yA=;
+ b=owEBbQGS/pANAwAKARkNHbRmThk1AcsmYgBq605CKigSmyGXozsXv11fBKdnSV/lhTck7bG8S
+ 2RbNUuQXwmJATMEAAEKAB0WIQQu6UKnth9qvlMTrQAZDR20Zk4ZNQUCautOQgAKCRAZDR20Zk4Z
+ NfYAB/9YA8+VNfWtj/VdNJAzlpnPg66FuVRg57QpqiVlnIzbW+kfjEBkkFUqtIFMJa70AR1uNW9
+ nOJ8BniCINdl7mNN8ssDTycEccp5hQIV8BlpWouOwVXywTsgNKZ3EaASvSlXVKx2zMKtcH+Fvxj
+ ZVUyIBNaM8USxvlJQvlBgdlPtj4dlLASnPaPa6C+WZm7lwKtKPxUkDnhpmoHSQQVNw4xiy2Up9a
+ Zj7mwKK3ftiZQZn/cZidGH0x7DadVKhxTdXRAJlkL4OaUa3RAIhOW1Qjj0O1ZobOkJwI/7M8qOM
+ 8uNOSsW0B1XMRyS8KSewzrb2LQ0GaS18+M4diE8634u7P03Z
+X-Developer-Key: i=mkorpershoek@kernel.org; a=openpgp;
+ fpr=8234A35B45C0D26B31C1A2DA570338B018144F28
 
-If cs_dsp_power_up() fails on or after cs_dsp_load() mark the controls
-disabled and free the alg regions.
+ti_csi2rx_sd_enable_streams() configures some hardware
+resources (PIX_RST and shim). It also marks the DMA as active.
 
-Fixes: f6bc909e7673c ("firmware: cs_dsp: add driver to support firmware loading on Cirrus Logic DSPs")
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+When v4l2_subdev_enable_streams() fails in that function, an early
+return is done without cleaning up these resources.
+This crashes the kernel when the buffer gets unmapped later:
+
+Unable to start streaming: Link has been severed (67).
+[ 4492.749621] Unable to handle kernel paging request at virtual address fffffdffd829c388
+[ 4492.762081] Mem abort info:
+[ 4492.764862]   ESR = 0x0000000096000006
+[ 4492.768606]   EC = 0x25: DABT (current EL), IL = 32 bits
+[ 4492.773913]   SET = 0, FnV = 0
+[ 4492.776956]   EA = 0, S1PTW = 0
+[ 4492.780090]   FSC = 0x06: level 2 translation fault
+[ 4492.784959] Data abort info:
+[ 4492.787835]   ISV = 0, ISS = 0x00000006, ISS2 = 0x00000000
+[ 4492.793311]   CM = 0, WnR = 0, TnD = 0, TagAccess = 0
+[ 4492.798359]   GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
+[ 4492.803663] swapper pgtable: 4k pages, 48-bit VAs, pgdp=0000000c58227000
+[ 4492.810358] [fffffdffd829c388] pgd=0000000000000000, p4d=1000000ffbf4f403, pud=1000000ffbf4e403, pmd=0000000000000000
+[ 4492.820959] Internal error: Oops: 0000000096000006 [#1]  SMP
+[ 4492.826602] Modules linked in: imx219 v4l2_cci ds90ub953 mux_gpio j721e_csi2rx ds90ub960 cdns_csi2rx wave5 videobuf2_dma_contig videobuf2_memops v4l2_fwnode v4l2_mem2mem videobuf2_v4l2 videobuf2_common v4l2_async at24 m_can_platform videodev k3_j72xx_bandgap ti_k3_dsp_remoteproc mc m_can can_dev mc_evbase i2c_atr
+onboard_usb_dev fuse zram zsmalloc rpmsg_ctrl rpmsg_char cdns display_connector omap_hwspinlock ti_k3_r5_remoteproc phy_can_transceiver tidss ti_k3_common omap_mailbox drm_client_lib drm_dma_helper cdns_mhdp8546 ti_tfp410 drm_display_helper drm_kms_helper cec sa2ul cdns_dphy_rx drm cdns3_ti rti_wdt drm_panel_orientat
+ion_quirks backlight dm_mirror dm_region_hash dm_log dm_mod
+[ 4492.887132] CPU: 3 UID: 0 PID: 1457 Comm: yavta Not tainted 7.2.0-rc1-00371-g40ef2669cb4a #86 PREEMPT
+[ 4492.896417] Hardware name: ti Texas Instruments AM69 SK/Texas Instruments AM69 SK, BIOS 2027.01-rc1-00132-gee9fc27f2a2a 01/01/2027
+[ 4492.908128] pstate: 80000005 (Nzcv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[ 4492.915071] pc : __zap_vma_range+0x5c8/0x1500
+[ 4492.919427] lr : __zap_vma_range+0x5bc/0x1500
+[ 4492.923770] sp : ffff800087c438e0
+[ 4492.927070] x29: ffff800087c439e0 x28: ffff800087c43aa8 x27: 0000ffffb720c000
+[ 4492.934189] x26: ffff00080dfd2060 x25: fffffdffd829c380 x24: ffff00080dfd2060
+[ 4492.941307] x23: 000000068a70efc3 x22: 0000ffffb720c000 x21: 0000000000000000
+[ 4492.948427] x20: ffff800087c43a58 x19: 0000ffffb72f9000 x18: 0000000000000000
+[ 4492.955545] x17: 0000000000000000 x16: 0000000000000000 x15: 0000ffffb72f9000
+[ 4492.962663] x14: 0000000000000000 x13: 0000ffffb7eacfff x12: 0000ffffb70fe000
+[ 4492.969781] x11: 0000ffffb7ea1fff x10: 0000ffffb7e9ffff x9 : 0000ffffb7ed9fff
+[ 4492.976899] x8 : ffff800087c43b28 x7 : 0000000000000000 x6 : ffff00080a621dc8
+[ 4492.984018] x5 : 0000ffffb720c000 x4 : 0000000000ffffff x3 : 00000000000000ed
+[ 4492.991137] x2 : 000000068a70efc3 x1 : ffffc1ffc0000000 x0 : fffffdffd829c380
+[ 4492.998255] Call trace:
+[ 4493.000690]  __zap_vma_range+0x5c8/0x1500 (P)
+[ 4493.005035]  unmap_vmas+0x54/0x11c
+[ 4493.008426]  unmap_region+0x84/0xe0
+[ 4493.011903]  vms_complete_munmap_vmas+0xec/0x1e0
+[ 4493.016506]  do_vmi_align_munmap+0x164/0x1a0
+[ 4493.020761]  do_vmi_munmap+0xa8/0x160
+[ 4493.024411]  __vm_munmap+0xa8/0x130
+[ 4493.027887]  __arm64_sys_munmap+0x20/0x3c
+[ 4493.031883]  invoke_syscall.constprop.0+0x40/0x108
+[ 4493.036662]  el0_svc_common.constprop.0+0x38/0xd8
+[ 4493.041351]  do_el0_svc+0x1c/0x28
+[ 4493.044653]  el0_svc+0x20/0x78
+[ 4493.047700]  el0t_64_sync_handler+0xa0/0xe4
+[ 4493.051870]  el0t_64_sync+0x198/0x19c
+[ 4493.055522] Code: 97fffe63 b94013e3 aa0003f9 b4002d40 (f9400400)
+[ 4493.061597] ---[ end trace 0000000000000000 ]---
+[ 4493.066226] note: yavta[1457] exited with preempt_count 1
+[ 4493.071790] ------------[ cut here ]------------
+
+Implement proper clean-up on error handling to avoid this crash.
+Also fix the error handling for media_entity_remote_source_pad_unique().
+
+Fixes: 3ed9c0a1fdba ("media: ti: j721e-csi2rx: add multistream support")
+Signed-off-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
 ---
- drivers/firmware/cirrus/cs_dsp.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+This can be reproduced on TI AM69-SK with the Arducam FPD V3Link using
+2 cameras:
 
-diff --git a/drivers/firmware/cirrus/cs_dsp.c b/drivers/firmware/cirrus/cs_dsp.c
-index 844c68036975f..4dcce87685d33 100644
---- a/drivers/firmware/cirrus/cs_dsp.c
-+++ b/drivers/firmware/cirrus/cs_dsp.c
-@@ -2793,6 +2793,7 @@ int cs_dsp_power_up(struct cs_dsp *dsp,
- 		    const struct firmware *coeff_firmware, const char *coeff_filename,
- 		    const char *fw_name)
- {
-+	struct cs_dsp_coeff_ctl *ctl;
- 	int ret;
+- Configure routing/pixel formats
+- Disconnect one camera sensor
+- Start a stream using yavta
+---
+ drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
+index 022ea3d616c9..865562fa5ec8 100644
+--- a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
++++ b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
+@@ -1208,8 +1208,10 @@ static int ti_csi2rx_sd_enable_streams(struct v4l2_subdev *sd,
+ 	spin_unlock_irqrestore(&dma->lock, flags);
  
- 	mutex_lock(&dsp->pwr_lock);
-@@ -2838,6 +2839,11 @@ int cs_dsp_power_up(struct cs_dsp *dsp,
+ 	remote_pad = media_entity_remote_source_pad_unique(&csi->subdev.entity);
+-	if (IS_ERR(remote_pad))
+-		return PTR_ERR(remote_pad);
++	if (IS_ERR(remote_pad)) {
++		ret = PTR_ERR(remote_pad);
++		goto err_dma;
++	}
+ 	sink_streams = v4l2_subdev_state_xlate_streams(state, pad,
+ 						       TI_CSI2RX_PAD_SINK,
+ 						       &streams_mask);
+@@ -1217,11 +1219,19 @@ static int ti_csi2rx_sd_enable_streams(struct v4l2_subdev *sd,
+ 	ret = v4l2_subdev_enable_streams(csi->source, remote_pad->index,
+ 					 sink_streams);
+ 	if (ret)
+-		return ret;
++		goto err_dma;
+ 
+ 	csi->enable_count++;
  
  	return 0;
- err_ena:
-+	list_for_each_entry(ctl, &dsp->ctl_list, list)
-+		ctl->enabled = 0;
 +
-+	cs_dsp_free_alg_regions(dsp);
++err_dma:
++	ti_csi2rx_stop_dma(ctx);
++	writel(0, csi->shim + SHIM_DMACNTX(ctx->idx));
++	if (!csi->enable_count)
++		writel(0, csi->shim + SHIM_CNTL);
 +
- 	if (dsp->ops->disable_core)
- 		dsp->ops->disable_core(dsp);
- err_mem:
--- 
-2.47.3
++	return ret;
+ }
+ 
+ static int ti_csi2rx_sd_disable_streams(struct v4l2_subdev *sd,
+
+---
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+change-id: 20261104-j721e-csi2rx-crash-sd-enable-streams-ad8a2aed4c1b
+
+Best regards,
+--  
+Mattijs Korpershoek <mkorpershoek@kernel.org>
 
