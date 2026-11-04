@@ -1,101 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793830294;
-	b=uuVF3mA4E88FdVXAqDfLXcTxVe0Dih0FP17XmR+jO+o4nHxb5oOtzJslX6sn3NLdufV4
-	 8I0fqEbW3rF1LwwJiBkd9gUvZFhfdCDoY2wpILOl8XW5Cc5oHT9u71jaMz52+3vktCMvw
-	 2lL4u0rwq8C3+4jCbBxIlZXO8HSvNySZX0f3HdDASPduJ/a+tcbo8IOVkFjnrtlsEPU5E
-	 6hXMd3dN9q2PDZmy3UZ7M5uBY/URLiEUFM0Da4To8dPrzxyfOsHWqQDuvBeYTRnAOghwV
-	 O6cveL+RLj5IgxcqVetNNJMv5qTTDYEAs9mKdv/OtJ9vKHWPWWj74alFPWyKPtlipdw==
+	t=1793830319;
+	b=L5vo0tREkAoWj3rKKjvdJ4ylFNRUZCrRP2wHtDib1DNZSPya+tlbicXaQrVsNPll4J7m
+	 xFbfQEW3V7nHqgtgthuI1bLWyvkOtc/5V4ViXOmebP862CTZp5fS4hc8Pls25g2QX2HJa
+	 y2GdSu1cTvlX0s21XmUsOwqKp5kId5ZuJPuiAj8KmFdiTQNOKoMSul5sewdt3BFbVVUzb
+	 2vbxlK2MBKLa0O8GSPPaA8AqZj/ht69xJMPMrJgNKtYGJPlhuxeV68EjK9lLPbARJx3tg
+	 u6w/HJNFdHnLO3jupjxK4bMboBRlxpz0TP+pBHtMWa+4CV4gpvw0zirQxMXsc/Q7MLg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793830294;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=EGlBiCE9y1aipHpdTJ2cp7Guo9/hRSALY5Dt5GVDzPI=;
-	b=xfO5SgwwPSZLLZRmMIEljwMVzV7VR+3TDzSCHE8R+qUzaZXpbIGdzN2vYnciiNZH3l7V
-	 560aggUELzwLm7SaY99MY2U74qPPp09e4CrhuM1QEDVPqOcoi6kda2gouk619XFiqTsH4
-	 fhrYq3RObVakBV+2PcwAZTazyT9W3Ua+55UF9tFRMfrBxjy1ApdL5JSCzmX2iYHKgjsHw
-	 oCm9IA27aDACYqhXz3UvY+ObbVxKBan8SnxIUkbW3/8N+1R/VINlTHbanIWAwfHGyc4xS
-	 RzYhEqZBwGHigGjjNpjucxGYIwwih9aEdkmJ/hq3cSoh1mYlFjU+CfA42rASXOknttQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793830319;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:Reply-To:From:Date:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=eiT1btz924HjQNzzWl70B3xvzB6Cqt62IjRgfUiOL4Y=;
+	b=BNB0mfVoG2CKKf/BOZ1RewRRRGvboYy7NzL0ra9EfxYHyTncoH77tA8exW1ZYCj230Bz
+	 n+G4u3mSDc4lu+1/tkxMReguEVEguM40CQS4N0bqToxXyZzqNuO2L4yxngNQ4tWlnWDXx
+	 +JKGVGTeGFHTJK+qz03ef/fXXc//7r8p4IlBf1S8UwTCiGUonKlPE7NWbWpPkuhubgPX5
+	 vb6kQsuH3NJ3uFheywpyDBmprgVaAf/wdPCuXGUxYAICafubcu1fR/ksu6rmwLMoVNkFl
+	 15rafKOceY/4oN112V7h4Vo1A28bF8tri7mkfuAtHU5Emfky1USSj/4joz5PHoRmUjQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uBBDdSja;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=h70xA2I1;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QnfmsgFU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AFA8606A33D
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:11:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AFA8606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C40606A336
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:11:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54C40606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uBBDdSja
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b1d8944cb0so1921878a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:11:33 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793830292; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=h70xA2I1;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QnfmsgFU
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4LiOxw2828735
+	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 22:11:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:to; s=
+	qcppdkim1; bh=eiT1btz924HjQNzzWl70B3xvzB6Cqt62IjRgfUiOL4Y=; b=h7
+	0xA2I1xOUhDBkTTwFd3Y2vgiA3FBpt8z0GVTxo5Z80TEHVxaIdPqt50JXBrFoFw4
+	+YhsMcPobW7taryWOxNEkhkusXUyIv4SOjBq9JwJDKMCvlJn3eDTdFUDIJp+seHH
+	jzBPDEV+a+yyLz//eNdZ4wO2XNMroQjPZv3WVbXlqyUC+osDrBP9moQwgu2eVOw/
+	ji1SVFa4f1GADGy9FBZ9eSxZnZqopFznMAfgIC7XF4Ms/Pl05P1aiZO1Byqr6UVW
+	4X7RSomoUm0190v1+hFRbfa7JT9g1w43gABb6WtelVG7zjGzyyqaD/+I6+kg4oL9
+	5BAC0jq6OgjIJ4SGlCpQ==
+Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr284u1jj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 22:11:58 +0000 (GMT)
+Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6dd1142710fso2117104eaf.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:11:58 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793830316; cv=none;
         d=google.com; s=arc-20260327;
-        b=eu02tz1UrC5ruPhSOJ9kNXy8WHC6VcTLrth3dx6P0gRqzArBf+qR9p4vmLK1/Vbj0N
-         XIQBrNJvM9dJniNnrq+N70BC7i2Fu4//BaAiWi9FvX91REefLWnURrN+GaLLBeKCcryM
-         69SPVB2BVBDXF6HTBa6+cb6qhtB4mSJ2ZFBJMCwcq1IlEOl9fViyfX3EmDkjl9XJPVLE
-         /XjynThl8Ja6fT+bMGNxUZntcWD3MVUnql+pfzNqA5mM5NWoOKqFAPWHJgkxtW4bZNKp
-         TN5ga0LZHixkzSyYHBFDhm+NnOw668vTBVLYwEFE2SE+8qgvhPuFCBqiw4CRjh0NGQwb
-         AYYA==
+        b=TEsuoQC1+lGJe9hY58Y2t8USdw209cuXluN9DbHkGX6z5034MRpbNX5ZFJ+nHxqwsy
+         NZfbGU/5ti3ymynMCBQ46lVEO93tTyV0ERRF5YmLDLfyvfOzueJov4kc1G0/ikoE7F0D
+         UhM6roVGX32EZ40/6CqdF/ULC4yjMiqHjmWn+rsmn0fCfmlOjv7rokoHJclgsy/0hjVN
+         JKPTqNmJ1qrnMDX9y9yeL6UMMXtMLvp5nJDKGgkknvXt9mWQIJkuIBZnCMRZiax3cW26
+         bNLPXcSr8sECLyxqcOXKVqXfKjudSpefyqSiD2skkRL1qRVpTCiFfFE1R7ru7tSt0U+1
+         PQ2g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=EGlBiCE9y1aipHpdTJ2cp7Guo9/hRSALY5Dt5GVDzPI=;
-        fh=aykuR80Tyxx1Bh6Wgjnh/bNu7IR7XE7MZqQX0SrlHOs=;
-        b=JhWfNlv0zA24OBLc0AyyFsUpjGOl6U3fHOCUK5v4FKGVuZY1erG9rQVdM+ckU4FqOt
-         ZevKHZyLmnPuu3H/g4Mj/XPr+1NZLp+/B+V7RoY+SLj8KKanIpUjga+zTAceoTTDs5Lh
-         YP12dkwp1Avg50WQKvRt/ZWI0YPOT7atuTUkECkQByp1DOb1gdBAPnq3xklALSjAbNgP
-         hJ5cmvPQprd0oAX1/+5cQyZbrbdN3VAwohT48IXdhmO9zT4VMaAE+16sXb7BGR5Rp+6G
-         V0aCsPPz5uZopRvYjXGVCmtoGj4Os/JcXBBG+j4molTN1NwR3wujZOjgUzQcx0RH05og
-         F5RA==;
+         :reply-to:in-reply-to:references:mime-version:dkim-signature;
+        bh=eiT1btz924HjQNzzWl70B3xvzB6Cqt62IjRgfUiOL4Y=;
+        fh=8wDKH27HKmy9z7G02T4ZMGKXHf7SJoZJDyG96E7gZIg=;
+        b=IkMlFBfEXOLNj4eoqYPCjCR3NNIiiJgg8021Wjth/sFQCpTVJQhIVSgLQ/bvWV5SUB
+         w6jtduuXbViXWQE5WSZiLIijZfHXLiuPSHk7q3yCWQDcfxs4Sqye7bm/htY3bUb+qRJI
+         4DUvf933gHp9CgjaBf3U2unKGPyb49Hej9xSASIOpYIv6iZqYjt+4RFRYU8Q09E6dIgS
+         yeyjzehpZw+N6V7K8fsOhPjrMsYWSZ1hDjtDXVQXNnyGr4+TiBAnFlv6TMpWJaaUx+zV
+         xzHVQyeFKpUC2163yyyLnqf+ha/b2mx2orzFZLSr//B8y5NnwCXND+H6ZQb0RbyBWd8S
+         ccqA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793830292; x=1794435092; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793830316; x=1794435116; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EGlBiCE9y1aipHpdTJ2cp7Guo9/hRSALY5Dt5GVDzPI=;
-        b=uBBDdSja+STCfVqALRK7rclaXxEKAivtHrRY6liSZxvT4tW2UPkEnpTCB9YUAZHAyy
-         yh6jK4sh5jG18piBsbOxg5fyHPXBvpFlczChcjTBd0m0dPn+vMeBIZYJ/4Jwu8mpGUma
-         0diqU+KkvF94+LJBH3k6F1qIGczNqSkkBaf2J7n0CTFAI/8+wqAej4CW551XZ1jy/bld
-         yPe61/ZgQ0SDAyFpkNttxP+6vKUZpWiA6TS8hAT+Htr+YN5aTMyHCBUls4X4DkPrK83o
-         9yX4C1JDEGBC7KsU6hWj2S7hH+rMIgFPDotvoxkUffRts2/kCj4769B57sgubzV7iSd5
-         M3zw==
+         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=eiT1btz924HjQNzzWl70B3xvzB6Cqt62IjRgfUiOL4Y=;
+        b=QnfmsgFUjMlff8nr6ZBqL6J3ZKh1gtmaQQ/Is1qws8uLXJ8fGrbnlyPy4U1EbYGCAj
+         OZaxUKJsfq4UA3rObUonLn2IT8zEZm5h8QxSSydV3VGOU+NGhkmM86/rbiP8z4F4JoLf
+         UoomRDMUhmr3c2cySC1AkVfa0oSBXevqQs1aqdoMWuPMnVINlVjI23IiNetm9YUw3Qx+
+         eSrKeb0q2W41OkyZbg/lLhqYJUYV40UDJi01R8nyhNoXp9PRqflppKXIRTtG2QQcKaGw
+         3iKKSmosibd1vrc27DQvu1onA11STrMBl9TaFyiWKJxq2yxbhjpZc0GWZF8I94YhEDDd
+         WBog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793830292; x=1794435092;
+        d=1e100.net; s=20260707; t=1793830316; x=1794435116;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EGlBiCE9y1aipHpdTJ2cp7Guo9/hRSALY5Dt5GVDzPI=;
-        b=SA5+scT32c3HUnDigw/QWoGLPoZzcibdxRgVX0fpON602QaSXPX6gh3/qGp1oputZZ
-         mwJmrmfq1nwbnHy7nuvUvOSyK5nZccBIq5g+lAT5L/Nqw3sFJFlxVh4er1n3Ep1B0gst
-         oIaKDnjbW3T6DjrBKHte8XfxEFWVa0T1T2cX4sUlVkL2sAxfPH9P4YwKU3eSuq36c9Ir
-         dAnbkGeSd5enWQxmUJJotnrZ5qUviwZcrP7+Hee8uffup4NRxO3rd1kWWyBDQPylshpF
-         I62qxFL1EVC1WrOcaqAyO+fR+P1+gKgTRLsyV8SeGHx1IvrAPsOyVYd3F7BmcmNLfjFe
-         pFPw==
-X-Forwarded-Encrypted: i=1; AKwUvBxyP17XPb3OJmaBIB+y5sZpuvZ/rYNMDJhXlUjoLsb/qyfFnUKlfXgnW+OmwIqitTdw392A2qEvnN1VLNs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9euOM9Xy7XR/EaUe7TIA79P5M1ZuLs3rZg6T/EyZG4dx2cMigp
-	CwTfYh7h534DDkbkgV3wlwvyQv6QSiWqEAp4FY5MLw0vvCzGhfUHtxy+BID1SrrV1tVEIRNO4Bg
-	y4ZwJQ92aVi7f2ExuZT+EYVVA/66iCbo=
-X-Gm-Gg: AYBFou2TZ18tbrig874FElmUgcvkNl6l9nsNNuPr0KdEorqYRDYubpSEIzR3lNdSumF
-	S16KU1XEzYsn7EZpqrieOpW5h9nL4rs0eW+zYTV/a/7ZVDohdsAfr65kJ9SFPd1zR2DThM8V/Sp
-	+zu/6PT9gg25UVqHTFk02Cxhn/yKiINnVicJtz+vGr7C3OofA+d4Q8N/8CPkpn0Qw6Xa79Ky7pN
-	zVq7nmlKx8KcG4ydBTjAQdfvzF1jq0xzBG8jkolxl2k1Pjpo1yrHsDSEd7/dBm202SCFe9duOKP
-	nr6dAGhQ+S1kzchAa9unfv8SGrOyaI80NMxYIuGy/QIhU1MkoUQp+UvKiGfZ8VWDNh7xaOnaq2S
-	0WCgE274eLiuTBJrAWTKSN14Oh3s2HIe7Y/2VJ5CCfQN8/b5jGVc1ka2ilo5+XYT7NoMsZ3yhlh
-	nC/IwkBoaThJ9g8fh0IHZy4uY=
-X-Received: by 2002:a05:6402:27d3:b0:6b3:fc71:fc29 with SMTP id
- 4fb4d7f45d1cf-6b4d33aafabmr14094964a12.6.1793830291784; Wed, 04 Nov 2026
- 14:11:31 -0800 (PST)
+        bh=eiT1btz924HjQNzzWl70B3xvzB6Cqt62IjRgfUiOL4Y=;
+        b=f29hti0Uez8dMF5V1O9k16t9bLFQ/cilMCnkUYlg6MadSwwKVjRNMTW6qq+L778Fbv
+         KusXq850cjEG506rmrpHxKCUlspvfu1BUdQthse17cdsVTuu7TSTHdqHvTOQ0nTznOQs
+         T/WLcVrimh0qRu/dPHa4C9kD6zXKauCKg1i4z1E3WZHuUF4uY5Mx80a8ZvoXUBG50GYf
+         M5OASaaFeE0pZMIQtX6sFjVSLsED6scxQ1sx/MFuDoh2NoDwqcLdEPFCFuJ79RIThwaQ
+         qrZbMRbtMvnjxv0DEXAhNAJxMGUVOROACjTqHh65sd2AhcyOCPxjpfD3YuWxu6/b9zz6
+         fTmA==
+X-Forwarded-Encrypted: i=1; AKwUvByOl3izJpPAAOnICLZWNn6ngBwj4yV8gZwhv+9Gy+jd3XhplYHkV3SAlH4/DBnmVT38xEN5VkV8W/PTZ2E=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9+8xcLnoGFFUAyyFAKSLFD3YtAGmYcuLNkO2k7o21E0NZJLNPo
+	wbETk+C/sAluHR+oGAStE37Rx1VykGc+vxTGZ9PFiSkVRvP7I9tK2dP0vNSSdma6GwuRcw77RFN
+	fz9/gms84xVGFEEn8s76nblJ8faKvW7kw60EH2Qq6aqF/9aD0QYV2y9415HeTmJ060qAWWnytO4
+	nkBVgsRFlRG0M54wnAs1aushoF1Dn7iFmbab3CBbYDuw==
+X-Gm-Gg: AYBFou3j094veOUrOP3eT18TG8uUfObXkk0u2h1gMDkZv/UdJv+Qm4v7ThpBAeMTQ+3
+	DDXC1qnZjd0GvJfOUOjCm/JVedexw9rfKA1+ldnaMIhPXAPMx/j5O9mYG7kPz3eIKE3YOcdTv8t
+	kB99JHc4gq2eUoBldD4gAPqFZZLdAIPwPWx3mCOhHWeiLkhL5Kkl/iAY3mxFxsx5dkZmHt2lIJ2
+	+hzyjR/QJV6plXab4hPDg==
+X-Received: by 2002:a05:6820:168c:b0:702:efc4:807d with SMTP id 006d021491bc7-714f29eed8dmr10906938eaf.49.1793830315869;
+        Wed, 04 Nov 2026 14:11:55 -0800 (PST)
+X-Received: by 2002:a05:6820:168c:b0:702:efc4:807d with SMTP id
+ 006d021491bc7-714f29eed8dmr10906914eaf.49.1793830315450; Wed, 04 Nov 2026
+ 14:11:55 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,109 +128,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-alpha-profileme-v6-0-63362e9290a3@gmail.com> <20261104-alpha-profileme-v6-9-63362e9290a3@gmail.com>
-In-Reply-To: <20261104-alpha-profileme-v6-9-63362e9290a3@gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Wed, 4 Nov 2026 23:11:19 +0100
-X-Gm-Features: AclHuK9rURAADFMaHKSa3C6tUNWpCMLgBwWXXb11rOWiWxNNie3COpwPoW2A6qs
-Message-ID: <CA+=Fv5Sp7wkgZ0PXS2RNfVPZ3z8PkFe7zesGgVOUM6oQP9Q1FQ@mail.gmail.com>
-Subject: Re: [PATCH v6 09/13] alpha/perf: report the ProfileMe window count as
- the sample weight
-To: Matt Turner <mattst88@gmail.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, linux-alpha@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
+References: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
+ <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com> <86b801ce-a56c-4ff8-8915-9be369fc0ce8@collabora.com>
+In-Reply-To: <86b801ce-a56c-4ff8-8915-9be369fc0ce8@collabora.com>
+Reply-To: rob.clark@oss.qualcomm.com
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Wed, 4 Nov 2026 14:11:42 -0800
+X-Gm-Features: AclHuK-PejnPAeVcWn1rFgQSugIaafHtbuWuLOPuri8tnD2WASiqu_5BlPlNCuI
+Message-ID: <CACSVV02t9=tm2qyG531f8Ne90ADAb1_ZDDGEg7PwDmoEvGxPrQ@mail.gmail.com>
+Subject: Re: [PATCH 7/7] media: qcom: iris: describe QC10C as TP10
+To: Robert Mader <robert.mader@collabora.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        "Bryan O'Donoghue" <bod@kernel.org>,
+        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        Jordan Crouse <jordan@cosmicpenguin.net>, linux-media@vger.kernel.org,
+        Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=JdQpPkKV c=1 sm=1 tr=0 ts=6aebadae cx=c_pps
+ a=wURt19dY5n+H4uQbQt9s7g==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_glEPmIy2e8OvE2BGh3C:22 a=e5mUnYsNAAAA:8 a=QX4gbG5DAAAA:8 a=EUspDBNiAAAA:8
+ a=guYwWtrNydk0MfZTwrkA:9 a=QEXdDO2ut3YA:10 a=-UhsvdU3ccFDOXFxFb4l:22
+ a=Vxmtnl_E_bksehYqCbjh:22 a=AbAUZ8qAyYyZVLSsDulk:22
+X-Proofpoint-ORIG-GUID: _bqtUwTRGegWEgaSwCD15nGQ4EZcA--P
+X-Proofpoint-GUID: _bqtUwTRGegWEgaSwCD15nGQ4EZcA--P
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA4OCBTYWx0ZWRfX8JqlpOTytx1T
+ 70fm/p+wB4ScKRjQFiNnM9I4csZAepC6li0rwojUU0A2DSacWvxTYu5BT9CmwKVjwG8o30SCInO
+ lhS1AzxuOBzn6O5j5o6PWJQud8g0LUpwwAF5nXYMUQCti3V9H+WlnntEwhnzTXOlkWar+mHO+BM
+ fhpkNW8JcEJ1ncOblerbGDXIknSthtAtCTYHKjU9PyCrIW0RhJ0af7iU5M467rQMlXJDPRZ2vt7
+ nGYMbiYzM21GjIAJNMTT1JrUr+vgCrgT3LeQFysflqDIlFjRuHzyBIbrjsrIHJhR+AG7nMwx5oC
+ ONBQ1VDUyh9YG7HOil9okStBjTCyOY9A9AOqMDUhgA17GMveRfvRdC0wE/pUG3GySXO8W0ILkuJ
+ jYotUl5uijZxkdGTx/1JsEZSTTfnd1BnqXR3+ZYC+MH8twF4xRcB2Ys2GDnlsQGfc8BWJekNL5U
+ /YxbV4cuCsyNqMiv+Qw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA4OCBTYWx0ZWRfX3pFy/EWu6KCF
+ rjVKmbjYxHeZ53qivHmd4mLiih/N/n71hFvNOinyVq4iZsO+0zYLcxb8qibJNRwuoxN7NlvAfqf
+ IrBMb/yDioUcaC+pPbn2j/43lPjg4+c=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_05,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
+ priorityscore=1501 bulkscore=0 suspectscore=0 adultscore=0 clxscore=1015
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611040088
 
-Hi Matt,
+On Wed, Nov 4, 2026 at 11:00=E2=80=AFAM Robert Mader <robert.mader@collabor=
+a.com> wrote:
+>
+> Nice, very happy to see the series!
+>
+> On 04.11.26 17:36, Dmitry Baryshkov wrote:
+> > The comment describing the QC10C buffer layout calls it a compressed
+> > P010. It is not:
+>
+> If I'm not mistaken the display engine / the DRM side (including Mesa)
+> describes it as P010+QCOM_COMPRESSED as well, and so does my pending
+> Gstreamer MR [1] . So if we can't pretend that QC10C =3D=3D
+> P010+QCOM_COMPRESSED, then we probably need a DRM_FORMAT_TP10, wire that
+> up everywhere etc. OTOH if we want to keep the DRM side as is, then the
+> comment should reflect that, IMO.
 
-On Wed, Nov 4, 2026 at 7:49=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
-te:
->
-> What PCTR1 counted during the ProfileMe window, the inum retire delay for
-> cycles:p or the window length for instructions:p, is only available in
-> the PERF_SAMPLE_RAW data.
->
-> Report it in var1_dw of the sample weight, which the weight and
-> local_weight sort keys read. It is 20 bits, so it fits. As Alpha is
-> little-endian, this is also the right value for plain PERF_SAMPLE_WEIGHT,
-> which is what perf record -W asks for. Samples that fall back to the
-> interrupted PC get no weight, as it belongs to a different instruction.
->
-> Suggested-by: Ian Rogers <irogers@google.com>
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Matt Turner <mattst88@gmail.com>
-> ---
->  arch/alpha/kernel/perf_event.c | 13 ++++++++++++-
->  1 file changed, 12 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/alpha/kernel/perf_event.c b/arch/alpha/kernel/perf_even=
-t.c
-> index b33677cc23ca..c9ab40ff76ad 100644
-> --- a/arch/alpha/kernel/perf_event.c
-> +++ b/arch/alpha/kernel/perf_event.c
-> @@ -1068,7 +1068,7 @@ static void alpha_perf_event_profileme(struct perf_=
-event *event,
->         struct perf_raw_record raw;
->         struct perf_sample_data data;
->         struct pt_regs *pm_regs;
-> -       bool pc_only =3D false;
-> +       bool pc_only =3D false, exact =3D true;
->         unsigned long pctr_ctl, i_stat, pmpc, ovr, pc, saved_pc, saved_ps=
-;
->
->         pctr_ctl =3D wrperfmon(PERFMON_CMD_READ, 0);
-> @@ -1115,6 +1115,7 @@ static void alpha_perf_event_profileme(struct perf_=
-event *event,
->         pc =3D pmpc & EV67_PMPC_PC_MASK;
->         if (pmpc & EV67_PMPC_PAL) {
->                 pc =3D regs->pc;
-> +               exact =3D false;
->         } else if (pc < TASK_SIZE && !user_mode(regs)) {
->                 if (is_user_task(current)) {
->                         pc_only =3D true;
-> @@ -1124,6 +1125,7 @@ static void alpha_perf_event_profileme(struct perf_=
-event *event,
->                         pm_regs->ps =3D 8;
->                 } else {
->                         pc =3D regs->pc;
-> +                       exact =3D false;
->                 }
->         } else if (pc >=3D TASK_SIZE && user_mode(regs)) {
->                 pm_regs =3D this_cpu_ptr(&alpha_profileme_regs);
-> @@ -1157,6 +1159,15 @@ static void alpha_perf_event_profileme(struct perf=
-_event *event,
->         };
->         perf_sample_save_raw_data(&data, event, &raw);
->
-> +       /* The count belongs to the profiled instruction, not the interru=
-pted PC. */
-> +       if (exact && (event->attr.sample_type & PERF_SAMPLE_WEIGHT_TYPE))=
- {
-> +               /* perf_sample_data_init() does not clear it. */
-> +               data.weight.full =3D 0;
-> +               data.weight.var1_dw =3D (pctr_ctl >> EV67_PCTR_1_COUNT_SH=
-IFT) &
-> +                                     EV67_PCTR_1_COUNT_MASK;
-> +               data.sample_flags |=3D PERF_SAMPLE_WEIGHT_TYPE;
-> +       }
-> +
->         if (!alpha_perf_event_set_period(event, hwc, 0))
->                 return;
->
->
-> --
-> 2.55.0
->
+IMHO we need DRM_FORMAT_TP10.. on the GPU side, we have TP10 and P010
+as distinct formats, both with and without UBWC.  I'm not sure if the
+same is true on video side but P010+UBWC was never exposed, or if it
+truely only supports linear P010 and UBWC TP10.
 
-On my ES40 I compared the sample weight with PCTR1 in the raw record
-for all four counting modes. They matched for samples attributed to
-PMPC, and samples that fell back to the interrupted PC had weight zero.
+BR,
+-R
 
-Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
-Tested-by: Magnus Lindholm <linmag7@gmail.com>
+> Best regards,
+>
+> Robert
+>
+> 1: https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/81=
+95
+>
+> > P010 stores each sample in 16 bits, QC10C packs three
+> > 10-bit samples in each 32-bit word, which is what the stride computed
+> > below (width * 4 / 3) assumes. Name the format correctly.
+> >
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > ---
+> >   drivers/media/platform/qcom/iris/iris_buffer.c | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/m=
+edia/platform/qcom/iris/iris_buffer.c
+> > index eb8de60c1177..ec2bf2a2d953 100644
+> > --- a/drivers/media/platform/qcom/iris/iris_buffer.c
+> > +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
+> > @@ -266,7 +266,7 @@ static u32 iris_yuv_buffer_size_qc08c(struct iris_i=
+nst *inst)
+> >
+> >   /*
+> >    * QC10C:
+> > - * UBWC-compressed format for P010.
+> > + * UBWC-compressed TP10, YUV 4:2:0 with three 10 bit samples packed in=
+ 32 bits.
+> >    * Contains 4 planes in the following order -
+> >    * (A) Y_Meta_Plane
+> >    * (B) Y_UBWC_Plane
+> >
