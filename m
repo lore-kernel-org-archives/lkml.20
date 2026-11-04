@@ -1,45 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793804214;
-	b=BN/6Q28YdQ9/EyoBkUK6rg4o2EI+rbNZr7VbB/ygQgj0rBcUkr7ixjFiDEjExBnebizq
-	 dRbPD241XJrNcT77v3dahVBA3xurbwtAnpHni+oJfLvgSomRRDjzDF7yDs58U3oJipx1U
-	 vmRL9YjxQvMAX3y8oyGHSUsHJ2f3/B9siv3s2Uz35qYphrb/3zdLSMhgXJur915QQp3lN
-	 ijefrcRBoQeJIhhrmt47Fxtf3ZZ4HjgVvURVg6RzPDGYjK3WHC+TrS3Db8tJXTx0qYKvX
-	 HaG0cXthWIWnStwKs3U6SNF7S0bOS8KsXbZJbmX/7T0nvkC38zWTGRiluUXv088OWvg==
+	t=1793804263;
+	b=HOCDoLCopAU+R0f7p5uPckCzFr5l6r3XZezdYeh/Z7mbQXY7knGfSmsHpqe6/BKoLLQa
+	 wAiskcY/ycWorqIHUxyKR0Hohd2jy6e6Xf+t9Hl4g+P8aOw1drYapcwRTYttBP5KVs9Pk
+	 HMWCY2vjFbJfBMkdEq4DgVmHO4GZXUH9Zsyjbw+w/Cpffq7SRqlPB4DjeD+7svg4rr2oR
+	 W21nnnDHiCiy0sNPz5q0U8oVxAZaO2pLDa9Dpa/0D3HOi59QIRm7ttsh+fwpeWZWnr7d4
+	 OYXvvHH680VkRgJ0UWhiKSN96uBaBWfFUo5FylsYpMPWxE8Inqu/xLkqUivgbsG3rVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793804214;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer;
-	bh=T7rOMPplLomFK+EC05LzdPzGrXETZLxt3EvKKKVvcv0=;
-	b=f+JPZUojzs1Nppa/l9wV0QpII8GxxBXyko4IS53hd6VKbfAJLz67pvIkWYSpXTZjGFxL
-	 uAYedNlN7vdFoyXU8Px6PZ/L1VVMGe/FX3n5fo3tXvQWlepQVkwl70RrKKotu9K6UvbR8
-	 7weeMvpLicDk6zyWN7fbaHrvStqaS7P5zBUgJ130pIxoPsdlCNRy8AtwADboJSWDQJRZA
-	 BNr+mUk8fJ8MgIdp5JogpcpMxslHOUOzQ5WWKIgMzb+9+Ls4C8mghFjoz6Uipq4vOstdM
-	 HQ4Fn4mBAzfuKyHsQ+E4TCO8pRSL8QUKuj9IGkgk7WxQh//PJRtC5O8nPEiH8ftiVEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793804263;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=NVAsAR5zG4xnELhxbpW9Ha7FNFWibj9egzi66nB2Mtw=;
+	b=RxcXN7+KDJlHVA4rFXYitmKJBrbSm22gOI0CVt0NHo/W913kPskDlqIDG5mup8xZo4hp
+	 JrYevvXH26EXtyk7df1Cjfn3eudzKC6K/hQ2ZuC/ieKX8wrN9YdVGDuQgGGCKb0yt06T2
+	 5ollrnn5FHs9a0UKc3nTyIl9vlhZSWvxWG5dLYFdhccbYBnbRNGu2mKhA+DUxzjFdRMP7
+	 MhMJSJTE+R4QWgAg3B+dC/ydQbGi8vc33evuaHGkRj+O9HvwYB2V4hvgH6XQz5x0z1ZA3
+	 alhVa6H1sO2QmKjceNBbExbQqVcJA/AobFXEtpFwLkJwp85k9W/d8JOWkjQ0w0O2lVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MrptcyWU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=grische.xyz;
+	spf=pass smtp.mailfrom=grische.xyz;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EEFF606A330;
-	Wed,  4 Nov 2026 14:56:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MrptcyWU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29CC11F000C1;
-	Wed,  4 Nov 2026 14:56:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793804214;
-	bh=T7rOMPplLomFK+EC05LzdPzGrXETZLxt3EvKKKVvcv0=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=MrptcyWUAcszN49zHQTkn3Vlr/HscV8Bl4lEC7R76+MYv7gQJXdxpylZ79fGVxJJG
-	 9g2RjZrokNB6qDNHG67TRkFttmgL1t2KdGdPIq0zjGZQ2tpCDDyqj1gOxcwehdfXY+
-	 WNHZuIs47sffQbdvvDUJo0zkxJB0m5g+Zo5ngvZRNdtigj8ZxmrYguaza/nDk0M3CY
-	 G5c7zitroMfYhwxfXt68GtCd4yiMACIrJ5qsb2puVDshMKSWVxOz6W6kzvD8gW2gAO
-	 +MF/8nKz3uZpWHQ8FC5h0nznRoxul5JcWwA09pW2w+j3axirgz6HMdNa1MuyG7qGfV
-	 qv8X6UKrIz32Q==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7122C606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:57:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7122C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grische.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grische.xyz
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-490d59c3edaso142973f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:57:43 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793804262; x=1794409062;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NVAsAR5zG4xnELhxbpW9Ha7FNFWibj9egzi66nB2Mtw=;
+        b=TLehcE9uCZOQL76QaznmkywyRohz7KkT3jrgRONRN032t5f8AciF3AYLULaCaXWKl2
+         ssf5uZJoaNm4+OwHuqybCtT7COFHbN4RxUHpoYb3F5jOQRCGhagyB2A1yZJFS2nRptyv
+         OJ6NY0sU8L/zD6AQ8wyohVYPFvIcXU6CBYK/OrkYjNk3Pz6G+Ps8rvt7Q3bNKFT1RUOW
+         2RH2cjBPUGOjPQKdVoJlFE2HTH48NM3o2a6p+vBzq9Fz0DH/vMsXYHwnBuhWJViag4MT
+         majgttPnyBsVE9R3K+kMt/vzaujaVqpjy/6NqammTP0UG9xlh+VV41vEJi0LMAddIIAN
+         JKEg==
+X-Forwarded-Encrypted: i=1; AKwUvBxuZSBuJrucG5EcvBL3UlfiSqDjvjrz/S3/Enll6TOHB/c+U54mfSzg5pNwzA0VNU8Qj4ntQGJ5DXjDPUc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+YJwnWLIiAJMVWVivGy+TuWfsQYs/nyBVo+0JdqEG0c+goZFzM
+	6TdStA1Tp53H1lsTmFItWqMTUz3zyfScmgYbQaS7EyDY3xOeE+W/4oi/p7aAA8MjzVM=
+X-Gm-Gg: AYBFou0lHLnUa2vntWpSn2yBEny10kJQ+EiKXJ303ZMdjb1sqYvrY6sHGeP/qf4eHE6
+	iK2uQu0M5kQqJdZBEDFTbEM88WBsHQHfxCsX3NYkfsN/4Q5laufkqHKErbADjIlc76+KsXRoBms
+	Pim6oruCkZCz+Jz7dwtVZAQoN5FMuQ5EhxSfK51AoPqI06NzrMlyXj/SMhD5wiyym9/xjMlmLSO
+	URBiZ9CE91HGRJNngPFFSP4HEXmL1cxKznTe+h/iIjV5fo0NdEv8ah+E+2nUxs5taXwGSsrKDOC
+	H8ZVbxBUeSPsAxWzLGBnmSm/nNAD5EVwrRZ1ma2U+6TkViPBxDnSlGjQ9J74WWZT4B6k5Zz5c+1
+	gJvokdY8TbygBdDiPFWLjr/Hc6HJOBFf1fMITYPr+mG4A//R4ubCtblv4Z7R9WGDz4a3V+fTFq0
+	24kWlgwSfWrhaiCxmdvzjb/Hh4xPzslpx+2pHPvFmdw5EBhdjTuEfXRuHA77myb53imsr7ZfI5n
+	6E/c1nfKaqkOy1srxk6ToQxy2Tw7+VqoMhShY4AhOlR1/HXpvy09O9xIuljGa3ccNdsfiLAyhqG
+	0NXLvC24M20eT6K7QfjjryVOAA==
+X-Received: by 2002:a05:6000:4010:b0:48e:55bd:9cdf with SMTP id ffacd0b85a97d-48e6e2dd3a4mr40175116f8f.21.1793804261780;
+        Wed, 04 Nov 2026 06:57:41 -0800 (PST)
+Received: from lake ([2a02:810d:d09:1b65:4366:70cb:bf82:f8ac])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fecf8ef85sm4830051f8f.27.2026.11.04.06.57.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 06:57:41 -0800 (PST)
+From: Christian Schmidbauer <opensource@grische.xyz>
+To: Amit Kucheria <amitk@kernel.org>,
+	Thara Gopinath <thara.gopinath@gmail.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>
+Cc: Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-pm@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Christian Schmidbauer <opensource@grische.xyz>
+Subject: [PATCH 0/2] thermal/drivers/qcom/tsens: Drop __init from the ->init callbacks
+Date: Wed,  4 Nov 2026 15:57:38 +0100
+Message-ID: <20261104145740.2623473-1-opensource@grische.xyz>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,91 +89,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v7 00/15] kexec: Fix CMA and elf header leaks and
- rework
-From: Mike Rapoport <rppt@kernel.org>
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, 
- chenhuacai@kernel.org, kernel@xen0n.name, maddy@linux.ibm.com, 
- mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org, 
- ritesh.list@gmail.com, sshegde@linux.ibm.com, pjw@kernel.org, 
- palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, tglx@kernel.org, 
- mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com, 
- akpm@linux-foundation.org, baoquan.he@linux.dev, rppt@kernel.org, 
- pasha.tatashin@soleen.com, pratyush@kernel.org, thuth@redhat.com, 
- leitao@debian.org, yeoreum.yun@arm.com, robh@kernel.org, 
- sourabhjain@linux.ibm.com, kees@kernel.org, coiby.xu@gmail.com, 
- Yeking@Red54.com, tangyouling@kylinos.cn, maqianga@uniontech.com, 
- zhangtianyang@loongson.cn, guodongtai@kylinos.cn, blum@kernel.org, 
- adityag@linux.ibm.com, hui.wang@canonical.com, sohammetha01@gmail.com, 
- guoren@kernel.org, gaohan@iscas.ac.cn, kai.huang@intel.com, kas@kernel.org, 
- vishal.l.verma@intel.com, piliu@redhat.com, jbouron@amazon.com, 
- mclapinski@google.com, me@linux.beauty, graf@amazon.com, bgwin@google.com, 
- x86@kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, 
- linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org, 
- kexec@lists.infradead.org
-In-Reply-To: <20261026075201.699550-1-ruanjinjie@huawei.com>
-References: <20261026075201.699550-1-ruanjinjie@huawei.com>
-Date: Wed, 04 Nov 2026 16:56:37 +0200
-Message-Id: <179380419709.28814.2122135856184991710.b4-review@b4>
-X-Mailer: b4 0.16.1-dev
+Content-Transfer-Encoding: 8bit
 
-Hi Jinjie,
+Every function that tsens_probe() calls through priv->ops->init() is
+marked __init, so a probe after free_initmem() jumps into freed memory.
+On IPQ8064 with CONFIG_IPQ_LCC_806X disabled, fw_devlink defers the
+probe of gcc and its tsens child until the deferred probe timeout,
+which expires after init memory is freed.  On an Aruba AP-325 the probe
+then crashes in init_common().  With CONFIG_QCOM_TSENS=m the driver has
+the same problem once the module's init function has returned.
 
-> ARM64, LoongArch and RISC-V load the elf core header, initrd, DTB
-> and cmdline parameters with almost identical code. This series fixes
-> the bugs in that path. And as Mike suggested, rework the common part
-> into a helper.
-> 
-> Patch 1 stops using the Image text_offset for arm64, which breaks CMA
-> segments in both the load and release paths, and rejects images with
-> a non-zero value.
-> 
-> Patches 2-7 fix the CMA page and elf core header leaks in the retry
-> loops in arm64 and LoongArch, also fix a modified_cmdline leak
-> in LoongArch.
+Patch 1 drops __init from init_common() in a one-line change that
+applies to every stable tree.  Patch 2 drops it from the eight per-SoC
+callbacks.
 
-These mix fixes that can be easily merged via arch trees and something
-that depends on a change to the generic kexec code.
+Patch 1 was tested on an Aruba AP-325 on a v7.2-rc7 based tree.
 
-Besides, elf_headers leak and arm64's text_offset fixes should be
-applied to most if not all stable kernels, while CMA fixes are only for
-the relatively new kernels.
+Not tested:
+- Patch 2 on hardware.  None of msm8226, msm8909, msm8939, msm8952,
+  msm8956, mdm9607, ipq5018, ipq5332 or ipq5424 was available, so patch
+  2 is only compile-tested.
+- CONFIG_QCOM_TSENS=m on hardware.
 
-I'd suggest splitting
+Christian Schmidbauer (2):
+  thermal/drivers/qcom/tsens: Drop __init from init_common()
+  thermal/drivers/qcom/tsens: Drop __init from the per-SoC ->init
+    callbacks
 
-	arm64: kexec_file: Stop using the Image text_offset
-	arm64: kexec_file: Fix elf_headers memory leak in retry loop
-
-and sending as pure arm64 material, and
+ drivers/thermal/qcom/tsens-v0_1.c | 9 +++++----
+ drivers/thermal/qcom/tsens-v1.c   | 7 ++++---
+ drivers/thermal/qcom/tsens-v2.c   | 2 +-
+ drivers/thermal/qcom/tsens.c      | 2 +-
+ 4 files changed, 11 insertions(+), 9 deletions(-)
 
 
-	LoongArch: kexec_file: Fix elf_headers memory leak in retry loop
-	LoongArch: kexec_file: Fix a modified_cmdline leak
-
-as pure LoongArch material.
-
-And then working on CMA fixes after these land.
-
-If there are real dependencies or potential conflicts, b4 prep can help
-you with managing them.
-
-> Patches 8-10 pass the kbuf fields to crash_prepare_headers() to
-> simplfy code.
-> 
-> Patch 11 frees the elf core header from the generic post-load cleanup.
-> 
-> Patches 12-15 add kexec_load_other_segments() and convert the three
-> architectures, and arch_kexec_setup_other_segments() builds
-> the architecture specific boot parameters (a DTB or a command line).
-
-I think the refactoring should go before the identical fixes in arch/
-code.
-
+base-commit: 2dc1f296b5754dd2441fc8b6613a362a47f6b98f
 -- 
-Sincerely yours,
-Mike.
+2.54.0
 
