@@ -1,111 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793757815;
-	b=NEHzA/OM5PP3AYTrUHnyXhnLecdYqznPso6lAi8C8F9oQGEQ6iEuRCXaQD77TIR6xGrv
-	 WwBlvSidd396Ka4TaNuHcYiogmBfQYuhQPyjUMgr3fvqGGoY50SiSs0s4t4fXU77TEydS
-	 kG/UinhC91U2dvVu3helr5iRmFgc1Zbh0BMzAVBtB8SJycps7RARQZh9vPpbl6jVxmYW3
-	 7aZvhSLMhLtCliy8DGjS1KNTrnG170ujUSWKZNSujkYWw+tE3a8OY0Xc6O87E+QctVBBW
-	 Foii3L2JlDg3ta0gT2dKdoUy9g7q2DXv59VyVO9ppFbTY6hKtpOVKoIrd4cJltegc5Q==
+	t=1793757824;
+	b=t9oH56OmMHPWZN+YCqwAmzepj9KrOK5DkmHds7YRSU3ul7zehuqUbt6tZQSREi61WODH
+	 1SQ3Y3C4/W/T9SbNuquYimup6fRuNnsEY7Yi7EW4XHXBzxgE98M9016iwFnHYsh05qN5y
+	 4Rw9S0GoENYEo28/lzUH8tDl+ey/NKyoVydf+4d6mLm1QAuaXmBgiNvRLJEfTWc7AZcOb
+	 y0XVgLaW9NT7E1vR2S8mK4TgBNlNdhQBZ6WIfV0nOJJ5Xe6GJew54pcH6gkj/h6H70UH+
+	 e8T6xon3oUhK4FFJX7m51YTo8mn6ZNJhRb+wAw0DN84HlXxupcz3DL9HKKJuxX98rbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793757815;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=hwhJsiEzIXGjwpPakaRIHnm9ygQpg1JZVtIO5uyoL+Q=;
-	b=ZNwkCFLp7z0ZHOa18dgUeTwD+AInvweDaTnPxBorVn5md58et1lVugGQ5sr7GQwx0Twh
-	 HnFaHmZBACwlMn0hnfWhiiRHEgbw5WNBnvgWfGiMFObobSR4HOn3uC88JrYMwmFu/jJVS
-	 1AbNfMwCKf+otpNMKAgteJK4/xMOSJsb2cFd2xq2KJ00YB9JsJEasYHyLLRhJs3nvtLNL
-	 kBiLxQjMZ/nBIBjDp1rl9KmqCeq2cSsAcpMNRFw7owqs2Zj5R3DwYpXD/Vty6jrnmdRPv
-	 pLhiZTPyuWLRgaEYhR1bJnQeJcZ8QzgLs2sH4UlO3KlWlH2ZxZRwICV98gQBNQYEYWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793757824;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=xcyAzaTPZiwAw7CWkuV0s8KVDfnYJoff712343ApSNE=;
+	b=Ro0R7H2rJQNU3S9YahOuuv93SJh04bbOUFat8Jo3dnFi8z596lkr9sWWL9mlK0P6jJiz
+	 ZdlweJOs/t5mKNaWCnc7kxXtqciqWgu3i5ir4hvbcp4mq/dWDRdj2EsTpyJJIRo8fYXV7
+	 y7JNmnto/Gg6r5GF1Px/TjlT9hT2ZccOYeRHQ0xPfIV/Meqw1qA2l2kmEfX/toMpnA9FC
+	 WyUxmaZvFV8Kg29PY0cxTxovUSfrWUgNokiPN50RopMOcrt+u1mJ7vugDIurNLCAuAaPB
+	 36Cz23uvgfvDQEwcbHeyeqOt7JAWqfps4wgRLLoJGHLwT2jdsLp20poiw89+dV9JeBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DR2Zp73I;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="Q/m9R1oH";
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--sabujp.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NQBTjbNT;
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EDA5606A329
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 02:03:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EDA5606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39245606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 02:03:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39245606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sabujp.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DR2Zp73I;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Q/m9R1oH
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A40RJ5N193647
-	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 02:03:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	hwhJsiEzIXGjwpPakaRIHnm9ygQpg1JZVtIO5uyoL+Q=; b=DR2Zp73IPUDPFhle
-	R/u908IaGmSHqIcsvhe9LP7WfmfVY/6wruAH8KtbYjByIiAHXp4lrBpd5AVsXjXd
-	zJohM6E9JwUTjHjU0a9lqo/gSHzrFgVhVQKVUhsnV4r+pIZcq7lE3oYbC/k1vVBL
-	RzA7vWRCutLUkK4HxN0M8fDFcB3wRaCW1ZZakQZTUgeoxtDjFW97yQk8LCxRio7Z
-	dfD49Q4WrOao/pvF+G9ef4YWBh3Z/JnOjYYkH9qPQkqYlP4mPfydnVStln52f4lO
-	Qx3axDFfdp6+I0McXTVGxQx+0V/1UqOdrQfZvrrRoLWXDPAoRToZFz+wvcB1hAYc
-	E3qTDg==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqn8nhe61-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 02:03:33 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3aed1b64104so398546a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 18:03:33 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NQBTjbNT
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-351788121cfso874916eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 18:03:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793757813; x=1794362613; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hwhJsiEzIXGjwpPakaRIHnm9ygQpg1JZVtIO5uyoL+Q=;
-        b=Q/m9R1oHlM+o9o47fVxLNRi9F43x5LYO5tcDLSUFzRbpNpil3JK50btgYdLqdtBlzm
-         sCdMSBaiBYfYkMN3li0iTP05HMYBPv5eDXReGjCwzRjRnuSKyxfEYOHkhuKeAadjW0iu
-         5gluGrvK+gH82J6GDKGnS0D6ytvsAsZK7L9SWO208MkPy319pw2Gvw81QjopY1oIkgot
-         ZjXG/5NEpoRivKH63akxPGlTNv8X1R5eYBBycpG6cZly3K5HjYaGW2rXI6lpVFDmx/oD
-         arBlMtSGAYUYp7dozzhJSOuemvDM33zppcSj/2LqX9bt487L3ry/R46KSeQMkMgvmfMe
-         9RxA==
+        d=google.com; s=20260707; t=1793757823; x=1794362623; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xcyAzaTPZiwAw7CWkuV0s8KVDfnYJoff712343ApSNE=;
+        b=NQBTjbNTqD+OFtY0W2h9SGegYDR5+cuaN9ptVQg5yltyFqvQGus/D4Kz8M8aAmYfX0
+         LZ97bSUNUiZdJK0mshOpzH3nsrODBNPAQetVPks3EA6Keh9EQW05r2qImkh0V1WguJ4m
+         //8dtzvXlOk0zzwFQdjHbgFeQ51XfkHkvCTOD4v1CRqZ5tZdv0iU11ru7xZwTvaaoLmH
+         HHYLNfvJrwZPeoAadsb1cgn5pLe5h9Rz9cQ5IJAV7xUL1syALWdPd3ep+oOzflEeIUP+
+         fDo7LnZcPRYpLKEtxuEaVrqsWVi4LCR9THgVA/1I47teSg4RENjBZYhuUEqtuDwlyBIi
+         xRFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793757813; x=1794362613;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hwhJsiEzIXGjwpPakaRIHnm9ygQpg1JZVtIO5uyoL+Q=;
-        b=zoBgY93ctYiJLqvj7HNCPDPIbRW/JyWwiLaIwD9ok0g2wEAx+aixyji7Uat6weMplY
-         pIJ6oJZDgwLzBiNXpMdN9wGhJhQnkCUo7F0J0lXK4ziLoZ2/mHV5ApZeZ0MHQYjmYKaD
-         g7aP7XooS3Tl1Ciw98/pNvdEqxtXngk9A0Ny+DE+obKrueTqRt81RLrTh5jxtZrL27xG
-         ARixpmo5LJheg5AX6ieHYc6yXTFEp9Rna0yQvOa5P4Mz0Gu+eksNZoYw7Z2XdSFRU8Vv
-         G4gioZHCuKWa3rAVD8x9DyN/Sq5ZlP05Lz2FADjMxy2FVqC1kHDmg9zcruOqux1YlkUL
-         Ksww==
-X-Forwarded-Encrypted: i=1; AKwUvByRqKH6J52PoNpjjCKUvC0DNeOJLoKg0/70MCPgmHEQFkMBk0PymRUv/4upr5UI+AVLlkuBIZZmGlLN7TM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+gJ9Ws24rsm6aEztQn3UElyklJZVKHDYRKvU6d6AFyTGsZX/4R
-	OpOCrbKUOrQt01Se7xzP6N+pfIHxdwTNmA1ViCja6t6VRbStbm8NdgA43OeEK+o4+BJtcjgYJN3
-	MWkXA9FWRC8XrT+ksJEW5nplJbymaC0XFNE9rWT1ZtXosBzOD+9Idvyf7icFQlg8/io/byW8GxN
-	o=
-X-Gm-Gg: AYBFou21d2ojr1bzl49EvVaUFwu+GkbzqwgdVXDzRhjFZiY5VpjEZMwx4TVQRBW2GuD
-	2ibz57Kx/0CWlmymNsp7AgkB+qZZk29M196SUx2iW14XpYHirE9yc9A7xKsFjIR1Pwri/KTHK8F
-	ZKq3GrVN2B0RyVEhCwm1hwPvjIHwrJzjVGbnu8pK2aI2ZNB1uY6h5kyqyh+9911J3c90D+Dx82s
-	Y2gHsgohzRr7qGFbciDy0FouN5DjyXeCMLcM0o7hY3r9MR4f+TqENH2xrSX820L96r/c+436g57
-	rFmlD9101MZrZ91bPsx/22Ck7+jlLS3dWnrUU8RQvsqGz6MT/NlMXMvtI9LoCfv0PnlTfRvPOlp
-	j7UAo7jNLMX5lPCPqWWZ37dAYE7yZCAy9FDkuFMntEXwdbDphFkaA9MxetlYuNJE8/ZXx8YbUIt
-	wyi8WKRd0xK2Tf/GgOxt3RtTjJoxOJ1YTERQ9R14eiTas=
-X-Received: by 2002:a17:90b:534d:b0:3ac:ffb8:183b with SMTP id 98e67ed59e1d1-3ae898392e6mr12644641a91.51.1793757812420;
-        Tue, 03 Nov 2026 18:03:32 -0800 (PST)
-X-Received: by 2002:a17:90b:534d:b0:3ac:ffb8:183b with SMTP id 98e67ed59e1d1-3ae898392e6mr12644616a91.51.1793757811938;
-        Tue, 03 Nov 2026 18:03:31 -0800 (PST)
-Received: from [10.133.33.51] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c7e087csm6716710a91.4.2026.11.03.18.03.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 18:03:31 -0800 (PST)
-Message-ID: <df59854a-b10f-4997-86d8-134f62b73799@oss.qualcomm.com>
-Date: Wed, 4 Nov 2026 10:03:28 +0800
+        d=1e100.net; s=20260707; t=1793757823; x=1794362623;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xcyAzaTPZiwAw7CWkuV0s8KVDfnYJoff712343ApSNE=;
+        b=b0V/Wm0IaOFZgac9Smb/U2cFljleKck6FFxTzINlTU3EZ0DnpfXfgfFYGqI/8pzoUh
+         5KvxoE+II/ofqiNSx+CpthfgnQXujnQzwLHmGN/XuzbLIYRefjGY3ZK5y646Ncq9AeSh
+         XcG6fcZP0P8t3OGEL/izyN+xVTJ6u7ItRoI4T6JbszjS7pz2lyARM1sMwpYPKfi2289k
+         VrcHoPwciulViQuSAhfn5e92kgrcZLhkeFb61yVCjbP9nhpAHEl/54Muj4g/+VoBfUKh
+         y+VumAGvr/uR50yDw6n2OGwwaY13I56v/sbV8wCZnoCRbJ7AXI4hNG2d0wmt2D0w7yeF
+         ZZFA==
+X-Forwarded-Encrypted: i=1; AKwUvBwoYCtSpfvnSQ7tXqePCusdhOcrMMlajXrswt2kMLOzURf9ahNvO3cGm4/YnCpGVw0Gme+Ky8w1HeTL1tY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z++flzsewY0BmFts0vdXzX6TFb7s3R09fvaHlPrn8X/5lRtLTc5
+	UUUxE3Ns64BVVQbzK50s0moKyGUOuEGQdVzPDcTa3xWQpFWab/vSIn4IpIk63h2DemSROnsXwSY
+	QUAhO2Q==
+X-Received: from dynv12.prod.google.com ([2002:a05:7300:5a0c:b0:36c:9b55:8436])
+ (user=sabujp job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:895c:10b0:369:f05d:6c5c
+ with SMTP id 5a478bee46e88-36a4240f66emr23559790eec.28.1793757822858; Tue, 03
+ Nov 2026 18:03:42 -0800 (PST)
+Date: Tue,  3 Nov 2026 18:03:21 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,82 +75,121 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH ath-next 0/2] wifi: ath12k: refactor m3/aux_uc firmware
- memory handling
-To: Madhavan Ganesan <madhavan.ganesan@oss.qualcomm.com>,
-        Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
-        linux-kernel@vger.kernel.org
-References: <20261103-m3_and_aux_ucode-v1-0-e14f13fdfa41@oss.qualcomm.com>
-From: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20261103-m3_and_aux_ucode-v1-0-e14f13fdfa41@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAwNyBTYWx0ZWRfXwtC8Q3pir5nP
- TaFKcVwf2uo4BpOxQjpgvQ9Z88x/MSWOyvHPmOsJp46LLAqDzwnVg+xlzYFPfEtFhLu5/AiK9tz
- X7s7dXfaTnhl98u87o/7B5QoVyK3LTV582PEx9dbBfppqM6nQpfamosiBIttpYyoqWpc4Uyzx3+
- pqodv0othbFPZ5z61Ral04N+4PE07mFP4a2FbfcyJ+s4HsRLZON9YUEh2iUfNejxW50k778Epyp
- b+CycJLdkd3LWRDTrZ6pMmPzG/Ea1qEWROwh+ItblXIYOa6hmWnpylyL1DJ+ThwaI1+plhxtEVj
- SpAJo+ttW4eaR4gfGIAhvnsbfg6/8XEyTgrPtr8PgdWi8WB642aBlw3fmSiJIawDTTTM7RJ1G/1
- jh9C4afUb2qdqOlAQX5ZqzzIasla7ghTGdk/I2LHOPtmi0tIhu9dGYzzfl1rU8UfffnFTbccya6
- XGp401KJyd+9b2lMr0Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAwNyBTYWx0ZWRfXxywjIxZJz2e5
- c0aGvcDbyq69hdb+8vALvxbcW8B3VuWnJNIhWi8vFmxhINzegdBVc5/rzFgaQprenM3LMX2wNIA
- 5fOJW8Zer00KBmaDkzs5eutXV8i1piE=
-X-Proofpoint-GUID: pTSjMUeYlrToimAwn2b9a8N2pcM9EWp0
-X-Proofpoint-ORIG-GUID: pTSjMUeYlrToimAwn2b9a8N2pcM9EWp0
-X-Authority-Analysis: v=2.4 cv=As17T+9P c=1 sm=1 tr=0 ts=6aea9275 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=WH3b8gmyxz3kVt_5t98A:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_01,2026-11-03_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0
- malwarescore=0 adultscore=0 clxscore=1015 impostorscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040007
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+Message-ID: <20261104020321.77378-1-sabujp@google.com>
+Subject: [PATCH] drm/amdgpu: check importer DMA addressing for P2P DMA-buf attachments
+From: Sabuj Pattanayek <sabujp@google.com>
+To: Alex Deucher <alexander.deucher@amd.com>, 
+	"=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, stable@vger.kernel.org, 
+	Sabuj Pattanayek <sabujp@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
+amdgpu_dma_buf_attach() currently keeps attach->peer2peer enabled for
+non-XGMI attachments whenever pci_p2pdma_distance() returns >= 0.
+However, pci_p2pdma_distance() only verifies PCIe bridge topology and
+does not check whether the importing device can DMA-address the
+exporter's VRAM BAR physical address range.
 
+When amdgpu_dma_buf_map() maps a VRAM BO for P2P via
+amdgpu_vram_mgr_alloc_sgt() -> dma_map_resource(), if the importing
+device is not behind a translating IOMMU DMA domain (IOMMU_DOMAIN_DMA or
+IOMMU_DOMAIN_DMA_FQ) -- for example, when booted with iommu=pt or when
+quirks_force_identity_mapping() places a GPU connected directly to an
+AMD root port into IOMMU_DOMAIN_IDENTITY -- dma_direct_map_phys() checks
+dma_capable() against the importer's DMA mask.
 
-On 11/4/2026 1:25 AM, Madhavan Ganesan wrote:
-> ath12k_qmi_m3_free()/ath12k_qmi_m3_load() and
-> ath12k_qmi_aux_uc_free()/ath12k_qmi_aux_uc_load() carry near-identical
-> logic for freeing a DMA-coherent firmware memory region and loading
-> firmware into it. Factor the shared logic into common helpers.
-> 
-> Patch 1 is a preparatory, no-functional-change rename of
-> struct m3_mem_region to struct ath12k_fw_mem_region, since the type
-> is also used for the aux_uc region and the old name no longer
-> reflects its purpose.
-> 
-> Patch 2 refactors the shared free/load logic into
-> ath12k_qmi_free_mem_region() and ath12k_qmi_fw_mem_load(), and
-> rewires the m3 and aux_uc wrappers to use them.
-> 
-> ---
-> Madhavan Ganesan (2):
->       wifi: ath12k: rename m3_mem_region to ath12k_fw_mem_region
->       wifi: ath12k: refactor m3 and aux_uc firmware memory handling
->  
->  drivers/net/wireless/ath/ath12k/qmi.c | 163 +++++++++++-----------------------
->  drivers/net/wireless/ath/ath12k/qmi.h |   6 +-
->  2 files changed, 57 insertions(+), 112 deletions(-)
-> ---
-> base-commit: a2da7677eb9a12e7860814b70a1f6f5b0e347d7d
-> change-id: 20261103-m3_and_aux_ucode-8337b881155c
-> 
-> 
+On systems where the exporter's 64-bit VRAM BAR is mapped above the
+importer's DMA mask (such as a Radeon PRO W6400 with BAR 0 at
+0x48030000000 paired with a 40-bit DMA mask Radeon PRO WX 3200 / Polaris
+12 importer), dma_direct_map_phys() fails with DMA_MAPPING_ERROR and
+warns:
 
-with commit message nit in patch 2/2 fixed:
+[   18.421053] amdgpu 0000:c1:00.0: DMA addr 0x0000048038000000+8388608 overflow (mask ffffffffff, bus limit 0)
 
-Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+Because attach->peer2peer remained true, amdgpu_dma_buf_map() attempts
+VRAM P2P mapping and fails with -EBUSY instead of falling back to GTT.
+In multi-GPU desktop setups driving displays across both GPUs, this
+breaks cross-GPU PRIME buffer sharing and causes compositors such as
+gnome-shell and Xorg to fail command submission or crash on startup,
+leaving the desktop unusable without manual IOMMU or sysfs workarounds.
 
+Mirror the IOMMU remapping and BAR DMA mask check from
+amdgpu_device_is_peer_accessible() (commit 75f0efbc4b3b ("drm/amdgpu:
+Take IOMMU remapping into account for p2p checks")) in
+amdgpu_dma_buf_attach() via a new amdgpu_dma_buf_is_p2p_addressable()
+helper. Disabling attach->peer2peer when the importer cannot address the
+exporter's VRAM aperture allows amdgpu_dma_buf_pin() and
+amdgpu_dma_buf_map() to transparently fall back to GTT (system memory),
+eliminating the DMA mapping overflow and restoring working multi-GPU
+PRIME buffer sharing out of the box.
 
+Fixes: 48262cd9499c ("drm/amdgpu: add checks if DMA-buf P2P is supported")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sabuj Pattanayek <sabujp@google.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 31 ++++++++++++++++++++-
+ 1 file changed, 30 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+index bbe518757907..837330831eb2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+@@ -42,6 +42,7 @@
+ #include <drm/ttm/ttm_tt.h>
+ #include <linux/dma-buf.h>
+ #include <linux/dma-fence-array.h>
++#include <linux/iommu.h>
+ #include <linux/pci-p2pdma.h>
+ #include <linux/pm_runtime.h>
+ 
+@@ -68,6 +69,33 @@ static struct amdgpu_device *dma_buf_attach_adev(struct dma_buf_attachment *atta
+ 	return NULL;
+ }
+ 
++/**
++ * amdgpu_dma_buf_is_p2p_addressable - Check if importer can DMA-map exporter BAR
++ *
++ * @adev: exporter amdgpu_device
++ * @attach: DMA-buf attachment
++ *
++ * Returns:
++ * True if the importing device can address the exporter's CPU-visible VRAM
++ * aperture either via IOMMU DMA remapping or directly within its DMA mask.
++ */
++static bool amdgpu_dma_buf_is_p2p_addressable(struct amdgpu_device *adev,
++					      struct dma_buf_attachment *attach)
++{
++	struct iommu_domain *domain = iommu_get_domain_for_dev(attach->dev);
++	resource_size_t aper_limit;
++
++	if (domain && (domain->type == IOMMU_DOMAIN_DMA ||
++		       domain->type == IOMMU_DOMAIN_DMA_FQ))
++		return true;
++
++	if (!adev->gmc.aper_size)
++		return false;
++
++	aper_limit = adev->gmc.aper_base + adev->gmc.aper_size - 1;
++	return aper_limit <= dma_get_mask(attach->dev);
++}
++
+ /**
+  * amdgpu_dma_buf_attach - &dma_buf_ops.attach implementation
+  *
+@@ -98,7 +126,8 @@ static int amdgpu_dma_buf_attach(struct dma_buf *dmabuf,
+ 		attach->peer2peer = false;
+ 
+ 	if (!amdgpu_dmabuf_is_xgmi_accessible(attach_adev, bo) &&
+-	    pci_p2pdma_distance(adev->pdev, attach->dev, false) < 0)
++	    (pci_p2pdma_distance(adev->pdev, attach->dev, false) < 0 ||
++	     !amdgpu_dma_buf_is_p2p_addressable(adev, attach)))
+ 		attach->peer2peer = false;
+ 
+ 	/*
+-- 
+2.56.0.385.gac671c819a-goog
 
