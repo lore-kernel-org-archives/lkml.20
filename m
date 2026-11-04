@@ -1,69 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.145
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793760671;
-	b=X4kPqFi6Yyntv4HmEBFRAmLukLOtTDznDT2bnuqFxA6snBSbGtaqxEmbtPKMka9XpPB1
-	 ZpcjLTMmhOd+U/x+4YEc79f7115szJ7mPyfkp7rstc4mxd7eqoWyi/i1avsrMYM7ZouvX
-	 QAYPU/zoliNA0ASubZkzogxqjZnI7RlgMomqoRpAEZA0J5VqmY9L4u+HbdFdKTE/bXIDW
-	 s8fxJUvHHIk2yOgxG6SRFv+98tmwYlN71r0itwmPmyt3F90Ml3gfCB9KXbLFMFwV8DueC
-	 dFfL4rG8nSSjqhYgb2P9r5WL+C/f7DQm2hb9WwBMtuRXOIzbD1X7eHzUq9t0gOZ17CA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793760671;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=UUhFrC9KIt/+WPshEq4e2ByV/S4rjw7qIzYClVi5EXM=;
-	b=PKUHMtkUzmuQOd8P4l5ZMdpWpGmggK4VtI68dvQW7nDh7jvMTiv+d04+BBMN61JOP8+q
-	 /cniE5xaLFpD8jdILYp9it4Vu00Fnpl/qfl8jKGQTinRwfZL6bBjs7Y8FFgqUcA6bEHhB
-	 BsQiL5pVlgQvR+OsdCAw8ODvuFn5tT8vPZ7IRfjfW9kNDzF82M7PhUxsh5T5UFD+mJ6t7
-	 sDlmovU6Itw1f6qvBGKSPuofr28jYk14diBaaXseCypPSEyAHhcqUqrIWimm14aQRIhec
-	 SPNEOX7qADLwWaRnVsajWr4wtaaTxrnmKZ63tlg37tfjfDaXcAXRnv825DwDoU7r2kA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=ncWYpGBl;
-	arc=none smtp.remote-ip=115.124.28.145
-Received: from out28-145.mail.aliyun.com (out28-145.mail.aliyun.com [115.124.28.145])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.124
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793761020;
+	b=CFBTPHKY+ffiUsFk5uTXj/18bU4TsJ79/eXwUf9aU8yyLbZU0mWETsPo8V4xIGe1Sv+e
+	 t2LAu68rLwMttwJ1kiSfCMQPSF6FCPoslm61g6AIwoTspLAqM4K3Uchx+ks3iUkM48Omu
+	 cUkA31lEBRjhMiAK6WQtmYMa8nJcRGNlI2kHve+5ZuPaNs8U+Dbd+yhsUKUo7Uf/5OSzR
+	 hZA+yA0BOozQpTOOqfdwF2rPj/niCPP0PDeWzYFtRi3qSVCTrcOtt1wXNAyOvEsQDv/3t
+	 d8u/feofjM6M0Un+M3tjlxU7nL4adXOuX03I68NMcaEv+tuSpNabd231MJZxK6GIF/g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793761020;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=8kTSHYe2PmDWTTe7hYxhWdiWvwV+RaQmp+hwD9PpEZ0=;
+	b=sFhy326lr+8UaSm0Q8U6KzfRkKg8f5Vn4/u4ZtjaZL6J2tUzhMWfk/taM5gFpzMyjsTH
+	 KbGQXA7L/mBaAvbQn3LQ5fviqSIK51CeYGVk7atyMRkzT3bJ5EcnoPuvnBNqBe+crsp+l
+	 U8tcMTYqa55P/57RI8eCgrQQOx3UUqJxIpyGldC+OWEKco17TDVcDbHYuTLsPq2+Ce7Lx
+	 mD9MYT3lLbuPMXfBMwp2+3euWpZTWdUkA2Nf2+YgEqSQJYRTOBU18iCuSI2jSFlX0pc5t
+	 5Eq6mkCguu/8WSoFuJcsg4jITYsIznux6Vy4oKY0FimXVerVfNdeQnYYYW8k9sSzSTA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amlogic.com;
+	spf=pass smtp.mailfrom=amlogic.com;
+	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=Xd6HgY2k;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.124
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023124.outbound.protection.outlook.com [52.101.127.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F53606A331;
-	Wed,  4 Nov 2026 02:51:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1F53606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1CCB606A332;
+	Wed,  4 Nov 2026 02:56:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1CCB606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=ncWYpGBl
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1793760663; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=UUhFrC9KIt/+WPshEq4e2ByV/S4rjw7qIzYClVi5EXM=;
-	b=ncWYpGBleOih+MAOQsyXUP1WpXoIuOoDKr0o26tNEOQQ5dD2HW4HR7NM6yO66GSiZY1YCGHEqVvJwU5K9hjPaMF7xdeIJ0ieSSBC0sUhGToVW3QZdfKitdlgVeHGxtqdqbJMCzQIcZ3ODimxlBmkuCKHQS1poSHXca9BVZbjAqE=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.0743648|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00499233-7.36624e-05-0.994934;FP=16207564753372531952|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam011083099174;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=15;RT=15;SR=0;TI=SMTPD_---.jwK3XLT_1793760661;
-Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jwK3XLT_1793760661 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Wed, 04 Nov 2026 10:51:02 +0800
-From: Liu Chao <liuc63@xiaopeng.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	khtsai@google.com,
-	fangxy@xiaopeng.com,
-	Randy Dunlap <rdunlap@infradead.org>,
-	dbrownell@users.sourceforge.net,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: [PATCH v2 2/2] usb: gadget: u_ether: fix out-of-bounds read in get_ether_addr
-Date: Wed,  4 Nov 2026 10:50:58 +0800
-Message-ID: <20261104025058.2650911-3-liuc63@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261104025058.2650911-1-liuc63@xiaopeng.com>
-References: <20261104025058.2650911-1-liuc63@xiaopeng.com>
+	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=Xd6HgY2k
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kdmXeCVMHxFJN6ChWLT6/YpxgmmLfjeO1D5FiqC9lvTUtaICJ0Ylxw1J09/OdUxmwzk/h1As/A1Zjl3C6Yk1z6jULraRPkgP5IlzIhWMr+ri9MMoeWALjSENV7pgp2cke3fXmv+vo6OJwHMNPsLAw0wwcdn1rzqrNibvQmRCPb/mjw+bzUd2ydX03A9Qrp0HXzPz37zEYlGVFkH8QbonofJRRPk/9QeDSwVPnNQ9M9b9yvr43WV2de9e97JmnL+j1ci7hCj/PF6Yb3lPhVYC+A1gjHzdcoPLMk/H1YId8uInCkX/NF1D3Ut1n3cTCFw17/Vx+6JG29dPGshYOzoJFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8kTSHYe2PmDWTTe7hYxhWdiWvwV+RaQmp+hwD9PpEZ0=;
+ b=ZLHi6L4nbypOMN9P/58+Ox4Ld0GQpgQGObpdHh36RoEN3C2b82Cewj32ogPuJ+KHJ/HeusGvrzhvgsGI8npFHMbeOo3faj3iCc7yByBphk2fd3Qp+NtJhi7IKc9wwzhFtDTL2rcOKMz8u38nSH9nkXUCcwGhFJgsN+7HxuJN+UtM1bySlY+VYROyXzxfNx6NxCK+zn7bNkr0EEtp0DIwrblNUalGpy7LmcYbuRz35nAVzyRQ2bj3D+GV13fkpG6ibwtEIhzsHUqTMlC6aKwxx2CnllPu3DroxOV5HPKXjFIFYfAbFVnYvynp6IrSxnydfHT9HIOaw/cdiE2FUbOXww==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8kTSHYe2PmDWTTe7hYxhWdiWvwV+RaQmp+hwD9PpEZ0=;
+ b=Xd6HgY2kmeIkow/BNP2EHCneyBVMtCqMMXTpWXjrDxwhfRlpMdROdmKR0nLJQsLJpglohHo0yNbre9JbqzEQxMAgWuMOkgfHozrUslR7lzFPLitSgOKsbvJWQwg+kde9HSkXRFO1HI/yo6OzT2R5kRpHvkv5kuPPlQIv9Y7sCw0FH1ToznDLy0To1mI5EBTBqc0HXC0wXSGD2PCkBFpMKxCrtyJz4Db+mn9g+VQfTczJAKPqu1QIXdrRqfAe96fHPblZDn4ilnyQP2MSnBInhV26vDZfGrePr8amfXbQP7+9RC1SFSSm8N5UlsxkmacdLC3bVW/ly0sPMsOuDXi/IQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from TYZPR03MB5743.apcprd03.prod.outlook.com (2603:1096:400:74::7)
+ by TY8PR03MB10498.apcprd03.prod.outlook.com (2603:1096:405:3ab::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
+ 02:56:56 +0000
+Received: from TYZPR03MB5743.apcprd03.prod.outlook.com
+ ([fe80::7f51:5771:90c4:8c40]) by TYZPR03MB5743.apcprd03.prod.outlook.com
+ ([fe80::7f51:5771:90c4:8c40%3]) with mapi id 15.21.0569.011; Wed, 4 Nov 2026
+ 02:56:56 +0000
+Message-ID: <811e78bf-7d5c-43ad-885d-0573e25e3d81@amlogic.com>
+Date: Wed, 4 Nov 2026 10:56:51 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] dt-bindings: i3c: silvaco,i3c-master: Add Amlogic
+ A9 support
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Kees Cook <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, imx@lists.linux.dev,
+ linux-hardening@vger.kernel.org, xianwei.zhao@amlogic.com,
+ Kelvin.Zhang@amlogic.com
+References: <20261102-a9_i3c-v2-0-0c474bfccffa@amlogic.com>
+ <20261102-a9_i3c-v2-2-0c474bfccffa@amlogic.com>
+ <20261103-emotional-objective-jaybird-0627b5@quoll>
+Content-Language: en-GB
+From: Junyi Zhao <junyi.zhao@amlogic.com>
+In-Reply-To: <20261103-emotional-objective-jaybird-0627b5@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: JH0PR04CA0002.apcprd04.prod.outlook.com
+ (2603:1096:990:4::6) To TYZPR03MB5743.apcprd03.prod.outlook.com
+ (2603:1096:400:74::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,112 +111,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYZPR03MB5743:EE_|TY8PR03MB10498:EE_
+X-MS-Office365-Filtering-Correlation-Id: 140244b6-20c0-447a-66a6-08df3a1f4982
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|6133799003|10067099003|18002099003|22082099003|56012099006|11063799006|4143699003|261022105027099003|261028144727099003|261026140227099003|261026121527099003|261021121427099003|261102123227099003;
+X-Microsoft-Antispam-Message-Info:
+	CQvLIjVVLZ9nI0NbooPpwo3nLuEZcY8VgrNpi2JF1s5NhLs0oSUhGa9sfwpNo9ShJdUOQ/C5N5j4KODp5hXTqMbo2kLzsMgWMNUbJ4uztn35O1fHBqBvmRSmcbbxFuYaPK5eDy36m6sEasNIifFTGYR5sUdrMcvAHjp/c3OY5fgaRDKPNceqL+69abnBiVv3LvKT/TJn5LfZAS25MsEvectWZk23210gX4sMv9aUuw2fxewdCFW4RaPQzuLDjw6ZRPMj1t1uwDq2E5qU3fM3M4LQ5D2jqAVkGgEYfPNjJmT9ZDDG8m02SMGSiwYU9DF9fZZXRY4O9mq4q/f34+5uX3qs6nqjXG6vLCB3vrBpAOqe+oEn5NvOQnw8eCzT4syfPohCMaLU4PKSMTHV1kMqlg/a/kujgmlpb3q7GEVf94GL/0LQx44jZkQtc62IfQjIdRoPqSQjIPITp6p6GO52u/AEsHzaF9WXa+CEMFkIhrk9F7Ka6r7f7Sa/zQVJcPbQN4q7OW30K0azJK0P7t+XRMREV0f5fWVJ7NUgNN6LwjYu3KyENuYWwPkQkAkYtoqhUkX8xdj6qRRFXC9rhbSWWJdejjHuJsMH06iZ8tkxQTqjjQNP0lRzHZ5Qd99f8g4fWa/z/ngztb4stNP5ApvMDbEbehzyDM7w+8WtIjv44Pk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB5743.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(6133799003)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003)(261022105027099003)(261028144727099003)(261026140227099003)(261026121527099003)(261021121427099003)(261102123227099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VnhNRTVtZFpwdTk2MC9Rb09MQm5Laml2aW1zYjNMOXJzdENPSlRHbTV4UXF4?=
+ =?utf-8?B?cGdMS0dWVi83RUZBTFdCcDk5eUlkczdaa1M4L2lGcUlsd2ZkT2Y2MGs3bS90?=
+ =?utf-8?B?RlpFekFXMzhjN29QSmQ3VEcyajlxMUxSY01HQnpQTVdmUkVDRFkwaFJFc2FR?=
+ =?utf-8?B?OVBueHYzRzF5c1VFOHJjL1R3WFQyZE1zTkpRU3VSYnRIWVVWV284cU5PLzhI?=
+ =?utf-8?B?RllBUytRY2hTcFBna2M2MUlaYTlwV0I1RHFiUVVyOEZZZzErTjBXNVBTTEdS?=
+ =?utf-8?B?NmFaakdZV2lwa2NhNFJrNDl2dFBGWG9uZTVhSkFGcVA2VGJjMUtMNzhBYWVp?=
+ =?utf-8?B?clFCNFNHS0tLdnZPK3kyQ05IWnEvU1d4MzRmMU5jdTQvWXRLdC9Bb2RTTVRC?=
+ =?utf-8?B?TzRuVUZNc3BaQ0E3d2JiT3ROYWlRRUxyZS9Tek1nM3pQNlVHMWRRVk1lSytI?=
+ =?utf-8?B?QzV5QVV5M1NtWFB3N3l0eVpxNE9LR0U3dWpHT1ZURytKODJocnRkZnZwS0tx?=
+ =?utf-8?B?U2JOejJpai83aXl3QXJJUGp3YlJiQ0p5aXdKdzBPaE5SYnFwbnp4dUplUlNj?=
+ =?utf-8?B?TFJ4U0YvVStmS3FQZkxJQmtmaWEwa1hOU0dhM0E2MU5jcFFXRVRMZnR1Y0F5?=
+ =?utf-8?B?SjczL0FTUS9meHR6LzdodEdhS2FvMWhnWTgyenVYS2orREdmbFRzZER4M00z?=
+ =?utf-8?B?UWVvYTZDNWxmTHNUZFJHVTlNSG02S3FuYXBzNDMzZTFMY0xXQ0dtN21vRmkr?=
+ =?utf-8?B?L2liM1BjOVQ0WUpsWGorSGpSK291OVVkTVI0UWZzdE9WVWZFTzdJaXBrMStt?=
+ =?utf-8?B?YUJJbjVXZTZtTzBPcHBvbmNkSXdUbmxhd1BPTmZmT0RXd0IrRThvblpzMVBX?=
+ =?utf-8?B?QUFkVlY3U3E2WndWU2NRNWRqMGhsK0hPTktpblU4Wmo0aWtvMGVTMXNUZUl3?=
+ =?utf-8?B?M3c3Sm8zOVB0ZU14Zms0bkZaWU8rcjZOeXlCcFR1d1dVVU1iUVVWRjQ1cjRN?=
+ =?utf-8?B?NWVNNEZCbFB5YTEzS0gwSFA5MEgrQUozelIrTGFtY1o5a2NLb21jbVVDd3pj?=
+ =?utf-8?B?dkdpTXBLa3ZkeW5MSUdsditMV0svVnoyQkUzbnJ6Z3hmTTRtUVFNcmh6NXdU?=
+ =?utf-8?B?ZzRPSERybk5ZNk1DajAyVUQrUEhzZWt1QUhRVHUxeTFscFVhV2RJZHN6dm1u?=
+ =?utf-8?B?KzlKT3B2Q2NoNFZ5d1J5dVU5Tk42cUFoblFSS1JGR3JCZnNvV21tcVNYQUZV?=
+ =?utf-8?B?QitMOUIxUUw3bHdTMFNxOVcwY210ME5wblFmTUU1d2RpQVo3cjdzODBwNFhB?=
+ =?utf-8?B?T01uckNla0JvQXpTU3p3bllxZEJCdEk0SVJJcmxzcER4VVJhckF6cWROL0VN?=
+ =?utf-8?B?N2s1YndmNFBtVmc5bTNEMGI3QzNQNzcyTVJQRzNDYjVwQUNpdUM4TEdJYVB2?=
+ =?utf-8?B?ZmUwbGQ1NWUwUHBIak40VHhydmNHQ08rTkJkcEM1UzRoVDFiMzRuVnhRTHNW?=
+ =?utf-8?B?ZEpmZ3FlOWdUMy94ZDQyL2RGS21zTEp4am5DeVVvbW1mU1lURVdUak1YV0Vx?=
+ =?utf-8?B?MDZxV2pySy9xc3RrdFYwQmQzbFlubHhReDFmTHRpc2VuZjF3SUhrSGlWQWt1?=
+ =?utf-8?B?a0tqNzZMYU1SN2xCTFdidnFPR0VISy9zSzZ2ZG91UXZ5YmpYM2RnYWlXZm04?=
+ =?utf-8?B?Uy9KSTl2VXc4cEJDRlpjMm9NVnJWZ1ZVdUtpMnp5NUpjVHV0MEF5d0xFRm5u?=
+ =?utf-8?B?VURCWXkyUDg5cGpIaXQwRUV2eVhwUVdYajkvTVNMaUwzdGNPQnVQbjExTDVy?=
+ =?utf-8?B?TmRURlJOcWNXMmJsRmJ6SWNyRjhQbHdkQmZZRkNldGJVY1FKa0xjRVMreXZ5?=
+ =?utf-8?B?L0J6a0ZSRitKQWx1UXNnYzhTOEVtTE5SblNISUtUcGpWY0o0aWJtQjhndHFw?=
+ =?utf-8?B?ckhqSjFCYUoxUWhqZ21LVHVJRHNxNFp2UVdKbFlld3NNUldTblNUQVIra0JP?=
+ =?utf-8?B?UXhOQVMycmxTWXNuN1ZjYUxDZFdvRUw5NE41UmZnUkV4U3RDRDJVM1pnWlp6?=
+ =?utf-8?B?Ri8rMHVBQTZYYkorcDJKb3AvVzFSK1Y1TGVhZUFWRXVEeDc0NVpuZnFsOXFk?=
+ =?utf-8?B?ekZqUkxqYm00Z09SQVBpUkt2YnJqakI4Q1V1cVhvQXJLV2RGaW51a3FMbjEy?=
+ =?utf-8?B?aEc3UWFnbTZPaDhuZzJQcnk2eDVzSC80Y09rYi9RMWNFcW1Bc0EzNUh6UHBR?=
+ =?utf-8?B?TjBmejk0SlVlbUE1QjdDdVlHY1hGODNpdDcwbUJrNHQ1cjlDQXNGNUY2L2Ny?=
+ =?utf-8?B?MjlQMTR1MjNDSFdWNG04TnZVK0g2cmsvcUFoMVVqL1VaVERxTHJQQT09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 140244b6-20c0-447a-66a6-08df3a1f4982
+X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB5743.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 02:56:56.6371
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Cg0nLALjXQVN60c/tnZyjjoCzOZgPBoBcsME8JwgmLduiNYXEwDJu9rLEwnqZczFNeTtH7CMFtALkbrlYkAj4A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY8PR03MB10498
 
-get_ether_addr() walks the MAC address string with a fixed six iteration
-loop, calling hex_to_bin() twice per iteration, and never checks for the
-terminating NUL.  A short string therefore makes it read past the end of
-the buffer.  The dev_addr and host_addr module parameters of the legacy
-gadget drivers are copied into their own kmalloc'ed buffer by
-param_set_charp(), so the overrun crosses a slab boundary and KASAN
-reports it at insmod time:
+Hi Krzysztof,
+     Thanks for your review.
 
-  # insmod g_ether.ko dev_addr=ab
+On 03/11/2026 19:42, Krzysztof Kozlowski wrote:
+> [ EXTERNAL EMAIL ]
+> 
+> On Mon, Nov 02, 2026 at 07:05:40PM +0800, Junyi Zhao wrote:
+>> Amlogic A9 SoCs integrate the Silvaco I3C IP with two controller
+>> instances:
+>>
+>>    - amlogic,a9-i3c for the EE domain, which takes two clocks,
+>>      "pclk" and "fast_clk" like the NXP variants;
+>>
+>>    - amlogic,a9-ao-i3c for the Always-On (AO) domain, which exposes
+>>      only "pclk": its bus clock is generated by an internal divider
+>>      located in the controller's own register space.
+>>
+>> Allow both compatibles with the "silvaco,i3c-master-v1" fallback and
+>> enforce the per-variant clock counts.
+> 
+> This we see in the diff, but we do not see WHY.
 
-  BUG: KASAN: slab-out-of-bounds in get_ether_addr+0x1ec/0x230
-  Read of size 1 at addr ffff888009f91f53 by task insmod/70
-  ...
-   get_ether_addr+0x1ec/0x230
-   gether_set_dev_addr+0x6b/0x180
-   eth_bind+0xfd/0x3b0 [g_ether]
-   composite_bind+0x1bb/0x7b0
-   gadget_bind_driver+0x229/0xb00
-  ...
-  Allocated by task 70:
-   __kmalloc_noprof+0x1d1/0x4a0
-   param_set_charp+0x4a/0x220
-   parse_args+0x267/0x5c0
-   load_module+0x4f6a/0x6600
-  ...
-  The buggy address is located 0 bytes to the right of
-   allocated 19-byte region [ffff888009f91f40, ffff888009f91f53)
+i will add a description of the I3C peripheral integratation detail at
 
-Besides reading past the end of the string, the loop ignores what
-hex_to_bin() returns: it yields -1 for a character that is not a hex
-digit, and that value is shifted and OR'ed into dev_addr unchecked, so a
-malformed address can be accepted as a valid one and the interface comes
-up with an address that nobody asked for:
+hardware-level.
 
-  # insmod g_ether.ko dev_addr=aazz:cc:dd:ee:ff
-  # cat /sys/class/net/usb0/address
-  aa:ff:cc:dd:ee:ff
-
-The configfs dev_addr and host_addr attributes of the ECM and NCM
-functions reach the same parser through gether_set_dev_addr() and
-gether_set_host_addr().  Their store handler passes the page-sized
-configfs buffer straight on, so an overrun there stays inside the same
-object and is never reported, but a malformed address is silently
-accepted all the same.
-
-Replace the open coded loop with parse_mac_pton(), which checks the
-length and every digit before writing anything to dev_addr, and keep the
-existing eth_random_addr() fallback for all failures.
-
-Note that this makes the accepted syntax stricter: the old loop also took
-a separator-less string such as "aabbccddeeff" and the Cisco notation
-"aabb.ccdd.eeff", both of which parse_mac_pton() rejects, so such input
-now falls back to a random address instead of being parsed.
-
-Select GENERIC_NET_UTILS so that parse_mac_pton() is built in.
-
-Fixes: 2b3d942c4878 ("usb ethernet gadget: split out network core")
-Suggested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
----
-v2: rework on top of parse_mac_pton() instead of open coding the bounds
-
- drivers/usb/gadget/Kconfig            |  1 +
- drivers/usb/gadget/function/u_ether.c | 14 +++-----------
- 2 files changed, 4 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/usb/gadget/Kconfig b/drivers/usb/gadget/Kconfig
-index 76521555e3c1..b83c42be686b 100644
---- a/drivers/usb/gadget/Kconfig
-+++ b/drivers/usb/gadget/Kconfig
-@@ -158,6 +158,7 @@ config USB_U_SERIAL
- 
- config USB_U_ETHER
- 	tristate
-+	select GENERIC_NET_UTILS
- 
- config USB_U_AUDIO
- 	tristate
-diff --git a/drivers/usb/gadget/function/u_ether.c b/drivers/usb/gadget/function/u_ether.c
-index 59d85d6a84a8..26471cb086b3 100644
---- a/drivers/usb/gadget/function/u_ether.c
-+++ b/drivers/usb/gadget/function/u_ether.c
-@@ -686,18 +686,10 @@ static int eth_stop(struct net_device *net)
- static int get_ether_addr(const char *str, u8 *dev_addr)
- {
- 	if (str) {
--		unsigned	i;
-+		bool valid;
- 
--		for (i = 0; i < 6; i++) {
--			unsigned char num;
--
--			if ((*str == '.') || (*str == ':'))
--				str++;
--			num = hex_to_bin(*str++) << 4;
--			num |= hex_to_bin(*str++);
--			dev_addr [i] = num;
--		}
--		if (is_valid_ether_addr(dev_addr))
-+		valid = parse_mac_pton(str, dev_addr, ".:");
-+		if (valid && is_valid_ether_addr(dev_addr))
- 			return 0;
- 	}
- 	eth_random_addr(dev_addr);
--- 
-2.50.1
+> 
+> Best regards,
+> Krzysztof
+> 
 
