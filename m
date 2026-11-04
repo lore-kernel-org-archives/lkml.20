@@ -1,109 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=67.231.145.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793801190;
-	b=x80KbwlZUs0Cfr8lkR5mNcspZ8cOSYVokzHMB3pfY05Tzx5AQ9HcnLo1olV1cPkweEUE
-	 qkKrJnxRmF+jOXixXJ+fdVanprMGUoSJEwNfvMXh4lXk0fAZTy2fAyze4vPmyDLetcavx
-	 tQWts5UQhsTOkVBK441hHRSSUSZPMYbHFYYIttCrH5nrpXi4AAXQ/0RA8UMvAFCaPHyBV
-	 c0mwfKpGmqrqSuOp75t0dLNTIPm2X4hUeZBUh50HYLrplzBV9ycGQEr3pp0Qa3lMdhCMQ
-	 eIkbXjQ/Asw+7r1u6OvkOvpWkB9Iejyrdtg2zvlFKWQdhRXywmjVjxqrlLxzhaik+9A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801190;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
-	 X-Gm-Gg:X-Received:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version;
-	bh=QAMpWDWruKPumB6Xa1CYIphLFL78E2eeQCtuZQA6IQE=;
-	b=bp+fgeNfIm2NuKHhKqI9AgSYX+nSKrAQa5JHI652Iv+V22OxS/B4DGVIur3jWqUjtds6
-	 p5I7SMOcpPuAj5abhOwQ7vGa4Q5Wja4s4wmLIRlf+m6NUlzigacIaWjCCGMlh7voqMNQj
-	 eVG53bN2b0pBj8CWVQZ0f8+9tLTfmvGMLk4+WVsONaAWk2gLRXejlx9J2iliZN73dG5WP
-	 AK+U1uMTvqD/+UwM1IagS8oa6KpRdOOINF9U0N0+dYk/Ee5BTTvxL0kEY11baBONYdCHI
-	 zbhyhTBhKUv2GeKAA7/AWI9ZdZPjZoQrVgXWmvSJbbQC91L/Ug0RO9yTxG04WQSb8Sg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=meta.com;
-	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=YFDMIGSS;
-	arc=fail smtp.remote-ip=67.231.145.42
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793801196;
+	b=FRtN8qIQY9MgXp+ng3oCGjzQft5CE8qiLOmdSg3z+M8JXx482b8lC9qmGjsKor1IeQvN
+	 3dpD02ZNJJxt/5iUsRqhc5azetCYs8iyJcEWSMpXJAVZhTeXdG/SRQ8ziREiH/nlCbim3
+	 fsHiejn6vdj0XVa84gvdslyMzI14XxmH6SP+o2umysqHIob8AucRCayUZv5HCyqu1EcOq
+	 wC6gCVD9YGA6nlK21s6lcBryZM+e6oWBNLa0BfwQcfSukUx3PtZjFbov5uKZK+42ChJSv
+	 tOqr3xYKSlFZCpg8PYdQPXZENfbVLV1T0fnPj4ByjNavZFdFh89n8inNGE5uyfqq9Ow==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801196;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=aXWAiVoz/GShbNgnrlETN1gpMxMxX7DmXCvxpsTV6/E=;
+	b=bVQl6nN1aqJpXTKFkiHbqK5BsNQS/0m+t4dxPBzTFUQIz64hjbeb7ZRAw8zssafIF81U
+	 1A4ulSQ6V8Xrq5+c1tWq+qbGiqEc/KyJbiZ+7hrPixdYv5o0Ibmrm6xxAEVa/YDSGHuEf
+	 FOWE0vdqWLBNd2nq5CbqObyWBPjD/Li7uZjqzSZkiO4bwuoVk/pu22NApmYMxpyE9zAmA
+	 uQRe1icaKpH7U0zmLbAW2DSRa2AI5PUl1rWwtobWf+6sOptS7y6iTTXhaPuh1JxILVPWd
+	 tn0ytqs/DDwkrZ5BE/ya5p+XYnY1j2VmWIfVWQt3Ikk5MU420Dk8/SHIVgtIaN7LdkQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bDAinQV7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D52606A32C
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:06:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49D52606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA1B9606A31B;
+	Wed,  4 Nov 2026 14:06:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=YFDMIGSS
-Received: from pps.filterd (m0528009.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4Bcrml850186
-	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 06:06:28 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	pps82601-s2048-2026-q3; bh=QAMpWDWruKPumB6Xa1CYIphLFL78E2eeQCtuZ
-	QA6IQE=; b=YFDMIGSS7tBalD3DxD9rUovijS31f1vY8iPYKyCDvc5ROgVf8/PYR
-	9PUIfbBcNEL6hyRDrPIAjV6H6HpMwYSHNgRElSJSv6yhLkDApUdqhF8Rd9Q8+mlV
-	nKgGkb0jd0mGqcokKWVkPUZIIlCfbyvAw25P6q/tZr9GlXjbuqweDSvJWtJPSDXf
-	7kLVklEXcF1a1UTyxbeoEVpYJ08wi0Ico/y8i/3VETsnX+s4DAkXhS5wueDontDO
-	rE3P9T36rhts8f5GkjiR9XBxnHAHHEzS0EW7sgVRJIcMokrRWufCR08Sf6XMVO4m
-	Y8jwnvlMRtiJihnqNy4vXqf9jwI4ke6bw==
-Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com [209.85.128.200])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hqmmgpt20-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:06:28 -0800 (PST)
-Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-8b18d691d54so13451617b3.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:06:28 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793801187; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LelxB2vfOObNn0d+Z9NqXi41r9Wm003ImsUeXqF4AQbzDPZMes/YYHRHB8baqFlEKH
-         cc+M1PjuMSCslPcfspRaAK2TNN9Ipx/3Xnxjn/WV9PJ6K0ZDlb9t/vqRkW2YxNs916eZ
-         P7RvA4k1xZENQUUy9dQpDniFPSCUybCQBu1Z1r8dsq6JvpaL5S/U86sdGixSGFQgxGpM
-         YHyBomvx+gazRBzUuLYxQNb/Du8U8PC8ezMzBgLeGcbUKiS4Cx9TOCPawGYanFlfAh44
-         RpUPaaQvO/zxh97HwUzgBygd/7im/QXjR0xiQGRB+OluWYkxroP2Ukc4YRPQjTYy2RSb
-         r6Jg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version;
-        bh=/f4EP84Fx0L/VX6arx5pyVe+AN5q2SyBdZOt/navcCg=;
-        fh=bwFEm9rwiGOIj2ldTD/0xjtL0ieZydAwmMmB84lSKRU=;
-        b=BXfCrrguFz+H0DATGWZyHTzDOi1c/2oioLzZKPz6dwQJzr8jdG5V/6ZNXirucYIPJA
-         bR8TnMOsYWgbckGNR9pUNzvaUik9JjmQg8c+Gg2cnBcl+xxrLJ5Q58w9ekpaJTKnD8KY
-         lYiCXH3J1yeJel2QYAxjpqBUsJJTnfV3WySF5Xu0dohHG0EAOJRIuGklxL+iCHKLU96A
-         lupfzBtqF+sIWyS4Fq+M0oyLqOMhcGz1WdnF8Jk9JC/NX+ruNpAqeNMRKIdtVD8vXChZ
-         TNK50dz2E+fD5IHJbtnlkn8r1t7k2ptVkD7lretNXP0KdRxGUlgpM2l/9epnSQHX6uJ4
-         KZZQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793801187; x=1794405987;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/f4EP84Fx0L/VX6arx5pyVe+AN5q2SyBdZOt/navcCg=;
-        b=r9l3WUSfl1W9aQOWGCRxvcEMJjAnW3zi0WogRvDX44kvfh9WIVakOc5d6twB6OucG5
-         /bsCOrlGxoCnOfbWqDBR7sgjqWb0lqPj8TpBbqmrSvk31FuHFe6IvDCVeCj6wqtPpU3r
-         T+ekFX6TeTV5djEiD+Gz8dP39bMLXDfa8xbS+VT/IRAM/i8D7rFUritjVUuLmAgjsK9Y
-         5WUFXzoJqgQQGDucoEHRdGixDDIQHr5pEhkTSZ8P/Amk6ovkhPb3+N6vct+z6k070Aum
-         rYTRx0/Ywvp2PiUOFuTm0Uc3muGJiD/XUus69Q7LVZhxuMhJQFGmw7UHyXe7J1mlHdvV
-         XSUg==
-X-Forwarded-Encrypted: i=1; AKwUvBwWZjamu0pXG/uqoI/yck1Eq7Mx7hgMwzNT3ILwqfxM5PWeE10wgEaFbWbMNhAEyQDuukb/P7SNV3UrXkw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8q5dgJcr3NELPj9mXYKlXCQyEdJRHmKTKyJvfYCAAm2ZV7WAbL
-	rq8fLPyF9+sYKqvkorJ4loGmItUJFh8BbBrfc7ouPIp4TBTUU9Zua+qTLV/dD3V3K3eAueJDKE+
-	PH+5YkSIFZS+gCxyaSZuhZ2B5lOX+0k6DnbsxBYfz7Wj/v6SrOgSsOors5IvxQ3YFGp5ZmZxDl5
-	scVun++PgM/2hiuowdNv1aCuzmWQjyIYMxnJ+VcSw=
-X-Gm-Gg: AYBFou3HoXGDMl51opDqMYJY9Apiqtw3K5X10ZsIh1xwDg7zZhnL+3wqXENTR1Omf8d
-	JtvQ9eIUsMnHZXurjEspw/QhY6ygnG4f+FJ85lGn6UgaNd3Zmt4xSWzqHJ1O++JeS+bLH165Efw
-	nCfrf49Xt9M2KgStz/9BdSKFrgn+/7LheANy428nhOXSjgnSmIP0YhoKBZiw3x0MFElRYA0o8AL
-	TX6vlXmY2FjMwMHww==
-X-Received: by 2002:a05:690e:b87:b0:677:b923:dbd3 with SMTP id 956f58d0204a3-67ba5053dfemr8349322d50.154.1793801187379;
-        Wed, 04 Nov 2026 06:06:27 -0800 (PST)
-X-Received: by 2002:a05:690e:b87:b0:677:b923:dbd3 with SMTP id
- 956f58d0204a3-67ba5053dfemr8349284d50.154.1793801186561; Wed, 04 Nov 2026
- 06:06:26 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bDAinQV7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3943A1F00919;
+	Wed,  4 Nov 2026 14:06:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793801195;
+	bh=aXWAiVoz/GShbNgnrlETN1gpMxMxX7DmXCvxpsTV6/E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bDAinQV78kjJGiRao2RlWwJ7qdRGHIzm8KQao4PrDV/PUop6ZnJhhSCnZ7zWFaZXj
+	 izuvBAY15eKrmx8/0Dg52D3yuOCzfzA47CKA0osbIpS7Jnpu0T+kekKoIm4z1KoT98
+	 8XO41cC7jSYiuEYnKQIKDFs0Y6lx3rxnA3lATzL37Lo5t+seairFqy4rw99vURD6SV
+	 Nl24+LErs1Xhnr1zFtPP/QIW9neMElBYB0zIMokMaU/BGgXzYIvIubR/ok/X1uiimI
+	 Ie7Qffgec1FYRixwAld/q/0zdZy/911jv68Utp9WjeVJBZs4m6krRAQTTp2XnX9EKE
+	 8TnxLsUXIxwIg==
+Date: Wed, 4 Nov 2026 15:06:31 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Shan-Chun Hung <shanchun1218@gmail.com>
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, vkoul@kernel.org, 
+	Frank.Li@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	kees@kernel.org, gustavoars@kernel.org, linux-arm-kernel@lists.infradead.org, 
+	dmaengine@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH 2/2] dmaengine: ma35d1-pdma: Add MA35D1 PDMA driver
+Message-ID: <20261104-airborne-vivid-caterpillar-991425@quoll>
+References: <20261103022202.2139674-1-shanchun1218@gmail.com>
+ <20261103022202.2139674-3-shanchun1218@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,112 +60,215 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261022145615.2184343-1-alex@ghiti.fr> <CAMgjq7AB4wUzmugV3n4mhWcYqMKmhoZJCDV2uUagFjZXjUUi3A@mail.gmail.com>
- <CAEmasaXz2GGoy4dyhbo9Em95Cnz6QL3u2fcnAa2=8pJOOJyH8g@mail.gmail.com>
- <CAMgjq7BjOeboPMP64PfGDoY4yMGq0xR4E4Wa66U0+gsd2tnu+g@mail.gmail.com>
- <CAEmasaV0D3ezZyWf0k_84qXOa1c5KyUjvX9Jez+RXMDPM7FdBQ@mail.gmail.com> <CAMgjq7BFbXEKEt9faj_rg5AStfLkpJ0j57EQOOJ+L3-w2xRvtg@mail.gmail.com>
-In-Reply-To: <CAMgjq7BFbXEKEt9faj_rg5AStfLkpJ0j57EQOOJ+L3-w2xRvtg@mail.gmail.com>
-From: Alexandre Ghiti <alexghiti@meta.com>
-Date: Wed, 4 Nov 2026 15:06:13 +0100
-X-Gm-Features: AclHuK-ywCYCDes2w5waoGRQmyFziLeciMzNMPbjxY3l1ZmHrzYocw8iw65rVKU
-Message-ID: <CAEmasaUoAcgwBJ2Q5fa8NNrxw7xeRXWH_sDGs+GP=L9BVRuUVQ@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/1] mm/swap: keep reclaim batches contiguous on swap
-To: Kairui Song <ryncsn@gmail.com>
-Cc: Nhat Pham <nphamcs@gmail.com>, Alexandre Ghiti <alex@ghiti.fr>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Barry Song <baohua@kernel.org>, Chris Li <chrisl@kernel.org>,
-        Kemeng Shi <shikemeng@huaweicloud.com>,
-        Baoquan He <baoquan.he@linux.dev>,
-        Youngjun Park <youngjun.park@lge.com>,
-        Johannes Weiner <hannes@cmpxchg.org>, Hugh Dickins <hughd@google.com>,
-        Baolin Wang <baolin.wang@linux.alibaba.com>,
-        David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>,
-        Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
-        Lorenzo Stoakes <ljs@kernel.org>,
-        Axel Rasmussen <axelrasmussen@google.com>,
-        Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-        linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-ORIG-GUID: cqaTHZKmCoKXYmwXCr78JNIiemDAewcz
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA1NSBTYWx0ZWRfX/UI+NuoNNW81
- QM50lP82pxof/EEZR3wlg9DlRm1tSe7xuMl+D3o/jUT6c1Sk+2GVuK88VSDyH12K/St0767s1QW
- WSfOsuQAJluQU9io7IvWEYqI8VUBXlU=
-X-Proofpoint-GUID: cqaTHZKmCoKXYmwXCr78JNIiemDAewcz
-X-Authority-Analysis: v=2.4 cv=PeZqFShd c=1 sm=1 tr=0 ts=6aeb3be4 cx=c_pps
- a=NMvoxGxYzVyQPkMeJjVPKg==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=U_y8lYiYyhHBU5rMqhb2:22
- a=pGLkceISAAAA:8 a=VabnemYjAAAA:8 a=ScCvlEzxO9iafL6ztjAA:9 a=QEXdDO2ut3YA:10
- a=kLokIza1BN8a-hAJ3hfR:22 a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA1NSBTYWx0ZWRfX9oUQcgBP/rKR
- MKV6KB9fescUcOCov0npoZOsU5MlTCZhbkpU/D2m4VRiG6cemJ5vFQINrJOSoYZIsQWQTjhQ2wR
- r20bIvwdpljcmeA7GU4p8W0HPzzypL64SZ9Uj4cE0vhve9oi7IFHVlaDCfrrAZBPly5MRaYpLdK
- rkcjlJkYzeANasxjbPnkQqoSdyqDmx37+F8B6CaBU2k+rON3DlNrpHUaAN3yPmOQrD2SWo12Hqy
- edO+1X6luT7X/dic07P4AE0Wrn+VdhydH+J3sZxnpCoNSU1ixdD8ImcT5unrM5a0NVdgMhKkbpI
- 7hWxV1FGm5NL08OacqASRFdg2Eqx1hhe0YF4tLB5h3Ro4hMekJBdi9SHarcY33XJOoWHsSUW95k
- D/3hC4/Fth3v7FMu5T3T048MmSMkY4qpmQPY4zxVx9gkQCiai0nHGMlm+DzZm3e+cYCqocobIVb
- 3fYKyVRqmBZNl0iYpZQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_04,2026-11-03_04,2025-10-01_01
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261103022202.2139674-3-shanchun1218@gmail.com>
 
-Hi Kairui,
+On Tue, Nov 03, 2026 at 10:22:02AM +0800, Shan-Chun Hung wrote:
+> +#include <linux/align.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/bits.h>
+> +#include <linux/clk.h>
+> +#include <linux/compiler_types.h>
+> +#include <linux/container_of.h>
+> +#include <linux/dev_printk.h>
+> +#include <linux/device.h>
+> +#include <linux/dma-direction.h>
+> +#include <linux/dma-mapping.h>
+> +#include <linux/dma/ma35d1-pdma.h>
+> +#include <linux/dmaengine.h>
+> +#include <linux/err.h>
+> +#include <linux/errno.h>
+> +#include <linux/gfp_types.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/io.h>
+> +#include <linux/irqreturn.h>
+> +#include <linux/limits.h>
+> +#include <linux/list.h>
+> +#include <linux/math.h>
+> +#include <linux/minmax.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/of_dma.h>
+> +#include <linux/overflow.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/scatterlist.h>
+> +#include <linux/slab.h>
+> +#include <linux/spinlock.h>
+> +#include <linux/spinlock_types.h>
+> +#include <linux/stddef.h>
+> +#include <linux/string.h>
+> +#include <linux/types.h>
 
-On Mon, Nov 2, 2026 at 5:20=E2=80=AFPM Kairui Song <ryncsn@gmail.com> wrote:
->
-> >
-> On Mon, Nov 2, 2026 at 5:42=E2=80=AFPM Alexandre Ghiti <alexghiti@meta.co=
-m> wrote:
-> >
-> > Hi Kairui,
-> >
-> > Back from holidays, sorry for the late answer.
->
-> Hello, hope you had a great holiday :D
->
-> > On Mon, Oct 26, 2026 at 2:38=E2=80=AFPM Kairui Song <ryncsn@gmail.com> =
-wrote:
-> > >
-> > > >
-> > > On Fri, Oct 23, 2026 at 12:17=E2=80=AFAM Alexandre Ghiti <alexghiti@m=
-eta.com> wrote:
-> > > >
-> > > > Hi Kairui,
-> > > >
-> > > > On Thu, Oct 22, 2026 at 5:27=E2=80=AFPM Kairui Song <ryncsn@gmail.c=
-om> wrote:
-> > > > > Perhaps we should instead always scan the full clusters and revert
-> > > > > that one commit? That commit was only following the idea of keepi=
-ng
-> > > > > the allocation more compacted for that series, it looked good at =
-that
-> > > > > time. Since fragmentation issues can be solved in other ways,
-> > > > > contiguity seems to matter more for large physical swap devices.
-> > > > >
-> > > > Oh, okay. I thought reverting it wasn't an option given the good
-> > > > numbers the patch provides.
-> > >
-> > > That patch is 1/3 of a series, that series yields really nice
-> > > results, but that one patch plays only a small part in them. Or
-> > > perhaps we can limit that to SYNC devices?
-> >
-> > I'm a bit scared it would not help zswap with writeback on, unless you
-> > mean actual SWP_SYNCHRONOUS_IO devices?
->
-> I mean maybe we can just scan nonfull first for SWP_SYNCHRONOUS_IO
-> devices? These devices are less sensitive to discretely distributed
-> I/O. For other devices we then prefer to keep the IO pattern
-> continuous by using free clusters first.
+Do you use all these defines?
 
-Ok, I'm working on this and will send a v2 when the benchmarks are over.
+I don't see usage of header with bindings, though.
 
-Thanks for your feedback Kairui,
+> +
+> +#include "dmaengine.h"
+> +#include "virt-dma.h"
+> +
 
-Alex
+...
 
+> +static int ma35d1_pdma_probe(struct platform_device *pdev)
+> +{
+> +	int i, irq, nr_chans, ret;
+> +	struct clk *pdma_clk;
+> +	struct device *dev = &pdev->dev;
+> +	struct device_node *node = dev->of_node;
+> +	struct ma35d1_chan *ch;
+> +	struct ma35d1_pdmadev *pdmadev;
+> +	void __iomem *reg_base;
+> +
+> +	pdma_clk = devm_clk_get_enabled(dev, NULL);
+> +	if (IS_ERR(pdma_clk))
+> +		return dev_err_probe(dev, PTR_ERR(pdma_clk), "Failed to get clk\n");
+> +
+> +	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
+> +	if (ret)
+> +		return ret;
+> +
+> +	irq = platform_get_irq(pdev, 0);
+> +	if (irq < 0)
+> +		return irq;
+> +
+> +	ret = of_property_read_u32(node, "dma-channels", &nr_chans);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to get dma-channels\n");
+> +
+> +	if (nr_chans > PDMA_MAX_CHANS) {
+> +		dev_warn(dev, "dma-channels %d exceeds max %d, clamping\n",
+> +			 nr_chans, PDMA_MAX_CHANS);
+> +		nr_chans = PDMA_MAX_CHANS;
+> +	}
+> +
+> +	pdmadev = devm_kzalloc(dev, struct_size(pdmadev, channels, nr_chans), GFP_KERNEL);
+> +	if (!pdmadev)
+> +		return -ENOMEM;
+> +
+> +	pdmadev->nr_chans = nr_chans;
+> +
+> +	reg_base = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(reg_base))
+> +		return dev_err_probe(dev, PTR_ERR(reg_base),
+> +				     "Failed to map pdma global registers\n");
+> +
+> +	dma_cap_zero(pdmadev->ddev.cap_mask);
+> +	dma_cap_set(DMA_SLAVE, pdmadev->ddev.cap_mask);
+> +	dma_cap_set(DMA_PRIVATE, pdmadev->ddev.cap_mask);
+> +	dma_cap_set(DMA_MEMCPY, pdmadev->ddev.cap_mask);
+> +	dma_cap_set(DMA_CYCLIC, pdmadev->ddev.cap_mask);
+> +
+> +	pdmadev->ddev.dev = dev;
+> +	pdmadev->ddev.src_addr_widths = PDMA_SLAVE_BUSWIDTHS;
+> +	pdmadev->ddev.dst_addr_widths = PDMA_SLAVE_BUSWIDTHS;
+> +	pdmadev->ddev.directions = BIT(DMA_MEM_TO_DEV) | BIT(DMA_DEV_TO_MEM) | BIT(DMA_MEM_TO_MEM);
+> +	pdmadev->ddev.device_prep_dma_memcpy = ma35d1_prep_dma_memcpy;
+> +	pdmadev->ddev.device_prep_slave_sg = ma35d1_prep_slave_sg;
+> +	pdmadev->ddev.device_prep_dma_cyclic = ma35d1_prep_dma_cyclic;
+> +	pdmadev->ddev.device_free_chan_resources = ma35d1_free_chan_resources;
+> +	pdmadev->ddev.device_issue_pending = ma35d1_issue_pending;
+> +	pdmadev->ddev.device_tx_status = ma35d1_tx_status;
+> +	pdmadev->ddev.device_config = ma35d1_slave_config;
+> +	pdmadev->ddev.device_terminate_all = ma35d1_terminate_all;
+> +	pdmadev->ddev.device_synchronize = ma35d1_synchronize;
+> +
+> +	spin_lock_init(&pdmadev->lock);
+> +	INIT_LIST_HEAD(&pdmadev->ddev.channels);
+> +	for (i = 0; i < nr_chans; i++) {
+> +		ch = &pdmadev->channels[i];
+> +		ch->dev = dev;
+> +		ch->pdmadev = pdmadev;
+> +		ch->id = i;
+> +		ch->base = reg_base;
+> +		ch->vc.desc_free = ma35d1_pdma_desc_free;
+> +		vchan_init(&ch->vc, &pdmadev->ddev);
+> +	}
+> +
+> +	ret = devm_request_irq(dev, irq, ma35d1_pdma_interrupt, 0, pdev->name, pdmadev);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to request IRQ\n");
+> +
+> +	ret = dmaenginem_async_device_register(&pdmadev->ddev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = of_dma_controller_register(node, ma35d1_of_xlate, pdmadev);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "of_dma_controller_register failed\n");
+> +
+> +	platform_set_drvdata(pdev, pdmadev);
+> +
+> +	return 0;
+> +}
+> +
+> +static void ma35d1_pdma_remove(struct platform_device *pdev)
+> +{
+> +	struct ma35d1_pdmadev *pdmadev = platform_get_drvdata(pdev);
+> +	int i;
+> +
+> +	of_dma_controller_free(pdev->dev.of_node);
+> +	writel(0, pdmadev->channels[0].base + PDMA_INTEN);
+> +
+> +	for (i = 0; i < pdmadev->nr_chans; i++)
+> +		tasklet_kill(&pdmadev->channels[i].vc.task);
+> +}
+> +
+> +static const struct of_device_id ma35d1_pdma_match[] = {
+> +	{ .compatible = "nuvoton,ma35d1-pdma" },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, ma35d1_pdma_match);
+> +
+> +static struct platform_driver ma35d1_pdma_driver = {
+> +	.probe = ma35d1_pdma_probe,
+> +	.remove = ma35d1_pdma_remove,
+> +	.driver = {
+> +		.name = "ma35d1-pdma",
+> +		.of_match_table = ma35d1_pdma_match,
+> +	},
+> +};
+> +module_platform_driver(ma35d1_pdma_driver);
+> +
+> +MODULE_DESCRIPTION("PDMA controller driver for Nuvoton MA35D1");
+> +MODULE_AUTHOR("Shan-Chun Hung <shanchun1218@gmail.com>");
+> +MODULE_LICENSE("GPL");
+> diff --git a/include/linux/dma/ma35d1-pdma.h b/include/linux/dma/ma35d1-pdma.h
+> new file mode 100644
+> index 000000000000..13f1410d74da
+> --- /dev/null
+> +++ b/include/linux/dma/ma35d1-pdma.h
+> @@ -0,0 +1,24 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +/*
+> + * Header file for the MA35D1 PDMA Controller driver
+> + *
+> + * Copyright (C) 2026 Nuvoton Technology Corp.
+> + */
+> +#ifndef _MA35D1_PDMA_H
+> +#define _MA35D1_PDMA_H
+> +
+> +/**
+> + * struct ma35d1_peripheral - PDMA peripheral configuration
+> + * @prescaler: timeout prescaler value
+> + * @counter: timeout counter value
+> + *
+> + * Slave device drivers fill in this structure and pass it via
+> + * dma_slave_config.peripheral_config/peripheral_size to configure
+> + * the MA35D1 PDMA engine's per-channel timeout detection block.
 
->
-> That may just fix the issue you are facing?
->
-> Or maybe some threshold or quick scan in partial_free_cluster before
-> putting the cluster back to nonfull.?
+Hm? Confusing, how is it supposed to be used? Do you just reimplement
+board files?
+
+> + */
+> +struct ma35d1_peripheral {
+> +	unsigned int prescaler;
+> +	unsigned int counter;
+> +};
+> +
+> +#endif /* _MA35D1_PDMA_H */
+> --
+> 2.25.1
+> 
