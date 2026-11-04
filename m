@@ -1,57 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793804200;
-	b=UU/mv7N+XLlWqVrKEy242e6+ZmXIu5sDQ4yEbHy2EJ77NHBhojdlIfEI5rcmLDeDwRT2
-	 cA4HGfvBvV+44JqTdHjawy6GN5ptliZssLctciib+vOZtqHclu6JgNbX4SLF98JPTCqoN
-	 X1bduTvGmvlFyVfmTyuIuzWEFx+8KnFEio9l3AgZA55erZfRrwJ4lfHuGmw4vhRvirm5H
-	 PjKws9WBSuw2PjC0xQSg0Avo/eSGr+XiskQrSAb92htHLSJZwiadkqT2Q+JhtzAQd7NdJ
-	 PKXx8TxCA+C8R/AXsxegZlGvqtRBqonAbQ2MvOMtJOYxv1CVdBFDPhn7gzvPTnalqQA==
+	t=1793804214;
+	b=BN/6Q28YdQ9/EyoBkUK6rg4o2EI+rbNZr7VbB/ygQgj0rBcUkr7ixjFiDEjExBnebizq
+	 dRbPD241XJrNcT77v3dahVBA3xurbwtAnpHni+oJfLvgSomRRDjzDF7yDs58U3oJipx1U
+	 vmRL9YjxQvMAX3y8oyGHSUsHJ2f3/B9siv3s2Uz35qYphrb/3zdLSMhgXJur915QQp3lN
+	 ijefrcRBoQeJIhhrmt47Fxtf3ZZ4HjgVvURVg6RzPDGYjK3WHC+TrS3Db8tJXTx0qYKvX
+	 HaG0cXthWIWnStwKs3U6SNF7S0bOS8KsXbZJbmX/7T0nvkC38zWTGRiluUXv088OWvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793804200;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=59zhTayxczl43EeYDiMSSxpzLdPh5wVDsn3GkH9nffc=;
-	b=hLo6+D8RoFbRCRdd0vYh6bx0jgcHZS5LyCHwy+a0zTjuZtNMyQm0tK8aisbTJALKoIPy
-	 bvVXmVyCq4/r7rGfqVtRAQXka1qS67fRRwEcFc4jkPJwMdkKReQD/+aFcOPYH2mgUbG8t
-	 ayHUJrrbWWAoCbqJJ8MpJ2t4VowHqoOPWNHmDktbLOKfQxEPz+fqVrLsGp5iCh0x5RC3d
-	 U40gOKeIOX5Z0FU0rdSy8j6PG1ERJjpyuand32jveeNd9Pc4eGppahjHVDQ8xYC8s0iTT
-	 meW77hB9NCi9WmWReQXCwfV6x/kzGQCPqjF0q0Z+SK+9oAvObM89gvRAJoU+1pQL/yw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793804214;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer;
+	bh=T7rOMPplLomFK+EC05LzdPzGrXETZLxt3EvKKKVvcv0=;
+	b=f+JPZUojzs1Nppa/l9wV0QpII8GxxBXyko4IS53hd6VKbfAJLz67pvIkWYSpXTZjGFxL
+	 uAYedNlN7vdFoyXU8Px6PZ/L1VVMGe/FX3n5fo3tXvQWlepQVkwl70RrKKotu9K6UvbR8
+	 7weeMvpLicDk6zyWN7fbaHrvStqaS7P5zBUgJ130pIxoPsdlCNRy8AtwADboJSWDQJRZA
+	 BNr+mUk8fJ8MgIdp5JogpcpMxslHOUOzQ5WWKIgMzb+9+Ls4C8mghFjoz6Uipq4vOstdM
+	 HQ4Fn4mBAzfuKyHsQ+E4TCO8pRSL8QUKuj9IGkgk7WxQh//PJRtC5O8nPEiH8ftiVEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ksej+oID;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MrptcyWU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14CC3606A328;
-	Wed,  4 Nov 2026 14:56:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EEFF606A330;
+	Wed,  4 Nov 2026 14:56:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ksej+oID
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5A771F000C1;
-	Wed,  4 Nov 2026 14:56:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MrptcyWU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29CC11F000C1;
+	Wed,  4 Nov 2026 14:56:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793804199;
-	bh=59zhTayxczl43EeYDiMSSxpzLdPh5wVDsn3GkH9nffc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ksej+oIDIBq0Lssyj4jKKmoO9D0FheijDjcLkWtrCBSdXuCdPdlONB/yW3l8R5B1B
-	 WXzWWTQGWBnf8wiRAal8qMOBvD6dNjR45XhyXSDhm76MfJxdI5vHbS8VJ2i/FsOWau
-	 xVucDZMJNOMchEo8l0gYt7SLipQvxzAgpESk7tSyz48gqr4qJiqKg+pvy7L5twQCLn
-	 9oVbgvH3TyqprheKDjubv5Vn3YR/y94UzxZFdIaOSUWbcKqfz3PA+mLfEZMQkCUWkf
-	 FgXg7066/vRmIPMLBOuRaLCLOLbBTgTKn5LWastAkEBGsuGSznoMtuuH/VFnWOA82K
-	 jjub1Ky2gy2pw==
-Date: Wed, 4 Nov 2026 15:56:35 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Jian Shen <shenjian15@huawei.com>, Jijie Shao <shaojijie@huawei.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, 
-	Russell King <linux@armlinux.org.uk>, Philipp Zabel <p.zabel@pengutronix.de>, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] net: hisilicon: Remove orphan femac driver
-Message-ID: <20261104-realistic-elite-kagu-7beabd@quoll>
-References: <20261104145038.946918-1-robh@kernel.org>
+	s=k20260515; t=1793804214;
+	bh=T7rOMPplLomFK+EC05LzdPzGrXETZLxt3EvKKKVvcv0=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=MrptcyWUAcszN49zHQTkn3Vlr/HscV8Bl4lEC7R76+MYv7gQJXdxpylZ79fGVxJJG
+	 9g2RjZrokNB6qDNHG67TRkFttmgL1t2KdGdPIq0zjGZQ2tpCDDyqj1gOxcwehdfXY+
+	 WNHZuIs47sffQbdvvDUJo0zkxJB0m5g+Zo5ngvZRNdtigj8ZxmrYguaza/nDk0M3CY
+	 G5c7zitroMfYhwxfXt68GtCd4yiMACIrJ5qsb2puVDshMKSWVxOz6W6kzvD8gW2gAO
+	 +MF/8nKz3uZpWHQ8FC5h0nznRoxul5JcWwA09pW2w+j3axirgz6HMdNa1MuyG7qGfV
+	 qv8X6UKrIz32Q==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,32 +49,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261104145038.946918-1-robh@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v7 00/15] kexec: Fix CMA and elf header leaks and
+ rework
+From: Mike Rapoport <rppt@kernel.org>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, 
+ chenhuacai@kernel.org, kernel@xen0n.name, maddy@linux.ibm.com, 
+ mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org, 
+ ritesh.list@gmail.com, sshegde@linux.ibm.com, pjw@kernel.org, 
+ palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, tglx@kernel.org, 
+ mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com, 
+ akpm@linux-foundation.org, baoquan.he@linux.dev, rppt@kernel.org, 
+ pasha.tatashin@soleen.com, pratyush@kernel.org, thuth@redhat.com, 
+ leitao@debian.org, yeoreum.yun@arm.com, robh@kernel.org, 
+ sourabhjain@linux.ibm.com, kees@kernel.org, coiby.xu@gmail.com, 
+ Yeking@Red54.com, tangyouling@kylinos.cn, maqianga@uniontech.com, 
+ zhangtianyang@loongson.cn, guodongtai@kylinos.cn, blum@kernel.org, 
+ adityag@linux.ibm.com, hui.wang@canonical.com, sohammetha01@gmail.com, 
+ guoren@kernel.org, gaohan@iscas.ac.cn, kai.huang@intel.com, kas@kernel.org, 
+ vishal.l.verma@intel.com, piliu@redhat.com, jbouron@amazon.com, 
+ mclapinski@google.com, me@linux.beauty, graf@amazon.com, bgwin@google.com, 
+ x86@kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, 
+ linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org, 
+ kexec@lists.infradead.org
+In-Reply-To: <20261026075201.699550-1-ruanjinjie@huawei.com>
+References: <20261026075201.699550-1-ruanjinjie@huawei.com>
+Date: Wed, 04 Nov 2026 16:56:37 +0200
+Message-Id: <179380419709.28814.2122135856184991710.b4-review@b4>
+X-Mailer: b4 0.16.1-dev
 
-On Wed, Nov 04, 2026 at 08:50:34AM -0600, Rob Herring (Arm) wrote:
-> Remove the HiSilicon femac driver as it is not used on any upstream SoC.
-> The hi3516cv300 only has clock, pwm, and this driver.
+Hi Jinjie,
+
+> ARM64, LoongArch and RISC-V load the elf core header, initrd, DTB
+> and cmdline parameters with almost identical code. This series fixes
+> the bugs in that path. And as Mike suggested, rework the common part
+> into a helper.
 > 
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
->  .../bindings/net/hisilicon-femac-mdio.txt     |  22 -
->  .../bindings/net/hisilicon-femac.txt          |  41 -
->  drivers/net/ethernet/hisilicon/Kconfig        |  12 -
->  drivers/net/ethernet/hisilicon/Makefile       |   1 -
->  drivers/net/ethernet/hisilicon/hisi_femac.c   | 976 ------------------
->  drivers/net/mdio/Kconfig                      |   7 -
->  drivers/net/mdio/Makefile                     |   1 -
->  drivers/net/mdio/mdio-hisi-femac.c            | 150 ---
->  8 files changed, 1210 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/net/hisilicon-femac-mdio.txt
->  delete mode 100644 Documentation/devicetree/bindings/net/hisilicon-femac.txt
->  delete mode 100644 drivers/net/ethernet/hisilicon/hisi_femac.c
->  delete mode 100644 drivers/net/mdio/mdio-hisi-femac.c
+> Patch 1 stops using the Image text_offset for arm64, which breaks CMA
+> segments in both the load and release paths, and rejects images with
+> a non-zero value.
+> 
+> Patches 2-7 fix the CMA page and elf core header leaks in the retry
+> loops in arm64 and LoongArch, also fix a modified_cmdline leak
+> in LoongArch.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+These mix fixes that can be easily merged via arch trees and something
+that depends on a change to the generic kexec code.
 
-Best regards,
-Krzysztof
+Besides, elf_headers leak and arm64's text_offset fixes should be
+applied to most if not all stable kernels, while CMA fixes are only for
+the relatively new kernels.
+
+I'd suggest splitting
+
+	arm64: kexec_file: Stop using the Image text_offset
+	arm64: kexec_file: Fix elf_headers memory leak in retry loop
+
+and sending as pure arm64 material, and
+
+
+	LoongArch: kexec_file: Fix elf_headers memory leak in retry loop
+	LoongArch: kexec_file: Fix a modified_cmdline leak
+
+as pure LoongArch material.
+
+And then working on CMA fixes after these land.
+
+If there are real dependencies or potential conflicts, b4 prep can help
+you with managing them.
+
+> Patches 8-10 pass the kbuf fields to crash_prepare_headers() to
+> simplfy code.
+> 
+> Patch 11 frees the elf core header from the generic post-load cleanup.
+> 
+> Patches 12-15 add kexec_load_other_segments() and convert the three
+> architectures, and arch_kexec_setup_other_segments() builds
+> the architecture specific boot parameters (a DTB or a command line).
+
+I think the refactoring should go before the identical fixes in arch/
+code.
+
+-- 
+Sincerely yours,
+Mike.
 
