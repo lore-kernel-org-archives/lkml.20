@@ -1,54 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793753393;
-	b=sILcVVsIxBML90YN2CDRI1V+42hDpuT0+yorKA3dD62Df5tz99MKxHOF4w4G7Xe3Poay
-	 vx/HWMmCO5Nq9pw1B+fYOYhr+sj1z0FDXn5WCB89hxIRZPg3/cvMt7N4gWb6k41Fpz12o
-	 mARYPjPqYHrPbjzE6SCLIzfHMtB0NYDQIpk4dsFE1K5O244t6tBawaljF+WvA5SHjJraM
-	 YYZxij5PRVG+Y1THM6C+nuqLWD9pe4AzsbCAlaHQvzD6XJP7AkeEvJn+XXAz376ncwdBa
-	 YANcPu+rweK1pq8sYpy8onhFH7LZ7YWN7F7iGjvWRAPQUyO2F/CljLJ4eRThV8Uh4/g==
+	t=1793753412;
+	b=epmwg3uwFmtExrYTvXYnTmZq4IfAQcOHk/sBJCHhQckf8byfJQ7FdW1LTa17Z5CBVkTw
+	 2kDJHfRUNBt8a2/5YBdvPXiaizyVEsue+f8U9+REGNGnKguptCebe7/LJLzplfsCaJaVt
+	 Zyvm0BLhWDR/tQDbnzxOWM0+wu9MCGy1yoDZEOKwEifx0YUXmwFWGoS6T91o3fRvqBHgQ
+	 J5VfFroMhWVP93cN8Z+d1yQO2G/FYuPOmB5ynveY00tWa0AfQ3U5WH2fM7rjIrxHSS5j8
+	 kJPf3yWESC8jgnCwanhAYEhgaEQhMCBxV/BmZXqWtyCaHT/pVuZU3r/UO5H7wYsjThg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793753393;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=JYosQIvaC9U228r+7ccVi5DMF70vAbn2sPRU/uPNBl0=;
-	b=BF0r0jIs7hdjm0Y4alos6QTjtXJxpKh0TWAZ5p4vaf6VJ5uTyoT1ujY5Puuo6Xs2ToWg
-	 8+rZgpPRna6VnKRNhHunjlnhZKHNbvkBhFTE68ch3BKzUrVZ9NTSPKeiG+bRtHas8qjvh
-	 C3l+nDRK+OlZcxRPfNQGWh7EmwgA5axRV82v0whgYsG4SeXK5qOvoEgFsLham2wb7cZ+5
-	 5nsFPZ4eMKoOUF1pWyqu9xeAaE8j3F2VSKwOKmi82oi6bzBzRoBlYiE0u43kDW0z/l3In
-	 l/Ns2iiTl0pr6Ohh+KDo0+X8dWOa2UNiZudoe5VjZOEaRGEhJv3ZGE3PNpGE/OOLJKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793753412;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=r4tz8o1TlU/xEK9b3YrVdww6EoQHDhX4m9dHm6jXFbo=;
+	b=iw35MjzC41BJD+gzjs0Ah1qiv+0CwnK7wpBK7x/DmUDXdym6d/CPvvHHkpFQ5CJ0QB0N
+	 pCPl7YFSNZwuo09MrPcC6QhZRHbIr1SS4mauvt6zw1gvsUXL92XcFNhmZuxWHRv4TelSU
+	 PwfpNNidVNpcZISC8TdUJjjO+c9C5HWn/BOGFwbUxW9RDyUBOBHkDevvXKW3C0rkrCHN4
+	 XTeXQX94C7Bga1Vjnvhd7UlS7CAMGMuf1gjExsIpkSSBMV9vD8FcCA9WZogJ9lYF7xbHW
+	 kU4sE40r+1KBI7Av2HAnJ46lx63v03wrW4BLdAbcJEKMGUXyGP6Sz3aXjjEiiUygaXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=L3cg+Bdy;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lgjauMfp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C6D606A32C;
-	Wed,  4 Nov 2026 00:49:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26C6D606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5D80606A328;
+	Wed,  4 Nov 2026 00:50:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=L3cg+Bdy
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=JYosQIvaC9U228r+7ccVi5DMF70vAbn2sPRU/uPNBl0=; b=L3cg+BdybEStmVcdhVJ8PNFvz8
-	MBRro2td6fpeXoZ3QDzFFNQcxDMPF5+AaifQBV1XSBo3wEqyqiNG2GF62NtfX/QuhGJcM9+A4JoVL
-	TgB0mlNUSH+lCR2PPFjBvXLpTe3lf5JV08fMsFWtY/Mpos07Zg80HmgJCUmsukOf3wS2eBnt1vgaG
-	32Qss+SFp44gbcw0JEnxus9UlnpspH+i8ztaI1x39S+QE3eiVUCKKMcbjwidmBlbaH3REvecRcBBa
-	WlLrPC6G0y2REwzrY2flusTzBT1ObhcH42JzitGoNdZyBYc/9FaOEgeqG1jfiXwtaGctHkd5JqORM
-	dU8PdKqw==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xOPCI-000000041JB-3FVd;
-	Wed, 04 Nov 2026 00:49:50 +0000
-Message-ID: <8bdd7a33-84c4-4cac-bce2-cedf6c6456ba@infradead.org>
-Date: Tue, 3 Nov 2026 16:49:50 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lgjauMfp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 497DD1F000C1;
+	Wed,  4 Nov 2026 00:50:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793753411;
+	bh=r4tz8o1TlU/xEK9b3YrVdww6EoQHDhX4m9dHm6jXFbo=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=lgjauMfpATlRYmKhs4FmHnDBN0KSd+dh2o3ETfHqUJdO8IF3M+SD0slSjLSLE/QN6
+	 69VkAzxiYiglCGNY7hm/L12SCSLgEL5r1L2nJjnsV8M7lbUbj2gbZYjSCQUwjGRvsO
+	 4bd7B6qoteHXhv0UjIB1s+Gx3lhAjYhwRmHuCgf9+oRYYakIQ2hERSW2yEyCDxlJwf
+	 WOr1L6npqqapLtx3KFYvU/hoNU0Z2DUqzKbhAzmwFZaKvhEaySLgGe6Dp1UsM5QEeT
+	 76ZAdcls4Dl5PIQyu8SyyivkTi0RFH2VPUllbEAOJ4n2Daq61k5Is72d+zH6AOguWZ
+	 nHXLKGxyy/v1A==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 401B6391B0BA;
+	Wed,  4 Nov 2026 00:50:11 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,36 +53,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Documentation: add a history of the Kconfig language
-To: Julian Braha <julianbraha@gmail.com>, nathan@kernel.org, nsc@kernel.org
-Cc: corbet@lwn.net, skhan@linuxfoundation.org, mchehab+huawei@kernel.org,
- jani.nikula@intel.com, tj@kernel.org, grahamr@qti.qualcomm.com,
- officialnaumansabir@gmail.com, nico@fluxnic.net,
- linux-kbuild@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261103190832.3861337-1-julianbraha@gmail.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20261103190832.3861337-1-julianbraha@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH bpf-next] selftests/bpf: Account for zero extensions in
+ patch
+ list expectations
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179375341006.1981749.15460307595847324640.git-patchwork-notify@kernel.org>
+Date: Wed, 04 Nov 2026 00:50:10 +0000
+References: <20261103215309.19950-1-dennylin0707@gmail.com>
+In-Reply-To: <20261103215309.19950-1-dennylin0707@gmail.com>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: ast@kernel.org, bpf@vger.kernel.org, daniel@iogearbox.net,
+ andrii@kernel.org, eddyz87@gmail.com, ihor.solodrai@linux.dev,
+ iii@linux.ibm.com, bjorn@kernel.org, pulehui@huawei.com,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
 
+Hello:
 
+This patch was applied to bpf/bpf-next.git (master)
+by Alexei Starovoitov <ast@kernel.org>:
 
-On 11/3/26 11:08 AM, Julian Braha wrote:
-> Signed-off-by: Julian Braha <julianbraha@gmail.com>
-> ---
->  Documentation/kbuild/index.rst            |   1 +
->  Documentation/kbuild/kconfig-history.rst  | 615 ++++++++++++++++++++++
->  Documentation/kbuild/kconfig-language.rst |   3 +
->  3 files changed, 619 insertions(+)
->  create mode 100644 Documentation/kbuild/kconfig-history.rst
+On Tue,  3 Nov 2026 21:53:09 +0000 you wrote:
+> patch_list_insert_in_front() checks the translated instructions around
+> the call of an inlined bpf_loop() and its callback. On s390, the verifier
+> adds zero extensions after the two 32-bit register writes in the loop.
+> The call is therefore at instruction 25 rather than 23, and the later
+> instructions checked by the test are also shifted by two. The test
+> fails despite the call and jump offsets being correct.
+> 
+> [...]
 
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
-Tested-by: Randy Dunlap <rdunlap@infradead.org>
+Here is the summary with links:
+  - [bpf-next] selftests/bpf: Account for zero extensions in patch list expectations
+    https://git.kernel.org/bpf/bpf-next/c/8fb43ffc3327
 
-Thanks.
-
+You are awesome, thank you!
 -- 
-~Randy
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
