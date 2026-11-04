@@ -1,86 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793799327;
-	b=O0ERtw7pEcpyOTM8O/zoQgb9VhCeUBfcDUQS8lDC+DliJk+iPBqEpy0MtUAOHuB9EZCV
-	 0f6EwN7yBP9Hp3Dl2FFevkXGP7Z/zVSLi10BjXiMuSHgkC1x+EmGfVTA4XiSTtr9I1XiK
-	 wL1l2Ua74pgCy+prR4kZJ0v6ImMr/4Z8TP26JOtgbc4dG06GgqpGYLemltsuxgIp37bsp
-	 fUQtBtLlVLTGp9LQRdlJKtU8taF9m1NmtxVazgrY43FxrVxy8A57OnraQXJDD05/Vy8L1
-	 lz8m3o8vLAsFz7dZ6J36sQz6QqW2FwCUXDEuj+aAPJR6eULC2NQ+jbcJlxsM8kyNmaw==
+	t=1793799326;
+	b=km/VIlqqD5wyXhcb4lLzCAfhuHoLHOrPWxwWwSkImGSDkncBxY+N4sNM2KF0X5xtnpsa
+	 xhpyHvP/PQ9Zge8OkXxRkMgTs1L9ExIYvY1G2PXBwWwI9LCarSSK8+ln6n+ihlw1XCD9+
+	 5S5PSvtnlWRAzN29sq1VQgtXBlEclFibFP7IuOoKVz+Iu3rNT74G0n06L/hTqLyR0+OIA
+	 pRL/25mmRNL2scLCPGNvTRVASggzVCchn3aR+4Jmn9pIZQ7VIyYBwlAU0A2AQpzgrRzhF
+	 c04YkVghtw6Nmq7v5VJNb3ZVbyRUbZnSQFnYOjECj0yGPLzeQUP37PQrdlapQyQbZbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799327;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=bcVTjcoUuDJ00d+ZrLupJl8lYibYslwMamSO7+IhYGk=;
-	b=CscqF+8EwJT0hNqRZ5WAezjp25uU77s3QERVPluDtS4v7YPG/7QrYjP7gvv33Zsh17r/
-	 i8z3NIko0AX7xkN+yCYU2firSxhxKx077J03Hnbt06IzwrDsaYxBppvHQtcgYBM/q6Vqa
-	 1kmQXLbDqAizRQwLXdKxheHX02fGvil++GvOzNN6KaP5Ta0jdZKjwWB7nH4DanaraPopW
-	 ev9ZiRBRAh6hqkqrPgXLOAGnEFzae7272UJWMUZjsLrGEDrFNhzkFwmjgsaL2/e/KNK45
-	 T3yBAmbYCKcgQ1JioT4YjcCEMrfou0KdoLI5R2YtBCbE9rg46TOWvauQCeawDNtjMNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799326;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=wQ2DQuZujCN0+Kyae46DtEB2+ByGVe2zWqmti4Oq8FE=;
+	b=HMeqn7LxHl5NG1TMaxbn8yCthKOKcxdfudd7vcWo9+6ByYdgpDbxWBuz4Yn/Jjb6U43V
+	 GfaaqegFYuuL993MHAT16HaRzo++kfk0kyUHvsMV8/LcQ13mjx0GrmuNwyrgIou6UEcUF
+	 EM2XQPYDQ0u0Ma11yDSYqxCRjOmCjetMIj5w0H55vShIE1HdaHypVJkV7qAzHEFvhaxpG
+	 VEHdGIUPno8MYcD7H7CEpeG1PbNgM+9GcmHv9WlwnRO9JEjv4B+RJgCRtIWWPzQ2Mcve0
+	 +YKwaGJqJnWAK4SondTYI7eX+BKWLRuLpMP+rNOkB9He10ZPuwOhQjD1PsV2g09c6VQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LlYpn60K;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bRQT11lp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E588606A330;
-	Wed,  4 Nov 2026 13:35:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E588606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD41C606A336
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:35:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LlYpn60K
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793799327; x=1825335327;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6VvQvS8yHC7ZYvx7BpzBaw+xd0bVq75tP+dfZH+tEUU=;
-  b=LlYpn60KWP+HRSiunYDDs37Q3QZ0eG9HZkXPe1n+nkGSDxvi1g21QCq0
-   mOnvdYBXdKT0iZ/CwLqFHrVwm4JnsLGY4W3kJslilIWf6NF20qy/BxB6j
-   p8dIsyUXcHMJuZ4AJBzfag4riTj/DWkLqwH5iWxukDN6djW6o7Wj7Mm+U
-   bl2V6Zoapi9B4Sonqk77zZrxNy7VkxPEsjdrTFe3OISJ/bUscv/jSrzXQ
-   wJjZHMRYEwg6WPzryxaN4uIfTEDnFqcO6LMJBKOwBLpcJOGmpgYm/YpAY
-   lJdK/iqCxgyOHlspzHyvaTUaLe1cU+UPWLfDJE7b9n1qDHhgcR4R3KrZC
-   A==;
-X-CSE-ConnectionGUID: CengWsgSSFaYut0KNM8zLQ==
-X-CSE-MsgGUID: NSegXEIoSRujVXnaTqIDIw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2460442"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2460442"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 05:35:26 -0800
-X-CSE-ConnectionGUID: T1C8mLIpSUKvYrW72HHCOQ==
-X-CSE-MsgGUID: EMU1ZmYdROakGetFActrcQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="7060961"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.19])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 05:35:24 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 7B664121BB0;
-	Wed, 04 Nov 2026 15:35:33 +0200 (EET)
-Date: Wed, 4 Nov 2026 15:35:33 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Valerii Sokolov <valerii.sokolov@pm.me>
-Cc: Bingbu Cao <bingbu.cao@intel.com>, Tianshu Qiu <tian.shu.qiu@intel.com>,
-	Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Sarang Sapre <sarang.sapre@intel.com>,
-	Divyamani Tripathi <divyamani.tripathi@intel.com>,
-	Manik Bajpai <manik.bajpai@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 11/11] media: intel/ipu6: fix EOF sequence logging in
- ipu6_isys_isr_one()
-Message-ID: <aus0pXClb3bGAV_7@kekkonen.localdomain>
-References: <20261103211031.1573726-1-valerii.sokolov@pm.me>
- <20261103211031.1573726-12-valerii.sokolov@pm.me>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bRQT11lp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72ED91F00A18
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:35:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793799325;
+	bh=wQ2DQuZujCN0+Kyae46DtEB2+ByGVe2zWqmti4Oq8FE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=bRQT11lp4jELhMDanVhWxxaqAnDFtBpqKiA3RNTO6IlAYMZ1e0TDHUjPtSiNxfSWM
+	 4VbNUC9pQ5SIFXGq/n4ecmQRE0KWMLxjn8CI0bzcAjFvnJKoKNu2FvczmXlDsa+lN8
+	 8IK+UKyefYKznvaIYKPuJAsuBWRQX6Ys7B5bH/1nyFyejvXFTIkla/5MxXWdlkfKQ+
+	 3jkUMnuQoRpZSp5tqW8LzvHpanWj8769B/BUTQMvwBvSh0OUvddXDDr85sXquvu+NU
+	 gkZv+zw2wEI063W6XI4P+F2N50S+UDUS66rqO+wNyL+FPI8cq1iA8oKjXtoMsDAGC2
+	 65uQ2i/Mbdtvg==
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5bb7c6980f1so708583e87.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 05:35:25 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBz8zEqQKnYflyoi3EMBbW9NTd9V3XaLE8+jQMm2L++ig5Clyo1Xx5d6ggb2Oik3PaKYBWV70iD74b9AxvE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z88mv4t9+ak1tdpUtqaqg0UciOHxF1Z/xnd5g5q0M6o2jK+8Ozi
+	nqGut8F0jIECAt/7DGoyTcHsAi9NdLuonSj8DXwYfJNsMo1lNIeYn9n3pMpK3iemf/gG71hFFzD
+	XbQepvOMfnm/xzAQ9LF08Shg5fuIVj5k=
+X-Received: by 2002:a05:6512:31cf:b0:5bf:b96b:bce6 with SMTP id
+ 2adb3069b0e04-5bfd94ccb81mr5298607e87.0.1793799324268; Wed, 04 Nov 2026
+ 05:35:24 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,56 +59,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103211031.1573726-12-valerii.sokolov@pm.me>
+References: <20261024051639.67806-1-olivier@mgcrea.io>
+In-Reply-To: <20261024051639.67806-1-olivier@mgcrea.io>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 4 Nov 2026 14:35:12 +0100
+X-Gmail-Original-Message-ID: <CAD++jLkYXYkqk==52CZ1gNPV+eUf+DC8NFjoQuiOcALQ7ip+pQ@mail.gmail.com>
+X-Gm-Features: AclHuK9C-S9DBBoaZ5P4feHaKF3nMSq1BJe9p_BTWVci8vcRZ0ncVj6tNlA8_ec
+Message-ID: <CAD++jLkYXYkqk==52CZ1gNPV+eUf+DC8NFjoQuiOcALQ7ip+pQ@mail.gmail.com>
+Subject: Re: [PATCH] pinctrl: ingenic: Add the X1600's 32 kHz clock output
+To: Olivier Louvignes <olivier@mgcrea.io>
+Cc: Paul Cercueil <paul@crapouillou.net>, linux-gpio@vger.kernel.org, 
+	linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Valerii,
+On Sat, Oct 24, 2026 at 7:17=E2=80=AFAM Olivier Louvignes <olivier@mgcrea.i=
+o> wrote:
 
-On Tue, Nov 03, 2026 at 09:11:21PM +0000, Valerii Sokolov wrote:
-> When handling IPU6_FW_ISYS_RESP_TYPE_FRAME_SOF in ipu6_isys_isr_one(),
-> stream->seq[stream->seq_index] is populated with the current sequence
-> (atomic_read(&stream->sequence) - 1) and stream->seq_index is immediately
-> advanced to the next ring buffer slot.
-> 
-> Subsequently, when IPU6_FW_ISYS_RESP_TYPE_FRAME_EOF arrives, logging
-> stream->seq[stream->seq_index].sequence reads the next slot in the ring
-> buffer rather than the slot written at SOF (logging a stale sequence
-> number from IPU6_ISYS_MAX_PARALLEL_SOF - 1 frames ago, or 0 on the first
-> frame).
-> 
-> Read atomic_read(&stream->sequence) - 1 directly so the EOF debug message
-> logs the current frame sequence number matching SOF.
-> 
-> Fixes: f50c4ca0a820 ("media: intel/ipu6: add the main input system driver")
-> Reviewed-by: Antti Laakso <antti.laakso@linux.intel.com>
-> Signed-off-by: Valerii Sokolov <valerii.sokolov@pm.me>
-> ---
->  drivers/media/pci/intel/ipu6/ipu6-fw-isys.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-> index 5d95fb9234..ad08506b32 100644
-> --- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-> +++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-> @@ -651,7 +651,7 @@ int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
->  		dev_dbg(&adev->auxdev.dev,
->  			"eof: handle %d: (index %u), timestamp 0x%16.16llx\n",
->  			resp->stream_handle,
-> -			stream->seq[stream->seq_index].sequence, ts);
-> +			atomic_read(&stream->sequence) - 1, ts);
+> PC26's function 0 puts out the RTC's 32 kHz clock. The vendor device
+> tree calls that pin setting "rtc32k-enable" (function 5 is its
+> "rtc32k-disable"). Add an "rtc32k" group and function for it.
+>
+> Used on a HiBy R1, whose Bluetooth chip takes it as its sleep clock: on
+> a cold boot without it the chip does not answer its reset, with it the
+> chip comes up. The clock on the pin was not measured.
+>
+> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
 
-Except for this one.
+Patch applied!
 
-The IPU firmware works based on timestamps and you could obtain the
-sequence based on the timestamp but I don't think it's worth it here. I'd
-just omit printing the sequence number which is unreliable.
-
->  		break;
->  	case IPU6_FW_ISYS_RESP_TYPE_STATS_DATA_READY:
->  		break;
-
--- 
-Regards,
-
-Sakari Ailus
+Yours,
+Linus Walleij
