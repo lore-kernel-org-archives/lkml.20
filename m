@@ -1,82 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.221
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793779983;
-	b=DbdF+ugc0xeRGkyWw/l5lCE24/1+DKYd/78I3FLstHUcPPVCSjbKTcVk99N/nc8GFKbv
-	 PQRvlcgg2nBuSZ8k4ko67VROEeLylB6XH0hGijq1IoMFleoSVUxLitnVbVVYRCO+lRBEb
-	 ghMidFR+I3GPNL+fj2mCMXtNU7lEqoFmW9kf8OkpQXIfyhj/3TWwaYcyP5sa1503EUAsI
-	 7DOcOhYrNelFF71ucj5IsrvazU6YlhjSXBHm8oVVn0F+f98jxWuYZMgZjWsyFqfqAsTsv
-	 y6079Nq7IC511/84hJsIU3dQbRlO1oiesNJ+zzqyotK5D9gbm7ZPTiclorWqeHgqEpw==
+	t=1793779991;
+	b=ZyfOdndAlC+kDXZWQVMioRzftQr8Gwea4yr+yWRjr9LPTJeHic7un4oTIrt8G+x1tyE/
+	 beyXgBxYVMlvDalvei1ZpP9n29ffnUr65yhWCac5SWkRXBlZrBN7n6jnQQt5qfxtxwWY3
+	 bpuaFI6PiyBKfjORGXEIJVpdHViyFC/MxfOv0PASiofk47x3g64Il0G4JIFWEptjKEAqs
+	 S3xCnJj12F4buAi9PLDk1FiqJvnhGbPLiDQON64W2KUkl/wfde1WV4DcjrazxILH7Jqz0
+	 TBetRLfXuZGFzPhcmgz/yPb4g47C17ZIEmtp9kDHqCJBMGM1nGPWyeigzt3Ih5gN5nA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793779983;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=S/YVX51d+YFgjFTpFmGYpWUbOdKLDllTGQah6OFPrpo=;
-	b=LhS14Qdx6XOTF2M+/zFgtmPwzGhzGmM2wahfOltLkrcb9QJi0yzGiQcv+wROQyRzW/fI
-	 4NteQTkoSIxaWOOTq2dMh+WdNKUeHXMSYDx+OvtG8R732BjsRsp6t+8hKmGZC7nCJxJ3V
-	 ngL4MGWM6BHs0eAGbMW7O3zThzP22Y6G0pzjcDGQsI38D/6WXWG6cKxliXh/F7Ni9uGXS
-	 QGhO/caUipPnYsi7m7/7MPXeo0Eb+Zhh+QcE473DajZtLZerIa9uH561caseJeeZs1YGx
-	 6BsMqhhUwTxRp8P5edwTzVjQeiwM1WyfX8Aq9QXU47HJjXdwICEic5WkIBBN0jXrX1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793779991;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=rYVCxbzjhwXie807mRKlkMf4y7MqKXFbNmLhmKxHJ8o=;
+	b=NFgZpA7Iu54VJm78mOKzmEReQFWQX13GbWk4Z7wnJnRATM7Cuc8txc8H3RaVAdWr5Vf1
+	 DRa7VE0A6fkMCrAwvB/BLJiDxM4qV00v858yRrLlHLloRSAWqtFsDHa/naY+oJT/HRAK7
+	 7Cb+UFitI/jTwMgCyJi2J4xr/w0W5p3qR+mC2sbQy+q9Ts2dgmYrv5AO4TTVN8TJ4ZkgH
+	 49hLOVxK0ZzTFGmwuz1qTJgbtFZBGhUTNzIJBZiWW3hyJsmrFNSq9UjqhRJLyHoGhr2WF
+	 ZzEJ+3aLqFivhiRBKPqC+j6BP3Rmx52IbTwusZFt+BkYYAZcVSE7/ItU/4Tlg7lWCYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=TPenK9bW;
-	arc=none smtp.remote-ip=203.205.221.221
-Received: from out203-205-221-221.mail.qq.com (out203-205-221-221.mail.qq.com [203.205.221.221])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TFaB6tYC;
+	arc=none smtp.remote-ip=209.85.215.174
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B385B606A331;
-	Wed,  4 Nov 2026 08:13:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B385B606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F4B9606D820
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:13:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F4B9606D820
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=TPenK9bW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793779973; bh=S/YVX51d+YFgjFTpFmGYpWUbOdKLDllTGQah6OFPrpo=;
-	h=From:To:Cc:Subject:Date;
-	b=TPenK9bWMOIf1KC+d1po0I/fMTgIqocugscB0JUDPGac3meIFfHvDhpRmjj0ctMT1
-	 c7OfLGA/jqK3xVYCfVErnBm5XVtRA/Ae7CevWOGRuPbNdDVPpGDxCjK0TDahdLL1+S
-	 26t59iVCAtmnS2NUVih7v+a0Ki8DdpHmBRXbgZz8=
-Received: from shuai-VMware-Virtual-Platform.. ([218.28.192.28])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 3272383A; Wed, 04 Nov 2026 16:12:39 +0800
-X-QQ-mid: xmsmtpt1793779959td668sw7l
-Message-ID: <tencent_76448BFB81B402CBBF3C529331EEA998FA06@qq.com>
-X-QQ-XMAILINFO: MipYEBg1qKqIq0wuplufvRhP1JDQPijVv6mHXd6vajxUJE4MclRdcZAjoHIlmZ
-	 r7FboEiFeIF4qH194IizylKO12853sP3U866z3B5XcGZ4NAaROmKeaHk8uKuuDk2HK89Uw8aW/g2
-	 LnPvzklKMwDCBlHZt3vLHdmfDNh/vitIArdln0+LyoE25x+Ymwws5gTf0j8EtJ4y64Q8Oc/eySN1
-	 DXos9IDRPE4KXuNgmfaCAacoU0ZAJ+pIVMYRfSW48c0Hy1qI20mskmRlfR5I0m8v4fR4bEJgLBDN
-	 QQqNnzsF3Wr/k4/yJOpNZTHQvP4AVIn+mORDbOw7/vQy7DBuNtyyND2KfVn/44fjh1PXUHuxGnZG
-	 NdVWsY66u5t0gIIawW1VFXA+UM9RHHZzdXtyIliYog4DE1X7G4PlBnRnwr6Hnk6/YoZOdiX9oy9N
-	 Ryr4s417UnwEESy2mU78W1TtcJZd6/bdgCBTwzOm5BUijY4alBhocRe5Bg9yo5XPnThPHubxtv1v
-	 mR4RPyafhDsaAlEvg0IIywrWNQsMaBRArKu1f36Oduzcg6r13z4jUhqvV0LYv225yc8j0wPPW574
-	 RfUrjvvaHR8woESNrjH2ao9NUcp04k1F2wN66p0hHGocwmu9c2ZYmDs2Nbia6oxaB3oZ29SCVOUb
-	 UyzrrwFswEvUXi9nSkwFHAj6iMjrfZQSZy5yovViTXQDnRUmJJAe7jKz/24MaUESEXGeJhgsYFDW
-	 pquE0xXP1yuY2BbPhRFu0Xa9bsc7Hw8vDt04jGdEjlX0v8pOPak/OEjUP+PaYJqBxUIv0Wi4NDmb
-	 pqUYoSoBtM4jY67GmMCMXDSnLxmD6Po/TQ1P1MFAJTNURhB2FkR5G8sMlW/Jpbluc+BBojwQgfYU
-	 jVFY7Y2VzcLK5im0KRURCj2MTACpdY/m7zz9dKfI34rLbcUFqORmbNu7R+i5oGruoWpbmFTWy5p0
-	 OxS9+BDbrdAEqJ4WcQoKmLtYx4tC5xjvuEefu/+o+Ge6f9WEQS74kSq5Y8utl0trPiS6cbNyQv1f
-	 DaR8kOp5CG3+Z7gxAq1pAc+S70e9qnnvnhb7rq6OPuZ3oJK7pDsTVbGeAP8ABsAl/Em/OPzzGp3b
-	 TsySaK
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-From: Shuai Liu <847807867@qq.com>
-To: linux-ext4@vger.kernel.org
-Cc: tytso@mit.edu,
-	adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TFaB6tYC
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc7e79c1eaaso218797a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 00:13:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793779991; x=1794384791; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rYVCxbzjhwXie807mRKlkMf4y7MqKXFbNmLhmKxHJ8o=;
+        b=TFaB6tYClWr47CyI+QVWgH2XnHepS1ZR30HLKq+OHkfjGoSD9zH77KR1UEVuzMdF1/
+         FQGdUc5GMqrG7Xz7U3AAXyKq9yt1s+nsYkQRwvvbmlpFJS7LA0gxFBv2J9g3o3yU8YEj
+         btkw4iXwJTHCVBXzhjkb17P4Gy9Ui5iA8465mjoIOx3CHHukV/bY8N5JiWLUZTycuJzQ
+         gmUgo146yhClERrtnSeKe2RapGOCMHeIMfWcGdKmMoScUaXcekZcbWaE1tIblpDLjubm
+         1O/UjBE2m+IputViurgdQC6lNHdSXP7mwOzTmswhIdBbFiCyp4dPfQDUIYVzMGZs7wi6
+         w3Sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793779991; x=1794384791;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rYVCxbzjhwXie807mRKlkMf4y7MqKXFbNmLhmKxHJ8o=;
+        b=zPKChS5AXzgil9uNzXWWh+11kxwWToTLkkVcEQRs3tOKUMSOdQbm/vC+B8aQaEiHe6
+         /e60Z7krnV59OQnZrl3/vRbyCFcb8cO78G2GWVR1HnpBbRw0hocSioKUZl8Qi2f9nmA2
+         Co+wngvEhdGFPWplJbj9yGcowFLV32bX5a9icU+QxyWj2J0moSDFMJ6pQyUF5Do2lBRJ
+         T4nPhjcOpG/xvH3HeGMWMubM3Xf8RDCcazVW3+D7ZHXyYnsueum19u3KQy/UwLD4V4OI
+         BDffTC+0ponGGnfpsrdSKfJ0aVLsYy0MxezK9HhEaSIV2cx1rG8wopYS6NGy56Tx8cs5
+         uFoQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwdGrXPkqatFDC6AAe/xO7EuI8cdfQ8YAt3UZD1Rog6UXnEizGXysNACOOOmXi3yPdZ5RAemHs+tOZOZ+w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8PGBmTTn5HPuVyPRK4crvPfrNZ/s0vXp+brPeHvqbxj9vEE+dO
+	5aGzNQvqGV/546CT8W89mjC9m2Oe/aJvtQdXMqWJjJRaTY+xlAC/XySm
+X-Gm-Gg: AYBFou2soZM0AcJPphyGmFFiEfYF+DuKtEJa3I6KkSpXTht7M0e+w+hDbNvZ2KCCQ3T
+	ixyx4iW3CDLW/BBFy33v8cLRiVh01maTI5e/RbYHDlHX1C0WqSHY2fUXhLh/Yzcb9rCLtS5ScpW
+	mtjDJKIeFw/PohoR5gh8VP39yUWdgVdcC6yCG8/g9DinVnw4qkxpsd+l809EDE0boUhNVqpvVZ6
+	Tvk+5vuoaO7e9nFnJpM5P6x6QJXocA06EMZ0AR6RmlxOfWeolnr1NQcRHGI6rGwbbztdg2Pb7p3
+	L+9tX9Lw3U3BVN342psFHx89CsjgGs4WKj1PkCXPJuT+wijOD2t7gz6F2B20KXR7q4FgX3QYVnA
+	6WrW1FL/9HOVHF6QbUnF8NStrGprgduwjem4pUdxh/4X9WIyr+RKkn8yRLaj9lhzj1kArZNnze/
+	KMYx/POjj7BOcXobyG3fmrVUXWWouO5UCJjeTU1t4kFm580ahkpWb/WeDbvRVGvbAxCth+0Zrci
+	MfBPIbNDMbIklbB3FHFrv57TpBVzGWsbaUMct+883tS1yfzKxL7lCUMmfUqOgfldltKGWjaOFGJ
+	S6o1NnN0AlZ3iGwk+yJS1Kkd53I76wCOC33TcUnR340o27Y3gGFXi5I=
+X-Received: by 2002:a17:90b:2dc5:b0:3ab:c80:9365 with SMTP id 98e67ed59e1d1-3ae897a5be6mr11780916a91.42.1793779990608;
+        Wed, 04 Nov 2026 00:13:10 -0800 (PST)
+Received: from server225.. ([39.170.101.209])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c2ab1cdsm8423510a91.0.2026.11.04.00.13.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 00:13:10 -0800 (PST)
+From: Ping Li <leeonion.muyu@gmail.com>
+To: yin.li@oss.qualcomm.com,
+	robh@kernel.org,
+	james.morse@arm.com,
+	ben.horgan@arm.com,
+	sdonthineni@nvidia.com
+Cc: andre.przywara@arm.com,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com,
-	Shuai Liu <847807867@qq.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] ext4: fix slab-use-after-free in do_split()
-Date: Wed,  4 Nov 2026 16:12:37 +0800
-X-OQ-MSGID: <20261104081237.704486-1-847807867@qq.com>
-X-Mailer: git-send-email 2.43.0
+	Ping Li <leeonion.muyu@gmail.com>
+Subject: Re: [PATCH v4 0/6] arm-mpam: Add basic device tree support for resctrl
+Date: Wed,  4 Nov 2026 16:13:02 +0800
+Message-Id: <20261104081302.304667-1-leeonion.muyu@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261028-mpam-resctrl-dt-knp-support-v4-0-bdda1e445cba@oss.qualcomm.com>
+References: <20261028-mpam-resctrl-dt-knp-support-v4-0-bdda1e445cba@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,54 +108,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-do_split() allocates a new directory block with ext4_append() to hold
-the second half of the entries of the leaf block being split, then
-dx_move_dirents() copies entries from the old block (*bh) into the new
-one (bh2).  Nothing verifies that the newly allocated block differs
-from the block being split.
+Hi Yin, Rob,
 
-On a filesystem whose block bitmap is inconsistent with the directory
-tree, a block already referenced as a directory leaf can still be
-marked free, so ext4_append() can return that same block.  With
-concurrent operations on such a filesystem (as exercised by the
-syzbot reproducer), the block can even be freed between allocations,
-resulting in bh2 aliasing *bh.  dx_move_dirents() then copies the
-block onto itself, corrupting directory entries mid-copy: a rec_len
-field can be overwritten with name bytes, so the subsequent wipe of
-the stale entry memset()s a bogus length, causing the slab-use-
-after-free reported by syzbot.
+> Changes in v4:
+>   - Drop memory controller MSC patch (no concrete platform user).
 
-Fix this by checking for bh2 == *bh right after ext4_append() and
-bailing out with -EFSCORRUPTED before any directory block contents
-are modified, reporting the corruption via ext4_error_inode_block().
+We do have a concrete platform user for that patch.
 
-Reported-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=09bec78ee77613a3efdd
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shuai Liu <847807867@qq.com>
----
- fs/ext4/namei.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+On our SoC we have implemented an MPAM 1.1 compliant MSC on the DDR
+egress path, which provides system-wide bandwidth QoS. The MSC is
+described in the device tree with the "arm,mpam-memory-controller-msc"
+and "arm,mpam-msc" compatibles, and this patch is what classifies it
+as MPAM_CLASS_MEMORY so that it can be used through resctrl.
 
-diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index 354fc2d22df1..4ef7983d46c6 100644
---- a/fs/ext4/namei.c
-+++ b/fs/ext4/namei.c
-@@ -1928,6 +1928,13 @@ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
- 		*bh = NULL;
- 		return ERR_CAST(bh2);
- 	}
-+	if (bh2 == *bh) {
-+		ext4_error_inode_block(dir, newblock, -EFSCORRUPTED,
-+				       "cannot split aliased directory block");
-+		brelse(bh2);
-+		*bh = NULL;
-+		return ERR_PTR(-EFSCORRUPTED);
-+	}
- 
- 	BUFFER_TRACE(*bh, "get_write_access");
- 	err = ext4_journal_get_write_access(handle, dir->i_sb, *bh,
--- 
-2.43.0
+We have verified this on hardware with v3 of this series (patches
+1-6) on top of a v7.4-rc1 based tree: the memory controller MSC
+probes correctly from DT, resctrl exposes the MB resource backed by
+it, and both bandwidth allocation (MPAMCFG_MBW_MAX) and the MBWU-based
+mbm_total_bytes monitoring work for it.
 
+So this patch is genuinely useful for us, and we would like to ask
+you to reconsider dropping it. We are happy to help with testing, or
+to provide more details of our DT description if that is useful.
+
+Thanks,
+Ping Li
