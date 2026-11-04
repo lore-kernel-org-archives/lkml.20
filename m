@@ -1,56 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793797579;
-	b=UPpP5si7B9JH7E2MdhjmjPumgdKxS+ikARVKqCUiDyj+U+Hi0DOQ9lIUyR0qs2qud3RG
-	 6usiYX1UE1ejpyjuoh2dItZlCESGLOjY7cP3stlwybIIrDqhVM7pPFsEf/AvL32sKteNJ
-	 dX8PKbN2FnnLd14bjAlJHwVRmT8fiD6t7am+O4qmvN9amDw9QTNpG7vZdQg3WeBiW5vob
-	 HTMNCzOEZZ4MVpeG+B9W6S7Vu5eNqB7lzBBWiaccc0OARiOt6VE/P0TyI7mQAcZ2kLbg9
-	 7R/JvZfVC23VLNY9rROLN9cpwAv90qR6nRMNND40p/QTjpAJ1piPlGfgh5LFnkokL6w==
+	t=1793797624;
+	b=yWdblDaTtTPfqTBnbKQRdfya24Zk7pHj5HcO0xKY76AdHKTm7E07Q4hc0TUbLtKAD0dr
+	 wKMG2rEWUfMk17HYpJGaNZEOeL2sl/WbK84aC0EvphVqKKgb2vB+CuDanx1iNRXhKRTlM
+	 R3YqmJcuHSf0vNCaUXYE9OxJIa2C/0mT/WQsoeG52DuBvcbjeA5FQtS9OZ46v3vXYL1P4
+	 aYKLH0L32c7u12X7pcF/zVkjd0F6ymHKF1euS62GvlcNr68FpuSm//uPriqRz3ANDS6Pw
+	 TWpKXoHF1eINOaFsVhDP97htVLRoUDOGaYYaBRtg17cBigsze1Lzgi0VOsvvSA3REEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793797579;
-	h=DMARC-Filter:Received:Received:Subject:To:Cc:References:From:
-	 Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:Content-Type:
-	 Content-Language:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=t0N3y9MtqQSrXVauEHd0fFtWMbMzBCQaF+BK87D4JBk=;
-	b=1kdbGePPQw4rbs203V9UoBsY109KTB76qgNKXJFOY4d02yl7LT1PODX3xidVDOVlk/C5
-	 L9NqQ8Jva8I0LKoqyXoWqKm0rUxjVmkpyHqKmqUtMLYjVTha8A7GNKE89NLL7Q74j5skG
-	 Dt5EBYkwK6SLbX145nbcIDtnvry0LWVkiKpS5m1CroIcLvfYTUHX50lVauxghXSiszWSk
-	 F6/nbriErYVaEXG2tVWvTCt9v9ueYvdknZc4Po1d2FJ+2S9M5dPj2a+AtA56FSo2scGYW
-	 DE2H2W8StttR52AXklOzEPkpfW3yjRPhzcOB8ccogQ/lBxgphFcFr4Y2jH+ya4gBrng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793797624;
+	h=DMARC-Filter:DKIM-Signature:X-Original-From:Content-Type:From:
+	 Subject:Content-Transfer-Encoding:X-Mailer:To:Message-Id:Date:
+	 X-Lms-Return-Path:Cc:Mime-Version;
+	bh=ssqABgwn+TJRIuR4xu4s2IFSA60D4Z2Ujj7xMIuSIR4=;
+	b=tgKCLsDTZqnKOqJPN1GoLDNgavu2Lj+YCtVUZh++Dn9/n30BbHHn5FiOFm6NB1dLAi7R
+	 T2TxzNquOVQ/OFbNoLM1aJBo/iAE/6zT/ro0eCqDk6v9AY4rPF0P9UuGbvwJkt6/BGqwu
+	 D3tgacQnQQaB0vAa+D8z9bvuQsbF8YISC4F7TIWKgxJBmXVFRs9Y8nwaHdbB2Vf0OZxOd
+	 1fO3F8ku/ox8nt/Q2Ign//iOC+TspKvoBHuXBNOmrw6M+E6CxYm8SvRpputC1ANhweQqk
+	 wFgLrjsR6XhY2ufl7di7333qp00kII6Y8ycAUjPhbzAGBhvr6o3P79uaGFEI/JHKGlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 64CCD606A329;
-	Wed,  4 Nov 2026 13:06:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64CCD606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [123.138.236.242])
-	by gateway (Coremail) with SMTP id _____8BxbdLHLetqIEwcAA--.18050S3;
-	Wed, 04 Nov 2026 21:06:15 +0800 (CST)
-Received: from [127.0.0.1] (unknown [123.138.236.242])
-	by front1 (Coremail) with SMTP id qMiowJCx9czFLetqql8yAA--.10756S2;
-	Wed, 04 Nov 2026 21:06:14 +0800 (CST)
-Subject: Re: [PATCH v1 1/2] LoongArch: BPF: Make arena support depend on SCQ
- extension
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: Hengqi Chen <hengqi.chen@gmail.com>, loongarch@lists.linux.dev,
- bpf@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261102072808.23080-1-yangtiezhu@loongson.cn>
- <20261102072808.23080-2-yangtiezhu@loongson.cn>
- <CAAhV-H52mbZJX2vkgG_h=XfwHoio=asLjFdhTJwUYqDp4V5JMg@mail.gmail.com>
- <8b00e5a7-4e60-19bd-7953-f76dc71e15ec@loongson.cn>
- <CAAhV-H52bqRD1SyrZsvMkNbCpGiM5DPSGPARiasZ8G3XsE5Tgw@mail.gmail.com>
- <6446c385-623c-d4cf-5a07-0c2276c6f50c@loongson.cn>
- <CAAhV-H4m-cokYz19HHAoDeLAjRGp4T=vwDOJaJEcHXZDW15rkQ@mail.gmail.com>
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-Message-ID: <64b8f867-029d-3cdb-7896-1229a076e25c@loongson.cn>
-Date: Wed, 4 Nov 2026 21:06:13 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=FtwmsGRs;
+	arc=none smtp.remote-ip=209.127.230.112
+Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CD48606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:07:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CD48606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=FtwmsGRs
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1793797617; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=ssqABgwn+TJRIuR4xu4s2IFSA60D4Z2Ujj7xMIuSIR4=;
+ b=FtwmsGRsW1Ra48CO3pb7K+ebxoakIOsj0RCjtddDDbRQHIBQzeowymyoJijJ0h8pZwRAHL
+ EgMVnDrOlKWfML6LtBcWZh7NCFnZrchQDQv+GU6gSxrgziyNLIPmBtepqCDjIFm/OXHfEk
+ 8nibrCT57DSmeeqCQ5UNuKEMtFu/+Z5fVidh3rLHBeG6gq//kXNKE0UECQmsxg4ACC5F0Z
+ 081JQYRO58VrRVLGhmM51w72kUbO1gCauivJXZKFX9b5NytXyNX+fBjCtST+HfexJsgyHa
+ QNHx4JhqjJhT/CA59bkvhRoDbRYWy4FacXjpUDe4IhK6EZdHi+dt/6xLM3aFNw==
+X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
+Subject: [PATCH v3] ata: libata-scsi: reject data-in commands with a data-out buffer
+Content-Transfer-Encoding: 7bit
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+To: <dlemoal@kernel.org>, <cassel@kernel.org>
+Message-Id: <20261104130638.37882-1-zhaogongyi@bytedance.com>
+Date: Wed,  4 Nov 2026 21:06:38 +0800
+X-Lms-Return-Path: <lba+26aeb2def+34f3b6+vger.kernel.org+zhaogongyi@bytedance.com>
+Cc: <linux-ide@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	"Zhao Gongyi" <zhaogongyi@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,155 +63,113 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-In-Reply-To: <CAAhV-H4m-cokYz19HHAoDeLAjRGp4T=vwDOJaJEcHXZDW15rkQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJCx9czFLetqql8yAA--.10756S2
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxXF17Zw1rtry8Cw1xZr13GFX_yoWrJw1xpa
-	yrCr4DKrWjgr4Fy397KFnxuw1UCrsIkrWUWayFkrWkZrn0qw17Gr1Fk3W5ZF4DtrWF93Wj
-	9Fs0y3ZI93WkAagCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUv2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
-	xVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx
-	1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv
-	67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07
-	AlzVAYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
-	F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw
-	1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7Cj
-	xVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r
-	1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8cz
-	VUUUUUU==
+Mime-Version: 1.0
 
-On 11/4/26 5:54 PM, Huacai Chen wrote:
-> On Wed, Nov 4, 2026 at 2:58 PM Tiezhu Yang <yangtiezhu@loongson.cn> wrote:
+SG_IO can submit a data-in SCSI command with DMA_TO_DEVICE. The
+scatterlist can then contain pages pinned without write access.
+ata_scsi_rbuf_fill() writes simulated replies to that scatterlist;
+in the reported case, the copy tried to write the shared zero page
+and faulted in the kernel.
 
-...
+The same mismatch can affect SG_IO commands translated by libata.
+ZBC IN and GET PHYSICAL ELEMENT STATUS completion handlers can modify
+the receive buffer even if the drive aborts the command. For ATAPI,
+the successful INQUIRY completion also rewrites the buffer in
+atapi_fixup_inquiry().
 
->> Therefore, using the explicit #ifdef block in the original patch is the
->> only way to ensure toolchain compatibility and compile-time robustness
->> here IMO.
-> This is OK:
-> 
-> return cpu_has_scq && __is_defined(system_has_cmpxchg128);
-> 
-> It means two things:
-> 1. CPU supports SC.Q;
-> 2. Kernel defines system_has_cmpxchg128.
-> 
-> Very clear.
+Reject these mismatched commands before the buffer is written or the
+command is issued. Report ABORTED COMMAND / DATA IN BUFFER ERROR because
+the CDB itself can be valid; the supplied transfer direction is wrong.
 
-I tested your suggestion:
-return cpu_has_scq && __is_defined(system_has_cmpxchg128);
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Link: https://lore.kernel.org/r/20261027090809.94126-1-zhaogongyi@bytedance.com
+Suggested-by: Niklas Cassel <cassel@kernel.org>
+Suggested-by: Damien Le Moal <dlemoal@kernel.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
+---
+Changes since v2:
+  - Reject misdirected ATAPI INQUIRY before issuing the PACKET command;
+    its completion fixup also writes to the scatterlist (Niklas Cassel).
+  - Use ABORTED_COMMAND / DATA_IN_BUFFER_ERROR for all rejection paths,
+    following Damien Le Moal's suggestion.
+  - Clarify that the translated commands are SG_IO submissions and move
+    detailed test results below the separator.
 
-There is no build error. However, this introduces a fatal functional
-bug because __is_defined(system_has_cmpxchg128) is blindly evaluated
-to 0 as a text string token. As a result, the expression is always
-translated into "return cpu_has_scq && 0;", which disables BPF Arena
-support permanently even on the Loongson-3A6000 system with hardware
-SCQ extension and assembler sc.q support.
+Previous v2 validation:
+  - The original reproducer panicked in ata_scsi_rbuf_fill() on all four
+    unpatched runs and completed without a crash with v2 applied.
+  - On x86_64 QEMU with an ata_piix disk, correctly directed INQUIRY and
+    READ(10) succeeded; misdirected requests returned CHECK CONDITION.
+  - ZBC IN and GET PHYSICAL ELEMENT STATUS were inspected in code; the
+    QEMU test disk did not support those commands.
 
-I did the following changes:
+New v3 validation:
+  - On upstream master 05441d697f7f, libata-scsi.o and bzImage built.
+  - On x86_64 QEMU with an ATAPI DVD-ROM, a standard INQUIRY sent with
+    SG_DXFER_TO_DEV and a read-only 4 KiB buffer returned GOOD on the
+    unpatched kernel. With v3, it returned CHECK CONDITION with
+    ABORTED COMMAND / DATA IN BUFFER ERROR. Neither run produced an Oops.
+  - The patch applies to the same libata-scsi.c blob used for v2
+    (a61fb0331279).
 
-```
-diff --git a/arch/loongarch/net/bpf_jit.c b/arch/loongarch/net/bpf_jit.c
-index 3ab039d0afb6..b61cca6a8947 100644
---- a/arch/loongarch/net/bpf_jit.c
-+++ b/arch/loongarch/net/bpf_jit.c
-@@ -2489,7 +2489,13 @@ bool bpf_jit_bypass_spec_v4(void)
+ drivers/ata/libata-scsi.c | 28 ++++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
-  bool bpf_jit_supports_arena(void)
-  {
--       return true;
-+       /*
-+        * The arena range tree uses kmalloc_nolock(), which requires 
-128-bit
-+        * atomic cmpxchg; this is provided by not only hardware SCQ 
-extension
-+        * but also assembler support on LoongArch.
-+        */
-+       pr_info("__is_defined(system_has_cmpxchg128)=%d\n", 
-__is_defined(system_has_cmpxchg128));
-+       return cpu_has_scq && __is_defined(system_has_cmpxchg128);
-  }
+diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
+index a61fb03..78a05cc 100644
+--- a/drivers/ata/libata-scsi.c
++++ b/drivers/ata/libata-scsi.c
+@@ -2048,6 +2048,19 @@ static int ata_scsi_translate(struct ata_device *dev, struct scsi_cmnd *cmd,
+ 	if (xlat_func(qc))
+ 		goto done;
+ 
++	/*
++	 * A data-out request may contain pages pinned without write access.
++	 * Reject a translated data-in command before issuing it, since its
++	 * completion handler may write to the buffer even if the device fails.
++	 */
++	if (unlikely(cmd->sc_data_direction == DMA_TO_DEVICE &&
++		     ata_is_data(qc->tf.protocol) &&
++		     !(qc->tf.flags & ATA_TFLAG_WRITE))) {
++		ata_scsi_set_sense(dev, cmd, ABORTED_COMMAND,
++				   DATA_IN_BUFFER_ERROR);
++		goto done;
++	}
++
+ 	return ata_scsi_qc_issue(ap, qc);
+ 
+ done:
+@@ -2079,6 +2092,13 @@ static void ata_scsi_rbuf_fill(struct ata_device *dev, struct scsi_cmnd *cmd,
+ 	unsigned long flags;
+ 	unsigned int len;
+ 
++	/* A data-out request may contain pages pinned without write access. */
++	if (cmd->sc_data_direction == DMA_TO_DEVICE) {
++		ata_scsi_set_sense(dev, cmd, ABORTED_COMMAND,
++				   DATA_IN_BUFFER_ERROR);
++		return;
++	}
++
+ 	spin_lock_irqsave(&ata_scsi_rbuf_lock, flags);
+ 
+ 	memset(ata_scsi_rbuf, 0, ATA_SCSI_RBUF_SIZE);
+@@ -3173,6 +3193,14 @@ static unsigned int atapi_xlat(struct ata_queued_cmd *qc)
+ 
+ 	qc->complete_fn = atapi_qc_complete;
+ 
++	/* atapi_fixup_inquiry() writes to the buffer on successful completion. */
++	if (scmd->sc_data_direction == DMA_TO_DEVICE &&
++	    scmd->cmnd[0] == INQUIRY) {
++		ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND,
++				   DATA_IN_BUFFER_ERROR);
++		return 1;
++	}
++
+ 	qc->tf.flags |= ATA_TFLAG_ISADDR | ATA_TFLAG_DEVICE;
+ 	if (scmd->sc_data_direction == DMA_TO_DEVICE) {
+ 		qc->tf.flags |= ATA_TFLAG_WRITE;
 
-  bool bpf_jit_supports_fsession(void)
-```
-
-Here is the test result on the Loongson-3A6000 system with hardware
-SCQ extension and assembler sc.q support:
-
-   $ sudo ./test_progs -a jit_insns/cast_to_user
-   ...
-   libbpf: map 'arena': failed to create: -EOPNOTSUPP
-   run_subtest:FAIL:unexpected_load_failure unexpected error: -95 (errno 95)
-   ...
-   #197/2   jit_insns/cast_to_user:FAIL
-   #197     jit_insns:FAIL
-   Summary: 0/0 PASSED, 0 SKIPPED, 1/1 FAILED
-
-   $ dmesg -t | grep system_has_cmpxchg128
-   __is_defined(system_has_cmpxchg128)=0
-
-This is not expected.
-
-AFAICT, there are two viable ways to handle both assembler and runtime
-constraints:
-
-(1)Use system_has_cmpxchg128 at compile-time and run-time. This is
-more aligned with semantic intent, as BPF relies on the generic
-128-bit cmpxchg interface.
-
-```
-bool bpf_jit_supports_arena(void)
-{
-         /*
-          * The arena range tree uses kmalloc_nolock(), which requires 
-128-bit
-          * atomic cmpxchg; this is provided by not only hardware SCQ 
-extension
-          * but also assembler support on LoongArch.
-          */
-#ifdef system_has_cmpxchg128
-         return system_has_cmpxchg128();
-#else
-         return false;
-#endif
-}
-```
-
-(2) Use CONFIG_AS_HAS_SCQ_EXTENSION at compile-time and cpu_has_scq
-at run-time. This is more aligned with kernel coding aesthetics by
-avoiding #ifdef blocks.
-
-```
-bool bpf_jit_supports_arena(void)
-{
-         /*
-          * The arena range tree uses kmalloc_nolock(), which requires 
-128-bit
-          * atomic cmpxchg; this is provided by not only hardware SCQ 
-extension
-          * but also assembler support on LoongArch.
-          */
-         return IS_ENABLED(CONFIG_AS_HAS_SCQ_EXTENSION) && cpu_has_scq;
-}
-```
-
-Since cpu_has_scq and system_has_cmpxchg128() share the exact same
-runtime expansion (cpu_opt(LOONGARCH_CPU_SCQ)), both approaches are
-functionally equivalent and produce identical machine code.
-
-Personally, I feel Approach 1 represents the pure semantic intent
-better, whereas Approach 2 looks more aesthetically pleasing.
-
-Which one do you prefer for the v2 patch?
-
-Thanks,
-Tiezhu
-
+base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
+-- 
+2.39.5 (Apple Git-154)
