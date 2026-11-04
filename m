@@ -1,69 +1,46 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793787954;
-	b=HV/biW6SYg8mAfsn2YFPZwfA9qwaeszmTlCaCWRblXE8ImNjfx3yLHgQjqvz2WEyB8aQ
-	 NBz2KHmzNzUJAXoZPTJgCGrrQTKznMPz1xRDCJWqN91B79vnZAfueMwgScxEK2pfs7euy
-	 LSdWiUwptkkv3eVt2vp68Sloy6f+WEyZvvLbZZ7LbxurrfKMDkQfhJXDxfyvRPk7Ln2GJ
-	 0fGmJoAXYL9tRq2apadFPORhy51sVL63OJ10Ch0gITEzk8xasPSPp1e0yy4lGF0PtB8DX
-	 VdWSk1Yczt8Kq9mao/2kt7nWrY2FQDpZ3j6E6s36x3XaPRAcX+ZJO89O2gwP5Ne+sYQ==
+	t=1793787965;
+	b=0ytbH7S+oCyR9CcU+eWm8s+77p5RtaFmSTF10gZvOAwDZq+amktDGyX9JRToTd2Z8HJI
+	 D5Uy6WwhZap6RY2zyklEqRCtrkRts9JfHHpxWH1Oakkfe8Hiah8TMKUOIO+ruOExGHv9d
+	 H/jnEQ8X8r9HyV89Ht8hSOCdpiygwQYYFbgKBD4FKCnP1RS+MusZF6tGZVV/u+e4mfAk2
+	 BYRltDKEY5NUEf8lyKexekLoV0h/jX6+DMSbm45K9HGzXkVSuDNLfSDJ7ozw1sygx7+rj
+	 i9S3lPj7uVcxM0j0sZCOmvnwv8T0csBwbC+2dWQNOIi4RqwX8I+8AZM8myDWChGqdXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793787954;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=uRrdt0oAcAPfS+w2dQ61HkrI15khdaUCiJ5g7tU0p+Q=;
-	b=VmaI1gtY7OW4R3Z8JopkUPOmTUnw+Ybne9a+SX66xr1wyXVsePbnhwqZqILWTiVvwfQW
-	 +LJD5hwJKLfE+9gmkGQY80/0ySN92NJh/WsogVu/alLXgtbuwTOzhTXKBIefJrOWyQ1B4
-	 VRd7UazUsbkWlwuQbb+1urz4pnE1cTck5qxnoblBkM1b9wQNKqDjLRrLkrDS5nfbZ0E/B
-	 cnwI+RqFkM0SxAocP3sTdbq7rlVv+0SClLaNeCqdvkW3peyAOx0CFs6gem+TdqYI8CFUo
-	 wyI6SlVeMaUxzL5DlRP44QdYomKMu9tC15i88G4aTg1my+mqfnx6xxpzPEwfEZgOehw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793787965;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=vgyN1MVtewCE5iOY62uYApAFJ1DpQnif1ptUlpmq6/8=;
+	b=zZEFntoT4m20fjrqDk9ej7uQjYGwMfVdHCOf84WEH9uy3sTgE8Nwx320u9q6VMI/S26D
+	 DDW5s+7o1KYqeGRNtC4IL+I/d42SJazq+MGlD9Ca0/suJX5cqnHqh4ydj1pH0sSBjtTha
+	 4P4/SuqY8cFpVPlT0Vo2WBEp/1HRp6O5ggcjDE8uZ3aaJArSzjOW9wi7qDl5mmT2Y8SNO
+	 vjfH9Rv01PHsFN+w8IouyZ8PsR4r9cehEXU3MtlaKIk/jRNe9TaQC6nPBOPFuZJkQjxrZ
+	 ngwiMDudHwg++exXNPzVpxKwOwb9zLe9kIgUaVaMBTQcq+9AcFNgzMqFyehFGZG1CtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=A+8t5vjZ;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D0F1606A329;
-	Wed,  4 Nov 2026 10:25:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D0F1606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=A+8t5vjZ
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=uRrdt0oAcAPfS+w2dQ61HkrI15khdaUCiJ5g7tU0p+Q=; b=A+8t5vjZqpreZvPSLqn2rWHCfk
-	n20HzKOydnfedJfrqrbJoETErbWXGYMoVDxPotfS+pj30dhVa9kgt9ioE3h2XT9i+o0G+8YdGkx94
-	c3QBYW5k2mk+ni5jhkwtbJ0XyA5dPKbn2W67WeyaIRUJ548XcG9M2F372a+JG9Z4saOhjOzo+w3oC
-	eyhS0ZoraybqUEcq+Rs1ShIc64rINHDJig5KDlfjZqHUgloCWhUZhfDAow0U/X/rkbraLV4ZTsUbE
-	L8NNkvSjhwcAGWUz3HAevwzEEWEfjFK3ykebZUp2dFTL+4ugzZ2Y132qKzJFggyFXmgKN48nvtd3S
-	d5ApHuFg==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: tomeu@tomeuvizoso.net, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
- ulfh@kernel.org, p.zabel@pengutronix.de, ogabbay@kernel.org,
- zhangqing@rock-chips.com, Jiaxing Hu <gahing@gahingwoo.com>
-Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
- sebastian.reichel@collabora.com, sidong.yang@furiosa.ai,
- u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com,
- diederik@cknow-tech.com, alchark@flipper.net, leonard@lausen.nl,
- jeff.hugo@oss.qualcomm.com, rfoss@kernel.org,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Jiaxing Hu <gahing@gahingwoo.com>
-Subject:
- Re: [PATCH v15 04/15] accel/rocket: let the core suspend after a reset
-Date: Wed, 04 Nov 2026 11:25:30 +0100
-Message-ID: <3373678.NnENhoQgcM@diego>
-In-Reply-To: <20261101082307.151957-5-gahing@gahingwoo.com>
-References:
- <20261101082307.151957-1-gahing@gahingwoo.com>
- <20261101082307.151957-5-gahing@gahingwoo.com>
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D36B3606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:26:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D36B3606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B2A9C1650;
+	Wed,  4 Nov 2026 02:25:58 -0800 (PST)
+Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B799D3F628;
+	Wed,  4 Nov 2026 02:26:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793787961; bh=utZoELyLtysaSoiLRrID6O+IvVxEmp+/LsNWhwaKVIk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=DvgrQc4/2ieAj8PtYwzUIl1jjXxjiAs88cKzjbpPaYnPtPtrRW+XENEnDC0qfLEo9
+	 5i0iroNo4nbycLyM0N+nyVQfc41aaWtecM1VmBaXm15mP+Lx2E61RQggFPO8RTR2yG
+	 opc4JuLmsqxHbptVyexARO9IrBL82Pr7585TNv7U=
+Message-ID: <3a778670-846a-4c29-bf8e-2f2e255d14ef@arm.com>
+Date: Wed, 4 Nov 2026 10:25:59 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,60 +50,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/9] coresight: Fix assorted bugs reported by Sashiko
+To: James Clark <james.clark@linaro.org>, Mike Leach <mike.leach@arm.com>,
+ Leo Yan <leo.yan@arm.com>, Yeoreum Yun <yeoreum.yun@arm.com>
+Cc: coresight@lists.linaro.org, linux-kernel@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>
+References: <20261027-james-cs-sashiko-easy-fixes-1-v1-0-db43c4668644@linaro.org>
+Content-Language: en-US
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20261027-james-cs-sashiko-easy-fixes-1-v1-0-db43c4668644@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Am Sonntag, 1. November 2026, 09:22:56 Mitteleurop=C3=A4ische Normalzeit sc=
-hrieb Jiaxing Hu:
-> rocket_reset() drops the in-flight job's runtime PM reference with
-> pm_runtime_put_noidle(), which requests nothing, so the core does not
-> suspend until something else asks and its power domain does not cycle. On
-> RK3576 the domain's power-on resets the NPU bus interface; without it the
-> IOMMU stops answering and the job after a timeout fails.
->=20
-> Use pm_runtime_put_autosuspend(), as the completion path does. On a ROCK =
-4D
-> the job after a timeout goes from 0 to 128 of 128 channels correct.
->=20
-> Link: https://lore.kernel.org/all/20260819073530.6087-1-royalnet026@gmail=
-=2Ecom/
-> Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
-> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-> Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores, i=
-nduced reset, JOB_TIMEOUT_MS=3D2
+On 27/10/2026 14:55, James Clark wrote:
+> Small fixes for bugs in the CoreSight drivers that were found by
+> Sashiko. Mostly reference and resource leaks on error paths, plus a
+> deadlock, a missing lock, and a sysfs store that should return -EBUSY
+> while a sysfs session is enabled.
+> 
+> This series depends on "coresight: Prevent per-thread events from
+> sharing a sink" v4 [1]. That series takes coresight_mutex for perf AUX
+> setup and adds coresight_release_path_locked(), which the
+> etm_setup_aux() and coresight_build_path() fixes here are based on.
+
+Please could you post these based on coresight/next ? As these are fixes
+for existing issues, I can queue them (and potentially be backported for
+stable) without additional dependencies ?
+
+Cheers
+Suzuki
+
+> 
+> [1]: https://lore.kernel.org/r/20261016-james-cs-multiple-per-threads-v4-0-dedf961aca0e@linaro.org/
+> 
+> Signed-off-by: James Clark <james.clark@linaro.org>
 > ---
->  drivers/accel/rocket/rocket_job.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> index 5b2abf40b618..152a9098634b 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -467,12 +467,12 @@ rocket_reset(struct rocket_core *core, struct drm_s=
-ched_job *bad)
-> =20
->  	/*
->  	 * No handler is running now, but we might still have stuck jobs. Let's
-> -	 * make sure the PM counters stay balanced by manually calling
-> -	 * pm_runtime_put_noidle().
-> +	 * make sure the PM counters stay balanced by putting the reference the
-> +	 * job took, and request idle while doing it so the core can suspend.
->  	 */
-
-with my comment in patch 3/15 fixed
-
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
-
->  	scoped_guard(mutex, &core->job_lock) {
->  		if (core->in_flight_job)
-> -			pm_runtime_put_noidle(core->dev);
-> +			pm_runtime_put_autosuspend(core->dev);
-> =20
->  		iommu_detach_group(NULL, core->iommu_group);
-> =20
->=20
-
-
-
+> James Clark (9):
+>        coresight: cpu-debug: Fix PM usage counter leak in debug_enable_func()
+>        coresight: etm4x: Remove perf symlink if config registration fails
+>        coresight: etm4x: Fix truncation of nr_ext_inp
+>        coresight: etm-perf: Fix sink device reference leak in etm_setup_aux()
+>        coresight: syscfg: Take csdev lock when removing owned features
+>        coresight: syscfg: Fix deadlock in cscfg_create_device() error path
+>        coresight: Fix resource leaks on coresight_build_path() errors
+>        coresight: etm3x: Don't ignore etm_parse_event_config() errors
+>        coresight: etm3x: Prohibit modifying seq_curr_state while session is enabled
+> 
+>   drivers/hwtracing/coresight/coresight-core.c        | 6 ++++--
+>   drivers/hwtracing/coresight/coresight-cpu-debug.c   | 4 ++--
+>   drivers/hwtracing/coresight/coresight-etm-perf.c    | 4 ++++
+>   drivers/hwtracing/coresight/coresight-etm3x-core.c  | 6 +++++-
+>   drivers/hwtracing/coresight/coresight-etm3x-sysfs.c | 5 +++++
+>   drivers/hwtracing/coresight/coresight-etm4x-core.c  | 1 +
+>   drivers/hwtracing/coresight/coresight-etm4x.h       | 2 +-
+>   drivers/hwtracing/coresight/coresight-syscfg.c      | 8 +++++++-
+>   8 files changed, 29 insertions(+), 7 deletions(-)
+> ---
+> base-commit: 343cfcbb3ecfdb80aa576a428cfa3b65ad783842
+> change-id: 20261027-james-cs-sashiko-easy-fixes-1-692d80016a89
+> prerequisite-message-id: <20261016-james-cs-multiple-per-threads-v4-0-dedf961aca0e@linaro.org>
+> prerequisite-patch-id: 81acda380ba25acd3845eb58d5ded812175b9631
+> prerequisite-patch-id: 430caddc9c87948d4e9a0d1967bf3d8a50bca06b
+> prerequisite-patch-id: 633377150141300f7578b265fcc02eba52e592a8
+> prerequisite-patch-id: 9a82ffe5d705ac1fdf1250ff6bf242cfcd9d8fbf
+> prerequisite-patch-id: cf211801575d6bd0aa7fc0f6e19c3b90cea446a0
+> prerequisite-patch-id: d22fee48bf4aa3e01536e4683ccd797b3dbe1c91
+> prerequisite-patch-id: 55eeffb37cae55a1f47c2827899e0512b47a6efa
+> prerequisite-patch-id: c542d74cd4bc76158d5872bab12b8bd7a00f0c27
+> prerequisite-patch-id: 71cd37ed83d3e01d7a0321cdfa5cfc5ee113fe7b
+> prerequisite-patch-id: 74c1e3ed6dba4e25bfd3c39f06d43b079eed45e1
+> 
+> Best regards,
+> --
+> James Clark <james.clark@linaro.org>
 
