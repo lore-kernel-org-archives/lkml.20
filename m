@@ -1,105 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793810350;
-	b=t7H07H8uOUerRrHUzoLnvRemZVRiGPtSD0NBzMvpjAaVzy2qralqsCnGiu/fu95VXg0d
-	 VJmlRJXb7hdIJaU/3jmXK4dV+/DV14uc5bpzWL/W7KOW0mv64sU0rv/FdUs40/mpCARDq
-	 zxxXVBEkN6fD52ojnj/ek9kw9A6FFbeYXcByuH6dn3hGDzT+WHRQQ3ZOPoq7DiWs7hSIZ
-	 mNWOTRa8BfPrHF8bTKFPQRxCSKnCkn5wEEhhxoInFk/DsX61azX0DEILVJ0bOSmKZp1Wl
-	 c25dnogSc0eGrGYwIUOfSpWVNhjNg5aI3W7U4AITvws5bE2wQVfJ3CeU+577q/UmIVA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793810350;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:Cc:To:
-	 From:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=S7uzjATlcBgQ4C4QznzH2i91eUNhhj35MPUel0ON3OE=;
-	b=IgVHaVVxSFgCOVjWlFXCj7HZVdTlXn6adkGUK9P8dE9xO43ejPNzDNV8ejHoB6AbZnAz
-	 Ji/nq7StdZELexDHyM80T/yK16qyfTbhXuT8bmYENRNZqBhE+VZqL/guRkTHZvQuDJuwu
-	 a8aJIoet4h9GUiD+nNDKOMRoKFDMG6HsC5vnUiLIrmsCHYWnx1/dq357Hr//fga+USpcb
-	 CKdqCmrkyT270P4+MzLTb+8mYw97yn1a2jH1qaOyAhyaWX3l8L8Me7GZhHA6VvsrIPL+N
-	 8bzkbjXmq+ganuSxHGEPYnqjkPs/ZtRvPPoi9dqKH1sWaJ5MjWKFPqeAXspHeDzo2rg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ZFS5wUhr;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.11
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013011.outbound.protection.outlook.com [40.107.201.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.37
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793810375;
+	b=UOF43Tn627ZDU0zEZ47gjZMvYFcA2jfZYVmMEHYsJwd9iaAW6+pMnZ/prmVkc0GOrPkD
+	 PrJ345QkmmAEkSQWcz51Fz7IBrxSaGRKIxEmtyVm409CypL2l5fy2oARf+5QQo9cS7nUf
+	 QnF9khgxiZkdIkrNOHTGzgZF3RATb6gfbEyEkPsWbUw587azpwqKgDNLOwdmhP8JuqFlU
+	 yuwGdCBoPYKPSnkqzPRo7sB5tBIHoYP5+/aBE8xE8M71aoGMlWsifWxJ/j2TgvHIM6lAX
+	 tRo4P89kc3K3JBj/kKglJsBzPUdgdCKYhUO6LmNX8SXCDm+Fzno4xUKKUSFEdHEJtAQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793810375;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=j/qonkLTfSJS6fOcfIBVACKrRZK2oHEhnPOu7N9/zz8=;
+	b=Rz5lcFhsPi2U3w0imgOw8B/jnXHACRvilgG+4bRjyzLjaDOeGihW+nivIswHtUrTXfQd
+	 QHOoM1aNWSvkPO3hbyvvpKeWdq60ETOYo4SmRMk7wg6rk+XuhyclJaVvplqLAMgfsV3Nd
+	 /w7co3nTtSG8xoBXIw7jWZVvj/czpXJaTQq/9+qY/gn4MrAwQ6BhL/MbsJVC8Yp0QQNcZ
+	 mKdaDQ9jzrZEonewwgzbLvIvT+ZZJOOxCtURlMFs80aqpMyD21W17XOnNXdxJYD3y+9H8
+	 vLP4nEj1KoYcRc3Uu0LW6sji25txxtci8TfKiuLLPaAVxrbwgifoCwtowQMBNDEotSQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=rP2S6qUD;
+	arc=none smtp.remote-ip=44.202.169.37
+Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B2C5606A330;
-	Wed,  4 Nov 2026 16:39:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B2C5606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A213606A329
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:39:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A213606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ZFS5wUhr
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mUqEmO/FMG6kDtyvzlgNNBwrOzBBHS6mpIDVWcQOIoJmOfROSdyaudJChgi/z+HC9NJmzqAc6+n6L0aDlaGsDYobmRLm47KLeL2UxgUgaSdp4c+ymu9zvY9UpxnK7QuzawJBo704D79OkUz0UOtn0hLHVmZfSXffhqBFBfQDV9OIgPwrtmfi248lG2cxA/IiRB0wrjkfLxxRMov8ikxSvwOe2kvoS/ZtzkukxoVq9UM8lWgdMW3PnuDiD8aNyERsw0Kt+DFIdM5f8WR0eDHYjDLPLkuuK2LrTgu5JEvmJhV3e2EKlwKQAq6e7YGzAIKT8WR0wRwXqXXJPTPyVP2HpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S7uzjATlcBgQ4C4QznzH2i91eUNhhj35MPUel0ON3OE=;
- b=JbevP5ImN9qsNxzpIWppg8fZoNVjB9eDCRYERhmrEk9H6a8mUZOc2jZOCPu3xjcFSLGmRjWqKaO0cfl1EZA2NFZKa1ECbGU3AEcw8voQE5M4SRoYpjNTYKwuBQ2gZqXT0xy3M+BcqrEKT91f6cmxKEa+GKhJlFeU/hkzCAalkfUxbJ2p6CuZYAAq8nSZJW8caq6sPZ6zUlfZ6tky7uex0QGwwbvlAFLzAHOaAMf391r3GLWfjN9myLWSLhB4xUWEwHB14JRze55DGj/vuwYy5efFcLSh4T52BxN3gCWHbfRlS/Qod7+530Flwjtt7YgmWb7W1/ESCHTqSzzPdUlOsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S7uzjATlcBgQ4C4QznzH2i91eUNhhj35MPUel0ON3OE=;
- b=ZFS5wUhrk4+Sq4EwJ4oI7MFWazTCghwDgo45f8wlSFAjpayU54/l80gRe+taRcHT2fq/iUEbQkSC/ePdf6U3Y6Jh/Nt+oU5tQIXHKu/7cJVcNqWdlyk/mDYmektsTwJ9nMVmm2bo5T41fH73KgX8oq0Z4j03Kbk2Z1UL1ivZinhbSdamzINWcz0jYDfmEc1gwILJH4wyk5CCwqQg9V95ZqZeUFpriOBT4FWMoTNE44dn3wZqN6zriWySmCmcxEtXdVXemzV+i+cbS5LkSdgAt4D0eXrMfcDT0yIcsx9gz5SdBAYyzG56pyEAglmSbSUMeXddbOtUWsZxbIOv1AZ1iQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by LV3PR12MB9119.namprd12.prod.outlook.com (2603:10b6:408:1a2::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
- 16:39:00 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 16:39:00 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 04 Nov 2026 11:38:57 -0500
-Message-Id: <DMMKP0WKXN68.3RZSH6L49OXZP@nvidia.com>
-Subject: Re: [PATCH 2/2] mm/page_owner: also check PageTail before reading
- memcg_data
-Cc: "Tao Yi" <escape@deepseek.com>, "Johannes Weiner" <hannes@cmpxchg.org>,
- "Michal Hocko" <mhocko@kernel.org>, "Roman Gushchin"
- <roman.gushchin@linux.dev>, "Shakeel Butt" <shakeel.butt@linux.dev>,
- "Muchun Song" <muchun.song@linux.dev>, "David Hildenbrand"
- <david@kernel.org>, "Matthew Wilcox" <willy@infradead.org>, "Baolin Wang"
- <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>,
- "Nico Pache" <nico.pache@linux.dev>, "Ryan Roberts" <ryan.roberts@arm.com>,
- "Dev Jain" <dev.jain@arm.com>, "Barry Song" <baohua@kernel.org>, "Lance
- Yang" <lance.yang@linux.dev>, "Usama Arif" <usama.arif@linux.dev>, "Kiryl
- Shutsemau" <kas@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Suren
- Baghdasaryan" <surenb@google.com>, "Brendan Jackman"
- <brendan.jackman@linux.dev>, <linux-mm@kvack.org>,
- <cgroups@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-To: <daejun7.park@samsung.com>, "Andrew Morton" <akpm@linux-foundation.org>
-From: "Zi Yan" <ziy@nvidia.com>
-X-Mailer: aerc 0.22.0
-References: <20261104-kpagecgroup-split-v1-0-f70e947fec85@samsung.com>
- <20261104-kpagecgroup-split-v1-2-f70e947fec85@samsung.com>
-In-Reply-To: <20261104-kpagecgroup-split-v1-2-f70e947fec85@samsung.com>
-X-ClientProxiedBy: YQZPR01CA0037.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:86::7) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=rP2S6qUD
+Received: from eig-obgw-6001b.ext.cloudfilter.net ([10.0.30.143])
+	by cmsmtp with ESMTPS
+	id OUybxATJEJFmFOe1OxSBRr; Wed, 04 Nov 2026 16:39:34 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id Oe1NxnnxWmASCOe1NxqOaE; Wed, 04 Nov 2026 16:39:33 +0000
+X-Authority-Analysis: v=2.4 cv=XJkwSRhE c=1 sm=1 tr=0 ts=6aeb5fc6
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
+ a=p-LfKV-GAAAA:8 a=14k-HqQmNQMTK8QvfVQA:9 a=QEXdDO2ut3YA:10
+ a=97BuGM4RKn6GwmfqMd6i:22 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=j/qonkLTfSJS6fOcfIBVACKrRZK2oHEhnPOu7N9/zz8=; b=rP2S6qUD2i+9
+	HPp78wilmv51lPsJeYeSL2+Q992YgG8wmyBV8UHhCQaaCj+XNlWTLP49bOIFZlJxpMJQqskrNV1cI
+	PnTqxVJwwABcrId1lVrr/DIfCTfHBeaYZBbzneINJzlpbM++M9QyYMRYTTe77kBfZlZUCGiW6h3T8
+	pp7jO8yQ2iIZ4KouhqodhcjpbtQqWeWdXPDNUaOspyXHA0WeCD4sVWY5dvra1xuVF3+2KohwcuLWA
+	1qnlbIlhrbog65pGimvDtWupyLt3sdpY8Q/WySQSASpiHIzybLVSuQHa+8QjB5ZHN0k5V9BHb14eA
+	EW8CJ9wtFqUJa++7UoaqDg==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:44006)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xOe1K-00000002Xpu-1SC1;
+	Wed, 04 Nov 2026 22:09:30 +0530
+Message-ID: <c742c878-d4b2-48d8-972e-a09aa4d215c7@roeck-us.net>
+Date: Wed, 4 Nov 2026 08:39:28 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,100 +76,163 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|LV3PR12MB9119:EE_
-X-MS-Office365-Filtering-Correlation-Id: 65c63abf-e10f-42fa-8284-08df3a9220a9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|7416014|366016|1800799024|11063799006|4143699003|261021123027099003|261021121427099003|56012099006|261102123227099003|261028144727099003|261022105027099003|261022075727099003|261026140227099003|261026121527099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	MIxpN6Svivv6fumL0p1j2ilum3aiov0ZmpeEbpyVtixlcY1U8/DKayHcMYLdEq/WXF+DPoSuYuhLafoLycrjrwm2RPB20y+WkVXQVF7ymXpRlNVNjdDzMIe+Ocr64cqW6wn7LrFRs4hpsS38p3kgk7y1wBpDX+G/+TuTBNGjLPWsQle/YjL6kw/i3Ms9a/+6Q6JX3A1VwLlDXwT/TwLKVTN7LZG+x+U5KkFxeEq9wdsvkP51TB1smd/YGhBCmuK6FX2a0DZRAaKnvfzApxi40wFmLmWADNF8C6fKEiEHpnSAitLCKW5DbAVHdp2ji50X/Ibdyu6wTjhx0oLri1K/Zjx5KQdnP4SQMto8gGWm2KOrLOCA6Pznd00OErxjtVN9mB+jN7V1MM1Od8whd1OjRcTd4Xkw7Y5rvoY0HU0WhwGuVqpOtfNV2zIroKtXmmr6M47s4+q53IsAvmdmZpdCwv4/cw0efgBtNlnEJ7nJBnLZHOeS+qMY2haQPFvhOIHB/eaBg6R5MPoOGsZna/UcDpOLhfMjpNSWnpqPA9k7mlEfydrH5bSZvyZSXi/usY1ZBO/h2LbSyy4i9ZIGtTn5XHPtUmbbdEoVTa/OU6bGpgW1Br/HfdpRZCSnRAz2xU70PeZYNj0cj2Achdnbh2KCllzTRpJw/35JHZkcDsure8o=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(11063799006)(4143699003)(261021123027099003)(261021121427099003)(56012099006)(261102123227099003)(261028144727099003)(261022105027099003)(261022075727099003)(261026140227099003)(261026121527099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cGp1Q29tdGl2ZFlOT1dvNG96ang1bWxOeHlodDJjM0I4MFBmeklJeWhVaW4w?=
- =?utf-8?B?dEZWZWg2bE1GaktINUsza2MzNjlDeFd2eTJlUWllbDdGM2NQWTRYSkxOLy9M?=
- =?utf-8?B?Y2NGTFp6dy82RjQrWHMyNVd3WHBKZm5WcTdXelQvMFhISkdDZm9NakdBeTd3?=
- =?utf-8?B?RlVUakhrdSt0ZzdyU0xrTEVFY2plaEkyZHlaZTV1a3FHcGNSQ28vNWFTYnMv?=
- =?utf-8?B?K0dwWDVtZmMrZmNBdnRhZVFZQjJCS3FQMTZUL2lpZFFyOEppNVVEV0s1NDhC?=
- =?utf-8?B?VHJ2WmJNZXNXakhtOHFnY2d2Vnc2bXRJVmk1Z05qZmZqenpjS3ZYMW9EUXFT?=
- =?utf-8?B?R3REZGRHbENBR1oxaHRuLy9sN0lyTm5WN0d2L1pNcVlWd1htNk1mN3RsZWU3?=
- =?utf-8?B?cVZTOGdkZXhFZmUvS29xQU5MVzZhd2FuS2ZRbVZtMTM5UHp6QVZKT1g2MTc2?=
- =?utf-8?B?QWJoZ0ZKZHZoQU8yaEo5ZGxINGtZTURyL3JkT0hrY2xmOENjbEVjczk1MnpF?=
- =?utf-8?B?cWhEdmlHMnJsVE1DWFRmSnIwNG5VNWZ5NTJXanRsZS9NckRnQXEwazRsS3pP?=
- =?utf-8?B?ZXFJL1IxSmp0ck04b3pUNTZJc3FnakNzc2dCY2FOT3dtNm0xNWlDRjBWdzJH?=
- =?utf-8?B?WWtqTWsxQWtDUWZyYzVPMnFraldmZlo1SEtERUxXWUFTRjhheFhhalVubkJC?=
- =?utf-8?B?YkhiQzlVMWhkdytEQ0RudlVqL0xNZ2tqcHRKbzZRMGhTT3JMWXIzMkJyVGdk?=
- =?utf-8?B?aGxqNjk5bDRPWkNicDRXYVpHR1dMMjM1QzhxcHFCTkZMdGdGNmZBMjVjaWhY?=
- =?utf-8?B?bGs0M0VJTXdxQ01uNVRqNG41RHNTcGpmZm4xNVBFWEZaNThpNlRHL3hvQnR0?=
- =?utf-8?B?SGdkVHozYThoaGlucVRuM2M1cFliYXp2MHl4a1FieUlDK2V3ajdqLzdqY1Z4?=
- =?utf-8?B?bWxBbDBkYnppNk9KZXVsM05CaUR0U1Uxb1Foclp4WmsvNVBITDdFRG4vT0JL?=
- =?utf-8?B?QjZDdEthKzdkYVNRUTZrQ0dKNFVCSEJteXlMZ3dSWC9ob0hmTlNaS0htanJw?=
- =?utf-8?B?WERxUkhKSUlaZWNPWXgxR3FoMnhQVSswTjN3WDI2ZGRBeUNBTDNxTHVLSmp4?=
- =?utf-8?B?N2ZrZDlaWWl1VDA1ZE9HaTF4YlQzZ0FUWGJWZXk0RytkRVp2WE9jZHFnZUho?=
- =?utf-8?B?T0JpU25veTU1MEV1OWMxZEx3VWJ5c3JyckNFR0szMGM0SlNBUUVvRFpsM3RI?=
- =?utf-8?B?VllvbVRrZnhYem5LcWQzOE5VTk9ONEhKdEQxbTNucFEzVm03NFUxOVVLaUFI?=
- =?utf-8?B?VUY4dnhTVldTaFJHbi9LTnJ6eWVaWG04eGxHSmhNWDFMKzJYZjUzL1dIdkNP?=
- =?utf-8?B?MThZTTZZRWlvazgwUkVtNXFKLzByMXVCTENlL3NhY0JXOC9kUEhOemZrYjFT?=
- =?utf-8?B?L3AzUEZPUTk5QmVpVGk4OG9Xb3ZVL3dDZUEwOHZuR0FJcVBzYW9RRE9ZTGRL?=
- =?utf-8?B?UytESEI4Slp5L2N1eWJBV1V0QzZNTXE3bkk1NnlFMkh2YU9xMDFzNlJ5Vldm?=
- =?utf-8?B?TE4zRU5pQUR4czVzNThZTUp4SU1qaDU0UWUxVWd0ckg5Qk1rbm1CZkcxejhI?=
- =?utf-8?B?Y0t1OHNacmhXN2M5WE91R2g2QnZKTVdFQnN6aVJrbTlsTDR1bmd3ZEZMTStj?=
- =?utf-8?B?OWY1U3FOMDN6UEJjS0Q0cldqb2d3YnRPWXBLbWxqZXlDczhIQzV5TEZPMm9L?=
- =?utf-8?B?QmdURklPR0tMeEVXVzN1M1h4dmR1WTRTSTJ3NTI0UkhIWDFRSU8rc2U5d1lB?=
- =?utf-8?B?bXRPdEttTlMrM0xLU1ZHcmo0VlhiNXdaejBncEZ2K1pMMSs4TXhtTmg1VWt3?=
- =?utf-8?B?QXFPdU53Z09VT3I1SyswMGJxVlQ3ZWtsdmtDejMyRHRiWG0wMnFVeUdpbmFq?=
- =?utf-8?B?OWFQWTNKR0oreXlqTXRtSzBrWGl4RE5uVkR5Q29vSStxOGF4dnZRT2NPcndk?=
- =?utf-8?B?NGNVbnN0b0w1SG42b2k4MlRKdjRncnVIc1JoemJpcWtIV1ltbDRmYlFwdkU2?=
- =?utf-8?B?eEdaWTVUN3J1SFdUbDVZZitTU05FRzNidzlXdlltMUNNbGR6Y2kybUlzSWZJ?=
- =?utf-8?B?WUNCOEpMRVVmdlJrZFJxeUtHSFplQmJPL3ZzTlN3YllKKzYrSHRNSTRza29i?=
- =?utf-8?B?dkdNNFd4MjFTNkw0eDloQWExWEo4Y0RmNXduVTFQMFRpc3VDM2hGbmxtN2g4?=
- =?utf-8?B?WTRvSjF1ZUVxUXBVbWdZNmttdzR1MWVBQjFwdWlZd2lWT2RjWXdxMmh4WnN6?=
- =?utf-8?Q?ztyqipcRLVLxwdRNqD?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 65c63abf-e10f-42fa-8284-08df3a9220a9
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 16:38:59.8846
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RM3FVXbIYb6NmZRJUZhK/E0ZpjKzxBHuZZ6fc8XqWpagr/v4xqGkkV0WqmdNlmr9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9119
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 0/3] watchdog: arm_smc_wdt: allow a list of SMC
+ function ids
+To: Mateusz Nowicki <mateusz.nowicki@posteo.net>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, linux-watchdog@vger.kernel.org
+Cc: Julius Werner <jwerner@chromium.org>, Evan Benn <evanbenn@chromium.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Antonio Borneo <antonio.borneo@foss.st.com>, Marek Vasut
+ <marex@nabladev.com>, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261104161553.30115-1-mateusz.nowicki@posteo.net>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20261104161553.30115-1-mateusz.nowicki@posteo.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xOe1K-00000002Xpu-1SC1
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:44006
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 11
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfJscwhwt6UhdsWyskR8b7SJkyIDz0AgygvfC3Tet5rmv/UEQvAMWoUnBEGnijm7l7UkVqbaUuaAoI3QvFlQUpCziBlIKirG7DRqx/gkBztI2M7Jb1fBr
+ qW9CxEWYX1/m5NsCm6ITHX/C1aMxL5x7kJJnLSbBfY59D5wGcI9nZJuGzQKXr0ifjT7I2D7VIva98O3/AiSEDl3YRc7F2H++Bz2r7XaafL8WGouKG0Y6YaOx
 
-On Wed Nov 4, 2026 at 4:59 AM EST, Daejun Park via B4 Relay wrote:
-> From: Daejun Park <daejun7.park@samsung.com>
->
-> print_page_owner_memcg() loads memcg_data before it tests PageTail().
-> In the first tail page, memcg_data holds the folio's _nr_pages. A split
-> can make the page a folio between the two loads. The stale _nr_pages
-> then passes the PageTail() test and is used as an objcg pointer.
->
-> __split_folio_to_order() stores memcg_data before the smp_wmb() that
-> precedes clear_compound_head(). Also test PageTail() before the load,
-> with a paired smp_rmb(). Keep the test after the load for a page that
-> becomes a tail in between.
->
-> Fixes: 4996fc547f5b ("mm: let _folio_nr_pages overlay memcg_data in first=
- tail page")
-> Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-> ---
-> Needs patch 1 for the store order. Found by reading the code, not
-> reproduced. The page_owner oops seen with a delay after
-> clear_compound_head() is the window patch 1 closes.
-> ---
->  mm/page_owner.c | 7 +++++++
->  1 file changed, 7 insertions(+)
->
+On 11/4/26 08:16, Mateusz Nowicki wrote:
+> Hi all,
+> 
+> this follows up on Marek's report about the stm32mp2 watchdog [1].
+> 
+> A quick recap: the arm,smc-wdt driver talks to the firmware through one
+> SMC function id that it reads from the device tree, and there is no way
+> to ask the firmware which id it uses. On the STM32MP2 SoCs that id
+> changed over time. ST's OP-TEE from ecosystem v5 expects 0xb200005a,
+> their 4.0.0 fork accepts both, and the 4.8.0 fork as well as upstream
+> OP-TEE only accept 0xbc000000.
+> 
+> My earlier patch, commit ae4d08bbe3f4 ("arm64: dts: st: fix arm,smc-id
+> of the SMC watchdog on stm32mp2"), switched the dtsi to 0xbc000000. That
+> made the watchdog work with current OP-TEE, but it broke boards that run
+> the older firmware. So today 6.18.y uses one id and 7.4 the other. When
+> the kernel and the firmware disagree, nobody pets the watchdog that the
+> bootloader started, and the board resets after 32 seconds. Marek hit
+> this even with a recovery kernel, which is about the worst place for it.
+> 
 
-Makes sense.
+So the DT on the board is updated to use the new ID but the firmware itself
+isn't ? That seems a bit odd; I would have assumed that the DT on a board
+is kept in sync with its firmware. Is that not the case here ?
 
-Reviewed-by: Zi Yan <ziy@nvidia.com>
+> The idea from that thread: let arm,smc-id be a list. The driver tries
+> the ids one by one and keeps the first one the firmware accepts. Older
+> kernels only read the first cell, so they behave exactly as they do
+> now. For stm32mp2 the list is <0xbc000000 0xb200005a>. Calling an id
+> that belongs to some other firmware service would be bad, so the
+> binding says the list may only hold ids known to be this watchdog.
+> 
 
---=20
-Best Regards,
-Yan, Zi
+Would it possibly make sense to check keep a list of known IDs in the
+driver ? It already checks 0x82003D06, so it might as well check a sequence.
+
+Thanks,
+Guenter
+
+> Why RFC: arm,smc-id already exists in firmware/arm,scmi.yaml as a plain
+> uint32, and dt_binding_check complains when another binding turns it
+> into an array:
+> 
+>    arm-smc-wdt.yaml: arm,smc-id: multiple incompatible types: uint32-array
+>    arm,scmi.yaml: arm,smc-id: multiple incompatible types: uint32
+> 
+> DT folks, is there a way to keep the list in arm,smc-id that you would
+> be fine with? If not, I can move the extra ids into a new property,
+> something like:
+> 
+>    arm,smc-id = <0xbc000000>;
+>    arm,smc-alt-ids = <0xb200005a>;
+> 
+> The driver side would stay the same, it would just read the fallback
+> ids from the other property.
+> 
+> One more question: should patches 2 and 3 go to stable as well? Then
+> 6.18.y would also work with both firmware generations. The 6.18.y
+> version of patch 3 would turn its 0xb200005a into the same list.
+> 
+> [1] https://lore.kernel.org/all/1b14e1e4-962f-4391-91fd-b09143641643@nabladev.com/
+> 
+> Mateusz Nowicki (3):
+>    dt-bindings: watchdog: arm-smc-wdt: allow a list of SMC ids
+>    watchdog: arm_smc_wdt: try every id of arm,smc-id
+>    arm64: dts: st: list both watchdog SMC ids on stm32mp23 and stm32mp25
+> 
+>   .../bindings/watchdog/arm-smc-wdt.yaml         |  9 +++++++--
+>   arch/arm64/boot/dts/st/stm32mp231.dtsi         |  2 +-
+>   arch/arm64/boot/dts/st/stm32mp251.dtsi         |  2 +-
+>   drivers/watchdog/arm_smc_wdt.c                 | 18 ++++++++++++------
+>   4 files changed, 21 insertions(+), 10 deletions(-)
+> 
+> 
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 
