@@ -1,76 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793755764;
-	b=NIc8lMShzuk23u+Cu+OOxHRqqorzOftni7ZfkjpW2a6pGd+dMKA8uRqPkmz8d3T3Bafn
-	 sSO7PEWsnOBsKrfDl4sXxISvFWIfvCC6gC7NxMyPuK3+H9s12YFlVXzxwC6CD4msa++Ja
-	 XdailDWuMPHcNXXdi6QFLAfH6Ex9N0YxNIOpAqueFFRvH6VrTx2HpHWzpIqYm+qlwHLwu
-	 V9QFdcdOSSyfrDEUg3R9F95s3VtepuiirESMXc6iS/TeWnsuhXLNrW8cmopk6vK1z/K8q
-	 T6RmQgkUqjCunF4M1qOTQHPrrFcSOgsp71B/u0JjuJkiIJ6OUZ34miCpvtFNmu2lumQ==
+	t=1793755760;
+	b=bIipZdjPOVVSWg0CmgwFY0KDeu272f3WA7l+5CiIxyxcHcbUomcIRp0S/fVh/nHLcUAB
+	 sVlKQU0jw8u0imhuKbtdJqtzhHw4bZj36wOeHHjGJBdYT6vqmChHlaMrXJtrTY4MX2qxE
+	 q89eJP8AIdJ8jY21hoh2nUaV555UxYJuPf30AioJD9hLUdZLQil3QEb1sLjsvdonD1d1C
+	 mF0HCKJ5pXO4wtiRL4X/GxgkEFdvYK9l438jxWPbHR3SRl90UK8rsC3E8hInC4zGNXIgI
+	 ceCy4Nn2WjBgvrr2dtunVqufEM0ZJHabX+l1v6qICf/hmN1cQs21rJH6jWC5a6fvKNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793755764;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793755760;
 	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
 	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
 	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=AyfmC96cP6VS+r8xnzYtJ4v3zDkKTKoagln7+e7lcSE=;
-	b=Scg6KJNNBAIjhpaZ461CxUflm+mleFX+MLrmBTpgFKpmn4c/nsZekGFjkYXT7gI2clf+
-	 q+q2Kn4uBMF8h7o6CZ6d/EvHGFph+Xe6To3MPIkOvVToVu3luBxoXUNSeE0XOMDTbr3mj
-	 Zt28wb9CkZJzJuPLOOufWbqAn0+5Vqb4UU4k98D9mYU4QmzGzri2egemXVGa6pv/8tfbG
-	 4ZbZD3St7DleBj0QCGvagidbWeU2bmWA1wo/AmX9CIjToHjsjGqN5abafq9NFQBBDhCHs
-	 ZNeO7Fxhfijly3Wk9eVtdWS9vkkecaUKHUOLKuM39B87hMUuGXjfqYzp7NPDMD9ggtQ==
+	bh=dL5O5DknMLkx5j0JLMvaB1VH/RRyL1r6IILjxXtakIU=;
+	b=0LyyOmULpsIeRU1GvIJiWNBHVrEiXlY/vwcTUAnNlWL/ZPnj/voiJjKsTkSzIFySaohQ
+	 ea39mZMGYfKLLeWeNqCPNRRveNi0sFJ3Z7Wo80V5qOu500ZTsrdHdxMjApSKFIA86LfXH
+	 smn3b3l/63swEesdGXpjmEK8ghoAi/O/rossUUKeIC8nDZ/4DKOcmyJ3mN8CXu2e0wxmM
+	 dswO52gyzurFet85BjT8OZgoOZNvL/Z5WzOo9HM9jPNlVSCXBLHVzUM7LIYe824PupXAi
+	 ZGF398Nfsj9VMDltk4LVKaZEXLgcyyWDqHS/7oDb9ztfiRRarC7tzpe0GyyfPEqVg2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=lfWHZxSP;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=Jc0BObhh;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=f5eEXaCn;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=m49t3E79;
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 941A3606A33A;
-	Wed,  4 Nov 2026 01:29:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 941A3606A33A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBD14606A32C;
+	Wed,  4 Nov 2026 01:29:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBD14606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=lfWHZxSP;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=Jc0BObhh
-Date: Wed, 04 Nov 2026 01:29:20 -0000
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=f5eEXaCn;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=m49t3E79
+Date: Wed, 04 Nov 2026 01:29:15 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793755762;
+	s=2020; t=1793755757;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=AyfmC96cP6VS+r8xnzYtJ4v3zDkKTKoagln7+e7lcSE=;
-	b=lfWHZxSPehxCAAmIHQc6nyfJLSep/R8YqgZHT//9eScERCU7pw+9nt3BE+g0GB7baE5Txf
-	IPwYSrqNrinsGnVSEW9Evrl2VkD4JZ43hFPrTEZ35eobcKoJUt6KJR82W4SfV/LUKsKOOy
-	IAiS7mLeW8SI0XlK5L47WbP8TmozGP5og5mo3kuh0st2AC3GHkX2zJ5RozN5I28lcvSA/G
-	1pl9YIUjRs0yzXmBRA0Mck3b48L4P4B7fmu6KQohW8WTn7YMwu2ZTqTPwluKVfTK5hSa5I
-	w512qGdFpa1AkWspubANN5YGBjhvCNIqgTLOdX3WbomuNIeZrekE9JJowb25UA==
+	bh=dL5O5DknMLkx5j0JLMvaB1VH/RRyL1r6IILjxXtakIU=;
+	b=f5eEXaCn2XGjEyXKD6eLu1XkWxh0NUV6/Y52o3hs/HNIdjy6+ugOWDTH2zXtWBDpXdQ5/L
+	SEhueubZLFz1q+Bua4jGcroL42FQNUWphcZ0fjHVIRbZ/cFzgdlOam5YyiXiP/FSpBr6ZQ
+	MJWJWMB3mDeeO4aCZUy1i6TXKnT2v71nO0s7K1sXlvVpEisAIZhW+EEYn/R83LtYESjFfv
+	sr1cM8qW39zq/2DX2CtulZg1deTOnaNDwSUfJY40ojUNYwPso0HfpDa1MzlkG2DY5TPuhq
+	fckknFfx37G6CNfoLQ2Ae/GxoXznzIzv2maUTLoqka0gcP7oKxJeFuGrjpvVbA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793755762;
+	s=2020e; t=1793755757;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=AyfmC96cP6VS+r8xnzYtJ4v3zDkKTKoagln7+e7lcSE=;
-	b=Jc0BObhhG62bDfwb4+j6z+AVHPV+vUeaExPt9FjkYYZ8A5PG2idXMT10nYt/4yn8F7hDq/
-	68iRZr1w73bbEQBA==
-From: "tip-bot2 for Grzegorz Jaszczyk" <tip-bot2@linutronix.de>
+	bh=dL5O5DknMLkx5j0JLMvaB1VH/RRyL1r6IILjxXtakIU=;
+	b=m49t3E79JfINeFQZ5KFi6tCTmJ2SjA0j4ph2JFiaTePOeRSL2uF0l+FJ1GztaXVpjXsKTU
+	e+7Uon2SkBzEuJCA==
+From: "tip-bot2 for Naveen N Rao (AMD)" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/apic] x86/apic: Consolidate early APIC initialization into
- apic_early_init()
-Cc: Thomas Gleixner <tglx@linutronix.de>,
- Grzegorz Jaszczyk <jaszczyk@chromium.org>,
- "Borislav Petkov (AMD)" <bp@alien8.de>, Thomas Gleixner <tglx@kernel.org>,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260924104102.3534474-3-jaszczyk@chromium.org>
-References: <20260924104102.3534474-3-jaszczyk@chromium.org>
+Subject: [tip: x86/apic] x86/apic: Use EILVT register count from APIC_EFEAT
+Cc: "Naveen N Rao (AMD)" <naveen@kernel.org>,
+ "Borislav Petkov (AMD)" <bp@alien8.de>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261008091850.1453093-1-naveen@kernel.org>
+References: <20261008091850.1453093-1-naveen@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,7 +78,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179375576045.1009794.3005200903147021236.tip-bot2@tip-bot2>
+Message-ID: <179375575581.1009794.6066003158834797904.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -90,145 +88,133 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the x86/apic branch of tip:
 
-Commit-ID:     ae32c6e2679b05e1aab256af19599cec0abc5219
-Gitweb:        https://git.kernel.org/tip/ae32c6e2679b05e1aab256af19599cec0ab=
-c5219
-Author:        Grzegorz Jaszczyk <jaszczyk@chromium.org>
-AuthorDate:    Thu, 24 Sep 2026 10:40:19=20
+Commit-ID:     f8e3789db8f8d4214da7a3fdfd936d23a9aa582d
+Gitweb:        https://git.kernel.org/tip/f8e3789db8f8d4214da7a3fdfd936d23a9a=
+a582d
+Author:        Naveen N Rao (AMD) <naveen@kernel.org>
+AuthorDate:    Thu, 08 Oct 2026 14:48:50 +05:30
 Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Tue, 03 Nov 2026 17:04:02 -08:00
+CommitterDate: Tue, 03 Nov 2026 17:19:04 -08:00
 
-x86/apic: Consolidate early APIC initialization into apic_early_init()
+x86/apic: Use EILVT register count from APIC_EFEAT
 
-Early APIC initialization is currently scattered across setup_arch():
+Future AMD processors will increase the number of EILVT registers. Track
+the EILVT register max count in a variable. Use the current default of 4
+EILVT max count from AMD F10h times as the fallback.
 
-apic_setup_apic_calls() and acpi_mps_check() run early, check_x2apic() is inv=
-oked
-much later during memory range setup, and apic_finalize_early_init() runs nea=
-r the
-end of setup_arch().
+Use the APIC_EILVT_NR_AMD_10H macro only in force_ibs_eilvt_setup()
+which is F10-specific anyway.
 
-Consolidate the initial setup into apic_early_init() in arch/x86/kernel/apic/=
-apic.c
-so that acpi_mps_check(), check_x2apic(), and static call initialization happ=
-en
-together in one place.
-
-Place apic_setup_apic_calls() at the end of apic_early_init() in preparation =
-for
-replacing it with apic_install_default_driver(). This ordering change is safe=
- because
-neither acpi_mps_check() nor check_x2apic() uses APIC static calls (check_x2a=
-pic()
-accesses x2APIC MSRs directly via native_apic_msr_read()).
-
-  [ bp: Tone down the patch explanation text. ]
-
-Suggested-by: Thomas Gleixner <tglx@linutronix.de>
-Signed-off-by: Grzegorz Jaszczyk <jaszczyk@chromium.org>
+Signed-off-by: Naveen N Rao (AMD) <naveen@kernel.org>
 Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Reviewed-by: Thomas Gleixner <tglx@kernel.org>
-Link: https://patch.msgid.link/20260924104102.3534474-3-jaszczyk@chromium.org
+Link: https://patch.msgid.link/20261008091850.1453093-1-naveen@kernel.org
 ---
- arch/x86/include/asm/apic.h |  3 ++-
- arch/x86/kernel/apic/apic.c | 16 ++++++++++++++--
- arch/x86/kernel/setup.c     | 10 +---------
- 3 files changed, 17 insertions(+), 12 deletions(-)
+ arch/x86/events/amd/ibs.c      |  4 ++--
+ arch/x86/include/asm/apic.h    |  2 ++
+ arch/x86/include/asm/apicdef.h |  2 +-
+ arch/x86/kernel/apic/apic.c    | 16 ++++++++++++++--
+ 4 files changed, 19 insertions(+), 5 deletions(-)
 
+diff --git a/arch/x86/events/amd/ibs.c b/arch/x86/events/amd/ibs.c
+index 3531f9c..555912a 100644
+--- a/arch/x86/events/amd/ibs.c
++++ b/arch/x86/events/amd/ibs.c
+@@ -1839,13 +1839,13 @@ static void force_ibs_eilvt_setup(void)
+=20
+ 	preempt_disable();
+ 	/* find the next free available EILVT entry, skip offset 0 */
+-	for (offset =3D 1; offset < APIC_EILVT_NR_MAX; offset++) {
++	for (offset =3D 1; offset < APIC_EILVT_NR_AMD_10H; offset++) {
+ 		if (get_eilvt(offset))
+ 			break;
+ 	}
+ 	preempt_enable();
+=20
+-	if (offset =3D=3D APIC_EILVT_NR_MAX) {
++	if (offset =3D=3D APIC_EILVT_NR_AMD_10H) {
+ 		pr_debug("No EILVT entry available\n");
+ 		return;
+ 	}
 diff --git a/arch/x86/include/asm/apic.h b/arch/x86/include/asm/apic.h
-index b4c112b..b1610b8 100644
+index 0b11b70..452cce4 100644
 --- a/arch/x86/include/asm/apic.h
 +++ b/arch/x86/include/asm/apic.h
-@@ -133,6 +133,7 @@ extern void sync_Arb_IDs(void);
- extern void init_bsp_APIC(void);
- extern void apic_intr_mode_select(void);
- extern void apic_intr_mode_init(void);
-+void apic_early_init(void);
- void apic_finalize_early_init(void);
- void register_lapic_address(unsigned long address);
- extern void setup_boot_APIC_clock(void);
-@@ -183,6 +184,7 @@ extern void topology_reset_possible_cpus_up(void);
- #else /* !CONFIG_X86_LOCAL_APIC */
- static inline void lapic_shutdown(void) { }
- #define local_apic_timer_c2_ok		1
-+static inline void apic_early_init(void) { }
- static inline void apic_finalize_early_init(void) { }
- static inline void disable_local_APIC(void) { }
- # define setup_boot_APIC_clock x86_init_noop
-@@ -254,7 +256,6 @@ static inline u32 native_apic_msr_read(u32 reg) { BUG(); }
- #define x2apic_mode		(0)
- #define	x2apic_supported()	(0)
- #endif /* !CONFIG_X86_X2APIC */
--extern void __init check_x2apic(void);
+@@ -318,6 +318,8 @@ struct apic {
 =20
- struct irq_data;
+ 	void	(*update_vector)(unsigned int cpu, unsigned int vector, bool set);
 =20
++	u32	eilvt_regs_count;
++
+ 	char	*name;
+ };
+=20
+diff --git a/arch/x86/include/asm/apicdef.h b/arch/x86/include/asm/apicdef.h
+index bc125c4..32a242a 100644
+--- a/arch/x86/include/asm/apicdef.h
++++ b/arch/x86/include/asm/apicdef.h
+@@ -134,12 +134,12 @@
+ #define		APIC_TDR_DIV_64		0x9
+ #define		APIC_TDR_DIV_128	0xA
+ #define	APIC_EFEAT	0x400
++#define		APIC_EFEAT_XLC(x)	(((x) >> 16) & 0xff)
+ #define	APIC_ECTRL	0x410
+ #define APIC_SEOI	0x420
+ #define APIC_IER	0x480
+ #define APIC_EILVTn(n)	(0x500 + 0x10 * n)
+ #define		APIC_EILVT_NR_AMD_10H	4
+-#define		APIC_EILVT_NR_MAX	APIC_EILVT_NR_AMD_10H
+=20
+ #define APIC_BASE (fix_to_virt(FIX_APIC_BASE))
+ #define APIC_BASE_MSR		0x800
 diff --git a/arch/x86/kernel/apic/apic.c b/arch/x86/kernel/apic/apic.c
-index cb78e0d..721e194 100644
+index 3583fcd..b2a23e5 100644
 --- a/arch/x86/kernel/apic/apic.c
 +++ b/arch/x86/kernel/apic/apic.c
-@@ -1869,7 +1869,7 @@ static __init void try_to_enable_x2apic(int remap_mode)
- 	x2apic_enable();
- }
+@@ -341,7 +341,7 @@ static void __setup_APIC_LVTT(unsigned int clocks, int on=
+eshot, int irqen)
+  * necessarily a BIOS bug.
+  */
 =20
--void __init check_x2apic(void)
-+static void __init check_x2apic(void)
- {
- 	if (x2apic_enabled()) {
- 		pr_info("x2apic: enabled by BIOS, switching to x2apic ops\n");
-@@ -1884,7 +1884,7 @@ void __init check_x2apic(void)
- 	}
- }
- #else /* CONFIG_X86_X2APIC */
--void __init check_x2apic(void)
-+static void __init check_x2apic(void)
- {
- 	if (!apic_is_x2apic_enabled())
- 		return;
-@@ -2064,6 +2064,18 @@ no_apic:
- }
- #endif
+-static atomic_t eilvt_offsets[APIC_EILVT_NR_MAX];
++static atomic_t *eilvt_offsets;
 =20
-+void __init apic_early_init(void)
+ static inline int eilvt_entry_is_changeable(unsigned int old, unsigned int n=
+ew)
+ {
+@@ -354,7 +354,7 @@ static unsigned int reserve_eilvt_offset(int offset, unsi=
+gned int new)
+ {
+ 	unsigned int rsvd, vector;
+=20
+-	if (offset >=3D APIC_EILVT_NR_MAX)
++	if (!eilvt_offsets || offset >=3D apic->eilvt_regs_count)
+ 		return ~0;
+=20
+ 	rsvd =3D atomic_read(&eilvt_offsets[offset]);
+@@ -410,6 +410,17 @@ int setup_APIC_eilvt(u8 offset, u8 vector, u8 msg_type, =
+u8 mask)
+ }
+ EXPORT_SYMBOL_GPL(setup_APIC_eilvt);
+=20
++static __init void init_eilvt(void)
 +{
-+	if (acpi_mps_check()) {
-+		apic_is_disabled =3D true;
-+		setup_clear_cpu_cap(X86_FEATURE_APIC);
-+	} else {
-+		check_x2apic();
-+	}
++	if (cpu_feature_enabled(X86_FEATURE_EXTAPIC))
++		apic->eilvt_regs_count =3D APIC_EFEAT_XLC(apic_read(APIC_EFEAT));
++	else if (boot_cpu_data.x86_vendor =3D=3D X86_VENDOR_AMD)
++		apic->eilvt_regs_count =3D APIC_EILVT_NR_AMD_10H;
 +
-+	apic_setup_apic_calls();
++	if (apic->eilvt_regs_count)
++		eilvt_offsets =3D kzalloc_objs(atomic_t, apic->eilvt_regs_count);
 +}
 +
- void __init apic_finalize_early_init(void)
- {
- 	if (apic_validate_deadline_timer())
-diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
-index 0c252d9..5640350 100644
---- a/arch/x86/kernel/setup.c
-+++ b/arch/x86/kernel/setup.c
-@@ -993,14 +993,7 @@ void __init setup_arch(char **cmdline_p)
+ /*
+  * Program the next event, relative to now
+  */
+@@ -2364,6 +2375,7 @@ static void __init apic_bsp_setup(bool upmode)
+ 	if (upmode)
+ 		apic_bsp_up_setup();
+ 	setup_local_APIC();
++	init_eilvt();
 =20
- 	x86_report_nx();
-=20
--	apic_setup_apic_calls();
--
--	if (acpi_mps_check()) {
--#ifdef CONFIG_X86_LOCAL_APIC
--		apic_is_disabled =3D true;
--#endif
--		setup_clear_cpu_cap(X86_FEATURE_APIC);
--	}
-+	apic_early_init();
-=20
- 	e820__finish_early_params();
-=20
-@@ -1062,7 +1055,6 @@ void __init setup_arch(char **cmdline_p)
- 	/* max_low_pfn get updated here */
- 	find_low_pfn_range();
- #else
--	check_x2apic();
-=20
- 	/* How many end-of-memory variables you have, grandma! */
- 	/* need this before calling reserve_initrd */
+ 	enable_IO_APIC();
+ 	end_local_APIC_setup();
