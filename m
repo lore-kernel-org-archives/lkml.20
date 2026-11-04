@@ -1,69 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.6.135.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793827522;
-	b=4GaesXW09bM+g5Mdkgc00xki7chyeWxRSe+78PysB628CPWW38s3PjNtpOH4XDjqhyzn
-	 pHuIYsHf7Q+W7uu4eJRn1SO+g7YAFHTjeyEq7N3vBmoS3Bw9GgdtwygcSToLNN3paXfZl
-	 dMYvQ8aBli5CGsncEnk910GoTFb8xJMypV76F9qAb0cHwv7foE4yS4xf51ao7nmLcCsb6
-	 uKaZMuyR7s0pgZbiMJ3liXldJ8/QJiAdtsXc4WlG2gF24+6SUgpSJK2/9wgpIbP5/JA02
-	 pHahy0aHjameVX6o3kdIhgFoxICztYeaaqUdspiGdamDnqZqDhoJmzhq6o/j9zfVOpg==
+	t=1793827531;
+	b=Q3MRqC9Dnf7JJXCpZUQX/iA4/Y4FgldTp0ZNoGxuG2OczWmy5UeiyHImdunEDa8JBrJr
+	 gJN5ojqmmFO696RG3zkb+sTFFLJxp47qIrs1w/LeaL0yzSM1J5H40tsT98Cp8HZsvzy6o
+	 tgIi8b/DZ3i/hg/DKjty+1dwShzlgvE9CdHzVxohiwbduzXNwG2UIVKDjrbFUKPr3Wgdv
+	 Xnhsc9TLCPMkYyaph2dj1dBZtHQy1qPOXBzGepd1yhVw8ToWIcY960D+P/LdYZPlTN8ge
+	 uCIgnZQh7qSPErQL4kcKfZ0RkRzLGu3CVfcqlPIxPYJmx11AF1qximB0OSAooPRByuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793827522;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=+6Og+d5q4vSNXIn2vlsAgSTEs60/ZNjOZygcUkWgf08=;
-	b=k8sXQYtj3WB5A4efMoZDDmlXXcQcZIaPddgNw1MdBtT9jv0KDhG+kpAQtNtQRvtNRO5c
-	 meee6KTTxmwjQ5oTvZJ5vJX/86YcxBWcqSfm1WLMFY1jnEZRmms8QZCQ/P6/ZXTvkFx4S
-	 CswBPh5FjDAyn8e6rf7z8XsbpTKGcsb0RLVxC1IX6r1F9964ELS6MgiDwqX4gxjTcp5pk
-	 J8gRd/HEQajvWZxG2wc5Y536lBQ0kpjWLDQLNap6810wb1TfIF1jA5C0B+cTw35B7JdrW
-	 SaTiYcIlNhj0lmPa5RgxnqVr7leS1BMHA8LXRLvZp3Zuivx4DqM9lZaPPhu1Q7c6pGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793827531;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:References;
+	bh=oiHsBoo4ax+JXNIAzYijKNsPhYtjWF/GsFDXyS6pIxM=;
+	b=C8+1EJlShxjutAifyFBNqPA5l2NbfJBqnj+lw5TY09N7E1hvHMyWUjCLdOZ/MBKCof46
+	 YQ/egYmrA1ADYxjnk0Dq+C6WGIT07tarsPdeU534hOM5xff8pdPPQTAnDnPxT9FP1L8bp
+	 qkl++coePy12v6WgQCAd0p4FKuz+9U43/JhWnuLqxRbyG7bXXEFKxZs4O7C1TGB+7RtrF
+	 5iLz9n80wBrVRRBgrZav+A4AG9E+5Bz0NhIn2sj4bkTkoIj7s/6W3kVU/vUAAeVrJB5Ht
+	 1/WegS7PeAQ3tjwRXsUfrXuKH44OI+HXvtUlxuo2yseKt26lKoc89jv5gIcwze5mTbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=F0fl+iCm;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AED5E606BA30
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:25:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AED5E606BA30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=yahoo.com;
+	spf=pass smtp.mailfrom=yahoo.com;
+	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=EAzI9AhA;
+	arc=none smtp.remote-ip=74.6.135.124
+Received: from sonic310-14.consmr.mail.bf2.yahoo.com (sonic310-14.consmr.mail.bf2.yahoo.com [74.6.135.124])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B660606C5BD
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:25:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B660606C5BD
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=F0fl+iCm
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 806BD2F;
-	Wed,  4 Nov 2026 13:25:15 -0800 (PST)
-Received: from workstation-e142269.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 40B3B3F632;
-	Wed,  4 Nov 2026 13:25:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793827518; bh=G19VHiVImOj1mN5lRMMvKfMIGLvlEe3NRs5o+L0/QDc=;
-	h=From:To:Cc:Subject:Date:From;
-	b=F0fl+iCmDgOtlN5Rp6yqct0DfN7yh+UR8e6lTCpQeUfpkpubkuL29vTjtjw8aUirC
-	 0kJLvbQjRIYtXzKwXOGOP1v94jxytHsyqvQuQr15c4uJny9/XQWalS6pq9DveRfd70
-	 y+3WpS01lzw4QJMMDuJCGZ3ds8A+/LnHmxNtF0aI=
-From: Wei-Lin Chang <weilin.chang@arm.com>
-To: linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Cc: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	=?UTF-8?q?Carlos=20L=C3=B3pez?= <clopez@suse.de>,
-	Eric Auger <eric.auger@redhat.com>,
-	Sascha Bischoff <sascha.bischoff@arm.com>,
-	Jackie Liu <liuyun01@kylinos.cn>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Wei-Lin Chang <weilin.chang@arm.com>
-Subject: [PATCH v1] KVM: arm64: vgic: Use new IRQ type helpers in vgic_try_get_irq_ref()
-Date: Wed,  4 Nov 2026 21:22:26 +0000
-Message-ID: <20261104212226.3662020-1-weilin.chang@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=EAzI9AhA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793827530; bh=oiHsBoo4ax+JXNIAzYijKNsPhYtjWF/GsFDXyS6pIxM=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=EAzI9AhAz849W/733rXBHW8LtMG/exgch0h+bjEEHpDZliKHXU3uIeHY5RRTB7212YB2AqMrSRbir4DVQlUZ/qEk4f56kM3AL+BBquGRLiZIK7fjcRx1jKvHAWheH6QjCqnMOzYNfxhz8twyCDcxwUo5c942ldvIolzGXSvU/XZUPz+32KYi8HUo/uF03JAA8ffmD+volo2qVMPKnPPFghibIU6jk+wKIixZOIXSiz7wo8A5SLNoru8Ed2P2//P9fa1W/flAA2RpUmEuyiAHoLdSfbaAPu8aNdgWybymaMqPn2mKG/Nj5YeU0bFPtjpXYRL6dMajPF/AaoyoEGW4pQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793827530; bh=T8FhAh/tGtqnklh57gs8VmPI99D1krVO7QP7NijeW5A=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=RZAOP73xbrZibaePOvX4rT04eV23kXQ3jmosnW7aOUn4ecs8WWCFEoj8Kg/tE7yj3kcohwR6hcNN9JSmqBBSSZIPGUlLTRBektBu6b57ytXxALKPiIqvWGeodZpz9QYWtBm9YHK8keznpkMjVmZKl8PSPv30ss9nZT+Wza172AXjPwvK3hQ8Q1DIGuVpOWpp4m3ijSS4V0W69J6wugeU7xhGnx2drN++ZEncSrD9rQcveGRzpBpQWQrfUrwCAS7YpmpMNN3Z1RxjFSdnJ2b5uQfAzxQ/j6Uj9Mdl6udIFZngiOipc9/mEHi7yE+EjQngL0rUWSP6SP+/VFhZiNKL2w==
+X-YMail-OSG: TyfXkFsVM1n3wg2js5.bePodlOJjDVyOUoI1ejGE3eGugWgBZ9BJfnAiIyBQxDY
+ 09Zjftc7tIDuAKwh1enpWZ8kc3xrJIdEAZ4MIV58SEk7dz6A4oX5ZRs_oYywyIaP6jSRQFDREPdZ
+ xxK3Nww59Jf6_n.1aXjgaN2swD5x5YeZgv1iwhpgx5VYZyN.hMH_pci02Mu7WYzmtEyLeIh5v._K
+ ze17S5aNB.Uz9RXvKvJD4TJqxVK0MSHSRaeF99nxV.P8vaiTvOEfWDFv1hFmkYeRzv_ilXf9frS4
+ S3cGQPS_nggRXW9hgnczad9dtd7atNdja.VzW5Tvdw3hhvxnP4Nin9bFP1pbE6xoQld4xAb5b1bk
+ 7ENDSveQD0UOO1QIe7jxWujVUQKr92DzB.rKlGoziZZcV.CXBxjTKgMeX1i3qvjOVgwQ3XuFcf.H
+ myf3yPGdgIixUmgTRkQbkOykeg3bDIyOufHShxYd7Z_ZWKd1Dfm0WXlRnEs8LyUb1FO8IMaxbAcV
+ 6kb2lMkdMMorgOtUrUU4AxAX.2GKQ3ChR33HNA03kJhC528IcU88Cu4NMHAwfeWrQpqhMUV9J8xR
+ RFBLglsN.MzUovb40wgXNVfEZNfLGZIqanf3GA5jlaum2ELPJizMDb7kJDe4jzNJFg4iCBkMd7HJ
+ ViLfT4ireUn6gBrgtVsx6PAKKBCD.72F2DWn6C5IbClaeHEK8QOV_4LPQC4CSIQ658EJo7L0Pe3_
+ vdLmk5obtnHMssHJhqA3.jDWkzw1qulrD_vdPSzs_a1kPVndbE84MQnKlJjbP8l_CH76rFH_F_tB
+ 9fdEAtMtUz983ip7NWU29XlJiqow6bg5QsmWhRlFhA5wRJbULIWLnX7LevZ2u_CTxwCWWqGB.TSU
+ HScopYv4tAuhiT8wRD_FP0732Zbj8z4a8xGMCXokHNYha_eKBtYbygEboPFcROQycpVGkVRD29LA
+ D7BJHAE62RR_CAbe0WSrx7itugZ70eJ97sa0_H6cSB98Yyr.jCJ7QF5pBl_eU.heibICW39Ppeh3
+ PBS7NmAulgI19hSmc0cyqrfXnNA9AOaTVKLDozlNovJIct9ylQOn8dwJxrtA5Vv7XokOH9NMdNGK
+ vtaNY_0wX9_2g30LNpSsS0xKB0kFj3ObQUXxRwKSOGGk7PGUt0h9vEVaPsWQOhCLiQNyN0ZJHeiY
+ 9hIKnLq5swjYF.efUVWMMRlOxTvgmmPMgc5jMph5ws4xp6dXxbQd_6QxURcgviK.OWa2vuGoW9vL
+ WDYX_XuGi43AayUrlJCiDldTP6yM48lctk1OVSc.ZneJ8N3sMDOMLQFXCedi2IhhYZN4piNQE29r
+ Vk120hCmaooYMpAtWJvTEKd9y2zt7xZq.JrTaUBs5WyhcDqxZiVymkFW_CZGqxYH9Rafrh44XBeD
+ 2uUiExC_bfA793Z7WCr4a7VSbUv_NPJGwAAlrtjevUHDv1y62rFHAuERfdru4HItnzkxE8qa2SQK
+ s6hzCUdv3FWWsE2mHO0dV.eENKtskzhERBDREgXblNrofmcM7AeD_Pyn5IPJVZeej4dp.CMDqTUd
+ uwXEhv.AdFdyalJvBc433KT_UgmaR0r9r2NUx1bIqWkbtuTwk7qn52FgMofCn4lzIGnIkGqE5fwt
+ 2KWa7tCXVwk6LD7.DmJpuqHyBjaC_jfefH78tUk1WRJjSop.xZVoOqtI1RQHqJMCZGMOaD7S.qeT
+ orPK_NAAhY03VmGn16GUeSbS19TMC8eQy10RTuVJY6DnPJzKJR.MFqbUoHIS6NNX9O5H8T3.MCB5
+ ozH_LJFqxRvj7DxUoX0XDWAQywH39jayLRRYOOk2ue.G4ra9umlaK45jP52n8mLDtwxKZ8XIsV7r
+ t6npaHdix4GaRwpXrWrcsSJ9POq2fsCi4AiU_nZ_nqHd4fY_Xo7g18fVRYwyHXdNM2Mcyc1aEAtm
+ LiH94LbcHwNt2Q8oCHDP2Z55flgks_oDJ.oen3UmqudZDDPlcHa9LJB4TJqNmIIwkeqWShruMgRL
+ 8yO3v2WiRRBo6Atstb1GikxkdTwaa9DAGwKDRxHF9oBsU4zcPx9pKeVUhxLQucu7CekPIfiOodsr
+ dQ8WT6Eyd2DInXj9pL8dcZAo4HlO7EXnASnIpvJ4FKsGScyd9sbjKTY8elHecRE7Dl8s5u4FPP.H
+ SDNcWdanHCESL3Ej0IO7XJPUwx0iYxFygZRZzT0_a9hmDM6ioRdcjHmWi2cLdCi18KvQu8DRfsca
+ 7wswaGx7ONaRWhNyVBqWzQhSK.VyEmT9tjO.t9hwtbLFxUC8b4KVpmayfYt1uaEwFAqG.ptIO6ND
+ 2SQ1x5Mkw9bQFFUKMY9YlAoUurZQ4K3ooIAJaPGm8N0A-
+X-Sonic-MF: <laurian.iacob@yahoo.com>
+X-Sonic-ID: 9a948739-927c-4462-b555-937ee80083ad
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic310.consmr.mail.bf2.yahoo.com with HTTP; Wed, 4 Nov 2026 21:25:30 +0000
+Received: by hermes--production-ir2-5dd9bf4598-bgsl4 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 4b63819bc2b89d88a33bcf362e7f8b93;
+          Wed, 04 Nov 2026 21:25:27 +0000 (UTC)
+From: Laurian Iacob <laurian.iacob@yahoo.com>
+To: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Laurian Iacob <laurian.iacob@yahoo.com>
+Subject: [PATCH] KVM: x86: Fix spelling typo 'RECIEVED' to 'RECEIVED'
+Date: Wed,  4 Nov 2026 23:24:56 +0200
+Message-ID: <20261104212456.9835-1-laurian.iacob@yahoo.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,145 +98,26 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+References: <20261104212456.9835-1-laurian.iacob.ref@yahoo.com>
 
-Commit eb8bce08ecb1 ("KVM: arm64: gic: Introduce interrupt type
-helpers") introduced GICv3/v5-aware helpers to distinguish PPIs, SGIs,
-SPIs, and LPIs.
-
-However unlike vgic_put_irq(), vgic_try_get_irq_ref() wasn't updated and
-is still using irq->intid < VGIC_MIN_LPI to detect LPIs. Although vGICv5
-paths aren't referencing vgic_try_get_irq_ref() at the moment, let's
-still do the correct thing and use the new irq_is_lpi() to avoid future
-bugs.
-
-Signed-off-by: Wei-Lin Chang <weilin.chang@arm.com>
+Signed-off-by: Laurian Iacob <laurian.iacob@yahoo.com>
 ---
-This caught my attention while looking at:
-https://lore.kernel.org/kvmarm/20261102194454.4086911-9-sascha.bischoff@arm.com/
-The ITS translation cache look up calls vgic_try_get_irq_ref().
-The logic irq->intid < VGIC_MIN_LPI is wrong for GICv5, but since GICv5
-vgic_irq->intid have the IRQ type encoded in the top bits the comparison
-yields correct results by coincidence.
+ arch/x86/kvm/x86.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- arch/arm64/kvm/vgic/vgic-its.c | 6 +++---
- arch/arm64/kvm/vgic/vgic-v4.c  | 2 +-
- arch/arm64/kvm/vgic/vgic.c     | 8 ++++----
- arch/arm64/kvm/vgic/vgic.h     | 8 ++++----
- 4 files changed, 12 insertions(+), 12 deletions(-)
-
-diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
-index 5ce485485a11..9d3dfb0e525e 100644
---- a/arch/arm64/kvm/vgic/vgic-its.c
-+++ b/arch/arm64/kvm/vgic/vgic-its.c
-@@ -111,7 +111,7 @@ static struct vgic_irq *vgic_add_lpi(struct kvm *kvm, u32 intid,
- 	 * check that we don't add a second list entry with the same LPI.
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 26e7beaff8a0..fee193487388 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -9129,7 +9129,7 @@ int kvm_arch_vcpu_ioctl_set_mpstate(struct kvm_vcpu *vcpu,
+ 
+ 	/*
+ 	 * SIPI_RECEIVED is obsolete and no longer used internally; KVM instead
+-	 * leaves the vCPU in INIT_RECIEVED (Wait-For-SIPI) and pends the SIPI.
++	 * leaves the vCPU in INIT_RECEIVED (Wait-For-SIPI) and pends the SIPI.
+ 	 * Translate SIPI_RECEIVED as appropriate for backwards compatibility.
  	 */
- 	oldirq = xa_load(&dist->lpi_xa, intid);
--	if (vgic_try_get_irq_ref(oldirq)) {
-+	if (vgic_try_get_irq_ref(kvm, oldirq)) {
- 		/* Someone was faster with adding this LPI, lets use that. */
- 		kfree(irq);
- 		irq = oldirq;
-@@ -560,7 +560,7 @@ static struct vgic_irq *vgic_its_check_cache(struct kvm *kvm, phys_addr_t db,
- 	rcu_read_lock();
- 
- 	irq = xa_load(&its->translation_cache, cache_key);
--	if (!vgic_try_get_irq_ref(irq))
-+	if (!vgic_try_get_irq_ref(kvm, irq))
- 		irq = NULL;
- 
- 	rcu_read_unlock();
-@@ -584,7 +584,7 @@ static void vgic_its_cache_translation(struct kvm *kvm, struct vgic_its *its,
- 	 * its_lock, as the ITE (and the reference it holds) cannot be freed.
- 	 */
- 	lockdep_assert_held(&its->its_lock);
--	vgic_get_irq_ref(irq);
-+	vgic_get_irq_ref(kvm, irq);
- 
- 	old = xa_store(&its->translation_cache, cache_key, irq, GFP_KERNEL_ACCOUNT);
- 
-diff --git a/arch/arm64/kvm/vgic/vgic-v4.c b/arch/arm64/kvm/vgic/vgic-v4.c
-index 1b7623f098e2..95b82a153134 100644
---- a/arch/arm64/kvm/vgic/vgic-v4.c
-+++ b/arch/arm64/kvm/vgic/vgic-v4.c
-@@ -524,7 +524,7 @@ static struct vgic_irq *__vgic_host_irq_get_vlpi(struct kvm *kvm, int host_irq)
- 		if (!irq->hw || irq->host_irq != host_irq)
- 			continue;
- 
--		if (!vgic_try_get_irq_ref(irq))
-+		if (!vgic_try_get_irq_ref(kvm, irq))
- 			return NULL;
- 
- 		return irq;
-diff --git a/arch/arm64/kvm/vgic/vgic.c b/arch/arm64/kvm/vgic/vgic.c
-index fe09ada32262..e1072b819245 100644
---- a/arch/arm64/kvm/vgic/vgic.c
-+++ b/arch/arm64/kvm/vgic/vgic.c
-@@ -71,7 +71,7 @@ static struct vgic_irq *vgic_get_lpi(struct kvm *kvm, u32 intid)
- 	rcu_read_lock();
- 
- 	irq = xa_load(&dist->lpi_xa, intid);
--	if (!vgic_try_get_irq_ref(irq))
-+	if (!vgic_try_get_irq_ref(kvm, irq))
- 		irq = NULL;
- 
- 	rcu_read_unlock();
-@@ -507,7 +507,7 @@ bool vgic_queue_irq_unlock(struct kvm *kvm, struct vgic_irq *irq,
- 	 * now in the ap_list. This is safe as the caller must already hold a
- 	 * reference on the irq.
- 	 */
--	vgic_get_irq_ref(irq);
-+	vgic_get_irq_ref(kvm, irq);
- 	list_add_tail(&irq->ap_list, &vcpu->arch.vgic_cpu.ap_list_head);
- 	irq->vcpu = vcpu;
- 
-@@ -817,7 +817,7 @@ static void vgic_prune_ap_list(struct kvm_vcpu *vcpu)
- 		 * This interrupt looks like it has to be migrated,
- 		 * make sure it is kept alive while locks are dropped.
- 		 */
--		vgic_get_irq_ref(irq);
-+		vgic_get_irq_ref(vcpu->kvm, irq);
- 
- 		raw_spin_unlock(&irq->irq_lock);
- 		raw_spin_unlock(&vgic_cpu->ap_list_lock);
-@@ -1049,7 +1049,7 @@ static void vgic_flush_lr_state(struct kvm_vcpu *vcpu)
- 			if (likely(vgic_target_oracle(irq) == vcpu)) {
- 				vgic_populate_lr(vcpu, irq, count++);
- 				if (count == kvm_vgic_global_state.nr_lr) {
--					vgic_get_irq_ref(irq);
-+					vgic_get_irq_ref(vcpu->kvm, irq);
- 					*host_data_ptr(last_lr_irq) = irq;
- 				}
- 			}
-diff --git a/arch/arm64/kvm/vgic/vgic.h b/arch/arm64/kvm/vgic/vgic.h
-index 71c481ddd98d..fe7b508ce172 100644
---- a/arch/arm64/kvm/vgic/vgic.h
-+++ b/arch/arm64/kvm/vgic/vgic.h
-@@ -320,20 +320,20 @@ void vgic_v2_put(struct kvm_vcpu *vcpu);
- void vgic_v2_save_state(struct kvm_vcpu *vcpu);
- void vgic_v2_restore_state(struct kvm_vcpu *vcpu);
- 
--static inline bool vgic_try_get_irq_ref(struct vgic_irq *irq)
-+static inline bool vgic_try_get_irq_ref(struct kvm *kvm, struct vgic_irq *irq)
- {
- 	if (!irq)
- 		return false;
- 
--	if (irq->intid < VGIC_MIN_LPI)
-+	if (!irq_is_lpi(kvm, irq->intid))
- 		return true;
- 
- 	return refcount_inc_not_zero(&irq->refcount);
- }
- 
--static inline void vgic_get_irq_ref(struct vgic_irq *irq)
-+static inline void vgic_get_irq_ref(struct kvm *kvm, struct vgic_irq *irq)
- {
--	WARN_ON_ONCE(!vgic_try_get_irq_ref(irq));
-+	WARN_ON_ONCE(!vgic_try_get_irq_ref(kvm, irq));
- }
- 
- void vgic_v3_fold_lr_state(struct kvm_vcpu *vcpu);
+ 	if (mp_state->mp_state == KVM_MP_STATE_SIPI_RECEIVED) {
 -- 
 2.43.0
 
