@@ -1,66 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793776583;
-	b=uOJ+/kU1lb+T/aqNFRytMCNd7RgWBHKVKtVPSSleUlTH77pIdOJMi+TlpwDREtWsEGBO
-	 GdZpiMDmbCNKT0BYU1pqUrjFyx5gPvDOWA0SmiuM5cprYAP4OkSd/gQUxqJ5NriX9WMC9
-	 +vxNDMt+A/CoP2DWa26fZ0p2wSoUKnqTRkd0xMpT5IyjY/v/XRHLBpae/anxqAOuOA0yx
-	 cOnoZ2K19E2gY1L7RdV5g6UcmlEhz9hIm2HMDSSFUDUFWKWK4lhXOzGMreAdIxENFFr3h
-	 RUdgxsxj31OztUDURJBg2meqxWJCZ4i+uCJ9lhI8daf6813UW2yNTQh9XX6y87v2RlA==
+	t=1793776605;
+	b=h4gpTrh+6FA5xkBwSDL7ln1VJ49dq/0vFXNT2lvZFBoLMSa5z5nmON8u/frQNwurQg+P
+	 uX9a2P89P8DqX9fKOr12oAHY/Kws15+P7dbZWgf3Cw6g8vXRxjUaIWkF6vpm+t6xBAO22
+	 GJU3lNoDRnoXkt4XTIori3xDPe6lMbEyaSqaQq94PkWNL60iBGfi+9Jz81OqWeYMs9pnv
+	 b9ADUzhtS0aJkHEVegLGv89+PYgB4syT1vrPalh3gdR/fJS8IoKfy8L72IY/25fe4Uiqs
+	 PN52JTNpg9tLAw/k0yRlL6hbb3yqhz5g8noozHezRixBriPbK+J4Jbmw8ueEc4j6+5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793776583;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=sq8GeUPUbWD5/l9webTykYpDaibNcYX0trvCELNClDY=;
-	b=1CYHAmb2sV1JtZ6zmG5oCdChXbXnqf+rHFxeyKO9bf8ezop117B17qyxNgJZEeIaWMAw
-	 GVCE3DJg9H6KRXvc+8f0AnOBUc1cj8cgH4Vh1jBWBak16FYHBqQUnwdg/sTu85bvGLmLw
-	 349IDsvLVY32/1JWrsKCwsMetYQyY0gxj8GcxNRrdEd5RZihXcSByHehM7JJUq9Vas1fE
-	 ACYJUiF/E4C7ZuGwq6lSkIYR8xytj+1PYbf/KnYf2E0kVR8hVudzzDm8ru7x7oqw6wxMo
-	 pji5K8WYYENT0tYiRzDagIUni/IUG5ca4qIYWNa0e5wZDgc+GLFz5b27TDwvN2QNhHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793776605;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ZE8qefhjNUN42/HTX83ywp+pDkPHnSBIju1ZzbF7IWU=;
+	b=Yd4R5fElJXS0nibbjHmNnG9RZP83Y4S9bbbP2thhT4kkXjagTzE6Q03OGy5WI2KegcHj
+	 fTrmYaWsOuJULvtwlpfVefPsLn+wA7gQnzGpTm7kh5ThWqwf8o4cn8826RMuVc+XQRUVB
+	 6Ra4SeLUXbGd0dv33agn1MZn+62TeUJNkZV3Uy5AV4OH5HJipQDF4AAejDU8BUXMM9K5k
+	 r8inVSAWTelVUPrFHMY1NaRZsSrbPBkAWcJ+WX9Q0yYSrimsoxTJXqeFlIqQjoVx/1TQG
+	 xoOQHYedSBRe1DqlraHvWjHdDpebwdAhpIu87pXQGsjs0Q+XeYQ1sJcCZUMmqExAuSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ASCmtkw1;
-	arc=none smtp.remote-ip=91.218.175.37
-Received: from mta0.migadu.com (out-37.mta0.migadu.com [91.218.175.37])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=brpsQPfu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E765E606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 07:16:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E765E606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74F23606A326;
+	Wed,  4 Nov 2026 07:16:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ASCmtkw1
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=0NMn6LfHJXdY0del5TIwB9PNJWC94DBmPcplZLgt9NE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793776580; v=1; x=1794381380;
- b=ASCmtkw1exsVpYkJRoJjNg4dJnicckKvkH2fYjpv1OQqOu28dB3sx5qYIMPS9Od72Sj5aPDW
- 0odhTPBfbPSoRST5AEhwSeAbi1oKIVvxrhisrw7ubpXuFGH2B14F1FUpRjqPpyxyPSc0dT4x3jW
- IP3ZxRAwVye9NoljUFGR/4s4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3f4a2e5a750a33d9;
-	Wed, 04 Nov 2026 07:16:20 +0000
-X-Mizu-Trace-ID: 3f4a2e5a750a33d9
-X-Migadu-Flow: FLOW_OUT
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-To: longman@redhat.com
-Cc: ridong.chen@linux.dev,
-	tj@kernel.org,
-	hannes@cmpxchg.org,
-	mkoutny@suse.com,
-	shuah@kernel.org,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Guopeng Zhang <zhangguopeng@kylinos.cn>
-Subject: [PATCH] cgroup/cpuset: Fail if isolated CPUs don't leave any boot domain housekeeping CPU
-Date: Wed,  4 Nov 2026 15:16:00 +0800
-Message-ID: <20261104071600.474587-1-guopeng.zhang@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=brpsQPfu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 466511F000C1;
+	Wed,  4 Nov 2026 07:16:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793776605;
+	bh=ZE8qefhjNUN42/HTX83ywp+pDkPHnSBIju1ZzbF7IWU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=brpsQPfuLUSvTJIEqioSRn+DqsdN3x9zVfM0YDnl9DoqW+A06FIT69caz5ivWkSJv
+	 Z5yZFgUbfrDusHk6n1ri4I/39/yASKyhFVDw3+IrqmxGVtumMFym++WGjREonVmDS3
+	 d8NXlkm4pv7I58dlRtM01cnClrDOWHpSxJAjYt4VGRouAUHc5Vcb3WDCJptvD20IE4
+	 pTJs2fxZ2HhrMXzdMU6+kvD21QRC28V1X/XyXkGxetMJLhVQ+XSiBa6zBjlLOAZJnS
+	 hNrpI+HYJogAmHBKYd0ec3oKT7wf6M5kj4Cr7rLucKl4CcP0ybHd8n5Tv07zDNH5wP
+	 GStt95XkW0Cyg==
+Message-ID: <44b59f8c-d1c6-4955-89ac-3184f3292d75@kernel.org>
+Date: Wed, 4 Nov 2026 08:16:36 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,156 +51,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 1/1] reset: add support the GPIO provider with
+ #gpio-cells=3
+To: Marc Taylor <marctaylor700@gmail.com>, bigunclemax@gmail.com
+Cc: p.zabel@pengutronix.de, brgl@kernel.org, linusw@kernel.org,
+ andre.przywara@arm.com, martin.botka@somainline.org, dlan@kernel.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev
+References: <CAKNLDZOndyGxLSWgBDrq0Vfbt88Pa5S2MDHVcnkHzAH3TQDpaQ@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CAKNLDZOndyGxLSWgBDrq0Vfbt88Pa5S2MDHVcnkHzAH3TQDpaQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Guopeng Zhang <zhangguopeng@kylinos.cn>
+On 04/11/2026 04:56, Marc Taylor wrote:
+> Sorry, my mail client mangled the inline diff in my previous reply
+> (indentation stripped, and it turned "
 
-With the "domain" flag of the isolcpus= boot option, the CPUs isolated
-at boot are excluded from the sched domains and the remaining CPUs
-become the boot domain housekeeping CPUs. An isolated partition is
-allowed to use the boot isolated CPUs, but it must not take over all
-the boot domain housekeeping CPUs.
+Then please switch to standard email clients. See also kernel docs for
+helping to setup normal apps properly handling email.
 
-prstate_housekeeping_conflict() checks that rule for root partitions
-only. The 2nd check covers the nohz_full case as it is gated by
-housekeeping_enabled(HK_TYPE_KERNEL_NOISE) which is not enabled by
-isolcpus=domain. So on an isolcpus=domain,<cpus> boot, an isolated
-partition can claim all the remaining boot domain housekeeping CPUs.
-The state is committed, but the sched domain rebuild at the end of
-the write finds no housekeeping CPU left for the boot domain and
-hits WARNs and an OOPS in partition_sched_domains().
-housekeeping_update() cannot accept the configuration either as it
-cannot empty the boot domain housekeeping mask.
-With an "isolcpus=domain,10-31" boot where CPUs 0-9 are the boot
-domain housekeeping CPUs, for example:
 
-  # echo 0-9 > A/cpuset.cpus
-  # echo isolated > A/cpuset.cpus.partition
-  WARNING: kernel/sched/topology.c:3089 at build_sched_domains+...
-  WARNING: kernel/cgroup/cpuset.c:1478 at cpuset_update_sd_hk_unlock+...
-  RIP: 0010:partition_sched_domains+0x3b8
+> https://www.google.com/url?q=http://spec.np&source=gmail&ust=1793850929317000&sa=E"
+> into a link). The
+> attached reset-gpio-3cell-v7.2.15.patch is the correct version; it is
+> re-attached here so this message stands on its own.
 
-Fix that by extending prstate_housekeeping_conflict() to reject an
-isolated partition update that would leave no active boot domain
-housekeeping CPU outside the isolated CPUs. The CPUs released back
-to the boot domain by the same update are taken into account, so
-replacing one of the last housekeeping CPUs with another one in a
-single update remains allowed. The new check is only performed when
-housekeeping_enabled(HK_TYPE_KERNEL_NOISE) is disabled so that the
-existing nohz_full behavior is unchanged.
+I have no clue what are you referring to to, but I am not opening any
+attachments. I doubt other maintainers will.
 
-Add test cases in test_cpuset_prs.sh to verify that taking over all
-the boot domain housekeeping CPUs is rejected while swapping one of
-them with another one is allowed.
-
-Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
----
- kernel/cgroup/cpuset.c                        | 36 +++++++++++++++++++
- .../selftests/cgroup/test_cpuset_prs.sh       | 30 ++++++++++++++++
- 2 files changed, 66 insertions(+)
-
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 6e136888fc8e..c1ed556ddb1a 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -1403,6 +1403,42 @@ static bool prstate_housekeeping_conflict(int new_prs, int parent_prs,
- 	if (del_cpus && cpumask_empty(del_cpus))
- 		del_cpus = NULL;
- 
-+	/*
-+	 * With boot time domain isolation (isolcpus= with the domain flag),
-+	 * the CPUs that are not isolated at boot become the boot domain
-+	 * housekeeping CPUs. An isolated partition must not take over all
-+	 * of them. Otherwise housekeeping_update() will fail later when
-+	 * the isolated CPUs are handed over, leaving the sched domains in
-+	 * an inconsistent state. This case isn't covered by the 2nd check
-+	 * below which requires nohz_full to be enabled.
-+	 */
-+	if (!housekeeping_enabled(HK_TYPE_KERNEL_NOISE) &&
-+	    housekeeping_enabled(HK_TYPE_DOMAIN_BOOT) && (new_prs == PRS_ISOLATED)) {
-+		cpumask_var_t boot_hk_cpus;
-+
-+		if (!alloc_cpumask_var(&boot_hk_cpus, GFP_KERNEL))
-+			return true;
-+
-+		/*
-+		 * Compute the isolated CPUs after this update: the CPUs
-+		 * released by it (@del_cpus) leave the isolated set and
-+		 * become available to the boot domain again, unless they
-+		 * are returned to an isolated parent instead.
-+		 */
-+		if (del_cpus && parent_prs != PRS_ISOLATED)
-+			cpumask_andnot(boot_hk_cpus, isolated_cpus, del_cpus);
-+		else
-+			cpumask_copy(boot_hk_cpus, isolated_cpus);
-+		cpumask_andnot(boot_hk_cpus,
-+			       housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT),
-+			       boot_hk_cpus);
-+		cpumask_andnot(boot_hk_cpus, boot_hk_cpus, new_cpus);
-+		res = !cpumask_intersects(boot_hk_cpus, cpu_active_mask);
-+		free_cpumask_var(boot_hk_cpus);
-+		if (res)
-+			return true;
-+	}
-+
- 	/*
- 	 * Exit 2nd check early and return false if
- 	 * 1) there is no boot time isolated nohz_full CPU
-diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-index bdca6c471f87..8c7af34b51c8 100755
---- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-+++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-@@ -133,6 +133,17 @@ LAST_PRESENT_CPU=$(cat /sys/devices/system/cpu/present | sed -e "s/.*[,-]//")
- [[ -n "$FIRST_NOHZ_FULL_CPU" && "$FIRST_NOHZ_FULL_CPU" = 8 &&
-    "$LAST_NOHZ_FULL_CPU" = $LAST_PRESENT_CPU ]] && RUN_NOHZ_FULL_TESTS=1
- 
-+# The isolcpus domain test matrix assumes that the boot domain
-+# housekeeping CPUs are exactly 0-9, i.e. an
-+# "isolcpus=domain,10-<last>" boot.
-+RUN_ISOLCPUS_DOMAIN_TESTS=
-+if grep -q "isolcpus=.*domain" /proc/cmdline 2>/dev/null &&
-+	[[ -z "$(cat /sys/devices/system/cpu/nohz_full 2>/dev/null)" ]]
-+then
-+	[[ "$(cat /sys/devices/system/cpu/isolated)" = "10-$LAST_PRESENT_CPU" ]] &&
-+		RUN_ISOLCPUS_DOMAIN_TESTS=1
-+fi
-+
- #
- # If isolated CPUs have been reserved at boot time (as shown in
- # /sys/devices/system/cpu/isolated), these isolated CPUs should be outside of
-@@ -602,6 +613,24 @@ ISOLCPUS_TEST_MATRIX=(
- 	" CX1-2,I:X1,I:P1 . .      .     X1,2,I  .      .      .     0 A1:1-2,I|XA1:1-2,I A1:P-1 ."
- )
- 
-+# Test matrix to be run when the system is booted with
-+# "isolcpus=domain,10-<last>" so that CPUs 0-9 are the boot domain
-+# housekeeping CPUs.
-+ISOLCPUS_DOMAIN_TEST_MATRIX=(
-+	#  old-A1 old-A2 old-A3 old-B1 new-A1 new-A2 new-A3 new-B1 fail ECPUs Pstate ISOLCPUS
-+	#  ------ ------ ------ ------ ------ ------ ------ ------ ---- ----- ------ --------
-+	# Using all the boot domain housekeeping CPUs in an isolated
-+	# partition is not allowed
-+	" C0-9      .      .      .     P2      .      .      .     0 A1:0-9  A1:P-2  ."
-+
-+	# Replacing some of the boot domain housekeeping CPUs with other
-+	# ones in a single update is allowed
-+	" C2-9:P2   .      .      .    C0-4     .      .      .     0 A1:0-4  A1:P2   0-4"
-+
-+	# Taking over the last housekeeping CPU by an update is not allowed
-+	" C0-8:P2   .      .      .    C0-9     .      .      .     0 A1:0-9  A1:P-2  ."
-+)
-+
- # Test matrix to be run when boot time nohz_full CPUs cover all CPUs except CPUs 0-7
- # This also means that CPU 8 is available and is a nohz_full CPU.
- NOHZ_FULL_TEST_MATRIX=(
-@@ -1472,6 +1501,7 @@ test_inotify()
- run_state_test TEST_MATRIX
- run_remote_state_test REMOTE_TEST_MATRIX
- TEST_ISOLCPUS=1 run_state_test ISOLCPUS_TEST_MATRIX
-+[[ -n "$RUN_ISOLCPUS_DOMAIN_TESTS" ]] && run_state_test ISOLCPUS_DOMAIN_TEST_MATRIX
- [[ -n "$RUN_NOHZ_FULL_TESTS" ]] && run_state_test NOHZ_FULL_TEST_MATRIX
- test_isolated
- test_boot_isolated
--- 
-2.43.0
-
+Best regards,
+Krzysztof
