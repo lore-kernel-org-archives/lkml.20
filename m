@@ -1,193 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.17
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793756134;
-	b=IrJ16yPVPVhzwuG86dMZPHpZ2tlPHN51cRuqjEa4jHh577ylHjRf1MM4hy7TxTZKuDSJ
-	 SCuqZJTCfIcnZVmFlACrG69GXumHzxzBDIw2CbzVP1hs2SRBl9rCde9qr+BPR1PKYytrZ
-	 J1hA1E5yMZLuDGf/oTe61XCwEZKLcDAgyxHffJ9sSaTdfTUz98UY3094FUYj04K4X6LtK
-	 AScJTbdOSeFfbBKjdixImoplRvYGzY6SfGqEiwuhqaeb2kce3gudQEMnNfqtdRMmbxApG
-	 X7jqUCnZjh5s/EWQkxU6w+piGGj8Rvcqz1JIWkG6N0nvcCbjQqj8CQVVbi8SNeKl5XQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793756134;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:From:To:Subject:Thread-Topic:Thread-Index:
-	 Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=yyJLp4eKpWYLd/pKK0UkuFflWBwgT/HzXEXGnucQWNI=;
-	b=TYMcIMM0IVrmJeC229uLMRnZsiIl5FmL15mzZqZ+DHKQ0EElfUjmbb/QpaB7qM4A8Jt6
-	 4bQmT4SeNzRghdmT+AcqlofCPq8fIpSi4iUbk+3w/gk1QSvNPO3RvRHBdvXulXVyWgEx5
-	 bUYCecw/Z3hsEILqAZQK+HWWIbr+VJHjAwC51DbmFk1ukbbIUbDm71vVkX50GbGxyLX+z
-	 HA4R0KiF6LtjiBgyK78a6J1caMfC/F0CvkuSVWP7sfx/Il18QUBzVjTegbZhRnDiEpDkD
-	 BnKv4sbJZ5/S4QSH2BUjZ2MSIO8A5G3WO8VJt1+xLbUh1oia+eEFMimgoSH9BWZnUmQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GqX+aBaG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793756225;
+	b=MmALx15/O1LCytetM0W5MTOIfBxHhJyXbyoy40Prrc1sr6hp0X8SlSgFGPzKHacA1SFY
+	 T3vx1l/MKSxf+htY+fXwcitmZvSJ7r8YJphn8iYUMdSSvlyLIpTvuC00rmei0T8veaasK
+	 jVgPLsBYImN7XsLo0gjkXCDMPK496cqJvYY8i1vCZTLYrtUks6zOItYBE5fgDDPDmuiQ7
+	 /FwjfIS0yiEurIevccTZPJZZijjfzvybSDTtgAjf107P583A8kGQNBA5UzWhgKq4mQABU
+	 Qo7+aDp4S+yp5yKbiREd8XozNRZtXpXx7olZlRyXF7V9BwxN0KpDnFuATFONV9am+xQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793756225;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=KcOaDBN09o3E/8dmEwrEb/9xgty5DmiykPHBXrYWIh0=;
+	b=r1FiYxwiwUu4vFEyELuDaAxt+q9i64UeMFkbFU1OvnnmnslVO6u/bGYq0E8PwHK4FeEw
+	 3uIWXxRPJTCb9vB9Jv4AjBNvW/UT5LegmyvCav6zPPyxbuvoGrxBEhK50SM9EQ/N2fBrp
+	 mM2LkgdQPA0xFzfA9qXwiCLhLv7uv+G8avHE/8BHnwRv+PoIEM+U2kwk447Czvg3eXq+C
+	 Nt0Cw1yP+IIWQhE8j5yq8A4fQAUeWrzeP62ZDvX+clN8iXSbYqQFamyqJ4MGJJfmw7YY8
+	 Tpa2MmHMDwBtDVL4q5YV/pxn9LZ/VQu0uggmAP6olBeizoblMUVXgJbGXLFrjHbfASQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mMOankuS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C56F3606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 01:35:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C56F3606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD6A9606A31B;
+	Wed,  4 Nov 2026 01:37:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GqX+aBaG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793756131; x=1825292131;
-  h=from:to:subject:date:message-id:references:in-reply-to:
-   content-transfer-encoding:mime-version;
-  bh=yyJLp4eKpWYLd/pKK0UkuFflWBwgT/HzXEXGnucQWNI=;
-  b=GqX+aBaGN4e1DWwABSxE62R+o/1v7rb21Wdr+ySGk92wDOve7nqIoy3c
-   DAkTzXFbZC4Tr+MCwj0Sz7AXRY/mjuxljcH1+WGC31AYQdHYANbu8nACv
-   lK1oibhCpg9p7ihg1c/KV5VE7c80NGsCRhoxLBcuUroTz+ml5TKayjfge
-   JWPYS80e9dOku0IUEBNZHYrisRHJvY+Nm+y1pQJuAVkR5ZVObfTn5Masu
-   86ZEbO0AqQnflHn43tReGgczOApMaLq0IMlaS3nRs3tKxSoEFcmcQ2q0M
-   SjB8RISC4hYPUf57QECUByEonCX6KIp8vU4wOPxa+6g+0RiFMzMj3X0Bh
-   Q==;
-X-CSE-ConnectionGUID: a7XxSccbQBmh/q4rT0z/EQ==
-X-CSE-MsgGUID: 75iLrujtROOmDTd5pYxHmw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2517836"
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="2517836"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 17:35:31 -0800
-X-CSE-ConnectionGUID: Q81Yz7kbT9OpLztne4A9WQ==
-X-CSE-MsgGUID: Gmn25r1RRXOJ5XQMNy48EQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="6911760"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 17:35:31 -0800
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 3 Nov 2026 17:35:30 -0800
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Tue, 3 Nov 2026 17:35:30 -0800
-Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.66) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 3 Nov 2026 17:35:30 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KxpIztOiMPLIm0tWkSe77DbOLNvy8WFrH9JsWUIK4APRwwIh5O20kkthU6siOKQnaoZVGJg7pa1F+Fi3H3VEw39JZfanASdNqjCTMylINPHooMDOkopr5wecnZbQynilyTrrmtLFNfo+1v3g8NQxgua7ObPUA4AoBiCuvYqJKwV2XzcS0eYrmOnokB91Zydkp8dL5vmbfas4txwEZuUZYxFaPI51s0pso41Barj0x50Ovz0wC93RRlVfWGiiuakjKEWN0OE8VE9oRrNLb7t31hH0JO1Fo0Oh/US0d3tGSkbu3n9+l+QRwPCldV1PcDf+fFRyC5xzC88dOIGK8d1P/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yyJLp4eKpWYLd/pKK0UkuFflWBwgT/HzXEXGnucQWNI=;
- b=zDMmXADWO3QVqdi8UA8vkm1Bd/pL20Lhbx42xl6BcuNcOKMWxaKMT15+3tTMDqBAaY3HwUtkyqvXlCOObth8tNEMK1OcLRzrUMmWGapwij9KA1m4QH/x/vrOhOnpP4ChNfRc3JtyDILc/vYo7wDxTHG602H9u/fJEbs7tURybmWfUSf+vje0vtixRNxWNhQ32KHpdANzwO6rvvBvG7aBq2sotzeqbIVuDTgB8LjhVNiI5MLseajxx8n85bfbm21s5r5yXCPilJcjIhwo67TYu1cnuXWrX96f7M2B4X5fR37ZFBFpQ7ujg2yZrDqrxTT2DS75klgCE+dIVosTBOQUHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DS0PR11MB8134.namprd11.prod.outlook.com (2603:10b6:8:15a::9) by
- PH7PR11MB6907.namprd11.prod.outlook.com (2603:10b6:510:203::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Wed, 4 Nov
- 2026 01:35:27 +0000
-Received: from DS0PR11MB8134.namprd11.prod.outlook.com
- ([fe80::d95d:cb19:df8f:1610]) by DS0PR11MB8134.namprd11.prod.outlook.com
- ([fe80::d95d:cb19:df8f:1610%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 01:35:26 +0000
-From: "Chang, Junxiao" <junxiao.chang@intel.com>
-To: Maarten Lankhorst <dev@lankhorst.se>, "jani.nikula@linux.intel.com"
-	<jani.nikula@linux.intel.com>, "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
-	"Brost, Matthew" <matthew.brost@intel.com>,
-	"thomas.hellstrom@linux.intel.com" <thomas.hellstrom@linux.intel.com>,
-	"airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>,
-	"bigeasy@linutronix.de" <bigeasy@linutronix.de>, "clrkwllms@kernel.org"
-	<clrkwllms@kernel.org>, "rostedt@goodmis.org" <rostedt@goodmis.org>,
-	"intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
-	"intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-rt-devel@lists.linux.dev" <linux-rt-devel@lists.linux.dev>
-Subject: RE: [PATCH 1/2] drm/xe/display: Skip initial plane allocation from
- stolen memory on RT
-Thread-Topic: [PATCH 1/2] drm/xe/display: Skip initial plane allocation from
- stolen memory on RT
-Thread-Index: AQHda0Q7lDfsqfAqaUi6ti4zRu9aNLccKkKAgAD3WpA=
-Date: Wed, 4 Nov 2026 01:35:26 +0000
-Message-ID: <DS0PR11MB81344F9A6B315D482BE659CEEC682@DS0PR11MB8134.namprd11.prod.outlook.com>
-References: <20261104032732.30681-1-junxiao.chang@intel.com>
- <20261104032732.30681-2-junxiao.chang@intel.com>
- <65fae402-e053-4a4f-ba55-6b5b51690eba@lankhorst.se>
-In-Reply-To: <65fae402-e053-4a4f-ba55-6b5b51690eba@lankhorst.se>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS0PR11MB8134:EE_|PH7PR11MB6907:EE_
-x-ms-office365-filtering-correlation-id: 294e1d5e-f570-4004-dc9b-08df3a13e716
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|7416014|366016|376014|1800799024|23010399003|22082099003|18002099003|261102123227099003|56012099006|10067099003|921020|261021121427099003|261022075727099003|4143699003|11063799006|38070700021|261026121527099003;
-x-microsoft-antispam-message-info: RFY0+26eDhJiGjGjZTv9FAgvC4YbuIU5Y30f5o8MWygfZdR25WlpH8vIgC4J+Y+VD76tpUziM9/DHFp/V2842RDK5jifZqoAREqhPZNzHqRiogNRei2OAwBRqLnLqfwwNFS9QV/eDmJPXhrjaQ+jKOROXRkiCaBaUBDj9WlJgvXhwGld01h0WQKLEyf6FZQD+dC7m+4fq4g77TJBDXOTeqz3WVyHZ+JAa7krS/Io0Tu7CKWK5XlNdyPwOLc2jyI1l57ImkKqz9ndnaENacDnb0aj5TrqVMufhLbKaErvNcUdS8HN2Q/aRHQe/5eSnveI7R/IvBaEiILVfoQJQIbc5QWgzPBd+F/HGLQQD9PdtEYDX4bQ18eErxoTX3bdAKM+KDrojomS3YNyIbmEm69eSLOHEg3ev0sp/CxvNwyUVTzBxXHDK321dByOHS+y22skwQwO/AAr7ojUcFl6WUKdbqH3I3+JJynuZiGmhKTF6QS9TFcCa5KNzOSBhpu2O0KCey7TyLY3ELqjFBHP2tB4cGnwEi6kWyZJJoBCxudFupOXhR+8BNgZwK/VEtyAi3usp3AblDD0GYV9pduDsH0aDyA5rN8mSmxO/fF6X8d1RPXDnHVyaUoat7uw+nk1diS8GdCsvfdGRx/bePMNUx+BUsGa0pzcX3tH/3dqWdbBZNKpHOvvkmcJL9xaKQLD8V4H
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB8134.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(1800799024)(23010399003)(22082099003)(18002099003)(261102123227099003)(56012099006)(10067099003)(921020)(261021121427099003)(261022075727099003)(4143699003)(11063799006)(38070700021)(261026121527099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?MnpUNmRGaU8yaUlUSGV3YjMxaFNERlRVM2RZNWxtSmJ1VGhDNHcwcW9iT0p3?=
- =?utf-8?B?YXJ0cVRidThPVDhLYmE1WmlzSUxsa2hieGRKZFNlVFo2cFlnWHB0c0hrMjdE?=
- =?utf-8?B?MVFZdm9YU3VOQTlVVlJ1ZHlNSUV3eURUYzBGbzNWeW1OT2h4RXhGN3ZybjFu?=
- =?utf-8?B?clB3QzNQc210djNKak9XT2RrOWd1UDE4S3VxNDU1QVhwZGZNa2RrMEdFaGVE?=
- =?utf-8?B?dE9PZkt1OVJhMmlocmd2WUtVVG13RkhUN3l1RDgvUkNPTGFHTlpaL1FWWWt5?=
- =?utf-8?B?cFk5UkxtcW5uWG12Y3JUSklFUXExNThpUHdpa1BPa25nOW5EQnBPWHJYc0F0?=
- =?utf-8?B?bFR5cnRNVTRuSVdpQlEvZXJ2MGFZUnN3SUlQb25qZTZOTHlaYXV6UnRVMVRP?=
- =?utf-8?B?a3VCT3JES0Q4clg2NU9FSHNpbUpYRXpjbWxmdWV1ZmFVLzU0Qk5SNHNydHZa?=
- =?utf-8?B?WTVDQ2ZwSVdiWE40L0RuZ1IxQ0x3b1hXUm5CRUxPeU92bFVvYWxXNUVPeWpn?=
- =?utf-8?B?bzhMWG5nV2ZUK2tIL0YrUWhKVHRDQTRaMFlUR0xvc3gzUTM5bkpWeUh0WEZl?=
- =?utf-8?B?QTl1N3pXbVZuYkRZVGsycURGQUgvV3Nnb3R1S2h5Sjk4WEgrZUZQdm02cVN1?=
- =?utf-8?B?NHFOMjNLQnBlRVdydmdKQkthYnJSVjhqQmpUWnlESTkxdEFmdmdqK29GWWk3?=
- =?utf-8?B?d25aL0RoN3hMWTlFVmhSdDM4RitwWThidjhKbmdUamN5bjNGNy9kYzFnekJh?=
- =?utf-8?B?UWNFalk1c3ZJR0dkTTMzRzQ3V205N0lvS0ZxK1NCdXpJdkkzL0dDUUh6TWxY?=
- =?utf-8?B?aXBzWjlna2hKNGpCaGE0NTBSekVpdWpuTXhKclVoSFlUUDFCdjhZc2E2MjZO?=
- =?utf-8?B?MEJ4N2FSN1pxcGM1YTFCMkw1dmFyQTFPTVo3QjlHNjVLSXBGRklnY2ZHUTJu?=
- =?utf-8?B?SDBWaGtUSDZxZmpaYUxZcnhQTEJ4M0RQU1NzdnhlS0ZJZnhHWitzUFRVTG9n?=
- =?utf-8?B?NXRFUmRyNldRdWYvVW1MZFpIY3duQk1UR3VzUjI4NEZoeGxabHpOQkRQcWJj?=
- =?utf-8?B?cGxrT0VsSSt2NnNvK1lVc0NTdkM1dE5RNUFPcjRNSFU2VWhwaUxQcnJYeE1t?=
- =?utf-8?B?VFk2M0loc1FsK2pMV3lDajFzSlNCREZqUHRNSTZzMXlIWjFNQ1Y4SGMwWVFC?=
- =?utf-8?B?Y2Q3RUJtOFhUY09JaEF3b3h2RzN2dUdHSVI4ZzRuN3FJMzZIL0lSTkc0MFBP?=
- =?utf-8?B?MWpNSnJhdThNa1gxNExmbXhOTkdMZ05yT0JlKzh4Q1NhN0VwY1k4cS94UkpT?=
- =?utf-8?B?UHA0QTN4a2k2OGJDR09iWS9qbXhkK21mQ1dpRk9BYjYvR2JuWHpvdTFIQmlJ?=
- =?utf-8?B?RGI5d0FnZEEycXdFcEFyWTh4VDgyMytOT1FkWmtuMWNURFcwYnhuRjlwQlcw?=
- =?utf-8?B?eUw1ZVVPZHExTVhZMHdJRDRsRnNTMEplZlUyTmJ2UTgyUi8rRytJY3RYZ0hE?=
- =?utf-8?B?QllMWmNxZ0xGbkVpNDUxSVVHZzBnZWdISjB2TytRNWhYYTNsMFEyS0dSTXJi?=
- =?utf-8?B?QmF3dkVrZTN2djFyM3V5a2QwMzUvWmdCZTQwVzRzbEVLaUR4eWxKbit6WlY0?=
- =?utf-8?B?UmFERHlLUE81VWU2RXM0ZFBicGhNay9GdzRTUVNIQ09aUGpyYi9rakJNUmNJ?=
- =?utf-8?B?TnlDWVpUTXYrZ1VQYkRVUWZxYmx5ek0zQW55aTIxelVRcGJHNEZuSUFQZHdy?=
- =?utf-8?B?TUloc0FZWWRKMzBqSUJQK1FFV0xiN21oQnhBQUxPRDcwUi91WW96YVZDK0Vt?=
- =?utf-8?B?UVJKUmtFWEZsbjNYTndBNnFQS05Ha2JVSHhERU9rekwwckx6ZjdBVUYvYlMz?=
- =?utf-8?B?eW1VRTBhRTEwUzdxeEpoY0tlTzFlYXJOWHVKV0Zzd0EyZXRsNTlZcUV2WGJ1?=
- =?utf-8?B?ZXU3dlFYR1dqdm9OcnJTT1FEaGVWdjUvRisvTUhFdHo5eXRjWFRXcnBEUEkv?=
- =?utf-8?B?S0x3WHhEbkxZZjBYM3FFdUtwR0pRcW85NCtvS0pZSGxoMGF5Mnlabmg4M25p?=
- =?utf-8?B?Z1NrUTM0UWRhNXRZbFBPUGMyQXYzV1NTSFVJZWI2Smx0VktWYzVyWitWckVJ?=
- =?utf-8?B?eWdBZURaQ25YRzI2S3NsZ2IwYzQwaEZFOEo1dWpNdVNBTDhmSHFrQ1h1Nk8v?=
- =?utf-8?B?bU5yTmluN214R1k4ZFI2cndJR2FxK2phN0JjNHJmTGJ6S0dQUGJhSTE4T3Bk?=
- =?utf-8?B?czhNVC9vdVNyU29HL1FDUUdVVWo4dllKTGlsYWt2UEdQY1pIREJIaUlOYTR0?=
- =?utf-8?B?aTdBdTBuYzk0RTlRanIwVnpodndBTTdHR1psdE1vaGp6dFpHdHgyZz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mMOankuS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B4F41F000C1;
+	Wed,  4 Nov 2026 01:37:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793756224;
+	bh=KcOaDBN09o3E/8dmEwrEb/9xgty5DmiykPHBXrYWIh0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=mMOankuSFIV7MeePKoV4Wj800cUtzlXjqNO9u0jEzceg2IVUmdSuLwgrd04chSeT8
+	 mxhI/bXA0kqbLly2l/DsOns8BJbDSvlF6V0Yz///B47TJf65UHAUra+4l+lwT/0aKN
+	 a08rFJtBNwHXv2MnrJdLuaRHttRFlk0+K3XqPFM8FDRQR3bJyiV+IIfqfxglplHCCE
+	 YFvSH4PAqHQvP/uC8hrfc+KRBwN/XL4JG2XIAiO+K32vU0Facp9hxp1MfZ87WDEyy8
+	 OGl8sJXxdpdsgfUqX184baY1VYrqXsX0BjOvGo80UDv5dlFXu1mHfUBS6CBB3XZYeC
+	 rcca8b/EvVdPg==
+Date: Wed, 4 Nov 2026 01:36:57 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Ariana Lazar <ariana.lazar@microchip.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-hwmon@vger.kernel.org>, Neil
+ Armstrong <neil.armstrong@linaro.org>, Marius Cristea
+ <marius.cristea@microchip.com>
+Subject: Re: [PATCH v5 5/5] iio: adc: add support for PAC1711
+Message-ID: <20261104013657.66326d73@jic23-hlaptop>
+In-Reply-To: <20261103-pac1711-v5-5-71c20101a52e@microchip.com>
+References: <20261103-pac1711-v5-0-71c20101a52e@microchip.com>
+	<20261103-pac1711-v5-5-71c20101a52e@microchip.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -197,34 +66,551 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: FsWlRkavgmkEQxitNCrTcXhsxtBC31+pOJypiLOQyQGOX2GmIIMD6lE54ivQrTZML0OSkWokUwIPpQlZUvnpW2L1Utxd7t5rJcSkEWWggVTNlw1X7nkoN/G5EvIxLcoH/AWR9E9gQg5qdgeegVj9ss5Ux9QqrEOSU2l94oXNGGDGJ0+0i9KWKwOLvJiPqLlskWtNctXRUtH6JuRA1QXExZV/w3PT2k/5yiiTVtzhfI7NlfuTtAkOvQKGJUIbS/RsjTBszThajgFOB+yQptKTiI66KlXGPAQI6iXxiGZc/09vtd5eSuzbhia2zMYnMoH8+mt6H+fdkE8qf/SKqrAuPw==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB8134.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 294e1d5e-f570-4004-dc9b-08df3a13e716
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Nov 2026 01:35:26.5544
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Iaiy8RunopXEzlXozs9dsd5t5zH61PuqOSAsq4aC3mIvSCNooyUVGhESKoNP6t5SGt0MkRRZ1Mrl89CAvxDNEA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6907
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-PkZyb206IE1hYXJ0ZW4gTGFua2hvcnN0IDxkZXZAbGFua2hvcnN0LnNlPg0KPg0KPkhleSwNCj4N
-Cj5JcyBhIHNpbmdsZSBwZXJmb3JtYW5jZSBoaXQgZHVyaW5nIGJvb3QgYWxsb3dlZD8NCj5JZiBz
-bywgdGhpcyBpcyBhIGJldHRlciBzb2x1dGlvbiwgYXMgaXQgaGVscHMgb24gIVBSRUVNUFRfUlQg
-YXMgd2VsbDoNCj4NCj5odHRwczovL3BhdGNod29yay5mcmVlZGVza3RvcC5vcmcvc2VyaWVzLzE3
-MDc1OS8NCj4NCj5UaGUgZmlyc3QgcGF0Y2ggaW4gdGhhdCBzZXJpZXMgaXMgYSBiZXR0ZXIgc29s
-dXRpb24gdGhhbiB1bmNvbmRpdGlvbmFsbHkgZGlzYWJsaW5nDQo+c3RvbGVuIG1lbW9yeSwgYXMg
-SSBmcm9tIHdoYXQgSSB1bmRlcnN0YW5kIHRoZSBwcm9ibGVtIG9ubHkgZXhpc3RzIHdoZW4gbWVk
-aWENCj5ndCBpcyBlbmFibGVkLg0KPg0KPklmIG5vdCwgd2Ugc2hvdWxkIHByb2JhYmx5IHVuY29u
-ZGl0aW9uYWxseSBkaXNhYmxlIHN0b2xlbiBmcmFtZWJ1ZmZlciBhbGwgdGhlIHRpbWUuDQo+DQo+
-QnV0IHdpdGggdGhlIHNlcmllcywgd2UgcHJlc2VydmUgdGhlIGluaXRpYWwgZnJhbWVidWZmZXIg
-Y29udGVudHMgYW5kIGVuc3VyZSBhDQo+c21vb3RoIGhhbmRvdmVyLCBldmVuIHdpdGhvdXQgc3Rv
-bGVuLg0KDQoNClRoYW5rcyBmb3IgdGhlIHJldmlldy4NCg0KWW91ciBzb2x1dGlvbiBtYWtlcyBz
-ZW5zZSB0byBtZS4gSXQgYWRkcmVzc2VzIHRoZSBpc3N1ZSB3aXRob3V0IGRpc2FibGluZyBzdG9s
-ZW4gbWVtb3J5IGdsb2JhbGx5IGFuZCBwcm92aWRlcyBiZW5lZml0cyBiZXlvbmQgUFJFRU1QVF9S
-VCBhcyB3ZWxsLiBJJ2xsIGhvbGQgb2ZmIG9uIGZ1cnRoZXIgY2hhbmdlcyBmb3Igbm93IGFuZCBm
-b2xsb3cgdXAgb25jZSB0aGlzIHNlcmllcyBoYXMgYmVlbiBtZXJnZWQuDQoNCj4NCj5UaGUgd2Fy
-bmluZyBpbiAyLzIgaXMgcHJvYmFibHkgZmluZS4NCj4NCj5LaW5kIHJlZ2FyZHMsDQo+fk1hYXJ0
-ZW4gTGFua2hvcnN0DQo+DQo=
+On Tue, 3 Nov 2026 16:37:15 +0200
+Ariana Lazar <ariana.lazar@microchip.com> wrote:
+
+> This is the iio driver for Microchip PAC1711, PAC1721, PAC1811 and
+> PAC1821 single-channel power monitors with accumulator. The PAC1711 and
+> PAC1721 devices use 12-bit resolution for voltage and current measurements
+> and 24 bits for power calculations, while PAC1811 and PAC1821 have 16-bit
+> resolution and use 32 bits for power calculations. The 56-bit accumulator
+> register accumulates power (energy) or current (Coulomb counter).
+> 
+> PAC1711 and PAC1811 measure up to 42V Full-Scale Range, respectively 9V for
+> PAC1721 and PAC1821.
+> 
+> Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
+Hi Ariana
+
+Various comments inline.  Biggest one is that i2c block reads of 2 bytes
+are i2c smbus word reads unless I can't read the 'diagrams' in
+https://www.kernel.org/doc/html/v5.5/i2c/smbus-protocol.html
+I forgot about that until this read through.
+
+Even better we have swapped variants for when a device puts the bytes
+in big endian order.
+
+In general I agree with Andy that there this driver needs a good
+read through and tidy up. Various bits of inconsistent style
+and odd code flow seems to have evolved.  Happens to us all
+from time to time when working on too many versions of a driver!
+
+Thanks,
+
+Jonathan
+
+> diff --git a/drivers/iio/adc/pac1711.c b/drivers/iio/adc/pac1711.c
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..6adc37a7ba0be882397a15b749bd9b1a657a96d6
+> --- /dev/null
+> +++ b/drivers/iio/adc/pac1711.c
+
+> +
+> +static int pac1711_reg_snapshot(struct pac1711_chip_info *info, bool *refreshed)
+> +{
+> +	u32 wait_time;
+> +	int ret;
+> +
+> +	guard(mutex)(&info->lock);
+> +
+> +	/* No hardware refresh is needed */
+> +	if (refreshed)
+> +		*refreshed = false;
+> +
+> +	/* Return early if the minimum polling time hasn't elapsed */
+> +	if (!time_after(jiffies, info->chip_reg_data.jiffies_tstamp +
+> +			msecs_to_jiffies(PAC1711_MIN_POLLING_TIME_MS)))
+> +		return 0;
+> +
+> +	wait_time = (1024 * 1000) / pac1711_samp_rate_map_tbl[info->sample_rate_idx];
+
+3 of these?  helper.
+
+> +
+> +	/* A hardware refresh will happen */
+> +	ret = pac1711_reg_snapshot_locked(info, wait_time);
+> +	if (!ret && refreshed)
+> +		*refreshed = true;
+> +
+> +	return ret;
+> +}
+
+> +
+> +static int pac1711_set_acc_enable(struct pac1711_chip_info *info, int val)
+> +{
+> +	struct i2c_client *client = info->client;
+> +	struct device *dev = &client->dev;
+> +	u32 wait_time, sample_rate;
+> +	int ret = 0;
+> +
+> +	if (val != 0 && val != 1)
+> +		return -EINVAL;
+> +
+> +	guard(mutex)(&info->lock);
+> +
+> +	if (val == info->enable_acc)
+> +		return 0;
+> +
+> +	/*
+> +	 * Force a hardware refresh to zero out the internal accumulators
+> +	 * and start a new measurement window, as the chip accumulates
+> +	 * continuously in the background.
+> +	 */
+> +	if (val) {
+> +		sample_rate = pac1711_samp_rate_map_tbl[info->sample_rate_idx];
+> +		wait_time = (1024 * 1000) / sample_rate;
+> +		ret = pac1711_send_refresh(info, wait_time);
+> +	} else {
+> +		info->chip_reg_data.acc_val = 0;
+> +		info->chip_reg_data.vacc = 0;
+> +		info->chip_reg_data.acc_count = 0;
+> +	}
+> +
+> +	if (!ret)
+> +		info->enable_acc = val;
+> +
+> +	if (ret)
+> +		dev_err(dev, "failed to reset accumulator: %d\n", ret);
+Move this ahead of the if (!ret)  then return from it.
+
+	if (ret) {
+		dev_err(dev, "failed to reset accumulator: %d\n", ret);
+		return ret;
+	}
+	info->enable_acc = val;
+
+	return 0;
+
+is much easier to read.
+	
+> +
+> +	return ret;
+> +}
+
+> +static int pac1711_read_raw(struct iio_dev *indio_dev, struct iio_chan_spec const *chan,
+> +			    int *val, int *val2, long mask)
+> +{
+> +	struct pac1711_chip_info *info = iio_priv(indio_dev);
+> +	int ret, shift;
+> +	u64 tmp = 0;
+
+Declare in more local scope (add {} to appropriate case statements
+and it is always set there anyway so don't init.
+
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+> +		ret = pac1711_retrieve_data(info);
+> +		if (ret)
+> +			return ret;
+> +
+> +		switch (chan->type) {
+> +		case IIO_VOLTAGE: {
+> +			guard(mutex)(&info->lock);
+> +			*val = info->chip_reg_data.vbus;
+> +			return IIO_VAL_INT;
+> +		}
+> +		case IIO_CURRENT: {
+> +			guard(mutex)(&info->lock);
+> +			*val = info->chip_reg_data.vsense;
+> +			return IIO_VAL_INT;
+> +		}
+> +		case IIO_POWER: {
+> +			guard(mutex)(&info->lock);
+> +			iio_fill_val_int_64(info->chip_reg_data.vpower, val, val2);
+> +			return IIO_VAL_INT_64;
+> +		}
+> +		case IIO_ENERGY:
+> +		case IIO_CHARGE: {
+> +			guard(mutex)(&info->lock);
+> +			iio_fill_val_int_64(info->chip_reg_data.acc_val, val, val2);
+
+Andy covered this. You raced with another helper being introduced that should work
+fine for you as well.
+
+> +			return IIO_VAL_INT_64;
+> +		}
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +	case IIO_CHAN_INFO_SCALE: {
+> +		u32 shunt;
+> +
+> +		guard(mutex)(&info->lock);
+> +		shunt = info->shunt;
+> +
+> +		switch (chan->address) {
+> +		case PAC1711_VBUS_REG_ADDR:
+> +			*val = info->features->voltage_millivolts_max;
+> +			*val2 = (info->vbus_mode == PAC1711_FULL_RANGE_BIPOLAR) ? 15 : 16;
+> +
+> +			return IIO_VAL_FRACTIONAL_LOG2;
+> +		case PAC1711_VSENSE_REG_ADDR:
+> +			/*
+> +			 * Currents - scale for mA - depends on the channel's shunt value
+> +			 * (100mV * 1000000) / (2^16 * shunt(uohm))
+> +			 */
+> +			*val = 1526;
+> +			*val2 = shunt;
+> +
+> +			if (info->vsense_mode == PAC1711_FULL_RANGE_BIPOLAR)
+> +				*val = *val << 1;
+> +
+> +			return IIO_VAL_FRACTIONAL;
+> +		case PAC1711_VPOWER_REG_ADDR:
+> +		case PAC1711_VACC_REG_ADDR:
+> +			if (chan->type == IIO_CHARGE) {
+> +				/*
+> +				 * Coulomb counter scale:
+> +				 * 16-bit resolution: (100mV * NANO) / 2^16
+> +				 * 12-bit resolution: (100mV * NANO) / 2^12
+> +				 */
+> +				u64 ref = info->features->has_16bit_resolution ?
+> +						  1525878906250ULL : 24414062500000ULL;
+> +
+> +				if (info->vsense_mode == PAC1711_FULL_RANGE_BIPOLAR)
+> +					ref = ref << 1;
+> +
+> +				ref = div_u64(ref, shunt);
+> +				*val2 = do_div(ref, 1 * NANO);
+> +				*val = ref;
+> +
+> +				return IIO_VAL_INT_PLUS_NANO;
+> +			}
+> +
+> +			/*
+> +			 * Power - uW - it will use the combined scale
+> +			 * for current and voltage
+> +			 * current(mA) * voltage(mV) = power (uW)
+> +			 */
+> +			tmp = info->features->voltage_pv_fsr;
+> +			do_div(tmp, shunt);
+> +
+> +			if (chan->type == IIO_ENERGY)
+> +				*val2 = info->features->has_16bit_resolution ? 32 : 24;
+> +			else
+> +				*val2 = 32;
+> +
+> +			if (info->vsense_mode == PAC1711_FULL_RANGE_BIPOLAR)
+> +				*val2 -= 1;
+> +
+> +			if (info->vbus_mode == PAC1711_FULL_RANGE_BIPOLAR)
+> +				*val2 -= 1;
+> +
+> +			shift = fls64(tmp) - 31;
+> +			if (shift > 0) {
+> +				tmp >>= shift;
+> +				*val2 -= shift;
+> +			}
+> +
+> +			*val = (int)tmp;
+> +
+> +			return IIO_VAL_FRACTIONAL_LOG2;
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +	}
+> +	case IIO_CHAN_INFO_SAMP_FREQ: {
+> +		guard(mutex)(&info->lock);
+> +		*val = pac1711_samp_rate_map_tbl[info->sample_rate_idx];
+> +		return IIO_VAL_INT;
+> +	}
+> +	case IIO_CHAN_INFO_ENABLE:  {
+> +		guard(mutex)(&info->lock);
+> +		*val = info->enable_acc;
+> +		return IIO_VAL_INT;
+> +	}
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int pac1711_write_raw(struct iio_dev *indio_dev, struct iio_chan_spec const *chan,
+> +			     int val, int val2, long mask)
+> +{
+> +	struct pac1711_chip_info *info = iio_priv(indio_dev);
+> +	struct i2c_client *client = info->client;
+> +	struct device *dev = &info->client->dev;
+> +	int new_idx, ret, refresh_time;
+> +	s32 old_samp_rate;
+> +	__be16 val_be16;
+> +	u32 wait_time;
+> +	u16 val_u16;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SAMP_FREQ: 
+
+	case IIO_CHAN_INFO_SAMP_FREQ: {
+		guard(mutex)(&info->lock);
+
+is commonly done to avoid excessive indent in switch statements
+using guards.  Use it here.  You do so above, so clearly
+were aware of this.  Please check for consistency things like
+this through the whole driver.  Code will often evolve so that
+the style becomes inconsistent.  Happens to us all!
+
+
+
+> +		scoped_guard(mutex, &info->lock) {
+> +			old_samp_rate = pac1711_samp_rate_map_tbl[info->sample_rate_idx];
+> +			new_idx = pac1711_get_samp_rate_idx(val);
+> +			if (new_idx < 0)
+> +				return new_idx;
+> +
+> +			ret = i2c_smbus_read_i2c_block_data(client, PAC1711_CTRL_ACT_REG_ADDR,
+> +							    sizeof(val_u16), (u8 *)&val_be16);
+> +			if (ret != sizeof(val_u16)) {
+> +				dev_err(&client->dev, "cannot read regs from 0x%02X\n",
+> +					PAC1711_CTRL_ACT_REG_ADDR);
+> +				return ret < 0 ? ret : -EIO;
+> +			}
+> +
+> +			val_u16 = be16_to_cpu(val_be16);
+> +			FIELD_MODIFY(PAC1711_CTRL_SAMPLE_MODE_MASK, &val_u16, new_idx);
+> +			val_be16 = cpu_to_be16(val_u16);
+> +			ret = i2c_smbus_write_i2c_block_data(client, PAC1711_CTRL_REG_ADDR,
+> +							     sizeof(val_be16), (u8 *)&val_be16);
+> +			if (ret) {
+> +				dev_err(dev, "Failed to configure sampling mode in 0x%02X\n",
+> +					PAC1711_CTRL_ACT_REG_ADDR);
+> +				return ret;
+> +			}
+> +
+> +			info->sample_rate_idx = new_idx;
+> +			info->chip_reg_data.ctrl_act_reg = val_u16;
+> +
+> +			/* Force register snapshot and timestamp update with a refresh. */
+> +			refresh_time = msecs_to_jiffies(PAC1711_MIN_POLLING_TIME_MS) + 1;
+> +			info->chip_reg_data.jiffies_tstamp = jiffies - refresh_time;
+> +			wait_time = (1024 * 1000) / old_samp_rate;
+> +
+> +			/*
+> +			 * We must wait for cycle completion before updating the
+> +			 * sample rate value.
+> +			 */
+> +			ret = pac1711_reg_snapshot_locked(info, wait_time);
+> +			if (ret) {
+> +				dev_err(dev, "%s - cannot snapshot ctrl and measurement regs\n",
+> +					__func__);
+> +				return ret;
+> +			}
+> +		}
+> +
+> +		return 0;
+> +	case IIO_CHAN_INFO_ENABLE:
+> +		return pac1711_set_acc_enable(info, val);
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+
+> +
+> +static int pac1711_chip_identify(struct iio_dev *indio_dev, struct pac1711_chip_info *info)
+> +{
+> +	struct i2c_client *client = info->client;
+> +	struct device *dev = &client->dev;
+> +	u8 chip_rev_info[3] = { };
+> +	int ret;
+> +
+> +	ret = i2c_smbus_read_i2c_block_data(client, PAC1711_PID_REG_ADDR,
+> +					    sizeof(chip_rev_info), chip_rev_info);
+> +	if (ret != sizeof(chip_rev_info)) {
+> +		ret = ret < 0 ? ret : -EIO;
+> +		return dev_err_probe(dev, ret, "product ID not recognized\n");
+> +	}
+> +
+> +	info->features = pac1711_get_features_from_id(chip_rev_info[0]);
+
+I'll ask a silly question.  Can you just read the first byte if
+we don't care about the other 2?   Would be a bit unusual for that to
+cause trouble on an i2c device. If it does, add a comment.
+
+> +	if (!info->features)
+> +		return -ENODEV;
+> +
+> +	indio_dev->name = info->features->name;
+> +
+> +	return 0;
+> +}
+
+
+> +
+> +static int pac1711_chip_configure(struct pac1711_chip_info *info)
+> +{
+> +	struct i2c_client *client = info->client;
+> +	struct device *dev = &client->dev;
+> +	__be16 val_be16;
+> +	u32 wait_time;
+> +	u16 val_u16;
+> +	u8 val_u8;
+> +	int ret;
+> +
+> +	/*
+> +	 * The current/voltage can be measured unidirectional, bidirectional or half FSR
+> +	 * no SLOW triggered REFRESH, clear POR
+> +	 */
+> +	val_u8 = FIELD_PREP(PAC1711_NEG_PWR_FSR_VS_MASK, info->vsense_mode) |
+> +		FIELD_PREP(PAC1711_NEG_PWR_FSR_VB_MASK, info->vbus_mode);
+> +
+> +	ret = i2c_smbus_write_byte_data(client, PAC1711_NEG_PWR_FSR_REG_ADDR, val_u8);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "cannot write 0x%02X reg\n",
+> +				     PAC1711_NEG_PWR_FSR_REG_ADDR);
+> +
+> +	ret = i2c_smbus_write_byte_data(client, PAC1711_SLOW_REG_ADDR, 0);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "cannot write 0x%02X reg\n", PAC1711_SLOW_REG_ADDR);
+> +
+> +	/* Get sampling rate from PAC */
+> +	ret = i2c_smbus_read_i2c_block_data(client, PAC1711_CTRL_REG_ADDR,
+> +					    sizeof(val_u16), (u8 *)&val_be16);
+
+With two bytes is this different from i2c_smbus_read_word_data(). I checked
+the protocol docs and don't think it is.
+
+Fun bit is that assumes little endian.
+So if it's big endian like here i2c_smbus_read_word_swapped() does the work for
+you.
+
+Check for other places this applies (assuming I'm not missing something).
+
+
+
+> +	if (ret != sizeof(val_u16))
+> +		return dev_err_probe(dev, ret < 0 ? ret : -EIO,
+> +				     "cannot read 0x%02X reg\n", PAC1711_CTRL_REG_ADDR);
+> +
+> +	val_u16 = be16_to_cpu(val_be16);
+> +	info->sample_rate_idx = FIELD_GET(PAC1711_CTRL_SAMPLE_MODE_MASK, val_u16);
+> +	if (info->sample_rate_idx >= ARRAY_SIZE(pac1711_samp_rate_map_tbl)) {
+> +		/*
+> +		 * Use default sample rate in case the chip is configured with an sample
+> +		 * rate unsupported by the driver. The Control Register is updated.
+> +		 */
+> +		info->sample_rate_idx = PAC1711_SAMP_1024SPS;
+> +		FIELD_MODIFY(PAC1711_CTRL_SAMPLE_MODE_MASK, &val_u16, info->sample_rate_idx);
+> +	}
+> +
+> +	/* Configure the accumulation mode */
+> +	FIELD_MODIFY(PAC1711_CTRL_ACC_MODE_MASK, &val_u16, info->accumulation_mode);
+> +	val_be16 = cpu_to_be16(val_u16);
+> +	ret = i2c_smbus_write_i2c_block_data(client, PAC1711_CTRL_REG_ADDR,
+> +					     sizeof(val_be16), (u8 *)&val_be16);
+
+There is a i2c_smbus_write_word_swapped() as well that I think should work here.
+
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "cannot write 0x%02X reg\n", PAC1711_CTRL_REG_ADDR);
+> +
+> +	/*
+> +	 * Sending a REFRESH to the chip, so the new settings take place
+> +	 * as well as resetting the accumulators
+> +	 */
+> +	ret = i2c_smbus_write_byte(client, PAC1711_REFRESH_REG_ADDR);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "cannot write 0x%02X reg\n",
+> +				     PAC1711_REFRESH_REG_ADDR);
+> +
+> +	/*
+> +	 * Get the current (in the chip) sampling speed and compute the
+> +	 * required timeout based on its value the timeout is 1/sampling_speed
+> +	 * wait the maximum amount of time to be on the safe side - the
+> +	 * maximum wait time is for 8sps
+> +	 */
+> +	wait_time = ((1024 * 1000) / pac1711_samp_rate_map_tbl[info->sample_rate_idx]);
+
+Excess brackets + helper as suggested below with that comment with the helper.
+Check whole patch for the brackets issue - I haven't looked that carefully
+and where this is one instance of this - others often hide!
+
+
+> +	fsleep(wait_time);
+> +
+> +	/*
+> +	 * VACC and ACC_COUNT registers increment continuously in hardware and do not
+> +	 * roll over, so without a periodic Refresh (any) command before the worst-case
+> +	 * overflow time is reached, the accumulated data would be silently lost.
+> +	 *
+> +	 * A periodic refresh works regardless of board pin configuration, while
+> +	 * A0/A1 pins are optional (shared with SLOW/GPIO functions and may not be
+> +	 * wired as ALERT on every board).
+> +	 */
+> +	INIT_DELAYED_WORK(&info->work_chip_refresh, pac1711_work_periodic_refresh);
+> +	/* Setup the latest moment for reading the regs before saturation */
+> +	schedule_delayed_work(&info->work_chip_refresh,
+> +			      msecs_to_jiffies(PAC1711_MAX_RFSH_LIMIT_MS));
+> +
+> +	return devm_add_action_or_reset(&client->dev, pac1711_cancel_delayed_work,
+> +					&info->work_chip_refresh);
+> +}
+
+> +
+> +static int pac1711_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	struct pac1711_chip_info *info;
+> +	struct iio_dev *indio_dev;
+> +	u32 wait_time;
+> +	int ret, err;
+> +
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*info));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	info = iio_priv(indio_dev);
+> +	info->client = client;
+> +
+> +	ret = pac1711_chip_identify(indio_dev, info);
+> +	if (ret == -ENODEV) {
+> +		/*
+> +		 * If it fails to identify the hardware based on internal
+> +		 * registers, use compatible from devicetree.
+> +		 */
+> +		info->features = i2c_get_match_data(client);
+> +		if (!info->features)
+> +			return -EINVAL;
+> +
+> +		indio_dev->name = info->features->name;
+> +	} else if (ret) {
+> +		return dev_err_probe(&client->dev, ret, "Failed to identify chip\n");
+> +	}
+> +
+> +	/* Always start with accumulation channels enabled. */
+> +	info->enable_acc = true;
+> +
+> +	err = pac1711_parse_fw(client, info);
+> +	if (err)
+> +		return dev_err_probe(dev, err, "Error parsing devicetree data\n");
+> +
+> +	ret = devm_mutex_init(dev, &info->lock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = pac1711_chip_configure(info);
+> +	if (ret)
+> +		return ret;
+> +
+> +	info->iio_info = pac1711_info;
+> +	indio_dev->info = &info->iio_info;
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +
+> +	ret = pac1711_setup_channels(indio_dev, info);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Invalid channel configuration\n");
+> +
+> +	/* Read what has been accumulated in the chip so far and reset the accumulators. */
+> +	wait_time = (1024 * 1000) / pac1711_samp_rate_map_tbl[info->sample_rate_idx];
+
+This is repeated a number of times.  A helper function with one clear comment for why it is
+this particular form would be helpful.
+
+> +	scoped_guard(mutex, &info->lock) {
+> +		ret = pac1711_reg_snapshot_locked(info, wait_time);
+> +		if (ret)
+> +			return ret;
+> +	}
+
