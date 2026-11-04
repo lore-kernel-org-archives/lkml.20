@@ -1,112 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793831727;
-	b=VNFOlcmzWWyWhG9bY0f02WuFNIpWUiE2jBEWhA/cXC1LpNWZ5/VbkCtd6uBCTxjU8a6D
-	 R7p2p9QT1aBZ+nVD4993W9NKTV9/fJXgUmi/0OGgBinIcos/X+GLnBd6elkkeD2F9cT4i
-	 CWzjHDDV7KvrPnMbm5/uKC0Nz7W7NLYkfAPAfSNCJm0Y1PNXhD6koTd7CDXabskCcGthS
-	 G6DA6E45g8CNmt3Ydu+J6O9o8aUHemxpLDj3OJ9Fl1Bs5YpmToF76TpSCFHlBrnzmcQjK
-	 R1arSFBjH3yBioPnsKEh+V4HUSJ/aEuLPy9kdkgSD+GPhqrERvFIPAlp10vRyq9j8TA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793831727;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Osoc1/zc3WCPxn/uivsVACevUkiPfuARX2+mZ1FpT3s=;
-	b=YXLdS3WRZg140K05mn8A4QhDPrYGqwrj4FJOiKvOsQNUoLnEfQxGnlSI+B69RnURfVc0
-	 LUX4a+Eg0yNqlUsOuQhdIA5UD6sqIdPjQmmX08ce0H9BLAcHXAO4GJemiK5P8bqAe/dDb
-	 j9VR2FA+arfXok5vc3hFUoX7RReXM+M4TZU4JB924Bl0zCEH8A+IueAtDvbKANR/NCWeu
-	 30FmfooxzNa33BwU0F/j5hXghzH9MDkbguTBy56KUznWGduq3yCU9YNbk6UXdxyoy1s/H
-	 2AijONQSn1nRF21Rt3R0guLHRVAMUWq5SWHu8FXBUDMaLj5zQyymdRWCib7eAqFGXjQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=bkv6DNeA;
-	arc=none smtp.remote-ip=209.85.210.180
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.134
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793831945;
+	b=sstIZ/gJHTrDo/JrH2lYiXCSznDDCPg0+MPJsrlLTkrbT/1NvbF3WxRoKmubWhRw3oHR
+	 E//Xy4hKPg1kq0l8TgmbzIHY0jFk1wjwBL5p5XWThbNEp7Szq69HC8FB5eW8NAFEPvoh4
+	 Y4VOYiLW2YHr8oJ9su5CSUAE9QjWKheE2ciulrRurcaDd0LsOZ4MJfXPhgZSbTrUfDiJP
+	 1SlhdjQUkeCCa96x+XhPpXDKYA0xElmbv04QmrS7IZLmrE1tSLLYarGI0Zvkf2Z2IdY6d
+	 SYOQQyYxDFMjii3xWo2zuRSwsgu4IRPPulhZbJm5F+/Rw43nsX4JwS09KYbvbVGF6lA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793831945;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Rj9s+TBgsab25DvEPFmQjdXovjmxGdDadWzddpYIewc=;
+	b=B5854nNtFxfb77lYfkfMPrIBXrVer4QDAq7+JSAXWUgjUKK2bieGWPfFq1NkUts2eIKg
+	 jVrOV4CfXWSKzxsLCsD7aTLrSSyVrF59hZC9IlSfBFtvKdTqm0jjZhbC+UUa9uUO4FRhs
+	 az/RT23BMFgFepXnYxw/6kjgCCn9VA+7hpzdveto6DdWLxR0sS+u06XVXUEO7cdBc8bkz
+	 X+KzTS5CLoBi7p8yM0WctXpqC1e+OxFLo9HYy+eFAF2yDxSldS27JJZaC7tQMhzmobFyF
+	 INFVeCciBLIA2hQFkf9fHQti3AmLuyJDi7Mk4K88sAMm6bbnuKb98gruxy7RiU3jyWw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=genexis.eu;
+	spf=pass smtp.mailfrom=genexis.eu;
+	dkim=pass header.d=genexis.eu header.i=@genexis.eu header.a=rsa-sha256 header.s=selector1 header.b=zfxbdvqa;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.134
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11023134.outbound.protection.outlook.com [40.107.162.134])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D98606AB12
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:35:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33D98606AB12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41141606A331;
+	Wed,  4 Nov 2026 22:39:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41141606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=genexis.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=genexis.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=bkv6DNeA
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8a064fac8cbso967777b3a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:35:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793831726; x=1794436526; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Osoc1/zc3WCPxn/uivsVACevUkiPfuARX2+mZ1FpT3s=;
-        b=bkv6DNeAcOgKuFWjKi3KzwgdFOsKa9d64GSG02M3Ag6tvdIenCkXOWzxg6ofMEnede
-         Z38zuEIQfaSRP+2xT1ils/BDnvMCsitxF6Rz48MQFC45RrOzSTGu5gvsA+MDhfwzvPKT
-         ql3vClM4ioWl/gjSOhpRa1Vmx1b56MjuY9qCfUzAsX2dCyIDrTrxD55ZHgF55xwkM3sO
-         WSRxUy7osOc5G6Pwmyu+dnP1ZkRJZ7gZ+Slgfa/1UGi2rwkEfmpq3d2jAGTu+xIJnc8u
-         OvndJzC51+kpYGsRgwWM+ujTTaNtsa0FYpRVfqHHzeXB27xAFq5FMJxoXz7EOOCNhn93
-         PEVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793831726; x=1794436526;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Osoc1/zc3WCPxn/uivsVACevUkiPfuARX2+mZ1FpT3s=;
-        b=xgnXqGTxwTjB0VuHmHMGV8rG2k4/iaj/9JUfZa5kdEz57/ljE3W5FWLaxJKOuoBYBG
-         mad21ejb+LOuV44Gjz+4q14ltwYAN2i5KisUXBGyndrDZGwwKzgpy3FsPMvMFm1eaOkm
-         324TibMgBFvKCMoS7+bMWSeWKvuMu2wdkFUo/6chAn/34H6HUBFOcH8h/8KIQczmiLED
-         aYatWYq4ADcqEr1vMa18taILltl171qqLXBFY93rqElHsgREYAoaiGW7AhgPThNV1i1K
-         LHHKD+xc/+XJTxlD71J/ZjpZw/34ch10AeYEOxPHQGAyx3odH65k92SHCtAZ49Xz4Fdx
-         5OtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzOamisStR00yUl+qJbRTHQNq87c3UAQeNiGUWdx4wLP4rtOuVAIaKKGAucXY3GT2ISi0tZHqd6hnvpq5E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/m6+jwbCFd7L8Csg5+Aof8DQMnSHXqxxv37Qsedon58GeUjGao
-	wm1dhSQqzggH8jYjS5eVaG1Bhja+Eii8qusEZTZ8HPEeOAnqKgkmRulR9aYcZq/3KQ==
-X-Gm-Gg: AYBFou3Na6a5lumEp/fTu95beYZ2rWzbLRT0GDfCcYcAR0QVoDk5DPQ7YNwADGn007r
-	XXquHsjiYyvdIseVgdmMngmu0loENSgL8ioRqQ46UuZ6VOJCsqsVkR7tt68bEVd/6mSdlOgox1K
-	RiHqNwB55YeOViR1vlm7r8hNg3Pwh1hCSiilAleQvGboQhMfFrnLAFUxBjyzxfafgVYDPwvlT6m
-	38wC1gE62x4+0G+y68w5efF9UUDVApcfa6WmmQhRLObLXcoDO2DtCw8pske6j1oJrr69aswvpD1
-	TUi9xdMDJzcOXmsJxsDMd2QtqpQGrkdrS+Szi9nJ8WopppHtcFB6ONAaQQ0AuCZffNs+6ERP1Oo
-	l2/jLBpRcMCFo313BTcOlqbu7WyJ4zelZp3YQDzRyqSGB0zDu8PKUjunatoTNNOkqoNHq3pjQzw
-	IKOxlmzdsxAhZR79orzX5T1f6YODHkvL7pS4IOTRr5mvBRmiZmENGSgR04fVDvBeVAyOpWxNNBl
-	kOEUZNBSxVGEbJ0CLdGm5mpcfn/3+ldZAsk0L5JaXD05IPsHa7COAmDMF9xvwj4/OroMO/70ktp
-	Z/6aN4rooHxGI7a0vVNEq8Dx7vtUvEP1m4CSRDV786w95luw+STxGuZJQRJEKwNGh65AZ/5ZDjp
-	8NNfRwzOYFQ==
-X-Received: by 2002:a05:6a00:1f0b:b0:899:67fe:3c52 with SMTP id d2e1a72fcca58-8a9be1a4461mr15308534b3a.15.1793831725909;
-        Wed, 04 Nov 2026 14:35:25 -0800 (PST)
-Received: from google.com (33.79.127.34.bc.googleusercontent.com. [34.127.79.33])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b09b569495sm1376244b3a.37.2026.11.04.14.35.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 14:35:25 -0800 (PST)
-Date: Wed, 4 Nov 2026 22:35:20 +0000
-From: David Matlack <dmatlack@google.com>
-To: Pasha Tatashin <pasha.tatashin@soleen.com>
-Cc: Pratyush Yadav <pratyush@kernel.org>, kexec@lists.infradead.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-mm@kvack.org,
-	Alexander Graf <graf@amazon.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Christian Brauner <brauner@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Hugh Dickins <hughd@google.com>, Jonathan Corbet <corbet@lwn.net>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Samiullah Khawaja <skhawaja@google.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>
-Subject: Re: [PATCH v3 09/10] mm/shmem_luo: Allow retrieving tmpfs files with
- O_RDONLY
-Message-ID: <auuzKNZsPD10XM4q@google.com>
-References: <20261103010216.3447716-1-dmatlack@google.com>
- <20261103010216.3447716-10-dmatlack@google.com>
- <2vxz5wyck08d.fsf@kernel.org>
- <auuJ4msatqzoOrjN@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=genexis.eu header.i=@genexis.eu header.a=rsa-sha256 header.s=selector1 header.b=zfxbdvqa
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=w2KHrxejEsMykwbMazTjXa9AkNbxKShubXFASouPq2pVkLmyP/x37rCalbOxT6cQbTEX0SVkO2mAxzJHMK39P0OlVKzjFlJxzfjHfh2l6xE+gKY7L6E9rL6zSlHXTQfJDT8qx85hwHgVCOCg1u2nl5ByWPOg803X91niSVs1f2/PUiFe3V9GxzkQpejjNtRcwpJWW/jT0GBavDcBVrRbZb1uu8PAaIqLRCdnvRVkSw0uTC7vTYcVkOcYc0Qk0UOg2YILVDM+YOpQpSP57XwU8DFk2QhQAbryE21GFFC46zjqULIq0mdV4IB6lt3Ux4UAEIEso9PljKSXZm6P+cwpkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Rj9s+TBgsab25DvEPFmQjdXovjmxGdDadWzddpYIewc=;
+ b=dboKrZ5zZ/d17G9ZSwG9rjslcL0zpOhQ9u886CciP5YccZ4aM6tiKXazmwlr6MPl/M1wusPLtYPTbr7az1M0ov6g/NJVo6NV/iePj4y2h3quu27AwhDsoebn7SPanICb+BSQy2gKHA0DFilTcRvc0ZBi6GkqR4zsFC4A1CrI7ZYQ/lbxzzW3JbQhJK/0hfocfIY+jckkMpgAoOpaaacCGrE7kNLIbv0rNGMmToYzj0qtsy+KKhPdFbrTGEK95kRUOxu+GUT7zRkfUNMhbUbTfhqwbCI/yZfG1jAM34gms0EPRiUR3EdEUE8mSgCRLvFnMSamvPPjfMReKc0VWjXDHA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=genexis.eu; dmarc=pass action=none header.from=genexis.eu;
+ dkim=pass header.d=genexis.eu; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=genexis.eu;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Rj9s+TBgsab25DvEPFmQjdXovjmxGdDadWzddpYIewc=;
+ b=zfxbdvqaZ8hn5R7xOYl1h5YuOzz3y5T8Js6aMN3RfZu5NdfnG6QODKH86P/Pef7heRZdIJ3Jvf3j93CiPoSmABe0vVToMHZiqi3etAXvLc4Hr5yOdh0H8f25POtYy79w0JUDkgpB0EfG89SeonCP9EGt3zWvgymhJgGPxUErXwdRSOWj7WIv1kFBhb58ov/IkLcUm/YGQMFxe5etGPRSum0JbfV39oslwXXnXCMiGCqltVJALHcmNEB61T4JEfoXvThZiK/ZYUN1ScTLIDP/pbHYwWiDRO2tPiLlnCar1RG4jlgZRnVD7J2CfA2VYpp1PmFk5NzHoN4dvYRr/NGxGw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=genexis.eu;
+Received: from DB9PR08MB6697.eurprd08.prod.outlook.com (2603:10a6:10:2ad::14)
+ by DB9PR08MB6443.eurprd08.prod.outlook.com (2603:10a6:10:261::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
+ 22:39:01 +0000
+Received: from DB9PR08MB6697.eurprd08.prod.outlook.com
+ ([fe80::bdec:3e95:6614:441f]) by DB9PR08MB6697.eurprd08.prod.outlook.com
+ ([fe80::bdec:3e95:6614:441f%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
+ 22:39:01 +0000
+Message-ID: <bde6c991-e0a6-4c25-a5c7-9dbe79aca604@genexis.eu>
+Date: Wed, 4 Nov 2026 23:38:58 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v4 5/6] net: phy: mediatek: add calibration logic
+ for AN7581
+To: Andrew Lunn <andrew@lunn.ch>, Christian Marangi <ansuelsmth@gmail.com>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Daniel Golle <daniel@makrotopia.org>, Qingfang Deng <dqfext@gmail.com>,
+ SkyLake Huang <SkyLake.Huang@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Joris Vaisvila <joey@tinyisr.com>, Ahmed Naseef <naseefkm@gmail.com>,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+References: <20261103221439.30502-1-ansuelsmth@gmail.com>
+ <20261103221439.30502-6-ansuelsmth@gmail.com>
+ <2b744929-609b-4529-8b6b-30feb3ebbbde@lunn.ch>
+ <6aeb7861.6171b307.11ae12.6b94@mx.google.com>
+ <68eecc53-ed61-463d-bb5f-c68b507be82a@lunn.ch>
+Content-Language: en-US
+From: Benjamin Larsson <benjamin.larsson@genexis.eu>
+In-Reply-To: <68eecc53-ed61-463d-bb5f-c68b507be82a@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: GV3PEPF0001DBAA.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:158:401::6ea) To DB9PR08MB6697.eurprd08.prod.outlook.com
+ (2603:10a6:10:2ad::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,44 +111,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auuJ4msatqzoOrjN@google.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB9PR08MB6697:EE_|DB9PR08MB6443:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0aff04a8-f01b-41e9-f010-08df3ac46be1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|10067099003|22082099003|18002099003|56012099006|4143699003|11063799006|261026140227099003|261026121527099003|261022075727099003|261028144727099003|261022105027099003;
+X-Microsoft-Antispam-Message-Info:
+	lq8IXFKkxP2h/2U1vsbNc43wD9CQFw792isDMEF5jRT/v7PU4Y5gJvjgHR86zeu/63Z84c7Jk7+BJb3bt4wxuQgV9vp1n3iOYMydnf+Qt+ZcmMGxcnlB5NflumA2iFBSD1U9TBbTyp6yHqD/0WRyOhjh/LFoJ/VC98vwsA7tm6YTu6CxbVnL6nERpwHeuEW21Y6z/AsWBj44DEQXTBSglsJoHL+qhiTTsXA4LZrQig69H+pg8+DBqYLjW7MXWBHPrqzxCFlBbX5UPQGV5RpJOnLsVHmSs8aYusD8wJlzAm7oGJtNwBKyZPgiNsI1nUUAcJ4aQCMx/bfvIYMROUAFaF9fI4ry8wCwQyMmSvOeV8QrRBOO2iOLXOqacScpf99VQdPN6TA2NfObn5ztWlFUo61B72rLqg4kFdhm27Eqd1THiS07whHnVzcsCfkHySwvWGusPXBrKPrXTjPcnh/A1i5p2HnB/wN5YbNypFA1nZbxnbloniR0U/jtMiLrHZq/IXnDfkIqQgF/w1bUz0+p6qJSsyd3hxq6jLXRVYY0WsT6BrsyhLd5tpOitmxj4M5m4Go4AO6OU3rAg+o9sW4EGAFAkjmzwJ8jbV6Z5LKUICuipnwm+h/aK3zgsBRdKcQ1Ttp/y11Z0XGxdHklSEk5m+B+LztGDT2CQNKnxOIOTKE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6697.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(10067099003)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006)(261026140227099003)(261026121527099003)(261022075727099003)(261028144727099003)(261022105027099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NjQrWlJmUnpBVDcxa0pab1RaNjZrSUVPd28rQkVHdE1ONDQ0TjVPY052V1Ez?=
+ =?utf-8?B?cW5EdGxNRDNmYVhOQkRydGNrTEpZdU5HKzdWcUNqQUdEMzlaNEswUmVIUzNC?=
+ =?utf-8?B?eWpHMVZwaDBtOTRhWEM2WXdEQVJZc3pyVWZRcUhtcURKYmJmZ3U5TnlIZDJ3?=
+ =?utf-8?B?MHVOdG85WnA2MTNDd1J2b1kraUcrNHRySEI0Qzl6b0xLNWJUdHM4aG9uV0NK?=
+ =?utf-8?B?MTA2WGhPYkJIejYvMEUwbW81Z1pXdzNFdTMwd2dZak9uV0pIcWVpd1FqZzVi?=
+ =?utf-8?B?d2JpRytQUCswQTJJemdqL09zWTBzN1ZpQ05OMHp3dkR2bHNrZkJ0VEZla2Ur?=
+ =?utf-8?B?Zy9mR1dVWE5vdmhkZXFIN1dCYkZFZnBNaWlnTjQxUVg0WVhxaEhqbXJHWTNH?=
+ =?utf-8?B?YnJaWVlzcmMySFJZbUcwdEJIeCtzTjBYa1BKczVHUFJaM0d2NnU5VUdpUnZo?=
+ =?utf-8?B?c2o4TnVFSWx1ZHN6NWZncHRQZlNNWDZwc2MxSDRHZDhNb1ZJOWtoNHNUVU9p?=
+ =?utf-8?B?aXFyZGYrdldFRTJYRDNVaG5ubm1GaDBMYTBpRFNBcE5zQnhQOC9FMGtsT0lW?=
+ =?utf-8?B?T0tJWkkrTnJUcmVEZ1Bpbm5Ea2F2SjVMb2lHT1VGRXFzeSthWHhLT00yQjJO?=
+ =?utf-8?B?OGthdUZMOGpqSGcvVDA4UUpEa3E3bi9lUUJTbTVDZTcrUXE2SWNWRXZPblA4?=
+ =?utf-8?B?U1dYUTZSemJuYzlWWlE4K1ppbDB6QTk1TlppNFRqMUhHanE1N3hLcWpDSnE4?=
+ =?utf-8?B?OE9mdDlNNUNjVURhRE5Zd29PZEdQeHRwUGovS3oyazJPRXMxb1RWZ3JYZXNO?=
+ =?utf-8?B?UklwdXB3WG53aVRyZzlLMGpyNWNMemZFZDZ5bjY2T28zT2NnRTJZUFJxcVpV?=
+ =?utf-8?B?U3BEUmpkS2hxN3h6SXBOYTdBWFA0K3FrTFVSK3ErSXc1WksxMzBCcnJHd3BL?=
+ =?utf-8?B?MHpIMUZ1TlJyUFNUaCt0KytFQXJWSFBDb2hjbThwN0JjOEd0OExNVmxhUytj?=
+ =?utf-8?B?MWl2OW9HMmFFWm9nVFp5T2RvOFlCSWMxSjROTmV3TnJ3TFdHNC83aWNzQ01K?=
+ =?utf-8?B?UFZiM2trSlpQTTkwUStWQXhXTVd5cUtXTnp2akgyVXZETmRRVnp3TUFJeTds?=
+ =?utf-8?B?NzRCUGpvNDNQejlPMUJ1NUFDejl0M1RLWWlkc0JEdHZDZDVhRmhreTl4RXZ3?=
+ =?utf-8?B?d0pjZ01VRFppcm1hdHZNL2g4WklzN1J3Y1VkYmF0cVVUekV2ajNkeGpMdmp2?=
+ =?utf-8?B?ZDZIdjg3anhWbmdUN2JLbFZMV3Q2U1EvQWIxTmVpZFNTa1RwUndHNXdwZWpn?=
+ =?utf-8?B?STM1SkdMTDBBNDVIMFEwRU44QlloRWNFMDRtWWFvcXJtZTNkUGV6cjhKcjkx?=
+ =?utf-8?B?dS96WExCS3JKczQ1ZVVHTk1nWkt3TVhuVFA4dyt5anEvSk5XSXlTOWJWckc3?=
+ =?utf-8?B?d01rY1E2TFMyREFJWGYvTTYwWkFwKzNrWVhHNlg3SUJ5SGd1TTdEQUYyWC91?=
+ =?utf-8?B?blRqUnY2OC9sRWJYZ0xHUVBKL0ZJZWpEODk4RHY1REVTMXZWa3h1NndmR0Ji?=
+ =?utf-8?B?Q2ZQMGtNSlJlYUhFa2FKZjBGSE82ZkxmNEUvSnNIdnRZV0p6d3FCTFFOMmNt?=
+ =?utf-8?B?ZWg2N21TOEdjdThQUElEOGtrM0c1TGlOT2VKZEJnYWJaVlVUTlhCeXRseTNK?=
+ =?utf-8?B?SEEyYzdBdUozdDVEVmo5WUQzT1VoNVFTZDRlQmU4Q0RCaEQ4NDF1Rm9tS29F?=
+ =?utf-8?B?VHdrVkdWT0dvM2kxYy94WGFmTVNxVVI4d2ZxbGhFV2RVOUJwS3RrVmxzOW9I?=
+ =?utf-8?B?TVl2RnA3U1J3ZEZGQytzY0lRWWZZRlEvQVpOZXBwSDZyRm1VNmFWbnQyWnJm?=
+ =?utf-8?B?aXByQmlYNXUwZHJHOTBLTE5kSkRYZk9oemV6M1p6Z09JeUdoVTVQUThDVWR3?=
+ =?utf-8?B?c0p0NmZBNnVkTFRZYzhGcGNWajJPRmJiamsxUURpbVAxcXpzVU9TdGlOQzVI?=
+ =?utf-8?B?ZTB1OFl6MC9xbFYwb2tQV0FqWkxpaDFrb3JUbjgxUHJCblFJRXBLUnh3Uk9w?=
+ =?utf-8?B?b2tLaHJhNmFYT1pLeVNjSzU3UGFjS1RpT0Fmd1M0MituVWk3amxZTnJtUFlQ?=
+ =?utf-8?B?RVRwSytVczdDTnlkMWxHTHZBd09ZU1htaks3ZXJobms3NUdCVWlWWHd4Wjhy?=
+ =?utf-8?B?UlcrRHBxT2N6OStSeGNQQ3UzdEVJV1Y1YTRUV0RBQ1BYQWJ0emd3aXhjMUsw?=
+ =?utf-8?B?Umo1aUtQa0VqVFlpWm5VbFdsRjdmM0Q1eDZQMDVnM0ZmR0I1V1pJUzBkVE9G?=
+ =?utf-8?B?Y0N1ckRYSW81T3U4Qi9GRVRxNWdEdGJtUTg3QkZya1UvQnJkU0p1WUR2VCtD?=
+ =?utf-8?Q?DUHvgNst4H15IGPI=3D?=
+X-OriginatorOrg: genexis.eu
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0aff04a8-f01b-41e9-f010-08df3ac46be1
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR08MB6697.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 22:39:00.9279
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8d891be1-7bce-4216-9a99-bee9de02ba58
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pgaiwCsmCkqjD8G84gq+4hMyJXt+IpHelGq/HnabuCOcXdUuCP70br6ofuhdVKpCVL5NJbpvN/EUp1Q0pTX2WzsW0j2whh+S69efiJL/1eE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB6443
 
-On 2026-11-04 02:45 PM, Pasha Tatashin wrote:
-> On 11-04 17:52, Pratyush Yadav wrote:
-> > On Tue, Nov 03 2026, David Matlack wrote:
-> > [...]
-> > 
-> > Can't you put all your binaries in a separate session, retrieve it as
-> > the very first thing, and then finish the session? Then you can execute
-> > those and retrieve all the other sessions.
+Hi.
+
+On 04/11/2026 21:51, Andrew Lunn wrote:
+>> It's safe in the measure that the worst is that link goes down during the
+>> calibration... I will rework the function to assign the base address to the
+>> default address for port 0 (it's hardcoded by the SoC) and use the lock and
+>> read/write helper instead.
 > 
-> This is a good workaround. I am not opposed to this patch for 
-> completeness of functionality, but if we decide to keep it, perhaps it 
-> should simply be squashed into an earlier patch. The current diffstat
-> looks bad, as it mostly deletes code that was introduced earlier in this 
-> series.
+> Are there multiple PHYs in the package? What happens if both are doing
+> calibration at the same time?
 > 
-> In any case, given Pratyush's suggestion, we could also drop it.
+> PHY #0                            PHY #1
 > 
-> > 
-> > Why do we need to support this in the kernel?
+> 
+> phy_modify_mmd(phydev, devad, regnum, mask, cal_val);
+> 
+> 		       	      	  phy_modify_mmd(phydev, devad, regnum, mask, cal_val);
+> 				  ret = mtk_cal_cycle_wait(phydev_p0);
+> 
+> ret = mtk_cal_cycle_wait(phydev_p0);
+> 
+>      Andrew
 
-That would work for binaries, and I agree that use case alone doesn't
-justify this. But I see O_RDONLY as part of the retrieve interface, not
-a feature for one use case. The retrieve argument is modeled on
-openat(), and openat() lets you open an existing file read-only.
+There are 4 phys in total, only the phy with mdio address 9 has the 
+calibration capability. Thus only one phy at the time can perform the 
+calibration sequence.
 
-open(O_TMPFILE) only requires write access because it creates an empty
-file, and an empty read-only file is useless. A retrieved file isn't
-empty, it has the preserved contents, so O_RDONLY makes as much sense as
-it does for any other existing file. Without it, every retrieved file is
-writable, even when userspace only needs to read it.
-
-Preserve already works the same way: a file can be preserved through a
-read-only fd, as long as the caller has permission to write to it.
-
-If we keep it, I'll squash it into patch 7 in v4, so retrieve supports
-O_RDONLY from the start. The commit message will lead with the openat()
-reasoning and keep binaries as just an example.
+MvH
+Benjamin Larsson
