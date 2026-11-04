@@ -1,72 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793781924;
-	b=qH/+5ig2Z9wXOO3ENZ9fi0Hb2ww9iAH3Gb34Vjc07L9U6bQG9nRupcpQgyuXC7/FHR2S
-	 Sqoxzq15BlQVTHcdqn40E8qTR1pjNkeYJjtpLnvC8Hhj49/um2u5aaKOuMUy22Aa+HHxv
-	 Ax7qIjpCHQmTa2PCYM3DpN/LWEaz60Nk8whNKFK+6RW2/y9GvgoeRW+jq3Kr70FKedHys
-	 hyavmqlNx4FGnCLjdTM5LZYpCdqZhMaQ25OuOxXCdosCA5wXloAD5xuf4SFIJv3JTvJCi
-	 s+porA4+fKQQORkjVKZbmFRZXlguK5l74MfXKDcvZZuOz2L0ALNexk8vthJ7SV0CsmA==
+	t=1793781959;
+	b=oOK9AcsWBDyR+v1sB+3GXtJRjJo712HktidjJFTLatXtxw3lE4KBD/4d7x21PQXZsPzJ
+	 uKkC1gaE79jioYhOyNBa65UhlSxrTr3+SUTCEIZezQYfp3/RwkINTOHgFOTbrfxQkwOkB
+	 zCwRztMR62N5CMpPYXbLgHbH4Ssopvoi2EZ4UjYjoltZIjEYAwPdN9XdP6FlDqQ48/h/0
+	 GL4eskDp8bsflyTsIYgaZCKEIugFiwA+VJ61aWGODYUGs+Ao3LFUooSab1tEtxRVyM+Fw
+	 4BLLhcvzYfCdUz2V/GKbJGOfw5JOr6MuqREoL6jOyz1RU5CVBCUR0D2GU7pEEP+NZwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793781924;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:
-	 X-Zmail-LocalSMTP:X-Zmail-RealSender:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 X-ZMAIL-USEORIGINALEMLTOOUTBOUND:Content-Transfer-Encoding:X-MAIL:
-	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
-	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=D5swImB+Qk7T+rwUH4JizFOOYT+1YDU9kW4rI7mC2mw=;
-	b=FtLEQkO8FixtscdvbnbdpfP3REVCnRilrMdlMZaXIif4pniL9oV98jysA3Ru9Fd4XLDu
-	 W1F7qdr1XNsl8t7c5ZbiPcYcPwpiNG35j4ctTl743iFobnJqY1IBpFCBO9zMrHxlrUiIP
-	 fMbQVFvCdrPosogFaGPSBDfsP8uaCltVeo41KZGYOpebUVslAUVMjTCGq1dGU9iGI8N4V
-	 9v8tpyJBo/j2jPuN8aPI6tFVvVvIaHdf5pIMqRmie2/M+x4KRlKL2VJqE5sz+aVSpz9zi
-	 rkMOprxCcJ3Yv9nxLITivFQ55+a78GXPV2/W7c4qYUq8WWjIdq4axMSgYJnB8llmrew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793781959;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=kd/11XJESmnoYClx6518f24RJOB+dmaatqOOEga8bOQ=;
+	b=tsgTP5cGHBAcK0shAw6xF6wzpfnc09WrwYhiPcht//pJ7cabwUNLFay1Rla3mmVbVgl1
+	 KbdOJpg37MitLHEQznqt6l3Y3LaKJLoi+ofNKSv4Mao4a1KZbqR2eL0C6TD+tyj/ScJms
+	 KBKIMoirUlR6ChriYCvhGJcZr/WWNslGq0QoT5+mYOrzuG6Ur9y12FdvDZUspnVsHGhyr
+	 /pQlIsmUMOoZYvGfKFOfhW6tupopqfpNTepWNEQP/3rj180YAwNjJNDYS64Pg+NwoUhAx
+	 GZl11oHt9hULrSwc5nKUEzT9MUvC+qQA2hHywEt7zsiVg6zTA0H3RK6QTmAEfJu+jtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sanechips.com.cn;
-	spf=pass smtp.mailfrom=sanechips.com.cn;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ro5dQBMj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FC15606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:45:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FC15606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sanechips.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sanechips.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jKJt809b0z8Xrrr;
-	Wed, 04 Nov 2026 16:45:20 +0800 (CST)
-Received: from szxlzmapp03.zte.com.cn ([10.5.231.207])
-	by mse-fl1.zte.com.cn with SMTP id 6A48j9Vc096993;
-	Wed, 4 Nov 2026 16:45:09 +0800 (+08)
-	(envelope-from gong.shuai@sanechips.com.cn)
-Received: from ubuntu-35-gs (unknown [10.230.214.35])
-	by smtp (Zmail) with SMTP;
-	Wed, 4 Nov 2026 16:45:11 +0800
-X-Zmail-TransId: 3e816aeaf08f029-ccf59
-X-Zmail-LocalSMTP: 1
-X-Zmail-RealSender: gong.shuai@sanechips.com.cn
-From: Gong Shuai <gong.shuai@sanechips.com.cn>
-To: fangyu.yu@linux.alibaba.com
-Cc: alex@ghiti.fr, andrew.jones@linux.dev, anup@brainfault.org,
-        aou@eecs.berkeley.edu, atish.patra@linux.dev, baolu.lu@linux.intel.com,
-        gong.shuai@sanechips.com.cn, guoren@kernel.org, iommu@lists.linux.dev,
-        jgg@nvidia.com, jgg@ziepe.ca, joerg.roedel@amd.com, joro@8bytes.org,
-        jroedel@suse.de, kevin.tian@intel.com, kvm-riscv@lists.infradead.org,
-        linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-        nutty.liu@hotmail.com, palmer@dabbelt.com, pjw@kernel.org,
-        robin.murphy@arm.com, skhawaja@google.com, tanchi25@mails.ucas.ac.cn,
-        tomasz.jeznach@linux.dev, vasant.hegde@amd.com, will@kernel.org,
-        zong.li@sifive.com
-Subject: Re: [PATCH v7 09/10] iommu/riscv: Add dirty tracking support for second-stage domains
-Date: Wed,  4 Nov 2026 16:45:03 +0800
-Message-ID: <20261104084503.118083-1-gong.shuai@sanechips.com.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261103120236.53474-10-fangyu.yu@linux.alibaba.com>
-References: <20261103120236.53474-10-fangyu.yu@linux.alibaba.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04662606A31B;
+	Wed,  4 Nov 2026 08:45:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ro5dQBMj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FD311F000C1;
+	Wed,  4 Nov 2026 08:45:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793781958;
+	bh=kd/11XJESmnoYClx6518f24RJOB+dmaatqOOEga8bOQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Ro5dQBMjOwLw/yDsVSSMI0kDHJQKj0kAyzaaBVli+FkJuFXt6haLuKjhwlhyibnh3
+	 agLrXrCverQu9IRH+fDie8YfQndR6GtX7XJvLPmSenzEODlRadyTs3RMuTysEVUhJG
+	 3cUA8VUElysd874W8x9QEsm5wqOuajVYr4jCFJ4BIjzJ5zTha/tubR88uSLDFuqA9f
+	 cKnpl8QFvvLODcNRqzcMA/eOTe9aQyOpqHVR9ELwz6u+yxFj/4AjxpboeSKyA5ZKwW
+	 cwfwvWC6dbBdRi9mohLmfBJKhxw9m68NJg5g6S3BaIXAyDkYOtDMX4kcdQITQQNLIy
+	 eRuo6aOFHkXHw==
+Message-ID: <4fb6c428-85fd-4674-8480-919191db1277@kernel.org>
+Date: Wed, 4 Nov 2026 09:45:49 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,140 +51,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ZMAIL-USEORIGINALEMLTOOUTBOUND: 1
-Content-Transfer-Encoding: 8bit
-X-MAIL:mse-fl1.zte.com.cn 6A48j9Vc096993
-X-TLS: YES
-X-ENVELOPE-SENDER: gong.shuai@sanechips.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Wed, 04 Nov 2026 16:45:20 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AEAF0A0.000/4jKJt809b0z8Xrrr
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 05/10] dt-bindings: leds: kinetic,ktd202x: Add Etek ET6326
+To: Joseph Telaak <joseph@telaak.dev>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+ Griffin Kroah-Hartman <griffin@kroah.com>, Kees Cook <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?=
+ <git@apitzsch.eu>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, linux-leds@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-doc@vger.kernel.org
+References: <20261101-ktd202x-et6326-v1-0-eb51eddad08c@telaak.dev>
+ <20261101-ktd202x-et6326-v1-5-eb51eddad08c@telaak.dev>
+ <20261102-enthusiastic-flounder-of-domination-fb3a01@quoll>
+ <CAPY4CJ4cm117fjoZa302TKRmok_NnO62HhBWTSpNEzD8qAacdg@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CAPY4CJ4cm117fjoZa302TKRmok_NnO62HhBWTSpNEzD8qAacdg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Fangyu,
+On 04/11/2026 09:44, Joseph Telaak wrote:
+>> Drop.
+>>
+>> Please run scripts/checkpatch.pl on the patches and fix reported
+>> warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+>> patches and (probably) fix more warnings.
+> 
+> Thanks, v2 drops it, and the series is clean with checkpatch and
+> checkpatch --strict.
 
-> From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
-> 
-> Add hardware dirty tracking support for second-stage (iohgatp) domains
-> used in KVM VFIO device pass-through.
-> 
-> The RISC-V IOMMU can automatically set the dirty bit in PTEs on write
-> access when DC.tc.GADE is set and the hardware has AMO_HWAD capability.
-> Wire this up to the iommufd dirty tracking interface:
-> 
->   - riscv_iommu_set_dirty_tracking(): Return success without toggling GADE.
-> 
->   - riscv_iommu_dirty_ops: Exposes set_dirty_tracking and the generic
->     page-table read_and_clear_dirty via IOMMU_PT_DIRTY_OPS(riscv_64).
-> 
->   - domain_alloc_paging_flags: Assigns dirty_ops to second-stage domains
->     when IOMMU_HWPT_ALLOC_DIRTY_TRACKING is requested.
-> 
->   - riscv_iommu_capable: Reports IOMMU_CAP_DIRTY_TRACKING when
->     AMO_HWAD is present.
-> 
-> Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
-> Reviewed-by: Nutty Liu <nutty.liu@hotmail.com>
-> ---
->  drivers/iommu/riscv/iommu.c | 32 ++++++++++++++++++++++++++++++--
->  1 file changed, 30 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
-> index b3f05dfdf278..ff1043afe973 100644
-> --- a/drivers/iommu/riscv/iommu.c
-> +++ b/drivers/iommu/riscv/iommu.c
-> @@ -1350,6 +1350,10 @@ static int riscv_iommu_attach_paging_domain(struct iommu_domain *iommu_domain,
->  	if (domain->gscid) {
->  		if (!riscv_iommu_iohgatp_supported(iommu, pt_info.iohgatp_mode))
->  			return -EINVAL;
-> +		/* Dirty tracking requires AMO_HWAD on every attached IOMMU */
-> +		if (iommu_domain->dirty_ops &&
-> +		    !(iommu->caps & RISCV_IOMMU_CAPABILITIES_AMO_HWAD))
-> +			return -EINVAL;
->  
->  		dc.iohgatp =
->  			FIELD_PREP(RISCV_IOMMU_DC_IOHGATP_MODE, pt_info.iohgatp_mode) |
-> @@ -1377,6 +1381,21 @@ static int riscv_iommu_attach_paging_domain(struct iommu_domain *iommu_domain,
->  	return 0;
->  }
->  
-> +static int riscv_iommu_set_dirty_tracking(struct iommu_domain *iommu_domain,
-> +					  bool enable)
-> +{
-> +	/*
-> +	 * Always enabled and the dirty bitmap is cleared prior to
-> +	 * set_dirty_tracking().
-> +	 */
-> +	return 0;
-> +}
-> +
-> +static const struct iommu_dirty_ops riscv_iommu_dirty_ops = {
-> +	IOMMU_PT_DIRTY_OPS(riscv_64),
-> +	.set_dirty_tracking = riscv_iommu_set_dirty_tracking,
-> +};
-> +
->  static const struct iommu_domain_ops riscv_iommu_paging_domain_ops = {
->  	IOMMU_PT_DOMAIN_OPS(riscv_64),
->  	.attach_dev = riscv_iommu_attach_paging_domain,
-> @@ -1418,7 +1437,8 @@ static int riscv_iommu_init_domain_s1(struct device *dev,
->   */
->  static int riscv_iommu_init_domain_s2(struct device *dev,
->  				      struct riscv_iommu_domain *domain,
-> -				      struct pt_iommu_riscv_64_cfg *cfg)
-> +				      struct pt_iommu_riscv_64_cfg *cfg,
-> +				      u32 flags)
->  {
->  	struct riscv_iommu_device *iommu = dev_to_iommu(dev);
->  
-> @@ -1439,6 +1459,10 @@ static int riscv_iommu_init_domain_s2(struct device *dev,
->  	if (domain->gscid < 0)
->  		return -ENOMEM;
->  
-> +	/* AMO_HWAD is checked by iommufd via IOMMU_CAP_DIRTY_TRACKING */
-> +	if (flags & IOMMU_HWPT_ALLOC_DIRTY_TRACKING)
-> +		domain->domain.dirty_ops = &riscv_iommu_dirty_ops;
-> +
->  	return 0;
->  }
->  
-> @@ -1481,7 +1505,7 @@ riscv_iommu_domain_alloc_paging_flags(struct device *dev, u32 flags,
->  	case IOMMU_HWPT_ALLOC_NEST_PARENT:
->  	case IOMMU_HWPT_ALLOC_DIRTY_TRACKING:
->  	case IOMMU_HWPT_ALLOC_DIRTY_TRACKING | IOMMU_HWPT_ALLOC_NEST_PARENT:
-> -		ret = riscv_iommu_init_domain_s2(dev, domain, &cfg);
-> +		ret = riscv_iommu_init_domain_s2(dev, domain, &cfg, flags);
->  		break;
->  	default:
->  		ret = -EOPNOTSUPP;
-> @@ -1559,9 +1583,13 @@ static struct iommu_group *riscv_iommu_device_group(struct device *dev)
->  
->  static bool riscv_iommu_capable(struct device *dev, enum iommu_cap cap)
->  {
-> +	struct riscv_iommu_device *iommu = dev_to_iommu(dev);
-> +
->  	switch (cap) {
->  	case IOMMU_CAP_CACHE_COHERENCY:
->  		return dev_is_dma_coherent(dev);
-> +	case IOMMU_CAP_DIRTY_TRACKING:
-> +		return !!(iommu->caps & RISCV_IOMMU_CAPABILITIES_AMO_HWAD);
+No, it is not. It has clear and obvious checkpatch warning.
 
-I'm not quite sure about this. Could there be a device that supports
-AMO_HWAD but not any of the S2 modes? GET_HW_INFO would report
-DIRTY_TRACKING as supported, but HWPT_ALLOC would then fail in
-riscv_iommu_init_domain_s2(). Should this check also include the
-S2 modes, like
+If you claim otherwise, it means you work on some ancient or old tree,
+so anyway this should not be reviewed.
 
-    AMO_HWAD && (SV39X4|SV48X4|SV57X4) ?
-
-BTW, in riscv_iommu_init_domain_s1/s2, why not return -EOPNOTSUPP
-instead of -ENODEV for "cannot find supported page table mode"?
-
-Thanks,
-Shuai
-
->  	default:
->  		return false;
->  	}
-> -- 
-> 2.50.1
-> 
+Best regards,
+Krzysztof
