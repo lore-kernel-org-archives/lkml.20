@@ -1,78 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.110
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793793025;
-	b=jY1BANcDQ5unXrXfmLysTeiK6LuBpnrmCmomcPIGp4YR6S0xkHI1aNJTGxaN+v4cnH+5
-	 pw7Qs5B2WX5bLjFmflpg85SHiiq2/29Ys12YR2xmx0j0w6XPZRxao8EM3kLM7FHv0SOid
-	 odvM5yhQzScNyKR6RWGujYGKLCPRoNhWKNxdGQllIPe8lJmCy1otsWOFYblp4xDZ2wN6N
-	 iG/AyUMu9cUzN0zhWpmYWyff6WqSem3GvQ/qhf7b8biHJEpJI5bDSoAuX0eGtdk5W+hZr
-	 C9swywLAaEGZqVT5SyZRzz0kTM68Nhar47X9yzyDXlKdvc557pgPSIu2bT3IdPLWvyg==
+	t=1793793037;
+	b=roveNjmq4hqKakAFfRzk5OlYcX0z3zuDJKgx/vl9YGsx2cHap2LT68HO0TROW1Ha2asA
+	 HgiQlVATwTvVaIzVSyxRZwpVyPAidzPt1qh3cIKY7/lO9bqh8kZpra0V5AwcZYeSTDFpP
+	 OeWV5cwmr7I+vAMK/J6lrnSZQwVvEzY/vnuufB23HNsPTU+JnZpmMnhnVHaqDOYsNmwLs
+	 CR/1BQc7+IRH/b7ScsJ7vtCMcpYEyroxHIj2cHo0MeSFABHpUY48NrnDPhUYewd8/mV15
+	 w+R3kwnsMXK+6FGTjd9PXWIqhuLxLKWZGRVg744y/8SFUdZhqMcU5XHs4/p+6OmtkIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793793025;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=d5OejrVGsomYty+i3ZRzaeZMrk9/8f7YEpZV3hplRGU=;
-	b=n+xNKtP0yG8mN7eFe1Xddo67xXRYlLBBCKffDGjNRqmF9Y1ECT7yj3K5+RSSDSzfZqwV
-	 j+be2KFYOBh7vkhkNs0dCX1ry5xf5v8GmokvtyG3KxAQmpdW1PYwnHP8hD59isGp/EWYp
-	 AvefjAU3TglMJ4v91WCA99wMaPQ5EePQErRPN399516/ImuTHVhAorbmHXeQL9YXT9DLQ
-	 ZfPXh6672wmbXsIltof7VcgSbRQiiS7JdLtZGaBhDey7sG4CpX7moSVjw8dcWU35tZwAM
-	 mgqbsBXMH/Fleu1zZn2EqDWP6b+xjwWVM/uV0vcX1ZYnMwcBrj7p7F2+8OH4lcOJYXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793793037;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=n7TyH3nFFVmHIHs1ldKKybFU/npM5rqhaAbZSesudpM=;
+	b=qw8Vin+iuks8+FLELPhblzFddgnoxWC7WFQGBTe9Mzp3zjAkTXpwG7ZGJjq+tN1Jv7zb
+	 q/6fMiDB8S814XMTtbWGTel/dFxBOx4MBaBQ6jVMyS0YkkSSkhopUnVqMXtrtQztsZ+SK
+	 ZqsqKgq+Z0mEd0Q6j5KOCdBiOqFofqdSF3NLZAflr1E78HyTavieyxAMibbSSb/ggeRuR
+	 8sUk98LZcpGdEaYxR5fgSLsJboH5i/y/ei0Z7Q08vTCkoH4CKU8psv83zBxyPA4/rk5vq
+	 fN2Y65KUG5p1B5orBWHCMJleLB2Najhl6ODreVlfR7sOR9f/T54eIeQ7xxDfpbInNZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IdtIy1k5;
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=IyAkye7K;
+	arc=none smtp.remote-ip=115.124.30.110
+Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 467C2606A329;
-	Wed,  4 Nov 2026 11:50:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 467C2606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E201606A329;
+	Wed,  4 Nov 2026 11:50:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E201606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IdtIy1k5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793793023; x=1825329023;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=xcmnKuYaN43ljFcSwJ9+DlplQK/ScAcS9ZuYXiL1cQE=;
-  b=IdtIy1k5MH4TQyWFaKBX3bEmoz5t0zspyu+QHiFo69Bk7iySJrF3gkhs
-   Y/8iCTv6CRfaP5ivhWbOKg47nnAF0u4iL90Ftt5suWjvRQCa8PPbd+Z4O
-   pHmiFOKrV9UMo3NDeBhFTGSSgza7SUud5UYx+i3FiE8TNZfeRaXL4vn0Z
-   QdXZmFJY8Mg3FfdzhMDQDZDhhVPkw2m9p9yUt0uM2ffvQtOZrjAu+u1If
-   P/j2Ur91ylcDq3GrW0pDDtMrXr3gCPSXRd1EpuNGZp2yUa4IoFG90CPH3
-   qxnddO7/KboTNuEzFdXcu2mlKrlaKdJuSjZDjfyUikOX1Ihqn97yKkmIj
-   w==;
-X-CSE-ConnectionGUID: jMFsEiJ9T3+0gCrl6ls3RQ==
-X-CSE-MsgGUID: O2oAy790QGukbjKVZP2BUA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2550900"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2550900"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 03:50:23 -0800
-X-CSE-ConnectionGUID: A81cgGfxSCKoADnHFuRfKg==
-X-CSE-MsgGUID: yptMbd2vTjiP98KUKtDuow==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="6841666"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 03:50:19 -0800
-Date: Wed, 4 Nov 2026 13:50:17 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Chi-Wen Weng <cwweng.linux@gmail.com>
-Cc: jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
-	andy@kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, cwweng@nuvoton.com
-Subject: Re: [PATCH v4 2/2] iio: adc: Add Nuvoton MA35D1 EADC driver
-Message-ID: <ausb-YqIJM0mI65Y@ashevche-desk.local>
-References: <20261104091136.151269-1-cwweng.linux@gmail.com>
- <20261104091136.151269-3-cwweng.linux@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=IyAkye7K
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793793027; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=n7TyH3nFFVmHIHs1ldKKybFU/npM5rqhaAbZSesudpM=;
+	b=IyAkye7KlN0k5MZn8XmzO48xcXyboR/u+PygsLMVtkFN2uy90dGtgdxqQRd5d16cv03e8SndsNWvc9zlrI6qdfKkfuGoUQOWHqPHljTsNvj9ktoZv3d/wAZd/044kRuTH/wrT8NX4Qni/Wo1GvxKgVHOZZPHjNPpmxnw4Wp/hm0=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R251e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XE5fcDP_1793793025;
+Received: from 30.221.129.178(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XE5fcDP_1793793025 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 04 Nov 2026 19:50:25 +0800
+Message-ID: <68eea5f0-f320-4bbb-906a-46f9fb17dd44@linux.alibaba.com>
+Date: Wed, 4 Nov 2026 19:50:25 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,541 +53,159 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104091136.151269-3-cwweng.linux@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ocfs2: drain fs_state readers before journal teardown
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
+ ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+References: <pm-ocfs2-objects-candidate-0003-v7-1522d068e5b943786c3e@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <pm-ocfs2-objects-candidate-0003-v7-1522d068e5b943786c3e@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 04, 2026 at 05:11:36PM +0800, Chi-Wen Weng wrote:
 
-> Add an IIO driver for the Enhanced Analog-to-Digital Converter found on
-> Nuvoton MA35D1 SoCs.
+
+On 10/31/26 1:13 PM, Cen Zhang wrote:
+> The per-mount fs_state open callback formats journal fields through
+> osb->journal. Its debugfs active-user guard protects the open callback,
+> but does not keep the journal allocated after journal shutdown.
 > 
-> Support single-ended and fixed differential input pairs, direct
-> conversion, and triggered buffered capture using sample module 0.
+> Both unmount and the mount-error path in ocfs2_mount_volume() can free
+> and clear the journal before the debugfs subtree is removed:
 > 
-> The hardware supports multiple sample modules, but this initial driver
-> uses sample module 0 only and therefore supports one active voltage
-> channel per buffered scan.
-
-...
-
-> +struct ma35d1_adc {
-> +	struct regmap *regmap;
-> +	struct clk *clk;
-> +	struct reset_control *rst;
-> +	struct completion completion;
-> +	/* Protect conversion state and register accesses from PM transitions. */
-> +	struct mutex lock;
-> +	const struct iio_chan_spec *scan_chan;
-> +	unsigned int vref_mV;
-> +	int irq;
-> +	bool clk_enabled;
-> +	bool external_vref;
-> +	bool suspended;
-> +};
-
-Now when it has optimal layout it's better to regroup the fields with some ties.
-
-struct ma35d1_adc {
-	struct regmap *regmap;
-	struct clk *clk;
-	struct reset_control *rst;
-	struct completion completion;
-	/* Protect conversion state and register accesses from PM transitions. */
-	struct mutex lock;
-	const struct iio_chan_spec *scan_chan;
-	int irq;
-	unsigned int vref_mV;
-	bool external_vref;
-	bool clk_enabled;
-	bool suspended;
-};
-
-...
-
-> +static const struct regmap_config ma35d1_adc_regmap_config = {
-> +	.reg_bits = 32,
-> +	.val_bits = 32,
-> +	.reg_stride = 4,
-> +	.max_register = MA35D1_EADC_REFADJCTL,
-
-Add a comment why no cache is enabled.
-
-> +};
-
-...
-
-> +static int ma35d1_adc_hw_init(struct ma35d1_adc *adc)
-> +{
-> +	struct regmap *map = adc->regmap;
-
-> +	unsigned int i;
-
-Not used outside the loops, just declare inside respective for:s.
-
-> +}
-
-...
-
-> +static int ma35d1_adc_config_channel(struct ma35d1_adc *adc,
-> +				     const struct iio_chan_spec *chan)
-> +{
-> +	struct regmap *map = adc->regmap;
-> +	unsigned int mask;
-> +	int ret;
+>   fs_state reader                       Mount cleanup
+>   ---------------                       -------------
+>   enter ocfs2_osb_debug_open()
+>     ocfs2_osb_dump()
+>       load osb->journal
+>                                         ocfs2_journal_shutdown()
+>                                           free journal; clear pointer
+>       read journal fields
+>   leave the open callback
+>                                         remove the debugfs subtree
+> 
+> Remove fs_state before cleanup releases its backing state in both
+> callers of ocfs2_journal_shutdown(). Debugfs removal prevents new opens
+> and waits for admitted open callbacks to finish. Later reads and release
+> use only the per-open snapshot buffer, so they do not need the journal.
+> 
+> Keep removal in the caller paths while the per-mount debugfs parent is
+> still present. The remaining debug files retain their teardown order.
+> 
+> KASAN report as below:
+> 
+>     ==================================================================
+>     BUG: KASAN: slab-use-after-free in ocfs2_osb_debug_open+0x967/0x15e0
+>     Read of size 4 at addr ffff888116a56028 by task cat/502
+> 
+>     Call Trace:
+>      <TASK>
+>      dump_stack_lvl+0x93/0xd0
+>      print_report+0xce/0x630
+>      kasan_report+0xe0/0x110
+>      kasan_check_range+0x105/0x1b0
+>      ocfs2_osb_debug_open+0x967/0x15e0
+>      full_proxy_open_regular+0x193/0x310
+>      do_dentry_open+0x595/0x12d0
+>      vfs_open_consume+0xd1/0x400
+>      path_openat+0x18d0/0x2020
+>      do_file_open+0x21e/0x470
+>      do_sys_openat2+0xf4/0x1b0
+>      __x64_sys_openat+0x136/0x1e0
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>      </TASK>
+> 
+>     Allocated by task 495:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      __kasan_kmalloc+0xaa/0xb0
+>      __kmalloc_cache_noprof+0x28d/0x610
+>      ocfs2_journal_alloc+0x91/0x450
+>      ocfs2_initialize_super.isra.0+0x11b8/0x3070
+>      ocfs2_fill_super+0x801/0x38f0
+>      get_tree_bdev_flags+0x35d/0x5f0
+>      vfs_get_tree+0x93/0x320
+>      fc_mount+0x1d/0x200
+>      path_mount+0x592/0x1e00
+>      __x64_sys_mount+0x24b/0x2d0
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+>     Freed by task 504:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      kasan_save_free_info+0x3b/0x60
+>      __kasan_slab_free+0x5f/0x80
+>      kfree+0x308/0x580
+>      ocfs2_journal_shutdown+0x10a/0xc20
+>      ocfs2_dismount_volume+0x315/0x940
+>      generic_shutdown_super+0x15f/0x490
+>      kill_block_super+0x40/0xa0
+>      deactivate_locked_super+0xae/0x120
+>      deactivate_super+0xa2/0xc0
+>      cleanup_mnt+0x217/0x450
+>      task_work_run+0x144/0x230
+>      exit_to_user_mode_loop+0x17d/0x570
+>      do_syscall_64+0x4d1/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+>     The buggy address belongs to the object at ffff888116a56000
+>      which belongs to the cache kmalloc-512 of size 512
+>     The buggy address is located 40 bytes inside of
+>      freed 512-byte region [ffff888116a56000, ffff888116a56200)
+>     ==================================================================
+> 
+> Fixes: da5e7c87827e ("ocfs2: cleanup journal init and shutdown")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> ---
+> Changes in v2:
+> - Address the osb dereference before BUG_ON(!osb) raised by Sashiko:
+>   https://sashiko.dev/#/patchset/98583
+> - Remove fs_state after BUG_ON(!osb) in ocfs2_dismount_volume().
+> - Trim the KASAN report.
+> 
+> Assisted-by: LLM
+> 
+> Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0003-v6-2f69dbb7417fcd537be6@gmail.com
+> 
+>  fs/ocfs2/super.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/fs/ocfs2/super.c b/fs/ocfs2/super.c
+> index 0af2245ae303..c02896e127e5 100644
+> --- a/fs/ocfs2/super.c
+> +++ b/fs/ocfs2/super.c
+> @@ -1783,6 +1783,9 @@ static int ocfs2_mount_volume(struct super_block *sb)
+>  	return 0;
+>  
+>  out_system_inodes:
+> +	/* Drain fs_state readers before releasing their backing state. */
+> +	debugfs_lookup_and_remove("fs_state", osb->osb_debug_root);
 > +
-> +	mask = MA35D1_EADC_CTL_DIFFEN | MA35D1_EADC_CTL_DMOF;
-> +	ret = regmap_assign_bits(map, MA35D1_EADC_CTL, mask, chan->differential);
-> +	if (ret)
-> +		return ret;
+>  	if (osb->local_alloc_state == OCFS2_LA_ENABLED)
+>  		ocfs2_shutdown_local_alloc(osb);
+>  	/* Drain pending suballoc reclaim work before the journal goes away */
+> @@ -1812,6 +1815,9 @@ static void ocfs2_dismount_volume(struct super_block *sb, int mnt_err)
+>  	osb = OCFS2_SB(sb);
+>  	BUG_ON(!osb);
+>  
+> +	/* Drain fs_state readers before releasing their backing state. */
+> +	debugfs_lookup_and_remove("fs_state", osb->osb_debug_root);
 > +
-> +	/*
-> +	 * INTPOS = 0 generates ADIF0 at end of conversion. TRGSEL = 0 disables
-> +	 * the hardware trigger; conversions are started through SWTRG0.
-> +	 */
-> +	mask = MA35D1_EADC_SCTL_CHSEL_MASK |
-> +	       MA35D1_EADC_SCTL_TRGSEL_MASK |
-> +	       MA35D1_EADC_SCTL_INTPOS;
+>  	/* Remove file check sysfs related directories/files,
+>  	 * and wait for the pending file check operations */
+>  	ocfs2_filecheck_remove_sysfs(osb);
 
-Use room on the previous line(s).
+'fs_state' is created in ocfs2_fill_super(), so it looks weird to clean
+here.
+I see now ocfs2_mount_volume() also calls ocfs2_release_system_inodes()
+and ocfs2_free_slot_info(), so it seems we have to do more refactor.
 
-> +	ret = regmap_update_bits(map, MA35D1_EADC_SCTL(0), mask,
-> +				 FIELD_PREP(MA35D1_EADC_SCTL_CHSEL_MASK,
-> +					    chan->channel));
-> +	if (ret)
-> +		return ret;
-> +
-> +	return regmap_update_bits(map, MA35D1_EADC_INTSRC0,
-> +				  MA35D1_EADC_INTSRC0_MASK,
-> +				  MA35D1_EADC_INTSRC0_SPLIEN0);
-> +}
-
-...
-
-> +static int ma35d1_adc_read_conversion(struct ma35d1_adc *adc,
-> +				      const struct iio_chan_spec *chan, u16 *raw)
-> +{
-> +	struct regmap *map = adc->regmap;
-> +	unsigned int val;
-> +	long timeout;
-> +	int ret;
-> +
-> +	reinit_completion(&adc->completion);
-> +
-> +	ret = regmap_write(map, MA35D1_EADC_STATUS2, MA35D1_EADC_STATUS2_ADIF0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = ma35d1_adc_config_channel(adc, chan);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_set_bits(map, MA35D1_EADC_CTL, MA35D1_EADC_CTL_ADCIEN0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(map, MA35D1_EADC_SWTRG, BIT(0));
-> +	if (ret)
-> +		goto disable_irq;
-> +
-> +	timeout = wait_for_completion_timeout(&adc->completion,
-> +					      MA35D1_EADC_TIMEOUT);
-
-Make it a single (yes, a bit longer) line.
-
-> +	if (!timeout) {
-> +		ma35d1_adc_abort_conversion(adc);
-> +		return -ETIMEDOUT;
-> +	}
-> +
-> +	ret = ma35d1_adc_disable_irq(adc);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_read(map, MA35D1_EADC_DAT(0), &val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (!(val & MA35D1_EADC_DAT_VALID))
-> +		return -EIO;
-> +
-> +	if (val & MA35D1_EADC_DAT_OV)
-> +		return -EOVERFLOW;
-> +
-> +	*raw = FIELD_GET(MA35D1_EADC_DAT_RESULT_12BIT, val);
-> +
-> +	return 0;
-> +
-> +disable_irq:
-> +	ma35d1_adc_disable_irq(adc);
-> +
-> +	return ret;
-> +}
-
-...
-
-> +static irqreturn_t ma35d1_adc_isr(int irq, void *data)
-> +{
-> +	struct iio_dev *indio_dev = data;
-> +	struct ma35d1_adc *adc = iio_priv(indio_dev);
-> +	struct regmap *map = adc->regmap;
-> +	unsigned int status;
-> +	int ret;
-> +
-> +	ret = regmap_read(map, MA35D1_EADC_STATUS2, &status);
-> +	if (ret)
-> +		return IRQ_NONE;
-> +
-> +	if (!(status & MA35D1_EADC_STATUS2_ADIF0))
-> +		return IRQ_NONE;
-
-regmap_test_bits() ? It will hide status OTOH. Up to you.
-
-> +	ret = regmap_write(map, MA35D1_EADC_STATUS2, MA35D1_EADC_STATUS2_ADIF0);
-> +	if (ret)
-> +		dev_err_ratelimited(regmap_get_device(map),
-> +				    "failed to clear ADC interrupt status: %d\n", ret);
-> +
-> +	complete(&adc->completion);
-> +
-> +	return IRQ_HANDLED;
-> +}
-
-...
-
-> +static int ma35d1_adc_read_raw(struct iio_dev *indio_dev,
-> +			       const struct iio_chan_spec *chan,
-> +			       int *val, int *val2, long mask)
-> +{
-> +	struct ma35d1_adc *adc = iio_priv(indio_dev);
-> +	u16 raw;
-> +	int ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW: {
-> +		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-> +		if (IIO_DEV_ACQUIRE_FAILED(claim))
-> +			return -EBUSY;
-> +
-> +		guard(mutex)(&adc->lock);
-> +
-> +		if (adc->suspended)
-> +			return -EBUSY;
-> +
-> +		ret = ma35d1_adc_read_conversion(adc, chan, &raw);
-> +		if (ret)
-> +			return ret;
-> +
-> +		if (chan->differential)
-> +			*val = ma35d1_adc_sign_extend(raw);
-> +		else
-> +			*val = raw;
-> +
-> +		return IIO_VAL_INT;
-> +	}
-> +	case IIO_CHAN_INFO_SCALE:
-> +		*val = adc->vref_mV;
-> +		/* Differential mode has a VREF / 2048 LSB; single-ended uses /4096. */
-> +		*val2 = chan->differential ? MA35D1_EADC_DIFF_SCALE_BITS :
-> +					       MA35D1_EADC_RESOLUTION;
-
-Broken indentation.
-
-> +		return IIO_VAL_FRACTIONAL_LOG2;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
-...
-
-> +static int ma35d1_adc_update_scan_mode(struct iio_dev *indio_dev,
-> +				       const unsigned long *scan_mask)
-> +{
-> +	struct ma35d1_adc *adc = iio_priv(indio_dev);
-> +	int bit;
-
-> +	adc->scan_chan = NULL;
-
-Should we update this even in case of wrong channel type?
-
-> +	iio_for_each_active_channel(indio_dev, bit) {
-> +		const struct iio_chan_spec *chan = &indio_dev->channels[bit];
-> +
-> +		if (chan->type != IIO_VOLTAGE)
-> +			return -EINVAL;
-> +
-> +		adc->scan_chan = chan;
-> +	}
-> +
-> +	if (!adc->scan_chan)
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
-
-...
-
-> +	return regmap_write(adc->regmap, MA35D1_EADC_STATUS2,
-> +			    MA35D1_EADC_STATUS2_ADIF0);
-
-	struct regmap *map = adc->regmap;
-	...
-	return regmap_write(map, MA35D1_EADC_STATUS2, MA35D1_EADC_STATUS2_ADIF0);
-
-*yes, it's 81 characters long.
-
-...
-
-> +static int ma35d1_adc_parse_channels(struct iio_dev *indio_dev,
-> +				     struct device *dev)
-> +{
-> +	DECLARE_BITMAP(used_single_inputs, MA35D1_EADC_MAX_EXT_CHANNELS);
-> +	DECLARE_BITMAP(used_diff_pairs, MA35D1_EADC_NUM_DIFF_PAIRS);
-> +	DECLARE_BITMAP(used_regs, MA35D1_EADC_MAX_EXT_CHANNELS);
-> +	struct iio_chan_spec *channels;
-> +	unsigned int scan_index;
-> +	int num_channels;
-> +	int ret;
-> +
-> +	bitmap_zero(used_single_inputs, MA35D1_EADC_MAX_EXT_CHANNELS);
-> +	bitmap_zero(used_diff_pairs, MA35D1_EADC_NUM_DIFF_PAIRS);
-> +	bitmap_zero(used_regs, MA35D1_EADC_MAX_EXT_CHANNELS);
-> +
-> +	num_channels = device_get_child_node_count(dev);
-> +	if (!num_channels)
-> +		return dev_err_probe(dev, -ENOENT, "no ADC channels configured\n");
-> +
-> +	if (num_channels > MA35D1_EADC_MAX_EXT_CHANNELS)
-> +		return dev_err_probe(dev, -ENOSPC, "too many ADC channels\n");
-> +
-> +	channels = devm_kcalloc(dev, size_add(num_channels, 1),
-> +				sizeof(*channels), GFP_KERNEL);
-> +	if (!channels)
-> +		return -ENOMEM;
-> +
-> +	scan_index = 0;
-> +	device_for_each_child_node_scoped(dev, child) {
-> +		bool has_diff, has_single;
-> +		u32 reg, vinp, vinn;
-> +
-> +		ret = fwnode_property_read_u32(child, "reg", &reg);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "missing channel reg property\n");
-> +
-> +		if (reg >= MA35D1_EADC_MAX_EXT_CHANNELS)
-> +			return dev_err_probe(dev, -ENOSPC,
-> +					     "invalid ADC channel index %u\n", reg);
-> +
-> +		if (test_and_set_bit(reg, used_regs))
-> +			return dev_err_probe(dev, -EEXIST,
-> +					     "duplicate ADC channel index %u\n", reg);
-> +
-> +		has_single = fwnode_property_present(child, "single-channel");
-> +		has_diff = fwnode_property_present(child, "diff-channels");
-> +		if (has_single && has_diff)
-> +			return dev_err_probe(dev, -EINVAL,
-> +					     "channel %u has conflicting input properties\n",
-> +					     reg);
-> +
-> +		if (has_diff) {
-
-> +			u32 inputs[2];
-
-No need, move this above instead of vinn and vinp. Or use custom data:
-
-		struct {
-			u32 p;
-			u32 n;
-		} vin;
-
-if you want to have distinct names.
-
-
-> +			ret = fwnode_property_read_u32_array(child, "diff-channels",
-> +							     inputs, ARRAY_SIZE(inputs));
-> +			if (ret)
-> +				return dev_err_probe(dev, ret,
-> +						     "invalid diff-channels for index %u\n",
-> +						     reg);
-> +
-> +			vinp = inputs[0];
-> +			vinn = inputs[1];
-> +			if (vinp >= 4 || vinn != vinp + 4)
-> +				return dev_err_probe(dev, -ECHRNG,
-> +						     "invalid differential inputs %u-%u\n",
-> +						     vinp, vinn);
-> +
-> +			if (test_and_set_bit(vinp, used_diff_pairs))
-> +				return dev_err_probe(dev, -EEXIST,
-> +						     "duplicate differential inputs %u-%u\n",
-> +						     vinp, vinn);
-> +
-> +			channels[scan_index] = (struct iio_chan_spec) {
-> +				.type = IIO_VOLTAGE,
-> +				.indexed = 1,
-> +				.differential = 1,
-> +				.channel = vinp,
-> +				.channel2 = vinn,
-> +				.address = reg,
-> +				.scan_index = scan_index,
-> +				.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-> +						      BIT(IIO_CHAN_INFO_SCALE),
-> +				.scan_type = {
-> +					.format = IIO_SCAN_FORMAT_SIGNED_INT,
-> +					.realbits = MA35D1_EADC_RESOLUTION,
-> +					.storagebits = 16,
-> +					.endianness = IIO_CPU,
-> +				},
-> +			};
-> +		} else {
-> +			if (has_single) {
-> +				ret = fwnode_property_read_u32(child, "single-channel",
-> +							       &vinp);
-> +				if (ret)
-> +					return dev_err_probe(dev, ret,
-> +							     "invalid single-channel for index %u\n",
-> +							     reg);
-> +			} else {
-> +				vinp = reg;
-> +			}
-> +
-> +			if (vinp >= MA35D1_EADC_MAX_EXT_CHANNELS)
-> +				return dev_err_probe(dev, -ECHRNG,
-> +						     "invalid ADC input %u\n", vinp);
-> +
-> +			if (test_and_set_bit(vinp, used_single_inputs))
-> +				return dev_err_probe(dev, -EEXIST,
-> +						     "duplicate ADC input %u\n", vinp);
-> +
-> +			channels[scan_index] = (struct iio_chan_spec) {
-> +				.type = IIO_VOLTAGE,
-> +				.indexed = 1,
-> +				.channel = vinp,
-> +				.address = reg,
-> +				.scan_index = scan_index,
-> +				.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-> +						      BIT(IIO_CHAN_INFO_SCALE),
-> +				.scan_type = {
-> +					.format = IIO_SCAN_FORMAT_UNSIGNED_INT,
-> +					.realbits = MA35D1_EADC_RESOLUTION,
-> +					.storagebits = 16,
-> +					.endianness = IIO_CPU,
-> +				},
-> +			};
-> +		}
-> +
-> +		scan_index++;
-> +	}
-> +
-> +	channels[scan_index] = IIO_CHAN_SOFT_TIMESTAMP(scan_index);
-> +
-> +	indio_dev->channels = channels;
-> +	indio_dev->num_channels = scan_index + 1;
-> +
-> +	return 0;
-> +}
-
-...
-
-> +static int ma35d1_adc_init_vref(struct ma35d1_adc *adc, struct device *dev)
-> +{
-> +	int ret;
-> +
-> +	ret = devm_regulator_get_enable_read_voltage(dev, "vref");
-> +	if (ret == -ENODEV) {
-> +		adc->vref_mV = MA35D1_EADC_INTERNAL_VREF_mV;
-
-> +		return 0;
-
-Can be deduplicated. See below how.
-
-> +	}
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "failed to get VREF supply\n");
-> +
-> +	if (!ret)
-> +		return dev_err_probe(dev, -EINVAL, "invalid VREF voltage\n");
-> +
-> +	adc->external_vref = true;
-> +	adc->vref_mV = ret / (MICRO / MILLI);
-
-	if (ret == -ENODEV) {
-		adc->vref_mV = MA35D1_EADC_INTERNAL_VREF_mV;
-	} else if (ret < 0) {
-		return dev_err_probe(dev, ret, "failed to get VREF supply\n");
-	} else {
-		adc->external_vref = true;
-		adc->vref_mV = ret / (MICRO / MILLI);
-	}
-
-
-> +	return 0;
-> +}
-
-...
-
-> +	adc->clk = devm_clk_get(dev, NULL);
-> +	if (IS_ERR(adc->clk))
-> +		return dev_err_probe(dev, PTR_ERR(adc->clk),
-> +				     "failed to get ADC clock\n");
-> +
-> +	ret = clk_prepare_enable(adc->clk);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to enable ADC clock\n");
-
-> +	adc->clk_enabled = true;
-
-Repeats what __clk_is_enabled() provides.
-
-> +	ret = devm_add_action_or_reset(dev, ma35d1_adc_clk_disable_action, adc);
-> +	if (ret)
-> +		return ret;
-
-...
-
-> +static int ma35d1_adc_resume(struct device *dev)
-> +{
-> +	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-> +	struct ma35d1_adc *adc = iio_priv(indio_dev);
-> +	int ret;
-
-> +	mutex_lock(&adc->lock);
-
-What's wrong with guard()()? Yes, for resume triggering support this needs to
-be wrapped. Same Q to other explicit mutex_lock() use cases.
-
-> +	ret = clk_prepare_enable(adc->clk);
-> +	if (ret)
-> +		goto unlock;
-> +
-> +	adc->clk_enabled = true;
-> +	ret = ma35d1_adc_hw_init(adc);
-> +	if (ret) {
-> +		clk_disable_unprepare(adc->clk);
-> +		adc->clk_enabled = false;
-> +		goto unlock;
-> +	}
-> +
-> +	adc->suspended = false;
-> +	mutex_unlock(&adc->lock);
-> +
-> +	return iio_device_resume_triggering(indio_dev);
-> +
-> +unlock:
-> +	mutex_unlock(&adc->lock);
-> +
-> +	return ret;
-> +}
-> +
-> +static DEFINE_SIMPLE_DEV_PM_OPS(ma35d1_adc_pm_ops,
-> +				ma35d1_adc_suspend, ma35d1_adc_resume);
-
--- 
-With Best Regards,
-Andy Shevchenko
+Thanks,
+Joseph
 
 
