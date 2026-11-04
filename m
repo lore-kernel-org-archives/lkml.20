@@ -1,111 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793809302;
-	b=3LcSNcUl0EZGRUK1XRWjNFU+CDwTZ8H/kuW4OcjJKIz0U+iYs/5jd49tkhhRju92/ZSH
-	 Cymbo53csAj6BKy1/qXkK5gK4MM9fU0Wk1aqhBen+l9CoNofrwXquPf3cVOii0wdqfDsg
-	 sspVx0orVwrsjUPFjd6EOFZJP33x3A5q/GBHPZORdUrnnEH7hr4hnxCNpy2L0vT234OKN
-	 VacRgsTmqK4FAYzaC6V8VZ58UFORVLia/PVpLHiQsUqGIvIVkatfRqViFDUKadDkXIfZT
-	 kMsYcnSpQ7K+xx7DGLdD2+pFcySMB574T8cVQAZ8ROgYEoipB3Ki2Z31KpwCc1OV7jQ==
+	t=1793809303;
+	b=h9tin7epyBWDyDnFVMM+vVwv0szzHe5V6orH7Fyh1QgH13vxX3BFQmyqMtOzkfCD4wWB
+	 pxEq8All98hJxtOgCfp3m31k20qHLuC31ut9B+XoLk4bTYvF7JWGfxafnpKXlis7LVeFv
+	 rwsCz9N+FJmuTazXHoNdROjeyCkk2dyr39t7p+0Zkvj1qm/iDRqoRcMLlIgXbWqyC/S9o
+	 tUJqmDJefB/WEu6u9u3UnTWh0BX9AaJP5pWNMGsGuRcZAnmAE7HXWIRe3J3IWXPAkC+yF
+	 YtwgSf8vgPQxz+tt4TAfWq83XKvwlBKW4CHXKvk2LMEvwHhbEHzmp+8om/PINsIdf4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793809302;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=hiY9I6KwNBi/iiyCvRtimmzKZzjCthBLith9u4obNsI=;
-	b=Dmq+uHyDLW7DfOPXGhD4Rx/8FXbAgJXGIXqGfV3yZKMHJrcoDDSB6gdH3+2r63+ZEq5v
-	 vxRVdrEWZMT3QlIHI0KXW2R2/d817AtDihw1j1ihgLU5duYmREDt6gbd8R+9x2r63YPSM
-	 StdnMEfePfkUb+WZrC2PQYwuaAk9E/FD+g7tL3CnbI3KhnCsHbEZCv20HrlEXMgCPX6ai
-	 Ozt9TKKMyVntLQ6xFRupRGNhgPZBcu0Dn2EuD4VwiRLTQAahkqvlbE6SqLHsdxQpUWjkp
-	 TAP73czQq1hDraekoKJFCCFBCQt397iEOgtX30yjwjoHMvDFLnX3vnudLxTd9Tjw3dA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793809303;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=oTxUofJiIXbPqYg2BkbDaFVJoZFZ6x++eMO36ELTr0w=;
+	b=t+OlmePXsHJMzUs8x1Lj3MWG7dGTJorxADDBd0LnYB720nsgfRFrGNhdeuzEBw2f1WEm
+	 ommu7vFuChr1w8U7QC8IlpBNUKgAVYtsVd/zjXHos9AJm8U741FIy+7g29HLWKeILxgUM
+	 415i5yB3pcr0Zx5d9E2daT+OBuUjj43rsUm/Ep9mwyNB5Bg/9p3GsMKP2Xzyvt6zSC2nr
+	 O7DH3v1wh8DatnX83ZRE94Y19PM3n48IUbupFturzHqupAScfvBdG74FrhnMNufWx9mj9
+	 dREDxOD8w3+/RdP8rMP3X/AAWENFnPCFzRxjqp4SZHSX7bqGs8l2jKh9oPT7/xIEReA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=khynQdHt;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iLN92zQa;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GupS9U0Y;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51BF4606AAD2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2A64606AAD9
 	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:21:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51BF4606AAD2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=khynQdHt;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iLN92zQa
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4Fj7jc2853346
-	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 16:21:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=hiY9I6KwNBi/iiyCvRtimm
-	zKZzjCthBLith9u4obNsI=; b=khynQdHtxuXUlWFgn8YrPPweRXKoorWUjVEj9R
-	g+naBxh1weCTOQl3ix2Yq8nKsy+wgbqksAcUP8/Ww5M8BBtMUyph/q+2MRqpQLPK
-	ynp3STPPgZYOj9gFXPWmFxgr1Mi5mk9sqfDwHomtckz8SG3hFqM7zt1VoYQkOGas
-	hz4zEm2yZU7vbHRqvEPPkdXNBq+b/OawJLTQYoPQBDbPF+cBeIhy6hQF2rJJTzoj
-	f0rgRN5Gz1kVwy+Pili1w5wR3rDkzvxkGC8PEoeGmlL258P8eKlTqBxyyXCl3WBO
-	BeJCZWSqF1nWCHUOlnuz6PVx/Hu+vrDXsJCj7JqcGLvsr3Ug==
-Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqn8mvruy-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:21:40 +0000 (GMT)
-Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5eacc615f73so752967e0c.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 08:21:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793809300; x=1794414100; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=hiY9I6KwNBi/iiyCvRtimmzKZzjCthBLith9u4obNsI=;
-        b=iLN92zQaYgz5ljd3Dr/894RuBgk0jDNoizjVY3JidRAuyVKXb6LlzBkKf7BMB59JO0
-         pHhPhR/ShoUZHY3yVMGTOrnRE0wk+dFXSXNKszpD+vQEngzNw49ewU+QEr5IEb7CKh0o
-         +2R7LAlVqVY5ciJm11u1X2jkGsaK5MonSDQS/6TJt1Lhm9ub7dbZF0bF9Kva2SVxEYfO
-         pixXHzgxzIMBmL84d99j0gPzPyKjaPiocB7Dkgp/vgkD8H26zR2Jjm6+pdvEhpUIlPtg
-         lxBwxYglsvbPZ8TFqq7j+EEgHZJ5C+HyvzqQtriT4rM5FUQJAewmK+BuKSgUKB+Eae7E
-         JzwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793809300; x=1794414100;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=hiY9I6KwNBi/iiyCvRtimmzKZzjCthBLith9u4obNsI=;
-        b=ptWjRqtbE1Kfiv8PiI/tJoaWX269TtyV8esbzT+U1Zsav9Y/fp4zPoax52MPx1hSxG
-         5ThXFphO5EeMf/h0Pd80vI3gTHpUMdhx7aVRmSzoXgrNzM91Hmsice0jcIU4wUhYU7Ak
-         YXigtFGsW02YJQOdQPoPflUTGDnLKot+J5d7KoQMTgjsjIUtYtnl13IO+EK3tvZMMS9M
-         zEMl+XBdBer/4D6vPSHD6ourTJVs123d80pxohe27IKlGpdejqEiCSSGDh2DnZZC8Oiq
-         nkkGlEgLza+VlCfsS3VFjEuTxtlsM6xM4o0d8CnjpQdEWESmb45nyVkjYhtnjNSYbENY
-         2BCQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxDUI9Q1HDXHUcYgK+XRW1dYYuY7pB6kYZeYtBeMewoh7RvbViqF7SXPewPUh/vHCLPXdvr4JVcvC3kkcA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/09DKWpnwZPbOgrn7LkRSvn/EUHS7Wb+r4+zraqaEEjRIuFZkG
-	8JMYE80h/05KIA10KPRtvTxWLO7hyWz1DUFZU4N+XedwyrGt/0UXKqzrQqyCzIAk3jh0MCQusGN
-	wBm3x063xO/FBclZHd74P805xupIKfDUSRiJywOqOK+xXCRG1H1czcOA4To5by4IVZIs=
-X-Gm-Gg: AYBFou2dtHD0JbbgbA+uFY8wg0h95eSmloTbikOLYsHKHJ/gmp0OSm+m7BLSPZGN2vO
-	ABVpYVYXrAt1sM//gIOE8NBKpzOmHTAVZlJdy9bhPVh4NsszPxMLw+TJkHj7KEBqIOY5wA2p7r6
-	6G4Ra38VZWc0iBoAvu+tzANcfxKakOeAtR3gfOy+ooR6RSCLXTgZ2jZNs/29X4JC7xu1zNyUDi2
-	gVoRXya8mfyZxZXMTm2dDlh5HTadjiQunqnHHk5nrMagfVDSCbLBJHwGtUS3MVNJQtJLKOIt5kW
-	GN8/8jN/xqB+BTmjoe5UYtXPiMeB8Q3QhgpwWdsOE5P/5hvWlk61TPh3vSMSlRcZA6fhOXPCd+F
-	is5HrO8YRIhrg422S9kHvPkfpv9WuDXgv3gzBpxiy3XDReZMk0TlkgI9C3dYhyGZ4L0u3a2ptyo
-	ol2Q==
-X-Received: by 2002:a05:6122:1346:b0:5ea:e197:93d9 with SMTP id 71dfb90a1353d-5ec689cf04dmr7881262e0c.19.1793809300275;
-        Wed, 04 Nov 2026 08:21:40 -0800 (PST)
-X-Received: by 2002:a05:6122:1346:b0:5ea:e197:93d9 with SMTP id 71dfb90a1353d-5ec689cf04dmr7881216e0c.19.1793809299708;
-        Wed, 04 Nov 2026 08:21:39 -0800 (PST)
-Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2aaa4b91esm138706365e9.11.2026.11.04.08.21.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 08:21:38 -0800 (PST)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Wed, 04 Nov 2026 17:21:34 +0100
-Subject: [PATCH] power: sequencing: pcie-m2: fix use-after-free in
- pwrseq_pcie_m2_vregs_enable()
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GupS9U0Y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2B571F00AD9;
+	Wed,  4 Nov 2026 16:21:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793809302;
+	bh=oTxUofJiIXbPqYg2BkbDaFVJoZFZ6x++eMO36ELTr0w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GupS9U0YAcqJehg+967vJ9c2lH9DCDpH58wCbH+fJDicYzsen9Uk889ceJx78Wg4y
+	 dmTupC+byOZxCM457wkNA6bgd1Vc+qoMvVkCX1xkarG1W9uDMVI1U+ufLWJsz+Haw+
+	 LIRW3/s/Or6NqvTSM0bgRGHfpbJKPrB3pwoLHVrEwwjmeMbs2QJPYMk9qSjas9A/xd
+	 E+kbyRAkfsGidRvwQZUpMWCxMaYBiSk8K7eOVVhT/+IK/ZHqw9rxCa+Huv2nHSJgTw
+	 N5PBdf3l4im3Aa8c9x2N+jEEWunnsrm6Q8/yHb1Dxfz4bIULYPLuMu+DqeV0S/yMvL
+	 lfeZIVKl51a1w==
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	linux-kernel@vger.kernel.org,
+	tzungbi@kernel.org
+Subject: [PATCH v2 2/2] reset: Fix circular locking dependency in reset_controller_unregister()
+Date: Thu,  5 Nov 2026 00:20:38 +0800
+Message-ID: <20261104162038.48622-3-tzungbi@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261104162038.48622-1-tzungbi@kernel.org>
+References: <20261104162038.48622-1-tzungbi@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,184 +59,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-pwrseq-pcie-m2-uaf-v1-1-0ae1bbea9533@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAI1b62oC/x3MTQqAIBBA4avErBtQi6KuEi3ExppFZko/IN49a
- fkt3ksQKTBFGKsEgW6OfLgCWVdgNu1WQl6KQQnVSSla9E+IdKI3TLgrvLRFLYUSg2lMu/RQQh/
- I8vtPpznnD8lY35tkAAAA
-X-Change-ID: 20261104-pwrseq-pcie-m2-uaf-a10209c3c4d7
-To: Manivannan Sadhasivam <mani@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>
-Cc: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-        linux-pci@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4813;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=jrKYHbzHuQtQDH1LJjU1wsAH7+nStAGDkNwI3EwYo/4=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq61uRKXGWBdRrvCWYVcvySwfBACYO/OgtWSoo1
- sH3o/YY8CaJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCautbkQAKCRAFnS7L/zaE
- w/93D/429Cp5VXKSuk7vHjuZgz2bxK6OBXmyg+UxhWJNt3a3nWo8uf6x/Pdky9bSXKvULi3jB+5
- o83Lo4ohWZAoEzbrYlAJgcphlNxtxzWuZMMgP6yVmfK5UDdpxZYHtvvYTmY4ykmv88r/I99dDTN
- CAqKLvRruicC1Wk6pVmdYgMQ3fnHeDGE8bcgWrwT6SROynUzMKqRhLToaq82aIj0IGXUxISBE7d
- 73/iOuPMsuEUWUB0ueDIq74J4dHhedi5HLW+WKClWxJBqok9EOUhImsfTxbgNqnSYM+e+sy9A7E
- 1chdLNuXKtEfz/lobUGwVlUXaE6/k5tdSfOgeptO2HxaWbktFFoN8ZTkfzJLtwihwFrR1915u+C
- 0nQaRYajsErdHDAt4xZhplP6rKrGnisuM4usHmgm5WXdw3EFE0lxIg9OkDhfF2boEh4F+3c3ma1
- tTaSZ8tdvhUT8fDQIl7yJCamrScPkxjNV/vzdOGl+37wOUsLZHMkIe6+eNf/scoMJitD+DBuzcv
- bp8UODhN8pT25NIhIBhyhPl9vK+2JHwsjKJuAcdE7tEg71E5vA4zMWGammiRjVtIdRsn605AWKb
- Fe5LYBkw8SKoIkP5FSMYwinDiYjhVdbdaOhdKKtN6CDnsl13tR3xHIqIO4UwuB0NqOofDWVFy0U
- nZMv1f6vrg+A/bQ==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-GUID: E_D9KhIXtpuhpkpWEyU8r9XpL7Vrg5Iz
-X-Proofpoint-ORIG-GUID: E_D9KhIXtpuhpkpWEyU8r9XpL7Vrg5Iz
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA2NSBTYWx0ZWRfX/+mCiI7yq3Aj
- d/ipKsuVQQHs2lF+Zn0WwMQfLAXT2xgjmJRxAzacJ/Egeur4eH/1UVDjXOmzqWjX/xP+WHSVEBz
- w02+VmoO4BS+fq0Qy/0J9sm/PNB+2XHO+ECa1EMWe0Y4F7/MYJqWUNlbFWt3ZhaeffIHQAxZoy+
- yVaWDJT4msHBUcFD16Yp0Qa94g5YDbWzNpXwf6B9/cbDhaHcPXwsdg7FejnN+BCTJFTDHivCcvz
- vfWKiZ8FyHM6dT6t2+42DCVziErNYeYnnoL15J34dhb78kkGjz7tDkU3R/5m+alSg7RLa6arB3t
- cYrsVphZjvJDeDNl8AhOpEDNhGdttlEYCZz484bd9zbr1oKPOZKbr1oEoTt+O3FCVmq75N3br+i
- j/7EbtV5UMXIGNjfi47F0r8ksqBOSfEw3TFhLikHWF1JpPEsipYV3nQaZY7lLpEefYbP1TvuHCT
- qdH9JytS5268MoZy6RA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA2NSBTYWx0ZWRfX6pgyUiUKcasl
- dycOic9Fh2gb3SkvrKxrsJQXsKthZpt1Rxv9B3488pUZJVlX7hRth8oTewmPjh7PRd4F0FdUVfX
- fdx0Msrj1hDy0xSydWVMFRlSfOcJuwY=
-X-Authority-Analysis: v=2.4 cv=HbWB3SE8 c=1 sm=1 tr=0 ts=6aeb5b95 cx=c_pps
- a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=c92rfblmAAAA:8
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=mM_0bNS9DA9p5V46oFgA:9 a=QEXdDO2ut3YA:10
- a=tNoRWFLymzeba-QzToBc:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_05,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 adultscore=0 malwarescore=0 suspectscore=0
- clxscore=1015 spamscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040065
+Content-Transfer-Encoding: 8bit
 
-During device teardown or on the probe error path, a concurrent consumer
-access triggers a use-after-free in pwrseq_pcie_m2_vregs_enable() or
-pwrseq_pcie_m2_vregs_disable() due to a lifetime inversion between
-devm-managed device registration and manual resource cleanup.
+reset_control_acquire() and reset_control_put_internal() acquire
+`rcdev->lock` inside the `rstc->srcu` read-side critical section
+(`rstc->srcu` -> `rcdev->lock`).
 
-The driver exposes the power sequencer using devm_pwrseq_device_register(),
-meaning the device remains fully registered and accessible on the
-pwrseq_bus until the driver core schedules devm_pwrseq_device_unregister()
-to run after pwrseq_pcie_m2_remove() returns. However, the driver performs
-manual resource teardown within pwrseq_pcie_m2_remove() and the
-pwrseq_pcie_m2_probe() error path, prematurely destroying the backing
-regulator array.
+However, reset_controller_unregister() holds `rcdev->lock` while calling
+synchronize_srcu(&rstc->srcu) (`rcdev->lock` -> `rstc->srcu`), causing a
+lockdep circular locking dependency warning and a potential ABBA
+deadlock.
 
-This creates a narrow vulnerability window where the globally visible power
-sequencer is backed by freed memory. If a concurrent consumer invokes
-pwrseq_enable() during this window, execution is routed to the sequencer
-callback and dereferences the destroyed ctx->regs array, resulting in a
-direct use-after-free and a kernel crash.
+Run synchronize_srcu() outside `rcdev->lock`.
 
-Schedule a devres action for freeing the memory used for the regulator
-array to ensure it runs *after* the pwrseq provider was unregistered.
-
-Cc: stable@vger.kernel.org
-Fixes: 3f736aecbdc8 ("power: sequencing: pcie-m2: Create serdev device for WCN7850 bluetooth")
-Closes: https://sashiko.dev/#/bug/linux-bd17e5b1-a000-4717-b392-0ff0c2a9c376
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Fixes: 44a0acb2caca ("reset: protect struct reset_controller_dev with its own mutex")
+Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
 ---
- drivers/power/sequencing/pwrseq-pcie-m2.c | 36 +++++++++++++++----------------
- 1 file changed, 18 insertions(+), 18 deletions(-)
+Test:
+With "[PATCH v3] reset: Add KUnit test cases"[1] applied:
+$ ./tools/testing/kunit/kunit.py run \
+        --kconfig_add CONFIG_RESET_CONTROLLER=y \
+        --kconfig_add CONFIG_RESET_KUNIT_TEST=y \
+        --kconfig_add CONFIG_PROVE_LOCKING=y \
+        --kconfig_add CONFIG_DEBUG_KERNEL=y \
+        --kconfig_add CONFIG_KASAN=y \
+        --arch=x86_64 \
+        --raw_output=all \
+        reset_test
 
-diff --git a/drivers/power/sequencing/pwrseq-pcie-m2.c b/drivers/power/sequencing/pwrseq-pcie-m2.c
-index 56c5d51293c10faba6c978265bcd07a6980d2a52..a794e2ad6a9c8cc71b1ca426df92abdaef8aa85b 100644
---- a/drivers/power/sequencing/pwrseq-pcie-m2.c
-+++ b/drivers/power/sequencing/pwrseq-pcie-m2.c
-@@ -533,6 +533,14 @@ static int pwrseq_pcie_m2_create_serdev(struct pwrseq_pcie_m2_ctx *ctx)
- 	return ret;
- }
+[1] https://lore.kernel.org/all/20261104160123.6784-1-tzungbi@kernel.org
+---
+v2:
+- Use list_move() to make the intent clear.
+- Defer reset_controller_remove() after synchronize_srcu() to avoid race.
+- Drop lockdep_assert_held() and add comment for reset_controller_remove().
+
+v1: https://lore.kernel.org/all/20261102155840.20376-3-tzungbi@kernel.org
+---
+ drivers/reset/core.c | 26 ++++++++++++++++++++------
+ 1 file changed, 20 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/reset/core.c b/drivers/reset/core.c
+index f0ab09795ae1..4a582721782f 100644
+--- a/drivers/reset/core.c
++++ b/drivers/reset/core.c
+@@ -163,11 +163,15 @@ EXPORT_SYMBOL_GPL(reset_controller_register);
+ static void __reset_control_release(struct kref *kref);
+ static void __reset_control_free(struct reset_control *rstc);
  
-+static void pwrseq_pcie_m2_free_regulators(void *data)
-+{
-+	struct pwrseq_pcie_m2_ctx *ctx = data;
-+
-+	regulator_bulk_free(ctx->num_vregs, ctx->regs);
-+	kfree(ctx->regs);
-+}
-+
- static int pwrseq_pcie_m2_probe(struct platform_device *pdev)
++/*
++ * Removes rstc from its list and drops the references on rcdev's owner module
++ * and device.  The caller must ensure rstc->list access is serialized (e.g.,
++ * by holding rcdev->lock or moving rstc to a private list) and that no
++ * operations on rcdev via rstc are in flight.
++ */
+ static void reset_controller_remove(struct reset_controller_dev *rcdev,
+ 				    struct reset_control *rstc)
  {
- 	struct device *dev = &pdev->dev;
-@@ -561,21 +569,21 @@ static int pwrseq_pcie_m2_probe(struct platform_device *pdev)
- 		return dev_err_probe(dev, ret,
- 				     "Failed to get all regulators\n");
- 
-+	ret = devm_add_action_or_reset(dev, pwrseq_pcie_m2_free_regulators, ctx);
-+	if (ret)
-+		return ret;
-+
- 	ctx->num_vregs = ret;
- 
- 	ctx->w_disable1_gpio = devm_gpiod_get_optional(dev, "w-disable1", GPIOD_OUT_HIGH);
--	if (IS_ERR(ctx->w_disable1_gpio)) {
--		ret = dev_err_probe(dev, PTR_ERR(ctx->w_disable1_gpio),
-+	if (IS_ERR(ctx->w_disable1_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ctx->w_disable1_gpio),
- 				     "Failed to get the W_DISABLE_1# GPIO\n");
--		goto err_free_regulators;
--	}
- 
- 	ctx->w_disable2_gpio = devm_gpiod_get_optional(dev, "w-disable2", GPIOD_OUT_HIGH);
--	if (IS_ERR(ctx->w_disable2_gpio)) {
--		ret = dev_err_probe(dev, PTR_ERR(ctx->w_disable2_gpio),
-+	if (IS_ERR(ctx->w_disable2_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ctx->w_disable2_gpio),
- 				     "Failed to get the W_DISABLE_2# GPIO\n");
--		goto err_free_regulators;
--	}
- 
- 	config.parent = dev;
- 	config.owner = THIS_MODULE;
-@@ -584,11 +592,9 @@ static int pwrseq_pcie_m2_probe(struct platform_device *pdev)
- 	config.targets = ctx->pdata->targets;
- 
- 	ctx->pwrseq = devm_pwrseq_device_register(dev, &config);
--	if (IS_ERR(ctx->pwrseq)) {
--		ret = dev_err_probe(dev, PTR_ERR(ctx->pwrseq),
-+	if (IS_ERR(ctx->pwrseq))
-+		return dev_err_probe(dev, PTR_ERR(ctx->pwrseq),
- 				     "Failed to register the power sequencer\n");
--		goto err_free_regulators;
--	}
- 
- 	mutex_init(&ctx->list_lock);
- 	INIT_LIST_HEAD(&ctx->pci_devices);
-@@ -613,9 +619,6 @@ static int pwrseq_pcie_m2_probe(struct platform_device *pdev)
- 	pwrseq_pcie_m2_remove_serdev(ctx, NULL);
- err_destroy_mutex:
- 	mutex_destroy(&ctx->list_lock);
--err_free_regulators:
--	regulator_bulk_free(ctx->num_vregs, ctx->regs);
--	kfree(ctx->regs);
- 
- 	return ret;
- }
-@@ -627,9 +630,6 @@ static void pwrseq_pcie_m2_remove(struct platform_device *pdev)
- 	bus_unregister_notifier(&pci_bus_type, &ctx->nb);
- 	pwrseq_pcie_m2_remove_serdev(ctx, NULL);
- 	mutex_destroy(&ctx->list_lock);
+-	lockdep_assert_held(&rcdev->lock);
 -
--	regulator_bulk_free(ctx->num_vregs, ctx->regs);
--	kfree(ctx->regs);
- }
+ 	list_del(&rstc->list);
+ 	module_put(rcdev->owner);
+ 	put_device(rcdev->dev);
+@@ -180,6 +184,7 @@ static void reset_controller_remove(struct reset_controller_dev *rcdev,
+ void reset_controller_unregister(struct reset_controller_dev *rcdev)
+ {
+ 	struct reset_control *rstc, *pos;
++	LIST_HEAD(reset_control_head);
  
- static const struct of_device_id pwrseq_pcie_m2_of_match[] = {
-
----
-base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
-change-id: 20261104-pwrseq-pcie-m2-uaf-a10209c3c4d7
-
-Best regards,
+ 	scoped_guard(mutex, &reset_list_mutex)
+ 		list_del(&rcdev->list);
+@@ -196,13 +201,22 @@ void reset_controller_unregister(struct reset_controller_dev *rcdev)
+ 		list_for_each_entry_safe(rstc, pos, &rcdev->reset_control_head, list) {
+ 			kref_get(&rstc->refcnt);
+ 			rcu_assign_pointer(rstc->rcdev, NULL);
+-			synchronize_srcu(&rstc->srcu);
+-			reset_controller_remove(rcdev, rstc);
+-			if (kref_put(&rstc->refcnt, __reset_control_release))
+-				__reset_control_free(rstc);
++			list_move(&rstc->list, &reset_control_head);
+ 		}
+ 	}
+ 
++	/*
++	 * Run synchronize_srcu() outside rcdev->lock to avoid a circular
++	 * locking dependency with paths that acquire rcdev->lock inside
++	 * the rstc->srcu read-side critical section.
++	 */
++	list_for_each_entry_safe(rstc, pos, &reset_control_head, list) {
++		synchronize_srcu(&rstc->srcu);
++		reset_controller_remove(rcdev, rstc);
++		if (kref_put(&rstc->refcnt, __reset_control_release))
++			__reset_control_free(rstc);
++	}
++
+ 	mutex_destroy(&rcdev->lock);
+ }
+ EXPORT_SYMBOL_GPL(reset_controller_unregister);
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+2.53.0
 
