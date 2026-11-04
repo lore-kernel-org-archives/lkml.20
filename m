@@ -1,79 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793794412;
-	b=H0FgEga5WW7ATl0VLKQoL6XND81k6iHyLGnx1RQooBS5Eoyt3IBUXC9GWrZP78ubLpUw
-	 TGvDZ1b/iHbtdllYOOU3VPHjacIAzBV62SzO2VY+CnREHeUgJUD835lsHS1aIo8es3buG
-	 vkteENQkulcrzKFPbV6msMzlom0GiRg2tOZ9Zdyicnr2J+Qo+q/GQD+xMVwI2KkwpbOOp
-	 7GvjovAt5T+Grh5Igro/dpbKj1+MhEythGSnjTLHspev8lzJg5L7uTWtpLpZnXStiLa/L
-	 lM1Dco3CZdbp1rIk2VJ7ChCl51/Xoh1BXNhsLUBgPUSZC7LaebmT1ReN3L652JcYc2Q==
+	t=1793794560;
+	b=e9WiUBLXT0pAFBIWBKr6nS4oYazXRmbUBogoZC7Nmuuwc0KCcgXosU0lQEIOeZgvkJP6
+	 0iv8v08YLPj6zsLxmaNvEodTPw3SFxp6YkaM0yjEm8fym5FcpLswdoxtENCRjd55diH58
+	 gW1eJEcM3oOviEGVfsME+X/r0106RqBYq8j5+/YoWJufrXFtBy3tlrWrVBzAlBN4TDEDa
+	 V5FpYcuxCG52L8iQD7hzU9CAcHoYl8GK3rgw7E2XdpnJJ+v63ypAcQp+R/VfN1qfcK3Nf
+	 dzm1Vc9o34zlQO2Kr6rP8sjfu9UiRUs9ACf6soueDkwOOQmpCKnguzCrlgTxuh6k05A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793794412;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=AeYVJX5tfRvbp/AEWfYF8xWqbqGtS5WJ9Eh8ZKqwqd0=;
-	b=cnjtf5pPid9JjX9riPr2/rTU0tNv27RnpDvJHLyXOM+IHoRIf1DrhLngGrxw2n/yCLxr
-	 Eb6YK8pZd/asq7GDQnJd/NByi+LWasynWbak62Jr/1XPEQ5kJ1zO/gstAw2Sp3V+dmAwl
-	 Osr3UgUegYqdN80LQfIaMOmD2CuKnKdRag/YTDxasigCcSR770b3m3JmguBZUcq58dZg8
-	 OE+fibBetnnWISsGhp0a8tUR/Yo1akrwnU5gvc8SSNdKHEKF1RTVW1MLS3h27u8EebH54
-	 lAjJGs7tnjVVnxi6WBMDoCHfij+ymTEU0ycJcOSjcqxY8n5T+TzIGUrxvUdCk8n4hSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793794560;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer;
+	bh=KbmkajyfFV3udbEtJGrmA3+mmB8dwA1xxk3Neh9mt9o=;
+	b=Af5U9ZU8KMeVAnkh0az+KSyQJn6/OMG5LicwjHTWa7FKxP9Tzl8WErGPR5RWZ81lUtQU
+	 ig66hkyI9MVIYgM0SBwH88nvHCYSlIvhAo4Ee9AmprtcJ1gzhOngysR/ZOEz8OMWqZmlg
+	 P4JyJRKkm2kjQKw4nthZloOVMxZdP+P6WIoiJLLVBo15URj0lLx8EdSRAKaZMPRkvXEir
+	 LSZU6VOWY6xG+lKe6Np+1Nj2+9zqXSNpNxuU6/1jX+dkrQxTTlwIUVEpfRkq3cf6d+ZaY
+	 5MGMetBxtAaKFEPXRrhgWapAFLKNJtVebT3Tjl23oyGpeNi4NAPLSXlFjKcz0ftAr1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WdBVSscq;
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EUEur2Jp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2428606A32F;
-	Wed,  4 Nov 2026 12:13:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2428606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21541606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 12:15:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WdBVSscq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793794411; x=1825330411;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=tZgGqzxXFoY4JHMgg+OYm9ErqS2m/vCzocnAsDoa9qk=;
-  b=WdBVSscqdU4t/e1ASFJI+GPn21UiCZ+rpILIAb3Vgwthmmq9LafbrApt
-   qufFLhzYOYnI18nf6ctywQluEyzY6jgAKKEMuTBwomCrIrWfRRr4QqTey
-   tZ9qIQtENM/DB/iSia37Mep3Bpp/ptBruAkcLbiGkvqVrwN9eYtHNYM7k
-   IAM6a8/EK5FeRL0GA9Yq6Fkhv6vQH62rb+8BOE+wXWbT9gQuapzJIjD0T
-   QKfNiWGCH0N/39tmcGGIzrKgrA2ARRVCzzZ4XKjQlDY+yksx5B/1oW0mC
-   E5bh7BrMnS5E2HIQCtIzRIAoQx4tBpD4FKkdP2zwb6zIzL5kmxh+evO4H
-   Q==;
-X-CSE-ConnectionGUID: GOgR/uDvSFqYoTCIbZHUAw==
-X-CSE-MsgGUID: mlMFhM15T3OAGsN7Kqcv8g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2446236"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2446236"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 04:13:31 -0800
-X-CSE-ConnectionGUID: yxxE5fcIS3WsDXJ4z6xMBA==
-X-CSE-MsgGUID: LqVR650HTza9C5X9xYmt4Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="6588985"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 04:13:29 -0800
-Date: Wed, 4 Nov 2026 14:13:26 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>,
-	Janusz Krzysztofik <jmkrzyszt@gmail.com>,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 5/7] gpiolib: use __free(gpiod_put_array) in
- gpiod_get_array()
-Message-ID: <aushZraJyTywcwh4@ashevche-desk.local>
-References: <20261103-b4-gpiolib-free-v2-0-ea46767c9cf8@gmail.com>
- <20261103-b4-gpiolib-free-v2-5-ea46767c9cf8@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EUEur2Jp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C31A21F000C1;
+	Wed,  4 Nov 2026 12:15:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793794559;
+	bh=KbmkajyfFV3udbEtJGrmA3+mmB8dwA1xxk3Neh9mt9o=;
+	h=From:Subject:Date:To:Cc;
+	b=EUEur2JphXwpoZ4tHxAj2WhlM0C5UdBaVipHPNJ080rKeMF2BCPCCK8bv4Uody99k
+	 nkuTsM1stI7355+eJsS/UTQyky4ILP8cyOjCi9VheSX4Hyt+AU0nTo5SQQZo7X1+cB
+	 1qbJZrukyHPwuOl9BTJ4ex0RNvIplJCFIKdnjQiqN6soqpaKhJdDWoabANpZOSTUz9
+	 +FtH4IFYzZ92nmIvdK1K2aeWWntHQqBuQrN4nrK0WbctOMFKnRD9pX14Dkxppz2AL4
+	 EwAuZrV3wXPqM/CVVfig81ZXBYCQLIiJ2m19oyyDG7Ds1Kg/AZCElCU7FYrvXLJp+5
+	 Cy/eGuRmQfusg==
+From: Linus Walleij <linusw@kernel.org>
+Subject: [PATCH 0/2] ARM: configs: Enable the TEO cpuidle governor in
+ multi-platform defconfigs
+Date: Wed, 04 Nov 2026 13:15:53 +0100
+Message-Id: <20261104-multi-timers-cpufreq-cpuidle-v1-0-c7fd14706715@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,43 +54,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103-b4-gpiolib-free-v2-5-ea46767c9cf8@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MTQrCMBBA4auEWTuQnyroVcRFTSY60NY6SaQQc
+ vemrh7f5lVIJEwJbqqC0I8Tf5YOc1Lg3+PyIuTQDVbbizF6wLlMmTHzTJLQryUKfY9ymAjPYbR
+ OOxeuzwh9sQpF3v77+6O1HW0esF9uAAAA
+X-Change-ID: 20261104-multi-timers-cpufreq-cpuidle-5da23033d9bf
+To: Russell King <linux@armlinux.org.uk>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+ Anna-Maria Behnsen <anna-maria@linutronix.de>, 
+ Frederic Weisbecker <frederic@kernel.org>, Ingo Molnar <mingo@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Linus Walleij <linusw@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
 
-On Tue, Nov 03, 2026 at 07:40:33PM -0800, Dmitry Torokhov wrote:
-> Switch to using __free(gpiod_put_array) scope-based cleanup facility
-> in gpiod_get_array(), simplifying error unwinding and eliminating manual
-> gpiod_put_array() calls.
+Enable the Timer Events Oriented (TEO) cpuidle governor in the ARM
+multi_v5 and multi_v7 defconfigs.
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+The upsides of the TEO governor are described in
+commit b26bf6ab716f27955e2a503ffca1691582127cbb
+"cpuidle: New timer events oriented governor for tickless systems"
+by Rafael.
 
-...
+We need to gain some traction for this governor.
 
-> -	descs_size = struct_size(descs, desc, count);
-> -	descs = kzalloc(descs_size, GFP_KERNEL);
-> +	struct gpio_descs *descs __free(gpiod_put_array) =
-> +		kzalloc_flex(*descs, desc, count);
+Both defconfigs already enable CPU_IDLE and NO_HZ_IDLE. Selecting
+CPU_IDLE_GOV_TEO suppresses Kconfig's automatic menu selection, so TEO
+becomes the default governor on these tickless configurations.
 
-I believe in this case one line is also allowed.
+Leave multi_v4t_defconfig unchanged. It uses periodic ticks, which
+select the ladder governor and give it a higher runtime rating than
+TEO. Enabling TEO alone would not make it the default.
 
-	struct gpio_descs *descs __free(gpiod_put_array) = kzalloc_flex(*descs, desc, count);
+Configuration generation was checked for both patches. No hardware
+runtime testing was performed.
 
->  	if (!descs)
->  		return ERR_PTR(-ENOMEM);
+Prepared with OpenAI Codex assistance.
 
-...
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+Linus Walleij (2):
+      ARM: configs: multi_v5: Enable the TEO cpuidle governor
+      ARM: configs: multi_v7: Enable the TEO cpuidle governor
 
->  		if (i == 0 && gpiod_hwgpio(desc) == 0) {
->  			struct gpio_descs *array;
-> +			size_t descs_size = struct_size(descs, desc, count);
+ arch/arm/configs/multi_v5_defconfig | 1 +
+ arch/arm/configs/multi_v7_defconfig | 1 +
+ 2 files changed, 2 insertions(+)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261104-multi-timers-cpufreq-cpuidle-5da23033d9bf
 
-Reversed xmas tree order?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Best regards,
+--  
+Linus Walleij <linusw@kernel.org>
 
