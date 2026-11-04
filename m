@@ -1,88 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793830662;
-	b=5Br5wWwv1L9IQ9Ges/8/Q3/LrV29cHDhkapGbmGue7YQGpilpX9bBLa8bfTXin4XvjMQ
-	 KZIvrGzIg/6QxZiwLpAB5TIEvU1lJ1wQxTTzi8rfUU8DRYhpcexIoktGGVRvPexIkfzvh
-	 Gyg/V+oI8gau5I66r3Slyc2GmnpLDChkoAfPOToa4wpitBR/WyhM5n7wRxt+31Z85dy/H
-	 edGzFcoRiHuHn4cPEzXSDOZklTEdkvKhjEaAOKcUozQ6QiG1wnJXJeWF492MWFfD3LZCB
-	 5Nwwn0W57I0sb0lYTBFvFeK0Jck8xppnHqikqSY+KJeHPvkGUE9nptDic1EpVw/Xq9w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793830662;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Zy3RXc1tcA1988kqstuh2d2K+SulFtJvQ4wEaNytXWM=;
-	b=QSSHQMKk3bQiAswYCq+ogJSqn+Kljkt573oKMVwzy3w5RE9dnmnx/jJ8H8mlTwVp1fNV
-	 0Gk6t4AVjy6vhbYkZCgEKt+WnobomlOQPoDEWJySCbkFdMB4SnrftlbOz9e/xWXtFi2pT
-	 vVf2DWWMHpBFGEOENaNWEck8UnUk9uMwC2BEzbuvK4us/Z9wCELOZVWvnA0ceGpx+zNox
-	 mO7gmwJeevLgdz2Q0BLYF+NBdF9kwe1vrg+Nv5OTYkFJKtldWbSUuZc5QF2z0S2CH7Ftf
-	 h2kqWSuYCey8CKPACQHJvdjYIve5fS4JiLV6LM+gXRHd3UpwXvhAYwa2XT4NerLxKtA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="qaU5Bh/f";
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.7
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793830732;
+	b=wwdchm3e9rIqAYROoJcStSoPIKlad9lC9S33TNVGGpLdIs2fKrYi3lkUNz3DRDywX+b/
+	 VAiGq32+v1nplIMCF+0KJ+W579FEzav3ZwJSbuHvtAd+4qvZ2aRp+Rencv3DApcLN8mnS
+	 kQzggZZgnbLBTXmvYG9XhjsIcz3aG6t2lSowntY5Xu5Fme+RQHu6nPnAwrulTdFtlinf4
+	 t+AKUX7/BkzoZ39RLZ8nIP+4iBYAjVGHydHHbM358xB503JTNL0jh+TpGvJCoUTJqxxsc
+	 yIpIpF/9k0xvAIInfRHvOdA77ZmS+OJDwK57rSVggT+A5D/FBcUHt8PovbtKxvDZ7kw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793830732;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=9rQUyUQYft7eX/sEgDEjd3ESFb8ULSqrSx2i93/MEas=;
+	b=ux0paIiM6fiipeuERVeLxLls0ZqiqkSpuaK5nb4rLPJH5Hr3uN2zNlO5EVNqdRiEDbey
+	 lGPB+rpXfy8CEsYxgHvgYxnplG+E8aQUXzJUsKkavp+YvfHgawDDdWhmKJ7Lil/E0I0s9
+	 QHqrHYSFauIflSpicMz0NAJbaHEFYuqKx8K/ntsmNsPfho0RRnSl9sIE/du3OvhojYZwc
+	 2hYsSif8YcM6mpVkrgjM5dpQALwyDNpvzhAgOp3ssEc+keUc/t1BRoeAoAP63nAFd9kAv
+	 84sbJ2kwjbbp9dMdPoVl6usBKgTbN2z8PxaYZJ15uRJ2edgQ9HhJwG/VoqG+1slkOdQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=kLHwYUaT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.7
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012007.outbound.protection.outlook.com [40.107.209.7])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B35E8606B2DD
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:17:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B35E8606B2DD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2BB2606A84C
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:18:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2BB2606A84C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qaU5Bh/f
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49d05d51553so7737515e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:17:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793830660; x=1794435460; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Zy3RXc1tcA1988kqstuh2d2K+SulFtJvQ4wEaNytXWM=;
-        b=qaU5Bh/fshSgJu62sZhaTu854dvUlDVHlI1EBoyktBoP8tU3YMkAFiwxwjL8zN5OWU
-         rzSX51M6x0kV0TIyKdNQxU6xZutlYvQeFk5rCEpT4ucJWy0PphtNXcu4fa1op+JHIf6+
-         OXkXRkflD7otwrVlZbDdigMOQU7c35UQa7/BQYUxXj0354/NN+pRKBUmlvDJaiDcQfjY
-         sTy4JM3ukykXS51Rnih0X8VDNN+yCJRGoPf3at4AoM4Pvsw/RsPIpKHbtNU+IVncvwxI
-         7gXHJ5Pp41ajcuxoJtz8iIPebh/jU0+le0WGKtEqCfs0eo454TKm6AO6yyl+6GSjfSTy
-         VNnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793830660; x=1794435460;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Zy3RXc1tcA1988kqstuh2d2K+SulFtJvQ4wEaNytXWM=;
-        b=pnu5s+LN4zN0ZwZgZiKWBnjS5BhDc5tVd/cGdqVN1fvRc/5QyrUSufa9Xs9KN6DCbg
-         zmyc+z9T+Xl1Gzt8JmKxchpnGKVxsIkh8d4xUvcd01flLcNDilm5GDooNzcD9wksyiB7
-         tQgTraRCcFc5A3tM197xEEjzu74/X/KH8GzCya7LiTeZ7jF1qY/BSRASweMhmMbV/cK8
-         pKXRt0zAHGNZ8arqouhi+xuvoIprG0IWtMR6JtmEJ/JaGhAqJQG5RxWKSc3ToBVekXXS
-         jPh0VXDksp30LCbh6zbAuatgqi15cLRrSHrYY5Xvw9YapHEk5uQTFcbdMik/so1RA1fj
-         vm/A==
-X-Forwarded-Encrypted: i=1; AKwUvBwtjUqaiAjxyDwQcXmehgBmYU2y49A83XrcCmyJTHmqTwr86rERwm/hSDbyS6ffW3CWebZn61PNQBUWt/Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9EKoELu8uYtQjV0iPhYtO71fHApSqVpX/u5JDSsMdEp/F84XQG
-	EWWX3tgV3v0U8ZjZsIsPjKgG2c6IxPCcN1c+i3nSIAsf4IrTv4YyHcog
-X-Gm-Gg: AYBFou1a/m0cZOPdykpkHktBWi0i4mimZyYx3sC4tvuHRulZ2oMznwURBO5wVNR42TV
-	APwh/3U/43XnaEveH70RBIvFCYtfO4Ff9hRMsR6UV54q5+zlvGPI7x3WrIXbcBWOYj/HugaDVsS
-	zoBfBw0DcPw3cWoonCjBGxxLEcL7qI8XYQ/dcFIn6e5vk3zMr5Cp+4BOMhgekHOjj/FE2aEXJkL
-	GDa74gWh9mtyofTmV2myM2oM3varirVjyj31m7yUkURtaqaYjY+nmoLgFWVKbUnK69tfr81nWyg
-	b/BPZoWG6Ouj5rXNms0+q7iQb5RYOKh4xW45UNK2XZojU7WzcDaiFGKbfuTTyfdyfaKVCql17ut
-	uQO47O99NVP8B21EJSmGCY4B+G2kAmX+lbYf7laEP7MuhCq5Oj2GW+tN4Rkr19StnuwGAhVgHfS
-	hAtXvRdEHGcQoAyJByLW5TqsSqkpvDs8Jflrcy6oCWBZk2mAi1ReMre12JeY2WP1HjWuqvLfRpx
-	3flX0aQ+hgdJOCL3ZIlLDJ17CIDOywDI7C03fzzriz1RcdqZCUnoxnVgb4ul/7MmeaqMQC4xRur
-	ASeo2YKrI+S/mYWSgTcH70Tl
-X-Received: by 2002:a05:600c:1f93:b0:4a3:2f35:38b6 with SMTP id 5b1f17b1804b1-4ac180f1e69mr370561825e9.24.1793830660020;
-        Wed, 04 Nov 2026 14:17:40 -0800 (PST)
-Received: from [192.168.1.22] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56b78d656sm16661715e9.0.2026.11.04.14.17.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 14:17:39 -0800 (PST)
-Message-ID: <7b3388a4-31c1-4966-af92-367e1219cb42@gmail.com>
-Date: Wed, 4 Nov 2026 23:17:38 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=kLHwYUaT
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JltLpLV5CBNPf21XeZJllvEcBlzSUEK545/CfRDbASepF/40dCa54gu4DRhqr116vOm5QDoJ8BH7oMfbBk/BWM/xV9cMHuLhUXcZxFb45eh1lmpVxtY6Uen4RCdoSjdswXes5id+wKgy/vtY/hWrnDvO/zUlHOQFp4VUokNvtcWOOAsvoO2TZ2LqmJmbJLNbYnKDT6gSnOg0m3jZnxEi1gebKbT0A07O1XnPP7tT6UnwzVUSlF7c1mCV/o88m23eq4/Sl2x2qyY0ahproySGU3FVkD5Vxc+NBMNwZd6RQsg6vj8xLw8O8aBOB9n2LyG49qBcRbvPB7i+Rkivxcg0hw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9rQUyUQYft7eX/sEgDEjd3ESFb8ULSqrSx2i93/MEas=;
+ b=UgM3Gfj8rVNkp2oq4yDCwDDHENM6BZjd1z6Mah5AETJX3RNfBP3jjWfIBa83Q8ajVtYgn3ZpHVBjBGTWLyXUCn3etx+S1RiwFSeokxvesrfnsBPm3z4k06QGTnldmP+2r86PjdJP1dD+kEcUFPujw8dYOnO9DP2po/JNE5NRWnVf4VKDv+6ngYty4xz8DKHpwnAHfkA8vGsig7ZyZ7TTaOfPJ+pfRQhBjcpEmqehnmpZBLpPGYLGnMxZBZLOCOtITquzaa/Z0Mo6dic3yW0quwoWkXp+TiAweZaEsxZ9cLvjpUSgmoG0xvnhNkDpXK6ewsPLc3Xx0IsheFdm0ZoKhw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9rQUyUQYft7eX/sEgDEjd3ESFb8ULSqrSx2i93/MEas=;
+ b=kLHwYUaTIb0C4SC6AgiNnSoNxNeiOYw1yEtwcp0jJj1u7UragfyEuiVPTJbsSX4y+Fk+3YqN2/gRFSq0aEQnjaSoNzKn26IY+s3nuEKIY32wHblDS0TZwWdCn7ENXlXhMbQrlDHyv5IIcObX9KwUetkewOxJp/v7oB80TYFJiSA=
+Received: from CH2PR15CA0007.namprd15.prod.outlook.com (2603:10b6:610:51::17)
+ by MN2PR12MB4047.namprd12.prod.outlook.com (2603:10b6:208:1de::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
+ 22:18:44 +0000
+Received: from CH3PEPF0000000C.namprd04.prod.outlook.com
+ (2603:10b6:610:51:cafe::6e) by CH2PR15CA0007.outlook.office365.com
+ (2603:10b6:610:51::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Wed, 4
+ Nov 2026 22:18:44 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH3PEPF0000000C.mail.protection.outlook.com (10.167.244.39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 22:18:44 +0000
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 4 Nov
+ 2026 16:18:43 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+Date: Wed, 4 Nov 2026 16:18:35 -0600
+Subject: [PATCH] accel/amdxdna: Load the aie4 firmware variant the PSP
+ reports
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,70 +100,317 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] kho: fix bootmem sizing
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>
-Cc: Alexander Graf <graf@amazon.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Chen Pei <cp0613@linux.alibaba.com>, George Guo <guodongtai@kylinos.cn>,
- Kexin Liu <liukexin@kylinos.cn>, Sourabh Jain <sourabhjain@linux.ibm.com>,
- kexec@lists.infradead.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org
-References: <20261104-kho-bootmem-sizing-v2-0-b0d1a834780f@kernel.org>
- <20261104-kho-bootmem-sizing-v2-3-b0d1a834780f@kernel.org>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <20261104-kho-bootmem-sizing-v2-3-b0d1a834780f@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-ID: <20261104-superm1-lms-npu-v1-1-dbffcc5abc23@amd.com>
+X-B4-Tracking: v=1; b=H4sIADqv62oC/yXMQQqDMBBA0avIrB0wSZHqVcSFidN2isaQMSKId
+ ze1y7f4/wChyCTQFgdE2lh48RmqLMB9Bv8m5DEbdKVrpaoHSgoUZ4XTLOhDwto6Yy2Zp9MN5Cp
+ EevF+H7v+b0n2S279beA8L8lBmnxzAAAA
+X-Change-ID: 20261104-superm1-lms-npu-6bc3bbe38c29
+To: Lizhi Hou <lizhi.hou@amd.com>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Mario
+ Limonciello" <mario.limonciello@amd.com>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF0000000C:EE_|MN2PR12MB4047:EE_
+X-MS-Office365-Filtering-Correlation-Id: d3266948-7523-4306-950d-08df3ac196e5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|376014|23010399003|1800799024|18002099003|10067099003|11063799006|261021121427099003|261022075727099003|261022115727099003|261028144727099003|261026121527099003|261026140227099003|261102123227099003|261021123027099003|261009223027099003|56012099006|261022105027099003;
+X-Microsoft-Antispam-Message-Info:
+	Y1ZnVhnNFjueW35oDludX5nP7vt8hMM7V0mXyWxGehstHtrmBPGglsWQPMa4N3h1cyd8VmMcEkI335wzRx/yw/hFx5bH4EG9LZn8dmUqFBqaer9Z6J7zjIPiE0Q+YsmarKkq1156xZt6Vwl1UKP9GznWWa6Ysv+tsMG8Hx0LiJBkY11UIcLRK/8MpIQgZxwWqPzGNkiy1Ki0S5KTKxnhP0Gr2llROz3ZgX7Vb3s0aWPt6rQqprCNSe+/ETlaMblQ3DEFfRUZCKmdPP2wvZPBmPzWBProd4Ov1vUGh6bp4hy2UNV3Q/iAVUzR8q0Worwf1QZw0IQvicnRoDevTI3XN4gji78NALm9kKzJTOdcDhk3aXkZMGGMvjBRajX2jMIwYowmr2ngXQbJZhRC75hU9PHnJKQ+Tw76YqaHZ47w+VJAIpwEawX6uA7nmYTmptDfUn1oB8dpxFf1xJDp0uW1EUNxdcZSkC5cfcfejrSOnWQ6MhxSWdCjDAru7FaJ5DUuFX81cX4vwDRhVcISwOYpdwKREDwHRDP9RByvnKTwPJx283UNF8f3j2xBugLxETy+cb/L+TjXnrlKkOIPBSzKYPZhvEo2QFJIr2bdQgJa8f5QcIsxgxf7ZwGOWffAWOJYlWXsqb81VlU1FnLEZQ2VQjsh7l8U82GETJfE6dJD9j0s/fa+O9ac3qUBDH7AbrF1dlvYPdkkaIbVXm2v/RQgZw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(23010399003)(1800799024)(18002099003)(10067099003)(11063799006)(261021121427099003)(261022075727099003)(261022115727099003)(261028144727099003)(261026121527099003)(261026140227099003)(261102123227099003)(261021123027099003)(261009223027099003)(56012099006)(261022105027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	BeAdaMuBRWD3v3OSFB+7K7gsQv6rXfePNsTCrpjec3CiZafOpBODIbYzgHKpR8pRHgNoiRce0WsSG9ofPEVR3etspMnFkwgUNpGeuoTpx1PStzpvbz8U4aRRbkfJfAGIURS0vLZmTCKNE7UzYdMZmlOGyxt1F9uh8xef50k2oanJxRu+SsqGYGqu195T8Lpd4hHRnNPbtABMSOMxICEhJVNWQWYI9vFbxSrtmYc8lhuBp8NHSqFP6d8MofwcVG4szneiY3x/vlIdX1NApUqJtB+7HqodvfL5BPuWb1kR5FV6j8QN9oTsnri9w/1Lv4aO3jRJ3oCKzVvg9NkZ/8JekOBqz2vn0wR8gXvx/4zKM177K+Bto2x/teyRw+qIpFWSmyeIgZR+ts6G/zU0AFtZNoPij/Pg/kXXEALzjpPxI0RbX1nJHIh2LwvY8l3c4R1w
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 22:18:44.4072
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d3266948-7523-4306-950d-08df3ac196e5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF0000000C.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4047
 
-On 11/4/26 5:50 PM, Mike Rapoport (Microsoft) wrote:
-> Bootmem areas are sized from overlapping views of the memory reserved in
-> memblock:
-> 
-> * the global area is sized from all reserved memory, including memory
->   allocated on specific nodes, so on NUMA systems everything allocated
->   on a node is accounted in both the global area and the area of that
->   node.
-> * per-node sizes are calculated after the lowmem and the global areas
->   are reserved. With CONFIG_NUMA=n all memblock regions belong to node 0,
->   so the lowmem and the global areas are accounted in the size of node 0
->   area and scaled once again.
-> 
-> As a result, bootmem is about twice bigger than it should be on NUMA
-> systems and about four times bigger with CONFIG_NUMA=n. On small systems
-> reservation of the bootmem may fail and then KHO gets disabled.
-> 
-> Make the areas cover separate parts of the reserved memory: the lowmem
-> area covers allocations below ARCH_LOW_ADDRESS_LIMIT, per-node areas
-> cover allocations above it on each node and the global area covers
-> allocations that are not bound to any node. Calculate all sizes before
-> reserving any of the areas.
-> 
-> With CONFIG_NUMA=n the global area becomes empty and it is not reserved.
-> 
-> If ARCH_LOW_ADDRESS_LIMIT covers all memory, as may happen on arm64, any
-> area can serve lowmem allocations, so don't reserve the lowmem area.
-> 
-> Bootmem sizes in MiB in x86 QEMU VMs, before -> after:
-> 
->                      CONFIG_NUMA=y     CONFIG_NUMA=n
->   1G,  1 node         176 ->   92       320 ->   80
->   4G,  1 node         508 ->  332      1264 ->  316
->   16G, 2 nodes       1268 ->  704      2944 ->  736
->   32G, 4 nodes       2296 -> 1224      5196 -> 1300
->   64G, 4 nodes       4344 -> 2248      9664 -> 2420
-> 
-> Fixes: 3dc92c311498 ("kexec: add Kexec HandOver (KHO) generation helpers")
-> Reported-by: Kexin Liu <liukexin@kylinos.cn>
-> Reported-by: George Guo <guodongtai@kylinos.cn>
-> Closes: https://lore.kernel.org/all/20260904025101.9959-1-dongtai.guo@linux.dev
-> Reported-by: Sourabh Jain <sourabhjain@linux.ibm.com>
-> Closes: https://lore.kernel.org/all/20260922131217.698809-1-sourabhjain@linux.ibm.com
-> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Some Platforms ship BIOS with either a default or an alternative trust
+authority. The PSP validates the NPU firmware, so it must be signed with
+the matching scheme. Firmware for the alternative scheme is named with
+an "_l" suffix before the extension. A preproduction part needs firmware
+of its own, named with a "_p" suffix.
 
--- 
-cheers,
-jose a. p-a
+The PSP reports the signing type in bit 6 of C2PMSG_63, and in bit 28
+whether this is a preproduction part. A preproduction part that also
+reports the alternative scheme is not expected, so warn about it and
+use the default firmware.
+
+Add MODULE_FIRMWARE() entries for the "_l" variants of the npu and cert
+images of the aie4 devices so that initramfs generators include them.
+
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/accel/amdxdna/Kconfig           |   1 +
+ drivers/accel/amdxdna/aie4_pci.c        | 166 ++++++++++++++++++++++++++------
+ drivers/accel/amdxdna/amdxdna_pci_drv.c |   8 ++
+ 3 files changed, 145 insertions(+), 30 deletions(-)
+
+diff --git a/drivers/accel/amdxdna/Kconfig b/drivers/accel/amdxdna/Kconfig
+index eddff490b4f75..cd17a89cf4146 100644
+--- a/drivers/accel/amdxdna/Kconfig
++++ b/drivers/accel/amdxdna/Kconfig
+@@ -6,6 +6,7 @@ config DRM_ACCEL_AMDXDNA
+ 	depends on DRM_ACCEL
+ 	depends on PCI && HAS_IOMEM
+ 	depends on X86_64
++	depends on AMD_NODE
+ 	depends on AMD_PMF || !AMD_PMF
+ 	select DRM_SCHED
+ 	select DRM_GEM_SHMEM_HELPER
+diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
+index 02dcb2f813d45..fa8f99d1be361 100644
+--- a/drivers/accel/amdxdna/aie4_pci.c
++++ b/drivers/accel/amdxdna/aie4_pci.c
+@@ -11,6 +11,8 @@
+ #include <linux/debugfs.h>
+ #include <linux/firmware.h>
+ #include <linux/sizes.h>
++#include <linux/string.h>
++#include <asm/amd/node.h>
+ 
+ #include "aie.h"
+ #include "aie4_msg_priv.h"
+@@ -558,46 +560,128 @@ static void aie4_classic_hw_stop(struct amdxdna_dev_hdl *ndev)
+ 	aie4_fw_stop(ndev);
+ }
+ 
+-static int aie4_request_firmware(struct amdxdna_dev_hdl *ndev,
+-				 const struct firmware **npufw,
+-				 const struct firmware **certfw)
++/*
++ * PSP C2PMSG_63 (SMN) bit 6: 0 = default firmware signing, 1 = alternative
++ * PSP C2PMSG_63 (SMN) bit 28: 0 = production part, 1 = preproduction part
++ */
++#define AIE4_PSP_C2PMSG_63_SMN_ADDR	0x38109fc
++#define AIE4_PSP_FW_SIGN_ALT		BIT(6)
++#define AIE4_PSP_FW_PREPROD		BIT(28)
++
++enum aie4_fw_variant {
++	AIE4_FW_DEFAULT,
++	AIE4_FW_ALT,		/* "_l" images */
++	AIE4_FW_PREPROD,	/* "_p" images */
++};
++
++/*
++ * The PSP only trusts firmware signed with the scheme the platform firmware
++ * uses and a preproduction part needs firmware of its own. Reading which one is
++ * in use is optional and only used as a hint for which images to try first:
++ * anything but a clear answer is treated as default.
++ */
++static enum aie4_fw_variant aie4_psp_fw_variant(struct amdxdna_dev *xdna)
+ {
+-	struct amdxdna_dev *xdna = ndev->aie.xdna;
+-	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
+-	char fw_name[128];
++	u32 val;
+ 	int ret;
+ 
+-	ret = snprintf(fw_name, sizeof(fw_name), "amdnpu/%04x_%02x/%s",
+-		       pdev->device, pdev->revision, ndev->priv->npufw_path);
+-	if (ret >= sizeof(fw_name)) {
+-		XDNA_ERR(xdna, "npu firmware path is truncated");
+-		return -EINVAL;
++	ret = amd_smn_read(0, AIE4_PSP_C2PMSG_63_SMN_ADDR, &val);
++	if (ret) {
++		XDNA_DBG(xdna, "PSP firmware variant not available, ret %d", ret);
++		return AIE4_FW_DEFAULT;
+ 	}
+ 
+-	ret = request_firmware(npufw, fw_name, &pdev->dev);
+-	if (ret) {
+-		XDNA_ERR(xdna, "failed to request_firmware %s, ret %d", fw_name, ret);
+-		return ret;
++	/* all ones means the register isn't accessible */
++	if (val == 0xffffffff)
++		return AIE4_FW_DEFAULT;
++
++	if ((val & AIE4_PSP_FW_SIGN_ALT) && (val & AIE4_PSP_FW_PREPROD)) {
++		XDNA_WARN(xdna,
++			  "Preproduction part with alternative signing, using default firmware");
++		return AIE4_FW_DEFAULT;
+ 	}
+ 
+-	ret = snprintf(fw_name, sizeof(fw_name), "amdnpu/%04x_%02x/%s",
+-		       pdev->device, pdev->revision, ndev->priv->certfw_path);
+-	if (ret >= sizeof(fw_name)) {
+-		XDNA_ERR(xdna, "cert firmware path is truncated");
+-		ret = -EINVAL;
+-		goto release_npufw;
++	if (val & AIE4_PSP_FW_PREPROD)
++		return AIE4_FW_PREPROD;
++
++	return (val & AIE4_PSP_FW_SIGN_ALT) ? AIE4_FW_ALT : AIE4_FW_DEFAULT;
++}
++
++/*
++ * Images for the other variants have a suffix before the ".sbin" extension.
++ * Returns -ENOENT if @path has no such variant.
++ */
++static int aie4_fw_name(struct amdxdna_dev *xdna, char *name, size_t size,
++			const char *path, enum aie4_fw_variant variant)
++{
++	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
++	const char *suffix;
++	size_t len, base;
++	int ret;
++
++	ret = snprintf(name, size, "amdnpu/%04x_%02x/%s",
++		       pdev->device, pdev->revision, path);
++	if (ret >= size) {
++		XDNA_ERR(xdna, "firmware path %s is truncated", path);
++		return -EINVAL;
+ 	}
+ 
+-	ret = request_firmware(certfw, fw_name, &pdev->dev);
+-	if (ret) {
+-		XDNA_ERR(xdna, "failed to request_firmware %s, ret %d", fw_name, ret);
+-		goto release_npufw;
++	switch (variant) {
++	case AIE4_FW_ALT:
++		suffix = "_l.sbin";
++		break;
++	case AIE4_FW_PREPROD:
++		suffix = "_p.sbin";
++		break;
++	default:
++		return 0;
+ 	}
+ 
++	len = ret;
++	if (len < strlen(".sbin") || strcmp(name + len - strlen(".sbin"), ".sbin"))
++		return -ENOENT;
++
++	base = len - strlen(".sbin");
++	if (strscpy(name + base, suffix, size - base) < 0)
++		return -EOVERFLOW;
++
+ 	return 0;
++}
++
++static int aie4_request_one(struct amdxdna_dev_hdl *ndev, const struct firmware **fw,
++			    const char *path, enum aie4_fw_variant variant)
++{
++	struct amdxdna_dev *xdna = ndev->aie.xdna;
++	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
++	char name[128];
++	int ret;
++
++	ret = aie4_fw_name(xdna, name, sizeof(name), path, variant);
++	if (ret)
++		return ret;
++
++	ret = firmware_request_nowarn(fw, name, &pdev->dev);
++	if (ret)
++		XDNA_DBG(xdna, "firmware %s not loaded, ret %d", name, ret);
++
++	return ret;
++}
++
++/* The NPU and cert images are validated together, so both use the same variant */
++static int aie4_request_firmware(struct amdxdna_dev_hdl *ndev,
++				 const struct firmware **npufw,
++				 const struct firmware **certfw,
++				 enum aie4_fw_variant variant)
++{
++	int ret;
++
++	ret = aie4_request_one(ndev, npufw, ndev->priv->npufw_path, variant);
++	if (ret)
++		return ret;
+ 
+-release_npufw:
+-	release_firmware(*npufw);
++	ret = aie4_request_one(ndev, certfw, ndev->priv->certfw_path, variant);
++	if (ret)
++		release_firmware(*npufw);
+ 
+ 	return ret;
+ }
+@@ -645,18 +729,40 @@ static int aie4_prepare_firmware(struct amdxdna_dev_hdl *ndev,
+ 	return 0;
+ }
+ 
++/*
++ * The firmware can only be started once. It is the PSP that decides whether it
++ * accepts the images, and it does that when the firmware is started, so there
++ * is no trying a variant and falling back. Pick the variant that the PSP
++ * reported (the default one if it can't be read) and use the others only if
++ * its images are missing.
++ */
+ static int aie4_load_fw(struct amdxdna_dev_hdl *ndev,
+ 			void __iomem *tbl[PCI_NUM_RESOURCES])
+ {
++	struct amdxdna_dev *xdna = ndev->aie.xdna;
++	enum aie4_fw_variant hint = aie4_psp_fw_variant(xdna);
+ 	const struct firmware *npufw, *certfw;
+-	int ret;
++	enum aie4_fw_variant order[3];
++	int i, n = 0, ret = -ENOENT;
+ 
+ 	if (!ndev->priv->npufw_path && !ndev->priv->certfw_path)
+ 		return 0;
+ 
+-	ret = aie4_request_firmware(ndev, &npufw, &certfw);
+-	if (ret)
++	order[n++] = hint;
++	if (hint != AIE4_FW_DEFAULT)
++		order[n++] = AIE4_FW_DEFAULT;
++	if (hint != AIE4_FW_ALT)
++		order[n++] = AIE4_FW_ALT;
++
++	for (i = 0; i < n; i++) {
++		ret = aie4_request_firmware(ndev, &npufw, &certfw, order[i]);
++		if (!ret)
++			break;
++	}
++	if (ret) {
++		XDNA_ERR(xdna, "failed to load firmware, ret %d", ret);
+ 		return ret;
++	}
+ 
+ 	ret = aie4_prepare_firmware(ndev, npufw, certfw, tbl);
+ 	aie4_release_firmware(ndev, npufw, certfw);
+diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+index f233eb70a2957..dab8603e2381f 100644
+--- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
++++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+@@ -37,6 +37,14 @@ MODULE_FIRMWARE("amdnpu/17f1_13/npu.sbin");
+ MODULE_FIRMWARE("amdnpu/17f1_13/cert.sbin");
+ MODULE_FIRMWARE("amdnpu/17f2_13/npu.sbin");
+ MODULE_FIRMWARE("amdnpu/17f2_13/cert.sbin");
++MODULE_FIRMWARE("amdnpu/17f1_10/npu_l.sbin");
++MODULE_FIRMWARE("amdnpu/17f1_10/cert_l.sbin");
++MODULE_FIRMWARE("amdnpu/17f2_10/npu_l.sbin");
++MODULE_FIRMWARE("amdnpu/17f2_10/cert_l.sbin");
++MODULE_FIRMWARE("amdnpu/17f1_13/npu_l.sbin");
++MODULE_FIRMWARE("amdnpu/17f1_13/cert_l.sbin");
++MODULE_FIRMWARE("amdnpu/17f2_13/npu_l.sbin");
++MODULE_FIRMWARE("amdnpu/17f2_13/cert_l.sbin");
+ 
+ /*
+  * 0.0: Initial version
+
+---
+base-commit: e32e83a6c5ec031a7f59d4794113d8484b220254
+change-id: 20261104-superm1-lms-npu-6bc3bbe38c29
+
+Best regards,
+--  
+Mario Limonciello <mario.limonciello@amd.com>
+
