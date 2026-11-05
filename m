@@ -1,57 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793858267;
-	b=YM+qJq/q/mYvXRAMo4k77GbKIZW95m9EZGXeYHPugxshY0QnEUeMhAKtxp028WaOHPM9
-	 EVowQfb8vWyLZI0DlB3zqwzluOJsOlGxRBUIx2f5Q1qto+S6C8DbOeDZ+iEc98OjEfc6M
-	 XmzsW2B2yZBjPEbplEQSrvEDccG+kF88rm5udEuK5D43jUv1BipHla3usYuuqXVoyohgW
-	 xvJuwbBCOEQmDc4GFKxLyy88Nq7t2pSupdjJFfDRIsrpQUIdrJEQv/NyrpMuBSBr+vI7L
-	 3EtotJqvpqGSqyUK6zTIfG4qdpQ1ltAb/am44A+aWnlVmfgxvUEgexfCcIRC/QRf5uQ==
+	t=1793858283;
+	b=VZN33qu3ybONHKP0GDnn0Sd0o6wSUGQ2xMGmpzUGi/MEV8vgZ6Y2j6V0upg2E9iDfsYy
+	 tXVsbjmKTqjHoV3M2xiCAxjAhBCEUm9ufVsq+VhReW8YRjbYLGaXO/ySg/k+xEOLDDqCS
+	 +IXY5B1Rn0f7j0CugfsgLQpcf5zcWjToK74VQmKLzctH2i/OQmyvdI5ZlUXIapgujbGqP
+	 jpeXA6GYgyYumQjuVOkTphmNfCubHhWEJS6bobX+h8+7MlkQ043Pg2Dwb5FfCatyCH8lT
+	 NIf6jdAdIJV38Ckzd2h9DRXQDTWgacQYyAwOy/tWubjJRkKUKvDgFCLNxtXtgG7rOEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793858267;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:In-Reply-To:
-	 References:Date:Message-ID:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=CzugvlBhqbMDKAvT3TfBg5pfX9J4bdWCzsHPnxIZ4/4=;
-	b=wlY9JgjbI7CTsYBKbdU3jCMIp6HupSZrZoP2tRsEl1P1/23PJrbqh8FDSrJ7N/f1Gc2P
-	 5Gh8r1EhwVWIxCV4EfZe49wVrCvuM0VJrf7tm9HqUVgSBvwcy4lTvTC4zu5k4im9fIJtj
-	 ZGrY8QSZCJGLuQ1GFH4tWBDddN61fmaqioDu1OyHHL+HYatUK3OVEATqwUWEepUaNRvq3
-	 rHVCSnOlZdkPoLeken1WvaijB38weispXYeAMUgHO9lkNUX0vTr0GNKEJ4xWCnXGcmaEx
-	 6wlhjT77UQRu2gg+bjj0BTbwey2q0+gCzOD3BNd+GXuXLHbUE+G/6AKp0pG27CnxMtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793858283;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=1wH492CuDGQlMpm8S8AiAKQgTkLnHojMbDZ4iibtryA=;
+	b=ygux1S/l5XYMyfmXxoLYLTRhU2UjXyYU+R1yIavFqEVi7J39n3cBe5Ee5W1JNHU/0+vT
+	 dm9Qnt4F69oBugVKHK5+Olk3quvaO4RyQEEmMT2WKpoi7HoMgcG6JTIGxKYanwCE2eshL
+	 jPtVXGLYCoP0JjhU0N2I3q7NzVpQPVyU1sFuuhKmgQUiob81HfgBOer5/TLA3HgNg/DtV
+	 uKhiOFdo3U4MxilHZYh1Aa6+BzxSqM0Djq5cQ+Rp/R03gp8zrMhFzvMkl48IPp0nGibgh
+	 mbS1iRKYFHDEN8TN3YRrQLY90MaZtuXrtoktQRoLb6twAOz96/0/2RKWsnkjNecpVjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7CB02606A31B;
-	Thu,  5 Nov 2026 05:57:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CB02606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:
-	In-Reply-To:References:Date:Message-ID:Content-Type:
-	Content-Transfer-Encoding:MIME-Version; bh=CzugvlBhqbMDKAvT3TfBg
-	5pfX9J4bdWCzsHPnxIZ4/4=; b=aljBKnVfi7a+9CRk0N7rMwDGulEDoJPsZBVF3
-	fyQ/HKunQQBWecVAGgBp2moonDv/BLQD1qoefRMxV55YDyJzE26Hf5NObMjw3ZyP
-	gFHmU/IQAxT4VOJb4miT+dFVmhXUqtFmIjJaUuRBY927xIKMBRCav76bOSwc9Yaw
-	pYQrgI=
-Received: from [127.0.1.1] (unknown [113.200.174.104])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkD2Of_TGuxqiwApAQ--.63435S2;
-	Thu, 05 Nov 2026 13:57:39 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: Marcel Holtmann <marcel@holtmann.org>, linux-bluetooth@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Bin Yu <byu@xidian.edu.cn>, Cheng Wen <wencheng@xidian.edu.cn>
-Subject: Re: [PATCH] Bluetooth: btusb: fix use-after-free in force_poll_sync
-In-Reply-To:
- <CABBYNZ+iU=riZ8MSTkbqv4vn0OJGLymtN98uJ8_0pw6hEaVWYQ@mail.gmail.com>
-References: <20261102110440.2589-1-25031212351@stu.xidian.edu.cn>
- <CABBYNZ+iU=riZ8MSTkbqv4vn0OJGLymtN98uJ8_0pw6hEaVWYQ@mail.gmail.com>
-Date: Thu, 05 Nov 2026 13:57:39 +0800
-Message-ID: <179385825903.13262.2748533820947958224@stu.xidian.edu.cn>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.210.72
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD53606A32C
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 05:58:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBD53606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-84478a97bfbso2161998a34.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 21:58:02 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793858282; x=1794463082;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=1wH492CuDGQlMpm8S8AiAKQgTkLnHojMbDZ4iibtryA=;
+        b=vvd8EMYVZz7QQ7xpc5st6e0a3ORhgaUVT10ShYzMWXwIyDHucE91Qbki5xLyZcIaTG
+         zsrIChFzmFQ4/nBeO+NFxl1f9bqMd1NDr3H/3mG3QuPxHOCgljxGu4hIag+WXeIK/5I+
+         Oe5YLmKd3Zjsny7zN5ZrKtGzo/fVZZT5WFOMmTw3UvU8P452M8ECTZwxtdJB4HLTW4Vg
+         4PuSIA38qVDPNwb3jy2/gRJgQbtsu2Xu88vUlfGImnpHi6Bbg8mZPgdDe24wLwRw1FlR
+         0sPvDWvVPSLjvgMavL0cKUpnMISpRF5NsSaYPzCdVeSPSAV2G8V1CBhh7QgqLvpe3poC
+         EGHg==
+X-Forwarded-Encrypted: i=1; AKwUvBwai+XLx57G5hplXSxwdQmUrIUd0jYjQo7neKQFONv3zUqPZHP8Zs2GqAPLHk9MHeVbKLgcEgK6KQjCmhQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z80+miC8ExIZfj4E72kvKpxd0hjuIwe7yQgGAYkKqZnep/AQxhw
+	h80IrRVBlo9V9CCZlao7QrJgKJ7OSsJxyyqCl5/X79S3bvLt6rVfRtsj2WJax5FevtCRujex51N
+	cP1WzerfaVoOXH7/eN4GA/VDph6eFCGFAQGFvYvmMxDjpW7GeLWjXrspLjRM=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,53 +58,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:BLQMCkD2Of_TGuxqiwApAQ--.63435S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kw45Cr4fXw43Xr4DXFWDArb_yoW8Xr47pa
-	9Yk3Z8Jr4DKrsYq3s5uF4xX34SyryxWay3t3yfWw1Fy3y3Cr13tr4xJrZ0qa4xuFZ3tFWj
-	vw45WrW0qFn8JaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9ab7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r
-	17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41l
-	c7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4rMxAIw28IcxkI7VAKI48JMxC20s026x
-	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
-	JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
-	1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_
-	Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8Jr
-	UvcSsGvfC2KfnxnUUI43ZEXa7IU8hjjDUUUUU==
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUID2rrTMSUAQAAsc
+X-Received: by 2002:a05:6820:c3c9:b0:6da:4b62:b6b2 with SMTP id
+ 006d021491bc7-714f2928f60mr6539028eaf.40.1793858281785; Wed, 04 Nov 2026
+ 21:58:01 -0800 (PST)
+Date: Wed, 04 Nov 2026 21:58:01 -0800
+In-Reply-To: <20261105051637.54502-1-eadavis@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aec1ae9.f31022ea.233d2f.0003.GAE@google.com>
+Subject: Re: [syzbot] [media?] [dri?] kernel BUG in sync_timeline_signal
+From: syzbot <syzbot+cba1a1f459230395a076@syzkaller.appspotmail.com>
+To: eadavis@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Luiz,
+Hello,
 
-Thanks for the review.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-The vendor_diag observation is correct. For BTUSB_BCM_PATCHRAM and
-BTUSB_BCM_APPLE, btusb_probe() sets hdev->set_diag = btusb_bcm_set_diag,
-and hci_debugfs_create_basic() creates vendor_diag under hdev->debugfs.
-btusb does not set HCI_QUIRK_NON_PERSISTENT_DIAG, so vendor_diag_write()
-calls hdev->set_diag() even after the device has been unregistered, and
-btusb_bcm_set_diag() reads btusb_data->diag before checking HCI_RUNNING.
-As hdev->debugfs is only removed in hci_release_dev(), a write after
-btusb_disconnect() can reach freed btusb_data.
+Reported-by: syzbot+cba1a1f459230395a076@syzkaller.appspotmail.com
+Tested-by: syzbot+cba1a1f459230395a076@syzkaller.appspotmail.com
 
-That is a separate pre-existing issue: force_poll_sync is not the only
-HCI debugfs file that can reach btusb_data, and the changelog sentence
-claiming btusb_data can no longer be dereferenced was too broad. v3
-scopes that guarantee to the force_poll_sync file.
+Tested on:
 
-For hci_qca, qca_debugfs_init() stores pointers to qca_data in the ibs
-files and qca_close() frees qca_data without removing them. That is also
-pre-existing but self-contained in the driver, so I sent a separate
-patch that removes the ibs directory before qca_data is freed.
+commit:         6628e7d4 Linux 7.4-rc1
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=16817d8d580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=1d2c97eac7d33533
+dashboard link: https://syzkaller.appspot.com/bug?extid=cba1a1f459230395a076
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=10f6e455580000
 
-For vendor_diag, btusb cannot remove a file it does not own, so I think
-the fix belongs in hci_debugfs: either remove the basic files in
-hci_unregister_dev(), or make vendor_diag_write() reject writes once
-HCI_UNREGISTER is set. I can prepare that as a follow-up if you agree.
-
-Thanks,
-YuanZhe
-
+Note: testing is done by a robot and is best-effort only.
