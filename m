@@ -1,47 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793848418;
-	b=i+lCwVc2aUZSUkSscPRuhbbpThBE/zLLuhddYbWSa34vapbN9zN7xWKhhx78FvJNz2PX
-	 vE83pWTy0Ykn5ZAVwXA7f9cqgNjyCaKPXH6UMnsAB9zKY1pALQ4J5CktGceazQ1GiG+n3
-	 588QTY3VbuRcn3SHeql1J/POw+lT68SHWc72JpXz0S9kdN8iy4+cedhxSlPrLoBjOqGsZ
-	 r4YcCfwjOChtUsqdcZPltve+V2a1nFLEe+gFhP76D9qqEsBRRVMhHRsku74fdlmnFAgBI
-	 9S1A6eo5MdrOmt4BZIgyVxwe+qPWjpJ6T9IybtuL1Zoysy8lse7KSIal7UaJaeyTvAw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793848418;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:Organization:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=doSrNQ+z0DNvupZg6/mbHWnfHaFfZ+Y5T7z4yZ83SAQ=;
-	b=C2swpbtQ5Ho+lfWTGTnxC+xhFIx24rH+7gpCVHsgy2/TkaibOVm2o19FqHHKbzR7klbf
-	 Rne4KLFUauUS+3PSRnVFTH6Kska/egGrCmIhBioMJ6KSXxTW9eZQIhlYFlc7FM244nOnU
-	 2CPlcTdBPm6bFdPYvZSsgC0Ip+Al3wxepwhrwd9+E6/maj7ijLg1QB7FOTPw74THDqsCU
-	 A9d/C5QL1vmh1L+cSiaLSo0LRTplu3s0/Z+Z06qvtqu7PHmGCP1VpITAo/Wa2knyqI0HX
-	 Ns6oXi5uV3Qk9qYuXrD+YpWTSkvHuiiHvSjsB9bKY63eTQP/TDknvktjfGODZG5UbAg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i9WhvyTw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.173
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793848437;
+	b=QE6K7mzX1C8M2p1uYvPYJKVpeW6XoUrvp6d5zG+N/M40a2fMkgTiu5UXzbUbbtFa6Ryy
+	 YZkUa+N4Ahxx0GKdwx5PgxWuGKbzQGqS/sYlcbzuYX7xrUWKxzIsiXSwZ8LstvnK7wRly
+	 PWoFfwYSFMNyBlxdzCZ7VQMle21xOvYOGd7IuWINoCksR9BezgAxYhwtXwJJtR+KhT2l1
+	 ICJgXdyVCEJ/xg8Ac8rkQVhwKbuHxFWcg3wuS9yXQoEj6gqa6hm+GP7iKTRBxcs43DpO1
+	 C5/ce+/g1uyzCU/t2J3m+0I3VpitDXaTBA9/SJUjiW6NBFreeOHMgjuHmqoXjDuXF5Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793848437;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=APb1zxIAvX78bkBqgur/Yfvw9HDOt3nX0NcaiIPyRNA=;
+	b=t5pjSOROKWlPfUzwW5yGCd+e1SAw7qPIgv4qBJQDpoR8DtKgDl6+u2ImqqCCOpuc56Os
+	 gbl6sXo61UYdSAnXzfXJQnDYf5r7f4ko1UVZ5KmhamqlwohGgH0dl+pCDKbF8CGRkG/cr
+	 IDbmxv8dhQIMs50+ervvpXIAKPHgoV4TJfO2Ocvh93qr6tH+h2MTJPXBksH5ZK72PA2GV
+	 RCsVWcuTAJdsl5JGI9TH8jX9pyUdFSrrFemh6LVTwcfcCIKbQupD2as3GVAPczRuoOuVJ
+	 JEHXbfHjPyb/onBmU8AFUWmSom5ebxyd2niEGrvd7YQPWJ8lybqNUFhNufwhzuK8VVg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SotK8+sm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.173
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69F60606A32E;
-	Thu,  5 Nov 2026 03:13:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2018D606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 03:13:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2018D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i9WhvyTw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D05A1F00A1B;
-	Thu,  5 Nov 2026 03:13:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793848418;
-	bh=doSrNQ+z0DNvupZg6/mbHWnfHaFfZ+Y5T7z4yZ83SAQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=i9WhvyTwxgAast8r1E0y49N8GvDrC1rJ74IHdank/fP0RXJsu7OhnO+iOAXH0YurQ
-	 zvdvTqQNe5kApU5hA3o4RdrcfJv5uAALKnPDT0hkbWO81n/Ivdnx2+ftkW/A9GAGHb
-	 HCATheUzymcdu+5oPtoJLlz74LuURS8iYoxr19l71Tz+e3H2a0bUNs54p4emaPH9Wb
-	 YW/r+X/hP4xhIh+DjFxi10q8Ctld5r2iSWuVRdeFKbMjYscd+eFWDUXYt/04J31Mhr
-	 uiWtZabipTyp7i2rI2Jy3B24OG7KUk20rmxcpkBiO5IJmt7s76I2kbU3xchDs5qLjs
-	 h7ztxgGx0MWQA==
-Message-ID: <908bb7e3-b36b-43f9-9f3b-b407e08185e4@kernel.org>
-Date: Thu, 5 Nov 2026 12:13:35 +0900
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SotK8+sm
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8a05da1cc1fso605803b3a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 19:13:55 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793848435; cv=none;
+        d=google.com; s=arc-20260327;
+        b=L8BZ13zpNrKGRcCIUKGOf/L44Ml4Reut3520xlR3BCXhgDswOifar1G00ZZ248nwj9
+         VAIw5yODn3CscGybP1lh5s9kWAgq0l9IOdXJegVapjpwKgmwmBiG6dEwu/JM94XP81sx
+         y90WP/YSyVAIWWm2lALJ8GFmPXTYk24SyF1vUkm7CJLQEcg4rb/JKjRd17JCRe2TIQgT
+         e2vByhE2kNXLhM3MsS3kWL1xXDwRR/4ylKtjosTiD14kfKGcrQz8ioM+deWmve7uURYp
+         Bk7LyxrZRqUFb1EJusTs6JY4TSK1Tqk2Ebky4VI3Fz7LMZqU9CbuRi8KJ3XLnynuuDyF
+         eVZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=APb1zxIAvX78bkBqgur/Yfvw9HDOt3nX0NcaiIPyRNA=;
+        fh=KztAUliy/sBWq1XLc0cRIHbOsW+GjdvZndmFBq9LRFs=;
+        b=K8MyjYE/PpmCorTqUS+Mduu3dvs/7cQQdfTpUpw8INZ+LZwb8YpuXi9+63ampH31kB
+         zcVEDjORmeTenqQvZ6E4S+OBV4kD8fvjwouzsBi3y8Q/QIu4dSVawPioNslQg3jMUwR1
+         KI7irWwhVE1nuc9x6PKjIlX7o3Ujb+W/qhH5uj7TUVXycA5UnSCUDWyUm8ohVijJgZlO
+         EWxe2o0DoSSNrTroWchXujLcZxICha/2Qp89e0xTuLqgygfvHg30pV/QKygRMF90ir2x
+         TpgBE3JA8jz2C7tZeTqzDYxJWIYTgxpGZnvEoKPpnhOYkg63fGAOWKEIobpNunyj3c9J
+         X1Nw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793848435; x=1794453235; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=APb1zxIAvX78bkBqgur/Yfvw9HDOt3nX0NcaiIPyRNA=;
+        b=SotK8+smhvTUz4PSDyKGGwKHQT37/ySX4O669vPZw3Y0ELWARihuFr6hV9JHo02O85
+         iFWoIXL4q+fSWCkcxBGA9m2vH9VxdwGkgF3MXMMNfDINB72d4WbWc2+9pPo5lOD/BOCE
+         94aDCIN7y/RrwVkylu5ixdn++P7o0COea4HsYz8D6+77TVIcN9SJ458yU38AMgDT7NIj
+         0byKk/5SP5GYBHFIZ9ObiSyP7x6kBUbTeQMSkqaU+2IaQMqVkQDda/GaEcbETx5NW201
+         VoMLJAQPmg3xOvRyA+7eYXE/mbUCc+nMXESjC9WD7nJu3X9PXQvQKGrnPVUwEj3921E+
+         CC4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793848435; x=1794453235;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=APb1zxIAvX78bkBqgur/Yfvw9HDOt3nX0NcaiIPyRNA=;
+        b=pYtQGRs/KucBAmAjGVaS7YrdYnZEzVhJyTVZVXvc6LlBf6NXPXIUBfZFEsip0mAm6a
+         BP+Dldv4TnzLlu2N66OKqFolvIAsfE+o2txxIQV1KOGtAVX83haFpfKQEbGlXqPLVILd
+         q8fulCCCRP7Uh+U4rn8oOZcsNqnHaCDcXd8nb2MXtI+MJbJIDOr8+4JfES2A1dzBw4Zg
+         dRjGDTEuu9/EkDM3y1krPTIWh1I/W3OC0lwTQDTe2YDlQ61rvRMXn3Zs0dtSB2U1aSV6
+         coiPHq4+ByisBj5DExLy7D6CZ/96B7a3BihZN/ni3hcoSAfTGhYr3B0JCPBmwQf5UI7P
+         WdeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwuBTprJek1QSnLAusuXUimoDcnpVc/k2j0W5cbYerQIlOgUJhxdk/GxOXKJZEZlU8bRONJvqtyr62hUkE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/h6y07wxPjIoyl1Co3fviDw5l4EnWLqUKV5c3E2YhEjvVXhvY7
+	8miTEQ+xlyRbtpfBpdax/4W0JZ2FeQj2P8PoK3JY+DeYWsdThe4GweIbhDOPwLq0C9DbkIwK9dS
+	X5CqSwy3RTdcBWcSdx15+Vr4DDebiSTs=
+X-Gm-Gg: AYBFou2SvJadS4p7KohB3TQTa3H2H2dP/zded8YVA6GgxE1yOqE7H0aQvyX//RQaVT9
+	xP/LpVH2qjCzgpD4jD1q2iSX7HhKg+XyR7DVKKMdNP/EEPUYjqfBDk68srAsfJ5I9I24T4I3axI
+	YWFpWbvSUUVOJ7I1c6ZCNltCzesXgkf00d2er1L32bT4xR0E0szVYDZWHB7VcuCO82KBibVLI/Z
+	wBfBC8Jgv5oXwemThw04/vt/z3nnMxJJWlW7qI7JFJWakSC87fJoGXU622dVeEy8TB0BJ6habEh
+	sdtTuBt8rOhpenrFDOItQEu1S+zQIUu8b6Vvsp46/53t905kPCiPzZ13+IP+0e6rMPMnt60T6v8
+	nin7Efk3kkIIsvC/vCXD0/a8YVGyCy1IBQ8nSbgUeMWbbnq7XxeJzr7eEw/TG88/QPCnS0wvpvG
+	PSyNz9y/1d3zhSRMBrhQvdjwYka/Tn4QVFAQ==
+X-Received: by 2002:a05:6a21:4e03:b0:3de:79fe:13f with SMTP id
+ adf61e73a8af0-3e928d4d2bdmr15266438637.38.1793848435284; Wed, 04 Nov 2026
+ 19:13:55 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,34 +105,194 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] ata: libata-zpodd: use a single exit in
- zpodd_get_mech_type()
-To: shao.mingyin@zte.com.cn, cassel@kernel.org, hansg@kernel.org,
- linux-ide@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-References: <20261104211440455JCTCACMo5nXzgNNMAxIiJ@zte.com.cn>
-Content-Language: en-US
-From: Damien Le Moal <dlemoal@kernel.org>
-Organization: Western Digital Research
-In-Reply-To: <20261104211440455JCTCACMo5nXzgNNMAxIiJ@zte.com.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <6ae3d50b.9c6421ad.36baac.0003.GAE@google.com> <6aeabca9.fc50a118.dd1b.0001.GAE@google.com>
+In-Reply-To: <6aeabca9.fc50a118.dd1b.0001.GAE@google.com>
+From: Xin Long <lucien.xin@gmail.com>
+Date: Wed, 4 Nov 2026 22:13:43 -0500
+X-Gm-Features: AclHuK-yj_RUDHyp9Y1n7HDYnVb1Clcvxnwwl_T_i4pkmkAMpXWxuQiWBKy17_s
+Message-ID: <CADvbK_cMBZbgujcxnj+rvwthSdNQzxEFXvr5jKr4HweQZbHZ+A@mail.gmail.com>
+Subject: Re: [syzbot] [sctp?] kernel BUG in __pskb_pull_tail (2)
+To: syzbot <syzbot+f15a6eff7a53f6eb7dc3@syzkaller.appspotmail.com>
+Cc: davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, 
+	kuba@kernel.org, linux-kernel@vger.kernel.org, linux-sctp@vger.kernel.org, 
+	marcelo.leitner@gmail.com, netdev@vger.kernel.org, pabeni@redhat.com, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/4/26 22:14, shao.mingyin@zte.com.cn wrote:
-> From: Shao Mingyin <shao.mingyin@zte.com.cn>
-> 
-> zpodd_get_mech_type() repeats "kfree(buf); return ..." at five
-> points.  Use one cleanup label and return the result from there.
-> 
-> No functional change.
-> 
-> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+On Wed, Nov 4, 2026 at 12:03=E2=80=AFAM syzbot
+<syzbot+f15a6eff7a53f6eb7dc3@syzkaller.appspotmail.com> wrote:
+>
+> syzbot has found a reproducer for the following issue on:
+>
+> HEAD commit:    05441d697f7f Merge tag 'cocci-7.4-rc1' of git://git.kerne=
+l..
+> git tree:       upstream
+> console output: https://syzkaller.appspot.com/x/log.txt?x=3D162b8add58000=
+0
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=3D1cf189394a856=
+f11
+> dashboard link: https://syzkaller.appspot.com/bug?extid=3Df15a6eff7a53f6e=
+b7dc3
+> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for D=
+ebian) 2.44
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=3D11b49b29580=
+000
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=3D15b49b2958000=
+0
+>
+> Downloadable assets:
+> disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d=
+900f083ada3/non_bootable_disk-05441d69.raw.xz
+> vmlinux: https://storage.googleapis.com/syzbot-assets/0edd3964be19/vmlinu=
+x-05441d69.xz
+> kernel image: https://storage.googleapis.com/syzbot-assets/84d6d8dd5648/b=
+zImage-05441d69.xz
+>
+> AI-generated root cause summary:
+> When receiving an SCTP packet that is nonlinear (such as an SCTP GSO pack=
+et
+> constructed with fragments in frag_list), sctp_rcv attempts to linearize =
+the
+> packet using skb_linearize() if the sk_buff is cloned (e.g., tapped by a =
+packet
+> socket or shared) or not recognized as GSO. During linearization via
+> __skb_linearize() and __pskb_pull_tail(), skb_copy_bits() fails with -EFA=
+ULT due
+> to a discrepancy in frag_list fragment lengths or readable offsets, trigg=
+ering a
+> BUG_ON assertion failure. In production builds, this BUG() results in an =
+invalid
+> opcode oops and kernel panic, causing an immediate denial of service.
+>
+> full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=3Df15a6ef=
+f7a53f6eb7dc3
+>
+> IMPORTANT: if you fix the issue, please add the following tag to the comm=
+it:
+> Reported-by: syzbot+f15a6eff7a53f6eb7dc3@syzkaller.appspotmail.com
+>
+> ------------[ cut here ]------------
+> kernel BUG at net/core/skbuff.c:2903!
+> Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+> CPU: 2 UID: 0 PID: 6002 Comm: syz.0.20 Not tainted syzkaller #0 PREEMPT(f=
+ull)
+> Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.=
+16.3-2 04/01/2014
+> RIP: 0010:__pskb_pull_tail+0x1335/0x1920 net/core/skbuff.c:2903
+> Code: 5b f8 48 89 df e8 2b 03 fe ff 31 ff 41 89 c4 89 c6 e8 7f 58 5b f8 4=
+5 84 e4 0f 84 1c f2 ff ff e9 84 f2 ff ff e8 5c 5e 5b f8 90 <0f> 0b e8 54 5e=
+ 5b f8 48 8b 54 24 30 48 b8 00 00 00 00 00 fc ff df
+> RSP: 0018:ffffc90000648870 EFLAGS: 00010246
+> RAX: 0000000000000000 RBX: 00000000fffffff2 RCX: 0000000000000101
+> RDX: ffff88802ce60000 RSI: ffffffff89b30684 RDI: 0000000000000005
+> RBP: ffffc900006488f0 R08: 0000000000000000 R09: 00000000fffffff2
+> R10: ffff888046a12f77 R11: 0000000000000000 R12: 00000000000000e4
+> R13: 0000000000000180 R14: 0000000000000000 R15: ffff888030406780
+> FS:  000055558120b500(0000) GS:ffff8880d467c000(0000) knlGS:0000000000000=
+000
+> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> CR2: 000020000001a000 CR3: 00000000385f5000 CR4: 0000000000352ef0
+> Call Trace:
+>  <IRQ>
+>  __skb_linearize include/linux/skbuff.h:4025 [inline]
+>  skb_linearize include/linux/skbuff.h:4037 [inline]
+>  sctp_rcv+0x143e/0x3cc0 net/sctp/input.c:120
+>  ip_protocol_deliver_rcu+0x44c/0x4d0 net/ipv4/ip_input.c:207
+>  ip_local_deliver_finish+0x3fb/0x6e0 net/ipv4/ip_input.c:241
+>  NF_HOOK include/linux/netfilter.h:325 [inline]
+>  NF_HOOK include/linux/netfilter.h:319 [inline]
+>  ip_local_deliver+0x1a3/0x200 net/ipv4/ip_input.c:262
+>  dst_input include/net/dst.h:481 [inline]
+>  ip_rcv_finish net/ipv4/ip_input.c:492 [inline]
+>  NF_HOOK include/linux/netfilter.h:325 [inline]
+>  NF_HOOK include/linux/netfilter.h:319 [inline]
+>  ip_rcv+0x33a/0x3c0 net/ipv4/ip_input.c:612
+>  __netif_receive_skb_one_core+0x197/0x1e0 net/core/dev.c:6433
+>  __netif_receive_skb+0x1f/0x120 net/core/dev.c:6546
+>  process_backlog+0x487/0x1600 net/core/dev.c:6897
+>  __napi_poll.constprop.0+0xaf/0x450 net/core/dev.c:7966
+>  napi_poll net/core/dev.c:8029 [inline]
+>  net_rx_action+0xa40/0xf20 net/core/dev.c:8186
+>  handle_softirqs+0x216/0xa20 kernel/softirq.c:669
+>  do_softirq kernel/softirq.c:569 [inline]
+>  do_softirq+0xaf/0xf0 kernel/softirq.c:556
+>  </IRQ>
+>  <TASK>
+>  __local_bh_enable_ip+0xff/0x120 kernel/softirq.c:473
+>  local_bh_enable include/linux/bottom_half.h:33 [inline]
+>  ipt_do_table+0xd71/0x1b10 net/ipv4/netfilter/ip_tables.c:357
+>  nf_hook_entry_hookfn include/linux/netfilter.h:165 [inline]
+>  nf_hook_slow+0xbf/0x220 net/netfilter/core.c:633
+>  nf_hook include/linux/netfilter.h:280 [inline]
+>  __ip_local_out+0x541/0xb80 net/ipv4/ip_output.c:120
+>  ip_local_out+0x2a/0x1f0 net/ipv4/ip_output.c:129
+>  __ip_queue_xmit+0x876/0x1f50 net/ipv4/ip_output.c:533
+>  sctp_v4_xmit+0x91a/0x1070 net/sctp/protocol.c:1061
+>  sctp_packet_transmit+0x22fe/0x30b0 net/sctp/output.c:659
+>  sctp_outq_flush_transports net/sctp/outqueue.c:1174 [inline]
+>  sctp_outq_flush+0xb2b/0x3380 net/sctp/outqueue.c:1222
+>  sctp_cmd_interpreter net/sctp/sm_sideeffect.c:1826 [inline]
+>  sctp_side_effects net/sctp/sm_sideeffect.c:1211 [inline]
+>  sctp_do_sm+0xce1/0x5c30 net/sctp/sm_sideeffect.c:1182
+>  sctp_assoc_bh_rcv+0x392/0x740 net/sctp/associola.c:1048
+>  sctp_inq_push+0x25c/0x320 net/sctp/inqueue.c:91
+>  sctp_backlog_rcv+0x169/0x590 net/sctp/input.c:331
+>  sk_backlog_rcv include/net/sock.h:1194 [inline]
+>  __release_sock+0x39d/0x440 net/core/sock.c:3341
+>  release_sock+0x1e5/0x280 net/core/sock.c:3940
+>  sctp_sendmsg+0x1166/0x22e0 net/sctp/socket.c:2091
+>  inet_sendmsg+0x11c/0x140 net/ipv4/af_inet.c:864
+>  sock_sendmsg_nosec net/socket.c:800 [inline]
+>  __sock_sendmsg net/socket.c:818 [inline]
+>  ____sys_sendmsg+0xa23/0xc30 net/socket.c:2715
+>  ___sys_sendmsg+0x190/0x1e0 net/socket.c:2769
+>  __sys_sendmmsg+0x20c/0x440 net/socket.c:2858
+>  __do_sys_sendmmsg net/socket.c:2885 [inline]
+>  __se_sys_sendmmsg net/socket.c:2882 [inline]
+>  __x64_sys_sendmmsg+0x9c/0x100 net/socket.c:2882
+>  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+>  do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+>  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> RIP: 0033:0x7ff80879fb19
+> Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f=
+7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff=
+ ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+> RSP: 002b:00007fff70bcd848 EFLAGS: 00000246 ORIG_RAX: 0000000000000133
+> RAX: ffffffffffffffda RBX: 00007ff808a25fa0 RCX: 00007ff80879fb19
+> RDX: 0000000000000001 RSI: 0000200000000e40 RDI: 0000000000000004
+> RBP: 00007ff808837b70 R08: 0000000000000000 R09: 0000000000000000
+> R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+> R13: 00007ff808a25fac R14: 00007ff808a25fa0 R15: 00007ff808a25fa0
+>  </TASK>
+> Modules linked in:
+> ---[ end trace 0000000000000000 ]---
+> RIP: 0010:__pskb_pull_tail+0x1335/0x1920 net/core/skbuff.c:2903
+> Code: 5b f8 48 89 df e8 2b 03 fe ff 31 ff 41 89 c4 89 c6 e8 7f 58 5b f8 4=
+5 84 e4 0f 84 1c f2 ff ff e9 84 f2 ff ff e8 5c 5e 5b f8 90 <0f> 0b e8 54 5e=
+ 5b f8 48 8b 54 24 30 48 b8 00 00 00 00 00 fc ff df
+> RSP: 0018:ffffc90000648870 EFLAGS: 00010246
+> RAX: 0000000000000000 RBX: 00000000fffffff2 RCX: 0000000000000101
+> RDX: ffff88802ce60000 RSI: ffffffff89b30684 RDI: 0000000000000005
+> RBP: ffffc900006488f0 R08: 0000000000000000 R09: 00000000fffffff2
+> R10: ffff888046a12f77 R11: 0000000000000000 R12: 00000000000000e4
+> R13: 0000000000000180 R14: 0000000000000000 R15: ffff888030406780
+> FS:  000055558120b500(0000) GS:ffff8880d467c000(0000) knlGS:0000000000000=
+000
+> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> CR2: 000020000001a000 CR3: 00000000385f5000 CR4: 0000000000352ef0
+>
+>
+> ---
+> If you want syzbot to run the reproducer, reply with:
+> #syz test: git://repo/address.git branch-or-commit-hash
+> If you attach or paste a git patch, syzbot will apply it before testing.
 
-Looks OK.
+Thanks for the reproducer.
 
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+The issue was caused by iptables TEE target (`pskb_copy`), where the new
+skb doesn't copy the skbs in frag_list, so modifying the skbs from frag_lis=
+t
+in sctp stack is not safe.
 
--- 
-Damien Le Moal
-Western Digital Research
+I will prepare a patch for this.
