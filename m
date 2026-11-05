@@ -1,92 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.14.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793838259;
-	b=BFtL23OYRoiTMEN9VbJ4JkaIWa3vtjvIGbx0O5pnX37+ACmJ7hxrQ5P+Ju2Lt3tIipJl
-	 bfI7MDYmr4DtsWO+pkGLJ3vFc8JYxijl/SKur7BalixlnPPl3gUD7j+t2sjyiwwW6b1I6
-	 hPoJGnmSXmQqDwkxwfBhVE4rysPkVsDevBBdiT0BNATClkaluhm+UfQdHUnhVI4tUunHi
-	 ucd6AI/JcWqYtd854rzNE7H/qhZ/KpqlfrFZn2a0TuGY7MFWgsMTIab60vYJV6sKJAfmh
-	 S2jaDtM8a97JtdvwZootp499cAiINoOXRB6fov/EPSVaVZNixDt70XNDMyA75OhymIw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793838259;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:
-	 X-Microsoft-Original-Message-ID:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=tZ/CEyaDYXsNNRdMIEB4q1HaASe6B5/6Xwid5BMJouc=;
-	b=pJww5sPbRjP6MujaeqE3j45DQYScscAd74TD+7eKBEvMV/i+SLxXAMyLZ3FlFf2Qx16D
-	 tZPuQSsk3dQvEmlTibJLc3dx/xn2ErbG3+hYZz4OikmmVQB0qlVXqmMX9zyi5tzT7b1XF
-	 FIp45Jxr8K7GOXKkuLL+Fx1nyNNtl8pv7YMT2orudDkKk6SyHVQF051I0eOLthe3W/Bon
-	 CW9xsWDlTNrOOnJ7IVCvtNzHlQnpn9D8+0ipMZcjanx53Tvuu1+krZw4nSV2wgf5mpWYE
-	 M44gT8oAis5rAnii9bZ5FwePkZZvaHDWVpK1bTifIZh+8G0E+7Q4N4Z6GOXgC/a4NUw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=outlook.com;
-	spf=pass smtp.mailfrom=outlook.com;
-	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=UqiBTXsE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.14.42
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazolkn19013042.outbound.protection.outlook.com [52.103.14.42])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793838334;
+	b=nMk7+oKiS/aJAjHhRY8uRgdti5LD+wswDM2ju7KsNXzMukL62wXcgOSStNzDbWWuVUk8
+	 ZAJ/iZ/gtUc6+V6glBAruKe/TY8uQYDZ1Qf30CSBj0Y/tl1+mzGbjUI2TJRVY06x97DYr
+	 vDApgh8SxkXsbEGcpNWR0Z0tcH8NjdY3FS/ydeLxvRYp/WW6/nvY4sOn9TaL3lrJBkum5
+	 yA7HsWBBWCBDjV+g2F45juLXmBnYNx+6uztjwqhQYHydVAhGpREyYk/N5a1W6rLJl+qDx
+	 g37pBRwEW8S2L338awvuk+zI/Yyjcpwy7QRlrXO+ZZ0GeV5xnM3WjoMGq9jqGpAxFng==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793838334;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=/ONf8LMPh39a51yT19bDLCqB+BxgwtV1gv/DgxnpC7o=;
+	b=oCEa3BsUN+YMrmYCj9h52MLO8Ay802+1udFUpLktQDNzpwPYI0dAjOtQgdvXNELKkqJi
+	 VQjdUHX8eu0mucd3Iih0YOFHu88ILyHf4FOQgrFZ8taGF4HQsb3zu7K3ceciwimpIWTAB
+	 9Arg0S/iRESZRLn4gXMswVkMVr5dV3QXW7oGP6rhTHklJzp8LFFYp0kiPBo0ZXzFPuOcT
+	 432sHsmTGvq4tCcc2+6nHWmerGHsnXQilkXKQOOOJS9FR8z2eP7V+5M6oEyujOvcTG1Eu
+	 kTse5F37cZwc7g0YemnjylHb1904dqyL3zuOyb2jHgtTdxcWVAnpOprlngo/agwBMsA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c1SbKH31;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9DB8606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:24:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9DB8606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF74D606A326;
+	Thu,  5 Nov 2026 00:25:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=UqiBTXsE
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=toaZ+IHKzW5/RPu3ShNeotq/iYj6zSGkOHnGjNdDUG0q08jlF01vLs1SaHzok6pPpF+Hofp8ajtmao635NkQsMNFzXR+0RCpuNba1TEEullKE8bzYgm7vckT5ZK/SQstnSs9EzBgjZ/WITVPkSBAtf0K5qdGSipWXalzyX8O1/Eg5NonJk3/vlafsxYPYz0v+Kaaba4AfIigJ4sNRZGfB2yNSwKHjRGozeB/ZDXFliXg8O6HRJWJJEp/Qe2bSTJIXMV2Mkk3xPg/yH1bWRsQzkuQ91I5xsA2W1dCcz/a6Topp8Gz4ZhhooE720arm0XKqPq96n0J7XPxDTuM2DcLVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tZ/CEyaDYXsNNRdMIEB4q1HaASe6B5/6Xwid5BMJouc=;
- b=RY4IBAzzIUL7zfm7MlvOcXVTjE88gmerahPHyK2rI0w7Tpurvs5fXVHkCSIVWBd1kaTURkiA67NXTpmAoIVUUamBaLyypKuMlOq6lYoIeC61+LFvJ9p/cTIYwAlAGxW2nNLjAQimAk2cOOF8B5G/IoDjAc9Tkui5xAWcFupYLsFjJywpTblblgJav7dKzDp+jxAiJ/gyl/Yxzyrd2H94yCdewMLznoTjFS8JCx2HuX6+OgyHnUP5PwRk5Iv87H+wYKc1uJe3euLcv2J1jKNhvaTeaZYPyNZlV7AgOIAcGy/StLRKPgUXBYYX6N1iIclVPxwT3RZqfY1CQnZFOggK8A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tZ/CEyaDYXsNNRdMIEB4q1HaASe6B5/6Xwid5BMJouc=;
- b=UqiBTXsES9VDN0w2ZPjREQ+KHLT9zLlixgMZmVMadMwKwk8cyQgJEJ9fx20tpDHu2t0G0WBcizOzOY963z5/Odl+lBF1cdgz0AKDOzjrAybRuUwvQ2fUQ5zaJ/VvPccJBUEL9eY7BTVOCzFcw7j1JWTKignG89usY+S2P1QeXhm/hj9ywUtZXj6G6ikCd65aVA/teVrvek9xuvNqNz0sIQzTSBSV6tiidqLBO8gAlFB2Gos0o4ZATkQBzt2ffLFhw+5Y4IYuaqsyrRDtHa1kBpq0w/NBrqdXpAo2BZW6uSYipincShImO2xR01tnd5JvyObLw/pQlf2yPz5wN2vrYw==
-Received: from SN1PR12MB2528.namprd12.prod.outlook.com (2603:10b6:802:28::33)
- by CY5PR12MB6599.namprd12.prod.outlook.com (2603:10b6:930:41::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 5 Nov 2026
- 00:24:16 +0000
-Received: from SN1PR12MB2528.namprd12.prod.outlook.com
- ([fe80::9875:58c0:928e:cf0a]) by SN1PR12MB2528.namprd12.prod.outlook.com
- ([fe80::9875:58c0:928e:cf0a%6]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 00:24:16 +0000
-From: Victor Chernyakin <chernyakin.victor.j@outlook.com>
-To: broonie@kernel.org
-Cc: chernyakin.victor.j@outlook.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 0/2] regmap: add APIs to bypass regmap_field and work with reg_field directly
-Date: Wed,  4 Nov 2026 18:23:58 -0600
-Message-ID:
- <SN1PR12MB252866763981CE496B249497A5772@SN1PR12MB2528.namprd12.prod.outlook.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <c9a8b55f-72be-4196-af43-5a18b38b8b45@sirena.org.uk>
-References: <c9a8b55f-72be-4196-af43-5a18b38b8b45@sirena.org.uk>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: CH2PR14CA0049.namprd14.prod.outlook.com
- (2603:10b6:610:56::29) To SN1PR12MB2528.namprd12.prod.outlook.com
- (2603:10b6:802:28::33)
-X-Microsoft-Original-Message-ID:
- <20261105002358.697394-1-chernyakin.victor.j@outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c1SbKH31
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E2EF1F000C1;
+	Thu,  5 Nov 2026 00:25:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793838333;
+	bh=/ONf8LMPh39a51yT19bDLCqB+BxgwtV1gv/DgxnpC7o=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=c1SbKH31TGZRbkfH1Tb66B0+W6n23rioM1Sioo2I1JGCfp4lmzBOSb60nSh21Vft/
+	 W3nXvs6DBSwAcdCSYQxhi+/L5HD0KaE9llqTY9X0hxLYOjP3eHHPx0EvEVlhtPA8ZY
+	 UI3T6LCzp7upLPU8cd662pVH1PCo+qXkau/Xexg0KEFrNoAnQvqAEwrBsKkOUfmKe1
+	 ae/SlzK9cv5meg7I0BYQnP9nbLCQdX7/pzUGD9peVWlyzpiVNPunOwF48iGbHtjCsq
+	 fs6EA356LLFuY4Ji8hhsy6MSWL2zxyzqDjVgEaQ6sBUsSX3ViPKEUR7Fka2nvUjReb
+	 R213ix6x1/t5g==
+Message-ID: <sashiko-outbox-198356@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 20/21] sched/deadline: Cancel the replenishment timer
+ with the parameters
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
+In-Reply-To: <20261104211207.1392343-21-mathieu.desnoyers@efficios.com>
+References: <20261104211207.1392343-1-mathieu.desnoyers@efficios.com>
+ <20261104211207.1392343-21-mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 05 Nov 2026 00:25:32 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,80 +60,173 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2528:EE_|CY5PR12MB6599:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8fb63bfb-24d8-4c38-c129-08df3ad31fb8
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|24021099003|4140399003|260925184616899003|25010399006|5072599009|23021999003|24121999003|19110799012|15080799012|8060799015|22091999003|52005399003|40105399003|26121999007|19061999003|440099028|3412199025|1710799026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?acHQv+AwS/FjXULCDMO2jo5jwM7Zsrn9QNzrawskGGzN4TMeIBsnW2ZDHEV2?=
- =?us-ascii?Q?dI+S2wZmilteG/QxkeXCWLaxdLv6fjz75qcs23VfLu5VMsPMD+Kz6GeiLf/u?=
- =?us-ascii?Q?OppAvkCGPJgPyn8WPf7VCyX8pShRe9tvDAj1c4DjBlTK1zeXmRiQgDXITt3a?=
- =?us-ascii?Q?4cLcPyG+ms4sXymJL2UVoRNW+b3xin7Q2CLUOy8zwX2Ci5tysXjOqi3nlvbW?=
- =?us-ascii?Q?3YvQmp/QcUytzQ5tLm7aMWEsEZE6fBOw2MHe6K0fhqioLTetUzHMMf8xIW3M?=
- =?us-ascii?Q?ePRIn/Fz3CpiXjrrYhUWh23SXRyRC8hIx92h1sk+lDFCFwn9ImEB2z40wAyM?=
- =?us-ascii?Q?RNl80CWqrhxIm3MDSeJZFynfOgTn+JmqTmfOwN6n39cLBeb964ffJFNIOKop?=
- =?us-ascii?Q?13Rq9JeD4FMxHk//DstC5K9c8nQQQX9no6u4NhlGLrp7Fi1QAlG7w8Ylom4k?=
- =?us-ascii?Q?8cvVBFEIBKvzu3qgCPIgYg3VlZ4eUVPkiQXNzz9P1NU7NuI3HePURI3Y9Yqt?=
- =?us-ascii?Q?8MegceFD0emeHnxZCrQCGsLhcd717wjfW+K/9HWQR9HhYki2cjU7LAyN4l74?=
- =?us-ascii?Q?u/VD47yJJEa2UFBUHzcGH1PIkEycMDE94BoEHjUZn+5IQV7U2GYRHF+aG9lD?=
- =?us-ascii?Q?9R0AtOTyZRG4EkMwOWSyIZ3B1iiNDArFsC6UJB2aTpAuULGEykQQg0ASkK85?=
- =?us-ascii?Q?mw/fMXyFW/DG2XHvGYlitL9hhDLfORtttbr4+lnRW0D2JZR9YdoF/zHk8EwC?=
- =?us-ascii?Q?PWHJvCclEKJkd+7+Bl9i4CWFDmyw3GoXY5mXkQ0ZqATG7KysSotyXFijngh8?=
- =?us-ascii?Q?JgFJm0OS/Ee0aB5Gszhl9n7Qr8O7wxNxjtadfZjI5436D72uNWZcavh1Ba/K?=
- =?us-ascii?Q?HyeDl0O1HpOgA6/ndjjN4/1bCzkb2FWWn/aDSSPj4wnCigL9ed3+mfxME4pY?=
- =?us-ascii?Q?qkjBkBgfxqie1fBK/RyGLrhu5q7itXIg8nz+3wo4jkzkTO4so9w8ArYapP3d?=
- =?us-ascii?Q?jaeAeEovYNo81zA//AocN3eW1BjFtUpoN/HDTTc3JkFj6CGQk9ofPwP5NKfG?=
- =?us-ascii?Q?8lw0KdoNO7gQvRUwC1dEELChbkSxDg=3D=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?FAqJRH8uG8X4D8WkupAEG3dcW8n4h5MmD1Ac8Yqnl/sCYw1R6LPjSLBXJzzH?=
- =?us-ascii?Q?TxFpKxzJc7zXEDP6OS6BJzkmuYMULdEnnqg00xzElIjtvo7udZK9fvCy8OvW?=
- =?us-ascii?Q?XgwE5VV2GweneKM5Q0s8+RYjcVq5PbvnL78uOalm4tc8MHBiLsZuNX41FhiW?=
- =?us-ascii?Q?DF3W6oGhf8n3d+JpkuXhKxLn0bp4ARw6OuMWv3fnz9IL1L6lKHfJtWpDUF0y?=
- =?us-ascii?Q?P7iWxWRycjwZ5ccq4kpHuemmB4SZW1rKaXNXCpk3qJfC/AckCPx0W84Eyi4n?=
- =?us-ascii?Q?dR0/llZsbop6UEhPjskswFh4Kw4hn4+oFDcBqkk41KaMuYc1AUmfcrTxqYxz?=
- =?us-ascii?Q?4xUeybYkrxRZg6VWE1XBe9NYDrzl8GCOJHUR3NAqY1x4yqcQwojnqikGy+CV?=
- =?us-ascii?Q?+YrNTbn3yuSq/dPB4ufNb1+DDQHYHCgn5IlwynWUVHAVse7FTUhw/3WWFQNr?=
- =?us-ascii?Q?YqV3cuNyyN1KRgR8sbFmtKHO/Dy//Mwuv6fSXm5PTexkHKfxFGz4YMuZUZa8?=
- =?us-ascii?Q?U3tf41i7MvPqdX/IPITEiQagg7vNIi1p1hZLmRPkW+J5TNmHhuOColQ7ytbT?=
- =?us-ascii?Q?OLX4PW+a4ZqOynmznqkT3MEclvkJBxjJWlM1MZqUBVwVCi6YtYvhQivPAXM2?=
- =?us-ascii?Q?FvhpfbhDK+3kbpL9qd4nQ8GMFmbL+3PfxxsSsG72BRgqigJWrzGfyf7o426c?=
- =?us-ascii?Q?d7EBZxL7faxqfeybzvur0RbBjVnQdrkP5/nBUicLEygYLNeW+YxC63X2fQ+i?=
- =?us-ascii?Q?Rj3yMoDfV6lUl4LkZzTXEYBQS85PECkv/UVgSHLoyyeV2S2nOm1BVOh+pUzr?=
- =?us-ascii?Q?XivT6EHvpSknPCdx64boq2OSFUzHGAuazwQo/GQP99GsQn7BJ8k13JQ4nc8k?=
- =?us-ascii?Q?aA1xghvHlvD/znWn/7vLgdxdPFXay0QDlpmzntBTRMVuZEgDMfvbPPMz72Ty?=
- =?us-ascii?Q?yOtAqXAa7JzzfyPJUMuleY4H9NV4+0bHqJ/gqEsKSoSlqlbJe3rFykwUo7I1?=
- =?us-ascii?Q?oyUcNWCe5eDs1PgwmJowXMfqhaUgR3SinKj3ffrxnf1PKpBmKvzwX+GUnq82?=
- =?us-ascii?Q?j0Nh3sme5rCkcjL/lgE0IiuNZWJ3ObxHFPPfHEHHkTgn7VAccsuG9K8zU8G0?=
- =?us-ascii?Q?SIC4n5okkRl1vIf/5h6ZJRV/NeBNBDAmhLOyew/Bk1FT4GfvV9HK2q7R5pD7?=
- =?us-ascii?Q?m8SU+DQEf3eZCjphRbrgcQ2NM3Fg8eKof/SPP5NAzvZkDWSoZ7iBjhUjTkXr?=
- =?us-ascii?Q?Yvv2Ha3LXqmGuE+q4N/C6why6/ynDbyEpHSQrGzVeDZTITxGue8kzmiKPbC7?=
- =?us-ascii?Q?ENzBUosx4l4CKGXAdtwFoAJsISWkO0n2OMJNyr9lPcqASKEI2x3QApHWGl4I?=
- =?us-ascii?Q?m3hILDIqp/tB8yMdLFrPXZlUy9ZJj76QZNM6moZh5/JKsO7c9A=3D=3D?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8fb63bfb-24d8-4c38-c129-08df3ad31fb8
-X-MS-Exchange-CrossTenant-AuthSource: SN1PR12MB2528.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 00:24:16.2943
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6599
 
-> > This is not actually a new idea! Both it and the current *_alloc approach
-> > were suggested as alternatives right when the regmap_field_* APIs were
-> > being added [1]. The *_alloc approach was chosen without much
-> > discussion, but I think (and Patch 2 demonstrates, I hope) that
-> > this approach is the cleaner one.
-> 
-> The demonstration in patch 2 would be a lot clearer had I been sent
-> patch 2...
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] sched/deadline: stale deadline and runtime left by __dl_clear_pa=
+rams()
+- [Medium] sched/deadline: uncancelled dl_timer in switched_from_dl() for s=
+leepers
+--
 
-That's what I get for just blindly using get_maintainer.pl, sorry
-about that. Sent it to you now.
+commit 88a7a115f1789bc812516cdb6cea3464930cdccf
+Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 
+sched/deadline: Cancel the replenishment timer with the parameters
+
+This commit cancels a deadline task's replenishment timer in
+task_non_contending() and inactive_task_timer() when clearing its parameters
+at the 0-lag time after leaving SCHED_DEADLINE. This prevents a task that
+re-enters SCHED_DEADLINE before the old period expires from keeping the
+armed replenishment timer of its previous reservation.
+
+> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+> index c0af06d0f3688..15d224846ebad 100644
+> --- a/kernel/sched/deadline.c
+> +++ b/kernel/sched/deadline.c
+> @@ -563,6 +563,7 @@ static void task_non_contending(struct sched_dl_entit=
+y *dl_se, bool dl_task)
+>  				if (READ_ONCE(p->__state) =3D=3D TASK_DEAD)
+>  					sub_rq_bw(dl_se, &rq->dl);
+>  				dl_task_release_bw(p);
+> +				cancel_replenish_timer(dl_se);
+>  				__dl_clear_params(dl_se);
+>  			}
+>  		}
+
+[Severity: Medium]
+When cancel_replenish_timer() and __dl_clear_params() run at the 0-lag time
+in task_non_contending() or inactive_task_timer(), __dl_clear_params()
+clears dl_throttled and dl_yielded along with the static reservation
+parameters, but leaves the dynamic dl_se->deadline and dl_se->runtime from
+the old reservation intact:
+
+kernel/sched/deadline.c:__dl_clear_params() {
+	dl_se->dl_runtime		=3D 0;
+	dl_se->dl_deadline		=3D 0;
+	dl_se->dl_period		=3D 0;
+	dl_se->flags			=3D 0;
+	dl_se->dl_bw			=3D 0;
+	dl_se->dl_density		=3D 0;
+
+	dl_se->dl_throttled		=3D 0;
+	dl_se->dl_yielded		=3D 0;
+	...
+}
+
+For the two cases described in the commit message where the 0-lag time is
+reached before the old period ends, could leaving dl_se->deadline and
+dl_se->runtime set cause problems if the task returns to SCHED_DEADLINE
+before the old deadline or period expires?
+
+In the first case, a task yields (or leaves with remaining runtime > 0), so
+its 0-lag time is earlier than dl_se->deadline. After the 0-lag time passes
+and releases the old bandwidth and clears dl_throttled and dl_yielded, if
+the task returns to SCHED_DEADLINE before the old dl_se->deadline,
+enqueue_dl_entity() checks whether the deadline has passed on the
+ENQUEUE_MOVE path:
+
+kernel/sched/deadline.c:enqueue_dl_entity() {
+	...
+	} else if ((flags & ENQUEUE_MOVE) &&
+		   !is_dl_boosted(dl_se) &&
+		   dl_time_before(dl_se->deadline, rq_clock(rq_of_dl_se(dl_se)))) {
+		setup_new_dl_entity(dl_se);
+	}
+}
+
+Because the stale dl_se->deadline is still in the future,
+setup_new_dl_entity() is skipped and the task runs with its leftover
+dl_se->runtime and old dl_se->deadline (regaining runtime it forfeited when
+yielding, or exceeding a smaller new dl_runtime after its old bandwidth was
+already released).
+
+In the second case, a constrained-deadline task overruns slightly and
+reaches its 0-lag time after dl_se->deadline, but before dl_next_period().
+If it switches back to SCHED_DEADLINE as a constrained-deadline task before
+the old period ends, enqueue_dl_entity() runs dl_check_constrained_dl()
+before reaching the ENQUEUE_MOVE check:
+
+kernel/sched/deadline.c:enqueue_dl_entity() {
+	...
+	if (!dl_se->dl_throttled && !dl_is_implicit(dl_se))
+		dl_check_constrained_dl(dl_se);
+	...
+	if (!dl_se->dl_defer && dl_se->dl_throttled && !(flags & ENQUEUE_REPLENISH=
+)) {
+		if (flags & ENQUEUE_WAKEUP)
+			task_contending(dl_se, flags);
+
+		return;
+	}
+}
+
+Seeing dl_se->deadline in the past and rq_clock(rq) before dl_next_period(),
+dl_check_constrained_dl() sets dl_se->dl_throttled =3D 1 and re-arms dl_tim=
+er
+for the old period, causing enqueue_dl_entity() to return early without
+initializing the new reservation.
+
+Should __dl_clear_params() also reset dl_se->deadline and dl_se->runtime?
+
+> @@ -2326,6 +2327,7 @@ static enum hrtimer_restart inactive_task_timer(str=
+uct hrtimer *timer)
+>  		}
+> =20
+>  		dl_task_release_bw(p);
+> +		cancel_replenish_timer(dl_se);
+>  		__dl_clear_params(dl_se);
+> =20
+>  		goto unlock;
+
+[Severity: Medium]
+What happens if a constrained-deadline task overruns slightly as it blocks,
+reaches its 0-lag time while still sleeping in SCHED_DEADLINE, and only then
+switches out of SCHED_DEADLINE before its replenishment timer fires?
+
+When the task blocks in dequeue_task_dl(), update_curr_dl_se() sees the
+runtime overrun, sets dl_se->dl_throttled =3D 1, and starts dl_se->dl_timer
+for dl_next_period(). Then dequeue_dl_entity() calls
+task_non_contending(&p->dl, true).
+
+If the 0-lag time passes while the task is still asleep and still in
+SCHED_DEADLINE, task_non_contending() or inactive_task_timer() drops
+running_bw and clears dl_non_contending, while dl_throttled remains 1 and
+dl_timer remains armed.
+
+If the sleeping task is then switched to another scheduling class before
+dl_timer fires, switched_from_dl() takes the !task_on_rq_queued(p) &&
+!p->dl.dl_non_contending branch:
+
+kernel/sched/deadline.c:switched_from_dl() {
+	...
+	if (!task_on_rq_queued(p)) {
+		bool released =3D false;
+
+		if (p->dl.dl_non_contending) {
+			sub_running_bw(&p->dl, &rq->dl);
+		} else if (p->dl.dl_runtime && !dl_entity_is_special(&p->dl)) {
+			dl_task_release_bw(p);
+			released =3D true;
+		}
+		sub_rq_bw(&p->dl, &rq->dl);
+		if (released)
+			p->dl.dl_bw =3D 0;
+	}
+}
+
+Because neither task_non_contending() nor inactive_task_timer() runs on this
+path, dl_task_release_bw(p) releases the bandwidth while leaving
+p->dl.dl_timer armed and p->dl.dl_throttled set to 1. If the task returns to
+SCHED_DEADLINE before the old dl_timer expires, enqueue_dl_entity() sees
+dl_se->dl_throttled =3D=3D 1 and returns early without enqueuing the task u=
+ntil
+the old period ends.
+
+Should switched_from_dl() also cancel the replenishment timer and clear the
+throttled state when releasing a sleeping task's bandwidth past its 0-lag
+time?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104211207.1392=
+343-1-mathieu.desnoyers@efficios.com?part=3D20
