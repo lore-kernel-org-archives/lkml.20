@@ -1,94 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793898576;
-	b=V0Po2zh69i5Pt/6fyQt88VHBBgbAf1NoUQtrdEuxbdsxVOKMoRIg76kkKjUHfseyP6q4
-	 jgTgK/Vlb6rbWhIVM054/t/YH/GQQuAStE4FWAFm+Fd5+PaAGvsMXbMKpN6Mfe3y0yA2I
-	 Rj/ZQzjIFsKn1EUTnM1k5/CAFIaoHTRdq2ELwktD+AfaKV/y0L93/pgbGAk02cRFia0LW
-	 dKMcgDyQkcRCX49fwTLOto5kmCvkmEeyAcOWKftE5UK9F5vKGi49D4en4BTv4wzAb7u1k
-	 w64mgsWNXwmzNVXHAGXsKx13BsiY3hqnD5j0Wfbo1cvrYw1ZdCWpxFSWnz5RlhYMMfQ==
+	t=1793898602;
+	b=ygLzLyCN/on9jivujezSRQ19KFuTDhXcOKQJlku0E37KnOtUfca2DQL015YbhsWg9SKA
+	 JxAsweIfbDThmQAKJJ4Kap/ygB0wXXFs0N/p3uIqw6Lz2iF7C4cWpVPUX5jYVmymEWMv5
+	 6bIo7GzbjyVWfgMz7KT3bSodOK0QbgcoOFDpiL+bsIIPnyzXNkbszH+hXMCRWt0MDDMv3
+	 o7IC+jMC6BypuB4gJsc3591xJTS+oaCUPz0VGLR0F5L9envPCxoQiFGgpTTVt3srtBW5Y
+	 zBVv7wleO4Jo4Z8tG6PiDCN2COCMqU5XN34AtI7SsgeXQYK2FKTdMC8q25H0F9a87BQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793898576;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-Patchwork-Hint:Organization;
-	bh=ftXrLJ3VGDxoUJyKbJMYpPqFnmx7TbsuL9Req11yyW8=;
-	b=OGW3VS/FUQXqdEDYjQgNA9ryLPu9+blwfYblXnMq69J9sO5MAWvawHQ8x5Z9+CVLIKAw
-	 QVq6MVpf+WhISp9P4BMRgfX9gxv4ShBOhSlKJZbpcEQS5ylwTqXLBYAhhgkwaR690P0aY
-	 EDni/4nPXWjZvqOtuEs0eojz/xLosbZbkg1fgSu4F090L6J75WzBY61+mJcJ9FOwj6jnd
-	 LlDwNsxPVLWD6YXOcwFodJKaKMR2bUE+KIWpNbnt4KDlDui5Gy8X+MFZD5YLtjJMhoQg6
-	 Hr9K0ff6r6rbIE4EgSUsY31SCNMLOnf6qC1MPXPngkbchl6HrcVwlFfEALxM/xZv/Ag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793898602;
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=gZkm2QxfDfYCVvyQBMZSCLkQzLHLrn3ojCeBtZmNTQ0=;
+	b=Cl1CqfUnDM366tioBTX2tnAkZ6INPytFzgZrUE5HKBKTr74EjBw4gRQneLqagYGVxIAE
+	 SskCx5oJ2b0XUXHpXzQkvXLvj1FuSiHeMyzO933RVRCsdKXz7hmj2YE2Voagp8IctkkGR
+	 7Br5gntff3R0K9VIP3YvzGsTjEvZ1NC63awf2C+gt/uoiar0iaGzK5vil4O+uvft9Ry7n
+	 LOSTiCJaAZcCem8wuRb5v6s7ei2LTtccxZFlm7LM5pD+3JWs59Q09oHk/4jL+i6VWhJo3
+	 prLLiBKGm44227EA9hf52Z1Tar7wmjWh7zbsbpXTDdjv2JijxIygoOmvhRe5N6+gq+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PHbKldF5;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="dHBR/ye2";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A2F606A326;
-	Thu,  5 Nov 2026 17:09:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86A2F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFEC0606A326;
+	Thu,  5 Nov 2026 17:10:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PHbKldF5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793898576; x=1825434576;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=z/d+aYcT75wGZnwBdM9DEcoUTmOnTK13mjsp6wxBpiU=;
-  b=PHbKldF5Z6MYX2+yFw17UQAV2HgIng59OSLcMYm6RF2m4KfuDk54qwVq
-   ZmiUK8Bb7Mbeuh4CXQRnT51Maoq+cWvqn1AB/zEDER1Wjhl4AqPkd3IXn
-   7S83cCA3rfwpeKhDiwyGt4x4rCkWnfpsM7AcszKyulZfIKlNFuSCMKkMT
-   wZvN1M2sRqVL+7P2tna4l27CfkvcaNFmvcDTtUJpx89REeOkit5E8Sn2V
-   Pbv/GpLeWNQq/Jd5Qw5HZCxnwi42sAo9E/JBPVuEm2R9loo+duvV5aQRv
-   wJdypFXEvW1bOaCjJAUoc+NNlWljqH3PyC0haHVHMKsdL2+GP8ooJxMze
-   w==;
-X-CSE-ConnectionGUID: 1HxxxujoS1WcGkHYffh9aw==
-X-CSE-MsgGUID: O7dTPc2VRG6+GOkBk3T1Rw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2571937"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2571937"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 09:09:35 -0800
-X-CSE-ConnectionGUID: NPSPczPMT5+IW8n9a9DqNA==
-X-CSE-MsgGUID: Q31IRDsjRS2dKxEWx/ovsw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7072778"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.198])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 09:09:29 -0800
-Date: Thu, 5 Nov 2026 19:09:25 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org,
-	Harry Wentland <harry.wentland@amd.com>,
-	Leo Li <sunpeng.li@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	amd-gfx@lists.freedesktop.org, Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	=?utf-8?B?VG9tw6HFoQ==?= Hnyk <tomashnyk@gmail.com>,
-	Wim Taymans <wtaymans@redhat.com>, nouveau@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] drm/i915/audio: Populate ELD Port_ID
-Message-ID: <auy4RTCRfprhD-5Z@intel.com>
-References: <20261105160240.2850042-1-kai.vehmanen@linux.intel.com>
- <20261105160240.2850042-3-kai.vehmanen@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dHBR/ye2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E1A61F000C1;
+	Thu,  5 Nov 2026 17:10:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793898601;
+	bh=gZkm2QxfDfYCVvyQBMZSCLkQzLHLrn3ojCeBtZmNTQ0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=dHBR/ye2ZrPb5Er9jk6li27/jk8CQjBqhuooldMh3jAdv2nRJqU8gxzuobpcKac2S
+	 HdY/+H4aYO844IjRRf+glACBWduLkiVR2jzfyNXPEVOOgduGT4oRAmXpzPAtik2jtL
+	 ZnkM6/sN+uXwdw0hxIRfM3+/fmILps4F6cgWcLkeG7RrP3AAzYBRIkWwgO8xJBu8up
+	 UKP6FhNYpsT3Ciu2KOVgOZAfM1viSl7fYC5k8PZNjaWHyQeMSrhxWHZFJTwvJbKdOS
+	 YlM7PiBYlu6LfERf+6ZWSu/AKSNNvC1Isih9KVBd5AuIWhup77aKCJdNcsmTH5TgJW
+	 1ayGKuwrWfcBA==
+Date: Thu, 05 Nov 2026 07:10:00 -1000
+Message-ID: <08f0886ea1c48eed84bf6aadcf921530@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Zhang Qiao <zhangqiao22@huawei.com>
+Cc: sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org, void@manifault.com, arighi@nvidia.com, changwoo@igalia.com, tanghui22@huawei.com
+Subject: Re: [PATCH 0/4] sched_ext: Decompose scx_cid_init()
+In-Reply-To: <20261105065013.784398-1-zhangqiao22@huawei.com>
+References: <20261105065013.784398-1-zhangqiao22@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,54 +57,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261105160240.2850042-3-kai.vehmanen@linux.intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 05, 2026 at 06:02:40PM +0200, Kai Vehmanen wrote:
-> i915 never fills in the ELD Port_ID field, so it is always zero, and
-> the ELDs of identical monitors connected to different outputs are
-> byte-identical. Userspace then cannot tell which HDMI/DP PCM belongs to
-> which DRM connector without toggling the connector audio property.
-> 
-> Use drm_eld_set_port_id() when computing the audio config, so the value
-> reaches the audio driver through every path: the audio component
-> get_eld() callback, the hardware ELD buffer, SDVO and LPE audio.
-> 
-> The value is fixed for the lifetime of the connector, so it does not
-> cause extra audio re-enables when the ELD is compared across commits,
-> and state readout stays consistent because it is copied from the
-> programmed ELD.
-> 
-> Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16693
-> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Hello,
 
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+On Thu, Nov 05, 2026 at 02:50:09PM +0800, Zhang Qiao wrote:
+> scx_cid_init() grew into a ~230-line monolith interleaving table
+> allocation, the node/LLC/cluster/core topology walk, the no-topo tail
+> and the shard range finalization.
 
-> ---
->  drivers/gpu/drm/i915/display/intel_audio.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm/i915/display/intel_audio.c
-> index 32f8c5e55319..3277e67748ee 100644
-> --- a/drivers/gpu/drm/i915/display/intel_audio.c
-> +++ b/drivers/gpu/drm/i915/display/intel_audio.c
-> @@ -881,6 +881,8 @@ bool intel_audio_compute_config(struct intel_encoder *encoder,
->  	crtc_state->eld[6] = drm_av_sync_delay(connector, adjusted_mode) / 2;
->  	mutex_unlock(&connector->eld_mutex);
->  
-> +	drm_eld_set_port_id(crtc_state->eld, connector);
-> +
->  	return true;
->  }
->  
-> -- 
-> 2.43.0
+I don't think the refactoring makes anything better. If anything, the
+result seems more complicated than the current code.
 
--- 
-Ville Syrjälä
-Intel
+A function being long isn't an automatic reason to refactor it.
+scx_cid_init() is a linear sequence of steps that each run once:
+allocate the tables and masks, walk the online CPUs node by node, assign
+cids to the CPUs left without topology, warn about fallbacks, fill the
+shard ranges.
+
+The current code reads top to bottom, and splitting it into
+single-caller helpers doesn't make any step simpler. It just adds call
+boundaries and a builder struct whose only job is to carry the counters
+and masks across them, so the reader has to jump around to follow one
+sequence.
+
+> No behavior change: WARN checks, error paths, shard policy and
+> publication timing are all preserved. This is preparation for
+> follow-up fixes to the partial-SMT core counting in
+> calc_shard_layout() and the single-core shard hard-cap corner case,
+> which are deliberately kept out to keep this series a pure code
+> motion.
+
+Can you please send the fixes separately?
+
+Thanks.
+
+--
+tejun
