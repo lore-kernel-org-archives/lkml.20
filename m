@@ -1,54 +1,130 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.117.225.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793898065;
-	b=bAoVySWQTGgzvSgq+QaptdKn68A/tqoj9dHCh9uLKB3iYMF+yqHvT/P0vOLPvvfjU4gV
-	 UyzgsQOPmzaiDj1ywI4fC83gHHvsOJoxBJ2Fy0HNyB/UmcEyw/KenfVUB+AhAYUEy/VCg
-	 tonlcx1+8l7sFxYTWYn446ax26A7Us64Cq+BxvDH0wh5XQIpqsf6isj4UR9LfeTpKnuew
-	 mxASW9tLR89ihzkXOlwp0xAyOgpG9TqdoE8wrueevqCZ4YOI2vuaV2I0WI6w/+OYOmj0a
-	 DYtyZiYrYikhpmXPPcpd5nyHahUYOJMLOD08HsgG2vzvfaZtWWIqLHUqwSubXxkg1+g==
+	t=1793898067;
+	b=MuTP6MP2v5KAkARzaE5SGDJsOQisK5ePIx2CA0gWIZeUAvUmYQVuJz7y/96b0vj7j2vI
+	 E5d9PClD/Qcztbd4VM6uaYLN4LHviX/vv3uESgWNRM0LSDVmvQVXmJNPbL1oSvpLVaQmm
+	 MZpDqdRCXQVJPINw6OYp9MJjV+zzPhWsMeSqXPZfNEAXneYtOpWmObzQqKggoLX0mBx1e
+	 vcki166tUJLD8mKyKjghQWBr4O9mT4ORmPknfIRcueR8laPjPV8mPWc5nrhBLmW3QUBW2
+	 K9NyTWtbn8igA89a+WemajI+gr7GK55MeIWKtnzZ9ZYdmnluaji4wcAtolwgJ5SEwNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793898065;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=HXXxntw3N6+3r5el/S4fsYJZf+fwgZXF2ZkkHndaSJY=;
-	b=o9uYJUK+4WKMf4Kw2ofdViC9DxvBtdD9WYzu0M5u5p+mA2H9KoYqZ5g7VBMzq/O6evUr
-	 /GUA29drHnWeQo9CLFJeLhOcLMpT7yQtgLoj8jbiE4Ckq6gTsBGIHkFQHclCvWaw7EvEW
-	 VqeeMy3aI8odDNqLpjks/pXItKdoncjsWjNXeg0LAfHA4Qm/mrTUD0lY0+ssdz3FdFGnq
-	 z0I6ulT7olD/8FwX/Vfcmo59tzu+6L18fYRogWJEkST+CmVgiyFXmMrC0bObQ6+lJzUcJ
-	 p/dckwLZGT//+jyRcmj6Qv7rO1WA9CKTNoxaat5RE52IwzXwEMf0nqGooVvUYLue8cA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793898067;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Spamd-Result:X-Rspamd-Server:
+	 X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Rspamd-Queue-Id;
+	bh=0sIowcuQ5IyfilZxYg4IseA453ZPtAePPTKkUBTmPjo=;
+	b=yBJ/vR188FA9USbZLZ3zQSseQG0IMlTRU0Nuo5dhhNqjtZm92SYYgj1dTczAYUCH24/D
+	 zQLXVYo67gIxC2SWWQlGuPqvzXf7+XkZjROv9WhdGLbDwnRw5F6SyCbaO3oTHK5vmVzzb
+	 ufqVaLwpnSBaEBr6Hdtkl0v4xBnQT7JWcFK9nkWshBgDDk3EUeFwzsW0KQOzR3FXWL0a2
+	 dwu4BUWjbd83KzKWfvnI+K1vMYcaAlsUScb2tXfxtkODtiURbdwwYzya/kI4EFxxVgfG7
+	 l/Dyj8yjpiQVkxZa8yhZEEsSxyW9y90AIjFgS5DO2E6DpjpMGcHRgQtEwpBFzguLS4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=virtuozzo.com;
-	spf=pass smtp.mailfrom=virtuozzo.com;
-	dkim=pass header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=Z3FcGatH;
-	arc=none smtp.remote-ip=130.117.225.111
-Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Pei1+gTR;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=VbIGDJjm;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=eGgBk4uw;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=lv4BOyjX;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C83D6606EE8D;
-	Thu,  5 Nov 2026 17:01:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C83D6606EE8D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806D76082BC2;
+	Thu,  5 Nov 2026 17:01:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 806D76082BC2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=Z3FcGatH
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
-	:From; bh=HXXxntw3N6+3r5el/S4fsYJZf+fwgZXF2ZkkHndaSJY=; b=Z3FcGatHAmaaMtTHFGN
-	XRUyTO+7PgR0al+9t1V7X7qmHf5Z08XOxG1RSLEN6Cr8EWF4464PRc9RYRxotf3rG+1+TrBa0EH7k
-	ptAyz5RrsiL0OifZuZdfFr5ISPEtBylEa+zc26BAQotyN7LExk4vPPwynl7K/PxfjW93/tbcghysR
-	hk735R3qP6NwzC2zGYCzzibPj7BePtmlg51aZnDVTPR/VW/vqN/ZRAS+/KJ+8cGSKDhcEnToznfBj
-	vP64c0U59MHgrzjWGUcfiIBlN9OgAun0dgyUUnbnI9Vk0mys0y+28AKNtua5aJ/0tnl8oleTEGU0n
-	YRpufY5gE+WcwZg==;
-Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
-	by relay.virtuozzo.com with esmtp (Exim 4.96)
-	(envelope-from <khorenko@virtuozzo.com>)
-	id 1xP0li-005CiT-2t;
-	Thu, 05 Nov 2026 18:00:59 +0100
-From: Konstantin Khorenko <khorenko@virtuozzo.com>
-Date: Thu, 05 Nov 2026 18:00:56 +0100
-Subject: [PATCH v2 2/2] selftests/mm: test fork of a device DAX PUD
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Pei1+gTR;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=VbIGDJjm;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=eGgBk4uw;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=lv4BOyjX
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E2B3E1FCFB;
+	Thu,  5 Nov 2026 17:01:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793898065; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0sIowcuQ5IyfilZxYg4IseA453ZPtAePPTKkUBTmPjo=;
+	b=Pei1+gTR/J1zBT1gB2ZeIJQxUCowvgas0b47E0oxSiRyXbqfWcWT9CdLgVofqWdP18Qg1v
+	Ma8pSr6pCXEUEOa0V2V7ffs5/4vXBJVhoGTnqrnRVNYJiIbjX4ekZxUb3RcUoicU6NFpCa
+	9Dzmz5lgpmD102+OnFKvh/48r+57WtM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793898065;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0sIowcuQ5IyfilZxYg4IseA453ZPtAePPTKkUBTmPjo=;
+	b=VbIGDJjmTZVhO0JTDSy7XYPe54eMhLayiPZvsUM2mYuCPJZ4FLgK5H77l+InWBrOhXV5GV
+	hIZsQZNN4vhg0qBQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=eGgBk4uw;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=lv4BOyjX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793898063; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0sIowcuQ5IyfilZxYg4IseA453ZPtAePPTKkUBTmPjo=;
+	b=eGgBk4uwtc8odIcPkfJnvOhwvShX1Dzp80/Y9+pOvhwx2yg6xph2VIq2YxIEJqjm3b0zp+
+	2ES30McqhT6ATAMyAkgShopGIv8d34lgBrlGUnLFvO0HDMHEpHDwCbbcwu22ILKAE+UIC9
+	RBUzcteQ4gT3NeSyIoKLjzjert/tTQU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793898063;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0sIowcuQ5IyfilZxYg4IseA453ZPtAePPTKkUBTmPjo=;
+	b=lv4BOyjX8HinF0YoiV2Xm9Cn46XE9J0/uhYRUvlZz2sLnoHhypKXYcPDivccnQoxvlqcHG
+	XlE+f2wiywA7r9AA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9C9B8133F6;
+	Thu,  5 Nov 2026 17:01:02 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id HMEkC0K27GqWRwAAD6G6ig:T9
+	(envelope-from <clopez@suse.de>); Thu, 05 Nov 2026 17:01:02 +0000
+From: =?UTF-8?q?Carlos=20L=C3=B3pez?= <clopez@suse.de>
+To: kvm@vger.kernel.org,
+	linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	seanjc@google.com,
+	pbonzini@redhat.com,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	peterx@redhat.com,
+	ljs@kernel.org,
+	imbrenda@linux.ibm.com,
+	borntraeger@linux.ibm.com,
+	frankja@linux.ibm.com,
+	=?UTF-8?q?Carlos=20L=C3=B3pez?= <clopez@suse.de>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org (maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
+	"H. Peter Anvin" <hpa@zytor.com>
+Subject: [PATCH v2 8/9] KVM: x86/mmu: don't zap secondary MMU on permission upgrade
+Date: Thu,  5 Nov 2026 17:50:05 +0100
+Message-ID: <20261105165004.2663799-12-clopez@suse.de>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20261105165004.2663799-4-clopez@suse.de>
+References: <20261105165004.2663799-4-clopez@suse.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,261 +134,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-vstor-150143-copy_huge_pud-folio-refcount-v2-2-2828fe5a51ed@virtuozzo.com>
-References: <20261105-vstor-150143-copy_huge_pud-folio-refcount-v2-0-2828fe5a51ed@virtuozzo.com>
-In-Reply-To: <20261105-vstor-150143-copy_huge_pud-folio-refcount-v2-0-2828fe5a51ed@virtuozzo.com>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
- Lorenzo Stoakes <ljs@kernel.org>, Alistair Popple <apopple@nvidia.com>, 
- Dan Williams <djbw@kernel.org>
-Cc: linux-mm@kvack.org, nvdimm@lists.linux.dev, 
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Konstantin Khorenko <khorenko@virtuozzo.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7747;
- i=khorenko@virtuozzo.com; h=from:subject:message-id;
- bh=08EkarCEIEU5kIOHQdB4jlyKF81Hi6noy3uR2a632eY=;
- b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBq7LZL26cjP6Wh4UNkG9Nb1lmj8H9MsnrOZeb5x
- aBPVplukC2JAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCauy2SwAKCRBRlgpH+WFc
- KohtD/0WthLTe4ESLs4C0KYSFBzHyQbTJCyb1otLGqDQ5bsZeBvyUo2vXimwnLwhIcVzSL1Krmn
- 0/fivjrThWzM4DTj0DuugHuZ3OuKTpHTxHrvP439CAYRiyWYfMA+FYtlUfTJMdzzYuO6+2GRuRx
- bVf+GLj95tFFnG2BZHYkkh/S03t4pd5IM2KXy2rYUqOO3zqg+AMcbqj1QEs0H+TebEqxV5RrRJk
- VkOAfQMjq1OBBUq/6OsB6Z0j0wNlacN0UMQdkB6g3eCHNOKbXI0MMPmIVQwhrfEl7hZcpR9OASl
- txwZwkRKa7tX0/fVfL/mze9C5rX/TnQ3aJ7tooAVvy3CWA9fWKRT3YUFJVNtqLoCNLVVBmNTTak
- oyh3unKjKuMBZEpX4/m6RCYhyzoh4BqGsdHTYITfjJghzCDaFdfvpHAEBzlnXG4IDBjBMavLM9P
- VoEg2OXCTIyZrzVu/oqs+srtg4N7h96ZMwbwWHffGDsnVXeJOzxipn22JOv3U1Kb+DHlAHXAkVJ
- Q8n0bx8T2zoa6Hd4E8hjoxfMLGK70D6PzSfxADJN037UG5lnwVRDfoknC5l+0AroQ0/HfiM1giN
- TA+J6Yyn9+5TExYfVXl/U40DlQyGLBMuYEffTNtx/VwAFloYVJTGwNEzohvDQ3bv9BAS/LO9W4x
- CGkDqsteJqTGKKA==
-X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
- fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-12.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[19];
+	RCVD_TLS_ALL(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -12.51
+X-Spam-Level: 
+X-Rspamd-Queue-Id: E2B3E1FCFB
 
-Fork a process that maps a device DAX instance with a PUD, in a VMA
-whose page tables fork copies because it has a guard region. The child
-must account the copied PUD in its RssFile, which a new rss_file() in
-vm_util reads as rss_anon() reads RssAnon.
+When an mmu_notifier invalidation only upgrades permissions
+(MMU_NOTIFIER_RANGE_PERM_UPGRADE), keep the existing SPTEs instead of
+zapping them. The PFN is unchanged and no access is revoked, so an
+existing SPTE is no more permissive than the new host PTE. Permissions
+for the SPTE are updated on the next fault, so dropping them early
+gains nothing.
 
-Without a reference, an rmap and a counter for the copied PUD, the
-child's RssFile misses the PUD, and its exit leaves the child's file
-counter negative: "Bad rss-counter state".
+The motivating case is a userfaultfd-wp dirty tracker such as QEMU's
+background snapshot, which unprotects every guest page as it saves it.
+Zapping on each unprotect makes the guest refault its whole working
+set. On a 64GB guest under a background snapshot, a read-mostly workload
+drops secondary-MMU refaults from ~1M/s to ~2.5K/s and cross-vCPU TLB
+shootdowns from ~1400/s to near zero. Uses of mprotect() that only add
+access benefit likewise.
 
-It runs only on a device named in argv[1] or $FORK_DAX_PUD_DEVICE: on
-a kernel without the fix it leaves the device folio's mapcount below
-zero.
+Note that this also skips the APIC-access page reload, which is not
+needed as the page's PFN is unchanged. KVM does not retry a failed
+reload, but that issue is pre-existing and unrelated to this change.
 
-Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+Signed-off-by: Carlos López <clopez@suse.de>
 ---
- MAINTAINERS                               |   1 +
- tools/testing/selftests/mm/Makefile       |   1 +
- tools/testing/selftests/mm/fork_dax_pud.c | 114 ++++++++++++++++++++++++++++++
- tools/testing/selftests/mm/run_vmtests.sh |   1 +
- tools/testing/selftests/mm/vm_util.c      |  21 ++++++
- tools/testing/selftests/mm/vm_util.h      |   1 +
- 6 files changed, 139 insertions(+)
+ arch/x86/kvm/mmu/mmu.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index d63d8b2152773..247e16f3276f4 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -17931,6 +17931,7 @@ F:	mm/huge_memory.c
- F:	mm/khugepaged.c
- F:	mm/mm_slot.h
- F:	tools/mm/thpmaps
-+F:	tools/testing/selftests/mm/fork_dax_pud.c
- F:	tools/testing/selftests/mm/khugepaged.c
- F:	tools/testing/selftests/mm/split_huge_page_test.c
- F:	tools/testing/selftests/mm/transhuge-stress.c
-diff --git a/tools/testing/selftests/mm/Makefile b/tools/testing/selftests/mm/Makefile
-index 0ea72e9979347..130500f5f6e0a 100644
---- a/tools/testing/selftests/mm/Makefile
-+++ b/tools/testing/selftests/mm/Makefile
-@@ -108,6 +108,7 @@ TEST_GEN_FILES += folio_split_race_test
- TEST_GEN_FILES += folio_order_check
- TEST_GEN_FILES += khugepaged_sync_check
- TEST_GEN_FILES += khugepaged_race
-+TEST_GEN_FILES += fork_dax_pud
- TEST_GEN_FILES += soft-dirty
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index f89e9f8a6cc2..3c92379bdbe0 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -1719,6 +1719,13 @@ bool kvm_unmap_gfn_range(struct kvm *kvm, struct kvm_gfn_range *range)
+ 	lockdep_assert_once(kvm->mmu_invalidate_in_progress ||
+ 			    lockdep_is_held(&kvm->slots_lock));
  
- ifeq ($(ARCH),x86_64)
-diff --git a/tools/testing/selftests/mm/fork_dax_pud.c b/tools/testing/selftests/mm/fork_dax_pud.c
-new file mode 100644
-index 0000000000000..0d19c30b1dc6f
---- /dev/null
-+++ b/tools/testing/selftests/mm/fork_dax_pud.c
-@@ -0,0 +1,114 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * fork() of a process that maps a device DAX instance with a PUD, in a VMA
-+ * whose page tables fork copies because it has a guard region. The child
-+ * must account the copied PUD in its RssFile.
-+ *
-+ * Runs only on a device named in argv[1] or $FORK_DAX_PUD_DEVICE that
-+ * nothing else maps, with 1 GiB alignment and at least 2 GiB. To make one
-+ * on pmem emulated in RAM, with CONFIG_X86_PMEM_LEGACY and
-+ * CONFIG_DEV_DAX_PMEM:
-+ *
-+ *	boot with memmap=3G!4G
-+ *	ndctl create-namespace -f -e namespace0.0 -m devdax -a 1G
-+ *	FORK_DAX_PUD_DEVICE=/dev/dax0.0 ./fork_dax_pud
-+ */
-+#define _GNU_SOURCE
-+#include <asm-generic/mman.h> /* Force the import of the tools version. */
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <limits.h>
-+#include <setjmp.h>
-+#include <signal.h>
-+#include <stdbool.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <unistd.h>
-+#include <sys/mman.h>
-+#include <sys/wait.h>
++	/*
++	 * Do not bother zapping SPTEs if this is only a protection upgrade.
++	 * Permissions will be faulted-in on demand.
++	 */
++	if (range->flags & MMU_NOTIFIER_RANGE_PERM_UPGRADE)
++		return false;
 +
-+#include "kselftest.h"
-+#include "vm_util.h"
-+
-+#define SZ_1G		(1UL << 30)
-+#define DAX_SYSFS	"/sys/bus/dax/devices"
-+
-+static sigjmp_buf sigbus_jmp;
-+
-+static void sigbus_handler(int sig)
-+{
-+	siglongjmp(sigbus_jmp, 1);
-+}
-+
-+static bool dax_attr(const char *dev, const char *attr, unsigned long *val)
-+{
-+	char path[PATH_MAX];
-+
-+	snprintf(path, sizeof(path), DAX_SYSFS "/%s/%s", dev, attr);
-+	return !read_sysfs(path, val);
-+}
-+
-+static bool dax_dev_ok(const char *path)
-+{
-+	const char *name = strrchr(path, '/');
-+	unsigned long align, size;
-+
-+	name = name ? name + 1 : path;
-+	return dax_attr(name, "align", &align) && align == SZ_1G &&
-+	       dax_attr(name, "size", &size) && size >= 2 * SZ_1G;
-+}
-+
-+int main(int argc, char **argv)
-+{
-+	const char *path = argc > 1 ? argv[1] : getenv("FORK_DAX_PUD_DEVICE");
-+	char *area, *mem;
-+	int fd, status;
-+	pid_t pid;
-+
-+	ksft_print_header();
-+	if (!path)
-+		ksft_exit_skip("no devdax device given\n");
-+	if (!dax_dev_ok(path))
-+		ksft_exit_skip("%s: needs 1 GiB alignment and 2 GiB\n", path);
-+
-+	fd = open(path, O_RDONLY);
-+	if (fd < 0)
-+		ksft_exit_skip("%s: %s\n", path, strerror(errno));
-+	area = mmap(NULL, 3 * SZ_1G, PROT_NONE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+	if (area == MAP_FAILED)
-+		ksft_exit_fail_perror("mmap");
-+	mem = (char *)(((unsigned long)area + SZ_1G - 1) & ~(SZ_1G - 1));
-+	mem = mmap(mem, 2 * SZ_1G, PROT_READ, MAP_SHARED | MAP_FIXED, fd, 0);
-+	if (mem == MAP_FAILED)
-+		ksft_exit_skip("mmap %s: %s\n", path, strerror(errno));
-+
-+	/* A PUD in the first GiB, a guard page at the end of the second. */
-+	signal(SIGBUS, sigbus_handler);
-+	if (sigsetjmp(sigbus_jmp, 1))
-+		ksft_exit_skip("%s cannot be mapped with a PUD\n", path);
-+	FORCE_READ(mem[0]);
-+	signal(SIGBUS, SIG_DFL);
-+	if (madvise(mem + 2 * SZ_1G - getpagesize(), getpagesize(),
-+		    MADV_GUARD_INSTALL))
-+		ksft_exit_skip("MADV_GUARD_INSTALL: %s\n", strerror(errno));
-+
-+	ksft_set_plan(1);
-+	fflush(stdout);
-+	pid = fork();
-+	if (pid < 0)
-+		ksft_exit_fail_perror("fork");
-+	if (!pid)
-+		_exit(rss_file() < (SZ_1G >> 10) ? 10 : 0);
-+	if (waitpid(pid, &status, 0) != pid)
-+		ksft_exit_fail_perror("waitpid");
-+
-+	if (!WIFEXITED(status) || WEXITSTATUS(status))
-+		ksft_test_result_fail("child does not account the copied PUD\n");
-+	else
-+		ksft_test_result_pass("devdax PUD copied by fork\n");
-+
-+	munmap(area, 3 * SZ_1G);
-+	close(fd);
-+	ksft_finished();
-+}
-diff --git a/tools/testing/selftests/mm/run_vmtests.sh b/tools/testing/selftests/mm/run_vmtests.sh
-index a1b45a3dedaee..0d5f3b325e84b 100755
---- a/tools/testing/selftests/mm/run_vmtests.sh
-+++ b/tools/testing/selftests/mm/run_vmtests.sh
-@@ -433,6 +433,7 @@ fi
- CATEGORY="thp" run_test ./transhuge-stress -d 20
- 
- CATEGORY="thp" run_test ./folio_split_race_test
-+CATEGORY="thp" run_test ./fork_dax_pud
- 
- CATEGORY="migration" run_test ./migration
- 
-diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
-index 515031b8283da..1407ef83d44eb 100644
---- a/tools/testing/selftests/mm/vm_util.c
-+++ b/tools/testing/selftests/mm/vm_util.c
-@@ -197,6 +197,27 @@ unsigned long rss_anon(void)
- 	return rss_anon;
- }
- 
-+unsigned long rss_file(void)
-+{
-+	unsigned long rss_file = 0;
-+	FILE *fp;
-+	char buffer[MAX_LINE_LENGTH];
-+
-+	fp = fopen(STATUS_FILE_PATH, "r");
-+	if (!fp)
-+		ksft_exit_fail_msg("%s: Failed to open file %s\n", __func__, STATUS_FILE_PATH);
-+
-+	if (!check_for_pattern(fp, "RssFile:", buffer, sizeof(buffer)))
-+		goto err_out;
-+
-+	if (sscanf(buffer, "RssFile:%10lu kB", &rss_file) != 1)
-+		ksft_exit_fail_msg("Reading status error\n");
-+
-+err_out:
-+	fclose(fp);
-+	return rss_file;
-+}
-+
- static int vaddr_pageflags_get(char *vaddr, int pagemap_fd, int kpageflags_fd,
- 		uint64_t *flags)
- {
-diff --git a/tools/testing/selftests/mm/vm_util.h b/tools/testing/selftests/mm/vm_util.h
-index b5d59729d4327..211f9f6699231 100644
---- a/tools/testing/selftests/mm/vm_util.h
-+++ b/tools/testing/selftests/mm/vm_util.h
-@@ -94,6 +94,7 @@ void clear_softdirty(void);
- bool check_for_pattern(FILE *fp, const char *pattern, char *buf, size_t len);
- uint64_t read_pmd_pagesize(void);
- unsigned long rss_anon(void);
-+unsigned long rss_file(void);
- bool check_huge_anon(void *addr, size_t len, int nr_hpages, uint64_t hpage_size);
- bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size);
- int64_t allocate_transhuge(void *ptr, int pagemap_fd);
-
+ 	if (kvm_memslots_have_rmaps(kvm))
+ 		flush = __kvm_rmap_zap_gfn_range(kvm, range->slot,
+ 						 range->start, range->end,
 -- 
-2.43.0
+2.51.0
 
