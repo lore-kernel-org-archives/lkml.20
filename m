@@ -1,58 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793862986;
-	b=cqVqAx8G+HKDM8oScoq1hfOTYwz63CqK0gHO4vL9mK9DTu3HNSA35OfQKF/5SUcziECS
-	 fX7s3g5x1NO0Nhircp+xUktizRd5pxK/p0lBdljmpmp7RzFmbPwXYr/YThpYbwTPhXfgt
-	 u1Ixx6xjSziB/G/wSdzqk2RmWHRHAQj2KCiBNeis4KcE37bCSsdwbChoCRKVxYWLVVCwo
-	 pyQTIfDuU9ZXS22ne/XJOwI2vmqU9VonCH0ifGEzoImVZEB85B0P5mKggwyKHwVhMzorS
-	 n+q+ZnOMOc29Tr6r+BIGMQmsEOrscu6ZIiPubFNmEGzboTm+Qd9NbgSM1u3aPXCT/LA==
+	t=1793863039;
+	b=frl9P6PcvFgHY2C2ZNmf/W8FPoz9E/SWV0iy/+xO2LAd++Eic6svkZbjN2YvJobEjCGo
+	 7AZhFjD31nqPbnhyP/C4k1JuBkZHUbtBhZK58rv1u7wtxhpK0XGRc5CuhqJ3afqH3mYGU
+	 7UCT/YeGlUW90LA+q+2CAeGkWOgHPtiwqVr97k5/6YWLMaeXSdrsBxnVa6q835gsdkbqF
+	 oeRTOPBTtSZn5CzHhIwhFG0nIYoiBpxK8Oq3mZl349lyOQjLGc/98TtGU8Af7hvmH0rs7
+	 5o++Qx07x7lUmQrTSe1FNbc4XWxhuSVKRUB5Ly4FgnAJbTDSozN9V/DyaA1TdEgPO5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793862986;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=xmDWGutiin4uCx8kXq9+NVdqng5FIqT+d5iQkfyQ+W8=;
-	b=yIcEh28WBAMstKCAK7vooI9o4t14RaXOjUVE3eyT9Tr+/eiSBSPYRepKoNCWIIvbWGgN
-	 BZtQvZv0jfdcikz/n9tIKXMHttS4S91ppftke7KDZ7AVxycJOur/6fUKz38tGGvREqah5
-	 TV8S9N3q3MMp+wu9FSD+DuaDK7KURLzoidtrZoyWibb7usaR3iVKv3djTBolJ8CGJXV8T
-	 ER4Il4ujfmR8l04Z1qJ5qg7wPOIjXtMzkXFii53Vh/JybQC2MSnThMZ4hV9w8YI/7cGNj
-	 iq4iHikXzexRFGZeQaj885MlqoBSNaKeEKAKd5rOuiV8j/K6OV0C8HbFLGYyZ7ZCtvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793863039;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=avddGhkW23kzNtokkMPF81ogBtCrM46V69m4Fzmqx5c=;
+	b=aRwthFUfhrWf6nJVUoQwQ3YxVt9pdqdCDHh+tjAKiyOAsulWiRNrWTJqRAes2e7EyU2Z
+	 oPxg0Y5Pt0pUpbbTBepXdj6rlUuhcKrqVfxh+yj57AhoDgJaE1SnJfe5V7p6v8y8xOSSy
+	 wELtxiJDLjqLVkTROwPtEOwJZLgZdny1V4rd5zUOseJtWnnH41Z2t3OORKXDfwg6waz2N
+	 ncrHC+nJxGL/VWs9fl1cg8Pk+WrQynkC+83vpmbqaGFV49ktNYuFpRdDA1y5b1j4Nl9ZC
+	 Jdy8NeTLGoealiqvXob3XB1LmvtAe/1dVKpW8L7ktkDaVt0V3bw5KHJsEP8B9SGb1Vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=qcMq0vmm;
-	arc=none smtp.remote-ip=113.46.200.216
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KCzYtxyH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B79A1606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 07:16:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B79A1606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB6B606A31B;
+	Thu,  5 Nov 2026 07:17:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=qcMq0vmm
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=xmDWGutiin4uCx8kXq9+NVdqng5FIqT+d5iQkfyQ+W8=;
-	b=qcMq0vmmCG+QJ06/5tuCyDejH+9yDD2CBbqRmS3yCn7bs80aWley02L2N3S3jymkY6dVNZTl0
-	eY9OZcUVoMN0yt45VCA0PDWf7LeBJ+jz9ewSY+sKYXs4siDGDsr21dnT3I8sFeaTOe8nIKeHVq/
-	rGeLwyEATGTYaN2icQF11Rw=
-Received: from mail.maildlp.com (unknown [172.19.162.144])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jKtrY68hyz1T4KC;
-	Thu,  5 Nov 2026 15:15:57 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id D2FA940538;
-	Thu,  5 Nov 2026 15:16:18 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 5 Nov
- 2026 15:16:18 +0800
-Message-ID: <b2d59ec8-31f3-4454-9127-0cea58d27716@huawei.com>
-Date: Thu, 5 Nov 2026 15:16:17 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KCzYtxyH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 517191F000C1;
+	Thu,  5 Nov 2026 07:17:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793863038;
+	bh=avddGhkW23kzNtokkMPF81ogBtCrM46V69m4Fzmqx5c=;
+	h=From:To:Cc:Subject:Date;
+	b=KCzYtxyH8rZiM8L1fPJx78xGVRsd4tq3adheQe9eyUZUJSfQigJuHOdy1my+vCk7t
+	 DqgIedQuVucz0/OTVquSTPatAAFoUHCadzDMKRShmlfJIs2s0KoyrqM0bdCnVde1Qr
+	 cw7Wm1THSO1NnGsGqPBCwipmvsT6pNEOmTpeq5Cb9VEcd7o7oVFJSmSGr/jN2SMwoF
+	 J1ApHsbwbmH4+5SSaFg5pyIfbmAHxgJdrei6JLSmeNvMB5FkRBiS6sWIsqvP2aME0P
+	 Z0Auf65HMxc3AULVvul+2CwpF2xuVp9aSTovWaFA2n6NJ6BLyDlarVZn0mekR3aDdu
+	 qH0fsFDNQaXxQ==
+From: Namhyung Kim <namhyung@kernel.org>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	James Clark <james.clark@linaro.org>
+Cc: Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	linux-perf-users@vger.kernel.org,
+	Jakub Brnak <jbrnak@redhat.com>,
+	Michael Petlan <mpetlan@redhat.com>
+Subject: [PATCH] perf test: Fix perf probe testsuite
+Date: Wed,  4 Nov 2026 23:17:11 -0800
+Message-ID: <20261105071711.31086-1-namhyung@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,104 +64,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm_mpam: Round the CDP RMID count down to whole CLOSIDs
-To: Ben Horgan <ben.horgan@arm.com>, <james.morse@arm.com>,
-	<reinette.chatre@intel.com>, <fenghuay@nvidia.com>, <zengheng4@huawei.com>,
-	<gshan@redhat.com>, <jic23@kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20261104101622.563280-1-ruanjinjie@huawei.com>
- <45efa783-21b4-4f67-a0fd-c6772d5cb038@arm.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <45efa783-21b4-4f67-a0fd-c6772d5cb038@arm.com>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemk200008.china.huawei.com (7.202.194.74)
 
+The perf probe test suite fails on my machine.  It seems it's because
+the kernel debug info is not available.  Actually NO_DEBUGINFO is to
+check the condition and skip affected tests.
 
+But it didn't work well as the skip_if_no_debuginfo function misses a
+new error string for v7.0+ kernels.  Internally it uses the
+add_probe_vfs_getname() to check if perf probe handles debuginfo and
+check the error string.  But it didn't add the new error string.
 
-在 2026/11/4 22:21, Ben Horgan 写道:
-> Hi Jinjie,
+  "Could not find probeable line"
 
-Hi Ben,
+With that added, it now passes like below:
 
-> 
-> For patches touching the glue between MPAM and resctrl, essentially mpam_resctrl.c, the prefix used
-> is 'arm_mpam: resctrl' rather than just 'arm_mpam'.
+  $ sudo perf test -vv 189
+  Not taking turns using the perf mlock budget: nothing can exhaust it
+  189: perftool-testsuite_probe:
+  ---- start ----
+  test child forked, pid 26135
+  Probing warn_thunk_thunk
+  -- [ PASS ] -- perf_probe :: test_adding_blacklisted :: adding blacklisted function warn_thunk_thunk
+  -- [ PASS ] -- perf_probe :: test_adding_blacklisted :: listing blacklisted probe (should NOT be listed)
+  ## [ PASS ] ## perf_probe :: test_adding_blacklisted SUMMARY
+  -- [ PASS ] -- perf_probe :: test_adding_kernel :: adding probe inode_permission ::
+  -- [ PASS ] -- perf_probe :: test_adding_kernel :: adding probe inode_permission :: -a
+  -- [ PASS ] -- perf_probe :: test_adding_kernel :: adding probe inode_permission :: --add
+  -- [ PASS ] -- perf_probe :: test_adding_kernel :: listing added probe :: perf list
+  -- [ SKIP ] -- perf_probe :: test_adding_kernel :: 1 1 Skipped due to missing debuginfo :: testcase skipped
+  -- [ PASS ] -- perf_probe :: test_adding_kernel :: using added probe
+  -- [ PASS ] -- perf_probe :: test_adding_kernel :: deleting added probe
+  -- [ PASS ] -- perf_probe :: test_adding_kernel :: listing removed probe (should NOT be listed)
+  -- [ PASS ] -- perf_probe :: test_adding_kernel :: dry run :: adding probe
+  -- [ PASS ] -- perf_probe :: test_adding_kernel :: force-adding probes :: first probe adding
+  -- [ PASS ] -- perf_probe :: test_adding_kernel :: force-adding probes :: second probe adding (without force)
+  -- [ PASS ] -- perf_probe :: test_adding_kernel :: force-adding probes :: second probe adding (with force)
+  -- [ PASS ] -- perf_probe :: test_adding_kernel :: using doubled probe
+  -- [ PASS ] -- perf_probe :: test_adding_kernel :: removing multiple probes
+  Regexp not found: "probe:vfs_mknod"
+  Regexp not found: "probe:vfs_create"
+  Regexp not found: "probe:vfs_rmdir"
+  Regexp not found: "probe:vfs_link"
+  Regexp not found: "probe:vfs_write"
+  -- [ SKIP ] -- perf_probe :: test_adding_kernel :: 1 1 Skipped due to missing debuginfo :: testcase skipped
+  Regexp not found: "somenonexistingrandomstuffwhichisalsoprettylongorevenlongertoexceed64"
+  Regexp not found: "in this function|at this address"
+  -- [ SKIP ] -- perf_probe :: test_adding_kernel :: 1 1 Skipped due to missing debuginfo :: testcase skipped
+  -- [ PASS ] -- perf_probe :: test_adding_kernel :: function with retval :: add
+  -- [ PASS ] -- perf_probe :: test_adding_kernel :: function with retval :: record
+  -- [ PASS ] -- perf_probe :: test_adding_kernel :: function argument probing :: script
+  ## [ PASS ] ## perf_probe :: test_adding_kernel SUMMARY
+  -- [ SKIP ] -- perf_probe :: test_basic :: help message :: testcase skipped
+  -- [ PASS ] -- perf_probe :: test_basic :: usage message
+  -- [ PASS ] -- perf_probe :: test_basic :: quiet switch
+  ## [ PASS ] ## perf_probe :: test_basic SUMMARY
+  -- [ PASS ] -- perf_probe :: test_invalid_options :: missing argument for -a
+  -- [ PASS ] -- perf_probe :: test_invalid_options :: missing argument for -d
+  -- [ PASS ] -- perf_probe :: test_invalid_options :: missing argument for -L
+  -- [ PASS ] -- perf_probe :: test_invalid_options :: missing argument for -V
+  -- [ PASS ] -- perf_probe :: test_invalid_options :: unnecessary argument for -F
+  -- [ PASS ] -- perf_probe :: test_invalid_options :: unnecessary argument for -l
+  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -a xxx -d xxx
+  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -a xxx -L foo
+  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -a xxx -V foo
+  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -a xxx -l
+  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -a xxx -F
+  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -d xxx -L foo
+  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -d xxx -V foo
+  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -d xxx -l
+  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -d xxx -F
+  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -L foo -V bar
+  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -L foo -l
+  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -L foo -F
+  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -V foo -l
+  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -V foo -F
+  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -l -F
+  ## [ PASS ] ## perf_probe :: test_invalid_options SUMMARY
+  -- [ PASS ] -- perf_probe :: test_line_semantics :: acceptable descriptions :: func
+  -- [ PASS ] -- perf_probe :: test_line_semantics :: acceptable descriptions :: func:10
+  -- [ PASS ] -- perf_probe :: test_line_semantics :: acceptable descriptions :: func:0-10
+  -- [ PASS ] -- perf_probe :: test_line_semantics :: acceptable descriptions :: func:2+10
+  -- [ PASS ] -- perf_probe :: test_line_semantics :: acceptable descriptions :: func@source.c
+  -- [ PASS ] -- perf_probe :: test_line_semantics :: acceptable descriptions :: func@source.c:1
+  -- [ PASS ] -- perf_probe :: test_line_semantics :: acceptable descriptions :: source.c:1
+  -- [ PASS ] -- perf_probe :: test_line_semantics :: acceptable descriptions :: source.c:1+1
+  -- [ PASS ] -- perf_probe :: test_line_semantics :: acceptable descriptions :: source.c:1-10
+  -- [ PASS ] -- perf_probe :: test_line_semantics :: unacceptable descriptions :: func:foo
+  -- [ PASS ] -- perf_probe :: test_line_semantics :: unacceptable descriptions :: func:1-foo
+  -- [ PASS ] -- perf_probe :: test_line_semantics :: unacceptable descriptions :: func:1+foo
+  -- [ PASS ] -- perf_probe :: test_line_semantics :: unacceptable descriptions :: func;lazy\*pattern
+  ## [ PASS ] ## perf_probe :: test_line_semantics SUMMARY
+  ---- end(0) ----
+  189: perftool-testsuite_probe                                                          : Ok
 
-The following will be done in this format.
+Fixes: 92b664dcefab ("perf test probe_vfs_getname: Skip if no suitable line detected")
+Cc: Jakub Brnak <jbrnak@redhat.com>
+Cc: Michael Petlan <mpetlan@redhat.com>
+Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+---
+ tools/perf/tests/shell/lib/probe_vfs_getname.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> 
-> On 04/11/2026 10:16, Jinjie Ruan wrote:
->> resctrl_arch_set_cdp_enabled() halves the whole RMID index space, while
->> the resctrl core halves the CLOSID count: schemata_list_add() divides a
->> CDP resource's schema by two, and closid_init() takes the smallest
->> across the schemata.
->>
->> When the PMG count and the CLOSID count are both odd, halving the
->> product counts RMIDs that belong to a CLOSID resctrl never allocates.
->> With 3 PMGs and 5 CLOSIDs MPAM reports 7 RMIDs, but the 2 CLOSIDs that
->> resctrl has times 3 PMGs only allow 6. The count is visible in
->> /sys/fs/resctrl/info/L3_MON/num_rmids, so userspace reads a value that
->> includes RMIDs no CLOSID can use; 
-> 
-> Good spot.
-> 
-> It occurs to me that 'num_rmids' is also too high on a monitor only system too as there is only one
-> PARTID that can be used.  Can you see a clean way to fix this in one go?
-
-I will have a try to fix both problems in a clean way, thank you very much.
-
-> 
-> Thanks,
-> 
-> Ben
-> 
-> RMID allocation itself is bounded by
->> the free list.
->>
->> Derive the number of RMID groups from the index space and halve that, so
->> the count follows resctrl_arch_system_num_rmid_idx().
->>
->> Fixes: 264c285999fc ("arm_mpam: resctrl: Add monitor initialisation and domain boilerplate")
->> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
->> Cc: <stable@vger.kernel.org> # 7.1.x
->> Cc: James Morse <james.morse@arm.com>
->> Cc: Ben Horgan <ben.horgan@arm.com>
->> Cc: Reinette Chatre <reinette.chatre@intel.com>
->> Cc: Fenghua Yu <fenghuay@nvidia.com>
->> ---
->>  drivers/resctrl/mpam_resctrl.c | 12 +++++++++---
->>  1 file changed, 9 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
->> index 5468367776e2..d3f957162b68 100644
->> --- a/drivers/resctrl/mpam_resctrl.c
->> +++ b/drivers/resctrl/mpam_resctrl.c
->> @@ -217,10 +217,16 @@ int resctrl_arch_set_cdp_enabled(enum resctrl_res_level rid, bool enable)
->>  	cdp_enabled = enable;
->>  	mpam_resctrl_controls[rid].cdp_enabled = enable;
->>  
->> -	if (enable)
->> -		l3->mon.num_rmid = resctrl_arch_system_num_rmid_idx() / 2;
->> -	else
->> +	if (enable) {
->> +		u32 num_group;
->> +
->> +		/* Halve the number of RMID groups, keeping whole PMG rows. */
->> +		num_group = resctrl_arch_system_num_rmid_idx() /
->> +			    (mpam_pmg_max + 1);
->> +		l3->mon.num_rmid = (mpam_pmg_max + 1) * (num_group / 2);
->> +	} else {
->>  		l3->mon.num_rmid = resctrl_arch_system_num_rmid_idx();
->> +	}
->>  
->>  	/* The mbw_max feature can't hide cdp as it's a per-partid maximum. */
->>  	if (cdp_enabled && !mpam_resctrl_controls[RDT_RESOURCE_MBA].cdp_enabled)
-> 
-
+diff --git a/tools/perf/tests/shell/lib/probe_vfs_getname.sh b/tools/perf/tests/shell/lib/probe_vfs_getname.sh
+index 57a59ae7d4ae3d71..c091cd208beec056 100644
+--- a/tools/perf/tests/shell/lib/probe_vfs_getname.sh
++++ b/tools/perf/tests/shell/lib/probe_vfs_getname.sh
+@@ -64,7 +64,7 @@ add_probe_vfs_getname() {
+ }
+ 
+ skip_if_no_debuginfo() {
+-	add_probe_vfs_getname -v 2>&1 | grep -E -q "^(Failed to find the path for the kernel|Debuginfo-analysis is not supported)|(file has no debug information)" && return 2
++	add_probe_vfs_getname -v 2>&1 | grep -E -q "^(Failed to find the path for the kernel|Debuginfo-analysis is not supported)|(file has no debug information|Could not find probeable line)" && return 2
+ 	return 1
+ }
+ 
 -- 
-Best regards,
-Jinjie
+2.56.0
 
