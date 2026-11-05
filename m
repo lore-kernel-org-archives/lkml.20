@@ -1,72 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793889277;
-	b=HDSN5c8Z693aCjOsYS2K79inwhZb6/1VtFZ5XcUc8J/ujhc6nAVnk9mfkR4guGDPDv/S
-	 WtHv6bwIbrz1IoqDZ6J6SJdwSUihb7wb2ckbO1u+Fmwgab/oUzjvawh5ypepNwzUJRVCN
-	 hJAyAX1yf5wwefbD1nkZZA8tS+ll80NjZdEPFdIN+RcCBS2LZ4qaDhZVLrKZOtPvCymEo
-	 85f4RjYAJQ3dkCplw2grYC89dHcCPSZRFqoJ8lc9ZkDU/pO+yckUChG6pB/ihY2oeKyPV
-	 g6v1DKXbgrbWUyScI1Y5MognTVWwVBLDZe7GtCCzFQcwTu6kSfenwdCEb+knFV7X5uQ==
+	t=1793889311;
+	b=ljjOmA0XRkvlJkpOY/3Jl0oJZiYE1XIyA337MIaoGRUmNjaKaaFKE5JOGaz4Ss+1QFEw
+	 tqvz7IuLNUAMRH+Bz5opEWvR4nv5/le+BPrYvPWCFMjoAl9Fxd1GEQPBdYQBuhwlPrpMa
+	 Yu1zF+aeKuoD0SSgZ6yOSKlmVK9/8U338ZRG/6ScgtwSFcOM7MxWd7qUbPg32jBmifyvL
+	 BRSPA+p15c19GRrCj3Rs53vQbqlb0VteiO8aIGgIqiP8BkQBMK58+9hDa28NhS69od7jK
+	 347xv1lPbLZrLpry/a6knir6q5rn1KNcpLd2ijp1HryajTFqKDDVNKHU1VF8zNFt1jA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793889277;
-	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
-	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=c/yt9uFPnjvQM+fiEYYJRoCxuqKFimMZvvZyEcVri54=;
-	b=fUdg7eNJQlPoL37C/4MI5Y5zr2FQ2FILc291hY6mCa+zpKglzads1gEYHRl4byBY1QN1
-	 Kspsvu8xnqHGV+tip+EZe6AELNF/vyCxag4P8mVlmOGpLweRYcIsT5RRDFKRcw2WnG1bU
-	 Y+vq5WgvDY0KCALIxegqSB9anWy3Rmd7WqM48H7DBGFoBUH2RIigWYXWcctbOQwd7lsLX
-	 tKBdC6I4LViaadyRWPFLAOGysp5TtNbUkAToQVinkHIZYG5w319zYYuTWxLBpoVgI5c03
-	 ShmQSwDbSrolwiMg0bnINT83JR8FcMiUST9exedcAqqBLqMh2F4EC6HZWaz116wIxtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793889311;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=xZ6T3yAREIItW/bwTXHIxKkqe7d5KDdF5/q0orT3gmE=;
+	b=T0PP5rCOJ6D9QgrFQab+KKiZdH5dolAU7oFORx4qzV00sTcx0MG8r2oH78ffgK/5xXkJ
+	 1ZxsJeRhmjRPKMJu+s+bXIMLGeAEnV6Z/e8JGv2An8gkHMlEi+Ughz1SCuA+M/q+1TWB5
+	 CNfRObKHagxDpCdBmJbGPS6odH8BNHZDGnipKMWyEtgcG/pmJ9jfra3JZMDxBfNqZc3Q3
+	 mBZ1ZpE03k3qGWHO43MLfJlLPS4Kkj7AcN0KUN5QUDsUpH4RpzT0gCCAfaAxX2cMQB8VB
+	 ni8LsciJk2ej8F6RKQBxkiETnvOB1uSsSzIoSJPD6TLRJiiYJ5dk70ZMJSHhA3ZZc5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=y8kPvgpB;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=ubYMg+wD;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="BcaWpAx/";
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C7BB606A338;
-	Thu,  5 Nov 2026 14:34:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C7BB606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30609606A326;
+	Thu,  5 Nov 2026 14:35:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30609606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=y8kPvgpB;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=ubYMg+wD
-From: John Ogness <john.ogness@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793889273;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=c/yt9uFPnjvQM+fiEYYJRoCxuqKFimMZvvZyEcVri54=;
-	b=y8kPvgpBm6pcjhdgIt6MKI76n7YcCOMGFSUhP56keDoTBkv1upezh7+RoupfxlbIzWo9MY
-	Unw2CSO8NPpzqepNUn0jsjs9WcYUBaapCiLMxl2kobyF4M4282CnrnaGAHQF1r7h101McP
-	yDAQ6N/qmHvCX7eBTW2RiMzX42wyfp9q+53te74H1Xgl4QYfI2cRt2G6rzCAGbIBmrG3/z
-	dHujzGKFRQP4pZqPhy6gcCRcXQAtU0IOtxVxrtN2Wm9wxgxBDxSsPwOvtYc/9ZCLmPRaML
-	bOMJc2Y5DPMNiFz/2GHR8CQ8XGoPRluEQEVAZdVOUEH3ZcedwchkzPfxkFLTkw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793889273;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=c/yt9uFPnjvQM+fiEYYJRoCxuqKFimMZvvZyEcVri54=;
-	b=ubYMg+wDtIygfUyemhGW8eaVqxZ9fn6Uuvfta99Fo2lhXCI58yM9flSvWKtHzOodlNSpBE
-	fSGJHxVrI1fE/5BQ==
-To: Breno Leitao <leitao@debian.org>, Petr Mladek <pmladek@suse.com>, Kiryl
- Shutsemau <kas@kernel.org>
-Cc: linux-kernel@vger.kernel.org, printk@lists.linux.dev,
- gustavold@gmail.com, samuelcrossley@gmail.com, ryan.roberts@arm.com,
- brads@mainlining.org, x86@kernel.org, Breno Leitao <leitao@debian.org>,
- kernel-team@meta.com, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] printk: nbcon: Flush unsafe consoles from printk()
- in panic
-In-Reply-To: <20261102-panic_unsafe_flush-v1-1-12d1e22fd6d8@debian.org>
-References: <20261102-panic_unsafe_flush-v1-0-12d1e22fd6d8@debian.org>
- <20261102-panic_unsafe_flush-v1-1-12d1e22fd6d8@debian.org>
-Date: Thu, 05 Nov 2026 15:40:33 +0106
-Message-ID: <87v76bz6rq.fsf@jogness.linutronix.de>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BcaWpAx/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793889310; x=1825425310;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=vHqNRWEYuZGjg6yuqfqM5YBUd51sOvP0Z86/uH+jqiM=;
+  b=BcaWpAx/JYLCntm8XSNQgrrLSJszz4zVy68goEE9a+aUuR5SUOH10cyg
+   T+vc9pYb9/2ezuKwBnDo+8NlLz36S0M45o5pinyaFqboCn1C6gb2Q9WII
+   ozXlszwWbp++EY6zGT4QrOIoHpdjYbCGqY4hvpbJ9liAFO91Wx12sAKEi
+   5hv6Al9BHvO34f1HdRGFJuxJQssBlvTa80YCa7sOObXCFzPrLavd3pJXD
+   VZQNlOba1Mft2wq9Ayww3mGmhkerV41otcLXOVrfhfwODJfFFjkXWvUv1
+   jkPZTuyFHX0IdeCUvnBkFHgO/M6OmiPaqHlUDs33QutUPhN2myotAFxbJ
+   g==;
+X-CSE-ConnectionGUID: npg7ws/lRK+dDUNkZcL64w==
+X-CSE-MsgGUID: OF2Aq0zYQ6CQpmQWeO3Vow==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2567093"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2567093"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 06:35:09 -0800
+X-CSE-ConnectionGUID: YBqyl/1kTbaNqfFgCeeMvg==
+X-CSE-MsgGUID: s/azyhZAQJ+hDf20Qt0zIg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7365899"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 06:35:05 -0800
+Date: Thu, 5 Nov 2026 16:35:02 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Raag Jadav <raag.jadav@intel.com>,
+	Junjie Cao <junjie.cao@linux.dev>,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Maulik Shah <maulik.shah@oss.qualcomm.com>,
+	Peng Fan <peng.fan@nxp.com>, linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org, Andy Shevchenko <andy@kernel.org>,
+	Peter Tyser <ptyser@xes-inc.com>,
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
+	Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>,
+	William Breathitt Gray <wbg@kernel.org>,
+	Israel Cepeda <israel.a.cepeda.lopez@intel.com>,
+	Hans de Goede <hansg@kernel.org>, Lixu Zhang <lixu.zhang@intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Subject: Re: [PATCH v1 0/5] gpio: Move most of the Intel GPIO to the
+ dedicated folder
+Message-ID: <auyUFrrAYLobE_cy@ashevche-desk.local>
+References: <20260925160913.1648565-1-andriy.shevchenko@linux.intel.com>
+ <gxfngcnnkgkk5zrmsyrmqam6bk2ti2aflipwsutvce3dtgc7tv@nu3mmjfrt75u>
+ <CAHp75Vdocfk5b7GkL21z4nKv4mNcGMF4Y_aZP_sPPeL16FrsdA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,88 +97,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAHp75Vdocfk5b7GkL21z4nKv4mNcGMF4Y_aZP_sPPeL16FrsdA@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 2026-11-02, Breno Leitao <leitao@debian.org> wrote:
-> --- a/kernel/printk/nbcon.c
-> +++ b/kernel/printk/nbcon.c
-> @@ -1688,7 +1692,15 @@ static void __nbcon_atomic_flush_pending(u64 stop_seq)
->   */
->  void nbcon_atomic_flush_pending(void)
->  {
-> -	__nbcon_atomic_flush_pending(prb_next_reserve_seq(prb));
-> +	u64 stop_seq = prb_next_reserve_seq(prb);
-> +
-> +	__nbcon_atomic_flush_pending(stop_seq, false);
-> +
-> +	if (panic_on_this_cpu() && oops_in_progress) {
-> +		panic_nbcon_allow_unsafe_takeover = true;
-> +		__nbcon_atomic_flush_pending(stop_seq, true);
-> +		panic_nbcon_allow_unsafe_takeover = false;
-> +	}
->  }
->  
->  /**
+On Mon, Nov 02, 2026 at 10:48:42PM +0200, Andy Shevchenko wrote:
+> On Mon, Nov 2, 2026 at 5:33 PM Bartosz Golaszewski <brgl@kernel.org> wrote:
+> > On Fri, Sep 25, 2026 at 05:57:02PM +0200, Andy Shevchenko wrote:
+> > > For the easier maintenance and future development move most of Intel GPIO
+> > > drivers to the dedicated 'intel' folder. For now it only covers the drivers
+> > > I maintain (as per record in the MAINTAINERS).
+> >
+> > I wanted to apply this in order to see how the menuconfig looks like
+> > with it but it doesn't apply neither to next/master nor v7.4-rc1.
+> 
+> I will check this as soon as I can (currently I have something else to
+> address which is more urgent and it's not related to Linux at all).
 
-This part of the patch gave me some ideas. First, I like the idea of
-putting the policy handling code inside
-nbcon_atomic_flush_pending(). This keeps the code outside of
-kernel/printk fairly simple:
+Actually I can't do it right now as it will be a race with the incoming
+patches (for example, I see gpio-sodaville change in the mailing list).
+Can you tell me when it will be the time that
 
-1. In emergency sections, printk() is calling
-nbcon_atomic_flush_pending(), which always skips
-CON_NBCON_ATOMIC_UNSAFE.
+1) your for-current is present in for-next (so no merging conflicts)
+2) your for-next is closed for new patches for a few days?
 
-2. During panic, printk() is calling nbcon_atomic_flush_pending(), which
-via policy could include CON_NBCON_ATOMIC_UNSAFE (in a 2nd internal
-loop, after all safe atomic consoles are attempted).
+Only with that I can achieve some good result, otherwise you will always
+tell me to rebase/resend and while I do this, there will be a chance of
+a new contribution that continues the loop.
 
-3. After kthreads are shutdown, printk() is calling
-nbcon_atomic_flush_pending(), which via policy could include
-CON_NBCON_ATOMIC_UNSAFE (in a 2nd internal loop, after all safe atomic
-consoles are attempted).
+TL;DR: I truly believe that the best timing for such a series is just
+after the -rc1 as a first batch against for-current *and* for-next
+(same piece assumed to go to -rc2). But of course, we may resolve
+the potential conflicts.
 
-For the above situations, no new flushing calls are needed. But there is
-another scenario for CON_NBCON_ATOMIC_UNSAFE (and unsafe printing in
-general):
+So, what do you think?
 
-4. If the kernel ends in a way other than the final panic() loop, (for
-example kexec, sysrq-r, panic+reboot), the above scenarios do not allow
-unsafe printing. For the related code points we could call
-nbcon_atomic_flush_unsafe() and it could handle the policy of unsafe
-flushing depending on the context, which would allow
-CON_NBCON_ATOMIC_UNSAFE to flush here as well.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-The unsafe policy flags could be something like:
 
-PANIC_PRINTK
-- panic: all printk() calls during panic
-- checked in nbcon_atomic_flush_pending() of #2
-- if ((policy & PANIC_PRINTK) && panic_in_progress())
-
-NORMAL_FLUSH
-- non-panic: atomic flush calls: shutdown, reboot, kexec
-- checked in nbcon_atomic_flush_pending() of #3
-- checked in nbcon_atomic_flush_unsafe() of #4
-- if ((policy & NORMAL_FLUSH) && !panic_in_progress())
-
-PANIC_FLUSH
-- panic: unsafe atomic flush calls: reboot, kexec
-- checked in nbcon_atomic_flush_unsafe() of #4
-- if ((policy & PANIC_FLUSH) && panic_in_progress())
-
-Netconsole originally wanted by default:
-
-    .policy = NORMAL_FLUSH | PANIC_FLUSH,
-
-But this last series shows that netconsole actually wants:
-
-    .policy = NORMAL_FLUSH | PANIC_FLUSH | PANIC_PRINTK,
-
-These are slightly different policies. But as long as printk supports
-all 3 policy flags, we do not care which policies are chosen.
-
-I am happy to code up a full implementation if you think this has merit
-or you want to see the patch to decide.
-
-John
