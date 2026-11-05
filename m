@@ -1,49 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793894551;
-	b=SFrSh7cpj9398xEUsfAmza9EKKzZPmQW70bcEaVeynjG0ziBdCaE+XiaM05B+z1LosF5
-	 m/C/wZsPJQQu27U1vaPlj1QM/q0vGsdBLCqzxs5jXLP4GLIJ5M4trRumeYVt07NNdWr3W
-	 9lZMXc8aIn9Mc5l/GQ0lmOePH/gqKq/wZp4OJW2FPHdHa8s/J8virmDCPunQttp4qj2zQ
-	 UNAOHC+149+K87WvBj6FQUPx3HHETOg7AlJ1lDD2COFRaGM7WCWAzXVfIYCkkScYm5c0S
-	 EwFv+kkCUq/TaBO5ji5OKuOIxVcnu8EknmP8XeMIY5e7/ULPrKt45haf40O4O+FoXsQ==
+	t=1793894552;
+	b=eFsTEstmLgEUW2NaFOglq0UmTDL1QuiGr67n8D5cNoSUkuvK+aOA4gDWdz9pigbFMK3X
+	 s1444HG9v44lxQLGoCEvS8lUXL0aFflv+hOdjlB/LP1dNDDa93xLKTcgdEA9yZdccK3AW
+	 l9/UbHSUhqpM1ujOI/A3LuvNUhPuOO13dl3yOIkXUR9NDVcIAyigJ3tHz2Nt376yZ66DN
+	 VSxCvS1E7GCg9pcU7sO83ghDh40ShnMXnG1+DZiTEVbwJYuIWs0alx2NzsJJ/BlqJDVKO
+	 fu+6bBga5Fw8m4Gd/yZ8AQMmMgMIB9EC2fw0NIUQiiVDLd92zNFCokVltjQJdAJmf/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793894551;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=7/OnOztjg2EK84QqsXYZGwDX4EmI9eyFIKPp0TKp/c4=;
-	b=YtHUw/Ira2mOxOQd4ycO0I06uudaXSaEjgrAbnoaTK08pDmrtbbpdnTmYuwwQ/ADtasc
-	 yI+VHUkvNGb3iGivwnFE69QkYpfx4v9NB4eSaGjpRHhWDDBqlW84kYZCQfJLhOiwjcFsE
-	 GNWqrMglQ1hMm0IRYg+5J8RvA0vqgkPuGzwQki0NzZun5AWv3ELOswpCxvcS+MFlgu1m4
-	 5Z9O152q0ep7e4dKT0Rb92yU6CR2j3u5rGPT/pWM3WUJ6RpMYwnH9JxFqBOrpmb0SSYg/
-	 vKgLPoaflDELN5DPnHE3I2preL2cjUgbzRfI5433X2G+ipQi9nANE9RMUEkbzdZ8v4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793894552;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=lEpyyp3Nh2lMfQuU5TyDvWhNl/GQMG+KamM310H/GGU=;
+	b=Z9K3xGlcFMnru3cXW7MPjK0Fg2vEL9/SOUPtqBDTatDM9W2Ih4aKUH+ZJ7OrUrkhZjlS
+	 iumu60t1H9uD9HiEijyTeoyV1Q/qSZ7uB3l+XKsMsjDIKrQlIdC8jVc0TbhqVFIkNCngH
+	 CJQJY4GDnGBHgv7HczL2QrppmuGh/aj+uFOwn++SLQrGdGUHc2r51cBJnvOTF/OKnY2qB
+	 kvKThvHLWhGtd2jtOjIiXXeH4GsSUWQruXTGdrxNwtY5+p5n0LYZ2ZWuqzZ3h+1iQkV4J
+	 1sf8eB6sS4bz2+/0ACk5XsyhlrJRcKhFLz1094L1/+kJ86D5b4G7d3hFA/9sANgsAsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fr3kO8ax;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gH7Sh0gR;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E407606D806;
-	Thu,  5 Nov 2026 16:02:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D56086070794
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:02:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D56086070794
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fr3kO8ax
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E9DE1F000C1;
-	Thu,  5 Nov 2026 16:02:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793894551;
-	bh=7/OnOztjg2EK84QqsXYZGwDX4EmI9eyFIKPp0TKp/c4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Fr3kO8axdVRIkzUl6k4tjw0CcwsZJMd52xYZ9JfJlHjkA6aRZn6unefqfkzHdpzXE
-	 R2BarzQtP5YQvdzDnxAk3nJ6lpmNYRFZQiUn+IST/kFVXKqmA/pqJLdhAlDE1T2IPn
-	 cOEjqUWdDN5EtTskrX/sY5jkzLPjPiVJyQTVnx5RI8aeyMrHSUGjuV7bpuKBAbT8XR
-	 4io2574m7KIsUKQIte2DFSbl24svNjjLc9zWKbaQR3Bh4SPQr8HzQWJOlaUETWJRsn
-	 RctXWNVTqSrYSFdrruQoZtnASldpr51h5ehZM+opnw7dAvXpiV9hN1BjpyY2EOdXtv
-	 hB4m/mWDIIdaw==
-From: Mark Brown <broonie@kernel.org>
-Date: Thu, 05 Nov 2026 16:00:34 +0000
-Subject: [PATCH v2 7/9] firmware: cs_dsp: Give the bin file KUnit cases
- distinct names
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gH7Sh0gR
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1a3c08d6928so3035228c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:02:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793894551; x=1794499351; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lEpyyp3Nh2lMfQuU5TyDvWhNl/GQMG+KamM310H/GGU=;
+        b=gH7Sh0gRaGfLw8Ky8OZtzEnWNrQJsN4tGHcUt4pViK15ULx+i4cv66rQ/bPaNwjRmC
+         HjTin+z/heJEuVMWK5BIX/gxkiSDxLQ02Ub2+/467o6vWA1mQT4TmZqG9FS1BFmNb3/y
+         hqvT3TXxHB4KcXf5IZ6KN3/DmWIiDVjelt1uUZdriViKVQjbTWjKeyAjkTCusy1QpW1Z
+         1yLwliRZPJQTywXXWdlaa6DP+Rw+pUVL0vpHRGNW2SVZpKNUxLdGOqQODzReOmRAb1y+
+         x3p+1w0FixdLzi/htremDyYbPYtlNTBAk1SDiW8uquW2/Ar8a2PzfahXxKNukHKqqG+P
+         VDNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793894551; x=1794499351;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lEpyyp3Nh2lMfQuU5TyDvWhNl/GQMG+KamM310H/GGU=;
+        b=PaKuU5Hv7r0SnvJ5ToLDv5zMXWpDnz6nSUV43kTHMwPBGUNvY9O9oi0lMDM49sKW+B
+         pGarD0ipNUtX0srMuakZHb697BAE/fAN4wNrNVtBCWCvaWMIWQ4Z2eFc/hC1fSEd6SDe
+         U3GCW2IeVJh8DeNrOR6QQ5ArTDbcfjRhZ3YKVAVbbB3ATGT0oukglFSFQ73h9pNjg3gb
+         oXvvOfPCX3f9ukXujxovZ5z7RflXEXY60cGUu3+V9cM0txunMGXwbPpUTW3opYNOSHl9
+         3W0pZI1Ub3N0bf88qVe8U4uIVB83zfa2t/QRFvZ8twsTW16Of/S8EpRcyxtHnyFAKcma
+         ZkuA==
+X-Gm-Message-State: APuU4Z95MzZdswR/ytneynmXnxV1AL1+OgSU6wj+Vdmik9Ss731/deiQ
+	NapLa25zsI6h1umvdKMS56m7zdc1RGIhKXY0MtOJ37++cEw3/hjwJX8d6DvZUA==
+X-Gm-Gg: AYBFou0l+su+rNevIi9p4sNoVoM/SkK64DyBZzKoLlpatDUHV+PEFdpDd9v8/+Lelha
+	O+2fnxnXDMnw3SOYeLxF1ttGqLlaKyBwfT83uqJgDAkMcM8qEw7IG+keHi51zqswz8TOcd1utkd
+	ZecVNHKiJtc13VO7V8EiY5rCAL0lCIFTmU75fBPHY/fb/AXf+TK1LN1djZxPpmqLzMHBoTURi1v
+	QJROJKbd4kJ3cFAtiiYcQlTUvdeUWxq/TvR01gquunwH8fmM0/hGbbXG0CtOjUg10QOf8GRrFp6
+	jxbXvsF4Eh+d2JHuSz248vtTHTdu095aClpR57AAKZu/IzkhBNKuRvMGU+hBvASjUnUvrIQ+OB7
+	+KevNqIm4Lvq9mnelCOAnW/nxGDDjPUWp2NiKtAGZZ/avWR3+mcsV6GqHI0149k9e4xm023+/zN
+	ZiD5Buhj/Kdt8o2oqDyBPLlb9HSWS3tOn/ILc318dRuiGPdQlYy33wW4K3sizomhX4Gf/WI0gbg
+	fhs8u/DTQD3zqOjqhl5To9QAR7tlIT8971RC4+HzpeXFOL6cKVHcr2UErbiaJgoGJvvzsc6zkIg
+	rT3O6w3u8URbQU5ceO9D8seYDaQYOfr1VnlD4DlnQshQbwtS8cgt
+X-Received: by 2002:a05:7023:904:b0:168:3243:c907 with SMTP id a92af1059eb24-1ad85de518fmr33710895c88.24.1793894550537;
+        Thu, 05 Nov 2026 08:02:30 -0800 (PST)
+Received: from ubuntu ([110.9.142.4])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c2de58sm16414126c88.12.2026.11.05.08.02.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 08:02:30 -0800 (PST)
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
+To: Akinobu Mita <akinobu.mita@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] fault-inject: fix boot failure with fault injection boot parameters
+Date: Fri,  6 Nov 2026 01:01:58 +0900
+Message-ID: <20261105160209.1504867-1-ekffu200098@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,327 +93,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-kunit-param-names-v2-7-765b3d5275d2@kernel.org>
-References: <20261105-kunit-param-names-v2-0-765b3d5275d2@kernel.org>
-In-Reply-To: <20261105-kunit-param-names-v2-0-765b3d5275d2@kernel.org>
-To: Simon Trimmer <simont@opensource.cirrus.com>, 
- Charles Keepax <ckeepax@opensource.cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
- Rae Moar <raemoar63@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Theodore Ts'o <tytso@mit.edu>, 
- Andreas Dilger <adilger.kernel@dilger.ca>, 
- Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, 
- Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
- Zhang Yi <yi.zhang@huawei.com>, David Rhodes <david.rhodes@cirrus.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>
-Cc: patches@opensource.cirrus.com, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
- linux-doc@vger.kernel.org, linux-ext4@vger.kernel.org, 
- linux-sound@vger.kernel.org, Mark Brown <broonie@kernel.org>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=16931; i=broonie@kernel.org;
- h=from:subject:message-id; bh=t8fkopsOg3sufbABwCPfiVkWdlwK5/RfwsIRwnV4EIM=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLerEi9IcGnPn+zq6lsX0uG5vpFeXPf2nOkbQ+enKP5S
- /z7j3yFjlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAEzEJ5fhn9KK9+qP4uqkviQU
- PH9SEPLgb3xeDtfmgrnzj8pkvopNsWf4n8j1v41lFmfdw8Wm0rNzamdPmnltsuzDupeq9s+MRFZ
- ZcwMA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-The cs_dsp_bin suites run many of their test functions against more
-than one set of parameters, listing the function once per set with
-KUNIT_CASE_PARAM(), which names the case after the function:
+Since commit e9bc360b105c ("fault-inject: use prandom where
+cryptographically secure randomness is not needed"), setup_fault_attr()
+calls prandom_init_once(), which calls kmalloc() and schedule_work().
 
- - the ADSP2 suites run the XM/YM tests again for ZM,
- - the WMDR v3 suite runs the whole set again with long offset blocks,
- - the multiple memory tests are run varying the offset and the
-   algorithm.
+But setup_fault_attr() can be called from __setup handlers before slab
+and workqueues are initialized, so any fault injection boot parameter
+leads to boot failure.
 
-The resulting cases share a name, so they cannot be told apart in the
-results.
+So use DO_ONCE_LITE() instead.
 
-Use KUNIT_CASE_PARAM_UNIQUE() for these entries so that each case is
-also named for the parameter generator it is run with, for example
-bin_patch_one_word-x_or_y_and_offset_gen_params and
-bin_patch_one_word-z_and_offset_gen_params.
-
-Reviewed-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Fixes: e9bc360b105c ("fault-inject: use prandom where cryptographically secure randomness is not needed")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
 ---
- drivers/firmware/cirrus/test/cs_dsp_test_bin.c | 222 ++++++++++++-------------
- 1 file changed, 111 insertions(+), 111 deletions(-)
+QEMU-based test results
+- build with gcc 16.2 + x86_64, booted with "failslab=1,0,-1,0"
 
-diff --git a/drivers/firmware/cirrus/test/cs_dsp_test_bin.c b/drivers/firmware/cirrus/test/cs_dsp_test_bin.c
-index 63416838f865..40a827120d6c 100644
---- a/drivers/firmware/cirrus/test/cs_dsp_test_bin.c
-+++ b/drivers/firmware/cirrus/test/cs_dsp_test_bin.c
-@@ -2654,8 +2654,8 @@ static struct kunit_case cs_dsp_bin_test_cases_halo[] = {
- 	KUNIT_CASE_PARAM(bin_patch_one_multiword, x_or_y_and_offset_gen_params),
- 	KUNIT_CASE_PARAM(bin_patch_multi_oneword, x_or_y_and_offset_gen_params),
- 	KUNIT_CASE_PARAM(bin_patch_multi_oneword_unordered, x_or_y_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_one_word_multiple_mems, offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_one_word_multiple_mems, alg_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_one_word_multiple_mems, offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_one_word_multiple_mems, alg_gen_params),
- 	KUNIT_CASE_PARAM(bin_patch_multi_oneword_sparse_unordered, x_or_y_and_alg_gen_params),
- 	KUNIT_CASE_PARAM(bin_patch_one_word_multiple_algs, x_or_y_and_offset_gen_params),
- 	KUNIT_CASE_PARAM(bin_patch_one_word_multiple_algs_unordered, x_or_y_and_offset_gen_params),
-@@ -2687,8 +2687,8 @@ static struct kunit_case cs_dsp_bin_test_cases_halo[] = {
- 			 packed_x_or_y_and_offset_gen_params),
- 	KUNIT_CASE_PARAM(bin_patch_multi_onepacked_unordered,
- 			 packed_x_or_y_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_1_packed_multiple_mems, offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_1_packed_multiple_mems, alg_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_1_packed_multiple_mems, offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_1_packed_multiple_mems, alg_gen_params),
- 	KUNIT_CASE_PARAM(bin_patch_multi_onepacked_sparse_unordered,
- 			 packed_x_or_y_and_alg_gen_params),
- 	KUNIT_CASE_PARAM(bin_patch_1_packed_multiple_algs,
-@@ -2705,103 +2705,100 @@ static struct kunit_case cs_dsp_bin_test_cases_halo[] = {
- 
- static struct kunit_case cs_dsp_bin_test_cases_halo_wmdr3[] = {
- 	/* Unpacked memory */
--	KUNIT_CASE_PARAM(bin_patch_one_word, x_or_y_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_one_multiword, x_or_y_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_multi_oneword, x_or_y_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_multi_oneword_unordered, x_or_y_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_one_word_multiple_mems, offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_one_word_multiple_mems, alg_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_multi_oneword_sparse_unordered, x_or_y_and_alg_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_one_word_multiple_algs, x_or_y_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_one_word_multiple_algs_unordered, x_or_y_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_one_word, x_or_y_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_one_multiword, x_or_y_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_multi_oneword, x_or_y_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_multi_oneword_unordered, x_or_y_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_one_word_multiple_mems, offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_one_word_multiple_mems, alg_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_multi_oneword_sparse_unordered,
-+				x_or_y_and_alg_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_one_word_multiple_algs, x_or_y_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_one_word_multiple_algs_unordered,
-+				x_or_y_and_offset_gen_params),
- 
- 	/* Packed memory tests */
--	KUNIT_CASE_PARAM(bin_patch_1_packed,
--			 packed_x_or_y_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_1_packed_1_single_trailing,
--			 packed_x_or_y_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_1_packed_2_single_trailing,
--			 packed_x_or_y_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_1_packed_3_single_trailing,
--			 packed_x_or_y_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_1_packed_2_trailing,
--			 packed_x_or_y_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_1_packed_3_trailing,
--			 packed_x_or_y_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_1_single_leading_1_packed,
--			 packed_x_or_y_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_2_single_leading_1_packed,
--			 packed_x_or_y_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_2_leading_1_packed,
--			 packed_x_or_y_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_3_single_leading_1_packed,
--			 packed_x_or_y_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_3_leading_1_packed,
--			 packed_x_or_y_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_multi_onepacked,
--			 packed_x_or_y_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_multi_onepacked_unordered,
--			 packed_x_or_y_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_1_packed_multiple_mems, offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_1_packed_multiple_mems, alg_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_multi_onepacked_sparse_unordered,
--			 packed_x_or_y_and_alg_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_1_packed_multiple_algs,
--			 packed_x_or_y_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_1_packed_multiple_algs_unordered,
--			 packed_x_or_y_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_mixed_packed_unpacked_random,
--			 packed_x_or_y_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_1_packed, packed_x_or_y_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_1_packed_1_single_trailing,
-+				packed_x_or_y_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_1_packed_2_single_trailing,
-+				packed_x_or_y_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_1_packed_3_single_trailing,
-+				packed_x_or_y_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_1_packed_2_trailing, packed_x_or_y_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_1_packed_3_trailing, packed_x_or_y_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_1_single_leading_1_packed,
-+				packed_x_or_y_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_2_single_leading_1_packed,
-+				packed_x_or_y_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_2_leading_1_packed, packed_x_or_y_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_3_single_leading_1_packed,
-+				packed_x_or_y_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_3_leading_1_packed, packed_x_or_y_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_multi_onepacked, packed_x_or_y_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_multi_onepacked_unordered,
-+				packed_x_or_y_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_1_packed_multiple_mems, offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_1_packed_multiple_mems, alg_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_multi_onepacked_sparse_unordered,
-+				packed_x_or_y_and_alg_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_1_packed_multiple_algs,
-+				packed_x_or_y_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_1_packed_multiple_algs_unordered,
-+				packed_x_or_y_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_mixed_packed_unpacked_random, packed_x_or_y_gen_params),
- 
- 	/* Unpacked memory with long-offset blocks */
--	KUNIT_CASE_PARAM(bin_patch_one_word, x_or_y_and_long_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_one_multiword, x_or_y_and_long_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_multi_oneword, x_or_y_and_long_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_multi_oneword_unordered, x_or_y_and_long_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_one_word_multiple_mems, long_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_one_word_multiple_mems, alg_long_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_multi_oneword_sparse_unordered, x_or_y_and_alg_long_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_one_word_multiple_algs, x_or_y_and_long_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_one_word_multiple_algs_unordered,
--			   x_or_y_and_long_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_one_word, x_or_y_and_long_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_one_multiword, x_or_y_and_long_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_multi_oneword, x_or_y_and_long_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_multi_oneword_unordered,
-+				x_or_y_and_long_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_one_word_multiple_mems, long_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_one_word_multiple_mems, alg_long_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_multi_oneword_sparse_unordered,
-+				x_or_y_and_alg_long_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_one_word_multiple_algs,
-+				x_or_y_and_long_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_one_word_multiple_algs_unordered,
-+				x_or_y_and_long_offset_gen_params),
- 
- 	/* Packed memory tests with long offset blocks */
--	KUNIT_CASE_PARAM(bin_patch_1_packed,
--			 packed_x_or_y_and_long_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_1_packed_1_single_trailing,
--			 packed_x_or_y_and_long_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_1_packed_2_single_trailing,
--			 packed_x_or_y_and_long_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_1_packed_3_single_trailing,
--			 packed_x_or_y_and_long_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_1_packed_2_trailing,
--			 packed_x_or_y_and_long_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_1_packed_3_trailing,
--			 packed_x_or_y_and_long_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_1_single_leading_1_packed,
--			 packed_x_or_y_and_long_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_2_single_leading_1_packed,
--			 packed_x_or_y_and_long_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_2_leading_1_packed,
--			 packed_x_or_y_and_long_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_3_single_leading_1_packed,
--			 packed_x_or_y_and_long_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_3_leading_1_packed,
--			 packed_x_or_y_and_long_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_multi_onepacked,
--			 packed_x_or_y_and_long_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_multi_onepacked_unordered,
--			 packed_x_or_y_and_long_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_1_packed_multiple_mems, long_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_1_packed_multiple_mems, alg_long_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_multi_onepacked_sparse_unordered,
--			 packed_x_or_y_and_alg_long_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_1_packed_multiple_algs,
--			 packed_x_or_y_and_long_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_1_packed_multiple_algs_unordered,
--			 packed_x_or_y_and_long_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_mixed_packed_unpacked_random,
--			 packed_x_or_y_long_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_1_packed, packed_x_or_y_and_long_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_1_packed_1_single_trailing,
-+				packed_x_or_y_and_long_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_1_packed_2_single_trailing,
-+				packed_x_or_y_and_long_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_1_packed_3_single_trailing,
-+				packed_x_or_y_and_long_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_1_packed_2_trailing,
-+				packed_x_or_y_and_long_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_1_packed_3_trailing,
-+				packed_x_or_y_and_long_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_1_single_leading_1_packed,
-+				packed_x_or_y_and_long_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_2_single_leading_1_packed,
-+				packed_x_or_y_and_long_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_2_leading_1_packed,
-+				packed_x_or_y_and_long_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_3_single_leading_1_packed,
-+				packed_x_or_y_and_long_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_3_leading_1_packed,
-+				packed_x_or_y_and_long_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_multi_onepacked,
-+				packed_x_or_y_and_long_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_multi_onepacked_unordered,
-+				packed_x_or_y_and_long_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_1_packed_multiple_mems, long_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_1_packed_multiple_mems, alg_long_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_multi_onepacked_sparse_unordered,
-+				packed_x_or_y_and_alg_long_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_1_packed_multiple_algs,
-+				packed_x_or_y_and_long_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_1_packed_multiple_algs_unordered,
-+				packed_x_or_y_and_long_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_mixed_packed_unpacked_random,
-+				packed_x_or_y_long_gen_params),
- 
- 	KUNIT_CASE(bin_patch_name_and_info),
- 
-@@ -2810,26 +2807,29 @@ static struct kunit_case cs_dsp_bin_test_cases_halo_wmdr3[] = {
- 
- static struct kunit_case cs_dsp_bin_test_cases_adsp2[] = {
- 	/* XM and YM */
--	KUNIT_CASE_PARAM(bin_patch_one_word, x_or_y_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_one_multiword, x_or_y_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_multi_oneword, x_or_y_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_multi_oneword_unordered, x_or_y_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_multi_oneword_sparse_unordered, x_or_y_and_alg_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_one_word_multiple_algs, x_or_y_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_one_word_multiple_algs_unordered, x_or_y_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_one_word, x_or_y_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_one_multiword, x_or_y_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_multi_oneword, x_or_y_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_multi_oneword_unordered, x_or_y_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_multi_oneword_sparse_unordered,
-+				x_or_y_and_alg_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_one_word_multiple_algs, x_or_y_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_one_word_multiple_algs_unordered,
-+				x_or_y_and_offset_gen_params),
- 
- 	/* ZM */
--	KUNIT_CASE_PARAM(bin_patch_one_word, z_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_one_multiword, z_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_multi_oneword, z_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_multi_oneword_unordered, z_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_multi_oneword_sparse_unordered, z_and_alg_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_one_word_multiple_algs, z_and_offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_one_word_multiple_algs_unordered, z_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_one_word, z_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_one_multiword, z_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_multi_oneword, z_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_multi_oneword_unordered, z_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_multi_oneword_sparse_unordered, z_and_alg_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_one_word_multiple_algs, z_and_offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_one_word_multiple_algs_unordered,
-+				z_and_offset_gen_params),
- 
- 	/* Other */
--	KUNIT_CASE_PARAM(bin_patch_one_word_multiple_mems, offset_gen_params),
--	KUNIT_CASE_PARAM(bin_patch_one_word_multiple_mems, alg_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_one_word_multiple_mems, offset_gen_params),
-+	KUNIT_CASE_PARAM_UNIQUE(bin_patch_one_word_multiple_mems, alg_gen_params),
- 
- 	KUNIT_CASE(bin_patch_name_and_info),
- 
+1) AS-IS (before fix) 
+[    0.090415] BUG: kernel NULL pointer dereference, address: 0000000000000018
+[    0.091661] #PF: supervisor read access in kernel mode
+[    0.092639] #PF: error_code(0x0000) - not-present page
+[    0.093593] PGD 0 P4D 0 
+[    0.094051] Oops: Oops: 0000 [#1] SMP NOPTI
+[    0.094800] CPU: 0 UID: 0 PID: 0 Comm: swapper Not tainted 7.3.0 #2 PREEMPT(undef) 
+[    0.096178] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1ubuntu1 04/01/2014
+[    0.098046] RIP: 0010:__kmalloc_cache_noprof+0x142/0x370
+[    0.099024] Code: ea c1 ea 08 41 89 d5 41 83 e5 01 8b 53 1c 0f 1f 44 00 00 45 84 ed 74 12 4d 85 d2 74 0d 4c 89 d7 31 f6 e8 e1 2d e1 00 49 89 c2 <44> 8b 43 18 48 8b 74 24 50 0f 1fb
+[    0.102388] RSP: 0000:ffffffff82c03d50 EFLAGS: 00010046
+[    0.103326] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
+[    0.104604] RDX: 0000000000000001 RSI: 0000000000000020 RDI: 0000000000000000
+[    0.105883] RBP: 0000000000000820 R08: ffff88807dda6c70 R09: 46ad46184e3f2c64
+[    0.107194] R10: 0000000000000000 R11: 46ad46184e3f2c64 R12: 0000000000000030
+[    0.108472] R13: 0000000000000001 R14: 0000000000000008 R15: ffff88807ffd3ab1
+[    0.109832] FS:  0000000000000000(0000) GS:ffff8880fa4ac000(0000) knlGS:0000000000000000
+[    0.111284] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    0.112311] CR2: 0000000000000018 CR3: 0000000002c30000 CR4: 00000000000000b0
+[    0.113616] Call Trace:
+[    0.114059]  <TASK>
+[    0.114462]  ? once_disable_jump+0x20/0x80
+[    0.115202]  once_disable_jump+0x20/0x80
+[    0.115905]  setup_fault_attr+0xe6/0xf0
+[    0.116597]  unknown_bootoption+0x111/0x210
+[    0.117352]  parse_args+0x14f/0x3c0
+[    0.117983]  ? __pfx_unknown_bootoption+0x10/0x10
+[    0.118839]  start_kernel+0x3b8/0x7c0
+[    0.119539]  ? __pfx_unknown_bootoption+0x10/0x10
+[    0.120435]  x86_64_start_reservations+0x24/0x30
+[    0.121310]  x86_64_start_kernel+0xd1/0xe0
+[    0.122278]  common_startup_64+0x13e/0x158
+[    0.124133]  </TASK>
+[    0.124756] Modules linked in:
+[    0.125309] CR2: 0000000000000018
+[    0.125905] ---[ end trace 0000000000000000 ]---
+[    0.126741] RIP: 0010:__kmalloc_cache_noprof+0x142/0x370
+[    0.127704] Code: ea c1 ea 08 41 89 d5 41 83 e5 01 8b 53 1c 0f 1f 44 00 00 45 84 ed 74 12 4d 85 d2 74 0d 4c 89 d7 31 f6 e8 e1 2d e1 00 49 89 c2 <44> 8b 43 18 48 8b 74 24 50 0f 1fb
+[    0.131129] RSP: 0000:ffffffff82c03d50 EFLAGS: 00010046
+[    0.132126] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
+[    0.133483] RDX: 0000000000000001 RSI: 0000000000000020 RDI: 0000000000000000
+[    0.134843] RBP: 0000000000000820 R08: ffff88807dda6c70 R09: 46ad46184e3f2c64
+[    0.136206] R10: 0000000000000000 R11: 46ad46184e3f2c64 R12: 0000000000000030
+[    0.137565] R13: 0000000000000001 R14: 0000000000000008 R15: ffff88807ffd3ab1
+[    0.138928] FS:  0000000000000000(0000) GS:ffff8880fa4ac000(0000) knlGS:0000000000000000
+[    0.142705] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    0.143741] CR2: 0000000000000018 CR3: 0000000002c30000 CR4: 00000000000000b0
+[    0.145037] Kernel panic - not syncing: Attempted to kill the idle task!
+[    0.146284] ---[ end Kernel panic - not syncing: Attempted to kill the idle task! ]---2) TO-BE (after fix)
 
+2) TO-BE (after fix)
+- boot succeeded
+
+---
+ lib/fault-inject.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/lib/fault-inject.c b/lib/fault-inject.c
+index 02916ef2761c..9182d457baf5 100644
+--- a/lib/fault-inject.c
++++ b/lib/fault-inject.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-only
+ #include <linux/kernel.h>
+ #include <linux/init.h>
++#include <linux/once_lite.h>
+ #include <linux/prandom.h>
+ #include <linux/debugfs.h>
+ #include <linux/sched.h>
+@@ -50,7 +51,12 @@ int setup_fault_attr(struct fault_attr *attr, char *str)
+ 		return 0;
+ 	}
+ 
+-	prandom_init_once(&fault_rnd_state);
++	/*
++	 * __setup handlers run before slab and workqueues are initialized,
++	 * but prandom_init_once() calls kmalloc() and schedule_work(). So use
++	 * DO_ONCE_LITE() instead.
++	 */
++	DO_ONCE_LITE(prandom_seed_full_state, &fault_rnd_state);
+ 
+ 	attr->probability = probability;
+ 	attr->interval = interval;
+
+base-commit: c2366a2edc886a5a02d2a43de8b1c6ec09bab840
 -- 
-2.47.3
+2.53.0
 
