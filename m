@@ -1,79 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793911844;
-	b=q/5A4uRDRWMh38xag178uLZZQcAdrMesL6WT/gbhe5a4hNCGbJJRa9dSLPx2L6tPDIS/
-	 JbbKlBUcRm8GT86KGS2ysTfY8XW6rFfgUzZnO+akh37+MizrocDZpkA7VonMwB9PErfBk
-	 toFefFC5U7mAPLkI4H8K3V11AwRJzuaRJq3PJB/ol6GwfI+kXsM+s5h10ypHIgjXr5F0B
-	 sbeFwROOJOTCg3OeLGkrTCZaFOh8NTtXlWcaRYSIVxklW9137lp58I1QI85MDQa04VzZa
-	 a5mvTxu44Mn/ZcrB5AyX+FomVSWt3s23+9A5ongxQms1HVBhUZvfEM6v+5lldUfiuSA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793911844;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=n+pRwyM6jtw/t99MRAyQwbNSY1kY6+Y063USIMO4Eek=;
-	b=hli9YpJwtRr2rp+QTea9Cvkt9ckeRgWjYaVh6GkWGYcBKdsQ4ivIPiBXU3+iEGancDhM
-	 ySfMrc9IRxMVZf4pMYpM8HjTcsN4N4kCvDna7C3T7oV26ndfiE8MaK+4guYjbiFPHttab
-	 ut8UKOT54dz0XFtmQPvykluR2agqehlUJWHRQpNhVcZ7ABHWzDyiHT3EGj/uNCrGX54+v
-	 z0iozTLheE6AcsApcSw6JQEBAADB3C9CCENt4DRaM93D+i0OJPmA8tJ4xqnsinb66rUYv
-	 G8ngkA/XEcYSA2mlDJs+mJeXOn3UhtCaNexW86E02iLmcroSvZrtPRlAcX1eAv5xT8w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m92f5nis;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BE6A606A31B;
-	Thu,  5 Nov 2026 20:50:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m92f5nis
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793911843;
-	b=ow09mkwMzDhHxhVGEwyG3VLSwsx8axmbdvMwjYPv/jzLlAu930xRaG+QEq0cNaowWEHB
-	 1D3ilriiDMKr99ekeo/4/1s5dZCPxsgAW8hRTusT12qGOkX2qrQXB0J7qCnQqJ3UL+Yo2
-	 LjkKdpGB5FfT0AvMP+xY6Pjx5NXomJ3zNsjCff1EaxaKweTj6FPD8AIw6b1d/HXFX3H3N
-	 yslzvQVcnBqsYaR5ge3pWUmbbM1NL/6QCiPREQBNq9rs01usCWef1QJUzw/IPOPArfVtM
-	 gpAuPQTYNqQjgc9wZJZXN1I2Iftl6Hd+01VrHXN3WFWT0UR5yJfv9vyBXWbVAo9toKw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793911843;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=n+pRwyM6jtw/t99MRAyQwbNSY1kY6+Y063USIMO4Eek=;
-	b=LWeN8HUWDyG5bIcbqiW0qPFT9XaZI+1lCCWvOCPAw3nDQpxx+ADK2ojgbYFPuZUsDlpZ
-	 9tE27G2/JZ55ZrWjEMrwv+tB4M6d3RXjiWyKlys5vUi/TJp/GKa91a26vNsRkIljcn3Kl
-	 9BfQu+ZWyHNV4iDoJzQL3VxMTVaXvfAuM9hiN2cqeTtEd1ZLCSIpxOei3yKAR7jDFax5r
-	 XDC+aaS5uJeScblanvxR3mx5Nho8QfhuTYKcSnAIDSUV/C3xHNn0XzH9YQRsSPOt9nRBH
-	 IZCK/+OS6iJ2OkwFgNp5ul0BozTNLloIo+02WBaTqzM/aS7x6QH34ybfbhhlgsAjFqQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.52
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793911933;
+	b=1A6nX6NKVSs1vDbDM92oSbAjTU9Q8X8eFlzJzDAg4ToKmRXemaJ2tLs6zKjTXVZJsQZn
+	 8XH5mZoX5uTZI2Afw69oR/BC+ddrevyeokfGFmosPIdgWUI/qaEO2hB7k3oEPB8Smp0XD
+	 CMntJ77wDGj4B3lSkYc4YkINi/gRkwmCuqTAcwDCOyBSe3/0cDqTd3XX07niBCqj9UNFI
+	 2g5QUc6kJtF3LjPvZry1OW1ptHYVuJPmsga6fsWW7ENYYFK+Mc8HBZOi1fEFNrYM3kJkr
+	 c0HxD01AnerM2zAJkmJg7fHUCHVIjh1cqnfzSL+KawOi4ouJ0lqD7ii2c4gQoCbif6g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793911933;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=etFadpZxb3K3Koio+rWn9A442pWi/regcd29GY8GRBI=;
+	b=UA+W6xveuB8i5q7/soIAuoC7WUqEGwDMRbM6Vvu54yu22vUIuDV0FRTQm/WjgU4BaNgr
+	 7wIhiZuKrlhitU/LsBtE/lppoXnFcfLZNJ7FmmXxd7pWIlGkHqjhGp+E2QAurrRz4fxKx
+	 jkww1o/0E9s2bUnbMI2QKWZ1nwvOVzGv3foLHSgCUm0FW2ikoEVUbX2dfKyx19t9bAQXy
+	 nwvJzAvlT+6+IeJ8+PA3/w/U3J3u16jgKewWMIySEF/8hEFwzpqrWoRaocPaFIXfdvKmm
+	 M1F4NJaisAl97sI6AhOozFBigpX7XX775Eihgo8uTj+30ZEDwLM0NG03MXeHkp0xheA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=K2zetxKQ;
+	arc=none smtp.remote-ip=209.85.210.52
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0F3921F0089F;
-	Thu,  5 Nov 2026 20:50:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793911843;
-	bh=n+pRwyM6jtw/t99MRAyQwbNSY1kY6+Y063USIMO4Eek=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=m92f5nis4R5MrfdYJx3SaQAv9iq/Q0lQnchFK/s8iYOWbqXMEl8mlITHNGnylGb+M
-	 7EHFDoGg+fhYFkIO5IE3AJtMPpcUICBaEy7sTCy9t8NQs7mSr2gH9xtHne7i6BNoT/
-	 2GFyaWw7zyoL35031gdemiDXo8ugpUOr5OKk05HqxFL7yJ3vuAYhUf98tuPWzhej6h
-	 u2zC8kr1bl8PXeqkyZ8RX9cZLZemXIx47uZRlvM1v3INMzF0sXkT+LrYUIJ77dwA9l
-	 bQwn8XCiZypd8kxkIaT+Nc+vjiRg7GRVYzXwvBEsjxKOscHWgtHf3nD96wE8+az/00
-	 F3LTKydaH4uHA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 614C640753;
-	Thu,  5 Nov 2026 20:50:42 +0000 (UTC)
-From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Date: Thu, 05 Nov 2026 15:50:42 -0500
-Subject: [PATCH v2] mm/memory_hotplug: don't offline a hwpoisoned page
- still in the page cache
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65661606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:52:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65661606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=K2zetxKQ
+Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-84d5e56f876so1331a34.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 12:52:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793911932; x=1794516732; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=etFadpZxb3K3Koio+rWn9A442pWi/regcd29GY8GRBI=;
+        b=K2zetxKQP3pk0KG93LZyT3LeTq9+OdutjEiHq/H2WKTLkqFWpo6ueWS8Bvs8Geclly
+         BzJ2Cm0pg5kxc5St4ECXaR2MQaXc+VkdWRgjMokPtVyterMMqMrQOrx/36ZPkjcrlx+E
+         jqMVS6TnoeB6g/EBXKhkAEN3BylncFfMuGF+mHMDboguQ0cqZeZ8yOzCC8p37KdbHNfL
+         cgy0Id5JrWncq89kIjHC7+0C8a8OzqnlBuylUaQ7hAdNjFqKHKANnS5BOTpP4qbMbAk5
+         f6O0RHf4t5cskxGdRYAC7hial9RDep9YYIog1eSlBXMb78eIj0G4008v2b8d8S+H+4wf
+         UquA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793911932; x=1794516732;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=etFadpZxb3K3Koio+rWn9A442pWi/regcd29GY8GRBI=;
+        b=AS4dKlbavT3UfBUfazmr6bDix2J0EyOVx/YcH5yiUFZfWJn5/B1KZz796nKQuMAIQK
+         zlSS4zWBUZvrFky0AbO3pUhYiOzhpDtu3cJIXBf7fVEOfXT3tULWl/EJ36UL2mFhQjJy
+         fTiUhXscuHTXNuZ2A+7DM/g+u2eZOlquhz2yNoajFc8BpJewoj1Xx/lqLD0pTKIVSZgo
+         AyC7L0xjmm+JxM5wXqRdXYg5QtooOESvvhSLYcZJqVsIoz7D4g7JcM2dmgzifRcS3GP6
+         hpHJLYKgxTaKrarFjMAjKZ477eaqio1oH37ecW7T/7MBd9xIvEGbdwvYn9C0nppdKy6/
+         T+IA==
+X-Gm-Message-State: APuU4Z8rsTzmI/lLSMljuwna643NEcNm1Qnq7fBBQRIlw8Q6r53aMOTQ
+	8KStluKaMDA3rUseyTYwN5rfwtMV/4EsnZsN0BTcK5N9S++uLtmD3m6y
+X-Gm-Gg: AYBFou1XwkIWgp0Bk9X7Vj0D1CXOQjd2FDz2nL4084MkP2EssvrCgcYR8xKWkOMKKJH
+	/N2qbzWd2Xf8VgDhIrCE+GrBHocp/7TgYI510V3oEXjvGIzvIMoJgxZu1ouvq9OxroOqZgj0jzG
+	A5y/kv369/l9u97DJBPLIF//UA024fbAU9CAPKfHJ3iMxBeZ6VhSimnFVbOnGZMwauBRUOWpxsH
+	vPCeuI/Ed3JrwY0RagUZ5qf5CpRaxmsnymVP3Jzv5wLpwC9h2ov1tL3sN4H4wJJzQO9VaozhaNY
+	bKkoQpbtr68lNmSmo/g356MvgBcqah7KG8lrZcR/YK6XVjwlRD3VT+1GvsO6LeOm1J0oxQrTy5b
+	/btQqOuodBrMc5gGOXr3tBlUlIdW3fBajVieYUjPymusMI7BbGQ+7lqMOr2gyD0zLxOlKDYD+ih
+	J3In8OgzHU6uZwSfjCMgFls9UXtSUjlKHPJdh8w9STglKhS1NVHXkZix4mas6hjJh3OlsrGzauZ
+	T1fZXLrt2z70/znIdwq7WpVP6/VM41Q+Qu8nFv8zWCC1Kwg/vHf1hxFEs4lCczmLqmYOx3+iGDm
+	6ciYJB54nDoLmnDmxXOqE9PHRD1UHLsQz0b+xWX+PaL2co07Nzh2kZUrcM5ImlESCUxfj1XztZ/
+	srwbtAYwJkeBASguKCNHuGwZ3v17YBzTzw7cqP9GeMlwrgd0sNeOA2PFrb+WPhcQt+NGv6hKDuV
+	gGZue6054A3bp/RRcYhVapdYh0PqOciMVY9jdIxTdZKzgWXjbl11plgInG7uYrMXbQBVJEK+Qz
+X-Received: by 2002:a05:6830:3114:b0:7fa:ac4f:79a with SMTP id 46e09a7af769-85f1d0ac516mr699871a34.22.1793911931772;
+        Thu, 05 Nov 2026 12:52:11 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85f1dbb298fsm292276a34.6.2026.11.05.12.52.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 12:52:10 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH v8 00/11] serial: 8250_dw: share RX trigger setup and
+ describe Allwinner UARTs
+Date: Thu, 05 Nov 2026 13:52:01 -0700
+Message-Id: <20261105-submit-h616-uart-fifo-v1-v8-0-14024d2b184b@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,189 +94,232 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261105-memhp-hwpoison-pagecache-v2-1-029d35634d42@columbia.edu>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyw6CMBBFf4V0bU1bnrryPwyLoYx0jLRNC6gh/
- Ls81i5Pcu85M4sYCCO7JjMLOFEkZ1dQp4RpA7ZDTu3KTAlVSKEuvMfeeG7e3lF0lnvoUIM2yKH
- AFHKVQVoKtt59wAd9dvW9PjiOzRP1sPm2haE4uPDd25PcdkdGCvk/M0kuObZVWeUasgybm3avs
- W8IztiOrF6W5QcbMN/m1QAAAA==
-X-Change-ID: 20261029-memhp-hwpoison-pagecache-a6e3a524a370
-To: David Hildenbrand <david@kernel.org>, 
- Oscar Salvador <osalvador@suse.de>, 
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Miaohe Lin <linmiaohe@huawei.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, 
- Vlastimil Babka <vbabka@kernel.org>, Gregory Price <gourry@gourry.net>, 
- linux-mm@kvack.org, linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org, 
- tz2294@columbia.edu, stable@vger.kernel.org, 
- Mani Tofigh <mt4022@columbia.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793911842; l=6645;
- i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
- bh=LcESJSofCaj5hhsA+wo/1wUjY9ar4+NtuF2td4wtlmY=;
- b=L6SShOaykmI6dCci4Iy1FG7sziKGM25QC0E0mxJNfwPNCYkScmr7PKCl2ukaPWDTZ8RA8L9fU
- czAA+IwmvnrB3pXpqIFkAfhsj5sEa///R1+XfVVYQNXRgEsXOnfQb96
-X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
- pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
-X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
- auth_id=1322
-X-Original-From: Mani Tofigh <mt4022@columbia.edu>
-Reply-To: mt4022@columbia.edu
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43S3U7jMBAF4Fepco2R/+1WaLXvseJibI9bo4aAk
+ 3ZBqO/OpAURAkRIubFif+OcnJemx1qwbzarl6bisfSlu6eFv1o1cQf3W2Ql0bqRXFrBpWT9IbR
+ lYDsrLDtAHVguuWNHwaKBHFNGEwNv6PhDxVyezvS/28uazt5hHEZv3LEr/dDV5/Psoxj3vY9RP
+ 4+hhzPUoAKgxAD+77aFsr+OXduMY47yt5AkCDI3a2W4tsrMITWF9AKkCJLe5iiCjyqKOaSnkFu
+ ANEFJOeTC58TBziEzhdYLkCHIqKCVAgwhf8nIfkAkLUB2/LTxxwalbeBxDrkptBS2IyiuUWqfr
+ DefMzpd2lHx8UD9Gy6VaQL0yOg9gZuVtdKjSzraIE30iQISShtUIHmSwss1ADrUY61a7Hs4F3e
+ zupmnPtYd9sxLQ1H/Z6lQ5bv6lr5gWjihwRkUBj6u+OcnVn/H1qehli3bl4xDafGttII5JYLzy
+ XCu0tS+PZ1eAVq4jVyHAwAA
+X-Change-ID: 20261022-submit-h616-uart-fifo-v1-c5afcdfe5cb0
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, James Hilliard <james.hilliard1@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
 
-From: Mani Tofigh <mt4022@columbia.edu>
+DesignWare UART receive thresholds are one byte, one quarter full, one
+half full and two bytes below full. Describe this mapping in dwlib so
+CPR-described DW and LPSS ports use their actual FIFO depth when reporting
+or setting rx_trig_bytes. Widen the 8250 threshold tables, setter byte
+counts and sysfs parser to 16 bits to support larger DW FIFOs, including
+the 2 KiB configuration.
 
-Memory offline skips hwpoisoned pages, assuming nobody uses them
-anymore.  memory_failure() however sets PG_hwpoison before it takes the
-page, and taking it waits on pcp_batch_high_lock, which offline_pages()
-holds for the whole offline.  A memory error during the offline thus
-marks the page and then waits while the offline skips it:
+Enable the same interface for Octeon using its fixed 64-byte FIFO depth.
+Expose rx_trig_bytes for ports supplying both trigger callbacks, including
+port types without a static trigger table. Retain Octeon's special register
+accessors, optional-register probe bypass and existing DMA selection.
 
-  Task A (offline_pages)               Task B (memory_failure)
-  zone_pcp_disable()
-                                       TestSetPageHWPoison(P)
-                                       get_hwpoison_page()
-                                         /* waits for Task A */
-  do_migrate_range()
-    /* P is poisoned (not migrated) */
-  test_pages_isolated()
-    /* P is poisoned (accepted) */
-  zone_pcp_enable()
-                                       /* P is off the LRU (Ignored) */
+Reuse the same trigger setup for the Allwinner integrations. H616 has
+fixed 256-byte FIFOs without a readable FIFO-depth register. A523, A527
+and T527 have different depths across their UARTs and report each port's
+depth in the FIFO Clock Control register. Select the fixed platform-data
+depth when provided, otherwise read FCC, and validate the depth before
+building the threshold table.
 
-The block goes offline while the file still points to P, and the next
-walk of the file's pages (here drop_caches on ext4) crashes on a struct
-page of offlined memory:
+Dedicated compatibles select the Allwinner configuration without probing
+overlapping optional DesignWare registers. Keep PORT_16550A, configure
+automatic flow control, preserve BUSY-safe integer divisor programming
+and keep the UART clock gate enabled during termios changes. The sunxi
+setup uses PIO.
 
-  [   11.710348] Memory failure: 0x24224: unhandlable page.
-  [   11.710372] Memory failure: 0x24224: recovery action for get hwpoison page: Ignored
-  [   11.765371] page:000000008c304eee is uninitialized and poisoned
-  [   11.765389] page dumped because: VM_BUG_ON_PAGE(page_ref_count(page) == 0)
-  [   11.765440] kernel BUG at include/linux/mm.h:1990!
-  [   11.765458] Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-  [   11.772284] CPU: 3 UID: 0 PID: 85 Comm: mfoffline Tainted: G        W            7.3.0-17087-gd865f2677c44 #1 PREEMPT
-  [   11.777970] RIP: 0010:find_lock_entries+0x8ee/0xad0
-  [   11.798761] Call Trace:
-  [   11.799297]  <TASK>
-  [   11.803284]  mapping_try_invalidate+0xfd/0x2c0
-  [   11.810571]  drop_pagecache_sb+0x111/0x330
-  [   11.811572]  __iterate_supers+0x2e2/0x370
-  [   11.815863]  drop_caches_sysctl_handler+0x74/0xb0
-  [   11.816994]  proc_sys_call_handler+0x2ec/0x440
-  [   11.821360]  vfs_write+0x545/0x1250
-  [   11.825220]  ksys_write+0xfa/0x200
-  [   11.830202]  do_syscall_64+0xfb/0x590
-  [   11.832084]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-  [   11.848423]  </TASK>
+The series first prepares setup error propagation and platform callbacks,
+then widens and shares the 8250 trigger conversion, enables callback-based
+sysfs controls, and adds common DW setup and Allwinner bindings and driver
+support. The SoC DTS changes are deferred for a separate submission through
+the platform tree.
 
-Once the memory is also removed it's a use-after-free of the memory map.
-tmpfs and the swap cache can end up the same way without the race.
-Since commit a76054266661 ("mm: shmem: don't truncate page if memory
-failure happens"), memory_failure() leaves a poisoned tmpfs folio in the
-page cache on purpose, and it does the same for a dirty folio in the
-swap cache.
+Based on tty-next at 6628e7d4c6b2 with the posted RX trigger callback-lifetime
+fix [0] and DW BUSY-safe divisor fix v4 [1]. Platform setup runs before
+installing the BUSY-safe divisor setter.
 
-Treat a hwpoisoned page whose folio is still in a page cache or swap
-cache as busy in scan_movable_pages() and
-__test_page_isolated_in_pageblock() so that the offline fails and a
-waiting memory_failure() can go on.  Also have do_migrate_range() leave
-such a folio alone instead of taking it off the LRU, so that
-memory_failure() can still remove it from the cache.  A later offline
-succeeds once the page is out of the cache.  With the fix, the offline
-fails with -EBUSY and the file doesn't point to offlined memory anymore.
+[0] https://lore.kernel.org/r/20261024-submit-serial-8250-rxtrig-lifetime-v1-v1-1-731b78d5003d@gmail.com
+[1] https://lore.kernel.org/r/20261027-submit-serial-8250-dw-divisor-v1-v4-1-41714a75e15a@gmail.com
 
-This bug was identified and confirmed with the help of a deterministic
-hypervisor currently under development.  The C reproducer below however
-hits it within about 10s.
-
-Fixes: b023f46813cd ("memory-hotplug: skip HWPoisoned page when offlining pages")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
+Changes in v8:
+- Defer the H616 and A523 DTS changes for separate submission through the
+  platform tree, following Krzysztof's review.
+- Separate the dw8250_setup_port() return-type conversion and caller error
+  handling into a preparatory patch before the platform setup refactor,
+  following Andy's review.
+- Place the RX trigger table first in the hardware-configuration members
+  of dw8250_port_data, following Andy's review.
+- Group and comment the fixed-depth/FCC selection, and use the conditional
+  operator for Octeon's default FIFO depth, following Andy's review.
+- Carry Andy's Reviewed-by for the H616 driver configuration.
+- Link to v7: https://patch.msgid.link/20261103-submit-h616-uart-fifo-v1-v7-0-c9e248d685c1@gmail.com
+
+Changes in v7:
+- Rebase onto tty-next at 6628e7d4c6b2 (7.4-rc1), keeping the latest
+  posted DW divisor v4 and RX trigger lifetime prerequisites.
+- Keep the shared conversion internal to 8250_base now that both callers
+  are linked there.
+- Move callback-based sysfs exposure ahead of the common DW trigger setup.
+- Expose rx_trig_bytes when a port supplies both trigger callbacks, even
+  when its port type has no static threshold table.
+- Initialize Octeon's FIFO-relative thresholds from its fixed depth while
+  preserving register access and DMA selection.
+- Widen the 8250 RX trigger tables, setter callback and sysfs parser to
+  16-bit byte counts for the larger FIFO depths supported by DesignWare.
+- Move FIFO-relative threshold construction and the trigger callbacks
+  into dwlib, and use them for CPR-described DW and LPSS ports as well
+  as the Allwinner integrations, following Andy's review.
+- Share FIFO-depth validation and propagate setup failures through the
+  DW and LPSS probe paths before registering a port.
+- Keep the existing integer loop in the extracted conversion helper,
+  following Andy's review.
+- Use explicit fixed-depth and FCC-discovery branches in sunxi setup,
+  following Andy's review.
+- Clarify that FIFO-relative RX triggers are shared DesignWare behavior;
+  describe Allwinner FIFO discovery and register-layout details separately.
+- Link to v6: https://patch.msgid.link/20261102-submit-h616-uart-fifo-v1-v6-0-25afcb346b0c@gmail.com
+
+Changes in v6:
+- Export the shared RX trigger conversion in the SERIAL_8250 namespace
+  and explain how driver callbacks avoid new legacy port types.
+- Lead the H616 trigger description with the FIFO-relative mapping
+  and include array_size.h explicitly.
+- Name the trigger divisors and full-FIFO margin, reusing them for
+  FCC depth validation. Explain that the upper bound follows the
+  current byte-sized 8250 interface and can be widened with it.
+- Describe the fixed-depth platform-data field independently of sunxi.
+- Carry Ilpo's setup/helper review tags and Krzysztof's A523 binding ack.
+- Link to v5: https://patch.msgid.link/20261029-submit-h616-uart-fifo-v1-v5-0-53b433aebbf8@gmail.com
+
+Changes in v5:
+- Reject FIFO depths that cannot produce positive, byte-sized RX trigger
+  thresholds, report the invalid size and propagate setup errors to probe.
+- Add the A523 UART compatible and use it for the shared CPUX UART nodes,
+  including those inherited by the A527 and T527 boards.
+- Read the FIFO depth from FCC when sunxi platform data has no fixed
+  depth, preserving the fixed H616 configuration and FCC clock controls.
+- Explain why the per-port trigger table is derived from the FIFO depth;
+  use the same sunxi helper for the FCC-discovered A523-family ports.
+- Move the shared RX trigger conversion helper into 8250_port.c and
+  export it, following Ilpo's review; retain Andy's review tags.
+- Use FIELD_PREP() and an intermediate trigger value when building the
+  sunxi table, following Ilpo's review.
+- Select the DMA setup helper directly for the 64-bit-only Octeon
+  platform and match the single-line comment style, following Andy's review.
+- Carry Krzysztof's Acked-by for the unchanged H616 binding addition.
+- Link to v4: https://patch.msgid.link/20261027-submit-h616-uart-fifo-v1-v4-0-d37e018fd0a6@gmail.com
+
+Changes in v4:
+- Introduce common Allwinner setup helpers with the fixed FIFO depth
+  supplied by compatible-specific platform data.
+- Rebase onto tty-next at 6b4b543fa187 and the posted DW divisor v4 fix,
+  installing the BUSY-safe setter after platform setup.
+- Use an early return for FIFO-less DMA setup, following Andy's review.
+- Default to generic setup when platform data has no setup callback.
+- Select Octeon's optional-register discovery with IS_ENABLED() in its
+  setup helper, preserving the existing 32-bit and 64-bit behavior.
+- Extract the shared 8250 bytes-to-FCR conversion, including the
+  unsupported-table check, into a preparatory patch and use it for
+  H616, following Andy's review.
+- Set the fixed 256-byte FIFO depth in H616 platform data and omit
+  fifo-size from its binding and DTS, following Krzysztof's review.
+- Precompute the Allwinner RX thresholds during setup and retain the
+  sunxi FIFO-depth helper for filling the table. Use named FCR encodings
+  in the helper, following Jiri's review.
+- Share threshold-table initialization and callback assignment through
+  a sunxi RX trigger setup helper.
+- Group and comment the H616 trigger and RS485 setup.
+- Link to v3: https://patch.msgid.link/20261024-submit-h616-uart-fifo-v1-v3-0-286fc1b8c3c1@gmail.com
+
+Changes in v3:
+- Introduce a platform-data setup callback in a preparatory patch,
+  replacing skip_autocfg and preserving the existing Octeon setup.
+- Describe each H616 UART's FIFO capacity with the standard fifo-size DT
+  property and use the value already read by uart_read_port_properties().
+- Derive the Allwinner RX trigger thresholds from the FIFO depth.
+- Use an unsigned trigger index and conditional runtime PM guard,
+  preserving error propagation when the device cannot resume.
+- Rebase onto tty-next, replacing the earlier DMA prerequisites with the
+  posted RX trigger callback-lifetime fix.
+- Separate DMA enablement into follow-up work, retaining PIO operation
+  for the H616 FIFO configuration.
+- Link to v2: https://lore.kernel.org/r/20261023-submit-h616-uart-fifo-v1-v2-0-af0593504635@gmail.com
+
 Changes in v2:
-- Leave a hwpoisoned folio that is still in a page cache or swap cache
-  alone in do_migrate_range(), so that a waiting memory_failure() can
-  still remove it from the cache (Sashiko)
-- Rebase onto current mm-new
-- Link to v1: https://lore.kernel.org/all/20261101-memhp-hwpoison-pagecache-v1-1-ed8785ca44eb@columbia.edu/
+- Keep PORT_16550A and set the FIFO size, transmit load and capabilities
+  during setup, following Andy's review.
+- Select H616 setup through the matched platform-data pointer and remove
+  the type and DMA burst-size platform-data members.
+- Use get_rxtrig/set_rxtrig for the 1/64/128/254-byte receive thresholds,
+  with port locking and runtime PM around register updates. Keep the
+  standard half-full FCR default, selecting 128 bytes on H616.
+- Advertise UART_CAP_AFE so CRTSCTS enables hardware automatic flow control.
+- Rebase onto next-20261023 and declare the posted sun6i pause/lifetime
+  fixes and their prerequisites for DMA enablement.
+- Link to v1: https://lore.kernel.org/r/20261023-submit-h616-uart-fifo-v1-v1-0-e4a3bae2eba8@gmail.com
 
-A pinned hwpoisoned page still isn't covered.  I'll send the refcount
-check David suggested as a follow-up.
-
-Taking get_online_mems() in memory_failure(), as in Gregory's series
-[1], would close only the race and not the tmpfs or swap cache case.
-
-[1] https://lore.kernel.org/all/20261027042204.3741307-4-gourry@gourry.net/
-
-Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/mfoffline.c
----
- mm/internal.h       | 9 +++++++++
- mm/memory_hotplug.c | 5 +++++
- mm/page_isolation.c | 2 +-
- 3 files changed, 15 insertions(+), 1 deletion(-)
-
-diff --git a/mm/internal.h b/mm/internal.h
-index 78a7f17b9934..35c6d30537f0 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -1168,6 +1168,15 @@ static inline bool node_reclaim_enabled(void)
- 	return node_reclaim_mode & (RECLAIM_ZONE|RECLAIM_WRITE|RECLAIM_UNMAP);
- }
- 
-+/*
-+ * A hwpoisoned page can be skipped by memory offline only once no page
-+ * cache or swap cache can find it anymore.
-+ */
-+static inline bool hwpoison_page_offlineable(const struct page *page)
-+{
-+	return !folio_mapping(page_folio(page));
-+}
-+
- extern unsigned long  __must_check vm_mmap_pgoff(struct file *, unsigned long,
-         unsigned long, unsigned long,
-         unsigned long, unsigned long);
-diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
-index 1bfd1f4daeb2..c5cfaa24b41b 100644
---- a/mm/memory_hotplug.c
-+++ b/mm/memory_hotplug.c
-@@ -1821,6 +1821,8 @@ static int scan_movable_pages(unsigned long start, unsigned long end,
- 		struct folio *folio;
- 
- 		page = pfn_to_page(pfn);
-+		if (PageHWPoison(page) && !hwpoison_page_offlineable(page))
-+			return -EBUSY;
- 		if (PageLRU(page) || page_has_movable_ops(page))
- 			goto found;
- 
-@@ -1887,6 +1889,9 @@ static void do_migrate_range(unsigned long start_pfn, unsigned long end_pfn)
- 			 */
- 			if (folio_test_large(folio) && !folio_test_hugetlb(folio))
- 				goto put_folio;
-+			/* The offline fails on it anyway, leave it to memory_failure() */
-+			if (!hwpoison_page_offlineable(page))
-+				goto put_folio;
- 			if (folio_test_lru(folio) && !folio_isolate_lru(folio))
- 				goto put_folio;
- 			if (folio_mapped(folio)) {
-diff --git a/mm/page_isolation.c b/mm/page_isolation.c
-index 5aaad037384e..beb09ef345ee 100644
---- a/mm/page_isolation.c
-+++ b/mm/page_isolation.c
-@@ -593,7 +593,7 @@ __test_page_isolated_in_pageblock(unsigned long pfn, unsigned long end_pfn,
- 			 */
- 			pfn += 1 << buddy_order(page);
- 		else if ((mode == PB_ISOLATE_MODE_MEM_OFFLINE) &&
--			 PageHWPoison(page))
-+			 PageHWPoison(page) && hwpoison_page_offlineable(page))
- 			/* A HWPoisoned page cannot be also PageBuddy */
- 			pfn++;
- 		else if ((mode == PB_ISOLATE_MODE_MEM_OFFLINE) &&
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Jiri Slaby <jirislaby@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-serial@vger.kernel.org
+Cc: devicetree@vger.kernel.org
 
 ---
-base-commit: dba8aba0a9a00ff781c03d82ae534fc6f8c2e263
-change-id: 20261029-memhp-hwpoison-pagecache-a6e3a524a370
+James Hilliard (11):
+      serial: 8250_dw: allow port setup to report errors
+      serial: 8250_dw: select port setup through platform data
+      serial: 8250: widen RX trigger byte counts to 16 bits
+      serial: 8250: share the RX trigger conversion helper
+      serial: 8250: expose RX trigger controls for custom callbacks
+      serial: 8250_dw: derive RX trigger thresholds from the FIFO depth
+      dt-bindings: serial: snps-dw-apb-uart: add Allwinner H616
+      serial: 8250_dw: configure the Allwinner H616 UART
+      dt-bindings: serial: snps-dw-apb-uart: add Allwinner A523
+      serial: 8250_dw: discover Allwinner A523 FIFO depths through FCC
+      serial: 8250_dw: configure RX trigger thresholds for Octeon
+
+ .../bindings/serial/snps-dw-apb-uart.yaml          |   2 +
+ drivers/tty/serial/8250/8250.h                     |   4 +-
+ drivers/tty/serial/8250/8250_dw.c                  | 116 +++++++++++++++++++--
+ drivers/tty/serial/8250/8250_dwlib.c               |  94 ++++++++++++++++-
+ drivers/tty/serial/8250/8250_dwlib.h               |   4 +-
+ drivers/tty/serial/8250/8250_lpss.c                |   4 +-
+ drivers/tty/serial/8250/8250_mxpcie.c              |   2 +-
+ drivers/tty/serial/8250/8250_port.c                |  27 +++--
+ include/linux/serial_core.h                        |   2 +-
+ 9 files changed, 227 insertions(+), 28 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261022-submit-h616-uart-fifo-v1-c5afcdfe5cb0
+prerequisite-message-id: <20261027-submit-serial-8250-dw-divisor-v1-v4-1-41714a75e15a@gmail.com>
+prerequisite-patch-id: d8219673210dac82d3adab41578ff2f76f5862c9
+prerequisite-message-id: <20261024-submit-serial-8250-rxtrig-lifetime-v1-v1-1-731b78d5003d@gmail.com>
+prerequisite-patch-id: 9a9395c715c2bf7bbcae5bdd16a339d7f2af6269
 
 Best regards,
 --  
-Mani Tofigh <mt4022@columbia.edu>
-
+James Hilliard <james.hilliard1@gmail.com>
 
