@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793860623;
-	b=eiq/0tM5DNgzzoxtREcTp/RyXMvqcGR+Hi5dABT4X6lYXqg+g2JW8rul6w28nP6fA9K6
-	 CocTTDjJn+ZrlCvte1cmT1tGWRJm0xfqH8vIxfLCpGd0k9+8PN/036+MMpMxvhZvCg46F
-	 7yIIA//QFbuwUh1HD+TB0ytaB4Xysuuz6B7gI4MnkQCBVYCIYVambyxffj5XjDrKEoHfm
-	 hKCOQiaOe0S315lUn09cR7JKd4QsJ5X53wewqSI8oLKBbk75323dbfRPd+kQxZiudXpZy
-	 bhdIH188yjgwx+K+1B2wO9GepJ+d/tGFCIW1RbmTOLdVHIqe+3CncASJ9wdzxXi8E2g==
+	t=1793860629;
+	b=4Khop1QPQu+VWiKjno/shmCU7zBivKgPmWS2FhioIHBluEUe0hhVJmymoe4y1hY4j5kU
+	 NixLT3gjEOdT9UP6WhxzA0650iC5EkKt/TeLg15fmt2b8S9wuPNjo0O/ESOcVprwjbl2R
+	 fTl1WifYVAw/tOKbZm5YU13xccqPSVcUUVUPa9nQJjS/jl6JemRaNE8Dhpc+u8SAT+diy
+	 a9Mla8bg5aeURGgOFrpf8upA1XkDANlC7BL4TWsAT7fsLXPsAjInWBcF1vndB2PpX1EDB
+	 gOhEx3doYOBU5xX8+se12/j3H8AWQ6HRtdZ6SyTvjzP90IObySgsgLfWk0dfeBylMFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793860623;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793860629;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=V9c4JR1l1BlqJLMhXPHekxlcKPXrrtwIQDnuHY/ovTQ=;
-	b=y/1dyawvKvCdJLcV9aNRwXv/Oe1gAhOQHThZVT46uZek4+KF+uflrCWjouN53mUXZSF1
-	 NZNPfts4fBcDMhUvjvuXe7O4ofuQW5uPwhLuR7Q0cE7CXK0+Pxq3PdlU3T0NZ+/+enKJC
-	 pTis1WnbRcQAIRH4uHQEuTKdT25skJKsgdQYnlha7F5FnZ+U2jIRDXRCe3YMJehtkHydM
-	 dIbGapo4zIUGFiWgAb33kS70Df7ocOMjOHHXaKOBv7wXV45vg2vH+cxyIE6nYkvAqpxUv
-	 m1L13a/Y5R2V2AYjTK8w0+jsVGU7GYCT//ti7qjsnwF26TxWRNGVKCKCNgsCy3xZGKg==
+	bh=PgBKQLIR6mQBdDXOIGUuD/EXxFIBtVanX8mMwu7/ytQ=;
+	b=s30ntYdnoMMxd/VIbMKK/z+4/Az5Ha1+9WjQ3CLb323cxi+ViE3db+mvPKjjCCIDfNYP
+	 PZ0ydZYK6vqpWA1SsznSUd2e27Llwd8yX95fE0IeXXDaCtq6Bd2bFsQ6MpLhscVd0eEy4
+	 vQ0ZHur4TbIO73o3JAguVB3MBW4jw8YBmY8c9UXuUW89A9QeeI855eQT/X7WGOUZ+uOJV
+	 vutB6nlDFTHrl5Y+fyST8KSxzxAkXLYL+lNhr6J+ZbMadE7rXOIKYeiUIxTYW1+3Kc3YE
+	 a3vOINyuF3ekX5pY4sJwCVM9FDYnFuXGAYizTit4aU9VF0MFbMseB5P1Ocy+H02rLsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zQbT2rru;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sr8rGKVI;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE705606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 06:37:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE705606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CBCA606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 06:37:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CBCA606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zQbT2rru
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3514b90bb89so2944473eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 22:37:02 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sr8rGKVI
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-36d6765756fso1633317eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 22:37:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793860622; x=1794465422; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793860629; x=1794465429; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=V9c4JR1l1BlqJLMhXPHekxlcKPXrrtwIQDnuHY/ovTQ=;
-        b=zQbT2rru9bBYKGciF+LGs+SL/2P0O5Pz1jnsY0Wbxy0uWYPZ4nHVsnzEoGd/Hx+SuR
-         kdzhheEOykq1+jWx94FFifxG1h+uB36na4yB+Me0rGcz0CxGX5bZpyh8fBnMPf4w2uQW
-         ld/F8GGJYk4HRazfBRFBhJmcSwQRDsibTxJJAfaQ6Rw1B77d6xEXVkdlY2TUngnYbxFO
-         GE4aFtA1vpYYUm1SytHyUnotHnoIReS0BSMIWfNvRL7HgI/FPZZ3JoTvKyGrUW8w6zGc
-         S7Hr2yt7k0BsOgSD+0mfcAnoqRzHcrjum0L7Dx8JYFXD2TSYsX9fi0jtk9F5f9fnYJWd
-         9eEQ==
+        bh=PgBKQLIR6mQBdDXOIGUuD/EXxFIBtVanX8mMwu7/ytQ=;
+        b=sr8rGKVIa167qXWPurxWL2C1cOVTsS5Q7rwhiGgnnunPMztjUAVMDJZcCoWIWfJuYH
+         o8744xSGd+iUefH2C3BRF9SPm3EQ9hBOZwcl13C7iV6ltiOcuZ6VgyoJJOXoUDrJc/LY
+         tChDKpsvzNfgq3AxYQFDV1WBI2davXMxW9gU4LE8GaUmesJ13KleXd44JF6wmmq/STN5
+         4dmkmMmZMWNBwmkRofsAeVLAZJTxwU4lrNTr7p0KLFFRA5xV+vGsrIz0Tctue7WRKgZE
+         FB4J+rmQGmUdeYh8r8wMgp1eGvYc1TTRcBaRiIwUTdqU+R50Xl7r52PiXT4ZOaKbsZNF
+         f95w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793860622; x=1794465422;
+        d=1e100.net; s=20260707; t=1793860629; x=1794465429;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=V9c4JR1l1BlqJLMhXPHekxlcKPXrrtwIQDnuHY/ovTQ=;
-        b=ys8anhkbnPGotyDNjvxHQ7/8MTMI/5E1ex8S6sVNca8+nPJ3mmrR27cfoeqHarWxkS
-         chPq94+cbc3hFfD4BW7suR9uNFXCJw55PFZ51zkm/H/xP1351i7Fd0e7Z73jKrq+VQqy
-         kzL9p4EYzotS7x7X5Paj737fzyMeWFSxx9L63FJgBt4OeEcJvcpUcYJqFIpW4jjqB/cV
-         kMcm98u/b650q/aZXgGV7k1sotjnINQ78RAZk8AmuMSCPb7zAWAkBIp69SonUfw+ukkm
-         EHxIURDC+ogw/tUMql55YGKVD6raYMVVSVE3TidwMeO1t6ZEOJo0AWbahtvg5rFpGo9n
-         6OAw==
-X-Forwarded-Encrypted: i=1; AKwUvBxL2+aSrPfaEJe5uA55vfGUZImovnWuWca5TG6qg5dW9dBHIolB8+9WwOSsxgswq9tj1zHt7sP9F1n8VJk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8eFzZQvS3Ls9v58jH/G6TVesNSYLoEd56G6i/UF3HUTn3cEzli
-	zV61pTUkaoM2ssH7WJWrkFZjgfTegn/NRwKz9uQu/unXrcBev4cYT8rf
-X-Gm-Gg: AYBFou1UUHWIA9qyomKlGDsYdTgGuLZRycd0Rm0T9aiszD0w9FsxR4RkkiyiVHZW7Lo
-	MLo6SXo1xsVq/qeDsFzPCU8rGwOIBfgJVbLHXvHraJOsEPjLJosvwOQBB1hb45iNuN5j9NqMC/L
-	ZXu/mqnlsvhFFVN7/eoFIoaUbQK23BDdVgt2VeYU1/c1EKdQbjRS9gFD0zxhpbdEoeNICWG3WF0
-	DO2Pd53kDzVaVF3n2wpMNW121RJHabxiloe5xpO1riPWVZnnZ6v//G0ElCUn2e48Vk6iGUMRyYX
-	KW6BMX7PZhXvohodrNWPFt/Imwrn4sGj4+dYlQFG54V04hxB7ExsL4EtJZSQz5rcfcFKBy3XZJ0
-	1IlS54tb1BVR6gLAopZnbj8br+RBpM/XtwviRMG6xStr/UsjYbf9cIkqGrVb7dYgIusuNSwnJhS
-	Py/7s5IvbwTel9y7CFUte5/SIgTRBOMeNMJl+oZTcT/JDscijI1JEmyEgxaNUD0p8tIUkK6KTe8
-	PN/DfAAh5jKZscLwFCqhkq0cdhknWkf0keTrDtv2SgvkpTI6cHr/V9fZefhb3Bo0iBPnJVStlTz
-	rAYMTcIzeO7Tcj3CXuS4h4cuos6t9nrCeqR4r4AUvZW/bveTr6c/9A==
-X-Received: by 2002:a05:7300:d58d:b0:369:e8b0:af85 with SMTP id 5a478bee46e88-36a4243a512mr30366093eec.36.1793860621499;
-        Wed, 04 Nov 2026 22:37:01 -0800 (PST)
+        bh=PgBKQLIR6mQBdDXOIGUuD/EXxFIBtVanX8mMwu7/ytQ=;
+        b=BWY5Ku5W99N7CbbbxkgwET+QhqWZAi4hsc2dfFSgsItlHtHwQpFHVnZJqvLFgs6k82
+         op2kdH+k1jdsqAhnn0GqNN4X8EgKSUsETKAYSJWgZB4H1FThANZK1fhpz8nntOd5/E/J
+         BkPqYyZi/NoKTHNOLLUiySzz1R3NlM0p0MRdeutMxJNP+v1qmB52nFqycMua2pCYugeP
+         hcigP6xxoVhrpSU855ESdef6mRUgrFcxEWOrybcEH81nWE75TeZv0xj5S9EGaqOXyzMH
+         QraLrPQpKrWhC8VFDqR2tgy4cZI/pUi14rLGUQB6Oz3iDPrcZyDI97zjz8K88c8NFkQR
+         RgAw==
+X-Forwarded-Encrypted: i=1; AKwUvBzhyG3lwQ91LIwA5lAoAyAwC7Bg3IO3vNDabWclzd1PBEsi4CbrkbQZP7iKxNBTk3HMHwE4msUGlQFEy9s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9LmAOjFZ2tBhhXvZPFj3wPDG2rIbBIDSL+EnjmvDxbOfYo6GOU
+	L544x38xvY4qi0vCGO4/C2AFSv2gtG6qSRCCAaw87BFXJhlnYOvVc4WS
+X-Gm-Gg: AYBFou1+b27nlP/vYheoavQbkpLijV3O/adZ6jDGBN5mbG5XhTRta9/xLUwc5WQrpqG
+	pUpr6n601BbHeuV1XnbQnESB9YnT5nH2mvhmeWwTVEL66zFxTfSC5eZHAN5oqt0nI+pZOmOADwv
+	HvpgVSYve0x0JkVnDTDbgzMOvTn8/F3e8WZND7vrI5aD4MsbwBLhacXOiOeMbfgylVox0hHHeaG
+	79z1+haJVqRz98keWdXHYx6m7/FsrdEEYr01qqphdpANgVJgw3DTxcqKEZew43q8bzpNI8crsF9
+	aYZ4DfiHSQ+kLVP7H+oftt6sFb0DONDAsFgLk189H6BvDQJ0SERdQD7yAMmw4bVlit0PbcIAPa+
+	agEi8UHR2L6laBI2JsNZntY3nm5h/R9bYTkLEUrpJd7pvaJIgsQonBi8C8gJ0mAwETrTAqA+fm+
+	nYi7iQo7s2wN6NBpuQRdBcfSLgFqmPAsJktEPDZVmxxxAZfmFFM/7qLfQiPV9FUSQMGGNkw0Ie0
+	GtZH5imzw8BuEZuN8uhNe9rX9ectjwAhXFh3bPdTjkmU6g3zhkl1PLIINRazSNKLAap7E6ozzwo
+	JhEVMCG7eYV2Jt5OBSOcVO36y+5wg03gIaVdIl+bciJZX9YYxzV4bQ==
+X-Received: by 2002:a05:693c:88d2:20b0:36a:6d52:e16c with SMTP id 5a478bee46e88-36a6d52e261mr15954485eec.12.1793860628633;
+        Wed, 04 Nov 2026 22:37:08 -0800 (PST)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36d34d5960esm13148900eec.5.2026.11.04.22.36.57
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36d34d5960esm13148900eec.5.2026.11.04.22.37.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 22:37:00 -0800 (PST)
+        Wed, 04 Nov 2026 22:37:08 -0800 (PST)
 From: Hemanth Selam <hemanth.selam@gmail.com>
 To: "Michael S. Tsirkin" <mst@redhat.com>,
 	Jason Wang <jasowangio@gmail.com>,
@@ -88,12 +88,12 @@ To: "Michael S. Tsirkin" <mst@redhat.com>,
 Cc: virtualization@lists.linux.dev,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] vdpa: fix typos in comments
-Date: Thu,  5 Nov 2026 12:06:52 +0530
-Message-ID: <cover.1793860522.git.hemanth.selam@gmail.com>
+Subject: [PATCH v2 2/2] virtio_net: fix typo in the ANNOUNCE_ACK comment
+Date: Thu,  5 Nov 2026 12:06:54 +0530
+Message-ID: <181e5d6e056f326b8531f17bac7f4e138812c540.1793860522.git.hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20261102043526-mutt-send-email-mst@kernel.org>
-References: <20261102043526-mutt-send-email-mst@kernel.org>
+In-Reply-To: <cover.1793860522.git.hemanth.selam@gmail.com>
+References: <20261102043526-mutt-send-email-mst@kernel.org> <cover.1793860522.git.hemanth.selam@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,26 +105,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-v1 was a single patch touching both drivers/vdpa/alibaba/eni_vdpa.c and
-include/uapi/linux/virtio_net.h.  Michael asked for the uapi header to be
-split out, and pointed out that the eni_vdpa.c comment also says "ENI is
-build upon" where it means "built", so patch 1 now fixes that alongside
-the "specfication" it was sent for.
+The comment describing VIRTIO_NET_CTRL_ANNOUNCE_ACK misspells
+"received".
 
-Nothing outside comments changes in either patch.
-
-v1: https://lore.kernel.org/all/20260904104440.18772-1-hemanth.selam@gmail.com/
-
-Hemanth Selam (2):
-  vdpa: alibaba: fix typos in comment
-  virtio_net: fix typo in the ANNOUNCE_ACK comment
-
- drivers/vdpa/alibaba/eni_vdpa.c | 2 +-
+Link: https://lore.kernel.org/all/20261102043526-mutt-send-email-mst@kernel.org/
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
  include/uapi/linux/virtio_net.h | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+diff --git a/include/uapi/linux/virtio_net.h b/include/uapi/linux/virtio_net.h
+index 1db45b01532b..4a458ebb2567 100644
+--- a/include/uapi/linux/virtio_net.h
++++ b/include/uapi/linux/virtio_net.h
+@@ -316,7 +316,7 @@ struct virtio_net_ctrl_mac {
+  * Control link announce acknowledgement
+  *
+  * The command VIRTIO_NET_CTRL_ANNOUNCE_ACK is used to indicate that
+- * driver has recevied the notification; device would clear the
++ * driver has received the notification; device would clear the
+  * VIRTIO_NET_S_ANNOUNCE bit in the status field after it receives
+  * this command.
+  */
 -- 
 2.48.1
 
