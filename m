@@ -1,63 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793910784;
-	b=MNnWhiqUEqnleNlL+I2U4aTxe6zg929cQm7w0ANSpRFFbCPjiYGIr0W84jWQ8eyIWMxC
-	 dYOvaq0Q561eRaVB9Mf9nbaph45+JZoaCRy3Dypt/joAsE+eBil//8QkDYkToowdcNg76
-	 o7tHJB0sLCvp/P9mx77AqrtbXNRbYs9uLBEUVhK/Ppbfs5XmruzIPUCNKaaxk3deG4BfH
-	 wqnC/R4UXTBqFUaD37pYGHaMqa54TJTbNAMitO3mJjcitOGa/Lh7jJXISZaO1aH9pHzGE
-	 JR1chf4YzxYKrY8eWwQziUuxYaBl01L6yHPRCzEZ6trP6o8QIwOlZCrS9ULfBMSwv0g==
+	t=1793910825;
+	b=faRqDjwpPIOnd3QBOahnSLxC/nN+skv+D48rZCiwibpOX1JYTzJ9PtijTjwiOkQu5AIo
+	 zT4CmkvDVPfRk+vJWTCikiKzQMces0mzMu1Rgt9qfV/tAVAvGwR0C/5F3Z1sN1oTfFgDe
+	 90DKZhkQzRWFhtODij1NZSfV/ijF6JLuJ3++j4E31ky0PV0XNrpReYtvcdYV3zWWORcxo
+	 qjHIW6XxVu03iMhEUumJVeEmll81yKp3JslypNwewDcr72hEp9+fx3u5gskLDHNRs1Lnd
+	 gDyobWMhnttCbKZYcFZ2WF48JbKVns3LwSkZCSopvMRQjPrehZMV9RbCDbG+iQUZFWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793910784;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=jIYSdDAT/fq5e9TIqP3VgSsPnw0BT8aJhl0gIkzIiQ8=;
-	b=ITJfPS0RsIlJYsIV3csefQIbvgPMLcYOsVIyQNHayz1bsbE5FWekso0TLh5tMwj+5Haz
-	 QzlkLbvQ3tUHY2cAP+0yOdoE5Sg69BOHBrvLVAuBJ6EgqcnOG3ygnIQ1rYDPRkRLZ5BtA
-	 3vyxE3hZVED4nJve6BpLTQPKkJP3ZtPPG8ecrL5a5G5GCE9/4PkD6qnK1YVapjEavI3Rh
-	 t3/eVZPeIT5m/3IwtIJmB3qWvcSPYbki9oa4vNfJoZBzCrw5/84cphdXGE/uQGdK1sB69
-	 2GCWXSPdbDRiYa5AUc2ULQee3xnLlgl5j3DTFEOCfvjl8wX/MatB2hNX0Z7wVx9PVlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793910825;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=AooaoAilJ+hgjnSAd1rqqNaAAjXN6UUVw/jzA7syHSc=;
+	b=bM6VwPtHxWzCpLTlNCLxN24qFZHuF2RGg487Fv/gG+3N50TulFZ2KS2wsbnHlHct5USh
+	 /n24pru2Mz3LaQkm5EwUKNQ83zAG/t99O46fQ4p3623VSxrTRpJD2fdbjlb1IKvGuRE/e
+	 TnGlIFnQ4obvP/0Gmkheq2F9rpQswgz3LjKHg4yRYfIc8Yqd1n3kRyxaVrpAwOECV8UB1
+	 CjRkgtNbDo5/N1aXI53ViFWoEdcA/Htpat+C+UFF6uV9UJ0ByU1PTfW5bxPkeBic104/E
+	 V/SInrm+C5xSb0rU+aMfmpBK6bfTFVjoHFAjGpXgS49o+hugoYHuYRyGgSNtlMrePCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D0K5CHW1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.210.71
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD5B2606A330;
-	Thu,  5 Nov 2026 20:33:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D0K5CHW1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B102D1F0089F;
-	Thu,  5 Nov 2026 20:33:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793910783;
-	bh=jIYSdDAT/fq5e9TIqP3VgSsPnw0BT8aJhl0gIkzIiQ8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=D0K5CHW1HbHowbUTxBTxlAxvGr9sElImvItyEM0o4MfiXR3lk0EU0YiwHaisFW5Lt
-	 u8L9poTHIgPTACX0gONP/WnZSUo4PJWXARLyoetHMsL9VWV2W7Kb7pUxigqmKt4lBl
-	 OnNvWjJX8iVwISEyJxpIfFx2JmOjiVH495Toi13kt4iaNE77csnCizICpD8Ss3C0eA
-	 Rr75Fb9deiWxCmxCAW647/9gtXlC8rBmqXxZlf0WkLbiqPS2aIQtpk0J9k9CaxMfDB
-	 l1EtjFVKtun6Ufkabk9GX6slDxUbyv8dbDVC9TAbv0h2Pye3vRZKYbqfVXQTXx3U1L
-	 bc8NJuOWrjL2g==
-Date: Thu, 5 Nov 2026 20:32:58 +0000
-From: Simon Horman <horms@kernel.org>
-To: Marco Crivellari <marco.crivellari@suse.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Michal Hocko <mhocko@suse.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
-	linux-usb@vger.kernel.org
-Subject: Re: [PATCH net-next v5 6/6] net: usb: r8152: Move long delayed work
- on system_dfl_long_wq
-Message-ID: <20261105203258.GA865646@horms.kernel.org>
-References: <20261102105703.111844-1-marco.crivellari@suse.com>
- <20261102105703.111844-7-marco.crivellari@suse.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19EA5606A32E
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:33:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19EA5606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-851f7cdfaefso1863054a34.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 12:33:44 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793910824; x=1794515624;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AooaoAilJ+hgjnSAd1rqqNaAAjXN6UUVw/jzA7syHSc=;
+        b=s5uPPbRvBQeluy1mfYiHVjQVAFcvEYMYj4ZnswrsuCnaNAnM6h/SI8omwgTe3uggcp
+         8mcrkECpVoZ4J9axl8BeQeAJoTrAZhqwBErOfU/CRIRe45gJkxpX1KEQpcfoFetSBQrz
+         j7Ckr+No2UXM1xMiAfPvf/4caNfHFEBO8mxMrY7CplTJ1Go6v0euX4EHLEJV0tTdrMNk
+         kibMM/KO/WV6lw10YNS9tGt4xQEpV6RpMTlkeUwbeSAHPb+j5Lsr5ZFoW1hRC+xaUaYk
+         zgd/U4uLYYe6voyCU3ecY6jheXCCJEoP4ge7R690mn18O6VsGvUNNI7z57RIASIVf3rQ
+         0xnw==
+X-Forwarded-Encrypted: i=1; AKwUvBzE+IF9C4zrdpMDNFDJzEJ4v8UF8BQnvcn5h2MdtlukyEg/ryrHVGPvTcKxiUwcKOq8jMuUCPNgOuN2ZbQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8F2Vm4378dDq5QJP5UNYN2p2UjAr5oKSxlc2sbGVO5Ac8SrSzH
+	C14ct5M3cEt6rDLef1qiEto88nJkdGiEbI0+FcDZQmBEkNoUr9H44unLJ3HSrMi+9tbJp5UvFi/
+	8hsMuATJl5z3oQHlug8GYWVX93fEUw5XxVvRzbn9jrzdPBQXymgD70ZoHfcw=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,36 +58,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261102105703.111844-7-marco.crivellari@suse.com>
+X-Received: by 2002:a05:6808:4f61:b0:4c4:a240:9c3a with SMTP id
+ 5614622812f47-567e0993ebcmr356219b6e.4.1793910824203; Thu, 05 Nov 2026
+ 12:33:44 -0800 (PST)
+Date: Thu, 05 Nov 2026 12:33:44 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aece828.ae8774f5.3905c1.0000.GAE@google.com>
+Subject: [syzbot] Monthly greybus report (Nov 2026)
+From: syzbot <syzbot+list4050b078885043dc999b@syzkaller.appspotmail.com>
+To: greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Nov 02, 2026 at 11:56:56AM +0100, Marco Crivellari wrote:
-> Currently the code enqueue work items using {queue|mod}_delayed_work(),
-> using system_long_wq. This workqueue should be used when long works are
-> expected and it is a per-cpu workqueue.
-> 
-> The function(s) end up calling __queue_delayed_work(), which set a global
-> timer that could fire anywhere, enqueuing the work where the timer fired.
-> 
-> Unbound works could benefit from scheduler task placement, to optimize
-> performance and power consumption. Long work shouldn't stick to a single
-> CPU.
-> 
-> Recently, a new unbound workqueue specific for long running work has
-> been added:
-> 
->     c116737e972e ("workqueue: Add system_dfl_long_wq for long unbound works")
-> 
-> Since the workqueue work doesn't rely on per-cpu variables, there is no
-> obvious reason that justify the use of a per-cpu workqueue. So change
-> system_long_wq with system_dfl_long_wq so that the work may benefit from
-> scheduler task placement.
-> 
-> Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>
-> Cc: linux-usb@vger.kernel.org
-> Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
+Hello greybus maintainers/developers,
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+This is a 31-day syzbot report for the greybus subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/greybus
 
+During the period, 3 new issues were detected and 0 were fixed.
+In total, 4 issues are still open.
+
+Some of the still happening issues:
+
+Ref Crashes Repro Title
+<1> 233     Yes   KASAN: slab-out-of-bounds Write in gb_operation_message_alloc
+                  https://syzkaller.appspot.com/bug?extid=2fd6aefc361af86911d5
+<2> 119     Yes   WARNING: ODEBUG bug in gb_operation_put
+                  https://syzkaller.appspot.com/bug?extid=61464b62b688791cc24c
+<3> 40      Yes   WARNING: ODEBUG bug in gb_operation_sync_timeout
+                  https://syzkaller.appspot.com/bug?extid=a2e50fb40695811c2dab
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
+
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.
