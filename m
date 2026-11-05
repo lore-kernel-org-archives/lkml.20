@@ -1,88 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793890695;
-	b=wRZ5VryFJfyzK9LfGfEpZ+U9tHfOkQKEo1SS8PnTXqewdsI8kJL+0qrNrbtIDaV9vykP
-	 HxWoQdK9+Z0p2d3+PUt2vzIK6Bd9IuQRot1MpBLKK4GtD6BRIVfhPSqrYG4RiD3h3dsmt
-	 oJzDdsdBvWPXMY1ACTxvLNXM0Bybama7Vmlho1YG0R1XLztFTiyzQ7E97NxNnXdJD1Ma2
-	 1p8uib1I1im3OoEHdl1wfL9wcgv3lKa2iEOqPanKCKibLkOGdSfgsSCCYedaOsTLxVQeU
-	 b5/eF5Xd/u/ZHLteUit8rpo5KcEB4eoEWZIpWoeXZeey214856vfqZszcA7WDPBEpBA==
+	t=1793890692;
+	b=QZZAPnfSgyqRKVgueDT3YzaXQDQch0jRn3DTnvMDIX0W1uIKomvpTauFiqf+BoF1TN6M
+	 NK1YXTxeNVuZfC/imMylnf6RVxDlU4rbNrCs3A8Drjfv80p3Vp06JZN4r/0DeJk5NRmI/
+	 x1n5Fw4uTyICTOYt3KABy4dUiZzbYXhh3BkJODGA/6MaLmjq2i1ke7ca7CwfMXts6qKZj
+	 GXMd7gsyS/dQlZX0wrGVhoY3dterGZPh407SUqb/hF3PzblU8VPLB/pgnTaTulQgQX3PT
+	 sYjAdd87aqE1bOvuvP5QsjWFFLWGDz+kFK4KdOSdXVLGGTN1m8arqvBJQG3zoh0HuzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793890695;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793890692;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=n8KlRql37zZhzcrWtiUq/YJzuLrtZ3+UZAwWXCQZmLk=;
-	b=y/Q0W4UvO3gCOJMfIYe2XV6NKO0IematgT1rUuP7w2I1BFeGuQp47bgl/V2ROZ4b2zLP
-	 JsMpH+PJRXRquCPXybBrcc/lNsSOKPUs4QzPBi0TEVTvFl/kx2PWJAFDm8ofg1KWvOtFY
-	 7GqG777sSUgjNugZX+6fOpQH59F/uZrmRiaAPdau15ZcpJkIZ8SkLkwEeAdUta7ShtxCh
-	 bTDASwUWS4I+IFO5+bOu9LTPAK3PKZPZTfiVZpmNCDRaB661AdijRLtUrYOvPRILN3AtO
-	 252Qdy61v1i0N1tkC7sehxLATifWmIA4zuWfAYHIU1I92UtbXo07vL0TvnTohmzXKXQ==
+	bh=K/YG+aq9tXklCRb7yDJeFE3l+WkDZoCBNu+6Hf9fIm8=;
+	b=0A5Uc7wB2XBWXs4n100QzGV6GX5reyjtk+xmcSscfZFyIUyf7JWfVs1QUU1qoZd3zNGo
+	 Jo6WRGyx47nVBJLuEr+4B8/hcKbSCUm4hdEqyw0MUOAxWGl+4PgtVESV+TrJzfRnjYWr3
+	 BhtRLWyJT08gv9Iy5kXN1mnO3p4hb3XviRgspB8mnm8dumRpF+EubTn5Cv+6vvMa9fCo1
+	 lvefSf+d54LCiUDpkwwbruJxCn8dkIW5mptIDAzEqEgYbDDKPszjjmtDijDkCOIX7RXbk
+	 WNHPb1RebCaA0m8erHiHNWHhI9AJbaE6gKVpdgbJJ+YnroK4gOz1OQ1D0tyAnfTO72w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=toxicpanda.com;
 	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=nsnvqRkc;
-	arc=none smtp.remote-ip=209.85.210.54
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=Abp9Kx9Z;
+	arc=none smtp.remote-ip=209.85.210.44
+Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D521A606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:58:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D521A606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 795F76082BC5
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:58:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 795F76082BC5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=nsnvqRkc
-Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-823e4047037so1411206a34.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 06:58:14 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=Abp9Kx9Z
+Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-854b6e2e41fso1118883a34.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 06:58:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1793890694; x=1794495494; darn=vger.kernel.org;
+        d=toxicpanda.com; s=google; t=1793890690; x=1794495490; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=n8KlRql37zZhzcrWtiUq/YJzuLrtZ3+UZAwWXCQZmLk=;
-        b=nsnvqRkc77TVsfXyMlj6CiiKo+ONWgJ0s/rKHnhL+CfnjAoUQiNPJg8suJ0xmaUIVk
-         eq8d8VlQoIGKC7D7MbwbzPGETJpUeI0/TB/qSHZhHSC17CD6T2EUPtHGkSThuOi2j0Ue
-         idhvwi4f4IXhh96MHL9TmkJjhNRFxLGRQCJKrlhd2xAl3r9MqLaPW8XfSqDiSELy5gHd
-         RVuaMlRS9CVFnPP+YI+tj6rbapS5Xq6K0gvhh3LWV2ofyBUu7i24FvICTn9AaoBr7aCd
-         Kk8Z0wGxsgSJYiopKAMQJ2OIwFamM6uL9Lt51fwyR3khnxXH2NUAkMf9LWq+Lxu8frwc
-         UCVA==
+        bh=K/YG+aq9tXklCRb7yDJeFE3l+WkDZoCBNu+6Hf9fIm8=;
+        b=Abp9Kx9ZxNrYDvhuglxqLHmemMfbrR189lq8yhUDVpNUPsVUlBMqMHkb3wzhkQrIe0
+         DMKRvb2qGKckX7FMWndMwmGJ4bfFc8TpgLgxpmFCQVKYlJ25V8+1HFuEjU/cA/nzbZPL
+         /7wfJaupRI3GBTX79MpDaeqXPuvCfL71YDiAOLk/w4sX3eg6FVBVEJN1OECDX2og7iT+
+         JqXIQ1z6M+/S51hBiYk0/3c47weWB/IOGNEl7IFRYi1CAo1Acj2pZz32rwIB5xyQDMQk
+         yLL9r2s9GsjVU26+v6Gq6ddzxDmatFM40W/Okan89S7Q7qkU01zF/wxihSozMDMoU/nx
+         6KGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793890694; x=1794495494;
+        d=1e100.net; s=20260707; t=1793890690; x=1794495490;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=n8KlRql37zZhzcrWtiUq/YJzuLrtZ3+UZAwWXCQZmLk=;
-        b=YvUtrQo6BPI24z/nwGCMAZG2/KNaT8ZhTki+Ndm9zBkkDgJTmVB3lnTzW4iYIAjkR1
-         g0LjAGoV79xU9Btn4A+r3Q9pn7h1Fl0rvFAV3U7tUvQ0/GHY9RKt4HDVaq7Pc/G7F8/G
-         TgfvgqA9nImXuKl4WOTgmE2NghcYBtNyls5PBOqrn9LhGqkaiBnMtmUFbLdJ/N1c2dts
-         6vtNTfwlAtM1mbUS/C8ajJ+/s8hlOE5T1ha+n0GBZWo/othAL14ZBz8HxJdXlQEtuA5U
-         bJXTv4KAzIUzkFnUUkx+rUDKZYz2/B7H0CSNpxEZ+CtkS3XTR6B8/j6HSk7Wg1EwHAau
-         6dtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxRirhbAlFQPFtWbiKtiKdIg+aPYKnPYhjXlAIlLCuJsXl7AxyDJ1+dHAg/ICNkhe211KDvVTvBDTPBOW0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8X4J6ojTNQNgXAGu140Gpnbo7d5vCwwtAWNw6GnCU734RH7wkF
-	TD9JiUK1sE28e6tVyr0du1mjuGIN9y10CcfRPuTHthsFo20dVE6TsM7gazOdBjD4JH0=
-X-Gm-Gg: AYBFou1u0Iey9/w1f/jEEWYEyvHjIZ5GaRe7FuxVF/pWCmtHbaGOFuv8s2YiTEfJJE/
-	Zp9//pIYrdAh1m3TFRxhym2U/xS+8laR9WmSPjhKR9KMuwLS/pyViTdMZH/zGdG9gkA20Lzj4G0
-	SGQC/mtAlS+/F/nqGLO91onQfVxsa8YhHXrY3E4g9LODZxYj6N1NmmPYQY6RyhLI/0CfDPc/mxd
-	xepcHalb9gma5u9WcqSSvEGDRVqnCo7JqL42QCRmIM5bwA7maLWnJTQr4UV/0h0/PPXjJHg9zfD
-	ttyTg11FV424MZlZ54lRQNTBOsHyUokN4RauKpOOjqjuZ8irQZw+MYujxFR2ZMw3gdQ739MZX27
-	hIg1H14JVhdHSvax0IU6IVFgdii6fNupYlonZ5It7P61Jik/nnTtBnQw/7lk5Vrs2dyAJ3au4hj
-	2zbo8dSZT6TnKt4oyatatBiv2lC5DQYPG0peM1zP5uFd8i9w3kcr31ANTONB0ul6kbdb7lUDrMk
-	IMECouNy41o7QE8bctw50t4746UZoV5QVYv7j0C1wKMsWq1lBAgkIpUL7dkYrFdYyorCL/alXkE
-	6OIsbT6YqZwQsvlL1/kneD9iPjzqyxqK4a0oxdOhSyhpeA==
-X-Received: by 2002:a05:6830:2e04:b0:84b:c230:c2c1 with SMTP id 46e09a7af769-85d36400d05mr20652432a34.18.1793890693809;
-        Thu, 05 Nov 2026 06:58:13 -0800 (PST)
-Received: from toxicpanda.com ([153.61.196.243])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85ef3dd8e0bsm4540509a34.11.2026.11.05.06.58.13
+        bh=K/YG+aq9tXklCRb7yDJeFE3l+WkDZoCBNu+6Hf9fIm8=;
+        b=0i+S+40M7Z2rJcKZ5n5O/pNK6duBA5VUKYfggUIWo30KkKOOZbTWO8Jg63zc6gEyip
+         EvrnbFIYfXZawAac+zBiA3wahNwi4H256cF/82zXSUENOmLEmdCIKz/i3o8q/yn3xqKW
+         keswoWP6sD8krUu4VKYduP/mq9S5+2KBV/qlJ9YT/jgO6Ndq78NvDOB4LywoS2EFcoUV
+         c65SiJ0o6I+tNQQkAwMjovq+T26nx4cnFCnJmjJCmUtTBCdmBsF87zv977nTjJOdekye
+         G/49FgZYrbjovii0R02gQYIALESUtWI8C0r+kc8+7gFyKbfd2TW3RAlniXs62FO3M9+t
+         jIDw==
+X-Forwarded-Encrypted: i=1; AKwUvBwyZE276LSsqZDCPJdWE5oTJSwcXlBWpN6Bu6CVqV2fNs1sfvNgy/TPyi8MNid+91URIx9nj+/CbgwpOvI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8lIvkPmp+Ty2+XWpGsaorZ0D/bEU6Ia1aX1GFKUJwyhnJ2CM+A
+	RYHeoAH96dvazxlKrc2ZTGRHz1lc8Jx5UTlVbbAaG0Fh2UeHKKyfodbbigG4AOoGHWU=
+X-Gm-Gg: AYBFou3KnxlOUWOMLImQdpDirH7fqW1bisxZulI57eWoVixzgU5mv7Z7X6+qoBrWlel
+	vkqTtUudHwFlgDLbqIQ5O04wWRk725AGZjMGYqprPsbzzeyrfJ2CVtSbF7iakf/9Js07wwMTgyh
+	PUP0jMx/kMrHxdJMpyE/WuX5UsY5ax/R+OETJZ4aBNpLihLo1jpT/tFh65/vEsj6QbxLHar26iX
+	pdYbxq+1hMEmQRCWBQxomerL9SmEtVXe0UdUfmPB1LR6eSocKT3AAHfpuh9HDXEclOrChlhdMwX
+	qdD9zR+DrX4wcpFiTD2KuB2Vuat6IlWfCxdkgNVpnn6hCgTrWqPs6/VBnxl//tMtCpBnRV+Z6rS
+	v+DwXJWiKGWFh/koNhu9ev2OcqbDLsfpg9JIdA4eZXdlBHa77z/4WbDTHLIxnqbymxlcI1OHjlE
+	6BeJkGWl0pp+cst7+VQGYGzAFLYTwflXbp+pgJ4ThuiXJdN2WxFDBPNDbPKDeiTwdAidftVflcZ
+	a7fk1yL0L/IZEy+GbosMT854DPjTb/uWNkYf19ggkJV43GV2cILjkc2QH2Mjv8oo7zA7ny7HUVk
+	IH3hSMTti9oY2ytSW8pnaoQikJ+3VIXJslGXHTW4FU7QkQ==
+X-Received: by 2002:a05:6830:43a0:b0:806:dbd8:9929 with SMTP id 46e09a7af769-85d3652ea54mr16022799a34.15.1793890690360;
+        Thu, 05 Nov 2026 06:58:10 -0800 (PST)
+Received: from toxicpanda.com ([153.61.196.242])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85ef3e170absm4744674a34.15.2026.11.05.06.58.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 06:58:13 -0800 (PST)
+        Thu, 05 Nov 2026 06:58:09 -0800 (PST)
 From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 05 Nov 2026 14:57:01 +0000
-Subject: [PATCH RFC v3 10/90] user: add uid_range_in_use()
+Date: Thu, 05 Nov 2026 14:56:59 +0000
+Subject: [PATCH RFC v3 08/90] user_namespace: let the kernel map the ids of
+ a cell
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-b4-cells-v3-10-bc9095937a84@toxicpanda.com>
+Message-Id: <20261105-b4-cells-v3-8-bc9095937a84@toxicpanda.com>
 References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
 In-Reply-To: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
 To: Christian Brauner <brauner@kernel.org>, 
@@ -105,84 +106,167 @@ To: Christian Brauner <brauner@kernel.org>,
 Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Josef Bacik <josef@toxicpanda.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1793890670; l=2228;
+X-Developer-Signature: v=1; a=openssh-sha256; t=1793890669; l=5731;
  i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=A67jx9CN/4Nku0qN6fflC+v+zmDOHx7clVwYdMOrGpM=;
+ bh=oV96zWzSgFL3jNXwinYKrOo2cM9oFlK4P6S6oV3cc6k=;
  b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
  JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QK3+61hDWhWuF24XmZdX33PUUniNQ+qb4CC024OSRK4VSnZzOg/HR+BcK7Hd02ot1g1Di/MY3iO
- 5QtAcjdYQCQg=
+ QIaAb7GwO8ZBHVxrWC5ZqzAX/7cRkPe1b/gujCQNJ6TOjJBSgF0KE3r1Twdu2cXWR5gqDFlzx3j
+ OKPhTFz/xpAA=
 X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
  fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-A user_struct is looked up by a bare kuid and does not pin a user
-namespace. So it can still exist after the cell that used the kuid is
-gone. If the block is then lent to another cell, that cell would find the
-old user_struct.
+The id maps of an ordinary user namespace are written by a task, and
+map_write() makes many checks on that task before it accepts the map.
 
-Add uid_range_in_use(), so that the block allocator can ask whether a
-user_struct exists for any kuid in a range.
+The maps of the user namespace of a cell are set once, by the kernel, to
+ids that the kernel chose. Add userns_set_cell_map() for that. It takes
+one extent for the uid map and one for the gid map. The checks in
+map_write() are about the writer, so they do not apply here.
+
+If the cell has a single gid there are no groups to drop or to add, so
+setgroups() is denied permanently.
+
+The namespace records which block it was lent and which ucount the block
+was charged to. Both are released when the namespace is freed, not when
+the cell dies. Every credential and every object that the namespace owns
+pins the namespace, and may still name one of its ids.
+
+Add userns_retire_cell_block() for the case where something that is owned
+by those ids could not be cleaned up. The block is then never handed out
+again.
 
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 ---
- include/linux/sched/user.h |  1 +
- kernel/user.c              | 32 ++++++++++++++++++++++++++++++++
- 2 files changed, 33 insertions(+)
+ include/linux/cell.h           |  7 +++++
+ include/linux/user_namespace.h |  7 +++++
+ kernel/user_namespace.c        | 65 ++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 79 insertions(+)
 
-diff --git a/include/linux/sched/user.h b/include/linux/sched/user.h
-index ec262b605437..5966e355db9f 100644
---- a/include/linux/sched/user.h
-+++ b/include/linux/sched/user.h
-@@ -55,5 +55,6 @@ static inline struct user_struct *get_uid(struct user_struct *u)
- 	return u;
- }
- extern void free_uid(struct user_struct *);
-+bool uid_range_in_use(kuid_t first, kuid_t last);
+diff --git a/include/linux/cell.h b/include/linux/cell.h
+index 6a65d035ffca..37fde4bfea44 100644
+--- a/include/linux/cell.h
++++ b/include/linux/cell.h
+@@ -145,4 +145,11 @@ static inline void cell_put(struct cell *cell) { }
  
- #endif /* _LINUX_SCHED_USER_H */
-diff --git a/kernel/user.c b/kernel/user.c
-index 21bafdc11379..b69cab2a5a3b 100644
---- a/kernel/user.c
-+++ b/kernel/user.c
-@@ -154,6 +154,38 @@ static void user_epoll_free(struct user_struct *up)
  #endif
- }
  
++/* The id block allocator. */
 +#ifdef CONFIG_CELLS
-+/**
-+ * uid_range_in_use - is there a user_struct for any uid of a range?
-+ * @first: the first uid of the range
-+ * @last:  the last
-+ *
-+ * A user_struct is keyed by a bare kuid and pins no user namespace. The id block
-+ * allocator asks before it lends a block, and before it takes one back.
-+ *
-+ * Return: true if there is one.
-+ */
-+bool uid_range_in_use(kuid_t first, kuid_t last)
-+{
-+	struct user_struct *user;
-+	unsigned long flags;
-+	bool ret = false;
-+	int i;
-+
-+	spin_lock_irqsave(&uidhash_lock, flags);
-+	for (i = 0; i < UIDHASH_SZ && !ret; i++) {
-+		hlist_for_each_entry(user, &uidhash_table[i], uidhash_node) {
-+			if (uid_gte(user->uid, first) && uid_lte(user->uid, last)) {
-+				ret = true;
-+				break;
-+			}
-+		}
-+	}
-+	spin_unlock_irqrestore(&uidhash_lock, flags);
-+	return ret;
-+}
++void cell_block_release(u32 block);
++#else
++static inline void cell_block_release(u32 block) { }
 +#endif
 +
- /* IRQs are disabled and uidhash_lock is held upon function entry.
-  * IRQ state (as stored in flags) is restored and uidhash_lock released
-  * upon function exit.
+ #endif /* _LINUX_CELL_H */
+diff --git a/include/linux/user_namespace.h b/include/linux/user_namespace.h
+index f0b0fe12c2fd..4a48ead45820 100644
+--- a/include/linux/user_namespace.h
++++ b/include/linux/user_namespace.h
+@@ -123,6 +123,8 @@ struct user_namespace {
+ #endif
+ #ifdef CONFIG_CELLS
+ 	struct cell		*cell;		/* whose namespace this is, counted */
++	u32			cell_block;	/* kuid block + 1, 0 for none */
++	struct ucounts		*cell_block_ucounts;
+ #endif
+ } __randomize_layout;
+ 
+@@ -193,6 +195,11 @@ static inline struct user_namespace *get_user_ns(struct user_namespace *ns)
+ extern int create_user_ns(struct cred *new);
+ #ifdef CONFIG_CELLS
+ int create_cell_user_ns(struct cred *new, struct cell *cell);
++int userns_set_cell_map(struct user_namespace *ns,
++			const struct uid_gid_extent *uids,
++			const struct uid_gid_extent *gids,
++			u32 block, struct ucounts *ucounts);
++void userns_retire_cell_block(struct user_namespace *ns);
+ #endif
+ extern int unshare_userns(unsigned long unshare_flags, struct cred **new_cred);
+ extern void __put_user_ns(struct user_namespace *ns);
+diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
+index 45699a0a0bfd..4155e2e77497 100644
+--- a/kernel/user_namespace.c
++++ b/kernel/user_namespace.c
+@@ -78,6 +78,66 @@ bool userns_is_cell(const struct user_namespace *ns)
+ {
+ 	return ns->cell;
+ }
++
++/**
++ * userns_set_cell_map - give the user namespace of a cell its one and only map
++ * @ns:      the user namespace of a cell, which has no map yet
++ * @uids:    the uids: .first as seen from the inside, .lower_first the kuid
++ * @gids:    the gids likewise
++ * @block:   the number of the block the ids are from plus 1, or 0 for none
++ * @ucounts: what the block was charged to, or NULL
++ *
++ * The kernel chose the ids, so none of what map_write() has to ask about the
++ * writer applies. With a single gid there are no groups to be dropped or taken
++ * up, so setgroups() is denied for good.
++ *
++ * @ns takes over @block and @ucounts and gives them back when it is freed.
++ *
++ * Return: 0, -EBUSY if @ns has a map, -EINVAL if what either starts at is not an
++ * id.
++ */
++int userns_set_cell_map(struct user_namespace *ns,
++			const struct uid_gid_extent *uids,
++			const struct uid_gid_extent *gids,
++			u32 block, struct ucounts *ucounts)
++{
++	guard(mutex)(&userns_state_mutex);
++
++	if (ns->uid_map.nr_extents || ns->gid_map.nr_extents)
++		return -EBUSY;
++	if (uids->first == (u32)-1 || gids->first == (u32)-1)
++		return -EINVAL;
++
++	ns->uid_map.extent[0] = *uids;
++	ns->gid_map.extent[0] = *gids;
++	/* With a single gid there are no groups to be dropped or taken up. */
++	if (gids->count == 1)
++		ns->flags &= ~USERNS_SETGROUPS_ALLOWED;
++	ns->cell_block = block;
++	ns->cell_block_ucounts = ucounts;
++	/* Pairs with the smp_rmb() of the lookups, as in map_write(). */
++	smp_wmb();
++	ns->uid_map.nr_extents = 1;
++	ns->gid_map.nr_extents = 1;
++	return 0;
++}
++
++/**
++ * userns_retire_cell_block - never hand the block of a user namespace out again
++ * @ns: the user namespace of a cell
++ *
++ * For when something that is owned by the ids of @ns could not be got rid of.
++ * The block stays marked as used for good, so what shows is -ENOSPC and never
++ * one tenant owning what another left behind.
++ */
++void userns_retire_cell_block(struct user_namespace *ns)
++{
++	guard(mutex)(&userns_state_mutex);
++
++	if (ns->cell_block)
++		pr_warn_ratelimited("cell: kuid block %u retired\n", ns->cell_block - 1);
++	ns->cell_block = 0;
++}
+ #endif
+ 
+ static unsigned long enforced_nproc_rlimit(void)
+@@ -273,6 +333,11 @@ static void free_user_ns(struct work_struct *work)
+ 		retire_userns_sysctls(ns);
+ 		key_free_user_ns(ns);
+ #ifdef CONFIG_CELLS
++		/* Nothing that pins the namespace is left to name its ids. */
++		if (ns->cell_block)
++			cell_block_release(ns->cell_block - 1);
++		if (ns->cell_block_ucounts)
++			dec_ucount(ns->cell_block_ucounts, UCOUNT_CELL_ID_BLOCKS);
+ 		cell_put(ns->cell);
+ #endif
+ 		ns_common_free(ns);
 
 -- 
 2.55.0
