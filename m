@@ -1,103 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793908390;
-	b=3PbzhfSver65veFQilza+pve4eLbhTuzk+7t/UxVhkAWiwSuzWFkR/G/b3lgIhaHixAb
-	 aKI/bRimB04oGE51Vn67roiwvGEyQwmYbgYQRL5BiiWYYrSoVgzbyp7k23UcrREG6uRP7
-	 o98z8h2dcDEop2XOB9E6nFWML+8M71AIDhHZrY6iz88mo4DTkeAvCDgJ0iHwAcIkigf4v
-	 m34IYw8o0dIuoJqJmfyDavGMGD7HqV1dL6teaCqQ8rUTncj1e49e7a/tUsQINI5zhv9X5
-	 9FDEDdRWWpgxZ5mI/sgFaks40U/ujWSC2TQ7/5qZNgT0kR/V3OAOSBKImfI8O/PGoQA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793908390;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=+x/mepePPF2MrqTVLqRo4ZUvfYti5CeyvZn8wNeKnaY=;
-	b=s5nONE2hnfsKvj+jhq5wXsiWJt4cz8I2nXvZTSMGJ57Rrjz2Tg/WY/JrXa5r9LAYFmkP
-	 DbDYPgMZgIdQ+SJu3wC+SFxUvs85XaEKMZfu2ittRewND/CcoKOLDR12o4/hiqAAZlPuI
-	 MQXlmqdvE3SQZZHkK9+sl4rVg3fALVu/zJ/INV5j6Hi9yIIge5PsoAauZbIZZPKYml2wo
-	 VjUUYKFCRbsXpKywG0PTNZwmalzFwpUtuea3KIeiy+pIExWM2PI4gMA5VZrHEuCME4pOj
-	 yQyT81KXMHRJ04R45HzHPGyocJUjNSN0spk4chppbdKMNHaOCgBpswFybtfXnPcqWkQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=tPo1XaVL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.42
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011042.outbound.protection.outlook.com [40.107.130.42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793908457;
+	b=DF47r2IXTohaOVpDm/hea606tt1YB26i0IBOWkC0EuxxBiStI+0GJyEEiSps8QbvQAkz
+	 8Z5fwUXkGzBRMTZQtx5+rESzTam/7E241pd2n5ClKG1qpv+WIPNOOZgo2XinwskA4CUVZ
+	 2EFfOfiJ64ghvxgiC7eXUJyWwUU8K+EHf2QKY9EyiMwfF+CDVCh5RbYsrcJ4VYzWG6XSi
+	 m1fDTqN6/p4E6q/xpdif4wpLfIeNb3IL7U2ccrp1bmuGeXklu5MXJPLBrz+Mk7aNa8IeO
+	 xgFbJkGL+6AUJ2RgGEUcNkSGBoZhvruVS59SBs76bzDKMDWVnCv9gZcsqq/Ut6LMxrw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793908457;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=F23t8iLTcn/LXqN2lEEgBTUnPAkeyO0taUnuYVGHe48=;
+	b=bOz9I/EErlhHjZrhHKpgJpSRngEcRO4ZTmF6fcTfSO5nvhCP7K9J8VxGTxo+Q7plpdkr
+	 rOGCKwFflg8qwmuWWlr7I5ToR7I3IsVp/wr4YJBpXXcve7nhCu/rGAhiHLOneMutdF0rv
+	 hmQydbKcX2H3rNPYnSy31mkLAJD9g3tdGFp312634EUwrOGIFw44uK69V+aqpP9BmO6Fp
+	 UkG7woGQ4JJjH5fcgkI+Ap/H67Tj8CFEuqE7i5IYINTmzg4VvPdCeG0h8klnI0NQiLoz8
+	 4nXLoL1VJrbMkDmiM8+7MUIy0lAoJ9eQ9Mt5OJSLKyFzbMP3sxtBEc4GKaXNz/to1sg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TLSAlbea;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 317F8606A329;
-	Thu,  5 Nov 2026 19:53:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 317F8606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 227BD606B9F7
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:54:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 227BD606B9F7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=tPo1XaVL
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BgSIDegPcWQlk+doR0WGdRecYu8cTJcLboKfLKsJjZBlolK68aExS25bUpR4UlIoPrHpdM8lx1DrN7a/ycXIi7GW5xem9mqRd3DuD2BG6fRhtGzAr2McCXRHZFmuXKDTvIXkfmlpjfui5c3xl+9WuF6cV44FAfKBWvybr3XcrxzWBybATYeukmh3JN9OQlSHBy1RZnHziZi4mvZnQF4hPBN+T16fium+713JAbrOlBDz6rLWOEh6NyzXq3U1Y3Eh+0SdVdrGdYbxetYZaBa2UGEAkgB4wHzA7MsziSF38rJehvi4rGcwGmy+eG6D7JUtRjAF0+equ5qh8g0jEYoRpg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+x/mepePPF2MrqTVLqRo4ZUvfYti5CeyvZn8wNeKnaY=;
- b=aAVilq0hSVARglyAP4V8d9/+3uTqhc4VkaGtBo3TFvEbrB9C/B8Sf5OnL85zVvLVm+DR3AhHuvGzseNtSoBRzT0I1TIReipeHIIx+qOQJ3Qg+qh31sZG8IliWa4j9sz2MUrj82KaQXWl0E3FaIfwz8biRcvcuICZvoOepJJckOGKBpynoHigGsaauN7vt+i6duUQRHgigS7qi1opmXp+iPS9Z2HczrNXTvy9dN15bgaynVVFMYf24CWriPwqc4I2efpuv7UQwTqWkVWergXmf8YIlWSGZxLwmGl6uGgbD0TBDlTsSCzb2kIephSsnZ4y6Q29IvzEMLmiNu3sqJq5Tg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+x/mepePPF2MrqTVLqRo4ZUvfYti5CeyvZn8wNeKnaY=;
- b=tPo1XaVLexNPQ8ua7k6YQhYr8v07MwUc+r85nRYT9ZsLsrRVv3aiyEvJ2tmgpkwgy3v0+dnSsPIvISGCDxtTTrxhNqksHO4b2ma82YZFiyJViODg0jqvguqyPJ12xIQ8eXCySoRm+QRBdTJBrY4nJzu8U4Xjk0Pmymx4gf2leiVxXvLTU+m+oizlIq+lWp3qG2wlg3GjF5mhaCXYNVLz7nMW9SRomvdNHmZ/XZFd4csB0u/9SyGC8EBl7UOE3F8ON3muizvxirX3LE1D41LgqNNHdLVNr5WGDakNkc4Im9ry6+CG7y+JiFnXe0LdsgdiVNsVecDRY9pO6ygu6DX2wA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
- (2603:10a6:20b:75e::21) by FRWPR04MB11199.eurprd04.prod.outlook.com
- (2603:10a6:d10:172::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 19:53:07 +0000
-Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
- ([fe80::ba23:1fa4:ce58:ff06]) by AMBPR04MB12445.eurprd04.prod.outlook.com
- ([fe80::ba23:1fa4:ce58:ff06%3]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 19:53:07 +0000
-From: Frank.Li@oss.nxp.com
-To: Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TLSAlbea
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so19869095e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:54:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793908455; x=1794513255; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F23t8iLTcn/LXqN2lEEgBTUnPAkeyO0taUnuYVGHe48=;
+        b=TLSAlbeaansg0obWrRFjVue5VIj8K54CuD58TZVYawDVa4jC5Uz9kGlj6X+bQBpoU0
+         RMBDWWyagEX6GxxiTtav2lZiMx51AzWiDd242sMFyg0JYKbuAIclvNHGXMYeBoaF+GEj
+         dO6CXIPqvt5I+wkTxKYuSbW45HO2URYgVgVt/5cuL14Mh4l1eNjAHwZeeXdu/qLd+0yr
+         Ou9zJcL2JKJD9DPQKkK5QUMeAHOxDNl//pWvCBpXDBjwS9uRqP2i5lNvSNr35i6QXNoR
+         vUexFPZPxi0E/3kIuJbVbmK6ODD6pGq+a/aARv0alyMkBu7IIi6a3cwcKGqYTJpDrKXL
+         Sr+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793908455; x=1794513255;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F23t8iLTcn/LXqN2lEEgBTUnPAkeyO0taUnuYVGHe48=;
+        b=E1ig2Jw1ePjMgBh8KctOiUjKLP07znG7ryR1/A2JogG7EskMUzMFgxQKOB0h9genYg
+         HH4U06smRyimPx2RtXY3Ac+7Nxiu5ZyQ2FbxXjzdrQX6C04tSRzFnZRC7lQ+gEWOg+lW
+         /acw8NURwyjW/f2g1ZB/w72ndGMyi8DqwMTwAcE162jACbvA43xWwgUw4yGFs21uRgXa
+         pwZJV+Fa9GpPM7B8IbBreL9wIdRbWDCIN/CzfKXeXJ/KL/qtERyvfA9Iw0fHZSF5F0b6
+         hMVbtQkh4vvqq6OPwg0EDRnjWAAGcQhZFO9iYCYG0+VhRj1iJ7nCUbxcFZErUxTl7pD1
+         3DxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzAFQA9p8c0ikhtUqJCCojb18qiuiLL3kM0pTlJzsf1n/NSXoypHYpw0KuyUDye0r8EqRztwOmOcnu7luI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/tXL+0bAl9xUkw4txFSz5G9XGbljIIOtyNP0B3RLQmv+p64mJE
+	ydwzOb2YJ3YuuBA9tBpLmdnHms0HS5WNC0epL8rpEWrWZiLuj87izVTo
+X-Gm-Gg: AYBFou2c9cLWVhNtxn2RZORON/o6QT1aymNiXDgv/tRp7LI4/jw/FjnNdkTwJyzzqtf
+	efDGLYLtJ78JPM69+jklehqfLt9fx/AR7RJwhVXl6FxoeG3z9AYdIIa2ajaTqCshjO3AkvDCa+S
+	rP6Dq8g6qqImZiQl0AXdk8Q61r6Aa3F1kdvVbk8vq2opdLxSg157Ux0vG70rhTNzYoX6RnX6tlp
+	fGJbmDqi/CslqEJ8gOAKuNCDUlUOiJg4x0Vi9JmJ57zlfMjE7KWL/oadHJTWb9OJ+Mmn+/MHoFY
+	kPn59IQ5lQVzNe9sgHl1/jRwRUWCQeV/IDElC+MxVtY11p7Id1jNxyTk+f/WrsL3vZM4hDOr9Mo
+	vqVKw+jWIYCsuzryg4Ty2GbIop7U6Y2vGvy1ksIkK5K2S5MfT1C+Ts2BSMpCaDumKF7onrhXMwY
+	dHvixCv2GEipW9SBjhK6gayTEXy53SHK5CCZwzYBoHlzA3i7xwIZIiWAKX8XF6lgR/86IYKskwi
+	E76Tj+6gV3lkQ+oRGIz+dFoHfxqL78zvzHLQSAt7AdgaWZKmyiDvOzMDWdlkuDvDPIVpnI30ks9
+	rmJgjz9vsmlyezbEJKStOaQYPLB1pX9ApKbi3QopAmsmZQ==
+X-Received: by 2002:a05:600c:3f10:b0:4a1:777b:8a12 with SMTP id 5b1f17b1804b1-4b6dea69280mr3035835e9.14.1793908455226;
+        Thu, 05 Nov 2026 11:54:15 -0800 (PST)
+Received: from luca-vm.lan ([154.61.61.58])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b5725fb0d1sm83862895e9.8.2026.11.05.11.54.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 11:54:14 -0800 (PST)
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+To: linux-mediatek@lists.infradead.org
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Francesco Dolcini <francesco@dolcini.it>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Lee Jones <lee@kernel.org>,
+	Sean Wang <sean.wang@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Val Packett <val@packett.cool>,
+	Fabien Parent <parent.f@gmail.com>,
+	Akari Tsuyukusa <akkun11.open@gmail.com>,
+	linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: freescale: imx952: Add GPIO5 lines 18 to 20
-Date: Thu,  5 Nov 2026 14:53:00 -0500
-Message-ID: <179390837687.1654031.13234650905983591985.b4-ty@b4>
+	linux-input@vger.kernel.org,
+	mfd@lists.linux.dev,
+	linux-gpio@vger.kernel.org
+Subject: [PATCH v12 3/8] regulator: dt-bindings: Add MediaTek MT6392 PMIC
+Date: Thu,  5 Nov 2026 20:50:23 +0100
+Message-ID: <20261105195206.3440-1-l.scorcia@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261005172622.135725-1-francesco@dolcini.it>
-References: <20261005172622.135725-1-francesco@dolcini.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SA1P222CA0066.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:806:2c1::21) To AMBPR04MB12445.eurprd04.prod.outlook.com
- (2603:10a6:20b:75e::21)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,86 +114,168 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMBPR04MB12445:EE_|FRWPR04MB11199:EE_
-X-MS-Office365-Filtering-Correlation-Id: 816a0cd9-f515-4040-a626-08df3b766993
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|19092799006|23010399003|7416014|376014|22082099003|18002099003|10067099003|56012099006|11063799006|261026121527099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	frmJGWnTC8+ffeKMsxAxPbDv66EFi9QRN8D9oNFCYAbfz8PejTSwfxks5Zjo32OY0oeNrDmYnvGAvOILumc0iExlMgaX3TVsfgv5BRAXnHGF6j6GClizBO8uMhQyFx979jV1I5c6Q7hY98rMI29XHcsA5c6ALNDHzokJuexWdnqAzm92FvztocJ4nyKRP19lKC7d/sM4UzDrhXwzk/YMJuu6CCz9LvxWD/SJuTnRqUi8X/G6pNqIkHblM1OPH6WNY05GQRJjE0WzBegWVQPlMej/sYxnFONM9GN66/UJE15u7kYIKElZiDOzS1g4t6nSP6JEj4E/hOy72bAh6uL0jr/MgtfWpyrWvw46puC0cK4gkuwdAyRp7vIQxv19My1U7YsvLBuHq29Cxtei10ftWXUoAIx3sOMcmSwMiaus4R4vsYKyMbk36HxQ9lw8Jt9hPf5ESMAfGBChT1sCYHvPxtTdX4UOA8I/fWLB+vAfRekYeF1YsXzkZ8wMOOMpZH/Xd+gEjAW59y9fQmm0O6FUSQ39TIOkpUgqBZiolhRN1uo/b0DSamQ1iEDv2JTz3XUJozj15bbQ8a9bu+8S6j24YZSG/RokS99oC2+R/6KmygyNhH9VOl2iJiHvMYMcTq2pVkaV+pKzAf2N9GsetYJldljID2DVwF6PWBEObS1jZOo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AMBPR04MB12445.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(19092799006)(23010399003)(7416014)(376014)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006)(261026121527099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MHd2ZVBpcWdpUmFJMEN3Q1l1MWNHdkRsUHFQdndPNGp3c0xRVG9hckV0TVFE?=
- =?utf-8?B?Lys0bDA0cDA2MFhHSmRyMVI4eENNTkgvOW5QY3phZnB5dm1OQ1ltVjZHZG41?=
- =?utf-8?B?WmgzQzFkUXZqZTMxZVRTbjhuK0M3ZXNTNjIwRkVKWnkwV3NkOEZHeXBkM0Rl?=
- =?utf-8?B?aDY2ekhVeEtNamVMdm53MjhjYS9VWS9uemVMVDBnQVE2c00vZUdUaG9wdkhT?=
- =?utf-8?B?c2c4RWlIVHlBc2NTVVBwcGhHQlNIVHhUK0JCNlZqNVp3Zi9yUDM1Z2NJVk52?=
- =?utf-8?B?akRkcUlCcy8rdU1SN1g0ZldLWmJmRm84OEJmM2JtNm5TcHpDb05HU1RqWWZV?=
- =?utf-8?B?RlFKVHZ0TjNCbUg0NGMzQ2pEeTZHQkg4VjlQYnI5N0MvSXlFaVFORTN6RnhT?=
- =?utf-8?B?eGJMRjVjRVhRU3ArdEpxc05Sa3VJVHZ5Y1NOUnZXT3IyZG4rNHFXVU1venJK?=
- =?utf-8?B?KytiQ2kxMEljeHNnWVE4c2V2VmpyQnNIaHZXaFhXZWJ3U042YWIzTjF6M3pN?=
- =?utf-8?B?d0NGeklDRmtwcEhLa3hyRVRjajAyR0xkalhFYnVGK01RbkhOTFJCMzhoZnhP?=
- =?utf-8?B?dktaZEhWYmtVTVdrbHVYcWM1OUhjVnY5YzAwLzkwRCtUM1hLa0NQemNOK0NH?=
- =?utf-8?B?U1FWbUZLN3FQeE5LR2xUWDJHV1hVTk5SZGhYcEVRNTJjbXIydzlFRmRHV00r?=
- =?utf-8?B?TjhObTlDdEVqQ2k0T3JYQjBFaGQxRnBvVXk0NzIvUnpra1UwM1JHc2ZNdHBp?=
- =?utf-8?B?UitkYTRHOVVhczFJQ243YlFIQ1VPZThpaElVQWRnK3lBMU90T2xyRHB5MUpm?=
- =?utf-8?B?OVFHUEtXSThWN0taY3NadGpIZy83VFp4UHZoRFR6RFZyQWZsR0F6OHVaRS8x?=
- =?utf-8?B?T1ZKMHg3eEZZNDRTQ3FQVTN0NSs4UDA0ZzJpWVVtRzhIbTFVeVdJRllHVjZX?=
- =?utf-8?B?OFBVR0l6cmUwSDNNbGYrazN5M1JxMnVndGZLTVg4bi9pUTlDaGFiT2JnVEQr?=
- =?utf-8?B?SEdqQ2gyaFNqVzloSEJSSENla2dTUlNrck1WbG1yVzU3T3RZY2FRMlRpb0pu?=
- =?utf-8?B?b21EL05wYk12UVJVaEdIMUdPQi93cGtjc3dtdEVySk4xbWNJWVN1S1ZBQWJT?=
- =?utf-8?B?aVE2a0wrQStqMVFiclI5WXIyaDRtWnE2Ui9aMy9FMDRzaTk2Y1JJMVNHT1Zw?=
- =?utf-8?B?bVBPK0o3SkEwZ2tTRUpCZmVnMkNFMU1rMTJsVVVwbTBLNU14S1dhb2FTSXFJ?=
- =?utf-8?B?MkdXUE85OE8yZ21IWExxQ0JuNGFHVUlhZXJBa0JPUmUrcDZxbGRLWEd1S1ZO?=
- =?utf-8?B?Qmt4T1Z2OG9HdG5pYzJCTjRJcVdjZW9wNGpRZEx2MnBndXUrcGhPQ2I3aVhs?=
- =?utf-8?B?YWFqTDJEZWh5VU81WG9zR3g5ZnVvNDM5R0MwV1BaMGJpdTlINWhNTyt3VXBJ?=
- =?utf-8?B?bEJQZXozWjNxYkc0cTNrUEN4ZWgzb09YNzFQWEdjdklMNllhc0kyK1RJY05m?=
- =?utf-8?B?OUxycldZc25ZdWJ2YmViZFZQQzgzcEcrQ0xRUnQyMUc1QXRjZHozZnRGYktH?=
- =?utf-8?B?YmU2MUFMNmJmbmExcytCS1lOV3ViV0ExQ1V2N1JHN1JPVGpmVDhZOTBoQ2tt?=
- =?utf-8?B?Sm9iRzVVU1lQVTVEbm0yQlF2WllMQ3BaRkhQZzZvR3p0YytCK2c2RW5RZmts?=
- =?utf-8?B?RWlHV2doYVJtZ0x3VFd4ZXRLVnV3L3ZZRmgwNzIyR0ZjM0Jvd2xQQzAxRHYz?=
- =?utf-8?B?N3NlRUplUHRVUXpVODhJR3pkQVQ2M0RGN0QwSUpXRm51dmdkOWhWMkVWM3Ba?=
- =?utf-8?B?aVF4c1Mzd1dyL1lIODI1dHJld2krN3B0U2pLWDBWdVJLTUd4Vy90VkREdG4x?=
- =?utf-8?B?bDVtK0VHU3BFc1lQZWx1ZXlxMkRZNkhvSGYybFh3bHA5dVNnL1l2UE9IYWdU?=
- =?utf-8?B?M0M3YzhvdUM2SjgxM3RYa2h5bG5VTUpINFBRN0hYbWVJQUZob21McHFFLy81?=
- =?utf-8?B?clVua3FNQ2h6SnhUVDFLN3RpMlBXYVhHTmFSMkpxL3laVlF1TCtaeFRDYUxr?=
- =?utf-8?B?cWlpNVZTRVBGRVMxcDhvYkY3QVFuVGhGYUVoWVpyY25nRnZkM3h4dExJYVFt?=
- =?utf-8?B?ZEhLN1JzQ0lsQWVJQ29WdTRiRFJ0c1oyRWM4d1hYWGp3UnRyVWd5cmhIdHlP?=
- =?utf-8?B?dUk4aXZCUGtxMCthM3QwTVdxdStXOGMrUmRBR3ZqSG1UMXNGd28wNlE2d1FI?=
- =?utf-8?B?RXB5SEtXYlJudUkzWUEreHdrL1BUOEdYMUk0LzM1VVMxNGZiV1JIcHJUZGdK?=
- =?utf-8?B?VkR2dlQ0bTZVUkZJN2h0Uy9Wcnd5VVJMaUxwMUhTRUgyYVdqWllFdDF6RXdl?=
- =?utf-8?Q?eqRtk8u9DeKHovLOr3S6+u1HxcBHPyR0cU+ch?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 816a0cd9-f515-4040-a626-08df3b766993
-X-MS-Exchange-CrossTenant-AuthSource: AMBPR04MB12445.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 19:53:07.4242
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4Ha8RPP+4lZMo6UP/zpoQPCyLA4hxwTErR+CEXxV1rUiTAwZuw285N0+pUat6KilISjpitxgS8ZZiZVZAqeiWoe7Gox9SjX0LtF8Yd7/c6zyS4CiwspeZL5CIszjdqHN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRWPR04MB11199
+Content-Transfer-Encoding: 8bit
 
-From: Frank Li <Frank.Li@nxp.com>
+Add bindings for the regulators found in the MediaTek MT6392 PMIC,
+usually found in board designs using the MediaTek MT8516/MT8167 SoCs.
 
+Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+---
+ .../regulator/mediatek,mt6392-regulator.yaml  | 112 ++++++++++++++++++
+ .../regulator/mediatek,mt6392-regulator.h     |  23 ++++
+ 2 files changed, 135 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/regulator/mediatek,mt6392-regulator.yaml
+ create mode 100644 include/dt-bindings/regulator/mediatek,mt6392-regulator.h
 
-On Mon, 05 Oct 2026 19:26:21 +0200, Francesco Dolcini wrote:
-> Add missing GPIO5 lines, GPIO_IO38, GPIO_IO39 and GPIO_IO40 are
-> GPIO-only pads fixed to GPIO5[18:20], their SW_MUX_CTL registers have no
-> MUX_MODE field (IMX952RM Rev.1, 2026-07-08, sections 33.3.2.44-46 and
-> 33.3.2.184-186).
-
-Applied, thanks!
-
-[1/1] arm64: dts: freescale: imx952: Add GPIO5 lines 18 to 20
-      commit: 62c2671594cec8ef17d70d876753dff4f78e5ce6
-
-Best regards,
+diff --git a/Documentation/devicetree/bindings/regulator/mediatek,mt6392-regulator.yaml b/Documentation/devicetree/bindings/regulator/mediatek,mt6392-regulator.yaml
+new file mode 100644
+index 000000000000..d74721d8f2ff
+--- /dev/null
++++ b/Documentation/devicetree/bindings/regulator/mediatek,mt6392-regulator.yaml
+@@ -0,0 +1,112 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/regulator/mediatek,mt6392-regulator.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: MediaTek MT6392 regulator
++
++maintainers:
++  - Luca Leonardo Scorcia <l.scorcia@gmail.com>
++
++description:
++  MT6392 is a power management system chip containing three buck converters and
++  23 LDOs. All voltage regulators provided by the PMIC are described as
++  sub-nodes of this node.
++
++properties:
++  compatible:
++    items:
++      - const: mediatek,mt6392-regulator
++
++  vproc-supply:
++    description: Supply for buck regulator vproc
++  vcore-supply:
++    description: Supply for buck regulator vcore
++  vsys-supply:
++    description: Supply for buck regulator vsys
++  avddldo-supply:
++    description:
++      Supply for AVDD LDOs (vm, vio18, vcn18, vcamd, vcamio). According to the data sheet
++      this is an internal supply derived from vsys.
++  ldo1-supply:
++    description: Supply for LDOs group 1 (vaud28, vxo22, vaud22, vadc18, vcama, vrtc)
++  ldo2-supply:
++    description: Supply for LDOs group 2 (vcn35, vio28, vmc, vmch, vefuse, vdig18)
++  ldo3-supply:
++    description: Supply for LDOs group 3 (vusb, vemc3v3, vcamaf, vgp1, vgp2, vm25)
++
++patternProperties:
++  "^v(core|proc|sys)$":
++    description: Buck regulators
++    type: object
++    $ref: regulator.yaml#
++    unevaluatedProperties: false
++    properties:
++      regulator-allowed-modes:
++        description:
++          BUCK regulators can set regulator-allowed-modes to values specified in
++          dt-bindings/regulator/mediatek,mt6392-regulator.h
++        items:
++          enum: [0, 1]
++        minItems: 1
++        maxItems: 2
++      regulator-initial-mode:
++        description:
++          BUCK regulators can set regulator-initial-mode to values specified in
++          dt-bindings/regulator/mediatek,mt6392-regulator.h
++        enum: [0, 1]
++
++  "^v(adc18|camio|cn18|io18|xo22|m25|aud28|io28|usb)$":
++    description: LDOs with fixed output and mode setting
++    type: object
++    $ref: regulator.yaml#
++    unevaluatedProperties: false
++    properties:
++      regulator-allowed-modes:
++        description:
++          LDO regulators can set regulator-allowed-modes to values specified in
++          dt-bindings/regulator/mediatek,mt6392-regulator.h
++        items:
++          enum: [0, 2]
++        minItems: 1
++        maxItems: 2
++      regulator-initial-mode:
++        description:
++          LDO regulators can set regulator-initial-mode to values specified in
++          dt-bindings/regulator/mediatek,mt6392-regulator.h
++        enum: [0, 2]
++
++  "^v(cama|dig18|rtc)$":
++    description: LDOs with fixed output without mode setting
++    type: object
++    $ref: regulator.yaml#
++    unevaluatedProperties: false
++    properties:
++      regulator-allowed-modes: false
++      regulator-initial-mode: false
++
++  "^v(aud22|camaf|camd|cn35|efuse|emc3v3|gp1|gp2|m|mc|mch)$":
++    description: LDOs with adjustable output and mode setting
++    type: object
++    $ref: regulator.yaml#
++    unevaluatedProperties: false
++    properties:
++      regulator-allowed-modes:
++        description:
++          LDO regulators can set regulator-allowed-modes to values specified in
++          dt-bindings/regulator/mediatek,mt6392-regulator.h
++        items:
++          enum: [0, 2]
++        minItems: 1
++        maxItems: 2
++      regulator-initial-mode:
++        description:
++          LDO regulators can set regulator-initial-mode to values specified in
++          dt-bindings/regulator/mediatek,mt6392-regulator.h
++        enum: [0, 2]
++
++required:
++  - compatible
++
++additionalProperties: false
+diff --git a/include/dt-bindings/regulator/mediatek,mt6392-regulator.h b/include/dt-bindings/regulator/mediatek,mt6392-regulator.h
+new file mode 100644
+index 000000000000..2e1f41e0ebfe
+--- /dev/null
++++ b/include/dt-bindings/regulator/mediatek,mt6392-regulator.h
+@@ -0,0 +1,23 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++
++#ifndef _DT_BINDINGS_REGULATOR_MEDIATEK_MT6392_H_
++#define _DT_BINDINGS_REGULATOR_MEDIATEK_MT6392_H_
++
++/*
++ * Buck mode constants which may be used in devicetree properties (eg.
++ * regulator-initial-mode, regulator-allowed-modes).
++ * See the manufacturer's datasheet for more information on these modes.
++ */
++
++#define MT6392_REGULATOR_MODE_NORMAL	0
++#define MT6392_BUCK_MODE_FORCE_PWM	1
++
++/*
++ * LDO mode constants which may be used in devicetree properties (eg.
++ * regulator-initial-mode, regulator-allowed-modes).
++ * See the manufacturer's datasheet for more information on these modes.
++ */
++
++#define MT6392_LDO_MODE_LP		2
++
++#endif
 -- 
-Frank Li <Frank.Li@nxp.com>
+2.43.0
+
