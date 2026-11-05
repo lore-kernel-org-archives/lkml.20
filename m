@@ -1,69 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793860368;
-	b=qeU61Tus/hTlOSUqx+9umyHSpFlFGupIsL+clgStZ1YYBmyrqK2xLNC9PNk0O8m6rfSR
-	 XJGZTpP6NbFV0WlnfAePiqVvCaye2fyAW8ZGgRJm7Ui5u3oURa5bwueArnNo0d5BItXdD
-	 byhSThFmlG8IwfbxxsYdA6GtaC8vGPxhzIyMiSjHpbTk5XhxbWA3H/tsZ4wcXlRE+3cLh
-	 GfQPjMxRH8ZBeb8RCg+fxgdoTNsjYKNb7ANaM/xmGjqkUrNfxnyCT/IHtKNkUZoy6AGkE
-	 fluo/OlHbUuY9+kX2CMmnRW6tHlbWbdcrK1qL6ooxVekt6V1d38phtu3FRXF06TaDWQ==
+	t=1793860623;
+	b=eiq/0tM5DNgzzoxtREcTp/RyXMvqcGR+Hi5dABT4X6lYXqg+g2JW8rul6w28nP6fA9K6
+	 CocTTDjJn+ZrlCvte1cmT1tGWRJm0xfqH8vIxfLCpGd0k9+8PN/036+MMpMxvhZvCg46F
+	 7yIIA//QFbuwUh1HD+TB0ytaB4Xysuuz6B7gI4MnkQCBVYCIYVambyxffj5XjDrKEoHfm
+	 hKCOQiaOe0S315lUn09cR7JKd4QsJ5X53wewqSI8oLKBbk75323dbfRPd+kQxZiudXpZy
+	 bhdIH188yjgwx+K+1B2wO9GepJ+d/tGFCIW1RbmTOLdVHIqe+3CncASJ9wdzxXi8E2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793860368;
-	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
-	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=vw4k1uG3PqokN+/rrLT2QBAsrUBD5moce8iwaWvFhJs=;
-	b=P0IRJQZQoPbl1FRk9WINM4RUvjlp6IUL2xRrTNweJ4lQ2L/M6kRqsy8zokr35B8uVYAL
-	 zRBZH1gmMzzmgwf0H5sR/7f9SR5L4Prm4Ptkso2phmQ5sajkMza7FBk4MxJ2klhR49YeW
-	 0zwAc+MMl5IdiDQ34iufl/wxBYZFrQJbxYFCcRZz3wT9Dawjq0ucnknibVM5YS9so1p7r
-	 AdrWHw6/WAduH2SYGfkte6bq6ajLit4Ndfoyzyj76mQ53zSZitXKIqX+DPGOgz6+H+jRi
-	 0MBEzPUFcUEwm5i8BUCLtwsY/ToOmD4ryyBcdtq1Q639I/Ru0Yx4r5F/8ruBZscl9fg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793860623;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=V9c4JR1l1BlqJLMhXPHekxlcKPXrrtwIQDnuHY/ovTQ=;
+	b=y/1dyawvKvCdJLcV9aNRwXv/Oe1gAhOQHThZVT46uZek4+KF+uflrCWjouN53mUXZSF1
+	 NZNPfts4fBcDMhUvjvuXe7O4ofuQW5uPwhLuR7Q0cE7CXK0+Pxq3PdlU3T0NZ+/+enKJC
+	 pTis1WnbRcQAIRH4uHQEuTKdT25skJKsgdQYnlha7F5FnZ+U2jIRDXRCe3YMJehtkHydM
+	 dIbGapo4zIUGFiWgAb33kS70Df7ocOMjOHHXaKOBv7wXV45vg2vH+cxyIE6nYkvAqpxUv
+	 m1L13a/Y5R2V2AYjTK8w0+jsVGU7GYCT//ti7qjsnwF26TxWRNGVKCKCNgsCy3xZGKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zQbT2rru;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44910606A31B;
-	Thu,  5 Nov 2026 06:32:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44910606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: b12e1bf6d8e211f19a56ed5b684f684d-20261105
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:283f13fd-9348-4473-b1ce-7c9ff762ee07,IP:0,U
-	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:1bcc947f3b98471679f819873e55c4fa,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP
-	:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
-	:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: b12e1bf6d8e211f19a56ed5b684f684d-20261105
-X-User: zhangheng@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zhangheng@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1610478598; Thu, 05 Nov 2026 14:32:37 +0800
-From: Zhang Heng <zhangheng@kylinos.cn>
-To: Vijendar.Mukunda@amd.com,
-	venkataprasad.potturu@amd.com,
-	lgirdwood@gmail.com,
-	broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zhang Heng <zhangheng@kylinos.cn>
-Subject: [PATCH 2/2] ASoC: amd: yc: Add DMI quirk for ASUS TUF Gaming A16 FA607NUQ
-Date: Thu,  5 Nov 2026 14:32:30 +0800
-Message-Id: <20261105063230.353658-1-zhangheng@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE705606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 06:37:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE705606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zQbT2rru
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3514b90bb89so2944473eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 22:37:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793860622; x=1794465422; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=V9c4JR1l1BlqJLMhXPHekxlcKPXrrtwIQDnuHY/ovTQ=;
+        b=zQbT2rru9bBYKGciF+LGs+SL/2P0O5Pz1jnsY0Wbxy0uWYPZ4nHVsnzEoGd/Hx+SuR
+         kdzhheEOykq1+jWx94FFifxG1h+uB36na4yB+Me0rGcz0CxGX5bZpyh8fBnMPf4w2uQW
+         ld/F8GGJYk4HRazfBRFBhJmcSwQRDsibTxJJAfaQ6Rw1B77d6xEXVkdlY2TUngnYbxFO
+         GE4aFtA1vpYYUm1SytHyUnotHnoIReS0BSMIWfNvRL7HgI/FPZZ3JoTvKyGrUW8w6zGc
+         S7Hr2yt7k0BsOgSD+0mfcAnoqRzHcrjum0L7Dx8JYFXD2TSYsX9fi0jtk9F5f9fnYJWd
+         9eEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793860622; x=1794465422;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=V9c4JR1l1BlqJLMhXPHekxlcKPXrrtwIQDnuHY/ovTQ=;
+        b=ys8anhkbnPGotyDNjvxHQ7/8MTMI/5E1ex8S6sVNca8+nPJ3mmrR27cfoeqHarWxkS
+         chPq94+cbc3hFfD4BW7suR9uNFXCJw55PFZ51zkm/H/xP1351i7Fd0e7Z73jKrq+VQqy
+         kzL9p4EYzotS7x7X5Paj737fzyMeWFSxx9L63FJgBt4OeEcJvcpUcYJqFIpW4jjqB/cV
+         kMcm98u/b650q/aZXgGV7k1sotjnINQ78RAZk8AmuMSCPb7zAWAkBIp69SonUfw+ukkm
+         EHxIURDC+ogw/tUMql55YGKVD6raYMVVSVE3TidwMeO1t6ZEOJo0AWbahtvg5rFpGo9n
+         6OAw==
+X-Forwarded-Encrypted: i=1; AKwUvBxL2+aSrPfaEJe5uA55vfGUZImovnWuWca5TG6qg5dW9dBHIolB8+9WwOSsxgswq9tj1zHt7sP9F1n8VJk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8eFzZQvS3Ls9v58jH/G6TVesNSYLoEd56G6i/UF3HUTn3cEzli
+	zV61pTUkaoM2ssH7WJWrkFZjgfTegn/NRwKz9uQu/unXrcBev4cYT8rf
+X-Gm-Gg: AYBFou1UUHWIA9qyomKlGDsYdTgGuLZRycd0Rm0T9aiszD0w9FsxR4RkkiyiVHZW7Lo
+	MLo6SXo1xsVq/qeDsFzPCU8rGwOIBfgJVbLHXvHraJOsEPjLJosvwOQBB1hb45iNuN5j9NqMC/L
+	ZXu/mqnlsvhFFVN7/eoFIoaUbQK23BDdVgt2VeYU1/c1EKdQbjRS9gFD0zxhpbdEoeNICWG3WF0
+	DO2Pd53kDzVaVF3n2wpMNW121RJHabxiloe5xpO1riPWVZnnZ6v//G0ElCUn2e48Vk6iGUMRyYX
+	KW6BMX7PZhXvohodrNWPFt/Imwrn4sGj4+dYlQFG54V04hxB7ExsL4EtJZSQz5rcfcFKBy3XZJ0
+	1IlS54tb1BVR6gLAopZnbj8br+RBpM/XtwviRMG6xStr/UsjYbf9cIkqGrVb7dYgIusuNSwnJhS
+	Py/7s5IvbwTel9y7CFUte5/SIgTRBOMeNMJl+oZTcT/JDscijI1JEmyEgxaNUD0p8tIUkK6KTe8
+	PN/DfAAh5jKZscLwFCqhkq0cdhknWkf0keTrDtv2SgvkpTI6cHr/V9fZefhb3Bo0iBPnJVStlTz
+	rAYMTcIzeO7Tcj3CXuS4h4cuos6t9nrCeqR4r4AUvZW/bveTr6c/9A==
+X-Received: by 2002:a05:7300:d58d:b0:369:e8b0:af85 with SMTP id 5a478bee46e88-36a4243a512mr30366093eec.36.1793860621499;
+        Wed, 04 Nov 2026 22:37:01 -0800 (PST)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36d34d5960esm13148900eec.5.2026.11.04.22.36.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 22:37:00 -0800 (PST)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Xiong Weimin <xiongweimin@kylinos.cn>
+Cc: virtualization@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] vdpa: fix typos in comments
+Date: Thu,  5 Nov 2026 12:06:52 +0530
+Message-ID: <cover.1793860522.git.hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20261102043526-mutt-send-email-mst@kernel.org>
+References: <20261102043526-mutt-send-email-mst@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,39 +105,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The ASUS TUF Gaming A16 FA607NUQ has an internal DMIC array connected
-to the AMD ACP 6.x PDM interface, but its BIOS does not configure the
-_WOV ACPI method correctly -- it returns 0, causing the driver to
-return -ENODEV before the DMI quirk table is consulted.
+v1 was a single patch touching both drivers/vdpa/alibaba/eni_vdpa.c and
+include/uapi/linux/virtio_net.h.  Michael asked for the uapi header to be
+split out, and pointed out that the eni_vdpa.c comment also says "ENI is
+build upon" where it means "built", so patch 1 now fixes that alongside
+the "specfication" it was sent for.
 
-Add a DMI entry for the ASUS TUF Gaming A16 FA607NUQ. After applying
-this fix, the internal DMIC is detected and captured from correctly
-on the affected machine.
+Nothing outside comments changes in either patch.
 
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=222214
-Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
----
- sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+v1: https://lore.kernel.org/all/20260904104440.18772-1-hemanth.selam@gmail.com/
 
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index 8363dabc7eea..fdeaedcfb178 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -969,6 +969,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 			DMI_MATCH(DMI_PRODUCT_NAME, "HP 255R 15.6 inch G10 Notebook PC"),
- 		}
- 	},
-+	{
-+		.driver_data = &acp6x_card,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "ASUSTeK COMPUTER INC."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "TUF Gaming A16 FA607NUQ"),
-+		}
-+	},
- 	{}
- };
- 
+Hemanth Selam (2):
+  vdpa: alibaba: fix typos in comment
+  virtio_net: fix typo in the ANNOUNCE_ACK comment
+
+ drivers/vdpa/alibaba/eni_vdpa.c | 2 +-
+ include/uapi/linux/virtio_net.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.25.1
+2.48.1
 
