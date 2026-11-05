@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793879127;
-	b=f7lGXWFqMxXYHtSAOLHHZXphN+/KdNQzgfQvHBUWYUo3de6K3Jm+CXJM1lzB+wCyqpMg
-	 uJMH2OBFh3swfPZ21x4BxQrLTzPrh3bMzTCJGD8Hg3TSrnX7CFTvu9wPLC+5XL6rUImLU
-	 vlCyvzUrgWHVJM2J10rm8RmmlfWfVrWEj9E5C+DIyhNLtKx4d0KsnhTxI4U10+Xst1+JN
-	 tHB+OtFeMQfnD5LEAkl8QKrHojvEMD7OM14/N5L21FxWoEK7+E7R/9ZpIjztclpzdyhXB
-	 Yxb33eZkW4aUP23agb8lKLRjpBkVv0QNcXnUfI8QYuzuivp82wUaZ4BEZHDiB5j3mNQ==
+	t=1793879140;
+	b=FRpEhLR/c3pTa8RrqXql/xE0NUbSC+ge7iY8P64TStG/huUEKHMGFFjGRu2370W5WIxS
+	 srqDQhM/ogwwdZnXtfQYHQHKS5pHdYLctCnB7zd+KARV+nBZp+OHj9ynVMaxLTL3beh/T
+	 dhPNgWXHSagNhuwKa7OxhgeCtj/KhD3ChBAcHCTwxIKBbs5EFEXHAl9g0yNFgNVzPycT2
+	 5kCgkrmLQ7OUgiEMYTjTKb0cbBsXaNuVP/ijl/vbUiKQFaMx+PGgC5KUBopiQQjGYm09D
+	 2qk1+U1CymsUk4yyxIDpQsA64isgQ41XVb/PM4SRRiuYhJkOeM5C3uw9mqLzMgkEJxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793879127;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793879140;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=SBB4E1cdIK6ypRojxJrVPdhDpxyA24gDAz038IMcsCE=;
-	b=AN9Udy5+eX8R8RwY7niM3xe7EaT+189b/0lf2lgvApORmabQKSm3oKJAhgh1+F+1dHrx
-	 oz7w+URVMX+o9TdeHN6SE9thIAl1LWX20y/pZVKr8SZ+qWPCZqjHYpvObnuLuYck5cNdg
-	 2vDihIWWyFteQhhPRnEs4BxI7wxIxkZ6aawzmc2rEl7sVX1z4DUdFmAcYUC0/mG0lE6HL
-	 aL0D9A0z5yj1W4r65HjnmaY7ZnCqI/gVLs5nGM5LIQ8a7MoFKUqpk83aJKQyUkTMPhxWM
-	 f5To8MkCdcsZLyC7Nkuh7WfJhrtbC/SmorQvYX0+A+JchEszXlw08e0FCuh5mxBfFrg==
+	bh=o1EbclO0CpwqePVCV1L0T+e9zUmbTQ8j93ZAYJlyj8s=;
+	b=baYfxYew9UJh+1ZO7afyw2jyi+D1qW91pqh6Yo80KkqIGkR/H28V0/JpsrGc2DMqPbGc
+	 E4EMTGnfRZ4Gv5/C96W6iNq80kQsI9WOYCRTgdukqJ3wAY9D3CxiSADrcgs1SDQ5ljDcK
+	 rFoXT14zqpOJLmjjeoW3/zgfcJOwikkKywo0UA6dXNQyNQ9m+3AEcC0QaNPG+nBrae81X
+	 6g5AwzjuLXPFbZFuoBAf+94VaaOB/j/NOsXtC5gUTvR6T1YLNdwvVkBTM6PJu6FsievjQ
+	 Hj+L+0FoKvzA3seIMVMFT7kNYWe8CWdaJZmmd+5ROun7vxqQH8bIq6FNdB5xgRvV9Ag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=A8uSXyPA;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=OigcssTz;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8391760A2631
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:45:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8391760A2631
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A256073ABF
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:45:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6A256073ABF
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=A8uSXyPA
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a210470b49so13102565e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:45:27 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=OigcssTz
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so16437885e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:45:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793879126; x=1794483926; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793879138; x=1794483938; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SBB4E1cdIK6ypRojxJrVPdhDpxyA24gDAz038IMcsCE=;
-        b=A8uSXyPAqFoOTkLLV+iI905Xedk7CkwIA29YdbCgbnIpu7fyhua/i0khkxpQfAVqBD
-         auNk4Rko/WVIpHwhOqDla5H4kos0bfgch3DJhSBU9gnjAx1sYF6wwNbees9GDy0+K6Hc
-         R7y9gVnfGQxt/ruSLGKhkAPxwDgMYmhRYEwO1iHt91v7aYe19bBfbbF55VzLWEl5mANs
-         9xmgd4sv+DQ526W26cvYz4cRiaX7QxR7st3sj0WBc+tQcu81P+tWUaHga0DLsFuTe6nU
-         6JxLtzCusP7X9f9GFjry652VhA4umdX30UnlJGGfXFz6CGK1LmN5Y3tli98fc3AqToLm
-         eFoA==
+        bh=o1EbclO0CpwqePVCV1L0T+e9zUmbTQ8j93ZAYJlyj8s=;
+        b=OigcssTz7nlgnoizVRlOpjIfNlQMYxJysGX/ivmf+5x9hf+CVPMsH9KryAZiQw7QH0
+         /vqu41gvJKAP/y1qSAFLKkKZOw8CEuFH/f+bZ4FqYdVMwuLuJKIApP4ttly+ygvR0Tyg
+         XC/5SMIxNvfOlglFtzrfvTgpgUZp/4LjjySPCBlr186qqpYzCXWzsqYjqNkHp+4qLRCe
+         kOn+eNXThLa5ZF+ZVM+Wz4/S8AughtTgPCkslwnvK+IpZaAbxpr1lvvmH0xA14UNn6Al
+         Nu3ZwsuxJdZFCE1Ud7yeN56/04ZPKvVO7rzJ1ddbg9ixSFu/7V1SqdvOijX27wuuNGoW
+         iE5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793879126; x=1794483926;
+        d=1e100.net; s=20260707; t=1793879138; x=1794483938;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SBB4E1cdIK6ypRojxJrVPdhDpxyA24gDAz038IMcsCE=;
-        b=zXIEmSs/9/0Nba5HdiOw+4w0EOWpf8jSFWc3ch0MpIO+oLXPsJbY2/Bpn5fkkHWn5w
-         dPQNkOHpdCCs1OrrxNUkuL5MiGc4CEWzoe7miJ/9SbOq0edGP84dy7BLaBwXHgg10Ddd
-         vZqiPAD+91SGWyRuFYPz7+E1iZBJWleXko7Jna/iJD6yws9NL/s9OoDEUkiWPFsEMTwp
-         7U44Zhl4h7XLSQIx8uHftPeCKjvUDUXBCoGW1+lo+69nkAz/QPylYoQcfUAp3+2QvUBs
-         TK/yNTN7ZcxF/1iSTRjtnPnI9zeTIlkh/X+lrNTMX6/ULrX5BSbrQww2u/SIpzNw3e0q
-         dZaw==
-X-Forwarded-Encrypted: i=1; AKwUvBxbfDgj88cogzvihqkwkm7f/s1ewIvdKZgOc5UhGYJAKvp2U8xqZAlClu299F7BTADflC0YNIbcA1Qwdqc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z96qKM4MLNJnAIZzUjpM9sg533H38MNqCUmyJl5nYjNcYPrdNnq
-	+1PwIVIwaee9ZcXziPXCOXPPwOJZj3IfGrh2WLDW54LLSKeaJ9hLMcJG2gZRMr8IRso=
-X-Gm-Gg: AYBFou38twMFjpddkGKtk/eRYjhFjvFQX85VxadL4rkdGu18KdEvSDTH+z0zgqpODiq
-	gV+6/Lu0Vj573kSaFfcinCzzVzleuKQIxILUAcxT9TU/uEfDC3RPMrT1arbSp6nTgFu4e4DZWEQ
-	PQwyAuAmP41yY3y/b71yTzsp9mFvgEgOzsvwtW4auk+PnAxMSUs6h2A202l3XLN0rFWtiktGqD7
-	qhU1DBw9gdFVpwoB4K09CfpR/jy0oKXzwlhLlkCfFDAetz+vIm0JQBCw9CXphagAdPIkSkiRsFB
-	XvVYWeMSv8YZqYGkd50s5aH9B8DZNp6kJCw/ELGvGLmBaDn7yLanMVYzdbkfay3CKakyrg4rAZJ
-	l8YVwo+VY5GqyViiLg85PnF+5YxRtRqVUphLX1QEsUTkHnI4Pi5+D7On3EGR97Xf+IvC8y7Klr/
-	gBtjcBWhqUahxxRWi3tRInalrNLhN/WLhKfqW+Cad7L/7HpSnae1kaU9qlKeMIa7uzjk+5a1uyX
-	8xENYjqTKj6q2Xzv0lSasLQVyT1gfvnzFJddxg48wJqYGXAe9Nqxe4vrYGC1vZ+qX9uBNp5O54R
-	1XEIPN9wU7iT36i3FKiKInOU2mqBdB6O
-X-Received: by 2002:a05:600c:4708:b0:4a2:167a:c93b with SMTP id 5b1f17b1804b1-4ac19234ad8mr417649255e9.30.1793879125831;
-        Thu, 05 Nov 2026 03:45:25 -0800 (PST)
+        bh=o1EbclO0CpwqePVCV1L0T+e9zUmbTQ8j93ZAYJlyj8s=;
+        b=N2lWptRaWoyWkcNjqOVrsEPyiC8UR5uVEkuXraKiNdnRxx1f4TKWdGaLpMLr+XoFil
+         sRAaEyj5psE9JjIO+BXoZwT3UfnPRElf6j2PTiqcwtoybTd+6WAHXZ/A7bFYWnP8yGVK
+         gSeJw5PpqEDZKPtjUKTx2uDawHAPX3uedKwf0d8tdKeHmVjckLZDNdNuBGKvX2xWjtKz
+         Ra9Ir5UmKpJvdQ1ONWVsheYTnxe8neCHzdl8eMryKBc9897F7Z3oCj9RRd/YzLqS9W77
+         sZpR6XcAnEaq12n/Oy/KoSvvui/QsToo1Xm05eyBq36JvN8lxyqo46YftJFXM1kUu7hS
+         gEEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx9XW9cAgt4tBd5HWZG9ghiT+rD2uoRztvpQSwtnEIbJZCkG/O9GoFVQgjoJIudrYFPQFER8oIkdfMogO8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8L+W/+Zyqr398tfHO+8E9+kB3E7lNlZ78MqLmTFNXpFfCDB4cH
+	ko0ocHxOx0tl7JgUu1ZfmZ+7PNTNwSWIzZATa5GGioIitVNz1LxsQ3M9cXe2GTCbCq0=
+X-Gm-Gg: AYBFou1E1FSKeRMZDoVzY0UAG3La63PnX0txEcLCN4uqEaM88SFgjzxwhbQkZ50nbTu
+	a77Hrg8tNVvUVm+LN0pKKCq0v0ad0/KfcuYrkU5xdLIQYtTVNjLJOh/DZtolgQelguSfWGwVLvo
+	lOllJRW1IxnGT+oNhNVCNwx1+Ujc8DO76q709uoz3EizKSuQNUKYTXWyEBP4VXmLibYoAl5i3RW
+	y97nCglGLSXQFmh/QPElvhXT1QXpXYXQh8dAflRW3BBrAeniu5mk30q8RCXCMXhTpPmtsBSICDZ
+	8paP/PfIUj883evv4ffjWPOdqXefkhFTTb6KqM4qAkt3sZ7DWHXIzInRtncx29cawWWsSJvOgv5
+	rDRI91eOKIrxGdpFThH9E0D0vHmqYXVZk+w0RyYFUc6G+b2RWK7YNrX47ezV+RP6auTjOGwVLhl
+	UdxP0HBzMYboPHBLCIC0InM1Lu9kIIM+aukP/KyI6kQ7t1UFkpoEVGLMeUmCsEk7NXhktpp0j9q
+	PKG/FB/pfRy7aZ6IG94+KVCZ/hLntCsgpdcRzlkmVSu1Vo++dmvVDFwR7llAea0pHLek6azQWz5
+	na2DRHBYcT8BcNW8YSZhxxn2iTwiQ20H
+X-Received: by 2002:a05:600c:5295:b0:4a1:e92b:ae4a with SMTP id 5b1f17b1804b1-4b3c3545146mr113538265e9.21.1793879138032;
+        Thu, 05 Nov 2026 03:45:38 -0800 (PST)
 Received: from pop-os.local ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b571f46538sm56679525e9.5.2026.11.05.03.45.24
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b571f46538sm56679525e9.5.2026.11.05.03.45.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 03:45:25 -0800 (PST)
+        Thu, 05 Nov 2026 03:45:37 -0800 (PST)
 From: James Clark <james.clark@linaro.org>
-Date: Thu, 05 Nov 2026 11:44:53 +0000
-Subject: [PATCH v4 05/19] perf test: cs-etm: Increase window size in
- disassembly test
+Date: Thu, 05 Nov 2026 11:45:02 +0000
+Subject: [PATCH v4 14/19] perf cs-etm: Don't print missing buffers in
+ snapshot mode
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-james-cs-unformatted-per-thread-fix-v4-5-7759e0ce2449@linaro.org>
+Message-Id: <20261105-james-cs-unformatted-per-thread-fix-v4-14-7759e0ce2449@linaro.org>
 References: <20261105-james-cs-unformatted-per-thread-fix-v4-0-7759e0ce2449@linaro.org>
 In-Reply-To: <20261105-james-cs-unformatted-per-thread-fix-v4-0-7759e0ce2449@linaro.org>
 To: Leo Yan <leo.yan@linux.dev>, Adrian Hunter <adrian.hunter@intel.com>
@@ -114,46 +114,44 @@ Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
  James Clark <james.clark@linaro.org>, John Garry <john.garry@linux.dev>
 X-Mailer: b4 0.15.2
 
-When we increase the default timestamp interval in a later commit, less
-trace will be recorded. At the moment the amount of trace overflows the
-64K buffer, so the exit snapshot trace is what happened at the end of
-the process rather than the beginning. With the new default interval,
-the entire execution will be contained in one buffer and the first few
-samples are always various instruction and data faults. These go to the
-kernel so don't result in ranges that can be disassembled.
-
-Increase the window to 6 samples to ensure something with a branch can
-be disassembled even with the fault samples.
+The driver produces lots of AUX records for trace data that was never
+captured in snapshot mode. Downgrade this to a pr_debug3 message as it's
+only an error in normal mode.
 
 Reviewed-by: Leo Yan <leo.yan@arm.com>
 Tested-by: Leo Yan <leo.yan@arm.com>
 Signed-off-by: James Clark <james.clark@linaro.org>
 ---
- tools/perf/tests/shell/coresight/test_arm_coresight_disasm.sh | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ tools/perf/util/cs-etm.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/tools/perf/tests/shell/coresight/test_arm_coresight_disasm.sh b/tools/perf/tests/shell/coresight/test_arm_coresight_disasm.sh
-index d298b18154b2..236c4160e480 100755
---- a/tools/perf/tests/shell/coresight/test_arm_coresight_disasm.sh
-+++ b/tools/perf/tests/shell/coresight/test_arm_coresight_disasm.sh
-@@ -50,7 +50,7 @@ if [ "$(id -u)" == 0 ] && [ -e /proc/kcore ]; then
- 	echo "Testing kernel disassembly"
- 	perf record -o ${perfdata} -e cs_etm//k --kcore -Se -m,64K -- touch $file > /dev/null 2>&1
- 	perf script -i ${perfdata} arm-cs-trace-disasm -- \
--		-d --stop-sample=2 -k ${perfdata}/kcore_dir/kcore 2> /dev/null > ${file}
-+		-d --stop-sample=6 -k ${perfdata}/kcore_dir/kcore 2> /dev/null > ${file}
- 	grep -q -E ${branch_search} ${file}
- 	echo "Found kernel branches"
- else
-@@ -62,7 +62,7 @@ fi
- echo "Testing userspace disassembly"
- perf record -o ${perfdata} -e cs_etm//u -Se -m,64K -- touch $file > /dev/null 2>&1
- perf script -i ${perfdata} arm-cs-trace-disasm -- \
--	-d --stop-sample=2 2> /dev/null > ${file}
-+	-d --stop-sample=6 2> /dev/null > ${file}
- grep -q -E ${branch_search} ${file}
- echo "Found userspace branches"
- 
+diff --git a/tools/perf/util/cs-etm.c b/tools/perf/util/cs-etm.c
+index 320164645f61..51431a4d5db7 100644
+--- a/tools/perf/util/cs-etm.c
++++ b/tools/perf/util/cs-etm.c
+@@ -3361,6 +3361,9 @@ static int cs_etm__queue_aux_records_cb(struct perf_session *session, union perf
+ 	struct perf_sample sample;
+ 	int ret;
+ 	struct auxtrace_index_entry *ent;
++	struct cs_etm_auxtrace *etm = container_of(session->auxtrace,
++						   struct cs_etm_auxtrace,
++						   auxtrace);
+ 	struct auxtrace_index *auxtrace_index;
+ 	struct evsel *evsel;
+ 	size_t i;
+@@ -3414,8 +3417,10 @@ static int cs_etm__queue_aux_records_cb(struct perf_session *session, union perf
+ 	 * don't exit with an error because it will still be possible to decode other aux records.
+ 	 */
+ 	if (!found) {
+-		pr_err("CS ETM: Couldn't find auxtrace buffer for aux_offset: %#"PRI_lx64
+-		       " tid: %d cpu: %d\n", event->aux.aux_offset, sample.tid, sample.cpu);
++		int level = etm->snapshot_mode ? 3 : 0;
++
++		pr_debugN(level, "CS ETM: Couldn't find auxtrace buffer for aux_offset: %#"PRI_lx64
++			  " tid: %d cpu: %d\n", event->aux.aux_offset, sample.tid, sample.cpu);
+ 	}
+ 	ret = 0;
+ out:
 
 -- 
 2.43.0
