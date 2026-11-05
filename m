@@ -1,84 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793884731;
-	b=HUIwsBJ34/7N7jpGauoq+iHH4aFINjX+Fzbn1nxuL2v+uGzV1yetxc+e9QSpBpBYEr9O
-	 1GuwAR22qJa2YOs+FHF9r3pTBcPf8+7gEMjArI4MqS3oWhjiSLHdtxkeKQ2j4wm3PsBx8
-	 pfLv28vBvhMXP6h/aBNOGO3Mul26uYwgogOhjOYd8Yq0nr5qkd2bFk3mfJsWXfvV8lVtI
-	 Prluh45MEeze0++AqGum2LamIRMraALMOslesVs77NK7726YjgIRx/Cg42gS089bC55ND
-	 Bc4Ukqqao2xOf5hxuM45YMccUH1J45OhwCGPW0x2/z/Ew36DFAHhCC+rfNFPu4cQ7XA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793884731;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793884740;
+	b=rPzj/V3u6DSJUR4rTi/nts9xBZXdQsOiETNvpVSxjoUbuaFYDJ9c6hy8UrZf2QfrDL8w
+	 kzq8lG8G4SrHCMKzjoXHQamPumjHiKFruH1oCzq6NWsbHVYNShhLZQwkbHOrB9acg+qEX
+	 wn7Rq2L8Yd3xAuhS5HjdxICXuI68rTPQglR9/VieMoXg6jKh0inUIK83RoWuWWAtLcCZB
+	 7dYCwFWj7gXaqQbDERQMXD18iQKseCiezty/deBVMOuBoc5V7bSVPfqMtCd13vNAFdhmt
+	 zAgtGiqR0mKgOnrReS455S3VnVgH8QPzxPMR2cvkTap9OJcVjWWNM+bvdnmlX1DWj/A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793884740;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=13hjFRIfFZGAZdG/Aqlbh1CUAUCdnov0gVHSPvbUyXg=;
-	b=fDtNguq0k4dmRcPjTDT8lqvsv2C095Wri3fXF+Cr0L0dXO/7CG7oSQx9oF7uJqFjucf4
-	 9+7oy2o7zGehi5r/QN++Se4Kcc4e0/+csBKgEkMhqfMlyxOL3zTrUG/RiaoE8diR2IbJ7
-	 yuN9HPKdrQTPlGksITB0688zxK8VlFZst6npNDB0vM3mW7fN5TjHKUe+AxWIdzvoI9xsi
-	 hYXL4H7gG66vx8fF3LaAVlSvbRFWj/lQS+bk6fry94WGHxebzGwJHVsecB5atJyKKinJS
-	 AuAvEfQtNUqqTcRcNU83hP+0F+SHgMIXgLuS9nKPeuuLUFQl9V4SElXuPjGzMN1fuIw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m2QCqMTA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=S6rz4FZj5rTnSNK8MJPlFsZu+Zeq6pEytkN6THvBd7k=;
+	b=2WY4OX58CEYxfhjpChuEbnnF0m9MXni2Kr1mIehI/ElKtdmDdiCX9lyxGHaq9P+xQqa5
+	 7eFD1QY/HApNwk7v/DTJ3y+xVPNh4L8+6vhWMUs/WJzQbktOJHN0PLoyeiFhFvzfEFoVo
+	 /X+v4lysiit4h9S0BbVxNcuN/ChzKywmAP3CiUHOprbVToa3xJ+IuZtas1CHmrgKt92tg
+	 ZYSQkck251GTGmY9s9s10Y/qetwMxJFI9Q4g/2TfJ1RfdulG1tVJYheS6tPq9g4B7fwed
+	 GOZLWPZzekJwlZDxt60qHTNyilziTK6K/c9Hq6rsNXaOtqi+sMX53f3hnn3sFahl0xw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uhwiifo0;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 884E2606A32D;
-	Thu,  5 Nov 2026 13:18:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B410606A33F;
+	Thu,  5 Nov 2026 13:18:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m2QCqMTA
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793884731;
-	b=aeIqB43fre2hepXmjEQv5DgOiaoECJJZdIIfjHt/MSQL7M0Hji4tSD8UjujWKW7kdM+W
-	 rz9M3Yd8dX3C9sK0lZsX+hiUCsYEIvUJsgpBDXzaGtel9ySymISt6rQbLdydVQbBhTFLl
-	 A111O4DnNdqdN9hdqsa7aRZsIOfIh4dxhTapfNtKil6q4XOUDZBcXK/nb136sFVsg18b+
-	 LS2pb96/+0neqBqXiFIhciTLLtKdXafHG2VWNuHpDO09Ta99+VoWGuh0KolyjU7knhcd0
-	 6Orqm6XSojxmZdc2CO/lAVMrzNQo1esHce0/ox/KLXsmv+UFg3qbJouHhjC6U/+pY5A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793884731;
-	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=13hjFRIfFZGAZdG/Aqlbh1CUAUCdnov0gVHSPvbUyXg=;
-	b=1xIFrOP2flJyWEFO1tWrI7sdreSJO4qSk7BUimZMASQ160qP9xb1uA7TsZy9zF4B354/
-	 ZbjqiDZv99XKeT4mh59P5oMEl2hGTofCfFGtkr01Ciyz1s7JHwM+WftxSZbZ3dTcICiHl
-	 1Iw9A8lG8Cp8H/fv5LtcLiXBpQNpJ3td1dGggkT++mBE3VlSl7UBSFVCVO8EECCUR1kD7
-	 ruwZ45yeF80xgJ+4/LL9LW9tsJv8hfR0J5fs01NcWTRXsg8rpQ9rNzx6MY29cdLCuTKa3
-	 4x4xXxkl7kghsHOVzOfrf8jBPMklVM625UOJy14KeI+rf1XYP8ZRZyHgXGv04MXZG7Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=90.182.112.124
-Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPSA id CF14D1F0093A;
-	Thu,  5 Nov 2026 13:18:48 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uhwiifo0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05E1B1F000C1;
+	Thu,  5 Nov 2026 13:18:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793884731;
-	bh=13hjFRIfFZGAZdG/Aqlbh1CUAUCdnov0gVHSPvbUyXg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=m2QCqMTAoIWTblRK2aWGupqzWcshXUj1DQlQZoKKoJ5qzSeU+ER4uOHc5pL1d+ZZk
-	 XQrFTXPRis2Qgn2wbGBIb5oaF5o6RWBHfUPAwVdOhFyvHET+x6brlVyjYTu7IoydCd
-	 /UcIj7tfxPK3FmFGLwewFBgfvZh3GaMD6+soHAMiokZSNQwNxzF2aGxeBoD7iCDgEJ
-	 kqijtKdxppcxoYrvo9AgFEvpsh+Chw6BgC1w9DH7Pnk7L5CodzEv+X4yh92BNY9NnO
-	 R2z/MlX897x6iJj+192sEwnaNZu2ThLjoDpZESXAEinN5GTjuTSpezP9MrLGznDDyn
-	 VnTr6MZEo4w/g==
-Date: Thu, 5 Nov 2026 14:18:46 +0100
-From: Joshua Crofts <crofts@kernel.org>
-To: Chen Ni <nichen@iscas.ac.cn>
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, Jonathan Cameron
- <jic23@kernel.org>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Michael Hennerich <Michael.Hennerich@analog.com>, David Lechner
- <dlechner@baylibre.com>, linux@analog.com, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, Andy Shevchenko <andriy.shevchenko@intel.com>
-Subject: Re: [PATCH v2] iio: adc: ad4134: Fix duplicate data_read mux state
- request
-Message-ID: <20261105141846.00004e3a@kernel.org>
-In-Reply-To: <20261105033120.387616-1-nichen@iscas.ac.cn>
-References: <20261105033120.387616-1-nichen@iscas.ac.cn>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	s=k20260515; t=1793884739;
+	bh=S6rz4FZj5rTnSNK8MJPlFsZu+Zeq6pEytkN6THvBd7k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Uhwiifo0Hi+j1kx/dbDda7aCN7DTppcHCIzY7h/zM/Z1pAFHnebHqJSYNrbaD36DG
+	 tDejXiN/viK0rOnz32UeKvtW1RosJ+aSUAmqKIGbf0hXcbZvMjlPD7bsnz6wrMp90+
+	 2xGq9WBpCCgB3VNgGcqb0FWxjFp1trSuXD9IeiNXOx3L7OQNw6gB33p+8gm9qD9GBk
+	 2aLam93FUFR/HAoBnrOCiKNp74ACiR/eg1U7WbopKhFM+UxOin49FcsHXcNh3445FC
+	 MgANafQG/Q0TMHiEHrZOiYGpNacotloKsLybtuhA0mCCZTOY28eASo977WuxLJso73
+	 iIOq8I/fyWk2A==
+Date: Thu, 5 Nov 2026 15:18:56 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Johan Hovold <johan@kernel.org>, Eric Dumazet <edumazet@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Nipun Gupta <nipun.gupta@amd.com>,
+	Nikhil Agarwal <nikhil.agarwal@amd.com>,
+	Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>,
+	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-input@vger.kernel.org, netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-bluetooth@vger.kernel.org, linux-acpi@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-pci@vger.kernel.org,
+	iommu@lists.linux.dev, Jason Gunthorpe <jgg@ziepe.ca>
+Subject: Re: [PATCH 17/17] PCI: Replace untrusted state with device trust
+Message-ID: <20261105131856.GA8298@unreal>
+References: <20261105-device-trust-core-v1-0-1e536825b4eb@nvidia.com>
+ <20261105-device-trust-core-v1-17-1e536825b4eb@nvidia.com>
+ <2026110526-aerobics-correct-4c06@gregkh>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,25 +87,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2026110526-aerobics-correct-4c06@gregkh>
 
-On Thu,  5 Nov 2026 11:31:20 +0800
-Chen Ni <nichen@iscas.ac.cn> wrote:
-
-> devm_mux_state_get() is called twice in a row. The second call's result
-> is stored directly into st->mux_st[AD4134_DOUT0_INPUT] without error
-> checking, and then immediately overwritten by the first call's result.
+On Thu, Nov 05, 2026 at 08:12:51AM -0500, Greg Kroah-Hartman wrote:
+> On Thu, Nov 05, 2026 at 01:42:30PM +0200, Leon Romanovsky wrote:
+> > From: Leon Romanovsky <leonro@nvidia.com>
+> > 
+> > Convert the PCI specific untrusted to use the common device trust
+> > level. Adversarial means the same thing untrusted does.
 > 
-> Remove the duplicate call and check the return value before saving the
-> state.
+> What about for USB?  Will that "move" to use this common trust level?
+> If not, I don't think it's very "common" :)
+
+It supposed to work for all buses out-of-the box, at least this is the
+intention.
+
+Thanks
+
 > 
-> Fixes: f12ecb3e147b ("iio: adc: ad4134: Support SPI 4-wire mode")
-> Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
-
-Ideally your Signed-off-by tag should be the last one in the tag
-block. No need to resend however, this can be tweaked when applying.
-
--- 
-Kind regards,
-Joshua Crofts
+> thanks,
+> 
+> greg k-h
