@@ -1,119 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.11
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793892575;
-	b=QDJjTDWADeeJDK+RGfdUA+i3WivF/xJZ5N7AM3f6mLDZESJn/YXezc/o8tjVgFPp+Dvv
-	 xKEQfpVexYB8FI1qXBJq0Wi+uJ10+9AX45q02Gj/OAQ+AfcdbJtsiSnTzb5b6WFvXONvM
-	 AvXaemaxx0yhrZE8XQ99AKRbQQ/zQqzo9gEGZqaDAm/W31sMsw5W69u6qB6aEtyW+GwjG
-	 JF+jq0OCO/41C8Sl0Q79b6qVitRpfOVnHVZ5tXbLH1MuYuM7uST7vknYw0wsttpSrHpds
-	 x4w3S41+gKiW/dQgP/ZPoOuXPyOcZ/MI8VkBBtKYgq/V6kXzvz/YtQAutKNJ2C70R9g==
+	t=1793892583;
+	b=T1H1yMSNrDvtqTlcrKrz7z3Hc19tpBsjfSffn8kVxX9b24vEiCwb+7IhAzQt907zC0IA
+	 OCSXIYxW9e8X/okweyPATLj7CWXh1V6idK3Apyk1rU/cBn85/UOFmTIiKeLGk2SdGxoQt
+	 hQYnnIpZhPKRPTAcsrqEFdiKaNIxl8tkmiyncTSUgiFY47p8khnVr6OiMEHUz/mX/XvF6
+	 lVtMCKAj0AXkyZqktjcfwi4EmryjDZkG2Pf410NtNB6zSGgz4YmxNLbm2RFzMKq+B8rLO
+	 f02yiqQQAMNXCrFry9kPo6Mh2XQ82u9l3+6CYpsx7w7vAkpBU3kkNOz6QnpU8IFdzaw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793892575;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-NV-OnPremToCloud:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=lXnfzGILnOXRFwCF0b4qg9HuxoF+oN2N8gZ0jPp/KnA=;
-	b=HYM0YVLU+X4Rz/1TApdOEC31vO3EDa268PHUYiAQhLd/qd2xc8xenI1p5Q03QVprF/S0
-	 rGfuCZD6mlmaldugcOfc8zcM708T+674pU3AhK/IB8iT+2ldSPH4dzU9Pk4knk1LtJa+m
-	 scMjzit6s6NEhBvQONC1TC/0BqRQiWhPsq51eV1xWKl7LN3WesyXa6Kjss4cZK4rsO6r/
-	 EEOxr/djr5gIBcASCR5DErpPjBC45M4yeuJeUCxLcajnAWKjqDoTXc0K6Q/U/vTUdB0zG
-	 xfHPoesrTzAqGCYiYfnRImuuoeirsaTEMaw9GmQ4xF7w8tv2FJkh0dZGtWsah2LJc5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793892583;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=p8znggyP8TNEWctP7+xxym7mFvo17c6l2+VQxXmXKY4=;
+	b=Qd1lnGo7EgMFCyXgOaAytCFHrmzv9vu3PUJpNp9S2lgYU3wz9foLP5FE/q/ZNqVE0Yzq
+	 sBc6QoH2aceoaWHxnEOrpn4wCFfYDqLylhFGCSGPOcYnPF2FUZSJ1DNDye0NvzzszQtLm
+	 KQvlyQHTj+APbUEEaaOQnjOKrQkLzi3Uvea4ZPLnyzEtX7Cm7VGjA4eZSw9FNqbqmh98G
+	 92YNkhjsaPiIzR0TiKZG//6+HY4Q2H5tM1eXEa9FJAEjCxnspzeA+5yEppdsOp6BeXtJM
+	 O28r7OpISA7f8h1070UZ5V8wbhDNDLl1eNofPx7yUZww7hdYAfCe8bQRwg61wZ2xXBg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="GSYMDO/4";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.11
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010011.outbound.protection.outlook.com [52.101.201.11])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LgD4lnvd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 951EE606A326;
-	Thu,  5 Nov 2026 15:29:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 951EE606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F95606D837;
+	Thu,  5 Nov 2026 15:29:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=GSYMDO/4
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GL0k21CbOJ61gyGBOwXcdim4S+rNT9LthcDOcByOmNrueLaURh6n/hzgQItfnms8ata1pqobvchBBP/Z2TBkipJ9RygmjHCsX+UC2qRy+OrtLlHZ9KLD3I/zPpPoG+cfc6NZApEXd3ChKuMzvhYqivRqG2yAEL1kBdjtg8jTkW144P9WNIgozKYl65GFP31Qf66axRkKN0s3SiPwW8zZUG8z9pjJJ6Nzn/4X2k+3PRrWcuJegvJPwom3L5qFjt37r69vv6V/7lTDRnXBebAweh/SVRUxiSx9XhmtYWCUXbeck8u9gRzs3K2gAnLqIC5LYAPLq7U99UvVO9R3VjM+Gw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lXnfzGILnOXRFwCF0b4qg9HuxoF+oN2N8gZ0jPp/KnA=;
- b=QdClGuhtC3tHBp0ZjgB8QgqofL8/S484U84FPdOOSZKqbUxy98h4RqCwqSsQ5g9iyz52NBUcx/OJhofpqnQWmNL64w7f5cvf9Ide5hLTz8q14x0IT5LbE1JYF2AMfzoki7F+RYRtXX7KdI3CNV9HWt+e6B71qi6u1bpQaWn02Cn1KXhKdYnpQlha/HsYprb/D2Ugjz3aEzC3oH9X8AI/mGGZOqa3vmsRIdgtzpydcgaJTkT/B5g1o+wAULLewEMhX8I69u/VdrUMSvud9GWRqmmtXADfEwjzqSWEj3q0OZugJ/1/c9wt4lK944nu45nckHAu4REYnkZVAtErg7FChA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.232) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lXnfzGILnOXRFwCF0b4qg9HuxoF+oN2N8gZ0jPp/KnA=;
- b=GSYMDO/4kpsLVTxbcDF7+WfA7Mh++cjvNWHw7cE6UigPUsuMDaBFy396c+93FqiZPSQhvZiuisdpZn3XWZGn7mlfcAZ/WvN2Zu1XZuFYtKUGNrKEMcS/MlaDi2xONgoQQ9uzJxb4luxT61ZhweGQZVnvhxMH6l6HdBXTwkGeQxjWlhntnMqk8RQqPTMcacel2H0p5PVvXHo5ilB0q3GwHyeHkUlx5M5ydefyAVOpzSTP2aMK5tBTVy/c2/2Bl9lHJ7J0I7MIAVbdTxO5n3Rx4KeTGrUXUbIDvsDLv06wpz9dEBF4HXA15pw4pH5/Q1xU4O2OKRg0a8hbiQekZcVjzA==
-Received: from CH0PR13CA0012.namprd13.prod.outlook.com (2603:10b6:610:b1::17)
- by DS1PR12MB999190.namprd12.prod.outlook.com (2603:10b6:8:495::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 15:29:27 +0000
-Received: from CH2PEPF000166C6.namprd04.prod.outlook.com
- (2603:10b6:610:b1:cafe::7b) by CH0PR13CA0012.outlook.office365.com
- (2603:10b6:610:b1::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Thu, 5
- Nov 2026 15:29:27 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.118.232) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.232) by
- CH2PEPF000166C6.mail.protection.outlook.com (10.167.244.233) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Thu, 5 Nov 2026 15:29:27 +0000
-Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
- (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 5 Nov
- 2026 07:29:12 -0800
-Received: from drhqmail202.nvidia.com (10.126.190.181) by
- drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 5 Nov 2026 07:29:12 -0800
-Received: from localhost (10.127.8.12) by mail.nvidia.com (10.126.190.181)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
- Transport; Thu, 5 Nov 2026 07:29:12 -0800
-From: Ankit Agrawal <ankita@nvidia.com>
-To: <linux-cxl@vger.kernel.org>, <linux-pci@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <dave@stgolabs.net>, <jic23@kernel.org>, <dave.jiang@intel.com>,
-	<alison.schofield@intel.com>, <vishal.l.verma@intel.com>, <jgg@nvidia.com>,
-	<aneesh.kumar@kernel.org>, <aik@amd.com>, <yilun.xu@linux.intel.com>,
-	<iweiny@kernel.org>, <ming.li@zohomail.com>, <icheng@nvidia.com>,
-	<bhelgaas@google.com>, <smadhavan@nvidia.com>, <ankita@nvidia.com>,
-	<ilpo.jarvinen@linux.intel.com>, <Smita.KoralahalliChannabasappa@amd.com>,
-	<andriy.shevchenko@linux.intel.com>, <linux-coco@lists.linux.dev>,
-	<terry.bowman@amd.com>, <nik.borisov@suse.com>, <brads@mainlining.org>,
-	<lukas@wunner.de>, <rrichter@amd.com>, <gourry@gourry.net>
-Subject: [RFC PATCH v2 5/5] cxl: Invalidate cached coherent range when Normalized Addressing is detected
-Date: Thu, 5 Nov 2026 15:29:09 +0000
-Message-ID: <20261105152909.53452-6-ankita@nvidia.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261105152909.53452-1-ankita@nvidia.com>
-References: <20261105152909.53452-1-ankita@nvidia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LgD4lnvd
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793892582;
+	b=uvx4spL/f3FEuIbNoFZ7nIaImZ/AzfguTywMPbse0kbT4cBGZTm4NkmVcHkShSye5BPD
+	 AWXbGRMDAryKAvLd/UHFrGk9RMRno9P8MYz2mf/cxc6gCXxCIkMJ8J+DGKelAusXAacm6
+	 2CbJOba/IuuqTAn7+KQOP5gZRuavoGAQLmANdTp5CToyFEhXQvdDl3w+My5aaglwVEpnF
+	 NGyZjlhd4wnKPF7Sj2WYPgpFc/zrBliu53rBZ0e6LOlseNybDEiamzCs06icEUaxQJ+hQ
+	 1v7miMKloG6X1DjyBknFYTnNoLCcgKYOITYsFB8Z6hiLpBymqefUCuLIkhh3i3KSn6w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793892582;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=p8znggyP8TNEWctP7+xxym7mFvo17c6l2+VQxXmXKY4=;
+	b=lH1ZwIuabbwX82hd1LkwlR7mkhvX8zKbOBrM2MBdCK1W+rlg/tpeb2A2PIS98iXruSHW
+	 VKiUp6LBMMFplieP2Lr0LaP6iZfwucAVyiu1ltZi3wvTL86qlHadETdehuw7Ezm9MEhIL
+	 n8oee0rwDNN94647HuXxbm4tGxp9m2TX8ivmxvaFA7dnmDZyPRSLzXdcTy8z3txMMtGTE
+	 niYo+I/OhgMLc90eKcVdyeZ8ZJEgRbvKKV8ZQsool+4EpZXcLXVg5pBDXqdS/ai69sOUY
+	 NiMCwpXv8g8lSXJzF1vAFbn7mmueShkwcPlEoIRX7JS9ShOq0d0gdRs5y4XEGmL/UsA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id BEB611F00A16;
+	Thu,  5 Nov 2026 15:29:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793892582;
+	bh=p8znggyP8TNEWctP7+xxym7mFvo17c6l2+VQxXmXKY4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=LgD4lnvdL10fY0x86lflbuz1L36jeK/iyZFFhwSsoorU/zCG5ERdYeH5ExO4wfZFA
+	 oCzEzZLp7P6Mk2u3VWLgW1df7XGB+1K1eN7on8U+lxUDK4pNb1Pn2CA5+0EN2oxs+t
+	 FEOXuQubHiPyRNd7hRm2wDg/ekPO9Y9zFTcxtsFYXVf1HUOP2wSiiC5168rt165/dm
+	 WKM9/wKI1/pofhd1V35iXM1vAHkOdxMj8Jt0Jcu9BLU7MshEtlPHUZPwcPXGo+Tk5y
+	 Dka22hgNur4jmqSvQCkifw20YIN1cMNfV3Yv2Ec0mf9QJUAcMDU6MsqE8CBFRjc2sP
+	 Xih52RxRA1xGg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 38E6D472DF;
+	Thu,  5 Nov 2026 15:29:41 +0000 (UTC)
+From: Demeter Barna via B4 Relay <devnull+me.fromdisposition.org@kernel.org>
+Date: Thu, 05 Nov 2026 15:29:30 +0000
+Subject: [PATCH 1/2] dt-bindings: crypto: qcom,inline-crypto-engine: Add
+ SM8350
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,136 +83,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF000166C6:EE_|DS1PR12MB999190:EE_
-X-MS-Office365-Filtering-Correlation-Id: ef89a187-1aaf-4fd7-56d1-08df3b519469
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|7416014|23010399003|376014|1800799024|10067099003|22082099003|6133799003|18002099003|56012099006|11063799006|261026140227099003|261028144727099003|261021121427099003|261102123227099003|261022105027099003|261009223027099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
-	q/WWEKIfkPuEpyKk8BrAYiy7aTPw7OJdK64PZcvF4lYSDc+2hCetsV3tjqKbRaKHQS7LBmlQty2FjsgEAO60/M4QRPTftmgwKsRZYcTuDePA9UbYsKR9ib/DKD1FcGiRNvP8ryznv2grGr+8w2pkVs4oY2dhu8oaqBV2ZFIjqZUDCfu063E0VBT9cmyF8iIhyjSwXA+SSRkgoVLNNGDQABqw4QzssTCXe4BET6QNhdKezXf0LNmB0U3OyW40G4rdHxSwJ/KuN0tQdx9Yv+haGFpxhaahNLWQhj2Dl9IL34z2zrkV1fviQiqJ/jYQNo5w0ivCev2bDF9wqwev5FwTa+hBU3EVdnczW92BhSyaDt/+akCLIlNB3LFGvg8u1BAfUeIrnzZd+gxAsycJeu8pPRQ+NskJthYxqmp6mpmnud4qV4Twtgbx4cFPkKs5SVyuiLEaMThrSwoeoqi7/3C25JSixeTXmHnpWVYWdIvNdNWHMdYewkzOIdx4EcsStMB2U186/8jUkAMvciE801nqZ1GxPnGQvf0X1IjP7BoSUYOrP8ZaCyaj3fenD1Jz3h1crAIHlkeB6lVWaU6NB+Cht7ETVCkz8hKSGBICm7bcp32U8WnHu6Dywpa6cnLGSBGdEzA2xCS6WWcmyyLYCEjP5cHdsFviL+8zrh0guS3lhjuMi2iUwE8qJ/SG+uiKWphJ5MXw6irr59AUWVw0DKJtFw==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(7416014)(23010399003)(376014)(1800799024)(10067099003)(22082099003)(6133799003)(18002099003)(56012099006)(11063799006)(261026140227099003)(261028144727099003)(261021121427099003)(261102123227099003)(261022105027099003)(261009223027099003)(261026121527099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	kL2w5wI4e174GdEvTEsGdrs6pSuPrNDJiJBxje3Y0bRK0hwA7RDX0PutDVoqfrtT7Va8+U1NtCPcCNcF2F0RuY38lEBABF1l867AHGUcT2SHsWC0u3Qf2/qmpzFkkJ/Zyn5kFxcA4qXpG9jraOCpwTJ9S6T3J3vy9+yVV2FeIcf0i5yRgyqNlqByik3+NTZi2pSCV7usoHkayGgY+dDLVeCTiSPYQ+L9ZqRt69T9KCU6kkUhoNCGibvjBfhSsPo9n2rBP4b9N7yHpf1KwxaapI1CnTWR10j8Y7kvE3atfK6HtNZQMQnx9RtStLyNECQaiOGIQ8NKsWjMLXVfhaqUdRMuYG6Y3G0taawh7p5zq8Gr870JP5c+S50tj8L5wbs0RRL/lbLvLqph6QFlNVK6lJCNSwZHjMzrbxib9AMTQzxXlYNzQ+kIoDjuCdwLvyXK
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 15:29:27.6745
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef89a187-1aaf-4fd7-56d1-08df3b519469
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF000166C6.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS1PR12MB999190
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261105-b4-sm8350-ice-v1-1-f55e6ea8e1ca@fromdisposition.org>
+References: <20261105-b4-sm8350-ice-v1-0-f55e6ea8e1ca@fromdisposition.org>
+In-Reply-To: <20261105-b4-sm8350-ice-v1-0-f55e6ea8e1ca@fromdisposition.org>
+To: Abel Vesa <abelvesa@kernel.org>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, 
+ "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Demeter Barna <me@fromdisposition.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793892578; l=1578;
+ i=me@fromdisposition.org; s=20261012; h=from:subject:message-id;
+ bh=u0v3UH3x9W1mbgQNCdGqZvEY20x04vN6GLy9V/2qshY=;
+ b=dAdTT0nm4q2Cv6G9ukR940p10kW9bV2xHiVLHSIqZsUscmv2d9Ceo4rs/VMm/ky01MIJtNABd
+ BG9sX1axPMKAHc/tc/dffEB7FL9mMpcLIoSVv29UauC40OaFBwRt8J6
+X-Developer-Key: i=me@fromdisposition.org; a=ed25519;
+ pk=S0QFlGq1BQEaAtPPdAH8YKEOXMeRuSkTgctXuvtU+1Y=
+X-Endpoint-Received: by B4 Relay for me@fromdisposition.org/20261012 with
+ auth_id=1163
+X-Original-From: Demeter Barna <me@fromdisposition.org>
+Reply-To: me@fromdisposition.org
+Content-Transfer-Encoding: 7bit
 
-In case of Normalized addressing, the HDM decoders report DPA instead
-of HPA. Determine such case and ensure the pdev->coh_resource[] do not
-cache it.
+From: Demeter Barna <me@fromdisposition.org>
 
-CXL_DECODER_F_NORMALIZED_ADDRESSING is only set on a decoder once the
-endpoint is assembled into a region in cxl_prm_setup_root(). This is
-well after the HDM decoders are snapshotted and populated in
-pdev->coh_resource[]. So the DPA would be populated in the
-pdev->coh_resource.
+SM8350's UFS host has an inline crypto engine, version 3.2.0, with a
+hardware key manager behind it, clocked by the UFS ICE core and AHB
+clocks and powered by the UFS PHY GDSC. Document the compatible and
+require the power domain and clock names for it, as for SM8450.
 
-Add pci_cxl_hdm_coh_invalidate() and call it later when the normalized
-addressing is identified to clear the cached value.
-
-Signed-off-by: Ankit Agrawal <ankita@nvidia.com>
+Signed-off-by: Demeter Barna <me@fromdisposition.org>
 ---
- drivers/cxl/core/atl.c      |  6 ++++++
- drivers/cxl/core/core.h     |  9 +++++++++
- drivers/cxl/core/resource.c | 32 ++++++++++++++++++++++++++++++++
- 3 files changed, 47 insertions(+)
+ Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/cxl/core/atl.c b/drivers/cxl/core/atl.c
-index 07ce7c50c47a..2bf4d73fd02f 100644
---- a/drivers/cxl/core/atl.c
-+++ b/drivers/cxl/core/atl.c
-@@ -175,6 +175,12 @@ static int cxl_prm_setup_root(struct cxl_root *cxl_root, void *data)
- 	cxld->config.flags |= CXL_DECODER_F_LOCK;
- 	cxld->config.flags |= CXL_DECODER_F_NORMALIZED_ADDRESSING;
- 
-+	/*
-+	 * The PCI-core snapshot of this decoder was taken before the flag was
-+	 * known. Invalidate it so a DPA is never exposed as a coherent HPA.
-+	 */
-+	pci_cxl_hdm_coh_invalidate(pci_dev, cxld->config.id);
-+
- 	ctx->hpa_range = hpa_range;
- 	ctx->interleave_ways = ways;
- 	ctx->interleave_granularity = gran;
-diff --git a/drivers/cxl/core/core.h b/drivers/cxl/core/core.h
-index 1aabbbb4ae5e..97d27a27ab67 100644
---- a/drivers/cxl/core/core.h
-+++ b/drivers/cxl/core/core.h
-@@ -139,6 +139,15 @@ struct cxl_rwsem {
- 
- extern struct cxl_rwsem cxl_rwsem;
- 
-+#ifdef CONFIG_CXL_RESET
-+void pci_cxl_hdm_coh_invalidate(struct pci_dev *pdev, int decoder_id);
-+#else
-+static inline void pci_cxl_hdm_coh_invalidate(struct pci_dev *pdev,
-+					      int decoder_id)
-+{
-+}
-+#endif
-+
- void cxl_commit_start(void __iomem *hdm, struct cxl_decoder_settings *settings);
- int cxld_await_commit(void __iomem *hdm, int id);
- 
-diff --git a/drivers/cxl/core/resource.c b/drivers/cxl/core/resource.c
-index d837f8e952a9..d0774926da2d 100644
---- a/drivers/cxl/core/resource.c
-+++ b/drivers/cxl/core/resource.c
-@@ -527,6 +527,38 @@ void pci_cxl_hdm_cache_release(struct pci_dev *pdev)
- 	kfree(info);
- }
- 
-+/*
-+ * A decoder is found to use Normalized Addressing only once the endpoint is
-+ * assembled into a region, after the snapshot. Record the flag in the cached
-+ * settings and drop the coherent range so a DPA is never reported as an HPA.
-+ */
-+void pci_cxl_hdm_coh_invalidate(struct pci_dev *pdev, int decoder_id)
-+{
-+	struct cxl_hdm_info *info;
-+	struct resource *res;
-+
-+	guard(rwsem_write)(&cxl_rwsem.dpa);
-+	info = pdev->hdm;
-+	if (!info || decoder_id < 0 || decoder_id >= info->decoder_count)
-+		return;
-+
-+	info->settings[decoder_id].config.flags |=
-+		CXL_DECODER_F_NORMALIZED_ADDRESSING;
-+
-+	if (decoder_id >= PCI_CXL_MAX_COHERENT_RANGES)
-+		return;
-+
-+	res = &pdev->coh_resource[decoder_id];
-+	if (!res->flags)
-+		return;
-+
-+	pci_warn(pdev, "CXL coherent range: decoder%d uses Normalized Addressing, dropping %pR\n",
-+		 decoder_id, res);
-+	if (res->parent)
-+		remove_resource(res);
-+	memset(res, 0, sizeof(*res));
-+}
-+
- static void __iomem *cxl_pci_hdm_ioremap_current(struct pci_dev *pdev,
- 						 int bar,
- 						 resource_size_t offset,
+diff --git a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
+index 23bf98c2b..198002f58 100644
+--- a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
++++ b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
+@@ -24,6 +24,7 @@ properties:
+           - qcom,sc7180-inline-crypto-engine
+           - qcom,sc7280-inline-crypto-engine
+           - qcom,shikra-inline-crypto-engine
++          - qcom,sm8350-inline-crypto-engine
+           - qcom,sm8450-inline-crypto-engine
+           - qcom,sm8550-inline-crypto-engine
+           - qcom,sm8650-inline-crypto-engine
+@@ -74,6 +75,7 @@ allOf:
+                 - qcom,sa8775p-inline-crypto-engine
+                 - qcom,sc7180-inline-crypto-engine
+                 - qcom,sc7280-inline-crypto-engine
++                - qcom,sm8350-inline-crypto-engine
+                 - qcom,sm8450-inline-crypto-engine
+                 - qcom,sm8550-inline-crypto-engine
+                 - qcom,sm8650-inline-crypto-engine
+
 -- 
 2.53.0
+
 
