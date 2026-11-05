@@ -1,133 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793869490;
-	b=zB+U34QigPH8QO3MPpwfKfSoI5Pt8QSRJUoBQFplVUBqNxROkcuNYP+WY3+nGPs1IYSs
-	 3QNrcW0xaIunpQpJJYKf1F2TSjiS9liMsKti5QBr+xGe+qQ/YtMHEWCXEEThrnpy7Iw7V
-	 GzjkMiwrPKk2FnXNDNAb3IU1zjRvmpVJP5nBPE09IpJNTKcmW9Y9gsiHP7VLgCnOKRiq4
-	 RLKC3ljc2MSy3fRsua1W/l/HGdWjmZ2j5RuiN50lhVz298/JbHkMpDouuBYrMIuv1VdCL
-	 ZOZorK0ML1xsLueBpy0p/Zb3loJGElpt3Xo+FC77G1dM+NwLhdATXog+EWVEzWSHlNg==
+	t=1793869488;
+	b=qOeNQHdVXqkOrciLR0HGGLlGqRFWYXZk2ygy4X0rTamvMHvNRb/stdgNKQFPXNKbIKZu
+	 7Q4f/E2oXzQgVsvfEPibAXITpSFExa8MADAgsw3d9erXs/ijZdjnu9o4B6VHZ8usxm7aw
+	 n7yI4crj9HINKFMyqlBCtaIcGZEwGgTZZmiY5/9MrF5z4bvxZprTuLir1we2N9tpXNCgI
+	 zO6jJc/wqYe2d9lMEqBDzmGLAsS/hF1DHLDkoao9WTZ/GcudYuuslvrEvrkIYAoKHs2Fs
+	 5xf331eyY6PAHxg2o7quD9Pj6bZ4ZfNB3aINnbzvGVJj12DrbHsba4TfnS4qJ4oaCDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793869490;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793869488;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=Y7soNQkoJL0Hf12qOxG9iJhIaujgxOHIpYViOEz9LeQ=;
-	b=IE3mLQj/998reBRDmaFoV8zfe6IszppjjfZjWpFZ5fabF6rQQT5vmLueD77cO1WDq+Qh
-	 B28snP6aOJ5quRGPu4Q9A9MN9kmJ3sIotIxyuXzO1MsVuTIoAKrEqW6Gx1L1U03aU2upf
-	 Jf9Hd7e2pxU3doJW2mLSoD6/jpwia2/FvWhLxhalaOxtrTWYoS4OQylcf6Xc7SryZtaCl
-	 xxBGKReiKdJ1DzIWp3MtMuxAhPB2cSN6PsM/fuhexTl3zUbQrOm7EzqCX1W/Yqx83ULDH
-	 ioEXyX6CUUb5pyhNE0+fg4nAkJBRuZFkD2Bx0SXNF/IzLQCWJ5vufbLnzsVrlRLeaQA==
+	 Content-Disposition:In-Reply-To;
+	bh=gz5sekZhkEN5i4KTVnJFPB0GpaceA8nVJ3ASWXSb3No=;
+	b=qWD2IYCZdbqvg9pNrR54M5Xwz4aEIZKLWvKtwbW9zRKdoSfzTvBZSdW2ZFKjIrThpqQ5
+	 SCDXd4id1ligKJ4k+gpjAN20pltI8DNsZ36ReBL0kuQVMA1Ye6I7ZGcJAUKvabqoS1wxH
+	 M7Ac8dTxisDU9cOy1m/vkZqFYsB025GCPqm6nzS3vr4eZnpK73Np2Kc8Xw5tzxUnCCpEQ
+	 INtCdXJJdnNRhQpwATegCVroLwETnQXmIRz8iK5tXfLIYNjzOPv/sVw9PnTZFHIfpE0Gr
+	 sqN603M2n1Zg9RVa2eARw6udyehur51xg+NpGy/jpdwLnVLgzbEXt3L8bluHn6gxYug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="h1O/1r2s";
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=A090ybic;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3006606A32D;
-	Thu,  5 Nov 2026 09:04:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3006606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECA8F606A31B;
+	Thu,  5 Nov 2026 09:04:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECA8F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=h1O/1r2s
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793869490; x=1825405490;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=LECBwyHoq/Gb/ca6fZikFPfxANCrjI25ogdvAt/TfI0=;
-  b=h1O/1r2sN3gY9P/pMrrzAiNgeD9e83BGDfUBPWAhhEa6T9XJei35lKKO
-   2OP/gXoIttBNTiUBSpFWQ1njFQoOm/7ASX9q8v5Piw0HP//5b+/YMHgdT
-   qoh3BGLysUBWuL9CdS5LZU8+AUnm9VgP3vWtIurqN0v3vFa8WVXLU6SVI
-   8HG1yti14JfGUizUNUZ/MtwYojNpEjM41jzvKzqZ6DRjN3X0s+IqmJeQn
-   lh7nL/a/7FC4K6zOsr6zOfrRFmTLCpjoNlLll3BFujXewOb8YOMy+nz5I
-   q0zUah24uXrBukFBlta/XCiHBuukRP6vwz9qfAx6bHqRvkt97pQCXfU4m
-   w==;
-X-CSE-ConnectionGUID: UUfeBzAtSPulGWd2oNjrzA==
-X-CSE-MsgGUID: i9w/j+0xRLGjtsgvmIyoIg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2523312"
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="2523312"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 01:04:49 -0800
-X-CSE-ConnectionGUID: iP5CMRdrQXSK1/i0FAHKxQ==
-X-CSE-MsgGUID: x5ccBZCwRCiV8KzewVnjww==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="6789320"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 01:04:36 -0800
-Date: Thu, 5 Nov 2026 11:04:34 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Frank.Li@oss.nxp.com, Mark Brown <broonie@kernel.org>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Radu Pirea <radu_nicolae.pirea@upb.ro>,
-	CL Wang <cl634@andestech.com>,
-	Ryan Wanner <ryan.wanner@microchip.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Vladimir Oltean <olteanv@gmail.com>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>,
-	Haibo Chen <haibo.chen@nxp.com>, Linus Walleij <linusw@kernel.org>,
-	Daniel Mack <daniel@zonque.org>,
-	Haojian Zhuang <haojian.zhuang@gmail.com>,
-	Robert Jarzmik <robert.jarzmik@free.fr>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>, Yixun Lan <dlan@kernel.org>,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Alain Volmat <alain.volmat@foss.st.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Sowjanya Komatineni <skomatineni@nvidia.com>,
-	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	"open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
-	"moderated list:ARM/Microchip (AT91) SoC support" <linux-arm-kernel@lists.infradead.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE" <linux-rpi-kernel@lists.infradead.org>,
-	"open list:FREESCALE DSPI DRIVER" <imx@lists.linux.dev>,
-	"open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
-	"open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
-	"open list:RENESAS RZ/V2H(P) RSPI DRIVER" <linux-renesas-soc@vger.kernel.org>,
-	"open list:SAMSUNG SPI DRIVERS" <linux-samsung-soc@vger.kernel.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>,
-	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>,
-	"open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
-	"open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
-	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Thierry Reding <treding@nvidia.com>
-Subject: Re: [PATCH v2 1/1] spi: use dmaengine_desc_set_callback()
-Message-ID: <auxGom0XR-Hax9b3@ashevche-desk.local>
-References: <20261104152253.3279052-1-Frank.Li@oss.nxp.com>
- <autj6pr_bPaul3w0@ashevche-desk.local>
- <7f96599b-681d-4963-bdda-1274371ac84f@kernel.org>
- <f1fa853d-1703-411d-b2d2-0fb0b176c2fa@kernel.org>
- <autqC143h7Qf1R9H@ashevche-desk.local>
- <9e39502a-dd17-4fa2-98a3-9019523cb5e8@kernel.org>
- <auuYcS7-YqJKcUbE@ashevche-desk.local>
- <63c24437-4261-4a51-be7e-31ac0759a095@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=A090ybic
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=gz5sekZhkEN5i4KTVnJFPB0GpaceA8nVJ3ASWXSb3No=; b=A090ybicYHuJUXKX52u0Jbpa0M
+	BlrGtwZwjal56BippSBYVqX582lCQV8utP4PlFbrD2s8OGq1EFIx4p8OW8BGDFupZBJqvzMayjg9k
+	EtmgVO66mS2nusbHe+EafDJYftNi3sSBMwU7ajar8/ks1ufBzNiRCZgVxLCZN0PjsjquEjudf8SXI
+	lme1YI+aaY9pB7ahZFF2hF4AvJUVkHF+HFP2rg5l56A5+wNJGX3m/aW2BM3jUMnzJcchB17U1mCFH
+	76wtQWSwQKZQ05B+IH5amI5jI5Vy+1WftK2ZKjz+eu+Du8gakXhjbhihIqtx7taFTky18BrRbtjUA
+	4CF9vMww==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xOtOg-00000006W57-0YHQ;
+	Thu, 05 Nov 2026 09:04:38 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id BBD9A30057E; Thu, 05 Nov 2026 10:04:37 +0100 (CET)
+Date: Thu, 5 Nov 2026 10:04:37 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Borislav Petkov <bp@alien8.de>
+Cc: Vineet Gupta <vineet.gupta@linux.dev>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>, "Xin Li (Intel)" <xin@zytor.com>,
+	Brian Gerst <brgerst@gmail.com>,
+	Nikolay Borisov <nik.borisov@suse.com>,
+	linux-kernel@vger.kernel.org,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Robin Murphy <robin.murphy@arm.com>, iommu@lists.linux.dev,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org, llvm@lists.linux.dev
+Subject: Re: [PATCH 0/4] Fix the x86 defconfig build with GCC 17
+Message-ID: <20261105090437.GT2668804@noisy.programming.kicks-ass.net>
+References: <20261104160722.1637541-1-vineet.gupta@linux.dev>
+ <20261104162747.GAautdA2q2lw2gsth2@fat_crate.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -139,30 +97,16 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <63c24437-4261-4a51-be7e-31ac0759a095@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261104162747.GAautdA2q2lw2gsth2@fat_crate.local>
 
-On Wed, Nov 04, 2026 at 11:54:56PM +0100, Krzysztof Kozlowski wrote:
-> On 04/11/2026 21:41, Andy Shevchenko wrote:
-> >>
-> >> But sure, if we want to play such numbers game, I will be sending
-> >> reviews for single lines.
-> > 
-> > I'm not playing anything. The problem is that the patch unites the files that
-> > have distinct maintainers and unrelated to each other code. That's why in the
-> > subsystems I maintain, I almost always require to split on per-driver basis.
-> > Yes, exceptions are possible, but has to be quite rare.
+On Wed, Nov 04, 2026 at 08:27:47AM -0800, Borislav Petkov wrote:
+> On Wed, Nov 04, 2026 at 08:07:17AM -0800, Vineet Gupta wrote:
+> > Fix build warnings and failures (CONFIG_WERROR=y) with a GCC 17 build.
+> > GCC 17 adds -Wconstant-logical-operand which is strict about operands
+> > of && or || that fold to a constant other than 0 or 1.
 > 
-> That's independent problem. Patch could be split, but it was not. Since
-> it was not, receiving end should act accordingly, e.g. when performing
-> incomplete review of only part of the patch, do not call that entire
-> patch was reviewed by giving the Rb tag, but give Ack tag.
+> Just from looking at it, my initial reaction would be to disable that option.
+> 
+> Because, frankly, I don't see the point.
 
-No, (partial) Rb != Ack.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Yes, this. This seems like a really pointless warning to me too.
