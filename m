@@ -1,77 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793839185;
-	b=eU+paAJOqrejj567RmY5miutybnHaPdDTAXyzbzfa5Qe61BlbN+9zRedz4MwqrJDgzCo
-	 F+zoqSfhD3WIxRh0q2BKnuSCjW35nY9lEUeXPnAcoPyG1s5vLEF7zAsPvNGSJzsXv4Qtc
-	 EDInX9Ch6mbBUyYQAD/7LJW33mND0lrV6LPh0D8Y5K7eDDk9eXvpOsnrXnRqt2QSgWRmE
-	 pNEOFjB8Av4BpkJ1OUijaJev+PMlXpo3aG0VungxV8rjNUWbw4WkGD7lQJ4coi1XYo8Sk
-	 6//6iiIJI7z3BSKGNMBqqqlAMGNNU/M5DDaA36HFyurM3J8A4o/bqeio13sPTJFautQ==
+	t=1793839373;
+	b=26UP57RbexyDxlpTbB7PiFj6blM/GwuDk0BIzg5mJwaDOFuW6FTUvTlJWGQrZkYE7tIa
+	 KPhlIWQZ2byu2tMxNmjiJ0TidTUTx3UUn6eunUG3abSCRPwRmAIxMcLGYb8ULHi8I+mBU
+	 oJqKpCO5zVSPemhprqfCUQ33fD5IT0hvdWnlFoUS2WMQA90AXk1qbYE2BfqPRUWWU2FET
+	 ErFA8yJragcYFfv09v2ZRjatrfuca26v1pXfPXAqP0bCrNWhkLexFJRJkp0OZWTo19A6K
+	 DY4cRZA5PY5ISoiGHSFw5hQhx6sguaABXlFxahKuYS4Z2rtSTl88+Atcd+BZQi5ZjUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793839185;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793839373;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
 	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
 	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
 	 Subject:To:Cc:Content-Type;
-	bh=GxOPm+285zQy6VsOAo+zo6AXQiUSUYodxFXi8M2wfms=;
-	b=Fc0yI1cTWizYyvpwIw46RdzTxDgrWdzCDsbml1x8CtWot9Ibg056EpsIS360qiMCb9fF
-	 XUmZyPOM+02/cGKguuezj2dg9qn0cBASFGAeS0h42ATH29xJ+GRtz5zCWBibINfdcXH1F
-	 8EYZ2Gx9jcBnAcXDMrazhupAHlcHztFyu2lHKch90CvMaYzXynZbFRwGpxIC6oq7ObMn5
-	 GZ+NZon+/NzvTNiksg011SS+4wNvn75qCRBogAxaRyhQA22b3JytH9reK32pruNOXSh7B
-	 Qgv+3y4qzopdKv4WMbZBGD+eI0R9ea7CLr5PyvJDCYpHb5zBoTg8iKJyp+UHBCqU8Kg==
+	bh=dlcvkUVMW/9VrLP4zZpdDbI5u+zIZh6oyaHuXCV8ZD4=;
+	b=N4drlxyZoICXy+/jqSX72B2W4q7Z5X29xbnf8DpYgY54CjfsUMXYbRxm+6W7/Ynp4a21
+	 HzCCwuOMit4SgUDyZ0j7mQewqGkiYrqMlBPy7Md16WNzi5AsO7B0cuo9iPCbqDdkNsySG
+	 GH0xka0lYuIvoWb+HTkqOM9eTYjwTih6ckixnM/91TnaLdFlG+I4h6tUgr6sGLNcOllCC
+	 YRAkQL54eiunqtlnoqZ1uPva0IIzdrju5tOipwqng7K8WB7bS1JgdUXgsa95msj5wTuFd
+	 bWehOPCpoK48Agubgx9gyfPVulYozLQhTpIAurkRlHmfzHAROyM3b7gThvdOBsq94Pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=telaak.dev;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.215.173
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	arc=none smtp.remote-ip=209.85.214.171
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDBA0606A330
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:39:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDBA0606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B732606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:42:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B732606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cd62c570b5dso886677a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:39:44 -0800 (PST)
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2ed08b07213so5393385ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:42:52 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793839184; x=1794443984;
+        d=1e100.net; s=20260707; t=1793839372; x=1794444172;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=GxOPm+285zQy6VsOAo+zo6AXQiUSUYodxFXi8M2wfms=;
-        b=VKaWqRgljpOcZqMO/Q524tG3DsRhCrhMkyGvlh/G5nDN2N3PzAgTA1PR83FiBGupcd
-         2jlGCWnYZLeUigfq41Vk0DZiOclKN+KglPgqqsHKjnCzf+WkRQrtSt6MCxRYgadE0xYl
-         W3syG7b45YKATnn4N3osRo0laLWtAQ4lKTfC4LyGKu2dsQQqlqOTmjVkyXLRZSSf/aTT
-         UGgemboKWPugILpo99Xku6C3ytUjuLE8Ri1lmmA2Llxt+pKHBsD3/DSbj8CTC35GfwSE
-         FPDdO8Jp6iTW1SBfMWuYwtFfKwZB7UmEtmEQe1lvumOfpXNFo2URsqDckO8PCtyq+eln
-         yCJQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzK8mfP3ZqDWQ3eKqzNmv+S1nKM4xqqSi2ewAQ1etwL3m//IFJoMbbNiEJNN7/cCWl9QaEuOiLA49AuwHA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+B2Ey/yM1Z7rwdu7JpI80d5BUkZ16LIFVWwmKif53dXRq7BilL
-	ViiWBdnRgVvADqKo7jvqGjb277OCgJ8KcNLcpmoYmDRkFoEeWQPbBTCeWyi+rpHq
-X-Gm-Gg: AYBFou0SyUYnjLgfuqx0YL2frgQjzkrUsIYymlOPPPuJf0imQekSOh4V5rGHQabXj6A
-	d0Snhj4cEeKuarepdF74tCjYOiIHPZjYM5Ms0vnLh4idmVsDzpjUOHZq7jqfX5fZuCo/+dGALpR
-	Oz2VDLR6S8jwxfqIILvldj0sSdFQ0wyYLLwDbfv6h29N4f8GZdkYIFvMXwQd8eRxFxcDJ50vQvX
-	FUOY6JwWTo/C2jajsmNVpXPn5Y1qpUalHGadNRgiBgcTHtyTnVn4FDwubIYytY1tnz1kRxYRCoV
-	3EWC0UQSNJWaLpITPzb6slil7Vll9FLhr7HmS4q5qGbw3uQIsd3B/AGsTczR5TaWbjyD3oBs+0s
-	TXG3RHSmV6UM5vpddhKgj9j+BC9+JO+R16eZNHn8kGjvFos4gmhktkZE9Ksnm+071NhwjVj2ljs
-	C1Vg1zMMIP/O6RGqnWtFWM3fPb6rMoUNAGbMwj6MQ7t3INKqMpX/Qy7DlIQQy8e0SW30dqLqDFo
-	INYbBdqbi9Irzz4WNOV8KoJM2fuWPoPoQth+gToEbpYd+x6ivPnK1pUQ/9rOX96myN8MHj/7JYv
-	SnChILAkm7yEji98yCaFrx7YjDcY8LSd5GiHhru7jU00wAKgEW6hjifn2GWSUaI/qw3PZNp6v/D
-	xVD5niMkgttD6rja2Sfe4NyWcMaCvKnxuQqTNI4EHLfmaJA==
-X-Received: by 2002:a17:90b:5147:b0:3ac:b3e5:428f with SMTP id 98e67ed59e1d1-3ae897ce445mr15747831a91.53.1793839184213;
-        Wed, 04 Nov 2026 16:39:44 -0800 (PST)
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com. [74.125.82.181])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b2cf31acsm1025299a91.0.2026.11.04.16.39.43
+        bh=dlcvkUVMW/9VrLP4zZpdDbI5u+zIZh6oyaHuXCV8ZD4=;
+        b=uY9mbbxnMmE4IaVOJ0VIkOgoTWFZ4P0rJG5dzcNqlENu1Gx3F1r3s8DjwhEOogEIaS
+         dQsSfvRjQndZAdiwK73/YgpHyiygdWPdr6OvrFiA9EfmP6c6cpk7wwlbZ+YJhltdJY1X
+         vnm8TgFdCdUi4WBpdx7Hhftzn4Ex1xG3q1lmrrtKuys5RO/HBgVSdlipenwc5weYZG5s
+         e4AjL5AeXitEsWqvrjsqlollwMWPB720Z7WXjcDGyQQpT8e0mGCuMFp0fSqm463PBzFd
+         6l4L1b8ErmhYBbej3r4FGwUsc/mpfg0mYR2m34VyhauVl+xaaE8vguDn5bFxHzHNSYEt
+         qTyg==
+X-Forwarded-Encrypted: i=1; AKwUvBw0pKD/H0VtaUm29zPKgR6wHLJ3V1CfKyXJgY9yfBY5CawQOyoNdOltI2jJMQw0AdtoXtqmUlzQdka2ziI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/2KOT0G+i3PCnE3WMas2IuqMdpkoLcD2fLc2DXqFhW3FtG80xw
+	QEQtVs1kcF9kePTqYJS4FpxOnlPLIjjBul+8oomP1XRKveROQhxWsWkCxpa0KhYW
+X-Gm-Gg: AYBFou0f41N5w7T54gXDyuAF3hM9goRiMpK/Qtp62I9UfdvH2t5hUMoF4MhNXqn81An
+	G5U+jgnZDU15EzOY12aFleRaxuqFfRFZ2e7939xkY3TfokGh5M/E9uypsY+WBU04Zt39jCywo3x
+	z5ZpzTudMb6N9bvbkUYHEta80odduSEhpA4pD/eCK0/t3M9/JG0uMh04NhGemaIZvnhm35VKhSq
+	NHBsXNBrucOzQotbdcL6ApE7kZ4C2lOlmOavAcSrWW3fVarcUYrmDqrW5bSqS6ehO8CsMvK3IYu
+	HjlESZWWzsSzmae6gq7TsKDy2U0WUJFwvc1q91Ro5sS6XPXdQyqF4ym6vLlXAKAwvkmIlNwT9ub
+	H8BSRHbauhpMfhWqHSrfwLNzJfJPR7RfW0fdEQMZwcOujD2QIeQ6UzGuDeLJA7jGbT77A59S+dm
+	moezgTNjQPAXM3gF52VrszdZaCXq6zPCDPltfTLfKa2tAJsnU9DOaDQxLKZfern1kEjHn5vT5XF
+	aOgHrGfD+G5XCocjtim014KNCfoTSZBTEdXuDosOX9Jf5fgVxgkgoOilRSCjA9La3ulbPZSAOGy
+	CFs/7jUToOMzKGjuPmQt3jZL/lFV64KedxYTuYK78n3jtFCuKzkREm4y4XrrIuXBxQ+8vFP2p54
+	sCk+yb0Ovwbgr64gyFGM+8oXfIE+4GVdm0dumfrJ0qHM=
+X-Received: by 2002:a17:902:db07:b0:2df:3b0c:a6a5 with SMTP id d9443c01a7336-2eb363ffa7emr179256045ad.9.1793839372283;
+        Wed, 04 Nov 2026 16:42:52 -0800 (PST)
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com. [74.125.82.179])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed08bd5202sm11665735ad.6.2026.11.04.16.42.51
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 16:39:44 -0800 (PST)
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36661f953e4so1820539eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:39:43 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBzSc6ceSRGWOyx3YcRJDPKHgO9N2U061TJog5M7VeSYd28VPmyAZIx7TCUfn7XfbjSwUEK1aDWDk55rBXY=@vger.kernel.org
-X-Received: by 2002:a05:7300:7f95:b0:35d:eafd:5737 with SMTP id
- 5a478bee46e88-36a423bec77mr38131346eec.22.1793839183442; Wed, 04 Nov 2026
- 16:39:43 -0800 (PST)
+        Wed, 04 Nov 2026 16:42:51 -0800 (PST)
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-36a18fc7a38so795054eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:42:51 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwHxYNS1ldw7I1jD0IinUJU9CJ2t3q+DuXSrvHwN77ErPK+GWbrZEFwUET21Uge6DS8TSrKNJP0xrJlC/o=@vger.kernel.org
+X-Received: by 2002:a05:693c:6092:b0:369:1084:8ee3 with SMTP id
+ 5a478bee46e88-36a423e52c8mr30753485eec.23.1793839370626; Wed, 04 Nov 2026
+ 16:42:50 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,39 +81,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-sf19a2890-usb-phy-v1-0-db0cad937614@telaak.dev>
- <20261104-sf19a2890-usb-phy-v1-1-db0cad937614@telaak.dev> <20261104-unscented-armory-4dc756ab95cb@spud>
-In-Reply-To: <20261104-unscented-armory-4dc756ab95cb@spud>
+References: <20261104-sf19a2890-gpio-v1-0-45e463c48728@telaak.dev>
+ <20261104-sf19a2890-gpio-v1-1-45e463c48728@telaak.dev> <20261104-judiciary-fool-05c4157a7cc7@spud>
+In-Reply-To: <20261104-judiciary-fool-05c4157a7cc7@spud>
 From: Joseph Telaak <joseph@telaak.dev>
-Date: Wed, 4 Nov 2026 19:39:32 -0500
-X-Gmail-Original-Message-ID: <CAPY4CJ5g+e4iu8p5s+Vf7XmEjB9cYX9xYyzHd0Fz8GEbmFm4hw@mail.gmail.com>
-X-Gm-Features: AclHuK9Sx3shGebCfLzax5r8eL6ok4wMG4whrKpB9TRpvY4T3TEbHPr-vy2WL-g
-Message-ID: <CAPY4CJ5g+e4iu8p5s+Vf7XmEjB9cYX9xYyzHd0Fz8GEbmFm4hw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] dt-bindings: phy: Add Siflower SF19A2890 USB 2.0 PHY
+Date: Wed, 4 Nov 2026 19:42:39 -0500
+X-Gmail-Original-Message-ID: <CAPY4CJ7SZAqNm55Wz6yC0_HP_DCVeDbr8b76+p73c484t7q8ug@mail.gmail.com>
+X-Gm-Features: AclHuK9UIWS9fpedIq3oDi0GN4EX_Euc3hJiZbuLEwPXjtpIZ-TUvM_M3RT-lRw
+Message-ID: <CAPY4CJ7SZAqNm55Wz6yC0_HP_DCVeDbr8b76+p73c484t7q8ug@mail.gmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings: gpio: Add Siflower SF19A2890 GPIO controller
 To: Conor Dooley <conor@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Chuanhong Guo <gch981213@gmail.com>, linux-mips@vger.kernel.org, 
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+	Philipp Zabel <p.zabel@pengutronix.de>, Chuanhong Guo <gch981213@gmail.com>, 
+	Qingfang Deng <dqfext@gmail.com>, linux-mips@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-> > +        reg = <0x19e0c040 0x60>;
+> FYI, these other devices need their own compatible strings when a dts
+> for them is added.
+
+Understood. v2 describes only the SF19A2890, and support for the others
+will come with compatibles of their own.
+
+> > +  reg:
+> > +    maxItems: 1
 >
-> That's a weird offset and size.
-> What lies in the regions around this device?
+> Move this below compatible.
 
-It sits in the 1 KiB from 0x19e0c000 up to the next block at
-0x19e0c400. At 0x0, 0x4 and 0xc are the reset, clock gate and bus output
-enable registers of the USB clock and reset manager, which the clk
-series describes as siflower,sf19a2890-usb-crm; 0x8 holds a value I
-have no documentation for. The OpenWrt port gives the PHY 0x40-0x9f,
-and its driver only uses 0x44, the PHY's sleep control. Read from
-U-Boot, registers between 0x40 and 0x8f hold non-zero values I have no
-documentation for either, and the rest reads as 0. The GMAC's
-configuration registers sit the same way, at 0x40 past its clock and
-reset manager at 0x19e04400.
+Will do.
 
-If you'd prefer one node for the whole region, providing the clocks,
-resets and the PHY, I'll restructure it that way for v2.
+> > +  ngpios:
+> > +    description:
+> > +      The number of GPIOs available on the controller implementation.
+> > +    minimum: 1
+>
+> With no maximum?
+
+v2 drops ngpios instead, since the compatible implies it: the driver
+will take the 49 lines from its match data, and the binding will take
+exactly four interrupts, one per 16 lines.
+
+> Please fix the ordering here too.
+
+Will do, in the same order as the properties.
