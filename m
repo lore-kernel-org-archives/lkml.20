@@ -1,83 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793883019;
-	b=ZFtyKkEvGa4b/k/ow7hrz3CW1e7segIU0Ub864IVimG/nqLuWH5zAN8Xu1pjviBgFBuY
-	 hyCuOmeitr2RrzfI3cmrCw3m8z6V2izaIhDvrZXnE+ZBjleprM4KVQbapTtp5od8rGxYx
-	 KxAK3TYfqP5d1eCSkQvICvN7b7NGE5w+fsqmrdWsQFhnXQz3ojTQ1YP+8LlHN20KqfiJh
-	 JXaQeNNsZjHB0QcGxQ8s5HeMBs2A08IxJl4DBO3JBCS3o6nTC6vnSEOj+uAFG6P30iQuT
-	 WZZLLa1rDZ3TWt3zMMpbldr3HS5qJ+lqb9py4Ny1uqugiaaaAHoWcPaogEN3Y6VgyPQ==
+	t=1793883015;
+	b=3p5ZhMzJGoh3ctVUpU5HLuAut/JcZJfLoSi/wQxBywIXR8R5NdDS4ZEobgTCXBzRs067
+	 2KKOZXkBr5l8BNOMEhyuZ5u/JBDqoxOquYZ9ABTxCxfBkrb3wMpnfdXAR3hppIDIVhwbV
+	 OLwovADRE2UYJohhOOg+vvRXMkpyoXiW/CKw8jdihKUZg9Gl9wrj1BsZa75FhmvD5dXlJ
+	 5l9sPC5dEnefArAZi1q7hfIaH0mtJ91oTMevV0+7/5W1dPhfu7KaGDmbUb3oxNAV5nXo9
+	 iF1A3fUhZoVjssMWPtpimToTQ2mPFTc75cPWVzSISG5cNokKiKi4ZwdHs9oXIkJLFOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793883019;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793883015;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=RdyiRLv7e1N7dBqCXNkMCcJEXQWJI7RZIXVTawyjL7E=;
-	b=0imClLSmh5c4WxcMv4ei7vRIZYSqjFj4aqmn7FBuDi5Yp0dZEvLm7PbER+JbnUZ45MyH
-	 h2QirGtDEEYJjv94xY1G2HAnA3QUIyQtMO4sQuWuwTxVp32jO+opabSeVu1CBFgO63Ff0
-	 Czwf2zuqIcnmaKk1JcWU94DL2r4AwqZim6pZYPT3LGWaAxAFNrA+DG8f7oZnMnLUtJjOL
-	 gSaQrvQoB2f+bzZqzx7FJVQpzaX+vSIlZ4x4u1DZhAad4fP8x2OZT6cYwZ7lSfEhdgsuQ
-	 u6kmKx/zYZM8tvVU33YubGfobMfz8a5hV/OzL5l2/r19JIu3oP9F/rzhDb3ZQHB0oqw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=RelRpHTTIUBHZAk4EQyLEmZyhVHOpEokc+ctiSQX2Wo=;
+	b=O3ns3go2za+yfvwzE+oOqHuEDGp+RAVO+qcu6XPmljflB8OtTwCR9KGiQZcA8KHPhGyu
+	 hQhbFFpsj/7nh+iCZuwdmxrB6dCpNcWYmNxbxdzkdZFngBlfBBL/yCO+tuhTy1hYLiTzd
+	 2Mzh0haLXapbOuCNobLmfjdLs57PQ7evd68hRD5IdhaRalSqwJUi/8ADXCVktHwbuJB1G
+	 a3atGwzISnLFXzrwXlS6dzcv5bsXLUHognIJO7iOVRMXQbc9ni5mSBqsGqeESDBK3gcYw
+	 RMyHKmvzegUYQ4TOA3uA4BBYbK5kq75gDRKWoSnEypeBk0SFPfm+6JT5nQe9kCFOPSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=blockcast.net;
 	spf=pass smtp.mailfrom=blockcast.net;
-	dkim=pass header.d=blockcast.net header.i=@blockcast.net header.a=rsa-sha256 header.s=google header.b=Ct4lTTvn;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	dkim=pass header.d=blockcast.net header.i=@blockcast.net header.a=rsa-sha256 header.s=google header.b=CDMyAeUq;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B87C606D822
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:50:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B87C606D822
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0940E606A330
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:50:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0940E606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blockcast.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=blockcast.net header.i=@blockcast.net header.a=rsa-sha256 header.s=google header.b=Ct4lTTvn
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36e795af1d4so501854eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 04:50:18 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=blockcast.net header.i=@blockcast.net header.a=rsa-sha256 header.s=google header.b=CDMyAeUq
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36e99cf7bb3so555772eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 04:50:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blockcast.net; s=google; t=1793883018; x=1794487818; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RdyiRLv7e1N7dBqCXNkMCcJEXQWJI7RZIXVTawyjL7E=;
-        b=Ct4lTTvnmx+AhocEeH92uMHCCd5cp/yt3zz94xDx4WFdFEW2po1ZlJAWgUoVTj10xW
-         IjoywvAejIzq3vQ81pw5FviPJaJ4loJ7sZeMfN4StXhLJ28zCvL3Wf6Y356LMHV0kFEI
-         zaamoC+fpt9gnkpw12cGDCLI66Ha1Oc500Xix3tecIJAEERAwgfHFPAVu3V4txQYJkr/
-         fbVpp5mjfTlMyYEM1xxCawiiPTgFJ1LSk+j24PpRVL8f8+AlgRKZcH04ykvjrWF0V4c4
-         DtOHcUBBSAcCODEEt/xJqghpxeApjA/VmAWUJNzvmWTr9ATN26fcIhZVfMNAksQCN6hQ
-         sv4w==
+        d=blockcast.net; s=google; t=1793883014; x=1794487814; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RelRpHTTIUBHZAk4EQyLEmZyhVHOpEokc+ctiSQX2Wo=;
+        b=CDMyAeUqIe7jsC7YScgY7JnZ3+LJwvaxTk4uhpiJFoYJe9pdC9n5sVAj/NTaF94LNL
+         wtNXWAdEzqLg2VLyOg3jDgrf1/cXdIKveFPKsAM3W+Zz2DJUBd1o2UDI/6yebYXQJG8a
+         l47jCAJ7MWLdrKUCMHTCRtHwiIVZ6+L3WArIVoQGBVytD0SFp0eb3pKvA62TVv98EWz5
+         VgEQ3gzMKpwYBlZ0hdbXSv8cER3MJh6Qz0iSD9wFk8+sVIBiMoWS5onks6bNf/P84kfq
+         kliJWTzK/vAYi2Aa3gqTrtGUBMWWvZWjMnfYVBbvwTANUa8n2vQmHLynUFJeFbwgh3sB
+         1XWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793883018; x=1794487818;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RdyiRLv7e1N7dBqCXNkMCcJEXQWJI7RZIXVTawyjL7E=;
-        b=RcqxGW6rLRl1KBrAJDVq0uSPE1QNRV4LmD3wParvGrq/PXStPnVHNlbek6WFBFSmMe
-         WP2D91Eve48PuebfidkLB/tfRknD5OkdaW9S+3KliCGJTvmb8XhFKQG5no0bv5/cJO4l
-         wH/BX6iAugBncwCoYN43HxmcWVz/ZtICvXWnMLcENxVNOiwKpkxufv7dwtsaxRWDxPgk
-         YNGw30ZYywalsOn4Ox4FtVdkrhsFULNH8FRm0RO+er1EcZm+ncRZQE0ZLrFzoDSfwErx
-         9mXj882v/DNgyUSQWZI+CVUdCv/qK/ZTKgaoZKVo4kw73LYv+WP3zEweCcQaVOTz1i4t
-         zY7w==
-X-Forwarded-Encrypted: i=1; AKwUvBzUVkdGXDEZS3i6Ly69X6wAXdFAk4AlFj5jikttHK4AWUu7JHokcKMuxXVE6ZRmcyLMvNo8SIXQXBhkcnY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8R65aEGrD0XTn0ph+RN86fq6f9BXwjZGPuTy9l1+/zICo3X5pd
-	SZGjTO3eUt0syTBIhbhEDkrgYt6sLodYInqRZ9atfar96kIbedlCH4QsV5mm8DV3BuQ=
-X-Gm-Gg: AYBFou1vtvLf4rY/wQB0oDL0l5z6lW/r7jTAam8Pg8lKk+TNvni5w7zcSyfIfxbCnT+
-	8DEE2PreQzHnXhzpYv/Mu2piewlxXl8h0vdTeoKZOR56QZKOQX2ptOjIYy/RYB9wDf/L72mnma7
-	WdARUvMS/SZqohvIiByD3JLUiHly2gfTxjls6pgfw8zsUxLZulS6KzBoXLDBc5Kl50sLhPMsKKl
-	1XmuvYwetEKbdx3FHSpuIYuxBhPMsJISZQGRq55HPOjfpnoYjJBv5ycczGTfdgp0a4hCpEV7Idj
-	IB7BPChI8mMjv+44ESn9mDTOyzUL05Vh8IfIXyd/7aEk+3GTZfeJ1BYjcl7JNQGX4Cfcih7KCHl
-	Y6pkA2x6vXuLCqmBtaEwIaXD2+iI4YUpljneB0QdVtR17iWtfztkyMzHU+ftkqOfhI75qKg7UtZ
-	99d3O1Rb8ume6L8m8BGB77IVepu2nKW+vgg5lCMe/1W3e2zJqyaMwDrVLjE2x6/m54K4YCLm0u2
-	VJTIfAba+KBkHGe7T/wt/Pavddgo6CK4glsQ39JhRAgJ2VFC0V6rGp9cs1iaOsswkyRYiaEQiSj
-	uv2WeuznGPQPP8TWrtrzKZwlesfHJnwvXyKglQFL+C0lthNmuBFypJdN+Hbdq2Mt7gm4BZE=
-X-Received: by 2002:a05:7300:8a99:b0:36d:dcdb:70c5 with SMTP id 5a478bee46e88-36de713aa2cmr3426944eec.20.1793883017458;
-        Thu, 05 Nov 2026 04:50:17 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793883014; x=1794487814;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RelRpHTTIUBHZAk4EQyLEmZyhVHOpEokc+ctiSQX2Wo=;
+        b=2l1g4s22WMF2Z6V+LUPs8ggVuk2PcF1UmeqiI6SX3nKs3ndubru9L8BL9IxwlRQkM8
+         ryxBOaR0VZMWMFZDVGPW5Ln/W9RxaxzX2qVIyaRwjsxVwC8anALgCCMaDgIFzJ/WI5MJ
+         iHlPtK6ca3Z6rlCROdF+imknPa9LOO7lQC+MJjM8iNlVVNcLcBoJAp9Tp0ZfEibzxME9
+         aGR3G6uK5CWWU+9A5tjhH/99rSm9924XH3DFtglmaxXp53I42bSBc9wN0F2fEhlWYaaz
+         2D4gnHdrw2OjY9IFLHWFxhRNh6ozmEcnka/Fcl7bIrfdktjnthSCK+9qUVybjNHa+dAt
+         bKyw==
+X-Forwarded-Encrypted: i=1; AKwUvByLeNp6fg5tvAJ6Wn+BZ6NrFihQ06SKYBngbQxXBUOMuiyaDZJ36kkicIMNrh8cs90CayrCLPxmMdcDmVo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+vZRnKbpMQxIC9pN3YKDZBk1laCt9M3PVA8IqO820kM6WP57Q8
+	MjjFHUFyPO01I0YPHf72A2911SuCliz3ee2UxlP7TO2BFfGvBhyDCSxSAbtnQWOb1Fc=
+X-Gm-Gg: AYBFou3NqmQiKSNUdoLMtNtUwW76q80uK7yadqVf9390h37N8RHvnTLCr+voPIRD5TC
+	4jOry9Q5WbK5t2HVZ/rF4ZGAPBTCPk+KUK6S5rYTJfFROI0oG7kLpUet+Ks0NNM6quXJBCQ8lDc
+	1NrOaEDsbsWBFOOed8kgwYiJJCLjV1hCZn6p//TESedjwiPGSvyLdktnXMCmsEfoCF6Q7I8OVoo
+	lArEyBbdPAWxFR5w9helnDWMxA2S4Vfvt3IGXSaM0aTrIArkIAL6kApA/liXeV5awbIyJ8d/n80
+	qJqnSeKIex9oj88JkMmzxOyR/3CLOoFyhmIIj7rKJwJNDgwtq/uAOJb7BlBlImAfYBr7MfFZJAA
+	5ah8L3LAg1vHSsjwVAFOKW9lTBEi8wJ5de9NuYEVVJEScrvn4SUBo6FlCvwO7ViPQWOHjuedgBO
+	M0XiiAYwP78spWYNxGn0a20K/wVyW9sVb+dvKfyXKQFyatYa4UXcEd25Nk7C8ioVwP+SmoeWtjg
+	7sicK9hkfbDWLQy22SuvP3r7E2rRT908+c8xDEXU7eu3rSu5eSy0ovstAktBMRF5S4WnPdf4SD+
+	N9lOB0b14Or6ke1T6hrcF7xjL0rIvmN52G2GWqv2Ud1sERscRR9xMn1BTKjRpXH1VyGb1fm0
+X-Received: by 2002:a05:7301:2a24:b0:36d:48e:82de with SMTP id 5a478bee46e88-36d049e0895mr9351265eec.12.1793883013470;
+        Thu, 05 Nov 2026 04:50:13 -0800 (PST)
 Received: from devbox.ts.blockcast.net ([2602:f74d:1::32])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca39b8eb3sm22527257eec.27.2026.11.05.04.50.16
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca39b8eb3sm22527257eec.27.2026.11.05.04.50.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 04:50:16 -0800 (PST)
+        Thu, 05 Nov 2026 04:50:12 -0800 (PST)
 From: Omar Ramadan <omar@blockcast.net>
 To: Taehee Yoo <ap420073@gmail.com>,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -92,12 +91,10 @@ Cc: netdev@vger.kernel.org,
 	Clark Williams <clrkwllms@kernel.org>,
 	Steven Rostedt <rostedt@goodmis.org>,
 	linux-rt-devel@lists.linux.dev
-Subject: [PATCH net v5 3/5] amt: require an exact IPv4-sized IFLA_AMT_{LOCAL,DISCOVERY}_IP
-Date: Thu,  5 Nov 2026 12:50:08 +0000
-Message-ID: <20261105125010.1107546-4-omar@blockcast.net>
+Subject: [PATCH net v5 0/5] amt: relay tunnel lifetime, validation and request-path hardening
+Date: Thu,  5 Nov 2026 12:50:05 +0000
+Message-ID: <20261105125010.1107546-1-omar@blockcast.net>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261105125010.1107546-1-omar@blockcast.net>
-References: <20261105125010.1107546-1-omar@blockcast.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,53 +106,95 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The netlink policy for IFLA_AMT_LOCAL_IP and IFLA_AMT_DISCOVERY_IP is an
-untyped entry with .len set to the size of an IPv4 address, which netlink
-validation treats as a minimum length only.  Any longer payload passes,
-and nla_get_in_addr() then reads just its first four bytes: an iproute2
-that puts a 16-byte IPv6 literal in one of these IPv4 attributes turns
-"2001:db8::" into 32.1.13.184, and the device is created with an address
-the user never asked for.
+This series hardens AMT relay tunnel lifetime, validates gateway input, and
+keeps unauthenticated Requests from consuming relay state. The problems
+fixed by patches 2-4 were found during the AMT IPv6 outer transport
+work, which is not included here.
 
-Use NLA_POLICY_EXACT_LEN(sizeof(__be32)) for both, so every payload that
-is not exactly four bytes long is refused with a standard extack instead
-of being truncated.  The range check this expands to fails the attribute
-even under the liberal parsing rtnetlink applies to IFLA_INFO_DATA.
-amt_get_size() and amt_fill_info() already emit exactly four bytes for
-these attributes.  IFLA_AMT_REMOTE_IP is only ever reported, never read
-from a request, so it is left unchanged.
+I am using the existing IPv4 AMT relay and gateway implementation in a
+multicast delivery network, where gateways on access networks send IGMP/MLD
+membership state through a relay to reach downstream receivers.
 
-Triggered while writing a selftest for the AMT IPv6 outer transport:
-an iproute2 without the IPv6 attributes put all 16 bytes of
-"discovery 2001:db8:a::2" into IFLA_AMT_DISCOVERY_IP. On a stock
-kernel the command exited 0 with no error or warning, and the device
-came up as an IPv4 gateway with discovery address 32.1.13.184, the
-first four bytes. There is no oops or trace; the symptom is the
-silently wrong address, which fooled the selftest's capability probe.
+The first patch closes the gc_wq re-arm use-after-free and makes teardown
+safe for RCU readers and delayed group/source workers. The second rejects
+Queries and Data from 0.0.0.0 before relay discovery and revalidates deferred
+Queries. The third requires exactly four bytes for IPv4 netlink address
+attributes. The fourth makes pre-Query drops visible, avoids counting
+successful reports as drops, and uses concurrent-safe TX statistics. The
+fifth keeps Requests stateless, authenticates Membership Updates before
+allocation, keys state by address and port, bounds per-source admission, and
+silently drops failed endpoint admission.
 
-Fixes: b9022b53adad ("amt: add control plane of amt interface")
+Each commit message now says how its problems were found. The problem in
+patch 3 was triggered while writing an IPv6 selftest; the others were
+found by review or code inspection.
+
+My reply to Jakub on 2026-10-20 said I had reproduced the lifetime,
+authentication, teardown and input-validation issues. That overstated
+it: only the problem in patch 3 was triggered at runtime.
+https://lore.kernel.org/netdev/20261020105410.7dccf739@kernel.org/
+
+The 2026-10-20 posting was mislabelled v4 in its subjects; its changelog
+already read "v5 changes". This posting is the next revision of it.
+
+Changes since the 2026-10-20 posting:
+- Patch 1: flush the deferred group/source GC with flush_delayed_work()
+  instead of cancel_delayed_work_sync(). Both GC works re-arm only
+  themselves, so cancelling them on tunnel expiry or device stop stopped
+  periodic GC for good after the first expiry. The flush only reclaims
+  promptly; lifetime rests on RCU and the cleared owner pointers, and the
+  comment and changelog now say so.
+- Patch 1: clear snode->gnode and gnode->tunnel_list with WRITE_ONCE().
+  Neither pointer is __rcu, so RCU_INIT_POINTER() drew two new sparse
+  errors.
+- Patch 1: keep amt_group_work()'s single out: exit and move
+  rcu_read_unlock() below the label, instead of open-coding
+  rcu_read_unlock() and dev_put() at three exits. Every exit still
+  drops RCU and then the timer's device reference.
+- Patch 5: drop the paragraph about tunnel liveness checks, which moved
+  to patch 1 in the previous revision, and fix one continuation-line
+  alignment.
+- Patch 5: copy the secret generations in the Update path under a
+  seqcount, amt->key_seq, rather than under amt->lock, as the Sashiko
+  AI review of the 2026-10-15 posting suggested. Forged Updates now
+  take amt->lock only on PREEMPT_RT, to wait for a writer. Requests
+  still read key[0], nr_tunnels and max_tunnels in one O(1) amt->lock
+  section.
+- Patch 5: say in the commit message why one address may hold at most
+  16 tunnels.
+- All: state how each issue was found, and put Signed-off-by above the
+  "---" separator (it was below it in the previous posting, so git am
+  dropped it).
+
+Testing: on base-commit below, each patch builds without new warnings
+with W=1 C=1 (sparse) for IPv6=y and IPv6=n.
+With KASAN and lockdep enabled, tools/testing/selftests/net/amt.sh
+passes (6/6) with no splats.
+
+v4 (mislabelled, 2026-10-20): https://lore.kernel.org/netdev/20261020002557.3984927-1-omar@blockcast.net/
+v4 (re-posted 2026-10-15): https://lore.kernel.org/netdev/20261015220648.1545576-1-omar@blockcast.net/
+v4: https://lore.kernel.org/netdev/20261013175407.947606-1-omar@blockcast.net/
+v3: https://lore.kernel.org/netdev/20261012125943.558629-1-omar@blockcast.net/
+v2: https://lore.kernel.org/netdev/20261009201455.1904698-1-omar@blockcast.net/
+v1: https://lore.kernel.org/netdev/20261008003606.3666617-1-omar@blockcast.net/
+
 Assisted-by: LLM
-Signed-off-by: Omar Ramadan <omar@blockcast.net>
----
- drivers/net/amt.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/amt.c b/drivers/net/amt.c
-index dacfd5524..68f08f5f6 100644
---- a/drivers/net/amt.c
-+++ b/drivers/net/amt.c
-@@ -3307,9 +3307,9 @@ static const struct nla_policy amt_policy[IFLA_AMT_MAX + 1] = {
- 	[IFLA_AMT_RELAY_PORT]	= { .type = NLA_U16 },
- 	[IFLA_AMT_GATEWAY_PORT]	= { .type = NLA_U16 },
- 	[IFLA_AMT_LINK]		= { .type = NLA_U32 },
--	[IFLA_AMT_LOCAL_IP]	= { .len = sizeof_field(struct iphdr, daddr) },
-+	[IFLA_AMT_LOCAL_IP]	= NLA_POLICY_EXACT_LEN(sizeof(__be32)),
- 	[IFLA_AMT_REMOTE_IP]	= { .len = sizeof_field(struct iphdr, daddr) },
--	[IFLA_AMT_DISCOVERY_IP]	= { .len = sizeof_field(struct iphdr, daddr) },
-+	[IFLA_AMT_DISCOVERY_IP]	= NLA_POLICY_EXACT_LEN(sizeof(__be32)),
- 	[IFLA_AMT_MAX_TUNNELS]	= { .type = NLA_U32 },
- };
- 
+Omar Ramadan (5):
+  amt: fix use-after-free when a Membership Update re-arms a freed
+    tunnel
+  amt: reject a gateway Query or Data from 0.0.0.0 before a relay is
+    learned
+  amt: require an exact IPv4-sized IFLA_AMT_{LOCAL,DISCOVERY}_IP
+  amt: make pre-query report drops visible
+  amt: harden relay authentication and teardown
+
+ drivers/net/amt.c | 550 +++++++++++++++++++++++++++++++++++-----------
+ include/net/amt.h |  33 ++-
+ 2 files changed, 450 insertions(+), 133 deletions(-)
+
+
+base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
 -- 
 2.47.3
 
