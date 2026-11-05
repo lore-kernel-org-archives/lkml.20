@@ -1,55 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793908639;
-	b=hIMIycivQ1WF28HUy4d1Yqe3EHFDa7m7OcuSESD+fjUHLYRTkXshM53w1E5jDBWyH82b
-	 to0UUCMgNPbnvli/Jf90Nc9M8bfDbxCMIJ7yZruR0laRtfNzX9cEMA+kQUs9Y5vdkWSQD
-	 piwxXvAtTagerxeP/z1hrQf41F/plUDQzE2Sagnc21Y+uLeeaHTtdvMCejuSvj1MqFtTV
-	 JLypW3wzIvkV3v6r5VFg8I7tMCatD7r3BnKPtWkdiTLbLo682ug/BnhQFg32XP1ht8XJ8
-	 LlnSBWRWVX4VZSusBkmrP5KgEMAUW545pGmQydoSJlYnlSWURkGcLJwq9EYY9/01Rmg==
+	t=1793908661;
+	b=1QGN+nLaJHmzVK0SCL1oGqG4X+130cRFRCzwqCsGzw++DlT50mNbEQAycdThtQotdUIW
+	 sXkETQQUCpLrNYaJCXVE2GICVCEpA5d+WZKRi/CurGS0fk2OnZW3PYfEezDDP0yv9/eCu
+	 eFk7tDGitUrjSoln3zzjyhH+LTPyKbmyHydsgDlZ3GYNIjYW7juruyk/+tyrHr60n33gU
+	 bKSC3uAp08X4t1Vhw7PdUVwPB1U7AxrJzj10pLcHnBJ5Gwxg46CuxdES+cFZMjPks164N
+	 1yLV+hZFogLsKDISpWnY2PgF6DARVoXHdgWe3zZTxsBOqwrF3iF9OQUiNW3CFMWsA4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793908639;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=B3PGuBtYsDkPS6q+oBmmpl9f1c4rCqFvxlpSZWi2nUM=;
-	b=k6GEZwKQOmoPP80+e7bGD6g8JpnMIiPFuVFzu8KBtKp7tdbdS3GTEYtQC1b3/VMD34aM
-	 gKjkCtjdUldYjTS+CGer4OwEMhlBwKpnaAA3KH9Rc7WEHsEb4ekU9Lh0HF0hP1KvM4W1n
-	 HQ14yXbnYvuZQkUklbe4eaBqSb0uRZqmD5LZeNv0bXEuLycLODYuz1rbN0wK73kTapSGC
-	 e7yBBvyuSf705oTi/P/0YRX5kQ/uVAETK5yL6i6IWfSX7SeREqFBxyjs5jbbGs5Fd7WNN
-	 LwFrCLlAhsjfHupDmHSdF+fT7SRPRPVSN3qiVvwzeB9wWlvSL90iwVxfNIB4SvYnM0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793908661;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=DaBQOBmOn2LdFzR8qRXliWsUS06vZ4v869U44kfu038=;
+	b=r6d2mGbh/blBANhJS8bZpt1G4NHSNx4RDbM2I0ufOJv1NmPFYHJ1foupeuGWga7XSV1D
+	 HmaPxmxI0LvXYMJRo/2R5tcbAJl5Jy7BxeqT9QZKtTgZhTCQDIOV8k5y1VLsxJ5FEcD3b
+	 Hz8cqK98kxddFj7BuQglm/QkJDtyOCBgjvx/tUCX/XZWqljk/JmVBOrzPThGiIi0Z1oUd
+	 IgK2ZO9BIPkwjWpnNUzBZ5dCRc2eGtcXUAf+mRc4uR+aWr2x8NXmADn1yCKie3OxoK5db
+	 fXLrQkqCpMXw0IOX9s0EEQlTYYNqm/LMJft18yt75G7Zemr62FqYZ8Tir+Db/ch21Yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S3qmXXbI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jzxLvodv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0A86606A6D3
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:57:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FB56606A33B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:57:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S3qmXXbI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83D431F008A4
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:57:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jzxLvodv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA32F1F008A3;
+	Thu,  5 Nov 2026 19:57:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793908638;
-	bh=B3PGuBtYsDkPS6q+oBmmpl9f1c4rCqFvxlpSZWi2nUM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=S3qmXXbIx25aGds7p3bB+v5AtkJyF+kyhfVaF0ROCKX2dI6oLSwKbRQMtvm8S8khf
-	 zzdLXtVWE2OiqZhdwbeVC8kTfjfo4R7yj+1eaQL5QJtVD+jwvO48wyfHIE7JMmBXhN
-	 1WQcDnOt8C3FdMpDCgWDux9Gt7hXcYw978m3rZB9p6SiQihqIt8kRh+hbxol3qljbp
-	 Ji2ksMv28Br0OrulPYIKdXlTO1wlTbW0/gJ57BuQzQmN8VoWYiCs3kvUrjaSbLEKjO
-	 /SKBq5uttgr6WAVYsF0Zlf2RKeDlxbGnPBv+9GJBAfXTFt04VTEJ/nmgrFygZ0yhgB
-	 xZ5opK3LP4Gaw==
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5ba3fba0080so1773391e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:57:18 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwdmMbAHk/BVviz42l2OCKzI7UxHaJnsnZYdWgspWqNlisqJoHW/v0otoeYk5wBG3MB3uJtF25Wj5nKD+g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8qNx1z8ZyGkwqQp8Ekl0psjvJXX09vRZgXQhAPxrn8ByH7IDcz
-	45x+siZuAyLY4uPhYj8cHmia9r34jOW0ZEFXD3uYLKAOq5dpT5hEplyR9w4SV8NkhAvQNwDL23d
-	C1QN+UloPP+Sj0KPB+sJ1Da1OOyBtSg8=
-X-Received: by 2002:a05:6512:4013:b0:5bf:e4e6:7f78 with SMTP id
- 2adb3069b0e04-5c003ab0e58mr40161e87.39.1793908636836; Thu, 05 Nov 2026
- 11:57:16 -0800 (PST)
+	s=k20260515; t=1793908661;
+	bh=DaBQOBmOn2LdFzR8qRXliWsUS06vZ4v869U44kfu038=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jzxLvodvND2uIskc/k7mrbmX7om02LDQuTN4sSWT7U4a81zt4R49PJEN298tzv1+5
+	 X1R6p0Ufs2Bn4u3FpPBRCD0eADffYNw3RhMutVANraXKdCTiyvo+LKEnBElWl9dNlz
+	 pJMra7ovxSrqyeiHNlyFM+R4pERiF5I/o+Y4fHPExxDIsX7eXoC0cNueIqBIykdvaA
+	 DTXB7bk5AsDHZUcWmUynQ2xbkZsJ9/wfwFzcbQo08UfiRvV/DdBLKBDeBzv9KPsuUz
+	 bkWqUGkTOjsU8UrGbudJVBCTbKN6HQh4nmpsB0DWR7f7Tnz7+viD4lQ9qKWQGjBTvx
+	 OM+zL00zEkejQ==
+Date: Thu, 5 Nov 2026 12:57:39 -0700
+From: Keith Busch <kbusch@kernel.org>
+To: =?utf-8?B?5buW54WK?= <liaoxuan@open-hieco.net>
+Cc: axboe <axboe@kernel.dk>, hch <hch@lst.de>, sagi <sagi@grimberg.me>,
+	linux-nvme <linux-nvme@lists.infradead.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	default avatarZheng Tan <tanzheng@kylinos.cn>
+Subject: Re: =?utf-8?B?5Zue5aSN77yaW1BBVEM=?= =?utf-8?Q?H?= 1/3] nvme: Add
+ adaptive PCIe link rate switching function
+Message-ID: <auzfs1qAOkXm8i2W@kbusch-mbp>
+References: <cover.1790134954.git.liaoxuan@open-hieco.net>
+ <85a11a4085d04a2823c04059702630cf34abf6d4.1790134954.git.liaoxuan@open-hieco.net>
+ <auoxH197kQfUJGaE@kbusch-mbp>
+ <34801e0a-5d66-47c4-9844-7844363072fe.liaoxuan@open-hieco.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,162 +63,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260924132859.24751-1-fbeltranmillalen@gmail.com> <20261008232912.GA940274@bhelgaas>
-In-Reply-To: <20261008232912.GA940274@bhelgaas>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Thu, 5 Nov 2026 20:57:04 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0i38rL7xmQY=_e5ppnn3bjQJcPBKQkvS_pHVJvUqX1ksg@mail.gmail.com>
-X-Gm-Features: AclHuK9RZC5U3cVKmSaUv-6y1OIrV-lQyNCOTrFAabFo6_FZlScfgW00KN5G-54
-Message-ID: <CAJZ5v0i38rL7xmQY=_e5ppnn3bjQJcPBKQkvS_pHVJvUqX1ksg@mail.gmail.com>
-Subject: Re: [PATCH] ACPI: PCI: take native PME control on Apple machines
-To: Bjorn Helgaas <helgaas@kernel.org>, 
-	=?UTF-8?Q?Francisco_Beltr=C3=A1n_Millal=C3=A9n?= <fbeltranmillalen@gmail.com>
-Cc: bhelgaas@google.com, linux-acpi@vger.kernel.org, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Darrell Gum <d@rrell.co>, 
-	Matthew Garrett <mjg59@srcf.ucam.org>, Andreas Noever <andreas.noever@gmail.com>, 
-	Mika Westerberg <westeri@kernel.org>, Yehezkel Bernat <YehezkelShB@gmail.com>, 
-	Lukas Wunner <lukas@wunner.de>, linux-usb@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <34801e0a-5d66-47c4-9844-7844363072fe.liaoxuan@open-hieco.net>
 
-On Fri, Oct 9, 2026 at 1:29=E2=80=AFAM Bjorn Helgaas <helgaas@kernel.org> w=
-rote:
->
-> [+cc Matthew (author of 7bc5a2bad0b8), Darrell, Andreas, Mika,
-> Yehezkel, Lukas, linux-usb]
->
-> On Thu, Sep 24, 2026 at 10:28:59AM -0300, Francisco Beltr=C3=A1n Millal=
-=C3=A9n wrote:
-> > Since commit 7bc5a2bad0b8 ("ACPI: Support _OSI("Darwin") correctly")
-> > negotiate_os_control() skips the _OSC handshake on Apple machines and
-> > hardcodes the set of features the OS takes over, because those firmware=
-s
-> > return failure once _OSI("Darwin") has been acknowledged.  The hardcode=
-d
-> > set is ~OSC_PCI_EXPRESS_PME_CONTROL, i.e. everything except PME.  No
-> > reason was given for leaving PME out.
->
-> It's clear there *was* a reason, but I don't know either.  Maybe
-> Matthew will remember?
->
-> > The result is that host_bridge->native_pme stays 0, so portdrv never
-> > registers the PME service for any root port.  A PCIe device that
-> > runtime suspends still arms PME# (the PCI core enables it because
-> > pci_dev_run_wake() only looks at capability), asserts it when it needs
-> > attention, and is never resumed: no service handles the root port
-> > interrupt, and the polling fallback in pci_pme_list_scan() skips the
-> > device whenever the bridge above it is runtime suspended, which is
-> > exactly when the device itself is suspended.
-> >
-> > On a MacBookPro14,3 this silently breaks USB-C hotplug.  Both xHCI
-> > controllers sit inside the Thunderbolt (Alpine Ridge) switches and
-> > runtime suspend to D3hot when idle, together with their parent
-> > bridges.  Plugging a SuperSpeed device in is then never noticed:
-> >
-> >   0000:7d:00.0 suspended, PMCSR 0x8103 (D3hot, PME_En=3D1, PME_Status=
-=3D1)
-> >   ... no kernel message at all, for minutes ...
-> >
-> > The device only appears once something else resumes the controller,
-> > which makes it look intermittent.  The firmware on this machine does no=
-t
-> > handle PME on behalf of the OS either: XHC2/XHC3 declare _PRW returning
-> > GPE 0x6D, that GPE is enabled and has never fired, and its _L6D handler
-> > notifies PWRB, XHC1 and HDEF only - never XHC2 or XHC3.
-> >
-> > With PME control taken, the root port PME interrupt is serviced and the
-> > controller is resumed as soon as something is plugged in.
-> >
-> > Use calculate_control() for the assumed set rather than open coding it:
-> > that is by definition the set that would have been requested, it drops =
-a
-> > magic constant, and on a kernel built without some of those features it
-> > no longer claims control of services the OS cannot provide.
-> >
-> > Note this also makes pme_is_native() true for pciehp (drivers/pci/
-> > hotplug/pciehp_core.c), so hotplug ports now disable their interrupt
-> > across suspend and clear spurious events on resume, as they do on every
-> > non-Apple machine.  x86_apple_machine covers Macs back to 2006, so this
-> > reaches models that were never tested with native PME.
-> >
-> > Tested on a MacBookPro14,3, 6.18.49, with a USB 3.1 SATA enclosure:
-> >
-> >   - before: plugged in at 09:20 with 0000:7d:00.0 runtime suspended, st=
-ill
-> >     invisible at 09:21 with PME_Status latched at 1; only appeared when
-> >     0000:7d:00.0 was forced to power/control=3Don.
-> >   - with pcie_ports=3Dnative (which reaches the same code path in
-> >     get_port_device_capability()): pcie_pme bound to 5 root ports, and =
-the
-> >     same enclosure enumerated in the same second it was plugged in, 66 =
-s
-> >     after the controller had suspended, with nothing forced.
-> >   - with this patch, nothing forced: pcie_pme bound to 5 root ports and=
- the
-> >     _OSC line now reads "OS assumes control of [PCIeHotplug SHPCHotplug=
- PME
-> >     AER PCIeCapability LTR DPC]".  The enclosure was unplugged at 20:42=
-:13,
-> >     0000:7d:00.0 runtime suspended to D3hot, and on plugging it back in=
- at
-> >     20:43:06 (53 s later) the root port took a PME interrupt and the de=
-vice
-> >     enumerated in the same second.
-> >   - wifi, internal keyboard, touchbar and audio all came up; 66 warning=
-s
-> >     and 45 errors during boot, against 65/43 on the distribution kernel=
-.
-> >
-> > One rough edge, reproducible on both boots: the port driver logs
-> > "PME: Spurious native interrupt!" right before the device is resumed.
-> > pcie_pme_handle_request() falls back to pcie_pme_walk_bus() when the ro=
-ot
-> > port reports its own requester ID without PCI_PM_CTRL_PME_STATUS set, a=
-nd
-> > that walk skips PCIe devices, so the xHCI is never attributed.  The dev=
-ice
-> > is still resumed and the wakeup works, but attributing PMEs from PCIe
-> > devices behind a switch looks like a separate shortcoming; it is not
-> > addressed here.
-> >
-> > Boot with pcie_ports=3Dnative also showed no new AER/DPC activity and
-> > slightly fewer warnings than a boot without it, so taking the remaining
-> > control bit does not appear to disturb anything else on this machine.
-> >
-> > Fixes: 7bc5a2bad0b8 ("ACPI: Support _OSI("Darwin") correctly")
-> > Signed-off-by: Francisco Beltr=C3=A1n Millal=C3=A9n <fbeltranmillalen@g=
-mail.com>
->
-> I don't object from a PCI standpoint, but Rafael generally takes care
-> of acpi/pci_root.c.  I would again suggest putting some of the commit
-> log detail below "---" and relying on the https://patch.msgid.link/
-> tag Rafael adds.
+On Thu, Nov 05, 2026 at 01:50:21PM +0800, 廖煊 wrote:
+> However, L1 is entered only when the link is completely idle (no
+> pending transactions). During active but low-utilization I/O, the link
+> cannot enter L1 and typically stays trained at its maximum rate. This
+> patch targets exactly that window: it dynamically downgrades the link
+> rate to the minimum sufficient for the current traffic, and upgrades
+> back to maximum when load rises.
 
-So I trimmed the changelog a bit and applied the patch as 7.5 material.
+ASPM operates on microsecond idle periods, so a lightly used link spends
+most of its time detected as idle. Your threshold only selects the lower
+rate below roughly 1.5MB/s on a Gen4 x4 link, which is essentially idle
+where L1 would kick in more readily. Do you have shareable numbers that
+show a real power benefit beyond ASPM?
 
-Thanks!
+> So the two mechanisms cover different link conditions and are
+> complementary rather than conflicting: ASPM L1 handles the idle link,
+> while this patch handles the active-but-underutilized link.
 
->
-> > ---
-> > --- a/drivers/acpi/pci_root.c
-> > +++ b/drivers/acpi/pci_root.c
-> > @@ -568,9 +568,14 @@
-> >        * Apple always return failure on _OSC calls when _OSI("Darwin") =
-has
-> >        * been called successfully. We know the feature set supported by=
- the
-> >        * platform, so avoid calling _OSC at all
-> > +      *
-> > +      * Assume control of the same features that would have been reque=
-sted,
-> > +      * PCIe PME included.  Leaving PME out disables the PME service f=
-or
-> > +      * every root port, and nothing takes over: a device that runtime
-> > +      * suspends asserts PME# and is never resumed.
-> >        */
-> >       if (x86_apple_machine) {
-> > -             root->osc_control_set =3D ~OSC_PCI_EXPRESS_PME_CONTROL;
-> > +             root->osc_control_set =3D calculate_control();
-> >               decode_osc_control(root, "OS assumes control of",
-> >                                  root->osc_control_set);
-> >               return;
+I don't think this kind of policy belongs in the kernel, much less in
+the nvme driver. There are mechanisms for user space to control this,
+though: the bwctrl cooling device lets user space set the link speed,
+and diskstats provide utilization. A user space daemon can implement
+this without kernel changes.
+
+If you don't want to tie this to the PCIe thermal subsystem, maybe the
+current_link_speed attribute could add a writeable callback instead?
