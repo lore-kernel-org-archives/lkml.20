@@ -1,103 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.62
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793907412;
-	b=F/ckwOKYlOwSrS/oRS3OE1UVIvgV7GBGQlpDBAAPWziXjovuo9Y54BLjomeiS1/aQQNZ
-	 WgugIBi/9azMOuX3UuvDEvE1YM23Y5Jp/YCwouX3vr6CVKCZXWZbQd+LTv2AAzaOLSCFi
-	 /CbWvGBVkov6U1BmEyil3LnyysuO/hjWTMLKf9eUVzG/RK+axgbOyYrZA5YX8VDh7RuRy
-	 Yh/vkFfq9IZg9IvDclbdlv/Xj1gfiiLOIVMJ/Zd1p5Jm+thm6nDpR0nRlCfPEqZRcDu3s
-	 qtFh9FCR2XBzyv0YdZ/wGDY8+XpM0oz9FtJdSNi9QH5N/GllRjJ6yn6NbMcU2ELW56A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793907412;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Y2FJrGPfuUHo1DXNzVvrATlt3MI1C6M3KdeQ9bvcXPg=;
-	b=JDaWH932x7zVlB0+WNPD5I/6W0uqnUle5ouljZDLto3v38NhTQGu9tzct6px3G0Zue0u
-	 c++CmEATT6r8sTOMr7KMZlutCxh/v3T7T2u6oIdTXxtrA173vELeg0GKlsmvu1hL4ge5M
-	 //+sebQPWrDFtOR8i1F5C9LIL1YavqO/P5n9QVD+ewKtKOs74iH1qDoj26k8yXV5sUnYH
-	 OLJ82Em1AujMsizk1JM2MDAsUJlxrpWMuvXImmwfS5p/2VXtiEG7wxu+8UPanmPl7toLc
-	 jaEZUQpCaDLtqwreA54jmf2IwYYywYdTD5kGGW1JcDX6UX+7fT4WB8XCgeTzUSN9TfQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=WXV0G132;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.62
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011062.outbound.protection.outlook.com [52.101.70.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793907477;
+	b=aGZ9yFhkV/rqbzRq8if3k4c6h6KWqq0/rU5Lq3C8VaKIE83nkc6JLBzp4rfJ7c71fpyE
+	 PW2WAmkkt5G83d6SJHBiFdYZLdAxVfOLfCGeP5ehWXZnWknOV2fR2Bnfz+MDtv4BU3WdN
+	 vx9u6Wn+oGoj5BvITZ6isDZdxo/Jw3svUAR1CK5MBp20EMYWsgbJoFO5+/E9uedOI4q3o
+	 vtSN5UC6vuyFIac0PheFrKNblBSNyiRoVSJGppymqYxuOnOyyekO8OqHTNMNX/vBvr7Ie
+	 HCJLVWTT6Dr6B26bWtdladkUoQ2g0ODV/PLtnKfFFGNdzFdga4etlnCdprEd2cvtx5g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793907477;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=GEs52XSVkXr3Lysumh8vBcPCuRt3C+96FDYzKDRWk9o=;
+	b=jlXmMP4/k1lzbDXsg4ZPCWxjQS8DKRT/aH9IxebzpQBix3pJfxE9NhEtKwKsYi2O4rCC
+	 thj6qhePXhP6wnUL+3HF7Z7CFOY45Ls6ykwUQvD0WsqcIcIu+WaMIu/6foNJowIkrhEG+
+	 kUrm2cks0Y8UXv9h5JP+RJaqFd8w45mlrEFT0C9rjs8bkcRpOZBKk1tHZp5zSW3wteDPV
+	 fXkEkcBlv7vb2cnN6wQfDb00QU5B7nojfxRAwWdqEm8JkEIWIodGi7Dx3OErK774U/Rxw
+	 Q181kyKFlpiFPgEntO71fhTzQ1M2NzaFN7b9VTEej8Fd30fiGy6uNCQtY72h8pljtDg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arista.com;
+	spf=pass smtp.mailfrom=arista.com;
+	dkim=pass header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=CpWYY4HP;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED21606A6E0;
-	Thu,  5 Nov 2026 19:36:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BED21606A6E0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7465E607B95D
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:37:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7465E607B95D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=WXV0G132
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kyUCaLUAdYFclUxaZiGMU2rTTLmxVnfFXwaxUr9LBjOxbccrGa14Eb0PeIlnSM6WQh5etiAyQbMWiu9For5cGY448YA7U4tr4pyplqqLu0mYAGuAajqy1L4s4HPHjiBuILf6EGyXVWLWrEbuGA2OeK8Jxp1cQGK2GeI2r7xqzF6jfQrj2VQo62gvvR0Y5BF3Onp7vkaqGbZI32uibofSh4LWrbl3LG677LYUF2Qp2o5/alkl/pFm6Rl+Af/JmvcCc/9Q5+UB9dsDRoMLDk0+7hb9mE3y/BlESN32w5QVDe/krJX8BNJsHqLahRLf/DWs9MrnkQEsNjw+Rc1SYEqd7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Y2FJrGPfuUHo1DXNzVvrATlt3MI1C6M3KdeQ9bvcXPg=;
- b=KlNGT1RTiFofq9ygEbk6Wu9PwBf703ZKvE4unpeixFrt433ZpmjibMNPBFBJ7XWOvPlEeO8PU34EUDDX2E0zTHziDWG5dbBHJ5Evken09ZtNMMwgEyo9AqzDNBO+SGbax4qeKHBeauVuMal+FXn6dce4LPMh0mbCJNjp0I4yRSxQQYq791Wg7jwMDL/ExOFooSzqlcjANKw+ToN/CwzWGj3m7+dSCAZvI41pxBUZ1I4cqO3qN4sRYwJ40UPFH6ea4Jx8xvCjofZh9f96wc+xs45k6KSJso9EaExhVJk44m195UHjbM3t0KbhAmNllZwEpjUBBG7fXBbb+2iOItVsoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Y2FJrGPfuUHo1DXNzVvrATlt3MI1C6M3KdeQ9bvcXPg=;
- b=WXV0G132kODe9zLvsTFNO0bZt3VEVampGPqccv48yh6PxzgyC0Ho1RqA9UMB+976lXFy7CoheKDcLYUlGkJxMqiuvvUjOuB1Mgp15cqJNczcox7PHrHtKZQ3kVZJcPBvsptvkul9dI4Ex+UlxvzpCXu5iejIC6OtmIX5PyVofQ5p4OCmh8QadOXgWL+WyHk+VWL6P76ntoAyklqHSjZLxXOx+Ibm6GXMX5FHsYTx8EQwgqVTmIJifkYAVd+kePeSW9M4YxcPK5dCuOoyrBF+G0w84ZokaeSqCdUCnHANKbuuiNqsW2fBbdWYsRZkehoN0HUubyFcWqtmVy9ch/q6SQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by DU7PR04MB11090.eurprd04.prod.outlook.com (2603:10a6:10:5b0::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 19:36:48 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0592.007; Thu, 5 Nov 2026
- 19:36:48 +0000
-From: Frank.Li@oss.nxp.com
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Francesco Dolcini <francesco@dolcini.it>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] arm64: dts: freescale: imx95-aquila: mark +V1.2_DP as boot-on
-Date: Thu,  5 Nov 2026 14:36:40 -0500
-Message-ID: <179390737711.1615394.5923877906841119197.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261023102408.119509-1-francesco@dolcini.it>
-References: <20261023102408.119509-1-francesco@dolcini.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: DS1PR04CA0014.namprd04.prod.outlook.com
- (2603:10b6:8:44f::12) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=CpWYY4HP
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35c76e9614aso3072559eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:37:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=arista.com; s=google; t=1793907476; x=1794512276; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GEs52XSVkXr3Lysumh8vBcPCuRt3C+96FDYzKDRWk9o=;
+        b=CpWYY4HPqsMqathLuCP0SqyPHsMFAQWoskfk2GdP07u48l12UmKTiwONJuvB++DOZo
+         Yclhv2OYTvpyVQe0nGDznRS9Z3hWx2kbCBFvY0pqnRrXO41EfaKHYTGa75im9YoH0HyQ
+         yVlSieODB043s7YTZG83QMLxA1SHJ8toDshd16zaROUJAf2wNKauWeStmi1bLrH6/8Tz
+         mQQW4N4m8vwam53SdfBwr6BB3a+iuCtW3J6Db2OjYNgcUSfpF/y05AZgZRu+kEXd/N4u
+         Ct4MdT86o/xNJxf/iCp+y8jz1OLKeZSYtEQMz8MNbuIitFs0Ewo+oz4HzT9k1iLJwTE9
+         Ebzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793907476; x=1794512276;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GEs52XSVkXr3Lysumh8vBcPCuRt3C+96FDYzKDRWk9o=;
+        b=s+twQWNs5PTX/a4E7U6idmkBsSIr8gFz55x7/3L1DUmcMKWJyzoxCNuroWdkuk5eH4
+         i/yUyg8Vlw2i4mwIWeweN7rcKCERPT4s1zrXBwBir78eB3emwv2Oer3C5Wd5N1LQaHmi
+         m+jywAXCn1SwPXOsF2fFCokE4hURLR5GGNE6uS3OaHMwAOXQTzB/PLILYn0BOXJ99f4F
+         NZQVX37pk+2MMbML7ZAzTzWZPDxPqVyLp1CFTm4g+KKLL9UofcvzOenOi7hWrLsWKVYQ
+         NVRDWqCDMxXY7qBPzrFKoUtE2ElpAKKzmGPrz87fHznqOMzF2yRSrT+QGIXLbuMhl1oD
+         NDdg==
+X-Forwarded-Encrypted: i=1; AKwUvBy4o0TEFifXJOlLIM2t7jYO15NKbGFnS2mlx0lXIENvZKQPbnRRuaLd8+6Xrg4J1z8N/wcOCJTYATqUYVo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+mT/fUEV72C67uWGjQeuR0beJr4ikFGQ/6g30YI0Dp1bMhTxLF
+	jS5JsXLLSmUROtvFJ1w5z2L5zJI9fdjQscuU4gnYZJahEfmRi04LAu+tXxzobyp80g==
+X-Gm-Gg: AYBFou2G9o/W8xWFvd0EBTbnyAJmFEYfrjScdQJijO0Ly/vd3BlrUN70kDl8FJtevAL
+	PIl/k3hyO7IfgW4DoR5051HnEpyZpsDdempPxyqrFPAcwJAdcg+W3cBKzo/g+bQKUaLaXtdwN4y
+	lFbBHp1Yc19EZhU20KwRSGWRkvY/lKnraKk6ogChhePpgJm/9wEwDa3oUdMQwHrTufeuDQd2W5i
+	HpyyoTlEVRvvKIGfVWoGusTiOa0l3g2BClGwmabtNK5yvHW2RqQZcjv62n15lVt6AWWgKJsvOfx
+	D4s284UjOMmENT6PGr0JUJ8wJ7klhk7esOH+tdeF3pXSeX7pa23SfjRamuyT4rRC2Im+wygRTgy
+	+TK0o6kEbZO/vXoap8tWPw1JHD5RRTEIkPv5lxYmBPorni1HIkd9S+yZ0z6YVCVKGuBLWvdJ4uc
+	jmRTPaswL/Cc5FVDXq5ilkh74mtOPPgPFW86pTEx2d8dt4cbfjgiHwPmMBmmRDo0VO9cj6kHNK1
+	egj/a1+xqq2v63moOWpuCxplffZ642liSU/DCXbxHldbkQL/lsv5dCXNF8WVbh0UMENtRBOa4jl
+	1NXW24fy1z4GoyNrJYy74WbdvQyT/NLK49XpWod8agSVKd8PcdNLZbcr5JRFLUutrddH23cceqa
+	xrC1fKWX2azdyRLJ7PnZWRoc=
+X-Received: by 2002:a05:7300:3e97:b0:36d:9900:bb92 with SMTP id 5a478bee46e88-36f75254a98mr150454eec.10.1793907475358;
+        Thu, 05 Nov 2026 11:37:55 -0800 (PST)
+Received: from dannyhu-upstreamLinux.sjc.aristanetworks.com ([74.123.28.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36f72ec8a02sm326134eec.11.2026.11.05.11.37.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 11:37:54 -0800 (PST)
+From: Danny Hu <dannyhu@arista.com>
+To: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>
+Cc: Mimi Zohar <zohar@linux.ibm.com>,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+	Eric Snowberg <eric.snowberg@oracle.com>,
+	Jan Kara <jack@suse.cz>,
+	Victor Kamensky <kamensky@cisco.com>,
+	Taras Kondratiuk <takondra@cisco.com>,
+	Zheng Zengkai <zhengzengkai@huawei.com>,
+	zhangguangzhi <zhangguangzhi3@huawei.com>,
+	Danny Hu <dannyhu@arista.com>,
+	Jason Yan <yanaijie@huawei.com>,
+	silviu.vlasceanu@huawei.com,
+	hpa@zytor.com,
+	arnd@arndb.de,
+	james.w.mcmechan@gmail.com,
+	niveditas98@gmail.com,
+	pierre@arista.com,
+	julien@arista.com,
+	kbharathi@arista.com,
+	alexandr.lobakin@intel.com,
+	linux-fsdevel@vger.kernel.org,
+	linux-integrity@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kbuild@vger.kernel.org,
+	initramfs@vger.kernel.org,
+	linux-api@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bug-cpio@gnu.org
+Subject: [PATCH v6 1/4] ima: skip algorithm availability check until initramfs unpacking is finished
+Date: Thu,  5 Nov 2026 11:37:40 -0800
+Message-ID: <20261105193743.2654656-2-dannyhu@arista.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20261105193743.2654656-1-dannyhu@arista.com>
+References: <20261105193743.2654656-1-dannyhu@arista.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,92 +125,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DU7PR04MB11090:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0801c68e-f439-4c21-1890-08df3b7421ee
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|366016|1800799024|19092799006|261022105027099003|11063799006|261028144727099003|56012099006|261009223027099003|261022075727099003|261026121527099003|261026140227099003|18002099003|10067099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	2krser5mJL5H7RCqVYps2KuP0uJ3LkfVjlMSN/JWNR9nneEfAecHjbYKU43K6VTJ2uRnrA8ovFEd/bDB8wDWL3Y9DEOaGn+Yvwnydlwul2PcLrRWuNViHtlpqGq3T05daZgqRtdUvNi+D+e7dFJWxeRjnTlVOoK6M1LymO0nTHJZxWJjK42aCfEV04GkVfZwspYC2Qr5PyOXEqB1pIPv9g0LP3YdtkfrCn68Tb6hymNcp9qnZwuAKRujzF1pcvrnmJW+DviLlzrHoSFsvyp41xGwJtCNDWEZXsvowrX4kgc6jjKElFio3hjpUiO2r/NLliaI19HGkiYFAofBMgYfWwikvO7oOA5FtX0nd7doGmlcHAdyQuQ9pN/ODZXcjsIJbk+xE9ByScJ/xSwD/eToVjv9IrVHmJjA6u2Y8xjoMi6cbZ97ck3wmRaTjh/xEp+G2X5EkKnECtsxfcns/oxoE14TWhdGUqsC/8Rntn85xM/uUAVANVMhkqUuGcTwLr3PzukN3OSAYupMMJk2HIKZ9Kjj2FpR4GcoT+XzcGhmhJVptZOTFbZnBDlJeOLhfbMjSJjMy2gIirgYMAny87r3SNMMORIjRcqlpdzxIce17mtCsxzt8A49zmfazr6jU3axPxM2v/7lNO73dMRhsyjFT7u+yGlHaYD3vZfvWp8iDhM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(19092799006)(261022105027099003)(11063799006)(261028144727099003)(56012099006)(261009223027099003)(261022075727099003)(261026121527099003)(261026140227099003)(18002099003)(10067099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?enRxV0RRUFdESlJJRkZVYlRSZnFBQ09yU3E5WkFtVUcxai95YnZaSGt5WUxi?=
- =?utf-8?B?OFYxTDBqMm9FRk5sNkVmbEZ4b1N5UzEvYWthNzcyc2hBRlBkM2YzN0N6TVM3?=
- =?utf-8?B?SXllRFVaUHNlRytQbDRhNFBXaWRETGQwS2w0eFprTkY0WDNoSkhnbVJEaDhv?=
- =?utf-8?B?Y25uYTFDamRVbTlWY2xySWRFbW5YWURoZER6L0RJT0lpTUQ4dDBIVDlEcmlS?=
- =?utf-8?B?Z283TDZnVmNZRlROQnF0NmlRVm1MVTJXS2NMU3BwV0FSckN1VDF4ZTJMZEhX?=
- =?utf-8?B?TmlwSDdFTnhrOU1ZSWpheGtPY3hwcmZnOHFLdmZTd1RxeTJwSnkrM1Yzd3JW?=
- =?utf-8?B?TEUvanY0UUhhNlVVQWdMUGc1eHAwY0haYlRXUGZOY1E4YVFXNldhNHlSa2hh?=
- =?utf-8?B?Yjc3TkwzRGJ6eUlPckpDbG9TMmVNRTZCKzRvcHRmc042c2F6a3pQdUJncjds?=
- =?utf-8?B?ekdqcVlsaHhLMmYvd0N6Vk5GNkhsaEV0MHVMSmtzMEM2cUpzKzlBbG1MR3k3?=
- =?utf-8?B?UW5mUUVCdTJyRlF3eEZOQVd2Wit5QWVJVjJ0bk5Sb2pFeGhzbkt3MjBZdExm?=
- =?utf-8?B?VHJOOElrWk83NjhyT2E3NmdwTnhCdkw4dldDMzF3c2tIVGNVTnNGT2ptT1RP?=
- =?utf-8?B?SzZzSjRkNUUwNm1FRm5TUW42QXQ5MnFIZTg4YnU4dTNZNUhTekVETXI1b3py?=
- =?utf-8?B?MWFNb3ZMbVRETU9HR09xZ0I5V3V1U3RpK2JoVm43Yk52OTJSbW9Pd2RyNjdH?=
- =?utf-8?B?WjVwSDFacFQ5Znhxei9zSXpLYTl0TGd1N2VHR1VmK2Z1dzJ2ZVpIR1JBWkxL?=
- =?utf-8?B?K3Qrem5jNGJMODBLb2N2YWt1aXdBVVlHOHRjQ3pyNFpuYUFKMllmNHdwK0Ju?=
- =?utf-8?B?OEV6cUUwcWxVcWFBeHc2WUhsc1NHdDlpaTlLVit2QTFaSjZyMXdRdVVwY1c0?=
- =?utf-8?B?V2dhM1FiMHFWUHFDdWRvbFRhYnZORE1XRWJNbi8veDB5ZkFLK29VQTlzS3R4?=
- =?utf-8?B?eXg1cnJHdmFyRTFvU29VWVBnV0xEZVFkTlAxaDVpUzVqRVVwemVmaDQ4ZGtC?=
- =?utf-8?B?b3UyZkoyUWt0R3docis4MGlRSzNtWHV4alZiTG8vT0JNdE5RTXpLRGFySXUy?=
- =?utf-8?B?bEdML3poMEIxYUVvWlNCdmFWMm1aWkd0YmozVVpxb2FNaEt3aitEbkhuRlhk?=
- =?utf-8?B?QXUvVVlTOUgvR1BQaEVTdWdqVG5nNU5mQkIzMnVYSm9kVVVNdXlERHpWTVBQ?=
- =?utf-8?B?L2tiU1ZZMlpDSEhGVWN4aHF1b2h3ekFXaWoxbUM0ZE93QWNSTzIvbG1VNTdm?=
- =?utf-8?B?RGY2SFFFeVZqT2dmMmRiSDV1QkU1UEVaeU5Ed1RXKytTRHQySExVUzRLUm14?=
- =?utf-8?B?SGhGZXVvV3NRTFcvQVJVZTdwQnVnWDBpOXBvYXR3czJpZHZ6N08xVjRWM0da?=
- =?utf-8?B?SkxlT0JhUWU3UWhjZGR0RkFmQmMxMHBuelRrRytVdlZpakM4bFp0VzU3NlB5?=
- =?utf-8?B?cFlzc1VNL3YyYXhpVVIyS0NxOWRWSXpSYTdaSWI3ZmVTZTV1Sy9MSS9Ydy8x?=
- =?utf-8?B?eHovK2pZajVSMlJ1dVpZVFpxNkJXRER2WjRLWmtsWFBQdzhlZC9kRXhEakhX?=
- =?utf-8?B?aHRrdUtkc0RGNkNMSWZ0SC8zaUVUamxMeUo5bDJkdDlqMTEzTE5ReWFoQkg0?=
- =?utf-8?B?MGFVRTIyYmVKVmJ1ODYvVEhEaytnSFN4SE5EVGJQUk9EdVdnMUpGbnlwcnVS?=
- =?utf-8?B?VVBSdUw1c2dCdkl4L3R4cHpZcXVZWjIyMG5PbWZLa2dCamlRb21TQlBJRmNi?=
- =?utf-8?B?Rzl4dyt1eURBRVhJVi9MaTFpc0ZTWXh5cXp0ZEVtQXMwNVpQeWJyUUdMTXFR?=
- =?utf-8?B?UlA0ZjdMYTBodlZEY1lLU2NyK0tXUERPT3dzcDQxY09oK2xQdXJsWnl1Zm9F?=
- =?utf-8?B?WUpnYW5vK29URUxIb1lKRWE0K0xWcXdGUkpqR0xPUUJ5M2l4VXNpeUp3N0px?=
- =?utf-8?B?YWpBSmJycExzb0NnVjJlWHNZRitoZFhiUi8va3VEVU10ZDFWU2QraW9HdzU5?=
- =?utf-8?B?Q0YrZXZxQmt5eEUySE15eVJSRy8vdzJJK3lrOGNWaUpVU0tibWthRkxRN3Yy?=
- =?utf-8?B?S2RaNU0wK2I4cGxNbytqNFlTWWgyVkxxaE12bkRlTlE4bGUwY01jc2lVNnZY?=
- =?utf-8?B?WHkvZTZ4ZXZjWDg2cG1zaE1kS0d2SU5NczdYY0JpcW15MVB4U2ZlUjNsZDhE?=
- =?utf-8?B?S2dqUHBsNDNRZHNDRDZVbzIvN2NoWVA4Rk5aaCtBVDk2UG1xSjExV3ZTQTJM?=
- =?utf-8?B?d0NrT0xkUGJnM0ZPbncxb0oxczYxb2RWdzR4VXZSSTB2TkwxaFIyUGszTGdn?=
- =?utf-8?Q?lv4HIQU2NlANc+juttT+Qz8M88VHUvc1msNUr?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0801c68e-f439-4c21-1890-08df3b7421ee
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 19:36:48.2551
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JujE2cWHBlwZqs2bNamiSJ+zRYb2f9BH+nGhp9JCSEwwz2vJra5GxubNbk2CP1VKu/hHTzvlGnAwkBH1WlUk1NqJmuGAJCGXWIMEMuALCwChnN0m0hcFpAJ8i4AUidPh
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU7PR04MB11090
+Content-Transfer-Encoding: 8bit
 
-From: Frank Li <Frank.Li@nxp.com>
+With CONFIG_IMA_APPRAISE=y, restoring xattrs during initramfs unpacking
+can deadlock the kernel if the xattr being restored is signed with a hash
+that the kernel does not already have available. This occurs when the
+ima_inode_setxattr() hook calls crypto_has_alg(). crypto_has_alg() may
+synchronously request a module leading to a circular dependency where the
+userspace helper waits for initramfs unpacking to complete while initramfs
+unpacking waits for the userspace helper.
 
+Guard this crypto availability check in validate_hash_algo() until
+initramfs unpacking is complete. This prevents the kernel from requesting
+a module during unpacking and allows security.ima xattrs to be restored
+even if the hash algorithm is unavailable in the running kernel.
+Essentially, this flag distinguishes restoration of existing metadata
+during initial population from setting/changing an xattr during runtime.
 
-On Fri, 23 Oct 2026 12:24:03 +0200, Francesco Dolcini wrote:
-> Mark the +V1.2_DP regulator as boot-on, matching the hardware: the
-> CTRL_DP_BRIDGE_EN enable line of this supply of the SN65DSI86 DSI-to-DP
-> bridge is pulled up on the module, so the supply is on by default,
-> before any software runs.
-> 
-> Without it the regulator is briefly switched off and on again during
-> the board start-up, potentially disrupting I2C transactions on the bus
-> where the SN65DSI86 is connected.
-> 
-> [...]
+A benefit of this approach is that once unpacking is complete, all
+subsequent xattr updates go through the same codepath as before which
+preserves the existing behavior during normal userspace operation.
 
-Applied, thanks!
+Signed-off-by: Danny Hu <dannyhu@arista.com>
+---
+ security/integrity/ima/ima_appraise.c | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-[1/1] arm64: dts: freescale: imx95-aquila: mark +V1.2_DP as boot-on
-      commit: d9266f28a24d1d835b180dcf6bf45f0de85ed565
-
-Best regards,
+diff --git a/security/integrity/ima/ima_appraise.c b/security/integrity/ima/ima_appraise.c
+index 63b0cb957c65..1403f5653973 100644
+--- a/security/integrity/ima/ima_appraise.c
++++ b/security/integrity/ima/ima_appraise.c
+@@ -20,6 +20,14 @@
+ 
+ #include "ima.h"
+ 
++static bool ima_initramfs_populated __ro_after_init =
++	!IS_ENABLED(CONFIG_BLK_DEV_INITRD);
++
++static void ima_notify_initramfs_populated(void)
++{
++	ima_initramfs_populated = true;
++}
++
+ #ifdef CONFIG_IMA_APPRAISE_BOOTPARAM
+ static char *ima_appraise_cmdline_default __initdata;
+ core_param(ima_appraise, ima_appraise_cmdline_default, charp, 0);
+@@ -738,6 +746,22 @@ static int validate_hash_algo(struct dentry *dentry,
+ 		if (likely(xattr_hash_algo == ima_hash_algo))
+ 			return 0;
+ 
++		/*
++		 * IMA validates the crypto algorithm whenever the security.ima
++		 * xattr is set. Restoring xattrs during initramfs unpacking
++		 * can call crypto_has_alg() before unpacking has completed.
++		 *
++		 * If the algo is unavailable, crypto_has_alg() may
++		 * synchronously request a module. The userspace helper waits
++		 * for initramfs unpacking to finish and creates a circular
++		 * dependency.
++		 *
++		 * Skip the algorithm availability check until initramfs is
++		 * populated to avoid this deadlock.
++		 */
++		if (!ima_initramfs_populated)
++			return 0;
++
+ 		/* allow any xattr using an algorithm built in the kernel */
+ 		if (crypto_has_alg(hash_algo_name[xattr_hash_algo], 0, 0))
+ 			return 0;
+@@ -829,6 +853,7 @@ static struct security_hook_list ima_appraise_hooks[] __ro_after_init = {
+ 	LSM_HOOK_INIT(inode_set_acl, ima_inode_set_acl),
+ 	LSM_HOOK_INIT(inode_removexattr, ima_inode_removexattr),
+ 	LSM_HOOK_INIT(inode_remove_acl, ima_inode_remove_acl),
++	LSM_HOOK_INIT(initramfs_populated, ima_notify_initramfs_populated),
+ };
+ 
+ void __init init_ima_appraise_lsm(const struct lsm_id *lsmid)
 -- 
-Frank Li <Frank.Li@nxp.com>
+2.51.0
+
