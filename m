@@ -1,118 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793876804;
-	b=48o61ErfLRUyWC7l1/yzgy7qrl7xKJWyggcahDST81/O8qYQwMftJEJ+NkKT7SkmfWpF
-	 6y5QeOwS3F6H0uMzVuIBrijfdDID5JjF6lJEZtxfetCNyOrL67FbKl3DkYFj+L1/4id7j
-	 1wHQZgbFGBe9TUX8AciejmGHbOGJeS+4KLmXfByayiZmZLB6N+rZQ8aeNIuyVEyOxz00S
-	 595EXhBitdahFtdNkNdsEqDaUwGPYL5wqL8oVK73kB24+hFX5LE99EMn/QsgaVCdjM3lE
-	 L5w8ynJ4Bka1MAIqpPxz3uQ1kbpHiL9BafPaTlb+Yc68Z0a6y2iqHwT84j/d6Ssligg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793876804;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=LOaUcszBeFc4BBZTn5mnxjNejVuuHalw0DHWazewRfk=;
-	b=BO/BRiYNzfzBESDFp8bP0rcES09TF3fUtLEXYeFLso++9rNuEt7nC9pGRXcNphTcdeP2
-	 g3yM6ahbJe0R27k9u1BbVJx+X2XRdFDW7KhdJuQsLE7JdNnDxgfAuWSztIsg4AfYkRRZe
-	 dHzIBWk1g0KpixagIVIRc2vACVs9Cj5wcir4pO6qe9Xn6ikiL46QKWrV3kR4iUlTUXr+Z
-	 CzxGk/6vQEVEpg8M9WwcM58TrbFkHeNn57QovEGs0uq65RFZHpgr8mzNMXyq76IvL8OBD
-	 ARSjo5X9R05oW3H+iB2+kD7dQ2onOQD/B3pXvRzpEUTj0uTVlyYbKUfDXUgjaPllv/w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=YRRtLmSi;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793876826;
+	b=WHAvdEvaDzAhcoYjBx6/cZyrctlus2AAppOsJ7X67zDbdMik+RMNviNKFRmb5C2ieKDi
+	 FgRBzM7r5lJs9gYO6e8mev+OgybnB5BZDMplvF0ZcEPCHeGbUWMR5KdTRTBxhEm3iYnMo
+	 LVIXmzzO2D24F8bXYMytHeHhTLibTiAI9Epy8McW+CuEOR0+ntrGT77zpkVXMBvmxa/Ch
+	 t5r/IOEzCPqsziEb94P0i/glzqJ5W7bSj8m/PGGc7XIpn1eD8ztwMrVzNxIVzFRIfLTeX
+	 YYQFERyGvA5cpIaDWg6apFeC3FhCOIuQZglacyHmlbKclbQMBWnhmaSxusI9+NczcJA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793876826;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=tBXbAkaPauO/t+CrWaIYHzrmfu0tKOxa9L0c762SX8c=;
+	b=YcqlFZHu9ep5OHF0qFv4Yx9cGApKhddd8yBImbQxV+TBmxXO7QMZB58/l2mOv1HS3M2R
+	 L58kdEqLcbNLKOSUncb0w0yVs/bYvtI9GbmUo2h02GG9h0GjOmM4EtlQKcnFjyZPvAF6n
+	 xhFy5t+hAc/aeojX8w2S6He/dKl0XV4NuAw2Nq0Nu+TLWnl7HsOsc9kxZGv7nySo0iOs0
+	 LlOLWudDRL7XCN3QYbdcLnRvZ3iTm6xu18tJ1+LPjbaSmLEWFlHEbEGKV4OxXjYHt+ZBh
+	 vszEazYjzZTohL0P0lSJFJ1110RU9N1PKB8SY3cLxHBSt95zSRe3TBH/Gxpw0pYjI+A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j2BMPAoc;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0BA606A31B;
+	Thu,  5 Nov 2026 11:07:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j2BMPAoc
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793876826;
+	b=cs1HOWnn0QPOcKYr+3L9Ffu07/k8MJU97vpL0kySmjaX77w0IhANxhQhFO/X3MrK3fTh
+	 ein5SDySK07U2HPI6vA2o6Gknl58/FNAReX1vCygPn026zz2x/fTUC2ZkOcg9nlzAyxzQ
+	 b/FbIk18VOnVRW8noc/cUfjLqtvSe/+7BSicEwCxg5V6yX65ZG+m3sAsj1rdA6JMVarwM
+	 siFsI/4L2/u5riXJJEh526NUKAVGsTItWwfhMTdqlT8Y59vp95NjI6IKPZ8s5tR7lZZxB
+	 ph6MfDEg/rslSB3WxYs1eHDlsc7yJw3k0xuzUYmWPF6oEq2o5JxmLwbcIW/+On+OxMw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793876826;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=tBXbAkaPauO/t+CrWaIYHzrmfu0tKOxa9L0c762SX8c=;
+	b=ScjYiDdQBi+JqWGntDMEAbB8UI+pwzg+OvwU9U1uOIB+wCgyGxtLEnQ/MstgC2ouNTfa
+	 56HCegQ206yr9Xxpa+rE8Lw31msvDnxajyoz+DmsfT07Ag4BuYyTHsL8OAMVvFo8LNbZH
+	 pB23H5SvxnZ9sUYhGptjH1RBz2wIT0/rFeB85zu7fQ/x4WP4UO3kJNAqXf1cR2PQuqg9K
+	 4j6QX7n+36HKZ5yfmZkLvNoTXNwZKA7w60EPYjWDvCWuG0jHeYU2C36Wl5MiODw9+/r0i
+	 d+YlfDY878LuW+UUu9rxOung7iQKZBw9uCLPORT7PJo5CLSjv0TPJKD7hIv4hLNqLag==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91881606D802
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:06:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91881606D802
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=YRRtLmSi
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48c4649b35bso1434444f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:06:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793876796; x=1794481596; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LOaUcszBeFc4BBZTn5mnxjNejVuuHalw0DHWazewRfk=;
-        b=YRRtLmSiMfivZJM97R0EjPfSJFaKkxh73SxC1v75MA6sudRgHzTsOwKyvimrMZy3nF
-         CEXfFiAlo0+CYwI35W9OP7RYSEUXaCfi9JP+VLaMgdqh3ECkKyUy3I5FmR7Y1XYBlw8B
-         xkLbrwfRrl5r927YaBVRc9BSFtjdMh39/4cOeqPEO55i9O3tFyIR/6ACR6LAjHip6x2h
-         uuVKIi86pMpJtnB1Cxdy71V76NsTTHAB6+EXBnzYcRMy3XEzrJwzLLjSRrl/D4rK04M4
-         WGFJDlWarHUK3nCJ1W6yiXB2op0iK/nxuo3Xi2ea8ezE7iaSZXTg9cRLPpuf7ja4bkxO
-         2Rvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793876796; x=1794481596;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LOaUcszBeFc4BBZTn5mnxjNejVuuHalw0DHWazewRfk=;
-        b=SVsUNrs+ADt0FYldHl5JhUWZmxsMfrkakranKxW4pObYtTqVIUJEDb2qiuOaOwxowA
-         uXashWIRA4anEazKRViIjuaAr+/IprnOA7d4hCgt5wLvkvIodAyOBwXEp6Ac4P73tpYR
-         6NASojteX1Ut4zp/T3RIqHiMhENfp+vf/iiPGC6faSHNxnsyv5iwxtW4HimJHMGMghcW
-         7jV0+o5MOQwLR5gR/JR8qkVBj3i6zTh5og1HFWen0o+ndkJvH+7QaHywITpSMSBfoAio
-         pT6snJk/2xXcTk+4TAn5NgB67+yhQ9XmHfevDo1EbkVx0b/vzlVHoBoGJKULxSCaanLr
-         3/DQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzHyvK0XK1Ysx9kU/pvypOtg5gO9pUFTGwOZvaGAySRJd2BxKf0TDbgpJVU5xbS73bxTMkKVCD12spso/A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9wOAMBWVVIEp87UxryhBdG9Z3esZ5hdD+ZhpObmli/Vkg/3X3c
-	382TOxYc0FiP9vPWiqU6F40OpIY/EhZ3u4JLduli6xH2M7798SFddIzQ1zzk7bqEtYE=
-X-Gm-Gg: AYBFou2vIcSK+T9RpAP1JSDEfr8rs0m5yRST1YniVOOt/DjtLIZUHnX23C53uoSEeEt
-	ggldZ2lyxgSPyPVEGiCnTuRr9LwQNVMSAh+ZI0Oufxw9gCqD3TUz33QY0guv5AP7xBtwaOp6hOV
-	Ah9CGwvbkElWB25enjg/LBQRRXaxn7YtO3Ka6EbNauVkPZRy7Bm4274nTlp93PA4q3p1YgE9JL7
-	Wk9Z+LzMOLBHdsoUeBwjdYg8XFrfoEa+0Dp/SqnGxW0sEYJwIHiysOT8lmnVh0tqqMzENLXL3KC
-	nYwbkHSHWKJtVgX1hFcjUrnhk/AQY8Ji4y+cBHar2MgtW/BNw7S9qUZUEZpgxWmAEQZo4WcqsLc
-	26mbjndY5MYwX7gPsTSH9ooFbCk4ph6ljiq/hcYLlO5900ro8c1H573EfHh8iMfJz51iM7+hDbo
-	7PmwelAr5HSZqIXPQAKl2eJ2aX7Cmf7XqcWmWLD1lHJY02FGu9sCKY1jwwmoCPRbrCv4JJ38WUv
-	K/yNhlxg28AfdkfZyL/jdJDdrj+TZxTlL6bwGAwvq1/8ZZGE0UJXMIYUiNYyeaQKaX5sPntqxJR
-	wvHWDPXHxsy1XwFo5mFNGpLNIhwaLzgyj3gUD8fC+8Rb55LSJyapzzL5YWqcaLjoMAZCOf3qy7W
-	OCP4aX8gUNwht7VTT
-X-Received: by 2002:a05:6000:40e0:b0:48f:bb86:cc03 with SMTP id ffacd0b85a97d-48fbb86d828mr15698548f8f.11.1793876795617;
-        Thu, 05 Nov 2026 03:06:35 -0800 (PST)
-Received: from localhost (p200300f65f19a904ae40ca5165ccacb8.dip0.t-ipconnect.de. [2003:f6:5f19:a904:ae40:ca51:65cc:acb8])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48fece998absm10176189f8f.22.2026.11.05.03.06.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 03:06:34 -0800 (PST)
-Date: Thu, 5 Nov 2026 12:06:33 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>, Andy Shevchenko <andy@kernel.org>, 
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, Lixu Zhang <lixu.zhang@intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Imre Kaloz <kaloz@kernel.org>, 
-	Conor Dooley <conor.dooley@microchip.com>, Valentina Fernandez <valentina.fernandezalanis@microchip.com>, 
-	Daire McNamara <daire.mcnamara@microchip.com>, Daniel Palmer <daniel@thingy.jp>, 
-	Romain Perier <romain.perier@gmail.com>, Robert Jarzmik <robert.jarzmik@free.fr>, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org, 
-	Hoan Tran <hoan@os.amperecomputing.com>, Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>, 
-	Mika Westerberg <westeri@kernel.org>, Hans de Goede <hansg@kernel.org>, 
-	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, linux-hwmon@vger.kernel.org, 
-	Matti Vaittinen <mazziesaccount@gmail.com>, "Enrico Weigelt, metux IT consult" <info@metux.net>, 
-	Viresh Kumar <vireshk@kernel.org>, virtualization@lists.linux.dev, Yinbo Zhu <zhuyinbo@loongson.cn>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	linux-tegra@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Srinivas Neeli <srinivas.neeli@amd.com>, 
-	Michal Simek <michal.simek@amd.com>, linux-aspeed@lists.ozlabs.org, asahi@lists.linux.dev, 
-	linux-mediatek@lists.infradead.org, openbmc@lists.ozlabs.org, linux-omap@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, linux-unisoc@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com, 
-	Michael Buesch <m@bues.ch>, William Breathitt Gray <wbg@kernel.org>, 
-	Robert Richter <rric@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	linux-acpi@vger.kernel.org
-Subject: Re: [PATCH v4 00/23] gpio: Improvements around device-id arrays
-Message-ID: <auxh9PxpJScFO3i2@monoceros>
-References: <cover.1793097104.git.u.kleine-koenig@baylibre.com>
- <2hfpcbk6r56vvhkqyiex2apl3pinieybad5sd3vkvvabqs3uto@lydt3gin5kxe>
+	by smtp.kernel.org (Postfix) with ESMTPS id D85711F00A02;
+	Thu,  5 Nov 2026 11:07:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793876826;
+	bh=tBXbAkaPauO/t+CrWaIYHzrmfu0tKOxa9L0c762SX8c=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=j2BMPAocDYMQivjJRrMUmpL1QRkYiVIKg2ATMiKBheO9SDjdDBdKkxEyeW590ohl3
+	 BcTNT3IBfUH4UmiTgjjf231BT2wWVBdFEKvFC8ojxXzxTOJQNMXxmPXz7NgaeGiJJa
+	 0CokYhEsq29t6Q1WknMMilGOJPVpMJy93A+38ztdWSIN+0ZMos/EZlI0THMTjLUIQO
+	 C0ljCL62AW3DJABIWjR7I1cZjV0FjJ63NLE1bU23b28xT9gSD1nE8Fqh3wk6REfVIV
+	 n471E0Um+HAj6AHuy4qc1Idn8mCVXrpP8uHXoKPbuWYZ6V9KekGdkzmjTWQFTWFpBo
+	 948N1tEF0qbKg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 487A847204;
+	Thu,  5 Nov 2026 11:07:05 +0000 (UTC)
+From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
+Date: Thu, 05 Nov 2026 19:06:35 +0800
+Subject: [PATCH v11 1/5] dt-bindings: arm: add Ambarella CV75 platforms
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -122,107 +82,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qsdpu7ny4ekdton4"
-Content-Disposition: inline
-In-Reply-To: <2hfpcbk6r56vvhkqyiex2apl3pinieybad5sd3vkvvabqs3uto@lydt3gin5kxe>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261105-cv75-soc-v11-1-aa6ee0b2380d@ambarella.com>
+References: <20261105-cv75-soc-v11-0-aa6ee0b2380d@ambarella.com>
+In-Reply-To: <20261105-cv75-soc-v11-0-aa6ee0b2380d@ambarella.com>
+To: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>
+Cc: Jerome Brunet <jbrunet@baylibre.com>, linux-clk@vger.kernel.org, 
+ Brian Masney <masneyb@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ devicetree@vger.kernel.org, Long Zhao <longzhao@ambarella.com>, 
+ Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org, 
+ Linus Walleij <linusw@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793876823; l=1278;
+ i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
+ bh=3/nmC3518iJUv3pa+4TrYyrJ8fmY9AVoXsn+4KhycZM=;
+ b=sHGDFju4cllJ5Y9Odms3t4EBMsH4RYnVLSgBITJ0YNXgkrWA0vc7OuwcD2CK0z537nRpvXvgs
+ MyYgPxHpgikCDGR2JRfTWtgvNWqEFR1Es3ev8KIJtqodBbB2pQO2EnY
+X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
+ pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
+X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
+ auth_id=903
+X-Original-From: Long Zhao <longzhao@ambarella.com>
+Reply-To: longzhao@ambarella.com
+Content-Transfer-Encoding: 7bit
+
+From: Long Zhao <longzhao@ambarella.com>
+
+Document the CV75 EVK board compatible for the initial SoC bring-up.
+The ambarella vendor prefix is already applied in the devicetree tree.
+
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Long Zhao <longzhao@ambarella.com>
+---
+ .../devicetree/bindings/arm/ambarella.yaml         | 24 ++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/arm/ambarella.yaml b/Documentation/devicetree/bindings/arm/ambarella.yaml
+new file mode 100644
+index 000000000000..72946e94fa76
+--- /dev/null
++++ b/Documentation/devicetree/bindings/arm/ambarella.yaml
+@@ -0,0 +1,24 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/arm/ambarella.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Ambarella SoC platforms
++
++maintainers:
++  - Long Zhao <longzhao@ambarella.com>
++
++properties:
++  $nodename:
++    const: "/"
++
++  compatible:
++    oneOf:
++      - description: Ambarella CV75 boards
++        items:
++          - enum:
++              - ambarella,cv75-evk
++          - const: ambarella,cv75
++
++additionalProperties: true
+
+-- 
+2.34.1
 
 
---qsdpu7ny4ekdton4
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v4 00/23] gpio: Improvements around device-id arrays
-MIME-Version: 1.0
-
-On Thu, Nov 05, 2026 at 09:47:39AM +0100, Bartosz Golaszewski wrote:
-> On Tue, Oct 27, 2026 at 11:48:37AM +0100, Uwe Kleine-K=C3=B6nig (The Capa=
-ble Hub) wrote:
-> > Hello,
-> >=20
-> > the original motivation for this series are the patches that convert the
-> > arrays to use named initializers, see
-> > https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@baylib=
-re.com/
-> > for the idea behind it. Looking left and right a bit while implementing
-> > that, the series grew a bit.
-> >=20
->=20
-> Hi Uwe!
->=20
-> This no longer applies, can you rebase it on top of gpio/for-next and
-> resend? I'll apply it right away before any additional conflicts.
-
-Hmm:
-
-	$ git fetch https://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux.git=
- gpio/for-next
-	From https://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux
-	 * branch                      gpio/for-next -> FETCH_HEAD
-
-	$ git checkout FETCH_HEAD
-	HEAD is now at d66b6b86d5a6 gpio: 74x164: add support for 74lv164 shift re=
-gister variant
-
-	$ b4 am -3 2hfpcbk6r56vvhkqyiex2apl3pinieybad5sd3vkvvabqs3uto@lydt3gin5kxe
-	Looking up 2hfpcbk6r56vvhkqyiex2apl3pinieybad5sd3vkvvabqs3uto@lydt3gin5kxe
-	Analyzing 33 messages in the thread
-	Looking for additional code-review trailers on lore.kernel.org
-	Analyzing 99 code-review messages
-	Checking attestation on all messages, may take a moment...
-	---
-	  =E2=9C=93 [PATCH v4 1/23] gpio: Remove __maybe_unused annotations from a=
-cpi_device_id arrays
-	    + Acked-by: Frank Li <Frank.Li@nxp.com> (=E2=9C=97 DKIM/nxp1.onmicroso=
-ft.com)
-	    + Acked-by: Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com> (=
-=E2=9C=93 DKIM/intel.com)
-	  =E2=9C=93 [PATCH v4 2/23] gpio: fxl6408: Remove __maybe_unused annotatio=
-ns from of_device_id array
-	[...]
-	 Link: https://patch.msgid.link/cover.1793097104.git.u.kleine-koenig@bayli=
-bre.com
-	       git checkout -b v4_20261027_u_kleine_koenig_baylibre_com 20a33c6b6c=
-be7e4805dfb6cd68816937443aa148
-	       git am -3 ./v4_20261027_u_kleine_koenig_gpio_improvements_around_de=
-vice_id_arrays.mbx
-
-	$ git am -3 ./v4_20261027_u_kleine_koenig_gpio_improvements_around_device_=
-id_arrays.mbx
-	Applying: gpio: Remove __maybe_unused annotations from acpi_device_id arra=
-ys
-	Applying: gpio: fxl6408: Remove __maybe_unused annotations from of_device_=
-id array
-	Applying: gpio: Drop unused assignment of acpi_device_id driver data
-	...
-	Applying: gpio: Unify style of pci_device_id arrays
-	Applying: gpio: Unify style of various *_device_id arrays
-
-	$ echo $?
-	0
-
-Maybe you just need to add `-3` to your workflow? ISTR this should be
-the default for b4, but it seems if failed to mention the -3 in the git
-am cmdline.
-
-Should I still resend?
-
-Best regards
-Uwe
-
---qsdpu7ny4ekdton4
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrsYzcACgkQj4D7WH0S
-/k6COAf+I352qHa+kMUOH9ETW9KNHC8dWhUfB6E/IB+8yoRbH4tQy5C0mLg76J11
-sJdUuJGD2XjvAv2tgSWACC8Cq1A+CnMvgQXXDsLtC7JuQ0aQYwSFMTIEphdECYue
-42itRdsMlxubgjyK4Ku9YeDItioMv2A2EX+InXlNcO6MoK9ty5ZgCfsCY3OyHGVT
-OwfU948a3DowaasJORDv1w6dhDNg/sCysegJvjnBoz2vhmoeYeyxxNHTGIzcjxt/
-CWYJqu4/QDxJQ9FDuS6d2VhmXYOGL2Dl/wntyyQZjatVXHe6I2wwFBNQoOWJvPaA
-BRQb0uNoTqeBvO/Bc5+AYD34/xDKkg==
-=tsLa
------END PGP SIGNATURE-----
-
---qsdpu7ny4ekdton4--
