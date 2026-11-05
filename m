@@ -1,62 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.241
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.252
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793916817;
-	b=s9zJGJb47ctsuRxwMFKkTR+IzkTyeRRIqQlP2MeF/TSIDCd9CTpUz9sogJz0zxdcOtSF
-	 EymrOnqCHtxlKJZG42d59TpdPsUZ5/5zoC1JZoeX0jT9nh3+QlQC8rtoJbLVJ9kiBfMuW
-	 6utvth6Jl9e6rBbcqHEYM+rR+fYmW62f6eBgQ8Lx2LLfTbQWOg2SQ6XTY0y27lN2N3/oX
-	 ioOqoatvZL9DbYFwiuhB3rYu6Srkn9/WDuY1UxX6UQ9v8SmBUkBeAVAm/e0HTZ/dMPr+U
-	 98DDqDZ7wmikoiu3I/narNupMwqemx4fXn5wP+a/hAeYOL2+nntSV0d3P+HXOrf1+Kg==
+	t=1793916853;
+	b=HYgcyYsiAw9NV3BZQITwyz2dTD9cIOQ6vgVRQbeWQsjiAd7d1dZeOrOrSMWZNItgBMaM
+	 GMqP+Yz3qoGBt9ljMmIsQAat2FUGjGooAID0QVUaT8rmvbTY4B/sZIhIHbSscaRoB3pYD
+	 PM2N3lXwpIA6Xdn6Av3FkAvxXlZZHG9J2+ytPIJMT2j7EEmXAAQt3cBPqPpM9pD5JO/OF
+	 FkHkjK8lBlZZZCVTqbBVgRJXXDenkPhsoxRrNC1Vzpa7HlOkUI3328q6gWDTrjB8ZlaCU
+	 viE17jsdhu2dXyNvP8BVliBY+Hmb6EkmiR2OF95uG6iBbB7TvydNQxVEB5wIvnmNL4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793916817;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793916853;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=4KVE0mlIb8Pa60CBHZvDD8qqhUD9QNgg/6EGkqm9L1Y=;
-	b=jF8qON30+qXglOgKMqsG3rqpfimDPcsTaua4ctUu7NYZUhup7d5vJoDbqxofTYL/KqQI
-	 BBhsU84Ush40kqnrUDVEP8Yd+jgjdPpK+uNCSgArmHkBGW0IhuliWjCf0I7WCH8auN8Qu
-	 dB0yQA5gbVKiqt1dzhDiPzXbKCo9ykOqodN5Y1qfPOCFHUoQ9zJzcmeb1tXV955r0z1tX
-	 AtxSl8I6CNu1bZKUJJWgO8MsR4uItO96pXJAD6LuBNmGY1lazInQjkrwLrz7jKSFpHQYX
-	 7IBlj+csuQ3Fwl8cc7L9bqvf6tksRH9l7fO0gH1RZZkn7zUUArzyBqGsIL9uZ8KMZ9A==
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ZOUsTfcBcuVJ6gLGMQ6tAEOI9CGBgTAWtYSuv6u4PGg=;
+	b=YgFUvH/5HQHzRys3kcSQmvAXoZlBABLoXTRenasjSMkv9kW9nhXkdv9UE66tls7x3eSi
+	 2287UPowU5suXp6mWyoAPyLspd/jU1R6RczjMpn48OgZQXcBDTnnkciyI9N36YTPBNq0n
+	 HQ7jXBRukJtGZp1QwnpkHVs/W1S4zIJgeB9wvA46Wd23+lKFyedREHL/JMXiHjGRdu5f4
+	 1LI26HRlEFf04NKeZghMdP47xhhrlw3cg7kmtyLbBwPOJmcsELVHlBRM8P0uR2n9yy6xX
+	 kVsJAo4sJQHoDIXltM4MkOaCBT7YtGZY5g6jIGuTg9HW2o+R72A1WcTbCj4qGSC94UA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="FZL/4bYI";
-	arc=none smtp.remote-ip=91.218.175.241
-Received: from mta0.migadu.com (out-241.mta0.migadu.com [91.218.175.241])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FqI5VcPT;
+	arc=none smtp.remote-ip=95.215.58.252
+Received: from mta1.migadu.com (out-252.mta1.migadu.com [95.215.58.252])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 344CD606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 22:13:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 344CD606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EB9C606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 22:14:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EB9C606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FZL/4bYI
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FqI5VcPT
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=DkefybD1i8xvQ56jyQ09h/HTM19UexBk7u12ksvN4Ok=;
+DKIM-Signature: a=rsa-sha256; bh=5zm3bZakGmybjvQK0MMBjwto+FXGetyeWyr+G3hY9W0=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793916813; v=1; x=1794521613;
- b=FZL/4bYIYtPOxgYb2t6NdTInSEADFu24zE8bVTWhV8d7DKiaTGawM60fbUJSi3opG7QUYT7r
- 5UnBWjhj0KMKMEeoUUIC+NFwUUQIA+EkX4eLPy8KMDb4oSee8lfUntIzswfHl5C7tAwIKFlgRV/
- vpx80WMwdwnvpLm0xvNOTR/c=
+ t=1793916850; v=1; x=1794521650;
+ b=FqI5VcPTNmLYhp+5oqltZz4rrqkX+tX5jzl5+t6tV/S+rQaXObybFlIaJEz0+ltRbV8ky7LJ
+ 7Ddwrr8Gjng0OLPqWqcTBY9+7PvFIirQCALkUdGQdW8pyxIdSYMjzgyPVoCaQi76sggiftfej47
+ bBp4e63raCiPUhpSarMvsQSQ=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c3dbcbf73ad53fc4;
-	Thu, 05 Nov 2026 22:13:33 +0000
-X-Mizu-Trace-ID: c3dbcbf73ad53fc4
+Received: by smtp.migadu.com with ESMTPS id c05158efb375ae9f;
+	Thu, 05 Nov 2026 22:14:09 +0000
+X-Mizu-Trace-ID: c05158efb375ae9f
 X-Migadu-Flow: FLOW_OUT
-Date: Thu, 5 Nov 2026 22:13:30 +0000
-From: Jose Fernandez <jose.fernandez@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, David Hildenbrand <david@kernel.org>, 
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Krystian Kaniewski <krystianmkaniewski@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/filemap: stop fault-around when the walk steps back
-Message-ID: <20261105-jf-filemap-v2-akpm-testedby-reply-r1-36ef39856b46@linux.dev>
-References: <20261031-jf-mm-filemap-map-pages-lower-bound-v2-1-21029744e589@linux.dev>
- <20261102092750.e53073b2c7b872f9d70c0711@linux-foundation.org>
+Message-ID: <546481b8-43b3-4812-9b04-78367a071453@linux.dev>
+Date: Thu, 5 Nov 2026 23:14:08 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,19 +58,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102092750.e53073b2c7b872f9d70c0711@linux-foundation.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 1/2] dpll: notify about a reference sync pair only if
+ it was added
+To: Ivan Vecera <ivecera@redhat.com>, netdev@vger.kernel.org
+Cc: Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
+ Jiri Pirko <jiri@resnulli.us>, Milena Olech <milena.olech@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ Michal Michalik <michal.michalik@intel.com>, linux-kernel@vger.kernel.org
+References: <20261105131145.1010406-1-ivecera@redhat.com>
+ <20261105131145.1010406-2-ivecera@redhat.com>
+Content-Language: en-US
+From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+In-Reply-To: <20261105131145.1010406-2-ivecera@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, 2 Nov 2026 09:27:50 -0800, Andrew Morton wrote:
-> Can I add your tested-by to [1]?
+On 05/11/2026 13:11, Ivan Vecera wrote:
+> dpll_pin_ref_sync_pair_add() sends a pin change notification even when
+> xa_insert() fails and nothing has changed. zl3073x gets -EBUSY when
+> another channel has already added the same pair and ignores it, so user
+> space is notified about a change that did not happen.
 > 
-> "xarray: fix index jumping backwards in xas_find()".
+> Send the notification only after a successful insert.
+> 
+> Found by code review. Reproduced on a ZL30732A board with kprobes on
+> dpll_pin_ref_sync_pair_add() and __dpll_pin_change_ntf(): loading the
+> driver adds one pair twice and the add failing with -EBUSY sends a
+> notification. With this patch it does not, and the successful add still
+> does. A test module adding one pair twice shows the same on the monitor
+> group.
+> 
+> Fixes: 58256a26bfb3 ("dpll: add reference sync get/set")
+> Signed-off-by: Ivan Vecera <ivecera@redhat.com>
+> ---
+>   drivers/dpll/dpll_core.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/dpll/dpll_core.c b/drivers/dpll/dpll_core.c
+> index 8389983f425695..277692d12d3d1e 100644
+> --- a/drivers/dpll/dpll_core.c
+> +++ b/drivers/dpll/dpll_core.c
+> @@ -1081,7 +1081,8 @@ int dpll_pin_ref_sync_pair_add(struct dpll_pin *pin,
+>   	mutex_lock(&dpll_lock);
+>   	ret = xa_insert(&pin->ref_sync_pins, ref_sync_pin->id,
+>   			ref_sync_pin, GFP_KERNEL);
+> -	__dpll_pin_change_ntf(pin);
+> +	if (!ret)
+> +		__dpll_pin_change_ntf(pin);
+>   	mutex_unlock(&dpll_lock);
+>   
+>   	return ret;
 
-Yes, please do:
-
-Tested-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
-
-I ran it under the stress test from my reply to Pedro in this thread.
-
-- Jose
+Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
