@@ -1,84 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793892766;
-	b=onF6gH+1UkOZG9h/AYoiFckpTPhuqLmd3G57t3jmuCU6Yoplw7ePQWlfuMxE8D0CH0vo
-	 iGCOQYS6XTZ6SwN86+0Lk6xQaveppTaafDT9cRsLLrJWQl2Tvnz8sVZUzI0u39SvpGaQ/
-	 jf9u/O+j+oMMs9uq8HBVa5OmOUry+Rw+GeG6GKoU6DSycUkFosQF+F99I3M2KcHc1NhJm
-	 zpmGx3Swu8/utvWCqFuFm55vaLPxUC4sA1aecBRKOTrYTjz8ao7PGoiJpzS2ZqoJEDq6z
-	 v3ro2llFHVGwSEv4lftbZiZFcQgFmrRdnpXmwgIUCk3JI3Cb2vUpBpwzvsk1C+tKa0w==
+	t=1793892774;
+	b=UngXrkm1q2ifYDupu0ZdSKj/QZvlcq2EFxVvnLcKt/Gog3RXECgM8riWA2Rqwl1vT3RP
+	 JzIkNTAVi6/FUbQ/WaC/5QrVRDhqlf7czpYoyikpzkz58X8xeBBuI3xjG+vRcbwfP4t/5
+	 7Ucqn7KqLpgYFnv5qQMc2yhQ2/dKjp7AKpMBoRjUno20FklyaBaYyzIfgz/iUTXFGNX/j
+	 GnMP99CWPclM2i52oTqTxWcPUQnCSOZ+NfPaAwouCLWs1AskQxA8SCWL87PTe9JvKlN1v
+	 U+SwYRHj8+hyvFKGp7/tYT3xbMSuM9yYH1vn1GqIPPRZNI34XLoAN8Wn8KLvwc+F8xA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793892766;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=7umyZ/YrHoEtmXj0FGuivr1Hxju6M5MLAM0VoOLTr7k=;
-	b=0lkOoOd3841uARFgiVCWHmcQU5TExVD2DbwXlEEPHiSGQc0EsWRW/ixyvE3JP8as0Vlh
-	 3Sj65WnQr0yJa5Y0jTdkVNg5k2petHLnzjl0yneCQtOKgTYmrnMHEY2pOJ+0tcOX2TXmT
-	 WAm54Ri94jVBhp+xyBIsBdJ6jZIth7yEygzUgW1E1EHRZjls+Kfqf39wPs3YhR18BgJtT
-	 pO5O+BuErCgbS64DGfrq2BNfdAUaQhlZaoCfnpMF/t3ElIJOhwH7ucE01rfWeAxyfJIms
-	 GjggedEJgP5pFQdQ703nV3w+dqIg0BoavC8/OgLB6TYhsTHMcGIo+BiKybXNmTl+NLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793892774;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=e3T5k0SQ3pw9Nex+iwov0/iwckU6tdcd+5LX6TaExWs=;
+	b=MICHEjnuY4KwfHCV8+xmE6fDm2Ckr1yaLpy3u6fgAwXTsF+m9K2R0UXnRyEFqY0BYNTw
+	 RC4wdoWvOuHjUoVvbyqIyfJrH8rx1SYlKxm7aR7UBVqtT+j7ENWF3EN+w1D0YZu8IF5Qn
+	 HYR7OLEA7JQ2FGVNTOBK2xk6zJBN0FpG4KEvVBp+1gI7wc9d2NUnd68Ff6vMrNKyGCX6u
+	 ykF1/4etSCgm4X2K35C3nYi6asi3medorP/F1ML4A0Oj2/pIQMSl+n3AkaYI/1Hg5jneZ
+	 J1BO7es6LGZvadoHwRgkihIY27gMObIu23m3JkX8S9UrNMhcTD5tHbf/tWLEL8TXm2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PorG3Q5F;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="PuL8Pg/J";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cItFvPM6;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD4D606D80C
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:32:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AD4D606D80C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 825F3606A32C
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:32:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 825F3606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PorG3Q5F
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-36ecc11bd26so45393eec.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:32:46 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PuL8Pg/J;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cItFvPM6
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EQLi91040256
+	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 15:32:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	e3T5k0SQ3pw9Nex+iwov0/iwckU6tdcd+5LX6TaExWs=; b=PuL8Pg/Jtw9+GRpt
+	TCefO5vm1ZbG9PwmjWTfHYJH+mZbkZsHTZ8QB5AakK/7hmJOZAVF5hpxKswTOFP8
+	2grUk8+dn9DJK48kfOXFXgFnsfeWLFWDBhqNMtZJ5liuGb+tzLlKRnJvmoQZZue3
+	+ACIZRTIgBN8vJ/W1AlwtTOEc5exHtyDOubofYGQDTZfXQcQfp2fkLlHi9apKjoC
+	b5aZu1scRuHPwStGmoi/ZHmJsWYu61Fu+4Qf4ot60pktfolStT7XRnnPmpVeKoqq
+	MMIAD1vRhxDCwBGRiAeWMpK5scOPgwQH2VbOjY/+rhEbXiZOuQwPcImy7++j5uRR
+	57EhqQ==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrmcdaaaq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:32:52 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7cc099197b9so1534370137.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:32:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793892765; x=1794497565; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=7umyZ/YrHoEtmXj0FGuivr1Hxju6M5MLAM0VoOLTr7k=;
-        b=PorG3Q5FbLcdyCew4BLa5t0nPmnihUHn0qUvey+nts0JbhpAd0tIah3NA3fALyYQM/
-         8mj/jdPtaz6P0A4c7a0TBqXy6BiBW68/XxzkFhOE+C/e33HbvtvDDpTGMHB+BUSkfuyi
-         YHWgrOP0zY0o579kom3sSaOoOGUOKgW+hCfRDrgmqvTjxRXEoKfsXuUiy6+EFtgzC4Bi
-         Dz4Lcw74fD1umnxX+RaYphP/c88x24b0dxCvdxpxaHhbKZUGRL7jlXiaHnKQOpTZKnzZ
-         nyxK0np7Eq30QoygPMUqZtd64/8OR1bOCEu+zwwaczyV4blv6SQiaNvJCKKMNvXa36aj
-         tfZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793892765; x=1794497565;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1793892772; x=1794497572; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7umyZ/YrHoEtmXj0FGuivr1Hxju6M5MLAM0VoOLTr7k=;
-        b=z3yRpv9GDORs2cgDqn57tMccj3QTuxVoKWy4XCWUFkRf8ubfw0zlgXs1p7BtAzASbP
-         gtqbdUeXpDH/9yn99aUKJs1l0OfqMwtxyZKJxuKmL9NUKNaiX1LXgtL//r7fdZIZmWmg
-         xYhHC9rVqoaFe146DrukBxz5QKdyM4iGT83csBIFtxxxy9U5EPOFxWCwiMjYzk4KWZis
-         GUeJDSDPVkXJFcp7Sgfmz8MQtjB7aSCcM6u8wJtNK6zfdiRYFeVCKzXujRgX7eowGDMU
-         vCrtW5hoUE/6KfMkLwkevPVpPlFAANX09HE0G2rGhHUuskHKPo2NUrnLeC1AwLA3ooxI
-         vSQg==
-X-Forwarded-Encrypted: i=1; AKwUvByzXJzQYoXIUTX3oYYzFZSehbft7SfNCj2ozydc/vc0JD6ElitAGBh1DSojKRWzQBNlIPaMxuciVKy0Jb0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Z9YzI7ph6YayxGwvRu/n7YYhA06HneymZ1NsruI3jx5URbbpi
-	gbraj2NL1cLOooPiqM0hAhXf3Bm89Qr7hjJJbpzy6iOk5/095cOZvmpb
-X-Gm-Gg: AYBFou2X9qP6GS+vc079NiyC0XNT/WX6fWlaU9vW9f8xu9eZ+mrdzLksLHG8wLdswVe
-	sPiJP9MiUlzqcZmydg3Pg24rh+fkqkYsJjttVLi3/WXM6VdAOODuhKF3uKZLndX/M/fYavQBfIk
-	EO0UOUdUfmQXyZfXsuHZrL55otJta1iw8irSky95coDS8OrsF/4tB4sFVRe7xPfvgFM1vTmj0IU
-	SCOhLJn13Nb1xv0xtr1ptktpPbkWuMAQIUwrEiVAEQUcmLxjjTgpJMfQ6I6wv8wWqQkMXcNEcYg
-	AqJ5cMXBdveM/1R8185fHUpD1t5mrURRGuURGy5bCGmZcL3k+rQs5zYjNhhBofrJYPJGI/DcwVD
-	KO1BUBf9eiFn7ceLuLcGm4O8u2Wloqu1r5jDNvIuLZFVGgBbqfwGut6k5cX+x4R/kXV30sRQS/t
-	aXVMCB5oJMUZO4MUCNuLVviXmIuyKyNw+mVKDxOsEGQo8T5td70GAEfIlz1EjxnH131YX6nPSL9
-	MZm7lNrHxs0yvFqWfTty9JsH7Uswee0c1XFekMw/YUrgX6cz2VU7OSeAOv5YE0uSZO9l2TjF+mG
-	rLYFwdxsSJm0gMIbjp/7iVhP2BsY5CzS8+BxJqUfrZQt+YJ98UTih1rFQQCIYx9kvbc=
-X-Received: by 2002:a05:693c:87c2:10b0:36c:a1bc:6114 with SMTP id 5a478bee46e88-36ca1bc69bamr13207496eec.0.1793892764837;
-        Thu, 05 Nov 2026 07:32:44 -0800 (PST)
-Received: from o6.lan ([2602:fce1:44f:115e::])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca394c2a3sm17793828eec.20.2026.11.05.07.32.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:32:44 -0800 (PST)
+        bh=e3T5k0SQ3pw9Nex+iwov0/iwckU6tdcd+5LX6TaExWs=;
+        b=cItFvPM6LpfQg3OeFMqZEDAlxsI+fYymc3zR4xY9jJWE9lz9LIOtT2Acu5C7qpJ2p+
+         0zz3o/Ut5bpErKb+q8p2v6Sxg5Q5ZJjqYoxa1gZb5cm3vvCANRZrpfJGBBp4cC2S53de
+         LTSLs8u4BNSzbdAD++2pWMlua9PNE1uDWGxVye4XVxmTmtQCjASFiiXBuATaBX6uIcaQ
+         0vNHjy5/A5aEwKUiCcg4mqTFdnOxcEY379VEE7EaNuS6e1cFEjZv19w7ZcPqEYYTxxO9
+         mB3f+Z9ED46JEIjS+GyccBvRBQ2qK/kG8OOpM5JiTZkCM/wWiAdtEP9qbVqQP9x1zjI1
+         VKHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793892772; x=1794497572;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=e3T5k0SQ3pw9Nex+iwov0/iwckU6tdcd+5LX6TaExWs=;
+        b=IM9lwuEerCj+CVKzD/G1LToN1dboE90JmlFpyRf8Fh8shz0+FmWh0th9viDModql9H
+         iA3SdAcBj7cqn2agiaid7/9Y4EwiW+T2snLZhSVjQ2crDdjKStGD9f8Aqr4lbzCvnApS
+         DfHxNfS3sBsI6jOtX8PhGKeAFoXHpMkRQOmJxbCFSwCzhmD/hg6Re8YWUE0tZkRdXtc1
+         0CzPjogDAvfSDkGb3xAdKoutCjy6SbHKxsTaRA610IS9NOXC38/3GVwxVlbtweySgIlY
+         bNykKBHXJNBXld+ib53+mprq0s96+u3iVzzS6I/IisHWBU4Ul+bWztQVf/vzV3Up5D3u
+         ZaXA==
+X-Forwarded-Encrypted: i=1; AKwUvBwkFc2FbjLBfe9rJHDxel95uKxLQPkVup7iRligBOA+FKJEv8W1CbRpvZJPAAR+hrFuWZ4pReZtuyi5t6g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z87P7rgrhcvM8vtJvgKH+THA8hW41QSFA3/M6tiy0/HbaG1cgJw
+	bnnwKNZIKro2U9hq6zcVNbUOMLSbo3MN5xrQSysuWLY2eWL0A+++J4BE7CmNBgRSpMwnonet4A5
+	zpssQVWnMYbPIQTuciqNTdYctg88qGG50U6TeOM5LlOi9v7jI2cWTwx+FIo53+tidDQ4=
+X-Gm-Gg: AYBFou3A0USANi77O3jyvdQ/MD2pJHgb4TNYh25rFhoxil0xUD2HkuOjjELWM59yfVK
+	2eawv7BIkO/pFhykmRSf5P9kqoHooHzZd4idXo8e7CuctIliPq6w/SuY0YB/cjpVoLgkME9QkWi
+	izZNQD9PNB4Hv4VET0apzwPPknyEEoh1yFslmJ2d7DuhEd75TA7XxbvQwdFYheEuML+knun/Dz9
+	N228EWisJ3mQ5jaWi1VYGiINsJp1IiCwtZA+DOiWXTb2o38dMNqC1YlnIJSVN+IlwVKiF1PaauW
+	RoMqXkvTmyg5kCdWdfWRfQWRm1O4B97lUeFeviFx8nFAXmAyl6kKJYdfAXcyOWM2fRSiWCRkXpG
+	qbAlSfn/MHqwlw4l/ZJI++v8HNvbWMASwOvk1qi/u2ulOu5753uIt5dFc9VUY3yWOYcgbBhYo8y
+	0j/eKwP4J8VsmpaErj
+X-Received: by 2002:a05:6102:3589:b0:7c3:f36:c7b with SMTP id ada2fe7eead31-7d072c2bafemr10657468137.14.1793892771758;
+        Thu, 05 Nov 2026 07:32:51 -0800 (PST)
+X-Received: by 2002:a05:6102:3589:b0:7c3:f36:c7b with SMTP id ada2fe7eead31-7d072c2bafemr10657452137.14.1793892771275;
+        Thu, 05 Nov 2026 07:32:51 -0800 (PST)
+Received: from [192.168.2.1] (146725694.box.freepro.com. [130.180.211.218])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feda203b6sm10594945f8f.48.2026.11.05.07.32.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 07:32:50 -0800 (PST)
+Message-ID: <65c4b925-598d-43d8-a6af-ce197d9b5c27@oss.qualcomm.com>
+Date: Thu, 5 Nov 2026 16:32:46 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,79 +116,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: thermal: Use signed integers for
+ coefficients
+To: Lukasz Luba <lukasz.luba@arm.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "open list:THERMAL" <linux-pm@vger.kernel.org>,
+        "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+        open list <linux-kernel@vger.kernel.org>
+References: <20261103214357.2700244-1-daniel.lezcano@oss.qualcomm.com>
+ <a53ebde3-ca2b-46dc-b4bc-93379b05a1a8@arm.com>
+Content-Language: en-US
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+In-Reply-To: <a53ebde3-ca2b-46dc-b4bc-93379b05a1a8@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [RFC PATCH 0/2] mm: zsmalloc: make shrinker compaction
- budget-aware
-From: Xueyuan Chen <xueyuan.chen21@gmail.com>
-To: Nhat Pham <nphamcs@gmail.com>
-Cc: Chris Wiseman <chriswiseman@google.com>, 
- Sergey Senozhatsky <senozhatsky@chromium.org>, 
- Xueyuan Chen <xueyuan.chen21@gmail.com>, 
- Xueyuan Chen <xueyuan.chen@vivo.com>, Barry Song <baohua@kernel.org>, 
- Yosry Ahmed <yosry.ahmed@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, 
- Brian Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <CAKEwX=OUt4=wqDLiPvYuiTnkpuZYnszkuNQScNR93hHhVPRRGA@mail.gmail.com>
-References: <47ed45b5-de67-41aa-aa21-a3ba3479a7cc@vivo.com>
- <anXJ-5_vO7-toSe1@google.com>
- <CAKEwX=Mm2tXcen-quRXHf1Y2qSHYvpEUe4xiw-mHYaJnRUR-EA@mail.gmail.com>
- <auKqt6b4AxCLziIH@google.com> <aufPMirl4cD7tz0X@google.com>
- <18e4542967ebdd10.3137322e32332e3235332e313736.1dfc41.0000sendgmr@google.com>
- <CAKEwX=MV_xEUvz91pz6uc4qXWnWOUDtXZ2zASdNVOBHBLeA60w@mail.gmail.com>
- <18e4ebf806e937ec.3137322e32332e3235332e313736.1bf52a.0000sendgmr@google.com>
- <CAKEwX=PFdgEbba+H3fEnJFDnfkxCTsvuHEb4numVwJRaiMgwKQ@mail.gmail.com>
- <179384102494.19062.12740032892044628762.b4-reply@b4>
- <auwOBaRtM9p_Wxfx@google.com>
- <18e529a5ab0738f7.3137322e32332e3235332e313736.873cb.0000sendgmr@google.com>
- <CAKEwX=OUt4=wqDLiPvYuiTnkpuZYnszkuNQScNR93hHhVPRRGA@mail.gmail.com>
-Date: Thu, 05 Nov 2026 23:32:38 +0800
-Message-Id: <179389275823.111354.9600793327477116515.b4-reply@b4>
-X-Mailer: b4 0.16.0
+X-Authority-Analysis: v=2.4 cv=EOGTQFZC c=1 sm=1 tr=0 ts=6aeca1a4 cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=uw/3876vWhRnNVL35W6mqQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=7CQSdrXTAAAA:8 a=8VQtTDxmKkvejqrRUPYA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=crWF4MFLhNY0qMRaF8an:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-GUID: IzV6w-D39c1DRrCHkOmjgzYUbNf7W-8p
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA2MSBTYWx0ZWRfX4JhP6XCSI8SL
+ uSh/8PmYVgFjotr4ejllIRuMIQRZ21oR3C2DKWvDKOkKsAm2p0+P8h/6s8/oXM+1iVdRjHrS5Nq
+ uar7On08F/erhV9tQvnu5FNndoEbGc8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA2MSBTYWx0ZWRfX7AwW3V7Mj6Af
+ znCGCBaekXg81lOu5d49O85fhG/uvE+/2MQAx5T8g8x60qgL80unnN9BmFbB+KvEej1k4XCaL82
+ hy7I9CrEIL9ZO7Nf8ehpByDTcbFPVZ0m/GewzNtf2G4xqYleI7+Fkl8jhIwqahA5UvNos7oQZm4
+ gk0WpojYsKwoPg+tSJjlMynAsVdH1+J+6O/o03pJ6yDrVr6w2uhhug4Yb24bOw/VB2HMVMxnC7D
+ VfmLhn0nMK6EY27Vww+MCqSXfqZ3AzrlSpv1M9hcK7yvgoPKUR4f+zTqx1R6rp8NZI+RQ0ogTXk
+ rOB0fvKxc8qu6/RItu6PWGl/KDTNGv7+EV7JcED/dOPHnldGWdNNLKCBfzUIWC2DcqFxrPd6l/5
+ I+gj2SsPjStbp+sc+8IgEYR8xmWr8aerBBqS3troqRdjPo0GMnyinrxtR0z8UMsRyDTgQ/Ld5wU
+ 4pyPC99MdPprDmKCHSg==
+X-Proofpoint-ORIG-GUID: IzV6w-D39c1DRrCHkOmjgzYUbNf7W-8p
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_04,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 suspectscore=0 bulkscore=0 phishscore=0
+ priorityscore=1501 impostorscore=0 malwarescore=0 spamscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611050061
 
-On 2026-11-05 08:08 -0700, Nhat Pham wrote:
-> On Thu, Nov 5, 2026 at 6:36 AM Chris Wiseman <chriswiseman@google.com> wrote:
-> >
-> > On Wed, Nov 4, 2026 at 9:05 PM Sergey Senozhatsky <senozhatsky@chromium.org> wrote:
-> > >
-> > > On (26/11/05 09:10), Xueyuan Chen wrote:
-> > > [..]
-> > > > > SGTM, but I'll let Sergey chime in!
-> > > >
-> > > > Thanks, Nhat and Chris, for the discussion.
-> > > >
-> > > > If Sergey has no objections, I'd be happy to send a follow-up series
-> > > > to make the shrinker configurable and add the unlocked pre-check as
-> > > > Nhat suggested.
-> > >
-> > > Thanks.  Sounds like you and Chris will to have "Rock-Paper-Scissors"
-> > > to determine who sends a oatch ;)  Just joking, let's first figure
-> > > out how exactly we want that zsmalloc-shrinker thing to behave wrt
-> > > zswap expectations.
-> >
-> > Haha, Xueyuan is welcome to send the patches!
-> >
-> > Dumb question on the zswap side - aren't the zswap shrinker and the
-> > zsmalloc shrinker independent?  Even if zswap's shrinker is turned off
-> > at runtime, normal swap-ins still free slots and leave fragmentation
-> > behind, and unlike zram, zswap doesn't have a manual sysfs compact knob.
-> > Would it be simpler to just keep CONFIG_ZSMALLOC_SHRINKER as its own
-> > standalone config rather than tying it to zswap's runtime knob?
+
+Hi Lukasz,
+
+On 11/5/26 11:45, Lukasz Luba wrote:
+> Hi Daniel,
 > 
-> Yeah those 2 shrinkers are independent! I think we should just let
-> ZSMALLOC_SHRINKER default to the value of ZSWAP_DEFAULT_ON.
-> zswap_load() (i.e zswap-in) by itself is enough to create
-> fragmentation. The zswap shrinker is just another trigger (and it's
-> also irrelevant if zswap is disabled anyway).
-
-Do we have any numbers for the zsmalloc shrinker with zswap? If it
-doesn't help much there either, do we need to keep it behind a config
-option?
-
+> On 11/3/26 21:43, Daniel Lezcano wrote:
+>> The coefficients property describes the coefficients of a linear
+>> equation used to derive a thermal zone temperature. Both the slope
+>> and the constant offset can be negative, and the thermal core stores
+>> them as signed integers.
+>>
+>> Existing Device Trees already rely on signed values. OMAP4460 uses
+>> an offset of -9301, while OMAP5 uses offsets of -1791 and -2992.
+>> Broadcom platforms also use negative slopes. Declaring the property
+>> as uint32-array does not represent these values correctly.
 > 
-> How do you feel about this, folks?
+> This looks like a good argument which was missed back then (that
+> the negative values are possible).
 > 
+>>
+>> Change the property type to int32-array so schema validation decodes
+>> the cells as signed 32-bit integers, matching their intended meaning
+>> and the thermal implementation. The cell width and binary encoding
+>> remain unchanged, preserving compatibility with existing Device
+>> Trees.
+>>
+>> Fixes: 1202a442a31f ("dt-bindings: thermal: Add yaml bindings for 
+>> thermal zones")
+>> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+>> ---
+>>   Documentation/devicetree/bindings/thermal/thermal-zones.yaml | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/thermal/thermal- 
+>> zones.yaml b/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
+>> index 999ad40a20d5..72e419124f98 100644
+>> --- a/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
+>> +++ b/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
+>> @@ -101,7 +101,7 @@ patternProperties:
+>>             thermal zone.
+>>         coefficients:
+>> -        $ref: /schemas/types.yaml#/definitions/uint32-array
+>> +        $ref: /schemas/types.yaml#/definitions/int32-array
+>>           description:
+>>             An array of integers containing the coefficients of a 
+>> linear equation
+>>             that binds all the sensors listed in this thermal zone.
 > 
-
-
+> Reviewed-by: Lukasz Luba <lukasz.luba@arm.com>
+Thanks for the review
