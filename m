@@ -1,96 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793873029;
-	b=JLaTV8bDc7jBKxN2wyTsZCBhlni9KmkC92wrZc3Z8fu2Ai9GEWBsM3GoGqu4gaiGdO26
-	 Vtamwr2NPK8cblUQRqRlWFdvMYd3jcjMcP3VfrVkksympu++uACdpEUdLu8oCl9R824Iw
-	 NZVGf3xvVAusY90ue3L6IWbrXCTvYO4PVmmO5tTy/TUEEdc75GLMfxaDD3Oaj06S4ms1q
-	 TpAQ7dF5BiFAHRp3S2Vaoy0oLgFkIz/K8upIYBhlsEKhuR2SdVBMPM67CVkTt1RCCUwKz
-	 OF6Me94sW3SH9OhSd1x5d/+51P5HCr8kq8YEMUczRAWHZetoqGsrjnbo0fcCihKyccg==
+	t=1793873046;
+	b=FRbAG4CFV/ccfjBvUE+MoklW2PSz2xuO9VY64otouK8YoEd7KPYpGZvk6RjSusivhy6J
+	 u4Q/oM8PZHQS6Ki5lHTr+JhO7ybxIXeTXUF4OECS1UIEVFN0H8m44oHvqf494VgaXM8B0
+	 hFH2aijoFXg9DnUYp5JC1eQQzyAMqeTR/OrygzcGIsveTeIfEexuXLld+28tDv6hLvMV2
+	 A0SJpnhTOTNUb0vD+60fF7LnTy0Pw2iw2Oo9lR5R9WKkLnsamwSfbcNiGiGHOTbv0AhR+
+	 mtG5SUj/Clfr8yFn/TbLsk+AgekpL1Ed0RHapCyJAJ6Yq1o5b+Gr58ul6VHqWYYvGdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793873029;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=obVgseqllJp+RhoG7Gft1OnXkOIDVqHcrqcH9dUcNao=;
-	b=YSG+Ckfyo1aPb6kxA/T1zwOdgM8bFHx/A/A7iOIAMfqO+bQmYjXIXVps3OGTPocOqIw9
-	 SEYb2I7zaPWNMkTlcks7q5GcTnOFjz3QZ+Nu9SVBgljExr81FkngNhjOKalt/ZOZMuBwg
-	 FB9wgG/HtTSxAw0bA2uD9SxADu78BBE/G2HO4jfMUhcaQTDpr1HsVzwsZZshQFdhe984M
-	 13uTz2d0uxcnj1iYN8heC2QGKYAbd9DFecdSrzsuz+jvGNRpAfo3O3Y9w+bx817htOJIw
-	 ox9SLV9nz3hdQkHqgXwc0C2jvJCTLuyZLvOOd5CLp7FaOIX5Ccz831zdIZf3K7xZGLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793873046;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=4sAOTQijm0unkHuug1Z8C+1HeeNtpwsDrUWnMkqB5cE=;
+	b=pmf851fd1vL52UeTKsSmr4kB4KpwRHuBOOPuO+IhXzv7Lih7QRK5Is/viivL75MFJl8+
+	 OF15B0RH6/dQCLWgBaliHgC1UERc9IgJLLqUIwZmNo4uohXEPpu2TzXWpCmvz3mI+zkvq
+	 pyeX+VbCFGbFOmd3a12RehUc6SDWKu/Ci5xVXDZLse50Td+dC1qx5/X5BVJZZjGSZACTg
+	 bmlDbJc8dh6dL7uj2tWve7DQ1f/EmeCIffeLLKM6LScanbi+ABVyWnFLDaXOritblUcyv
+	 BOFJrRlfgqgNwCa5t7QnIVzX7ydqd4moe13czzw8mLh85bEAouDit9YTR1dAxgw4Ggw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YXKFyooY;
-	arc=none smtp.remote-ip=209.85.210.182
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PPeTuCJW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FBF9606D814
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:03:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FBF9606D814
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BA5B606A333;
+	Thu,  5 Nov 2026 10:04:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YXKFyooY
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8a05f2d5cd3so814257b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 02:03:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793873029; x=1794477829; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=obVgseqllJp+RhoG7Gft1OnXkOIDVqHcrqcH9dUcNao=;
-        b=YXKFyooYIHFb4nWIyXpsVayURWHLrLNvt64X0CSc8Oj2vnRyMxz30CedCuXh3hGKyr
-         J35/OzOzEdTv9GCtMhtL1bz3x0lLmAfy+tc0EKZvPp3wORSNQlSTvi2qfpuhHud2zdES
-         UQx6jo216w9klQIA5USuLifgSA7WzPsXzjmVMUH9MIMQw41gDEP/dan67OgLw0gUfEna
-         sl719yH/1TxT2YN1GqIkvwtZlpgIxlUrHq9Eupe57rsJ2GIC2Ew/9LcCIJv3Z4FcjvWv
-         /FvlNEjdFa/QRTBGp4iEA43H9cpfV+621vn6e8rdPBkdTZS3RStPI54nXJZxuu4Lob2d
-         EhBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793873029; x=1794477829;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=obVgseqllJp+RhoG7Gft1OnXkOIDVqHcrqcH9dUcNao=;
-        b=1/2oluy5k1r7TtC2F1U78TBCFgM5BOJf7Irxp63zdG5iHOh22l8feQLtgpfS024BNy
-         9rEewqS2Q8NROXbDUCkbI33mtDsovrUocflnFby7hiYFkWlo6WwGkOsaSkkLx8SbKXD2
-         VgSBOFrJMfT+zRDHItssh4L89E7u3jbKkyuFBROq6CVmE/hDp/OizGvr6tmnXk5Cw9CM
-         w7cl9fqunhd43JLfl/yL8i91MOYRugfez30v0c4go0thky3JfTx/FbVFmSC5T0iOkAoI
-         Gm0XGXYUrDE8cAX2qsarouQYCbS+aiPNEvwrTDR2QKGM3SL0GhwseSB+r2unL4z0VWsv
-         N8gg==
-X-Forwarded-Encrypted: i=1; AKwUvBzGvH90NggEo+NhrpFy95/4q9kccL3O9f2yAdjIIR/6V3SGNeyYUN5oxe49ZtLHIVCH1r2ZjnfvuFgARS0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/eVqGJS3pvIjYPuKASXbfrpbm1NbbhEU6ULFu7HCogRj9NJpmt
-	ymfjqmnqJs5WPAv06m3OUHOD09H3aaE5QpMZax3HnAVfTfp6qHgDhpU=
-X-Gm-Gg: AYBFou3E1uGf7Qq90b5xyxzJkkkgcttUJ2X48EdP52pyyjczdAKkWBvLSPORxAZafIQ
-	YkMfjGbeYyJ8NQoFn+1IH3FK1dox7K+dXo6P9T6pMXzmcXD04BVbAuGDU9DpFnlBFJqAW00KoY5
-	xJ3Z/y1A/k91etd2CV5Jiww7TtHXZz+4kV0s3ZVG1QVIfYrfblmnyMIBEKBkwM5AotoLKb8bc/d
-	cvEal4Zkmq+4bFKULVVEU85+RSCKplERWmiwjfFjMeBoD9DzT+pGwdr3Wqr6ufwpl0Z9M8U1XU0
-	jDiGULj8GQBAvO8NJtZjMwPwx6/AppBPbezLBCeBBMRchAF9DmAZyc8RA4JcHgbWqF0ds8OWQDr
-	DwUlAeOwqt7ifwQNcW0huaZORYog896RpO3Z7p0t7MKfcdGhdmp7NeM7hXrGa2WEpyS6aU0JIgF
-	19vDCDyoZ4g+yx5xKFo896rz/X9VzIuWBSOGA2VSHsEopw6kSsvmQRu3N7o//pFQGARpMTx4Ckl
-	3VNQxltdbyq76MK2rGYMkmpqKMum9YXEMjyh4+OlwfyzE5uo1dt2pTxPIFFgaIXnZjPU/gJE5+q
-	A3TsHkAH4tuw1iiM3ABb8yAmTwil6kSqLFd15Se6UWszAXQF6esl
-X-Received: by 2002:a05:6a20:c98d:b0:3e2:86b6:9be9 with SMTP id adf61e73a8af0-3e928d4687fmr15100367637.28.1793873028571;
-        Thu, 05 Nov 2026 02:03:48 -0800 (PST)
-Received: from localhost.localdomain ([202.51.247.22])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b09ae9d26csm1867523b3a.27.2026.11.05.02.03.46
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 05 Nov 2026 02:03:48 -0800 (PST)
-From: Yige Jiang <yigejiang86@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Yige Jiang <yigejiang86@gmail.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	WenTao Liang <vulab@iscas.ac.cn>
-Subject: [PATCH v2] regulator: as3722: use the platform OF node setter
-Date: Thu,  5 Nov 2026 18:03:41 +0800
-Message-ID: <20261105100342.34730-1-yigejiang86@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <brzyrqnyrayxdpnyginamtdewj6cp3odhndlstjp6kupnr4q3e@rt73ebxxvbms>
-References: <rc-review-20261103-19-ee1e37733b2e@gmail.com> <brzyrqnyrayxdpnyginamtdewj6cp3odhndlstjp6kupnr4q3e@rt73ebxxvbms>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PPeTuCJW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8F641F000C1;
+	Thu,  5 Nov 2026 10:04:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793873046;
+	bh=4sAOTQijm0unkHuug1Z8C+1HeeNtpwsDrUWnMkqB5cE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=PPeTuCJWAkflarn1lLbfkXeQH5EsCZzh76zu/pXKzFV0qNLrDhBw8QqE06mMTRHRo
+	 JrqaKJNfFY7/gsK6h6b3b9FKcjZT+YlwLE/NgP+j6rdiLpDelAc+uHd6Kirj9HuHS9
+	 6fVjp63JPPJPND6a7fbz2kTI9UW2H4IubtgH1r+NmWpihjoSGHC7FKhBqDx2QDukQ3
+	 GFWdGH9dXCuRr30RK60LfnSAga1t4i19RY6AMwXddsbHmZmnQy7wjGJf6xPbXla3H0
+	 /CnCdkTVPV00PxMk+PHxR66JPJf86k20NCVwcgBYGNIRnggGZbxvgbtuEG2tCvo7iH
+	 /2LABFxL2v/cA==
+Message-ID: <eda01b72-c88f-4a75-ac5b-7f849a7a1fa0@kernel.org>
+Date: Thu, 5 Nov 2026 11:03:59 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,64 +51,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] mm/ksm: align smart scan skips with the scan
+ number
+To: Qiliang Yuan <odys.yuan@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Xu Xin <xu.xin@linux.dev>,
+ Chengming Zhou <chengming.zhou@linux.dev>, Stefan Roesch <shr@devkernel.io>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Shuah Khan <shuah@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
+References: <20261105-bug-mm-ksm-smart-scan-align-skips-v2-0-8a9780b6844e@gmail.com>
+ <20261105-bug-mm-ksm-smart-scan-align-skips-v2-1-8a9780b6844e@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261105-bug-mm-ksm-smart-scan-align-skips-v2-1-8a9780b6844e@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-as3722_get_regulator_dt_data() gets the regulators child node and
-assigns it only to dev.of_node. Platform device release now puts
-dev.fwnode, leaving the acquired node reference unreleased.
+On 11/5/26 10:36, Qiliang Yuan wrote:
+> Smart scan skips pages that KSM has failed to de-duplicate for a while.
+> Once a page is three scans old, its rmap_item counts down its own number
+> of scans to skip, 1, 2, 4 and then 8 as it ages, so an old page is looked
+> at every ninth scan.
+> 
+> The unstable tree is rebuilt on every scan, so two identical pages that
+> are not in the stable tree yet can only be merged in a scan that looks
+> at both. Each countdown runs from when its own page became mergeable, so
+> two pages that became mergeable at different times end up on different
+> phases and, once both are old, may never be looked at in the same scan
+> again. They then stay unmerged for as long as they live. Making a page
+> mergeable, waiting for 0 to 20 full scans before doing the same with an
+> identical page, 20 times for each wait, and checking the pair after
+> another 64 full scans shows this, on two boots per kernel:
+> 
+>                                 before            after
+>   pairs merged (of 420)         329 / 317         420 / 420
+>   64M of unique pages skipped   89.0% / 89.1%     87.5% / 87.5%
+>   ksmd CPU time per scan        6.25 / 6.25 ms    6.88 / 7.03 ms
+> 
+> Pick the skipped scans by the global scan number instead, with periods
+> of 2, 4 and 8 scans. The periods being powers of two, every old page is
+> looked at on each scan that is a multiple of 8, whatever its age, so any
+> two pages meet at least every eighth scan. The longest period goes from
+> nine scans to eight, which costs 10-12% more ksmd time on memory that
+> never merges.
+> 
+> Fixes: 5e924ff54d08 ("mm/ksm: add "smart" page scanning mode")
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+> ---
 
-Use platform_device_set_of_node() to synchronize both fields and
-give the device its own reference. Use __free(device_node) to release
-the local lookup reference when the function returns. This keeps
-the node valid for regulator matching and the platform device
-lifetime, while also replacing the previous device-owned reference
-on a probe retry.
+Makes sense to me, without looking to closely into the details.
 
-Fixes: 7b5b51b2b05c ("driver core: platform: count references to all kinds of firmware nodes")
-Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
----
-Changes in v2:
-- Use __free(device_node) for the local lookup reference, as suggested
-  by Bartosz Golaszewski, instead of an explicit of_node_put().
-- Remove the Assisted-by trailer; keep the disclosure below.
+Maybe Stefan can give some input?
 
-Based on linux-next next-20261102 (2637bdec0535).
-Compile-tested: arm64, GCC 14.2.0, W=1, CONFIG_OF_DYNAMIC=y.
-COMPILE_TEST=y.
-Baseline and v2 target objects built from this exact base.
-No full kernel/module-link, hardware or runtime test was performed.
-AI assistance was used for analysis and patch preparation.
+-- 
+Cheers,
 
-The earlier dangling-node fix is already present in this base.
-
- drivers/regulator/as3722-regulator.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/regulator/as3722-regulator.c b/drivers/regulator/as3722-regulator.c
-index 85e2aaa1a06b..ffcefd72316a 100644
---- a/drivers/regulator/as3722-regulator.c
-+++ b/drivers/regulator/as3722-regulator.c
-@@ -585,18 +585,18 @@
- static int as3722_get_regulator_dt_data(struct platform_device *pdev,
- 		struct as3722_regulators *as3722_regs)
- {
--	struct device_node *np;
- 	struct as3722_regulator_config_data *reg_config;
- 	u32 prop;
- 	int id;
- 	int ret;
- 
--	np = of_get_child_by_name(pdev->dev.parent->of_node, "regulators");
-+	struct device_node *np __free(device_node) =
-+		of_get_child_by_name(pdev->dev.parent->of_node, "regulators");
- 	if (!np) {
- 		dev_err(&pdev->dev, "Device is not having regulators node\n");
- 		return -ENODEV;
- 	}
--	pdev->dev.of_node = np;
-+	platform_device_set_of_node(pdev, np);
- 
- 	ret = of_regulator_match(&pdev->dev, np, as3722_regulator_matches,
- 			ARRAY_SIZE(as3722_regulator_matches));
-
-base-commit: 2637bdec0535a2044cd830eba9a79363651d9043
+David
