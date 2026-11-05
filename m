@@ -1,77 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.24
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793852448;
-	b=XTISHxIreFMSh3aXQjxi8Q9iT8QTpKzIsxf/75qLmMUVzxhfMxIftNL0loNN92nsIyvX
-	 6G/dNnbAJ6nv//VjRAA+VpiKAceMLf7q+/kazDrsWofdNBXH3osVcfmsZq5aC8YavilCL
-	 vvauTentLrz66J8fAzyG4PZMLkgZtyiZ0tXRQPViw78FTavHiUe2bSFDJRGxIoikexrFw
-	 SRJBLWICXqfLZFMV4cHzXHdhlSh2aXRmKtMrLUAQwsHx9tuX7KOeKPoPlfBHeiiI3v8lO
-	 r4oUBlIdEO0/UViThGBGPFCp84Jw5HDOEZGqXk/jUKdGg8MGe6s6y0r/H4cK7vzaBow==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793852448;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:
-	 X-Msg-Generator:Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:
-	 cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:References;
-	bh=pRrhKbxUqOQ7WsUjlPChh4VnRtGtJUITfOp89eByEWE=;
-	b=KiJx7kxUavbgjE1bkVbDcqxvQBW/ZnFuH3zBX/H1tVcmAKyyGHE7Go/0EYItxqyC4OkP
-	 htCJdga0GCPQxve7whvMDc0649XriVPjqgO7hWZ+eUvf3Y7opqqjMfOd9GI8xFdwCKzG7
-	 I7iN3ck4gvceTC4cFhbZh8Z91/QZGIEBL9N5IWAs6eyxTQg7e+p6J9Et2SqX8QJ2hXtOF
-	 PeeYNKCtZX6asTr6KTxjgri2yZd687rIUXp0TRCLB3bhBJrHKegBc7TMYlDBnpafZH7W5
-	 qwW6YQLXPmb4Hcl0ZzQ5rUHTM5tzbBXWax/nIc2/TJ+wKHj7B5f+fkTiJLPEZOSquKg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=HKzj1XdU;
-	arc=none smtp.remote-ip=203.254.224.24
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.179
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793852558;
+	b=qypYkP4Q0Q8wZhmgDzSZYxVVD4wZCH7lAkcEvO3d6fSOP/PfnpD9QZjcDT2T6YMG0bOR
+	 fDHy3CFSKTczTQyoM6bc5N9awHfuaDHL6IKcb5U7Zayc7uKXCXYK3syYb72m9cw0G/gQ4
+	 +LZ6qLzr94aUEoRwjwBIxezmA52k9v9TUB5EaHtFesFgx42thD+LDKDjYzCVqEhQeZQ+F
+	 WNT5b3yS520jZBeVuzB6pP0PQqOT062AzD7gZEtvKAYuZFFmX/GCOr6PukeicIcJAECeh
+	 gH3iz8lkQhWnLzs66/PWtmdT+JJ4ty2b7/KmfEPdG7zuXS333M+R0Y/sU//z7FF6uOQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793852558;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=rU/4KhKmMNOMVfPO4Ct4SOXNAKasoIJ7Z9nUaXuCxpE=;
+	b=22Zjv7/UNnORrBTTr7zpRCKo1AqbVut4/to5tbILbwDqlBrl2wqoIDXfQdvneoy3SGnp
+	 LtN0i7Avs4rvFdiEjGCy+O41YrsC7cpyQYSA9iHA4Fgks9c6zHQPBRPN/Lj+Jmf2HUkfw
+	 PSvD4aSE8RT7RcGxCOP+1Vi5+18ujE26dembYk6Z9CdCT3dZRdKCjxPn7KJ+x1p9HVq9d
+	 PdZN3UW+EQPCpLtXHT9Wju0EETGSf9A9IMiX7lWUcg1aWroiNw0XItESjMg/pdpKT7hTZ
+	 4mMIpbeQM1wA5E9kddQxGeJ4jKsOdKAxJRQxsMzdc3IJatWgys7e1IT9y0eqRP23kuQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=h9p4QW59;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.179
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D173606A333
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:20:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D173606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F78C606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:22:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F78C606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=HKzj1XdU
-Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
-	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20261105042045epoutp0161765eafc455940f3ad43f32b8dfb392~lC0tm1MY31254912549epoutp01p
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:20:45 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20261105042045epoutp0161765eafc455940f3ad43f32b8dfb392~lC0tm1MY31254912549epoutp01p
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793852445;
-	bh=pRrhKbxUqOQ7WsUjlPChh4VnRtGtJUITfOp89eByEWE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=HKzj1XdUQt/KzAF8ulkkat4mAWpQIb6QLE4og1UCTc//fi1jAD6HP7Gr+m04xAAoO
-	 q4SAcZNM+kOJwEELiQy/wSfHzlcWe9WWe1uCQG9CdL0stg5Ty5/t8MsiZjVmN6h4vS
-	 u7cHo8VExRY3tcors46mGYz39lyORoB+RHAqq+Pw=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
-	epcas2p2.samsung.com (KnoxPortal) with ESMTPS id
-	20261105042044epcas2p20f275d649eae04b0859073c30a02b12d~lC0tMXS3g2943429434epcas2p2H;
-	Thu,  5 Nov 2026 04:20:44 +0000 (GMT)
-Received: from epcas2p2.samsung.com (unknown [182.195.38.199]) by
-	epsnrtp01.localdomain (Postfix) with ESMTP id 4jKpyN1nrbz6B9mL; Thu,  5 Nov
-	2026 04:20:44 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas2p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261105042043epcas2p2b8a95dde8509fcf59aebad3be2116bce~lC0sQYzOK2941429414epcas2p2N;
-	Thu,  5 Nov 2026 04:20:43 +0000 (GMT)
-Received: from ubuntu.dsn.sec.samsung.com (unknown [12.81.221.204]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261105042043epsmtip13f4875163d44ac16db6198626a3f7367~lC0sL7rRl2504825048epsmtip1e;
-	Thu,  5 Nov 2026 04:20:43 +0000 (GMT)
-From: HOYOUNG SEO <hy50.seo@samsung.com>
-To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	bvanassche@acm.org, mkp@kernel.org, martin.petersen@oracle.com,
-	stanleyjhu@google.com, alim.akhtar@samsung.com, kwangwon.min@samsung.com,
-	kwmad.kim@samsung.com, cpgs@samsung.com, h10.kim@samsung.com
-Cc: HOYOUNG SEO <hy50.seo@samsung.com>
-Subject: [PATCH v4 2/2] scsi: ufs: core: Limit early link recovery in the
- error handler to runtime PM
-Date: Thu,  5 Nov 2026 13:16:17 +0900
-Message-Id: <a5f3b13e7c2ae3cb39dfd078e637fd6c4424356e.1793851432.git.hy50.seo@samsung.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1793851432.git.hy50.seo@samsung.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=h9p4QW59
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-533202fe429so166761cf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 20:22:37 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793852557; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PaMGwbgO6emyVOvoxsyGeL1VmkA0HVtDsyFFeq9YXHMJ/xkUf0JPrOerD4tBGRIAcE
+         /BGZOk8cD9Kyk1DPjI8UNavNAJ0EdXbUhkGoXWSVulldYkokNEKdEkkx2ecOwd1HBGvi
+         ljmYgIioqH51sden2QjjG5oWcdUboDQKSdyHIbdl0jjoh1Ka36qDDO2ldlTnyTB0jXk6
+         d9dGap9gvx84OlRsgRltGgtwTFMAd3J9JkR+8UPCtkkrZB6OZQsx1anfQP1+Ov3Ga9fE
+         oujtzPcHg1GLRAzYTKZEhA/PXskM54yF/J9NxhhoTRrbbWn6skXwaogFl5L4hipkFPKp
+         nwXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rU/4KhKmMNOMVfPO4Ct4SOXNAKasoIJ7Z9nUaXuCxpE=;
+        fh=mE+YJ/I7hSC2KaoRPQci3IXAaoiFbPLtGEeAe+GFtAw=;
+        b=cFNISG/c/oEtmF2bNeruT0dHnhHOeV3+5P9W70LfdkigNPqXuvc5gJyG0E3duzT6Yk
+         7JifBB9VdruddYtNjriqjESRCSq4jx8EjdCpAAZmoVglxwtGlVbCb7AtOeVJwdss9ZK9
+         bR5HA2zP7DN5yvKFF5DRabCMo0TVTNYc4Xa9UPe7xihGDxuXXNzHlA7/3k879JooLQ3R
+         cb4ivYji9dXevd3EN2kAwxnzPZMpHaBc4QL4dupTbJnZK/CyAu8g29+J0ZzahtI8g2aq
+         ZQ4Ld5pS2ZnMz7+4naldsZCQDVet3C50Ljs2TRJh6HNKZEwBLxlEeGiA/zs/vUGUYZys
+         GXEg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793852557; x=1794457357; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rU/4KhKmMNOMVfPO4Ct4SOXNAKasoIJ7Z9nUaXuCxpE=;
+        b=h9p4QW59kcNpNEWeWTZIPjYs++e6daaEyjCpJT6LCvBeW43x9D0etR1eAsEfV01csn
+         PNllthAghliX1dy0d6/VkDm4pBGb2FNCS8VDpwNEx6TUiGKvYiDviCd7tw0xQrDxOXVo
+         Jc+Kv/owAn1exLRGnpqRWiXtmOFgSDE9SWjUzHnWOXlIGxEomglp5CmrJXQ+i9EuB3MR
+         MUi96B9pXIqylnHbXK4319xES9t4pQhw+v4Bmn2tBBLBMoWyEyktIxUrKqlEs59b8z5t
+         N+fYrgQr0RG4m8n0l7w2tigG8rgUsX7vEOrrz1LuNFR8+dFH7i51xO+3fhtcZOzNGgD8
+         dd/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793852557; x=1794457357;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rU/4KhKmMNOMVfPO4Ct4SOXNAKasoIJ7Z9nUaXuCxpE=;
+        b=GUuBCbz/9+m6jNIo4Hr1u7C8hqWf/f5ojlrcx7cmGNr6tqUtVbAmkVcfajuv5M4voX
+         AvVwUhz3WK2qb5L+xsxUc0BH+PsRH8Wvv0LP7dIfSHHJZdyi/rhkYN3N8n9b/muFZm0b
+         hMRjhrGuEulBT7omUjnbpBBsO3Mub1EVD+oIHCeQoktBRRIaAuzs4kM3gk+ubRtJpoZq
+         j2J1deVeIMLUi/JZk/RTrEiI9chIpa8mcObSBZA7y7lv/oLpthrxEWbknIQ30q/eh3sy
+         L5VTjwR/nFzQrHNczXBCAwhJsumYUXYSxT2y1HvIFM6ryW3F9oQo4nLH2CPpN2GSm60W
+         3ZHg==
+X-Forwarded-Encrypted: i=1; AKwUvBzuWpuiGTbhOiYT5P5l1Yc/WFpX1SMCHW2wLAGTnIP2Bq5b6Rs1SvdAFfqby9bIyxQpJ5QOu6zIbi2FKsU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+0ht6JV+YVWzY//8hk4VBn1eSlXWBtUveLoLfadTDvnNs0BoAw
+	VRBuVwOqZP4S1npHZ7X9eCZbUH00XnImC9xePzObWukfwKJKTL0v0YZsn8sMTEb4TnpfJW2glAO
+	loyssVolaN4Wgpc0DXriJtUX/0ujmwBl+zNOsTaiZ
+X-Gm-Gg: AYBFou0ICkZM3ws2a6vj0BuUNk/OpfUwi1ZXtKn/pUgzvhEKfy+N1NYoILkAn1CrBdg
+	Av5Uvma9OVr1VnCq+eHEeNdF+aDGyOiOc7VL3hMU1gp+GO63VPuTXuD3LnZY4GeRdczP7W0oSQM
+	eeUX4DauRXNIWZOpyb1cSXE3qjNZ4ipMDJKB8KczHbbkBhYi1ZKyXOAxevnqt8eNBJcnkO5plfq
+	8RKGP+wTvF4J3zE8Cao1fVqYzIBgSgFLi009vLmQgHGVIW8NtT7WnvM1sqYc+A3osJNIMPuTjs2
+	qP8BSfiaeUprcQpwXgnQonnXeWK7P+U2k0fTD4+qSY0wQ15XhLUPHR6LPGbBwVJfu2lw5wv2XkN
+	p0ShD5XhDkK6MmEpKZC/a/hcZ2ejKy5v9x5MzZQ==
+X-Received: by 2002:a05:622a:90a:b0:536:97c0:dcd0 with SMTP id
+ d75a77b69052e-54cb0bbd967mr11728581cf.4.1793852556274; Wed, 04 Nov 2026
+ 20:22:36 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,126 +104,185 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261105042043epcas2p2b8a95dde8509fcf59aebad3be2116bce
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-234,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261105042043epcas2p2b8a95dde8509fcf59aebad3be2116bce
-References: <cover.1793851432.git.hy50.seo@samsung.com>
-	<CGME20261105042043epcas2p2b8a95dde8509fcf59aebad3be2116bce@epcas2p2.samsung.com>
+References: <202611050912.2cdf1ff5-lkp@intel.com>
+In-Reply-To: <202611050912.2cdf1ff5-lkp@intel.com>
+From: Ian Rogers <irogers@google.com>
+Date: Wed, 4 Nov 2026 20:22:24 -0800
+X-Gm-Features: AclHuK-N2V612YytHJhEuD7FLzc60lFV8mbdHb9a1ldBGi0Aa4UQbVv_1U8wafw
+Message-ID: <CAP-5=fUk4Q3PxNiqwHtyM6XTt9LGZaTe9p7o9k2gL7f2LBRBHw@mail.gmail.com>
+Subject: Re: [linus:master] [perf vendor events intel] 31efbec216: perf-stat-tests.UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU.fail
+To: kernel test robot <yi1.lai@intel.com>, "Taylor, Perry" <perry.taylor@intel.com>, 
+	Thomas Falcon <thomas.falcon@intel.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
+	Edward <edward.baker@intel.com>
+Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org, 
+	Arnaldo Carvalho de Melo <acme@redhat.com>, linux-perf-users@vger.kernel.org, 
+	Stephane Eranian <eranian@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-ufshcd_err_handler() recovers the link without taking hba->host_sem
-whenever hba->pm_op_in_progress is set. That early path was added by
-commit f966e02ae521 ("scsi: ufs: core: Fix runtime suspend error
-deadlock") because the regular error handling would wait for a runtime
-PM operation that cannot complete while the error handler is waiting.
+On Wed, Nov 4, 2026 at 5:47=E2=80=AFPM kernel test robot <yi1.lai@intel.com=
+> wrote:
+>
+>
+>
+> Hello,
+>
+> kernel test robot noticed "perf-stat-tests.UNC_IIO_NUM_TGT_MATCHED_REQ_OF=
+_CPU.fail" on:
+>
+> commit: 31efbec2161d2d31b020b086958e41f35f070a38 ("perf vendor events int=
+el: Update sapphirerapids events from 1.39 to 1.40") https://git.kernel.org=
+/cgit/linux/kernel/git/torvalds/linux.git master
+>
+> [test failed on linux-next/master 7649ba73f9e7e1e04d0b46213e39c79ae09dd55=
+c]
+>
+> in testcase: perf-stat-tests
+> with following parameters:
+>
+>
+> config: x86_64-rhel-9.4-bpf
+> compiler: gcc-14
+> test machine: 224 threads 2 sockets Intel(R) Xeon(R) Platinum 8480CTDX (S=
+apphire Rapids) with 256G memory
+>
+> (please refer to attached dmesg/kmsg for entire log/backtrace)
+>
+>
+> If you fix the issue in a separate patch/commit (i.e. not just a new vers=
+ion of the same patch/commit), kindly add following tags
+> | Reported-by: kernel test robot <yi1.lai@intel.com>
+> | Closes: https://lore.kernel.org/oe-lkp/202611050912.2cdf1ff5-lkp@intel.=
+com
+>
+>
+> EventName: UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU
+> 2026-10-05 17:15:24 perf stat -e UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU -a sl=
+eep 0.1
+> event syntax error: 'UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU'
+>                      \___ Bad event name
+>
+> Unable to find event on a PMU of 'UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU'
 
-pm_op_in_progress is also set during system suspend, system resume and
-shutdown, where the early path is not needed and runs concurrently with
-the PM path itself. For example, if a LINERESET is reported and the
-hibern8 exit fails in __ufshcd_wl_resume() during system resume, both
-ufshcd_err_handler() and __ufshcd_wl_resume() call
-ufshcd_link_recovery(), and the host and the device may be reset at the
-same time.
+Ok, this is an ugly issue. When we fixed the issue so that umasks of 0
+weren't dropped, we added new umasks:
+https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/comm=
+it?id=3D31efbec2161d2d31b020b086958e41f35f070a38
+```
+...
+@@ -1923,6 +1974,7 @@
+         "PerPkg": "1",
+         "PortMask": "0x0000",
+         "PublicDescription": "UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU",
++        "UMask": "0x7000000",
+...
+```
+The umask calculation is odd:
+https://github.com/intel/perfmon/blob/main/scripts/create_perf_json.py#L361
+```
+        # Combine the umask with the umask_ext. We don't know the
+        # width of the umask as we concatenate the strings, removing
+        # "0x"
+        if umask_ext:
+            self.umask =3D umask_ext + self.umask[2:] if self.umask else
+umask_ext + "00"
+```
+For Sapphire Rapids the UMaskExt is:
+https://github.com/intel/perfmon/blob/main/SPR/events/sapphirerapids_uncore=
+_experimental.json#L17422
+```
+...
+    {
+      "Unit": "IIO",
+      "EventCode": "0x8f",
+      "UMask": "0x00",
+      "PortMask": "0x0000",
+      "FCMask": "0x00",
+      "UMaskExt": "0x00070000",
+      "EventName": "UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU",
+      "BriefDescription": "ITC address map 1",
+      "PublicDescription": "UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU",
+      "Counter": "0,1,2,3",
+      "ELLC": "0",
+      "Filter": "na",
+      "ExtSel": "0",
+      "Deprecated": "0",
+      "FILTER_VALUE": "0",
+      "CounterType": "PGMABLE"
+    },
+...
+```
+So that's hex 7 followed by 4 zeros. In the generated perf json it is
+hex 7 followed by 6 zeros as we concatenated the UMask's 00 to the
+front.
 
-Only take the early path while a runtime PM operation is in progress.
-For the other PM operations the regular error handling is safe:
+> event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
+>                                   \___ value too big for format (umask), =
+maximum is 255
 
-  - the system PM callbacks hold host_sem from ufshcd_wl_suspend() until
-    ufshcd_wl_resume() returns, so the error handler waits for them;
-  - during shutdown, hba->shutting_down makes the error handler stop.
+This error indicates that the UMask for the IIO PMU only expects
+values from 0 to 255.
 
-Since pm_op_in_progress does not tell which PM operation is running, add
-hba->runtime_pm_in_progress and set it in __ufshcd_wl_suspend() and
-__ufshcd_wl_resume().
+So something is wrong in how we interpret the UMask and UMaskExt for
+Sapphire Rapids' IIO. Could someone from Intel take a look? Is the
+problem in the original perfmon event json, is there a different way
+to encode the UMaskExt for the IIO on SPR or is the IIO PMU on SPR
+constraining the umask too much?
 
-Fixes: e23ef4f22db3 ("scsi: ufs: core: Fix error handler host_sem issue")
-Signed-off-by: HOYOUNG SEO <hy50.seo@samsung.com>
----
- drivers/ufs/core/ufshcd.c | 14 +++++++++++---
- include/ufs/ufshcd.h      |  2 ++
- 2 files changed, 13 insertions(+), 3 deletions(-)
+Thanks,
+Ian
 
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index 3b5580ac390c..e3908d6af3ae 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -7089,11 +7089,15 @@ static void ufshcd_err_handler(struct work_struct *work)
- 		 * Use ufshcd_rpm_get_noresume() here to safely perform link
- 		 * recovery even if an error occurs during runtime suspend or
- 		 * runtime resume. This avoids potential deadlocks that could
--		 * happen if we tried to resume the device while a PM operation
--		 * is already in progress.
-+		 * happen if we tried to resume the device while a runtime PM
-+		 * operation is already in progress.
-+		 *
-+		 * Do not do this for system PM and shutdown. The system PM
-+		 * callbacks hold host_sem, so the regular path below runs
-+		 * after them instead of resetting the link concurrently.
- 		 */
- 		ufshcd_rpm_get_noresume(hba);
--		if (hba->pm_op_in_progress) {
-+		if (hba->runtime_pm_in_progress) {
- 			ufshcd_link_recovery(hba);
- 			ufshcd_rpm_put(hba);
- 			return;
-@@ -10393,6 +10397,7 @@ static int __ufshcd_wl_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
- 	enum uic_link_state req_link_state;
- 
- 	hba->pm_op_in_progress = true;
-+	hba->runtime_pm_in_progress = (pm_op == UFS_RUNTIME_PM);
- 	if (pm_op != UFS_SHUTDOWN_PM) {
- 		pm_lvl = pm_op == UFS_RUNTIME_PM ?
- 			 hba->rpm_lvl : hba->spm_lvl;
-@@ -10565,6 +10570,7 @@ static int __ufshcd_wl_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
- 		hba->clk_gating.is_suspended = false;
- 		ufshcd_release(hba);
- 	}
-+	hba->runtime_pm_in_progress = false;
- 	hba->pm_op_in_progress = false;
- 	return ret;
- }
-@@ -10576,6 +10582,7 @@ static int __ufshcd_wl_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
- 	enum uic_link_state old_link_state = hba->uic_link_state;
- 
- 	hba->pm_op_in_progress = true;
-+	hba->runtime_pm_in_progress = (pm_op == UFS_RUNTIME_PM);
- 
- 	/*
- 	 * Call vendor specific resume callback. As these callbacks may access
-@@ -10666,6 +10673,7 @@ static int __ufshcd_wl_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
- 		ufshcd_update_evt_hist(hba, UFS_EVT_WL_RES_ERR, (u32)ret);
- 	hba->clk_gating.is_suspended = false;
- 	ufshcd_release(hba);
-+	hba->runtime_pm_in_progress = false;
- 	hba->pm_op_in_progress = false;
- 	return ret;
- }
-diff --git a/include/ufs/ufshcd.h b/include/ufs/ufshcd.h
-index be62165b785e..8b5bfc83fea2 100644
---- a/include/ufs/ufshcd.h
-+++ b/include/ufs/ufshcd.h
-@@ -974,6 +974,7 @@ enum ufshcd_mcq_opr {
-  * @spm_lvl: desired UFS power management level during system PM.
-  * @pm_lvl_min: minimum supported power management level.
-  * @pm_op_in_progress: whether or not a PM operation is in progress.
-+ * @runtime_pm_in_progress: whether or not a runtime PM operation is in progress.
-  * @ahit: value of Auto-Hibernate Idle Timer register.
-  * @outstanding_tasks: Bits representing outstanding task requests
-  * @outstanding_lock: Protects @outstanding_reqs.
-@@ -1129,6 +1130,7 @@ struct ufs_hba {
- 	enum ufs_pm_level spm_lvl;
- 	enum ufs_pm_level pm_lvl_min;
- 	int pm_op_in_progress;
-+	bool runtime_pm_in_progress;
- 
- 	/* Auto-Hibernate Idle Timer register value */
- 	u32 ahit;
--- 
-2.34.1
 
+> event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
+>                                   \___ value too big for format (umask), =
+maximum is 255
+>
+> event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
+>                                   \___ value too big for format (umask), =
+maximum is 255
+>
+> event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
+>                                   \___ value too big for format (umask), =
+maximum is 255
+>
+> event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
+>                                   \___ value too big for format (umask), =
+maximum is 255
+>
+> event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
+>                                   \___ value too big for format (umask), =
+maximum is 255
+>
+> event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
+>                                   \___ value too big for format (umask), =
+maximum is 255
+>
+> event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
+>                                   \___ value too big for format (umask), =
+maximum is 255
+>
+> event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
+>                                   \___ value too big for format (umask), =
+maximum is 255
+>
+> event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
+>                                   \___ value too big for format (umask), =
+maximum is 255
+> Run 'perf list' for a list of valid events
+>
+>  Usage: perf stat [<options>] [<command>]
+>
+>     -e, --event <event>   event selector. use 'perf list' to list availab=
+le events
+>
+>
+> The kernel config and materials to reproduce are available at:
+> https://download.01.org/0day-ci/archive/20261105/202611050912.2cdf1ff5-lk=
+p@intel.com
+>
+>
+> --
+> 0-DAY CI Kernel Test Service
+> https://github.com/intel/lkp-tests/wiki
+>
+>
