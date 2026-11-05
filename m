@@ -1,60 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.194.254.142
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793867059;
-	b=goQjBf8sM8gmaAKAdc46tQoGXdbEwQxGWDR/29ai23MTcDDt//Eg5uXopNOqpLGsKeMi
-	 Im6Zw0V9CYVxkKKizU7pXcjbAT2ia6nNub+9w+I4g05eRBBBtpPFYkvnMw6TetRQ0WNxm
-	 0SWbe5qFwzKZaaIFAn4TeFnA6vMKMO9SUaX37NU5VCjF6eLXR3yHyDEQxCoprid5de81b
-	 ehzYzcxZwHF01FL6ZiWlVmyciHWEF9u+6ILBp2ZcHoCmAfsTsHMSllnQdW3ExS/z9fyvY
-	 y994JY5hrbSrt3/EJ7bAoHujAdGxHj63NgMfc+Sl6TRcRt7uJcyKbOC0iKJioz1G4xA==
+	t=1793867135;
+	b=aYLmujflrBYQ93FdpaxoK84RksUQWTmfFLTaG3UyQWv6uLNzAH4XzStDVOus7a+c5kBT
+	 wyjLyndIuf2ydOuDZ0VXpngM94KtJeqeDnWxaJgRua/N/8Z54XEAmDT9cFmVlmGk40MwC
+	 74hm90HlhBZYzS2hRrjY+16pA8XspeF0dBoLI4ncTVA595cNnIXVSm9DSwcsQdysfIQVW
+	 LQNE1LwFZs6LKkSCIRWddnmcpRVHtvAUMFZ+x9/L/mZE/+Su/K/GUbdzVVAYtxqxLX370
+	 opMSON7k33AYWUNzqtpReJtAh/ekTLN1Eg5s1y1FHZb5n/zY/KPw3RQmLrph9dkzZtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793867059;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=BeP9abbyuRADpO9tnoSCSAKZO63Jhkhje3D0pWwoNIw=;
-	b=aQI16z5OB+aWYdEJPAXIPtAuOH1cj/p3n4kHFOfF4suCZkdPAWcM9983FfXB00waCt2t
-	 ukJh9D6lKwWrm0Fv2/u63HNfZqUU/kRKtcpz69tjGkqYn7A/KJX3+IYrcL0ML66OuvX8u
-	 n3MJlv+rmu6KjI6vqGM6Y021T0eCaM13U58Dt+5PwsaGIwM2PSaIejLzbKw8d+OaF8kwT
-	 hAhzxfIqdoLbeAB6Y6XVvIcWfvYXjf6ST3IVniFdamUkHvskTN2Uu/aUCv1Boix1GsWMH
-	 NW44KiZAEqlL/bYm2a4f2QAxQgY8NBUNW5CUXh8kVW4uA+SHtucKvcT6+mcCKB/3H0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793867135;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=MXajDzcXzw8HFrD8vEhPMO3rOmoG3zJCn9w9dmNaD30=;
+	b=vDCJwoMiTIyQDpRxzNgO77gNhtaR8GvtQn7AP+WCc2dVYmqxKmLE5tmW+IRoaKgRDk3X
+	 Tpk933ponr7JXUwuQ3BU6C5OhV6JqaAauVAKMk1cM9XzrrJOtXvjhTuPBfrqehgEoUZS0
+	 RowWRrnySEuHic81MqAvvNBvEKna7Q6Dl3hY7kk+oaloYDrS8YAIdXb8t5z8exlTvrWV/
+	 JQSUu5M5OjP7qnYEVlcnnCXmnWW0xIemJXX89/Pa+PYwmutTkrlJQR+xLxT+SEVlVSkhX
+	 hVDX6mD79MWs5qt32qVSbXgrkshIDuADP8KVXu+hGk+MQV3HA6luZS80XZw3sOtOBwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=Iuz2OVSs;
-	arc=none smtp.remote-ip=18.194.254.142
-Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="cWeb/I3C";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7685606A333;
-	Thu,  5 Nov 2026 08:24:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7685606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8CA0606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:25:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=Iuz2OVSs
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1793867053;
-	bh=BeP9abbyuRADpO9tnoSCSAKZO63Jhkhje3D0pWwoNIw=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=Iuz2OVSsP8SPiXTU/qhyEhZS6w2BtkyvrKE8bfjLM5H8pWcujjQTzO1QecB1jIxJE
-	 o7/8xsnk/ew+1gnya7zy92QRi8gAaYRkCMmH/y6BwtwQc468ApghSaGdTnxSO/QqLA
-	 wg/0NDbGAI7m1iOjYMx/Yh6CE/L+so5mGImlnfNU=
-X-QQ-mid: esmtpgz11t1793867052tca6bfb24
-X-QQ-Originating-IP: feuNNwSfwKUpywoniGYAh6GBHSA4qT2mk7H4i1Lilj4=
-Received: from = ( [58.254.68.27])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 05 Nov 2026 16:24:09 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 3347373038067916414
-EX-QQ-RecipientCnt: 13
-From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Date: Thu, 05 Nov 2026 08:23:50 +0000
-Subject: [PATCH 5/5] riscv: dts: spacemit: k3-com260: Set Ethernet MAC from
- EEPROM
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cWeb/I3C
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45DDD1F00A15
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:25:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793867134;
+	bh=MXajDzcXzw8HFrD8vEhPMO3rOmoG3zJCn9w9dmNaD30=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=cWeb/I3CUOf6GV6EV+or+YbPD42zxND5eYvgZmaTp1vxDwPhjrYTcTmDFXOiPPUAf
+	 xnzXOLVNszc/Vv+Utbzhhj8hnvCik/aTr5MdC44PX0h6eExGOZDfHzCLvfe0XIsg7u
+	 0ypBEHuzN4JlkRzZbNjrPIB5Ue1hlf4/7++sPCYwOcYz/ilel4OzvBLq95TGL12Rh8
+	 f6MhWCmjO5hUEd/a/xAtgiNa/FjVZb5nb5g23/LdUpFH3lXWdOyhFU29jqEyS9BUuz
+	 AAiPVPE0OQpKhxtwOlZQ2Y0BnTerZHROjRrxuGgLeEZ7EvE/Iwpl+uOMFKpD0o35Hn
+	 dS3uWKT7106Kw==
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5be53e5fce1so1301315e87.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:25:34 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBztaeQ98YawqwIR2Q0HgqGeo23mR6KHdeiOjO5nZIu9DE6uIiizHCbdGqC5drBzolsq0uf/5PRxAvmMTFY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+0EuDmWv8ShFzaTVTiyLuZPJBlHLmTAjdTsrFlBvQRcaTWMGJv
+	oixMkWa7QzHDV/wRiTJsQmHGY4N09759rDM/SRTZx2kh/piNyZ+WuRzolJ5ykQ3FpIL1QzUsh34
+	3YSbB9FKhBUnspJRW+0vTPpS3ml+Y7aM=
+X-Received: by 2002:a05:6512:6694:20b0:5bf:d9ca:657c with SMTP id
+ 2adb3069b0e04-5bfd9ca65d0mr3770360e87.27.1793867133080; Thu, 05 Nov 2026
+ 00:25:33 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,83 +59,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-k3-com260-module-sd-nor-mac-v1-5-138b39d74602@linux.spacemit.com>
-References: <20261105-k3-com260-module-sd-nor-mac-v1-0-138b39d74602@linux.spacemit.com>
-In-Reply-To: <20261105-k3-com260-module-sd-nor-mac-v1-0-138b39d74602@linux.spacemit.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
- Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1095;
- i=troy.mitchell@linux.spacemit.com; h=from:subject:message-id;
- bh=qFPgZ4k0mozVoqhTFNoQ7QRNK6lvGtsHRAAIgvK5R4g=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFlvbEWuzf34v61HMVzu9qcVXXnaf8Mje2Mi26c9/9S8x
- +d4ngxrRykLgxgXg6yYIkv3A55tBT5RtgUChb4wc1iZQIYwcHEKwET8mhj+KTK5HtkWlH/5ysTk
- 6JAG2aLCSxecgjNOJzAzrJ1Sep/tBCPDtqTcmyJ1VqFVLFkRz9c/2uO1/tmC9IssPKfPbb764Ps
- iRgA=
-X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=openpgp;
- fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: ObGqnu1uf9U4St7Z7FFq5uIvvNVYZr0+pFdybbVRtD5EF5aReAmx6dmq
-	hrdHHaAL4VhFgwDZMNXe2lRtU6g8fPTydO+vQN1+rOPI5ZNassUUhU4hBPnwlOmjIFVA+OM
-	QXiGxIORIhSD3pSb69fj/SXTXuViZXO3xZos6UKESUjlADztVj2vQrE+ZMBak3sSk7PD2K0
-	20yzftOqNWIdgQO/dEApHxtsi40/I8uCPKF+K1CRhhqJWxZ5aHXPogHZJATUuKE38eB593Y
-	tSZ5Z6XoETepB2cZDFQ6+bMBYpDrZ1t/aOzHZ5IJBf0dFKYGchLw7hPlugbk38u+velmK6z
-	kOH6EOETrDp7K/0N7X322lpUq/2hUxrsjGvVrtU9CJYwb4gNTVNrxwyBJpE2RVuWYb4UVZn
-	TGpyD7wxJPNh/fcon5N3uxzycW0N88Z8+OMxJ7HCn/PUnhURQMcF1QP8DJy83pUXkaWbsWP
-	+qENCWjIC2KDae8voxJyMNE25epWx0sPLmdY/gehNy35s8xSN8tRvSZZg2JRPgTURocb+VJ
-	LUAkaT9YIxzz3vQAFPtl93IcC8btMpALdtxLHpyFQB/KE3kxsJueztd6+tEMVhpXxKrKNwM
-	oNBEtPixMTDNZxMpmAXNhxSPVcJS8fvawVTW3LCXGRhGA0YE+/OgqXFw1CR3DORtVF5GdCV
-	T+KwQVJuw2xgFkW/etYPRKwVLf142sHouesDkzI88hJwP8f+QDPBTU4F1eqmehAfJPaJvKf
-	mBCz7Va9v05uIbLrDyWqcTzBhDHfkThnExzY9mEQ6YuxFve2lUMgyUudcqLHpWCVAWGV4bC
-	0byoN86Bvj1AV9YMhHEnxvzYQoAiCD8dws+h3Rtur5VZxBPbbqLq4AGxtryT8awgnDtL7+g
-	92YYWit9wucrK2zSgdWySwcjfw04qYXbUhxNZQe0lHU6vadRggWH6iMO1cxl16MEUbUD83a
-	q1F6MhwjQzqakZGGO5hgjGQ51BMxvKvZq6ULgtq9XWxCWadydttfNkxtepogaKT5K3PIEms
-	Wbe523A7bzXdC8bIZgTcm8lXTNq3COA8oLq3UqotdDhd5HeBDq0QnOzi6J/NK5sLXk0OHkb
-	HytelMlnZu11/CJ6TWzdsioj0jcQXDp/Y0nA1a7kCLwKNZVxcx/u78K6mvp+20Bdw==
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+References: <20261031120700.42576-1-mateusz.nowicki@posteo.net> <20261031120700.42576-2-mateusz.nowicki@posteo.net>
+In-Reply-To: <20261031120700.42576-2-mateusz.nowicki@posteo.net>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 5 Nov 2026 09:25:21 +0100
+X-Gmail-Original-Message-ID: <CAD++jLmJnxdJ9-X4hThz==Q8ZJScb567VwdAYebGsSqA_KJsjQ@mail.gmail.com>
+X-Gm-Features: AclHuK_tVeDfi38_WWdEZ3DB94ymBMDKaW_qe7crMyvj_c5Kzm5MMFqKOFgn5mw
+Message-ID: <CAD++jLmJnxdJ9-X4hThz==Q8ZJScb567VwdAYebGsSqA_KJsjQ@mail.gmail.com>
+Subject: Re: [PATCH 1/3] mmc: mmci: do not count a data CRC error as a
+ complete transfer
+To: Mateusz Nowicki <mateusz.nowicki@posteo.net>
+Cc: Ulf Hansson <ulfh@kernel.org>, linux-mmc@vger.kernel.org, 
+	Christophe Kerello <christophe.kerello@foss.st.com>, Russell King <linux@armlinux.org.uk>, 
+	Yann Gautier <yann.gautier@foss.st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The EEPROM on the K3 CoM260 module stores the board MAC address in its
-ONIE TLV data. Assign it to the module's Ethernet controller, so that
-every carrier board using the module gets a stable MAC address instead
-of a random one.
+On Sat, Oct 31, 2026 at 1:07=E2=80=AFPM Mateusz Nowicki
+<mateusz.nowicki@posteo.net> wrote:
 
-Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
----
- arch/riscv/boot/dts/spacemit/k3-com260.dtsi | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+> With datacnt_useless (STM32 variants) success is 0 on a data error and
+> a CRC error subtracts one from it. bytes_xfered becomes 0xfffffe00 and
+> mmc_blk completes the whole request as successful, although the
+> controller stopped at the failing block. Reads return stale data and
+> writes are lost without any error.
+>
+> Tested on the STM32MP257F-DK eMMC in HS200 with a forced bad tuning:
+> without this change 5 of 14 reads returned zeros, with it all 10 reads
+> were correct.
+>
+> Fixes: b79220b3e0af ("mmc: mmci: add variant property to not read datacnt=
+")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mateusz Nowicki <mateusz.nowicki@posteo.net>
 
-diff --git a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-index f94607cb2eeb..1f5c958c9d6d 100644
---- a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-@@ -42,7 +42,7 @@ eeprom@50 {
- 		nvmem-layout {
- 			compatible = "onie,tlv-layout";
- 
--			mac-address {
-+			mac_address: mac-address {
- 				#nvmem-cell-cells = <1>;
- 			};
- 
-@@ -216,6 +216,8 @@ dldo7: dldo7 {
- };
- 
- &eth1 {
-+	nvmem-cells = <&mac_address 0>;
-+	nvmem-cell-names = "mac-address";
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&gmac1_rgmii_0_cfg>, <&gmac1_phy_0_cfg>;
- 	phy-mode = "rgmii-id";
+Looks right but we really managed to make this code hard to
+read, we should think about readability improvements.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
--- 
-2.56.0
-
+Yours,
+Linus Walleij
