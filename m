@@ -1,129 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793890857;
-	b=KKqWqIqpqZtCfApObeZHNql5zEcQu6/C5g9Ll32jOgCO2P47+n4NpfdxcbTSq4v1fXsG
-	 A9EfUF7yRXCtqlF9jifKGuskYAu94dvoaTqvZowLR2AcJzwjFUmNWF0+zzjYRI2d+uiqG
-	 /IotzBkZfyuZ+zOVXPulf/V+ctpoH3bY/LysyLPpBjBCAxiG0SEm8xN473NPT2WYKzM8R
-	 5lD9twd+Xl1rQavo4hBE1iNyrK/2uKkwK32bqpizcYLagUoKlKCN1zXgnYh0nySJWr0x4
-	 zy3PBAKdnclQjvv+7S746AGOCDvsxYZCWxEWDvh52TOBxpaZTQdw8X1aGa8shvrhfQg==
+	t=1793890874;
+	b=de9LslozC95H38RFwkcTmvXVIkaxj9YNAJuAU2ydOvp1kEzEJ9AJUjGOzjdgb5L7E/LW
+	 c17AUxejxqYbXXdwu8jdAriJzdO89T1rWviUsUQmFNSLCH68P/wqnj1RsJ96M3B0l9Znq
+	 kl8xu3F7X1MFMgDvCkNoQVBJtrLFJ59cFKo7PzPQOjw75GGnq7XrKrxPEc7h2K5viYAxW
+	 gsT7A9ZP+CXoO8S7oWlU/zsOloqrCRIfpz8thxK5VnBHcFyXMwEMqdH8fd/9jQCjRaaKt
+	 4tU7gebRM4dSytH1PY+kcfd9hvt2ji5AHWEz2xCH3bXiy+0cIvLvvuY/M889MU6RWyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793890857;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=leAQgaahqk6ie+8K1Enx+eS2rtZduvQyWhwKq33EErA=;
-	b=Q152vIpjFZghLJMGxUwmOSlcb1rSc2lwheJTK3TPs4iBvFEmgOQFbCP2bFTagPhfn61O
-	 pfUqQjamuQaSlxg/YOIPjeIU48llo3Iycs3Nbt8oiBOAT/T0dgjoTFq2kBr5mYip8c6xI
-	 k9gnp6NgnB5KIO5MCpqn5zJzrQWJ+Ct6kfZpnYpSCxEoYgrZcXBSKNTRkMEirIm55pCQd
-	 VpnVYkzeRts53T0t3njjul6gGxWjhPKarF4kbvPeJP3EMiV2afZO6+4UrACEJzFDCn6UK
-	 Qced9fc+C/ODHG+Oml8vFNkHydFsO0uiiy3apXJhZyxD4a7j2iTKdCkdH7EEVZaO5iQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793890874;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
+	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=wXaV0u9U+tyhWgUT/VUuCMFkmWt5iSfbGT8PiyOgGi0=;
+	b=FNbT05urtTdY2FdQiw0sz+F5xAS1iTN4d/72rFRxPZBIj31QACNwdL0xN5Sw4i7zsT08
+	 hpXT/H7KeMC5RmOCI1lIKtVJtLninZPVHXjPJ/vrlnjJvtUSU9593EbgltRFYPEOM6D8p
+	 lUkzSHinfBhvMOYlwmPZ1nBENUVfT5rt66o7hzeCcHKX+LLOuVZD9L53T9savKtV4JY3u
+	 hdpanO5xG0lIKbWxyGd5QV2cr/m0b9qjWJwk3GI3qm3CRmVPsgDmEtyDA8++GxGZDB4mr
+	 PcWpmNpQszHxQQm76q+vW0+ksfu2/KadAMn0aSqcA3R8Ng+zywscEmO/ZgS25ErcaCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=KbqNeg9T;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="bkHvQS/j";
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=SBkBRxdv;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Vy9Hrgov;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=SBkBRxdv;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Vy9Hrgov;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8CC4606A339
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:00:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8CC4606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEDFA606A31B;
+	Thu,  5 Nov 2026 15:01:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEDFA606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=KbqNeg9T;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=bkHvQS/j
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793890856;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=SBkBRxdv;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Vy9Hrgov;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=SBkBRxdv;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Vy9Hrgov
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id F14A221FB8;
+	Thu,  5 Nov 2026 15:01:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793890872; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=leAQgaahqk6ie+8K1Enx+eS2rtZduvQyWhwKq33EErA=;
-	b=KbqNeg9Thp1SIYzV8iorRVtD7Cxe987mTuxpC/tI5Gir9NyTpcY8UyBpY6A91bwA8UGjKS
-	OGANeyDtWkP/wwdZTUUtkJBNcW6jxm4YGYg6LE4KeAOzkW5tZ473PTvELX6Wmn056vrHml
-	VvUET2VJ8SMAWHMpdFE5NAcyc3guXW0=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-145-pBsMQYYuPEqDbo5_jsOThQ-1; Thu, 05 Nov 2026 10:00:54 -0500
-X-MC-Unique: pBsMQYYuPEqDbo5_jsOThQ-1
-X-Mimecast-MFC-AGG-ID: pBsMQYYuPEqDbo5_jsOThQ_1793890851
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48e00f3929bso508922f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:00:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793890851; x=1794495651; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=leAQgaahqk6ie+8K1Enx+eS2rtZduvQyWhwKq33EErA=;
-        b=bkHvQS/jmWNzi4FaAFkEKmaIvLRSj7SaRjHeBoWdFSvhe0OfjchrKSLTuhekhh+1e/
-         0f3GoFOBYPLwcsTQw4Eaj5WJJofXIrbWndVQnMUi4x+fBMyh0GJ6rMLRpuSmGr1/Phl/
-         0u15TgEY/F/gOLKRxFZpEfiIf1f6xrbJX9rmZ4RQsw0eMjubk7Jgm0FGvKibSYFhl7t/
-         MV+u2fgPDwwJMFTXwgDiChnDArfPZn3Tl4nyaPy3RHB3Qcf+BinOHNGIGihlLLESlIl6
-         prLepj9a2BcLV5utOuGHZVd32mugRcarbtSt6QYtDFuKDimJQLXY2/ZWWHjGZI0MGORC
-         shNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793890851; x=1794495651;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=leAQgaahqk6ie+8K1Enx+eS2rtZduvQyWhwKq33EErA=;
-        b=jpRNcPhbOXhnAefaXLc/DGSSq233n+KFozUn9Iu0bMVmB61t+p9WfFFAXludEYQLvf
-         dlqTqhCY5L61w1zhGxmsCpkQ6p1yHIfD30yXhZOY7WNbUtV9nm5E5hfJ8lRemHOpbag2
-         jDc4cvlCXNzXrBA8JdslW9mg2eTl8XX6sGU0k79PhyeR94yTH/hfsfQv7I2afvBIbR9P
-         eOzeJK7e9zRE0iI5XLMdKZ5Z3ga0qI+aBOMHjtKo6KCftfveHaVb6eR4u3vz4/SS+TxI
-         gUhtyO6Bw6O74GMMbcNtjTUPwqs6xYZ8E+Vh8NYSrsPfGQVSBOKDuAy+IFXB0IyM0pfP
-         mrHg==
-X-Forwarded-Encrypted: i=1; AKwUvBzsujWzHq6g4/n5mD4Xv33J2t6vxUxRoMycaD0SB679+a8jfbM4ZPlXnjSb1sesElMPmOkNsj5oLicCb78=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8d2sJ4xuUsvaFMyiStIfHSDecR1YNESk4mFJcoO8oI5YFkACe3
-	Xg1dvVOfyscLnH3jXQS2R+Pg4nkdOfI/XEOG5NVNOOd+dQmRR77i5O7uXLbud07PT1d+1FN0oOe
-	uiQoreDR/QItNjPcqeQDnGTLwAD58CigWZ1TyDiR2wvQ5VD7xRX3BypVbNEaV1/8mtw==
-X-Gm-Gg: AYBFou2qPtC7jqhPzMyz1jU2nrwEGgGKjRGgLF1IK1JqR975T+vFjN0MMOSpLWOy+v+
-	oevgkYSYQQoV3JDkIqJRpjWkBD8VaRBWdNGnotGRAnKbXGTv6NtbM/SzQpr2VELBDHELwdvVTyt
-	SyeKpzd3ADuKMG1L/aVEN/p6bFYF3qZNw+J84VYnOeco5Nm1QM+p4DCYi30vc6xGkpGH1BmCuzq
-	G4Af9/MyHWyMoXtxXcFMXwFiXG4BrFyYaHcqYvrqjx7Cu90/JWA1kU5dVqLg4nq4xETim0OsM7+
-	tvAZaaFKHM7fQ6daMCPREG0QXnRY8+YzT/KGJ/8o506b9NZ9IsQjoolQcU5VGBigis1d3aJXs4h
-	JiwMtgXFj9kjMN2RnJzU1oeYngYks+7EJRwkkjbwgcD7SnFRry0yScAMRLy9Xx7VVwRUUNr4g47
-	jn4g==
-X-Received: by 2002:a05:600d:82e2:b0:4a1:c27d:e1a8 with SMTP id 5b1f17b1804b1-4b55d7d7a2amr55606755e9.10.1793890850739;
-        Thu, 05 Nov 2026 07:00:50 -0800 (PST)
-X-Received: by 2002:a05:600d:82e2:b0:4a1:c27d:e1a8 with SMTP id 5b1f17b1804b1-4b55d7d7a2amr55605885e9.10.1793890850041;
-        Thu, 05 Nov 2026 07:00:50 -0800 (PST)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b452eb99b1sm108926575e9.3.2026.11.05.07.00.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:00:48 -0800 (PST)
-Date: Thu, 5 Nov 2026 16:00:46 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	linux-kernel@vger.kernel.org,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Luca Abeni <luca.abeni@santannapisa.it>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Waiman Long <longman@redhat.com>,
-	Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>, cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev
-Subject: Re: [PATCH v2 08/21] selftests/sched: Add a test of SCHED_DEADLINE
- policy round trips
-Message-ID: <auyaHi0W_R_LLXUE@jlelli-thinkpadt14gen4.remote.csb>
-References: <20261104211207.1392343-1-mathieu.desnoyers@efficios.com>
- <20261104211207.1392343-9-mathieu.desnoyers@efficios.com>
+	bh=wXaV0u9U+tyhWgUT/VUuCMFkmWt5iSfbGT8PiyOgGi0=;
+	b=SBkBRxdvHkO7jFMEtYXV9ih4xecWL6zfmjBY6GA8IfNu9/BCbjy9ARszAQx5H139VB7Ftj
+	oRCYqiTLcRBoRmjNPDq3M6rNjME7Gkry5u5xsyEybXestAzGM3fXCN30qCJs0VBKQj2cme
+	2TY4IgTtua6nS5TJtKIKazSiYxcoRMY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793890872;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wXaV0u9U+tyhWgUT/VUuCMFkmWt5iSfbGT8PiyOgGi0=;
+	b=Vy9HrgovwinEo8f8KP4WGkRMgT8JKt7/+kfzE4Kc6ofERwc6B078V0E9to6MftB9xwyNMr
+	EzBCsS8f+ldaoODw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=SBkBRxdv;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Vy9Hrgov
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793890872; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wXaV0u9U+tyhWgUT/VUuCMFkmWt5iSfbGT8PiyOgGi0=;
+	b=SBkBRxdvHkO7jFMEtYXV9ih4xecWL6zfmjBY6GA8IfNu9/BCbjy9ARszAQx5H139VB7Ftj
+	oRCYqiTLcRBoRmjNPDq3M6rNjME7Gkry5u5xsyEybXestAzGM3fXCN30qCJs0VBKQj2cme
+	2TY4IgTtua6nS5TJtKIKazSiYxcoRMY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793890872;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wXaV0u9U+tyhWgUT/VUuCMFkmWt5iSfbGT8PiyOgGi0=;
+	b=Vy9HrgovwinEo8f8KP4WGkRMgT8JKt7/+kfzE4Kc6ofERwc6B078V0E9to6MftB9xwyNMr
+	EzBCsS8f+ldaoODw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 979C7133F6;
+	Thu,  5 Nov 2026 15:01:11 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Flh+Gjea7GqBSgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 05 Nov 2026 15:01:11 +0000
+Date: Thu, 05 Nov 2026 16:01:11 +0100
+Message-ID: <877birs4p4.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Nguyen Thanh Nhat <nguyenthanhnhat397@gmail.com>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Kailang Yang <kailang@realtek.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for Acer Predator PHN16-71
+In-Reply-To: <20261105130330.6797-1-nguyenthanhnhat397@gmail.com>
+References: <20261105130330.6797-1-nguyenthanhnhat397@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -132,51 +113,53 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104211207.1392343-9-mathieu.desnoyers@efficios.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-12.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCPT_COUNT_FIVE(0.00)[6];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -12.51
+X-Spam-Level: 
+X-Rspamd-Queue-Id: F14A221FB8
 
-Hello,
-
-On 04/11/26 16:11, Mathieu Desnoyers wrote:
-> Add deadline_switch_test, with a case for the fix two patches back and
-> one for commit 41a7968022ca ("sched/deadline: Fix total_bw leak when
-> switching away from SCHED_DEADLINE while !queued"):
+On Thu, 05 Nov 2026 14:03:30 +0100,
+Nguyen Thanh Nhat wrote:
 > 
->  - throttled_round_trip: a task with a runtime of 10ms per 2s period
->    spins, so that each replenishment throttles it again at once. Right
->    after a throttle it is switched to SCHED_OTHER, and back 200us after
->    its deadline: past its replenishment timer, and before its 0-lag
->    time, which the overrun scaled by 200 puts later. It must run again
->    within a period and a half. Three attempts;
->  - asleep_round_trip: a task of 9ms every 10ms, running 0.2ms and
->    sleeping 50ms, is switched to SCHED_OTHER and back while it sleeps
->    past its 0-lag time, enough times that a leak of its bandwidth at
->    each round trip fills the root domain: sched_setattr() then fails
->    with EBUSY. Skipped without admission control (sched_rt_runtime_us
->    at -1). A kernel that leaks is left without SCHED_DEADLINE bandwidth
->    until a reboot, so this case runs last.
+> The Acer Predator PHN16-71 (subsystem ID 1025:170f) with a Realtek
+> ALC245 codec does not detect external headset microphone on the 3.5mm
+> combo jack because 0x19 pin is marked as unconnected (0x411111f0). Add a
+> quirk using ALC2XX_FIXUP_HEADSET_MIC.
 > 
-> In 8 VMs of 8 vCPUs each, v7.3 fails both cases, and v7.4-rc1 with the
-> four deadline fixes of sched/urgent fails the first; with the two
-> previous patches as well both pass; every time.
-> 
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> ---
+> Signed-off-by: Nguyen Thanh Nhat <nguyenthanhnhat397@gmail.com>
 
-Thanks for the selftests! Very useful.
+Applied now.  Thanks.
 
-FWIW I did propose some already in the past, but then didn't get time/
-tokens for a follow up:
 
-https://lore.kernel.org/all/20260306-upstream-deadline-kselftests-v1-0-2b23ef74c46a@redhat.com/
-
-We can probably re-start the effort with yours and keep adding as
-needed.
-
-Do we want to have per-policy subdirs under sched?
-
-Thanks,
-Juri
-
+Takashi
