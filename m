@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793877044;
-	b=5bHd3prITVXEPQJgOaETtXWa8kxtHrRujoj8vwyCuAor/pOdkqNhOkUpj2li9MVf3HVF
-	 6lXdZacN0C88fnfhk4p8UBFGnqbkdy+0NhBcfTYPBXOnHXEfZ/UxyoFEmPjcHdLwQ5Vob
-	 dPtaWpjCKv2YUqektCqk75ibn1edrm86vLRZkdiS1xEX9FYRXjVQJCGyBmOUtx7RhLPGl
-	 mexhLoPlX4FgIY/JADMqAcbVltyGwTLi9xTv5Q05HTCEN9cNNHgpZjEWmi/xn2Jah9cx5
-	 v4uxaAnbPVZMPmDMwEyMUy7ucQLbOSgsLHOWvi/V3q1NYMhO4yAPDlK//IJl/GRF23w==
+	b=1tHCWok1PXLh73KKiuQx2YaYWy3T5e87MsBK1TT7gsWkRBePrERHn1pofo6ieIh5ZaKG
+	 95Wpxr6oZNIKITzqBVcNMyo7ewsRI4ZBPO3hmRxqmFOvluYnYYqJt8ixPQcEaU3y728JG
+	 i3Cn2K48iZYN+xDTogzjKFMyGnf+PYIuhjXNO4rOaHaG00jkPVY/dim6uVXyUF0Cas2yY
+	 gRN/M3Cf9GVd6A0gPtTQL0KkQwfI0HEMqas+hHFUahT343wabvD6TUgw3+1UmajaILeN3
+	 sXIiom2wUOGn6+KqT3r2TcE3/Cci2szNJHtth0FJqPtNeFpQXcvRxyNics5dHi2dlSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793877044;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:MIME-Version:X-Received:Date:
 	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
 	 Subject:From:To:Content-Type;
-	bh=+L1oAYLc4izPsxQ3ZlEqD/dH2fKKby+GXjbBwuzoShs=;
-	b=DwpTUUgBmG0UI5yV8/U8BNtmzDoLrqLW/8O7KWT7amD9wapO+ysuWQgQXW0OxvwkmvWC
-	 AEYo9Iz71vZtf+CzxLrZJXyFgXAYYD933Aev1L03SdOLuQ43LQQNX7F53jPi2ZzJgNxg5
-	 cJaudGTOdXae/iMo8htoRsun3vg90K+G03CAn9IWVdjxWFsHDGLXASRcTMjtA3auQvwFB
-	 HlgzP8Ul8+iqdGJJ468qy1C9FTbsfHWcbs4AjL6II5KiwCG6Pzga9W3OLbvctr7wN6axC
-	 6DzbtqbanmCrXsvgilzysHMmY98jEiOR/rXGZP154JBkdkDRIRkMu24kAGmAbhxbRVg==
+	bh=QOIwjIRpeVDqlXAgbw2FLrO0KLt63dq5HpsWbh7v4l4=;
+	b=scXArT6hPfzROLZAJT/y9reh77iiBj3236j5ZjK/gKb4OV26nv/9bqxraqlNrf14imDX
+	 eE8OUtCe63CWvywezMEZHPr9PjqRtc+cPqQAlxpErJcL9utEqYvLT/zafINjgV3vyiP/k
+	 jJCJn0flPBlw4CveQ49qCEvBLguQJhyVWElAnCVLQ0xAx0V399GE0CBiy+/U1u7O5U1Zw
+	 Zjdl9ZZQJG1KT2b7zg2Y9VOt1k9jJGaRyRKOp+41Y3DOIdY/LNegSc6vfi9EVe2v4nGnV
+	 tny3IBz+02QPticWnccIW2oePoxJba+N/wPLlFs19AzVYfoNG+AAPMIrThrym0lAziQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=syzkaller.appspotmail.com;
 	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	arc=none smtp.remote-ip=209.85.167.197
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B471606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 611D0606A32C
 	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:10:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B471606A326
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 611D0606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b2d1eb484aso2168040b6e.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:10:43 -0800 (PST)
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-54dbbf252cdso2508091b6e.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:10:44 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1793877043; x=1794481843;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+L1oAYLc4izPsxQ3ZlEqD/dH2fKKby+GXjbBwuzoShs=;
-        b=excNgDr7ogczCFIHpdlZmaoCl3Ntw+vsF6xHmk7ApQAsupASRRoOdsn3lDwH8dPBnA
-         vu8925KuJGNEXiUVHhYNGJE8gJWGS6FfqHPZybm7ZJBhce23Tb9x8zyIJzH6fnyEy33a
-         tir+DwzA9fm/gNdo8aDaJtMBsJJIuSal2O9a85pIUMmaGAXY2edYwz/oX7v6LZKhdR7x
-         vxvuaEYmIYkSkJK5FiZBFBUQX1JbGQVMBNssyb34DjcRSTp8DuGS2LBVqvc8c3nYdqsz
-         kjozNTGomKzxisbsAe5kJLqnOf7B/tl7lHGHmGYUVkbDcg7V7SNBu+O/QGj8KgMMc/3Y
-         tINg==
-X-Forwarded-Encrypted: i=1; AKwUvBzi+VswceIyEOyO8PWWTe9HPCCqwN2NI/uQLPk/qO7Huk6ZCDFynEbmRVSH10TPKhBvwstkkyyVKARzKt4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+fwzir4alWS42Vlx5TziSSqPW8MZ0ShIbo/rbJaLZn2QuwCWhn
-	xFBmRpI3l+lVHIYkIdZ5fAe9XPZQ6WRzxNd2kzS9GcQBAy4seoeSAUfedQhXrD+7FrZ6JsQJln5
-	i/pArJBE4BU+F/Uwvc3T/dEcCWUWlDyI4huCwkpgqBn7m6ORRIVkVV38pNDs=
+        bh=QOIwjIRpeVDqlXAgbw2FLrO0KLt63dq5HpsWbh7v4l4=;
+        b=LLVMRV82Rt1LemXm9mEkw2MrdWq3IZqzJ7v3Z/EzInTilDEgGgUyG2e56v2jzqAT44
+         8uyagf2XMRZzJStc7TulNSG+y7u4u9hofES02VSa6djuSQoOb7S9BOVOE25UOTAk+HpC
+         cbttsHFOML9I+TVNkN8v2cYgS6juwVydkkfXU/BIJqewLKSUZTQGb1f2C5nGn1hvHeLi
+         ScfY4g0RgHvivgDSzJz/LSNSutL1TbelZooeeN0Ph6jqfdAb3UFKZJwBrs+heceRL5zt
+         zh8elF+lD9vuaJt4xVBBtm+JXjj1VHi+uIzQjxCowDZvtcmmi+c8zqPyUD8jMknQ4Q7A
+         QI7A==
+X-Forwarded-Encrypted: i=1; AKwUvBx0bUkJKAa/C+gizt38pPb8YI8Ntsa+pRmlTur6damDVHqabvsaA6Uo6WTu6lhIUf2nTkk3RNCaXsfL0a8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+prLtquomnOGKke/sn8t3szCi8vgLYiIp1lxy+dl9+yv9N8N8A
+	K4ZGABT8c9WOo59V+gPKi8OGQRf3pbWY8tBId1GHNC+ZiHN4qbPSulZWtV/EeG9mAI8XW8oNq4s
+	Cx5D0i7jDzrDHFugaOUYsQyjWGQ9gF2VBdmOeJ2BdBpEtj2x+fpvkKKnlUSo=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,92 +58,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:148c:b0:4b9:e65b:8c36 with SMTP id
- 5614622812f47-5640dddd764mr13267830b6e.36.1793877043177; Thu, 05 Nov 2026
+X-Received: by 2002:a05:6808:1783:b0:4fb:ac9b:b06a with SMTP id
+ 5614622812f47-5640de0fc9emr14499827b6e.48.1793877043501; Thu, 05 Nov 2026
  03:10:43 -0800 (PST)
 Date: Thu, 05 Nov 2026 03:10:43 -0800
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aec6433.0ce67c00.35143.0001.GAE@google.com>
-Subject: [syzbot] [mm?] [fuse?] WARNING in shmem_initxattrs
-From: syzbot <syzbot+4324f771847cecb27c54@syzkaller.appspotmail.com>
-To: akpm@linux-foundation.org, baolin.wang@linux.alibaba.com, 
-	fuse-devel@lists.linux.dev, hughd@google.com, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org, syzkaller-bugs@googlegroups.com
+Message-ID: <6aec6433.0ce67c00.35143.0002.GAE@google.com>
+Subject: [syzbot] [rdma?] [f2fs?] memory leak in radix_tree_insert (3)
+From: syzbot <syzbot+d60be66dd00b4490fa96@syzkaller.appspotmail.com>
+To: chao@kernel.org, jaegeuk@kernel.org, jgg@ziepe.ca, leon@kernel.org, 
+	linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
+	linux-rdma@vger.kernel.org, syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
 Hello,
 
 syzbot found the following issue on:
 
-HEAD commit:    05441d697f7f Merge tag 'cocci-7.4-rc1' of git://git.kernel..
+HEAD commit:    6628e7d4c6b2 Linux 7.4-rc1
 git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=17bcaca1580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=1cf189394a856f11
-dashboard link: https://syzkaller.appspot.com/bug?extid=4324f771847cecb27c54
+console output: https://syzkaller.appspot.com/x/log.txt?x=149fc6b1580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=441b6cc593d83cc4
+dashboard link: https://syzkaller.appspot.com/bug?extid=d60be66dd00b4490fa96
 compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=14423cbe580000
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1613be2d580000
 
 Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-05441d69.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/0edd3964be19/vmlinux-05441d69.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/84d6d8dd5648/bzImage-05441d69.xz
+disk image: https://storage.googleapis.com/syzbot-assets/bd1857dac9bc/disk-6628e7d4.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/0750834263ca/vmlinux-6628e7d4.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/ef4090776a72/bzImage-6628e7d4.xz
+mounted in repro: https://storage.googleapis.com/syzbot-assets/b8af1c9e7f1c/mount_0.gz
+  fsck result: failed (log: https://syzkaller.appspot.com/x/fsck.log?x=16e69cdd580000)
 
 AI-generated root cause summary:
-In mm/shmem.c:shmem_initxattrs(), the initial reservation of inode xattr space
-(ispace) from sbinfo->free_ispace is gated by 'if (sbinfo->max_inodes)', and
-subsequent per-xattr subtraction from ispace is also gated by 'if
-(sbinfo->max_inodes)'. Because sbinfo->max_inodes is accessed locklessly and can
-be concurrently modified to 0 during a remount (shmem_reconfigure() with
-nr_inodes=0), ispace can be reserved when max_inodes is non-zero, but fail to be
-decremented when max_inodes becomes 0. Consequently, after all security xattrs
-are successfully allocated and added, ispace remains non-zero, tripping the
-WARN_ON(ispace) assertion.
+In lib/radix-tree.c:__radix_tree_create(), intermediate radix_tree_node
+(xa_node) structures are allocated and linked into parent slots as the function
+descends through tree levels (shift -= RADIX_TREE_MAP_SHIFT). If a subsequent
+node allocation fails with -ENOMEM before reaching the leaf slot,
+__radix_tree_create() returns the error immediately without unwinding or
+deleting the newly allocated empty intermediate nodes. Consequently, slot-based
+iterators such as radix_tree_for_each_slot() used during cleanup (e.g. in
+uverbs_destroy_api() -> uapi_remove_range()) never encounter the empty nodes
+(which have count == 0), causing those radix_tree_node objects to leak when the
+containing object is destroyed.
 
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=4324f771847cecb27c54
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=d60be66dd00b4490fa96
 
 IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+4324f771847cecb27c54@syzkaller.appspotmail.com
+Reported-by: syzbot+d60be66dd00b4490fa96@syzkaller.appspotmail.com
 
-------------[ cut here ]------------
-ispace
-WARNING: mm/shmem.c:4451 at shmem_initxattrs+0x3f5/0x650 mm/shmem.c:4451, CPU#3: syz.1.18954/2882
-Modules linked in:
-CPU: 3 UID: 0 PID: 2882 Comm: syz.1.18954 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:shmem_initxattrs+0x3f5/0x650 mm/shmem.c:4451
-Code: 03 80 3c 02 00 0f 85 5d 02 00 00 48 83 3b 00 0f 85 fd fc ff ff e8 6b 3b ae ff 4c 89 ee 31 ff e8 01 36 ae ff e8 5c 3b ae ff 90 <0f> 0b 90 e9 dd fe ff ff e8 4e 3b ae ff 4d 8d 7e 78 4c 89 ff e8 52
-RSP: 0018:ffffc90007eefbb0 EFLAGS: 00010293
-RAX: 0000000000000000 RBX: ffff888032b8d818 RCX: 0000000000000000
-RDX: ffff888030c3cb00 RSI: ffffffff82602984 RDI: 0000000000000007
-RBP: ffff888023be9000 R08: 0000000000000000 R09: 0000000000000053
-R10: ffff888037378973 R11: 0000000000000000 R12: dffffc0000000000
-R13: 0000000000000053 R14: ffff888054123400 R15: ffff888023be9030
-FS:  00007f7a3de3d6c0(0000) GS:ffff8880d477c000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f7a3ddfaff8 CR3: 000000004e80f000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- security_inode_init_security+0x242/0x370 security/security.c:1384
- shmem_mknod+0x2ce/0x480 mm/shmem.c:4039
- shmem_mkdir+0x31/0x80 mm/shmem.c:4094
- vfs_mkdir+0x36d/0x8a0 fs/namei.c:5428
- filename_mkdirat+0x4c4/0x630 fs/namei.c:5461
- __do_sys_mkdirat fs/namei.c:5482 [inline]
- __se_sys_mkdirat fs/namei.c:5479 [inline]
- __x64_sys_mkdirat+0x89/0xc0 fs/namei.c:5479
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f7a3cf9fb19
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f7a3de3d028 EFLAGS: 00000246 ORIG_RAX: 0000000000000102
-RAX: ffffffffffffffda RBX: 00007f7a3d226270 RCX: 00007f7a3cf9fb19
-RDX: 00000000000001ff RSI: 0000200000000800 RDI: ffffffffffffff9c
-RBP: 00007f7a3d037b70 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f7a3d226308 R14: 00007f7a3d226270 R15: 00007ffe3809a618
- </TASK>
+BUG: memory leak
+unreferenced object 0xffff88810d78f488 (size 576):
+  comm "syz.1.32", pid 7505, jiffies 4294948085
+  hex dump (first 32 bytes):
+    0c 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+    40 e5 f3 11 81 88 ff ff a0 f4 78 0d 81 88 ff ff  @.........x.....
+  backtrace (crc d8883653):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4733 [inline]
+    slab_alloc_node mm/slub.c:5033 [inline]
+    kmem_cache_alloc_noprof+0x35b/0x3e0 mm/slub.c:5047
+    radix_tree_node_alloc.constprop.0+0x81/0x1a0 lib/radix-tree.c:276
+    __radix_tree_create lib/radix-tree.c:624 [inline]
+    radix_tree_insert+0x140/0x390 lib/radix-tree.c:712
+    uapi_add_elm drivers/infiniband/core/uverbs_uapi.c:27 [inline]
+    uapi_add_elm drivers/infiniband/core/uverbs_uapi.c:16 [inline]
+    uapi_add_get_elm+0x61/0x140 drivers/infiniband/core/uverbs_uapi.c:41
+    uapi_merge_obj_tree drivers/infiniband/core/uverbs_uapi.c:178 [inline]
+    uapi_merge_def+0x4c4/0xb60 drivers/infiniband/core/uverbs_uapi.c:297
+    uapi_merge_def+0xf0/0xb60 drivers/infiniband/core/uverbs_uapi.c:286
+    uverbs_alloc_api+0x85/0xc50 drivers/infiniband/core/uverbs_uapi.c:659
+    ib_uverbs_create_uapi drivers/infiniband/core/uverbs_main.c:1140 [inline]
+    ib_uverbs_add_one+0x1b1/0x350 drivers/infiniband/core/uverbs_main.c:1196
+    add_client_context+0x290/0x480 drivers/infiniband/core/device.c:755
+    enable_device_and_get+0x106/0x250 drivers/infiniband/core/device.c:1375
+    ib_register_device drivers/infiniband/core/device.c:1503 [inline]
+    ib_register_device+0x4fe/0x7f0 drivers/infiniband/core/device.c:1441
+    siw_device_register drivers/infiniband/sw/siw/siw_main.c:71 [inline]
+    siw_newlink drivers/infiniband/sw/siw/siw_main.c:433 [inline]
+    siw_newlink+0x36a/0x3f0 drivers/infiniband/sw/siw/siw_main.c:415
+    nldev_newlink+0x26f/0x3e0 drivers/infiniband/core/nldev.c:1859
+    rdma_nl_rcv_msg+0x1ad/0x2d0 drivers/infiniband/core/netlink.c:195
+    rdma_nl_rcv_skb.constprop.0.isra.0+0x175/0x1f0 drivers/infiniband/core/netlink.c:239
+    netlink_unicast_kernel net/netlink/af_netlink.c:1335 [inline]
+    netlink_unicast+0x3e0/0x530 net/netlink/af_netlink.c:1361
+
+BUG: memory leak
+unreferenced object 0xffff88810d792920 (size 576):
+  comm "syz.1.32", pid 7505, jiffies 4294948085
+  hex dump (first 32 bytes):
+    06 09 00 00 00 00 00 00 88 f4 78 0d 81 88 ff ff  ..........x.....
+    40 e5 f3 11 81 88 ff ff 38 29 79 0d 81 88 ff ff  @.......8)y.....
+  backtrace (crc 415aa5b6):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4733 [inline]
+    slab_alloc_node mm/slub.c:5033 [inline]
+    kmem_cache_alloc_noprof+0x35b/0x3e0 mm/slub.c:5047
+    radix_tree_node_alloc.constprop.0+0x81/0x1a0 lib/radix-tree.c:276
+    __radix_tree_create lib/radix-tree.c:624 [inline]
+    radix_tree_insert+0x140/0x390 lib/radix-tree.c:712
+    uapi_add_elm drivers/infiniband/core/uverbs_uapi.c:27 [inline]
+    uapi_add_elm drivers/infiniband/core/uverbs_uapi.c:16 [inline]
+    uapi_add_get_elm+0x61/0x140 drivers/infiniband/core/uverbs_uapi.c:41
+    uapi_merge_obj_tree drivers/infiniband/core/uverbs_uapi.c:178 [inline]
+    uapi_merge_def+0x4c4/0xb60 drivers/infiniband/core/uverbs_uapi.c:297
+    uapi_merge_def+0xf0/0xb60 drivers/infiniband/core/uverbs_uapi.c:286
+    uverbs_alloc_api+0x85/0xc50 drivers/infiniband/core/uverbs_uapi.c:659
+    ib_uverbs_create_uapi drivers/infiniband/core/uverbs_main.c:1140 [inline]
+    ib_uverbs_add_one+0x1b1/0x350 drivers/infiniband/core/uverbs_main.c:1196
+    add_client_context+0x290/0x480 drivers/infiniband/core/device.c:755
+    enable_device_and_get+0x106/0x250 drivers/infiniband/core/device.c:1375
+    ib_register_device drivers/infiniband/core/device.c:1503 [inline]
+    ib_register_device+0x4fe/0x7f0 drivers/infiniband/core/device.c:1441
+    siw_device_register drivers/infiniband/sw/siw/siw_main.c:71 [inline]
+    siw_newlink drivers/infiniband/sw/siw/siw_main.c:433 [inline]
+    siw_newlink+0x36a/0x3f0 drivers/infiniband/sw/siw/siw_main.c:415
+    nldev_newlink+0x26f/0x3e0 drivers/infiniband/core/nldev.c:1859
+    rdma_nl_rcv_msg+0x1ad/0x2d0 drivers/infiniband/core/netlink.c:195
+    rdma_nl_rcv_skb.constprop.0.isra.0+0x175/0x1f0 drivers/infiniband/core/netlink.c:239
+    netlink_unicast_kernel net/netlink/af_netlink.c:1335 [inline]
+    netlink_unicast+0x3e0/0x530 net/netlink/af_netlink.c:1361
+
+connection error: failed to recv *flatrpc.ExecutorMessageRawT: EOF
 
 
 ---
