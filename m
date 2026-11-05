@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793840474;
-	b=2cP4R8VKpoT73mxHQlKdZpe9cXSiNyxf0//197SnCyIyQPnywSL2EV6/s4gLCYTl+IMl
-	 9eY3CHBtXwgGYk5VFM9zl9w9jxZXymJ0VQZZ3s4djBGXrAcQjxbAN8NvUa+z9Sso+AO3p
-	 Ctj19/++Rif3xBMmAl4eedmCkQPpjY41e7ztoB9A/ix7eMDShuE9cT0ZgTabPMLmnFQ/z
-	 xkfwjvm3CMLWlPDVGmCxjwtA5NmrUvR+4KqTzYf6MUlTRY8IhyqPy2XgjvgWMcXssHgWB
-	 bdEwnZ/PwjvFce0PxE2Jk13YOJklQuBTU04TDsGYF28pbKPRqo5x2LUPd5tvwO21Twg==
+	t=1793840471;
+	b=e2hPZqvZmz7GEgTpumfbBOKUkI5Of58fWZvoEIiCWtp/LpSDC/eM3vbfs+MOgiMqUpw6
+	 ywa0I9oY+hx/Gvywwfaj82e7zspI7QC1fviDUugvIb5lhls2xAqeVTYjpGkEk+70yQbu5
+	 aTHzoDw4/CD23fd0BIE7EbT2mAyDKCFyzlrjDYho3WmWDnZUpA/Vyqe9HYBGXoOgMMI/y
+	 mmicPx0vqYrU3XA3YBod+RyAtYOdOMxH1Ns+rHf01VBG0cVvIruTYA/lnf81FAd0PE6zT
+	 OvP7SirGZitaQfhE9S/yMlGziW8H0ijoODF+XfOFXaO6hlhpnqjGFhBWf9L4qOR0sLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793840474;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793840471;
 	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer;
-	bh=QIq0rQCDyZ1HUILqWdzswTceAmoKhJFBIk2NC1hgA7M=;
-	b=CT2hvHLK0onmJL6473MkuKpEIabmc7OoAPm6PIhf6LK2K4+JEmfJWUossLHauDFt90nx
-	 ery8iXjvWdgH2dDJ15ZnhEO6tvBlYazuGPWSSubvKyQwAhFD4jLpZGElpPSjV7zcZZq9v
-	 Jl63h8TUerwmej0EK7/2glt3sxHiY2lDGEFtRKBE8kfu91ECWcCCkZtpAmxjLIVY7Fc8+
-	 DuAHl3vXh/sd+qSkorhNiwy3E4AdaJS2Us7UKU5Qf5ojymjE946NjjijFQdYIG/RgBUzD
-	 vtRpMG3NU5QeiYf5Pc8d03M2G/9+f4o7HVY+qL7NwKmDEPlp8swMpMxBt7zl6k9Is4Q==
+	bh=ZpcXpaaFdIS2BdTK8lo+4wKARLFbWTh69FfI88xetkM=;
+	b=u/hD1DEzGpOGXz6WJzVHAW6AN1R8R0QSej7XT7IlVkBQTeCE7VpvLn+Xmpj67iSW/rPQ
+	 1YV70ewnldPHFj/S7GnUOHLAp/jUAfQ9M4LZnO01Du0UdQ0EvbVQsG6L3u+Jamh8hzIdE
+	 Q1T4Mx3CQdx2hxR5vSC5bUcyUSpzzTP7NPSQsYXcN6VrGgzkDm081RSONO3Ioo8yuCFSA
+	 KVJwN3SZlaEMaoskPcOqI/hwG8YAlSj+6O7BGongf3QUEXk0YsfCWwq6b/QshDmZeHKeB
+	 LiuhT+8CzFqX7x1vpULlPfmBHXrI7kLF28KxjrxJHwTlCV9+91bcDB2ie65GHL6hp0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=DeROcM54;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=plyM2tsA;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F2C1606EE88;
-	Thu,  5 Nov 2026 01:01:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F2C1606EE88
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 428CC606D822;
+	Thu,  5 Nov 2026 01:01:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 428CC606D822
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=DeROcM54
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=plyM2tsA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793840472;
-	bh=9ArlfghBrJdwW0nP4zg0k3Av6BQeQyflO3wXjVsY0As=;
+	s=mail; t=1793840469;
+	bh=/wjUVkZ0UVn5JWfHTL5GTR3M8dVKzu8q87aZTn3tFGo=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=DeROcM54jjDIyHjvbYu4F7UIzTzJTZFRckMugNbacLFlEjKtWgRfQdnjv9YINRl5Q
-	 q82qV2vGy57/LleuqjBLrMCZ6V3FUgZuw56hVyj9d5drP9lGL8mlTvGoYRhtGpBoun
-	 NckatM3ZmD8wKnGiTGBp1bT/44t3ut3yRL5Vq9nrzwciVjfRVWvxubz2wK4uGUu1Rr
-	 jULTePNFjgashxm77dFh/Kf+FaHFNzQBtj2SSIssvzRQhRFzV1GCa1F5ezs2yqtK3q
-	 g/jyZX9NIoK8BiGjpYJks7ED23KisvWlsM7sLB3nKVP19A6IV1+1TrTpdCyMOkGpzs
-	 nCIT1uAMLAynA==
+	b=plyM2tsA16i6IUWFhvJbbUn7AF79nYO5J/CU9cGy2NMhnay1QrYyiaUHpp7qwHjIj
+	 eYC2BUNTL9/v5DDumGerhx3c/qpuChNccxgAJag1OT+fO/JXRhIydvr5BJ25S1Lq+O
+	 w8rcHO77z3QU2fQj3lQKo6WgGWEg/T5AG1BZbWihSnzGq89BkTG2PV+Ozu7kPZeigo
+	 Sny+Ylyt5KieEmZmALjt/WZn/UxQkcnjDW5BvyVdeqIV1YHunDm23ZaLIEEegt2vBB
+	 o5YvBQTia9FAKbaaTtXTTwkADVkNcYHrwgCmXr6fw8JmwRdHP3l2EiX9sSLKJtSLGF
+	 NcNwPzbD6UrOA==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id EA80917E0D5D;
-	Thu, 05 Nov 2026 02:01:11 +0100 (CET)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id B0E0317E0D49;
+	Thu, 05 Nov 2026 02:01:09 +0100 (CET)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 05 Nov 2026 03:00:42 +0200
-Subject: [PATCH v6 08/15] drm/rockchip: vop2: Consolidate HDMI PHY PLL
- clock parent switch
+Date: Thu, 05 Nov 2026 03:00:39 +0200
+Subject: [PATCH v6 05/15] drm/rockchip: vop2: Avoid division by zero when
+ computing max_dclk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,7 +65,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-dw-hdmi-qp-yuv-v6-8-1bb63ef5766e@collabora.com>
+Message-Id: <20261105-dw-hdmi-qp-yuv-v6-5-1bb63ef5766e@collabora.com>
 References: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
 In-Reply-To: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -88,95 +88,52 @@ To: Sandy Huang <hjc@rock-chips.com>,
 Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
  linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Igor Paunovic <royalnet026@gmail.com>
+ Sashiko <sashiko-bot@kernel.org>, Igor Paunovic <royalnet026@gmail.com>
 X-Mailer: b4 0.15.2
 
-The DCLK parent switch logic for HDMI0 and HDMI1 PHY PLLs was
-duplicated, with each endpoint repeating the same clk_get_parent(),
-clk_set_parent() and error handling calls.
+The DCLK reparenting logic in vop2_crtc_atomic_enable() is gated only on
+the presence of an HDMI PHY PLL on the SoC.
 
-Refactor this by first selecting the appropriate PHY PLL clock handle
-based on the active HDMI endpoint, then performing the parent switch in
-a single shared code path.
+This condition is true on any board that wires up an HDMI PHY, even when
+the CRTC is currently driving a non-HDMI output such as DSI or LVDS.
+Those encoders do not set vcstate->output_bpc, so it stays 0, hence the
+subsequent DIV_ROUND_CLOSEST_ULL() then divides by zero.
 
-While at it, retrieve the original DCLK parent at init time, along with
-the rest of the clocks, instead of lazily on the first switch to a PHY
-PLL.
+Note this division happens before the drm_for_each_encoder_mask() loop
+that would establish whether the pipe is actually driven by HDMI, so the
+loop provides no protection.
 
+Default bpc to 8 when it would otherwise be 0.  The resulting max_dclk
+value is a don't-care on the non-HDMI paths that trigger this, since the
+encoder loop will not select the PHY PLL as the DCLK source there.
+
+Fixes: b0362c45c401 ("drm/rockchip: vop2: Check bpc before switching DCLK source")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260623203310.9F8C81F000E9@smtp.kernel.org/
+Link: https://lore.kernel.org/all/20260623203310.9F8C81F000E9@smtp.kernel.org/
 Tested-by: Igor Paunovic <royalnet026@gmail.com>
 Reviewed-by: Daniel Stone <daniels@collabora.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 35 +++++++++++-----------------
- 1 file changed, 13 insertions(+), 22 deletions(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index 98430587a7ab..ab6ced49ae40 100644
+index 8d5613531acb..d1329941d9f6 100644
 --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
 +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -1956,42 +1956,31 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
+@@ -1931,8 +1931,9 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
+ 	 * to 4K@60Hz, if available, otherwise keep using the system CRU.
+ 	 */
  	if (vop2->pll_hdmiphy0 || vop2->pll_hdmiphy1) {
- 		unsigned int bpc = vcstate->output_bpc ?: 8;
- 		unsigned long max_dclk = DIV_ROUND_CLOSEST_ULL(VOP2_MAX_DCLK_RATE * 8, bpc);
-+		struct clk *pll_hdmiphy = NULL;
- 
+-		unsigned long max_dclk = DIV_ROUND_CLOSEST_ULL(VOP2_MAX_DCLK_RATE * 8,
+-							       vcstate->output_bpc);
++		unsigned int bpc = vcstate->output_bpc ?: 8;
++		unsigned long max_dclk = DIV_ROUND_CLOSEST_ULL(VOP2_MAX_DCLK_RATE * 8, bpc);
++
  		if (clock <= max_dclk) {
  			drm_for_each_encoder_mask(encoder, crtc->dev, crtc_state->encoder_mask) {
  				struct rockchip_encoder *rkencoder = to_rockchip_encoder(encoder);
- 
- 				if (rkencoder->crtc_endpoint_id == ROCKCHIP_VOP2_EP_HDMI0) {
--					if (!vop2->pll_hdmiphy0)
--						break;
--
--					if (!vp->dclk_src)
--						vp->dclk_src = clk_get_parent(vp->dclk);
--
--					ret = clk_set_parent(vp->dclk, vop2->pll_hdmiphy0);
--					if (ret < 0)
--						drm_warn(vop2->drm,
--							 "Could not switch to HDMI0 PHY PLL: %d\n",
--							 ret);
-+					pll_hdmiphy = vop2->pll_hdmiphy0;
- 					break;
- 				}
- 
- 				if (rkencoder->crtc_endpoint_id == ROCKCHIP_VOP2_EP_HDMI1) {
--					if (!vop2->pll_hdmiphy1)
--						break;
--
--					if (!vp->dclk_src)
--						vp->dclk_src = clk_get_parent(vp->dclk);
--
--					ret = clk_set_parent(vp->dclk, vop2->pll_hdmiphy1);
--					if (ret < 0)
--						drm_warn(vop2->drm,
--							 "Could not switch to HDMI1 PHY PLL: %d\n",
--							 ret);
-+					pll_hdmiphy = vop2->pll_hdmiphy1;
- 					break;
- 				}
- 			}
- 		}
-+
-+		if (pll_hdmiphy) {
-+			ret = clk_set_parent(vp->dclk, pll_hdmiphy);
-+			if (ret < 0)
-+				drm_warn(vop2->drm,
-+					 "Failed to switch DCLK to HDMI PHY PLL: %d\n",
-+					 ret);
-+		}
- 	}
- 
- 	clk_set_rate(vp->dclk, clock);
-@@ -2610,6 +2599,8 @@ static int vop2_create_crtcs(struct vop2 *vop2)
- 			return dev_err_probe(drm->dev, PTR_ERR(vp->dclk),
- 					     "failed to get %s\n", dclk_name);
- 
-+		vp->dclk_src = clk_get_parent(vp->dclk);
-+
- 		vp->dclk_rst = devm_reset_control_get_optional_exclusive(vop2->dev,
- 									 dclk_name);
- 		if (IS_ERR(vp->dclk_rst))
 
 -- 
 2.55.0
