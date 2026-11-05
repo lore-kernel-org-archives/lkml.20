@@ -1,97 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793841671;
-	b=FF3mqKwQsQYhD7iEPv8g7AKzXUKuQRD3tMOzefW+vYnldwqOuK6sEwIvKXIChM7NgxUh
-	 ixAsK4K2n+Z/lSIYUs/rRUoz6bXA8QO/bbZPQjuvxstJ2inxOyWbDrvMJUHtdWFZN4rpo
-	 cgmkkZu9W0P8YvrUSA2ptqzaduFbaDKOilIVf3aniMSYglhwBu+8RMXMF1SrwFeGCM+sh
-	 h6RtQa4sDuYlG6Azhy8mFdHRvn8+Nw/5HiuVjp+BzC5vy43pQcpmGf8loraAklJ/zvRsa
-	 XWOb1Mnb/0CGItUgTHHBzpCYtl4d5lbXsMuiUip7ZIp8fu3AdgI/RjRenRqqfyi3Ckw==
+	t=1793841770;
+	b=TDDsF8rVwbZVeS4DEthgr4Nw4cz/lis0LrYTob7ijz1xO1mzdikXhoWoAGIBXJdZzim6
+	 B6fJuHEfZuPMvo5vtD83p+WlKLESUHxZ5jZtpDxrS1HscvFwuP4hAhg7JDthC9qF5R5j0
+	 XQv0dTi3C/tB7k1gm1TLI3rx21U5MH/h4tHPh4mdiLEAmtLMFHtfWt/ov1Pc6Cc6MDtSf
+	 CFmpSbdCAM3qezHGWbLIYVV4D3FKElcdGX2YHiqCgNXny2hSennSJV50silCC5bP7hKub
+	 S0AJssbLDu1RBMzBZOSCI0IG+osUlr6egOdNBvsx5R8bKxM2qrWtSWJIaSLrwT6K9qA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793841671;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793841770;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Content-Disposition;
-	bh=x5QYTvCtCz3JW9P9W3Sr2AhKR5sD7hyZrYU2fGwOKig=;
-	b=PDvjM36HpQMtZpuu6TJDJ4D/wCYNKDinCeIy7Qn30+x1JTD5+cye/4moKCe2AVxx0DJ9
-	 K3IBCSKWYxa9n20pbRYGkmAKtJm8aRoVpGG0L2RRSTSar1GlagOFtLy4Esl/z8d4AJ8JP
-	 wlTnPEvFU3fDx5JBPESRUF8uK2kGS2HCUnSPvJRU8DFIQK8yYTAcLmHwLlT0xLMli2CKj
-	 jcqYnqPVJr7LBvnUVNtBjQkvOhJCLgAFlAqXbCR0Yi69xzmANd9KFdham8Ji2kvCcE987
-	 pwnHfplmSumxuzlYSgS9Wes2JIol39uuyBjgzKuJuWqcfTM7sgaTHos/HnvCe0TbgUg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=PW259vEwVt6aepdEMnV/kf0Mt4lpxnzMAqh8bDDexfs=;
+	b=tV1Ptb0CnM0YV5VzxFQ0g++U/ctNJrs2ruDD0gFnAum//MD63YnwBsXyqDIG7vbPKs2Y
+	 hrjPpmUQnqO9aaouKdXOzuRLrpUA3m0TwYANDB2zsJfMro491fMISlBVSCEq2zxTMuoC8
+	 e+KBVFlnTe96hQnBR8Tlm3fHsdn2ECF70hQ/KapsezsxQwT8EDngAPSmAe2JgNYbS/PP3
+	 yKx6NARpUD+R1OeOoFcHjfOY0TZhsXDSUjoVHBoz26qa4PPOV+l8MyO09h7zCM4NO4I0x
+	 gzHTHxejI08m0cITGWMJmoclcdBYWQqB0q0Ae268dXKoCBLTJQ9OOeu9bsAGSPFO18g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BD16ZQxg;
-	arc=none smtp.remote-ip=74.125.82.49
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wXXqLWq5;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98373606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 01:21:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98373606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 562DD606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 01:22:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 562DD606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BD16ZQxg
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-14fc585291cso1350897c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 17:21:10 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wXXqLWq5
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-15dd124bbe7so291935c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 17:22:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793841669; x=1794446469; darn=vger.kernel.org;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=x5QYTvCtCz3JW9P9W3Sr2AhKR5sD7hyZrYU2fGwOKig=;
-        b=BD16ZQxgHFmbFqo9AZgHLxmPK1yaIpujrhkdBWMRYRoO1wP182BXbj3NB7e5IaD78b
-         VN6bTJKTDfxdhAzEFCHFjywybvH+9QNhANiMPsiCKtSiKaCcX6sCkgsgDCB4Cr2GsWww
-         EOo9kbl7jT1tHh5EJiC/BV0GKpAxhVopG+9chtzgjfCzPwvx/RZEwg5c95pFMLd5cn79
-         sJ2XKTz6ewvm+3vuWaLJH6YpMx+6q7qUQ3ovWuJ+uAuzszpfr/D0qqQRxOEpKQ7RLE9I
-         YmZ407/QcVwCfBeKjct81iwjf7epmgD+ICtDiOgOSEZrdWICh9lnJBr3fwcEgaQk/H5q
-         7XYw==
+        d=gmail.com; s=20260707; t=1793841769; x=1794446569; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PW259vEwVt6aepdEMnV/kf0Mt4lpxnzMAqh8bDDexfs=;
+        b=wXXqLWq51EnKuCV8eczEg3m42Y8tLQoCeEt86ccSCmBF8iNWxTJiWbe/B5I9DX0Dam
+         22BJ8WBPO1YrCZ6oc3u7dsit8THwZqmLvi3BWEly3Nq5gnMiXRcMrOJvIVOmf9Jbz+zt
+         grivGH0X685Zjrt9HwEfUbejqxqsSN+I909TqS8Wbhi2BX0lWnGKjYBV7mjpAYDuILTn
+         tbVRrbpIkAkYONNJuN5e6yaj/rmSDzAmSwjeGZN4EFKBOQpwbilT2eiS4KFAy+gWAwCt
+         2JIG9VZ+5tD0O1GsVvVZyg9cSjLOdqQVqo+QvkBrF2PaR6ttnUZMv+Uv//WQovl1oqk/
+         lvFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793841669; x=1794446469;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=x5QYTvCtCz3JW9P9W3Sr2AhKR5sD7hyZrYU2fGwOKig=;
-        b=M/4S8jW+NUoxvd2KrWBMVazkjKHaYUEfHojgM8e4w6HHR0vW3u5kcBwQMaP6iRI5IZ
-         izxi3d6Bb3DTseawI4qxRm8bV5LnHWwytV8calBaTNv62I10pyT6ImbeuAwo9z8QbtFM
-         Za6KMdw+YUyrxECJpix7sCsb+wAdzMInw0BKvyWgdgtWtTCptVjlOpaFO3boj21EfOZl
-         GEthzvM4MXLxgQt1VfjHKlymIkrIa0jMrC5Fj2lklQLUFIU47YV7cKgOLPcEKJx7W3Wu
-         SuV+UKa8tpZMcR5kYmnktryqibiU5fS4Py/X9UDfMSO9iPwBey5hzJHIa2+d/org64kl
-         iehw==
-X-Forwarded-Encrypted: i=1; AKwUvByTH48zQqFXDLf+DoqARWtNLzN5FaMP2yNyn4PFY8Oum42Xj9D2AXvUmHWiNnWBq7Rt+w2hxM+1zq+hdww=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ivSAs61EY2jyIbHZAqgWcAn9BWm/3HJ/IbRL2NPVcFnbozgqJ
-	WTvFVwM1SOTXHNI0CkUOle+l7tmmM9GA/1FRsVpiCyIimHVtyvZsOGaj
-X-Gm-Gg: AYBFou2HVvTJ+O0VBktuJcehHPDDWakPC6UVkPcLrBhR2cddIH/Vuhh7y/Kbg1u2apK
-	9hXN5vpwCQ0VWaoUNgwFFo8qSuk+S0JGgEYNUoKhSPqLylUFrFPWfaSR692V2r6EGnYUClS2fix
-	IKz3mrzYbXgfxbvoejDiG9N9EI3ADlDoPtN5aPkFtr7oqqZlP3Le8zCf9LY0adyAwXi+nq4A2XN
-	mcHo5k4uePw5a/vifiCDtggCfEquiQ70NlsjIXM6cAwJDiqdNGYirWnskyEGGEjuGSZiWorGEHI
-	iSQpVpLbciWA7N+kQkqbiYGdGZ7Fb107QfZhEF3JqTnaxGvf5Jn+hJ7L5G9DpExbaonbQkX3jIp
-	Cm0e2ACuiCDzj3uBQ4f5XbgbJsUUFER9HCk0H73G+PcgMXLBdN6mvJxN+OdhIQDoPIczN1BJztn
-	NF84c0JMjFsKZsg5DXbabyfDbbNIwabZ3Uw3LcVsY4Obi9UmvD9bhd9NcoPn4WhFczCktvxGNoL
-	NqmfCxbGSdntPTw7q+IlNIWQLTFTwNnYIYqD+dSzyfndM+g1W4gOh++FbRDnVXrqtw007YnZ12+
-	cIlzOdDUWYE0TB7lC51+QDrzsEV/76ZMt3fcIIjCbZNaCankRS29B4kVLouqFTohs79jzg==
-X-Received: by 2002:a05:7022:29c:10b0:143:8860:afa1 with SMTP id a92af1059eb24-1ac5f36d693mr25685468c88.46.1793841669393;
-        Wed, 04 Nov 2026 17:21:09 -0800 (PST)
-Received: from localhost ([2a00:79e0:2ebe:8:c8f4:b7d9:252f:4483])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245ac2f44sm12371355c88.0.2026.11.04.17.21.08
+        d=1e100.net; s=20260707; t=1793841769; x=1794446569;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PW259vEwVt6aepdEMnV/kf0Mt4lpxnzMAqh8bDDexfs=;
+        b=2JmJtUJHWlS7KZXLddIl7EA7S9mmQVzS/9bWEGlCE2F8muC0EbEC6R80g+LEZ0tTof
+         J1bg6P9bGbCNxB4DPDouMAaaDIArCIT9w19vjepropO8/hdvP3V6A1ZLtRkwmCURH2zt
+         NV6EvW+l1v+bjiGeuNivjm6JuQ4uxPlrVADayOqCtMHprIltg1Yq8qCaznMhBclwPFYD
+         V1onaMnagOkKYqvkOK+HxtdgBVAeVTtQDzyDqY1gw1y8wgDLenUAn9gv8x8uAF21icmV
+         eoFxjM+Ehx62SRI3DB0tov0txTL+IKTLr4n9WBd0OjI20iJs4t4wnZMLv2zZRLwC0L6r
+         XbOw==
+X-Forwarded-Encrypted: i=1; AKwUvBzHDoKIA0LcHt24Xo3mM36kBVES2yo17vlKZe1Pan223ADPjK4xKxW70R5pzAb0q1jZnu/LUL42ACBEsjE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8YE7RpwfXFi/w0Rtqba3ardbydBWgtjvXytBged1TxxZY87Gpw
+	ZF1bJUymQffJZMjhHTNOL1HifbAjnk/nS7AZHOCLaij8Bvozk9vxu0Kl
+X-Gm-Gg: AYBFou1OSSz3h4wZj19YyExSKH59pD4nvACXeUIHgz6O12doosFv9l3WXAk3AlPXBgT
+	Fu+7oLIbra7qR95IPSrKXhq98mhePks7yTS2/FQ1GbEw5sOi04c+n/kHi4PEGZCXM4K+pTbG+ok
+	fjbM11Atxdz0EmTRzzmeRPaptSocuG3EIldagWH6tp3b0IOInXpNg2ZUnWYkJ4PgGrMNQCaFV64
+	G60g1N1+yEHIsnVBCpJiZi19R93FJed/ACLNkS5ZwDAlKlBFJ/qSeJTINDxMte8PhHKD9TwN/8o
+	d/Z6fz8jRlahpdqsw+wVZrlFBHmZQB3zgliOuIS/7iqZ6D0ClVXOnoIA8ym/KHYL4zrxM9qTUj3
+	B7rxMj4njnhYkSH3brG4C5KpBI0n6a4oCw+UegjtcG1eZszgjDeBJANMLlUiiV+owXBa9nckcqB
+	pxLf1lUWN4xlhXdkh2pcxgqhruOdmw5TbsBke/8gEhSnS8bdJb7CB/NP9Anhm1F1OEwxQow09X5
+	yOWQuOn8xi4epW2Mk/muemwaphQT/PyO/8Y+0Rd3MAG+YEiIShDhBDr502huKto5ZvJVnqm8OdW
+	sXAntg3wHy3j9xcyOadf
+X-Received: by 2002:a05:7022:281:20b0:1ac:91b6:8dfd with SMTP id a92af1059eb24-1ade9e3e335mr25492252c88.31.1793841769331;
+        Wed, 04 Nov 2026 17:22:49 -0800 (PST)
+Received: from ubuntu.. ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c1bcedsm11526499c88.7.2026.11.04.17.22.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 17:21:08 -0800 (PST)
-Date: Wed, 04 Nov 2026 17:21:07 -0800
-Message-ID: <21f4cbf39c7872893f8f2d3bfde7d829@gmail.com>
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
-	driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] driver core: fix race between bus_remove_driver() and dev_driver_uevent()
-In-Reply-To: <2026101409-unkind-ablaze-08a3@gregkh>
-References: <as71DkwHeLGNDsPv@google.com> <2026101444-unnoticed-caliber-21d5@gregkh> <as8dAu4R99pP1GHD@google.com> <2026101409-unkind-ablaze-08a3@gregkh>
+        Wed, 04 Nov 2026 17:22:48 -0800 (PST)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+To: "Paul E. McKenney" <paulmck@kernel.org>
+Cc: Keith Busch <kbusch@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	=?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	rcu@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] srcu: Add list_splice_init_srcu()
+Date: Wed,  4 Nov 2026 20:22:42 -0500
+Message-ID: <20261105012242.623962-1-odys.yuan@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <9f8c94ff-29e3-4ea5-b9ec-b04b2bc21b1c@paulmck-laptop>
+References: <20261104-bug-nvme-remove-ns-srcu-v2-0-feb64ecb96ca@gmail.com> <20261104-bug-nvme-remove-ns-srcu-v2-1-feb64ecb96ca@gmail.com> <9f8c94ff-29e3-4ea5-b9ec-b04b2bc21b1c@paulmck-laptop>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,44 +108,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-Hi Greg,
-
-On Wed, Oct 14, 2026 at 02:16:50PM +0200, Greg Kroah-Hartman wrote:
-> On Tue, Oct 13, 2026 at 11:11:33PM -0700, Dmitry Torokhov wrote:
-> > On Wed, Oct 14, 2026 at 07:31:19AM +0200, Greg Kroah-Hartman wrote:
-> > > On Tue, Oct 13, 2026 at 08:24:20PM -0700, Dmitry Torokhov wrote:
-> > > > @@ -830,6 +830,15 @@ void bus_remove_driver(struct device_driver *drv)
-> > > >  	driver_remove_file(drv, &driver_attr_uevent);
-> > > >  	klist_remove(&drv->p->knode_bus);
-> > > >  	driver_detach(drv);
-> > > > +
-> > > > +	/*
-> > > > +	 * Ensure that any concurrent dev_driver_uevent() that observed
-> > > > +	 * dev->driver before driver_detach() cleared it, finishes
-> > > > +	 * accessing drv->name.
-> > > > +	 */
-> > > > +	scoped_guard(spinlock, &sp->klist_drivers.k_lock) {
-> > > > +	}
-> > > 
-> > > Shouldn't the compiler just no-op this away into nothing?
-> > 
-> > It better not. Why would it?
+On Wed, Nov 04, 2026 at 09:14:12AM -0800, Paul E. McKenney wrote:
+> I am not inalterably opposed to adding a list_splice_init_srcu(),
+> especially if quite a few more users show up, but here is what I was
+> expecting people to do:
 >
-> Sorry, early morning before my coffee had kicked in, I was thinking a
-> simple lock/unlock pair without any data in the middle might be compiled
-> away...
+> 	static void synchronize_my_srcu(void)
+> 	{
+> 		synchronize_srcu(&my_srcu);
+> 	}
 >
-> Still feels odd though I don't have a better idea.
+> 	...
+>
+> 	list_splice_init_rcu(l, h, synchronize_my_srcu);
+>
+> We need at least six uses of the above idiom to break even on the line
+> of code required for introducing a list_splice_init_srcu().
 
-Just a gentle ping on this patch. Could it be picked up, or would you
-prefer a plain spin_lock()/spin_unlock() pair instead of the empty
-scoped_guard() block?
+That works for a global srcu_struct, but nvme has one per controller,
+next to the list it protects:
 
-Thanks.
+	struct nvme_ctrl {
+		...
+		struct list_head namespaces;
+		struct mutex namespaces_lock;
+		struct srcu_struct srcu;
+		...
+	};
 
--- 
-Dmitry
+nvme_init_ctrl() calls init_srcu_struct(&ctrl->srcu) for every
+controller, and readers walk the list under that controller's srcu,
+e.g. nvme_wait_freeze():
+
+	srcu_idx = srcu_read_lock(&ctrl->srcu);
+	list_for_each_entry_srcu(ns, &ctrl->namespaces, list,
+				 srcu_read_lock_held(&ctrl->srcu))
+		blk_mq_freeze_queue_wait(ns->queue);
+	srcu_read_unlock(&ctrl->srcu, srcu_idx);
+
+nvme_remove_namespaces() thus has to wait on the srcu of the controller
+being deleted, which a sync function that takes no argument can't get
+at.
+
+So the choice here is between list_splice_init_srcu(), as Christoph
+suggested on v1, and open-coding the splice in nvme_remove_namespaces()
+as v1 did. Which would you prefer?
+
+Thanks,
+Qiliang
