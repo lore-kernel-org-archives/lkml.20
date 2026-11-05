@@ -1,79 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793888945;
-	b=c3mQQcYcVeMaOvqRiRNoDl4LPnBM4gYdcdEGrRfyg4kjjmH8U8yPN8djXAO6lFdkczXA
-	 T4dHEhTDHqetcPe/k6Mh5thHiNxt5ZFbFH6tozoVjkYi/7nry/3VShwLVry4GRNUDZXSg
-	 4OLKOaYiq6MnGgQ90ICIFHCaPPILFTzG7aIOE81ATA+T+5MhOhqbNGFMCoXT6xJ0urhQU
-	 HrLaMDUEW1hj+pgkbuShjkDXh75lGYdhiyp+GS7N0lIrjIHAxCLIRT+ikLoQ9eI8CQS1P
-	 UAu1Zx8iGFdB5BhkzXVEc15VEF7JmBjN2/0jQtF5wkpV8f05/UJcoxQlya4kacMMP2A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793888945;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=yFXunORW+PuRObaULoq61sL3kviCqA/X6v8YIlM+9ns=;
-	b=jR9zMDd9b5M9947JRWy0Z+mO/W6wfL87rM3FARFVq9ZopYDC1qNuo/IiG6eiAeHZIxzY
-	 Gr2ZpkVok8hBk2LF5GyxiJfeja2TN0isIYUtITpzs9MjSl9CngcYTf1pN9ldvAanP2+Hr
-	 +yvBsSTGZt09vwd2DkHRpii2+vHfF1ArV70HE/agIxwZJbctS0zcIgbAESF7ho2BjQ/nv
-	 1JoiPzEzlKYj9rzD4jfEYOLt49y/C/ef44xPzhM6666528WqTokcRmmzQUBiHa9DumcSW
-	 AVgbt3ZTCbOdpmsbbhJOPbSudMeyQjaB4SU5FSx4xqyIeTGp4akLbBA2hQzpoaSkTNA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cpn1rVyq;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793888960;
+	b=v/8jhQn7NQiRk0IrwZUauU5Pd9D0IR70A4nCeUcq7swdF7iqCOqvz7GnBZ1hHfUuDZtE
+	 z3QiAb10x06yWkkfP7tNytlvc4wr3GTXsPlworzYKcuXMTjgA052YdgXNxHSOzY6MDMb9
+	 tAA8ler6WLg8wTVxHifrmhZSC5esHBmTa+S/kazLkdsDXJ/QtxvURT9WN9keR/2c8idg9
+	 kMgUv+oxk8TJJNSxo+qH/9Gnz8TvPMayYmIjqh21jgOFTwW0RdfJGRCjpw4KZFaabU6ky
+	 uHKvllLqIz4bl/2pqhBSLFso+9kw7SltiTG6+Klq+nHEnehRg+UvjfK3J64t7HGNpbg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793888960;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-AI-Review-Draft;
+	bh=A3wa5CvpyG7Bv+3nyw/J1JeS+qybhpRhQxCSuvYcfwk=;
+	b=MJJLeNM5tDIQSdbKF/NyOFBizE93BLDntCqZTW+FCsSBDWe2COYRaLkeazO7jVrgjrBv
+	 oyNT5ucAqB6XNqrRSQnoigv9mnBVzJ/sCTdRG4OwPpiGOZX95gz5+3djPtpwyCR1mfm9O
+	 ovTeHjlW5G1LkSMsTvhzKmL27LMR5xH+F4v9mUUglPUImVtisisyWh/QhZsCFVcpbszjW
+	 1pZgKPNZ5iWvExesb4yUTDYX4RdOK4oLjhKsHgnZO5jb1ovDgV3CwMPAJ9ElxzuOsHWHl
+	 7pHswUq5Igt5lkWMC8buT/mj8u+obbbdv1uubDJ96wwfMM6+r5pY/sGrcntjGBVyITw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E9oaO+Na;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 063B4606D812;
-	Thu,  5 Nov 2026 14:29:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CA0E606A32D;
+	Thu,  5 Nov 2026 14:29:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cpn1rVyq
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793888944;
-	b=UhXm8sYwmEwysJAV0j2zOxkX2I2dYwoe00VpjFhhdUyjT6rPZY67Bhz6BMZt489Toagb
-	 zZFy6QY1Ejo4YtoemYTFRC/SaCFgkpTK/zsB01wxrdSzesww+yjjqZCQXHYG5lhPwbVeY
-	 ewlB8pAAHOEuRO7G508O1SxoD1y7swn/V9L/b6IVIFa/JAaV4D1X+Dg7noCtb3ao0paTM
-	 zjGfK8cnXJbX647sW56gtN3BBjW4Ndhum2nTmZXp5ZSImxLgL81zMlgxQ1xAFYFBB/GaN
-	 mj8pfDlCBT7pxEgNzwpgPNiCV1bFcoKX9R6L46t6LT59uUiX/HVt72mBqpm8B6r0T1w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793888944;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=yFXunORW+PuRObaULoq61sL3kviCqA/X6v8YIlM+9ns=;
-	b=m2yafq9fB3D2sg7CeJ5Yr7/Cfy0BYHopLNmfjpWHnCeVtgz7l8l39mQhKGqFBK+TGFpD
-	 2hGYcAqBeXdvNCurFIhVguQQ1xcltlYwk7pDWcy2kQNM4V+3U1+ENLH8Jd6VcVf6mp7PY
-	 ATnbAvfuZaTxZU31iA6HEztXSSgt/JHZRHgRGPm1guW5ct9OkLN916g/wGbyDQsmcIaPW
-	 w1H6nZTvB5QVJk2EzvKf8NtA0auErCpodrZABf6w4DVcp533ExjMhN7R0sYsXGClgweVH
-	 hWuFGnnQ+lxOAB1ThRsZmWfiaJnpph/gulb3ZQlrZADUHy9ERi6yGaOLpOyc/MpPsOQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id DED9B1F000C1;
-	Thu,  5 Nov 2026 14:29:03 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E9oaO+Na
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B4BF1F00A18;
+	Thu,  5 Nov 2026 14:29:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793888944;
-	bh=yFXunORW+PuRObaULoq61sL3kviCqA/X6v8YIlM+9ns=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Cpn1rVyqeyKfx7mc0gXN5uc6z+aLwPgPTzVKcDrrAbPGB86AayOiYqMam8wYZBrga
-	 7llXlw8P6XfZr0WuYgZ3Hb05NyBED6MR++vQotgJU8iFm6c5ve7Rl/hbc+lGLuwbCj
-	 8l9CNeEw1gszgoT3YzhQ4dLx3W182sSDREQPTa5SqBIgRouB1AVeDlXOv+A+uXr47I
-	 kKJw1fVA4INehyl84DTNts3lZ64ikMTcI/mC/lGA6hzdClVsBbv5SWxq29g77yLtXT
-	 iROtwcQWjQyAxG/auzw0dPIzC9KXU5IfVSbwTg2nL33WTiL3XeMAdvbPiMJKGLQcYw
-	 Sb8YlaTw7Z2+w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 62C21472C7;
-	Thu,  5 Nov 2026 14:29:02 +0000 (UTC)
-From: Ben Grisdale via B4 Relay <devnull+bengris32.protonmail.ch@kernel.org>
-Date: Thu, 05 Nov 2026 14:28:50 +0000
-Subject: [PATCH v2 5/6] arm64: dts: mediatek: Add basic support for MT8163
- SoC
+	s=k20260515; t=1793888959;
+	bh=A3wa5CvpyG7Bv+3nyw/J1JeS+qybhpRhQxCSuvYcfwk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=E9oaO+Naww29VHVnNJYLHH2NZLzrkucxWXbicUL99iwVV2j6hEBgtf14CELtGtFVB
+	 RUXLo5DB4+hpDhTtD1BrDQNIZZC2nB19+0QArVauTW0Cp0wY9KjzL8w5snuLuSYhW1
+	 QrGiOcOJA8o+u3HmjoJtUKWg5T5VFNduYyJHdl9wQdxE3I6cxoHFGZJ9xFze2o5I+l
+	 rNQizRf4fm7Y/fbdsgab+lrhP2ZkGeHJczT6ZmDYXNLjrhrHb+XnCp65rcNhpToxdW
+	 gklch/oS040pSuB855YNqVR2DSzbsgPnJVSvQJJUhlB1zP4FMJWCt2N0Hm445XvMMb
+	 Y23nS1eLlSfVA==
+Date: Thu, 5 Nov 2026 14:29:12 +0000
+From: Lee Jones <lee@kernel.org>
+To: Thomas Perrot <thomas.perrot@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	=?iso-8859-1?Q?J=E9r=E9mie?= Dautheribes <jeremie.dautheribes@bootlin.com>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>, Frank Li <Frank.Li@nxp.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-watchdog@vger.kernel.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>, mfd@lists.linux.dev
+Subject: Re: [PATCH v9 2/4] mfd: aaeon: Add SRG-IMX8P MCU driver
+Message-ID: <179370051070.793788.9316421428527145334@kernel.org>
+References: <20261029-dev-b4-aaeon-mcu-driver-v9-0-f9b6d0cc180d@bootlin.com>
+ <20261029-dev-b4-aaeon-mcu-driver-v9-2-f9b6d0cc180d@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,296 +73,396 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261105-arm64-initial-support-for-mediatek-mt8163-soc-v2-5-e68d7d428f99@protonmail.ch>
-References: <20261105-arm64-initial-support-for-mediatek-mt8163-soc-v2-0-e68d7d428f99@protonmail.ch>
-In-Reply-To: <20261105-arm64-initial-support-for-mediatek-mt8163-soc-v2-0-e68d7d428f99@protonmail.ch>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Sean Wang <sean.wang@mediatek.com>, Thomas Gleixner <tglx@kernel.org>, 
- Radu Rendec <radu@rendec.net>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- linux-serial@vger.kernel.org, Ben Grisdale <bengris32@protonmail.ch>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793888941; l=6537;
- i=bengris32@protonmail.ch; s=20261018; h=from:subject:message-id;
- bh=14rHWBooScrYpq6ceUihMici2wAk5TROgmMtstlnlWA=;
- b=dsT0Ql+OEsVfaICjAX6vUHztbbGYxVAGY3n+kpdrkpyMvZTT3ec9WsiivohyflVgFRhD9IwOc
- +0nirL4kUvMAiLw5LEvossyvwPHfF8tB7h/NNeb25hwAKRTwqAduU7t
-X-Developer-Key: i=bengris32@protonmail.ch; a=ed25519;
- pk=4ewFRC2yNph/tXokHVzIDlgOA9Hxecf1AlBuD4eOnaU=
-X-Endpoint-Received: by B4 Relay for bengris32@protonmail.ch/20261018 with
- auth_id=1233
-X-Original-From: Ben Grisdale <bengris32@protonmail.ch>
-Reply-To: bengris32@protonmail.ch
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261029-dev-b4-aaeon-mcu-driver-v9-2-f9b6d0cc180d@bootlin.com>
+X-AI-Review-Draft: <20261029-dev-b4-aaeon-mcu-driver-v9-2-f9b6d0cc180d@bootlin.com>
 
-From: Ben Grisdale <bengris32@protonmail.ch>
+--- checkpatch.pl (2 issues) ---
+Line 301: WARNING: DT compatible string "aaeon,srg-imx8p-mcu" appears un-documented -- check ./Documentation/devicetree/bindings/
+Line 301: WARNING: DT compatible string vendor "aaeon" appears un-documented -- check ./Documentation/devicetree/bindings/vendor-prefixes.yaml
+----------------------------------
 
-Add a basic dtsi for the MediaTek MT8163 SoC, describing the CPUs and
-caches, PSCI, interrupt controllers, timers, PMU, watchdog and UARTs.
+On Thu, 29 Oct 2026, Thomas Perrot (Schneider Electric) wrote:
 
-Signed-off-by: Ben Grisdale <bengris32@protonmail.ch>
----
- arch/arm64/boot/dts/mediatek/mt8163.dtsi | 243 +++++++++++++++++++++++++++++++
- 1 file changed, 243 insertions(+)
+> Add a driver for the Aaeon SRG-IMX8P embedded controller. This driver
+> provides the core I2C communication interface and registers child
+> devices (GPIO and watchdog controllers).
+>
+> The driver implements a custom regmap bus over I2C to match the MCU's
+> fixed 3-byte command format [opcode, arg, value]. Register addresses
+> are encoded as 16-bit values (opcode << 8 | arg) using the
+> AAEON_MCU_REG() macro defined in the shared header. The regmap
+> instance is shared with child drivers via dev_get_regmap(). Concurrent
+> I2C accesses from child drivers are serialized by regmap's built-in
+> locking.
+>
+> The MCU wants a STOP between a command and its response, so they are
+> two separate transfers. Both are issued under the I2C segment lock so
+> that no other transfer on the same I2C segment can land in between.
+>
+> I2C transfers use heap-allocated DMA-safe buffers rather than
+> stack-allocated ones, as required by I2C controllers that perform DMA.
+>
+> Regmap caching is enabled (REGCACHE_MAPLE) with a volatile_reg
+> callback that marks GPIO input read registers (opcode 0x72) and the
+> watchdog status register (opcode 0x63, arg 0x02) as volatile. All
+> other registers written by the driver (GPIO direction,
+> GPO state, watchdog control) are stable and can be safely cached.
+>
+> Only those two kinds of registers are readable. Any other opcode is a
+> command, and the frame sent for a read is the same as the one used to
+> write it, so reading it, for instance through the regmap debugfs
+> registers file, would execute the command.
+>
+> Co-developed-by: Jérémie Dautheribes (Schneider Electric) <jeremie.dautheribes@bootlin.com>
+> Signed-off-by: Jérémie Dautheribes (Schneider Electric) <jeremie.dautheribes@bootlin.com>
+> Signed-off-by: Thomas Perrot (Schneider Electric) <thomas.perrot@bootlin.com>
+> ---
+>  MAINTAINERS                   |   2 +
+>  drivers/mfd/Kconfig           |  11 +++
+>  drivers/mfd/Makefile          |   1 +
+>  drivers/mfd/aaeon-mcu.c       | 221 ++++++++++++++++++++++++++++++++++++++++++
+>  include/linux/mfd/aaeon-mcu.h |  40 ++++++++
+>  5 files changed, 275 insertions(+)
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 3f85e2a8b192..55fc12c283fa 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -192,6 +192,8 @@ M:	Thomas Perrot <thomas.perrot@bootlin.com>
+>  R:	Jérémie Dautheribes <jeremie.dautheribes@bootlin.com>
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/mfd/aaeon,srg-imx8p-mcu.yaml
+> +F:	drivers/mfd/aaeon-mcu.c
+> +F:	include/linux/mfd/aaeon-mcu.h
+>
+>  AAEON UPBOARD FPGA MFD DRIVER
+>  M:	Thomas Richard <thomas.richard@bootlin.com>
+> diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
+> index 87ed55c155f0..72bca7026cee 100644
+> --- a/drivers/mfd/Kconfig
+> +++ b/drivers/mfd/Kconfig
+> @@ -1581,6 +1581,17 @@ config ABX500_CORE
+>  	  remain unchanged when IC changes. Binding of the functions to
+>  	  actual register access is done by the IC core driver.
+>
+> +config MFD_AAEON_MCU
+> +	tristate "Aaeon SRG-IMX8P MCU Driver"
+> +	depends on I2C
+> +	select MFD_CORE
+> +	select REGMAP
+> +	help
+> +	  Select this option to enable support for the Aaeon SRG-IMX8P
+> +	  onboard microcontroller (MCU). This driver provides the core
+> +	  functionality to communicate with the MCU over I2C. The MCU
+> +	  provides GPIO and watchdog functionality.
+> +
+>  config AB8500_CORE
+>  	bool "ST-Ericsson AB8500 Mixed Signal Power Management chip"
+>  	depends on ABX500_CORE && MFD_DB8500_PRCMU
+> diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
+> index f8101d2a9ce9..166b25638f7f 100644
+> --- a/drivers/mfd/Makefile
+> +++ b/drivers/mfd/Makefile
+> @@ -8,6 +8,7 @@ obj-$(CONFIG_MFD_88PM860X)	+= 88pm860x.o
+>  obj-$(CONFIG_MFD_88PM800)	+= 88pm800.o 88pm80x.o
+>  obj-$(CONFIG_MFD_88PM805)	+= 88pm805.o 88pm80x.o
+>  obj-$(CONFIG_MFD_88PM886_PMIC)	+= 88pm886.o
+> +obj-$(CONFIG_MFD_AAEON_MCU)	+= aaeon-mcu.o
+>  obj-$(CONFIG_MFD_ACT8945A)	+= act8945a.o
+>  obj-$(CONFIG_MFD_SM501)		+= sm501.o
+>  obj-$(CONFIG_ARCH_BCM2835)	+= bcm2835-pm.o
+> diff --git a/drivers/mfd/aaeon-mcu.c b/drivers/mfd/aaeon-mcu.c
+> new file mode 100644
+> index 000000000000..e7470023265d
+> --- /dev/null
+> +++ b/drivers/mfd/aaeon-mcu.c
+> @@ -0,0 +1,221 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Aaeon MCU driver
+> + *
+> + * Copyright (C) 2026 Bootlin
+> + * Author: Jérémie Dautheribes <jeremie.dautheribes@bootlin.com>
+> + * Author: Thomas Perrot <thomas.perrot@bootlin.com>
+> + */
+> +
+> +#include <linux/err.h>
+> +#include <linux/i2c.h>
+> +#include <linux/mfd/aaeon-mcu.h>
+> +#include <linux/mfd/core.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/regmap.h>
+> +#include <linux/slab.h>
+> +
+> +struct aaeon_mcu {
+> +	struct i2c_client *client;
+> +	u8 *cmd;      /* DMA-safe 3-byte write buffer [opcode, arg, value] */
+> +	u8 *response; /* DMA-safe 1-byte read buffer for MCU acknowledgment */
+> +};
+> +
+> +static const struct mfd_cell aaeon_mcu_devs[] = {
+> +	MFD_CELL_BASIC("aaeon-mcu-wdt", NULL, NULL, 0, 0),
+> +	MFD_CELL_BASIC("aaeon-mcu-gpio", NULL, NULL, 0, 0),
+> +};
+> +
+> +/* Number of bytes in a MCU command: [opcode, arg, value] */
+> +#define AAEON_MCU_CMD_LEN      3
+> +
+> +/*
+> + * Custom regmap bus for the Aaeon MCU I2C protocol.
+> + *
+> + * The MCU uses a fixed 3-byte command format [opcode, arg, value] followed
+> + * by a 1-byte response. It requires a STOP condition between the command
+> + * write and the response read, so two separate transfers are issued. The
+> + * I2C segment lock is held across both so that no other transfer on the
+> + * same I2C segment can land between the command and its response. The
+> + * regmap lock serialises concurrent accesses from the GPIO and watchdog
+> + * child drivers.
+> + *
+> + * Register addresses are encoded as a 16-bit big-endian value where the
+> + * high byte is the opcode and the low byte is the argument, matching the
+> + * wire layout produced by regmap for reg_bits=16.
+> + */
+> +
+> +/*
+> + * Send the command held in mcu->cmd and read the 1-byte response into
+> + * mcu->response. Both buffers are heap-allocated and thus DMA-safe.
+> + */
+> +static int aaeon_mcu_xfer(struct aaeon_mcu *mcu)
+> +{
+> +	struct i2c_adapter *adap = mcu->client->adapter;
+> +	struct i2c_msg msg = {
+> +		.addr	= mcu->client->addr,
+> +		.flags	= I2C_M_DMA_SAFE,
+> +		.buf	= mcu->cmd,
+> +		.len	= AAEON_MCU_CMD_LEN,
+> +	};
+> +	int ret;
+> +
+> +	i2c_lock_bus(adap, I2C_LOCK_SEGMENT);
+> +
+> +	ret = __i2c_transfer(adap, &msg, 1);
+> +	if (ret == 1) {
+> +		msg.flags = I2C_M_RD | I2C_M_DMA_SAFE;
+> +		msg.buf   = mcu->response;
+> +		msg.len   = 1;
+> +		ret = __i2c_transfer(adap, &msg, 1);
+> +	}
+> +
+> +	i2c_unlock_bus(adap, I2C_LOCK_SEGMENT);
+> +
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	return ret == 1 ? 0 : -EIO;
+> +}
+> +
+> +static int aaeon_mcu_regmap_write(void *context, const void *data, size_t count)
+> +{
+> +	struct aaeon_mcu *mcu = context;
+> +
+> +	/*
+> +	 * use_single_write guarantees one register per call: a 2-byte
+> +	 * address followed by a 1-byte value.
+> +	 */
+> +	if (count != AAEON_MCU_CMD_LEN)
+> +		return -EINVAL;
+> +
+> +	memcpy(mcu->cmd, data, count);
+> +
+> +	/* The MCU always sends a response byte after each command; discard it. */
+> +	return aaeon_mcu_xfer(mcu);
+> +}
+> +
+> +static int aaeon_mcu_regmap_read(void *context, const void *reg_buf,
+> +				 size_t reg_size, void *val_buf, size_t val_size)
+> +{
+> +	struct aaeon_mcu *mcu = context;
+> +	int ret;
+> +
+> +	/*
+> +	 * reg_buf holds the 2-byte big-endian register address [opcode, arg].
+> +	 * Append a trailing 0x00 to form the full 3-byte MCU command.
+> +	 */
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8163.dtsi b/arch/arm64/boot/dts/mediatek/mt8163.dtsi
-new file mode 100644
-index 000000000000..645f4e15587b
---- /dev/null
-+++ b/arch/arm64/boot/dts/mediatek/mt8163.dtsi
-@@ -0,0 +1,243 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR MIT
-+/*
-+ * Copyright (c) 2026 Ben Grisdale <bengris32@protonmail.ch>
-+ */
-+
-+#include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+/ {
-+	compatible = "mediatek,mt8163";
-+	interrupt-parent = <&sysirq>;
-+	#address-cells = <2>;
-+	#size-cells = <2>;
-+
-+	clk32k: clock-32768 {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <32768>;
-+		clock-output-names = "clk32k";
-+	};
-+
-+	clk13m: clock-13000000 {
-+		compatible = "fixed-factor-clock";
-+		#clock-cells = <0>;
-+		clocks = <&clk26m>;
-+		clock-div = <2>;
-+		clock-mult = <1>;
-+		clock-output-names = "clk13m";
-+	};
-+
-+	clk26m: clock-26000000 {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <26000000>;
-+		clock-output-names = "clk26m";
-+	};
-+
-+	cpus {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		cpu0: cpu@0 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a53";
-+			reg = <0x0>;
-+			enable-method = "psci";
-+			i-cache-size = <32768>;
-+			i-cache-line-size = <64>;
-+			i-cache-sets = <256>;
-+			d-cache-size = <32768>;
-+			d-cache-line-size = <64>;
-+			d-cache-sets = <128>;
-+			next-level-cache = <&l2>;
-+		};
-+
-+		cpu1: cpu@1 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a53";
-+			reg = <0x1>;
-+			enable-method = "psci";
-+			i-cache-size = <32768>;
-+			i-cache-line-size = <64>;
-+			i-cache-sets = <256>;
-+			d-cache-size = <32768>;
-+			d-cache-line-size = <64>;
-+			d-cache-sets = <128>;
-+			next-level-cache = <&l2>;
-+		};
-+
-+		cpu2: cpu@2 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a53";
-+			reg = <0x2>;
-+			enable-method = "psci";
-+			i-cache-size = <32768>;
-+			i-cache-line-size = <64>;
-+			i-cache-sets = <256>;
-+			d-cache-size = <32768>;
-+			d-cache-line-size = <64>;
-+			d-cache-sets = <128>;
-+			next-level-cache = <&l2>;
-+		};
-+
-+		cpu3: cpu@3 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a53";
-+			reg = <0x3>;
-+			enable-method = "psci";
-+			i-cache-size = <32768>;
-+			i-cache-line-size = <64>;
-+			i-cache-sets = <256>;
-+			d-cache-size = <32768>;
-+			d-cache-line-size = <64>;
-+			d-cache-sets = <128>;
-+			next-level-cache = <&l2>;
-+		};
-+
-+		cpu-map {
-+			cluster0 {
-+				core0 {
-+					cpu = <&cpu0>;
-+				};
-+
-+				core1 {
-+					cpu = <&cpu1>;
-+				};
-+
-+				core2 {
-+					cpu = <&cpu2>;
-+				};
-+
-+				core3 {
-+					cpu = <&cpu3>;
-+				};
-+			};
-+		};
-+
-+		l2: l2-cache {
-+			compatible = "cache";
-+			cache-level = <2>;
-+			cache-size = <524288>;
-+			cache-line-size = <64>;
-+			cache-sets = <512>;
-+			cache-unified;
-+		};
-+	};
-+
-+	pmu {
-+		compatible = "arm,cortex-a53-pmu";
-+		interrupts = <GIC_SPI 8 IRQ_TYPE_LEVEL_LOW>,
-+			     <GIC_SPI 9 IRQ_TYPE_LEVEL_LOW>,
-+			     <GIC_SPI 10 IRQ_TYPE_LEVEL_LOW>,
-+			     <GIC_SPI 11 IRQ_TYPE_LEVEL_LOW>;
-+		interrupt-affinity = <&cpu0>, <&cpu1>, <&cpu2>, <&cpu3>;
-+	};
-+
-+	psci {
-+		compatible = "arm,psci-1.0";
-+		method = "smc";
-+	};
-+
-+	soc {
-+		compatible = "simple-bus";
-+		ranges;
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+
-+		watchdog: watchdog@10007000 {
-+			compatible = "mediatek,mt8163-wdt";
-+			reg = <0 0x10007000 0 0x1000>;
-+			interrupts = <GIC_SPI 128 IRQ_TYPE_EDGE_FALLING>;
-+			#reset-cells = <1>;
-+		};
-+
-+		timer: timer@10008000 {
-+			compatible = "mediatek,mt8163-timer",
-+				     "mediatek,mt6577-timer";
-+			reg = <0 0x10008000 0 0x1000>;
-+			interrupts = <GIC_SPI 152 IRQ_TYPE_LEVEL_LOW>;
-+			clocks = <&clk13m>, <&clk32k>;
-+			clock-names = "system-clk", "rtc-clk";
-+		};
-+
-+		sysirq: interrupt-controller@10200620 {
-+			compatible = "mediatek,mt8163-sysirq",
-+				     "mediatek,mt6577-sysirq";
-+			reg = <0 0x10200620 0 0x20>;
-+			#interrupt-cells = <3>;
-+			interrupt-parent = <&gic>;
-+			interrupt-controller;
-+		};
-+
-+		gic: interrupt-controller@10221000 {
-+			compatible = "arm,gic-400";
-+			reg = <0 0x10221000 0 0x1000>,
-+			      <0 0x10222000 0 0x2000>,
-+			      <0 0x10224000 0 0x2000>,
-+			      <0 0x10226000 0 0x2000>;
-+			interrupt-controller;
-+			#interrupt-cells = <3>;
-+			interrupt-parent = <&gic>;
-+			interrupts = <GIC_PPI 9 (GIC_CPU_MASK_SIMPLE(4) |
-+				      IRQ_TYPE_LEVEL_HIGH)>;
-+		};
-+
-+		uart0: serial@11002000 {
-+			compatible = "mediatek,mt8163-uart",
-+				     "mediatek,mt6577-uart";
-+			reg = <0 0x11002000 0 0x400>;
-+			interrupts = <GIC_SPI 91 IRQ_TYPE_LEVEL_LOW>;
-+			clocks = <&clk26m>, <&clk26m>;
-+			clock-names = "baud", "bus";
-+
-+			status = "disabled";
-+		};
-+
-+		uart1: serial@11003000 {
-+			compatible = "mediatek,mt8163-uart",
-+				     "mediatek,mt6577-uart";
-+			reg = <0 0x11003000 0 0x400>;
-+			interrupts = <GIC_SPI 92 IRQ_TYPE_LEVEL_LOW>;
-+			clocks = <&clk26m>, <&clk26m>;
-+			clock-names = "baud", "bus";
-+
-+			status = "disabled";
-+		};
-+
-+		uart2: serial@11004000 {
-+			compatible = "mediatek,mt8163-uart",
-+				     "mediatek,mt6577-uart";
-+			reg = <0 0x11004000 0 0x400>;
-+			interrupts = <GIC_SPI 93 IRQ_TYPE_LEVEL_LOW>;
-+			clocks = <&clk26m>, <&clk26m>;
-+			clock-names = "baud", "bus";
-+
-+			status = "disabled";
-+		};
-+
-+		uart3: serial@11005000 {
-+			compatible = "mediatek,mt8163-uart",
-+				     "mediatek,mt6577-uart";
-+			reg = <0 0x11005000 0 0x400>;
-+			interrupts = <GIC_SPI 94 IRQ_TYPE_LEVEL_LOW>;
-+			clocks = <&clk26m>, <&clk26m>;
-+			clock-names = "baud", "bus";
-+
-+			status = "disabled";
-+		};
-+	};
-+
-+	timer {
-+		compatible = "arm,armv8-timer";
-+		interrupt-parent = <&gic>;
-+		interrupts = <GIC_PPI 13
-+			      (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 14
-+			      (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 11
-+			      (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 10
-+			      (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>;
-+		arm,no-tick-in-suspend;
-+	};
-+};
+What about 'reg_size != 2 || val_size != 1' here, for the same reason as
+the checks in *_write()?
+
+> +	mcu->cmd[0] = ((u8 *)reg_buf)[0];
+> +	mcu->cmd[1] = ((u8 *)reg_buf)[1];
+> +	mcu->cmd[2] = 0x00;
+> +
+> +	ret = aaeon_mcu_xfer(mcu);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * val_buf is owned by the regmap caller and is not necessarily
+> +	 * DMA-safe, so go through the driver's response buffer.
+> +	 * use_single_read guarantees val_size == 1.
+> +	 */
+> +	*(u8 *)val_buf = *mcu->response;
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct regmap_bus aaeon_mcu_regmap_bus = {
+> +	.write = aaeon_mcu_regmap_write,
+> +	.read  = aaeon_mcu_regmap_read,
+> +};
+> +
+> +static bool aaeon_mcu_volatile_reg(struct device *dev, unsigned int reg)
+> +{
+> +	/*
+> +	 * GPIO input registers are driven by external signals and can change
+> +	 * at any time without CPU involvement, always read from hardware.
+> +	 *
+> +	 * The watchdog status register reflects hardware state and can change
+> +	 * autonomously.
+> +	 *
+> +	 * All other registers are written by the driver and their values are
+> +	 * stable, so they can be safely cached.
+> +	 */
+> +	if ((reg >> 8) == AAEON_MCU_READ_GPIO_OPCODE)
+> +		return true;
+> +	if (reg == AAEON_MCU_REG(AAEON_MCU_CONTROL_WDT_OPCODE, 0x02))
+
+No magic numbers please.
+
+> +		return true;
+> +	return false;
+> +}
+> +
+> +static bool aaeon_mcu_readable_reg(struct device *dev, unsigned int reg)
+> +{
+> +	/*
+> +	 * Every opcode but the GPIO input read and the watchdog status is a
+> +	 * command: the frame sent for a read is identical to the one used to
+> +	 * write it, so reading such a register would execute the command.
+> +	 * Only the registers reflecting hardware state may be read.
+> +	 */
+> +	return aaeon_mcu_volatile_reg(dev, reg);
+> +}
+> +
+> +static const struct regmap_config aaeon_mcu_regmap_config = {
+> +	.reg_bits          = 16,
+> +	.val_bits          = 8,
+> +	.reg_format_endian = REGMAP_ENDIAN_BIG,
+> +	.max_register      = AAEON_MCU_MAX_REGISTER,
+> +	.readable_reg      = aaeon_mcu_readable_reg,
+> +	.volatile_reg      = aaeon_mcu_volatile_reg,
+> +	.cache_type        = REGCACHE_MAPLE,
+> +	.use_single_write  = true,
+> +	.use_single_read   = true,
+> +};
+> +
+> +static int aaeon_mcu_probe(struct i2c_client *client)
+> +{
+> +	struct aaeon_mcu *ddata;
+> +	struct regmap *regmap;
+> +
+> +	ddata = devm_kzalloc(&client->dev, sizeof(*ddata), GFP_KERNEL);
+> +	if (!ddata)
+> +		return -ENOMEM;
+> +
+> +	ddata->client = client;
+> +
+> +	ddata->cmd = devm_kcalloc(&client->dev, AAEON_MCU_CMD_LEN, sizeof(*ddata->cmd),
+> +				  GFP_KERNEL);
+> +	if (!ddata->cmd)
+> +		return -ENOMEM;
+> +
+> +	ddata->response = devm_kzalloc(&client->dev, sizeof(*ddata->response), GFP_KERNEL);
+> +	if (!ddata->response)
+> +		return -ENOMEM;
+
+Why do 'cmd' and 'response' need two separate heap allocations?  Since
+'struct aaeon_mcu' is allocated via 'devm_kzalloc()' and Regmap
+serialises all accesses, could you just embed fixed-size arrays directly
+inside 'struct aaeon_mcu' and drop these two extra 'devm_k*alloc()'s?
+
+> +	regmap = devm_regmap_init(&client->dev, &aaeon_mcu_regmap_bus,
+> +				  ddata, &aaeon_mcu_regmap_config);
+> +	if (IS_ERR(regmap))
+> +		return dev_err_probe(&client->dev, PTR_ERR(regmap),
+> +				     "failed to initialize regmap\n");
+> +
+> +	return devm_mfd_add_devices(&client->dev, PLATFORM_DEVID_AUTO,
+> +				    aaeon_mcu_devs, ARRAY_SIZE(aaeon_mcu_devs),
+> +				    NULL, 0, NULL);
+> +}
+> +
+> +static const struct of_device_id aaeon_mcu_of_match[] = {
+> +	{ .compatible = "aaeon,srg-imx8p-mcu" },
+> +	{},
+> +};
+> +MODULE_DEVICE_TABLE(of, aaeon_mcu_of_match);
+> +
+> +static struct i2c_driver aaeon_mcu_driver = {
+> +	.driver = {
+> +		.name = "aaeon-mcu",
+> +		.of_match_table = aaeon_mcu_of_match,
+> +	},
+> +	.probe = aaeon_mcu_probe,
+> +};
+> +module_i2c_driver(aaeon_mcu_driver);
+> +
+> +MODULE_DESCRIPTION("Aaeon MCU Driver");
+> +MODULE_AUTHOR("Jérémie Dautheribes <jeremie.dautheribes@bootlin.com>");
+> +MODULE_LICENSE("GPL");
+> diff --git a/include/linux/mfd/aaeon-mcu.h b/include/linux/mfd/aaeon-mcu.h
+> new file mode 100644
+> index 000000000000..3a1aeec85d60
+> --- /dev/null
+> +++ b/include/linux/mfd/aaeon-mcu.h
+> @@ -0,0 +1,40 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +/*
+> + * Aaeon MCU driver definitions
+> + *
+> + * Copyright (C) 2026 Bootlin
+> + * Author: Jérémie Dautheribes <jeremie.dautheribes@bootlin.com>
+> + * Author: Thomas Perrot <thomas.perrot@bootlin.com>
+> + */
+> +
+> +#ifndef __LINUX_MFD_AAEON_MCU_H
+> +#define __LINUX_MFD_AAEON_MCU_H
+> +
+> +/*
+> + * MCU register address: the high byte is the command opcode, the low
+> + * byte is the argument.  This matches the 3-byte wire format
+> + * [opcode, arg, value] used by the MCU I2C protocol.
+> + */
+> +#define AAEON_MCU_REG(op, arg)		(((op) << 8) | (arg))
+> +
+> +/*
+> + * Opcode for GPIO input reads. These registers are volatile, their values
+> + * are driven by external signals and can change without CPU involvement.
+> + * Used by the MFD driver's volatile_reg callback to bypass the regmap cache.
+> + */
+> +#define AAEON_MCU_READ_GPIO_OPCODE	0x72
+> +
+> +/*
+> + * Opcode for watchdog control and status commands.
+> + * The status register (arg=0x02) reflects hardware state and is volatile.
+> + */
+> +#define AAEON_MCU_CONTROL_WDT_OPCODE	0x63
+> +
+> +/*
+> + * Highest register address in the MCU register map.
+> + * The WRITE_GPIO opcode (0x77) with the highest GPIO argument (0x0B = 11,
+> + * i.e. MAX_GPIOS - 1) produces the largest encoded address.
+> + */
+> +#define AAEON_MCU_MAX_REGISTER		AAEON_MCU_REG(0x77, 0x0B)
+> +
+> +#endif /* __LINUX_MFD_AAEON_MCU_H */
+>
+> -- 
+> 2.56.0
+>
 
 -- 
-2.56.0
-
-
+Lee Jones
