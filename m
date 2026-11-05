@@ -1,61 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793837066;
-	b=UByzd+rlAwyZg2iol3lF0f+clMJ6nMZ8yzAHgwkvk44yNDAoypcFnmDMfs8D0+bj6Xhn
-	 UwbF9FqzBWkt0wz7WioB3K0xaaetDNEDLdJA2zxHOx4IjRrnYrMxmJQTPofKIUJ6awE3N
-	 wPwjFEBt6AYbZmApZVoVEsQ+Vj1h3Y9pqpBJuxzUntKbReDy/ckIVKOQx8Xu7TwW/fCzf
-	 W/OvqrR/flj8zHoG7IR3tAr0ENr4VqtSc7TiDSa2TJQHCqbCZsiZ4sNFhY2p7LyWNwySX
-	 AuhPtx5Hcc9kHd83t5zcehQN1+HHMsj9GycrxR5HtbiqSJel6hXPQX3/XSFZ9j4D2Lw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793837066;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=jbmFG+0AVErgF8BXF37Cg4U/C7B/sjkiX56yGJOkyyw=;
-	b=aZGF/AIZQAwytvw7pNkl58aIm8c2YfmsyBvdRSiezn5KzJ3tTmcCwHjIbAsP81YzT+3f
-	 hR1mEeev3QstYxw2Bf/dg0FaDF0w/mFwPM4GjsbQ71lqznwdsvFBTPPEq88KL3Lp6p4bo
-	 NB46p6jj2Eb7vgcD2udkt4yDS0Pel8vdH3hek5GKvaAunfG+37cvvgzjWsjW9/qH3MF/w
-	 5u6A0xO4XZ8Dmd2VAcwD/Gf5G2oLmQkbu3NChaQh4Tm4QADMso8DrbPqwRCFXDGPU+ClW
-	 MSKJiSIR5SQIzX40JLrTTsL7Zdnd8Cvc3lWVNpHZgcPYSHIsh2Vpq+EpnMIjCFmoQXw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KOHFFvdJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.218.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793837167;
+	b=Z2OXAk4Xx2BxkzbLDiTWaGgAariV84U8mnPpxdCJKU1Quri3SIgIudLg4j1mUmtPA1y1
+	 mLYZyZPfEICYOYcFHud0iM24O7RK+bGY3AeuNEJM0WUpiUInHTVkyoslxKNneGXJI67cX
+	 e8NwnQXqXbw4eyapH1vqgAUAwxLdklbHkWypoeaP/UoUAwuI7+vSrm1h2HmuQ9g9x3czI
+	 M0c9Ub7TgP8r2rUesXp34prHUfEw8kwHZ0VA6TLZ/9mfDG7523ROon/MPtRJyVMufZZPk
+	 MmMKWaJTZhtfw7eKtd7Z4tRoUVN16uqxqzW92JmwTe4q2vVrRAxkiqscKgpxlxcit+w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793837167;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=rBao9fgm6zvnqMZ/xw9mMi296PqW8mAwycCLa5M4/yo=;
+	b=wxb0tSoKUmGvO7Fc4uvYlEwU4qHTt9W3goYWOPWto47yg12GMsUKV5mscakWBZs2fuF/
+	 xb9JVsus1PzonqlT9vVgjGD7xa8FjJNcTIQ+uqk1PVOAWEdUI84RZZIq9uO7et9ekGzn2
+	 c8Qr1Jve6Cjmzwnq53Z4xVbYccMQTuPPeEY2hpaAoqSZ4UNbrDn0Tl5pLuUl7OoM4KY97
+	 xqsZkkf75xtrGMqsXpaGUAPa8hcEjc4lZbCuKDIDbgXpigVnH7Wakqb9IanVBC+UDlWxq
+	 PfqL+ALv9BTqrWb8NJenk1AcX4l+cbD429mfLchbRT2k/FAXmDMurmw6HCkQ0It68IA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UW7+Lg7r;
+	arc=fail smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12217606A31B;
-	Thu,  5 Nov 2026 00:04:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F159C606A32D
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:06:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F159C606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KOHFFvdJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 237C01F000C1;
-	Thu,  5 Nov 2026 00:04:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793837065;
-	bh=jbmFG+0AVErgF8BXF37Cg4U/C7B/sjkiX56yGJOkyyw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KOHFFvdJlxTANAwPtCCMAYEcxRb9pmhQ5O7dVnASX5NpN1QH+iC7HGSy3NfcmxG5F
-	 x6ub7+399RWrPIzQOrdiC2coOzqemgP8PjcSBsueftbH4l3kTuiIf27DkmsVe7mhU9
-	 TrOHRtC921eReSy0i0/5e5i0YGZ0Atg7P89R/ydrObVAJMux51JkncFywmCLZFxfzx
-	 ykyNUcDlWM9MzYKuyHUNJlbsFGgoDLotAppd/QIMAW3CM9tRDgTSqQYZ30YTkoRe6p
-	 ZYvGJK4RWxYUCx2NXA7qzV5tRPSFcWx4GLMECHx0MlvabuC96KrGDVY3Wj6jBsD7KL
-	 YyPyZIWkGy6lA==
-Date: Thu, 5 Nov 2026 00:04:21 +0000
-From: Conor Dooley <conor@kernel.org>
-To: joseph@telaak.dev
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Chuanhong Guo <gch981213@gmail.com>, Yao Zi <me@ziyao.cc>,
-	linux-mips@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: clock: Add Siflower SF19A2890 clock
- manager
-Message-ID: <20261105-chemist-hunk-cfe1c06caa63@spud>
-References: <20261104-sf19a2890-sysm-v1-0-a4fac07df823@telaak.dev>
- <20261104-sf19a2890-sysm-v1-1-a4fac07df823@telaak.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UW7+Lg7r
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c247f6687dcso218045866b.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:06:06 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793837165; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Xk9grSowyyNc8qya03rxBcgre6uN8MKHJPl2sXt38PPLls/sL4aOBzgqMPjWLmIovb
+         rdyg9F+3MnLJ71/zdoBcmN+GgLsnWnBRok9numjaCvs5y2yecHGh6ASHiG/eVlsU3Zr4
+         wCkuM/vZoq45UegZSplgrA48je0bUYNDvhusyzhxzmkW3q6lAmmQX7dAciAlE91bQKwm
+         IZQKOKQqtIhMxUvpnjvPLdOplzPWDTblkyh+y6LMC23k7HsdakEVED7Hm9xbasEEfYW2
+         Llfr3V3vDLao5zfoWvZFP7D9HDdO4rpixUS1992Acl5MMHpiimTFHkWIK7Z8TeI4uAXO
+         W4Og==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rBao9fgm6zvnqMZ/xw9mMi296PqW8mAwycCLa5M4/yo=;
+        fh=heA63wkfMLbTNmVBLg636f7U0IFFjK/JKlajoYn+foE=;
+        b=OIZCNo4U9SjLsvkYoRS17aagWSbsDekv/vV1M7uuYxiVIYzXYA3e0F33zI7lNZkPZG
+         kYRSFyKTQJ1nxtKL0690VkUwPw1YbspzxxsGYay5kplcNBguvdzCs8UNCECsrQm8UQ2h
+         9kYtHdI3M+N6NuDVtrcBfIb0HPxwBRjCHIccr7rGPON/Qjxvxc7GRfv6u8NKIcASSc/p
+         yd/G4rY7pzO/0eiBFFij5A1BlEWIQL36f/rbz+VQcZy/aGxgqhEuBHs29RzOs64Emx0f
+         ApDTePjUqlFZTp1G8psirjWG1ufIc1Tz+yLxtAm/fuEbhZwrgM8SeCSbnx2KB1mg8bkJ
+         Pzjg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793837165; x=1794441965; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rBao9fgm6zvnqMZ/xw9mMi296PqW8mAwycCLa5M4/yo=;
+        b=UW7+Lg7rFdK2cPOSHdibyhfqd0mNfE52oRphbaahRpCOHjIZJidko9tTbllyzCryjy
+         siNubT2yNT8UsddMzx39cRlaaf4u9pnE+6dIm/dTOyiVwyDFMyx/T503O/SAkgV4IgXs
+         efUG5InyQPdPjXkVj3FyrgQw8Tp3Uwud4aaLkD2TGlBzm2pE66Yo0XieOJu07M7lI+DV
+         gUkNX9hygDXotIY7g19Ob5YY4jcsnCTMlsFTY/Azp5LW+ukD9CKA5AAnTO8zpTJXxWqx
+         5Vgp8TB7FfNb2pRMsONUAcd0wfnBxqAeiMrEDvVnn/35z4BZWsrn2RkRHETiQqHGP/C3
+         KXdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793837165; x=1794441965;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rBao9fgm6zvnqMZ/xw9mMi296PqW8mAwycCLa5M4/yo=;
+        b=iNXaJSwnUYiw46lIqVLadOqE3dvc2bK0jCNWphaU//6ifDOfyiFrWVJJrz8/OxzZ5I
+         3JUBEwxRkC2G5gTBqdxvhZ+zOkDyoDG0z7oVZaSVvAiEL8Meiy5YTCD4tnblRg7pcVd3
+         0ngKwU4TCQHHWExvMmLv8l6iS5jvNm1u0PxGvR9XRqLDqKxmV2Q0VXDxch7sYWMHVXWE
+         YbMtYGvgUuOERj6lSW7F4e93gOWVSw9n9vXfvgYW3TrMOvcSZyH+gDNzZgS9PivbGj7G
+         j17vhVGpnbRedXpvSKhR3QGPa8rda0avFnJPzZ17K+IqZ3du5Ne7ThlcCuySHh+7rXj4
+         gfIw==
+X-Forwarded-Encrypted: i=1; AKwUvBxOToO1OMoiMuZsLJXCLaXOH7KIrg8CVlH72t69Oczt8NddHvaJVQK+ISvC5fVnxdsqjFrBbBdExgTg248=@vger.kernel.org
+X-Gm-Message-State: APuU4Z801OxyQBGYf+ptnGti6ZWjP15kDOuDBh6GKtjTceLGs6jzu6DJ
+	LWcv2ubLBPwHcXX8pOMIEcI43b/l7mSSKr5jzb9U4arZIr3qbrkzNEwT+IkGSrr76PC4riPylub
+	YVMVoFj62EYO6asu/HVfzEUkS/tEcmsyduVMwMFrN
+X-Gm-Gg: AYBFou3QOvw9rVdrZ5UpsUZbjiYUXAwGi6r4pzcvg2IC/YJDTwSeL+LdysJdVXC30Up
+	2ofg5ICfOXvP1DkvMpNSG0LW33C7pZ74wYLMmvSM4YfulKjIrlRhSpVPZ+hw+N8rHv+3kkhbTmj
+	Cl2j63agHlSaYBsCz2r9e/0q4L96bQ/jDcFbJYWKhCAb4HYton1oAEs84mHIf7wXpzwerPTtcJy
+	5gPjwnYriAPjnOB1a8khAPrD1DvFx2BxIEdWmhWt6MgyecnLE/+z7HDc6OXqCPCcslfQk3FpTDS
+	H8PrLbO9Kp0oEkypjVyVbASW70xBQEzdDczgNAPDaoliB0p6uwy2sKyIMpUsBH10TBwhWmMiS/2
+	PkNe0x2CBcJGk90fwgq9229wnD92twrPnTJF8LDxvz2TERFW/2Pc7+Q9XAOUvuPOfOypuf70=
+X-Received: by 2002:a17:907:3351:b0:c4c:b560:2a71 with SMTP id
+ a640c23a62f3a-c4cb5603d9emr979541566b.36.1793837164883; Wed, 04 Nov 2026
+ 16:06:04 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,153 +104,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hsG5lu4MgbgM7BjA"
-Content-Disposition: inline
-In-Reply-To: <20261104-sf19a2890-sysm-v1-1-a4fac07df823@telaak.dev>
-
---hsG5lu4MgbgM7BjA
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20261023001603.560210-8-wusamuel@google.com> <20261023001603.560210-9-wusamuel@google.com>
+ <20261028134012.01d52e94@pumpkin> <CAG2KctpGPHo-S3AEvBhK5HPUnDHfoJu6Z-r+cS1hQ4Ps=B3DmQ@mail.gmail.com>
+ <20261030100215.6f8e0d4f@pumpkin> <CAG2KctqdPq6NmK6rB13s2bgM7kP2w4OMMy2hdp_OFMVYYhTnZA@mail.gmail.com>
+ <20261104142307.431fc12f@pumpkin>
+In-Reply-To: <20261104142307.431fc12f@pumpkin>
+From: Samuel Wu <wusamuel@google.com>
+Date: Wed, 4 Nov 2026 16:05:52 -0800
+X-Gm-Features: AclHuK8Z7yNuvzdyvQXTyXXmXbvszi-XVmOSWc_IPj379xX-z3zgWWYR8Kt4UgU
+Message-ID: <CAG2KctrY6GmVqsKP+fXYCsL6wDR4zp1kdRd7a7uOdCgg_JcMdQ@mail.gmail.com>
+Subject: Re: [PATCH bpf-next v2 1/6] kallsyms: Add KALLSYMS_QUERY ioctl to /proc/kallsyms
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Andrii Nakryiko <andrii@kernel.org>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, kernel-team@android.com, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 04, 2026 at 02:20:58AM -0500, Joseph Telaak via B4 Relay wrote:
-> From: Joseph Telaak <joseph@telaak.dev>
->=20
-> The clock manager of the Siflower SF19A2890 holds the SoC's PLLs and
-> the muxes and dividers that derive the bus, CPU and peripheral clocks
-> from them. The peripherals' own gates and resets are in separate
-> blocks.
->=20
-> The header is Chuanhong Guo's, from his SF19A2890 branch, without the
-> count at its end.
->=20
-> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+On Wed, Nov 4, 2026 at 6:23=E2=80=AFAM David Laight
+<david.laight.linux@gmail.com> wrote:
+>
+> On Tue, 3 Nov 2026 17:14:26 -0800
+> Samuel Wu <wusamuel@google.com> wrote:
+>
+> > On Fri, Oct 30, 2026 at 3:02=E2=80=AFAM David Laight
+> > <david.laight.linux@gmail.com> wrote:
+> > >
+> > > On Thu, 29 Oct 2026 15:05:45 -0700
+> > > Samuel Wu <wusamuel@google.com> wrote:
+> > [...]
+> > > > BY_NAME matches names exactly, like kallsyms_lookup_name(), so they
+> > > > would be different symbols at different addresses. Please correct m=
+e
+> > > > if I'm missing something here!
+> > >
+> > > Only that the user might really want one of the copies.
+> > > Sometimes there is only the copy.
+> >
+> > Good point. I'll have v3 add KALLSYMS_F_PREFIX + pos/next_pos
+> > pagination to cover these. A prefix query for "foo." also finds the
+> > copies when plain foo does not exist (expanded on this in my reply to
+> > Andrii's Oct 30 mail in this thread).
+>
+> I'm busy rebasing my patches - they got stamped all over :-(
+> I should get a v3 that applies by the end of the week.
+>
+> I will add a 'prefix' variant for you.
+> The 'next symbol matches' flag is exactly that (actually it is a
+> this symbol is a duplicate to avoid issues at the start of the array).
+> So in this case that application would always need to read
+> the next symbol (by name).
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+Thanks, that would be helpful. For my v3, I'll keep the lower_bound()
+approach so the two series stay independent, but I can switch over
+once your series lands, so there is only one search over the name
+table.
 
-> ---
->  .../bindings/clock/siflower,sf19a2890-clk.yaml     | 57 ++++++++++++++++=
-++++++
->  include/dt-bindings/clock/siflower,sf19a2890-clk.h | 27 ++++++++++
->  2 files changed, 84 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/clock/siflower,sf19a2890-c=
-lk.yaml b/Documentation/devicetree/bindings/clock/siflower,sf19a2890-clk.ya=
-ml
-> new file mode 100644
-> index 000000000..9b72f14c2
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/siflower,sf19a2890-clk.yaml
-> @@ -0,0 +1,57 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/clock/siflower,sf19a2890-clk.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Siflower SF19A2890 clock manager
-> +
-> +maintainers:
-> +  - Joseph Telaak <joseph@telaak.dev>
-> +
-> +description: |
-> +  The clock manager of the Siflower SF19A2890 holds the SoC's three PLLs
-> +  (CPU, DDR and common) and the clock muxes with dividers that derive the
-> +  bus, CPU and peripheral clocks from them. The peripherals' own clock
-> +  gates and resets are in separate peripheral clock and reset managers.
-> +
-> +  The clocks are defined in include/dt-bindings/clock/siflower,sf19a2890=
--clk.h.
-> +
-> +properties:
-> +  compatible:
-> +    const: siflower,sf19a2890-clk
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    items:
-> +      - description: 12 MHz oscillator
-> +      - description: 40 MHz oscillator
-> +
-> +  clock-names:
-> +    items:
-> +      - const: osc12m
-> +      - const: osc40m
-> +
-> +  "#clock-cells":
-> +    const: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - "#clock-cells"
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    clock-controller@19e01000 {
-> +        compatible =3D "siflower,sf19a2890-clk";
-> +        reg =3D <0x19e01000 0x800>;
-> +        clocks =3D <&osc12m>, <&osc40m>;
-> +        clock-names =3D "osc12m", "osc40m";
-> +        #clock-cells =3D <1>;
-> +    };
-> diff --git a/include/dt-bindings/clock/siflower,sf19a2890-clk.h b/include=
-/dt-bindings/clock/siflower,sf19a2890-clk.h
-> new file mode 100644
-> index 000000000..74b9d67ea
-> --- /dev/null
-> +++ b/include/dt-bindings/clock/siflower,sf19a2890-clk.h
-> @@ -0,0 +1,27 @@
-> +/* SPDX-License-Identifier: (GPL-2.0 OR MIT) */
-> +#ifndef __DT_BINDINGS_CLOCK_SIFLOWER_SF19A2890_CLK_H
-> +#define __DT_BINDINGS_CLOCK_SIFLOWER_SF19A2890_CLK_H
-> +
-> +#define CLK_PLL_CPU		0
-> +#define CLK_PLL_DDR		1
-> +#define CLK_PLL_CMN		2
-> +#define CLK_MUXDIV_BUS1		3
-> +#define CLK_MUXDIV_BUS2		4
-> +#define CLK_MUXDIV_BUS3		5
-> +#define CLK_MUXDIV_CPU		6
-> +#define CLK_MUXDIV_PBUS		7
-> +#define CLK_MUXDIV_MEM_PHY	8
-> +#define CLK_MUXDIV_UART		9
-> +#define CLK_MUXDIV_ETH_REF	10
-> +#define CLK_MUXDIV_ETH_BYP_REF	11
-> +#define CLK_MUXDIV_ETH_TSU	12
-> +#define CLK_MUXDIV_GMAC_BYP_REF	13
-> +#define CLK_MUXDIV_M6250_0	14
-> +#define CLK_MUXDIV_M6250_1	15
-> +#define CLK_MUXDIV_WLAN24_PLF	16
-> +#define CLK_MUXDIV_WLAN5_PLF	17
-> +#define CLK_MUXDIV_USBPHY_REF	18
-> +#define CLK_MUXDIV_TCLK		19
-> +#define CLK_MUXDIV_NPU_PE_CLK	20
-> +
-> +#endif /* __DT_BINDINGS_CLOCK_SIFLOWER_SF19A2890_CLK_H */
->=20
-> --=20
-> Git-155)
->=20
->=20
+> I think it might be more sensible (less pitfalls later on) to return
+> the symbol number - not that of the next one.
 
---hsG5lu4MgbgM7BjA
-Content-Type: application/pgp-signature; name=signature.asc
+What pitfalls were you anticipating? If the current symbol's position
+is returned, userspace needs another ioctl() call and an -ENOENT
+check, to learn that there are no more matches. Alternatively,
+returning the next position means every call pays for a look-ahead,
+which for an unfiltered query walks the module symbols even when
+userspace only wants the first match.
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauvIBQAKCRB4tDGHoIJi
-0v4TAQDz2T3pBv1HIwfXdqi2XuQfYJ30bMfijkP4PiG+NxiZVQEArPYlprYAy20v
-N/zplWFYB98YkYoKfgf5znEP89m+mg0=
-=2HV9
------END PGP SIGNATURE-----
-
---hsG5lu4MgbgM7BjA--
+Andrii, do you have a preference between the two?
