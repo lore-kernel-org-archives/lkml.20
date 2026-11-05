@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793882517;
-	b=B1WHEXNxn7CV3+scOWDG3Zb/KNMALgqjcwuCbuPMm0IuvJTcQ3BYCfcvBprN8DQN++8N
-	 uXGGhDrvmc2WbPdKM+2j/bCyJs9glCKfEkI1BPahr5CPO5ajrgzzF6z40wxlDffSt7CIn
-	 JYLRQu+yQ2Pny02stSo7xVts44e7VvzjKJ7bbMRpp6ul876dP3ZqctvQHiV6u+GdW5TGC
-	 jKP66GcPojFwpMwgiTRZeBEzkfvQQ/1YBe/6F7b4qM9QEdcsNRbDKmoTCOVlHVT0b7Xqp
-	 z9DPR5EuzSr5l6jflZgEy1NUdB3T4XHwYaQuXrYjjhJDgMxkioYiLDH5HzcTsGx7CxQ==
+	t=1793882518;
+	b=DHeT/MdDA0CjianYRRXtH+jCqGv8ZCixwYci13Ra6oZM94bW+BwPZnkgP636l6ms/5E/
+	 QoCD9aapsRquPsIfbnhpMzMPcJ6l04dP7Ht7iFrb/NHazxe/aer0bohsJqjG0K/W7ti7h
+	 e2yc0hw+8DykQFl1gw05g3tycwrYTOXkq5uw8HYF0unXSv8dMiWg9a6zouR5VPXPH7QNY
+	 gAmB9jfWJRabnKFTrL8vwtg+V1qyBkJhtMoTxW85Gm/pSx6/6K53go39BbuKKzQiuRiKh
+	 KqU0u8mYlWyQMC/EINToew7LCPY2zJgKRJwM3ItofZRlj+sts/zv8Z3AiseAtEbabUg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793882517;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793882518;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ncXXXFEKjc/BcbHimc5MYEqIG5apTaCUodWRVSaeEAA=;
-	b=gx34A0/gex66MiElc6+GEZ2RFHJ9QWe/pa3f8/t3+dNuHsJ3Mu7Z6GvIm1SayAVtSg4Z
-	 yMlGB/Qzh1gwehkrPNXY51ntDXnq2P9M1x4bY+KG2fKs+CA6/Pi80yUN5qlyclUJwF062
-	 LtYAXAq6a+yWZTBLu7MgPhl7gESTnj7LIjYqn6tyi/tBxuzSYk8bJi0mNR1UAwc20Ll7O
-	 JzK2gwR8ES649PWwD1Oq7Fb1nAzFx9+tnf5Fu9Ehl0FoQQGM366wjsnIMYTHPMrZZGAGs
-	 812L0NXMc/fIzvBS+c9z2HsOmyMgwimmYX9SzB55hhkSntCxqHf+4NVg5xCaycAF4UA==
+	bh=I8DNtceGlJDVorHaxEPJAb/Y6Zw9LlewWPJX+Mt3y0E=;
+	b=1DtijM7uXCyrhgVmf0dQoC+POcwDVBWGpl2HF9B0cajLZYiiLJjrnOdxCNU53ekes/qg
+	 KSsFURHpOzu5EZIOMyLTLVZlq0Mkj0tfBTbXMGgonAHG6JxwPI18728qoWEiAgIqGSc0b
+	 CO90Db36UQcRd+v8z5bcAvvd5iuxbC+kc2xwzMoquKwer31laCoVyaOPqEEO4mG0Xn8Mc
+	 7yGgJfzKqGfU4A77l9ZdL75reDTVf8mJ2zei+8HDFsKCDBdcXN9m6IoiCsx95e5vpI+Gc
+	 smX27dudoJCM0eNu3t61Eg4qJLouuzB2BzUa8Vu4+TsnjuqWncv1Cs9Gk+B26ZDYEOg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j+L6UMQ1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JrrObein;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A10E606A32D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6481C606A326;
 	Thu,  5 Nov 2026 12:41:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j+L6UMQ1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JrrObein
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793882517;
-	b=DDvDrjUxLdx3G05qMXhPTHXB2nrMNSDoKIT+JXK76S7kcNrD8A3Tm+lpWkQxJGu6jEMh
-	 PIFgLb/qcNlSB0dwD78jKCwwqHY3zrkq39CMvTRMC80nbTnVoKZT+lPekTCWTaHnbVoaF
-	 WIm8550pt78bg5R9/ouy/hAPfkHoi7g2AZpwg+PRLzP53xF7Bg6vG0zTYpOvx1DS1OgCc
-	 Flk1bZlI4YnQYaUpFXjdAiM+m9Nn//bp9AkUPqOK9gQ07qllQzvsYkE3Q8K7L4jH577xS
-	 YQefbJRhLlL10DRsyrJTSYbLtt8einjXDq1z05BJgSDsxXZ9kpWkZG0HAgZM8/yg1ug==
+	b=GQnRMjO5vzqdEAuA0d042ktc9rlnjunOpoAxOMzxB1lXG9XWh+F27JIfqukH340W9nrv
+	 GyAPhuz5IPUpd7Pjr/8tLUkpXcQ5gYqsHupOnZwvEj6LfAgQoG/rqcEFITAnshdfE1/Vw
+	 f5i8mlpfxoB/edzxHHu+Z3sPe7V36Wv97zR5pjnURjIjTJKTZ6ezP7TwvvwnbVIFArRjK
+	 rUOtDEdNMD8V7wOX8+Kb53kIY5XxQs1MpD8zjKIKU6GVSXZhLF8PgfPYtVpENzi+c77c/
+	 7fzxPZ5JVH2/L0SjpCPbr6xl940KFuaB/+7o7XmfmuzarFsLuiIOVQFnfvd6B4ofkuw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793882517;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ncXXXFEKjc/BcbHimc5MYEqIG5apTaCUodWRVSaeEAA=;
-	b=xlB/aWmT4jGHQu+HYZrPrAr530M+tMDaqJTESWsAkRlFyIZCR+TU5Ii9aI72pJafmaRA
-	 RVquoG5UbMJbJuOUA7cyTNNnNACfjyBITWRrEo2kerfIkF3Y0m5wZzKb5pp6ompdTRobf
-	 OeGYWE3Wie3WIq7dWF28JeVrOlX3Byqfyd729Trh9E/bWMFSAd+CxZ93xJG5ZfT2LmFPg
-	 +6pCwQOceXTqZd6D0WWISr7AKCf0GPclQi9m+TFvo0r0Q7pJx2nd3skdR3VAdNIsBGvV/
-	 hysWNo8k4zOYt0phy5KjWxdNZJJx/wpDfeUKfdVwE8qoV72tu4E2IZJE/mTdx+mWIgA==
+	bh=I8DNtceGlJDVorHaxEPJAb/Y6Zw9LlewWPJX+Mt3y0E=;
+	b=V2OWe+rJM4XxwlKGg3CJSRK83yzgLMwxax4EnEQmgjpW39M8KoVlEzhJ0yNUhqvtvK6S
+	 iDNnMo3ByM+NpEktbBzF37mOIlrOSEsM9SQ9RfOzX1eAn8AxRXnk13KJ2ueHok8IomtaT
+	 oXIntA2hkI1Gu4F3ZY4KuYFPsJCdTRtEceoCMZcQCNGRDeDhNtQwMYOjSAP+xCNzM9fAO
+	 +WM+1oZXTGtB2E+/6w4wwhwa2PLBigFYO9AG5ccz7veoHW5Gzq9MQVQRWeNzAKYhxFYUw
+	 M3zDcggqspOx0j+Dmh7BjdFi/ylH+aKwapUUMYOHQO+331wAC29VuHfkAxtWjIzIw0g==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 269761F0093A;
+	by smtp.kernel.org (Postfix) with ESMTPS id 266C61F000C1;
 	Thu,  5 Nov 2026 12:41:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793882517;
-	bh=ncXXXFEKjc/BcbHimc5MYEqIG5apTaCUodWRVSaeEAA=;
+	bh=I8DNtceGlJDVorHaxEPJAb/Y6Zw9LlewWPJX+Mt3y0E=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=j+L6UMQ13mv7xN8areLTWee7ppXHe0XsSTDC2LWyuqjubNCIa9s/ouy/ZSYdx5E96
-	 rtB8VYbR7B77grKS2hsiVW1UHrdcRjVs3ddS2ZyJ/WxyJ8YITpiB5GooOqKsWb2WiG
-	 LdRIz5uibLoi6RUL8hCFzVA01d5ubEmuzebNeb2L+HgjLAloyU88ANcDNMAgSUmEVB
-	 tXgUrxhSnOQ+oVQ3khTtLFdY/EPE4NfI7iOb4n7aQpY1A/6Ymz8c2Z2tJfvJSQQHDR
-	 ceo5yXU59Puryi7jBlWuaN+Wj6MNtN8Dq1Z4FIsM5m+LhB45vhlxEgUARrGIdEJjiy
-	 w0G+I3PpT6kbQ==
+	b=JrrObeinNyF7Ityq1NT/2+vtjmReJj0oX+82N4ovsL8oxuVD3SayMYBbl8lZr878P
+	 9LAqriDne2SwtMXGN42iKqUznDOFM6SPD3h71MJ4/Tq6as6AOyXQThP+d6Az5Vuc0r
+	 BuxE1t7jCAhtSc8QDwZoXTGEHwyuIlrBKgbT5rq/shMnqjGXCtDp7Z3YPbbzA6mVhP
+	 s4Oib62zGvP3eNSioGiPzzBnFfwLs9DycNEXTfISV48NoGIeJgwcGwhFM6eJZYx/YY
+	 Y4CDbzqz0BwED4K+sOXjYVBpNqfqE9EoDyNUk0NqzuxsCxPKlnte38/JtGFhvnVkSM
+	 mvSN6l2sl2BsA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 98CFE4724E;
+	by lkml.kernel.org (Postfix) with ESMTP id 88CA14722B;
 	Thu,  5 Nov 2026 12:41:55 +0000 (UTC)
 From: Sanjay Chitroda via B4 Relay <devnull+sanjayembeddedse.gmail.com@kernel.org>
-Date: Thu, 05 Nov 2026 18:11:44 +0530
-Subject: [PATCH 2/5] iio: Remove redundant devm_kmemdup() allocation
- failure messages
+Date: Thu, 05 Nov 2026 18:11:43 +0530
+Subject: [PATCH 1/5] iio: Remove redundant probe error messages for HID
+ device drivers
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261105-19-oct-hid-iio-unified-print-framework-v1-2-0b360d9552d9@gmail.com>
+Message-Id: <20261105-19-oct-hid-iio-unified-print-framework-v1-1-0b360d9552d9@gmail.com>
 References: <20261105-19-oct-hid-iio-unified-print-framework-v1-0-0b360d9552d9@gmail.com>
 In-Reply-To: <20261105-19-oct-hid-iio-unified-print-framework-v1-0-0b360d9552d9@gmail.com>
 To: Jiri Kosina <jikos@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
@@ -95,11 +95,11 @@ To: Jiri Kosina <jikos@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
 Cc: linux-input@vger.kernel.org, linux-iio@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Sanjay Chitroda <sanjayembeddedse@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793882514; l=3473;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793882513; l=10007;
  i=sanjayembeddedse@gmail.com; s=20260702; h=from:subject:message-id;
- bh=GYfroI7CBTuLtaumkcLBm2D6Hmur3RtVQHOcYJz2ogE=;
- b=wmNDhR8qIp8Ex97D7o1qZIaB5UBXiBRKVhj5TiQb3+NZT7L7IXg8HIPq+vbxbFhendIGpu6aJ
- pA1A5OpyzKmCEkgfjaYJbQlW9khIugJ1EXpgACzW9Kk/fOdxplA5xAz
+ bh=XV2z3tFhteTyo/o8BbdeZKmdc/LTZEfsUYtzauJOE7o=;
+ b=O9sOes+JM7vc7Gn3CQ0n1Jdh2GMTtORpsWXU2ah1f4CVRTbumaOvb07bIlaKQcbSXDMnPej74
+ tK8JvMoBH8mD0KpA4mFLLBwfsu6aBsx7PSZc14otAzHV66yk9+n8URV
 X-Developer-Key: i=sanjayembeddedse@gmail.com; a=ed25519;
  pk=PcneEFtkmY+Ldl+KmOTpB/Q/HDsqko6Fb0/Z/5cuycI=
 X-Endpoint-Received: by B4 Relay for sanjayembeddedse@gmail.com/20260702
@@ -110,90 +110,274 @@ Content-Transfer-Encoding: 7bit
 
 From: Sanjay Chitroda <sanjayembeddedse@gmail.com>
 
-Several HID IIO drivers print a dev_err() message before returning
--ENOMEM when devm_kmemdup() fails.
+devm_hid_sensor_setup_trigger() already logs an error when the request
+fails for trigger allocation or registration failure, making the
+explicit dev_err() redundant.
 
-The failure is already conveyed by the returned error code and the log
-messages do not provide additional debugging information. Remove the
-redundant messages to reduce log noise.
+Similarly, devm_sensor_hub_register_callback() returns -EINVAL, -ENOMEM
+or 0 (success), making the dev_err() in the probe path redundant.
+
+Remove both messages from HID-IIO device drivers.
 
 Signed-off-by: Sanjay Chitroda <sanjayembeddedse@gmail.com>
 ---
- drivers/iio/accel/hid-sensor-accel-3d.c      | 7 +++----
- drivers/iio/gyro/hid-sensor-gyro-3d.c        | 4 +---
- drivers/iio/orientation/hid-sensor-incl-3d.c | 4 +---
- drivers/iio/pressure/hid-sensor-press.c      | 4 +---
- 4 files changed, 6 insertions(+), 13 deletions(-)
+ drivers/iio/accel/hid-sensor-accel-3d.c              | 8 ++------
+ drivers/iio/gyro/hid-sensor-gyro-3d.c                | 8 ++------
+ drivers/iio/light/hid-sensor-als.c                   | 8 ++------
+ drivers/iio/light/hid-sensor-prox.c                  | 8 ++------
+ drivers/iio/magnetometer/hid-sensor-magn-3d.c        | 8 ++------
+ drivers/iio/orientation/hid-sensor-incl-3d.c         | 8 ++------
+ drivers/iio/orientation/hid-sensor-rotation.c        | 8 ++------
+ drivers/iio/position/hid-sensor-custom-intel-hinge.c | 8 ++------
+ drivers/iio/pressure/hid-sensor-press.c              | 8 ++------
+ 9 files changed, 18 insertions(+), 54 deletions(-)
 
 diff --git a/drivers/iio/accel/hid-sensor-accel-3d.c b/drivers/iio/accel/hid-sensor-accel-3d.c
-index 51f1ae6b222f..f9e04ed2a7cd 100644
+index 7ba0228f18b4..51f1ae6b222f 100644
 --- a/drivers/iio/accel/hid-sensor-accel-3d.c
 +++ b/drivers/iio/accel/hid-sensor-accel-3d.c
-@@ -354,13 +354,12 @@ static int hid_accel_3d_probe(struct platform_device *pdev)
- 		dev_err(&pdev->dev, "failed to setup common attributes\n");
+@@ -377,20 +377,16 @@ static int hid_accel_3d_probe(struct platform_device *pdev)
+ 
+ 	ret = devm_hid_sensor_setup_trigger(dev, indio_dev, name,
+ 					    &accel_state->common_attributes);
+-	if (ret < 0) {
+-		dev_err(&pdev->dev, "trigger setup failed\n");
++	if (ret < 0)
  		return ret;
- 	}
-+
- 	indio_dev->channels = devm_kmemdup(&pdev->dev, channel_spec,
- 					   channel_size, GFP_KERNEL);
--
--	if (!indio_dev->channels) {
--		dev_err(&pdev->dev, "failed to duplicate channels\n");
-+	if (!indio_dev->channels)
- 		return -ENOMEM;
 -	}
-+
- 	ret = accel_3d_parse_report(pdev, hsdev,
- 				    (struct iio_chan_spec *)indio_dev->channels,
- 				    hsdev->usage, accel_state);
+ 
+ 	accel_state->callbacks.send_event = accel_3d_proc_event;
+ 	accel_state->callbacks.capture_sample = accel_3d_capture_sample;
+ 	accel_state->callbacks.pdev = pdev;
+ 	ret = devm_sensor_hub_register_callback(dev, hsdev, hsdev->usage,
+ 						&accel_state->callbacks);
+-	if (ret < 0) {
+-		dev_err(&pdev->dev, "callback reg failed\n");
++	if (ret < 0)
+ 		return ret;
+-	}
+ 
+ 	return devm_iio_device_register(dev, indio_dev);
+ }
 diff --git a/drivers/iio/gyro/hid-sensor-gyro-3d.c b/drivers/iio/gyro/hid-sensor-gyro-3d.c
-index ebf34365819c..a785a9fc7f9d 100644
+index 66778315e86d..ebf34365819c 100644
 --- a/drivers/iio/gyro/hid-sensor-gyro-3d.c
 +++ b/drivers/iio/gyro/hid-sensor-gyro-3d.c
-@@ -292,10 +292,8 @@ static int hid_gyro_3d_probe(struct platform_device *pdev)
+@@ -314,10 +314,8 @@ static int hid_gyro_3d_probe(struct platform_device *pdev)
  
- 	indio_dev->channels = devm_kmemdup(&pdev->dev, gyro_3d_channels,
- 					   sizeof(gyro_3d_channels), GFP_KERNEL);
--	if (!indio_dev->channels) {
--		dev_err(&pdev->dev, "failed to duplicate channels\n");
-+	if (!indio_dev->channels)
- 		return -ENOMEM;
+ 	ret = devm_hid_sensor_setup_trigger(dev, indio_dev, name,
+ 					    &gyro_state->common_attributes);
+-	if (ret < 0) {
+-		dev_err(&pdev->dev, "trigger setup failed\n");
++	if (ret < 0)
+ 		return ret;
 -	}
  
- 	ret = gyro_3d_parse_report(pdev, hsdev,
- 				   (struct iio_chan_spec *)indio_dev->channels,
+ 	gyro_state->callbacks.send_event = gyro_3d_proc_event;
+ 	gyro_state->callbacks.capture_sample = gyro_3d_capture_sample;
+@@ -325,10 +323,8 @@ static int hid_gyro_3d_probe(struct platform_device *pdev)
+ 	ret = devm_sensor_hub_register_callback(dev, hsdev,
+ 						HID_USAGE_SENSOR_GYRO_3D,
+ 						&gyro_state->callbacks);
+-	if (ret < 0) {
+-		dev_err(&pdev->dev, "callback reg failed\n");
++	if (ret < 0)
+ 		return ret;
+-	}
+ 
+ 	return devm_iio_device_register(dev, indio_dev);
+ }
+diff --git a/drivers/iio/light/hid-sensor-als.c b/drivers/iio/light/hid-sensor-als.c
+index 633fd1569987..88c7b1ce9a19 100644
+--- a/drivers/iio/light/hid-sensor-als.c
++++ b/drivers/iio/light/hid-sensor-als.c
+@@ -399,20 +399,16 @@ static int hid_als_probe(struct platform_device *pdev)
+ 
+ 	ret = devm_hid_sensor_setup_trigger(dev, indio_dev, name,
+ 					    &als_state->common_attributes);
+-	if (ret < 0) {
+-		dev_err(&pdev->dev, "trigger setup failed\n");
++	if (ret < 0)
+ 		return ret;
+-	}
+ 
+ 	als_state->callbacks.send_event = als_proc_event;
+ 	als_state->callbacks.capture_sample = als_capture_sample;
+ 	als_state->callbacks.pdev = pdev;
+ 	ret = devm_sensor_hub_register_callback(dev, hsdev, hsdev->usage,
+ 						&als_state->callbacks);
+-	if (ret < 0) {
+-		dev_err(&pdev->dev, "callback reg failed\n");
++	if (ret < 0)
+ 		return ret;
+-	}
+ 
+ 	return devm_iio_device_register(dev, indio_dev);
+ }
+diff --git a/drivers/iio/light/hid-sensor-prox.c b/drivers/iio/light/hid-sensor-prox.c
+index 355b7b02868c..af4becb2e7dd 100644
+--- a/drivers/iio/light/hid-sensor-prox.c
++++ b/drivers/iio/light/hid-sensor-prox.c
+@@ -302,20 +302,16 @@ static int hid_prox_probe(struct platform_device *pdev)
+ 
+ 	ret = devm_hid_sensor_setup_trigger(dev, indio_dev, name,
+ 					    &prox_state->common_attributes);
+-	if (ret) {
+-		dev_err(&pdev->dev, "trigger setup failed\n");
++	if (ret)
+ 		return ret;
+-	}
+ 
+ 	prox_state->callbacks.send_event = prox_proc_event;
+ 	prox_state->callbacks.capture_sample = prox_capture_sample;
+ 	prox_state->callbacks.pdev = pdev;
+ 	ret = devm_sensor_hub_register_callback(dev, hsdev, hsdev->usage,
+ 						&prox_state->callbacks);
+-	if (ret < 0) {
+-		dev_err(&pdev->dev, "callback reg failed\n");
++	if (ret < 0)
+ 		return ret;
+-	}
+ 
+ 	return devm_iio_device_register(dev, indio_dev);
+ }
+diff --git a/drivers/iio/magnetometer/hid-sensor-magn-3d.c b/drivers/iio/magnetometer/hid-sensor-magn-3d.c
+index c8b4fa7785c9..911b15a5175d 100644
+--- a/drivers/iio/magnetometer/hid-sensor-magn-3d.c
++++ b/drivers/iio/magnetometer/hid-sensor-magn-3d.c
+@@ -501,10 +501,8 @@ static int hid_magn_3d_probe(struct platform_device *pdev)
+ 
+ 	ret = devm_hid_sensor_setup_trigger(dev, indio_dev, name,
+ 					    &magn_state->magn_flux_attributes);
+-	if (ret < 0) {
+-		dev_err(&pdev->dev, "trigger setup failed\n");
++	if (ret < 0)
+ 		return ret;
+-	}
+ 
+ 	magn_state->callbacks.send_event = magn_3d_proc_event;
+ 	magn_state->callbacks.capture_sample = magn_3d_capture_sample;
+@@ -512,10 +510,8 @@ static int hid_magn_3d_probe(struct platform_device *pdev)
+ 	ret = devm_sensor_hub_register_callback(dev, hsdev,
+ 						HID_USAGE_SENSOR_COMPASS_3D,
+ 						&magn_state->callbacks);
+-	if (ret < 0) {
+-		dev_err(&pdev->dev, "callback reg failed\n");
++	if (ret < 0)
+ 		return ret;
+-	}
+ 
+ 	return devm_iio_device_register(dev, indio_dev);
+ }
 diff --git a/drivers/iio/orientation/hid-sensor-incl-3d.c b/drivers/iio/orientation/hid-sensor-incl-3d.c
-index 4570a698cf0e..2aed92c3526d 100644
+index b5f70732d035..4570a698cf0e 100644
 --- a/drivers/iio/orientation/hid-sensor-incl-3d.c
 +++ b/drivers/iio/orientation/hid-sensor-incl-3d.c
-@@ -323,10 +323,8 @@ static int hid_incl_3d_probe(struct platform_device *pdev)
+@@ -346,10 +346,8 @@ static int hid_incl_3d_probe(struct platform_device *pdev)
  
- 	indio_dev->channels = devm_kmemdup(&pdev->dev, incl_3d_channels,
- 					   sizeof(incl_3d_channels), GFP_KERNEL);
--	if (!indio_dev->channels) {
--		dev_err(&pdev->dev, "failed to duplicate channels\n");
-+	if (!indio_dev->channels)
- 		return -ENOMEM;
+ 	ret = devm_hid_sensor_setup_trigger(dev, indio_dev, name,
+ 					    &incl_state->common_attributes);
+-	if (ret) {
+-		dev_err(&pdev->dev, "trigger setup failed\n");
++	if (ret)
+ 		return ret;
 -	}
  
- 	ret = incl_3d_parse_report(pdev, hsdev,
- 				   (struct iio_chan_spec *)indio_dev->channels,
+ 	incl_state->callbacks.send_event = incl_3d_proc_event;
+ 	incl_state->callbacks.capture_sample = incl_3d_capture_sample;
+@@ -357,10 +355,8 @@ static int hid_incl_3d_probe(struct platform_device *pdev)
+ 	ret = devm_sensor_hub_register_callback(dev, hsdev,
+ 						HID_USAGE_SENSOR_INCLINOMETER_3D,
+ 						&incl_state->callbacks);
+-	if (ret) {
+-		dev_err(&pdev->dev, "callback reg failed\n");
++	if (ret)
+ 		return ret;
+-	}
+ 
+ 	return devm_iio_device_register(dev, indio_dev);
+ }
+diff --git a/drivers/iio/orientation/hid-sensor-rotation.c b/drivers/iio/orientation/hid-sensor-rotation.c
+index f97c278f16cb..d74fee4b56c8 100644
+--- a/drivers/iio/orientation/hid-sensor-rotation.c
++++ b/drivers/iio/orientation/hid-sensor-rotation.c
+@@ -359,20 +359,16 @@ static int hid_dev_rot_probe(struct platform_device *pdev)
+ 
+ 	ret = devm_hid_sensor_setup_trigger(dev, indio_dev, name,
+ 					    &rot_state->common_attributes);
+-	if (ret) {
+-		dev_err(&pdev->dev, "trigger setup failed\n");
++	if (ret)
+ 		return ret;
+-	}
+ 
+ 	rot_state->callbacks.send_event = dev_rot_proc_event;
+ 	rot_state->callbacks.capture_sample = dev_rot_capture_sample;
+ 	rot_state->callbacks.pdev = pdev;
+ 	ret = devm_sensor_hub_register_callback(dev, hsdev, hsdev->usage,
+ 						&rot_state->callbacks);
+-	if (ret) {
+-		dev_err(&pdev->dev, "callback reg failed\n");
++	if (ret)
+ 		return ret;
+-	}
+ 
+ 	return devm_iio_device_register(dev, indio_dev);
+ }
+diff --git a/drivers/iio/position/hid-sensor-custom-intel-hinge.c b/drivers/iio/position/hid-sensor-custom-intel-hinge.c
+index 101d84b533c9..0b5e3f71e962 100644
+--- a/drivers/iio/position/hid-sensor-custom-intel-hinge.c
++++ b/drivers/iio/position/hid-sensor-custom-intel-hinge.c
+@@ -313,19 +313,15 @@ static int hid_hinge_probe(struct platform_device *pdev)
+ 	atomic_set(&st->common_attributes.data_ready, 0);
+ 	ret = devm_hid_sensor_setup_trigger(dev, indio_dev, indio_dev->name,
+ 					    &st->common_attributes);
+-	if (ret < 0) {
+-		dev_err(&pdev->dev, "trigger setup failed\n");
++	if (ret < 0)
+ 		return ret;
+-	}
+ 
+ 	st->callbacks.send_event = hinge_proc_event;
+ 	st->callbacks.capture_sample = hinge_capture_sample;
+ 	st->callbacks.pdev = pdev;
+ 	ret = devm_sensor_hub_register_callback(dev, hsdev, hsdev->usage, &st->callbacks);
+-	if (ret < 0) {
+-		dev_err(&pdev->dev, "callback reg failed\n");
++	if (ret < 0)
+ 		return ret;
+-	}
+ 
+ 	return devm_iio_device_register(dev, indio_dev);
+ }
 diff --git a/drivers/iio/pressure/hid-sensor-press.c b/drivers/iio/pressure/hid-sensor-press.c
-index b081990ffc03..9506284bb798 100644
+index 8ebb8f54a0cb..b081990ffc03 100644
 --- a/drivers/iio/pressure/hid-sensor-press.c
 +++ b/drivers/iio/pressure/hid-sensor-press.c
-@@ -258,10 +258,8 @@ static int hid_press_probe(struct platform_device *pdev)
+@@ -281,10 +281,8 @@ static int hid_press_probe(struct platform_device *pdev)
  
- 	indio_dev->channels = devm_kmemdup(&pdev->dev, press_channels,
- 					   sizeof(press_channels), GFP_KERNEL);
--	if (!indio_dev->channels) {
--		dev_err(&pdev->dev, "failed to duplicate channels\n");
-+	if (!indio_dev->channels)
- 		return -ENOMEM;
+ 	ret = devm_hid_sensor_setup_trigger(dev, indio_dev, name,
+ 					    &press_state->common_attributes);
+-	if (ret) {
+-		dev_err(&pdev->dev, "trigger setup failed\n");
++	if (ret)
+ 		return ret;
 -	}
  
- 	ret = press_parse_report(pdev, hsdev,
- 				 (struct iio_chan_spec *)indio_dev->channels,
+ 	press_state->callbacks.send_event = press_proc_event;
+ 	press_state->callbacks.capture_sample = press_capture_sample;
+@@ -292,10 +290,8 @@ static int hid_press_probe(struct platform_device *pdev)
+ 	ret = devm_sensor_hub_register_callback(dev, hsdev,
+ 						HID_USAGE_SENSOR_PRESSURE,
+ 						&press_state->callbacks);
+-	if (ret < 0) {
+-		dev_err(&pdev->dev, "callback reg failed\n");
++	if (ret < 0)
+ 		return ret;
+-	}
+ 
+ 	return devm_iio_device_register(dev, indio_dev);
+ }
 
 -- 
 2.34.1
