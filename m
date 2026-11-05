@@ -1,129 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793881272;
-	b=GrOilbdOtQpmJCYD6zNmiS8orXdDCEPoLswcwsVKFmSMBHUFfgJ83MKwydAZbT+lDwWw
-	 0RxnFaDbR1CuBVCjNeWq5gmZ/y6jjjqSWAZGAB6bmNAbZM7loOCi9gyI4dSY+mJnf+ruT
-	 wu6qKyYCINgXMiL3XoKxQ0+O19cvrlrl/ctLY61I8qZSUoh2wShoW3DuGO7I9Ha6oSigs
-	 RhK0e+sp6plgZdoFbG9q01qRI/f3USNwedPGEVqWo5BOm9077E6dW/nOcevnFwJkuD2e2
-	 AAiFVGo3uvfCs0/15sU1m53Em8TZYZdKyHQrGTAkUE+wzJJm8lCUL/ztXF0i1XNdTyQ==
+	t=1793881324;
+	b=ZtrjNNogfEp/bTXKuGIMct+SDbr5/lKyEJjotGHUnav9Kc0SH3z0U4JHB095KcM3o/hH
+	 f4GvjlMwe/lhjWoBMTMvrNpDnTzQqQ9dDJYiztifsY16TR41P27eY/0dvUJ7+Xyg+77Zd
+	 fI6uR3bz2tCXsaYxNanhEuT8hELFehL50SBKqC9SUzQCBVMk/oJGlYz4JECwfZS9PXHWp
+	 Rbqds1c2KykMsHNG/k3NN31dIuXGnf6X2ttmPYG+DDVz4Ee1veR0JJaXMQcKzILLOodYD
+	 8hjjzHe2Kfsm787iN4iWu7+qrq/gHnzmcwT3NojpclUJgNPQUIH5SgF55SabQLLEvig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793881272;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=qLuvYgtpasAKkOVBQjswAHWXysKN7cRsF9p74hK2S2g=;
-	b=x8A8egmCVprwVmaP6TKoEbHQSkWxE7ch1EwooTyriKIl4Byn10U6dVfI31J0M0vyMVwg
-	 qLpuzorHjFoCa6kXdaBvvvxBhDZxoX8SfBwT+V53TkzXUdgEFhf2vGkbSc2UnWGeTuY8h
-	 ToOtyAispZrhKd+j4kZhaqCswWDLrgX3QGj0CgEEfUTy/sSXEHl5xUp9amYpTbarkLOSN
-	 xwDg+HMMuDuB47QutlciT58uDhygQ27wCgK0ZgI/OhusTpi5DZaEOXkbAqCiBkV18p4GY
-	 yccKCnhR5L/S7QNi/EbNSKWPbvB/fAMPIk1XyzTrQYZwO9nen/Bv6wZN0EZdLXc5RpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793881324;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ijJ2iToW1vV9ZzguubAIBwNUbZXaAj9CKriPNkowt/E=;
+	b=V4y2rY0oUsFBue8U9NyV5s/DNlopuJrspQPpNiGko66zian04SgCEpQOiQlUmo5crYTa
+	 K1H3WbFPJ0lKBm0bfRcuFCdq6pXl5V3uIXsfT/782eebNdVwQNdwqZjp0qspfdOi8EAS6
+	 m6dipUi+/NgjKM1xxdabWnomYK4zQIeTTv9VsagYaOLFbX2X5715qT1MKrmjSk1XSbtct
+	 k6pqwM+QCnmO1BLFPoJeWcfk1ZsSoOjIwx7U5tPuF543itRIFdKhD0X6rtMRhIZX2u/O2
+	 tTxV2i9EqKAVZ9tJjjutcmigtGQzM+1rNPiJDg6ol7Zh1S7t0C0bwgetn/hwovxGKlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=KhcIIhhy;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6n5z2yLa;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=TFuQlAZ+;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IYRGa8XW;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93B4606D804;
-	Thu,  5 Nov 2026 12:21:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C93B4606D804
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=KhcIIhhy;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6n5z2yLa;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=TFuQlAZ+;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IYRGa8XW
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D5C3D1F458;
-	Thu,  5 Nov 2026 12:21:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793881270; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qLuvYgtpasAKkOVBQjswAHWXysKN7cRsF9p74hK2S2g=;
-	b=KhcIIhhyXURXrxsFKNrS5/KQBWOxVAoWljoB38cQtiYrDrFV8sed3xw/zXNPMim53TtxIA
-	7ZbhM5diXv9jAcO7L3DVJNrAZi+K4lsRTnJWaMYMlYugOK16bRU+y/fGzxnSLhmlcVsvyG
-	csbL8slrND45GD1FIeOECoj0f7hJMwQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793881270;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qLuvYgtpasAKkOVBQjswAHWXysKN7cRsF9p74hK2S2g=;
-	b=6n5z2yLaHgAEN7/Tcd0WzA7lHAxJSKkismyyu/ILXPkdtd7h0WOyyJxNx+8962qMQ9rlAn
-	/2Drg5p7a9P7WmBA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=TFuQlAZ+;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=IYRGa8XW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793881269; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qLuvYgtpasAKkOVBQjswAHWXysKN7cRsF9p74hK2S2g=;
-	b=TFuQlAZ+5WF2YAdSPtrseTWbdG8rKLEqW19DJvUMZa96SoqlsHphdrzQTVaeQPeOfbKMve
-	vRvg45whLPGgBVqZinymhyPdhVasORALEjL7ZX6GmXX/o3Zhkt8KhhIcC5N1tdRheYHdXR
-	b1H4KWKbL93llPPXVmqHJ4S/SUjD100=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793881269;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qLuvYgtpasAKkOVBQjswAHWXysKN7cRsF9p74hK2S2g=;
-	b=IYRGa8XWDYOBq7+hiG0V0rUlmwe1TyUTdwZG614Lw3QLxr1E6xwKO0uuM9xtMm5Wn4Th8n
-	Jk1SsJkUbIlOijDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9880B133F6;
-	Thu,  5 Nov 2026 12:21:09 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 38udGrV07Gp0IAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 05 Nov 2026 12:21:09 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 1B713B6D8; Thu, 05 Nov 2026 13:21:05 +0100 (CET)
-Date: Thu, 5 Nov 2026 13:21:05 +0100
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
-	Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
-	Eric Dumazet <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Al Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
-	Greg Kroah-Hartman <gregkh@suse.de>, Joel Granados <joel.granados@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
-	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, linux-acpi@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	netdev@vger.kernel.org, ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
-	coreteam@netfilter.org, kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
-	linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
-	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
-	linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
-	linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
-	sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
-	Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
-	linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, linux-debuggers@vger.kernel.org, 
-	Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH RFC 33/38] proc: sysctl: copy to and from userspace
- without holding the table
-Message-ID: <cbocsd4qe254dc7mgzk3jkieahrp5kfxpnfh5owopkulg5oo6l@jd5sw3l4nw5c>
-References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
- <20261102-work-procfs-bugfixes-v1-33-59422ed3e465@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5F76606A33D
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:22:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D85C1F00A1D
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:22:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793881323;
+	bh=ijJ2iToW1vV9ZzguubAIBwNUbZXaAj9CKriPNkowt/E=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=RXjPwgPyrp7SAvVpXG443pqp/sNrLtao2GijuVfbEp6ck0hUMSRpXDYsZC9lwi2ur
+	 XGCqk2+D3tRN+YuFfKy8vfHukZj/lhF0gXbEC2qWUSxtUbVZpuaFEP/t1LO/CFugvG
+	 RWqrqFdrkrbF16vqtn1FrwjNez2oA1C0FYIVoA5BvHgxJUQQs4Y1KmXkYv7kitzKId
+	 bOZAHjSEQttjBYzZf45PCJ4dyaQc4nctHCvY7V/4yUGQfdmNbjG9aqTsc1L8cQ8gug
+	 rqhGD64bHEqYv9wFhRBv7+h4Ek7eCeis/AfBq3aPDpAd76cRdJLsozvs2Ufb2lkR+u
+	 s6IsvSU1TOQNg==
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5be53e5fce1so1480870e87.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 04:22:03 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwv4O27FBGURUGxUgQiIMB5PW5xKnbTJxVTVzWRLgeI2cfuKtW9TZfLR+GEeVPFkTOKEkVj9s3HPv/85rg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9vAk3GxFebWcJxE134y/Wf7l8ArdzAW2E9NBOJ/6XvnvSMw0rz
+	NPX2kiqEInkT4bexf5oGYKeZ1sRE1u1cUvdM+C91IhLow/lkYUyvE+8TpdKf8wYhWpt+fW8Pazz
+	1OndWyLkKUZ+9yxP/Oqmq9bRJrbBsK5M=
+X-Received: by 2002:a05:6512:3986:b0:5bb:27df:414c with SMTP id
+ 2adb3069b0e04-5bfd9574e22mr6049721e87.45.1793881321795; Thu, 05 Nov 2026
+ 04:22:01 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -133,167 +56,172 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102-work-procfs-bugfixes-v1-33-59422ed3e465@kernel.org>
-X-Spamd-Result: default: False [-11.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_COUNT_THREE(0.00)[3];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	R_RATELIMIT(0.00)[to_ip_from(RLpnapcpkwxdkc5mopt1ezhhna)];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[60];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.cz:email,suse.cz:dkim]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -11.51
-X-Spam-Level: 
-X-Rspamd-Queue-Id: D5C3D1F458
+References: <20261022075901.3436021-1-zhangpengjie2@huawei.com>
+ <d9fa8052-f562-4867-9e9f-1fd2a66fa794@arm.com> <940a9a70-71fb-491d-a1a7-1a7b4d6dc089@huawei.com>
+ <f688c3fc-1375-4803-9775-9b4da78536c9@arm.com> <02dd34f0-c9fb-4dc5-bc1d-af83ae080724@huawei.com>
+In-Reply-To: <02dd34f0-c9fb-4dc5-bc1d-af83ae080724@huawei.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Thu, 5 Nov 2026 13:21:47 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0j1YpOu9SnjAF4VFVOVFEr6bLzRWaqCJ3jmFP4-01s1LQ@mail.gmail.com>
+X-Gm-Features: AclHuK9oMZfBryf9lbbu8I5G5dZsnK6LN0Tjd2Rx7NfvoiDwhphAy4g9-_ebdcU
+Message-ID: <CAJZ5v0j1YpOu9SnjAF4VFVOVFEr6bLzRWaqCJ3jmFP4-01s1LQ@mail.gmail.com>
+Subject: Re: [PATCH v2] cpufreq: CPPC: Enable boost by default when supported
+To: Pengjie Zhang <zhangpengjie2@huawei.com>
+Cc: Christian Loehle <christian.loehle@arm.com>, rafael@kernel.org, viresh.kumar@linaro.org, 
+	linuxarm@huawei.com, zhanjie9@hisilicon.com, prime.zeng@hisilicon.com, 
+	wanghuiqiang@huawei.com, xuwei5@huawei.com, zhenglifeng1@huawei.com, 
+	yubowen8@huawei.com, pierre.gondois@arm.com, sumitg@nvidia.com, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, mojunjun4@huawei.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon 02-11-26 15:21:48, Christian Brauner wrote:
-> proc_sys_call_handler() grabs the table, copies in what is written,
-> calls the handler and copies what it produced out to userspace before
-> it lets go of the table again. Unregistering a table waits until nobody
-> uses it anymore. So a reader or writer whose copy faults for as long as
-> it wants, with userfaultfd or a stalled FUSE mapping, keeps
-> unregister_sysctl_table() waiting, and its callers like to hold locks
-> while they do that. addrconf unregisters the ipv6 sysctls of a device
-> with RTNL held, so a stalled read of /proc/sys/net/ipv6/conf/<dev>/mtu
-> holds up every RTNL user until the reader gives up.
-> 
-> Copy in before grabbing the table and copy out after letting go of it,
-> like procfs and kernfs do for their files. The buffer is ours, nothing
-> needs the table for the copies.
-> 
-> That moves the allocation and the copy in before the permission check.
-> A write that can't be copied in, or a request that is too large, now
-> fails with -EFAULT or -ENOMEM where it used to fail with -EPERM.
-> 
-> Fixes: 330d57fb98a9 ("[PATCH] Fix sysctl unregistration oops (CVE-2005-2709)")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+On Thu, Nov 5, 2026 at 8:04=E2=80=AFAM Pengjie Zhang <zhangpengjie2@huawei.=
+com> wrote:
+>
+>
+> On 11/5/2026 12:12 AM, Christian Loehle wrote:
+> > On 11/4/26 07:43, Pengjie Zhang wrote:
+> >> On 10/29/2026 4:51 AM, Christian Loehle wrote:
+> >>> On 10/22/26 08:59, Pengjie Zhang wrote:
+> >>>> The CPPC driver leaves boost disabled by default when Highest Perfor=
+mance
+> >>>> exceeds Nominal Performance. Userspace must explicitly enable boost
+> >>>> before governors can use the full advertised performance range.
+> >>>>
+> >>>> Enable boost by default when at least one possible CPU reports suppo=
+rt,
+> >>>> while users who prefer to stay within the sustained nominal limit ca=
+n
+> >>>> still disable it via the boost knob without determining scaling_max_=
+freq
+> >>>> for each policy.
+> >>>>
+> >>>> Check the performance capabilities before registering the driver so =
+that
+> >>>> the cpufreq core enables boost for each policy that supports it.
+> >>>>
+> >>>> Signed-off-by: Pengjie Zhang <zhangpengjie2@huawei.com>
+> >>> Just to be clear I'm not blocking this per se, but continuing my comm=
+ents:
+> >>>
+> >>> I just wonder if this is a configuration worth keeping.
+> >>> You mentioned your platforms have a BIOS to set nominal=3D=3Dhighest =
+or not.
+> >>> If we removed interpreting highest - nominal as boost entirely that
+> >>> would also make that BIOS setting obsolete. Userspace could still
+> >>> query nominal and restrict cpufreq to that if it wishes to do that,
+> >>> we could add that to cpupower for convenience (i.e. set all policies'
+> >>> max to nominal).
+> >>>
+> >>> With the changes that are coming with CPCv4 we would save ourselves
+> >>> some headache (like keeping track of boost status when ospm_nominal_p=
+erf
+> >>> is being written).
+> >>>
+> >>> The question is also how often the combination of "enable nominal < h=
+ighest"
+> >>> and then explicitly toggling boost at runtime actually happens...
+> >>>
+> >>>> ---
+> >>>> Changes in v2:
+> >>>> - Drop "even" and clarify the commit message (Christian).
+> >>>> - Link to v1: https://lore.kernel.org/all/20261015015812.867988-1-zh=
+angpengjie2@huawei.com/
+> >>>>
+> >>>>    drivers/cpufreq/cppc_cpufreq.c | 20 ++++++++++++++++++++
+> >>>>    1 file changed, 20 insertions(+)
+> >>>>
+> >>>> diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_c=
+pufreq.c
+> >>>> index 80893844353c..0a4255a36f60 100644
+> >>>> --- a/drivers/cpufreq/cppc_cpufreq.c
+> >>>> +++ b/drivers/cpufreq/cppc_cpufreq.c
+> >>>> @@ -1052,6 +1052,25 @@ static struct cpufreq_driver cppc_cpufreq_dri=
+ver =3D {
+> >>>>        .name =3D "cppc_cpufreq",
+> >>>>    };
+> >>>>    +static void __init cppc_cpufreq_default_boost_init(void)
+> >>>> +{
+> >>>> +    struct cppc_perf_caps caps;
+> >>>> +    bool enable =3D false;
+> >>>> +    int cpu;
+> >>>> +
+> >>>> +    for_each_possible_cpu(cpu) {
+> >>>> +        if (cppc_get_perf_caps(cpu, &caps))
+> >>>> +            continue;
+> >>>> +
+> >>>> +        if (caps.highest_perf > caps.nominal_perf) {
+> >>>> +            enable =3D true;
+> >>>> +            break;
+> >>>> +        }
+> >>>> +    }
+> >>>> +
+> >>>> +    cppc_cpufreq_driver.boost_enabled =3D enable;
+> >>> Any reason for the scan instead of just setting
+> >>> boost_enabled =3D true? Platforms without boost would
+> >>> also expose the toggle, but that's mostly in line with
+> >>> the other drivers? (also again the ospm_nominal_perf
+> >>> angle)
+> >> The reason for scanning here is to keep the initial sysfs state
+> >> consistent on platforms where highest_perf =3D=3D nominal_perf on all =
+CPUs
+> >> (i.e. policy->boost_supported is false everywhere). If we just set
+> >> boost_enabled =3D true unconditionally, the global cpufreq/boost file =
+will
+> >> read 1 on boot while every policyX/boost reads 0 (and rejects writes
+> >> with -EINVAL).
+> > FWIW, amd-pstate can already expose global boost=3D1 while all per-poli=
+cy
+> > boost knobs read 0 and writes to either knob then fail with -EINVAL AFA=
+ICS?
+> >
+> > AFAIU the global sysfs knob represents permission to boost where
+> > supported, rather than meaning boost is supported, too?
+>
+> Yes, Documentation/admin-guide/pm/cpufreq.rst also states that 1 in the
+> global boost file "only means a permission to use the frequency boost
+> mechanism (which still may never be used for other reasons)", while 0
+> means it "is disabled and cannot be used at all".
+>
+> > PS:
+> > Also another fun one I discovered...
+> > power-orion-o6-01# cat /sys/devices/system/cpu/cpufreq/boost
+> > 0
+> > power-orion-o6-01# echo 1 > /sys/devices/system/cpu/cpufreq/boost
+> > echo: write error: invalid argument
+> > power-orion-o6-01# cat /sys/devices/system/cpu/cpufreq/boost
+> > 0
+> > power-orion-o6-01# echo 0 > /sys/devices/system/cpu/cpufreq/boost
+> > echo: write error: invalid argument
+> > power-orion-o6-01# cat /sys/devices/system/cpu/cpufreq/boost
+> > 1
+> >
+> > I'll go and fix that...
+> >
+> >> Also, since ospm_nominal_perf has a valid range of [lowest_perf,
+> >> nominal_perf], it actually pairs quite well with the boost knob: on
+> >> platforms with highest_perf > nominal_perf, ospm_nominal_perf will
+> >> always stay below highest_perf, and even on platforms with
+> >> nominal_perf =3D=3D highest_perf, lowering ospm_nominal_perf could
+> >> dynamically define a nominal ceiling for when boost is disabled.
+> > I don't think I agree with the latter. OSPM nominal has its own (platfo=
+rm)
+> > semantics, but making boost=3D0 impose that value as a frequency ceilin=
+g
+> > is just another way of setting scaling_max_freq.
+> > I don't see why these two need to be coupled?
+> >
+> > Also I think the fact that caps.highest_perf =3D=3D caps.nominal_perf
+> > but ospm_nominal_perf can change boost supported later is a reason
+> > against the boot-time scan? (which would need to exclude
+> > ospm_nominal_perf platforms?)
+>
+> Fair enough, ospm_nominal_perf doesn't need to be coupled with boost.
+>
+> Viresh, Rafael, any preference here? Should we keep the boot-time check
+> in v2 (so global boost stays 0 on platforms without boost support), or
+> drop the scan and just set .boost_enabled =3D true statically in
+> cppc_cpufreq_driver?
 
-Looks good. Feel free to add:
-
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
-
-> ---
->  fs/proc/proc_sysctl.c | 50 ++++++++++++++++++++++++++++----------------------
->  1 file changed, 28 insertions(+), 22 deletions(-)
-> 
-> diff --git a/fs/proc/proc_sysctl.c b/fs/proc/proc_sysctl.c
-> index 38b61887b59c..2150cf842919 100644
-> --- a/fs/proc/proc_sysctl.c
-> +++ b/fs/proc/proc_sysctl.c
-> @@ -602,14 +602,36 @@ static ssize_t proc_sys_call_handler(struct kiocb *iocb, struct iov_iter *iter,
->  		int write)
->  {
->  	struct inode *inode = file_inode(iocb->ki_filp);
-> -	struct ctl_table_header *head = grab_header(inode);
->  	const struct ctl_table *table = PROC_I(inode)->sysctl_entry;
-> +	struct ctl_table_header *head;
->  	size_t count = iov_iter_count(iter);
->  	char *kbuf;
->  	ssize_t error;
->  
-> -	if (IS_ERR(head))
-> -		return PTR_ERR(head);
-> +	/* don't even try if the size is too large */
-> +	if (count >= KMALLOC_MAX_SIZE)
-> +		return -ENOMEM;
-> +	kbuf = kvzalloc(count + 1, GFP_KERNEL);
-> +	if (!kbuf)
-> +		return -ENOMEM;
-> +
-> +	/*
-> +	 * Copy in before grabbing the table and copy out after letting go of
-> +	 * it. Unregistering the table waits for us and a copy that faults can
-> +	 * take as long as userspace wants.
-> +	 */
-> +	if (write) {
-> +		error = -EFAULT;
-> +		if (!copy_from_iter_full(kbuf, count, iter))
-> +			goto out_free_buf;
-> +		kbuf[count] = '\0';
-> +	}
-> +
-> +	head = grab_header(inode);
-> +	if (IS_ERR(head)) {
-> +		error = PTR_ERR(head);
-> +		goto out_free_buf;
-> +	}
->  
->  	/*
->  	 * At this point we know that the sysctl was not unregistered
-> @@ -624,28 +646,15 @@ static ssize_t proc_sys_call_handler(struct kiocb *iocb, struct iov_iter *iter,
->  	if (!table->proc_handler)
->  		goto out;
->  
-> -	/* don't even try if the size is too large */
-> -	error = -ENOMEM;
-> -	if (count >= KMALLOC_MAX_SIZE)
-> -		goto out;
-> -	kbuf = kvzalloc(count + 1, GFP_KERNEL);
-> -	if (!kbuf)
-> -		goto out;
-> -
-> -	if (write) {
-> -		error = -EFAULT;
-> -		if (!copy_from_iter_full(kbuf, count, iter))
-> -			goto out_free_buf;
-> -		kbuf[count] = '\0';
-> -	}
-> -
->  	error = BPF_CGROUP_RUN_PROG_SYSCTL(head, table, write, &kbuf, &count,
->  					   &iocb->ki_pos);
->  	if (error)
-> -		goto out_free_buf;
-> +		goto out;
->  
->  	/* careful: calling conventions are nasty here */
->  	error = table->proc_handler(table, write, kbuf, &count, &iocb->ki_pos);
-> +out:
-> +	sysctl_head_finish(head);
->  	if (error)
->  		goto out_free_buf;
->  
-> @@ -658,9 +667,6 @@ static ssize_t proc_sys_call_handler(struct kiocb *iocb, struct iov_iter *iter,
->  	error = count;
->  out_free_buf:
->  	kvfree(kbuf);
-> -out:
-> -	sysctl_head_finish(head);
-> -
->  	return error;
->  }
->  
-> 
-> -- 
-> 2.53.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+I have no specific opinions regarding boost support other than it's
+better be made consistent across all drivers and the core.
