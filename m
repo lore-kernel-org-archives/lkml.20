@@ -1,92 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793876297;
-	b=rhzq/gfd+wZXaEPman+BDgWYEJ/132Bf3LaCE5FGHuJYL/cUh/9Bl2Dxrti8LyHK3bjL
-	 koqRnKbfa6S/AbXl1Hz2O5yZzUjgrgifGppBb71cGVW6jZgS7Yz7/ddfXtB90x8t5fOAC
-	 qGqDqTwQLi6JceKpAzi+GEE6ggcHxOk0fo7yXsfUHvMYYmMiYaEvGzOQYD6s19JaG0OJe
-	 42wMv9G52OEFsFiAuLbMJWdw5gII4uKM7+qEXs+WqMLYSyY06KNnWcgIx08tiIfeHE8Hz
-	 Cqr2YjwSylICTGFIQ2xbXt8wPT7OHtB2EbYub5Q0zVaMn8pfaOdTX7FUkETllEil0wA==
+	t=1793876351;
+	b=UXBjdOA19EhI235z9SYp1l4EKW7uO9cwYxGWMQYnireKVZoF5dPjHIZhRLVvONLf8GiX
+	 BE+9Bitqkti5j6BJIOVGjMqWXY48RArfGAQR+W2lt4f2KXNRhvwt+wKtCeNstYmKBenQi
+	 ERnRhOO6glxcU1Y4zP3OvY/qXrs2c5qLUou65rgidlZKJDVWn4Ugk3N+cu8LdaCKnIXF5
+	 CMAtBmZkN011Xcli7/3wu3l9aXuV3e2MjS+V/oUZ2V2rgjFbxEOwU1Zz8tC20Q9xOzEEb
+	 qyvq8TyfXCqfvjt2qNbGGS7zCufYsxm223B1P/9DNslAPXQN8F2y75cYS/7Rfa0Dt/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793876297;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=lNM3+b6l7cj+vrA9YlqTwqxAWDbif1TufQothTfjcdI=;
-	b=XYq+MWhNpAD/Qhwa6BovT6ereqItN59WNdGj6uO585Ykz0AdFn3mvjjvLUyeyfX0iVUe
-	 YT7aKGsA6ZZpeGrDjgnAYlFNSvHMfY5jaxFB3wekX8SHp+9MzDD/HlfsqlsdMS3RHiSF+
-	 AXbrZCHEfLtnZI3E1YxeJzOFxXLO2WJlz619HYDKTia4ptmyIcajbSpjPQ7RWQc3L5kUI
-	 4hfNynAwDIINbLaJnHcUer0/3OJRti2Qk7bh76MI6bwucyZa5aS9m0dNbC1rynFOS61o7
-	 0B+7hwa6TPd+A8bzJ6O/aY2WEqBrCyMpjTMI23qo6Awf2x4VBZ0iJtMIeh93TCTmQbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793876351;
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
+	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=k3Yuvf9z7zZ5Cr9KTGLsQRZgSogo1eRFiTuXrCHvMe0=;
+	b=5RXKml8iTWrBbrMlOE/1AmI41t6XoHl3Yp140BY64cb79JDsHMtIu2yXn/S9OQrgq5L2
+	 nL/2kQZQA8zzW0CggN9ujhj0eqSJ5TvtHgbbWiao09v7Q452x+oQKlVFx34kcHFn2yEv6
+	 JrllFUBhTbDt7cNBailz8JwKJ9IzWmCaYQ9wCHBXE/6HBEsMwKxz36PDBPKkqt8SyqcuB
+	 ELmi6mUCGvGhYTXXRhDUtldAWqJCShm0b7A0eCsCStoMGSut0h8JkAqJ7qb5Sflcy1p7x
+	 9J20wKJhDG7LjExkvuSAjvjvu3GeeGb3MisFNJQ4wjS/IY2SJLIVZYgRRCUDzWJt8YA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="K71ocXZ/";
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=yv+m2WQL;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=y3dfJnvE;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDBFA606A333
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:58:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDBFA606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FE79606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:59:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FE79606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=K71ocXZ/
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ad787e0593so892843a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 02:58:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793876296; x=1794481096; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lNM3+b6l7cj+vrA9YlqTwqxAWDbif1TufQothTfjcdI=;
-        b=K71ocXZ/HS49uXPUvftmHhF6iKBXr20U2JrbygokCE2ws0bmPHGf31dFDsS4e7vYBc
-         kSuozUaxk9asDfi4t2/Ux/IkhEG8uqRsxrbJly3oQTEWxu3Nsq1+tKv2FJO2Wk0lURai
-         bFuhYa4q7U1qi+zB3Oj+st3oMFSydBcfOv1QFkO/wb6Fx0IyndGwbtQNTlQYqhILV/qh
-         EqjP6HeieKytlaUU2OmmHKBfeuKEFg3LjpvkGiXYTaFdrgdao9hygCU9DVztjYRvk2LP
-         rFbb7HrHCcnOUFlZC53KkxG6+2jt2tGFAkzvXdABUjmdvkPgsnnvf9/lrvsW2F79q+Pi
-         vsAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793876296; x=1794481096;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lNM3+b6l7cj+vrA9YlqTwqxAWDbif1TufQothTfjcdI=;
-        b=Uc0uRSKC/6ITY5YjiXq2tEMkfM1nb91yacqFlrW+07QABnNQFXzrRtesr1tZqoIKhp
-         4ixrgzCCg50EP+6g6mieraj+NpHVqqp4MFlKH9yBzQHj7bwyQ/qkXjWDS/uiBAQ2rDnA
-         RfKdrK74eOrgQUPjKegBiaeI131wqt7vCoNfyh0I0apb+IJFPz+7ZlFXfaSgr36vGFZ/
-         B4cYLMK2OuelPoBCWjeHAFSSBD653oWnXcB+ZTNS4G9lruyTECUmf+2eBka3Y9bpFx0c
-         /8OFYang99JDdUaPMfCJQooACH6QZbivuGlXN4tzJBb8PWG0gq7F0ZOT1wIgUdjECwAB
-         KSUw==
-X-Forwarded-Encrypted: i=1; AKwUvBywyDnLxtRzZqxWt9ChVD8dyagvdpApbKNsQds/2z9Ck8xq2hTihNKGAado9L42bEksIpEbOJeajMzRPfs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z95I5wt3CWu/33l3pJUccIHJbmV74rnF4iIlOg16ppowVRiEpv6
-	YcIh2A9kQmuymPdera73PlJOHLnXazMwytchIIq07IgRPON/Mo+/jg+s
-X-Gm-Gg: AYBFou0kG6irmnIafn/0ERGEGr2QR13jxoTOnLWNBfkW0rCeO17XePA1Iwj9uorxTJL
-	tqClzaUnANm6CSu1ep64YPcM87oncQ/jUSoqUMmZ1YrqhFF5IFoqlbIsFnRrbYAtdUGBld0mvEq
-	8rW3d4xnkHdSpFP3O8U5VZLq9eU8uLx4w8wpUecNQYx80UFn0aMmL8pqR8nqHJH4C3WZO06en4X
-	JXzTPln4vrvuVLzzCov/Z9hXvl/QD1UUtBtkxHoF3unwnq+4aN0lryikKj7Wu40SyjL5otv26RF
-	q9HXjYkgTG3DTHpI8Q+IgBgM89B/yYmNzVFmhF1pBon9J95WSsPcSWzxyH9iHaAX6lrBe7nEv2z
-	dAf+fg09pc4coHWWRpB0xoBnFMIE6q68Ej2ed+YQG0tn0WGk06GDQ31UfhH2n7NIV18Icmwi/4b
-	97UGUGP5zO2TzR5Lr6ofYKI5wWNApgLLBTl/6Y//0c5dTnSqzM/t7xAQ7voI4haaaFcQ1YMPmEP
-	BJ5NBAOjjusIQpPz0wJJYBNzDyf0XTcbPaYB2ukpwItXngG481OG4EDh5j4mt8YlqdJ8SoT7+mM
-	MUl8Qxe6QC/Rw4too0X60atypB7UzNLLwDUT8SIh+9ZJFpza
-X-Received: by 2002:a17:90b:518b:b0:3ac:ea3b:f28b with SMTP id 98e67ed59e1d1-3ae897b6653mr14961496a91.24.1793876296249;
-        Thu, 05 Nov 2026 02:58:16 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b32b6507sm3777513a91.16.2026.11.05.02.58.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 02:58:15 -0800 (PST)
-From: hyunjungg <hj351016@gmail.com>
-To: David Heidelberg <david@ixit.cz>
-Cc: oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH] nfc: pn533: validate response length before parsing DEP ATR_RES
-Date: Thu,  5 Nov 2026 19:58:05 +0900
-Message-ID: <20261105105805.1450120-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=yv+m2WQL;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=y3dfJnvE
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793876347;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=k3Yuvf9z7zZ5Cr9KTGLsQRZgSogo1eRFiTuXrCHvMe0=;
+	b=yv+m2WQLxpYouD9UhlYPRxIyg1TZffMfj+4mcsY7r/iAdykOqbdjEl3C8V9JaGmvv97HKz
+	yaXaeF7qfAdhZINBtLyVPQFxSmWEN5VwdqCpe4skSv1eNglR/dV6TaNGdQc9XGco/pLRE+
+	qbm7Jt1IaxOsvl1/JctOBaN5FPUwPHKrRyV4kDtOTeDIBTLAtdNCSUDSO6ZaYtvwhZk5O6
+	ZLWTT/kTZUPi5rakZufhxVZmh7hDJlgTDFW0Nx3vfxq5PFCen3wqSfiI0xnRFWijyqqc3b
+	xldneswIULdOlIMIs5OyT18tiAPhdj/Lb++WPoXCwj6rrgxTAozI/grwX9YB+w==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793876347;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=k3Yuvf9z7zZ5Cr9KTGLsQRZgSogo1eRFiTuXrCHvMe0=;
+	b=y3dfJnvEr/EYagb8S2CqkrVZEmGHX7sRl2H+Z4gmHkchPZn3BqheTh8zMHGPmZBl9uXj81
+	czp1FvojVCfWKwAg==
+To: Petr Mladek <pmladek@suse.com>
+Cc: Breno Leitao <leitao@debian.org>, Marco Elver <elver@google.com>, Peter
+ Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Will
+ Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>, Waiman Long
+ <longman@redhat.com>, Dmitry Vyukov <dvyukov@google.com>,
+ linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
+ kernel-team@meta.com
+Subject: Re: [PATCH v2] kcsan: Don't enter an nbcon emergency section for
+ verbose reports
+In-Reply-To: <auxTn4YuYHUOt4ml@pathway.suse.cz>
+References: <20261104-kcsan-irqtrace-emergency-v2-1-ceafc0098a25@debian.org>
+ <87v76cahn2.fsf@jogness.linutronix.de> <autB8IxyWgtaH_oE@gmail.com>
+ <871p90psjl.fsf@jogness.linutronix.de> <auxTn4YuYHUOt4ml@pathway.suse.cz>
+Date: Thu, 05 Nov 2026 12:05:06 +0106
+Message-ID: <878q371r45.fsf@jogness.linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,71 +78,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-From: Hyunjung Ko <hj351016@gmail.com>
+On 2026-11-05, Petr Mladek <pmladek@suse.com> wrote:
+> On Wed 2026-11-04 15:48:06, John Ogness wrote:
+>> On 2026-11-04, Breno Leitao <leitao@debian.org> wrote:
+>> >> Wouldn't the below diff be the proper fix?
+>> >> 
+>> >> John
+>> >> 
+>> >> diff --git a/kernel/locking/lockdep.c b/kernel/locking/lockdep.c
+>> >> index c3dc84a7cef26..71f1b4b8f06d5 100644
+>> >> --- a/kernel/locking/lockdep.c
+>> >> +++ b/kernel/locking/lockdep.c
+>> >> @@ -4245,8 +4245,6 @@ void print_irqtrace_events(struct task_struct *curr)
+>> >>  {
+>> >>  	const struct irqtrace_events *trace = &curr->irqtrace;
+>> >>  
+>> >> -	nbcon_cpu_emergency_enter();
+>> >> -
+>> >>  	printk("irq event stamp: %u\n", trace->irq_events);
+>> >>  	printk("hardirqs last  enabled at (%u): [<%px>] %pS\n",
+>> >>  		trace->hardirq_enable_event, (void *)trace->hardirq_enable_ip,
+>> >> @@ -4260,8 +4258,6 @@ void print_irqtrace_events(struct task_struct *curr)
+>> >>  	printk("softirqs last disabled at (%u): [<%px>] %pS\n",
+>> >>  		trace->softirq_disable_event, (void *)trace->softirq_disable_ip,
+>> >>  		(void *)trace->softirq_disable_ip);
+>> >> -
+>> >> -	nbcon_cpu_emergency_exit();
+>> >>  }
+>> >>  
+>> >>  static int HARDIRQ_verbose(struct lock_class *class)
+>> >> @@ -5797,8 +5793,11 @@ static noinstr void check_flags(unsigned long flags)
+>> >>  	}
+>> >>  #endif
+>> >>  
+>> >> -	if (!debug_locks)
+>> >> +	if (!debug_locks) {
+>> >> +		nbcon_cpu_emergency_enter();
+>> >>  		print_irqtrace_events(current);
+>> >> +		nbcon_cpu_emergency_exit();
+>> >> +	}
+>> >>  
+>> >>  	instrumentation_end();
+>> >>  #endif
+>> >
+>> > Yes, but it was unclear to me what were the invocations of
+>> > print_irqtrace_events() that needed the emergency turned on.
+>> >
+>> > how did you decided that only check_flags() needed it?
+>> 
+>> The emergency enter/exit's are intended for lockdep splats. AFAICT
+>> check_flags() was the only call to print_irqtrace_events() that was not
+>> already in emergency state for lockdep splats.
+>>
+>> KCSAN is not the only non-lockdep caller of print_irqtrace_events(). So
+>> my suggested fix applies to the other non-lockdep users as well. Commit
+>> 59cd94ef8009 ("lockdep: Mark emergency sections in lockdep splats") was
+>> only intended for lockdep splats.
+>
+> I agree with this reasoning. Well, more messages might be printed
+> in check_flags(). IMHO, we should print them all inside
+> nbcon_cpu_emergency_enter()/exit(). I mean:
+>
+> --- a/kernel/locking/lockdep.c
+> +++ b/kernel/locking/lockdep.c
+> @@ -5769,6 +5769,7 @@ static noinstr void check_flags(unsigned long flags)
+>  
+>  	/* Get the warning out..  */
+>  	instrumentation_begin();
+> +	nbcon_cpu_emergency_enter();
+>  
+>  	if (irqs_disabled_flags(flags)) {
+>  		if (DEBUG_LOCKS_WARN_ON(lockdep_hardirqs_enabled())) {
+> @@ -5800,6 +5801,7 @@ static noinstr void check_flags(unsigned long flags)
+>  	if (!debug_locks)
+>  		print_irqtrace_events(current);
+>  
+> +	nbcon_cpu_emergency_exit();
+>  	instrumentation_end();
+>  #endif
+>  }
 
-pn533_poll_dep_complete() and pn533_in_dep_link_up_complete() cast
-resp->data to a struct pn533_cmd_jump_dep_response and read its fixed
-17-byte header (status, tg, nfcid3t[10], didt, bst, brt, to, ppt)
-without first checking that resp->len covers that header.
+I had thought about this. But there really is no need for this because
+DEBUG_LOCKS_WARN_ON() performs a WARN(). Also, I was concerned about
+nbcon_cpu_emergency_enter() causing some side-effects to the
+flag-checking.
 
-On a short or truncated response the handlers read bytes beyond the
-received frame:
+> And there seems to be one more lockdep-caller of
+> print_irqtrace_events():
+>
+> --- a/kernel/locking/lockdep.c
+> +++ b/kernel/locking/lockdep.c
+> @@ -4649,6 +4649,8 @@ void lockdep_cleanup_dead_cpu(unsigned int cpu, struct task_struct *idle)
+>  	if (unlikely(!debug_locks))
+>  		return;
+>  
+> +	nbcon_cpu_emergency_enter();
+> +
+>  	if (unlikely(per_cpu(hardirqs_enabled, cpu))) {
+>  		pr_warn("CPU %u left hardirqs enabled!", cpu);
+>  		if (idle)
+> @@ -4656,6 +4658,8 @@ void lockdep_cleanup_dead_cpu(unsigned int cpu, struct task_struct *idle)
+>  		/* Clean it up for when the CPU comes online again. */
+>  		per_cpu(hardirqs_enabled, cpu) = 0;
+>  	}
+> +
+> +	nbcon_cpu_emergency_enter();
+>  }
+>  
+>  static int
 
-  - rsp->status is dereferenced with no minimum-length check;
-  - for a success status, memcpy(nfc_target.nfcid1, rsp->nfcid3t, 10)
-    copies 10 bytes from offset 2, so for resp->len < 12 it reads past
-    the valid response data. Those bytes are then handed to userspace
-    via nfc_targets_found() (netlink), which can disclose stale buffer
-    contents.
+I also had evaluated this. It is not a lockdep splat, but rather a
+warning (not WARN) about inproper cleanup.
 
-target_gt_len = resp->len - 17 additionally underflows (it is u8) when
-resp->len < 17. That path is mitigated downstream --
-nfc_set_remote_general_bytes() -> nfc_llcp_set_remote_gb() rejects the
-resulting out-of-range length -- so the subtraction does not by itself
-over-read rsp->gt[]; the fixed-field reads above are unguarded
-regardless.
-
-A valid ATR_RES always carries the full 17-byte fixed header (the
-general bytes, if present, start at offset 17), so reject any response
-shorter than sizeof(*rsp) before parsing it. pn533_rf_complete()-style
-handlers in this file already length-check resp->len before use (e.g.
-the ATR_REQ_GB_OFFSET check in pn533_init_target_complete()).
-
-Found by code review; not reproduced.
-
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
----
- drivers/nfc/pn533/pn533.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/drivers/nfc/pn533/pn533.c b/drivers/nfc/pn533/pn533.c
---- a/drivers/nfc/pn533/pn533.c
-+++ b/drivers/nfc/pn533/pn533.c
-@@ -1309,7 +1309,12 @@ static int pn533_poll_dep_complete(struct pn533 *dev, void *arg,
- 	memset(&nfc_target, 0, sizeof(struct nfc_target));
-
- 	rsp = (struct pn533_cmd_jump_dep_response *)resp->data;
-
-+	if (resp->len < sizeof(*rsp)) {
-+		rc = -EINVAL;
-+		goto error;
-+	}
-+
- 	rc = rsp->status & PN533_CMD_RET_MASK;
- 	if (rc != PN533_CMD_RET_SUCCESS) {
- 		/* Not target found, turn radio off */
-@@ -1929,7 +1929,12 @@ static int pn533_in_dep_link_up_complete(struct pn533 *dev, void *arg,
- 	}
-
- 	rsp = (struct pn533_cmd_jump_dep_response *)resp->data;
-
-+	if (resp->len < sizeof(*rsp)) {
-+		rc = -EINVAL;
-+		goto error;
-+	}
-+
- 	rc = rsp->status & PN533_CMD_RET_MASK;
- 	if (rc != PN533_CMD_RET_SUCCESS) {
- 		nfc_err(dev->dev,
+John
