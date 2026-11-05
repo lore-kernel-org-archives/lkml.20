@@ -1,55 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793869763;
-	b=YWTLf8IF/wtybDpN7BiENl8InrqlbX11Y2E+BZR9PPtyw2JKGSSuxuMjpXace0CCPbjH
-	 Me11M40RL1+joWPlkcQfe50dr0v8bEyrRsvu9w/7n/zYtO7Zk8FMOc2jRKHtxCNzysDB2
-	 ihJgj/5m5eBZn7dqbi3s0w1yFq/QaE1eEZ1whJI4IWbKs3sUG+2I+2E65NgWgGS7nAraS
-	 FF3ytBrEDtObWS4IZfobTjho37x7OCLUjYoKmLpxqWkB9LAtQM/FwCNaY4y0SDsso6wMI
-	 JeXkfmAJRvzCXV3hgm/ekNVTZPaDlpCCgL5l1NtLUXGnXhLm+IvbzkIr1wYz9aXSIYw==
+	t=1793869829;
+	b=1tLf+x7f0D5Bog1lHQnmdP9OubxPK9p607zhb4uoet0GY+hM3vRj12ic8f8pMpVIJbi1
+	 rqKSfYcsLVL+hDhhzjHOQK0kR4FOzLDEINW8tEg+tCQqzfdGucPTp0rOqmTiI3Pu4lymM
+	 mMgicgoYRWJ6GBi7RGWp+rvPpPoGjXwJkxCI5xvCVEDUARhvIiCbTyvtWVcKbauYejH/W
+	 /+kbuQ3aGWYJlaKLywyTrVNT1iJ+Vzo6O0CRPq8ogsm8G7S2XDtCOG0a6lt92VAnpPMQw
+	 ZwSUdu+lMMLM1PXm0njuBqmXKS7AHhSSAB+lHAp3NHEeL8g2kPZa6YEj05ERjxQHrLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793869763;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=XPRzF8D20vLGlolnD97rznjy/PyLkjp3WUP5Ugc731I=;
-	b=vednklmpNMarEgIxzeQ2M+RJQ67fulxtAAHGNv8oXtQ3IpcfJD2Xsca+tlMBHtdQMzzq
-	 BcuvsiXzdIOyAoFcDcp+2YLdVaoxgToWSl3wxlXkyS2IxWnJQBHEQ0cH1YlIJ/LATEF4N
-	 mJbfXkY2AGfsuoWaG03r41C2NLSebPqUeWinVGwes6vGoLMGl/eO+4iaNWXsrDRW7rI8i
-	 KJxum74g8bkcrVTg0AqlMscFlKrhJ5t90XuaFlKMjcsxkwmhyH++zk1Wf7ODziAErEqjd
-	 dVYJ7QaCtw2b1V7mSPL354IY+zS1j2M59vRsA3xIo/PtPTkLy3WEUlutwVIU2K4nM7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793869829;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=lN4ECpQjtPYk5YCpT9PbCQCY0iBuhzgsWSuOM5NawH4=;
+	b=BMdKGdrlhAEen9OC7yrKLeBWt0PiOKWckpWZzDSoVPIYPTpRV/mACzYse3foO/+Kk8Eb
+	 wPTNSaHmfBcNrheXHx2FrigmuspGpAvF7ajjmHbke90f8HMXYgTdsA3o/sdIdER8XSqC/
+	 h82DToZ9T+pxNxqrmwprngEJpAtgp85GBBgSkrkeWOH116CRuRvwWuLfn39dtPDQqIPZf
+	 Q8oN4nGB853u7vWH5L3fGJknxmXZ2UO/1DtxM9C/oAdDTCX/gmdUYQhYk7mZ2Q0RPWijG
+	 I5lWL78naJppTcTdG2E6LK040DFbjZwq15QMg/uVUVpNLMU2xF/u9IAQGGAAKFtQCrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j0YBO9Tg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=khLIHCgL;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F3D8606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:09:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0BE5606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:10:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0BE5606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j0YBO9Tg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C80B61F00A15
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:09:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793869762;
-	bh=XPRzF8D20vLGlolnD97rznjy/PyLkjp3WUP5Ugc731I=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=j0YBO9TgqzMAtvAuSX2lrPFPyFd3f4S5azEeXlG0JX/KfBjdZbp/ITajY4PVdkKaQ
-	 bDXhtthgDlDLbQpxRUazncbOeJnay3/hs4HDv8HsEj0VpKSfGKd2uf3LkVxiyI7vN+
-	 +hyI4ZLXG6a88naS6Wc7g2EPDDoSGU+Yy/bYpPYU3ILhrXiDmPNLf13spSi2BhQcCo
-	 sUNw25Vsci/ODn8tA3mgkTanWMSmEfEwWjIHjNK5Gjt4PwKVU7TDXC4xWJ0Y2slK+W
-	 vk2m202zueGQiShMxhHYerAVjgTIFXvrfilAugoxVofi3gmnqtFfXO5m4O9p1Kdadm
-	 ANysnK53Iky8A==
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5bfa65c8617so939266e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:09:22 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBw+jiD1oJ5VZ4fKGelMopV1PVTpPnkHzTIbBRLEgDbxpjgye4lC1jlrVoxyJh8CHfd7U0hqZWAj5Lo3/+k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z90CuJesgki68RahlHwKV/14F1MVbr4HUybH+/o0m/iDkbDJWD8
-	I8ZW/J44KQ4P6ztOlw8ICkOZEgh9u0IzYxPbk3UTfIRezFl+qSpxFrFuQmadTk8pxbrQRWRYTW3
-	SwmrZd0XPgHPOFPem+k0Zl3OyNM87Nqk=
-X-Received: by 2002:a05:6512:1188:b0:5bf:d238:6af6 with SMTP id
- 2adb3069b0e04-5bfd95803fbmr6074827e87.45.1793869761546; Thu, 05 Nov 2026
- 01:09:21 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=khLIHCgL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=lN4E
+	CpQjtPYk5YCpT9PbCQCY0iBuhzgsWSuOM5NawH4=; b=khLIHCgLpAYKXVm9ar3s
+	6uDsYa3Ux3tUADZPDcce06qJMtyAq9c6T3nRwNLf+Ndj1q5p87zncCKSzj+OCOKe
+	qlnEq6mSQiKWjZPASXat4Oi/E0zQluTPcIIXHm54nrkXeK28VwoPuG8O3jSqaJ61
+	IMAxyp6SSb1+ug/tx4/SkKOqMDtgEAodthumCXAAluUdS7LtpAg3CaJHYGNoagnT
+	72bfkmIGXx5U2e1+LTQmY62aXGl7IGN84U18r5EkrGk8MNsV2+qric3xGF+zJ2le
+	3IMJT253Iu6LQyLXpatQAYJEoT64yszIgDQJzYWzbASNqjMo8WTk1XTwRKMZ4R78
+	KQ==
+Received: (qmail 1082151 invoked from network); 5 Nov 2026 10:10:21 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 5 Nov 2026 10:10:21 +0100
+X-UD-Smtp-Session: l3s3148p1@7tJ13YNf9JjAwtcC
+Date: Thu, 5 Nov 2026 11:10:21 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Frank.Li@oss.nxp.com, Mark Brown <broonie@kernel.org>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Radu Pirea <radu_nicolae.pirea@upb.ro>,
+	CL Wang <cl634@andestech.com>,
+	Ryan Wanner <ryan.wanner@microchip.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Vladimir Oltean <olteanv@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>,
+	Haibo Chen <haibo.chen@nxp.com>, Linus Walleij <linusw@kernel.org>,
+	Daniel Mack <daniel@zonque.org>,
+	Haojian Zhuang <haojian.zhuang@gmail.com>,
+	Robert Jarzmik <robert.jarzmik@free.fr>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>, Yixun Lan <dlan@kernel.org>,
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Alain Volmat <alain.volmat@foss.st.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Sowjanya Komatineni <skomatineni@nvidia.com>,
+	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	"open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
+	"moderated list:ARM/Microchip (AT91) SoC support" <linux-arm-kernel@lists.infradead.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE" <linux-rpi-kernel@lists.infradead.org>,
+	"open list:FREESCALE DSPI DRIVER" <imx@lists.linux.dev>,
+	"open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
+	"open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
+	"open list:RENESAS RZ/V2H(P) RSPI DRIVER" <linux-renesas-soc@vger.kernel.org>,
+	"open list:SAMSUNG SPI DRIVERS" <linux-samsung-soc@vger.kernel.org>,
+	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
+	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>,
+	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>,
+	"open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
+	"open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
+	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+	Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH v2 1/1] spi: use dmaengine_desc_set_callback()
+Message-ID: <auxH_WzaOLsQ4-go@shikoro>
+References: <20261104152253.3279052-1-Frank.Li@oss.nxp.com>
+ <autj6pr_bPaul3w0@ashevche-desk.local>
+ <7f96599b-681d-4963-bdda-1274371ac84f@kernel.org>
+ <f1fa853d-1703-411d-b2d2-0fb0b176c2fa@kernel.org>
+ <autqC143h7Qf1R9H@ashevche-desk.local>
+ <9e39502a-dd17-4fa2-98a3-9019523cb5e8@kernel.org>
+ <auuYcS7-YqJKcUbE@ashevche-desk.local>
+ <63c24437-4261-4a51-be7e-31ac0759a095@kernel.org>
+ <auxGom0XR-Hax9b3@ashevche-desk.local>
+ <00390a20-7630-4066-9779-06c8f915a176@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,108 +124,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028084531.6237-1-Chloe_Chen@asmedia.com.tw>
-In-Reply-To: <20261028084531.6237-1-Chloe_Chen@asmedia.com.tw>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 5 Nov 2026 10:09:08 +0100
-X-Gmail-Original-Message-ID: <CAD++jL=AX542N3nvuGO2g-_935i21oLKn5zgWPicZHONAQojbg@mail.gmail.com>
-X-Gm-Features: AclHuK8WT5jEsKVLzn0_U4Qj8gkHXwp5ZvLQA1T9S3Oj-ES5esPBMeo2lsB5KPY
-Message-ID: <CAD++jL=AX542N3nvuGO2g-_935i21oLKn5zgWPicZHONAQojbg@mail.gmail.com>
-Subject: Re: [PATCH v3] gpio: amdptpci: add support for AMD PT PCI controller
-To: Szuying Chen <Chloe_Chen@asmedia.com.tw>
-Cc: Markus.Elfring@web.de, brgl@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, Yd_Tseng@asmedia.com.tw, 
-	Jesse1_Chang@asmedia.com.tw, Richard_Hsu@asmedia.com.tw
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <00390a20-7630-4066-9779-06c8f915a176@kernel.org>
 
-Hi Szuying,
 
-thanks for your patch!
+> > No, (partial) Rb != Ack.
+> 
+> It is, because there is no partial Rb tag.
 
-On Wed, Oct 28, 2026 at 9:46=E2=80=AFAM Szuying Chen <Chloe_Chen@asmedia.co=
-m.tw> wrote:
+Heh, just what I wrote a minute ago in the workflows-thread. The clean
+solution is to introduce one. I'd vote for it.
 
-> The GPIO controller on AMD PT PCI platforms currently has no in-tree
-> driver, so its pins cannot be used from Linux.
->
-> The existing gpio-amdpt driver cannot be reused. Setting aside ACPI
-> vs. PCI probing, the hardware differs significantly:
->
->  - Register semantics conflict: offset 0x0C controls the clock rate
->    in gpio-amdpt but enables interrupts in this controller.
->  - Interrupt controller: gpio-amdpt has no interrupt support, while
->    this controller has its own INT_LVL, INT_STAT and INT_MASK
->    registers that require a full irq_chip implementation.
->  - Wakeup: this controller can wake the system from GPIO interrupts,
->    which gpio-amdpt does not support.
->
-> Only the basic data registers are common, and they are handled
-> through gpio-generic, so little code is left to share.
->
-> Add the gpio-amdptpci driver to support the GPIO functionality on
-> AMD PT PCI platforms.
->
-> Co-developed-by: YD Tseng <Yd_Tseng@asmedia.com.tw>
-> Signed-off-by: YD Tseng <Yd_Tseng@asmedia.com.tw>
-> Signed-off-by: Szuying Chen <Chloe_Chen@asmedia.com.tw>
-
-(...)
-
-> +#include <linux/bits.h>
-> +#include <linux/compiler.h>
-
-Why this include?? Add a comment next to it why it is included
-if this is really necessary.
-
-> +#include <linux/kernel.h>
-
-I think this generic include should not be used in new code, use
-specific includes.
-
-> +static int pt27_irq_reqres(struct irq_data *d)
-> +{
-> +       struct gpio_chip *gc   =3D irq_data_get_irq_chip_data(d);
-> +       irq_hw_number_t   hwirq =3D irqd_to_hwirq(d);
-> +       int ret;
-> +
-> +       ret =3D gpiochip_reqres_irq(gc, hwirq);
-> +       return ret;
-> +}
-> +
-> +static void pt27_irq_relres(struct irq_data *d)
-> +{
-> +       struct gpio_chip *gc   =3D irq_data_get_irq_chip_data(d);
-> +       irq_hw_number_t   hwirq =3D irqd_to_hwirq(d);
-> +
-> +       gpiochip_relres_irq(gc, hwirq);
-> +}
-
-These are reimplementations of gpiochip_irq_reqres()
-and gpiochip_irq_relres() so use these instead?
-
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> This email and any attachments to it contain confidential information and=
- are intended solely for the use of the individual to whom it
-> is addressed.If you are not the intended recipient or receive it accident=
-ally, please immediately notify the sender by e-mail and delete
-> the message and any attachments from your computer system, and destroy al=
-l hard copies. If any, please be advised that any unauthorized
-> disclosure, copying, distribution or any action taken or omitted in relia=
-nce on this, is illegal and prohibited. Furthermore, any views
-> or opinions expressed are solely those of the author and do not represent=
- those of ASMedia Technology Inc. Thank you for your cooperation.
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-Eh? Get rid of this horrid footer.
-
-Yours,
-Linus Walleij
