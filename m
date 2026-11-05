@@ -1,97 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793876944;
-	b=m5d9JaJoGjLSpZlGpJN5OnUoYrPcV/CFaLJeKupulAgfIzeM1szxDLMEgyRhTffA+Pgg
-	 3bQuxXvsTXa7gOMkyn+OonRJQGDk2/XtW9jiKUCsRuG+6ucKzcUMTce5F2tcO4SoFLh89
-	 HjdOA69Y3tddlCE2lzubGoIRywBFKEWXqjcJc237KR72QvS3q33qXoRETDDwVKTu02gtL
-	 WetCRJTCH9gEqtl+udL3aftyjrxsOgx3SYdLdZhrXyEzdgbUGcRzZVi4RmrTfqJ1LieyJ
-	 0pC/SvMmMsPt0iSbajnIWHGJK/5KzA3aXcy7q/flAC+66vsTrnS5lMoUM3lvYg76VuA==
+	t=1793876980;
+	b=b1HMHyMnTvGeFXE23a5fYLeKCc03+tsx3R/f9tn5Cbk8FXdPntDfRvaF3Qi/utcPCn1Y
+	 gY5EtR/ixJBHoUwMIBxB/33AVZqP5GgrGMnFMhJRo5aGIUe17qFA//1Fn3aROEKwEwvj2
+	 xbEhPerqKrA/z8tRXnWeIf8v8GFGzTuVHWjqNC7HeWua9N6E4v7MESQ51QTgdG/5iKPiO
+	 TbFPgYktl5cU3RzYYLx6Msi+UImmtQOAA25lG4dRP4PcF0ExJTc0dsI00lT9Z3ieHGVGM
+	 NysF5i5KRtpig0QfDLANh0Vp6iMlw3GcVEXMDjBs3KdgYNow8YGmW/yB6Ftm2q2JMnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793876944;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793876980;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=5zh47PhyGNcCuyOqp3+KQ7znXgLobnEyNmBv/7LObTI=;
-	b=2iOPTQbh/RdI5nWVv1y1ZxPnqHiBapwP1mpwiwCeCN6nHz7PkLRecnxYOz4RqfuadhS+
-	 PROlF+XiMJ1sGUEWU8unNdfuiBrgBYZpys88+HLoKqRdS9DOdNRmsZFbxiGGbxbYE3FYv
-	 FKPBs06PbAmJAKn8mZJD5sU8xlNK/i8DGHM5putwIHomggOShd5aM6tJymq8UPjzahvF+
-	 FgZpAXAQNkNoeNPeEysNlRtoWYo1oW/yQbIg95tk9KdUUzni+CBrFJ8W5R1R6s/kDRHjm
-	 B8xMta5mHOe6NF5EmyWkU3xCb9quR/GWbB5dI6W8/2MGrvoKSu1yCpnJv55Al0zTS5w==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=NLxUrhb+i0y7kx7MWfP3g7AgEu7tvuVh8LKyS1nXFQo=;
+	b=qUOAzrfTTY9CNIlp3uUS2ro45OSx7OoGOk3vzBI2GnVyTmqSZ6FkSAidTaXhsxeew44u
+	 mYIeyceBHtGdNwOyezfMyz1+PXzRq9NectHO4x2OPlkUDWpYIQndweJjKEF4DPva/8ul5
+	 G8DLiazJXlKrnAePpgjyVxHVydz7i7Oca8ZUf+Neq2qFotfWXZGASUCGJni+OHirjGuPt
+	 9EDF3moLjUmfykTkexokfS2nN2LxOHooQL4gyTRW2gpbOHsQk+toMqWZq/G8BHEZQehCP
+	 efPLRGo0qCDqyzxMIGoIhOfidwJb96WUPrqdO3DI6QNGvtyX+xaLOj9SFr9kwKB5hZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=anxDHPe4;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=G4U556jF;
+	arc=none smtp.remote-ip=74.125.82.52
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8BC3606A332
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:09:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8BC3606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7FD6606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:09:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7FD6606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=anxDHPe4
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso11562385e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:09:03 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=G4U556jF
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1aefd1bf74aso523289c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:09:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793876942; x=1794481742; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=chromium.org; s=google; t=1793876979; x=1794481779; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=5zh47PhyGNcCuyOqp3+KQ7znXgLobnEyNmBv/7LObTI=;
-        b=anxDHPe4qYMe5qqmqd0MSMf65qP4moQA3GuGNN2kFJ+wr8FIpecXPAEKrLywhHBhE3
-         2ONRWPNI7u8WJN0gJZ/c8AnHRMkPlOVO01cuLkSSFLEcSPryxLODI6bauIVLTlF0TY5F
-         2pDiuFpM6e4TTNg+vPvEsmsCJ5oW3j4HCqBqRQlbW2/D4vQX89c5/XEoZicysquf5IUa
-         WgDJajZBM0cyTAhZhGK3Ww0V0Oi9XuirTLBUYTvsUvxPUrrUkTz421u5eC+XwAjtcvMz
-         WCyHa2EuZa6qtyWvylKJ/cNaLw3CYU+136vYGmfWlVLKwSBFF/eXkbxjG4jhnr3hRnRI
-         faUA==
+        bh=NLxUrhb+i0y7kx7MWfP3g7AgEu7tvuVh8LKyS1nXFQo=;
+        b=G4U556jFlp89CAG0kpO+nXkhzuB5j9uRMx6IDe3U10M9iFXcZUqF8vIwHFIGbwY2XM
+         g9SzdmKawDDbh0U0fwa7oC8r4dvSoD3Eb4ssuoZZYzDacpEMjNK6ni4s5hTKFnD4rwUb
+         fqIyu/yUdylnrnMzn+L0g9pujw/DGE5BmWO/0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793876942; x=1794481742;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793876979; x=1794481779;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5zh47PhyGNcCuyOqp3+KQ7znXgLobnEyNmBv/7LObTI=;
-        b=d7DYrs6Bj5jglSpTEgJktJX0kUTXYro4S2uc/EvYxfap3Y9U2MGQQnQ7Lw6Ug9UGcX
-         fprklWEHIWcmt8ooeKgf10LdHD6BA8JbnRki6q99Loe7PekuPqzHHKuMQ0PbSocLwWyV
-         e9bLH9WMnU4jUq/QWF9pUka5WrkQfrXjlb6K1mM6q6qfXkNDVuNdRUbCaYBm7RcCW/D0
-         52CNNDb28qzZcRCs1+yXWyXTASVgIG04UoGnAByUA81lSYZ1PIJn/musnyGqojvN6OHP
-         OPLgQfg4nuPRvXrNOjkDv7xxeqtiAxnLs2d4gSwyDE4KuvwsLmjFP13APx+rbMi1Sq/4
-         ESaQ==
-X-Forwarded-Encrypted: i=1; AKwUvByPYU2j/Bwk0hd9HR2u9Ed9RerLVdqofgAn9JQwFQN1sQnbxbY+N0K8KgN+AN5d+ufg5RUKH5DH/+R39ZY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9y/0NIJ3sRzCs5xfc6AejIr9XIS1cd4I837lvOk70TL4iAX5Od
-	uQQK77OpzZuymQx69cp5exfkjxvdfBz02BJ113hNWtEGGd302a4hGwBx
-X-Gm-Gg: AYBFou1B0fhKJCHu7WtRMueveDYjq+EN7yCUGOz4rxv6OWTJc2GzUjpAnH2BWwNGILJ
-	zZsQ3qJFIPxUO+CGRltnzZUwx2GkWka21TCcj73K9FnAHOpKixXvGP3c+ZgSTELsfeXUgUDzizl
-	I/04twR9Wn765blEL9rHgF5thHigjB5PYkPdlZREXC1TnqctM9FI1oHvKlcfpAOjV2ZZvo3xEEj
-	pTNQ6qu8/+9SpOn++30XNotbYTrQTbPzWIy/+KaLmCYq7kY5WHaMiC/PkSYJtQmlu7nxFEn7xve
-	ntm1kih8SQXA/JYI5yCM3C/xplU3rk3xllnpgmHenetUeEhAmo0jEFgcm8NNfPw4SsDGN0M/480
-	wasz5z7JvmmKHnkMPvAjdYJGbz5VxuBh2UzuimYiGsklDTRumoqLa1ekuUGpGzBADWRf3eKOAgr
-	p5HE/pGFR97FLY4MqN0fhO7DQAOjuhKOylXgeD+t8IIrPf20CMQWmlz4w2rXoWRs4u1k+zGnxw5
-	KQpdLPqHKSByRz+TU1FOdiNXPDIu9um1tmGgQ0tc742coQrBF/freqIiXDzlMeKl6JK5yj7Qh00
-	c3gD3bAJChyyqcjYbUwEc2psXbk49EGfKZCdLXlBDI+EZzduvk3LiryZUz2LaTKD
-X-Received: by 2002:a05:600c:848c:b0:4a5:dc5d:20f7 with SMTP id 5b1f17b1804b1-4ac175669d8mr457195995e9.14.1793876942030;
-        Thu, 05 Nov 2026 03:09:02 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b433ebd278sm110253935e9.3.2026.11.05.03.09.00
+        bh=NLxUrhb+i0y7kx7MWfP3g7AgEu7tvuVh8LKyS1nXFQo=;
+        b=X9EvHG56XdiNYBsNboQVJUfsj8iaV6UfjfJMJAtgEwCwj/f/N8ttJopm3Egi/Ju7xF
+         OBAIsSPpAw0P75uMPcqkIeI29hNPOJYjh14nWOCko3NynDFUIRyUf04ozlI3LPyptb2g
+         IxTEQB9ZKwmu9+0w82lkncrsqtXQeYjWq8wW5GO9RdjU8I2LG926KBujo831FNxOPz3Y
+         9+8ltpoKT8i0fte8y/IH8N3x5WbTcM48qIiXwX1nXGxjXEaH3tMTTD3I1K1o+B0hAklt
+         U+k5AhpN5AU29PgZ4MyBC6FsPirmuHqTwQKVJJ/+ZrQCIesDr0WdcBqS6vm7b8TZ3r0b
+         zSsA==
+X-Forwarded-Encrypted: i=1; AKwUvBwBGDZ3V3FdZvma2uDTEU9KBRordYGCuNSONBe/MIZfLSawmFMA/wPUM+PWyhx9vPha0r5kpZ0IwRD4EWE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+phvonZ6erMDr88PtBEeL985h4mFHZo/t+XXX+FDOrIE2Adp1R
+	yibO7q3majKgj6F/UfTPN/FPGuJoorIzIAnkDJJRTGlVJnGQ22+vJ5m/EtOdiP/MNA==
+X-Gm-Gg: AYBFou2wZ81zKdAdGbhMzatGgjV6gPyFI70lbvctVSY88rTd8sWRPdQHW6voIglCygp
+	XRiyovGEWDYST+haYQksRCjgNvCx2ytnbWGpNLsxW3W0lf4n5YajqfEK7/7Z7mWTRUh539d6xxa
+	QE7bX8uF+Kdbie4RElKG8vAPYl3bKrKEaLTMGTBput8nPnnv6idgNACtsmvqPX5soNi0+CkSxVQ
+	1je2FspwknRWpF12WpDY4hST+PIlNYdbRbjLG4BVz+aY4qjwryAaaIXTMnq47TWh34+6TC1w3fs
+	0HlDbWDDOuIdD64xcH/PX2EZAmTKSRVY49FF9zT4WccO1wT1glt+sxum/1UAO8gK7f3BUkcox5u
+	c2hcs1Fti0GbJmqB77DP06PHtU0juPBKwbblSEuxTlDatTaRTeS0kI9f/OrSqJbhIdIlOlFF+jW
+	OMa5E4NDcyEved++yom+pPjd1Vpvxh78wPiL4gxVWgaf9byL3RGk6oRyw9stwq0eIOV7IbrlAwn
+	tWljQ14H9TUAb8fyST71cDZbRvOIgOzs4Z19zAkMH+l2ICVGpp+7cBsVixV1e/FpogDlpAnLqZH
+	c6OabYECesLZtxVxmZ3B+pQ/iR/gA/MCq+CXxWGIJm+JFHdb1TI57Ki76Ge/n5eYFgc=
+X-Received: by 2002:a05:7022:5e08:b0:1b2:42db:8a5d with SMTP id a92af1059eb24-1b24f42dcf9mr2938410c88.3.1793876978922;
+        Thu, 05 Nov 2026 03:09:38 -0800 (PST)
+Received: from google.com ([2a00:79e0:2031:6:8bc:6b25:484c:8975])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245b8822fsm18931590c88.2.2026.11.05.03.09.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 03:09:00 -0800 (PST)
-Date: Thu, 5 Nov 2026 11:08:56 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Dmitry Safonov <0x7f454c46@gmail.com>, Simon Horman
- <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selftests: net: tcp_ao: don't shift a size_t by 32
-Message-ID: <20261105110856.2dc9f08c@pumpkin>
-In-Reply-To: <20261103163921.641347-1-sashal@kernel.org>
-References: <20261103163921.641347-1-sashal@kernel.org>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        Thu, 05 Nov 2026 03:09:38 -0800 (PST)
+Date: Thu, 5 Nov 2026 20:09:34 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Jenhao Chen <jenhaochen@google.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	Minchan Kim <minchan@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, minchan@google.com, liumartin@google.com, 
+	benwei@google.com
+Subject: Re: [PATCH] mm/zsmalloc: inline obj_malloc() and obj_free()
+Message-ID: <auxjJapQ4j8518aH@google.com>
+References: <20261030121700.260975-1-jenhaochen@google.com>
+ <auwR7gnuLsF0lpmG@google.com>
+ <20261105103947.7521-1-jenhaochen@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,55 +97,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105103947.7521-1-jenhaochen@google.com>
 
-On Tue,  3 Nov 2026 11:39:21 -0500
-Sasha Levin <sashal@kernel.org> wrote:
-
-> gen_tcp_addr() shifts the size_t n right by 32 and masks it with BIT(32)
-> - 1. On 32-bit architectures both shifts are as wide as the type, which
-> is undefined:
+On (26/11/05 10:39), Jenhao Chen wrote:
+> On (26/11/05 14:23), Sergey Senozhatsky wrote:
+> > I suppose there is performance benefit?
+> > 
+> > I guess I don't mind in principle, one thing to note is that this conflicts
+> > with [1].
+> > 
+> > [1] https://lore.kernel.org/linux-kernel/20261105044752.1997895-1-senozhatsky@chromium.org
 > 
->   aolib.h:230:40: warning: right shift count >= width of type [-Wshift-count-overflow]
+> Hi Sergey,
+
+Hello,
+
+> Yes -- in a steady-state microbenchmark of paired alloc+write and free
+> operations across 8 compressed object size classes (384..3136 B):
 > 
-> Convert n to uint64_t first and mask with 0xffffffff.
+> 1. On current mm-new (zs_malloc + zs_obj_write + zs_free):
+>    - Clang 22 -O2: -7.7 (arm64) / -11.8 (x86_64) retired instructions
+>      per pair (-3.2% cycles on x86_64).
+>    - Clang 22 -O2 + CONFIG_AUTOFDO_CLANG: -13.0 (arm64) / -17.5 (x86_64)
+>      retired instructions per pair (-4.8% cycles on x86_64), while
+>      shrinking zs_malloc() from 2,872 B to 1,828 B on arm64 (-36%) and
+>      2,088 B to 1,474 B on x86_64 (-29%).
+>    - GCC 15 -O2 (x86_64, without AutoFDO): GCC leaves both obj_malloc()
+>      (306 B) and obj_free() (120 B) out-of-line while inlining the
+>      single-caller slow path alloc_zspage() into zs_malloc(); the patch
+>      saves -23.7 retired instructions per pair and shrinks zs_malloc()
+>      from 1,738 B to 1,441 B (-17%).
+
+Cool.
+
+> 2. Rebased on top of [1] (zs_store + zs_free):
+>    In [PATCH 6/7], the new static obj_write() helper has two call sites
+>    in zs_store(), so both Clang 22 -O2 (360 B on arm64, 219 B on x86_64)
+>    and GCC 15 -O2 (obj_write.isra.0, 229 B on x86_64) leave obj_write()
+>    out-of-line as well. In the zs_store() fast path, obj_malloc() packs
+>    (m_zpdesc, obj, zspage->class) via location_to_obj(), and the
+>    out-of-line obj_write() immediately unpacks obj_to_location(),
+>    recomputes offset_in_page(class->size * obj_idx), and re-checks
+>    !ZsHugePage(zspage).
 > 
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
-> Found with 32-bit builds of the selftests (gcc 16 and clang 21 with
-> -m32, with and without -D_TIME_BITS=64 -D_FILE_OFFSET_BITS=64);
-> KernelCI's 32-bit arm builds show the same warnings. The changed files
-> build without them now, and the x86_64 builds don't change.
-> 
->  tools/testing/selftests/net/tcp_ao/lib/aolib.h | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/net/tcp_ao/lib/aolib.h b/tools/testing/selftests/net/tcp_ao/lib/aolib.h
-> index 53be1744237ee..71ff975533089 100644
-> --- a/tools/testing/selftests/net/tcp_ao/lib/aolib.h
-> +++ b/tools/testing/selftests/net/tcp_ao/lib/aolib.h
-> @@ -226,8 +226,8 @@ static inline union tcp_addr gen_tcp_addr(union tcp_addr net, size_t n)
->  	union tcp_addr ret = net;
->  
->  #ifdef IPV6_TEST
-> -	ret.a6.s6_addr32[3] = htonl(n & (BIT(32) - 1));
-> -	ret.a6.s6_addr32[2] = htonl((n >> 32) & (BIT(32) - 1));
-> +	ret.a6.s6_addr32[3] = htonl((uint64_t)n & 0xffffffff);
+>    If we also mark obj_write() __always_inline alongside obj_malloc()
+>    and obj_free() (with noinline on alloc_zspage()), the compiler CSEs
+>    those redundant operations across the fast path:
+>    - arm64 (Clang 22): -31.3 (-O2, -4.0%) / -34.7 (-O2 + AUTOFDO, -4.5%)
+>      retired instructions per zs_store() + zs_free() pair (vs. -8.4 for
+>      obj_malloc() alone), shrinking zs_store() under AUTOFDO from
+>      3,144 B to 2,448 B (-22%).
+>    - x86_64 (Clang 22): -26.6 (-O2) / -31.8 (-O2 + AUTOFDO) retired
+>      instructions per pair (~4.0-4.5% latency reduction).
+>    - x86_64 (GCC 15 -O2): -37.1 retired instructions (-5.1%) and -5.3%
+>      latency (-5.5% cycles) per pair, while keeping zs_store() slightly
+>      smaller (1,997 B -> 1,943 B).
 
-You don't need a cast or mask there.
+Great, I'd love to see that in v2 commit message.
 
-> +	ret.a6.s6_addr32[2] = htonl((uint64_t)n >> 32);
+> Would you prefer that I send v2 rebased on top of [1] (including
+> __always_inline on obj_write()), or send v2 against current mm-new
+> first?
 
-That can also be n >> 16 >> 16
-
-Also see upper_32_bits() and lower_32_bits() in wordpart.h
-which might not be available for selftests?
-
-David
-
-
->  #else
->  	ret.a4.s_addr = htonl(ntohl(net.a4.s_addr) + n);
->  #endif
-
+If it doesn't trouble you too much, can we finalize [1] first so then
+you can send your patch atop of it?  I can ping you when [1] is done.
