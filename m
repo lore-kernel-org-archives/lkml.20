@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793917267;
-	b=zlXEiybKF7BaWJcZuKCUuuWmOwL7xLNoTdZcpn3hW0966RbwaPyyUOzLGJx0pp1XZ63R
-	 LhIbt3K1A76EtctRIpwn331Dro9X9QXTaTM+yyMkt9Seh3PBZzEVetY2lIWCftWnCiN4d
-	 0rOZ7OikAxKuZuGiOiiVwz37WLfXuAhrn4jUhZNpNXNdg+h4wLexbKRCyK4RAgpKaG+Tc
-	 CJ2dcBwEW+PRuIhgvmCiQzjUOq13x5nHQEqR9ngrds4UtDXDRKoA5PUWY0xeUL9LLWBmt
-	 9AP2Ct+FsLstgYp7NAoiIyOyyCSeup3pUDVN1+S7Sidn6QdrkWJzgAogLG8uEmoJlpA==
+	t=1793917263;
+	b=eFNZSQaF4aSh8D6wkCA6GFJtP+ly7HYwgNsAEmRa5KcjP/Lgzv2K7xKOgWmYDbcFlSmR
+	 3KfpxhWnC/7uacAZjQ30+k1XQXomFBi2pGBJq79lthhHU0jKTvBOlefiwFhhTD9+Tsxfq
+	 /Gea83MjlEqitV8ui2osI+X28j17tDQn7olmqlz/tsVhIqdT+K89UVFUHX8zMWcjNW9Yf
+	 s68er8Ylx3ptyKAiOj/O+96U7FHsDyYKvj/basMsbdJSObiBuBr/+zcUoeUlczEjdInQw
+	 SxpqKJkdfdZ6uNHZeUBiDQXAR+o/xwGoqjxAcROhALOqZyYTD09cZ+VL6VL/VotQ6Yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793917267;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793917263;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Wko9jYbcFlAwe6oX0v98B8vdw+6Ys7oB0hN4NsC1Zvg=;
-	b=l2H1YU2sogo/niIYIsqnw/YsAmIDaEU0HKW/wTf88AZc2CpCXtyRFAUw0aZvVO55WMAa
-	 7jG8YYK43Z6fMY9/VnjRPFAFn7UMnHyT5RNYROk2qLoz4IAkhPTQ8YqGsD5raT2A1h5Qx
-	 oRG4ltVDGDbHpG/qLfYb0+E/0Bea+qwwAPimybBMh1ceR+MXE9XTXoh53s/4kGv7LjbIz
-	 8zd7laF1z1MUnpsimx7t8wHoBMK2tQ1aUAvmlwvyB2NgUo0MUV0jkWSGPJtaJTsWj21DP
-	 VWiTyIjfxFXlFslQVjlx19iNa0/eD+MggGQnaAxoa6mvQQt/FKSgtk5p49HLhLoUnGQ==
+	bh=BAX35U8nNHwzvrvZe/2+mPjA18tDD45pOn0BmV7GNC0=;
+	b=o4uAVsCEnY+v8UTaxN1V2ANeVbndNpsnRhEjwU2VnqriyO/3iEKtUS46fSsJOtQLKer+
+	 ScJvoYopNzgGyPsL0XDv9fLrCIPgZQLEZWxVipXaIKbTKnqCzxCb3vAJKczSUSHWyJh2s
+	 KhKbTJFxSZf6mSM42ilWPA5LQobMjr91qXaxljLpzau19bCFR7xqbv/f5BhR3EKl09n1B
+	 H8EOks4Qre/2XlqaB9T+g+HKvytqgeCgG2mLfaPvBmr5sxWWSwey4/LuMTZ4aNlWP8qy9
+	 bVQMCJjExjrWsGEAzF7QqZ1BYnMOJkMvGePFIfp7nJKtQzueThkSHP35w63BWN7VLvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tz21y1+Q;
-	arc=none smtp.remote-ip=74.125.229.4
-Received: from mail-dy2-f4.google.com (mail-dy2-f4.google.com [74.125.229.4])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e+KzCRPw;
+	arc=none smtp.remote-ip=74.125.229.137
+Received: from mail-dl2-f9.google.com (mail-dl2-f9.google.com [74.125.229.137])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69742606D81B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 22:21:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69742606D81B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57429606D807
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 22:21:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57429606D807
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tz21y1+Q
-Received: by mail-dy2-f4.google.com with SMTP id 5a478bee46e88-36f6728b1b7so35eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 14:21:07 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e+KzCRPw
+Received: by mail-dl2-f9.google.com with SMTP id a92af1059eb24-1397ad3d891so39002c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 14:21:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793917267; x=1794522067; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793917261; x=1794522061; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Wko9jYbcFlAwe6oX0v98B8vdw+6Ys7oB0hN4NsC1Zvg=;
-        b=tz21y1+Qew7hl/Wnsu0cT4nQ9LapPqP/EcySc55XzEzSKyvsKJPQqZfz+zYFLEh7Pu
-         8g2X3a1E91Jy0F5IKQJ0GKPJdh8Fr66eG4DTrBw6XlKyXkOa/pYZriB8Js1SGkmxLOUy
-         IE5lxum48sXc1czWgAt6Q/hnyojkVE9KjN/7aotvbHY04rpX3SRuLsJVi/FcOLYhTuCz
-         aQGg121SHDcG9s08QKA2Wq4D568nrjceOo1sPCbasiCsiVNqCIGZDlS62S21v6ypct88
-         3guGUj+JrBBCf80e+jdO1jhBvMuBAs3N9PNQUY7GmVHXWnsHC591iuygoJwOC6lFcnyY
-         Yc/A==
+        bh=BAX35U8nNHwzvrvZe/2+mPjA18tDD45pOn0BmV7GNC0=;
+        b=e+KzCRPwGRMk1BKNG+tsQfz+EP0W1rS4Z26bw7m+52ZDtQj2tRPd8kF2bk/cIbpAng
+         oGqnOFDZLoU/JqjgFICwTFI1ou/Nv3AnHlnTGRyo8K7mbaGg9wvwossPFQhXfa6VqkZG
+         8UlgrnKuX+60euKUPpM1cQwbJLyxunEH1kaU6zYvGzoKEGDA6PTH/YT2PGCENTQkLofL
+         OBryTBIZs6DNLJSHweKDiqBC+plTqFqp2ifPBhB6qvV7AQdDT9oB2lBU9Z2XDQouFnAM
+         3YZYRzJTaJWSxCbyV0BBHUU02ueo+SWcZesSKmd1c94t74F6KEoYeVRccSoDXKRF3F45
+         lnlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793917267; x=1794522067;
+        d=1e100.net; s=20260707; t=1793917261; x=1794522061;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Wko9jYbcFlAwe6oX0v98B8vdw+6Ys7oB0hN4NsC1Zvg=;
-        b=adUiTLP/RZsP2IL625IOw8Ce+x1UlPl/zN80G2/fwOi4wd47VrGTXJZ5EAOhbn4Qzn
-         haqH24roRV52uL8Mqo+Di8TPqVNAG9ABkyT6ZyHEp+H1KFUQa2+WWOKHBDWVNUZNT6dx
-         8VZek7OQzfpN+RM8zp3G1WARls0OmVFB1dYDqtau5qVf5Clnm0H+4o//pBlfyFl6AWER
-         7ctKIA8ugvZKg19NQLN3TVvfyqH51in+P/M4QeWUAXjYK7MZ1vXxSYF1ejiKRucQU3vB
-         FypN9xaN2tB21URWzVNX3NgfYQhr9pzTOGFTgro8fvLtp8ASQrONlS9cqOy5SpxXI/1B
-         qyEg==
-X-Forwarded-Encrypted: i=1; AKwUvBzfMuUNRPr67CbPkBeDmszjK+Vqm4DlBT/ocWaj1K1+PA5QQ+ZGg2TDJMLxpp52fuFmmcBBrMDmn1HHGEY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9BFKOwMbHvLxaNWhGOP4e2AkC8fOsIma7myx7WJ+4asVm9fwdx
-	+YMKsui3+N0fdPKPcVIf/TZE9d8HD0FinmJ4TJpPc4RzN5B2fdglRun0
-X-Gm-Gg: AYBFou3zZyjNf3CaD0lXim7sqRBTKUbUsmOjeqoEruqhAk4LhfzPTEh1fk14CF23ecw
-	b/0hUgD/vS28cV0DksLR101W6UwCTynga+penOtY54PpJz/OyLTT3I1uwJ03MBI3uhoacG93eDU
-	TFpgMcMPuc/Vju5nOEJNT60fLc8Ts4HLbK6vAmk4I2huw6d2HH4iW+a8/4/XkOzACj9/Wj4G4tM
-	IeoT4wfiqCuyCQpIJQulQ25fEXlhviaPh9Rhj8xzEPcdDzJFSPi50w7OvYb3pfsMOoJKDwKo9hE
-	jIRD4BdPkvAFZZQbhZdQvdYCF3kR4sQjzaEcbhjQEK14acc2Q6C0c/9sTGQu86W9zFzCvIbBp8B
-	snxKuXcn0HstOQ74dRuBYibZTKmtezxZhKO5+wbqhifklPQSP90EnGf9kiSEY6q2IEUn+TNTN5i
-	hq6hR1u5VM6ynKjIDy+5Jz9O5Hc3jtXFJW4H/0dD31W/crQjQ5+oWSv0zrw2xKtCJvDiit0Dx4K
-	gDwrzhZoaHyPnodRU40jyGCPJs3fw2ZthU0xOofYjv7dMtjBTQVEXSPSySs482glzI0cNAAHuws
-	0/XPIj8nRhvlcaWDIdxCSBg=
-X-Received: by 2002:a05:7301:460f:b0:36a:15ba:43ea with SMTP id 5a478bee46e88-36f76d177bdmr646010eec.5.1793917266455;
-        Thu, 05 Nov 2026 14:21:06 -0800 (PST)
-Received: from localhost ([2a03:2880:9ff:44::])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa922b205sm39909eec.11.2026.11.05.14.21.05
+        bh=BAX35U8nNHwzvrvZe/2+mPjA18tDD45pOn0BmV7GNC0=;
+        b=ofWojQun1qQxccPoAFyaL8c4xSjBnvO8gy1Rbqz+n/dcudEfkds/6Am/Sdm3NLclby
+         x+1jWdNP2eiWUQvTIgR9coPmKDbkiHiC66TbjhDGyTCxPC8MFk3WNs1IgV0YVGu84D4e
+         SP9KPhDlNaf4cm0FUXJofP1jj4tyJ9sXxMPUh5LDZSOHXTXhYYMOgQ7mDAmhFTBX32TB
+         tz21iy/4MQLixR6to0M9iq1SJwATwmRcUgYm7VFIeecYGd8ZV5p1ST+BMeGcaPs/PJWU
+         3tO8GJ81pYCCYn2fCHClzZlTMjYadtY1oAwXmYfJF2pxkk6RBu7oPpKmTaIZ8VKSmpJ+
+         i3GQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwIAk2RuWOQMvYiaUGB6ENs+oUBeNN/DdlDOhPNVLtyHxHj2Jjz0X5BZ4eVQ5EujFEdjsFb8rZHFN6HGVA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/81vWiMSELVFc+ln+MyP6xcIEeA5viyIU2ZqY5LJxE/UiyvW8J
+	Xit42bnLAeEeYQF7ycs8UDDoCxPADHiR/VtCIe4l/YtttJIAcn8hY59k
+X-Gm-Gg: AYBFou095RNlUW0riXuOrHxuVbu+70A7v9WYp0opvRe6iHxPTrMK02y6d6bKGaRuUCV
+	+9xjks4UvISR3X3zHGqI0JyAlfBLPMrg4j8RluQJwSSo1nQdNI8Zz+yGU3l7D0nKz0FvfWe2ZL2
+	ssMzo64iejxITbY33yI71jS7XZfzB/Rhe9tnIBYxr16cUxtmNfKZLvjlyydxoTfAlM77tkeUau/
+	pKQafKSdioNmTMJR0Lky1wn4JI8d4ZH534KYrmp/J1yxEfDXOsWPg2PM4B2F1LxIiTqSLuWQQmL
+	oGqO/VgLoR10Dt/SWQm0YsXBX09SMGZWa5Tv6NRF3ZzezXnKoJ9BdJL1qIb0Bet/rjMpU2DVmyh
+	vbOemJT33LRJqbzXly89MllPgVYdbZL+ReGkx2EghPJkYBHSyhGjBvDCWr+TmGBt4qLnuWYo1Eo
+	W6jTvWeEMP8zlKitONiDMf2MiBTjBzewCdHbRYYAO50vk3XEspI/SnapPKxWUv7KPydgS8U/RtG
+	qR6VsMoOXvkVPukWchTxgTaCOSzUuN8OFC87MEUGoTZD/74DGvNswPBh+RUlQIxJQnMsiTrTmkR
+	y7mGn6DpB6N5tZotbbjfNmSxzbkrrwv+WeFR5mIl7r2B
+X-Received: by 2002:a05:701b:4346:b0:18d:9eec:e0be with SMTP id a92af1059eb24-1b25d286bafmr512275c88.2.1793917261068;
+        Thu, 05 Nov 2026 14:21:01 -0800 (PST)
+Received: from localhost ([2a03:2880:9ff:68::])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245b86fbesm20396895c88.1.2026.11.05.14.21.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 14:21:06 -0800 (PST)
+        Thu, 05 Nov 2026 14:21:00 -0800 (PST)
 From: Stanislav Fomichev <sdf.kernel@gmail.com>
 X-Google-Original-From: Stanislav Fomichev <sdf@fomichev.me>
 To: netdev@vger.kernel.org
@@ -112,9 +112,9 @@ Cc: davem@davemloft.net,
 	linux-rdma@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	leon@kernel.org
-Subject: [PATCH net-next v3 5/9] bnxt_en: set the netmem TX frag size limit to 32KB
-Date: Thu,  5 Nov 2026 14:20:54 -0800
-Message-ID: <20261105222058.944293-6-sdf@fomichev.me>
+Subject: [PATCH net-next v3 1/9] bnxt_en: let the stack segment GSO skbs with too many frags
+Date: Thu,  5 Nov 2026 14:20:50 -0800
+Message-ID: <20261105222058.944293-2-sdf@fomichev.me>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261105222058.944293-1-sdf@fomichev.me>
 References: <20261105222058.944293-1-sdf@fomichev.me>
@@ -129,47 +129,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The TX BD length field is 16 bits wide. Set the netmem TX frag size
-limit to the largest power of 2 which fits, which keeps 4K aligned
-frags 4K aligned.
+With MAX_SKB_FRAGS > TX_MAX_FRAGS, the xmit path linearizes skbs with
+more frags than a packet can have BDs. For GSO skbs, linearizing needs a
+large allocation, can produce a head which doesn't fit in a BD with BIG
+TCP, and always fails for unreadable skbs. Clear the GSO features of
+such skbs in ndo_features_check instead, so that the stack segments
+them. Non-GSO skbs are still linearized.
 
-With 4K pages this raises the PAGE_SIZE default. With 64K pages it
-lowers it, 64KB frags would otherwise wrap the BD length to 0 with BIG
-TCP.
-
-Tested on a 50Gb/s NIC: devmem TX from a 2MB hugepage-backed udmabuf
-runs at line rate with 2-3 frags per 64KB skb, none above 32KB.
-
-kperf output (sender side, 1 flow):
-
-  client: == Source <sender>
-  client:   Tx 46.358 Gbps (174483046400 bytes in 30110590 usec)
-  client:   Rx  0.000 Gbps (0 bytes in 30110590 usec)
-  client:   TCP retrans reord rtt rttvar d_ce snd_wnd cwnd
-  client:           729   153 599     48    0 13893632 3147
-  client:   net CPU 71: usr: 0.03% sys: 0.06% idle:67.62% iow: 0.00% irq: 1.12% sirq:31.14%
-  client:   app CPU 72: usr: 0.16% sys: 6.01% idle:90.66% iow: 0.00% irq: 0.83% sirq: 2.32%
-
+Suggested-by: Eric Dumazet <edumazet@google.com>
+Link: https://lore.kernel.org/all/CANn89i+ps_CozfOyRnKav0_LUmSekJ9ExB5JkDbTAVf_ss_98g@mail.gmail.com/
 Signed-off-by: Stanislav Fomichev <sdf@fomichev.me>
 Reviewed-by: Mina Almasry <almasrymina@google.com>
-Reviewed-by: Michael Chan <michael.chan@broadcom.com>
 Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
+Reviewed-by: Breno Leitao <leitao@debian.org>
+Reviewed-by: Michael Chan <michael.chan@broadcom.com>
 ---
- drivers/net/ethernet/broadcom/bnxt/bnxt.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/net/ethernet/broadcom/bnxt/bnxt.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-index e7a4190a8c78..c8a887facc20 100644
+index 757c7266ce15..e7a4190a8c78 100644
 --- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
 +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-@@ -17439,6 +17439,7 @@ static int bnxt_init_one(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	if (BNXT_SUPPORTS_QUEUE_API(bp))
- 		dev->queue_mgmt_ops = &bnxt_queue_mgmt_ops;
- 	dev->netmem_tx = NETMEM_TX_DMA;
-+	dev->netmem_tx_max_frag_size = SZ_32K;
+@@ -14300,6 +14300,11 @@ static netdev_features_t bnxt_features_check(struct sk_buff *skb,
+ 				skb_shinfo(skb)->gso_size))
+ 		features &= ~NETIF_F_GSO_MASK;
  
- 	rc = register_netdev(dev);
- 	if (rc)
++#if (MAX_SKB_FRAGS > TX_MAX_FRAGS)
++	if (skb_shinfo(skb)->nr_frags > TX_MAX_FRAGS)
++		features &= ~NETIF_F_GSO_MASK;
++#endif
++
+ 	switch (vlan_get_protocol(skb)) {
+ 	case htons(ETH_P_IP):
+ 		if (!skb->encapsulation)
 -- 
 2.53.0-Meta
 
