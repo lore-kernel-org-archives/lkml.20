@@ -1,96 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.8
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793909852;
-	b=auQvLX9w5uJAMwipIo+MHimBRnElRvXlV6MdrDa7XPOPGI81KNGPS14YGo2cjnTLwHKE
-	 rGy61tR85wIb0lGhMU0TH3sMDZCbEB+DhwRPOP63niC15xNZwT7BpC8i3oumG0I3P2xOg
-	 k5HMuCdEMvvH4SEBNmMZZrVJCJKSSDwFykXpuYU+dG2jsRCUMK0+9HbKJ7RJo2O3ioOQd
-	 tEpLYb7AtU+dnXmgSLns9XglHVSWDfi4XxwIhklm8RP3g1WXQt6Yv6ngC/jWmdEQSzpG4
-	 M3tVQHvjq7c74rBIhCZpWPcTXmCWWZ3s2v2KarYdm9hM4A0yLXxrxUj1VYYPVplhcBQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793909852;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Kn6fT2xJLzCCyoJOOxQgLx2Izft62XZ9M4EFNOmV6R4=;
-	b=aE9TPHhxM2Td908/W4gq/t/oInNDSjg0d87cRHVDtIEADEQ3qwBRpFUNYhkNeHAKS1gO
-	 pfPF90Prbf5Lv0YcNnu3zi4jvbHezFYQE/cXED/ufsgsw39vwCDHwP9qt1adp50XvNtYq
-	 kgdDjajepKKqKSjlbdelTOMtp5BHr638o680wvwEWgSfJ0Rf5A4nPodZo2tgalzYa93Dq
-	 IrCOG/nyGH3xstuusWhRtoc0GY5Ogp4R5sFpNFmOmdmfKRIOO0/HKtIxRIjrQA3IqsfKQ
-	 h4dq0kGyxrVPhIKJPsX9U6Z1M+yy83N4svZOWXbWBqWYn4fZEoorxkuVroNLD/elnlg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ZDd7whRd;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.8
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012008.outbound.protection.outlook.com [52.101.53.8])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.136
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793909912;
+	b=bELnvgyACk75cQwLyolpyxy2KldjZLsENAptuYUqxd39J+97vILiTDqtEq8uWAH40RXp
+	 N+VVvc3fNQOfu54hQGk+X2LhgfITWGJfEgvXSNGxf8Efz/dQxnCpAGBfo5Evrj9CJ9FGC
+	 RYJTPKqMsWEQ3HwEjVcQwz6UoJpx+/HaTIgaRvmRWgn/iLVZLDlHthQUNDhQb57CX8jQm
+	 UA+B4KBEfcf6khGo+i6vRI3/8eRN0J40egfjtSJhfBaqAGs0nhYAwaW86L+N4pV4JHebg
+	 io6W+sFm082yys09vIoPS4tM2y+lAadtQrDfWYcZsFhvAX/FC6Vi95OXd2izQnprSKg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793909912;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:CC:
+	 Subject:User-Agent:In-Reply-To:References:Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=AMHZHhzuTrdOCzsJR0G5h0s+H2Tf/Af2ZIw878OYuL8=;
+	b=mliyqGYDrHRu3CYtEVRU6EkM1jrkBLTXcsz7rS8AkBgo2dYSbl5QDsbedzEwjXO1XLdn
+	 MDNExrXe4fMdwbq9dvHdQGjaRg4L6zVRh6ZIQQiL6DtXGwERlSq7wH/m08Av5t7JCr3EZ
+	 rOwZBrvxhsSiQZhWMlOP+7Qw8Dq8rjie/cFCsSr7X8GchK0+sCUcyzyu6uqlQY4BxPX2q
+	 DJbnzh+BghAo4k+/i44z4BXUQWSF8zPjnap1mkxU0OXAOerEoDFrvIh3xEDbW31ohC3p1
+	 sfwVanH5IhYpXvepCPOmUm0vCMypsW1DIYkv+mDgr7tHdsng2dR5vBZ9Z+SZ/RB6asA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=zytor.com;
+	spf=pass smtp.mailfrom=zytor.com;
+	dkim=pass header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026102901 header.b=CZ4dsDIj;
+	arc=none smtp.remote-ip=198.137.202.136
+Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CCCE606A31B;
-	Thu,  5 Nov 2026 20:17:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CCCE606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE883606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:18:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE883606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ZDd7whRd
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vX5A7khAy5fiSUO2Kb7jblCZRMKnhs4ssnheVvTWRHwkxdSESNvM3qnE3C1ZwYRu/SpO56GfHW6lr2U6q8xn2824y14jIEpT6kBGtkijVPPmMgOHSX+83duKaijXwZj53pPQaEhv+x7wQyuhJmBM+h4boaVrkxEkUXsnuhvSixtucHV1wnSBx7lG9fgF67xQ6oR4YKNIdsuD564kRXCvNzXntI+CGicULm/iG/BfRTtjuAJNZXoCkzyx+EY6r62LTmkAX0yaOzg8qVSPohOfol8J2V/wU8ToaAgu8gX4kYKPtNkQB7U0XgH1JQgHXoHqPB7PRqV40LM4CCQg2I+i+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Kn6fT2xJLzCCyoJOOxQgLx2Izft62XZ9M4EFNOmV6R4=;
- b=JK2X0DnkcaC6Q07MPD1XLR6O8u8iZZHbucACz26YNbk89QCZWDTJj5AVe8y01Udf6oCga/p0wVXWubeR1dcHcTQoyAH7lbA+Fc1FrqAIOu3Qp2Djuzk1RK2S7OjGme9Jss7gGOa72TyTt5vpsMfndWR3e2obeJQDJiZANfy0gOyF4uZwWsO/DjPyi+U2SOsGrf0GUIHHrU9JDvGpSLRSYj5XEl0ttlhNW2IehS+v9TtK0ZsX6zSKI/ZNPaHzJMnNEEmJcyEK3WLiJTXe/nVVVDrLNTf9E0sxMl611PESlMmj3OAeBRwEapNEolNC6eJda0Vm9JTRrYqCMZy56LtORg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Kn6fT2xJLzCCyoJOOxQgLx2Izft62XZ9M4EFNOmV6R4=;
- b=ZDd7whRdWG4plHrxpqVCdxImbU9cnLJGo6qZ7C8AvsQIeqpPh3OECcDIrYqS2bd7HczFYJyFClFQviVJ4/4IW73AX5yRR2JDnYa8GGGMnxSXQpjpeAT1j+u9+9LQWpf5KX00fg6NJPPjBRghMXxUNj/86r8pJ/zEkOAB9fXWmshkKvhQf01phGtuFtwKVGkbSCP58lhOPFtEbpWEGEtwDefur9kzTqSQ9QORzpdHgMFkq114olM2YLxUYEeBA7NooFz+ZPw33RLb91B6WMYzpvCrTGU2MIN4PpPHBCR31TGS3jjQ7bUzJ/8BqV3FpN70F9slWiFunxreiNazz9jpCw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA4PR12MB932075.namprd12.prod.outlook.com
- (2603:10b6:207:12d::15) by MN2PR12MB4254.namprd12.prod.outlook.com
- (2603:10b6:208:1d0::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 20:17:27 +0000
-Received: from IA4PR12MB932075.namprd12.prod.outlook.com
- ([fe80::5a6f:1f74:6ccb:cf2f]) by IA4PR12MB932075.namprd12.prod.outlook.com
- ([fe80::5a6f:1f74:6ccb:cf2f%5]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 20:17:27 +0000
-Message-ID: <371a0db1-0da2-40b6-ba83-60eae9bb211c@nvidia.com>
-Date: Thu, 5 Nov 2026 22:17:23 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next] net/mlx4: drop the unused is_supported callback
-To: Peter Morrow <pdmorrow@gmail.com>, Tariq Toukan <tariqt@nvidia.com>
-Cc: Simon Horman <horms@kernel.org>, Leon Romanovsky <leon@kernel.org>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- netdev@vger.kernel.org, linux-rdma@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261103122109.1798144-1-pdmorrow@gmail.com>
-Content-Language: en-US
-From: Tariq Toukan <tariqt@nvidia.com>
-In-Reply-To: <20261103122109.1798144-1-pdmorrow@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TL2P290CA0013.ISRP290.PROD.OUTLOOK.COM (2603:1096:950:2::7)
- To IA4PR12MB932075.namprd12.prod.outlook.com (2603:10b6:207:12d::15)
+	dkim=pass (2048-bit key, unprotected) header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026102901 header.b=CZ4dsDIj
+Received: from ehlo.thunderbird.net (c-76-133-66-138.hsd1.ca.comcast.net [76.133.66.138])
+	(authenticated bits=0)
+	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 6A5KHO2x3333264
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+	Thu, 5 Nov 2026 12:17:24 -0800
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 6A5KHO2x3333264
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2026102901; t=1793909846;
+	bh=AMHZHhzuTrdOCzsJR0G5h0s+H2Tf/Af2ZIw878OYuL8=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=CZ4dsDIjSvNcfIZhbQny/XQsE6A5ymlAfOsmou/O/6R47WaoiGHL8XGN+RE+gqCGV
+	 8vvvVrRb4kGRStpvS8dbW3XxwqkCQGAur3anO4RIcpeQkSoeFXIei3onSuxU4ckITS
+	 MnFOjLMxxzYbzmGo+wL0cTz6n2FHCFOzxXF+FyePm77nSz7Uk8HHPSBWDBvshKSDl2
+	 LQjol5z1F6Qtztjxt/bERmCkdMDTEKRVg9DoPYlfU8mRxqDgfTdjffTe6FuSZ9tI7A
+	 /Md3HgaiKjQCiSz7EXtpxmZU7t4JrHSKR8HafSW3juZbRSJ/OfP4/BrdzLzjOiPCBI
+	 kBYc0vhRDvqMg==
+Date: Thu, 05 Nov 2026 12:17:19 -0800
+From: "H. Peter Anvin" <hpa@zytor.com>
+To: Arnd Bergmann <arnd@kernel.org>, Ingo Molnar <mingo@redhat.com>
+CC: Arnd Bergmann <arnd@arndb.de>, Richard Weinberger <richard@nod.at>,
+        Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+        Johannes Berg <johannes@sipsolutions.net>,
+        Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        Peter Zijlstra <peterz@infradead.org>, Will Deacon <will@kernel.org>,
+        Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+        Yury Norov <yury.norov@gmail.com>,
+        Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+        Alexander Usyskin <alexander.usyskin@intel.com>,
+        Tony Nguyen <anthony.l.nguyen@intel.com>,
+        Przemek Kitszel <przemyslaw.kitszel@intel.com>, x86@kernel.org,
+        linux-kernel@vger.kernel.org, linux-um@lists.infradead.org
+Subject: Re: [PATCH 7/7] x86: simplify 32-bit instruction set selection
+User-Agent: K-9 Mail for Android
+In-Reply-To: <20261105163440.2381661-8-arnd@kernel.org>
+References: <20261105163440.2381661-1-arnd@kernel.org> <20261105163440.2381661-8-arnd@kernel.org>
+Message-ID: <4207CA81-6023-4DFC-8FBF-2C5C8C036CCC@zytor.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,90 +80,186 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA4PR12MB932075:EE_|MN2PR12MB4254:EE_
-X-MS-Office365-Filtering-Correlation-Id: aae8555a-e339-4fb5-6859-08df3b79cffb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|7416014|366016|1800799024|10067099003|18002099003|22082099003|11063799006|56012099006|261022105027099003|261102123227099003|261028144727099003|261026140227099003|261021123027099003|261021121427099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	JOweGkhaCwCVwGcHwTX54Lj7s8mlLQRcAG33CeG4/cQbqfFQaDriGiBYvlO+8p2sNkM3Bcdwn949GTztYpox8pzIdaztu8u2kToRjiSxo5zdRyQOVcVEcn0jlXuR5j7A78b7NtG16HWKZ14KFIZvoFrYJH5B+aArO8cQPUollSfEH94QRqgm/178f3LKvxvvviSURUxiziqiHm4fq1Lpv2E1IVWRA3dbDjMvnj3eKSLLBAjpFKT8MocCUDRjDN0KJIObwBGSM3HL5D7AHr5TJNPWLWedTPeiT+UZMGwjTOmvWsXakkyHPthVeBuk5MAYU2OWf00/SM6x8ltcbVikn3jD528Z2x6RQL1l0hHHPjWDRUG1/sum2pCOamD/IXiZwoScj7gykKzvale0gnMfvTzTeiyxxgw3/ontAVdnJbwG7BkP7HWudWFQo2IvNsHPWUfmnlWcld+YmKDdG8MPkhoX3ZL7SobxWm3foYH7caoPF7wQxyW7B9swnZjcYDqp81XzZU2TllvtbGfqsem4auUqMsGq7kTQ/LMQe460UjdadvBoUYbdjEA7uZqj7Gi5lPeJegp/5NzxE/NTdZyIZgYczzph6UcxdS5s5fMHAhE16JDs1MRs6zOPabN475Zgyw/DdxkcMmyM6PPinmZNttX5r4s3aLXHT7+tfy3hK/0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA4PR12MB932075.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(10067099003)(18002099003)(22082099003)(11063799006)(56012099006)(261022105027099003)(261102123227099003)(261028144727099003)(261026140227099003)(261021123027099003)(261021121427099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cVpVa0hxUCswM2xlT1BtRmFGVjFQVWVIK1FKSGVXK3ZrR2dDeVFvS0s1eEJM?=
- =?utf-8?B?b3lpcjRwSU05bmh1akpGalAwVlJ6aUFkanVPcW1DMW5hZFVvVEgrYXQ1MWY5?=
- =?utf-8?B?aDhjNWNIT3VQdjF0S3VpTklXY2NkMGhwTEFmQ0xMeEFuakRIWW4yUG56YzFO?=
- =?utf-8?B?bGJaTG5kTUtXVVlETXMzYTRmanRlaGo4UHBoYjBwUUNpaWphNWVHSmJ4MXJH?=
- =?utf-8?B?Ri9uUHhnZ2NteitlNyt4WjhBMXViait0L3NBMm96ckNSbmgvNTFhdGhhSEw4?=
- =?utf-8?B?RVR1TkZlMG9HcDI5cDBocWlmTzlWbnBwODZoOGdDdTZ4bVZma0RKWU9Wd3Vq?=
- =?utf-8?B?RHlCL2tDcWpWNi8vdml2eWNXZzJDSWFyWG1jczB6Q0t2emsxam9OTER0b2FE?=
- =?utf-8?B?OU1YTjVYSzJaYW9hQmp1Wnk3VHo1S3BwZHZSQjU3clBydStvTFgwUGRCVFV3?=
- =?utf-8?B?RjdtODV0azA2dkdPcUFiMTkyUm91NTlReXMvRjNmaEJNbzNBdjZHRjFOdHNH?=
- =?utf-8?B?eTlJQ2ZPdTdTUStmd1RadWtSM05xaHhTNk1qam4yMVlTeEFSYmRwU3QwRGMz?=
- =?utf-8?B?RVM0eUYxNTJUeWs3anNRSjJaOXk0QzJxZnQ5ZlhPY2dTek9Td2kzN0JaWVFi?=
- =?utf-8?B?WFdSeWVlYllhUGNxV0JNWjdHSytmYXduNmcvKzVpd1BqREhYVTM3bGRBT3NT?=
- =?utf-8?B?N29CSlQxT1hkTmVoOFYzRFMvYkpQUDdjV2lVUG9Lbzl2YjBRY21CVktscUh4?=
- =?utf-8?B?YzVkclhhQWx1dnhnMUZzSFNuWFhONHQwRmZrQmwwSGZjR1ZCeUxwaUczUnhR?=
- =?utf-8?B?UVp0Ry9wenh1RGpnMFpUbjFLbUJlRXFzTUhld2oweWZOcUtmL0ZHUi9JWExp?=
- =?utf-8?B?SkxMYnFZQVVGenpocW1xRUlNelkzWlVMcFZHUUJBRTJRYkRBdHpVREl3K25W?=
- =?utf-8?B?OTY3QnVod1l6ekVHVXBUQk8wOStBSlk0QnA1ZjRoZlRiK1ZOVVVEaTc2TG12?=
- =?utf-8?B?ZUxJS0E2OEc5UDRxcUpPamlTRDUwd2tuY2E5TzlCaXJSdXJaQyticDNCTVJJ?=
- =?utf-8?B?bXpyT1RKTy96WDIwa2lyNzlmcUNwYUZlMEVtVUxQMXBBd0dnb2k3b0dzOUZj?=
- =?utf-8?B?clZJdERGKzN4NUFNa2xQdWk3UlU4K2xrc09MSHdDYSt2bGtIMllWRjRjc2hk?=
- =?utf-8?B?ZFVGY3NQai9uS3pGT2k1SThYN1FMSksrRGVKRTZZY3Z3MjFEZWlvTGEyQ25q?=
- =?utf-8?B?SVBLc29MK21QTFlMYWR2R0VOUkIrU1hYTlhmY0hpNjEyZDFsc05iSmxSdmhn?=
- =?utf-8?B?UG5VSHF6SS9PdTdOYlZoV1lUNkQ5UDZ5K3kzQ3pXMmQrcmpTQjNWTUREUUo3?=
- =?utf-8?B?cGk4RkJWZmZ2R3lZNXlLSndNREJYMkpTOE1rNnkySjJNTHpVUXR6QmpiUUJt?=
- =?utf-8?B?TjNKOFBoMWhGRGlqT0FFeE5aWGhaK2cyUmV5N0p6enFBbGtkcFNteDE2VHBO?=
- =?utf-8?B?NWtucUdPQzVvZFlTa2dzeXMyRTh5OEtYZEpoSjZMQTM5dUdjd3NPc3U4V1pF?=
- =?utf-8?B?eDZ4bUlTV0hIWTEwMXppb3Fia3NWdlU2KzhTVEVjREJxRGZuU1dzMmYzeVpN?=
- =?utf-8?B?aVZXai96MUorMVdnNnJiTUUvOHdKZDY1WGhoUGJHQSswVUxZZFFoYllGOGth?=
- =?utf-8?B?bFlITjBnNTU5dHN0aitJeFJORWNDRFdFSkNyaHVVcFpyWkxyVG1BU2tBOVhG?=
- =?utf-8?B?bkg2d2NsVHgwcEtub2ZXWG1zMDMvR2ZOZHJuaGZNaGpUQnZobmxxNzZGM3BS?=
- =?utf-8?B?SldTZ3BwY2lXTEcvd0ZCU1hJZ2pOd1VoaHE2THllY1dMRUFBb2dXNGJldEY4?=
- =?utf-8?B?Ny9wTTgxQmZoTHVxc05LUEswOHRsT2c0ejczWjNCaWdjVEttTGdPK3oyellH?=
- =?utf-8?B?N2hURmVNSTdHWHpCYTlVV3h1djZDbnVGTTV2aE41TmNWUzhUUWVhQ1BhMEEz?=
- =?utf-8?B?dWkvZWFkMzBqRWFqS0RBUzNOTWVGbk13N2lCNkVvVnNzU1FNT05CWk5NSlg2?=
- =?utf-8?B?ZGQzTkxyUDRuUUNyR1FvV3hERjZ5M0QvM0JYWHpvUVFYbXNKZmthZDhUNUVa?=
- =?utf-8?B?MTkrQXJid05BYmZuUTdEQnFEejdJNjVjYzNRRGQ0c0JocWJlVGlEZ3BDVXFK?=
- =?utf-8?B?eWs0VThQZzZFcnFQNUFxWUFhcE9IdE5BM3dPTzZDUFh6U0V3Zm1kZ1VGOTVJ?=
- =?utf-8?B?OGRjSjI2bkFSeVNFTzBSR3FmT0puSXNCVktJVW5mczJNMjhXZlRuejVwN1A4?=
- =?utf-8?B?NFRZV25KVW1nWTM1NXNDSDVWTVh5blh1N1lHaWtSQjZBTlBzRUhUUT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: aae8555a-e339-4fb5-6859-08df3b79cffb
-X-MS-Exchange-CrossTenant-AuthSource: IA4PR12MB932075.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 20:17:27.8052
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aQLzjUF8s62PmbwBiFpjc8VorzJMbGODrGE+K8JC28kWulw3tKKIbY0IiVoL+N4XGuhUsLNz5hiUyoFgeshHuw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4254
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
+On November 5, 2026 8:34:38 AM PST, Arnd Bergmann <arnd@kernel=2Eorg> wrote=
+:
+>From: Arnd Bergmann <arnd@arndb=2Ede>
+>
+>The -march=3D compiler flags select both instruction set and tuning for
+>a particular CPU, which works well when building a kernel that can only
+>run on this one type, but has some counterintuitive effects because it
+>is not always clear which models are compatible=2E
+>
+>E=2Eg=2E building for Geode LX results in a kernel that can work on all o=
+n
+>all 686-class CPUs but crashes on CPUs without the CMOV instructions=2E
+>Building a kernel for 686 could work on Geode LX and Crusoe but fails
+>because of the CPU generation check that detects these as 585-class=2E
+>Similarly, building for Intel Atom produces a 32-bit kernel that uses
+>the MOVBE instructions and does not work on any other 32-bit CPU or
+>even 64-bit CPUs before Haswell/Excavator=2E
+>
+>Change the CPU selection to build everything with either -march=3Di586
+>or -march=3Di686 and make the specific options only change the -mtune=3D
+>parameter where this was previously handled by -march=3D=2E Note that
+>the only -mtune=3D options that gcc or clang understand for x86-32
+>are i486, pentium, pentiumpro, pentium4, atom, geode, k6 and athlon,
+>the other ten are just aliases for one of them=2E
+>
+>Selecting any 586-class configuration option now produces a kernel that
+>works on every supported CPU, while selecting a 686-class configuration
+>works on all 686-class CPUs but no 586-class ones=2E
+>
+>Consequently, the vermagic=2Eh logic can be simplified to just these
+>two cases=2E
+>
+>Signed-off-by: Arnd Bergmann <arnd@arndb=2Ede>
+>---
+> arch/x86/Kconfig=2Ecpu            | 13 +++++-------
+> arch/x86/Makefile_32=2Ecpu        | 16 +++++++--------
+> arch/x86/include/asm/vermagic=2Eh | 36 ++-------------------------------
+> 3 files changed, 15 insertions(+), 50 deletions(-)
+>
+>diff --git a/arch/x86/Kconfig=2Ecpu b/arch/x86/Kconfig=2Ecpu
+>index 21026e0cb569=2E=2E121881c4d076 100644
+>--- a/arch/x86/Kconfig=2Ecpu
+>+++ b/arch/x86/Kconfig=2Ecpu
+>@@ -6,9 +6,9 @@ choice
+> 	default M686
+> 	help
+> 	  This is the processor type of your CPU=2E This information is
+>-	  used for optimizing purposes=2E In order to compile a kernel
+>-	  that can run on all supported x86 CPU types (albeit not
+>-	  optimally fast), you can specify "586" here=2E
+>+	  used to pick between i586-class and i686-class processors,
+>+	  as well as to optimize for a particular microarchitecture
+>+	  within the two classes=2E
+>=20
+> 	  Note that the 386 and 486 is no longer supported, this includes
+> 	  AMD/Cyrix/Intel 386DX/DXL/SL/SLC/SX, Cyrix/TI 486DLC/DLC2,
+>@@ -164,16 +164,13 @@ config MCYRIXIII
+> 	  treat this chip as a generic 586=2E Whilst the CPU is 686 class,
+> 	  it lacks the cmov extension which gcc assumes is present when
+> 	  generating 686 code=2E
+>-	  Note that Nehemiah (Model 9) and above will not boot with this
+>-	  kernel due to them lacking the 3DNow! instructions used in earlier
+>-	  incarnations of the CPU=2E
+>=20
+> config MVIAC3_2
+> 	bool "VIA C3-2 (Nehemiah)"
+> 	depends on X86_32
+> 	help
+>-	  Select this for a VIA C3 "Nehemiah"=2E Selecting this enables usage
+>-	  of SSE and tells gcc to treat the CPU as a 686=2E
+>+	  Select this for a VIA C3 "Nehemiah"=2E Selecting tells gcc to treat
+>+	  the CPU as a 686=2E
+> 	  Note, this kernel will not boot on older (pre model 9) C3s=2E
+>=20
+> config MVIAC7
+>diff --git a/arch/x86/Makefile_32=2Ecpu b/arch/x86/Makefile_32=2Ecpu
+>index c5aa169b596d=2E=2E1735a5f95d33 100644
+>--- a/arch/x86/Makefile_32=2Ecpu
+>+++ b/arch/x86/Makefile_32=2Ecpu
+>@@ -11,26 +11,26 @@ align		:=3D -falign-functions=3D0 -falign-jumps=3D0 -=
+falign-loops=3D0
+> endif
+>=20
+> cflags-$(CONFIG_M586TSC)	+=3D -march=3Di586
+>-cflags-$(CONFIG_M586MMX)	+=3D -march=3Dpentium-mmx
+>+cflags-$(CONFIG_M586MMX)	+=3D -march=3Di586
+> cflags-$(CONFIG_M686)		+=3D -march=3Di686
+> cflags-$(CONFIG_MPENTIUMII)	+=3D -march=3Di686 $(call tune,pentium2)
+> cflags-$(CONFIG_MPENTIUMIII)	+=3D -march=3Di686 $(call tune,pentium3)
+> cflags-$(CONFIG_MPENTIUMM)	+=3D -march=3Di686 $(call tune,pentium3)
+> cflags-$(CONFIG_MPENTIUM4)	+=3D -march=3Di686 $(call tune,pentium4)
+>-cflags-$(CONFIG_MK6)		+=3D -march=3Dk6
+>+cflags-$(CONFIG_MK6)		+=3D -march=3Di586 $(call tune,k6)
+> # Please note, that patches that add -march=3Dathlon-xp and friends are =
+pointless=2E
+> # They make zero difference whatsosever to performance at this time=2E
+>-cflags-$(CONFIG_MK7)		+=3D -march=3Dathlon
+>+cflags-$(CONFIG_MK7)		+=3D -march=3Di686 $(call tune,athlon)
+> cflags-$(CONFIG_MCRUSOE)	+=3D -march=3Di686 $(align)
+> cflags-$(CONFIG_MEFFICEON)	+=3D -march=3Di686 $(call tune,pentium3) $(al=
+ign)
+>-cflags-$(CONFIG_MCYRIXIII)	+=3D $(call cc-option,-march=3Dc3,-march=3Di4=
+86) $(align)
+>-cflags-$(CONFIG_MVIAC3_2)	+=3D $(call cc-option,-march=3Dc3-2,-march=3Di=
+686)
+>+cflags-$(CONFIG_MCYRIXIII)	+=3D -march=3Di586 $(call tune,i486) $(align)
+>+cflags-$(CONFIG_MVIAC3_2)	+=3D -march=3Di686
+> cflags-$(CONFIG_MVIAC7)		+=3D -march=3Di686
+>-cflags-$(CONFIG_MATOM)		+=3D -march=3Datom
+>+cflags-$(CONFIG_MATOM)		+=3D -march=3Di686 $(call tune,atom)
+>=20
+> # Geode GX1 support
+>-cflags-$(CONFIG_MGEODEGX1)	+=3D -march=3Dpentium-mmx
+>-cflags-$(CONFIG_MGEODE_LX)	+=3D $(call cc-option,-march=3Dgeode,-march=
+=3Dpentium-mmx)
+>+cflags-$(CONFIG_MGEODEGX1)	+=3D -march=3Di586 $(call tune,geode)
+>+cflags-$(CONFIG_MGEODE_LX)	+=3D -march=3Di586 $(call tune,geode)
+> # add at the end to overwrite eventual tuning options from earlier
+> # cpu entries
+> cflags-$(CONFIG_X86_GENERIC) 	+=3D $(call tune,generic,$(call tune,i686)=
+)
+>diff --git a/arch/x86/include/asm/vermagic=2Eh b/arch/x86/include/asm/ver=
+magic=2Eh
+>index e26061df0c9b=2E=2E5323ed585bc9 100644
+>--- a/arch/x86/include/asm/vermagic=2Eh
+>+++ b/arch/x86/include/asm/vermagic=2Eh
+>@@ -5,42 +5,10 @@
+>=20
+> #ifdef CONFIG_X86_64
+> /* X86_64 does not define MODULE_PROC_FAMILY */
+>-#elif defined CONFIG_M586TSC
+>-#define MODULE_PROC_FAMILY "586TSC "
+>-#elif defined CONFIG_M586MMX
+>-#define MODULE_PROC_FAMILY "586MMX "
+>-#elif defined CONFIG_MATOM
+>-#define MODULE_PROC_FAMILY "ATOM "
+>-#elif defined CONFIG_M686
+>+#elif CONFIG_X86_MINIMUM_CPU_FAMILY =3D=3D 6
+> #define MODULE_PROC_FAMILY "686 "
+>-#elif defined CONFIG_MPENTIUMII
+>-#define MODULE_PROC_FAMILY "PENTIUMII "
+>-#elif defined CONFIG_MPENTIUMIII
+>-#define MODULE_PROC_FAMILY "PENTIUMIII "
+>-#elif defined CONFIG_MPENTIUMM
+>-#define MODULE_PROC_FAMILY "PENTIUMM "
+>-#elif defined CONFIG_MPENTIUM4
+>-#define MODULE_PROC_FAMILY "PENTIUM4 "
+>-#elif defined CONFIG_MK6
+>-#define MODULE_PROC_FAMILY "K6 "
+>-#elif defined CONFIG_MK7
+>-#define MODULE_PROC_FAMILY "K7 "
+>-#elif defined CONFIG_MCRUSOE
+>-#define MODULE_PROC_FAMILY "CRUSOE "
+>-#elif defined CONFIG_MEFFICEON
+>-#define MODULE_PROC_FAMILY "EFFICEON "
+>-#elif defined CONFIG_MCYRIXIII
+>-#define MODULE_PROC_FAMILY "CYRIXIII "
+>-#elif defined CONFIG_MVIAC3_2
+>-#define MODULE_PROC_FAMILY "VIAC3-2 "
+>-#elif defined CONFIG_MVIAC7
+>-#define MODULE_PROC_FAMILY "VIAC7 "
+>-#elif defined CONFIG_MGEODEGX1
+>-#define MODULE_PROC_FAMILY "GEODEGX1 "
+>-#elif defined CONFIG_MGEODE_LX
+>-#define MODULE_PROC_FAMILY "GEODE "
+> #else
+>-#error unknown processor family
+>+#define MODULE_PROC_FAMILY "586 "
+> #endif
+>=20
+> #ifdef CONFIG_X86_32
 
+Crusoe (TM3xxx/TM5xxx) do have a handful of compiler/user space visible it=
+ems that are missing from i686, as I recall notably the long nop instructio=
+ns and *possibly* fcomi (I *think* we caught that one, but I'm not 100% sur=
+e=2E)
 
-On 03/11/2026 14:21, Peter Morrow wrote:
-> Since commit 557d80138618 ("net/mlx4: always create the eth and ib
-> auxiliary devices"), both is_supported callbacks return true, so the
-> checks in add_drivers() and delete_drivers() no longer decide
-> anything. Drop the callbacks and keep the aux device table as an array
-> of suffixes.
-> 
-> Tested with this change applied to 6.12.113 on an Azure VM with two
-> ConnectX-3 VFs: both auxiliary devices are created at boot, and
-> removing mlx4_ib, mlx4_en and mlx4_core deletes them cleanly.
-> 
-> Suggested-by: Simon Horman <horms@kernel.org>
-> Signed-off-by: Peter Morrow <pdmorrow@gmail.com>
-> ---
->   drivers/net/ethernet/mellanox/mlx4/intf.c | 44 ++++-------------------
->   1 file changed, 6 insertions(+), 38 deletions(-)
-> 
-Thanks for the cleanup.
-
-Reviewed-by: Tariq Toukan <tariqt@nvidia.com>
+As a result, it reports correctly as family 5=2E
 
