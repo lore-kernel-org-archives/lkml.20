@@ -1,58 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793865080;
-	b=Zc1iloqCxQIHSR5Vc9sxb+KgN50sxPamqnuBZkDJwzy/YLn6AgWihJKOgJhpAyoCd++V
-	 VzjdlQKTvm51OasE9i/GgDNpk/5ApacKAZQFO1qweMapnw/hVpniQrM76K7kpFaKaDvyy
-	 BWfzUUPIjiSKSab86zZlHILdzSEzxM6hO9vZtQ4iU6Bj7Fepk0s5fO96tAn7fthqywN5x
-	 iNVpPDVCPwEKoaISiVhVjvLuG8ohpxapS3c+26VrHTMGrfBWrLahoWjVAG+gpibkVTUvK
-	 3v80QNwrz/U4b6q3zkq11LHSgqFNFNyQkYacyGRfJ4hzWCFJek6qJXaAI96Y9vhG+hw==
+	t=1793865092;
+	b=DdtVmQ9Jp3VOvsvOnkbdyXjwBe15XlDvGSlzrF15zOtr2W0UviR4wIB0YmFHMpdP4OE2
+	 dCXCyn5IRtgEKLjJHwW6ArNrayHmVANbe0Os42p+RqleieYlXC4TOPghx2DkZvX7ezSWP
+	 R4y0fyAvsu7O9ny23LGpSLcTBuu27P9NP5CAhH57WICfUmaTgsZruiZae904B20dqfrjm
+	 HDMslGYlsrPBumbsGnQmoI6tYHYrSD/F7eY888I2iWKHmQTLFRQgnED5A3N3f0pB34mdx
+	 GcCdINRsH2vHkZo3j2x97Udg+zCo7TVYaQ7NBhsciG2uuewGB+IOJjChQvYFw4EbrbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793865080;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=Px0sqORprMbXj8PfvcHinmAN21yuNblfIKP4pRZkKYY=;
-	b=BZgZVwZs/dQ/kGDBp63XAZx3q8y2pP8l1NC/cPJNZiTjLbtmRsfMXKv7/UOvrIRYIdKs
-	 2dpZ2e1WQLb6yDY3elm+RKyEFKZjhTjIyGI6ck2zVZPNtyC7nRhTQ0rWLWaSQs9HI9AP5
-	 Cxab16LVnCWHqNgVdY2jJjtbfe7U0wndMu7t17qhW3m06pOjsd6cmRqp5hVqVEJDX2fkr
-	 ddX1yOyl3sns+a2Bi9n+UJFik85gNi2T3dEX+zdVhyopAZYQ50GsWsZD978CEhj+ds8U0
-	 oIWKVzUp2OHMNmZW1rj+46z9fVbe5dbRvePa03lnNtNuJdu1aRKnvl6jiJxTsL3jH9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793865092;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=+Q7JgkSMoctEcO8fQ96DDbIs0tZvAmYtUcMJCiNoz1k=;
+	b=RNI3kJftTD3Z42FhLVz8JBGG8IjNtWEvnhMwNiQeyyoN700El8rAOXGSg1cW30fOJSkn
+	 d2fgBsM8aWNPLsC+ttDZXw2hXHSyvAfgKCkI6UfklMW6bnnoFfzE36NTlmYF5ZVxEs1w2
+	 vBM1zQI2e45l0uJdh8TPk9hvkoietO/fO6sWJiSNG+v0am52DIVo3HVYFKCZfv6CnVUnm
+	 me9EY62dPb9lG63PJBTNNm+KrXTtJALKPA3wNmOl0GptBsrx5zyCGWVJ03gFrH83DGWq6
+	 lBkZpoLD6IVIgQ/Yq+2Z6Khvqe710PV/KZTM+IOz3bMyDATy/5xtaeVmmLg7G1pq2tQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=z7SSXliw;
-	arc=none smtp.remote-ip=113.46.200.216
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=EKE9qgQp;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HkXB9TBW;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=EKE9qgQp;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HkXB9TBW;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1C1B606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 07:51:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1C1B606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF122606A31B;
+	Thu,  5 Nov 2026 07:51:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF122606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=z7SSXliw
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=Px0sqORprMbXj8PfvcHinmAN21yuNblfIKP4pRZkKYY=;
-	b=z7SSXliwnhT2hTPZZRf02xhKbSmGYoMVBe/uF3REJNemuk0NVX+aIOl5ArfyUCWpo5xDmKV4y
-	ByPcQ6biC8I/NAMY1ERfLowFj55XKy5NTmoihKdqKxooyRXcD7hWiM8vUUqS0gKn+2H/F1lIMSy
-	8cTVDOtn51cQsx72/Ncb4ak=
-Received: from mail.maildlp.com (unknown [172.19.162.140])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jKvct60Dhz1T4Fq;
-	Thu,  5 Nov 2026 15:50:54 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id D850E2011D;
-	Thu,  5 Nov 2026 15:51:15 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 5 Nov
- 2026 15:51:15 +0800
-Message-ID: <52c306ab-5378-496b-a759-27bbc0b6e55e@huawei.com>
-Date: Thu, 5 Nov 2026 15:51:14 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=EKE9qgQp;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HkXB9TBW;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=EKE9qgQp;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HkXB9TBW
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 1711B1F458;
+	Thu,  5 Nov 2026 07:51:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793865090; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+Q7JgkSMoctEcO8fQ96DDbIs0tZvAmYtUcMJCiNoz1k=;
+	b=EKE9qgQpuLHVGjkI6jYIzSs07m2+kpVrGFzPqy3GaxT2/Y7rEy5jYJIZ1wuGErlT1WWHl7
+	Q5oPEhdAPfRNWooptI/9xG3Np3zrivf5a4JXo9MmXhXTwiFAL7AHD76U2b+PQdUkQpphtF
+	HTNRgtRjVU5j4u1OcL4E83o2XryCwJE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793865090;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+Q7JgkSMoctEcO8fQ96DDbIs0tZvAmYtUcMJCiNoz1k=;
+	b=HkXB9TBWc9ygafJgm+uAhST41NhmHEdDFKgHSieswHsVGriKRx8O7GpRX6L8bwya/zbzms
+	CDKqQXhw3MChbIDA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793865090; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+Q7JgkSMoctEcO8fQ96DDbIs0tZvAmYtUcMJCiNoz1k=;
+	b=EKE9qgQpuLHVGjkI6jYIzSs07m2+kpVrGFzPqy3GaxT2/Y7rEy5jYJIZ1wuGErlT1WWHl7
+	Q5oPEhdAPfRNWooptI/9xG3Np3zrivf5a4JXo9MmXhXTwiFAL7AHD76U2b+PQdUkQpphtF
+	HTNRgtRjVU5j4u1OcL4E83o2XryCwJE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793865090;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+Q7JgkSMoctEcO8fQ96DDbIs0tZvAmYtUcMJCiNoz1k=;
+	b=HkXB9TBWc9ygafJgm+uAhST41NhmHEdDFKgHSieswHsVGriKRx8O7GpRX6L8bwya/zbzms
+	CDKqQXhw3MChbIDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C249C134F4;
+	Thu,  5 Nov 2026 07:51:29 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id g2iUJYE17GrYCAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 05 Nov 2026 07:51:29 +0000
+Date: Thu, 05 Nov 2026 08:51:29 +0100
+Message-ID: <87y0b7sola.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Chris Chiu <chris.chiu@canonical.com>
+Cc: tiwai@suse.com,
+	kailang@realtek.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda/realtek: Use inverted mute LED quirk for HP ZBook 8 G2a
+In-Reply-To: <20261105025647.1116662-1-chris.chiu@canonical.com>
+References: <20261105025647.1116662-1-chris.chiu@canonical.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,92 +110,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fs/resctrl: Allocate the RMID array with kvzalloc
-To: Ben Horgan <ben.horgan@arm.com>, <tony.luck@intel.com>,
-	<reinette.chatre@intel.com>, <Dave.Martin@arm.com>, <james.morse@arm.com>,
-	<babu.moger@amd.com>, <bp@alien8.de>, <tan.shaopeng@fujitsu.com>,
-	<x86@kernel.org>, <linux-kernel@vger.kernel.org>
-References: <20261104102004.609259-1-ruanjinjie@huawei.com>
- <8a543030-d0c1-416f-8747-6cd599ad6a90@arm.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <8a543030-d0c1-416f-8747-6cd599ad6a90@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-12.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-
-
-在 2026/11/4 18:51, Ben Horgan 写道:
-> Hi Jinjie,
+On Thu, 05 Nov 2026 03:56:47 +0100,
+Chris Chiu wrote:
 > 
-> On 04/11/2026 10:20, Jinjie Ruan wrote:
->> setup_rmid_lru_list() sizes rmid_ptrs[] by the whole RMID index space.
->> On x86 the index is the RMID, so the array stays small. On MPAM the
->> index space is the product of the PARTID and PMG ranges, and with a
->> large range the array is megabytes in size.
->>
->> kzalloc() needs a high-order page allocation for it, which fails once
->> memory is fragmented, and a size above KMALLOC_MAX_SIZE always fails.
->> resctrl then fails to mount.
->>
->> Use kvzalloc(), which falls back to vmalloc().
+> HP ZBook 8 G2a (SSIDs 0x103c:0x8f40, 0x103c:0x8f41, 0x103c:0x8f42,
+> 0x103c:0x8f62) use the Realtek ALC245 codec with a TAS2781 amplifier
+> via I2C. They share the same hardware configuration as the related
+> 0x103c:0x8f94 / 0x103c:0x8f95 models but were left on
+> ALC245_FIXUP_HP_TAS2781_I2C_MUTE_LED, which drives the speaker mute
+> LED backwards: off when muted and on when unmuted.
 > 
-> Yep, I ran into this too when experimenting with large PARTID counts on the FVP model. I have the
-> same patch here [1] and plan to repost soon with some more related kmalloc to kvmalloc changes.
+> Reassign these SSIDs to ALC245_FIXUP_HP_TAS2781_I2C_MUTE_LED_INVERTED
+> so the LED follows mute state correctly.
+> 
+> Fixes: 9afbbf490322 ("ALSA: hda/realtek - Enable Mute LED and Tas2781 for HP platform")
+> Signed-off-by: Chris Chiu <chris.chiu@canonical.com>
 
-Hi Ben,
+Applied now.  Thanks.
 
-Sorry, next time before sending, I will carefully check the email list.
-Thank you for the review.
 
-> 
-> [1] https://lore.kernel.org/lkml/20260911160608.1091121-1-ben.horgan@arm.com/
-> 
-> Thanks,
-> 
-> Ben
-> 
->>
->> Fixes: 6791e0ea3071 ("x86/resctrl: Access per-rmid structures by index")
->> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
->> Cc: <stable@vger.kernel.org> # 7.1.x
->> Cc: Tony Luck <tony.luck@intel.com>
->> Cc: Reinette Chatre <reinette.chatre@intel.com>
->> Cc: Dave Martin <Dave.Martin@arm.com>
->> Cc: James Morse <james.morse@arm.com>
->> Cc: Babu Moger <babu.moger@amd.com>
->> ---
->>  fs/resctrl/monitor.c | 4 ++--
->>  1 file changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
->> index f69dbf66f42e..7713aa5d3996 100644
->> --- a/fs/resctrl/monitor.c
->> +++ b/fs/resctrl/monitor.c
->> @@ -1029,7 +1029,7 @@ int setup_rmid_lru_list(void)
->>  		return 0;
->>  
->>  	idx_limit = resctrl_arch_system_num_rmid_idx();
->> -	rmid_ptrs = kzalloc_objs(struct rmid_entry, idx_limit);
->> +	rmid_ptrs = kvzalloc_objs(struct rmid_entry, idx_limit);
->>  	if (!rmid_ptrs)
->>  		return -ENOMEM;
->>  
->> @@ -1125,7 +1125,7 @@ void free_rmid_lru_list(void)
->>  		return;
->>  
->>  	mutex_lock(&rdtgroup_mutex);
->> -	kfree(rmid_ptrs);
->> +	kvfree(rmid_ptrs);
->>  	rmid_ptrs = NULL;
->>  	mutex_unlock(&rdtgroup_mutex);
->>  }
-> 
-
--- 
-Best regards,
-Jinjie
-
+Takashi
