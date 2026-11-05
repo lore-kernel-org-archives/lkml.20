@@ -1,98 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.108
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793845457;
-	b=5DkBbwPGwTcDykX5vwrUW37AAJJW/QFiv2MSum4BAVGJOekP5l8dlymbRDmTbrqV2o+4
-	 tsN0qaRmXZuhQxWwKzabITcpmWwRFYuoS98JlArM5apZIdzANzBIS3duACi/MqWAcdf/P
-	 QKIgxVngU9B8wDuaTIXIR5xtO4fY1C4jJXLaoO8bAbw3h23wf08hR0dXJkOs1Ica9eLgL
-	 5xrPzoRaddCRvBUpZOOA5MTM8A6iqitLiIpuqSgMAjjoiNIKRk7nZAh9OKIaLeZT+a6SX
-	 9QNet3lf1kP1A5fjBUXYeqmpYzOfAK4svWjKmml0HecWrzd4BFpZDTwI9jkIK9AUptw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793845457;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=mQpq9sMeYpjpbrGNlS1wKH84DMxpQDqcPxZ/WAeznpA=;
-	b=lXbh7QjLrAKYyYC+hFYMv0LmBnzWdDVq5iLKDENRLZlgjpDFA1yBpHDAPxot9g49Gy4T
-	 ip1NOEJWrL7uUVQNWnCbWFe4DUZQOGrKFpDlpYEgaB+DhCRP4BYMn1eDHOCwWP2bb1X64
-	 yrYRfpLc7SdU3dzWf406MrvjxbOOoiombyplbfyGtrX6xSOdrIRqZ1V/zy4rVVygZDfBj
-	 vhjgXVB5chdd8EsuQU4GVPid1EmEGqQX1Q6AIMxKeguERLbiflOP0YYFA65/f7BUS1r60
-	 WQk+KFhPWPQcROa8QZGiYKS9nW80R0NAtpZVJP6UecSF2q4oXd0EYl24CWqt1xfax0g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amlogic.com;
-	spf=pass smtp.mailfrom=amlogic.com;
-	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=VadXMYgQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.108
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023108.outbound.protection.outlook.com [40.107.44.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.175
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793845485;
+	b=SqQvkyFZCIg6Fz1wWClepDSr7l9PnxI3HQMwFCHQNq2hLXxnwcUVY9DyN2xuxOILORrC
+	 Tg5BxPOzbRFD+gnt7H0aCQCWWHywyqpFXGSYaWS1V0GxAoJCcacp5t1gSVjgbB/lTMWrX
+	 ijVfWwQQCW/WflZrvAfhzLcd2nb3gIwdO7gpM/Yu2PPmizOmt7G34uHpvIFS6UGt7LUOq
+	 PjG23D1agoPjtuBZ38AYEFdzhDkHurVUG7zrgpflugMy0cpgIIoAzSX3QRIXzk/Y2mQb8
+	 oav4WV0VXBoFYS/C/62CsHrL3kg+dAVg9xyh11UvjyBv1/2fQCjIuKepiRgX9jrJ6mA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793845485;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=VUFf6jwNeGXVvbspON82vI4aFLY01le+Nblo8PEzIB4=;
+	b=ekHVGstXFVarbC97N1I9lLVi6ORo7eTLa8ojnca5QVyCnoRtw343SdpSFvBVgLmuYiQY
+	 +C9a1f59+QqTq1ycCuhq5oB8kRD3j5YsqKLz/A0k3UBr9OBZIeEva6xX6nqBvbtAOD1bU
+	 UdFcREqdL+IUPfyu+Q0i8DMu44T/KQvSkMLm/ZGDOFXKbThBtnpJv5CYu48vOq4vBOwma
+	 xvwhPbaXvBp2Rid0sne+2TwVAa3O44klB0eupACvvKc5+tDRkThI8XbERcpswbxijt7tS
+	 hW0XCei9qIwZLtLEm29t79XW1sQlPyqgq4BSRCj5pO5L+MxuunB6LkAjfttld5LNgjQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kooy8NWJ;
+	arc=none smtp.remote-ip=209.85.210.175
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E90606A326;
-	Thu,  5 Nov 2026 02:24:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6E90606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E55606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 02:24:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52E55606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=VadXMYgQ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eMYpJPjTmQpXHm84dk0OjoB0zgMUEL6oiDiUaTM7pfDFRL4zGDgIAy/JxDUeqI370DrvUvaGmAfvy2VA105Ft1WLts19nhjNdwQfEOky7kxHH0CLr+kEr2oJYIZ8qSu0rvCdHqXczroXdiJUa8wyajibr0CCCgOBibPh6uQPEZ1pdUBOPoXHH6iqEgZyySn6F+MPnQoBVhljG0yFQhb7J0gSnOj3AAd8JgMjXK30ZoEO9F/VQm2H6AruRNKMEtlaB1BAtKXiXSsIeKOFmNaoJC5CT35EZjrGWZVUt1rTkRLvNT2IudVFxo/fIpuW3oMuH+72o9tmb4oNPxWXOuccOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mQpq9sMeYpjpbrGNlS1wKH84DMxpQDqcPxZ/WAeznpA=;
- b=nbd1wZpVhbiB20CMLMq9UBmgLP64MHsa9O0+LnBjRe0XLv9s8Qj0+8sSN0epkc0OHZj6UN0Pi6UFhgjGx5Z/5eloWTS73Bf5Bkqq1KqKQmgu60P1pITRWylDBaX9AXiwIRrHuvl3QCym06/7HLusmml5z0c0HtNU2CmVB6CVLO6sjUEQiJ7ebd5h7p8t5GYUrxDzDHMyw38BDJ17+fUY+ghC0koMtCEqOvH1bQeyBVaOb/qvfbrB8kdefCRHzEA9QpyZhosXX/WjzTetNupmqxiBBz7t8GC+79itlgXllkzbd3Gc155H4hiWwQBZme4CE5FpbKcLC73MRps7UrJnEw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mQpq9sMeYpjpbrGNlS1wKH84DMxpQDqcPxZ/WAeznpA=;
- b=VadXMYgQHj0Vww6BQtsM76HhywKKRp7RulNoB5lF9Awr3+nI5XpDWZDQzA7j9y+2UGF7s6ggrd2MQtroeYS1X+Fme1j0tK2jqBHpgzY2UqxbhYvNneo+uw+kFP2Mx7RK4l+4uYp3VoHrcNmof6EFJ5XZiSTIXz76rnaSQvivGXC2mbIYZhuJw9/oGu2Vz0FE7lXamcA5wSf5KYGGK7uwOZXIdRHODgbr8lRFkHzOOuBJSJ4oO/7VC8NXslFOAf2FgvUGqoSEHGoysBD0H0jXUNeNwTId0RpS8UXzb60xMKqYoKAU4XVvDaGHBCLCPB5FFmksR6tbFNAvoqF9e5YImA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from JH0PR03MB9035.apcprd03.prod.outlook.com (2603:1096:990:7c::13)
- by JH0PR03MB8665.apcprd03.prod.outlook.com (2603:1096:990:90::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 5 Nov 2026
- 02:24:12 +0000
-Received: from JH0PR03MB9035.apcprd03.prod.outlook.com
- ([fe80::77d4:2931:4c4e:1cee]) by JH0PR03MB9035.apcprd03.prod.outlook.com
- ([fe80::77d4:2931:4c4e:1cee%4]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 02:24:12 +0000
-Message-ID: <2b75bc46-3e93-449a-b13a-2cc4ba8cf755@amlogic.com>
-Date: Thu, 5 Nov 2026 10:24:07 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/7] Bluetooth: add a quirk for controllers that hang on
- Write Current IAC LAP
-To: christian.koever-draxl@student.uibk.ac.at, marcel@holtmann.org,
- luiz.dentz@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- =?UTF-8?Q?Christian_Stefan_K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
-References: <20261025192338.209574-1-christian.koever-draxl@student.uibk.ac.at>
- <20261025192338.209574-3-christian.koever-draxl@student.uibk.ac.at>
-Content-Language: en-US
-From: Yang Li <yang.li@amlogic.com>
-In-Reply-To: <20261025192338.209574-3-christian.koever-draxl@student.uibk.ac.at>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: TPYP295CA0019.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:7d0:a::14) To JH0PR03MB9035.apcprd03.prod.outlook.com
- (2603:1096:990:7c::13)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kooy8NWJ
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8a06cc097c7so1048597b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 18:24:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793845485; x=1794450285; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VUFf6jwNeGXVvbspON82vI4aFLY01le+Nblo8PEzIB4=;
+        b=Kooy8NWJcFmw3Z8AeCPgH+MoCRF1OjxPp9Pmw31LD32CQgMJIuqljx0i72RopmbDqI
+         JiiqvLAJFk0EwLa94SAv+JUznGaBJCnLizW7lTFSx5lNRJiLDCEDGSvhRNDDnWTuI95b
+         GvgFcbeBDxyfYEVPx/pYwppXEjoIy/TcKPXs5QK+pL6s6RTwZxd7l+3p+n9vQmvyoAa7
+         qkrsTZYBdwifySuGJFkPUq7S8LJtljSrkVp5KA7pECrLsY2bNztY3uCr8qTsIaWbZsaa
+         70veFGunrWXxMV+K/V5uMW14o4irHArOhs5Dx50SPkuT1Q0g3Z4Ltr6aD7w2xgD2cybw
+         1SPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793845485; x=1794450285;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VUFf6jwNeGXVvbspON82vI4aFLY01le+Nblo8PEzIB4=;
+        b=t0niEh5l9LdWafWUFuc6lc8EMEcoW4bZO8S6A7a2Aev8/N/vX1qDWPJsWEEP1/4B2W
+         fqEjiKE4vt0njRHy2gNYu7cN+Y6bCIBSXmDavda8nLZ+veCMmnUuFAgN1MosFVqRenp/
+         Qa0Mb6KQ1I/xgSjKs3y9wzILGto3JJMAAJpIYV0vreW61wQB58QPTPOw9Ax5VnSWx5IR
+         k8NFAt1EythoBMNtgQVZ47MBzyBm/DkkpDhGvEk2sZjrO4fL9w+mrAcwjgrm7LFYq1iN
+         Hs3vgg2coBlkP7fufvqePkHWFAiB5vQsobaK/o7aplWA0qX3mWW08f0G4ZKWiBncOYX9
+         mojw==
+X-Forwarded-Encrypted: i=1; AKwUvBwcVR2VtuYFxYu0JO9P8d6J7rTfkbB2lYoz+KO0zp5thzwCCAVApGkG8lzEyZusbIjfO0lghSOnBGZmlR8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/jeSZ40vv66pNEFXXdZWhYH430G2qt5eAnllR6+1Prgs/fLmT3
+	DROsn1Kta6hoRptoargzN20OwtTGfAijJ+1XCqlhHX1z9JDCIG9mYgMM
+X-Gm-Gg: AYBFou0PZMJa6E4AGNJq4f1ZT1udmNGG59ZSd/Y4Uk7iH50ZUB/TQ+5WgeQVzRjWNs1
+	5lySYIXPlj6+X8lpaV8+07cG61tqexC+RFvGZT7uSCYoYh6ZKEdFDXL5diG2VR75BXabKF4qGjy
+	hBigV+kGNI+Y1ZDIDc/jzwP7gHkTGzufsGa7DAmdK/WmTxX2Hf/AibHZWKCXgCIt4yvu6yNaRqY
+	e9L8ZQcgAjy2ceLfJO04IL6787Ck8HboWae9J1aR9JTyJciZiDsjag0IiXEtdEfsPVl7/vKr7mv
+	Mo/36XLrXK+vK3QjLfe0eDgmMYzjZHLqgJ19w9zR3A3UmoLCQ16X8Ca+m75Czx0M/wzkJbBAMtU
+	OAIx34a6Py3D+8oMiIp6y+7m44msaMCnmBG3Br+lyjaL771Zz6IzuElFmHRCZFGzj8OTAQfozUT
+	HTeI8f7PXLGR13hZ4rVKifEUbmzO1Hqp0lTHHkzgk9nPJZJIH++tceCNYfpxHzKT9i6GlYFKGWs
+	CnMKvixswebQGsDmG878Qm4ZuGMjHvBQ4HfoTadfXdM7tlRTMJzfsBskLiR3FT7ntgB75E7zRlh
+	7Ztd7ZnKyWNkujRLJQxZQLkXRenBMbybwH2f50jlcX/vMyU=
+X-Received: by 2002:a05:6a21:f11a:b0:3e9:24ea:64fb with SMTP id adf61e73a8af0-3e9289d8f84mr12476900637.41.1793845484456;
+        Wed, 04 Nov 2026 18:24:44 -0800 (PST)
+Received: from ubuntu24.vpn.host.chaitin.net ([124.77.157.93])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb46981369sm1577747a12.25.2026.11.04.18.24.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 18:24:44 -0800 (PST)
+From: Yuansheng Yang <0xbeac@gmail.com>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: dhowells@redhat.com,
+	paul@paul-moore.com,
+	jmorris@namei.org,
+	serge@hallyn.com,
+	keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] KEYS: Protect pkey method checks against type removal
+Date: Thu,  5 Nov 2026 10:24:39 +0800
+Message-ID: <20261105022439.11846-1-0xbeac@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <auvG1wGifSsoCuaQ@kernel.org>
+References: <aun7J2NGn57RGS5J@kernel.org> <20261104021414.50696-1-0xbeac@gmail.com> <auvG1wGifSsoCuaQ@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,179 +103,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: JH0PR03MB9035:EE_|JH0PR03MB8665:EE_
-X-MS-Office365-Filtering-Correlation-Id: a7e12bcc-3818-4a51-2dfd-08df3ae3e179
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|10067099003|6133799003|22082099003|18002099003|3023799007|261021121427099003|56012099006|261022075727099003|5023799004|11063799006|4143699003|261102123227099003|261026121527099003|261022113327099003|261009223027099003|261028144727099003|261026140227099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info:
-	mkYqOA7ZvpC2paT7LrZ6UwqdAQu5ncVuT1mUNVYGT5Q5vblWYUVvVDqm5Zrxqy+ISJXqPKozes4DPwd2Z+KxmmMqwE0BM+GqgThZQNpBgDCsRWB5FZmXrTU3TwUUMIRupGk5A9u6MvDPzSLbfJmwipWqCgmpAJOgorDSO950PhiYgq5E14ZDOnDagf+8VZMDfiszeO+GUZfgBwR68nIgYo0fIb64rLIXIO5r7vRLfArk3EMFtOmL00t69chgnRbyHDUgZytmzYohqNGNEHI8PRPuyrB1PWkxg67ZFNplTW4D4mGhE2bkvRzoJ99Zipb+wrCLexT1ZUKqLsmBnqM/XxnJ8U+xqY7QIthD3qQI34cPNpMl/ue3JXqV9A7GoKB3PVz6MU+CeULlK3a4dwJgjAiLHbBMfU/xgN9QfRJ1F7T8Dg2AP1afDp7ltyAdf2PcexQejrgjFL2jMHVbyKA/s3SUIcTIlpoHBT42uffW6weQovUm9z/8AiD7PEnsPgPcK651/0hPzqVWYgmy9217K10L9hMWmMo1akPmxT01/HGx8g5j5c+/foraG+3lGiZ9fTEL8LP5TvH0+eFSVT/v06WWSK2F/UeYiFCktSREjwLjEaL0quHLVktQpH5TCJyiPdwl//ggEoW6hZ+2GPEjbGoND3rG+R2A1geg5TW6kys=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:JH0PR03MB9035.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(10067099003)(6133799003)(22082099003)(18002099003)(3023799007)(261021121427099003)(56012099006)(261022075727099003)(5023799004)(11063799006)(4143699003)(261102123227099003)(261026121527099003)(261022113327099003)(261009223027099003)(261028144727099003)(261026140227099003)(261022105027099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cDV1emJGWDFIM2tQRnBkVnNNY0lCVVoxalZwcTF2MjlMTEtQMXRFRzFtK3Nz?=
- =?utf-8?B?M3NLSC90ZnByUnZVSlJITSt0RWxqL3AxVVU1eTdIbzcrR05nWjBDSUxQa3Nw?=
- =?utf-8?B?RU5rTnpYTU9GVGduUTcyTXc2d3V2VFQvK1dIVmIyY0JOWmJ6N0YyVVkzcGhV?=
- =?utf-8?B?Qy8vdXgvTDMrenFzeTVUSHMxVURHdDQwS3IyL1F0SHh3RmtGdzlGbTZJRjlV?=
- =?utf-8?B?Y0ttNEZyYThXN0hORzViMmQxSkFXMVN5cFoxT3c2U3hNZW1DdEJ4OFlQQUZ4?=
- =?utf-8?B?Mm9CMkVPQU9TUk1IbnFyVmVGQU1oa2VlQjh0QkNQOWR2WTBSQXFTc2JzVzdP?=
- =?utf-8?B?blFuUTdGTW5ZZmQ0TkZBY0ZXWFN5S1ByRC9JNmhMeDd2dnpKREJBTkN6cU90?=
- =?utf-8?B?ZlhPSEZOemo0OUh2Z3ZON1dOVHg4VGpaeU5GaktDTXc4ZzByaFI5MXZxcFhI?=
- =?utf-8?B?TzdDVmxSeWNVRFo5eWFmVkN1Z2gweDJCT295MHpCRUc0cDhvbWlNb0JlVlIr?=
- =?utf-8?B?MUphRURjb0pEaDlpTHppb3EzdUZBNFJOcEg1eUZqY08zUnNyQWRGbmp4NTBR?=
- =?utf-8?B?dlZlSDA3K1R4K3piNVVNWFdQVnVkTG41S21HZVBzWUtjVHJrWmNjOTlzeGo2?=
- =?utf-8?B?VitJWTUzWEQ1YUk4QUNTblF2a3UveEpWakYxQ2QrNi96c1h6ZHNiYjFLU3RJ?=
- =?utf-8?B?Y2I1MU9wTWh2SVFDblZiTTgyWHRDMDBGdS83TFlVQ1NJanhJWVJ6ZDBtWFhw?=
- =?utf-8?B?b3ptWjdrc2QyZGRNY2pzL3RiY0RWOEw2SVFVNmdKaGZaRVQ5QktXNXhjR1RX?=
- =?utf-8?B?VlJybDVBaG9Cc2ZRUGpURmxSS3FKM2NJWm9YOW9RMCtkQml6clRYbUszK1BE?=
- =?utf-8?B?WXNDU2ZQN2JiMXUzZ282cHAyb1QwcGFGRGRmVURjQS9KelRWUjF1SXhjT3c5?=
- =?utf-8?B?M0VMQXFRQk9xQ0hEK29jRkhFWEJ6QjEwM3pibzhVbWRNTXkxWG9kRFV4Tk10?=
- =?utf-8?B?UEFkc2xIRTZoc0ZjVzd3OGRWNkhJT0dJMzhFVjV5dmFkRXFiazlhWmZRNVMy?=
- =?utf-8?B?TWJRVkhoQnNNV0xxUWdwVGVnZkxNWm0wZVZQOTRBZXZxZnFlV1Y2ZUV2RU4y?=
- =?utf-8?B?aW50ZHZ6bzJpS0tWZS9TMGVPMExlU2NRWW5LbzdmTzRsRkZmc24wSWY5UXo4?=
- =?utf-8?B?ZnA5SlBvWm1XMUxKUG8rR0xTbkZuR1pPUmlBMnYzK3dsV2ZNWEI0a3RIbU5a?=
- =?utf-8?B?ajJSOVZSQW80SXVkWTFQeVUzVTJ6VVdQNFo1MjZxQUhXZ0QzYkZyQ1ltajVk?=
- =?utf-8?B?U3UrWVd4MzBtblNJdHhrZDVKUHdmbXZQanpWb2plTHk5SFlRU0NoWlZHMjBs?=
- =?utf-8?B?aVdnVWxlQ05DSFA2MDkvVDgrNTgreitBNTVic0ZWbHRsTkx4SGdzSEJOaWpK?=
- =?utf-8?B?KzRNTVE5a2h5YzZneXhXV2F0bXJqTVZHWExwYWlJUy9Pc085NURCbkpYOGZl?=
- =?utf-8?B?UWFFRlRlRkxOYnEyS1NjSmx4L3A2VnVxY2s3YU5TaEJ0cFdCR3FyUUZvVWdh?=
- =?utf-8?B?UTZJOE94SldlVHVLUXlxWEFqTUgrTXIvSEdRaU5KZlgvZElvTGN3NzF2dUxh?=
- =?utf-8?B?N2x1akl5eEowQU5QeG1sVlEwc2V1K2xDeWxFaTdSVmFCcUdsSUlvMmdVcXJC?=
- =?utf-8?B?R1QyeXA0OTVqUzFwOTBYeE9iNXVTK3NFV01yQWErQmp0WllnNWZYMHFvRkN3?=
- =?utf-8?B?dktIZStVR2NJU3pyTW5aSXo1eXVaUkVRNUhQUU1sMmV5QWVRcmdHWXdKeXhn?=
- =?utf-8?B?bllDZEJoK01TcFljWndYVm9RcTBCSzFzTTFFbnY4ZG5GTWJJZ2FQdEkySlc4?=
- =?utf-8?B?Z3NnVkZ4aEczbkozRmpxd1VFd0xZaXczVldLWEFRS1Vjd0pDMzdPRmo1cnd0?=
- =?utf-8?B?eDUwSmRzcmhNendFRXJORlowMXl6Z2QxYWNoT2FIblpEZDJRdEtRTzR3WEFF?=
- =?utf-8?B?WVdsazZUWHFBT291NTBYamR6d0FQbHZnVy83aFhRd2VxY0FnaE5hZFlsYmZO?=
- =?utf-8?B?dHkzRmdVdmxZMTFjczZMTUhscVJtODRkUllrd1BCY2podkxybDU2V0NWRG55?=
- =?utf-8?B?d1ZMTGloNG0wSEQrOGdSaDVscFFlWC8yVCtPMG5BNFN3U2lLNFM2ckxSU1U0?=
- =?utf-8?B?ZVpsQ0NLTFVoai9ZSTYvV3JoZlNCUjB2TjlSQWlXai9OUGJ1TEt3RGtmbzlt?=
- =?utf-8?B?dDNGMGRvNTg3MHUvblQzQVJyQUdUR2laTmZwUmY0QitSdnF1VTZJODRyVGll?=
- =?utf-8?B?ZkxSRGFESlVIcVcrUmtYaVdTUTBsQlVtTDl6dTNTVXgwU3k5dTJtQT09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a7e12bcc-3818-4a51-2dfd-08df3ae3e179
-X-MS-Exchange-CrossTenant-AuthSource: JH0PR03MB9035.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 02:24:12.6273
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1rxAQAQAVPK8TtRGqiz3J0MZWtJptRn33na6DX2KfFjcP4Yw7CWjF3ergo/M9hV04mz2NcOYA6Vsi3Sp+VANkg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR03MB8665
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 8bit
 
-Hi,
+On Thu, Nov 05, 2026 at 01:59:19AM +0200, Jarkko Sakkinen wrote:
+> Please respond to any questions *before* sending a follow-up patch by
+> properly using email client and quoting etc.
 
->
-> [ EXTERNAL EMAIL ]
->
-> From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
->
-> Some controllers list Write Current IAC LAP among their supported
-> commands and answer Read Current IAC LAP, but stop responding to HCI
-> altogether as soon as the write is issued, even when the value written
-> is the general inquiry access code the controller already reports.
-> Nothing short of a power cycle recovers the part.
->
-> The write is only sent on the way to becoming discoverable, so such a
-> controller dies exactly when something asks it to become visible, and
-> the failure looks like a dead radio rather than a refused command.
->
-> Add HCI_QUIRK_BROKEN_WRITE_CURRENT_IAC_LAP and skip the write when it
-> is set. This costs limited discoverable mode, which needs the LIAC
-> programmed. General discoverable mode is unaffected, as the controller
-> already holds the GIAC.
->
-> Seen on the Amlogic W1 (W155S2); set the quirk in hci_aml.
+Sorry. I'll answer the review before sending another revision.
 
+> > +	if (!params->key->type->asym_query) {
+> 		ret -EOPNOTSUPP;
 
-This appears to be an anomaly with the firmware binary. Could you 
-provide the FW version in use? It is logged during Bluetooth driver 
-initialization.
+I'll move the assignment inside the if block, here and in the other
+method checks.
 
+> There should be an empty line prepending the label.
 
-> Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
-> ---
->   drivers/bluetooth/hci_aml.c |  6 ++++++
->   include/net/bluetooth/hci.h | 18 ++++++++++++++++++
->   net/bluetooth/hci_sync.c    |  8 ++++++++
->   3 files changed, 32 insertions(+)
+Will fix throughout.
+
+> >  	if (copy_to_user(_res, &res, sizeof(res)) == 0 &&
+> >  	    clear_user(_res->__spare, sizeof(_res->__spare)) == 0)
+> >  		ret = 0;
 >
-> diff --git a/drivers/bluetooth/hci_aml.c b/drivers/bluetooth/hci_aml.c
-> index 990e701da4be..5979b114f2e4 100644
-> --- a/drivers/bluetooth/hci_aml.c
-> +++ b/drivers/bluetooth/hci_aml.c
-> @@ -603,6 +603,12 @@ static int aml_setup(struct hci_uart *hu)
->           */
->          hci_set_quirk(hdev, HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT);
+> Why up_read is not here?
+
+To avoid holding key->sem across user memory faults. After asym_query(),
+res is a local copy. Copying it out no longer needs the lock.
+
+> Please figure this part out it does not do a great job minimizing the diff.
 >
-> +       /* Write Current IAC LAP is advertised, but the controller stops
-> +        * answering HCI as soon as it is sent, until the combo chip is power
-> +        * cycled. It is sent when the adapter is made discoverable.
-> +        */
-> +       hci_set_quirk(hdev, HCI_QUIRK_BROKEN_WRITE_CURRENT_IAC_LAP);
-> +
->          err = aml_power_on(amldev);
->          if (err)
->                  return err;
-> diff --git a/include/net/bluetooth/hci.h b/include/net/bluetooth/hci.h
-> index bcbe76c84d1b..a59f48f387ac 100644
-> --- a/include/net/bluetooth/hci.h
-> +++ b/include/net/bluetooth/hci.h
-> @@ -389,6 +389,24 @@ enum {
->           */
->          HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT,
->
-> +       /* When this quirk is set, HCI_OP_WRITE_CURRENT_IAC_LAP is never sent.
-> +        *
-> +        * Some controllers list the command among the ones they support, and
-> +        * answer Read Current IAC LAP quite happily, but wedge and stop
-> +        * responding to anything at all the moment the write is issued - even
-> +        * when the value being written is the general inquiry access code the
-> +        * controller already reports. Going discoverable is what triggers the
-> +        * write, so on such a controller the adapter dies precisely when it is
-> +        * asked to become visible.
-> +        *
-> +        * Skipping the write costs limited discoverable mode, which needs the
-> +        * LIAC programmed. General discoverable mode is unaffected: the GIAC
-> +        * is what these controllers already have.
-> +        *
-> +        * This quirk must be set before hci_register_dev is called.
-> +        */
-> +       HCI_QUIRK_BROKEN_WRITE_CURRENT_IAC_LAP,
-> +
->          __HCI_NUM_QUIRKS,
->   };
->
-> diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-> index f1dfef81ca96..92c442910d6a 100644
-> --- a/net/bluetooth/hci_sync.c
-> +++ b/net/bluetooth/hci_sync.c
-> @@ -5258,6 +5258,8 @@ static const struct {
->                           "and will not be used."),
->          HCI_QUIRK_BROKEN(WRITE_SC_SUPPORT,
->                           "HCI BR/EDR Secure Connections is advertised, but cannot be enabled."),
-> +       HCI_QUIRK_BROKEN(WRITE_CURRENT_IAC_LAP,
-> +                        "HCI Write Current IAC LAP is advertised, but hangs the controller."),
->          HCI_QUIRK_BROKEN(LE_CODED,
->                           "HCI LE Coded PHY feature bit is set, "
->                           "but its usage is not supported.")
-> @@ -6127,6 +6129,12 @@ static int hci_write_iac_sync(struct hci_dev *hdev)
->          if (!hci_dev_test_flag(hdev, HCI_DISCOVERABLE))
->                  return 0;
->
-> +       /* Controllers that wedge on the write are left alone. They already
-> +        * hold the GIAC, so general discoverable mode works without it.
-> +        */
-> +       if (hci_test_quirk(hdev, HCI_QUIRK_BROKEN_WRITE_CURRENT_IAC_LAP))
-> +               return 0;
-> +
->          memset(&cp, 0, sizeof(cp));
->
->          if (hci_dev_test_flag(hdev, HCI_LIMITED_DISCOVERABLE)) {
-> --
-> 2.56.0
->
+> There were similar repeating issues that I did not specifically point
+> out.
+
+Agreed. I'll keep the switch, allocations and error handling in place.
+I'll move the method checks next to the callbacks under key->sem and use
+shared unlock points. I'll check the other paths for the same issues.
+
+Thanks,
+Yuansheng Yang
