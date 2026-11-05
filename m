@@ -1,99 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793907304;
-	b=UDhhulUKguOjOJnjCw4KAnc0O6DmeKHIWYgKySaA99eqG9DNcOY0YH1iGaUcO01JBDaN
-	 KzHtcsOB4DvIEO4u9EZ6VSr7QtFXZ0xSKDrT8wyraaEjbMll9IN0zMKJIizH7+wF5ZnY9
-	 pUpE+F3RrPlUYTM7rJtm705vVEfewIANU1RBJ6iJVCerN1iv7mVOhyPWkGvCankcUAolR
-	 EJDtPHRrB6XTn9r8YNZ8fUIBDuRCuGc/qqopPWN1xqsn9IbFUszKdY/3NHQw1QqgFj+Hq
-	 CwEB0IP+s8+P0N2p3krwWuAyWul+L/iVEvZexS9eYIDF2eTZJx+YfxPBTODvzJqdNqw==
+	t=1793907259;
+	b=vuHebz5WV5PzoHDa9DmODCLFEfIJCrm7m15fu/6E8nnsNoLVhinp68XcNIpieAPM+JKS
+	 Xz4uLryctPprhGOYGC0sL5piPnxpwYBRSL6HqPlm9s4gwkGgYsb8bLGabihJ0oXZrTUYZ
+	 ossl/7uwrrJpmAv6mQNUYiFkDJOysMaUYGnbIiD2Tgj9NYj/bHgn94rQxzUSNKDszsE5Y
+	 sP6Ex5qOP2+DD+64xUamYQTJABqpJTqJ2nn7TX1jCmUqS+A5Tet1ZhLqgxLUAcnzQ5l/W
+	 vu5fjRpUNq7oPE593PakgFCs4G8q/XQW29U00g+F/mZaZedgNPW/Skd/wbkVSB+wp7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793907304;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=6waUMbBW3PMNNkalcsbpj+noxC1InsPmZ1SepMjhk0E=;
-	b=ouLfP7THnU1LXh04BioQkdcdxBKXVDlrrbtFO3bg3jps6aAu3mGiHlJ//axjx02OVtpS
-	 j9TyRpIaMy0mrAZFcbLMWV2qzRBKZnQqHBpqO+d1x+aofuXYAuOeQcYL8qTQymCHhjyBL
-	 uKedUgDKHZhCvNLI88i6nj7+Qzne0cyjDMAY9+KPMaIGu8pDNTTvRipTHvGWGzt4/eoyd
-	 /9aPEOkS81NrDYeFqswPRDZ9Np1LQ/sfg/hLKa8y/nY4p+Qn3mW/yqP02vrUWL4CTLMuc
-	 ExOy1YLFcfoF/DLXAdYzlCojaZreNa96v73Z0wNT0AkV/sWgRNywTN9E/FfU/wE7/pg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793907259;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=KeWVp44tQ8DyNXQ7uuJiQvoSDj7guT6jw16kawQ+gbE=;
+	b=lCUzL15UCtai3FtxwI0upDZqU1SqSAE1zEzKgMBEPhDAc0IMDdrBQFv2GQBXlu9XIwJM
+	 zsPrvvbOv/Qbygf1hVJSg2N0jTgvy0qWW6t16YWwaecFm0ppFY6m3Ok7si5rqoWSL2Dov
+	 y+e1ddkp0dE8wsFHiNNAIOczIOAYj4Ddv4guds3lztU/tAQbFifawtpt+lDzzNNniX04S
+	 Dbz4swnxkH59Yssjx6WfsrtbuDs3SWDLvnj+O30f7yIEKXmscBhPOqOViS9cdQm592D9i
+	 8JqEJ0f+kUHblkkxZ7XKjFnsI/jMELu6oHOh6XBf+PPPivL+gmWW9MPNHLFEPIXi/zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gF2H0qML;
-	arc=none smtp.remote-ip=74.125.82.54
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=v2lcwzBg;
+	arc=none smtp.remote-ip=158.69.130.18
+Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F273F6075327
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:35:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F273F6075327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEED36082BCE;
+	Thu,  5 Nov 2026 19:34:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEED36082BCE
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gF2H0qML
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-15ea896ddc8so3796520c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:35:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793907303; x=1794512103; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6waUMbBW3PMNNkalcsbpj+noxC1InsPmZ1SepMjhk0E=;
-        b=gF2H0qMLqJEILl2WdYpdXO/kF4o/xA+zA11jGsk7q3DYsSiVSR4QAvQ4vNa8mrlh4T
-         2PViehKuLqppi/478eA40zl39pgH9MZIfHzlgQqNuwY9J9Vpn2rJbUAAW0OIOpsDag38
-         Cf2BEGqBCqhcr1Phfk9FSyg7cSv7ghsJX2sB4iF7m0JkqWJKYhadaDRqWeiJ6RCDfpV9
-         S0XrT0JWFCMmCZskgEcesX0AJUGVCJ0UX76I7jBWE4rjK0rAYZHICCCqPG9/mUQMcy6b
-         FZDlNrbQjfZimM3eqBJy7l9hijgjz0cseq5LkQyXt8hCmEqxuIDbJieVioSE0u9uAUfJ
-         XuDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793907303; x=1794512103;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6waUMbBW3PMNNkalcsbpj+noxC1InsPmZ1SepMjhk0E=;
-        b=GdA8VHIS/O1GW/ZZm7t7+JpoCTPb8pDFREbXiORXSCwXsktZHFGLV8bj+ituLcCgGr
-         z0LuEK+FYw+B1cliqmxk0l30K4zIkZmGAzdVIrMVSgbFXUdn+5pd6OszD0yFkOAFjJV3
-         CRPe15tyhMG8v2j8xvs5KDmM778cfUStZNfP2wysB5yaG5BMjk2LIpciq0Y15jvux5d+
-         tlPBP9aCtYgEa/K0ZFYlG9eZj0mOl+AozYiPBiaTo340d3vNwb+8EtffBiUtUhDRFEYt
-         YTVOT7lu51GAcSnmfkYJ293Tl4WjiQLuk4vhbLUf3s5ue8CSJjK4orOrlJ95CjZ9x0jx
-         RlwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzzDaZ20m3FAoLf6fwf1QG6bFCNmZ2ungne3t6TjeOhVp3J5Zav0Z020Yv0oY64hlioBstyr69qb4+ixuY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/DUicjpnnXrLAC9154wATDbvc45RBh2EAdn3NKu63c8spOl+7+
-	1zWVWTbNMVAIMsLTB3DZU+iQsPZlIBWnIRvMUX4qsvL4O+65BO2eispO
-X-Gm-Gg: AYBFou213kenS5kJKxhDH3TY47ZA4XGy94DD3mOvEw0qRXxOjbC/q77OufrivCjRLLn
-	ESnu6+oAh+aWH8jS8htbYa8NZi8OqvYb6pntlXFk5ZrsKQKK8UIp3FFnPluK+QZ1uuq5pNSKcZG
-	stySDz9aAEpNo5EA6Ejf4UofIym9hJSh+HDyiDd9Yk6tzpH5O5VLJlYd2jpPOEqWPJHBfxvSf2b
-	ItxKVUMQ7ZELnBvzTe9Tg0RrG/Uk+xsucd93UFEd6wAlsaZ+XAlWUwyG9D6NVy8odAmc8exHU9J
-	Xn3DS0exrgg8q28YknQTsJJ6lgwGGissfsw65/ZVPfJNd+d4yHNihguszm6WzRgyKIb061PdAZy
-	RPEbAonZWWHj5b5p5w7xMxW/DSiVuI/5F+8itl3Bd9YpeRCq0xCL3qmXT5P2I2y0FeTexVqalyv
-	2SAHmvYG6RMVR876ySYr6iyWKheDRL6H/9pBfxCFj978bzchhKkM99oObcrgFXWPryjbODxqIm4
-	f4AGx62LZH6pnT0fu4E4NGhBOPQJolRWCLopIh3TYzG8zLA+lXLm/TY//Q3zG3NWxIhaKzutk9D
-	fRVVAGwR+G03cbTr7+xDKfTXS35n7g==
-X-Received: by 2002:a05:701b:4513:10b0:1b2:490b:6fdd with SMTP id a92af1059eb24-1b2490b7174mr7487167c88.24.1793907303014;
-        Thu, 05 Nov 2026 11:35:03 -0800 (PST)
-Received: from eldorado ([2600:8802:b00:1f88::287])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c1c127sm18023186c88.6.2026.11.05.11.34.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 11:34:58 -0800 (PST)
-From: Florian Fainelli <f.fainelli@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Florian Fainelli <f.fainelli@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org (open list),
-	macro@orcam.me.uk
-Subject: [PATCH net-next 3/3] net: sb1250-mac: Add ethtool autonegotiation restart support
-Date: Thu,  5 Nov 2026 11:34:35 -0800
-Message-ID: <20261105193435.2050321-4-f.fainelli@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261105193435.2050321-1-f.fainelli@gmail.com>
-References: <20261105193435.2050321-1-f.fainelli@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=v2lcwzBg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+	s=smtpout1; t=1793907251;
+	bh=KeWVp44tQ8DyNXQ7uuJiQvoSDj7guT6jw16kawQ+gbE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=v2lcwzBgiFLjMmgOFDbAoeg2vsmq1m3vmWB7OZdn9fIfUCX6QWdz5+B2REhIzLGGa
+	 ZmdvgYwrmk9GoKNo9SAYOzJBIuZkicyQl3++W6R3eCQMKchdSOF9ocwdrBV0WuCM71
+	 95fJ4r7Ty3yqig1sUckDHdLl677+fCzBOGMtM8I8LvdOUEYWTUEcvLgQXdcioUY1Fy
+	 LeJWR+v6DlTGW3ROCxby5R6RK3ZdUVMfopGzUP9Pvef1OVAecyTZEDqyzakI1fvHQL
+	 fUoC/JHqlFsSQj12fbZ0Vl8HKFRWWuwFeQLYnvtly6EAN7h+N91uBXIexMelp7ciab
+	 yt1sXAeqoMTQg==
+Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jLCDM2W48zLYH;
+	Thu, 05 Nov 2026 14:34:11 -0500 (EST)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: juri.lelli@redhat.com,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	vincent.guittot@linaro.org
+Cc: linux-kernel@vger.kernel.org,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	luca.abeni@santannapisa.it,
+	mathieu.poirier@linaro.org,
+	longman@redhat.com,
+	ridong.chen@linux.dev,
+	tj@kernel.org,
+	hannes@cmpxchg.org,
+	mkoutny@suse.com,
+	shuah@kernel.org,
+	bigeasy@linutronix.de,
+	clrkwllms@kernel.org,
+	parri.andrea@gmail.com,
+	m.szyprowski@samsung.com,
+	kayracizmeci@gmail.com,
+	weihengqiuu@gmail.com,
+	cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH v3 15/24] sched/deadline: Move a task's bandwidth only where room was made
+Date: Thu,  5 Nov 2026 14:33:50 -0500
+Message-Id: <20261105193359.1450487-16-mathieu.desnoyers@efficios.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20261105193359.1450487-1-mathieu.desnoyers@efficios.com>
+References: <20261105193359.1450487-1-mathieu.desnoyers@efficios.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,27 +94,155 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Wire up the nway_reset callback to phy_ethtool_nway_reset() so that
-ethtool -r can restart PHY autonegotiation. The phylib helper handles
-PHY locking and returns -ENODEV when the interface has no attached PHY.
+set_cpus_allowed_dl() moves the bandwidth of a deadline task off the
+root domain that counts it whenever the new mask leaves that root
+domain, on the strength of the room cpuset_can_attach() made in the one
+the task moves to, as its comment says. Nothing checks that the room
+was made, and two paths reach it without any:
 
-Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+ - cpuset_can_attach() counts the deadline tasks of the attach it is
+   asked about. A task that becomes one after that has nothing set
+   aside, and the attach moves its bandwidth all the same: the root
+   domain it lands in ends short of what its tasks hold, and underflows
+   when they leave. A task that flips between SCHED_DEADLINE and
+   SCHED_OTHER while it is moved in and out of a one-CPU partition root
+   drives total_bw of that partition to 2^64 - 262144 in 8-CPU VMs of
+   v7.4-rc1, in 2 VMs of 2;
+ - sched_setaffinity() of a deadline task takes the same path. With
+   admission control on, a mask that does not cover the task's root
+   domain is refused before this (__sched_setaffinity()), but with
+   sched_rt_runtime_us at -1 nothing refuses it.
+
+Say in the affinity context whether the caller made that room, as
+SCA_DL_BW_RESERVED, and move the bandwidth only then. The bandwidth of a
+task whose move no one made room for stays where it is counted, and the
+next rebuild of the accounting attributes it to the root domain of the
+task's cpuset.
+
+Fixes: 7f51412a415d ("sched/deadline: Fix bandwidth check/update when migrating tasks between exclusive cpusets")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 ---
- drivers/net/ethernet/broadcom/sb1250-mac.c | 1 +
- 1 file changed, 1 insertion(+)
+ include/linux/sched.h   |  2 ++
+ kernel/cgroup/cpuset.c  | 13 ++++++++++++-
+ kernel/sched/core.c     | 14 ++++++++++++++
+ kernel/sched/deadline.c | 15 ++++++++++-----
+ kernel/sched/sched.h    |  2 ++
+ 5 files changed, 40 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/net/ethernet/broadcom/sb1250-mac.c b/drivers/net/ethernet/broadcom/sb1250-mac.c
-index 546415d3134c..433aa1e24439 100644
---- a/drivers/net/ethernet/broadcom/sb1250-mac.c
-+++ b/drivers/net/ethernet/broadcom/sb1250-mac.c
-@@ -2129,6 +2129,7 @@ static void sbmac_setmulti(struct sbmac_softc *sc)
- }
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index da3a3a4f7246..52b450d212c6 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -1960,6 +1960,8 @@ extern void set_cpus_allowed_force(struct task_struct *p, const struct cpumask *
+  * Return: zero if successful, or a negative error code
+  */
+ extern int set_cpus_allowed_ptr(struct task_struct *p, const struct cpumask *new_mask);
++extern int set_cpus_allowed_bw_reserved(struct task_struct *p,
++					const struct cpumask *new_mask);
+ extern int dup_user_cpus_ptr(struct task_struct *dst, struct task_struct *src, int node);
+ extern void release_user_cpus_ptr(struct task_struct *p);
+ extern int dl_task_check_affinity(struct task_struct *p, const struct cpumask *mask);
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index 4159abfbbbb5..5b8f1d9552a6 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -3326,6 +3326,7 @@ static cpumask_var_t cpus_attach;
  
- static const struct ethtool_ops sbmac_ethtool_ops = {
-+	.nway_reset		= phy_ethtool_nway_reset,
- 	.get_link		= ethtool_op_get_link,
- 	.get_link_ksettings	= phy_ethtool_get_link_ksettings,
- 	.set_link_ksettings	= phy_ethtool_set_link_ksettings,
+ static void cpuset_attach_task(struct cpuset *cs, struct task_struct *task)
+ {
++	bool reserved = false;
+ 	struct mm_struct *mm;
+ 
+ 	lockdep_assert_cpuset_lock_held();
+@@ -3335,11 +3336,21 @@ static void cpuset_attach_task(struct cpuset *cs, struct task_struct *task)
+ 	else
+ 		cpumask_andnot(cpus_attach, task_cpu_possible_mask(task),
+ 			       subpartitions_cpus);
++	/*
++	 * cpuset_reserve_dl_bw() made room in @cs for the bandwidth of the
++	 * deadline tasks cpuset_can_attach() counted: say so, so that this
++	 * task's bandwidth moves there with it.
++	 */
++	if (dl_task(task) && dl_task_needs_bw_move(task, cs->effective_cpus))
++		reserved = true;
+ 	/*
+ 	 * can_attach beforehand should guarantee that this doesn't
+ 	 * fail.  TODO: have a better way to handle failure here
+ 	 */
+-	WARN_ON_ONCE(set_cpus_allowed_ptr(task, cpus_attach));
++	if (reserved)
++		WARN_ON_ONCE(set_cpus_allowed_bw_reserved(task, cpus_attach));
++	else
++		WARN_ON_ONCE(set_cpus_allowed_ptr(task, cpus_attach));
+ 
+ 	if (cpuset_v2() && !attach_ctx.mems_updated)
+ 		return;
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 04b62c16fa8c..0ff07258cf0c 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -3269,6 +3269,20 @@ int set_cpus_allowed_ptr(struct task_struct *p, const struct cpumask *new_mask)
+ }
+ EXPORT_SYMBOL_GPL(set_cpus_allowed_ptr);
+ 
++/*
++ * The same, for a caller that has made room in the root domain of @new_mask
++ * for the deadline bandwidth of @p: that bandwidth moves there with it.
++ */
++int set_cpus_allowed_bw_reserved(struct task_struct *p, const struct cpumask *new_mask)
++{
++	struct affinity_context ac = {
++		.new_mask  = new_mask,
++		.flags     = SCA_DL_BW_RESERVED,
++	};
++
++	return __set_cpus_allowed_ptr(p, &ac);
++}
++
+ /*
+  * Change a given task's CPU affinity to the intersection of its current
+  * affinity mask and @subset_mask, writing the resulting mask to @new_mask.
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index 6a9b9791ddad..de1f6a39e60c 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -3493,12 +3493,17 @@ static void set_cpus_allowed_dl(struct task_struct *p,
+ 	WARN_ON_ONCE(!dl_task(p));
+ 
+ 	/*
+-	 * Migrating a SCHED_DEADLINE task between exclusive
+-	 * cpusets (different root_domains) entails a bandwidth
+-	 * update. We already made space for us in the destination
+-	 * domain (see cpuset_can_attach()).
++	 * Migrating a SCHED_DEADLINE task between exclusive cpusets
++	 * (different root_domains) entails a bandwidth update, and only
++	 * where the caller has made room for it: cpuset_attach_task() says
++	 * so of the tasks cpuset_can_attach() counted, and of no others.
++	 * The bandwidth of a task whose move no one made room for stays
++	 * where it is counted, for the next rebuild of the accounting to
++	 * attribute, rather than leaving the root domain it moves to short
++	 * of what its tasks hold.
+ 	 */
+-	if (dl_task_needs_bw_move(p, ctx->new_mask)) {
++	if ((ctx->flags & SCA_DL_BW_RESERVED) &&
++	    dl_task_needs_bw_move(p, ctx->new_mask)) {
+ 		unsigned int src_cpu = dl_task_root_domain_cpu(p);
+ 		struct dl_bw *src_dl_b = &cpu_rq(src_cpu)->rd->dl_bw;
+ 		unsigned int cpu;
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 6c7c5633524a..25cb4228b203 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -2953,6 +2953,8 @@ extern struct task_struct *pick_task_idle(struct rq *rq, struct rq_flags *rf);
+ #define SCA_MIGRATE_DISABLE	0x02
+ #define SCA_MIGRATE_ENABLE	0x04
+ #define SCA_USER		0x08
++/* The caller made room for @p's deadline bandwidth where the mask points. */
++#define SCA_DL_BW_RESERVED	0x20
+ 
+ extern void update_group_capacity(struct sched_domain *sd, int cpu);
+ 
 -- 
-2.53.0
+2.47.3
 
