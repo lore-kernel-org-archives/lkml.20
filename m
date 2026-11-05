@@ -1,88 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793860725;
-	b=XAzbUgdS+fN6RC5SF7+quXoUP9YCvSB10693fIxdk7p3XG7eb1fV01z194sSgEDPmEyU
-	 o/wVVjmXGTfsH6IY5+svZ32SmlB+D5ZEnnTx8MNst3fv7EcalitYqh/dq2gsaMbjZqotO
-	 nWDXhJYfev2iYiUHm6KPNOAkOKAwJburbaak6gFnDSiwHdQplybkogIH4f8oGcKjEGoC1
-	 zIR28i8ZDIi0o1qukCtld8SOUgD/g8MSvrpPdPDDuw/5MEuUu3imoDkSvVSMlQqwy3TSc
-	 0W3i1cm1oyPdPK8wlnDV7UE7iHKr5fUq1zOt9qUFDKeI3LRDIDFgaQzTpqROV9VvqIQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793860725;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=L5dubiE1iWMYoNsbYmd6mG0ptehWJeLitxAHfWNlAHY=;
-	b=Ilskc3P2Rw1GoMHH2WN93FGnvE/DZFfjEwnn0iZoORnLlYtdj2m09N93E5eQUbvLCLuv
-	 eX79sb15ttGJv638Wzk+kxpaYy7OBjLuOfqCuvgdUYqjjg849x6OpxEYzLwx5i/bYKrbf
-	 iKSZ/i/m93aI6yk7wTbk2TSnQSsDFPaEYMz6tuLGiU7xBq0o4ea7eeotHpN+nZVS4BP9O
-	 th3QMoY0XVAraH6j/ZIUiBbygP9/ebvWd8dWmGpwDs6ZDWCtNL50f1sVudpb1aCYbpJVe
-	 c3PZAG875JTgClVy4VpLDyAch4KYuFzOllcL2OMB9OWT1CNU5QXRRrE0Fje+Za2r54Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dmy2ttyu;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793860889;
+	b=A/tn70/16FPkFb/vR8yWrpgWHmNuWho7EZmnzQlR1w9Rq9XD7Co6tedr7TH45yt7sSsk
+	 GGw0xmhETxXhXsKxSCzqIZuW2Zt6trQavge/P8zguOANoCwjlH3VTe4iVGkTyXZ9TF7DO
+	 suGsOTTpzXRKbGAEnN6e/2N4+3UXQW5DLZFrS5RWbsscj1Lvm9kT51jt3HEz8wSJHfExT
+	 5QXeHhXYhC9ltXOzIs8Bq+o7+nmvFTm5DgKeFt+Qa4sjHEZ1iEaRTbLqfR9MGcuSMUnzg
+	 d7KZJ0DuUhOSvuosCEdPaVmtKoc4hH1iOCKEGCmOZWcRcICKqTS5XiLtgjwK9fATFNg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793860889;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=rr048qY3HNr3QsWAPMsxFmYMKWEuae4XAQPqDeEodXc=;
+	b=gU/uR15fZvJMMqtj8NPim1PSqcpn5ivXeF5//MpA3wj0zdQpQFzzPJXS8p4Pq7fcXt1l
+	 lV80NzlUlJ0rRWVQuUw2K2IH2MswUgjZvMWV4x8b7aNfU8W3T2DMDXOvXpwrJ7pQCkdrv
+	 xhFRmrAiHOy1O0GfC0TAe/UzQyzA8446YYSLk96mEzk7EqHDz5VpYBIO85+evIkDqjiIj
+	 X3bygd90HhSe1DR9fmT99GrmZIm8B6qqM8N++DfhiI7GY8791nGvBinfXQdEvnshe/In5
+	 FptndVwuTC6/tmRLs3g+Z1fgGSd+bx7j58G2RLVhQzpMXPXUl8SNnOg1h54MVRmjf9A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=J3JMI5oV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.18
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011018.outbound.protection.outlook.com [52.101.70.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F8F2606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 06:38:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F8F2606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E33C4606A32F;
+	Thu,  5 Nov 2026 06:41:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E33C4606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dmy2ttyu
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-36a1947498bso4221508eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 22:38:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793860724; x=1794465524; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=L5dubiE1iWMYoNsbYmd6mG0ptehWJeLitxAHfWNlAHY=;
-        b=dmy2ttyud2RdZpUcJr4Drxij5+uLFzQIHSItErh+GocLVUSYIJu4xfuXE53V1clj7l
-         5P/CpBt8+Nm/ePEwoPtEGJOH/wHXrX1gffxgqEY96wIt+yBOUJUc5BusK11VwDH6Q9SH
-         To05ceoiKqJEIeh9r5y4ef0sDu/NyGfnjOLZT9nE6fZkfLaAOjeDkbZoWORtWGpk6/CB
-         d57L4oeJVUTJ8ODy2F1OcpnNy4gTpvBokxTS+viveiI8vuhU2iKaN7g+5RI6MU6EBx83
-         MZvNrrUFLxdajDJGx3kisnNZzg1wfd7qoVfbsXwz8mLkqY2rMqKie1y2/AqtDzUFw47o
-         2LQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793860724; x=1794465524;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=L5dubiE1iWMYoNsbYmd6mG0ptehWJeLitxAHfWNlAHY=;
-        b=JbKrLxQQU/GMEur+RGeKEbyrTAJmAx3B8b0rxsvRYO7kApIzb/Rrr5rZgQL83vIB93
-         y6LjGR63Lyk98Y5u3r7NFDJ+X+SPE7jzjqWmmFYlnY338nz1Kv6vckcjRxvktbXgKsFV
-         Ar7J8xn14rgT/eMlO1C3G/xrLDhT4NNC4Fw/N20q1gIYkSDa8TkZnv0oG4VJOeEDktSb
-         /dlz6rKb4UN8fc75Uxi91nn6s32h1rb/mbPU6WyUywXW3uPrMR1yHgdrVIVi6Dg25Sdr
-         UxpJeveOTs9dJgP0LQmIp+/Wi8Yze3duJd9uXk3I69v+85wmfPFSshdoNZ6kuyXYrT3I
-         u2SA==
-X-Forwarded-Encrypted: i=1; AKwUvBywcD7km5dtV4QOvOacvjMztZJM3tKFYC3A1TTCn3l4Se5JKN80RobFoXqu3v7YF0pEhaMS2vdz6GIOhbA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+dM/NmK1VtFqa28H7aElrAh0cDxfvZOLIFxrkVrseXDbvplUs2
-	Y9vnhhEwcrdVZiXQ4Yr+MMzZ5s/T64p7nB2adC5rTM752ILmg56Fa+cK
-X-Gm-Gg: AYBFou3EGbWUwzI0zMhu0de/Rog44tki8cBru74MZT2xNIBtyQu/ArvzFdvi6d/B7Y/
-	VMLLB3sek+3w8S5jR9D5geF0fhNnMu72GYF8VFK6EVHwj1tVO6egbqrDtpKSkTAOp/SCUv/foDb
-	rIOuVAs4n5J2taF4NBgVbrd5KETZKYsJXlHl7uTsY4iAVpQn705JVQCzxFI2MqRCevn1MYuIjXx
-	s3reJkfbDm517aqOqBE0OtUAyj78FMBXjkn8FQvKfUbRkNCcOthVRmgHF3suV+VEtmqvp7Wq4sm
-	L2qd6ZVrome4u+h1lo8jobIzkbihPIt302RpUmKH+h5iTK1rNHWD6nwJ+yeyfJmNGRPAcidPVqa
-	3htKAMzmzn0ErZbTV07bT359n9wH5dDacq7IodkJd+XWD1/yMTF43JzmD3Tp/JQDy49N+K4zjLv
-	93vi+oQBhHZwBrUVVHk/De9E+i4Mt9/WZR8AVNxe+tel1Y/xkptmONSda3aXQcMBVXZ438DSaES
-	XePTrC/PxVPIXBBpfN5HGaB/K87Kb/SeI171kXK6QBi2hed7js+46cSjj01Pwia7EQnBfH33GCU
-	9YuA2QNeb2SU30gXD8L9RGZ7MCOl5THMuXwQFMz/rcSiZjpWdsWLaeXHJYbLCt2+nCTjJ9klIDK
-	TS313srP1Ec94KsgUug==
-X-Received: by 2002:a05:701b:4589:b0:19b:39f4:88c9 with SMTP id a92af1059eb24-1ac5bbb487bmr26600863c88.10.1793860723477;
-        Wed, 04 Nov 2026 22:38:43 -0800 (PST)
-Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:c8f4:b7d9:252f:4483])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c1c283sm14414169c88.4.2026.11.04.22.38.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 22:38:42 -0800 (PST)
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Wed, 04 Nov 2026 22:38:32 -0800
-Subject: [PATCH] regulator: arizona-ldo1: Fix double gpiod_put() on enable
- GPIO
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=J3JMI5oV
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nHIjzWpnFNF9vi2yFghMAt6cLND3iixSGeO6SPdHu/0DmeeVBMYIrpsfVr91q1hpiRt08HpO5nXozePQ1apyHH/ZCdwQL0hICJx+87FdIQIn0WEZPfR/LxQljymxvSlpPrXIHfFpKOKtjCfVHvae6AmK2DwNGcV1gGBiV6bWj7xGp2jCjNHxeOapBf00y1PWPUx3k23TddSo5mrAWATqdi9d8q1tywvImWe+wbOJscHgpGigMThgAZgwKBR3sbBMWLlf5P21NOYKglByrL3NZC5zIIwv2e21YQSlwVgfhwdlsiKFcZJiBlEO0Crf91MiMgXd/BmVcxisJmDpQGJScw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rr048qY3HNr3QsWAPMsxFmYMKWEuae4XAQPqDeEodXc=;
+ b=j8Vsctp3awcOpYEPPwHdgjU/d2UufZn9VW1tfAcYrP68nZ2k6lQzboEOaDuIQTLwS1NN9KG2FxaQMArdVr7uDtI9ztrrtCw5XMyqQSlr99N4fWbwtzrFt8FDJefaGkdyiMAbxH5PdzkZbKlYiC+iWZOyx/N5M/EUyf9i/PcpCoNbDM2MbOGy0WOHyl8olMNr4ZW1w+qOFUaQ6h0fiQ1uUKVJks0DdfxKmLQj5oY107PQdFQfbvu8hJFgMH5bUb8PAzKyKRqSoevWSxlW6dDXsFCJnAamXvIezn1P0lNz1VoVHXMMD0uxoJd4xPrhqJKpa+gmodZRkFey2yny6GEzaw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rr048qY3HNr3QsWAPMsxFmYMKWEuae4XAQPqDeEodXc=;
+ b=J3JMI5oVW7GP3hebTbP2VMfGiHN1N8XICNAkGVkC8UoXnd0gBuVfXRZd4F+wkuCPlI20ArF1PA+V+XOSwBfY0iDHCmqvXGBLjt/mIinrzCblXByi405GJqj7ohK/IJqzzITUyjw8R5KYvbG3KgVH196LgOibFaMy1++BV6p98jWdwf5+Foe6hyIOJiJrJvKhUlaVpxNBcODC1Pg9GODBrZlSKTjTC1OIXRSicFPUP7hYzdGe8LD6mSts8vPCSZX6OKANeB2ega5fYaJwjw4iqmL8IigSfRDYz2J3zDjLudTnfGPQ/f5YVAsUCe1I0pTvLJPFMSEmLKIR85uZ/xwPVg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GVXPR04MB10021.eurprd04.prod.outlook.com
+ (2603:10a6:150:112::20) by DBBPR04MB8026.eurprd04.prod.outlook.com
+ (2603:10a6:10:1ed::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
+ 2026 06:41:26 +0000
+Received: from GVXPR04MB10021.eurprd04.prod.outlook.com
+ ([fe80::d247:853:3e16:1994]) by GVXPR04MB10021.eurprd04.prod.outlook.com
+ ([fe80::d247:853:3e16:1994%5]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 06:41:25 +0000
+From: Chancel Liu <chancel.liu@oss.nxp.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Frank.Li@nxp.com,
+	s.hauer@pengutronix.de
+Cc: kernel@pengutronix.de,
+	festevam@gmail.com,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v4 0/4] arm64: dts: freescale: Add IMX-AUD-IO add-on board support
+Date: Thu,  5 Nov 2026 15:41:13 +0900
+Message-ID: <20261105064117.277495-1-chancel.liu@oss.nxp.com>
+X-Mailer: git-send-email 2.50.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SL2P216CA0079.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2::12) To GVXPR04MB10021.eurprd04.prod.outlook.com
+ (2603:10a6:150:112::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,96 +102,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-arizona-ldo1-gpiod-fix-v1-1-5b3c02d8a4d0@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAGck7GoC/yXMUQqDMBCE4avIPnfBDaFor1L6EM2oW0oiSZVS8
- e5N9fEbmH+jjKTIdKs2Slg1awwFcqmon1wYweqLydTmKlJbdkm/MTh++Sg8zho9D/ph26C1A4y
- BNFTOc0KZj/D9cTov3RP9+1+jff8Bze8mKXoAAAA=
-X-Change-ID: 20261104-arizona-ldo1-gpiod-fix-48e94fe22e18
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: patches@opensource.cirrus.com, linux-kernel@vger.kernel.org, 
- Linus Walleij <linusw@kernel.org>
-X-Mailer: b4 0.17-dev-e56a4
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GVXPR04MB10021:EE_|DBBPR04MB8026:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1cfa246a-97c0-43f7-e5d7-08df3b07d038
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|19092799006|366016|376014|7416014|23010399003|18002099003|6133799003|10067099003|3023799007|56012099006|5023799004|11063799006|261026140227099003|261028144727099003|261026121527099003|261022075727099003|261021121427099003|261021123027099003|261102123227099003|261022105027099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	+hHg0P2Kr4ycLlHvdUvfvDLJ5/HGXsXpJ/MtMYIoRUTf0C6gBNZoYPEmY9ZwTakcpNssUQanjL3ZsEsja97dTMeIsw4Y21YA6TDG+NjkAL2DyG4AwF4/J3vKf9Y/7h3aqGJ8ADZgXRVloNJ/5Pewsy8dwplmya/AKUF4kWSHJgpcOoQVRZ0MrN21yN5/xLunrBR2PUY/hWLcqHBXf3Aj57X5kI+vvaZoHRo1r4BdA4OUPfrHd4koYh0zI7PZ6YvUyT6TmaJHB3abX1xSXD29vkwZewLdFUJfN/walt+Q+VqPPBE1WnmvmaJzR1T5N+ojQYV6iiVonYm5rPKj+jKV64WyDIaXFuGBbHRapHZQGAUwV7yqsLjozWVfjoSgPfKy0MwUzt/bDeF4v9cKNQQ/uSqa8tLFTusZJYuMuITM5enleJKSbRDOM01b2ahRucV2sTErF3DLAJBZOwdCPWLebq6HLCv2434nOJoW7UWWeBihVDN7DsDjgzg1N9nXoidILpsSNUWj9aZ9XxZ9VJrLVP/NGShTWtGANpUHiXxyA9S48AHzENjKtUGD6+/j41rXiQ+5s+t+yHVOxloy74g/3qMO+eLYxUSZ6H/l4tcDgT/AOEitIEXnz8lbv5zQr6FM
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB10021.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(366016)(376014)(7416014)(23010399003)(18002099003)(6133799003)(10067099003)(3023799007)(56012099006)(5023799004)(11063799006)(261026140227099003)(261028144727099003)(261026121527099003)(261022075727099003)(261021121427099003)(261021123027099003)(261102123227099003)(261022105027099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?JYX6YNXWvgS9ToFr8TtUiyE4HnPfuI7bstm9wnY/zh27GIOp/XQR+Cfzk50U?=
+ =?us-ascii?Q?+FDOmVtmZSbcO1TpWpQaMi8yvwIjLSlGKucgRprB1Np0ABaNsCrFBKgibZy4?=
+ =?us-ascii?Q?uL3KzfpWMG1tNB1Q8cNgK6g7757vKVye4lUi4JX4vNWn1X186D6eOU/+pqZm?=
+ =?us-ascii?Q?jE4FRELCIUxuHhYYyoXGELcjhM8g6lLYdGxNvk7Q153ACkKkNGCiWXbOYmJG?=
+ =?us-ascii?Q?/v9HfNGKECV41brW+5AoWQULD1n0FDlqGUF2mgAMDGwrCAlCd8k5mGjvDakn?=
+ =?us-ascii?Q?YdZcIoXxKEJgeHZ3mOEnWOCVRgmpR02Wlqq/Xq5Po6CGnKt+PXtdeiMMeW92?=
+ =?us-ascii?Q?/BiEwQzlbdwcraaJGuxEtAGenuWEcdCiWFN+DXONd7l23iVHcWuGr6l0glm+?=
+ =?us-ascii?Q?O1tH6sxw44yDYquZPRqReNgYy7IIhPr/99c4y1MM1fdUfI3XvMRU/NvYGqhX?=
+ =?us-ascii?Q?J/TO975JzVOreeOzyQ48cRVhfYFrLgARBEk01e2U8U2QMjeA4Ph4HOcPXr+0?=
+ =?us-ascii?Q?35T12iKnSeMqcd1TN6LvRKll50cu/Qb/w5VkMYRjkTFYCbAnwSOzgVWNT/RY?=
+ =?us-ascii?Q?osadso6UwMi3i8ceohdVT50JyCkjoDuR/f7J7jczL5ah4+NNofeIDW8Se2qh?=
+ =?us-ascii?Q?6iExjKPds7yvhqoHUFtZg1hi1ICzA9N/ykBFB1bKiK0d8z40yWC1dDtTimQf?=
+ =?us-ascii?Q?axSueO6Exie1ZuGxgfjheQPbe+yRrJkwnCl5Y6ejwiXOlqe1jOfhs/9xFYWA?=
+ =?us-ascii?Q?HA+Z+R9mqBCxTk3bDVD5lT+2ZROtQkAv4sOVxTJY3A4bLYLcZ3N0hZ+yaEV0?=
+ =?us-ascii?Q?rohcm5XNk9UUqW0GJ8bhwLIthz6R44VefeV/ZafYD/nSJ8OrIpHQrUge0KRb?=
+ =?us-ascii?Q?82ukPUG2yMGpURGhIV/kRD3J3ZPt5IxWRTzKC9f8KXnappkCHEgtQ3ztKZH5?=
+ =?us-ascii?Q?RnlebhmNB3MzHmNJryvfJAaz5eXyPnMtylcFPE4JlAw9K/hUz0dJhbB8R4zd?=
+ =?us-ascii?Q?7+QhK6L+VQ8W1psGexnw02I9CEQkR6i5BtcwHe9cVBc7k/SWwMr64Wmn9Ahp?=
+ =?us-ascii?Q?JpPComxhs+bN7oz0BBraXJZt2iTEUVphvbuKpnfSNwsera3nBO2niFzCiKSB?=
+ =?us-ascii?Q?ahq0oLdHeCdWecJmMAc1/yG2S2F9hUo+TdbPOJxuIh9I2THwDrOCz141GyDf?=
+ =?us-ascii?Q?Vezi0dIq57DO3Oc7tkCzOitwtjUw3ZNGViy6mdI+WhEhkovtQS1OgJ5zhhru?=
+ =?us-ascii?Q?m1yLeji2n8Ql85riv9o6FlL7xZSIixfso4NP92JUdvBjyoG9aTdkacXRFzFc?=
+ =?us-ascii?Q?T5OQuhSn7dLL9f5rI6tDWYKFoc0S7pgIrioIioZP/K+uS1x+guZWYpnSsma/?=
+ =?us-ascii?Q?JyQYt2Qa9JzTp/xq4AyNSaDKD+tByu+9SkeHExQxYpy2k6UCSEopKuvSHzkn?=
+ =?us-ascii?Q?e4GvGLiCcLD5KwNy3CeqIsGQYip3mHuAe2AHH1iw8ctChPSYluWLQvar+JRs?=
+ =?us-ascii?Q?N7Myd/CsMofhfbu+o/EWs8G6Y0WW6WQAQK8h0tHbFGcqNQMSnI2GUU4ECcui?=
+ =?us-ascii?Q?QZitgLBCXiBnzCaufMZUP06aw0O9K+PeqbXOETRyWodaLVyabAwSCpi3oCV+?=
+ =?us-ascii?Q?pDOTr2Ao5w52hcttVR/5hDHXlp4jze83CVoqCcP1nBWBWcGY0U0uwriwxY4j?=
+ =?us-ascii?Q?4UzsS4v2ATnQojE8ziCONqz7YmH/ebF1WzxOjLqgj46GnMXXP8CJkebFifOE?=
+ =?us-ascii?Q?Vy87V6pgLXHC55xQmxMLX5UESQrJs8dEFVRBN9gqpEHIIShXtdeL?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1cfa246a-97c0-43f7-e5d7-08df3b07d038
+X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB10021.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 06:41:25.8010
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iWReM7BhGlWjzPtTtwV/TWmAg2D7pdrMlWoYNpc4DcweTk6mvnoSbfmO9cW6srsPZXjqSK3VBhvsXssZ3qtc9hRYmJBAGgpczGyymXe91CQnNIqhxe2+T4GtyYc0CwcU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB8026
 
-When arizona-ldo1 registers the regulator, the regulator core takes
-ownership of the GPIO descriptor passed in regulator_config.ena_gpiod.
-The core frees this enable GPIO descriptor both on registration error
-and when the regulator device is unregistered.
+From: Chancel Liu <chancel.liu@nxp.com>
 
-Because the driver also tracked the descriptor and called gpiod_put()
-in its driver remove callback, unbinding the driver causes a duplicate
-gpiod_put(). Remove the driver remove callback and stop storing the
-enable GPIO descriptor in driver private data to avoid the double
-free.
+This patch series adds support for the IMX-AUD-IO[1] audio expansion
+card on the i.MX95 19x19 EVK and i.MX952 EVK platforms.
 
-Fixes: a9191579ba10 ("regulator: arizona-ldo1: Use correct device to get enable GPIO")
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
----
- drivers/regulator/arizona-ldo1.c | 14 --------------
- 1 file changed, 14 deletions(-)
+A connector is present on the base board to attach the IMX-AUD-IO card.
+This connector is described by the fsl,aud-io-slot binding. It acts as
+a nexus that exposes a constrained set of I/O resources, such as GPIOs,
+clocks and interrupts, through fixed electrical wiring. All actual
+hardware providers reside on the base board.
 
-diff --git a/drivers/regulator/arizona-ldo1.c b/drivers/regulator/arizona-ldo1.c
-index 501843996faa..f719158ac360 100644
---- a/drivers/regulator/arizona-ldo1.c
-+++ b/drivers/regulator/arizona-ldo1.c
-@@ -35,8 +35,6 @@ struct arizona_ldo1 {
- 
- 	struct regulator_consumer_supply supply;
- 	struct regulator_init_data init_data;
--
--	struct gpio_desc *ena_gpiod;
- };
- 
- static int arizona_ldo1_hc_set_voltage_sel(struct regulator_dev *rdev,
-@@ -262,8 +260,6 @@ static int arizona_ldo1_common_init(struct platform_device *pdev,
- 	if (IS_ERR(config.ena_gpiod))
- 		return PTR_ERR(config.ena_gpiod);
- 
--	ldo1->ena_gpiod = config.ena_gpiod;
--
- 	if (pdata->init_data)
- 		config.init_data = pdata->init_data;
- 	else
-@@ -339,14 +335,6 @@ static int arizona_ldo1_probe(struct platform_device *pdev)
- 	return ret;
- }
- 
--static void arizona_ldo1_remove(struct platform_device *pdev)
--{
--	struct arizona_ldo1 *ldo1 = platform_get_drvdata(pdev);
--
--	if (ldo1->ena_gpiod)
--		gpiod_put(ldo1->ena_gpiod);
--}
--
- static int madera_ldo1_probe(struct platform_device *pdev)
- {
- 	struct madera *madera = dev_get_drvdata(pdev->dev.parent);
-@@ -375,7 +363,6 @@ static int madera_ldo1_probe(struct platform_device *pdev)
- 
- static struct platform_driver arizona_ldo1_driver = {
- 	.probe = arizona_ldo1_probe,
--	.remove = arizona_ldo1_remove,
- 	.driver = {
- 		.name = "arizona-ldo1",
- 		.probe_type = PROBE_FORCE_SYNCHRONOUS,
-@@ -384,7 +371,6 @@ static struct platform_driver arizona_ldo1_driver = {
- 
- static struct platform_driver madera_ldo1_driver = {
- 	.probe = madera_ldo1_probe,
--	.remove = arizona_ldo1_remove,
- 	.driver = {
- 		.name = "madera-ldo1",
- 		.probe_type = PROBE_FORCE_SYNCHRONOUS,
+Also update the EVK base Device Trees to describe the connector and
+required board-level resources. Add a DTS overlay to enable the
+IMX-AUD-IO board.
 
----
-base-commit: d6bcfc94eb4da6e089c5473970cd96727292fd97
-change-id: 20261104-arizona-ldo1-gpiod-fix-48e94fe22e18
+The approach used here is inspired by the discussion[2] where a
+connector is described as a nexus mapping board-level resources. One
+important difference in this case is that the IMX-AUD-IO add-on board
+is not a hot-pluggable device. The board is connected to the connector
+before boot and remains present for the lifetime of the system. As a
+result, the connector is modeled to describe fixed, boot-time hardware
+wiring rather than runtime attachment or hot-plug handling.
 
-Thanks.
+This series depends on the clock nexus support from Miquel Raynal[3],
+in particular the clock-nexus-node.yaml binding that defines clock-map,
+e.g. commit e0be7b4eedd3 ("dt-bindings: clock: Introduce nexus nodes").
 
--- 
-Dmitry
+[1]https://www.nxp.com/part/IMX-AUD-IO
+[2]https://lore.kernel.org/linux-devicetree/20250902105710.00512c6d@booty/
+[3]https://lore.kernel.org/all/20260807-schneider-v7-2-rc1-eip201-upstream-v5-0-8785f9531cf0@bootlin.com/
+
+Changes in v4:
+- Switch the meta-schema from core.yaml to base.yaml to describe the
+  connector as a nexus without gpio-controller.
+- Drop gpio-controller and interrupt-controller.
+- Drop the explicit gpio-nexus-node.yaml and clock-nexus-node.yaml
+  references.
+- Use 0xffffffff in gpio-map-mask and interrupt-map-mask to match the
+  connector resource indices.
+- Use 0xffffffff in gpio-map-pass-thru to pass through the complete
+  GPIO flags cell.
+- Include dt-bindings/gpio/gpio.h and replace the raw GPIO flag value
+  with GPIO_ACTIVE_LOW.
+- Use four-space indentation in the example.
+Link to v3: https://lore.kernel.org/imx/20261103070433.2307145-1-chancel.liu@oss.nxp.com/
+
+Changes in v3:
+- Drop unneeded clock-map-mask and clock-map-pass-thru from the binding.
+- Constrain gpio-map/clock-map/interrupt-map maxItems to the number of
+  signals the connector actually provides instead of a loose upper bound.
+- Narrow gpio-map-mask/interrupt-map-mask from 0xffff to 0xf.
+Link to v2: https://lore.kernel.org/r/20260629074734.3643227-1-chancel.liu@oss.nxp.com
+
+Changes in v2:
+- Drop [PATCH 1/5] clk: Add support for clock nexus dt bindings. Same
+  change is already present in Miquel Raynal's ongoing series
+- Drop PWM properties from binding. This connector carries no PWM signals
+- Rename compatible from fsl,io-connector to board-specific compatibles:
+  fsl,imx95-19x19-evk-aud-io and fsl,imx952-evk-aud-io. The i.MX952 EVK
+  uses fsl,imx95-19x19-evk-aud-io as fallback
+- Add property constraints instead of redefining common types
+- Fix inconsistent quote style for '#interrupt-cells' in binding
+- Add required GPIO nexus properties and reference gpio-nexus-node.yaml
+  and clock-nexus-node.yaml
+- Make gpio-map-pass-thru a const value to pass through only polarity
+  bit (bit 0)
+- Modify dts accordingly and some commit messages
+
+Chancel Liu (4):
+  dt-bindings: connector: Add fsl,aud-io-slot binding
+  arm64: dts: freescale: imx95-19x19-evk: Add IMX-AUD-IO board support
+  arm64: dts: freescale: imx952-evk: Add IMX-AUD-IO board support
+  arm64: dts: freescale: Add common DTS overlay for IMX-AUD-IO add-on
+    board
+
+ .../bindings/connector/fsl,aud-io-slot.yaml   | 96 +++++++++++++++++++
+ arch/arm64/boot/dts/freescale/Makefile        |  4 +
+ arch/arm64/boot/dts/freescale/imx-aud-io.dtso | 57 +++++++++++
+ .../boot/dts/freescale/imx95-19x19-evk.dts    | 52 +++++++++-
+ arch/arm64/boot/dts/freescale/imx952-evk.dts  | 67 ++++++++++++-
+ 5 files changed, 272 insertions(+), 4 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/connector/fsl,aud-io-slot.yaml
+ create mode 100644 arch/arm64/boot/dts/freescale/imx-aud-io.dtso
+
+--
+2.50.1
 
