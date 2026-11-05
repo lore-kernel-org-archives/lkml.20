@@ -1,68 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.16.241.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793915670;
-	b=OHJc/BznFCR5rF60L3rJKJYkG/5opMF/KgCLo4H/g8oGwQppfJOgNN2P+WM7w2nL4dxr
-	 hpqihKKp8VKyFSNacGUtpTnPbhzNFxlhzNApyWUxEQqeuUPv/AcUVv1qaX02StehsMSv9
-	 HXBMiGXfT8pbvXA1XB4ry21zEabLArQNnmLUCcNtRMppLgppTtXZqy4EQS9rqOZfsAYPJ
-	 AjUAIh2zlRkW/s80HYvsiAc61giCZ8pCosY5zGcop7NbulzjcJluh28yTA2BwhPzRsagU
-	 1Q2wtSPDBJJf7i7T1xjDvLIzxuC8l9STfXsUVbVFqElT0c0p6HP+MhBckRRQ0CiQB+w==
+	t=1793915681;
+	b=BJivRT32QcI+9DSwl+rtRVBtey5r8oAyD/TboYtpuHpr4vzOc/PnK5b80rGFvcLIPEKV
+	 i1mi0bwB7h31zo+v0fMOKxl0MpZv0cRXvPFWSHIRIN8R/LewAnWjeRg0fWzC/BYc6XIKa
+	 IsjVM3vbSSPGeFMd1IQS6/hRwA5uETjqGCRu/CfYL9ZhBqc/afuQbKZnklIvHp7VUkZmB
+	 b7H91tP4jHyezZxk3vdcgpTgC90F9gHjZkTGQlhytt01o4bY1YY96Q0ZoeZ0KeksIFwjx
+	 IL8UIr5eNMD+RjkLNT1N6HgAVFwJK+b8YiQfseFif/bfmUtp3MyzpM9xQUQ4/h05RRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793915670;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:Content-Type:
-	 X-RootMTR:X-EPHeader:X-CMS-RootMailID:References;
-	bh=2ol6+m56kU5BZ1rsmwMrAbZ8hh4/UwFlIZDM7a259+Y=;
-	b=U0aVlEioZ97R9JA2tkVJn1oS+FvqOPhRBu+/FQJDqvcWKWYLF2kB4aJ6Qake4OLpeFmk
-	 P3ho6UXi+CERrjfdJSfQnIdyoIgZHA6Mo/OKjCVSWzDcvDGDbeaqE5ijZK+vvpsY8DKYv
-	 NLcb+UvLu6PJcrhCB2Oz7t3Vg/p2/XSluzQ46WYv6T1Heoz2tpaTcB3PnMqlhxjf1uVyy
-	 QnKp5eVn1xeGcvtnGI/G8PSFlSLfLV47923Dq5Jc3r8kPy4c/LkS0K11hZ7HhZB2ezq4r
-	 x9igbg73hMt5zzxTsH8XpFMwe4yMOOEvoqZQrBOIDh5A/O+OAuVgFWcLNQ24+TKOVDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793915681;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=UDf0ZD2mFU/9VOS9NrkMQ2SrgMQ/8BOQ9ZjvvF58EJ8=;
+	b=oqD6SuByoR+qEsVmsvjgA/Y2u+jGTnqqvc0VaPPVtdyggu3ii2S0/Dp1C8HEppXIMq5I
+	 ljOZnC2ggVRrYRvKNQXBKWMsGz6mMW+umt/BeF+B28qpPk8zdazYsl9wO8aO8a4NYOCvX
+	 GxnXJRflfWjSmzAQb24xmMPqLvPomnsQGt5KnX1yJH1rQFL3xdvNOABWVMILc2iwGvbRW
+	 zQcXldR2EcHbGrthXTEGwhHlNdMNnO/icmzBQ8g5+txvCSICOs35KizcK2YD0WhQnxA17
+	 9MuVP1zRX9tExVMwtQEUWkElSTdiSOmAySKbgBtkdMPXiCLeWfsEbBjLHCQ+PllPsng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=SkGmJB4V;
-	arc=none smtp.remote-ip=210.118.77.11
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=svanheule.net;
+	spf=pass smtp.mailfrom=svanheule.net;
+	dkim=pass header.d=svanheule.net header.i=@svanheule.net header.a=rsa-sha256 header.s=mail1707 header.b=A5nstH6R;
+	arc=none smtp.remote-ip=84.16.241.116
+Received: from polaris.svanheule.net (polaris.svanheule.net [84.16.241.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E242E606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:54:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E242E606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24BBB606A331
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:54:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24BBB606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=svanheule.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=SkGmJB4V
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261105215426euoutp01e03ba12fe3eeee951f8f7e58f02e9aca~lRMtN7Xd02187421874euoutp01r
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:54:26 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261105215426euoutp01e03ba12fe3eeee951f8f7e58f02e9aca~lRMtN7Xd02187421874euoutp01r
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793915666;
-	bh=2ol6+m56kU5BZ1rsmwMrAbZ8hh4/UwFlIZDM7a259+Y=;
-	h=From:To:Cc:Subject:Date:References:From;
-	b=SkGmJB4VdslJR4K3sHiGiGXg9TvBaL5QrHp5E1omsT8ubQyCvUVaNieGBsX3N9HAC
-	 PT4FgafiOzh7NBIChb+mk9jGFt+nK3k6iGPV6qBEQQ7LwL6lHcwr3YaJfIdyb/UlIN
-	 YG2/IFa1Y6VZFL7pJvHiOG9iRjdVCRuckJEW2JT0=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261105215426eucas1p1fb2de3113bd185a84e1d0925e14fc4fc~lRMsxTYYv1130511305eucas1p1z;
-	Thu,  5 Nov 2026 21:54:26 +0000 (GMT)
-Received: from AMDC4653.digital.local (unknown [106.120.51.32]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261105215425eusmtip16c52ef5ad8ec8f92c6299c16dd82c051~lRMsaHRNt0137901379eusmtip1D;
-	Thu,  5 Nov 2026 21:54:25 +0000 (GMT)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-To: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Rob Herring
-	<robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, Robin Murphy
-	<robin.murphy@arm.com>
-Subject: [PATCH] of: reserved_mem: Drop node_fixup, CMA can handle it
- internally again
-Date: Thu,  5 Nov 2026 22:54:11 +0100
-Message-ID: <20261105215413.1439745-1-m.szyprowski@samsung.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=svanheule.net header.i=@svanheule.net header.a=rsa-sha256 header.s=mail1707 header.b=A5nstH6R
+Received: from [IPv6:2a02:1812:1620:5d00:3b08:a3e3:d87d:2eff] (2a02-1812-1620-5d00-3b08-a3e3-d87d-2eff.ip6.access.telenet.be [IPv6:2a02:1812:1620:5d00:3b08:a3e3:d87d:2eff])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	(Authenticated sender: sander@svanheule.net)
+	by polaris.svanheule.net (Postfix) with ESMTPSA id D253A9D45BC;
+	Thu,  5 Nov 2026 22:54:37 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=svanheule.net;
+	s=mail1707; t=1793915678;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UDf0ZD2mFU/9VOS9NrkMQ2SrgMQ/8BOQ9ZjvvF58EJ8=;
+	b=A5nstH6R9AxornaFbk3UsYO8XlNim0DtyFZTX/wxXmLmqw5kxDYxl7Vp1rT0WkaJSalDkN
+	8EYZOO/vi/cpjE0hBzJ96TYeqXzs8Ugn3RENiq7oJYog9vadAQSEt6FsXRQOATBUKP9ePu
+	D8uzYyET6KCOMHBrt+wxN2kajv97L405LbjngitAtGlDrOQvIcl6zS8WxPO54XaVmtFeFx
+	4sN83+r0t3FTosgK1OJO8HcA/9zN/BLVaaPS4K3IqMM2dPxWvtW986GWyB8B9tAOGqs3EM
+	9M647qxE3EFF/0r1yYln20FbmsxUcUAaw80FRoNAp0LXZ/fhJD39DrscfnAaDg==
+Message-ID: <86b137d440c29b92ea56a69fa6ad27970090f126.camel@svanheule.net>
+Subject: Re: [PATCH net-next 3/4] net: pse-pd: realtek-pse-mcu: configure
+ global power budget
+From: Sander Vanheule <sander@svanheule.net>
+To: Kory Maincent <kory.maincent@bootlin.com>, Jonas Jelonek	
+ <jonas@jonasjelonek.de>, Oleksij Rempel <o.rempel@pengutronix.de>, Andrew
+ Lunn	 <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet	 <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni	 <pabeni@redhat.com>, netdev@vger.kernel.org, Rob Herring
+ <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, Russell Senior
+	 <russell@personaltelco.net>
+Date: Thu, 05 Nov 2026 22:54:37 +0100
+In-Reply-To: <357f6311-7f00-42c3-8eec-e0fd0c35749e@bootlin.com>
+References: <20261103220312.860629-1-jonas@jonasjelonek.de>
+	 <20261103220312.860629-4-jonas@jonasjelonek.de>
+	 <5e00fd7f-40f9-4041-8dfa-fff222b57b92@bootlin.com>
+	 <e0910567-999c-4c96-9b20-2e34434bec3d@jonasjelonek.de>
+	 <357f6311-7f00-42c3-8eec-e0fd0c35749e@bootlin.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,155 +84,203 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261105215426eucas1p1fb2de3113bd185a84e1d0925e14fc4fc
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261105215426eucas1p1fb2de3113bd185a84e1d0925e14fc4fc
-X-EPHeader: CA
-X-CMS-RootMailID: 20261105215426eucas1p1fb2de3113bd185a84e1d0925e14fc4fc
-References: <CGME20261105215426eucas1p1fb2de3113bd185a84e1d0925e14fc4fc@eucas1p1.samsung.com>
 
-The separate fixup step was needed because node initialization used to
-run too late, after paging_init(). Since commit aa05faf81583 ("of:
-reserved_mem: allocate and map the reserved_mem array early") node_init
-runs early enough again, so dma_contiguous_early_fixup() can be called
-directly from rmem_cma_setup() once the CMA region has been successfully
-initialized, as it was before commit 2c223f7239f37 ("of: reserved_mem:
-Restructure call site for dma_contiguous_early_fixup()").
+Hi Kory,
 
-Drop the now unused node_fixup callback and its helper. This also fixes
-the premature call to fixup when region fails to initialize.
+On Wed, 2026-11-04 at 13:36 +0100, Kory Maincent wrote:
+>=20
+>=20
+> On 11/4/26 13:20, Jonas Jelonek wrote:
+> > Hi Kory,
+> >=20
+> > On 04.11.26 12:32, Kory Maincent wrote:
+> > >=20
+> > >=20
+> > > On 11/3/26 23:03, Jonas Jelonek wrote:
+> > > > Use the optional VMAIN regulator power budget to configure the MCU'=
+s
+> > > > aggregate PoE power limit during probe. Quantize the available budg=
+et to
+> > > > the protocol's 100 mW units and reserve exactly that amount through=
+ the
+> > > > regulator core.
+> > > >=20
+> > > > The regulator budget represents the usable PoE allowance. Program z=
+ero
+> > > > reserved power so the previous firmware guard band does not further
+> > > > reduce
+> > > > that allowance.
+> > > >=20
+> > > > Require a finite budget of at least one protocol unit when vmain-su=
+pply
+> > > > is
+> > > > provided. Program the budget before selecting dynamic power managem=
+ent
+> > > > and
+> > > > ungating the ports, so enforcement starts with the regulator-derive=
+d
+> > > > limit.
+> > > >=20
+> > > > Enable VMAIN before hardware initialization and register one manage=
+d
+> > > > cleanup
+> > > > action to free any reserved budget and release the enable reference=
+ on
+> > > > probe
+> > > > failure and driver removal. Record each successful reservation
+> > > > immediately
+> > > > so subsequent initialization failures are covered by this action.
+> > > >=20
+> > > > Read the current budget index before programming the MCU. Retain th=
+e
+> > > > programmed MCU limit on probe failure and driver removal, as reduci=
+ng
+> > > > that
+> > > > limit to zero would interrupt ongoing power delivery.
+> > > >=20
+> > > > Boards without vmain-supply retain their existing firmware-managed
+> > > > budget.
+> > > >=20
+> > > > Signed-off-by: Jonas Jelonek <jonas@jonasjelonek.de>
+> > > > ---
+> > >=20
+> > > ...
+> > >=20
+> > > > =C2=A0=C2=A0 +static void rtpse_mcu_cleanup_vmain(void *data)
+> > > > +{
+> > > > +=C2=A0=C2=A0=C2=A0 struct rtpse_mcu_ctrl *pse =3D data;
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0 if (pse->requested_budget_mW)
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 regulator_free_power_bu=
+dget(pse->vmain, pse-
+> > > > >requested_budget_mW);
+> > > > +=C2=A0=C2=A0=C2=A0 regulator_disable(pse->vmain);
+> > > > +}
+> > >=20
+> > > Following patch 4 logic, you might not want to disable the PSE contro=
+ller
+> > > power supply,
+> >=20
+> > I added it because of the requirement that regulator_enable() calls mus=
+t be
+> > balanced with regulator_disable() calls. Accepting that this may power =
+off
+> > the
+> > rail in theory, something outside of the driver would need to keep the
+> > supply
+> > enabled. Concretely, I'm thinking of "regulator-always-on". And all boa=
+rds
+> > I've seen so far which can use this driver do not provide a provide to
+> > really
+> > power off the PoE rail. Sure this is no finite guarantee.
+> >=20
+> > What is the correct way? I see either droping the enable call too, just
+> > relying on
+> > that it is correctly handled outside of this driver, or I keep enable +
+> > disable and
+> > the continued delivery is ensured with "regulator-always-on".
+>=20
+> Indeed if you use "regulator-always-on" it does not turn off the power=
+=20
+> supply when we call regulator_disable().
+> https://elixir.bootlin.com/linux/v7.3/source/drivers/regulator/core.c#L32=
+69
+>=20
+> Does the PSE controller needs this supply to start, or is it only=20
+> required to power the PSE PIs?
+>=20
+> If it is the first you will need to enable it in the driver.
+> If it's the latter, you could describe it as the PI's regulator parent=
+=20
+> supply. An enable of any PI will enable this vmain regulator.
 
-Closes: https://sashiko.dev/#/bug/linux-61818eaa-5dc1-4457-bd21-3a9be2ed4d6d
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
----
- drivers/of/of_reserved_mem.c    | 34 ---------------------------------
- include/linux/of_reserved_mem.h |  2 --
- kernel/dma/contiguous.c         | 17 +++--------------
- 3 files changed, 3 insertions(+), 50 deletions(-)
+I'm not sure if you've seen a diagram before, but allow me to add one to sh=
+ow
+what the binding currently models (for a UART controlled MCU):
 
-diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-index 0fd1683cba01..e7764f57438b 100644
---- a/drivers/of/of_reserved_mem.c
-+++ b/drivers/of/of_reserved_mem.c
-@@ -86,8 +86,6 @@ static void fdt_init_reserved_mem_node(unsigned long node, const char *uname,
- 				       phys_addr_t base, phys_addr_t size);
- static int fdt_validate_reserved_mem_node(unsigned long node,
- 					  phys_addr_t *align);
--static int fdt_fixup_reserved_mem_node(unsigned long node,
--				       phys_addr_t base, phys_addr_t size);
- 
- static int __init early_init_dt_reserve_memory(phys_addr_t base,
- 					       phys_addr_t size, bool nomap)
-@@ -139,7 +137,6 @@ static int __init __reserved_mem_reserve_reg(unsigned long node,
- 	size = s;
- 
- 	if (size && early_init_dt_reserve_memory(base, size, nomap) == 0) {
--		fdt_fixup_reserved_mem_node(node, base, size);
- 		pr_debug("Reserved memory: reserved region for node '%s': base %pa, size %lu MiB\n",
- 			 uname, &base, (unsigned long)(size / SZ_1M));
- 	} else {
-@@ -305,7 +302,6 @@ static int __init __reserved_mem_alloc_size(unsigned long node, const char *unam
- 		return -ENOMEM;
- 	}
- 
--	fdt_fixup_reserved_mem_node(node, base, size);
- 	fdt_init_reserved_mem_node(node, uname, base, size);
- 
- 	return 0;
-@@ -494,36 +490,6 @@ extern const struct of_device_id __reservedmem_of_table[];
- static const struct of_device_id __rmem_of_table_sentinel
- 	__used __section("__reservedmem_of_table_end");
- 
--/**
-- * fdt_fixup_reserved_mem_node() - call fixup function for a reserved memory node
-- * @node: FDT node to fixup
-- * @base: base address of the reserved memory region
-- * @size: size of the reserved memory region
-- *
-- * This function iterates through the reserved memory drivers and calls
-- * the node_fixup callback for the compatible entry matching the node.
-- *
-- * Return: 0 on success, -ENODEV if no compatible match found
-- */
--static int __init fdt_fixup_reserved_mem_node(unsigned long node,
--					phys_addr_t base, phys_addr_t size)
--{
--	const struct of_device_id *i;
--	int ret = -ENODEV;
--
--	for (i = __reservedmem_of_table; ret == -ENODEV &&
--	     i < &__rmem_of_table_sentinel; i++) {
--		const struct reserved_mem_ops *ops = i->data;
--
--		if (!of_flat_dt_is_compatible(node, i->compatible))
--			continue;
--
--		if (ops->node_fixup)
--			ret = ops->node_fixup(node, base, size);
--	}
--	return ret;
--}
--
- /**
-  * fdt_validate_reserved_mem_node() - validate a reserved memory node
-  * @node: FDT node to validate
-diff --git a/include/linux/of_reserved_mem.h b/include/linux/of_reserved_mem.h
-index 49da515859f2..7a940d1815b6 100644
---- a/include/linux/of_reserved_mem.h
-+++ b/include/linux/of_reserved_mem.h
-@@ -19,8 +19,6 @@ struct reserved_mem {
- 
- struct reserved_mem_ops {
- 	int	(*node_validate)(unsigned long fdt_node, phys_addr_t *align);
--	int	(*node_fixup)(unsigned long fdt_node, phys_addr_t base,
--			      phys_addr_t size);
- 	int	(*node_init)(unsigned long fdt_node, struct reserved_mem *rmem);
- 	int	(*device_init)(struct reserved_mem *rmem,
- 			       struct device *dev);
-diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
-index 90937dc7c627..9acb092ab7d6 100644
---- a/kernel/dma/contiguous.c
-+++ b/kernel/dma/contiguous.c
-@@ -529,19 +529,6 @@ static int __init rmem_cma_validate(unsigned long node, phys_addr_t *align)
- 	return 0;
- }
- 
--static int __init rmem_cma_fixup(unsigned long node, phys_addr_t base,
--				    phys_addr_t size)
--{
--	int ret = __rmem_cma_verify_node(node);
--
--	if (ret)
--		return ret;
--
--	/* Architecture specific contiguous memory fixup. */
--	dma_contiguous_early_fixup(base, size);
--	return 0;
--}
--
- static int __init rmem_cma_setup(unsigned long node, struct reserved_mem *rmem)
- {
- 	bool default_cma = of_get_flat_dt_prop(node, "linux,cma-default", NULL);
-@@ -563,6 +550,9 @@ static int __init rmem_cma_setup(unsigned long node, struct reserved_mem *rmem)
- 		return ret;
- 	}
- 
-+	/* Architecture specific contiguous memory fixup. */
-+	dma_contiguous_early_fixup(rmem->base, rmem->size);
-+
- 	if (default_cma)
- 		dma_contiguous_default_area = cma;
- 
-@@ -580,7 +570,6 @@ static int __init rmem_cma_setup(unsigned long node, struct reserved_mem *rmem)
- 
- static const struct reserved_mem_ops rmem_cma_ops = {
- 	.node_validate  = rmem_cma_validate,
--	.node_fixup	= rmem_cma_fixup,
- 	.node_init	= rmem_cma_setup,
- 	.device_init	= rmem_cma_device_init,
- 	.device_release = rmem_cma_device_release,
--- 
-2.43.0
+              =E2=96=B2Vdd     =E2=96=B2Vpwr                         =20
+        =E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=BC=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=90           =20
+        =E2=94=82     =E2=94=9C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=AC=E2=94=80=E2=94=80=E2=94=80=E2=94=90   =
+  =E2=94=82           =20
+        =E2=94=82  =E2=94=8C=E2=94=80=E2=94=80=E2=94=B4=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=90   =E2=94=82       =E2=94=82=E2=94=8C=E2=94=80=
+=E2=94=80=E2=94=B4=E2=94=80=E2=94=80=E2=94=80=E2=94=90 =E2=94=82           =
+=20
+      =E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=96=BA=E2=94=A4RX  SDA=E2=94=
+=9C=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=AC=E2=94=80=E2=94=80=E2=94=BC=E2=94=A4      =E2=94=9C=E2=94=80=E2=94=
+=BC=E2=94=80=E2=94=80=E2=94=80=E2=96=BA PSE-PI0
+      =E2=97=84=E2=94=80=E2=94=BC-=E2=94=80=E2=94=A4TX  SCL=E2=94=9C=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=E2=94=80=E2=94=AC=E2=94=BC=
+=E2=94=80=E2=94=80=E2=94=BC=E2=94=A4      =E2=94=9C=E2=94=80=E2=94=BC=E2=94=
+=80=E2=94=80=E2=94=80=E2=96=BA PSE-PI1
+        =E2=94=82  =E2=94=82       =E2=94=82   =E2=94=82   =E2=94=82=E2=94=
+=82  =E2=94=82=E2=94=82      =E2=94=9C=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=
+=E2=94=80=E2=96=BA PSE-PI2
+        =E2=94=82  =E2=94=82MCU    =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=BC=E2=94=BC=E2=94=80=E2=94=80=E2=94=BC=E2=94=A4PSE-0 =E2=94=
+=9C=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=E2=94=80=E2=96=BA PSE-PI3
+        =E2=94=82  =E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=98   =E2=94=82   =E2=94=82=E2=94=82  =E2=94=82=E2=
+=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=98 =E2=
+=94=82           =20
+        =E2=94=82              =E2=94=82   =E2=94=82=E2=94=82  =E2=94=94=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=90     =E2=94=82           =20
+        =E2=94=82              =E2=94=82   =E2=94=82=E2=94=82   =E2=94=8C=
+=E2=94=80=E2=94=80=E2=94=B4=E2=94=80=E2=94=80=E2=94=80=E2=94=90 =E2=94=82  =
+         =20
+        =E2=94=82              =E2=94=82   =E2=94=82=E2=94=94=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=A4      =E2=94=9C=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=
+=E2=94=80=E2=96=BA PSE-PI4
+        =E2=94=82              =E2=94=82   =E2=94=94=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=A4      =E2=94=9C=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=
+=E2=94=80=E2=96=BA PSE-PI5
+        =E2=94=82              =E2=94=82        =E2=94=82      =E2=94=9C=E2=
+=94=80=E2=94=BC=E2=94=80=E2=94=80=E2=94=80=E2=96=BA PSE-PI6
+        =E2=94=82              =E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=A4PSE-1 =E2=94=9C=E2=94=80=E2=
+=94=BC=E2=94=80=E2=94=80=E2=94=80=E2=96=BA PSE-PI7
+        =E2=94=82realtek,pse-mcu-gen1   =E2=94=94=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=98 =E2=94=82           =20
+        =E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=98           =20
 
+
+The outer box is what is modeled by the binding, but really consists of at =
+least
+two chips on the board. The "vpwr-supply" (Vpwr) of the PSE PIs is controll=
+ed by
+the PSE-n ICs. The MCU doesn't use Vpwr and doesn't control it directly, bu=
+t has
+to do this via the PSE controllers. This is similar to a PD69200 setup.
+
+Like Jonas said, Vpwr is usually (always) an always-on power supply, which
+matches well with "regulator-always-on". Vdd is the supply that actually po=
+wers
+the logic, but that is normally also not a switchable supply and hence not
+modeled by the devicetrees describing these PoE switches.
+
+This proposal adds Vpwr as "vmain-supply" on the main DT node, but I suppos=
+e
+that also means it should not be used for "vpwr-supply" on the PI subnodes?
+
+Would it make sense to model realtek,pse-mcu as a regulator as well and hav=
+e
+"vpwr-supply" PI properties point there (instead of the fixed regulator)?
+AFAICT that's similar to the approach taken by the microchip,pd692x0 bindin=
+g,
+where the PI nodes point to a manager. But I also don't know if that offers=
+ any
+advantages here.
+
+Best,
+Sander
