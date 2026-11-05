@@ -1,50 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793880435;
-	b=2Gk3PXXmiIu9soIBg9bJbrIxrqrldKbbhSmqaXkO+8fR9kHE0zwAysN/tmccSkIp4kPA
-	 6wQy13wkf0iNibmOTRjW+PZltzUDA2kZEaedKT2aX10k9elpjsqSwdeX/QGcB9vWAMlhF
-	 pAC96wEyazrx8347Aiq8pdYlbJrIddaNktncmfnGGVbrVObgWRpyLmD9+durr4kSKMhpn
-	 UzFViUsdjaD7UhzszFue9leuqmYJvg+5plpsxadVIF401UobVVgi96u6WNwC6BjiOinT3
-	 dmPphYFB+vJb79aFWuj5YzYUpBovpoAiKQGGYUmeatvcxxpXVvo01YcC5KcrukDClgQ==
+	t=1793880473;
+	b=xpm7MmzEInbbuJbCS2E47wSVJH0wBO0lwEAOYM+1ajTV7qGpEWVMLky3/osGsXE3Gm1z
+	 J0n2EXB14QuuR10A/DztqGFHUT6m9PK7JsosgX33ntaHcQgUVbgnlEp87f0a8nN6jdJEp
+	 SJh1tafa+hxoNSn7ScXgoRBCwnQWi/Ax/cm018m31Q8Y3FVAVD6LyljoDKAs2TcZx5N5M
+	 WtZhpQC1Drd8Y6TlO0umthYANmADEBNVhIxe1+Xs7sF4ocmIaSkwVj5a7SYwoIpCiH0OO
+	 qjdO8+kViJirZsOUQPaBNTW5ZQVKNQS0xVzuOiGb38jYTuB4fRXGZMrZPeAMq+CRXww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793880435;
-	h=DMARC-Filter:DKIM-Signature:Subject:Message-Id:Mime-Version:
-	 In-Reply-To:Content-Transfer-Encoding:To:X-Mailer:Content-Type:
-	 X-Original-From:X-Lms-Return-Path:References:Cc:From:Date;
-	bh=8OcxAA2gqpojmN7yaA8Tg1JRGUaJg5iMD5QS2qC5vIs=;
-	b=BiFbjTncSCiTlPgGFI3xPk//XTcfyJUBqZg08Hrw5RQ9LpkvuOxgaMmS/4GdxRo0x59t
-	 kdV+bsKshnBeHyQDWQsgIBiUyUz9r+AcQXwt06ysb9EzPzRiKlWyfQ0flzPtYBj+p95Db
-	 N5GXrlk4TJo/ShHmfmWef3Ll4N/JmYzogtwNSYllMe7pXKqKluG2uIbR/4bSfvQf451v8
-	 dSVuYV2CGCLBNjHDjF6ENfOpGE5F/Pgzqnb8H85JBobZoBf05iHrrn7gKq9kFDcb5nZA1
-	 YAv/sKz905inizGCfhtGs++BEH3kc5Ib+QlcXbP4rbbJmXMaO4hhFvxNrmSUCKBVFDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793880473;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
+	bh=P/GlmUjHdK49hN7w1Asyw8OwEiiwg391G3XQYJFs6CI=;
+	b=uIYZK3lwKpJshPEpTNmddhIe50Hmncsr5S+fc20ElEtEKT0NZtSwdL3mXRIOL63ilD+c
+	 CNVeFuJD/GwcH4vdWZ5e7MyoS8Y3tk6LErB7wkT8z/Wg39C53MUuyFueLHScq1QWCPiSL
+	 J/Xi/VIr4MCcqHTsyFKTszN9Bf4jC5Dk4ZmJ5MoRbKNhc0RtfqT7DMwsalHFDcKj1IvaC
+	 GkNsElTIa3nuJ+g/RmwWTbOPkmbYLN2uiqi0E64KCqn5JZQIWHBoOlSzts7kfnLBY827i
+	 OYgQq0CqZAMwjx8iWkHXNqjpw74QMTg1gHxse+v08p6rDJ8suFCjQ8wREScJKHZYEhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=dQVhstQr;
-	arc=none smtp.remote-ip=209.127.230.113
-Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
+	dmarc=fail header.from=debian.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=74.125.224.44
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23EC4606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:07:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23EC4606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=dQVhstQr
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1793880429; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=8OcxAA2gqpojmN7yaA8Tg1JRGUaJg5iMD5QS2qC5vIs=;
- b=dQVhstQrH6+R7Hmp0eL3aP3DaXtQuISR9AODPOh0t7ay6bG+q5ypos2RnWkZ++a2ufyx7T
- L/+MLidCEGE2nwGPlxy9SR1F9DkeDLpxRKugDKJ9Q/1WSO3f/8bT5xdqWAty3lGogao+jU
- rhcXhWJsnAeSHBG408noSVXdrhm1Hfmti/Sb9I3djGShNUWkIAJTskg7LijmzZfR+J5xLa
- 0IPYY72NOCstBWbooJUZEm/JbMHa1cBGztmG7gZoxYCb3FKU7QFFgErnEjunQ0u/o4C7gt
- wfFxYifZEnWE/Rvr9EsXBoQuKVaLDmNIZ7JC6Vwrwy2SPk7965QwDKiAjcGNtw==
-Subject: [PATCH 2/2] mm/hugetlb: optimize bootmem hugepage tail vmemmap init
-Message-Id: <20261105120615.16817-3-lizhe.67@bytedance.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94671606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:07:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94671606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-67c08c7adadso401367d50.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 04:07:52 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793880471; x=1794485271;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P/GlmUjHdK49hN7w1Asyw8OwEiiwg391G3XQYJFs6CI=;
+        b=q6z9IRhLZPk+6lDocCZcxuqZxp1lf3aI++FekWC1pHZiezU22vDAZpbr7qbRsHV6zJ
+         C1exPMZwFyakjwtlhL5fEwfx+4TmWWPcF9Kr8u6+fR2W7nouivRgntahpxB+arbYgcCj
+         7o+eXltzSkF13i/B/3OgFPWMHHKOA0VSqANixwyb1ic4OlRetCRtooMfEPVCA0aGjTvp
+         puE0byaXRE/SmpFhLy5blrqOpeZCZovCeMMVrBggE0PYxlAbL0wpOzWsZCyQI2Jz9qoy
+         KhSwiTd1l6BAObY6AYfg4RWzPXrY3fbCtKpmUIzKsNJqoJrsPq5oA3J2hJOc7TIGsHql
+         d/LQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx5af2Fkvnsbu5db8AXiKOISjemh8PG70WuXxzjPq9yLozCDsxcmELszEJ3nJkZ2IERcseyEw4XMLXG3GA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+fT7oyG5ioFVPP6jMRsHYqWupLDLss1/SbWWA2khuV5ql+gc2V
+	hFdDPl5L+iEBqYSRRkwrhMQJZe3kX4znAke4FDOWBj4Vbl9esA93gznK
+X-Gm-Gg: AYBFou2I6gDT3yr3FPprcZtsxt5MSYINUvhF+hrnuJ//bD+UcdpDRH5C+f+Su5/bPzq
+	139BUjZ7EpSjeYdq+s4CVliN6QM7qvBzRjYO1c4FqwI4FuHdcouFb7PPQCJvXBrKyL0PxkyolfP
+	tiV+JJ/o3p3c4uOhUO5k+620zor+V1zqm8N2bBfWqi7FurRnM11o4lPoqJnboXkr2IeWVXZOgWu
+	P9CV6tzhlYbGglH8OTn8YBTgBj3DEjOaL3pP+TE5xltPEY3UG7zprPxYErouwDFeXiwJ8dORDPc
+	Cyf4Rsy4Du0enrwl8Bs2fOgWz0aDfeszrflH25v4Q6R0T8214W9pTxICKBXrdjNucoEs/IsxMWZ
+	FsicmvRG9+Z0mfQC4lvQrTuggJKoeWcTATlDPWZCIFfHZtLxSlfVVBMif81VLr9NTTfsbpRFbxu
+	uOQKgaNUtIqVXQXBbffQcDdDi0DOqCNJjdBoXeB+qyPiVi8Baf3Qjgonp2aeIcGe2z627u1qOxI
+	MM4zKfkjvuuvwsC51wESP9hcQY25qhJmbkaBwcWWYTQuvT5Go7e4AZzbfalX/XnfOD7K7B2KwW/
+	Gg1htRjSU2VUcFliu9k=
+X-Received: by 2002:a05:690e:1385:b0:67b:f101:ff2c with SMTP id 956f58d0204a3-67bf102166amr2388495d50.96.1793880471605;
+        Thu, 05 Nov 2026 04:07:51 -0800 (PST)
+Received: from gmail.com ([2a03:2880:24ff:8::])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67bedf232ccsm3306902d50.3.2026.11.05.04.07.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 04:07:51 -0800 (PST)
+Date: Thu, 5 Nov 2026 04:07:49 -0800
+From: Breno Leitao <leitao@debian.org>
+To: linux-btrfs@vger.kernel.org
+Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
+	Qu Wenruo <wqu@suse.com>, Filipe Manana <fdmanana@kernel.org>, Boris Burkov <boris@bur.io>, 
+	Atish Patra <atish.patra@linux.dev>, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, leitao@debian.org
+Subject: bug: btrfs: direct IO fallback racing with in-flight direct IO fails
+ fsync
+Message-ID: <auxv7Tg0xSq5yHmb@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,90 +80,124 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-In-Reply-To: <20261105120615.16817-1-lizhe.67@bytedance.com>
-Content-Transfer-Encoding: 7bit
-To: <muchun.song@linux.dev>, <osalvador@suse.de>, <david@kernel.org>, 
-	<akpm@linux-foundation.org>, <rppt@kernel.org>, <apopple@nvidia.com>, 
-	<balbirs@nvidia.com>
-X-Mailer: git-send-email 2.45.2
-Content-Type: text/plain; charset=UTF-8
-X-Original-From: Li Zhe <lizhe.67@bytedance.com>
-X-Lms-Return-Path: <lba+26aec716b+5a7cd9+vger.kernel.org+lizhe.67@bytedance.com>
-References: <20261105120615.16817-1-lizhe.67@bytedance.com>
-Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, 
-	"Li Zhe" <lizhe.67@bytedance.com>
-From: "Li Zhe" <lizhe.67@bytedance.com>
-Date: Thu,  5 Nov 2026 20:06:15 +0800
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Boot-time HugeTLB allocation has to initialize tail struct pages itself
-when HugeTLB vmemmap optimization (HVO) is unavailable or fails.  For
-gigantic pages, this can cover a large number of tail pages.  Most state
-installed by __init_single_page() and prep_compound_tail() is identical
-for every tail page in the same huge page; only PFN-dependent fields
-need refreshing.
+Hi,
 
-Initialize the first tail page normally, copy it into a local template,
-then initialize the remaining tails from that template with
-memmap_init_page_from_template().  This avoids repeatedly doing the full
-__init_single_page() and prep_compound_tail() sequence for state that is
-identical across tail pages in the same huge page.
+Atish reported that arm64 production hosts (64K pages, 4K blocks) that
+keep VM disk images as NOCOW files on btrfs, opened with O_DIRECT, on
+7.x based kernels, and it still reproduces in linux-next as of
+next-20261104:
 
-On an arm64 QEMU/KVM guest using 4K pages and 64 boot-time 1G hugepages
-(HVO unavailable on arm64 in v7.4-rc1), the measured fallback tail
-initialization time improved by 36.43%, measured with a temporary
-jiffies-based printk modeled after the existing timing in
-memmap_init_zone_device():
+  Page cache invalidation failure on direct I/O.  Possible data corruption due to collision with buffered I/O!
 
-  base:             318.4 ms
-  with this patch:  202.4 ms
+Besides the message, dio_warn_stale_pagecache() records -EIO in the
+mapping, so the next fsync() on the image fails. The message blames the
+application for mixing buffered and direct IO, but every write here is
+O_DIRECT: the buffered writes come from btrfs itself, when it falls back
+for writes that are not 4K aligned.
 
-Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
----
- mm/hugetlb.c | 23 ++++++++++++++++++-----
- 1 file changed, 18 insertions(+), 5 deletions(-)
+It does not look like a regression, since the fallback never waited for
+in-flight direct IO. 64K pages make it easy to hit, as a folio then holds
+16 blocks. Since e9b7b9d9e78e5b ("btrfs: use IOMAP_DIO_BOUNCE flag
+instead of falling back to buffered IO"), COW files are exposed too.
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index da5d04edf7c1..987f16a5ea27 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -3219,19 +3219,32 @@ static void __init hugetlb_folio_init_tail_vmemmap(struct folio *folio,
- 	enum zone_type zone = folio_zonenum(folio);
- 	int nid = folio_nid(folio);
- 	struct page *page = folio_page(folio, start_page_number);
-+	struct page template;
- 	unsigned long head_pfn = folio_pfn(folio);
- 	unsigned long pfn, end_pfn = head_pfn + end_page_number;
- 	unsigned int order = huge_page_order(h);
+I was able to come up with a reproducer that hits the issue within
+seconds with 64K pages. With XFS on a loop device backed by such a file,
+standing in for the VM, XFS shuts down on "log I/O error -5":
+
+        https://github.com/leitao/btrfs-dio-fallback
+
+My robot identified this as the root cause:
+
+1. Task A has an async O_DIRECT write in flight to one 4K block of a 64K
+   folio. iomap invalidated the page cache before submitting it, and the
+   inode lock was dropped.
+2. Task B issues an O_DIRECT write whose offset, length or buffer is not
+   4K aligned. btrfs_direct_write() falls back to btrfs_buffered_write(),
+   which does not wait for in-flight direct IO, and dirties another block
+   of the same folio.
+3. Task A's write completes. kiocb_invalidate_post_direct_write() finds
+   the folio dirty, so invalidate_inode_pages2_range() fails with -EBUSY
+   and dio_warn_stale_pagecache() records -EIO. The next fsync() fails.
+
+ext4 fixed the same race in 15cdefd0c052 ("ext4: drain in-flight DIO
+before buffered write fallback"), and ext2, ntfs and exfat are getting
+the same fix. Doing the same in btrfs_buffered_write() for the fallback
+case makes the reproducer clean, and I can send that patch if it looks
+like the right direction.
+
+This patch is a copy of the fixes above (from other FS) and make the
+reproducer happy.
+
+commit 16cd17d1e8205f9f86b8da0a9b1ccefdb2665764
+Author: Breno Leitao <leitao@debian.org>
+Date:   Thu Nov 5 02:59:39 2026 -0800
+
+    btrfs: drain in-flight direct IO before buffered write fallback
+    
+    When btrfs_direct_write() cannot do a write as direct IO, because the
+    offset, the length or the user buffer is not aligned to the sectorsize,
+    or the range has compressed extents or page cache, it falls back to
+    btrfs_buffered_write(). That dirties the page cache without waiting for
+    direct IO still in flight from other tasks:
+    
+    1) Task A submits an async direct write to block 1 of a folio. iomap
+       invalidates the page cache in the range and submits the bio, and the
+       inode lock is dropped.
+    2) Task B issues a 512 byte O_DIRECT write to block 0 of the same folio.
+       btrfs_direct_write() falls back to btrfs_buffered_write(), which
+       dirties the folio.
+    3) Task A's write completes. kiocb_invalidate_post_direct_write() finds
+       the folio dirty, invalidate_inode_pages2_range() fails with -EBUSY,
+       and dio_warn_stale_pagecache() logs:
+    
+       [    2.048568] Page cache invalidation failure on direct I/O.  Possible data corruption due to collision with buffered I/O!
+       [    2.048574] File: /tmp/diorepro.JTCKpJ/block.img PID: 260 Comm: kworker/11:1
+    
+       It also records -EIO in the mapping, so the next fsync() fails.
+    
+    The two writes do not touch the same bytes, they only share a folio.
+    With 4K blocks on 64K pages a folio holds 16 blocks, so this is easy to
+    hit there. Meta's arm64 hosts with 64K pages hit it with VM disk images
+    that are NOCOW files on btrfs, opened with O_DIRECT. In a test, XFS on a
+    loop device with direct IO on such a file gets EIO on a log write and
+    shuts down within seconds.
+    
+    Wait for in-flight direct IO before the fallback dirties the page cache,
+    as ext4 does since commit 15cdefd0c052 ("ext4: drain in-flight DIO
+    before buffered write fallback"). btrfs_buffered_write() holds the inode
+    lock exclusively there, so no new direct IO can start until the write is
+    done. NOWAIT writes never get there, as btrfs_direct_write() returns
+    -EAGAIN for them before falling back.
+    
+    A reproducer that keeps 4K libaio O_DIRECT writes in flight while other
+    threads issue 512 byte O_DIRECT writes to the same folios of a NOCOW
+    file got 1123 fdatasync() EIOs in 10 seconds on a 64K page VM, and none
+    with this patch.
+    
+    Fixes: f85781fb505e ("btrfs: switch to iomap for direct IO")
+    Reported-by: Atish Patra <atish.patra@linux.dev>
+    Signed-off-by: Breno Leitao <leitao@debian.org>
+
+diff --git a/fs/btrfs/file.c b/fs/btrfs/file.c
+index f978c6524aa03f..2017a96814d857 100644
+--- a/fs/btrfs/file.c
++++ b/fs/btrfs/file.c
+@@ -1334,6 +1334,14 @@ ssize_t btrfs_buffered_write(struct kiocb *iocb, struct iov_iter *iter)
+ 	if (ret < 0)
+ 		return ret;
  
-+	if (start_page_number >= end_page_number)
-+		return;
++	/*
++	 * A direct write that fell back to buffered IO must not dirty folios
++	 * while direct IO is in flight: its completion fails to invalidate
++	 * them and records -EIO in the mapping.
++	 */
++	if (iocb->ki_flags & IOCB_DIRECT)
++		inode_dio_wait(inode);
 +
  	/*
- 	 * As we marked all tail pages with memblock_reserved_mark_noinit(),
- 	 * we must initialize them ourselves here.
- 	 */
--	for (pfn = head_pfn + start_page_number; pfn < end_pfn; page++, pfn++) {
--		__init_single_page(page, pfn, zone, nid);
--		prep_compound_tail(page, &folio->page, order);
--		set_page_count(page, 0);
--	}
-+	pfn = head_pfn + start_page_number;
-+
-+	/*
-+	 * Seed a template from the first real tail page and refresh only
-+	 * PFN-dependent fields before copying it.
-+	 */
-+	__init_single_page(page, pfn, zone, nid);
-+	prep_compound_tail(page, &folio->page, order);
-+	set_page_count(page, 0);
-+	memcpy(&template, page, sizeof(template));
-+
-+	for (pfn++; pfn < end_pfn; pfn++)
-+		memmap_init_page_from_template(pfn_to_page(pfn), pfn, zone,
-+					       &template);
- }
- 
- static void __init hugetlb_folio_init_vmemmap(struct folio *folio,
--- 
-2.20.1
+ 	 * We can only trust the isize with inode lock held, or it can race with
+ 	 * other buffered writes and cause incorrect call of
