@@ -1,111 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793863559;
-	b=vYEyXLREbgSKLLmyRJcSTBlfraRAylY/KQPEomx0f0OSN+v9TO4jxfnA/KywWCO7B7kO
-	 4idXBJ/A4NkjOIpggh/dYPZAatKD0U5Fb13fc5LVSjtkX3GL60UO5lpMrg32DXpteYCgE
-	 /hVoZmrzu96pN4TYKg0lpQKNy/z7nvxeZoChTG1covLKMCW/Qu+63WwJRBuU/XI/8Edj+
-	 vtkeTzwYRSb8jcAf0ByZTZaxXTh+6Mq+yv4vbLm24LYwHaeRvmcXBy1NYA0lMt12DAAW5
-	 g3esSlqlO3rF6pAkBLU4kBSue2cO7b5pFZE+GJEHXYqRmFsCHnDigKICohZpbb6ewDw==
+	t=1793863639;
+	b=biHctMYEYMUa9boQ6IdO4kLjk1A1hMWU9Rdj9TTYH8HkmVxwz/emO1SKLwji4p5nhBBv
+	 MYlx4qaq+ZK65iUsyIXJ608nsP3I/ARDuwpXVrtWTGU2Iysryt5t29SlgJb7DHy1/TyX7
+	 t+IU6JVjo31wsU0LBArkzzVLu/HMrx3Pn8bgAyyhlo6nfwvVyYBZtVY0BoX5sTh0shApw
+	 a3mm+4oXrB0R8rX8jBHNdicSU1jSJJp01er1TuaWDpmltq8VmK/qfinPy1CMrlLorI+rE
+	 XgHy/dl2hxwNry9prYrIXkgYYvrDTyBzmsvS0lnojWfk2YOr0XUarZ8zLOxfmr5pz/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793863559;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=fLVEQk0hS5HfkSkcmYM3DgslMzFvkqZc5clFbFHYi0c=;
-	b=ACp03vwag/ngGCENw8/tBLnfonp9cW/zzrexkBK7ntTWjvzywDn4eJm25nUf9tkaQtCk
-	 9/zQc+CtSnQ+eHyiltUjoRUp/BGpL4sIY7TiDWjeoTPO4QPUy+Ev4lvjO9Q0/SNa2SX0g
-	 7J5hSyArTaTx1fflNBtKU+uqoYE8oAjITo1Wi0j9hPSvo5PTRyGMKIaQ6GJr4rx1vOxEJ
-	 uoHgdNePaUR8t89rrDx7JGbfVBBOxlC+2TaeRbfSGmzWpRI9eAs/aZZaPYjYbpiDjrznm
-	 Hq1cqBAZ17gDZIJBPDtdHXVvs/e78iUgWbUMb1UlgSIbuEVC+9Ti3PHceUuqI8ZowsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793863639;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=KpjQzYHtWDGBnZmNqdBh6R7M2XsM2YwTNNTkLJaA5FI=;
+	b=BOL/916bsfVyd6/x3EMdjZb4NmYg0Pc0G3TVzeRK616HApZLYhrto8oZqIylQQ1du+M9
+	 jR5oHvD/i9Nvz2ouMSQHXMtbYZ3pFZ1ThtH0CYjn4ytw7nYAwUPksuwGnFUdofD7LIMvW
+	 rcBb+OP8Z0h8w5k20wJ2CGXj+Qz6Tph6YIJW8jwDZVF90mhtV7lK1FwB2FUr464vV7gil
+	 2RbHp8X+2RrYluAB/WHoWTGjU8dcHSzY7NpvL7CUL68ZW/yMQr867lZh2oEk6vQjsjA7E
+	 aZn/q8iqlrTuO6H2iL4YX6f/jFce3rMjLs47q96dW590h7p8z8XTNKBZ74xmSC/pGPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=C8rnAbHe;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=GlvcHZTd;
-	arc=none smtp.remote-ip=202.12.124.151
-Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j2jnLjEj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 699E7606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 07:25:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 699E7606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74496606A31B;
+	Thu,  5 Nov 2026 07:27:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=C8rnAbHe;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=GlvcHZTd
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.stl.internal (Postfix) with ESMTP id 27AD51D00120
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 02:25:57 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Thu, 05 Nov 2026 02:25:57 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793863555;
-	 x=1793949955; bh=fLVEQk0hS5HfkSkcmYM3DgslMzFvkqZc5clFbFHYi0c=; b=
-	C8rnAbHetMlLyC2UGaYtDc4+2U+83f2vkjS+ErL9v8eg3ON86BkeceNPGFOIuezi
-	WUWQ4CAHX2j5tqxU5F9ePdx0zB+xpvURJPdZ41csfDRLquMelFkMYIpoBPj8pUio
-	y2jmemu6/MwEmEd2WBHWN9YjvEDwoq3RO2cOIPkxQwcGKmEEtixaDnVXqHNBaD9z
-	TBGy39yC+vx5dDSRgyhID14eLDgCm4dYA5YlmV9ZEEk3OBaJ4Vhg7PhH/I1vz1yz
-	vNvHormnjSWe+HE2wHGoICsPSTouD5MOKx2j8tdjXXTFaIoJK//f+gqUtnenGN9U
-	kurnz6vAqMwYTkndnY85MA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793863555; x=
-	1793949955; bh=fLVEQk0hS5HfkSkcmYM3DgslMzFvkqZc5clFbFHYi0c=; b=G
-	lvcHZTdeFc1TX7rmf5TXmKS9BZqOxK3JJ+DGagkdIpTW95S0jXgZuZJjXTvXgpja
-	LGvn0iykW2UzNMd/mdOMUBTTcRyCHzA2GACk9yo3XCuPXbUFBN+x2ikVAexJIwLD
-	swaF7rxpwV5edQFgpPALk/0O0FsEqI2LfWTCYRffB0g5xk4XoC0J5z6dpidHcIJc
-	Sjz89VoB6CjhqGdho+IyFzxnj9SYyFK6EejLkLjpiK69sG7k96nw+8KHEjsAzK2f
-	BLYSR44M0vjT8A9iP+D61DUnDF+LEo/LN34O8EHWZKxZUrs+okcagE7KdoAITHBt
-	jgoBY0p4g8PAcO0WOy14Q==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793863555; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:OgCferr5Dzf3CoYlBSaOel/5NYMn9qSNTeDnz1gbjlV3O86
-	o6K3c36QSTXq5Ues7MagDF1oDuq/VYqcz4ShklcOGCFKW9HA2lZRkzplZhOTn5RP
-	4WnZSfQEMIXcp4X+9ygECODW3kLdEDaqb0gfdE3Feazmvl1RozOxC+iwC6e+/Vl2
-	LHDRr78CC63FpxcGYvqIz2Q6LiVGbY4rRyv+3Ex8FuxGiH5iEGzgzxeaEQA9YtL0
-	0JDrPFTbn/qNqeL9GnMOdT4SPTwXKI7AzMrgrqABX1LE/RIzdh6PaHz8TDFdT+yB
-	jiHPhvrIcBT4ZhrnJXk7AFumYqdSfiVrV3yXUfA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:RLtFaELyqyHrmLvCtsl/N6MpzlrMXPMj6zfpABJoxWY=:gdhvQ7jGBaj4lJ4ajK/Jbl9XXFFolpp3cQMI7oWH8aw=;
-X-ME-Sender: <xms:gS_sahGmGQ1yXIKC_-kyPgqQnwe7dFgGvbWXU0fteKSHueUvUczGxQ>
-    <xme:gS_sahLPWVAx2hOLEiyhVM9PJQ812vAaFczMd5pkOoDP5CvcVeyt2ugFhrEFc7HV3
-    _mwnL0-iQt82DiYeNC_5M1k7nfUR3qwiaW2QgnixMtUKN8iOT9fix46>
-X-ME-Proxy-Cause: dmFkZTE4XiMNPEH3qllwxGHArMFKay38wxcjRetWzwnXiiZ4kAEJnxqeBZkwDnnfwGDkXE
-    FwrXC0U/eqzyZiYEQV4pBdDvkGI6d5FhlvTDC3sTiWawlH+t9Jvga4uxJVFQvv3lOfn8Pi
-    G7S1oRvxT+RlO+jHIEHs2VUMRqwbUZGAEAcR97PoxypRHAwf/3/Di0yr+Xi+O9MQGc0UgU
-    fKKr44ic51EblFnNlpTsfqDdjmoXiO2vPCKBOFjxmysAr7tvH1/nNw9H1hDHM+PdC5Ee17
-    wPuacZi9nWhjyCG1sMi7tkbvQOT6h62OeDtogEoXhGHeUhd7ixsOnOF2hzlGYr/uXqqdXs
-    zhz0mIRzsAvdxSgHysy5piMQ0q6dxgHjoNON5v+uEqgX5lY26epfFc5t8oFA9ehpvPCo+e
-    d277yV3zYPtFp8o009b1e5dyG2T86PdLotHtTm4Mgx9046wMs/C93aHLAhHjMm6X6w5Bom
-    SaTU+7b7VQcOmnW9J4LEtely+a9izZsEh9MWT4CdGjO6lPTsGbwaW7PFIPxI69Gv7FGLTB
-    o1QS98wYazsT9KZNeXXep31jjWE1jlQLcdtulNA53NmAqqr/O4IJSbDyt4FZu6A7qybFcH
-    Y5e1b0m9lr+/vLp5YJqIDFU0bjUEHA6yadjPXzd/yxpgDQnUTjUnKMzckECQ
-X-ME-Proxy: <xmx:gi_saiB_-0_ochfGW56kEAKypmEIE6uW2PH3SIE8npuBXWGTBc7JUQ>
-    <xmx:gi_sakRkltwHAWDcxoQnj9kwAVSEGPQlz4BgRiYFbq9zJ9Zp7UgCyQ>
-    <xmx:gi_saopEL9siPjqCLWuklIYT6yo8C1rAkkFT09XuopLmHTqkqZ47rw>
-    <xmx:gi_sauyrfbD4H4SMbG_SVAb-Z3jWzGdfRREBJHZE4tulr1Tbzf6_UQ>
-    <xmx:gy_sam1YNE1WyIla6nql1EvvDcSfG36zdvknP40Sgxx7kmZCAYMqMNPG>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 8B16B32A009B; Thu,  5 Nov 2026 02:25:53 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j2jnLjEj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBB5C1F00A02;
+	Thu,  5 Nov 2026 07:27:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793863639;
+	bh=KpjQzYHtWDGBnZmNqdBh6R7M2XsM2YwTNNTkLJaA5FI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=j2jnLjEjkWl2LhZJHOLAS/6VC9piRAm1loijPru7Bs+FP2PxCwGOsHajpjJl6YWac
+	 NFs3HqoZQVoO6umVEGAIKxHWgdp+xIRB8Marti9qql4EMJH2SPm1PpAIfzL+SaoikY
+	 rlQqtpU0Ut9oCGA/eoSPq8PqBQY8YtYpGG7DEn8BWLt9iAEYvNSl+1k08fP9EY7Hng
+	 dCEzRdOUn5SPRooTaieHD2YBgK4Y/v7iI4TcueFfJTtTipjnQdDpTmbtcWl1e+Zup4
+	 uKGpngabZLOnzm5IMIuI9uHHOyQaKB1mtaIZZyP1Y4ota4gk6h4CmYHl6Zq+YqbxHw
+	 SHHfem8z3w7ag==
+Message-ID: <1a83f9a4-73c8-4a13-bd53-2e779f6ade22@kernel.org>
+Date: Thu, 5 Nov 2026 08:27:11 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,52 +51,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: A0tJ2p7xI-y-
-Date: Thu, 05 Nov 2026 08:25:22 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Bradley Morgan" <brads@mainlining.org>,
- "Andrew Morton" <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org
-Message-Id: <7e655d9c-d38d-49a6-bc51-73f4e65383c9@app.fastmail.com>
-In-Reply-To: <20261105003129.3130709-4-brads@mainlining.org>
-References: <20261105003129.3130709-1-brads@mainlining.org>
- <20261105003129.3130709-4-brads@mainlining.org>
-Subject: Re: [PATCH 3/3] compat: make compat_sysinfo() scale far enough to actually fit
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND v7 1/2] dt-bindings: input: Add Qualcomm SPMI PMIC
+ haptics
+To: Fenglin Wu <fenglin.wu@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, Dmitry Torokhov
+ <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ Stephen Boyd <sboyd@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ David Collins <david.collins@oss.qualcomm.com>,
+ Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
+ Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, linux-input@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ David Heidelberg <david@ixit.cz>
+References: <20261103-qcom-spmi-haptics-v7-0-418de67ef84a@oss.qualcomm.com>
+ <20261103-qcom-spmi-haptics-v7-1-418de67ef84a@oss.qualcomm.com>
+ <20261104-myrtle-kelpie-of-chemistry-de43cf@quoll>
+ <6964d550-2ddd-463a-a142-9e8f72588803@oss.qualcomm.com>
+ <4edbe80d-f1f0-4e85-9973-86da7649e9bf@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <4edbe80d-f1f0-4e85-9973-86da7649e9bf@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 5, 2026, at 01:31, Bradley Morgan wrote:
-> compat_sysinfo() checks whether totalram or totalswap is too big for the
-> compat struct and scales the values down to fit, but the loop stops as
-> soon as s.mem_unit reaches PAGE_SIZE.  That caps the compression at one
-> page, 12 bits with 4K pages.  On a 64 bit kernel do_sysinfo() always
-> hands it values in bytes with mem_unit == 1, its own overflow math runs
-> on unsigned long so it does not bail until 16 EiB, so the loop runs its
-> 12 turns, the values come back out as a page count, and anything past
-> 2^32 pages still does not fit.  Storing that into the u32 field then
-> just drops the top bits.
->
-> So a 32 bit process on a box past 2^32 pages gets a wrapped number
-> instead of a coarse one, with 4K pages that starts at 16 TiB:
->
->   ram      old                  new
->   8 TiB    2147483648 x 4096    unchanged
->   16 TiB   0 x 4096             2147483648 x 8192
->   17 TiB   268435456 x 4096     2281701376 x 8192
->   32 TiB   0 x 4096             2147483648 x 16384
->
-> The 17 TiB row is the nasty one, a 32 bit process is told the box has
-> 1 TiB of ram.  Keep scaling until the values fit instead of until the
-> unit reaches a page, the unit then says how coarse the number is, which
-> is what mem_unit is for.
->
-> Nothing that works today changes.  I ran both loops side by side over
-> ram from 1 MiB to 2^56 with 4K and 64K pages, they disagree on exactly
-> the inputs where the old one dropped bits and agree on every one it got
-> right.
->
-> Signed-off-by: Bradley Morgan <brads@mainlining.org>
+On 05/11/2026 01:48, Fenglin Wu wrote:
+> 
+> 
+> On 11/4/2026 4:44 PM, Krzysztof Kozlowski wrote:
+>> On 04/11/2026 09:29, Krzysztof Kozlowski wrote:
+>>> On Tue, Nov 03, 2026 at 08:51:17PM -0800, Fenglin Wu wrote:
+>>>> Add binding document for the haptics module inside Qualcomm PMIC
+>>>> PMIH0108.
+>>>>
+>>>
+>>> Why are you ending this? On what sort of ancient, downstream fork are
+>>
+>> s/ending/sending/
+>>
+>>> you working?
+>>>
+>>>
+>>> NAK
+>> Best regards,
+>> Krzysztof
+> 
+> What's the concern on sending them? I don't understand.
 
-Makes sense, thanks for the fix!
+That they are based on 4 months old tree? Or half year old? Or longer?
+Try yourself. Does this apply?
 
-Reviewed-by: Arnd Bergmann <arnd@arndb.de>
+No. And if you tried to work on recent tree, you would understand why I
+am asking.
+
+Best regards,
+Krzysztof
