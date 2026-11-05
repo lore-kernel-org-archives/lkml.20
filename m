@@ -1,45 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.221
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793883249;
-	b=CjeGwZER2YQY1X6AkZ0GrI2DX6tBmAgY1DMOJofC0B6DVMZfgY7WeH8U1wYkm7rHNfHv
-	 NlgaH7ZitG0kQ9o1rPuNH4Q8C6uz/aGmMM7qMVzfprIjXRUmF6/p+G2MyaVgEW5ciCwzw
-	 r+xKY2/KDu95q5KiuANyKPsLjNoo7pjse26cHYtQCa+jezcQ+4VqKsncUHRrmk7qFivvE
-	 4pYLhwGFa1pNF+lIQZklytjL42tUi7kkb14+4ouIMSi4N98+A6YYhbAAqJis61oMWnyB9
-	 SSMQ+o6WfRMBdoTkzdG3hGwcNpoW4A0lOri66PAsAP+17RTwfxt6hs6kbz+ewBQs/jg==
+	t=1793883308;
+	b=r+0ILO5TA2VQUQ7GKyv1p/ufo7UlIwF3INwYt0KXV6j1WDk0bOXsboXX3uXYoWkBSzCS
+	 vuQNad7cqgPGYhPAc54hrOJe8lyZgp0m55mu7MtFgXCyL0zWZFKcyE06S5ydfhba+/4rg
+	 reAYzk7020zai1lczpDxzYBBRLARt6YcnghVL0qrZO9zG5E0FC6O7SLEEamovlFcxUmcq
+	 UoiCIOqSWfX8621jwLlURbNA1pfhf0yQU+qzyC5GGeQTuujVJwonR6qDdLQSUevXrS9mA
+	 /Gam052gLMjpp0JIrJF1SLG4LDB8Lp4MiBLb55UOTLBqOPz+1yaukfhP1xU7YZgC2ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793883249;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=iXsYh5eKf2FQ1EzlHzZPVEQunxEDxjb2JXoXRWEV9kE=;
-	b=TQOAVVUeXa+2ICFJZ0mvo4XholD8sRZW0g2pGNsw74OoTzamuJcyRnjT8D4Jm9EA/eF6
-	 askhrcusYRP2Gkxta/Kcwi9jV3Fc/b5WtYwNLudeYD8OsLnMg0dfaSUG3zzI/Zju8hghT
-	 RxEk6ICMer40ME9Yo+9okwCALGdFcoWjJmEKxhBffp+Vlb3eSrwIJeFBZjb9tbfleZPpV
-	 A1QVMOHs6pAjky4EfEtrGvRmHQZgpeprV8oSd/H62/Bii+qUwmNub7x4/smMgXSqRr8zv
-	 xLNrEc2l/9fbP7R1CvbueAusZ+jJ+asz7xAxkK1veM6pkCvR31M34Anw953CIGHrVJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793883308;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=W9x3jjuMW0enhWTlyFdgZKVCgl/js8bTZrtROBm22NA=;
+	b=0heeqTaFuxF5OOl/cG46qGhzxapXsJvO2+JAlIqgOUP0cRgI+jsEyleD7hjUibfJKe5n
+	 H/dyIj8R+/RwzkYBf56ZThnJ7mVnqenButcEKNyj6uNYRbPA01qmuimAwZ4tdmmCT6Vqv
+	 QjBljS4OWHELo/FyVxIFM0FeSI4z0O0WvSLKLgSIDc6IzCgSXituPJ/XGi+vwrwaduLyN
+	 NElDFQ3jsqvU2o92s+Zb+fCn1aBXHhqWC8+auvf4STre/nXy0E1PewOheZAw2V58G5SIV
+	 kPx7zb8u++JOQXO+XT8lrERCSWJN9mLacvFqiIUHAkASYvK0pG+ZhuGn5Ie7uqsbjog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lW+GzrJ2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=AXmhRlh4;
+	arc=none smtp.remote-ip=113.46.200.221
+Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F11A606A332;
-	Thu,  5 Nov 2026 12:54:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 536AE606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:55:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 536AE606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lW+GzrJ2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E75101F000C1;
-	Thu,  5 Nov 2026 12:54:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793883249;
-	bh=iXsYh5eKf2FQ1EzlHzZPVEQunxEDxjb2JXoXRWEV9kE=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=lW+GzrJ2hExjQcQuQGvfimJnDYhZHsGJ7nMKh/LQgmxa8KDt2UzGcBBKSw9vDfzoP
-	 I7G5AODeFf0OpbUJclCJwMELS3HcHd/atBLCXHFEU/FxNEUPLvyBnn45dcIzl/RWgD
-	 sDjlojgksQi60VftrZIrS9bYi79vsoirNmmrh+TMqnz8o/4CMvvizmjI6tiJO+f4YX
-	 IlSzesfAhCQ1b9C7LjyRcI2mL4snYlCdPgNC4Uc0lcQN97pGj5SLvKk0Sb/8MdrcfW
-	 8nqWNVhozaXQzvrPLa5VG3F1Ap2G0rh4IsLmThV+PnGHF5JGZ8ZfLQ3EfXq4Zp4QJI
-	 /nHeDBB7l8shg==
-Content-Type: multipart/mixed; boundary="===============5493733059592945753=="
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=AXmhRlh4
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=W9x3jjuMW0enhWTlyFdgZKVCgl/js8bTZrtROBm22NA=;
+	b=AXmhRlh4UfxROFuRVsIID2iazoIEl1RdMyRlDEEubF0QmuEwp1YLR95WsZOkHeNt8ipkI1OTu
+	gnFcBoh4grsEIsWX915VNIflUhYlbGQwmPV/2tgdstSGutpdwqJTpvYq1dDksuNUI0SVIWM0NC7
+	6+Rg3dMuXE5dCP/ev3OTGYs=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4jL2Mg4VfNzRhRx;
+	Thu,  5 Nov 2026 20:54:55 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 8844E4056D;
+	Thu,  5 Nov 2026 20:55:02 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 5 Nov
+ 2026 20:55:01 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<pratyush@kernel.org>, <leitao@debian.org>, <mpilaniy@redhat.com>,
+	<yeoreum.yun@arm.com>, <graf@amazon.com>, <pasha.tatashin@soleen.com>,
+	<akpm@linux-foundation.org>, <baoquan.he@linux.dev>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [PATCH v8] arm64: kexec_file: Stop using the Image text_offset
+Date: Thu, 5 Nov 2026 20:54:42 +0800
+Message-ID: <20261105125442.2282987-1-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,97 +71,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <c49c7edc3d7c652c11ffbf19c76c3daf33427252cd007a9304c749453af47b8d@mail.kernel.org>
-In-Reply-To: <20261105121642.38019-1-abhishekkhade69@gmail.com>
-References: <20261105121642.38019-1-abhishekkhade69@gmail.com>
-Subject: Re: [PATCH] bpf: Add network namespace boundary inspection kfuncs
-From: bot+bpf-ci@kernel.org
-To: abhishekkhade69@gmail.com,bpf@vger.kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org
-Cc: linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,abhishekkhade69@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Thu,  5 Nov 2026 12:54:08 +0000 (UTC)
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
---===============5493733059592945753==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+image_load() adds text_offset to kernel_segment->mem and subtracts it
+from kernel_segment->memsz.  For CMA backed segments this breaks the
+load path: the payload is copied to page_address(cma), which is the CMA
+base, while image->start is set to the adjusted address, so kexec jumps
+into the middle of the kernel.  kimage_map_segment() has the same
+mismatch when a segment has been moved.
 
-> bpf: Add network namespace boundary inspection kfuncs
+The adjusted memsz also breaks the release path: the CMA pages are
+freed using segment->memsz >> PAGE_SHIFT, which is fewer than were
+allocated, leaking the tail of the allocation.
 
-TL;DR: The new kfuncs sit inside the CONFIG_CGROUPS block but their
-BTF_ID_FLAGS entries don't. With CONFIG_NET=y and CONFIG_CGROUPS=n,
-resolve_btfids may fail the link or kfunc registration may abort, possibly
-dropping other kfuncs.
+Since commit 751c263bb74f ("arm64: remove TEXT_OFFSET randomization")
+TEXT_OFFSET is always zero.  This has been upstream since v5.8, so no
+LTS kernel carries a non-zero text_offset.  Drop the adjustment and
+reject images with a non-zero value instead of booting them from a
+wrong address.  With the adjustment gone, segments stay at their CMA
+base and the release size matches the allocation.
 
-> diff --git a/kernel/bpf/helpers.c b/kernel/bpf/helpers.c
-> --- a/kernel/bpf/helpers.c
-> +++ b/kernel/bpf/helpers.c
-
-[ ... ]
-
-> @@ -2991,6 +2994,77 @@ __bpf_kfunc long bpf_task_under_cgroup(struct task_struct *task,
->  	return ret;
->  }
->  
-> +#ifdef CONFIG_NET
-> +/**
-> + * bpf_task_is_init_net - check whether task belongs to initial network namespace
-
-[ ... ]
-
-> +__bpf_kfunc bool bpf_sock_is_init_net(const struct sock *sk)
-> +{
-> +	if (!sk)
-> +		return false;
-> +
-> +	return net_eq(sock_net(sk), &init_net);
-> +}
-> +#endif /* CONFIG_NET */
-> +
-
-[ ... ]
-
-> @@ -5151,6 +5225,11 @@ BTF_ID_FLAGS(func, bpf_cgroup_from_id, KF_ACQUIRE | KF_RET_NULL)
->  BTF_ID_FLAGS(func, bpf_task_under_cgroup, KF_RCU)
->  BTF_ID_FLAGS(func, bpf_task_get_cgroup1, KF_ACQUIRE | KF_RCU | KF_RET_NULL)
->  #endif
-> +#ifdef CONFIG_NET
-> +BTF_ID_FLAGS(func, bpf_task_is_init_net, KF_RCU)
-> +BTF_ID_FLAGS(func, bpf_task_get_netns_inum, KF_RCU)
-> +BTF_ID_FLAGS(func, bpf_sock_is_init_net, KF_RCU)
-> +#endif
-
-Are these three kfunc definitions compiled when CONFIG_CGROUPS is not set?
-
-The definitions sit inside the existing CONFIG_CGROUPS block, which is
-closed by the "#endif /* CONFIG_CGROUPS */" after bpf_task_get_cgroup1()
-and friends, but the BTF_ID_FLAGS() entries are guarded only by
-CONFIG_NET and come after the CONFIG_CGROUPS #endif.
-
-With CONFIG_NET=y, CONFIG_CGROUPS=n and CONFIG_DEBUG_INFO_BTF=y, the
-functions are not built but generic_btf_ids still names them.  Then
-resolve_btfids prints "unresolved symbol bpf_task_is_init_net" for each
-of them, and the vmlinux link can fail when CONFIG_WERROR is set.
-
-Without CONFIG_WERROR, the set8 entries keep BTF id 0.  At boot,
-kfunc_init() calls register_btf_kfunc_id_set(BPF_PROG_TYPE_TRACING,
-&generic_kfunc_set), and btf_check_kfunc_protos() sees btf_type_by_id(btf, 0)
-as the void type and returns -EINVAL:
-
-    if (!btf_type_is_func(func))
-        return -EINVAL;
-
-The "ret ?:" chain in kfunc_init() then skips every later registration
-(SCHED_CLS, XDP, STRUCT_OPS, SYSCALL, CGROUP_SKB, the dtors and
-common_kfunc_set).  Could that drop kfuncs such as bpf_obj_new(),
-bpf_task_acquire() and bpf_rcu_read_lock() on such configs?
-
-Should the new definitions be moved after the CONFIG_CGROUPS #endif, so
-they match the scope of the BTF_ID_FLAGS() entries?
-
-
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Will Deacon <will@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Link: https://lore.kernel.org/all/20260921090450.807575-2-ruanjinjie@huawei.com/
+Link: https://lore.kernel.org/all/20260921090450.807575-3-ruanjinjie@huawei.com/
+Fixes: 07d24902977e ("kexec: enable CMA based contiguous allocation")
+Suggested-by: Mike Rapoport <rppt@kernel.org>
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+v2:
+- Split out from the patch set.
+- Link to v7: https://lore.kernel.org/all/20261026075201.699550-1-ruanjinjie@huawei.com/
+---
+ arch/arm64/kernel/kexec_image.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/42028225169
---===============5493733059592945753==--
+diff --git a/arch/arm64/kernel/kexec_image.c b/arch/arm64/kernel/kexec_image.c
+index 78b1f956d8d7..7d6baea3d28f 100644
+--- a/arch/arm64/kernel/kexec_image.c
++++ b/arch/arm64/kernel/kexec_image.c
+@@ -80,12 +80,17 @@ static void *image_load(struct kimage *image,
+ 	kbuf.bufsz = kernel_len;
+ 	kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
+ 	kbuf.memsz = le64_to_cpu(h->image_size);
++	/*
++	 * Pre-v5.8 images carry a non-zero text_offset, which is no longer
++	 * honored; reject them instead of loading them at a wrong address.
++	 */
+ 	text_offset = le64_to_cpu(h->text_offset);
++	if (text_offset) {
++		pr_err("Unsupported Image text_offset 0x%lx\n", text_offset);
++		return ERR_PTR(-ENOEXEC);
++	}
+ 	kbuf.buf_align = MIN_KIMG_ALIGN;
+ 
+-	/* Adjust kernel segment with TEXT_OFFSET */
+-	kbuf.memsz += text_offset;
+-
+ 	kernel_segment_number = image->nr_segments;
+ 
+ 	/*
+@@ -117,8 +122,6 @@ static void *image_load(struct kimage *image,
+ 	}
+ 
+ 	kernel_segment = &image->segment[kernel_segment_number];
+-	kernel_segment->mem += text_offset;
+-	kernel_segment->memsz -= text_offset;
+ 	image->start = kernel_segment->mem;
+ 
+ 	kexec_dprintk("Loaded kernel at 0x%lx bufsz=0x%lx memsz=0x%lx\n",
+-- 
+2.34.1
+
