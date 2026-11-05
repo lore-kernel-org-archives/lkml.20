@@ -1,55 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.24
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793885287;
-	b=TqF5sJ2D/sTj675xbxxcMzHg8By3yJ6Gr3ArMP9iNuthM+U1rhFIkUBUsTrOJngknaJz
-	 UPVyyoXd3qgV+/6zE1IF0V53tv4XNf8N2yOQlMQhYi/XK4mW+lbnwxzjw7gqk7SYDQ8NP
-	 JbkugY604nr5yKmYvt55yt+M5cAh/YPBV0uVzgbvW8BrZvGSqCASTEmsgCsWAjBlBbADE
-	 13mG9Vli9U3s0bL/ISX3Ca02E2WiTv1bLsccHxuepnToj4upRLsBbk9ZH96l52IW7gS+4
-	 77AGh/5O2IX0c+S5ZjRL0PJZZEY6GYz1PFRrL+6QmaVur3RwbPKPvKNklgLbLjDyIkA==
+	t=1793885340;
+	b=t+0nZj0fS7ZqyssDzUNuYVkFUO8WIKMQ9JJYDQQbJ43xurprRltfMYIlr7tHd1NzXQ0m
+	 ZkQbEXZO9+wN3dklnA7hoLrE69ecat4SU/r+nuDskDWNdMTGgBJoC5YJX45/9KflPobh0
+	 zXLYQ3G3YbMOdqmcFJ74z8WBd1Yd7ZD4qvbf3V19veFC9+2QvHwZ9qKa7znIpSNi2b0EY
+	 wMRC5jpTWPXV5JrBwtrKrOsKduZc+6XVgLNWiHQNxoC4spr38TQIxKEMzzUuv6gqDo5Kv
+	 yEQl8wQUMREUeUiJcIDB8w3lGb3DlDsgm8lcM5HrayoYULafdnUF0IyL9dp8D7Cu9HA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793885287;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=8ru4HSnwu1oQ4oTSKgIFmon8BQMS/0IiXPCyBWh94vo=;
-	b=D45mJT7/UcUPGh2KIK9FBBCgVPdSgCH6gb99tkSA9WN1qTAvK6T9vD28m6Ztyt6kt6w4
-	 q8rImVgBbJWFgws/kPFkUxqLMMecTuYDpIFU6zFhakULuQPoM/Sx+34mhyLX7CIcgDVpO
-	 P9qYJWQsI1U+z4QuKHRqGjA9sbl+1noQolpvYSEXuMk6G533YHmC17UPXrktbRP8plHON
-	 5R18xLVa+W/bFtUYCyGZ+iFuKfaCY8e12JGJMqelTQ1sC6eCaWnJs9LgvQQO3rmvFG+CF
-	 wO8yksdQLlL1Gq7nBVG+lo5Is9fn7RbjNGBPGjeR4PD4zN6w0nhN+rSAfq2dfl03f0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793885340;
+	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Received:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Spam-Status:
+	 X-Spam-Checker-Version:X-Virus-Scanned:X-Virus-Status:X-Provags-ID:
+	 X-Spam-Flag:UI-OutboundReport;
+	bh=S7gTFWi0vVr5NLYp53sjQKqE4pWLhfHhEbWgZHbtI/c=;
+	b=WG6pTzUzSKltRcdAn+V+wzr+eyTthAbTEUGQsaBJoZFPW9v2x0Zp4b8tUYvbdTs3l4kZ
+	 iNx6GUtto8W5EA4MN7+4q+rpWu9ySInlzGOZuhSZ3qv7ngdxxYbb1loJ20czgkZQhIGrA
+	 EwYEysMdpSIjmqZnhlSOGGmEvLhMJKUtyPGkh3JD9sbswu+C59gOTQHEOPiDLafJVRgsh
+	 zsYmpGfKD3inUSWsz1R0kIXSCnEhP84VKCDiQ/54H5PCRsm4YqvyamSfU3t2FbCSZWhok
+	 F8rtoNkDbkR9M+GMuDUVT2rO7d7yJ4dnwJ7ZZsJ5M1TKtYOpRwuc0f5u8CidjabwOiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XPZFFODh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=morknet.de;
+	spf=pass smtp.mailfrom=morknet.de;
+	dkim=pass header.d=morknet.de header.i=linux-dev@morknet.de header.a=rsa-sha256 header.s=s1-ionos header.b=h6JcHTJ3;
+	arc=none smtp.remote-ip=212.227.17.24
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.24])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 827B7606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 13:28:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9D5A606A31B;
+	Thu,  5 Nov 2026 13:28:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9D5A606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=morknet.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=morknet.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XPZFFODh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26F021F00919
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 13:28:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793885287;
-	bh=8ru4HSnwu1oQ4oTSKgIFmon8BQMS/0IiXPCyBWh94vo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=XPZFFODhwzMFOPYnFOG/f2gIhmZlzFGR3VM9E9oC8a4Qge/gN/2bdc8JVTBaYSriD
-	 dnajOTcdBBJpTxMHp+10l0Hww4xnVZ0fetIDHktnLlpt41TdKtG0jLRinIADCl4h2G
-	 H9jkaltZce3g4ycvP2X5mPYMBA1gfAjsP5sGOg2OuR4EM5LCfO+vp/8U7tRacofM34
-	 iDJ28HZWn6GSeK6C8KNWCQLlFKH/3v5rxnq3Z53fw/SOOGmAcXpl7LJJaarkym/vD8
-	 qRWNwk970yF+LqVNBMWI1q5U5bK09AqlTE7+DQDj2FA3l1W0Orkngo/IVOfFfSff0z
-	 AmmNONwv4RLBA==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5ba3ec92031so2257376e87.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 05:28:07 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBy7gl3rvHMTLXLGIYtmbtlbFHtc1v++8dCORw6hinRBCc5MP8J9mig+pAVlLQg0xZDKpj1przxT5/fjnBo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9gKMPZLHvT/69aOrJT2+jTlinprYrNC/SqKC6WqPUGq2R7QFjb
-	X98NySsYx1Cigrmnmn0/iReF+WqkA1sbfWuVNEdgW28yqiRWd1vp9k6OIds8hFXaqmPTPslcPSB
-	jB/CNMP8m+TfvG3/mqZtnxM2gcBZYyjk=
-X-Received: by 2002:a05:6512:68a:b0:5bf:ec95:41f5 with SMTP id
- 2adb3069b0e04-5bfec954634mr3564188e87.36.1793885285940; Thu, 05 Nov 2026
- 05:28:05 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=morknet.de header.i=linux-dev@morknet.de header.a=rsa-sha256 header.s=s1-ionos header.b=h6JcHTJ3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=morknet.de;
+	s=s1-ionos; t=1793885331; x=1794490131; i=linux-dev@morknet.de;
+	bh=S7gTFWi0vVr5NLYp53sjQKqE4pWLhfHhEbWgZHbtI/c=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=h6JcHTJ3kcxANUEvlIYJMKBIAg5re/wb95CadZrdfmr/6pKT6bcLy44kCIlepBdO
+	 v75XFtEDA+q+ilguzdX8RsGScazFAjeM6Lx5NdQ9RvGNnl8KDqBlbg1Ra+ICdkVxP
+	 XJwfIi7zwBNFYaELQCa2g3ZeMXQuTpql1SjBcF40Q0tBwNq3VnqKyxFfeCdlF/JqN
+	 3LJq+IoXLN+h7w6lA81yV+Tes5b/ge7VqMKKz86VF9QOJErFRt4QE2c79OS8JITIR
+	 tVsAzpVp4zhQohuYhHm1Hhy9TP1H5nfCmo3RFkRk7bBPlbzEPrBjvH4u5+ogVgsdt
+	 huovL5xb2HfugmB2HQ==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue108
+ [212.227.15.183]) with ESMTPSA (Nemesis) id 1MvbJw-1wXXcb267C-00xRJC; Thu, 05
+ Nov 2026 14:28:51 +0100
+Received: from sagittarius.morknet.de (sagittarius.morknet.de [192.168.19.11])
+	by mail.morknet.de (8.18.1/8.18.1) with ESMTPS id 6A5DSooP2302739
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+	Thu, 5 Nov 2026 14:28:50 +0100
+Received: from sagittarius.morknet.de (localhost [127.0.0.1])
+	by sagittarius.morknet.de (8.18.1/8.18.1) with ESMTP id 6A5DSnwR1226355;
+	Thu, 5 Nov 2026 14:28:50 +0100
+From: "Steffen A. Mork" <linux-dev@morknet.de>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: linux-m68k@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Thorsten Blum <blum@kernel.org>,
+        "Steffen A. Mork" <linux-dev@morknet.de>
+Subject: [PATCH] m68k: amiga: lower min_low_pfn to make RAM DMA-able
+Date: Thu,  5 Nov 2026 14:27:52 +0100
+Message-ID: <20261105132752.1226267-1-linux-dev@morknet.de>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,32 +77,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261015035118.9495-1-prasanth.padarthi10@gmail.com>
- <CAD++jLkx4oQ2ZuUSUQE1Qtrk-1XSMdnDjfLG0rrOm=gt9VD3VA@mail.gmail.com> <CAMFFDGhD4K6PN8G+c-hQAL6RG9sVkjo6SXHB5===bYswHh0aTQ@mail.gmail.com>
-In-Reply-To: <CAMFFDGhD4K6PN8G+c-hQAL6RG9sVkjo6SXHB5===bYswHh0aTQ@mail.gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 5 Nov 2026 14:27:52 +0100
-X-Gmail-Original-Message-ID: <CAD++jLkRNSXt+Er3tnnucpAAj=wPa5JFMsdLLixT=8MnGYJoMw@mail.gmail.com>
-X-Gm-Features: AclHuK8sEV6qv2B1_vrP6a-7LhjJiL37qYSrwskqM676CSWb53N83wbpRw8_kUI
-Message-ID: <CAD++jLkRNSXt+Er3tnnucpAAj=wPa5JFMsdLLixT=8MnGYJoMw@mail.gmail.com>
-Subject: Re: [RFC PATCH] pinctrl: aspeed: Handle GPIOZ6 pass-through strap on
- GPIO requests
-To: Prasanth <prasanth.padarthi10@gmail.com>
-Cc: andrew@codeconstruct.com.au, joel@jms.id.au, brgl@kernel.org, 
-	linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org, 
-	linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
+X-Virus-Scanned: clamav-milter 1.5.4 at scorpius
+X-Virus-Status: Clean
+X-Provags-ID: V03:K1:J14B5c7YwR2N9gMsetXHm4+Wu1qhcawR18LP4f0jPAWhGlfdXPB
+ n56wUoDVEHb6QxFy8KCE+wSyYO65Sxnc0dDo03FXFAA5upn61McKhxHlKTouCawkN/pC61v
+ QTAGW505GJo0auskfqaYfvaIIEy3ZDmPQqy48DUNH9uAvwH2z5cTpFe8oZgOrkJPLa4NBbv
+ pfpLRZcn8/ciBv21mKivw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:LL5QYpsPr1E=;ewhKAqIqk41VuZWR2+ezZ0IPfGE
+ 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
 
-On Thu, Nov 5, 2026 at 4:36=E2=80=AFAM Prasanth <prasanth.padarthi10@gmail.=
-com> wrote:
+With reference to the patch by Denis Ahrens for the MVME16x platform, this
+patch works in the same way for the Amiga. Currently, all DMA-capable SCSI
+controllers have ceased to function due to the same underlying issue. Whil=
+e
+the wd33c93=3Dnodma parameter can be used as a workaround for the wd33c93
+driver on the Amiga 3000, other drivers =E2=80=94- such as the zorro_esp d=
+river
+(tested on a Blizzard 2060) -=E2=80=94 fail completely once memory has bee=
+n
+released by free_initmem().
 
-> I will verify the requested base, rebase the October 22 version
-> and resend it as RFC v3 for renewed review.
+Applying this patch restores proper functionality to both the Amiga 3000
+SCSI controller (without requiring the wd33c93=3Dnodma parameter) and the
+Blizzard 2060.
 
-Do you have to still keep it RFC? I normally do not apply
-"RFC" patches. Consider dropping the prefix.
+Link: https://lore.kernel.org/r/C718B642-57B9-48F3-8C0C-87DCB31A8495@h3q.c=
+om
+Tested-by: Steffen A. Mork <linux-dev@morknet.de> # native Amiga 2000 with=
+ Blizzard 2060
+Tested-by: Steffen A. Mork <linux-dev@morknet.de> # FS-UAE virtual Amiga 3=
+000
+Signed-off-by: Steffen A. Mork <linux-dev@morknet.de>
+=2D--
+ arch/m68k/amiga/config.c | 36 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 36 insertions(+)
 
-Yours,
-Linus Walleij
+diff --git a/arch/m68k/amiga/config.c b/arch/m68k/amiga/config.c
+index 6e89e7f7e98b..c48aa3dbd837 100644
+=2D-- a/arch/m68k/amiga/config.c
++++ b/arch/m68k/amiga/config.c
+@@ -24,6 +24,7 @@
+ #include <linux/interrupt.h>
+ #include <linux/zorro.h>
+ #include <linux/module.h>
++#include <linux/memblock.h>
+ #include <linux/keyboard.h>
+=20
+ #include <asm/bootinfo.h>
+@@ -854,3 +855,38 @@ static void amiga_get_hardware_list(struct seq_file *=
+m)
+ #ifdef CONFIG_VT
+ EXPORT_SYMBOL_GPL(key_maps);
+ #endif
++
++/*
++ * Make all system RAM available for DMA.
++ *
++ * paging_init() sets min_low_pfn to the first free page
++ * after the kernel image. free_initmem() later releases
++ * the init sections, but min_low_pfn remains unchanged.
++ *
++ * This prevents dma_capable() from mapping those pages.
++ */
++static int __init amiga_init_dma_pfn_limit(void)
++{
++	unsigned long pfn =3D ULONG_MAX;
++	int i;
++
++	for (i =3D 0; i < m68k_num_memory; i++) {
++		unsigned long mem_pfn;
++
++		mem_pfn =3D m68k_memory[i].addr >> PAGE_SHIFT;
++
++		if (mem_pfn < pfn)
++			pfn =3D mem_pfn;
++	}
++
++	if (pfn >=3D min_low_pfn)
++		return 0;
++
++	pr_info("Amiga: lowering min_low_pfn 0x%lx -> 0x%lx\n",
++		min_low_pfn, pfn);
++
++	min_low_pfn =3D pfn;
++
++	return 0;
++}
++arch_initcall(amiga_init_dma_pfn_limit);
+=2D-=20
+2.43.0
+
