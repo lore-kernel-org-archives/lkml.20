@@ -1,101 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.191.81
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793905846;
-	b=kiHkwMHiccQzse3QMHIfHJS4LwcitYlGZLTFpZ6lsi7nBh5MwUnr7M0ntBSFhGYVsu2R
-	 cALLgD8Sn2uJ9IxozAs9yWvhn0KA8uPzrTRPTB2npp0yCqQrFn4CeBk0tU2v817lRpoq/
-	 KIhqkMuCyPydoes02fAkfh2TRfw7XTiA8U5Jkv/9sGkynKdrtZCrRH8Uzgrqp3m6fE9H8
-	 r3VVXy5k0K2YeDci/7YCL7OAy854cFx34ff/Muen4M7gO49wCWfMyq1BJu1kWYvN7p5Ta
-	 kRRSBovH0BsOikVBJjsPd8N/9nMIyOZuL6PKQmSgbLDs9+cNh6A7ckcdr9ejtQR4FjA==
+	t=1793905870;
+	b=N4Y7raLow+0iAlvXR8W9s+aQC3QEIKilNm9Yu3cugJgoOon6ybbFLyqxlGPV/drr9uuv
+	 zj4FKzgDMYlwdPXuD+iaaYgqVBehBTBf/7DtY7lJvVv6wL4P+jGJo0tyMU8/rCS6f9Mq+
+	 YLTyJ/8sDqybsOi1TpkgD4nG4wjXKbkvWGFHUF6C4UePyPTAK8NjYFJBFBzEw+U4zFQHV
+	 DtPfTREovfHr59gLlYnnKFZZIH2wfeT8irhnvwF6SC+GkaH1nzZzTwbAY1QX4vByT6ckm
+	 G3+4gzJq5srpJF/yg8QvP23MChgae6SyNXwY/3KYAAw04gzD+eRv0+bDvdZvm4br7PA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793905846;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=+AM8lcqsy+CxgzlQagVQC8tY9g7kqqsxFRFS2BKb6pM=;
-	b=czqx6XKPSQX7z3CUXW8xJ29ureo6FncE1oyTIFeffAtQ3pjBTCcLgCsZy+nUbVKCH6Nh
-	 dj6rRaNaEVwaUIldXbVwx0lT6NTQ2dVondeUnh6qbEbAnQCHl9PI//vnWlA/MX9IAWCRi
-	 NMU9aeJBxCMdMLSPKpaMMZFTljet2uLCaiCYW5Alca6OhFZ914W9Ta/2a03jVS8YMoNSV
-	 P6K3hh10G69bflkQP/KvqJDeVzHdRNXDODo0C22p09nN33J9jvcjKrQ7B/OiLPQb8fQ/a
-	 +Wn8Uqq6rwpT1ytbo/hTaPSRKFBw7F30Xc0ZC8ZpJ/zejTSjDt3FLMp1GKLXVupcN0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793905870;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=wLZdF7ZQ+yrCN08wRgsorbvTzS4dznV0u66u5cdA49M=;
+	b=dYbMbI0YWFRFatdHg2a0SwoQlpwyuAfNEsOSF9MI+2fYXDdE+KSTNon/bBsGfQ/GMVnX
+	 F2BHP+Tiuj3r2N5ZzXbiLcYftfwycAkGDtZgElEFRbwnDN19RIDxpOG8gPNop4GTF4BIN
+	 5UdsifmtV9yFCsC+q+iH/Be/mRHHvyGuJVtnMSmDBUAgDsCslnbDHJn0y2I4cOHp91kBE
+	 yxIHzs3UUi9bn1aTHmr7bttTpWIMeutWUOdXYAIHHBMOOal1rr2yUuydA75/zuv4W3pgL
+	 yK8m2v8nAeBwqkSgfROKWZilwPV5RUnW4Vll7Ilrs1191NxXJxA+/Rcjck0Byk0mG3Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KKce5+QX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b="IDM/H7l8";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.191.81
+Received: from YQZPR01CU011.outbound.protection.outlook.com (mail-canadaeastazon11020081.outbound.protection.outlook.com [52.101.191.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B861606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:10:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B861606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E461606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:11:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E461606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KKce5+QX
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b408f2d936so2878878a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:10:45 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793905844; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gecf1R7/62UGcfOnqBqofmergPgRYHPrSkifMGYkR5S2LAi42KG6YQ3LCpA/AazMpk
-         gqbRHinEFqTWvhYULtmW6O3rVU1IQuLP74ko7beHnFbVnDkdORKskHFwvEwuMFsjEYl0
-         CHYpTIv570zJ6UHSkKkY3u9RNhedssZXUQNtNdVKYDjZ0RZ6Q8Sd+pMnD9VjpRP9wZIL
-         ivwJSj/uQ0LwdAzHm1Y8EBxZAThG3S2vuQhNjFmBlh1jvV5KiL0GR8Af6mBxYdZ/+Zai
-         BzzR61CpePouRONrZ2RQP9jz0mrD7gWBv5PqUioHcp1ZyVo7hEYosUJsvN1X+gwj9WUT
-         1vTQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+AM8lcqsy+CxgzlQagVQC8tY9g7kqqsxFRFS2BKb6pM=;
-        fh=FmS4A+zl1kR3WWByGOS7qiC2drReRFvZPmV6Y7OJgj0=;
-        b=hcr1SwQXqNlOpWhtc1s1uJgXCggHB/cOcjdjUChX161twWe8n0WnUOyhCWjbI6ZKQO
-         GHHsEp66TkwVy3gwY4w1T2w/jfhcFRvwC4Dme3tkE/aAjFmEPLeeF9U2/a765VuSQoZf
-         VPebwF2BwXo4xdflS6ErKgMYjiuca+eZJGVQInt3c7W89KoP4nxWO/QOTtoGOAL+4xXz
-         7Wr8xhptNkElJ5kN8Aq2MooiAJyN2hzQ/2ZDEUCQ/AyOhCDsJct9SjyePyJxkzDsVbDx
-         I5WTLtF9VZmun6oDqPCqKhBrnBD+QaZJA0DH6e9/Y/8W+ta/PWjMXi/Q1j/XZdx2EJR0
-         0+Ww==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793905844; x=1794510644; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+AM8lcqsy+CxgzlQagVQC8tY9g7kqqsxFRFS2BKb6pM=;
-        b=KKce5+QXwWV53MZswELq0HZDzvaKXn87EMbyDcqdDb26jZW6Bpc6ff16G7VxMNtgeC
-         oytKJ2fJ30+slKtIpLUNaVNRVK8XuY3EfTEfM2UCDqKztHTu2iBZ2hxkgtSOjmjZH+91
-         MdbBs/+gOs/udGy0Xm9x9lJXwWS3P5U4ccoPGqLuH9XEsz5oviSw/O9lq/gWG/dL/xyL
-         9rtg3+2lcwTf3A5kW40X0bP/E8mXXlbfYA5p2txNhYHTvxGj+fShbNkgGeTRRt3Qq1Ht
-         FstQni5jjx7BkZheD6YOATmjdg7XxaJYD9TU2LfkSBOyLrwDJzAcUl1IcurEXwZsvVAt
-         Touw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793905844; x=1794510644;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+AM8lcqsy+CxgzlQagVQC8tY9g7kqqsxFRFS2BKb6pM=;
-        b=ylKSJRGERgoM3VPC6WPo93RHJSzzgTXj770QfbspUlR7M0KeUNdRSIAeNFHUA4DRnO
-         IK4VGgaNl1dMsZHsCFbn5BgAFQ7SlVXvjWp4yuSAGsYZ7jr0D/yFig7jPtkiIBCRZdKx
-         Pdl7+r93tvwwqQRHloCBePltxv1uMggFKPQQAu/T7l9xhywsMleVbTg6zCDijo2mapff
-         WVkrp6P1Pabyc+eBs9Z1PHX8trTAVBuPaYYg42icwZBBCTIVBflRXBIrQAgLgz+2Zuys
-         V6YKMrUu7OPRLLgvKjVpmxqftegq4U+jXqqHarP3MSKty+blPo2pfZP1RSHG27PrLbIX
-         qzIg==
-X-Forwarded-Encrypted: i=1; AKwUvBwaukPtd8SXsDLxMdp4XpnR5d/h83B1+sr+rPjVbCoeZAfCXK3n8qUtLjfEcnZlsLd3ARe2bIkoUwDMee4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z89LA8BW6AndF76B9KPTEEkzMxHCvQpNj+LbOdjhT6k10pKXEsc
-	lLnfhX3TWC+tuDczpNZK3daJD3ZMDY/PNxHazH8cmXbGMdO+zF5K1AXpAxxzO5OTEnYOVvMJHGq
-	5y25fP8VF37r44Dku1tRS1zXmVrT9Gt0=
-X-Gm-Gg: AYBFou1Q7QmlsJIgLB/1HEFxwzMofycWSWJAiuU+nURuhl1bzNj6gjzesNKai0gj4yX
-	pknJvkaRjSuVyUW33XSFCjQKZjkiZncf3mG+eJ277oEzRbqEXbJIysyeKO+OntjP944chv6TSox
-	9tONs/BOWWyP4vvuNGzAq1F9Y3ts45oqOlZq2ufN4UWPBinCtVgWBK/lQpZXdw8DG4Io7k+roEc
-	mzD12frtPx+9urXne9FHcwzITlnpnTTFZANZePNDKa6mUiPMtxGkHiKDdldTINh5OSrSj44mSoC
-	4nodY4JBKhPinis6wBzynuicW0LgV8l8JIbOkfdNrDZ6ulRJiRiZDlqi7lmBNIQYo1ZCvMh9IjN
-	t4ycxmkIEDE9bViivOJiWEZjXk2yXa7lNgqW8cemv7K+SwlHruVaPlbsdehet5FI0OrTu2W6DUO
-	1slD77m0kkP79GpOVCM6exIEc=
-X-Received: by 2002:a05:6402:1ed5:b0:6b5:7037:eacf with SMTP id
- 4fb4d7f45d1cf-6b59783040dmr129797a12.42.1793905844112; Thu, 05 Nov 2026
- 11:10:44 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=IDM/H7l8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ECQD8gOaHE9HsGnoeqX5VEWAMxQYP0lVjpOMYB/wA+ndXgkgrwEm6Sn3aeOj8NyixYH67tc3hdTnDPxR1dbx0mSI5EB2Ey1Q7vL4efFI7+pqE2gQzNxXywB/zedFpyVg+/Bm9PF+M9S4qtjigJjjxSXypoelKbGNlL46t7gVqFUok9zFzxH/I/7PS1fWfwA+CRqlj3Cdh9M5kkqoEJS0dQkTKlIv0WjW+hb7ROjCAS+LHx89mMil+qNjc8vcVwsfsLe0MvYfU5Z8U3NPaOqSQTqLOJumfPj5964T89hUNQCgNy76RpEylnE82skzQ046Z6JHYSRzPc2B3/3ZHuaOBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wLZdF7ZQ+yrCN08wRgsorbvTzS4dznV0u66u5cdA49M=;
+ b=kaFLxSxdIuSiydW9ygcaK5g2VF0s1voGXyM7r+5TENoFLNyBIskv3jFqnXozfUC0bOSvMckedMRg7IIzoGhwKUyySqF0hTonYOjwjlcY3Zukn9X1o45DOgGcM3+45xM8mFKiDdp8RGGc76d3oN7cgtMG9ceBYGJAqco4WjTyjFFO0RqyTbp9TGTroOIXCUjtHVpToiCX3INdT2y1Eg6bYl3RRuPOTZCwY5cM5Mcj78vOdIUZukazW4Izz4W2v5Wx7iHC4HkUAZYQbgorg0eTncWP8ga7DxK4oPor5/GqsE6Q7z6Uq2QXuPHzvP5KY7jOz9Zky7oIZC0AmlMEna4dNg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
+ dkim=pass header.d=efficios.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wLZdF7ZQ+yrCN08wRgsorbvTzS4dznV0u66u5cdA49M=;
+ b=IDM/H7l8kqU2s9JSGwtu4c7lyz+jH5PD3rffa7YS4NRYzWO05eyAZUQcBwPCESNYan/hh3ry8bpq18jrDoNpUCiFX1nIyjPEi+ZqfaKfOPfVRaXzR+gaQe5ZVOhSlZwG8oBf8gYS/Ja9OaJxZ9UF+qB1lf3lHNrHHY4iTMOszWUl9XTkCuHONI41ahtmnJYJ1yAdz2SIGmhumIETeF2Lu0JNoAuHOebS8iirC7uEeGO+W5PdHmyoBjgRAMXOxec8SlSuh+uPBpR/es+ylRXvkLKHbekCi1WSN3jE2tsFUEbAqE6GFCRK+nRc/E5HYHEUbf84wOqzP7+sSjQCgJ03gA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=efficios.com;
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10) by YT3PR01MB179232.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:113::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
+ 2026 19:11:07 +0000
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 19:11:06 +0000
+Message-ID: <399a3f4a-76f1-4cf1-913c-4200cb4ce44a@efficios.com>
+Date: Thu, 5 Nov 2026 14:11:06 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 04/21] sched/deadline: Do not divide by zero active
+ CPUs of a root domain
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org,
+ mkoutny@suse.com, linux-kernel@vger.kernel.org
+References: <20261104211207.1392343-1-mathieu.desnoyers@efficios.com>
+ <20261104211207.1392343-5-mathieu.desnoyers@efficios.com>
+ <sashiko-outbox-198153@kernel.org>
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Content-Language: en-US
+In-Reply-To: <sashiko-outbox-198153@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR01CA0145.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:7e::6) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,238 +100,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-alpha-profileme-v6-0-63362e9290a3@gmail.com> <20261104-alpha-profileme-v6-11-63362e9290a3@gmail.com>
-In-Reply-To: <20261104-alpha-profileme-v6-11-63362e9290a3@gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Thu, 5 Nov 2026 20:10:31 +0100
-X-Gm-Features: AclHuK_UxhQhB1NzkasFpqvaIZPPz7RAAyZyknERGPMDjzr9Els24kIr9QOsaUQ
-Message-ID: <CA+=Fv5RNbPkRZjdcWGO6U3LV5A=WifOGZYFiEf=M0QVx9b8M9w@mail.gmail.com>
-Subject: Re: [PATCH v6 11/13] alpha/perf: add ProfileMe sample filters
-To: Matt Turner <mattst88@gmail.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, linux-alpha@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YT3PR01MB179232:EE_
+X-MS-Office365-Filtering-Correlation-Id: a985815e-3e37-4292-c186-08df3b708b2b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|5023799004|4143699003|56012099006|261102123227099003|261026140227099003|261028144727099003|261026121527099003|261022105027099003|261021121427099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	KgYZHdgcEGAvGfasQgf5vrr8glYuyTEapIfSS1SUpDqUbT/UY35ofptylQ4vjwfwQRfWHEbiqJ/X+vAOSZG1ZVT/rsd2pfBkY5PceEh/Kidpy3+uzPkQivFKrzUIH+yai7WUKMvQPpWypYlGjb5LuL/wcLkm7Ol+BKqmv9s6bYorOAHULjT7/yxz5VhqRMQ2p+07HH+iS9hcUNTVFgCepvlNtuGq6aYu+RIxclpqP6znGcCQ3qMCkqPZ6twXzCZuSth+3A05MJzerLFxEHSRwxYpda6X4QAmeE+dNN8XEj9xP5SxVtapAKVzvPEh/jPf+1M+V6nDLMn57XDdte9EQnZCKdtQRR7RuyaTnhIznmsF30swDSaIy8DV7UCqznSvg8n/dvKyEwOhmkhtMUtUjyXq3DsiBO0RC9GnnsdJ/EKCqjy9mQvO0upy19UNDqEaFTmIUFVEDpebK286LRCowrltCGeZHV3EbaRvA9EDG6lgbUjUcDel+05LvECCNFKKi2RuMOx5dPv3ArkD3zLHYDeEF1XIFGMpTvSC5V7+tVNZtiplo82FgEI0rC5E3usFAvn/iaVKiULjNhVOGD1Usv6/UvHh26Y6Cg+WBfo2ZYA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(5023799004)(4143699003)(56012099006)(261102123227099003)(261026140227099003)(261028144727099003)(261026121527099003)(261022105027099003)(261021121427099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?S1BHV2U3MmFNbDMwemF1U3hPaldEd0h2amdnUWliT0lRaVJhVVhVMmpSaEl1?=
+ =?utf-8?B?cDFPMGwxMXVaaGNzbmtOMC9XWFpxZ1RDRDk2YkF1NUhNV28wVzMyNFFSRGVY?=
+ =?utf-8?B?aitjNTBCY1BpWm5RMDZIeW5ETkcvbkFWdHIvcUp0K1UrM0x5RjJkdlJES0JU?=
+ =?utf-8?B?dUZRV0F3UWVCeVhWdVBPTThaTU5hZ1MwR3k5b3JhVnZjK3hXVldlQldNb2I4?=
+ =?utf-8?B?OEwvYU5YcXphL0pwYlZpQk5BR3EzYlVXQUI1ZmV6ay93MTVzSCt3NFhYc2Rv?=
+ =?utf-8?B?dXh1VzdBSkU5ZHVqWExYLzdPckw0T0lXbXVIZDgvb2JkN2E5NjdFc3c2MEtJ?=
+ =?utf-8?B?N3ZDNjl2WGlxOSs5c0NiUUZ0bWE5RWxaVTJjMnVXY2hmS0hXZUI5eStMMnZ6?=
+ =?utf-8?B?eVBnYjRRNmtHb3BXcnd0V1BlWkd4V1NqMjZrUk04N2lqK0NYeDM2amltQnF2?=
+ =?utf-8?B?ZlJkd2NXNFE0RHgxM0NjendxSjdtUEwzeGF1T0NPbkRXOFhtUGRES0tRTlVy?=
+ =?utf-8?B?Z1NsVXVVTVBCTGg3dkM4ZE5peWRpWVVTNjYxcDl5am1HR0lVSlhPMjlHTnhl?=
+ =?utf-8?B?TE1IOUxCdmRJVmd6ek5UT3BrVDNVQzF4dzdmT1pPbmRidTMwcU55bVkwYjNO?=
+ =?utf-8?B?SkJCaEVtdlplamhjbnVZVHh6NTlFOU1xbldsdFpPNXlzS25BaUNBTCtLVHFx?=
+ =?utf-8?B?VXdZOFNIdk1EYjF4STk0MmZ1SWVISGo2UldMK0V5YU5aVFBjaW5pd2Y3U1Zu?=
+ =?utf-8?B?eFRUWjg0TE4rNk9HWnc0NE84aXFCVVdzck5tSEdJVWNQYlN5KzdRNk1ueDNY?=
+ =?utf-8?B?U1FCd3drZUpGRG5vSVhHa2tWMnZIV1IwZUR1OHdFUk9oNk5pc3g5eWVpSUxo?=
+ =?utf-8?B?Z0oraDErMFJaK0IyOUxuamF5VnJWdUNRSXVTeFNRbXdwbno3YU9PeGs5c3Jj?=
+ =?utf-8?B?eU8vWEpIdERSb1d6aFRmTDhBRXl0Wk5zWWQ5aFFudDBzWVFEWU5hOERtQzE3?=
+ =?utf-8?B?WUtEdWJhUGlkdnptVmFrdWh1YlJlZXNnMVNIWU5xZ1ZzUjdrZEExalg2WnVW?=
+ =?utf-8?B?My93cTcyTElMVHQ5cjRReFpDRjVuUVcwNzZpMXB5N1IwZTZNbHBDWWh2eUlB?=
+ =?utf-8?B?ZG91VEtIc0ppNkluTmlFTkl5YlBFWHRBNFRBUXNqMHFqUVh4aXRkTHc1K0xo?=
+ =?utf-8?B?WHcrZjByV25vNzJZRVpYU1NmY0I2TTdTT3JheUt4MkYzK1JYMUN5NU9Wako1?=
+ =?utf-8?B?SGx4UVdTZ3ZvWGF4am1GL1o1WTVPaWZqYW5rejAvZWFUQUJ6SlBGZ3Y4QU12?=
+ =?utf-8?B?eWl1YUp2enB6YVFBcTMvQzNJVExMbDlDU1JUQVFybW9ES3NmMExZdmRCQ1gr?=
+ =?utf-8?B?M25lRmtUamhYc2VUMnFVUW5KRVJYRTZ5TzkrYjVZS0JQZ0s0Z2VQYjd2c1Rp?=
+ =?utf-8?B?RG5KbWhyUkw3VjlRcmpWR3h2cEhadkUxZE9GZnY2NlZ1bnNNTnJrZ00wVjlo?=
+ =?utf-8?B?ajZnZm5IMTBwUll6R2tZZS9kTzYwTXNjYWdyTFNKcDM5bm5tUFVBclovSytk?=
+ =?utf-8?B?VmhvbSs5QWZnMkp0aENiQ0xPQStJaUM4RGtGd1k5ZkdoTEJuM2trMHY2SkRN?=
+ =?utf-8?B?TU9OMDQxZVcvNEt3Nmo3N1AyNGdXQTkyRFZqSFJTWWJ4bXl5akE3T1dBcjF0?=
+ =?utf-8?B?RUdyZ0J2disxc2dCU2NwRktZN21nMGgxd0w5Mmo5OWN4NCtNdzBVR2RQbjlR?=
+ =?utf-8?B?RUMwTlErZVhPaU4vRWV3RE50eHlvSE9KcXNmRFVrRkxSc1RMMlZsTnhDRnBa?=
+ =?utf-8?B?KzVodlJmeWxlTm1DaGVsZzN5dXZ4Q1g4NE5jK29RWnVNSkpjWEFOVXdOVGFD?=
+ =?utf-8?B?T2VuMDVTOEF0b1E1VTRsUXhES2IzYjNiRmdJd0VQdmNEVXhDTVNFTDNkTDlB?=
+ =?utf-8?B?ck1uT202T2JGZ3ZwSUdRcFNHemZscVZpK3ZkMTlRWkpUZ0pTME9zbDFzNEVu?=
+ =?utf-8?B?M2M5czJ0VHJtOWd2QTFEbHM3NXJaQ2l5M2twWnBwSzd1dGNTTmdlUEtVbVhN?=
+ =?utf-8?B?RWg5VTJ3MSt3V0tQQzhlWEhORzhwY2huT2huQW1SdExvczRXaXM5eHBTak40?=
+ =?utf-8?B?NlJPdnMxcEh3ZnMzTEh6VXQraVRQejN0QlBPY0pPcFV4QzUyU0hnS3NYL2k0?=
+ =?utf-8?B?Q1J5V3E2YThwMU9UL0doYklsRTBkMkEzVWMzMjRDZWNyZEFaQVRubzhiOXcx?=
+ =?utf-8?B?U3ZSd2NUODVPOHE5Ty9oSlJjWTV1b1dBUHhHWVZya1o2Tmlja2NibS9TOXVl?=
+ =?utf-8?B?M2lEZ3hRbk05SEVIaEdnWEVzaEdIbU81WE05blJFamNmM2kwRHpMVlI2MHRS?=
+ =?utf-8?Q?YL2zWsCtBTUr32sg=3D?=
+X-OriginatorOrg: efficios.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a985815e-3e37-4292-c186-08df3b708b2b
+X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 19:11:06.8151
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jicRrD626TcLjXvQK6EqfYFZyAjOvNJ0l9Tu+Fv1nMblTrkUE3qeXLOZqEBDtiILVgqpybEE94H5ifijy/9G6Ye56XMe3AtOIuzbKW9XW/A=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT3PR01MB179232
 
-Hi Matt,
+On 2026-11-04 16:46, sashiko-bot@kernel.org wrote:
+[...]
+> 
+> [Severity: Medium]
+> Can updating dl_b->total_bw when cpus == 0 (or on an inactive CPU) underflow
+> or corrupt dl_b->total_bw in the paths mentioned in the commit message?
 
-On Wed, Nov 4, 2026 at 7:49=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
-te:
->
-> ProfileMe samples any fetched instruction, including those killed on a
-> wrong path, and what happened to it is only in the PERF_SAMPLE_RAW data.
->
-> Add three config1 bits that keep only the samples of instructions that:
->
->   retired     retired. VAL says so for an instruction that did not trap,
->               and the trap type for one that did.
->   mispredict  were mispredicted conditional branches.
->   trapped     trapped, mispredicts included, or caused an ITB miss,
->               Istream access violation or interrupt redirect.
->
-> A sample must match every bit that is set, as with Arm SPE's
-> event_filter. The driver drops the samples that do not, and they still
-> count as interrupts for throttling and frequency mode.
->
-> Suggested-by: Ian Rogers <irogers@google.com>
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Matt Turner <mattst88@gmail.com>
-> ---
->  arch/alpha/include/asm/wrperfmon.h | 10 +++++
->  arch/alpha/kernel/perf_event.c     | 83 ++++++++++++++++++++++++++++++++=
-++++++
->  2 files changed, 93 insertions(+)
->
-> diff --git a/arch/alpha/include/asm/wrperfmon.h b/arch/alpha/include/asm/=
-wrperfmon.h
-> index dc24c7cb45db..6526438e73ee 100644
-> --- a/arch/alpha/include/asm/wrperfmon.h
-> +++ b/arch/alpha/include/asm/wrperfmon.h
-> @@ -106,9 +106,14 @@
->  #define EV67_I_STAT_MIS (1UL<<40)
->
->  /* I_STAT[TRAP_TYPE] values */
-> +#define EV67_TRAP_REPLAY 0
->  #define EV67_TRAP_DTB_DOUBLE_3 2
->  #define EV67_TRAP_DTB_DOUBLE_4 3
-> +#define EV67_TRAP_FEN 4
-> +#define EV67_TRAP_UNALIGNED 5
->  #define EV67_TRAP_DTB_SINGLE 6
-> +#define EV67_TRAP_DFAULT 7
-> +#define EV67_TRAP_OPCDEC 8
->
->  #define EV67_PCTR_VAL (1UL<<1)
->  #define EV67_PCTR_PM_KILLED_BM (1UL<<26)
-> @@ -116,5 +121,10 @@
->  /* PMPC bits 63:2 hold the profiled PC. Bit 0 set means a PALmode addres=
-s. */
->  #define EV67_PMPC_PAL (1UL<<0)
->  #define EV67_PMPC_PC_MASK (~3UL)
-> +/* PMPC[14:0] of the redirect traps, which do not set I_STAT[TRP] */
-> +#define EV67_PMPC_PAL_OFFSET_MASK 0x7fffUL
-> +#define EV67_PMPC_IACV 0x0481
-> +#define EV67_PMPC_ITB_MISS 0x0581
-> +#define EV67_PMPC_INTERRUPT 0x0681
->
->  #endif
-> diff --git a/arch/alpha/kernel/perf_event.c b/arch/alpha/kernel/perf_even=
-t.c
-> index 0723e1042145..32a8b5c98381 100644
-> --- a/arch/alpha/kernel/perf_event.c
-> +++ b/arch/alpha/kernel/perf_event.c
-> @@ -39,6 +39,13 @@
->  #define ALPHA_PERF_CONFIG_EVENT                0xffULL
->  #define ALPHA_PERF_CONFIG_PROFILEME    BIT_ULL(8)
->  #define ALPHA_PERF_CONFIG_RANDOMIZE    BIT_ULL(9)
-> +/* attr.config1 of a ProfileMe event: keep only samples of these insns. =
-*/
-> +#define ALPHA_PERF_CONFIG1_RETIRED     BIT_ULL(0)
-> +#define ALPHA_PERF_CONFIG1_MISPREDICT  BIT_ULL(1)
-> +#define ALPHA_PERF_CONFIG1_TRAPPED     BIT_ULL(2)
-> +#define ALPHA_PERF_CONFIG1_FILTERS     (ALPHA_PERF_CONFIG1_RETIRED | \
-> +                                        ALPHA_PERF_CONFIG1_MISPREDICT | =
-\
-> +                                        ALPHA_PERF_CONFIG1_TRAPPED)
->
->  /* hw_perf_event.flags */
->  #define ALPHA_PERF_FLAG_WRAPPED                0x1
-> @@ -258,11 +265,17 @@ static int ev67_raw_event_valid(u64 config)
->  PMU_FORMAT_ATTR(event, "config:0-7");
->  PMU_FORMAT_ATTR(profileme, "config:8");
->  PMU_FORMAT_ATTR(randomize, "config:9");
-> +PMU_FORMAT_ATTR(retired, "config1:0");
-> +PMU_FORMAT_ATTR(mispredict, "config1:1");
-> +PMU_FORMAT_ATTR(trapped, "config1:2");
->
->  static struct attribute *ev67_format_attrs[] =3D {
->         &format_attr_event.attr,
->         &format_attr_profileme.attr,
->         &format_attr_randomize.attr,
-> +       &format_attr_retired.attr,
-> +       &format_attr_mispredict.attr,
-> +       &format_attr_trapped.attr,
->         NULL,
->  };
->
-> @@ -819,6 +832,12 @@ static int __hw_perf_event_init(struct perf_event *e=
-vent)
->                 return -EINVAL;
->         hwc->flags =3D profileme ? ALPHA_PERF_FLAG_PROFILEME : 0;
->
-> +       if (attr->config1 & ~ALPHA_PERF_CONFIG1_FILTERS)
-> +               return -EINVAL;
-> +       if (attr->config1 && !profileme)
-> +               return -EINVAL;
-> +       hwc->config =3D attr->config1;
-> +
->         if (attr->type =3D=3D PERF_TYPE_RAW &&
->             (attr->config & ALPHA_PERF_CONFIG_RANDOMIZE)) {
->                 if (!profileme)
-> @@ -1060,6 +1079,62 @@ static bool alpha_profileme_trp(unsigned long i_st=
-at, unsigned long pctr_ctl)
->         return !(pctr_ctl & EV67_PCTR_PM_KILLED_BM) && (i_stat & EV67_I_S=
-TAT_TRP);
->  }
->
-> +/*
-> + * VAL says whether an instruction that did not trap retired. For one th=
-at
-> + * did, the trap type decides: these faults abort it, to be replayed,
-> + * refetched after a fill, or emulated. Other traps, mispredicts among
-> + * them, are counted as retired.
-> + */
-> +static bool alpha_profileme_retired(unsigned long i_stat,
-> +                                   unsigned long pctr_ctl)
-> +{
-> +       if (pctr_ctl & EV67_PCTR_PM_KILLED_BM)
-> +               return false;
-> +       if (!(i_stat & EV67_I_STAT_TRP))
-> +               return pctr_ctl & EV67_PCTR_VAL;
-> +       if (i_stat & EV67_I_STAT_MIS)
-> +               return true;
-> +
-> +       switch ((i_stat >> EV67_I_STAT_TRAP_TYPE_SHIFT) &
-> +               EV67_I_STAT_TRAP_TYPE_MASK) {
-> +       case EV67_TRAP_REPLAY:
-> +       case EV67_TRAP_DTB_DOUBLE_3:
-> +       case EV67_TRAP_DTB_DOUBLE_4:
-> +       case EV67_TRAP_FEN:
-> +       case EV67_TRAP_UNALIGNED:
-> +       case EV67_TRAP_DTB_SINGLE:
-> +       case EV67_TRAP_DFAULT:
-> +       case EV67_TRAP_OPCDEC:
-> +               rTested on all three CPUs of my ES40. I checked the trapp=
-ed and
-mispredict recordings against the raw ProfileMe status. Every
-sample matched the requested filter.
+That write is refused in v3 while the CPU is inactive (patch 4). The inactive
+timer path is closed by patches 10 and 14: a release after a rebuild takes
+nothing, and otherwise comes from the root domain that counted the bandwidth.
+With admission control off, sched_setattr() on a task asleep on an offline
+CPU still counts in the default root domain, with no active CPU to spread
+the change over; the guard is for that, and the record releases from the
+same root domain.
 
-Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
-Tested-by: Magnus Lindholm <linmag7@gmail.com>eturn false;
-> +       default:
-> +               return true;
-> +       }
-> +}
-> +
-> +/* What the profiled instruction did, as config1 filter bits. */
-> +static u64 alpha_profileme_status(unsigned long i_stat,
-> +                                 unsigned long pctr_ctl, unsigned long p=
-mpc)
-> +{
-> +       u64 status =3D 0;
-> +
-> +       if (alpha_profileme_retired(i_stat, pctr_ctl))
-> +               status |=3D ALPHA_PERF_CONFIG1_RETIRED;
-> +       if (alpha_profileme_trp(i_stat, pctr_ctl)) {
-> +               status |=3D ALPHA_PERF_CONFIG1_TRAPPED;
-> +               if (i_stat & EV67_I_STAT_MIS)
-> +                       status |=3D ALPHA_PERF_CONFIG1_MISPREDICT;
-> +       } else if (pmpc & EV67_PMPC_PAL) {
-> +               switch (pmpc & EV67_PMPC_PAL_OFFSET_MASK) {
-> +               case EV67_PMPC_IACV:
-> +               case EV67_PMPC_ITB_MISS:
-> +               case EV67_PMPC_INTERRUPT:
-> +                       status |=3D ALPHA_PERF_CONFIG1_TRAPPED;
-> +                       break;
-> +               }
-> +       }
-> +       return status;
-> +}
-> +
->  /* What the memory instruction at pc does, or PERF_MEM_OP_NA. */
->  static u64 alpha_profileme_mem_op(unsigned long pc)
->  {
-> @@ -1170,6 +1245,14 @@ static void alpha_perf_event_profileme(struct perf=
-_event *event,
->                 local64_add(ovr, &hwc->period_left);
->         }
->
-> +       /* A dropped sample still counts, for throttling and frequency mo=
-de. */
-> +       if ((alpha_profileme_status(i_stat, pctr_ctl, pmpc) & hwc->config=
-) !=3D
-> +           hwc->config) {
-> +               if (alpha_perf_event_set_period(event, hwc, 0))
-> +                       perf_event_account_interrupt(event);
-> +               return;
-> +       }
-> +
->         /*
->          * Attribute the sample to the profiled instruction rather than t=
-o
->          * wherever the interrupt landed. perf takes the sample's mode,
->
-> --
-> 2.55.0
->
+Thanks,
 
-Tested on all three CPUs of my ES40. I checked the trapped and
-mispredict recordings against the raw ProfileMe status. Every
-sample matched the requested filter.
+Mathieu
 
-Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
-Tested-by: Magnus Lindholm <linmag7@gmail.com>
+-- 
+Mathieu Desnoyers
+EfficiOS Inc.
+https://www.efficios.com
