@@ -1,49 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793873566;
-	b=wilzinZgaZLoB594fkYsbzBPsmmjGWEJU0bsJS2dNvVdE7KLWysGExKk2q1BMjTjcm7b
-	 3jpGRK6GxiVf8MiqIAqyufS4PkrYIEFPnUf4VVjj2cu8NTd1EqWk+eXSEiat3W525jI80
-	 cPh/u4KMZA10BLG6JSy/6hoVYLU+Xmk5VrTBiHJCGMlPBqfV0wHpr+t8OND+fhM5LBBaP
-	 PU1jzHnN2etyybwOs51LiDOKFNHWFB4J3+c2cxsyPl9fvgyEA1VJ8UnlJ1kI1nQhK5g4R
-	 Icpj0VVBw5BEI7kJM3fiK4vARkfEljyjdyDoP8gnT9rlQsZzrA2XIbBpiTlSA7uGtVA==
+	t=1793873573;
+	b=nQuENeF+2s2b1C/kypx7ujWHfV6fVR9qWRnkup6hudfLvJPdv/MW0ljllIU1vJIHv2iy
+	 A8VXpIgxzmykTDAz8lSV/i/o44wLa2+xbgV6BOJfwY4Su4kuFrfJ2FDCj6SnMReMw7kdN
+	 Rd1LtzHPXpJeHO2dmkRXVL6KAKdYxPJIxcVKdzWMEm8MI0RsJ+BCycUSyb0JJLsjl0XGn
+	 wImuUtRav0n7LEHsc6uGmfpy7kF11TeUK7jSzcd7OJoOpFlBCYuh0FCsSNHsxcEztKbIm
+	 y3GVd8sCKY7nqRiNStv2ndcZQJSoSQ6+F4Fd9PN/NT+NWyIdslF/XsNJDef4YsY/weQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793873566;
-	h=DMARC-Filter:Received:DKIM-Signature:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:In-Reply-To:References:Subject:From:Cc:To:
-	 Date:Message-ID:User-Agent;
-	bh=NOF5QOMavsiAnWtFGJ6Jf9A10hmMS77Tff+wL/xSXu8=;
-	b=v36qowawfKRThMXGsJX/Qst99TCi3JoDr7GdsLytc9AestHEAsKFalPAGVaF0KVG+y7+
-	 XDCdqTIzvhlmZz2E7tjSzxRfYZ57/VwFpuFcp/7/+gkrERYpmIZp4VtU8ONk+IC9q+pn8
-	 RILM0FMfgaffxToyiYa/qX2Xpx/N+aD/EQkBgHjFnNNFlwdbgOmotWVNm6ZjQIj+xQ7Vh
-	 YsTvzFLUJnPf696IxodBMnOe7aZ/n5XofX3s0POGet7TZBpcPLk+Mb4kS0Xn/+fq3+QQ5
-	 EUdotW53ycYkWtNPKS3vJfowsETdc4lJGD8XUJqwfXZVqgEU5usdvtp4UawRZiGlnWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793873573;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=P+/zfjidL1R10zub9C45JZCt5+i82Kyb9zsDu0eixEE=;
+	b=MkF+c0rpsiblBi5UIs+dRuWz3Pg0IBw6srz9XxWDoeAOHwDnZOO1L5KjpqgmlLraWKPn
+	 NdWQoXW+sWejZj+D7N687VRx8SGUxX5izR0F7CqbghtkTHLhXOZ3VhPCz20EbIw7I3r7s
+	 +Y7iB+IYSxRDswRwrZQdEQHWLzUP6cTIlL+5UGec+MbwXjkZpiBubT222K9Pfwc7sYzWU
+	 q41ZlembKGhnH+n55iFUtHUseKxX/SVUvzDyFQr6en/3RZw1fTRHBnVLEy1O66jJkYSlR
+	 m+KFAso74lgVl+7L+vnUrmohh6BxyRC/9MPHzCshUYcM8T7SKPB/Tfhrlp9icX0SgDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=TjQdIb1l;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="M/pr9jGn";
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4630606D814;
-	Thu,  5 Nov 2026 10:12:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4630606D814
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2CA9606EE83
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:12:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2CA9606EE83
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=TjQdIb1l
-Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 24D5433D;
-	Thu,  5 Nov 2026 11:10:25 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793873425;
-	bh=GDs6YCbVDxVScqZZAT353arDeziqS2XASVgUdwgJvtI=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=TjQdIb1lGXuJGu2gow2cLgH9JAWEeq+cuvu2zKL4PQULlTotjt2xbDIjnfBfw4hlB
-	 lOJUFOfKaHyJcr9NQDZF3Rxjh+bi72VECj9NSPqObx64SQuN8GIBd2TAlSIONDTE20
-	 cL8cBnUksNxep76n/jnevwUomc9NEEZN0dTSHoQA=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=M/pr9jGn
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36661f953e4so2325174eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 02:12:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793873572; x=1794478372; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=P+/zfjidL1R10zub9C45JZCt5+i82Kyb9zsDu0eixEE=;
+        b=M/pr9jGnCF1iVoZwhVgridaqT02ih1W7zyYI5DXxSqrCovIW1RnZRT9zcMmQ5kUELu
+         6PzxQoehk4ct/cg03DxTwM4+0luGGrzC4BYLdoulVkmHcKwZuwW5kw3E/7XnQyoYc8ZK
+         f/bK3kLKywPdLsA/Z/sroL2xYX7ho/QrBxK5lDgsyM9NN/SJn4bUMPVscR17jaM1eAzs
+         TxjvouGvvbigqJ4QUa8bGw+op16hZMXarPLSpQ4UbF/uH4sCQCRhzmdGam5aXg0iR4ZU
+         9+SAheFg5oAtClvrBmetjPdZ6f/sFXSlwLcRDHmE/2g1yGNGT+zVntmXOFqY4ppqP+67
+         n9BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793873572; x=1794478372;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P+/zfjidL1R10zub9C45JZCt5+i82Kyb9zsDu0eixEE=;
+        b=vd1sA3Z3CAbeL93GfHhJcyrkSU9OqkuPfKrGU8CO++931QRIUgKwPttJUOdnKItO8B
+         SP7a5ICzay06D3lifzxJ365motgXmDwFPV1dTXkI8/QwAWAlRVmgpkjGkkvj2EPQTfqn
+         BhzkVUFtIw6uUXxII/WA7NC0Dg6rsfocKeIgFCyoEnyInym0yVNPMbH3UdXfwGF9PsZt
+         fA15ldec1PLZiVoLlp2hiVIrNoxxKcPGhThNFry0kIcCic1BfP+keu2yZ80xF+RMw4ry
+         Hq6rLyv3qXBvEYAMXYEuH1idBRzySbcRcJo0GrHREJJS0vCsILL3ESlSaHxD3AOqWmUl
+         aAMw==
+X-Forwarded-Encrypted: i=1; AKwUvBzttJ3FdsIU+dfq9GA9ExPebOKXe3VPB+jMJTOWS3KKp8DWBSJxl9R66zTXtR5PUVGZI3ksNhaBxE9qtP8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9IvhdG/BdHqM6v3pqMbiFsioJ47dFxRgtJH452VU/qqrfQOCHA
+	i2mFKbfVjh/VovFtl91DdbeXsIJtnoExy9b64WyA8IMXr+hxbW6hx7+b
+X-Gm-Gg: AYBFou3vLGCdqbDvGer2UyCVLbnMCimwPh/Tisy0RZWbPZqP6tlrEI9LTs6B9MGkjZY
+	NPmX0+kqtrwangDM1ZHdN8P4FeLEYL4GpBmYHany+tt6dbLA//f6Se04OI8JvMnqpTSg+uwOCe1
+	ZlIoOC19diOZlDDpnsDUyABNh+U0eiRXo2ZjHzRbieEaGxPwFKOVCUZcDWxci5RU9dyYXMUbcue
+	1pKGkDXpcO3OdObKW8DGfpmF+bI4MZo9Epcfra8j1oVO39cUTpOvhoAQhakxg+YgubtQMh2bhZc
+	707X8cCzGgi3dlLkcEoku1bjy22WjcclHRdI84bFro+VxYKeJwiSAssFeQHgTPuizpgoyK6gXwm
+	VW5ZOBlK7STK35lz4oqzbqqB8U5UQqou9JZ8IOADR4QLfpW46zDmkwznQ5/xbgRpf0B7H5d0iMA
+	K3H3BPqHLWt3nVWHbrXPBFBWQ/8/6zWsaFSX7E6mhupjDEPQsshKVGR57bFMD22VSUHv823opRM
+	PLfLNEVFZgYO5CAP2bZEFLO20vulcmmfb5u/NKsmr3Qq/M6SSD7W0IpyNlsw8u9sOoUxaz9KqLT
+	e/nn91Pjm4J8rDyRDOhZ3V07c887v6ERU5x/2T52ehIDvAaZO50=
+X-Received: by 2002:a05:7301:d589:b0:36c:9e26:88b6 with SMTP id 5a478bee46e88-36c9e268949mr9074147eec.9.1793873571639;
+        Thu, 05 Nov 2026 02:12:51 -0800 (PST)
+Received: from Anonymous.localdomain ([223.181.63.2])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38a6d3dsm18812234eec.7.2026.11.05.02.12.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 02:12:51 -0800 (PST)
+From: Hussain Sitamouwala <husainsitamuwala21@gmail.com>
+To: outreachy@lists.linux.dev
+Cc: parthiban.veerasooran@microchip.com,
+	christian.gromm@microchip.com,
+	gregkh@linuxfoundation.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Hussain Sitamouwala <husainsitamuwala21@gmail.com>
+Subject: [PATCH] staging: most: video: document lock fields
+Date: Thu,  5 Nov 2026 10:12:22 +0000
+Message-ID: <20261105101222.5478-1-husainsitamuwala21@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,62 +98,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261105033224.2880607-1-t-lannynd@ti.com>
-References: <20261105033224.2880607-1-t-lannynd@ti.com>
-Subject: Re: [PATCH v2] arm64: dts: ti: k3-am62x-sk: Add orientation to IMX219 sensor node
-From: Kieran Bingham <kieran.bingham@ideasonboard.com>
-Cc: b-brnich@ti.com, praneeth@ti.com, r-donadkar@ti.com, devarsht@ti.com, jai.luthra@ideasonboard.com, Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-To: Thorsten Lannynd <t-lannynd@ti.com>, linux-arm-kernel@lists.infradead.org
-Date: Thu, 05 Nov 2026 10:12:40 +0000
-Message-ID: <179387356065.194410.14555444564110226308@ping.linuxembedded.co.uk>
-User-Agent: alot/0.9.1
+Content-Transfer-Encoding: 8bit
 
-Quoting Thorsten Lannynd (2026-11-05 03:32:24)
-> The IMX219 CSI2 expansion module is externally attached. Without the
-> orientation property, V4L2_CID_CAMERA_ORIENTATION (0x009a0922) is not
-> exposed and libcamera fails with:
->=20
->   ERROR CameraSensor camera_sensor_raw.cpp:465 'imx219 4-0010':
->   Mandatory V4L2 control 0x009a0922 not available
->=20
-> Set orientation =3D <MEDIA_ORIENTATION_EXTERNAL> to fix this.
->=20
-> Signed-off-by: Thorsten Lannynd <t-lannynd@ti.com>
+Fix checkpatch.pl checks:
 
-Reviewed-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
+CHECK: spinlock_t definition without comment
+CHECK: struct mutex definition without comment
 
-> ---
-> v2:
->   - Use MEDIA_ORIENTATION_EXTERNAL instead of <2> (Kieran Bingham)
->   - Add #include <dt-bindings/media/video-interface-devices.h>
->=20
->  arch/arm64/boot/dts/ti/k3-am62x-sk-csi2-imx219.dtso | 2 ++
->  1 file changed, 2 insertions(+)
->=20
-> diff --git a/arch/arm64/boot/dts/ti/k3-am62x-sk-csi2-imx219.dtso b/arch/a=
-rm64/boot/dts/ti/k3-am62x-sk-csi2-imx219.dtso
-> index 149c59c07182..70c2a197f1dd 100644
-> --- a/arch/arm64/boot/dts/ti/k3-am62x-sk-csi2-imx219.dtso
-> +++ b/arch/arm64/boot/dts/ti/k3-am62x-sk-csi2-imx219.dtso
-> @@ -8,6 +8,7 @@
->  /plugin/;
-> =20
->  #include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/media/video-interface-devices.h>
-> =20
->  &{/} {
->         clk_imx219_fixed: imx219-xclk {
-> @@ -72,6 +73,7 @@ ov5640: camera@10 {
->                                 VDDL-supply =3D <&reg_1p2v>;
-> =20
->                                 reset-gpios =3D <&exp1 13 GPIO_ACTIVE_HIG=
-H>;
-> +                               orientation =3D <MEDIA_ORIENTATION_EXTERN=
-AL>;
-> =20
->                                 port {
->                                         csi2_cam0: endpoint {
-> --=20
-> 2.34.1
->
+Add a comment to each lock in struct most_video_dev describing what it
+protects. No functional change.
+
+Signed-off-by: Hussain Sitamouwala <husainsitamuwala21@gmail.com>
+---
+ drivers/staging/most/video/video.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/staging/most/video/video.c b/drivers/staging/most/video/video.c
+index 3a0445ff62f4..d60be8a741ed 100644
+--- a/drivers/staging/most/video/video.c
++++ b/drivers/staging/most/video/video.c
+@@ -33,14 +33,14 @@ struct most_video_dev {
+ 	bool mute;
+ 
+ 	struct list_head pending_mbos;
+-	spinlock_t list_lock;
++	spinlock_t list_lock; /* protects pending_mbos */
+ 
+ 	struct v4l2_device v4l2_dev;
+ 	atomic_t access_ref;
+ 	struct video_device *vdev;
+ 	unsigned int ctrl_input;
+ 
+-	struct mutex lock;
++	struct mutex lock; /* serialization lock used by the V4L2 core */
+ 
+ 	wait_queue_head_t wait_data;
+ };
+-- 
+2.53.0
+
