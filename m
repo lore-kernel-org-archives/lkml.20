@@ -1,81 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793882726;
-	b=ln5W0W2qyh6jktyWDQI/yN69rP/XC5aZTuC3dIOGuG8GkZf8BRH20HbGIu1wo1KNgfGF
-	 wSS1d6Zz/w3uHj4pQu3YPFRnmSiSoRujaFQb5rv4/7R82NvVglZJXMJ/1mMdL8ITmqfdn
-	 m3bgiku60pYDWeooWJTNRxgftAfjg0Tp6qFix7puP9StDPDt23E/lHHatBQWgIrzdaqWp
-	 6IGqNGp9OblMZ39QWwMY5n0DjyPprnJJwE/mAL3wCJvas5V8fR6m58Uu085bFUyTkxngS
-	 g2cT9SjIaSXpbajnxhBQiarCo8tPyuHEWVa5zXoQhzUqfkZxhP9TLtH09UtFvZIKrXw==
+	t=1793882757;
+	b=lxuWTqOAt7eG5xaNowshr1Vh+MufnwhqmLp1QS22EmN0OWlwJiePOeTm7Du3ZYbGB8af
+	 kyGW9H3gU4X+5RoWYJLm1sgOhn4P+u242l6sE5Ss4mByNSklLK1FFX01cyEvwXK9yQzxy
+	 XZHUZHKk/keFw7LHO8x6NSUIsTg3pevCX7MTPRnx1EtBHDe7xcK34gAbZX9BCta+nzx0t
+	 4oJMlyY9Bz9/DLZI6u6JZ6KQ7CzUxBXlE7VqRGmw+TuEGQqZeds72x7/4iOOt6KOpa3b1
+	 BsDCFFzHyvmJKthl37WWg5FKCGbM0OKNF0WOsX8Aplj1PnR1yTomOwl8hFgW7ViEq3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793882726;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=MkaEEYBGbJKttQtVQkj/AXYKn1t2kiF0JQQXrTXiQMU=;
-	b=Yj+oTnn59ulVWTdIGFqftKJLigFV4ynTHC31jDk3tVbDhCQpFjKPUzyO9200/CCoBgqM
-	 f/vunNGptHfIrgtpyOcgVMqIfI5Z8p7l4caSeqOk51rfIfhjLWHdtdmcNaVaF6zmFxS6Y
-	 xglSEVXRufWnO9l45ILHnDjItfWPqyaO5A4snivUbQtJZd/6gi0iYQu0glnnueUHeb2vP
-	 x6RBDtsrEGmPHqGMsBNh2eszJ4GWhnQN17W+uS/lezZZkQq2S/iYExpFRfyv0WuE0aUBB
-	 GVpeSHKxnj4rne2H2XYzQy0nkZYSQ43bfTYHh4WDJ3Yr1Dtv8xIa8OgnHgZTMdX7TkA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793882757;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=i57L9NPhlWOeObQMnsgg83R3hDrmi9l2QFEwRbn/Ljs=;
+	b=YhzYL/xrDUdvUFMJfXqr8rASyYl5S2Od2F7kAdfrBf6Ze+SSA46c8R1NMofH+588IWJD
+	 io92IFT3nf2qE2/plOGexDUD3gD85FtJO/d7E13LW9MZl7HE2vgRkla8WSy+prAxhXAjf
+	 ai+6RWGD4GPKD2PJct3m483WeSHpWMahqp5YtKr7TBiw5Mpq+t87IuJGnj7dQOCJw9xH6
+	 Cqukk/PVSPcv4Kya5O5UjXjjiXkhmS6uyAX/jhxbknMsxlE6MQekXr70f9O4j3ZoACB4w
+	 yWeoYO4lB6mVLQdfFMtcUhvKZRYe9w31Y0k4cAiuBwu66ZqMKEyhzF0Sw22WGaGXTzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=N9Y1t7jB;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ns5PjF7Y;
+	arc=none smtp.remote-ip=209.85.215.173
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AB63606A329;
-	Thu,  5 Nov 2026 12:45:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AB63606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB56606D803
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:45:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EB56606D803
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=N9Y1t7jB
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5AE8be3220043;
-	Thu, 5 Nov 2026 12:45:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=MkaEEY
-	BGbJKttQtVQkj/AXYKn1t2kiF0JQQXrTXiQMU=; b=N9Y1t7jB9lM5w6O4dMuq7E
-	z0wU/tKWz1fJe0eQAXWjJVxDzPFiRdEjIwahvIZo7ZNBzjnr9MXMbfg/tbg8thJq
-	Cs/fzj42mOmSHtvFYZLJI3RfqKUv+sCdPCcVmIsg0T+U/+92sUAHPkWhGlTQRl4N
-	iceAj5AOasL6NU7y2aM8jQHn8jm3pJmSuPlpx4KopUTxl9xsdePokzGNEwzwyeFk
-	bprZU/iaDmDQSgxDH/wHp2JfeEs6bTtPjltoTm5BWAjK1mgIfepykzSgkGcXGFzX
-	xHPd04yjYGbImSKVU2ITXvBUnulDXUgYGaqPUu/GIgb2emv015IlO9AtYQcRPGxw
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn82723d5-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 05 Nov 2026 12:45:24 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5A4sQu1476759;
-	Thu, 5 Nov 2026 12:45:23 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hrka6st7j-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 05 Nov 2026 12:45:23 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A5CjJtt26738976
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 5 Nov 2026 12:45:19 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C59A82004B;
-	Thu,  5 Nov 2026 12:45:19 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8569520040;
-	Thu,  5 Nov 2026 12:45:19 +0000 (GMT)
-Received: from [9.68.16.159] (unknown [9.68.16.159])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu,  5 Nov 2026 12:45:19 +0000 (GMT)
-Message-ID: <dda30d4d-0650-46e9-8ddf-9e4df4bb023d@linux.ibm.com>
-Date: Thu, 5 Nov 2026 13:45:19 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ns5PjF7Y
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso855455a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 04:45:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793882756; x=1794487556; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=i57L9NPhlWOeObQMnsgg83R3hDrmi9l2QFEwRbn/Ljs=;
+        b=Ns5PjF7Ya4uyR2QPdgTml+KtqWzgFmLDMdsUQ8InjAUb6eJkT3m/ifAvufkx+zW1Y2
+         i8vA1fe0joPmbOhH3xWZbD1cblYL8BtQwgosNYoxrvhe+V9C3aVEFdfUsS69GZpHGero
+         Beq1z0BdJHgl0fPSlbQVyoKCha9IngnGBXEPzehERbpVlD+46hUwOXG5tMW4CEaq/UM3
+         zXALsnrrCiyiYbLghekwgN7VPpsS4zOn6uouAA7pGxYVpfjHwvpoaM5E15yvq0KEW2T0
+         Havv8EumZB4pkLkDmE/LMr/UzmBa4tVVfCtRzBeAg39s+iJBz6zFVnt7+Opu6knGKwi4
+         KVPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793882756; x=1794487556;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=i57L9NPhlWOeObQMnsgg83R3hDrmi9l2QFEwRbn/Ljs=;
+        b=QVALgTfpBcEn/SXlui+E32sSZdCGKsCiBvzP+BeVlqZU9HQ6C34qYsLVV2Ga1gLejY
+         GycvWKP7NLE758X3q9v/m5MF88l8Cdmjh7yYmhJN7j/Hu1VDbbXvIypTbDmWH1OLuPJP
+         psrvmvxGpJ8v2B7hLjrj3VF79hDNku6BCg2otkw6A5IDR0WCJUCuADjD4XJEQHXV6/7E
+         WQaf+CqwzzDUVis9pPtM+0QTHKhgnQ7pXu4xVMWh1E/Fq/S6jxEuVFk9bAa3zUHvCRp7
+         nk2GDGgvmRTk7GJ4bdXIwP6cjPGZVr1lL0gjQnvGQmgTU8VimJmH2ienMoBuOAWaoy7l
+         vMFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzmthJlIRKBsYF5DTd0/cq01p+54Yf3DR0f56Zod8PQ7c2zGkE13yCa9HBiAwTVQ8ovxg0KdST6Nh258Zg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9z80qk67GlzMC0D9j5BpShIlIGnyBDMt5WbXj5HLDssm06ZqpR
+	3ur7yvsdbjXRzDs9e/WJOMFtjwfyydvdb1YuWnuaxuWK91g8cKy0h3vC
+X-Gm-Gg: AYBFou1/g5DYVBTDEPSFS4757uJhP4BZaYCU+H4me2i+ERnJyvBIq9lmyFpD1ItPb5a
+	+nBd3dxNJ2CrKnI8hMxPPk+4eMBZb3HkVrvxL3fDj7edeoMpvGvF88IfNHx2tQRanuOwJT7YvUj
+	0abdcv3jWE1AwdIayMrEyORv9irZVkWRieKRq/C36VQ2ObuMThzIyhrk5DC4CayGOM3oD4lZeBy
+	qm/EUV92uoa4yAOzqNwzC/mSV/EtlENqSrFp3pa4oS8QjHTpUkeTxLCFSG2lGNkXbqdGL9yuGzR
+	MVefS8F7Khsz/CS/l0cpd593lEgjZk+kRf8RHErCfXUreyH1gwgn/6R7BPIJdIl2jH/GE1dNR+k
+	lhKIMgAAksIxEDNGkMxIkFYFYfTlvOFb9coAa1LJS+s6rvPJve3lll9DB1gRaIckr6PKdb7BnsJ
+	cRfP1TLg6SW62WUbAaaiemciLDz5eidTA+PpzEPUg6hwlpezZppSRwCRdg0cSBsaEDP9xcxyTTn
+	Arn/A2MldFtEfGTPNh0WKnEM2zeyMIAEPeBTA5KcatXI4Xw+LMO9PhFXnU5UY9dmplM1WvRJjpa
+	uA+jWf8CviGwYu3o07sulmHaqEDwbAzts73VENKGBhq133h+LRuQ
+X-Received: by 2002:a17:90b:2551:b0:3ab:9f1a:3825 with SMTP id 98e67ed59e1d1-3ae8957c8b1mr17676948a91.4.1793882755612;
+        Thu, 05 Nov 2026 04:45:55 -0800 (PST)
+Received: from DESKTOP-UCPRL76.localdomain ([113.200.174.12])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b2cf80c9sm3927157a91.0.2026.11.05.04.45.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 04:45:55 -0800 (PST)
+From: Zheng Shuhao <viennaoffh@gmail.com>
+To: "Carlos Maiolino" <cem@kernel.org>
+Cc: linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+ syzbot+e7f24354da9f7915bc54@syzkaller.appspotmail.com
+Subject: Re: [PATCH] xfs: fix slab-use-after-free in xrep_newbt_free()
+Date: Thu, 05 Nov 2026 20:45:52 +0800
+Message-ID: <1793882752.followup@viennaoffh.gmail.com>
+In-Reply-To: <atL8bTDPVGlpZ0LB@nidhogg.toxiclabs.cc>
+References: <20261016085536.591-1-viennaoffh@gmail.com>
+ <atL8bTDPVGlpZ0LB@nidhogg.toxiclabs.cc>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,80 +100,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] KVM: s390: arm64: Fixes for arm64 KVM support
-To: Andreas Grapentin <gra@linux.ibm.com>,
-        Steffen Eiden <seiden@linux.ibm.com>, Marc Zyngier <maz@kernel.org>,
-        Janosch Frank <frankja@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        David Hildenbrand <david@kernel.org>,
-        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev
- <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>
-Cc: kvm@vger.kernel.org, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261103-s390_arm64_kvm_fixups-v1-0-21c36fedd878@linux.ibm.com>
-Content-Language: en-US
-From: Christian Borntraeger <borntraeger@linux.ibm.com>
-In-Reply-To: <20261103-s390_arm64_kvm_fixups-v1-0-21c36fedd878@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: Pr51-U-67ocqMzHztj-7nkIMfjfHnQkQ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA1MCBTYWx0ZWRfXy4f1WVCPGJ8v
- K+Pg/C3vlbqYl9r4i81g8eEaJEtBuX5o3f/I68WYdfk6VI25F8luLDnmDATFRzn87WRYC20fI1C
- GBkOj6/uib4ryH4n7SnfC1jESwotWIVzJWLwFWetxHHV+sYu1dvKaHGYJU9MN8WFuHwHmVyfEx9
- hdTo5TabHeXG8OQTvO7Zv+V1isV3XvZIifBj0gjkGAAOODcesZq2pX7BpiRzqCSriajIio8i2bj
- JVV63NQjocy/+ZC/pU9PTyEtW2/H6hzlzxQz8dgYVY0J0ypS4eb/w4jKOELaQMx5+EieaUnIZ1n
- cjIIvpqDWKb5dxAk1oYNPGDC1XZhI9rr9btTwaQNU6d15xftLyGIycEsmEmvz5EbT7WKBV7UtnV
- zkimAWAOiroX+axvg1MOupapjsP1ziKv+g/nYSboXwBV3d9wkLsTJvxMmpdM5qL2zyYMIc4fR8s
- /hmtOZQ8s2uUin0DIZg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA1MCBTYWx0ZWRfX8R09Mssh2uqd
- 63/S+aONWOdNgm0Fw1zvQ5xkMo1jctLlhaXNostLKRobokxr08zM7XRSiNhtIEo7BBSxFrV/S6z
- U+qLeCCQIr+v0EnH6K/ehL2ExkYSk3U=
-X-Proofpoint-GUID: Pr51-U-67ocqMzHztj-7nkIMfjfHnQkQ
-X-Authority-Analysis: v=2.4 cv=EsJHPicA c=1 sm=1 tr=0 ts=6aec7a64 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
- a=AB4inXjDjgZuHX5E6hYA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_03,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0
- priorityscore=1501 adultscore=0 impostorscore=0 phishscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611050050
 
-Am 03.11.26 um 17:37 schrieb Andreas Grapentin:
-> Some fixups for the previous series that introduced arm64 KVM support on
-> s390. Forward-declare enum vcpu_sysreg because we are definitely going
-> to need that, then make the module naming consistent and iron out an
-> inconsistency in the definition of vcpu->arch.pause between s390 and
-> native arm64 KVM.
-> 
-> No functional changes intended on either arm64 or s390.
-> 
-> Signed-off-by: Andreas Grapentin <gra@linux.ibm.com>
-> ---
-> Andreas Grapentin (2):
->        KVM: s390: arm64: Declare enum vcpu_sysreg
->        KVM: s390: arm64: Fix kvm_arm64 module naming consistency
-> 
-> Steffen Eiden (1):
->        KVM: s390: arm64: Turn vcpu->arch.pause into a counter
-> 
->   arch/s390/include/asm/kvm_host_arm64.h |  8 ++++----
->   arch/s390/kvm/arm64/Makefile           | 12 ++++++------
->   2 files changed, 10 insertions(+), 10 deletions(-)
-> ---
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> change-id: 20261103-s390_arm64_kvm_fixups-b285654f214c
-> 
-> Best regards,
+Hi Carlos,
 
+I have to admit I was not sure how to reply to your last message, or
+whether I should reply at all. You said to wait until the patch gets
+reviewed before sending a V2, so I did not want to push or send noise to
+the list. On the other hand, it has now been a few weeks without any
+further review or comment, and staying silent did not seem right either.
+So I am sending this short status note; if you would rather I simply
+wait, please say so and I will do that.
 
-Thanks applied.
+I also wanted to close the two items you asked about earlier, since I
+promised them and then went quiet.
+
+> Yes, sharing the reproducer (and potentially hooking it up into
+> xfstests) is a good thing, specially giving the syzbot doesn't seem
+> to have a reproducer for it yet.
+
+The reproducer is a standalone harness, not a syzkaller program. It
+mounts a scratch XFS with rmapbt and reflink, starts an online repair
+that rebuilds a btree-format inode fork, and then issues
+XFS_IOC_GOINGDOWN (LOGFLUSH and NOLOGFLUSH) from 1 to 8 helper threads
+at 0-100 ms after the xfs_defer_item_pause tracepoint.
+
+On the unpatched kernel this produces the reported KASAN
+slab-use-after-free in xrep_newbt_free() -> xfs_defer_item_unpause()
+on every run. With the patch applied, the scrub ioctl returns -EIO, the
+shutdown path unwinds, the log replays on remount, the free block count
+is unchanged, file data reads back intact, and xfs_repair -n is clean.
+Healthy forced rebuilds still take the normal pause/unpause path.
+
+I can send the harness and logs, but I did not want to attach a large
+tarball to the list without asking first.
+
+> I'm also interested if you actually passed your patch through xfstests
+> before submitting it. There is no good fixing a bug if you create a
+> handful of others. Specialy agains scrub, online_repair (and maybe
+> fsstress_scrub) groups.
+
+I ran the patched kernel against the scrub and online-repair fuzzer
+cases, plus fsstress_scrub. To be precise about the coverage:
+
+ - Completed with a real verdict: xfs/351, 353, 355, 357, 359, 361,
+   363, 365, 367, 369, 371, 373, 375, 377, 379, 381, 383, 385, 399,
+   401, 403, 405, 411, 413, 415, 417, 426, 428, 430, 497, 730, 733,
+   736, 786.
+ - xfs/387, 389, 391, 393, 395, 397 were started but hit my per-test
+   timeout before reaching a verdict. They are long directory/xattr
+   walks; I am not counting them as passes.
+
+No KASAN report was produced by the patched kernel. The failures I did
+see are all reproducible on the unpatched baseline as well, so they are
+pre-existing and not introduced by this patch:
+
+ - xfs_btree.c:1814 in xfs_btree_decrement (xfs/361, and also xfs/373)
+ - xfs_buf.c:389 stale-buffer assertion (xfs/363, 365, 367)
+ - xfs_log_cil.c:546 empty-transaction assertion (xfs/369)
+ - xfs_attr_leaf.c:168 attribute-leaf assertion (xfs/401)
+ - null-ptr-deref in xfs_btree_simple_query_range, reached from
+   xrep_dinode_count_rtgroup_rmaps (xfs/375, 377, 379, 385, 399, 413,
+   415, 417). This one reproduces identically on the baseline kernel.
+
+> You'll need to send a V2. But wait until your patch gets reviewed, you
+> don't need to send it right now.
+
+Understood. I am holding the V2 until there is review feedback. When I
+send it, it will use the correct identity:
+
+    From: Zheng Shuhao <viennaoffh@gmail.com>
+    Signed-off-by: Zheng Shuhao <viennaoffh@gmail.com>
+
+Is there anything you would like changed in the patch itself, or any
+additional data you want before I send the V2? If it is more useful, I
+can also send the reproducer and the per-test logs now, separately from
+the patch.
+
+Thanks,
+Zheng Shuhao
