@@ -1,113 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.108.3.23
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793922885;
-	b=UdAZk3EHn9Y+LO3wtZA8BEKhdy9Zxk/3vmAETro04AxtVMhmWjzB+JQAnJwLketgeJIO
-	 Ear8JlGUFFVHiN9x/qi0sBywRhvandEuv1xzEudM3gWb0dICZybsxMP/AtqKC//8GcHyu
-	 4hcPmPNovN/OCOVX19gyPuRW5bX2wUZItyCeuCfHpNnc3hyWmAmd40uy3FC33QkiFNlHq
-	 32/zVOuW0I3newrpeuFZrvU5bWk0E91ktmlkmAZJKmTELhUyeY2WUwsnTOMvId9MT4mpy
-	 /rXKONCxWsII6THFCDxgPc925XQ/lExXKwA/MwKJbMxW5jf4jR6NStl/WzPWR6SI1Dg==
+	t=1793922925;
+	b=uXuyz0p58GlnK/ojHYV6EQSq0vZu6qKFril0ZBAHYVnELmTiilhE+uUMO6zI3TOVtr1N
+	 Z1FDToP9246/DlEUCGpDOGGt4YO8V6OvjB2/dLgDS3glJvwShfd22MQNFS4oAkOZgq2+V
+	 BjxOn0UC95/nDo2Bz/TNsOQK2i/iqoqZObR0jwr6i4uPvykSXSNyiA7yXsNMMHXP8V7Sp
+	 dQIMPLz43iHXtE4IoM8j9j4I6KznlsMtkySH9B0RnqQKb8bJZbJx7T3GA/aS6LB+WZEBk
+	 LWULNAMTV7I2Gw78mJ79H3qk1IhylPXmuWlyYYvzrtxHzzrB8Tl6zlJ5SNGZQLI2W/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793922885;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=gVqx0nYfuSEJ0GdcgxyreyG7706GoUCJZ8KOhEimfQ8=;
-	b=Nomsn03wD3LhHYcpyMZGb5Wi3V76Mm0oqn2o6rtDWM65K5ZK1XtUbUgOJKffS1KBK7Zw
-	 PQ08W0oWBtluPiOFeYbXuzMyWknvXsSzPH6hhk2g2aAMTHgczKobr2F53E2en30QKxAA0
-	 SD6suxXfbgdkmIiSj+mBwfnVKC6tZLZ99eNdl721JZIKv7xUyZ4Pqzf7/ht2VH5N0S/z6
-	 SAR8AKrWeYuwYzPiUwNBXFgZ8I/f8gYFCWADZ/KCSf6Ul4QFt3b6flTSD6gV3XvOBExbZ
-	 K8g/4vBKlZ5BqMvpZb41ww7k5ZyrCwSC/mM48TimQ13TLseeZkNGje1wknUIuFCQ8Mw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793922925;
+	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
+	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=gPOrIJbxTbaobtLDqdGnocXoOvc+5x9CMIXdjphtWqM=;
+	b=ubSOvOxk9bML0ypZeJb0bLtruic82Bm55S8hoShNcam+91djHDA2VCly5QImdTJEyLBP
+	 e/4RljbkMznz8NBNIrcDnf88FU536NrUnyTo8wPU8/4x7fMOEjjQB/3ADoIS+1kY3aOAU
+	 f9lIZvKpNw1xWc4a38tNDlcHPBsRnJCjkVK+IFsj9JlIq5fZXh1cyTlR5LwKUhvzN7r5W
+	 6VmhiI/P9k4I3JjbJnLis0rm9NxkEVV0n12Br6fuUZ9GUE0ZyJh8c9xviSOOju+vZPNR1
+	 2LIweQcbMxAbhqMgKqX2omAE96YBertGsJ5VRdcmmiv7B4hBC7oQbse6VLjc/DZA1Jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=PZgyvCP+;
-	arc=none smtp.remote-ip=35.89.44.35
-Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
+	dmarc=pass header.from=sina.com;
+	spf=pass smtp.mailfrom=sina.com;
+	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=S4FPa266;
+	arc=none smtp.remote-ip=202.108.3.23
+Received: from r3-23.sinamail.sina.com.cn (r3-23.sinamail.sina.com.cn [202.108.3.23])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 612BE606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 23:54:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 612BE606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04428606A333
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 23:55:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04428606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=PZgyvCP+
-Received: from eig-obgw-5003b.ext.cloudfilter.net ([10.0.29.155])
-	by cmsmtp with ESMTPS
-	id P3cxxaiwGRiNxP7I5xw8tg; Thu, 05 Nov 2026 23:54:45 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id P7I4xyytybtpUP7I4xII8C; Thu, 05 Nov 2026 23:54:45 +0000
-X-Authority-Analysis: v=2.4 cv=dIqmmPZb c=1 sm=1 tr=0 ts=6aed1745
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=OuZLqq7tAAAA:8
- a=EUspDBNiAAAA:8 a=pYUB3rPNxVkG2UVf4jEA:9 a=CjuIK1q_8ugA:10
- a=AKGiAy9iJ-JzxKVHQNES:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=gVqx0nYfuSEJ0GdcgxyreyG7706GoUCJZ8KOhEimfQ8=; b=PZgyvCP+eIup2LALOsc1El6qhX
-	BpiSGOeVoHC2LKTSnFsH2qjCv++Q57E0cKLuYoRslbciG/VerYtXhrcuLu1iQUDlnCkWjaWtbDrrx
-	RCgrwwIlXJaHXe7c/G/u3uP2rz3Xx7V7sH+/rzip2tA/90KtrTMgb2+8oF5wQHF8TDcMFbmaaaLd7
-	JZsTVXOKJ9j2MpzTZU3R8RXdjeRZ1t7tEnvvh8cFihXHNVBUmVxxLkmzUsFkM2I9ijxyWf8HoN/AX
-	H1EfrwSIpaqSRJ3fSTLcklPmkgRjlPgCM5N5R9J+ALX+ConkfP2eURYPl5qimFEBtAKnTcwZdPc5R
-	9AwVujhg==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:60104 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xP7Hz-000000019Yr-1Hb2;
-	Fri, 06 Nov 2026 05:24:39 +0530
-Date: Thu, 5 Nov 2026 15:54:37 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Muzaffer Kadir <muzafferkadir@mainlining.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Rajendra Nayak <quic_rjendra@quicinc.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Jassi Brar <jassisinghbrar@gmail.com>,
-	Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Krishna Manikandan <quic_mkrishn@quicinc.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
-	linux-watchdog@vger.kernel.org, linux-clk@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-	linux-remoteproc@vger.kernel.org, linux-input@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v8 03/11] dt-bindings: watchdog: qcom-wdt: Document
- MSM8952 watchdog
-Message-ID: <f6bee82d-3e64-4e93-90f0-9470a166626f@roeck-us.net>
-References: <20261105-msm8952-initial-support-v8-0-311ae8e8f14b@mainlining.org>
- <20261105-msm8952-initial-support-v8-3-311ae8e8f14b@mainlining.org>
+	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=S4FPa266
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1793922923;
+	bh=gPOrIJbxTbaobtLDqdGnocXoOvc+5x9CMIXdjphtWqM=;
+	h=From:Subject:Date:Message-ID;
+	b=S4FPa266fIUCEmRkhwwBNHS1Pp5sUeAjM5cBf65JYhV0cBcSAmprpxXXtbYxhLCXl
+	 wMHZpHu2K2CLvS4hzwGq1UVqPigP7pAr10YvtdNJioLc1AiQE0cXRrGyVAKcPhqrik
+	 aDmwQNhnMLunur7juDKTpL41NYU71h2/OVIPLnCE=
+X-SMAIL-HELO: localhost.localdomain
+Received: from unknown (HELO localhost.localdomain)([114.244.129.184])
+	by sina.com (10.54.253.31) with ESMTP
+	id 6AED175F00005F79; Thu, 6 Nov 2026 07:55:14 +0800 (CST)
+X-Sender: hdanton@sina.com
+X-Auth-ID: hdanton@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=hdanton@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=hdanton@sina.com
+X-SMAIL-MID: 8656686815976
+X-SMAIL-UIID: B07D5ECE90754F94903F205035CDC3A7-20261106-075514-1
+From: Hillf Danton <hdanton@sina.com>
+To: syzbot <syzbot+b29ed72382b0e218323a@syzkaller.appspotmail.com>
+Cc: Eric Dumazet <edumazet@google.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] BUG: spinlock already unlocked in corrupted
+Date: Fri,  6 Nov 2026 07:55:09 +0800
+Message-ID: <20261105235511.346-1-hdanton@sina.com>
+In-Reply-To: <6aec63fd.5f5735a5.290c1c.0003.GAE@google.com>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,39 +70,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105-msm8952-initial-support-v8-3-311ae8e8f14b@mainlining.org>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xP7Hz-000000019Yr-1Hb2
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:60104
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 9
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfHhmpPUeH5iiR6Bya5sZNsP0UCwtr1ac7o3D4gPw/CnlI1TrgMCfYITd7i9c3QtMEdO8yc9n5lJeSFm9u5PWB7RchG6hb5vPMGdX4vJMnKahbiYD5+eW
- lOS93c2rbOQJo0vhdrk7/UpCXZY5fFtCY7IbtEsWE0KCG6wJvx3T795z530Hnw2Aye+C7SIuI1Pd/73r4hdpeAKiAYl5zOULEuwK3uc0a5+6az2m7p5ZsKp6
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 01:54:07PM +0300, Muzaffer Kadir wrote:
-> From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+> Date: Thu, 05 Nov 2026 03:09:49 -0800	[thread overview]
+> Hello,
 > 
-> Document the watchdog found on MSM8952.
+> syzbot found the following issue on:
 > 
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+> HEAD commit:    03897066069f tipc: raise the minimum bearer MTU to fit tun..
+> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/davem/net.git
+> console output: https://syzkaller.appspot.com/x/log.txt?x=10c2fca1580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=d30e1495ee3ac817
+> dashboard link: https://syzkaller.appspot.com/bug?extid=b29ed72382b0e218323a
+> compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17f95969580000
+> 
+> 
+> AI-generated root cause summary:
+> In drivers/block/nbd.c, nbd_add_socket() retrieves a user-supplied socket fd via
+> nbd_get_socket() and invokes nbd_reclassify_socket(sock) to assign NBD-specific
+> lockdep classes to the socket. When CONFIG_DEBUG_LOCK_ALLOC is enabled,
+> nbd_reclassify_socket() performs an unsynchronized check
+> sock_allow_reclassification(sk) and calls sock_lock_init_class_and_name(sk,
+> ...), which is an initialization macro that not only sets lockdep keys but also
+> resets sk->sk_lock.owned to 0, reinitializes sk->sk_lock.wq, and calls
+> spin_lock_init(&sk->sk_lock.slock). Because userspace retains the socket fd,
+> concurrent socket operations (such as inet_shutdown() calling lock_sock() or
+> release_sock()) can acquire sk->sk_lock.slock immediately after the check;
+> spin_lock_init() then reinitializes the active lock to the unlocked state,
+> causing debug_spin_unlock() to trigger a "BUG: spinlock already unlocked" kernel
+> panic.
+> 
+Correct, Eric's patch is tested a HBC, with which deadlock is still reported [11,12,13,14]
 
-Applied.
+[11] Subject: [syzbot] possible deadlock in wg_ratelimiter_uninit
+https://lore.kernel.org/lkml/6aece79e.382bd2ce.33e041.0001.GAE@google.com/
 
-Thanks,
-Guenter
+[12] Subject: [syzbot] [net?] possible deadlock in sk_stream_wait_memory
+https://lore.kernel.org/lkml/6aec646f.aca85a03.3b899.0000.GAE@google.com/
+
+[13] Subject: [syzbot] [fs?] [mm?] possible deadlock in hugetlbfs_file_mmap
+https://lore.kernel.org/lkml/6aec66fc.059f5055.2712e4.0001.GAE@google.com/
+
+[14] Subject: [syzbot] [cgroups?] possible deadlock in cpuset_can_attach
+https://lore.kernel.org/lkml/6aec699e.73adde43.12e2c1.0001.GAE@google.com/
+
+
+> full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=b29ed72382b0e218323a
+>
+author	Eric Dumazet <edumazet@google.com>	2026-06-13 04:26:19 +0000
+committer	Jens Axboe <axboe@kernel.dk>	2026-06-13 06:34:34 -0600
+commit	d532cddb6c6049ced414d64d83c6ce7149a6421a (patch)
+tree	8f6571fb1cf0c7087ab584a07828a1e3f993ee44 /drivers/block/nbd.c
+parent	e8dcf2d142bd720c8334233ad6cfdf00f0e76b7f (diff)
+download	linux-d532cddb6c6049ced414d64d83c6ce7149a6421a.tar.gz
+
+nbd: Reclassify sockets to avoid lockdep circular dependency
+
+syzbot reported a possible circular locking dependency in udp_sendmsg()
+where fs_reclaim can be triggered while holding sk_lock, and fs_reclaim
+can eventually depend on another sk_lock (e.g., if NBD is used for swap
+or writeback and NBD uses TLS/TCP which acquires sk_lock).
+
+Since the UDP socket and the NBD TCP/TLS socket are different, this is a
+false positive. Fix this by reclassifying NBD sockets to a separate lock
+class when they are added to the NBD device.
+
+This is similar to what nvme-tcp and other network block devices do.
