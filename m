@@ -1,49 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.175.24.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793893544;
-	b=dl+xZlZMc8/hsynItOYf8sITyGxN8HDpdPbUK/EDCY06IGRiZV0Pp2+514DsGcBUzJL7
-	 BGMSTFz+RKebIi8bilNwCsb1NxxtLcjjbuDT3Avv/zbtgmwuv9tRjD+i2PKQpKVnle7c6
-	 vOox2A4nTr2WLZKxQksG3ksUbhzb37jrMBuuUep2aj3fYdWl3nufd58barEXRHq98D/Xb
-	 ICgzZ1FWjbob4mDJPFb5YBFJDgt+I5I4IWL0UqiRTrpo5cyc1mU1O6QgyqA9ihprOH5pY
-	 evOyKB74b/FtLZ7AyJ3C8dlmS9YRbJtq8dmhK0fHLkpJV3b7PdpRepMOuJquPz6pjyg==
+	b=Rb8NNKahSe61fxGZjWbV9dQnIGSkdXc/y/o/lqsCGi5cgcJlStMuiOkpgGlWrSv5pdi1
+	 W6x0xOHYN4fTrhv1a7/et8ui2J5JaLLmD/eaDZmJoDplA9ipus+WcacA7FdmicxN4xwPe
+	 Rokheb2dYFG4cedlY7XvMHINU3rDZFv4hcrPrWwC9jUJGqpqvANK4z+zen/W41vzcDUYA
+	 dfWzJnjceGUNW+exMyV4rIiHzao/YLGCu5y46Cs7eUMk+3kNOSSfYX1qd0aNteySNIivm
+	 f/0ezkeAb3Nwj5P+7eR23bBN1Nr1sHquDOa0qPItY+NAtp3FA8MQ+ccF6UqIkbFKPBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793893544;
 	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=6YFoX5de+hruXUUztmqp3UZ3AJBFoXNDZECu3TU1iTg=;
-	b=Y7ixdWDXKOx80eqqjvDJkWUqn0x7TgT/Hjkb4Ioip0Oi6ZiHuH906Ef9lHod+YJ5NHh7
-	 3glsB0QcOqA6v5iqANnA+ewINGvKi1uAMZEsn6ZIfY9MSjskqeyL9F8cq70+p3Di+srKf
-	 01Ij0tIVAVU+vUmkqB7bJQoAfd4f1pALu7RW/bmzKjoxOO2Zerox5rccqoJSeCuzjDxlE
-	 cNbyNC1Y4YuetNQIdSb+EmMhwgr1qsxdwo/mMHhMI6z/4Ie8BZctC+PR+wpq9NqYhlvjM
-	 BwFUdHaxXcEMKsd3O7aMoBd3x2W/3dgv9Hazv+9LMIpECTiFJ59dXxVHB4I96YfAb7g==
+	bh=gtjV7Lleo2+ONnpavg8cztU4m7vyzoQjZh5qfVTQ3aA=;
+	b=Z1fR8XUo2jx3qzUkN1ARkOXN+HE4GZesNbXfMrv/X+rjDVk8yuZCF02rKCNZE2YDAmdt
+	 an9+/5GW/5RAz8pn1pbU8tsHN2CYGLP65Lyfso+xIuJCGcjIUuQMwwBVU96kQdR2+4ojr
+	 OPfswcv4oTAdv/zayMUYO1BhAaLzrhincQgD8jzs4QIlJPvWW8xJXHx6VnwawDV9KjleW
+	 Uq5mgctu3yvSRM1iI10VMoJFIvVtY6Xfe4vR6Tmtjzu6epm7aBrrivuc4zT/kDwSa4Iu1
+	 5eQq++NzTPeItTJkpLJqSLE6qlCU3CyYNmmCN7r/yU7GeVCBTGVd+E6ZTeoFEmIJINA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=alpha.franken.de;
 	spf=pass smtp.mailfrom=alpha.franken.de;
 	arc=none smtp.remote-ip=193.175.24.41
 Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9C964606A332;
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9B4BD606A32D;
 	Thu,  5 Nov 2026 15:45:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C964606A332
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B4BD606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpha.franken.de
 Received: from uucp by elvis.franken.de with local-rmail (Exim 3.36 #1)
-	id 1xOzeg-00071S-00; Thu, 05 Nov 2026 16:45:34 +0100
+	id 1xOzeg-000716-00; Thu, 05 Nov 2026 16:45:34 +0100
 Received: by alpha.franken.de (Postfix, from userid 1000)
-	id CD93EC052E; Thu,  5 Nov 2026 16:23:59 +0100 (CET)
-Date: Thu, 5 Nov 2026 16:23:59 +0100
+	id CF5BCC01A0; Thu,  5 Nov 2026 16:20:07 +0100 (CET)
+Date: Thu, 5 Nov 2026 16:20:07 +0100
 From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: linux-mips@vger.kernel.org, Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Paul Burton <paulburton@kernel.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:CLANG/LLVM BUILD SUPPORT:Keyword:b(?i:clang|llvm)b" <llvm@lists.linux.dev>
-Subject: Re: [PATCH] MIPS: Avoid dead code/data elimination when using
- recordmcount
-Message-ID: <auyfj9MyvQFX-VGf@alpha.franken.de>
-References: <20261004234826.541468-1-rosenp@gmail.com>
+To: Florian Fainelli <f.fainelli@gmail.com>
+Cc: linux-mips@vger.kernel.org, manuel.lauss@gmail.com,
+	Thierry Reding <treding@nvidia.com>,
+	"Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Dmitry Ilvokhin <d@ilvokhin.com>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] MIPS: Alchemy: Register interrupt chips with the IRQ core
+Message-ID: <auyepzYMrbQNmAad@alpha.franken.de>
+References: <20261016181602.2152632-1-f.fainelli@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,48 +52,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261004234826.541468-1-rosenp@gmail.com>
+In-Reply-To: <20261016181602.2152632-1-f.fainelli@gmail.com>
 
-On Sun, Oct 04, 2026 at 04:48:26PM -0700, Rosen Penev wrote:
-> CONFIG_LD_DEAD_CODE_DATA_ELIMINATION builds with -ffunction-sections,
-> placing every function in its own section. recordmcount refuses to use
-> weak symbols as section bases, as a strong definition could override
-> them, so a weak function alone in its section, such as the generic
-> pcibios_fixup_bus() stub, breaks the build:
+On Fri, Oct 16, 2026 at 11:15:59AM -0700, Florian Fainelli wrote:
+> Alchemy initializes its interrupt chips through the set-type callbacks,
+> which use irq_set_chip_handler_name_locked() to assign the chip and flow
+> handler. This bypasses irq_set_chip() and its descriptor registration.
 > 
->   Cannot find symbol for section 88: .text.pcibios_fixup_bus.
->   drivers/pci/probe.o: failed
+> Since /proc/interrupts switched to iterating the IRQ descriptor maple tree,
+> the statically allocated Alchemy descriptors are no longer found. On an
+> MTX-1, the file contains only the CPU header and ERR counter even though
+> the timer, serial, Ethernet and PCI wireless interrupts work.
 > 
-> MIPS always records mcount locations with recordmcount, so this hits
-> any config with the function tracer and dead code elimination enabled,
-> e.g. malta_defconfig built with LLVM=1.
+> Register each IC0/IC1 interrupt chip through irq_set_chip() before setting
+> the initial trigger type. Do the same for the Au1300 GPIC. Keep the locked
+> set-type callbacks for later trigger changes.
 > 
-> Only offer dead code elimination when recordmcount is not used, as
-> powerpc does since commit f8b2336f15f3 ("powerpc: Avoid dead code/data
-> elimination when using recordmcount"). In practice this makes it
-> unavailable together with the function tracer on MIPS.
-> 
-> Fixes: c0436b503591 ("MIPS: Enable dead code elimination")
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> Fixes: 171cc0d9eed1 ("genirq/proc: Speed up /proc/interrupts iteration")
+> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
 > ---
->  arch/mips/Kconfig | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/mips/Kconfig b/arch/mips/Kconfig
-> index ddabe25d6bf7..f4f82bd75b66 100644
-> --- a/arch/mips/Kconfig
-> +++ b/arch/mips/Kconfig
-> @@ -79,7 +79,7 @@ config MIPS
->  	select HAVE_IRQ_TIME_ACCOUNTING
->  	select HAVE_KPROBES
->  	select HAVE_KRETPROBES
-> -	select HAVE_LD_DEAD_CODE_DATA_ELIMINATION
-> +	select HAVE_LD_DEAD_CODE_DATA_ELIMINATION if !FTRACE_MCOUNT_USE_RECORDMCOUNT
->  	select HAVE_MOD_ARCH_SPECIFIC
->  	select HAVE_NMI
->  	select HAVE_PAGE_SIZE_4KB if !CPU_LOONGSON2EF && !CPU_LOONGSON64
-> -- 
-> 2.56.0
+>  arch/mips/alchemy/common/irq.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
 
 applied to mips-fixes
 
