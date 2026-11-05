@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793909234;
-	b=1KjC4SulpR+c3R5kyDI5Ex2KLZ/wKO8I12YxKbLvSxi19C5CKt2vVQdBcmNmvdjkQ0er
-	 5ejU6Rz/4wdBhwjdWfQqdy4ScHw5vWpyFmz2aMYfBogRdjVqfLB0jQrKCJdTqE2k5BS7Z
-	 72M8Ui3cZ08fCqwtWbVI2ZBhhIQ8iM47OzI06kvepItDi7XLQKbk69rwsYYjaI/5A25+4
-	 XMl0gdDRzAJjUgMX7+KMPdLv1NY8VWOSpxJgpkIIYs5cK9hYqRCcqzeBj1zXZ1owwCd2u
-	 AAKrlkVVewOpIhrVLNfEkE141bglmErzNAFu9ZoIR4pu6qDwW3KT/JWdKbDyVSWUGHw==
+	t=1793909239;
+	b=YfVz1Jr3QKSVEsX6c3Vzi1/B3EpHMVWHFMzsL7MzYcruFKh/epzVBoEgDV/7moJm/95k
+	 sfe6QMCO2kPJcVy1YNa3Pfg0IhGu5oxt8uhjSu6zsh/OCQmxgV9zdex216Gvur71jMS3T
+	 j9UDrRGSAulhzhS5lTKFOSffxjjuveG72XUjkn6kD6R+n1VaqDT7EQaB4lqmZHy0C9HjB
+	 VvVjJKtvG0tGDLYc+g9tsXiScB+eoQtoeKAxyNEd1aIunKbroJLrAYOOGTH6jmuvoMb28
+	 JVF9L9t/QJoiJxACfo9MqitC57INeG8IeWmHraMynKD1p7ngnmi2IGCa60ja2sjYokQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793909234;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793909239;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=dCmDJGQnLkybuK/FNJb9oTUo/DUbc0oZdDzO8vpbYhI=;
-	b=DNiWIUH4IpQMHaAv6+GnPqMzinvXbnD51ZMbK2wJxFeNwySyaG6uek15/6VBDqLC6SiQ
-	 sdS6u1p3yFiPWWFtUQEt7b29BxQfqINq8jTgfa9VBZT7S7+Q1gx95c7hdMFob25fvbwfU
-	 sDD3ZmVbcnFbgF7DjtwkgpUu1CjE08e7XOcyDClayq6WW6ozggPseEwWgTk/klXfi5Peg
-	 46dyzDwT+TzCr2WwkDuvHK2KHOiuVx85wOyR4mHLNwC+nKSQDTtvsEx6iwYcb7oAg4z5i
-	 d1qO2ZykdKHjf+6/eTm/8TlSqiGDv11p62DvawNZZIVUzIVf4+8ponLqoUZRu5BBoGw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=M8yk4UoM0PWyZhp628ipm0Nb1+FaTd9tnw6+7GjamRk=;
+	b=bXG8zeR2Z2IQbWoYuzCOmdk16Jn/c4gkItHsl2A2Hg4V6qpDB5C/EXpCEwZmLHyFPjV3
+	 L+C5gdB6gKqn1F5t74FyjLfRJUyrUmidq2iNfN9r7OCN5nbVe5NVVQNKa0DWuTOKQA5AL
+	 P4bvwY5pZrhnYUsNHyXiBr6kcx3L7jo27lNhjG3jILNPZ/bgFAIpX9gYoCVxqj/XWJ4pu
+	 VU+Ug7dnSCMgHN89l2aF9R9tD0BvXoTDq+wlsinqsB1d+1V4g74O6X/Xwpy0OTUKsS+FH
+	 rtOay8fowBX4rpb924uxe92QF2sicjubj8AYlGML3cpp9mUUgFCSCXMXKafOjODG6Aw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="NdL4j/Sf";
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ub1ox8GP;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D70F606A33A
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:07:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D70F606A33A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8265E606D813
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:07:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8265E606D813
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NdL4j/Sf
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a210470b49so17793805e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 12:07:14 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ub1ox8GP
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so16925455e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 12:07:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793909233; x=1794514033; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dCmDJGQnLkybuK/FNJb9oTUo/DUbc0oZdDzO8vpbYhI=;
-        b=NdL4j/Sf2euHzhcOElIVGfgvu2LhDvenH5bjqq2qaHGaLaIrdyqsOm9TpNX6ft8WhM
-         8NKw4opLm/USQ/0OAmiYO/NLb42AVD0JtX68uwzpOHYajR8dsA3ekVp/nvz2T+mFA+Q+
-         EoQzAuYrldZcrCCfET5NNuGy3OQ2/6TjKivZN5TAdW7jsmy1T1OQnWV1y7wTr59/qosA
-         I8syR2ByaOSihh+UAI31e5TJPH58LGuTTt+qckBr1oAntXuGGIGWmYSPzdkGui4QHCFf
-         a1G4ifcX9f0eILhcRlA/hA5aE9cn18E/zl3GBXib0bSdw0fw2XZQVPSa3AYLsKr1xHsK
-         Yknw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793909233; x=1794514033;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793909238; x=1794514038; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dCmDJGQnLkybuK/FNJb9oTUo/DUbc0oZdDzO8vpbYhI=;
-        b=wk/eACyGPutz2b7d1wH06ov0Yt6YYr9W0/k2iHA+c1VPiGZookWvQ7rpIR1fT1BEjQ
-         ectNFkt5mRoqSk++QhPF4nMD3k9X0gjuBd1qfJriP68n6LAuD1XgCFEENr9Mc5IZM31W
-         3C3YzAmZ3e8QzSeCKbL6Hqkal5iaZam1LxmqJhpOTNOxi4lNUwIU4wqcokuhOZ4W3r/p
-         4UDCz/XbMcWplcZqLPSmcprdylqBiy/vOyZu1noVEvzdp4PfgoBaqj/fUqfCJ6AIMUqB
-         1TcDW9bj3tkCG0InmzP6TxIMskCe2i4j6eDLEeDz2rtZKBmsbM5Td9lR4l1CgP7MaIIO
-         oijA==
-X-Forwarded-Encrypted: i=1; AKwUvByJv622newUhJrTZuoJm5tyOsX8bpaTlhY0O99ezQWNmnJR9PsuZbOp46KwwMadX8pto2U3EiZErzdwIY8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8fE2crL3+eZts/IxBSQX1o0xGmkEyqro5JMg07abomiQn+/rSV
-	FRkR+WhUCK4SqL+R8VpDQBfGfsCFd/4qQhey3OqBWNBSYfKAy5bwYWl0
-X-Gm-Gg: AYBFou0nwMnL52NQDZ6SMkNwwf4+KxkNxF8Q8rmuLBCA5jLNNCwYpRGvVEg1fWJQfcY
-	A/jZsJZp+wUZ6kZANcZO7B8qkoTuXL7ZnijNcadfjF2qkFRPGXtHkUmIMnj46nCy/BesV/XcFeZ
-	j27SANXZQCCaL2tDiZiTFUGGwYOPSbDuaEn6x8XvJ8xkP56iV6rOXHNNmxG7sM1JYf8myQcXQiN
-	LUb51XIWrt3o6SCL8SF6CPAF1Y2Jxt/NFV/7dUkWehqIRLsmg420NpWGG8awq+mbTpYQzlhHSTK
-	vrWSugR82lfCQu+wKKPmsjMt5CdSdizDEFsfy+GRY7Hb8YSIDwLzA47RyuMJtG8v8d1/UddTCCN
-	y8NfALj8RKc2H5dzty39T2+zr+4i1RTeS7fDVaMq/IpdemvlC4EfuMAEX+0sUvpksd7rUuIAAZU
-	sefSdj/14J8OKaJsvKy7IWZ0zV/kCVje8ZbTRGvkk1TKUZ4v/Nv66ifExyXYbWyZVUq/b3wTHYE
-	w5o+CurzbG5TIctxy/mmfa4EQuxTeoswFunmzRJWjOkDx+HPxV4xuX5LmULBZ9IhCJKTY2XgPdW
-	Cn/IlUvl5ZbDkJE0F2GEqipuJPXrt/PB9JgdoJn83m+GHKA3DzLRc+eoh20=
-X-Received: by 2002:a05:600c:1d26:b0:49f:fd40:80fa with SMTP id 5b1f17b1804b1-4b6dff86444mr3062505e9.34.1793909232668;
-        Thu, 05 Nov 2026 12:07:12 -0800 (PST)
+        bh=M8yk4UoM0PWyZhp628ipm0Nb1+FaTd9tnw6+7GjamRk=;
+        b=ub1ox8GPhezjPHlk9Iw0X1EMDdUJXux+i9QRQ7wB/kyUmsRoRwEtaWe2krP5upbaz9
+         Hbxlh9pZL+ZsPFL1WzxOGEXjUs7coUW8OlvXL/CyZ9P4jRSNwCsp8+ITtJchShWjobLS
+         VS4jqDWatzVBi5x0J9R2aYUGhWARactIEuNQA5hGwCRJBxPeMt4cUf5AgcQmaiCJzbcE
+         63VPl+CKEaQ+Y51TybM7udRIgteXEsgBMhrcdhsAeifodq8QUhC+P41aIfqQ03+J4xUm
+         9UnEw483xSJmburH9EKf2VI2ZG7cPzJRZ3VYnFtGGDiHD71LbauDl98eFNnRHS/dEAv2
+         rAYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793909238; x=1794514038;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=M8yk4UoM0PWyZhp628ipm0Nb1+FaTd9tnw6+7GjamRk=;
+        b=rqDTG6uBN8H10JAjJdcxuBcUXxxlJ8ZuX/Be38yQhg2oR4z+i0Xcn+5qTR+5Fcrohz
+         HzjZ8RIYimmRZ3Fc0YnSyaKhEpspVrGQstWc42p9I8TAh/R581qNEdPuPFSrwvJYJaU+
+         ry8INUNhp25ArnJEuKxshl7MfBZo4UkUh8HGAxH/67wOYaUPb8tvUaiN7wS0070w/XI3
+         /QxGtwhSFmz0qlRV9uDDJo1mlfNFHAzrCOg7GtfdQ6wItRgjqUj4A1/9QrQav9QkuN6t
+         7pXUGDCLxZCdURCDCS1iMKcskX+w+6FrQEqjOXEFGlC1c0qXDsljo/tBooH5JZiHsZl7
+         jjMA==
+X-Forwarded-Encrypted: i=1; AKwUvBxOVr9JIv0d0jkhuGt/KCz2ueKe6wCkYYU5hrdQ65llXXAIYbNKjPgGAMict+VKiAijWQbqwuEGOgalSTA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/NzB8gKeP2w6fMkaRMajVSFWhDU7dca4JbUK37WttavavefyGc
+	SQF9uxiu6lKz613tt8jYOIjPmwgcr/UJ8inOiuPfZrTwK+m0HnEuf93j
+X-Gm-Gg: AYBFou13hhWoUCQ0rwmHHic1HtXaJwygf/CSnmO92ld3juXXNkoDklgqsXhcUq82jYK
+	uH87IAcWv9p5tShfriEA+mCOa9idxAWz44k9srehm0cc0yxLmcwGQn5Vtud2ygUQseBIcWo4+LR
+	M25JhJktSLPqsyTnqzLSA6ipbBig/rZdJIJhSJtYlds5JSnCdQQ3s6CB9TCgS2DW22tgR9yq9WO
+	fGj9St5Vld7DeoxR0UFzpzpCcMFG41sWyALEPIZzy5qkXKK9QEH23Vew0VLo5yUWtHMkejKud1v
+	6LiCFxIEVYG++YOx+Q+D+xXvmyzajH66tj/v9fnt4G6lCHFkC+Ziy7wPCMsM8MWaGzyfKTABxBZ
+	MeyAheAiqs/ZgT+IELlXcRpLCnLkxuABgWO+M4DIaylI0Zn/RfW6219+vH5Qsj9RqDIgziSahLK
+	prjUAPw6m7PYQCz2+wVM8rRSbiJ7UmS12Br7mIOCDTvaGBe/voLtAfSAwMXfH+P5vcm8BQNpVs4
+	yAis7h1TWuM04s/nIPUONUlMGwc5OVKWgmlb5QD5kt+XpmutxunKPDWc24SyPfintCOHfg/bgLu
+	sf1w5Xzed1fiH5loGqIwBTulCUIPDY5gUi1wOPCWHJpjmhGdx9mFCwVj4EQ=
+X-Received: by 2002:a05:600c:138c:b0:4b6:5dac:b61e with SMTP id 5b1f17b1804b1-4b6df6df5d9mr3339265e9.32.1793909237922;
+        Thu, 05 Nov 2026 12:07:17 -0800 (PST)
 Received: from antoniarch (78-212-29-45.subs.proxad.net. [78.212.29.45])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b433ebd278sm131671835e9.3.2026.11.05.12.07.10
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b433ebd278sm131671835e9.3.2026.11.05.12.07.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 12:07:12 -0800 (PST)
+        Thu, 05 Nov 2026 12:07:17 -0800 (PST)
 From: Antoni Pokusinski <apokusinski01@gmail.com>
 To: vigneshr@ti.com,
 	andi.shyti@kernel.org,
@@ -100,10 +101,12 @@ Cc: linux-omap@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
 	linaro-mm-sig@lists.linaro.org,
 	Antoni Pokusinski <apokusinski01@gmail.com>
-Subject: [PATCH 0/3] i2c: omap: add support for DMA
-Date: Thu,  5 Nov 2026 21:05:51 +0100
-Message-ID: <20261105200556.34240-2-apokusinski01@gmail.com>
+Subject: [PATCH 2/3] ARM: dts: am33xx-l4: Add missing DMAs for I2C controllers
+Date: Thu,  5 Nov 2026 21:05:53 +0100
+Message-ID: <20261105200556.34240-4-apokusinski01@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261105200556.34240-2-apokusinski01@gmail.com>
+References: <20261105200556.34240-2-apokusinski01@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,26 +118,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hello,
-This patchset introduces support for the TX & RX DMA transfers in the
-am335x/omap I2C controller. I tested this implementation on AM335x 
-(Beaglebone Black) and things seem to work fine.
+The i2c0 and i2c1 controllers on AM33xx support TX and RX DMA
+requests. Add the EDMA request mappings and DMA names for
+both controllers.
 
-Kind regards,
-Antoni Pokusinski
+Signed-off-by: Antoni Pokusinski <apokusinski01@gmail.com>
+---
+ arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Antoni Pokusinski (3):
-  dt-bindings: i2c: ti,omap4-i2c: Add DMA properties
-  ARM: dts: am33xx-l4: Add missing DMAs for I2C controllers
-  i2c: omap: add DMA support
-
- .../devicetree/bindings/i2c/ti,omap4-i2c.yaml |  12 +
- arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi      |   4 +
- drivers/i2c/busses/i2c-omap.c                 | 291 +++++++++++++++++-
- 3 files changed, 303 insertions(+), 4 deletions(-)
-
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+diff --git a/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi b/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi
+index 57a45609f9f5..89fb1d1eb049 100644
+--- a/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi
++++ b/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi
+@@ -239,6 +239,8 @@ i2c0: i2c@0 {
+ 				reg = <0x0 0x1000>;
+ 				interrupts = <70>;
+ 				status = "disabled";
++				dmas = <&edma 58 0>, <&edma 59 0>;
++				dma-names = "tx", "rx";
+ 			};
+ 		};
+ 
+@@ -1189,6 +1191,8 @@ i2c1: i2c@0 {
+ 				reg = <0x0 0x1000>;
+ 				interrupts = <71>;
+ 				status = "disabled";
++				dmas = <&edma 60 0>, <&edma 61 0>;
++				dma-names = "tx", "rx";
+ 			};
+ 		};
+ 
 -- 
 2.56.0
 
