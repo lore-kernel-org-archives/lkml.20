@@ -1,72 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793877522;
-	b=zuT57mtNIlo+7VSR2QW07vw/iBglg0SQUgMA985Nd4+F6lgyUpR+8JpqzAVRHDbbLRTs
-	 vU7KF+abjclReSlofh6w+/BerH79k5LSYCHBM5S48BJjiJ6ny0cHB61Qof0oHAHGPCIyJ
-	 vqIWLlJEpaxQXmeRweazZszx2A/l9VJN9nKmqrKXI7lChkZx1OWq6Gm9bDyo3oi4V6Tnu
-	 VdAgUUzVVTvD672Ynx38Z2AX3wAxpyfSyU3wnxLr278Xk+LE3xqhrSL6BdVhokqL2Jl4y
-	 KhXzsEhJFXGLUuc9/o3Xn2dWq8JTWSMj+jYcxnKP+RJXJHcjlOC46oR37Y1d4IE6tFw==
+	t=1793877566;
+	b=QMP+5nYD0u6YsDQ2fk2r7TG0VGIulnkg6UgXJ9siTOW7RZsc6I/22QVFBsD1jLSTxqM6
+	 gzodp5WBRxJkioIyElVVzfrkqRv4w9lQNMCFzKkskyYyq1ymUrbWhdAoTBctGvPsxUIBk
+	 pY7A46cd653RLKy7SHYhEY26H3FD/QxLbYTPurYTTDpcXQyJUe2vY/fgvyqpY6U6qrEPi
+	 Kixws5HE7ZPveK9PRWANJHdhOpDkb+RDbhXmvkNI9lFNzPfzdZ3gY+Hicn45wbehnIt79
+	 zcwYwv73P//ZKCFB/9Iiaa5MV8N3Nem3USAu7IZq3C+NNYU7bi5vPDh1t7/Aw2jXgJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793877522;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793877566;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=wS6H2biKhC0qzhIyM/4fTFh7+N4OkO4FJgSbGJlSZAI=;
-	b=4eIsR5BQ630basXe9FHu7GI9x3HVq9I1g99B+5egu0emHZcoiiGJaA3iuvw9V3EgXSl3
-	 wMyTDwu45qng9R0C/zNjRH1KHSZkfIArAqw39A74PomWA9kyu1j0hICEYLS5hLsxZiJbu
-	 nPXQr+gqSHF62QfkIsyrYRcY3KFq9/32SqBhTSyCTYBaizU5cqHiMu2m2yueKurTIGxS4
-	 597zHdxkTD69vO11MBGf8JqW5T1tcZ0daUWgXOX2pwiafflmh/f7d6j4PLPpFPnR1uHB7
-	 sfLefyeisZBChpCR9pL6hHvnKNpD1HDbh4L7Aoi6ucNVlyjkt8/KaYVYeLy+vTEAVAw==
+	bh=f7h6gBlslVqG7tbJ4NKNy5E8PQorstBk7bEnOc9Ii70=;
+	b=UMQuHF0htzrM8xWdvRQgTQT+AjXTdTVR4R71uWQ6HzqG7GUH9oQmLRQUtTWvnnGncahR
+	 CL19GxpWv7FRyPLYiApulXVBSYXRMk8ixZ2Wr89TS4r1jkzBhd6E1FRn1JF59C+iaLkce
+	 ljDyIlw3s1QkAfmc/sMFzkNZpdHvxLrQnje1ZK11e2z/9cPAcabEua/VzzQm+U0ALWLAk
+	 ZlkTcNBA3YHXfbRMDKGgj/JDxtRlECUfVCu/D/QFXlPN1abCPYUAc8TP9C2P1OLAJBE9b
+	 cNLHOCm/fbllQtZ2isI67ycN1uLp3iRRCqXm3TM2aXEXlO/8AtCRtTZy7XR7Bw4p11w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=FQ09MN4U;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9AD10606A328;
-	Thu,  5 Nov 2026 11:18:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AD10606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=C4DcSk2c;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC18606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:19:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AC18606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=FQ09MN4U
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D81581595;
-	Thu,  5 Nov 2026 03:18:37 -0800 (PST)
-Received: from localhost (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 77D653F628;
-	Thu,  5 Nov 2026 03:18:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793877520; bh=INoWYwUb9zlHuoOC6uc1KGiYOuuaTT9Ct72EHvh4mKQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FQ09MN4U9LPGNrsATcEp3ppg1naYHDp5jBBBLDalF8G8bR2apa4d1HdSbb756UPTc
-	 FwtbG1JZ0+FKRjDfF1evhx7TSQjedTAUwFSWOI6wqxj5e/X9le6hVW9VP738CLKjXq
-	 oFcBtrTeJi/lzz1A3N02wizfpwPukxf1R9fGnDTY=
-Date: Thu, 5 Nov 2026 11:18:38 +0000
-From: Leo Yan <leo.yan@arm.com>
-To: James Clark <james.clark@linaro.org>
-Cc: Leo Yan <leo.yan@linux.dev>, Adrian Hunter <adrian.hunter@intel.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@arm.com>, Will Deacon <will@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Jonathan Corbet <corbet@lwn.net>,
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=C4DcSk2c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=f7h6
+	gBlslVqG7tbJ4NKNy5E8PQorstBk7bEnOc9Ii70=; b=C4DcSk2c9RUYHZxspnaI
+	Sv/p1P6KOhe13F8STbK5AR0eHF+l+HFqqGx0mo+Qkl1U1MHMHgawnK6jTwWfpGDR
+	RWg2iN/pGPdGfneUtVlzncw46mwZgfIehr7NLyk/1FSLFGTqz3SWFxcmL4utpubm
+	F6qSC6KfBURE7z3knzfHTXlmE4MzVI0NKKcOeYXAVPyxWVfoX4vTa63UAE8Gv8H1
+	8gYEg9qNNm2Tlejdgo9ci83cpdD5lp/WUis3+zczyn2gjh0WERP3uS2xhX0m4NFP
+	7EPu/CwrlMHLvJaC1W6cA1hdY+Nf8CSe4I9C/kAx26p1yODGu/rK1vHxsjDQjny1
+	cw==
+Received: (qmail 1125246 invoked from network); 5 Nov 2026 12:19:15 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 5 Nov 2026 12:19:15 +0100
+X-UD-Smtp-Session: l3s3148p1@h6psqoVf3pLAwtcC
+Date: Thu, 5 Nov 2026 13:19:14 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Jonathan Corbet <corbet@lwn.net>,
 	Shuah Khan <skhan@linuxfoundation.org>,
-	Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>,
-	linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	linux-doc@vger.kernel.org, John Garry <john.garry@linux.dev>
-Subject: Re: [PATCH v3 00/18] perf cs-etm: Per-thread mode fixes and snapshot
- wrap support
-Message-ID: <20261105111838.GS9176@e132581.arm.com>
-References: <20261102-james-cs-unformatted-per-thread-fix-v3-0-dbcb0c281b9b@linaro.org>
+	Randy Dunlap <rdunlap@infradead.org>, workflows@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject: Re: [PATCH v2] docs: submitting-patches: Clarify half-baked review
+ tags
+Message-ID: <auxmMrANvWIJi94i@shikoro>
+References: <20261105082729.19622-2-krzysztof.kozlowski@oss.qualcomm.com>
+ <auxDTdfMVS3yazCk@shikoro>
+ <35983c5a-7deb-4b0e-9bd4-981754343200@oss.qualcomm.com>
+ <auxHASG78dTviSz8@shikoro>
+ <e1c7e287-ccc9-4705-bd72-e801ba203668@oss.qualcomm.com>
+ <auxMOdmFYDYGjqa9@shikoro>
+ <8abb2394-5210-495f-8420-a02bd16ff466@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,20 +75,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261102-james-cs-unformatted-per-thread-fix-v3-0-dbcb0c281b9b@linaro.org>
+In-Reply-To: <8abb2394-5210-495f-8420-a02bd16ff466@oss.qualcomm.com>
 
-On Mon, Nov 02, 2026 at 12:15:14PM +0000, James Clark wrote:
-> Fix a few issues with per-thread mode:
->   - On nVHE, everything looks like guest trace instead of host
->   - Tracing multiple threads didn't really work
 
-Tested this series:
+> >> "Reviewed-by:, instead, indicates that *the patch* has been reviewed and
+> >> found acceptable according to the Reviewer's Statement:"
+> > 
+> > So, for the SPI patch: if someone spent time and reviewed the complex
+> > core changes, but only 2 out of dozens of drivers, this would be an Ack
+> > according to you. I would, however, understand that this person doesn't
+> 
+> No, and I explained this in this commit msg. That person reviewed the
+> MAIN concept of the patch.
 
-Tested-by: Leo Yan <leo.yan@arm.com>
+With that MAIN concept emphasized, I am okay with your reasoning and
+agree. Before (I cite, upmost paragraph) "*the patch*" could be
+interpreted as 100% of the patch (including dumb driver conversions).
 
-> prerequisite-message-id: <20261030-perf_cs_etm_fix_non_taken-v3-0-7629b52ab047@arm.com>
+> "Reviewing pieces of the patch while ignoring the main part of it, is
+> much closer to Acknowledgment, thus Ack, and "Reviewed-by" credit should
+> not be applicable."
 
-Make the dependency explicit to help maintainers pick up the patches.
+I agree. As stated before, I don't care so much. I am glad you do :)
+I'll happily take the "# subpart" potion of your patch here.
 
-This series depends on:
-https://lore.kernel.org/linux-perf-users/20261030-perf_cs_etm_fix_non_taken-v3-0-7629b52ab047@arm.com/
+> Nowhere in my patch here I said you CANNOT review part of the patch or
+> cannot even leave Rb tag for such case, right? What are we discussing
+> now, exactly?
+
+I hope the misunderstanding has been resolved in the first paragraph.
+
+> Do you agree that if person skips the main point of the patch, the hard
+> part, and reviews only less important part, that looks more as an Ack,
+> than Rb, considering how "Reviewer's statement of oversight" is worded?
+
+Sure. It is not so important to me, but yes, I agree.
+
