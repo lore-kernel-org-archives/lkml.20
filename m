@@ -1,52 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793894312;
-	b=Bp2RVb8QZGP6zYlOcRP3RWrQM+LkgBKBVSBuQ1V+kGvmxsCXSQX+GPIHLY4FHPGwrfNZ
-	 2vs16AIAVkdBG8G2fCaqRJN6Md0gvIvne0RYCj6Jc5GUUetIA1sMe/9UXoOZApMx/lyn6
-	 YZTvrjBjEcBP7cjkQ1n5bYNOp05ZcIysGlYyISNVokcP2Aagz6u9djtm9rjoF2VSctHpm
-	 5QN3ji/MChE0pEB20g8kS1sfX25KkA3h6X2MdexGmIIiS0z/ykAoTT17/hLMYAKJkXWzo
-	 viDe9aMIUGLS8kPWXRAFHOtJwhvv+r3JXYbf9Zt2nY44+PeBs28ov8GEM/iqooMWk1A==
+	t=1793894313;
+	b=YClfgs65OpK6Gyx17ZTDaqFwxJUEHTPIPG6bdkjgmckRJ7svN7WT6Tap8GGJCnUU2z18
+	 THPUop7SQ15x2IgURgJPEHgk6Mwu/sdMi84yA+Ypr4ejbsRM9oYUecrGc30/gkSWJlyBz
+	 820tvhhnrrnaztdczmkqCd6+ChOtaudsP77yvcDJ3LhGU6HqF9uwfLyhldsNaWLU3rChG
+	 jwR1Uav0fDEUyEpUxToDrst2PSPtQBY614wtFyYzBEqlZGLT9QGGBqqadnpQZXhOCiUc3
+	 Gql2rCfoUC90uN8gt+hKYeVneX68Jw2dZvbWzoltqkFJ6JwSeNCMthxc5j+WSONG/aQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793894312;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=+Ty8xjiQpuaS04VenMaZqPaJq/PL1xODbqnu0eXSWcc=;
-	b=C0H/Q5OsnI5mlple6DwDHAxNkp4j6Y3YjTwBGIERecxHpfYgJnAxRlciOVW6V7zCWgOZ
-	 pogoo4deWvLKMFpJ3G/eaCRczUyMEUychC6aWrROWC0JS6v7SMCSW7gzoddAg8MbCXCFy
-	 rp8ZDRgfzVM+VhczHE1jXfpSBOV82qdKHMa/dN/jthJyPGLw0s3IoHKw8VnWuaT0evcQ1
-	 D6Ei+orDEzCAPz3nyxoxRqs0et7OnHLz6OHuDRI7DeQLzLXU9LxuHeUz4HPJKhnXghy/k
-	 7QZ79oG4eyB9VUzqZueyqyA/nkKH70ED82+wKauA/knJfI3PkKvjVV5WaUAvMWrzqyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793894313;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=GfbFkrlXGTj8hINUijGxcgmVVtZ3dmfEWvTEJmaVTgU=;
+	b=l8fduf10v2QciI2bCQawzP2q0SWAm2PIvSgStaHab4jN0YeKmSGTmShESgCZSOI7Y5Jn
+	 nZxPWLsYCjQwiQwp2hwovgUnAMIYzL3hbuY1ovjW9btxnVudd8UqKaf2e70TZfk5ILQN7
+	 QmFiyUMYcwwgrI4Iue33jrJLXysATFRWtm0JyRmv0kgepKdpOpgC4Wui8TtEMB2l6DHJ3
+	 +s2K6Uaa0RpgHkKHvG3lss6SI2TGjWxtlIUCetQSlNMq5FEi5PNyCtWTvsHpsX3PIkoSk
+	 fvE02Yin5cNN96boOB23QuKKxLbkeAVjZnO6srYnsm4ddloOstWLaXS8XJOlAiCgK3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZFXFQ+QY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=DRzi4VEy;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F38606A32C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2030F606D818;
 	Thu,  5 Nov 2026 15:58:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2030F606D818
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZFXFQ+QY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8BA71F000C1;
-	Thu,  5 Nov 2026 15:58:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793894312;
-	bh=+Ty8xjiQpuaS04VenMaZqPaJq/PL1xODbqnu0eXSWcc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZFXFQ+QY+ttqZaC0sUX9hpytD98EPqm8Ib8/+NxZtjOxUi8XfcqzVNWGIBwLVn0rM
-	 i6G4Lon74oCq38ivVH3evfUya577MOi7tvTSXfwNxVEOdMb+wksYyz3Hq0rfCJltrM
-	 qF7cPFNq+1dqGxsojXajf1v5th8swz2OwqKZIhWlhZN3ltzrWuH8UPzeXHXMrGXOEl
-	 Jhb7zQ8MZZ+f0JDZyY233ltXcjQ6ZIPqZ5cS2fyfm6ARKXSXf4r1xp8Tq+xgaX2Jho
-	 jnQ4XzHNtSWn/MquRcCFMYN3J5/bvEfz16UqnJC1QdnhYT+U107UwyrFGqUVPddZHJ
-	 ElT+lQbDkA8qg==
-Date: Thu, 5 Nov 2026 16:58:28 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>, 
-	LKML <linux-kernel@vger.kernel.org>, linux-fsdevel@vger.kernel.org
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>
-Subject: Re: How to detect inode leaks?
-Message-ID: <20261105-lesbar-puzzeln-duett-fc7bee207796@brauner>
-References: <20261030161220.6f773b1c@gandalf.local.home>
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=DRzi4VEy
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=GfbFkrlXGTj8hINUijGxcgmVVtZ3dmfEWvTEJmaVTgU=; b=DRzi4VEyFWHD2rFzpj6PhsP3kN
+	F39iwasjm7/8Ev+0a46CatRL0nzjNA0i4Q/FX+iV8pcMaHXoAGnwk81GdGZCth5ndauFChEK3PP8D
+	raYGuwthMY9TYT5rL30Bcn9SJ6LBRUDjIv2InceHI9uxm3ZPO9K24pQpfMKXtkaLHjw8=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xOzqx-00EbKh-DA; Thu, 05 Nov 2026 16:58:15 +0100
+Date: Thu, 5 Nov 2026 16:58:15 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Joseph Telaak <joseph@telaak.dev>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+	Jose Abreu <joabreu@synopsys.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Chuanhong Guo <gch981213@gmail.com>,
+	Russell King <linux@armlinux.org.uk>, linux-mips@vger.kernel.org,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH net-next 1/2] dt-bindings: net: Add Siflower SF19A2890
+ GMAC
+Message-ID: <ba32cd69-23a3-464f-a74b-68a29e7b8202@lunn.ch>
+References: <20261104-sf19a2890-gmac-v1-0-a15965a49574@telaak.dev>
+ <20261104-sf19a2890-gmac-v1-1-a15965a49574@telaak.dev>
+ <e134193f-ba1b-47c1-9a06-419b1b796ea0@lunn.ch>
+ <CAPY4CJ74O1tFVCpcN9seoeWDF0VR9GNfKuE+rWODQamN2sjL3g@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,27 +82,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261030161220.6f773b1c@gandalf.local.home>
+In-Reply-To: <CAPY4CJ74O1tFVCpcN9seoeWDF0VR9GNfKuE+rWODQamN2sjL3g@mail.gmail.com>
 
-On Fri, Oct 30, 2026 at 04:12:20PM -0400, Steven Rostedt wrote:
-> This got me thinking. If for some reason any use case of alloc_inode() did
-> not free it, kmemleak will not catch it. I'm guessing because the inode is
-> referenced by something somewhere (where it requires the drop_caches or
-> memory pressure to free it).
+On Wed, Nov 04, 2026 at 05:16:14PM -0500, Joseph Telaak wrote:
+> > Please add minimum, and multipleOf.
+> >
+> > I've not looked at the code yet, but default: 0 would also be good.
 > 
-> My question is, is there any mechanism that can catch leaked inodes?
+> Will do: minimum 0, multipleOf 55 and default 0.
+> 
+> > These values are odd. The RGMII standard says 2ns is required. Where
+> > is the rest coming from.
+> 
+> They are the values the vendor bootloader programs, and I checked them
+> against the hardware. Sweeping each delay over its 256 steps at
+> 1000 Mb/s, TX works from 0 to about 2.8 ns and RX from 0 to about
+> 1.5 ns; 935 and 550 ps sit inside both windows, and a 2 ns RX delay in
+> the MAC fails.
+> 
+> The rest of the skew is not programmed anywhere: the switch's PCDU
+> register for this port reads back 0, and with the MAC's delays at 0 as
+> well the link still passes traffic. So it comes from the board routing
+> or the chips themselves, which I can't separate from software.
 
-Yeah, but it won't fire for your case. generic_shutdown_super() calls
-evict_inodes() and then complains about inodes that are still on
-sb->s_inodes:
+Do you have access to another board which has a PHY connected, not a
+switch?
 
-	if (CHECK_DATA_CORRUPTION(!list_empty(&sb->s_inodes), NULL,
-				  "VFS: Busy inodes after unmount of %s (%s)",
-				  sb->s_id, sb->s_type->name)) {
+There are unexplained delays here. Is it the switch, this MAC, or the
+PCB?
 
-That's all. That whole block sits under if (sb->s_root).
+We need to understand if tx-internal-delay 0 really means 0, or it
+actually means 1065ps.
 
-Your fill_super() fails before that's set. So the superblock gets zapped
-without ever looking at sb->s_inodes.
+Just because it works does not mean it is correct. We could be in a
+two wrongs makes a right situation, and as soon is it is a different
+device on the other end, it all falls apart.
+
+       Andrew
