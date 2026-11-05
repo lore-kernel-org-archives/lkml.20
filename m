@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.37
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793890137;
-	b=AoZo0Xo2bhFrw+pwDMmsRPSts1wAefm2pQvzgCDgdTfsp1D1uJnLlaQUv9igFsQ4KkMj
-	 ScYDnKyHE9UslUkWDB9AHFaki8q3D3ZoTodYjw8u9LoPjwGX46rFnVZuXVrW2zDaTkCod
-	 1gjlBo+TQSNuAT3lpNI+quYTpaN5b9M+hrfHpgfpjfDaHR2S2hcLLbWXxJxPtNQ8BBEnJ
-	 CeTJfaDBfmejk4PnIVocoE095pYhryZovXaXuL38JjAW8DZ0qEt1GHuujaxHvXFXDEMPm
-	 FHblUko2P5F03GHE65T9WcDFVr1ABYitre/nPPEvoY2W2fHzEQFpWFTahpvn8N2nJ3w==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=74.125.224.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793890154;
+	b=KcXYdqNI6TvLgVLbM/KUtYfd43T441kw5DoyI6y3C1fwp/NzZtBbVncVC4Qt6lhwDUkF
+	 gm6EsnIxUF07GY5upceVpam3BqGCJRvB/YOhFmWePl40/WhVOKWsoGLao0caDIoyxsaxa
+	 hie6BOqytwpNsSn4Uvkto5P/fqFT921b7z34gpK/3C002iS2KeTBaZaVD3tfETxuDLnrY
+	 YCF0jwRpm/6vfujRwP5Eq35Uti2a9TI4yFI9klzdO/6ps8TZFaOBdgyoptoQBywVDbmK+
+	 jcYN4TKZ1yVUtFPE9Wv6JaArpdcDy54Dkn0MVG6blkFAwTjQVg9XtPuqw7g+AMHhU1w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793890137;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=59mzC/SUaq+dWNv6foVeZK1IWurnNKFJ5YtzJpKMSIA=;
-	b=nBml1aDG8HtjLIACXAQhSrvHIPJ8gBE0JrSFZd59UQ/4fMP6+opKVQTlQ6Jin6usM32m
-	 kkPcEvi6FaCfBpAZW4GZSnsDTmu63h/vsH+AzIpKLwEcffN8sl3fkWsXwMnwIFXZF3OqD
-	 lsrJU57O+dtQuw1Foow0bGCDLQiY7r2SzevCdQCbeQjDpKvUDtB3luwba2h53L5YzeDGN
-	 fublhogzFINFL6XCS5afX3eSEVJxFYiUFtIZQbCX2TtmhOl2ZwhbO5uJRVVNiD6wPMSyp
-	 DvCNjG/HdeL1i0DOjhZj+ckMyUMB/bXFSET55bplNJZA15O+sSrEECrLvuVxhS5jeTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793890154;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=VgauoPLiP0v5M8oyKkXnXeYyHv/1syF6LIptNT4Sfz0=;
+	b=JGPTAygOoZtAPhAWPwX3LdNtjlGQpD4Fay5l7vvrt7Wp14M38E3J9VjipcQzxvqBLk1r
+	 7FSpWNgiyxIrjN0CasseesmFVI3uBKN3sJIkINzf1ZJ6hXpWDdyhwIFq6z9zYZ2r064R2
+	 +ThQZSy5qd2kuwM0BdKwOYC5tp8xq6DgSosUfyfATMx0uliVMYFXi13/nRheBlvU3hO4g
+	 f+twiZ98Tq6Y3prFg5e6SClyci6tPKRrKx1fw6+ZJlyY/IhsaEReV6ZQ88klf1i1pbTXI
+	 Axrim73+MTM6K9VhGhbcimoGMcFYyUq0AcivN0bPwVe4R23nJ/OY+ksHj855g5ZztKQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=n8OC4dpU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.37
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011037.outbound.protection.outlook.com [52.101.57.37])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WtCH3TRq;
+	arc=fail smtp.remote-ip=74.125.224.46
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E7DD606A31B;
-	Thu,  5 Nov 2026 14:48:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E7DD606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D47606A32E
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:49:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56D47606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=n8OC4dpU
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CC6F5NH3N/QeoiegI7vRnP4i2O2Ms6ZBwDTwacN/LTfZJbwo9yUZdtKeBxVBSKiLom2wOWkELLBX5WNcGX3nHWyb/eoj9YiO8gZog/HEYSUxqXwINWxRwC4B9tz76CWngXMWqGt5b0sy7q5W7r/6dHc2QfbtIkQ+7Z5htCVJtIgWt792wFtAIpi1+t81LqjJZ/9bB6KCIQt1/NX61u4bfL7cly/VOvKLPgZjkjm6ofsvZHXSkU0avctKhXp9kb/QCG5ScuU//XL3AG285Ql5zrN+RXxfE5SbZnDfcuGUqIO+ckaBTzz3FgmsZTRDCODjwsPbo67v2WS8UCGnVXPBrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=59mzC/SUaq+dWNv6foVeZK1IWurnNKFJ5YtzJpKMSIA=;
- b=YpZbA91zcdFBcq2r4ib8KtIxx4PP6+K2wZd8/a9mnoizYGQDLwRb/SFDtNpli+M/DfTfcEX5Cd9BDmOoFqRc9V1ImReG9x+1HvmkYhhWC/0bUjIYKbLpiEqJtT4TNb7H628D+GxzKtwYRlpYFFydDqK7hz7DT8ILNgqYDFXYpMnFS6Dp3AvwoYHv8cENqF4Q3RFCarVN2VzfK1afTYghrl1QLx1LXPobyBYjFcEaYqRt476E7IaL9hr4Zf+af/LoWveeo8sH8G2jwueShiERtfxOuZaNx8Z/uQ5YO64jrvo8vAeVlO4xYUfJjQvanLVaMNIbetaSd3/mpSjJF10L+Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=59mzC/SUaq+dWNv6foVeZK1IWurnNKFJ5YtzJpKMSIA=;
- b=n8OC4dpUQBQP2A2Abrk7dpwZvURS/8b1fWx5gi7P384OUwk8CAgGgd4sOox0cj/fti3MdwJoIT/Fuu7KDvpwdlO6xq7sCp3u75WtXgmryi7RHCuTpvmNKzcDEKp9AcAQrUqGPc9wjm4w+d1cBORti9wA03Arx7wn1GLn5P1DCcvHjH0rLCqJgywoJI4BrLq7QyXF4JL/yRg9g/TMTqhOhWb+nxW3vvdE9eSTkrnd4rZCR+uFJK7x11Ex+Uk+D9kAIUwebuU/xI47jmMb7GA7ZloTUio7hUmDopEyBDweRDeIk6Djgx+5uERJWylLzNZ49pE1YYcq0ym8cmkKkeVjiw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH7PR12MB6393.namprd12.prod.outlook.com (2603:10b6:510:1ff::15)
- by IA1PR12MB6482.namprd12.prod.outlook.com (2603:10b6:208:3a9::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 14:48:45 +0000
-Received: from PH7PR12MB6393.namprd12.prod.outlook.com
- ([fe80::6562:4ede:3d29:f036]) by PH7PR12MB6393.namprd12.prod.outlook.com
- ([fe80::6562:4ede:3d29:f036%2]) with mapi id 15.21.0592.007; Thu, 5 Nov 2026
- 14:48:45 +0000
-From: Wojtek Wasko <wwasko@nvidia.com>
-To: netdev@vger.kernel.org
-Cc: richardcochran@gmail.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	mtosatti@redhat.com,
-	pbonzini@redhat.com,
-	cjubran@nvidia.com,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wojtek Wasko <wwasko@nvidia.com>
-Subject: [PATCH net] ptp: kvm: report paired cycles for the active clocksource
-Date: Thu,  5 Nov 2026 15:48:21 +0100
-Message-ID: <20261105144821.5299-1-wwasko@nvidia.com>
-X-Mailer: git-send-email 2.54.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ZR0P278CA0127.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:40::6) To PH7PR12MB6393.namprd12.prod.outlook.com
- (2603:10b6:510:1ff::15)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WtCH3TRq
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-67c08c7adadso567240d50.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 06:49:14 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793890153; cv=none;
+        d=google.com; s=arc-20260327;
+        b=raxFxUsz26dBU9lRjpS7C3moxC21OhVggRHaLurdWggxifCeA9xVUlEAE8zfj6CZy6
+         pT1S5LfRp9Ss7EXd/cZUlr9urP3LfDtmgEkMEuiAGzLM1w/AuvrPICqEaOdjXZGCc3j1
+         sHHcSPc6cOzfHzNdFP4tQsi4VtdkUL+g0UN4grlU3wiorgAknTZ3LRNWrmEjfiSOqsay
+         aZI7RKTeXjxs844x+Xpe+PtGLqJw0qS2q2BBLOF6w2zuYvR5/JSI00hWglV5WpOlasGS
+         xm7tkNs9Or44+AN8Ks4VDEpyFX+HYuj89mbQsrWcIorIFEIxcKlSYTcgh9UM2QB8vCm5
+         AerA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=VgauoPLiP0v5M8oyKkXnXeYyHv/1syF6LIptNT4Sfz0=;
+        fh=i/iRfPxKnj2egeQkurVGQPSgfDQDIZm9o+AxYzZzJQ8=;
+        b=SvfvLUWQw08BZ8WmdUaVpamcxZ5CKpGjW8KKsjxkLlt1t9aKK7fiejVbfKALNSiCow
+         jKGT1WVvXKsQQbfnZcU0GRvRtP+alRjBdNX/Nr3g0B72BcimYrpcH9zezXhMSzlJCBA7
+         o1AAzL46fF3M3GKUSoMBRYoD+3alxG92nuZ2qxPEsf7JzzMJAcBGl3Dxek3F4u5C9ddo
+         ZPDX4WNY6n7zW3bRIlbMHQYbbF5eHJdoqq5f73oSFPpWRlCV/nKjxEXMginHHuKj7KYu
+         Tf+MeXULTHHxCJ9jhMWtllk6NFng4OYelDwI3B5I5PXQoA2SodcNMIBv4+pWeKJWDdKx
+         7Gog==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793890153; x=1794494953; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VgauoPLiP0v5M8oyKkXnXeYyHv/1syF6LIptNT4Sfz0=;
+        b=WtCH3TRqFTYythzQ0H1Y/8kQGCd68gJBEz3yDB9QLQZWGRY4Kplm155FR6u2KtjeV/
+         pUVI3hoIhYCRDOR9kuu9ty/lSZqKBrls+8ValTsxkcy/gQM2b91Pd/VKZMoJ4GbIFODx
+         E9moLGE4AosxcDPl/R6QUfpumW2EM1BikvniNbrb1h+ETNrJtKQiHEVkm7n1UfB6/k0w
+         RKjX1jBm67t3t9yanWu1KjBBzWB1HQDM5UpiMZHKsNtBDJt1d6wEPn4ErrV3XwsCfK+B
+         gQELKq7Eg6aZTaDfhho3gAeSn7RgGqstT/KkwcO9s0IgTZDrCW7B5gXyTf4vdXZh/SnN
+         jIzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793890153; x=1794494953;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=VgauoPLiP0v5M8oyKkXnXeYyHv/1syF6LIptNT4Sfz0=;
+        b=Gnt7zd6OA1rg4/waYNKWy4r4u1mM8tUBV+bzYCLFiQH2tda3dRSLPB3ZRNJOOleMIV
+         Pn2mNgtDiHfbUc+OnDrwYiNHlSrbLxe3tby9hO2Gmv8rqZVX0sgN8kXHDm1Pf+9rgNp3
+         zrhncNW6Bx/t8yOsW6nyNUA4ZQLdn8Tbc7qVVhLn9DL8OrNCMLQoY4bZPSHsaKAWUaz/
+         saRpV18uPHqSy+Dm8eE/j+QByQoHEHxP9ayecI/89vlLVl+NoqHJbfqYYIE0BU/MgqrO
+         LvIbNyayzxRK2AXmT+miyTEXfKz0d4m3ngX1SwKEYZWz8f442Efa9c6gnFsJVvl6kkuE
+         nUpA==
+X-Forwarded-Encrypted: i=1; AKwUvBydHRzjTRPUXe6KmPS7nUhRmB782pI0Qz1vQL280aCLQPPl8JyRFxliAEDpJEPMl6qVtOo/4MYizhgVL5o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z92mkOYru6YWc1b9Us08Z9r/uMeL15o5MSv37WZ/yO/5Mc0VuGq
+	NjnyWl6jPnEbcuDk1DHxP6cCqMh1X3MIU4L9BO/3ZGFcaMlgB3wa1MQB6gA9ZfsR73IpNhtAX42
+	aW02Ao1uEytAi+KK0j7T+Lcdwaw84jg==
+X-Gm-Gg: AYBFou0XxoxUB3evioFE6JX9AT3jzObw6PkraBdXU4wf5Rv2+lNOYJPg1b0dZcAr/Dj
+	ktVjuflMvdDuSVsSHjKYQxle6cFYO5pKfC46uW66bh6b2zfufZdIIpZlHoSgFRcLUxbgMdqGBUH
+	xkD85kB+cm8BlQWxOBd450VqvdG0ldazq7fvGZVMjuofmTPRElcguduYbYt9H6TLiGCkWEq4gw7
+	Yo889f5Y9EZJSocp9M8zvmTYKN6saCqg+NtJPG75QLwqQ5FHoO0ABMckjwrCp1FFCc3f0579zut
+	cNyggkXCaoaQnPifMa7bqrxFcm+FoJ0niMjECDfKbtjN+r6EjzWlciRBhWUz4qziUM21Rb7RMzU
+	rr1xafzi9SsvVGlOuVtX1kzwJRUX/dY/UNst7OxkqWZ7Nlkqy3juiHiKPsR7sRyIi7pZQ8zbXiC
+	0IcfgQ16SzQPl2cAw=
+X-Received: by 2002:a05:690e:450c:20b0:67b:31a:9b7b with SMTP id
+ 956f58d0204a3-67ba4fa40b1mr7256109d50.33.1793890153050; Thu, 05 Nov 2026
+ 06:49:13 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,166 +104,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB6393:EE_|IA1PR12MB6482:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4f8ca964-2895-4780-b73b-08df3b4be48b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|7416014|261022105027099003|261028144727099003|10067099003|261021121427099003|261021123027099003|261026121527099003|261026140227099003|261102123227099003|11063799006|56012099006|18002099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	j7MAiWhLGuumf3n8kV0WW3z1tM+wGVJcvVgjfs1PZT1hnPolp7SE6C2x92y7vAulsTVlFAxV743JfeopvXXJCBRiT/r4hSuOkDkAjey0YOsH+NX/UKl/0yc770JnvWTmXz12AJy1oCLmMtPxBYpTQKw7pyrXbRj5Fx2WivTsX/Jan22b9DRsy1Jid5u+MubvByoiwi/7UFTR+kF4qMIGAUGsWYwrIkqzu3UhQBgKFl0WiOQc8lXMmQxsAFAditfcbXvc2pRmbbL3iwu0lXSqEMZgZ//K0G/aJp5bhrVcYXNrEaIQlWy7Gta/BD3hbR+AOaFZb9OVZhTY1ztsxSJ90tcvVyy0J8VaIV3PVK/hThsxJnN1yrDGm8v03RggjEMOwf2vm0nih7AGEiMrKTS+igx/Elj0nqOgPlOSd6E8sEoWwycd8lHC2CglKJiJLGbktj0CLHfM2IuFe4hjGXk7Z9an/F3NHsWHRsgTaah/QpaVZefXr0ulJ62J6j1X2kLBhX4pDwXxVnSyX/0/4APxMh39V5oTvCdB11kg3F2FWqIhc1VOeQuf9E5MBU3sBkz3sWpgTkrCLv+hV8/beZRrk5Vae8QWtxU8JEPikxbM8BCueB/aRSKD6Z91I6kOs4n4aqq5AHKAnhQPuTwrDF1/ZE9L3wfGwygcyA+23mJ1lRc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB6393.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(261022105027099003)(261028144727099003)(10067099003)(261021121427099003)(261021123027099003)(261026121527099003)(261026140227099003)(261102123227099003)(11063799006)(56012099006)(18002099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?+bz2yPW7sa4ZIok9DZNZW4VRqsXfdZ3CFezY2rMDL5QMDQCm/HDbZGs8E8ro?=
- =?us-ascii?Q?WZkjKynxNIVRAg1BFsw98I48/1GAe5WqWAMRtv/z40wTJn0/4dzK+jLFsn/I?=
- =?us-ascii?Q?VRiYarSQ6Y9zWOFCQLeg0vBQvDbCWSGSxmhTeTksC7Ro3ONXTt8L1b0pOmO6?=
- =?us-ascii?Q?on2noRibkIEb+wrmHTz3139Lnee/qG++LY5UDrlHPub4GUqm5BWsMmpmEkhy?=
- =?us-ascii?Q?XP/H2Bsx1jXQ6v8j+c6lLOEU92D6ypHuULqE5y89/CgS0YWl3UplONGpavdl?=
- =?us-ascii?Q?Vyrh8L+ia0yxXBfe8T7H/hDGhV0pujbSxbraDN/zQt8+bjioo68gkiuLCEBO?=
- =?us-ascii?Q?9ZiOzN+H5qH8LesXNq+rNVU7XSla5GkKYHlXXTyXMpOrNRtqPqmHR5R8/gCy?=
- =?us-ascii?Q?7hMlpoLEiGy23SbSbFOVN1Cf6lsB3uZWQPfHUv2lG5vz9GVLbsWUCSDwIP0R?=
- =?us-ascii?Q?a39hPfoxxHst91IulrMEiUQDtwKVcNArW4QSpC/dng61GhcBTfAQvQE3ftfH?=
- =?us-ascii?Q?U04W1NW3urMU6p8loR04Bf9+rQnzBogtPf9Du5y7ZjCfDyZk1DBZaQITvKJe?=
- =?us-ascii?Q?GvROxb+d9R6ziFVdPKtqgnkiD7xJBLuV3KgertYe5snUKklkYxYaySj4zeW1?=
- =?us-ascii?Q?0enWo2NgnXTutgUnvzb7opd3dPGp5Aign41n9dcGVJSQjp+hOHMHcJV2ldXG?=
- =?us-ascii?Q?MPX+WYNdsuC5c51LbKSmx2K5KlpzVZKM0C6VXhy5/LidfmkkyHmOGNgp5ITF?=
- =?us-ascii?Q?mwRV/fuZYLnGXWsvM0myMqdUr2gvbQQa+eE/66IyXC7fS3I0req3hjFDSpKY?=
- =?us-ascii?Q?o+G7DmOCBwXpos8LBrlZUqk8J34qRSPeEhg0ayRIVskR9hwgB9H4uO/unum8?=
- =?us-ascii?Q?aWDHnRIpFVYPfmAc69cT1uWbyZfJI6Wq88LwEfhIhBguxnX++tM1vI6e1kIw?=
- =?us-ascii?Q?D6fsdnZuWzuPj+UpeTvYznp/JpoLhWwyu6azraAA8uM/OLCfp8rULxAbwoRG?=
- =?us-ascii?Q?RJ+uPcEqU9p63ACWr6puPxYzzpEACeRPtIiK62odjT4uZk5Xl3o2JgDl0M9F?=
- =?us-ascii?Q?BBzT8wBFGVWBO4CTj8/dzOax8/rzNw9sp51l9tdM6j5cRHKpRfNlTawi2BUD?=
- =?us-ascii?Q?ZtxRyJx8j6wZ6aFtyJ/YTdmpbup94QWb3oOqxNEV5Wy4Nxel5EJP0q5qCje9?=
- =?us-ascii?Q?/LBJxK2BufaL9aXf5xChn4iCqka5KYMafRaim549+/J0P6UTQd3AoSsVm3XO?=
- =?us-ascii?Q?OIrm3vK2JeK13OlsaY8iBj88zw+qnnotXiOAygaXtMhadgeAMey8wV7LLrMc?=
- =?us-ascii?Q?OPaatt3WzTSlTy6ZPUWxRyyhWGKgHVG7adF4IqalT9Uxg016ykBC54RcxXkS?=
- =?us-ascii?Q?2tYWnuUIFh8l6IZovteL3gOL8/KgJ4YweNOzYXN4omX4+8j5YzZQH1yjwwwG?=
- =?us-ascii?Q?X03fNrKxP1AuBN8mXzNSQXoSaGuTcfhpj/3RUiGnhGnDBS4CIzkKU+GTkodp?=
- =?us-ascii?Q?1t3qGzM60A0NHQDsjQL0S/lKZUU9rdCBLIfjG52UP+YfNVFmWYpHSBfQm9T4?=
- =?us-ascii?Q?dLQvGfgH3dmvYXP8CSCn/Ea3r72cWzE/Qoq0/KfRrOQx5ISluoXgttmBbA9r?=
- =?us-ascii?Q?dRf6thIYnwgIgvO6AwVXSgsSXlMSawqyGdkVOanXS5gmUSqHUdLRYG6rTayR?=
- =?us-ascii?Q?UuWYJBw9LuVTzzgl7aaKYe2vnv7wkrrTuENkkLjGzim08gpr9W2A/ModlBft?=
- =?us-ascii?Q?Jdk/y2Z8MQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4f8ca964-2895-4780-b73b-08df3b4be48b
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB6393.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 14:48:45.5360
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: T5TIA4Wwo6UCiJwe99Udf8JpQAQYnmTNLebZzrQ1E2370ZEX2bMudYXue/dx3ZyP46NSQyUBvo/5GtvNzfwvrA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6482
+References: <20261104-a133-series-v1-0-58217cb33a87@gmail.com> <d4d89cf9-884d-424b-927d-5b6692f50327@arm.com>
+In-Reply-To: <d4d89cf9-884d-424b-927d-5b6692f50327@arm.com>
+From: Rajan Yadav <rajanyadav0307@gmail.com>
+Date: Thu, 5 Nov 2026 08:49:00 -0600
+X-Gm-Features: AclHuK-SbGVRFFZQFk2Ozvq-Gg4EdtItrFF8Dqsp7Ze5suIdv9U1RHoClLmzyb0
+Message-ID: <CANxy8yTiJoGJe5uz_R5hTdmT9A8ZsxAphB6qWSB4_SDuLSHSaA@mail.gmail.com>
+Subject: Re: [PATCH 0/6] sunxi: A133: Add CPU speed grade detection and OPP table
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Yangtao Li <tiny.windzz@gmail.com>, Viresh Kumar <vireshk@kernel.org>, 
+	Nishanth Menon <nm@ti.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Maxime Ripard <mripard@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Viresh Kumar <viresh.kumar@linaro.org>, linux-pm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Cody Eksal <masterr3c0rd@epochal.quest>, Alexander Sverdlin <alex@sverdlin.org>, 
+	Paul Kocialkowski <paulk@sys-base.io>
+Content-Type: text/plain; charset="UTF-8"
 
-The KVM clock-pairing hypercall returns host wall time paired with a
-guest TSC value. Cross-timestamping needs that counter expressed in the
-guest's active clocksource domain.
+Hi Andre,
 
-ptp_kvm always converts the paired TSC value to kvm-clock units and
-reports it as CSID_X86_KVM_CLK, so precise cross-timestamping
-(PTP_SYS_OFFSET_PRECISE) fails on guests with TSC clocksource.
+Thanks a lot for the quick and detailed answers!
 
-Return the paired TSC value directly when TSC cycles are requested and
-convert it to kvm-clock units otherwise. If get_device_system_crosststamp()
-rejects the counter with -ENODEV and the active clocksource differs from
-the requested one, retry once using the active clocksource.
+On 11/5/26 12:30, Andre Przywara wrote:
+> So I read about the 1.6GHz somewhere, might just be a marketing claim
+> about some max frequency. If the common speedbins do not support 1.6GHz,
+> that's fine, but apparently some do, so I'd keep them in, for people who
+> happen to have those SoC revisions.
 
-Fixes: a0e136d436de ("PTP: add kvm PTP driver")
-Signed-off-by: Wojtek Wasko <wwasko@nvidia.com>
-Reviewed-by: Carolina Jubran <cjubran@nvidia.com>
----
- drivers/ptp/ptp_kvm_common.c | 28 +++++++++++++++++++++++++---
- drivers/ptp/ptp_kvm_x86.c    | 13 +++++++++++++
- 2 files changed, 38 insertions(+), 3 deletions(-)
+OK, v2 will add 1608 MHz for b0 and b1. The SDK table stops at
+1512 MHz; 1608 MHz is only in the table of the factory firmware on my
+board (its kernel was built in January 2026, the SDK import is from
+October 2024). I compared the two tables entry by entry: the factory
+table is the SDK table plus five OPPs, all other values are the same:
 
-diff --git a/drivers/ptp/ptp_kvm_common.c b/drivers/ptp/ptp_kvm_common.c
-index 15ccb7dd2ed0..e11fcf961758 100644
---- a/drivers/ptp/ptp_kvm_common.c
-+++ b/drivers/ptp/ptp_kvm_common.c
-@@ -23,12 +23,13 @@ struct kvm_ptp_clock {
- };
- 
- static DEFINE_SPINLOCK(kvm_ptp_lock);
-+static enum clocksource_ids kvm_ptp_cs_id = CSID_GENERIC;
- 
- static int ptp_kvm_get_time_fn(ktime_t *device_time,
- 			       struct system_counterval_t *system_counter,
- 			       void *ctx)
- {
--	enum clocksource_ids cs_id;
-+	enum clocksource_ids cs_id = *(enum clocksource_ids *)ctx;
- 	struct timespec64 tspec;
- 	u64 cycle;
- 	int ret;
-@@ -58,8 +59,29 @@ static int ptp_kvm_get_time_fn(ktime_t *device_time,
- static int ptp_kvm_getcrosststamp(struct ptp_clock_info *ptp,
- 				  struct system_device_crosststamp *xtstamp)
- {
--	return get_device_system_crosststamp(ptp_kvm_get_time_fn, NULL,
--					     NULL, xtstamp);
-+	enum clocksource_ids cs_id = READ_ONCE(kvm_ptp_cs_id);
-+	struct system_time_snapshot snapshot;
-+	int ret;
-+
-+	ret = get_device_system_crosststamp(ptp_kvm_get_time_fn, &cs_id, NULL,
-+					    xtstamp);
-+	/*
-+	 * The paired counter value is not in the units of the current
-+	 * clocksource. If the clocksource differs from the one this request
-+	 * asked for, ask for the counter in the new units and retry once.
-+	 */
-+	if (ret == -ENODEV) {
-+		ktime_get_snapshot_id(CLOCK_REALTIME, &snapshot);
-+		if (snapshot.valid && snapshot.cs_id != cs_id) {
-+			cs_id = snapshot.cs_id;
-+			WRITE_ONCE(kvm_ptp_cs_id, cs_id);
-+			ret = get_device_system_crosststamp(ptp_kvm_get_time_fn,
-+							    &cs_id, NULL,
-+							    xtstamp);
-+		}
-+	}
-+
-+	return ret;
- }
- 
- /*
-diff --git a/drivers/ptp/ptp_kvm_x86.c b/drivers/ptp/ptp_kvm_x86.c
-index 6cea4fe39bcf..4dd55c60d2ce 100644
---- a/drivers/ptp/ptp_kvm_x86.c
-+++ b/drivers/ptp/ptp_kvm_x86.c
-@@ -92,6 +92,11 @@ int kvm_arch_ptp_get_clock(struct timespec64 *ts)
- 	return 0;
- }
- 
-+/*
-+ * *cs_id selects the clocksource @cycle is reported in: CSID_X86_TSC returns
-+ * the paired TSC value as is, anything else converts it to kvm-clock units.
-+ * On return, *cs_id holds the clocksource actually used.
-+ */
- int kvm_arch_ptp_get_crosststamp(u64 *cycle, struct timespec64 *tspec,
- 			      enum clocksource_ids *cs_id)
- {
-@@ -99,6 +104,14 @@ int kvm_arch_ptp_get_crosststamp(u64 *cycle, struct timespec64 *tspec,
- 	unsigned int version;
- 	long ret;
- 
-+	if (*cs_id == CSID_X86_TSC) {
-+		ret = kvm_arch_ptp_get_clock(tspec);
-+		if (ret)
-+			return ret;
-+		*cycle = clock_pair->tsc;
-+		return 0;
-+	}
-+
- 	src = this_cpu_pvti();
- 
- 	do {
+  1608 MHz: b0 1.18 V, b1 1.13 V (max 1.14 V)
+  1416 MHz: a0 1.18 V, a1 1.18 V, a2 1.13 V
 
-base-commit: 57889a8f6d49fc153aa0017d13086ab736567f8a
--- 
-2.43.0
+Should I add the 1416 MHz OPPs for a0-a2 as well, so that the table
+matches the factory one?
 
+> I think if we can be sure that the current mainline OPPs still apply
+> with this series, that's good enough.
+
+They do. The series does not change the A100 code path (patch 2 only
+moves the cell reading into a helper), and on the K5C the patched
+kernel with today's A100 table gives the same OPPs and voltages as
+before. A 6.18 kernel without the series and with the new A133 table
+falls back to the A100 selection (with 1008 instead of 1080 MHz).
+
+> Regarding 1008 MHz: This was just some frequency close to 1GHz picked by
+> U-Boot, that should be low enough to not cause any trouble, even with
+> the default voltage. How critical is this "unlisted initial frequency"
+> message? If it causes trouble, we can add a made-up 1008MHz OPP with
+> some safe voltage, otherwise I'd say we just leave it.
+
+Not critical. It is a pr_info, and cpufreq switches right away to the
+next higher OPP (1080 MHz). With the A133 table it does not appear,
+since that table has 1008 MHz, as the BSP does. So I would leave the
+A100 table as it is.
+
+> So like for the H616, please just use the SoC ID call, that's a clean
+> solution. Maybe just make sure that it can fail somewhat gracefully
+> (read: not crash).
+
+That is what the series does. Without SOC_ID the driver warns
+"SMCCC SOC_ID not available, using speed grades a0-a2", falls back to
+the A100 selection (plus the BSP's a0 rule for normal parts) and
+continues. I tested this on the K5C with a test build that forces the
+revision to unknown.
+
+> I think some of those handheld gaming consoles use the A133P variant?
+> Maybe there are some tables in "their" source code?
+
+Good idea, I will look for those.
+
+> Thanks, I will try to get those logs, I have the Liontron board and the
+> Teclast tablet.
+
+Thank you! I will wait for your logs and the other reviews before
+sending v2.
+
+> P.S. Since you mention the KickPi: can you please work with Paul (in
+> CC:) to upstream the DT for this board?
+
+Yes, happy to. Paul, I have a K5C DT that I run on mainline kernels
+(6.18 and 7.4-rc1): eMMC, SD card, USB host and the PMIC work.
+Ethernet needs a PHY driver (Maxio MAE0621A) that is not in mainline
+yet, and the Wi-Fi/BT chip (Seekwave) has no mainline driver. The
+"kickpi" vendor prefix is not in mainline either. How would you like to
+do this: should I send the DT with you in Cc, or do you already have a
+version I should build on?
+
+Thanks,
+Rajan
