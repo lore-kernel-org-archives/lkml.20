@@ -1,94 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793921816;
-	b=5bQzWP581ImGf3aXRdLBwM1TfYKZVfE7IYQV4F1JdcANS5sdGqy2ZA6vh68FLE+TIMRh
-	 76KiUbHV6jHjh73dWty78gYpmddWtPJKyNVTx5DtxOoL8r+dj+UaoEnGi4pqdSyyqhIOf
-	 II2LbhtPQ3YQVkathoLCdkjeMOshoTRvkmZdpJ8jdC+bLM5+/oywtb8zuxpWCW1HtZpln
-	 gTBshfC99N+Lyex0raY7+sIQc97RsIBjhH57EnQuYPtzFapf96NueJSkCsiRO3fA4Cmiv
-	 9Qw8GlMo0P0JR0GGzCeFqcPKu/dcZxP7+QoSDPzt2vc0830PL7+1rku6GFfCkBnLvLQ==
+	t=1793921977;
+	b=XKp8dv8vBd3kxGZcbJHmxEoQ8DtQ4UbKQYz3l01v64LdTgES5ldzuFE/sQ5Q4QFT+HDi
+	 TvOOs+mEeZOfDhI1l3/vxvoRFPOfO/fBN3MVane8CpjepDTzNsjAviTXcED2QJuqxXa1c
+	 MXXtAL3BJ+U8G3aerO/pT0746r+LwXIeCtDv6MVPJM76jqQ5NlSCX63e7ROyycjIrJTha
+	 RFKB5/xYi0VWsyvRZ5QTQDaSB6EofA6Gb3ZAIE/5Gc7qfu7j+jLhQtY5dd0CVr0tQ2g7o
+	 b0gYr9+5dq0QG3qzZdUfKbPZmsULMPGfjfZmRx4DQyZaHIbfGqM0G1REn8L5dna2xwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793921816;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793921977;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=kw5CN/zDZGWnUvpMh1iN95EXdgWyNQnX+yLpTBLlMQs=;
-	b=WJ6jcIc/rZnglQ55xqp+qjSnoMmVB/pkWFBnOZvb4ZWig1zMzL2E6BgULNU+WgFU2nrB
-	 3Min3UL+2+vn3sd69zlXctXAFeJpNzf+hq3i/by+TnNWQNVGPBZHmcO+K8E1JHpOTfVc0
-	 aMrchU+Gbqsti2WFLZv3lPQvIGEMrrJ0xvHal9KTAXJUE0FLZ1Uu/vhmM26tN6ffTJa/n
-	 DeEEqT+5hFnKKihGA8V5Caoo4TTM9BsUUfMg0aXo64FHvJ8/fZTNyhTPw94CgPVeQdvwh
-	 uwboyFObim15gyBFXc4lHC35s1AMhREKxfJTzC24QgF0iZF9oujp5escgdf2qdySepA==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=woK+qirorynDrr5d7z7iL4ZXS/COXdEm5QdLCJDF7e4=;
+	b=jyGczGZTyGy0i+t2V/m3r3bIyRBvKMkhYFqdrad8uWC0CcYzREGW35QMa094yyQmXM0/
+	 /WT+pbpEXVuKfCnqpH4a7URfP8LYsFAynaVNRJAj8/lXqrhQJ3WWpba8sYmt3smLt67tx
+	 diM6G9selk3YI/je0DPh0s6zdWJbc88WGV1iuWyyjlH6qm6pZ0AOlua41w/w4ArGrMyUp
+	 1uNcLYnvPBgkna2cPr4Pzmh9QpKhLXJ1IrYJhqC6SM85O1u7qlSjBkPvOsKhHrOJfYqWS
+	 LyhGDm0noGWJpaHdvcFo9xHf7HcWISL9oBbwXi4AyQAwZgQbcb8vrgxS8S0bX95ZVkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mOXgTQnJ;
-	arc=none smtp.remote-ip=209.85.222.169
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KB7lyczc;
+	arc=none smtp.remote-ip=209.85.128.174
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 244EF606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 23:36:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 244EF606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8DBE606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 23:39:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8DBE606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mOXgTQnJ
-Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93f3c895a0eso6691585a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:36:54 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KB7lyczc
+Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-8b10d24345dso24242167b3.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:39:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793921814; x=1794526614; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kw5CN/zDZGWnUvpMh1iN95EXdgWyNQnX+yLpTBLlMQs=;
-        b=mOXgTQnJ8JXx+VRFug0fpaMJkBkZPbuzt/hFAfflNhVYYKmdPfXZaKd1CONjec4GFc
-         08NqGdCJpEEx++ZOSEBYeJQQBhhL56SsMZcfH/TaKxf4X5HF0GS0pp62oeZVBOF8hbVF
-         chHKblA8sH3BAJ1ZnQ3Ag779Z6CjQD1UoaW98V8R7+gokP5GA+3k3jHqCbPCtR1OnL3V
-         FepYt1+Kz1aIxeoPJgg9uSqPspxs5TVuq6BnnSlxY/9tkwskJGM8q/rVpZL3Mg5j2Kzy
-         W1Qp3kz2jonmM7PbcqkpyXd7m7gAvscdMXIuJ97Vvn0Bo32NlAEz2N4W6BIZPAvLZUFV
-         wbCA==
+        d=gmail.com; s=20260707; t=1793921976; x=1794526776; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=woK+qirorynDrr5d7z7iL4ZXS/COXdEm5QdLCJDF7e4=;
+        b=KB7lyczcterb5EVDV1+oFmoxQ3O/bNfMIu7oa0nVQUBwdl7IT84IrRp264QeqWjSnz
+         8d1touPbAujLtfx2v2javOBmQDAueGpyePGs9seWxjszh+mt0rbF2mIC6IvkSPMwI6oF
+         kZ0EcA13tH7pWzPdWZy6lLMSoe70WOXxzJRR2kPXRNPw8AQt7AjT/CpWBmenwOE+3fDC
+         JSsqMq8XeKezNlH6e2flXDU4Ou9ux8wNNB82A2br8tp3Uucni4dP/eeKl9i1SiVc1Ei+
+         Lx0psS3lEyTJqWCsKpgL8STF6CBUIWhxXWAPTOHvq6AodtVR/oaoakwC7RfdsTU6VScs
+         zZfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793921814; x=1794526614;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kw5CN/zDZGWnUvpMh1iN95EXdgWyNQnX+yLpTBLlMQs=;
-        b=TA8GDcOBgz/fW3rp0dqzWjMqsFL2sjk6zzR2BT+xUMvaTOuUUy1hySM4HgztKqpHIB
-         CE4PTP1Yji5QngJK7JWSEHJRb08OEDOuGFneazrE7xNZqWKynNZCBERy+vZE8DEMcm7X
-         N6u7R9Akkbw4P7+AggGeuOMQ+fBfPUFEe270cxiBnOWC0AHKOGy5E0KEFi3muZN6ZM0u
-         E5ISezJIGyHYX/i8AeANQuoGr2laCHlPqjW1/X+zYjUcRWdYnAZaxb/J/Lg+OeCPp19S
-         EVKX255+8m9/dcgh8IHYUriPDU4VddsVKVguFJmJWT4jV19l3Fn/NSIg3NLN9Ap6b+ao
-         hFlQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw5ONAdZIyoO8USo9kNhjOfMmlYXClqD0OJjBY+gstapP0XBrtPj7rBwY22eGjGifmFTuj3LcmIe1XyBrA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+CWFo0fL8Uk90Q7fz4vnVUVm21nqwKDNOjz4T8NWdSy07UEnQ9
-	1kaPfMy+dwVzGZ7ne0nx0qcaZzcsD8zTvADeyV61m722wAdybO4u9R4S
-X-Gm-Gg: AYBFou2aGKRjExD4wH4wkUbhD4wISuTM3xNB+AHlM+NsU/9bbVbnsNzJFxreav5nV2p
-	qql0eufxKmCWciUuMjXe/bVYMNImn3L82cwMeiXvKGXu73UX33ADVJELBUk9J5EZA8dHReGktfC
-	jRMZ0DPDwsyMOaNzYBNDNiOYBvmu96mXNhLswWVwNpYefxsNiclNM1FcA/2vbzZaKuGizKFtxsW
-	n7lp+/K+gYJsqpekeF40Co1WagX6KebmVjD8PnnDVKVPIQA+AFiu7x1JIugj12YGJrwZKiJuknR
-	ZUxzrVZbZ6XOJFGsq8y/FRHbzavZsP17znmmyNiNyNjlJ71lLL6CytZN4yAKrYlnr9z/5ZYM5GT
-	o5R5Y1taALGkJ9djheHu4oUTMROErRWvHX4wxZkqQsNERjUCPV1ZV7oOP3Ekd2VvfKSYKw4zd7F
-	9tYQa1q+EJ2ZmpJcrarKjJGM3rnXS32Q/jmiWMekaknA3psyWWkzq+vmMzS+jIAYyjSqLSDo6vX
-	/V9I41kb04Hk7d5lWLGUIP//mXhOqCr9U6++T0AB1yjE87pvzHs7nz31QXnFg4wgmQp2J/Spa0+
-	xjPaPsn4cGp+PTCdexAPzACY785XMAUANEcmTdoWfWfGpLMPeKxFqqR21uk=
-X-Received: by 2002:a05:620a:4011:b0:93f:5717:e7bf with SMTP id af79cd13be357-945f3501802mr135221885a.46.1793921813943;
-        Thu, 05 Nov 2026 15:36:53 -0800 (PST)
-Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-945f58c1bdasm7732985a.2.2026.11.05.15.36.53
+        d=1e100.net; s=20260707; t=1793921976; x=1794526776;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=woK+qirorynDrr5d7z7iL4ZXS/COXdEm5QdLCJDF7e4=;
+        b=HE6wG2n2mSFU/nZPUSY4bJNvYe4gCxRVj4Qf6QUs3m7oadXZLx42cHeUaRLh5uAByR
+         +qtBXGhd9hlOz5GFHWipGP6iM2ni5gmr/5kBP/aJUYUV4GyYAcZoY50t6e+q1yU5UpPy
+         ZWyhrJSWZ1n1aKj4fQQn8MZBHbPG5n3f6L3MbavHx8eD0nuzYPrcVukp1540alZKTr0D
+         5l6zruFs2/JBKGtXtMeXnntLLGKLzmW5dtFs5gtFszJvc0LqA6kDiT8mgvhOdog5cLyX
+         XrgiSO6/5yaVj46FkslDBOvLOmXBykEdy8J8QSL69wQkThKJ2mTG7JZXFnWPN1vRFJ2v
+         aSsg==
+X-Forwarded-Encrypted: i=1; AL+hErGjepgo0mwdN9Bp1pmT5HkBf+LCdp/VHFkZXHmjR2HZ5KlCOViQhw1P3XLSxzo8FgkSlouPk0cERLIT+Qs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z99MsqtUAVn0PfkpnaIagCCK/IxNSY2n1kqjOGKmdnGZ+6N6jPJ
+	WyQiIO2AYM8KKXOEboo3MYDH8J1OKrNOotSNXq76gKY7A2R6imoDNBEV
+X-Gm-Gg: AYBFou0Qh20K+XQLutUYweqwI+BrElCqAVCHGHl+AHJM3nPIh1A27LxiXrPrzOWzXwR
+	v35RvENhX8+qCKyvOwHl5oyGHhcLxOvi4Y/17TscwbHwzebm7xZkVAbTmlf2sVWWlBNJOMir7el
+	+LrKSwumMiAwjLGPagEvQfCo9wSbcXdUL9dWyz8rPHdwFQ7sd2uWSsGWPQYTgp4n7TGv0q13UQ6
+	w1n/Y7dYdrq18yTfJE+vXYFBIWsKDjK9KJ1NP+ZBF8jlgwcwXbXQ8JuGQRU0R3GrQV07diKyfpo
+	mb1HaV1lvd47FEvi7xH6rYSRj5gMA8No6zeb/8k/DhKgT9FmpG/Qen2WFHr9H3NM8yr4wZHjgOW
+	NijmFzJY34dPFx654iZRgHnVC8IX1bKXvJQX0wa1BmgKhRxlvWucCcaLXVaaHHL8K3YXFkdxPec
+	RlFlMmlwxNi9AbVy7DCV8GDmzgn9RDZT2x+wEzXTy6Psk2525pp5VK1RWgGLlODIph8KKCynJpB
+	G8rv0mUaPA+jTUD2c2+bpoe0K9GrZD2J9DE/+ScZz3Dq4gHEORr3LrKBYoS5YN2fYc24nkjNmOD
+	OHH6/orbsOq6r8AZMKVbn3jRno+AzSpm9obC6+ogzyDWCBudaMKFeyT6NsMVIK/W3hwt1az1AMp
+	pfH3FS46c5g==
+X-Received: by 2002:a05:690c:c186:b0:873:5c0f:28b with SMTP id 00721157ae682-8b341b07068mr3614947b3.53.1793921975579;
+        Thu, 05 Nov 2026 15:39:35 -0800 (PST)
+Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b33f76dba8sm7031867b3.13.2026.11.05.15.39.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 15:36:53 -0800 (PST)
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>,
-	luoqing <luoqing@kylinos.cn>,
-	Florian Westphal <fw@strlen.de>
-Cc: Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [BUG] RDMA/core: slab-use-after-free in iwpm_mapping_error_cb
-Date: Thu,  5 Nov 2026 18:36:39 -0500
-Message-ID: <20261105233640.1667884-1-shuangpeng.kernel@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Thu, 05 Nov 2026 15:39:33 -0800 (PST)
+From: Matt Turner <mattst88@gmail.com>
+Date: Thu, 05 Nov 2026 18:39:32 -0500
+Subject: [PATCH 7.1.y 7.2.y 7.3.y] alpha: honor
+ force_successful_syscall_return() again
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,145 +93,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-alpha-force-success-fix-v1-1-8c26d60c5fff@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zWNywrCMBBFf6XM2gl50AT8FXERpxMbkbZkrFhK/
+ 72p4u7cy32sIFwyC5ybFQq/s+RxqMKcGqA+DnfG3FUNVltvjG4xPqc+YhoLMcpMxCKY8gd9l4K
+ nVmvnItT2VLja3+ULBGXUcrhB2T+4CtdfUObbg+l1/MC27YRZrWWUAAAA
+X-Change-ID: 20261105-alpha-force-success-fix-6df76c50033a
+To: stable@vger.kernel.org, 
+ Richard Henderson <richard.henderson@linaro.org>, 
+ Magnus Lindholm <linmag7@gmail.com>
+Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Matt Turner <mattst88@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3339; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=R5BmElxCOz7tstc3VwF/l9JGbmj8ke7bchwOwCPOTIk=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLLeCm9+7/tGdtZxUQW/S5P5qm/VmHF0Fmg9W2uw+pPi1
+ fVvlNc/7/jIwiDGxTBTTJElbr0iy6y2HUt9Tkv/gpnDygQyRFqkgQEIWBj4chPzSo10jPRMtQ31
+ DIEMHaN4iJweg0ZmcXFpapFuWkGRQ15+SWJJZn5esV5+QWpeQXqBXlpmWklGRn5RcSrQCL281BJ
+ TV0c3I0MDE0tHCzMnC0dTE2dnJ0MnN0dHZ1cnI0tzEwNnS0cTV0tzBi5OAZhr/vAy/BUvZnf2W/
+ /YS7Tp3LIpTftff3hV5vqmav2WPaL1Z/a6J8owMtyZEeD02FZWfS9rZjxv+i6LByLtN2oyHG+Wx
+ m9f4fnuATcA
+X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
+ fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-Hi Kernel Maintainers,
+This fix is for 7.1.y, 7.2.y and 7.3.y only.  Mainline is not affected
+since commit 83bd31c2840b ("alpha: enable GENERIC_ENTRY") in v7.4-rc1,
+which replaced the saved-r0 check with a flag in thread_info.  That
+conversion is far too large for stable, so this patch fixes the old
+entry code instead.
 
-I hit the following report while testing current upstream kernel:
+Syscalls that return data rather than a status, such as PTRACE_PEEKUSR,
+PTRACE_PEEKTEXT/PEEKDATA, osf_sigprocmask and shmat, call
+force_successful_syscall_return() so that a result with the top bit set
+is not mistaken for an error.  On alpha that clears the saved r0, and
+$syscall_error and $strace_error used to check for this and take the
+success path.
 
-KASAN: slab-use-after-free in _raw_spin_lock_irqsave
+Commit 55b22075f784 ("alpha: add support for SECCOMP and
+SECCOMP_FILTER") moved the restart syscall number to r2 and dropped both
+checks, so any negative result now comes back to userspace as an
+error with a3 set.  PTRACE_PEEKUSR of a register holding -1 fails with
+EPERM, which makes sandbox abort when it traces static binaries during
+Gentoo package builds, and PTRACE_PEEKUSR of a register holding
+0xffffffffffffe000 fails with errno 8192, which breaks unwinding of a
+ptrace-stopped thread in elfutils (run-backtrace-native.sh).
 
-This report is in the IWPM request path in
-drivers/infiniband/core/iwpm_msg.c, reached through an SIW RDMA-CM listen.
+Restore the checks on both exit paths.  On the traced path the success
+path also has to stop falling through into
+SYSCALL_SKIP_RETURN_RESTART_GATE, which is meant for skipped syscalls
+and would turn a forced-success result of -1 into ENOSYS.
 
-on commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d (2026-11-03, 7.4.0-rc1)
+Link: https://bugs.gentoo.org/985765
+Fixes: 55b22075f784 ("alpha: add support for SECCOMP and SECCOMP_FILTER")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Matt Turner <mattst88@gmail.com>
+---
+This is a stable-only fix for 7.1.y, 7.2.y and 7.3.y; it applies to all
+three (with a 16-line offset on 7.1.y and 7.2.y).  Mainline fixed the
+same problem differently by switching alpha to GENERIC_ENTRY in v7.4-rc1,
+which is too large to backport.
+---
+ arch/alpha/kernel/entry.S | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-To help trigger the bug more reliably, we applied a minimal diagnostic patch
-that only adds delays and print statements.
+diff --git a/arch/alpha/kernel/entry.S b/arch/alpha/kernel/entry.S
+index 9f2608de2544..fe88cd598492 100644
+--- a/arch/alpha/kernel/entry.S
++++ b/arch/alpha/kernel/entry.S
+@@ -603,6 +603,14 @@ ret_to_kernel:
+ 
+ 	.align 3
+ $syscall_error:
++	/*
++	 * force_successful_syscall_return() zeroes the saved r0 (the
++	 * syscall number): the negative return value is data, not an
++	 * error number.
++	 */
++	ldq	$18, 0($sp)
++	beq	$18, $ret_success
++
+         /* Restart syscall nr comes from saved r2 (preserved even if r0 overwritten). */
+ 	ldq	$18, 16($sp)	/* old syscall nr for restart */
+ 
+@@ -700,9 +708,11 @@ ret_from_straced:
+ $strace_success:
+ 	stq	$31, 72($sp)		/* a3=0 => no error */
+ 	stq	$0, 0($sp)		/* save return value */
++	br	$strace_leave
+ 
+ $strace_skip_call:
+ 	SYSCALL_SKIP_RETURN_RESTART_GATE
++$strace_leave:
+ 	DO_SWITCH_STACK
+ 	jsr	$26, syscall_trace_leave
+ 	UNDO_SWITCH_STACK
+@@ -710,6 +720,10 @@ $strace_skip_call:
+ 
+ 	.align	3
+ $strace_error:
++	/* See $syscall_error. */
++	ldq	$18, 0($sp)
++	beq	$18, $strace_success
++
+ 	ldq	$18, 16($sp)	/* restart syscall nr */
+ 	ldq	$19, 72($sp)	/* .. and this a3 */
+ 
 
-The reproducer and .config files are here.
-https://gist.github.com/shuangpengbai/14982f04cdb92f49d184d4a557a7f645
+---
+base-commit: f2c53ea949c5048f96b3dbb5a5ee7131ce4ff2de
+change-id: 20261105-alpha-force-success-fix-6df76c50033a
 
-I'm happy to test debug patches or provide additional information.
+Best regards,
+--  
+Matt Turner <mattst88@gmail.com>
 
-Reported-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-
-[  185.163150] ==================================================================
-[  185.163167] BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave (./include/linux/instrumented.h:112 ./include/linux/atomic/atomic-instrumented.h:1300 ./include/asm-generic/qspinlock.h:112 ./include/linux/spinlock.h:188 ./include/linux/spinlock_api_smp.h:156 kernel/locking/spinlock.c:181)
-[  185.163192] Write of size 4 at addr ffff8881105178a8 by task iwpm_uaf_repro/326
-[  185.163202]
-[  185.163224] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[  185.163231] Call Trace:
-[  185.163240]  <TASK>
-[  185.163246]  dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
-[  185.163262]  print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
-[  185.163290]  kasan_report (mm/kasan/report.c:595)
-[  185.163327]  _raw_spin_lock_irqsave (./include/linux/instrumented.h:112 ./include/linux/atomic/atomic-instrumented.h:1300 ./include/asm-generic/qspinlock.h:112 ./include/linux/spinlock.h:188 ./include/linux/spinlock_api_smp.h:156 kernel/locking/spinlock.c:181)
-[  185.163365]  up (kernel/locking/semaphore.c:225)
-[  185.163399]  iwpm_mapping_error_cb (drivers/infiniband/core/iwpm_msg.c:830)
-[  185.163424]  netlink_dump (net/netlink/af_netlink.c:2359)
-[  185.163478]  __netlink_dump_start (net/netlink/af_netlink.c:2474)
-[  185.163490]  rdma_nl_rcv (./include/linux/netlink.h:341 drivers/infiniband/core/netlink.c:190 drivers/infiniband/core/netlink.c:239 drivers/infiniband/core/netlink.c:259)
-[  185.163565]  netlink_unicast (net/netlink/af_netlink.c:1335 net/netlink/af_netlink.c:1361)
-[  185.163578]  netlink_sendmsg (net/netlink/af_netlink.c:1920)
-[  185.163625]  __sock_sendmsg (net/socket.c:800 net/socket.c:818)
-[  185.163634]  ____sys_sendmsg (net/socket.c:2715)
-[  185.163675]  ___sys_sendmsg (net/socket.c:2769)
-[  185.163731]  __x64_sys_sendmsg (net/socket.c:2801 net/socket.c:2806 net/socket.c:2804 net/socket.c:2804)
-[  185.163784]  do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:84)
-[  185.163795]  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-[  185.163878] RIP: 0033:0x7f3882776e4d
-[  185.163896] Code: 28 89 54 24 1c 48 89 74 24 10 89 7c 24 08 e8 ca ee ff ff 8b 54 24 1c 48 8b 74 24 10 41 89 c0 8b 7c 24 08 b8 2e 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 33 44 89 c7 48 89 44 24 08 e8 fe ee ff ff 48
-All code
-========
-   0:	28 89 54 24 1c 48    	sub    %cl,0x481c2454(%rcx)
-   6:	89 74 24 10          	mov    %esi,0x10(%rsp)
-   a:	89 7c 24 08          	mov    %edi,0x8(%rsp)
-   e:	e8 ca ee ff ff       	call   0xffffffffffffeedd
-  13:	8b 54 24 1c          	mov    0x1c(%rsp),%edx
-  17:	48 8b 74 24 10       	mov    0x10(%rsp),%rsi
-  1c:	41 89 c0             	mov    %eax,%r8d
-  1f:	8b 7c 24 08          	mov    0x8(%rsp),%edi
-  23:	b8 2e 00 00 00       	mov    $0x2e,%eax
-  28:	0f 05                	syscall
-  2a:*	48 3d 00 f0 ff ff    	cmp    $0xfffffffffffff000,%rax		<-- trapping instruction
-  30:	77 33                	ja     0x65
-  32:	44 89 c7             	mov    %r8d,%edi
-  35:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
-  3a:	e8 fe ee ff ff       	call   0xffffffffffffef3d
-  3f:	48                   	rex.W
-
-Code starting with the faulting instruction
-===========================================
-   0:	48 3d 00 f0 ff ff    	cmp    $0xfffffffffffff000,%rax
-   6:	77 33                	ja     0x3b
-   8:	44 89 c7             	mov    %r8d,%edi
-   b:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
-  10:	e8 fe ee ff ff       	call   0xffffffffffffef13
-  15:	48                   	rex.W
-[  185.163909] RSP: 002b:00007f3881d8a620 EFLAGS: 00000293 ORIG_RAX: 000000000000002e
-[  185.163932] RAX: ffffffffffffffda RBX: 00007f3881d8a688 RCX: 00007f3882776e4d
-[  185.163945] RDX: 0000000000000000 RSI: 00007f3881d8a680 RDI: 0000000000000004
-[  185.163967] RBP: 00007f3881d8a6c0 R08: 0000000000000000 R09: 00007f3881d8b700
-[  185.163978] R10: 0000000000000000 R11: 0000000000000293 R12: 00000000000000b3
-[  185.163988] R13: 00007ffd06f50dc0 R14: 00007f3881d8a664 R15: 00007f3881d8a680
-[  185.164008]  </TASK>
-[  185.164014]
-[  185.164019] Allocated by task 324 on cpu 0 at 184.443436s:
-[  185.164033]  kasan_save_track (mm/kasan/common.c:57 mm/kasan/common.c:78)
-[  185.164049]  __kasan_kmalloc (mm/kasan/common.c:409 mm/kasan/common.c:426)
-[  185.164063]  iwpm_get_nlmsg_request (./include/linux/slab.h:991 ./include/linux/slab.h:1312 drivers/infiniband/core/iwpm_util.c:313)
-[  185.164082]  iwpm_add_mapping (drivers/infiniband/core/iwpm_msg.c:168)
-[  185.164094]  iw_cm_map (drivers/infiniband/core/iwcm.c:537)
-[  185.164110]  iw_cm_listen (drivers/infiniband/core/iwcm.c:580)
-[  185.164126]  rdma_listen (drivers/infiniband/core/cma.c:2694 drivers/infiniband/core/cma.c:3988)
-[  185.164140]  cma_listen_on_dev (drivers/infiniband/core/cma.c:2757)
-[  185.164157]  cma_add_one (drivers/infiniband/core/cma.c:5445)
-[  185.164172]  add_client_context (drivers/infiniband/core/device.c:755)
-[  185.164191]  enable_device_and_get (drivers/infiniband/core/device.c:1375)
-[  185.164208]  ib_register_device (drivers/infiniband/core/device.c:1503)
-[  185.164225]  siw_newlink (drivers/infiniband/sw/siw/siw_main.c:71 drivers/infiniband/sw/siw/siw_main.c:433)
-[  185.164243]  nldev_newlink (drivers/infiniband/core/nldev.c:1859)
-[  185.164267]  netlink_unicast (net/netlink/af_netlink.c:1335 net/netlink/af_netlink.c:1361)
-[  185.164274]  netlink_sendmsg (net/netlink/af_netlink.c:1920)
-[  185.164283]  __sock_sendmsg (net/socket.c:800 net/socket.c:818)
-[  185.164290]  ____sys_sendmsg (net/socket.c:2715)
-[  185.164299]  ___sys_sendmsg (net/socket.c:2769)
-[  185.164309]  __x64_sys_sendmsg (net/socket.c:2801 net/socket.c:2806 net/socket.c:2804 net/socket.c:2804)
-[  185.164318]  do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:84)
-[  185.164328]  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-[  185.164336]
-[  185.164339] Freed by task 324 on cpu 0 at 184.947212s:
-[  185.164346]  kasan_save_track (mm/kasan/common.c:57 mm/kasan/common.c:78)
-[  185.164354]  kasan_save_free_info (mm/kasan/generic.c:584)
-[  185.164365]  __kasan_slab_free (mm/kasan/common.c:264 mm/kasan/common.c:296)
-[  185.164374]  kfree (./include/linux/kasan.h:235 mm/slub.c:2780 mm/slub.c:6630 mm/slub.c:6923)
-[  185.164382]  iwpm_add_mapping (drivers/infiniband/core/iwpm_msg.c:217)
-[  185.164390]  iw_cm_map (drivers/infiniband/core/iwcm.c:537)
-[  185.164400]  iw_cm_listen (drivers/infiniband/core/iwcm.c:580)
-[  185.164410]  rdma_listen (drivers/infiniband/core/cma.c:2694 drivers/infiniband/core/cma.c:3988)
-[  185.164418]  cma_listen_on_dev (drivers/infiniband/core/cma.c:2757)
-[  185.164428]  cma_add_one (drivers/infiniband/core/cma.c:5445)
-[  185.164438]  add_client_context (drivers/infiniband/core/device.c:755)
-[  185.164449]  enable_device_and_get (drivers/infiniband/core/device.c:1375)
-[  185.164459]  ib_register_device (drivers/infiniband/core/device.c:1503)
-[  185.164470]  siw_newlink (drivers/infiniband/sw/siw/siw_main.c:71 drivers/infiniband/sw/siw/siw_main.c:433)
-[  185.164481]  nldev_newlink (drivers/infiniband/core/nldev.c:1859)
-[  185.164499]  netlink_unicast (net/netlink/af_netlink.c:1335 net/netlink/af_netlink.c:1361)
-[  185.164505]  netlink_sendmsg (net/netlink/af_netlink.c:1920)
-[  185.164513]  __sock_sendmsg (net/socket.c:800 net/socket.c:818)
-[  185.164520]  ____sys_sendmsg (net/socket.c:2715)
-[  185.164529]  ___sys_sendmsg (net/socket.c:2769)
-[  185.164538]  __x64_sys_sendmsg (net/socket.c:2801 net/socket.c:2806 net/socket.c:2804 net/socket.c:2804)
-[  185.164547]  do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:84)
-[  185.164556]  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-[  185.164563]
-[  185.164566] The buggy address belongs to the object at ffff888110517880
-[  185.164566]  which belongs to the cache kmalloc-64 of size 64
-[  185.164574] The buggy address is located 40 bytes inside of
-[  185.164574]  freed 64-byte region [ffff888110517880, ffff8881105178c0)
-[  185.164583]
-[  185.164586] The buggy address belongs to the physical page:
-
-Best,
-Shuangpeng
