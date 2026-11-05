@@ -1,80 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.220
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793845221;
-	b=2hw52fM0zf8ZlYdTnQAGKNZX0mzYO+iwTzEtZXJe6Hj9KgeruypOFriKokjyWBISrvAr
-	 H4/oqeIL/S9WIMkU8PskEP6PIZBGVxQH7lAW/OHfsQO4LcjLz3gtMve0zYnLpOxLcofgJ
-	 PZXIItxhZhuPI+5DIBCsSIWj6dN140A5nrGJdSuFHcGtPVr7uq3gT3nh97PY+haER6z3x
-	 U7CO227Jq/lvialvBVQW/rGw+ZOvj8hhefFkdgCa5ANZpp3AEgypTmjE+5RkF5Ir48az4
-	 FGTRQ+oGOO+1p/cK0q6sOvfw1Hj4sgysDLv4eTH0s0nXJTedh0EK6t7Ge/bDLf0ywZA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793845221;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:Subject:
-	 To:CC:References:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
-	 Content-Type:Content-Language:Content-Transfer-Encoding:
-	 X-Originating-IP:X-ClientProxiedBy;
-	bh=QXVr8YhrKV9VcyijQjizzwZyWuJ1oTxmJiKYv/ulIec=;
-	b=UWDu4t8kyubHgasL3SiERz/+kNhJY5GK9wNNNWMY3xjNCRrmMEQHK6um+teFiwT94PfH
-	 9tFvQ+UZM1TipZ7BQgFpY4bILSWGhCEaLpY6Bjb9emquFthMeDUtsNqTUu6HUwvQRsrls
-	 4gyyC15n/T7bs2Xy8InnUmh0quAfJaN6B84HvvZQgtPx3ADEEdL5BwWQs1kWDwf8Ja7rO
-	 aHmEs3+Q0UFGDTOroo8/uRoy9yHmq/h5OKRuyIqiXrVDsu70qZ52e9DvlU3QF8NZSgSma
-	 LZsIuVkifoX1u44KG8ZAzKsAxpS4mTJrrTZ9+sxohT/NXKrr0z9C3/D6JiT/Pfm83Fg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=G2aJXLUF;
-	arc=none smtp.remote-ip=113.46.200.220
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793845216;
+	b=J94fVs1i1U9KxBXP8dOeHmk61c94o958sPR/687yZ3R/2ltF3gbYdeL8QCp/Gf6yDvPD
+	 82FLlUenPddBodVs+bfyr/dEkkMH4yEN4kKO8V74SI4TByi8Zd154+mi5jdK2v+a4Pkys
+	 x3WBnf5fHvKMjV9kYlyraO0woLVkIrmR0BHtOx0O76Kt2GIXlJxzvjc0IXGyXHQzdWj+X
+	 lcsozkEtPywCytRjUyrNzi745rpS/+L5GSjePKicv1Yg45DeVj9Eolw2Zii+7E9Fh6JyX
+	 eqbvW9PnW0Rm/USWPLbE92xVc+Kjmhu76jgEoeCPcoUzcXwbRQGHPF12f45Kfs2TRsg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793845216;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=kwyi3xE5HC3vx77XwDaZCAD8Ng4RkB7EcEx9n2x6K5M=;
+	b=UG53Iglkk46Qw6rQaPiz6S6sPoLdO9ih73KAuZ5LoyVWcpP2uk0ej0hg/1SR7zum/31u
+	 HNoTA59YFAA6qsMM9V1luVsnkDPNP7XWlPeN8lKFk1QiUADjHtDD5WwfskrpiH2FBLF7X
+	 EfXcovLGOQ8Q3YPH26HV7bB+2RfdZ+fyzfb/kbdbDkT+MEa3qoKiliN7A5IExCghJ9jnR
+	 Qk4Dh63DJ1WZCaQUsqw+USrhqpk6JR1ebQnhe8cJL8x6YwYpudnO2NtRbRaV0DX43jCSU
+	 q5cbUFLs27ipr6EXYEqinen9o5xr6GGU2X05vdj+Pg3URT94lSsqkD81JfqSEXXmgoA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QX+kFSxb;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C96B5606A326;
+	Thu,  5 Nov 2026 02:20:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QX+kFSxb
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793845215;
+	b=wa39GSSEHDrQh51DulpZO3AcaGlIm6UQVEFZHA2m60dO3N2cw5mx9a3QXFDKK4MNzC+r
+	 DmDsQA+ybtvb1AFvTUE3ucS/WwyoFui1/w6DRdYyB1LXE1KHX0HUXtWRhg3gwQxWTHTlQ
+	 ZSYK3Hz8jQDj+sTOiBy26prhnUZbr7nQrEvZfFuQV/0/lkC8dVyWDJiz97kGkxbrhBRca
+	 1ZB05rhIIH3DNUvkpA1XvTyP/s7XHxoj58M4O974HK2xpPinTCanwRHAIaPfr8yOnelJr
+	 UEBx/ODOXV1tCx30bAw0S/bTZA3BG3/sndScsNj6Qh/a0WhKS7+V4xseIxagRNVmpMw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793845215;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=kwyi3xE5HC3vx77XwDaZCAD8Ng4RkB7EcEx9n2x6K5M=;
+	b=3Ljcki+gtj4FA54QAX1OZOAG8Xt1GhzlMPVRjOPAkRTZgPOM4OmsMDbHQLtBYzZZBhuz
+	 0niMsjGUzLc8AEXAdMhGDLzGZ8eH3urCdDx4T3R9TKGXhO1H66cqFKz2g0Iz79JWB45ry
+	 Wo+4jfjHjintRkGHjAXdJuSms8i532L+TflXG1hVGjWfueRGoa0ee6UEDf7pHTzIykD28
+	 RBbkswO7cbPER7Btqo5mSkYR3Htt5DIhcLbWHEZgqPxZfmxKQD3zrnvHQDrunkB+QlxIX
+	 tUTgc8taTOJN27zzNGkAQRiK2sT4Dq25vZz3IyV7Qc/XlIZp6J0iq7kgmoSCXZZVyMQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A26A606A31B;
-	Thu,  5 Nov 2026 02:20:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A26A606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=G2aJXLUF
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=QXVr8YhrKV9VcyijQjizzwZyWuJ1oTxmJiKYv/ulIec=;
-	b=G2aJXLUF5S0BrDAXyM02zD5jsRtUpHg+yrWNK0+biluxAozaa5+RsVZDl9lntB2rZ7SZ6d7F+
-	nsr8haXbtymLbFSi9NlX//LllLRTuenIYtgOBZ/onSvDI1QpKsVahubkP76vkgs7CcuyoNdHU65
-	eUez7muOL1YeHouX2J8iZhc=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4jKmHJ0F8vz12LHX;
-	Thu,  5 Nov 2026 10:20:12 +0800 (CST)
-Received: from whupemk100004.china.huawei.com (unknown [7.152.185.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id C04E74057D;
-	Thu,  5 Nov 2026 10:20:10 +0800 (CST)
-Received: from [10.173.125.21] (10.173.125.21) by
- whupemk100004.china.huawei.com (7.152.185.74) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 5 Nov 2026 10:20:07 +0800
-From: Miaohe Lin <linmiaohe@huawei.com>
-Subject: Re: [PATCH] mm: split out memory-failure declarations from internal.h
-To: Breno Leitao <leitao@debian.org>
-CC: <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
-	<linux-cxl@vger.kernel.org>, <kernel-team@meta.com>, Naoya Horiguchi
-	<nao.horiguchi@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, David
- Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R.
- Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike
- Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal
- Hocko <mhocko@suse.com>, Xu Xin <xu.xin@linux.dev>, Chengming Zhou
-	<chengming.zhou@linux.dev>, Oscar Salvador <osalvador@suse.de>, Johannes
- Weiner <hannes@cmpxchg.org>, Brendan Jackman <brendan.jackman@linux.dev>, Zi
- Yan <ziy@nvidia.com>, Rik van Riel <riel@surriel.com>, Harry Yoo
-	<harry@kernel.org>, Jann Horn <jannh@google.com>, Lance Yang
-	<lance.yang@linux.dev>, Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt
-	<shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>, Barry Song
-	<baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie
-	<yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He
-	<baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>
-References: <20261104-memory-failure-split-v1-1-3b0a85f0b7e7@debian.org>
-Message-ID: <b74ed30f-3c01-b41e-1963-d37d40078191@huawei.com>
-Date: Thu, 5 Nov 2026 10:20:06 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+	by smtp.kernel.org (Postfix) with ESMTPS id C83A71F000C1;
+	Thu,  5 Nov 2026 02:20:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793845215;
+	bh=kwyi3xE5HC3vx77XwDaZCAD8Ng4RkB7EcEx9n2x6K5M=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=QX+kFSxbvbL/8znyFYE1ufYSB99g5nhhkfX2u0ZztIjDiZrARWuoZPo4pv6qSiZc/
+	 6MZGjVMd7DZjfYdadU+RrD3oX+PC0mAZJf/3BnA9+fCSKZDXdguL+5Sb+8pML2kqc4
+	 tQ+JKvvmhaFVDQnEnidFVlkJ5EEYKDwCfgUT1oUZiJJJHCFU4G1W/XlrNOEM8SKqKI
+	 x4GaCIxCAgVeoSsHq79g39XrySaEU6kcgheFLRtoLCZj7bjj2uxF8Q2tyti37o0+2m
+	 RprO0TgierTfHKjPNf5n4Kd2yr9wo0oQ65jvlXg2fND1kLR5iFcq+wZyJvSP0ykgnN
+	 Hqu8yy3dw0H8g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 2A88C4701A;
+	Thu,  5 Nov 2026 02:20:14 +0000 (UTC)
+From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
+Date: Thu, 05 Nov 2026 02:20:14 +0000
+Subject: [PATCH] media: dvb-core: fix use-after-free in dvb_remove_device()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,36 +82,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <20261104-memory-failure-split-v1-1-3b0a85f0b7e7@debian.org>
 Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
+Message-Id: <20261105-dvb-remove-device-uaf-v1-1-a9e091d7c9ae@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAN3n62oC/x2MOwqAMBAFryJbu+CqsfAqYhGTp27hhwSDIN7dY
+ DkwMw9FBEWkvngoIGnUY88gZUFutfsCVp+Z6qruRCrDPk0csB0J7LPvwJed2cI2rTSdM2Iot2f
+ ArPf/Hcb3/QDZT06qZwAAAA==
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ syzbot+37578f730d38898f4b74@syzkaller.appspotmail.com, 
+ stable@vger.kernel.org, Joas Antonio dos Santos <joasantonio108@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793845213; l=2266;
+ i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
+ bh=prLpSJVWNrnZT55RbJ2w1/TI1YO7NXSCENMkRGHUepw=;
+ b=zCVEFfk4tLNKrt4gCOPsh3ztTBXtUF35/c3pdzSfvAzgmMIih85IFQxlWBVrgTs/tGl0aN+ib
+ ICsbECE8OH3CIWpJSE7Z0yTVnIqb9SBOurvdMKsOf9AFWkgpphJRgci
+X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
+ pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
+X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
+ auth_id=1371
+X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Reply-To: joasantonio108@gmail.com
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- whupemk100004.china.huawei.com (7.152.185.74)
 
-On 2026/11/5 0:45, Breno Leitao wrote:
-> mm/internal.h carries the memory failure declarations, but only seven
-> of the 81 .c files that include it use them.
-> 
-> Move memory failure declarations to a new mm/memory-failure.h and
-> include that from those seven files that need them.
-> 
-> Move the block as is, including take_page_off_buddy(),
-> put_page_back_buddy() and page_mapped_in_vma(): they live in
-> page_alloc.c and page_vma_mapped.c, but are built only for
-> CONFIG_MEMORY_FAILURE and called only from memory-failure.c.
-> 
-> Keep the declarations private to mm/.
-> 
-> No functional change.
-> 
-> Suggested-by: Mike Rapoport <rppt@kernel.org>
-> Link: https://lore.kernel.org/all/aumt-4kfGGtoXuh-@kernel.org/
-> Signed-off-by: Breno Leitao <leitao@debian.org>
+From: Joas Antonio dos Santos <joasantonio108@gmail.com>
 
-LGTM. Thanks for your patch.
+dvb_remove_device() calls dvb_device_put() while still holding and
+using the dvb_device pointer.  If the put drops the last reference,
+dvb_free_device() kfrees the struct, and the subsequent calls to
+dvb_media_device_free(), device_destroy(), and list_del() all operate
+on freed memory.
 
-Acked-by: Miaohe Lin <linmiaohe@huawei.com>
+The syzbot KASAN report shows the freed kmalloc-256 object being read
+at dvb_media_device_free()+0x3a, which dereferences dvbdev->entity
+(dvbdev.c:210) after dvb_device_put() in dvb_remove_device() already
+freed it via dvb_free_device().
 
-Thanks.
-.
+Fix by saving the minor number before releasing the reference and
+moving dvb_device_put() to after all accesses to the dvb_device
+struct.  This ensures the device remains valid for the entire cleanup
+sequence regardless of the reference count.
+
+Found by LLM-assisted code review of syzbot-reported crash patterns.
+
+Reported-by: syzbot+37578f730d38898f4b74@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=37578f730d38898f4b74
+Fixes: 0fc044b2b5e2 ("media: dvbdev: adopts refcnt to avoid UAF")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+---
+ drivers/media/dvb-core/dvbdev.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
+index d753d3295..b2beacbab 100644
+--- a/drivers/media/dvb-core/dvbdev.c
++++ b/drivers/media/dvb-core/dvbdev.c
+@@ -593,19 +593,22 @@ EXPORT_SYMBOL(dvb_register_device);
+ 
+ void dvb_remove_device(struct dvb_device *dvbdev)
+ {
++	int minor;
++
+ 	if (!dvbdev)
+ 		return;
+ 
++	minor = dvbdev->minor;
++
+ 	down_write(&minor_rwsem);
+-	dvb_minors[dvbdev->minor] = NULL;
+-	dvb_device_put(dvbdev);
++	dvb_minors[minor] = NULL;
+ 	up_write(&minor_rwsem);
+ 
+ 	dvb_media_device_free(dvbdev);
+-
+-	device_destroy(dvb_class, MKDEV(DVB_MAJOR, dvbdev->minor));
+-
++	device_destroy(dvb_class, MKDEV(DVB_MAJOR, minor));
+ 	list_del(&dvbdev->list_head);
++
++	dvb_device_put(dvbdev);
+ }
+ EXPORT_SYMBOL(dvb_remove_device);
+ 
+
+---
+base-commit: ebcf66fba448879076bfdd1018ac5cda37b912bf
+change-id: 20261105-dvb-remove-device-uaf-aea34136c515
+
+Best regards,
+-- 
+Joas Antonio dos Santos <joasantonio108@gmail.com>
+
+
