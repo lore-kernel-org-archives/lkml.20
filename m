@@ -1,79 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.223
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793884965;
-	b=2Cceojw9Yv1PTbRI6NhHGH4MzdR20KHm4EAv/V5qvgTkqlXP1/mdoOGNiyVE+Ui9YUeu
-	 ukm5w2URcXEXQcZ2zaZ3QINajuSYFUVhK2g+OV/UvmLsf9jy8WqRcIIuyO2bYua62dZg3
-	 FJ/gpCvgGjao6uXBEq1jHzybcVOSFz9U01iN33Wo3Nn9ClJWKwdUaf6yoJPWEfEZG3UcB
-	 JgoB4IDiaFQ8HRlMlmwHKN0sPi5eA7T7QiIuNVolX6y54CbOAL+lv7UeTVX8aizg2ioro
-	 2GMZPPMG5UwqSx/b2fq1sIun1ge21oSIrlwbAlKB6LAvMZUtcJVm6ratskn+QSgl6gg==
+	t=1793884968;
+	b=vTG4o7ZYu02u2QOWZee+aCECFJHsPOb2Y481+Hnlmn9PMWmWEDWErGanW7K8xgvEe8FG
+	 NX73blDQfiVDG7PDFzbCFcYvGMapuFeRT5nFiOMxpErXvjS2UVClhC/Ll0Jv8WR3anal1
+	 ojPO3VsiJXAD4zJBk90UBF6fvWTh4bzTwED4ILI4rmcYw6HeylV81lEiURUhTZV5Klssh
+	 S55CkKScmILj3rAuE824Jo6j3kXOkCA/eQO+h6tkid3nnHSCPL9mUZKChSwLCAiNcKzpr
+	 nG1RF3wof6cTfpETrqn/Qb7PHW/FMXz51sj0ZlZ9fPwXCnVuDT6Bq08PYKR+rnAAhgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793884965;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=2FQgCJLfUQ1tOKwvKQRjuEs7njOihBYDB9ax1aCR+eo=;
-	b=T44JZ3RLgQP0ebEEB81kZOhOd6/QjzBIOkphkQeJN9N2Nu4a0FV0604dHsVRVhoxfSIb
-	 4GEYyVbQCMkbqpaEzplhL/k6siuA8MXSe1cRWkuNhK9RW1Ska37SHbYK1RNQRT5JJJu/9
-	 3rPkG74Vli1/pv2agzuK/Hu72Prx1v9qgk7xMTtRpoKe3sJ4gNljzkFds8fTxQcpebjUr
-	 ZcVNUb0IxkJlq4fMMA7jhtYXKinA2MgvKegKp6P2FAaXYtj8FJg838HIu7+zY72Ot9v+o
-	 LzBl3p6FY7DPgGpIc4bUVdrsxa2kDMEiueFx+j1YVNLR8FxlSHn3V/5aEytbJqGBdmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793884968;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=WYskst57saLSN4NfYIJN2XlgRB7fhCinmhIN9YTkUyg=;
+	b=FVhfhxHN3BtdsehwTfxc9GFP+V+ep66wkLCluvdkgihonAcYU+GufvMy9XAx3pbcyHh8
+	 FeyALdgz+xOoSeXzOB1CJHv5HD60EW90KzDO4txye7wBbHfP+ghGvyxWhorrF4GBkj7JD
+	 ZlDq4diZ0mwfjx8xGuW6lL8A9v77/4RBICgtdM7Xaq5nGCez3rOl5kpssYwbuX0o9896n
+	 uR9u94VfekGwP5Ed5bheq8/nPg+TaRsstM44/EVhjbhXsH8yEK2WdlCkFrUlIjxqJNm+T
+	 jmWaHx2izG/5Bfom14nUj+ck+1BrvT8xl/7wd/uj3FU1uxAur4XAD0cD3X32Sfcsa6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jzmklxEG;
-	arc=none smtp.remote-ip=95.215.58.223
-Received: from mta1.migadu.com (out-223.mta1.migadu.com [95.215.58.223])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kPwsgtMg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1170B606A32C
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 13:22:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1170B606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9637C606A32D;
+	Thu,  5 Nov 2026 13:22:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jzmklxEG
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=B5OzRACtslAN5zq5uXzJL2D9qtFaozSUjc8us2dI7zo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793884957; v=1; x=1794489757;
- b=jzmklxEGjSMG4vpqZMVfEd/keqZO6+mmvLCky2fgy4WPykWnI+5iFyjiBiPgr7el8wg/6wpC
- WkQQIhPQ0vcKkBZUj6wQthz07FjbtwOwPqYwdp1YJ8Km3bNcl0hKUUmX+lrHR92QfiYlYaausih
- DAJ04Kldd6FNUXy4ZhYuORGM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e01c588a92d09643;
-	Thu, 05 Nov 2026 13:22:36 +0000
-X-Mizu-Trace-ID: e01c588a92d09643
-X-Migadu-Flow: FLOW_OUT
-From: Ridong Chen <ridong.chen@linux.dev>
-To: David Hildenbrand <david@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Johannes Weiner <hannes@cmpxchg.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Kairui Song <kasong@tencent.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Joanne Koong <joannelkoong@gmail.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Ridong Chen <ridong.chen@linux.dev>,
-	Ridong Chen <chenridong@xiaomi.com>
-Subject: [RFC PATCH 0/3] mm/mglru: cacheline follow-ups on the reclaim hot paths
-Date: Thu,  5 Nov 2026 21:22:17 +0800
-Message-Id: <20261105132220.2233677-1-ridong.chen@linux.dev>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kPwsgtMg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 314CC1F00A1B;
+	Thu,  5 Nov 2026 13:22:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793884968;
+	bh=WYskst57saLSN4NfYIJN2XlgRB7fhCinmhIN9YTkUyg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=kPwsgtMgthByqOdBPI0+I/GE8EKigC5bnccdfezD8rIgj7C6jZKHWtQQUymOJN8mK
+	 h35lysW26cvEohIRestxB2HuGlc6zFyjcGpCrlFY65hkJ9idwaMBVotzeu2nAl73ZL
+	 4yRGRgh1wAgDyzvFryrk3CuBSX2U+fIulafiXp36f4EnmBJqmW05affumd3PMQja80
+	 ABOTibHlUFIktDv9RgiZxRF1Ju9QeFNEwbKQMXp5lpdeST8CqfJaCMhQun6jjiMvh0
+	 0FnxO4g9HdCE2EKgKndBzp2Hhkz1kW+PhESXAADh2CObUAj43aBTrL4RV+m2wMKVhh
+	 g7/S4z7Ys0F8Q==
+From: Mark Brown <broonie@kernel.org>
+Date: Thu, 05 Nov 2026 13:00:12 +0000
+Subject: [PATCH v2 1/3] arm64/gcs: Ignore attempts to change GCS mode
+ during signal return
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,83 +53,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-arm64-gcs-store-gcscre0-v2-1-954d5bffd69f@kernel.org>
+References: <20261105-arm64-gcs-store-gcscre0-v2-0-954d5bffd69f@kernel.org>
+In-Reply-To: <20261105-arm64-gcs-store-gcscre0-v2-0-954d5bffd69f@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Mark Brown <broonie@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3749; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=89Z9BtoATgubK0m2BOgIS3mZAvlCF+CWPrHquvWYOUY=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLeNCvHVWcyz+7ZePJno42g9r7Yjct4i5UzvoQ8vD2/f
+ vYRc9uujlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAExkZi/DX4m6GvXoH36d/VWl
+ vpKhvfO+6JpuEj2T6ST/e2bTf9/tHxj+V7vzK6wUm8MqxTdBJPWt5YaUraaXmCJSZveHRnxJ43n
+ BCQA=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-From: Ridong Chen <chenridong@xiaomi.com>
+If userspace tries to update the GCS mode as part of signal return then
+we update the thread state but don't update GCSCRE0_EL1, meaning the
+change does not take effect.  We may also get issues for other tasks on
+context switch since we suppress writes of the register if the two tasks
+have the same mode.
 
-Joanne's series to reduce cacheline contention around struct
-mem_cgroup_per_node [1], now in linux-next, made me look at the MGLRU
-side of the same structures, and at the stores MGLRU does on hot paths,
-to see whether any of them write a line for no reason. This RFC has the
-three candidates that showed a measurable difference. They are
-independent of each other.
+Since no currently known userspace tries to use this functionality close
+this by ignoring any attempt to change the mode through signal return.
+The GCS mode for the current thread can be changed using the prctl()
+interface and will be preserved on signal return, allowing updates to
+the mode from the signal handler.
 
-1. lru_gen_use_mm() writes mm->lru_gen.bitmap on every context switch
-   to a user task, although the bitmap is almost always already set.
-   For threads of one process spread over several CPUs, the line
-   bounces between them. Read first and skip the store: +2-3% context
-   switches per CPU for a shared mm, no change for private mms.
+Reported-by: Catalin Marinas <catalin.marinas@arm.com>
+Link: https://lore.kernel.org/r/as-8IqsbMbOBo5Oq@arm.com
+Suggested-by: Catalin Marinas <catalin.marinas@arm.com>
+Fixes: 16f47bb9ac8a ("arm64/signal: Expose GCS state in signal frames")
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Cc: stable@vger.kernel.org
+---
+ Documentation/arch/arm64/gcs.rst | 13 ++++---------
+ arch/arm64/kernel/signal.c       | 22 +---------------------
+ 2 files changed, 5 insertions(+), 30 deletions(-)
 
-2. folio_update_gen() and folio_set_lru_refs() always end with a lock
-   cmpxchg, even when the flags do not change. During aging, a folio
-   mapped by N processes is visited N times and only the first visit
-   changes anything. Skip the no-op cmpxchg: an aging pass over a 2GiB
-   file shared by 8-64 processes gets 18-22% faster.
+diff --git a/Documentation/arch/arm64/gcs.rst b/Documentation/arch/arm64/gcs.rst
+index 226c0b008456..f2bcd66328bb 100644
+--- a/Documentation/arch/arm64/gcs.rst
++++ b/Documentation/arch/arm64/gcs.rst
+@@ -179,9 +179,8 @@ intended to be exhaustive.
+ 
+ When returning from a signal handler:
+ 
+-* If there is a gcs_context record in the signal frame then the GCS flags
+-  and GCSPR_EL0 will be restored from that context prior to further
+-  validation.
++* If there is a gcs_context record in the signal frame then GCSPR_EL0
++  will be restored from that context prior to further validation.
+ 
+ * If there is no gcs_context record in the signal frame then the GCS
+   configuration will be unchanged.
+@@ -190,12 +189,8 @@ When returning from a signal handler:
+   point to a valid GCS signal cap record, this will be popped from the
+   GCS prior to signal return.
+ 
+-* If the GCS configuration is locked when returning from a signal then any
+-  attempt to change the GCS configuration will be treated as an error.  This
+-  is true even if GCS was not enabled prior to signal entry.
+-
+-* GCS may be disabled via signal return but any attempt to enable GCS via
+-  signal return will be rejected.
++* The features_enabled in the signal return context will be ignored, any
++  changes made using the prctl() in the signal handler will be preserved.
+ 
+ 
+ 6.  ptrace extensions
+diff --git a/arch/arm64/kernel/signal.c b/arch/arm64/kernel/signal.c
+index 6a06a4e352b1..80398ac83c3b 100644
+--- a/arch/arm64/kernel/signal.c
++++ b/arch/arm64/kernel/signal.c
+@@ -741,36 +741,16 @@ static int preserve_gcs_context(struct gcs_context __user *ctx)
+ 
+ static int restore_gcs_context(struct user_ctxs *user)
+ {
+-	u64 gcspr, enabled;
++	u64 gcspr;
+ 	int err = 0;
+ 
+ 	if (user->gcs_size != sizeof(*user->gcs))
+ 		return -EINVAL;
+ 
+ 	__get_user_error(gcspr, &user->gcs->gcspr, err);
+-	__get_user_error(enabled, &user->gcs->features_enabled, err);
+ 	if (err)
+ 		return err;
+ 
+-	/* Don't allow unknown modes */
+-	if (enabled & ~PR_SHADOW_STACK_SUPPORTED_STATUS_MASK)
+-		return -EINVAL;
+-
+-	err = gcs_check_locked(current, enabled);
+-	if (err != 0)
+-		return err;
+-
+-	/* Don't allow enabling */
+-	if (!task_gcs_el0_enabled(current) &&
+-	    (enabled & PR_SHADOW_STACK_ENABLE))
+-		return -EINVAL;
+-
+-	/* If we are disabling disable everything */
+-	if (!(enabled & PR_SHADOW_STACK_ENABLE))
+-		enabled = 0;
+-
+-	current->thread.gcs_el0_mode = enabled;
+-
+ 	/*
+ 	 * We let userspace set GCSPR_EL0 to anything here, we will
+ 	 * validate later in gcs_restore_signal().
 
-3. lrugen->evicted[] and ->refaulted[] are updated locklessly on
-   every eviction and refault, and the file type counters share a line
-   with lrugen->enabled/gen/seg/list, which are read on every LRU add
-   and by shrink_many(). Move the read-mostly fields up and give the
-   counters their own lines: +4.3% fio IOPS with 24 jobs refaulting
-   file pages in one memcg, no change at 8 jobs or fewer. This one
-   costs a cacheline per memcg per node, and its gain needs many CPUs
-   refaulting from a fast backing store, so I am not sure it is worth
-   it on its own; feedback welcome.
-
-All numbers are from an i7-13700HX (8P+8E, 24 threads, one socket) with
-turbo disabled and the performance governor, on next-20261023 with the
-same config for base and patched kernels. Details are in each patch.
-The series is rebased onto next-20261104, which includes [1], without
-code changes; the struct sizes in patch 3 are updated for it.
-
-Limitations of the testing, where input would be welcome:
-
-- Patch 1 does not show up in will-it-scale context_switch1 or
-  sched_yield (explained in the patch), and perf bench sched messaging
-  and schbench are too noisy here to resolve 2-3%. The numbers come
-  from a small test that pins two sched_yield()ing threads per CPU,
-  with a one-process-per-CPU control.
-
-- Patch 2 has no standard benchmark either. In fio with many mmap()
-  readers under memcg pressure, reclaim time goes to rmap walks on the
-  eviction side and aging barely runs. The numbers come from triggering
-  aging through debugfs with force_scan, which is the upper bound. On
-  real systems the gain scales with how many processes in the same
-  memcg share the hot file pages, e.g. preforked servers or Android
-  without per-app memcgs.
-
-- Patch 3 depends on the layout of the containing structs, which
-  depends on the config (LRU_GEN_STATS changes the array sizes). I
-  checked LRU_GEN_STATS=n only.
-
-The test programs are small C files; I can post them if that helps.
-
-[1] https://lore.kernel.org/20261023195417.1391216-1-joannelkoong@gmail.com
-
-
-Ridong Chen (3):
-  mm/mglru: skip redundant bitmap store in lru_gen_use_mm()
-  mm/mglru: skip the flags cmpxchg when nothing changes
-  mm/mglru: move lrugen atomic stats off the read-mostly lines
-
- include/linux/mm_inline.h |  2 ++
- include/linux/mm_types.h  |  3 ++-
- include/linux/mmzone.h    | 18 ++++++++++--------
- mm/vmscan.c               |  2 ++
- 4 files changed, 16 insertions(+), 9 deletions(-)
-
-
-base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
 -- 
-2.34.1
+2.47.3
 
