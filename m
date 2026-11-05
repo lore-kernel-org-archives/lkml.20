@@ -1,100 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.66
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793883752;
-	b=OL+m+WOT2JD8h9g6IeVZbp/riTJfYTYldHpxOCHPpYQMtgZ2jd9jfjRZz2lGRq+ju/eC
-	 fq2sesEUZ6zDJ+W0xWe8iNGDmI1j+rjgbD/QLcaXA5m9vUOwZYhLWIx1zeigLp18rpfWf
-	 byAPAWDG6KP7MExo+vzqReGmzanKve43vK5ehAFSgGgx92UClksTzIgA1xf89LHmO1Dur
-	 ESrJwJ2nFmx59ghtuNfFefKXdEiuR6AT3o7p1fT2q6jrMBhLuRwQYEmz754AR64qdv7Um
-	 AbEWxKjoPcpSqR+uDcSC3rbpzrxP6VxO0ukoG4R8vlIGwu+xUJaDwXn8KueP5EBnH8A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793883752;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:From:
-	 To:Cc:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=TH0uSBQWdseFCnyVaBzZTq+OYGSEYlF7k8dVcukjt2U=;
-	b=yPFrEo6HxsLP11wC0WALRT2/tapLV0GZM+lAnrwiX/8MbPGQCZqqJ+rGpwuPuPTSGcke
-	 4xivteXdvxussblvnWwZOFuRZ8QrKwYPWc7MjUzCwKqDlbgyaIP44dvaBNerORngmltRR
-	 UrlEr+KzvehQCHgpj7sFg2FWAnhx2M1Ehb9mZ18sGFbT5MqtheE2Yl52nGyQp4e7H5Ozj
-	 0He/gteK6PVEtLBmcsR4k3t3/QHoS/om0CoLGsuDGzDYoOwNXk2813xfz1CyuEUY+3mWG
-	 ZCJegFmsfeJXDIcxUULG2w09/S7qMy9WDotJ80nmNfANIlCyRKAFquuUDfIPkRyPDOg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=IDJvXcSj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.66
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012066.outbound.protection.outlook.com [40.107.209.66])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.139
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793883808;
+	b=eYkRDcsccj48B873flc+PaKlHPxC0WmG9OaqUhNaUXJJZyS9ONuLes5suTbjB/Dor+DV
+	 SIMei9Z8Fis3XKecKRqtjAdTAyt8DglINa5DUuLoaeoONP08Kfk1xbdh2BbGl40n7j4GK
+	 Nbg4uPcXJyP1o+mh52HzL18IPI9EnFAJq/S+emJkHvG+1isTQVzfBv1bn8HDSNfxuWR/k
+	 32LLXGs+1800+CdLipj6Cm0MsC2uuDpHlr4442TDUN9DqiKhxKdZ3GRy9QgPketMx09Fw
+	 WCy6PS0OzWkDvrnNPEa9TTO2ClDUKzwbEoE8+p07PZ5k/2AoVpEoVm8z0Xju2TDJKjQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793883808;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=/B4p0zYu6vf94H1deUHTjyHQEII4+nCm7USZq9LhQr4=;
+	b=KiG20dXvkOXtEnNlHG8QJXGSB5wzGqjSZdMqEAuQ5kA8l2yChcb6X48HsEuPLDnR2GtC
+	 prGooOenDz2eIJDVpD92AKsqnnE+xbXDcBqhJYy7sDFBp4wnv3u8K42JV/r7FdVqUovp1
+	 g7gdy0olUa/WfbYUSUNKE+eZDNhXwRJIhDJvO7qzQhSEIupxCWCLw+VvqirW40DO9fuME
+	 EnNHAOi5qyOn/Jzye7xyJuJ/rN5RF6wJXpAqOLmeTqOUJJ07dq0+0hd7zzJglqxlORreO
+	 OEkBEmJEMDZztU3gkSqO/nvq9ZxPOX8lDZGXZVFUuk/xQzWR7WrCHHbALmjVshlvcFw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	arc=none smtp.remote-ip=91.218.175.139
+Received: from mta0.migadu.com (out-139.mta0.migadu.com [91.218.175.139])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80921606A330;
-	Thu,  5 Nov 2026 13:02:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80921606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=IDJvXcSj
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R1xic2mdM/Jp8S69C50V6JWhJ+REl8xnxfCz1oYL+4Pxu8Rid4UFBMtFd7rF0Ccf5b21JrYNg8Xl0yG6qjWZCPyLJIbK0YUUJ5vTJRhJX99wgTDAKhVIISQgcSS6sOJMfy7JtjGLM5ZoMFZA6IdAA5AcnP7Lq3qnPSU9AW50PSabE2lknvjB1O5mGCPd8d+ebdRo8UwgJHMdoMk3Zgd2j/X8QN/KEG1KMxn7c1VgSjyvRZXSIuSY5NqQZ+ldkMaO80Nd1DlyoDgIphDhJNcSB+69FKE4BPIlQkCAvwrRZmVnr+AhT+cC1erOa58NXzpwpaScGbnVtJYc4GlLsg/UJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TH0uSBQWdseFCnyVaBzZTq+OYGSEYlF7k8dVcukjt2U=;
- b=NHJ0BX1+A8UyHaL6Yo2FeMrXG2gQrTWrvLnZBLeV1n95lbQG1W6NjD5+BqNTuaThJsGMBfX66KJ5P8kn2esnQXb7vrJniEWXU3oJyySg1f0mS9azQr+3U2WLI8IDVgzfPv8fNA7YtbeL6XYNFJnbzKCipjrnm89FeK9P5OuKQ9RytzQce7RtTQtHEtg3SAPJ26mvr29w/1ZUAKHJs1pQwaU+XQU3QgoHKINeLFtZQ3RaaaAKeOExUvDKXaQBhV4aLBge58lw0h8vpM77sVSF1gpvaXPKJi02V+QwJJ2TAvRoAJGxgdrjsBNul9QWeP3gYG/otrgavX1wroRqrI1tqQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TH0uSBQWdseFCnyVaBzZTq+OYGSEYlF7k8dVcukjt2U=;
- b=IDJvXcSjuP3DsbAFZWo1TrJsP/F4gQp94E4ScBNCRSAHTwlWflWPbiCWosFaXzthquJb2QPVlIHlrVja5V2q2j/C05U9HMzU/nG84VGRU+AaGL7sNT++TZ4/ceuoFa73QSjCTZ6E7rS4Zg7mvAPeDXmJrahJU2SlTaac11FVePQfSlWc4brCkFkCaDxsbtxytC0DWzKWq0bMt/9Cja9JD0wRn9hHYG5XWtywbj0iBeSkSN109VkPC+I/eSwyt+aC/ncEDo3J/yJQ/unT+ZfTI740QyV/gNGdENoYukwRTnJpbB+kFbIxBxHQOsT6vxoHrUNAA15fBrHAcHtd5DSHtw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- CH3PR12MB8935.namprd12.prod.outlook.com (2603:10b6:610:169::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 13:02:26 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 13:02:26 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 05 Nov 2026 22:02:22 +0900
-Message-Id: <DMNAPQDYRCER.M9C71ZUDF2FD@nvidia.com>
-Subject: Re: [PATCH 7/7] gpu: nova-core: falcon: check the per-block DMA
- offsets for overflow
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261103-r000-fw-v1-0-e3d38fc130e3@nvidia.com>
- <20261103-r000-fw-v1-7-e3d38fc130e3@nvidia.com>
-In-Reply-To: <20261103-r000-fw-v1-7-e3d38fc130e3@nvidia.com>
-X-ClientProxiedBy: TYWP286CA0023.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:262::10) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F51F606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 13:03:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F51F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=KVVDnrqqBYKgCokM5aN3M4FBZl2SrgkNlUPUvf8sSow=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793883804; v=1; x=1794488604;
+ b=cFmndGt/CixNa++Y0ML1xZfphtpK9fbawRSxccjPRS+vwLkXdZEzvnhWEIm9usvxdAbJ8MdQ
+ CsvKqBttSH8Y6jvKoMcTRTAFnq3oXCDAZr6os+6VWrGpD6pv24KLuwna+Sf92ZotolqtTsTZnw2
+ +0PUVxNeD1BZaxjLzpXjB/9k=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 881d24b1d490bce2;
+	Thu, 05 Nov 2026 13:03:24 +0000
+X-Mizu-Trace-ID: 881d24b1d490bce2
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <4c8f9eee-3988-4e68-aa1a-f1ad788972d6@linux.dev>
+Date: Thu, 5 Nov 2026 21:03:16 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,88 +55,176 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|CH3PR12MB8935:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5dd797b3-6192-46f9-c697-08df3b3d0a2f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|10070799003|1800799024|366016|10067099003|18002099003|22082099003|56012099006|4143699003|11063799006|261026140227099003|261028144727099003|261022105027099003|261021135927099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
-	DvfcIYdRKgvJiIdizCd3fqRUGy+T9rOPhUOuDmIeBUlDKCu7i61pkTjWNLDH4aUBhalZoMEAE/jXNDErJPmMqxcICV7or0ikgT0sE3rTpgXMWbFBGGB6n830/lHO7lI5GZgF2xPHn2jFu7xik2f/2mMvAQfmIdioG4t09/BIwFyOKEG3LgJPQsRRw+oDvCKgR49YadRAYXs/S06gcX+wWKTjsHzbsISqyrUhBFSq88qCk84GeE4aIyAe4zq656+Mn7QcmXgbyCGbWfT1TQRUkgFvPKW91Xjb/FVoqqCVqgmHURWzymenv/4CXmukfbztXJhonQHCECtu672ZLRXCE2wPsKKO5yrR2WmcwndPDAaXiMKAibowtApn7lEp/f7iV505d9wWkkwtKnKKe6A5+Z2/fVPKshgrI6f0UfSoFpdmc/AeyF6DE0dC2LsyWl5GbWcQ54rNAOeB1TEo8Q/dLflOciMYkFRAPf4AxYhkePs7arAI8N6UKYjK8bssWngfWxNqfEsLsZx3bnrcCljdNSU/VdHYUrEA4EQP2mPi5w69981ualNPJHhCDDp7K/nLTvSxDNqbkCe1n6CRYfyV8TxVqrE8a+fbCWc9iMvIK6pifupttmJ1QIRXgmysJynvfFPcTRtx2AD+z3eR74DVSDjyzyCahKivYPD8+2sK8Ag=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(10070799003)(1800799024)(366016)(10067099003)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006)(261026140227099003)(261028144727099003)(261022105027099003)(261021135927099003)(261026121527099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cEhXcWcrMjJyTGJIeXF3dWdrbG16WEFzeG5taFluOSswbkIwVWp4TDZhMCtk?=
- =?utf-8?B?VTVTajhGNFdZV1Babkx5YkZKOWk2T1FXME1qUEZubFNIbHZZOC9MTTdwdllO?=
- =?utf-8?B?RitkTStMbi9OSEhFN0RyM2hKSVJCSWRHR2kwTitqdTVMeFpkNG0rcllPR1dv?=
- =?utf-8?B?aWxFdUZ2eUwvZjl6WFVDU0U0QlhlcHFOZDhjY0xTSkpmZGcvZ3Y0T1BuUjdF?=
- =?utf-8?B?WkM2QXlJSWRtR2g1SE5wbFNCU2VCWlBSVEdFbnh1bVRhQjY4WEhpaFI3dWRX?=
- =?utf-8?B?OUtaNkROMkVocDRkWHg0aE5aQzdmNnhCcFpvSXJ5clp3Znk0OGZ3YW5ZaHdU?=
- =?utf-8?B?T1RPQmZ3dUZEQlZiaE45aGhRNEtobytmUTdMQkNyV2xTNEc2MXZuY1NSWHpM?=
- =?utf-8?B?RE11RDJ2WFhjZDJyRHFWd0JuZ1RVRTZtd1FvNko2MWZCd1lWOE54cElMbDZ0?=
- =?utf-8?B?dGxPZVIxVUJEYzRiTzY3UEJlU0VEWURBUHByQVUyNlcvb3dWUXE4RmtTL2M4?=
- =?utf-8?B?Nkh0WVhBZitON0FqQlhDYTdPWmR4bTVMdTZSMWtLTVhyMXlyKzRGTG14aitq?=
- =?utf-8?B?TVBIMVd0Y1BZTWJMcThiUVVWMUlZUjlRWXg3NzY3YXlnZVFOMHY3dFNVbWNw?=
- =?utf-8?B?RHRReXh6anA1M2EvNkJTTDNlNzA1TkhzRWtKRUFNcmV4Qm1mSjNSZWZVd2Nu?=
- =?utf-8?B?NzB5eFZEMEhMQ0ZRMjlVSmJtRFFVY2JveWpDaVY1YjJZWVI3cmd6Y01lS0F3?=
- =?utf-8?B?d0Yzc2dtSVI2ZmJWNmtZK3NBWDM5UURERitab05xcnZPN0xhUUQ5dUNscTRO?=
- =?utf-8?B?OVcybnY4NmdOU3EwWFFKTjVja2JBdjhIZ05pZUhNYjJXNWgybjJod253RGE5?=
- =?utf-8?B?TnQrYzJtQ0tVVDkvMisvTC9TTElRbVNyelRLNlI5VWUzMStUZVpsbVBqbTYx?=
- =?utf-8?B?RTN1bUNuanpmd2JtRUJuWHBMN1N4VmdhbFlhSFpwbjNIenhyK2ZMTWRhcWN5?=
- =?utf-8?B?U1RQZHUyM0F2RUVqcXdlQXByMVBYWURnRmhVcmhaUTEzcDgyc2FQU0NzV3lJ?=
- =?utf-8?B?eHR1bXN3VUdUZmlCejJRTnJoRHNvam5TamVsL0d4TzI3V3lvS0pVNnIyN3Fv?=
- =?utf-8?B?LzVYbitpMGdXeDdtVjliRWpJTHRwR3VhSnEvbEhVeHhLQTgyUVFKcWZOWTlG?=
- =?utf-8?B?TmQrTC9WUWh0aWROQmdtVmFqa0hHUUk3V285Y2YyeFcyT2FpbmJJMWpPUWNU?=
- =?utf-8?B?R3p2dktlYXpTSWZKMmkyOVdHZHdnVlBjZGM4bW9Ia0d0cFU2N1Zlcldobjl3?=
- =?utf-8?B?SHM2NEY1NDJyUGo3d0poZ2V2MFAwMXhCNTltSml2KzRCRGc1MXM1ZEVqbk4y?=
- =?utf-8?B?c01UbnlmOWh2aEd3ZWhaL0tBTWJrVWRJcDdZVWVYenNtK3JPMTQ0UG9HeTFP?=
- =?utf-8?B?N3lxL2NlTGRyb040V3JuQkxhVFNnZW1XZHJFbnJubW5KZFRtdzBocTVHSjI4?=
- =?utf-8?B?T09EeGtxbHljaWR2Wk90NTlqMXJ1T2VpdFdqYjNoZzN0NlVRUTMrZ0pRZ2lu?=
- =?utf-8?B?by9LY1preTNVQkxEN3BXdHZ3bTlNQXZHMmRQQlFlanNldU9oVTRpVlJDNVJx?=
- =?utf-8?B?YSs0VktOZWVmWU40M0pYd1U0alVLdHQweXR2ZFdCazZiVDJ1RW1BZjVFcGJP?=
- =?utf-8?B?MncrbDBoRG50WlFrczZzRGN1Y213VmxQUXZlSXMvUGtvUDR4enQ3UVA2d2x4?=
- =?utf-8?B?dGt5WTlyYnVicElIQ2VrekhSUXB2YzZrZjNQdFpScUNaaG01M1U4ZWtMTHA1?=
- =?utf-8?B?a2t3Z0NJK0FickQxUHJmcy92a2ZMVzlFUjZqbWhzUlZud0xzR1I4OVJlZS8y?=
- =?utf-8?B?YmgyaUxpUHVVai9OUzdDQi9mUG1MdFcwWm9HTzBTbStGZUxaTDBPWmlYM0xI?=
- =?utf-8?B?ZVoydzBJU2Jxekl4bzdTNUVQaTVETklSL1hZSGQ1V0FaeitLTUIzZC9jUDNL?=
- =?utf-8?B?NGNBalQ5WU5ncmV4YTZZZXZZT3hRMmxETWRyd0pkQ3RjZTlnaVdWSkwvSk80?=
- =?utf-8?B?MUxvZkdUTmRxa253TndhUGhMbmFoSFB2eHVHOWR4dUJadGRVYkliSUhxT012?=
- =?utf-8?B?bW1YQUNJL09rMFZoWThpbW5Wa2JHL2xxM3lwU3VrRGRlWHdlUlRGMFFYS0w0?=
- =?utf-8?B?bkdTYjNSc0hkR1RuSVUxd0xBTXBleVRBMWZ5UFByQzVRdmZjL01kaFk4KzR3?=
- =?utf-8?B?VUVwdVNXTllQeStVTVZDV01aSGNLZFF6R1FMczdhY09yOXdrRDJoTklBNUc3?=
- =?utf-8?B?OWF5M0U5bFl6d1FIVU4zbm1uWkt1aHFHdENvY0FJUlMvVEprRm9kRUhsZnlD?=
- =?utf-8?Q?J5TKrXnB047B4sgomKkDh43DEzMWAqtuSWu8tgLj8L+Qq?=
-X-MS-Exchange-AntiSpam-MessageData-1: TjPX8XY5NGcpSw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5dd797b3-6192-46f9-c697-08df3b3d0a2f
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 13:02:26.1063
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OYV25fQV6xIkJ+mjqTL2iyDDXGa9IPnqK4xuIDr/oU3DVpcbYnexHqVQcuZ+He5X8q06ij03bozA9Tge3KeAMw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8935
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cgroup/cpuset: Fail if isolated CPUs don't leave any boot
+ domain housekeeping CPU
+To: Ridong Chen <ridong.chen@linux.dev>, Waiman Long <longman@redhat.com>
+Cc: tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, shuah@kernel.org,
+ cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, Guopeng Zhang <zhangguopeng@kylinos.cn>
+References: <20261104071600.474587-1-guopeng.zhang@linux.dev>
+ <cbe741a9-fd0c-4c8f-8591-55ecc70f222a@linux.dev>
+ <21cfe1b7-be80-4f3b-8366-cd77afd113b0@redhat.com>
+ <d683135f-e0da-4f1e-b4b4-084931582a24@linux.dev>
+Content-Language: en-US
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <d683135f-e0da-4f1e-b4b4-084931582a24@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue Nov 3, 2026 at 7:22 PM JST, Alexandre Courbot wrote:
-> From: John Hubbard <jhubbard@nvidia.com>
->
-> Each block of a falcon DMA transfer is addressed by the start offset of
-> the transfer plus the block's position. The two additions were plain, so
-> a source or destination offset near the top of the 32-bit range would
-> have wrapped or panicked rather than failing the transfer.
->
-> Add the two with checked arithmetic and fail the transfer with EOVERFLOW
-> when a sum does not fit.
->
-> Assisted-by: LLM
-> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-> [acourbot: split out of the DMA helper patch of v3.]
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-> ---
 
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
 
+在 2026/11/5 10:13, Ridong Chen 写道:
+> 
+> 
+> On 11/5/2026 2:54 AM, Waiman Long wrote:
+>> On 11/4/26 7:58 AM, Ridong Chen wrote:
+>>>
+>>>
+>>> On 11/4/2026 3:16 PM, Guopeng Zhang wrote:
+>>>> From: Guopeng Zhang<zhangguopeng@kylinos.cn>
+>>>>
+>>>> With the "domain" flag of the isolcpus= boot option, the CPUs isolated
+>>>> at boot are excluded from the sched domains and the remaining CPUs
+>>>> become the boot domain housekeeping CPUs. An isolated partition is
+>>>> allowed to use the boot isolated CPUs, but it must not take over all
+>>>> the boot domain housekeeping CPUs.
+>>>>
+>>>> prstate_housekeeping_conflict() checks that rule for root partitions
+>>>> only. The 2nd check covers the nohz_full case as it is gated by
+>>>> housekeeping_enabled(HK_TYPE_KERNEL_NOISE) which is not enabled by
+>>>> isolcpus=domain. So on an isolcpus=domain,<cpus> boot, an isolated
+>>>> partition can claim all the remaining boot domain housekeeping CPUs.
+>>>> The state is committed, but the sched domain rebuild at the end of
+>>>> the write finds no housekeeping CPU left for the boot domain and
+>>>> hits WARNs and an OOPS in partition_sched_domains().
+>>>> housekeeping_update() cannot accept the configuration either as it
+>>>> cannot empty the boot domain housekeeping mask.
+>>>> With an "isolcpus=domain,10-31" boot where CPUs 0-9 are the boot
+>>>> domain housekeeping CPUs, for example:
+>>>>
+>>>>    # echo 0-9 > A/cpuset.cpus
+>>>>    # echo isolated > A/cpuset.cpus.partition
+>>>>    WARNING: kernel/sched/topology.c:3089 at build_sched_domains+...
+>>>>    WARNING: kernel/cgroup/cpuset.c:1478 at cpuset_update_sd_hk_unlock+...
+>>>>    RIP: 0010:partition_sched_domains+0x3b8
+>>>>
+>>>> Fix that by extending prstate_housekeeping_conflict() to reject an
+>>>> isolated partition update that would leave no active boot domain
+>>>> housekeeping CPU outside the isolated CPUs. The CPUs released back
+>>>> to the boot domain by the same update are taken into account, so
+>>>> replacing one of the last housekeeping CPUs with another one in a
+>>>> single update remains allowed. The new check is only performed when
+>>>> housekeeping_enabled(HK_TYPE_KERNEL_NOISE) is disabled so that the
+>>>> existing nohz_full behavior is unchanged.
+>>>>
+>>>> Add test cases in test_cpuset_prs.sh to verify that taking over all
+>>>> the boot domain housekeeping CPUs is rejected while swapping one of
+>>>> them with another one is allowed.
+>>>
+>>> Hi Guopeng,
+>>>
+>>> Thanks for the report and the reproducer. I can reproduce the WARN and
+>>> the OOPS in partition_sched_domains() here.
+>>>
+>>> However, I don't think prstate_housekeeping_conflict() is the right
+>>> place to fix it, and the fix doesn't seem complete. The same problem
+>>> can be triggered with a root partition, which this patch doesn't cover.
+>>> With an "isolcpus=domain,4-7" boot on an 8-CPU VM:
+>>>
+>>>   # echo 0-3 > A/cpuset.cpus
+>>>   # echo root > A/cpuset.cpus.partition
+>>>   WARNING: kernel/sched/topology.c:3111 at build_sched_domains+0x2b96/0x5500
+>>>   Oops: general protection fault, ... [#1] SMP KASAN NOPTI
+>>>   RIP: 0010:partition_sched_domains+0x10a3/0x1a10
+>>>
+>>> The faulting address is in build_perf_domains(), where cpumask_first()
+>>> on the empty cpu_map returns nr_cpu_ids and cpu_rq() goes out of
+>>> bounds.
+>>>
+>>> The root cause looks like it isn't a housekeeping conflict. Boot time
+>>> isolated CPUs stay in top_cpuset.effective_cpus by design, and they are
+>>> only filtered out of the top_cpuset sched domain in
+>>> generate_sched_domains(). But the checks that make sure the parent
+>>> still has CPUs left, i.e. tasks_nocpu_error() for local partitions and
+>>> the cpumask_subset(top_cpuset.effective_cpus, ...) checks in
+>>> remote_partition_enable()/remote_cpus_update(), only look at
+>>> top_cpuset.effective_cpus. So any partition, root or isolated, local
+>>> or remote, can take away all the boot domain housekeeping CPUs as long
+>>> as some boot isolated CPUs are still left in top_cpuset, which leaves
+>>> the top_cpuset sched domain empty.
+>>>
+>>> So I think the check should be done at the "parent has no CPU left"
+>>> level instead. Something like the diff below. It is not tested yet;
+>>> could you give it a try with your reproducer and the test cases?
+>>> Note that the root partition and remote partition cases should be
+>>> added to the selftest as well.
+>>>
+>>> Without isolcpus=domain, HK_TYPE_DOMAIN_BOOT is cpu_possible_mask and
+>>> the new check is equivalent to the existing one, so no extra
+>>> housekeeping_enabled() gating is needed.
+>>>
+>>> ---
+>>> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+>>> index 3219f927c35e..fb3e81405f5b 100644
+>>> --- a/kernel/cgroup/cpuset.c
+>>> +++ b/kernel/cgroup/cpuset.c
+>>> @@ -1180,12 +1180,51 @@ static void update_partition_sd_lb(struct cpuset *cs, int old_prs)
+>>>                 cpuset_force_rebuild();
+>>>  }
+>>>
+>>> +/*
+>>> + * top_cpuset_sd_nocpu - Check if top_cpuset will have no sched domain CPU
+>>> + * @add_cpus: CPUs to be taken away from top_cpuset
+>>> + * @del_cpus: CPUs to be given back to top_cpuset, can be NULL
+>>> + * Return: true if no active CPU will be left in the top_cpuset sched domain
+>>> + *
+>>> + * Boot time isolated CPUs stay in top_cpuset.effective_cpus, but they are
+>>> + * excluded from the sched domain of top_cpuset in generate_sched_domains().
+>>> + * So checking top_cpuset.effective_cpus alone is not enough to ensure that
+>>> + * the top_cpuset sched domain won't become empty after @add_cpus are taken
+>>> + * away from it. The sched domain of top_cpuset must keep at least one
+>>> + * active boot domain housekeeping CPU.
+>>> + */
+>>> +static bool top_cpuset_sd_nocpu(const struct cpumask *add_cpus,
+>>> +                               const struct cpumask *del_cpus)
+>>> +{
+>>> +       const struct cpumask *hk_mask = housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT);
+>>> +       int cpu;
+>>> +
+>>> +       for_each_cpu_and(cpu, hk_mask, cpu_active_mask) {
+>>> +               if (cpumask_test_cpu(cpu, add_cpus))
+>>> +                       continue;
+>>> +               if (cpumask_test_cpu(cpu, top_cpuset.effective_cpus) ||
+>>> +                   (del_cpus && cpumask_test_cpu(cpu, del_cpus)))
+>>> +                       return false;
+>>> +       }
+>>> +       return true;
+>>> +}
+>>> +
+>>>  /*
+>>>   * tasks_nocpu_error - Return true if tasks will have no effective_cpus
+>>>   */
+>>>  static bool tasks_nocpu_error(struct cpuset *parent, struct cpuset *cs,
+>>>                               struct cpumask *xcpus)
+>>>  {
+>>> +       /*
+>>> +        * The top_cpuset always has tasks (kthreads at least), so its sched
+>>> +        * domain can't be empty. The current effective_xcpus of a valid
+>>> +        * partition will be given back to top_cpuset if not in @xcpus.
+>>> +        */
+>>> +       if ((parent == &top_cpuset) &&
+>>> +           top_cpuset_sd_nocpu(xcpus, is_partition_valid(cs)
+>>> +                                      ? cs->effective_xcpus : NULL))
+>>
+>> The del_cpus should normally be (cs->effective_xcpus & ~xcpus), but the top_cpuset_sd_nocpu() helper will skip CPUs that are in xcpus. So it will work in this case. It should be noted in the functional comment of top_cpuset_sd_nocpu() that @del_cpus can include common CPUs that will stay in the partition which will be skipped in the helper so that future change won't accidentally change that behavior.
+>>
+> 
+> Thank you for your reply.
+> 
+> Yes, perhaps Guopeng could make the code and comments more readable.
+> 
+Thanks for the suggestions. I'll update this in v2.
+
+Cheers,
+Guopeng
