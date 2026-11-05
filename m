@@ -1,87 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793879397;
-	b=qlwQPMjaKzZN3Pktm3iNdFocbu9Qk9lcCM+8o+kasc5bd381wGWls3TrTzivdRqoEoos
-	 mkAgCzjs/iqCKsizCOzRGO143ywUM6KEOCyIsbjFPb5tUKoXt1A+CtkVmY6v2veNHM5mq
-	 qohWTZfTL/E3GXiQaV+nFjj0Rrkx8yNKjg6rSO9WT0qjoSLccZozRhx35rxBpwKOlC0Yt
-	 odNvIRXsPiVT9A3gM+0QXFNhwqta3Hh3fB7CITXc7C1CvNOBaKNxhtrz+V3pECfToiQca
-	 q1wW+0FNtgoY706LSGqVRbz6aJ1HhPnSsydB9jDkgdUWkiEWmcLFqb7StbO6FEAly1w==
+	t=1793879404;
+	b=2GVasFjSL9efANEyO9jvx5bl1zYhOmExFayhV31P3FG/0XAvTIHyLEOP3ebx8UXbVLQ5
+	 Ycha9QLP0PUAZiRfvv2Y+XUFZiAyKON6dF0YuFwsN4KksittOJ5XdOAf6yMZEnJJIKsl2
+	 lolDJ4qQxwFR7UyzWcrBdRou7pQeMYSlV8ezduCP/7gik3/8/FMhFuhc/rf9zbDusA/3V
+	 SxlRm2c1qnratSU443uazQX0kIB0ceomIpbU/gzvLPdIETD1fo2WPoTyZ6SkgZVwR/DQ7
+	 1KvCv9N0RJGxRoNbjtrQzud7ORfBgSIfBq5wyD51j9YLtQb07b+sr3FjseOyC7qWCIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793879397;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=VImrv8FOkQBPZjLUsdaZmiq4Cy9sbelPnrfcMNk1WI0=;
-	b=scmczt0DZl2DQpMDrUljjFESTziZjnL9+nLD94PfEAejNzJxewYik7A7xy/GRqzeCiZx
-	 E9GDnLYUNY6C+9eWYpUAnxKQVRwL3c21nUQZLr/PaTeFcNiBq5Nl/h6a+8cYsf9rUpCPS
-	 Z7YAlbv3s+7mNNd8v5DmxsfZtKe6qIWnOcyr5VsrBxhX3N3wy/7gTuSUeK8Y2zZbh/NYQ
-	 jmNMNsuhT63w232YNx4A+oZJvpMK1VRdp3cLc5HW3xnJ4DwsnC8VNB4CiSt/iLTJmcS4O
-	 wiAT3/TgHILbSOFjuZm4Cr+tmgpeU/gxR8Q3OcS2vKV2z9+WANiWIRsT4pEJgjC0Nug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793879404;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=oDKfQDAIoGUbqzr7+NW0qlqn3XhkGoaI8l2e454ELsg=;
+	b=JNNQYO+jo3FacfOF0NVhXSaqKKQHS1KFy40k7LFwfkpSHKP2ryxumHcaWAqJmbWu7n+a
+	 /ooqRNEgIY3uKnUUbwhEXI1rRZfhLTs6xvFVZIN30mPTXR4rWVXA2CcB2E4rM+1ukHP6B
+	 5HZ98e5AYoCG5SIcGsmd4KZkDVLpjwdZYxfucc+GsOcL/QKhJjNpox4l07gZjNW1RoCef
+	 Ro6QGZV0Aamt1TH+MajjRPtv1wEguMQgjGWQ27B9rybKP7OXVlUtGBEosDBUp9UmBM9b9
+	 mBpdCkK6FNV2xTGmloMYna22Y927xtYzeZpO8OjWWyl1zqoZvsNHl7ie0T7B8i70xTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hOhJJ17f;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MTaO8neH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5D97606A31B;
-	Thu,  5 Nov 2026 11:49:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DEC5606D819;
+	Thu,  5 Nov 2026 11:50:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hOhJJ17f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD5BD1F000C1;
-	Thu,  5 Nov 2026 11:49:55 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MTaO8neH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C997F1F00A20;
+	Thu,  5 Nov 2026 11:50:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793879396;
-	bh=VImrv8FOkQBPZjLUsdaZmiq4Cy9sbelPnrfcMNk1WI0=;
+	s=k20260515; t=1793879403;
+	bh=oDKfQDAIoGUbqzr7+NW0qlqn3XhkGoaI8l2e454ELsg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hOhJJ17fnaoVYndtIuekxR8R6KO9FBbg6IMn7mFLdmS1AHggfitt7+Nvrcw1ZoLS4
-	 Q65DYL5m5guEYklW1MnM8sShCjbOu/AVXCRkeAq0oWJzYgdSjMYQSoPJ96z4njASSx
-	 g0B6PgBhVRGiD/wpmrvUwA1kR0egiK6rTVJvWHCbIph7lJVlgjaYza1OLGN6+QLjV7
-	 eB+WAtu5GOmRtEtNDB3x5vun45DMPw9GgdaKtuLzUTNEVCYpObK5jCJwkxgaleD938
-	 anISYi/vi9jKckwLJA6u6BOWD2I3Hy1tpQyEN3C1GYWIOm7+okR8USjxmUUyIzI++d
-	 OX/zTf+vcj9eQ==
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 8419B198003A;
-	Thu,  5 Nov 2026 06:49:51 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-12.internal (MEProxy); Thu, 05 Nov 2026 06:49:54 -0500
-X-ME-Sender: <xms:Xm3saiAdn_cZh3JtSZrh99WhVttXV31FNCr4PBP-ecHfjESLFAyeLw>
-    <xme:Xm3saopxSAetXRYpzwVNDP-QRy3P_jPcWB7JsYsS16lNph1qMbflVqH7SrgNofevG
-    o9yA6mIHliJgXjQtkKKvElnY8KcnuLkCCcGHC9u_cgftVDxmYe4qQw>
-X-ME-Received: <xmr:Xm3sau1vZ0S9_M5aNLCqdNT5Lq-NPQ05c7vA75rSiwVOkLoUv75Ra_nvijk>
-X-ME-Proxy-Cause: dmFkZTFaQBfUFVPMP8xrPqBpPtUnYXtbN3LRpp/oxJl/b1RmZnSSZHsU20CPxF1I64DXUJ
-    SNLa91ZNNqfrtHA9eDebWdeJ3pYuxgu/qVSEnCct1TlKIRlJn3GcjTHnnT+sn/oHMnbGM1
-    92CZwyL88cWl12ru+oFk3aGPCVOPyvG/BBaSa3nzQ0qnYXC+EDwfMTbKFpKaz7lB8mwBSr
-    tjdeBaZoIb3fDCkky6tsMipkpHqSdW7Zzs1aYBXDycZrYrz694hViPMgw3pBshbYyrko2L
-    Ohq3WEDa90dSPdCt1Zj6L7kr+Qhl/jG4fQDMc8x/v4q4YqTy9IFSVobK5sWmdPu2MF5qpt
-    EjNpg3PBFTo3XO9RRKHjGaWEQXb5hxpkiWD5hurwcftjcBKJ3dF7hkJYtdSdF1MXJTQGtI
-    U1DxCDZulyaz+XBHLq20bFdQhQbcfFjWNS+nuDxFo8TUM/HN7akP5A3EdHg18A8AJQwdQv
-    PWAvcY13nCclZdQ9XC+ee25WbgDrMiKU8N3e64SqzkgOYAmYJbKJAAlcOZK0GXdOgKQBNC
-    ul1laNs1D8hTZTkx8NJuJzTLRCqehRluIahZmS7tTps7YtiVuhHvREip5GILZ3mwcCpJtr
-    UaCfBsMS72oJMuFm65lhi0wXsXbtCojAj7PUM7Q/sN338f1Y+5/vcc2kDuzQ
-X-ME-Proxy: <xmx:X23sav36-BZf_GdwZf1t908PDlsbnfG7hQS6Im0OKWe1m08mb8IFBA>
-    <xmx:X23sarciPpe7lJ_W_T8XXfpsZ5Dz4Nickzk89PD9OSK30i_0X_RguQ>
-    <xmx:X23sar4mO8DRWKgjo6flEr1hmYHrDo14rxHdRIiC1TMqq78q9bRNlA>
-    <xmx:X23saoi18BpZHjKIwprPReemBZ9lHVBBrXRlSF6c1dUmGIYVXOylvQ>
-    <xmx:X23satrGkUFjjpRHQtDWiikpbfIcGWhCKBGjUS-v73FO4Hw4LlhPATus>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 5 Nov 2026 06:49:50 -0500 (EST)
-Date: Thu, 5 Nov 2026 11:49:49 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R . Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, Shuah Khan <shuah@kernel.org>, 
-	linux-mm@kvack.org, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selftests/mm: skip split_huge_page_test without the
- split_huge_pages file
-Message-ID: <auxtQQ7KsQJK0wkH@thinkstation>
-References: <20261105030242.1241448-1-sashal@kernel.org>
+	b=MTaO8neHaewLBM/bDyKXSqHYZNXi63YLUP1tARtL9v7p35p4N4rT+Tj3p52qK6g95
+	 hzAuCkpEpDggwkgzCAddPGZp2APD0vjNcP8no8G1SZzjJVblpMSw30JJhtbA933v+G
+	 15roy3x4+JxFE967FILojGjNP/UXNfIkr5l0kmMyrLs36M7WR5X+LtORotz8ShSrcE
+	 6/U2vUZ5XoToEVKzPFjfDUyUsPwHD3uhCeFYdZgR4yzRCMmi3qx8Ypg/WJD5pmgCYz
+	 LZBbgpVRjrwS/7eWQpPbRCETxYTT7k+SO+aLdWq/mPpy5gLVsXERE4BPhULSSpQXBb
+	 CDiWvU4LPSDTw==
+Date: Thu, 5 Nov 2026 12:49:59 +0100
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Mariia Nikitash <nikitash.mariiaw@gmail.com>, 
+	dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, kees@kernel.org, justinstitt@google.com, morbo@google.com
+Subject: Re: [PATCH] Input: mouse: vsxxxaa: Replace strlcat() with strscpy()
+Message-ID: <auxrRmyg50gvP1HE@devuan>
+References: <20261104062319.288360-1-nikitash.mariiaw@gmail.com>
+ <20261105112813.13210334@pumpkin>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,24 +58,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="r3dy3xcwqerpul3i"
 Content-Disposition: inline
-In-Reply-To: <20261105030242.1241448-1-sashal@kernel.org>
+In-Reply-To: <20261105112813.13210334@pumpkin>
 
-On Wed, Nov 04, 2026 at 10:02:42PM -0500, Sasha Levin wrote:
-> Every case in split_huge_page_test goes through
-> /sys/kernel/debug/split_huge_pages. When that file does not exist,
-> because debugfs is not mounted or the kernel has no CONFIG_DEBUG_FS, the
-> first write bails out of the whole test and it is reported as a failure:
-> 
->   Bail out! write_file(/sys/kernel/debug/split_huge_pages): No such file or directory
-> 
-> Skip the test in that case.
-> 
-> Fixes: fa6c02315f74 ("mm: huge_memory: a new debugfs interface for splitting THP tests")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+--r3dy3xcwqerpul3i
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Mariia Nikitash <nikitash.mariiaw@gmail.com>, 
+	dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, kees@kernel.org, justinstitt@google.com, morbo@google.com
+Subject: Re: [PATCH] Input: mouse: vsxxxaa: Replace strlcat() with strscpy()
+Message-ID: <auxrRmyg50gvP1HE@devuan>
+References: <20261104062319.288360-1-nikitash.mariiaw@gmail.com>
+ <20261105112813.13210334@pumpkin>
+MIME-Version: 1.0
+In-Reply-To: <20261105112813.13210334@pumpkin>
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Hi David,
+
+> Date: 2026-11-05 11:28:13+0000
+> From: David Laight <david.laight.linux@gmail.com>
+>
+> On Tue,  3 Nov 2026 22:23:18 -0800
+> Mariia Nikitash <nikitash.mariiaw@gmail.com> wrote:
+>=20
+> > In preparation for removing the deprecated strlcat() API[1], use
+> > strscpy() to initialize the mouse device name.
+> >=20
+> > The destination is zero-initialized, and the constant string fits
+> > within the buffer. Since the return value is unused, this preserves
+> > the existing behavior.
+> >=20
+> > Link: https://github.com/KSPP/linux/issues/370 [1]
+> > Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+> > ---
+> >  drivers/input/mouse/vsxxxaa.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> >=20
+> > diff --git a/drivers/input/mouse/vsxxxaa.c b/drivers/input/mouse/vsxxxa=
+a.c
+> > index 042a17fe81db..b3a0d7ff5738 100644
+> > --- a/drivers/input/mouse/vsxxxaa.c
+> > +++ b/drivers/input/mouse/vsxxxaa.c
+> > @@ -463,8 +463,8 @@ static int vsxxxaa_connect(struct serio *serio, str=
+uct serio_driver *drv)
+> > =20
+> >  	mouse->dev =3D input_dev;
+> >  	mouse->serio =3D serio;
+> > -	strlcat(mouse->name, "DEC VSXXX-AA/-GA mouse or VSXXX-AB digitizer",
+> > -		 sizeof(mouse->name));
+> > +	strscpy(mouse->name, "DEC VSXXX-AA/-GA mouse or VSXXX-AB digitizer",
+> > +		sizeof(mouse->name));
+>=20
+> You might as well use the 2 argument form.
+> Moreover, if you use strcpy() you'll get a compile-time error if the
+> string doesn't fit.
+> strscpy() will truncate and return an errors.
+>=20
+> The other question is whether mouse->name even has to be char[].
+>=20
+> Personally I think that while there are issues with strlcat()
+> (mostly to do with its return value), and that there are often
+> much better (and faster - so sprintf is out) ways of getting
+> the same result, the deprecation really needs to propose a
+> sensible alternative (not inlined strlen() + strscpy()).
+
+One alternative would be to add strscat(), with the obvious internal
+strlen(3).  This would be a drop-in replacement, and wouldn't have the
+issues of strlcat(3) --mainly, the DoS vulnerability which is
+consequence of the return value, and also the more difficult error
+handling of doing '>=3Dsizeof(...)' than '<0'--.
+
+There's an implementation of strscat() in shadow-utils, where we call it
+strtcat() --because what it does is Truncating the string, so a T feels
+more appropriate--:
+<https://github.com/shadow-maint/shadow/blob/214a2e6e0a5f81fa281b272be7cf9e=
+9d3aff8f34/lib/string/strcpy/strtcat.h#L28>
+
+Another alternative which would avoid the internal strlen(3) call, and
+thus would be faster, would be to add a stpecpy() function, similar to
+stpcpy(3), but which would take a pointer one-past-the-last element in
+the buffer, to perform truncation.  This is fundamentally Plan9's
+strecpy(2), except that Plan9's API has a bug.
+
+There's an implementation of stpecpy() in shadow-utils:
+<https://github.com/shadow-maint/shadow/blob/214a2e6e0a5f81fa281b272be7cf9e=
+9d3aff8f34/lib/string/strcpy/stpecpy.h#L28>
+
+We've been using stpecpy() quite extensively in shadow-utils, and it's
+a great API.  Of course, there's also the decades-long experience in
+Plan9, which apart from their bug --which I found, by comparing their
+implementation to mine--, shows that it's a quite useful API.
+
+And stpecpy() produces the simplest code of all truncating functions.
+
+
+Have a lovely day!
+Alex
+
+> This case is, of course one of the 'better ways' cases.
+>=20
+> David
+>=20
+> >  	snprintf(mouse->phys, sizeof(mouse->phys), "%s/input0", serio->phys);
+> > =20
+> >  	input_dev->name =3D mouse->name;
+>=20
+>=20
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--r3dy3xcwqerpul3i
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrsbWIACgkQ64mZXMKQ
+wqkq9Q//UW6QwkSie8ECdEChrKHPAnBCwiZw1qTwxY4XWzrHHNlPa0FYuC31kBbq
++qWM8MEQ+eolkMZxZibf9GRvHUJVyi4dR6uiLURvNRJ9PzSPqRftGrnFkFFMEge0
+wqsXrJIFqW90ZaJINRVKtfqApEDIABnD9TWgA5ldyOgAvH8Qctw6rVWIchV0fg9u
+y8HoYY0oeRWdXS4Xi1JjF3t2YbxcaNkgRvFe4IyOehrzITZVVw6V73KXJ7tk75qn
+Zt4rM8Ge66zdPBJe3vyNG+o3Cd1+5jDVklD2fSYmQ7+cQickIJNAjf906GbBaZGH
+URb5e3imbM/UXt2VpD6+sRjLtmo3SOKa3SnIvJnfUCs4RYYRd9G5N61aBsj8Lsm4
+aGShVCJ7ruXIZgUHh4LarOWVfvZtBTirc0sYgg4s9OsV6yxtmI4MkzmvF5NH/XRD
+qXVbWM/fWNgFL/7VBaoTMCQ13/3iDj321nTfbG76l+B1mkhyxdEe7nXtNXArTi4y
+bsL+nFoc7trM7DBPBpr7TzOuLcg3eJhynRW9UU/vF+p3WZyLnHrl6Bhfsbomwo/+
+k3IxB5EDufvzia2R5NXYd+tV6BUDnU/Gw1vxJZQyGagG3GCUBIyuwMoqoTR14taB
+1CTBz9raaaEZLYFVLA6nnWXjGSYpCqtzKoOiipAIbc3kEc0qCSY=
+=CGAl
+-----END PGP SIGNATURE-----
+
+--r3dy3xcwqerpul3i--
