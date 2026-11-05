@@ -1,54 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.202.128.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793875384;
-	b=y+y6Pycc4xr0UFilEuwmifSYmiHIBTow+awOC5arrl/56y5mNRj3hpYoMkW0148fHCrg
-	 nkZvtZJyXUJNYBOvNOlCSKydQEwspOe2XS1KapDRPXD1DdDgCXtMRcJU6BDRdLSqpQKAn
-	 F/vMs1TP4IifaX8rX7pcDXKmPFMcO8xNH0pa14QG23yywHaJAlNEePWG6rAQ2doQo+lzb
-	 0j/YX/C6W34oPEgFmQMFqT6RvVIjKwTcHk5bYXgTQRE/5+/V4V5F74LfGUIfJSybbPQkI
-	 jrQ749X1z5p+cPmLqd7jq20UPNapzMgJZr+9kKmCUxVEreqF8g+vIFknN9h3JoHR+fQ==
+	t=1793875388;
+	b=TI2WgQaZSQ7Zw94o++Zp5IBJQWMUaUP8EPWjf0nKUEa2zsJ9I99cu8F9m4QSrsd8oukZ
+	 LPPheXCujNutUT2RLVHNzt6hjN98Ff2Q4jLS3p1+astHQnRwQ1Ed045TtpqigddYHi+FL
+	 5XKxLi7A5UPUFTCKBIVvUNVdWH/YeOtuVQCoS6jWrQk1WDRjN3eHGX2tmXwZY0DJg7dKC
+	 21JAK3xifqwdJCXXu5NQhLZPtIn4Om17Wk7Joken53CxestltNFxvRJGcmhvJkayJBRAZ
+	 bPq3uYH2WQjGdKBfdqIHFBObUeZn/cG5LTNA/7X7HjRk716ojhy7e+ghCWAp0eBT4GA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793875384;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=LY48cpV0y54qEv+ziTpWevRO8FRdZm6CABLVHzZZ+3I=;
-	b=St3+8Q6Gu3wu0ihaxqTQ3ygmI9M8DvCK1KctgzJfvyBjsomHen37AHN8ELSNSw1ahsDw
-	 BBd4BcLsCF+LWk2nz/+6TsKViQM1RBQ0m1jMGyIW1dsbwo4Gzz/mx3w2SHkS4TE5N4M+C
-	 0F8CN4o1qNK6F1QA+3Lj6liin42agkwDAkjDGwtCcE5zd6rCL/id9FvE3KUAnCQSykVgG
-	 obVMkTmEZYZrUf+V+fMYceV3fqX0KO/qgVhlrzr1e8IhjUoN09BCxcSvGA/ArJApWbpTF
-	 4/tU28SJIySjquoAcZKq7qEHlNEIwOzGNLHKBXHZktbGXSANCfGJ2Iec7mBLSjpaHEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793875388;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=WU0mTIuYpv0rehcbLRaasNOk5Yx7WkJzHYLOVNfF1wY=;
+	b=bkcGunMVYHRjeEPLF3QB2TFEa6QATcVkAfPoFUpgJPDkEd9Ixlr/T9xUGsa3S0V2TXdZ
+	 r/7/ZhJgdDJ39stFDik9oo73cSDGgtzk29TSCyHUxIJ0yu7h+f+RFL0g/B4Mk25askHJA
+	 i3F5bqU36S3audldyF9FkwPf4Td3XbLuw9aXwU8XT9BxAICQDba93gimza3bZO+Mlm3BO
+	 X5uF+qm+tWALeAlR+oMmAXygm+2oAsXUWtcF9l2ki1HEbDIlnuefS5UngHk2KhN1d4gXp
+	 LOSOz4SRdOeD7/0fU90EZ9uQFeD9Uk5RV8oM6KrCpYYUczjPMlWnJQsfPRXYYTMcrzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=freeshell.de;
-	spf=pass smtp.mailfrom=freeshell.de;
-	dkim=pass header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=TBry9vQL;
-	arc=none smtp.remote-ip=116.202.128.144
-Received: from freeshell.de (freeshell.de [116.202.128.144])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TsPaJdrf;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B239606A31B;
-	Thu,  5 Nov 2026 10:43:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B239606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freeshell.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1200E606D81B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:43:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1200E606D81B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=TBry9vQL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freeshell.de;
-	s=s2025; t=1793875341;
-	bh=LY48cpV0y54qEv+ziTpWevRO8FRdZm6CABLVHzZZ+3I=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=TBry9vQLy9zXjlzdD3mWMp0vCGbmJRard8DI1NekNJ8v9IEzcDd2wRrQ+wtMkpzKI
-	 bbON9/TC6zvv7ZF/nYCLXhF2kqdINuVz5NjU5+/3KhN+r3IL++BEWtXByMA961lr63
-	 5HKtD+j2Y7AwQA0QwhTJLFt5tO2rv6yLjWUwDR3dp+Aat6+6tozWUCHMZSnMAIjRHg
-	 S/YnpZt6mmDLqrQpq7ATUWePWVcD6+MhRHZWwNG6E0nHlI6qdslQJJjpy5dwSBA64S
-	 CuFj2bN66jqxyxD2muvdE8NXC9W2m3TND81rZETFSF+LbK3DdtselDhJL79w6e8sgo
-	 8nHiNed7bvZ0A==
-Received: from [IPV6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc] (unknown [IPv6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc])
-	(Authenticated sender: e)
-	by freeshell.de (Postfix) with ESMTPSA id 63687B22067C;
-	Thu,  5 Nov 2026 11:42:19 +0100 (CET)
-Message-ID: <0c4b79f0-383a-4884-8132-59dcb3487cd3@freeshell.de>
-Date: Thu, 5 Nov 2026 02:42:11 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TsPaJdrf
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-15ea896ddc8so2909941c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 02:43:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793875386; x=1794480186; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WU0mTIuYpv0rehcbLRaasNOk5Yx7WkJzHYLOVNfF1wY=;
+        b=TsPaJdrfPMNSicoio0TvfmbAOmwFm+KsdgoBDi6nJGpBVwhhBbxcGnOIAvtheSdFFK
+         R6hVLA094QGG/Qc4t7zW4+xsMUQ2jpeKVCadXZ0rt1dty24liR5QDwTrI32ynBQZhYzZ
+         /HaBXtJLkeLI9QA92GbM742hUAQk0rshzUxN1oQCWxDXi4VgdeEAsGEFZe38yABq0mlR
+         D8TgJVcGj4GlOQtSeW4DLx3TRgkMYQnqHNXl+xdp41B3BEhsfdD+iiN9d2490tB/U677
+         ZOBgEdqRlJTAz+PEGiizuSNw208ie6mX5HjaJWcZn6MLhJuJ+yEq36DIr0gfDUz7YWIv
+         fEkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793875386; x=1794480186;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WU0mTIuYpv0rehcbLRaasNOk5Yx7WkJzHYLOVNfF1wY=;
+        b=VgyAg2fI7ubPlSYvbCHnV999B7rE9f7BpCXTgw02hk52dpDFhUyWTZ/54bNhsQZDh9
+         Pmwmh6GkYv5o3nx3kHJBTYig379F+sxyXWbYk+M8bFpheFVnRulBbyWjvn4UQrI37dp1
+         YhJ+T2Fzy2uGw1CP0oijYTCnRn6bQlQUo6QGO7lqFTybLOkfbCsk9iJkoOPFq8lI71/i
+         Ve85J0l0QJh1KqdYH1Hu/z52jaejWJ+e/ejBzhJgHuTn7wCp42RgPxvCluqVNhHspshx
+         YZdeP59ybOalt4rdDeS0KUYrv3cE+sYyz8FNvniyJ7+lc5Jz+/jZP1VxftAPPW5NVahU
+         iIxA==
+X-Forwarded-Encrypted: i=1; AKwUvByS0rY0DsHwrTsUE3rWBe/mDYpJfVDzpGH8d+zBWpv039ewWUNzEdDiXnuHcZAh+VostMGf8Any6TqJ5qU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ez59cEpA6WJE0/7S1eSHt6zQRq5sqwJRTw7YX9e7UgkjJoqf+
+	n4RWGzgiuM5ZSDeGxcltlxRDBm/ENXYwXv2oGckAzZoXKpDoVsfit85UO9Vb/A==
+X-Gm-Gg: AYBFou08YLbKS0d5+TJ0Tg+gorOgCoHiNaHGuMn9jJmjxYM727W4aZltB6MO2XyqOyN
+	cl/Y8/dJnq496PVfiL02dsjCKF3GCi91Vi4As4Kr8yx0SbFsoYVc10Em8a+PxqoELnCz1wu4rpG
+	CGog9jFNT4lh6Vvi0eAT6gh4u2Wgrvo2WUf9eUMyyiKlfWD6opCLNS/j7XW6MCoqnXd/jzRtHqg
+	aGAKdD+g+b2fMWIJaXaFx15fBtK1EOtQQ2/Ti2y1LylakIGBQCZ7mbhqY9W6H1uLNHHb1nHs+Lx
+	xk3cqvK8z2KGNLRF3K9/Jb4L8Ah3WP2ZlHCZFvNOeB7pDvcZ1is8AiBw4++zT+7DlylJaEkP2bx
+	OA4mGudzVA6IwfOd1hljiG8PtLbyli2hoQ3wi4XOlbDZ9xkGVhQdNr3yPh6EK2XTVdURDTz9wKu
+	JNKXb3klxH6er8kyV/wE7hAAvYoseFccABAvPEWY154BZJ7n5yvmimxcpdL45LPSGBRdFHHUqqN
+	oF2SnRb5iPtBuVuyt1lNhQ/Fr8xv5VBLwJ2vo4si/FaedSdop4QHbtTYuFuK2vyRAttlARRo2ta
+	aeD35wQzXRvcfk5mjfAH4BhC2Ykt7c+rwg6mXB9vTHx1eKChBVZucHlr9/09cw/28cruM2aywOI
+	XfO2mpLpzz2RhoFHzFeng2VEwrOJynfRSyBn+d/sy8JWA
+X-Received: by 2002:a05:7022:7f0b:b0:1a7:2ce7:ad10 with SMTP id a92af1059eb24-1ac5d69f67emr26766196c88.44.1793875385784;
+        Thu, 05 Nov 2026 02:43:05 -0800 (PST)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c1c272sm15595215c88.8.2026.11.05.02.43.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 02:43:05 -0800 (PST)
+From: phucduc.bui@gmail.com
+To: Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Shengjiu Wang <shengjiu.wang@nxp.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH v2 00/10] ASoC: fsl_sai: Address several issues in the driver
+Date: Thu,  5 Nov 2026 17:42:27 +0700
+Message-ID: <20261105104237.38542-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,60 +105,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/5] riscv: defconfig: Enable AT24 EEPROM and ONIE TLV
- layout
-To: Troy Mitchell <troy.mitchell@linux.spacemit.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20261105-k3-com260-module-sd-nor-mac-v1-0-138b39d74602@linux.spacemit.com>
- <20261105-k3-com260-module-sd-nor-mac-v1-4-138b39d74602@linux.spacemit.com>
-Content-Language: en-US
-From: E Shattow <e@freeshell.de>
-In-Reply-To: <20261105-k3-com260-module-sd-nor-mac-v1-4-138b39d74602@linux.spacemit.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/5/26 00:23, Troy Mitchell wrote:
-> The OrangePi RV2 and R2S device trees take the Ethernet MAC address from
-> the ONIE TLV data in an AT24 EEPROM, and the K3 CoM260 module stores its
-> MAC address the same way. Without the EEPROM driver and the ONIE TLV
-> layout, the MAC address lookup keeps returning -EPROBE_DEFER and the
-> Ethernet controller never probes unless the bootloader passes a MAC
-> address in the device tree.
-> 
-> Enable both drivers as built-in so the MAC address is available as soon
-> as the Ethernet driver probes, including for network root file systems.
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-This does not make sense for platforms which have no use for EEPROM
-driver in Linux userspace.
+Hi all,
 
-> 
-> Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-> ---
->  arch/riscv/configs/defconfig | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/arch/riscv/configs/defconfig b/arch/riscv/configs/defconfig
-> index 04ae305d5511..a76f801d8eed 100644
-> --- a/arch/riscv/configs/defconfig
-> +++ b/arch/riscv/configs/defconfig
-> @@ -276,6 +276,8 @@ CONFIG_PHY_STARFIVE_JH7110_DPHY_RX=m
->  CONFIG_PHY_STARFIVE_JH7110_PCIE=m
->  CONFIG_PHY_STARFIVE_JH7110_USB=m
->  CONFIG_LIBNVDIMM=y
-> +CONFIG_NVMEM_LAYOUT_ONIE_TLV=y
-> +CONFIG_EEPROM_AT24=y
+I've continued reviewing the FSL SAI driver and referred to the
+i.MX RT1180 Reference Manual when looking into its register
+configurations and behavior:
 
-Enabled as module, please.
+https://www.nxp.com/docs/en/reference-manual/IMXRT1180RM.pdf
 
->  CONFIG_NVMEM_SUNXI_SID=y
->  CONFIG_EXT4_FS=y
->  CONFIG_EXT4_FS_POSIX_ACL=y
-> 
+Link v1: 
+https://lore.kernel.org/all/20261030091404.18757-1-phucduc.bui@gmail.com/
+Change in v2:
+ - Add five patches covering disable handling, documentation, 
+   ISR error handling, BCLK ratio validation, 
+   and preventing incorrect CHMOD writes to the other direction's xCR4.
 
--E
+Compile-tested only.
+
+Best regards,
+Phuc
+
+bui duc phuc (10):
+  ASoC: fsl_sai: Fix PM QoS cleanup on resume failure
+  ASoC: fsl_sai: Use optional clock getter for MCLKs
+  ASoC: fsl_sai: Remove redundant error messages
+  ASoC: fsl_sai: Propagate device tree property read errors
+  ASoC: fsl_sai: Drop redundant dataline mask AND
+  ASoC: fsl_sai: Warn if TE/RE does not clear on disable
+  ASoC: fsl_sai: Clarify fsl_sai_dir_is_synced() documentation
+  ASoC: fsl_sai: Check regmap_read() return value in ISR
+  ASoC: fsl_sai: Reject bclk ratio smaller than slot width
+  ASoC: fsl_sai: Don't write CHMOD to the other direction's xCR4
+
+ sound/soc/fsl/fsl_sai.c | 89 +++++++++++++++++++++++------------------
+ 1 file changed, 49 insertions(+), 40 deletions(-)
+
+-- 
+2.43.0
+
