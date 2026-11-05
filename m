@@ -1,73 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.108.3.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793856442;
-	b=Ndkc/iWMu/3KZQDgAkWqUSwuXn3uv4L5VU5jcYjafSqsBwKmlyL613USBCyp0VR4OHw6
-	 80kC0YjYplPzLtd4GRNH3UeRGaiDek3qjQnJqPi3Ga3vAD50Ugww2wf5OmfEDPHsXy9TO
-	 qUALvvGFMvIg6QYc31BNrqVJeRXjrIjyHvK7sScHLR0d5hJl0TDg+A1+r7mXeOAnxntz4
-	 xoRuRkngT21eBPEniMfGHa6qfbs6OECuLquZjDlPpywXn90Z7TuE4kmAEhoy/DklS/pDj
-	 V/lpVFCZf4HwhlbGKUYM8r5vnoG9Ahh8HyUiJAQVlbAbaElkBEQVnE6Bp9FPSAA4djA==
+	t=1793856452;
+	b=HqMS9/fBvgTNvzke70RM7yXnxQWtXEqF8JXqTQIO/XbzGUWO9G7bPKiYkVUgwbhb9mia
+	 YAYK65gTP90EM+pUXrnDgIrhctw5ijAgyJRzTogQZ2s4Q5IQrcP/gkrVU4t3p5E0bCTR6
+	 BqLwLK3/gOYFce3OBtkXTsrph+U+k42lT53iGJBSskSZWztWu/YHzl4o/DTNo6xhgjn8f
+	 Mi/NAMokEONfvvD+ndR+s0GVVDg0gJqIwX1lt4sm7KRCw6eroWb3MHwBxhlJiBNLqId6N
+	 mqKVNPrGVk5Sxj5aVthgupat7LRAwZ+GYE8WtbgBwtVLjNq3rFGWQlJqzyxx3ve2UDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793856442;
-	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
-	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=9Daa3FHwpcJFP597PrdbQcKKPLxvw3pFmtT+70N8AzY=;
-	b=sp6NjLgJMhCVmNZM9Y1Bp81TDYlvaqy3MLQaZOIr/wW+eYNs+Yeh7NmQKCsYitb83MMI
-	 F9VQvCGi5L+Oovar6pHjq9GLGJRMOdSS4Tv4BGTCSp6cghy6nYK3BQMaEXSJQDtZpGL/I
-	 TbxpDsYkO63dL95CTnhvxZMgpNJ49icFvsdrEgOPzDYNKt5lKv9eAieHrDwnVp4YecFwA
-	 J2VVlGn77k/HUwZk7qWxaaVfW9evqnbGUKEw7cXqD53VeGyaHffv6SPIp6Zijnyo2K7ME
-	 O5e1HX50e2t1dwe+pbge7lV8MeCU2tEIRYqvt0rxxqP2NDlZwtBWwqhoZUdRzG8etng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793856452;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=PIRitB8QDR/Lo0+xdO6xLcBPU7Le8tBzn9jvhjsONAs=;
+	b=eMLy9CJnuGFSda5gMZ9sBaXYUNWK+spvUPxmhxs+hxjNDvy3G8dYlDzQmqnUPBLsLObW
+	 +w03jtfBeviaBJlFPgcePpwgLuJy2EZxvaoGsB2jBM+p75RNi880O7MFQznKVSORJP6Bb
+	 eamtFeu1gvnmoeCo2BztAIVlmyXGkhQIi7nAkbKgLqpcGZ0DjAwx7Xp9UbkPnq8aAWs33
+	 5UOAg3fWNlqojhZaVJZU6vOGaFkIp4tHRJTwHK8exQ+0xeYFm0K04IGmW8NaiMwhP74Ze
+	 tq+sC5EF3TipUxeLm4MbpXKdIfFreWexf7hSidjWYhgMcv47N4wrR9J3zA8QFqrYTvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sina.com;
-	spf=pass smtp.mailfrom=sina.com;
-	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=KtT8r561;
-	arc=none smtp.remote-ip=202.108.3.17
-Received: from r3-17.sinamail.sina.com.cn (r3-17.sinamail.sina.com.cn [202.108.3.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aElhuCrL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 326B3606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 05:27:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 326B3606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 726D0606A31B;
+	Thu,  5 Nov 2026 05:27:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=KtT8r561
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1793856440;
-	bh=9Daa3FHwpcJFP597PrdbQcKKPLxvw3pFmtT+70N8AzY=;
-	h=From:Subject:Date:Message-ID;
-	b=KtT8r561aMmoKkQoaZpBfdngvGkMU6mDEs92pw9BMK2rIkoEWZ5VwNHkhSuNiuAPY
-	 zxJy7z54QNjBFCJkVrcDOWx4q8cCiwToygOpAfDPIY7fB6tTxUGvqVaM+S2M64dHqW
-	 INB4YPy5YieHtqr6eG3vyHRXP02uG3rEmQzBWkKA=
-X-SMAIL-HELO: lxu-pcd
-Received: from unknown (HELO lxu-pcd)([111.198.231.89])
-	by sina.com (10.54.253.34) with ESMTP
-	id 6AEC13AC0000536E; Thu, 5 Nov 2026 13:27:10 +0800 (CST)
-X-Sender: eadavis@sina.com
-X-Auth-ID: eadavis@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=eadavis@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=eadavis@sina.com
-X-SMAIL-MID: 6849496291662
-X-SMAIL-UIID: F141B9CBB75B49DAB820F25088968A10-20261105-132710-1
-From: Edward Adam Davis <eadavis@sina.com>
-To: sashiko-bot@kernel.org
-Cc: media-ci@linuxtv.org,
-	sashiko-reviews@lists.linux.dev,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com,
-	sumit.semwal@linaro.org,
-	christian.koenig@amd.com,
-	phasta@kernel.org,
-	robin.clark@oss.qualcomm.com
-Subject: [PATCH v2] dma-buf/sw_sync: Optimize the retrieval of fence reference counts
-Date: Thu,  5 Nov 2026 13:27:07 +0800
-Message-ID: <20261105052707.55911-1-eadavis@sina.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <sashiko-outbox-198550@kernel.org>
-References: <sashiko-outbox-198550@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aElhuCrL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BDEC1F00A17;
+	Thu,  5 Nov 2026 05:27:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793856452;
+	bh=PIRitB8QDR/Lo0+xdO6xLcBPU7Le8tBzn9jvhjsONAs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aElhuCrLS8NqDddUQydHEiNJYEzM9OPtl+6ROAX2zBstedveaGbexvpJbR90Gg2QU
+	 6hJrDLwYqfIwx6b8sQ39yrxvg91ALuo+Y4UeWyUFLebWuO+g5tgmybuQraaaCUtlcJ
+	 LGc5abnhK7BBltnfrK8czNL6MPjAZ2ehOMeRHDuyWZe4H5OaSxPU5Y0M0b+btlxD/2
+	 deFABTeIEIxRGB3HkaETGirZ8QcAKT9y9V/V9IbqMi6XXlncUOG7f8r0N5s6Q18Oq9
+	 JA9yvGO6x0Jkhw/VoD7T5WQek9Q5lRXA7kKqBSKOSs1r+f5v0dvByOayCZ04M2nhMd
+	 N343s1MU5K05w==
+Date: Thu, 5 Nov 2026 05:27:29 +0000
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Yige Jiang <yigejiang86@gmail.com>
+Cc: chrome-platform@lists.linux.dev, Benson Leung <bleung@chromium.org>,
+	linux-kernel@vger.kernel.org, Nick Crews <ncrews@chromium.org>
+Subject: Re: [PATCH] platform/chrome: wilco_ec: Fix device reference leak on
+ open failure
+Message-ID: <auwTwb3iKN3td-Uh@google.com>
+References: <rc-review-20261103-vc-85-d1e3d35e7c31@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,58 +57,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <rc-review-20261103-vc-85-d1e3d35e7c31@gmail.com>
 
-There is a race condition between closing a sync file and the SW_SYNC_IOC_INC
-operation on a sync obj. When a fence is created via SW_SYNC_IOC_CREATE_FENCE,
-its reference count is initialized to 1. When the sync file is closed, the
-fence's reference count drops to 0. A race occurs if SW_SYNC_IOC_INC accesses
-the fence whose ref count has already reached 0 before dma_fence_release()
-calls timeline_fence_release() to erase the corresponding pt_tree node from
-the sync object, potentially hitting:
+On Thu, Nov 05, 2026 at 12:47:12PM +0800, Yige Jiang wrote:
+> telem_open() takes a reference to dev_data->dev before allocating
+> the session. If that allocation fails, it returns -ENOMEM without
+> dropping the reference. Since release is not called after a failed
+> open, the device data remains pinned after removal.
+> 
+> Drop the reference on the allocation failure path, after restoring
 
-refcount_t: addition on 0; use-after-free.
-------------[ cut here ]------------
-kernel BUG at lib/refcount.c:34!
-Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-Call Trace:
- kref_get include/linux/kref.h:45 [inline]
- dma_fence_get include/linux/dma-fence.h:323 [inline]
- sync_timeline_signal+0x6d9/0x8a0 drivers/dma-buf/sw_sync.c:224
- sw_sync_ioctl_inc drivers/dma-buf/sw_sync.c:405 [inline]
- sw_sync_ioctl+0x7b4/0x13f0 drivers/dma-buf/sw_sync.c:470
+Moving get_device() after kzalloc_obj() succeeds makes it cleaner.
 
-Use dma_fence_get_rcu() to replace dma_get_fence(), if fence reference
-count is 0 then do like timeline fence release things: remove pt link
-and erase pt node.
+> Assisted-by: LLM
 
-Fixes: e531fdb5cd5e ("dma-buf/sw_sync: Avoid recursive lock during fence signal")
-Reported-by: syzbot+cba1a1f459230395a076@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=cba1a1f459230395a076
-Signed-off-by: Edward Adam Davis <eadavis@sina.com>
----
-v1 -> v2: use dma_fence_get_rcu() and remove link & erase pt node
-
- drivers/dma-buf/sw_sync.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/dma-buf/sw_sync.c b/drivers/dma-buf/sw_sync.c
-index 8df20b0218a9..261bc98b1ed6 100644
---- a/drivers/dma-buf/sw_sync.c
-+++ b/drivers/dma-buf/sw_sync.c
-@@ -221,7 +221,11 @@ static void sync_timeline_signal(struct sync_timeline *obj, unsigned int inc)
- 		if (!timeline_fence_signaled(&pt->base))
- 			break;
- 
--		dma_fence_get(&pt->base);
-+		if (!dma_fence_get_rcu(&pt->base)) {
-+			list_del_init(&pt->link);
-+			rb_erase(&pt->node, &obj->pt_tree);
-+			continue;
-+		}
- 
- 		list_move_tail(&pt->link, &signalled);
- 		rb_erase(&pt->node, &obj->pt_tree);
--- 
-2.43.0
-
+The tag is no longer used; ./scripts/checkpatch.pl --strict:
+WARNING: Non-standard signature: Assisted-by:
+ERROR: Unrecognized email address: 'LLM'
