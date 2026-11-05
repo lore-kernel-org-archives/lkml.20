@@ -1,54 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.203
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793860291;
-	b=YeDOHcwb/FUstb9jjxc/MBApmvNxOysphvotORZWo6oiB+EnhGsaP+9WEF7rrp6rXpio
-	 bx3XmNoGiPBdNsm22h7O72eGn+SuVglzeIp6eY1R8c3r76Ou4QdzC6Favxy0XJ4cAqteI
-	 UKxJXtUnZu1Wc/4P0BgjFOIvj7EPZwredUi28EKJHFkKXgP+81DfGYGltXgAvftsrbVNf
-	 YzrDvjLm7SmCIMBe9cTGBJE1OX8zMbWykLGlfwHfOOpeTfmjtxvX/P+rkHqHjAlf2ODAs
-	 bAYgu3NuPSiZEdqmnD2kd5fKHz40QcLukAIoamq0gDXZQTSKVnFGc/FPViSqu2LddQQ==
+	t=1793860333;
+	b=hbh03fUju4ASch9WDaz7UUAjJGHU6xgnrBWWuN7w4tN058MYBmFLv+xHQiAZHYYtiuRK
+	 J3dv4OFkcNMwmp5hTzu3mtYpzmu4tl4um22vaQwdDtzV6nmaHGGqta0e6IMCh7DHiiI+n
+	 8Hvgg7L8klimxFNMDtwYB0Uk0wQ2nlTm4kjte6Z/jSz4wk8p8r+A9+JhVxTxkQojmsisn
+	 gKBBxFBYFxKMwimYhkLJMHyLIrl65zL4jFGuj9NnVY+XtENyFTLpM6bmfAa3oDp+hG+lS
+	 0oA49DjYUIAjH/YcSqMXZnV3Eo4Eao5b5bC2mwHPGw3yQtF14GcYa0wSrUPjQEJ9pcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793860291;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=D6s83uRLvWaDuibFiKgkLxq0xYjS1L45DJwLaob00q4=;
-	b=GTONlZKn/q0nfiFBXaCEX0/9sqRAsweTyjIUnuIttVT3G/ZVpcQyJrMSFu3xycRkrAk2
-	 Dn7vW53HXFBr+Dn9Wguu+kL4zeosJrAnh8Ivz/pX6WOFRoISWM0lCaybm10C4n9Sm76k1
-	 zHTesvhZc7s1PxAnwfcNABsT5qegVts8XVLv7ygtCpxNm0rdTSGp6jiMC+KrRbPpBPTxx
-	 lD9NE68L3YcSVcbs2rpdlGmGw+Kxj0/OwAMU3wOcm9hG9nzIevzQW2LswkBWXZxSbPGG6
-	 j5vokGkFl4q91d7+c1f3PyrwXkUalSDIw7UE0yU9a96A9umhyTETtgb7TKdK6iV1hXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793860333;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=NMc4YBNqqNl/f5QyAxzKJtl9UUfUND1Mckv/e/eHgt0=;
+	b=Vc/WSlGN/VB7T0WEL0tPEvE5XRuOs/HleMAupV5nJ5lWWHeFbU3hjEK1/7NjkA7Nl6fv
+	 t8/QwqSJaXI5PTmUpa5Je08dKi1B0yJm28VNh5yyRv/s6AHaBpKktPvC0I5M2R9GKROe6
+	 W9sy1fg7lXmfI5POBKEN6RVLgvR3Hq3X2Tbi0o1kUpuQBLs/7LQtUPOM4sErGV+Dm1nk6
+	 rHo6iGT7rK5H0+Fs4xn1yZSyW/GrUIbqJR6o0eyjfR0xaN/ulvARf+SZud3Ns0twOmACd
+	 hBFA2Ps3SF1Iv145iuAVt5UpeZgko4rYEkv582fpnr5TFLFiGo2Fs3/6GbDYtY5uMXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=74.125.231.203
-Received: from mail-oi2-f11.google.com (mail-oi2-f11.google.com [74.125.231.203])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC8D1606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 06:31:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC8D1606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f11.google.com with SMTP id 5614622812f47-4f3f1adebb0so566814b6e.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 22:31:30 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793860289; x=1794465089;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=D6s83uRLvWaDuibFiKgkLxq0xYjS1L45DJwLaob00q4=;
-        b=duEtanDVBwEb0rmcISWik3kixduI26ccdW/vwMy+Y6eFLuht0Cj1b1nP02872tRfzE
-         cAA/sLxgEG4tUQ3CbZdfl8V1G8q/6eucjijxnOcheOJL74AObG0bx4pQ2wDAzdIU5msb
-         x/bckewnp5U4Sfw0sJC8CJdVHVD3LJWUomkMRl8zKwgHVwvBkgRUsZtEc+4wlejw+85/
-         5A2Y88R6myrs4CZCApnmaEwS8HY/chviJ88dAOYCddJQa0mW57MySh2DI1o76zBo69Ld
-         MNNuiw3w70kDVvVuNWOkT+X/ynbY+sTRCeOKtmxWmaL9UfSz76hwYKFKIR4XtBmRmSwg
-         aflA==
-X-Forwarded-Encrypted: i=1; AKwUvBxfNM4DYWVzch9JotTLvi2d/bIBWW5rHKgcSvfdb62/KILNKCHsH8k/93/7+LI5Hxgqi+PjRK9C06MaVt0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/u0jYQ5E6U8KTOeTMi2hH0/BY81UYO8EohjSm316lf5atPU+gy
-	+plopncmuuIOqyDkM9eKrrKz4eFMdtcAqTG180sjQnzb+753sEgHhyreR/rN6kPlUI/l4dTODPa
-	0auDy2MyyO0jKw3KgTbOvA0LWwBMefc4M4bvaFhdlMDv2fwKVhj8BWNugkdQ=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1BC9606A31B;
+	Thu,  5 Nov 2026 06:32:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1BC9606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 9ccd4a4cd8e211f19a56ed5b684f684d-20261105
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:c472277c-37bb-4f69-a75c-650787c10c7e,IP:0,U
+	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:7db8b62,CLOUDID:6ae8fd732662dd474c64bf48ab8defdf,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP
+	:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,
+	LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 9ccd4a4cd8e211f19a56ed5b684f684d-20261105
+X-User: zhangheng@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zhangheng@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1484795416; Thu, 05 Nov 2026 14:32:03 +0800
+From: Zhang Heng <zhangheng@kylinos.cn>
+To: Vijendar.Mukunda@amd.com,
+	venkataprasad.potturu@amd.com,
+	lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zhang Heng <zhangheng@kylinos.cn>
+Subject: [PATCH 1/2] ASoC: amd: yc: Fall back to DMI quirk table when _WOV returns 0
+Date: Thu,  5 Nov 2026 14:31:52 +0800
+Message-Id: <20261105063153.353012-1-zhangheng@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,105 +73,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6f88:b0:4f5:c4b9:dbfa with SMTP id
- 5614622812f47-5640ddc160amr12936941b6e.48.1793860289651; Wed, 04 Nov 2026
- 22:31:29 -0800 (PST)
-Date: Wed, 04 Nov 2026 22:31:29 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aec22c1.21d05368.325ed5.0005.GAE@google.com>
-Subject: [syzbot] [io-uring?] WARNING in io_put_sq_data
-From: syzbot <syzbot+9f32706bfd7c4ff81434@syzkaller.appspotmail.com>
-To: axboe@kernel.dk, io-uring@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+Not all BIOS implementations report _WOV correctly. The DMI quirk
+table already serves as a fallback for machines with broken ACPI
+values (the _WOV read-failure path already falls through to it).
+Extend the same fallback to the _WOV=0 case so that DMI overrides
+can take effect for machines whose BIOS reports _WOV incorrectly.
 
-syzbot found the following issue on:
-
-HEAD commit:    36aad21d50d1 Merge tag 'ksmbd-for-7.4-rc1-part2' of git://..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=13ebf981580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=bd712e5dbce1d1a0
-dashboard link: https://syzkaller.appspot.com/bug?extid=9f32706bfd7c4ff81434
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
-
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-36aad21d.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/f5ef884eedc9/vmlinux-36aad21d.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/7e4771aa5ca4/bzImage-36aad21d.xz
-
-AI-generated root cause summary:
-In io_uring/sqpoll.c, io_sq_thread() sets the IO_SQ_THREAD_SHOULD_STOP bit on
-sqd->state when the SQPOLL thread terminates (e.g., due to a fatal signal) to
-prevent new rings from attaching during cancelation. However,
-io_sq_thread_stop() still contains an assertion
-WARN_ON_ONCE(test_bit(IO_SQ_THREAD_SHOULD_STOP, &sqd->state)) under the earlier
-invariant that only io_sq_thread_stop() ever sets this bit when rings release
-their references. When the ring is subsequently torn down during process
-cleanup, io_put_sq_data() calls io_sq_thread_stop() on the already-stopped sqd,
-tripping the warning.
-
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=9f32706bfd7c4ff81434
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+9f32706bfd7c4ff81434@syzkaller.appspotmail.com
-
-------------[ cut here ]------------
-test_bit(IO_SQ_THREAD_SHOULD_STOP, &sqd->state)
-WARNING: io_uring/sqpoll.c:88 at io_sq_thread_stop+0x18b/0x1c0 io_uring/sqpoll.c:88, CPU#2: kworker/u33:12/1172
-Modules linked in:
-CPU: 2 UID: 0 PID: 1172 Comm: kworker/u33:12 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: iou_exit io_ring_exit_work
-RIP: 001qemu-system-x86_64: warning: 9p: degraded performance: a reasonable high msize should be chosen on client/guest side (chosen msize is <= 8192). See https://wiki.qemu.org/Documentation/9psetup#msize for details.
-Code: 48 c7 c2 c0 cc 80 8c be 25 00 00 00 48 c7 c7 20 cd 80 8c c6 05 29 56 22 0d 01 e8 f0 3f b8 fc e9 12 ff ff ff e8 36 a9 dd fc 90 <0f> 0b 90 e9 c8 fe ff ff e8 28 a9 dd fc 90 0f 0b 90 e9 3c ff ff ff
-RSP: 0000:ffffc90006627a28 EFLAGS: 00010293
-RAX: 0000000000000000 RBX: ffff888052edb400 RCX: 0000000000000000
-RDX: ffff888022a90000 RSI: ffffffff852ffcea RDI: 0000000000000001
-RBP: 0000000000000001 R08: 0000000000000000 R09: 0000000000000001
-R10: ffff888052edb51f R11: 0000000000000000 R12: ffff888052edb518
-R13: 0000000000000000 R14: ffff88806ebfe4e0 R15: ffff888052edafc0
-FS:  0000000000000000(0000) GS:ffff888095481000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000000057f2b470 CR3: 000000004f385000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- io_put_sq_data io_uring/sqpoll.c:105 [inline]
- io_put_sq_data+0xb0/0x100 io_uring/sqpoll.c:100
- io_sq_thread_finish+0x252/0x320 io_uring/sqpoll.c:130
- io_ring_ctx_free io_uring/io_uring.c:2322 [inline]
- io_ring_exit_work+0x40a/0x9f5 io_uring/io_uring.c:2658
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
- process_scheduled_works kernel/workqueue.c:3578 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3659
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-
+Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ sound/soc/amd/yc/acp6x-mach.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
+index 4908f4cc147a..8363dabc7eea 100644
+--- a/sound/soc/amd/yc/acp6x-mach.c
++++ b/sound/soc/amd/yc/acp6x-mach.c
+@@ -1000,7 +1000,7 @@ static int acp6x_probe(struct platform_device *pdev)
+ 	if (!ACPI_FAILURE(ret)) {
+ 		wov_en = dmic_status;
+ 		if (!wov_en)
+-			return -ENODEV;
++			goto check_dmi_entry;
+ 	} else {
+ 		/* Incase of ACPI method read failure then jump to check_dmi_entry */
+ 		goto check_dmi_entry;
+-- 
+2.25.1
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
