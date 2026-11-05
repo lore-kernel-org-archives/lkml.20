@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793879002;
-	b=mbR+uNdt7wxdn61RTT2vbrkShxcysLBesM1G7pvaqgCnsLIW73Smtp9NiIyKmE3MJ26x
-	 N8FW6IuQpNJAuEHl45f8tT/+zpGr9wOdtgd9Rq65FnXJnAz2suoK84mBuzmDDrn9lvE5v
-	 PxjkVgHpw/ipRrahpWOF8V//BgUFDSfJ58O6By6v/Zg2YPsAgJN1rHLx+GUblAjAaLZMe
-	 vuW6WxZcUqQpTz1pnlLqCdX25SU6vLTvQtUEfD6/2A4ZTclM777iIokKDabCRq+HEwakK
-	 UlTVl5AmkfN0si3cdaoxw6+PGy2wcuNcIxkkqv21DpUfxBXC66s0maizHGAXdUgdKUg==
+	t=1793878959;
+	b=yyyZ6xFIV+CS+ZgT30i8nSwpwxwHEymrPes84DB6E1Y2qiyGacSUvgHoMV7LQit8mpEz
+	 BXASKNhKSKjKqxL2zO29FH7e8fmG4ctkEiDRUw1trJoSbCZT+ciZC5LO6Vb0o3c9BS2y1
+	 CDRp7yUEyT2n60/EhuDiLe8VvkuclNHuSFmMI0ScpFQsij8mAcJCCsTYj4LuQtyqYNNfs
+	 y+PjHRBIF9/jIfJ/GaVvgj/GbsgqTu4jQ2+Sax6mWsJRZyEIShL69naJCNlfXm6Vx/4jP
+	 /42rrN6Ju89lYK2VH5XqoAzftpAv7O0xzniIkogjKxkh9qCTq8hepxyFwEHlRcW8XOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793879002;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793878959;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 MIME-Version:Content-Type:X-Change-ID:X-Mailer:
 	 Content-Transfer-Encoding;
-	bh=Kya3esT+ja5CoFsJojA0B+sdCKA8A1pbdw4lgiA8vnE=;
-	b=qMzfbiIGBysfGSonX5+pgkS3yZWD4OnEnM1ujY2vrTIMpBH2HAPREIX0Fh5TMaQC97/d
-	 GTbFlucqLpxWBg52FV213QEet+7DliFD4W9PiUV7zACd1P+/zYC484GTPCS+SPkq7RYfW
-	 Xfum1EU9pkWq7JIgrNuv8Xdx0CzeoTyNxv4TNteS+U5O2SC2HeJPvyh+DMS9mNBpGctom
-	 LcmC9Nj8T4gjkFMbw3CtM+VIRQQlM4kw7pDgCMFcgYQdhtOuuglC/JEVaMHvGNrDZdCby
-	 wI6rJqWi5ha/E75J11dbrQ78u+A/tkDEVfBZ7OJQ1r44OT7iaDbtAUs0bNRyD9ZauXw==
+	bh=nNRa2+aOfCVTNA1AfTcRiILSfCXzP/TbgaPBxe7cp+M=;
+	b=PGlT0+FG6PQM/eKW5KEwWbtrK3whPGYFBDtoSkwvipTeKElNJh4ExPGCizCqpBPXQXI3
+	 kd3zDnA2LV9ot8c0+dpRV/NhS6AUhihvNEEWl3ZWedM79SyrNgmLR8DjHue5C/1Yg8dzr
+	 2Gu2sdVfq9KUeswox9fpFb3WGWFgOQIuanXVUAJedu9SMktMy3RkWLEVgCHZ0uXQSZwi8
+	 qcaqT3DmUkeQcbkhY+7DLEBxxfCSCiOrBZti7I3ZS75r83o1lVyAc29wQkQANUTk9pa0E
+	 YXBUZ7LOadi010udFp/norwWG6E/jg7YEIREARDnv7HmBzG+u4/TsLoFLacTx2r6SZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VqNb1Wne;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LHSP6gcj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24ACC606A927;
-	Thu,  5 Nov 2026 11:43:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3F8A606A31B;
+	Thu,  5 Nov 2026 11:42:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VqNb1Wne
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFC0B1F0093A;
-	Thu,  5 Nov 2026 11:43:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LHSP6gcj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8654B1F000C1;
+	Thu,  5 Nov 2026 11:42:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793879001;
-	bh=Kya3esT+ja5CoFsJojA0B+sdCKA8A1pbdw4lgiA8vnE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VqNb1WneZNPbHxf4k7WsDFngZ6BOP7gcl9wUZ464/qJHWz7uxNhiTKlzCzYy6yKGf
-	 ssc7CpnrgxYN3lgXedAnuf+DrTVWvNurDczkpqqd+kr9KyXsBHeEy6AymFhZsEhxO4
-	 L7ElhgOGMxNsUHFkrq9nsmJRUlao2FbFpCcPLFh7xq/WfoxcM2KOlb8d04i0P64ujY
-	 jbRwLMs6xYhfH4N5gGZssLCYJaSH9XEkUZRc1Fol1YUztvfoRUga2w0VJThMMX04Ku
-	 cuOlQbDssvAzzGLr41KaX0wiuUx2sc2yxEPXzYXxKl85BAQILPI1ZCZhcjWZZ0CKJH
-	 HcKsJdKYGed1g==
+	s=k20260515; t=1793878958;
+	bh=nNRa2+aOfCVTNA1AfTcRiILSfCXzP/TbgaPBxe7cp+M=;
+	h=From:To:Cc:Subject:Date;
+	b=LHSP6gcjp4mEydZ1ViLj+iZVCehAC2kCPmDZuRfYlJYvaiP1ul7v4Z8h3ReQmyo98
+	 Pef+LF0klHcjE/gNRKFhsjH6/va4tiLGx0cX0LenQBttgBh//azxgkbkawJOOL/XmW
+	 GMaDKIKxgi23E78tGkXW+Rodfmug5gKbMzabVHpatQxpqzrwVUULv2jR6F9jquxqHf
+	 lUuCwhy6URmPE3GIxm/DhywMQpohFyk1oicHLoVlLeIaqy+fFAI0oG/Z7U4oWcNWnJ
+	 6TsfxxirEqAnUWR1+nNIO6clHASzuOt4ufMR8wNuNhC7mZXIxm4v4P+YMaeDdN9Jlb
+	 CVz9dBmNoauMQ==
 From: Leon Romanovsky <leon@kernel.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	"Rafael J. Wysocki" <rafael@kernel.org>,
@@ -82,12 +82,10 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-pci@vger.kernel.org,
 	iommu@lists.linux.dev,
 	Jason Gunthorpe <jgg@ziepe.ca>
-Subject: [PATCH 08/17] driver core: Allow userspace to detect EPROBE_DEFER when using sysfs drivers_probe
-Date: Thu,  5 Nov 2026 13:42:21 +0200
-Message-ID: <20261105-device-trust-core-v1-8-1e536825b4eb@nvidia.com>
+Subject: [PATCH 00/17] driver core: Authorize device trust before driver binding
+Date: Thu,  5 Nov 2026 13:42:13 +0200
+Message-ID: <20261105-device-trust-core-v1-0-1e536825b4eb@nvidia.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261105-device-trust-core-v1-0-1e536825b4eb@nvidia.com>
-References: <20261105-device-trust-core-v1-0-1e536825b4eb@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,88 +96,135 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+X-Change-ID: 20260915-device-trust-core-12934e618489
 X-Mailer: b4 0.15-dev-18f8f
 Content-Transfer-Encoding: 8bit
 
-From: Leon Romanovsky <leonro@nvidia.com>
+Device trust was a concept introduced by Dan in his series here:
 
-commit b8c5cec23d5c ("Driver core: udev triggered device-<>driver
-binding") introduced the concept of "Systems who want to control the
-driver binding with udev" can use the drivers_probe sysfs to trigger a
-driver bind based on the kernel's match list.
+  https://lore.kernel.org/all/20260705220819.2472765-1-djbw@kernel.org
 
-If attaching the driver is deferred before its probe callback runs,
-userspace sees EINVAL and cannot tell it should try again, maybe after
-loading other drivers.
+This series takes just the Device Trust idea and works to introduce
+it aside from the other components.
 
-Map that deferral to EAGAIN and add missed documentation for the
-drivers_probe sysfs. A deferral requested by the probe callback itself
-is still not reported.
+Device Trust is a general concept that already exists in PCI via the
+'untrusted' flag. This series generalizes that into a consistent
+cross-bus concept that allow the user to inject their own opinion into
+how the kernel should operate the device. Three levels are defined:
+
+ - DISABLED: Device is not operated by the kernel and is kept
+   quarantined. Confidential computing kernels will start all
+   devices in that mode.
+
+ - ADVERSARY: Device may be malicious and the kernel should defend
+   itself, eg by forcing use of a strong iommu, not exposing random
+   kernel memory to DMA and maybe even protections in the driver from
+   malicious data in DMAs.
+
+ - FULL: The normal kernel operating mode.
+
+Aside from this basic idea of defining the three levels, this series
+also introduces a mechanism for userspace to make a policy decision
+which level the device should operate in.
+
+This is important for Confidential Computing systems that need to
+evaluate a device, do a cryptographic authentication, enable PCIe link
+encryption, and other steps designed to protect the system. These
+operations need to be done in userspace before any DMA access to the
+device is allowed.
+
+Using this series the user can boot the kernel with a default trust
+policy of DISABLED, allowing only a small number of devices like
+interrupt controllers, timers and iommus to start. Then the kernel can
+get into the initrd where a userspace policy agent and implement
+whatever decisions are required.
+
+For Confidential Computing it is important that the policy logic be
+robustly inclusive. If the kernel autoprobes any sort of real HW
+device without going through the policy phase it could become an
+attack vector.
+
+Finally the policy agent can set the trust level and then cause a
+driver to bind in the normal way. User control of driver binding was
+already setup in 2007 via commit b8c5cec23d5c ("Driver core: udev
+triggered device-<>driver binding") which relied on the
+drivers_autoprobe to work.
+
+At least for Confidential Computing a high security policy in
+userspace would leave unexpected devices as DISABLED, authenticated
+PCI devices as FULL and everything else ADVERSARIAL.
+
+A draft starting point for a policy agent has been prepared:
+
+ https://github.com/rleon/systemd/commits/accept-d-trust-level
+
+As a proposed systemd service that manages the process.
+
+Thanks
 
 Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 ---
- Documentation/ABI/testing/sysfs-bus-drivers-probe | 13 +++++++++++++
- MAINTAINERS                                       |  1 +
- drivers/base/bus.c                                |  9 +++++++--
- 3 files changed, 21 insertions(+), 2 deletions(-)
+Leon Romanovsky (17):
+      Input: gameport - attach manual drivers through the driver core
+      Input: serio - attach manual drivers through the driver core
+      net: phy: Attach generic PHY drivers through the driver core
+      wifi: mac80211_hwsim: lock device for manual driver binding
+      USB: Lock registered interfaces during manual driver binding
+      PNP: Attach card devices through the driver core
+      cdx: Propagate DMA configuration errors
+      driver core: Allow userspace to detect EPROBE_DEFER when using sysfs drivers_probe
+      driver core: Introduce a generic device trust level
+      driver core: Expose device trust authorization through sysfs
+      driver core: Accept device trust policy on the kernel command line
+      driver core: Accept device trust policy by driver name
+      driver core: Preserve trust commitment beyond driver binding
+      driver core: Add a global initial device trust policy
+      driver core: Cover trust authorization and binding with KUnit
+      driver core: Document trust admission and initrd authorization
+      PCI: Replace untrusted state with device trust
 
-diff --git a/Documentation/ABI/testing/sysfs-bus-drivers-probe b/Documentation/ABI/testing/sysfs-bus-drivers-probe
-new file mode 100644
-index 0000000000000..851c65b9331ae
---- /dev/null
-+++ b/Documentation/ABI/testing/sysfs-bus-drivers-probe
-@@ -0,0 +1,13 @@
-+What:		/sys/bus/.../drivers_probe
-+Date:		February 2007
-+Contact:	driver-core@lists.linux.dev
-+Description:
-+		(WO) Writing a device name requests driver attachment on this
-+		bus, even when drivers_autoprobe is disabled. A successful
-+		write does not guarantee that a driver bound. The device's
-+		driver link reports the result.
-+
-+		EAGAIN means attachment was deferred before the driver's probe
-+		callback, for example while a supplier or the device itself
-+		is not ready. ENODEV means the device was not found. Other
-+		attachment errors return EINVAL.
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 93abbb315065d..b726344362b41 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8149,6 +8149,7 @@ M:	Johan Hovold <johan@kernel.org>
- L:	driver-core@lists.linux.dev
- S:	Supported
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git
-+F:	Documentation/ABI/testing/sysfs-bus-drivers-probe
- F:	Documentation/core-api/kobject.rst
- F:	Documentation/driver-api/driver-model/
- F:	drivers/base/
-diff --git a/drivers/base/bus.c b/drivers/base/bus.c
-index 396097fdb3162..ecff32c3704b5 100644
---- a/drivers/base/bus.c
-+++ b/drivers/base/bus.c
-@@ -310,13 +310,18 @@ static ssize_t drivers_probe_store(const struct bus_type *bus,
- 				   const char *buf, size_t count)
- {
- 	struct device *dev;
--	int err = -EINVAL;
-+	int err;
- 
- 	dev = bus_find_device_by_name(bus, NULL, buf);
- 	if (!dev)
- 		return -ENODEV;
--	if (bus_rescan_devices_helper(dev, NULL) == 0)
-+	err = bus_rescan_devices_helper(dev, NULL);
-+	if (!err)
- 		err = count;
-+	else if (err == -EPROBE_DEFER)
-+		err = -EAGAIN;
-+	else
-+		err = -EINVAL;
- 	put_device(dev);
- 	return err;
- }
+ Documentation/ABI/testing/sysfs-bus-drivers-probe  |   13 +
+ Documentation/ABI/testing/sysfs-devices-trust      |   61 +
+ Documentation/admin-guide/kernel-parameters.txt    |   64 +
+ .../driver-api/driver-model/device-trust.rst       |  294 ++++
+ Documentation/driver-api/driver-model/index.rst    |    1 +
+ MAINTAINERS                                        |    2 +
+ drivers/base/Makefile                              |    2 +-
+ drivers/base/base.h                                |   37 +
+ drivers/base/bus.c                                 |    9 +-
+ drivers/base/core.c                                |   18 +-
+ drivers/base/dd.c                                  |   88 +-
+ drivers/base/test/Makefile                         |    1 +
+ drivers/base/test/device-trust-test.c              | 1607 ++++++++++++++++++++
+ drivers/base/trust.c                               |  455 ++++++
+ drivers/bluetooth/btusb_main.c                     |   42 +-
+ drivers/cdx/cdx.c                                  |    2 +-
+ drivers/input/gameport/gameport.c                  |   21 +-
+ drivers/input/serio/serio.c                        |   24 +-
+ drivers/iommu/amd/iommu.c                          |    3 +-
+ drivers/iommu/dma-iommu.c                          |   14 +-
+ drivers/iommu/intel/iommu.c                        |   17 +-
+ drivers/iommu/iommu.c                              |   17 +-
+ drivers/net/phy/phy_device.c                       |   39 +-
+ drivers/net/wireless/virtual/mac80211_hwsim_main.c |    2 +
+ drivers/pci/ats.c                                  |    4 +-
+ drivers/pci/pci.c                                  |    5 +-
+ drivers/pci/probe.c                                |   26 +-
+ drivers/pci/quirks.c                               |    7 +-
+ drivers/pnp/card.c                                 |   12 +-
+ drivers/usb/core/driver.c                          |   30 +-
+ drivers/usb/core/message.c                         |   10 +
+ drivers/usb/core/usb.h                             |    2 +
+ include/linux/device.h                             |   16 +
+ include/linux/device/bus.h                         |   10 +
+ include/linux/device/trust.h                       |   48 +
+ include/linux/pci.h                                |   30 +-
+ 36 files changed, 2886 insertions(+), 147 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20260915-device-trust-core-12934e618489
 
--- 
-2.56.0
+Best regards,
+--  
+Leon Romanovsky <leonro@nvidia.com>
 
