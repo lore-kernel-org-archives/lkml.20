@@ -1,98 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793893099;
-	b=JSnHxiCzAW7FJMyIEDRfWLB+Pp+btN2wjIrooLX+jJkzH4cIDFujHrSc0wAQ9y4v2EcY
-	 qGDaQPq0Bw/Il8vz4XLlXlVMUJteYwHHYJvRYnLkZ8l1FQeNpcV59sIIrTFENXtXQHFJo
-	 4CkwSKE+5jHkzz9G4QEz+td+VB4DsS3kzSj5LTjpuwPEQKrVSmPjuOvb/AHJW93FA9MY6
-	 8u9q40YMuotjtAklx6GQaKcPE1mKRCBdGwsGXl5jdugADjK5FBlBWcRDRCZ1nZTCxhT7a
-	 rpVway/XmOzCad4/pD5gYNOoXzNifarZ0GPdq5k4zJqmDaCXWbkXTQ4RdEEnSOQc+5Q==
+	t=1793893128;
+	b=0A0da0flefNymL5zX4MtFuuMKj2kgrL7sC+qYrreyj7E5HfaXueWPHLAewC9JueIVhTF
+	 3xLx98F1pBbEJJYC5DdH4yru5KInZQifw9VHHG6FLHsvm6OXdzac6KTK5DXARgYn8aIa+
+	 oSPDqVhaWXKHSRTHu6mZbebzDa7RROporz+44fUA2IcIOvhMxe5dQTheQbP2AdQgGz+dI
+	 befqnuOw050FfLCS4mhBHzAQtIw4kZJkm54nuuq4JhOrlblqJAfW4Z4LSuSh3xclGrXID
+	 ZGe2NRYbFV4Wgo1KuC+m9/W3OXts9KB6HV84CRrOfRNfpnEsHSuWY7lit1AG+hrcgsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793893099;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=kMmLw1uV3pi5LHCM/RrGDzfVn6ZouZUFYmo7ssjRepg=;
-	b=KNZ3WX9ckiXApEDo4avx21rsfp5cpWaNHH/Tkas9CUU2aBdcNJYLSn4dfvsX5tPYLKu7
-	 AxK85Zsf7g3KtKR55aIVnaymCfLa7UltDCLxyhJULA8Ruf39jNuxbn8tz0bYvChTYkCAq
-	 tOJa7t3Hmj+do0Hwe+YwZmPSHww+5E/H05+dcExETg2LaAX+imNJJ6Zxgc6DGXOOdsCfC
-	 8q8YOYjmhPUeGmqqc3/XQxYPATXV7mzh6sU1VGa2SLhhlD+To6kMObUQcISvqOaHGccyU
-	 Zi6hLiWX0MG3SwlF/SvduriYVfZNkXSqpnR+K33bitkvNv7d9XqpXxKnnujpIhPrm5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793893128;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=0ZRMOu7q8zj8hzZXCiqSBsOFqMESxoThKf7jqYV+cxg=;
+	b=SjmboVNPTJOyyfChQpYYcM4Re1yhKUjG137scTr2QCtb7WuVNjzcomkr1bnxJn9VId4/
+	 aEYe7iO529HU68Onwc2W4r6vAfkuTpqFWfC2t7RtDRJuUh2Vfl2EFqDnKoEAcU0ASvh10
+	 +tbstJKnSHPeWVDpqPO2fzqWnb2pOUX6tdSnfIc+tCnH2OhPzncQEUvx5k7YTMTtDBpQK
+	 84db0T2q68wHX4htBU0XMyCiQ/kvfk5MjsLJepsk++KCDYMDA3aanLkZeP2YjSEw0zBAz
+	 ScNtYZ3omJLHQMrDD5jZkn8mBhQDfqQTdwaOa6Ekk8PD/2N2f7CGYbC7UUtdkYnrbQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=riscstar.com;
-	spf=pass smtp.mailfrom=riscstar.com;
-	dkim=pass header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b="rc/4YD7e";
-	arc=none smtp.remote-ip=209.85.167.170
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eHTnPPRl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEE50606D834
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:38:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEE50606D834
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF40D606A336
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:38:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=rc/4YD7e
-Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-53ec92375d2so902639b6e.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:38:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar.com; s=google; t=1793893098; x=1794497898; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kMmLw1uV3pi5LHCM/RrGDzfVn6ZouZUFYmo7ssjRepg=;
-        b=rc/4YD7elRf8QKX5iwQ8IUuHIZusLwUV2o4sNNdW4s0HNwQ01lqT3h893zn6tXKjhJ
-         XA81KkfHJrmP95yV4izBztGVksflY8dSf7yJEMtBMq/ttMjvjd6zf96Wl8sVKOgVRRpY
-         egWLtYKOlZJu++EXC/GtNXkNuZ7+ehkxxQ2ARBbOq1uuzL1HUh0KhCwDUqPsBdshrVZp
-         VKGnhissG60qptdbeaqye2M1qu4Rv1eSnxi4bnCT9CIp/pFddtXFU67TU/x212qU9D4e
-         ysYeiI9ox61gymqgFnAml4lciugGvfXpHbQOlQWm2tcTvWiXmIRONvIe0C8+UMtekU7P
-         WJmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793893098; x=1794497898;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kMmLw1uV3pi5LHCM/RrGDzfVn6ZouZUFYmo7ssjRepg=;
-        b=GnJv06Eo3p+KIet+/Ru+SAUnYW5op4aZ1QKb/ZEH1bDXhh5oRkVi8wRDq9YBA2c5n/
-         cneaM8+z8FniNfF/miZ47cEiPJS/mWywzy9wh+69dMZ5I7PBiV/HVp51Fy0I6BnaRpeS
-         clAnBdUjALbC3iTtnqldcGD4vVlZkywB6Epk/e5l359a5AaAs1DWvsiRhy6P5VDZZFYm
-         MbSXPkitZg0Zm9NUULYo1nrbpMigMe7Ktw5TcffPNY4kTDZhi+03cglp6wX8rNCUSPHP
-         p5vbwsmINr6EL6K7WQpmwEQDhClQLY5VgNf3WHmws+w4N14le7vBCdf7YSqRNIjyIzU8
-         Sf0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBztxIGiJ+X4Exv3RSXR4fJJ5q1atysNwHee7ffBFBGsFuNlQl01/iDCKl8Ae/1G1LLZJHB+DrO/7Kq7iMk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8z1nK+XQjuA+ybhYMQMDjgOB7llZsJy9ipqAQbYUooXtdOIoI2
-	lxg0Al/yI69MdhVl4Y3yJ60mXiKUbdWUOq8Flmq7AfOeeqsh0kWI8HAN9L6hUgMb3qs=
-X-Gm-Gg: AYBFou1iz75kdgMUvc1Gg3d7AFHgOziLm6mbz2y6wxFAXbJohNeWcJjd2CalLPJ3iLg
-	ZZQBBHK5B1HAwHKGxn7AF15CnYO7eWGUnYTqm5y/8kTR4Td9wZQ3drS8v0pdgfa3t6CPnIoy1Yg
-	jvK54KkiyqxqMy9tTnuJ+jXSHS5HcXReR9kfvMS3pdR+ONyWO9ZW3dWSdKFAZZIlhqNBBk9Ppd6
-	hXi+DWvlA+Ss9xFpgC8Gq2HtXMljRe2jiYnLQ5jzIcxzEg0Z8xl5ao4KlZ1grPGFZhS8BdNzUtV
-	UXjEmmOqT3e8b853xFk4lH2iqExx/GpbGneLFXczMAap9nG2F37dwy4tr4ik71GpPFl33odFvsP
-	YblMUs3OVXveNwATbTpcrB8P1OKUMwIqm2ttzK9AJC+oJZ7CPoF6G009ehhr0GkuAc7TT7XH9r6
-	3hAgK4PTkgbpRigmzqXIF4h7B8TiJKWfPQ8JQRYvEh8B98w4P67R9sMWWxCU2oCbxhEO9vXor8g
-	tVSvgql4wWah/wPulOBMmWrqe/egIX+Z9YqzLZIUWZKt6+4Dsvtw5HA4O61ymdHAV+ph5QDxXRP
-	td+CkFbXf8yellq+wiQXgi5tCOqbrRRiQg==
-X-Received: by 2002:a05:6808:1b2a:b0:4f5:20:d847 with SMTP id 5614622812f47-567ad7310femr3867051b6e.36.1793893097926;
-        Thu, 05 Nov 2026 07:38:17 -0800 (PST)
-Received: from zippy.localdomain ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9ef6e3bsm4435329b6e.5.2026.11.05.07.38.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:38:17 -0800 (PST)
-From: Alex Elder <elder@riscstar.com>
-To: bhelgaas@google.com,
-	robh@kernel.org
-Cc: herve.codina@bootlin.com,
-	daniel@riscstar.com,
-	mohd.anwar@oss.qualcomm.com,
-	lorenzo.bianconi@oss.qualcomm.com,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v7 3/4] PCI: of: don't zero flags in of_pci_get_addr_flags()
-Date: Thu,  5 Nov 2026 09:38:00 -0600
-Message-ID: <20261105153801.435566-4-elder@riscstar.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261105153801.435566-1-elder@riscstar.com>
-References: <20261105153801.435566-1-elder@riscstar.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eHTnPPRl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A58A1F00A21
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:38:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793893127;
+	bh=0ZRMOu7q8zj8hzZXCiqSBsOFqMESxoThKf7jqYV+cxg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=eHTnPPRlc0IH7Q8u3jaVpzNg12W4eRz/VwrILsZzaVscg0JSbM7yFkdkvamrOilYv
+	 PRIvX/sqpEDayj+Lk93vQDhjPTOAxYuegaE4P94ccLX3a2yR6vMwleDpCiMEZRbaq+
+	 eot6JHGw3a6ueS2ysJI8vNzq/73IwWSIndFB4A75LOh0NlWwZtnMC0cII1bMHcA/HA
+	 e2RmPVM21KYVjaZlRGD7bbnFh3EzkFwlFlXURm3gCqQkcynaax6Ya4QpYxJvMh+YJJ
+	 GCwZbt+jCS1M74E1L5AFBUcH5Noi6xZ+gp8Vk/Gqbu5WYrIkfVNbPow5hRpUT8lahV
+	 YUZWyhqKMB0Dw==
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b1afcd2d23so1721857a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:38:47 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBy8r+2shfYKZXjf+5gn8rN1XS4k5zWn8mstlfR21FdqToRa+uvaNDaNC1B5dnUxl8w4YlwxHCTVu1cH4Yc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9pMvopx/OEafZH/iSW0Y8rcc+ylS0f1ML7xyx8OxLoHDjWussj
+	hEWaI2b72RqB+0tcdVtEmhQTJ8pdQB2lTCE4AUEZIL2RpNEj2me8FEH7jEBGq0THG/P6y+3BmqE
+	ELgjHJR4lCWXgQvUebJtNJs2bHeWYM9Q=
+X-Received: by 2002:a17:907:5c5:b0:c49:df95:f0dc with SMTP id
+ a640c23a62f3a-c4ca7b1b763mr1566645766b.19.1793893126389; Thu, 05 Nov 2026
+ 07:38:46 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,36 +59,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <47ed45b5-de67-41aa-aa21-a3ba3479a7cc@vivo.com>
+ <anXJ-5_vO7-toSe1@google.com> <CAKEwX=Mm2tXcen-quRXHf1Y2qSHYvpEUe4xiw-mHYaJnRUR-EA@mail.gmail.com>
+ <auKqt6b4AxCLziIH@google.com> <aufPMirl4cD7tz0X@google.com>
+ <18e4542967ebdd10.3137322e32332e3235332e313736.1dfc41.0000sendgmr@google.com>
+ <CAKEwX=MV_xEUvz91pz6uc4qXWnWOUDtXZ2zASdNVOBHBLeA60w@mail.gmail.com>
+ <18e4ebf806e937ec.3137322e32332e3235332e313736.1bf52a.0000sendgmr@google.com>
+ <CAKEwX=PFdgEbba+H3fEnJFDnfkxCTsvuHEb4numVwJRaiMgwKQ@mail.gmail.com>
+ <179384102494.19062.12740032892044628762.b4-reply@b4> <auwOBaRtM9p_Wxfx@google.com>
+ <18e529a5ab0738f7.3137322e32332e3235332e313736.873cb.0000sendgmr@google.com> <CAKEwX=OUt4=wqDLiPvYuiTnkpuZYnszkuNQScNR93hHhVPRRGA@mail.gmail.com>
+In-Reply-To: <CAKEwX=OUt4=wqDLiPvYuiTnkpuZYnszkuNQScNR93hHhVPRRGA@mail.gmail.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Thu, 5 Nov 2026 07:38:35 -0800
+X-Gmail-Original-Message-ID: <CAO9r8zMMGem-LTJQseT5xSSBjfr3UX2gzG_ftpw6+KF8m9v5yw@mail.gmail.com>
+X-Gm-Features: AclHuK9v1LUqQa8y4F5WwBt7lgtm31VOg2z9IkfQynsl03ZvTXjiDfaCGV4M1pA
+Message-ID: <CAO9r8zMMGem-LTJQseT5xSSBjfr3UX2gzG_ftpw6+KF8m9v5yw@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/2] mm: zsmalloc: make shrinker compaction budget-aware
+To: Nhat Pham <nphamcs@gmail.com>
+Cc: Chris Wiseman <chriswiseman@google.com>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	Xueyuan Chen <xueyuan.chen21@gmail.com>, Xueyuan Chen <xueyuan.chen@vivo.com>, 
+	Barry Song <baohua@kernel.org>, Yosry Ahmed <yosry.ahmed@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Brian Geffon <bgeffon@google.com>, 
+	Minchan Kim <minchan@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The flags variable whose address is passed to of_pci_get_addr_flags()
-is zeroed before assigning a value to it.  Skip the zeroing and just
-assign it instead.
+On Thu, Nov 5, 2026 at 7:08=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wrote:
+>
+> On Thu, Nov 5, 2026 at 6:36=E2=80=AFAM Chris Wiseman <chriswiseman@google=
+.com> wrote:
+> >
+> > On Wed, Nov 4, 2026 at 9:05 PM Sergey Senozhatsky <senozhatsky@chromium=
+.org> wrote:
+> > >
+> > > On (26/11/05 09:10), Xueyuan Chen wrote:
+> > > [..]
+> > > > > SGTM, but I'll let Sergey chime in!
+> > > >
+> > > > Thanks, Nhat and Chris, for the discussion.
+> > > >
+> > > > If Sergey has no objections, I'd be happy to send a follow-up serie=
+s
+> > > > to make the shrinker configurable and add the unlocked pre-check as
+> > > > Nhat suggested.
+> > >
+> > > Thanks.  Sounds like you and Chris will to have "Rock-Paper-Scissors"
+> > > to determine who sends a oatch ;)  Just joking, let's first figure
+> > > out how exactly we want that zsmalloc-shrinker thing to behave wrt
+> > > zswap expectations.
+> >
+> > Haha, Xueyuan is welcome to send the patches!
+> >
+> > Dumb question on the zswap side - aren't the zswap shrinker and the
+> > zsmalloc shrinker independent?  Even if zswap's shrinker is turned off
+> > at runtime, normal swap-ins still free slots and leave fragmentation
+> > behind, and unlike zram, zswap doesn't have a manual sysfs compact knob=
+.
+> > Would it be simpler to just keep CONFIG_ZSMALLOC_SHRINKER as its own
+> > standalone config rather than tying it to zswap's runtime knob?
+>
+> Yeah those 2 shrinkers are independent! I think we should just let
+> ZSMALLOC_SHRINKER default to the value of ZSWAP_DEFAULT_ON.
+> zswap_load() (i.e zswap-in) by itself is enough to create
+> fragmentation. The zswap shrinker is just another trigger (and it's
+> also irrelevant if zswap is disabled anyway).
 
-Reviewed-by: Herve Codina <herve.codina@bootlin.com>
-Signed-off-by: Alex Elder <elder@riscstar.com>
----
- drivers/pci/of_property.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+If zram doesn't benefit from zsmalloc shrinker, especially during
+reclaim, I wonder how much zswap benefits. AFAICT, it was hooked up
+before zsmalloc was hooked into compaction, and compaction seems like
+the right place to do this although it technically is freeing pages
+from the page allocator's perspective.
 
-diff --git a/drivers/pci/of_property.c b/drivers/pci/of_property.c
-index 6236dfaaae628..702675672fbc5 100644
---- a/drivers/pci/of_property.c
-+++ b/drivers/pci/of_property.c
-@@ -82,12 +82,10 @@ static int of_pci_get_addr_flags(const struct resource *res, u32 *flags)
- 	else
- 		return -EINVAL;
- 
--	*flags = 0;
-+	*flags = FIELD_PREP(OF_PCI_ADDR_FIELD_SS, ss);
- 	if (res->flags & IORESOURCE_PREFETCH)
- 		*flags |= OF_PCI_ADDR_FIELD_PREFETCH;
- 
--	*flags |= FIELD_PREP(OF_PCI_ADDR_FIELD_SS, ss);
--
- 	return 0;
- }
- 
--- 
-2.53.0
+I wonder if this is something we can collect some data about, and
+maybe kill it off instead of putting off behind a config option. If
+hooking it into compaction is not enough, maybe we should add a
+similar interface in zswap to do proactive pool compaction from
+userspace, or maybe move the interface to zsmalloc itself.
 
+>
+> How do you feel about this, folks?
