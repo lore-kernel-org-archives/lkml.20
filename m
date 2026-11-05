@@ -1,97 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793910637;
-	b=mbz/2twbxit4IC6ytNOMBWowHqPK+kNTRoNYVHxwF8C17iW8VW/zAKQiGQrB60YJeXzP
-	 uMGgCv1sPp/2gpMb05i7nKi8SETXl6DEgKPtxM6tysrFXVyMpiMBypCSp3VKdq3tDKpt0
-	 fo1hVcj79Lsr251ZabTpeMriEyiu0oWDzd+9Ly+R+L7MJo/CyXv+1r+WHRL53wU60uUFs
-	 mP3uxA0kTsU3o53IL8FihoqNXCtlLlLoFiM0Ee4KIal8gtM3JnbdLyniyzUtM8KUTk127
-	 e2oTAFju5mkLXUCC++hF7vnvtK+XCk2ZVdZY15q+agmNnSdpest+YdVxJnFYevTJbXQ==
+	t=1793910663;
+	b=wZLFh0qlPMwgAbfEDlx3MXfA8eW92ldwaTu3MTkIQ+0Tmz1JoilaTyJb9iPHVvTN7ftl
+	 J2TukWpqALdfbmQng4nmzdDFSApKbN0pyRV7+LFSRVJf4vnnZScEx9NnHLRenLro9bROw
+	 kQ8h77O3opmab4qDqoYuTTTS+akdUHb9of1jqjlOfmVJgxd4UBRNKBLr8fTTnsFVoP90K
+	 N0yejrNmbat9ru5TCFFxsxMe9o9/s5VvVnHBZTrn15WYIBwNEbf/SKKP9p8arg5YOKMK4
+	 m+KVwsBUMb10c1sHFDHEvjQ/uSfcaEww0vajP1iCafpoFmsJS/QaUw8hnj6v084HDLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793910637;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=mNZjGW7NapyvJkFyL5z4iu0y7IguVyyq1BhAX8ZA+Rs=;
-	b=0nla4IUgTDaUaF1C2vKR4pzgpm3Cyo/orjuU8mA8fbnbfDE+0JmF3BDykkdL5UXXoAMV
-	 9pVChFGvxSbc7pOZpk0MOUR5oK47q9wVVwb7V5E+WY/nSM0OP0HXNXjA/dwArAp8f1HjK
-	 GhyNmwDjPaYft+HfKjFL4+AB3v3ps2NA+1KFm7JbOnJ+uDGtJ+HW1sIVUjDN7W6LnX8DG
-	 t3Hj3sxopMsjLDfJLzp09MmWljmx8MwyH8GUw6gNRZiqmWqltMlDzTTAU78tEC1L3Ammw
-	 OIVjZRHRA4FzDE2FjpXM/ta4iFsWI8vTcb5OrvDY8bDgvtuQbuSaKYEE0i3ufBg2U0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793910663;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=vn/nQy7tt6P3ngQqcb52WlxWUAoV6PqlWG/Vx0RkwMM=;
+	b=VQ+qpur6SmCn8/yYXsOJahp87kd+Zl390Ur42k7AXCh9fO7TMrVk7dotjeyT+qo3ay+Q
+	 Hx8jExCxgwMq3ITrqZVgtgtGUtlpH4Caz5hUSVf6bdHr1lzgERxuAU7Yd/arnTJo4VioA
+	 OqdiIgKv8MgqvoYaF9gjYzyRJrdYpapEV2s/DlKHIQUvpxlaRUSvfc2JqhCLJUFk1++4a
+	 GhzAqmRyBalXcRHMpc1llt6IuDXJdc05eBlMhpmOXzaAc9fL70Xt/KJhc6FpLNK0dL/xh
+	 I0uLSTGmDgHygbB+0e5Z5OLQdznAt9LivKUI06MHv+aGh91xlMpee0jodpji6kSDjEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=nQM419CO;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=GB4Vyiwt;
+	arc=none smtp.remote-ip=209.85.217.50
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com [209.85.217.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6550D606A326;
-	Thu,  5 Nov 2026 20:30:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6550D606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F312606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:31:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F312606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=nQM419CO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793910628;
-	bh=z2B4+zk2KWIKAV/qyCewX7SUwHDfHJQcBF5+1YFub7E=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=nQM419COec+J8gtI5buzf4zbDQvGTooRfJG3XFahE8T3H50Djxo3O2FVndG+aUnC4
-	 2a5+/SBEvpGMrxxdmM1ujYqYwjhW6H2q7DstzghjHdZxAVShULE9tom76gN26JqxRX
-	 hJhHEAS09KrIvlTSMv+Ud4Tacrc36mRlm1y+0p/Vqg88GhepkxTQDJjkt0nllpxfQl
-	 WJzS2Hcz63Fm4MMBjvMu+jfZi+yyP3mTzEDc14gfoRyHc1gEfLxdFsxtwhwCND+ipJ
-	 uns/Zpk59mOVHBnwOZ0SCgkSk0LXfos7TK0advJTjg5KX2msqzYps5geD17epCsL2/
-	 lBRTA32tHBSgw==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id D2F5817E078F;
-	Thu, 05 Nov 2026 21:30:25 +0100 (CET)
-Message-ID: <062fe7dca00f77dac05197552d22897b28dc2143.camel@collabora.com>
-Subject: Re: [PATCH 7/7] media: qcom: iris: describe QC10C as TP10
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: rob.clark@oss.qualcomm.com, Robert Mader <robert.mader@collabora.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Dmitry Baryshkov	
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang	
- <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten	
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Maarten Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, Bryan
- O'Donoghue <bod@kernel.org>, Stanimir Varbanov	
- <stanimir.varbanov@linaro.org>, linux-arm-msm@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, Jordan Crouse <jordan@cosmicpenguin.net>, 
-	linux-media@vger.kernel.org, Vikash Garodia
- <vikash.garodia@oss.qualcomm.com>,  Dikshita Agarwal
- <dikshita.agarwal@oss.qualcomm.com>, Neil Armstrong
- <neil.armstrong@linaro.org>
-Date: Thu, 05 Nov 2026 15:30:23 -0500
-In-Reply-To: <CACSVV02t9=tm2qyG531f8Ne90ADAb1_ZDDGEg7PwDmoEvGxPrQ@mail.gmail.com>
-References: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
-	 <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
-	 <86b801ce-a56c-4ff8-8915-9be369fc0ce8@collabora.com>
-	 <CACSVV02t9=tm2qyG531f8Ne90ADAb1_ZDDGEg7PwDmoEvGxPrQ@mail.gmail.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-NleRU42AqOYhgAgxJXBY"
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=GB4Vyiwt
+Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-7c3cecbda48so658375137.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 12:31:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1793910661; x=1794515461; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vn/nQy7tt6P3ngQqcb52WlxWUAoV6PqlWG/Vx0RkwMM=;
+        b=GB4Vyiwt5uW0V8lse1c3JVTIcjdYwCfzDi7ms6JirgIiV1XZ5xmCWALwaQI+Z5DkVl
+         zqeI8t7tQbjcHdnzqj81OD38fGa0tJr/VDd51xozJWTYgz2a6kpRKU39Z7j5tFWNdr3h
+         IlWW6rRHz35ntWDyTUhWHU80NWcqVivyAFXGbTt/s/XKSQp1WCy0b7a/t95WoCEvr32Z
+         mBeL4GCHxWyznYCdN1cGfUJXo94un7iR8QgFQYTetODBOB+6GZkK2m9qjnyBHlZnnYQ5
+         OCppFK1fTM3uS6RN/r6T0SWssQMIrs7tA5bt9YnfILWKR2UTcTHFIuyOTD1gwFZuhUxt
+         Mt8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793910661; x=1794515461;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vn/nQy7tt6P3ngQqcb52WlxWUAoV6PqlWG/Vx0RkwMM=;
+        b=z9KL8Fg7H7ZE/yn/vuFKKiEpVvHryRFREfYDdpo/4ldhLwkWEzFXLzsKdzQVhXo4xx
+         SRuKs2kKeaeGyuOg6B+Fmh2nQje0du83CDOP+W/koMLaOKA8tqbcBDx87A3n+8mxzSsN
+         wV67OQNsE4sbsZcRwPFW6YKypiOIa08GGnkuttSMxW0L5cQM+eeBEKK2Qju+3D3bl8hh
+         8JjWPLBMJQID8FB02fFJBpIq1mTo4cQdb489HuOazuBnc5gpcNNjUP4QAytw9IivXpMl
+         ocUhQYTDMcIIzmtrjysQPmAzUXLu3SCGtq7020dwx9fNC6l71q3Ev5xXlVv5Acdi1rYj
+         NaJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzDumCTxmfDjOynvjafvM8/v4OWl40fCDO7Axx5g8LH5JB3BdpgWaJe5LO7Q/MLHgaB8KuFZrWqLP28SMk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/k8XUMySfOa9qe2mEtGb6tFlibYImIskx67RaORJL+1pd1j86X
+	TsXzlQZ0cEkjid/rQf+l9wo0YBnsLMNTrM7yEAS3PkgbjfHDdeEWNYpfvygGMVpZXFg=
+X-Gm-Gg: AYBFou0DrqgTyHgbZ/TQe3G1R3YygGFybwQPor6KtT4J214dfPoCCDEOXIUJuDxYu4r
+	XF/9pQNHxaFXXXhf2ntKL3CyaqbCBTdc4MEobVkQN1asXrYzZxPuMYLhXUQgz5FPYu1LY4xKxj4
+	Zaaf46usIkLj5ojtPwzBgkvafRAx8w29ZcRk4fdSl7gdV6UeLETQ/NIiYdOymIku1axLR39mJn3
+	bSmuXB52905x04Ik7wOfczdJ9aQKGITIx29keN0fakmTg3wOY9rcnSL34Vx3jSsm9ytjBHS4Df3
+	X/+3pejBVuukOaXYGJ5Jp8IeKysWUMV4loQHr0+X30gCa2xl1JRdPN7B90xMdPNedhRRjzjpmCY
+	Dcejkx9x6Mrq3rHkZmRwyi1j+oWakIBo10IHVtCGqPz5lmdDwsSDKQp7kQhHEN3113GLJsLpA0Z
+	xmBrxFlBYp4EiZ6ePcKAwAG2J+Ms6iiPV+JDQy5i6Y/tkiQ4LmQE4YB2K6inNF+f1NplXB4ffqP
+	fWulVlbFOwavWyrWDNTZdWVFSrKG90mE5hBf5d5EnMoIFCNGI9t6OJYzjK9JPGFYQ8zgZelAYKF
+	caLBi+58lLkEotr5+PoZYXxNAFzFfPVCcMxXiIjzkvi8Yxq1qVpi0FgltBh0G1DsgJC7hQ3q8qX
+	Pbcd3+eoX9A==
+X-Received: by 2002:a05:6102:e0b:b0:7d2:7266:2c8a with SMTP id ada2fe7eead31-7d2a165f989mr692943137.32.1793910661522;
+        Thu, 05 Nov 2026 12:31:01 -0800 (PST)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d26fd3e101sm5070410137.3.2026.11.05.12.31.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 12:31:01 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xP46u-00000003hoW-1qsZ;
+	Thu, 05 Nov 2026 16:31:00 -0400
+Date: Thu, 5 Nov 2026 16:31:00 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Yuho Choi <oss.patchbox@gmail.com>
+Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+	Wei Liu <wei.liu@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Dexuan Cui <decui@microsoft.com>,
+	Yu Zhang <zhangyu1@linux.microsoft.com>,
+	Easwar Hariharan <easwar.hariharan@linux.microsoft.com>,
+	Jacob Pan <jacob.pan@linux.microsoft.com>,
+	Michael Kelley <mhklinux@outlook.com>, iommu@lists.linux.dev,
+	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] iommu/hyperv: Don't free a paging domain the
+ hypervisor did not delete
+Message-ID: <20261105203100.GG663069@ziepe.ca>
+References: <20261105192738.70664-2-oss.patchbox@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,95 +109,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105192738.70664-2-oss.patchbox@gmail.com>
 
+On Thu, Nov 05, 2026 at 02:27:08PM -0500, Yuho Choi wrote:
+> hv_iommu_paging_domain_free() frees all page-table pages with
+> pt_iommu_deinit() and only then asks the hypervisor to delete the
+> device domain that points at them. If HVCALL_DELETE_DEVICE_DOMAIN
+> fails, hv_delete_device_domain() only logs the error, returns the
+> domain ID to the IDA, and the domain is freed anyway.
 
---=-NleRU42AqOYhgAgxJXBY
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Isn't there a WARN_ON on this path? I recall asking for one ..
 
-Le mercredi 04 novembre 2026 =C3=A0 14:11 -0800, Rob Clark a =C3=A9crit=C2=
-=A0:
-> On Wed, Nov 4, 2026 at 11:00=E2=80=AFAM Robert Mader <robert.mader@collab=
-ora.com> wrote:
-> >=20
-> > Nice, very happy to see the series!
-> >=20
-> > On 04.11.26 17:36, Dmitry Baryshkov wrote:
-> > > The comment describing the QC10C buffer layout calls it a compressed
-> > > P010. It is not:
-> >=20
-> > If I'm not mistaken the display engine / the DRM side (including Mesa)
-> > describes it as P010+QCOM_COMPRESSED as well, and so does my pending
-> > Gstreamer MR [1] . So if we can't pretend that QC10C =3D=3D
-> > P010+QCOM_COMPRESSED, then we probably need a DRM_FORMAT_TP10, wire tha=
-t
-> > up everywhere etc. OTOH if we want to keep the DRM side as is, then the
-> > comment should reflect that, IMO.
->=20
-> IMHO we need DRM_FORMAT_TP10.. on the GPU side, we have TP10 and P010
-> as distinct formats, both with and without UBWC.  I'm not sure if the
-> same is true on video side but P010+UBWC was never exposed, or if it
-> truely only supports linear P010 and UBWC TP10.
+So long as that is there this is the right way to continue
 
-Xilinx ZynMP is all matching TP10 (they had GEY and YUV semi-planar variant=
-s),
-but they never upstreamed it, hence why we don't have it in V4L2. Just fyi,=
- we
-named it creatively NV12_10LE32 in GStreamer, but careful, I cannot guarant=
-y the
-padding in on the same side.
-
-Though, how do we deal with backward compat here?
-
->=20
-> BR,
-> -R
->=20
-> > Best regards,
-> >=20
-> > Robert
-> >=20
-> > 1: https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/=
-8195
-> >=20
-> > > P010 stores each sample in 16 bits, QC10C packs three
-> > > 10-bit samples in each 32-bit word, which is what the stride computed
-> > > below (width * 4 / 3) assumes. Name the format correctly.
-> > >=20
-> > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > > ---
-> > >   drivers/media/platform/qcom/iris/iris_buffer.c | 2 +-
-> > >   1 file changed, 1 insertion(+), 1 deletion(-)
-> > >=20
-> > > diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers=
-/media/platform/qcom/iris/iris_buffer.c
-> > > index eb8de60c1177..ec2bf2a2d953 100644
-> > > --- a/drivers/media/platform/qcom/iris/iris_buffer.c
-> > > +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
-> > > @@ -266,7 +266,7 @@ static u32 iris_yuv_buffer_size_qc08c(struct iris=
-_inst *inst)
-> > >=20
-> > >   /*
-> > >    * QC10C:
-> > > - * UBWC-compressed format for P010.
-> > > + * UBWC-compressed TP10, YUV 4:2:0 with three 10 bit samples packed =
-in 32 bits.
-> > >    * Contains 4 planes in the following order -
-> > >    * (A) Y_Meta_Plane
-> > >    * (B) Y_UBWC_Plane
-> > >=20
-
---=-NleRU42AqOYhgAgxJXBY
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCauznXwAKCRDZQZRRKWBy
-9EBNAQDtA/orEuTFMsZ9i5LtznNukMM+WqfXUnVsGG35kn1WfQEA+1VvAZJM1/M1
-fZ3cgYQs51+X7QU6N3O6tOz4JPeduQs=
-=+PFk
------END PGP SIGNATURE-----
-
---=-NleRU42AqOYhgAgxJXBY--
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
