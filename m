@@ -1,86 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793878138;
-	b=5HMlbjhSVB5v0+QLcsNfXGnU8+77BNInZVRrfS58rOAlknXz1W1aGW+oiieGn3Vi36hl
-	 B56RZO7NexSzUaHhSlmLU6f3DMDGiIRdom2/RbAP6V/LdSgDNkhPgHb9VlCBaslVb4sCP
-	 JuJLrrRCuHq26UMW2y7FPIcM251xGuH0pDdEUV6dDfPBwrKNGk2ZKpt8UWNmlaWMHnXQE
-	 hBPEZJuWL4SxZZ08gZYeXTZ8V7zLMFp79+YlqpgiuSs9MQGw+/cbk4YaeOYylM3T4AtTa
-	 WDcFpaHCMHRNdXOBRd4nUKQyOTTODXWsRhcERj5AG1GKtkGSu/OzkoJgQr0HfOWbOKw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793878138;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=KYuAf/nYjeBNHG1mG8AOx1BUbgAUnA1j6gAMCPYxxlM=;
-	b=Ty4GTENShV+REJDqeYdicVlGIoPE1tqkiyJKioM2GMmCwD1NgFjRs9Lix00RiwqWq17/
-	 J6XvM+tnBI74warp7T7Xyto5SQPwyp1e6Y3/lP3wVpf4xS0bviKfaO6yngbZ4yZYBJ6bf
-	 BIEPUEUdWcUizOtOrv8VOjsIwBR+QwXR9fhYjOGDEKtMbLvEgVTjXz4ouF8DFKMG+UmuL
-	 eipsouTjsInumziBJSV4lI2JnpFxKACTK7DRUvo2OZN1Hj2AyUGkf/nUNALuw6Opc8QDL
-	 8ciRd6RqxhQ2H3cPf0GqaPWnOkS62hQx9Iqo+OTKEgvghoOzwvMicEgTA39wvtMT6gw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="gqx8gRD/";
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793878158;
+	b=kfqPFDtPvI8waTp0VLDvMcFNRIZEDENe9I/dxtWQc1pvvhQEojiPYEYwGgJMN9U9bioK
+	 jmqj3VWj69jGzOMyBYOGV1HGaRSmCFz7VZ2c8UvGkWg0k8fmNe5ziPaK4EKvNX9WVM4Sf
+	 WvG+CXr0ZPiKJ1DmMu41DgQkL6sNHNxjhJg0UCJ89A3vg9UBdWSnKFMAWv+REo8o7GoYA
+	 S0eniwNo8nYm/kCDGQXfW3Ta8aR7HFtzo2uWrg8aNFGmzgqpwOB42Q/VdcQSsabrS7wrT
+	 pidfQ3mkQy1UzjIsqukZzN19ZOv50Ck6rMjBeGZ0ComC95ydLTTa6rlu02GtWB06Ciw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793878158;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=+kioeahfgGvkUf91Yc06eaj5tIJkAx04gn/a2VqmwN4=;
+	b=DFnHXzJ9tdW7l1NaJndPINETc7cGBYjqtb3yRxnOJKocptWSPzRnkxcBw74lmJlCVnHM
+	 A2W/b3JAskBhqR7Tp4F7iyVCpmuWLPA+M1TbGH6s3by/mfWGjCHRYUZsh2q+mufM/nf+i
+	 JSRO7LbEmbVQ5ukXzsBiOgSy6KA2UzKIQQJOedzVXTmCnhHRQEyMhFlVCqe8I3762pseg
+	 5P2EvQPlN2EHafGz+RSZOxopQGIIllS7ZWnP2Lzgsb1I6UrGTx/y3XLX6c3lKxNCik3ws
+	 19rXoAwxqzKrSGKkTmsIVQIw1zvzznx2HTNHT0II2Y85IU8vGIY305fIe34lycsfBbQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZYH5m1Au;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00597606A328;
+	Thu,  5 Nov 2026 11:29:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZYH5m1Au
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793878157;
+	b=jsTxyvh1ivJDJEwecKrvg3rLCmKAAWlvld57klRM5smYMdTFnOphznWOdY5ARXt6CNWa
+	 7qgf+tTS3RantrS3n+4KkRXl8ipsPvT2pBRPT3PNSWAaV37N/ilogqUg3aZbeg9XUc6U5
+	 HhzvkBie2dSKhUKvRaAXjTiUZW0hF+OSr191Nwe5Q48g8pCLVUfymnob797XlZhvkD0Jj
+	 vfJXaWv0C/s0wutw2891LK/SzLT7l+THgePZNKnLRmUetENEVlsQQCQkrue+9Z0IdpzB3
+	 jmjKRDNNWzWa0AAlfqFV0DmAyDYIN0azS86zYDrJGuJmyyRuhZd0mEHaxwg72iVsEpg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793878157;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=+kioeahfgGvkUf91Yc06eaj5tIJkAx04gn/a2VqmwN4=;
+	b=WdNq3tjT873ZiEg3NHqwJ3c6/rLKYCUatCpo5Z/1xYxvjOnypH/4z4ANU8O3pBqlbWA3
+	 /NukGP88/5RS9yPmONIKB1fj5qse0GW1QunzsFJKQhzqi5t+C0Kuv2t8QRgA49ssZA/RJ
+	 XqDn3HMqVnarSMdNiFkPN65vMspZq8ADgco/0E3Lr7J0DqPpQX0ihAA0fKO1romNR8uKL
+	 y52DoquOZkXhKqVInIwsnnmwncjEFt+BXM+bQqWS8JWX6/0UqazsgjpJwTsY80X7T1IA8
+	 D6BeId8CVMXHkjet2fwBjh15s+j/FdROF6gfEsobm68/rFXod4C1bKciIctmNIDkPXQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D2DD606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:28:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D2DD606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gqx8gRD/
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a215e64962so16440605e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:28:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793878137; x=1794482937; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KYuAf/nYjeBNHG1mG8AOx1BUbgAUnA1j6gAMCPYxxlM=;
-        b=gqx8gRD/xAb7RuPGcePdw5i58wmVjCmdROs5keeVRsQ+e2FiKoCw2xe2wLD6r0eLTr
-         KHS62rHjipUJbgzcUJm0UJJFNQH84tknqVP1NKhf4RrRFF0DXKC495rhGra20vqL+SdZ
-         LPTESJdsXY1i33d532BzUnFcBlAmWFrNnRDtv2wQRyNyyZNqQZugtCwz5tbgS2jC+Qaj
-         e3JFtJuxOUhYudTFkFTRmFe7anxpOOIsHbtyG91/iDvDN20qSNsgdH2698O0wM0D1HpP
-         7o8G2JvBXOIrHelgOM/7oTsIOraf5Ocdxxsv8+jwMP45cwBaHf0ao90s4qrt04njJ+8W
-         JV/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793878137; x=1794482937;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KYuAf/nYjeBNHG1mG8AOx1BUbgAUnA1j6gAMCPYxxlM=;
-        b=hhVdkKSmRp0vnuRsJydMxMgsjur+6A0p1rPkjaCP14M4kZQHWmcoBqrCgR5RDFJQ3G
-         jN7ujJLcFiuL/g/sDs5QE0j21apcS2dJTcNQCEQI6e+cH/XZDeaDzgqg18G7eNSTKlDL
-         a2Hzfx8RgsOqu70tVZpaQzZj2IsG4w2tmNW6+3O0y/lZW0pfMZllQMGpdhYwHLuTsXgB
-         xBJA0t8tutlTmgyda4xLtmMLRplPL7D+xMHEQVtSTlg/pjuDzHlQRaf7KKN9gsI9mg9K
-         0H4AeiS21k4bvpkItUX5XExj5wpDohn8mIJ5fArr5StxUFIR4fCH8UHHaABJTKbhJG4J
-         rzCg==
-X-Gm-Message-State: APuU4Z9OEarWbFw1I7B57c1S+ftwO1nusNximA0kzZsDVuq2H/EgIM4p
-	H9LMMxUfYsfT6ckwPU5wljZYzJ2shYTdPBolOI1wuV2Wvq2FdkoNeN0e
-X-Gm-Gg: AYBFou0pDo3yKYZGBiFRgSakfGw1M44/pnzVSPI+gYW6cWfwtoSLc0v7sKEh5OIdOJx
-	Sveur6+pBEnx9H+WClvHh93Wq6QwuKTMwOgV6q486RH18YSlXcYgdj2vx5DGKL2Y9rnNFVQ3wkW
-	ZRYPeiWpxtdDEb2iGsvi/6ygaay5vLbdX9Pc0cQwwPe5k+unODev7rcgBghflOuk9GONr/zROXQ
-	xd72FC+Bi8G4FcuxuyWLP3c1FHLQ3vH5By05TRuX06ZKt0R8am5I7R2WtG2oZXdfdtsN3FgUvK4
-	SEzjjsIESQgQdx6/xDBwBPOv6m8KbRpZzl3Q+hvqurZHLzdPRkCiYYF+JbgbKpE8BlyHQrARhP2
-	g8DkuNEAzXvzIDT+vSiAKw/MTIGxQ8XLBnWKvsNJHcHdca2FaWxd5mQ/N+tqNSz2amZS2PUkHUw
-	olfZ1gq1UwHmpi9TLwjKPGdUikQathlSVokvg1pQj2w2dZSEUX4b05S0gDPYCaI0GeGA0UucqDz
-	vdv4730mLb6VUaGvPq+vBRIXcCwO6G2TjP5MCUwmkqmUd6fxrlK7JHTHipV5uCmYq2fF/F5R+hH
-	+L9abHgnnQYEM0X6YtmNgtE=
-X-Received: by 2002:a05:600c:840e:b0:4a1:813f:2a60 with SMTP id 5b1f17b1804b1-4ac17d168b1mr461927035e9.11.1793878136849;
-        Thu, 05 Nov 2026 03:28:56 -0800 (PST)
-Received: from [192.168.1.22] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56e2ae72dsm102176495e9.3.2026.11.05.03.28.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 03:28:56 -0800 (PST)
-Message-ID: <4f63ce1d-4e74-4fed-aa97-e00cd30781a5@gmail.com>
-Date: Thu, 5 Nov 2026 12:28:55 +0100
+	by smtp.kernel.org (Postfix) with ESMTPS id 1A5771F000C1;
+	Thu,  5 Nov 2026 11:29:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793878157;
+	bh=+kioeahfgGvkUf91Yc06eaj5tIJkAx04gn/a2VqmwN4=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=ZYH5m1AuHS1GELMoVUJhmaqwp+m7Hh4/9TLI6zlBojT1zyo0U0i56+WVKx7fbAxtl
+	 cb+goGZaLsreByvgGMU12Hx8lBsNBe/AdKqxUPjemHet7mXwi/Sh1r97UOktWxkK3P
+	 LbH0FQFu2CB85KKjnS/OxxUaFHsS6fk2gQZOsxv/493s5WyJZ63B9dfMU/A5bEDEuE
+	 IB09IZ7yNM/1EF72TsZXkuZCzIWsUI0j0VNMuv/Sb85FMF1t8LondL3XEGHg+lynJn
+	 bfzi9qZyvx+AB6wJiiLAbC3qqDUCM1HRkZwfSxrm/OF/f+3MJ1QgV7eDTEtZ1U11LY
+	 ytduIMb7H/4eQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 70B3547204;
+	Thu,  5 Nov 2026 11:29:16 +0000 (UTC)
+From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
+Date: Thu, 05 Nov 2026 13:29:12 +0200
+Subject: [PATCH] dt-bindings: input: mediatek,mt6779-keypad: add mt6595
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,38 +82,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] mm: hugetlb: fix GFP mask propagation to CMA
-To: Qi Zheng <qi.zheng@linux.dev>, muchun.song@linux.dev, osalvador@suse.de,
- david@kernel.org, akpm@linux-foundation.org, lance.yang@linux.dev
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
-References: <cover.1793850539.git.zhengqi.arch@bytedance.com>
- <ac2de9b321f68c1025333e92e3ce94beadcb0b6c.1793850539.git.zhengqi.arch@bytedance.com>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <ac2de9b321f68c1025333e92e3ce94beadcb0b6c.1793850539.git.zhengqi.arch@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261105-6595-dt-keypad-v1-1-f0911f40d3ad@protonmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ5EMBCA4VeROZukLWNjX0UcSgezEistQsS7b
+ 5fjd/j/EwJ74QDv5ATPmwT5ThE6TaAd7NQziosGo0yhtSIsqCR0C458zNahy5TNDXUv4gxiNHv
+ uZL+HVf04rM2H2+V/gev6AR8w/uRyAAAA
+X-Change-ID: 20261105-6595-dt-keypad-d30a425f75e3
+To: Mattijs Korpershoek <mkorpershoek@kernel.org>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, Roman Vivchar <rva333@protonmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793878154; l=1042;
+ i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
+ bh=1ilWPyJZwXIBoX7Ef7K1dJA5qk/q0NQM6AQiVyoSYi0=;
+ b=gsl/L1Nidw63mZs0argyawLAon+vgqnunhZ5yy+E3ul11j/wHv6bXMvJ5xrU1xKAHQyY96nB5
+ xCtkMOJ53ExAWZQr9KQL1lf3SKp0g2voI0Xnc9l1YvqCV2iz8HIHOOy
+X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
+ pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
+X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
+ auth_id=777
+X-Original-From: Roman Vivchar <rva333@protonmail.com>
+Reply-To: rva333@protonmail.com
 Content-Transfer-Encoding: 7bit
 
-On 11/5/26 5:07 AM, Qi Zheng wrote:
-> From: Qi Zheng <zhengqi.arch@bytedance.com>
-> 
-> cma_alloc_frozen_compound() uses GFP_KERNEL, allowing direct reclaim
-> during the first MPOL_PREFERRED_MANY allocation attempt even though
-> the caller clears __GFP_DIRECT_RECLAIM.
-> 
-> Pass the caller's GFP mask through the helper so CMA respects its
-> reclaim constraints when trying the preferred nodes.
-> 
-> Fixes: 9bda131c6093 ("mm: cma: add cma_alloc_frozen{_compound}()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+From: Roman Vivchar <rva333@protonmail.com>
 
-LGTM:
+Add a compatible string for the mt6595 keypad, that is compatible with
+mt6779.
 
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+---
+ Documentation/devicetree/bindings/input/mediatek,mt6779-keypad.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
--- 
-cheers,
-jose a. p-a
+diff --git a/Documentation/devicetree/bindings/input/mediatek,mt6779-keypad.yaml b/Documentation/devicetree/bindings/input/mediatek,mt6779-keypad.yaml
+index e0758aac7ffe..9f0da1240187 100644
+--- a/Documentation/devicetree/bindings/input/mediatek,mt6779-keypad.yaml
++++ b/Documentation/devicetree/bindings/input/mediatek,mt6779-keypad.yaml
+@@ -27,6 +27,7 @@ properties:
+       - items:
+           - enum:
+               - mediatek,mt6572-keypad
++              - mediatek,mt6595-keypad
+               - mediatek,mt6873-keypad
+               - mediatek,mt8173-keypad
+               - mediatek,mt8183-keypad
+
+---
+base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
+change-id: 20261105-6595-dt-keypad-d30a425f75e3
+
+Best regards,
+--  
+Roman Vivchar <rva333@protonmail.com>
+
+
