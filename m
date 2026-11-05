@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793887563;
-	b=OkjCZWBvDc4ZvoTPpe9JeXg0DxVvg5/DM6rbAKSkEFzEplwydnXj1/U3Pf41NWFvEloq
-	 VyEmUI3k84ch0jJTopo0XQyu1h1qcYBxJHX65ByFjpDvn6NrwNzIHz9BBWHLSaQ+WYpiM
-	 YZcysUJ6qKH5fKuV2IS8u3cITGfxOOz+Kgd6hhxCBoTvC2X9IcHDUVJE4ttvZkhFA1rL0
-	 YGKszQIM/L53yxEJm8mBTvpJQpRZpiy5a5rUlD/I52h0BaWTVSn+UIQ57i4BosyiXQXnp
-	 unoJgBpN3pk7kgegsDV8Y2AYy9fG0pYMFbciVISSe+7nv8Db0MiPkQQQ7bPaThtVnxQ==
+	t=1793887566;
+	b=RRDfKInHqN6VgFUJPRHVCdPNTSHqlwASXuKfT31vKMMDjHqHsmcb34JM+SHwm+7MqMNA
+	 mRiChYPlAAGRhwUrTLNd1AcDFc1BKnGFD15ck/162IkkyaM4n52oHf3LLBUVK+LyH0jyx
+	 9jkIv6jHO1BVd5j+ILfUNf10mfbFAmJmj6K707cewGg4grNetsghA/E1OrYhKubz923y3
+	 jX9xrFEr6OlCqt5qfgDdXGC2MDogksJXehsBhYuzO0VFwI1YaCBAwJgwGdk1m+yjd8AdD
+	 gE20zt7Kmkmade8+t/OKZa0g4zdhxUg8enC7N84+sZcQ6ejblq9P2DrZC58OzJrOVGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793887563;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793887566;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=C46XMF9ntFd1cNzpW0ccZaBdDtR6GkHK7zbgrzppajQ=;
-	b=T2CgDogtq9/tEbLqg0UzExToiVxxJdnOSyDjlTB/lp+aHZpnDUQGkrMsMharkIhJDFum
-	 ujlmbybldynKaHA3I3Ifpv+s9MdHplm3lIRoofc6vLvWqEaaXHc2/h0+eJZByMeibRnXN
-	 iR5udvcccuGX8uhFRohIyTaSR4X4DvBm2kaVkueLKt0kabp+fh1xHkzVh+oub5HvYB58N
-	 F1auVgzdgcF7vO9S3GMGY7yK+ptvsz6r7U8vN66HYFAQHqFQ6/lCPzd2HPxU9HTg3nYSP
-	 YAekQdGtY0D6I0W0RLvBTiLoyD62SrXaNrXen0EA88ItXQTbGodh9ZOrvnRrY6R6yOg==
+	bh=/TZdy0v25LHQ/8qZj/SLbaFNwYCRnqtlTMoJLynwB7k=;
+	b=DFGkyIQwASl4+RXZ8UWSk/BZvJq7U5Atode9ajHXaZDBq1X8Aabz/h0YsM9a/iZCsVTg
+	 ZrX3akaZI/EUFbtvt+J/zY8FxxREmZk38PK5fE1NuUeE7wdgh6fvks/Km+RgBuQAO8uut
+	 OTPGh0uIzfzaciJOPIpFwaKbCRO06WFR3GxoIbrtMh2d+mzCIwDb8/tiQE+SqFe0qe29V
+	 XrGZcp2D5JaEj0i5OQ6yJMEuw6YStFq+V/Y+II9biS/w4tfnP67jnoWSmrFM84lVB/QzG
+	 xf3FiZYT9yBPbacFjwbFzdC6YHx4Xfdwz2/VO0vLg/6iVcxhCcCzXx+594CDQEXXWiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HdmYwzJE;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PzGmAogF;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19E31606D80E
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:06:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19E31606D80E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D60E1606A32C
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:06:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D60E1606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HdmYwzJE
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48e1d0e5dafso422241f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 06:06:02 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PzGmAogF
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so17783935e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 06:06:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793887561; x=1794492361; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793887564; x=1794492364; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=C46XMF9ntFd1cNzpW0ccZaBdDtR6GkHK7zbgrzppajQ=;
-        b=HdmYwzJEZlhLuP8KzIubtCCI+KKp1Ul7qZkS1Ew10px1p64T2MjShRp2ubhsZ4vM84
-         4/QGyq/LcQpeRjpjUkDiMXG0+gs/AIA4TcXoYR+yL9vxPACuMcyPgD7TZNs+zgHoMQTA
-         1AHUfyvf2gOLAUh0Txcp+YsQVYGEpDTCWRvW0Uk7CxHzi4aKFrhKNhVhlBXdBTny/+rb
-         lizMIpTer7pC3rPiozNGWaH42w6Onk/ukS9g40+5CCTo50X3Q20d36/YF/j5J+NcBnPy
-         RmqsciNJvdFM66cAFBuTUGXXMauRQ7IZ5+0sNuavmPpvS6LT4Fo8XFXi1p5oDOwqQMPh
-         D+Dg==
+        bh=/TZdy0v25LHQ/8qZj/SLbaFNwYCRnqtlTMoJLynwB7k=;
+        b=PzGmAogFk5pSFK+wRR9BO/6p0BoRe9LotWLbM+RS9OR9kFRGX0Fus28SaCZHTGG88U
+         EPKw2Cc9cpeAr99lWCcTu5Vmk4jyf/vjnH5dYm7Icj0AYxqLi7vt/dyF/EybyeBhDqeY
+         kXME8cwLrQNVhJDa2beTo+cY2ZCQ0qzs+Ofze8rkUO5o4l2Zf6OoEnYFBqI7nw2EuQMk
+         rX4NkywdVM0w1kS2Zrn+dEQ3Bnss2G5/Qd6B4OuGMU25VFuVH/4SdgcpBvAwFEvpQZkp
+         2fOOz0jj3KYGOUQwCn/bmfrSkLeo5V9kyGZuJm9DUv65PJn27GU6OQmjxRB6JbTlBDLZ
+         M4Eg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793887561; x=1794492361;
+        d=1e100.net; s=20260707; t=1793887564; x=1794492364;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C46XMF9ntFd1cNzpW0ccZaBdDtR6GkHK7zbgrzppajQ=;
-        b=uVqyTIBWn9p45vVCr0FJesSR/4UTZ4i5xUysD4s3wo//MLtffLa959ftp4sKATfUxQ
-         RKsS4qLSLYAVQJZEBseaPIq9PJ7EOOGLw3Cl9J4zTBDwNA8Y+lZ5Q4soh1dQQTneQZU0
-         vsxk671SZa5wgw40PEKQset6KayRIJEZ7S1o0IaEAnhbR3ZoVq3Jxx6lkAYCauxSHQaf
-         SI+jIVSaUFRHxKcMM7c7DLAL01De42r9JgLY11SRFk2QtzmKBk5dhpYoGdnaWvUPo6Vi
-         l5LE5K1NZer3CpDVJKizHOYfR67H98HE5qWs3uit0tf195asC8I8ZjqtFOmqeiiP0a1Q
-         P9Ww==
-X-Forwarded-Encrypted: i=1; AKwUvBx7bLnjWJWb4r0skHIiO28roP5qMw7vsoOGSS5iTOaO4xeK+OyghWWEqW0ckEog4Gf81CAyMR7qr1cAKRM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/kj7jR7qJy4WASD5rvtPKLjggP8pbEpGTJwsBfWjVMorh+/O1k
-	SNXP60BGJdTPbKY6UPel68TfW+rblCRGMPntrfFDr+3VAIjICYFx/OfF
-X-Gm-Gg: AYBFou1dXr8u5HEKdKLe49RQ8pBWqsBXJDbFy4oFiO01eCP9tscegFj3PJrCvxaJo2l
-	W/AJsx/7JkNgdHdHQn83+wtoCZ4QWJ1yUzW0+BQh2MbB08yuPFeVsoyzYdhIK+2g6zcR+xNpe3q
-	JGpuyQEEASzyfBFdCjuwdKSafMWlKOy5St6bBrg9F8KQhiaBsNrAjm75kVlwsBqYdQ4tdNxd/PV
-	rC9kozkLoqt6ye8IQEaWxOv+F3d31c+TxETfWLFVyd/EjIx4djbteaqozVu6gvkRoBpvtYenlIM
-	3UYmGOpTi5Pa/xkOqhMIKeVOMA0ZJfuEPodfR4C+jz7PQwGv08hRgUAQO1TYun5eacjdfunoeDK
-	AmBBtQ/z1OBr/hmhGqof9nvIDTEo8Ntne9rz/ich6bY2ZxGdR2BSmQ32UCvw/2jYnQu1SBe9uP4
-	d5Hk/+rA0Lz5RX15MW/zTt0CtvBDN2fJsYKGzNt8Cbc2mz8EQ10BRHdNDjmHPDmVcbUiMdVG0ze
-	icY1OYgzvsnEfH87dnmovYS6oTGlXRUBsoV+3o84BKLYCh6uLuc09fCZsbyLWcr2XOrdCKXIVua
-	r5uB8zF7X2/40B7f8nc4BV6hYJP4+gX2ntQjya/Y6ZjfQ3ACQQ==
-X-Received: by 2002:a05:6000:46cc:b0:491:1468:a504 with SMTP id ffacd0b85a97d-49117491f15mr3215686f8f.21.1793887561432;
-        Thu, 05 Nov 2026 06:06:01 -0800 (PST)
+        bh=/TZdy0v25LHQ/8qZj/SLbaFNwYCRnqtlTMoJLynwB7k=;
+        b=L+RvfCbPEqiDyg+Wr5CqWMVywyYef7fXUKexJvmnG4es4zBWN83Gh4jT6z/Z938VUK
+         9m/sKx6K5rpQHyu/R9OlwjteRlhYJxWtTgUIJ8mx4ub0bF5oJmeNCw4fHJQkapzVzMaH
+         chfVt3zUUhZdGuPmVI0Jn/oy9qIiD30szWKIpQVmsSyy7XWTsawxyF539O/5sMBOVzLc
+         TvK/hrgtyR/Bx5KGGmSa7eSrbISS/npoY2VQkz7AtXHke+nbmZfNlb1H2NkIxKYbjH/Q
+         vVFA22qNPZcZ0Az7/RbZaYYMgAMWzhISqUB0mTl3TPpT4AMnV5J7wTpyxMkG2honhA9/
+         bVdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwe+5OSwVwWwxic/3Hii6jAQxuq0COBWl9HZ3qjl7FUbhYyW3tSpL6ECIb14RUtQeZ8lgoumX3VJUotl+I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/2WQ6GkOUCRzt468MHl0Bn1XY47Xe6hciRZ7oUMK9yN2U7i/BZ
+	mB1shTlwJdq8p+ACYdMpmbKanjpLsyz8IFy+UvEOGqs/RGgLAUHus25W
+X-Gm-Gg: AYBFou3QDe/uN11NCinvkFDOYDkM6fWup/BnpYBzTrJmwZaRTXg4Zyuj4YhEMsAr+N7
+	5XBR6wxOzXknQPoMQHq2avCZYcC0Y599DTO7ce8iv48sLHY7yZqxVcxAdKkT9qIK16dNQ2lSES+
+	MrW3la+DOVRUQyImpJcJy7sLs/XP/+gx5mt/pRQdZvBrVQmvXifOjwYIHip2Ra3LgkmV8tZ4Bjb
+	bm3k5YcvPY5nxAmnT1nNgiyFmwgaZd0zzpMiIUGIdPZUiXEqZKNlTTqA5ceUZXFlGRDBo5zSaK6
+	rsKNmGao7+/bOVlDFHluQYl0OpdKSRJ/Jrt4Z3gUcZuVwLtWx8RNk/WmdggmBMLamYYJgmXFIBY
+	E94ZYBcSqwOqAL2OmF6XrT82tOomo374ROpw+v92ScD5YtCt3z+jbVdDLabac229L3CnDZ9/ekI
+	jpbKdJgwr+aKAZjaf89fAevyOZfe5yXotgcwHf7pXpWIS60Ix+vnCf8w10pSC0VIHjg0woR/YS7
+	l9km2h4WJyPDrYBn+t4jUsKxUYzmFYv5aCAkQh+Ksv4F0TH7+moirubmRuOjmVpFkRRCT2JEZ0O
+	WB/iLQDgbrNVXXEyCKcVVX0OLS4pavViI+VtkAZ4y1Q2DNFrAQ==
+X-Received: by 2002:a05:600c:628d:b0:4a1:f7f4:7ced with SMTP id 5b1f17b1804b1-4ac185bd243mr424532335e9.17.1793887564261;
+        Thu, 05 Nov 2026 06:06:04 -0800 (PST)
 Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed92a753sm11454111f8f.45.2026.11.05.06.05.57
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed92a753sm11454111f8f.45.2026.11.05.06.06.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 06:05:59 -0800 (PST)
+        Thu, 05 Nov 2026 06:06:03 -0800 (PST)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Maxime Ripard <mripard@kernel.org>,
@@ -97,9 +97,9 @@ Cc: dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org,
 	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v6 05/10] dt-bindings: display: tegra: Document Tegra20 DSI port
-Date: Thu,  5 Nov 2026 16:05:05 +0200
-Message-ID: <20261105140510.165165-6-clamor95@gmail.com>
+Subject: [PATCH v6 06/10] drm/tegra: Make panel parsing by tegra_output_probe() optional
+Date: Thu,  5 Nov 2026 16:05:06 +0200
+Message-ID: <20261105140510.165165-7-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261105140510.165165-1-clamor95@gmail.com>
 References: <20261105140510.165165-1-clamor95@gmail.com>
@@ -114,31 +114,156 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document the optional port node, which is required for correctly modeling
-a dual-mode panel.
+The tegra_output_probe() performs panel parsing unconditionally, even for
+devices that do not require it (such as HDMI) or that handle panel parsing
+on their own (like DSI). Make panel parsing configurable.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- .../bindings/display/tegra/nvidia,tegra20-dsi.yaml          | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/tegra/drm.h    |  2 +-
+ drivers/gpu/drm/tegra/dsi.c    |  2 +-
+ drivers/gpu/drm/tegra/hdmi.c   |  2 +-
+ drivers/gpu/drm/tegra/output.c | 52 ++++++++++++++++++----------------
+ drivers/gpu/drm/tegra/rgb.c    |  2 +-
+ drivers/gpu/drm/tegra/sor.c    |  2 +-
+ 6 files changed, 32 insertions(+), 30 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dsi.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dsi.yaml
-index 59e1dc0813e73..0f4837648d179 100644
---- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dsi.yaml
-+++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dsi.yaml
-@@ -83,6 +83,12 @@ properties:
-       gang up with in order to support up to 8 data lanes
-     $ref: /schemas/types.yaml#/definitions/phandle
+diff --git a/drivers/gpu/drm/tegra/drm.h b/drivers/gpu/drm/tegra/drm.h
+index bc720ae8d95e1..e53fe68161cb8 100644
+--- a/drivers/gpu/drm/tegra/drm.h
++++ b/drivers/gpu/drm/tegra/drm.h
+@@ -156,7 +156,7 @@ static inline struct tegra_output *connector_to_output(struct drm_connector *c)
+ }
  
-+  port:
-+    description: specifies the connection port for the dual-mode panel
-+      and is required only when the panel is operating in dual-mode
-+      configuration.
-+    $ref: /schemas/graph.yaml#/properties/port
+ /* from output.c */
+-int tegra_output_probe(struct tegra_output *output);
++int tegra_output_probe(struct tegra_output *output, bool get_panel);
+ void tegra_output_remove(struct tegra_output *output);
+ int tegra_output_init(struct drm_device *drm, struct tegra_output *output);
+ void tegra_output_exit(struct tegra_output *output);
+diff --git a/drivers/gpu/drm/tegra/dsi.c b/drivers/gpu/drm/tegra/dsi.c
+index 7b595310e7379..a4c0c63bbe567 100644
+--- a/drivers/gpu/drm/tegra/dsi.c
++++ b/drivers/gpu/drm/tegra/dsi.c
+@@ -1618,7 +1618,7 @@ static int tegra_dsi_probe(struct platform_device *pdev)
+ 	if (err < 0)
+ 		return err;
+ 
+-	err = tegra_output_probe(&dsi->output);
++	err = tegra_output_probe(&dsi->output, false);
+ 	if (err < 0)
+ 		return err;
+ 
+diff --git a/drivers/gpu/drm/tegra/hdmi.c b/drivers/gpu/drm/tegra/hdmi.c
+index 0d2c0ab0a63e9..fc6eb7410045c 100644
+--- a/drivers/gpu/drm/tegra/hdmi.c
++++ b/drivers/gpu/drm/tegra/hdmi.c
+@@ -1855,7 +1855,7 @@ static int tegra_hdmi_probe(struct platform_device *pdev)
+ 
+ 	hdmi->output.dev = &pdev->dev;
+ 
+-	err = tegra_output_probe(&hdmi->output);
++	err = tegra_output_probe(&hdmi->output, true);
+ 	if (err < 0)
+ 		return err;
+ 
+diff --git a/drivers/gpu/drm/tegra/output.c b/drivers/gpu/drm/tegra/output.c
+index d0ba3bd0aab8f..ff2e28a1e00b7 100644
+--- a/drivers/gpu/drm/tegra/output.c
++++ b/drivers/gpu/drm/tegra/output.c
+@@ -94,7 +94,7 @@ static irqreturn_t hpd_irq(int irq, void *data)
+ 	return IRQ_HANDLED;
+ }
+ 
+-int tegra_output_probe(struct tegra_output *output)
++int tegra_output_probe(struct tegra_output *output, bool get_panel)
+ {
+ 	struct device_node *ddc, *panel;
+ 	const void *edid;
+@@ -104,31 +104,33 @@ int tegra_output_probe(struct tegra_output *output)
+ 	if (!output->of_node)
+ 		output->of_node = output->dev->of_node;
+ 
+-	err = drm_of_find_panel_or_bridge(output->of_node, -1, -1,
+-					  &output->panel, &output->bridge);
+-	if (err && err != -ENODEV)
+-		return err;
+-
+-	panel = of_parse_phandle(output->of_node, "nvidia,panel", 0);
+-	if (panel) {
+-		/*
+-		 * Don't mix nvidia,panel phandle with the graph in a
+-		 * device-tree.
+-		 */
+-		WARN_ON(output->panel || output->bridge);
+-
+-		if (output->panel) {
+-			drm_panel_put(output->panel);
+-			output->panel = NULL;
+-		}
+-
+-		output->panel = of_drm_find_panel(panel);
+-		of_node_put(panel);
+-
+-		if (IS_ERR(output->panel)) {
+-			err = PTR_ERR(output->panel);
+-			output->panel = NULL;
++	if (get_panel) {
++		err = drm_of_find_panel_or_bridge(output->of_node, -1, -1,
++						  &output->panel, &output->bridge);
++		if (err && err != -ENODEV)
+ 			return err;
 +
- allOf:
-   - $ref: ../dsi-controller.yaml#
-   - if:
++		panel = of_parse_phandle(output->of_node, "nvidia,panel", 0);
++		if (panel) {
++			/*
++			 * Don't mix nvidia,panel phandle with the graph in a
++			 * device-tree.
++			 */
++			WARN_ON(output->panel || output->bridge);
++
++			if (output->panel) {
++				drm_panel_put(output->panel);
++				output->panel = NULL;
++			}
++
++			output->panel = of_drm_find_panel(panel);
++			of_node_put(panel);
++
++			if (IS_ERR(output->panel)) {
++				err = PTR_ERR(output->panel);
++				output->panel = NULL;
++				return err;
++			}
+ 		}
+ 	}
+ 
+diff --git a/drivers/gpu/drm/tegra/rgb.c b/drivers/gpu/drm/tegra/rgb.c
+index addcecf8592b1..01475995d9cc8 100644
+--- a/drivers/gpu/drm/tegra/rgb.c
++++ b/drivers/gpu/drm/tegra/rgb.c
+@@ -236,7 +236,7 @@ int tegra_dc_rgb_probe(struct tegra_dc *dc)
+ 	rgb->output.of_node = np;
+ 	rgb->dc = dc;
+ 
+-	err = tegra_output_probe(&rgb->output);
++	err = tegra_output_probe(&rgb->output, true);
+ 	if (err < 0)
+ 		return err;
+ 
+diff --git a/drivers/gpu/drm/tegra/sor.c b/drivers/gpu/drm/tegra/sor.c
+index e384cbd0cbf72..ab81e412e05f1 100644
+--- a/drivers/gpu/drm/tegra/sor.c
++++ b/drivers/gpu/drm/tegra/sor.c
+@@ -3806,7 +3806,7 @@ static int tegra_sor_probe(struct platform_device *pdev)
+ 	if (err < 0)
+ 		goto put_aux;
+ 
+-	err = tegra_output_probe(&sor->output);
++	err = tegra_output_probe(&sor->output, true);
+ 	if (err < 0) {
+ 		dev_err_probe(&pdev->dev, err, "failed to probe output\n");
+ 		goto put_aux;
 -- 
 2.53.0
 
