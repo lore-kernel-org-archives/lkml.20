@@ -1,74 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793905635;
-	b=nEom0tCXpJf76W9l5ulA9Q+7hlp4n8dEZTm9a6Hd0Qg5JEGckiudPUY00XZdNigcnArq
-	 OltW34RVbNR99B5X2gSvKoLU3K9ML3Vii1rRpk0jTBGH8TH9jGVYZkvII9A9v1mL3WsgS
-	 SK+FqDoBStS3hVKiuX0HdTvobDj655QpCmZuqGbsszQTI1HpvoAb2eSDMqDdLAXAZ5wCA
-	 3xSqcrg24pMlqB0XnHEcxmyNqW9UFIH3dmntIiBOHJfXbrzIDxuEDtcaSo5ZjSCqqWQ2n
-	 q8tzDc6wIfDi1QUw0xhZRw4WVAitGiuOQvYIF1Rp7J3ms+Q3/DpuU4ktEgMeAk+imeA==
+	t=1793905659;
+	b=ebTUODRvWRIayTqtpvUbJDkvmzYatsPgYFRjLv+Gxnc1+86fkyKJ3wvD9UV07U0hnG+0
+	 DyWJNyjRzJQE/QeF+RZiDsiSfiZ/0U91GTiOl/mtMgXuafxdbxMzxjMWWEgkzRlW8DWvK
+	 369DHZalscP7yU5s981Ct8q2ija7uKAWUqYgilWijpfenam7ZQr2NIJpOOqDJqk3SxslV
+	 0OP3tzF5OIP7j67a1y72gK7bcMZvQ4xZaxp+78A7FsmqRJoa+d+8/p3XO7LZKMwlqsV67
+	 eW/ZAs59oFuI4wI7U5BtHdVE1PPSVP/WodR2QSZOGsB2KTcdkYOcFGSNdM08gxnwTyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793905635;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=lRyfmzG1t8XS2YlDbsF0CIx18v5yITYWX+C2nYSc6Jo=;
-	b=JLW9jvvr45gZcsaVf0P76UBbXQVdhTnqaQEOEum5QJq0UXTCW/Bkhi0TL0XquuIuPNw9
-	 MbR5qtTE1e+fF8IYvhg6Ee33FJQ2tb9WgG6r4sUWu/XZ4bpdsM5u5v0SUuYhDoesHZkvL
-	 eXf0tNQSxxxbv4zUxgGOwfohxo8LGcmfTIRXiH7JBlUoyTmxp8c02txKi2LLuuFA6xrnt
-	 RuainOxR7l0P8CWjmuWrkS0ZX8ChCivCnICzJDE6Xd3Q1Ikp5GNXnpOV8J5DQCZexmpPW
-	 CgAV0TnrEIxg0HggZPt49YoSP4POKOK4BSg1EdEzJhVTlppRzAhMHj0TzpuVAONTV/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793905659;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
+	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
+	 To:Cc:Content-Type;
+	bh=ZAjaa18wdRgEqxid2YInH5sQS/VPsmf9qKFCXI+pZhg=;
+	b=Q1yOg46Rgqgzj+z+mntiL0PQIVjoTyuOf5rezF3QYN5ZD1kxA79XUA1bZxYDKtShxq7Y
+	 b8Gj1HA5Waqqy7g0jCEvaPo2x5AZHp4FvmDZkQJZpfu+a019KqpXyd4I+aL4I6LBcVqGW
+	 60rqCbOiT3JwjiDKKf/0SvhWsLaaPrYlI4sp3Ec4hpl8uvhAuHZhVUAL/ygobnAJYDUsH
+	 Up20SvIuyvDS+PFVLOqyNiYoxHcjyLsEOjGBGzMjxs76r7Jk2xpCPzBLjhhde8J/3C02a
+	 CRZIA7B4cDanvxvptXfODYIIAZ+J3xD9lYlod72Cl4omyuSnRCELWQhbRsbgHYP3YCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=CrRqzTPb;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=6+YEHH1X;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=STCQWHSR;
+	arc=none smtp.remote-ip=209.85.214.199
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D6B606A32F;
-	Thu,  5 Nov 2026 19:07:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52D6B606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95717606A338
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:07:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95717606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=CrRqzTPb;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=6+YEHH1X
-Date: Thu, 05 Nov 2026 19:07:11 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793905633;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lRyfmzG1t8XS2YlDbsF0CIx18v5yITYWX+C2nYSc6Jo=;
-	b=CrRqzTPbdZG9w7Xmu8VSXSdlF43COm3UoiENhBHTAWcK497PBOUrGPzDnBwT6zUIhbyN8z
-	3y5qyMClqjgNJ6gJKPnSkrGTBaFLU7G8+IKA4HnLdzZbRlni0QuOonlLZOfUIC1Vy5efwm
-	AzAKTrj7t6q9dpfiXeEP+A0a+I6wgS4gVpO1cqw/hWZSeW0cQ90sk5yaPs5w9oeyPqzr23
-	InzzphWe1Nl4vThpZjzbCeKn+JT5pYh2NXa2MEvA1bpwLOQaIEVs9ixXy/A1cBvDCXoiC0
-	o9MYyuOO+PoAEGV7lWhQPOEdCE+riko0Wvr4hLYPijWQ+mESNlQGfRlxemkkbg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793905633;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lRyfmzG1t8XS2YlDbsF0CIx18v5yITYWX+C2nYSc6Jo=;
-	b=6+YEHH1XY8FlXTPQfG2ItCUpEqEl36EIXzC+Sge2p3XgO8GB4qooStO/Zj9HmwwJY2Vesv
-	oW397CIui1SbjzDw==
-From: "tip-bot2 for Thorsten Blum" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/boot] x86/boot: Fix off-by-one error in sme_clear_pgd()
-Cc: Thorsten Blum <blum@kernel.org>, "Borislav Petkov (AMD)" <bp@alien8.de>,
- Tom Lendacky <thomas.lendacky@amd.com>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260918142714.242711-2-blum@kernel.org>
-References: <20260918142714.242711-2-blum@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=STCQWHSR
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ed08be1c84so32678675ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:07:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793905658; x=1794510458; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ZAjaa18wdRgEqxid2YInH5sQS/VPsmf9qKFCXI+pZhg=;
+        b=STCQWHSRTeOQ2A1SrWC9puX1CNsDmwC7hZCDU+SD27RZU7kdDJH7eu7lzmXjN0ZetQ
+         E6oukNaqUymbYvtOiywcG0X5S6YEkji8jIaTuoJUwTmHECEVwV0o/0scPMsrYMfSqqxc
+         2N0pZ1kax3FHmcy/B/GujC67kOe6Bkeg/GjTho4azqiPuqwngQ5ULVY/sjoT6SRvblwE
+         vYNxWsk7AtFH/z8OiK4xE+hBjr6PvpageNfoAPkLLgzkzneiZ71F0/GN5oDpR1XBFJ/m
+         5PmxmRj7Z+ZGVirz8l9oOBQBFhtOgdBTjLaJCKF5Qul/PcNdmim390Bp7GP2zratNA5P
+         6s3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793905658; x=1794510458;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZAjaa18wdRgEqxid2YInH5sQS/VPsmf9qKFCXI+pZhg=;
+        b=ECNigZQCCZxGIVV7apvx9r+ccEDjSFGcnVo0KgyFSwIYOPsMbzwOht+HrNMeZFYzLO
+         jflfB7n3aDqixx/98jboGhLhpaUvWM6zUsI8rFzIZcht+gbRPfQJ7xVH6+JQaDst6ZcO
+         lkLVN8EKrL2/DJDt3JVyZ4Ir1VfEwiPRU0WZt9UGvn1ik2eQev7eN7Mu9uGfCfRYaxqP
+         5NWHp4vqnxo5rOsU5yKNBRYnsF1UpME+AIRFp8dK5dPcFgWvrbC50qlcQ5pX3BI8PLYO
+         A6WJeR1nE1vmzhOYKOFUBZC0w47PjHAQiKCJ7Hj2bQjSUDBA3v1x+VoK1Oi68mU+PTrl
+         eaDg==
+X-Forwarded-Encrypted: i=1; AKwUvBwL3qpPX71ML/73ex3PEOfT6lEM43RatX02hcbrFvwYprf0h2+RL4dmc2RYORUW0sbh0HOOR/pV7nuhVhw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9hd0KTC4v+2t7rTpdpmLWO1lC7sjdlP1Pg3wbiXPnA3abF+wCI
+	XSie3qOoq81a+w1+EHhVZbB35AgYUUT1f5t1IVv/UtrRTCp7lom/8pwwbNWzmr9jl0SzJjWmyOb
+	ngNlnlg==
+X-Received: from plch18.prod.google.com ([2002:a17:902:f2d2:b0:2ec:f3ae:b625])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:c410:b0:2ed:3be3:c63d
+ with SMTP id d9443c01a7336-2ed40c14d28mr5879335ad.23.1793905657669; Thu, 05
+ Nov 2026 11:07:37 -0800 (PST)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Thu,  5 Nov 2026 11:07:33 -0800
+In-Reply-To: <20261105190733.3741959-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,57 +79,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Message-ID: <179390563139.1009794.13747974597045025516.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+References: <20261105190733.3741959-1-seanjc@google.com>
+X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
+Message-ID: <20261105190733.3741959-3-seanjc@google.com>
+Subject: [PATCH v2 2/2] KVM: nVMX: Do eVMCS consistency check on VMFUNC
+ controls iff they're enable
+From: Sean Christopherson <seanjc@google.com>
+To: Vitaly Kuznetsov <vkuznets@redhat.com>, Sean Christopherson <seanjc@google.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Manuel Andreas <manuel.andreas@tum.de>
+Content-Type: text/plain; charset="UTF-8"
 
-The following commit has been merged into the x86/boot branch of tip:
+Check that the VM-function controls are actually enabled before performing
+eVMCS-specific consistency checks, as the VMFUNC controls are supposed to
+be completely ignored if they're not enabled.  Per the SDM:
 
-Commit-ID:     8523d938dce836fbe7ea33fcc98d8460b094ef81
-Gitweb:        https://git.kernel.org/tip/8523d938dce836fbe7ea33fcc98d8460b09=
-4ef81
-Author:        Thorsten Blum <blum@kernel.org>
-AuthorDate:    Fri, 18 Sep 2026 16:27:13 +02:00
-Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Thu, 05 Nov 2026 10:21:38 -08:00
+  If the "enable VM functions" processor-based VM-execution control is 0,
+  no checks are performed on the VM-function controls.
 
-x86/boot: Fix off-by-one error in sme_clear_pgd()
-
-The mapping helpers __sme_map_range_pmd() and __sme_map_range_pte(), and
-therefore sme_encrypt_kernel(), use exclusive end addresses and stop
-before vaddr reaches vaddr_end.
-
-However, sme_clear_pgd() treats vaddr_end as inclusive when calculating
-the last PGD entry to clear. If vaddr_end is PGD-aligned, the first PGD
-entry outside the range is cleared too.
-
-Use vaddr_end - 1 to calculate the last PGD entry within the range.
-
-Fixes: 6ebcb060713f ("x86/mm: Add support to encrypt the kernel in-place")
-Signed-off-by: Thorsten Blum <blum@kernel.org>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
-Link: https://patch.msgid.link/20260918142714.242711-2-blum@kernel.org
+Fixes: 3ff8a13d41b2 ("KVM: nVMX: WARN once and fail VM-Enter if eVMCS sees VMFUNC[63:32] != 0")
+Fixes: a83502314ce3 ("x86/kvm/hyper-v: don't allow to turn on unsupported VMX controls for nested guests")
+Cc: stable@vger.kernel.org
+Reported-by: Manuel Andreas <manuel.andreas@tum.de>
+Closes: https://lore.kernel.org/all/f1f39118-2e1b-476b-9a84-ef7d56412bdc@tum.de
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/boot/startup/sme.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/x86/kvm/vmx/hyperv.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/arch/x86/boot/startup/sme.c b/arch/x86/boot/startup/sme.c
-index c07a2c3..2d5cb3f 100644
---- a/arch/x86/boot/startup/sme.c
-+++ b/arch/x86/boot/startup/sme.c
-@@ -99,7 +99,7 @@ static void __init sme_clear_pgd(struct sme_populate_pgd_da=
-ta *ppd)
- 	pgd_t *pgd_p;
-=20
- 	pgd_start =3D ppd->vaddr & PGDIR_MASK;
--	pgd_end =3D ppd->vaddr_end & PGDIR_MASK;
-+	pgd_end =3D (ppd->vaddr_end - 1) & PGDIR_MASK;
-=20
- 	pgd_size =3D (((pgd_end - pgd_start) / PGDIR_SIZE) + 1) * sizeof(pgd_t);
-=20
+diff --git a/arch/x86/kvm/vmx/hyperv.c b/arch/x86/kvm/vmx/hyperv.c
+index 2b40ac32ff06..a1daf8f2ec5a 100644
+--- a/arch/x86/kvm/vmx/hyperv.c
++++ b/arch/x86/kvm/vmx/hyperv.c
+@@ -187,11 +187,10 @@ int nested_evmcs_check_controls(struct vmcs12 *vmcs12)
+ 	 * controls in bits 63:32, i.e. dropping those bits on the consistency
+ 	 * check is intentional.
+ 	 */
+-	if (WARN_ON_ONCE(vmcs12->vm_function_control >> 32))
+-		return -EINVAL;
+-
+-	if (CC(!nested_evmcs_is_valid_controls(EVMCS_VMFUNC,
+-					       vmcs12->vm_function_control)))
++	if (nested_cpu_has_vmfunc(vmcs12) &&
++	    (WARN_ON_ONCE(vmcs12->vm_function_control >> 32) ||
++	     CC(!nested_evmcs_is_valid_controls(EVMCS_VMFUNC,
++						vmcs12->vm_function_control))))
+ 		return -EINVAL;
+ 
+ 	return 0;
+-- 
+2.56.0.567.gdb80ae8cd5-goog
+
