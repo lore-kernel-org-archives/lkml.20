@@ -1,78 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793906799;
-	b=P3nY7noievlWpv/HkvTKh/0SkXYygUj6fHws/2iegFhEkzaWMVmE7xnxCXfDzbqY4/Ti
-	 6GeawtLYYZDY97/mLGcYXHexR9RYuIk9DWu3eqLrjzV+onUcg+lTXC3yUhh3WNStQ975V
-	 OhBtnVKeoC4iLKrw5NEVbQZrxnQJE1BPVGlCVSbIL3lCR3utL8h4Lq03F75nw1gyZUKiE
-	 M1LQmNxG3SzyWYFWIexxPWVo5nqTVVa0blMQ6dt+rtudc88nNjpmYbolLQpLa7/HeBoSL
-	 mEDDwxuYdEl7P2Hf0FzoX0vK9VsJCcf+OTqGp/6S5ldNpCTs759GckWTLNeUDNdY3IQ==
+	t=1793906865;
+	b=0KYtbMaycCggWnLYvxcllkWJ3KpUTHBvNpGIm0n1801RAiRfSC/9wjSZ/4XR/YWvlYft
+	 3th8L3D1fY/5kihpkksE9NNLkxvQBkdBLjzBbNf0eFptC98vBxctBmGtzEbwolhgIKWI1
+	 Cfhivi2VAwKyCkyK9A/3GHMgYDbmRR17xEluCI/Y8qZafaN42L3EVCKEcHUZcVhMBcppx
+	 RluCNec/gx5v6E9HMkdG9/ufyZUbRvEDFoUcwniNHX3T5k/JfN8xUA2bp0YU7z/ni7VEg
+	 TdziuRtmzuvdtkd1psBcBOrrL9puDR1LwKThnRl19IEPurNU4zKiO7l8vd50C4CKmWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793906799;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=TZphQxclz2gFW9ezkdnyrlJdzJISPtOa2u0+oLIYQtA=;
-	b=AyUS9zl8dcTKX8vMDACeCuPuMTCQzqxbXKAR6USz/RzL9OAP7zfcQNIbnHkE+SDdolto
-	 j7YPnMSorTZ86FCL5BxxZDJTJha+DoM9xa0VBTiCtUKMSg21i4hWFaNHc0x4+1wyXD+GR
-	 H5pjo01OkmKR4q62lTDY5nR7gr5wNcslqEZmO86d8lIMfg98W9cLbLy2q6TLrMMCzNmVV
-	 Gwobk1ewu8KXiavDDWo5Tahy43MeGT/sYRH4jndnNiX811pP2bZVs0GgE6j0efNtRRBQy
-	 +LI+gxjY5Qb9cWzrV1eKS7ZJPpnKLaw0glJp5MGWZNbx69oTeaYOm0rkxThxTfm9iiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793906865;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=fbbEG3gQeTzOUIsTltAH47maYBG1Ws8wsE+J4GEN+e0=;
+	b=KoO3ypFdEM5KpU51jgF7s25bhBdnyt3911iVBYatcKQXq2oe2pM68ryg1ix1tg63Tusv
+	 jjYU0hoZZD5/ITCf4HwIOB/31vpd/H3Bze0kBEAC4ci1at9PRnjsHeFTOIl2ONpuC9g2y
+	 rFtFiXIoNVpNOIKxCwfxCoNelLBwkyeKhAOhA2Ys2VR0rZztMAVPOXG1ryRUIZ4paCqgk
+	 zIMsPNrZNCffpgODuziSXyBd9Rq4lv0L3pjkuQB7Ia+x4ceAYH4uDBZBFeFoSW9TcyfNs
+	 j5sQ+ORiyWTyknG/GaJwjsZtJcMivI66l92gUzxploOLeZOP4dRnz/xNy6SWCrh8Sbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=maryasin.name;
+	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.218.48
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F+j3H3DU;
+	arc=none smtp.remote-ip=209.85.160.174
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E18EF606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:26:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E18EF606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=maryasin.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6758B606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:27:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6758B606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c34bff61551so93121966b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:26:38 -0800 (PST)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F+j3H3DU
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-53cd0c8614eso16511441cf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:27:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793906864; x=1794511664; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fbbEG3gQeTzOUIsTltAH47maYBG1Ws8wsE+J4GEN+e0=;
+        b=F+j3H3DUF7XihgOWTB8+UzKP+a41nWACjrgGh2kwbIrgOV4ps8NJpxwhBZIcj7NL9x
+         iMpt6xOiQbnGOpe/J7wfRK7XsCFr4+mofGpue9Ipkb/ChvYpZyubXjXen4/hGsLlA2BJ
+         HStoq1AmjzcUKKFo6GG3HpH4BE/QkACE20F0CINekOOg1dW/dyyzblHmXzlnclOOwS+1
+         09/PO+5wBGHq3h9V3ADyxWKAeIi8GeW1trh8wzV82WQqGwE31m0jEBeC0Fn6ti/Y3jcn
+         Uvye39h8CSc0E3WmzpyBjlpUfJMMiGKHqLK/veLE+FntjNSnqVt1HzxaWW40cevQskLD
+         xAEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793906797; x=1794511597;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TZphQxclz2gFW9ezkdnyrlJdzJISPtOa2u0+oLIYQtA=;
-        b=SZ7lb8UGNK7xNWKyKlcpTAuD6VjenSC5n6GTIGRuaH2bKJ1705xa11rJg9rJ8Cb8fF
-         2IYEJGaIJ3lS8XQ20fVN8AXf1JOO6kYW4qmfPMxcjBWD0ZpJJraylgnSual7gBo8KTOA
-         nLGQDPvU3W07OoXcCoURVh0cq+WW3Ez1Z6hL8kiMgc+B/jzf8Mm3VsaOt8d27sdG1SUM
-         wI7gQEEclHXP9Mvhf4VrujYJD3mKaNaB+WBOEzlzsHybqzQT1eJ6KU/ujyQGIgYAoT1K
-         tipipsyPCfAMZdaVjkwXzvYiTuhF7kkRXcTPWIaIlyEChgtEAPnFggScW5NTi6WLU8ob
-         gMiw==
-X-Forwarded-Encrypted: i=1; AKwUvBznzw7BW6Mu8BP17B41xrfpdTDAV0hOrEH7hV4f4p/O34sqwIbkRWdZRgAD5CfkgoIJmta9fNXOu9QMycg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8FKSOvIhwPb4BDCsy/aKOiPPIR99ZaRpE9gvVAuDogP52rzRpH
-	blUAUynu1ogreb5D4c2p6Mi9minDXaJKSdkAjTHrXYCkPekuCn5+B0cZHA3E+X1Iuzv09g==
-X-Gm-Gg: AYBFou18EXebTscPCdBmF1S9xEVA8JFoxr8t4jEhj5C9VoXKHV1WiH0QhxYUDtLIsd9
-	psDOR02EQ/QJ7tWn44lBRBQdv29PsAZOhriq+CNoCADzv4+RlyGHX9MihU2vNGUw7BDExHicT/C
-	P+UkBWs9gJX01hbu07kJZgIE4fCXf0O44asZ92fQRYxXCsLHsEbi+sxeyD4CLb7dTg8ayg/VpEu
-	Rx9ZRNUpJfs0OgJs6TJDVAHJcNplYQlCSrQ0LCnrL7Rn1MH/ouJYK5FAGfcrnZicXRMhQKZYA8I
-	0loIqecYR4Lb82rq4hx4bdalFeYQD5S8aDhpYl4EPWXD4keGlHlI6zRWEmUVQQh3cTyGbGzv6l2
-	AW2vZLsBZQA06Lxx54QvGm7Vl7/AbCTyq9fGs2xr8h3pEkMzTtSF//7z/ffL9SgtdsnRbIPvKNL
-	5stgWitarcDQSHuxQSzBsmk3R/7Sq+o0khNEqbGUt15yOCp0S338sGg9IC0ivGby5wQEqyM+Gjz
-	j0sgiddWQkePbHmTMdg1YV+11AgB/RWFbPF9TIrPj4H1AYimYT8QMQ+rcTmvPOEI4PImkFQn9xX
-	v0RqH1gk+1mxS10v3ZSmslNDl6c8yby5hxaqH8M+FrAcYkJn7exDWCpyqZlnWqyTVU6PXzXInT5
-	5JLeWhoIv9AmXfuIvOIGiGC/tC+dOsGdUJirmnP7SCY/JaT0lKe/QD7HiWBRgpZsLlug=
-X-Received: by 2002:a17:907:ea87:b0:c2e:350b:7220 with SMTP id a640c23a62f3a-c4d34c5b8aamr45079666b.9.1793906797248;
-        Thu, 05 Nov 2026 11:26:37 -0800 (PST)
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com. [209.85.208.46])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d354ac7c4sm12165266b.1.2026.11.05.11.26.36
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 11:26:36 -0800 (PST)
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b57182c4c6so2291803a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:26:36 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvByqHEjs2yijZSj7vBNZ7Pb68jqb8AiDOcNal9HO9lt2peGVAARpg8hZi5kcoIZhFMgE5dzwnbf7yi5jzXo=@vger.kernel.org
-X-Received: by 2002:a05:6402:280f:b0:6b5:8674:c01d with SMTP id
- 4fb4d7f45d1cf-6b5975277f0mr197220a12.5.1793906796627; Thu, 05 Nov 2026
- 11:26:36 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793906864; x=1794511664;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fbbEG3gQeTzOUIsTltAH47maYBG1Ws8wsE+J4GEN+e0=;
+        b=PkqHf2rz4d46tpOKoSsmlXgFlxb/RngDX5WfJdsnoxxbUSHFI5YBskVyZjbdlV4Mos
+         q0r8UkTuN47xn83uy5V6cz11y02ZpiYgxbv/kJ6859Kk0zHjKbb3ibOwYIzSngic4UGD
+         60YvPma76PNWSJ/Thw83XWoksNxkuwk4/JCcNpPvYFrkaWfxPOBgIMD+kSiJPmNI2qfD
+         x4J/ZbsQL6FVzgxPaAh2+NlFRO9XMMKL0q7f0wv8MyIeUHmbCsVC5kvxkbbSKHQs5jUl
+         6sav/36RjwxeJrtUbQwpz9D45vJzir8UFcWcE3+KS1AIDSoqlFb5K3wyAW0H81ebCdc9
+         TErw==
+X-Forwarded-Encrypted: i=1; AKwUvBwKOEGMUtJlFeyaTOS7/N24OfV9pdUtfUMT6wKhgaVTqKXxsvq4Jv/CGDhcvGR5QQn2QC7pypvBBPYuIio=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+l6jdg3gVBKLDUQuVwEqbrpkwdfRBgQmadQJ9ssoz2z4sBQtCm
+	qe4QajLEugIodb8fj7bWjsHdrfBoWAxveAUa/PDfRa7JPt61I1/t2oUi
+X-Gm-Gg: AYBFou1/+3fWM8F2uH3LxLBjZPwSyXDPqyMuHoVskcjV3+WDBCzze9yyAMI8dhcJ0DV
+	0dLDdfrJc1k1rMxaAcig2rD5xzREjTW9KZkyXVk+PpKCbixTX6jt+Tyv6x5P0xS7NOQwjw17lim
+	akXn0mvqfLVMCkHKrAMkZ4F0iaJ+6IbX9EiVSL0jGxzuYAeBVnhstPtg98BAQ6KRhYoQpL8+HgX
+	qMZaYA0mHqw0MvwjpjJspx0E8kAIbz0N+kCSTSf+75567j6PBO++nRYlgfdtAWWu+f+hP2aiD7c
+	Kyn+/+7LdZZlPODT7+JVfaxMnLRVwlgkw1qbZXnqKuhI8xYhUOus1Gizpy8YBmhmhZUPG9povRE
+	w8P0I8ITYu4PkJ5WFCovK9ZlQeEcAxKBItuVFbmBQZ8aDTiaZxOKHSoTSxX6XxUeABfGQQ1bVUC
+	Jptg9JUct8GdhgFLdj+xJ22Upj/nommxf4/90BRLIB0QK3kySpV9kCXlmFNH65EHurQbsQ+YHkw
+	JAso9vta3yajy5Y3jAAMWRzZ8eX/e66GH19h+EkNEbRJvIFLIyX/lLshxxf5+9OYADUrFUYHguw
+	wc3kTlTpuRlpShO2grObhEib0tQX3GojCiaYuTuWy/3cTx6Byd5emw==
+X-Received: by 2002:ac8:5ad4:0:b0:536:6383:577f with SMTP id d75a77b69052e-54e15b66b1cmr4847061cf.64.1793906864051;
+        Thu, 05 Nov 2026 11:27:44 -0800 (PST)
+Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54e25785890sm925801cf.7.2026.11.05.11.27.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 11:27:43 -0800 (PST)
+From: Yuho Choi <oss.patchbox@gmail.com>
+To: "Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Wei Liu <wei.liu@kernel.org>
+Cc: Robin Murphy <robin.murphy@arm.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Dexuan Cui <decui@microsoft.com>,
+	Yu Zhang <zhangyu1@linux.microsoft.com>,
+	Easwar Hariharan <easwar.hariharan@linux.microsoft.com>,
+	Jacob Pan <jacob.pan@linux.microsoft.com>,
+	Michael Kelley <mhklinux@outlook.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	iommu@lists.linux.dev,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yuho Choi <oss.patchbox@gmail.com>
+Subject: [PATCH v1] iommu/hyperv: Don't free a paging domain the hypervisor did not delete
+Date: Thu,  5 Nov 2026 14:27:08 -0500
+Message-ID: <20261105192738.70664-2-oss.patchbox@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,104 +106,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104165319.1890851-1-srinivas.pandruvada@linux.intel.com>
-In-Reply-To: <20261104165319.1890851-1-srinivas.pandruvada@linux.intel.com>
-From: =?UTF-8?B?0KHQtdC80ZHQvSDQnNCw0YDRjNGP0YHQuNC9?= <simeon@maryasin.name>
-Date: Thu, 5 Nov 2026 22:26:25 +0300
-X-Gmail-Original-Message-ID: <CAM2dg7dnvj7X3Fo9r_=Pn=EHxUwyFEwQN6XdLLPmOAdaY76JfQ@mail.gmail.com>
-X-Gm-Features: AclHuK9weJ0gP1AI6YK6eNmMlqgPCqXQEUZ4hk_XFsi6eDTrhg4oCQvVn1yYuq4
-Message-ID: <CAM2dg7dnvj7X3Fo9r_=Pn=EHxUwyFEwQN6XdLLPmOAdaY76JfQ@mail.gmail.com>
-Subject: Re: [PATCH v2] iio: hid-sensors: fix fractional part for unit
- exponents -7 and -8
-To: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Cc: jikos@kernel.org, jic23@kernel.org, bentiss@kernel.org, 
-	linux-input@vger.kernel.org, linux-iio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Tested-by: Semyon Maryasin <simeon@maryasin.name>
+hv_iommu_paging_domain_free() frees all page-table pages with
+pt_iommu_deinit() and only then asks the hypervisor to delete the
+device domain that points at them. If HVCALL_DELETE_DEVICE_DOMAIN
+fails, hv_delete_device_domain() only logs the error, returns the
+domain ID to the IDA, and the domain is freed anyway.
 
-Here is what I observe with this patch:
-1. Enable sensor and run xxd /dev/HID-SENSOR-2000e1.3.auto
-2. In the second terminal, do rmmod intel_ishtp_hid
-3. Observed result: xxd stops with "xxd: No such device"
-4. At the same time, in kernel logs I see the following:
+The hypervisor then keeps a device domain whose page tables have been
+freed and can be reused for anything. The ID is also handed out again
+by the next paging domain allocation, while the hypervisor still has a
+domain with that ID.
 
-=D0=BD=D0=BE=D1=8F 05 22:19:16 dook kernel: hid-sensor-hub 001F:8087:0AC2.0=
-005:
-timeout waiting for response from ISHTP device
-=D0=BD=D0=BE=D1=8F 05 22:19:19 dook kernel: hid-sensor-hub 001F:8087:0AC2.0=
-005:
-timeout waiting for response from ISHTP device
-=D0=BD=D0=BE=D1=8F 05 22:19:22 dook kernel: hid-sensor-hub 001F:8087:0AC2.0=
-006:
-timeout waiting for response from ISHTP device
-=D0=BD=D0=BE=D1=8F 05 22:19:25 dook kernel: hid-sensor-hub 001F:8087:0AC2.0=
-006:
-timeout waiting for response from ISHTP device
+Delete the domain before freeing its page tables, and keep the ID, the
+page tables and the domain if the hypervisor fails to delete it.
 
-No system crash, so I suppose this is okay?
+Fixes: 2690d4156b51 ("iommu/hyperv: Add para-virtualized IOMMU support for Hyper-V guest")
+Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+---
+Compile-tested only (x86_64 with HYPERV and HYPERV_PVIOMMU,
+W=1); I have no Hyper-V guest with the para-virtualized IOMMU to test
+it on.
 
-After subsequent modprobe the sensor initializes and works properly.
-No kernel crash with this patch.
+ drivers/iommu/hyperv/hv-iommu-guest.c | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
 
-=D1=81=D1=80, 4 =D0=BD=D0=BE=D1=8F=D0=B1. 2026=E2=80=AF=D0=B3. =D0=B2 19:53=
-, Srinivas Pandruvada
-<srinivas.pandruvada@linux.intel.com>:
->
-> split_micro_fraction() scales the remainder to micro units by
-> multiplying it by 10^(6 - exp). The unit exponent of a HID field goes
-> down to -8, so exp can be 7 or 8 here. Then the argument of int_pow()
-> is negative, which the unsigned parameter turns into a huge power of
-> ten: 0 modulo 2^64. As a result, the fractional part of a value read
-> from the hysteresis attributes is always reported as 0.
->
-> Divide by 10^(exp - 6) in these two cases. This matches the reverse
-> conversion in convert_to_vtf_format().
->
-> Fixes: 73c6768b710a ("iio: hid-sensors: Common attribute and trigger")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-> ---
-> v2:
-> - Fix __udivdi3 link error on 32-bit by using a 32-bit divisor
-> - Address Andy's comment:
-> Keep no % divisor in a temporary variable next to no / divisor
->
->  drivers/iio/common/hid-sensors/hid-sensor-attributes.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/iio/common/hid-sensors/hid-sensor-attributes.c b/dri=
-vers/iio/common/hid-sensors/hid-sensor-attributes.c
-> index 9e7c26e37880..d44091faf122 100644
-> --- a/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
-> +++ b/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
-> @@ -96,9 +96,14 @@ static void simple_div(int dividend, int divisor, int =
-*whole, int *micro_frac)
->  static void split_micro_fraction(unsigned int no, int exp, int *val1, in=
-t *val2)
->  {
->         int divisor =3D int_pow(10, exp);
-> +       unsigned int rem;
->
->         *val1 =3D no / divisor;
-> -       *val2 =3D no % divisor * int_pow(10, 6 - exp);
-> +       rem =3D no % divisor;
-> +       if (exp > 6)
-> +               *val2 =3D rem / (unsigned int)int_pow(10, exp - 6);
-> +       else
-> +               *val2 =3D rem * int_pow(10, 6 - exp);
->  }
->
->  /*
-> --
-> 2.56.0
->
->
+diff --git a/drivers/iommu/hyperv/hv-iommu-guest.c b/drivers/iommu/hyperv/hv-iommu-guest.c
+index 876a22f21f1e..205c642c8d40 100644
+--- a/drivers/iommu/hyperv/hv-iommu-guest.c
++++ b/drivers/iommu/hyperv/hv-iommu-guest.c
+@@ -107,7 +107,7 @@ static int hv_create_device_domain(struct hv_iommu_domain *hv_domain)
+ 	return hv_result_to_errno(status);
+ }
+ 
+-static void hv_delete_device_domain(struct hv_iommu_domain *hv_domain)
++static int hv_delete_device_domain(struct hv_iommu_domain *hv_domain)
+ {
+ 	u64 status;
+ 	unsigned long flags;
+@@ -122,11 +122,15 @@ static void hv_delete_device_domain(struct hv_iommu_domain *hv_domain)
+ 
+ 	local_irq_restore(flags);
+ 
+-	if (!hv_result_success(status))
++	if (!hv_result_success(status)) {
++		/* The domain still exists, so its ID cannot be reused */
+ 		hv_status_err(status, "HVCALL_DELETE_DEVICE_DOMAIN failed\n");
++		return hv_result_to_errno(status);
++	}
+ 
+ 	ida_free(&hv_domain->hv_iommu->domain_ids,
+ 		 hv_domain->device_domain.domain_id.id);
++	return 0;
+ }
+ 
+ static int
+@@ -466,11 +470,16 @@ static void hv_iommu_paging_domain_free(struct iommu_domain *domain)
+ {
+ 	struct hv_iommu_domain *hv_domain = to_hv_iommu_domain(domain);
+ 
++	/*
++	 * If the hypervisor still has the domain, it may still use its page
++	 * tables, so leak them.
++	 */
++	if (hv_delete_device_domain(hv_domain))
++		return;
++
+ 	/* Free all remaining mappings */
+ 	pt_iommu_deinit(&hv_domain->pt_iommu);
+ 
+-	hv_delete_device_domain(hv_domain);
+-
+ 	kfree(hv_domain);
+ }
+ 
 
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.43.0
 
---=20
-=D0=A1 =D1=83=D0=B2=D0=B0=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5=D0=BC,
-=D0=A1=D0=B5=D0=BC=D1=91=D0=BD =D0=9C=D0=B0=D1=80=D1=8C=D1=8F=D1=81=D0=B8=
-=D0=BD
