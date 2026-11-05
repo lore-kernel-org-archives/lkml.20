@@ -1,114 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.223
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793857741;
-	b=aJVQVaeKWn/4amwWotQG1D9DEeOjBuTjbRkbx9lYqqvGP2wCN+QvJdOqzJ7U0G+KBTrF
-	 QUgn/+aCRiU0uHOitjxvwmYzvja0zTHxo2voWmMmSTLenkhREj4n10YmiAOD3QafCu9kV
-	 tQUKIsdqdXmii38mlyJWd62I0YJOQr/yTp6YhUtxQUripiKiyqvzXh3f5HKui/vLMd70+
-	 9Y0CZL5X8o1tN3vDKYnqK4Lc0CIv40iefvZTCMGqDVRIae/KCtFwBZRywYeTanR4Ro0nA
-	 kEVVoPdt+Og+jZv44RZe6acgBzDxo+KIHXNVDCgDBQ4Dlrz86p/LOn0U1a8NKIiIXjQ==
+	b=jsMWBy6LAqrx0GswK9Oo8PRe1D9cyomuE1rQatoH1fPrbj4fN/Ykg9YXjsMkNPgnqkbB
+	 RUt39ebpcjALR1dfDDXNZgpCjh1ZIcjYuzQDTPbQkwFxajvcdpTEP8P5iszfGuG0oYKrX
+	 SEmhBifogZ6q8Ushn9cn2jMuJQkMfuY9KWHN/Poy8h/fwvThB0A/Q9UBecWq7XGHJW2SK
+	 14Epcti7xiuitZ1RtVjdaWDBj+RBmuhmFWy8sF3EkrXRUT0l+UEqLZyQOq6r4Us9itkGZ
+	 kKhjraSlVlvFN0dTXMLs9cmn+pRk2TeUwug02XBvtu5iAO5ld61T9mJMymmO18lyXcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793857741;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=7vRCSNcyZCs3Byo+z/ZAnwu5XcUvruiiG1cQha9Q2S4=;
-	b=Cw21FeUmkBL85hGyMt0cIB9UOeWPlzB1tNs6YiAsu4zi+Cauctr86siszncALe2I2uGt
-	 kSqPTrb6SbzvsrZV8K6xX9ru25vSS/3Q0Mv2ET7adHM6qEw5JZF3zl7y177FgUNpHfNp6
-	 lYzC2pgbNA5iou5nltZFlmqkKRkEav6mYJ8KeV2jvvd5HRGl0MgKdIXITJHfRy03YBxpz
-	 r9XCwMG38ko50mFa3bAaf+s4IRGxduLf2gwKFt/oBxlPL23zSfKcmnRwFFIIaVtgohcmv
-	 i5E+LCosdgGCstbzwY+jauEi8BNNCzj3qyt+VGF0PfxNqa63xE0kO8J8KZLny6sgT6w==
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=/l6O9V7fMoYs7ihQIlg7jRbOXL/S2bFnQjGLeMo1S78=;
+	b=fTmG9P+S5PoNjEm5BCf2M4xDtg9Tp/alnjMq9j9aQQzf6RFh5O4ubI1TiFI7WaWYMNGj
+	 zO83ZJ0drDpJYepn71W8W1JoqvHrhjLQer5Vu/wr9kjKSy28klZ1KjjhfGCxg/5u+McSI
+	 UyD1DJblWrR3zCCTaNC/2GRwyIvu/WIA1vhfX+MvetmRtCD1cIXQOE7XLJwggg88cbcOG
+	 EQWPn0KETASezFU/65voYTr6bZ+iq8biDpL3rvR0NQL6bkELdeXZywSLdIPJAUuE3s3T9
+	 7gWMQg9TM5QOe32vYjG0CQsIqbN5W8wJNXyfj5FX+HX07MjbcOeT7sYCbqpIrHlVLxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=jclark.com;
-	spf=pass smtp.mailfrom=jclark.com;
-	dkim=pass header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=VZvLZAcD;
-	arc=none smtp.remote-ip=209.85.215.178
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JpMvdsIx;
+	arc=none smtp.remote-ip=91.218.175.223
+Received: from mta0.migadu.com (out-223.mta0.migadu.com [91.218.175.223])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 580E5606A32C
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 05:49:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 580E5606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jclark.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C412606A339
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 05:48:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C412606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=VZvLZAcD
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cc52c1b8286so141545a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 21:49:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jclark-com.20260707.gappssmtp.com; s=20260707; t=1793857741; x=1794462541; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7vRCSNcyZCs3Byo+z/ZAnwu5XcUvruiiG1cQha9Q2S4=;
-        b=VZvLZAcDX/9Zig8n+WP3af6cqSzQ9xFLCzOecmHMvPvnbKelKS6a5KSssA33wAcwKN
-         j50Gsh3bUwV1sjj2G+afpF+EDM60oWhRaYs5KbjutXmgsMvk2jhfc1KhsDzksERgp19u
-         3NW28rwInhnZH+UvIZF4tJEUtdpw1lPFj8kM8vha7aUQjed0hoVy/xBj240ybYsoAqNo
-         Mp83HFdzyU0Apdz3slFknlCMhZOhXXPpEGIdF9G8s3XLHRpIA9dIENA8vtFuiWnaWk+z
-         Cx9nKw0tdzy4hzwDa+At7sbQSwkp1Xti+NBUepOyrcvIhlgFvPgODKVIfbTICraghFoj
-         69+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793857741; x=1794462541;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7vRCSNcyZCs3Byo+z/ZAnwu5XcUvruiiG1cQha9Q2S4=;
-        b=bMnkGdCPTGzQKps2H75DD7zkRkoqfyP0388u+7XKvCw+po/f81V4HXsgpT63WYv1UQ
-         gFFqVI0sgzZ+lakoAwduTS/O2i4hT0JMjMAGZPuEPQrKvl3ap/TKlZ/lBZW1OARjdBzu
-         C7ksB/MVXEfOJyf6EtocBnUHYMuEaH8NwYCT9cQuZW2dj27CIC0eAjKHQ49gcIH2GwDE
-         vg9v/v5G8XtAuMx1oFPFKb4sJwWRO2Yh01XmFRc4nO9+Ax9gxICKtp3sjLc3PoQruJU+
-         n0n9+zbnu45UDEVuhcTF7+BjdYreb9SRai6HTL2szga7LkUaT4+UiES3w5ikyb8Su58t
-         OYoQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwdDdH+DHjSLS/FJ5W+QSnVyy46qXds++JdFUOgnctVWui4ugDWUbrKmjKokFu06rUh3Qa2iCKkdTYif5o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/X0ZydFE/TLMHhOq5a8WBX88qcquuObbcb1IMwjZU7fD0JYItf
-	TFTmym2mnSEm8oS4Myr1KkAa98eJ6FXx6tVSIT6sNesXZtTuGX21jQ7vTKpvc9zetg==
-X-Gm-Gg: AYBFou3EMhzhlXkaVDmwjqpMDmrPq2mYrYNZ9VgxRIa2DkguZj1wHuQ47EkaOBccHah
-	2wAHwW5jVie6B/WTusRzB8ip4IENz1k4dDloyC1QD6cmKK+OGPNaeEhCzoR+L3U2YKX0MD4GYig
-	n5VOYhf9VB6sDVD2xhLeI8Ofk96lNpxj5cmQtoKKyDZ9MpgMOOw60o6PVmwJyjsZSFuJbAN21Hz
-	crLQUY+eCf5SMt8be5yZUbQ3kfPImyRAA9NwVtEIJKnSmeeI5tL1vRW9G9y2H+jxE/FVz8aqLBs
-	zxAtWVREx9/wiyfWNYj5niy5mlMP2hbcdTBz1dNtiIAPX2Z0fWPd4RmYPTYzPdfRRZQVyibzpmg
-	2yzt6cEiRHqcLVdpHLMD3DIkLUS83NYWg8tBb18AR+M2+FS1fUUeNe+IfJEC5jqY7SJkglAkcC/
-	chVfXKX6W6pp1Rlxe8YokOcP1nbA2K1yWFHGBIug1Gz2OlmUnHAvLIB9tBYVKVC1dUY0c1qwhFS
-	8F6LJPp3ikECnIfdeTF6KjGd9dN6dMZvBIpjwtMsvCconfD2btq5irlGncFYE1rsDnB9gX0Z8uH
-	SYEn5zAzVLYXfXtvUxwTarrSR4NxZLYc+58gEWQFtj8BTbgmQmfk8P2fTpXAXu3+C4ojpP/gVjI
-	yOPT378i2HRnMZsn3C54eDZSxtbOU8x7LiyQ7OwY=
-X-Received: by 2002:a17:90b:4486:b0:3a0:e568:ed63 with SMTP id 98e67ed59e1d1-3b0afbf69a0mr944027a91.8.1793857740594;
-        Wed, 04 Nov 2026 21:49:00 -0800 (PST)
-Received: from cantal.lan ([58.136.77.237])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b319f2c9sm1989676a91.10.2026.11.04.21.48.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 21:49:00 -0800 (PST)
-From: James Clark <jjc@jclark.com>
-To: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Doug Berger <opendmb@gmail.com>,
-	Nicolai Buchwitz <nb@tipi-net.de>,
-	=?UTF-8?q?Th=C3=A9o=20Lebrun?= <theo.lebrun@bootlin.com>
-Cc: Andrew Lunn <andrew@lunn.ch>,
-	Russell King <linux@armlinux.org.uk>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	John Stultz <jstultz@google.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Miroslav Lichvar <mlichvar@redhat.com>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	Hubert Feurstein <h.feurstein@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v3 2/6] ptp: add functions to adjust system timestamps
-Date: Thu,  5 Nov 2026 12:48:35 +0700
-Message-ID: <20261105054839.2248046-3-jjc@jclark.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261105054839.2248046-1-jjc@jclark.com>
-References: <20261105054839.2248046-1-jjc@jclark.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JpMvdsIx
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=l/klO32YzidFN2v1G4JzAIJs9vATWMhL2+jw9rYo5BY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793857735; v=1; x=1794462535;
+ b=JpMvdsIxUYKjtKIiudsiyW9Sq9GKK1KU4Zx9S9a6W3ZxxzfjNmy/uAkswDpc/2CnYHA6KnI7
+ rDnABgQXVr1PgaVyvm5LudW0X6ui3shigSzStXvnUFAyMUzIO4y9veyCYQzX25M3yJGZcvOfMS6
+ 5nTGhjYDggi2xM9o/B7q1fCg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3f45584444935ba1;
+	Thu, 05 Nov 2026 05:48:54 +0000
+X-Mizu-Trace-ID: 3f45584444935ba1
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <0ddaf336-7cb7-4e83-af2c-f60d23f7aafd@linux.dev>
+Date: Thu, 5 Nov 2026 13:48:42 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,95 +58,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm: synchronize with PTE table reclaim for all folio
+ sizes
+To: baolin.wang@linux.alibaba.com
+Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+ riel@surriel.com, liam@infradead.org, vbabka@kernel.org, harry@kernel.org,
+ jannh@google.com, qi.zheng@linux.dev, pfalcato@suse.de, ayushr@modal.com,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <affd6da4e8d0de1424a4e0b3bafcd1324dfb6c97.1793847060.git.baolin.wang@linux.alibaba.com>
+ <20261105045406.39871-1-lance.yang@linux.dev>
+Content-Language: en-US
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <20261105045406.39871-1-lance.yang@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Add ptp_adjust_system_prets() and ptp_adjust_system_postts(), which
-shift the pre or post system timestamp by a given CLOCK_MONOTONIC_RAW
-duration. The selected clock's time is shifted by the duration scaled by
-that clock's current frequency relative to CLOCK_MONOTONIC_RAW, with
-ktime_scale_raw_ns().
 
-An MDIO bus driver can take system timestamps around the command that
-starts a write, and knows how long after that command the write
-completes, so it can shift the timestamps to bound the completion of
-the write.
 
-Signed-off-by: James Clark <jjc@jclark.com>
----
-Changes in v2:
-- Scale the shift of the selected clock's time by that clock's current
-  frequency relative to CLOCK_MONOTONIC_RAW with ktime_scale_raw_ns(),
-  in place of adding the CLOCK_MONOTONIC_RAW duration unscaled
-- Move before the mdio core patch (was 3/5), which now uses these
-  helpers
+On 2026/11/5 12:54, Lance Yang wrote:
+> 
+> On Thu, Nov 05, 2026 at 10:56:28AM +0800, Baolin Wang wrote:
+>> Similar to commit 243cf1f67b36 ("mm: memory: fix truncation removing mapped
+>> folios"), the '!pmd_present()' check in page_vma_mapped_walk() can also race
+>> with concurrent page table reclamation via zap_empty_pte_table().
+> 
+> Good catch!
+> 
+>> page_vma_mapped_walk() is used by many functions including try_to_unmap(),
+>> try_to_migrate(), folio_mkclean(), pfn_mkclean_range(), remove_migration_ptes(),
+>> page_mapped_in_vma(), and mapping_wrprotect_range(). Except for try_to_unmap()
+>> and try_to_migrate(), the other callers do not perform post-walk accounting
+>> checks, so the race has no observable impact on them.
+>>
+>> For migration, the race can cause unnecessary retries. For reclaim via
+>> try_to_unmap(), the race can cause failure to reclaim a folio that is in
+>> fact already unmapped (as shown below), which may lead to unexpected OOM
+>> or increased refaults.
+>>
+>> CPU 0 (reclaim)                      CPU 1 (MADV_DONTNEED)
+>> --------------------------------    --------------------------------
+>> folio_lock(F)
+>> try_to_unmap(F, TTU_SYNC)
+>>                                     zap_pte_range(full PMD range)
+>>                                       spin_lock(ptl)
+>>                                       clear PTEs
+>>                                       zap_empty_pte_table()
+>>                                         spin_trylock(pml)
+>>                                         pmd_clear()
+>>                                         spin_unlock(pml)
+>>
+>>   page_vma_mapped_walk()
+>>     observe !pmd_present(pmde)
+>>     nr_pages < HPAGE_PMD_NR
+>>     skip synchronization
+>>     return false
+>>
+>> try_to_unmap() returns
+>> folio_mapped(F) == true
+>> nr_unmap_fail += folio_nr_pages(F)
+>>                                     tlb_flush_mmu_tlbonly()
+>>                                     tlb_flush_rmaps()
+>>                                       remove F's rmaps
+>>                                     spin_unlock(ptl)
+>>
+>> Commit 243cf1f67b36 ("mm: memory: fix truncation removing mapped folios")
+>> has already moved the PMD clear operation (via zap_empty_pte_table()) to
+>> after tlb_flush_rmaps(). Similarly, page_vma_mapped_walk() also needs to
+>> use sync_with_folio_pmd_zap() to synchronize and avoid memory ordering
+>> issues on weakly ordered CPUs.
+>>
+>> Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in madvise(MADV_DONTNEED)")
+>> Cc: stable@vger.kernel.org
+>> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+>> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+>> ---
+>> mm/page_vma_mapped.c | 5 +----
+>> 1 file changed, 1 insertion(+), 4 deletions(-)
+>>
+>> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+>> index e6b6170c2f4f..8797467b6f0c 100644
+>> --- a/mm/page_vma_mapped.c
+>> +++ b/mm/page_vma_mapped.c
+>> @@ -293,10 +293,7 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+>> 			spin_unlock(pvmw->ptl);
+>> 			pvmw->ptl = NULL;
+>> 		} else if (!pmd_present(pmde)) {
+>> -			if ((pvmw->flags & PVMW_SYNC) &&
+>> -			    thp_vma_suitable_order(vma, pvmw->address,
+>> -						   PMD_ORDER) &&
+>> -			    (pvmw->nr_pages >= HPAGE_PMD_NR))
+>> +			if (pvmw->flags & PVMW_SYNC)
+> 
+> Right. Whether the folio can be PMD-mapped doesn't tell us whether its
+> PTE table can be reclaimed, so those extra checks can skip synchronization
+> that the caller explicitly asked for ;)
 
- include/linux/ptp_clock_kernel.h | 55 ++++++++++++++++++++++++++++++++
- 1 file changed, 55 insertions(+)
+Ouch ... one thing I missed ... what about order-0 reclaim?
 
-diff --git a/include/linux/ptp_clock_kernel.h b/include/linux/ptp_clock_kernel.h
-index 36a27a910595..b952744ff696 100644
---- a/include/linux/ptp_clock_kernel.h
-+++ b/include/linux/ptp_clock_kernel.h
-@@ -520,4 +520,59 @@ static inline void ptp_read_system_postts(struct ptp_system_timestamp *sts)
- 		ktime_get_snapshot_id(sts->clockid, &sts->post_sts);
- }
- 
-+static inline void __ptp_adjust_snapshot(clockid_t clockid,
-+					 struct system_time_snapshot *snap,
-+					 s64 ns)
-+{
-+	s64 sys_ns;
-+
-+	if (!snap->valid)
-+		return;
-+	if (ns < 0)
-+		sys_ns = -(s64)ktime_scale_raw_ns(clockid, -ns);
-+	else
-+		sys_ns = ktime_scale_raw_ns(clockid, ns);
-+	snap->systime = ktime_add_ns(snap->systime, sys_ns);
-+	snap->monoraw = ktime_add_ns(snap->monoraw, ns);
-+	/* No counter value corresponds to the adjusted times. */
-+	snap->cycles = 0;
-+	snap->cs_id = CSID_GENERIC;
-+	snap->hw_cycles = 0;
-+	snap->hw_csid = CSID_GENERIC;
-+}
-+
-+/**
-+ * ptp_adjust_system_prets - Shift the lower system timestamp bound
-+ * @sts: system timestamps, or NULL
-+ * @ns: CLOCK_MONOTONIC_RAW nanoseconds to add
-+ *
-+ * Add @ns to the CLOCK_MONOTONIC_RAW time of the lower bound, and @ns
-+ * scaled by the selected clock's current frequency relative to
-+ * CLOCK_MONOTONIC_RAW to its time, and clear its clocksource counter
-+ * values.
-+ */
-+static inline void ptp_adjust_system_prets(struct ptp_system_timestamp *sts,
-+					   s64 ns)
-+{
-+	if (sts)
-+		__ptp_adjust_snapshot(sts->clockid, &sts->pre_sts, ns);
-+}
-+
-+/**
-+ * ptp_adjust_system_postts - Shift the upper system timestamp bound
-+ * @sts: system timestamps, or NULL
-+ * @ns: CLOCK_MONOTONIC_RAW nanoseconds to add
-+ *
-+ * Add @ns to the CLOCK_MONOTONIC_RAW time of the upper bound, and @ns
-+ * scaled by the selected clock's current frequency relative to
-+ * CLOCK_MONOTONIC_RAW to its time, and clear its clocksource counter
-+ * values.
-+ */
-+static inline void ptp_adjust_system_postts(struct ptp_system_timestamp *sts,
-+					    s64 ns)
-+{
-+	if (sts)
-+		__ptp_adjust_snapshot(sts->clockid, &sts->post_sts, ns);
-+}
-+
- #endif
--- 
-2.56.0
+shrink_folio_list() only sets TTU_SYNC for large folio, so can't we still
+hit the same race there?
+
+Cheers, Lance
+
+> LGTM, thanks!
+> 
+> Reviewed-by: Lance Yang <lance.yang@linux.dev>
+> 
+>> 				sync_with_folio_pmd_zap(mm, pvmw->pmd);
+>>
+>> 			goto next_pmd;
+>> -- 
+>> 2.47.3
+>>
+>>
 
