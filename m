@@ -1,77 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.133.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793841099;
-	b=YYgxjH5p8sTTwKP0s5eByXB7dJnSz1QtEWc8h0OB+cgfqtj1t9PElw7lU/9Lbbg2oy24
-	 7cbqZzrj+6X6mnhB0ti/fj5E9DRWq5wzMXxOmNz8zg45AFlhfw7KWZo8NEgkachF/BJPB
-	 1C+3JUVVNciSVikhVWe6NoFgmHPGYcjL+Yt1cTgrtcJyRHMgHD85wDcmrLNl5tKMtxv/z
-	 806esdd4UsxS/kiYtaay+s+eSkUy+evGhQg1Q+GUPcOw0ujZm1FVpAl6wCFjqbTqyLl5X
-	 DQS9fWK7zqEJSk31w1Ly9QQo4y+1Z3WKIHNSv69qtPlwb9ePq2obUOlmNoY2TRPz/Pg==
+	t=1793841117;
+	b=42WFtpngg8hq8WpfAHy3oBCHdWRI8a85iVBovR7bfXmcnLYmQa+iQWFtZP5uYxPcCMyK
+	 ts+qDL/m9xicT9PcattlnYr45piMuaVU5eDQhx/UFRGjAg3PaqybOlVyimEvuBRBmMTrt
+	 b4CmlUevtPdqHc2MODBilndGEMlBtEvgTiF4fRXQyVt4QaBTzVVnshHyQLvJv69OpWVsL
+	 ll+YZDcKdb+nXZg+6S3ztrwTbsAf/2DoBkbtzMttkD/L2KivizERksBYKlzy+m27owA1Y
+	 84ur2K0TxmHVNYpPspn9elNQOLnpGpqBXDDXxbFw50+6yXVxXtDLkZS2Qmv688V5HvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793841099;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=afpW4vnpyJp1rQF7sDbdJVsvWT4LIy5CP2XonGShR/Q=;
-	b=qmwhgEmaY88mPsdQAMRhLkronKhLZaKhoZxLuuFCRT4OYQnruyXyGfHA4POhZezpYzXu
-	 6cgFRRL+Yrce7QViSUkmHG0OAJwudlyHgrG2pjFmNwBwnPSnDT2rBijCYpgV+wqnx4x9g
-	 l2AsNq7sHPTaTnesBnb5baRdDNTQt3a4Mcibbv3RL3IVsjxrlCwdWT+p1emu5j7UlcSXA
-	 tFVkVKl8UK4yeRTWlppE/tZmGUQexyBl+rR5Y5u0R5NHxukb+crj7Ov//Bids6M2s7eBt
-	 dKyRtfBAe6Ma9h8+Z+MLb75fjKIZ2rs7laSdC+kNpAfiKcgMF+kMzUmalTdWy1NovUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793841117;
+	h=DMARC-Filter:Received:Received:Date:From:To:cc:Subject:In-Reply-To:
+	 Message-ID:References:User-Agent:MIME-Version:Content-Type;
+	bh=2K5WRQa9KJqYdLOzpGKQx3dx34M+TdiPAHG0oRd/wZs=;
+	b=2iFB536mRTJL3bpAwn2HMHio9MYxVmSq71n0NO8I8EvyAycyHBGxpvc9GoSOGAiLoh9K
+	 UO2kSUt2nlYs4oouSUYZQbdlvFRf0c2roR1ooBy+7rGrFk9Q0UKKreL1NSu09WO8XpsTU
+	 YoOSp4fHH2/XsGDFmwEJcm46xYu36H1lr1BLyfn1btVq+XimXF/jH6YLoYksJWYrYne0b
+	 jxV5oCCBqZTerdIK+jAlI04O08xu5gIE5jYW2/PgztvFpbtmMYqpio2lox3KEu6JA9I1z
+	 Cq6QQfZWkr65KbqgIn6EK8puTtoSMjFf0zT1wOhpLtH8/8ddcN9/0B13xZj9j/lTskQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=telaak.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.210.170
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47151606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 01:11:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47151606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8a06e79e152so818586b3a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 17:11:39 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793841098; x=1794445898;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=afpW4vnpyJp1rQF7sDbdJVsvWT4LIy5CP2XonGShR/Q=;
-        b=1eb8X6aqqqXVpWQZf2lCI+4BrLFrvdiuC5QBN4r7DEvZQak4eObgLQLdxo3YIsDCbF
-         hxIBzUZm+F7KoUdD3LRmZmTe0cNL0kNTkD5vwv8cmEguVwQZr/Wn3vTuJa3uKALtuN6G
-         4/C9CDyZgfEZ25/5AeMurixGTH7tH+V5gvCRMHBMfRVv06/uuIPninzYa6t6cMfCSuhk
-         6Kf1EnDU0Tf3rURrGO6VpAjmvqM/71efwvOcVr5cVW09DxsE8AKdZuJcq9eXDenC8bGG
-         xJNfREx8NmscgaAhjabLnx4gh9OUgTq4etLPe0zbY/YuGGrMkY5H+ugV2pQHZUJRDG+a
-         4Ndw==
-X-Forwarded-Encrypted: i=1; AKwUvBwNj/tWRyECLTm9cRZm83aMJTSSFb7tWYfvDac5rGF8Ekm3X7gnrMq3ITEQE/UZc5Q/+7y+DTUskjv0p0g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/SmovgVQ7yqgZxE3SsLEAk3LJW1YB2SoiRME//EX/HtAyICx5V
-	TV4jA6JEgAMzbGg5AgCUwe/X4bP10A8/7BGlU7If2I02guZ01TANFb9gegf1w4kv
-X-Gm-Gg: AYBFou3AdxPQayiIQh4xtE1UqUgdIx2wBSi+ku+S9OApFOplV2jlqTjZeWX3lLqP2RN
-	VtyY5YzvVjOM2M//FPMyL+5QGe0H86R0uEvb44Pa0GrWC2hSNyBGFTEdpDWVLC80stKZwQvJ8Vk
-	WTG12IarA2F9aP9VJ6ySmcZGTONZYjN1Cy3IqKHGdejkrz7Lck9kmzI23iG9FZMomuMae8toxSc
-	KamGhYy9Wyj2emDLVtjwh4V1gTQ8t1qncl36Js6udV6v3fUPevs+GcnMO05pS1qZhB3ICQJcqTe
-	fdac8BgHmvMn6b42+ILFlxBhsUlT9SxHQ6U5MG7Lxy7cJKel1CV8MS9EgGiHTLLPqE52IpTZl5v
-	q4CM5vnE0EB3iuPYpN8kGxcC885mSl1Ck1mAJjzwVTLfPYblMRHVo3K05etqGXveuwmg9aMd7jh
-	YNg5ROgR2sa5sh3ZRhuY6W0BMqIyfDnjoDPqBJBPcWyWGxm2VbihShAbGVoCNsQiWdhvOetGp8z
-	/gbPA2Jn+7n71+hRUz6STzfq2jQiS6V3+x3K37ZY+hiJ29apOgvY9PEbKfpp61YNKQEJFNFjpi/
-	kJWwWzi7OYxqaRIGK/AO1z4g2c1cQ7SbeIRxTtHy72Q+mBaqSSr2rs3VOf0ZsepB+8wMt0Az4G5
-	0XLXoldH/RnRQ4pihQZsQNNVGCcjkkPeeOGZBy4SZTq/Buxvo2uZkfcj72pZSTfPM
-X-Received: by 2002:a05:6a00:244c:b0:890:bd5c:5710 with SMTP id d2e1a72fcca58-8a9bf61f38bmr14507425b3a.41.1793841098480;
-        Wed, 04 Nov 2026 17:11:38 -0800 (PST)
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com. [74.125.82.172])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b09af918d8sm1386703b3a.22.2026.11.04.17.11.37
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 17:11:37 -0800 (PST)
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36a0f27c9f4so2498353eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 17:11:37 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBw1eSyv/AqJpv/HNRfJtgjjnsld9nbjWBnsEyxfBwUXrXP2LUgYioxDmLJtt/0KxbySh6HcLc9dg2diHNE=@vger.kernel.org
-X-Received: by 2002:a05:7300:cc9d:b0:36d:2f0d:217d with SMTP id
- 5a478bee46e88-36d2f0d26b3mr3496824eec.33.1793841096817; Wed, 04 Nov 2026
- 17:11:36 -0800 (PST)
+	dmarc=none header.from=orcam.me.uk;
+	spf=none smtp.mailfrom=orcam.me.uk;
+	arc=none smtp.remote-ip=78.133.224.34
+Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 05438606A333;
+	Thu,  5 Nov 2026 01:11:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05438606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
+Received: by angie.orcam.me.uk (Postfix, from userid 500)
+	id 58BD59200B3; Thu,  5 Nov 2026 02:11:54 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+	by angie.orcam.me.uk (Postfix) with ESMTP id 53EA292009E;
+	Thu,  5 Nov 2026 01:11:54 +0000 (GMT)
+Date: Thu, 5 Nov 2026 01:11:54 +0000 (GMT)
+From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Jiri Slaby <jirislaby@kernel.org>, 
+    =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+    =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, 
+    Crescent Hsieh <crescentcy.hsieh@moxa.com>, 
+    Hugo Villeneuve <hvilleneuve@dimonoff.com>, 
+    Johan Hovold <johan@kernel.org>, John Ogness <john.ogness@linutronix.de>, 
+    Karl Mehltretter <kmehltretter@gmail.com>, linux-kernel@vger.kernel.org, 
+    linux-serial@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] serial: core: Don't clobber the baud rate on
+ hangup via B0
+In-Reply-To: <ausSmrErzTXfKNGU@ashevche-desk.local>
+Message-ID: <alpine.DEB.2.21.2611041134370.6502@angie.orcam.me.uk>
+References: <alpine.DEB.2.21.2611030057510.15685@angie.orcam.me.uk> <alpine.DEB.2.21.2611032050590.15685@angie.orcam.me.uk> <ausSmrErzTXfKNGU@ashevche-desk.local>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,28 +58,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-sf19a2890-mips-v1-0-eae80820af68@telaak.dev>
- <20261104-sf19a2890-mips-v1-1-eae80820af68@telaak.dev> <20261105-stellar-viselike-e56010ed5fb6@spud>
-In-Reply-To: <20261105-stellar-viselike-e56010ed5fb6@spud>
-From: Joseph Telaak <joseph@telaak.dev>
-Date: Wed, 4 Nov 2026 20:11:25 -0500
-X-Gmail-Original-Message-ID: <CAPY4CJ6Ao+YDt6aX8+h8dyCsEs8CK1nzLpquUErPwbyce3OB4A@mail.gmail.com>
-X-Gm-Features: AclHuK_YtBOeVzlfxROlhjFtxAVCHbL5PR68tz94OCdt7Biz0baVYxdF4RY-7p4
-Message-ID: <CAPY4CJ6Ao+YDt6aX8+h8dyCsEs8CK1nzLpquUErPwbyce3OB4A@mail.gmail.com>
-Subject: Re: [PATCH 1/4] dt-bindings: mips: Add Siflower SF19A2890 based boards
-To: Conor Dooley <conor@kernel.org>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Paul Burton <paulburton@kernel.org>, Jiaxun Yang <jiaxun.yang@flygoat.com>, 
-	Chuanhong Guo <gch981213@gmail.com>, linux-mips@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
 
-> > +F:   drivers/gpio/gpio-siflower.c
->
-> Based on this gpio thing being here:
-> pw-bot: changes-requested
-> The dt part of this is fine.
+On Wed, 4 Nov 2026, Andy Shevchenko wrote:
 
-Thanks. v2 will drop that line; the GPIO series will add a MAINTAINERS
-entry of its own for the driver and its binding.
+> > In the unlikely case `port->hup_speed' is zero where the B0 rate has 
+> > been requested as the first one since the system boot for a non-console 
+> > device, resort to the current default of max(min, 9600).
+> 
+> All lines above (except the last ones in the paragraphs) have a single trailing
+> white space. Usually checkpatch warns at this.
+
+ I've always had that and in probably decades now (I can't recall when it 
+was first introduced) I haven't ever seen checkpatch complain about it, 
+and `git am' swallows it all anyway.  Tools have been prepared. :)
+
+> >  /**
+> > - * uart_get_baud_rate - return baud rate for a particular port
+> > + * uart_get_baud_rate_save - return baud rate for a particular port
+> 
+> Now it also saves it, so
+> 
+>  * uart_get_baud_rate_save - return and save baud rate for a particular port
+
+ Well, optionally, but since we still have uart_get_baud_rate() too, I'll 
+send an update along with v4 so that we don't have two functions with an 
+identical summary.
+
+> >  		if (baud == 0)
+> > -			baud = max(min, 9600);
+> > +			baud = (port->hup_speed ?
+> > +				port->hup_speed : max(min, 9600));
+> 
+> Outer parentheses are redundant. Also use Elvis.
+
+ I have double-checked it with our coding style document and I can see no 
+recommendation either way.  FWIW I find it more readable this way, though 
+it might be habitual owing to another coding style I use where this is 
+actually required.
+
+ Any second opinions, anyone?
+
+ Thank you for your review.
+
+  Maciej
