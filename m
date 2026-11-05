@@ -1,47 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793910678;
-	b=yl6raqKlk7Dn6zfDE6bgM0nXgK6tDfzMyYBFAdwheSReaCF5tGXHpfzygObWhOHDUn9l
-	 j7zwkdq89wiKIfl5NGxW5uPkcJXi3uol3gdYaRRer6RJJxrKYh8p3cz9qE7OKTTJRfgz0
-	 765ft7WTpfnivuYA9L5g08iDE4nTf0Q+GhL9rslCjRXFHYbtZrBOfgT9UdaS6C91T2h2p
-	 UVM4tx7ISiswCzcPPxCsjchHgM98MlJ1HKhdvCR0n5AatJk5K5lJoyncjqLdtiqH26BFr
-	 QQznToW8AHStd6FdxS+10jFJ1tB930sAgf5Q7nhpzeru8lBsu7b8BW90exHiu35zkdQ==
+	t=1793910721;
+	b=4V/P3jWEzXeeZYORioL1L1sh29to/A2kTM2/qiVrQfcCb5/hVPV2BvU1H2dzHXy3f0lU
+	 ZN57dLIYPoE8svKLqxgcxKptFonLTQQczGOto75X0Q1LnLlOBLCJnKbVusQx88YKigd9k
+	 C45CNIkN+yCWFvCDf8S4rXZjJ4xV9G7cvg3UVU4yaszOyUPBgVUN0mDq/EzjsFyuDxo1q
+	 7rrsxPxRw0HGEj9P7JLXlFIuB5raUMO1PiJ9K2I9p5blUhj0NRfkEOH/U0WAktpMwnNOw
+	 QvEHGPm+cWi1wlqOMdyt8PRV5bWW8UnzbBq1a3kk2j1s4tcg2V3ddcvaVBo0CIH0v0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793910678;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=TdhuTks2opBXvdhTmIB8yv80bnVd5dlxad76wxXRLWI=;
-	b=k715newbfSnjQf1tWr1iUAof5i3TodtInIS3CFcz773tkcOJuOUrz4DhOHwgUfaLqtZz
-	 84Pn2HVgs9KtpN33LPERPJbLsAsM+NhxXUWzOsVHhgAPjccDclHQQr/nKjcAMW6ukVrf8
-	 bbTlhQjodyaffEBUfIXUbIBqOGTTMFlRYeBF6ZPB9FFmHpbeyj4ZzcsK4BX4VspFHn6y0
-	 jYyqfjkUdaXDxnzMBKeqVLTkh8sEdocD+Km1W2MaPPH/ah/FWYtOWH0nNzLVTUT0IMu8V
-	 M1pXeKn26o5ygLoJ1E3JZ6T3s5kpHDn9vOmf03SdsByJQ2t+oPEzZ0b7oGISUh/fiCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793910721;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=naL9ZYlGHpjK154MUN/eO3m7g6+A6qo1lAhYSkBJyWI=;
+	b=tVqq0SnTTRarAKcZ8+l8//VClw3cNArFprSO0hQLeawvn8d/6wf72+qO1sGcs6qzXWYk
+	 huXdcOx09a/zG8u+7dEd8fwQMaxNZCMzyevqcPbNgNIYXQCQKbJxdSHFAxc4PzcsyTd/9
+	 1mWPsNsGru7oUHPCPZEH4egjL/yEiJSmFwnv0tdbCffjlZ4M+6frb6QoVWt8QMpQW/puG
+	 tzddWiJAqVjy9QybUn/ZkBVLmA4LFdEGbKZN7cGVc0MCF2MHdpjHocyzFKk3ER4+DkPE6
+	 0Sut3htiZPBfhKZtPbSdwuZDWnWLrDADCx2yHjG7rKzhLIzoWrT2CoBEkXOqoQAkIfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a4iMyxMc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=QuEcehMG;
+	arc=none smtp.remote-ip=209.85.160.181
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39FBC606A31B;
-	Thu,  5 Nov 2026 20:31:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC50D606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:32:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC50D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a4iMyxMc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53BFE1F008A2;
-	Thu,  5 Nov 2026 20:31:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793910677;
-	bh=TdhuTks2opBXvdhTmIB8yv80bnVd5dlxad76wxXRLWI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=a4iMyxMcWpMfFTfJfNIxFDxA2rvaiekwJvEwJVsD9AgMRJYdXpBXRleMgAFa6IxCh
-	 FxiqU8rJv64UEvYRZ/6gYYVbzscWelg+mWv6Rxml44hPWU7nbHgAHW+v4VYvIkPkV/
-	 jrzS2BWYyBBEhdTGjYy+JSwh3g9ayrWo75JJNUfN3IjmNpC5TetPa3YBI7J/+aCUtz
-	 nuds2tJ1nAwIwPSzDtyMCHzmRlVcDD71BoLwOLZUrwm7nw+6xozQ0y395XW5qmFo/Q
-	 xefxjYblhwNI3XBSZj8pucJn0jKefeiSb46zGHMzeR/nBVDl3ee61bD0gtDrlU+qrF
-	 qUHeYhx3uhbZQ==
-Message-ID: <6f035f97-8b55-47ad-bd52-833b86b8ae8f@kernel.org>
-Date: Thu, 5 Nov 2026 21:31:09 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=QuEcehMG
+Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-535179e995bso23700961cf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 12:32:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1793910720; x=1794515520; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=naL9ZYlGHpjK154MUN/eO3m7g6+A6qo1lAhYSkBJyWI=;
+        b=QuEcehMGpMoP1K0IVbN/jVj5FL16+s94k5t0K2g5d5AuYxTOCh6G4Jz8w3y0e27Ot2
+         zjBFLHRAzM/Ti0n2KRuJaKiZ6olZN9GtZRXeHTVndUylx9APp6ow0YwbN7xjTxyx10zJ
+         kdOYN2vLpWaJFVSHUEHHJ1hmP19gmsD7CISX8rluknE01JEHFdBxhDChOCXZKhEPxxPl
+         v87bQoOa90cvKjHG3/jJXdY7C5Zm7dx6vyByYMIw0erq7zDu+/jRkawvk1sbni8vxpQW
+         vi1jBCewTx7IZ0PNMjwxUuVSUuI553Yxr1C6eovL76hM822B3OBk+EWb0+m3HwoCP2UL
+         hVQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793910720; x=1794515520;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=naL9ZYlGHpjK154MUN/eO3m7g6+A6qo1lAhYSkBJyWI=;
+        b=to17i0IbsEVjfxtyQV33lL47uCixcefR4ZhYHHK+ZNiv6u87+5ngIXyNubpFyHkTct
+         6BbOfKCKDVLI55GFyCnz5koD0m7Q4gQSCZxtlG1h0NPscVgxRA5cnTzI2VWCFSLl09ul
+         F6ROj81e0QlHfess+FkzQbWuSb4XOhggAueoPovY5hQiI/lFLdnbQp1S5ISU3uffgm1K
+         GOyNIXmV6PAVPRUjRbMiZepMlKmxZfS5OmI19UmVnkarRuK95dRz8a114q2luczcqkwx
+         vgMSCoEomtA95UmL/gHLmS3hhq65bDiFkLBT11UA+PcGWaSWTfDHgTc5Xah4POOASdMK
+         WEUg==
+X-Forwarded-Encrypted: i=1; AKwUvBy6ld6B40K4we/Af00UpHbiVKAGKu0Bn1bHEXsvikmuWolF930zsKDLaRDfTPUE7SzJyfqFV7frSA1jcIc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+smH20ccgYtev+/9bK7iWvTA+BAWgaRQNOQGdIVwif4Z/5QU9h
+	ad1z8+JkjyMWJ4SbsH2ON+3ZzL0NJbEPCsxY2cC+6z6QkeQXv90kIKKbTyasBs49Nw==
+X-Gm-Gg: AYBFou3sbIO7/1acc/Rbbx2JHKWH9O5mG6tObFXUSOHrMeXLD/b37KU1LM+ddf+ZxvF
+	gfdISa3pWKNTd3imw5fovIPH2Ip+BhIQS/ZsUKli+FSf5aGmyrdCgPaKNhDbcya9tRxxq8GCN4M
+	nuMcr4uzv5ZBlv18prZEbu0iUSlvPcvoxV/oOjP6HOm/1MK9ohGPxZoe6TYGMJMVUKeORLp3jon
+	IPCkAzpevg57xFAA/9lhEJ0QC1VZdo1ElfxECJ0BRuNHqXF2e5FDjqnXq66OG5vQqW3mBuCRFKZ
+	AFokSJlCXpOWFLnGtEGt/TTEFPYJILLg56/YCIWl7ZPydZmbvhycADgh402wVZQ+jrEkj3Gdl0/
+	Da7fiWNWCsfUTwfQOqcLjdeREaqiTFMXKmSbRpmv4t1MGer3HP3XnO83hpWE899vti+WMbENvIg
+	Zqpe+ZbTKtPWWtjtVAKgsEG+nKVlhAmRGp6WKnyZ0ezcAzgJEgxkU1wW5YEEeFOtqCwjeU7LTsH
+	NtU3gq2zCjI0SkdWQcpSlwrMPmMvv9S+xKqD2XqtjpQqovh8Xa22hU4pghqP5CywQvcwKIie6+S
+	dEWs/HF9Lzk6cL5lZmo83ydyRqeE
+X-Received: by 2002:a05:622a:5a18:b0:535:85c0:fda2 with SMTP id d75a77b69052e-54e100e5826mr8821511cf.11.1793910719615;
+        Thu, 05 Nov 2026 12:31:59 -0800 (PST)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ea6a870dcsm3921886d6.30.2026.11.05.12.31.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 12:31:58 -0800 (PST)
+Date: Thu, 5 Nov 2026 15:31:56 -0500
+From: Alan Stern <stern@rowland.harvard.edu>
+To: James Clark <jjc@jclark.com>
+Cc: sashiko-reviews@lists.linux.dev,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Johan Hovold <johan@kernel.org>, Bastien Nocera <hadess@hadess.net>,
+	Matthias Kaehlcke <mka@chromium.org>, Arnd Bergmann <arnd@arndb.de>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Douglas Anderson <dianders@chromium.org>,
+	Robert Nelson <robertcnelson@gmail.com>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+	regressions@lists.linux.dev
+Subject: Re: [PATCH v3 2/2] usb: core: add a pre_probe callback for device
+ drivers that may defer
+Message-ID: <a0918852-57e6-42b3-9321-38d766a20025@rowland.harvard.edu>
+References: <cover.1793669297.git.jjc@jclark.com>
+ <e96b91c85945237ca455869bf4d5a1e177358b54.1793669297.git.jjc@jclark.com>
+ <sashiko-outbox-194542@kernel.org>
+ <20261103053952.1138398-1-jjc@jclark.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,119 +107,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] mm/huge_memory: take a reference on a folio PUD
- copied by fork
-To: Zi Yan <ziy@nvidia.com>, Konstantin Khorenko <khorenko@virtuozzo.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Alistair Popple <apopple@nvidia.com>, Dan Williams <djbw@kernel.org>
-Cc: linux-mm@kvack.org, nvdimm@lists.linux.dev,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261105-vstor-150143-copy_huge_pud-folio-refcount-v2-0-2828fe5a51ed@virtuozzo.com>
- <20261105-vstor-150143-copy_huge_pud-folio-refcount-v2-1-2828fe5a51ed@virtuozzo.com>
- <DMNK05HCXYUJ.578OO1NG15LZ@nvidia.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <DMNK05HCXYUJ.578OO1NG15LZ@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103053952.1138398-1-jjc@jclark.com>
 
-On 11/5/26 21:19, Zi Yan wrote:
-> On Thu Nov 5, 2026 at 12:00 PM EST, Konstantin Khorenko wrote:
->> Device DAX maps its memory with vmf_insert_folio_pud(), which takes a
->> folio reference, adds a PUD rmap and accounts the pages to the mm.
->> zap_huge_pud() drops all three, but copy_huge_pud() copies the PUD into
->> the child without taking any of them. Each child's unmap then drops
->> what the parent took:
->>
->> - the folio is a reference short, so with two children its refcount
->>   drops to zero and free_zone_device_folio() runs while the parent
->>   still maps it;
->> - the child's file counter goes negative, "Bad rss-counter state" when
->>   its mm is freed;
->> - the parent's unmap drives the entire mapcount below zero.
->>
->> fork copies the page tables of a device DAX mapping that has a guard
->> region, and commit f807123d578d ("mm: allow guard regions in file-backed
->> and read-only mappings") allowed MADV_GUARD_INSTALL there.
->>
->> Take the reference, the rmap and the counter for a PUD that
->> vm_normal_page_pud() resolves to a page, as copy_present_ptes() does for
->> a PTE, with a new folio_dup_file_rmap_pud() helper. copy_huge_pud() now
->> needs both VMAs, so pass only them and take the mms from them.
->>
->> Fixes: aed877c2b425 ("device/dax: properly refcount device dax pages when mapping")
->> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
->> ---
->>  include/linux/huge_mm.h |  5 ++---
->>  include/linux/rmap.h    | 22 ++++++++++++++++++++++
->>  mm/huge_memory.c        | 27 +++++++++++++++++++--------
->>  mm/memory.c             |  4 +---
->>  4 files changed, 44 insertions(+), 14 deletions(-)
->>
+On Tue, Nov 03, 2026 at 12:39:52PM +0700, James Clark wrote:
+> On Tue, 03 Nov 2026 03:51:41 +0000, sashiko-bot@kernel.org wrote:
+> > First, when udriver->pre_probe(udev) returns -ENODEV (for example from
+> > onboard_dev_usbdev_pre_probe() -> _find_onboard_dev()), usb_probe_device()
+> > still calls usb_autoresume_device(udev) and usb_generic_driver_probe(udev)
+> > to configure the device, bind all child interface drivers (triggering
+> > deferred probing), and emit USB_DEVICE_ADD, only to immediately tear them
+> > all down a few lines later in the error == -ENODEV block via
+> > usb_generic_driver_disconnect(udev) and usb_autosuspend_device(udev).
 > 
-> I assume this supersedes David's version[1], which uses
-> folio_add_file_rmap_pud().
+> This is deliberate, and documented in the @pre_probe kerneldoc. An
+> error from pre_probe() other than -EPROBE_DEFER is handled as if
+> probe() had returned it, after the generic probe has run. This keeps
+> the -ENODEV fallback to the generic driver working as it does for
+> probe(). For onboard_usb_dev nothing changes: its -ENODEV used to come
+> from probe().
 > 
-> [1] https://lore.kernel.org/all/20261031-fixes_core-v3-11-d6437171ecc3@kernel.org/
+> > Second, if udriver->pre_probe(udev) or udriver->probe(udev) fails with any
+> > other error (such as -EINVAL or -ENOMEM), usb_probe_device() jumps to
+> > err_pre_probe, which only calls udriver->disconnect(udev) and does not call
+> > usb_generic_driver_disconnect(udev) or usb_autosuspend_device(udev) to
+> > unwind the generic probe and runtime PM state. Because really_probe()
+> > clears udev->dev.driver to NULL when usb_probe_device() fails:
+> >
+> > - When udev is later unplugged, usb_disconnect() -> device_del() skips
+> >   usb_unbind_device() because udev->dev.driver is NULL, so
+> >   usb_notify_remove_device() (USB_DEVICE_REMOVE) is never sent. Subscribers
+> >   such as usbport_trig_notify() in drivers/usb/core/ledtrig-usbport.c never
+> >   remove the port entries added on USB_DEVICE_ADD, leaking struct
+> >   usbport_trig_port objects and sysfs attributes with a dangling port->hub
+> >   pointer to the freed struct usb_device, and usbdev_notify() in
+> >   drivers/usb/core/devio.c never runs usbdev_remove().
+> 
+> This was raised in Sashiko's review of v2. I missed that it can be fixed
+> when the device is unplugged. I will attempt to fix this in v4. I think
+> it can be fixed by recording in struct usb_device that USB_DEVICE_ADD
+> has been sent, and having usb_disconnect() send USB_DEVICE_REMOVE for a
+> device that has no driver.
+> 
+> > - For drivers with supports_autosuspend = 1 (such as
+> >   onboard_dev_usbdev_driver), usb_probe_device() does not take a runtime PM
+> >   reference, and hub_configure() enables autosuspend on hub devices; once
+> >   the device suspends, usb_resume_device() fails with -ENOTCONN because
+> >   udev->dev.driver is NULL.
+> 
+> This is a pre-existing bug that is new in this review.
+> usb_suspend_device() does a generic suspend for a device without a
+> driver, but usb_resume_device() refuses to resume one. I don't know
+> why resume is refused. If a generic resume is safe there, that would
+> fix it.
+> 
+> > Third, if udriver->pre_probe(udev) succeeds and udriver->probe(udev) then
+> > returns -ENODEV, the error == -ENODEV block runs
+> > usb_generic_driver_disconnect(udev) and usb_autosuspend_device(udev) before
+> > err_pre_probe calls udriver->disconnect(udev), reversing the teardown order
+> > used in usb_unbind_device():
+> 
+> I will fix this in v4.
 
-Ugh, I thought I dropped it to wait for this one here. But turns out the flood
-of patches confused me :( (hoping I didn't drop another one by mistake)
+This is all starting to sound very complicated and fragile.  Isn't there 
+any way to simplify it?
 
-It's already part of the fixes PULL request:
-
-https://lore.kernel.org/linux-mm/20261105084704.5703-1-david@kernel.org/
-
-Konstantin, sorry! Can you send a follow up to introduce+use the dup variant?
-
--- 
-Cheers,
-
-David
+Alan Stern
