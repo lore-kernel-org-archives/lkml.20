@@ -1,67 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.221
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793883308;
-	b=r+0ILO5TA2VQUQ7GKyv1p/ufo7UlIwF3INwYt0KXV6j1WDk0bOXsboXX3uXYoWkBSzCS
-	 vuQNad7cqgPGYhPAc54hrOJe8lyZgp0m55mu7MtFgXCyL0zWZFKcyE06S5ydfhba+/4rg
-	 reAYzk7020zai1lczpDxzYBBRLARt6YcnghVL0qrZO9zG5E0FC6O7SLEEamovlFcxUmcq
-	 UoiCIOqSWfX8621jwLlURbNA1pfhf0yQU+qzyC5GGeQTuujVJwonR6qDdLQSUevXrS9mA
-	 /Gam052gLMjpp0JIrJF1SLG4LDB8Lp4MiBLb55UOTLBqOPz+1yaukfhP1xU7YZgC2ow==
+	t=1793883348;
+	b=45VAZbV/ozpnZcUY/3oxHoBOIYfOhGsW5LL5De54Tzvs025ZlhEAgk7NMubNMV1VrKYL
+	 1twmx7mMU8dyqKhDjXiHMtGkijl3+8ZxBRdLPBnZcFs1Jsnq5VDkXHAosCxAN3bqVGsP8
+	 xlLjIw1ssRvNpDwPiKm0H1zCI4o8Yla3BsJAcpHYZO/a03VchxEDLVzuZo4PAw0Q5pvsj
+	 uXjK7LRfEkfBGOwP45kzieCeqpI/5GhVxrdiU3jnFDl+H7dsUmmeXh6VXDdw9u/jX3WJL
+	 BnAFMFW4SvwqFSO7bCRor++ex0B4UWrGHdw5+p5fCwG95di+CgWeLrUArt8r6WPbQYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793883308;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=W9x3jjuMW0enhWTlyFdgZKVCgl/js8bTZrtROBm22NA=;
-	b=0heeqTaFuxF5OOl/cG46qGhzxapXsJvO2+JAlIqgOUP0cRgI+jsEyleD7hjUibfJKe5n
-	 H/dyIj8R+/RwzkYBf56ZThnJ7mVnqenButcEKNyj6uNYRbPA01qmuimAwZ4tdmmCT6Vqv
-	 QjBljS4OWHELo/FyVxIFM0FeSI4z0O0WvSLKLgSIDc6IzCgSXituPJ/XGi+vwrwaduLyN
-	 NElDFQ3jsqvU2o92s+Zb+fCn1aBXHhqWC8+auvf4STre/nXy0E1PewOheZAw2V58G5SIV
-	 kPx7zb8u++JOQXO+XT8lrERCSWJN9mLacvFqiIUHAkASYvK0pG+ZhuGn5Ie7uqsbjog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793883348;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=JS5ZQnmESf8ejrit4kpZwlKBJ6iIvHO90kMG7h+R+LA=;
+	b=NS1Mh6rmZvw9WN5oEWniJACIHvIiYoqILbtuiZoWSeey3NpFJf5xqhkPwVqRy1t0DS7q
+	 yowsjbxmqCfDmwWONReixeIL5uT5xl9Is93l++p5j6f142D5QLT5C/dBNm5WJ0xwcDfxF
+	 6Weakn53QfKodYaTXXNnRayhzEISgBIDkGINMtx8D3VjKu1EsbNPQa6tQEsaGGqnzXAgR
+	 9tv7wXJY5dq9+VPXRyUc0sY1nzTbZEi/oBtE3I/AYn8/ro90W5tWbd6GexvbPZtY4RPGM
+	 npGaobxEhzEzekGp5BXTLVxY9zoocagydDvil2lZbEVPal3WJPQiaQv03VSMZmsiFjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=AXmhRlh4;
-	arc=none smtp.remote-ip=113.46.200.221
-Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jTCFgjvw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 536AE606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:55:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 536AE606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CF6D606A31B;
+	Thu,  5 Nov 2026 12:55:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=AXmhRlh4
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=W9x3jjuMW0enhWTlyFdgZKVCgl/js8bTZrtROBm22NA=;
-	b=AXmhRlh4UfxROFuRVsIID2iazoIEl1RdMyRlDEEubF0QmuEwp1YLR95WsZOkHeNt8ipkI1OTu
-	gnFcBoh4grsEIsWX915VNIflUhYlbGQwmPV/2tgdstSGutpdwqJTpvYq1dDksuNUI0SVIWM0NC7
-	6+Rg3dMuXE5dCP/ev3OTGYs=
-Received: from mail.maildlp.com (unknown [172.19.162.144])
-	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4jL2Mg4VfNzRhRx;
-	Thu,  5 Nov 2026 20:54:55 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 8844E4056D;
-	Thu,  5 Nov 2026 20:55:02 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 5 Nov
- 2026 20:55:01 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
-	<pratyush@kernel.org>, <leitao@debian.org>, <mpilaniy@redhat.com>,
-	<yeoreum.yun@arm.com>, <graf@amazon.com>, <pasha.tatashin@soleen.com>,
-	<akpm@linux-foundation.org>, <baoquan.he@linux.dev>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-CC: <ruanjinjie@huawei.com>
-Subject: [PATCH v8] arm64: kexec_file: Stop using the Image text_offset
-Date: Thu, 5 Nov 2026 20:54:42 +0800
-Message-ID: <20261105125442.2282987-1-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jTCFgjvw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B57361F000C1;
+	Thu,  5 Nov 2026 12:55:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793883348;
+	bh=JS5ZQnmESf8ejrit4kpZwlKBJ6iIvHO90kMG7h+R+LA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=jTCFgjvw9bQot0SfzH4ZrjEsWIzphlgvPYgb7ckm2PXyvD1VGuOQXL2/ktOaB32sx
+	 PQEnxdk/5ZaWX8rsyXbUYUNtxBbU3B34PdpBOZN2d8eKCDikP8jaeNGKk8zAprSkTP
+	 pUdqqPek1lN72dTmFu/n2aBF3PeNK9cSjGGZBWJCSyOEv3QAOLdW5DQoZd7SbFVc26
+	 QF8GDKvwzH33FXkIdbnO+J1NORmx0Sngf0XqzQ0urYMgs49/pJK7TPmryllBEI2AKY
+	 WC1TW48r7CpXhuMNGkShWy1Ry5DVTKqleJz3MxQIRrmtN6gzuP6+HqnUKMeAw3ye6k
+	 WK6D4h7WpGWMg==
+Subject: Re: [PATCH net v2 2/3] net: dsa: motorcomm: Resolve the flower action
+ list to one ACL verdict
+From: netdev-bot+sashiko@kernel.org
+To: mmyangfl@gmail.com
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org
+Date: Thu, 05 Nov 2026 12:55:47 +0000
+Message-ID: <179388334724.488856.1648713655214284192@kernel.org>
+In-Reply-To: <20261103095514.338700-3-mmyangfl@gmail.com>
+References: <20261103095514.338700-3-mmyangfl@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,79 +63,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemk200008.china.huawei.com (7.202.194.74)
 
-image_load() adds text_offset to kernel_segment->mem and subtracts it
-from kernel_segment->memsz.  For CMA backed segments this breaks the
-load path: the payload is copied to page_address(cma), which is the CMA
-base, while image->start is set to the adjusted address, so kexec jumps
-into the middle of the kernel.  kimage_map_segment() has the same
-mismatch when a segment has been moved.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-The adjusted memsz also breaks the release path: the CMA pages are
-freed using segment->memsz >> PAGE_SHIFT, which is fewer than were
-allocated, leaking the tail of the allocation.
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-Since commit 751c263bb74f ("arm64: remove TEXT_OFFSET randomization")
-TEXT_OFFSET is always zero.  This has been upstream since v5.8, so no
-LTS kernel carries a non-zero text_offset.  Drop the adjustment and
-reject images with a non-zero value instead of booting them from a
-wrong address.  With the adjustment gone, segments stay at their CMA
-base and the release size matches the allocation.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Link: https://lore.kernel.org/all/20260921090450.807575-2-ruanjinjie@huawei.com/
-Link: https://lore.kernel.org/all/20260921090450.807575-3-ruanjinjie@huawei.com/
-Fixes: 07d24902977e ("kexec: enable CMA based contiguous allocation")
-Suggested-by: Mike Rapoport <rppt@kernel.org>
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
----
-v2:
-- Split out from the patch set.
-- Link to v7: https://lore.kernel.org/all/20261026075201.699550-1-ruanjinjie@huawei.com/
----
- arch/arm64/kernel/kexec_image.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+- [High] The patch says it makes the ACL use one verdict, the first
+  terminal action.
 
-diff --git a/arch/arm64/kernel/kexec_image.c b/arch/arm64/kernel/kexec_image.c
-index 78b1f956d8d7..7d6baea3d28f 100644
---- a/arch/arm64/kernel/kexec_image.c
-+++ b/arch/arm64/kernel/kexec_image.c
-@@ -80,12 +80,17 @@ static void *image_load(struct kimage *image,
- 	kbuf.bufsz = kernel_len;
- 	kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
- 	kbuf.memsz = le64_to_cpu(h->image_size);
-+	/*
-+	 * Pre-v5.8 images carry a non-zero text_offset, which is no longer
-+	 * honored; reject them instead of loading them at a wrong address.
-+	 */
- 	text_offset = le64_to_cpu(h->text_offset);
-+	if (text_offset) {
-+		pr_err("Unsupported Image text_offset 0x%lx\n", text_offset);
-+		return ERR_PTR(-ENOEXEC);
-+	}
- 	kbuf.buf_align = MIN_KIMG_ALIGN;
- 
--	/* Adjust kernel segment with TEXT_OFFSET */
--	kbuf.memsz += text_offset;
--
- 	kernel_segment_number = image->nr_segments;
- 
- 	/*
-@@ -117,8 +122,6 @@ static void *image_load(struct kimage *image,
- 	}
- 
- 	kernel_segment = &image->segment[kernel_segment_number];
--	kernel_segment->mem += text_offset;
--	kernel_segment->memsz -= text_offset;
- 	image->start = kernel_segment->mem;
- 
- 	kexec_dprintk("Loaded kernel at 0x%lx bufsz=0x%lx memsz=0x%lx\n",
+--
+
+net: dsa: motorcomm: Resolve the flower action list to one ACL verdict
+
+This commit changes yt921x_acl_rule_ext_parse_flow_action() to resolve
+the flower action list against its first terminal action, so a later
+action no longer overrides an earlier verdict. Consecutive redirects are
+still merged into the destination port mask. Other actions that follow a
+redirect are rejected under skip_sw, or trapped to the CPU otherwise.
+
+> diff --git a/drivers/net/dsa/motorcomm/tc.c b/drivers/net/dsa/motorcomm/tc.c
+> index 8835907366bf7..5d2db04f3385d 100644
+> --- a/drivers/net/dsa/motorcomm/tc.c
+> +++ b/drivers/net/dsa/motorcomm/tc.c
+
+[ ... ]
+
+>  	memset(action, 0, 3 * sizeof(*action));
+> -	flow_action_for_each(i, act, flow_action)
+> +	flow_action_for_each(i, act, flow_action) {
+> +		/* Only another redirect, or a drop, can follow a redirect: a
+> +		 * drop is an empty destination set, so the software verdict is
+> +		 * the same whichever control the redirect carries.
+> +		 */
+> +		if (redir && act->id != FLOW_ACTION_REDIRECT &&
+> +		    act->id != FLOW_ACTION_DROP) {
+> +			reason = "Action after redirect";
+> +			goto fallback;
+> +		}
+> +
+
+[ ... ]
+
+> +		case FLOW_ACTION_REDIRECT: {
+> +			struct dsa_port *to_dp;
+> +
+> +			to_dp = dsa_port_from_netdev(act->dev);
+> +			if (IS_ERR(to_dp) || to_dp->ds != &priv->ds) {
+> +				reason = "Redirect to non-local port";
+>  				goto fallback;
+>  			}
+
+[ ... ]
+
+> +			action[2] |= YT921X_ACL_ACTc_FWD_EN |
+> +				     YT921X_ACL_ACTc_FWD_REDIR |
+> +				     YT921X_ACL_ACTc_FWD_REDIR_DPORTn(to_dp->index);
+> +			redir = true;
+>  			break;
+> +		}
+
+[Severity: High]
+Can a later redirect still widen the verdict of an earlier one here?
+
+The guard at the top of the loop lets a second FLOW_ACTION_REDIRECT
+through after a redirect. This case then ORs another DPORTn bit into
+action[2] and does not set terminal.
+
+The comment on the guard only explains why a drop gives the same result
+whatever the redirect's control is. That does not hold for a second
+redirect: with STOLEN only the first port gets the packet, and with PIPE
+both ports do.
+
+Take a filter like:
+
+  tc filter add dev swp0 ingress flower skip_sw ... \
+    action mirred egress redirect dev swp1 \
+    action mirred egress redirect dev swp2
+
+iproute2 sets the redirect control to TC_ACT_STOLEN by default. In
+software at ingress, tcf_mirred_can_reinsert(TC_ACT_STOLEN) is true. So
+tcf_mirred_to_dev() sends the skb itself to swp1 without cloning it and
+returns TC_ACT_CONSUMED. tcf_action_exec() then stops:
+
+net/sched/act_api.c:tcf_action_exec() {
+    ...
+		if (ret != TC_ACT_PIPE)
+			break;
+    ...
+}
+
+The second redirect never runs.
+
+The driver still accepts this rule, even with skip_sw. It programs the
+hardware with FWD_REDIR and DPORTS = {swp1, swp2}, so matched frames are
+also sent to swp2.
+
+Dropping skip_sw gives the same result. A hardware redirect never reaches
+the CPU, so software has no chance to correct it.
+
+The commit message says:
+
+    Consecutive redirects merge into the destination port mask, since a flow
+    action entry carries no mirred control verdict to tell whether software
+    would have continued; an action asking for a second decision is rejected
+    when skip_sw is set and left to the software path otherwise.
+
+tcf_mirred_offload_act_setup() only fills in entry->id and entry->dev, so
+the driver cannot tell which case it has. Merging the ports picks the
+PIPE behaviour.
+
+Would it be better to send a second FLOW_ACTION_REDIRECT through the same
+fallback path as other actions after a redirect? It would then be
+rejected under skip_sw and trapped to the CPU otherwise.
+
+The later patch in this series, "net: dsa: motorcomm: Delete the ACL rule
+of the port being unbound", only changes yt921x_acl_find() and
+yt921x_acl_del(). The merge is still in place at the end of the series.
+
+[ ... ]
+
 -- 
-2.34.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103095514.338700-1-mmyangfl%40gmail.com
