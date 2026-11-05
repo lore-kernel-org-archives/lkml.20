@@ -1,57 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.251.234.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793906392;
-	b=nX+Ocqyor1PojSPEZq1pdUEg8bYu23ySxkTOYUuz1l86BxHQnr/joLTqeDBJQBgzvhDi
-	 5d89XsQSdBBhPZeJ74CvhWRhm0ELjkWxHkt6lDhXD3c0sds3JXsUmgFgQWOwi2BtTLvDE
-	 xFDd2nGHJ7MNNe/JwnvoGTbc//OPnsINrHZiY1Uu1FDXhZfEEm/cO9bxbkNppMyFGCqO0
-	 xuDtLJYbVzCDPEnbSn5VOXTkSefddamdlQHnmzTP9qKXB78DaAmb3084zPELIWVcNnx5w
-	 IEMY0KKKQSLV5ExPqmiCKaPgq6Zy4vpjngv2okVoIflHpEMfSwgYvDejo6oKMhE0+cw==
+	t=1793906397;
+	b=SXWZ+cGNsdMy5PXEhnrQD5xwQlNRWzbIdLdzgCcsDT/giDuqpplIeHf+9128bBWMAQyx
+	 nLhhE4W4pWSRhWNfsEpmE/+nFF1hT+B7bMmvUl+kJxV8lQmsejnp+kRV7gH0/hlHl1mis
+	 ZljzQO3FN0qioqit0w/4qHauWIsM4XPAJ82f+sq7be8YnoY3HWxylozmOvMejdacQGAfc
+	 t7McMFYTJUpyp0smm66lLIQG5uIsb/aXM4LxS4uF/0UlSsggV2e0a72pw3cDUS4hkLd3u
+	 A64zomFaoHdQnnPS8kjl3ycG1rPJGqBpgWPqxSSEwzonU96QtxDseWCCfwkbytiyPnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793906392;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=tewU7OdvYDlulao9yS8qTKJt8FwBJTOoYWn2c9EtvpE=;
-	b=A8bW9atpmJNBA/GkJXdVBG6YtVPYYDn8jwj7d0FwaiZeBtbZNT6u7RIgG1AfnafUn97D
-	 A38i/y5pnoiAQ0MuhqlZOlbzHI/lnipoiSjG1kdcA9hrJoK5E6NGsxWQt72qcpmAVEq6h
-	 +TaU/62ICRlkBwB2XgCkGC7OqYIHUwHE3Mcyt1vvVG7dvfXe1kbXEc2yx+EsHLwozvbon
-	 rt8p1NkXCK0KSdBtnc4opGjTp+LIAQ+EWSqfEvgxrgFHNE+IzwIsaZv8sdUXbofX6Vvpf
-	 6zsmMstPO+tyUBComp09ZYxA6gDccMmJ7ObEOUlbdJPW3RjiVK+MLS9yyOPxV8HmrTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793906397;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:In-Reply-To:References:
+	 X-Mailer:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:
+	 MIME-Version:Content-Type:Feedback-ID:X-SES-Outgoing;
+	bh=vB0d6DmohhVJAem08KYrjHoymUOj9sWWuweWNR1UKLI=;
+	b=2joSUbU0NDQQqoVT1lTh6tKr2VPp24GtvE0qc+QDSJF4wkUn88DAs6McDvqhBowyFvDf
+	 M8cNTUquBNSUJnrf4dnPsGttkSU5hNnhGJy8eyXx/nn2pVKoctBEprutvscVOBevQ8A5z
+	 km9+3HOWohCZfxISh1w6lLUUurCz1y0yPzKfjzVaPxDOLYfRFQ8VBXLhDpzXJK5bhnfov
+	 wa9Pzft2PkINZvfiLKAc4L4EGuQ++52qMJJ8IYd/mXNogrvnNq8gzOFsy2whnY4v5Jk9D
+	 DcvWowIXoY9gQINFs1L2okAbw4GF7zBNyxAV6hJYIzm6mg6s30Bqsj8fIVzC7tdq1WQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VCIuyHxg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=fqwqf.xyz;
+	spf=pass smtp.mailfrom=send.fqwqf.xyz;
+	dkim=pass header.d=fqwqf.xyz header.i=@fqwqf.xyz header.a=rsa-sha256 header.s=resend header.b="qGfmCv8/";
+	dkim=pass header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=hH5ybj0K;
+	arc=none smtp.remote-ip=23.251.234.56
+Received: from e234-56.smtp-out.ap-northeast-1.amazonses.com (e234-56.smtp-out.ap-northeast-1.amazonses.com [23.251.234.56])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B5A2606A32D;
-	Thu,  5 Nov 2026 19:19:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37DE5606A32E;
+	Thu,  5 Nov 2026 19:19:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37DE5606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.fqwqf.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VCIuyHxg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D22E81F00A16;
-	Thu,  5 Nov 2026 19:19:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793906392;
-	bh=tewU7OdvYDlulao9yS8qTKJt8FwBJTOoYWn2c9EtvpE=;
-	h=From:To:Cc:Subject:Date;
-	b=VCIuyHxg/fUChRfVyVK4hsYjYsiea26TDmZMfpSLGZIqNblLYx6KALvflLKXpVzXc
-	 Y0lraRASm63c6qNUYnlfXLuhK6ixK+Yj8DxvXobwEytsx7RrjSBwVXSqqL09tFF8tn
-	 QLE5SzaOfbkJqFdojo/AU5NwnsB8DS9UK0/SzhaomVcAWItS0tAlhCxUB4U3JhjLs+
-	 GfEYuPuTpVcKvJ7rLayzpQH8c6dV/MQ3zPVMVPeXqL208hZqPLPAC9piRIKsyfkUOH
-	 NsHwZYvey960REIV2oAvedKmWGruXLdZQe1+Ff7P1/ayB3/nSfeLlO/8VAF+2CpAB2
-	 1zehcfstfUzaQ==
-From: Tejun Heo <tj@kernel.org>
-To: Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mani Tofigh <mt4022@columbia.edu>,
-	Tao Cui <cui.tao@linux.dev>,
-	Tejun Heo <tj@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH cgroup/for-7.4-fixes] cgroup/freezer: Fix exiting tasks left frozen forever after rmdir
-Date: Thu,  5 Nov 2026 09:19:51 -1000
-Message-ID: <20261105191951.3409248-1-tj@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.a=rsa-sha256 header.s=resend header.b=qGfmCv8/;
+	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=hH5ybj0K
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
+	d=fqwqf.xyz; t=1793906396;
+	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
+	bh=yjQSNr6bjN4bHRD2IZ60o3J6FxseY+q4irgzvY4ZTwU=;
+	b=qGfmCv8/vET87ssChBFNsDidGVWbBHOwae0BOQ9aLz9uE/+Uetz+onKk0AoU7029
+	ZrqIuaS5pbqviQ0TwnCYhUjQbm5xGo8yX4IcAAc/+bj0WlORYVJiliuvaozly5FXK/d
+	zAKHSIEKCY8CtQDFb9aVudluG1C2PAyRkZP7zvaY=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1793906396;
+	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
+	bh=yjQSNr6bjN4bHRD2IZ60o3J6FxseY+q4irgzvY4ZTwU=;
+	b=hH5ybj0K95yVSoOibYhSRDuaZwoUb4PqjsP56It0m5ChJcw4LyN9UZkHMEjk8zXf
+	NPHXvvhOlD2ZArjjAsk6qESp0zAgVCrkqhLDYHY1iN24eBdlp6+oVl9g0A1eUIeQ3cT
+	gcZMoHSiel6Z4sdyHrO36KTcBpN4d4ZSySkD9aOc=
+In-Reply-To:
+ <010601a1334094a9-1f793e14-c414-4780-98ff-f5acdac353a2-000000@ap-northeast-1.amazonses.com>
+References:
+ <010601a1334094a9-1f793e14-c414-4780-98ff-f5acdac353a2-000000@ap-northeast-1.amazonses.com>
+X-Mailer: git-send-email 2.53.0
+From: Jizhou Tong <fqwqf@fqwqf.xyz>
+To: Jingyuan Liang <jingyliang@chromium.org>
+Cc: jikos@kernel.org, bentiss@kernel.org, dmitry.torokhov@gmail.com, 
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	daleyo@gmail.com, broonie@kernel.org, u.kleine-koenig@baylibre.com, 
+	linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Subject: [RFC PATCH v3 0/5] HID: spi-hid: add quad-SPI support for
+ Romulus13
+Message-ID: <010601a1ad274a9c-ca2fc8f5-d3fb-435d-8572-c0d3eb701649-000000@ap-northeast-1.amazonses.com>
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 5 Nov 2026 19:19:55 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,106 +75,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Feedback-ID: :1.ap-northeast-1.6BGMgStFQE7EJYq5syaCRzdneEHVt/+DAaGDrqUmDs9QLO4/SllUBZ3fHvnZ8rcAX/3IjUyTRgi5JFZsWrikFHwlPJqCkqEMlxDFM4JXh+ycxH/J5Tudg5bGdz6h4331g1L1EFsGR8kuYNfGLsrxz4Nym4YXoPcZxeVkrHry4Zx21n8vEVLEjc7s+OCM8PU9:1.ap-northeast-1.DTXDV/V9GPBWozcllKo8innbNB2qs2O/3F8XZSzd9ZM=:AmazonSES
+X-SES-Outgoing: 2026.11.05-23.251.234.56
 
-Since 93618edf7538 ("cgroup: Defer css percpu_ref kill on rmdir until cgroup
-is depopulated"), rmdir succeeds once cgroup.procs is empty, but exiting
-tasks hidden from it can stay in the cgroup until their final context
-switch. If such a task is frozen in a v1 freezer cgroup, nothing is left to
-thaw it after rmdir: freezer.state is gone with the cgroup, and a THAWED
-write to an ancestor clears only CGROUP_FREEZING_PARENT.
+Hi Jingyuan, Dale,
 
-8ab6980c7007 ("cgroup/freezer: walk exiting tasks in the v1 freezer") made
-the freezer walks include exiting tasks. A FROZEN write now also freezes a
-hidden task in a freezable sleep on its exit path. The fix depends on that
-commit, as the thaw reaches hidden tasks through the same walk.
+This RFC adds quad-SPI support for the Surface Laptop 7=
+ 13.8-inch
+(Romulus13) touchpad to Jingyuan's v7 driver [1], on top of the =
+two reset
+GPIO error fixes sent separately.
 
-Since 81933038f5e2 ("pid_namespace: make zap_pid_ns_processes() freezable"),
-an exiting pid namespace init sleeps that way until a parent outside the
-namespace reaps a zombie in it.
+It adds aligned transport =
+buffers, spi-mem 1-4-4 transfers, bounded input
+fragment assembly, and =
+Romulus match data. After a device reset, Romulus
+recreates the HID device =
+so iptsd reapplies the touchpad mode without
+restarting iptsd. Single-lane =
+devices retain their ordinary SPI transfers.
 
-Thaw the cgroup from ->css_killed(), as a THAWED write to it would. A
-descendant removed earlier can still hold hidden tasks frozen through
-CGROUP_FREEZING_PARENT. The thaw reaches it too, as its css stays online
-until its tasks are gone.
+Following Conor's review [2],=
+ the compatible and quad-width constraints
+now extend hid-over-spi.yaml. =
+There is no separate Romulus binding or
+redundant declaration of the =
+globally allowed pinctrl properties.
 
-rmdir removes freezer.state only after ->css_killed() returns, and a write
-to it takes no cgroup_mutex. A FROZEN write after the thaw would freeze the
-removed cgroup again, so refuse to freeze a dead cgroup.
+The final driver source matches the =
+SPI-HID source in my tested downstream
+SL7 kernel. Touchpad input and =
+suspend/resume work there with the downstream
+Qualcomm GENI/GPI QSPI =
+controller and board changes. Those dependencies
+are being prepared =
+separately from this HID transport RFC.
 
-Verified with a reproducer, including under a frozen parent, from an already
-removed child and with a racing FROZEN write.
+The core, ACPI and OF modules =
+build with W=3D1 against the prepared SL7
+kernel build. Software tests =
+cover header and fragment bounds, DMA buffer
+alignment and allocation =
+failures, SPI/QSPI transfer phases, reset errors,
+and resume/re-probe =
+ordering. The common binding passes schema validation
+and compiled positive/negative examples, including both IRQ spellings.
 
-Fixes: 93618edf7538 ("cgroup: Defer css percpu_ref kill on rmdir until cgroup is depopulated")
-Cc: stable@vger.kernel.org # v7.1+
-Signed-off-by: Tejun Heo <tj@kernel.org>
----
- kernel/cgroup/legacy_freezer.c | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+Changes since v2:
+- Rebase onto v7's compatible data, descriptor and PM =
+handling.
+- Drop the readiness/error-counter ABI; keep v7's removal of =
+counters.
+- Extend the common binding and remove redundant pinctrl =
+declarations.
+- Keep quad-only output framing checks out of the single-lane=
+ path.
 
-diff --git a/kernel/cgroup/legacy_freezer.c b/kernel/cgroup/legacy_freezer.c
-index bd11047f2311..1792523d119a 100644
---- a/kernel/cgroup/legacy_freezer.c
-+++ b/kernel/cgroup/legacy_freezer.c
-@@ -382,6 +382,24 @@ static void freezer_change_state(struct freezer *freezer, bool freeze)
- 	 * CGROUP_FREEZING_PARENT.
- 	 */
- 	mutex_lock(&freezer_mutex);
-+
-+	/*
-+	 * A dead cgroup must not be frozen.
-+	 *
-+	 * rmdir thaws the cgroup from freezer_css_killed(), but freezer.state
-+	 * stays writable until rmdir removes it a moment later. A FROZEN write
-+	 * in that gap would freeze the cgroup again, and nothing could thaw it
-+	 * after that.
-+	 *
-+	 * A freezer.state write doesn't take cgroup_mutex, but testing
-+	 * cgroup_is_dead() without it is safe. rmdir marks the cgroup dead
-+	 * before the thaw, so a write that takes freezer_mutex after the thaw
-+	 * sees it dead. One that takes it before the thaw may still see the
-+	 * cgroup alive, but the thaw then undoes its freeze.
-+	 */
-+	if (freeze && data_race(cgroup_is_dead(freezer->css.cgroup)))
-+		goto out_unlock;
-+
- 	rcu_read_lock();
- 	css_for_each_descendant_pre(pos, &freezer->css) {
- 		struct freezer *pos_f = css_freezer(pos);
-@@ -403,10 +421,25 @@ static void freezer_change_state(struct freezer *freezer, bool freeze)
- 		css_put(pos);
- 	}
- 	rcu_read_unlock();
-+out_unlock:
- 	mutex_unlock(&freezer_mutex);
- 	cpus_read_unlock();
- }
- 
-+/**
-+ * freezer_css_killed - Thaw a freezer cgroup being removed
-+ * @css: css being killed
-+ *
-+ * Exiting tasks hidden from cgroup.procs can still be in the cgroup when it is
-+ * removed, and a frozen one has nothing left to thaw it once freezer.state is
-+ * gone. Thaw the cgroup as a THAWED write to it would. A frozen ancestor keeps
-+ * the tasks frozen through CGROUP_FREEZING_PARENT until the ancestor is thawed.
-+ */
-+static void freezer_css_killed(struct cgroup_subsys_state *css)
-+{
-+	freezer_change_state(css_freezer(css), false);
-+}
-+
- static ssize_t freezer_write(struct kernfs_open_file *of,
- 			     char *buf, size_t nbytes, loff_t off)
- {
-@@ -466,6 +499,7 @@ static struct cftype files[] = {
- struct cgroup_subsys freezer_cgrp_subsys = {
- 	.css_alloc	= freezer_css_alloc,
- 	.css_online	= freezer_css_online,
-+	.css_killed	= freezer_css_killed,
- 	.css_offline	= freezer_css_offline,
- 	.css_free	= freezer_css_free,
- 	.attach		= freezer_attach,
--- 
-2.56.0
+[1] https://lore.kernel.org/all/20261024-send-upstream-v7-0-abad131=
+74b43@chromium.org/
+[2] https://lore.kernel.org/all/20261028-punctured-flag=
+pole-c7ec4cfc4609@spud/
 
+Jizhou Tong (5):
+  HID: spi-hid: isolate DMA =
+transfers from protocol buffers
+  HID: spi-hid: add spi-mem quad-SPI =
+transfers
+  HID: spi-hid: assemble bounded fragmented input reports
+  dt-bindings: input: hid-over-spi: add the Surface Laptop 7 touchpad
+  HID: spi-hid: support the Romulus13 QSPI touchpad
+
+ .../bindings/input/hid-over-spi.yaml          |  40 ++++
+ drivers/hid/spi-hid/Kconfig                   |   2 +-
+ drivers/hid/spi-hid/spi-hid-acpi.c            |  26 +--
+ drivers/hid/spi-hid/spi-hid-core.c            | 183 +++++++++++++++---
+ drivers/hid/spi-hid/spi-hid-core.h            |   8 +
+ drivers/hid/spi-hid/spi-hid-of.c              |  44 +++--
+ drivers/hid/spi-hid/spi-hid.h                 |   8 +-
+ 7 files changed, 249 insertions(+), 62 deletions(-)
+
+
+base-commit: ee9c669f9bf5fd2c24206746ded9382fe810df89
+prerequisite-patch-id: b401890d766019f0677a572f18bb389cd8827721
+prerequisite-patch-id: beaf91cb29f3a735559a3251092ac0ac17810b10
+prerequisite-patch-id: e7eba48cebafeee52eae204c950d7c4f8386f0bd
+prerequisite-patch-id: 41ca1ba441d0246d5bf6a4befb26b1c65a596b95
+prerequisite-patch-id: 84023dc857708fbb763a889ac060acc7d4387264
+prerequisite-patch-id: f9b381e783ceb6b608c27e3b6299c591ac9be769
+prerequisite-patch-id: ae5c9959b2923b37a5a650f04e93c662b9e10592
+prerequisite-patch-id: 44a8965a58c0bfb0d5cf758790f407d136451956
+prerequisite-patch-id: 207558a5e93c1074b4dc1b568d70d62a9ffe542b
+prerequisite-patch-id: 59919db0f4e3fbaa1908a0b311fcd53837c5aac3
+prerequisite-patch-id: b3706d31329e8a5829627fd0eb795c24aeb389cd
+prerequisite-patch-id: 24df0c559e4b401af9acd4bc7bad99dd4b4724d4
+prerequisite-patch-id: 3163173e775b674a9f6b8b5f683e0a522e2ea4a0
