@@ -1,101 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.214.169
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793915605;
-	b=pQqach51bmWH/3AmviuBAnDJQe6aT6jLc+W6UqkNmRNbapKOa9p6lsvccnIGAr2ULw0Z
-	 Tg+UX4IeW055gYnyQ/8zG55p2vQdcmLtOuhYfyIDnD7ajlPoc/WNHQIUQ2vXy+asZa4Xp
-	 EiEMKDMlVXPovbiCwxXExMv8wtuJcyqPaScm0mJK5mdV1JvLIceq1vqA2Zj1hooEXWzjv
-	 46cSDVQDP7KQdGin857Wjq4i2iWn0AftuiWSSCs/R3+yz0nxBuwN7GRXHdCtYQ8S0ivwz
-	 mqKHtlKzarAo90KZCtqJBMzNYHfRG4U7ezVs1A0poMcGN62/i2OY3G7NcW9uJ/mZ8JA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793915605;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=T1Goy7xxYTpLl6iI5Cf/SMnYKLYp7F0i7eE5R2yNQC8=;
-	b=iPaCHqgv/XfKVXbITaWO/vNjjygDYHc1DpAq7CXX2GbdgmsRNU3+QZtsY0Kh1YE1hcvT
-	 OYLq9LucHyyYZ6O22mxnBuQUojuNbRpY2+sYEZsgRvg78cGL6ZYu94VgQ+s4thdwyrSMK
-	 zOp0Okh43WvZDhfmUr1Sg/puAa0W64wjEhwah/YTZYir/MTPgNS9Jk8H8VufWYQdxe/br
-	 YYU5U+u2XI/1KLtVffssLvwiQjUsqfpC+NTBapDe/tKA5rWUkrJqiwo7lylhQcoss7qbf
-	 lu4itrv7YnA67GhpQOuXvUIQHPDf8T/CXl9ssJ55QpWeLJaXsmmN0CzTPb1ThjTJNQQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BvKY6e2X;
-	arc=fail smtp.remote-ip=209.85.214.169
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.83.223.216
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793915610;
+	b=OwtW5sh19jBM3BiXwCMl4js9zphtvuLHcrh8eHggxhSrM63B94g+fI5Pgem2iJLhdCM1
+	 M4+X0lT0RsjnwfhM63W0eErvuT9nrXmvyT/qMKCfQ/Lm1CnJuMX0GPvwqqy/7dnPn9Xqt
+	 CItRyRmpAaW7IJkg5aBOLDxV7zP9ioyzf6vKfENxtlNi0ByLxR9bZ0VuBPABuFCTrAqCx
+	 gyHA5HQynFPDPWybYuxl2DlKUYAGKyyDYFDAEXc7rDw0ScjKXj8EXaj+hx0BqwHZBZr3c
+	 Ae4n30C3cCm4I1COvcN6MSX5gG3BNAMarIXniFji87MHmu3PleFFpO5lEDhlOc2JQPQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793915610;
+	h=DMARC-Filter:X-Sender-Id:Received:Received:X-Sender-Id:X-MC-Relay:
+	 X-MailChannels-SenderId:X-MailChannels-Auth-Id:X-Trade-Whimsical:
+	 X-MC-Loop-Signature:X-MC-Ingress-Time:Received:DKIM-Signature:
+	 X-AuthUser:Received:From:To:Cc:Subject:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Date:
+	 X-CM-Envelope:X-CM-Analysis;
+	bh=AHNmQxajZGbM4aGt/Ao+fSqmi9KKqww7lQcOcOgpAxo=;
+	b=SpjWVvoSnhdI4EV5CMb5bVUNC0T2xX8RupBiMQTb0lj8tlgGVWItSZNz1TYgL6MyGtG6
+	 cUIVY7wJnRvEMzIjtdnkwKkn+AKxUfO8aOoVfyXzn6ldCfCvlIF3gkj964CBDPIIw0VBM
+	 M/SVjBOAqXNjWI8a2KBspdRRiHKPHZQB7cPiDpr/QWt1L1ol1OvWsxwxNobLL4RpTF/Xt
+	 /8tvhi1HUio0o/+TVEW0egFzkUGgxFaKV5Dz7ya1HydjehdyRtSsRCAoYPEMp7pXnKOiW
+	 j2sbqD+UBOeeFL4A+qwnl2oFCkB8nnUvUh0WLljxRh1GPyMJPKtbWzUsWlFPgFJ2CHw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=marsrover.mx;
+	spf=pass smtp.mailfrom=marsrover.mx;
+	dkim=pass header.d=marsrover.mx header.i=@marsrover.mx header.a=rsa-sha256 header.s=hostingermail-a header.b=Iml5lpg4;
+	arc=none smtp.remote-ip=23.83.223.216
+Received: from puffin.cherry.relay.mailchannels.net (puffin.cherry.relay.mailchannels.net [23.83.223.216])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93C6F606D831
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:53:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93C6F606D831
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0395606A328;
+	Thu,  5 Nov 2026 21:53:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0395606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marsrover.mx
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marsrover.mx
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BvKY6e2X
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2ed3f563739so17125ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:53:24 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793915604; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eQgcgDpkeyGRCi8ccLieep2LKjO6lZr33YfS8Exj4yIJTCEUKam7KDQbXRVkfzLr4P
-         HwR07YO8BorK4rbl2+Fxh+oHfr6UfhkEsKeenWchYpO4obv9kVda9nrn+Nn81HK5f+SW
-         6Py5K0nJBCJ89NZKWhT3dQ34oLJdOr03UvA79e2dHjc+ZheycP3OzVj7TrHGd/Pq7oni
-         xc4DTZpCDRp3J0Bj3hq0BUFVTB2vyiNA9JHQ6kddZwpHYWz+5+VRRQl0dgjMJeWwr8e3
-         47wCITCfAJkmG6fAoXhItGRs06gACyqfYsrsSIiVcXWfoEvPYWf2yQhC4r4z40gP6I+V
-         8Lfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=T1Goy7xxYTpLl6iI5Cf/SMnYKLYp7F0i7eE5R2yNQC8=;
-        fh=i4oUNFoFZU/7hJhthxG7yeGtakLbokoeeOh9Rz4jSfY=;
-        b=raiJiBaL1Ire1pz09JmTn4KplzJvsB2LkZBLEAABEUufm1CS0H2ZEFNDdKTepQoWX5
-         PbDJ97FSGPa12lLSSM0zL744kW5N3ZbfppOVCB6SwmvmrxsCMC/saZWj8+vtkCPUNZaf
-         KEfraO4qdXLtI1eSFxoZjnLR7HioYv3bA9rTlDvWNFiF/u3MmhQ9niqhhce8VAaVHsQL
-         38si/OYN1gfLuPUnsYZORJ+W0otS5mn2hN/v/7HdVFiJeRCNph70yYa7UPQrfLEwnLil
-         /CthY3eW31Q1noz7kYr+Dz0zbteriMXdA14o18fma8igefMR45t332RA2jS8J4qJbe9O
-         3EBA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793915604; x=1794520404; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=T1Goy7xxYTpLl6iI5Cf/SMnYKLYp7F0i7eE5R2yNQC8=;
-        b=BvKY6e2Xp6Ln5F/x7uNfqdzKgtfxq1IkJFx3pmCOe8AAZ8lEZ/Vyof2i0EbXWI2Kev
-         o0vJTBuh5IlEZrN+FoMHcWBASIlx70c9/Adv6yKBmkGLu8NvECmBYo5BWv+20zsjaZTP
-         BTJWvsdkA+A89jdxh3/XR6JKPs2jlvstBhYvKqkg694XZwu0UlHnD2bZPsyJlMu/FqI2
-         5rVfmYKb5EK8qZa8eRjwlef2Q/zF4LV+SdOUFeg/3SfNdSqzrjKqO+STiWOuSDJ+5YbJ
-         mpmnN23JttD9xkcrQy5mN+cuuJMA0UZNHbYctSe8k729RY9Dj4GCfWEXEAue11TzHaPK
-         /Ifw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793915604; x=1794520404;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=T1Goy7xxYTpLl6iI5Cf/SMnYKLYp7F0i7eE5R2yNQC8=;
-        b=XpK2JIgMSevK6mCHdRbz3zfDNO4LPB+jFxnYw9lJakD/KheIoVzQDUHEzUZ+gB9zVD
-         qh9Uzut/YfnG9E8tNJ9KGXgvDLwYF9kvCzfQEwBd8wkBiwpyIqroTQjwVQcGBgbFTIB1
-         VnVhyhlarKE8c1yCKHwoEaNLbO18qxy9S+DrZUYxaORn8lfXDnI1jDJezSq6oV0V/UcA
-         Clyx5TPjhW7MnFv29AFJaM+dNx9FLpMggSniz0vr5kZIezIKm4X8WS8DVJk9HJaLDJ/y
-         JpZbmrbh96d4IdrJVDpHkSrwx4csrLEcQC5mQKLlNhDV/eNRs8kK/wnoCCxB6ZI1wfBb
-         BiwQ==
-X-Forwarded-Encrypted: i=1; AKwUvByYYsBTBwTZ7q7ndGzADH2pSUZE2Q1pF9QTQ1dL937dQHXKSF8T+Ut2/PzcA2CIc9Yl8Vq715MWvK3M2k4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+1kE6QtDTyom+aELgSmU/e86xNasn3QTIn60Zmwm5RQE85P0Yq
-	hpcUOWfyFW/LrOQOexPbN/I31kgi9Ne9nUb0jssWjVzfXMB4UcLdOH0EvgprByBUBEQ0WLMLXU6
-	cA0z30wnVM4aJ2k2SxMKdC3MpATtKtSDPc8nMiWOO
-X-Gm-Gg: AYBFou3UNOzOq95DhAbKd+zvBEjzg5M6W5CUVsaHgim5LmB8r9LgjGAW/VZmzz8fpq4
-	zy3nHCfw2GtxI4I++h7TlIyKH9hKPqwyUWYGyf/uEcGji2enE41ITaElJQesaIc4eiVfkk3wcfd
-	W5midIuQtyeeqFICZFyVFqF+iMq5zspeDdxGAmN1Pk9yzuQZ8elXNmOQYZS8LEYo4/37p+goM/H
-	slR9pgLeYUidY9MECk4As/Dc2V/wsPUvKp/Vp9SFNjgdUT0X6RNCWW6apkIyW3HrbXFQ/KYGlwR
-	3WdXx5FoaDvGYvDNthvieTAb6PwDzODRJh8awjPaQaTiyLHX0R+uJoZXC6jbZyuz/JdOVKCIfsZ
-	TgVBr7xEJBM0BQbijcly67kkmeR/7BregAd2vwM6XhUtSae1O/40lQVjmVQJuW8VMWvuhNJKKlw
-	jq3qCM13qDBq9o11J/LjsYTQ==
-X-Received: by 2002:a17:903:2984:b0:2ea:1fa0:8068 with SMTP id
- d9443c01a7336-2ed45dc8242mr607525ad.16.1793915603342; Thu, 05 Nov 2026
- 13:53:23 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=marsrover.mx header.i=@marsrover.mx header.a=rsa-sha256 header.s=hostingermail-a header.b=Iml5lpg4
+X-Sender-Id: hostingeremail|x-authuser|rodrigo.rea@marsrover.mx
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id 6DE644E233A;
+	Thu, 05 Nov 2026 21:53:23 +0000 (UTC)
+Received: from fr-int-smtpout22.hostinger.io (trex-green-2.trex.outbound.svc.cluster.local [100.99.176.144])
+	(Authenticated sender: hostingeremail)
+	by relay.mailchannels.net (Postfix) with ESMTPA id 917C14E19C6;
+	Thu, 05 Nov 2026 21:53:21 +0000 (UTC)
+X-Sender-Id: hostingeremail|x-authuser|rodrigo.rea@marsrover.mx
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: hostingeremail|x-authuser|rodrigo.rea@marsrover.mx
+X-MailChannels-Auth-Id: hostingeremail
+X-Trade-Whimsical: 68e1e6f375efd16d_1793915603308_3191682949
+X-MC-Loop-Signature: 1793915603308:3338776904
+X-MC-Ingress-Time: 1793915603308
+Received: from fr-int-smtpout22.hostinger.io (fr-int-smtpout22.hostinger.io
+ [148.222.54.26])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.99.176.144 (trex/8.0.2);
+	Thu, 05 Nov 2026 21:53:23 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marsrover.mx;
+	s=hostingermail-a; t=1793915599;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AHNmQxajZGbM4aGt/Ao+fSqmi9KKqww7lQcOcOgpAxo=;
+	b=Iml5lpg40Wz2evqyjOlJr4rN+P9tHAqkutjWpMVsvzsWfla83LnSy17C3nheK7N8Cf61V+
+	cFAmmLSC/i5Hh+nbPqtpsyQSk5vRrMkUKrm9cMXd395H6IzHPyaI074xd41gs/Y/878sc9
+	fltM4bIIWVEcd5SK1QmZnY3KALVLEVbZpMXDzgbmxr/dFkTFI5l7M5pDwkxct1x9ACvbAP
+	ZIFdj8xe4sRNKXexqK2x88sGdZCB8xB7eIvsHKWQwJrjJBgKxiY6wAqp+KMe/Jf0sL9inf
+	PL3iiT5bG+NRnBPcX7r6JZTqskVyKpIfhPgta1BYCfyjDvNNEcP9xrNo246P+Q==
+X-AuthUser: rodrigo.rea@marsrover.mx
+Received: from 0-0 (unknown [IPv6:2806:103e:32:db7c:5585:b158:b565:ff3c])
+	(Authenticated sender: rodrigo.rea@marsrover.mx)
+	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4jLGJt0SMQzyZv;
+	Thu,  5 Nov 2026 21:53:17 +0000 (UTC)
+From: Rodrigo Rea <rodrigo.rea@marsrover.mx>
+To: alexandre.belloni@bootlin.com
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	alexander.stein@ew.tq-group.com,
+	linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	daniel.aguirre@nxp.com,
+	rodrigo.rea@nxp.com
+Subject: [PATCH 2/2] rtc: pcf85063: Add support for NXP PCA85074A
+Message-ID: <20261105215204.2446733-3-rodrigo.rea@marsrover.mx>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261105215204.2446733-1-rodrigo.rea@marsrover.mx>
+References: <20261105215204.2446733-1-rodrigo.rea@marsrover.mx>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,61 +98,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-work-procfs-drivers-v2-0-245e54e87116@kernel.org> <20261104-work-procfs-drivers-v2-22-245e54e87116@kernel.org>
-In-Reply-To: <20261104-work-procfs-drivers-v2-22-245e54e87116@kernel.org>
-From: Jann Horn <jannh@google.com>
-Date: Thu, 5 Nov 2026 22:52:46 +0100
-X-Gm-Features: AclHuK--g15JMQpiUrOd3ScDdiWIvqDdktQBZHdY7lnmUTwptYJN0x-mP6LviEE
-Message-ID: <CAG48ez0CTxGiZ-q73k8bNhoBTW7xZfWwARCKmmM-WKr6GNBbeQ@mail.gmail.com>
-Subject: Re: [PATCH RESEND v2 22/26] ALSA: info: let procfs own the seq_file
- of text entries
-To: Christian Brauner <brauner@kernel.org>
-Cc: Josef Bacik <josef@toxicpanda.com>, Al Viro <viro@zeniv.linux.org.uk>, 
-	Jan Kara <jack@suse.cz>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.de>, 
-	linux-fsdevel@vger.kernel.org, linux-sound@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Date: Thu,  5 Nov 2026 21:53:17 +0000 (UTC)
+X-CM-Envelope: MS4xfHwb/EVfs9crIhiQYUA15plBJqAXnP6LTePNdgsIyI0xwayu0ti6c5p6tKsMagShYZxPFhDiNkpFpA55VZmfXUVeHUaO1Tb5xZFJmUL/kk5U8Zmq9YOj LqmbZpu+bJo00O1HbsQIuAkMWtLyWT0MkwFSKTYTVxyepvglcXO//IF6NnbKuheFSRaIbFw5oS6H2lHVeq9T42ioUIDL4KNEYvAjJfycqAMPaCqjxA6qL3/S W27fC2FLdeZ0U3BqLdgFB+hdL1ToYvgAcwyBQeeOH3qZupze73tVjfjkjhPm1LWdtdLfzuvdQSSuui0X7ZSkXL3Z/vMMQDRu6yE1iSk67R0pm5afzW4Gxn7q r94I/nuomqwnZWGXmGNsjI/zLTZyWjl0ALLF2YNCjoQnXXlB+sDbij6eTpHd/pvACrAC/Ii8gJsC2/ZFVNUGaf82v81l3vFxBKEVLc24RydPHGuhO6YcI2Py SE0aItiSmXvtOam6t2gp7OufxNgtXnDPQ9eB01cnSpWlC0MwEI1fJ9XemFIp8d/sECBAEGL/G92tuX+igpLM3+RXnzM2OlnPMWQk5g==
+X-CM-Analysis: v=2.4 cv=UdEDS7SN c=1 sm=1 tr=0 ts=6aecfacf a=IBQtBY+zZK3LDN2rWOxbiA==:617 a=xqWC_Br6kY4A:10 a=8AirrxEcAAAA:8 a=0WcUORTWb5vEv_qsYz8A:9 a=ST-jHhOKWsTCqRlWije3:22
 
-On Wed, Nov 4, 2026 at 8:47=E2=80=AFPM Christian Brauner <brauner@kernel.or=
-g> wrote:
-> Declare the show function and let procfs open and free the seq_file.
-> ->proc_open() only sets up the private data and preallocates the buffer
-> now and ->proc_release() no longer releases the seq_file. Reading an
-> entry then no longer holds up its removal when the card goes away.
-[...]
-> +                       goto error;
-> +       }
-> +       m->private =3D data;
->         return 0;
->
->   error:
-> @@ -387,7 +388,6 @@ static int snd_info_text_entry_release(struct inode *=
-inode, struct file *file)
->         if (data->wbuffer && entry->c.text.write)
->                 entry->c.text.write(entry, data->wbuffer);
->
-> -       single_release(inode, file);
->         kfree(data->rbuffer);
->         if (data->wbuffer) {
->                 kvfree(data->wbuffer->buffer);
-> @@ -401,11 +401,10 @@ static int snd_info_text_entry_release(struct inode=
- *inode, struct file *file)
->
->  static const struct proc_ops snd_info_text_entry_ops =3D
->  {
-> +       .proc_show      =3D snd_info_seq_show,
->         .proc_open      =3D snd_info_text_entry_open,
->         .proc_release   =3D snd_info_text_entry_release,
->         .proc_write     =3D snd_info_text_entry_write,
-> -       .proc_lseek     =3D seq_lseek,
-> -       .proc_read      =3D seq_read,
->  };
+From: Rodrigo Rea <rodrigo.rea@nxp.com>
 
-Is this safe? Looking at the work.procfs.cleanup tree, the
-proc_release handler (snd_info_text_entry_release()) can call
-`entry->c.text.write(entry, data->wbuffer)`, and the only kind of
-reference dropped by snd_info_text_entry_release() is a module
-reference.
+The PCA85074A uses the same register map as the PCA85073A, which
+already uses the PCF85063A configuration. Add I2C and OF match entries
+that reuse config_pcf85063a for the PCA85074A as well.
 
-I think the entry could concurrently get freed by snd_info_free_entry()?
+Tested on i.MX91S and i.MX93 platforms.
+
+Link: https://www.nxp.com/docs/en/data-sheet/PCA85074A.pdf
+
+Signed-off-by: Rodrigo Rea <rodrigo.rea@nxp.com>
+---
+ drivers/rtc/rtc-pcf85063.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/rtc/rtc-pcf85063.c b/drivers/rtc/rtc-pcf85063.c
+index 32952e73f..64f106e92 100644
+--- a/drivers/rtc/rtc-pcf85063.c
++++ b/drivers/rtc/rtc-pcf85063.c
+@@ -763,6 +763,7 @@ static const struct pcf85063_config config_rv8263 = {
+ 
+ static const struct i2c_device_id pcf85063_ids[] = {
+ 	{ .name = "pca85073a", .driver_data = (kernel_ulong_t)&config_pcf85063a },
++	{ .name = "pca85074a", .driver_data = (kernel_ulong_t)&config_pcf85063a },
+ 	{ .name = "pcf85063", .driver_data = (kernel_ulong_t)&config_pcf85063 },
+ 	{ .name = "pcf85063tp", .driver_data = (kernel_ulong_t)&config_pcf85063tp },
+ 	{ .name = "pcf85063a", .driver_data = (kernel_ulong_t)&config_pcf85063a },
+@@ -774,6 +775,7 @@ MODULE_DEVICE_TABLE(i2c, pcf85063_ids);
+ #ifdef CONFIG_OF
+ static const struct of_device_id pcf85063_of_match[] = {
+ 	{ .compatible = "nxp,pca85073a", .data = &config_pcf85063a },
++	{ .compatible = "nxp,pca85074a", .data = &config_pcf85063a },
+ 	{ .compatible = "nxp,pcf85063", .data = &config_pcf85063 },
+ 	{ .compatible = "nxp,pcf85063tp", .data = &config_pcf85063tp },
+ 	{ .compatible = "nxp,pcf85063a", .data = &config_pcf85063a },
+-- 
+2.56.0
+
