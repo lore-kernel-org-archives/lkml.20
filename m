@@ -1,145 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.14
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793898369;
-	b=cU/s/u4lUVnztRpFEtqHTuvws8akEoxdZ5yRuUejQl0CqgLz03FIWPOLOvp4w9wDusMR
-	 E0pnJ8yk4vkvtGUoqDpgYExjvwKWtrY5nKkhRn1MFlQ/mCApZRxoUUSsmeVmc4JpbW3WH
-	 cueICyR26W6miCy/I9H1CB7mHTag/MT0AB2kaaaQJgSiQNf40+scj74a3thnuNwqPqvhx
-	 t1nVybZHZFFHx0JT6ob66YnZltamWEe46+SMHaDMuFuOS+pF3bo5SafWes6zfiBLvtKvs
-	 OwNLKtOmKxWkQXNbZRuSeQL978ITBEw/f8dp8Dpzy0TkNxQA7TgnZ4SZCewLRjCI1HA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793898369;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
-	 References:From:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=lxxP4ADc/MXR9e08ohQYW63ecmgXboiyS/UeeV/TdWI=;
-	b=IRB7vgGXTwn/GOL/TQy7DbCV50iKhnEPLnot+isksPCOFz18DWAC2Ww0WlhpUI29fkeD
-	 vd069H1MVnKH/1N7gVAKiMwKr6AoIIdw+/IV6ivg5t2FQBn1hdrP5XEWiqNWjXv33z12q
-	 shITmHsK7He1o++MntqG7vIuxr9MH7XwwG5qW6YSTc3d/C2bwH12V8xvfaXYnV9ZLtz85
-	 bul23eE1QlCTc3u+oF8jr/ZQS8ANMB3BUWYTgXh2L7VSJ4D4s/IOu7n+YdQ5/bFK7EyLN
-	 xgpMz2vnkILlA8ZdluuBi9hhtlLnJX+WwR5V32ERjcGxwice0a+U9SgUIvcirMfxzJQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CX72fcaX;
-	arc=fail smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.63.66.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793898391;
+	b=dH8KlvQimYrznnQZDRxvXDxbMMgkwXFV4rYqllAi6yfC7uYG3QmbNPcJMxOHdVUVi+Ep
+	 cF0bF4c4duzHO6NE0Yuc/ZYgFVtdlQEr4zpxf3lsIpgEqebIj/gTydKrBOorHwoEWxTDb
+	 4xr4xipydMxbU7Nk+dh5oZFqFdCIP8OLfsFKghiwPdFp2rL6rDrDfIl8Y7DcUzvI1Er7w
+	 AdI76tQUM+vvIqLvYjPzfR94ysu6qdhdr0sWcqn/hqBN1CBRVqRHfzpYE3b3FtihOo7hh
+	 XVV1evU1Qt2oZHfhC48i9/OJS5AR0cPi8tO1NfEtjfIBvn8ABiDpWvghgzJntAjXwvg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793898391;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=YOVRkJDbL+kzQtBbxk8i8tvbE97kKOYz5DmVXXDV7YY=;
+	b=AlcSHHCFO2EDoWL6HjsQZmNCcrN72y6SNmCyk4rHUzl1cEo/XL4LYlwT1wTNi37zOQ44
+	 ZRkcO/eNW2cUiE0HLVH4w5q4ccPxd9AobCFrTUN8lNL4c1WjSW5HipIFuF4SdwYLBCWT9
+	 sB4EcF/FroQXt8YIrOjgU4FJnnlwmox8X1dTVVJP3E540bBlKsIdTzNc9xbiPCAUbPsX1
+	 VFOJ5zogldJZ2BKX0bHlMeF0zLVTDxPokJfAPVst2Qo40udNo0fzCVEqT9aeq7mJQNaDp
+	 eMAlKxbeGfom8d6TM0Of+ISYnAtU1DuhJ6ZZDYbFuGlsuOjJJlu+fp+k+Ubc5miekpQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=hallyn.com;
+	spf=pass smtp.mailfrom=hallyn.com;
+	dkim=pass header.d=hallyn.com header.i=@hallyn.com header.a=rsa-sha256 header.s=mail header.b=sL+qmzn+;
+	arc=none smtp.remote-ip=178.63.66.53
+Received: from mail.hallyn.com (mail.hallyn.com [178.63.66.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5654606A331;
-	Thu,  5 Nov 2026 17:06:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5654606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2204606A329;
+	Thu,  5 Nov 2026 17:06:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2204606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hallyn.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CX72fcaX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793898367; x=1825434367;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=17URKYTxSC3SYaBfBATJnPC41XN0sToQxf/+gHQdMBc=;
-  b=CX72fcaXYOPnDFOkRayxjzeaHX1FRuZPyZxdSsBERtKo1xEWgloig/DE
-   MaVvGN66ucUClaK8CTno1EBjhheGmwrGPaTx4LbbnMXShI1WJ/zyY538H
-   srmVo+z+sna1w29SIL1cw+v+JzWLAlap227z4W8wpe7bGgRMCQ+/Kdpzm
-   7RtVZYT723H0R3zD3X9XACZcsLH947HEg+2oZKZiJnRzg52SWFW4GkKfr
-   1wcT+qoN4tHxRZIOnGY6O9Pyp7UJTvxM9TfLgIft4uNkExJZwgLjT3083
-   u07tTZs+8mfc3a0QG+xc1IrjS+PyBP003ackVd3/YTCfBpC5im5R7tFEC
-   w==;
-X-CSE-ConnectionGUID: wqdTNHX8TVmGlOhWvCKlAg==
-X-CSE-MsgGUID: OrMU7RmtRICWgYeP9E+01A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2588641"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2588641"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 09:06:00 -0800
-X-CSE-ConnectionGUID: ZuffTt1uQ4u9ZCQcNfniDg==
-X-CSE-MsgGUID: VfN1FDHgRAuqQR6fGxMJlg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7209139"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 09:06:00 -0800
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 5 Nov 2026 09:05:59 -0800
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Thu, 5 Nov 2026 09:05:59 -0800
-Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.33) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 5 Nov 2026 09:05:59 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mhpQlHOjGYy4hKMYCXM5Vm+I2XQnPkevi8yijeHqZ2l4M26e5PtFU2hsyty9J36acJlM+P2ToSgQul6kmZtRR1nebrNeDU6gJEGgVk9r6wrAP7FucV1uRpx2hW/PMEQCNrK3WFl2nfo7DK0hZfYwJQHCiF6LLLdjHhnqSxEIQO15MYb/iwAizfHD3fsRp36gQjWVjGTvWW7R3R+I8GJ1LA55e1WAjgJcHrTiX/r18XekEZPCVxIQVAZRDD0tC9Ap6Omcw0zQiP2Jac+lDh4490b1cq9+5BeDOsv8CfaSFMA2/8Kd6DCLyTQHeC/O6y2R43cPNO/rO8fA5qnUQdCXDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lxxP4ADc/MXR9e08ohQYW63ecmgXboiyS/UeeV/TdWI=;
- b=VFufalnj2LfWeNzL49fTcbllt80LFcnvskDlS0EbnjW7VjeoXUQYEAaefiv0V8WDfpGUjfupN6ab5eW5vaIvp6xKuSB8uWeeQcoyTNIJ0CjhmRv1fltOdSoHEhyFTpikxx8n4ZTmNd8hFlgJWjx5aHMlH6XLlnFvUIt/En/XXVHvs1aQ+BW9TtWUI/FKhrW9ZTYbFOgCjXeVfo/cUQExpGQe5uTgbu14YrcMC6vpLJ61imrMYe217XoCH6/bWeQsb/D6vYFG3Kkj5hjrsFsSRESm5gMk07QXftqoXWnM7EJbbUaQ0neeLMdcaYZZ9oyLOzn3QCKtTjcZmVBcQmXmFg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB7381.namprd11.prod.outlook.com (2603:10b6:8:134::14)
- by SA2PR11MB5082.namprd11.prod.outlook.com (2603:10b6:806:115::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 17:05:57 +0000
-Received: from DS0PR11MB7381.namprd11.prod.outlook.com
- ([fe80::4c39:dfe6:d6dc:6f58]) by DS0PR11MB7381.namprd11.prod.outlook.com
- ([fe80::4c39:dfe6:d6dc:6f58%6]) with mapi id 15.21.0569.011; Thu, 5 Nov 2026
- 17:05:56 +0000
-Message-ID: <3427da31-af9c-41a7-81b0-ddc1f7c058e9@intel.com>
-Date: Thu, 5 Nov 2026 09:05:55 -0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH iwl-net 1/2] ice: ptp: serialize E825 PHY timer start with
- PTP lock and incval
-To: "Nitka, Grzegorz" <grzegorz.nitka@intel.com>, Simon Horman
-	<horms@kernel.org>
-CC: "intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"richardcochran@gmail.com" <richardcochran@gmail.com>,
-	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "Kitszel, Przemyslaw"
-	<przemyslaw.kitszel@intel.com>, "Nguyen, Anthony L"
-	<anthony.l.nguyen@intel.com>, "Kubalewski, Arkadiusz"
-	<arkadiusz.kubalewski@intel.com>, "davem@davemloft.net"
-	<davem@davemloft.net>, "edumazet@google.com" <edumazet@google.com>,
-	"Machnikowski, Maciej" <maciej.machnikowski@intel.com>, "Neustadter, Marc"
-	<marc.neustadter@intel.com>, "Temerkhanov, Sergey"
-	<sergey.temerkhanov@intel.com>, "Olech, Milena" <milena.olech@intel.com>
-References: <20260925222824.270640-1-grzegorz.nitka@intel.com>
- <20260925222824.270640-2-grzegorz.nitka@intel.com>
- <20260926170543.GA13925@horms.kernel.org>
- <a71ec0bd-bbce-4801-b79e-8b7d648aba6c@intel.com>
- <IA1PR11MB6219BE8C90BA9A3BC9E2A9F192772@IA1PR11MB6219.namprd11.prod.outlook.com>
-From: Jacob Keller <jacob.e.keller@intel.com>
-Content-Language: en-US
-In-Reply-To: <IA1PR11MB6219BE8C90BA9A3BC9E2A9F192772@IA1PR11MB6219.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR04CA0128.namprd04.prod.outlook.com
- (2603:10b6:303:84::13) To DS0PR11MB7381.namprd11.prod.outlook.com
- (2603:10b6:8:134::14)
+	dkim=pass (2048-bit key, unprotected) header.d=hallyn.com header.i=@hallyn.com header.a=rsa-sha256 header.s=mail header.b=sL+qmzn+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=hallyn.com; s=mail;
+	t=1793898387; bh=7u/njVwV0biwoV3Ut4NN7XxBqu3R3HWWSpzR7UP47xw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=sL+qmzn+cVUIOd08uEts2SPGAqOQKIrscPyHdhW3OAulii9vX1o5aiJBNenNR+rjq
+	 Dy9k4/p/1w1jSBifF+BCvXvD5zm8ttyB5CrarKpxL7lJMOnGQL+smmVrXLGWJtKday
+	 wa8GvrVMpG7YTaiZZhuk+kmfZFasn7GsUMlH7fOm+udukUbdO9CwVVkQpJ7y9TG0Kl
+	 Hl28IVXBJpF7GnvJ1YctHBqIihrx5LUbf5I/l434aCnMwzlL+TcpoY4Q+JmBz5Ihjj
+	 oI2O6pwa55+xscmQClQZPoIzSXfxc2Nl0/T//1y8qVYbS42DyWaQ7mw5xwHY6u0Tj5
+	 +GUfipWOFGn1w==
+Received: by mail.hallyn.com (Postfix, from userid 1001)
+	id 0710A1A0B; Thu,  5 Nov 2026 11:06:27 -0600 (CST)
+Date: Thu, 5 Nov 2026 11:06:26 -0600
+From: "Serge E. Hallyn" <serge@hallyn.com>
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: Christian Brauner <brauner@kernel.org>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Andrew Halaney <andrew@amutable.com>,
+	Jeremy Bingham <jbingham@gmail.com>,
+	Tahera Fahimi <taherafahimi@linux.microsoft.com>,
+	Serge Hallyn <sergeh@kernel.org>, linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v3 01/90] Documentation: add a design document for
+ cells
+Message-ID: <auy3kgm1YytennDE@hallyn.com>
+References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
+ <20261105-b4-cells-v3-1-bc9095937a84@toxicpanda.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -149,162 +68,188 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB7381:EE_|SA2PR11MB5082:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0a7661cd-c5c8-4e7c-4ba4-08df3b5f0ece
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|11063799006|4143699003|56012099006|261009223027099003|261022105027099003|261022075727099003|261021123027099003|261021121427099003|261102123227099003|261026140227099003|261026121527099003|261028144727099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: lNmfO8FWX3OUMu2/PNWLt0qn25XyZnlTciDC8HdHLsU0BlUzM/b/A/csT4xhS33frAaJHHEVvV1epsx8HlKN0ouzV0BkeLvtAEvUjhrh53IiVEFlXIUpngt+zqWIEl93C2pcbm5MbYIBoRypONPNePBiBZtKM/2BlzzDaJCI2z2YNww3LFRqQtt7OfGsVzOx7dsh5famGX/uVWEOj95Fq5x9IZ8R7F0wQvx4DEacriCHxAM52EwY1wkiOUM3NBdLkU5H4kbz2Izddg0pLjr3znorwG/XbRkWFuQhnR/kPZSynj7gMluFUkG1BuStiZlrxrnV19aNlT3bFYlO79fIrUUryn4l9/JsAsjOHDryaXaLi8KbgRBum9uZkMsl+sf2DzUWpVcOnyJSGKk/fg/dh03ERYLwKFTJRE3gUb7zzVJ37gA9XXYvaCjb4jAZtXihrHi/N6HOlSajnWYwOq05NH/KQkcAZSWXNvkf0fjn9hZ/6Qyka8Ii/VZTLs8Q+5KaXMeumaj5hFr9VrcFkC9auZ8xQQatQWvy3SM8pPNwg63i225EOJ9+eBTyswnT3QB7aB9BqNOBmxkQEzk0zgqmtu4kAeBklX2gMt956TPYJz6OM7AWE1FL/PMsSY81JxuTBjZp0GD0h503XsTeMNRwaATp+kU8x65FGyEY9Q62K+E=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB7381.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(11063799006)(4143699003)(56012099006)(261009223027099003)(261022105027099003)(261022075727099003)(261021123027099003)(261021121427099003)(261102123227099003)(261026140227099003)(261026121527099003)(261028144727099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MTNYZjdBM1ErRVlSWGc5aTl1VHI4QTBZcWkvclljM0oydE5UZndySWRwTnMv?=
- =?utf-8?B?aDFXL3pUdlZMYlQvRWd6VTFWSm8rTWhYSE5aOFFkOXFhUUw0dU1aV0hsREFY?=
- =?utf-8?B?elZTenB5SUcxNWhKeFcxQzJDZzdBOVhKZHNwWUFJRlFYYXJ6YlplaUowMmFr?=
- =?utf-8?B?Qm5IQm11M3kxUXdOWjlHS2JqZ2daNWhkS1R4UUpLRkptUDd0Z1l5OWg4VWdw?=
- =?utf-8?B?WmppbElKOTVWZThmVDl5ckY0RHZNZ0FTd1hFQlpoSEhzWndhSmNSNnVQUmpV?=
- =?utf-8?B?c3IxVjFHSi9Fb0hwNkhpMTFZejdzQm9LcTlPcFVQa1pLWFJxM2o2cVJtaXhU?=
- =?utf-8?B?U0FRMStBYytKS2hURXZDVDRSajlDV2xxRXg0THZTaVRrU0Zqc3hleGlmWVUz?=
- =?utf-8?B?YTZnMHJsZ092VmFPUDFZWkxBaDFhbm92bUl3ZEQxS1I3VnNBMUdpNHEvVUhn?=
- =?utf-8?B?bUlPYnFDTlJIS1VYcXFTcU1oaUJhRHM2cytnZWVpTlRYeFNUTlFDOTFrMUhX?=
- =?utf-8?B?K0ZVdzV2V05KTU1LVjRjb1ZjandUTFo0c1dQYmVtdDlxNnNEQ0trZk16RGhQ?=
- =?utf-8?B?ZkM0WERsL0w2eStqdVdHelFZMnlrK2xaa1BhVCtRd1pLeDZYUWpHMUJZZzE1?=
- =?utf-8?B?bzZIeEVLU3RFTGhlMThJa285YnQ2dkY4Y1llOUM4MDJEYXBDMjltcVcwd1E0?=
- =?utf-8?B?UURSQVhpaUREVHJnVjZIVHlFMHN5QmtrM25SU2IzNXE2TTZhRU4xOURxbUln?=
- =?utf-8?B?MmFMM01FWnpkSlBUZEZodi9ZVk9RcEtGZlBGeHRaK0pkWWQ3dzNTcUNPcDQ5?=
- =?utf-8?B?czNabDdXQTIvamRCQ0tEWm8rdjgyYWhSeWs0b2piR2pBeUEvb2h0RUNHOXVP?=
- =?utf-8?B?djVoM3o4WEZkNzBRY3I1MDJBUTFYWXlzT3BaRVZ2RkcwMy82NTY2dldOWU1P?=
- =?utf-8?B?cDdsbTlIWS8xYUhaNkdMQjdlVFhRTzJRVlR3TWUyc2FxbGx5V1k1aDNydkRl?=
- =?utf-8?B?dllCMzNrZzMrL001bkU5eUpEN0E1M2ZRSzFtR1RoRHF3MDRhajFsa082NG96?=
- =?utf-8?B?MFRYTTU2T1VNOHVEVC9MK1hoQkoxUTRFNit4VFJwUVFRT2RKQm9ZdWVjRENZ?=
- =?utf-8?B?Sy9nTVRmNy9EZ1Y4TEtwYVZvSkhtZHFZTTJyNzZEMEJTeUNYbUpGM29KdFYr?=
- =?utf-8?B?Rm9GdHgzNnRBY20yK0RXeFFnNzA1R1M0Mkc5eWgzemV2TWl3ZjkxS1BLeThN?=
- =?utf-8?B?dGRYV2ZBcysyRkNtRnZoNEQrRkpSQklPRVVjV2sxRW1OdEFOYnppaGhFWVNS?=
- =?utf-8?B?bloxWXZaSXd5RVBSS2NGTzlRZW42QjR2NFU2L1B6dzFnT1RZQ3VlSUNxSGls?=
- =?utf-8?B?WGxoNHZPUFJiYzhzVzVFR0ZIallkZ1JCd0hueVBOQkJKUytkeGx1MS9pSW1F?=
- =?utf-8?B?ckhoa2QzUVFRZXJQSVJteVRnOGEwZzQ0WUJpemV6V3lxYXhYZTROZFBhWGpa?=
- =?utf-8?B?QVJacVdPTlFnem9zd3YxOWVjQXF1a1BYQzMvUzVObzAwbmpVL0NYUVRwV1JC?=
- =?utf-8?B?Y1pVckpDYncxcElmV2xIVzBDUktyZDRZdE5CYW1EaTRPR29GVGZkVTRSc0JM?=
- =?utf-8?B?eFRNNEVEUHJGbEhwR1lWcUJqRy9kamwzQnJTdzBhb2YvdXdweTRVUXhJMjBW?=
- =?utf-8?B?T3JqTnVSV1dZaFUvbDFVQXB3Zk9xQ2pPNk45cUluN3RzaW1vbGx1RDk5NE9I?=
- =?utf-8?B?SFh2ZStXRmlJeVJ2QlNGWGQ4dGRGbVNFcG41ZEZsckZwMUtJNGtHZitCOWRs?=
- =?utf-8?B?ZlhtT2tiNG00czNEM1haTUl0RVpWazdLa0NVbjQzZ3VIWFZ6MDVsSmNsaVcy?=
- =?utf-8?B?MnZzcUh6VndjdGVnNzNITWNTWnZ0VHlPclZQREF5eWR6aW5COFlObDBTM2Vu?=
- =?utf-8?B?UklyOFZ5SVlTc3Vyd2dMN2dNZEFiV3pjcDF0THF1UVRXSkwvNUZmZEl5MXp3?=
- =?utf-8?B?WlRZVExQQ04rZWZqc1Q3ZkxJNmpFZWEzR1c3VUxWSFU3ZS9YYjRPcVlJVy92?=
- =?utf-8?B?UkFxQjhEZXp2K2p6dCtFeEZsMjVEdk8rK0ZDMTVtdFIyc2tNR1ZFMnBuMWZI?=
- =?utf-8?B?Qys5OEVNQUtMNXIrci9xSkZrbFF6MkNoYmJEUjV4YnBrbE1jeEp1TjgzcHNP?=
- =?utf-8?B?R0Z6U1FzQUJUaFkzVXdiRE9BbDYrNW9XZ0N4Sll2SC9aYXBBanhBN0xXZ3Vx?=
- =?utf-8?B?WU0vS3E1bzR5M2N1UHAvRWRuYWd5UWhZbVVSaERxWW5kNEZGMGtlaXVNYTdz?=
- =?utf-8?B?OUI5akNjKzVpM3k2cll5Zy8rTFF2ZjV5eFJOSGtnNE04amFaNUI1TlJPNGly?=
- =?utf-8?Q?AmojV+nfkpxVhtaQ=3D?=
-X-Exchange-RoutingPolicyChecked: Vex4jh0e+xPyR1OjSe8pcOp04w1bJCXA+PyAkULV9NVBpWTpI6kJWqVRKesjr+jpLYkgFzaWKuo6dByjv8il6vHEm/WTivIGKz4tEOUm+ewX5eoK8BDA+3lucfYS57cFmnDQVcGEhUWG/2hR4GAaiy+gpwIOdqzszk+ZlOU3W2bmjcUtVcKOlGwvuTBRXLsVQuuZt7bb73+lPaDhm1gzn6NDdEIZxhBypldZO2tdXH9rFTmC95XDk6XfSIImT9gt3Nhh3xrzzO6m00p65/STEQS2MDf8uiSqk9vMCpSnKxgi04nMtxnQ+YCF38htDBQwojdx1GDQGI5QWSPxz97pCQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0a7661cd-c5c8-4e7c-4ba4-08df3b5f0ece
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7381.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 17:05:56.8282
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lq5wx3g001WS/S9PLjtdCqP/W6RJyuAe1mVgXuX2/chI0MmrD957+nXCvJDNC+M7UOtJgP2DG9NTvTUfLQx4EHMY6C629JP60ywjd+58GC0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR11MB5082
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105-b4-cells-v3-1-bc9095937a84@toxicpanda.com>
 
-On 11/5/2026 5:20 AM, Nitka, Grzegorz wrote:
+On Thu, Nov 05, 2026 at 02:56:52PM +0000, Josef Bacik wrote:
+> A container on Linux is not an object. It is eight kinds of namespace, a
+> cgroup, a seccomp filter and a set of conventions that a runtime holds
+> together. The kernel cannot name the result, kill it as a whole or account
+> for it.
 > 
+> A cell is a container as a single kernel object. A task is born in a cell
+> and never leaves it, and no existing task can enter one. A cell is built
+> from the outside: the builder fills named slots from file descriptors that
+> it holds, seals the cell, and then spawns tasks into it. Holding the
+> cellfd is the authority to do all of that.
 > 
->> -----Original Message-----
->> From: Keller, Jacob E <jacob.e.keller@intel.com>
->> Sent: Thursday, October 22, 2026 9:10 AM
->> To: Simon Horman <horms@kernel.org>; Nitka, Grzegorz
->> <grzegorz.nitka@intel.com>
->> Cc: intel-wired-lan@lists.osuosl.org; netdev@vger.kernel.org; linux-
->> kernel@vger.kernel.org; richardcochran@gmail.com;
->> andrew+netdev@lunn.ch; Kitszel, Przemyslaw
->> <przemyslaw.kitszel@intel.com>; Nguyen, Anthony L
->> <anthony.l.nguyen@intel.com>; Kubalewski, Arkadiusz
->> <arkadiusz.kubalewski@intel.com>; davem@davemloft.net;
->> edumazet@google.com; Machnikowski, Maciej
->> <maciej.machnikowski@intel.com>; Neustadter, Marc
->> <marc.neustadter@intel.com>; Temerkhanov, Sergey
->> <sergey.temerkhanov@intel.com>; Olech, Milena <milena.olech@intel.com>
->> Subject: Re: [PATCH iwl-net 1/2] ice: ptp: serialize E825 PHY timer start with
->> PTP lock and incval
->>
->> On 9/26/2026 10:05 AM, Simon Horman wrote:
->>> On Sat, Sep 26, 2026 at 12:28:23AM +0200, Grzegorz Nitka wrote:
->>>> From: Maciek Machnikowski <maciej.machnikowski@intel.com>
->>>>
->>>> ice_start_phy_timer_eth56g() programmed the PHY increment value and
->>>> performed the PHY-to-PHC phase synchronization in two separate PTP
->>>> semaphore critical sections, and touched the shared source command
->>>> register (GLTSYN_CMD via ice_ptp_src_cmd()) and read the source incval
->>>> before acquiring the semaphore at all.
->>>>
->>>> Because GLTSYN_CMD is a single global register latched for the source
->>>> timer and all PHY ports by GLTSYN_CMD_SYNC, a concurrent adjtime
->> (small
->>>> offset, <= S32_MAX) or adjfine could clobber the source command
->> between
->>>> the incval-init and the phase-sync steps. In the worst case the source
->>>> timer command written by ice_ptp_adj_clock() (ICE_PTP_ADJ_TIME) was
->>>> overwritten by the unlocked ICE_PTP_NOP from
->> ice_start_phy_timer_eth56g(),
->>>> so the adjustment was applied to the PHY ports but not to the PHC. This
->>>> left the E825 PHY clock permanently offset from the PHC, showing up as
->> an
->>>> intermittent clock drift.
->>>>
->>>> Hold the PTP semaphore across the entire start sequence: acquire it
->>>> before the first shared-register access (ice_ptp_src_cmd()), keep it held
->>>> through the incval read, PHY incval init, and the phase synchronization,
->>>> then release it once. Since the hardware semaphore is not recursive, split
->>>> the phase-sync helper into ice_sync_phy_timer_eth56g_unlocked(), which
->>>> assumes the caller already holds the lock, and call it directly from
->>>> ice_start_phy_timer_eth56g(). The locking wrapper is removed as it no
->>>> longer has any callers.
->>>>
->>>> Fixes: 781ff8f2d575 ("ice: ptp: serialize E825 PHY timer start with PTP
->> lock")
->>>> Signed-off-by: Maciek Machnikowski <maciej.machnikowski@intel.com>
->>>> Co-developed-by: Grzegorz Nitka <grzegorz.nitka@intel.com>
->>>> Signed-off-by: Grzegorz Nitka <grzegorz.nitka@intel.com>
->>>> Suggested-by: Marc Neustadter <marc.neustadter@intel.com>
->>>> Reviewed-by: Sergey Temerkhanov <sergey.temerkhanov@intel.com>
->>>> Reviewed-by: Milena Olech <milena.olech@intel.com>
->>>
->>> Reviewed-by: Simon Horman <horms@kernel.org>
->>>
->>>> ---
->>>>  drivers/net/ethernet/intel/ice/ice_ptp_hw.c | 48 +++++++++------------
->>>>  1 file changed, 21 insertions(+), 27 deletions(-)
->>>>
->>>> diff --git a/drivers/net/ethernet/intel/ice/ice_ptp_hw.c
->> b/drivers/net/ethernet/intel/ice/ice_ptp_hw.c
->>>> index 20bd1813650f..d3e4aeb7e496 100644
->>>> --- a/drivers/net/ethernet/intel/ice/ice_ptp_hw.c
->>>> +++ b/drivers/net/ethernet/intel/ice/ice_ptp_hw.c
->>>> @@ -2045,7 +2045,7 @@ static int
->> ice_read_phy_and_phc_time_eth56g(struct ice_hw *hw, u8 port,
->>>>  }
->>>>
->>>>  /**
->>>> - * ice_sync_phy_timer_eth56g - Synchronize the PHY timer with PHC
->> timer
->>>> + * ice_sync_phy_timer_eth56g_unlocked - Synchronize the PHY timer
->> with PHC timer
->>>
->>> nit: I'm not entirely sure renaming the function is warranted.
->>>      But it's your call.
->>>
->>
->> I agree, renaming this is unnecessary, and I think slightly confusing as
->> usually "unlocked" should mean "this will take the lock" while "_locked"
->> means "the caller is already locked.
->>
-> OK and agree. Let's keep the original function name.
-> Thanks!
+> Start the series with the design document. It describes what cells are
+> for, which invariants they uphold, how they are used, and what this
+> implementation does not do yet. The following patches refer to it.
 > 
-I have adjusted the code on dev-queue and I have made a note for Tony to
-double check what we submit uses this name when going to netdev.
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> ---
+>  Documentation/userspace-api/cells.rst | 861 ++++++++++++++++++++++++++++++++++
+>  Documentation/userspace-api/index.rst |   1 +
+>  2 files changed, 862 insertions(+)
+> 
+> diff --git a/Documentation/userspace-api/cells.rst b/Documentation/userspace-api/cells.rst
+> new file mode 100644
+> index 000000000000..76ce5267fdb6
+> --- /dev/null
+> +++ b/Documentation/userspace-api/cells.rst
+> @@ -0,0 +1,861 @@
+> +.. SPDX-License-Identifier: GPL-2.0
+> +
+> +=====
+> +Cells
+> +=====
+> +
+> +A cell is a container as one kernel object.  A task is born in a cell and never
+> +leaves it, and nothing can enter one.  A cell is built from the outside: the
+> +builder fills named slots from file descriptors it holds, seals the cell, and
+> +spawns tasks into it.  Holding the file descriptor of the cell, the *cellfd*, is
+> +the authority to do all of that.
+> +
+> +This document explains why cells exist, what they promise, how they are used and
+> +what the first implementation does not do yet.
+> +
+> +.. contents:: :local:
+> +
+> +
+> +Why
+> +===
+> +
+> +A container on Linux is not an object.  It is eight kinds of namespace, a cgroup,
+> +a seccomp filter and a set of conventions that a runtime holds together.  A number
+> +of problems follow from that, and they do not go away by fixing bugs one at a
+> +time.
+> +
+> +There is nothing to name.
+> +  The kernel cannot say which container a task is in, cannot kill a container in
+> +  one operation and cannot tell what a container has access to.
+> +
+> +Membership is a property of a task at a moment.
+> +  ``setns()`` and ``unshare()`` let a task change one namespace at a time.  A task
+> +  that is half way between two sets of namespaces, holding file descriptors, a
+> +  working directory or a memory map from one side and credentials from the other,
+> +  has been the source of many bugs.
+> +
+> +Setup runs on the inside.
+> +  A runtime forks, and the child sheds, one call at a time, what it inherited and
+> +  should not have.  What it forgets to shed leaks into the container.
+> +
+> +Privilege hangs off ids.
+> +  A user namespace gives its creator a full set of capabilities over everything
+> +  the namespace owns,
+
+Yes this was explicitly one of the 4 user namespace design goals,
+and I don't really want code running on my system that I can't
+later control.
+
+>  which puts a large amount of code that was written for root
+> +  within reach of every user.
+
+You imply that cells don't do this, but the capabilities section below suggests
+otherwise.
+
+>   Who may do what to whom is decided by comparing
+> +  uids,
+
+It's also decided by namespace targeted capabilities (and LSM
+credentials).
+
+>  and whether two uids are the same depends on how several runtimes agreed
+> +  to carve up ``/etc/subuid``.
+
+Well, you are adding one more runtime (https://xkcd.com/927/ :)  This
+particular problem would be better solved using a subuid NSS module.
+
+> +Hiding is done by mounting over.
+> +  What a container must not see is commonly covered by a mount.  ``MNT_LOCKED``
+> +  exists to keep such mounts in place, and a way to remove one, or to copy the tree
+> +  without it, reveals what it covered.
+> +
+> +A cell turns this around.  There is one object with one lifetime.  What it holds
+> +was put there explicitly, by somebody who held it.  What was not put there is not
+> +there.
+
+Of course userspace could do this now - create a userns, create an mntns,
+set up the mounts, and then create another userns with identity uid mapping,
+so then the container cannot get ns_capable(mnt_ns->userns, CAP_SYS_ADMIN) to
+unmount.
+
+I can envision this being a good strategy for sandbox style runners.
+
+> ...
+> +Capabilities
+> +------------
+> +
+> +A legacy user namespace hands its first task every capability there is.  A cell hands
+> +out none.
+
+This seems misleading.  It hands any that you want, you just have to specify
+them differently, right?
+
+>  **Being uid 0 of a cell comes with nothing**: it is one id of 65536, which
+> +cannot become another, give a file away or signal a task that runs under another id.
+> +
+> +What the tasks of a cell are to have, the builder names in the ``caps`` slot: a ``__u64``
+> +with a bit for each capability, by its number in ``<linux/capability.h>``.  Every task
+> +that is started in the cell has them permitted and effective.  They are its bounding set
+
+Every task?  But you do say setuid() drops them as usual.  Are you saying
+that the first process is uid 0, and capability inheritance just works
+as usual?  If not, then some examples would be helpful - and in that
+case it sounds like this would be an unexpected method of operation
+which would confuse userspace (which can be dangerous).
+
+> +too, so that is all anything in the cell will ever have:
+> +
+> +* Every task has ``no_new_privs``.  It gains nothing from a file, or from being uid 0
+> +  when it runs one.
+> +* No task of a cell can make a user namespace, to have a full set in.
+> +* A capability that a task has let go of is gone for that task and its children.
+> +
+> +Letting go works as ever.  ``capset(2)`` takes nothing, leaving uid 0 behind with
+> +``setuid()`` costs all of them, and ``PR_CAPBSET_DROP`` does not take ``CAP_SETPCAP`` in
+> +a cell.  It does elsewhere lest a program that gains from its file runs with less than it
+> +counts on, and in a cell there is no such program.
+> +
+> +The capabilities are over the user namespace of the cell.  They are good for the ids of
+> +the cell, for the files that belong to those in a tree that is mapped for the cell, for
+> +its tasks, and for what else that user namespace owns: its uts, ipc and pid namespace.
+
+It seems to me most of the bugs relating to capabilities in user
+namespace were not about the privilege leaking, which you seem to
+suggest here, but rather about kernel code under an ns_capable()
+check being reachable when, without unprivileged user namespaces,
+unprivileged users could not have reached them.  Since you open quite
+a few capabilities for instance with net_may(), that code is still
+reachable.  So you are probably reducing the reachable code, which
+is good, but the above is over-stating it.
+
+Also I would continue to be careful about uid mapped filesystems.  If
+the host creates a cell with host uid 0 mapped to uid N in the
+cell, can a cell process chmod u+s the file, and collude with an
+unprivileged host process to run it as host-root?
+
+> +They are good for nothing else, which is why naming them takes no privilege.  The mount
+> +namespace is not the cell's, so no capability lets a cell mount.  Nor is the network
+> +namespace, see `Rights over the network`_.
+> +
+
+So what is your goal here?  You list several properties of the current
+namespaces implementation, and imply that they are a problem.  But what
+is the final goal: is it to implement a security sandbox that is
+stronger than what you can currently build from userspace?  That's the
+impression I get.  Or is it to avoid bugs in userspace, by simplifying
+what userspace needs to do?  Knowing the goal will help review the
+patchset.set.
+
+Also, how does this jive with criu?  Is it introducing any cell identifiers
+that can't be recreated?  I believe that historically that has been the
+biggest blocker to a "container" like object in the kernel.
+
+-serge
