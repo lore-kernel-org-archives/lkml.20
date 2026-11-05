@@ -1,64 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793888250;
-	b=bz3TGKEFIj6gO4kpE8sqVTfnQ9qszM9S9NQTb6mXhkQrDFNRKr3zcdtHE7pZwC3hRuBC
-	 vwzdwC7EvxDJxarxzHdl+cGsvtzIIJm0mM6kN43WLelH9llnQS5uBXNU42qZ9UhbBTPG5
-	 0bAr+y4lkuLQVG4Q9E3yI4la9eDQJWqL84dNTkSYqodF7xyKl2dsXBAawm2rur1HTjoYO
-	 pnu4qqYvg+N8T8i78OjvsXA0i4MRD+nbPPXegAhlOUQQwpvMC0m6U7Lm+e9hjcHV2XMDN
-	 fabtOlVOGpag/L820me49dNj4RN3tpVORLbK/gTY9FwMziew/ENJe2jrEmHBZwWox2g==
+	t=1793888290;
+	b=nDnqHveOsjlBZDODRCALpmTiyKTvoTC+6Z8aosDRLv3QoWaJ5QgNAu8RdtHZ4cwjejxK
+	 gV+eVfW+dpF+h9B39C+1D86M1SQexK06URcPe8GA/LWMENnfWj1PudjCZ1zItDnQFWQNQ
+	 pSTXM4eKcScK9YyyppS+ci4oF9lcOJu41q6xeguvq4w7ZwP9IGe37Mq1YMsPPpRt8V76G
+	 ROrYVPDBusjNkMS5Zfk6aCtfUiJeO1Va+yarmhzP0+S6B7/ovJHmKNBmrTo14yBMKvAQa
+	 3QkAuexYHogHbxU5UYIIaA2xZbki3WhfOOQ9/q3Mm1Fl52xBOR0wNc9E+DHjvunspZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793888250;
-	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc;
-	bh=6Ru6gjoQ5MsQd77m28FaMDGQ7f6+6z3eR5pPIjPeQGU=;
-	b=rX19e8WCQEb+Ngx7dc4ypwFe+02hawfzzGAaTpp8uVYh9ccU5CDQ00v474zSw4YytZDg
-	 NtaSI2MKBcyecNQoHAbbEIHs8T5k+maXg6DgwWqjPRqXjJJ0+BCp/kTcYKV2/upzCVctZ
-	 fWao+B+ILT+39J/MLlEu/qDG20QtjVPEV2jT3LP1zFyRcI7ZSjKc/b92eubvafV0728RK
-	 JGI/zl2a9ec0kThgcFZtzkefkD8bdV2UPWTtGXLTANBALaPBEtu042il6v2d4750kyJxf
-	 nm3WoRbiGZaEBTbqP6hHX643s0W+ExwZPZ6qPG6SLNfhJfCp3dD235NFreomVHS9arw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793888290;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=Dc/gnzAhwg9JcaLHyi5L3qyrYdSroOdQcEWvzqqzxB4=;
+	b=B+K4s+1nn2UO0izeuZ7SBhSb+77qdT5zQDjpoBwXV+ZU8PfrWp11dhr8czPy/GBOmBpc
+	 sQufj9j2bWrutxT2Fglj1GXvgOI11hAXuJsggk8lFVwqWYrmRzVHWhDsIkkQOegbubeYJ
+	 Hbbi62u8Ts+ETZ/2E9ejsSa+gQxhjahi6jnsSTp7f8IEs1pYFeaHIyDoPyvwHwsqcbpzF
+	 1oeRlbPnt6uSl6fP2EmdGQQv1Bs3HW+/iwHQ17Kup12SXW8S//BqaxZ5IuSRyOxTStQl9
+	 ORbQ+7oWd6KSAIjkQsZG49dMPkDgSq76mbJEAtb3LgFeXCWT5G/xerK+gWQ0n8z525Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=4edhbzBX;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=6x04r1QN;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HjvAsSod;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3605606D803;
-	Thu,  5 Nov 2026 14:17:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3605606D803
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3A54606EEA8;
+	Thu,  5 Nov 2026 14:18:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3A54606EEA8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=4edhbzBX;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=6x04r1QN
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793888248;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6Ru6gjoQ5MsQd77m28FaMDGQ7f6+6z3eR5pPIjPeQGU=;
-	b=4edhbzBXw2g4B0ukuFnfwFuKHQrPg5XgWLLjDI9FXwgw9jJEiu0JP/nEsUxm2RcICUxJIv
-	oDEp73Ry2f/vbEv+b1MSYqU9i54q1Q4HGVHzIq7ssQP/brcCSO8Vvo15vtbBHlP0n93BKP
-	vbhkDQA5HUO3dsfxsYhHwvoHsJrOY8hGE9j5rIXvoTD2RrnhtL+clITNQLCfRw9yM00zFp
-	XwVdme1/Hw6S2JvxMQjdX/tl5h2N7j4vxe+ue1dG9kYltaTkSxBdyILi+JwRf1E8iSeJxR
-	2qYs/i19vqlBHsaBZAkMcxPYDfv4SUUemSOD33vE+SHxcIVdCFuNcKBADUlvPQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793888248;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6Ru6gjoQ5MsQd77m28FaMDGQ7f6+6z3eR5pPIjPeQGU=;
-	b=6x04r1QNN5lh1/kbkc0Ti8wr/wMdQ/k/KTWLClVfQm5wiQfGI2XG5yo7NC7qDschp0zIui
-	IkpPCS7+N/0LPBAA==
-Date: Thu, 05 Nov 2026 15:16:48 +0100
-Subject: [PATCH net-next v4 4/8] dt-bindings: mfd: Add SoC-e SWIP parent
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HjvAsSod
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793888290; x=1825424290;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=jvXrPTiATIoJywZObtDdCqNKWv1neRVMfk5S5z0aV5g=;
+  b=HjvAsSodMEqWhD7xQ9duFtX/Y1TBzcUbetEUmkLaenCOulNLjZKi85mj
+   CiXkyK0aZ6cZVBaWa0sZSZYSbnL3LnJ/EYQSudIbYGK/RR4pY1BofoN3u
+   zkp7Z66Qeg6fKclSX1RTyuAXvo/8kSEwFpOp8QXWCKT0Hd8+g2t/eJFJX
+   IHtZQbxYI0Ry812C9CKwBVyiv8i135sWsqf0gtagoke9rXfhWMDJUb4hY
+   KeGgNAnddNmHq1NGOvwJkbpU17J0ffeIuGd4u4hg5nZhjTe27N7w51fL/
+   NYx3Z8D6z2iYwfSV+vm9vXxoseN8GM7mAlMs1eUnyq+ovyUk080GKj7/7
+   Q==;
+X-CSE-ConnectionGUID: 5Zpy6bAHSfKBFOkgHxTgDg==
+X-CSE-MsgGUID: YeQ0L+iMSeqizzuppIQENg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2565223"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2565223"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 06:18:09 -0800
+X-CSE-ConnectionGUID: pKCe4sF8RMqbCGGokzbkvg==
+X-CSE-MsgGUID: G6AFEUqaSR+cIDxjk7O9OA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7359195"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 06:17:56 -0800
+Date: Thu, 5 Nov 2026 16:17:53 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Frank.Li@oss.nxp.com, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Richard Genoud <richard.genoud@bootlin.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Orson Zhai <orsonzhai@gmail.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Chunyan Zhang <zhang.lyra@gmail.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Cunhao Lu <1579567540@qq.com>, Raul E Rangel <rrangel@chromium.org>,
+	Yenchia Chen <yenchia.chen@mediatek.com>,
+	Zhiyong Tao <zhiyong.tao@mediatek.com>,
+	Carlo Caione <ccaione@baylibre.com>, Moteen Shah <m-shah@ti.com>,
+	Kendall Willis <k-willis@ti.com>,
+	Kartik Rajput <kkartik@nvidia.com>, Fan Wu <fanwu01@zju.edu.cn>,
+	Nicolai Buchwitz <nb@tipi-net.de>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	Stefan =?iso-8859-1?Q?D=F6singer?= <stefandoesinger@gmail.com>,
+	Shitalkumar Gandhi <shital.gandhi45@gmail.com>,
+	Peng Fan <peng.fan@nxp.com>, Sherry Sun <sherry.sun@nxp.com>,
+	John Ogness <john.ogness@linutronix.de>,
+	Pan Chuang <panchuang@vivo.com>, Petr Mladek <pmladek@suse.com>,
+	Robin Gong <yibin.gong@nxp.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Stephan Gerhold <stephan.gerhold@linaro.org>,
+	Zhaoyang Yu <2426767509@qq.com>,
+	"Nikola Z. Ivanov" <zlatistiv@gmail.com>,
+	Haoxiang Li <haoxiang_li2024@163.com>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Myeonghun Pak <mhun512@gmail.com>,
+	Wenhua Lin <Wenhua.Lin@unisoc.com>, Cixi Geng <cixi.geng@linux.dev>,
+	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-kernel@vger.kernel.org>,
+	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
+	"moderated list:ARM/Mediatek SoC support" <linux-arm-kernel@lists.infradead.org>,
+	"moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
+	"open list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT..." <imx@lists.linux.dev>,
+	"open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
+	"open list:ARM/SAMSUNG S3C, S5P AND EXYNOS ARM ARCHITECTURES" <linux-samsung-soc@vger.kernel.org>,
+	"open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
+	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>,
+	vkoul@kernel.org
+Subject: Re: [PATCH 1/1] tty: serial: use dmaengine_desc_set_callback()
+Message-ID: <auyQEVmA2KeGu9DL@ashevche-desk.local>
+References: <20261102175527.3957740-1-Frank.Li@oss.nxp.com>
+ <aux2VKHnVLwq_wzi@orome>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,180 +133,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-devel-vstrassheim-soce-dsa-ml-v4-4-02f3cde2afa1@linutronix.de>
-References: <20261105-devel-vstrassheim-soce-dsa-ml-v4-0-02f3cde2afa1@linutronix.de>
-In-Reply-To: <20261105-devel-vstrassheim-soce-dsa-ml-v4-0-02f3cde2afa1@linutronix.de>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
- Vladimir Oltean <olteanv@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- Heiner Kallweit <hkallweit1@gmail.com>, Eric Dumazet <edumazet@kernel.org>, 
- Lee Jones <lee@kernel.org>, Eric Dumazet <edumazet@kernel.org>
-Cc: Vasilij Strassheim <v.strassheim@linutronix.de>, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- netdev@vger.kernel.org, mfd@lists.linux.dev, 
- Martin Kaistra <martin.kaistra@linutronix.de>, 
- Benedikt Spranger <b.spranger@linutronix.de>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aux2VKHnVLwq_wzi@orome>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Add a binding for the SoC-e SWIP multifunction FPGA IP core.
+On Thu, Nov 05, 2026 at 01:28:46PM +0100, Thierry Reding wrote:
+> On Mon, Nov 02, 2026 at 12:54:48PM -0500, Frank.Li@oss.nxp.com wrote:
+> > 
+> > Replace open-coded assignments to callback and callback_param fields
+> > of struct dma_async_tx_descriptor with calls to the
+> > dmaengine_desc_set_callback() helper across serial drivers.
+> > 
+> > No functional change intended. Prepare to make struct
+> > dma_async_tx_descriptor private to the DMA engine.
+> > 
+> > Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> > ---
+> >  drivers/tty/serial/8250/8250_dma.c  | 6 ++----
+> >  drivers/tty/serial/8250/8250_mtk.c  | 3 +--
+> >  drivers/tty/serial/8250/8250_omap.c | 6 ++----
+> >  drivers/tty/serial/amba-pl011.c     | 6 ++----
+> >  drivers/tty/serial/atmel_serial.c   | 6 ++----
+> >  drivers/tty/serial/fsl_lpuart.c     | 6 ++----
+> >  drivers/tty/serial/imx.c            | 6 ++----
+> >  drivers/tty/serial/msm_serial.c     | 6 ++----
+> >  drivers/tty/serial/mxs-auart.c      | 6 ++----
+> >  drivers/tty/serial/pch_uart.c       | 6 ++----
+> >  drivers/tty/serial/samsung_tty.c    | 6 ++----
+> >  drivers/tty/serial/serial-tegra.c   | 6 ++----
+> >  drivers/tty/serial/sh-sci.c         | 9 +++------
+> >  drivers/tty/serial/sprd_serial.c    | 3 +--
+> >  drivers/tty/serial/stm32-usart.c    | 6 ++----
+> >  15 files changed, 29 insertions(+), 58 deletions(-)
+> 
+> Reviewed-by: Thierry Reding <treding@nvidia.com>
 
-Describe the shared MMIO address space and address translation for
-the required Ethernet switch child and the optional integrated MDIO
-controller and MMIO-controlled MDIO multiplexer.
-
-Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
----
- .../devicetree/bindings/mfd/soce,swip.yaml         | 137 +++++++++++++++++++++
- 1 file changed, 137 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/mfd/soce,swip.yaml b/Documentation/devicetree/bindings/mfd/soce,swip.yaml
-new file mode 100644
-index 000000000000..625be299e262
---- /dev/null
-+++ b/Documentation/devicetree/bindings/mfd/soce,swip.yaml
-@@ -0,0 +1,137 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/mfd/soce,swip.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: SoC-e SWIP multifunction Ethernet switch FPGA IP core
-+
-+maintainers:
-+  - Vasilij Strassheim <v.strassheim@linutronix.de>
-+
-+description:
-+  SoC-e Switch IP (SWIP) cores integrate Ethernet switching logic, an
-+  MDIO controller, and an MDIO bus multiplexer in one memory-mapped device.
-+  The MDIO bus multiplexer is wired to the integrated MDIO controller.
-+
-+properties:
-+  compatible:
-+    const: soce,swip
-+
-+  reg:
-+    maxItems: 1
-+
-+  '#address-cells':
-+    const: 1
-+
-+  '#size-cells':
-+    const: 1
-+
-+  ranges: true
-+
-+  mdio@204:
-+    $ref: /schemas/net/soce,swip-mdio.yaml#
-+    unevaluatedProperties: false
-+
-+  mdio-mux@202:
-+    $ref: /schemas/net/mdio-mux-mmioreg.yaml#
-+    unevaluatedProperties: false
-+
-+  ethernet-switch:
-+    $ref: /schemas/net/dsa/soce,swip-switch.yaml#
-+    unevaluatedProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - '#address-cells'
-+  - '#size-cells'
-+  - ranges
-+  - ethernet-switch
-+
-+dependentRequired:
-+  mdio-mux@202:
-+    - mdio@204
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    ethernet-switch@80020000 {
-+        compatible = "soce,swip";
-+        reg = <0x80020000 0x10000>;
-+        #address-cells = <1>;
-+        #size-cells = <1>;
-+        ranges = <0x0 0x80020000 0x10000>;
-+
-+        mdio_parent: mdio@204 {
-+            compatible = "soce,swip-mdio";
-+            reg = <0x204 0xc>, <0x200 0x2>;
-+            reg-names = "data", "control";
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+        };
-+
-+        mdio-mux@202 {
-+            compatible = "mdio-mux-mmioreg", "mdio-mux";
-+            reg = <0x202 0x2>;
-+            mux-mask = <0x07ff>;
-+            mdio-parent-bus = <&mdio_parent>;
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            mdio@0 {
-+                reg = <0>;
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                switchphy0: ethernet-phy@1 {
-+                    compatible = "ethernet-phy-ieee802.3-c22";
-+                    reg = <1>;
-+                };
-+            };
-+
-+            mdio@1 {
-+                reg = <1>;
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                switchphy1: ethernet-phy@1 {
-+                    compatible = "ethernet-phy-ieee802.3-c22";
-+                    reg = <1>;
-+                };
-+            };
-+        };
-+
-+        ethernet-switch {
-+            compatible = "soce,swip-switch-00-04-0c-10";
-+
-+            ethernet-ports {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                ethernet-port@0 {
-+                    reg = <0>;
-+                    phy-handle = <&switchphy0>;
-+                    phy-mode = "rgmii-id";
-+                };
-+
-+                ethernet-port@1 {
-+                    reg = <1>;
-+                    phy-handle = <&switchphy1>;
-+                    phy-mode = "rgmii-id";
-+                };
-+
-+                ethernet-port@2 {
-+                    reg = <2>;
-+                    ethernet = <&eth0>;
-+                    phy-mode = "gmii";
-+
-+                    fixed-link {
-+                        speed = <1000>;
-+                        full-duplex;
-+                    };
-+                };
-+            };
-+        };
-+    };
+Krzysztof, now look at this case. I would argue that this is even less fit than
+# subpart(s) case, because it might imply anything. Again the problem is the
+bundle, and for such a case (when tons of independent changes are bundled in
+the same stuff, *every* Rb tag has to be explained on what has been reviewed!
 
 -- 
-2.39.5
+With Best Regards,
+Andy Shevchenko
+
 
