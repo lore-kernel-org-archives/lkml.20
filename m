@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.240
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.249
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793904107;
-	b=LH7Z2c1jy3/Dt3cXRTkhXU9TyxKfe95+eX3vv2ZeEGRBcOnNLyqB9wVUXN3QsD3jmXov
-	 YS3pWDemetWDmKWxhN1Oiidng2oLTESX9EL8V4o54pU594t1f6yRYSykCXWMABWiVpIaj
-	 KL/wK8YxnD1WTRpuDd045TU0CWKbA480veoh9zE9xnu8WKeKS1ee55PhhLXBF2LK3YYxH
-	 ln1+61eqBrADYcsF6FQ7O+g85XmbRgc0z3503gZjkgsERadD1cKHFA3yvAE2rV8o6/WnY
-	 AXyQrXgvIvst5XxPWW5J4GMPLMp7xZYSMjuAaIWSK85jOk2j4DjRcILL0pPblZ9TC6w==
+	t=1793904114;
+	b=qEBjc/cHiWoNYbw7BJ3u1ZLt8kwnurVADmBQBJCtTbSTyZ3c4QM+PVr3NhZ0dpYxhekT
+	 4XuiZHP8dXWnMP7g1UKorOX9curOz8c+V4UhnePGB98jqC2W2+sahrdEh336P1UKdgi0q
+	 iPSVLV9qOG1dFZ7kGNp+mCDeAac3HLzeom9SC0u/oE7kDTnUT18OirDHfh38uTAJk9tTR
+	 u21KRFzoVjsk1FjKm2eLX+C4qYLFeBq3AeXxcUyZgWD80n5nE9TCiplxm7IS8WmItTYYJ
+	 su7/6ewvpUuYjkVKsZ/F/PPofweWn2KKVMRpcnfGeRgLOjzqzgs/ON8h1E48nPNA1Qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793904107;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793904114;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=huH6oSd7gTMk6bCw3wFvetQjWaUFvstahrkAvJSP3YA=;
-	b=3UkrMOePacIysdzbvnkUeT0XqTz6v5SXKRYX15xzDvpzma0ak3ExMOsVMs5mrLG+RhAC
-	 Tg12Ti/K10aYiil0QGUUdO97j+ltkIm4RgwijH9nLyntapl5ALOzH5rDlq5c/GLWaznkA
-	 zeQw8Ahqy1AqdDqn/3zP42QFkIP7jchFrOIAusay+DIsn2bIzvFQi9R0kZiKtc/X9cRTV
-	 7Ge0+VciTkRFnEil2qbKxB2fvF36ztFwevlDqRdVTOMvNDVu5l49IDcgJsUsbtIQLGvpk
-	 Y7wWE/a0Dy1Q/EWa2X58geFLbtsPg/Kl9dKIXxbJWJlsuSG3Nb4N8OVohs4yM41Z1aw==
+	bh=72FcthPtRbjzoeXj7bzWyrfckYFlHv/yxS6YCWw2V4k=;
+	b=eIMkL05OcPR1tK3Qb7vQK14c2CIG/dbpAgTLupoCYPJw5M9FzXBdYuhMRAGqAlNlryzF
+	 Adp9UhSi2gkx8/rMqeweLBlyj8V8yP9wLx/qEi7gXxRWVk+fJ1Lzh1GqSgLXYfp2v9dtY
+	 z1QfzCSJFHEJMe9OHZqnqHhnRZR+WVKgV9O6vhu3UotbJSOUAplI8nGCnSHxCGXAnEcrO
+	 vy23l1jf2A9mdYtL9+nTibsiZ8it5nupeiFueKqLDBHtsW9M60ghBYHA7vXrWo6KxhYQl
+	 qBMVZ8KRFko1pAjWivQM4q4fIf/plcuhP7bzV4uLVV0njphz0kFhGzQ3Dai/B1VuOEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=a6ZeZZhV;
-	arc=none smtp.remote-ip=91.218.175.240
-Received: from mta0.migadu.com (out-240.mta0.migadu.com [91.218.175.240])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=exLV5Wbp;
+	arc=none smtp.remote-ip=91.218.175.249
+Received: from mta0.migadu.com (out-249.mta0.migadu.com [91.218.175.249])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5021606A335
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:41:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5021606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 463B6606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:41:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 463B6606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=a6ZeZZhV
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=exLV5Wbp
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=EsV4QmuE2zIVMKtO/SOhRrFUuEtNtiAe7xebMuMrx54=;
+DKIM-Signature: a=rsa-sha256; bh=LWCe31d6tLOa8H3T4JFmDGQaqeDnOZg0P/wGm47hWCs=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793904105; v=1; x=1794508905;
- b=a6ZeZZhVfnUw9BiLrUPYYFOKY3jVjvTRzEN3Fqt6wF941H0xFzC+LdWAO/Ehg/OxS/YZ0icl
- qGoNV28JUtPd4ygE5jZcq0rs0UwvPXWbGhQ9wHEk1cWibC7RYBi0O3i7PxHWyP9BtpGZhjJwOpe
- Fqn1TVtlUrTQhGYBF+ziXBjs=
+ t=1793904112; v=1; x=1794508912;
+ b=exLV5WbpW30nR7sv2X/mdA1wCDd+SFwkq02C5lPP9SDYbyGQeJorAwVVRVlycDtcpg+6t95F
+ Lxr+MiFHi6L30I4ONArx8WuPLXJosmjqBA9Rwy8GaGpVRQZiMhwQ0FqS4pY5abgwFFLgLx/YYI4
+ SYkeXPDBOwE0sf+BVJqnX870=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 7b89403d16ddfb12;
-	Thu, 05 Nov 2026 18:41:44 +0000
-X-Mizu-Trace-ID: 7b89403d16ddfb12
+Received: by mta10.migadu.com with ESMTPS id f43eb12c10da9a94;
+	Thu, 05 Nov 2026 18:41:52 +0000
+X-Mizu-Trace-ID: f43eb12c10da9a94
 X-Migadu-Flow: FLOW_OUT
 From: Usama Arif <usama.arif@linux.dev>
 To: Andrew Morton <akpm@linux-foundation.org>,
@@ -81,9 +81,9 @@ Cc: chenhuacai@kernel.org,
 	luizcap@redhat.com,
 	kernel-team@meta.com,
 	Usama Arif <usama.arif@linux.dev>
-Subject: [PATCH v9 20/32] mm/hmm: fault PMD swap entries on demand
-Date: Thu,  5 Nov 2026 10:39:04 -0800
-Message-ID: <20261105183940.2236717-21-usama.arif@linux.dev>
+Subject: [PATCH v9 21/32] mm: free PMD swap entries in zap_huge_pmd()
+Date: Thu,  5 Nov 2026 10:39:05 -0800
+Message-ID: <20261105183940.2236717-22-usama.arif@linux.dev>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261105183940.2236717-1-usama.arif@linux.dev>
 References: <20261105183940.2236717-1-usama.arif@linux.dev>
@@ -98,46 +98,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-hmm_vma_handle_absent_pmd() reports anything non-present that is not
-device-private as HMM_PFN_ERROR, so a swapped-out THP would look like a
-permanent failure rather than memory that needs paging in.
+zap_huge_pmd() assumes any non-present PMD it clears references a folio, so
+a PMD swap entry would reach normal_or_softleaf_folio_pmd() and warn.
+Worse, nothing would release the slots it points at: unmapping a
+swapped-out THP would leak the whole PMD's worth of swap.
 
-Treat it like a PTE swap entry: record the fault when one was asked for,
-and otherwise report the range as non-resident with no flags, which is what
-hmm_vma_handle_pte() already does in snapshot mode.
+Handle it before the folio lookup, as zap_pte_range() already does for a
+PTE swap entry.
 
 Signed-off-by: Usama Arif <usama.arif@linux.dev>
 ---
- mm/hmm.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ mm/huge_memory.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/mm/hmm.c b/mm/hmm.c
-index 2f1e98c6b6440..95575ac378888 100644
---- a/mm/hmm.c
-+++ b/mm/hmm.c
-@@ -377,12 +377,21 @@ static int hmm_vma_handle_absent_pmd(struct mm_walk *walk, unsigned long start,
- 	required_fault = hmm_range_need_fault(hmm_vma_walk, hmm_pfns,
- 					      npages, 0);
- 	if (required_fault) {
--		if (softleaf_is_device_private(entry))
-+		if (softleaf_is_device_private(entry) ||
-+		    softleaf_is_swap(entry))
- 			return hmm_record_fault(addr, end, required_fault, walk);
- 		else
- 			return -EFAULT;
- 	}
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 101ec72944cbf..f8df5cd723f01 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -2594,6 +2594,16 @@ bool zap_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 	arch_check_zapped_pmd(vma, orig_pmd);
+ 	tlb_remove_pmd_tlb_entry(tlb, pmd, addr);
  
-+	/*
-+	 * A swapped-out THP is not resident. Report it as not-valid,
-+	 * matching what hmm_vma_handle_pte() does for a PTE swap entry when
-+	 * no fault was requested.
-+	 */
-+	if (softleaf_is_swap(entry))
-+		return hmm_pfns_fill(start, end, range, 0);
++	if (pmd_is_swap_entry(orig_pmd)) {
++		softleaf_t entry = softleaf_from_pmd(orig_pmd);
 +
- 	return hmm_pfns_fill(start, end, range, HMM_PFN_ERROR);
- }
- #else
++		zap_deposited_table(mm, pmd);
++		spin_unlock(ptl);
++		swap_put_entries_direct(entry, HPAGE_PMD_NR);
++		add_mm_counter(mm, MM_SWAPENTS, -HPAGE_PMD_NR);
++		return true;
++	}
++
+ 	is_present = pmd_present(orig_pmd);
+ 	folio = normal_or_softleaf_folio_pmd(vma, addr, orig_pmd, is_present);
+ 	has_deposit = vma_has_deposited_pgtable(vma);
 -- 
 2.53.0-Meta
 
