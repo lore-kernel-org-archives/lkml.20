@@ -1,79 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.142
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793846953;
-	b=QPXhOxJn19uufLK5PYswYVi/NTE8V9WrZ+W4n2q+XdW/tOlOEkyKZLj6RpM0eaNPkQq0
-	 3OZlEi7gpGKhGfMvigoHHCNGQPwpWK+YT+5006jUfdvP7HFmB6EQStHQQgXe96IKS05t8
-	 ARMLthTdJq+hoFPgA9zPiv1OSvKwYVAPbw9NLyo46WStah/9l3VyTGvGNtR8SpMWv1eVh
-	 ztY/Z4+HQgFNXJiqvnnAuijCNdOIO6EdI61n0vn20zu9ycTaUSx04yx9qRRe/rK2iwQ8a
-	 0pk7lxWvIJkuDnLdzvu5xIXniZJPUKqzVmuwy9b4jJ4fxpSCeFtg5ih+ppry9nlzvxw==
+	t=1793846980;
+	b=BugbhX9/ZMNK5okaQ4LyLjQ4bcZQDKR19RwjxxMNLZGSSlxKvFti/nOZOm6Efm5ioN25
+	 D0fcNWQ9WsLlpPjfK2gFjq6NdUBnFMxfSlFkkGfTr1tCVfgU5SEmWwlW/4eMlbf36BDiR
+	 QW/ypoARN+UpTp+uaPiB1LEkgk7BfP22mHWBWtdhw3DSeIZ3DOlK9vFthsQk0qEmTWyDY
+	 2L2BEuYPzujktOQJFqlmqMAvqlXh9HxLPMdaXZscR0WE4ER+0y1Y7gFa9egWymQv8JZqJ
+	 kd+thmxYFCf7baBvU0+a9gF5ocFb6AMcyH4ukRi9vc9fGEJIjUUrNYNr+pLstTI9BVA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793846953;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=YHdQqGtXg8YOE5O9LodtRsGGzhkW1AIOdgt8reo9jCI=;
-	b=21qbE0ovWpUGKyJyLVBUV+iT0ZtIq4fq2SucWl95ds9b7fO+TAmvpb4MuApZJeiAsOnJ
-	 N0uwBlIoxuxi3veJBe6J3pH+LyP+Y6Aju1BQIXOv1oo/bPiUbKrryX/u6k2LJ1ci3X0Vd
-	 RFncwJnot65bBcNcsx/xzr8EXHShxkeI6BXKaSYiwZDCN+qorH/SUkz/rAvn/frdYp086
-	 LXS5RGwGiiPNwPb7QVjg4q/VIXLrjsVYmvYqLe70BUB2qtoMCkoTi8kX7b3lJ/mJbvvC9
-	 h3PnDdKeuwF/g2w07d3yyFOofg6D2IZT2Rc5pNuTBeNJL+ps0OXL/ycTWkatJGPhRBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793846980;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Z+GO5+s2hkBJM9nfUVaNL+KpepUrs4oPTbXjyB5VyEM=;
+	b=j87iVHO3zOmJ01njmyLbPod3aSLf+ypcCeuXgEv6Zpb00qL220Qc2n4u0OGGD0pQPd1f
+	 VQULiodxi4Tx6sWAhAnA95GQTFmCfE2JohgwoxhhRpEj7vUakd2AjDW6VeD61OKS1lLrt
+	 VAW+HHT2sL9+uzOAiqHu/H6poDMXx6J0tyV1IfJ4RFl+oPdTGZVbU+kqets/92sYGLXIR
+	 7QgNP7WmqCowvA6yz0ZFiiu8Ws3Uyae8SIEeMGt+lDnK8ZzFHlAZTnreTYch9MF1BtM6F
+	 lCaWgrbs9TCUNlNFwCCn/7SDZy9BCkVFqOMj0S4vkKN4Z3yv4MMTX15gglAtQ+IguqQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F6JmoMjH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=valinux.co.jp;
+	spf=pass smtp.mailfrom=valinux.co.jp;
+	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=GPbY03t9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.142
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11021142.outbound.protection.outlook.com [52.101.125.142])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48063606A31B;
-	Thu,  5 Nov 2026 02:49:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3049606A338;
+	Thu,  5 Nov 2026 02:49:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3049606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F6JmoMjH
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793846952;
-	b=Wua1mk6mIKWZVPpNAFcQTdUEQrPolqlr1U9mzyfKXpkIbqelK/ha2mzACuQh+LGSVz9w
-	 niwcGtffK4dvOnwd6Fm/+nUUXa7kzDMsMM3vEMUZ4r7Wd0Pl9GzRD7dnoDcJDnZntxqqd
-	 RmFvWeXb32CW3Fz9KYmE2ZEEm0mxutnHnKpTRWLxRs9uvXoSqqcFRChlaieA/0Lv4lHdK
-	 22v+tVuTNk3B7EbPWBypWl/mXn48lNn7GnHQvZ7R31VvpJtOjNefTu+zO3ie4f7JNC56C
-	 eqmysOEQCyQX1jN1S3zHcKqZt6EwoKiBbb0O/avW2g2+6zCIVzisUzh1dYOqc2FNgVg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793846952;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=YHdQqGtXg8YOE5O9LodtRsGGzhkW1AIOdgt8reo9jCI=;
-	b=DhM9amyfYgKGDNvrc5cRfCy/xuhBUw8sLGEyWJyfJYgOHVjOc65DU7TulVqZ8ryi4/8J
-	 RubwXo2o9hnId8Q6KEp0sv9eg8piVgyWI9H2fBeg6SdR9orek2YVR4kF2ezWVTKoR9LZv
-	 gX+PSWao3JTEngqUcofwM19lhXgEgrRVUhFY82xw0hfi8dRowOUuPMOR5WjMhKBY+yBY7
-	 DxHQWkaYQL3Hj087PUDPqMWEmNESVU4bKXJsi5lbjnUSkm5FenYBUvQIM1oshGtPEousK
-	 E+5FhIU7dgvGAcuO5jGPh3AJs+T+0saZhhoXj5eJY3Br0Np6IBkX3fW8IJ/mWubWlAA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 6DA971F000C1;
-	Thu,  5 Nov 2026 02:49:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793846952;
-	bh=YHdQqGtXg8YOE5O9LodtRsGGzhkW1AIOdgt8reo9jCI=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=F6JmoMjH8hpyZ0P7kr5syGECJiaM1Wm1I6dtkObtT7JCKXrdn7+cWSqIHcHf/kSE8
-	 9DJIpH6nl+lriVn09HIdj9CUmiv5j1IliSCelPV2hR/AUz/2K6C2GwdRkYNkO1ycT5
-	 grY50yuJiCCv3VEqm41xtI0lTdb5CCtNBlhAEnoKjYmmspwP5KLGDqEGEHPKJROKOg
-	 nGPwaTzuSfU5P9FPheUsHNmv3O5Qfp91SCUuOLz3F5XjKsWxMRdZ45nNmfjUHLhVew
-	 chDfq6Eav2mh0dtnVQqOAwHfvmCf1MjC4AGUgewrUEHu+M+EKu3gQz5Zaa5F2HbFt+
-	 z3G8pI2QnIZRg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 01AAD4704A;
-	Thu,  5 Nov 2026 02:49:12 +0000 (UTC)
-From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
-Subject: [PATCH 0/2] xfs: skip redundant fsync cache flushes
-Date: Thu, 05 Nov 2026 11:49:11 +0900
-Message-Id: <20261105-xfs-fsync-flush-seq-v1-0-299bdf5e28c3@samsung.com>
+	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=GPbY03t9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TzXTVyVlCfZDB5LZZ1Jv9xi1uoOV9a6j8EnN6JMSmnUqPFsqlM5K6yYyjLMsfrsBmaP63m6aBGhqwHKfk0MSxR11TNQ0vIfFd4oV1tMWdk7OqJgJ1rTULqjyMd1TD7sTH/jg+3DtWt56icKqCtEFj4WyNgVdryPfliYDCB0fv1MInvS5V5Mu9+NPjID3Y8DmiY62a2/W7xc0j9EFOU+yLAPYq3paaQmup7FInnISCuir3gkM0ukFSIS+6Q21+FpcyKlS1vPSxRHgDqt3fjJbI/S2VVFFjuvkJYkTsVLORxX1tzfmI9iNTt5IurbMyK/wVG+bg5NmH6/AbEBW6AfHnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Z+GO5+s2hkBJM9nfUVaNL+KpepUrs4oPTbXjyB5VyEM=;
+ b=rha8PnWrBV/8DNiwowtFqi6G5Ld0RNfM1GS+hPovR0eah0JPXPdf9hpIhVr4e9HdIF7dUjygoKzUoRylAloks3eVQWF3B1FaZkfVHJsg8047Yp6YR0oHAzWm8PCcMOx1W8qTgu0M5Jdc1kIcsWhELWp8GZXRvlqPQwnh01tRFQEgVgGOTXsP17ninudPyn/jzRsvdVIhwIqEIS6MkFK0eLa3rIeZorWI6OeDx76HNGoccEzBn5Cc1HohI5nJI0DkoaidSC9DAHouRrHHOTmXRkWx9FIhyaf4fMyoMVzdjhD64iULBGfwaTh9HHI7wSLK87Zt09+UVVfvhakH/lGN7w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Z+GO5+s2hkBJM9nfUVaNL+KpepUrs4oPTbXjyB5VyEM=;
+ b=GPbY03t9EJ8V1PC/ABg3SNGBaP7wMdqhjzklp/DKobUvM1vkddOJZullG08yAMTRXnAQq59SqrwunGf/rD4akXj6ZPfMgoiuHrM6DhjXbUoXDPbY4GKSX1IgDp91KypjslSeIgE+ANBo02aEy+Hrazhg5v2PldgDlASqFr18AfM=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
+ by OSOP286MB4001.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:2f3::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
+ 2026 02:49:35 +0000
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 02:49:35 +0000
+From: Koichiro Den <den@valinux.co.jp>
+To: "Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Magnus Damm <damm+renesas@opensource.se>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Lu Baolu <baolu.lu@linux.intel.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Marek Vasut <marek.vasut@mailbox.org>,
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+	iommu@lists.linux.dev,
+	linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 2/2] iommu/ipmmu-vmsa: Keep shared micro-TLBs enabled while in use
+Date: Thu,  5 Nov 2026 11:49:10 +0900
+Message-ID: <20261105024910.1879230-3-den@valinux.co.jp>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261105024910.1879230-1-den@valinux.co.jp>
+References: <20261105024910.1879230-1-den@valinux.co.jp>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TYCP286CA0209.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:385::12) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:325::11)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,54 +105,162 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAKfu62oC/x3MwQpAQBCA4VfRnE3ZEcmryEFrhiktdiKSd7c5f
- of/f8A4Khu02QORTzVdQ4LLM/DzECZGHZOBCqqdKyq8xFDsDh5lOWxG4x2bcmDyIjVRBancIot
- e/7Xr3/cDdFj4zWUAAAA=
-To: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org
-Cc: Christoph Hellwig <hch@lst.de>, Dave Chinner <david@fromorbit.com>, 
- "Darrick J. Wong" <djwong@kernel.org>, Amir Goldstein <amir73il@gmail.com>, 
- linux-kernel@vger.kernel.org, Daejun Park <daejun7.park@samsung.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793846951; l=1069;
- i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
- bh=NQTFHpwt987/Z9fZrwgqPjU/uEomGjhiNQuVS35MfSg=;
- b=gClUR6DwC9OlLGCYV3zCtSGOkNahTDwXNMleYmFnweN3OYmHQWaGf9QEv/NkVlg2rlCbwbcLO
- fDjF7tGe8BsDvFiJXGtL6b9+EX9ugIS+xA1V4i85LXlSml7rSrRK0ri
-X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
- pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
-X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
- auth_id=1122
-X-Original-From: Daejun Park <daejun7.park@samsung.com>
-Reply-To: daejun7.park@samsung.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|OSOP286MB4001:EE_
+X-MS-Office365-Filtering-Correlation-Id: 95323af8-4c71-4db0-067a-08df3ae76cdf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|376014|7416014|23010399003|366016|1800799024|6133799003|10067099003|18002099003|22082099003|56012099006|261026140227099003|261026121527099003|261022105027099003|261028144727099003|261021123027099003|261021121427099003|261102123227099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	4RXs9XWZF7B+t6rszztGXvJi6msO7w8GH9AA0s89St1YVRsjJYuMKDXs8crokODnp3M44p9i+rFLYL0galY593mIwz5AbT84+JxLkjNTZ8j//q91biMrz+oOzS3eoXdA37scF+/3OSbbZUl15CFOi6n8gOiG5iAebC69jX9Ym1V/mSpSIo1/PPThW/4fet1Wf38ow0SNiyKh4vs0IwSvq+Cwrc2EzjFUEWjCWjqkvPC1LBVO+X+Fmug1LOQ1kIhrnfXdNAY9k1p1zGvi2jWc97W4cXjlAMl8++CR0PVjNcfKclJgZmuu1aeHr/s0mWB87NSlhNDEFRZzCwII0Uc3CNTS2uQ0tCtrBCXvKw3NhI7Ooj6cUniEjcrbab/TpsyaA1oJXj2L34Gdr67lBtoFvC9YXMrLrpWTVlGKDvdDdC0hlqdHHtelOBen8osTc6tHwu3AaJN/gFHouEr7T5spJJiHf31VF0nuvPqAfWllNg8gr2iMnPafducemqqfQePc369NZHmL29iHUO66jOttHutLgw836DNAngfiYSWKUVRjPeV0xSUkN5QtDxY2FmsPoZvooCWX3RnnIHZoiB+wGgjt5c19j1CxCtKZBhH2JFCD/JUZleHgtLIiLc4+b2jifYIPeic3o+U+dnFRti+N2ICXbmq5Z+gHEuPkwVcgv7g=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(376014)(7416014)(23010399003)(366016)(1800799024)(6133799003)(10067099003)(18002099003)(22082099003)(56012099006)(261026140227099003)(261026121527099003)(261022105027099003)(261028144727099003)(261021123027099003)(261021121427099003)(261102123227099003)(261009223027099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?/K0pvBpjiOcSR8q9wBhmq8y6GQNZ9loqoo1ITLHNQMECEwkekXp/GLIFVuIU?=
+ =?us-ascii?Q?mhURdk/RJWTamda+NPd68rYtGLhVIF4u4PljlBbW8JOfkRjOdzH9xBu3nyFf?=
+ =?us-ascii?Q?jvt+XXegvmS9aQB1VfR3RKBJvVEo5l4UhoWNpTW6f3QPyA/GsVeCeKY3T2nq?=
+ =?us-ascii?Q?DPRj7RT4EsEPwd+c1aO/tqOUzYXV647lsFogkNdNR0Yk928Mceu2qDh86zRy?=
+ =?us-ascii?Q?ChDR2WYfc5lhVF3I4rSRMf1IoyBqqyUKPqBKIvFtN46N2Ql9nvsW8n1fVQiM?=
+ =?us-ascii?Q?yrC1GCy9fMHgGWcUrEnjqw1am+Vkz4mVacsoIaM/6ytnffxcnQNQ/f0p4Yu+?=
+ =?us-ascii?Q?Q5e/QqwWkXQcOJHtl8aB2pjbzldqDJYxqOjzXeR2tqHAytqG8VWybuktwRAK?=
+ =?us-ascii?Q?8xY5uSAy4tJQQyxdqunjD3Hy8TSTNpk7BunPRu68kvqKrJ1KvKP4DtfEXjCb?=
+ =?us-ascii?Q?oLn+x9hYxTEZ3w7FuMqPtCGGXYKbEIu80JIKZ48LLldYOubDo9KoMY5ILv/M?=
+ =?us-ascii?Q?P6pFXaYF4F0+68AYXszapiDjIkXSHQf512HnPlHJcT54l6xaz+pm4/L4IygJ?=
+ =?us-ascii?Q?faOA/n/2SJGst42ri/XSbr2CnN/xUhxMEO3HX+cF5PpPEHA1d6ja0V7YaFC3?=
+ =?us-ascii?Q?AdTocty3uFiWFVr0DKjVKJhzE8sfujKqmyyYT4qRvEMNaWEiQ9+tM1xjczAp?=
+ =?us-ascii?Q?vdY/r7UdTlMUx//fvl7lJyE2nGh6z5t/6ml32C+ikOXlliErYTb1E/Pq4egY?=
+ =?us-ascii?Q?iZU1JcRiDceVfztmlO2QJ3FDjSYHFTH4OsB9+L6B8FbrL9TSaQv72Ap+JErJ?=
+ =?us-ascii?Q?99rZeBRUToiDiqUUioFqXS9dJZVnX5pm5U8ryo34ai5z+P1Cdxa6u/nFsSu/?=
+ =?us-ascii?Q?OFLHhAxjz7tnhLo33NvZXWXvnEiI9ukUKXFDhTb3fqWsnC81ogzl2HEhv31j?=
+ =?us-ascii?Q?8Zq/1Oge580wdnf5syhaRY8anTPiBf6gblWl2UthRYp9KmdACiMNuU/KZON/?=
+ =?us-ascii?Q?1CpgrkpD6REjPZ5vTFnmcq5wG7I4uK4DuRLxiH/q3HsaN/XML7wsUIVZmS/x?=
+ =?us-ascii?Q?U0H7eIcLQ+ffoLGfcXMdOsA1n4JNemVrkTulSjNWKGMkbtrbY9ZFoDqE99fd?=
+ =?us-ascii?Q?on91xihKbh6hNBpP18PkiybafqeilaeqV9+gNRoIRvkzKyJwVaKJFP4pVw8W?=
+ =?us-ascii?Q?uciXB0scXNss+WkZvFv+lFoBO03Z2MyYfmK24AVzODkEYNmuTzH51wh1GuAW?=
+ =?us-ascii?Q?9wgYCPjJFNNZXURWdD9CcdoF/mlNkDBJ0ut+i2kJ2fjbjD6tapNQp2cc5E3i?=
+ =?us-ascii?Q?Qy1PEbOjIzSCeGK94WD03ES0fOsaZoR4j9eT/IfvEvzgF3ZcLrDB7zkU4pQT?=
+ =?us-ascii?Q?SQjgepJ+P6psHvb8qg2hLowdA7J1rWlx8mRq/rHiKM+/w3G/jNfM+IjdMOZm?=
+ =?us-ascii?Q?S3IRIxnSXQPFeiWXIOMvMpr6V2RwZMP62zU7k3/jHEytw9YY4nukpLej4pPf?=
+ =?us-ascii?Q?G17fOXH3JOWWRDH0qVWvwR0ld74ZVZqb27ApFMONWhvTMLjkxssWfTqFFzv4?=
+ =?us-ascii?Q?JqlQwfdQ39DfK3p3V6ZhieSIEyaZQU6GiFqs8ahA7SHCv5BICbeHjaFTJlgr?=
+ =?us-ascii?Q?oAjbE5Qy2hPPbsZIwhxyN1/fiEhOzebNa+m9R8namB2G/etkiijDq+mRyD78?=
+ =?us-ascii?Q?PqJx9kEET+vrRIFN2WqmVRw3KgyKGdARWmfJ9fSPSF9BKe2H02AwCEipK2Vr?=
+ =?us-ascii?Q?XSsc6HwQl5m9LCg6dhVAOIHBnKpqTDtO51zNp48Cv2qSHVhsoRm4?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 95323af8-4c71-4db0-067a-08df3ae76cdf
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 02:49:34.9037
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YWoD3gpMXPThqYBfbzCt9KBxgimx9qxoIrTxHHtgZQG8LULDWOp3b22tIw6BiK/JdnvG+NQr2jilWUufbr+f1Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSOP286MB4001
 
-Concurrent fsyncs often wait for an iclog that another task wrote out,
-and then send their own cache flush. Patch 1 numbers the cache flushes
-on each buftarg. Patch 2 uses the numbers to skip that flush when a
-later flush has completed.
+PCI functions can share a micro-TLB. ipmmu_release_device() disables it
+unconditionally, so removing one function makes DMA from the others
+bypass translation even though they remain attached to a paging domain.
 
-16 fio jobs of 4k append + fsync in a QEMU guest: 809 -> 4185
-fsyncs/s. fstests -g quick shows no change, and a dm-log-writes crash
-test lost no data (patch 2).
+Leave micro-TLBs unchanged on device release, as other devices may still
+use the domain. Instead, disable the micro-TLBs that still select its
+context when that context is destroyed. Check the recorded context ID so
+freeing an old domain does not disable a micro-TLB already switched to
+another one.
 
+Cc: stable@vger.kernel.org
+Fixes: 24dfb197c3b7 ("iommu/ipmmu-vmsa: Call arm_iommu_release_mapping() in release path")
+Suggested-by: Robin Murphy <robin.murphy@arm.com>
+Signed-off-by: Koichiro Den <den@valinux.co.jp>
 ---
-Daejun Park (2):
-      xfs: number the cache flushes submitted to each buftarg
-      xfs: skip the fsync flush when a later flush has completed
+Changes in v2:
+  - Disable micro-TLBs still selecting a context when that context is
+    destroyed, rather than reference-counting their users. (Robin)
+  - Remove the per-device state and restore the original identity-attach
+    behavior accordingly.
 
- fs/xfs/xfs_buf.c      | 39 +++++++++++++++++++++++++++++++++++++++
- fs/xfs/xfs_buf.h      | 40 ++++++++++++++++++++++++++++++++++++++++
- fs/xfs/xfs_file.c     | 21 +++++++++++++++------
- fs/xfs/xfs_log.c      | 25 +++++++++++++++++++------
- fs/xfs/xfs_log_priv.h |  1 +
- 5 files changed, 114 insertions(+), 12 deletions(-)
----
-base-commit: 1e17fc56469d62d1c1ac45c137a2456d14456f1d
-change-id: 20261105-xfs-fsync-flush-seq-83ae2cff6225
+ drivers/iommu/ipmmu-vmsa.c | 36 +++++++++++++-----------------------
+ 1 file changed, 13 insertions(+), 23 deletions(-)
 
-Best regards,
+diff --git a/drivers/iommu/ipmmu-vmsa.c b/drivers/iommu/ipmmu-vmsa.c
+index 99586c68ef35..f13131916b7c 100644
+--- a/drivers/iommu/ipmmu-vmsa.c
++++ b/drivers/iommu/ipmmu-vmsa.c
+@@ -281,11 +281,6 @@ static void ipmmu_utlb_enable(struct ipmmu_vmsa_domain *domain,
+ {
+ 	struct ipmmu_vmsa_device *mmu = domain->mmu;
+ 
+-	/*
+-	 * TODO: Reference-count the microTLB as several bus masters can be
+-	 * connected to the same microTLB.
+-	 */
+-
+ 	/* TODO: What should we set the ASID to ? */
+ 	ipmmu_imuasid_write(mmu, utlb, 0);
+ 	/* TODO: Do we need to flush the microTLB ? */
+@@ -466,9 +461,18 @@ static int ipmmu_domain_init_context(struct ipmmu_vmsa_domain *domain)
+ 
+ static void ipmmu_domain_destroy_context(struct ipmmu_vmsa_domain *domain)
+ {
+-	if (!domain->mmu)
++	struct ipmmu_vmsa_device *mmu = domain->mmu;
++	unsigned int i;
++
++	if (!mmu)
+ 		return;
+ 
++	/* Released devices may have left micro-TLBs selecting this context. */
++	for (i = 0; i < mmu->features->num_utlbs; i++) {
++		if (mmu->utlb_ctx[i] == domain->context_id)
++			ipmmu_utlb_disable(domain, i);
++	}
++
+ 	/*
+ 	 * Disable the context. Flush the TLB as required when modifying the
+ 	 * context registers.
+@@ -477,7 +481,7 @@ static void ipmmu_domain_destroy_context(struct ipmmu_vmsa_domain *domain)
+ 	 */
+ 	ipmmu_ctx_write_all(domain, IMCTR, IMCTR_FLUSH);
+ 	ipmmu_tlb_sync(domain);
+-	ipmmu_domain_free_context(domain->mmu->root, domain->context_id);
++	ipmmu_domain_free_context(mmu->root, domain->context_id);
+ }
+ 
+ /* -----------------------------------------------------------------------------
+@@ -580,10 +584,6 @@ static void ipmmu_domain_free(struct iommu_domain *io_domain)
+ {
+ 	struct ipmmu_vmsa_domain *domain = to_vmsa_domain(io_domain);
+ 
+-	/*
+-	 * Free the domain resources. We assume that all devices have already
+-	 * been detached.
+-	 */
+ 	ipmmu_domain_destroy_context(domain);
+ 	free_io_pgtable_ops(domain->iop);
+ 	kfree(domain);
+@@ -863,18 +863,8 @@ static void ipmmu_probe_finalize(struct device *dev)
+ 
+ static void ipmmu_release_device(struct device *dev)
+ {
+-	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
+-	struct ipmmu_vmsa_device *mmu = to_ipmmu(dev);
+-	unsigned int i;
+-
+-	for (i = 0; i < fwspec->num_ids; ++i) {
+-		unsigned int utlb = fwspec->ids[i];
+-
+-		ipmmu_imuctr_write(mmu, utlb, 0);
+-		mmu->utlb_ctx[utlb] = IPMMU_CTX_INVALID;
+-	}
+-
+-	arm_iommu_release_mapping(mmu->mapping);
++	/* Micro-TLBs may be shared. Domain teardown handles their cleanup. */
++	arm_iommu_release_mapping(to_ipmmu(dev)->mapping);
+ }
+ 
+ static const struct iommu_ops ipmmu_ops = {
 -- 
-Daejun Park <daejun7.park@samsung.com>
-
+2.54.0
 
