@@ -1,99 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793909373;
-	b=NEp4VHQUrfSg3+uMHSyGMCO7ybDL2nS7amiiauSqz+aomT+Qof8bfgAgxwaon1mzgisc
-	 bHQxsou/CYthCtz+a8PX8erBdEEEdn1lE32bPEjDhN2YtmoRYOUzcGO+djPa7mtzYUwuD
-	 462MfwXUi7ilXioSRQMuBsvKcJ87SzHDgaFzuwwtGfpq3JCK9oWJ4+M/KKnUew1XkG/A2
-	 h28TvU4SJM0o1fP21JzLWKQWahEZBiH37dxnrliocHAb8hrT3wBaPSE+lJ4hyFvOttrr5
-	 89rYAKKKuU2U9AYoDJEnIAPHqGT02v63LfXtsl6gtKEvlPbWj7ziLE7WxBT4Hzzoa1Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793909373;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:To:From:
-	 Subject:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=FSmiUJjfkxp5i3LHpgZEys/x3tUo3HasUAh0nOprpyM=;
-	b=MO4yAc2IjjzCu9o6PLUgb0OqihtDewVmrivrhxyI1i1fsjazPQRhceFdrFS+zBWbcrHb
-	 CJU3brW+yUWuy8ux53uQaLxfR9Cg6tH9Eeps1lpK3Pb+7tFAX4mGbqcmU1jxnjYbS0h8A
-	 YNvEOQdzixEW6NKhoYUvT12cbnUfV3isYgk2VYm7NoXoXuRZwUDv1oOCfRch8KvkflAPG
-	 foPmEqZMpTxyVh4QNZFntOCcrj161tqAiFfqKUk0/zU93GmHwMEhA4/CSR3gZFm8aif3d
-	 2YA7AsBHz1816GQnuvzqwadI3bJGgZ8a5GHM7ElDAXHp2qLjyWJbXEhxCmEcVHFZtkA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=bzlAZnwF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.43
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012043.outbound.protection.outlook.com [52.101.43.43])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793909428;
+	b=BEcrP0iwlUkl4N37Ri3qyRP99k4DPvIhclqsIvqjpGYuojpvW9z/uXGQF0UqwV9Rn1ge
+	 DgJkIytq9qZbMLbsJxW7wpd3xb0FlZdkUkAbg1Do05E2tDOUEGzwqvJo9+zE+6VuOriXy
+	 yWyAvyITzft3GTcwAb4ddzQuhHNPw9shZMZD9VFrgoulWlGhUH/0lWHTkU4tus3GvFHHi
+	 5KnouvHj2FaMg1lzEhAgw9G29T2+5EdQdVj8CVR+FmG7jV5MY1wO6rd2U0EvfcvkDFOG5
+	 cWE4zTIBOCGRNK8MjOe1AyCBF4xEH+jpX+T14SpjrMKtdhxUkdn7OlS7+duYzOaHn+g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793909428;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=wUViCC77mXYQ0JKmq5TEV5oH2rgM/Z1kN/WuET4hyj0=;
+	b=Eg3VhENQ/V1cRGjrlwGV9jJAXPX2KgRt8iVQJGwhK+eAAWbOLG0dwoeaJj5aQ4JitgLI
+	 82kGgn2S805Nyo2EsT6v869jcDejN9cPZCiAG1GBJ2uXq3dMft1/QNzrFpJXurOxCj5Ll
+	 X15EroK2l6os3cIC7El95LY+07iMHQuT/VDNdA6NgSDILR5lDnJl0rXf+umZL//tP/cnE
+	 /tiRQc9JYRe/HpQebvMfzr4V/UjCztynUpK+5yP5oS8fls36CgewCqdTbyxhMnb1xXRBr
+	 tX9OSpdB8+amTnZ2yUEv4+1BD3U/+t50wR327AjbdXLOLzlgkpLBjgGFBEH4+Wj9cGw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NWvVgwMo;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B9F3606A32C;
-	Thu,  5 Nov 2026 20:09:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B9F3606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1514606A334;
+	Thu,  5 Nov 2026 20:10:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=bzlAZnwF
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=apQTTN1Ej/87MKxBDfeCCx/1Lj5hRBKBzzf5dHpPRSqHLczP8qWrmRIsWQpzaV7nHnCQI0/yqTWMjqi05aR+NN1i/dZTDIaCwl/sFBq9Ui6cDnDBAE7/WqinKlriUxZ+IQIM/mUskQjARTSnblBxTexYF/q5w4VLLBBIl1UlctaACyxFa/at/c7YpMTUbLmxWUUXEkx49lym2/0cwJ723SMPnrjPhjEA2OYirD7izvBYhOdX5scWC5QWUxrXv7GOI9yYH0SUai82gplg6vtk8Dl3opCG7eN/IJt+8weuLGdogMZeKodtXPrjIR+R/Ul4F5DqWslfgPkb3ZYYI/e0XA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FSmiUJjfkxp5i3LHpgZEys/x3tUo3HasUAh0nOprpyM=;
- b=Q79N2HPzefQkfrwDyn2MYjIplMfOjJWc8KdsW5izPd7USCFMdCYrV4BVwe/3RRyFrtoItVw0yqgFOONjTGF/GTknvGMOruii/rrDFVgwBwDxrw7j8nJoAjP0iedNSyzjp3CI+2lRAYdRkLYHjfftw0B0bAI9lFiWjuIodMD1T243O0zTbR50WbsVCUikPXDEWH+hxmz3Cp7w0C2OP3ot2uSe688Ob/GYOqt5cssJsgEllx1NhN63QVUX0ll1ZyT37yJab3SZs7f321OtFNgizNpgCpV4oV2i8v+dc60glB5omebV6K/L96bVYIglMK+CWZklJPVHQpw7cePHjWLy6Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FSmiUJjfkxp5i3LHpgZEys/x3tUo3HasUAh0nOprpyM=;
- b=bzlAZnwFkDca1XesgF0qSs/1jJBQyT3SKTfrVti/8tBA3NyRegYqLfqCwGGBQmLK9T3d869bjKHdaShteWCZJTS2j+IEFPCHcQMNL1nGLtYPI61+dM0ppoZp4uD8fIpBcFYft7ybLPLRQTeBUou55wn+0dUAoUzuIcHbP8Yf+unZxsdXAIzF4WijAxMMGfpp5myuREJF/7koYkRBeqsPSIpCZH68QMbxifAS5Tzu/4aKMtnxjU4gcwoW7p4yYXipUZcK42rNSfi9p7DSlSaF1Kl6rRQi01kQISrf2jxYXyXOz6IZzRMUj5qsAhFLjCJpSMHeVXEwebzf+K1f4mqk1g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by IA1PR12MB8288.namprd12.prod.outlook.com (2603:10b6:208:3fe::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 20:09:29 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0592.007; Thu, 5 Nov 2026
- 20:09:29 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NWvVgwMo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2368C1F0089F;
+	Thu,  5 Nov 2026 20:10:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793909427;
+	bh=wUViCC77mXYQ0JKmq5TEV5oH2rgM/Z1kN/WuET4hyj0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=NWvVgwMov4I4jUiZ47seWeSGhEo0jtG2KKgVJhP4845UdabjOPhFhIvUubG5/0o7T
+	 HHOmJdTK1+LjFGRVMHArKukKDUaPmys5FUZGJLfLJpDeoJScU5epoLIv9/LD5gDyB9
+	 t+cxzIUtwY9YJHkuIic8omIYrxHbvmUQxFNdN3j6rv1EbzweTnNQSmNmwK48IJNy15
+	 3S8r78+w6FgWA9qryOyZ8hd9ux2yAtjv0KK4mykyNyZPOkp7104CF8Nyh8349KeqAg
+	 WjzwfhmoukY4+A38r+9rTMacx2rr4BqM8IJZ6ib6DXKpwiYxN0vDvyKj+DJRlynE07
+	 FKWr2cM+nUAQA==
+Message-ID: <sashiko-outbox-200077@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 08/24] sched/deadline: Release the bandwidth of a
+ task that leaves the class asleep
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
+In-Reply-To: <20261105193359.1450487-9-mathieu.desnoyers@efficios.com>
+References: <20261105193359.1450487-1-mathieu.desnoyers@efficios.com>
+ <20261105193359.1450487-9-mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 05 Nov 2026 15:09:27 -0500
-Message-Id: <DMNJSQDUACRI.HXKF5B6GSQOX@nvidia.com>
-Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, "Chris Mason"
- <mason@kernel.org>, <stable@vger.kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>, "Andrew Morton"
- <akpm@linux-foundation.org>, "Baolin Wang" <baolin.wang@linux.alibaba.com>,
- "Hugh Dickins" <hughd@google.com>, "Liam R. Howlett" <liam@infradead.org>,
- "Nico Pache" <nico.pache@linux.dev>, "Ryan Roberts" <ryan.roberts@arm.com>,
- "Dev Jain" <dev.jain@arm.com>, "Barry Song" <baohua@kernel.org>, "Lance
- Yang" <lance.yang@linux.dev>, "Usama Arif" <usama.arif@linux.dev>, "Kiryl
- Shutsemau" <kas@kernel.org>, "Zach O'Keefe" <zokeefe@google.com>
-From: "Zi Yan" <ziy@nvidia.com>
-Subject: Re: [PATCH] mm/khugepaged: don't map folios that are not uptodate
- in MADV_COLLAPSE
-X-Mailer: aerc 0.22.0
-References: <20261105-set_huge_pmd_uptodate-v1-1-a78d8a1b7117@kernel.org>
-In-Reply-To: <20261105-set_huge_pmd_uptodate-v1-1-a78d8a1b7117@kernel.org>
-X-ClientProxiedBy: YQBPR0101CA0136.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:e::9) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+Date: Thu, 05 Nov 2026 20:10:26 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,101 +60,251 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|IA1PR12MB8288:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6c3e382c-a775-42c1-9208-08df3b78b2a5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|376014|23010399003|1800799024|22082099003|18002099003|10067099003|921020|11063799006|261026121527099003|261102123227099003|56012099006|261021121427099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	TNTwzf4a9/B2UAHoUKZM+/+E1MiO2o4RPYNogeLCvcjvTIlJeYGVKrzDFmPiW75pxgUssV3gW9XwOyCnAV/L1zSHZpMhrLJXmb6QsiGHWuZeOJKMxCnXbNKnq3QfFbFVEO9QTOHC/DK4ZZduCFQqvyJmLsRVy11brxxE0KZjHBGlf8XKLYTIl/BCFzF7QeL7KpELyInMhp1k+9liEGaEOdzsV0mpHKaOMdYYkw/hwNgchFvQqdbRRnManODCNNM9uTozXMGGPfCqaHAM6DwE22VY98dESEyxaSGvWPJiaaVNkZDIYZjS/zOCckpdR0aX4B4t0OCSq3ge+L8jsjMMIAjzlfK8fUcKSgIg2tqcpmfKreTev2WlJbLLyg3sLMSjcGOXiqKb1c1joE9iOW/Iv+JOgi2x4+ZU2bL9JPbOs/VHe6Cps7YAHV+M7kdMsWT4dbF6FjbaNjMzedIc4RrNzUQSKvj7soO5w6ERkDw2MA3UD6jrtVaJDNGb+AhE3Eo2HrR6Uq9vMffK1An0QOHRaM6AO2J8TO2laMjGIin5LA9Ij9M+b7/4rZoyjOvKKg07nm7BBtxn6YkRidwEPBDComF4MVILg+1+iGSrkHtib83CqoXJG2LJuEr0IxJ9vLDKPhS8FqNOh3VN3uB2JrfHaJZ4i9eAgIdFxIMclC+MNHsAy5jo2Rth3109EbU/JDOCyuYlHi9A4zuJvpRa+vnU1g==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(22082099003)(18002099003)(10067099003)(921020)(11063799006)(261026121527099003)(261102123227099003)(56012099006)(261021121427099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NkprVnBzMHpDbDhPMFNxQnN1ZDBHb1ovNmRlTXJvalFjbTE2eHZEcHduOHRr?=
- =?utf-8?B?NWY1MWdpVVB6SzA3LzRQdjlHd1I2L3lKSXlyT2hZcVFzdkducUlZTXBqYlpp?=
- =?utf-8?B?K2cwWG92U3JHajZ1ZUUrTGRnK3c0SjdHK3l4YUxPVGlvYW9BTmhNTXJwTEUw?=
- =?utf-8?B?VmtqL21iZVFRRWhwR1J0bFE3K3RoZHhKYllzdDhoZ0tGTFlSY1hxZ1hVM1lr?=
- =?utf-8?B?dzRrNFgvb3kvOHpCcjhSaFg1MHNCWDArOVNqSTdwdEErSHowb3RnS2NYRXRI?=
- =?utf-8?B?dEJFbmNqT3FraHN1dE0rdHc1WW4rSWlydWpyVzFaSHUrYlJyUVk0U05tOHA4?=
- =?utf-8?B?TDIvWWZpN1dySDlzcG14L0N0TytmbHJhZnRRTE1tQnZ3ZkZpdmNCeVJBYng4?=
- =?utf-8?B?bzllWTl4Zm5sWVQrZktHTDVxbUIweCthOVRmUnJxdVI3Ryt5ZkNnVFF0N20y?=
- =?utf-8?B?SGlkVTlTdzR2UHV1dDZmcklpSEdpZHN2blY0Wi84eWsrNFozTEtjbFV5MTZG?=
- =?utf-8?B?SEp6TERqS3pXcU9HOW5jeldGNk1PVkFkMDNlbmQ2N0lGWlVWKzFTU0xIRkZt?=
- =?utf-8?B?OTRtNUl2Zk5Va2g0Z1BwNEp6dW82UTB4bFlhdTZiVnpvQmhiT1IrWi9CTkFk?=
- =?utf-8?B?MVRmUjhLNkU4YTdDeGkrMHNtUm9HWE5ORXd3cStrcGpPQXI4RGhaMW9KdWIx?=
- =?utf-8?B?V0xGZ3QxK2tYdUY0Q0M0bXFXNUlKV3ZFd0tIZXZYZVhqSVB1Rmt2MU9aMW54?=
- =?utf-8?B?S2xEZjQyNlZOZ09EanN1NGNaMHhoVFUxSjFJc0JyRERyWkpTalhJZnd1aXBI?=
- =?utf-8?B?R3NoVnZGSmRpY0F0eG5pZlBoVVI2blpuMldNcmYyZWYyTzhmNmdtTE9FblpC?=
- =?utf-8?B?UDhGWk1CQkdWNkEyNmJhWk5JNUk2ZWRncGdJMmd6UHZ2amN2WXhreU1WeFhv?=
- =?utf-8?B?QlEyaWxjQ3Q5ZUxrRk9XS1BXRVczKzBsOXVraUdvVEZPRURnckRWNVFrSHdV?=
- =?utf-8?B?OWh2SERWWEpjSzN4elBqZlpuSE9JdG1FdG0xS2Q0NFhhWHNUZHgzMHl6V1k3?=
- =?utf-8?B?ZndiYi9OcHJEV1B3bjRqaFVreWxMY0h0REZNdWMzc3VxSUZKWUk1alhTVGUy?=
- =?utf-8?B?V3lDVGpwbVVWb1doVGE4aFpZQzZWWWY5MnVDT3JYZGQza0lUKzQxbTJIR1k5?=
- =?utf-8?B?Z3RNdFdkdXMyYlJtK25FQ2pid1NidFdKZm5oM29rUjI4eUJVMU5BRDY4UTVu?=
- =?utf-8?B?SjVRVHF0YnFTREpsUE12dE1hbmRtMnlEdEQyV2daYU91QVl1dTY0R2hBOGVl?=
- =?utf-8?B?bkREeXdzVkk4ampIQzVZUzBMOEtTQ0Q2WTNWa1RFN1UxSHcxcjZTZ1hyMnNV?=
- =?utf-8?B?azBNRmJZbnVHTUtkeGR4aEJTREgxL2QxbCt3QnVpQStqVU5QOWt3TXFhR0l1?=
- =?utf-8?B?NGhuVVprK2xuNTdtOUFDb1dsaTdnaWZEeW5RZGV1QXR0VkI1RXpFT0ZsZTY2?=
- =?utf-8?B?Tld5bXdQZkFuMFlNbTdTQTdSdVZUU3dLbkJ1a2M0Q0Fkb29lZ3ducitpalVR?=
- =?utf-8?B?MmRnSHE5VjBsRStKb2pGTms3MDRLd0NmSEdQMlJ0V3Q2MUxBaW1YaW5GTCtt?=
- =?utf-8?B?NUd4SWRtTXRReG5lRGJENCttd2Zad1hLVzA3U3dLTkRQQ0tnSzFPdVlES0FT?=
- =?utf-8?B?UGhjaUl5TklqOWxuMS9VR0NLaVQ1L1RFN3FuRGpESld5N2s3RWt2MWR6ZXJl?=
- =?utf-8?B?WlpTeFJ0MkRLT01rdUdhRkhaWlc3RG1LakdzZGhUb1lzTU9DdU9PZVpqTlFJ?=
- =?utf-8?B?WUtJNllmL0MzZ2RZOXRGQTUzdEdVQk1wVkNPeGVWV3FCZURLSVNnZDE1V2Za?=
- =?utf-8?B?K2hRTGU5UDh5Q09TTHBEWEsydE5sR2JJRXdFdkVBVWE2c0hjS0FRczA0V3p6?=
- =?utf-8?B?V1NtNFlIZ09WWjF6T0Ywd0hpSCtpdXJMdnAwVk52dzNSVTNxZWtWWGVCazdS?=
- =?utf-8?B?SmNaeHlVSExRaGVMNTUwYURxRzNBMnJiTVkrUUhaY0paYW1rQlJuc3hXZ1h1?=
- =?utf-8?B?Y0JxM0VhUjBJQ1RTUlJraWJ1OVU5SHlUUTNlMzVSS2d3WlBwNDZVWCtUR2ZX?=
- =?utf-8?B?UmFsVDFWajAvNE5SUlRWL3RzZXRwY3dRbWxqYnBWQWVmT3N6MEJwTTZhY1Ru?=
- =?utf-8?B?UGZVYU1VdGVKYzF1WGo3dnBqblVVby9Ka2RIYWhZcnhWaDlwZm54aXpxNVlj?=
- =?utf-8?B?ZzhYajY0ZjRzSGxpbVQwakF0V0FTT0JyT0FtRDhkVkR6a2xBSVJ2SjY5VVIy?=
- =?utf-8?Q?4q0+VtyhPrNmxDxpDN?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6c3e382c-a775-42c1-9208-08df3b78b2a5
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 20:09:29.1423
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cVdett1kognU0A7r/58PqI2KVvPGROOUZ1Tb7hiUZhrjyKV8BS2CfwnCWuUNeWYW
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8288
 
-On Thu Nov 5, 2026 at 1:16 PM EST, David Hildenbrand (Arm) wrote:
-> madvise(MADV_COLLAPSE) can map PMD-sized pagecache folios that are not
-> uptodate. For example, shmem fallocate() can put such folios into the
-> page cache.
->
-> collapse_file() already refuses to proceed with folios that are not
-> uptodate. Let's just do the same in try_collapse_pte_mapped_thp() and ski=
-p
-> such folios, leaving handling to the page faults.
->
-> Note that collapse_file() effectively clears shmem folios through
-> shmem_get_folio(); let's keep this fix simple and simply let the page
-> fault path deal with that.
->
-> Fixes: 34488399fa08 ("mm/madvise: add file and shmem support to MADV_COLL=
-APSE")
-> Reported-by: Chris Mason <mason@kernel.org>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
-> Once reviewed, I will pick this up in a timely manner.
-> ---
->  mm/khugepaged.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-Makes sense.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] sched/deadline: __dl_clear_state() leaves dl_deadline set, breakin=
+g PI boost
+- [High] sched/deadline: __dl_clear_state() leaves dl_runtime set, breaking=
+ PI deboost
+--
 
-Acked-by: Zi Yan <ziy@nvidia.com>
+commit 9c0c6a820e95bee2f513ebeba452d798eb3ec73c
+Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+
+sched/deadline: Release the bandwidth of a task that leaves the class asleep
+
+This commit releases a task's bandwidth from the root domain's total_bw in
+switched_from_dl() when the task leaves SCHED_DEADLINE while not queued and
+without a pending inactive timer. It also introduces __dl_clear_state() to
+clear the dynamic period state and dl_bw while keeping static parameters in
+place in case the task is still a priority inheritance donor.
+
+Link: https://lore.kernel.org/all/20261103-b4-sched-dl-bw-fixes-v1-2-dd761f=
+e005b4@redhat.com/
+
+> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+> index 088e84fb9b107..867111a0822e7 100644
+> --- a/kernel/sched/deadline.c
+> +++ b/kernel/sched/deadline.c
+[ ... ]
+> @@ -3550,15 +3551,62 @@ static void switched_from_dl(struct rq *rq, struc=
+t task_struct *p)
+>  	dec_dl_tasks_cs(p);
+> =20
+>  	if (!task_on_rq_queued(p)) {
+> -		/*
+> -		 * Inactive timer is armed. However, p is leaving DEADLINE and
+> -		 * might migrate away from this rq while continuing to run on
+> -		 * some other class. We need to remove its contribution from
+> -		 * this rq running_bw now, or sub_rq_bw (below) will complain.
+> -		 */
+> -		if (p->dl.dl_non_contending)
+> +		bool released =3D false;
+> +
+> +		if (p->dl.dl_non_contending) {
+> +			/*
+> +			 * Inactive timer is armed. However, p is leaving
+> +			 * DEADLINE and might migrate away from this rq while
+> +			 * continuing to run on some other class. We need to
+> +			 * remove its contribution from this rq running_bw now,
+> +			 * or sub_rq_bw (below) will complain.
+> +			 *
+> +			 * inactive_task_timer() will find !dl_task(p) and
+> +			 * release total_bw via __dl_sub().
+> +			 */
+>  			sub_running_bw(&p->dl, &rq->dl);
+> +		} else if (p->dl.dl_runtime && !dl_entity_is_special(&p->dl)) {
+> +			/*
+> +			 * No pending inactive timer: the task never ran as
+> +			 * DEADLINE or the timer already fired while still
+> +			 * DEADLINE (only dropping running_bw at that time).
+> +			 * Nobody else will release total_bw, do it now.
+> +			 *
+> +			 * Not for a task without parameters of its own, one
+> +			 * deboosted from priority inheritance, nor for a
+> +			 * special one: neither has bandwidth in total_bw.
+> +			 */
+> +			struct dl_bw *dl_b =3D dl_bw_of(task_cpu(p));
+> +
+> +			raw_spin_lock(&dl_b->lock);
+> +			__dl_sub(dl_b, p->dl.dl_bw, dl_bw_cpus(task_cpu(p)));
+> +			raw_spin_unlock(&dl_b->lock);
+> +			released =3D true;
+> +		}
+>  		sub_rq_bw(&p->dl, &rq->dl);
+> +		/*
+> +		 * Released: its 0-lag time is past, and the state of the
+> +		 * period it was in goes with the bandwidth, as where
+> +		 * inactive_task_timer() resets it. Its bandwidth is no one's
+> +		 * to release again, and a dl_bw of 0 is what every path that
+> +		 * would takes. Kept, it would make the task one with
+> +		 * bandwidth to task_contending() and task_non_contending()
+> +		 * once priority inheritance boosts it, and a deboost while
+> +		 * it sleeps would release it a second time. So would the
+> +		 * inactive timer's handler when it runs late,
+> +		 * dl_non_contending cleared under it by
+> +		 * migrate_task_rq_dl(): it finds !dl_task(p).
+> +		 *
+> +		 * The parameters themselves stay, where
+> +		 * inactive_task_timer() resets them with the bandwidth: the
+> +		 * task may still be the donor of a priority inheritance
+> +		 * boost until rt_mutex_adjust_pi() walks the chain, outside
+> +		 * this runqueue lock, and replenish_dl_entity() of the
+> +		 * boosted owner would never leave its loop over a dl_period
+> +		 * and a dl_runtime of 0.
+> +		 */
+> +		if (released)
+> +			__dl_clear_state(&p->dl);
+>  	}
+
+[Severity: High]
+As reported by Sashiko on v2 [1], doesn't leaving p->dl.dl_runtime and
+p->dl.dl_period non-zero in __dl_clear_state() cause task_non_contending()
+to still run with stale parameters if this task is later boosted via
+priority inheritance?
+
+The comment above notes that clearing dl_bw prevents task_contending() and
+task_non_contending() from treating the task as one with bandwidth once
+priority inheritance boosts it. However, task_non_contending(),
+task_contending(), and switched_from_dl() check dl_se->dl_runtime =3D=3D 0
+rather than dl_se->dl_bw =3D=3D 0:
+
+kernel/sched/deadline.c:task_non_contending() {
+	if (dl_se->dl_runtime =3D=3D 0)
+		return;
+	...
+	zerolag_time =3D dl_se->deadline -
+		 div64_long((dl_se->runtime * dl_se->dl_period),
+			dl_se->dl_runtime);
+}
+
+When a task p leaves SCHED_DEADLINE while asleep without a pending inactive
+timer, switched_from_dl() calls __dl_clear_state(&p->dl), which zeroes
+p->dl.dl_bw but keeps p->dl.dl_runtime, p->dl.dl_period, p->dl.dl_deadline,
+and p->dl.dl_density at their old values.
+
+If p (now running under e.g. SCHED_NORMAL) is later PI-boosted by a
+SCHED_DEADLINE waiter W, p->dl.runtime and p->dl.deadline are taken from W,
+while p->dl.dl_period and p->dl.dl_runtime remain p's old stale parameters
+(and select_task_rq_dl() -> dl_task_fits_capacity() also checks p's stale
+dl_density).
+
+When p subsequently blocks while boosted (dequeue_dl_entity() ->
+task_non_contending()) or is deboosted while queued (switched_from_dl() ->
+task_non_contending()), task_non_contending() sees dl_se->dl_runtime !=3D 0
+and computes zerolag_time by mixing donor W's runtime and deadline with p's
+stale dl_period and dl_runtime:
+
+1. If W's runtime and p's stale dl_period are both large (up to
+   sysctl_sched_dl_period_max, ~4.19s), the signed s64 multiplication
+   dl_se->runtime * dl_se->dl_period can overflow to a negative value;
+   divided by a small stale dl_runtime, zerolag_time becomes positive by
+   days, arming inactive_timer and pinning p via get_task_struct(p).
+
+2. Even without overflow, whenever W's runtime/deadline ratio is smaller
+   than p's stale dl_runtime/dl_period ratio, zerolag_time >=3D 0 and
+   task_non_contending() arms p->dl.inactive_timer with
+   p->dl.dl_non_contending =3D 1 instead of calling __dl_clear_params(). If=
+ p
+   blocked while boosted and is then deboosted while asleep,
+   switched_from_dl() sees p->dl.dl_non_contending =3D=3D 1 and skips
+   __dl_clear_state(), leaving W's future deadline and remaining runtime on
+   p->dl after deboost. If p then re-enters SCHED_DEADLINE via
+   sched_setattr() with a small runtime reservation before W's deadline
+   passes, switched_to_dl() cancels inactive_timer and enqueue_dl_entity()
+   sees !dl_time_before(dl_se->deadline, rq_clock(rq)), skipping
+   setup_new_dl_entity() and allowing p to run unboosted with W's leftover
+   runtime.
+
+[ ... ]
+> @@ -3960,22 +4008,34 @@ bool __checkparam_dl(const struct sched_attr *att=
+r)
+>  /*
+>   * This function clears the sched_dl_entity static params.
+>   */
+> -static void __dl_clear_params(struct sched_dl_entity *dl_se)
+> +/*
+> + * The bandwidth of @dl_se and the state of the period it is in: what a
+> + * task that left the class past its 0-lag time has no use for. The
+> + * parameters stay, where a boosted owner may still read them.
+> + */
+> +static void __dl_clear_state(struct sched_dl_entity *dl_se)
+>  {
+> -	dl_se->dl_runtime		=3D 0;
+> -	dl_se->dl_deadline		=3D 0;
+> -	dl_se->dl_period		=3D 0;
+>  	dl_se->flags			=3D 0;
+>  	dl_se->dl_bw			=3D 0;
+> -	dl_se->dl_density		=3D 0;
+> =20
+>  	dl_se->deadline			=3D 0;
+>  	dl_se->runtime			=3D 0;
+> =20
+>  	dl_se->dl_throttled		=3D 0;
+>  	dl_se->dl_yielded		=3D 0;
+> -	dl_se->dl_non_contending	=3D 0;
+>  	dl_se->dl_overrun		=3D 0;
+> +}
+
+[Severity: High]
+As reported by Sashiko on v2 [1], what happens in replenish_dl_entity()
+when a task that had __dl_clear_state() called on it is later boosted via
+priority inheritance?
+
+In __dl_clear_state(), dl_se->deadline and dl_se->runtime are cleared to 0,
+while dl_se->dl_deadline is left non-zero. If the task is later running in
+e.g. SCHED_NORMAL while holding a PTHREAD_PRIO_INHERIT rt_mutex and a
+SCHED_DEADLINE waiter w1 blocks on it, rt_mutex_setprio() boosts the owner
+into dl_sched_class with ENQUEUE_REPLENISH, calling:
+
+  enqueue_task_dl()
+    -> enqueue_dl_entity()
+      -> replenish_dl_entity()
+
+In kernel/sched/deadline.c:replenish_dl_entity():
+
+	if (dl_se->dl_deadline =3D=3D 0 ||
+	    (dl_se->dl_defer_armed && dl_entity_overflow(dl_se, rq_clock(rq)))) {
+		dl_se->deadline =3D rq_clock(rq) + pi_of(dl_se)->dl_deadline;
+		dl_se->runtime =3D pi_of(dl_se)->dl_runtime;
+	}
+	...
+	while (dl_se->runtime <=3D 0) {
+		dl_se->deadline +=3D pi_of(dl_se)->dl_period;
+		dl_se->runtime +=3D pi_of(dl_se)->dl_runtime;
+	}
+
+	if (dl_time_before(dl_se->deadline, rq_clock(rq))) {
+		printk_deferred_once("sched: DL replenish lagged too much\n");
+		replenish_dl_new_period(dl_se, rq);
+	}
+
+Because dl_se->dl_deadline is still non-zero, replenish_dl_entity() skips
+the dl_se->dl_deadline =3D=3D 0 initialization branch:
+
+1. On the first boost, the while (dl_se->runtime <=3D 0) loop starts from
+   dl_se->deadline =3D=3D 0 and dl_se->runtime =3D=3D 0 and sets dl_se->dea=
+dline to
+   pi_of(dl_se)->dl_period. When rq_clock(rq) > pi_of(dl_se)->dl_period,
+   dl_time_before() triggers a false "sched: DL replenish lagged too much"
+   warning; when rq_clock(rq) <=3D pi_of(dl_se)->dl_period, dl_time_before()
+   is false and the task is queued with the bogus absolute deadline
+   pi_of(dl_se)->dl_period instead of rq_clock(rq) +
+   pi_of(dl_se)->dl_deadline.
+
+2. If the task is already boosted by deadline waiter w1 (so p->dl.runtime >=
+ 0
+   and p->dl.deadline > rq_clock(rq)) and a second deadline waiter w2 with
+   an earlier deadline blocks on the mutex, rt_mutex_setprio() calls
+   replenish_dl_entity() with ENQUEUE_REPLENISH. Because
+   p->dl.dl_deadline !=3D 0, p->dl.runtime > 0, and p->dl.deadline >
+   rq_clock(rq), replenish_dl_entity() does nothing and leaves the owner
+   scheduled with w1's later deadline instead of adopting w2's earlier
+   deadline.
+
+[1] https://lore.kernel.org/r/sashiko-outbox-198212@kernel.org
 
 --=20
-Best Regards,
-Yan, Zi
-
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105193359.1450=
+487-1-mathieu.desnoyers@efficios.com?part=3D8
