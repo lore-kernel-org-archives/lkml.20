@@ -1,54 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793903044;
-	b=GIMw/6tLOpenzHirYkx5iqztXDRbe30a+ezLsx8rCnO8qPu9Xeiivus/P3oLKJ9NrBaB
-	 hVcX89J++uv08KB9fgNVFnOiCVIZ2JSxrAd1phIzT4jBCV54Rr1IpJFZdseFwICE02RiE
-	 MuwFY0mmCagRreOKH9ojp7TEICG90ZqJzM2SMh5AiVDZGmfgUAWyw8IEo5gbeiEjLaJ1d
-	 WHSPYJWdVU6iwPemebC/y1v7uCEgKpsqgQWZTSOwqxUau4tlsvOEUUSlsi1FJlXLFE+ZQ
-	 r1FXZYKH/Uie2kVGVKF9OxRmbv/hlc6uLamor421yzEKEPP4JUZlEwI4N5VQL0WTRbA==
+	t=1793903069;
+	b=igzdIwB5UkRrMJU9RCnGblY+XJ+pMT8/KmLRcfOwTy5y8oPvbk1o/MRtHByV5mQzWP4f
+	 BzzdqMO/FnJoc/fBXp1wct+GyFdiOnPpiZBFTALLGQPadogdQbAOtKmcLq6V8ncXhNIFa
+	 P/xUdKP4ZV/7sRmE+STTSrUmMSjeptqLIAkC7pVGCd4Y8TbH0EhHNLj4q4Gx7I11NIcij
+	 qlfx7goMuoRQzt1q0QNUQ1RCeit5pbbK4CKjnEBomW8T4J9QNoKl/HhLcGlNnfuJZRYMN
+	 UsURQm4F7lcz5ZCL+qcnosVozitV14mZKV97BMuXS+D+3898ghSPC5qxFU8MaesBLQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793903044;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=FZYaPiXF5uqkd9py2yyYx1geKocgOLas510kMd12DD4=;
-	b=nYEMixmnHhpyD+05SWg1lz7aYvD6X0Ec26L2ZyNnCy5YkKYAcS3+MbSFnwzjeIcIkFjJ
-	 V0w8CMLkPBbbC2Elg+yTwIwhMntIiUno2+r8TCR4iH2aEc6AnWSyJFNwsIb8+d4TImxgz
-	 5DuufOu54h30aED7hj+8F1dlrpnYwWjBqlp4/kzga1DAvelrq05uFiHyzRVDJbTZK8El8
-	 lx6w/P6DLJ1wnS3z7XwcVa/t1pJI6hq+VdITeiEMIT4SosKNAviD/Xh6YSkOsoPXQzgOv
-	 8N7x+3eO+yHrgLW+1DDN2yW/8m+nSH/VjR2tlUYTGlpfrYfit6tJF/w6FyCHemmsOcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793903069;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ZtmUTz3ZwmwR9910+Kg+d/RgBwrT3NvRt16MrNazlP0=;
+	b=O4s4VqN9+bWyl27MzjwNQ1JyJ09xYtrGrpUHZlwx5EdMO0NfTse/gVn3hlsBGVgUzFLb
+	 J5C+BgSG+O5q595mVY7Vehr3KH6FCgTnPqTUIv4yT/Jsv7IR+c2eDSA57JLinMr+vuRxr
+	 ccOrwCaR5tUS4g64PKJyh4Tk/VQXtLsmEs0ZL1J8JO3I1bXD8JJMZwkz64rzR4z6xja6p
+	 a7FZM4rl38DKgseK6/PaTI9U6OPPmFCHHN9ObGp4eCtnsxLV71heCwOUEFi8G7uwvIhXA
+	 W58xynGmU7iIV74kctqtS5OM+/C3zvLq6IEJFpmwa5MBOJexLdiVXNqzbUEuBH3aJRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.197
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fxlXOKrk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63839606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:24:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63839606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4cc89e86e4dso2962975b6e.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 10:24:04 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793903043; x=1794507843;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=FZYaPiXF5uqkd9py2yyYx1geKocgOLas510kMd12DD4=;
-        b=yMh8Y7L/I0tGBMCZWnk4CWf+Z2WSwG+nWQr/HgcUnK6B7xOc75DQLLSvvar+t8ln1z
-         1NgM3jQq9i3E8mm1xc02XJJT9rK2/rqhzFv5VtxoGTI+EGr0jrmG1W+oX3FZMkdQ5Ka+
-         hdtNa40hrq5JTSy6ydYOhqHpH/jCwb46IxFqq1KwDBhXXPuGSoK5qy8nsM7RKoSg4Rvu
-         DRDa26wMKvR8+BwurVgYphhzEGpwIZBJymtUNEaISC5lGIqXFrJxJVhR0kQPHK7FD230
-         RcGIn4XC9fz5K0jyxs9//hxi/1i3b9+RvxO76dP/FJSgPGuNFXtimTSF7WVUy8g/EsFY
-         QVlw==
-X-Forwarded-Encrypted: i=1; AKwUvBxVbfbGmR9SfY0IpTY9y8LLDLG4P94B0ciLAVTQJAn/Z5lErLnddQKh1tr4Sq7IGRyGtzoRuPCJ2iQCAqE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9HSpgoZDTtAaVYe5Xju9mYErfGstjlblrD9koTqZDLM3nw+SBT
-	NWdzSNbnhxTw6AIKboDcQ/3BbPF3LMG/RB1zsAp3O6RAOlfhNXTgSDqxXqVqZRTSJ/UgQQTxW7Q
-	397NOoUXwdXDEOtvQjgXXoVGURfkbRpmBvDWUNnqbhGtMphMClxY7/iNQ61o=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CA03606A330
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:24:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fxlXOKrk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72A5B1F000C1;
+	Thu,  5 Nov 2026 18:24:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793903068;
+	bh=ZtmUTz3ZwmwR9910+Kg+d/RgBwrT3NvRt16MrNazlP0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fxlXOKrkd/ih8Okx46HxINwM6CuMC9k3XkFDcDWktB2Lvi9nC84OTal5TiE1jiJCp
+	 zI+ZlKsoe+XNrq2L4yQ2abH/8wY8+3BQrGw/oMJ4DzUPxkb7Urt3Y6CcBP0pF0AaZ+
+	 UCbnCWToAVwTuA/zW38iJp92W3eV77UJ4LB3qvPKBuQIN6Ck4OjmUaCpm27cTq0op4
+	 4IlLdAcdf/7wJPFZX0nYfY0jSpRQbbGo/OOjlQMo09KlakorcwX+G4b/cFpocmlXaT
+	 4g1ROKSN+zBA/p2YN/7Xf3RsZIMkm4X4CgQct9xhk425DhOOMaYSOdqCwn1Y9YXDQg
+	 E0f2WAhQWgjRA==
+Date: Thu, 5 Nov 2026 18:24:25 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Avi Weiss <thnkslprpt@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] cache: sifive_ccache: skip disabled device tree nodes
+Message-ID: <20261105-igloo-stunt-534496ad0518@spud>
+References: <20261028131939.1014720-2-thnkslprpt@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,37 +57,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:3c48:b0:4f4:d7:b16d with SMTP id
- 5614622812f47-5640de8713amr14198871b6e.60.1793903043331; Thu, 05 Nov 2026
- 10:24:03 -0800 (PST)
-Date: Thu, 05 Nov 2026 10:24:03 -0800
-In-Reply-To: <20261105180403.675338-1-diasyzhangqing@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aecc9c3.ab333cca.1deac.0002.GAE@google.com>
-Subject: Re: [syzbot] [ecryptfs?] KASAN: slab-out-of-bounds Read in write_tag_3_packet
-From: syzbot <syzbot+2e8c4ecc07730b29ae27@syzkaller.appspotmail.com>
-To: code@tyhicks.com, diasyzhang@tencent.com, diasyzhangqing@gmail.com, 
-	ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	roberto.sassu@polito.it, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="CB43f/tqOHsA+9GK"
+Content-Disposition: inline
+In-Reply-To: <20261028131939.1014720-2-thnkslprpt@gmail.com>
 
-Hello,
+--CB43f/tqOHsA+9GK
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+On Wed, Oct 28, 2026 at 03:19:40PM +0200, Avi Weiss wrote:
+> sifive_ccache_init() uses of_find_matching_node_and_match(), which also
+> returns nodes marked as disabled. The initializer can therefore map and
+> access a cache controller that the device tree marks unavailable.
+>=20
+> Select the first available matching node before accessing its registers.
+> This also handles a disabled node preceding an enabled one.
+>=20
+> Fixes: a967a289f169 ("RISC-V: sifive_l2_cache: Add L2 cache controller dr=
+iver for SiFive SoCs")
+> Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+> ---
+>  drivers/cache/sifive_ccache.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/cache/sifive_ccache.c b/drivers/cache/sifive_ccache.c
+> index 71d3f94987fa..02878d54381d 100644
+> --- a/drivers/cache/sifive_ccache.c
+> +++ b/drivers/cache/sifive_ccache.c
+> @@ -297,7 +297,9 @@ static int __init sifive_ccache_init(void)
+>  	unsigned long quirks __maybe_unused;
+>  	int rc;
+> =20
+> -	np =3D of_find_matching_node_and_match(NULL, sifive_ccache_ids, &match);
+> +	for_each_matching_node_and_match(np, sifive_ccache_ids, &match)
+> +		if (of_device_is_available(np))
 
-Reported-by: syzbot+2e8c4ecc07730b29ae27@syzkaller.appspotmail.com
-Tested-by: syzbot+2e8c4ecc07730b29ae27@syzkaller.appspotmail.com
+Are there any devices where this is actually possible? IOW, where there
+are 2 ccache instances.
 
-Tested on:
+> +			break;
+>  	if (!np)
+>  		return -ENODEV;
+> =20
+>=20
+> base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
+> --=20
+> 2.43.0
+>=20
 
-commit:         05441d69 Merge tag 'cocci-7.4-rc1' of git://git.kernel..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=11a70cfd580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5c210800cfc8f61e
-dashboard link: https://syzkaller.appspot.com/bug?extid=2e8c4ecc07730b29ae27
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=102ba969580000
+--CB43f/tqOHsA+9GK
+Content-Type: application/pgp-signature; name=signature.asc
 
-Note: testing is done by a robot and is best-effort only.
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauzJ2AAKCRB4tDGHoIJi
+0k2GAQCcXeNVe+fj3emdZR6xh3IMUE1u8VOnB5po9AZY1Q89nwD+P9vlx+0j5LZa
+m37bmmAThH5ypyTRJYeBgmL2YjUTwwk=
+=Fl83
+-----END PGP SIGNATURE-----
+
+--CB43f/tqOHsA+9GK--
