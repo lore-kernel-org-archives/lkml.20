@@ -1,105 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793880009;
-	b=vFdLNatPiL2jPUkdqedaggLp8nFMU0Wl6Chv7P1ZVA3PpGZ3NczWtPOHUswNFFEv6w4q
-	 GcTfm/ebuFZVUvWtbvjj3qk7i33ME47Vj91GaUEmuQl8Wo4hDoXeDQp1wFYHV45efY2yg
-	 H8UXxX/CHbavEZ2Kun3N8RcfLWjcrd7ikchb51WgU9L9l/BIjnJ0cwjbAN/kR583pSQDU
-	 1Qw3TKOUP68iIgb5OxkwCDtsc1mtCFvzO8IlVK7wLXeyPh6I0by2GB4zrsoAK+LbbH0Hc
-	 ya7okK7SWblwXplw7Qn+RFfKPms8Mim5wTOogpLok3Gxq/N5fgSRqenTNMFn64FqItw==
+	t=1793880051;
+	b=yMPtaa5FsSdTkVE32GlW0X3Lk09JZbf6QjZi7U3NuUVdAyGoFdUB8OgGQQDclktwFfEM
+	 sDOnkvGO6dHxKAuoambaL28Vxkxg6lIu1wz+615+q2u6L2YIF7/mdOM85af2mXgxt9VI5
+	 Sw8pAbfiTUsGt1SPzYFcLSss8RCdjDLAwTYeVIuVbE+Oo0nvgGxBrTf3aiFhU4CnWiidV
+	 iysdGM7Cnqpw+iq6EMbUPg3EeB9rWtZgWlMufEQOkKZWRE7SvmJMjm8sWR2zwo9G1mLi7
+	 nvng5HDsMF1cq7nlUB1b1sZJ9Z1kMb2mOFhNSqbrqo6FyFKiyHzloWrBURHKU6BcAeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793880009;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=mAm8SWYjVHtkj7l4zPpOlmPJ3PIKILZqb4g9EPE7x6k=;
-	b=mtx662JI2B5bEEAAY1lESzWu45cKGSJ5uMAjSqlaVo8hrFzVrnj+o/v/CFdkkwDIymVq
-	 yx8A2NZtXPg4cQBVDZXtgIuiE0Y3qS0crK2/bVCCu/QqI8830rMxQJ2By2xwnsUCXQ72c
-	 CZvK0lF49qTSyGQBdOyikKyuZ+K8byakBrkL/cCbUoAeAg0eaq1viSgirvwiyBlZObiGz
-	 s8RU2+fEiF6UF/60hfa2tH/xg/fYW4K0mGZV1y7Di1wk9GPd4fkxFFgcFbjs4sFrZzdlY
-	 Li473cph/5n4/GPcCsdBcHD/v0d3I+xBcOOZCaKmLch1SepMAPdIjqKK5EgSk6F/CBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793880051;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=iHtHHKkWSJPfQWrFBs5xTFx96nXTptk6pC2f5beHRKY=;
+	b=vD+lj/2eB3f1/g4YfmM8e8g8934E+B8YSMQGLolgV4qF4S++pJnDXEjka3y20G55p8Eb
+	 0cJoHWXHZKPKmXkf58M34nVVOBk8s7TIGvorjXGJTNupSV15n5D1NHp3jZ9CMpiGRzQUc
+	 Ka7Kv6H+Lwj3HFClJ41WfT+FMx7LhSXCHuTY0tfHrwVaE9lHuZFU4ARRvOi/3Im9tC4Z9
+	 Hha6dhho3Qvhia/xjiMKdwJAmL1RYL3qh89NvAhCnqHr9tLSIX1xBl8gSnFb+PxQUxz6J
+	 sEa8367ErquyiuM3d7Nr1qYB2madT+YJ7CSKiT3aITZrwLghyl6YZH4aJVcVCZJW6aw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=ACIntLEs;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=glbhRE9M;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB044606D80F
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:00:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB044606D80F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC8D606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:00:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=ACIntLEs
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so13888905e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 04:00:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793880006; x=1794484806; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mAm8SWYjVHtkj7l4zPpOlmPJ3PIKILZqb4g9EPE7x6k=;
-        b=ACIntLEsyxBxKA0gcYb8VuqBqXXrQ2KYTGR+7ZtV3iHg4P3w2wcn8bEVle48vYXnu2
-         e2+zndvzHtX0yKSoc0Y9dcYnhfM3ym6C+gZ23mYkG+818nplIb4MPkhsqDUHSJUTytU8
-         pO52J29qFJ7k8G5C7zfWLsTr//nsiiUp2fvcK+ckRyFMy0pj/fbZIA6NgXnVzFLvOjuX
-         deXgDB6LolgVysDAfVpNEoAjMfbiKUJkggHRnlhhmuucxV3hHcHnTnu7y4dEpdzTGxgE
-         ZCew/+eUousg9QY+ujSRmkcmisxOSW+eZ/Gx+XzOda9xeLgX9SB6i6rhd7vr97FfWotf
-         SYXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793880006; x=1794484806;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mAm8SWYjVHtkj7l4zPpOlmPJ3PIKILZqb4g9EPE7x6k=;
-        b=WTl4sANQ47bqYEyjuZdOFu5vStF8EnLDgQTYRGR9M0NIqvKilWKAws2v/dOzTYhkHC
-         VhryHPbugrKRSPwL7KiS+8DKupgpbcj7hru3CGeTIibY02XxlsBu57Psc0vb+QD4f4eb
-         wuKtX8WwfJieGGvYmlTQLkY8nklFmE3oTkrAmKqUZJiWikm1jEWsL+6ujXGM08I2VnJ3
-         KrSDbcqLOmuKmyWUUi7vkVadpjhaQCMzEwl9cdrzNObvH4+2kGcRqBsIIOn4uip+K/np
-         9EAT+3DnNy70Y9eMb1SqkFFX570VAx/b1a11bM/VIkH17aqM20tyJnckFCYGzKhY0uDA
-         eOgw==
-X-Forwarded-Encrypted: i=1; AKwUvBxVFJA1s2t9+0OG226rRXfG9mXTcaeUECR1WikV8U0MGgCdLs0dg63exja84qH1E53jyVI2OLaUlncMgko=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+sz94BzzgsSSLisGSC7DKcGCZ/oZCQm7ogat7xc3E2ShmfQqni
-	i4d1xrOLLXJv3m01zs+TB1H0TlWXbobWuSLqYSWQ0D3uyli36NQ1uDJdZexh0wl0/YA=
-X-Gm-Gg: AYBFou0DVuWjyaOnCgRj8Y4QfFoeAka0754pvCtu1RvseVwm7k8kgNeujcAb3DkL9PB
-	Czod3bd3ESvy0I4e0nOWeES/ALijF9f8aMq8rREb9MSQZemj7B8sbYPsZqPRbmWAxsjfe1bcm6X
-	FWq4pms/y1AFNNOf2RgvI4jP1aVuVu59HxH4jwQfeoQFZOo+QyUbrua2hoN8QKRZHMxX4WTJmT0
-	Y/wAjcFQqwRB3xHskBlf7oB+nGEr+xpmBdK/sk47lMQlIk1qM89vGDTeOZ/aFX00YofoNZgedjU
-	FSdVQMtqZQhPAfIZhCvpG0FeEb76dhg/jNnGLMUafIpf1+yizWFAFv4BYG+8WMJf73Tc//7EZBo
-	RsLGdjHCiGO7xqbFyKUC0mU6mEXcqGxsJ2eUjFxoGW0f4BTvOKPiw8aMKAiEIu9QdrWLrfC4yZU
-	dY9AeLKLc7KpvkqcYCPSGojEWqFHcMkPzETAkOj1eunpHUNWJvjexrFicjtN/Ss3xjph0y0UnQm
-	z8XpJczT1bKALKulbqdMC5M8agDXTZ3Fae2u/tQbJrZdGHlNkdNQMvQe7a+tlP7TV85T7FSIRp1
-	GGPUrQ/SK18PYviFWfDe9TASsBwuSbx8Rnz9qBKQ9XSVZ9DJA5k9SuJqFVP4SxNOLm18AjokqTX
-	xyxDBefmoMcAvgGyo
-X-Received: by 2002:a05:600c:1f93:b0:4a5:87b3:ddc1 with SMTP id 5b1f17b1804b1-4ac180f1ec7mr436813095e9.13.1793880005590;
-        Thu, 05 Nov 2026 04:00:05 -0800 (PST)
-Received: from localhost (p200300f65f19a904ae40ca5165ccacb8.dip0.t-ipconnect.de. [2003:f6:5f19:a904:ae40:ca51:65cc:acb8])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4b56fca22e1sm73091395e9.14.2026.11.05.04.00.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 04:00:04 -0800 (PST)
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	linux-remoteproc@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Peng Fan <peng.fan@nxp.com>
-Subject: [PATCH v3 1/2] remoteproc: elf_loader: Create new callback for copying segments to remote cpu
-Date: Thu,  5 Nov 2026 12:59:51 +0100
-Message-ID:  <50647b7d731fa54fdc3e2869f02de2096acdcff2.1793879714.git.u.kleine-koenig@baylibre.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1793879714.git.u.kleine-koenig@baylibre.com>
-References: <cover.1793879714.git.u.kleine-koenig@baylibre.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=glbhRE9M
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6389A1F000C1;
+	Thu,  5 Nov 2026 12:00:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793880050;
+	bh=iHtHHKkWSJPfQWrFBs5xTFx96nXTptk6pC2f5beHRKY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=glbhRE9MUrcqClo0tmsn+pGHwQQ5bP2TNIV4adb2xDr4eGky/Bh5xBQie+A4zmBm5
+	 qbFxwCLizZ51ZiVgQImrqt3z/7lk9DwPr+P7ZPylQ7iGGuiQwMdv6sYESrghii7ppv
+	 sOw9CjZ6hfOONHZqYR+ZiEvuUc1PkjOdutrZQS9BaxvIqyBxAq9J8WcsxEaJY7AduN
+	 N8IGRdnHU6dJa7CTh8PeqDA1qEsKdPINGL0Brv+XJVqFBrVzUsHxqZlTcjp0IZVseF
+	 bCljvtWq1uh8Lm+fRvcaSJcFeaJXdTl4Cnc1IiarrO/PGaFzzWq9e4PvTdI2YNDZCM
+	 pBQxcZ3SeT6Pw==
+Message-ID: <dec26f4a-138a-4cd7-b000-4bda7c61af82@kernel.org>
+Date: Thu, 5 Nov 2026 13:00:44 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,133 +51,272 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] mm/memory: use pmdp_get_lockless() for the pmd read in
+ do_fault_around()
+To: Hui Zhu <hui.zhu@linux.dev>, Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Sam Creasey <sammy@sammy.net>
+Cc: Hui Zhu <zhuhui@kylinos.cn>, stable+noautosel@kernel.org,
+ linux-m68k@lists.linux-m68k.org
+References: <20261104091050.117076-1-hui.zhu@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261104091050.117076-1-hui.zhu@linux.dev>
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4764; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=Z/fCIVp9RMJTrReXJyUJn6ua+y9sBVz+x0H7XlZvi4g=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq7G+5Gk4Q8ATYuAmIR9DTokmwc///VvCwal9RT 0Q+SzcLu66JATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCauxvuQAKCRCPgPtYfRL+ TnLPB/4nC79lPyLlqp10Q5F7ECcaSOk4HGB7s1h+upM72K8ZIRD4qE30eRuvw0eeyDwVqAIVE8p BAor5pNJ+SP4kvqA2oIUxtFqWsFQMOxAsHbfHs5DcCYjvyyrDc+f72Ax3/eiQg3x02Zbstqf61+ knGCo0cgViF8bSvnRkn7YdfeAdRWO06P7TUfGt6LakU0STGCVNz39MGsiVTdEqzYERqITokSStT zsuoA51dTkKAnw2B1nPeUAqItS9etWoDQCm9xeYoCPk+vXUuMUVleKV55rUOUBSljhUqx/CEgAy hb62FNMp4EmG3KK5vjaTGyiCyOvEyljj4nM+fDYQrz3yepib
-X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Some devices have special needs about how an Elf segment is copied to
-the remote cpu's memory space where the default implementation using
-da_to_va() + memcpy_toio/memcpy and memset_io/memset isn't suitable. An
-affected mainline driver is imx-dsp-rproc which includes a near-copy of
-rproc_elf_load_segments() just to handle the IRAM only allowing 32 bit
-accesses. On (not-yet-mainline) ADI SC846 the respective memory isn't
-directly accessible at all and DMA must be used to copy the data. To
-cover that usecase don't keep rproc_da_to_va() in
-rproc_elf_load_segments() and let the new callback operate on the device
-address.
+On 11/4/26 10:10, Hui Zhu wrote:
+> From: Hui Zhu <zhuhui@kylinos.cn>
+> 
+> KCSAN reports a data-race in do_read_fault / pmd_install; the same code
+> is in mainline:
+> 
+>   write (marked) to 0xffff8d52a75fb810 of 8 bytes by task 27487 on cpu 5:
+>    native_set_pmd arch/x86/include/asm/pgtable_64.h:83 [inline]
+>    pmd_populate arch/x86/include/asm/pgalloc.h:84 [inline]
+>    pmd_install+0xe0/0x120 mm/memory.c:444
+>    finish_fault+0x5bc/0xb00 mm/memory.c:5204
+>    do_cow_fault mm/memory.c:5432 [inline]
+>    do_fault+0x5d0/0x6e0 mm/memory.c:5526
+>    handle_mm_fault+0x211/0x4c0 mm/memory.c:6218
+>    __mm_populate+0x144/0x270 mm/gup.c:2207
+>    __do_sys_mlockall+0x2cd/0x380 mm/mlock.c:764
+> 
+>   read to 0xffff8d52a75fb810 of 8 bytes by task 27527 on cpu 9:
+>    do_fault_around mm/memory.c:5341 [inline]
+>    do_read_fault+0x162/0x670 mm/memory.c:5381
+>    do_fault+0x31a/0x6e0 mm/memory.c:5524
+>    handle_mm_fault+0x211/0x4c0 mm/memory.c:6218
+>    faultin_page_range+0x227/0x530 mm/gup.c:2156
+>    __x64_sys_madvise+0x67/0x80 mm/madvise.c:1479
+> 
+>   value changed: 0x0000000000000000 -> 0x000000001386c067
+> 
+> Both paths only hold mmap_lock for read, so do_fault_around() tests
+> vmf->pmd while pmd_install() populates it under the pmd lock.  The race is
+> benign: a stale pmd_none() only wastes the prealloc_pte, which do_fault()
+> frees again, and a pmd seen as populated only makes ->map_pages() find no
+> PTE and do_read_fault() fall back to __do_fault().
+> 
+> The load still has to be lockless-safe.  The store side already is: on
+> i386-PAE, pmd_install() publishes both halves of the pmd with a single
+> cmpxchg8b.  The load side is not.  pmdp_get() is a plain READ_ONCE() over
+> a pmd_t that is wider than a word there, so it becomes two 32-bit loads
+> and can return the low half of one pmd together with the high half of
+> another.  Use pmdp_get_lockless(), the accessor for pmd reads that do not
+> hold the pmd lock: it re-reads until both halves come from the same pmd.
+> It is also what __pte_offset_map() already uses on this very pmd a few
+> instructions later.
+> 
+> Only X86_32+X86_PAE and SH+X2TLB compile the retry loop, these being the
+> GUP_GET_PXX_LOW_HIGH selectors that have more than two page table levels.
+> mips32 with 64-bit physical addresses selects GUP_GET_PXX_LOW_HIGH too,
+> but is 2-level and so falls back to pmdp_get().  On every other
+> configuration, x86-64 included, pmdp_get_lockless() is pmdp_get(): the
+> pmd is loaded in one go, the READ_ONCE() silences the report the same
+> way, and there is no functional change.
+> 
+> Fixes: 7267ec008b5c ("mm: postpone page table allocation until we have page to map")
+> Cc: stable+noautosel@kernel.org # KCSAN annotation only, no functional change
+> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+> Acked-by: Lorenzo Stoakes <ljs@kernel.org>
+> ---
+> Changelog:
+> v4:
+> Commit message only, the diff is identical to v3.  Spell out the affected
+> arches and add the lore links for v1-v3 (Lorenzo Stoakes).  Reword the
+> cmpxchg8b sentence: the store is already atomic, it is the load that tears.
+> Add the Fixes: tag (David Hildenbrand).
+> v3:
+> https://lore.kernel.org/all/20261103014749.96764-1-hui.zhu@linux.dev/
+> Shorten the comment to one line (David Hildenbrand).
+> v2:
+> https://lore.kernel.org/all/20261102093120.92654-1-hui.zhu@linux.dev/
+> Use pmdp_get_lockless() instead of pmdp_get() (David Hildenbrand).
+> v1:
+> https://lore.kernel.org/all/20261102031308.66177-1-hui.zhu@linux.dev/
+> 
+>  mm/memory.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/memory.c b/mm/memory.c
+> index 0fb676dd2bd63..f25c2ce0ef153 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -6017,7 +6017,8 @@ static vm_fault_t do_fault_around(struct vm_fault *vmf)
+>  	to_pte = min3(from_pte + nr_pages, (pgoff_t)PTRS_PER_PTE,
+>  		      pte_off + vma_pages(vmf->vma) - vma_off) - 1;
+>  
+> -	if (pmd_none(*vmf->pmd)) {
+> +	/* pmd_install() rechecks pmd_none() under the pmd lock. */
+> +	if (pmd_none(pmdp_get_lockless(vmf->pmd))) {
+>  		vmf->prealloc_pte = pte_alloc_one(vmf->vma->vm_mm);
+>  		if (!vmf->prealloc_pte)
+>  			return VM_FAULT_OOM;
 
-The new callback can be used to implement just the driver specific
-memory mapping + memcpy() + memset() to increase code reuse.
+Fun, this breaks some odd m68k configs because they do some legacy weird stuff with pmd_none().
 
-The patch only appears big because of indentation changes.
+I'll throw in the following cleanup. CCing m68k maintainers: I would drag
+this along with this fix here unless you disagree.
 
-Reviewed-by: Peng Fan <peng.fan@nxp.com>
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
+From e3c739933a04743e3923f6f39a603e93f2700304 Mon Sep 17 00:00:00 2001
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Thu, 5 Nov 2026 12:49:38 +0100
+Subject: [PATCH] m68k/mm: simplify
+ pmd_none()/pmd_val()/pmd_present()/pmd_bad()
+
+pmd_t on m68k used to contain 16 words. Commit ef22d8abd876 ("m68k:
+mm: Restructure Motorola MMU page-table layout") reduced Motorola PMDs
+to one word; Sun3 and ColdFire use word-sized folded PMDs.
+
+Use direct member access in pmd_val() and replace the Sun3 and ColdFire
+pointer-taking predicate wrappers with inline functions taking values.
+
+This allows us to write something like:
+
+  if (pmd_none(pmdp_get(pmdp)))
+
+While at it remove unused pmd_present2() and commented-out pmd_bad()
+on sun3.
+
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- drivers/remoteproc/remoteproc_elf_loader.c | 64 +++++++++++++---------
- include/linux/remoteproc.h                 |  4 ++
- 2 files changed, 41 insertions(+), 27 deletions(-)
+ arch/m68k/include/asm/mcf_pgtable.h  | 20 +++++++++++++++-----
+ arch/m68k/include/asm/page.h         |  2 +-
+ arch/m68k/include/asm/sun3_pgtable.h | 23 +++++++++++++++--------
+ 3 files changed, 31 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/remoteproc/remoteproc_elf_loader.c b/drivers/remoteproc/remoteproc_elf_loader.c
-index da3cddbe7d4c..3c749a39e5da 100644
---- a/drivers/remoteproc/remoteproc_elf_loader.c
-+++ b/drivers/remoteproc/remoteproc_elf_loader.c
-@@ -227,35 +227,45 @@ int rproc_elf_load_segments(struct rproc *rproc, const struct firmware *fw)
- 			break;
- 		}
+diff --git a/arch/m68k/include/asm/mcf_pgtable.h b/arch/m68k/include/asm/mcf_pgtable.h
+index f45a882238dbb..4efa8e3e1e98a 100644
+--- a/arch/m68k/include/asm/mcf_pgtable.h
++++ b/arch/m68k/include/asm/mcf_pgtable.h
+@@ -130,11 +130,21 @@ static inline void pte_clear(struct mm_struct *mm, unsigned long addr,
  
--		/* grab the kernel address for this device address */
--		ptr = rproc_da_to_va(rproc, da, memsz, &is_iomem);
--		if (!ptr) {
--			dev_err(dev, "bad phdr da 0x%llx mem 0x%llx\n", da,
--				memsz);
--			ret = -EINVAL;
--			break;
--		}
-+		if (rproc->ops->memcpy_tova) {
-+			ret = rproc->ops->memcpy_tova(rproc, da, elf_data + offset, filesz, memsz);
-+			if (ret) {
-+				dev_err(dev, "Failed to copy segment %d to device address 0x%llx: %pe\n",
-+					i, da, ERR_PTR(ret));
-+				break;
-+			}
-+		} else {
-+			/* grab the kernel address for this device address */
-+			ptr = rproc_da_to_va(rproc, da, memsz, &is_iomem);
-+			if (!ptr) {
-+				dev_err(dev, "bad phdr da 0x%llx mem 0x%llx\n", da,
-+					memsz);
-+				ret = -EINVAL;
-+				break;
-+			}
+ #define pte_page(pte)	virt_to_page(__pte_page(pte))
  
--		/* put the segment where the remote processor expects it */
--		if (filesz) {
--			if (is_iomem)
--				memcpy_toio((void __iomem *)ptr, elf_data + offset, filesz);
--			else
--				memcpy(ptr, elf_data + offset, filesz);
--		}
-+			/* put the segment where the remote processor expects it */
-+			if (filesz) {
-+				if (is_iomem)
-+					memcpy_toio((void __iomem *)ptr, elf_data + offset, filesz);
-+				else
-+					memcpy(ptr, elf_data + offset, filesz);
-+			}
- 
--		/*
--		 * Zero out remaining memory for this segment.
--		 *
--		 * This isn't strictly required since dma_alloc_coherent already
--		 * did this for us. albeit harmless, we may consider removing
--		 * this.
--		 */
--		if (memsz > filesz) {
--			if (is_iomem)
--				memset_io((void __iomem *)(ptr + filesz), 0, memsz - filesz);
--			else
--				memset(ptr + filesz, 0, memsz - filesz);
-+			/*
-+			 * Zero out remaining memory for this segment.
-+			 *
-+			 * This isn't strictly required since dma_alloc_coherent already
-+			 * did this for us. albeit harmless, we may consider removing
-+			 * this.
-+			 */
-+			if (memsz > filesz) {
-+				if (is_iomem)
-+					memset_io((void __iomem *)(ptr + filesz),
-+						  0, memsz - filesz);
-+				else
-+					memset(ptr + filesz, 0, memsz - filesz);
-+			}
- 		}
- 	}
- 
-diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
-index 00019b1895e6..e750a127cbc4 100644
---- a/include/linux/remoteproc.h
-+++ b/include/linux/remoteproc.h
-@@ -75,6 +75,7 @@ enum rsc_handling_status {
-  * @detach:	detach from a device, leaving it powered up
-  * @kick:	kick a virtqueue (virtqueue id given as a parameter)
-  * @da_to_va:	optional platform hook to perform address translations
-+ * @memcpy_tova:optional platform hook to copy data into remote memory range
-  * @parse_fw:	parse firmware to extract information (e.g. resource table)
-  * @handle_rsc:	optional platform hook to handle vendor resources. Should return
-  *		RSC_HANDLED if resource was handled, RSC_IGNORED if not handled
-@@ -99,6 +100,9 @@ struct rproc_ops {
- 	int (*detach)(struct rproc *rproc);
- 	void (*kick)(struct rproc *rproc, int vqid);
- 	void * (*da_to_va)(struct rproc *rproc, u64 da, size_t len, bool *is_iomem);
-+	int (*memcpy_tova)(struct rproc *rproc, u64 da, const void *src,
-+			   size_t filesz, size_t memsz);
+-static inline int pmd_none2(pmd_t *pmd) { return !pmd_val(*pmd); }
+-#define pmd_none(pmd) pmd_none2(&(pmd))
+-static inline int pmd_bad2(pmd_t *pmd) { return 0; }
+-#define pmd_bad(pmd) pmd_bad2(&(pmd))
+-#define pmd_present(pmd) (!pmd_none2(&(pmd)))
++static inline int pmd_none(pmd_t pmd)
++{
++	return !pmd_val(pmd);
++}
 +
- 	int (*parse_fw)(struct rproc *rproc, const struct firmware *fw);
- 	int (*handle_rsc)(struct rproc *rproc, u32 rsc_type, void *rsc,
- 			  int offset, int avail);
++static inline int pmd_bad(pmd_t pmd)
++{
++	return 0;
++}
++
++static inline int pmd_present(pmd_t pmd)
++{
++	return !pmd_none(pmd);
++}
++
+ static inline void pmd_clear(pmd_t *pmdp) { pmd_val(*pmdp) = 0; }
+ 
+ 
+diff --git a/arch/m68k/include/asm/page.h b/arch/m68k/include/asm/page.h
+index d30f8b2f15927..09a2c020ec992 100644
+--- a/arch/m68k/include/asm/page.h
++++ b/arch/m68k/include/asm/page.h
+@@ -17,7 +17,7 @@
+  */
+ #if !defined(CONFIG_MMU) || CONFIG_PGTABLE_LEVELS == 3
+ typedef struct { unsigned long pmd; } pmd_t;
+-#define pmd_val(x)	((&x)->pmd)
++#define pmd_val(x)	((x).pmd)
+ #define __pmd(x)	((pmd_t) { (x) } )
+ #endif
+ 
+diff --git a/arch/m68k/include/asm/sun3_pgtable.h b/arch/m68k/include/asm/sun3_pgtable.h
+index 704442a391fd7..5867d24032655 100644
+--- a/arch/m68k/include/asm/sun3_pgtable.h
++++ b/arch/m68k/include/asm/sun3_pgtable.h
+@@ -109,14 +109,21 @@ static inline void pte_clear (struct mm_struct *mm, unsigned long addr, pte_t *p
+ #define pmd_page(pmd)		virt_to_page((void *)pmd_page_vaddr(pmd))
+ 
+ 
+-static inline int pmd_none2 (pmd_t *pmd) { return !pmd_val (*pmd); }
+-#define pmd_none(pmd) pmd_none2(&(pmd))
+-//static inline int pmd_bad (pmd_t pmd) { return (pmd_val (pmd) & SUN3_PMD_MASK) != SUN3_PMD_MAGIC; }
+-static inline int pmd_bad2 (pmd_t *pmd) { return 0; }
+-#define pmd_bad(pmd) pmd_bad2(&(pmd))
+-static inline int pmd_present2 (pmd_t *pmd) { return pmd_val (*pmd) & SUN3_PMD_VALID; }
+-/* #define pmd_present(pmd) pmd_present2(&(pmd)) */
+-#define pmd_present(pmd) (!pmd_none2(&(pmd)))
++static inline int pmd_none(pmd_t pmd)
++{
++	return !pmd_val(pmd);
++}
++
++static inline int pmd_bad(pmd_t pmd)
++{
++	return 0;
++}
++
++static inline int pmd_present(pmd_t pmd)
++{
++	return !pmd_none(pmd);
++}
++
+ static inline void pmd_clear (pmd_t *pmdp) { pmd_val (*pmdp) = 0; }
+ 
+ /*
 -- 
-2.47.3
+2.43.0
 
+
+-- 
+Cheers,
+
+David
