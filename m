@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.92.40.78
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793884269;
-	b=0ZwnPiWXJnkAu1Kl05bEUTmibivSmWPYl1F0uEz/CAgvrrP0mPPEbp0b41OnQN1/pvlL
-	 yPz+YykZDgymbB4UgVrL1ujhtaQb/38PcraafeX3bt4RvMUYl5jJ3+8aYN+uqsQ7dqss8
-	 7dDfl9VgsMITfFGlk/DgEJsj5kQmLzLHaVDT5Dr29qZnm90Njtp08YdVHNZxBF892V5tw
-	 7q1ITWURnxPsolo3OgMnOL3quPvkwN5aOf3AEmsGCWr3sciK11maTLXo+SrWDzYMOkuXt
-	 cN0Ax6aVDJwp2WpWyj9cliN9wdzjOQkBdQ2zlni2oT2nO7CukRoltXt/88unGHuvk7A==
+	t=1793884272;
+	b=kTp+QQsiBTfzmAJ/ETyMC7medFiLJFlAIsXhuuiFDwanzhclSNY1B373jYq85R3YiZX2
+	 JF616xWx0wpm+nHjqp2C5xfpmxK08lcNbztJJ1xgyZ3pSQ76o3QPHbJWkUc26/TzzLgMa
+	 gE7/osFN3inRz6Nrv8w4FEpAXk/C57dm/wqtcjVvbiphEvfkrHU74cu76D0EPgm/Q5yYk
+	 sDAPqnL7iGRyFa2IPStVwKhmSdCUE2dU/EXDQ+FW3uyqtOeEgZ36Kwthu1MpQWVMtSXlq
+	 I+Bn/iFCpHXL4kUW5O3LQC7t4cpoHlSvLuSqifuDLv8qHSLg7ssYBU7Zmun6rlGJmww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793884269;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793884272;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=ivNxKcAn45LgRAdbRDkt0pkV8uD+BoFKTnn4dwfgvgs=;
-	b=deZNKhw4B91xbdJzYMjmHjP3WEbWFnrMZGh0IGSBULcFEwk7m20YJR/vP0tuv14hab8h
-	 XUJqM4ovdz5MKX7K1OOhWItuPqkv67aY82JIRNG8hwePxqKER6HI9Ep2n3cUXF74epJ93
-	 8De2TXMoFM01/LDu68U73A+DPQdiysfjxjdj4fNp58aRq0gvrWowWGE59mKpG2HxRGhXO
-	 QN7Xp9xK4QnusJlRexOkib9Bt/UZO9f2hTJKxRcJzmv2FHBbMdNCK+9O5HwvfDwxuhJbl
-	 cD4ET7FxyzNbV5Y4YVJSBE0fPjGM3BwPJB2Zoilv4kwaPpR+dh0jxVsnAnySy/gg/Rg==
+	bh=wB7MAZM6DeqfgWnsRCY9GJY0+/kpbyJiFnWeErSJxzU=;
+	b=LK4T2Ec3pjbcI7uP9++Z9IMpdArVqwglyj8KbeMh7m5WH3D+68A23y8vqFi1Z23ScHR/
+	 c7jmCdItIx/diHK6hqgqoEr1G5xlf9bqMSbRHcNcbQpUg1etT9dLXZnQkG8bLOdodvsOx
+	 5jRSpUExdSaAWAnabFTePs9ToAzOL7D4wrTkxHxxJUkmJHDyBgVFSNu5yYHUrchowCJDV
+	 DEugQyM6saVRAV9FtZ53zQfc4fUO43NaqsgIRTDb+qZMMIgM5dQf747Ukjoh/PwInYBtt
+	 LI2h2vFpedni6shkyd5vxfqgQlAtypnvpJeo4No5UjV9d0Xv+GmDfFj06y7jQarH6dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=thorsis.com;
 	spf=pass smtp.mailfrom=thorsis.com;
-	dkim=pass header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b="QG/qky5C";
+	dkim=pass header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b=BkWi5TWr;
 	arc=none smtp.remote-ip=217.92.40.78
 Received: from mail.thorsis.com (mail.thorsis.com [217.92.40.78])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3427606D80E;
-	Thu,  5 Nov 2026 13:11:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3427606D80E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B668606D82F;
+	Thu,  5 Nov 2026 13:11:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B668606D82F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=thorsis.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thorsis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b=QG/qky5C
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 931F914966D7;
-	Thu, 05 Nov 2026 14:11:42 +0100 (CET)
+	dkim=pass (2048-bit key, unprotected) header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b=BkWi5TWr
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 411A614966F7;
+	Thu, 05 Nov 2026 14:11:45 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=thorsis.com; s=dkim;
-	t=1793884302; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1793884305; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=ivNxKcAn45LgRAdbRDkt0pkV8uD+BoFKTnn4dwfgvgs=;
-	b=QG/qky5CCPw01/XvolJ5EN6sGxhJjpmL2flKlxwbm0ueWx6uqt1AeOsXA45fBbU5BNZYQS
-	O8wiyIZ0caZPQOtuTeGKeY+nMTW4f0osOg/Ls1pD2LqwYJLg8xYWqdMLpzcWCYjmu8eAF+
-	NLzIifM1p4RNmZwabwHXjoElllV/Cgg2sO0Aqg99am7vrihpQgnPAT8dIJsFiCAuLH/pYW
-	RcVJMCimAFhwNLNTnz/GgQGHacRZi7e4K2VzXbJ2WmxOiBsYH+w7jpfQ0G16zuaxzKq3jZ
-	qMWADXJMPMgeDx8faVAp4cn4z1MJ9tjAvqnWWzUG0H1NGzVQXIfIyrFdlfhq8Q==
+	bh=wB7MAZM6DeqfgWnsRCY9GJY0+/kpbyJiFnWeErSJxzU=;
+	b=BkWi5TWreaofM19/8hMVtrgru8LsDY5r3vF+OF557u4Hq4fmstrJgBv7iu4SpOncLQCBaq
+	PTRUHW1RN9hoY3eafJsJMRfwbQdz/ud3iP7/b4XtOpToYT8oLcmlrV5xMVwxOty7KUREg4
+	IvackDtLzqMQAB2U/sEiBIColZDTu4ZQghDk5CoV0pPry8Aq0rX07N4EmYgM9j7vsgjfpQ
+	In89pJWz/TvSGikjriOfw+6UN9J0gl0z2XJDhOOD5ihNaO3m+p8j7cgpM8RGTMRcqZ56L1
+	fpIbIC268A9/MzU5xBtQ2WGAnrb2cmKUlZyGaAo+a3/i0uE13tOKoShWRB78MA==
 From: Alexander Dahl <ada@thorsis.com>
 To: Claudiu Beznea <claudiu.beznea@tuxon.dev>
 Cc: Nicolas Ferre <nicolas.ferre@microchip.com>,
@@ -53,10 +53,12 @@ Cc: Nicolas Ferre <nicolas.ferre@microchip.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-clk@vger.kernel.org,
-	Srinivas Kandagatla <srini@kernel.org>
-Subject: [PATCH v4 11/16] nvmem: microchip-otpc: Expose UID registers as 2nd nvmem device
-Date: Thu,  5 Nov 2026 12:06:47 +0100
-Message-ID: <20261105110715.2486432-12-ada@thorsis.com>
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: [PATCH v4 14/16] ARM: dts: microchip: sam9x60: Add OTPC node
+Date: Thu,  5 Nov 2026 12:06:50 +0100
+Message-ID: <20261105110715.2486432-15-ada@thorsis.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261105110715.2486432-1-ada@thorsis.com>
 References: <20261105110715.2486432-1-ada@thorsis.com>
@@ -72,112 +74,50 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-For SAM9X60 and SAMA7G5 the Product UID x Register containing the Unique
-Product ID is part of the OTPC registers.  Expose this unique id as
-trivial nvmem device in a similar fashion like the soc sfr driver on
-SAMA5D2 does.
+The One-Time Programmable (OTP) Memory Controller (OTPC) is the secure
+interface between the system and the OTP memory.  It also features the
+Unique Product ID (UID) registers containing a unique serial number.
+
+See datasheet (DS60001579G) sections "7. Memories" and "23. OTP Memory
+Controller (OTPC)" for reference.
 
 Signed-off-by: Alexander Dahl <ada@thorsis.com>
 ---
 
 Notes:
     v4:
-    - Add missing include header for iomem access (thanks Claudiu)
-    - Reword commit message
+    - Dropped new microchip,sam9x60-otpc compatible,
+      use microchip,sama7g5-otpc instead
     
     v3:
-    - no changes
+    - Removed needless header include
+    - Removed clock-names, not part of bindings anymore, and not used by driver
     
     v2:
-    - Use dev_err_probe() for error reporting (thanks Claudiu)
-    - Move required register definition over here from removed patch
+    - squashed with patch adding the clock properties
 
- drivers/nvmem/microchip-otpc.c | 39 +++++++++++++++++++++++++++++++++-
- 1 file changed, 38 insertions(+), 1 deletion(-)
+ arch/arm/boot/dts/microchip/sam9x60.dtsi | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/nvmem/microchip-otpc.c b/drivers/nvmem/microchip-otpc.c
-index 4286365686563..e10291f59a3b7 100644
---- a/drivers/nvmem/microchip-otpc.c
-+++ b/drivers/nvmem/microchip-otpc.c
-@@ -9,6 +9,7 @@
+diff --git a/arch/arm/boot/dts/microchip/sam9x60.dtsi b/arch/arm/boot/dts/microchip/sam9x60.dtsi
+index 4b777c61c1e09..996b13300ca06 100644
+--- a/arch/arm/boot/dts/microchip/sam9x60.dtsi
++++ b/arch/arm/boot/dts/microchip/sam9x60.dtsi
+@@ -155,6 +155,14 @@ sdmmc1: sdio-host@90000000 {
+ 			status = "disabled";
+ 		};
  
- #include <linux/bitfield.h>
- #include <linux/clk.h>
-+#include <linux/io.h>
- #include <linux/iopoll.h>
- #include <linux/module.h>
- #include <linux/nvmem-provider.h>
-@@ -25,10 +26,14 @@
- #define MCHP_OTPC_HR			(0x20)
- #define MCHP_OTPC_HR_SIZE		GENMASK(15, 8)
- #define MCHP_OTPC_DR			(0x24)
-+#define MCHP_OTPC_UID0R			(0x60)
- 
- #define MCHP_OTPC_NAME			"mchp-otpc"
- #define MCHP_OTPC_SIZE			(11 * 1024)
- 
-+#define MCHP_OTPC_UID_NAME		"mchp-uid"
-+#define MCHP_OTPC_UID_SIZE		16
++		otpc: efuse@eff00000 {
++			compatible = "microchip,sama7g5-otpc", "syscon";
++			reg = <0xeff00000 0xec>;
++			#address-cells = <1>;
++			#size-cells = <1>;
++			clocks = <&pmc PMC_TYPE_CORE SAM9X60_PMC_MAIN_RC>, <&pmc PMC_TYPE_PERIPHERAL 46>;
++		};
 +
- /**
-  * struct mchp_otpc - OTPC private data structure
-  * @base: base address
-@@ -230,6 +235,16 @@ static int mchp_otpc_init_packets_list(struct mchp_otpc *otpc, u32 *size)
- 	return 0;
- }
- 
-+static int mchp_otpc_uid_read(void *priv, unsigned int offset,
-+			      void *val, size_t bytes)
-+{
-+	struct mchp_otpc *otpc = priv;
-+
-+	memcpy_fromio(val, otpc->base + MCHP_OTPC_UID0R + offset, bytes);
-+
-+	return 0;
-+}
-+
- static struct nvmem_config mchp_nvmem_config = {
- 	.name = MCHP_OTPC_NAME,
- 	.type = NVMEM_TYPE_OTP,
-@@ -239,6 +254,15 @@ static struct nvmem_config mchp_nvmem_config = {
- 	.reg_read = mchp_otpc_read,
- };
- 
-+static struct nvmem_config mchp_otpc_uid_nvmem_config = {
-+	.name = MCHP_OTPC_UID_NAME,
-+	.read_only = true,
-+	.word_size = 4,
-+	.stride = 4,
-+	.size = MCHP_OTPC_UID_SIZE,
-+	.reg_read = mchp_otpc_uid_read,
-+};
-+
- static int mchp_otpc_probe(struct platform_device *pdev)
- {
- 	struct nvmem_device *nvmem;
-@@ -269,8 +293,21 @@ static int mchp_otpc_probe(struct platform_device *pdev)
- 	mchp_nvmem_config.size = size;
- 	mchp_nvmem_config.priv = otpc;
- 	nvmem = devm_nvmem_register(&pdev->dev, &mchp_nvmem_config);
-+	if (IS_ERR(nvmem)) {
-+		return dev_err_probe(&pdev->dev, PTR_ERR(nvmem),
-+				     "Error registering OTP as nvmem device\n");
-+	}
- 
--	return PTR_ERR_OR_ZERO(nvmem);
-+	mchp_otpc_uid_nvmem_config.dev = otpc->dev;
-+	mchp_otpc_uid_nvmem_config.priv = otpc;
-+
-+	nvmem = devm_nvmem_register(&pdev->dev, &mchp_otpc_uid_nvmem_config);
-+	if (IS_ERR(nvmem)) {
-+		return dev_err_probe(&pdev->dev, PTR_ERR(nvmem),
-+				     "Error registering UIDxR as nvmem device\n");
-+	}
-+
-+	return 0;
- }
- 
- static const struct of_device_id __maybe_unused mchp_otpc_ids[] = {
+ 		apb {
+ 			compatible = "simple-bus";
+ 			#address-cells = <1>;
 -- 
 2.47.3
 
