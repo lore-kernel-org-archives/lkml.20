@@ -1,59 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=77.75.78.125
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793879123;
-	b=CYCy03dG6MC1JMNpRIVA+G5ZyaJrOGRonosPxyCeprrYlhThw/5htFGd4TliYH+kgkVE
-	 2iVh6Nfn6d2NByFWHkJiALCSih5ajKQ0mmQ02PmI9pffxDQLwRZRm5l17R3XlsToc3rln
-	 4B+dA5G43581dsWGIOOLLn2W8Xj05PUHEPeQXZxlIZKjgmPmEjqafdBIsbZNWUM+tXHon
-	 kap5Br5aKq86rZf+pqIU+02T+p7TCXCDmqtnl3YwwrY/hESmvcbrvv0Ov91g9mig1ZNGE
-	 THY0tU54C4KpuJtjQ164R3Ag5YfXF1sjpzmTMpa+vUMpPlXtls5b37WkGvskERk0nHA==
+	t=1793879106;
+	b=m+Yk5tkrizMFY1eFnN1Qvse4H6AsAsI/Jg8c0cweBy/lpu0J2SrmVKifsZF9v+5Hijx6
+	 pRwRDEttE2Xyh5X/51QEukILzbN/xkGhrF0E5iKUg97qCSSWTW+MU6v/2Cwl4SdK+fSgq
+	 A1Owsxeoh5KpY2VNIa6bzFMNH7uZDJMUKpTdBJMe0r4Itd1ibYca4F84+4Bp1Kaudn4RQ
+	 j8AemYuAmPGXiqci+mcMONlW/KtKFeIFgXldlQSNIAVCci5yRIv+tB0tXUi62eagvy1E6
+	 GNHjIl82aRCxmMHeL7go+enrYeJyDOuLjuhZ2kZQ1vl1f3ojHc9t6KoIOmwq2+eGZ1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793879123;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:X-Developer-Signature:X-Developer-Key:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793879106;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=iW3Qq8amtb6uyWQtI6Qd2QiOD931Nk0J48voU0GEX/I=;
-	b=KAQUasYba7AxIqQSNbrGXPpJ5a/lbZAaOYxNCbGpgD3qiy3L9GhoSaz0ZGZrltsYKlbG
-	 6nVrwalZc5Fk/XiaVWa6fcLXX3CTvAXjjg60csSsi0g5VZy4JQbiXi9bvOKuLxjsjn4HO
-	 faEj8s68QFCgs94hZEVQFXH5Y5Zb4aV/LcJTKvHi0KD4X2j4Y8eXAyyNi3fMjGSOVbP6L
-	 6/QxEl2XV4i9PFF3nRGl0cuYsWOOqZHJ+hDWDdAEyfWfpYwKCizegWBNI2qOJCCsV5w/a
-	 Gv372FlBADkUoDiWIMMvuGoYZiY7fRuBXXKLpBDf9beN5PgAwXghi0mHt+M+N7TqDiQ==
+	bh=i8H/4A+NpWNejlaYSVmvui2hqc5UYcenejqPfVH/uLA=;
+	b=RSoWOOVj5TpSPKnkQzABlEYdR0OQMpzzIyyDvW/SWV4/2DxFVysn+EGIClLGigzSMcxc
+	 ZGbfsJp0p8/Ma2LSMCY9r0Ptl41bJjjMXcLR4iIrndyjM/cQzq2+sELoveWNvJVDz9Phd
+	 TAby42PmHK+kaZs47vN8lU1zU4xwAqUz0G4okf9QKMR2xRqREsKhiy6gafTPdK9UeOoHR
+	 KByzKBQXYdRxm7BYCK16nDccvzBNaAuMDN8RJ8InC2CbkCjLuWfksS0Updh2xjhwc5xEk
+	 i93/G7q25f8UERUHPHfdUFV+tvfws/h9jt0Og+vye3gmB2YX+KjqGAx4bnT6qEui9mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hHMwcPsw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=seznam.cz;
+	spf=pass smtp.mailfrom=seznam.cz;
+	dkim=pass header.d=seznam.cz header.i=@seznam.cz header.a=rsa-sha256 header.s=szn1 header.b=ahFMKcth;
+	arc=none smtp.remote-ip=77.75.78.125
+Received: from mxs.seznam.cz (mxs.seznam.cz [77.75.78.125])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 994E66083604
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:45:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CE61606EE86;
+	Thu,  5 Nov 2026 11:45:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CE61606EE86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seznam.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seznam.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hHMwcPsw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6FC71F00A16;
-	Thu,  5 Nov 2026 11:45:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793879123;
-	bh=iW3Qq8amtb6uyWQtI6Qd2QiOD931Nk0J48voU0GEX/I=;
-	h=From:To:Cc:Subject:Date;
-	b=hHMwcPswq0J48GG2CKpW6w3jza2IUAqrYwuIr9qkgDef6ErAO+yqDUjU1xRybeSr7
-	 sHwuNU4auztGjgOsnM819Re2H13PnztJJucwgxYpAhNngppeDrafnSt5t0i+WrEPVm
-	 0FkJJIrjGn4elBhwGQOXmBl+lxO1+bFGGtKcslPWK0N9MH/S7Rylh6ZxSLB48y30X4
-	 nnPnJpktaAPexaIubq1mBGCXRAq5dgS9B+0XGnjOBUum5CbOz2p8TPMmyVsVg2QW7m
-	 70MlTJHhvE/kXPxoldlz5JI0zjVEzXkscmno4xCcozvHEm3zgh8uY5U3sW0ZT/KtGH
-	 jTW3z6kHQekNg==
-From: Thorsten Blum <blum@kernel.org>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Geoff Levand <geoff@infradead.org>
-Cc: Thorsten Blum <blum@kernel.org>,
-	linuxppc-dev@lists.ozlabs.org,
+	dkim=pass (2048-bit key, unprotected) header.d=seznam.cz header.i=@seznam.cz header.a=rsa-sha256 header.s=szn1 header.b=ahFMKcth
+Received: from email.seznam.cz
+	by smtpc-mxs-78c5bf57f5-q6hrm
+	(smtpc-mxs-78c5bf57f5-q6hrm [2a02:598:128:8a00::1000:82d])
+	id 58e7d2749fe5e98d5bb85c78;
+	Thu, 05 Nov 2026 12:44:35 +0100 (CET)
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed; d=seznam.cz; s=szn1;
+	t=1793879075; bh=i8H/4A+NpWNejlaYSVmvui2hqc5UYcenejqPfVH/uLA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	b=ahFMKcthEDtAgJPSnyPys3xR4BcW7wUXhAzs4/uetLhEdkuQ9S55WKcwZE/Awi6wu
+	 v+kEftf49oKqxDymUIOC+1zvSZyKUFQp/QNB+0g2RVTXRxlFtL0+91VX/5A2IF7L2L
+	 rFP1UG3EU+77Dy1NOXWCAt0yv7XRO75Hr95ysRXYYxpsIM1P+aErV5RCv4i08VneQ8
+	 CYeTCEyuxTAu8kUgMJQHuHp/WF1goQp7Io3cM0gOfUuyG3S41mVct40H0bs1VTnrjq
+	 sKOGm2dm1nosbS+GNHYpXscRh02UgM9F8lwPWWW+D4XDt0Y4wcMYPA54yt48CIJk8t
+	 cjUswKXBBS0dQ==
+Received: from fedora (wireless-86-50-140-68.open.aalto.fi [86.50.140.68])
+	by smtpd-relay-64b59866d6-9bkzr (szn-email-smtpd/2.0.93) with ESMTPA
+	id 77f62920-fde5-4993-acf0-3f016c0e4f99;
+	Thu, 05 Nov 2026 12:43:36 +0100
+From: =?UTF-8?q?Marek=20Konr=C3=A1d?= <konrad.marek@seznam.cz>
+To: linux-media@vger.kernel.org
+Cc: =?UTF-8?q?Marek=20Konr=C3=A1d?= <konrad.marek@seznam.cz>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	"Sapre, Sarang" <sarang.sapre@intel.com>,
+	Divyamani Tripathi <divyamani.tripathi@intel.com>,
+	Manik Bajpai <manik.bajpai@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] powerpc/boot: Add missing __noreturn annotations
-Date: Thu,  5 Nov 2026 12:44:45 +0100
-Message-ID: <20261105114447.305789-2-blum@kernel.org>
+Subject: [PATCH] media: ipu6: Fix ISYS runtime PM race during probe
+Date: Thu,  5 Nov 2026 13:43:09 +0200
+Message-ID: <20261105114311.49242-1-konrad.marek@seznam.cz>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -64,66 +75,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1788; i=blum@kernel.org; h=from:subject; bh=aG04TDJXN+wUfE2YzSPwyxFhBdzD5LvnNHljxF22+CM=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFlvcvSbnqz6cLX37qS2HrcXHx/eqwpSeWkdqDbhMpPgB n4RFtVfHaUsDGJcDLJiiiwPZv2Y4VtaU7nJJGInzBxWJpAhDFycAjCRD/cYGa7uSIsMcIz+fX/X W7mPi8xemq9rds6XFEhz3zP12G37O3GMDF/+bWjdxeN3JO3ceQn79Sv2rzvBt2/nfJf1+zf2Reb y1vICAA==
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Mark start(), exit(), ps3_exit(), and the PS3 platform_init() as
-__noreturn to document that they never return and to potentially improve
-compiler optimizations.
+ISYS and PSYS are auxiliary devices and PSYS is a child of ISYS.  In
+ipu6_pci_probe(), resuming PSYS to initialise the MMU and authenticate the
+firmware also resumes the ISYS parent.  However, ISYS probe has been
+deferred until bus_ready_to_probe is set, so ISYS is marked RPM_ACTIVE
+without its runtime_resume callback having run.
 
-Signed-off-by: Thorsten Blum <blum@kernel.org>
+The driver then drops the PSYS reference using pm_runtime_put(), which only
+schedules the idle transition asynchronously.  When PSYS finally suspends,
+the runtime PM core queues an idle request for ISYS as well.  This request
+can run after the deferred ISYS probe has published dev->driver but before
+isys_probe() has called dev_set_drvdata(), making isys_runtime_pm_suspend()
+dereference a NULL isys pointer:
+
+  BUG: kernel NULL pointer dereference, address: 000000000000031c
+  ...
+  isys_runtime_pm_suspend
+  bus_pm_runtime_suspend
+  rpm_callback
+  rpm_suspend
+  pm_runtime_work
+
+Make both runtime PM transitions synchronous and complete them before
+bus_ready_to_probe is set.  pm_runtime_put_sync() waits for PSYS to be
+suspended, dropping the active child count of ISYS.  pm_runtime_suspend()
+then suspends ISYS while its driver is still unbound, so no suspend
+callback can run during the probe.  The first real runtime resume happens
+later, when the driver data is available.
+
+Signed-off-by: Marek Konrád <konrad.marek@seznam.cz>
 ---
-Changes in v2:
-- Update patch subject and description
-- Mark start() and platform_init() as __noreturn
-- v1: https://lore.kernel.org/r/20260807152353.306889-2-thorsten.blum@linux.dev/
+ drivers/media/pci/intel/ipu6/ipu6.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
- arch/powerpc/boot/ops.h | 4 ++--
- arch/powerpc/boot/ps3.c | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/ipu6/ipu6.c
+index cdf812c02960..905b03b7e76d 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6.c
++++ b/drivers/media/pci/intel/ipu6/ipu6.c
+@@ -827,7 +827,8 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 	}
+ 
+ 	ipu6_mmu_hw_cleanup(isp->psys->mmu);
+-	pm_runtime_put(&isp->psys->auxdev.dev);
++	pm_runtime_put_sync(&isp->psys->auxdev.dev);
++	pm_runtime_suspend(&isp->isys->auxdev.dev);
+ 
+ 	/* Configure the arbitration mechanisms for VC requests */
+ 	ipu6_configure_vc_mechanism(isp);
+-- 
+2.56.0
 
-diff --git a/arch/powerpc/boot/ops.h b/arch/powerpc/boot/ops.h
-index a40c2162a4e9..42b2721dbe61 100644
---- a/arch/powerpc/boot/ops.h
-+++ b/arch/powerpc/boot/ops.h
-@@ -80,7 +80,7 @@ struct loader_info {
- };
- extern struct loader_info loader_info;
- 
--void start(void);
-+void __noreturn start(void);
- void fdt_init(void *blob);
- int serial_console_init(void);
- int ns16550_console_init(void *devp, struct serial_console_data *scdp);
-@@ -217,7 +217,7 @@ static inline void free(void *ptr)
- 		platform_ops.free(ptr);
- }
- 
--static inline void exit(void)
-+static inline void __noreturn exit(void)
- {
- 	if (platform_ops.exit)
- 		platform_ops.exit();
-diff --git a/arch/powerpc/boot/ps3.c b/arch/powerpc/boot/ps3.c
-index 89ff46b8b225..f94d3818815a 100644
---- a/arch/powerpc/boot/ps3.c
-+++ b/arch/powerpc/boot/ps3.c
-@@ -45,7 +45,7 @@ static void ps3_console_write(const char *buf, int len)
- {
- }
- 
--static void ps3_exit(void)
-+static void __noreturn ps3_exit(void)
- {
- 	printf("ps3_exit\n");
- 
-@@ -100,7 +100,7 @@ void ps3_copy_vectors(void)
- 	flush_cache((void *)0x100, 512);
- }
- 
--void platform_init(void)
-+void __noreturn platform_init(void)
- {
- 	const u32 heapsize = 0x1000000 - (u32)_end; /* 16MiB */
- 	void *chosen;
