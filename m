@@ -1,109 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=50.112.246.219
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793905943;
-	b=Lj9ecbddgjOA9u4G3D9B33Vd3RP1BG0ySMu77cjOUzWmHSDTfdA6tAvHlrI/WhCGMJPV
-	 61l4blRc6EPyPjmcXxikj9SBxzMXEyQ5emrh79gnPR3OMu/AYMmW+9zbJtF91950cB8Qj
-	 ybIHq2jvsKKHE3/cOSLDn6QtMaQhpW+DZYPAYg7T0aupttefwJWcJSkUqyGOtQpA78dDr
-	 4REa60FKMXHxaiTTJHiwGDd4awA2+tXq2mZqVk4XGVWX9Iyjoltmzca6syqvdC4SFc8mb
-	 CULQXbjcQi4D1h3KFV1ad0lN3RZjKLk6vYDjDS4N7uzkuou9GFzrxI8+7XdSgHM9zGQ==
+	t=1793905953;
+	b=WOn7cw8hYmIVDwcKNIX5ETaH7mgMicTUOid5DQOYbHo9sVlhJNzwIjoEmbt47K1CnXQX
+	 WFO2UtIgVTZXcNpbQLFJjGUmUy4xrdam3JGcCE9R8cVdCKYN8qmrWS7BcpjdEzyBAIL1r
+	 2D69S9nDATKhIPX20YAaG1aMT+A987AXTDd/RzehTWUT2KR3ApVLQhXK9Hf5EADHEVThc
+	 nVSsthle0AFKFw7aVOfuNKQoKP00YGvQDVTMSAIywEH8Qu2r63da0C4bKhKS8RXtZIOcX
+	 zrNOP2jg44SmSpOLH/RrWQ6zgOfwRZqp5nxHSymJsQFs6WQ0M/9xYVMyd2P79s9IKuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793905943;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=QH8EWm3WpJvKmm+3SH11RyockHxBeCCGhqou8vP+rPk=;
-	b=iilJ4z8dkuYWj+Y0omXQdCF279l4YrvFZuV/DLS7Bbu0gSUFBxjMaRPuK5byd6+2AqPt
-	 eGCxa/eAKEmZbi5DWBcWPw/mrakZKPKzW/9neQDhlG9ADtQ6bbSIbeOGHkPfXobgELvzC
-	 obnKBaGypTZ9pYEHqGamye4TOD18TbhlSXwQdYyM2NyTMrgfpv0rqe0fE1HIjk2zF0X/J
-	 cq+E6N2VTtGclOs3NLH7t9R+ecBceIFQXJcyIXdRBB1sxSaFYBRizqE7r1py9BVhLJDdr
-	 G0a+V+lR7qIknf+znfzmDTf5l1yfNMZPuW11vyp4LleFaMhtAULu8SH3tN1Gs1TGioQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793905953;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=5CeXz8onmx0GjUbQmMDjhDtvEqqOc02tfY/WFEpYS+U=;
+	b=Iff2TT8NgjHttHHqbuUYgcGjcfnirHMCvpUm1TkcCKCSrGaQQ7VHBo1c6m5ks3WH48Qi
+	 EiXclIGtnmWDxvDfDp8nwT6zwei/qrGzy5IuDixxxcL3epzWguCVr1wpIFWXFJi03GaQ+
+	 fZkmNPc7AfJAI6aZ5MHXueTgpKESjh4xFZMQZgRTJLTxDAmsNEjj8Vlu+55eq/W8OIyxY
+	 PXkC3WuiY5mN3Ge04fq8yBCFts87NA/3bW/GpeZwq1A2iXtA9zMmaOLC8Q9unyq4kV2O5
+	 B9m3AjZDiTSKvdfm0ck4ypM7rABV6dR2Sq/PTWpD+jPv/GxuxeN1ankCANtUvmWZn4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=B0MNLtWQ;
-	arc=none smtp.remote-ip=209.85.215.179
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=lptYNywC;
+	arc=none smtp.remote-ip=50.112.246.219
+Received: from pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com [50.112.246.219])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF356606A32D
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:12:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF356606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10C5B606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:12:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10C5B606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=B0MNLtWQ
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cdb681de50eso234844a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:12:22 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=lptYNywC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793905942; x=1794510742; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QH8EWm3WpJvKmm+3SH11RyockHxBeCCGhqou8vP+rPk=;
-        b=B0MNLtWQGjDmicRxY8nTu69DmYdME/D2jJN8rX+nGAlTMa5/iKX0Zivd7mhh+flPfs
-         xy3ZoNN4HgIKW4K4+mbAoNWhsSmDgb1P3WgIZCjZvecSakD2rB4XrTL8WwonQtbvNgZ8
-         h8p2WNu5k95YFljALG1jMJJ03s4qGmEUPwOwManEDxZ+GcL/xuiqjJVeLqmp+5UyzAW6
-         9EH7p2MmwcpUJDnOC5R25PxQkZi+0TuqQnMBjToaTQ/j5/LnlqaqNQd3J93XCaF2MN6H
-         E7WHw7qCt48+ehLyUoviWDEPPA7ju+e/24ge/Nj8T6fML4Ui3s4IgQMHHYqUJVnOXFuq
-         B5Iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793905942; x=1794510742;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QH8EWm3WpJvKmm+3SH11RyockHxBeCCGhqou8vP+rPk=;
-        b=u7V453IRAub6IXlQ1ZuJAxe1IWS3Nna6w0NCRcfg2OvK8hGGl3SfrnLwWzZ7PEGvw2
-         TPwJi/SBNkSNIw0J2iWdEnjE3J92xLjYV2XzWdh+ULQZ2usjC5eoChDLH6joTpZCXKOb
-         7C1O5giku4hhr0nWRMUBucuYo+qqiPQ8lsG46jeAIfc+c+AjvX4d3Wf7TUv/FQ2lMxTg
-         Dd2W3gWK0v2D2rVN1TCB9KsIVqgei+LAwpKzFww0867SkRNj+D7RHq/NcD9KrtCU4VK7
-         z4yzbw4Vfrm520rsoYxFNBqjM4wCBLnCbgFaIcX3w8JzYCJFrAt+an3ZliZ0v24+asG7
-         3Eig==
-X-Forwarded-Encrypted: i=1; AKwUvBzhFCPz4CwBSRh5Xeh0k2SZpPlq5MZAcZuU3GCvz6jBTCpHloySWZMVS8qiJA12wu9btXeZplcfgJa69H0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9T4xlxVPq7/Z4ccpJcEBexFLesfgHnDyBLKe3Wf5aXSyO9kuwb
-	NdC9uWbJb6Z2PH3/HxzL7Oh7CqpIdd6/Xmqge/6qXxhjZFM+ZOtw9twoqp5BYGGIDA==
-X-Gm-Gg: AYBFou3gAyOf2A/plFGwyy0l5T4s7/x5bHbwZYtNauJvEZyuRDBBYxQBhy44zLy8G6n
-	aHGts95FOx64zzF8nFkJzhwsAF4DujqyEV7HURVvGUcU3ZLJ6kRhnx1joqOZ055+ceL7K3Y6Ccm
-	xKj0Ae4LLpNR0aUSuj9C7CYfktQ98Mbl9eW/Zd8BhewkNSIwfO7itKblUtMf4sdfk9SOay4OA91
-	urrll5gdvzlbKzkXipZDmfddzvd27PcU7El9Amqx8Jf6ZTcGbx7NZX8DvUgSCbR+D2azx/UKxjd
-	NPN8jLhxQJ6udGAQCQb7EKiwsDkPZmIUWC03l2tkTDzHbp8p0djsZo++rW4qppanSQ4YOeNJm2G
-	5S6itv9iiE4FCYVfKVdn65EFliT2Gd8JlQpsloIwOlUX5npbzScvp45dn2HG5BZs3bseJ9bjB23
-	ny+BlGM4uCkn9bErL5che65OMPTjnk508jQWv+e9atDXFxY60bUoOUDFFBFI8LeOLeVXanO86i5
-	xDORjsSnUhY9DH+k95HOZ+wtzhDndv37mjV4Tv/QzLYK7/j+889Ed1SKNO3MDZ9K0QQx0SfWpt+
-	u1gAYR56PElvUparGy64tyF1y6J6JbjgpURlr9yi94nihAKZVaqUCHeAB8CoELhr
-X-Received: by 2002:a17:90b:268a:b0:3ac:7c52:faeb with SMTP id 98e67ed59e1d1-3ae89769d66mr17879218a91.41.1793905941532;
-        Thu, 05 Nov 2026 11:12:21 -0800 (PST)
-Received: from google.com (33.79.127.34.bc.googleusercontent.com. [34.127.79.33])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0944eb1d1sm5401592a91.0.2026.11.05.11.12.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 11:12:20 -0800 (PST)
-Date: Thu, 5 Nov 2026 19:12:17 +0000
-From: David Matlack <dmatlack@google.com>
-To: Vipin Sharma <vipinsh@google.com>
-Cc: kexec@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, kvm@vger.kernel.org, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, linux-pci@vger.kernel.org,
-	ajayachandra@nvidia.com, alex@shazbot.org, amastro@fb.com,
-	ankita@nvidia.com, apopple@nvidia.com, bhelgaas@google.com,
-	chrisl@kernel.org, christian.koenig@amd.com, corbet@lwn.net,
-	graf@amazon.com, jacob.pan@linux.microsoft.com, jgg@nvidia.com,
-	jgg@ziepe.ca, jrhilke@google.com, julianr@linux.ibm.com,
-	kees@kernel.org, kevin.tian@intel.com, leon@kernel.org,
-	leonro@nvidia.com, lukas@wunner.de, mattev@meta.com,
-	michal.winiarski@intel.com, parav@nvidia.com,
-	pasha.tatashin@soleen.com, praan@google.com, pratyush@kernel.org,
-	rananta@google.com, rdunlap@infradead.org, rientjes@google.com,
-	rodrigo.vivi@intel.com, rppt@kernel.org, saeedm@nvidia.com,
-	schnelle@linux.ibm.com, skhan@linuxfoundation.org,
-	skhawaja@google.com, vivek.kasireddy@intel.com, witu@nvidia.com,
-	yanjun.zhu@linux.dev, yi.l.liu@intel.com
-Subject: Re: [PATCH v6 07/27] vfio/pci: Preserve vfio-pci device files across
- Live Update
-Message-ID: <auzVEUpFEoWltpVg@google.com>
-References: <20261102153656.1431701-1-vipinsh@google.com>
- <20261102153656.1431701-8-vipinsh@google.com>
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1793905953; x=1825441953;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=5CeXz8onmx0GjUbQmMDjhDtvEqqOc02tfY/WFEpYS+U=;
+  b=lptYNywCq1pYWLojc0zfGY7TL4f3umDkwjrnMSDUpM/NkXfR5tGiPed+
+   O2HEe3GRjDjToUQSe95dDedGXMyWXsab8WC7Bmhh6DCcO3BXQ7Fx6SqNN
+   kykb0q9rtb/DiuIHhl/pkqCfeLbJi8uIlIOI1FnhzZcIScfGYUTF336Gj
+   I1WEOAFhKVp3L0c5vBVQZ+dFvqCAsA0eoJGXyClF7P8mTBwR64YE0f6BF
+   PkDMks7hyqrr7geabU3l9yakH38EMnGVCBt23H6C1XCKv5kH8RC7LOOXp
+   VhbPXBSuNh7dpfB4cNj8g9oFZS+34euAqOrPLZEtywpOS6MXKxXbTQdei
+   w==;
+X-CSE-ConnectionGUID: QNV2v3RwToC2Q34F/9Phbg==
+X-CSE-MsgGUID: iAvjnRKrRjG3vygHqo3ljw==
+X-IronPort-AV: E=Sophos;i="6.27,197,1787011200"; 
+   d="scan'208";a="33006063"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 19:12:32 +0000
+Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.182:27964]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.15.208:2525] with esmtp (Farcaster)
+ id 5c580cd9-511c-44d4-9ff9-4e168f6574bc; Thu, 5 Nov 2026 19:12:32 +0000 (UTC)
+X-Farcaster-Flow-ID: 5c580cd9-511c-44d4-9ff9-4e168f6574bc
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA001.ant.amazon.com (10.250.64.204) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Thu, 5 Nov 2026 19:12:32 +0000
+Received: from dev-dsk-mkbund-2b-9ea2efba.us-west-2.amazon.com (10.2.100.138)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Thu, 5 Nov 2026 19:12:31 +0000
+From: Mark Bundschuh <mkbund@amazon.com>
+To: <jiaqiyan@google.com>
+CC: <akpm@linux-foundation.org>, <muchun.song@linux.dev>, <osalvador@suse.de>,
+	<david@kernel.org>, <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] mm/hugetlb: add htlb_dissolve vmstat event
+Date: Thu, 5 Nov 2026 19:12:21 +0000
+Message-ID: <20261105191221.1010676-1-mkbund@amazon.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <CACw3F50bfsm0pZoEYL=y_9yiQ2XEQTjCE=496D-=MJbRnXGhQQ@mail.gmail.com>
+References: <CACw3F50bfsm0pZoEYL=y_9yiQ2XEQTjCE=496D-=MJbRnXGhQQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,116 +84,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102153656.1431701-8-vipinsh@google.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC001.ant.amazon.com (10.13.139.241) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On 2026-11-02 07:36 AM, Vipin Sharma wrote:
->  * TOCTOU synchronization: vfio_pci_dev_is_frozen() is checked locklessly
->    on entry to the ioctl, read/write and mmap paths, and re-checked under
->    a lock that freeze() holds before any operation that could change the
->    device or vconfig: under vdev->igate in vfio_pci_ioctl_set_irqs() and
->    around every config-space write in vfio_pci_config_rw_single(), under
->    vdev->memory_lock in vfio_pci_runtime_pm_entry(),
->    vfio_pci_ioctl_reset() and the SR-IOV enable path of
->    vfio_pci_core_sriov_configure(), and under dev_set->lock in
->    vfio_pci_dev_set_hot_reset(). A racing operation thus either completes
->    before freeze() takes its snapshot or fails, while existing BAR mmaps,
->    ioeventfds and dma-bufs keep working. Serializing config writes on
->    igate covers the PCI_COMMAND, INTx disable emulation, power state and
->    FLR paths at one point (the INTx disable emulation now uses the
->    igate-held __vfio_pci_intx_mask() and __vfio_pci_intx_unmask()
->    helpers), and also serializes the irq_type and virq_disabled accesses
->    of config writes with VFIO_DEVICE_SET_IRQS.
+On Thu, Nov 5, 2026 at 09:46:58AM -0800, Jiaqi Yan wrote:
+> >                 update_and_free_hugetlb_folio(h, folio, false);
+> > +               count_vm_event(HTLB_DISSOLVE);
+>
+> What if update_and_free_hugetlb_folio() failed / bailed out?
 
-I think there's a simpler way to do this. Checking the frozen flag
-locklessly and then re-checking it under whichever lock covers each
-path spreads the synchronization across igate, memory_lock and
-dev_set->lock. That makes it hard to convince yourself every path that
-can change the device is covered. It also makes every config space
-write take igate, for all vfio-pci users, even when
-CONFIG_VFIO_PCI_LIVEUPDATE=n.
-
-Instead, I suggest adding a per-device rw_semaphore to struct
-vfio_device in the VFIO core, e.g. liveupdate_rwsem, that protects a
-liveupdate_frozen flag:
-
- - vfio_device_fops_unl_ioctl(), vfio_device_fops_read() and
-   vfio_device_fops_write() take liveupdate_rwsem for read and fail
-   with -EIO if the device is frozen. That covers every device ioctl in
-   one place, including the ones handled by the VFIO core
-   (VFIO_DEVICE_FEATURE, VFIO_DEVICE_GET_REGION_INFO and
-   VFIO_DEVICE_{ATTACH,DETACH}_IOMMUFD_PT). This patch doesn't block
-   the last two at all today.
-
- - freeze() and unfreeze() take liveupdate_rwsem for write, before any
-   other lock, and flip the flag. preserve() doesn't need it since it
-   only serializes state that doesn't change after the device is
-   opened.
-
-Putting this in the VFIO core also means other VFIO drivers can reuse
-it if they add Live Update support in the future.
-
-The lock order then becomes:
-
-  liveupdate_rwsem -> dev_set->lock -> igate -> memory_lock
-
-freeze() can still take igate and memory_lock to check irq_type,
-pm_runtime_engaged and sriov_active. But the ioctl, read and write
-paths no longer need to re-check anything under those locks. So you
-can drop the igate change in vfio_pci_config_rw_single(), the
-open-coded vfio_pci_zap_and_down_write_memory_lock() in
-vfio_pci_runtime_pm_entry() and vfio_pci_ioctl_reset(), and the
-smp_load_acquire()/smp_store_release() pair.
-
-Two paths still need their own handling because they don't go through
-the device's file:
-
- - vfio_pci_core_sriov_configure() is reached through sysfs. Take
-   liveupdate_rwsem for read around the frozen check and the
-   sriov_active update.
-
- - VFIO_DEVICE_PCI_HOT_RESET issued on one device also resets the other
-   devices in its dev_set. Keep the check in
-   vfio_pci_dev_set_hot_reset() under dev_set->lock. freeze() sets the
-   flag while holding both liveupdate_rwsem and dev_set->lock, so
-   holding either one is enough to read it. Please don't take the other
-   devices' liveupdate_rwsem there, since that would invert the lock
-   order relative to freeze().
-
-I don't think mmap needs to be blocked at all. Creating a new mapping
-doesn't change the device or any of the state that gets preserved, and
-existing mappings already keep working while the device is frozen.
-Leaving mmap alone also avoids taking liveupdate_rwsem under mmap_lock,
-which could deadlock: the ioctl, read and write paths can fault on user
-memory (taking mmap_lock) while holding liveupdate_rwsem for read, and
-freeze() may be waiting for the write lock. Please update the comment
-in freeze() and the DOC section to match.
-
-> diff --git a/drivers/vfio/pci/vfio_pci_config.c b/drivers/vfio/pci/vfio_pci_config.c
-> index 9914f3ac69ae..1f1ac7a798aa 100644
-> --- a/drivers/vfio/pci/vfio_pci_config.c
-> +++ b/drivers/vfio/pci/vfio_pci_config.c
-> @@ -644,10 +644,10 @@ static int vfio_basic_config_write(struct vfio_pci_core_device *vdev, int pos,
->  
->  		if (virt_intx_disable && !vdev->virq_disabled) {
->  			vdev->virq_disabled = true;
-> -			vfio_pci_intx_mask(vdev);
-> +			__vfio_pci_intx_mask(vdev);
->  		} else if (!virt_intx_disable && vdev->virq_disabled) {
->  			vdev->virq_disabled = false;
-> -			vfio_pci_intx_unmask(vdev);
-> +			__vfio_pci_intx_unmask(vdev);
->  		}
->  	}
-
-With the rwsem, config writes no longer need igate, so this change
-isn't needed. If config writes and VFIO_DEVICE_SET_IRQS really do race
-on irq_type and virq_disabled today, that's unrelated to Live Update.
-Please send it as a separate fix.
-
-Lastly, please add the freeze infrastructure and the checks in their
-own commit ahead of this one, e.g. "vfio: Add infrastructure to freeze
-devices for Live Update". Then this patch only has to implement
-freeze() and unfreeze() on top of it, which will make both easier to
-review.
+dissolve_free_hugetlb_folio() already rejects gigantic folios without
+runtime support, and restores the vmemmap itself before calling it, so
+the only bail out left is a folio with unreliable raw hwpoison, which is
+leaked on purpose. That folio still leaves the pool, so I think it should
+be counted. "frees" in the commit message is misleading though, I'll fix
+that in v2.
