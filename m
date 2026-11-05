@@ -1,55 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793893204;
-	b=YFWpnYdOT9Fxi2J2b4ywOgfHT/VzzS+Qiggx71LEbivO/+ujliiJlhHptBGmZDFxV8DI
-	 7VREjvayBh7WFRBEW0ICZnyqdwFk83KCTIAMLPjrmd4Yh5NVrYjkSxK1tVPMBIs03rkxI
-	 +137/XwWvIqCcbNbMkMM2MbUT8nwJeUijDQ/+2nlhD0CZnGTwY6GcRJQWL7K3oayKlQXy
-	 xy8+s/uWRI7Hk7BItuNsHeUe59nzdKcATawsIxNMZ/s/wfK7lbfDW/oljASaIQaNqRbRG
-	 xaB4fSm3qXDFhNQUDOQ5nJLZ9uWOKhmuYVMii0N3Mla79jf7OwIzur4nFP9ZctwTrgw==
+	t=1793893243;
+	b=sVv5Jrvf0eNYcaUowcwzn+anfkGWSa7yjw0PEwHnY4B/ejwOlTWbhl6gpyAab0le+WG8
+	 5QkzXXY81WiX92GxsnIxU94E0nrmZgowvLbcafVEow9L7uxY/fy67u9Rd+8ZLVlBM1sxj
+	 0i8iIAP4R4QEMOjGIzcF1ANzdaJKLDrKMS2ze1xmehvW8bD8APL5kSEV5PuP1fKur8tT2
+	 VLYd+BJv8dl9Ko3k6QI9y/eFJ4V/0H9RDhkkMGgFkAJTNQYtmBJbxUWC2WrQvZmhA9k1V
+	 a2TxL/0kgklHG+2iKTWhcH5I9v+AiD9601V8em4lGR1+q25bptQm6mYPrW4ZnXkBdNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793893204;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=PDZV0+pjHqmTjjQUQ4uC9YSnJ7Vm1jvBfF5OI0JOMto=;
-	b=LcxO8ivCuby9huSjc8Z+Rj4wyvfB6FHyMfKBhls9HkO+L60wdn84u5yR7OKdj3/fEwaC
-	 2XKKLNM4XHgpQyBTMECzM1Q1032MjmccAyUp6VbDSqp+r55LNEnnFigxdAbugHNDECigj
-	 P/k+cTptOna3oUEuXC3L2J4L1m9/lELw9xH9w2C0Kb7wXjI1McDJjxGxw15RKN527uzUL
-	 gj6NOxMrX2nv84n56E1C3EYNC29QaB+aYVagyKcLvgl1PqELhTbkC0fwzIpWlYA4Cyxow
-	 uzezcxGguhq13VJQMe4L0Rf5FMdnBxmN0zdg4vcj5OMj5bIwRAb8zZdABz/XjNeFQRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793893243;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=CVAkQslmMydLHpoDYQUP0g/AIJpYFwYWqZKMMcXJLaA=;
+	b=XKwrwsr4RrxOwE7J6nLiChjXbzIfkuLnmvlle65ZWLOCmFNTGdvuCZEWABoZZnRi8tNj
+	 VyIUbqoPNidSUiJKGSzFHhnjIR9htqwS/m1Ny/shc5AVhDymiNvsRn6ex6xmKV9RH7Mgs
+	 v3+KQglKg7YxV+kWi9XAVr6gUeWOj8pKVvv1N/EpoqAm6AEZQe31xEpCRa7Dm6YFp1jUG
+	 wfys6ZqIUGhZ9OLyLV5kKE6PfK3G0xs4A+y4hXmKuRUOrhaLB9E77xAsIge2xwMr88Vq8
+	 /gBeWQ5GHKBA5ioDurkwORTI0AdNZImR08fXk6+0yNMfPcv8XtcdXV883zRoYLD23Bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EqgbKL+C;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YlwI94aV;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ihpJkspn;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD75606A32E
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:40:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14C72606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:40:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14C72606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EqgbKL+C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDF381F00919
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:40:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793893203;
-	bh=PDZV0+pjHqmTjjQUQ4uC9YSnJ7Vm1jvBfF5OI0JOMto=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=EqgbKL+C5NvEF8nHOZcg7HYI6aeL/KWezyfGE9tktcf6hCt/fZBzlmpHSzhGpqKTA
-	 1Bp7+DHi1qlvjwdiLqtkslWRSj7IRkXqEU5FF4UDEqh72a5AZ9VK2IpnMJa/BqFDJQ
-	 0YyM+nmtaIqfaqc/VTFjuCGeZMoqLp9EQlC0N9kYC/2TT8uwrGpX3XmIrQ+zrzgfBT
-	 PyuHKNJ9Pz6091Y0Mz2Wv5WdjdI3yk2qWu7xU0DvRo/JQ8nBzMzTD/MF6ZYWXWUQpk
-	 JJWjtgQQxqcA1jIAW3nP4e+dnq+0gjyOOoy9S6/NmfQ3h6Oy4bUdBi3gTPQ5Dreh8J
-	 K1uOZb7LV23Mg==
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4cac7a7d3cso30675266b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:40:03 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBzR9KfSzvCUAucRVifPB3V0QK23O6VNfI1MTJzpnvBPk9nInc2Vu6zrKfKmpljL1aQ8JGCgnP85qp9PcFQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+MFTaH++IVcMZoU0luoJEbSM82ni/4XRaI5oUPIIiByJwHfG0d
-	AaJvQDKg0XI3cl2FbixrWGcSLpv0xrbczU8Z3JjdeLJBSafGjylNDBzcbpfld8Wu7MHdjYmSRqa
-	j083JHV5hv0ItVfh7WcVquokwsJdEngs=
-X-Received: by 2002:a17:906:9fd0:b0:c40:80eb:c54e with SMTP id
- a640c23a62f3a-c4d3449c0c7mr1350366b.4.1793893202865; Thu, 05 Nov 2026
- 07:40:02 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YlwI94aV;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ihpJkspn
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EQ5El2082381
+	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 15:40:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	CVAkQslmMydLHpoDYQUP0g/AIJpYFwYWqZKMMcXJLaA=; b=YlwI94aVTLjkwCFV
+	DWjRnl5Ypgt07KOpNnMNbM5XFKidQyV+uFtmpQvvqmflq1AuaAM+5ahEwArpixGx
+	BsgkqbiDEiCu8tRB9d9F4m/hTqD7p+nO7fzvfzwArpakSK3MrxRbo2Sr6q/QRFlo
+	tUwYmTX96EV91xlwz2QbLghTe9WlCmKQiv8QPkZ2VxvJIpqKZB33hkHn0ZtTpBqI
+	8XnpZCqSRD4koDIPl7eYtZV8UkkpU1p5p+I/YNfzKFrnHb7oSjUIb3P04O1n4mou
+	WjB3XiIFnNr9Tw5nGChoMYXGICji35sbxBK8O5Plh7B56C0ARNwCqp6QYTtGiLua
+	5oDRvQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrraas84g-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:40:42 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f13c143c8so384492985a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:40:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793893241; x=1794498041; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CVAkQslmMydLHpoDYQUP0g/AIJpYFwYWqZKMMcXJLaA=;
+        b=ihpJkspnXPohH9jQz/3pVnVFnxou/vqyQsE/tw+LgEkVNNTQ+AVeYOTqQKQ0BRlVtK
+         lEdJ0kW+h3LcoYHXHPnhzGI5/C0Zt8jJylo5Q8NSnapsrbTs8Vv6pd6iXQNMNhyyGcPa
+         3t011C65XEaBmwnb6hvaunENwMBp4IScdyXv8TR6mTFgQKGleV7NkSZzNwooggkNj/Vt
+         3qO8Ltyg/mknMK85EnulMegRs0dsMlYQDv5NotoSGFw4gpUsaUxale2Cpt1VQ34S0aKM
+         1Pf3AmBF0xtlr0fR9gC0vFGqAJgOR2MCflOSm+icgp9v1ExfdFtxT1lF/9KiN+T7AM72
+         RL+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793893241; x=1794498041;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CVAkQslmMydLHpoDYQUP0g/AIJpYFwYWqZKMMcXJLaA=;
+        b=L7Jtbvnlhn0RX65IZ49RiF+NuRmRocNuMnJ4tkt5ypZ8BmsVvLltUMkUhCHlDtjz/W
+         vviZCI7gRtOrP/8I8JGlZ8livpmeNA54NmEONrIIYp6eHRn7lAMpPy9gIsIaCi0snSpW
+         jL57yREZdtpbmLT8W5Y1V/PXfqHycsVhXhmUO2mcd4fZeiuuWSd7FHMfh6N8q7NmuDly
+         HxEu9Aseh4Ya+5dLrNCALSdX7MU2APC1PZA2g2UXRlZv2YLQjT/DWpElKNGyzUG25iVB
+         4fFBUUf1appWWJUzE3OWoOezU87spijqo1VijrIoVDP4tR7gw8QM8BJt8tMg1R54bJ06
+         4Gqw==
+X-Forwarded-Encrypted: i=1; AKwUvBwLWP6d2xdDivZbC0J7Sjz1X15vMID0H4WCPzv4I+6xyvM9VvIDdyed9wuFLL8jfg6d/6go3MespwsyDxY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/36zNNuF7AqvV4YRCQ9gT6A45SvVM3OQb3/uCHfNtGTCXx+tFO
+	5NUe8iUn0N5ugKwfrniOkG1nhF4LzHKDRtqQr7Ln14q6EtQJyHzZCu1nffQqaOW1l0zzNBm7ald
+	HGScHVN60IjL7kqChVGjVzS2jK8d/S126j2DErI3r1pUiE1icLHTZOQy38myZ1PaiYNI=
+X-Gm-Gg: AYBFou0ZmWr8DO9YcOIqKuxZzyww1Bjv124GzBrSgpasa8n1VZz3K1jK7U3fNHOQroB
+	8CFzNlt0LmHJ6Ab92VvBcYtu/rVr1CDH5dwlRP17Lumi6/NtpjfPHKueXIZZV5Z22NmQnaJEek/
+	o6MM+BHVeI5DrATN0Senkg2tBe6yrhyqW+GnT4W7PCA7jXDYoFl/RYR/d0SUZK4VdkDgdjL7Ynu
+	aQfdfx+o/btwJjb7PFbTXKsgXIMLyCWDtLL5Sir/7XfsznxeCPQYfAkjID6qVEKwtQOA0q4+t35
+	wdUctAqXEOGhCdndt/gCbHdC0BnX+uCesqj7hXo3UC0MlSBEkQapXAvTrMElEGPgVmO5IRDJV6T
+	6UvIyeFH++s40id4t0r6PVu/TB42OaVFNPwtju99/BJiEUIgXF32AZNhspJsZlON9VkKNd3iytf
+	FFnvr63Q6kgqX41gCB
+X-Received: by 2002:a05:620a:29d4:b0:943:f4a1:7bb9 with SMTP id af79cd13be357-944216efcc7mr3223703385a.18.1793893241241;
+        Thu, 05 Nov 2026 07:40:41 -0800 (PST)
+X-Received: by 2002:a05:620a:29d4:b0:943:f4a1:7bb9 with SMTP id af79cd13be357-944216efcc7mr3223698285a.18.1793893240709;
+        Thu, 05 Nov 2026 07:40:40 -0800 (PST)
+Received: from [192.168.2.1] (146725694.box.freepro.com. [130.180.211.218])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b414b170d0sm95732535e9.1.2026.11.05.07.40.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 07:40:39 -0800 (PST)
+Message-ID: <bde5eafd-3018-407f-8b96-08cb04c5917a@oss.qualcomm.com>
+Date: Thu, 5 Nov 2026 16:40:34 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,94 +116,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <47ed45b5-de67-41aa-aa21-a3ba3479a7cc@vivo.com>
- <anXJ-5_vO7-toSe1@google.com> <CAKEwX=Mm2tXcen-quRXHf1Y2qSHYvpEUe4xiw-mHYaJnRUR-EA@mail.gmail.com>
- <auKqt6b4AxCLziIH@google.com> <aufPMirl4cD7tz0X@google.com>
- <18e4542967ebdd10.3137322e32332e3235332e313736.1dfc41.0000sendgmr@google.com>
- <CAKEwX=MV_xEUvz91pz6uc4qXWnWOUDtXZ2zASdNVOBHBLeA60w@mail.gmail.com>
- <18e4ebf806e937ec.3137322e32332e3235332e313736.1bf52a.0000sendgmr@google.com>
- <CAKEwX=PFdgEbba+H3fEnJFDnfkxCTsvuHEb4numVwJRaiMgwKQ@mail.gmail.com>
- <179384102494.19062.12740032892044628762.b4-reply@b4> <auwOBaRtM9p_Wxfx@google.com>
- <18e529a5ab0738f7.3137322e32332e3235332e313736.873cb.0000sendgmr@google.com>
- <CAKEwX=OUt4=wqDLiPvYuiTnkpuZYnszkuNQScNR93hHhVPRRGA@mail.gmail.com> <CAO9r8zMMGem-LTJQseT5xSSBjfr3UX2gzG_ftpw6+KF8m9v5yw@mail.gmail.com>
-In-Reply-To: <CAO9r8zMMGem-LTJQseT5xSSBjfr3UX2gzG_ftpw6+KF8m9v5yw@mail.gmail.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Thu, 5 Nov 2026 07:39:50 -0800
-X-Gmail-Original-Message-ID: <CAO9r8zOY1E7gCYnJZAfKvyHcbj8e2WVuXMqsaPGPsKR4-9itsg@mail.gmail.com>
-X-Gm-Features: AclHuK-nHEy3W7VEoyAO170_A3kmjjHwVOoZaVi1Y45j7hC5yeix6KXpEhEkBoE
-Message-ID: <CAO9r8zOY1E7gCYnJZAfKvyHcbj8e2WVuXMqsaPGPsKR4-9itsg@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/2] mm: zsmalloc: make shrinker compaction budget-aware
-To: Nhat Pham <nphamcs@gmail.com>
-Cc: Chris Wiseman <chriswiseman@google.com>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Xueyuan Chen <xueyuan.chen21@gmail.com>, Xueyuan Chen <xueyuan.chen@vivo.com>, 
-	Barry Song <baohua@kernel.org>, Yosry Ahmed <yosry.ahmed@linux.dev>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Brian Geffon <bgeffon@google.com>, 
-	Minchan Kim <minchan@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/2] ARM: configs: Enable the TEO cpuidle governor in
+ multi-platform defconfigs
+To: Linus Walleij <linusw@kernel.org>, Russell King <linux@armlinux.org.uk>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Ulf Hansson <ulfh@kernel.org>,
+        Anna-Maria Behnsen <anna-maria@linutronix.de>,
+        Frederic Weisbecker <frederic@kernel.org>,
+        Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+        Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
+        Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261105-multi-timers-cpufreq-cpuidle-v2-0-2df7a17f4835@kernel.org>
+Content-Language: en-US
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+In-Reply-To: <20261105-multi-timers-cpufreq-cpuidle-v2-0-2df7a17f4835@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA2MiBTYWx0ZWRfX01zM3jaILuEA
+ H3BfSyMZbSuPXw//VFE0UV1Ax9TScrhu14aeqj+5M/lMjCGjR8yYqAWDPhqKMvIpzoDz8wAvkfJ
+ YorAslDSL0DGSb8TtHYQw412gqA+Upk=
+X-Proofpoint-ORIG-GUID: cWxVoFmvfenhq5CvS7drnTlOjw17fOcB
+X-Authority-Analysis: v=2.4 cv=U54Hnuru c=1 sm=1 tr=0 ts=6aeca37a cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=uw/3876vWhRnNVL35W6mqQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=FcKzS_pcoyWHRQSGzCEA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA2MiBTYWx0ZWRfX0JNmyQmnlIwk
+ NOG8txBsNCruTWzYOreQYw+PmbnPQn+3KmTnGWzw1KR7JqRcoCzBrZbvK/GSx7r1BiO8RaR2Kpv
+ wavXfr0xpjAZRjyFXXF7fjxYYXhNzRp/LxBDgOqKDK3vysH2jyYaeByKmA3nsP7kyxED6gWJIDV
+ r4NN62i1Ql0kQHivB8Gx2TrIVrEhM41gmwkqK1UcqbX/57e7xTvBxWEw602ogs8cZyvODeUDBbU
+ nreoXNGg7wrBefatbnwlKkqdVWhpl3aqnpOIIqjbouRSN15tdZN72bfuuhta8srovxZAGSXpGeX
+ 5jwDcDwZKrlwebmHICsSXH/KWh1IBWeouNWP6CxIYFLvxxf6PbL+bF5xHtCIxH4T5lbAhYVy34B
+ cqCsFNi5QKFWrXUSx+xHQRnnVyWYEI13gk/UoqMFNh8zcpo0d7/zPYpAWySS8TcSPqoOHW6mIXe
+ hExiiWqP1AHWalnyNWA==
+X-Proofpoint-GUID: cWxVoFmvfenhq5CvS7drnTlOjw17fOcB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_04,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 bulkscore=0 priorityscore=1501 lowpriorityscore=0
+ adultscore=0 spamscore=0 clxscore=1015 suspectscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050062
 
-On Thu, Nov 5, 2026 at 7:38=E2=80=AFAM Yosry Ahmed <yosry@kernel.org> wrote=
-:
->
-> On Thu, Nov 5, 2026 at 7:08=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wrot=
-e:
-> >
-> > On Thu, Nov 5, 2026 at 6:36=E2=80=AFAM Chris Wiseman <chriswiseman@goog=
-le.com> wrote:
-> > >
-> > > On Wed, Nov 4, 2026 at 9:05 PM Sergey Senozhatsky <senozhatsky@chromi=
-um.org> wrote:
-> > > >
-> > > > On (26/11/05 09:10), Xueyuan Chen wrote:
-> > > > [..]
-> > > > > > SGTM, but I'll let Sergey chime in!
-> > > > >
-> > > > > Thanks, Nhat and Chris, for the discussion.
-> > > > >
-> > > > > If Sergey has no objections, I'd be happy to send a follow-up ser=
-ies
-> > > > > to make the shrinker configurable and add the unlocked pre-check =
-as
-> > > > > Nhat suggested.
-> > > >
-> > > > Thanks.  Sounds like you and Chris will to have "Rock-Paper-Scissor=
-s"
-> > > > to determine who sends a oatch ;)  Just joking, let's first figure
-> > > > out how exactly we want that zsmalloc-shrinker thing to behave wrt
-> > > > zswap expectations.
-> > >
-> > > Haha, Xueyuan is welcome to send the patches!
-> > >
-> > > Dumb question on the zswap side - aren't the zswap shrinker and the
-> > > zsmalloc shrinker independent?  Even if zswap's shrinker is turned of=
-f
-> > > at runtime, normal swap-ins still free slots and leave fragmentation
-> > > behind, and unlike zram, zswap doesn't have a manual sysfs compact kn=
-ob.
-> > > Would it be simpler to just keep CONFIG_ZSMALLOC_SHRINKER as its own
-> > > standalone config rather than tying it to zswap's runtime knob?
-> >
-> > Yeah those 2 shrinkers are independent! I think we should just let
-> > ZSMALLOC_SHRINKER default to the value of ZSWAP_DEFAULT_ON.
-> > zswap_load() (i.e zswap-in) by itself is enough to create
-> > fragmentation. The zswap shrinker is just another trigger (and it's
-> > also irrelevant if zswap is disabled anyway).
->
-> If zram doesn't benefit from zsmalloc shrinker, especially during
-> reclaim, I wonder how much zswap benefits. AFAICT, it was hooked up
-> before zsmalloc was hooked into compaction, and compaction seems like
-> the right place to do this although it technically is freeing pages
-> from the page allocator's perspective.
->
-> I wonder if this is something we can collect some data about, and
-> maybe kill it off instead of putting off behind a config option. If
-> hooking it into compaction is not enough, maybe we should add a
-> similar interface in zswap to do proactive pool compaction from
-> userspace, or maybe move the interface to zsmalloc itself.
+On 11/5/26 13:10, Linus Walleij wrote:
+> Enable the Timer Events Oriented (TEO) cpuidle governor in the ARM
+> multi_v5 and multi_v7 defconfigs.
+> 
+> The upsides of the TEO governor are described in
+> commit b26bf6ab716f27955e2a503ffca1691582127cbb
+> "cpuidle: New timer events oriented governor for tickless systems"
+> by Rafael.
+> 
+> We need to gain some traction for this governor.
+> 
+> Both defconfigs already enable CPU_IDLE and NO_HZ_IDLE. Selecting
+> CPU_IDLE_GOV_TEO suppresses Kconfig's automatic menu selection, so TEO
+> becomes the default governor on these tickless configurations.
+> 
+> Leave multi_v4t_defconfig unchanged. It uses periodic ticks, which
+> select the ladder governor and give it a higher runtime rating than
+> TEO. Enabling TEO alone would not make it the default.
+> 
+> Configuration generation was checked for both patches. No hardware
+> runtime testing was performed.
+> 
+> Prepared with OpenAI Codex assistance.
+> 
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
 
-Never mind the compaction argument, this is just to move zsmalloc
-pages around, it doesn't help with internal fragmentation. -ENOCOFFEE.
+Reviewed-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
 
-I still think we should check if the zsmalloc shrinker actually helps
-zswap or not tho!
+
