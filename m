@@ -1,106 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793879658;
-	b=DzlIvophn+KWKn0wDm+2akw2TflDsKNjotUIhnhL/l5wf1VtAeZiM8xptj6QWPnZZ5qX
-	 B+ZnI/YuGitX3OOcsBAQIb4FQjn1/2CqPE2sI0EV4uJsEw9t4pCnGE8mFXXCFGMl0/w7B
-	 1ltHyyZbv70d2QL60QjMTzMB7K1NSoaoqiA+4xsZMAp6GXy4ZrbNYkjRFXj/ko9QxaLa5
-	 JIflQ9EOjsv9DwzoSCor1km2XBzfbMfQZs11trqKO4P0hqVdYkwv6nPlAuGj8p4ukBzRc
-	 YtuJ++M+ERLIeOH/Y7mVua1Zo5xva1lIRFnvpELqGipE07WVe1YRANZS9Dnc7ohUp2Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793879658;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:In-Reply-To:References:MIME-Version:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=N+3m3vZOzUEGlHuUM9OVDnQH8LQ3Rban+sBZHH4tE00=;
-	b=wWtBEnCuv1PkPEIM5JiFwnIyRybdpYz9GHg1CyQpQcMmRj745em6NmGPLNFDw5VJ5l1l
-	 Qgcjr3P/0MwbI6RyobTGXQ9uyItFmy7I8bZjWJNtNUo7dKMURCj0AkgFCEUBau2LrFMhI
-	 u8ZX4KD0JjmFSV36mx3Ffm/IZyfbXdJf6ZY7ZEgU9Ua+kJ0bciNuTi8oH/RcZquLdE1WI
-	 XHLVoIWVOxV0Ud8aYHKUZTRozMUfndmbkGheGyXS0+XUnrKtoUGbbN42StmVlFVwswn6W
-	 wNqPhdTc6K8bFVJu/VbTGQdBvSB46MnV2KeB5abZn036r1pOeZE/UmeL0DNYQmAsNKg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DCdUCa5x;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.53
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.98
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793879739;
+	b=h9JEWQQ+n/mCRRW2irPIznmddope+xToKcOagUVIaINrbU70iJaXni1p1HMgudXP4fOC
+	 X8+mx8WgQaJxP6T9yPVaJxDApagMDBRi/WmT6GSBfnjZVo/jO+TsSPriadqbSRYCUm2h3
+	 z2OxTTjIBYQ66+M5kpI6HAEE2wQPfnDnEHsWVeXOPmG/YKi11gZOj6gk4hYkFsCM9ldUD
+	 6qCB3PnoTuXt3J2Vet53EvEucCAN0HeNuBu2t+btr+xaEaQtzdM5o8Cq9B2R7BMyL5wQl
+	 JIk6Uj6jQ/nuoZZMoC4O6jzqv8JEjkqA5rtZEq9Q1Sztd6Mk+nLhXSurmXenK3e5WTA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793879739;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Tb+mV4jWLtJY9UnvG94XNsHaHfLl26BvvbsFa9fRAsg=;
+	b=OqUnN4oPgecPf0IUA4jfRWjGd93Xy36Z3kU3AnwIX+kUKhfMC2E6Koc+6/axlanTvrOf
+	 7kq21ETzxaPX/iYxKh2Y6Wxg8I3asWjMyDjdRIwzAFt00WSVIZkoWUn7PI29IU7TZ5vTT
+	 FvxJWgmthZ7FJ+WW88stlODJPQ8Nm1i9d7Q+4H9UGTriaOd2wAItoB0GWNhbKNIna05zN
+	 417amj3gj2EkNoJOIf6zJp8FuS29Wh2HCCVWwoyPhHc/pRDGINjaagiexB4ESPit9XAgg
+	 mRlu/zFnWL8NeLTlhkJMk82AVRnkRQvCMr8Jtx3lZieJmDtfoN4T0PRdpOnmpFt53Tg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=onNlfmTL;
+	arc=none smtp.remote-ip=115.124.30.98
+Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCF10606A33E
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:54:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCF10606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 236E1606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:55:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 236E1606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DCdUCa5x
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5bb7c6980f1so1870475e87.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:54:17 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793879656; cv=none;
-        d=google.com; s=arc-20260327;
-        b=H/uuHEPoby2H4SeuJjFqWEjDy1gA8eB1zgGi+3A2tgiunoNkI5TYAH4GewtJXw0R66
-         PlRQpR9GbW2vV/kWsdkrk91oHUFrNV/qOCA36XdRnDmXy8cLXrK+h2FFN/HajU4HC7fA
-         CJdf/WyvldOuR5XMePpysdYMQI4S/E5QbfxPP48k00nRFXgIDzAiCCozSVuOrCT5jFrt
-         eUsJwpEB2lJ8cPaLipacOOtlIKZ29MeMYo0pMcDkVvZeT5asHNlRg12fk8wM5BjvP4aK
-         gESnXKFTtdMWJd5uyQduDgvwZ2ZWsrtaPuz/cHIWUf++WnK2pVGsi33fSXxMs7iuZSpx
-         SBKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :mime-version:references:in-reply-to:dkim-signature;
-        bh=N+3m3vZOzUEGlHuUM9OVDnQH8LQ3Rban+sBZHH4tE00=;
-        fh=EgojdHKx3I6aE867KKpqySnigYA+dmFaaM+L0C77Hf0=;
-        b=k6yxd7MA1AbFK7baRdSBpC3/9Znj5ipuy8UP9prPkHQNMmpZ7QOLQj1jaWvmVq3P1K
-         tshlQM6Rr9q1Co7U1+ckN03Ir1/gLcNL0EmWbf2+XEAchyKUZ/euNjOY35rPlYgVHKIX
-         QDgPGE8Unegb51OgqGl7hH6D3zXRp5VHoDz3ymGmyVC6YR3NFLzMBFEGlS+ts0FC4Ji2
-         eDnaOy/Bh8qT4BIIcnfNrpZQQGLI9sE/I/kE4AwUqecHtNGflnNLatSP0MJ8e/Z/qCxA
-         v4vZP4H7H8Z2ADz+Qj5K5/Us4yWAOP1HlfG76O0ywYPmCH3NyknyZeUaCN95CDUMMs9t
-         tjYg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793879656; x=1794484456; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:references:in-reply-to:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=N+3m3vZOzUEGlHuUM9OVDnQH8LQ3Rban+sBZHH4tE00=;
-        b=DCdUCa5x+yRyAT31lbAmXtahG9EYq+8GeSZ2wi+IICNAOBf8dX1U6ipm+s/3EOWK6U
-         5QJpiGFoERvOY9EG8R2CO91TqBTxi2u9/LDA2LvEbZMW8Ghx2TN9MZO08C2KSZ2Z2ROE
-         Wsp7/FjKDIojzbRGUXD2Q+waYDYnIzUzDCf8uJsINq8cy6gM+n0IKGgqVBQXxp6k6voT
-         OyWTC1xUYlfTvXUv5yGFRx5JQ3dUuuCoxSuepwClZSKVki4+nRPrLcR4oSc8Vp1XXAaU
-         Pk8jPE0c0hBm3oVXvLGO9Z8ssVKs1D4rljEjFvjpeqIux5npT2Yy7OuB2IwG/mWDQ8BR
-         hRiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793879656; x=1794484456;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:references:in-reply-to:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=N+3m3vZOzUEGlHuUM9OVDnQH8LQ3Rban+sBZHH4tE00=;
-        b=Z7SJjIjkI0Bxv/N5afi+W8kcWKkZ95et62EKD79ditMCFqCiMNxROOWrn/gFgeG4jI
-         ra0hwD6XSx2n7XYssjg3oJtVe6Jq4um+p0YSi6R7V8a4p5c8btPQuHRmAArUKmIgCfZ+
-         IphtJTWngo04BOq/WhE+4Cwi3SFbjeEEsN8lqnBoYW11jbSBxU0QWCno4XKvkH9Jukop
-         EoZlRQ2bBQ7PbpIBUr0JhiuVqokrTVvUmqm6VTmvM+ZQVmXIhSmshBHLmISb/z5FEsu1
-         wWvRb6RsFjgM4FCWfefgPswCpG/BmFUUbGL5Y7Rb8hjxATKejJV311KQGnscef0BUz3E
-         H4AQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwWg8k0N/rNaTOB2yJW3R9oQEigmy4Yv0k/WH/+pJGt+6OZQMWyL6WeQsv1lsE0gvSovTcmxnRol8+j7EY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8JqyWsfBbxtllXKKaHY7F4/JvRMlTfPOJ0gPsrOLpoljf09BAR
-	Wv5iD6HXJOFSLmM3d+C1ySI/aLrbI7G/ZcN6sfkNKHH+D8+L/9NRpok75hlujs4Eey1b2iHrb14
-	Gjjyf4jgVpXc7Dp12279kSSD99w/n8z8=
-X-Gm-Gg: AYBFou0F6gXcZ98ZzqKJkOYqWBt/TCUqXNAcxO0RAiWTmpBfq3ss+pu/GWul3Q4CyrO
-	XnPVyJ8R6jVg9rjlgMmBAVeCZg4K9QDJe725F36SOKML31B1ng0uDSozKkIbNYvg8crV/JX8EEp
-	1JysuO4qaKGlrkxY1zKL+Dx+HOJJfMaYH9GjQxEicrlzKTWpN4x7y0oIa00Ba8wY5J1kCgNfUiM
-	ZzHeI7GYsFCyNQuE0k43r6DPlZesexgtaRJiOEJub79stpJ6HY+WjHSKs8kw3BIAHLiBs9Gse9h
-	zvtW8ZVKl98J8LQToz6MlW3q2Sivid8cZi+iMBsxm35YhtzwxHv8UN+HZR91bZtzoiTQJjVN0LV
-	L7a17wzH74wQnXleyAyhj+KBb7da8QMv+aCyO9LtVTNRZYd2VkTCYVXShVerXg/S5rA==
-X-Received: by 2002:a2e:a809:0:b0:3ab:4a7c:7a65 with SMTP id
- 38308e7fff4ca-3acb7883d20mr40938051fa.0.1793879655702; Thu, 05 Nov 2026
- 03:54:15 -0800 (PST)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Thu, 5 Nov 2026 06:54:15 -0500
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Thu, 5 Nov 2026 06:54:15 -0500
-In-Reply-To: <179387271921.488856.11043838083216323158@kernel.org>
-References: <179378590950.74297.14503648624087894519@gmail.com> <179387271921.488856.11043838083216323158@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=onNlfmTL
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793879733; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=Tb+mV4jWLtJY9UnvG94XNsHaHfLl26BvvbsFa9fRAsg=;
+	b=onNlfmTLS7Tbmtsb+2jHyYym9pRr4PSjfPB27KDFuR0OuqloJS8RbUoBB4CqxUqRXm+9YJJuZO+RwgcwIRTA8dosVjvUk+J7N3NDvKYtfmTTM9vpvTKIz1he1Pf+8CqY3qBDkL9o1b79WoKw1b3tg8jMlCNNZoq4+UvI5x7s9eI=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R351e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XE8c8qT_1793879731;
+Received: from 30.221.129.193(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XE8c8qT_1793879731 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 05 Nov 2026 19:55:32 +0800
+Message-ID: <8f122289-5a8b-4702-94e8-3ec5496ade2e@linux.alibaba.com>
+Date: Thu, 5 Nov 2026 19:55:31 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,185 +53,171 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: zhang san <shunsheng1218@gmail.com>
-Date: Thu, 5 Nov 2026 06:54:15 -0500
-X-Gm-Features: AclHuK_PjOfwrGU7V8tuY37Lm8UZo8c9leNmigz8_H-PCKcm9vybXrcGuzeOckY
-Message-ID: <CAGTEBTZztQcrwJC0pECO=vmn5xZv-cY_OZnSLVBL_9Kt0OzfVQ@mail.gmail.com>
-Subject: Re: [PATCH] nfc: rawsock: prevent TX work requeue after socket shutdown
-To: netdev@vger.kernel.org
-Cc: oe-linux-nfc@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	netdev-bot+sashiko@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/30] ocfs2: split dinode validation into shared
+ predicates
+To: Andrew Morton <akpm@linux-foundation.org>,
+ Heming Zhao <heming.zhao@suse.com>
+Cc: Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
+ ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20261105094926.3203416-1-joseph.qi@linux.alibaba.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <20261105094926.3203416-1-joseph.qi@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hello,
+Sashiko has review comments on PATCH 05, 21, 22, 24 and 30.
+Will be addressed on v2.
 
-I am resending my response in plain text because my earlier Gmail
-reply contained an HTML part and was rejected by the netdev,
-linux-kernel, and oe-linux-nfc mailing lists.
+Thanks,
+Joseph
 
-The issue was identified during AI-assisted source-code review and
-investigated with a KASAN-enabled kernel and a deterministic
-timing-injection harness using a virtual NFC device in QEMU. No
-physical NFC hardware was used.
+On 11/5/26 5:48 PM, Joseph Qi wrote:
+> ocfs2_validate_inode_block() is a flat sequence of about twenty open-coded
+> on-disk dinode checks.  ocfs2_filecheck_validate_inode_block() duplicates
+> eight of them, but reports differently: plain mlog() plus an
+> OCFS2_FILECHECK_ERR_* code instead of ocfs2_error(), because filecheck is
+> a diagnostic interface an administrator points at a suspect inode and it
+> must not escalate into ocfs2_handle_error(), which can force the
+> filesystem read-only or panic.
+> 
+> The duplicated conditions had already drifted apart -- the two
+> OCFS2_VALID_FL tests were spelled differently -- and filecheck silently
+> skipped the rest.
+> 
+> This series splits the conditions out and then brings filecheck up to
+> parity.
+> 
+> Patches 1-20: pure refactor.  Each condition becomes a static bool
+> ocfs2_dinode_has_*() predicate returning true on bad, following the four
+> helpers already in inode.c.  Return codes and log messages stay at the
+> call sites, so the two reporting paths remain distinct and no
+> ocfs2_error() call site moves.  One check per commit.  No functional
+> change intended.
+> 
+> Patch 21: a separable fix.  ocfs2_filecheck_repair_inode_block() proceeds
+> when validation fails but then returns 0 unconditionally, after repairing
+> only i_blkno, fs_generation and l_next_free_rec.  An inode failing any
+> other check is reported to userspace as SUCCESS while still corrupt.
+> This is already true today for the mode, i_rdev and size-without-clusters
+> checks.  Revalidate after the repairs and return the residual code.  Drop
+> this patch if you would rather keep the filecheck series purely additive,
+> but it then widens the set of masked failures considerably.
+> 
+> Patches 22-30: wire the remaining predicates into filecheck.  All reuse
+> OCFS2_FILECHECK_ERR_INVALIDINO, so no new error code is introduced and the
+> ocfs2_filecheck_errs[] table with its userspace-visible names is
+> unchanged.
+> 
+> Points worth a close look:
+> 
+>  - The fast symlink NUL-termination predicate bounds its own strnlen()
+>    against ocfs2_fast_symlink_chars().  The open-coded version was only
+>    safe because the preceding i_size check had already bailed; i_size
+>    comes from disk, so an unbounded strnlen() over i_size + 1 bytes can
+>    run past the inode block.  A helper should not inherit that ordering
+>    dependency implicitly, especially once filecheck calls it too.
+> 
+>  - The inline id_count maximum stays a signed int.
+>    ocfs2_max_inline_data_with_xattr() subtracts the unvalidated
+>    i_xattr_inline_size and goes negative on small block sizes.  Caching it
+>    unsigned would turn a negative maximum into a huge bound and silently
+>    accept the oversized id_count.
+> 
+>  - ocfs2_dinode_is_fast_symlink() is deliberately not shared with the
+>    similar test inside ocfs2_dinode_has_extents(), which additionally
+>    requires a non-zero i_size.  A zero-length, zero-cluster symlink
+>    currently falls through to the extent list checks.
+> 
+>  - The suballoc range predicate keeps its != OCFS2_INVALID_SLOT
+>    exclusion.  OCFS2_INVALID_SLOT is 65535, so without it every system
+>    inode mkfs.ocfs2 creates from the global allocator would be rejected.
+> 
+>  - Look-alike tests in suballoc.c are left alone:
+>    ocfs2_validate_group_descriptor() deliberately permits
+>    OCFS2_INVALID_SLOT for all inodes, and ocfs2_claim_suballoc_bits() also
+>    rejects cl_next_free_rec == 0.  Neither is equivalent to the new
+>    predicates.
+> 
+> The inline xattr check is the one thing filecheck still does not share.
+> ocfs2_validate_inode_xattr() calls ocfs2_error() through its helpers in
+> xattr.c, so reusing it would mean threading a reporting flag down into
+> that file.  Left for a follow-up.
+> 
+> Testing, on top of linux-next 20261103:
+> 
+> Patches 1-20 were checked to be behaviour preserving.  All 27 log
+> messages, all return codes and all ocfs2_error()/mlog() call sites in
+> ocfs2_validate_inode_block() are unchanged, each new predicate body was
+> compared against the condition it replaced, and the disassembly of
+> ocfs2_filecheck_validate_inode_block() is instruction identical apart
+> from __LINE__ constants.  The normal validator's disassembly differs by
+> more than that -- basic blocks are rescheduled and registers reallocated
+> -- so equivalence there rests on the source level comparison rather than
+> on an instruction by instruction proof.  The deliberate rewrites are the
+> ocfs2_read_links_count() reuse in patch 1, the OCFS2_VALID_FL spelling
+> unification in patch 3, flattening the mutually exclusive suballoc
+> if/else-if into two tests in patch 5, and the redundant self-bounding
+> guard added in patch 13.
+> 
+> In a QEMU guest running this series, on 4K blocks with inline-data,
+> refcount, sparse, usrquota, grpquota, xattr and indexed-dirs enabled:
+> mount and I/O over seventeen inode types plus all the system inodes
+> produced no false positive, and filecheck reported SUCCESS for every one
+> of them.  A separate 512-byte block volume with inline-data, xattr,
+> sparse and refcount was checked the same way over five inode types, also
+> with no false positive.
+> 
+> The corruption tests used a third volume formatted with nometaecc, so
+> that a checksum failure would not mask the field being tested.  Seven
+> deliberately corrupted dinodes -- zero and oversized extent l_count,
+> oversized inline id_count, oversized fast symlink i_size, refcount flag
+> without i_refcount_loc, oversized suballoc bit and oversized
+> l_next_free_rec -- were each detected with the expected message, with no
+> ocfs2_error() escalation and the filesystem still read-write afterwards.
+> fix was then run on two of them: the zero l_count case, which repair
+> cannot fix, returned INVALIDINO, and the l_next_free_rec case, which it
+> does fix, returned SUCCESS.
+> 
+> Forcing i_xattr_inline_size up on the 512-byte block volume drove the
+> inline maximum negative and produced "inline data id_count 312 exceeds
+> max -88", confirming the signed comparison survived the extraction.
+> 
+> The ocfs2 testsuite and xfstests were not run.
+> 
+> Joseph Qi (30):
+>   ocfs2: abstract the zero nlink or mode dinode check
+>   ocfs2: abstract the dinode i_blkno mismatch check
+>   ocfs2: abstract the dinode OCFS2_VALID_FL check
+>   ocfs2: abstract the dinode fs_generation mismatch check
+>   ocfs2: abstract the dinode suballoc slot checks
+>   ocfs2: abstract the dinode suballoc bit check
+>   ocfs2: abstract the dinode orphaned slot check
+>   ocfs2: abstract the dinode DIO orphaned slot check
+>   ocfs2: abstract the inline data dinode guard and cluster check
+>   ocfs2: abstract the inline data id_count bound check
+>   ocfs2: abstract the inline data i_size bound check
+>   ocfs2: abstract the fast symlink dinode guard and size check
+>   ocfs2: abstract the fast symlink NUL-termination check
+>   ocfs2: abstract the chain list dinode guard and count check
+>   ocfs2: abstract the chain list next free record check
+>   ocfs2: abstract the chain list bits per cluster check
+>   ocfs2: abstract the dinode refcount location check
+>   ocfs2: abstract the zero extent list count check
+>   ocfs2: abstract the oversized extent list count check
+>   ocfs2: abstract the extent list next free record check
+>   ocfs2: report unrepairable corruption from online filecheck fix
+>   ocfs2: check dinode nlink and mode in online filecheck
+>   ocfs2: check dinode suballoc slot in online filecheck
+>   ocfs2: check dinode suballoc bit in online filecheck
+>   ocfs2: check dinode orphaned slots in online filecheck
+>   ocfs2: check inline data dinodes in online filecheck
+>   ocfs2: check fast symlink dinodes in online filecheck
+>   ocfs2: check chain list dinodes in online filecheck
+>   ocfs2: check dinode refcount location in online filecheck
+>   ocfs2: check extent list dinodes in online filecheck
+> 
+>  fs/ocfs2/inode.c | 456 +++++++++++++++++++++++++++++++++++++++++------
+>  1 file changed, 399 insertions(+), 57 deletions(-)
+> 
 
-The High-severity finding on v1 is valid. rawsock_release() set
-SEND_SHUTDOWN without holding sk_write_queue.lock, allowing a delayed
-completion to requeue tx_work after cancel_work_sync() had returned.
-In v2, release sets SEND_SHUTDOWN under the same lock used by
-rawsock_data_exchange_complete() for the shutdown check and
-schedule_work().
-
-The Low-severity Fixes-tag finding is also valid. V2 uses Fixes:
-d793458c45df ("nfc: rawsock: cancel tx_work before socket teardown").
-
-The timing-injection test produced seven slab-use-after-free reports
-with the v1 locking and none with the revised locking under the same
-conditions. We do not claim that this patch eliminates all potential
-data races involving sk_shutdown.
-
-V2 was already sent as a separate thread:
-https://lore.kernel.org/r/20261105113812.969651-1-shunsheng1218@gmail.com/
-
-Best regards,
-Yaohan Li
-
-pw-bot: changes-requested
-
-On Thu, 05 Nov 2026 09:58:39 +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 =C2=B7 Low: 1
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [High] The fix is still racy, so the use-after-free it claims to close
-> remains reachable.
-> - [Low] The patch only works on top of commit d793458c45df2a ("nfc:
-> rawsock: cancel tx_work before socket teardown", 2026-03-03), and the=E2=
-=80=A6
->
-> --
->
-> nfc: rawsock: prevent TX work requeue after socket shutdown
->
-> The patch makes rawsock_data_exchange_complete() check SEND_SHUTDOWN
-> under sk_write_queue.lock before it reschedules tx_work. The goal is to
-> stop a delayed data-exchange completion from requeueing the work after
-> rawsock_release() has started tearing the socket down.
->
-> > diff --git a/net/nfc/rawsock.c b/net/nfc/rawsock.c
-> > index f7d7a599fade7..efdbd512d4600 100644
-> > --- a/net/nfc/rawsock.c
-> > +++ b/net/nfc/rawsock.c
-> > @@ -168,7 +168,13 @@ static void rawsock_data_exchange_complete(void *c=
-ontext, struct sk_buff *skb,
-> > goto error_skb;
-> >
-> > spin_lock_bh(&sk->sk_write_queue.lock);
-> > - if (!skb_queue_empty(&sk->sk_write_queue))
-> > + /*
-> > + * The release path sets SEND_SHUTDOWN before cancel_work_sync():
-> > + * once it is set, do not requeue tx_work - the socket may be freed
-> > + * right after the cancel returns.
-> > + */
->
-> [Severity: Low]
-> This comment relies on the SEND_SHUTDOWN / cancel_work_sync() block in
-> rawsock_release(). That block was added by commit d793458c45df2a ("nfc:
-> rawsock: cancel tx_work before socket teardown"). Before that commit,
-> rawsock_release() did not set SEND_SHUTDOWN and did not cancel tx_work.
->
-> The patch only carries:
->
-> Fixes: 23b7869c0fd08 ("NFC: add the NFC socket raw protocol")
->
-> The lines it changes date back to 2011. It would apply cleanly to a
-> stable tree that lacks d793458c45df2a, and there the new check would do
-> nothing during release.
->
-> Should this have a Fixes: tag for d793458c45df ("nfc: rawsock: cancel
-> tx_work before socket teardown"), or at least name it as a prerequisite?
->
-> > + if (!skb_queue_empty(&sk->sk_write_queue) &&
-> > + !(sk->sk_shutdown & SEND_SHUTDOWN))
-> > schedule_work(&nfc_rawsock(sk)->tx_work);
->
-> [Severity: High]
-> Is this check actually serialized with the release path? Only the
-> completion side takes sk_write_queue.lock here. rawsock_release() sets
-> the flag and cancels the work without holding that lock:
->
-> net/nfc/rawsock.c:rawsock_release() {
-> ...
-> if (sk->sk_state =3D=3D TCP_ESTABLISHED) {
-> ...
-> sk->sk_shutdown |=3D SEND_SHUTDOWN;
-> cancel_work_sync(&nfc_rawsock(sk)->tx_work);
-> rawsock_write_queue_purge(sk);
-> }
->
-> sock_orphan(sk);
-> sock_put(sk);
-> ...
-> }
->
-> Release only takes the lock later, inside rawsock_write_queue_purge().
->
-> Can the following interleaving still happen? CPU0 holds the reference
-> taken by sock_hold() in rawsock_tx_work():
->
-> CPU0 (rawsock_data_exchange_complete) CPU1 (rawsock_release)
-> spin_lock_bh(&sk->sk_write_queue.lock)
-> queue non-empty, sk_shutdown =3D=3D 0
-> sk->sk_shutdown |=3D SEND_SHUTDOWN
-> cancel_work_sync(&tx_work)
-> tx_work idle, returns at once
-> schedule_work(&tx_work) succeeds
-> spin_unlock_bh()
-> sock_put(sk)
-> rawsock_write_queue_purge(sk)
-> sock_orphan(sk)
-> sock_put(sk)
-> last ref, socket freed
->
-> If tx_work is neither pending nor running, cancel_work_sync() returns
-> right away. __cancel_work_sync() also calls enable_work() before it
-> returns, so the later schedule_work() can still queue the work.
->
-> rawsock_destruct() does not cancel tx_work, and the queued work holds no
-> socket reference. When the worker runs, rawsock_tx_work() would read
-> freed memory:
->
-> struct sock *sk =3D to_rawsock_sk(work);
-> struct nfc_dev *dev =3D nfc_rawsock(sk)->dev;
-> u32 target_idx =3D nfc_rawsock(sk)->target_idx;
-> ...
-> if (sk->sk_shutdown & SEND_SHUTDOWN) {
->
-> Would it close this window to set SEND_SHUTDOWN under sk_write_queue.lock
-> in rawsock_release(), before cancel_work_sync()? Then either the
-> completion sees the flag, or its schedule_work() ran before release took
-> the lock, and cancel_work_sync() will cancel or wait for that work.
->
-> Separately, the unlocked read-modify-write of sk->sk_shutdown in
-> rawsock_release() races with the plain read here. It also races with the
-> plain store in rawsock_report_error():
->
-> sk->sk_shutdown =3D SHUTDOWN_MASK;
->
-> KCSAN would likely report this as a data race. The rest of the
-> networking stack accesses sk_shutdown with READ_ONCE()/WRITE_ONCE().
->
-> [ ... ]
->
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/179378590950.74297.14503648624087894519%40gmail.com
