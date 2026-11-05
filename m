@@ -1,86 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793873966;
-	b=ba+88wK4fhR0d9KO9NEowMD48x8Z5mpLtaksH7nj4YXrEa6biFUUY7KwGaKhsdFC3Dsa
-	 BIZd7CwxVcqvvgu68WKhWar68D+xDRtii6ZCc47JkkFSSbmKlwhvUWeaJGtA7yV3P7Fo5
-	 XT5Lp1+eBD9yotanMcEVZQngo0PoVf8swxQ06FKq2M3CVvSV+iCCaisvSyh3Kdc8/q/q8
-	 TsCWAIzjyinGRMaJzn8AYLmpO9sHarqS8iefTbVn0LWAedEVb64VYcVijx4IMxda4Lfq4
-	 7i8G1dys9nz5awVQIgH/z9E/XAx5SD+nTuj17yCws8C/OX94jrQxy4ZtFtyW/ufoaug==
+	t=1793873973;
+	b=VUGBfR05YOYQIpHI4Ht34Z6EawjEo/Ack2NzInYqi7PLLRuHh3SPUPJnTn7/5d1tQ+KT
+	 1tZqIpbK+4nNaMM9QeT6wqghxcsUK8fgRj3CbRCUFuMx8eJAPAEfCHaSYB34w9pS3Lwil
+	 Cq44AUdLK2QXL+qBskns0NJXAeLIznAQQ3q61oIfQEaDWkwEpcPUDXROoQ4we8p2ggBG0
+	 GjvPT31ahUrk+pT8xrDJH19l68Sxx4KpQEikiW+skCj/UWeC20eBqPWTY764ll65mLFfM
+	 xDM4HG484/+cs5JSodegq1adgfM/Wag4kKk69J6IJK1AdmEzQbB4O3Mmzs7WuBEujpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793873966;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ZuxIddZxkoMEStNXi1wQN6GDmJFWldMSsiqi9WxJVtk=;
-	b=bVBpqR1JnodUt5WinDmCBdmxq+94QjlHe0ZgozsoNy+cFdQEdkXCO2WwHXccfONBFfFr
-	 6OaEQK7HU4igD+eWbPmUtCMopCiOrGveaR/zkXvVD+68HiHNJyaojICbMMEh/r0cdPpCX
-	 06gNqqwXPaishgyLRu08+ppPTEwKldiWha5zYaKJClWsZqL90pFiFXxrAGGli7gWBuc3P
-	 i4qR1a3OimSfJ8XPK3OEt+8LDAo/ui0KX4zMHAQRPSWWiolIfIgzkSWU/B/4HyxOaeV5b
-	 aUifxnLhbPb9UXZeq8U5il6wArDywj62T6kUGMrCv+0gFDfcOdXosWy2zkTMgxNCdnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793873973;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=/2+xR7h3rNPHrZb7MEbP97PuNvaX3QrmpfP5OQT5IHk=;
+	b=HZZRZcpprps1gVjnLcOBbH3JXER2ieBNvQzMkw9cgwMAW+odLc6rleI3x7di082TIHaO
+	 x/a3wmGzNMnDUE5x3X13i33I+nzpZkV2+JdEb4aMaCSq7SvZ2z6HJpYOEaLxUhpiO7C8V
+	 J2Eb8mg6TwhR+KyRFBXJyjDD3Cym5jnqfSJQ92Clu92SohdmfhF9HF2N0RYEfrRSxHBgK
+	 x1g0jV25hkt0rx0u0cc3Sbo1Oykf5ElkfdGpoefVbjJ3+To9g911rlXTR7Kduf37YUKFz
+	 c16r0I1uzcBC6kfhYPT4fIUJ7gI0FsK2Z92lcKseZZSXXaA/xH39LP6PPbL3+pQz5YQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RyU3PhnM;
-	arc=none smtp.remote-ip=192.198.163.12
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PY8w+zYA;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=HMJklcMh;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B4FD606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:19:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B4FD606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F453606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:19:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F453606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RyU3PhnM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793873964; x=1825409964;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=SClvCa2nb4U2zihDSjVgD14Gx79Xt4CvgwQcwdLuc3A=;
-  b=RyU3PhnMhvB1BA1nYzdCDfSWkdjvs3XSuYl083dU8HQpP4VuHQLuN5oO
-   /kxp4xGsN/KyITm4bkkCuqErOHjzzEXg/sUzEKB4J/x1EQyCEms1sZr6z
-   eLCqs9r3lv3S4d2qLzvkm6dwFqWnz/fRP9kvSi1xLdhS/lAUDRuX2ClRS
-   IxBvLApiXvqc6CzUmi+/Nvyw7Af0cHINFvSWj2eQL8SO7Gj8+pMNKO4yy
-   z0z3i5qZBgw8NShu1VeADN3H7d3hXQgOeKoXapAdPBBJclBdErGzalZtr
-   7fC3ATHSbeLdep0PBtdbb9aDPat8NmpsZbHz/R3zK5QwuJ7gJLUdOf4/+
-   w==;
-X-CSE-ConnectionGUID: GJLfRt7jRAW6ZXU9J8xO9g==
-X-CSE-MsgGUID: dVb8noUHRP6gdunX2XXTjw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2558365"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2558365"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 02:19:23 -0800
-X-CSE-ConnectionGUID: yydFpciNQQeJvqmVUxV/cw==
-X-CSE-MsgGUID: DppOJNqkShu2CaxoJDSO0g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="8741696"
-Received: from chenyu-dev.sh.intel.com ([10.239.62.184])
-  by fmviesa012.fm.intel.com with ESMTP; 05 Nov 2026 02:19:20 -0800
-From: Chen Yu <yu.c.chen@intel.com>
-To: tony.luck@intel.com,
-	reinette.chatre@intel.com
-Cc: tglx@kernel.org,
-	bp@alien8.de,
-	mingo@redhat.com,
-	dave.hansen@linux.intel.com,
-	hpa@zytor.com,
-	fenghuay@nvidia.com,
-	babu.moger@amd.com,
-	hongyu.ning@intel.com,
-	chen.yu@linux.dev,
-	x86@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v10 02/12] arm,x86,fs/resctrl: Move resctrl_arch_round_mon_val() out of line
-Date: Thu,  5 Nov 2026 18:08:20 +0800
-Message-Id: <672dbb3622255ee7df0a64ef4e74b4c9b51db02e.1793864720.git.yu.c.chen@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1793864720.git.yu.c.chen@intel.com>
-References: <cover.1793864720.git.yu.c.chen@intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PY8w+zYA;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=HMJklcMh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793873971;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/2+xR7h3rNPHrZb7MEbP97PuNvaX3QrmpfP5OQT5IHk=;
+	b=PY8w+zYAXiiVifm6btqV+p5uDBQw5cQQYVuimHjxqdacJfiJcVuJAgaOTL3MWKRWVKDitI
+	mCsjOWf0L6ZcIug3KS6evtUDA2nG2AFeSAohzEmzEMrG97dg0RH5BrlnRceL6KZLKnizB/
+	7WdZy/6eIV3q/m+xNIGWscRxWYF2xy8=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-68-jAjFn5yLPCWv5u7HUE3YjQ-1; Thu, 05 Nov 2026 05:19:30 -0500
+X-MC-Unique: jAjFn5yLPCWv5u7HUE3YjQ-1
+X-Mimecast-MFC-AGG-ID: jAjFn5yLPCWv5u7HUE3YjQ_1793873969
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-49034831bb3so1084418f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 02:19:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793873969; x=1794478769; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/2+xR7h3rNPHrZb7MEbP97PuNvaX3QrmpfP5OQT5IHk=;
+        b=HMJklcMh9FcYEXGvdgDrdmi0+f7NbWsuCXHc0hMqdEPVp0TkQ8B0Jwpy4ReTtJzZPh
+         SLE2pVTWesYvybWibzIhXsA+oZIsNutxhoV792AUzGz2aE9aYfuOTtoBPli/Sua9yeQP
+         D5X2qTQGPX+DRtRiEiPbrU+/nm4dkuZwKBuHVZCchSHf3fioFSc8iDW/bdRDkgpSWIav
+         QXg+UVZcMs2Fwv1bKpXD/uz8JxLfiDSngSlKMGnZt95jFNna+U0Z/dlhhREXpRzmJvVS
+         njlcPJDpkfq4PB9wlB47/l3VMD0V6cDYLLM826nBbkvglvtcqFAQhs0nEB6astc5/pC8
+         1dRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793873969; x=1794478769;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/2+xR7h3rNPHrZb7MEbP97PuNvaX3QrmpfP5OQT5IHk=;
+        b=NYBSpAJHAtd4KCnJ5QJZIESVRQipXL4ZOkTQgC5OyWx5vGz6orehN2J+T+n1/eUvzN
+         v/RWtZGWs9V5LSxpnL4LxU2sCX/TmJF1+P0GvynUduDYRR181As1v2Ij6fz6DAA32E38
+         7yngXvwQOH7Ww6Rbn7quOt3mcNZBLgdaTmG9IjruSEk413UZ9sLoBEvU5thOrg8xrLvG
+         9AeLDsXy3NH0jIB3fFy8Y58Tb+V5S4YMQNqtMymN06CqNCZaRb/XSJ2zx4TjRaMXCsKj
+         gvSs1M348WwKpGC/DzqZrz5neBG+ExSyLWthf+bPEzO3jZvfCuE00/TXM9S0JOWD0fn+
+         0i0w==
+X-Forwarded-Encrypted: i=1; AKwUvBwvh+RJEGvf5v3IS9iuOYmF8B5IZOV9fJPEUKoxjBC+H2+r9mSp+TsR+xnN9hrUKo04C/IR3MNmrMS/KgQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z89Yk1REse73wwCsEKLFb2C7S/ze0eBCpK9KOtcMAnjhprB40zP
+	rdg45YtHW8C1RAmPsk+m71vI1JLLTQa5YaDCemIuu2+ewcgSqot87LWKAanO5hZx0Xo4U+yWMyP
+	dAQlss3vYhMyuXjs7JZhQXLC6THDfJHN3jkVv8QyxPoAWQNsxQaVFkoArIBA1uRiasQ==
+X-Gm-Gg: AYBFou1Io3sPd19NLHbqYDewkLgA9FO0dX/nHqcuwRCpStUp3Qro5zhXC5sw8OA/F5f
+	5Kouqk+mUcNVJRa65FOmtDTMmby5z0tn+Km3juH8ehdSRHYjupT5lsb8RHOQQAATIKJmUIuNOfl
+	6HD872D+6ZseaCXEBDUsFBtFwQwKGFCBoEXCTrcgvSbETniboQyfk2o6ya44sYyDFaH2KQ/X3vy
+	mdY0Q82v8aqFzJTdY6g+hKeRExApyPqmeqitsRHvaSdYGxIeguj18p8l1tc/wJQh7GRE2XW3tS5
+	x1Yn2FJAxhiRKtC23rZGCPHCdysv8kzLSag6EhmeKBnRfk6Al7Z0jg6i9wp2tysvjcxicjQzlOa
+	uCqAzgSZnzZkafqO95wGwv/ITY7Na36LmKTxt6KPcySoOTxhI6QoL
+X-Received: by 2002:a05:6000:3109:b0:48f:bcbf:26fc with SMTP id ffacd0b85a97d-48fbcbf2c1cmr13670556f8f.53.1793873969165;
+        Thu, 05 Nov 2026 02:19:29 -0800 (PST)
+X-Received: by 2002:a05:6000:3109:b0:48f:bcbf:26fc with SMTP id ffacd0b85a97d-48fbcbf2c1cmr13670494f8f.53.1793873968633;
+        Thu, 05 Nov 2026 02:19:28 -0800 (PST)
+Received: from sgarzare-redhat ([80.116.143.202])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed0844c8sm9640157f8f.26.2026.11.05.02.19.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 02:19:28 -0800 (PST)
+Date: Thu, 5 Nov 2026 11:19:23 +0100
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: jrmmhm.kernel@eldare.de
+Cc: Stefan Hajnoczi <stefanha@redhat.com>, 
+	Bobby Eshleman <bobbyeshleman@meta.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
+	Jason Wang <jasowangio@gmail.com>, Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>, 
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, virtualization@lists.linux.dev, 
+	kvm@vger.kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v3] vsock/virtio: clear vqs[] to avoid a UAF on a
+ failed PM restore
+Message-ID: <auxVKMavkOw3Ia-6@sgarzare-redhat>
+References: <20261104-vsock-restore-uaf-send-v3-1-d60d06488b57@eldare.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,134 +121,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20261104-vsock-restore-uaf-send-v3-1-d60d06488b57@eldare.de>
 
-resctrl_arch_round_mon_val() is an inline function in the x86 and MPAM
-architecture headers. It is only called during resctrl initialization and when
-user space writes "max_threshold_occupancy", neither of which is a hot path that
-benefits from inlining.
+On Wed, Nov 04, 2026 at 05:26:43PM +0100, Jerome Mohm via B4 Relay wrote:
+>From: Jerome Mohm <jrmmhm.kernel@eldare.de>
+>
+>virtio_vsock_vqs_del() frees the virtqueues but leaves vsock->vqs[]
+>pointing at them. If virtio_vsock_restore() then fails, the driver
+>stays bound with a dangling vqs[], and the next freeze or unbind
+>passes a freed virtqueue to virtqueue_detach_unused_buf():
+>
+>  BUG: KASAN: slab-use-after-free in virtqueue_detach_unused_buf
+>   virtio_vsock_vqs_del (net/vmw_vsock/virtio_transport.c:785)
+>   virtio_vsock_remove
+>  Freed by task ...:
+>   vp_del_vqs
+>   virtio_vsock_freeze
+>
+>Clear vqs[] after del_vqs() and when virtio_find_vqs() fails. Return
+>early from virtio_vsock_vqs_del() when vqs[] is empty: a second
+>del_vqs() would free virtio-mmio's IRQ again ("Trying to free
+>already-free IRQ").
 
-Upcoming ERDT support needs resctrl_arch_round_mon_val() to consult
-ERDT-specific state. Keeping it inline would force ERDT prototypes into the x86
-asm header, fragmenting the ERDT code into a header where it does not belong.
+Is this an issue or just a warning?
 
-Move resctrl_arch_round_mon_val() into monitor.c and declare it in
-include/linux/resctrl.h alongside the other resctrl_arch_*() calls. Move the
-MPAM stub from arm_mpam.h into mpam_resctrl.c accordingly.
+>
+>Found with the help of Anthropic's Claude and reproduced on virtio-pci
+>by failing the restore with failslab; the virtio-mmio IRQ issue was
+>found by the netdev Sashiko review. With this patch neither report
+>appears on virtio-pci or virtio-mmio guests, and the vsock vmtest.sh
+>single-VM tests pass. A find_vqs() failure after some virtqueues were
+>set up was not exercised.
+>
+>Fixes: bd50c5dc182b ("vsock/virtio: add support for device suspend/resume")
+>Cc: stable@vger.kernel.org
+>Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
+>---
+>Changes in v3:
+>- Shorten the commit message (Stefano, Michael).
+>- Drop the two comments on clearing vqs[] (Bobby) and shorten the
+>  remaining one.
+>- Drop the tool note below "---"; it is in the commit message (Stefano).
+>- Comment changes only; not rebuilt or retested.
+>- Link to v2: https://patch.msgid.link/20261028-vsock-restore-uaf-send-v2-1-675aad6da714@eldare.de
+>---
+> net/vmw_vsock/virtio_transport.c | 16 +++++++++++++---
+> 1 file changed, 13 insertions(+), 3 deletions(-)
+>
+>diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
+>index 4f9aa9c4c3aa..ffe7cd93463d 100644
+>--- a/net/vmw_vsock/virtio_transport.c
+>+++ b/net/vmw_vsock/virtio_transport.c
+>@@ -714,8 +714,10 @@ static int virtio_vsock_vqs_init(struct virtio_vsock *vsock)
+> 	atomic_set(&vsock->queued_replies, 0);
+>
+> 	ret = virtio_find_vqs(vdev, VSOCK_VQ_MAX, vsock->vqs, vqs_info, NULL);
+>-	if (ret < 0)
+>+	if (ret < 0) {
+>+		memset(vsock->vqs, 0, sizeof(vsock->vqs));
+> 		return ret;
+>+	}
+>
+> 	virtio_vsock_update_guest_cid(vsock);
+>
+>@@ -781,6 +783,14 @@ static void virtio_vsock_vqs_del(struct virtio_vsock *vsock)
+> 	 */
+> 	virtio_reset_device(vdev);
+>
+>+	virtio_vsock_skb_queue_purge(&vsock->send_pkt_queue);
 
-No functional change.
+I'd prefer to move this before the virtio_reset_device(), because the 
+comment on top of that is related also to the next steps (detach unused 
+buffers), so having this in the middle is not really readable.
 
-Suggested-by: Reinette Chatre <reinette.chatre@intel.com>
-Signed-off-by: Chen Yu <yu.c.chen@intel.com>
-Tested-by: Hongyu Ning <hongyu.ning@linux.intel.com>
-Acked-by: Ben Horgan <ben.horgan@arm.com>
----
-Changes since v9:
-- Move this patch from the middle of the series to patch 2, right after
-  the x86/topology change, so that MPAM maintainers only need to review
-  this patch. (Reinette Chatre)
-- Change the subject prefix from "x86,fs/resctrl:" to
-  "arm,x86,fs/resctrl:" to draw the attention of MPAM maintainers.
-  (Reinette Chatre)
-- Changelog: say "x86 and MPAM architecture headers" and "x86 asm
-  header", and state that keeping the function inline would place ERDT
-  code in a header where it does not belong. (Reinette Chatre)
-- Since the patch is now ahead of the SNC change, the new function is
-  placed after snc_get_config() instead of after the dropped
-  resctrl_arch_update_snc(). No code change.
-- Add Ben Horgan's Acked-by.
+>+
+>+	/* After a failed restore no virtqueues are live, and a second
+>+	 * del_vqs() would free virtio-mmio's IRQ again.
 
- arch/x86/include/asm/resctrl.h        | 9 ---------
- arch/x86/kernel/cpu/resctrl/monitor.c | 9 +++++++++
- drivers/resctrl/mpam_resctrl.c        | 5 +++++
- include/linux/arm_mpam.h              | 5 -----
- include/linux/resctrl.h               | 1 +
- 5 files changed, 15 insertions(+), 14 deletions(-)
+What will be the issue of freeing virtio-mmio's IRQ again?
 
-diff --git a/arch/x86/include/asm/resctrl.h b/arch/x86/include/asm/resctrl.h
-index 8f6edcdcfd87..738de74235bd 100644
---- a/arch/x86/include/asm/resctrl.h
-+++ b/arch/x86/include/asm/resctrl.h
-@@ -130,15 +130,6 @@ static inline void __resctrl_sched_in(struct task_struct *tsk)
- 	}
- }
- 
--static inline unsigned int resctrl_arch_round_mon_val(unsigned int val)
--{
--	unsigned int scale = boot_cpu_data.x86_cache_occ_scale;
--
--	/* h/w works in units of "boot_cpu_data.x86_cache_occ_scale" */
--	val /= scale;
--	return val * scale;
--}
--
- static inline void resctrl_arch_set_cpu_default_closid_rmid(int cpu, u32 closid,
- 							    u32 rmid)
- {
-diff --git a/arch/x86/kernel/cpu/resctrl/monitor.c b/arch/x86/kernel/cpu/resctrl/monitor.c
-index 3838e0a13d36..97fc60c23958 100644
---- a/arch/x86/kernel/cpu/resctrl/monitor.c
-+++ b/arch/x86/kernel/cpu/resctrl/monitor.c
-@@ -416,6 +416,15 @@ static __init int snc_get_config(void)
- 	return ret;
- }
- 
-+unsigned int resctrl_arch_round_mon_val(unsigned int val)
-+{
-+	unsigned int scale = boot_cpu_data.x86_cache_occ_scale;
-+
-+	/* h/w works in units of "boot_cpu_data.x86_cache_occ_scale" */
-+	val /= scale;
-+	return val * scale;
-+}
-+
- int __init rdt_get_l3_mon_config(struct rdt_resource *r)
- {
- 	unsigned int mbm_offset = boot_cpu_data.x86_cache_mbm_width_offset;
-diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-index 5468367776e2..3576dde8608e 100644
---- a/drivers/resctrl/mpam_resctrl.c
-+++ b/drivers/resctrl/mpam_resctrl.c
-@@ -143,6 +143,11 @@ void resctrl_arch_pre_mount(void)
- {
- }
- 
-+unsigned int resctrl_arch_round_mon_val(unsigned int val)
-+{
-+	return val;
-+}
-+
- bool resctrl_arch_get_cdp_enabled(enum resctrl_res_level rid)
- {
- 	return mpam_resctrl_controls[rid].cdp_enabled;
-diff --git a/include/linux/arm_mpam.h b/include/linux/arm_mpam.h
-index 002f56e15362..f8fcdc7e7a63 100644
---- a/include/linux/arm_mpam.h
-+++ b/include/linux/arm_mpam.h
-@@ -76,11 +76,6 @@ static inline void resctrl_arch_disable_mon(void) { }
- static inline void resctrl_arch_enable_alloc(void) { }
- static inline void resctrl_arch_disable_alloc(void) { }
- 
--static inline unsigned int resctrl_arch_round_mon_val(unsigned int val)
--{
--	return val;
--}
--
- /**
-  * mpam_register_requestor() - Register a requestor with the MPAM driver
-  * @partid_max:		The maximum PARTID value the requestor can generate.
-diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
-index 10dfdca7f4bf..aa0d41f22293 100644
---- a/include/linux/resctrl.h
-+++ b/include/linux/resctrl.h
-@@ -418,6 +418,7 @@ static inline u32 resctrl_get_default_ctrl(struct rdt_resource *r)
- u32 resctrl_arch_get_num_closid(struct rdt_resource *r);
- u32 resctrl_arch_system_num_rmid_idx(void);
- int resctrl_arch_update_domains(struct rdt_resource *r, u32 closid);
-+unsigned int resctrl_arch_round_mon_val(unsigned int val);
- 
- bool resctrl_enable_mon_event(enum resctrl_event_id eventid, bool any_cpu,
- 			      unsigned int binary_bits, void *arch_priv);
--- 
-2.25.1
+
+The rest LGTM.
+
+Thanks,
+Stefano
+
+>+	 */
+>+	if (!vsock->vqs[VSOCK_VQ_RX])
+>+		return;
+>+
+> 	mutex_lock(&vsock->rx_lock);
+> 	while ((skb = virtqueue_detach_unused_buf(vsock->vqs[VSOCK_VQ_RX])))
+> 		kfree_skb(skb);
+>@@ -791,10 +801,10 @@ static void virtio_vsock_vqs_del(struct virtio_vsock *vsock)
+> 		kfree_skb(skb);
+> 	mutex_unlock(&vsock->tx_lock);
+>
+>-	virtio_vsock_skb_queue_purge(&vsock->send_pkt_queue);
+>-
+> 	/* Delete virtqueues and flush outstanding callbacks if any */
+> 	vdev->config->del_vqs(vdev);
+>+
+>+	memset(vsock->vqs, 0, sizeof(vsock->vqs));
+> }
+>
+> static int virtio_vsock_probe(struct virtio_device *vdev)
+>
+>---
+>base-commit: 363c8c79220d0db4d65dcd570529ddda15067cb5
+>change-id: 20261001-vsock-restore-uaf-send-1fc7396fa1bd
+>
+>Best regards,
+>--
+>Jerome Mohm <jrmmhm.kernel@eldare.de>
+>
+>
 
