@@ -1,67 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.67
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793870672;
-	b=GSjnP3DW+ntn1Y/GAH1+vSpq4J2UbSK91C3v/6sErW5ldLfSxlupih/YU1rGm1dtiR5E
-	 bM2DPU0UXAEmSRtxt2PR9N1mYbEUk3KLaF6+xPXba193W2+fBphmL3RkR9Xy7EXEiNTTP
-	 zCvbTcU3BTGv9dW50kyzyy1cn4kCQ5l3DhA8fVZUfLf7HoRa1Pv9EHzBjuRjjY1tOHBBz
-	 e0ivM2Eqx12igo21jFP5BY8ka9IPLY72EG0HRHrAaEVjKKFIZTXuGJ33x4RN9m705bEGr
-	 aJOJccqhtBF4yy+fj3KuT4lU5CdYaIEX9BHBWScG6fBo7heF768mVhbHSogfAtXXEiA==
+	t=1793870680;
+	b=jy8OG/dYKBbS+4B11SBDLWb5isguN/85Nsc/V/0oGPCmEWS0Z4rWAw6iEASbj0c+vTNy
+	 nLUapuGkCZcEhon+5HAgdpO7Rqww9usuZ36fO5rtCm/G8YU8Z68aNpJTiRuHKU1NHRhv1
+	 KDkUqx+AGLnR4ZcVqBxwVPrdCb7Z9nfa4S5+RIMcWL/alcNkayseFouvnZ9B/7t0wwXO+
+	 QBgdmv8XSNMADrZOJQEuDgxUbArk1qUyBKbRwJvvJEBsHelHLB8jaz7HKqU7DnEO0xvKK
+	 XHkPKvdov+9+6eHJiahgnknFn9IJc2gj9GIeGw8bYxjCzt9aEQ/73n3zYXpdsBWaE+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793870672;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=47z7brSo33mlypnLaxbaxwk/bykGGQ/mpDgwuXRnuwQ=;
-	b=IZSTlqeDP6vNt7WGtxP54a1qtjy0S6UNVRZ7/NFCTRwn6oahXjN1KdHpwvJ0dyhREsIZ
-	 meg96w6SJSf7rfPF1tVTwzVJt5zgJCthsBYW8TOvCItoVIRU1lZTPmKT/hmkHKdjX3K3R
-	 HV35HvHsZl91NqwQLQAqm6rrcGJ2yHOewpivSmOz//CYvasAjZsLQP7a8nby1svGgCjW4
-	 gJnQRWke8qrZLcF0VSsElGMXgRFx9Fe8IDCDOci4BUbV4iwmxQkvh7nOXWrsoV2uPWsS3
-	 Q3qdyUJ/ArrOZzivD9wTd4c/H7/+5O5YKxWaL2m8HeAxwuPMxKD5Bh7XMZVLQeengjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793870680;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=tTqFMC2jfQkWpp4eCpCGIoJ+qOTGr5oTYuPt6Wn0ReQ=;
+	b=UrVM8z0XISoAQH5Wr1UuaT0ufgKEsO5l7EVJY8UZosk5e/Jw89cerIrlZxPztDVKiBzE
+	 QBSbf90EKShIxjQtS/bpOCmQU3yKiT4j9VxhdylvvkWvu/5/09kkNgx8BznQZW9u5DKJ3
+	 jBXe9dKiFLOu1fIAj/n1dAF8Ruxs50i615/8TssYI+wssQxZw9+U2iyFjoTeMM+y3itLw
+	 5ClJlIktM7MmgLrbNnrxRPwyFCnMIsisSGgmQL//BUQT/uMpBsje+GQyw1WvaowfuIayj
+	 kUA8Cpfxo1Xt5BnF5AUuPNOEx5c/4dhNIElBA6CoujS2I7LDK2E7wajcbAln7dAdUOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	arc=none smtp.remote-ip=95.215.58.67
-Received: from mta1.migadu.com (out-67.mta1.migadu.com [95.215.58.67])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NkakNWVr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3F86606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:24:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3F86606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7RHOYddhHtUsTVy8AhY3X82ztUTMixuxCKf0uz2Jqk4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793870663; v=1; x=1794475463;
- b=fGwM2W/j9kP0lpvLeqQs+swxCGFHVVeLE2G6FhV+GAI6Lseae1T/pmTo/Oc/KAmho42/Zlv0
- RPDTUxeD/zC27iq3iI8IFMqrlH5dscMSA6Hd/NRVZ6cioTfE3D4b4jy6QsaONeDyEhxGm79VMEO
- 5QIzAVHzsTTdadsYzO8OOPo4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 19424a7b2f638b1c;
-	Thu, 05 Nov 2026 09:24:23 +0000
-X-Mizu-Trace-ID: 19424a7b2f638b1c
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 5 Nov 2026 17:24:10 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Andrea Mayer <andrea.mayer@uniroma2.it>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	David Ahern <dsahern@kernel.org>, Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, Shuah Khan <shuah@kernel.org>,
-	Justin Iurman <justin.iurman@gmail.com>,
-	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
-	Ahmed Abdelsalam <ahabdels@cisco.com>,
-	Stefano Salsano <stefano.salsano@uniroma2.it>,
-	andrea@common-net.org
-Subject: Re: [PATCH net-next v2 5/5] selftests: seg6: add tests for PSP with
- a consumed SRH
-Message-ID: <auxLOoW97AQ55QdH@fedora>
-References: <20261105015715.57-1-andrea.mayer@uniroma2.it>
- <20261105015715.57-6-andrea.mayer@uniroma2.it>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C530606A32D
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:24:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NkakNWVr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8EAB1F00A1A
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:24:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793870678;
+	bh=tTqFMC2jfQkWpp4eCpCGIoJ+qOTGr5oTYuPt6Wn0ReQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=NkakNWVrpeJsHpQJZkDxNGNiBhdjE5CTeu0BAedaN9KKhqePQp6RTOZf4Bek5pCVN
+	 bVJwEl6wMnv6pqrJVQ4so2nmQ+AnR2RQnxHTv92qHB+7P/ijwgoJyNXhi+YMHvtPVF
+	 H/IPvS22QXuSFDaizD8YzQCYn3REuSABlBf6sklJqw4ZbDNLbkzKhkjHG/2iaoZ5wd
+	 LWRdvXjuk24Zl30+q8nxvnaty1AX5vsSfYRlAXL3bG5h71c9Jvcb6k3aMcV5nqYuL/
+	 q2iZfTm+9naaoTCsOhcA08yYYVPZJ4sqyp9qqb1aEdubjBKDlGqdPBNRRoWPJMmhBw
+	 ZV5HMsbtriN6w==
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5bfc2ae6e9dso1309677e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:24:38 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwYDS23R0iaPfg/bQsWXVw/KbDpAiUuBKfNyv3sgB0O3xyQWyjKadhh3JcZt5044We6mB2WQss2UHVNy5Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8eBYRAyJ3pO+cXSu03R46qRcvJ0xMqNWmEElX+1XUL7MYSG/+T
+	gP3fSFAw2eZIRl3JMQdFc88wcfxi81bzEsqXcgPExUebhbigdXVEvB4FpRk4guwdoGJjthac+6s
+	baF0KGuC0/bNO+eTsgC+CoLpjaBkHTB0=
+X-Received: by 2002:a05:6512:3f17:b0:5bf:d1c4:a01d with SMTP id
+ 2adb3069b0e04-5bfd95206b9mr6296528e87.2.1793870677493; Thu, 05 Nov 2026
+ 01:24:37 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,132 +59,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105015715.57-6-andrea.mayer@uniroma2.it>
+References: <20261103213002.1673560-1-lee@kernel.org> <20261103213002.1673560-7-lee@kernel.org>
+In-Reply-To: <20261103213002.1673560-7-lee@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 5 Nov 2026 10:24:24 +0100
+X-Gmail-Original-Message-ID: <CAD++jLn0vx9bv7ZUvcPX+Q_E4o+zb-rtfEmsZgw00gMGTVY3Zw@mail.gmail.com>
+X-Gm-Features: AclHuK8yYE1rSjLkW5nBivqJEc5ZKlRnSUlmLXkEBc7bHuzlAPbz8NNmplKC7xw
+Message-ID: <CAD++jLn0vx9bv7ZUvcPX+Q_E4o+zb-rtfEmsZgw00gMGTVY3Zw@mail.gmail.com>
+Subject: Re: [PATCH 06/10] pinctrl: realtek: Fix bit shift when configuring RTD_HIGH_VIL
+To: Lee Jones <lee@kernel.org>
+Cc: James Tai <james.tai@realtek.com>, Yu-Chun Lin <eleanor.lin@realtek.com>, 
+	=?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.com>, 
+	Tzuyi Chang <tychang@realtek.com>, linux-arm-kernel@lists.infradead.org, 
+	linux-realtek-soc@lists.infradead.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Andrea,
-On Thu, Nov 05, 2026 at 02:57:15AM +0100, Andrea Mayer wrote:
-> Extend srv6_end_flavors_test.sh with tests for the SRv6 End behavior
-> with the PSP flavor, alone and together with NEXT-C-SID, on packets that
-> carry a consumed SRH in front of the SRH to process.
-> 
-> Each test sends a ping along an existing SRv6 Policy, and a router on
-> the path inserts an extra SRH in front of the Policy's SRH. An End
-> behavior on another router consumes the extra SRH, and the router
-> connected to the host must then remove only the Policy's SRH.
-> 
-> These tests set seg6_enabled to 1 on the hosts, which must accept the
-> extra SRH, and set it back to 0 at the end. With seg6_enabled set to 1,
-> a host also accepts the packet when the Policy's SRH is not removed, or
-> when the extra SRH is removed in its place. For this reason, the
-> receiving host accepts the echo request only when its first SRH is the
-> extra SRH, with Segments Left 0 and followed by the ICMPv6 header. Any
-> other echo request is dropped, including one without any SRH. The extra
-> SRH is recognized by its last segment, which is the SID that triggered
-> its insertion.
-> 
-> The check on the receiving host uses the ip6tables srh match. Without
-> it, these tests are skipped. A test fails if the route that inserts the
-> extra SRH, or the rules on the receiving host, cannot be added.
-> 
-> Signed-off-by: Andrea Mayer <andrea.mayer@uniroma2.it>
-> ---
->  tools/testing/selftests/net/config            |   1 +
->  .../selftests/net/srv6_end_flavors_test.sh    | 280 +++++++++++++++++-
->  2 files changed, 279 insertions(+), 2 deletions(-)
-> 
+On Tue, Nov 3, 2026 at 10:30=E2=80=AFPM Lee Jones <lee@kernel.org> wrote:
 
-[...]
+> In rtd_pconf_parse_conf(), the RTD_HIGH_VIL case prepares mask as
+> BIT(hvil_off) for regmap_update_bits(), but sets val =3D 1 without
+> shifting it to hvil_off.  Whenever hvil_off is non-zero,
+> regmap_update_bits() masks val with BIT(hvil_off) and clears the high
+> VIL bit instead of setting it.
+>
+> Set val to BIT(hvil_off) so that the target bit is set as intended.
+>
+> Fixes: dcc9334435b0 ("pinctrl: realtek: add support for slew rate, input =
+voltage and high VIL")
+> Closes: https://sashiko.dev/#/bug/linux-e7077311-3f30-4b77-844b-1447519d0=
+c84
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lee Jones <lee@kernel.org>
 
-> +
-> +# Test a Policy with a consumed SRH: a router inserts the extra SRH on the
-> +# packets towards a SID, and another router consumes it. The destination host
-> +# accepts only the echo requests that carry the extra SRH alone.
-> +# args:
-> +#  $1 - router that inserts the extra SRH
-> +#  $2 - SID that triggers the insertion
-> +#  $3 - router with the SRv6 End behavior that consumes the extra SRH
-> +#  $4 - source host
-> +#  $5 - destination host
-> +#  $6 - suffix of the address on the loopback of the destination host
-> +#       (i.e. cafe::<host>:<suffix>), if any
-> +check_and_log_consumed_srh()
-> +{
-> +	local rt="$1"
-> +	local sid="$2"
-> +	local end_rt="$3"
-> +	local hssrc="$4"
-> +	local hsdst="$5"
-> +	local suffix="$6"
-> +	local msg
-> +
-> +	if ! ${HAS_SRH_MATCH}; then
-> +		msg="IPv6 Hosts connectivity: hs-${hssrc} -> hs-${hsdst}"
-> +		if [ -n "${suffix}" ]; then
-> +			msg="${msg} (${IPv6_HS_NETWORK}::${hsdst}:${suffix})"
-> +		fi
-> +		log_test_skipped "${msg}"
-> +		return
-> +	fi
-> +
-> +	if ! setup_rt_consumed_srh "${rt}" "${sid}" "${end_rt}"; then
-> +		log_test 1 0 "Extra SRH on rt-${rt} for ${sid}"
-> +		return
-> +	fi
-> +
-> +	if ! setup_hs_srh_check "${hsdst}" "${sid}"; then
-> +		log_test 1 0 "SRH check on hs-${hsdst} for ${sid}"
-> +	elif [ -n "${suffix}" ]; then
-> +		check_and_log_hs_lo_addr_connectivity "${hssrc}" "${hsdst}" \
-> +			"${suffix}"
-> +	else
-> +		check_and_log_hs_connectivity "${hssrc}" "${hsdst}"
-> +	fi
-> +
-> +	cleanup_hs_srh_check "${hsdst}"
-> +	cleanup_rt_consumed_srh "${rt}" "${sid}"
-> +}
-> +
-> +host_srv6_end_flv_consumed_srh_tests()
-> +{
-> +	local sid
-> +
-> +	log_section \
-> +		"SRv6 connectivity test hosts (h1 <-> h2, PSP with a consumed SRH)"
-> +
-> +	if ! ${HAS_SRH_MATCH}; then
-> +		echo "SKIP: ip6tables srh match not available"
-> +	fi
+This patch 6/10 applied for fixes!
 
-Ah, forgot to say. We can return directly here if srh match not available.
-There is no need to check $HAS_SRH_MATCH again in each
-check_and_log_consumed_srh() testing.
-
-Not need to update for another version if you don't plan to change other
-stuff.
-
-Thanks
-Hangbin
-
-> +
-> +	set_hs_seg6_enabled 1
-> +
-> +	# Policy (i.a): rt-4 inserts the extra SRH consumed by rt-3
-> +	sid="${LOCATOR_SERVICE}:2::${END_PSP_FUNC}"
-> +	check_and_log_consumed_srh 4 "${sid}" 3 1 2
-> +
-> +	# Policy (i.b): rt-2 inserts the extra SRH consumed by rt-3
-> +	sid="${LOCATOR_SERVICE}:1::${END_PSP_FUNC}"
-> +	check_and_log_consumed_srh 2 "${sid}" 3 2 1
-> +
-> +	# Policy (i.c): rt-4 inserts the extra SRH consumed by rt-3
-> +	sid="$(build_csid_container 2 "${END_CSID_PSP_FUNC}")"
-> +	check_and_log_consumed_srh 4 "${sid}" 3 1 2 "${END_CSID_PSP_FUNC}"
-> +
-> +	# Policy (i.d): rt-3 inserts the extra SRH consumed by rt-4
-> +	sid="$(build_csid_container 1 "${END_CSID_PSP_FUNC}")"
-> +	check_and_log_consumed_srh 3 "${sid}" 4 2 1 "${END_CSID_PSP_FUNC}"
-> +
-> +	set_hs_seg6_enabled 0
-> +}
+Yours,
+Linus Walleij
