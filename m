@@ -1,92 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793914147;
-	b=gIPWGEjhdxDLupu2HYc9K+tR829xHpzjShyXUIHlNXHlYNIc9/Fzlwwp2ikOVY2bc7N3
-	 DoFzyFkCm+d24SPdPm9+D8jfdU0n56xVsz97eYNtVmZBxyrKvXaR88JgQooUWvTke1eTL
-	 pMbODYPPlqX8KqI64HY7CL/C0kzPh93yW7w+df4J/9s/ic2MvIU4joJSlpJYN7oOHR1d6
-	 DtAcJgUtfZVvoK5wG7vMq5QPkFFdhqR3Ye8jr2e+q98CvZK7RTiC7/vSIOdvKAIp7h7SX
-	 LVVIhKFvXoy9vv/58S+wA8RHYOhc2ps1K/4mZtPwsi6gQEeAMPvqAz020lod3MJsgYA==
+	t=1793914275;
+	b=2ut1yxVMbCuGx2OO8OZKVxIsg9IqFPkAByZUOE3Pu4rh9T+6lkNXbIolAw1EzZ733/wL
+	 GEkJkree+CHDFMr2YjBvBQxjsOD6b5MqFC0LMV5fOo2eGB4m9nOh8eyalGAHL0q46h7Vi
+	 yI2hyMcTTP5b4K2iAfdYbM6iIGTwPXqdkXHjCn6z0am+FttC1HIuXI2Y88jVBY/DdaHLS
+	 rAjDKdo4yEZ1+rhnrS/2zdxN1lmfK0Faokn8gpfZvkMahSs3UK0V6m/9Dta+OMEbGzZe1
+	 +YpjU5jNb3sQu2pGPmJleLME/R0AY69/bFQ0InxhyP5kC45oZv0iOuECyD250BHPcsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793914147;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=6X/RUIiQQa87xx60aQjdp21uP+BGANbNQttC7WmkNww=;
-	b=MNfLt71QIPAO1kXlD+SAeDCLNJvpMXc3N6kt+xTqyyIUFYKI+KHTZT9d/YS0rAMHf5pN
-	 2mxrMj3JPVgsmCStQGZIqP2GYAfd9+u2pSZ1CXvs8hRYMuViYESiJQmGynltm5kKgZztY
-	 lvRydtuFN1nWO2z94ll+avdNGw6dgkHDQj1k5TwbuwTgLd8+BTpV4lhJpf2nR8hn9ccn7
-	 QagEhkU4V0XZPE8jCiBT0GlJAEctXTN1Pi6EbyM8tN6evy+ROJ2jlRsA/3WDtVXs2tOYW
-	 vUmpGQKNGMCY2Zh/caE0zOEhX/+8tdVsQigijwyTcpNxAwEhFK3GVsgkpLQtut6dvjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793914275;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ChocN/q2mB/E5VW7WeyrIaoqTP6cF6JJgg9ERaIrNlw=;
+	b=hHbtoVFetWkbIJgck86p+P4D09mGExc+rxkbl2DuTjh5zDmCuguoPgZQoq+CI+xbPyQY
+	 GhnB3W2eF214aanx7j/Y0zR0X0X9BeM0N4+iPpTdLoId8K0PSMmK1xrYl7vTcx0QyN/c4
+	 kstyaHjOnb1pgNf3qVpzyCSD/cdQmJD+SCDLVK5Az86q1DL00LAY78Ig/kkqgv4nqkNkF
+	 aBYKOh8bc1kRFbVQwsvJgOik0NYEAMmttxWzkTrRLFnaildrskKvEjDZz40YIq8+ZB6K4
+	 7OV7yQPBC8PChX4URLEqyMLzwx7uxZ9wIQPJB5D/tRbgtoFoz6wwwrUzZUqpYnvM8OQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UZgl9DUY;
-	arc=none smtp.remote-ip=74.125.82.49
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gtyxnH7D;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1075D606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:29:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1075D606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB5F606A326;
+	Thu,  5 Nov 2026 21:31:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UZgl9DUY
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1a3c08d6928so75774c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:29:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793914146; x=1794518946; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6X/RUIiQQa87xx60aQjdp21uP+BGANbNQttC7WmkNww=;
-        b=UZgl9DUYlYP8EDJO1Ds5xz6j3knFNMxbTW3/+Xtz3uqR0kFQ5nh/PqXeOjjoLwkRu4
-         3kc7txV5vt10QODtSKEYilMg0QSOMEeg2aXkR8jYZpBCDXab+/+dCfENNKvtI+RAp05k
-         6akx1suyM9tMxhov9aTCHf8mP8ZuSouMo59y8l2qMu7Z0UbUfYiP0EDq7Q54shz1TaQW
-         iWsiHrDq41pE8Xe8K3fdl4WsFFvKbY4PG777qAmjs/AFxDkvLL1GgxzlltYn9s534VVe
-         jjGBixHwJwRvQFdnRJEJMVErziC+L08DplFdvCUaSGBLmBhpSAC1Ei8ukWL9ORvxq/w0
-         qHOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793914146; x=1794518946;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6X/RUIiQQa87xx60aQjdp21uP+BGANbNQttC7WmkNww=;
-        b=k2YYRDKr2bFVV/fW6akykBwkDvARzTu9j5hYHE5kMAxKJ4iVSWETeqyTN/3IWmgebs
-         aboNTTVa11LrCeCFQIdm1NovU0ifi0hO6JnTDD62t4EmH2+GRcdBW3+21gsi6tS0Aa9v
-         SFWYMqUoL0CRpguMExNJxeAU2XPwyNuw1sguKz7PBckw7ybG2GH12Evr5AB1AuGhNPSr
-         yoB4DzIB6JU5NSVasSCNUTaKbhG5CbBufbJFwW2fngaPQFlHca0vpSnmtg917nvzfBBU
-         TUwDA7EDqe80L+9Bs9mcLTUXmtrGRuk/06+VAVi4Vqc0qX3i2OMoJ4Wwmn5alf08aKdx
-         XeNA==
-X-Forwarded-Encrypted: i=1; AKwUvBxsTuitKPkIIH9lerZQ1FFra2E591EB4ponSt7A1G4RR2gzLDHitfS+2L5C+NkXRehmeE5/Zgjkz+6o5Ww=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8kfe5eOivv4kLgziPS462OesPkAOx+KIpj6ZRAC5qlDFoHT25x
-	lbla3Auqca4iBgRRR35vvFv1HFwVqsAQAemhss0NUKFloYJOwjfjNcKT
-X-Gm-Gg: AYBFou33TwiLSq9bOuwjl5+sdOfmHLPTpXOzX2cEDB8NiK4AxlzsaLB1xrtiim31oEf
-	CT14IEtX95lTGTh2jsW0NXiHirfk4BqxQ7cXUzo/VR9GfIAUWRbHqmdeTaBihJzTNRIlnicKF6s
-	no+RSWoJa2969FXKeZHzE53vaE3j4WCZPo3OAdlE+rHnrEcDbSZ17Yn9fWv/vKe2iMFE7sVdZ/S
-	6/IFOsWCXtaWQztzo/olE9AjfMplZFJTI23xB2VtzWnbKrfDja9iExZ/cpPOfK6qf228pLbE2n9
-	ieF+8ovlP+6uX9T+OXXUbzqG9Byco2LXU4g8+u3sVhoXKPnZdj/3RVimeFUbWasTvCvN0+lnn9s
-	DHjr5coHfdb56BAvbbTcKl973srTKY22LYQjZQcAjfPl190HJYlkQkbWQksWY7lB+N6378hBTGg
-	eMD+GehayXC5JWk/TNuSv917+uZMRwU4St02t1xNJukOEY0B+wMB/bmScdRzLcLFIlPKOATzuCZ
-	aPPWdXChNjl75leuqeLMuwP4ry5tJI5cCF+dA7fAK9nF1nK9/YpSyg7PodWLvPrbS0SHiUnFAoO
-	fpbQE1Yxjeb3BUC8fZMBuc7Fq2s=
-X-Received: by 2002:a05:701b:464b:b0:1ab:faad:cba with SMTP id a92af1059eb24-1b25d37e8a6mr261446c88.34.1793914145708;
-        Thu, 05 Nov 2026 13:29:05 -0800 (PST)
-Received: from kiss ([2602:feda:30:ae86:2cf:9dff:feba:f25b])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c2d69asm18149069c88.11.2026.11.05.13.29.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 13:29:05 -0800 (PST)
-From: ZhangDM-520 <jixianqiang1540@gmail.com>
-To: Julien Massot <julien.massot@collabora.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ZhangDM-520 <jixianqiang1540@gmail.com>
-Subject: [PATCH] media: i2c: max96717: fix bitfield overflow in pinconf setter
-Date: Fri,  6 Nov 2026 05:28:30 +0800
-Message-ID: <20261105212830.445519-1-jixianqiang1540@gmail.com>
-X-Mailer: git-send-email 2.56.0.341.gebdc087dc9
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gtyxnH7D
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B7921F0089F;
+	Thu,  5 Nov 2026 21:31:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793914274;
+	bh=ChocN/q2mB/E5VW7WeyrIaoqTP6cF6JJgg9ERaIrNlw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gtyxnH7Dh1qyli13VX8NB4igOYMzNXl1zSFCmuK7NH29Nc0diIzMZPvos16SoZTgr
+	 foXhvw/UWMooFgepWTprYPQCkp7XcS7MHfrm0X3OcW4VtBlQrUKIiDT55BjOc0YTuC
+	 68oI2abfveQMYJdolwMKouuZ4UB8/nZHEAAW/esjsCN3S+mRVH+hAYlFHmIaUhV5RX
+	 f5V6YoCvvCGxypc8GBQxHvugBWwrru0fSSqB+z1vtaq8XxyxuGBqm1O6hK0Zeh+UUO
+	 odtorYfejzADLXOxddE6ATwiULslxCf6QplSVmHyEBm02dH+G4vu35jSIa3ZVLOyuX
+	 JQmCmeCmjRfqA==
+Date: Thu, 5 Nov 2026 22:31:10 +0100
+From: Christian Brauner <brauner@kernel.org>
+To: Alexey Dobriyan <adobriyan@gmail.com>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Chris Mason <mason@kernel.org>, 
+	Al Viro <viro@zeniv.linux.org.uk>, Christoph Hellwig <hch@lst.de>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, akpm@linux-foundation.org
+Subject: Re: [PATCH RFC 18/38] proc: don't WARN about a name that is already
+ registered
+Message-ID: <20261105-wegstecken-dingfest-nennen-25356ee389f3@brauner>
+References: <20261102-work-procfs-bugfixes-v1-18-59422ed3e465@kernel.org>
+ <9cb48eaf-72f2-4e9f-b979-1ead58deb22f@p183>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,89 +60,173 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <9cb48eaf-72f2-4e9f-b979-1ead58deb22f@p183>
 
-max96717_conf_pin_config_set_one() inverted the single-bit enable value
-with a bitwise NOT, so disabling a pin passed ~en_val to field_prep().
-For a one-bit field that value is 0xfffffffe or 0xffffffff, which no
-longer fits the mask:
+On Wed, Nov 04, 2026 at 09:43:43PM +0300, Alexey Dobriyan wrote:
+> Now, some names do come from userspace but it is up to subsystems to
+> find duplicates and return errors (and sanitize for dots/slashes!).
 
-  field_prep: value too large for the field
+Agreed. pktgen seems to be the only case suffering from this currently.
+I dropped this patch and added. Tested and the WARN goes away.
 
-The runtime shift masks the high bits, so a plain build is fine. Once
-max96717_get_pin_config_reg() is inlined and both mask and en_val are
-constant folded - which ThinLTO with an AutoFDO profile does - the
-__BF_FIELD_CHECK_MASK() assertion in include/linux/bitfield.h fires and
-the build dies in ld.lld:
+-- >8 --
+From e919a2c72296008ea07b5930bc9e02d59743bbbd Mon Sep 17 00:00:00 2001
+From: Christian Brauner <brauner@kernel.org>
+Date: Thu, 5 Nov 2026 18:02:42 +0100
+Subject: [PATCH] net: pktgen: don't register a device file under a name that
+The device files of pktgen share /proc/net/pktgen with pgctrl and the
+thread files, and a device can be named like either of them:
 
-  ld.lld: error: call to __compiletime_assert_550 marked
-        "dontcall-error": field_prep: value too large for the field
+  ip link set lo name pgctrl
+  ip link set pgctrl up
+  echo "add_device pgctrl" > /proc/net/pktgen/kpktgend_0
 
-Use logical NOT instead. All masks reaching this branch are single-bit
-(GPIO_OUT_DIS, TX_EN, RX_EN, GPIO_OUT, TX_COMP_EN, RES_CFG), so the
-resulting field value is identical at runtime and fits the field at
-compile time.
+  proc_dir_entry 'pktgen/pgctrl' already registered
+  WARNING: fs/proc/generic.c:404 at proc_register+0x555/0x8b0, CPU#0: bash/241
+  Call Trace:
+   proc_create_data+0x9f/0xf0
+   pktgen_thread_write+0xd9b/0x1780
+   proc_reg_write+0x1c2/0x3c0
+   vfs_write+0x1cd/0xfa0
 
-Fixes: ea15bcd94f0f ("media: i2c: maxim-serdes: add MAX96717 driver")
+The same happens from the netdev notifier when a device that pktgen has
+a file for is renamed to pgctrl, and when a device that two threads
+have under different "@" suffixes is renamed, both files move to the
+bare device name then. The files of a network namespace belong to the
+root of its user namespace and none of this needs a capability. So
+once pktgen is loaded an unprivileged user can taint the kernel, or
+crash it with panic_on_warn, from namespaces of its own.
 
-Signed-off-by: ZhangDM-520 <jixianqiang1540@gmail.com>
+Remember the name a device file is registered under and refuse a name
+that pgctrl, a thread file or another device file has, both for
+"add_device" and before the file of a renamed device moves, which then
+keeps its old name. The thread files go by the prefix of their names,
+the threads of a namespace are created one after the other while its
+first thread file can be written already.
 
+Reported-by: Chris Mason <mason@kernel.org>
+Suggested-by: Alexey Dobriyan <adobriyan@gmail.com>
+Link: https://lore.kernel.org/r/9cb48eaf-72f2-4e9f-b979-1ead58deb22f@p183
+Fixes: 6c2f91e077f1 ("proc: use WARN() rather than printk+backtrace")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/media/i2c/maxim-serdes/max96717.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/core/pktgen.c | 51 ++++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 48 insertions(+), 3 deletions(-)
 
-The failure needs a profile-guided or IPO build that folds
-max96717_get_pin_config_reg() into its caller; it was hit by a distro kernel
-built with CONFIG_AUTOFDO_CLANG and ThinLTO.
-
-Reproducer:
-
-  make O=/tmp/afdo LLVM=1 defconfig
-  ./scripts/config --file /tmp/afdo/.config \
-	-e MEDIA_SUPPORT -e MEDIA_CAMERA_SUPPORT -e VIDEO_DEV -e I2C -e PINCTRL \
-	-e GENERIC_PINCONF -e GENERIC_PINCTRL_GROUPS -e GENERIC_PINMUX_FUNCTIONS \
-	-e COMMON_CLK -e LTO_CLANG -e LTO_CLANG_THIN -e AUTOFDO_CLANG \
-	-m VIDEO_MAXIM_SERDES -m VIDEO_MAX96717
-  make O=/tmp/afdo LLVM=1 olddefconfig
-  make O=/tmp/afdo LLVM=1 CLANG_AUTOFDO_PROFILE=/path/to/afdo.prof \
-	drivers/media/i2c/maxim-serdes/max96717.o
-
-Unpatched:
-
-  ld.lld: error: call to __compiletime_assert_NNN marked "dontcall-error": field_prep: value too large for the field
-  make[7]: *** [scripts/Makefile.build:290: drivers/media/i2c/maxim-serdes/max96717.o] Error 1
-
-The index in the symbol name depends on the configuration. With this patch the
-object compiles and drivers/media/i2c/maxim-serdes/ links max-serdes.o. The same
-build with CONFIG_AUTOFDO_CLANG=y and no CLANG_AUTOFDO_PROFILE compiles even
-unpatched, which isolates the profile-guarded inlining as the trigger.
-
-The essence, without a profile - the check itself turns the constant into a
-fatal error under both compilers:
-
-  field_prep(BIT(0), ~1U)	-> clang/gcc: "negative width in bit-field"
-  field_prep(BIT(0), !1U)	-> fine
-
-Not tested: hardware, and a GCC LTO build of this driver.
-
-Two other FIELD_PREP() users pass ~value with fields narrower than the value's
-type, drivers/net/ethernet/sunplus/spl2sw_{mac,phy}.c. They are latent for the
-same reason but receive runtime values, so they did not fail here and are not
-touched by this patch.
-
-diff --git a/drivers/media/i2c/maxim-serdes/max96717.c b/drivers/media/i2c/maxim-serdes/max96717.c
-index e004e71cb768..e57dd701017c 100644
---- a/drivers/media/i2c/maxim-serdes/max96717.c
-+++ b/drivers/media/i2c/maxim-serdes/max96717.c
-@@ -604,7 +604,7 @@ static int max96717_conf_pin_config_set_one(struct max96717_priv *priv,
- 	case PIN_CONFIG_OUTPUT_ENABLE:
- 	case PIN_CONFIG_INPUT_ENABLE:
- 	case PIN_CONFIG_LEVEL:
--		val = field_prep(mask, arg ? en_val : ~en_val);
-+		val = field_prep(mask, arg ? en_val : !en_val);
+diff --git a/net/core/pktgen.c b/net/core/pktgen.c
+index 02af70d360bc..4dd5920d5769 100644
+--- a/net/core/pktgen.c
++++ b/net/core/pktgen.c
+@@ -240,6 +240,7 @@ static char *pkt_flag_names[] = {
+ #define PKTGEN_MAGIC 0xbe9be955
+ #define PG_PROC_DIR "pktgen"
+ #define PGCTRL	    "pgctrl"
++#define PG_THREAD_PREFIX "kpktgend_"
  
- 		ret = regmap_update_bits(priv->regmap, reg, mask, val);
- 		break;
+ #define MAX_CFLOWS  65536
+ 
+@@ -416,6 +417,7 @@ struct pktgen_dev {
+ 				  */
+ 	netdevice_tracker dev_tracker;
+ 	char odevname[32];
++	char procname[32];	/* the name of ->entry in /proc/net/pktgen */
+ 	struct flow_state *flows;
+ 	unsigned int cflows;	/* Concurrent flows (config) */
+ 	unsigned int lflow;		/* Flow length  (config) */
+@@ -2044,6 +2046,34 @@ static bool __pktgen_NN_threads(const struct pktgen_net *pn,
+ 	return false;
+ }
+ 
++/*
++ * A device can be named like pgctrl or a thread file. Threads are still
++ * being created while the first thread file is writable, so match thread
++ * names by prefix. Called with pktgen_thread_lock held.
++ */
++static bool pktgen_proc_name_taken(const struct pktgen_net *pn,
++				   const char *name)
++{
++	const struct pktgen_thread *t;
++	const struct pktgen_dev *pkt_dev;
++
++	lockdep_assert_held(&pktgen_thread_lock);
++
++	if (!strcmp(name, PGCTRL) || str_has_prefix(name, PG_THREAD_PREFIX))
++		return true;
++	rcu_read_lock();
++	list_for_each_entry(t, &pn->pktgen_threads, th_list) {
++		list_for_each_entry_rcu(pkt_dev, &t->if_list, list) {
++			if (pkt_dev->entry && !strcmp(name, pkt_dev->procname)) {
++				rcu_read_unlock();
++				return true;
++			}
++		}
++	}
++	rcu_read_unlock();
++	return false;
++}
++
+ /*
+  * mark a device for removal
+  */
+@@ -2091,13 +2121,22 @@ static void pktgen_change_name(const struct pktgen_net *pn, struct net_device *d
+ 			if (pkt_dev->odev != dev)
+ 				continue;
+ 
++			/* renamed back to the name the file kept */
++			if (pkt_dev->entry && !strcmp(pkt_dev->procname, dev->name))
++				break;
++			if (pktgen_proc_name_taken(pn, dev->name)) {
++				pr_err("can't move proc entry for '%s', the name is taken\n",
++				       dev->name);
++				break;
++			}
+ 			proc_remove(pkt_dev->entry);
+-
+ 			pkt_dev->entry = proc_create_data(dev->name, 0600,
+ 							  pn->proc_dir,
+ 							  &pktgen_if_proc_ops,
+ 							  pkt_dev);
+-			if (!pkt_dev->entry)
++			if (pkt_dev->entry)
++				strscpy(pkt_dev->procname, dev->name);
++			else
+ 				pr_err("can't move proc entry for '%s'\n",
+ 				       dev->name);
+ 			break;
+@@ -3841,6 +3880,10 @@ static int pktgen_add_device(struct pktgen_thread *t, const char *ifname)
+ 		pr_err("ERROR: interface already used\n");
+ 		return -EBUSY;
+ 	}
++	if (pktgen_proc_name_taken(t->net, ifname)) {
++		pr_err("ERROR: %s/%s is taken\n", PG_PROC_DIR, ifname);
++		return -EEXIST;
++	}
+ 
+ 	pkt_dev = kzalloc_node(sizeof(struct pktgen_dev), GFP_KERNEL, node);
+ 	if (!pkt_dev)
+@@ -3888,6 +3931,7 @@ static int pktgen_add_device(struct pktgen_thread *t, const char *ifname)
+ 		err = -EINVAL;
+ 		goto out2;
+ 	}
++	strscpy(pkt_dev->procname, ifname);
+ #ifdef CONFIG_XFRM
+ 	pkt_dev->ipsmode = XFRM_MODE_TRANSPORT;
+ 	pkt_dev->ipsproto = IPPROTO_ESP;
+@@ -3937,7 +3981,8 @@ static int __net_init pktgen_create_thread(int cpu, struct pktgen_net *pn)
+ 	list_add_tail(&t->th_list, &pn->pktgen_threads);
+ 	init_completion(&t->start_done);
+ 
+-	p = kthread_create_on_cpu(pktgen_thread_worker, t, cpu, "kpktgend_%d");
++	p = kthread_create_on_cpu(pktgen_thread_worker, t, cpu,
++				  PG_THREAD_PREFIX "%d");
+ 	if (IS_ERR(p)) {
+ 		pr_err("kthread_create_on_node() failed for cpu %d\n", t->cpu);
+ 		list_del(&t->th_list);
 -- 
-2.56.0.341.gebdc087dc9
+2.53.0
 
+
+-- 
