@@ -1,81 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793874776;
-	b=EM3GdMV2AOcUN6iUxtMXzJrdgCSdjf38Q4XKJ52Ab0pUUki6lxjP9ydyJT7zzO2vwJJU
-	 XQnaAxCaho4zwThfRKcZPeknereFIDW6ZC6zNqHi0ZY9L/s/hiVG5Mo9O0hYGQy7+gxp4
-	 8rWp2UmltATrP+uWIAbLH0s65ziESB1fgGvwUtnfph1+6OOygimbBJrG2h4EPaF7CtebC
-	 MiDdZP6mc3zCpOHKsUktIThxAP2Sy3U90gMCx3zzsLN7MnwLrI8o2gV5e7Jhd5HCXoLck
-	 fPIqJ1XogMugF9xZHGNs5Ns0Es+JN1eOX5n0UZr97sgEj53mlX2YQN2YGv2a4X5cYYA==
+	t=1793874781;
+	b=ROEfma97xkwwJM3GukU9Q7dqLy9MkC22+fkfvQR05F21XPSzZoFZQ8g/QfyXTjEudUod
+	 DCIdb7ZFa5UOdMjkPRGu23/DvpC7DiHBUtL/crhTA9PPTEbM4pmx5N4Q/L4RleFCkFD42
+	 F7FnNFvJYB4qo8ddLf72nM7HEXR9RuxQkz+Hmteoxf8CMWVG7QRhGwGriHtFi6I56x4in
+	 yM8C4KZfcvn6biTBfQS+v/Lly3tr+yedbhz6PzGk9uk9e/+grmkv7zVXbBBUuf2FUBAqk
+	 cAV3HHqXgyS3dw+mswTjZvL0rHOUIoY7SvtLF80Gm7XCrdlkEQxAld2Xro8wAxTh6Yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793874776;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=lR+NEFZOClI/Q7syF7pUxOZkq4s0tLc9i8788RwMvYM=;
-	b=ERtwrUfH38Ibdg7fIVGjWcvo6pMlh/PQ2in4lt6T5nckasNmzfSeeqHAGM6OI+Lh32df
-	 QninD9ilwcLJFxRcuC9bZkOzrsp9j4yUNHyHkT1K7kf8N01ad0dQynkEUJyFFYgwWs8uv
-	 5Xn89gTIDBvs3bv2AGcVL2rfwiGfZ3hTqh0UffI+21BIjp0YOHuhrpQCFIxPCuFNsIPzY
-	 cwSaWybBSxVNEr8UTyn2E54bIBXDq/rDVCxDIwtxzwmO4B0HrskTzbmiKV2QyFc/dA4lC
-	 fhQFfbF2uJ3ipE4YqEzec1aKMFK87/4FlsSoyqUESunCgUuwQGhBAhurNYJqUTVsPGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793874781;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=v0rbKVQ49enEBCt7tCDTAR+n/t5wNOavw3KdPMopqog=;
+	b=hzzeO86bwzgZKLkmdrinCcKRtxaKvts1VnSgomuSAnfkxqDahCffF+uTUEcF0uZGgv3A
+	 STpkLh2hWXjJ9NaTJ5LE2pgt74/sNR9jl9/85TYwz6xOoy+MkekgjQMEoR4oib1tMjRqb
+	 5vzAL5NSMLGtxebYKH7iCvRuQAvyY8LUJIRJU7MrpxPuif9XPtb6Bfl0sGm9Z/6GR5Cx+
+	 M/3jjpe9w6bXc1hKfwlphWAhk5LcwRlfp884XXHQ6m3I1Wol5iNi451B6gSsSyH/NO99o
+	 rnLT/YIuyK6RRwJd3iqgXFgZiP3jt3zplPi+5ZLBG7vxEYknxdQ1xG7nNjqN1W5au2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=debian.org;
+	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.174
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PiyCf7pv;
+	arc=none smtp.remote-ip=209.85.210.170
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8ED0606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:32:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8ED0606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D636606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:33:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D636606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-8ab43af5e97so6008277b3.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 02:32:55 -0800 (PST)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PiyCf7pv
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8b29b83fdf1so129935b3a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 02:33:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793874780; x=1794479580; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=v0rbKVQ49enEBCt7tCDTAR+n/t5wNOavw3KdPMopqog=;
+        b=PiyCf7pvWgT8fxkMzrWLrIH3dgWUniFK7soH84AMstFJO8rYlWAtORcQBiHnBLeWPs
+         NNiNzOZ90aMMgi1JGENjNURKZuSo7+lErbIWOjc5muIfBSs844BTQkHcWxt2sjSVemLv
+         b3jJ5uCjGu0G2T/wb9Wa+QFDYelGltdYmY5h4VRnuOMkrCPEzjrBCAm6MIBGdkmt19UQ
+         LvVCLVo9liYpYgh+TQc2q0TU6SDfDG1kqIqXyyJCrWt+Btx9S/nfuS5iOpyT3aungVc7
+         6GLIY8/kha3rjXXouZf+UbCmMRwFLQVjIb12RlcJnnxROwl0eYmuG9QNAQBaNeHrjgzR
+         tYKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793874775; x=1794479575;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lR+NEFZOClI/Q7syF7pUxOZkq4s0tLc9i8788RwMvYM=;
-        b=2Jv9xuIt+3Exqs0rYRLfAeRRAnPvta+KoL891JLFIgBtjY/Yh8aRJABddI6fscI31s
-         493x5QpyzVKijhBFL1sXR6nv3M5vl5ZRtYFTV+mG7e8OHhGjpP+AjKH9EYmYzYO6cF6D
-         Y9WyIxw/Ns4HobcfuRuNPz63ZRuF5a9ZMSykV/kroy175YNm14C8GElxPLrKSIsQ0KWv
-         Gzg10Ej/rTYjWD02JQksiUpblAtZpKn/cJRpuZs7gp3Xwnw9co3rAUCctBxPKqXRQXth
-         im8XyuCac9coPfJlFn92fZcvqyofgWOZ3RaJw9eyzT+l+0fBxyRbu8f+9v0c/Xs2+Hy1
-         fQgA==
-X-Forwarded-Encrypted: i=1; AKwUvBy6zXWsKy0fulUqxJwK1vdUdhEry0SD2b475cCKsM3eO1dP27cJin/gzUITSRf7jHdlr0/kKb9QfhSd2ZY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+DauOyTDcewYWI3vkYXcb5V2tBrjCuvMcbbR8uqf6b04ZE3rQU
-	0U4S9QfS6sO2JUzOoDdAPms02KPU64LCCYB12bMTeriAWUIp/FlvA4K/
-X-Gm-Gg: AYBFou1YoYpqs8BiI6/LgIJeIy0S9xaTiiiS9a3+q9QKHt52IOw3DUG3yIrKHqY77zJ
-	D2220jOSc54iIyLodOLpKXrn90UjNVFQTd0Cb8h5Ok0lvCCRB1HtKPeQxVOtpQ/J4ysnL6ZMTMr
-	pDUtEi9gbclOuJIwy9A+Dux6H+FlvyMu7nE+x68/F5LcrvXyK9arqIoXUKjTkyJkq9wZRDE09Hm
-	QhA0scCz8cNf8CSV3uqs1Bw+UI2MJgDy3IzYpVlDpmaesVP8AWRaJeUmkPJmk9Sv8JuTB48HlgC
-	KVNBUPpUH8mTI9NNc68HPnr6gBKLD+IB3BkAWM5vb+Yokyf6kjGqEfNv1NqJKmnUcu5wMX/D+VR
-	XhL9BmFLuAB+9N3bhKkNzfmJ/UqM1C+eZouOMoai8q954wXvkdVp761ZyoCS8gVUhYrYCyZA45F
-	thO7ccQcTM6LlPmEWFIzycD4J7vrNyZnirkTjO+xIAIXK9bC2ISTe/KF0hGsVVgHnugsnTwUx6v
-	+meBrL59pXA02e08pRUiivBuEJNHM16BQDnCVjN+RIH8Pc2lKlzVi9+QceE7WGAZl74Zj180PRj
-	J39Z6fOBPUxNvLIzFys=
-X-Received: by 2002:a05:690c:3183:b0:8b3:310:244a with SMTP id 00721157ae682-8b328db924dmr11659227b3.9.1793874774842;
-        Thu, 05 Nov 2026 02:32:54 -0800 (PST)
-Received: from gmail.com ([2a03:2880:24ff:59::])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b309712e25sm37003777b3.2.2026.11.05.02.32.54
+        d=1e100.net; s=20260707; t=1793874780; x=1794479580;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=v0rbKVQ49enEBCt7tCDTAR+n/t5wNOavw3KdPMopqog=;
+        b=reTt74zpm5L3ptuuzvVP1AHMnJg8w3N8DYJxGqVn1tlXLV1Wox+InVDfvKgxviy1AM
+         X3Pk5kBu1tld1OBWrWwbglXCWfK6sJvXLf1K10jVHQ8Yidv2L2CzWgP4xlQx/bz0rdD1
+         BqfEBGKcNa7MdzGe33mat16Svb2Vzq3yacFHRowduYKDi9lxBVZbT4Mfbh8/F9OzSBFC
+         qKzGNI++5EEQRdV4CrO79P2QyqBGvir3X3l4maPABo5DXD8b4vhqCAfeR8lBYrDyZmPp
+         FXvpWkXhdsBaiBuMvHrUnW/Q0meDAqYqI7nALVZKcCpHgdEObW9UWfB6uQbEK6ykAcl/
+         z6sQ==
+X-Forwarded-Encrypted: i=1; AKwUvByTBvDfvF3jDaocjwjt0oGS7ASNZg0B+YAu87K7RpDd4xbuE/atdpXVo+iwfzL/BLzowfIRlKO8WI/lWQs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+GTNR3hg6Xq+iCDPTt192tWx4ZT/CISJ17yr+zrrXr+RVqcvkF
+	ScVu0Q9oCEZo+8DTSkGU3u2+T/jhVW5V0KQyheXI6rve6Vcy1vVltEI4
+X-Gm-Gg: AYBFou1QM9QSJBQFnEYoLg8fUtLkaIK2UzfIiRQHv64CHHYeqyh03aQ34T0PN8C42zw
+	mU75Jn01RbC7aobsRHu9Sk6UFuRh1jfMswF1L5OrDdTty59m2BDBGUBHMQetEN6vlij76+338/L
+	rxbBgRYok9dYg3bQLLV86XpwTpSHqYjkKJdsT32whxQuEY95duAnyPUFeCDm3aShz6UdGj55swf
+	c46aV6FFIaKc2jtNgx297JKWUGEc/pQWuMSRZzbpbt1MJuIQ+0Snpw9fg0TtndLN1mo5TvBANDg
+	HlP4UKkXM9p210wuu++Xy+66VDW7yo34WeX7nFUR9wKDkLvF0th4Outq9BUzVgKIXB4mqhDWLhA
+	s5ki0VhFsCxmJ7GckD22HDQ5Ylc015XclXXoy3b7JCsh7mnoLFfr7CTbjAMDUzU6FFufVH7Mbr1
+	+UNurgLXPd3bxvMVJ0APcskoQLxIEbPYew7g6pNAAaMw79qMJpwV42EK800CWd8/KxdbMfWmPYd
+	lvt6bff3gWd5rjWbv/dGf+yYkVIka4vM+YdM7UZxEMPTygpo+LjjrAXqF7IPxTUtDDOJ51YHnxq
+	XNrPtrYnb0EHlggDL42g4fedTGqDJ6DkbDeGU0BPwSx1qOkL
+X-Received: by 2002:a05:6a21:3b49:b0:3e2:aaf9:3a17 with SMTP id adf61e73a8af0-3e92895901fmr13076159637.25.1793874780263;
+        Thu, 05 Nov 2026 02:33:00 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb5d66a91csm450865a12.3.2026.11.05.02.32.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 02:32:54 -0800 (PST)
-Date: Thu, 5 Nov 2026 02:32:51 -0800
-From: Breno Leitao <leitao@debian.org>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	Steven Rostedt <srostedt@redhat.com>, kernel-team@meta.com, stable@vger.kernel.org
-Subject: Re: [PATCH] ring-buffer: Handle a reader taking the new head in
- rb_handle_head_page()
-Message-ID: <auxXYbBvbupetclu@gmail.com>
-References: <20261102-ring-buffer-head-moved-v1-1-165973790be4@debian.org>
- <auxJP5fkEQOkvicE@google.com>
+        Thu, 05 Nov 2026 02:32:59 -0800 (PST)
+From: hyunjungg <hj351016@gmail.com>
+To: Hans Verkuil <hverkuil@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH v2] media: gspca: etoms: bound device-provided length in sd_pkt_scan
+Date: Thu,  5 Nov 2026 19:32:45 +0900
+Message-ID: <20261105103245.1436719-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261105065728.1351098-1-hj351016@gmail.com>
+References: <20261105065728.1351098-1-hj351016@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,49 +99,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auxJP5fkEQOkvicE@google.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 09:15:43AM +0000, Vincent Donnefort wrote:
-> On Mon, Nov 02, 2026 at 06:30:11AM -0800, Breno Leitao wrote:
-> > I am occasionally seeing the following  KASAN warning when running
-> 
-> a KASAN warning?
+From: Hyunjung Ko <hj351016@gmail.com>
 
-Sorry. It is a regular WARN from RB_WARN_ON(), on a kernel that happened
-to have KASAN enabled. I will fix the wording.
+etoms sd_pkt_scan() is the gspca pkt_scan callback, invoked from the isoc
+URB completion (fill_frame() in gspca.c) with (gspca_dev, data, len) where
+data points into the URB coherent transfer buffer at this packet's slot and
+len is iso_frame_desc[i].actual_length, i.e. the number of bytes the device
+actually sent in that isoc packet.
 
-> > I've understood that rb_handle_head_page() moves the head page forward
-> 
-> Drop "I've understood". 
+The subdriver overwrites the real packet length with a value taken straight
+from the first two device-supplied header bytes:
 
-Ack!
+	len = (int)(((data[0] & 0xc0) << 2) | data[1]);	/* 0 .. 1023 */
 
-> Besides, I am not sure about returning 1. If the nested writer interrupts
-> between rb_head_page_set_head() and rb_head_page_set_normal(), it can also get
-> RB_PAGE_MOVED and skipping rb_tail_page_update() means the retry will observe
-> the old tail.
-> 
-> All in all, I wonder if it shouldn't simply be: 
-> 
->   case RB_PAGE_MOVED:
->      break;
-> 
+and then hands that count to gspca_frame_add() for a header packet
+(data += 30) or an inter packet (data += 8):
 
-Good point, that handles both writers. The outer one falls through to
-the existing UPDATE clear, and rb_tail_page_update() finds the tail
-already moved by the interrupt, as when the cmpxchg returns HEAD. The
-nested one moves the tail to next_page, which is right because the outer
-writer already did the accounting for that page. And the duplication
-goes away.
+	gspca_frame_add(gspca_dev, FIRST_PACKET, data, len);
+	...
+	gspca_frame_add(gspca_dev, INTER_PACKET, data, len);
 
-> Additionally, the comment with "Valid returns" must be amended.
+gspca_frame_add() only bounds the *destination* frame (image_len + len >
+PAGE_ALIGN(sizeimage) -> discard); it applies no bound to the *source*,
+doing memcpy(image + image_len, data, len) directly. Nothing clamps the
+device-declared length against the bytes actually present in the packet
+slot.
 
-Will do.
+The isoc transfer buffer is usb_alloc_coherent(psize * npkt) where psize is
+the device's reported wMaxPacketSize and npkt defaults to 32; this driver
+sets neither cam.npkt nor pkt_size, so both derive from the device. A
+malicious camera can declare a small wMaxPacketSize and send a short packet
+in the last slot while setting the header bytes to request len up to 1023.
+gspca_frame_add() then reads up to ~1023 bytes starting at data+8 (or
+data+30) -- past actual_length, past the packet slot, and past the end of
+the transfer-buffer allocation -- and copies that adjacent kernel memory
+into the vb2 video frame, which is handed to userspace: an out-of-bounds
+read / kernel information leak reachable by plugging in a crafted USB
+webcam.
 
-My reproducer used a two-page buffer, where this retry is harmless, so
-I will re-test v2 with a bigger buffer before sending it.
+A 1-byte over-read of data[1] also occurs when a 1-byte packet is delivered
+(fill_frame() only drops zero-length packets).
 
-Thanks for the review,
---breno
+Keep the real packet length, reject runt packets, and clamp the
+device-declared length to the bytes remaining after the header offset
+before passing it to gspca_frame_add().
+
+Found by code review; not reproduced (no device/USB-redir setup on hand).
+
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+---
+v2: wrap a commit-log line to <=75 cols and drop the space after the
+    (int) cast, per the media-ci checkpatch report. No functional change.
+
+ drivers/media/usb/gspca/etoms.c | 20 ++++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/media/usb/gspca/etoms.c b/drivers/media/usb/gspca/etoms.c
+--- a/drivers/media/usb/gspca/etoms.c
++++ b/drivers/media/usb/gspca/etoms.c
+@@ -659,24 +659,37 @@ static void sd_pkt_scan(struct gspca_dev *gspca_dev,
+ 			u8 *data,			/* isoc packet */
+ 			int len)			/* iso packet length */
+ {
+ 	int seqframe;
++	int datalen;
+
++	if (len < 2)			/* need the 2-byte packet header */
++		return;
+ 	seqframe = data[0] & 0x3f;
+-	len = (int) (((data[0] & 0xc0) << 2) | data[1]);
++	datalen = (int)(((data[0] & 0xc0) << 2) | data[1]);
+ 	if (seqframe == 0x3f) {
+ 		gspca_dbg(gspca_dev, D_FRAM,
+-			  "header packet found datalength %d !!\n", len);
++			  "header packet found datalength %d !!\n", datalen);
++		if (len < 30)
++			return;
+ 		gspca_dbg(gspca_dev, D_FRAM, "G %d R %d G %d B %d",
+ 			  data[2], data[3], data[4], data[5]);
+ 		data += 30;
+-		/* don't change datalength as the chips provided it */
++		len -= 30;
++		/* the chip-provided length must not exceed the packet */
++		if (datalen > len)
++			datalen = len;
+ 		gspca_frame_add(gspca_dev, LAST_PACKET, NULL, 0);
+-		gspca_frame_add(gspca_dev, FIRST_PACKET, data, len);
++		gspca_frame_add(gspca_dev, FIRST_PACKET, data, datalen);
+ 		return;
+ 	}
+-	if (len) {
++	if (datalen) {
++		if (len < 8)
++			return;
+ 		data += 8;
+-		gspca_frame_add(gspca_dev, INTER_PACKET, data, len);
++		len -= 8;
++		if (datalen > len)
++			datalen = len;
++		gspca_frame_add(gspca_dev, INTER_PACKET, data, datalen);
+ 	} else {			/* Drop Packet */
+ 		gspca_dev->last_packet_type = DISCARD_PACKET;
+ 	}
