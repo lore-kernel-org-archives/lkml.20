@@ -1,51 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793865376;
-	b=Ce2APmqZdMaP6HmfbQCkgWd8HsqljVyiFrkDGHdQ+iHMzl8Nv2UdRF2CAoYv72F7X/EO
-	 LG4QBmtf5Z14FCXuhU7NGX2aUGW1/MwGX8TYV5u3O9+YnTv7id6YkWnBifJ8jOjlGQ9Cb
-	 oPfB7iNOxmPIN3I3NE9MUD6PiOkK8LGqtdryQ6txa1OOKvk3djQuyzXrZ2S3XwzfvF+Ie
-	 H6D5JIeAPhg26YBdljw0kQHjNSUds4BRne28+D5V2vO8ZG4Yfg+eCeyIHUoMLjloal+9j
-	 1kaVUXDdTre3IZ/NRK6vNGj8fxszAWb4edrGGHdGnMA30GExOu4jWKEpW5MUN2KfZIw==
+	t=1793865381;
+	b=t7EqxHVnW68i7FXSNFD0bhVVUrjHttFGYIPi6sLtEYBHVC+09Y0Xe/j6AW58r92kEsqd
+	 x0M8pODIohEbkINrc+aYvhNqy4R7+059A087bvLXe67LcSDmkr1i6IzT9pAgSDNxVdH6f
+	 q9oMqgEJwvTpzlCxBAQ8KMuSbz1vhgq140zd62CYu+tEe5LlWg3t/4HJGeN3nkM0CsnIF
+	 jT3Q3xy7hxmgkDbWl04/ea9RHHRCHezqfrr1PLHo4TiQeIQ+vA5QZeRwfvaW+sMDEZBGy
+	 b6XRRa4tCaPGN0cWm7jKD444rpunYtwRxQsz0hMVVQEvx+kexeG+klAdpQhDy5vu+tg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793865376;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793865381;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=tr8NkJMHl3FHlQcbzwhDnYMo8FYHNDVW44KQY09vbOs=;
-	b=kEmpFU1BTi060FqR/0V2rfMyCa+qvXwa1O6rR4q0j8qeuBL7ApIAZD/DeutIdwNyq33S
-	 hzFL4WuaL1rU1kbIAtJYQC3UbGwsFoDic3pL7vp8AMEKaDUZxp8lp3XhZXGnZqAe5o9x1
-	 nhGgyfHZ5S3JUR4koVFkqQ7FsdiHJpAZK65Qv/yhPEsxOVTiF7BVgvKjtHj3mUuX+Wisd
-	 kKIIrcoY2zaVRgiwUQo07l4/0uP/XgW2PRhTYpfLcwEY++g8RRYHJ9iD9qixLIh5FclI7
-	 j25ZPIKeGak6lG9aZ+dqVHXDle1eoQiIqhYtZ0TZOjHyJQY/VZNLAoFvBxbOHEgj7qw==
+	bh=xAxX/hOOVgl9MP4qMrRYqYmI6pYWtxVRbAVic/Kn+0I=;
+	b=m1TyQC3BgWQ+oqKxlL3XgHaz+S2qLduDH66g/0J5ArbyOxgWZ6ayERv7fb75sHeCed23
+	 TlTdP/+K8gTOzjyptd4blY+6yFuHl6KrhWQ70Dc9wnGOqzkDOeM1AeEyBQ+4rKXipolXW
+	 SEgi6qzurPAC39TsjW8NZ2lvvq7olbR9lKBkwFmw/cyzxDwG1x4IxWnlV/0i0X/PtvRGS
+	 Jt/yyHb7BmfwgZyXpZzHOFrMMZof1lwrRiInRPKSrjk9cca+55BfzCTFigu7azSL40MTl
+	 Nlu54+chQuziHNirTt/me3B5HWOeuPjOu7zUMHLTs96aalEyG1RgfKw5eZ78ksC0Rrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qE+S37o+;
-	arc=none smtp.remote-ip=91.218.175.74
-Received: from mta0.migadu.com (out-74.mta0.migadu.com [91.218.175.74])
+	arc=none smtp.remote-ip=91.218.175.81
+Received: from mta0.migadu.com (out-81.mta0.migadu.com [91.218.175.81])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D006606A333
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 07:56:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D006606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FC8E606A33A
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 07:56:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FC8E606A33A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qE+S37o+
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=NufnUWPoeGRDltZSqqytUAf9Oe1HKZ1J1ChJkjlHQ68=;
+DKIM-Signature: a=rsa-sha256; bh=qVD1PACKjTczzGaztvFKYuRGh7H3JFoR6xRbscqjfaA=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793865372; v=1; x=1794470172;
- b=qE+S37o+Msp/zZhIA4Bb/q5Ng+r9nVyAXNl+njlYlfoSYJrWMRglD1RoYHcILTA/195rBZqi
- n6up0Xisgq9OBp8yThEG0d/u7qJF3beICgrksYLt5TdCjhyCgISRL1acd7oFjzhGh1Y+nKJt9pV
- o0RN2zNX0trx/b92v7eUg8KI=
+ t=1793865373; v=1; x=1794470173;
+ b=MbMaG9T5UXK30o8GXml7xw621m+pew8SJ24tmEZAQ9lcD/0xMidgs8V7BCqGrIy7eWJ6+Dsf
+ euApyX5L0zFg9K1CYK17dEjPSwcq1MHcDogUkgKs7Imt2GEreaH6fxgMt5N4efECoqTGJjbj0Lx
+ xMm1nrEeIY1Guhbt4rWE1JO8=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id cccae0cd339b3153;
-	Thu, 05 Nov 2026 07:56:12 +0000
-X-Mizu-Trace-ID: cccae0cd339b3153
+Received: by smtp.migadu.com with ESMTPS id 556cd0a12ca46ba7;
+	Thu, 05 Nov 2026 07:56:13 +0000
+X-Mizu-Trace-ID: 556cd0a12ca46ba7
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: Marc Zyngier <maz@kernel.org>,
@@ -65,9 +62,9 @@ Cc: Joey Gouly <joey.gouly@arm.com>,
 	linux-arm-kernel@lists.infradead.org,
 	kvm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/3] KVM: arm64: Check PGD alignment when creating a pVM
-Date: Thu,  5 Nov 2026 07:56:04 +0000
-Message-ID: <20261105075606.367005-2-fuad.tabba@linux.dev>
+Subject: [PATCH v2 2/3] KVM: arm64: Align the pKVM selftest VM's stage-2 PGD
+Date: Thu,  5 Nov 2026 07:56:05 +0000
+Message-ID: <20261105075606.367005-3-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261105075606.367005-1-fuad.tabba@linux.dev>
 References: <20261105075606.367005-1-fuad.tabba@linux.dev>
@@ -82,72 +79,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Quentin Perret <qperret@google.com>
+With CONFIG_NVHE_EL2_DEBUG, pKVM init sets up a selftest VM whose PGD is
+the start of its 32-page block. That block is the first allocation out
+of the hyp reserve, which falls back to page alignment when its
+PMD-aligned allocation fails (512M on a 64K host).
 
-Martijn reported a hypervisor crash when providing pKVM with an
-undersized PGD allocation. Indeed, although the size of the PGD
-allocation at EL2 is not under host control, a smaller host-side
-allocation can lead to providing pKVM with a misaligned PGD, which will
-cause the guest stage-2 init to fail in a bad way. Specifically,
-guest_s2_zalloc_pages_exact() expects a successful allocation from
-hyp_alloc_pages(), which can only happen if the pool has been pre-filled
-with a physically aligned high-order page.
+A PGD of concatenated tables must be naturally aligned, or the VM's pool
+never coalesces it into a block hyp_alloc_pages() can return. So when
+the reserve isn't aligned to the PGD's size, the allocation in
+guest_s2_zalloc_pages_exact() fails and pKVM init panics. A 64K host
+with a 44-bit PA has a four-page PGD, and on a 1G QEMU VM the reserve
+landed at 0x7fae0000.
 
-In order to guarantee allocation success in this path, check the
-host-provided PGD alignment early on.
+Take the aligned pages inside the block instead. The pages either side
+of it go to the memcache and the pool. The PGD is at most 16 pages, so
+it always fits.
 
-Fixes: 60dfe093ec13 ("KVM: arm64: Instantiate guest stage-2 page-tables at EL2")
-Reported-by: Martijn Bogaard <martijnbogaard@google.com>
-Signed-off-by: Quentin Perret <qperret@google.com>
-[Fuad: Returned -EINVAL and moved the check ahead of hyp_alloc(), with
- the other input checks in __pkvm_init_vm(). Cast pgd_hva for its __kern
- type, updated the comment, and pointed Fixes: at the commit that
- initialises the guest's pool from the PGD.]
+Fixes: 48d5645072930 ("KVM: arm64: Extend pKVM selftest for np-guests")
 Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
- arch/arm64/kvm/hyp/nvhe/mem_protect.c | 2 +-
- arch/arm64/kvm/hyp/nvhe/pkvm.c        | 8 ++++++--
- 2 files changed, 7 insertions(+), 3 deletions(-)
+ arch/arm64/kvm/hyp/nvhe/pkvm.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/kvm/hyp/nvhe/mem_protect.c b/arch/arm64/kvm/hyp/nvhe/mem_protect.c
-index d4c332a918035..5b624b1ab32e8 100644
---- a/arch/arm64/kvm/hyp/nvhe/mem_protect.c
-+++ b/arch/arm64/kvm/hyp/nvhe/mem_protect.c
-@@ -186,7 +186,7 @@ static void *guest_s2_zalloc_pages_exact(size_t size)
- {
- 	void *addr = hyp_alloc_pages(&current_vm->pool, get_order(size));
- 
--	WARN_ON(size != (PAGE_SIZE << get_order(size)));
-+	WARN_ON(!addr || size != (PAGE_SIZE << get_order(size)));
- 	hyp_split_page(hyp_virt_to_page(addr));
- 
- 	return addr;
 diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-index fc0475f0877d1..03e530e15b4a2 100644
+index 03e530e15b4a2..820baf9ff74a2 100644
 --- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
 +++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-@@ -892,8 +892,8 @@ void teardown_selftest_vm(void)
-  *
-  * host_kvm: A pointer to the host's struct kvm.
-  * pgd_hva: The host va of the area being donated for the stage-2 PGD for
-- *	    the VM. Must be page aligned. Its size is implied by the VM's
-- *	    VTCR.
-+ *	    the VM. Must be aligned to its size, which is implied by the
-+ *	    VM's VTCR.
-  *
-  * Return 0 success, negative error code on failure.
-  */
-@@ -924,6 +924,10 @@ int __pkvm_init_vm(struct kvm *host_kvm, void __kern *pgd_hva)
+@@ -847,10 +847,14 @@ struct pkvm_hyp_vcpu *init_selftest_vm(void *virt)
+ {
+ 	struct hyp_page *p = hyp_virt_to_page(virt);
+ 	unsigned long min_pages, seeded = 0;
++	void *pgd;
+ 	int i;
  
- 	vm_size = pkvm_get_hyp_vm_size(nr_vcpus);
- 	pgd_size = kvm_pgtable_stage2_pgd_size(host_mmu.arch.mmu.vtcr);
-+	if (!IS_ALIGNED((unsigned long)pgd_hva, pgd_size)) {
-+		ret = -EINVAL;
-+		goto err_unpin_kvm;
-+	}
+ 	selftest_vm.kvm.arch.mmu.vtcr = host_mmu.arch.mmu.vtcr;
+-	WARN_ON(kvm_guest_prepare_stage2(&selftest_vm, virt));
++
++	/* A concatenated PGD must be naturally aligned for the pool to coalesce it. */
++	pgd = PTR_ALIGN(virt, kvm_pgtable_stage2_pgd_size(selftest_vm.kvm.arch.mmu.vtcr));
++	WARN_ON(kvm_guest_prepare_stage2(&selftest_vm, pgd));
  
- 	hyp_vm = hyp_alloc(vm_size);
- 	if (!hyp_vm) {
+ 	/*
+ 	 * Mirror pkvm_refill_memcache() for the share/donate pre-checks;
 -- 
 2.47.3
 
