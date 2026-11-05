@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793849031;
-	b=JqSX+IRCn7Ea/efWgKKprNX6U43J7VGhuA3ZhtxDhB8I/mCmR2qzVfPle9AzKSk3w9m0
-	 CkOeTq+hq8GBbq+VOEOdkWrYO2jz4L0j6CN/9Tn01PH1KL9QC3Z0+A8LJAw7Mp2uvV/YB
-	 Nx8hVpFTIXM06fvUDykf5mXcToKfNZ3wt7bXa2G4sQOjGxiqS64DzYDizLvrBmjEfkvqb
-	 isufKhI7JwWm0eO80OAFfw3WJ/mW/5O/fJpLaabl78qgrNDwIJxfeQVlGcz2yyWrCuzU3
-	 MWL6VhdP3qIvmZyWmYe/90KmiBccL7FANVE3lx0PtPoxVlJtUOLVBqfd/noGpKkuaig==
+	t=1793849128;
+	b=WVBAChFHW2lLbncqrP/u4/3a/1jyKI8iMmu0GSs/l1AfflRi6xFUE8Gp+TaOSdxIBcMf
+	 Iq3KOoWvdpbggxkaGZATkEDYZSzeHBxDwv/SjAFQTy808wRyWu8xEufEoKJZNqddsjMXP
+	 fXfnMCYDDb473BttaLivy5BO4+HivSb2g/tNwO1k8kD1IDQLA11KD+qdXktE1vIf/xI+p
+	 P81y8dOQQl39H6UsZxlX1Ji71IDyGfa6cV7Pfn49m8bYGQGwzuYic9Mbw4SdzYGd9Udg6
+	 9afZLHEVzHuxl+jwXcxUYqP0p9l+CGOiju23fnjCsJ7CDVjbEHXdHLFVsQgr+Lw0Dsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793849031;
-	h=Received:DKIM-Signature:To:Cc:Subject:From:In-Reply-To:Message-ID:
-	 References:Date:MIME-Version:Content-Type;
-	bh=mIk5VhBNepuksZFeyzjzGMSh3zqdxjJnepD62bUDK80=;
-	b=juZhlqvDlEhJhk/+e7Zn5pp+KwxjQdCzlpcKtl2qtUdVqYXDIHqfQm8bbUbzXSp8NQFm
-	 //79TzElncm3Dn6Qy/nqY6A8Md+IUngQCp2eQPkgMgH7U6EQNmJSTdQSbASj+F9Z2zMED
-	 wU77GV4FQlbmnQgEU/NrtK3CW0jTWqm6mqjG2S9Ddm9k+3fYCU2ksxt+aruUIYr3y5bV8
-	 HAzKdjQSzSidfisXQ9NOnZpPY8mV5cS4OL3ep+MrIW342mXg5LucoqHK8s3TxrAtNRhSg
-	 5dKNaCaGeDp0XFVONHcLjdNwxtYfvSpKF+AeSlaTg8VdihiEKgnbmQTV+1pjPnxmtdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793849128;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=DFRZ7QXKXPAVQTwjKmq6RCiErLGdMEwaLBPGPazQE7A=;
+	b=34UCLtTpHsirI7Z2RaFPI7Mno4yQ3Bw+DsUAcXirD1MzTMoyfjWIIbgWgqJQUzsuuZLs
+	 ua7AMLXldaMnf5/wjVWbdRvc6KYtBaRi+Z2YvsnAxQsP7vDEdDFvyrAMQW5HA6V9Ezt1R
+	 SGo7uxhFzDk9tl59zY30c+5DlGsU04LN4aQpQz4w+hpRhyyEO9VHw6/f9sGo5D0OKySBp
+	 fy4M5Y4G38U+QH+hPvLedSfYRwhyVIMMvKO2dKWGiV5tvqInS+EdrGXAPKR1dJK9jeuSc
+	 i5+VZaek3FLTjIn05Z+0hDBIROp4zc+ooMw53TeMN5BC5i3Jlrq7hE4v14lEGoQTlvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HgnCBHW1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KFRPOa8v;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22B59606A31B;
-	Thu,  5 Nov 2026 03:23:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC75606A33A
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 03:25:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HgnCBHW1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 789251F000C1;
-	Thu,  5 Nov 2026 03:23:50 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KFRPOa8v
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 568141F00919
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 03:25:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793849030;
-	bh=mIk5VhBNepuksZFeyzjzGMSh3zqdxjJnepD62bUDK80=;
-	h=To:Cc:Subject:From:In-Reply-To:References:Date;
-	b=HgnCBHW1LyIjX3UR38PqIl3Stf20fgHU2dftsXKzmTGefDm/2EP1EJqrczu9GN0sv
-	 J+KsXc/jCvPQThv3QZ2ZBXMWxUuQq2VDijdxUuqj0EMPnLCtVwKK3PrLug8oqBtLYe
-	 yga9i+WjzAJFqRy7ZDvIhKhl4t/EEHgBprR91rzcxJZ9lsIH2+nTzn/MB3X5f64AX7
-	 1TaQrHIgVEKHAOBjVUP3oeAghF0iAAYfqJWGGQOpFnAKqeR69Sc0zLutXcqe0VhMv/
-	 e8qzA9KHaxw3R5zZvVhetOWu49f7VJKssSCHDZ3VlXVygsCP3d0d+lstKcE4ej62ls
-	 Ybk9n74ipw1HQ==
-To: Stanley Jhu <stanleyjhu@google.com>
-Cc: "Martin K . Petersen" <mkp@kernel.org>,  "James E . J . Bottomley"
- <James.Bottomley@HansenPartnership.com>,  Alim Akhtar
- <alim.akhtar@samsung.com>,  Bart Van Assche <bvanassche@acm.org>,  Bean
- Huo <beanhuo@micron.com>,  Can Guo <can.guo@oss.qualcomm.com>,  Peter Wang
- <peter.wang@mediatek.com>,  linux-scsi@vger.kernel.org,
-  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/5] scsi: ufs: Fix device management timeouts and
- runtime PM errors
-From: "Martin K. Petersen" <mkp@kernel.org>
-In-Reply-To: <20261029040003.2100003-1-stanleyjhu@google.com>
-Message-ID: <yq1pkwkyn9f.fsf@mail.kernel.org>
-References: <20261029040003.2100003-1-stanleyjhu@google.com>
-Date: Wed, 04 Nov 2026 22:23:49 -0500
+	s=k20260515; t=1793849127;
+	bh=DFRZ7QXKXPAVQTwjKmq6RCiErLGdMEwaLBPGPazQE7A=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=KFRPOa8vKidxfknkfWYdWtFWhdGgDILXr/LpGwlTMuPUGRO9lV9p0wRwWaF54QN70
+	 4DKRT0c3mvKU6nhUedhQgwsIdVKI9SE/98GlzNRgmxaMfOaEBS1YgIoebv9BU0wvCe
+	 Fszcu+DRuceUWHowBmokByklB/TBTHkhYihCuh6rVkQc9msjGavp7d5VLwkq39SrT2
+	 6300BJxhF8T4Cvj5v/1jBji+kw1g6r65QEiJFCdscSSAKDCVsPjx2cZRCItVy/YE3f
+	 VLlFjGLAJLSV+/F1zEfQvvVAIe06QvW9AFk7kraaJNyxPFaXMmFdgfuba75vJo4j8m
+	 +s7riBgiw5AdA==
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5be4a2d94adso1319126e87.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 19:25:27 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBx7C53fqwyJne+u8SUn1Fwdztm2oxDncsDlzyiKI3vdT7UXxTNDX5bffq6y98WLeKOTLEQ+oIQb1g6x5m0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8nDehTaRmR3N6dOq3GU2Gmrj3GwC7usafCOGtq5G+9c6dwAhl+
+	VvU53kh7syusoUQEXkc5DlLG2p8pcglkJbDDzuuBoDFkb5py+nbXi/LAwnj8r9F/6FBeiPtu4mV
+	DjfNfLXtAwvGt63Can7yaO1VGJYA3+68=
+X-Received: by 2002:a05:6512:3e19:b0:5bc:c325:1260 with SMTP id
+ 2adb3069b0e04-5bfd957e7d6mr5933625e87.55.1793849126127; Wed, 04 Nov 2026
+ 19:25:26 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,15 +59,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20260910123951.1241279-1-max.kellermann@ionos.com>
+ <CAOi1vP9mrDMaABV=KtLRwrGVkBrPrGGBU8mUUnfm6wpdn_rM7Q@mail.gmail.com> <CAKPOu+82TXE2PqXSmSa2hPdj1X-AtP3BVACsBEhn=EKuOdjSRg@mail.gmail.com>
+In-Reply-To: <CAKPOu+82TXE2PqXSmSa2hPdj1X-AtP3BVACsBEhn=EKuOdjSRg@mail.gmail.com>
+From: Xiubo Li <xiubli@kernel.org>
+Date: Thu, 5 Nov 2026 04:25:14 +0100
+X-Gmail-Original-Message-ID: <CAOuZWzy1MQ8WNvZbfQj-vaN83kiZzuKuyV3yxM-W8aBLsz2e8w@mail.gmail.com>
+X-Gm-Features: AclHuK-E-HFu7aurtBFFGXkXEBaOQEk070VBg_Ma8mHsee35kyST0vbL8Ms1-gg
+Message-ID: <CAOuZWzy1MQ8WNvZbfQj-vaN83kiZzuKuyV3yxM-W8aBLsz2e8w@mail.gmail.com>
+Subject: Re: [PATCH] net/ceph/messenger: print TCP connect error
+To: Max Kellermann <max.kellermann@ionos.com>
+Cc: Ilya Dryomov <idryomov@gmail.com>, amarkuze@redhat.com, xiubo.li@clyso.com, 
+	ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Tue, Nov 3, 2026 at 8:06 AM Max Kellermann <max.kellermann@ionos.com> wr=
+ote:
+> On Mon, Nov 2, 2026 at 10:08 PM Ilya Dryomov <idryomov@gmail.com> wrote:
+> > I wonder if saving the error that way is actually needed.  Can
+> > con_fault() just reap it with sock_error() at the time it runs?
+>
+> Maybe that would be possible.  I wasn't sure if sk_err (from
+> ceph_sock_state_change()) would remain untouched until con_fault() was
+> eventually called, or if it somebody would clear it in the meantime.
 
-Stanley,
+It does get cleared, by ceph_con_workfn() itself.  SOCK_CLOSED is only
+checked at the top of the loop, so if the error arrives after that
+check, the ceph_tcp_sendmsg()/recvmsg() in the same pass reaps sk_err
+via sock_error() and con_fault() later sees 0.
 
-> This series fixes two problems in UFS core entry points that issue
-> device management commands or touch host registers.
+I tried both on a 7.3-rc1 kernel.  Reaping in con_fault() works for the
+remote ECONNREFUSED and ECONNRESET cases, but with a refused connect on
+loopback (ms_mode=3Dlegacy and crc) the error was lost every time:
 
-Applied to 7.4/scsi-fixes, thanks!
+  state_change sk_state 7 sk_err 111
+  try_write ret -111, sk_err 0
+  con_fault: sock_error() =3D 0
+  libceph: mon0 (1)127.0.0.1:1 socket error on write
 
--- 
-Martin K. Petersen
+With this patch the same case prints "socket error on write
+(-ECONNREFUSED)".  Using the try_read/try_write return value instead
+doesn't work well either, because msgr1 returns -1 for protocol
+errors.  So saving the error in ceph_sock_state_change() looks like the
+simpler option to me.
+
+A normal FIN-close prints no error code, and a synchronous connect
+failure prints "connect error (-ENETUNREACH)".
+
+Nit: msgr2 still prints "ceph_tcp_connect failed: %d" in
+prepare_read_banner_prefix()'s caller, which is now redundant.
+
+Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
+
+Thanks
+- Xiubo
+
+Max Kellermann <max.kellermann@ionos.com> =E4=BA=8E2026=E5=B9=B411=E6=9C=88=
+3=E6=97=A5=E5=91=A8=E4=BA=8C 08:06=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Mon, Nov 2, 2026 at 10:08=E2=80=AFPM Ilya Dryomov <idryomov@gmail.com>=
+ wrote:
+> > I wonder if saving the error that way is actually needed.  Can
+> > con_fault() just reap it with sock_error() at the time it runs?
+>
+> Maybe that would be possible.  I wasn't sure if sk_err (from
+> ceph_sock_state_change()) would remain untouched until con_fault() was
+> eventually called, or if it somebody would clear it in the meantime.
+>
+> --
+> Max Kellermann
+> Principal Architect
+> Hosting Technology
+>
+> cm4all | Im Mediapark 6a | 50670 K=C3=B6ln | Germany
+> General information about the company can be found here:
+> https://www.cm4all.com/impressum
+> A member of the IONOS Group
+>
