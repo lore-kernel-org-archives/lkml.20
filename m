@@ -1,57 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793869162;
-	b=ld6uL5pxWePXBAvHDfJ18rcyONe9TLWpho16MqMGQEwYlRfk5LQO7ceg0MHrhxLASWle
-	 +VChcFmrIKzGzj7H1EYXttvQj9sHwJ8BaHJi0yTRe/wdp5DGV8n/LBGX49LL+lk4vPVV6
-	 h6jSzZtp108NLG4uSEei3Yy95LhbG7sqbD8uvg57WOp/x0o0JyJ9N1uj401Ljb5sf5oez
-	 Flc0iSSRpljq4lPAv9adPX/qcHOu9gAeRaBmBv31ExUaePbvC3ZdrFNjVbTba0OJ5dZKD
-	 OFgQjLuvNg2RfJ/fvF6/qFleq3ciyDJ6zNjf7Us/fR2+gm7SL3SiV+kp/vwOsQ3y+HQ==
+	t=1793869158;
+	b=RgUHk2GYJo93vLheRGLTmchcebysup06tQg008Xtjm4IO6pNXNbjxQnuyEAhci/6XWeJ
+	 AilAWA5IzXST7MueVLv9Zno5CDXn0c7y0jLu6WPwPXqfDLIigXb7zfRifA3q43S5YuCyi
+	 PkNjUpvzPjV4OTkwvpqiWjIjQKQ5+gYyM+qJoqb0vPn4fYeE/ZO4MB8ELkw/+lD/U/0Y1
+	 WZtNE6ygRQO6BPitkbIPeg8YF4UvfZ5VF3w977CFJwOnmxlS0IWGhjCSk0+qshXWK8Suf
+	 5JaLE+ZJ6XgSMHxDUGj3YQMDIypsOSdjvT6dsTDhnQB/Hm7aE98O0m52bbqUdxfQ7Uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793869162;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=bBn1ykyRQWqMly5VMYEBKX4QjwJ5XVSM4rfTKbZt6Os=;
-	b=E4U+l3kF7Lm66XCmaXoO2C74rEpclYDqez/XlioEn9fugGkdAvrQWZf4QmZPHovTp4of
-	 I7WziZjfXE89jTx+MWhzC0DqO9d8+ZbzbG0yjggHJNAjBZZgzi6K/G+tRaWXhaC29xuvH
-	 Rsyqfb6ro4lGJwKEJdNjfE4ZNkMiE7KpoKJOpPxDAn/Th3XsQzXeBzN3h4UpuarhT9aDK
-	 MRtK3TZfOOTohvinMLZ4DFw+p5iOfiHy7EfVx3fpuWMi7U49XcFYmnWTtMxz4KdQvRe8X
-	 jhGVXHnFCBQKn9BFSlvSbOcGoLIp0I+mjFO/DZa+AlXCLBhkrVzc5g+0+vtAcnipq5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793869158;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=cperLeOZ10xvR2QABkMcO6kpsD+q+HraFWCgZLyuZXU=;
+	b=P+YCDiv2OPRdLn5FU1wTlRP8Tf5pP6JrD/bVQUYjNapJw3Kcn7Ovp1scX8PujbhMWVkS
+	 +oUgnht56W7zglhUqnpGqxUl0rbm/hctoCQ+4DrUe44wE5kceOeEfJh+DxetGynyQ2lpR
+	 wgqYtHpWQav/NuzVHiUEd4a9YTGbYbeSCTo5eDp61VcZ+lLt2Q1iNFriednY+LW7gqG30
+	 5MZg3Tamwi6pWc4xViGNidl7fpiMQq7cHl6QwAXRFsDePULeqOiRSV1Z2CTmrijWc2nAh
+	 BqDIWfD52CujorfHBnmkqiiG8JGAq6AHBv+YkhkucUbRo2zyim7gTdoGxLgB88NA/Wg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=D8hkm7cL;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GKyQ80vO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2402606A32C;
-	Thu,  5 Nov 2026 08:59:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2402606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 1E6DB606A31B;
+	Thu,  5 Nov 2026 08:59:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=D8hkm7cL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793869160;
-	bh=ZKaZFFHipOBBEL4aN3JZCurDbr471IQ5mAHx+yt6YDI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=D8hkm7cLJ7S+YmF4PZLUoJwECskt1Lx2wBGPwMxKGB7U+y+B1ib+bRRjrhTYsxFfw
-	 uIHzv5kGUcdqzY7GQvciwIRUnjE6E1bjhIAm02/rvqjKZ4cMuSbwVViK78+8ioi4mp
-	 eds24T+OXz4w10VRzgrjCm/MNXaYzxHaTm/CjNuYotXypSNeel73uJThZZWhRkrGHb
-	 zYQghiYqQPaW8FT/Oc+6gAA7+/0J7UQTy9aPUips21sAW2f9qfwXovX73eEfDlXyK2
-	 qEJkPV5RCAnKVk4ouAglPbYCYECNTQKSLvYyyHXgWUEYrEZ4891C0BvrPwQ6SfXsc0
-	 LF7orzWiVgBsQ==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 50DF617E05D6;
-	Thu, 05 Nov 2026 09:59:19 +0100 (CET)
-Message-ID: <bff71c8f-9ea0-45a9-96ed-e66fc0896f3f@collabora.com>
-Date: Thu, 5 Nov 2026 09:59:18 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GKyQ80vO
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id F30E51F000C1;
+	Thu,  5 Nov 2026 08:59:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793869157;
+	bh=cperLeOZ10xvR2QABkMcO6kpsD+q+HraFWCgZLyuZXU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GKyQ80vOubI5f7D0k727ncTLW+M2OBbpwOhV01iS/0zHomLcKREC6XdQZwXXF4SLj
+	 X1ZDODU0Bk+cWTSi6/5g5lxIihicSKEvZUqxsxj7cWHZrmBXqRB8oAoj2TcPUYOx2P
+	 Kl+dfoplr/48uAxn3y/GOe7WdEswQ8XlT28FSzzr1RXh3McfvPLJOrkuVor66LAgEk
+	 RpQIQV2Ilh/BLsAIsFnGmGnmAv5V6lyFQMu49stsjHMSQz7N6oIAXmBeyom8JREnQP
+	 tAKzWVYQ20iZWR/5ajcwikVyDHj5xDThg20bYOBDNMTwlbNRsI7x9ol7Uwm8lT/clo
+	 OQr3ekh7eWC9w==
+Date: Thu, 5 Nov 2026 09:59:14 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Yige Jiang <yigejiang86@gmail.com>
+Cc: linux-sound@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>, 
+	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	linux-kernel@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH] ASoC: cpcap: use the platform OF node setter
+Message-ID: <hnnasmztl6q2pvrbttc6dmzp5hqroxiianvarlkbmq25o3c4p4@2piw3ttc4bgl>
+References: <rc-review-20261103-28-afc55c614a25@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,129 +57,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 02/13] drm/mediatek: Implement Display Stream
- Compression support
-To: Roman Vivchar <rva333@protonmail.com>, chunkuang.hu@kernel.org
-Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- matthias.bgg@gmail.com, jitao.shi@mediatek.com,
- dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
- justin.yeh@mediatek.com, jason-jh.lin@mediatek.com
-References: <8fcdd2fa-7c9c-4af5-a7b4-45fb881d88a8@protonmail.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <8fcdd2fa-7c9c-4af5-a7b4-45fb881d88a8@protonmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <rc-review-20261103-28-afc55c614a25@gmail.com>
 
-On 11/4/26 19:51, Roman Vivchar wrote:
-> Hi Angelo,
+On Thu, Nov 05, 2026 at 01:53:26AM +0800, Yige Jiang wrote:
+> cpcap_codec_probe() gets the audio-codec child node and assigns it
+> only to dev.of_node. Platform device release now puts dev.fwnode,
+> so the acquired node reference is never returned.
 > 
-> I have tested this series with my out-of-tree mt6595 (command mode
-> panel) and mt6768 (video mode) DRM. There's no regressions, but I
-> spotted an issue with kconfig.
+> Use platform_device_set_of_node() to synchronize both fields and
+> give the device its own reference, then put the local lookup
+> reference. The device keeps the node until it is replaced or the
+> platform device is released; a probe retry also drops the old
+> device-owned reference.
 > 
-> On 9/16/26 14:08, AngeloGioacchino Del Regno wrote:
->> Add a real driver for the Display Stream Compression (DSC) Display
->> Controller IP, implementing support for DSC v1.1 to v1.2.
->>
->> In order to do this, it was necessary to remove the basic DSC IP
->> bypass setup from mtk_ddp_comp: this functionality is retained in
->> the new mtk_disp_dsc driver, which checks if DSC was actually
->> requested by other components (with the only one that currently
->> supports this being DSI) and, if not, it will set BYPASS mode in
->> the DSC IP.
->>
->> Like before, the BYPASS mode is set before starting the DSC IP,
->> but unlike before, this is being done in the component start
->> callback instead of the config one.
->> Notably, the config callback is called by mtk_crtc always
->> immediately before the calling start callback, so the order of
->> register writes is retained.
->> The only real difference is that now this is being done through
->> CPU writes instead of CMDQ, but since that's called only once
->> and since it's just three registers, the performance impact will
->> not be minimal and not even measurable.
->>
->> As anticipated, DSC handling was also introduced in the mtk_dsi
->> driver: when performing dsi_host_attach, the driver now checks
->> if the DSI panel adds the DSC configuration structure to the
->> mipi_dsi_device structure and, if it does, it will store a
->> pointer in the driver-local mtk_dsi structure's `dsc` member.
->>
->> The DSI driver will then check whether the DSC configuration
->> that comes from the panel is valid (in regard to MediaTek DSI)
->> and will call the DRM API's DSC helpers to calculate and set
->> all of the const and RC parameters for the actual DSC setup.
->>
->> For the time being, even though the latest MediaTek SoCs do
->> support DSC v1.2, only DSC v1.1 pre-scr support is implemented
->> as an initial contribution (which is rather big, and 1.2 would
->> make it even bigger - but that can anyway be implemented later).
->>
->> As a last step for validation of DSC parameters in DSI, a check
->> for the hdisplay against DSC slice sidth and one for vdisplay
->> against DSC slice height was added to the mode_valid callback,
->> making sure that H/V are, as expected, multiples of slice W/H.
->>
->> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> Fixes: 7b5b51b2b05c ("driver core: platform: count references to all kinds of firmware nodes")
+> Assisted-by: LLM
+> Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
+> ---
+> Based on linux-next next-20261102 (2637bdec0535).
+> Compile-tested: arm64, GCC 14.2.0, W=1, CONFIG_OF_DYNAMIC=y.
+> COMPILE_TEST=y.
+> Baseline and patched target objects built from this exact base.
+> No full kernel/module-link, hardware or runtime test was performed.
+> AI assistance: Codex (LLM) for ownership analysis, code and changelog.
 > 
-> ...
+>  sound/soc/codecs/cpcap.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
->> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
->> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
->> @@ -18,6 +18,8 @@
->>    #include <video/mipi_display.h>
->>    #include <video/videomode.h>
->>    
->> +#include <drm/display/drm_dsc.h>
->> +#include <drm/display/drm_dsc_helper.h>
-> 
-> ...
-> 
->>    static void mtk_dsi_config_vdo_timing_per_frame_lp(struct mtk_dsi *dsi)
->> @@ -565,26 +610,68 @@ static void mtk_dsi_config_vdo_timing_per_line_lp(struct mtk_dsi *dsi)
->>    	writel(horizontal_frontporch_byte, dsi->regs + DSI_HFP_WC);
->>    }
->>    
->> -static void mtk_dsi_config_vdo_timing(struct mtk_dsi *dsi)
->> +static int mtk_dsi_set_dsc_params(struct mtk_dsi *dsi)
->> +{
->> +	struct drm_dsc_config *dsc = dsi->dsc;
->> +	struct device *dev = dsi->host.dev;
->> +	int ret;
->> +
->> +	if (dsc->bits_per_pixel & GENMASK(3, 0)) {
->> +		dev_err(dev, "Fractional bits_per_pixel not supported\n");
->> +		return -EINVAL;
->> +	}
->> +
->> +	if (dsc->bits_per_component != 8) {
->> +		dev_err(dev, "%u bits per component is not supported\n",
->> +			dsc->bits_per_component);
->> +		return -EINVAL;
->> +	}
->> +
->> +	dsc->simple_422 = false;
->> +	dsc->convert_rgb = true;
->> +	dsc->vbr_enable = false;
->> +
->> +	drm_dsc_set_const_params(dsc);
->> +	drm_dsc_set_rc_buf_thresh(dsc);
->> +
->> +	ret = drm_dsc_setup_rc_params(dsc, DRM_DSC_1_2_444);
-> 
-> If config doesn't have DRM_DISPLAY_DSC_HELPER (selected by few panels),
-> linking will fail with "error: undefined symbol: drm_dsc_set_const_params".
-> Should MediaTek DRM select it?
-> 
+> diff --git a/sound/soc/codecs/cpcap.c b/sound/soc/codecs/cpcap.c
+> index eaaf141dea57..eda72fe830ae 100644
+> --- a/sound/soc/codecs/cpcap.c
+> +++ b/sound/soc/codecs/cpcap.c
+> @@ -1761,7 +1761,8 @@ static int cpcap_codec_probe(struct platform_device *pdev)
+>  	if (!codec_node)
+>  		return -ENODEV;
+>  
+> -	pdev->dev.of_node = codec_node;
+> +	platform_device_set_of_node(pdev, codec_node);
+> +	of_node_put(codec_node);
+>
 
-Yes it should. I already spotted this a bit of time ago and fixed it locally, but
-hey, thanks a lot for that.
+Just use __free(device_node) when calling of_get_child_by_name() and
+avoid having to call of_node_put().
 
-Cheers,
-Angelo
+Bart
