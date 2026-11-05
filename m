@@ -1,81 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=93.188.205.243
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793870375;
-	b=b5v8LCKlTOSStFF5pLur9MkV6WaPup9EKwXG85YlUi5k1MHmR0SiMJMztSK2xkL6Yt42
-	 sjWe/ymjJZeJsmPWwPqjQBT2ZgDo9Vspnqb267s+FGEgAOMVskGTtbDRTmWzprBybKn9A
-	 sNAxzug10ufcpvUFViMvVElooOx/vxAr6HQi0/belc2K53RFgRbFEH0jr7GF9vNBVvqi9
-	 IPpX9PXhXYqHDyWpR8jVThVNl5mEx02L8Gj7o+FPTrEQsjOgUJ/x0Np4hY9qAn3ZyHrsV
-	 Il/z8hgWCdJk3Dj8pgkeQoIzjKOpc73aIlbtf8SmSi2HQDjEDgddcGGRj+Quo2aywgA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793870375;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
-	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
-	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
-	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
-	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
-	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
-	bh=woa/Lo/pD+OHC6mF7/FTcOM9HNtR7yZDJ2YEh+iEG7Q=;
-	b=QJNH/UHRgkB2qtXE1o3zsv1eBl0JS+3wqVPgTe6v8vdUYivUlfR7WfKdRzu8vERoShI1
-	 ZMC33YNHfLanNCXk3gt8Sn/3Ys0o96LdwWJZP8cnwSdQkkmzemktXxzR9iCzLCvDa+gnZ
-	 tftaxTgblkMmfEOjuHDHQvZ9ZSXx5vY5NM/TMzAzv6rcs4wsagbIWb2flIuOS2WAHrIm8
-	 DZDWijHEkluzAqdDx44C0rMImOToh8CcpeqhgrRl8yw73+WHTWrLBaK1j/VIlwTHLJeHM
-	 KSe005HmjfA7pqm6ytZLDUy03JeRHaWjdTsNBNCDW9PiH6doZ1AO2y5BtkC+vMfwp9g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=astralinux.ru;
-	spf=pass smtp.mailfrom=astralinux.ru;
-	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=KQTeaWQl;
-	arc=none smtp.remote-ip=93.188.205.243
-Received: from mail-gw02.astralinux.ru (mail-gw02.astralinux.ru [93.188.205.243])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793870362;
+	b=Cv3engkgAEBXNAYX2L8/pvw3WErfLsp4qxbIHhgIV6fCFLK6xW96oEnXuj9E4elWDVab
+	 Ee4uEv+OHMyoiIJYW+Fx7bV5Pie718ao51grDeXNZELBiPyzpUdIzz0ni1BbG2CdyAXjV
+	 8o0sbYlb84QYEsiTGSnD4vYoKx7urfS7ZpKZTgVd0ffuGozY97Abet1Z/HCoas18wDH08
+	 rtvuzaAsaH6gE3RF7/x4fzFfVIP0nPgdUHqp4VbiZbyTgH+APNC6g3uz1Jl5hs2gH9YfQ
+	 H1h8etzH7bGu4SJyT2TCuBTuRjJyv5HcLRenpJnkFJvI4sB/Ng+e6attn6ES9duZTuQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793870362;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ndGzkCwTbGT2osVm60AE7H39WPe2NYufaCoY6UTi6Fo=;
+	b=ft+EXgO2/FPMquljBYPKXhKFFqA/tKuNJ9wwNP9n3yF+IyaxS/nUQWYVInQ1JeAOw1FY
+	 LFzgiEuMeROlB/ou6bUNqAdyQCerIn4KBo5OuTuJWbygR3pV7WdbH/CaiHAuKet+Sa3gU
+	 bh5dG//OFUG5HGshnvldDz6GGIlQXg2DVeNLEWMjSpy8uzYuFeq9JBHayGDeuSlqs/xzT
+	 bz6mE/2B6tpyqTdlRq1wnrQTrwEa9T3X6ox/2us4Jk4JLSMyc+CFYWJUfjcEPzySa0Ag3
+	 asLthpJai9ecq9Tcs0VDtAMYqDJ3gq0CyTZx4Dxpy+xS11kbGwXHyIpvOE+lgrkm52A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lRDb94of;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.54
+Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4773606A333;
-	Thu,  5 Nov 2026 09:19:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4773606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FC47606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:19:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FC47606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=KQTeaWQl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1793870368;
-	bh=UTXQAGDVCQXDYHLZmlVdJk+MO0ORvqhA0qwsqyZrZKM=;
-	h=From:To:Cc:Subject:Date:From;
-	b=KQTeaWQlCsVrxNFsFGRbvpsHai4yKJ4Wczkk0hjNXT4OXOr3xTEXdImifVbp5NbSd
-	 B33QntsIdl6F5+1AhPWz7WQUKI5aFU71Rh7BMO6yYjvvczj+xDBpGLIprbAvxVebSG
-	 MjTBT48hwqxmLWi7Upb9YUe2ftEiLcG61cgzBFHWbILqoFqyYWyY9wCJ5Jf9JbzGaI
-	 80NddhFe9evMFQ7hFi47qoIWlHEjmnrgkWrJnQenFl0P5HCs0CSHntkKrGlwOcJ9MD
-	 T/XxyQz/T8LIVSD4jjmf3I4H5GAPYGojFWmUN2iwPqC6Ytl0arRi0hlThCpMRAYowu
-	 a7XELWWp5myuA==
-Received: from gca-msk-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw02.astralinux.ru (Postfix) with ESMTP id B71241FA28;
-	Thu,  5 Nov 2026 12:19:28 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw02.astralinux.ru (Postfix) with ESMTPS;
-	Thu,  5 Nov 2026 12:19:26 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.31.238])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jKxb21G5Wz2DQS;
-	Thu, 05 Nov 2026 12:19:26 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Alasdair Kergon <agk@redhat.com>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	dm-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 5.10/5.15] dm-verity: fix buffer overflow in FEC calculation
-Date: Thu,  5 Nov 2026 12:19:01 +0300
-Message-ID: <20261105091903.1866-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lRDb94of
+Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-49de8ea072cso663170fac.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:19:22 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793870361; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cYcm6ntUgn2VPrcyVBMBodNqmIxthTz/QNHO4ReGkPgyQ6oZrNaTVK1vFdB3i02oMZ
+         Ek8qtkUY5MSPuRt8G8hvrPdzIkX93JblkplqWDFWSz/YCZGgGBalEmjnuOENdant8sFE
+         1MAhcUXHoKJulWY96Sgz4CXDnzRuu9VFPYVFiDsAakklSm1X+pRdRd+60STbIlGG74+6
+         K+tpzwqMWFtISkOQVnMmKv+WWqixT6CwBh/YF+HpyfwOW/MFf58VmAdwmxo1lIFAzRiG
+         slu4F116wYMbKzc/eM/g+JSqXlv0k3kL1+HgLnd4dVohBoqwSEI0w2W6KsDF0ZXW5npi
+         h3Fg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ndGzkCwTbGT2osVm60AE7H39WPe2NYufaCoY6UTi6Fo=;
+        fh=6ry2bSDF4aguptCCOoh0jabjTo0h8+BCjaJGSqPR9Yc=;
+        b=OdO3vpwE9a1bdMTcAaIMEG+RUgBq/OYfdItOsP0XSRtUHTM83MBJOPfNTwmjE/Af9z
+         fCsm3q5ORx3RRkwfPuCaMw5rE/Hv8TlzCq+CjcI7QYkS9RxLvm6D6QiAw5YVdAnQCGk6
+         fx9Sk9N5dRqhjV0niRWXj3NLh+Tv/hB+Agzz8Wg6dThiAoNnNJ2i7GKSp7KJbYYjVb5B
+         w6YiHYoMqzHyBHDdS0xOMErmEuDJWMrJgLkshKbCz0x+C9l2X0GS/KK+/DElhnDeJaVp
+         JptAfjwq2fSLehB3ajOohgWTZrEAGTOEEuAnGD3hvIakfgHP9/T4MiCdnE4SJ3m6y7D2
+         IhdA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793870361; x=1794475161; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ndGzkCwTbGT2osVm60AE7H39WPe2NYufaCoY6UTi6Fo=;
+        b=lRDb94ofVYHR+1WQwqiDrJVy5WTe2mWB/507MvM+fsdIOGBt3sRL5H/oft6UVGYBTi
+         DVmRcCepPEyAt4m40GJEhUuZEx32YrCy2Sdf3yqbSAzLyrlCN4NVfO+4IhIdmUXBPxJi
+         thvR8yCrwaPWAKopJovEadOcE/QJdQzTrJgcTEMEn0fmtmtTlfwTn8F+xcGHhD6/5sG1
+         AL+mrQy9EFmutVMdyy+JJ5ldiFvjiCihI0TkLrAHTM4QSFvsdnZe/I6+bQqTm9HoGUEq
+         vcGOlc6oQhacHGqfJPeiEYwQbI2r9B932gx28a2WeS+F3cT2W8OCtbPZXzVw0l7q9KH6
+         2S8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793870361; x=1794475161;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ndGzkCwTbGT2osVm60AE7H39WPe2NYufaCoY6UTi6Fo=;
+        b=f9RQWyo8tXRgNTC5Waa//XLlnQ9JwynBNp0SXgpsEcHdodPqqwfWq8uZ56uJXx4O4F
+         moeiaz7RdIax1k6P5hdLUbddouGOXDJkQzfVdZnd7T2GQRk2ZjzctBqrELb8z9wJUjbs
+         9D0l9Swdw6UjcOeYot9ipAUeHipQY7yrk9uqq9keVoNDzle3DEXb/hG/EjCwJD5d+MfD
+         Or235BbgwCEjF2HSUjgEfrwn59dbqvWFBA5EEm2eqL7cZB855MxJ6VDApPv3pty48rQy
+         BCHxTIS1DJpLISMkcZG7dwKQ0nh6RrOpIGlQrb213sw5VQqzXUsH3mPVu+gxhlDKlwwk
+         GGuw==
+X-Forwarded-Encrypted: i=1; AKwUvBxEoUO+cUNIcK+GqriA3l7a3wZvB0plJH81l31YUhVAU1LcBkrsciN90i5Qaa84ifjuarTNeCZyYPxAILA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/S//WJ5Nx4hbPDhdI9/Wsi7CVzyxo72M8IqXbCE9+b3XqIviQW
+	uZ2mM86EgwnCSRNh3OBWDEvWiJOpTycxRrGeKewl7JS9f/92VN5bCY9dofToBmW/Ho/6J3pW9s5
+	IlRLgZUkm8MQ6148tniiOopMhHQ/Xru7XfwoP
+X-Gm-Gg: AYBFou3ZHhgyC3uUdBeYVBKKpiFZxNS0T70zOXuYkSGYXdVt2AvKKZALo3l26sODJ43
+	l8clq4BFNBSUl4aGIMhop3k3EM0dVCRT+woYQ5ypLw6DhbgtSNqFFvgYcmk3FREMQ3FgxzZMQ4E
+	V9XfWZqPhmoZ+y7LWptQ7X72Y54YJ7KevA6CcmaX3AsYmqJPcDlSmxuZS0T1NYpVYWcb5ThZ0g7
+	F5dX74V8KY3qmlx5qo83pJzPUVoLAJKUh9pxbAVtVqrBBlQ6DwRisHRZ/OWbk5WUBc11V87pZu+
+	NxYmEMwAgJA8V6/9nW88pxQbKlKMALE9Ve6NwSlmI92wxNs6Iw7IY1ongn+ddkOAENNSV6VmA6u
+	xQ2ho1VRXprpNZauq8ATS+DV25PQ+3WdTn6g3jQ==
+X-Received: by 2002:a05:6808:4f61:b0:55c:836:597e with SMTP id
+ 5614622812f47-5640dd5ca51mr14606352b6e.31.1793870361392; Thu, 05 Nov 2026
+ 01:19:21 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,79 +104,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 133 0.3.133 d508d579b02cdb6df47808421a9b9e12fc9fb75b, {date_rfc_vio_soft_silent}, {Tracking_from_domain_doesnt_match_to}, new-mail.astralinux.ru:7.1.1;astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 207251 [Nov 05 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/11/05 07:56:00 #28800192
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+References: <20260930111813.52396-1-chou.cosmo@gmail.com>
+In-Reply-To: <20260930111813.52396-1-chou.cosmo@gmail.com>
+From: Cosmo Chou <chou.cosmo@gmail.com>
+Date: Thu, 5 Nov 2026 17:18:45 +0800
+X-Gm-Features: AclHuK81XJ96pBCTYU7-hDy4yf8gIUQ_g9ciWuO0heyn1wGR422e790m2Wvg4ZU
+Message-ID: <CAOeEDyuRboYqBUOtLke=X0F66_A8NCHanc2iXt91duLRFGSU9A@mail.gmail.com>
+Subject: Re: [PATCH v3 0/4] ARM: dts: aspeed: bletchley: Cleanups and second
+ source devices
+To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, joel@jms.id.au, 
+	andrew@codeconstruct.com.au
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+	cosmo.chou@quantatw.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Mikulas Patocka <mpatocka@redhat.com>
+Hi Andrew,
 
-commit 31d6e6c0ba8d5a7bd59660035a089307100c5e8e upstream.
+Gentle ping on this v3 series.
 
-There's a buffer overflow in dm-verity-fec:
+Thanks,
+Cosmo
 
-if (neras && *neras <= v->fec->roots)
-	fio->erasures[(*neras)++] = i;
-
-This allows *neras to reach roots + 1 (the post-increment pushes it past
-roots). This value is then passed as no_eras to decode_rs8(). Inside the
-RS decoder (lib/reed_solomon/decode_rs.c:113-121), the erasure locator
-polynomial loop writes lambda[j] where j can reach nroots + 1 — one
-element past the end of lambda[] (which is sized nroots + 1, valid
-indices 0..nroots). The out-of-bounds write lands on syn[0], corrupting
-the syndrome buffer.
-
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-Assisted-by: Claude:claude-opus-4-6
-Cc: stable@vger.kernel.org
-Fixes: a739ff3f543a ("dm verity: add support for forward error correction")
-Reviewed-by: Sami Tolvanen <samitolvanen@google.com>
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-[mdmitrichenko: Omit the erasures array size cleanup. The older
- implementation already allocates 253 entries, more than the
- maximum of 24 roots.]
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
----
-Backport fix for CVE-2026-72098.
-
- drivers/md/dm-verity-fec.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/md/dm-verity-fec.c b/drivers/md/dm-verity-fec.c
-index 3c027b15476a3..9eb07b820848b 100644
---- a/drivers/md/dm-verity-fec.c
-+++ b/drivers/md/dm-verity-fec.c
-@@ -256,7 +256,7 @@ static int fec_read_bufs(struct dm_verity *v, struct dm_verity_io *io,
- 				     (unsigned long long)block, PTR_ERR(bbuf));
- 
- 			/* assume the block is corrupted */
--			if (neras && *neras <= v->fec->roots)
-+			if (neras && *neras < v->fec->roots)
- 				fio->erasures[(*neras)++] = i;
- 
- 			continue;
-@@ -274,7 +274,7 @@ static int fec_read_bufs(struct dm_verity *v, struct dm_verity_io *io,
- 			 * skip if we have already found the theoretical
- 			 * maximum number (i.e. fec->roots) of erasures
- 			 */
--			if (neras && *neras <= v->fec->roots &&
-+			if (neras && *neras < v->fec->roots &&
- 			    fec_is_erasure(v, io, want_digest, bbuf))
- 				fio->erasures[(*neras)++] = i;
- 		}
--- 
-2.43.0
-
+On Wed, Sep 30, 2026 at 7:19=E2=80=AFPM Cosmo Chou <chou.cosmo@gmail.com> w=
+rote:
+>
+> This series resolves dt-check-style warnings, sorts I2C nodes,
+> and adds second-source RTC/LED support for the Bletchley.
+>
+> Changes in v3:
+> - memory@80000000: keep "device_type" first, per dts-coding-style.rst.
+> - Link to v2: https://lore.kernel.org/all/20260729114312.3947300-1-chou.c=
+osmo@gmail.com/
+>
+> Changes in v2:
+> - Added patches to sort I2C nodes and fix DTS coding style issues.
+> - Carried over the second-source RTC and LED patches from v1.
+> - Link to v1: https://lore.kernel.org/all/20260714120816.1504058-1-chou.c=
+osmo@gmail.com/
+>
+> Cosmo Chou (4):
+>   ARM: dts: aspeed: bletchley: Sort i2c device nodes by address
+>   ARM: dts: aspeed: bletchley: Fix style warnings
+>   ARM: dts: aspeed: bletchley: Add second source PCA9532 LED controllers
+>   ARM: dts: aspeed: bletchley: Add second source ISL1208 RTC
+>
+>  .../aspeed/aspeed-bmc-facebook-bletchley.dts  | 1315 +++++++++++------
+>  1 file changed, 902 insertions(+), 413 deletions(-)
+>
+> --
+> 2.43.0
+>
