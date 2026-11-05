@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793867647;
-	b=saVOuuQkX8M6oFSkfi2lFARVV+JvIZppQA4BV5hZbq9dhGe830kyUD6k9LYwh/VBhxkr
-	 UkfGgxYzUxWiR6VVQgDH5toIW2rPOvxC5kxow8mhi6cEmPyJX8zknb9TV72NgZiNUWarH
-	 FDdTlEtvRutAynBZgz22T1l21PIljgc2I199O3x65VOcN7ZeXCzouBfc9PEJiRLj77n5K
-	 mSiRoUsKjDEh3+3ahWXGHnxNIJ2Hkt+l7AiTCiyrMi9QhP+SAb4pHNXKEXTsZ8tOAeI8y
-	 Ingt/0BQKWH+P1Z7/Qt/ye9M0BvKIs+b0OOFLEZUpJQjRD0SvOV9jRRxXY5/KLOXASg==
+	t=1793867651;
+	b=ug1hqo0LX5y7CVjetgVZaji4iGObr6KQwXYjLa82tm0tGbn0OqKhYO6vXje1n68R7V74
+	 wgfJGTJukF40QRDTehNQVeECWVbhLs3n3tY5EdKFIcNV+pyevkq14wg1q3yiXkjMJ504w
+	 kIGfZD+9t/RVw0Sw/JpeuABg/gU13eYPCmM86/3zTTGlPTFMOXrsMcIHxvD0m3a6cEwCt
+	 Cgm/EY+GBdJpBzdJeMMk62HEYC6wpavvOCwY+miS/8wCKXJ8UfoiSjDWLOP3P9jPN/AVb
+	 pt7ENBa8ywu93Asi+nV3/4176+zr3ffR3zR9Xv73td2rI3k0OxxsI1UGEBBhInDsYTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793867647;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=WxzGpf08LrKpKuRsmQ6LKWumhJfgKnAt6y8cqHphZJc=;
-	b=RAAiJoXBOF6UY3lEQabABZK0mkOP9mFWrr3UtJSwjJ4F+cqd6J/rLrWZj2RbS4efw693
-	 sIFJfrTqPmUn4HE6WVCjAWZc5cdJTeVyA4nXhTgxMwtats42/1xs6vl/W6hMU5ACPWwvz
-	 iA3glo+YRgSQRkZUJc8icWI1wUNoTSOkqRY4DaAFssKdlHgoe/okAzcVFueIkaD7Okq3c
-	 9l0yYOGIXh8d6HMeMVP6ssbdxA2t5m0uKhZft5s8VGQHmy1IowLIYTTRDtVrHsdJK6rZM
-	 cu5Rv5cyOppedXFy0d6cDR8QdIzD4BJBNoLxBqvLKCwZG/xE9F83cfr65GRgzNHI85Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793867651;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=P6zJzHowc63hNrslPmkjJoluc08V1uJth2yk4JtAx/Q=;
+	b=r29lKKYrFl46Jj2gEnOURQQRvvI/TIal1Njt3k2YSn8syknx8lgTETpc973UzPEtjwag
+	 v0yjhGC8CRnvuvv7dA5RIDiL1I2gXjpBLpoSHNhMuUNZkK6fWC6XbwYB7NXZ0UlX0M2Pz
+	 R0rmLOR90d6ktz9CRt9nsnOOoxbhAsM49CbXh04x2S14CRe+168t2yxwrxfEu0Y9bu5lP
+	 czcOLNWAb8MrmQfS4FAUMGURimA2x7LQhCY669avxwKrKtN+BhvNOyEQP+BVKwoT1Xz1J
+	 kpKd7SrP/Hsk5Q3+IcA8XE78q9jl5M9MvMobE9W191O+3MFDAQhSqbR3AfFakvoXwPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NfdkFSMO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PgsB4KG+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C28606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:34:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 1D0B5606A326;
+	Thu,  5 Nov 2026 08:34:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NfdkFSMO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04A2C1F00A17
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:34:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PgsB4KG+
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 18C8F1F000C1;
+	Thu,  5 Nov 2026 08:34:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793867646;
-	bh=WxzGpf08LrKpKuRsmQ6LKWumhJfgKnAt6y8cqHphZJc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=NfdkFSMOQQWLe65YCQWxRnqqqdGtVtJSIFDIdL8GU3ifFX2o+bzacWfF6GYxlSXKp
-	 k6mKicu7tCbL0txb4S7yIaJbaEbXhNFiwCR4vLNWIAD4p4fudXl1GblFBBMrHK8GTZ
-	 NAwN5Pal4Nu4hH1WfQ4kt+ly1ZJHd8DRTuqhcYqQfRT8LsNLBO18V1LldWCZmH2eIj
-	 1h8pXk/xhGSVRmEh1axeuQ4ymE97ROq9s5/n4nrLOTEsKIOJdaJQW3tykNFq37/YHt
-	 lV91nBGRED12BKsfgAXWbSRAihYrQ63Jo7LGC/COMWWrs07Dk0he3ZuF1lgEC1qdY2
-	 HyWvEpnXUhs6g==
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5be3ed646a5so2012820e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:34:05 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBzGQDKPMxmAdkMXgEH1sN2b/8Ofy+soiRKz3pqf7EH3pu2/JHjYTABv7vRuqZb2+JCgKLV8p+P+SPf/0Sc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8fiEyKs8tou1eStr9kywLELzV+Ns+DO5stjOXuM9NHSmitfTI7
-	8wUaH8iiq0hlYpo6gdmy39cm+BbXcQ/KY7gnqHqhVa0IwfJOx5SJJiLXcv7d3Td+qOHASp0mR6Y
-	tlnPmis/O485UK5qsCVUGxPRPl9IeMHI=
-X-Received: by 2002:a05:6512:12cf:b0:5b8:f81b:dfea with SMTP id
- 2adb3069b0e04-5bfd95892f8mr5387682e87.62.1793867644786; Thu, 05 Nov 2026
- 00:34:04 -0800 (PST)
+	s=k20260515; t=1793867651;
+	bh=P6zJzHowc63hNrslPmkjJoluc08V1uJth2yk4JtAx/Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PgsB4KG+YAoQ79kF8S5BnWq41I3LxQihafA1LQ2Q1GYDgrfSetMiFusaqGsfYRoyv
+	 v4uLUxCL9SEAlH3BQOLrOCFJlIeEawjUVVlO+GVJp9cNCEVwV0wrYlhYIOHOELRXhx
+	 bnjHxsWG7GarO8D02mXITbOdTBrokZPEim8ynEP6g2m+i8HtcskAYfnQfhn78ZVt/O
+	 nO9Cj4b2DezjsYwhySxnymrrKfutZFtGtk5Vbf3AG6SjgzmGuNCbK8mMctQkO03+30
+	 SUtyhFnIuMdGYo0YiG5AI+Qht4S4WdNZn4IBi+5O9ZzOoMKSGeN9OP8OBHg3IohoI5
+	 n+XP28Ae2nY8g==
+Date: Thu, 5 Nov 2026 09:34:07 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>, 
+	"David S. Miller" <davem@davemloft.net>, Russell King <linux@armlinux.org.uk>, 
+	Eric Biggers <ebiggers@kernel.org>, Demi Marie Obenour <demiobenour@gmail.com>, 
+	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, Pankaj Patil <pankaj.patil@oss.qualcomm.com>, 
+	Birk Skyum <birk.skyum@pm.me>, linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org
+Subject: Re: [PATCH v11 0/2] crypto - qce: make algos optional and remove the
+ BROKEN label
+Message-ID: <fbcaiobhykgsgd3zyayvrkuk5lnrjtmwelxkxvbijukdbcw4i5@7e2qyfekariq>
+References: <20261022-qce-fixes-broken-label-v11-0-0d33c34fd0c3@oss.qualcomm.com>
+ <kh74or65txfcprntqqljabnszooj5ppuwizj35flv2r245zbvo@nfue4wdblicr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,40 +62,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261101100030.15744-1-surajsonawane0215@gmail.com>
-In-Reply-To: <20261101100030.15744-1-surajsonawane0215@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 5 Nov 2026 09:33:51 +0100
-X-Gmail-Original-Message-ID: <CAD++jLkyETpvCxbvcvSSZ4_ZF6vt20VrLfkVsskibZ3QpceMuQ@mail.gmail.com>
-X-Gm-Features: AclHuK9s22LU3ZgfcLC37072WMp1FnHaL0iX5l5vecmBSPJ2_rBODkzGQKAE7xo
-Message-ID: <CAD++jLkyETpvCxbvcvSSZ4_ZF6vt20VrLfkVsskibZ3QpceMuQ@mail.gmail.com>
-Subject: Re: [PATCH] pinctrl: qcom: sc7280-lpass-lpi: add ext_mclk1_c function
-To: Suraj Sonawane <surajsonawane0215@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <kh74or65txfcprntqqljabnszooj5ppuwizj35flv2r245zbvo@nfue4wdblicr>
 
-On Sun, Nov 1, 2026 at 11:04=E2=80=AFAM Suraj Sonawane
-<surajsonawane0215@gmail.com> wrote:
+On Mon, Nov 02, 2026 at 10:58:20AM +0100, Bartosz Golaszewski wrote:
+> On Thu, Oct 22, 2026 at 10:57:58AM +0200, Bartosz Golaszewski wrote:
+> > This is the follow-up to the three smaller series fixing crypto
+> > self-tests in the QCE driver. It makes the crypto algorithms opt-in via
+> > a module parameter and removes the BROKEN label so that the driver is
+> > built by default.
+> > 
+> > The dependencies are:
+> > - https://lore.kernel.org/all/20261016-qce-fixes-sha-v1-1-3ee5a30d84f3@oss.qualcomm.com/
+> > - https://lore.kernel.org/all/20261019-qce-fixes-skcipher-v12-0-046e6be9bd83@oss.qualcomm.com/
+> > - https://lore.kernel.org/all/20261020-qce-fixes-aead-v12-0-77a2e09abd0c@oss.qualcomm.com/
+> > 
+> > Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> > ---
+> 
+> Hi Herbert!
+> 
+> Gentle ping, can these three series + this one now get queued for v7.4?
+> The three dependencies have no more sashiko comments. The ones for this
+> one are minor about missing module params docs so can probably be
+> ignored or I can send a follow up.
+>
 
-> LPASS LPI gpio5 can mux EXT_MCLK1_C, but that function slot is left
-> unnamed, so a device tree cannot select it. SC8280XP already names the
-> same slot ext_mclk1_c.
->
-> Name the slot on SC7280 and assign it to gpio5. The third slot stays
-> empty; on SC8280XP it is qua_mi2s_data.
->
-> This file also provides the SM8350 LPASS LPI driver, which uses the
-> same pin table, so the function becomes available on SM8350 as well.
->
-> Tested on the Vicharak Axon Mini (QCS6490): selecting this mux slot
-> drives the codec master clock, and ES8388 playback and headset capture
-> work. Not tested on SM8350.
->
-> Signed-off-by: Suraj Sonawane <surajsonawane0215@gmail.com>
+Hi, another gentle ping since v7.4-rc1 is tagged. Is there anything I
+can do to move this forward?
 
-I'll wait for a v2 which comes with a DT binding patch.
-
-Yours,
-Linus Walleij
+Thanks,
+Bartosz
