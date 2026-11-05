@@ -1,87 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793890841;
-	b=wSZLJEhL+zYzoArl25EXV08PBOg8sJCCJhEfLe2VjT0vgPBrTE+xNr/TKBhV7gAvaHRA
-	 AGvsipTjcvSqej/AJPxApkS0XuxzXoGeSS8zW8sqFQs4iwa7/dig5AE8sXiAELJlchMem
-	 iuL9F4B8fV1EprQXwHqCAeqybdhdeBeZ90kkcBwoAcRfN7veNfRrcH6fkDW9fmDKropVw
-	 4zx/6OlADW8YrvEY9dyUf4x2UC3X3KhDUB+DdCcW4fOP+WYKIdTnGxvqb6vYx7roTILpG
-	 GdxB0GQ7lPMIkS12whvtvmVnWB9lp7IqYT2yjlGzeOSDcOPJCcAiMHpfGN7nlzA9tfQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793890841;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=GGID1vEGmxlhJubnVm56qCe+584XOcxBg6J482g0XBI=;
-	b=P2XEQ/zcoDXbTfIjlEmIhsFZEfVn1DP/kK4mnym0eON9CiK9wuNawdkO8QS8XLRVQo9L
-	 EjMiRJRt4tvxHOoNAbCE+KHoiezNFVIkG7VUppW3U1wcQP4rdZYnrLnb18upIs1X1PTfe
-	 MYIxoruBwi7sO2rtX0MRY+KwCb8lG5GQrZgzVDZnh4IomG83ktJN0bW5i6toymNisx4jJ
-	 QfmKlWQ61jlEcX8i9rply5W3eonhlY9T9PQ7FdCEcxOawjKBOdhgv2550RGkI9PrU855k
-	 CmE8wM3i0KGOS6B+M3z1k66LLgzFkwLiTqDuuFh0OknPImLyfKkLU2glM8APJfpG1Ww==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=OpINkCMT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793890857;
+	b=KKqWqIqpqZtCfApObeZHNql5zEcQu6/C5g9Ll32jOgCO2P47+n4NpfdxcbTSq4v1fXsG
+	 A9EfUF7yRXCtqlF9jifKGuskYAu94dvoaTqvZowLR2AcJzwjFUmNWF0+zzjYRI2d+uiqG
+	 /IotzBkZfyuZ+zOVXPulf/V+ctpoH3bY/LysyLPpBjBCAxiG0SEm8xN473NPT2WYKzM8R
+	 5lD9twd+Xl1rQavo4hBE1iNyrK/2uKkwK32bqpizcYLagUoKlKCN1zXgnYh0nySJWr0x4
+	 zy3PBAKdnclQjvv+7S746AGOCDvsxYZCWxEWDvh52TOBxpaZTQdw8X1aGa8shvrhfQg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793890857;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=leAQgaahqk6ie+8K1Enx+eS2rtZduvQyWhwKq33EErA=;
+	b=Q152vIpjFZghLJMGxUwmOSlcb1rSc2lwheJTK3TPs4iBvFEmgOQFbCP2bFTagPhfn61O
+	 pfUqQjamuQaSlxg/YOIPjeIU48llo3Iycs3Nbt8oiBOAT/T0dgjoTFq2kBr5mYip8c6xI
+	 k9gnp6NgnB5KIO5MCpqn5zJzrQWJ+Ct6kfZpnYpSCxEoYgrZcXBSKNTRkMEirIm55pCQd
+	 VpnVYkzeRts53T0t3njjul6gGxWjhPKarF4kbvPeJP3EMiV2afZO6+4UrACEJzFDCn6UK
+	 Qced9fc+C/ODHG+Oml8vFNkHydFsO0uiiy3apXJhZyxD4a7j2iTKdCkdH7EEVZaO5iQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=KbqNeg9T;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="bkHvQS/j";
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8709A606A333;
-	Thu,  5 Nov 2026 15:00:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8709A606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8CC4606A339
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:00:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8CC4606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=OpINkCMT
-Received: from ptx.office.stw.pengutronix.de (ptx.office.stw.4.pengutronix.de [10.9.0.3])
-	(Authenticated sender: relay-from-ptx.office.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 34AEB2020F5;
-	Thu, 05 Nov 2026 16:00:33 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793890833;
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=KbqNeg9T;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=bkHvQS/j
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793890856;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=GGID1vEGmxlhJubnVm56qCe+584XOcxBg6J482g0XBI=;
-	b=OpINkCMTWfmWgbQqY37XhoZ8X9wm4O2L3BWfnUPYRAth8HkmMe4fzWhQn3gBFzNG/ypfEs
-	MpIITGdsaV+v/f8LVF8pR55ZZS3IvRtBNUW/jP7TUoX6hFdG0H3RadL2cRJE3UZ/Ky9fZO
-	EErUUBqiW4uNvEqH+61XAW3mlge+z8XJHoKRAQJyXgvyftQx7ku0F96VYC3JWaSDIn/B5k
-	BiQlGEDU3SH8knrpfiR5uNsGErlvw/i8HwhNiQjvgYNac2ZW4RvEXO/AA7sFXcImtOMRk+
-	4lhvs5brzSaGqh3Urb7kvmSN+DLR7OVRaBnTvfAa3LJtw+UM1jTZ2TIGGOwVKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793890833;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GGID1vEGmxlhJubnVm56qCe+584XOcxBg6J482g0XBI=;
-	b=AfEQ9ItYIfx67ZQHnZOiSCYhIozwM6hgy30D8bFub2sla6xj+BMUezQSQdRG3/tPvcLPXj
-	Sr5aRX5kTa7JVA/iR6HEgIGZ+pQ6aOR1LjLHgT9SD45O3SpVaEgk8x/rC+cDTqsXsPbicc
-	vwQ4NMzFtIxqO3ONlPtSK2HSznSrozM1U94k11rRluDsGsOkYLYa056Rmb74aLU9nZxL/M
-	E8ZJsvmS4ZYA1nx0jdRbqecqmhvC27VsIeUxp4FYplS7LD8gYcvdShAAVRc8jkTkEKmEEz
-	0FfC9Ni6nKqGbzSzi+RWRxBXf1Jvp4R8sI9WTFoLjZbYRXAIxZeOhjZxAUBGqA==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-ptx.office.stw.pengutronix.de smtp.mailfrom=mfe@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793890833; a=rsa-sha256;
-	cv=none;
-	b=J43jk3juJ6r4hf7tDRXaaJIfsdU70nVFRR2ywvs2kQTcqrsRAqZkUq5TaTlbxVFpUF9EBw
-	1bsCG/GTGWGXI92+iVgQeEsByCZqYvEI6xXYwN1N27ilZda6nOJxCR2xirGhM2zkJhqEiB
-	NZ00yft5WBRR7/foUf9Qyj75qO9mtsQSASnndyRI1zgdVI8t5OWHNNFYjIzj1Ca3hw76xr
-	0Vh7rGZXAIp3mfjdbr5jqp0iOEkFpKKim/5BCplmpTZKsrhwsGTIXe6E2ySnqT0ktN1Xji
-	krki923h0pCgjSmo451il+FavEr48Z5gvelEDeQOrJmIFLN+rV0kzNj/nAb5dA==
-Received: by ptx.office.stw.pengutronix.de (Postfix, from userid 1064)
-	id 16AA81BF5CC; Thu, 05 Nov 2026 16:00:33 +0100 (CET)
-Date: Thu, 5 Nov 2026 16:00:33 +0100
-From: Marco Felsch <m.felsch@pengutronix.de>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] ARM: dts: nxp/imx6: Drop unused .dtsi
-Message-ID: <krvg6bwsueypasvt6fqszh7itqr3gu3qsqbji2ernqqy6g3t4c@b7hqenmaugik>
-References: <20261105144920.2796623-2-robh@kernel.org>
+	bh=leAQgaahqk6ie+8K1Enx+eS2rtZduvQyWhwKq33EErA=;
+	b=KbqNeg9Thp1SIYzV8iorRVtD7Cxe987mTuxpC/tI5Gir9NyTpcY8UyBpY6A91bwA8UGjKS
+	OGANeyDtWkP/wwdZTUUtkJBNcW6jxm4YGYg6LE4KeAOzkW5tZ473PTvELX6Wmn056vrHml
+	VvUET2VJ8SMAWHMpdFE5NAcyc3guXW0=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-145-pBsMQYYuPEqDbo5_jsOThQ-1; Thu, 05 Nov 2026 10:00:54 -0500
+X-MC-Unique: pBsMQYYuPEqDbo5_jsOThQ-1
+X-Mimecast-MFC-AGG-ID: pBsMQYYuPEqDbo5_jsOThQ_1793890851
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48e00f3929bso508922f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:00:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793890851; x=1794495651; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=leAQgaahqk6ie+8K1Enx+eS2rtZduvQyWhwKq33EErA=;
+        b=bkHvQS/jmWNzi4FaAFkEKmaIvLRSj7SaRjHeBoWdFSvhe0OfjchrKSLTuhekhh+1e/
+         0f3GoFOBYPLwcsTQw4Eaj5WJJofXIrbWndVQnMUi4x+fBMyh0GJ6rMLRpuSmGr1/Phl/
+         0u15TgEY/F/gOLKRxFZpEfiIf1f6xrbJX9rmZ4RQsw0eMjubk7Jgm0FGvKibSYFhl7t/
+         MV+u2fgPDwwJMFTXwgDiChnDArfPZn3Tl4nyaPy3RHB3Qcf+BinOHNGIGihlLLESlIl6
+         prLepj9a2BcLV5utOuGHZVd32mugRcarbtSt6QYtDFuKDimJQLXY2/ZWWHjGZI0MGORC
+         shNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793890851; x=1794495651;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=leAQgaahqk6ie+8K1Enx+eS2rtZduvQyWhwKq33EErA=;
+        b=jpRNcPhbOXhnAefaXLc/DGSSq233n+KFozUn9Iu0bMVmB61t+p9WfFFAXludEYQLvf
+         dlqTqhCY5L61w1zhGxmsCpkQ6p1yHIfD30yXhZOY7WNbUtV9nm5E5hfJ8lRemHOpbag2
+         jDc4cvlCXNzXrBA8JdslW9mg2eTl8XX6sGU0k79PhyeR94yTH/hfsfQv7I2afvBIbR9P
+         eOzeJK7e9zRE0iI5XLMdKZ5Z3ga0qI+aBOMHjtKo6KCftfveHaVb6eR4u3vz4/SS+TxI
+         gUhtyO6Bw6O74GMMbcNtjTUPwqs6xYZ8E+Vh8NYSrsPfGQVSBOKDuAy+IFXB0IyM0pfP
+         mrHg==
+X-Forwarded-Encrypted: i=1; AKwUvBzsujWzHq6g4/n5mD4Xv33J2t6vxUxRoMycaD0SB679+a8jfbM4ZPlXnjSb1sesElMPmOkNsj5oLicCb78=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8d2sJ4xuUsvaFMyiStIfHSDecR1YNESk4mFJcoO8oI5YFkACe3
+	Xg1dvVOfyscLnH3jXQS2R+Pg4nkdOfI/XEOG5NVNOOd+dQmRR77i5O7uXLbud07PT1d+1FN0oOe
+	uiQoreDR/QItNjPcqeQDnGTLwAD58CigWZ1TyDiR2wvQ5VD7xRX3BypVbNEaV1/8mtw==
+X-Gm-Gg: AYBFou2qPtC7jqhPzMyz1jU2nrwEGgGKjRGgLF1IK1JqR975T+vFjN0MMOSpLWOy+v+
+	oevgkYSYQQoV3JDkIqJRpjWkBD8VaRBWdNGnotGRAnKbXGTv6NtbM/SzQpr2VELBDHELwdvVTyt
+	SyeKpzd3ADuKMG1L/aVEN/p6bFYF3qZNw+J84VYnOeco5Nm1QM+p4DCYi30vc6xGkpGH1BmCuzq
+	G4Af9/MyHWyMoXtxXcFMXwFiXG4BrFyYaHcqYvrqjx7Cu90/JWA1kU5dVqLg4nq4xETim0OsM7+
+	tvAZaaFKHM7fQ6daMCPREG0QXnRY8+YzT/KGJ/8o506b9NZ9IsQjoolQcU5VGBigis1d3aJXs4h
+	JiwMtgXFj9kjMN2RnJzU1oeYngYks+7EJRwkkjbwgcD7SnFRry0yScAMRLy9Xx7VVwRUUNr4g47
+	jn4g==
+X-Received: by 2002:a05:600d:82e2:b0:4a1:c27d:e1a8 with SMTP id 5b1f17b1804b1-4b55d7d7a2amr55606755e9.10.1793890850739;
+        Thu, 05 Nov 2026 07:00:50 -0800 (PST)
+X-Received: by 2002:a05:600d:82e2:b0:4a1:c27d:e1a8 with SMTP id 5b1f17b1804b1-4b55d7d7a2amr55605885e9.10.1793890850041;
+        Thu, 05 Nov 2026 07:00:50 -0800 (PST)
+Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b452eb99b1sm108926575e9.3.2026.11.05.07.00.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 07:00:48 -0800 (PST)
+Date: Thu, 5 Nov 2026 16:00:46 +0100
+From: Juri Lelli <juri.lelli@redhat.com>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	linux-kernel@vger.kernel.org,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Luca Abeni <luca.abeni@santannapisa.it>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Waiman Long <longman@redhat.com>,
+	Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>, cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev
+Subject: Re: [PATCH v2 08/21] selftests/sched: Add a test of SCHED_DEADLINE
+ policy round trips
+Message-ID: <auyaHi0W_R_LLXUE@jlelli-thinkpadt14gen4.remote.csb>
+References: <20261104211207.1392343-1-mathieu.desnoyers@efficios.com>
+ <20261104211207.1392343-9-mathieu.desnoyers@efficios.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,189 +135,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261105144920.2796623-2-robh@kernel.org>
+In-Reply-To: <20261104211207.1392343-9-mathieu.desnoyers@efficios.com>
 
-On 26-11-05 08:49, Rob Herring (Arm) wrote:
-> These .dtsi files are not included anywhere in the tree and can't be
-> tested.
+Hello,
+
+On 04/11/26 16:11, Mathieu Desnoyers wrote:
+> Add deadline_switch_test, with a case for the fix two patches back and
+> one for commit 41a7968022ca ("sched/deadline: Fix total_bw leak when
+> switching away from SCHED_DEADLINE while !queued"):
 > 
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+>  - throttled_round_trip: a task with a runtime of 10ms per 2s period
+>    spins, so that each replenishment throttles it again at once. Right
+>    after a throttle it is switched to SCHED_OTHER, and back 200us after
+>    its deadline: past its replenishment timer, and before its 0-lag
+>    time, which the overrun scaled by 200 puts later. It must run again
+>    within a period and a half. Three attempts;
+>  - asleep_round_trip: a task of 9ms every 10ms, running 0.2ms and
+>    sleeping 50ms, is switched to SCHED_OTHER and back while it sleeps
+>    past its 0-lag time, enough times that a leak of its bandwidth at
+>    each round trip fills the root domain: sched_setattr() then fails
+>    with EBUSY. Skipped without admission control (sched_rt_runtime_us
+>    at -1). A kernel that leaks is left without SCHED_DEADLINE bandwidth
+>    until a reboot, so this case runs last.
+> 
+> In 8 VMs of 8 vCPUs each, v7.3 fails both cases, and v7.4-rc1 with the
+> four deadline fixes of sched/urgent fails the first; with the two
+> previous patches as well both pass; every time.
+> 
+> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 > ---
-> v2:
->  - Rebased
-> 
-> It's been nearly a year and these are still orphans. There was a promise
-> to upstream something for the kontron ones, but that hasn't happened.
 
-That's unfortunate, but these includes are used at least by the barebox
-bootloader [1,2], dropping these would cause a DT regresssion.
+Thanks for the selftests! Very useful.
 
-Would it help to upstream [1,2]?
+FWIW I did propose some already in the past, but then didn't get time/
+tokens for a follow up:
 
-Regards,
-  Marco
+https://lore.kernel.org/all/20260306-upstream-deadline-kselftests-v1-0-2b23ef74c46a@redhat.com/
 
-[1] https://elixir.bootlin.com/barebox/v2026.10.0/source/arch/arm/dts/imx6dl-samx6i.dts#L8
-[2] https://elixir.bootlin.com/barebox/v2026.10.0/source/arch/arm/dts/imx6q-samx6i.dts#L8
+We can probably re-start the effort with yours and keep adding as
+needed.
 
-> 
->  .../dts/nxp/imx/imx6dl-kontron-samx6i.dtsi    | 12 -----
->  .../dts/nxp/imx/imx6q-kontron-samx6i.dtsi     | 12 -----
->  .../boot/dts/nxp/imx/imx6qdl-pico-dwarf.dtsi  | 45 ----------------
->  .../boot/dts/nxp/imx/imx6qdl-pico-nymph.dtsi  | 54 -------------------
->  4 files changed, 123 deletions(-)
->  delete mode 100644 arch/arm/boot/dts/nxp/imx/imx6dl-kontron-samx6i.dtsi
->  delete mode 100644 arch/arm/boot/dts/nxp/imx/imx6q-kontron-samx6i.dtsi
->  delete mode 100644 arch/arm/boot/dts/nxp/imx/imx6qdl-pico-dwarf.dtsi
->  delete mode 100644 arch/arm/boot/dts/nxp/imx/imx6qdl-pico-nymph.dtsi
-> 
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl-kontron-samx6i.dtsi b/arch/arm/boot/dts/nxp/imx/imx6dl-kontron-samx6i.dtsi
-> deleted file mode 100644
-> index 5a9b819d7ee8..000000000000
-> --- a/arch/arm/boot/dts/nxp/imx/imx6dl-kontron-samx6i.dtsi
-> +++ /dev/null
-> @@ -1,12 +0,0 @@
-> -// SPDX-License-Identifier: GPL-2.0 OR X11
-> -/*
-> - * Copyright 2019 (C) Pengutronix, Marco Felsch <kernel@pengutronix.de>
-> - */
-> -
-> -#include "imx6dl.dtsi"
-> -#include "imx6qdl-kontron-samx6i.dtsi"
-> -
-> -/ {
-> -	model = "Kontron SMARC-sAMX6i Dual-Lite/Solo";
-> -	compatible = "kontron,imx6dl-samx6i", "fsl,imx6dl";
-> -};
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6q-kontron-samx6i.dtsi b/arch/arm/boot/dts/nxp/imx/imx6q-kontron-samx6i.dtsi
-> deleted file mode 100644
-> index e76963436079..000000000000
-> --- a/arch/arm/boot/dts/nxp/imx/imx6q-kontron-samx6i.dtsi
-> +++ /dev/null
-> @@ -1,12 +0,0 @@
-> -// SPDX-License-Identifier: GPL-2.0 OR X11
-> -/*
-> - * Copyright 2019 (C) Pengutronix, Marco Felsch <kernel@pengutronix.de>
-> - */
-> -
-> -#include "imx6q.dtsi"
-> -#include "imx6qdl-kontron-samx6i.dtsi"
-> -
-> -/ {
-> -	model = "Kontron SMARC-sAMX6i Quad/Dual";
-> -	compatible = "kontron,imx6q-samx6i", "fsl,imx6q";
-> -};
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-dwarf.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-dwarf.dtsi
-> deleted file mode 100644
-> index 3a968782e854..000000000000
-> --- a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-dwarf.dtsi
-> +++ /dev/null
-> @@ -1,45 +0,0 @@
-> -// SPDX-License-Identifier: GPL-2.0+ OR MIT
-> -//
-> -// Copyright 2017 NXP
-> -
-> -#include "imx6qdl-pico.dtsi"
-> -
-> -/ {
-> -	leds {
-> -		compatible = "gpio-leds";
-> -		pinctrl-names = "default";
-> -		pinctrl-0 = <&pinctrl_gpio_leds>;
-> -
-> -		led {
-> -			label = "gpio-led";
-> -			gpios = <&gpio5 31 GPIO_ACTIVE_HIGH>;
-> -		};
-> -	};
-> -
-> -};
-> -
-> -&i2c1 {
-> -	mpl3115@60 {
-> -		compatible = "fsl,mpl3115";
-> -		reg = <0x60>;
-> -	};
-> -};
-> -
-> -&i2c2 {
-> -	io-expander@25 {
-> -		compatible = "nxp,pca9554";
-> -		reg = <0x25>;
-> -		gpio-controller;
-> -		#gpio-cells = <2>;
-> -		#interrupt-cells = <2>;
-> -	};
-> -
-> -};
-> -
-> -&iomuxc {
-> -	pinctrl_gpio_leds: gpioledsgrp {
-> -		fsl,pins = <
-> -			MX6QDL_PAD_CSI0_DAT13__GPIO5_IO31	0x1b0b0
-> -		>;
-> -	};
-> -};
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-nymph.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-nymph.dtsi
-> deleted file mode 100644
-> index 3d56a4216448..000000000000
-> --- a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-nymph.dtsi
-> +++ /dev/null
-> @@ -1,54 +0,0 @@
-> -// SPDX-License-Identifier: GPL-2.0+ OR MIT
-> -
-> -#include "imx6qdl-pico.dtsi"
-> -
-> -/ {
-> -	leds {
-> -		compatible = "gpio-leds";
-> -		pinctrl-names = "default";
-> -		pinctrl-0 = <&pinctrl_gpio_leds>;
-> -
-> -		led {
-> -			label = "gpio-led";
-> -			gpios = <&gpio5 31 GPIO_ACTIVE_HIGH>;
-> -		};
-> -	};
-> -
-> -};
-> -
-> -&i2c1 {
-> -	adc@52 {
-> -		compatible = "ti,adc081c";
-> -		reg = <0x52>;
-> -		vref-supply = <&reg_2p5v>;
-> -	};
-> -};
-> -
-> -&i2c2 {
-> -	io-expander@25 {
-> -		compatible = "nxp,pca9554";
-> -		reg = <0x25>;
-> -		gpio-controller;
-> -		#gpio-cells = <2>;
-> -		#interrupt-cells = <2>;
-> -	};
-> -};
-> -
-> -&i2c3 {
-> -	rtc@68 {
-> -		compatible = "dallas,ds1337";
-> -		reg = <0x68>;
-> -	};
-> -};
-> -
-> -&pcie {
-> -	status = "okay";
-> -};
-> -
-> -&iomuxc {
-> -	pinctrl_gpio_leds: gpioledsgrp {
-> -		fsl,pins = <
-> -			MX6QDL_PAD_CSI0_DAT13__GPIO5_IO31	0x1b0b0
-> -		>;
-> -	};
-> -};
-> -- 
-> 2.53.0
-> 
+Do we want to have per-policy subdirs under sched?
+
+Thanks,
+Juri
+
