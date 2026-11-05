@@ -1,79 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793902346;
-	b=lmcjs8gBv5U692vd/rW5bf/L0M4cOZDQXhQs39pdOzDrw3F6L5e8TILOpM/Ff0CZAx62
-	 fss7DewhdlcRQZrXL9BmhI2TlkJdFy9HjQXReMGuYYa4Hdswxt0uwBitzN5hwyrxdqC9r
-	 k2WmAeay7/0mC5rTTHR+wiTdlBru2yGmJ3grd7P08sL7eW4J9foyNWXYLD9FHXGVPLLe5
-	 z0cI69Ays7uMB9sK+YG0JTNOI61wf/L+yDHiqwT7NsQK32ZKwb4j7GK+g4yrZi8Yqo819
-	 c84jiiJ28mdmCwS0PNY0YaapNXxvJ5QNRN5GoMp1YN+bDdyT2ZxRbnzcmeKRkt/T2wQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793902346;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=RBmIUHu80SKW/VRZZOQILzfNjSh0opGCQpCY4Xr/Iro=;
-	b=36zYLaNWqYq8URMUs0jYFlHCec1UDxVOe7DF16cGpd8rQZS7TRMfMzk0YBL0x+MgkIvk
-	 QV+/zLvD6nEHDF8sHc04BKd3xuuvIRXpxWCFLqkQoml3wzqJGVLIgdipsT8SI7RbvjQ1c
-	 1GZhZUV+5l8AKxceH8uiVNNdkSQgrUcCIXhiHSRMuV4Cv/SA+GnEWnCloe20kmSqrILKl
-	 vrBB3MKwMopAjL6CeQB+6eDlEo6zz2+kOLIBEq1/lYNndcOS1tTTgD4jlu4+QeqO7i0FN
-	 tGKLQD/4c9/jXNcRGGx9j9JHepdKmAjIoWG9EMklH/QF1ZEnn6fjERk2jlitAsQhCAg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=emGD02vN;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793902374;
+	b=pvYQqYgHI8bPqPuRwWKW/CtpvBDbJsT2galqV7lkmbnk0NTqQMcTJ7YAKz+fpTMT5Ijj
+	 OnTuhVvWQeQHaRbhHdRW1+4KPMS3ioQs7hWc5JyJbkrLnmg0JaG5vuE/WfKtHf6F7rgsN
+	 ASpUkDvvcFnh95VLAaB5fIl+HT1Z35YEiNY9Ke/VNtCDJHF6Pbs0Qr52maISRdjZki1QO
+	 ewxOC68gJ5qBzJPH4oThd/ttM3/LGqtasE/0kRGuyW2CDMFSdzs0JJzcK9SK8eqljXOtm
+	 gKPfwamMMnRWUlowbh4BBgAwkYZHl4gAPB/3FyoW2j0eGtHqhH2WuwFJp1N0mDOHBdA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793902374;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=HF0Vu6VSMOjUFmnKIzWkq+Vw4SFQ9ACYgeHBYhFMgzw=;
+	b=pr6NcfL6s3Y3BK2W3A530GpOIzoURkSHYruAqRHZX2lQpE9Y+k3JENpjDUgxhq9tq8FB
+	 LgngbEIg2AfeM40MELHbdDkITQR++RU4DZ0mNr391yFtLOR7d1dsZPuuGRVTaXM+NrKvp
+	 ohI1+t2SSehN+Zqwm3g2xHckEvtfYd6ZtRr9OOVZrArCVcJwj9MgtaZj1A8MGklf3S9Ej
+	 wJnHPGN5wwnSsvBAr0tmAKiMVwaPX6Ns5iKLDGQyLA7e2HfKwXrGaryd/rH4vUSZweBJk
+	 M8U57JJRJZY1q6tVzDS95HOgAcfsUCxm5QvW8PD4IyhC1zgQQpKlUegQWPTESbZZhyA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OLOeqqep;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EF50606A328;
-	Thu,  5 Nov 2026 18:12:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DB55606A332;
+	Thu,  5 Nov 2026 18:12:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DB55606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=emGD02vN
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793902346;
-	b=kpIdHWFLN3BaiGkRhCD0ULSGc4ACkhLVLRmOP7nHivfUTm1SZfNzDjmW4zJx4AG71+Wx
-	 cIF+BbxaxhxOxMTWPlMTuufLAZRacOyw1t9vONxLxg4Av9GIpFXtSaVEdKalGc5Z5jYQf
-	 u4ZhGWDqoHx+foc0syKuCPhfSlwfoT+O78YWDaYZFAk+TD+AzPE6N/gSmvI43JeAwsa4v
-	 y5f6rXx2KlhxFrq8v9UM1osDwLKivAMiFj8GoItFqsLr3XGCMwqS/j0vcXBZnxNJUpZCo
-	 L03epXk+SR15pbvAVbITmRXRMAPBRlAJTQMqBUwz8eA27TMJAIYGntmBYtu+ASSIBmA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793902346;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=RBmIUHu80SKW/VRZZOQILzfNjSh0opGCQpCY4Xr/Iro=;
-	b=Gq+hJZgu6kmk6ZrcmXnHJXSdK4sw5AAaDcBJpv2YBOV9WdGIQXrSjV143Au689YRH2qf
-	 h0ZsbMJ3Aflm3SSgLBBvEUJnIZa+3uauO4IPZWBoWXETiZLsNy1+Ey4xsX8ZOVPVwpv8v
-	 Hpg6ERrnq4o8trcUloazOAgpD2sk7noexK9wRu/K5dpucNIk8fLLOJ7g3p13hZ3A8TmKP
-	 lN9ML2Ckbc4Lh0ZX1Qyq2wKvGEmPRdNd+E2XU7xgtnRAtGomVtsBwCUTfAtDFxleGlrZN
-	 gykovnEM05ZxADLAk54x4E0Abw3E8eAedrvn66WIGjK2zeXAg9/73qrk5pLTfTPvnfQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5596F1F00A02;
-	Thu,  5 Nov 2026 18:12:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793902346;
-	bh=RBmIUHu80SKW/VRZZOQILzfNjSh0opGCQpCY4Xr/Iro=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=emGD02vNyJCJzMnOiHyU/utHrxC8U1zW81e6NyQwwo707uthChZ7oN7HOReNfOEMQ
-	 qox7ko5uygsPSWunmnseSvz+Yp7znq+HLqVY30PR0kZzmfz6CUi7KjUYL+KvwzT7so
-	 wmU3MO1uOCN9FvALHbeiWxDU2/2byoJI8DxLugS8DJvmIX27Lg3z02jg2JX/pEa/24
-	 MmhSK7AJCQaugefeNBfRk6RIDyf+lRe7RG2nOC0nHgbUZ5LVDXE/v6O3hGCxw6UbKJ
-	 /5Gt62GYfBCTZPGoB/nzxl/yTORFVmxKiS6Vazu9zCmOcCU5MoRuJ++MHZCP6fOoow
-	 T8S5yuIeUboHw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id DDFA4473C8;
-	Thu,  5 Nov 2026 18:12:24 +0000 (UTC)
-From: Christopher Griffin via B4 Relay <devnull+christophergriffin05.gmail.com@kernel.org>
-Date: Thu, 05 Nov 2026 12:12:23 -0600
-Subject: [PATCH 2/2] wifi: ath12k: don't leave a monitor link started when
- its stop fails
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OLOeqqep
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793902373; x=1825438373;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=JnIGBm5gDZbm79UwkA8MEm2OUw3yr/fKfWYvNqxqn1I=;
+  b=OLOeqqepGvILSMV8sv86PZdPp2w42DAZ2A02b+DFCeElKFM9cSQDrog5
+   NugsMFIJooNghwqPaR7kNftP4Yp5nbTD2IvoVL+OgSmzTsUrSQ4dKtuih
+   sGZHSC5VVvqVWIl2DOS/8gznBSM9e8259hWVbin552NHQMI8Pn9Y6O1lm
+   /qJC4Vq2MieX0cUXQNJeP9I4pXEj6cWvXZiXDw4noMfoiLG5R+Hho5TE/
+   GkNvke2R6Or2B/cPzU3uG8vsgDrofvyqeCq0FAv2a+9mURb8MAlLUN3gN
+   jo+GIZ9yF3i5sxv+Umytx202Qrh80RPx1rfFkcyjAouvm8fpxbb9QrOdJ
+   w==;
+X-CSE-ConnectionGUID: NsFniMpTS/a8si4vwoCOTw==
+X-CSE-MsgGUID: 2/C+29GnQ8qTvP+1kDg3CA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2696944"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2696944"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 10:12:45 -0800
+X-CSE-ConnectionGUID: Q4LZzfRwSh21y2t81bRfmQ==
+X-CSE-MsgGUID: AlzSNgyqRdq3s8uEY9Ce0g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="8842063"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 10:12:39 -0800
+Date: Thu, 5 Nov 2026 20:12:37 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Alejandro Colomar <alx+linux-hardening@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Andreas Schwab <schwab@linux-m68k.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Daniel Scally <djrscally@gmail.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Len Brown <lenb@kernel.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Saravana Kannan <saravanak@kernel.org>, linux-acpi@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] string: Add strprefix(), and deprecate
+ str_has_prefix()
+Message-ID: <auzHFRzd86iV4-RA@ashevche-desk.local>
+References: <cover.1793876837.git.alx@kernel.org>
+ <9c81f6f62fd0e908e683c4c08b09a1f95bc2ec9c.1793876837.git.alx@kernel.org>
+ <20261105111423.360f4ba8@gandalf.local.home>
+ <auyuINXEJKc1KoG7@devuan>
+ <20261105115019.2fe7c91b@gandalf.local.home>
+ <auy0O467UqOzqYub@devuan>
+ <auzGMV1YbO9DodBq@ashevche-desk.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,86 +107,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261105-ath-monitor-unassign-v1-2-277f0fbadb91@gmail.com>
-References: <20261105-ath-monitor-unassign-v1-0-277f0fbadb91@gmail.com>
-In-Reply-To: <20261105-ath-monitor-unassign-v1-0-277f0fbadb91@gmail.com>
-To: Jeff Johnson <jjohnson@kernel.org>, 
- Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>, 
- Jouni Malinen <quic_jouni@quicinc.com>, Kalle Valo <kvalo@kernel.org>, 
- P Praneesh <quic_ppranees@quicinc.com>, 
- Ramya Gnanasekar <quic_rgnanase@quicinc.com>, 
- Wen Gong <quic_wgong@quicinc.com>, 
- Karthikeyan Periyasamy <quic_periyasa@quicinc.com>
-Cc: linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
- linux-kernel@vger.kernel.org, 
- Baochen Qiang <baochen.qiang@oss.qualcomm.com>, 
- Pradeep Kumar Chitrapu <quic_pradeepc@quicinc.com>, 
- ath12k@lists.infradead.org, 
- Christopher Griffin <christophergriffin05@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793902344; l=1783;
- i=christophergriffin05@gmail.com; s=20261024; h=from:subject:message-id;
- bh=yJliLnA52UPk6OOcZziqgLXylvHUHFJud+o6Dahzovo=;
- b=RtI+6f08VIMKSgrwalriN0ZtZkc2Iu2Qe8TRHTrgj/6k40N7JIbH5s21SSzcD4HAbUzPEHa4p
- VaHljDdHCQgAdHgfZS9xoqenVGZJOZd07I55M5njTRLZWP7jChamzqJ
-X-Developer-Key: i=christophergriffin05@gmail.com; a=ed25519;
- pk=oa9tkTNpiGoFWdGvpDHXLSobApmsh9BfrJRJrRJAvWA=
-X-Endpoint-Received: by B4 Relay for
- christophergriffin05@gmail.com/20261024 with auth_id=1309
-X-Original-From: Christopher Griffin <christophergriffin05@gmail.com>
-Reply-To: christophergriffin05@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auzGMV1YbO9DodBq@ashevche-desk.local>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Christopher Griffin <christophergriffin05@gmail.com>
+On Thu, Nov 05, 2026 at 08:08:57PM +0200, Andy Shevchenko wrote:
+> On Thu, Nov 05, 2026 at 06:46:18PM +0100, Alejandro Colomar wrote:
+> > > Date: 2026-11-05 11:50:19-0500
+> > > From: Steven Rostedt <rostedt@goodmis.org>
 
-ath12k_mac_op_unassign_vif_chanctx() returns early, with
-arvif->is_started still set, when ath12k_mac_monitor_stop() fails.
-mac80211 can't fail an unassignment and considers the channel context
-released, so the link's next assignment hits WARN_ON(arvif->is_started)
-in ath12k_mac_op_assign_vif_chanctx() and fails with -EBUSY. A firmware
-crash during a monitor channel change is enough: the vdev stop times
-out.
+[...]
 
-ath11k has the same flow and shows the warning that way on a QCN9074.
+> > > Oops, typo, I meant trace_event_filter.c
+> > 
+> > Still not found.
+> > 
+> > 	alx@devuan:~/src/linux/linux/master$ find | grep trace_event_filter.c
+> > 	alx@devuan:~/src/linux/linux/master$ find | grep trace.event.filter
+> > 	alx@devuan:~/src/linux/linux/master$ 
 
-Fall through to the common path, which clears is_started.
-ath12k_mac_monitor_stop() already warns on failure.
+Besides that the above is yet another "Useless use of grep".
 
-Compile-tested only.
+> Oh, you are an oldschool guy :-)
+> 
+> I can't believe people with Git index available are using `find`
+> and not `git ls-files`. `find` is too slow...
 
-Fixes: d889913205cf ("wifi: ath12k: driver for Qualcomm Wi-Fi 7 devices")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Christopher Griffin <christophergriffin05@gmail.com>
----
- drivers/net/wireless/ath/ath12k/mac.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+$ time find . -name trace_events_filter.c
+./kernel/trace/trace_events_filter.c
 
-diff --git a/drivers/net/wireless/ath/ath12k/mac.c b/drivers/net/wireless/ath/ath12k/mac.c
-index 9fd3841f71b71..7d04f16f99e37 100644
---- a/drivers/net/wireless/ath/ath12k/mac.c
-+++ b/drivers/net/wireless/ath/ath12k/mac.c
-@@ -12422,13 +12422,11 @@ ath12k_mac_op_unassign_vif_chanctx(struct ieee80211_hw *hw,
- 
- 	WARN_ON(!arvif->is_started);
- 
--	if (ahvif->vdev_type == WMI_VDEV_TYPE_MONITOR) {
--		ret = ath12k_mac_monitor_stop(ar);
--		if (ret)
--			return;
--
--		arvif->is_started = false;
--	}
-+	/* mac80211 can't fail an unassignment, so the link counts as stopped
-+	 * below even if the monitor stop fails (that warns on its own).
-+	 */
-+	if (ahvif->vdev_type == WMI_VDEV_TYPE_MONITOR)
-+		ath12k_mac_monitor_stop(ar);
- 
- 	if (ahvif->vdev_type != WMI_VDEV_TYPE_STA &&
- 	    ahvif->vdev_type != WMI_VDEV_TYPE_MONITOR) {
+real    0m0.081s
+user    0m0.028s
+sys     0m0.053s
+
+$ time git ls-files \*trace_events_filter.c
+kernel/trace/trace_events_filter.c
+
+real    0m0.014s
+user    0m0.010s
+sys     0m0.005s
+
+$ time git ls-files \*trace_events_filter.c
+kernel/trace/trace_events_filter.c
+
+real    0m0.014s
+user    0m0.004s
+sys     0m0.010s
+
+$ time find . -name trace_events_filter.c
+./kernel/trace/trace_events_filter.c
+
+real    0m0.083s
+user    0m0.021s
+sys     0m0.063s
+
+(with IPC to `grep` it will be even slower)
 
 -- 
-2.43.0
+With Best Regards,
+Andy Shevchenko
 
 
