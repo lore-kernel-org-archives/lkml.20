@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793875388;
-	b=TI2WgQaZSQ7Zw94o++Zp5IBJQWMUaUP8EPWjf0nKUEa2zsJ9I99cu8F9m4QSrsd8oukZ
-	 LPPheXCujNutUT2RLVHNzt6hjN98Ff2Q4jLS3p1+astHQnRwQ1Ed045TtpqigddYHi+FL
-	 5XKxLi7A5UPUFTCKBIVvUNVdWH/YeOtuVQCoS6jWrQk1WDRjN3eHGX2tmXwZY0DJg7dKC
-	 21JAK3xifqwdJCXXu5NQhLZPtIn4Om17Wk7Joken53CxestltNFxvRJGcmhvJkayJBRAZ
-	 bPq3uYH2WQjGdKBfdqIHFBObUeZn/cG5LTNA/7X7HjRk716ojhy7e+ghCWAp0eBT4GA==
+	t=1793875397;
+	b=He9ce9sRjPRFHZbwiGlJmulDN9rKi8aHVZ11Fe613r37Peew9Dw5AdBe+pveA6N/QlPB
+	 6LMDkpCpaXiUXz/JIS5okArIeL28m0kPkv+23IQPWLMGzZGg54dblIqUi3zAprcbgD4mS
+	 rDBLZxLh8ZklgWqBkJv8Qyqb2lTjQgV3w/WYUwZgGgKTxMsD2UiADxLUZbGGds3vxM6s9
+	 Okipe9yo2n9BD8x+HLIZC10GyQEXvou7r1W/so/887uR7jgp069oujeuVLDDhNh2RfjH0
+	 fLznvvIdnsKid3gmuZjfemYYNPOqUaWf7GmHXXwp8u8Q2pZ6301/CbNAwTLPFW3rJXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793875388;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793875397;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=WU0mTIuYpv0rehcbLRaasNOk5Yx7WkJzHYLOVNfF1wY=;
-	b=bkcGunMVYHRjeEPLF3QB2TFEa6QATcVkAfPoFUpgJPDkEd9Ixlr/T9xUGsa3S0V2TXdZ
-	 r/7/ZhJgdDJ39stFDik9oo73cSDGgtzk29TSCyHUxIJ0yu7h+f+RFL0g/B4Mk25askHJA
-	 i3F5bqU36S3audldyF9FkwPf4Td3XbLuw9aXwU8XT9BxAICQDba93gimza3bZO+Mlm3BO
-	 X5uF+qm+tWALeAlR+oMmAXygm+2oAsXUWtcF9l2ki1HEbDIlnuefS5UngHk2KhN1d4gXp
-	 LOSOz4SRdOeD7/0fU90EZ9uQFeD9Uk5RV8oM6KrCpYYUczjPMlWnJQsfPRXYYTMcrzg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=wf7nEs/6d3ZIbLvKZhlKXZqIu3RM64be+7ASwgNMPP8=;
+	b=r88AwsvELUXSsaRnEHsHZfEI9woHF6BCncTFeZO82S3WqeJ5yCAg/5Sq4RE+J2l/mapi
+	 SmXw3tgUdNhFQkxb3Oub8yrg2sdSrUyuw3Gdm5Fe6YEqAHvifMoCHkyPDI87jjLxCEakY
+	 ADTMM1OjEgjV2VlhHRIClQZr1G4cuTMF+5fB9kKWeq1I1yjhMEhl3644C5zLJUY9OKesq
+	 EK3lb+FaklW5LuALvQW7zmdZc1bykxh8Y65MdugGwCu31lIy6pZZKx8+39hSRlaMfaO5P
+	 6Y0gpA5PeAte9GWObkRM7ogZ6zv1HoYGk7sEz9v5jYBiBzOZ2XcWq6uEpfTGsd5NpJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TsPaJdrf;
-	arc=none smtp.remote-ip=74.125.82.53
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jCihkUr7;
+	arc=none smtp.remote-ip=74.125.82.52
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1200E606D81B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:43:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1200E606D81B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 351F8606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:43:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 351F8606A328
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TsPaJdrf
-Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-15ea896ddc8so2909941c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 02:43:06 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jCihkUr7
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-14394530ec6so2402905c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 02:43:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793875386; x=1794480186; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WU0mTIuYpv0rehcbLRaasNOk5Yx7WkJzHYLOVNfF1wY=;
-        b=TsPaJdrfPMNSicoio0TvfmbAOmwFm+KsdgoBDi6nJGpBVwhhBbxcGnOIAvtheSdFFK
-         R6hVLA094QGG/Qc4t7zW4+xsMUQ2jpeKVCadXZ0rt1dty24liR5QDwTrI32ynBQZhYzZ
-         /HaBXtJLkeLI9QA92GbM742hUAQk0rshzUxN1oQCWxDXi4VgdeEAsGEFZe38yABq0mlR
-         D8TgJVcGj4GlOQtSeW4DLx3TRgkMYQnqHNXl+xdp41B3BEhsfdD+iiN9d2490tB/U677
-         ZOBgEdqRlJTAz+PEGiizuSNw208ie6mX5HjaJWcZn6MLhJuJ+yEq36DIr0gfDUz7YWIv
-         fEkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793875386; x=1794480186;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793875395; x=1794480195; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WU0mTIuYpv0rehcbLRaasNOk5Yx7WkJzHYLOVNfF1wY=;
-        b=VgyAg2fI7ubPlSYvbCHnV999B7rE9f7BpCXTgw02hk52dpDFhUyWTZ/54bNhsQZDh9
-         Pmwmh6GkYv5o3nx3kHJBTYig379F+sxyXWbYk+M8bFpheFVnRulBbyWjvn4UQrI37dp1
-         YhJ+T2Fzy2uGw1CP0oijYTCnRn6bQlQUo6QGO7lqFTybLOkfbCsk9iJkoOPFq8lI71/i
-         Ve85J0l0QJh1KqdYH1Hu/z52jaejWJ+e/ejBzhJgHuTn7wCp42RgPxvCluqVNhHspshx
-         YZdeP59ybOalt4rdDeS0KUYrv3cE+sYyz8FNvniyJ7+lc5Jz+/jZP1VxftAPPW5NVahU
-         iIxA==
-X-Forwarded-Encrypted: i=1; AKwUvByS0rY0DsHwrTsUE3rWBe/mDYpJfVDzpGH8d+zBWpv039ewWUNzEdDiXnuHcZAh+VostMGf8Any6TqJ5qU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ez59cEpA6WJE0/7S1eSHt6zQRq5sqwJRTw7YX9e7UgkjJoqf+
-	n4RWGzgiuM5ZSDeGxcltlxRDBm/ENXYwXv2oGckAzZoXKpDoVsfit85UO9Vb/A==
-X-Gm-Gg: AYBFou08YLbKS0d5+TJ0Tg+gorOgCoHiNaHGuMn9jJmjxYM727W4aZltB6MO2XyqOyN
-	cl/Y8/dJnq496PVfiL02dsjCKF3GCi91Vi4As4Kr8yx0SbFsoYVc10Em8a+PxqoELnCz1wu4rpG
-	CGog9jFNT4lh6Vvi0eAT6gh4u2Wgrvo2WUf9eUMyyiKlfWD6opCLNS/j7XW6MCoqnXd/jzRtHqg
-	aGAKdD+g+b2fMWIJaXaFx15fBtK1EOtQQ2/Ti2y1LylakIGBQCZ7mbhqY9W6H1uLNHHb1nHs+Lx
-	xk3cqvK8z2KGNLRF3K9/Jb4L8Ah3WP2ZlHCZFvNOeB7pDvcZ1is8AiBw4++zT+7DlylJaEkP2bx
-	OA4mGudzVA6IwfOd1hljiG8PtLbyli2hoQ3wi4XOlbDZ9xkGVhQdNr3yPh6EK2XTVdURDTz9wKu
-	JNKXb3klxH6er8kyV/wE7hAAvYoseFccABAvPEWY154BZJ7n5yvmimxcpdL45LPSGBRdFHHUqqN
-	oF2SnRb5iPtBuVuyt1lNhQ/Fr8xv5VBLwJ2vo4si/FaedSdop4QHbtTYuFuK2vyRAttlARRo2ta
-	aeD35wQzXRvcfk5mjfAH4BhC2Ykt7c+rwg6mXB9vTHx1eKChBVZucHlr9/09cw/28cruM2aywOI
-	XfO2mpLpzz2RhoFHzFeng2VEwrOJynfRSyBn+d/sy8JWA
-X-Received: by 2002:a05:7022:7f0b:b0:1a7:2ce7:ad10 with SMTP id a92af1059eb24-1ac5d69f67emr26766196c88.44.1793875385784;
-        Thu, 05 Nov 2026 02:43:05 -0800 (PST)
+        bh=wf7nEs/6d3ZIbLvKZhlKXZqIu3RM64be+7ASwgNMPP8=;
+        b=jCihkUr7ExR7ixQkjEC9I0PzTY9rJYB6o1SRh3dtGPuzbIGMYLRqpA8hj2egFk+y51
+         vfF+WD2VocguhfW18P7f7/k6p56+KCdyw+SOaOSpTFkpaJ27bNsrexryl+7ou664Ng1O
+         9fFz6NQPq758nmfc3Cxri8NMJNLRninmxOfwvMdvAZExWol1ayFt70ZK4s5FMl/BuweB
+         EScAzoxLHEbR4W9nbACfC2kULsDbATaw7IVtajkdiaiJB7L1iszYPK4SZtDPfujl0bWi
+         oSAveEOIZXxJibqnhy8lSMOKdVnT7c3JseP80Va7UkbDWYArUl6mIHAFoHyEJwGaaMMq
+         shPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793875395; x=1794480195;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wf7nEs/6d3ZIbLvKZhlKXZqIu3RM64be+7ASwgNMPP8=;
+        b=N0V4YANPSr51FI0y9vOJgGlaBx7nk3IXE0EO+ji07xgnYQL4TP9NV3myzavN8Hr6HS
+         cyK1ZKOssOrjquHPF7xs9+6HVHSJD2BEvm/VN2SNXh2LD4NSwifttSDbYG671Gu+m9vR
+         sof9YWGnRaQy8m4sgBHtLlPgpBnUITrLGz5O6tfsg+wt3qCnppX/O9Mvq7AApnEn5ezq
+         zHIQZNAw67dmYd2NLc0RPohJmNEE1t5R7/IEXowPx0QJQ8YEcx9oNv0XBkPLuEUpKVxp
+         4N0P56MkIeJgetu/LTydi0jUhAtv2XqDqg73aUEztUMXvlFRXsrQ/lLYC4/Vw2to7dZE
+         Uw0A==
+X-Forwarded-Encrypted: i=1; AKwUvBzr4JMlEkitPaQ+xIDNYyO68bAFEEdxoyt30QWPiIN+w9eL2xqaLlUu3+UG8zDMRHkTCasr0PbYNIzzt5c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8vwIa9ry4aH9mldd+40D53/t2MwscmGvc3WX85wXycibLR1UGH
+	BC31gDyzGl4Gww85Zwmx+XUsLQc0Ib0TfX7mlsMGLUEZG7adXNB92e1X
+X-Gm-Gg: AYBFou0d8aE4ln1g/+KsfNiZg4IZAeDmfgeSH2dBNBjDYNebAUJQLJaQw094GlVnACu
+	7i23bwGxJto786g+vWsHC5PyexMxGzQB1UsIYxvFCgn25dzS29nPUdRDdxjUdke9R0pJzWmM3cn
+	mALKx4fGaEC72m+upJpQxyx7Eqi9CS+Qw3HF848yxd3did4FbPcCTxItKeSMv5R1v3LrGjnpVrW
+	M+aYzcdyUbiCXNG0S3ZEqvbmjo4CBMdcXZFTaliX+oqiUVGOjnAM7W3C5kDlS1DpM8dlM7B3h/q
+	R55jV69598A3tOd6NF/ERAHR+YdDK7MZ2Pa13Ypit7P6sSOTct6BvXhnpfgQeVAkW/8EpP7bFt9
+	MteGpSjJ134EVXVoUkXtG84OntbshOXz0qZBwmQ6Dg0cTvopgV70p3zhCGL0fBG6THbGfBg8SY2
+	AsJpxIdxru+JmeSA+KxsR7ofsI5621B9yPjRclyKC2aaFyrhApgPrhygP9oI5HjuYtPSvpOeGh5
+	/rCc0uv9YBDVXtYEpmeAiURMx4p5LT4ug6gzPVDJpGQ+HHlitTYIYpbGH/qTzoSTs3nOzTtZIHL
+	4w031ToA7Nk58qYI+vHQe4VAuOn5Z5UoXn3EBpX1WXf7LSrJ879cpiI5gNAtNA8ZjWsa018WGm+
+	5G1+T42D0uKgoDWXcdIELZq2PVhx+4ecyIqxG31gMkDlhPt1rCP/XfCnw+iUnS1CGJA==
+X-Received: by 2002:a05:701b:2806:b0:19a:ace1:793b with SMTP id a92af1059eb24-1ac5d888f2cmr30014440c88.18.1793875395166;
+        Thu, 05 Nov 2026 02:43:15 -0800 (PST)
 Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c1c272sm15595215c88.8.2026.11.05.02.43.01
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c1c272sm15595215c88.8.2026.11.05.02.43.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 02:43:05 -0800 (PST)
+        Thu, 05 Nov 2026 02:43:14 -0800 (PST)
 From: phucduc.bui@gmail.com
 To: Shengjiu Wang <shengjiu.wang@gmail.com>,
 	Shengjiu Wang <shengjiu.wang@nxp.com>,
@@ -92,10 +93,12 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH v2 00/10] ASoC: fsl_sai: Address several issues in the driver
-Date: Thu,  5 Nov 2026 17:42:27 +0700
-Message-ID: <20261105104237.38542-1-phucduc.bui@gmail.com>
+Subject: [PATCH v2 01/10] ASoC: fsl_sai: Fix PM QoS cleanup on resume failure
+Date: Thu,  5 Nov 2026 17:42:28 +0700
+Message-ID: <20261105104237.38542-2-phucduc.bui@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261105104237.38542-1-phucduc.bui@gmail.com>
+References: <20261105104237.38542-1-phucduc.bui@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,41 +112,47 @@ Content-Transfer-Encoding: 8bit
 
 From: bui duc phuc <phucduc.bui@gmail.com>
 
-Hi all,
+If regcache_sync() fails during runtime resume, the CPU latency
+QoS request remains active even though the resume operation
+failed.
 
-I've continued reviewing the FSL SAI driver and referred to the
-i.MX RT1180 Reference Manual when looking into its register
-configurations and behavior:
+Switch the regmap back to cache-only mode and remove the PM QoS
+request before disabling the clocks, ensuring that the resources
+enabled earlier in the resume path are properly cleaned up.
 
-https://www.nxp.com/docs/en/reference-manual/IMXRT1180RM.pdf
+Fixes: 907e0cdebc1f ("ASoC: fsl_sai: Add pm qos cpu latency support")
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+---
+ sound/soc/fsl/fsl_sai.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-Link v1: 
-https://lore.kernel.org/all/20261030091404.18757-1-phucduc.bui@gmail.com/
-Change in v2:
- - Add five patches covering disable handling, documentation, 
-   ISR error handling, BCLK ratio validation, 
-   and preventing incorrect CHMOD writes to the other direction's xCR4.
-
-Compile-tested only.
-
-Best regards,
-Phuc
-
-bui duc phuc (10):
-  ASoC: fsl_sai: Fix PM QoS cleanup on resume failure
-  ASoC: fsl_sai: Use optional clock getter for MCLKs
-  ASoC: fsl_sai: Remove redundant error messages
-  ASoC: fsl_sai: Propagate device tree property read errors
-  ASoC: fsl_sai: Drop redundant dataline mask AND
-  ASoC: fsl_sai: Warn if TE/RE does not clear on disable
-  ASoC: fsl_sai: Clarify fsl_sai_dir_is_synced() documentation
-  ASoC: fsl_sai: Check regmap_read() return value in ISR
-  ASoC: fsl_sai: Reject bclk ratio smaller than slot width
-  ASoC: fsl_sai: Don't write CHMOD to the other direction's xCR4
-
- sound/soc/fsl/fsl_sai.c | 89 +++++++++++++++++++++++------------------
- 1 file changed, 49 insertions(+), 40 deletions(-)
-
+diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+index d232c8f53061..042885ba415e 100644
+--- a/sound/soc/fsl/fsl_sai.c
++++ b/sound/soc/fsl/fsl_sai.c
+@@ -1981,7 +1981,7 @@ static int fsl_sai_runtime_resume(struct device *dev)
+ 
+ 	ret = regcache_sync(sai->regmap);
+ 	if (ret)
+-		goto disable_rx_clk;
++		goto remove_qos;
+ 
+ 	if (sai->soc_data->mclk_with_tere && sai->mclk_direction_output)
+ 		regmap_update_bits(sai->regmap, FSL_SAI_TCSR(ofs),
+@@ -1989,7 +1989,12 @@ static int fsl_sai_runtime_resume(struct device *dev)
+ 
+ 	return 0;
+ 
+-disable_rx_clk:
++remove_qos:
++	regcache_cache_only(sai->regmap, true);
++
++	if (sai->soc_data->flags & PMQOS_CPU_LATENCY)
++		cpu_latency_qos_remove_request(&sai->pm_qos_req);
++
+ 	if (sai->mclk_streams & BIT(SNDRV_PCM_STREAM_CAPTURE))
+ 		clk_disable_unprepare(sai->mclk_clk[sai->mclk_id[0]]);
+ disable_tx_clk:
 -- 
 2.43.0
 
