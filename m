@@ -1,55 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.202
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793849128;
-	b=WVBAChFHW2lLbncqrP/u4/3a/1jyKI8iMmu0GSs/l1AfflRi6xFUE8Gp+TaOSdxIBcMf
-	 Iq3KOoWvdpbggxkaGZATkEDYZSzeHBxDwv/SjAFQTy808wRyWu8xEufEoKJZNqddsjMXP
-	 fXfnMCYDDb473BttaLivy5BO4+HivSb2g/tNwO1k8kD1IDQLA11KD+qdXktE1vIf/xI+p
-	 P81y8dOQQl39H6UsZxlX1Ji71IDyGfa6cV7Pfn49m8bYGQGwzuYic9Mbw4SdzYGd9Udg6
-	 9afZLHEVzHuxl+jwXcxUYqP0p9l+CGOiju23fnjCsJ7CDVjbEHXdHLFVsQgr+Lw0Dsg==
+	t=1793849278;
+	b=wxSx1rDBzGJeymZIOjGV+japrhMuL9la6GoI17H4qqlmXnoAz8Lcm5rZqy12uwX4oyhv
+	 BgbjevvsaGG1ludHSe0T/N7xFsEU/kQKP+G7Rttdl+qXGhaE3dmR0KRSpWgYWKDf5d5W4
+	 WpJbBF4Dgnp9KvJqPbzgxbxP1noqesYScJVUoy9Q8agFgIL8GAElWrNXIiV0grfts3DkL
+	 bwDWGyxu/GsuHCJICsTsxs0dgyh9U+tSC9qgrJ3vG8mcQLUkSDrdzRrKgnuKIDxDutk35
+	 aJVNT3XzjKEhqKiN5pGI9sTQ1RrE8OD//zt3SiIVHeJ8KggMnQezTGzZllOjqmS+k/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793849128;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=DFRZ7QXKXPAVQTwjKmq6RCiErLGdMEwaLBPGPazQE7A=;
-	b=34UCLtTpHsirI7Z2RaFPI7Mno4yQ3Bw+DsUAcXirD1MzTMoyfjWIIbgWgqJQUzsuuZLs
-	 ua7AMLXldaMnf5/wjVWbdRvc6KYtBaRi+Z2YvsnAxQsP7vDEdDFvyrAMQW5HA6V9Ezt1R
-	 SGo7uxhFzDk9tl59zY30c+5DlGsU04LN4aQpQz4w+hpRhyyEO9VHw6/f9sGo5D0OKySBp
-	 fy4M5Y4G38U+QH+hPvLedSfYRwhyVIMMvKO2dKWGiV5tvqInS+EdrGXAPKR1dJK9jeuSc
-	 i5+VZaek3FLTjIn05Z+0hDBIROp4zc+ooMw53TeMN5BC5i3Jlrq7hE4v14lEGoQTlvQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793849278;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=WSnrvizyH/3Y4hnKNO/DGtg+xlXa8ybuP1DvPmB6OUE=;
+	b=j7yqC6SjlijI4Hvh7kXwqNcdGvRNoFgheodzYSzKTGsI/dc21IbKV2ILARKIc9uCF/rX
+	 WCQLiVvchives7A3wEUPfPiTxWkEI+HSx1XXlAynSrxbDjcg3FOLi3LveboYJqHDQIWIg
+	 sl3QuyjnOkqFU8H1MZzxGjbUrq1FJf91cJZqtkGKBIcxGC23+9tS4kZzoluUgXmIeKjRI
+	 Bv3Cc05XX10vU8wXtOJZ+yr9UIK7YBQ8RJpeKn0u/1OlXrtT0dfcrielidWJ9FAkVUVnE
+	 13egz0bJOSJMN8d9eD6i9chK+PtgqSG3Hu/84cfOVm5oOSihdrlHQdprHptOHsN5mTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KFRPOa8v;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=EpTH5Lgw;
+	arc=none smtp.remote-ip=203.205.221.202
+Received: from out203-205-221-202.mail.qq.com (out203-205-221-202.mail.qq.com [203.205.221.202])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC75606A33A
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 03:25:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2DC4606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 03:27:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2DC4606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KFRPOa8v
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 568141F00919
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 03:25:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793849127;
-	bh=DFRZ7QXKXPAVQTwjKmq6RCiErLGdMEwaLBPGPazQE7A=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=KFRPOa8vKidxfknkfWYdWtFWhdGgDILXr/LpGwlTMuPUGRO9lV9p0wRwWaF54QN70
-	 4DKRT0c3mvKU6nhUedhQgwsIdVKI9SE/98GlzNRgmxaMfOaEBS1YgIoebv9BU0wvCe
-	 Fszcu+DRuceUWHowBmokByklB/TBTHkhYihCuh6rVkQc9msjGavp7d5VLwkq39SrT2
-	 6300BJxhF8T4Cvj5v/1jBji+kw1g6r65QEiJFCdscSSAKDCVsPjx2cZRCItVy/YE3f
-	 VLlFjGLAJLSV+/F1zEfQvvVAIe06QvW9AFk7kraaJNyxPFaXMmFdgfuba75vJo4j8m
-	 +s7riBgiw5AdA==
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5be4a2d94adso1319126e87.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 19:25:27 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBx7C53fqwyJne+u8SUn1Fwdztm2oxDncsDlzyiKI3vdT7UXxTNDX5bffq6y98WLeKOTLEQ+oIQb1g6x5m0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8nDehTaRmR3N6dOq3GU2Gmrj3GwC7usafCOGtq5G+9c6dwAhl+
-	VvU53kh7syusoUQEXkc5DlLG2p8pcglkJbDDzuuBoDFkb5py+nbXi/LAwnj8r9F/6FBeiPtu4mV
-	DjfNfLXtAwvGt63Can7yaO1VGJYA3+68=
-X-Received: by 2002:a05:6512:3e19:b0:5bc:c325:1260 with SMTP id
- 2adb3069b0e04-5bfd957e7d6mr5933625e87.55.1793849126127; Wed, 04 Nov 2026
- 19:25:26 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=EpTH5Lgw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793849269; bh=WSnrvizyH/3Y4hnKNO/DGtg+xlXa8ybuP1DvPmB6OUE=;
+	h=From:To:Cc:Subject:Date;
+	b=EpTH5LgwDT4Pe8TTIzp4m1q5T1pZ+Nrq0/zKnJv4yiuh5lz6oG5oRtWJWjch3BSUE
+	 w9SwkNmxxE4n55HAACdWkB7DsAN4TPmjplAduZ4YJpYQ/RTDUfJX6lizxSMZW/hyUa
+	 6a+mScQ2NF6HhicSLScDzb5dJTuw2KtDPPqhjscQ=
+Received: from shuai-VMware-Virtual-Platform.. ([218.28.192.28])
+	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
+	id 6EE1A02E; Thu, 05 Nov 2026 11:27:46 +0800
+X-QQ-mid: xmsmtpt1793849266trffmrav4
+Message-ID: <tencent_FAA58958D0E5079A7E70B1C4382752DC9509@qq.com>
+X-QQ-XMAILINFO: MRMtjO3A6C9XFyWHgECT7Dl52DKp48LaCrLuTclpE9nXcDcZUhjtaMRgrIkjAa
+	 y4zioyv0iX1ThnS4/YK3i8PCbZcUHARJYYGYBTcpcYnTTgayrlB/wJ2TSl+xojXRaxAZJxYsMIsH
+	 8YplLfL3VUqb3tdh0t08sfigQfCa+11mw2GigfQ6EDj2yyfyNUAgIMReoXIu1+Su0Xa5W551I4cg
+	 MfanyBYyp4Z63K2bP83GarHqXTxjQaUc88gOGzBAYuexogq8PROTKSs+HzDUSyQT1Qf2ftOd20FR
+	 HWh78a9X2VsY/UDENztR89KNmxgz2j6dROnqykFjxSlhxZOZENwCayy0vO9bmHYiG1fH2bBm4Sw5
+	 mrXd2iIlJtP2HN4E/pSNzyCgKd4qawTli1iHQOd5F5pn+a7WzMbsvd8hAGs9EJZGNEzMJGthlQxy
+	 F1L+kaCDBw3pAFZFW3fzvrnBI4JFWWQefiYDTmtV9/85n4ve8EvRHiIQQ4xFApAWOTotiZMRDbRf
+	 M0CIE/t7X7LkC/azCXGOu+jjyYnWaWD2vGFpkTPEW3lpsieCQM/6f/Y0VdLhsrIvdCoYJSImNrFH
+	 xsJc6N5hmwjdDjNgqKlXTnYYssYGKTxOL15MVSXVttDEODApLztmE1azJqAvBABjta5ldFzT8o9e
+	 UZ5Hc3h1xpaXt0wG2Xtobkbmyf0/3ykgLpf31m/xF7WoiqN7MPVWEQmTSIMXSAoADd4ctl8DQdW0
+	 MnlQePzGV9ElE7zwmnKlsLxfdaBclBeMWEEDP14LfajbrbqDhasMeNjaLWXUHz+9kWu1AVvj6h5d
+	 dkR8q9+e7Y8U6HvVwlelVICgE8GVcHS9I7c2lvyaGDOBXcI1S55Z9a8jfwalHlmyuzjrfDlBgQcl
+	 w7RYjGjDh9eyRNfo98XlbdCKasDtK/lPZgu7xgG/v8IXVBb782O+f/YIl2tGOGWVMpBNNeXHi7yv
+	 cS/abw6JWbHawcM2e6HvdZ6KbdwRWQb0zZGu6fKgvytE2lwNRkYPLl3KvKups+G2QnUtmUuAxT4A
+	 l9UqlgcGgkUUVTOiu26FHO0gF/6oau3bVHjaURqhMLUo4hLWyGWUxnHnPTFCiifQIyKPjQGEyym8
+	 TMyasg0yTrYJZkUw7KdYsZEN/SV+N1PUHLNKzN
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+From: Shuai Liu <847807867@qq.com>
+To: linux-mtd@lists.infradead.org
+Cc: dwmw2@infradead.org,
+	richard@nod.at,
+	linux-kernel@vger.kernel.org,
+	syzbot+0727f46a0571de01bf93@syzkaller.appspotmail.com,
+	me@eltavine.com,
+	Shuai Liu <847807867@qq.com>
+Subject: [PATCH] jffs2: fix kernel BUG in jffs2_sum_write_sumnode on empty summary
+Date: Thu,  5 Nov 2026 11:27:46 +0800
+X-OQ-MSGID: <20261105032746.19827-1-847807867@qq.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,81 +81,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260910123951.1241279-1-max.kellermann@ionos.com>
- <CAOi1vP9mrDMaABV=KtLRwrGVkBrPrGGBU8mUUnfm6wpdn_rM7Q@mail.gmail.com> <CAKPOu+82TXE2PqXSmSa2hPdj1X-AtP3BVACsBEhn=EKuOdjSRg@mail.gmail.com>
-In-Reply-To: <CAKPOu+82TXE2PqXSmSa2hPdj1X-AtP3BVACsBEhn=EKuOdjSRg@mail.gmail.com>
-From: Xiubo Li <xiubli@kernel.org>
-Date: Thu, 5 Nov 2026 04:25:14 +0100
-X-Gmail-Original-Message-ID: <CAOuZWzy1MQ8WNvZbfQj-vaN83kiZzuKuyV3yxM-W8aBLsz2e8w@mail.gmail.com>
-X-Gm-Features: AclHuK-E-HFu7aurtBFFGXkXEBaOQEk070VBg_Ma8mHsee35kyST0vbL8Ms1-gg
-Message-ID: <CAOuZWzy1MQ8WNvZbfQj-vaN83kiZzuKuyV3yxM-W8aBLsz2e8w@mail.gmail.com>
-Subject: Re: [PATCH] net/ceph/messenger: print TCP connect error
-To: Max Kellermann <max.kellermann@ionos.com>
-Cc: Ilya Dryomov <idryomov@gmail.com>, amarkuze@redhat.com, xiubo.li@clyso.com, 
-	ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 3, 2026 at 8:06 AM Max Kellermann <max.kellermann@ionos.com> wr=
-ote:
-> On Mon, Nov 2, 2026 at 10:08 PM Ilya Dryomov <idryomov@gmail.com> wrote:
-> > I wonder if saving the error that way is actually needed.  Can
-> > con_fault() just reap it with sock_error() at the time it runs?
->
-> Maybe that would be possible.  I wasn't sure if sk_err (from
-> ceph_sock_state_change()) would remain untouched until con_fault() was
-> eventually called, or if it somebody would clear it in the meantime.
+When the first write after mounting does not fit into the remaining
+space of the nextblock, jffs2_do_reserve_space() closes the block via
+the summary path and calls jffs2_sum_write_sumnode() to write out the
+collected summary information. However, if no node has been written
+into the nextblock since it was selected during mount, the summary
+collection is legitimately empty and jffs2_sum_write_sumnode() hits
+BUG() on the empty-collection check.
 
-It does get cleared, by ceph_con_workfn() itself.  SOCK_CLOSED is only
-checked at the top of the loop, so if the error arrives after that
-check, the ceph_tcp_sendmsg()/recvmsg() in the same pass reaps sk_err
-via sock_error() and con_fault() later sees 0.
+This is reachable with a crafted filesystem image: the only partially
+dirty eraseblock picked as nextblock at scan time has too little free
+space (e.g. 140 bytes) for the first reservation including the summary
+frame, so the block gets closed before anything was written into it:
 
-I tried both on a 7.3-rc1 kernel.  Reaping in con_fault() works for the
-remote ECONNREFUSED and ECONNRESET cases, but with a refused connect on
-loopback (ms_mode=3Dlegacy and crc) the error was lost every time:
+  jffs2: warning: (4872) jffs2_sum_write_sumnode: Empty summary info!!!
+  kernel BUG at fs/jffs2/summary.c:868!
+  Call Trace:
+   jffs2_sum_write_sumnode
+   jffs2_do_reserve_space
+   jffs2_reserve_space
+   jffs2_symlink+0x172
+   vfs_symlink
+   filename_symlinkat
+   __x64_sys_symlink
 
-  state_change sk_state 7 sk_err 111
-  try_write ret -111, sk_err 0
-  con_fault: sock_error() =3D 0
-  libceph: mon0 (1)127.0.0.1:1 socket error on write
+An empty collection is a valid state: there is nothing to summarize for
+a block that the kernel has not written to in this cycle. Instead of
+BUG(), disable summary collection for this block and return. The caller
+then falls back to the existing non-summary restart path
+(JFFS2_SUMMARY_NOSUM_SIZE) and either uses the remaining space without
+summary reservation or closes the block.
 
-With this patch the same case prints "socket error on write
-(-ECONNREFUSED)".  Using the try_read/try_write return value instead
-doesn't work well either, because msgr1 returns -1 for protocol
-errors.  So saving the error in ceph_sock_state_change() looks like the
-simpler option to me.
+Reported-by: syzbot+0727f46a0571de01bf93@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=0727f46a0571de01bf93
+Link: https://lore.kernel.org/linux-mtd/20261015145341.34322-1-me@eltavine.com/
+Suggested-by: eltavine <me@eltavine.com>
+Signed-off-by: Shuai Liu <847807867@qq.com>
+---
+ fs/jffs2/summary.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-A normal FIN-close prints no error code, and a synchronous connect
-failure prints "connect error (-ENETUNREACH)".
+diff --git a/fs/jffs2/summary.c b/fs/jffs2/summary.c
+index 4521a7723f30..1e4a19df4c49 100644
+--- a/fs/jffs2/summary.c
++++ b/fs/jffs2/summary.c
+@@ -864,8 +864,17 @@ int jffs2_sum_write_sumnode(struct jffs2_sb_info *c)
+ 		goto out;
+ 
+ 	if (!c->summary->sum_num || !c->summary->sum_list_head) {
+-		JFFS2_WARNING("Empty summary info!!!\n");
+-		BUG();
++		/* Nothing was written into this block since it became the
++		 * nextblock, e.g. when the first write after mounting does
++		 * not fit into the remaining space of the block. There is no
++		 * summary information to write out, disable summary
++		 * collection for this block and let the caller fall back to
++		 * the non-summary path.
++		 */
++		dbg_summary("empty summary info for jeb at 0x%08x\n",
++			    jeb->offset);
++		jffs2_sum_disable_collecting(c->summary);
++		goto out;
+ 	}
+ 
+ 	datasize = c->summary->sum_size + sizeof(struct jffs2_sum_marker);
+-- 
+2.43.0
 
-Nit: msgr2 still prints "ceph_tcp_connect failed: %d" in
-prepare_read_banner_prefix()'s caller, which is now redundant.
-
-Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
-
-Thanks
-- Xiubo
-
-Max Kellermann <max.kellermann@ionos.com> =E4=BA=8E2026=E5=B9=B411=E6=9C=88=
-3=E6=97=A5=E5=91=A8=E4=BA=8C 08:06=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Mon, Nov 2, 2026 at 10:08=E2=80=AFPM Ilya Dryomov <idryomov@gmail.com>=
- wrote:
-> > I wonder if saving the error that way is actually needed.  Can
-> > con_fault() just reap it with sock_error() at the time it runs?
->
-> Maybe that would be possible.  I wasn't sure if sk_err (from
-> ceph_sock_state_change()) would remain untouched until con_fault() was
-> eventually called, or if it somebody would clear it in the meantime.
->
-> --
-> Max Kellermann
-> Principal Architect
-> Hosting Technology
->
-> cm4all | Im Mediapark 6a | 50670 K=C3=B6ln | Germany
-> General information about the company can be found here:
-> https://www.cm4all.com/impressum
-> A member of the IONOS Group
->
