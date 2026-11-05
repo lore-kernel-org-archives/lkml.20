@@ -1,111 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793911011;
-	b=peL4gmzIRgb+jJWUWSvNtwrNIZ+qohHDPEzhw+XISW8l87CRvwu3R+d7CheX1a9AtyNH
-	 PLffg00xE1j0+GsZBojr++pSztDC4qvAKp/yr1hno+XjTMc3yzU56n43j63HtgJDbHCvH
-	 dQMBATT/UAjTDLvM1kyqC700HEjqfgV7ODnAaYvlLVPp+HIJOcnVDGEM/m2BbB/od7h5f
-	 /ijbdoLhCMIZ+jSPiD4ZEstm5AqDc76rZeQkz/RZNDvOmgtYs1uLshf6VYD1Yu4/slnvt
-	 Mg6jmpvif4o+18k8W0uwQ9qFJgmkwB5PuITvpOYram7IzASq22OjVMWI7GAWCbK/gzA==
+	t=1793911034;
+	b=3TpIAj9FraZujpePUCVTdT/QK9IrmnqjtGjtFGhEvvrkK5cSxQUCzLxN4LvGHpC9lsmg
+	 aKDEVpkCfzpEHlCsW+7nsTg7kuTmi8Wly7z9fcg2MvxSqxz1ZhISKH5z619StUzrxECW9
+	 eblbuTFzbE1NQqFHNe3e11lbqw1CNCmEFu5/Sfbm/FhsF4WnNfQYo19eo0v9PAgoNRMzw
+	 Xn6aTKr6Il0I+TsyGDOgvtSvD9fxxPwKNvUDJZ4r/RHGAGUynnh6JvqkuWJF9Q78Mo+3b
+	 dICBh5vHstPkEAfA+zxVxCFFasRbaqP3DhLK+WAysEPYY548uswnNhizY308nuiL6pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793911011;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793911034;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=B2i0ZK07PlEBtX0QbaKuDG+2M0dY7t2yh0/Eybj/INg=;
-	b=GLyRcANvBiE6/rdh1iAm8zIFXAU/llV4Gjvic170ILV2s8MXLZUzNFqWEfM30PBaOESZ
-	 aRYY10XZLpAHQ0I4QJ8XqVZtNYPija3jU2ehxayQVwJd3l/bbRFmSaHRKobfv5o/rKE9G
-	 75D/9/Ks7SsPmpdRP51wPchGbQoX2LtQxs2caerhKB8roX8W71SHUPr3CnUZMxQVEXRK3
-	 QW68MBB7bnsJS6Ne/N65ErsepeqdI5BfuBzb2E0yzF0OVb9mwxLoLAQMmDvp0NwOsVrc+
-	 PXbI/dQZouXFurIizhZcFCtwopSl6fp74BFQC/A9tktsbGNi3tcPck83RPDVt7M0nnQ==
+	bh=OsK3MYz9w+yugO7b/K4HKpqaj9q9ojfCF04yLKl5NIw=;
+	b=a3oyhKBt3+X7nEtaJr/ZMni8YVbrcBurlHHNgo3N68Zpt43pwt2gjv/0y1MGfNxfQjnn
+	 MH+CbGaVdjyHZ6F1S0DiOoQKoti8hvy5nrbN6eK4LrnmH1Tl6u1Wqp15Qf8MSybRrQJJq
+	 O6NO3MHM+vk5ld9ac46bLEAriN/se022RmOMi34MEOOpKSrBxJrHMIvxXbA0x/Oz9A6qU
+	 hFXUaRtXHj6Qfkgh5X94FpThnSK+5BkMU3knMtqRrEITgsshMxseD0muk9xm6H6e7kZMs
+	 Fi1b9TUkXT4850cQJPgL/IzBbHVXKNgUMi9mRWiBbiSTlZkbkas5wEl0zOWXsLGOd0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=efficios.com;
-	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=x5AekszR;
-	arc=none smtp.remote-ip=158.69.130.18
-Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VLjqKX53;
+	arc=none smtp.remote-ip=209.85.218.53
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C5B0606D803;
-	Thu,  5 Nov 2026 20:36:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C5B0606D803
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985B560A3809
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:37:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 985B560A3809
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=x5AekszR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1793911008;
-	bh=B2i0ZK07PlEBtX0QbaKuDG+2M0dY7t2yh0/Eybj/INg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=x5AekszRqXdfQwKV+XhbMkYVoRhiQbfwjJnTLEDMQh7V2jor+1hO646aM2nSp2BN1
-	 P9VGVFbGxo8czJ/HoUNyrOxeZTGt62/CZF3QeP6a9PYcsOMYF7X44ZwTRrYYj65KFc
-	 Ud9/qEmBCCsSyYE/BPDh4AjeJ13l9gBbtthCIuuRcO1QYCxHB8oIUJwuLIGgN6zuDH
-	 MqlPItIlReuqKWqCzrWRGGsh+bBDUpg7H25DnJIDqRnqmsAXV/bCMqc/AoSjV5y2Kp
-	 1sNG2K6vEJ4lqf3SHbN9wpgoTK5JTe+ToKt1ojOy+hvFr3EgQRIzskf69nxUeXibOp
-	 MhZFIw13rrdsA==
-Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jLDcc1LV9zM4n;
-	Thu, 05 Nov 2026 15:36:48 -0500 (EST)
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-To: David Hildenbrand <david@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VLjqKX53
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c3f04e0e65fso13247066b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 12:37:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793911032; x=1794515832; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OsK3MYz9w+yugO7b/K4HKpqaj9q9ojfCF04yLKl5NIw=;
+        b=VLjqKX53wk2FlolXU992mYaqTGC6wNE6SL1bf8QJbpY98Tjjoj5etV6rIWnkHCHMyK
+         DY9jMhCZSs8tIRoXqSTSTwTv0rUc2yc8AcipQ8x0oASHwAoSRKIzGQLyr2+TLrZK2AgJ
+         CLEXbvJmPZReR+mKjeljGXlfzQvMxTmtqH/zJ9WnCtBs2NGntp1Asc47G3hqnluqi2Hd
+         UIcMf5ucETFTStS87oIltmPeCcqyoeBw/mdnqckIq4nFhZGFEFR9YPVh1QyVtifGKEqz
+         io3pyglCWXXduhH2emNal2Kp2pZZLk/XbvxQJ7eLZNogyWXLPPyCAhNIzJ/M307brPyu
+         DsGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793911032; x=1794515832;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OsK3MYz9w+yugO7b/K4HKpqaj9q9ojfCF04yLKl5NIw=;
+        b=m4cz1JM96QLslJFIVHEEHrap7oPLrLavp1Q7ntQSdqLtK3+x87bP67KyJ2aOqvsCYx
+         V/OwxeMK2E+zyqVvxEE9ldKu675HX9UvVRI8CbPloT1VC5uTyG9pOz3MpewjZslKo7np
+         Fh70tE/PuBiVUFrCAQPONsmX7twZX1Ytf1tCrd4KeZVwd2L3dth8toMWbYWlZkpFW5nh
+         KcpLow1ByIHRVzs8/LzoaRZPC5Wxro9kiOfqa7jQAIbzSW5Cs9umQmyemDSSzWs/6n3/
+         IKAwxNl5YrzfGtTACJ+uNvB080HLnYIFLQ01aJ+1irMC4UQQa4r0td271PTuIf9/6QJj
+         ZcPg==
+X-Forwarded-Encrypted: i=1; AKwUvByR/+SSb90pGf9vPeUccsQ4iju96W6EPqX5oKJg8K6LR/VtGNaRKd0k99bC1SBPTqc4hl9keWEcI0rUpNk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Uj1E3sEfdZMAiR+zlKlV9tGsYwuOF+9QlsfvS1XJqJeyBrmqj
+	OCGpaNhaeDJ3GT2xQMCjmU6z119SfcRQz3vPlQWJeBXvaUUsHBQuEw/C
+X-Gm-Gg: AYBFou3HdiOMGQrry+l7WFNWYN7oVhWtJm18NTstRx7b2eIlhuVOd1TMkMWa4YQ8Lt0
+	1QtN8X4CK9g2iSz+YRD3KfwyDvCsv+5NrbcCx59N2KSP5No7u1AqfHh27r5UE0op61BeQClTIBY
+	eMeJ5aKeN4wFh/ob46aDe8FuenNrnl/1J19nGfM4riMiJo0yKP4dleOphjCPtT0pCinbqjGvyrV
+	PIC40LqDf6cfU5oA+S0Xc4YXyQO7kykC8fcqix6CiX/BfDlAZIzF+Y3U/cEdmAlIxakxe+PZWaD
+	b94MsxgVxbfFdEoRM3xTZatD0jvzgiRzzyoq5rng/xmNrf6i9UEiTT/B/vvSoWQ4vHRZ1+UYkNW
+	GPIqz9bBgSGKxcAzn6WDTXgfz/uFMKcKgEo6xrE55WcRMYmC2lu7NQfhtX9xLHbbkhwBFX+OqZK
+	9g+e59SKSwYvcx2A7cWb3FoH2M73/59uM8+n0Fs+t2V9yONcqK4V9cTN9l5uzEU7TSIK7yUL8fx
+	7yY2uYANFRqTQqCRjjobQGQjE/cbptUI4PY3KKskoo4i6uTwoZTZm7JLyuUhxg4B7A9Kw1wOGzo
+	dhQbqVs/zZQrSluirG/RRq7m9vX/sDA3jjWwIJ/5Gphtw3lAzy73ggQ4Sd4H1uVk+pKf88Hx9Px
+	iJcbewbyyhLEW6s4qcDNkNZIV4awqvRq+WSRqx6zshomgZBwAcc3F56Ahz0wxOura23cU52/29W
+	l3FGyuIJCm2Y5KMCp9Tg6fG+PLEfin9Waso4pBDPRbxLZcE1jVOp8Kwypxf1+iNG9ixA==
+X-Received: by 2002:a17:907:d30a:b0:c3e:cb50:b7c8 with SMTP id a640c23a62f3a-c4d353f3dbcmr54320266b.12.1793911031659;
+        Thu, 05 Nov 2026 12:37:11 -0800 (PST)
+Received: from mb-HP-ZBook-Power-16-inch-G11-Mobile-Workstation-PC.dynamic.ziggo.nl (2001-1c00-1106-0900-938c-4ed8-a3bb-093f.cable.dynamic.v6.ziggo.nl. [2001:1c00:1106:900:938c:4ed8:a3bb:93f])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d3569f518sm15429966b.56.2026.11.05.12.37.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 12:37:11 -0800 (PST)
+From: Mario Behn <mario.behn@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
 	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Dennis Zhou <dennis@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Christoph Lameter <cl@gentwo.org>,
-	Martin Liu <liumartin@google.com>,
-	David Rientjes <rientjes@google.com>,
-	christian.koenig@amd.com,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	SeongJae Park <sj@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Sweet Tea Dorminy <sweettea-kernel@dorminy.me>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Wei Yang <richard.weiyang@gmail.com>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Yu Zhao <yuzhao@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Mateusz Guzik <mjguzik@gmail.com>,
-	Matthew Wilcox <willy@infradead.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Aboorva Devarajan <aboorvad@linux.ibm.com>,
-	David Carlier <devnexen@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-mm@kvack.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-doc@vger.kernel.org,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Kees Cook <kees@kernel.org>,
-	linux-trace-kernel@vger.kernel.org,
-	Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org,
-	Oleg Nesterov <oleg@redhat.com>
-Subject: [RFC PATCH v24 05/10] mm: report the approximate RSS in the rss_stat tracepoint
-Date: Thu,  5 Nov 2026 15:36:34 -0500
-Message-Id: <20261105203639.1459524-6-mathieu.desnoyers@efficios.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261105203639.1459524-1-mathieu.desnoyers@efficios.com>
-References: <20261105203639.1459524-1-mathieu.desnoyers@efficios.com>
+	linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	Mario Behn <mario.behn@gmail.com>
+Subject: [PATCH] spi: cadence: recover the controller after a failed transfer
+Date: Thu,  5 Nov 2026 21:37:03 +0100
+Message-ID: <20261105203703.979067-1-mario.behn@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,77 +103,71 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The rss_stat tracepoint is emitted on every RSS update, including each
-page fault.  When it is enabled, it reports the precise sum of the RSS
-counter, which iterates over all possible CPUs for each event: 384 per
-page fault on a machine with 384 logical CPUs.
+When a transfer times out, the bytes it clocked in are still in the RX
+FIFO: the interrupt that would have read them did not run in time, and
+the host path never drains the FIFO between transfers (only the target
+path does, in cdns_unprepare_transfer_hardware).  Every later transfer
+then reads the stale bytes first and returns shifted data, and the
+device behind the controller looks dead until the system is rebooted.
 
-Report the approximate sum of the hierarchical per-cpu counter instead,
-through get_mm_counter(), which reads the root of the counter tree.  The
-size field of the event, the RSS counter after the update, is therefore
-within the accuracy bound of the counter from the precise value: within
-158.5MB on a machine with 384 logical CPUs and 4kB pages.
+Seen on a Zynq-7010 with an AD9361 on spi0 under PREEMPT_RT: after one
+"SPI transfer timed out" every register read returned 0xFF, the status
+register showed RX FIFO not empty while the bus was idle, and a later
+sample rate change failed with a calibration timeout.
 
-The tracepoint reports the precise sum since commit f1a7941243c1 ("mm:
-convert mm's rss stats into percpu_counter").  Before that, it reported
-an atomic counter which only received the per-task cached updates in
-batches.
+Add a handle_err callback that masks the interrupts, drops the stale
+bytes and brings the controller back to its initial state.  The next
+message sets the clock mode, the clock rate and the chip select again
+through the usual prepare_message, transfer_one and set_cs path.
 
-Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: "Paul E. McKenney" <paulmck@kernel.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Dennis Zhou <dennis@kernel.org>
-Cc: Tejun Heo <tj@kernel.org>
-Cc: Christoph Lameter <cl@gentwo.org>
-Cc: Martin Liu <liumartin@google.com>
-Cc: David Rientjes <rientjes@google.com>
-Cc: christian.koenig@amd.com
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: SeongJae Park <sj@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Sweet Tea Dorminy <sweettea-kernel@dorminy.me>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Wei Yang <richard.weiyang@gmail.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Miaohe Lin <linmiaohe@huawei.com>
-Cc: Al Viro <viro@zeniv.linux.org.uk>
-Cc: Yu Zhao <yuzhao@google.com>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Mateusz Guzik <mjguzik@gmail.com>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Aboorva Devarajan <aboorvad@linux.ibm.com>
-Cc: David Carlier <devnexen@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-mm@kvack.org
+Signed-off-by: Mario Behn <mario.behn@gmail.com>
 ---
-Changes since v22:
-- Split from "mm: improve RSS counter approximation accuracy for proc
-  interfaces", which now keeps reporting the precise sum.
----
- include/trace/events/kmem.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/spi/spi-cadence.c | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-diff --git a/include/trace/events/kmem.h b/include/trace/events/kmem.h
-index ac4c96db7638..8ee6d5df5961 100644
---- a/include/trace/events/kmem.h
-+++ b/include/trace/events/kmem.h
-@@ -448,7 +448,7 @@ TRACE_EVENT(rss_stat,
- 		 */
- 		__entry->curr = current->mm == mm && !(current->flags & PF_KTHREAD);
- 		__entry->member = member;
--		__entry->size = get_mm_counter_sum(mm, member) << PAGE_SHIFT;
-+		__entry->size = get_mm_counter(mm, member) << PAGE_SHIFT;
- 	),
+diff --git a/drivers/spi/spi-cadence.c b/drivers/spi/spi-cadence.c
+index 50ef3a7871c2..474ce14a59b3 100644
+--- a/drivers/spi/spi-cadence.c
++++ b/drivers/spi/spi-cadence.c
+@@ -542,6 +542,30 @@ static int cdns_transfer_one(struct spi_controller *ctlr,
+ 	return transfer->len;
+ }
  
- 	TP_printk("mm_id=%u curr=%d type=%s size=%ldB",
++/**
++ * cdns_spi_handle_err - Recover the controller after a failed transfer
++ * @ctlr:	Pointer to the spi_controller structure
++ * @msg:	Pointer to the spi_message that failed
++ *
++ * A transfer that timed out leaves the bytes it clocked in sitting in the
++ * RX FIFO, because the interrupt that reads them did not run in time and
++ * the host path never drains the FIFO between transfers.  Every later
++ * transfer would then read those stale bytes first and return shifted
++ * data.  Mask the interrupts, drop the stale bytes and bring the
++ * controller back to its initial state; the next message sets the clock
++ * and the chip select again on its way through transfer_one.
++ */
++static void cdns_spi_handle_err(struct spi_controller *ctlr,
++				struct spi_message *msg)
++{
++	struct cdns_spi *xspi = spi_controller_get_devdata(ctlr);
++
++	cdns_spi_write(xspi, CDNS_SPI_IDR, CDNS_SPI_IXR_ALL);
++	xspi->tx_bytes = 0;
++	xspi->rx_bytes = 0;
++	cdns_spi_init_hw(xspi, spi_controller_is_target(ctlr));
++}
++
+ /**
+  * cdns_prepare_transfer_hardware - Prepares hardware for transfer.
+  * @ctlr:	Pointer to the spi_controller structure which provides
+@@ -727,6 +751,7 @@ static int cdns_spi_probe(struct platform_device *pdev)
+ 	ctlr->prepare_message = cdns_prepare_message;
+ 	ctlr->transfer_one = cdns_transfer_one;
+ 	ctlr->unprepare_transfer_hardware = cdns_unprepare_transfer_hardware;
++	ctlr->handle_err = cdns_spi_handle_err;
+ 	ctlr->mode_bits = SPI_CPOL | SPI_CPHA;
+ 	ctlr->bits_per_word_mask = SPI_BPW_MASK(8);
+ 	ctlr->flags = SPI_CONTROLLER_MUST_TX;
 -- 
-2.47.3
+2.53.0
 
