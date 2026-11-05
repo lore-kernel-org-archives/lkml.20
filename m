@@ -1,95 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793844812;
-	b=31CRQ6+R5kIUSgjABOAdYSUfIU/V/rTBcW/5cmcCp6rFmcVLkH6034/7aw6AW6TKPYeT
-	 fQcTg2lyM/7HJ+T9zCKS2VJqHI/DmU7DKRMAB95I7uiT86HWCvLc8J8f5blEMUkC4XeSE
-	 alFprmtE90qOSyiUdO8xNf4YayMrg+SJPr4+mqT1tSGB6b+GBGBo68n5Vx3NIDK5O12B0
-	 wCRxoVsgQApaFCNqmigox5RuRPK5ghi2/wXHAshWYhZY/YhZ0P0Lgvb2AdGIuKYdEduS5
-	 WFwo1xMuyXSXRLdEKmNUrY9KHrW47trppX/GOZSQNv5YH87glTTUtkLK4jw7u/AaOww==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793844812;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=hpziF86+RxjzNw0Zs0xyBduF0/c5YvcNE86OKRmU6Dc=;
-	b=B3jGEmphb7AgkDzrWhg4m2ClHySQkr5MY8juAb5jRFX5cEFvNAmnaRJ66nFASLBjsXWj
-	 mUFgAu6cIwV6qizuCrL0H3jbgV5Hmc77udPNwlbIE9wPo9y8+m5EtxyCcn6s7ffVBRZh3
-	 NVVgOWDmqIInf7Po7e3y9MS6qpVpHayDFElAoqAd6Ze9DiHM+MpoVIBoAhAMtQm82fmq6
-	 SCzFgA7n6kHcjWFP7F3v55OR5g+Knx3lJkE4nNA3cImYdyhEdRmWPJzQHUqD3WiYvvPUH
-	 uO3sE2Uv18yF0+77oAxDjRz9Ain+xLWyLmr+8FYugk5GjJhPCrKo4IR6yuxnwJvE0ig==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=chromium.org;
-	spf=pass smtp.mailfrom=google.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.53
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.188
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793844824;
+	b=fnVbIekca9xXwVA3l4lU/Z+JUCfikiE/7OlrG721x9AbCQXGYX0VC11zzc0A1X9+Dbx7
+	 sOWBEklS/fUMFwJSzs8EMQYxrbd39VH5jeNcgNi6+DcvHR9B+5ikiyiy7YUqsUuqQV5xA
+	 R+Pjkmyf0HLo76V7YPy03xqYBFf3TS77zOFFOCBco4lsQuMAz8s8u2/Yqe7DA/3vRoUh9
+	 lo9cnRAiGVIC5ywXA+hSmTM/23NnCgpqokxAPPnVfO1vbKZpPh9IoDA5Cx25yhVWq7CD+
+	 e9qhG/pzgCc40oG3AqIa9MrUGq/3Btc4gqBvTaw8g3x2WNstsLzeheSM5CYg6wWky4w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793844824;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=hNDLSFapUDH5zg85s2N1cWnGesB/dC3nKW1Zdod/mJM=;
+	b=4aD0QaZNvE1pKbL8E8JkNxIahUbu0yD7rKPXzTl0QiZOkpvMD5gJQUP0HdyzABVe7wc+
+	 0Ph+Ka09p8k5XCJGdznoGVj5qUAcSI5bZzdtwY3HmeyWnrfMe/b8T6qRcEoIcu12fm6cB
+	 +tmgHAZ4AnRVTgfBGj+P75LezzuE0ahF2RsgKpQPAhzGgTMmVQO5qk2JXs3gseqy7e/1T
+	 dGu8GWmd8hPzppL902VViYHENf0JOd64w98QdqOGu1ZZFCawdqj041X2zrqZqHOO+PNAY
+	 Cyt0JyJZCa0HuqHg0TEpzUOmUbICQ1BrajwZUyCW+ybWAczoGi/6gmUHgtlpBUp1rwA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GTN47C24;
+	arc=none smtp.remote-ip=91.218.175.188
+Received: from mta0.migadu.com (out-188.mta0.migadu.com [91.218.175.188])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6110F606A331
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 02:13:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6110F606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b56c90b38eso5978a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 18:13:27 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793844806; cv=none;
-        d=google.com; s=arc-20260327;
-        b=dIqYGePYe5TRnQyAwhXVMutp9OVLOPiFE22JaPZsmL/PDrhOtbHVvU+Dfprln3kFfc
-         /nQpxs94FpVTRGRV+etzu7mPk77F9sVi/Jfyz50HAINDpzUPOzRYgfli+0UzOijZFtih
-         scdHh9btAiturfSt3S5mQPYBr4uXnPC5SlvVpxtwdrgcDCVMuoWUlda6CfH2ymMh2IZF
-         dSevqj0o/r3rXyPqMK3nZVsRp5l/iqsweArS0PA7U5aDZRmjpINUWKtXt50mWHnA3tg1
-         awiBWLfC8xyZwTGCVlPrpgJEDYzug3hmH4DaOvJ1jJA1aI+k8axkYqiH/O8Tepejr0Vu
-         +u8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hpziF86+RxjzNw0Zs0xyBduF0/c5YvcNE86OKRmU6Dc=;
-        fh=sLvPcaxS1i1r+ats7wVAe5ngh5C/+d2JBJg+FhJavxU=;
-        b=c+ONWnbmogG8Xe84199W6/h7sBx0JK/HHFZV4BKKLc+AY9ktCcmCQhM02BzgSe7ow2
-         MauRdzg+Ac/oYdcmtwNqB3+gzpj6uQ8Jx8Y3ehtaWAqV6bHvcoffDJYN+svBsrljSJSx
-         4gtf717vCoj5mNx7paGimZUr5lDDpoj+5lZmK2q6OjRrTZW9kAovQciDLaeZ+1tkoj6f
-         BiIerC4pS8uDdc4rrqxlmD5hw53v1nAPO+MUID1B9tP5yXnjNaxAXal261e3roQ8HBmO
-         lHCS3ZxpolDat4gx0/RJCy0BaMScNwm678eu+ou96Xj97haUJzNmHp79YOPBtly4u6Dm
-         EIAA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793844806; x=1794449606; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hpziF86+RxjzNw0Zs0xyBduF0/c5YvcNE86OKRmU6Dc=;
-        b=e54vUMq3VJQg+XBl/xCM483M32/b4tOTj2yEbVLqfjK3dNUY/Mc6rXpZ76/jR2LPQk
-         +Wy9VOwrhxjo4L2MnkX2IlFBmLRwbJr2p0RGTnW2JAb5Kj8gHxrNJrzjreEVNyHqXvh8
-         8mYGJ1MunF3zziLGlUy8UGiA/Ej/jRtKSK6hM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793844806; x=1794449606;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hpziF86+RxjzNw0Zs0xyBduF0/c5YvcNE86OKRmU6Dc=;
-        b=lZqqX7fjBfL0rrt0XWKCg1aS34blIGVTogJrgSYHXQR/NsJCRp/z6m5oRVJcz2jJvk
-         sRN2YtLkHvoiheOh60d74cMFx8wHFOrghmv+TUtgRoTHEf0mmHuU56U0xORp2ZlfMLJ1
-         dOR6dqT34v5Eg1KxMUtxze5nx/oe1Ti9fYDot4zxSIxKbc0VIoqx/smpGa7sjRKaruR2
-         SIl9v85NJdkTVMqEGk6S0CtOFIAHMDJ9lIEwkPNv+oGMrfRaoJejvHwVO/VW5agGw8qF
-         ispDq9tYyzkP63hm744hpvMtacNdxV2EugjvVH64SsHGscPZrB9bCjYrVDJCpSom0XBV
-         PKVw==
-X-Forwarded-Encrypted: i=1; AKwUvBxTTfgT41qVWRuqrkFic1JRHSJH4uNkVdorp3rtCfS6MpkOLaeZTQn1giG4FXGY2QzxVCXSaHyR3opzRtQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9B/l4Z/fj3E3yO1Xi3bOAXhJF9G9BvIrE73n3u9HqMDxz8vBUu
-	CsG1obMHcMwAROm1o1kRr/h7INmKOWF6TvwQOtKDAPwpePenf3Qxfr0dUUHdWiT7hB45M9xpZPW
-	0DryBHAoMSAEoru0DdnjvqPRpvuTSMTLeBXZ/NM7/
-X-Gm-Gg: AYBFou1YdjUWL4r1cm2G/uLNxwwOcEcUbCfuG8tPbvP7bq878wXo8cgMqytyNaQ39Qt
-	IwsRDG07xNZR92kNpM7Ki/N5oKJZZ+ctF/EXUVdoMogeT1w/FVwS4vK1S7TIqr00C0mLIJLMwwL
-	/uoxQ4KP2qUfFq2+p1WhGa0FQpgY3qn9wXmQKot6IDIJ/YMOM75CmKp1SbZFAPuWVarIr3C93cN
-	+JICg7dmVhQLMvOheNITdciYZVX21x40yS/iKkCTH0sZDB+CoL71w53y9QTNrub/uhSiNTLor9i
-	FWoGeYw3aGk0W2NZs9g8mIUVVk+O4XcQUl+CXQ4wcUIwDoUIsaP6p2imrF0S092VUGWgOWgur7E
-	TzmKm6zIOt5PfiMrjwtAw06d0mZp0chgsZnTTTqOdYhkEL2hbUxlvB9xcim/tGe7lgF9GcI0wLh
-	RkznWmr+X0hRmREby+NAudHg==
-X-Received: by 2002:a05:6402:7cf:b0:6b5:65ef:440e with SMTP id
- 4fb4d7f45d1cf-6b57cdd26d9mr21493a12.12.1793844805321; Wed, 04 Nov 2026
- 18:13:25 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89584606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 02:13:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89584606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GTN47C24
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=8I/giyMs0wqeew5AfRUUOtj+4dlC5TxPYe3tjop4G7Q=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793844821; v=1; x=1794449621;
+ b=GTN47C242OTjxoETwRoDA4BNNMBb96ebNpD8Fs7hcBOuXEfB4UY9tjCqMCMULvNYzHbZTVs9
+ rF0xm7EfvvrHIlO+8uqH39Q+2TJFSVheoWh0KNsIYT29D3R3Sxt3FqEfBpj54Vs8kS3zteYOtL/
+ UaYoLjy6PfYWWvgx9bN5zOwc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8fb82eb1ffacc0da;
+	Thu, 05 Nov 2026 02:13:41 +0000
+X-Mizu-Trace-ID: 8fb82eb1ffacc0da
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <d683135f-e0da-4f1e-b4b4-084931582a24@linux.dev>
+Date: Thu, 5 Nov 2026 10:13:33 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,45 +58,207 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104161553.30115-1-mateusz.nowicki@posteo.net>
-In-Reply-To: <20261104161553.30115-1-mateusz.nowicki@posteo.net>
-From: Julius Werner <jwerner@chromium.org>
-Date: Wed, 4 Nov 2026 18:13:12 -0800
-X-Gm-Features: AclHuK-125zaIgRXhhjwYItELasBysm9j_wuLFip_xcu42o_jtzCl0wz_NYTSuw
-Message-ID: <CAODwPW992ncQNo1yxrOrAKKZ62TB_U1eYWstZuTKDKqFCFGRSA@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/3] watchdog: arm_smc_wdt: allow a list of SMC
- function ids
-To: Mateusz Nowicki <mateusz.nowicki@posteo.net>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
-	linux-watchdog@vger.kernel.org, Julius Werner <jwerner@chromium.org>, 
-	Evan Benn <evanbenn@chromium.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Antonio Borneo <antonio.borneo@foss.st.com>, Marek Vasut <marex@nabladev.com>, 
-	devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cgroup/cpuset: Fail if isolated CPUs don't leave any boot
+ domain housekeeping CPU
+To: Waiman Long <longman@redhat.com>, Guopeng Zhang <guopeng.zhang@linux.dev>
+Cc: tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, shuah@kernel.org,
+ cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, Guopeng Zhang <zhangguopeng@kylinos.cn>
+References: <20261104071600.474587-1-guopeng.zhang@linux.dev>
+ <cbe741a9-fd0c-4c8f-8591-55ecc70f222a@linux.dev>
+ <21cfe1b7-be80-4f3b-8366-cd77afd113b0@redhat.com>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <21cfe1b7-be80-4f3b-8366-cd77afd113b0@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-> DT folks, is there a way to keep the list in arm,smc-id that you would
-> be fine with?
 
-Perhaps this is a bit of a hack, but you're in an unintended situation
-that wasn't supposed to happen to begin with so I feel it might be
-appropriate if it avoids adding a whole new mechanism to the driver:
-What happens if you simply define two watchdog nodes in your DTS, one
-for each SMC ID? Both of them would independently try to probe, one of
-them would die from getting an SMC_UNK, and the other would continue
-working to pet your watchdog?
 
-This driver started as encoding the SMC ID in the DTS and that kinda
-seems to be the standard for drivers interacting with non-standard
-SMCs, so I would prefer to stick to that rather than hardcoding IDs in
-the C source (if we do that for each board it may end up being a long
-list eventually =E2=80=94 I think one of the reasons the device tree was
-originally adopted was to avoid things like that). I would be fine
-with the array solution but I don't know about the validation checker
-and whether people care about reusing the same prop name with
-different types. (FWIW, in the device tree a 32-bit integer is
-basically a 1-element array anyway, so we might just say it's always
-an array and for SCMI only one element is allowed.)
+On 11/5/2026 2:54 AM, Waiman Long wrote:
+> On 11/4/26 7:58 AM, Ridong Chen wrote:
+>>
+>>
+>> On 11/4/2026 3:16 PM, Guopeng Zhang wrote:
+>>> From: Guopeng Zhang<zhangguopeng@kylinos.cn>
+>>>
+>>> With the "domain" flag of the isolcpus= boot option, the CPUs isolated
+>>> at boot are excluded from the sched domains and the remaining CPUs
+>>> become the boot domain housekeeping CPUs. An isolated partition is
+>>> allowed to use the boot isolated CPUs, but it must not take over all
+>>> the boot domain housekeeping CPUs.
+>>>
+>>> prstate_housekeeping_conflict() checks that rule for root partitions
+>>> only. The 2nd check covers the nohz_full case as it is gated by
+>>> housekeeping_enabled(HK_TYPE_KERNEL_NOISE) which is not enabled by
+>>> isolcpus=domain. So on an isolcpus=domain,<cpus> boot, an isolated
+>>> partition can claim all the remaining boot domain housekeeping CPUs.
+>>> The state is committed, but the sched domain rebuild at the end of
+>>> the write finds no housekeeping CPU left for the boot domain and
+>>> hits WARNs and an OOPS in partition_sched_domains().
+>>> housekeeping_update() cannot accept the configuration either as it
+>>> cannot empty the boot domain housekeeping mask.
+>>> With an "isolcpus=domain,10-31" boot where CPUs 0-9 are the boot
+>>> domain housekeeping CPUs, for example:
+>>>
+>>>    # echo 0-9 > A/cpuset.cpus
+>>>    # echo isolated > A/cpuset.cpus.partition
+>>>    WARNING: kernel/sched/topology.c:3089 at build_sched_domains+...
+>>>    WARNING: kernel/cgroup/cpuset.c:1478 at cpuset_update_sd_hk_unlock+...
+>>>    RIP: 0010:partition_sched_domains+0x3b8
+>>>
+>>> Fix that by extending prstate_housekeeping_conflict() to reject an
+>>> isolated partition update that would leave no active boot domain
+>>> housekeeping CPU outside the isolated CPUs. The CPUs released back
+>>> to the boot domain by the same update are taken into account, so
+>>> replacing one of the last housekeeping CPUs with another one in a
+>>> single update remains allowed. The new check is only performed when
+>>> housekeeping_enabled(HK_TYPE_KERNEL_NOISE) is disabled so that the
+>>> existing nohz_full behavior is unchanged.
+>>>
+>>> Add test cases in test_cpuset_prs.sh to verify that taking over all
+>>> the boot domain housekeeping CPUs is rejected while swapping one of
+>>> them with another one is allowed.
+>>
+>> Hi Guopeng,
+>>
+>> Thanks for the report and the reproducer. I can reproduce the WARN and
+>> the OOPS in partition_sched_domains() here.
+>>
+>> However, I don't think prstate_housekeeping_conflict() is the right
+>> place to fix it, and the fix doesn't seem complete. The same problem
+>> can be triggered with a root partition, which this patch doesn't cover.
+>> With an "isolcpus=domain,4-7" boot on an 8-CPU VM:
+>>
+>>   # echo 0-3 > A/cpuset.cpus
+>>   # echo root > A/cpuset.cpus.partition
+>>   WARNING: kernel/sched/topology.c:3111 at build_sched_domains+0x2b96/0x5500
+>>   Oops: general protection fault, ... [#1] SMP KASAN NOPTI
+>>   RIP: 0010:partition_sched_domains+0x10a3/0x1a10
+>>
+>> The faulting address is in build_perf_domains(), where cpumask_first()
+>> on the empty cpu_map returns nr_cpu_ids and cpu_rq() goes out of
+>> bounds.
+>>
+>> The root cause looks like it isn't a housekeeping conflict. Boot time
+>> isolated CPUs stay in top_cpuset.effective_cpus by design, and they are
+>> only filtered out of the top_cpuset sched domain in
+>> generate_sched_domains(). But the checks that make sure the parent
+>> still has CPUs left, i.e. tasks_nocpu_error() for local partitions and
+>> the cpumask_subset(top_cpuset.effective_cpus, ...) checks in
+>> remote_partition_enable()/remote_cpus_update(), only look at
+>> top_cpuset.effective_cpus. So any partition, root or isolated, local
+>> or remote, can take away all the boot domain housekeeping CPUs as long
+>> as some boot isolated CPUs are still left in top_cpuset, which leaves
+>> the top_cpuset sched domain empty.
+>>
+>> So I think the check should be done at the "parent has no CPU left"
+>> level instead. Something like the diff below. It is not tested yet;
+>> could you give it a try with your reproducer and the test cases?
+>> Note that the root partition and remote partition cases should be
+>> added to the selftest as well.
+>>
+>> Without isolcpus=domain, HK_TYPE_DOMAIN_BOOT is cpu_possible_mask and
+>> the new check is equivalent to the existing one, so no extra
+>> housekeeping_enabled() gating is needed.
+>>
+>> ---
+>> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+>> index 3219f927c35e..fb3e81405f5b 100644
+>> --- a/kernel/cgroup/cpuset.c
+>> +++ b/kernel/cgroup/cpuset.c
+>> @@ -1180,12 +1180,51 @@ static void update_partition_sd_lb(struct cpuset *cs, 
+>> int old_prs)
+>>                 cpuset_force_rebuild();
+>>  }
+>>
+>> +/*
+>> + * top_cpuset_sd_nocpu - Check if top_cpuset will have no sched domain CPU
+>> + * @add_cpus: CPUs to be taken away from top_cpuset
+>> + * @del_cpus: CPUs to be given back to top_cpuset, can be NULL
+>> + * Return: true if no active CPU will be left in the top_cpuset sched domain
+>> + *
+>> + * Boot time isolated CPUs stay in top_cpuset.effective_cpus, but they are
+>> + * excluded from the sched domain of top_cpuset in generate_sched_domains().
+>> + * So checking top_cpuset.effective_cpus alone is not enough to ensure that
+>> + * the top_cpuset sched domain won't become empty after @add_cpus are taken
+>> + * away from it. The sched domain of top_cpuset must keep at least one
+>> + * active boot domain housekeeping CPU.
+>> + */
+>> +static bool top_cpuset_sd_nocpu(const struct cpumask *add_cpus,
+>> +                               const struct cpumask *del_cpus)
+>> +{
+>> +       const struct cpumask *hk_mask = 
+>> housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT);
+>> +       int cpu;
+>> +
+>> +       for_each_cpu_and(cpu, hk_mask, cpu_active_mask) {
+>> +               if (cpumask_test_cpu(cpu, add_cpus))
+>> +                       continue;
+>> +               if (cpumask_test_cpu(cpu, top_cpuset.effective_cpus) ||
+>> +                   (del_cpus && cpumask_test_cpu(cpu, del_cpus)))
+>> +                       return false;
+>> +       }
+>> +       return true;
+>> +}
+>> +
+>>  /*
+>>   * tasks_nocpu_error - Return true if tasks will have no effective_cpus
+>>   */
+>>  static bool tasks_nocpu_error(struct cpuset *parent, struct cpuset *cs,
+>>                               struct cpumask *xcpus)
+>>  {
+>> +       /*
+>> +        * The top_cpuset always has tasks (kthreads at least), so its sched
+>> +        * domain can't be empty. The current effective_xcpus of a valid
+>> +        * partition will be given back to top_cpuset if not in @xcpus.
+>> +        */
+>> +       if ((parent == &top_cpuset) &&
+>> +           top_cpuset_sd_nocpu(xcpus, is_partition_valid(cs)
+>> +                                      ? cs->effective_xcpus : NULL))
+> 
+> The del_cpus should normally be (cs->effective_xcpus & ~xcpus), but the 
+> top_cpuset_sd_nocpu() helper will skip CPUs that are in xcpus. So it will work 
+> in this case. It should be noted in the functional comment of 
+> top_cpuset_sd_nocpu() that @del_cpus can include common CPUs that will stay in 
+> the partition which will be skipped in the helper so that future change won't 
+> accidentally change that behavior.
+> 
+
+Thank you for your reply.
+
+Yes, perhaps Guopeng could make the code and comments more readable.
+
+> 
+>> + return true;
+>> +
+>>         /*
+>>          * A populated partition (cs or parent) can't have empty effective_cpus
+>>          */
+>> @@ -1724,7 +1763,7 @@ static int remote_partition_enable(struct cpuset *cs, 
+>> int new_prs,
+>>          */
+>>         compute_excpus(cs, tmp->new_cpus);
+>>         if (!cpumask_intersects(tmp->new_cpus, cpu_active_mask) ||
+>> -           cpumask_subset(top_cpuset.effective_cpus, tmp->new_cpus))
+>> +           top_cpuset_sd_nocpu(tmp->new_cpus, NULL))
+>>                 return PERR_INVCPUS;
+>>         if (cpumask_intersects(tmp->new_cpus, subpartitions_cpus))
+>>                 return PERR_NOCPUS;
+>> @@ -1828,7 +1867,7 @@ static void remote_cpus_update(struct cpuset *cs, struct 
+>> cpumask *xcpus,
+>>                 if (!capable(CAP_SYS_ADMIN))
+>>                         WRITE_ONCE(cs->prs_err, PERR_ACCESS);
+>>                 else if (cpumask_intersects(tmp->addmask, subpartitions_cpus) ||
+>> -                        cpumask_subset(top_cpuset.effective_cpus, tmp->addmask))
+>> +                        top_cpuset_sd_nocpu(tmp->addmask, tmp->delmask))
+>>                         WRITE_ONCE(cs->prs_err, PERR_NOCPUS);
+>>                 else if (prstate_housekeeping_conflict(prs, PRS_ROOT,
+>>                                                        excpus, tmp->delmask))
+>>
+> 
+
+-- 
+Best regards
+Ridong
+
