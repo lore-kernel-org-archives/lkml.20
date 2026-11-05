@@ -1,60 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793863039;
-	b=frl9P6PcvFgHY2C2ZNmf/W8FPoz9E/SWV0iy/+xO2LAd++Eic6svkZbjN2YvJobEjCGo
-	 7AZhFjD31nqPbnhyP/C4k1JuBkZHUbtBhZK58rv1u7wtxhpK0XGRc5CuhqJ3afqH3mYGU
-	 7UCT/YeGlUW90LA+q+2CAeGkWOgHPtiwqVr97k5/6YWLMaeXSdrsBxnVa6q835gsdkbqF
-	 oeRTOPBTtSZn5CzHhIwhFG0nIYoiBpxK8Oq3mZl349lyOQjLGc/98TtGU8Af7hvmH0rs7
-	 5o++Qx07x7lUmQrTSe1FNbc4XWxhuSVKRUB5Ly4FgnAJbTDSozN9V/DyaA1TdEgPO5w==
+	t=1793863099;
+	b=t6fiAe8pjBv8jIcb+aW1hjw5X7uJAasuqXonKdlqFaFe0PqtDmbI1oiGaLUgmCJFEx3w
+	 UxFI+xA8T1QISTHJ7UKEaVZisgOTg4kp8hdqTNjb/9clQLxRjoiIy9+P+i4H8vwa6jfd4
+	 x56jmhZ5CBMkjVikzSfU7fN8f77lJmlc/UJiFjWW4S3ZRM2N8+ozJZvtboeEUAZZG6nGk
+	 id/948PiKqcMT9wg2VDYOnEifuF/PkbXbKLsI3XaxSBkouPZU8CvSe31shRsKatQrhZsP
+	 Npl+WOXSAr+efeDX6VcMiqdukjiforSyFyzv3yXyaE/Mdb8A0JfC18tEAk13gZIB8Eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793863039;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=avddGhkW23kzNtokkMPF81ogBtCrM46V69m4Fzmqx5c=;
-	b=aRwthFUfhrWf6nJVUoQwQ3YxVt9pdqdCDHh+tjAKiyOAsulWiRNrWTJqRAes2e7EyU2Z
-	 oPxg0Y5Pt0pUpbbTBepXdj6rlUuhcKrqVfxh+yj57AhoDgJaE1SnJfe5V7p6v8y8xOSSy
-	 wELtxiJDLjqLVkTROwPtEOwJZLgZdny1V4rd5zUOseJtWnnH41Z2t3OORKXDfwg6waz2N
-	 ncrHC+nJxGL/VWs9fl1cg8Pk+WrQynkC+83vpmbqaGFV49ktNYuFpRdDA1y5b1j4Nl9ZC
-	 Jdy8NeTLGoealiqvXob3XB1LmvtAe/1dVKpW8L7ktkDaVt0V3bw5KHJsEP8B9SGb1Vw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793863099;
+	h=DMARC-Filter:X-UUID:X-CTIC-Tags:X-CID-P-RULE:X-CID-O-INFO:X-CID-INFO:
+	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=GJfuccBsESyaMktbIQtsSYOwxg6JTp+e/MYBrXLWAPI=;
+	b=1GcmRO1ksNrHUlbRpaVjcTU/1kLLNgBGc4113UlkRklRWM75rcDgrPaxClPePTEHiwJj
+	 SVUAoeQhK+Rhfw4g3/xqEb5GxYyExHlhO2briYq3CidwSXQ08fSHbS7stosqLJaNrinbD
+	 3stcHZSQNZrNUoe5LHMWQ/Sxfwqq5pGaKZzce4twXmza4LDPxc9orcdW+hzp4g0I4+9Ny
+	 glILhcxpg9lovt3VENg9zvJr+j9ka9uHhHv/IZTNPw1ZO3GqqEXd/Wfn8E1CBN+u5Z/Ss
+	 dqsh0WBmMAeuiXYq4l/S2jT7y4nBEqzGc18T314ACZoOc1k7ZbkvoMIg8vLrS98wzlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KCzYtxyH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB6B606A31B;
-	Thu,  5 Nov 2026 07:17:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KCzYtxyH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 517191F000C1;
-	Thu,  5 Nov 2026 07:17:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793863038;
-	bh=avddGhkW23kzNtokkMPF81ogBtCrM46V69m4Fzmqx5c=;
-	h=From:To:Cc:Subject:Date;
-	b=KCzYtxyH8rZiM8L1fPJx78xGVRsd4tq3adheQe9eyUZUJSfQigJuHOdy1my+vCk7t
-	 DqgIedQuVucz0/OTVquSTPatAAFoUHCadzDMKRShmlfJIs2s0KoyrqM0bdCnVde1Qr
-	 cw7Wm1THSO1NnGsGqPBCwipmvsT6pNEOmTpeq5Cb9VEcd7o7oVFJSmSGr/jN2SMwoF
-	 J1ApHsbwbmH4+5SSaFg5pyIfbmAHxgJdrei6JLSmeNvMB5FkRBiS6sWIsqvP2aME0P
-	 Z0Auf65HMxc3AULVvul+2CwpF2xuVp9aSTovWaFA2n6NJ6BLyDlarVZn0mekR3aDdu
-	 qH0fsFDNQaXxQ==
-From: Namhyung Kim <namhyung@kernel.org>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	James Clark <james.clark@linaro.org>
-Cc: Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	linux-perf-users@vger.kernel.org,
-	Jakub Brnak <jbrnak@redhat.com>,
-	Michael Petlan <mpetlan@redhat.com>
-Subject: [PATCH] perf test: Fix perf probe testsuite
-Date: Wed,  4 Nov 2026 23:17:11 -0800
-Message-ID: <20261105071711.31086-1-namhyung@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8F26606A329;
+	Thu,  5 Nov 2026 07:18:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8F26606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 09ea3350d8e911f19a56ed5b684f684d-20261105
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
+	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+	HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
+	HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_ADR_NAME, HR_TO_COUNT, HR_TO_NO_NAME
+	IP_TRUSTED, SRC_TRUSTED, SA_EXISTED, SN_UNTRUSTED, SN_UNFAMILIAR
+	SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_BAD, CIE_GOOD
+	CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU, AMN_GOOD
+	ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:1a3d4cd5-2fb7-469d-848b-876edd21e248,IP:10,
+	URL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:35
+X-CID-INFO: VERSION:1.3.19,REQID:1a3d4cd5-2fb7-469d-848b-876edd21e248,IP:10,UR
+	L:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:35
+X-CID-META: VersionHash:7db8b62,CLOUDID:b678190c7abd29f5c4e550106320e6c8,BulkI
+	D:261105151805TSDO90KJ,BulkQuantity:0,SF:10|40|66|78|102|127|153|865|898,T
+	C:nil,Content:0|15|50|99,EDM:5,IP:-2|1,URL:0,File:nil,RT:nil,Bulk:nil,QS:n
+	il,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC
+	:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_IBB,TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 09ea3350d8e911f19a56ed5b684f684d-20261105
+X-User: leixiang@kylinos.cn
+Received: from ninol [(116.128.244.169)] by mailgw.kylinos.cn
+	(envelope-from <leixiang@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 635666650; Thu, 05 Nov 2026 15:18:03 +0800
+From: Xiang Lei <leixiang@kylinos.cn>
+To: 
+Cc: Xiang Lei <leixiang@kylinos.cn>,
+	Wei Liu <liuwei@kylinos.cn>,
+	stable@vger.kernel.org,
+	Laurent Vivier <lvivier@redhat.com>,
+	Olivia Mackall <olivia@selenic.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Michael Bommarito <michael.bommarito@gmail.com>,
+	virtualization@lists.linux.dev,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] hwrng: virtio - fix copy_data() handling of partial reads
+Date: Thu,  5 Nov 2026 15:17:33 +0800
+Message-ID: <20261105071736.65932-1-leixiang@kylinos.cn>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,119 +91,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The perf probe test suite fails on my machine.  It seems it's because
-the kernel debug info is not available.  Actually NO_DEBUGINFO is to
-check the condition and skip affected tests.
+vi->data_avail is decremented on each read, so it holds the remaining
+bytes rather than the total length. Subtracting vi->data_idx from it
+again in commit e3046eeada29 ("hwrng: virtio: clamp device-reported
+used.len at copy_data()") undercounts the bytes left after a partial
+read. This can leave vi->data_avail nonzero without queuing a new
+request, causing virtio_read() to hang on have_data.
 
-But it didn't work well as the skip_if_no_debuginfo function misses a
-new error string for v7.0+ kernels.  Internally it uses the
-add_probe_vfs_getname() to check if perf probe handles debuginfo and
-check the error string.  But it didn't add the new error string.
+Clamp vi->data_avail to sizeof(vi->data) - vi->data_idx instead.
 
-  "Could not find probeable line"
-
-With that added, it now passes like below:
-
-  $ sudo perf test -vv 189
-  Not taking turns using the perf mlock budget: nothing can exhaust it
-  189: perftool-testsuite_probe:
-  ---- start ----
-  test child forked, pid 26135
-  Probing warn_thunk_thunk
-  -- [ PASS ] -- perf_probe :: test_adding_blacklisted :: adding blacklisted function warn_thunk_thunk
-  -- [ PASS ] -- perf_probe :: test_adding_blacklisted :: listing blacklisted probe (should NOT be listed)
-  ## [ PASS ] ## perf_probe :: test_adding_blacklisted SUMMARY
-  -- [ PASS ] -- perf_probe :: test_adding_kernel :: adding probe inode_permission ::
-  -- [ PASS ] -- perf_probe :: test_adding_kernel :: adding probe inode_permission :: -a
-  -- [ PASS ] -- perf_probe :: test_adding_kernel :: adding probe inode_permission :: --add
-  -- [ PASS ] -- perf_probe :: test_adding_kernel :: listing added probe :: perf list
-  -- [ SKIP ] -- perf_probe :: test_adding_kernel :: 1 1 Skipped due to missing debuginfo :: testcase skipped
-  -- [ PASS ] -- perf_probe :: test_adding_kernel :: using added probe
-  -- [ PASS ] -- perf_probe :: test_adding_kernel :: deleting added probe
-  -- [ PASS ] -- perf_probe :: test_adding_kernel :: listing removed probe (should NOT be listed)
-  -- [ PASS ] -- perf_probe :: test_adding_kernel :: dry run :: adding probe
-  -- [ PASS ] -- perf_probe :: test_adding_kernel :: force-adding probes :: first probe adding
-  -- [ PASS ] -- perf_probe :: test_adding_kernel :: force-adding probes :: second probe adding (without force)
-  -- [ PASS ] -- perf_probe :: test_adding_kernel :: force-adding probes :: second probe adding (with force)
-  -- [ PASS ] -- perf_probe :: test_adding_kernel :: using doubled probe
-  -- [ PASS ] -- perf_probe :: test_adding_kernel :: removing multiple probes
-  Regexp not found: "probe:vfs_mknod"
-  Regexp not found: "probe:vfs_create"
-  Regexp not found: "probe:vfs_rmdir"
-  Regexp not found: "probe:vfs_link"
-  Regexp not found: "probe:vfs_write"
-  -- [ SKIP ] -- perf_probe :: test_adding_kernel :: 1 1 Skipped due to missing debuginfo :: testcase skipped
-  Regexp not found: "somenonexistingrandomstuffwhichisalsoprettylongorevenlongertoexceed64"
-  Regexp not found: "in this function|at this address"
-  -- [ SKIP ] -- perf_probe :: test_adding_kernel :: 1 1 Skipped due to missing debuginfo :: testcase skipped
-  -- [ PASS ] -- perf_probe :: test_adding_kernel :: function with retval :: add
-  -- [ PASS ] -- perf_probe :: test_adding_kernel :: function with retval :: record
-  -- [ PASS ] -- perf_probe :: test_adding_kernel :: function argument probing :: script
-  ## [ PASS ] ## perf_probe :: test_adding_kernel SUMMARY
-  -- [ SKIP ] -- perf_probe :: test_basic :: help message :: testcase skipped
-  -- [ PASS ] -- perf_probe :: test_basic :: usage message
-  -- [ PASS ] -- perf_probe :: test_basic :: quiet switch
-  ## [ PASS ] ## perf_probe :: test_basic SUMMARY
-  -- [ PASS ] -- perf_probe :: test_invalid_options :: missing argument for -a
-  -- [ PASS ] -- perf_probe :: test_invalid_options :: missing argument for -d
-  -- [ PASS ] -- perf_probe :: test_invalid_options :: missing argument for -L
-  -- [ PASS ] -- perf_probe :: test_invalid_options :: missing argument for -V
-  -- [ PASS ] -- perf_probe :: test_invalid_options :: unnecessary argument for -F
-  -- [ PASS ] -- perf_probe :: test_invalid_options :: unnecessary argument for -l
-  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -a xxx -d xxx
-  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -a xxx -L foo
-  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -a xxx -V foo
-  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -a xxx -l
-  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -a xxx -F
-  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -d xxx -L foo
-  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -d xxx -V foo
-  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -d xxx -l
-  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -d xxx -F
-  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -L foo -V bar
-  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -L foo -l
-  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -L foo -F
-  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -V foo -l
-  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -V foo -F
-  -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually exclusive options :: -l -F
-  ## [ PASS ] ## perf_probe :: test_invalid_options SUMMARY
-  -- [ PASS ] -- perf_probe :: test_line_semantics :: acceptable descriptions :: func
-  -- [ PASS ] -- perf_probe :: test_line_semantics :: acceptable descriptions :: func:10
-  -- [ PASS ] -- perf_probe :: test_line_semantics :: acceptable descriptions :: func:0-10
-  -- [ PASS ] -- perf_probe :: test_line_semantics :: acceptable descriptions :: func:2+10
-  -- [ PASS ] -- perf_probe :: test_line_semantics :: acceptable descriptions :: func@source.c
-  -- [ PASS ] -- perf_probe :: test_line_semantics :: acceptable descriptions :: func@source.c:1
-  -- [ PASS ] -- perf_probe :: test_line_semantics :: acceptable descriptions :: source.c:1
-  -- [ PASS ] -- perf_probe :: test_line_semantics :: acceptable descriptions :: source.c:1+1
-  -- [ PASS ] -- perf_probe :: test_line_semantics :: acceptable descriptions :: source.c:1-10
-  -- [ PASS ] -- perf_probe :: test_line_semantics :: unacceptable descriptions :: func:foo
-  -- [ PASS ] -- perf_probe :: test_line_semantics :: unacceptable descriptions :: func:1-foo
-  -- [ PASS ] -- perf_probe :: test_line_semantics :: unacceptable descriptions :: func:1+foo
-  -- [ PASS ] -- perf_probe :: test_line_semantics :: unacceptable descriptions :: func;lazy\*pattern
-  ## [ PASS ] ## perf_probe :: test_line_semantics SUMMARY
-  ---- end(0) ----
-  189: perftool-testsuite_probe                                                          : Ok
-
-Fixes: 92b664dcefab ("perf test probe_vfs_getname: Skip if no suitable line detected")
-Cc: Jakub Brnak <jbrnak@redhat.com>
-Cc: Michael Petlan <mpetlan@redhat.com>
-Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+Fixes: e3046eeada29 ("hwrng: virtio: clamp device-reported used.len at copy_data()")
+Tested-by: Wei Liu <liuwei@kylinos.cn>
+Cc: stable@vger.kernel.org
+Signed-off-by: Xiang Lei <leixiang@kylinos.cn>
 ---
- tools/perf/tests/shell/lib/probe_vfs_getname.sh | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/char/hw_random/virtio-rng.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/tools/perf/tests/shell/lib/probe_vfs_getname.sh b/tools/perf/tests/shell/lib/probe_vfs_getname.sh
-index 57a59ae7d4ae3d71..c091cd208beec056 100644
---- a/tools/perf/tests/shell/lib/probe_vfs_getname.sh
-+++ b/tools/perf/tests/shell/lib/probe_vfs_getname.sh
-@@ -64,7 +64,7 @@ add_probe_vfs_getname() {
- }
+diff --git a/drivers/char/hw_random/virtio-rng.c b/drivers/char/hw_random/virtio-rng.c
+index f9982217247d..a3392f7e2d8c 100644
+--- a/drivers/char/hw_random/virtio-rng.c
++++ b/drivers/char/hw_random/virtio-rng.c
+@@ -70,7 +70,7 @@ static void request_entropy(struct virtrng_info *vi)
+ static unsigned int copy_data(struct virtrng_info *vi, void *buf,
+ 			      unsigned int size)
+ {
+-	unsigned int idx, avail;
++	unsigned int idx;
  
- skip_if_no_debuginfo() {
--	add_probe_vfs_getname -v 2>&1 | grep -E -q "^(Failed to find the path for the kernel|Debuginfo-analysis is not supported)|(file has no debug information)" && return 2
-+	add_probe_vfs_getname -v 2>&1 | grep -E -q "^(Failed to find the path for the kernel|Debuginfo-analysis is not supported)|(file has no debug information|Could not find probeable line)" && return 2
- 	return 1
- }
- 
+ 	/*
+ 	 * vi->data_avail was set from the device-reported used.len and
+@@ -81,13 +81,13 @@ static unsigned int copy_data(struct virtrng_info *vi, void *buf,
+ 	 * steered into adjacent slab memory, including under
+ 	 * speculation.
+ 	 */
+-	avail = min(vi->data_avail, sizeof(vi->data));
+-	if (vi->data_idx >= avail) {
++	if (vi->data_idx >= sizeof(vi->data)) {
+ 		vi->data_avail = 0;
+ 		request_entropy(vi);
+ 		return 0;
+ 	}
+-	size = min(size, avail - vi->data_idx);
++	vi->data_avail = min(vi->data_avail, sizeof(vi->data) - vi->data_idx);
++	size = min(size, vi->data_avail);
+ 	idx = array_index_nospec(vi->data_idx, sizeof(vi->data));
+ 	memcpy(buf, vi->data + idx, size);
+ 	vi->data_idx += size;
 -- 
-2.56.0
+2.53.0
 
