@@ -1,112 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793890902;
-	b=HuhKFDpg23jf3bYJPmAM2HD/Pq1O95gEKBjP7FdEBL6ZMiUz0sopV5CuR5CIAGyKsNi5
-	 NLL5RymCxSLH50OHPan2MQSwz0IMhScoShJPhM7TzRoVYAB/J48QFP7M9rwfUzD8FMUZx
-	 7FaayDSqzwJbs+e0WKK/VoqbrEKqQO8AQgl0nLS7fs4jVCyh9xbCErhFmdFt/R5t9ttdK
-	 ldaadvx7uq9+lh3/syVhDYdvQsQq69u6FzCW4xS0xrIrMfsD9hjB2qPAYOjohVtX8746M
-	 XPH/03nEbZK0MBkw0/668e0BqPp/bhtKDO4IF1TJ8v4MJaR6IdTvO7Ouk9XFhP+2OqQ==
+	t=1793890904;
+	b=fRTs7vVl+FOrBdPFMqHdhIs33cT6zXGkCGPFUvuHlCXiZdhfcFFLtWyFRveeyiHmIyRt
+	 elV4PFxa0Z47D5nAJM9/OeEeiJ46IOD8WIwaTMEeNddyOKsApNUAPvBzlpsMF/53CtDQ0
+	 85Sw+wJqgRP1hP5PJapiSHS8sLf6Mjzvz+A0x3g3pa+Zki3ZqybgNmkvlJakeBKS5izo5
+	 N/Qpmi1O++YH0OE0JMBIeKYjeJU3cwsCj/HMg9H83VeOf2Kdl4RkBpYlVTl92+GZakAiG
+	 tjjuuisMjFRpPgkbP2N8M9NreIcWYq1g2umwzeSOpUHh308MEQ+NrAL4Y+MUr9taMmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793890902;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793890904;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
 	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
 	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=BlHDPlEpvTz11MD3jRqdyLcBMjXBE0jtvt8v3OddGFo=;
-	b=j+40o9BEtA5BH6/czPSGFAefZEsXsEUOpoaG8gnkpfYffxX2F0HydNPo8APmivgMtjA8
-	 k2wCezSPp6vrp7ycKOvwOaudZSN43ixfwc9bBjLL7/BQwTOwwBT5I8Vm4lHQqUOb85wLO
-	 avmcD0rmNOkmq/i2mUngdTpjqhGkflmYO/bVtWeyYyITmZm9CbJs/6hNvrUdI6mqlxYW9
-	 OmREnH471z6WHERf1w1DQn8KhceumiUFHD4h/xqwfwB0y2ecVyJruzBnfHNk4GLrtDFRT
-	 EtMO1U3/UMka4iTQC52vmbvzDqOsMJ+yjxY7No2pBDZM03BBB06XoeGJJ7jJhrtdl7Q==
+	bh=mMwNgiFqS/fjPiXuqloRBJtiMm6ycT8nN8GDDLAnBo4=;
+	b=ahdug2kRfXIIeT4zCVG6+GCBrhprd53+Ptwmc0ORvahmdEJI7ssDNFm3XtItdsbXAc/B
+	 f1ocqbFd0HL8G+tSqyGt3foyETgy1K5czdNNOlotcekp8zZBw9d7ngRGCpaVLROlTem4x
+	 rsOAvNMXngFLS86kkxlCx8lmbHoLD69brevZ4Fk01MLBr2OO9/dEO5BQ5dqJa+x2FHBdn
+	 IfwerbEP+kUlnC3iHVfsYGQIbuNI2PIAoMdVdmNmI4rAJdbUPzzDeBZt/EjFkQmV9Bkwq
+	 EI6fcXzi1M76Jqhowdpwgqyn6W7q3NqIrslhovqeoaI51JivLwbiH7Aqfv1BRZvL9kw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QEdU06t5;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QzAuSns7;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nrsmPyc3;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hYgr3pgN;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 591E1606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:01:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 591E1606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50FB4606A338
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:01:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50FB4606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QEdU06t5;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QzAuSns7
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EQ8se4134051
-	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 15:01:41 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nrsmPyc3;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hYgr3pgN
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EQIrx2004630
+	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 15:01:43 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	BlHDPlEpvTz11MD3jRqdyLcBMjXBE0jtvt8v3OddGFo=; b=QEdU06t5mEtyrM2J
-	ERlC8FGtVeONyCQFYjxlDNWPhEb+JYPIE3SUg8xPztDcWCZxRhn4wob13J/Zlr1g
-	oOc3VsnF3IreT3f1A6hOYbH7ZEBjNlz7A7GhHGbmy+ADKK20apjSXbiYv0jHyVyZ
-	lo/qjGdpvZWd/KnhurhvUVOFJSLu4jQv+a1e5sY8wmgzmSJEqykNDYcaBRpWFHn5
-	dwYjuufESK1Jbmd062zUJ3bGKxte0mxIqpm2aQ071saJge7MgGueoTnqtl4NZ4Cq
-	hmEmpr/7I7CsMTJM2MkQQFuJtQOBFOTkM/KY/2vP+zl7OHGxK+352N9b3Bvhjw0b
-	Qtyeyg==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrksqa904-1
+	mMwNgiFqS/fjPiXuqloRBJtiMm6ycT8nN8GDDLAnBo4=; b=nrsmPyc3ojS7h+Nj
+	2SkD8Y9QyeBJquijpVunHjntEzl4PE/3EkuPYx6C0KHzndFm20YcPdRPu7mhfv5Q
+	hDRHtyXQaRQ5EetJ4qJbHdZGbHE4tZ/SBe/tFMt2fXxhScjpDr1+PoxBfl5+j40u
+	Itu5zoVs5vxWuDfVZAk74ij3TIuKz1qjT8ld+5mJHqXwprvztdnAIIFT/IQ9qsFj
+	jcAB7qimdnkny36ksZsb+RAmQII4loxan0Vql0ziDTvu0zerC8UY6FAH+Syoqqtw
+	gLNlxsoWmX9oTUucpQnw1O3uRhX5q+AHxxGl8p/oDC4V6QfoiNeGurctuBrZwDJz
+	d4p+Iw==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrqpd1881-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:01:40 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cd61bdc8683so1261922a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:01:40 -0800 (PST)
+	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:01:43 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ae72da2f57so2960543a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:01:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793890895; x=1794495695; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793890903; x=1794495703; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=BlHDPlEpvTz11MD3jRqdyLcBMjXBE0jtvt8v3OddGFo=;
-        b=QzAuSns7mxdsdfjO+Zcr5NnOtApNOAbw9U2FA6WTiHgon3j+PBK0xXBynnb0EDKvVI
-         zyWBtyzCE1z2ZU3R89h9qOGJMlhFP4RNa7AS2Gf2UI0exOlrZCk9sZkhqobm5JcPs41/
-         wET74b1s3sEU1ze9uXGvsJls0iqIcC/RUPPJDERas1Zy/fmWnazX/r0fhw7upl0HTMpE
-         wx85LEhjZuUtenZ7qVqcX39BRyRTGmTwHSEcmBUrBvYYom1a0QMYpJ5cKy25QcLjRH7x
-         2rMibmk3+sUZAAmbE9MTiKRbdr6c7y+ZZemKix3DOpR953s4zCAz4hkS5qiBdvj1Xj0M
-         77bA==
+        bh=mMwNgiFqS/fjPiXuqloRBJtiMm6ycT8nN8GDDLAnBo4=;
+        b=hYgr3pgN4qVYIBRMB2dksoEgK1qOH7qf8liLvpcYEvJhVt3FiiE64KXuBRBJUy85vs
+         hH5SikSZosKG9DXWsjyEd3mAhKidDreUJigC/TBvb5GjYKLHgu/YuZTGCp0sF46YGNSU
+         BEwkSv+ckMJVKkPwTSEyMoQ4pArcCBZBnfqmT5CCIJvku/HZ6jolK9h9ANKihmFdx1It
+         ULZbDVNy4Q0zzD6GrwE6qw6YXrcYNSWq5ha4+tzlV6PAxN/iuvWZSBHJzLIrPJNHIi45
+         D3I58o0kJDKQYXKv1DMhXCObEQ2RD34nIaYYK1zkVLk62I4FFRT4xC5XeFvpstYvg09p
+         iRXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793890895; x=1794495695;
+        d=1e100.net; s=20260707; t=1793890903; x=1794495703;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BlHDPlEpvTz11MD3jRqdyLcBMjXBE0jtvt8v3OddGFo=;
-        b=rn2JRfJ5QBXJloKKeVC0y3bWIvU1K8lumsS2ijKfrz9ktU5XJYFEdHqi+xJymMSX6d
-         21oxCfIAMRpR2JmviBs3dO9PrbJpIFHgEsNXupL1oEcc6Tblody+xGKFuW+/ubz87yqQ
-         w05oA30qgYAoVNDMHO079tYxT5RngjYBoBc3lSbI0AiUAQMnocAamH+P+F11zstU86/6
-         E1fOA4aB8h7MVz9XCUftb3Yg9EnE4B46ovU2RhUZLJhWpxNAx6ycicnD1wPKy+zZihqP
-         H6Bp9DDovSmK0M/hIMsw+X2/QuEGId49JNlX9jWCGnxmYX1xqfKu21v92f4mMGvjWMVs
-         gOoQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzkwzjcDo4q9ZxOgk3+NWWn7/QSjfV/24zUVdBSlXMjbcReVeOl1zHP0oj0pX0JRYkEpb3XTYeEzLmT0Cg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8rRIiMa72BJf64vHY+x9WTgoLcQHN67sI9CbBW4htRfK8CpSkg
-	u7AnmUktP2PdbVk2aeufv6BxY0pw62aSA1pWTPaLbkbzjaJ3cNoSGWGxT2OVSJtLQUwiUtiZatO
-	0F57yHDyEezUqxkJg31goGcQb8uGajs0IICn9vm4NDOvv/+AsNN9qDTRKdo4g8TyM9tM=
-X-Gm-Gg: AYBFou3ONrn1Y2EJNCnHmf/8u7j68PjtXDOdvyBzR9Yi4NwMXD2BzmdDrLr77GOZcM6
-	0NWEo1vjSBxf/g4lkqpxzkclEK7i/LtDUE6ev223ecrX8pNyI2y1ShrwcFeGmV01f34IytizTGU
-	OxkNYOGm7Ez0hDocxxVoyjGxfRxuyb5D/utNSY21h5qwGhzA0IgxwCzHNQqzjtn2f88Dzb6TcrN
-	n9iMAJwHxDck38PyXXqYYuo6OuOogUwklJAoSod2pMOr0z7cm8oAkd0OKa5HirRBnGEuu8ZcMyJ
-	9u6RXyd+JAXz/vSEeEDHlOcuIOM9TziSm/uUxmcAAdMLHgq+Yi15ZUohCvU8YAOHw7zsx9K9pLH
-	qBJ2DkKR0I+WxEu03YWW+6vdAtIEv1U4bDHYFG8wT6EXCclGCtmUl1GlkinuP3UvIyriQtXybCp
-	j4K3ZG0qTUEm3No5Mn/0iGp9N9x85rWQEdREj4x3rYJFr8
-X-Received: by 2002:a17:90b:356:b0:3b0:9183:23ef with SMTP id 98e67ed59e1d1-3b09183279fmr3992056a91.3.1793890894752;
-        Thu, 05 Nov 2026 07:01:34 -0800 (PST)
-X-Received: by 2002:a17:90b:356:b0:3b0:9183:23ef with SMTP id 98e67ed59e1d1-3b09183279fmr3992031a91.3.1793890894198;
-        Thu, 05 Nov 2026 07:01:34 -0800 (PST)
+        bh=mMwNgiFqS/fjPiXuqloRBJtiMm6ycT8nN8GDDLAnBo4=;
+        b=ij7gI7FNuN58C0Ys7aCSmJys7edx3Cg5ka94QeTkIay2gExlt4cnS8GJP59fwkz2dV
+         cgTA/4kP5nHfY66Fhm73y//kmtPx0zdmNSNpP7kOasXqTxCsQ2a7X8pY8b1zkyy54nI/
+         Be/p/CJR6S2ipNyrAuSWqqfiWLhdRVdsIT5bBfgO4iQDqhUo5JU1fAO4DgzVx5AmB/YT
+         JHBwEMG2yLpjeiSMFg9bOc5ujj3kWLGfQCpFXIyb9hjkPFOT+vfgVZ64EVVV4G73D8LH
+         J1hVupmCDCGHhNXHb+6Cum9lwUYDDD414LGltWJjacRrXCITqGiYwG8CUao2wL3Dc0rU
+         9gng==
+X-Forwarded-Encrypted: i=1; AKwUvBwmiJGqgf5obYnCaBDJzUCMqOiW457p4k/WMuYk+EieasI0vxhSwf/eKCrYx/Y0WOuAS0nPM3dF+aDOMSM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ABlun3Xt/MZFzXiPJhVC2TUloyJPYhh4GUzm1zmeXNBAiHBbR
+	ssh4dSs+Em9QM9t/p8uJ/4VVEhjfAX8a5AeYzytcgOm2MDy/iYsKRqX6goMUKGZVOn/FtIw/jOi
+	toweHdvYQebpdPZZhltJ68VBkdbX3wQTGvV3Prej94aqAvCigjAHfyKPhutwM3Hki6NU=
+X-Gm-Gg: AYBFou0hg6eVcbsS/w1UXyczBT3gBZCkgKpDVhxmpiAMYxeQMGrOnRSomZHKzKtS5un
+	pUV21jsgfnff24BLFesg4CIQ8aGawk8nfLDh/x95m+vxYS33+6EuGTKFJz/aap10euMGYauuQ6D
+	DjNWaA7/JrGP/aLCscojFzsfIGADTWE482UCwsOaOHv61peJalWQtiHNnZ8KQQJIU/YIcdygAf8
+	5yRNzNJsT+n7Z2PS/Vf9kinQU9RnUXpIwRmGhW5Ex0hselzfIJR45tTLM/25b7JNusGwgNImv2B
+	4elgUHbyk4BI6wZ00hcWC11EWgYbuEU60CF3F6rFIufh/hcuYABJx8I4jXdK77RNd04sRxrv25D
+	YmNxiLmSiJnSwyzLcqt7px2N6ojcbviSFrQrUiSLnuVhw38ZSv4uCkQo7m3aY7iwHfYZ1sGl5lP
+	KjYjQgcoS5S7jUQ4wRmqK9xiF2XfUzoYhlbU6ccWMLpVWD
+X-Received: by 2002:a17:90b:5808:b0:3ac:aa8d:19de with SMTP id 98e67ed59e1d1-3ae895743ebmr16831853a91.3.1793890902804;
+        Thu, 05 Nov 2026 07:01:42 -0800 (PST)
+X-Received: by 2002:a17:90b:5808:b0:3ac:aa8d:19de with SMTP id 98e67ed59e1d1-3ae895743ebmr16831799a91.3.1793890902227;
+        Thu, 05 Nov 2026 07:01:42 -0800 (PST)
 Received: from [10.133.33.108] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0969b35c7sm4179157a91.3.2026.11.05.07.01.26
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0969b35c7sm4179157a91.3.2026.11.05.07.01.39
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 07:01:31 -0800 (PST)
-Message-ID: <4606b154-e372-4d41-95ce-57b17f0f1d4a@oss.qualcomm.com>
-Date: Thu, 5 Nov 2026 23:01:24 +0800
+        Thu, 05 Nov 2026 07:01:41 -0800 (PST)
+Message-ID: <663e799b-9cb9-4e31-a6a4-5488d30ad14f@oss.qualcomm.com>
+Date: Thu, 5 Nov 2026 23:01:38 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,115 +118,87 @@ Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 2/2] cpufreq: Serialize global boost updates
-To: Sumit Gupta <sumitg@nvidia.com>,
-        Christian Loehle <christian.loehle@arm.com>,
+To: Christian Loehle <christian.loehle@arm.com>,
         "Rafael J . Wysocki" <rafael@kernel.org>, viresh.kumar@linaro.org
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, sumitg@nvidia.com,
         zhanjie9@hisilicon.com, superm1@kernel.org, zhangpengjie2@huawei.com,
         Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
 References: <20261105090311.1026648-1-christian.loehle@arm.com>
  <20261105090311.1026648-3-christian.loehle@arm.com>
- <fd2b81d0-df9c-4a07-bc47-a2a6460304f0@nvidia.com>
 Content-Language: en-US
 From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-In-Reply-To: <fd2b81d0-df9c-4a07-bc47-a2a6460304f0@nvidia.com>
+In-Reply-To: <20261105090311.1026648-3-christian.loehle@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA1OSBTYWx0ZWRfX54uLbXDX48bC
- NSx2g60GsviNhxyxHjnhf66vza4b9ux38mJItUXqj7jo0Hs+LPtA+ygPsr91qaZongjtkFH93Xh
- A4SAExrkj6NAC0aOXR10dVutKF8VWjUJHA1CUPYxAqybCAdl0QsPZjRUGhCHb8hSWf/SM+55lXF
- c4hOkleO6WLL0miDmVe4mqGuj+pu4/Faf60ukma4STEeGkjOLrTfoVJmDUkLwmlE8YxKaiiu43d
- sUtGDiM5Qv1zZsVgKqul1Y/U2rNxLLZx53NeVKXjeLVeOLgQQe9kCF6u+425OeIQQXRPoFI3Cy6
- IAZJUforJMug7AtASgPE3GT5c4hfPux2upaWrLlT9GvI/okWlQUI1U7NlMrRpk9jR9ZaFmnily2
- 3HACfNqQ/2mIfrFYksbMBgVL8VJC5L6y5hzvlegkZdiZmeLatL/SQwOJK9ELYyNrgR10DUx8tJ+
- G/wIunVNIr0FGqyj3Cg==
-X-Proofpoint-ORIG-GUID: V_Q0jwFGlpf7o-uDe_ddJU-hBRr9U7hS
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA1OSBTYWx0ZWRfX+txRGi0LoFeA
- Ll0/c1lblOPtZ65L7LeZaohRlEicq4Na7JB0Jshb0/6DBkZnOWvWKD+V887divBgtQ7/9utGf4l
- qVairICJ3ZW1cZMobxWC8nt7Tul3lA0=
-X-Authority-Analysis: v=2.4 cv=CIe/zhrD c=1 sm=1 tr=0 ts=6aec9a54 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA1OSBTYWx0ZWRfX/Wz/l6N3V8D6
+ pkpiiUJtZ53VvxVq2Q6SV3l60FcAy31PHd4Drl/IZnrFrA813uks6bn2J4eYgroyXfdZcPxMnrC
+ FPYCL06cu6tITTeZ3jSTAeZTg/mmyLc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA1OSBTYWx0ZWRfX53R1PCtAj2GL
+ 28Jj6dMrSqQSOLGyNGEish6x5k7Z7n+HgV/1X1Kc1yD/BOc4tAt+akuKiG1QN0mzYaVnu7p7RKY
+ kCaK+lI5JQKDAqFOff+CtBBvJZqyB6ASrEi5/Na0HYA3/JwS/a4QUvFZjeb1OynDBM9KjYnb3JB
+ +LNXkmK1L2CsMVvlOsSTmTbgJ4zAflitY9YnGGRjP6a5SeQao4ejVEKUUGBrYAQyHVj40dQCJqh
+ LgLIkQsxQ1f6za6v2fvYZi0r1IrMfS0nOWUyLE5Wid7t7hxTvoDRrL8B7Idmn3bwuyVhPSW0G/Q
+ kSZ6aUsM2dMX7JaYKSDzR9s8ln5bz+dJebMIj4lp4Aqwo4JKIqfYMv8j1C71Om17bgO5VaAbr+E
+ 1VhQykHEeo5LmB8OJEjhdz/QBcNgjtcqYrBZmFdUMBcHdzdsoR3M4Ywi+Fst/CveRPP3kbEvobr
+ xWqYr9hCBNLUHJLmJow==
+X-Proofpoint-ORIG-GUID: y1LmBVZXjNZoJ8yIzOqTGsOKn_K9q7D8
+X-Proofpoint-GUID: y1LmBVZXjNZoJ8yIzOqTGsOKn_K9q7D8
+X-Authority-Analysis: v=2.4 cv=Y5JtIReN c=1 sm=1 tr=0 ts=6aec9a57 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=VwQbUJbxAAAA:8 a=7CQSdrXTAAAA:8 a=i0EeH86SAAAA:8 a=Ikd4Dj_1AAAA:8
- a=doKhQEW8VQ38Gr0XSBMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=bFCP_H2QrGi7Okbo017w:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-GUID: V_Q0jwFGlpf7o-uDe_ddJU-hBRr9U7hS
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=7CQSdrXTAAAA:8 a=i0EeH86SAAAA:8 a=EUspDBNiAAAA:8 a=lRSh-j1tXNIazO6Y0zgA:9
+ a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22 a=a-qgeE7W1pNrGK8U0ZQC:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-05_04,2026-11-04_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 bulkscore=0 suspectscore=0 adultscore=0
- lowpriorityscore=0 phishscore=0 impostorscore=0 malwarescore=0 clxscore=1015
+ malwarescore=0 adultscore=0 impostorscore=0 priorityscore=1501 bulkscore=0
+ suspectscore=0 clxscore=1015 lowpriorityscore=0 phishscore=0 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050059
 
-On 11/5/2026 10:41 PM, Sumit Gupta wrote:
+On 11/5/2026 5:03 PM, Christian Loehle wrote:
+> Serialize concurrent global boost sysfs writes with a mutex.
 > 
-> 
-> On 05/11/26 14:33, Christian Loehle wrote:
->> External email: Use caution opening links or attachments
->>
->>
->> Serialize concurrent global boost sysfs writes with a mutex.
->>
->> Fixes: 6f19efc0a1ca ("cpufreq: Add boost frequency support in core")
->> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
->> Reviewed-by: Pengjie Zhang <zhangpengjie2@huawei.com>
->> ---
->>   drivers/cpufreq/cpufreq.c | 4 ++++
->>   1 file changed, 4 insertions(+)
->>
->> diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
->> index 23a77f5524df..d95c849f79c5 100644
->> --- a/drivers/cpufreq/cpufreq.c
->> +++ b/drivers/cpufreq/cpufreq.c
->> @@ -2810,6 +2810,8 @@ int cpufreq_boost_set_sw(struct cpufreq_policy 
->> *policy, int state)
->>   }
->>   EXPORT_SYMBOL_GPL(cpufreq_boost_set_sw);
->>
->> +static DEFINE_MUTEX(cpufreq_boost_mutex);
->> +
->>   static int cpufreq_boost_trigger_state(int state)
->>   {
->>          struct cpufreq_policy *policy;
->> @@ -2817,6 +2819,8 @@ static int cpufreq_boost_trigger_state(int state)
->>          bool boost_enabled;
->>          int ret = -EOPNOTSUPP;
->>
->> +       guard(mutex)(&cpufreq_boost_mutex);
->> +
-> 
-> 
-> The policy->rwsem case from [1] seems to be still open. The per-policy
-> boost attribute calls policy_set_boost() with policy->rwsem held, but
-> cpufreq_boost_trigger_state() and cpufreq_online() don't, so they can
-> race with per-policy writers like ospm_nominal_freq in [1].
-> 
-> Could cpufreq_boost_trigger_state() take the policy lock, as
-> cpufreq_suspend() does?
-> 
->    scoped_guard(cpufreq_policy_write, policy)
->        ret = policy_set_boost(policy, state);
-> 
-> [1] https://lore.kernel.org/lkml/20261030172745.2045743-4- 
-> sumitg@nvidia.com/
-> 
+> Fixes: 6f19efc0a1ca ("cpufreq: Add boost frequency support in core")
+> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+> Reviewed-by: Pengjie Zhang <zhangpengjie2@huawei.com>
 
-Hi Sumit,
+The change looks good to me. It might be worth expanding the commit
+message a little to describe the race between concurrent global boost
+sysfs writes and why serialization is needed.
 
-Could you please check whether the following patch addresses the issue
-you mentioned?
+With that minor comment:
 
-https://lore.kernel.org/all/be3739f8-e668-4711-912c-91459d77ed35@arm.com/
+Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
 
-
-
-> Thanks,
-> Sumit
+> ---
+>   drivers/cpufreq/cpufreq.c | 4 ++++
+>   1 file changed, 4 insertions(+)
 > 
-> 
+> diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
+> index 23a77f5524df..d95c849f79c5 100644
+> --- a/drivers/cpufreq/cpufreq.c
+> +++ b/drivers/cpufreq/cpufreq.c
+> @@ -2810,6 +2810,8 @@ int cpufreq_boost_set_sw(struct cpufreq_policy *policy, int state)
+>   }
+>   EXPORT_SYMBOL_GPL(cpufreq_boost_set_sw);
+>   
+> +static DEFINE_MUTEX(cpufreq_boost_mutex);
+> +
+>   static int cpufreq_boost_trigger_state(int state)
+>   {
+>   	struct cpufreq_policy *policy;
+> @@ -2817,6 +2819,8 @@ static int cpufreq_boost_trigger_state(int state)
+>   	bool boost_enabled;
+>   	int ret = -EOPNOTSUPP;
+>   
+> +	guard(mutex)(&cpufreq_boost_mutex);
+> +
+>   	/*
+>   	 * Don't compare 'cpufreq_driver->boost_enabled' with 'state' here to
+>   	 * make sure all policies are in sync with global boost flag.
 
 
 -- 
