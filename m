@@ -1,129 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793878337;
-	b=hzDzpvetD1on03C/EUM50jE5TB0e8YGxl0ySvdGBEvMfIsq9FT5lhD1pLdv/9rcv7vFm
-	 1lm07RoHKRodkv9qaR7ZlyRNyi/AjOUYwC67CEqJA9nCkEKLFpOp0e/wBoZgtDlnkrBv9
-	 yGRX5aKwmQzNN40gxp6CsQ+aKYDD5KGjFLxMFlOn42r+oIECJPtdlcULl5I0Xb7kOHJXv
-	 jUqiwwEoW4Y16mxNN8y96UPvJfZhQxDhjFnMKMGt/MH8Vfjtx1gUXCf4MRl+OpHjdzxA1
-	 IzZ9Gk9xKBvjk9npUttic3xXrvi4lsz38MW8j8U/MiIK1nEpezYp1OCZ5fPABMmQu6Q==
+	t=1793878357;
+	b=45C1fJbfd+La75z3Q6MoWafawwcV5uiZgR79jOqFTsasJDKlruQykuJRjUUnpI9fkT95
+	 Z6sxxZYF43mONloG0uBTUGbu6yTLcmJqrlxV6QHF2OWV2TVX1VIT1xbOKZcQsG8gLM5PK
+	 wrDgevI1p6i4O8JIlo5yFFGhweaKVCU3j5mMLRa6bZ/PzIUGOPRNmaEXo/oRc2VgM6b7A
+	 4ze4K3YoJBEWuJy/Uwah+fvr8wWCEo/aMH+i/BCW3yGFjM5Lq/9SFGi9wrLLvErY2cWS9
+	 uVOqcOkQFmyj63eW/SSWzPOFqMSxCxUGAwsx66pZ+REzVQVqXG4+dHL3+Rw/XRuZ9hQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793878337;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=tNhVEyr0Y8JjrBOBITAdvT9PFSa0wDqidicidUjfssc=;
-	b=3Xp29+cRsPfr2eD+NvdFQzWCZZzpT8cZ8UDkUHearrBmUr5RhoAEGa/tGgbXZGT7BmSJ
-	 t+1arzi67oTeCWmaWivAKj8N0XEtv884ptKalYfbtA9kFUyrFyQjmvRs2olRe3aodImIP
-	 Wh1u6J00QPhyXAfMR2sjpk53fdRc3ESOxfWt76Xc8XQMRw0pBVKMNwYVymN1VQX5k/kmB
-	 DTDdnwSmbuhfnviaMDK3KWYkouaRT5/GgCm8+L8M8Jb5ShP6pyC0xygNrZkPNThnZ3Ylo
-	 8Fk5QRJvIrjgz0itW1wbZVb7xMS/ixq8wtMGTD4DJOiBER9YdBfVmoOYXtuNbiigQmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793878357;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=Hv/YqhUcbRh9eWhND1HEmPv7Wx8/p/XxUOLWb+cXlc0=;
+	b=cGZO5jBlm+d2F9hYOAm35qvV2IQQXfKwlJOFhbShX+vfNBkaGQOMahWyHGXjoiW2nDBk
+	 qEMti9bBmhUX8sBA88kj98ZqnqfAh73CXu2NiHFKNOCjZiZc6wnzNJX39c5jObgjJb5PX
+	 gFKjazkvX7Uz5CjqhCkDSyMe5fW7uH57dw/x30ACH++Zt/tC/5ZEKvaZtZYvoOMEbO2qM
+	 WT0pjimzvaMzjhPKAJE1lua/WMKQ/Yk6kwa1DxXT+qeMWJRjxpmEumwHvJ0aMECeV8Iqw
+	 9MGM9t0ivuBhU/vDgAezSrZf8+hRnQxY2c1b50QJoogeS0BCiyBe/BpNLwSyxMaC4Dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=WzB32JQs;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=V85+4Ku3;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gCzhsiwh;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B945A606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:32:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B945A606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3331D606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:32:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3331D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=WzB32JQs;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=V85+4Ku3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793878335;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tNhVEyr0Y8JjrBOBITAdvT9PFSa0wDqidicidUjfssc=;
-	b=WzB32JQsj5twj5lBPTCffUxiaitf0ZLxM55hJhzBz7By9atlVx/xJ3xV1QOLSGNKsxUGwY
-	gqt4nQb9Nvsrme8QKOCWF8IgDgtfqKJzdg8Hn2JWmmvCp/OYaNUPUzm10E+cc6G8PivCcG
-	crDTRJdRncSGzRQvg2BS5OcQKHnAfZ4=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-399-M-NorOyPNPOoWdh-vFocyw-1; Thu, 05 Nov 2026 06:32:14 -0500
-X-MC-Unique: M-NorOyPNPOoWdh-vFocyw-1
-X-Mimecast-MFC-AGG-ID: M-NorOyPNPOoWdh-vFocyw_1793878333
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4994d67d0e3so11980245e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:32:14 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gCzhsiwh
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-49231763f81so14043f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:32:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793878333; x=1794483133; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tNhVEyr0Y8JjrBOBITAdvT9PFSa0wDqidicidUjfssc=;
-        b=V85+4Ku3I4PSQzGXmrCvP53gBTpXOsHKIsNAwrjUln/NWHiLULOhpPLQ06NtDNWvah
-         iCj7JEelX0ZOa8tY52XUUTkYvnF+kw/Vb3vsFTFwjSbEOyQxWUIg74pRiVGmCL8/cg28
-         DlQXfv7EyIJIoh0aFlsxv+VeZ4LAf7M/rCIDzBGr8cleF1gg2IdU1KW+wRMIHmZ2AGrh
-         KgkUA1tEfzWdPRT/P2pw9EGVJT31FWozYaTR0KqbHKW52ie8CHi3PcQKorNcff5YR07B
-         j6If37NBzi8GWIYUPo0uyDRGZtXBd5RAc0e0BAZfRtjk0bCJ+yWToSBNaCr79+cH7MhV
-         4Ldw==
+        d=gmail.com; s=20260707; t=1793878350; x=1794483150; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Hv/YqhUcbRh9eWhND1HEmPv7Wx8/p/XxUOLWb+cXlc0=;
+        b=gCzhsiwh+9TzJMsLX87aGG0KzgXUNwVed4ZEt2dCuLs93W8hNgD2S6kh7CnhDWk6th
+         c+/CJBoTDuiXWkKZxA4OBTMoAeBM651auVk8jLmD9tODmsIIGa0CQHfpUvEnJniX60g3
+         4eaKVYlIIWc+97nFpdoSr0V/kz9Rm5Q7npP/adX545XmrufV/7p+1FuacB+TRxp2iMHo
+         eDELcu9+7/fRm0sCUWh7ZPZLywlbhqt1WfY5cSBiksN56N+g2mjgxr04UtSMjA94pZc/
+         ICfzzuVeqGRiu8Qzh/bnysZ8Ri9wHCdM8ME6YT9AM3k6WjIOmMWucFGBt5fCrYaVafip
+         KyHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793878333; x=1794483133;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=tNhVEyr0Y8JjrBOBITAdvT9PFSa0wDqidicidUjfssc=;
-        b=1UBEw074heBOSNHuZY4HIp455T9dbmmK7kQXKrH7XJF9CKPSr4QqxH1vTEzIrijYnD
-         jU5Ygn2EU+bKgoUy+KiflwZjbqUisOI0I80OfjVbil4ndaHokc6JSHJzLc7BCsZF7wBv
-         G+PQGBTktOz89Ft9BzrYyuJzqoHrBgs6TiA1XUq4UN1G/WP0GJnfGe7PjqtFzSZOmZRA
-         6MVQQ6DNo1Kb9ixRBIfJpZR14W8ws/GQ4xzm/M2i7IQ7lAy4UIou0wtNvYVp88R+Kvpf
-         foSRwTL+mN8e3l5kIySfrgzCEmazaXeZv4AZpNWkKTFJksZrojBlDaQEjM43vFAxJajr
-         nhhw==
-X-Forwarded-Encrypted: i=1; AKwUvBwPED2GkWMvmYdq0P1o7getMJjiAKvBUOsIudaLRpkxNQMqq6Z7Lm7KwdDChKXCcijusHXqu4au2cMxpck=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9HHnfyuDbhAH9ltSsrRSG81QZP0HKGtVRgLPjKP1+NEvsm0SeM
-	H0qTCX/FaSwIu0J6sVVf+qCQsF6UOBmp/A0LlyweXCMlqe4KRbOAF0r7sOHHpPoPwHqtfQHMrzt
-	AreWz+BMcyEyU1U/NIusu7wDz2GglQwBK+PDEezlc118KVM1Oo2+zyl4zN5RUzycz7Q==
-X-Gm-Gg: AYBFou1JI9fF5guPIyDzefM4iEsWbCUEVm63L1K6o6etre94Rv3vAMxKP8l87i3+hEk
-	4VvGHO+HYu8P2+vh2uICVUH40XkPI08tB242FKd19l1Mi+otupEooJXdDtX4hkvqL47sMnyYbEi
-	C27xS9NVXVn5HfYfjG1G+3jsdNEGXxw3cXOBdglKf9U2/CbfAGH0UlaN2daNkrvkNLVdGUYNBfi
-	t0gq3kLpTZLyCySAPdWf/njNTYZ+RPiHXMlepl3vDa2OsuNwbDz+5tuvZ9/EvlM9PeQxQcucCSu
-	kN3XYF1e+beC561ok6W789jKOClejMKCwYWdK0+zvxvrTND7nP2Vf4dcra7a8J3t9osEebBV2hh
-	369753+Sp2Ju69FvvLyl8v8iASUalVkoLvCE8A2VG2FyCjl5kywEDMH7fI4jLpjeO3eYVxC2j5W
-	wSqg==
-X-Received: by 2002:a05:600c:8b0a:b0:4a1:742e:3 with SMTP id 5b1f17b1804b1-4ac185bc4a1mr417473265e9.27.1793878333155;
-        Thu, 05 Nov 2026 03:32:13 -0800 (PST)
-X-Received: by 2002:a05:600c:8b0a:b0:4a1:742e:3 with SMTP id 5b1f17b1804b1-4ac185bc4a1mr417472905e9.27.1793878332770;
-        Thu, 05 Nov 2026 03:32:12 -0800 (PST)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.51.140])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b64809c39csm8172645e9.4.2026.11.05.03.32.11
+        d=1e100.net; s=20260707; t=1793878350; x=1794483150;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Hv/YqhUcbRh9eWhND1HEmPv7Wx8/p/XxUOLWb+cXlc0=;
+        b=J4Lhmn5yEGeuua6gjh/VI3t+ZXqkSx3US/3zYLmuTJn4l0vWUU7vrn1AS96f8qRUDX
+         ssGVIR8KQp+FQ7E77Vy2zqexPPWAJLz+bv1M3lg+c9+pVbaD7Nw67QyzJStpB2o2q0wi
+         0g+z+uccykqsJ+xqYNd9L9o2ZcJEBUs8g0QgtVZ6gTGBYiPwo/iOEYFhaB9unJSO8fpL
+         WvjTykCCj2WGrTAvlsR1v2zaqakYybpuIuIv0j0IFLPXPxHxuOXqrV+RCx6TTNnkqYbu
+         zocpIgVM6YTfc35hUPvpl1xT6fHOpYqgd5R4R/+BY3BKOKOaFZs9hXX3U5eug3PVuUHk
+         5xwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzSdC5+RuGO/F0dZyHrPsxg6V9p1dixp0y/DGzsoSDy8V0aHGfH+6FAuwcENWDlbpN/93DlujPxlEaqv9Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+nwjWGwW7DXqAyfar57jFo/Hiw0Uf+DeLqB2Ta6lCRZr1J1uwd
+	xI7D8aQJ8UUS/0debGUN1hv4vYTbDYycD0805slv9B3Fs4V32wiveEZMqiXmObmj
+X-Gm-Gg: AYBFou1WdwP5mqnfZxEh8TSqpD092kLxLQZBzMSuNH/lJjLESrYC8g9vgIbw3S0mqVF
+	pxEk8s28fuGJHExLDx0Y2Js8DlIYHiL3FL3HXAclWI/1Ws1ft8c5T/d3MPDKO2a66k1O6PrXtFT
+	80C61heWkd4v8j/JffBA66HoSKwSNwGNt8vqF1pGFgO5Duy7uA8kYs0gPOZJb3bHfOkipY1vaJK
+	pNs+U4wRIQMFp2J813Gq5+lXs+ITmfHLDE+4stk4azCVVF0AS9X4JYA+nW7as4lJEHQDUK+bSfv
+	M5yrg3W6hvbFLWyOwxWlVc33ee3NLmhtfqiltwahraNoP1arZPnYWYK7TIyuA07eReRbWkdt/B+
+	kw5IMbDj29ljeB44pRCqW4ru1dB8PLkEAg1QP0yZz1oRAcoaX+TPUw54tkm5k21On1fPx2HYcH6
+	ZLMJmsW40L9T1d/tvufypc7vByk+iwONoNCv6GsnBjUB2dE/Btdfyp+LzUF+xG0F1yaaEEXGaO2
+	BAOfs/reWjsa2+CXCZMWLFNk1j5R+SpKjugkKG+8TdgVHjHBNC0aDuePf0WN3RMH7DD1Gd9pJDE
+	sfEjRBzGP3um05qzs6reS9Rtz+6r8meFu+DmUENfBeEkz1vfuUF9fVgCUTvdm+//
+X-Received: by 2002:a05:6000:46ca:b0:48e:679a:4aeb with SMTP id ffacd0b85a97d-48e6e2bcda2mr28288827f8f.3.1793878350394;
+        Thu, 05 Nov 2026 03:32:30 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fece99a5dsm9469614f8f.21.2026.11.05.03.32.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 03:32:12 -0800 (PST)
-Date: Thu, 5 Nov 2026 12:32:09 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Ingo Molnar <mingo@kernel.org>
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Luca Abeni <luca.abeni@santannapisa.it>,
-	linux-kernel@vger.kernel.org, Tejun Heo <tj@kernel.org>,
-	Weiheng Qiu <weihengqiuu@gmail.com>
-Subject: Re: [PATCH 1/4] sched/deadline: Fix stale root domain in cpuset
- bandwidth transfer
-Message-ID: <auxpOYTZ8BRiB1IH@jlelli-thinkpadt14gen4.remote.csb>
-References: <20261103-b4-sched-dl-bw-fixes-v1-0-dd761fe005b4@redhat.com>
- <20261103-b4-sched-dl-bw-fixes-v1-1-dd761fe005b4@redhat.com>
- <CGME20261105102052eucas1p2fa2d23d1c49cdadef3b1099e18ffb958@eucas1p2.samsung.com>
- <eb0e386b-da07-4a2b-bff3-79441fd6be1f@samsung.com>
- <auxcsYGC7Fqa44LM@jlelli-thinkpadt14gen4.remote.csb>
- <auxm5whgKM-uiSGe@gmail.com>
+        Thu, 05 Nov 2026 03:32:30 -0800 (PST)
+Date: Thu, 5 Nov 2026 11:32:29 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Alejandro Colomar <alx+linux-hardening@kernel.org>
+Cc: Mariia Nikitash <nikitash.mariiaw@gmail.com>, mchehab@kernel.org,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org, kees@kernel.org, justinstitt@google.com,
+ morbo@google.com
+Subject: Re: [PATCH] media: siano: Replace strlcat() with snprintf() in
+ sms_ir_init()
+Message-ID: <20261105113229.4126d872@pumpkin>
+In-Reply-To: <ausVkYs1-3rJ5Fj0@devuan>
+References: <20261104090239.311074-1-nikitash.mariiaw@gmail.com>
+	<ausVkYs1-3rJ5Fj0@devuan>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -133,73 +102,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <auxm5whgKM-uiSGe@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Ingo,
+On Wed, 4 Nov 2026 12:25:17 +0100
+Alejandro Colomar <alx+linux-hardening@kernel.org> wrote:
 
-On 05/11/26 12:22, Ingo Molnar wrote:
+> Hi Mariia,
 > 
-> * Juri Lelli <juri.lelli@redhat.com> wrote:
+> > Date: 2026-11-04 01:02:39-0800
+> > From: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+> >
+> > In preparation for removing the deprecated strlcat() API[1],
+> > replace the strscpy() and strlcat() calls with a single snprintf()
+> > call to construct the IR device path.
+> > 
+> > Both the source and destination buffers have the same capacity,  
 > 
-> > Hello,
-> > 
-> > On 05/11/26 11:20, Marek Szyprowski wrote:
-> > > On 03.11.2026 12:26, Juri Lelli wrote:
-> > > > dl_task_needs_bw_move() and set_cpus_allowed_dl() use task_rq(p)->rd
-> > > > to determine a task's current root domain. For a sleeping task, this
-> > > > is stale: it points to the rq of the CPU the task last ran on, which
-> > > > may belong to a different root domain after a cpuset move.
-> > > >
-> > > > This causes incorrect bandwidth accounting when a sleeping DL task is
-> > > > moved between exclusive cpuset partitions and back:
-> > > >
-> > > >   1. Move root->partition: task_rq(p)->rd = root, destination in
-> > > >      partition -> different -> bandwidth transferred correctly.
-> > > >   2. Move partition->root: task_rq(p)->rd is still root (task never
-> > > >      ran) -> looks like same domain -> no transfer. Partition keeps
-> > > >      stale bandwidth, root domain is short.
-> > > >
-> > > > The root domain then over-admits, and when the task exits total_bw
-> > > > underflows.
-> > > >
-> > > > Introduce dl_task_root_domain_cpu() helper that uses the task's
-> > > > cpus_mask (which still reflects the old/source cpuset at call time)
-> > > > to find the root domain where the bandwidth is actually accounted,
-> > > > instead of relying on the potentially stale task_rq(p)->rd.
-> > > >
-> > > > Use cpus_mask rather than cpus_ptr, as the latter may be temporarily
-> > > > narrowed to a single CPU by migrate_disable().
-> > > >
-> > > > Reported-by: Weiheng Qiu <weihengqiuu@gmail.com>
-> > > > Closes: https://lore.kernel.org/all/14508cb2-805f-41ac-9f6b-bfd7c3d7cb1c@gmail.com/
-> > > > Signed-off-by: Juri Lelli <juri.lelli@redhat.com>
-> > > This patch landed recently in linux-next as commit b4a61fdc19c5
-> > > ("sched/deadline: Fix stale root domain in cpuset bandwidth transfer").
-> > > I found that it triggers kernel BUG during CPU hot-plug tests on some
-> > > of my tests boards. Reverting it on top of next-20261104 (together with
-> > > dependent 41a7968022ca3) fixes the issue.
-> > 
-> > Others have found issues with the set and we have been working on fixes.
-> > 
-> > Can you please check if the following addresses it
-> > 
-> > https://lore.kernel.org/lkml/20261104211207.1392343-1-mathieu.desnoyers@efficios.com/
+> The line above seems irrelevant, and potentially confusing.
+> The size of the input is not important, because since we're appending
+> stuff after it, truncation may actually happen.
+
+And gcc's stupid format overflow check is going to complain.
+
+David
+
 > 
-> So given that the first patch triggers a crash, I've removed
-> these fixes from sched/urgent for the time being, waiting
-> for an updated series.
-
-Thanks for doing that and apologies for the noise my broken series has
-caused.
-
-> Mind sending a series that is strictly -stable suitable fixes only?
-
-Reviewing the above and will work on what the series doesn't cover from
-my original set of (attempted) fixes.
-
-Best,
-Juri
+> > and the return values are unused. This preserves the resulting
+> > string, including truncation behavior.
+> > 
+> > Link: https://github.com/KSPP/linux/issues/370 [1]
+> > Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>  
+> 
+> Except for the small comment above,
+> 
+> Reviewed-by: Alejandro Colomar <alx@kernel.org>
+> 
+> 
+> Cheers,
+> Alex
+> 
+> > ---
+> >  drivers/media/common/siano/smsir.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/drivers/media/common/siano/smsir.c b/drivers/media/common/siano/smsir.c
+> > index 283770d583d5..636ff228108b 100644
+> > --- a/drivers/media/common/siano/smsir.c
+> > +++ b/drivers/media/common/siano/smsir.c
+> > @@ -55,8 +55,8 @@ int sms_ir_init(struct smscore_device_t *coredev)
+> >  	snprintf(coredev->ir.name, sizeof(coredev->ir.name),
+> >  		 "SMS IR (%s)", sms_get_board(board_id)->name);
+> >  
+> > -	strscpy(coredev->ir.phys, coredev->devpath, sizeof(coredev->ir.phys));
+> > -	strlcat(coredev->ir.phys, "/ir0", sizeof(coredev->ir.phys));
+> > +	snprintf(coredev->ir.phys, sizeof(coredev->ir.phys),
+> > +		 "%s/ir0", coredev->devpath);
+> >  
+> >  	dev->device_name = coredev->ir.name;
+> >  	dev->input_phys = coredev->ir.phys;
+> > -- 
+> > 2.43.0
+> > 
+> >   
+> 
 
