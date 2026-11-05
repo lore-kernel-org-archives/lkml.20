@@ -1,99 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793886756;
-	b=Uzj2vEYNDVbGPXmaqYD7wUz1kVy4w+cyM1pZN33LF3V7mR4X+FUyQz78mjz0W52Vrgh6
-	 RVync6zkLMTq/U3WSO5TX0JbutWDmo2SGL+Yc4v4jY3LnFEcsBpQRBmAC8hZ0Ae/nZaML
-	 5j3VMFsSv41CVHAc7mbmxZcIAwkP7qRvnCYvI2IB4RYOYE9CNt/AofPwUpgbBTHNU4c/d
-	 tMmUAcoc4y1pjxJvirXATmxJgfFHe8G1jtXGbynvcp+CvigXnQkvb+I+/LII7PBM1CfeI
-	 UjS2gvTrkw4teVgPRzFpkyAkhHoyJMLf/3fev+k3ktzvrkyVkNIx6KtxnvViOLf8aQQ==
+	t=1793886815;
+	b=oOddArDeJs8wYgnCTr/7fNJXEkHIwwCEljjPh7n+8xxLM+fnxPJO3lfdNkUo4KO4QU9f
+	 5JtB9j4/uWZT5RLysR1GnPEUpmgeoFaEhVa0cu0bN409CBZrkYTK8CZcv1mHSeQ43Tq+I
+	 ILAsR3rUZg5UimCluQKVgmKFl/Tz7H9YZ6kA3C72XYaNJBqMDHliI74diqOFDuNXmJ5Sr
+	 z1ooHo0h+0PIaG+hgYylscRapfo31IEm6jN+FEV7RbU4IvEqUkp+Yp+UGVA30+qOu72z1
+	 VPYQnAVzgxW0dvmCAu9gWx2tkhTRgW/cxbf5hqARAatD9T9QsXMYnHhCLyHsqqRTYdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793886756;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=QwmQA1a2QhYSOPcBSTBe/t1Xyv+zC9XEOaQnTg/X7XI=;
-	b=SJEf787D5is3T6E+434dK7jHQjopALV+DwYtR3HzCKaA8wIBbAI817yeNBJWsZDYWadd
-	 mClDrcYJb+Mesge4XJdRCkh7t1xYsRtGyMlctjOJVHHOrMRrk0+SfOj8hx31xmZVzkYUc
-	 dxYnTCEwS6H2XtKoHR5lng7YpZkAyPz9mhb3f+LBko5XZFecueZWKnAUTBsLUmVwv+smW
-	 FuRUYX1zkn3y8VthFfbyHIHaLO41NO2TmfPGmMGCP86sBVFd3y+gixUQSbNafb6G/if0O
-	 kILMbFZZPnlZTaOuux+pWqwa4HbBy8ttUmc7JXRYl13n4xuNVyrjl0YHJRtaE0HdPYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793886815;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
+	bh=pS3g/owqurA2ACDBJAEK/k3nZo7vGLX4OaAYjvkdCRI=;
+	b=UYkF7wSLVJL3w3wevqsB2y9B3UEIkW3Y3EXKsNs97/5g7A9Ux4YAqD8JKY7tGK7ncpaQ
+	 DbUkRr1xCZ28/yMMoEag4HbRCL5mu5of99vPQF+XprJgphA/U3gcplj4XjPn92uyHfKAd
+	 Eno4p71P6yZ2qqLA9hkn1Ep/KtXoQkF0O4+eGFS4iO1rNcUCaZrrMV2uBmwhGTb0En8oM
+	 93T0uaPlqSklWbzhEMvpQIAEgJrHtKQSNs+jRXPWuRVHoGuJrfxfUfz/qpbEt6kwxj35T
+	 Tl7TCaxQhP9B5jmeEFpe5pJVM0LoijpCXHw/RzW9W0Htjal60tjh9ASfF1N+AGWSblg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=resnulli.us;
-	spf=pass smtp.mailfrom=resnulli.us;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=a0QRmC39;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A014606D80A
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 13:52:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A014606D80A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so13702075e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 05:52:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=resnulli.us; s=google; t=1793886753; x=1794491553; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QwmQA1a2QhYSOPcBSTBe/t1Xyv+zC9XEOaQnTg/X7XI=;
-        b=c34gCj/8CF0gjZPD4S6DE7fp5Zl7gSX0P0hMJk9lFt1y+nBZYrLUQMyOe9yskOljO0
-         mWq7a3nzqXz8tp3I6ubwhzBAOsJYhD2zSynoQZHrZRopkQjPUFsi2whqLUzl+ldansUM
-         MIoZ/uxtCEAMb9QDpVquB9CLXS7hpypOQBKzqBwygEabCHs8+Q8vFHnySRybX3XMNR5x
-         /bmNPcFbYLThOu3b+Gb9jeXLHMvKt3ZgoiXr0DY8zyFrDCAKVO/1n77AROFDNyHGSlRT
-         4sQdtVSWMSH4Fk6Bh6Fa2qjPcR18tiYc8STHLzktuM/SW/ODCEM5gMYc36N9pRaZ8t/X
-         7c+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793886753; x=1794491553;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QwmQA1a2QhYSOPcBSTBe/t1Xyv+zC9XEOaQnTg/X7XI=;
-        b=gSVS8Ry9Lr5LWTXWksTo6KVTGoTrrQFonOaCkoj9Q7KjcsSwsCcLg34xsdGu7VbQub
-         gZMumGL2oY42qKTchj/p8c+GyXOORkVclNnnRiv19eZVZ/MN9ognFgYVGlrKFxFy0dfD
-         Az2dqMI99fA57JhvqeYnbGqLTgJrMWiNJXs4fPpqgR9+5/N9zwYs/rpmHy2V9xXVGQIj
-         apKtzCuoRhvqyRE0x9o1h/YZpttgfMqWPWRPew/jumF90jifNV4HDT35L14oi2a74On/
-         eZqh44seEyf8/Ufp4Gy1JeuPKYaeuUD19u0hFXIfKxthJyi/xA6oH1h5xjx3Jx23gPbb
-         RHaA==
-X-Forwarded-Encrypted: i=1; AKwUvBxzWAdZeWnpkfodvLZbVjDStV5kHhOjGaiw55+tHemXLsTzTPOFs7dVYfB7couVdr79gS/wkJd41tfC0G8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/6/ZjBrhl7kBF4PuNHcX8YpdtxSROlYYwiOc4lL/Mqt7wRqd6Q
-	/rbYB1GU1Xprn2RNvBoRiXxWs3lalN3YEpotqaGFsPk/mPxkZhG4mCsJwgZ+gYOtrc8=
-X-Gm-Gg: AYBFou2qwd7dpK6iafDLKKFpjwi1nrbPulQni32WGD64x2uMOlkBck3B3Lxhldpz/6O
-	RnUB9Rvsjz66J97Rr4UohwEZ++W4ossfqtsLZaMwu16elVoc6mRhm6PbXVWB8F9FcVS0q7D/Pbq
-	xK5CveJysDtZV3qX3TVx6iDn+GC1PW5bvOiRvmKDhzJl4oEBnIoKGMlEB1eq6PE1ZdhWoLb/MSE
-	g+YooCbbiDFKVaEJfb/S60E5dMsVRLImEPgpFsqNaPHJn8YbWl58RV9LF4HZ0W59zlHQyl+0lL8
-	Lzy1Mybk+xQW+QfsqlOQfGWZzf3L81wxhBLeoVWFg975EUWSqJPbv/hGRRIZZO2kes2/CMisjx+
-	R+Qm6JXysAbyVKob2sGiAOWUPQW1KIvzBiV4vo/ezCB/ryokXdpNJ4MSH/LA2ofnpFXy80my7rT
-	z+rdz2Tf0hvml7pLm674CZ6ASzKBK1kb0mTT9okBxYchk9GbUcmRxJgckgJyfNGq01WJ4KpPouM
-	yhQn47+M3nXWfFIOWzCKbbTN9d8YlkECHlDAVhTa2JVlmwA/aJo/z6b5l5zmKFIQH1W6RCdUidA
-	yz2eB+dMmGsDSkDtVq2Frgod4albp928kaTNoQw=
-X-Received: by 2002:a05:600c:83c5:b0:4a1:88de:9e8b with SMTP id 5b1f17b1804b1-4ac17191074mr383781755e9.5.1793886753121;
-        Thu, 05 Nov 2026 05:52:33 -0800 (PST)
-Received: from localhost ([140.209.217.211])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b4104d600fsm127121635e9.0.2026.11.05.05.52.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 05:52:32 -0800 (PST)
-Date: Thu, 5 Nov 2026 14:52:28 +0100
-From: Jiri Pirko <jiri@resnulli.us>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
-	jgg@ziepe.ca, david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, 
-	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
-	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
-	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com, 
-	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
-	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
-Subject: Re: [PATCH RFC 14/20] attestation: Add the base family specification
- and generated files
-Message-ID: <auyG1AnzpjLdOtpR@FV6GYCPJ69>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <20261015145053.3664509-15-jiri@resnulli.us>
- <179302367452.58760.3782556786585774917.b4-review@b4>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E431606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 13:53:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E431606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=a0QRmC39
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793886813;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=pS3g/owqurA2ACDBJAEK/k3nZo7vGLX4OaAYjvkdCRI=;
+	b=a0QRmC39x3zu1ZybLQltI30IEnfCiFHB9lmjrhgS5CKSUV5j5YKG5RkZ8IZZ1KMNhEPg9J
+	TMf+lufNtLlVEqQCa/kqPv7ZqyfEv24AJAqMlFvPkjPnAHZMIvZagdhwNpMPnVZi4IEeNu
+	udKX+kG3Qj1vNBhI7n04jgUVWl4JrYY=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-34-coITQdFjNhWKbyTMHzYTDw-1; Thu,
+ 05 Nov 2026 08:53:29 -0500
+X-MC-Unique: coITQdFjNhWKbyTMHzYTDw-1
+X-Mimecast-MFC-AGG-ID: coITQdFjNhWKbyTMHzYTDw_1793886807
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 5C6B21800581;
+	Thu,  5 Nov 2026 13:53:27 +0000 (UTC)
+Received: from queeg (unknown [10.43.135.229])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D738018001CA;
+	Thu,  5 Nov 2026 13:53:24 +0000 (UTC)
+From: Miroslav Lichvar <mlichvar@redhat.com>
+To: John Stultz <jstultz@google.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Miroslav Lichvar <mlichvar@redhat.com>
+Cc: Richard Cochran <richardcochran@gmail.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] timekeeping: Initialize TAI offset to 37 seconds
+Date: Thu,  5 Nov 2026 14:53:15 +0100
+Message-ID: <20261105135316.2465369-1-mlichvar@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,60 +78,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179302367452.58760.3782556786585774917.b4-review@b4>
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-Mon, Oct 26, 2026 at 03:07:54PM +0100, jgg@nvidia.com wrote:
+With Resolution 5 of the 28th CGPM (continuous UTC becoming effective on
+20 May 2027) [1] and no leap second announced for the last possible
+date at the end of the year 2026 [2], no more leap seconds or other
+leaps in UTC are expected for at least a few hundred years. The TAI-UTC
+offset can be assumed now to be constant (37 seconds).
 
-[..]
+Set the offset in the timekeeping initialization to the expected value
+to not require it to be set in user space via ADJ_TAI. It can still be
+changed, and leap seconds can still be set, but nothing should be
+expected to do that anymore. Existing applications are expected to
+either set the offset to the same value, or not touch it at all if they
+see it is not zero.
 
->mr-get:
->  request:
->    id: uint
->  reply:
->    name: string
->    supported-hash-algorithms[]: uint
->
->No definition what these numbers are. They should be TCG2 defined hash
->algorithm constants I guess. Why not have an enum here for them?
->
->    caps: mr-caps
->    register-index?: uint
->
->So we get a string and a small integer for every MR? Like PCR10 and 10
->for TPM?
->
->=======
->
->mr-dump:
->  request: {}
->  reply:
->    items[]:
->      id: uint
->      name: string
->      supported-hash-algorithms[]: uint
->      caps: mr-caps
->      register-index?: uint
->
->
->This returns all of the MRs at once?
->
->=======
->
->mr-read:
->  request:
->    id: uint
->  reply:
->    generation: uint
->    values[]:
->      hash-algo: uint
->      data: binary
->
->Get, dump and read? I don't get it
+[1] https://www.bipm.org/en/cgpm-2026/resolution-5
+[2] https://datacenter.iers.org/data/16/bulletinc-072.txt
 
-This is another netlink-influenced terminology. "get" fetches one object
-info, "dump" fetches all objects info. "read" reads a single MR.
+Cc: Richard Cochran <richardcochran@gmail.com>
+Cc: David Woodhouse <dwmw2@infradead.org>
+Signed-off-by: Miroslav Lichvar <mlichvar@redhat.com>
+---
+ kernel/time/timekeeping.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-I'll remove get and just have dump accepting id as a "filter".
+diff --git a/kernel/time/timekeeping.c b/kernel/time/timekeeping.c
+index dcf47f1ffdcf..e76e44b194da 100644
+--- a/kernel/time/timekeeping.c
++++ b/kernel/time/timekeeping.c
+@@ -34,6 +34,8 @@
+ 
+ #define TK_UPDATE_ALL		(TK_CLEAR_NTP | TK_CLOCK_WAS_SET)
+ 
++#define TK_INITIAL_TAI_OFFSET	37
++
+ enum timekeeping_adv_mode {
+ 	/* Update timekeeper when a tick has passed */
+ 	TK_ADV_TICK,
+@@ -2091,6 +2093,8 @@ void __init timekeeping_init(void)
+ 
+ 	tk_set_wall_to_mono(tks, wall_to_mono);
+ 
++	__timekeeping_set_tai_offset(tks, TK_INITIAL_TAI_OFFSET);
++
+ 	/*
+ 	 * Use TK_UPDATE_ALL so the NTP layer picks up the clocksource's
+ 	 * cs_tick_adj via ntp_clear(). Clearing NTP here is otherwise
+-- 
+2.56.0
 
