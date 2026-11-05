@@ -1,81 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793861955;
-	b=HQNXG4PIbXZYgftQ9thvQC5W4UT08JZGOOcapc+dXc5YhgWVjTst1nfAk9229IiPRqqG
-	 O9vAR40wYrq48y/mG1gp8TbmaUDv0Ole9pnRmgEZNTKQbQ7jiNcpCgHv5tzXPHbkjckBy
-	 dUTDK9DenJD9mPUV7UaLiFyLOVS1Ru4+apVUm3x3kQiHho1UwjkK/J9an9G3z4lNvxeyt
-	 jXv21VYFYMLgs6XONugruRPw2y89VHJPiMnAa35OCzjAVofe5scO4e6MVbmphIKVTV/+U
-	 5Q0a7xSlGKA4Qh2sisMvahfx4aD/vUfDvXpnoJk9JEaT6CcxB6QJsw/eGHhnC72mT7w==
+	t=1793861980;
+	b=fgiK1ff7QmrXY9b4nYugpa2CgRGQ0X+ncFbOc27e5mw6PgWCopEoLb1oByLgkMU9OmBF
+	 Nwcmd0CZ7ZcIMcwVKRk2bsvkYvgkX5GzwO4eXIlbzwUZpDiAymRGCL1PfXw1IYZo4/bXT
+	 c3AXzmBzaU1JhNAuTBHiZzeCIJ4eMSPh33siPlzL31/4TWDRGrynd7AxlJLhi3+nTo2Tq
+	 aoIt9EJ7xEBOCrlRTaAL6pZ8+l11tuKTjSSdvNt5I2wgBUNGBuUWeHXRTyVBv1VVkgfGH
+	 V+gZrkilH3wDl0h5sFLfVHFsusA3A2P6NO7F1nEQ3A5+SSMCammQdfix+YLb0Hu4pcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793861955;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=8CTBv2FsWWNYoIFrDUziKjer08OPepQNcF8zDvYRVUM=;
-	b=laBIoje764TRaXaMHBJ4s2sb3qNQDTxdkjcAgVY+ydzLXjC49c4v41sRUS2GOsfnsCc0
-	 TSQLKMK7GY7LeGsPTz8n/JBZ6jJkK8OjfOcvWxmp9d9K5rLXBiJfL2yR4Q+HG0xzornMA
-	 2XOslOLmu4S6G9Jt6O89EtBgy2Vbla8/ZeYQpy+EyHPuyFUvaKqJEpGG9m+0oqchO8U/C
-	 mMNDtTzme0UMB6N9IOmWLGKJSOyM/CjozaxbF5Ss1HmgeqzC840C1nOokdPtYnWD73zsO
-	 LsunjOgZYrSqedWBZS29GSW/S5ZxaMh0YWGKXl9tRPR8FwT2qCLgLnz3ccgrSIpMgrg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793861980;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=4YRZtBy/ufsiguFB9l3I5NzFI40FHV2N7HDeJmgHUcI=;
+	b=Dvn1S2XjLTlER2vu+nu15Zoa0P3+qKnRH08lSj9ImMuWpeYIYQGFq08kFG5PGhrT5it9
+	 ZwXOcd72GHBwfIZU2dTnr5UtNTRbPmGdRNJwVcJWbdYl1wvACCQNc3bDQadZIxafcUqOf
+	 XkhZ40Rj1/piu9ByvA7Z8iUJ3+qi7JyBCh7JUCweY1d1PKMbojGS7K5RyKd+vbXajwRGE
+	 JnfFNZ83fRcmBa/Jl9OrCcV5V2+ohvtkA4RxgexngAxfj9zNuqwtxANddzTtvJ20KuRG8
+	 8rxVojJfWC+njMnFQdRwVk79rAHQ8SEFW5rwoS4lDVTxpva+Fy1YBbDsqgB349/kOvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=l+wnEHJf;
-	arc=none smtp.remote-ip=95.215.58.184
-Received: from mta1.migadu.com (out-184.mta1.migadu.com [95.215.58.184])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=NpKam+Zp;
+	arc=none smtp.remote-ip=113.46.200.217
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F259606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 06:59:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F259606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34ED9606A33D;
+	Thu,  5 Nov 2026 06:59:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34ED9606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=l+wnEHJf
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=fD7pQ7iJNJUJ2Lt+Fn/kSJBY5hEsxqJHEyhADQZ0hVw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793861952; v=1; x=1794466752;
- b=l+wnEHJf6Oiyr1JLlLvY1SuR55TOc9qTue71B8BOIDVVCSFo+lpfKq7XMsobufkA1UDFYuZg
- S/4hbx3RQyzDu0U7TxzFT70wLujr3gW8YUSoIvIo9yke829B2TSk5zIlzdtImG9Q4nyXjjfNiiI
- 9RSLtJX0JrbHg4jDSxSgZSDo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id deff676cf379e19e;
-	Thu, 05 Nov 2026 06:59:12 +0000
-X-Mizu-Trace-ID: deff676cf379e19e
-X-Migadu-Flow: FLOW_OUT
-From: Mengmeng Zhao <mengmeng.zhao@linux.dev>
-To: Jens Axboe <axboe@kernel.dk>,
-	Dan Williams <djbw@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Jan Kara <jack@suse.cz>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	tytso@mit.edu,
-	Andreas Dilger <adilger.kernel@dilger.ca>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Zhang Yi <yi.zhang@huawei.com>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	asml.silence@gmail.com,
-	hch@lst.de,
-	Anuj Gupta <anuj1072538@gmail.com>
-Cc: linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	nvdimm@lists.linux.dev,
-	linux-ext4@vger.kernel.org,
-	linux-xfs@vger.kernel.org,
-	linux-mm@kvack.org,
-	Li Wang <liwang@kylinos.cn>
-Subject: [RFC 0/6] ext4: Add dma-buf read/write support
-Date: Thu,  5 Nov 2026 14:58:41 +0800
-Message-ID: <20261105065847.196540-1-mengmeng.zhao@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=NpKam+Zp
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=4YRZtBy/ufsiguFB9l3I5NzFI40FHV2N7HDeJmgHUcI=;
+	b=NpKam+ZpaO5jIgt9EYzx3Tj4OgHjXqsjBgC4YAYB8LY3gC1GzVa9OrhsSoK+xqfJMwiPI6o7P
+	TaaYQvEGzv9s/sgnhuhsn8gMMXs/5f5YROfVgEcYCxtJpAt+kzGR8wtd5EQufL+gPFiZGoh+Mpq
+	ZtJPXOTIrPIe6cnGoAcx2ZI=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4jKtT648vrzcZyv;
+	Thu,  5 Nov 2026 14:59:06 +0800 (CST)
+Received: from kwepemk300018.china.huawei.com (unknown [7.202.194.246])
+	by mail.maildlp.com (Postfix) with ESMTPS id 020EA40561;
+	Thu,  5 Nov 2026 14:59:35 +0800 (CST)
+Received: from huawei.com (10.25.63.231) by kwepemk300018.china.huawei.com
+ (7.202.194.246) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 5 Nov
+ 2026 14:59:34 +0800
+From: Sun Yiqi <sunyiqi2@huawei.com>
+To: <robin@protonic.nl>, <o.rempel@pengutronix.de>
+CC: <kernel@pengutronix.de>, <socketcan@hartkopp.net>, <mkl@pengutronix.de>,
+	<linux-can@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<netdev@vger.kernel.org>, <stable@vger.kernel.org>, <luoxiaoxing@huawei.com>,
+	Sun Yiqi <sunyiqi2@huawei.com>
+Subject: [PATCH net] can: j1939: transport: validate the DPO packet offset
+Date: Thu, 5 Nov 2026 14:59:31 +0800
+Message-ID: <20261105065931.1302-1-sunyiqi2@huawei.com>
+X-Mailer: git-send-email 2.51.0.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,41 +71,57 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemk300018.china.huawei.com (7.202.194.246)
 
-From: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+j1939_xtp_rx_dpo_one() stores the packet offset from a received ETP DPO
+command without checking it against the session's total packet count.
+An offset greater than or equal to that count makes
+j1939_session_skb_get() return NULL. A subsequent EOMA can then cause
+j1939_session_completed() to pass the NULL skb to j1939_sk_recv(),
+resulting in a NULL pointer dereference.
 
-This series add dma-buf read/write support for ext4. The dma-buf direct
-I/O infrastructure allows dma-buf to be handed to file I/O as an iov_iter,
-currently it only supports raw device. To better serve the GPU-NVME direct
-access through normal filesystem, prior work for XFS has been discussed
-at [1]. We also are interested in this field and working on it[2]. This
-patchset is based on Anuj Gupta's patchset as there are common parts at
-block/iomap. The base tree is:
-https://github.com/anuj7781/linux-kernel/tree/anuj/fs-dmabuf-rfc-v11-desc-v2
+Reject an out-of-range offset before storing it and abort the session
+with J1939_XTP_ABORT_BAD_EDPO_OFFSET. Keeping the previous valid offset
+also prevents this lookup failure if an EOMA arrives while the session
+is waiting for the abort to complete.
 
-Patches 1-5 add dma-buf guards at several common paths at block,
-mm/filemap, dax and iomap. Patches 6 add dma-buf support for ext4.
+Fixes: 9d71dd0c7009 ("can: add support of SAE J1939 protocol")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sun Yiqi <sunyiqi2@huawei.com>
+---
+ net/can/j1939/transport.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-[1] https://lore.kernel.org/linux-xfs/20261016091919.971295-1-anuj1072538@gmail.com/
-[2] https://lore.kernel.org/all/20260908131545.105987-1-liwang@kylinos.cn/
-
-Mengmeng Zhao (6):
-  block: refuse a dma-buf bio that carries a crypto context
-  mm/filemap: refuse dmabuf iterators in the generic read/write copy
-    paths
-  dax: refuse dmabuf iterators in dax_iomap_rw()
-  iomap: refuse dmabuf iterators in iomap_file_buffered_write()
-  iomap: refuse dmabuf iterators on contents-encrypted inodes
-  ext4: support dma-buf registered buffers for direct I/O
-
- block/blk-mq.c         |  4 +++-
- fs/dax.c               |  4 ++++
- fs/ext4/file.c         | 33 +++++++++++++++++++++++++++++++++
- fs/iomap/buffered-io.c |  7 +++++++
- fs/iomap/direct-io.c   | 10 ++++++++++
- mm/filemap.c           | 22 +++++++++++++++++++++-
- 6 files changed, 78 insertions(+), 2 deletions(-)
-
+diff --git a/net/can/j1939/transport.c b/net/can/j1939/transport.c
+index 8fcfd13e5e6f..bda50432a72e 100644
+--- a/net/can/j1939/transport.c
++++ b/net/can/j1939/transport.c
+@@ -1823,14 +1823,22 @@ static void j1939_xtp_rx_dpo_one(struct j1939_session *session,
+ 				 struct sk_buff *skb)
+ {
+ 	const u8 *dat = skb->data;
++	unsigned int packet;
+ 
+ 	if (j1939_xtp_rx_cmd_bad_pgn(session, skb))
+ 		return;
+ 
+ 	netdev_dbg(session->priv->ndev, "%s: 0x%p\n", __func__, session);
+ 
++	packet = j1939_etp_ctl_to_packet(skb->data);
++	if (packet >= session->pkt.total) {
++		j1939_session_timers_cancel(session);
++		j1939_session_cancel(session, J1939_XTP_ABORT_BAD_EDPO_OFFSET);
++		return;
++	}
++
+ 	/* transmitted without problems */
+-	session->pkt.dpo = j1939_etp_ctl_to_packet(skb->data);
++	session->pkt.dpo = packet;
+ 	session->last_cmd = dat[0];
+ 	j1939_tp_set_rxtimeout(session, 750);
+ 
 -- 
-2.43.0
+2.51.0.windows.1
 
