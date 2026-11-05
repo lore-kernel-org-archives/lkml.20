@@ -1,88 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793891497;
-	b=s1y3jWw+b/m4VIQc/sTf4RINQBg+xSF8UQtLqt8yvl0xzG6rSjp3RnWmS5k+KyNaTYnI
-	 4nSv+Kp9COQP5fgJaOoeR48cn8qfAw4a+RrFNYtDF3thJgEucsvFsV8q+kgUzS790rHsl
-	 4mNfkdXDcOKdjX1aSWvA5qcRdPHMGAVavXTiYgKXTs4foSiP4E+WZ4qHq9TIKNcLR8Umm
-	 vFTXaWQTkKY3BtXJmfjJ5qGclST/T7nYDg5QMpVpk/EEZkwmzGGJM2zK70dKwgnjBYxE4
-	 WrXKi/jvquskhMAiuFgTRGO0kznlOpSSFoQfWaLJexN26Yws1Sol9NKC9v7OjSjMueA==
+	t=1793891509;
+	b=AdIxj/zn3wR2vvxMXzeqmezRFYMXqL0yuuHc/9toY/kOKqoNWRMnCeInTe++xNRvC806
+	 Pl6P6gQVJUT9ArdIQOg+zPMhOaLpTS0pY1RqFO9WOhQxcZZ1cuayTBxqiysSotK/G9w4e
+	 UZRpCTY1QbE2cXeeEJs/DgG9dBKN9NxvRWUUMmLpnBCuNWOaQIeAUTkm05f+p+KgMDOhz
+	 dEEDyREGU38drZVxlULZS8/EYgH3kgD4yg0QF+LTRWqX7F7yLhHfxNXRIX6CmpshE+yMM
+	 yW8NZpwvNKHKQ3GGlYgPHwA9ZgxWqAeVabF/Uf7r4m+i2EzopM2FSxLElusYsfgMyNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793891497;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=Z4cDAXNUc3K0ZnV8t9qeV2IWpTEwGu9zEe368I5KRhs=;
-	b=WIPSaMK94xi7X4VOMD9uzijAuMwuNE+N+Nc3NDOl6MooRrlO1HPfvmgNbDk87Yffk/TZ
-	 3vfA+ze6/CoyqoQwIdE7rtKU6OyyJ3W6XvteX6s/dpH9ZUs2cXA4F83rV1+NZvoxJfIqK
-	 Sq9JCEue8+EfKtJM8dlksTH5kbIS+R0ixXRF2zFSHYK1ByPNqItlJ5hN4uldNXFidivCX
-	 UjTxotZBYd13pDABuzCeWNHYXhRHZ1tOvQ2oCJD0cjXnSK59tWpjGZY/kzVuKCvpf4vUR
-	 wGCxa21jjOkV8cPjPkZK50MoPsWJaerRj/Jk5g0AA+SJQ14b+roxYXr2bJZeOhO6KBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793891509;
+	h=DMARC-Filter:Received:Received:Received:Received:From:To:CC:
+	 In-Reply-To:References:Subject:Message-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer:X-FB-Internal:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version;
+	bh=UZ8DsvYdOYu4YnthJODg6wuyHI70zGW4VvxoRcZW9ng=;
+	b=lNNKITLsPdaDbbJIzmTEkPDPbvYe/HyyfSmkdFaVyUC8HbszeiScKOcvdB4tflUJZ2S4
+	 OJzDUVaTixtCF+U7x5AEqTNePZfCeHfSsWA7AiZkkzsJO7p/zjToqClrybfmcjRbGBc3O
+	 OapSff8DSpsqq34vVfdJ/Jz17Cr20ITKbaIrZQd6ElVtbu/4aohfOyE10G9Kj7JJCnxL/
+	 jKMssVNasBJERCYMwT3/xqLTvut+Y1EDNBc1KiZ2vhF+o39GaVi8ImNH3PA85g9QNJSyF
+	 OwZH8Dpo8rpkjocVzBAZTCNda8e6Qm0lVIeV891AQPZwyzc8CPRrPrMi4OGM2xe2DdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=toxicpanda.com;
-	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=Z7hjdC7K;
-	arc=none smtp.remote-ip=74.125.224.41
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=fail header.from=kernel.org;
+	spf=pass smtp.mailfrom=meta.com;
+	arc=none smtp.remote-ip=67.231.145.42
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE0BD606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:11:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE0BD606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=Z7hjdC7K
-Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-67a2bd0c297so2370263d50.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:11:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1793891496; x=1794496296; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Z4cDAXNUc3K0ZnV8t9qeV2IWpTEwGu9zEe368I5KRhs=;
-        b=Z7hjdC7KFLenFl7FXbc8/a/MApH4kHG/F+vzQLiU7jpzn8lO6cElu0doYGbj7zW6Ol
-         XiRFd3Qemnk/gzEpyoVOu+MXDDyoiLakMjm41/IcyK4QOo8WYNBP9K7fV3YkU6Yd7wS3
-         r3GVJMcySopCMpbM9zDGo2Sa6pNH4YpltbYwPugZWWrF/k07jhUbs+7HhB1soUccTi2/
-         RKHEP6tc5FUIRLvbzFWsr8YiSks4Ckpc75CQcgQgfcILuk9oTJLfNGYps+QifcaWuYn0
-         3xLycrA6gF6zQP4paYREno/oc7XHNjgHNrV0ApYL9YQbM/wEi5FwIa7aRlUT2kHEMPz1
-         Jedg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793891496; x=1794496296;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Z4cDAXNUc3K0ZnV8t9qeV2IWpTEwGu9zEe368I5KRhs=;
-        b=U/yLH+rrkvmcoX+ZgY7rLGq43KGEM2Ap02vFMAhSr9i2y31UE2il+IRmm8rWc8h9OC
-         PeIHU62FmGF/hP6l3nCP4JyYBe/tdt9GVhBImDh3xppDvjp1ygFMsGOHGRWiy2e/khRv
-         5es3WKMT+yJloauKWZ4xU3ZXNJT3srp15e3TmsOeoDw+AJiNR/pSX0HdhF5TA5NnL5vC
-         dEDzWBoSANLri2hqpT4TSvv1BGPGgq1wUwgKI0KfWlFEL3KKzNV7sIfcPpmhX6X5ena9
-         YpwvqsVd7NwsQBnJz3XSsS1dDFa5qmtZ59n0mClx0I/unPhoIEbO/IvvTUd5pgk4NX3L
-         y9Gg==
-X-Forwarded-Encrypted: i=1; AKwUvByK9RyHz66POSs1rnEy8CO26S6tLJ5rOzP5DlPaDZ2y97qbr86jXPlk6x/yvqV8wP8mN1sOxAenkagaliQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+gCnUcE+dqclyQhGL3u9mXcI/CNi5MC59AH8A+HahcR8YpP7p+
-	X5MWKs0IAxwTwIrIACsgcBn5uECz4XVJUDaCxVjWhRlPrD1YrqLI8YRwtBij4RMpE4o=
-X-Gm-Gg: AYBFou0PtIKPSq3qKaX3HjyjL/sG3m7v937x7VFen0I0lhr8gD76mRkdRaQH/wxnPD7
-	JIUBoy5ykxOHSYt/Acq7Mnwu1dkCK/DE42pTGdLo3+0p+X9o/Oiftx3qT9yHBbYCdqqs2HVu+Rm
-	CvrPUKj1qkpt/J1ENThA8HmJiepOuHcfFbhre85xWYggqxyeTI0sploMkZtfnB5oOFsiXz//0XJ
-	NjCcgzImDWu6jk/iyZIErxQR8xdcswIA/LswX0x6+N9UP5+l7zne6wN2w3PBSHG5xLVWehjNHNW
-	UxTj55KchkXGKFOERMCYn/NI0YYAq2jLI+0kQOstFuI4Mt3/iOEFbNF/Umal4aobxTqeduYRZUN
-	qdvesdfoKYcXDMWasLSTGJ2CLIDOeZGaopo/+GZQXphqimsqf45U4QoDQ68KQpeqPl8fRg3UUm7
-	B72wm9Lm3hXAfIsTLvabdhuKWUXzL4P5oFWPGwDHyIH5lrJD02dW9jkZQe8S6+vYOr1YQsl+/Kk
-	UVYH5Jeoc6TxrNN74j3Y5eL2g9TjMINceCt5uVDjgyeEvDALLPSFZcnq11U6QoVrqan9QeSp8JC
-	XLfwEPuqdIHjn9AWJpiApbcEMcHy/EDXJ6yGEU6sfKptvA==
-X-Received: by 2002:a05:690e:140f:b0:67b:e21d:93d0 with SMTP id 956f58d0204a3-67be21d95aemr4949251d50.51.1793891495619;
-        Thu, 05 Nov 2026 07:11:35 -0800 (PST)
-Received: from toxicpanda.com ([153.61.196.251])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67bee202a69sm3637395d50.5.2026.11.05.07.11.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:11:33 -0800 (PST)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 05 Nov 2026 15:02:23 +0000
-Subject: [PATCH RFC v3 31/90] cells: reserve the "spawn" slot
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5761606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:11:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5761606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+Received: from pps.filterd (m0148461.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5ETCTo4156153
+	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 07:11:48 -0800
+Received: from maileast.thefacebook.com ([163.114.135.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hrbck69d7-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:11:47 -0800 (PST)
+Received: from twshared91271.16.frc2.facebook.com (2620:10d:c0a8:1b::2d) by
+ mail.thefacebook.com (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.56; Thu, 5 Nov 2026 15:11:46 +0000
+Received: from devbig197.nha3.facebook.com (localhost [IPv6:::1])
+	by devbig197.nha3.facebook.com (Postfix) with ESMTP id 92C122E7EC6F2;
+	Thu,  5 Nov 2026 07:11:31 -0800 (PST)
+From: Keith Busch <kbusch@kernel.org>
+To: <hch@lst.de>, <sagi@grimberg.me>, <kch@nvidia.com>,
+        <linux-nvme@lists.infradead.org>, <shao.mingyin@zte.com.cn>
+CC: <linux-kernel@vger.kernel.org>
+In-Reply-To: <20261104211446891tN1QRJiKV3CLPQqfb7gJu@zte.com.cn>
+References: <20261104211446891tN1QRJiKV3CLPQqfb7gJu@zte.com.cn>
+Subject: Re: [PATCH] nvmet: drop the redundant auth check in
+ nvmet_parse_io_cmd()
+Message-ID: <179389149159.2132554.6031206055539117690.b4-ty@kernel.org>
+Date: Thu, 5 Nov 2026 07:11:31 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,59 +68,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-b4-cells-v3-31-bc9095937a84@toxicpanda.com>
-References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
-In-Reply-To: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
-To: Christian Brauner <brauner@kernel.org>, 
- James Bottomley <James.Bottomley@HansenPartnership.com>, 
- Andrew Halaney <andrew@amutable.com>, Jeremy Bingham <jbingham@gmail.com>, 
- Tahera Fahimi <taherafahimi@linux.microsoft.com>, 
- Serge Hallyn <sergeh@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1793890933; l=1264;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=gcNNSOpmtg4LFK/nczfAl3jZs/cLgmyYRarla2n4+3E=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QNtLSJl0XJSKcO3eClfCZfC34206VfWEtH0ipup14MIhs4/yc0YDmKjrvowwvtET2E6oAPELu5C
- lO+QownXUowY=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
+X-Mailer: b4 0.13.0
+X-FB-Internal: Safe
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA2MCBTYWx0ZWRfX6RTsV7Qp54Tr
+ xPhg7eAUVdaO4+8ihk2J0VzxSEWlr75kaLyJigL8umGrrBO6RgORfBC8FSeEoo0uHASeScoiEnK
+ p9qvKsfux3xMGCRuJSHQ0Y0ED2hwEUGtu41VMuZ9EPQds5p8roOaVJPeU2GgW8g+BeaXRDPNMPd
+ 1YCeGEMpaqTUmSIfhkIYQ0ALgfw44ASN7efVAPnoDGBFSDpfuap5Oh9dJcQPDrK/hJiGNaCGvIx
+ 7DdYVAkGf2nVL4fi/Pmpwfwz0fXbgub4lTFEvOINN2pyI/BBL37DL71jwEm225HFSvy1hNukOiM
+ 7opphE5gzcUuDe+XLGuWDKsWDG8lk5g/bmLqHoXW4npACLSmwlEhKb4cWw8CYee2iC914VDjKs7
+ ly+EmSkOi/VyJSUqSCuMQRQnJXR35+/ewrsee4RgjOg3psORMWx/dHqc7kzORigeWlM05qgHoB8
+ kYbWx8hzTftyf5qeeBg==
+X-Proofpoint-ORIG-GUID: sO51Ah5XkNTyPJqWgqz1KiLFw65Kuw6C
+X-Authority-Analysis: v=2.4 cv=bp/Zl0ai c=1 sm=1 tr=0 ts=6aec9cb4 cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+ a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=03ozwUkBphtHgyqjj1sw:22
+ a=1RTuLK3dAAAA:8 a=VwQbUJbxAAAA:8 a=cjythY3byQ-Lh-OW6DMA:9 a=QEXdDO2ut3YA:10
+ a=kRpfLKi8w9umh8uBmg1i:22
+X-Proofpoint-GUID: sO51Ah5XkNTyPJqWgqz1KiLFw65Kuw6C
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA2MCBTYWx0ZWRfX1isdbv2v2n5a
+ TtPUtIzadeKlvqqbFBhWKNtWOQNB3+M8sNnjXlNom9ACt3hd6jhvRnEFH6/8gdABVNMvY3cgH28
+ Jxx8wH3nNqe5KQKLMtAzGafoAdaxviQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_04,2026-11-04_01,2025-10-01_01
 
-A task of a cell can neither create a cell nor start a task in one. So far
-that looks like a side effect of the fact that no cellfd ever gets into a
-cell. Make it an explicit rule that does not depend on that.
 
-The rule fits the model: a cell can do what its slots hold, and the right
-to spawn is a slot like any other. cell_may_spawn() checks it where a cell
-is created and where a task is started in one.
+On Wed, 04 Nov 2026 21:14:46 +0800, shao.mingyin@zte.com.cn wrote:
+> nvmet_parse_io_cmd() calls nvmet_check_auth_status() and then
+> nvmet_check_ctrl_status(), which performs the same check again.  The
+> first call cannot fail either: this path only handles commands from I/O
+> queues, and nvmet_check_auth_status() returns true unconditionally for
+> qid > 0.  Drop the duplicate.
+> 
+> No functional change.
+> 
+> [...]
 
-There is nothing to put into the slot yet, so it is always empty for a
-cell, and a task that is in no cell may always spawn. This patch only
-reserves the name. Nested cells can later be enabled by filling the slot.
+Applied, thanks!
 
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
- kernel/cell/slots.c | 3 +++
- 1 file changed, 3 insertions(+)
+[1/1] nvmet: drop the redundant auth check in nvmet_parse_io_cmd()
+      commit: f96d1722e5861375c47c315117d900ef103ab331
 
-diff --git a/kernel/cell/slots.c b/kernel/cell/slots.c
-index cc732c4e09f9..6ce8892f7908 100644
---- a/kernel/cell/slots.c
-+++ b/kernel/cell/slots.c
-@@ -165,6 +165,9 @@ SYSCALL_DEFINE5(cell_configure, int, cfd, unsigned int, cmd,
- 		if (IS_ERR(key))
- 			return PTR_ERR(no_free_ptr(key));
- 	}
-+	/* Reserved. See cell_may_spawn(). */
-+	if (key && !strcmp(key, "spawn"))
-+		return -EOPNOTSUPP;
- 	if (cmd == CELL_SET_STRING) {
- 		str = strndup_user(uvalue, 256);
- 		if (IS_ERR(str))
-
+Best regards,
 -- 
-2.55.0
+Keith Busch <kbusch@kernel.org>
 
