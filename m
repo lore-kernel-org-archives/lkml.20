@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793902995;
-	b=SWSfNusCnbB1KtnkJFNMnqhssaowIdAnt6WUN5xwA+7xSuDaC0w1pP7eDF5dClehQRJq
-	 KOIKFLOrylngnsyrULEEXzoBroq6Lqv5vM+amguCGDbvKlHV7cyRBozg9wshGfs6vBoOn
-	 AL7GOcF2xh40fYG6NWT138mtGJMr+QTY7kJRhdZKBUUikGS1aGqOLnuy/YrvWVDwOhF9k
-	 HWEGWjT4MEgjAYcsL3xH45fSjf1scnA2nJdPHrksl7yLS8AXYoPjOGI7CxTHrjQjmNyqj
-	 cm46HuJNcXE6Yl81fHiGtNqxuZFHWo+SMDZ2sLZTL74blo/zH+Ea0pigLR3AIOFQpfA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793902995;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793903006;
+	b=CZwiXJ2sp6DXBjk7LTBOSnEyguS/w4IxdBVCoOHjhgU546xW/bsyCXK39Zazxy0wchQ3
+	 YjC0vt7wc3d7nMxgQm7A5ATiOUvgmMhp/mT/E1IJRUnwebw9f4PZhyPScyZydxxS6lCq/
+	 3aBxMbVnefMmSWxtmtFFunz88knhnFV/D8UpYe5/kYJZEuw1onIroX2K8sc+dxZ+Iay0I
+	 0OFR6wEEc+7ty4opSNhWiAduD6Da0Ht260N8/C7DizmoQM6fEo4vDWFZ8oxD9Te49n7u7
+	 tGoHlLZxIKMTSjECr3di3iLqouN4b8Lv61wre0x9nKHts5Q6j8H3MGofkTs4wKYkqow==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793903006;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=njQ0JDtVIxygXORTpZyLAMtJ40J4BJxPAxVTSpHRfSs=;
-	b=PI6S0+yOl7v8lAR21VU2zpGntWEZP2AmCy7oRDLgLI22gd/RXFHRwpwpK+3AyiJ3iKhT
-	 LR2JYWdHVvHoZI14uSz4z5VU8lH9GNWSmzg5Wp7BV9QTdMg8ffW+HQnvikeC9hilRairt
-	 VApUPNvyJi57i6tMZmoQXzCB7JCNYd5gAVd5Hr3IEv6j7G3kSETWleg5XgcQSOAcgtalU
-	 s6Re2BbL7bLcioBgzasX+OnwxiIm6Ra2XBPUX2QLux3tr075MapoCxlU1XI4QjRPBP/TF
-	 0HiWbPSLY2yMlBTk47Tup2fR43C1glTswedK8EwHgLlTSybr1+q+AlBjE76W2Muy9kQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="jT/ohXYh";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=+/AxjgSXWf+cy5I45OzU0dqZHLKBrML4mhrI4rJ0JBo=;
+	b=eeNDgf/7w5mjW/OoGtXwN53T2pkReQ/2u9oOlatz+3SnRxmDPSCX3ZGvyF+5OAkufIjF
+	 6nSrsdVEmFBR7X9G4xBiWJBsevuxlUdNi/23b8Ru446QgavVqgX+mBJDN+ZtEgIv0hDEl
+	 9+YdY8nb0fjwZEWBDFwFTAqowTERIFC0B0tkdjKeSTPL+hLCdJADB0j11QLX7IVR7mLfR
+	 QK/au4VdOKgh6mVGQADlhQnwJTwAu4SH5+JMdRv9pQps/RxJ49dyl0meFAkmWJ6C36pyF
+	 GFJt8bxIlx4p7SU6TZ3Uid+R4cqkuYB4TgB/89IlWs+uNujb+I8mpteDoZZrMYyi/cw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=toxicpanda.com;
+	spf=pass smtp.mailfrom=toxicpanda.com;
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=k7IY6gyk;
+	arc=none smtp.remote-ip=209.85.219.41
+Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 709E4606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:23:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 709E4606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D161A606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:23:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D161A606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jT/ohXYh
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b56c90b38eso679a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 10:23:15 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793902994; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LuYyXDdZXNve95rQFHV+EGZAlvG8imfED89veokUqCoOJi0ZOvVM6c8YgLJnDH/9I4
-         NqSCNeJqs4yYsGWWz/t5NpesqoczVE3+d7k5nvRq4JHg4haw0rLty+qMjBh97H9Ygxyd
-         JPo6s22u+VfZfEgLfRQhShTekCgQEPvxdTNyQy0omJD8eBXPfDh4Zwiu2r2yjyilil5B
-         amBdfZWG5dPd+nMcUmmUm8gOgAP0ewVdny+S7juxC1fiL+jP/QvNRlJnVN9OqjYqfjvr
-         fBbFq9BCJoPUkYgXkt1vqntbQIlg5kvGAugaT9lYAeKt05cbmswg2clnRxPmWflV3PSo
-         PZlA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=njQ0JDtVIxygXORTpZyLAMtJ40J4BJxPAxVTSpHRfSs=;
-        fh=Ss/mjbFN/c73ar1/q6E3zGle++qmKdGJkpC+sqPkkvE=;
-        b=m7D+/7+CbSaQyYOXWUrfhMOETwEsJR/xVDK9aDNufwaAJx3QQ+V/6Wd03VV/x/Sq1H
-         5iwiY0BvJs9kCCxcLR5YegIomc0M0Ocsq+X19pN4EFCrZg2dKN8kQzmIR2dT4GHSQgX9
-         xHH8ZsCRq6muYbZ6ZxF+Jy/iUEa+AEJpu3Gn1ZL4fwzmNczL8odcMSC6bQ9LVDw9JPaG
-         9VgRFzd5wAwzlL+dlzaLlyTYvypIij6heWt0CFppRO47NYdoJrlJl9dOw+51Wyh9ef13
-         J/aKZqx0m/Jefnk/VS+31TdjRJgm+ZjdX0JZe5v+PG+t5egu7L0g6vlvefpHhVucp3Fq
-         bklg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=k7IY6gyk
+Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-91ea16d8072so4784076d6.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 10:23:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793902994; x=1794507794; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=toxicpanda.com; s=google; t=1793903004; x=1794507804; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=njQ0JDtVIxygXORTpZyLAMtJ40J4BJxPAxVTSpHRfSs=;
-        b=jT/ohXYhKPurLENgTWdqxeeQP7cstoC8e2GlkuKhpyjND/Mncp4runY2rcEIOPnNj8
-         4O/hjV1tEE670ku4p8Jh1u6TQThxTZgrUkcbdyYoiROeKgBO38FcfJV9ZLkQ9sWsqS9h
-         i01ljRplTBBKdaLnMoCF4tswKbz/Gn8vqORJq+BW8APdADU8AOgiYmKPSb51nJmXakK7
-         OCBlM/roy05nY3GglWvrhafWi7C7uAlGK6uWVUqKTpMqJPBlndF4leG4QpkhxE6kkNq4
-         VF+NEO+LZqhwOCi0g77/HbsCi6nIvblKlrJkCSFDchgKFkHcCRCd8dFDCAhoSDYMmhL4
-         LJUQ==
+        bh=+/AxjgSXWf+cy5I45OzU0dqZHLKBrML4mhrI4rJ0JBo=;
+        b=k7IY6gykZWF7iOT+4ZIqfJBkIn4zPpQHXxj3tXTnLcLszExGz0PKwNm7+Aap9zo6b0
+         QzAjEEjYUPHEswrOiwqYw0y14VnhDSvoWD1act1MPrW8FIdDCLDueaOqP5Vc5CkorDvU
+         WSbTwYwgiENy9CjKELpnvd7ui2jG5bFriC2m8S/L+cmCbNTfkAmu25msPGHxiwaDfRhU
+         Dw8DKgwwGW7BKIA5tDnr+D30b29DkdU3jxgzhwYLIpCrBRR0GrByMRF+nPS1izBhorUL
+         p5WlbN2xkYeZO6FWLopUrrsi868gUCgHoiJZPHo9/oX9qquX6xjDihvd87yufSrnELr5
+         +rZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793902994; x=1794507794;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793903004; x=1794507804;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=njQ0JDtVIxygXORTpZyLAMtJ40J4BJxPAxVTSpHRfSs=;
-        b=OIMKJrDDhr/m3S8mrcGfBR7dPJvywcoF801jq6Tpjq+K8teXCoJEFCKC+T5KQX5R81
-         7OfA5kox+pIYUksuvLDAk4wXbEqcwqsfwzj2ajvXKIskKmoqY2QLfQCyrnBkRquQDnnH
-         xyss6h6x6ta0ccmHu3vJuD6U5ZTwsmnWD3p4puL0WhNS5i8K+vUWzOjeO+IwFiEcqfXp
-         KfXt3Adw7vB0dX01tFvDvyLEjMmw5ov4IQqDUQvBAeIS93YRhU+7VmLxuc7pdK4edZAl
-         ZCaU+unuVhceA73v5OXTlDqDpJkmBQ2zEwO+7DX3+RRvMMfV5btIjqtqeG0VjRkZgBOv
-         Ahzg==
-X-Forwarded-Encrypted: i=1; AKwUvBwatvG7oWRUaA14WMtYPoH1q2wxjLdvF4KEC2NwXKUlJS97eTGEvZTKavoDmsmPFbuQyp85XEUXyZnLnaA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/AQeMmren9DGTntUYo/e7FDJG9tOSidYi2dE/G5oAcgYCuRGDC
-	oSPnJpihJJE4anfzEA1bJKPViB08b7Yy2FaaGhZnj0mMjwTfFVNh+Zv1mNqorUNBeApg5yasfqf
-	RABSXRoAJ5UYIJs9lzTCq+Q7xY++0O63RCM7jEx6Q
-X-Gm-Gg: AYBFou1IrO6OtD++bltbmZK7gbItI+2nK7uYDBtzXJ9bCIBf6aLrvUkQ9ap8RTurrLI
-	FZHioI+LOA2uktRMWBMIsYm7zFP7gMb83nRQmIkW2CTTCaV7xZ73sy3kLxS8qMiwD8d5P3RFmfr
-	35t7V5g0U//jDPLE/I8dfA2Q1fvLXmkeAQd5YoyFIUfIvRC3MItCbDUKVefpO9vEPRTwcMXP5pj
-	JmxbjJaQsoBJTvKTA+4LAT60+2G05kw7EurxT3YbAORuIYEoPRSkIy5ObJi6KtmdeC4fjFjSxcT
-	59QV49pKVYOiXEI0WjonxKIVFvvOUtN83dTLrNBDaZMJltl6/JZTr04PcefYPAaSakHQMhFwBFe
-	HELPJenaoh/l+PAjVTq+P4WF7hAO7WCLNmOO63Lle9pxVyJsVpAq9I6KNcEhRIoIf
-X-Received: by 2002:aa7:d0cb:0:b0:6b1:c3f3:225 with SMTP id
- 4fb4d7f45d1cf-6b5974977bfmr2576a12.0.1793902993423; Thu, 05 Nov 2026 10:23:13
- -0800 (PST)
+        bh=+/AxjgSXWf+cy5I45OzU0dqZHLKBrML4mhrI4rJ0JBo=;
+        b=L00j+wceVOEjGQ1jCBMBUNaEsrUb/WynfBy5ogwhLF0Hr7m9yxvk4a/5t7eKrEe5HU
+         ICtcVths3bdS5ieNdIrQGE5QjzlGMGLWpdbIuZFpUFNyZHg105yuDfVn2DXoGlRCO/dg
+         601F0ojNdjel7EzGS2/yJJZhWUaUp49n7bia/0HqVILBY1zNhGpjO7vhjJePLcbqd9dI
+         o3W7qmFHCWiK629t+PdlOOdu+YdxiDeUJ+k+rk9lTams59IVAQOPbBMWm/4nXu4+la2Y
+         bdhdiRZI82i1DvQ2PzTi6wHeD5Mj6jBopgi7vz4n2twHqN3EN55lFF3n8neglaUdVeIl
+         MazA==
+X-Forwarded-Encrypted: i=1; AKwUvByyX5cc2TImIMWv+9LuJD6VJ4xK61QfJhrH5dxQ55fBELsy5wsuhZ8U4dJgdDJoILxhAr4uJTSd3iiNw1s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/yeHug8m1MZ++i1tRm+T/im8dS3PJp2/kT/6murY5mdtPEuCoc
+	63e6ThlkXbTAkl+QJoOQbnUnfYBiHCIzxmLcSW1vQg0q5b1ErrS9EHeUt1osIMl0qccoQ42//dP
+	jZ4iY3uYvEg==
+X-Gm-Gg: AYBFou2VgtlcgNRZ/JG72pwezY430rVetfqCqhjrD/XmJrxg5LhUUHAW+JfVJ+UfFEh
+	MKSsbwY97ocIZr80sjihhE5G3DsqfhpYZNOv9C5cyTiS429lK0JyCfGsFWLOziOhsBluKaqAsm5
+	DuJV+J5qq7rv/GvkdUK4u2/zV3VDi70eBDLMQch6JMrAoNz3Vy9wwikE3VGBfotcKlysdoW1i+B
+	N23hpoWLD9cL+vPAawWWpYx/7WfwmKBCIaoCR/RSF6Uq+kZwv09l47oPS5cqhhHGGjTnwMuUJOU
+	TW+i2IIYTMRNnaWA2ld/W6Cu+l6a58UnV+wMjkpVzlwDnjhBIEv6pzpkfg43XW3Gh+TpWVh4x0m
+	/f1Bp59A0NIz28aJ9TEg8XfxNtZP1gw4LdUTVOohSStQtwzdFwhRBuc73wYkAlItpIn6JAgUVS8
+	k1hnyXysOjNxyXdS4CLL3H+fwiIRE2MkkuZ6lVBI+GUZBgsZYjy4zGtiDmoJnimpKF06FrxXuse
+	IBj2372VXSlL168q36GPsTempwJ8qcsjOyW7VW5bTONVp42LLh5a7f2xvaAw7yMgR+2fr0jUBiF
+	78Go4o8HEfqC/v2XnVGkQoNYtAnIfHeItNcI+30KXad44kJye5smZmIPBSa6zzieAMw=
+X-Received: by 2002:a05:6214:519e:b0:91e:a629:ff92 with SMTP id 6a1803df08f44-91ea62a03c7mr7156656d6.42.1793903004406;
+        Thu, 05 Nov 2026 10:23:24 -0800 (PST)
+Received: from toxicpanda.com ([153.61.196.254])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ea6aa7a97sm1556826d6.35.2026.11.05.10.23.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 10:23:23 -0800 (PST)
+Date: Thu, 05 Nov 2026 18:23:22 +0000
+From: Josef Bacik <josef@toxicpanda.com>
+To: "Serge E. Hallyn" <serge@hallyn.com>
+Cc: Christian Brauner <brauner@kernel.org>,
+ James Bottomley <James.Bottomley@hansenpartnership.com>,
+ Andrew Halaney <andrew@amutable.com>, Jeremy Bingham <jbingham@gmail.com>,
+ Tahera Fahimi <taherafahimi@linux.microsoft.com>,
+ Serge Hallyn <sergeh@kernel.org>, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v3 01/90] Documentation: add a design document for cells
+Message-ID: <20261105-cells-v3-reply-serge-7c41e0b9a6d3@toxicpanda.com>
+In-Reply-To: <auy3kgm1YytennDE@hallyn.com>
+References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
+ <20261105-b4-cells-v3-1-bc9095937a84@toxicpanda.com>
+ <auy3kgm1YytennDE@hallyn.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,141 +104,200 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104174554.1.I8556199ea4f1335169ce16e97309aa63ae2e2310@changeid>
- <20261105052401.GA862715@ax162> <CAD=FV=Vx4gHvF0TegRBwZetTNjP5AsjbBK9+sjNA43OpL1Wjiw@mail.gmail.com>
-In-Reply-To: <CAD=FV=Vx4gHvF0TegRBwZetTNjP5AsjbBK9+sjNA43OpL1Wjiw@mail.gmail.com>
-From: Rong Xu <xur@google.com>
-Date: Thu, 5 Nov 2026 10:23:00 -0800
-X-Gm-Features: AclHuK-iL3nM88J_jGCMxHWL2RXDHV3lXy-Du5jSeqmhM1AWFtXv6dHLUOOJdWg
-Message-ID: <CAF1bQ=S52KWHopqxksctbBirFEr5Mz1dKKMAoWh-dqLHii3Nig@mail.gmail.com>
-Subject: Re: [PATCH] kbuild: AutoFDO: Enable -salvage-stale-profile
-To: Doug Anderson <dianders@chromium.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, llvm@lists.linux.dev, linux-kbuild@vger.kernel.org, 
-	Han Shen <shenhan@google.com>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Han Wang <nesthanwang@google.com>, 
-	Alexandre Courbot <acourbot@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Benno Lossin <lossin@kernel.org>, 
-	Bill Wendling <morbo@google.com>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Boqun Feng <boqun@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	Justin Stitt <justinstitt@google.com>, Miguel Ojeda <ojeda@kernel.org>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Tamir Duberstein <tamird@kernel.org>, Trevor Gross <tmgross@umich.edu>, linux-kernel@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-The issue you mentioned regarding excessive time in applyFlowInference
-comes from Profi.
+On Thu, Nov 05, 2026 at 11:06:26AM -0600, Serge E. Hallyn wrote:
 
-The AutoFDO implementation used in the kernel is FS-AFDO (which uses
-FS discriminators). There are known issues when using Profi with
-FS-AFDO; enabling Profi actually degrades performance compared to
-original profile propagation. When we tested and worked on AutoFDO for
-the kernel, we did not enable Profi.
+Thanks for going through this. I'm going to answer your last question
+first, because the rest follows from it.
 
-While I haven't looked into this specific bug yet and am unsure if it
-is unique to FS-AFDO, I recommend using -fno-sample-profile-use-profi
-to disable Profi for now.
+> So what is your goal here?  You list several properties of the current
+> namespaces implementation, and imply that they are a problem.  But what
+> is the final goal: is it to implement a security sandbox that is
+> stronger than what you can currently build from userspace?  That's the
+> impression I get.  Or is it to avoid bugs in userspace, by simplifying
+> what userspace needs to do?  Knowing the goal will help review the
+> patchset.set.
 
-Regarding the "--mllvm=3D-salvage-stale-profile" flag, I also have
-reservations about adding it for the following reasons:
-1.  It is heuristic-based and not enabled by default. I am unsure how
-thoroughly it has been tested, so we should assess it further before
-enabling it.
-2.  The recommended usage model for kernel AutoFDO (as documented) is
-to use the same source. While it might help in an iterative build
-model, I don't see a strong reason to use it if there is no source
-drift.
+Both. I want a security sandbox that's stronger than what userspace can
+build today, and I want the interface to be simple, with fewer footguns
+and fewer unexplained consequences that turn into holes.
 
-Best regards,
+They're the same thing to me. You're right that you can get a lot of
+this out of user namespaces today, you point out one way below. But you
+get there by taking things away. You start with a copy of everything the
+parent had and a full set of capabilities, and then you have to know
+about each thing that needs to be dropped, hidden or locked. A cell
+starts as a blank space and you add what you want it to have. If you
+forget something with namespaces you have a hole, and nothing tells you.
+If you forget something with a cell, the thing doesn't work, and you go
+add it.
 
-Rong
+The document doesn't say any of that up front, which is a pretty big
+thing to leave out. I'll fix that.
 
-On Thu, Nov 5, 2026 at 8:24=E2=80=AFAM Doug Anderson <dianders@chromium.org=
-> wrote:
+> > +Privilege hangs off ids.
+> > +  A user namespace gives its creator a full set of capabilities over everything
+> > +  the namespace owns,
 >
-> Hi Nathan,
+> Yes this was explicitly one of the 4 user namespace design goals,
+> and I don't really want code running on my system that I can't
+> later control.
+
+You can still control it. A capability you hold in an ancestor user
+namespace applies to a cell like it does to any other user namespace, so
+root on the host can signal and ptrace the tasks of a cell. The user who
+made the cell controls it with the cellfd, and a cell only lives as long
+as somebody holds one. When the last one is closed the cell is killed,
+so you can't lose track of one and have it keep running.
+
+The only thing that's gone is the special case in cap_capable() where
+having the same euid as the creator gets you everything. I don't want a
+uid to be the authority.
+
+> >  which puts a large amount of code that was written for root
+> > +  within reach of every user.
 >
-> On Wed, Nov 4, 2026 at 9:24=E2=80=AFPM Nathan Chancellor <nathan@kernel.o=
-rg> wrote:
-> >
-> > On Wed, Nov 04, 2026 at 05:45:55PM -0800, Douglas Anderson wrote:
-> > > From: Han Wang <nesthanwang@google.com>
-> > >
-> > > AutoFDO profiles are commonly collected on one kernel revision and
-> > > reused across subsequent commits or stable merges before a fresh
-> > > profile is generated. While AutoFDO uses function-relative line
-> > > numbers to tolerate edits above a function, adding or removing lines
-> > > inside a function (or an inlined helper) shifts all subsequent
-> > > relative line offsets within that function. Without stale profile
-> > > salvaging, shifted callsites fail to match their nested inlinee
-> > > profiles in SampleProfileLoader (dropping profile-guided inlining for
-> > > those callees) and basic block sample counts are misattributed to the
-> > > wrong instructions, degrading branch probability estimation and
-> > > machine function splitting.
-> > >
-> > > Enable LLVM stale profile salvaging (-salvage-stale-profile, supporte=
-d
-> > > since LLVM 17) for C, Rust, and ThinLTO builds when
-> > > CLANG_AUTOFDO_PROFILE is specified. This instructs SampleProfileMatch=
-er
-> > > to use lexical callsite anchors within functions to fuzzy-match and
-> > > remap shifted line offsets when querying the profile.
-> > >
-> > > While -salvage-stale-profile is not enabled by default in LLVM due to
-> > > the minor compile-time/memory cost of sequence-matching callsite
-> > > anchors (which is unnecessary when profiles are freshly generated on
-> > > the exact commit being built) and the heuristic nature of fuzzy
-> > > matching on heavily rewritten functions, enabling it makes sense for
-> > > the kernel: hardware PMU profiles are rarely regenerated on every
-> > > commit, and anchoring on callsite names is strictly more resilient
-> > > than blind line-offset lookup when functions are edited.
-> > >
-> > > As a side benefit, remapping shifted line offsets also avoids feeding
-> > > mismatched weights from stale profiles into MIRProfileLoader's flow
-> > > inference solver (applyFlowInference), working around a compiler bug
-> > > [1] where a small intra-function line shift (such as in
-> > > __vm_normal_page() in mm/memory.c) can cause applyFlowInference to
-> > > spend 30+ minutes compiling unmap_page_range().
-> > >
-> > > Link: https://github.com/ClangBuiltLinux/linux/issues/2188 [1]
-> > > Signed-off-by: Han Wang <nesthanwang@google.com>
-> > > Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> > > ---
-> > > Much of the commit-message justification here is AI-generated. Sorry!
-> > > :( Folks who know better, feel free to call bullshit.
-> >
-> > The justification does not seem wrong to me on initial read but it
-> > definitely feels like the first and third paragraphs could be reduced i=
-n
-> > verbosity since this can basically be summarized by "AutoFDO profiles
-> > are often reused, which can be problematic without profile salvaging
-> > enabled, which is designed for this exact situation".
+> You imply that cells don't do this, but the capabilities section below suggests
+> otherwise.
+
+[...]
+
+> It seems to me most of the bugs relating to capabilities in user
+> namespace were not about the privilege leaking, which you seem to
+> suggest here, but rather about kernel code under an ns_capable()
+> check being reachable when, without unprivileged user namespaces,
+> unprivileged users could not have reached them.  Since you open quite
+> a few capabilities for instance with net_may(), that code is still
+> reachable.  So you are probably reducing the reachable code, which
+> is good, but the above is over-stating it.
+
+I agree that reachable code is the problem, that's what I was trying to
+say and the document says it badly. I'll rewrite it around that.
+
+Here's what is reachable. The user namespace of a cell owns its uts, ipc
+and pid namespaces and nothing else. It doesn't own the mount namespace,
+so there's no mount(), and a task of a cell can't make any namespace, so
+it can't get one that it does own. That's where most of that code is.
+
+The network namespace isn't the cell's either, so CAP_NET_ADMIN in the
+cell gets you nothing by itself. It takes the right in the slot as well,
+and whoever fills the slot has to pass net_may() for each right on that
+network namespace themselves. So an unprivileged user can't use a cell
+to get at any of that code unless they could get at it already. Somebody
+who is allowed to do it has to hand it over, one right at a time.
+
+So it isn't nothing, you're right, but it's a lot less, and it's opt in.
+
+> >   Who may do what to whom is decided by comparing
+> > +  uids,
 >
-> Happy to reword or happy for upstream maintainers to reword themselves
-> when landing. If you want a v2 sent with shorter wording, let me know.
+> It's also decided by namespace targeted capabilities (and LSM
+> credentials).
+
+Yup, I'll fix the wording.
+
+> >  and whether two uids are the same depends on how several runtimes agreed
+> > +  to carve up ``/etc/subuid``.
 >
-> FWIW, I actually asked the AI to add some of this text. Specifically,
-> I felt it was important to explain why LLVM would not make this the
-> default behavior but why it was still the correct behavior for the
-> kernel. ;-)
+> Well, you are adding one more runtime (https://xkcd.com/927/ :)  This
+> particular problem would be better solved using a subuid NSS module.
+
+Fair :). The difference I care about is who enforces it. /etc/subuid is
+an agreement between the tools that read it. Here the kernel hands out
+the block, and it makes sure nobody else has those ids: a legacy user
+namespace can't map into the window, and a filesystem that isn't the
+cell's won't store an id from it. There's nothing to configure and
+nothing to agree on.
+
+> Of course userspace could do this now - create a userns, create an mntns,
+> set up the mounts, and then create another userns with identity uid mapping,
+> so then the container cannot get ns_capable(mnt_ns->userns, CAP_SYS_ADMIN) to
+> unmount.
 >
+> I can envision this being a good strategy for sandbox style runners.
+
+Right, and this is the example I'd use for the above. It works, but you
+have to know to do it, and the inner user namespace still comes with a
+full set of capabilities, so it can unshare a mount namespace that it
+does own and we're back to relying on MNT_LOCKED. You then have to take
+that away as well.
+
+> > +A legacy user namespace hands its first task every capability there is.  A cell hands
+> > +out none.
 >
-> > > Honestly, this patch came about because of AI analysis compiles takin=
-g
-> > > 30 minutes to run (see the clang bug [1]). It seems to work around th=
-e
-> > > problem. Obviously, we should fix the compiler. That being said, upon
-> > > further analysis it seemed like adding this flag was beneficial
-> > > anyway, so I'm posting it upstream. If folks disagree, we can simply
-> > > drop this patch.
-> >
-> > I would definitely like to see that issue triaged but like you say, it
-> > probably does not need to done before this is merged since it has
-> > reasonable justification on its own. I would love to get thoughts from
-> > other folks though.
->
-> Sounds good. Thanks for looking. Let's see what others say. :-)
->
-> -Doug
+> This seems misleading.  It hands any that you want, you just have to specify
+> them differently, right?
+
+Right, none unless the builder names them. I'll reword it. The point is
+the default.
+
+> Every task?  But you do say setuid() drops them as usual.  Are you saying
+> that the first process is uid 0, and capability inheritance just works
+> as usual?  If not, then some examples would be helpful - and in that
+> case it sounds like this would be an unexpected method of operation
+> which would confuse userspace (which can be dangerous).
+
+Yes, it works as usual, the document is sloppy here. A task that is
+started in a cell is uid 0 of the cell and has what's in the slot as its
+permitted, effective and bounding sets. If you start it as another uid
+it loses them, the same as if it had called setresuid(). "Every task"
+was meant to say that this goes for each task you start in the cell from
+the outside, and not just for the first one.
+
+The two differences are that every task has no_new_privs, and that file
+capabilities are ignored. So what a task has let go of doesn't come back
+at the next exec, uid 0 or not.
+
+> Also I would continue to be careful about uid mapped filesystems.  If
+> the host creates a cell with host uid 0 mapped to uid N in the
+> cell, can a cell process chmod u+s the file, and collude with an
+> unprivileged host process to run it as host-root?
+
+No, on both counts.
+
+Host uid 0 is never in a cell. A cell either has a block of ids out of
+the window, or the one id of whoever made it, and root doesn't get to
+make one of those, that's EPERM.
+
+But on disk ids are the real problem, since images are stored with ids
+from 0 up and the mount is idmapped for the cell, so uid 0 of the cell
+does own files that are uid 0 on disk. So nothing a cell writes imparts
+privilege:
+
+ - S_ISUID, and S_ISGID on anything but a directory, are dropped from
+   the mode of whatever a task of a cell creates, and from any mode it
+   sets.
+ - An existing file loses its set-id bits and its file capabilities as
+   soon as a task of a cell opens it for writing, or is handed it open
+   for writing. write() clears them already, a store through a shared
+   mapping doesn't.
+ - CAP_SETFCAP can't be put into the caps slot, so a cell can't write a
+   file capability.
+
+That's the "Files" section of the document and patches 62 to 64, and
+there are tests for it. Please do poke at it, this is one of the places
+where I'd really like more eyes.
+
+> Also, how does this jive with criu?  Is it introducing any cell identifiers
+> that can't be recreated?  I believe that historically that has been the
+> biggest blocker to a "container" like object in the kernel.
+
+Good question, and there is one. cell_info(CELL_SELF) tells a task the
+id of its own cell, which comes from a counter and is never reused.
+Nothing needs that as far as I can tell, so I think the answer is to not
+tell the inside at all.
+
+Other than that I don't think so. On the inside the ids are always 0 to
+65535, whichever block the cell got. The rest of cell_info() takes a
+cellfd, which only the outside has, and cells don't nest, so there's no
+cellfd on the inside to restore. The pid namespace is the cell's, so
+clone3() with set_tid should work given CAP_CHECKPOINT_RESTORE in the
+slot. What's missing is a way to pick the pid of a task that's started
+from the outside.
+
+That's all from reading the code though, I haven't tried criu on one.
+I'll add it to the list of what isn't there yet. Thanks,
+
+Josef
