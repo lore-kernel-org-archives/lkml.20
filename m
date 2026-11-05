@@ -1,76 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.136
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793909912;
-	b=bELnvgyACk75cQwLyolpyxy2KldjZLsENAptuYUqxd39J+97vILiTDqtEq8uWAH40RXp
-	 N+VVvc3fNQOfu54hQGk+X2LhgfITWGJfEgvXSNGxf8Efz/dQxnCpAGBfo5Evrj9CJ9FGC
-	 RYJTPKqMsWEQ3HwEjVcQwz6UoJpx+/HaTIgaRvmRWgn/iLVZLDlHthQUNDhQb57CX8jQm
-	 UA+B4KBEfcf6khGo+i6vRI3/8eRN0J40egfjtSJhfBaqAGs0nhYAwaW86L+N4pV4JHebg
-	 io6W+sFm082yys09vIoPS4tM2y+lAadtQrDfWYcZsFhvAX/FC6Vi95OXd2izQnprSKg==
+	t=1793909914;
+	b=CIulo6P6TX3h4wYrryLQAdn2upoZM8a4uZkcfUdhU+1iCP/9wxO3lgqS8c4tWnExaT+Y
+	 VC+gzLwbg5BxVQ1ynUUF4Hi6sWGnDw/D4RF5gFOsrOGorv1kR+w7T0ziJSWu8bMlC0dSB
+	 rTGpo2UmGhHQ5yYDPgt8RfkQpwUfVyj9GeRQH0bIjOhc5PJ4q9vLszKpqteWa9xa5jBcX
+	 4SLtCDrH7cL+QjsVUB/1z9icN+jqz08lh3M06sAZZqtes/+oKtNuo3G2CVR/b/ZZLEYgq
+	 WgOVlO/P7K7KMuXWpAl7BWhkUpYRKLDK49NxngYihU2QfY0yXdZ9akLTEK/pz1FVTJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793909912;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:CC:
-	 Subject:User-Agent:In-Reply-To:References:Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=AMHZHhzuTrdOCzsJR0G5h0s+H2Tf/Af2ZIw878OYuL8=;
-	b=mliyqGYDrHRu3CYtEVRU6EkM1jrkBLTXcsz7rS8AkBgo2dYSbl5QDsbedzEwjXO1XLdn
-	 MDNExrXe4fMdwbq9dvHdQGjaRg4L6zVRh6ZIQQiL6DtXGwERlSq7wH/m08Av5t7JCr3EZ
-	 rOwZBrvxhsSiQZhWMlOP+7Qw8Dq8rjie/cFCsSr7X8GchK0+sCUcyzyu6uqlQY4BxPX2q
-	 DJbnzh+BghAo4k+/i44z4BXUQWSF8zPjnap1mkxU0OXAOerEoDFrvIh3xEDbW31ohC3p1
-	 sfwVanH5IhYpXvepCPOmUm0vCMypsW1DIYkv+mDgr7tHdsng2dR5vBZ9Z+SZ/RB6asA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793909914;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=ou4/lAhEpFwwKVnn/O173URP+OPA9Dr5LXSyF2aM0Kk=;
+	b=GQ5MMNYDB8X3Uc1bl65/pU4RUeCS0Do2t6ho+10VptKQEkIwEoj7aVg7fjdljAMAbqRO
+	 hQL9qR6r2q8KaR1GkyA7cHQX6n1pFsQ+Oh+s6GkFMnM37vLm5hZq6OmzJtEThnuhVxV5Q
+	 VCUYgwlOc1qoY6xk3/71CB541BYd1eaytxhDoLKgBekK0f8Dlq78WLSNCr9tTZQQWurPa
+	 2pQG23vog6CEbLyGrvMgRHNmr4rQI5kpLxC6blctFfw4yIB5H2JhTC8u+N7UpwJNxT57d
+	 48HSLd7gTqcUBQeANOjb/vlnn7LCaksqA97ZgtfP3N4H9Obemg1xQ7FofecUNjB+4Xg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zytor.com;
-	spf=pass smtp.mailfrom=zytor.com;
-	dkim=pass header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026102901 header.b=CZ4dsDIj;
-	arc=none smtp.remote-ip=198.137.202.136
-Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=fY92HljY;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE883606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:18:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE883606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F08C0606A32E
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:18:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F08C0606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026102901 header.b=CZ4dsDIj
-Received: from ehlo.thunderbird.net (c-76-133-66-138.hsd1.ca.comcast.net [76.133.66.138])
-	(authenticated bits=0)
-	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 6A5KHO2x3333264
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
-	Thu, 5 Nov 2026 12:17:24 -0800
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 6A5KHO2x3333264
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2026102901; t=1793909846;
-	bh=AMHZHhzuTrdOCzsJR0G5h0s+H2Tf/Af2ZIw878OYuL8=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=CZ4dsDIjSvNcfIZhbQny/XQsE6A5ymlAfOsmou/O/6R47WaoiGHL8XGN+RE+gqCGV
-	 8vvvVrRb4kGRStpvS8dbW3XxwqkCQGAur3anO4RIcpeQkSoeFXIei3onSuxU4ckITS
-	 MnFOjLMxxzYbzmGo+wL0cTz6n2FHCFOzxXF+FyePm77nSz7Uk8HHPSBWDBvshKSDl2
-	 LQjol5z1F6Qtztjxt/bERmCkdMDTEKRVg9DoPYlfU8mRxqDgfTdjffTe6FuSZ9tI7A
-	 /Md3HgaiKjQCiSz7EXtpxmZU7t4JrHSKR8HafSW3juZbRSJ/OfP4/BrdzLzjOiPCBI
-	 kBYc0vhRDvqMg==
-Date: Thu, 05 Nov 2026 12:17:19 -0800
-From: "H. Peter Anvin" <hpa@zytor.com>
-To: Arnd Bergmann <arnd@kernel.org>, Ingo Molnar <mingo@redhat.com>
-CC: Arnd Bergmann <arnd@arndb.de>, Richard Weinberger <richard@nod.at>,
-        Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        Peter Zijlstra <peterz@infradead.org>, Will Deacon <will@kernel.org>,
-        Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-        Yury Norov <yury.norov@gmail.com>,
-        Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-        Alexander Usyskin <alexander.usyskin@intel.com>,
-        Tony Nguyen <anthony.l.nguyen@intel.com>,
-        Przemek Kitszel <przemyslaw.kitszel@intel.com>, x86@kernel.org,
-        linux-kernel@vger.kernel.org, linux-um@lists.infradead.org
-Subject: Re: [PATCH 7/7] x86: simplify 32-bit instruction set selection
-User-Agent: K-9 Mail for Android
-In-Reply-To: <20261105163440.2381661-8-arnd@kernel.org>
-References: <20261105163440.2381661-1-arnd@kernel.org> <20261105163440.2381661-8-arnd@kernel.org>
-Message-ID: <4207CA81-6023-4DFC-8FBF-2C5C8C036CCC@zytor.com>
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=fY92HljY
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48e10a70540so1500315f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 12:18:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1793909911; x=1794514711; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ou4/lAhEpFwwKVnn/O173URP+OPA9Dr5LXSyF2aM0Kk=;
+        b=fY92HljYm7SUL/irbYBIukak8YUb3C47lQ24TCLgGG5fynimxwPMQM+lYLIvhRAsPn
+         qeUUtYqIRjEY35BnZd3pdA7+2EWRL0YEmPLA5UQch4Pmsy+TjNMBcr3MTzWON96WdVQW
+         oL4VhqsBcv52vQnJuepnrDyVRTGTF3q+i9khUTk18gQQlez/vXzTpXcx+azvPnzpGGEt
+         Pu6zHj0bebmvcJ6HDvrCNcnCbekezGsG0wMHx9JJ2rRXOwP5gRcGtCiKlDVRkmpycaAD
+         uSyxZVf1n0IK3GC0YVK8+h9Ma5JBOF0GGkZPL5elj6Rn5CwQSU1cy/+Q5oCHg3VB1E0a
+         fh8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793909911; x=1794514711;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ou4/lAhEpFwwKVnn/O173URP+OPA9Dr5LXSyF2aM0Kk=;
+        b=LB2nbIcswFO8zTKPD4KX2+YFIKR+qKp+4aGzww5fEI7Bv8/4qnDXSEWO+6BS4HB5Ad
+         DPVAyy6s+T6/vYJfGZzd+dssqoPqkeefoD3FMcm1I0kAeeSUM3qfxIza+ahliTs6MaIS
+         Jr1pnC5E68MYaKKbqyoIPPoxFPxSXjhlYQ3jUxvfFlRXb90hfZollBVd7U7aB6EGlr9w
+         vPJHG94eNw+A+ix8Cn76lNoB+JTTtag3jjibNGU7lXSutsz8OasXe4hNFGt1s1waE1MV
+         aMeoL9gz69N3fZBQsy3/nMnEr86qj2mTsZBz3hzLZH9EnWoCWcXt6mxTOfF1TQH3OOjJ
+         MG8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzYleAqdaDOWI8Ey6eNQL0piNUyP/4k1pHG4T1HorECDNySEoDG5BQXom5Egl2orrUefiZsf7OoF75QGoY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+lIETJUO1TM1UuYm132XZYdqTWoAq7h/kQv7nZX2nJRoPOWJ/m
+	nl1VwTm1bGQdatohjqED+MhT7GWBoP/TJsTgjLtM2m+UErMbgc+vKIU1buwAuE0TI9k=
+X-Gm-Gg: AYBFou04SywtFzscsFZ3HK5bDvupXlHWqXLsNmAV++TtmvB2DJ6B9RhiCGRUPclAY9Z
+	Xqz4S8lsozpEvFFDPVx/9hmgmkuZ2G1bbGbWFd8WE6buI+rKJabatRIUjI7v5oW95sO+wdOwLMV
+	PyqVQ0QBnYJYV4tQJ206dfX1nqjE3MK/0KlbaHXx6+jxGo3TVEh01A+rtoft7Ld5JJyY6feaitt
+	mZtJ2NlbhTGG2a+SC5vr5Vic20vhUUAnwPqF8c7b8ldQuKg5dMiAnx2h35pSWAkhjFcvzVpKFJj
+	NWaN5xM8wlGXhOjZEC9H3+qQI4myUqkc1jaB/rPihdu6U1ccEx7CIgFE0C1lVhPNJL5Bv1DpCkZ
+	V534vapHeKgjXdroMv1TAX1exRGiiXg9b/5FvjYn5K0sWC6oQB0tyl6PFLr38B1bF4OLNqYdBKP
+	vm9mOZ9Ncam9RDQhh8078t1gJCNLZ1J56FDPwUSWA34dcjIsRb4g+iWQq8gqojtgPg9JEx8MoYs
+	QnkgMg1i3vavflWvXWrXu2t5N4z8M9+KZUPcjJzR9KArVwkGLwZQs6id+2TlEsYOoNBwZ5prgy+
+	A05EuW4v/PSrnXHQKBWGdBEgBpApWuwcNuISUOl+Cp5/LU5v
+X-Received: by 2002:a05:6000:1788:b0:491:ed89:a38f with SMTP id ffacd0b85a97d-49276977d36mr1397300f8f.23.1793909911128;
+        Thu, 05 Nov 2026 12:18:31 -0800 (PST)
+Received: from medusa.lab.kspace.sh ([208.88.152.253])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48fece99a5dsm11653632f8f.21.2026.11.05.12.18.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 12:18:30 -0800 (PST)
+Date: Thu, 5 Nov 2026 12:18:27 -0800
+From: Mohamed Khalfella <mkhalfella@purestorage.com>
+To: Haris Iqbal <haris.iqbal@linux.dev>
+Cc: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>,
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Keith Busch <kbusch@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	linux-doc@vger.kernel.org
+Subject: Re: [v3 for-next 1/3] block: Reject unknown status tags in error
+ injection rules
+Message-ID: <20261105201827.GB2439-mkhalfella@purestorage.com>
+References: <20260928221634.43239-1-haris.iqbal@linux.dev>
+ <20260928221634.43239-2-haris.iqbal@linux.dev>
+ <20261005084917.GA9160@lst.de>
+ <20261020223402.GA1582237-mkhalfella@purestorage.com>
+ <58a98f7d-b2c5-47b5-a372-0ab5afa6a8ed@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,186 +103,138 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <58a98f7d-b2c5-47b5-a372-0ab5afa6a8ed@linux.dev>
 
-On November 5, 2026 8:34:38 AM PST, Arnd Bergmann <arnd@kernel=2Eorg> wrote=
-:
->From: Arnd Bergmann <arnd@arndb=2Ede>
->
->The -march=3D compiler flags select both instruction set and tuning for
->a particular CPU, which works well when building a kernel that can only
->run on this one type, but has some counterintuitive effects because it
->is not always clear which models are compatible=2E
->
->E=2Eg=2E building for Geode LX results in a kernel that can work on all o=
-n
->all 686-class CPUs but crashes on CPUs without the CMOV instructions=2E
->Building a kernel for 686 could work on Geode LX and Crusoe but fails
->because of the CPU generation check that detects these as 585-class=2E
->Similarly, building for Intel Atom produces a 32-bit kernel that uses
->the MOVBE instructions and does not work on any other 32-bit CPU or
->even 64-bit CPUs before Haswell/Excavator=2E
->
->Change the CPU selection to build everything with either -march=3Di586
->or -march=3Di686 and make the specific options only change the -mtune=3D
->parameter where this was previously handled by -march=3D=2E Note that
->the only -mtune=3D options that gcc or clang understand for x86-32
->are i486, pentium, pentiumpro, pentium4, atom, geode, k6 and athlon,
->the other ten are just aliases for one of them=2E
->
->Selecting any 586-class configuration option now produces a kernel that
->works on every supported CPU, while selecting a 686-class configuration
->works on all 686-class CPUs but no 586-class ones=2E
->
->Consequently, the vermagic=2Eh logic can be simplified to just these
->two cases=2E
->
->Signed-off-by: Arnd Bergmann <arnd@arndb=2Ede>
->---
-> arch/x86/Kconfig=2Ecpu            | 13 +++++-------
-> arch/x86/Makefile_32=2Ecpu        | 16 +++++++--------
-> arch/x86/include/asm/vermagic=2Eh | 36 ++-------------------------------
-> 3 files changed, 15 insertions(+), 50 deletions(-)
->
->diff --git a/arch/x86/Kconfig=2Ecpu b/arch/x86/Kconfig=2Ecpu
->index 21026e0cb569=2E=2E121881c4d076 100644
->--- a/arch/x86/Kconfig=2Ecpu
->+++ b/arch/x86/Kconfig=2Ecpu
->@@ -6,9 +6,9 @@ choice
-> 	default M686
-> 	help
-> 	  This is the processor type of your CPU=2E This information is
->-	  used for optimizing purposes=2E In order to compile a kernel
->-	  that can run on all supported x86 CPU types (albeit not
->-	  optimally fast), you can specify "586" here=2E
->+	  used to pick between i586-class and i686-class processors,
->+	  as well as to optimize for a particular microarchitecture
->+	  within the two classes=2E
->=20
-> 	  Note that the 386 and 486 is no longer supported, this includes
-> 	  AMD/Cyrix/Intel 386DX/DXL/SL/SLC/SX, Cyrix/TI 486DLC/DLC2,
->@@ -164,16 +164,13 @@ config MCYRIXIII
-> 	  treat this chip as a generic 586=2E Whilst the CPU is 686 class,
-> 	  it lacks the cmov extension which gcc assumes is present when
-> 	  generating 686 code=2E
->-	  Note that Nehemiah (Model 9) and above will not boot with this
->-	  kernel due to them lacking the 3DNow! instructions used in earlier
->-	  incarnations of the CPU=2E
->=20
-> config MVIAC3_2
-> 	bool "VIA C3-2 (Nehemiah)"
-> 	depends on X86_32
-> 	help
->-	  Select this for a VIA C3 "Nehemiah"=2E Selecting this enables usage
->-	  of SSE and tells gcc to treat the CPU as a 686=2E
->+	  Select this for a VIA C3 "Nehemiah"=2E Selecting tells gcc to treat
->+	  the CPU as a 686=2E
-> 	  Note, this kernel will not boot on older (pre model 9) C3s=2E
->=20
-> config MVIAC7
->diff --git a/arch/x86/Makefile_32=2Ecpu b/arch/x86/Makefile_32=2Ecpu
->index c5aa169b596d=2E=2E1735a5f95d33 100644
->--- a/arch/x86/Makefile_32=2Ecpu
->+++ b/arch/x86/Makefile_32=2Ecpu
->@@ -11,26 +11,26 @@ align		:=3D -falign-functions=3D0 -falign-jumps=3D0 -=
-falign-loops=3D0
-> endif
->=20
-> cflags-$(CONFIG_M586TSC)	+=3D -march=3Di586
->-cflags-$(CONFIG_M586MMX)	+=3D -march=3Dpentium-mmx
->+cflags-$(CONFIG_M586MMX)	+=3D -march=3Di586
-> cflags-$(CONFIG_M686)		+=3D -march=3Di686
-> cflags-$(CONFIG_MPENTIUMII)	+=3D -march=3Di686 $(call tune,pentium2)
-> cflags-$(CONFIG_MPENTIUMIII)	+=3D -march=3Di686 $(call tune,pentium3)
-> cflags-$(CONFIG_MPENTIUMM)	+=3D -march=3Di686 $(call tune,pentium3)
-> cflags-$(CONFIG_MPENTIUM4)	+=3D -march=3Di686 $(call tune,pentium4)
->-cflags-$(CONFIG_MK6)		+=3D -march=3Dk6
->+cflags-$(CONFIG_MK6)		+=3D -march=3Di586 $(call tune,k6)
-> # Please note, that patches that add -march=3Dathlon-xp and friends are =
-pointless=2E
-> # They make zero difference whatsosever to performance at this time=2E
->-cflags-$(CONFIG_MK7)		+=3D -march=3Dathlon
->+cflags-$(CONFIG_MK7)		+=3D -march=3Di686 $(call tune,athlon)
-> cflags-$(CONFIG_MCRUSOE)	+=3D -march=3Di686 $(align)
-> cflags-$(CONFIG_MEFFICEON)	+=3D -march=3Di686 $(call tune,pentium3) $(al=
-ign)
->-cflags-$(CONFIG_MCYRIXIII)	+=3D $(call cc-option,-march=3Dc3,-march=3Di4=
-86) $(align)
->-cflags-$(CONFIG_MVIAC3_2)	+=3D $(call cc-option,-march=3Dc3-2,-march=3Di=
-686)
->+cflags-$(CONFIG_MCYRIXIII)	+=3D -march=3Di586 $(call tune,i486) $(align)
->+cflags-$(CONFIG_MVIAC3_2)	+=3D -march=3Di686
-> cflags-$(CONFIG_MVIAC7)		+=3D -march=3Di686
->-cflags-$(CONFIG_MATOM)		+=3D -march=3Datom
->+cflags-$(CONFIG_MATOM)		+=3D -march=3Di686 $(call tune,atom)
->=20
-> # Geode GX1 support
->-cflags-$(CONFIG_MGEODEGX1)	+=3D -march=3Dpentium-mmx
->-cflags-$(CONFIG_MGEODE_LX)	+=3D $(call cc-option,-march=3Dgeode,-march=
-=3Dpentium-mmx)
->+cflags-$(CONFIG_MGEODEGX1)	+=3D -march=3Di586 $(call tune,geode)
->+cflags-$(CONFIG_MGEODE_LX)	+=3D -march=3Di586 $(call tune,geode)
-> # add at the end to overwrite eventual tuning options from earlier
-> # cpu entries
-> cflags-$(CONFIG_X86_GENERIC) 	+=3D $(call tune,generic,$(call tune,i686)=
-)
->diff --git a/arch/x86/include/asm/vermagic=2Eh b/arch/x86/include/asm/ver=
-magic=2Eh
->index e26061df0c9b=2E=2E5323ed585bc9 100644
->--- a/arch/x86/include/asm/vermagic=2Eh
->+++ b/arch/x86/include/asm/vermagic=2Eh
->@@ -5,42 +5,10 @@
->=20
-> #ifdef CONFIG_X86_64
-> /* X86_64 does not define MODULE_PROC_FAMILY */
->-#elif defined CONFIG_M586TSC
->-#define MODULE_PROC_FAMILY "586TSC "
->-#elif defined CONFIG_M586MMX
->-#define MODULE_PROC_FAMILY "586MMX "
->-#elif defined CONFIG_MATOM
->-#define MODULE_PROC_FAMILY "ATOM "
->-#elif defined CONFIG_M686
->+#elif CONFIG_X86_MINIMUM_CPU_FAMILY =3D=3D 6
-> #define MODULE_PROC_FAMILY "686 "
->-#elif defined CONFIG_MPENTIUMII
->-#define MODULE_PROC_FAMILY "PENTIUMII "
->-#elif defined CONFIG_MPENTIUMIII
->-#define MODULE_PROC_FAMILY "PENTIUMIII "
->-#elif defined CONFIG_MPENTIUMM
->-#define MODULE_PROC_FAMILY "PENTIUMM "
->-#elif defined CONFIG_MPENTIUM4
->-#define MODULE_PROC_FAMILY "PENTIUM4 "
->-#elif defined CONFIG_MK6
->-#define MODULE_PROC_FAMILY "K6 "
->-#elif defined CONFIG_MK7
->-#define MODULE_PROC_FAMILY "K7 "
->-#elif defined CONFIG_MCRUSOE
->-#define MODULE_PROC_FAMILY "CRUSOE "
->-#elif defined CONFIG_MEFFICEON
->-#define MODULE_PROC_FAMILY "EFFICEON "
->-#elif defined CONFIG_MCYRIXIII
->-#define MODULE_PROC_FAMILY "CYRIXIII "
->-#elif defined CONFIG_MVIAC3_2
->-#define MODULE_PROC_FAMILY "VIAC3-2 "
->-#elif defined CONFIG_MVIAC7
->-#define MODULE_PROC_FAMILY "VIAC7 "
->-#elif defined CONFIG_MGEODEGX1
->-#define MODULE_PROC_FAMILY "GEODEGX1 "
->-#elif defined CONFIG_MGEODE_LX
->-#define MODULE_PROC_FAMILY "GEODE "
-> #else
->-#error unknown processor family
->+#define MODULE_PROC_FAMILY "586 "
-> #endif
->=20
-> #ifdef CONFIG_X86_32
+On Thu 2026-11-05 21:00:27 +0100, Haris Iqbal wrote:
+> 
+> 
+> On 10/21/26 00:34, Mohamed Khalfella wrote:
+> > On Mon 2026-10-05 10:49:17 +0200, Christoph Hellwig wrote:
+> >> On Tue, Sep 29, 2026 at 12:16:32AM +0200, Md Haris Iqbal wrote:
+> >>> tag_to_blk_status() returns BLK_STS_OK both for the "OK" tag and for a
+> >>> tag it does not recognize, so a caller cannot tell the two apart. The
+> >>> block error injection code (which is the sole user of this function
+> >>> currently) relies on error_inject_add() later to reject adding a rule with
+> >>> status=BLK_STS_OK. This is okay for the current state of error injection.
+> >>>
+> >>> The delay option added in the next commit makes the rule with status=OK
+> >>> valid, meaning the function tag_to_blk_status() now needs to explicitly
+> >>> match BLK_STS_OK for it, and fail for a tag it does not recognize. Hence
+> >>> make tag_to_blk_status() take a second param to update the matched status,
+> >>> and return true in case of a successful match. If a match is not found,
+> >>> the function tag_to_blk_status() returns false and *status remains
+> >>> unchanged.
+> >>>
+> >>> A repeated status= where an invalid tag comes first is now rejected
+> >>> instead of being overridden by the later one.
+> >>>
+> >>> Cc: Christoph Hellwig <hch@lst.de>
+> >>> Assisted-by: Claude:claude-opus-5
+> >>> Signed-off-by: Md Haris Iqbal <haris.iqbal@linux.dev>
+> >>> ---
+> >>>   block/blk-core.c        | 14 ++++++--------
+> >>>   block/blk.h             |  2 +-
+> >>>   block/error-injection.c |  7 ++++---
+> >>>   3 files changed, 11 insertions(+), 12 deletions(-)
+> >>>
+> >>> diff --git a/block/blk-core.c b/block/blk-core.c
+> >>> index 13dc70e8f55d..c45846b9c50d 100644
+> >>> --- a/block/blk-core.c
+> >>> +++ b/block/blk-core.c
+> >>> @@ -225,21 +225,19 @@ const char *blk_status_to_tag(blk_status_t status)
+> >>>   	return blk_errors[idx].tag;
+> >>>   }
+> >>>   
+> >>> -blk_status_t tag_to_blk_status(const char *tag)
+> >>> +bool tag_to_blk_status(const char *tag, blk_status_t *status)
+> >>>   {
+> >>>   	int i;
+> >>>   
+> >>>   	for (i = 0; i < ARRAY_SIZE(blk_errors); i++) {
+> >>>   		if (blk_errors[i].tag &&
+> >>> -		    !strcmp(blk_errors[i].tag, tag))
+> >>> -			return (__force blk_status_t)i;
+> >>> +		    !strcmp(blk_errors[i].tag, tag)) {
+> >>> +			*status = (__force blk_status_t)i;
+> >>> +			return true;
+> >>> +		}
+> >>>   	}
+> >>>   
+> >>> -	/*
+> >>> -	 * Return BLK_STS_OK for mismatches as this function is intended to
+> >>> -	 * parse error status values.
+> >>> -	 */
+> >>> -	return BLK_STS_OK;
+> >>> +	return false;
+> >>>   }
+> >>>   
+> >>>   /**
+> >>> diff --git a/block/blk.h b/block/blk.h
+> >>> index 2cc03aa54c53..5fa54162c686 100644
+> >>> --- a/block/blk.h
+> >>> +++ b/block/blk.h
+> >>> @@ -52,7 +52,7 @@ void blk_free_flush_queue(struct blk_flush_queue *q);
+> >>>   
+> >>>   const char *blk_status_to_str(blk_status_t status);
+> >>>   const char *blk_status_to_tag(blk_status_t status);
+> >>> -blk_status_t tag_to_blk_status(const char *tag);
+> >>> +bool tag_to_blk_status(const char *tag, blk_status_t *status);
+> >>>   enum req_op str_to_blk_op(const char *op);
+> >>>   
+> >>>   bool __blk_mq_unfreeze_queue(struct request_queue *q, bool force_atomic);
+> >>> diff --git a/block/error-injection.c b/block/error-injection.c
+> >>> index e14bc4b723ef..db543fe27630 100644
+> >>> --- a/block/error-injection.c
+> >>> +++ b/block/error-injection.c
+> >>> @@ -171,15 +171,16 @@ static int match_op(substring_t *args, enum req_op *op)
+> >>>   static int match_status(substring_t *args, blk_status_t *status)
+> >>>   {
+> >>>   	const char *tag;
+> >>> +	bool found;
+> >>>   
+> >>>   	tag = match_strdup(args);
+> >>>   	if (!tag)
+> >>>   		return -ENOMEM;
+> >>> -	*status = tag_to_blk_status(tag);
+> >>> -	if (!*status)
+> >>> +	found = tag_to_blk_status(tag, status);
+> >>> +	if (!found)
+> >>>   		pr_warn("invalid status '%s'\n", tag);
+> >>>   	kfree(tag);
+> >>> -	return 0;
+> >>> +	return found ? 0 : -EINVAL;
+> >>
+> >> 	if (!found) {
+> >>    		pr_warn("invalid status '%s'\n", tag);
+> >> 		return -EINVAL;
+> >> 	}
+> >> 	return 0;
+> 
+> As Mohamed mentioned below, "tag" would leak then.
+> 
+> > 
+> > Doing it this way will result in use-after-free. "tag" has already been
+> > freed above.
+> > 
+> > Maybe change tag_to_blk_status() to return an int (0 on success and
+> > -EINVAL on failure) and use its return value without mapping it?
+> 
+> I am not sure I get your suggestion completely. Even if we change the 
+> return type of tag_to_blk_status(), we would have to free the "tag" 
+> before returning.
 
-Crusoe (TM3xxx/TM5xxx) do have a handful of compiler/user space visible it=
-ems that are missing from i686, as I recall notably the long nop instructio=
-ns and *possibly* fcomi (I *think* we caught that one, but I'm not 100% sur=
-e=2E)
+Changing tag_to_blk_status() to return an int will not have an effect or
+"tag" like you mentioned. But you will not need to map the return from
+that function.
 
-As a result, it reports correctly as family 5=2E
+return found ? 0 : -EINVAL;
 
+The line above just returns what tag_to_blk_status() returned.
+
+> 
+> What can make it simpler is allocating "tag" on stack, and then use 
+> match_strlcpy() instead of match_strdup().
+
+That can work too. Just make sure we limit the string size somehow.
