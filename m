@@ -1,60 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793876238;
-	b=jjgaWIJtGSm3C05U9fQEV2jaKadRe6Wm7XTYo2BKcxGKlLwGWNeEsiATxzbhw7wMpKtf
-	 AQSXPvOaKemj4slTnvYT+IeL3Nbmn8K8GmfCwHdEB5s9Z3oFwAoYzo/lIJrJLtYnV4vJK
-	 nzxBMiOv1zWwJUozMzZtfTdEcOOlbTQFyIOaXzuqNCEfPE452Yz3DYaH4i2PJBYF6Kic8
-	 +//aTc9deRtDL+18eYR2qA40JVvTw+bg1Fgj8l2c4pk1JZoWCvR0Iq7tWyhUD/S/JF2rK
-	 V0/xxyPgyytH+0KkStAWe/trldOtjnrLhYQ4//0xBKujsjWTQU7FESFe+ZpwViCQVlg==
+	t=1793876260;
+	b=bhdTu6jHGzqf3/zkGcxTBU3CL69m5DH1xSlUMW3s2LLHTItbVG69lfETJwvRqv9kjRSz
+	 hlvwvVrPI+fMxU8ag6bcTQ2Icu89ve6rPYXwhSiWDQwVgCu4HcBhhBXlaSI2eAbRlEAOR
+	 ziLao76mydj+ynr0zJ/Enm5RrO4x0E30ZbEBeHilK+jppwLokwsmZg/Ozn5GgAEF+OOck
+	 JvsNVgJIs18PSJ5N4jG+tDJLw9dtUYbh2Nt7fsJhhF7+Hzsoo9e2OT6NVLx/PNubOfo3h
+	 BySFxwFsKTv72WJtbKj70Tizn3jtqT3KyLf68oQYFn4xVJTRIZSbBzoFQ4lG7kq1bFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793876238;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Yk0NNrYkQ4N4ccgY8kCGM4zul3wjbpL9JfKMdme0vGg=;
-	b=EgWRCJVEWazN//bJJqFMnxohZmcRACtDSdiafi6uuPMYQom39nt70q6+tbLptJsgQxcm
-	 FWtPd4rV+RRFXWOdMjiAL11nloHbg+6V/qL1M8Qd+YURATW1VNdLGHqqsdIMxvK1NefAo
-	 x9q/R7lVbV2ammoUXNElBsziLufWB3tg9zXXFrYCVvEsSRNWr17PFpJF1C00ebqakH0TD
-	 AUGp3lvuaYwYPx82kiC0sZVQXe+EXlSC6IPjxrORuFvR1jgKNEV0taA3WuDqhE2UodKRB
-	 aoYhkPUOwoMGbtiQ9sxj8I1gCV+LgnJ7Xt+CeSvrtoWW5/P43vB0aKzvkJieEcr6O2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793876260;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=SXGwN7tRovYpRhOtfKhfyClHFzkHW7mhE7T1iYdcvl4=;
+	b=TCLnjeh+eYnJTyP9K74jcZjti2huMIrHx1TbHiCtfBb4jHtn/7z/ITe6SDMFejict0rl
+	 +0Ggj7dvS63UoxHEXYHqUJkbVyDJXKEOvIGMrmiGnD7wwCtDwbHHsZrDjL7DADmkEpwL1
+	 tvVPGexO5bYz/fm/nhTOQ7bODPlaWFo5QyRcczxEmBaYdRNeBDg9M91pnIDHPtfVrqekM
+	 bSTDPM1H0Mznp3iGaeCK467D42+6fp+/xEVVs/B+vKy7MbBP2Aa6hBI5qaqYWCZ5sLYFI
+	 uZYfHG1/ie2o6jdoCr4k3IWQWcHnxy54JnwmWy/cMxLaKrjz1fyK78oUpcMU9O2fktg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c29mcl8f;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JIoTHK3l;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12F38606D802;
-	Thu,  5 Nov 2026 10:57:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D801C606A32C
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:57:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D801C606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c29mcl8f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFF521F000C1;
-	Thu,  5 Nov 2026 10:57:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793876237;
-	bh=Yk0NNrYkQ4N4ccgY8kCGM4zul3wjbpL9JfKMdme0vGg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=c29mcl8fed+UyMQAwVDV/KKGo0bpd/gzY4E1d1+KmBRGnBUWsYd3w9P/SKdkim34X
-	 k9aNTl+lNGFX0yDpLqnlVXFyZfqr9ulIptBzI0V/xs6nHmla21wVoMAQ2Urc/ihXb4
-	 J/agQno5SSjy3RrG5jdMjKlBGuQoY1yzicvcwSj1tmXpoXBW3Q03ZWJRrm1FTOxfkG
-	 kuMyScKaHUXNj5H7Nz6WL+v7kCLjpapTLSGXUuvv6s8DaMvL2nb4IQ7JjqZ4GJ/88D
-	 nzw5hbFvBy4sWl/Wx2gU9np3+UI7fpuNX1ETlf/H/6h+mkjoF+67fEB19ez3IDNXMb
-	 othShHJbUiWmQ==
-Subject: Re: [PATCH net] tipc: fix division by zero in perc()
-From: netdev-bot+sashiko@kernel.org
-To: tristmd@gmail.com
-Cc: jmaloy@redhat.com, tung.quang.nguyen@est.tech, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- richard.alpe@ericsson.com, ying.xue@windriver.com, erik.hugne@ericsson.com,
- netdev@vger.kernel.org, tipc-discussion@lists.sourceforge.net,
- linux-kernel@vger.kernel.org, tristan@talencesecurity.com
-Date: Thu, 05 Nov 2026 10:57:16 +0000
-Message-ID: <179387623625.488856.16993950481980996538@kernel.org>
-In-Reply-To: <20261103225433.2663943-1-tristmd@gmail.com>
-References: <20261103225433.2663943-1-tristmd@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JIoTHK3l
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso1490450f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 02:57:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793876258; x=1794481058; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SXGwN7tRovYpRhOtfKhfyClHFzkHW7mhE7T1iYdcvl4=;
+        b=JIoTHK3lGVSV35Dz6VVacn6rp8zgOW9ERq96TAwriZ52T8iBlGWb8/bhsYbrRkvA9f
+         7X6VUxZaMwPetQDmYY65zL1OY8mjTqsIUuH6mJzNdCL9+4Gl63FKz9n63k4P19WLgvxx
+         /9xRYbDYigti5yTy+qht9QOlHpej1r7aahnyfFIJYtUIJjxY7US2ztak9gU/Dqh3956Q
+         2rm+sZ9iFGxlpZlCMzWbngiYLQG+8jhnnKXaHwl3Q40FWNnxlhQSU6JlmlbFb98juiaa
+         pHR4KJsi13h7SPcZdNDjRqVqFfT97pk3aKjlFSoF1TPDS8emRLLydxyVRmPR3twT7kYd
+         OUQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793876258; x=1794481058;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SXGwN7tRovYpRhOtfKhfyClHFzkHW7mhE7T1iYdcvl4=;
+        b=wP8wOJqjwChBNfTzoSXwfgBocMlS1l7J6coMovyaY+0pR3cJgslQr1b9o+Flh31HuD
+         1WXRudVMEZuLEl8KRlqvU6M7+c0emVxi6WbRAFCVPiMVIrz6qTVq4VM+ER1ifa2g/9es
+         jCMP5iuEBzI6wTBQ0uHDn6fUfIFsparaQ5dMzCPt6E0vQIFlvDo07nZ39TsPgU0/4MNq
+         bXaKlelwmm7jhrwY2vgOr9MCdoPpBQ4DRSgeVynOgZInJLtrtflyjGPjm6J7icw8NgeJ
+         beJDLBNRHbW36cQQHnYPpdyx8WpzBAg/jDtVgOFrVAEFJybtqaLAO25a/PdPWDE/i7Yb
+         15AA==
+X-Forwarded-Encrypted: i=1; AKwUvBxq9I2Grwobl6OIrCLEe94DzFFZVdsGefi0kzviiYsEs8pgbg6+rF20ybMkBkD0u+G83k9WnHsPFud0ZpY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Re886e1wJ0TrEJqZYOoDsoY4Sv38Q51zxkBoTmoe1SdtCYWl0
+	OPejBh2Bi4onmzPWX3g+KFIiDgyYPPqSZqvrwbj5uCBXzwu/Grd20f4k
+X-Gm-Gg: AYBFou0QGzW0yspB9ekA87RmgtUOkgMynsN7vR8qGfOWgYT9LkVI3VitB8kAdy28Sy7
+	2zhBt8DXUsJFD15eNyiM5MbFPts33evnym8riqENXFYjYX3w6RkE8NbetoIQXgYwTcrmkEyL4lQ
+	v/Z+c7zStF61etM21cjk7V7cEflFFGlHe5wIzk0V56v8WKsEsmJuXlbPlZoez246/44uAK2cutp
+	bcTUS5ZXcMi1pXOGpA4CWFhJH/nD5HxREZWtokCdUDV7QOGnrN0Dd11KtvZtQiHQV7lz+fW5CIq
+	w3nsrBRzFxy5H34yUmMIojk0+bsRaLp2MzWyA6nF3rbix7slzfWzEkUoNW9a4Tfjo54xKLDR3zO
+	D4cIjFHAorwIdeYXM9FndwvRHC3wvn1cL2t/XQkSVeYsHynqFV1QFdDP4+wNzK+J7AJvBtdZ3++
+	ulJrmha/tb80xPlzCqdMS9SaOW3hX96I28Ob9HlZWobnMgCnbRzqEtF3bkz02NcsuUQ4PQjfLtU
+	QqnuM2qpzQzUkqN5qHsoUTG4IGE67qUnh2Ff/w+C1YZzyMXsUvNfQ/Xk2Ox8RmbHz35tbf18elq
+	cnjqyeAqHCgWWI6ltK+ZLIZHkJqiSfKDHJH03oQd1pPSr4dSnX+bSrWHrUi69oTn
+X-Received: by 2002:a05:6000:4711:b0:48b:123e:2f5c with SMTP id ffacd0b85a97d-48e6e5018cfmr41452831f8f.29.1793876258012;
+        Thu, 05 Nov 2026 02:57:38 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fec8d8e29sm9968878f8f.19.2026.11.05.02.57.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 02:57:37 -0800 (PST)
+Date: Thu, 5 Nov 2026 10:57:36 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Vineet Gupta <vgupta@kernel.org>
+Cc: Simon Schuster <schuster.simon@siemens-energy.com>, Dinh Nguyen
+ <dinguyen@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Arnd
+ Bergmann <arnd@arndb.de>, Sasha Levin <sashal@kernel.org>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] lib: extract 32bit mul/div helpers from nios2
+ into GENERIC_LIB
+Message-ID: <20261105105736.728782ab@pumpkin>
+In-Reply-To: <bba7f6da-82ee-46cc-bd8f-b0e3e027f5e2@kernel.org>
+References: <20261103-nios2-remove-usage-of-libgcc-v2-0-5fabbedc49ec@siemens-energy.com>
+	<20261103-nios2-remove-usage-of-libgcc-v2-1-5fabbedc49ec@siemens-energy.com>
+	<bba7f6da-82ee-46cc-bd8f-b0e3e027f5e2@kernel.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,122 +103,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Tue, 3 Nov 2026 20:23:23 -0800
+Vineet Gupta <vgupta@kernel.org> wrote:
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 0
+> Nios it seems was removed from gcc?
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Yep, Intel deprecated it not long before demerging Altera.
+Loosely on the basis that they have a RISCV soft cpu for the fpga.
+gcc followed (even though the code to support it isn't that big
+- I can probably find a copy, you can't download it any more),
+as has busybox.
 
-- [Medium] The commit message's premise is wrong.
-- [Medium] Judged by its own premise, the fix is incomplete.
+This annoyed the company I worked for (and probably a lot of telco).
+RISCV isn't a replacement in any sense, it is missing a lot of
+features (like custom instructions) and doesn't have the same level
+of customisation.
+I wouldn't run Linux on one (you might get 100MHz if you are lucky
+and it is definitely in-order one instruction per clock), but it is
+useful for 'control pane' logic that would be too complex and large
+in straight VHDL/Verilog.
+Typically only a few KB of code running in a tight loop.
 
---
+I've a clean-room copy of the integer part of the cpu - written
+in a few weeks (and I'm not really a hardware engineer).
 
-tipc: fix division by zero in perc()
-
-This commit adds a zero check to perc() in net/tipc/netlink_compat.c so
-that it returns 0 when total is zero. The commit message says this
-prevents a division by zero in tipc_nl_compat_link_stat_dump() when link
-statistics are queried on a fresh link.
-
-> The perc() function divides count by total without checking whether
-> total is zero. When link statistics are queried on a freshly
-> established link that has not yet exchanged messages,
-> TIPC_NLA_STATS_MSG_PROF_TOT is zero, causing a division by zero
-> in tipc_nl_compat_link_stat_dump().
-
-[Severity: Medium]
-Can TIPC_NLA_STATS_MSG_PROF_TOT actually be zero here?
-
-This attribute is only produced by __tipc_nl_add_stats() in
-net/tipc/link.c, and that function already clamps the value to 1:
-
-net/tipc/link.c:__tipc_nl_add_stats() {
-    ...
-		{TIPC_NLA_STATS_MSG_PROF_TOT, (s->msg_length_counts) ?
-			s->msg_length_counts : 1},
-    ...
-}
-
-So a link with no profiled messages reports 1, not 0. If msg_length_counts
-wraps back to 0, it is also clamped to 1.
-
-User space can't supply these attributes either. __tipc_nl_compat_dumpit()
-allocates a kernel skb with nlmsg_new(), fills it through cmd->dumpit, and
-passes the parsed attributes to cmd->format:
-
-__tipc_nl_compat_dumpit()
-    tipc_nl_node_dump_link()
-        __tipc_nl_add_link()
-            __tipc_nl_add_stats()
-    tipc_nl_compat_link_stat_dump()
-        perc()
-
-Broadcast links use __tipc_nl_add_bc_link_stat() and return early through
-__fill_bc_link_stat(), before any perc() call.
-
-The clamp came in with commit 7be57fc69184 ("tipc: add link get/dump to
-new netlink api"), which is older than the Fixes: target f2b3b2d4ccbf
-("tipc: convert legacy nl link stat to nl compat").
-
-If so, the described division by zero has never been reachable. Could the
-commit message describe this as hardening instead? Could the Fixes: tag
-also be dropped, so stable doesn't pick this up as a crash fix?
-
-> diff --git a/net/tipc/netlink_compat.c b/net/tipc/netlink_compat.c
-> index d9a4f94ea2d43..75f3193a2a6cf 100644
-> --- a/net/tipc/netlink_compat.c
-> +++ b/net/tipc/netlink_compat.c
-> @@ -497,6 +497,9 @@ static int tipc_nl_compat_bearer_disable(struct tipc_nl_compat_cmd_doit *cmd,
->  
->  static inline u32 perc(u32 count, u32 total)
->  {
-> +	if (!total)
-> +		return 0;
-> +
->  	return (count * 100 + (total / 2)) / total;
->  }
-
-[Severity: Medium]
-If the premise in the commit message were true, would this check ever be
-reached?
-
-tipc_nl_compat_link_stat_dump() also divides by the same attribute with no
-guard. That division is in a tipc_tlv_sprintf() call that runs before any
-perc() call:
-
-net/tipc/netlink_compat.c:tipc_nl_compat_link_stat_dump() {
-    ...
-	tipc_tlv_sprintf(msg->rep,
-			 "  TX profile sample:%u packets  average:%u octets\n",
-			 nla_get_u32(stats[TIPC_NLA_STATS_MSG_LEN_CNT]),
-			 nla_get_u32(stats[TIPC_NLA_STATS_MSG_LEN_TOT]) /
-			 nla_get_u32(stats[TIPC_NLA_STATS_MSG_PROF_TOT]));
-
-	tipc_tlv_sprintf(msg->rep,
-			 "  0-64:%u%% -256:%u%% -1024:%u%% -4096:%u%% ",
-			 perc(nla_get_u32(stats[TIPC_NLA_STATS_MSG_LEN_P0]),
-			      nla_get_u32(stats[TIPC_NLA_STATS_MSG_PROF_TOT])),
-    ...
-}
-
-If TIPC_NLA_STATS_MSG_PROF_TOT were zero, the divide error would hit in the
-average calculation. The new check in perc() would never run.
-
-In practice, the clamp in __tipc_nl_add_stats() keeps both divisions safe.
-That makes the patch unnecessary if the clamp is relied on, and incomplete
-if it isn't.
-
-Would it be better to drop the crash claim? Alternatively,
-TIPC_NLA_STATS_MSG_PROF_TOT could be checked once in
-tipc_nl_compat_link_stat_dump(), which would cover both the average and
-the perc() calls.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103225433.2663943-1-tristmd%40gmail.com
+David
