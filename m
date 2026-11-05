@@ -1,79 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793885002;
-	b=Td0CWAWp2yQ4Gdjy6ka1wuZ8TKLfAfWQWaAGGPCvZPl4qlrzNAlfHOmkfApGCIITXrBZ
-	 ZzWBJMsILiN+LvK3hbJMNqxjxYiUbSInLpIdA99iOB5baJH7taEROEAlcihMYh5f0Hosk
-	 fznBZ6S5E9dR8uGiuCn1wNnAQ0NNgZ+OcDhZoEGMZq+HjKzrrjWLEKbUJjtE3xeVcxkMn
-	 mUFOwmyBXSriMOAXtKw4h0GOg7DraHQt/W2/ObygNc39Bguc4ZkW/4wSw0HpLGfQ+D49k
-	 af/7Ao0F1ZdtoHubvlWowrRCnGNx6mV8286Vgt77Y2+fBrv/s7ShJGpyXVFUGZq1zkQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793885002;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=94WhvBOvLikVnBdkqmMS0BP1DzIOS0lU6UoyFCQ9OjM=;
-	b=zUtpI1oAiYmKZ58jIu3PdHk3l1HNSSQT91KPxykBLljow+AEbhukh0NYqskIzI4TRP+X
-	 IW2JhFVqT0aRJ9+F3DNgx0N8tmxMnmqprp5cv92OxuoWqPISRLya+ZXkonSmtZ4VSRm1d
-	 FKYk/PgiMnpVaKUhhARTaYN7z/J7kw5Dkvz1UPINHPyjgUClBVahfESqlZNeDqeS8SlbP
-	 mtqsMepFXjhOQcgtPSQaFOvfnAFPCQzElWIwAdNOJhaCRwgBL2X2aRYiuK4YsPYoVxFpq
-	 hHV3QQqkmW/vI4rcW5+TFe4ABf4ky3OrPJL34GS9atAR6nr9N9SMh8SxFkHFIK2OEgw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=oxUxuzKw;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793885022;
+	b=rDH8aod2YFfCif8opxzH69dezKSSV6dpccHXcu8r0dPATIjDEDtOJC3+AqO1WxiTsMqi
+	 qTFBfX6wudHcrRP+b2/z/pUh7GKF1NHy6gjqjbTgPggxpewEdl+xeBwHnzZAALvQCIjUF
+	 vWapz/eIoDY5zhX7KtvIpfpKgyx0FbmHHr9Kif5QsaMpTHiY8OHQxhvoLOIRLCFoTQXCR
+	 TUhYMbWja+rmVQJKEJWHdyxD5Akf0lwfrRa+BrxB7c8rIjO7QofWNb1xYbtj5Boz1azY7
+	 KOwVu6Rq45ciwIrrHDJw+T3OkuEdkJVLMYlTvuf7VV2+Av71DqU1Br+93OBdpkV7yxA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793885022;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=+VLJ9DCi18uNdmQrO4KxoMMbpxM69vcNMJhzFr24WoQ=;
+	b=optEWiCh8mQjLqHZpzWSy5TgM5wXs4jNi6ajRlOcEbyKxPzTJK+Ik7E8iiDSoOYYDaZo
+	 cXnU3i5NsirKPDue45h1uIuLq5mfzMXY9Y5qardNddq9KbJsciAlHc9nCLvMIuAVAKvu0
+	 jYXI0Z+G6ZBT2Q24B5t5dGOF2qrwHGnZKVVEHU8QIwWeKVWCQo6D0XbmTkT17NT/L3TId
+	 aGY1BaMbOau0AFI1tW/dWFORfDhdVnuSJlHOFvKiYSJKOG3LgkBLgpQ4MQm5XpNok59r1
+	 z8wORIewzZO7/WgIJEtHnblpKPzmi2Kx5+WXe+WTqZzf2d7SQO9rgM2ANwribQrl3tw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kQP6EKPg;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D359606A33E;
-	Thu,  5 Nov 2026 13:23:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D359606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83B6B606D824;
+	Thu,  5 Nov 2026 13:23:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=oxUxuzKw
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=94WhvBOvLikVnBdkqmMS0BP1DzIOS0lU6UoyFCQ9OjM=; b=oxUxuzKwg9gT4g2DKyoFBl/WI5
-	AbuiwNJlmwsdPRj3bXD9gfgwsoZ/KN16pH4zRlWrtXehOIZVACMvZY4vYYNpwOyJXTy/i7QPukr+8
-	qlCNmtGYnlptdTzVZ+P6ag2rARROCx4HYiFeLDeDMolD+x+TNVJJZcQ2y2kTPwEhtJWfwmeT+U7x1
-	sIfgCZdmvz47620kQNc+znutAi4gJOakEtEurl3RH+kJTyVnIeC9NpAxAt7iEo6DHEqghkVUn+5pn
-	tEFLvsojd+1WSFwo8f0emOSYx9Y3khSJbYOIfZYsHejpiuAXM2FvaBEn0WYypGP18xmPsmsxFxDum
-	22wo2MHw==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Daniel Stone <daniel@fooishbar.org>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andyshrk@163.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Daniel Stone <daniels@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, kernel@collabora.com,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Sashiko <sashiko-bot@kernel.org>, Igor Paunovic <royalnet026@gmail.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>
-Subject:
- Re: [PATCH v6 00/15] Support 10-bit YUV422 and 8/10-bit YUV420 color format
- on DW HDMI QP
-Date: Thu, 05 Nov 2026 14:22:44 +0100
-Message-ID: <34506010.aRNtrjHk3s@diego>
-In-Reply-To: <81fbb960-abde-44ea-82ab-3adc054da836@collabora.com>
-References:
- <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
- <CAPj87rMQdE3eeUxGSb4oQfB4Adry6UV8CvhGoTKtdKGQHdSo4Q@mail.gmail.com>
- <81fbb960-abde-44ea-82ab-3adc054da836@collabora.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kQP6EKPg
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793885022;
+	b=kCEA7K6C/TjjX12q1vDP043LgNGSUp1A0ftBiLqBlb9LNwVtVhrBOToA2FxHSFUrOG6Z
+	 eXTngNSQmU0KCYV4t3hc+oaHTO1E2rYQNP3+edLeoYcsYEZqIiAHvucALI9GFfCCqPHe1
+	 eyP8I9mAtDgL2yFQoWNi4L80uIMgKLXTQBfBh8sqUDDS7CUbEutnIMLYPLsuoK3t3HS6k
+	 Gs503WSLLWUPpG1kGZUna4ZqBUDwapnUslk66Vzp6BQ8kMvgd6rRmaqXb1tJ8Or/2CEAn
+	 5cq3l0aqb7JfabWtvOQe0eH3rS1xg2sQqABrQ7/1UACNVgBkVXCYg5ZtA3RjOtm9hJA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793885022;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=+VLJ9DCi18uNdmQrO4KxoMMbpxM69vcNMJhzFr24WoQ=;
+	b=UCMUTPLP9giLemfatTSFbaJmnp557OLgsjlE98ze38hNUfYJztGodEczUOF9/eGQx5XZ
+	 SVr7eXmUEg67YyWTwzOXQ2gCQwhAK0XmJrU6v8WPQndN4iBi5fjXVtb6wU3pR8p6L72oX
+	 IviS7ZbtjZkRHRX+md8AygX649Uva1KZKHqG9t/tqs6u/If4yTSsvpqFnP/CO+h+Gbilx
+	 GwZ11ipDYNnU9/VeY42nGa7oVRShWtH0mkNTLLBlj4wr7QtX2Q8BzbNeZe67ZSnCEfoT/
+	 Oq8uG71whCkTfs0KjBy6jSB0W48QqaGvzQg4MwPdPlZH3w8EkoJf3nRRq6OZ0kbTvFw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id AA64D1F000C1;
+	Thu,  5 Nov 2026 13:23:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793885022;
+	bh=+VLJ9DCi18uNdmQrO4KxoMMbpxM69vcNMJhzFr24WoQ=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=kQP6EKPgiFvR3DLBunpBfMF2PQ3JPRM0C+N1vuadI1mUIF49VpqL9El2q7hHuTUKi
+	 lqexFBgxA4qSEifwiuHbY2yOjCfm+6wBQ96wuCrw6ol8j4X/TEZtw99ywwmU2I1RpX
+	 b4jvMkDu7hi3fLB2rvEKawZxaLhESbNBN6lkaENuZ9Ki/wuwPZWvdO1VD9MsK+vLxd
+	 uJS+Y/lEF6nhZgqK3wZmWF3LpF7duSfMcT/GqCK5STZhJmQuCN9HMA1j5B31DVrbDE
+	 9p5dznWu8LxJJFH3AAg/DkW76UDewKAyJ5r6xDc9r2PhChZIGeYdAKrr9eq04fAjZs
+	 e9vf7+LlheUHA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 3B61C47262;
+	Thu,  5 Nov 2026 13:23:41 +0000 (UTC)
+From: =?utf-8?q?Orkun_Emin_Sar=C4=B1_via_B4_Relay?= <devnull+sariorkunemin.gmail.com@kernel.org>
+Date: Thu, 05 Nov 2026 16:23:41 +0300
+Subject: [PATCH] fuse: don't pass a NULL inode to fuse_inode_backing() on
+ release
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,55 +83,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261105-fuse-cuse-release-v1-1-8be1eec02c66@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMwQpAQBRFf0VvbcpMIX5FFmNcPAnNQ0r+3WBzb
+ 2dxzkUCzxAqo4s8DhZe5gA6jsgNdu6huA1MJjGZ1kmqul2g3DseE2z4tsmL1NqsgHEUvNWj4/N
+ rVvXPsjcj3PaG6L4fffXB23UAAAA=
+X-Change-ID: 20261105-fuse-cuse-release-db795aa69e2c
+To: Miklos Szeredi <miklos@szeredi.hu>
+Cc: fuse-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Orkun_Emin_Sar=C4=B1?= <sariorkunemin@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793885020; l=1699;
+ i=sariorkunemin@gmail.com; s=20261103; h=from:subject:message-id;
+ bh=XgrvzfoNZJLMVh7JOSKQ9IdZU0PRskqYDZqGT15zz/w=;
+ b=gbs3HQ72yYDqlKX7DMo75dpKLuTDfDO1J+2qiHIr4nDluBHTjdmRWaPOpizu0jKzK2XzTYiTa
+ hkzztqUCQO0BkXO/ll2ZyKLdsCNX0p2Lh5bKH5Zwkjb/pdDG0p9SDZG
+X-Developer-Key: i=sariorkunemin@gmail.com; a=ed25519;
+ pk=MJ3Y3somkGDQVAXOSR189QAqWOcfzYCRkL1cSQgJXnE=
+X-Endpoint-Received: by B4 Relay for sariorkunemin@gmail.com/20261103 with
+ auth_id=1408
+X-Original-From: =?utf-8?q?Orkun_Emin_Sar=C4=B1?= <sariorkunemin@gmail.com>
+Reply-To: sariorkunemin@gmail.com
+Content-Transfer-Encoding: 8bit
 
-Am Donnerstag, 5. November 2026, 14:04:25 Mitteleurop=C3=A4ische Normalzeit=
- schrieb Cristian Ciocaltea:
-> Hi Daniel,
->=20
-> On 11/5/26 2:25 PM, Daniel Stone wrote:
-> > Hi Cristi,
-> >=20
-> > On Thu, 5 Nov 2026 at 01:01, Cristian Ciocaltea
-> > <cristian.ciocaltea@collabora.com> wrote:
-> >> Changes in v6:
-> >> - Added new vop2 patch "Disable core clocks before dropping runtime PM
-> >>   reference" (Sashiko)
-> >>
-> >> Changes in v5:
-> >> - Added new patch "drm/rockchip: dw_hdmi_qp: Do not mask error code in
-> >>   atomic_check()" to fix a pre-existing issue reported by Sashiko
-> >>
-> >> Changes in v3:
-> >> - Updated patch 3 to skip any hardware programming in the callbacks
-> >>   gated by drm_atomic_helper_commit_planes() after powering down VOP2 =
-on
-> >>   an atomic_enable() error (Sashiko)
-> >> - Ensured VBLANK events are sent immediately when atomic_enable() fail=
-s,
-> >>   hence preventing userspace processes waiting for the page flip
-> >>   completion to hang indefinitely (new patch 4, Sashiko)
-> >>
-> >> Changes in v2:
-> >> - Addressed several issues reported by Sashiko
-> >>   * Reset AXI before detaching the IOMMU domain, to close a theoretical
-> >>     window where stale or in-flight DMA transactions could fault or
-> >>     access memory untranslated after the domain is detached (patch 6)
-> >>   * Fixed resource leak on vop2_enable() error path (new patch 2)
-> >>   * Balance state on atomic_enable error paths (new patch 3)
-> >>   * Avoided division by zero when computing max_dclk (new path 4)
-> >>   * Fixed VOP2_MAX_DCLK_RATE overflow on 32-bit (new patch 5)
-> >=20
-> > I think everything in here should now be solidly reviewed.=20
->=20
-> Thanks a lot for checking this out!
+From: Orkun Emin Sarı <sariorkunemin@gmail.com>
 
-except patch 9 of 15, or mail hasn't turned up yet :-)
+cuse_release() and the error path of fuse_create_open() call
+fuse_prepare_release() with a NULL fuse_inode. Since commit bbe2d73a8231
+("fuse: don't assume ff->passthrough is set for FOPEN_PASSTHROUGH"),
+fuse_prepare_release() calls fuse_inode_backing(fi) whenever the open
+reply had FOPEN_PASSTHROUGH set, not only when ff->passthrough was set
+up. A CUSE server that sets FOPEN_PASSTHROUGH thus makes the kernel
+dereference a NULL pointer when the device is closed.
 
-It does look fine to me, but if someone has an eye to spare ...
+Pass a NULL backing when there is no inode. fuse_passthrough_release()
+only prints it.
 
+Found with AI-assisted code review (Claude Code).
 
-Heiko
+Fixes: bbe2d73a8231 ("fuse: don't assume ff->passthrough is set for FOPEN_PASSTHROUGH")
+Signed-off-by: Orkun Emin Sarı <sariorkunemin@gmail.com>
+---
+No reproducer was run and the fix is not runtime-tested. Build-tested
+with LLVM=1 W=1 and FUSE_FS, CUSE and FUSE_PASSTHROUGH enabled.
+---
+ fs/fuse/file.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/fuse/file.c b/fs/fuse/file.c
+index d5e1cb53d8..36144fdd69 100644
+--- a/fs/fuse/file.c
++++ b/fs/fuse/file.c
+@@ -320,7 +320,7 @@ static void fuse_prepare_release(struct fuse_inode *fi, struct fuse_file *ff,
+ 	struct fuse_release_args *ra = &ff->args->release_args;
+ 
+ 	if (fuse_is_passthrough(ff))
+-		fuse_passthrough_release(ff, fuse_inode_backing(fi));
++		fuse_passthrough_release(ff, fi ? fuse_inode_backing(fi) : NULL);
+ 
+ 	/* Inode is NULL on error path of fuse_create_open() */
+ 	if (likely(fi)) {
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261105-fuse-cuse-release-db795aa69e2c
+
+Best regards,
+--  
+Orkun Emin Sarı <sariorkunemin@gmail.com>
 
 
