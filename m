@@ -1,46 +1,43 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.175.24.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793893544;
-	b=V/FiC67SGeOQiBMkhget2W9JBSECgEnE25kcV0FJMYNe7I7FeFg622A/Yi3LmuV6AR4/
-	 j0KLmE+0iiXOskOfCmJFXD8KKNH0HKd+PPNRCqSOjkKaL1Nkl5w8obMA7Nsx46coSkCIP
-	 7rWYp9WaaCHjev/WsWsF3XRZw28355hs7YRN6Zh8r2lztEFmM+0156GS+TX96bc67CP3P
-	 FAciZvf2eDrMx96hax+T03lgmdj365NCKh5JopfnTA599dW3fxlHEk+FLSnUYTJXyfVCK
-	 ihcFoRfDVWE8QdBNeu1inE3kLc+ae8TBWJLkWWiXgiwgvchKrTk00TgesYYQhS949Hg==
+	t=1793893543;
+	b=3uQtJABbIjPZzY+9S3+Vhkh2Jl/+uYk4nx0AMd4PSojFdfJCsyaj8xKV9i/W1VoV680C
+	 vwR20Lxykk5SxQQS0j1w42eJMxdvH4/QqWUWivCw59CS7dYtxEDZlckjwN6kwBWfMey2d
+	 kP0iJezecEO7BZjLor1RShtDNyQc0K9eCxFg6lzZ/Aa0UDE2Cl2NDMTj93uP+A20GCHta
+	 xMzpFdkvEIbBqBifkNwugTM9pMpPhMLpL51Cw4ymmhtwn8AZT1lJy3YSCnLwXxIuMEynr
+	 Fp/k2dHMf1dBUrapjnmQG8YeHpiVpbG1fc4/ucyNVQjJKr7uUfB6ifl8C6lk16VHs1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793893544;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793893543;
 	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=S7yKmMyP8iYDY9A9+tbzo35SaJL4hyQbGYHlzf01vPw=;
-	b=iH8Fz9GPW4uh01MYityaeHv4nOxokATp9UoVhn+VqEFeMxGD+qr9Hw/7YaEMivyxOQKw
-	 zYlhG9lN7oToewzTTvgU4D31i/Icad7ypsH94KGj+IyDWmgakor8IzKpWfwT49hKLVt1C
-	 dmSuml8IzhSmFqpfu1K4PYu7E8r06UlS/Wopo9MoA0jshxQM0LQQcwHcO/UtvdZ2+FInP
-	 Sv9r/7Nox3XCe1KwL/niCyeBpTGRzjKU5kpNbhlwrNZ9bW6AXD2RwQTy8833B4eX90qH/
-	 8MKLP9cvv8xvIu0h6z3oUxBwnc7oGzYD1wMPAOavwrlYnJMmJQo0pxUlQAjA1B/FiKw==
+	bh=g21C3sy1bQZxJVsDcdsLz31GdcTKG8ycPzj6lFSJ+wI=;
+	b=mTlC73MgN00PgOMEaTAxUzJouUyf6KvKacPQrFhCJdpubE66H70mTUCEnWUkaQRIi5wd
+	 CnJU0iYZ0NFxCaIgumxR1d4GamqEhSJyNO6NRtuoVjfas54Igp80TF8KHjsgELg9bxIS6
+	 mY4QDBK1ZsGe4DhntqF9N0kHsLl4JleT+F9KlfSD3Spx1JslGY5XPYSYPf6M1W1xsQjt1
+	 6Fff2q5tKTevzjvTqCatZ4ATgHofCy7N2c8DZnM3w9Lj7rgiv7r8FpTch+WRvrYyIpA9C
+	 FaGBSBWnN+kZF2M30QTTqeyWJZV+U5+V9HRWpCwed7H7iXlvDQCC7VQ/iO722qXOKFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=alpha.franken.de;
 	spf=pass smtp.mailfrom=alpha.franken.de;
 	arc=none smtp.remote-ip=193.175.24.41
 Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EE4B3606A339;
-	Thu,  5 Nov 2026 15:45:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE4B3606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9F714606A337;
+	Thu,  5 Nov 2026 15:45:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F714606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpha.franken.de
 Received: from uucp by elvis.franken.de with local-rmail (Exim 3.36 #1)
-	id 1xOzeg-00071A-00; Thu, 05 Nov 2026 16:45:34 +0100
+	id 1xOzeh-00071b-00; Thu, 05 Nov 2026 16:45:35 +0100
 Received: by alpha.franken.de (Postfix, from userid 1000)
-	id 52CDCC04A0; Thu,  5 Nov 2026 16:21:33 +0100 (CET)
-Date: Thu, 5 Nov 2026 16:21:33 +0100
+	id 545DFC06DD; Thu,  5 Nov 2026 16:26:45 +0100 (CET)
+Date: Thu, 5 Nov 2026 16:26:45 +0100
 From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-To: Florian Fainelli <f.fainelli@gmail.com>
-Cc: linux-mips@vger.kernel.org, macro@orcam.me.uk,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] MIPS: Cobalt: Include legacy IDE ports in the PCI I/O
- window
-Message-ID: <auye_XP-CKkZ16kd@alpha.franken.de>
-References: <20261022163106.1410595-1-f.fainelli@gmail.com>
+To: Imre Kaloz <kaloz@kernel.org>
+Cc: linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/4] MIPS: sgi-ip32: Report the real CRIME revision
+Message-ID: <auygNcDhWoK7CRpF@alpha.franken.de>
+References: <20261021192418.7246-1-kaloz@kernel.org>
+ <20261021192418.7246-4-kaloz@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,44 +49,20 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261022163106.1410595-1-f.fainelli@gmail.com>
+In-Reply-To: <20261021192418.7246-4-kaloz@kernel.org>
 
-On Thu, Oct 22, 2026 at 09:31:00AM -0700, Florian Fainelli wrote:
-> The Cobalt PCI I/O window starts at 0x1000, excluding the VIA IDE
-> controller's fixed compatibility-mode ports at 0x170, 0x1f0, 0x376 and
-> 0x3f6. Since pcibios_enable_device() was converted to
-> pci_enable_resources(), these unclaimed resources cause pata_via to
-> fail to probe with -EINVAL.
+On Wed, Oct 21, 2026 at 09:24:17PM +0200, Imre Kaloz wrote:
+> CRIME_ID's low nibble reads 1 on both rev 1.1 and 1.4 chips, so it does
+> not give the revision. ID 0xa has it in bits 63:32, and ID 0xb is rev
+> 1.5. Decode it, and drop the unused CRIME_ID_REV.
 > 
-> Start the PCI I/O window at zero to cover the southbridge legacy ports,
-> retaining 0x1000 as the allocation minimum via PCIBIOS_MIN_IO. Register
-> the PCI controller from plat_mem_setup(), before the VIA reservations
-> and i8259 initialization, so the legacy resources do not conflict with
-> the host bridge window and prevent PCI bus scanning.
-> 
-> Keep the VIA resource reservations in plat_mem_setup() after the PCI
-> controller registration and use insert_resource() to nest them beneath
-> the PCI window. The i8259 and RTC resources are also claimed beneath it.
-> 
-> Boot-tested on a Qube2 with a MIPS64 kernel. All seven PCI functions
-> enumerate, both tulip devices bind, and pata_via initializes both ATA
-> hosts and detects the ST380012A 80 GB disk. All 18 boot checks pass,
-> including a read-only disk test and Ethernet ping.
-> 
-> Fixes: ae81aad5c2e1 ("MIPS: PCI: Use pci_enable_resources()")
-> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
 > ---
-> Changes in v2:
-> 
-> - implement Maciej's suggestion to reserve PCI resources first
->   and then the rest of the peripherals
-> 
->  arch/mips/cobalt/pci.c                     | 11 +++++------
->  arch/mips/cobalt/setup.c                   |  4 +++-
->  arch/mips/include/asm/mach-cobalt/cobalt.h |  1 +
->  3 files changed, 9 insertions(+), 7 deletions(-)
+>  arch/mips/include/asm/ip32/crime.h |  2 +-
+>  arch/mips/sgi-ip32/crime.c         | 26 +++++++++++++++++++++-----
+>  2 files changed, 22 insertions(+), 6 deletions(-)
 
-applied to mips-next
+applied to mips-fixes
 
 Thomas.
 
