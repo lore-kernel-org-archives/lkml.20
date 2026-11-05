@@ -1,97 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793869958;
-	b=GU2L19EIF6atjdUDQGyLo45m5MgsZqQOTpc5h7DxnmgWQk7O+v9pqNBTNmKzF+PnfrQg
-	 9mv2BsgGbrUASMjzbZj/ISk3ZdYA6KxYtTZG4BQYc2y6xeXkapehFl4ELSvmj5Af2kYTq
-	 Vq84ETgstoFAoViwXducEfKzD9KPppWHXcmVuubpOEVRuXzoNJUaRCVEve0aKap4uenHn
-	 arDBRDQkakYXe5E/BP1QwGOUOya/lYDFtcdiT4i19J5rLQPMRi39XRdiazaNC4eW3rZ/d
-	 ODqXmN1ZXhK7S/xrtirB/iGGPVImwHs8VBNRfY/KOt+iCvL4jOnUh4DFPsFAh/XKkFQ==
+	t=1793869970;
+	b=xQS1akS4PGEewXNnfFGmKYWx8tzsgxTKBGdkDyBgLyn71b2Y/Kldad36SmN1qHR1a3Va
+	 MBAvhO6NhzQ6IakuI3KmhPEODLBBCXkm6QdYv0toG8KZAQh9nuHQL0bPBRs9bDTrXYJe0
+	 uq/+eE3W6HX0lTBFiE/IzElzo+70YtbNuuhkfjE3HodPR+fz53nHGaqvTb7yHx0sT4UgP
+	 w0lK3/LUeuymGnj8gxebLKbC7sShX8iMXldKEbp1wpNPUUeJO73rYVXMz8kZLYA7B2C5c
+	 ZJ8shuFRr6rgGvD4PoRsshHhHi/L3LuMWVaaZVoGekT6G4ozr8VbMkFZKkTC4+rAVxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793869958;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793869970;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=pQEU+Nq/6GczAyz2qU5/jfNWYEMY7F7Ws8orF2Q5XuI=;
-	b=ReEAuBZhL9SR1fXNzWKnC6eEegP7Gm4Rl3BmMUk+5M/5EUWf0ShiOhDbJKF/ttSwNqX6
-	 M0tsyJm9KFERZSmlcjBIdm5YEc/G/l6Sa6vnVhC0P3wOoxG6bc6vhytIWAH4dYLO05SHc
-	 XekcQBFPCk5tlxVO2xRej6oaezp2/V0P/E/7CALhwE7/ndhllh+RFJPyJzBWcqNeP9z2Q
-	 T52bGA9FrRV+8lEUHM8L1ZDXqaB7CsJVODoW9mfKYC7zslTCqCzrDS+olgH84FG4IzeHY
-	 NzW/GlyV7SRVg68/yK53u4cADYPtY0oIdyvsEMjFf7XUP5WbjHHLrBCxsXEgxEKE+ug==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=MSpuKsAi67Z9mDW+vV5cUezACEgkCzamTDE9W9vtWQk=;
+	b=NYbap3MM6+OD8KLmu1Pa131cHNfB4PyvPeXVJMiJCWQneNRIC6Y+McVP2yag8wa3wmtf
+	 2hbWEAq3/y1URjMmQm5hUvk4Hlu1FWSKMKiSnkdN4ENFUW/3iRwgruE6dCcMUwXXYBtAm
+	 oGyWadrWLcRDELYUbjHW+VPjtKVg/uyJAQ9nBte05E0nvWOGyyqZowLnUswwxoLkmGxGN
+	 i7WD5IAr5hDHvq04XHnTKZ3UnC/wiJkJbs0yTwPZDCqQgGLrHKWEsHNDGXKHcudLlysAu
+	 KAqYV5+q8xDD05oNtAnaNgNdvEB91DAXBh4dAhPS5txwe3WiTHYhTKS3bDVQMTJg7zA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z4timXoz;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	dmarc=none header.from=ursulin.net;
+	spf=pass smtp.mailfrom=ursulin.net;
+	dkim=pass header.d=ursulin.net header.i=@ursulin.net header.a=rsa-sha256 header.s=google header.b=Dq03R32X;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE65606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:12:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAE65606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E38B606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:12:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E38B606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ursulin.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ursulin.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z4timXoz
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so12416895e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:12:37 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=ursulin.net header.i=@ursulin.net header.a=rsa-sha256 header.s=google header.b=Dq03R32X
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so12342115e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:12:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793869956; x=1794474756; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pQEU+Nq/6GczAyz2qU5/jfNWYEMY7F7Ws8orF2Q5XuI=;
-        b=Z4timXozTwhiDpa/JA9nBzWtVFIMPkx4s2C/8VAvZe8DVnwMtZ3b9TUOBi4Sc4JtFU
-         Xdj+AaVHbiWUM38ZNjE0tBsddRW4HsclbRwRM/99Oo5428d6q/fhKhjFnIAHWGMGo7iD
-         RDJqcJT0nLmLhy0DCoJarpWNqQlK6qV5ZXeksrb64VgiCbO/vPYVRE/fNFWNPuAJT5Oz
-         ALOIzqXaF5amu+qByQORrqz+DuFjIBdlWNxkYK2CjAWaB1zJZRjiND3KY9+MoP/ZJHo5
-         ett+PJXAav+W3lsXWCdY1vX4PB4pdITwiu4nLmsPPRkhXJ+Hvb3zcSzgY0w3UZ0EodyA
-         Z1tA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793869956; x=1794474756;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=ursulin.net; s=google; t=1793869968; x=1794474768; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pQEU+Nq/6GczAyz2qU5/jfNWYEMY7F7Ws8orF2Q5XuI=;
-        b=Vl95sXcESisqOHZrGSuRJoj0hNk6p88M3faLR3qU4hXFbPdaP0fN+Es/6/rGwnRmpR
-         yxM7oMCpDEssnH8/nuzlzDBBuCSt7VrZ2xqhffdHo/wwnjD0GHQ1yuY/V/nzsXy9PAez
-         omj9HaUPQ6Tlaea4D2e92NzwOW9valYwPKGA6O2jPM5DsgkZeaUO8mkQLeSedADq2Isx
-         vN6jG+5IxR0OuyspXsLzdwR5ZR+AllR1kzvn27MHuL81i/XSHHo30Kzs12kJ6+eBpO6+
-         VG56cXOnrPdSv0MGEJwp9cbssM+5hXO0UY/zi79siXlkBdybjBhAowEKLos1mRyaMd/g
-         2u+g==
-X-Forwarded-Encrypted: i=1; AKwUvBzozpbenEGzAtETu7CHJ+sTZFnK6fCjQzaRones9v0BaDPpRXrSkXqET08o0hKVNSaE+4KEN3N6T38Xtcg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z829VtmdskROnmu57Z1ACYG3jWdkTJ/tL/b7xtZ7vKyvJc8jFK8
-	TD+ND0i8V3NiN1ui0Nfmn1Z7zbz74DpzxVZIC72D9H74fHQhsWE8qYLh
-X-Gm-Gg: AYBFou2Vgk4Je9J7r/2YW/RWauckV0QIyme42H3hbjmMGiz5ZWXBZszi3x3a3TirSWx
-	Z8iCY+JOoqTRjv2dLxpOmcQGPFFxFdfFL1RGaKXN64ZcObu6N8lRf6sRgem/y24D2cDLcL3mY3Z
-	Pfj4DjbsU/IzqbcWqJWmwtYwXSQUgot6D0VQ2dGWaZSf5/ueVxoVRFlqFsiX7z+LSqb7AZ4hkRL
-	+SBwZbJ1Go5S7lyDPGOnuBRHz3bMeMoss0qOJszuTXCvzsEXCS2gX1l1FRVgZ/XKXhk5M9lRles
-	crsVUZvPV8uucNMZ5chSbQ00CT5EdejyzHzAOGE+tDXtg6aFuZcbyez5ry6iRtySZHrnEHCfUXm
-	7fGaHOzU6K1HELq5yoT4c54BZnn0AAW3jwwpBfd16XLsJLQJHbDSpdnf4gG0qz3Ut3R+N9kYaZE
-	GL6Y3nXVCNZGswPCeQxIfCIts6GhGL5qqPCsuptSJgo5BwmECfugFduFJEzbxpBJ/3zFly3eXlj
-	23irL0nfWsy96epJiMKUObEv/nSdyAZ2sfk7UtL/ni/Gt4riSnAUru3RPHHlgsOoeCccVy/DW7i
-	O4zjOu9Mms8zl0BP4CrMPnSYarQtX+tati5tINsZT6Txb4P5sNNDgiKVoJcK5dI9
-X-Received: by 2002:a05:600c:350b:b0:4a3:2f35:38aa with SMTP id 5b1f17b1804b1-4ac1932bac0mr362719635e9.29.1793869955983;
-        Thu, 05 Nov 2026 01:12:35 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56e58fcc6sm93063255e9.2.2026.11.05.01.12.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 01:12:35 -0800 (PST)
-Date: Thu, 5 Nov 2026 09:12:34 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: Daniel West <daniel.west.dev@gmail.com>, vaibhav.sr@gmail.com,
- mgreer@animalcreek.com, johan@kernel.org, elder@kernel.org,
- greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: greybus: Add newlines to sysfs output
-Message-ID: <20261105091234.008c0c2f@pumpkin>
-In-Reply-To: <2026102808-stunning-headgear-4355@gregkh>
-References: <auEmTBqbAPvMLRcg@daniel-HP-Stream-Laptop-14>
-	<2026102808-stunning-headgear-4355@gregkh>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        bh=MSpuKsAi67Z9mDW+vV5cUezACEgkCzamTDE9W9vtWQk=;
+        b=Dq03R32XcNlkuTgzgGWLlb4WsFLZ2Qx9NAXLcyuNx1JVnnbdecm2eYNAXvWA38NqVY
+         gcL42rwYcechSFCrSxxMqWLkTpu/Xu6XtuWG5Kb5WEK3LsgwaQWSGVXaJUcm0/6WC2rT
+         hjfKqTbjGyAzd5pFgbsVXwX24K6dr2WskIHmFkkt5DD5qrZZR4XhVciu3/PLIBS303rU
+         2hB47mFdQGpV6yGzxfjdrfIGN0uTFjRW3NKc7hoMLlUVqT5/rSemd6NaNawgqRrRSiMo
+         UwHg74wPJ0lSAK6YSKSiRW5F0iswmoOA4i25dWRJPmhnoy7eyPF0k7FaM9G6wYIhBY/y
+         GZbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793869968; x=1794474768;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MSpuKsAi67Z9mDW+vV5cUezACEgkCzamTDE9W9vtWQk=;
+        b=E+CtAKYKhvwaeMlzzBEFBFLIJFx28KhmWInRX+Deiraex1QNaWhhCJesoWDJAEha9G
+         /LMvfbQusBr2Ch8xRLIUuFzHQKJCgdPZLUNVZZ53PN2nsaVKkNhZTvlRvJO4pKbTzD6G
+         PiQz+2hzk4u8i2+kh0z07h+y96flCANwV4oVjuLeRDv6Yvbv8jGClbl+RIoi1bePxhYN
+         B9zHBIdLCKcJ6ZJTkvEaVq5hWO0a4NZvi6CgqJ6nb93W5f1IJO2BewTJz87hOjxzNzcm
+         pyv4rr6CnYcYDl5cf34k0rT/naWcRjIv3dRDwSHsK/ICIFG2uYPe8Uli7y0ofvSmr9L4
+         fyzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxy+dFvKWwiYAsaxhrcoj2EFCLLDgh92ClC8OczOY2PIQP6ZuSXS86f7EAstGr0vozhDDWqBRip1QdOnZ8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ZjFjnPLqKM41w6nDC7+AEabtd72O2pwlLGHQKoScMrju0lrG2
+	SD7s2ez7UAgn3go76B6GjDXY3ufy4iKQjtJV4vwulbZG3pzbSvqB9VyxXEIaRRVILo+PQ2idbR/
+	nFtaWGuQ=
+X-Gm-Gg: AYBFou10/VyiW55SkNOM118gTC6VHtDggbSZylDXGXMvpEu/yKJ7IEnc1gpHWSKx083
+	10bV2GIf8wd1vtJl9TZy4Sarhge3h5pII7Q3vNhTMBFgBu6F9AhEpAYnQ1FCgc3IyiJuKpsR3dQ
+	ZyCbWC8o+CsUlITagWP0W542ntkmimUTedTyy3pY+nvWfyf6F5SUPKpd8yXtx54Fq4+zTryV0W3
+	cjAl8J8oKtr8qZIbFUVEsxSfOpFf1j0tYIkVYQBI4dhDm89XmSrwtnGCr5pucrePh6kgR8o7HEk
+	FqEFrEY2t4zHGT6/StRfrGZEchME3MVkAzF9Qd4YMiOIRfLZmkMyzsMdNbEoqm+G/yyQPU9SQFS
+	U4P8QCXZ8VRjyo98+DR7QAElXsJaLgxyjcetZLp55TF079CVWiqTIv6K6VqHwKeSfjy0bBbhgcv
+	n9bOyHrep0I/TGvluMw7kP/ZzU7zvp4s5oD/Fr1wWDizzmIvOFRUOn44UG6d811f2S1lnWn7lVm
+	sh0JbDtdDpZ9ppblgvY/2D+yv9qDxkbfixLWw9sfC12CYoVP69ynhc3UzG/LMIVfcr98EW5EQ2K
+	bUnmdoqEv7gEb5cO60J6S/PJzYsNHJGWLvCNBo656Qa4ink+8Ht87ZN52Y+s/PF5FQ==
+X-Received: by 2002:a05:600c:a41:b0:4a0:1c0e:b057 with SMTP id 5b1f17b1804b1-4ac150b2136mr386865075e9.4.1793869967465;
+        Thu, 05 Nov 2026 01:12:47 -0800 (PST)
+Received: from [192.168.0.116] ([81.79.79.1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fece99d67sm9014875f8f.24.2026.11.05.01.12.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 01:12:46 -0800 (PST)
+Message-ID: <9c1805b5-06ae-426f-b286-9bbd43538afb@ursulin.net>
+Date: Thu, 5 Nov 2026 09:12:46 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,26 +93,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/syncobj: Limit the number of handles and use
+ kvmalloc for user-sized arrays
+To: "Yu, Fei" <fei.yu@intel.com>
+Cc: christian.koenig@amd.com, airlied@gmail.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ maarten.lankhorst@linux.intel.com, madhurkumar004@gmail.com,
+ mripard@kernel.org, simona@ffwll.ch,
+ syzbot+95416f957d84e858b377@syzkaller.appspotmail.com, tzimmermann@suse.de
+References: <39be711e-cd56-4a04-87ee-6aa2a0b69779@ursulin.net>
+ <20261105081845.1230910-1-fei.yu@intel.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <20261105081845.1230910-1-fei.yu@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, 28 Oct 2026 05:19:45 +0100
-Greg KH <gregkh@linuxfoundation.org> wrote:
 
-...
-> > WARNING: return sysfs_emit(...) formats should include a terminating newline  
+On 05/11/2026 08:18, Yu, Fei wrote:
+> From: Fei Yu <fei.yu@intel.com>
 > 
-> Please read the archives for why this warning is ok to ignore here.
+> On 04/11/2026 10:27, Tvrtko Ursulin wrote:
+>> On 04/11/2026 09:44, Christian König wrote:
+>>> On 11/4/26 04:09, Yu, Fei wrote:
+>>>> +#define DRM_SYNCOBJ_MAX_HANDLES        (INT_MAX / sizeof(struct syncobj_wait_entry))
+>>>
+>>> I really wonder if we should put that into the uAPI files?
+>>>
+>>> Not that userspace is potentially using it, but this is part of the uAPI
+>>> and makes sense for documentation purposes.
+> 
+> I thought about that, but I'd prefer to keep it kernel internal, at
+> least for this fix:
+> 
+>   - The value is derived from the size of a kernel internal struct and
+>     from the kvmalloc() size limit, so it is not the same on 32-bit and
+>     64-bit. To put it in drm.h I would have to replace it with a fixed
+>     number, and that number becomes ABI. We could not easily raise or
+>     lower it later.
+> 
+>   - Tvrtko's series below avoids most of these allocations. Once that
+>     lands, the right limit may be different, and an internal define is
+>     easier to change.
+> 
+>   - The patch has a Fixes tag, and keeping it out of the uAPI header
+>     keeps the stable backport small.
+> 
+> For documentation, I could send a follow-up that adds a sentence to the
+> uAPI struct comments, saying that count_handles above an implementation
+> defined limit is rejected with -EINVAL. That documents the behavior
+> without fixing a number. Would that work for you?
+> 
+>>> That kvmalloc_array() + the following copy_from_user should probably be
+>>> replaced by using vmemdup_array_user(). But that should of course be a
+>>> separate patch.
+>>
+>> Btw I tried to do that some time ago:
+>>
+>> https://lore.kernel.org/dri-devel/20251106132645.28208-1-tvrtko.ursulin@igalia.com/#t
+>>
+>> I have as local, more recent version which applies, but apparently never
+>> sent it.
+>>
+>> Interesting part should also be the other patches from the above linked
+>> series which avoid allocations altogether for the vast majority of cases.
+>>
+>> If there is interest I can re-base and re-send after this is merged.
+> 
+> Thanks, I wasn't aware of that series. I'll leave the
+> vmemdup_array_user() and points array cleanups to it, so we don't
+> duplicate work. Happy to test it once this fix is in.
 
-I was contemplating a patch to the sysfs code add missing '\n' and
-also remove trailing ", ;" that come from generating lists.
-It would make a lot of code a lot simpler.
+Thanks - just to clarify though - I understand I wait for your patch to 
+land and then rebase my series, right?
 
-I found one place that puts binary data into the buffer (horrid).
-(I have a plan for that.)
+Regards,
 
-So why is this one special, there is nothing in the commit messages.
-
-David
-  
+Tvrtko
 
