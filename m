@@ -1,57 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793845386;
-	b=hSQFGrbnXi/RjQcVLTwRE+MoxrTxVH/mA3tK6UcJKo9LaAQIJ+A9vjvKNjvlSlBHbGWN
-	 paSRImWmBqy7B3KR9a/liX8jPJhoEjC5Wgv/izQhHeHIgi1my1rUnkUK8Adjt0cuPocEI
-	 lp7FkPLj29jUUSbZdNM8Gdt7DcrwXZh1gmPahr/wLWW9yi5KkYG0UuIPrPqMSkudBV/VT
-	 /3dsz3SPm/4tWZoTj+chNRuUulIfNfz8vRG5NLY1qeNNupGt/Cp5HUtRw09GU0KxGvzbx
-	 ukoAJiTKfdzjF0POGyqpvOyQNbhkeZoHkK8RNgXB/+cx8nrfk+AR85aKLgk2HFFCPlg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793845386;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=zVvkIjU8fIWtL8CFjIrx2KKb8A7qjXgttlPSkbDgptw=;
-	b=mfccGBta0VSLsFM2yM+uRoROmKzc5sm+O2jWODj1DvOj2JGx0n0b9n6ys7ucdPiJrvS8
-	 CmUSIfWS7S/0OgtbL5dotS2mDxL9Wq4sbv2fO88WrVgjvXc2zyQcPP1s7KUkYrTsXftRo
-	 u4yfM2l5XWB84pDPVLLOpu/7u55bVjdJ4fWAjO8l7g2eeYWlPRkUEcHCbOGeQX3KMWnZ+
-	 lIuv2Cj3f32iQUZTgKh0WLT6UCmcUeUJsr2wt4bNSfnvM55c84st2WIidDOIdSr5yulcX
-	 IuTC4iLW8wWp0lAWNAm5WdLZBxNJ6dgXeShKUtPjK42jKOvp9w/gWbDHdQncRlHXuHg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=jaeyeong.cc;
-	spf=pass smtp.mailfrom=jaeyeong.cc;
-	dkim=pass header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=WbJk6Rmx;
-	arc=none smtp.remote-ip=185.70.43.18
-Received: from mail-4318.protonmail.ch (mail-4318.protonmail.ch [185.70.43.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.108
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793845457;
+	b=5DkBbwPGwTcDykX5vwrUW37AAJJW/QFiv2MSum4BAVGJOekP5l8dlymbRDmTbrqV2o+4
+	 tsN0qaRmXZuhQxWwKzabITcpmWwRFYuoS98JlArM5apZIdzANzBIS3duACi/MqWAcdf/P
+	 QKIgxVngU9B8wDuaTIXIR5xtO4fY1C4jJXLaoO8bAbw3h23wf08hR0dXJkOs1Ica9eLgL
+	 5xrPzoRaddCRvBUpZOOA5MTM8A6iqitLiIpuqSgMAjjoiNIKRk7nZAh9OKIaLeZT+a6SX
+	 9QNet3lf1kP1A5fjBUXYeqmpYzOfAK4svWjKmml0HecWrzd4BFpZDTwI9jkIK9AUptw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793845457;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=mQpq9sMeYpjpbrGNlS1wKH84DMxpQDqcPxZ/WAeznpA=;
+	b=lXbh7QjLrAKYyYC+hFYMv0LmBnzWdDVq5iLKDENRLZlgjpDFA1yBpHDAPxot9g49Gy4T
+	 ip1NOEJWrL7uUVQNWnCbWFe4DUZQOGrKFpDlpYEgaB+DhCRP4BYMn1eDHOCwWP2bb1X64
+	 yrYRfpLc7SdU3dzWf406MrvjxbOOoiombyplbfyGtrX6xSOdrIRqZ1V/zy4rVVygZDfBj
+	 vhjgXVB5chdd8EsuQU4GVPid1EmEGqQX1Q6AIMxKeguERLbiflOP0YYFA65/f7BUS1r60
+	 WQk+KFhPWPQcROa8QZGiYKS9nW80R0NAtpZVJP6UecSF2q4oXd0EYl24CWqt1xfax0g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amlogic.com;
+	spf=pass smtp.mailfrom=amlogic.com;
+	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=VadXMYgQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.108
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023108.outbound.protection.outlook.com [40.107.44.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 121D6606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 02:23:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 121D6606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jaeyeong.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaeyeong.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E90606A326;
+	Thu,  5 Nov 2026 02:24:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6E90606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=WbJk6Rmx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaeyeong.cc;
-	s=protonmail2; t=1793845382; x=1794104582;
-	bh=zVvkIjU8fIWtL8CFjIrx2KKb8A7qjXgttlPSkbDgptw=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=WbJk6RmxmV3t6PzXEu+XzH0oU1g73JUjndYqxQbfE/RHhYmF0sjkpgVUDRiHG2WiF
-	 8ST5PXwS8reIOMUvZUsZeOQlpUonvxgE2Y+bJzU8C/gTDOXafws0tYGdq/HyvIlfhR
-	 1nJmdpcW+seY60ou8/ntZ3QzRqSoLo20/QAXi8OSJSAhxCyjE68MgmKwSKtcpLVr9d
-	 bcWjeEmnc7fhpRD/8YPwBYxecDzTix7RQAcQhDVbDyQV/9rthcGYaOdv/JEO0fz5qq
-	 qylSuiTflLwwPeo21W2oJdVifBcCw700unIZSoNb9vw4QCBIGLMNe9Pvu6Lj2XXjiV
-	 bR/As1ALY58Bw==
-Date: Thu, 05 Nov 2026 02:22:58 +0000
-To: Bernard Metzler <bernard.metzler@linux.dev>
-From: Jaeyeong Lee <lee@jaeyeong.cc>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3] RDMA/siw: Fix early peer close handling on listeners
-Message-ID: <20261105022253.368316-1-lee@jaeyeong.cc>
-Feedback-ID: 177356447:user:proton
-X-Pm-Message-ID: 9d02bc690b6ec8de08a9f845a622bc9e2e619e4d
+	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=VadXMYgQ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eMYpJPjTmQpXHm84dk0OjoB0zgMUEL6oiDiUaTM7pfDFRL4zGDgIAy/JxDUeqI370DrvUvaGmAfvy2VA105Ft1WLts19nhjNdwQfEOky7kxHH0CLr+kEr2oJYIZ8qSu0rvCdHqXczroXdiJUa8wyajibr0CCCgOBibPh6uQPEZ1pdUBOPoXHH6iqEgZyySn6F+MPnQoBVhljG0yFQhb7J0gSnOj3AAd8JgMjXK30ZoEO9F/VQm2H6AruRNKMEtlaB1BAtKXiXSsIeKOFmNaoJC5CT35EZjrGWZVUt1rTkRLvNT2IudVFxo/fIpuW3oMuH+72o9tmb4oNPxWXOuccOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mQpq9sMeYpjpbrGNlS1wKH84DMxpQDqcPxZ/WAeznpA=;
+ b=nbd1wZpVhbiB20CMLMq9UBmgLP64MHsa9O0+LnBjRe0XLv9s8Qj0+8sSN0epkc0OHZj6UN0Pi6UFhgjGx5Z/5eloWTS73Bf5Bkqq1KqKQmgu60P1pITRWylDBaX9AXiwIRrHuvl3QCym06/7HLusmml5z0c0HtNU2CmVB6CVLO6sjUEQiJ7ebd5h7p8t5GYUrxDzDHMyw38BDJ17+fUY+ghC0koMtCEqOvH1bQeyBVaOb/qvfbrB8kdefCRHzEA9QpyZhosXX/WjzTetNupmqxiBBz7t8GC+79itlgXllkzbd3Gc155H4hiWwQBZme4CE5FpbKcLC73MRps7UrJnEw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mQpq9sMeYpjpbrGNlS1wKH84DMxpQDqcPxZ/WAeznpA=;
+ b=VadXMYgQHj0Vww6BQtsM76HhywKKRp7RulNoB5lF9Awr3+nI5XpDWZDQzA7j9y+2UGF7s6ggrd2MQtroeYS1X+Fme1j0tK2jqBHpgzY2UqxbhYvNneo+uw+kFP2Mx7RK4l+4uYp3VoHrcNmof6EFJ5XZiSTIXz76rnaSQvivGXC2mbIYZhuJw9/oGu2Vz0FE7lXamcA5wSf5KYGGK7uwOZXIdRHODgbr8lRFkHzOOuBJSJ4oO/7VC8NXslFOAf2FgvUGqoSEHGoysBD0H0jXUNeNwTId0RpS8UXzb60xMKqYoKAU4XVvDaGHBCLCPB5FFmksR6tbFNAvoqF9e5YImA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from JH0PR03MB9035.apcprd03.prod.outlook.com (2603:1096:990:7c::13)
+ by JH0PR03MB8665.apcprd03.prod.outlook.com (2603:1096:990:90::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 5 Nov 2026
+ 02:24:12 +0000
+Received: from JH0PR03MB9035.apcprd03.prod.outlook.com
+ ([fe80::77d4:2931:4c4e:1cee]) by JH0PR03MB9035.apcprd03.prod.outlook.com
+ ([fe80::77d4:2931:4c4e:1cee%4]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 02:24:12 +0000
+Message-ID: <2b75bc46-3e93-449a-b13a-2cc4ba8cf755@amlogic.com>
+Date: Thu, 5 Nov 2026 10:24:07 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/7] Bluetooth: add a quirk for controllers that hang on
+ Write Current IAC LAP
+To: christian.koever-draxl@student.uibk.ac.at, marcel@holtmann.org,
+ luiz.dentz@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ =?UTF-8?Q?Christian_Stefan_K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
+References: <20261025192338.209574-1-christian.koever-draxl@student.uibk.ac.at>
+ <20261025192338.209574-3-christian.koever-draxl@student.uibk.ac.at>
+Content-Language: en-US
+From: Yang Li <yang.li@amlogic.com>
+In-Reply-To: <20261025192338.209574-3-christian.koever-draxl@student.uibk.ac.at>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: TPYP295CA0019.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:7d0:a::14) To JH0PR03MB9035.apcprd03.prod.outlook.com
+ (2603:1096:990:7c::13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,259 +102,179 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: JH0PR03MB9035:EE_|JH0PR03MB8665:EE_
+X-MS-Office365-Filtering-Correlation-Id: a7e12bcc-3818-4a51-2dfd-08df3ae3e179
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|10067099003|6133799003|22082099003|18002099003|3023799007|261021121427099003|56012099006|261022075727099003|5023799004|11063799006|4143699003|261102123227099003|261026121527099003|261022113327099003|261009223027099003|261028144727099003|261026140227099003|261022105027099003;
+X-Microsoft-Antispam-Message-Info:
+	mkYqOA7ZvpC2paT7LrZ6UwqdAQu5ncVuT1mUNVYGT5Q5vblWYUVvVDqm5Zrxqy+ISJXqPKozes4DPwd2Z+KxmmMqwE0BM+GqgThZQNpBgDCsRWB5FZmXrTU3TwUUMIRupGk5A9u6MvDPzSLbfJmwipWqCgmpAJOgorDSO950PhiYgq5E14ZDOnDagf+8VZMDfiszeO+GUZfgBwR68nIgYo0fIb64rLIXIO5r7vRLfArk3EMFtOmL00t69chgnRbyHDUgZytmzYohqNGNEHI8PRPuyrB1PWkxg67ZFNplTW4D4mGhE2bkvRzoJ99Zipb+wrCLexT1ZUKqLsmBnqM/XxnJ8U+xqY7QIthD3qQI34cPNpMl/ue3JXqV9A7GoKB3PVz6MU+CeULlK3a4dwJgjAiLHbBMfU/xgN9QfRJ1F7T8Dg2AP1afDp7ltyAdf2PcexQejrgjFL2jMHVbyKA/s3SUIcTIlpoHBT42uffW6weQovUm9z/8AiD7PEnsPgPcK651/0hPzqVWYgmy9217K10L9hMWmMo1akPmxT01/HGx8g5j5c+/foraG+3lGiZ9fTEL8LP5TvH0+eFSVT/v06WWSK2F/UeYiFCktSREjwLjEaL0quHLVktQpH5TCJyiPdwl//ggEoW6hZ+2GPEjbGoND3rG+R2A1geg5TW6kys=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:JH0PR03MB9035.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(10067099003)(6133799003)(22082099003)(18002099003)(3023799007)(261021121427099003)(56012099006)(261022075727099003)(5023799004)(11063799006)(4143699003)(261102123227099003)(261026121527099003)(261022113327099003)(261009223027099003)(261028144727099003)(261026140227099003)(261022105027099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cDV1emJGWDFIM2tQRnBkVnNNY0lCVVoxalZwcTF2MjlMTEtQMXRFRzFtK3Nz?=
+ =?utf-8?B?M3NLSC90ZnByUnZVSlJITSt0RWxqL3AxVVU1eTdIbzcrR05nWjBDSUxQa3Nw?=
+ =?utf-8?B?RU5rTnpYTU9GVGduUTcyTXc2d3V2VFQvK1dIVmIyY0JOWmJ6N0YyVVkzcGhV?=
+ =?utf-8?B?Qy8vdXgvTDMrenFzeTVUSHMxVURHdDQwS3IyL1F0SHh3RmtGdzlGbTZJRjlV?=
+ =?utf-8?B?Y0ttNEZyYThXN0hORzViMmQxSkFXMVN5cFoxT3c2U3hNZW1DdEJ4OFlQQUZ4?=
+ =?utf-8?B?Mm9CMkVPQU9TUk1IbnFyVmVGQU1oa2VlQjh0QkNQOWR2WTBSQXFTc2JzVzdP?=
+ =?utf-8?B?blFuUTdGTW5ZZmQ0TkZBY0ZXWFN5S1ByRC9JNmhMeDd2dnpKREJBTkN6cU90?=
+ =?utf-8?B?ZlhPSEZOemo0OUh2Z3ZON1dOVHg4VGpaeU5GaktDTXc4ZzByaFI5MXZxcFhI?=
+ =?utf-8?B?TzdDVmxSeWNVRFo5eWFmVkN1Z2gweDJCT295MHpCRUc0cDhvbWlNb0JlVlIr?=
+ =?utf-8?B?MUphRURjb0pEaDlpTHppb3EzdUZBNFJOcEg1eUZqY08zUnNyQWRGbmp4NTBR?=
+ =?utf-8?B?dlZlSDA3K1R4K3piNVVNWFdQVnVkTG41S21HZVBzWUtjVHJrWmNjOTlzeGo2?=
+ =?utf-8?B?VitJWTUzWEQ1YUk4QUNTblF2a3UveEpWakYxQ2QrNi96c1h6ZHNiYjFLU3RJ?=
+ =?utf-8?B?Y2I1MU9wTWh2SVFDblZiTTgyWHRDMDBGdS83TFlVQ1NJanhJWVJ6ZDBtWFhw?=
+ =?utf-8?B?b3ptWjdrc2QyZGRNY2pzL3RiY0RWOEw2SVFVNmdKaGZaRVQ5QktXNXhjR1RX?=
+ =?utf-8?B?VlJybDVBaG9Cc2ZRUGpURmxSS3FKM2NJWm9YOW9RMCtkQml6clRYbUszK1BE?=
+ =?utf-8?B?WXNDU2ZQN2JiMXUzZ282cHAyb1QwcGFGRGRmVURjQS9KelRWUjF1SXhjT3c5?=
+ =?utf-8?B?M0VMQXFRQk9xQ0hEK29jRkhFWEJ6QjEwM3pibzhVbWRNTXkxWG9kRFV4Tk10?=
+ =?utf-8?B?UEFkc2xIRTZoc0ZjVzd3OGRWNkhJT0dJMzhFVjV5dmFkRXFiazlhWmZRNVMy?=
+ =?utf-8?B?TWJRVkhoQnNNV0xxUWdwVGVnZkxNWm0wZVZQOTRBZXZxZnFlV1Y2ZUV2RU4y?=
+ =?utf-8?B?aW50ZHZ6bzJpS0tWZS9TMGVPMExlU2NRWW5LbzdmTzRsRkZmc24wSWY5UXo4?=
+ =?utf-8?B?ZnA5SlBvWm1XMUxKUG8rR0xTbkZuR1pPUmlBMnYzK3dsV2ZNWEI0a3RIbU5a?=
+ =?utf-8?B?ajJSOVZSQW80SXVkWTFQeVUzVTJ6VVdQNFo1MjZxQUhXZ0QzYkZyQ1ltajVk?=
+ =?utf-8?B?U3UrWVd4MzBtblNJdHhrZDVKUHdmbXZQanpWb2plTHk5SFlRU0NoWlZHMjBs?=
+ =?utf-8?B?aVdnVWxlQ05DSFA2MDkvVDgrNTgreitBNTVic0ZWbHRsTkx4SGdzSEJOaWpK?=
+ =?utf-8?B?KzRNTVE5a2h5YzZneXhXV2F0bXJqTVZHWExwYWlJUy9Pc085NURCbkpYOGZl?=
+ =?utf-8?B?UWFFRlRlRkxOYnEyS1NjSmx4L3A2VnVxY2s3YU5TaEJ0cFdCR3FyUUZvVWdh?=
+ =?utf-8?B?UTZJOE94SldlVHVLUXlxWEFqTUgrTXIvSEdRaU5KZlgvZElvTGN3NzF2dUxh?=
+ =?utf-8?B?N2x1akl5eEowQU5QeG1sVlEwc2V1K2xDeWxFaTdSVmFCcUdsSUlvMmdVcXJC?=
+ =?utf-8?B?R1QyeXA0OTVqUzFwOTBYeE9iNXVTK3NFV01yQWErQmp0WllnNWZYMHFvRkN3?=
+ =?utf-8?B?dktIZStVR2NJU3pyTW5aSXo1eXVaUkVRNUhQUU1sMmV5QWVRcmdHWXdKeXhn?=
+ =?utf-8?B?bllDZEJoK01TcFljWndYVm9RcTBCSzFzTTFFbnY4ZG5GTWJJZ2FQdEkySlc4?=
+ =?utf-8?B?Z3NnVkZ4aEczbkozRmpxd1VFd0xZaXczVldLWEFRS1Vjd0pDMzdPRmo1cnd0?=
+ =?utf-8?B?eDUwSmRzcmhNendFRXJORlowMXl6Z2QxYWNoT2FIblpEZDJRdEtRTzR3WEFF?=
+ =?utf-8?B?WVdsazZUWHFBT291NTBYamR6d0FQbHZnVy83aFhRd2VxY0FnaE5hZFlsYmZO?=
+ =?utf-8?B?dHkzRmdVdmxZMTFjczZMTUhscVJtODRkUllrd1BCY2podkxybDU2V0NWRG55?=
+ =?utf-8?B?d1ZMTGloNG0wSEQrOGdSaDVscFFlWC8yVCtPMG5BNFN3U2lLNFM2ckxSU1U0?=
+ =?utf-8?B?ZVpsQ0NLTFVoai9ZSTYvV3JoZlNCUjB2TjlSQWlXai9OUGJ1TEt3RGtmbzlt?=
+ =?utf-8?B?dDNGMGRvNTg3MHUvblQzQVJyQUdUR2laTmZwUmY0QitSdnF1VTZJODRyVGll?=
+ =?utf-8?B?ZkxSRGFESlVIcVcrUmtYaVdTUTBsQlVtTDl6dTNTVXgwU3k5dTJtQT09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7e12bcc-3818-4a51-2dfd-08df3ae3e179
+X-MS-Exchange-CrossTenant-AuthSource: JH0PR03MB9035.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 02:24:12.6273
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1rxAQAQAVPK8TtRGqiz3J0MZWtJptRn33na6DX2KfFjcP4Yw7CWjF3ergo/M9hV04mz2NcOYA6Vsi3Sp+VANkg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR03MB8665
 
-A TCP child socket inherits the listener callbacks and sk_user_data before
-kernel_accept() associates it with a new connection endpoint. If the peer
-closes during this window, siw_cm_llp_state_change() queues a PEER_CLOSE
-work item against the listening endpoint.
+Hi,
 
-The worker releases that endpoint without removing it from the listener
-list. A later listener teardown then walks the dangling entry, causing a
-use-after-free in siw_destroy_listen(). KASAN reports:
-
-  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-  BUG: KASAN: slab-use-after-free in __list_del_entry_valid_or_report+0x32/=
-0x1a0
-  Read of size 8 at addr ffff888008f502c8 by task rping/59
-
-  CPU: 0 UID: 0 PID: 59 Comm: rping Tainted: G    B               7.4.0-rc1=
--g6628e7d4c6b2 #1 PREEMPT(lazy)
-  Tainted: [B]=3DBAD_PAGE
-  Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 199=
-6), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x54/0x70
-   print_address_description+0x73/0x1f0
-   ? __list_del_entry_valid_or_report+0x32/0x1a0
-   print_report+0x58/0x70
-   kasan_report+0x117/0x150
-   ? add_taint+0x43/0x90
-   ? __list_del_entry_valid_or_report+0x32/0x1a0
-   __list_del_entry_valid_or_report+0x32/0x1a0
-   siw_destroy_listen+0xe1/0x630
-   destroy_cm_id+0x25c/0x480
-   ? srso_return_thunk+0x5/0x5f
-   ? srso_return_thunk+0x5/0x5f
-   ? lock_acquire+0xf7/0x220
-   ? _destroy_id+0x2d1/0xe30
-   iw_destroy_cm_id+0xf/0x80
-   _destroy_id+0x6cc/0xe30
-   _cma_cancel_listens+0x2ee/0x360
-   _destroy_id+0x2ad/0xe30
-   ucma_destroy_private_ctx+0xb7/0x9d0
-   ? srso_return_thunk+0x5/0x5f
-   ? do_raw_spin_unlock+0x4d/0x230
-   ucma_close+0xd5/0x130
-   __fput+0x31a/0x720
-   fput_close_sync+0x91/0x110
-   filp_close_sync+0x18/0x30
-   put_files_struct+0x25a/0x280
-   do_exit+0x70e/0x1d00
-   ? lock_acquire+0xf7/0x220
-   ? get_signal+0x21c/0xf60
-   do_group_exit+0x19e/0x250
-   get_signal+0xf20/0xf60
-   ? futex_wait+0x99/0x230
-   arch_do_signal_or_restart+0x46/0x420
-   exit_to_user_mode_loop+0xbd/0x510
-   do_syscall_64+0x2ed/0x3b0
-   ? entry_SYSCALL_64_after_hwframe+0x76/0x7e
-   ? srso_return_thunk+0x5/0x5f
-   ? trace_hardirqs_off+0x65/0x90
-   entry_SYSCALL_64_after_hwframe+0x76/0x7e
-  RIP: 0033:0x7f92984c6e51
-  Code: Unable to access opcode bytes at 0x7f92984c6e27.
-  RSP: 002b:00007ffeae782d10 EFLAGS: 00000246 ORIG_RAX: 00000000000000ca
-  RAX: fffffffffffffe00 RBX: 000055fb4e9819b8 RCX: 00007f92984c6e51
-  RDX: 0000000000000000 RSI: 0000000000000189 RDI: 000055fb4e9819b8
-  RBP: 00007ffeae782d50 R08: 0000000000000000 R09: 00000000ffffffff
-  R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-  R13: 0000000000000000 R14: 000055fb4e9819b8 R15: 000055fb4e97da25
-   </TASK>
-
-  Allocated by task 59:
-   kasan_save_track+0x3e/0x80
-   __kasan_kmalloc+0x72/0x90
-   __kmalloc_cache_noprof+0x245/0x3c0
-   siw_cep_alloc+0x4f/0x390
-   siw_create_listen+0x39e/0xd60
-   iw_cm_listen+0xfc/0x1d0
-   rdma_listen+0x749/0xa90
-   cma_listen_on_dev+0x404/0x760
-   rdma_listen+0x3dc/0xa90
-   ucma_listen+0xe2/0x180
-   ucma_write+0x1bd/0x1e0
-   vfs_write+0x1a9/0x8e0
-   ksys_write+0xba/0x180
-   do_syscall_64+0xee/0x3b0
-   entry_SYSCALL_64_after_hwframe+0x76/0x7e
-
-  Freed by task 30:
-   kasan_save_track+0x3e/0x80
-   kasan_save_free_info+0x40/0x50
-   __kasan_slab_free+0x3a/0x60
-   kfree+0x155/0x470
-   siw_cm_work_handler+0x7af/0x2d40
-   process_scheduled_works+0x970/0x12d0
-   worker_thread+0x894/0xd20
-   kthread+0x2db/0x3b0
-   ret_from_fork+0x266/0x570
-   ret_from_fork_asm+0x1a/0x30
-
-  The buggy address belongs to the object at ffff888008f50200
-   which belongs to the cache kmalloc-512 of size 512
-  The buggy address is located 200 bytes inside of
-   freed 512-byte region [ffff888008f50200, ffff888008f50400)
-
-  The buggy address belongs to the physical page:
-  page: refcount:0 mapcount:0 mapping:0000000000000000
-  index:0xffff888008f51400 pfn:0x8f50
-  head: order:2 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-  flags: 0x4000000000000240(workingset|head|zone=3D1)
-  page_type: f5(slab)
-  raw: 4000000000000240 ffff888005842040 ffff888005840d08 ffff888005840d08
-  raw: ffff888008f51400 00000000000a0003 00000000f5000000 0000000000000000
-  head: 4000000000000240 ffff888005842040 ffff888005840d08 ffff888005840d08
-  head: ffff888008f51400 00000000000a0003 00000000f5000000 0000000000000000
-  head: 4000000000000002 ffffea000023d401 00000000ffffffff 00000000ffffffff
-  head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
-  page dumped because: kasan: bad access detected
-
-  Memory state around the buggy address:
-   ffff888008f50180: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-   ffff888008f50200: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-  >ffff888008f50280: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                                ^
-   ffff888008f50300: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-   ffff888008f50380: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-There is a second race while creating a listener. listen() starts
-accepting connections before the endpoint is linked to the CM ID and
-changed from IDLE to LISTENING. ACCEPT work queued in this interval can
-run immediately, see the IDLE state, and return without accepting the
-first child.
-
-Keep the listener endpoint in use from allocation until its CM ID, listener
-list entry, and LISTENING state have all been published. This makes early
-ACCEPT work wait for listener setup to complete.
-
-During accept, serialize the endpoint handoff with socket state changes and
-reject a child that has already reached TCP_CLOSE or TCP_CLOSE_WAIT. Ignore
-close notifications inherited from the listener before that handoff. Live
-accepted sockets continue through the normal close path.
-
-The issue was found by static analysis.
-
-The unpatched kernel reproduced the KASAN report above in an x86_64 QEMU
-guest. With a temporary 500 ms delay after listen(), the previous version
-lost the first child and timed out waiting for an MPA response; this
-version accepted the same child and returned an MPA response.
-RST-before-accept and MPA-request-followed-by-FIN tests also completed
-without KASAN or lockdep reports. The final SIW object was built with
-LLVM 22.1.8 and W=3D1.
-
-Fixes: 6c52fdc244b5 ("rdma/siw: connection management")
-Suggested-by: Stefan Metzmacher <metze@samba.org>
-Link: https://lore.kernel.org/r/33abff2233b36a51e468d691cb4327d0294d2734.16=
-20343860.git.metze@samba.org
-Cc: stable@vger.kernel.org
-Signed-off-by: Jaeyeong Lee <lee@jaeyeong.cc>
----
-Changes in v3:
-- Serialize listener setup so early ACCEPT work cannot be consumed in IDLE.
-- Include the complete KASAN report requested by Leon.
-
-Changes in v2:
-- Cover the IDLE interval between listen() and the LISTENING transition.
-- Serialize accepted-socket handoff and reject an already closed child.
-
- drivers/infiniband/sw/siw/siw_cm.c | 23 ++++++++++++++++++++---
- 1 file changed, 20 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/infiniband/sw/siw/siw_cm.c b/drivers/infiniband/sw/siw=
-/siw_cm.c
-index ed49818793dde..90adb9543d9d0 100644
---- a/drivers/infiniband/sw/siw/siw_cm.c
-+++ b/drivers/infiniband/sw/siw/siw_cm.c
-@@ -973,6 +973,7 @@ static void siw_accept_newconn(struct siw_cep *cep)
- =09struct socket *s =3D cep->sock;
- =09struct socket *new_s =3D NULL;
- =09struct siw_cep *new_cep =3D NULL;
-+=09bool peer_closed;
- =09int rv =3D 0; /* debug only. should disappear */
-=20
- =09if (cep->state !=3D SIW_EPSTATE_LISTENING)
-@@ -1009,11 +1010,23 @@ static void siw_accept_newconn(struct siw_cep *cep)
- =09}
- =09new_cep->sock =3D new_s;
- =09siw_cep_get(new_cep);
--=09new_s->sk->sk_user_data =3D new_cep;
-=20
- =09if (siw_tcp_nagle =3D=3D false)
- =09=09tcp_sock_set_nodelay(new_s->sk);
-+
-+=09lock_sock(new_s->sk);
-+=09write_lock_bh(&new_s->sk->sk_callback_lock);
- =09new_cep->state =3D SIW_EPSTATE_AWAIT_MPAREQ;
-+=09new_s->sk->sk_user_data =3D new_cep;
-+=09peer_closed =3D new_s->sk->sk_state =3D=3D TCP_CLOSE ||
-+=09=09      new_s->sk->sk_state =3D=3D TCP_CLOSE_WAIT;
-+=09write_unlock_bh(&new_s->sk->sk_callback_lock);
-+=09release_sock(new_s->sk);
-+
-+=09if (peer_closed) {
-+=09=09rv =3D -ECONNRESET;
-+=09=09goto error;
-+=09}
-=20
- =09rv =3D siw_cm_queue_work(new_cep, SIW_CM_WORK_MPATIMEOUT);
- =09if (rv)
-@@ -1361,6 +1374,10 @@ static void siw_cm_llp_state_change(struct sock *sk)
-=20
- =09case TCP_CLOSE:
- =09case TCP_CLOSE_WAIT:
-+=09=09if (cep->state =3D=3D SIW_EPSTATE_LISTENING ||
-+=09=09    (cep->state =3D=3D SIW_EPSTATE_IDLE &&
-+=09=09     !READ_ONCE(sk->sk_socket)))
-+=09=09=09break;
- =09=09if (cep->qp)
- =09=09=09cep->qp->tx_ctx.tx_suspend =3D 1;
- =09=09siw_cm_queue_work(cep, SIW_CM_WORK_PEER_CLOSE);
-@@ -1880,6 +1897,7 @@ int siw_create_listen(struct iw_cm_id *id, int backlo=
-g)
- =09=09rv =3D -ENOMEM;
- =09=09goto error;
- =09}
-+=09siw_cep_set_inuse(cep);
- =09siw_cep_socket_assoc(cep, s);
-=20
- =09rv =3D siw_cm_alloc_work(cep, backlog);
-@@ -1932,14 +1950,13 @@ int siw_create_listen(struct iw_cm_id *id, int back=
-log)
-=20
- =09siw_dbg(id->device, "Listen at laddr %pISp\n", &id->local_addr);
-=20
-+=09siw_cep_set_free(cep);
- =09return 0;
-=20
- error:
- =09siw_dbg(id->device, "failed: %d\n", rv);
-=20
- =09if (cep) {
--=09=09siw_cep_set_inuse(cep);
--
- =09=09siw_free_cm_id(cep);
- =09=09siw_socket_disassoc(s);
- =09=09cep->state =3D SIW_EPSTATE_CLOSED;
---=20
-2.43.0
+>
+> [ EXTERNAL EMAIL ]
+>
+> From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
+>
+> Some controllers list Write Current IAC LAP among their supported
+> commands and answer Read Current IAC LAP, but stop responding to HCI
+> altogether as soon as the write is issued, even when the value written
+> is the general inquiry access code the controller already reports.
+> Nothing short of a power cycle recovers the part.
+>
+> The write is only sent on the way to becoming discoverable, so such a
+> controller dies exactly when something asks it to become visible, and
+> the failure looks like a dead radio rather than a refused command.
+>
+> Add HCI_QUIRK_BROKEN_WRITE_CURRENT_IAC_LAP and skip the write when it
+> is set. This costs limited discoverable mode, which needs the LIAC
+> programmed. General discoverable mode is unaffected, as the controller
+> already holds the GIAC.
+>
+> Seen on the Amlogic W1 (W155S2); set the quirk in hci_aml.
 
 
+This appears to be an anomaly with the firmware binary. Could you 
+provide the FW version in use? It is logged during Bluetooth driver 
+initialization.
+
+
+> Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
+> ---
+>   drivers/bluetooth/hci_aml.c |  6 ++++++
+>   include/net/bluetooth/hci.h | 18 ++++++++++++++++++
+>   net/bluetooth/hci_sync.c    |  8 ++++++++
+>   3 files changed, 32 insertions(+)
+>
+> diff --git a/drivers/bluetooth/hci_aml.c b/drivers/bluetooth/hci_aml.c
+> index 990e701da4be..5979b114f2e4 100644
+> --- a/drivers/bluetooth/hci_aml.c
+> +++ b/drivers/bluetooth/hci_aml.c
+> @@ -603,6 +603,12 @@ static int aml_setup(struct hci_uart *hu)
+>           */
+>          hci_set_quirk(hdev, HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT);
+>
+> +       /* Write Current IAC LAP is advertised, but the controller stops
+> +        * answering HCI as soon as it is sent, until the combo chip is power
+> +        * cycled. It is sent when the adapter is made discoverable.
+> +        */
+> +       hci_set_quirk(hdev, HCI_QUIRK_BROKEN_WRITE_CURRENT_IAC_LAP);
+> +
+>          err = aml_power_on(amldev);
+>          if (err)
+>                  return err;
+> diff --git a/include/net/bluetooth/hci.h b/include/net/bluetooth/hci.h
+> index bcbe76c84d1b..a59f48f387ac 100644
+> --- a/include/net/bluetooth/hci.h
+> +++ b/include/net/bluetooth/hci.h
+> @@ -389,6 +389,24 @@ enum {
+>           */
+>          HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT,
+>
+> +       /* When this quirk is set, HCI_OP_WRITE_CURRENT_IAC_LAP is never sent.
+> +        *
+> +        * Some controllers list the command among the ones they support, and
+> +        * answer Read Current IAC LAP quite happily, but wedge and stop
+> +        * responding to anything at all the moment the write is issued - even
+> +        * when the value being written is the general inquiry access code the
+> +        * controller already reports. Going discoverable is what triggers the
+> +        * write, so on such a controller the adapter dies precisely when it is
+> +        * asked to become visible.
+> +        *
+> +        * Skipping the write costs limited discoverable mode, which needs the
+> +        * LIAC programmed. General discoverable mode is unaffected: the GIAC
+> +        * is what these controllers already have.
+> +        *
+> +        * This quirk must be set before hci_register_dev is called.
+> +        */
+> +       HCI_QUIRK_BROKEN_WRITE_CURRENT_IAC_LAP,
+> +
+>          __HCI_NUM_QUIRKS,
+>   };
+>
+> diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+> index f1dfef81ca96..92c442910d6a 100644
+> --- a/net/bluetooth/hci_sync.c
+> +++ b/net/bluetooth/hci_sync.c
+> @@ -5258,6 +5258,8 @@ static const struct {
+>                           "and will not be used."),
+>          HCI_QUIRK_BROKEN(WRITE_SC_SUPPORT,
+>                           "HCI BR/EDR Secure Connections is advertised, but cannot be enabled."),
+> +       HCI_QUIRK_BROKEN(WRITE_CURRENT_IAC_LAP,
+> +                        "HCI Write Current IAC LAP is advertised, but hangs the controller."),
+>          HCI_QUIRK_BROKEN(LE_CODED,
+>                           "HCI LE Coded PHY feature bit is set, "
+>                           "but its usage is not supported.")
+> @@ -6127,6 +6129,12 @@ static int hci_write_iac_sync(struct hci_dev *hdev)
+>          if (!hci_dev_test_flag(hdev, HCI_DISCOVERABLE))
+>                  return 0;
+>
+> +       /* Controllers that wedge on the write are left alone. They already
+> +        * hold the GIAC, so general discoverable mode works without it.
+> +        */
+> +       if (hci_test_quirk(hdev, HCI_QUIRK_BROKEN_WRITE_CURRENT_IAC_LAP))
+> +               return 0;
+> +
+>          memset(&cp, 0, sizeof(cp));
+>
+>          if (hci_dev_test_flag(hdev, HCI_LIMITED_DISCOVERABLE)) {
+> --
+> 2.56.0
+>
