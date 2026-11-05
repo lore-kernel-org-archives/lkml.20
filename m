@@ -1,49 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.185.58.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793887807;
-	b=T5V+OJDjHMWR9ypOmyPbklbHCCbAouBGjwA3kaHoL/SO28nMLznmtAW6uzXy5jhVm9sn
-	 H94SutiFfaqGimT4+6HoUPTQ2/dH5m4Ejfks/lPe3SIdFtSsAWi/D2DCWSEQ+1yRT+l2G
-	 fRgt1uncZ+EUl/TwqX9fxVjB19WIsBpeOOixA1FFzQP6gBxUHl6Fi7qiRq9L8MhWNT3mf
-	 E9fgXb38smSLUthkSu+0ko7+WUODxAPeOvh7CeZfF7rj4erRNG88OVxqyKQ7tP+uW4ent
-	 h+vVZC3hIzTOgiUk5HJf5FcQdWl6oWB8nJi5gza4PwWf3nPAQItYNvarCK5cMqVClrA==
+	t=1793887817;
+	b=0siqJdD1+gQRiIA666jtxv2jKtadUYvkQgXERVI1pUtWMaML488um6H2ItLa9iMe0L9s
+	 TLYj6E9dygEH/1KSf3cWB+KeZ95i1XRj70IdBH+l9m7HlaqvayqrT2k/S7rA4YAHWOAgg
+	 Cn7zG47XqgPQeDGEuKmmAoq5AqEc/8e4Rd6VquPwlTcUUAccT/GO9sBBUq0Vz5lzlJ8iV
+	 wEB3fu/pdXXULIzILUBU0D9r7veWS5uxvp/ibcMQVsGBX6gSQ892RWOpGYNOK+ujZuClG
+	 kUFhUMyPVXKqdlQjAZ9xE57tW131Q+S91BxUUREyc702xv2feiJrEmtyi6WubA0FNFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793887807;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=fPWc/9PjRvCbS/gxkmZWbhNKYXJiH6BMZd4rli5z0qg=;
-	b=3bSPO4+Tbj+kZKK5aRMVn8q3dFA4fkSpC9BZ1V1XNnRcBilNbVi3WmAw0ma+B+Zd0OAA
-	 OmeWSK4QRv0yLtka43KIebeV57k1gFAs47VWESC4RU8KsN0bkydDfGG2+qxX9SDu44LdR
-	 lqQshv1e9fFJ1JgtIQPL7qWH1ZkfbZENT1xsMsVtZjxAk5w2EOC0F07jmIzjY8fMdOurY
-	 CV0D4gh+a8UyrpkiidYNveqdDkoMIpqyPY7M7tEXc5fuTYeFnN8CmNM+ph/dC9K38vJGT
-	 gT1tDneNvqeD8SF5d2CE4HZ4gkqrCb/46+ofaO0lZuhpoh80kTjW4VNN89pY+veHsSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793887817;
+	h=DMARC-Filter:From:DKIM-Signature:To:Cc:Subject:Date:Message-ID:
+	 MIME-Version:Content-Transfer-Encoding:X-Spam-Level:X-Spamd-Bar;
+	bh=B0NMlHCXbtd1qBfAR3EnPhSrPzqZtuXAFJZ0/+KbPU8=;
+	b=3atcaFwufFTea/chPtcbw4V2bsBcsPaCTrodrcPkcXWPwA/v7oeQr0Ht90enO6XRC1S0
+	 rla09Rn/hR0wl3W+4B6aQoixrIcCVmIe+MkQ9JxRUS0CCL7854x1LV9seNf/VMgEt0rlE
+	 nOwDQdtrCZhDqQaQ7OxMEWBFJcq4P+W4g99TlWub4Qt6KNfqzeVbFaNt+MVueb2Qwc4Gv
+	 HCLYkELLHWZuSt1ewfGcyN6amwdrCXXQFapBXUZQdFm9Qtpp8aD3Za7H8NmyGYKjXvnFo
+	 lOMpLn14zWZmCNwWoj4Cz26g+bqBWRwJOPBs3Dq2kdiazPP2Pb1qP2GmVnVBbbCD+SA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gkTVR8rm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=badcode.im;
+	spf=pass smtp.mailfrom=badcode.im;
+	dkim=pass header.d=badcode.im header.i=@badcode.im header.a=rsa-sha256 header.s=dkim header.b=ZExZtbtF;
+	arc=none smtp.remote-ip=185.185.58.180
+Received: from badcode.im (badcode.im [185.185.58.180])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 349F5606A31B;
-	Thu,  5 Nov 2026 14:10:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1535D606A331;
+	Thu,  5 Nov 2026 14:10:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1535D606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=badcode.im
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=badcode.im
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gkTVR8rm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FCE61F00919;
-	Thu,  5 Nov 2026 14:10:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793887807;
-	bh=fPWc/9PjRvCbS/gxkmZWbhNKYXJiH6BMZd4rli5z0qg=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=gkTVR8rmfjGDmiTF6QhfbQMbRdIP1NgpLaf/Ib5xSMa2jERGdn2Y+KlTaCSBmtjFm
-	 fOWGkkBgbBM+hsCySYo3Fn3HcPFF9XKA4JNtIqCzdJMRAvouuCaRFggbhIdv8bBgXH
-	 Qt3e8YjXz4XL71oYtI6cERzW4HHxNQl1uxJ21G/OkeZTcIuhniw4wxKdDx3eYBz4dm
-	 a68OeHgRRZjmvqwMwAOGkzp02376aYoYNDyjIGnooejRfDJImOSab6aIDhrfHRRbUr
-	 0DWsGjlzdJ4l0d9VteZUEp16jNypagXszob0frSsUoToZdT+vi4mWGAgFSeyTK5Wen
-	 dR5b9V2iMNUQg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 03217391AF93;
-	Thu,  5 Nov 2026 14:10:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=badcode.im header.i=@badcode.im header.a=rsa-sha256 header.s=dkim header.b=ZExZtbtF
+From: Alexander Ildiyarov <alex@badcode.im>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=badcode.im; s=dkim;
+	t=1793887814;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=B0NMlHCXbtd1qBfAR3EnPhSrPzqZtuXAFJZ0/+KbPU8=;
+	b=ZExZtbtFtNxdBEMVI+107J8XYgUoY1TZNXvWU04Wv+dAN2rfTH60yruTrSWwpmvPbKzgVi
+	IZxahIyTQDUXm5AezNw+onAjWACAsva6IqXf3pQtAzlGYvyXbt6PGX9JqPeIykYJSVHwsW
+	flQD8/sBKggXmt9e+zyi7rjp6Sr+dtftsuKRvD2LgId/cnbJwvmPmHCk3FwCCWdA0XP8Gg
+	MNhv8rDGSyOAi6KTOg30Hm9o7P6e7rppUWhM8ha/XYzROlLvYVEfo9GBUlgwlFY9/Kn/rz
+	k2fkjDSLPCuydW8P8K6b8ezdR83fJB6uBsiv3kPTeJ+hQru18CWtBK2N/Q3i4g==
+Authentication-Results: badcode.im;
+	auth=pass smtp.mailfrom=alex@badcode.im
+To: "Jason A . Donenfeld" <Jason@zx2c4.com>,
+	wireguard@lists.zx2c4.com,
+	netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	Alexander Ildiyarov <alex@badcode.im>
+Subject: [PATCH net 0/2] wireguard: memcg accounting and initiation race fix
+Date: Thu,  5 Nov 2026 17:10:04 +0300
+Message-ID: <20261105141006.95083-1-alex@badcode.im>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,43 +69,37 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] mptcp: pm: kernel: use RCU to free endpoint listeners
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179388780580.3729553.2491090300566756882.git-patchwork-notify@kernel.org>
-Date: Thu, 05 Nov 2026 14:10:05 +0000
-References: <20261030042255.74216-1-kylebot@openai.com>
-In-Reply-To: <20261030042255.74216-1-kylebot@openai.com>
-To: Kyle Zeng <kylebot@openai.com>
-Cc: mptcp@lists.linux.dev, matttbe@kernel.org, martineau@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- outbounddisclosures@openai.com
+X-Spam-Level: **
+X-Spamd-Bar: ++
 
-Hello:
+  Two independent fixes:
+  
+  1/2 charges peer, allowedips, dst_cache and hashtable allocations to the
+  memcg of the configuring process, which currently can allocate
+  unaccounted kernel memory through WG_CMD_SET_DEVICE.
+  
+  2/2 rechecks the replay/flood conditions under the write lock in
+  wg_noise_handshake_consume_initiation(), the initiation-side counterpart
+  of 2a73c9b2c0ca. The race window is narrow and was only reproduced with
+  an artificial delay; details are in the commit message.
+  
+  Tested in qemu (x86_64, 4 vCPUs) with reproducers for both issues and
+  CONFIG_WIREGUARD_DEBUG self-tests. netns.sh was run up to the
+  allowed-ips removal step, where the available wg(8) is too old; that
+  part was not run.
 
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
 
-On Thu, 29 Oct 2026 21:22:55 -0700 you wrote:
-> mptcp_pm_nl_create_listen_socket() starts the TCP listener directly
-> instead of going through mptcp_listen(). It consequently misses setting
-> SOCK_RCU_FREE on the parent MPTCP socket.
-> 
-> tcp_child_process() can invoke the listener's subflow_data_ready()
-> callback without holding the MPTCP parent lock or a reference to the
-> parent. An authenticated MP_JOIN racing with endpoint teardown can
-> therefore access the parent after its last reference has been dropped.
-> The ADD_ADDR error path can also close an already published listener.
-> 
-> [...]
+Alexander Ildiyarov (2):
+  wireguard: account peer and allowedips allocations to memcg
+  wireguard: noise: recheck replay and flood under write lock on
+    initiation
 
-Here is the summary with links:
-  - mptcp: pm: kernel: use RCU to free endpoint listeners
-    https://git.kernel.org/netdev/net/c/49b09ae0bf57
+ drivers/net/wireguard/allowedips.c |  2 +-
+ drivers/net/wireguard/noise.c      | 29 ++++++++++++++++++++++-------
+ drivers/net/wireguard/peer.c       |  4 ++--
+ drivers/net/wireguard/peerlookup.c |  4 ++--
+ 4 files changed, 27 insertions(+), 12 deletions(-)
 
-You are awesome, thank you!
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.43.0
 
