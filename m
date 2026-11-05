@@ -1,99 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793871936;
-	b=aB+czHaDDlLl19uq51i2FVOcEnQKrSKxrOa7HMnBm8HV4z6vHzkC11ixtaL/Dklu6row
-	 ZPvoaFSSkrMAet/q/+1oJImehyoNnicPOTVXLbh+TxDGT0vkUfb8NTwSkQRujq6Telq6e
-	 CTYkDHOY5a74mYpXpAbzDDJTPbijztILFVp5tNl9grDOmn3pXq1Rh5DIey51ZKLNhty7H
-	 Sq0NE1pLffZ+Vcg0SGQdFeYV2H4lBTBBhbqEX+UaVksn2w20p/QUZ5/jpyrKYq4TPp85O
-	 YyhR17eeU2LgWRKHndRPikNfeRDP7xZK8yMAsCZc82JlZL2fubwq+VwO81KNNINxQEw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793871936;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Content-Type:
-	 Message-ID:Date:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=5hbK6wCpuCBOmGjg6B2UwtWz3vOD0L6DonBne2c+UhA=;
-	b=i/Tp3zN1WLgf1NlR+6vVpm2Sv7WLm0U3rDA3r+wUso/TZcF//IIJ1CCnD3FOcw6wnMyo
-	 pyIY7AWqqi9lI1doKEaZdc+CFeq6Cv/oxUiC/LLW/TMMV5AkyErpuxDt2+ItkZVp+wzX0
-	 VP3puK9A5gT9VFmOeGt5RHMghW/jGN+5R0Y7m2J6LJSP5nYo0Vu9ItpS3w0m5GoMoTwWB
-	 J7tFqFc0PcYIWZn8pmi1UY6TNcFbInG8igr9uXWmAIBoK3TkvHL+z8xg6hGlAmKRf6amD
-	 6OV6RS207pBsRJG50liB3MSRz1cXqghaYxh6D0N64KolW5vrECKYJN02jkgtFy46cJw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=sRnoCY4r;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.47
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010047.outbound.protection.outlook.com [52.101.56.47])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793871964;
+	b=Dqr8g/m0gWINZ8pElWa0PEA/PdxdPzC+y4bE6LjQvIzqu70JzWenXKCb8Ey4WekljW4C
+	 ayrt/s4uGFCSwN/HHprZE5T/YKWz3oeNQrUV1ixwEfGf1hgTEgOvbCc0mgCcdwt6RMbCZ
+	 uDoeOVmvsf8Jp2R22VibJHbfCBUYgYItl1Nc9Za1aIvQ1UFH63YWuq+bvq0vscy2KM5d5
+	 7lyUzGGjtOu7wOWoKj5oaFNxoGeSBZqmyzikqewiTYxdbF8cpaic1fgsfSQh2iR6nEGbN
+	 R2ACT4zr0UxQteGrpDh4dwICcEDVitGYUWLE8oR48SVLxe0I/FRErdjZWgQeN549pQg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793871964;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=UGJviNUom/9cmp2FuiSup9JFaRpjsLnal6a9UIzq0Iw=;
+	b=Lu/ge5ujN99N/jjNWD6UJYmHOH21Loe2Sbzjb4mQYWqcLnLY3dH4ASyzpl53Gp0mthx+
+	 o2nIY6FyUmcGNHEoH+5FjbqIsNIxfNHe1qVDnbUlye4J/E9avaw8D4pbE7n6c/ZcNhXdv
+	 gJlqYouaz8LLq4Kh5ou7Wj1Vn21CGSfCxa/jmiXKF8BxqBl47Wjkb2V+mFQ7KEpdZBBnF
+	 rrcwUwmqb4Nh806iqRHkLlU6mID7Vnf2vTYfw5yrp4wbO7m73v1seFqZ84IMce61zaxUs
+	 9wc+RGGLWlVwmEsK6mV0siTLyTSywG4joKRGyiJE9Awn8jYlw10f/jh7RW3NBi7jtHQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=dVQn1+33;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B805E606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:45:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B805E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BDB7606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:46:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BDB7606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=sRnoCY4r
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IMqBnKKlJ7MN+dmJhOdaILqnBsAyFfk+d4j3b7SyYY6ppmTF5Wf+pJil1kbV+EdtopNpXxHNnVHIelCBRYlqPdd/n7RP+91duPJAS7A5IBl1aQLeKoSPbsk96k5dLJH34hivp+WRZJdO9QCdNm9TAKBkqSPTjaxRlnLQqHSHhqxtnsCQd31ydvv7Gp4mw9tGvKSFZCCIagJAXkzydkJd+ovyeuMz2cXH2Ks/s4J26gYIgSD/QnRBj56xh0cWYmh+FD0h/Ye5vKrpjWGBP5p2fSbyUwFmTYC+tOP7X0cpCHTobnsHqqkvgFx/9EZGuEqDJH8FY7r+kTQdq1LSqehm7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5hbK6wCpuCBOmGjg6B2UwtWz3vOD0L6DonBne2c+UhA=;
- b=HNM30an7v70mEIdMiG/hPszY1X9MYoyXXTfU9vQ7y2kXik7u/doB6LDw9zLpR4RLlSO1SXr8mZcLDbeLJ/sjaFXCB0fqGt9m6CHY6baoBNglfDZZUM9w+teqjTikpInANudMu1tRCApNzCm1hCF7r6PI3PQWnv1C0hyNMnJNPAw6NBLVNLKBpnGKqzO/PfliJPstWITV1PO5OGTPhLXttOAnqp+z718ZCH5EWPlMJqfU9HDTXIiGcIjQpn8cu/AKWhqyhrMQbuDWm310SUaTVtVU5ODkhkh/SVtNI80H5edzYEyQp0ZC3GHma+JD0sXs5u6ejtCz0FP7hBo5FWyXyg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5hbK6wCpuCBOmGjg6B2UwtWz3vOD0L6DonBne2c+UhA=;
- b=sRnoCY4rtcd8smrtIVLIhQ2fH5vDWVOsA2dwB4iDb7Eo6sKQaiRRPG4JYO/Bo1DAlP9HHQxRKLdNtvZhC1Eu9PjQY8ix0flmE3e/CRgbSg/CbLzL+N2oYm2ABvvXnsq3f/poXo+BqYOlIYMnodThB5/fm3fMFU22s6F3SN+CRFQ=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CHAPR12MB999225.namprd12.prod.outlook.com
- (2603:10b6:610:2fe::11) by SJ0PR12MB6784.namprd12.prod.outlook.com
- (2603:10b6:a03:44f::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Thu, 5 Nov
- 2026 09:45:32 +0000
-Received: from CHAPR12MB999225.namprd12.prod.outlook.com
- ([fe80::a4c2:82c3:da88:c585]) by CHAPR12MB999225.namprd12.prod.outlook.com
- ([fe80::a4c2:82c3:da88:c585%6]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 09:45:32 +0000
-Content-Type: multipart/mixed; boundary="------------sfRYh1nBCTHjHtXwbwis4swf"
-Message-ID: <930da65c-67de-4d05-9734-deb58d8981ff@amd.com>
-Date: Thu, 5 Nov 2026 17:45:25 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Don't require DMUB PSR caps before DCN
- 3.0
-To: Hugo Sales <hugo@hsal.es>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: Chenyu Chen <chen-yu.chen@amd.com>, Alex Hung <alex.hung@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20261029171219.2842014-1-hugo@hsal.es>
- <3f79f22f-a8e9-4fd4-ab78-2403d38b1292@amd.com>
- <313360626.451345.1793787476448@app.mailbox.org>
-Content-Language: en-US
-From: Ray Wu <ray.wu@amd.com>
-In-Reply-To: <313360626.451345.1793787476448@app.mailbox.org>
-X-ClientProxiedBy: TP0P295CA0049.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:910:3::20) To CHAPR12MB999225.namprd12.prod.outlook.com
- (2603:10b6:610:2fe::11)
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=dVQn1+33
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=UGJv
+	iNUom/9cmp2FuiSup9JFaRpjsLnal6a9UIzq0Iw=; b=dVQn1+33DAVyF+Mmc8wl
+	nZX74cBnZtcOaNxqwX+f2EN35vIuvwcCBbs5Y4Uif6xNJ6UewE1QVIpTltPVup50
+	MlRiuhMLiINXNw9vKnwwB0a1f/U65VvmL+iaby9q20fLvGJPiOfZ+xoYgRcT9/W9
+	d/g3k34Y1x5VkozWd1TK+b3NMoy//cW6D20URGPVMrKYNItPGgXDmf9IECVFTWMq
+	umAJwe4RBh71+/BSasOo1K7nwQ2OIVJXYAxg+XM2NraSzagEOqBo8lznHsahbQ4c
+	gdRePSo1a6sFJIyTdvhIEQ1S403xaUtPpDJZPJOWG87m0rLe4ikq13/1eQDnBRom
+	Ig==
+Received: (qmail 1094124 invoked from network); 5 Nov 2026 10:45:56 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 5 Nov 2026 10:45:56 +0100
+X-UD-Smtp-Session: l3s3148p1@k0qyXIRfQJzAwtcC
+Date: Thu, 5 Nov 2026 11:45:55 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Frank.Li@oss.nxp.com,
+	Mark Brown <broonie@kernel.org>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Radu Pirea <radu_nicolae.pirea@upb.ro>,
+	CL Wang <cl634@andestech.com>,
+	Ryan Wanner <ryan.wanner@microchip.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Vladimir Oltean <olteanv@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>,
+	Haibo Chen <haibo.chen@nxp.com>, Linus Walleij <linusw@kernel.org>,
+	Daniel Mack <daniel@zonque.org>,
+	Haojian Zhuang <haojian.zhuang@gmail.com>,
+	Robert Jarzmik <robert.jarzmik@free.fr>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>, Yixun Lan <dlan@kernel.org>,
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Alain Volmat <alain.volmat@foss.st.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Sowjanya Komatineni <skomatineni@nvidia.com>,
+	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	"open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
+	"moderated list:ARM/Microchip (AT91) SoC support" <linux-arm-kernel@lists.infradead.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE" <linux-rpi-kernel@lists.infradead.org>,
+	"open list:FREESCALE DSPI DRIVER" <imx@lists.linux.dev>,
+	"open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
+	"open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
+	"open list:RENESAS RZ/V2H(P) RSPI DRIVER" <linux-renesas-soc@vger.kernel.org>,
+	"open list:SAMSUNG SPI DRIVERS" <linux-samsung-soc@vger.kernel.org>,
+	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
+	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>,
+	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>,
+	"open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
+	"open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
+	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+	Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH v2 1/1] spi: use dmaengine_desc_set_callback()
+Message-ID: <auxQU_PU4bwLJUch@shikoro>
+References: <7f96599b-681d-4963-bdda-1274371ac84f@kernel.org>
+ <f1fa853d-1703-411d-b2d2-0fb0b176c2fa@kernel.org>
+ <autqC143h7Qf1R9H@ashevche-desk.local>
+ <9e39502a-dd17-4fa2-98a3-9019523cb5e8@kernel.org>
+ <auuYcS7-YqJKcUbE@ashevche-desk.local>
+ <63c24437-4261-4a51-be7e-31ac0759a095@kernel.org>
+ <auxGom0XR-Hax9b3@ashevche-desk.local>
+ <00390a20-7630-4066-9779-06c8f915a176@kernel.org>
+ <auxH_WzaOLsQ4-go@shikoro>
+ <auxOFGTRAKb5bLXD@ashevche-desk.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,122 +124,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHAPR12MB999225:EE_|SJ0PR12MB6784:EE_
-X-MS-Office365-Filtering-Correlation-Id: 101b9465-0887-452e-0e75-08df3b21887a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|6049299003|23010399003|1800799024|376014|366016|261022105027099003|261009223027099003|261028144727099003|261026140227099003|4143699003|11063799006|18002099003|22082099003|4053099003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	VbjMnE9CRNM7fUT/I/ucSZPLDI0+kjSbttKY78NiSjxAjzEMWJ75kYDsROG+U8l/QQKsUfzRr4kDpHqevnsHQ6H9IrF/cEI37fFblubfU2P7YHZWeMKI17DY6UqSIX35GLuUf4BeFmeikIgXgxXWmgbupwYpzQ+TvABDladgsPA9MsqtuBnRkUajW11lcqb3DttpesY7F7bhVf+ybOlpM3tvl8q2B+EbrwaGVjxpc/MlFHCaX1WISofZ528v7ucwrbQm2Y0vZNtiPD73KUFqTd4qUdNPGX2Ni+Rgwc/A5kZv4JJq77X3ziqudFtfLFw2JB1nYxXWX0MSsSYegjIRDI4oQEcmJrNWZUPWs9ErJY51v2TNgfkHLwjOkDSmrvLbDiH1eNiLDzLOjo9Gx+NyRcFP937N54WA1Cls5CRKvJP3LHjkfJN8KSfQTUlW2BwqmCFwKZkRw1hHT0D7MTNV2OPLoqw8RsTgs/mh4GKSolqud3Z10OOfMiQ2vm+hOIVBHSM5wEl7uX6lWw1IMAE7WyyGndtuhF0e5WDLek8KkmRDD5oSdioLvnpcoOTCeu6HU6UPofBErb9y9JdZ8l+TiUe/Dse57w/D7n1zZLpp6vyfRlxXrsO26L7lWKzBlukg
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHAPR12MB999225.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(6049299003)(23010399003)(1800799024)(376014)(366016)(261022105027099003)(261009223027099003)(261028144727099003)(261026140227099003)(4143699003)(11063799006)(18002099003)(22082099003)(4053099003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WFBTRHU1UEdHM0duODFwZEV1OWZCMzJULzJJdnU1WEZibXcwbEZPSUFJOEov?=
- =?utf-8?B?R0NLRDRkeVNTa2dQZHBvNTFhV1o1QVp0QmhPS0F6U05Bb05vUFc5S2U5eVB4?=
- =?utf-8?B?WVhpeDJLbTAxb0IvbUVWUHFaY1NaMmxTM1NScmlicVU4cXZORGR0UjlRV1c1?=
- =?utf-8?B?bkF6TzZNUmg3TXBUdXpKRnU4V2ptTE9XUTcva1d6SFV1WEowTENuNmludGhi?=
- =?utf-8?B?dVFKQWk4bHB3ekRWS1hocnNHWGhPc245ZGVTbWpCc1NmZ1I0WC9JR2d6QlZk?=
- =?utf-8?B?U282cEFydFYwRU1sVzhNTTVOZEJ0Z2d3NnVFV2M0YVk5dDVWb0NCa2ZSVmhn?=
- =?utf-8?B?eHp3RHdoWXRtTWVvQm4wUkc2VmdTZmxBQlgzM0IwajRtbDRJck9OYVdQQ2Nr?=
- =?utf-8?B?bmhwb01Ob3pMWkNkVithcFNYdFNhL05BZEJDdTNObGVQYWlkVmwwbmsyUGtH?=
- =?utf-8?B?ZjNpT0RmMUQ1SUZmblJOdmV5V1dCbmpOMUpueVZaVmhLQ0RnS3JaSDNBNklY?=
- =?utf-8?B?RXZZdEdJbXVEVmhkMXJNQ2lVd3dhQy9TWU81ZEFCVHJKL2xOd3hVTVFPSU56?=
- =?utf-8?B?M3FKajhON3lQMmR6aVJqRTkxVkRSWjh4bFRLblpIL1p6cnhQQzUxUFdwVWJa?=
- =?utf-8?B?MmtqZVRPcW1LVnZYYzJQT1VYWkl2SVJ4aWZjWW1IR1E4Y0J3VVl2MGoxRXNk?=
- =?utf-8?B?bXVzOXUzV3pBV3FSWnIzTzZic1dDRnZTSmxFcXpXWStxRmZjS056aTdROVhw?=
- =?utf-8?B?SXJ4Qm9RYlp3bm9nWlFqRzkyVGRyM2k4dVVuaDRjU2daQUtrck9kNmRDMGdD?=
- =?utf-8?B?ZnVvVmx6b0pEWGVaWllGdENHQVRJRlJrVnNQaDdRUVdNVUFmOWdYcm5sQTV5?=
- =?utf-8?B?Y3Frdlo2SjJPYmp2aHlzT1prUnQ1Q1YwV0xLNlovN3lQS2ozTDhJWjdYZEpD?=
- =?utf-8?B?S2M4OGRTNHNIaktJdzJ3Nkk5MnlsZ0V5azRaaVQ0ZElidnIyZlJRZE5iM3Q2?=
- =?utf-8?B?bURyOGdGTXdHckpRQUFhTjBQdUtYR1ZXaW8zRlNuOUJJdFhBdUJ4R0xDbDR3?=
- =?utf-8?B?cVk5ZU52RTkvajZFM3UyVWxyS0I1SEFKNFRqVWFqRldDZnUyTGY2dUNxRm5E?=
- =?utf-8?B?VWN4bkJDSzJiWVZQWDVuWmcvbEs1clFTcUMyOXpPQlQwYlpHejkrbmtZOXgx?=
- =?utf-8?B?OEdDdENSRk1MTGJqcUxwV1FheExtaHM1dGN5TkRrVzVxVHVuYkE0QkZ6akdF?=
- =?utf-8?B?S3lBUHRYL1d6QzZnajNTK1pBWHJZN2dMVUtpbUREdklERkdPZTROMkp0TW9s?=
- =?utf-8?B?MTNsdUpZUkhqRUMxaTlLL1QwNGY5RWdFbGJPY3NpQ05OcHkyWDVCU1ZYdktC?=
- =?utf-8?B?RGtibDkwVW9adFlnTi9SSHkyNU8vWHdRTTlkdzB3NDVBdUI2RGFmSVRlakcv?=
- =?utf-8?B?bkVoWmw0Wldqc1FFS1pJQWxadDR3czQ3bWl3NVA2R3J1a2VyV0R2U0hDVWdW?=
- =?utf-8?B?ZTIrVFF5bW44Uys2RlZPVzdqMXNiR0RkdE9GZnpWQ212c2NaemZSUHVlRXJp?=
- =?utf-8?B?UlJnMjlwTGpidGRGOEsyeVNZcXpST3UxVU1nNzZWUjlJekdnUXpLK2pKL0VF?=
- =?utf-8?B?SmlyRS9HemRncU5RRnB5dlJrUDU0MUp2TklRNGsreGZNM2lpemRzNUpaa0Fx?=
- =?utf-8?B?Y0MvZnZ6azcvRGhWbzJVd29kdWF5Z0o3Uk9hb3FNejJNSytnZzVZdVhZNUVS?=
- =?utf-8?B?VkJnb2tIVURTVnhvQ2YwL25wS0JENWhVS3dUM3BzVnMrMWNSUlR4VmNjYnh0?=
- =?utf-8?B?bGdTbXFHZ1lVOFlZdDZlSzU4T2k4V1dCUHA0QkpvTUYvS1ZkQXNQTkJHZXFN?=
- =?utf-8?B?c0o3QStnYklBcE5zRmRLU3J3N0ZSKzQ3TTN6Nm0yVEMreHh2cUsxL3hnVEZq?=
- =?utf-8?B?b3M3eUFWOWtnOEpqeENjSlcraGpmMEZrMUpXclpzK0Q0S3NTUDV0UFdzT0li?=
- =?utf-8?B?T2ZNcnRGc1p1Y1ZFV200MXBZd21XazNwbWlROUVTY0libVpIVHBsZlRQVncz?=
- =?utf-8?B?UUxucVZ0bmp4eEJuakJianZrZUlISGp3MWM1R3EvTDFHL0dLcjc5YmozVGJR?=
- =?utf-8?B?V2FiYm0rQVdvS084ekplWGZkL3V1bmgxajdKVlhXTC9nZ3kzYkJvN3pueG0v?=
- =?utf-8?B?akdwdUdaakJEUE14VG1QQ2R3VHJkRExsQ2xTNnYwRTZYQi9pY2xiREtzaUJU?=
- =?utf-8?B?c1M5UHF4NWhTUDgwNExiV2w2aVoxdm1kTjl6d2Q0OWMvTVhBUWl4WkVmTFp0?=
- =?utf-8?B?OFMxdHJKZXNySG45NFFYMVBkcmZQVkF5YkV2aVUzY2dOd09MM3QwZz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 101b9465-0887-452e-0e75-08df3b21887a
-X-MS-Exchange-CrossTenant-AuthSource: CHAPR12MB999225.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 09:45:32.0695
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1jlCGrtfNAojrKgJnITKKoFji65s8pn8of9o8frbKJaSJcUODRB/KceHUcuqVB8CBuXMwqQ+4zPhAZY/eyckVw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6784
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auxOFGTRAKb5bLXD@ashevche-desk.local>
 
---------------sfRYh1nBCTHjHtXwbwis4swf
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-Hi Hugo,
+> Then I MUST started REQUIRING to split the patches in such cases to actually
+> review them?
 
-Thanks. I've attached the patch here.
+Okay, this is a solution, too. Or requiring "# subparts"
 
-There's also a related discussion here:
-https://gitlab.freedesktop.org/drm/amd/-/work_items/5993
-
-Please give it a try and let me know if it resolves the issue.
-If so, I'll add your Tested-by.
-
-Thanks,
-Ray
-
-On 11/4/2026 6:17 PM, Hugo Sales wrote:
-> On 11/04/2026 9:31 AM WET Ray Wu <ray.wu@amd.com> wrote:
->> We already have a similar fix internally that is planned for an upcoming DC release:
->>
->> commit: drm/amd/display: Allow DC_PSR_MASK to enable PSR without DMUB PSR cap
->>
->> Could you give it a try and see if it resolves the issue?
-> Hi Ray,
->
-> Happy to test it, but I can't find that commit. It isn't on amd-gfx and
-> it isn't in amd-staging-drm-next yet. Could you post it to the list, or
-> send it to me directly?
->
-> I'll try it on my ROG Flow X13 (DCN 2.1) with PSR. Since my patch reported the same problem, could the commit also carry a
-> Reported-by/Tested-by for me?
->
-> Thanks,
-> Hugo
---------------sfRYh1nBCTHjHtXwbwis4swf
-Content-Type: text/plain; charset=UTF-8; name="test-5993-dm-psr-gate.patch"
-Content-Disposition: attachment; filename="test-5993-dm-psr-gate.patch"
-Content-Transfer-Encoding: base64
-
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1
-X2RtX3Bzci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVf
-ZG1fcHNyLmMKaW5kZXggZGJhZDBhNmQzYTJiLi4yOTViMWMzMDdmYTMgMTAwNjQ0Ci0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX3Bzci5jCisrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX3Bzci5jCkBA
-IC0xMTEsNyArMTExLDggQEAgYm9vbCBhbWRncHVfZG1fc2V0X3Bzcl9jYXBzKHN0cnVjdCBkY19s
-aW5rICpsaW5rLCBzdHJ1Y3QgYW1kZ3B1X2RtX2Nvbm5lY3RvciAqYWMKIAkvKiBSZXNldCBwc3Ig
-dmVyc2lvbiBmaXJzdCAqLwogCWxpbmstPnBzcl9zZXR0aW5ncy5wc3JfdmVyc2lvbiA9IERDX1BT
-Ul9WRVJTSU9OX1VOU1VQUE9SVEVEOwogCi0JaWYgKCFkYy0+Y2Fwcy5kbXViX2NhcHMucHNyKQor
-CS8qIERDTiBJUHMgdGhhdCBuZXZlciBxdWVyeSBETVVCIGZlYXR1cmUgY2FwcyByZWx5IG9uIERD
-X1BTUl9NQVNLIHRvIG9wdCBpbiAqLworCWlmICghZGMtPmNhcHMuZG11Yl9jYXBzLnBzciAmJiAh
-KGFtZGdwdV9kY19mZWF0dXJlX21hc2sgJiBEQ19QU1JfTUFTSykpCiAJCXJldHVybiBmYWxzZTsK
-IAogCWlmICghKGxpbmstPmNvbm5lY3Rvcl9zaWduYWwgJiBTSUdOQUxfVFlQRV9FRFApKQo=
-
---------------sfRYh1nBCTHjHtXwbwis4swf--
