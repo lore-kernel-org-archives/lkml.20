@@ -1,62 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793916086;
-	b=ujS4DcaG6DldgIxD6xcpwwL2w+YW9ug12F0JRQYrnawy2z45e02hUjJQz+lK9gxO12O5
-	 sgR+qXiq5NF7Gy69luEEYVck/BqaqKVhWMJAbDjAOSbFssSnJU6aJtTIkj5z27wY5jcnx
-	 7SqfKumK+WdwlxfnUUZlrIIWLbTrRPAmz8RuOAbRBaAxKE7C2HvxNwOIw+EqqTQRPXpAr
-	 rzGNEOLn1uFnZ4U1ukt54/JxC+tBvrNSmKnOv6xnsRRJi8SuxqsRMc/Vj9bXaUzGJDk+j
-	 KkGTcuEVltzi+wMAEexeMgpEyp6VMUgeaILvo/S8XUGzwGXY28TGo+d3vHolpdZZKQg==
+	t=1793916105;
+	b=XP3CDD5WhfUs8uOGcPTIId3DPRAM2l2J8ZAhur4zDpzdfXWZYrsmxRjcIAZoIzSXo/Vv
+	 xOPyQitnrj+YY07iOTrF2wUHEk7D9GeFW4hrnK5F2+/uVh2vuEbkVzcTgThCdH/NEKbAX
+	 1Tx+aiC7FEPA55KfYqHmk05cD0Jr9Uu7x1mjqmYMtNQSengfO6qU6oodOV+B1QoaNCUW8
+	 pZoJLxPR/FsETNIy1klCHUmkoqQYNk7yeZd0SSSGsgDjsCxRe9w8IJCXj2gLmQMZb+zdQ
+	 UeXQ2xRHB3q/9/YmLxWr0vCLL1sZxQi1q9tXY9UH8r7c4tZj9G1cI1iI/a3aXI7bB2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793916086;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=desrRdbrEuvuMPsaXsP5lb59aPa4lj2l+ZBPPXTms64=;
-	b=L9AVkJAooifz+2YyninHG0k958Q34R9sDpTYT/fRmUs6Zed5nGIQ+zuMEs3uVAuT6AUW
-	 x6pxdmLvazRNGJbbqgq8TTcGYKgnGUdNKkOQR3EsQTeOP2xBgOCzk9Nr7PU+Ix3tuI1en
-	 zwNOB8SipE9fUWvqhRdTzRSQHGq57wElt/QmV5sLtYSPlSuEWcjOh+kC6xsebX2sN5gJT
-	 jA+2yRBhJXB+Dh7/wxJhWxsKKPF/cPWxiFGfkCM+rKxoiqaNI2NybVz9U9sm2CumpX27a
-	 EdH1b08Plb46Vj862R3hG+IizqqSrRH/1l+KZOQKu6msYr+ng1DZj2lluVP35gY1xXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793916105;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=0ssD89ibuYFdykDCSINR+WKonV6NzYYUz46OQQheQ/U=;
+	b=SxtYMuYrRpJfdRD6LETn3+tJofCLQa0JxL/TJ7PQe/lVDnmgt75+JDTfSZpHTZ2CYtT6
+	 tmYMhXB+RIG0u9SJ3qjiIte2+rj9iAXKR7JhZMMrrrR97kqjDtvlI+wwQ+VW+j8/WocC4
+	 4js83nW63srdP9bOL6msA5lIpIZbBCEPvl+J5AcVXL/BDOlTdHm/XeQhbf7BRKTQtNNFx
+	 OFCe6zHdmimjKjvxupQNdD87BIwXQFb6VfwyCE7NdCUXZRy+1GLycMe4Opw+FyIIUKrM9
+	 5ROoUAj/q11nVTH+9FXGFMtD/lRwdEKwSChh8VuUS1LonK/bpSUH9ZY4+qIX1NXa3cQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c9Oi0hFp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oqn30Nky;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 7306C606A326;
-	Thu,  5 Nov 2026 22:01:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B401606A32C;
+	Thu,  5 Nov 2026 22:01:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c9Oi0hFp
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 80DA31F008A3;
-	Thu,  5 Nov 2026 22:01:25 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oqn30Nky
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9F0F1F008A3;
+	Thu,  5 Nov 2026 22:01:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793916086;
-	bh=desrRdbrEuvuMPsaXsP5lb59aPa4lj2l+ZBPPXTms64=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=c9Oi0hFp9dhOsoeqmM1O0KhdWXGjSnMcBgGNjYegIyco3DVIiz/MIMgyKt8Gt334t
-	 mULChLvxPNq9rqhj9bIDPMVQHA8kUfAzLK9BJOkLNpUXFjgBfzCrosv60DaZcvJ5ou
-	 I5ueVyON/4UQXctgY+5L4e9rvwLvbZan2q/D/lEWickax0dmYewsxN+oHMLbBQvN84
-	 ucKsqpOnARXuBMa5m/A2CQZrmNazaTzfuhsx0hJPOasfwfMBmxZAh3l9Z2eMx22oo/
-	 qxozs1iUqLuMgR2+rseUpQT27B9K2VQJ4+xPwB0tk2Ks4ed15rAYcaPph12MlmmP8B
-	 58Of10m3pK6rw==
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: Jarkko Sakkinen <jarkko@kernel.org>,
-	keyrings@vger.kernel.org,
-	linux-integrity@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	Eric Biggers <ebiggers@kernel.org>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	stable@vger.kernel.org,
-	Jann Horn <jannh@google.com>
-Subject: [PATCH v3 2/2] KEYS: Reject keyring creation with overridden credentials
-Date: Fri,  6 Nov 2026 00:00:50 +0200
-Message-ID: <20261105220050.1421842-2-jarkko@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261105220050.1421842-1-jarkko@kernel.org>
-References: <20261105220050.1421842-1-jarkko@kernel.org>
+	s=k20260515; t=1793916099;
+	bh=0ssD89ibuYFdykDCSINR+WKonV6NzYYUz46OQQheQ/U=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=oqn30Nky2mTWRez2YVjvyepfagHyatEKmE+yfGxiuwg2gfw+XPkXcAr58qvQ7zKIF
+	 0in7LiVprrOn14NY4TzvMhzh2qpRHP9KISenHoDh5RIUoA3pD5jIkC2ragG/eeUIca
+	 Yne/z8Ioyvgig8JD1N25tUMNrX8afcC3q/5xsBHVRfMWaGAz29wan1LeGTsasJ0BhX
+	 Sij+SltLPABwFJ6hPyEwRzpPymq13KkVoHKeZik6o3DyASshrBK/9PJ1c3LML3nQDF
+	 rdZYmWXBX0m4NWYI39sba+yulTXdYptiPrgJg0qgUjykPgfhelY2B9p9Huqp+ScLsk
+	 vyn1RtiZS28vQ==
+From: Christian Brauner <brauner@kernel.org>
+To: Jan Kara <jack@suse.cz>, Sasha Levin <sashal@kernel.org>
+Cc: Amir Goldstein <amir73il@gmail.com>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Shuah Khan <shuah@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
+ linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ llvm@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20261103165419.687806-1-sashal@kernel.org>
+References: <20261103165419.687806-1-sashal@kernel.org>
+Subject: Re: [PATCH] selftests/fs/mount-notify: fix the indentation in the
+ fsmount test
+Message-Id: <20261105-vielzahl-visier-denunziant-eea115f62537@brauner>
+Date: Thu, 05 Nov 2026 23:01:35 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,79 +61,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-ce4c1
 
-If the current task is running with overridden credentials calling
-commit_creds() is forbidden and triggers a BUG_ON().
+On Tue, 03 Nov 2026 11:54:14 -0500, Sasha Levin wrote:
+> A few lines in the fsmount test are indented with spaces instead of a
+> tab. That puts them deeper than the ASSERT_*() in front of them, which
+> ends in a for loop with an empty body, so clang warns:
+> 
+>   mount-notify_test.c:338:18: warning: for loop has empty body [-Wempty-body]
+> 
+> Indent them with tabs.
+> 
+> [...]
 
-Reject keyring creation with -EPERM when credentials are overridden.
+Applied to the vfs.fixes branch of the vfs/vfs.git tree.
+Patches in the vfs.fixes branch should appear in linux-next soon.
 
-Cc: keyrings@vger.kernel.org
-Cc: linux-integrity@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-security-module@vger.kernel.org
-Cc: Eric Biggers <ebiggers@kernel.org>
-Cc: James Morris <jmorris@namei.org>
-Cc: "Serge E. Hallyn" <serge@hallyn.com>
-Cc: stable@vger.kernel.org # v5.10+
-Cc: stable@vger.kernel.org # v5.10+
-Fixes: 3b11a1decef0 ("CRED: Differentiate objective and effective subjective credentials on a task")
-Suggested-by: Jann Horn <jannh@google.com>
-Closes: https://lore.kernel.org/keyrings/CAG48ez0XjVSR=M--UBauTm8sJuc+ZbhKzaPa3a6wrSVHyoKevw@mail.gmail.com/
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
----
-v3:
-Collapse and open-code cred_overridden() to the entry point of lookup_user_key() (David).
-v2:
-- Added mandatory tags.
-- No code changes.
-- Link: https://lore.kernel.org/keyrings/20261019145624.309790-2-jarkko@kernel.org/
- Documentation/security/keys/core.rst | 3 ++-
- security/keys/process_keys.c         | 6 +++++-
- 2 files changed, 7 insertions(+), 2 deletions(-)
----
- Documentation/security/keys/core.rst | 3 ++-
- security/keys/process_keys.c         | 6 +++++-
- 2 files changed, 7 insertions(+), 2 deletions(-)
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-diff --git a/Documentation/security/keys/core.rst b/Documentation/security/keys/core.rst
-index e3a215e55f81..a60b2f725a0b 100644
---- a/Documentation/security/keys/core.rst
-+++ b/Documentation/security/keys/core.rst
-@@ -168,7 +168,8 @@ The key service provides a number of features besides keys:
-      If a process attempts to access its session keyring when it doesn't have
-      one, the default user session keyring for its current UID is returned
-      without being installed into its credentials.  If creation is requested,
--     an anonymous session keyring is installed.
-+     an anonymous session keyring is installed, failing with -EPERM if
-+     credentials are overridden.
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-   *  Each user has two quotas against which the keys they own are tracked. One
-      limits the total number of keys and keyrings, the other limits the total
-diff --git a/security/keys/process_keys.c b/security/keys/process_keys.c
-index cdf03b8124d0..c878a5f8d47c 100644
---- a/security/keys/process_keys.c
-+++ b/security/keys/process_keys.c
-@@ -633,7 +633,8 @@ void key_register_fs_verity_keyring(struct key *keyring)
-  * to a key or the best found key was a negative key; -EKEYREVOKED or
-  * -EKEYEXPIRED if the best found key was revoked or expired; -EACCES if the
-  * found key doesn't grant the requested permit or the LSM denied access to it;
-- * or -ENOMEM if a special keyring couldn't be created.
-+ * -ENOMEM if a special keyring couldn't be created; or -EPERM if KEY_LOOKUP_CREATE
-+ * is requested while credentials are overridden.
-  *
-  * In the case of a successful return, the possession attribute is set on the
-  * returned key reference.
-@@ -652,6 +653,9 @@ key_ref_t lookup_user_key(key_serial_t id, unsigned long lflags,
- 	key_ref_t key_ref, skey_ref;
- 	int ret;
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
 
-+	if ((lflags & KEY_LOOKUP_CREATE) && current_cred() != current_real_cred())
-+		return ERR_PTR(-EPERM);
-+
- try_again:
- 	ctx.cred = get_current_cred();
- 	key_ref = ERR_PTR(-ENOKEY);
---
-2.47.3
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.fixes
+
+[1/1] selftests/fs/mount-notify: fix the indentation in the fsmount test
+      https://git.kernel.org/vfs/vfs/c/5e042e208dfe
 
