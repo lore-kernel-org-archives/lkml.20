@@ -1,65 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793847444;
-	b=tNZchD039zYjNVFNvExmLWAgfv0wiJZbiHyyk5dUIr7bE+I1Kv77QE3DeY9d+wGI3Au+
-	 g5OPwVWPF/nlIK5j0aXYm0CEQMqajrYKXfEOUJ1nFbO152qa0gJuAVbRgRrRbbmw59VsG
-	 3g4Lq/saERhmMOEJK3PeHjr1t03L+Rszs4QfsGrG0VzJ/Ycws9whKcPp9tD0y9o6UWGpw
-	 kfZZ8/vhPiRuNGfOlwPmIfUnmV4BMVBTN79gfqIuR3JALuYhXrrAIRcZ2DBbT8sCtPezS
-	 nCvLSOI+CvcECut1LLbkcNYxxMbHALr0OZB86ktlOjVtWjTRoJmW7AQSbsdGWYPvHng==
+	t=1793847445;
+	b=zdMj8Sa+pjjdhqi9Wv15Igt6mCtCD2muNLdCDaKJJzAwHneP9cF8Dy05IOX88ShBTMfg
+	 fv1xDi/xR43+YdCPc4NQWU+T3Ah2ddUpJjps8T4yLHM6KnxjqsOxngsQwtR/Thr8Rck7x
+	 fwztwthCWw0/hiW6tGB8Oks9o5E01UIMNiRoBrdDKCtm/JbGCjaSSuj+Jl6aUnfm+N4pW
+	 JwEhkADeMwlz8T6ka4KAIyjGZICc/dKW5MK71eEcpVxtnSNyZEplCLuf71mfcLcwuFyET
+	 YK52Sgo5r+gwqlRlIR7EKVNNYoJZFu1ZHnl9UDIgTtt+RHAeJGpPOS9FihwRo6YnVWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793847444;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793847445;
+	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=KU++cqpk1/gvfox3WB9yLvTVWcxc/JeXC76YevdQC7s=;
-	b=NK7CBxBj2rdLYr8+4MEf5Paf+YCsgsrqXm+EQxR7qHMNsYvPNCpXaHp/KwHLHGz7Hy+g
-	 sk4VhhJ3npHmUc7pyhWBK1wGOwMSIpfNLQBq27IGwRmdN7Qo49Rp4A/9WZ55gsXOVB2+A
-	 ywXV27O5hYc5e0FVxYYrqG7IqzjkccEhhLF+2bvBrWKli5U1/7QPkum6Z4NvUtItEZu9V
-	 GyStig19MUX4Yk5iPy9kogWhOSgDNXzw27XLUW3C2E83/e10XuPCaeergxC6/w/FNIag1
-	 tRaNXdB/ZBJog7AimibYt0Nnz1pIA89d2Xka/z/zRCo+SB/7YwbokNPld7WvATU8UbA==
+	bh=kFn1OX+6FsSsT47EB9T1OrR6/BEpjvhs9/Zdbykf1/M=;
+	b=E09a7aaD/IqHom3g5MlptkJmS6qUAHTpZElx0dt09G2gCKqGa85IIIOdTomF9P3pznHv
+	 3a41hide0gt8XHag1GYSNykbwWcU1q77lAD1wMhvQVYvNJ1bVVzw94ZafPjZ0lVDj5WqP
+	 WYnRwm73Ab2bvti3Grb/KsZ9RUMuqtE0rFTre8kdaWd4zlBAEhRXnkYVLP3v3oiqHd82W
+	 mPa5qxoI/XS1JDDMXYtVa3f94fiVb31U0PECAmY2Mbusgi4sXzYbqexjahWNybTQoSTJY
+	 0ElyLxQPJ31S281ukyoDg2qn2Vy1+d5JdjZMLg7HmJOhDNIRnG/SHowQmQxe8CLxK3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=rSKHiUh0;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BED75606A32D
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 02:57:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BED75606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=d-silva.org;
+	spf=pass smtp.mailfrom=d-silva.org;
+	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=xNfkzy28;
+	arc=none smtp.remote-ip=119.15.109.137
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8EE6606A337;
+	Thu,  5 Nov 2026 02:57:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8EE6606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=rSKHiUh0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=rSKHiUh0vMEtaKJSA3ZiM5JOB5uF0CUZMAZhMLi0TF+a/uMj3qNC1NVwgiDG6MedDO+BMt0SSqnI0
-	 2d6hyKelC3K6/yk1DDEi5KbS3JS6sOJ4L7XmBa52xETdfcyHUFdJ9zq3FW5KW6kbEFvDJWeP4Ih/K7
-	 iJPTJRMhUGwaN+S0=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56aebf08f50c-9f79d;
-	Thu, 05 Nov 2026 10:57:21 +0800 (CST)
-X-RM-TRANSID:2ee56aebf08f50c-9f79d
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from FHB-W5100256 (unknown[10.55.1.70])
-	by rmsmtp-syy-appsvr02-12002 (RichMail) with SMTP id 2ee26aebf08f787-37b5f;
-	Thu, 05 Nov 2026 10:57:20 +0800 (CST)
-X-RM-TRANSID:2ee26aebf08f787-37b5f
-From: xujiahao <xujiahao@cmss.chinamobile.com>
-To: Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	xujiahao <xujiahao@cmss.chinamobile.com>,
-	kernel test robot <lkp@intel.com>
-Subject: [PATCH] clocksource/drivers/sh_mtu2: size the irq name buffer
-Date: Thu,  5 Nov 2026 10:57:18 +0800
-Message-ID: <20261105025718.524-1-xujiahao@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
+	dkim=pass (2048-bit key, unprotected) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=xNfkzy28
+Received: from Hawking.lan (hawking.lan [10.0.1.4])
+	by www.nmnhosting.com (Postfix) with ESMTP id 0B16541A46;
+	Thu,  5 Nov 2026 13:57:16 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1793847436;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kFn1OX+6FsSsT47EB9T1OrR6/BEpjvhs9/Zdbykf1/M=;
+	b=xNfkzy281D829mYDxvBFa+soMiVZpjigiKe7X9l056CEDOfpWTp7ORxfFP28wAa+k2225K
+	EEJpqdP8x72dvYpAFce6v4gNSRegffkC4ff62NNdcLPFcBYCROtuXd11KcI+owhVpVu0QY
+	J29TWomxagGwRXqD41WCrc0bPdYPsoXyuzrSsRhTP8w3trh9aUdYNWotiY8aGHSpVAVH+T
+	i9NZjVrN65bHQWjghKHkEX9ZHnYsyCL6tcm+alwM7e/Jb2ByNoPLWve3o6vArl8ZEOq6AR
+	WqpP4dJFjmt6FsKPwaApSEKkupErRXfAYA6mUEUgMXvv8f/aQ3ZpybrgWfRRJQ==
+X-GPT-Reason: This is a legitimate personal/professional communication.
+	The mailbox (alastair@d-silva.org) is a personal address that
+	aligns with the sender's identity (Alastair D'Silva <alastair@d-silva.org>),
+	and the content is a technical Linux kernel patch description
+	regarding "rtw88: sdio" drivers. There are no phishing red flags,
+	no marketing elements, no suspicious links, and the technical nature
+	of the "Signed-off-by" and "Fixes" lines confirms it is a standard
+	software development workflow.
+From: Alastair D'Silva <alastair@d-silva.org>
+To: linux-wireless@vger.kernel.org,
+	Ping-Ke Shih <pkshih@realtek.com>,
+	Kalle Valo <kvalo@kernel.org>
+Cc: Luka Gejak <luka.gejak@linux.dev>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Alastair D'Silva <alastair@d-silva.org>,
+	stable@vger.kernel.org
+Subject: [PATCH rtw-next v8 2/4] wifi: rtw88: sdio: Track running state and cancel TX worker on stop
+Date: Thu,  5 Nov 2026 13:56:58 +1100
+Message-ID: <20261105025700.1655219-3-alastair@d-silva.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261105025700.1655219-1-alastair@d-silva.org>
+References: <20261105025700.1655219-1-alastair@d-silva.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,50 +84,136 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sh_mtu2_setup_channel() formats the per-channel interrupt name into a
-6-byte buffer:
+When rtw_sdio_stop() disables interrupts, in-flight interrupt handlers or
+delayed TX work may still run against a powered-down device.
 
-	char name[6];
-	sprintf(name, "tgi%ua", index);
+Track the operational state in rtwsdio->running with an irq_lock mutex
+(similar to PCI), check it at the entry of rtw_sdio_handle_interrupt()
+and rtw_sdio_tx_handler(), serialize state transitions in rtw_sdio_start()
+and rtw_sdio_stop() under sdio_claim_host() and irq_lock, cancel the TX
+worker synchronously in rtw_sdio_stop(), and purge any remaining frames in
+rtwsdio->tx_queue[] while waking any stopped AC queues.
 
-which only has room for a single-digit index.  gcc reports with W=1:
-
-  sh_mtu2.c:348:27: warning: '%u' directive writing between 1 and 10
-  bytes into a region of size 3 [-Wformat-overflow=]
-
-Callers pass indices below ARRAY_SIZE(sh_mtu2_channel_offsets), that is
-at most 2, so the overflow is not reachable today.  Still, the buffer
-size does not match what the format string allows, and the bound lives
-in the caller rather than in this function.
-
-Size the buffer for the widest possible unsigned int, which makes the
-sprintf() correct for any index.
-
-No functional change.
-
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/all/202501080036.LH3XAQK1-lkp@intel.com/
-
-Signed-off-by: xujiahao <xujiahao@cmss.chinamobile.com>
+Fixes: 28eaf7971a20 ("wifi: rtw88: sdio: add TX back-pressure and retry on page starvation")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
 ---
- drivers/clocksource/sh_mtu2.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/wireless/realtek/rtw88/sdio.c | 46 ++++++++++++++++++++++-
+ drivers/net/wireless/realtek/rtw88/sdio.h |  3 ++
+ 2 files changed, 47 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/clocksource/sh_mtu2.c b/drivers/clocksource/sh_mtu2.c
-index 3aca86d6a..f94167bed 100644
---- a/drivers/clocksource/sh_mtu2.c
-+++ b/drivers/clocksource/sh_mtu2.c
-@@ -339,7 +339,7 @@ static const unsigned int sh_mtu2_channel_offsets[] = {
- static int sh_mtu2_setup_channel(struct sh_mtu2_channel *ch, unsigned int index,
- 				 struct sh_mtu2_device *mtu)
+diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
+index 172aa7ad4732a..e318fefe5b5e7 100644
+--- a/drivers/net/wireless/realtek/rtw88/sdio.c
++++ b/drivers/net/wireless/realtek/rtw88/sdio.c
+@@ -941,6 +941,8 @@ static void rtw_sdio_init(struct rtw_dev *rtwdev)
  {
--	char name[6];
-+	char name[16];
- 	int irq;
- 	int ret;
+ 	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
  
++	mutex_init(&rtwsdio->irq_lock);
++
+ 	if (rtw_is_8723bs(rtwdev))
+ 		rtwsdio->irq_mask = REG_SDIO_HIMR_RX_REQUEST;
+ 	else
+@@ -1054,6 +1056,7 @@ static int rtw_sdio_8723bs_check_rqpn(struct rtw_dev *rtwdev)
+ 
+ static int rtw_sdio_start(struct rtw_dev *rtwdev)
+ {
++	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
+ 	u32 clear;
+ 
+ 	if (rtw_is_8723bs(rtwdev)) {
+@@ -1069,20 +1072,49 @@ static int rtw_sdio_start(struct rtw_dev *rtwdev)
+ 
+ 	rtw_sdio_enable_rx_aggregation(rtwdev);
+ 
++	sdio_claim_host(rtwsdio->sdio_func);
++
+ 	if (rtw_is_8723bs(rtwdev)) {
+ 		clear = rtw_read32(rtwdev, REG_SDIO_HISR) & RTW_SDIO_HISR_CLEAR_MASK;
+ 		if (clear)
+ 			rtw_write32(rtwdev, REG_SDIO_HISR, clear);
+ 	}
+ 
+-	rtw_sdio_enable_interrupt(rtwdev);
++	scoped_guard(mutex, &rtwsdio->irq_lock) {
++		rtwsdio->running = true;
++		rtw_sdio_enable_interrupt(rtwdev);
++	}
++
++	sdio_release_host(rtwsdio->sdio_func);
+ 
+ 	return 0;
+ }
+ 
+ static void rtw_sdio_stop(struct rtw_dev *rtwdev)
+ {
+-	rtw_sdio_disable_interrupt(rtwdev);
++	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
++	enum rtw_tx_queue_type queue;
++	int i;
++
++	sdio_claim_host(rtwsdio->sdio_func);
++	scoped_guard(mutex, &rtwsdio->irq_lock) {
++		rtwsdio->running = false;
++		rtw_sdio_disable_interrupt(rtwdev);
++	}
++	sdio_release_host(rtwsdio->sdio_func);
++
++	cancel_delayed_work_sync(&rtwsdio->tx_handler_data->work);
++
++	for (i = 0; i < RTK_MAX_TX_QUEUE_NUM; i++)
++		ieee80211_purge_tx_queue(rtwdev->hw, &rtwsdio->tx_queue[i]);
++
++	for (i = 0; i < IEEE80211_NUM_ACS; i++) {
++		queue = rtw_tx_ac_to_hwq(i);
++		if (rtwsdio->tx_queue_stopped[queue]) {
++			rtwsdio->tx_queue_stopped[queue] = false;
++			ieee80211_wake_queue(rtwdev->hw, i);
++		}
++	}
+ }
+ 
+ static void rtw_sdio_deep_ps_enter(struct rtw_dev *rtwdev)
+@@ -1477,6 +1509,11 @@ static void rtw_sdio_handle_interrupt(struct sdio_func *sdio_func)
+ 	rtwdev = hw->priv;
+ 	rtwsdio = (struct rtw_sdio *)rtwdev->priv;
+ 
++	scoped_guard(mutex, &rtwsdio->irq_lock) {
++		if (!rtwsdio->running)
++			return;
++	}
++
+ 	rtwsdio->irq_thread = current;
+ 
+ 	hisr = rtw_read32(rtwdev, REG_SDIO_HISR);
+@@ -1710,6 +1747,11 @@ static void rtw_sdio_tx_handler(struct work_struct *work)
+ 	rtwdev = work_data->rtwdev;
+ 	rtwsdio = (struct rtw_sdio *)rtwdev->priv;
+ 
++	scoped_guard(mutex, &rtwsdio->irq_lock) {
++		if (!rtwsdio->running)
++			return;
++	}
++
+ 	if (!rtw_fw_feature_check(&rtwdev->fw, FW_FEATURE_TX_WAKE))
+ 		rtw_sdio_deep_ps_leave(rtwdev);
+ 
+diff --git a/drivers/net/wireless/realtek/rtw88/sdio.h b/drivers/net/wireless/realtek/rtw88/sdio.h
+index 6e7e6009744b0..64266b54f595d 100644
+--- a/drivers/net/wireless/realtek/rtw88/sdio.h
++++ b/drivers/net/wireless/realtek/rtw88/sdio.h
+@@ -168,6 +168,9 @@ struct rtw_sdio {
+ 	bool sdio3_bus_mode;
+ 
+ 	void *irq_thread;
++	bool running;
++	/* protect running state and enabling interrupts */
++	struct mutex irq_lock;
+ 
+ 	struct workqueue_struct *txwq;
+ 	struct rtw_sdio_work_data *tx_handler_data;
 -- 
-2.43.0
-
-
+2.53.0
 
