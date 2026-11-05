@@ -1,57 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793853884;
-	b=qW81mGfRCO6xUsqlOqUYaLyv6OkK9ks25tPTiRqAqnP+ZXNBjU+VHUdbh2RNQtz8qhY1
-	 WCS01gvMDvIm3I0xyNWBlpFq6tCYaTahum6fG7zP3ohD9Nufe1aGo1CTI+pjBUyNR+PhU
-	 2bNut6EAwVurDqhDPxzmZPH8qJvdV173V79VCsZVp/k9TmFoWtEtKW1dQOU+Y743ZOQEh
-	 VT5lNTi4PwbjipuoyW591w/Bd26WKX0mEfWsfHxSVXKje32rayVzLI/lqnaIDFHpjLV5x
-	 nVUpwYisaJeyaabV2N2UiZllweS5H2y0RY++c7i1e1pXE14eS1cNoO6vEJFNHtWpxnA==
+	t=1793853936;
+	b=hPDjmVEAsfHSvgV/DnBDV1RWqUVCFuP2PRb2OUA3uh8JDH3/keySpglYesswRuk112wa
+	 UcsofVKKJtD+/9AxPwIDqFlmwyROn66G1+PVv6rJ0L07dIK6A8jhwFu8p1scqShn1HvBv
+	 jv9oIhCt25Jrgv/BGDoGL7ddPhCHi771eS7HL4/htMLIFPSh5GKxL54m9VOE8BBPUjJD9
+	 xIuazYfGkUPuU+Ip6NAfs/Fl6wxNASarFItY2X3ikr5o3OC3Zx/9WRvv275TDzn1aHpbh
+	 UyB6omGzeOpve+njRy1c+XYb/pN1VgfvHOx+sqe37WvP+Hm2xBTDVjxIcq4SU529g/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793853884;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=0E1yY97q/pydVP7NezmXD+YUjsSoHVSYEsMffIc/xZM=;
-	b=CMTL0TJg75Ho9YW06RYkNnSzK9M2DeCWrxfwht76i+Tz5x7ORaM8JfdYjIk9Y5XD0YGr
-	 WqnyovMjoJQnGk0gVNwr/eoEV2BRVqAo/P0WZ2O1tg6r0djBoJsyp9gJs3IzoZxggVc/A
-	 CEFfryvwkVuUEFzZnuSgUc0/OxrOXa98Agvmf64GcPaciuWYKiVbuJTk5U03MasPileN5
-	 +YcfBTfR8f0A4uJAf/buVmTzwBm1Lsd9qoV3OjupzAJbVwHpuL47mwHET7yt9R9duW0lu
-	 RVOnAiw0o9g9xPo2JH/sQkOfIDrHz5+KEfRrifh8ZFQY0Jvd84IQQ+2VZ3InR/5oc+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793853936;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=LC8E1JU+xlKJH/C7dKOwhVxP2QcBytjIO6k3NitYgsI=;
+	b=unjXvs3DP2qL4Pcal/hxani+p3b/WhzwwRDEn+xSDerZEz4MmwI93qyy4JOBabSAoBDS
+	 wL5jJRyN+dRxP4ohMbQYrm2kUogN/6rj/Wx6FKCO8SAbK6qjANlBHm92pyNJTsCuofcqd
+	 XmtRXBAu/Pen/JwGm4HYsVVGF6lPV5wR53fN49uVaIngn2SLaqM/lQ9yJl2SCKRHj3khb
+	 Gelg+IVC7JLs2t4YJ+K2Z5A0XBTmYYhmolAj/32eW4Lb2HCTfE6LBM+Ddy+xhJBoAT8rL
+	 N2eBhTF2OsLoqe54LD8EZujRPkbGskXn87meCis+9pd/8UICtM3l7IGs6GD9clCgEMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SLA7DNSp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=telaak.dev;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.210.169
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2550606A333;
-	Thu,  5 Nov 2026 04:44:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SLA7DNSp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A9CA1F0093A;
-	Thu,  5 Nov 2026 04:44:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793853883;
-	bh=0E1yY97q/pydVP7NezmXD+YUjsSoHVSYEsMffIc/xZM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SLA7DNSpQtaLkg6G/4UXy4ihZNO1i84EybNVBIO3rvMBbbx2XTwHwflUN49ZgIUbr
-	 13GwnTmSTD1yn7U7qDg8NUULnqTJ+MrtyqyA7X8HZlWE+SwhH6wIpNu52uQ9A9W/N0
-	 AYp/XrQ9Ndza/H2F85YWVoKYRGCYa+5ttpniRmJGUHDBkfqTHBmKWFN93PyW1Acphq
-	 o9WmgspkQeFKzF4SkWdTf0BXQkPk9nT0hXQECwRB17qCGTH6TwqIlDC5eSqU2Zgqfe
-	 UmYO+cYSIZ63iIcdFtgy1g08ypYEB8L2pQ+2Ol1SmwSit3qMriKafdTB49d3IzPO1H
-	 WS/zywksWuT5w==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH v2 1/4] mm/damon/core: add DAMOS_FILTER_TYPE_AGE_MS
-Date: Wed,  4 Nov 2026 20:44:21 -0800
-Message-ID: <20261105044425.87142-2-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261105044425.87142-1-sj@kernel.org>
-References: <20261105044425.87142-1-sj@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90CA0606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:45:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90CA0606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8a05f2d5cd3so702654b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 20:45:36 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793853936; x=1794458736;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LC8E1JU+xlKJH/C7dKOwhVxP2QcBytjIO6k3NitYgsI=;
+        b=1dSJN+pbgWwJv5FEgabKcs/9deccb8sQuuiCJB1QsYPehJOk9mrsG9Cp7zc8XsNfDU
+         OD4q947RMYxGefTh3BHvPFb4cd2sD4UqXqcXgNYsvE0pIdW6nvDUfjGM7L+DIbXw6OAQ
+         7i2NKG4ZOI09TwtPGfZ4hGsX6C5ZK6xgmEHG+ETg7lDzqWVeHB1rjOZyoH38/BZ4qQAE
+         Bkeyn2W4HwNyxeZz64Qvkx+s/JQpjmgxpiQ9WdtyY5RcoL2Fc5z4C5adiFFenU+pLING
+         3t5VLowb7SzjXDAyufl0kTAyoJVLZ2xPe9CjGc7Ovo9fFltZEfiwDf8ljRdB6fNre6XE
+         uEcg==
+X-Forwarded-Encrypted: i=1; AKwUvBws1TbKztvlmlmQZ2i+rGdNN4r/mzGgMGmY6Fe9p+ATY+sAzfY4DYUkLRRXn8iTxDX70cg+dpv2Vmn98kc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8QkVM8RHY9IpRlFqO7Vo12IYRPBGlRJ4vgXDd4TCdM6qTVgFEZ
+	sfBqlTlBtsr9EFqp710Uy8+S5BeYWQ4NM/i0++/F9AFQ55m4wz6XG1+g4u83QfKL
+X-Gm-Gg: AYBFou0fD9HVPRXMuK+hvDD/wTy+gwSgaUWgo4BqsDPGknVhHLEhcWcV2wJc7MASKqZ
+	ikB/PgV6KaNT1fBfseg4e1AzhZpkVDJ87hymmJH4VPpIuQnnft8ARjeeXqff/P+zxpnIkTQoqJ1
+	eNpoQM5NaVUyWlAOSh9WSTL+Gcq6VkPoMRJU6hAd37Z3waOxeP/elc+vZaIH82344fqBzMEEMKI
+	JcDt9hnh1ntS9b9M+/Ysdv9Q7gq+JBYztqoa1Qfd+MYdWzCkJD4kZZmFxy/om4j2ZfBqe0JtNHZ
+	mBBFm2hGS5eob7Yn1B1AOxm6yoL30vKhcM1v+hf9TUtp1vadladTkE7TmDVxyLXSXrv3L2g36EB
+	c+m0wM3yQdHiI1yA0jdEssGZwfxqIgLpUThu6GRW+hoWvlkJ4GPlsk/YAcRoCg0JN4B4HxyshFp
+	VDlBW/mQRWm5mShgVMwj1zhzc2ql93qUN0tlH6o2TW0NKSjTHa7r5UKtF0cV3vHI7gpmgcBe6rf
+	E/qjCa7hEqBYh3V8eHxp+c6fgnmzHEApSwEEQq4Fejysvid6KRI8h0KDgpLLPi7YRPBkW/3PS09
+	gZpXH1+FHlnlwUYyYSi+CfE+huzN1vAirmN6WYAkimbumk6EpKTgjFMAYlNv5sx0w5s96K2e88O
+	H05QHVLTLSgKclBuKyB6ar+ArfMLW9HBYNUXKg5xFtRc=
+X-Received: by 2002:a05:6a20:1f28:b0:3e2:3392:5408 with SMTP id adf61e73a8af0-3e928ff2900mr15054503637.79.1793853935832;
+        Wed, 04 Nov 2026 20:45:35 -0800 (PST)
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com. [74.125.82.173])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb469b1f96sm1686436a12.30.2026.11.04.20.45.34
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 20:45:34 -0800 (PST)
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-35b2c599f43so1159619eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 20:45:34 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvByYpJWP+XUPvZKTLf0BC+9MldsN7BUSvbczZ6yhSmAEneNKU4a/vJNb58MCvGfpXIc3fCnguZntbk1tJ5k=@vger.kernel.org
+X-Received: by 2002:a05:7301:488e:b0:35d:d671:933a with SMTP id
+ 5a478bee46e88-36a423a2dbdmr26720849eec.15.1793853934050; Wed, 04 Nov 2026
+ 20:45:34 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,100 +81,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261104-sf19a2890-pinctrl-v1-0-4bb83afdbacf@telaak.dev>
+ <20261104-sf19a2890-pinctrl-v1-2-4bb83afdbacf@telaak.dev> <20261104-geiger-handler-f6688647819c@spud>
+ <CAPY4CJ5pBrypa1PKaKRPxb9uvaJBor+FzUXY0+gxLHOUy7W-Ow@mail.gmail.com> <20261105-cilantro-neglector-a4cdaf9bfb2d@spud>
+In-Reply-To: <20261105-cilantro-neglector-a4cdaf9bfb2d@spud>
+From: Joseph Telaak <joseph@telaak.dev>
+Date: Wed, 4 Nov 2026 23:45:22 -0500
+X-Gmail-Original-Message-ID: <CAPY4CJ6wP=NUM-vC6vadWk2sgsKV7HHBGzmX59SW_nWFcN6jsg@mail.gmail.com>
+X-Gm-Features: AclHuK8dw6v-9VJE5UUbXK2KpxAN1TMyhZVbSc6sgeM46dW7QyrpEt_39Ek2lZA
+Message-ID: <CAPY4CJ6wP=NUM-vC6vadWk2sgsKV7HHBGzmX59SW_nWFcN6jsg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] pinctrl: Add Siflower SF19A2890 pin controller driver
+To: Conor Dooley <conor@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Chuanhong Guo <gch981213@gmail.com>, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-There is no way to specify DAMOS target regions with a deterministic
-time based age range.  Extend DAMOS core filter to specify target
-regions with age in milliseconds.  Introduce new damos_filter_type,
-DAMOS_FILTER_TYPE_AGE_MS in DAMON API, and implement support of the type
-in the core layer.
+> huh, I totally forgot about that. I guess you don't have to do this if
+> you don't want to so. I think all the generic stuff expects pins to be
+> numeric.
 
-Convert the age in aggregation intervals to milliseconds and use it when
-the filter is evaluated.  Reuse damos_filter->range_{min,max} to save
-the age range.
-
-Signed-off-by: SJ Park <sj@kernel.org>
----
- include/linux/damon.h | 16 ++++++++++------
- mm/damon/core.c       | 10 +++++++++-
- 2 files changed, 19 insertions(+), 7 deletions(-)
-
-diff --git a/include/linux/damon.h b/include/linux/damon.h
-index 380f9cf6ddd82..1302ffb6f0bcb 100644
---- a/include/linux/damon.h
-+++ b/include/linux/damon.h
-@@ -394,13 +394,16 @@ struct damos_stat {
-  * @DAMOS_FILTER_TYPE_ADDR:	Address range.
-  * @DAMOS_FILTER_TYPE_TARGET:	Data Access Monitoring target.
-  * @DAMOS_FILTER_TYPE_PROBE_HITS_WSUM:	probe_hits weighted sum range.
-+ * @DAMOS_FILTER_TYPE_AGE_MS:	Region age range in milliseconds.
-  *
-- * All types except &DAMOS_FILTER_TYPE_ADDR, &DAMOS_FILTER_TYPE_TARGET and
-- * &DAMOS_FILTER_TYPE_PROBE_HITS_WSUM are handled by the underlying &struct
-- * damon_operations as a part of scheme action trying, and therefore accounted
-- * as 'tried'.  In contrast, &DAMOS_FILTER_TYPE_ADDR, &DAMOS_FILTER_TYPE_TARGET
-- * and &DAMOS_FILTER_TYPE_PROBE_HITS_WSUM filters are handled by the core layer
-- * before trying of the action, and therefore not accounted as 'tried'.
-+ * All types except &DAMOS_FILTER_TYPE_ADDR, &DAMOS_FILTER_TYPE_TARGET,
-+ * &DAMOS_FILTER_TYPE_PROBE_HITS_WSUM and &DAMOS_FILTER_TYPE_AGE_MS are handled
-+ * by the underlying &struct damon_operations as a part of scheme action
-+ * trying, and therefore accounted as 'tried'.  In contrast,
-+ * &DAMOS_FILTER_TYPE_ADDR, &DAMOS_FILTER_TYPE_TARGET,
-+ * &DAMOS_FILTER_TYPE_PROBE_HITS_WSUM and &DAMOS_FILTER_TYPE_AGE_MS filters are
-+ * handled by the core layer before trying of the action, and therefore not
-+ * accounted as 'tried'.
-  *
-  * Support for the operations-handled filters depends on the running
-  * &struct damon_operations.
-@@ -415,6 +418,7 @@ enum damos_filter_type {
- 	DAMOS_FILTER_TYPE_ADDR,
- 	DAMOS_FILTER_TYPE_TARGET,
- 	DAMOS_FILTER_TYPE_PROBE_HITS_WSUM,
-+	DAMOS_FILTER_TYPE_AGE_MS,
- };
- 
- /**
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index d36823f4d0928..0a056949604f9 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -659,6 +659,7 @@ bool damos_filter_for_ops(enum damos_filter_type type)
- 	case DAMOS_FILTER_TYPE_ADDR:
- 	case DAMOS_FILTER_TYPE_TARGET:
- 	case DAMOS_FILTER_TYPE_PROBE_HITS_WSUM:
-+	case DAMOS_FILTER_TYPE_AGE_MS:
- 		return false;
- 	default:
- 		break;
-@@ -1336,6 +1337,7 @@ static int damos_commit_filter_arg(
- 		dst->sz_range = src->sz_range;
- 		break;
- 	case DAMOS_FILTER_TYPE_PROBE_HITS_WSUM:
-+	case DAMOS_FILTER_TYPE_AGE_MS:
- 		if (src->range_max < src->range_min)
- 			return -EINVAL;
- 		dst->range_min = src->range_min;
-@@ -2552,7 +2554,7 @@ static bool damos_filter_match(struct damon_ctx *ctx, struct damon_target *t,
- 	bool matched = false;
- 	struct damon_target *ti;
- 	int target_idx = 0;
--	unsigned long start, end, wsum;
-+	unsigned long start, end, wsum, age_ms;
- 
- 	*err = 0;
- 	switch (filter->type) {
-@@ -2594,6 +2596,12 @@ static bool damos_filter_match(struct damon_ctx *ctx, struct damon_target *t,
- 		matched = filter->range_min <= wsum &&
- 			wsum <= filter->range_max;
- 		break;
-+	case DAMOS_FILTER_TYPE_AGE_MS:
-+		age_ms = div_u64((u64)r->age * ctx->attrs.aggr_interval,
-+				USEC_PER_MSEC);
-+		matched = filter->range_min <= age_ms &&
-+			age_ms <= filter->range_max;
-+		break;
- 	default:
- 		return false;
- 	}
--- 
-2.47.3
+Thanks. Then v2 will keep the pin names, with the driver's per-pin
+groups and pinconf_generic_dt_node_to_map_all(), so the binding can keep
+checking the names against its enum.
