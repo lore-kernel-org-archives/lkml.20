@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793897079;
-	b=2VKYAWZZqd9cq5chojAPxMeI3tPb5hePbDVpXcswQBUV7BvwFJFe73dJLOGoFMx2AzfI
-	 vgJ/2cSdG9w/JXcoZfv3jt4WE/NUI/tnQYi3eyM9NdZ0RtCQuNVQGbs4WG/leVwVTOHNi
-	 a8HKPYk572FVslP3XXfL3m0VH5JslKrbO1raxCySsfd0JDX15i9ml9Yizuug4suhsqbJm
-	 advwSpbldX3cHbPKqImOHZrsj5Y+QPxP+cpo3xIZ3A6B17QpJumNMrijJID4KFYdICYPt
-	 /ifs2+IHr8C6PAJBhrgXfs8w3suSzWZCGkkwb5iN7KWO/v4LgWXABwtyjASKFlsqorg==
+	t=1793897083;
+	b=ygF+R5Sh0DHHUA2f29AYGONcNIXjFLdyGCNjh8W/+iSvjVcPaTZNB4IcKcEF8w3wWUGz
+	 1VWAZ9UnwEGkterJ3WY5AFRIec3zGoUpuX4lMZ/SUThSPdgdqh6mQ1P1cj0i4cmh20bGa
+	 7y140XM8OG3YAtSuxLSl3DwDKJvKWmzw1bHuZfmzfpjSrQFUGhAxiyl3gBK/4yuBDI9w9
+	 AKJ/2JjwC87IKlipKF3aY4hdD8cxztJ3nz5RaTJDzuZlvQrAWG8YCWe5RVe6Zz9im2GZV
+	 oerCKjtTBWFBtdvPUxNU03pTqBYoUQ92PnUT4hjnFrpjkG5My4eIEGoaKLLlxbyhUCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793897079;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793897083;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=GbC7Iece9zSoootC12B+Bn/H8PC2Rlg/VwOOVmaQcoU=;
-	b=M9/q/ACkOvIuearNalVc9fgBjQ2WwFn3a2nv/vKducYrlPe/Oa4JnLquUIDp1DR2Sg/B
-	 3FSjHi2BE8DjBfwq/O9k4f2pbCPRTlwBnLMvgJYPn8LjaIkVYlVRksYxYuSLNftuWIcj+
-	 bG4YEcB0vy8HZi5G0TjvH8P0IO32LJqdsqzdIj40ET3aQDCbtnF61NyXhmNaUtalDHjBq
-	 siIJ3k6NCKBkXB6xv/mgKw07034Nek/MZmmDrBk4uWWz98hoQBPsM3G1WBNStnGQYjvsA
-	 XM1s7dKppTAHnPrKe5b26DtDkNVvGQ5ux7XIUvGxJiQcavOooEEMMSTuW58dEfrkgrA==
+	bh=XohLG2vlrwcZbdk84T6CfLVsYeaIvoZonzxJtwkSasw=;
+	b=IprfJd3bsIDa0g+YfvCgTOhLGjEcexaNmSomh1xSuzRkJ3dZJHLTIeioWtdX+vTr3Fnp
+	 pkbYG7XUswWS2a1IHnpBromF2t1Asyft4SiunqQWd23Wh9VwD8lfJTMiMEGMGkjppCHGw
+	 OkjQ5g60q3EbonahVdvrF9Wvo19Ob2k6zfokS09IBFN1squvnOoh8Av6VIaTN4Opxier5
+	 8OZWD4I0OXEFF0si1W+aGwUCBSJaJW0QgFU1LvvjmZuiVsFI5ghR9iYmSg1o+SzyDwcSk
+	 zdm/aa2GNn4r0FJDEBIWYJEOx9wcPDlqigAKIJkEOz6MFOO2A9jSSjvaHW7jVt9Cnig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cKMbUO4f;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=asPe9Ppa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB68F606A332
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:44:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 972FE606A331
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:44:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cKMbUO4f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47AEB1F000C1;
-	Thu,  5 Nov 2026 16:44:33 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=asPe9Ppa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B8F01F0093A;
+	Thu,  5 Nov 2026 16:44:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793897078;
-	bh=GbC7Iece9zSoootC12B+Bn/H8PC2Rlg/VwOOVmaQcoU=;
+	s=k20260515; t=1793897082;
+	bh=XohLG2vlrwcZbdk84T6CfLVsYeaIvoZonzxJtwkSasw=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=cKMbUO4f9Wuq5g5XaQZqMv0rXtM1jLCI7bMERYW/Gw1QgMaf5F0KUlXy2oGF5XwK0
-	 +obMDs9xtkJgHuS9Ws1Sa43UQxHiDkKxPfOdvwmT6VxVo/o7akRSpYD090dStm/Vax
-	 A1zdWtGTgFQ6jzWzfvRtWExGfuho4kgrS3tHG5p3XUQe/B+lL1xGfQMmI7V+oonWhs
-	 ruGng9XXuxpL6dE8ulWap6uKniAG2mC257uQaRlgFGOpc9088QIPLIkOwccxCwExOK
-	 8MV9URA5ooJ2ejdKYElX+Ga29bfPDTB2sOmKT3CTEfE8tT8SUB0do5lcbvGH3wqfce
-	 /414hbS4bn+/w==
-Message-ID: <96a53088-e131-4bca-bf9c-f1b0746b0745@kernel.org>
-Date: Thu, 5 Nov 2026 17:44:31 +0100
+	b=asPe9Ppa+AfZ96eH/o3U178BdncMg0ceOu+/kPp7MyK3GWaxc7DNJBiO9pfJYN0HL
+	 40W1fnXtKORZF+eNB/qDZcQUarNTtX8N6QSm3oH7CcECTPtJHlE4DnW+DzdByHd95X
+	 0IKIjWnnaxZlDa7iwkDORnkx+gCQ/4AWl+3wP6sD0tFwWbp/7zG6dvITKln6kevTFb
+	 koH5eevYdx0Vk4SZqxORj/dcRhRurT5uQxzUYODh5hfCnhapi5ruYFgRyWNzUOeAh7
+	 V3FeZwRvE9J7UJD1X3jShjgOKBXuEAKYINp+pmpvo/Gr2/8hYy7JT3hiyeasARRpcW
+	 hBTOCjxqU7Jtg==
+Message-ID: <f2450305-4e90-4b8b-9c5a-44d4495fe774@kernel.org>
+Date: Thu, 5 Nov 2026 17:44:38 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,7 +52,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] ARM: configs: multi_v5: Enable the TEO cpuidle
+Subject: Re: [PATCH v2 2/2] ARM: configs: multi_v7: Enable the TEO cpuidle
  governor
 To: Linus Walleij <linusw@kernel.org>, Russell King <linux@armlinux.org.uk>,
  "Rafael J. Wysocki" <rafael@kernel.org>,
@@ -63,7 +63,7 @@ To: Linus Walleij <linusw@kernel.org>, Russell King <linux@armlinux.org.uk>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>
 Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 References: <20261105-multi-timers-cpufreq-cpuidle-v2-0-2df7a17f4835@kernel.org>
- <20261105-multi-timers-cpufreq-cpuidle-v2-1-2df7a17f4835@kernel.org>
+ <20261105-multi-timers-cpufreq-cpuidle-v2-2-2df7a17f4835@kernel.org>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -109,7 +109,7 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261105-multi-timers-cpufreq-cpuidle-v2-1-2df7a17f4835@kernel.org>
+In-Reply-To: <20261105-multi-timers-cpufreq-cpuidle-v2-2-2df7a17f4835@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
@@ -121,14 +121,12 @@ On 05/11/2026 13:10, Linus Walleij wrote:
 > and for the multi-platform configs that enable tickless idle, this
 > should be the default governor.
 > 
-> multi_v5_defconfig already enables CPU_IDLE and NO_HZ_IDLE. Selecting
+> multi_v7_defconfig already enables CPU_IDLE and NO_HZ_IDLE. Selecting
 > CPU_IDLE_GOV_TEO suppresses Kconfig's automatic menu selection, making
 > TEO the default governor for this tickless configuration.
 > 
 > Signed-off-by: Linus Walleij <linusw@kernel.org>
-> ---
->  arch/arm/configs/multi_v5_defconfig | 1 +
->  1 file changed, 1 insertion(+)
+
 
 Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
 
