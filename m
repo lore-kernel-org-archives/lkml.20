@@ -1,66 +1,46 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.227
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.119
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793849937;
-	b=NU2vyqGhkcg5wE8/ApfuHtGZXCC3kuSigHwBH0BE6NlQ9Enea6cUqNWx4NLxDp+PJSNI
-	 kKFgsFMIk+RyvE+3pEAIX9Py37IvJrMnjttRQiXdeO9iOQhqQE/mTfus3ie65yQt41yCy
-	 8Um57cTANtyxkC43Kz9hrZm3nHzvDzKxjFBXqvNxS3wkKyUHZT33F1VXGzz51ErxumX7t
-	 NU3XxHKJObZINdGDWDmbp3hl+MywBqGseiG0tuhMOM1esXWIVKT8LxhLzABgv2HtxWPG2
-	 uFKzK/sh6Ko01MTOXAI4EAJjUuTyYIxZSV91whoXjQyDAFF0L5ZL66rKD37av0ovFPw==
+	t=1793850225;
+	b=MofcxFJQ8ofUSNIWc93rKZ8VuoB8rQs8zsruLTVvwt2p7H5eyeR4UAPr+WV6p/ssqVUA
+	 CA6AW22WgW9S9kZ3dKI6QFeUsWxT2+/0Ja12XapjhmE6uQhZsmdLBmwuHdwT4bPOKkQZf
+	 EVCXlsYrWE8844s86t97U1LqiIgyEl6ryv43C0rcIsVwomowJ1MYyZdMHGOLpu3V164bT
+	 qInQN/1gYV/KJRkhxwg+eaB8ajSjqr2oY6rjy5o/IJj8kwERTqGtUMbfZmlzsArAyeTfx
+	 a43rNd4htudeOX5gr1LaY66ejKeGBeulhS4ZGtA2ls4TyKk1tfaSJ9Y3UVpjLfzZ/vA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793849937;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Subject:To:CC:
-	 References:From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=0bmoyUkzdtIPwctA0XmmG4w/kO0aW9Vg8ocvhD7GQlc=;
-	b=uGr+wr2UE2QsdQ9byApDsoqXl7zAvV4mOKC+eZl5gyjy9B1eHwvw1bdfKwai3uyfbrsL
-	 rA45AHNZM59GgPTm1VTpxvJi/N0kh0D4W7sLIpRBi7z/DXgRuEsIo/EjirEI6i9Pd5b7e
-	 EnWlxSYdYQjRg0lStvG75DykrPI3eIDgfdU9SQ63+zD40j1ZrRu/Y64Nn3aUaDs7SjM5m
-	 uMxWVzX5JzqvEymgPOHKnwCddRLnfinxqPY04wgRcVQcyIHSrJQSrT/PF3Wf1lMf6rFD5
-	 tpnnREvm32b2zYknPPcxdzVvvCr7BsdboKD6aEhsKyrDUnYoF9DJq7fypMyEMrTR8Jg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793850225;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=VPL6FGJI6mYbfWVdagRDwQTQgREcZN8JpaFK/cgIs8Y=;
+	b=1aReeW8dRjkVkXcrwDwSKpNwR4MweNc4pIVWUXKZMyT7Ilet13V2Z55H4UoEG4t9fmjU
+	 saDn4H3QLJelql5wJ+QwcxL47uSBSyOGZs7rUpcY/+0i3ojfnPSYSXNXr53ljpMUilp3S
+	 H1u0eYItTi/Fbao/9hcEtKVBdxeb6/HkHmbYkk2/aQC1eAtQiNPvs+AwoO9/ef3Zb0mZ4
+	 6zF9+V3OdbiSJlU670fokiBr3VTWBrUn8kGU1u/0P+38jW7gJWAI82I6/spPAsXu1Y6wq
+	 2hTzidyOu6d3Vu+pFK8BPRjABudwyHLqVKVt0SXC99zl4N7zE+PQjpW4cqNm2QlknCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=1Jcw5Wpz;
-	arc=none smtp.remote-ip=113.46.200.227
-Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	arc=none smtp.remote-ip=115.124.30.119
+Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A566606A31B;
-	Thu,  5 Nov 2026 03:38:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A566606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=1Jcw5Wpz
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=0bmoyUkzdtIPwctA0XmmG4w/kO0aW9Vg8ocvhD7GQlc=;
-	b=1Jcw5Wpz9oyiDJnwHAnO6nFeSGMqx7+lZec58dnCFBOwO03z6VN/b/BceRX9zohVd3zL43jty
-	lKXNUK5pvOr56UghyjTTBUYe3a6frRI6L9LD5rzdCJGRZ+9ue6Q3NdmNiwBL7k8Z1agGDhpAimm
-	JmlA+VLVSRDPJ63aF/9v5Wg=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4jKp246SDSznTVh;
-	Thu,  5 Nov 2026 11:38:52 +0800 (CST)
-Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
-	by mail.maildlp.com (Postfix) with ESMTPS id 4D13540578;
-	Thu,  5 Nov 2026 11:38:51 +0800 (CST)
-Received: from [10.174.178.46] (10.174.178.46) by
- whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 5 Nov 2026 11:38:50 +0800
-Subject: Re: [PATCH] ubifs: account for short copies in ubifs_write_end
-To: Hungyu Lin <dennylin0707@gmail.com>, <richard@nod.at>
-CC: <lin.nan@h3c.com>, <linux-mtd@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-References: <20261104191132.89515-1-dennylin0707@gmail.com>
-From: Zhihao Cheng <chengzhihao1@huawei.com>
-Message-ID: <fb5c1cc4-d974-73ae-3b61-c0dc1363305a@huawei.com>
-Date: Thu, 5 Nov 2026 11:38:49 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F923606A31B;
+	Thu,  5 Nov 2026 03:43:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F923606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793850209; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=VPL6FGJI6mYbfWVdagRDwQTQgREcZN8JpaFK/cgIs8Y=;
+	b=df7ctmeMETF2xxJwENMAiPw5tB/yyYrAVCP9Ji9c/Agd9scTxdOcVj2cILeacTPjQ68gD4yEHtiCiDxFR/C1UjO9Nj6uhsYO8P3rnc+2SkTZn8BBKH8Qy8wKs5FijRqp9tpIy377D2X9GWps7SuCH0Chdn4NTV4kCewHhVkv5Xc=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R771e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=64;SR=0;TI=SMTPD_---0XE7Nmrn_1793850203;
+Received: from 30.74.144.136(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XE7Nmrn_1793850203 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 05 Nov 2026 11:43:26 +0800
+Message-ID: <d0f78f0f-c883-4919-a416-fe738eb7323a@linux.alibaba.com>
+Date: Thu, 5 Nov 2026 11:43:22 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,88 +50,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <20261104191132.89515-1-dennylin0707@gmail.com>
-Content-Type: text/plain; charset="gbk"; format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 18/47] mm/khugepaged: check if PTE table is empty in
+ try_collapse_pte_mapped_thp()
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Kees Cook <kees@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org,
+ Muhammad Usama Anjum <usama.anjum@arm.com>
+References: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
+ <20261031-fixes_core-v3-18-d6437171ecc3@kernel.org>
+ <62268831-f6f3-4666-a32f-a77546b95432@linux.alibaba.com>
+ <979fb046-32dc-4af8-b6a3-177c78f1e557@kernel.org>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <979fb046-32dc-4af8-b6a3-177c78f1e557@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- whupemo200011.china.huawei.com (7.152.185.179)
 
-�� 2026/11/5 3:11, Hungyu Lin д��:
-> ubifs_write_end() updates i_size and ui_size to pos + len even when
-> fewer bytes were copied. A one-byte write at EOF from an unreadable
-> buffer can fail with EFAULT while extending the file by one byte.
-> Partial writes can also extend the file past the last byte copied.
-> 
-> Use pos + copied for size updates and cancel the budget when no data
-> was copied. Keep the appending decision based on the requested length
-> to match the inode budgeting and ui_mutex locking in ubifs_write_begin().
-> If a short copy ends within the old size, release any unused inode budget
-> without reducing the size, and still unlock ui_mutex.
-> 
-> Fixes: 1e51764a3c2a ("UBIFS: add new flash file system")
-> Link: https://lore.kernel.org/linux-mtd/20261027061226.3506517-1-lin.nan@h3c.com/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-> ---
->   fs/ubifs/file.c | 29 +++++++++++++++++++----------
->   1 file changed, 19 insertions(+), 10 deletions(-)
-Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
-> 
-> diff --git a/fs/ubifs/file.c b/fs/ubifs/file.c
-> index 99dd52715ee..8ebd3f4cddf 100644
-> --- a/fs/ubifs/file.c
-> +++ b/fs/ubifs/file.c
-> @@ -523,8 +523,8 @@ static int ubifs_write_end(const struct kiocb *iocb,
->   	struct inode *inode = mapping->host;
->   	struct ubifs_inode *ui = ubifs_inode(inode);
->   	struct ubifs_info *c = inode->i_sb->s_fs_info;
-> -	loff_t end_pos = pos + len;
-> -	int appending = !!(end_pos > inode->i_size);
-> +	loff_t end_pos = pos + copied;
-> +	int appending = !!(pos + len > inode->i_size);
->   
->   	dbg_gen("ino %llu, pos %llu, pg %lu, len %u, copied %d, i_size %lld",
->   		inode->i_ino, pos, folio->index, len, copied, inode->i_size);
-> @@ -552,6 +552,11 @@ static int ubifs_write_end(const struct kiocb *iocb,
->   		goto out;
->   	}
->   
-> +	if (unlikely(!copied)) {
-> +		cancel_budget(c, folio, ui, appending);
-> +		goto out;
-> +	}
-> +
->   	if (len == folio_size(folio))
->   		folio_mark_uptodate(folio);
->   
-> @@ -562,14 +567,18 @@ static int ubifs_write_end(const struct kiocb *iocb,
->   	}
->   
->   	if (appending) {
-> -		i_size_write(inode, end_pos);
-> -		ui->ui_size = end_pos;
-> -		/*
-> -		 * We do not set @I_DIRTY_PAGES (which means that
-> -		 * the inode has dirty pages), this was done in
-> -		 * filemap_dirty_folio().
-> -		 */
-> -		__mark_inode_dirty(inode, I_DIRTY_DATASYNC);
-> +		if (end_pos > inode->i_size) {
-> +			i_size_write(inode, end_pos);
-> +			ui->ui_size = end_pos;
-> +			/*
-> +			 * We do not set @I_DIRTY_PAGES (which means that
-> +			 * the inode has dirty pages), this was done in
-> +			 * filemap_dirty_folio().
-> +			 */
-> +			__mark_inode_dirty(inode, I_DIRTY_DATASYNC);
-> +		} else if (!ui->dirty) {
-> +			ubifs_release_dirty_inode_budget(c, ui);
-> +		}
->   		ubifs_assert(c, mutex_is_locked(&ui->ui_mutex));
->   		mutex_unlock(&ui->ui_mutex);
->   	}
-> 
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> 
 
+
+On 11/4/26 5:13 PM, David Hildenbrand (Arm) wrote:
+> On 11/2/26 09:20, Baolin Wang wrote:
+>>
+>>
+>> On 10/31/26 5:39 PM, David Hildenbrand (Arm) wrote:
+>>> The existing code is rather horrible and already resulted in bugs in the
+>>> past: we special-case UFFD inserting anonymous folios by grabbing the PMD
+>>> lock early, but ignore any other markers (guard, poison through uffd) that
+>>> could have been inserted into the page table in the meantime, effectively
+>>> dropping them.
+>>>
+>>> Let's just unify and simplify the locking: try to grab the PMD table
+>>> lock and if that fails, flush the TLB, drop the PTE lock, take PT locks in
+>>> the right order and check if the page table is still empty.
+>>>
+>>> We still perform the heavy lifting (zapping the folio ptes) under PTE table
+>>> lock only.
+>>>
+>>> Include <linux/hugetlb.h> for now, as x86's flush_tlb_range() macro
+>>> depends on hugetlb helpers. This dependency needs a separate cleanup.
+>>>
+>>> Both issues this fixes are rather corner cases. Let's not CC stable for
+>>> now.
+>>>
+>>> Fixes: f807123d578d ("mm: allow guard regions in file-backed and read-only
+>>> mappings")
+>>> Fixes: 1043173eb5eb ("mm/khugepaged: collapse_pte_mapped_thp() with
+>>> mmap_read_lock()")
+>>> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+>>> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+>>> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+>>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>>> ---
+>>>    mm/khugepaged.c | 64 ++++++++++++++++++++++++++++-----------------------------
+>>>    1 file changed, 31 insertions(+), 33 deletions(-)
+>>>
+>>> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+>>> index ce794d9760a87..ad07c8caa3bd9 100644
+>>> --- a/mm/khugepaged.c
+>>> +++ b/mm/khugepaged.c
+>>> @@ -10,6 +10,7 @@
+>>>    #include <linux/mm_inline.h>
+>>>    #include <linux/kthread.h>
+>>>    #include <linux/khugepaged.h>
+>>> +#include <linux/hugetlb.h>
+>>>    #include <linux/freezer.h>
+>>>    #include <linux/mman.h>
+>>>    #include <linux/hashtable.h>
+>>> @@ -1832,6 +1833,17 @@ static enum scan_result set_huge_pmd(struct
+>>> vm_area_struct *vma, unsigned long a
+>>>        return SCAN_SUCCEED;
+>>>    }
+>>>    +static bool pte_table_empty(pte_t *pte)
+>>> +{
+>>> +    int i;
+>>> +
+>>> +    for (i = 0; i < HPAGE_PMD_NR; i++, pte++) {
+>>
+>> Using PTRS_PER_PTE to iterate PTEs seems more straightforward? Otherwise LGTM.
+> 
+> As I pulled this patch out from the stable fixes, I fixed it up.
+
+Thanks.
+
+> I realized that this helper should likely move to some header later and be
+> reused elsewehere (zap_pte_table_if_empty), but that's something for a later
+> cleanup.
+
+Indeed.
