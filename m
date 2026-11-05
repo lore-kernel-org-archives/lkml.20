@@ -1,57 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793845698;
-	b=4NqIi+17VsA3wdXVvvSwLBYwrFWWpOE5R5WKk38nXIV98N+wTKlQU529uSlO6D6+lmWl
-	 mTpeRcG9YLr3BqcAQWvVZPV13eD0mVl76FRsym1k7T7VYIqYd7GmqW9yoC7TN37CpfoaC
-	 FWBPlWPHrh3PlAMh8H5j9vsf/OC3A4evIWFmZkJzYb9FALPPZBOTG2UR9yIBBKAjnOIre
-	 LS0isKlTbI4a4U/EDBNIQK7zQjjXY1isX0usGNpddDl379rXC9a6hS/0TPtQaJVqYQvhq
-	 zW14pZMoZAsVuSXVXEVLrZJyUGcH4OBKRDe9gud+Dhkd57jE8gUAmwQxjrBloxeE76g==
+	t=1793845716;
+	b=CC5qgquar4wlT7SSmCYL9eThfbn6WauXGr4f5OUxlX2NkScN9BZ+/xen5vW2mGFzb9d7
+	 ZJi0g0CSOMRBaA6S6/t//qaam/F7YrOzZXJ4WlC5VLZqM0HOtD1HsoH78XnHGYOK2N2Gd
+	 6IcGHxRjXX6DwIKSB7ia4RmnhWk0wHvr56AH5hhhS9BO/S0TLzTgEGvxQYBamok+NyD6a
+	 GeWl9HzB4nKUwVhE6e9qfs8VlYdE3SVveKLbPIK4Jl7KnPfxXcCO+lDX1JMsW4+Ubh0Os
+	 YVUK50IgWgg7NRVZTVBznT7Zkswmxql2HJh7JHy1jh3U0vzZoOx3uHew/fDjpzn0jyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793845698;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=WAgLOtwFwdtiIlyIU6JoOcmyKs3LIDv5T6amKikVU+8=;
-	b=3ffZghQeOp0/WyuHhkBct8P+b9bD/5gaRHlEErCApT9wCJe/XdGejS7MSlrUZvYiTLkS
-	 +7XPDI0GsRiTf166zgH1AJ4jMuFhPWZTrinjbU3cwSikZVRKm7bRoTsegmkFFrlmW6gdI
-	 zFyeBRfci+Ehnj6PNH4w/OXs/kZSudkG7uqwltVbVw8FRcKu5fyfwC3qDsaiiLGpW4qi/
-	 IBX2auBArRSpgcvDP74HDKUCscmxisaaNKg9YOpV3HQEhzm3i6CBIBjMkOLRQAqF55QW0
-	 /kC01JMm8ehfXnWQhGHhurNVUKd5lQDSbj06snWuJstRQez8/pF0u93NlwYrEbnFtsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793845716;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=qgPn1TU8Qzde4rDA9hSBS0Cx8PK07vtzri2WT/d9DTk=;
+	b=ywcb6+QiBdNoP39bkr7DeIyCMM/ADZOYcK7CYKkGTv1nZq8Axioigi2c4MEnAF/NN9EM
+	 ZISWuoXGokygaK6jo15aWF+sGnQE84jOywuSueMMTsX37Sz40mGfLXytq4jr20kHDv385
+	 rvvuUXckcVW8m2jSkGmw2bSfq03m9GFcLHJP0Dpm809wD2yy99e+MBpocdqx3E/WEWWVG
+	 4zzDBeBsxbR4jXzGo7cTQ9w4XlE0fErVJ1PyIRMEkmhBPP5TJ5/SqeNNpbmvcJl5hUou6
+	 6vIq5Lld4vlbP4PhUalvwRrpeRltEAGKZXt7ExD/e3iPRSl6v2zeJAy/1Xy50WVgjMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MsQ1uUDo;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=soleen.com;
+	spf=pass smtp.mailfrom=soleen.com;
+	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=NBRt4mfy;
+	arc=none smtp.remote-ip=209.85.221.171
+Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com [209.85.221.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD5C7606A326;
-	Thu,  5 Nov 2026 02:28:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D4BC606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 02:28:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D4BC606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MsQ1uUDo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08B651F000C1;
-	Thu,  5 Nov 2026 02:28:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793845697;
-	bh=WAgLOtwFwdtiIlyIU6JoOcmyKs3LIDv5T6amKikVU+8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MsQ1uUDoHHC1cZaClUvIGdQESMSqCRlS61RmH5rtG4WW0qEe9hSg2LyPB4EZ9kjBx
-	 kW9hPQM1OGeXjoQ+wpGvXjZY5LTpNQBaQHEpbTV/3F7IVEoVOmwoBGrD9MM3MwaKmo
-	 FTLq+P/Vyp4CE7khA/XWHXVQOiQFyr88CzaFcaxiXpg+AosmguxlmPENN2xoogI8LU
-	 r8SZjAit/aLjVwhp2dOj6UlCpfnh+omGFAeDDH7VZXiFzMJAuDrPEyzjbhPrdWV0AU
-	 3oYzbZqi7CK9Ix+NvdI1xYFSrShmc2Db6oZHjkFQ6/MpsiV36+fNKOqByYEbYt4T3H
-	 XRw/jzim5D0Yg==
-Message-ID: <sashiko-outbox-198461@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 20/20] KVM: selftests: Add Xen evtchn vs mmu_notifier
- race test for HVA caches
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "David Woodhouse" <dwmw2@infradead.org>, kvm@vger.kernel.org
-Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <20261105020104.2507083-21-dwmw2@infradead.org>
-References: <20261105020104.2507083-1-dwmw2@infradead.org>
- <20261105020104.2507083-21-dwmw2@infradead.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 02:28:16 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=NBRt4mfy
+Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5eafb65e169so873371e0c.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 18:28:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=soleen.com; s=google; t=1793845714; x=1794450514; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=qgPn1TU8Qzde4rDA9hSBS0Cx8PK07vtzri2WT/d9DTk=;
+        b=NBRt4mfy4Ne0HDgR9KrLWuBscio/iQ2Z6lB6yJESMWvHsCSFujrhVnHRmw7LxuiVTn
+         bAkADPLhnHAOjKkyUj0ySoS8dgCLYX8tJ+wK+WnsggQBEkxpZyu941i2c45GFwRlgW6V
+         2lVJFHSQF1OrBVJsBobzbi5s43ufT4vtw01uZcOB//92NQi0uxyzkGvFCBsEbMr8VNqc
+         oziO4usqeF9m82u2qDKAhTjwiORBBX9FAwgkuaq8gjXQz89jRwJ5loQboD0gH7yOUYLY
+         Q0p21sILQjW+CHYhM0upBAxnbm7Db3WDHJIr7KVCnPVcY3Jp8xouiM2kEIAU1GwCyr98
+         LLFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793845714; x=1794450514;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qgPn1TU8Qzde4rDA9hSBS0Cx8PK07vtzri2WT/d9DTk=;
+        b=P5G2iBRtt+q6CEy6sOrEO6ZTLLJ28txYeiY2FuggKRO5KI7WLeN3gVvE9NlGjuyQ+s
+         P2uBvYHOqXWB4LeTp5ZsnZtX4+SbvoLq5NjqF9jm0nI6QutI4NMRKQ7CJTXOj6gnifzU
+         uj1tKXUFijkog18beu1RWg5vRU4GKL/uMbOZ2y5y+o1ImQ6V8PS9HSso3eVAhVBCgP0K
+         JnxwAU+fHW3JsMicwCysTSTn0kNtuDd/MpEDGZKHqfjLKcO2swR4L1PDV/3hgllYyZIR
+         1C615iuryrTgwERGPNY8xFi5RSEA6l/I29CiXZqjiLF2LENkaYKuzePvcnZEpXd4q7bD
+         i1Uw==
+X-Forwarded-Encrypted: i=1; AKwUvBxENHVGznfuKvdqU4TZ1WNlRKZ5ZSqZgNpi96hX8LJWFz+dYZ73wPdXK4ZcjQRp64EkbXo78Ai4C0AWrt4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Lm2vmZPmWtd//a7GY0dodfN3Wjhzqgl5LlZhcLZhmnFCcxCCu
+	YxsoggBR7S0kLCSnJRiFc2j9AMlvPDAVzd+5YxqNkq/HTve5+O158UIuE7sERxtC5Lo=
+X-Gm-Gg: AYBFou2mv6c4Jz0zxetlwoq//HVXNd69r6+V0ZLizowkjpckuE5jiCdaBa1FYdPPkNs
+	zgAJuBYsLT942FB5h7JG0cLSMj507nRE4M29bktDgnw5vv8qevrfDCC8yzQPQNNyDI9gnZgMJhj
+	CWU4ojSTWS6MuKyHBu0Tlo9EKxyfk/O6EhK4baD8EIsGbrf7BmLOvomGKre8Pw5X9UcaeJjgpvn
+	HIei3H4yDPharwQYXUsbwZcGQ3ZNV2C1C+ctxbR34akdPJg91aDmUh2JfQkPieGZRMDY/IOnOvp
+	UaDu/91t5IB+ZD3xeFQaSh3fVUvkn015Rt7DWByF0oKLtWC7RHS/4B9hyYLga5JQQmRiK/mi8rd
+	wDd/RC44bStnLwO4SwqiCBUeIy2n3JkwKsBwOM0+B951xK5+l+lPDMbEEvk8lvViMLp0mC5euhW
+	V1X4guGN1Mx2kpBOIwKLUvw6rjs8o5jNKfpgIjRiQZWcLc6frxLwk+kXVKIeG3Ym2f2+3dVQH+l
+	ESJsLZAuD134zzKXgEGB4PSo8AawssqxjhB3dNYvI7O0JcRrF3o3P07YlQ/7MzCqVnfG/TH/82E
+	tyIIuZ0QOBp8IEhRhldreeOTKkUKy9XI6DCYaHsBD05YhXlap0vKHKZTniVlnqhIQxTm3wl3SQt
+	e1Bv5Kd8gDBWCN8O0snFqPYhatA/6d8vvbvj0/WJNfUvm
+X-Received: by 2002:a05:6122:1c8b:b0:5ea:c98d:768 with SMTP id 71dfb90a1353d-5ec6871c27bmr7768958e0c.6.1793845714044;
+        Wed, 04 Nov 2026 18:28:34 -0800 (PST)
+Received: from soleen.c.googlers.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eca8dbb17bsm3170924e0c.11.2026.11.04.18.28.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 18:28:33 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,162 +89,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2] memblock: don't allocate new reserve_mem regions on
+ a KHO boot
+From: Pasha Tatashin <pasha.tatashin@soleen.com>
+To: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Cc: Mike Rapoport <rppt@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, Kees Cook <kees@kernel.org>, 
+ Changyuan Lyu <changyuanl@google.com>, Alexander Graf <graf@amazon.com>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
+ Pasha Tatashin <pasha.tatashin@soleen.com>, kexec@lists.infradead.org
+In-Reply-To: <20261104204235.9066-1-azpijr@gmail.com>
+References: <20261104204235.9066-1-azpijr@gmail.com>
+Date: Wed, 04 Nov 2026 21:28:28 -0500
+Message-Id: <179384570854.2089669.6686464803021518602.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=550;
+ i=pasha.tatashin@soleen.com; h=from:subject:message-id;
+ bh=lzEbddKUD5GuDcxbx6NPlhQyO90bGHNaEl0mNdN224M=;
+ b=owEBbQKS/ZANAwAKAbt3KEzbc3reAcsmYgBq6+nQbIa4wl9/OA85TgIcp6GUjRJ97N7P3RS65
+ w/dH+wLy06JAjMEAAEKAB0WIQRBMaqT7LRvGvB/NmK7dyhM23N63gUCauvp0AAKCRC7dyhM23N6
+ 3r6cD/4i+eGggrI9gSbQoKNbHehmvZ3DGILZLB/nlShN88F1/s3BSkAExC6VVWEMcC3UB2prAMe
+ 1qmdaaZsjv2/Uvifq86Kv9CWUVWlkHnoyJWKozJ7iEKfgbYRb9O6MVVGqZvt6gcDBGLapVOQORL
+ N2BYhTtYvIj9j6N8vOfDgQSWnqCaU3LdOzeeMplOf3k0nRefNd4DRINPicEkKSvuJt6kgxlx5nw
+ RBg/eYb1k2ki3/fW0/aQqPsWnF8xdmBf+sIDShF8msbkLqOGRC/Pbpl1ys/JZIQ2EFGm7xERkEJ
+ SsFlo0Ul3MF/AKLUNZLeVwQguvXQzHFjoGV6XcEyKnkbyU82ZjGVzXVjsUxUtUTGwxgp0bGAOwE
+ rMur4xHR1Un1klVmeUB7SP3LdXyUmPfNaltPEaBRVTTjoYBqi8kOlVT+quLTa8jeil3KQNhYCa4
+ u1tTYYUFrP1KBfugXgtvFDpHpS0VdGexNS7KJd2Taq4bRde18lsMUvluxoPd2CjsEdxffVnwR2F
+ V+aLewuq2DY7Tq/2il3FeVW2Ki4X4JCYddH9lK9F/upkQWS/TMzWhm6p9tIzT4pRlUScGIq2JHi
+ +FQwVCuO7RxpxBnAZMUlg/S83bjlOVBPGxkmYFqM4Rlux4v6iJzz1MnWMt2Zbzz7+naB2qeTeaU
+ JOlIW4F4aF9s9Fg==
+X-Developer-Key: i=pasha.tatashin@soleen.com; a=openpgp;
+ fpr=CAAAB722DD22A081F0D49F35633A6A993D43B569
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Low] KVM: selftests: commit message claims 20000 sends but TEST_ITERATIO=
-NS is 5000
-- [Low] KVM: selftests: xen_evtchn_hva_notify_race_test duplicates memslot =
-race test
-- [Low] KVM: selftests: unchecked madvise() and raw mmap() in HVA race test
---
+On Wed, 04 Nov 2026 21:42:17 +0100, Jose A. Perez de Azpillaga <azpijr@gmail.com> wrote:
+> On a KHO boot, a reserve_mem region that can't be revived is allocated
+> from KHO_NOPRSRV memory, which includes the bootmem the next kernel
+> boots out of. With CONFIG_KEXEC_HANDOVER_DEBUG, preserving the region
+> then fails:
+> 
+>   WARNING: kernel/liveupdate/kexec_handover.c:1245 at kho_preserve_pages+0x168/0x180
+>   failed to prepare memblock FDT for KHO: -22
+> 
+> [...]
 
-commit cf7aec0532723ffed105931f7f5b74967ac26723
-Author: David Woodhouse <dwmw@amazon.co.uk>
+Reviewed-by: Pasha Tatashin <pasha.tatashin@soleen.com>
 
-KVM: selftests: Add Xen evtchn vs mmu_notifier race test for HVA caches
+-- 
+Pasha
 
-This commit adds a KVM selftest racing a guest EVTCHNOP_send loop against a
-host thread invoking MADV_DONTNEED on the userspace page backing the
-HVA-based shared_info and vcpu_info caches.
-
->     KVM: selftests: Add Xen evtchn vs mmu_notifier race test for HVA cach=
-es
->    =20
->     Race a guest EVTCHNOP_send loop against a host thread hammering
->     MADV_DONTNEED on the userspace page backing HVA-based shared_info and
->     vcpu_info caches. Every madvise zaps the PTE and invalidates both
->     gfn_to_pfn_caches; every delivery must refresh through the window
->     (hva_to_pfn_retry() retries until the invalidation has finished, then
->     faults the page back in) and must succeed. The caches are HVA-based,
->     so no memslot semantics excuse a drop: unlike
->     xen_evtchn_memslot_race_test, which only pins the no-deadlock claim,
->     this test asserts every one of the 20000 sends delivers, and any
->     hypercall bounce to userspace fails the test.
->    =20
->     This exercises the pfncache invalidation protocol itself =E2=80=94 the
->     invalidate_start walk, the reader draining for a cache mid-teardown,
->     and the handshake between a refresh publishing a new mapping and a
->     concurrent invalidation vetoing it =E2=80=94 which is where a lifetim=
-e bug
->     in the cache would live; on a debug kernel one is expected to
->     surface as a splat rather than a dropped event.
->    =20
->     Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-
-[Severity: Low]
-The commit message states that this test asserts every one of the 20000 sen=
-ds
-delivers, but in tools/testing/selftests/kvm/x86/xen_evtchn_hva_notify_race=
-_test.c
-TEST_ITERATIONS is defined as 5000 and guest_code() runs TEST_ITERATIONS
-hypercalls:
-
-#define TEST_ITERATIONS		5000
-...
-	for (i =3D 0; i < TEST_ITERATIONS; i++) {
-		rc =3D __xen_hypercall(__HYPERVISOR_event_channel_op,
-				     EVTCHNOP_send, &s);
-
-Should the commit message say 5000 sends to match TEST_ITERATIONS and the
-runtime estimate comment in main()?
-
-> diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/sel=
-ftests/kvm/Makefile.kvm
-> index c17408f8d61f5..19dc0744f25f8 100644
-> --- a/tools/testing/selftests/kvm/Makefile.kvm
-> +++ b/tools/testing/selftests/kvm/Makefile.kvm
-> @@ -150,6 +150,7 @@ TEST_GEN_PROGS_x86 +=3D x86/debug_regs
->  TEST_GEN_PROGS_x86 +=3D x86/tsc_msrs_test
->  TEST_GEN_PROGS_x86 +=3D x86/vmx_pmu_caps_test
->  TEST_GEN_PROGS_x86 +=3D x86/xen_evtchn_memslot_race_test
-> +TEST_GEN_PROGS_x86 +=3D x86/xen_evtchn_hva_notify_race_test
-
-[Severity: Low]
-This isn't a bug, but tools/testing/selftests/kvm/x86/xen_evtchn_hva_notify=
-_race_test.c
-duplicates most of tools/testing/selftests/kvm/x86/xen_evtchn_memslot_race_=
-test.c,
-including the hypercall definitions, struct evtchn_send, VM and vCPU creati=
-on,
-KVM_XEN_HVM_CONFIG setup, KVM_XEN_ATTR_TYPE_LONG_MODE setup,
-KVM_XEN_ATTR_TYPE_EVTCHN IPI loopback routing, worker thread lifecycle,
-alarm() watchdog setup, and the vcpu_run() / get_ucall() loop in main().
-
-Since only the backing memory setup (HVA vs GPA/memslot), the churn thread
-body (madvise MADV_DONTNEED vs memslot update), and whether KVM_EXIT_XEN
-hypercall bounces are tolerated differ between the two tests, could this HVA
-mmu_notifier variant be folded into xen_evtchn_memslot_race_test.c as a test
-mode or parameter rather than adding a separate standalone binary?
-
-> diff --git a/tools/testing/selftests/kvm/x86/xen_evtchn_hva_notify_race_t=
-est.c b/tools/testing/selftests/kvm/x86/xen_evtchn_hva_notify_race_test.c
-> new file mode 100644
-> index 0000000000000..c105435f63577
-> --- /dev/null
-> +++ b/tools/testing/selftests/kvm/x86/xen_evtchn_hva_notify_race_test.c
-
-[ ... ]
-
-> +static void *backing_churn(void *arg)
-> +{
-> +	void *backing =3D arg;
-> +
-> +	while (!atomic_load(&churn_stop))
-> +		madvise(backing, PAGE_SIZE, MADV_DONTNEED);
-> +
-> +	return NULL;
-> +}
-> +
-> +int main(int argc, char *argv[])
-> +{
-> +	struct kvm_vcpu *vcpu;
-> +	struct kvm_vm *vm;
-> +	pthread_t thread;
-> +	struct ucall uc;
-> +	void *backing;
-> +	int done =3D 0;
-> +
-> +	int xen_caps =3D kvm_check_cap(KVM_CAP_XEN_HVM);
-> +
-> +	TEST_REQUIRE(xen_caps & KVM_XEN_HVM_CONFIG_SHARED_INFO_HVA);
-> +	TEST_REQUIRE(xen_caps & KVM_XEN_HVM_CONFIG_EVTCHN_SEND);
-> +
-> +	vm =3D vm_create_with_one_vcpu(&vcpu, guest_code);
-> +
-> +	/*
-> +	 * The shared_info page and the vcpu_info within it live in plain
-> +	 * anonymous VMM memory, not in any memslot: nothing but the
-> +	 * mmu_notifier churn below can perturb the caches.
-> +	 */
-> +	backing =3D mmap(NULL, PAGE_SIZE, PROT_READ | PROT_WRITE,
-> +		       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-> +	TEST_ASSERT(backing !=3D MAP_FAILED, "mmap of backing page failed");
-
-[ ... ]
-
-> +	atomic_store(&churn_stop, true);
-> +	kvm_pthread_join(thread, NULL);
-> +	alarm(0);
-> +
-> +	kvm_vm_free(vm);
-> +	return 0;
-> +}
-
-[Severity: Low]
-In backing_churn(), madvise(backing, PAGE_SIZE, MADV_DONTNEED) does not che=
-ck
-for errors; if madvise() fails, the churn loop would spin without zapping P=
-TEs
-or triggering mmu_notifier invalidations, allowing the test to pass without
-exercising the race.
-
-In addition, main() open-codes mmap() + TEST_ASSERT() and exits after
-kvm_vm_free(vm) without unmapping backing.
-
-Should backing_churn() and main() use the kvm_madvise(), kvm_mmap(), and
-kvm_munmap() helpers from kvm_syscalls.h instead?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105020104.2507=
-083-1-dwmw2@infradead.org?part=3D20
