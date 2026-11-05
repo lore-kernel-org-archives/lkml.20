@@ -1,60 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.120
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793915409;
-	b=NpXB52OV/P1znfJ52m01BICilzTz5w6a2N1qy1rij319VRf2qMjjq3F6B52bHjEiuxx8
-	 VBVRqLt6kqhFxxIfkmvxEmve86brtSM+xbE3V/uXPJT4RrvtijVdD9yfF++yFphH473L2
-	 9zH8Qt2O9Wwwp6/6TYkbjhTTZjNhfMmOLM713xtePu8GFzrtJqPlmBsmuXXLpbxoSzHwV
-	 Dboq2376MjhE40I5k/96RhXu0bJazJNC1F9Y+0iuMkASqd99zYhuNi0oBCaQ+Qt+1sbfr
-	 NTL5aO7Q7EovhgLFlFEOxsEdFRDJptI4qv5/FJjf16aoz8ipfMSPZRRmbt0mtkkCVdw==
+	t=1793915478;
+	b=kxoyOOTU7w36QBkS9PV+WSdbFp5WDVNFZxkWmnDEfarPoPQqt1PpYwfqwrDZjD4tcO0C
+	 r12GPSsj8quKY2ge3mkIUCc7+MPVltnONuh/rBcBqpGBKIQo7N4hzTpCU2Nd2TNszmFgA
+	 /+gjGWQ9RXMGMPEldajAGDVslcF7N5ZGGOllDaeyvOU0t/QrPsRROMNrmry3/knfzbFmT
+	 yt54uKr0MA2ooBF7MDBpdz6lcjZJ8benBR6OdcXn3iOV1FlFIbiayfQ8wcll08gH7+7N0
+	 vyVanXlzH2R2UwwQX05H3TTRX+mN8MTzWFETuDpzm08eoiWqnhTiMhN0MqKkjfalZdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793915409;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=DFh6Lj85QvvS03e5lkAUZeehfvdaN+YlDcZdEO2rzoY=;
-	b=iRdyXz7OlOjprLZRYS+pMMT9vnJYOrB/50pMJlUfMjv9Xw7eHQA4V4aZZipCo0IUGwhm
-	 HifaRwso6PSSskodocW4BjId1Zr550UFXvykGRH/wGQ36/w8q5ou+1I8UY7ohGYF/ATXN
-	 FMZl2vniufY573LSBuP3LlfLyDUFoQHI/LUtPFtrRMV9/Fes+nOZh3T8QsDNVrmMNyYRN
-	 zsJ456RBqcvRd2+DouexONFbqQfLkHDHFVjv5GLPV4agwHcKhVPi/7qNeMlEQmtKf5nfd
-	 nXVrjqkQt3knTU8ZHP1sNZWmlc/1wKDUd2UFq/o4pRJKTvuCV8QeUS8FKaYMPHOq6QQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793915478;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=lCJwq0iZVmgcwQ3/Wg9SbCgf3RZUlL6CyJhyhFKIkbU=;
+	b=iMSSTrYOEOJ52axfNIAokoNdWzXPngdLVU+4YYn2OdVBf8qEP1WH57o8+I2OauWaFNjm
+	 azIAiMUgqh/AwqTX6/6jHybOyAvW4mJDexupehQXHY0kPg60EkJg118Ya8uy1NeM+MopA
+	 KkcSZzHrfexuYC+6fKZ3Y156BDfmo9j03RebsvsVmMbhEBqxqxvYLGqvGeuLgTnBUEYbI
+	 pMKhn4KFjdvVWeH3rU4DtMQQftgmF9CIQsTM6c1A4XzHj3g/0EsfIltP5m62xMyzQeJWT
+	 fndqXKdyFY/tlOvTCjYFbTml7Rcb1XD6VqDV/pCMaEygB3KRhRwGhpn7cByX//LCTOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=Xu5t+edz;
-	arc=none smtp.remote-ip=79.135.106.120
-Received: from mail-106120.protonmail.ch (mail-106120.protonmail.ch [79.135.106.120])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h8nbhwS8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01876606A31B;
-	Thu,  5 Nov 2026 21:50:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01876606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9659F606A31B;
+	Thu,  5 Nov 2026 21:51:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=Xu5t+edz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1793915406; x=1794174606;
-	bh=DFh6Lj85QvvS03e5lkAUZeehfvdaN+YlDcZdEO2rzoY=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=Xu5t+edzpHH1ii6iY+YOkP3s12v9wYG+6RUUo4xUghG3HwMV1RVvVuaosx0ivZkxw
-	 gsoeG/UX3mYspquSOZwvXmpuhLssM41TlkEvoTgxugsrkdpIYfndH3JJkHssGwqgL0
-	 4T/Kp1YhKwgyahj0HLhyylZgjtYMBbj4iDvVnxwAaHIv0RxGO5RNeoP6gex+ZokGxO
-	 f9Wpm0CNvOGPSxfQmHeq8LI6l8Hd4gc2umBGGNFKmdQCbZZNe/aAJT+Irh/1gTqvKa
-	 /2JEARvnYyQwzXJ358HeriC353sjuNq7Mo2BjQWW/diFAXaMsKIXOR99j4Toy6ilvc
-	 jWe1A0xH5ZaFw==
-Date: Thu, 05 Nov 2026 21:50:00 +0000
-To: Alexander Letuchiy <asalde.le1@gmail.com>
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/5] dt-bindings: watchdog: mediatek,mtk-wdt: Add compatible for MT6895
-Message-ID: <xUMh3NwVp4cBhFsWWFE2Xng4h8YH95iJM37_I158WAyVmsRCPbirWT1iU8eMFeiSFw8xco0X45o-2NOeB6Jc4_nWAg25pFPgDMwK3mKzm34=@protonmail.com>
-In-Reply-To: <20261105210622.523747-4-asalde.le1@gmail.com>
-References: <20261105210622.523747-1-asalde.le1@gmail.com> <20261105210622.523747-4-asalde.le1@gmail.com>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: e26518f322eb5f6161fc7a72d02b2c560e8b1a2c
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h8nbhwS8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7B821F008A1;
+	Thu,  5 Nov 2026 21:51:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793915478;
+	bh=lCJwq0iZVmgcwQ3/Wg9SbCgf3RZUlL6CyJhyhFKIkbU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=h8nbhwS8nzg5GTVbLeZvMQYmR6Hq3g6/Ke1MfR85+bNkRP0KREXzRRITHYLqb436d
+	 3PS2L5mlFpIysDobo3+GFJZPiLFJ/UcKCwm3ueiVemkdqOj38A/rEtRYJqTdbn+glh
+	 9h/TM7Dc+vR6xv8w2xuF5G5w66vOsBYEz7803Aa+pxINGWGro9dU11LjbvskubDKn4
+	 2fH6cLx/cUc7SVuJZg42R8ofxvnc8g2wU0sT0v/KEWt0Ikm8OITZIKUXJ+NYXEhVWn
+	 Xpr1/eO5zLkWYMuVgHCG+s1X/Q9J5AXvZqoN6n0ZHXvh0yI2Ciib7eb+oPo97lyfom
+	 TZtZSJ0F9Y0eg==
+From: Christian Brauner <brauner@kernel.org>
+To: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ Mani Tofigh <mt4022@columbia.edu>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ tz2294@columbia.edu
+In-Reply-To: <20261027-kcsan-inode-v1-1-1ef0eb871f2c@columbia.edu>
+References: <20261027-kcsan-inode-v1-1-1ef0eb871f2c@columbia.edu>
+Subject: Re: [PATCH] fs: annotate data race in get_nr_inodes()
+Message-Id: <20261105-begeistern-fracksausen-rabatt-96ae0175a0b8@brauner>
+Date: Thu, 05 Nov 2026 22:51:15 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,45 +59,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-ce4c1
 
-Hi,
-
-On Thursday, November 5th, 2026 at 11:07 PM, Alexander Letuchiy <asalde.le1=
-@gmail.com> wrote:
-
-> Add a compatible string for the watchdog of the MediaTek MT6895
-> (Dimensity 8100) SoC, which uses mediatek,mt6589-wdt as its fallback.
->=20
-> Signed-off-by: Alexander Letuchiy <asalde.le1@gmail.com>
-
-Does mt6895 actually share the same reset layout as mt6589? Given the
-generation leap between these, the former is very unlikely to use
-the same resets.
-
-Best regards,
-Roman
-
-> ---
->  Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.=
-yaml b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
-> index f9b725592c27..cac7d9ae98dd 100644
-> --- a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
-> @@ -38,6 +38,7 @@ properties:
->                - mediatek,mt6572-wdt
->                - mediatek,mt6582-wdt
->                - mediatek,mt6797-wdt
-> +              - mediatek,mt6895-wdt
->                - mediatek,mt7622-wdt
->                - mediatek,mt7623-wdt
->                - mediatek,mt7629-wdt
-> --
-> 2.56.0
->=20
->=20
+On Tue, 27 Oct 2026 16:08:49 -0400, Mani Tofigh wrote:
+> get_nr_inodes() sums the per-CPU inode counts without a lock, and the
+> result is only an estimate, so it's harmless if one of them changes
+> during the sum.  Wrap the reads in data_race() to mark this.
 > 
+>   [   11.857490] BUG: KCSAN: data-race in get_nr_inodes+0x9f/0xf0
+> 
+>   [   11.857568] race at unknown origin, with read to 0xff1100002b6281e8 of 8 bytes by task 106 on cpu 1:
+>   [   11.857621]  get_nr_inodes+0x9f/0xf0
+>   [   11.857675]  get_nr_dirty_inodes+0x1d/0x110
+>   [   11.857748]  writeback_inodes_sb+0x3d/0x60
+>   ...
+> 
+> [...]
+
+Applied to the vfs-7.5.misc branch of the vfs/vfs.git tree.
+Patches in the vfs-7.5.misc branch should appear in linux-next soon.
+
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
+
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs-7.5.misc
+
+[1/1] fs: annotate data race in get_nr_inodes()
+      https://git.kernel.org/vfs/vfs/c/067a2ab608e0
+
