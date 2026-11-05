@@ -1,64 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793900992;
-	b=Qznfo1+U05bAxkkZO9dFk7GzF7kGPYtWxES+GCVJWhb9okgwaTP3/beS59I6e32Tj2fp
-	 EhaZN+2YTmS7XBEnyf71qtN9P14OndaN1+MKNfJKT++9QYqIDY9lGQD5FmmJQwTG9HGmn
-	 SBS5pIHl07s8H3KtZc8Gw0oLFcDPoqahR5UHz9efaT1IrgNFfXYb+bvuBlKLL79+k7sqj
-	 1YKMGfHwQc40vNM+VSWcSmwqCsBzKtKQ5T6Bo60uoN4Nto2PeErJi3Eazvq1vrUHVrk6p
-	 XRDc31OG1NFb6ThoWoeehuFiPn6LS7MYZ3gkb2YdVLDunAUwZ6mJP+kz1euFmI+p4cg==
+	t=1793900991;
+	b=24N7gZWb5Mk85NTB9R/3Yuc0V5v+OEQMHVwH+TO6ZI03AlifPtyapSADwtcYcDHCi6jr
+	 dHTeJpKIzGL53pRpLYSVbhPjdg9HEwBT5tio1yR26XSXUKC2gDjSc12kC9FarQeezJD0V
+	 xp73BTwAY8UOxptEFVGscoh1rDM7bCTZDqcU9UJvBioFemclrvOkFPwxbyPcbxjrgwDFU
+	 EicO+6HBHVRUMUJPtr6jtJoUA80auNhynxjHuLfEYCXAWLIEF7b7wI4PVXttAwzdd1d71
+	 qH/Lj+lmgW3kvMCGF2EYX4GAnTPrvRN8iAQ+N+7EtqK7Z6H29TR5/qbElNslr9UZS5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793900992;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=i7lHOYDFws42KWAMRcaowzO1od4EUT/Dr3sRxjV6nc8=;
-	b=IJ72NJOIEQLjedhvY4knBXBcwRc29nw7NZbDPrC4u2o/2m1WWK+DIOawZuHMH3k0ZloZ
-	 SV1xX5A72avtPjr9ySoBggcThmZkSk9MYgFghk5ZJbASpERRwmVNA3RyHvPGa3kE1SP5A
-	 IqjXpP4A7JbY9zcTNPlQ0YF1d86E7AgOjC5ioTU7DH3jQoIONivVcXSfayfLf1QtaM2V/
-	 21+GZCwMle+YluwlSjtzvF4/mrUhg/JmhtsJIeoGF5dGylaWdcj8IvfshgEpaOowVtD6v
-	 2wfF6PG9KVrUQUE06oaHVaAcSaT0S5aFZhp4nDafna2S8gAs4PJGAtyJLJXze/bDWjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793900991;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=6Z8DGXC54oNDPvPHLF4Hz1+gC+Zgp//q9hZPIEDfCEs=;
+	b=OFDnB7nw7WcaHPI+9aNKkgGTLy1yXeY4Y8HSMbMiCO+TS1ZP06Q0gYCSTLZ+9NEPfmh0
+	 1sR5CrvJDE6skFbRzMTzFZ0ZBh2vtFXkDFQo09TNNtOUhw43V6hzGSvkJCEG1d2Rf6Trj
+	 sHxAoPebHJfXxs26fqr2cFmrAyUNJdz2tF300+D1WcSD2W/7gBZuknRZMsT06eQYmE40b
+	 Hkl6I/bZLd0g7xv4hWjv3AQIs3vXQXnAQV9ogym2g+VY5891fdVuASkZRbDMDRX7lLl+j
+	 Q9R2FK6jkeibs3pOw75boT8cs0GyoxNyVxQQ/fg6ee6lrdugocHW0m3lVtA10Dobgvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qnxHXIbX;
-	arc=none smtp.remote-ip=95.215.58.198
-Received: from mta1.migadu.com (out-198.mta1.migadu.com [95.215.58.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b="H4uLF/1O";
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3D4A606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 713A0606A337
 	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:49:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3D4A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 713A0606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qnxHXIbX
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=NirXRPgN4XmpzWS8psxuxF59x3eYAuZTNTwIQLLxoq4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793900990; v=1; x=1794505790;
- b=qnxHXIbXbxqTIZ/vQV8gtI+329nvp1kiLeX+vJj1RKk0UtzqsYYI10PGjFxq1tzvZE9OYSDF
- 1j9zs97G9/UJIOmRnhBAE5uPwC2h+SyChBNwzbbGAjcuRH6b7VffOnRtTiD3vGXkrAMhRE3bWGy
- WMmdiisVICm0jC2oZco7vfvg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id f4080175b0873934;
-	Thu, 05 Nov 2026 17:49:49 +0000
-X-Mizu-Trace-ID: f4080175b0873934
-X-Migadu-Flow: FLOW_OUT
-From: wen.yang@linux.dev
-To: Gabriele Monaco <gmonaco@redhat.com>
-Cc: Nam Cao <namcao@linutronix.de>,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wen Yang <wen.yang@linux.dev>
-Subject: [PATCH v8 03/14] rv: Add a KUnit test for the HA timer underflow
-Date: Fri,  6 Nov 2026 01:49:03 +0800
-Message-Id: <4ae656adc2e23939c3bf2138e1d6a9ee496fe4da.1793900349.git.wen.yang@linux.dev>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1793900349.git.wen.yang@linux.dev>
-References: <cover.1793900349.git.wen.yang@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=H4uLF/1O
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5HiA3Q2578719;
+	Thu, 5 Nov 2026 17:49:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=6Z8DGX
+	C54oNDPvPHLF4Hz1+gC+Zgp//q9hZPIEDfCEs=; b=H4uLF/1OECtOhuNhb/30l1
+	SCkWmZH4aAE7Z6l+M/X/7rhh85qjol5yf/+d1SaNfxibeFQWZ9rf1yQpT6lpVUiE
+	Jn3K4p1SUrX6HFmd/AlJagQGKABO5EdCxSiQyaBkQztM6ygM47qUCr26EY8ZmZlW
+	Lbi777N4dtPhWxnWsnT1JSxYK329rPCMWWPX2NGiaEi9DI8V6UwN+dlFXancKcYB
+	2PDmsTCsHUhTDSiSSBW7jmHDO+87gx69MdJG/iv/1nFfMm/JmgchFljY4Wj5q4Ix
+	9CHOUM6I+u/Ca9e06M2IfkMbLUbzyQPJP1bX1wG+awV4D+yQLKFSUzrbH8bfqnHw
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn80t47nb-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 05 Nov 2026 17:49:44 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5H6P5p1786971;
+	Thu, 5 Nov 2026 17:49:43 GMT
+Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hqv1v1mn6-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 05 Nov 2026 17:49:43 +0000 (GMT)
+Received: from smtpav04.dal12v.mail.ibm.com (smtpav04.dal12v.mail.ibm.com [10.241.53.103])
+	by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A5HngwP23527952
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 5 Nov 2026 17:49:42 GMT
+Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 781F658064;
+	Thu,  5 Nov 2026 17:49:42 +0000 (GMT)
+Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C11C658056;
+	Thu,  5 Nov 2026 17:49:40 +0000 (GMT)
+Received: from [9.68.10.150] (unknown [9.68.10.150])
+	by smtpav04.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  5 Nov 2026 17:49:40 +0000 (GMT)
+Message-ID: <27596ddc-6624-49b3-9ea9-891f477eee38@linux.ibm.com>
+Date: Thu, 5 Nov 2026 18:49:27 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,196 +86,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 03/20] coverage: add a common debugfs interface
+To: Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org
+Cc: Alexander Potapenko <glider@google.com>,
+        Andrey Konovalov <andreyknvl@gmail.com>,
+        Chuck Wolber <chuck@wolber.net>, Dmitry Vyukov <dvyukov@google.com>,
+        kasan-dev@googlegroups.com, Marco Elver <elver@google.com>,
+        Masami Hiramatsu <mhiramat@kernel.org>,
+        Peter Zijlstra <peterz@infradead.org>,
+        Thomas Gleixner <tglx@kernel.org>
+References: <20261103015238.3780910-1-sashal@kernel.org>
+ <20261103015238.3780910-4-sashal@kernel.org>
+From: Peter Oberparleiter <oberpar@linux.ibm.com>
+Content-Language: en-US
+In-Reply-To: <20261103015238.3780910-4-sashal@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: RcXFwb46gS1f6C_-4ejZWtGccweOzR06
+X-Proofpoint-ORIG-GUID: cdZUO34zU9lIS0Rg5-KzPuKetpYscTUl
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA3MCBTYWx0ZWRfX0LO84vh4UpoP
+ wmuGlVKJaMHOqNMkG2gLGwIz8QZSilJhE36nVGX/69wROvPdeZXye3clJlr6eN4IUwl8faO3FRd
+ oM5QtdUScaRDx5kiW0O8Ok2IA7jXNMX34VbyPloBLKQFPDHcAIkGe4lJV7VqbngW2mKfXpQ9vgx
+ /yWsoKxxTzIQnYPHL6sioarsHlUTM67KMUTydyABBurgVkP3pgl25FilE+bBhaBlawaoTY6XZKr
+ PZeFJZaGMXVh3V0nDtkJVGTMci+WNSd9+Qz8oC3AZm3/WzIWcolF2bacbfyjNRPBJ2NbDaSxOto
+ WoOHazIgAVRPsJFpsMNpEK9gNfMXRXyM5U90L2jOjoQgx9NkBKejLhoJRGR7OWXvpDxfbqDtXhk
+ IMH3rFo36pc8c0OI94dzDTypiK3LCIA+YhnSrmDzDK0f+PmAjC4q1HWKksK8ZkkM1/Y8X7MipAA
+ NmM7JbKtFpmsKv0/gcw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA3MCBTYWx0ZWRfX9vyDezRGnwnV
+ mOQ1JHavsMRHuJpgZnjbgcDRk51AXQ3MQ3sfD9hILNsb00DvQnD8eKUYsCWwS2Z6uJbD1Bd+Pl9
+ n65rj/y4itfW7Zo5RUSg9rn4s74xv4U=
+X-Authority-Analysis: v=2.4 cv=FIqOVOos c=1 sm=1 tr=0 ts=6aecc1b8 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=E5mLeVgb6EEcHXiTWj8A:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_05,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0
+ bulkscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050070
 
-From: Wen Yang <wen.yang@linux.dev>
+On 03.11.2026 02:52, Sasha Levin wrote:
+> Each coverage implementation creates its own top-level debugfs entry
+> with its own conventions: /sys/kernel/debug/gcov/ and
+> /sys/kernel/debug/kcov. Give them a common root,
+> /sys/kernel/debug/coverage/, which contains:
+> 
+>   backend  name of the selected code coverage measurement implementation
+>   reset    write to reset all coverage data of that implementation
+>   gcov     symlink to ../gcov when gcov is enabled
+>   kcov     symlink to ../kcov when KCOV is enabled
+> 
+> backend and reset are only present when a code coverage measurement
+> implementation is selected, so a kernel with only KCOV just has the kcov
+> symlink. The data formats are defined by the respective toolchains and
+> stay implementation specific. The existing paths are kept as they are,
+> since lcov, distribution tooling and syzkaller rely on them; the gcov
+> reset file now shares its implementation with the common one.
+> 
+> The common reset never touches KCOV, whose coverage buffers are owned
+> by the tasks that set them up.
 
-Add rv_ha_kunit.c as a standalone test suite with rvtest, a minimal
-per-object HA monitor, to test both underflows fixed by the previous
-patch: an invariant checked while the uptime is below the budget holds,
-and a timer armed after the budget elapsed expires now. Without that fix
-both expectations fail.
+This part is slightly inconsistent - there is a common reset attribute,
+but it doesn't apply to all coverage mechanisms. Also for gcov, there
+are two reset attributes that perform the same function.
 
-Building the HA test in its own compilation unit keeps ha_monitor.h
-isolated from non-monitor test runners and avoids macro conflicts. The
-suite is guarded by IS_ENABLED(CONFIG_RV_HA_MONITOR) so kernels without
-HA monitors build cleanly.
+Would it make sense to only keep the attribute in the backend directory
+and possibly mandate a common name via convention?
 
-Suggested-by: Gabriele Monaco <gmonaco@redhat.com>
-Signed-off-by: Wen Yang <wen.yang@linux.dev>
----
- kernel/trace/rv/Makefile      |   1 +
- kernel/trace/rv/rv_ha_kunit.c | 152 ++++++++++++++++++++++++++++++++++
- 2 files changed, 153 insertions(+)
- create mode 100644 kernel/trace/rv/rv_ha_kunit.c
+[...]
 
-diff --git a/kernel/trace/rv/Makefile b/kernel/trace/rv/Makefile
-index cdbf68c84f5a..4b84b83b942b 100644
---- a/kernel/trace/rv/Makefile
-+++ b/kernel/trace/rv/Makefile
-@@ -26,3 +26,4 @@ obj-$(CONFIG_RV_REACTORS) += rv_reactors.o
- obj-$(CONFIG_RV_REACT_PRINTK) += reactor_printk.o
- obj-$(CONFIG_RV_REACT_PANIC) += reactor_panic.o
- obj-$(CONFIG_RV_MONITORS_KUNIT_TEST) += rv_monitors_test.o
-+obj-$(CONFIG_RV_MONITORS_KUNIT_TEST) += rv_ha_kunit.o
-diff --git a/kernel/trace/rv/rv_ha_kunit.c b/kernel/trace/rv/rv_ha_kunit.c
-new file mode 100644
-index 000000000000..e8aaee110fae
---- /dev/null
-+++ b/kernel/trace/rv/rv_ha_kunit.c
-@@ -0,0 +1,152 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * KUnit tests for RV hybrid automata (HA) framework
-+ */
-+#include <kunit/test.h>
-+#include <linux/rv.h>
-+
-+#if IS_ENABLED(CONFIG_RV_HA_MONITOR)
-+
-+#include <rv_trace.h>
-+
-+/* rvtest: a minimal per-object HA monitor driven directly by the tests. */
-+#define MONITOR_NAME rvtest
-+#define RV_MON_TYPE RV_MON_PER_OBJ
-+#define HA_TIMER_TYPE HA_TIMER_HRTIMER
-+typedef void *monitor_target;
-+
-+#define rv_monitoring_on()		true
-+#define trace_rv_retries_error(...)	do { } while (0)
-+#define trace_event_rvtest(...)		do { } while (0)
-+#define trace_error_rvtest(...)		do { } while (0)
-+#define trace_error_env_rvtest(...)	do { } while (0)
-+
-+enum states_rvtest {
-+	idle_rvtest,
-+	armed_rvtest,
-+	state_max_rvtest,
-+};
-+
-+#define INVALID_STATE state_max_rvtest
-+
-+enum events_rvtest {
-+	start_rvtest,
-+	event_max_rvtest,
-+};
-+
-+enum envs_rvtest {
-+	clk_rvtest,
-+	env_max_rvtest,
-+	env_max_stored_rvtest = env_max_rvtest,
-+};
-+
-+#define HA_CLK_NS
-+
-+struct automaton_rvtest {
-+	char *state_names[state_max_rvtest];
-+	char *event_names[event_max_rvtest];
-+	char *env_names[env_max_rvtest];
-+	unsigned char function[state_max_rvtest][event_max_rvtest];
-+	unsigned char initial_state;
-+	bool final_states[state_max_rvtest];
-+};
-+
-+static const struct automaton_rvtest automaton_rvtest = {
-+	.state_names = { "idle", "armed" },
-+	.event_names = { "start" },
-+	.env_names = { "clk" },
-+	.function = {
-+		{ armed_rvtest },	/* idle */
-+		{ INVALID_STATE },	/* armed */
-+	},
-+	.initial_state = idle_rvtest,
-+	.final_states = { 1, 0 },
-+};
-+
-+#include <rv/ha_monitor.h>
-+
-+#define RVTEST_BUDGET_NS (300ULL * NSEC_PER_MSEC)
-+
-+static u64 ha_get_env(struct ha_monitor *ha_mon, enum envs_rvtest env,
-+		      u64 time_ns)
-+{
-+	return ha_get_clk_ns(ha_mon, env, time_ns);
-+}
-+
-+static void ha_reset_env(struct ha_monitor *ha_mon, enum envs_rvtest env,
-+			 u64 time_ns)
-+{
-+	ha_reset_clk_ns(ha_mon, env, time_ns);
-+}
-+
-+static bool ha_verify_constraint(struct ha_monitor *ha_mon,
-+				 enum states curr_state, enum events event,
-+				 enum states next_state, u64 time_ns)
-+{
-+	return true;
-+}
-+
-+static const struct rv_kunit_mon rvtest_mon __maybe_unused = RV_MON_OPS_INIT();
-+
-+/*
-+ * rv_test_rvtest_underflow - the HA clock math must not underflow as u64
-+ *
-+ * An invariant checked while the uptime is below the budget holds, and a
-+ * timer armed after the budget elapsed expires now.
-+ */
-+static void rv_test_rvtest_underflow(struct kunit *test)
-+{
-+	struct ha_monitor *ha_mon;
-+	struct da_monitor *da_mon;
-+	const int id = 4242;
-+
-+	da_monitor_init();
-+	rv_this.enabled = 1;
-+
-+	da_handle_start_run_event(id, NULL, start_rvtest);
-+
-+	scoped_guard(rcu)
-+		da_mon = da_get_monitor(id, NULL);
-+	KUNIT_ASSERT_NOT_NULL(test, da_mon);
-+	ha_mon = to_ha_monitor(da_mon);
-+
-+	/* Uptime below the budget: time_ns - expire_ns would underflow. */
-+	ha_reset_clk_ns(ha_mon, clk_rvtest, 0);
-+	KUNIT_EXPECT_TRUE(test, ha_check_invariant_ns(ha_mon, clk_rvtest, 0,
-+						      RVTEST_BUDGET_NS));
-+
-+	/*
-+	 * Budget already elapsed: expire - passed would underflow and queue
-+	 * the timer at KTIME_SEC_MAX. Reset first so the expiry does not
-+	 * report.
-+	 */
-+	da_monitor_reset(&ha_mon->da_mon);
-+	ha_reset_clk_ns(ha_mon, clk_rvtest, 0);
-+	ha_start_timer_ns(ha_mon, clk_rvtest, RVTEST_BUDGET_NS,
-+			  RVTEST_BUDGET_NS + NSEC_PER_SEC);
-+	KUNIT_EXPECT_TRUE(test,
-+			  ktime_before(hrtimer_get_expires(&ha_mon->hrtimer),
-+				       ktime_get() + NSEC_PER_SEC));
-+
-+	ha_cancel_timer_sync(ha_mon);
-+	da_destroy_storage(id);
-+	da_monitor_destroy();
-+	rv_this.enabled = 0;
-+}
-+
-+static struct kunit_case rv_ha_kunit_cases[] = {
-+	KUNIT_CASE(rv_test_rvtest_underflow),
-+	{}
-+};
-+
-+static struct kunit_suite rv_ha_kunit_suite = {
-+	.name = "rv_ha",
-+	.test_cases = rv_ha_kunit_cases,
-+};
-+
-+kunit_test_suite(rv_ha_kunit_suite);
-+
-+#endif /* CONFIG_RV_HA_MONITOR */
-+
-+MODULE_LICENSE("GPL");
-+MODULE_DESCRIPTION("KUnit tests for RV hybrid automata (HA) framework");
+
+> +void __init coverage_register_backend(const struct coverage_backend *backend)
+> +{
+> +	if (WARN_ON(coverage_backend))
+> +		return;
+
+Can this happen at all?
+
+
 -- 
-2.25.1
-
+Peter Oberparleiter
+Linux on IBM Z Development - IBM Germany R&D
