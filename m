@@ -1,75 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793840694;
-	b=zGZ3+Ia47E1pV8F8AzTJB4ah9fZjAYBFYNA5PG/7B1iitN7Xp9lAuMMjLXVBiwHk4F8m
-	 x114yDyWEiSrt3ehfjTjTXaQUVoEehN4wFVG9I5a64GACtTaBJiD5t9dsMPGmPJY7q6gl
-	 NzK1yC2uc/f2uuBzULO9vad7ftMA8ySmQRoM1qPA3mKS6Mb/BevjPTB61ezFPH+9mrK1q
-	 ET23q7wwr6tCEimvnJ2b0E544Vwja/VHNGCRyrJWH50iofIXTa+bnBEJiHQlyQqboiBy/
-	 L4H5uFjS1WaxUIhBeyJP/EEAx4QTLDaAl/BdAC47NesF2z1AGKofGbBREQo6Yz978Gw==
+	t=1793840696;
+	b=kRZOrBMW9JMIAd5IZdjEpQHbEAtCS6EU0Ee84ljwSOeGIA5/ilieJ018NVpb/0ZfUAsT
+	 GUzReFzRoGLAG/IRfcdNo8c796iIya4FxXtq8jFh9WP0pwFT/mOBq2b0GGw9nPyGfLHTv
+	 VKCIE14Qo525+We32A5jib5gpQDFwJl/mSJGk3zPjNnV6jgIP1xwp6YLod77uDTab0IAG
+	 /kckm81mzN7z0WWKf0zQrG5VECM6nsu5otj/NOlKTtTPOPmlDmIjBgkiST8chyQ+kpFPS
+	 vOGbeHMwHlV39aC970acA50g9in6ow72QK4s93v+t0339OeppQwUZl8wfn9Gu8JL2aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793840694;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=ZjklZ1XtzVupZR4jiPfWvQJ9B53VB9qvPaAAJzXaKKs=;
-	b=xr9CuaYUWLbGQ6Y/RK2bxu3/BCEf9Ahtz4n4dE9SQbP8cvO0xK2Ggbc0G4CV/yRSKUFv
-	 zuar6re6CBDC19V/MI1dTskn4quNrp0MgeYTmrd/atd2b/InGJ1b87wlU+XHlG65lVmOO
-	 r1thk7YIcQ8a/KK5xPnCEBg9PKcQe6twfwmVV+MuD2WpYiI819QWdNkc/mGGYulGQVfQ4
-	 jB1YAy7pP3ULOMBy4Bx3zW8IBsr51+TVURqQbznQ3UNUKghLf9POq/xd1zsJE5JyVF8zc
-	 XkAjLd4CL5XNOvW7rN3g0K0Nue0F47wryfdPfUQ3YFw2g2gBlMyhwsg03qRpgnPqQsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793840696;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=vbOSiDhOXUNUobJKPavDdEMcKzCZkS+5o8EgPhWPvSM=;
+	b=J6lEkPz2XIaZaMQKpmsLgkaQK8BkUIWoHoXfGt1soINL9st1zxJ2feIXFWzC1yRnzQ6s
+	 b5JjqH7icHXrZ9lMwhLpfS57ofPq2gLG3lABbtjmxbPY4WNPeS2FBlJ8oAIF39RuTbfyR
+	 NWF+DAFW9xSA67Ch00mYpYxmKxRW4BFUgimVpWIvDSBR/qTe+m5opVmUYvq+brK2XMzcl
+	 sr8aXRg45R0wAI/BUYdWDCsWHYXRbdonZGGvYaVJp3ZgJG+yujlCf31Y7sD/tpADdWA03
+	 4AkZAgI9KwVb2q0C1Hc9xJ0u6Vq8yI1g3EYqILPXfBvWQ13JoPlUxWF9Gq6cv6v8LiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jQcgUmty;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m0HcvLYM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9AF606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 01:04:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA9AF606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id A83A2606A333;
+	Thu,  5 Nov 2026 01:04:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jQcgUmty
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793840693; x=1825376693;
-  h=date:from:to:cc:subject:message-id:mime-version:
-   in-reply-to;
-  bh=wC0JHPiXzKgvBgxZ+MMifGEL6SvGZg5uRWKwj3ryTJ4=;
-  b=jQcgUmtyhfA60/Zt3oWVCbpc72enAztbK1iQ5rmimoUosgFEod3BOZ9O
-   8jTiSYXIiHXpnQsUvfG3Q86oGq633qxCrAdM8bf67ukCIgMB3BkmQ1uLe
-   y8oOFx7EceXbiidcIeMX3TGC6diM5HP0BfN11uYjaX4ZCyfg6Nq3yI8TC
-   mP0NffigCsVNxseh3i7KBaYV+Dd6aEK9LAEgKjIvNpYuetn92jxYfOhp3
-   T+lt9POzSZd/dSJ/RjyaLnxCJ4XRP/n3zJTo5gRxhOp32XgyPdWbkCa+R
-   HVqjEKigJ6fzp2ezn/pcUIGYV9fPFa24yeQJnZzD+n+tRPKH7K5Ow3fzE
-   g==;
-X-CSE-ConnectionGUID: tNJ3lN5tSeGAyo5VregR3Q==
-X-CSE-MsgGUID: OrFEFLyfQDW9Y294GEJ+NA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2500092"
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="2500092"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 17:04:52 -0800
-X-CSE-ConnectionGUID: Hqpe9KkhSxqKXnx+RqoeBQ==
-X-CSE-MsgGUID: ad0CjgkpS0+KFjfau5iIfA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="6875882"
-Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 17:04:50 -0800
-Date: Thu, 5 Nov 2026 09:04:47 +0800
-From: kernel test robot <yi1.lai@intel.com>
-To: Kyle Zeng <kylebot@openai.com>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com,
-	Lukas Maar <lukas.maar@tugraz.at>, linux-kernel@vger.kernel.org,
-	tglx@kernel.org, mingo@redhat.com, outbounddisclosures@openai.com,
-	Kyle Zeng <kylebot@openai.com>, yi1.lai@intel.com
-Subject: Re: [PATCH v2] futex: Use a keyed hash for global futex buckets
-Message-ID: <202611050816.9e42490c-lkp@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m0HcvLYM
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 9CBFF1F0093A;
+	Thu,  5 Nov 2026 01:04:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793840695;
+	bh=vbOSiDhOXUNUobJKPavDdEMcKzCZkS+5o8EgPhWPvSM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=m0HcvLYMYkaoJF/gyIeviUk7vKDG8LTeM8GuuNUPrh2+PwPwMJg+KMAmLfie04lgC
+	 uWiY1m196LFoEPr4UN4ILRCQTYO2qpihIQA73wRtKJP8bFtmoCsmNsC1vPneuxMySZ
+	 Ydury5Fz95YrhAwGRTsW9IaxkAyYp0+eCGdLrKyYlb0kLOIfNmyUFV2qUWZ0rhXkPe
+	 0lrkYKGcQE6OgI2K9JypGhcV9aAwBy6qS3gU7t0+e+TarrhTm4FBRyHwvM1/KlS8YK
+	 WqqFgSJMDgdhOLXDZOYkDvGyJFfth79kqcDkB0Cg7V9N3Ac8qewmwBukARuOwjjYyP
+	 a65Ed+F9uQSLg==
+Date: Thu, 5 Nov 2026 03:04:51 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: keyrings@vger.kernel.org, linux-afs@lists.infradead.org,
+	linux-cifs@vger.kernel.org, linux-integrity@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
+	linux-s390@vger.kernel.org, linux-security-module@vger.kernel.org,
+	netdev@vger.kernel.org, samba-technical@lists.samba.org,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Anna Schumaker <anna@kernel.org>,
+	Bharath SM <bharathsm@microsoft.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	James Morris <jmorris@namei.org>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>, Paul Moore <paul@paul-moore.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Simon Horman <horms@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
+	Sven Schnelle <svens@linux.ibm.com>, Tom Talpey <tom@talpey.com>,
+	Trond Myklebust <trondmy@kernel.org>,
+	Vasily Gorbik <gor@linux.ibm.com>
+Subject: Re: [RFC PATCH v3 00/11] KEYS: Sanitize the garbage collector
+Message-ID: <auvWM6zn1MSP5C5b@kernel.org>
+References: <20261105005311.804098-1-jarkko@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,68 +84,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261019183334.29433-1-kylebot@openai.com>
+In-Reply-To: <20261105005311.804098-1-jarkko@kernel.org>
 
+On Thu, Nov 05, 2026 at 02:52:59AM +0200, Jarkko Sakkinen wrote:
+> 1. Replace key_type_dead retyping with module reference pinning so live
+>    keys and restrictions keep their backing key_type module loaded until
+>    key_gc_unused_keys() or keyring_destroy() completes.
+> 2. Process serial-tree scans and graveyard destruction in fixed 64-key
+>    chunks to a bound workqueue execution latency without hurting overall
+>    throughput for a significant amount.
+> 
+> The first part has a user-space visible effect: rmmod returns -EBUSY while
+> keys or keyring restrictions still pin the backing module.
+> 
+> Internal key caches or transport state bottlenecks are addressed by either
+> clearing their private caches on last-client teardown or splitting key
+> types into dedicated provider modules.
 
-Hello,
+<samba-technical@lists.samba.org>: host
+    lists-mx.samba.org[2a01:4f8:192:486::1:0] said: 550-Please subscribe the
+    address jarkko@kernel.org to the samba-technical 550-mailing list before
+    posting. See <https://lists.samba.org/mailman/listinfo/samba-technical>.
+    550-You can also write a mail to samba-technical-owner@lists.samba.org and
+    ask 550 to get on the list of accepted non-members to be able to send mail
+    here. (in reply to end of DATA command)
 
-kernel test robot noticed a -6.0% regression of will-it-scale.per_thread_ops on:
+This was accidentally pulled by:
 
+	./scripts/get_maintainer.pl \
+		--nogit \
+		--nogit-fallback \
+		--norolestats v3-00?[1-9]-*.patch | \
+		awk '{print "Cc: " $0}' | \
+		sed -i '/^Subject:/r /dev/stdin' v3-0000-cover-letter.patch
 
-commit: c44a057178cbedbc04c63404258524975e87a64f ("[PATCH v2] futex: Use a keyed hash for global futex buckets")
-url: https://github.com/intel-lab-lkp/linux/commits/Kyle-Zeng/futex-Use-a-keyed-hash-for-global-futex-buckets/20261019-113334
-patch link: https://lore.kernel.org/all/20261019183334.29433-1-kylebot@openai.com/
-patch subject: [PATCH v2] futex: Use a keyed hash for global futex buckets
+I'll address this in the next version but perhaps that email should be
+removed from MAINTAINERS? 
 
-testcase: will-it-scale
-config: x86_64-rhel-9.4
-compiler: gcc-14
-test machine: 224 threads 2 sockets Intel(R) Xeon(R) Platinum 8480CTDX (Sapphire Rapids) with 512G memory
-parameters:
-
-  nr_task: 100%
-  mode: thread
-  test: futex2
-  cpufreq_governor: performance
-
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <yi1.lai@intel.com>
-| Closes: https://lore.kernel.org/oe-lkp/202611050816.9e42490c-lkp@intel.com
-
-
-Details are as below:
--------------------------------------------------------------------------------------------------->
-
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20261105/202611050816.9e42490c-lkp@intel.com
-
-=========================================================================================
-compiler/cpufreq_governor/kconfig/mode/nr_task/rootfs/tbox_group/test/testcase:
-  gcc-14/performance/x86_64-rhel-9.4/thread/100%/debian-13-x86_64-20250902.cgz/lkp-spr-2sp5/futex2/will-it-scale
-
-commit: 
-  0fcb05b723 ("Merge tag 'libcrypto-fixes-for-linus' of git://git.kernel.org/pub/scm/linux/kernel/git/ebiggers/linux")
-  c44a057178 ("[PATCH v2] futex: Use a keyed hash for global futex buckets")
-
-0fcb05b72344f408 c44a057178cbedbc04c63404258
----------------- --------------------------- 
-         %stddev     %change         %stddev
-             \          |                \  
- 7.026e+08            -6.0%  6.607e+08        will-it-scale.224.threads
-   3136755            -6.0%    2949754        will-it-scale.per_thread_ops
- 7.026e+08            -6.0%  6.607e+08        will-it-scale.workload
-
-
-Disclaimer:
-Results have been estimated based on internal Intel analysis and are provided
-for informational purposes only. Any difference in system hardware or software
-design or configuration may affect actual performance.
-
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-
-
+Br, Jarkko
