@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793907677;
-	b=VzGTf7i3MUkbf1zzrnUUo2RfzdOg92Qe7jOi4HpqUTod5ZD8wYuf3KDLRTkkOlHsOQWY
-	 ucRcUysFoXQJrh2RwqhTMkUJ9GoT3Fs5pl2Ifax59R7M0Nx5sziB+Pqa1Yznyzp6M32j/
-	 yUsSiQEbvyCZE8I6iIMtq+vCzKt+nYN0+SEN5/xkKovkgdOiUajlR9qGDsbhcAGu1si2K
-	 xB+yjr6qOzBTehpoEZTSkxGF0SdpVp0elCGGGwV5PE3WCuHWI6relKI+i6vjzCconOxeJ
-	 EE5e0vWz+abWBAZOblPxMrEMK4TuGItuSHw1JDVAb75dKA2B4PB2DytjE/3JmnyyBqQ==
+	t=1793907743;
+	b=xR7AKwUWLucHe+hOFXr3Qz5vslA52ipl58fbiofF+hw30jWSuvxe7beO9H3xZ4iDmFz0
+	 zLLzf7emNryZMPhx95x9hjcQg9ib2excV+mTzF2OOfzSfINghP6yDtJ2D00c10HxNTTdE
+	 AOeNVOMueQ0OpwS1LZKHdGc8pkPa34T7siOMDyjZfRjz/byIBImIjYqw7iCUGU31IRALQ
+	 JU2v7ghq44LPGwvw/2RU/amP4RH11XggFPiv6V4jApe6t+Ep5KamPb5hx9zo/3jyKkRSi
+	 N/S7YYQntQU/rs97PsslBmH44n7hVgJ0twn2qtcOk2xUcz1DvozkNtpMspJY2I6j7Qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793907677;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793907743;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=7xOA7/MFtPGvMkCRzH2IZM+Zp+q2YHj/nln8ZoTRBwY=;
-	b=1GBwoZoA4vxp4nmhTaOOC912Ofv+0d/hGZfL0hVv47HNvNlFSNOP6D7F8Pr0FZq26EkN
-	 1fQ5PB/Q1MS9WfHFe+gT4nN3P4yQIRyG7YDbRQenVS2HdX5VIu/dF6I8o3YBRhNnDH+rr
-	 hEestZBI9ySvTgaZFM28WPkRrQr9pyF5C9q2bNJNSdCPZS6S6pJKUZ5RMmHrh55ZzZPyk
-	 W6bX3cJ9GMQwVggm/FzouYEcQWXSWH7vYbuPGKTuK8rrGM5tJDyASU1dJrY08m8VtnE9+
-	 OoR2YT4yemacv9XsB56DDTWpUT+Xt+yYCrbxm41IXjxtR4k8D6wzD2DflWa1JN47+pw==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=/ASifYxMvbZYAJqQ9CETs0I1+qbM48qcyKYo9L5msDM=;
+	b=bJo9qXQqERPueGQ16d+TbJ6qhjdcKD3BGS8naxDt2UM9PKeA6963dCsBz7YCY4pclNPA
+	 5vCt8+jqym+ODAImBsKBPnWSD4rdpSlF3s/b+TppQ5x8+DeOFmn2KKsnnRsIpTpfWYxDV
+	 mM3AWXCKa2cgMxR0xytaKr6Fstwq78+080fzzrRdieJNqmdcG1h84sActlbQ5op9cJLqy
+	 3R+iXEj+ufP9TQ40x8FVO/moArEAIKwvrA1R8nlfUXjT/eh21L5lCE1DksNoqWujh9L2F
+	 g7e7Ut0sC+V8QF0If7SyC5nZYybH+FsE9FChNxZhkJYY+16SK1/oO+aQy8iiZiu8csw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PagCPc1K;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IsLFFzyx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A433260772A9;
-	Thu,  5 Nov 2026 19:41:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F31FA606B9D1;
+	Thu,  5 Nov 2026 19:42:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PagCPc1K
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45CD61F0089F;
-	Thu,  5 Nov 2026 19:41:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IsLFFzyx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4C211F0089F;
+	Thu,  5 Nov 2026 19:42:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793907677;
-	bh=7xOA7/MFtPGvMkCRzH2IZM+Zp+q2YHj/nln8ZoTRBwY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=PagCPc1KLJLvqSP1ak2XTtOPSr3K9Q5Ap2/nOehIHIEciNiB8UdpA5afRCvNwzLH+
-	 9EgbfaeT61Yqk6r+hWYx7RTy5aa35aam1ySzOL6dKjUN1CicPkZFkQC0ognTOsud0/
-	 4MM1q5mqwz+5na33Q5pThHnO6dPG5NT2b80JCa7/qHdLEIde0gdnEqZQh/rWIVioRP
-	 1NzPcag3YCPc66Mxx95xh4VjFI4uS0+80hwkVqvj8V4u7IuJgk7vtAEA9p/loGt5qi
-	 kszJsuHBMOqZrPhPL/yA8DsE04t1jXsuF+dqDe9tuGl4Ha5HFZtgGrGnsCeFmVPxBq
-	 SowR5BhKazQSQ==
-Date: Thu, 5 Nov 2026 13:41:16 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Keith Busch <kbusch@meta.com>
-Cc: tglx@kernel.org, bhelgaas@google.com, maz@kernel.org, lrizzo@google.com,
-	hch@lst.de, changfengnan@bytedance.com, namjain@linux.microsoft.com,
-	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
-	linux-nvme@lists.infradead.org, Keith Busch <kbusch@kernel.org>
-Subject: Re: [PATCH 2/2] PCI/MSI: Implement irq_mask_noflush() for MSI-x
-Message-ID: <20261105194116.GA1553387@bhelgaas>
+	s=k20260515; t=1793907742;
+	bh=/ASifYxMvbZYAJqQ9CETs0I1+qbM48qcyKYo9L5msDM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IsLFFzyxBeJkjVkWlr1ZbIZEua5S3YCf8nC47IraXq2xcyjsSed6uQ82wtVPz/Y3n
+	 BI8b4LWQ3nNynA2WMtO/v/duDzS7s93Xkpmqi9a6KW3rD1mqmWZ8pQOvCuCY/hpJIJ
+	 y5DMQc7rHvL2lYddjbSvUaVOKe+EqHk04kMpmVXhGB0kcqycQG7OslfXeAVbzvOZ/6
+	 8qPwTp9eNLqCmptajkEyFh6CZB4OJCySdK4WUvc+v2W+TXJDsy/ebi6EYh4XQYlB+L
+	 RRgDiBq/nYlfBBuLKaKzrCXz0ejc/AG2y59zLoHX65WW73KEWKdLPV9XlwlqS2gDdB
+	 3psIb17z0Mf7Q==
+Date: Thu, 5 Nov 2026 19:42:20 +0000
+From: Eric Biggers <ebiggers@kernel.org>
+To: Emanuele Rocca <emanuele.rocca@arm.com>
+Cc: Ard Biesheuvel <ardb@kernel.org>, linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] lib/crc: arm64: use .arch_extension to enable CRC and
+ crypto
+Message-ID: <20261105194220.GC3266627@google.com>
+References: <20261105154145.557042-1-emanuele.rocca@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,14 +59,31 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261105182706.3700908-3-kbusch@meta.com>
+In-Reply-To: <20261105154145.557042-1-emanuele.rocca@arm.com>
 
-On Thu, Nov 05, 2026 at 10:27:06AM -0800, Keith Busch wrote:
-> From: Keith Busch <kbusch@kernel.org>
+On Thu, Nov 05, 2026 at 03:41:45PM +0000, Emanuele Rocca wrote:
+> Instead of using ".cpu generic+crc+crypto", use ".arch_extension crc" and
+> ".arch_extension crypto" to enable the required instructions.
 > 
-> Skip the read-back that flushes the MSI-x mask write. Parent domains
-> that mask on behalf of PCI/MSI keep using their own irq_mask().
+> The ".cpu generic+crc+crypto" directive replaces the assembler's current
+> feature set with generic+crc+crypto, dropping any other features that were
+> previously enabled, for example by -march or by a toolchain configured with
+> --with-arch=armv9-a. In contrast, ".arch_extension" enables the requested
+> extensions while preserving the current feature set.
+> 
+> This is not a functional change: crc32-core.S only uses base A64
+> instructions plus CRC32 and PMULL, which remain available, and BTI landing
+> pads are emitted as HINT instructions. However, using .arch_extension
+> avoids the pitfall of silently disabling features. See commit 9142c2f8f84b
+> ("octeontx2: use arch_extension to enable LSE").
+> 
+> Signed-off-by: Emanuele Rocca <emanuele.rocca@arm.com>
 
-When you respin it,
+Thanks.  Just to confirm, all supported versions of binutils and clang
+support this?  (As per Documentation/process/changes.rst, the kernel
+currently supports binutils 2.30 and later, and clang 17.0.1 and later.)
 
-s/MSI-x/MSI-X/ to match spec usage
+A lot of the arm64 crypto code uses ".arch armv8-a+crypto".  Should
+those be replaced with ".arch_extension	crypto" for the same reason?
+
+- Eric
