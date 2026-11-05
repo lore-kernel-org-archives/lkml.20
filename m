@@ -1,63 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.218
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793844753;
-	b=CzvxEDn/GUXFbYPNJQv9mM04BVBddFywwdahsyFdwbUwWuTwhMTKVytz4rSjrQ9itn6Y
-	 Q7u0ILTJkRm1LqFIU6iImm7uUHoHeBCOWrDP2d2Lho8yF4fG596u8RB8Tp0MuvBDajR5g
-	 axrugjs6SGVy8w8G/zIYykhvWwg9M2fWJl3XpJ69ZH7+OpntlHMWDxRqPP+Esf1GHZJ/A
-	 wJSFF6u7fhQbLtkKUk9cQFVK4Gp+zaprYCnyS83gEkRE5K7Ey5tZ97DLY/BwtYqU8utjW
-	 tlWKV5DH3tQDEVzx/PrJaFqbISK+Wq2DPfT3W5+x6Cxrq/jxZfPBe4/+qbelgpfjQiw==
+	t=1793844796;
+	b=CwyjuZWl5mBCbTCZhG7VUXALT8kwB3mx/ukTN23ePx+DD9Pc1rFdfBFWvAufpmmfUTOF
+	 k/gOJ79GjVdGVxRfSi4ylpfjGPYJ6BCrAuFicb9L94OrlWQb/r42+i5ecNXTONnEx1SVQ
+	 BYIf26tojlrLOjy7Cel8iFE4InZgzbgcplEfG6/fovmtrZh3tXdGbbAyIQfHVy2saMAM5
+	 MegFHBxqWgJwNA2koZBs6i0JLmrwzcBE+8i4Z6MyETR1ru2ixqUZ8i3wEUedeZkYSxnsO
+	 dw6k1Iw/gndVJWkpf08ftsc4E4zoOKLBVBsWhkeYFnbnfGLB/3Huz9Ju/sDLU6jdTJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793844753;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=QaEwYVK0QRwa1prVIMD7IJ4FVuOtJkVN57HHtraLvXc=;
-	b=cOdv/EUx8DMHfZHvSEQGSp4jkcArQeNcR81XjKMJPEJU6qDjtN9oZn4/S7yOzqox7miU
-	 lPaZeF87Oqz+uirmhTp2o2J8YXv2Ryi3wJk2LuFpfGd/0Tut2YOdDUC5AgRRO0EEsFn0G
-	 4ZjT66D7P5vn6Ml42RkVtwNG+NQsnwHHJNKh56xxiFKeXL9QhvOuU5t2k4JNJpaOEptgd
-	 seKKUBgdzZlilWYVN8CgJZJZJ3fo1tSxv7VhKMJrgJ6m2kP4j7PIeDbRuvQrtrdVJyPYv
-	 6UwkNnKsRXpYnnSvCgj35mtP/Fao4eafwcZIgNJK3XLVZ5dCEPHCEwX+c3qMHZoRwFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793844796;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=iTltyTy3XY6yo19A8F9g/qsXyruIBa411J5VIM+AbTg=;
+	b=LQZ6orlwakCW7H8qDykrH6CYHFqGw2pjpNBxtb9/5ca+ShyseZigh5294cJWz0sHStJJ
+	 bwovyIzi/1Jpz5Q03VTfCYwSqlj/IfmT+F1Hee/QLdpLRo3RzXoef8cTEwOdzNirA8YKY
+	 WayRHwirTGWjf4JhTGSU+ptvqftADT71dsFMqmWW/iyk/xyoeIa7GfoYkq2UCnF1AWsZT
+	 8WVapz0Y27KsXcVjcxVFvcYUzS+ndh5FNbZZ+aYt/UsQ3/t20lmh1gwWVHjcDuWR7Op13
+	 vrd3TQ8LziLgFETBWKT3Ydip+jbLJnahkAXz4qkUqGdBN9hwSXrtl34WFA9Sx1byunQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UsUqcTDX;
-	arc=none smtp.remote-ip=91.218.175.176
-Received: from mta0.migadu.com (out-176.mta0.migadu.com [91.218.175.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=V+8QhNMj;
+	arc=none smtp.remote-ip=115.124.28.218
+Received: from out28-218.mail.aliyun.com (out28-218.mail.aliyun.com [115.124.28.218])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A70FB606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 02:12:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A70FB606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 052A6606A31B;
+	Thu,  5 Nov 2026 02:13:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 052A6606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UsUqcTDX
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=pBrfotY9+XE+xLOo6ESNM23xl8EfAZ2RsF5WJxQ1HQg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793844749; v=1; x=1794449549;
- b=UsUqcTDXiUIUDjy7EsYATTiTE4U6RjuH70yVSspKepTCWFqrC/x3yt0UZgU75x1/nKu1mAnD
- Hk9Ko34P03qH2vXk1TZ87alHQ0PdewiOAmMEK2PuaqC4at6pOlyIV1CTYIBiQUivv/pbCKiY32n
- ScIr6xmD26QRN+0a3WoBlGEQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id d7e254c367df15f0;
-	Thu, 05 Nov 2026 02:12:29 +0000
-X-Mizu-Trace-ID: d7e254c367df15f0
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 5 Nov 2026 10:12:15 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Yaroslav Dudkov <aroslavdudkov622@gmail.com>
-Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
-	pabeni@redhat.com, horms@kernel.org, shuah@kernel.org,
-	weiwan@google.com, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH net v2 1/2] ipv6: ignore link state in gateway check
-Message-ID: <auvl_644NtfQVWrW@fedora>
-References: <20261104195655.1406837-1-aroslavdudkov622@gmail.com>
- <20261104195655.1406837-2-aroslavdudkov622@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=V+8QhNMj
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1793844784; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=iTltyTy3XY6yo19A8F9g/qsXyruIBa411J5VIM+AbTg=;
+	b=V+8QhNMjfVbt6YKv2sdcr0bvaw+UcydgsTGQi5kh4iYrZeQR/p3kemlSaHPrh3CNGHMAkbkqVU8BcyFOFa4z4Dgz7x2k+NECnZC1jOZu7KI4XJsOvk+qwG4M0CtdH6bRkXN3sW5b6SM+BZZyqTUCe4yiQa1De/ml0h7NwnX4sbQ=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1164851|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00192615-6.33412e-05-0.998011;FP=10463892798782289586|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033071099199;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jx4H42-_1793844783;
+Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jx4H42-_1793844783 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Thu, 05 Nov 2026 10:13:04 +0800
+From: Guanglei Zhu <zhugl3@xiaopeng.com>
+To: dmitry.torokhov@gmail.com
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	liuc63@xiaopeng.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] Input: tegra-kbc - check the pin numbers from the device tree
+Date: Thu,  5 Nov 2026 10:13:03 +0800
+Message-ID: <20261105021303.4206-1-zhugl3@xiaopeng.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261103084135.426629-7-zhugl3@xiaopeng.com>
+References: <20261103084135.426629-7-zhugl3@xiaopeng.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,99 +63,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104195655.1406837-2-aroslavdudkov622@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 07:56:54PM +0000, Yaroslav Dudkov wrote:
-> IPv6 route cannot be added in table when all
-> following conditions are true:
-> - gateway is not link-local address
-> - ignore_routes_with_linkdown=1 on device
-> - nexthop has no carrier
-> - gateway is not present or covered by any route in table already
-> Also multipath routes addition is invalidated by kernel even
-> if only one of added nexthops satisfies all above conditions.
-> 
-> Reproducer:
-> 
->   ip netns add t
->   ip -n t link add va type veth peer name vb
->   ip -n t link set va up
->   ip -n t addr add fd00::1/64 dev va nodad
->   ip netns exec t sysctl -w \
->     net.ipv6.conf.va.ignore_routes_with_linkdown=1
->   ip -n t -6 route add 2001:db8::/64 via fd00::2 dev va
->   # added
->   ip -n t -6 route add 2001:db8::/64 table 100 via fd00::2 dev va
->   # RTNETLINK answers: No route to host
->   ip -n t -6 route show table all
->   ip netns del t
-> 
-> Route should be added because:
-> - RT6_LOOKUP_F_IGNORE_LINKSTATE in commit d5d32e4b7668
-> ("net: ipv6: Do not consider link state for nexthop validation")
-> was added for this
-> - the same route is valid in main table (when no specifying table id
-> while adding route)
-> - fib6_nh_init() initializes nexthops with no carrier
-> - IPv4 already does this (fib_check_nh_v4_gw() ignores link state
-> using the FIB_LOOKUP_IGNORE_LINKSTATE flag)
-> 
-> Before commit b2c709cce682 ("ipv6: Convert gateway validation to
-> use fib6_info") rt6_lookup() was used for checking if nexthop is
-> valid, rt6_lookup called rt6_device_match() which does not check the
-> link state. After change rt6_lookup() to fib6_lookup()
-> find_match() under fib6_lookup() started to invalidate linkdown
-> devices, because RT6_LOOKUP_F_IGNORE_LINKSTATE is not passed to it.
-> 
-> Adding RT6_LOOKUP_F_IGNORE_LINKSTATE to flags for ip6_route_check_nh()
-> solves the problem. RT6_LOOKUP_F_IGNORE_LINKSTATE is already used
-> inside the first search ip6_nh_lookup_table() and fixes the
-> bug in second search fib6_lookup(). Also RT6_LOOKUP_F_IGNORE_LINKSTATE
-> isn't read inside fib6_select_path().
-> 
-> Fixes: b2c709cce682 ("ipv6: Convert gateway validation to use fib6_info")
-> Signed-off-by: Yaroslav Dudkov <aroslavdudkov622@gmail.com>
-> ---
-> IPv4 example of this situation:
->   ip netns add t
->   ip -n t link add va type veth peer name vb
->   ip -n t link set va up
->   ip -n t addr add 192.168.0.1/24 dev va
->   ip netns exec t sysctl -w \
->     net.ipv4.conf.va.ignore_routes_with_linkdown=1
->   ip -n t route add 192.0.2.0/24 table 100 via 192.168.0.2 dev va
->   # added
->   ip -n t route show table all
->   ip netns del t
-> 
-> Also when adding RT6_LOOKUP_F_IGNORE_LINKSTATE to flags of
-> ip6_route_check_nh() makes adding this flag inside of
-> ip6_nh_lookup_table() unnecessary for this call, making another call in
-> ip6_route_check_nh_onlink() with flags=0 the only place where it is
-> needed.
-> ---
->  net/ipv6/route.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/net/ipv6/route.c b/net/ipv6/route.c
-> index 94e5ef1c4f83..73d8a2c95602 100644
-> --- a/net/ipv6/route.c
-> +++ b/net/ipv6/route.c
-> @@ -3424,9 +3424,9 @@ static int ip6_route_check_nh(struct net *net,
->  			      netdevice_tracker *dev_tracker,
->  			      struct inet6_dev **idev)
->  {
-> +	int flags = RT6_LOOKUP_F_IFACE | RT6_LOOKUP_F_IGNORE_LINKSTATE;
->  	const struct in6_addr *gw_addr = &cfg->fc_gateway;
->  	struct net_device *dev = _dev ? *_dev : NULL;
-> -	int flags = RT6_LOOKUP_F_IFACE;
->  	struct fib6_result res = {};
->  	int err = -EHOSTUNREACH;
->  
-> -- 
-> 2.54.0
-> 
+The row and column pin lists are read straight from the device tree
+and used to index the pin configuration array:
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+	for (i = 0; i < num_rows; i++) {
+		kbc->pin_cfg[rows_cfg[i]].type = PIN_CFG_ROW;
+		kbc->pin_cfg[rows_cfg[i]].num = i;
+	}
+
+The helper only limits how many entries it reads, not what they
+contain. Not all Tegra variants have KBC_MAX_GPIO pins - Tegra114,
+for example, has 11 rows + 8 columns = 19 - and the setup loop only
+initializes pin_cfg[] up to kbc->num_rows_and_columns, so a device
+tree that names a pin the variant does not have makes the row and
+column stores write over pin_cfg entries that were never touched,
+and the later check_pin_cfg() walk reads that stale data back as
+valid configuration.
+
+Reject pin numbers the variant does not have.
+
+Fixes: 88390243a993 ("Input: tegra-kbc - add support for rows/columns configuration from dt")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+---
+v2: validate against kbc->num_rows_and_columns instead of
+    KBC_MAX_GPIO, per review - Tegra114 only has 19 KBC pins and
+    the setup loop above only initializes pin_cfg[] up to
+    num_rows_and_columns, so pins in [19, 24) must be rejected too.
+
+ drivers/input/keyboard/tegra-kbc.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/input/keyboard/tegra-kbc.c b/drivers/input/keyboard/tegra-kbc.c
+index bc1c80a..657260d 100644
+--- a/drivers/input/keyboard/tegra-kbc.c
++++ b/drivers/input/keyboard/tegra-kbc.c
+@@ -522,6 +522,10 @@ static int tegra_kbc_parse_dt(struct tegra_kbc *kbc)
+ 	}
+ 
+ 	for (i = 0; i < num_rows; i++) {
++		if (rows_cfg[i] >= kbc->num_rows_and_columns) {
++			dev_err(kbc->dev, "invalid row pin %u\n", rows_cfg[i]);
++			return -EINVAL;
++		}
+ 		kbc->pin_cfg[rows_cfg[i]].type = PIN_CFG_ROW;
+ 		kbc->pin_cfg[rows_cfg[i]].num = i;
+ 	}
+@@ -538,6 +542,10 @@ static int tegra_kbc_parse_dt(struct tegra_kbc *kbc)
+ 	}
+ 
+ 	for (i = 0; i < num_cols; i++) {
++		if (cols_cfg[i] >= kbc->num_rows_and_columns) {
++			dev_err(kbc->dev, "invalid col pin %u\n", cols_cfg[i]);
++			return -EINVAL;
++		}
+ 		kbc->pin_cfg[cols_cfg[i]].type = PIN_CFG_COL;
+ 		kbc->pin_cfg[cols_cfg[i]].num = i;
+ 	}
+-- 
+2.43.0
+
