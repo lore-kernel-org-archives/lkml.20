@@ -1,59 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.218
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793844796;
-	b=CwyjuZWl5mBCbTCZhG7VUXALT8kwB3mx/ukTN23ePx+DD9Pc1rFdfBFWvAufpmmfUTOF
-	 k/gOJ79GjVdGVxRfSi4ylpfjGPYJ6BCrAuFicb9L94OrlWQb/r42+i5ecNXTONnEx1SVQ
-	 BYIf26tojlrLOjy7Cel8iFE4InZgzbgcplEfG6/fovmtrZh3tXdGbbAyIQfHVy2saMAM5
-	 MegFHBxqWgJwNA2koZBs6i0JLmrwzcBE+8i4Z6MyETR1ru2ixqUZ8i3wEUedeZkYSxnsO
-	 dw6k1Iw/gndVJWkpf08ftsc4E4zoOKLBVBsWhkeYFnbnfGLB/3Huz9Ju/sDLU6jdTJA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793844796;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=iTltyTy3XY6yo19A8F9g/qsXyruIBa411J5VIM+AbTg=;
-	b=LQZ6orlwakCW7H8qDykrH6CYHFqGw2pjpNBxtb9/5ca+ShyseZigh5294cJWz0sHStJJ
-	 bwovyIzi/1Jpz5Q03VTfCYwSqlj/IfmT+F1Hee/QLdpLRo3RzXoef8cTEwOdzNirA8YKY
-	 WayRHwirTGWjf4JhTGSU+ptvqftADT71dsFMqmWW/iyk/xyoeIa7GfoYkq2UCnF1AWsZT
-	 8WVapz0Y27KsXcVjcxVFvcYUzS+ndh5FNbZZ+aYt/UsQ3/t20lmh1gwWVHjcDuWR7Op13
-	 vrd3TQ8LziLgFETBWKT3Ydip+jbLJnahkAXz4qkUqGdBN9hwSXrtl34WFA9Sx1byunQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=V+8QhNMj;
-	arc=none smtp.remote-ip=115.124.28.218
-Received: from out28-218.mail.aliyun.com (out28-218.mail.aliyun.com [115.124.28.218])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793844812;
+	b=31CRQ6+R5kIUSgjABOAdYSUfIU/V/rTBcW/5cmcCp6rFmcVLkH6034/7aw6AW6TKPYeT
+	 fQcTg2lyM/7HJ+T9zCKS2VJqHI/DmU7DKRMAB95I7uiT86HWCvLc8J8f5blEMUkC4XeSE
+	 alFprmtE90qOSyiUdO8xNf4YayMrg+SJPr4+mqT1tSGB6b+GBGBo68n5Vx3NIDK5O12B0
+	 wCRxoVsgQApaFCNqmigox5RuRPK5ghi2/wXHAshWYhZY/YhZ0P0Lgvb2AdGIuKYdEduS5
+	 WFwo1xMuyXSXRLdEKmNUrY9KHrW47trppX/GOZSQNv5YH87glTTUtkLK4jw7u/AaOww==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793844812;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=hpziF86+RxjzNw0Zs0xyBduF0/c5YvcNE86OKRmU6Dc=;
+	b=B3jGEmphb7AgkDzrWhg4m2ClHySQkr5MY8juAb5jRFX5cEFvNAmnaRJ66nFASLBjsXWj
+	 mUFgAu6cIwV6qizuCrL0H3jbgV5Hmc77udPNwlbIE9wPo9y8+m5EtxyCcn6s7ffVBRZh3
+	 NVVgOWDmqIInf7Po7e3y9MS6qpVpHayDFElAoqAd6Ze9DiHM+MpoVIBoAhAMtQm82fmq6
+	 SCzFgA7n6kHcjWFP7F3v55OR5g+Knx3lJkE4nNA3cImYdyhEdRmWPJzQHUqD3WiYvvPUH
+	 uO3sE2Uv18yF0+77oAxDjRz9Ain+xLWyLmr+8FYugk5GjJhPCrKo4IR6yuxnwJvE0ig==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=chromium.org;
+	spf=pass smtp.mailfrom=google.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.53
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 052A6606A31B;
-	Thu,  5 Nov 2026 02:13:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 052A6606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=V+8QhNMj
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1793844784; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=iTltyTy3XY6yo19A8F9g/qsXyruIBa411J5VIM+AbTg=;
-	b=V+8QhNMjfVbt6YKv2sdcr0bvaw+UcydgsTGQi5kh4iYrZeQR/p3kemlSaHPrh3CNGHMAkbkqVU8BcyFOFa4z4Dgz7x2k+NECnZC1jOZu7KI4XJsOvk+qwG4M0CtdH6bRkXN3sW5b6SM+BZZyqTUCe4yiQa1De/ml0h7NwnX4sbQ=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1164851|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00192615-6.33412e-05-0.998011;FP=10463892798782289586|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033071099199;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jx4H42-_1793844783;
-Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jx4H42-_1793844783 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 05 Nov 2026 10:13:04 +0800
-From: Guanglei Zhu <zhugl3@xiaopeng.com>
-To: dmitry.torokhov@gmail.com
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	liuc63@xiaopeng.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2] Input: tegra-kbc - check the pin numbers from the device tree
-Date: Thu,  5 Nov 2026 10:13:03 +0800
-Message-ID: <20261105021303.4206-1-zhugl3@xiaopeng.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261103084135.426629-7-zhugl3@xiaopeng.com>
-References: <20261103084135.426629-7-zhugl3@xiaopeng.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6110F606A331
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 02:13:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6110F606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b56c90b38eso5978a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 18:13:27 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793844806; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dIqYGePYe5TRnQyAwhXVMutp9OVLOPiFE22JaPZsmL/PDrhOtbHVvU+Dfprln3kFfc
+         /nQpxs94FpVTRGRV+etzu7mPk77F9sVi/Jfyz50HAINDpzUPOzRYgfli+0UzOijZFtih
+         scdHh9btAiturfSt3S5mQPYBr4uXnPC5SlvVpxtwdrgcDCVMuoWUlda6CfH2ymMh2IZF
+         dSevqj0o/r3rXyPqMK3nZVsRp5l/iqsweArS0PA7U5aDZRmjpINUWKtXt50mWHnA3tg1
+         awiBWLfC8xyZwTGCVlPrpgJEDYzug3hmH4DaOvJ1jJA1aI+k8axkYqiH/O8Tepejr0Vu
+         +u8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=hpziF86+RxjzNw0Zs0xyBduF0/c5YvcNE86OKRmU6Dc=;
+        fh=sLvPcaxS1i1r+ats7wVAe5ngh5C/+d2JBJg+FhJavxU=;
+        b=c+ONWnbmogG8Xe84199W6/h7sBx0JK/HHFZV4BKKLc+AY9ktCcmCQhM02BzgSe7ow2
+         MauRdzg+Ac/oYdcmtwNqB3+gzpj6uQ8Jx8Y3ehtaWAqV6bHvcoffDJYN+svBsrljSJSx
+         4gtf717vCoj5mNx7paGimZUr5lDDpoj+5lZmK2q6OjRrTZW9kAovQciDLaeZ+1tkoj6f
+         BiIerC4pS8uDdc4rrqxlmD5hw53v1nAPO+MUID1B9tP5yXnjNaxAXal261e3roQ8HBmO
+         lHCS3ZxpolDat4gx0/RJCy0BaMScNwm678eu+ou96Xj97haUJzNmHp79YOPBtly4u6Dm
+         EIAA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1793844806; x=1794449606; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hpziF86+RxjzNw0Zs0xyBduF0/c5YvcNE86OKRmU6Dc=;
+        b=e54vUMq3VJQg+XBl/xCM483M32/b4tOTj2yEbVLqfjK3dNUY/Mc6rXpZ76/jR2LPQk
+         +Wy9VOwrhxjo4L2MnkX2IlFBmLRwbJr2p0RGTnW2JAb5Kj8gHxrNJrzjreEVNyHqXvh8
+         8mYGJ1MunF3zziLGlUy8UGiA/Ej/jRtKSK6hM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793844806; x=1794449606;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hpziF86+RxjzNw0Zs0xyBduF0/c5YvcNE86OKRmU6Dc=;
+        b=lZqqX7fjBfL0rrt0XWKCg1aS34blIGVTogJrgSYHXQR/NsJCRp/z6m5oRVJcz2jJvk
+         sRN2YtLkHvoiheOh60d74cMFx8wHFOrghmv+TUtgRoTHEf0mmHuU56U0xORp2ZlfMLJ1
+         dOR6dqT34v5Eg1KxMUtxze5nx/oe1Ti9fYDot4zxSIxKbc0VIoqx/smpGa7sjRKaruR2
+         SIl9v85NJdkTVMqEGk6S0CtOFIAHMDJ9lIEwkPNv+oGMrfRaoJejvHwVO/VW5agGw8qF
+         ispDq9tYyzkP63hm744hpvMtacNdxV2EugjvVH64SsHGscPZrB9bCjYrVDJCpSom0XBV
+         PKVw==
+X-Forwarded-Encrypted: i=1; AKwUvBxTTfgT41qVWRuqrkFic1JRHSJH4uNkVdorp3rtCfS6MpkOLaeZTQn1giG4FXGY2QzxVCXSaHyR3opzRtQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9B/l4Z/fj3E3yO1Xi3bOAXhJF9G9BvIrE73n3u9HqMDxz8vBUu
+	CsG1obMHcMwAROm1o1kRr/h7INmKOWF6TvwQOtKDAPwpePenf3Qxfr0dUUHdWiT7hB45M9xpZPW
+	0DryBHAoMSAEoru0DdnjvqPRpvuTSMTLeBXZ/NM7/
+X-Gm-Gg: AYBFou1YdjUWL4r1cm2G/uLNxwwOcEcUbCfuG8tPbvP7bq878wXo8cgMqytyNaQ39Qt
+	IwsRDG07xNZR92kNpM7Ki/N5oKJZZ+ctF/EXUVdoMogeT1w/FVwS4vK1S7TIqr00C0mLIJLMwwL
+	/uoxQ4KP2qUfFq2+p1WhGa0FQpgY3qn9wXmQKot6IDIJ/YMOM75CmKp1SbZFAPuWVarIr3C93cN
+	+JICg7dmVhQLMvOheNITdciYZVX21x40yS/iKkCTH0sZDB+CoL71w53y9QTNrub/uhSiNTLor9i
+	FWoGeYw3aGk0W2NZs9g8mIUVVk+O4XcQUl+CXQ4wcUIwDoUIsaP6p2imrF0S092VUGWgOWgur7E
+	TzmKm6zIOt5PfiMrjwtAw06d0mZp0chgsZnTTTqOdYhkEL2hbUxlvB9xcim/tGe7lgF9GcI0wLh
+	RkznWmr+X0hRmREby+NAudHg==
+X-Received: by 2002:a05:6402:7cf:b0:6b5:65ef:440e with SMTP id
+ 4fb4d7f45d1cf-6b57cdd26d9mr21493a12.12.1793844805321; Wed, 04 Nov 2026
+ 18:13:25 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,65 +99,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261104161553.30115-1-mateusz.nowicki@posteo.net>
+In-Reply-To: <20261104161553.30115-1-mateusz.nowicki@posteo.net>
+From: Julius Werner <jwerner@chromium.org>
+Date: Wed, 4 Nov 2026 18:13:12 -0800
+X-Gm-Features: AclHuK-125zaIgRXhhjwYItELasBysm9j_wuLFip_xcu42o_jtzCl0wz_NYTSuw
+Message-ID: <CAODwPW992ncQNo1yxrOrAKKZ62TB_U1eYWstZuTKDKqFCFGRSA@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/3] watchdog: arm_smc_wdt: allow a list of SMC
+ function ids
+To: Mateusz Nowicki <mateusz.nowicki@posteo.net>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
+	linux-watchdog@vger.kernel.org, Julius Werner <jwerner@chromium.org>, 
+	Evan Benn <evanbenn@chromium.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Antonio Borneo <antonio.borneo@foss.st.com>, Marek Vasut <marex@nabladev.com>, 
+	devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The row and column pin lists are read straight from the device tree
-and used to index the pin configuration array:
+> DT folks, is there a way to keep the list in arm,smc-id that you would
+> be fine with?
 
-	for (i = 0; i < num_rows; i++) {
-		kbc->pin_cfg[rows_cfg[i]].type = PIN_CFG_ROW;
-		kbc->pin_cfg[rows_cfg[i]].num = i;
-	}
+Perhaps this is a bit of a hack, but you're in an unintended situation
+that wasn't supposed to happen to begin with so I feel it might be
+appropriate if it avoids adding a whole new mechanism to the driver:
+What happens if you simply define two watchdog nodes in your DTS, one
+for each SMC ID? Both of them would independently try to probe, one of
+them would die from getting an SMC_UNK, and the other would continue
+working to pet your watchdog?
 
-The helper only limits how many entries it reads, not what they
-contain. Not all Tegra variants have KBC_MAX_GPIO pins - Tegra114,
-for example, has 11 rows + 8 columns = 19 - and the setup loop only
-initializes pin_cfg[] up to kbc->num_rows_and_columns, so a device
-tree that names a pin the variant does not have makes the row and
-column stores write over pin_cfg entries that were never touched,
-and the later check_pin_cfg() walk reads that stale data back as
-valid configuration.
-
-Reject pin numbers the variant does not have.
-
-Fixes: 88390243a993 ("Input: tegra-kbc - add support for rows/columns configuration from dt")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
----
-v2: validate against kbc->num_rows_and_columns instead of
-    KBC_MAX_GPIO, per review - Tegra114 only has 19 KBC pins and
-    the setup loop above only initializes pin_cfg[] up to
-    num_rows_and_columns, so pins in [19, 24) must be rejected too.
-
- drivers/input/keyboard/tegra-kbc.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/input/keyboard/tegra-kbc.c b/drivers/input/keyboard/tegra-kbc.c
-index bc1c80a..657260d 100644
---- a/drivers/input/keyboard/tegra-kbc.c
-+++ b/drivers/input/keyboard/tegra-kbc.c
-@@ -522,6 +522,10 @@ static int tegra_kbc_parse_dt(struct tegra_kbc *kbc)
- 	}
- 
- 	for (i = 0; i < num_rows; i++) {
-+		if (rows_cfg[i] >= kbc->num_rows_and_columns) {
-+			dev_err(kbc->dev, "invalid row pin %u\n", rows_cfg[i]);
-+			return -EINVAL;
-+		}
- 		kbc->pin_cfg[rows_cfg[i]].type = PIN_CFG_ROW;
- 		kbc->pin_cfg[rows_cfg[i]].num = i;
- 	}
-@@ -538,6 +542,10 @@ static int tegra_kbc_parse_dt(struct tegra_kbc *kbc)
- 	}
- 
- 	for (i = 0; i < num_cols; i++) {
-+		if (cols_cfg[i] >= kbc->num_rows_and_columns) {
-+			dev_err(kbc->dev, "invalid col pin %u\n", cols_cfg[i]);
-+			return -EINVAL;
-+		}
- 		kbc->pin_cfg[cols_cfg[i]].type = PIN_CFG_COL;
- 		kbc->pin_cfg[cols_cfg[i]].num = i;
- 	}
--- 
-2.43.0
-
+This driver started as encoding the SMC ID in the DTS and that kinda
+seems to be the standard for drivers interacting with non-standard
+SMCs, so I would prefer to stick to that rather than hardcoding IDs in
+the C source (if we do that for each board it may end up being a long
+list eventually =E2=80=94 I think one of the reasons the device tree was
+originally adopted was to avoid things like that). I would be fine
+with the array solution but I don't know about the validation checker
+and whether people care about reusing the same prop name with
+different types. (FWIW, in the device tree a 32-bit integer is
+basically a 1-element array anyway, so we might just say it's always
+an array and for SCMI only one element is allowed.)
