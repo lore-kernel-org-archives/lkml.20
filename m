@@ -1,90 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.99
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793917813;
-	b=RiGr5sNNMMGaVopGFmu+qhXhJh2rBx7gXHsn/rdCn21ppC+tP0H08RGnBM33zeuEZtdj
-	 vnNb5OHtLB+Gzlcpg1x5SqUbBSKIlyzCvLAZ6wJ7/Eg1rqEijyT2ZX2fbxhqe6kN02j3e
-	 c2v1cullhbqVE9yjd/GqNAt9McAXqQ0B7UCNj1ogvALS47e6ov4PnvO6kcfz6qDpEZvhD
-	 TfSqASDJVpzrbxPN4kJCifkCtIQUloyS5pOp0DB/hS2XUFkjuGbIc0r46keJDSYybJQeg
-	 AF/GKoDS9lM/zXX0u1tVLEo1OGsFfKBoWDpiRR1vaoJyXqIJCZJ4XaYfNlj+/AX0G9A==
+	t=1793917809;
+	b=SqZ/H9kkzdoFTMOmUHLTwjDf6OpkUmfQhkQWkXVqdiZ2jpANK1E79WNQJ3WqHF97duj0
+	 Dvg0K8CERRrFSjxu1CflIo94iJNARKRH9lYoPRJBCipuLLDvs6VG4yIlWrvVpTIKGJ3SE
+	 6D0kCgMxc3aTIwRxWLKQ8hWLwOzyWP4x6LcyLqjX5GpPPDJmrDjg+/rgEY7xRxG+U5vNW
+	 SX+JbkJyWLZbsskpCaK6rhR4ghlb/hL/WRixaRA+KzIbiedE1ZYlg0rV7fjzy0UzMXj13
+	 /35ZpFj1ZVGZJE2BH6MYwXsyvrb5nSgFC6z41Lh7zINaDXhaZAh238BFHDrkfhNBHFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793917813;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=cAaMsyaxq/hzUovbQXWov0zOr3rsEyWtdK5HVY2JsZc=;
-	b=XUFI4JWaYcGYfQeB+7+n85cnad9Rk8gKvcCabDuCgkRyvJeKCvcUAOmoFrYO5zO/770T
-	 zi/bvzjWsvdOAscvVC0tXl9G8D7OJ2ki4OWeyig2EdBnmLQs3rccN5+5Xj89reWEUis1T
-	 K4NqUHzgNi6k67hwrH87IDFF5tpwP6pU15HZ1LYLf2MxQ+ynnWbkFmXSu6JhU/JACthqK
-	 TVVWo0Ar9g2iZR8MYkSBGyOVSXQtCIbknz8kc3wXPQLrwJZN6eeSxFg1nu64dff55L72k
-	 HSorYTPlUbsX1F0yuuVqz9SDqQpM7JYjjdkotGRi8RtUqgj++IecZepwilRNbEU/viQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793917809;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=viuLjYesmtJpA1sjvM4v1Scr8RvgUg7KgCw53WlMpzY=;
+	b=Vi+gUQK9R6sJUbnCEYB51RXuhAktNCmD6wEfj93Wb2MAvIda63IeSf9TG1s++PwjeG9L
+	 P6DJb5+x0bWVe69Bca4Mr/7jilBGQCbrXcdCWAqptJqGrVJu2FD0oq+qr4KeJkMc9UXv0
+	 jalxoEdU/nbxbENmZpJ/stGPzVsZe/NUwejvNR99Zx5i+SFGu6uiClBEN+x6Nrcm2De1Y
+	 J4muhQbIZthtBay9FTcLnhO3s8MOPcQBvSshS/5lBaBZaE6Rfz20mxIiukNO9Fd3jjCsv
+	 8TMIDDYGonkphHS/Lwt0qReBX6wzjSnHxVsD2jdbc1puRN5w6xoHXKgIbSOCVu5VRaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EndB0GMo;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=1g4.org;
+	spf=pass smtp.mailfrom=1g4.org;
+	dkim=pass header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=mMSmuuwV;
+	arc=none smtp.remote-ip=185.70.43.99
+Received: from mail-4399.protonmail.ch (mail-4399.protonmail.ch [185.70.43.99])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59BEE606A32D
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 22:30:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59BEE606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 519A6606A336
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 22:30:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 519A6606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1g4.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1g4.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EndB0GMo
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-490f38e9688so29199f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 14:30:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793917812; x=1794522612; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cAaMsyaxq/hzUovbQXWov0zOr3rsEyWtdK5HVY2JsZc=;
-        b=EndB0GMoq2m/Lq1I0uNoQpqkg+eaNDcifYpeCgXGyJoGyy7daIqVeQrOuzG7Qg5IZY
-         mFRgxWZMuZmDF2OvI3O5uX8/lfvmg62r5NnxWekV5SIOVVe9VqNSVbl3ntCAeU6q/0YE
-         VgOwplvg0Q9y0Sox7uYbvgYasrabUzrAXPH4inEoTsuKde4AcpTb0aSqbBXsFXTP4RGd
-         UIG2bNa2i8zryHKDlfRYbGVZOH0Rzxmq8kqzxgmsbYVsbA27l0s14eZxwWWdksg4Umtc
-         +08aaKaqlfs/0eGOwMmoTlP7VB295R/KgNtxuxwl2/gXcWQyeWyQRoruSgjkNbWpiBC7
-         Z4Cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793917812; x=1794522612;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cAaMsyaxq/hzUovbQXWov0zOr3rsEyWtdK5HVY2JsZc=;
-        b=oP0K/vWSFDPivkQUEenz02l7BK1sSz1z3Zle/XbkWy2HC9bA8FhHZ7TCAVSy5gB+4B
-         5mOCoZeBRlGXnqH5uk4MBHUMFkKf5rtMqWL+iR/AvPL+WIusE5j1noexwYEyMnA5U2U+
-         mrKZkf9IaPwO8eRHZEwjjhknFkFVi5rvwTUmEZ8e4is2ByFAEsmgao/wTtj9ilGhe357
-         UU/IgHfAxHGSLXUNOMzgNGpwpWaxe4KbqBi8hELtpDHHoxsB8tsiErmxdnAPCendw/qs
-         86Rrk7W3VPFSH97mZo0feTDSZ/sqY1S29l5aN66S5AXGkAOexqNT8mPger2ylqJmLAvA
-         I0Tw==
-X-Forwarded-Encrypted: i=1; AKwUvBxLcKG+sOhTQ/kC9lqiW1zvllvPbU+mbHFtWqiPz6+J9lnhLPx9sc0h/MuMMQjAvGacSCGAotqq5PRG5Go=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ssFYiIcjGlakyGj9cek99nPRkcow5xs8JK7G2BGkiRzGnlqL1
-	nJGcAvwKVG9D1UTFZ6tpFLpR4MRYrqxz6PXYGgc75bCn1TwZcljFo9+o
-X-Gm-Gg: AYBFou1qnC1qjV0XzvCSFyo4Q7E4pVIggo8kRnkCeRYUtK78snLr/TGRwQH/NFHtAWK
-	mtPRL05hBWHE33pWzppgnbsqTJaQp74cEaQEVnIFM1IerbtCtmqlsLfr1xyFWKKo1jiJWa75w8V
-	pHXB8e3xeUoZPTYqH9Oyh7gNfmlJxYvGm8EZagS5OWmkqHf9jnITOJ9KGSPiJzIjAX/aV7ymrYD
-	Nq9J+nXvmddCpVaHsBN9asrWuwesBz+TRnNMJ1ydqfIGXBu++Aq6oz7/2bCkuf52CkT/wxy2Tmg
-	PZXB+uFxG2Eq0oxnZjMTB6GmKsDd0cflFSJ/R1A7cejVKV71FB9LiXpdAsK4QtqgqXPmcNNt4v9
-	D5J/IRBQ5vBw8sBIF24Ls7ILab73UQdGJqBbEk5bSKTVujKwAND9yhKO/cEQI7LPtJ/GzLwvJeu
-	cWg7M1ARDbhbhwQJl7LNv1403HUdHIIbmCEVfJwDMLgf0P0E+kiQTo7IjQhNcEMk8//HCGQ8MNp
-	GB4xx+JGJ1E9PoGtMOhXnHmWwbYPPfSQ4Fg/yhuVD3V5aW/sARR4s2ZWXGvycoRI2FBL21xl6gJ
-	PoI+T9Fg9X7lqiCCgsMqKyw021799zyQn/HRFglEGDsILYMbkRYw48KxM93YdptMjGj4+lCFnSJ
-	44si2NZtZX7DVStZi9R6X9Z+cEmD19qdG41B/XpLLucRBO+VkEOi9jU/jtFeKbTK6xygF4n+/Kf
-	wM89uUg+pvTW9C
-X-Received: by 2002:a05:6000:3c4:b0:48d:f852:c66b with SMTP id ffacd0b85a97d-4911a58b726mr7341283f8f.22.1793917811398;
-        Thu, 05 Nov 2026 14:30:11 -0800 (PST)
-Received: from ?IPV6:2a01:261:818:9401:46b1:9fe8:a5e3:32be? ([2a01:261:818:9401:46b1:9fe8:a5e3:32be])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d7702477sm37694f8f.41.2026.11.05.14.30.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 14:30:10 -0800 (PST)
-Message-ID: <56e7300b-cd1c-4fb4-b269-2243394c6df0@gmail.com>
-Date: Thu, 5 Nov 2026 23:30:08 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=mMSmuuwV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1g4.org;
+	s=protonmail; t=1793917804; x=1794177004;
+	bh=viuLjYesmtJpA1sjvM4v1Scr8RvgUg7KgCw53WlMpzY=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=mMSmuuwVIEGud4Y5aCYE/GSpTIRBaEj5qlZ61a615iQU2rVQrPljNtKoY6dsUMqFy
+	 Ue8+V6w38IEwHIPojjfg6Eqfa0bL88v7g8V9mmXFsOLNDHXGg2A5sBoOBFuPLpEWDA
+	 2klPrbRG+FVVDX2pWfgbJXH5LGwYWBu0MOKobG1RjXxBEcUjLADuWs/qAYY3aIckhK
+	 qrTq9dxw/AIPbB3Od1V72sUtcoUwRVyrJF8Bzh+EAdLj3CN8QfOsk3uU55LOFBPipJ
+	 hm0jVmvXG5YL5WqPR8OUOy/7cmq8wq2teyhRh6JO0DKGhPTpXtTSJW2B9P175aqNoO
+	 vmn3WSItZlIxA==
+Date: Thu, 05 Nov 2026 22:29:51 +0000
+To: Ding Meng <meng.ding@siemens.com>
+From: Paul Moses <p@1g4.org>
+Cc: netdev@vger.kernel.org, Willem de Bruijn <willemdebruijn.kernel@gmail.com>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Jonathan Corbet <corbet@lwn.net>, Andrew Lunn <andrew+netdev@lunn.ch>, Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>, Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, Richard Cochran <richardcochran@gmail.com>, florian.bezdeka@siemens.com, jan.kiszka@siemens.com, wq.wang@siemens.com, gerhard@engleder-embedded.com, Jason Xing <kerneljasonxing@gmail.com>, Simon Horman <horms@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Mathieu Desnoyers
+	<mathieu.desnoyers@efficios.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, John Fastabend <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, intel-wired-lan@lists.osuosl.org, linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org
+Subject: Re: [PATCH] net: mark skb NAPI IDs independently of busy polling
+Message-ID: <Tif4BSB0H3l8O1bLzRnhCE9hUYhsz6G3MIhQAgYZImUx1_8YwnCyzy89IV6OSTsXdHDT6fFf7rEL1qfRFJC9OPDHRlhl3cgNJyyE_mVlHWM=@1g4.org>
+In-Reply-To: <20261105071706.7043-1-meng.ding@siemens.com>
+References: <20261105071706.7043-1-meng.ding@siemens.com>
+Feedback-ID: 8253658:user:proton
+X-Pm-Message-ID: 262a97350b81bd39ace0cec8114d774b513fee40
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,662 +65,229 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/7] x86: make CX8 usage unconditional
-To: Arnd Bergmann <arnd@kernel.org>, Ingo Molnar <mingo@redhat.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, Richard Weinberger <richard@nod.at>,
- Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- Johannes Berg <johannes@sipsolutions.net>, Thomas Gleixner
- <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Peter Zijlstra <peterz@infradead.org>, Will Deacon <will@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- Yury Norov <yury.norov@gmail.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Alexander Usyskin <alexander.usyskin@intel.com>,
- Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>, x86@kernel.org,
- linux-kernel@vger.kernel.org, linux-um@lists.infradead.org
-References: <20261105163440.2381661-1-arnd@kernel.org>
- <20261105163440.2381661-4-arnd@kernel.org>
-Content-Language: en-US
-From: Uros Bizjak <ubizjak@gmail.com>
-In-Reply-To: <20261105163440.2381661-4-arnd@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
 
 
-On 11/5/26 17:34, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> All supported CPUs now provide the cmpxchg8b instruction, so remove
-> all compile-time and runtime checks for its presence and the fallback
-> implementation, to assume it just works.
-> 
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+
+
+On Thursday, November 5th, 2026 at 1:19 AM, Ding Meng <meng.ding@siemens.co=
+m> wrote:
+
+> Commit 97dc7cd92ac6 ("ptp: Support late timestamp determination")
+> added support for deferring RX timestamp conversion to
+> ndo_get_tstamp(). When the timestamp is consumed, get_timestamp()
+> uses the skb's NAPI ID to find the device that owns the timestamp
+> cookie and invoke its callback.
+>=20
+> Commit e68b6e50fa35 ("udp: enable busy polling for all sockets")
+> gated NAPI ID bookkeeping with CONFIG_NET_RX_BUSY_POLL. As a result,
+> when busy polling is disabled, the skb may not carry a usable NAPI ID.
+> The device lookup then fails, so the driver callback is not invoked.
+> get_timestamp() falls back to hwtstamp, which does not contain the
+> converted timestamp, resulting in an incorrect RX hardware timestamp.
+>=20
+> Record skb NAPI IDs independently of busy-poll support to support
+> drivers that use deferred timestamp conversion and future driver
+> features that need to look up a device by its NAPI ID.
+>=20
+> Signed-off-by: Ding Meng <meng.ding@siemens.com>
+> Reviewed-by: Florian Bezdeka <florian.bezdeka@siemens.com>
 > ---
->   arch/um/include/asm/asm-prototypes.h  |   4 -
->   arch/x86/Kconfig.cpu                  |   3 -
->   arch/x86/Kconfig.cpufeatures          |   6 +-
->   arch/x86/include/asm/asm-prototypes.h |   4 -
->   arch/x86/include/asm/atomic64_32.h    |  15 --
->   arch/x86/include/asm/cmpxchg_32.h     |  76 +---------
->   arch/x86/include/asm/percpu.h         |  14 +-
->   arch/x86/lib/Makefile                 |   4 -
->   arch/x86/lib/atomic64_386_32.S        | 195 --------------------------
->   arch/x86/lib/cmpxchg8b_emu.S          |  97 -------------
->   arch/x86/um/Kconfig                   |   2 +-
->   arch/x86/um/Makefile                  |   3 +-
->   lib/atomic64_test.c                   |   7 +-
->   13 files changed, 13 insertions(+), 417 deletions(-)
->   delete mode 100644 arch/x86/lib/atomic64_386_32.S
->   delete mode 100644 arch/x86/lib/cmpxchg8b_emu.S
-> 
-> diff --git a/arch/um/include/asm/asm-prototypes.h b/arch/um/include/asm/asm-prototypes.h
-> index 408b31d59127..b446eec98ed8 100644
-> --- a/arch/um/include/asm/asm-prototypes.h
-> +++ b/arch/um/include/asm/asm-prototypes.h
-> @@ -1,6 +1,2 @@
->   #include <asm-generic/asm-prototypes.h>
->   #include <asm/checksum.h>
-> -
-> -#ifdef CONFIG_UML_X86
-> -extern void cmpxchg8b_emu(void);
-> -#endif
-> diff --git a/arch/x86/Kconfig.cpu b/arch/x86/Kconfig.cpu
-> index f2c1f544f5f9..832e4bd9f6e0 100644
-> --- a/arch/x86/Kconfig.cpu
-> +++ b/arch/x86/Kconfig.cpu
-> @@ -274,9 +274,6 @@ config X86_HAVE_PAE
->   	def_bool y
->   	depends on MCRUSOE || MEFFICEON || MCYRIXIII || MPENTIUM4 || MPENTIUMM || MPENTIUMIII || MPENTIUMII || M686 || MVIAC7 || MATOM || X86_64
->   
-> -config X86_CX8
-> -	def_bool y
-> -
->   # this should be set for all -march=.. options where the compiler
->   # generates cmov.
->   config X86_CMOV
-> diff --git a/arch/x86/Kconfig.cpufeatures b/arch/x86/Kconfig.cpufeatures
-> index 09833c88f9ff..e0f2ff65377d 100644
-> --- a/arch/x86/Kconfig.cpufeatures
-> +++ b/arch/x86/Kconfig.cpufeatures
-> @@ -40,9 +40,6 @@ config X86_REQUIRED_FEATURE_NOPL
->   	def_bool y
->   	depends on X86_64
->   
-> -config X86_REQUIRED_FEATURE_CX8
-> -	def_bool y
-> -
->   # this should be set for all -march=.. options where the compiler
->   # generates cmov.
->   config X86_REQUIRED_FEATURE_CMOV
-> @@ -59,6 +56,9 @@ config X86_REQUIRED_FEATURE_SYSFAST32
->   	def_bool y
->   	depends on X86_64 && !X86_FRED
->   
-> +config X86_REQUIRED_FEATURE_CX8
-> +	def_bool y
+> In the discussion of the issue reported at
+> https://lore.kernel.org/netdev/20260630112056.885071-1-meng.ding@siemens.=
+com/
+> this previous patch added an igc-specific fallback for configurations
+> with CONFIG_NET_RX_BUSY_POLL disabled. It populated skb's hwtstamp
+> field with a timestamp converted using the default hardware timer,
+> allowing get_timestamp() to return it without invoking ndo_get_tstamp().
+> But Jakub Kicinski noted that the proposed fix appeared to be a
+> driver-specific workaround for a generic problem. The engleder driver
+> would also be affected by the same issue.
+>=20
+> This patch introduces a new configuration option to enable NAPI ID
+> bookkeeping independently of busy polling. The option is enabled
+> whenever busy polling is enabled, preserving the existing behavior.
+> It is also selected by the igc and engleder drivers, ensuring that
+> skbs carry a NAPI ID even when busy polling is disabled.
+>=20
+> Another approach considered was to require drivers using deferred
+> timestamp conversion, such as igc and engleder, to enable busy polling.
+> However, this would introduce an unnecessary dependency between two
+> independent features: hardware timestamp reporting should not require
+> busy polling to be enabled.
+>=20
+> Timestamping has been tested only with igc; it has not been tested
+> with engleder.
+>=20
+>  Documentation/networking/timestamping.rst | 11 ++++++++---
+>  drivers/net/ethernet/engleder/Kconfig     |  1 +
+>  drivers/net/ethernet/intel/Kconfig        |  1 +
+>  include/linux/skbuff.h                    |  4 ++--
+>  include/net/busy_poll.h                   |  2 +-
+>  include/trace/events/net.h                |  2 +-
+>  net/Kconfig                               |  4 ++++
+>  net/core/filter.c                         |  2 +-
+>  net/core/skbuff.c                         |  2 +-
+>  9 files changed, 20 insertions(+), 9 deletions(-)
+>=20
+> diff --git a/Documentation/networking/timestamping.rst b/Documentation/ne=
+tworking/timestamping.rst
+> index 2162c4f2b28a6..dbe40a1972639 100644
+> --- a/Documentation/networking/timestamping.rst
+> +++ b/Documentation/networking/timestamping.rst
+> @@ -278,9 +278,14 @@ SOF_TIMESTAMPING_OPT_PKTINFO:
+>    packets with hardware timestamps. The message contains struct
+>    scm_ts_pktinfo, which supplies the index of the real interface which
+>    received the packet and its length at layer 2. A valid (non-zero)
+> -  interface index will be returned only if CONFIG_NET_RX_BUSY_POLL is
+> -  enabled and the driver is using NAPI. The struct contains also two
+> -  other fields, but they are reserved and undefined.
+> +  interface index will be returned only if CONFIG_SKB_MARK_NAPI_ID is
+> +  enabled and the driver is using NAPI. This hidden configuration is
+> +  selected automatically by busy-poll support and by drivers that need
+> +  skb NAPI IDs to resolve deferred hardware timestamps. Drivers that
+> +  use deferred timestamp conversion must select it so the networking
+> +  stack can find the device and call its timestamp callback even when
+> +  busy polling is disabled. The struct contains also two other fields,
+> +  but they are reserved and undefined.
+>=20
+>  SOF_TIMESTAMPING_OPT_TX_SWHW:
+>    Request both hardware and software timestamps for outgoing packets
+> diff --git a/drivers/net/ethernet/engleder/Kconfig b/drivers/net/ethernet=
+/engleder/Kconfig
+> index 3df6bf476ae7e..9700a243bea11 100644
+> --- a/drivers/net/ethernet/engleder/Kconfig
+> +++ b/drivers/net/ethernet/engleder/Kconfig
+> @@ -22,6 +22,7 @@ config TSNEP
+>  =09depends on PTP_1588_CLOCK_OPTIONAL
+>  =09select PHYLIB
+>  =09select PAGE_POOL
+> +=09select SKB_MARK_NAPI_ID
+>  =09help
+>  =09  Support for the Engleder TSN endpoint Ethernet MAC IP Core.
+>=20
+> diff --git a/drivers/net/ethernet/intel/Kconfig b/drivers/net/ethernet/in=
+tel/Kconfig
+> index 780f113986ea8..7fb63f351fc20 100644
+> --- a/drivers/net/ethernet/intel/Kconfig
+> +++ b/drivers/net/ethernet/intel/Kconfig
+> @@ -376,6 +376,7 @@ config IGC
+>  =09depends on PCI
+>  =09depends on PTP_1588_CLOCK_OPTIONAL
+>  =09depends on ETHTOOL_NETLINK
+> +=09select SKB_MARK_NAPI_ID
+>  =09help
+>  =09  This driver supports Intel(R) Ethernet Controller I225-LM/I225-V
+>  =09  family of adapters.
+> diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
+> index 6787fcf6ac3e4..164c862f7a403 100644
+> --- a/include/linux/skbuff.h
+> +++ b/include/linux/skbuff.h
+> @@ -1059,7 +1059,7 @@ struct sk_buff {
+>  =09=09=09__u16=09vlan_tci;
+>  =09=09};
+>  =09};
+> -#if defined(CONFIG_NET_RX_BUSY_POLL) || defined(CONFIG_XPS)
+> +#if defined(CONFIG_SKB_MARK_NAPI_ID) || defined(CONFIG_XPS)
+>  =09union {
+>  =09=09unsigned int=09napi_id;
+>  =09=09unsigned int=09sender_cpu;
+> @@ -1267,7 +1267,7 @@ static inline bool skb_pkt_type_ok(u32 ptype)
+>   */
+>  static inline unsigned int skb_napi_id(const struct sk_buff *skb)
+>  {
+> -#ifdef CONFIG_NET_RX_BUSY_POLL
+> +#ifdef CONFIG_SKB_MARK_NAPI_ID
+>  =09return skb->napi_id;
+>  #else
+>  =09return 0;
+> diff --git a/include/net/busy_poll.h b/include/net/busy_poll.h
+> index 6e172d0f6ef5f..f7c0e62c6a7d7 100644
+> --- a/include/net/busy_poll.h
+> +++ b/include/net/busy_poll.h
+> @@ -130,7 +130,7 @@ static inline void sk_busy_loop(struct sock *sk, int =
+nonblock)
+>  static inline void __skb_mark_napi_id(struct sk_buff *skb,
+>  =09=09=09=09      const struct gro_node *gro)
+>  {
+> -#ifdef CONFIG_NET_RX_BUSY_POLL
+> +#ifdef CONFIG_SKB_MARK_NAPI_ID
+>  =09/* If the skb was already marked with a valid NAPI ID, avoid overwrit=
+ing
+>  =09 * it.
+>  =09 */
+> diff --git a/include/trace/events/net.h b/include/trace/events/net.h
+> index dbc2c5598e35a..99ed7645242eb 100644
+> --- a/include/trace/events/net.h
+> +++ b/include/trace/events/net.h
+> @@ -208,7 +208,7 @@ DECLARE_EVENT_CLASS(net_dev_rx_verbose_template,
+>=20
+>  =09TP_fast_assign(
+>  =09=09__assign_str(name);
+> -#ifdef CONFIG_NET_RX_BUSY_POLL
+> +#ifdef CONFIG_SKB_MARK_NAPI_ID
+>  =09=09__entry->napi_id =3D napi_id_valid(skb->napi_id) ?
+>  =09=09=09=09   skb->napi_id : 0;
+>  #else
+> diff --git a/net/Kconfig b/net/Kconfig
+> index 76ab44aa439a6..8fa7586dc08ca 100644
+> --- a/net/Kconfig
+> +++ b/net/Kconfig
+> @@ -346,9 +346,13 @@ config CGROUP_NET_CLASSID
+>  =09  Cgroup subsystem for use as general purpose socket classid marker t=
+hat is
+>  =09  being used in cls_cgroup and for netfilter matching.
+>=20
+> +config SKB_MARK_NAPI_ID
+> +=09bool
 > +
->   config X86_REQUIRED_FEATURE_CPUID
->   	def_bool y
->   	depends on X86_64
-> diff --git a/arch/x86/include/asm/asm-prototypes.h b/arch/x86/include/asm/asm-prototypes.h
-> index 11c6fecc3ad7..6ec680a36dea 100644
-> --- a/arch/x86/include/asm/asm-prototypes.h
-> +++ b/arch/x86/include/asm/asm-prototypes.h
-> @@ -16,10 +16,6 @@
->   #include <asm/gsseg.h>
->   #include <asm/nospec-branch.h>
->   
-> -#ifndef CONFIG_X86_CX8
-> -extern void cmpxchg8b_emu(void);
-> -#endif
-> -
->   #ifdef CONFIG_STACKPROTECTOR
->   extern unsigned long __ref_stack_chk_guard;
->   #endif
-> diff --git a/arch/x86/include/asm/atomic64_32.h b/arch/x86/include/asm/atomic64_32.h
-> index ab838205c1c6..e3da5d0094c4 100644
-> --- a/arch/x86/include/asm/atomic64_32.h
-> +++ b/arch/x86/include/asm/atomic64_32.h
-> @@ -48,7 +48,6 @@ static __always_inline s64 arch_atomic64_read_nonatomic(const atomic64_t *v)
->   	ATOMIC64_EXPORT(atomic64_##sym)
->   #endif
->   
-> -#ifdef CONFIG_X86_CX8
->   #define __alternative_atomic64(f, g, out, in, clobbers...)		\
->   	asm volatile("call %c[func]"					\
->   		     : ALT_OUTPUT_SP(out) \
-> @@ -57,20 +56,6 @@ static __always_inline s64 arch_atomic64_read_nonatomic(const atomic64_t *v)
->   		     : clobbers)
->   
->   #define ATOMIC64_DECL(sym) ATOMIC64_DECL_ONE(sym##_cx8)
-> -#else
-> -#define __alternative_atomic64(f, g, out, in, clobbers...)		\
-> -	alternative_call(atomic64_##f##_386, atomic64_##g##_cx8,	\
-> -			 X86_FEATURE_CX8, ASM_OUTPUT(out),		\
-> -			 ASM_INPUT(in), clobbers)
-> -
-> -#define ATOMIC64_DECL(sym) ATOMIC64_DECL_ONE(sym##_cx8); \
-> -	ATOMIC64_DECL_ONE(sym##_386)
-> -
-> -ATOMIC64_DECL_ONE(add_386);
-> -ATOMIC64_DECL_ONE(sub_386);
-> -ATOMIC64_DECL_ONE(inc_386);
-> -ATOMIC64_DECL_ONE(dec_386);
-> -#endif
->   
->   #define alternative_atomic64(f, out, in, clobbers...) \
->   	__alternative_atomic64(f, f, ASM_OUTPUT(out), ASM_INPUT(in), clobbers)
-> diff --git a/arch/x86/include/asm/cmpxchg_32.h b/arch/x86/include/asm/cmpxchg_32.h
-> index e85c221ed1c9..1019c4bce620 100644
-> --- a/arch/x86/include/asm/cmpxchg_32.h
-> +++ b/arch/x86/include/asm/cmpxchg_32.h
-> @@ -68,8 +68,6 @@ static __always_inline bool __try_cmpxchg64_local(volatile u64 *ptr, u64 *oldp,
->   	return __arch_try_cmpxchg64(ptr, oldp, new,);
->   }
->   
-> -#ifdef CONFIG_X86_CX8
-> -
->   #define arch_cmpxchg64 __cmpxchg64
->   
->   #define arch_cmpxchg64_local __cmpxchg64_local
-> @@ -78,78 +76,6 @@ static __always_inline bool __try_cmpxchg64_local(volatile u64 *ptr, u64 *oldp,
->   
->   #define arch_try_cmpxchg64_local __try_cmpxchg64_local
->   
-> -#else
-> -
-> -/*
-> - * Building a kernel capable running on 80386 and 80486. It may be necessary
-> - * to simulate the cmpxchg8b on the 80386 and 80486 CPU.
-> - */
-> -
-> -#define __arch_cmpxchg64_emu(_ptr, _old, _new, _lock_loc, _lock)	\
-> -({									\
-> -	union __u64_halves o = { .full = (_old), },			\
-> -			   n = { .full = (_new), };			\
-> -									\
-> -	asm_inline volatile(						\
-> -		ALTERNATIVE(_lock_loc					\
-> -			    "call cmpxchg8b_emu",			\
-> -			    _lock "cmpxchg8b %a[ptr]", X86_FEATURE_CX8)	\
-> -		: ALT_OUTPUT_SP("+a" (o.low), "+d" (o.high))		\
-> -		: "b" (n.low), "c" (n.high),				\
-> -		  [ptr] "S" (_ptr)					\
-> -		: "memory");						\
-> -									\
-> -	o.full;								\
-> -})
-> -
-> -static __always_inline u64 arch_cmpxchg64(volatile u64 *ptr, u64 old, u64 new)
-> -{
-> -	return __arch_cmpxchg64_emu(ptr, old, new, , "lock ");
-> -}
-> -#define arch_cmpxchg64 arch_cmpxchg64
-> -
-> -static __always_inline u64 arch_cmpxchg64_local(volatile u64 *ptr, u64 old, u64 new)
-> -{
-> -	return __arch_cmpxchg64_emu(ptr, old, new, ,);
-> -}
-> -#define arch_cmpxchg64_local arch_cmpxchg64_local
-> -
-> -#define __arch_try_cmpxchg64_emu(_ptr, _oldp, _new, _lock_loc, _lock)	\
-> -({									\
-> -	union __u64_halves o = { .full = *(_oldp), },			\
-> -			   n = { .full = (_new), };			\
-> -	bool ret;							\
-> -									\
-> -	asm_inline volatile(						\
-> -		ALTERNATIVE(_lock_loc					\
-> -			    "call cmpxchg8b_emu",			\
-> -			    _lock "cmpxchg8b %a[ptr]", X86_FEATURE_CX8) \
-> -		: ALT_OUTPUT_SP("=@ccz" (ret),				\
-> -				"+a" (o.low), "+d" (o.high))		\
-> -		: "b" (n.low), "c" (n.high),				\
-> -		  [ptr] "S" (_ptr)					\
-> -		: "memory");						\
-> -									\
-> -	if (unlikely(!ret))						\
-> -		*(_oldp) = o.full;					\
-> -									\
-> -	likely(ret);							\
-> -})
-> -
-> -static __always_inline bool arch_try_cmpxchg64(volatile u64 *ptr, u64 *oldp, u64 new)
-> -{
-> -	return __arch_try_cmpxchg64_emu(ptr, oldp, new, , "lock ");
-> -}
-> -#define arch_try_cmpxchg64 arch_try_cmpxchg64
-> -
-> -static __always_inline bool arch_try_cmpxchg64_local(volatile u64 *ptr, u64 *oldp, u64 new)
-> -{
-> -	return __arch_try_cmpxchg64_emu(ptr, oldp, new, ,);
-> -}
-> -#define arch_try_cmpxchg64_local arch_try_cmpxchg64_local
-> -
-> -#endif
-> -
-> -#define system_has_cmpxchg64()		boot_cpu_has(X86_FEATURE_CX8)
-> +#define system_has_cmpxchg64()		true
->   
->   #endif /* _ASM_X86_CMPXCHG_32_H */
-> diff --git a/arch/x86/include/asm/percpu.h b/arch/x86/include/asm/percpu.h
-> index cef9a4ca9841..539abf94828d 100644
-> --- a/arch/x86/include/asm/percpu.h
-> +++ b/arch/x86/include/asm/percpu.h
-> @@ -330,11 +330,9 @@ do {									\
->   	old__.var = _oval;						\
->   	new__.var = _nval;						\
->   									\
-> -	asm_inline qual (						\
-> -		ALTERNATIVE("call this_cpu_cmpxchg8b_emu",		\
-> -			    "cmpxchg8b " __percpu_arg([var]), X86_FEATURE_CX8) \
-> -		: ALT_OUTPUT_SP([var] "+m" (__my_cpu_var(_var)),	\
-> -				"+a" (old__.low), "+d" (old__.high))	\
-> +	asm_inline qual ("cmpxchg8b " __percpu_arg([var])		\
+>  config NET_RX_BUSY_POLL
+>  =09bool
+>  =09default y if !PREEMPT_RT || (PREEMPT_RT && !NETCONSOLE)
+> +=09select SKB_MARK_NAPI_ID
+>=20
+>  config BQL
+>  =09bool
+> diff --git a/net/core/filter.c b/net/core/filter.c
+> index b7ac145b68b1f..e2218c18622b8 100644
+> --- a/net/core/filter.c
+> +++ b/net/core/filter.c
+> @@ -10274,7 +10274,7 @@ static u32 bpf_convert_ctx_access(enum bpf_access=
+_type type,
+>  =09=09break;
+>=20
+>  =09case offsetof(struct __sk_buff, napi_id):
+> -#if defined(CONFIG_NET_RX_BUSY_POLL)
+> +#if defined(CONFIG_SKB_MARK_NAPI_ID)
+>  =09=09*insn++ =3D BPF_LDX_MEM(BPF_W, si->dst_reg, si->src_reg,
+>  =09=09=09=09      bpf_target_off(struct sk_buff, napi_id, 4,
+>  =09=09=09=09=09=09     target_size));
+> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+> index eb9fcc4b1fd1a..386a32cdc0cc8 100644
+> --- a/net/core/skbuff.c
+> +++ b/net/core/skbuff.c
+> @@ -1581,7 +1581,7 @@ static void __copy_skb_header(struct sk_buff *new, =
+const struct sk_buff *old)
+>  #ifdef CONFIG_NETWORK_SECMARK
+>  =09CHECK_SKB_FIELD(secmark);
+>  #endif
+> -#ifdef CONFIG_NET_RX_BUSY_POLL
+> +#ifdef CONFIG_SKB_MARK_NAPI_ID
+>  =09CHECK_SKB_FIELD(napi_id);
+>  #endif
+>  #ifdef CONFIG_XPS
+>=20
+> base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+> --
+> 2.47.3
+>=20
+>=20
 
-This can be plain "asm" instead of "asm_inline"; there is only one asm 
-instruction in the asm template.
+Are you sure this does not make the preexisting timestamp lifetime
+issue more pathological? I think it needs to be fixed now as well.
+It was the last item mentioned by Sashiko in your review if I=20
+remember correctly.
 
-> +		: [var] "+m" (__my_cpu_var(_var)),			\
-> +				"+a" (old__.low), "+d" (old__.high)	\
->   		: "b" (new__.low), "c" (new__.high),			\
->   		  "S" (&(_var))						\
-
-The line above was needed to force address of _var in %esi. This is not 
-needed anymore.
->   		: "memory");						\
-> @@ -359,10 +357,8 @@ do {									\
->   	old__.var = *_oval;						\
->   	new__.var = _nval;						\
->   									\
-> -	asm_inline qual (						\
-> -		ALTERNATIVE("call this_cpu_cmpxchg8b_emu",		\
-> -			    "cmpxchg8b " __percpu_arg([var]), X86_FEATURE_CX8) \
-> -		: ALT_OUTPUT_SP("=@ccz" (success),			\
-> +	asm_inline qual ("cmpxchg8b " __percpu_arg([var])		\
-
-Also here, use "asm" and remove "S" constraint. Please see [1].
-
-[1] 
-https://git.kernel.org/pub/scm/linux/kernel/git/mingo/tip.git/commit/?h=WIP.x86/cpu&id=8cfdd354dae90a3db46c351d15c801dfbf76fc5a
-
-Uros.
-
-> +		: "=@ccz" (success),					\
->   				[var] "+m" (__my_cpu_var(_var)),	\
->   				"+a" (old__.low), "+d" (old__.high))	\
->   		: "b" (new__.low), "c" (new__.high),			\
-> diff --git a/arch/x86/lib/Makefile b/arch/x86/lib/Makefile
-> index 2dba7f83ef97..210af275f468 100644
-> --- a/arch/x86/lib/Makefile
-> +++ b/arch/x86/lib/Makefile
-> @@ -48,10 +48,6 @@ ifeq ($(CONFIG_X86_32),y)
->           lib-y += strstr_32.o
->           lib-y += string_32.o
->           lib-y += memmove_32.o
-> -        lib-y += cmpxchg8b_emu.o
-> -ifneq ($(CONFIG_X86_CX8),y)
-> -        lib-y += atomic64_386_32.o
-> -endif
->   else
->   ifneq ($(CONFIG_GENERIC_CSUM),y)
->           lib-y += csum-partial_64.o csum-copy_64.o csum-wrappers_64.o
-> diff --git a/arch/x86/lib/atomic64_386_32.S b/arch/x86/lib/atomic64_386_32.S
-> deleted file mode 100644
-> index e768815e58ae..000000000000
-> --- a/arch/x86/lib/atomic64_386_32.S
-> +++ /dev/null
-> @@ -1,195 +0,0 @@
-> -/* SPDX-License-Identifier: GPL-2.0-or-later */
-> -/*
-> - * atomic64_t for 386/486
-> - *
-> - * Copyright © 2010  Luca Barbieri
-> - */
-> -
-> -#include <linux/linkage.h>
-> -#include <asm/alternative.h>
-> -
-> -/* if you want SMP support, implement these with real spinlocks */
-> -.macro IRQ_SAVE reg
-> -	pushfl
-> -	cli
-> -.endm
-> -
-> -.macro IRQ_RESTORE reg
-> -	popfl
-> -.endm
-> -
-> -#define BEGIN_IRQ_SAVE(op) \
-> -.macro endp; \
-> -SYM_FUNC_END(atomic64_##op##_386); \
-> -.purgem endp; \
-> -.endm; \
-> -SYM_FUNC_START(atomic64_##op##_386); \
-> -	IRQ_SAVE v;
-> -
-> -#define ENDP endp
-> -
-> -#define RET_IRQ_RESTORE \
-> -	IRQ_RESTORE v; \
-> -	RET
-> -
-> -#define v %ecx
-> -BEGIN_IRQ_SAVE(read)
-> -	movl  (v), %eax
-> -	movl 4(v), %edx
-> -	RET_IRQ_RESTORE
-> -ENDP
-> -#undef v
-> -
-> -#define v %esi
-> -BEGIN_IRQ_SAVE(set)
-> -	movl %ebx,  (v)
-> -	movl %ecx, 4(v)
-> -	RET_IRQ_RESTORE
-> -ENDP
-> -#undef v
-> -
-> -#define v  %esi
-> -BEGIN_IRQ_SAVE(xchg)
-> -	movl  (v), %eax
-> -	movl 4(v), %edx
-> -	movl %ebx,  (v)
-> -	movl %ecx, 4(v)
-> -	RET_IRQ_RESTORE
-> -ENDP
-> -#undef v
-> -
-> -#define v %ecx
-> -BEGIN_IRQ_SAVE(add)
-> -	addl %eax,  (v)
-> -	adcl %edx, 4(v)
-> -	RET_IRQ_RESTORE
-> -ENDP
-> -#undef v
-> -
-> -#define v %ecx
-> -BEGIN_IRQ_SAVE(add_return)
-> -	addl  (v), %eax
-> -	adcl 4(v), %edx
-> -	movl %eax,  (v)
-> -	movl %edx, 4(v)
-> -	RET_IRQ_RESTORE
-> -ENDP
-> -#undef v
-> -
-> -#define v %ecx
-> -BEGIN_IRQ_SAVE(sub)
-> -	subl %eax,  (v)
-> -	sbbl %edx, 4(v)
-> -	RET_IRQ_RESTORE
-> -ENDP
-> -#undef v
-> -
-> -#define v %ecx
-> -BEGIN_IRQ_SAVE(sub_return)
-> -	negl %edx
-> -	negl %eax
-> -	sbbl $0, %edx
-> -	addl  (v), %eax
-> -	adcl 4(v), %edx
-> -	movl %eax,  (v)
-> -	movl %edx, 4(v)
-> -	RET_IRQ_RESTORE
-> -ENDP
-> -#undef v
-> -
-> -#define v %esi
-> -BEGIN_IRQ_SAVE(inc)
-> -	addl $1,  (v)
-> -	adcl $0, 4(v)
-> -	RET_IRQ_RESTORE
-> -ENDP
-> -#undef v
-> -
-> -#define v %esi
-> -BEGIN_IRQ_SAVE(inc_return)
-> -	movl  (v), %eax
-> -	movl 4(v), %edx
-> -	addl $1, %eax
-> -	adcl $0, %edx
-> -	movl %eax,  (v)
-> -	movl %edx, 4(v)
-> -	RET_IRQ_RESTORE
-> -ENDP
-> -#undef v
-> -
-> -#define v %esi
-> -BEGIN_IRQ_SAVE(dec)
-> -	subl $1,  (v)
-> -	sbbl $0, 4(v)
-> -	RET_IRQ_RESTORE
-> -ENDP
-> -#undef v
-> -
-> -#define v %esi
-> -BEGIN_IRQ_SAVE(dec_return)
-> -	movl  (v), %eax
-> -	movl 4(v), %edx
-> -	subl $1, %eax
-> -	sbbl $0, %edx
-> -	movl %eax,  (v)
-> -	movl %edx, 4(v)
-> -	RET_IRQ_RESTORE
-> -ENDP
-> -#undef v
-> -
-> -#define v %esi
-> -BEGIN_IRQ_SAVE(add_unless)
-> -	addl %eax, %ecx
-> -	adcl %edx, %edi
-> -	addl  (v), %eax
-> -	adcl 4(v), %edx
-> -	cmpl %eax, %ecx
-> -	je 3f
-> -1:
-> -	movl %eax,  (v)
-> -	movl %edx, 4(v)
-> -	movl $1, %eax
-> -2:
-> -	RET_IRQ_RESTORE
-> -3:
-> -	cmpl %edx, %edi
-> -	jne 1b
-> -	xorl %eax, %eax
-> -	jmp 2b
-> -ENDP
-> -#undef v
-> -
-> -#define v %esi
-> -BEGIN_IRQ_SAVE(inc_not_zero)
-> -	movl  (v), %eax
-> -	movl 4(v), %edx
-> -	testl %eax, %eax
-> -	je 3f
-> -1:
-> -	addl $1, %eax
-> -	adcl $0, %edx
-> -	movl %eax,  (v)
-> -	movl %edx, 4(v)
-> -	movl $1, %eax
-> -2:
-> -	RET_IRQ_RESTORE
-> -3:
-> -	testl %edx, %edx
-> -	jne 1b
-> -	jmp 2b
-> -ENDP
-> -#undef v
-> -
-> -#define v %esi
-> -BEGIN_IRQ_SAVE(dec_if_positive)
-> -	movl  (v), %eax
-> -	movl 4(v), %edx
-> -	subl $1, %eax
-> -	sbbl $0, %edx
-> -	js 1f
-> -	movl %eax,  (v)
-> -	movl %edx, 4(v)
-> -1:
-> -	RET_IRQ_RESTORE
-> -ENDP
-> -#undef v
-> diff --git a/arch/x86/lib/cmpxchg8b_emu.S b/arch/x86/lib/cmpxchg8b_emu.S
-> deleted file mode 100644
-> index d4bb24347ff8..000000000000
-> --- a/arch/x86/lib/cmpxchg8b_emu.S
-> +++ /dev/null
-> @@ -1,97 +0,0 @@
-> -/* SPDX-License-Identifier: GPL-2.0-only */
-> -
-> -#include <linux/export.h>
-> -#include <linux/linkage.h>
-> -#include <asm/percpu.h>
-> -#include <asm/processor-flags.h>
-> -
-> -.text
-> -
-> -#ifndef CONFIG_X86_CX8
-> -
-> -/*
-> - * Emulate 'cmpxchg8b (%esi)' on UP
-> - *
-> - * Inputs:
-> - * %esi : memory location to compare
-> - * %eax : low 32 bits of old value
-> - * %edx : high 32 bits of old value
-> - * %ebx : low 32 bits of new value
-> - * %ecx : high 32 bits of new value
-> - */
-> -SYM_FUNC_START(cmpxchg8b_emu)
-> -
-> -	pushfl
-> -	cli
-> -
-> -	cmpl	(%esi), %eax
-> -	jne	.Lnot_same
-> -	cmpl	4(%esi), %edx
-> -	jne	.Lnot_same
-> -
-> -	movl	%ebx, (%esi)
-> -	movl	%ecx, 4(%esi)
-> -
-> -	orl	$X86_EFLAGS_ZF, (%esp)
-> -
-> -	popfl
-> -	RET
-> -
-> -.Lnot_same:
-> -	movl	(%esi), %eax
-> -	movl	4(%esi), %edx
-> -
-> -	andl	$(~X86_EFLAGS_ZF), (%esp)
-> -
-> -	popfl
-> -	RET
-> -
-> -SYM_FUNC_END(cmpxchg8b_emu)
-> -EXPORT_SYMBOL(cmpxchg8b_emu)
-> -
-> -#endif
-> -
-> -#ifndef CONFIG_UML
-> -
-> -/*
-> - * Emulate 'cmpxchg8b %fs:(%rsi)'
-> - *
-> - * Inputs:
-> - * %esi : memory location to compare
-> - * %eax : low 32 bits of old value
-> - * %edx : high 32 bits of old value
-> - * %ebx : low 32 bits of new value
-> - * %ecx : high 32 bits of new value
-> - *
-> - * Notably this is not LOCK prefixed and is not safe against NMIs
-> - */
-> -SYM_FUNC_START(this_cpu_cmpxchg8b_emu)
-> -
-> -	pushfl
-> -	cli
-> -
-> -	cmpl	__percpu (%esi), %eax
-> -	jne	.Lnot_same2
-> -	cmpl	__percpu 4(%esi), %edx
-> -	jne	.Lnot_same2
-> -
-> -	movl	%ebx, __percpu (%esi)
-> -	movl	%ecx, __percpu 4(%esi)
-> -
-> -	orl	$X86_EFLAGS_ZF, (%esp)
-> -
-> -	popfl
-> -	RET
-> -
-> -.Lnot_same2:
-> -	movl	__percpu (%esi), %eax
-> -	movl	__percpu 4(%esi), %edx
-> -
-> -	andl	$(~X86_EFLAGS_ZF), (%esp)
-> -
-> -	popfl
-> -	RET
-> -
-> -SYM_FUNC_END(this_cpu_cmpxchg8b_emu)
-> -
-> -#endif
-> diff --git a/arch/x86/um/Kconfig b/arch/x86/um/Kconfig
-> index 44b12e45f9a0..5b78440a78b9 100644
-> --- a/arch/x86/um/Kconfig
-> +++ b/arch/x86/um/Kconfig
-> @@ -13,7 +13,7 @@ config UML_X86
->   	select ARCH_USE_QUEUED_SPINLOCKS
->   	select DCACHE_WORD_ACCESS
->   	select HAVE_EFFICIENT_UNALIGNED_ACCESS
-> -	select UML_SUBARCH_SUPPORTS_SMP if X86_CX8
-> +	select UML_SUBARCH_SUPPORTS_SMP
->   
->   config 64BIT
->   	bool "64-bit kernel" if "$(SUBARCH)" = "x86"
-> diff --git a/arch/x86/um/Makefile b/arch/x86/um/Makefile
-> index 100b68f601f9..716da7b1e3e9 100644
-> --- a/arch/x86/um/Makefile
-> +++ b/arch/x86/um/Makefile
-> @@ -19,8 +19,7 @@ ifeq ($(CONFIG_X86_32),y)
->   
->   obj-y += syscalls_32.o
->   
-> -subarch-y = ../lib/string_32.o ../lib/atomic64_32.o ../lib/atomic64_cx8_32.o
-> -subarch-y += ../lib/cmpxchg8b_emu.o ../lib/atomic64_386_32.o
-> +subarch-y = ../lib/string_32.o ../lib/atomic64_32.o
->   subarch-y += ../lib/checksum_32.o
->   subarch-y += ../kernel/sys_ia32.o
->   
-> diff --git a/lib/atomic64_test.c b/lib/atomic64_test.c
-> index d726068358c7..37af41df3e6a 100644
-> --- a/lib/atomic64_test.c
-> +++ b/lib/atomic64_test.c
-> @@ -251,15 +251,12 @@ static __init int test_atomics_init(void)
->   	test_atomic64();
->   
->   #ifdef CONFIG_X86
-> -	pr_info("passed for %s platform %s CX8 and %s SSE\n",
-> +	pr_info("passed for %s platform %s SSE\n",
->   #ifdef CONFIG_X86_64
->   		"x86-64",
-> -#elif defined(CONFIG_X86_CX8)
-> -		"i586+",
->   #else
-> -		"i386+",
-> +		"i586+",
->   #endif
-> -	       boot_cpu_has(X86_FEATURE_CX8) ? "with" : "without",
->   	       boot_cpu_has(X86_FEATURE_XMM) ? "with" : "without");
->   #else
->   	pr_info("passed\n");
-
+Paul
