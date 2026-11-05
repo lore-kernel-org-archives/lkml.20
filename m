@@ -1,57 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793899158;
-	b=W7Me9hRlJhHdvzsRlseFrBRsURb8+hHaxdurvG2FgYfquzCWgdb2nlBfwEjggh86a5bN
-	 MexBW/hQv0xXMDuTQlE3UZ4SdSfXE3dNGVvfshHRbhy/DgG710j6tF5ndSJt5gNuSTo84
-	 iLmtKQ2SSdygPAXMwa6/agICPRR2LQgvWp64uEkZYIBZskUSTXVn7FAoEm/g/OYTAh8hY
-	 bKd5TZhZVCTeEfoxrAnifEq6Dn11TX057J8c6+pj32HiSp21cyrCjLe4FZyXXPyBiVkT2
-	 mq5rj7prXFkw/01CWpjX42zMh0h4nkDn4QzMvCUQTtLDpWELa8q11R+KDrJ/6jxiZtQ==
+	t=1793899168;
+	b=CntT4cYbhGAe4TX2GRMertN22caWerO1gDh1W2nammmjq76sKt5zOyK7y9YpuZlEp/pV
+	 rQ0yMml0KG7QGrw46aJ4+1AYUGDiijdrWYjkAygt6I0lMhtzKdQDojNZGyx4qK+V12KJ9
+	 guV05kxtZfxL6tShkWYpAGYem6Zu6xJAlbFyvR3lQkVqR/R8+PUEDDNf4JvsenS68zqj0
+	 bMRuf7Q/BeBBenuHEO9TPc1ioDXvdGdpERJxZzzG4ZJkuiDObw1cYN/6/RRB3ru2jh/rn
+	 rA0mZoTVOKscX/NPJA7gtOczm/Th3OKct/niBU40/ypYDLUYcPKzUmczs41TKHxbhcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793899158;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793899168;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xjdYfBlTXjkgnPLcfHWBun2lYgDctvXz+QMZ9GMRG4s=;
-	b=2f96OlrgCstb7bD4CsyJ84hyfxFMI9QX8B7eAQ/++rTK9A73BopBBhp/2qDwRU0nmNae
-	 QdpzxoWbzv+GQh/oVwRFxetVrvZQtNHgOcCeIcrWWEkcUh0p2cdWWYUcWF7YLZ6uxojjk
-	 uLCK5MjCfPngSI01zbGo4v7gWc98i3b6eg99gEqELd0+IhZdV9QamYVPxQPchYfJrpFjn
-	 ViDev8URcRJbWHNvDAJsro9aA9xReH6LDdmNYKSAj33xc9N4Wujn0zywOAY/AlCmQabUs
-	 uQQQWOzuy9nugICW8hoxi+97p7/fjwzzo4gVUvb+eCsy1VNHXHzgUQKyaEzdttjxqlw==
+	bh=jW+ShPCH/HH5xFBtj2AJT4YnP+sykfn5FDocpGx/xxE=;
+	b=gjDTrkSzcg8kzA8nCqXVRv+XftubXaLoP8nFPyCF2P7Xzw/OgtkwFxuWb2qwCK4GG8d9
+	 xyYk5HydBAA/YJCoGQd/1n5dGgScZyb3y7IzfAqSgPc5aKz8hIu1djA0NqMGWaOoTuDj3
+	 SpO5YJM/c4QpcOT+9sTgNFiUjeKLclL4gKSUjsfKVhG63Sd89UK15GrSNZ7bjI5ieS2s3
+	 RhGeOuR4eymhAj9K1jh6xv27aaDY77OtYSgTWmqOs09tWliU8aurmBRpNdW8xrO0lxkHm
+	 JMftYMuVRbTkI0bgKxOIoKxYwQez51fob7X7EfuQGLsJ/kFSw8XbYoXC9ADXSDSIGdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kgLnkLkD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GM3m6oMK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4422E606A32E;
-	Thu,  5 Nov 2026 17:19:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61A87606D80A;
+	Thu,  5 Nov 2026 17:19:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kgLnkLkD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EE771F000C1;
-	Thu,  5 Nov 2026 17:19:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GM3m6oMK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBE3E1F00A1C;
+	Thu,  5 Nov 2026 17:19:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793899157;
-	bh=xjdYfBlTXjkgnPLcfHWBun2lYgDctvXz+QMZ9GMRG4s=;
+	s=k20260515; t=1793899168;
+	bh=jW+ShPCH/HH5xFBtj2AJT4YnP+sykfn5FDocpGx/xxE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kgLnkLkDmRSHA3cbbJA+NIFwe4aQxML3/H8S77tTIeQVlFhCRp9lH9IGUi734kAiF
-	 rXJJxog1sXaAe03e37SNledfxKYHALb52HkKpN2S3qQsajRR8z668Er0SUgN+g32tj
-	 1rmYC/Waw/HSAnEIpO/QaJPhGn+ai8cm7fT3EO7SV4pTzIcmWherRXY5TKfARjdJmy
-	 kF+rTPelWKyfD0ZBLEeYFZfT2GKe2FdUGlTT8Z3D1ad37+d2a9rbSyjj8SGMDzy655
-	 O6NA2e+913hZuGhyu8SUqhcfKO3k2172u5z4m4t6ABJTo7UhqBwMGNq/ubQjK0MX6D
-	 J1//kdAYd7YuQ==
-Date: Thu, 5 Nov 2026 17:19:16 +0000
-From: Yosry Ahmed <yosry@kernel.org>
-To: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Nhat Pham <nphamcs@gmail.com>, Yosry Ahmed <yosry.ahmed@linux.dev>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Brian Geffon <bgeffon@google.com>, 
-	Minchan Kim <minchan@kernel.org>, Richard Chang <richardycc@google.com>, 
-	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH 5/7] zsmalloc: embed struct zs_handle into zram and zswap
- entries
-Message-ID: <auy22TkX0ADxP9WR@google.com>
-References: <20261105044752.1997895-1-senozhatsky@chromium.org>
- <20261105044752.1997895-6-senozhatsky@chromium.org>
+	b=GM3m6oMKxMCjOMKWhEd+UkKNUZIm1+KHdwaTXxONvKIl0QdPt2OquxFxSmMFg7Hei
+	 vNKPdcU8ZeQTaW0+FnUzLUul7dXM9aOW3GQWYLyaebB0jGJjDDD5p9GysOqpp+EHCh
+	 KFxuvv0iDZbTe4CtD9oCF1Wga1VstmyU0V2dMYpG6k7C2cvUA38Z91HrMh+BmzyrS1
+	 Wi/AA3PNvSy6vUpv4M9S0WOvU3ac1fbnlriGH4IXqp4+P1JZw+RsK9noXJ5H8eULDJ
+	 ycfeqAK4k6UoFEIGM1IbGUL5A729HhLcu3Qf1joTJZzffOJ2zKWyo+9zDDeYnIpSxX
+	 aPt04u6iPUB6w==
+Date: Thu, 5 Nov 2026 07:19:27 -1000
+From: Tejun Heo <tj@kernel.org>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: linux-rt-devel@lists.linux.dev, cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	John Ogness <john.ogness@linutronix.de>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	luca abeni <luca.abeni@santannapisa.it>,
+	Yuri Andriaccio <yurand2000@gmail.com>,
+	Yuri Andriaccio <yuri.andriaccio@santannapisa.it>
+Subject: Re: [PATCH] sched: Remove CONFIG_RT_GROUP_SCHED
+Message-ID: <auy6nyTUuHBlgrV_@slm.duckdns.org>
+References: <20261105164724.yxONBd03@linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,201 +71,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261105044752.1997895-6-senozhatsky@chromium.org>
+In-Reply-To: <20261105164724.yxONBd03@linutronix.de>
 
-On Thu, Nov 05, 2026 at 01:47:35PM +0900, Sergey Senozhatsky wrote:
-> zsmalloc allocates an object from handle_cachep for every stored
-> object, just to have a stable address which compaction and page
-> migration can update when the object moves.  Both zram and zswap
-> already have per-entry structures that hold the handle, so we basically
-> keep a pointer to a pointer, which costs 8 bytes per stored object,
-> slab alloc/free on every store and free, and one more memory load on
-> every access.
+Hello, Sebastian.
+
+On Thu, Nov 05, 2026 at 05:47:24PM +0100, Sebastian Andrzej Siewior wrote:
+> The RT_GROUP_SCHED is broken beyond repair and it is to not enable it
+> during compile. If enabled it is recommended to disable it at boot time
+> with the rt_group_sched= option.
+> With it enabled it is not possible to set the policy of a task to
+> SCHED_{FIFO|RR} because its cgroup has no runtime assigned. The runtime
+> can not be assigned with cgroup v2. The root group has however all the
+> runtime assigned meaning the global sysctl runtime parameter
+> (sched_rt_runtime_us) can no be reduced because the new bandwidth will
+> be less than what is current available.
+> It is possible to schedule SCHED_DEADLINE tasks but the admission
+> control is stuck can only be disabled via -1 (same sysctl parameter).
 > 
-> Make struct zs_handle public and embed it into zram_table_entry and
-> zswap_entry (their sizes don't change), so that zsmalloc writes object
-> location directly there, and remove handle_cachep.  zs_malloc() now
-> takes a handle pointer and returns an error code, zs_free() resets the
-> handle.
+> As a result all major distors (Debian, Open Suse, Fedora, Archlinux)
+> have it disabled.
 > 
-> Since compaction and migration update the handle in place, it must not
-> be on the stack (zs_malloc() warns about that) and must not be copied.
-> zram recompression allocates a new object before it frees the old one,
-> so it uses zram->recomp_handle, protected by ->dev_lock, and
-> zs_rebind_handle() moves the new object to the slot handle. zram
-> recompression is the only user of zs_rebind_handle().
+> I don't think it is needed to somehow fix RT_GROUP_SCHED. The DL fair
+> server already handles the RT throttling mechanism. There is work on
+> Hierarchical constant bandwidth server (HCBS) which aim to group
+> multiple real-time tasks within one deadline configuration.
 > 
-> This saves 8 bytes per stored page, e.g. 2MB per 1GB of swapped out
-> 4K pages.  Since handle is per-entry the memory savings scale.
+> Remove CONFIG_RT_GROUP_SCHED.
 > 
-> Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-> ---
->  Documentation/admin-guide/mm/slab.rst |   2 +-
->  Documentation/mm/zsmalloc.rst         |   4 +-
->  drivers/block/zram/Kconfig            |   1 +
->  drivers/block/zram/zram_drv.c         |  74 ++++++++---------
->  drivers/block/zram/zram_drv.h         |   6 +-
->  include/linux/zsmalloc.h              |  30 ++++++-
->  mm/Kconfig                            |   3 +
->  mm/zsmalloc.c                         | 110 ++++++++++++++++----------
->  mm/zswap.c                            |  22 +++---
->  9 files changed, 154 insertions(+), 98 deletions(-)
-> 
-> diff --git a/Documentation/admin-guide/mm/slab.rst b/Documentation/admin-guide/mm/slab.rst
-> index 14429ab90611..57e4a118a391 100644
-> --- a/Documentation/admin-guide/mm/slab.rst
-> +++ b/Documentation/admin-guide/mm/slab.rst
-> @@ -96,7 +96,7 @@ except some that are deemed too performance critical and don't need to be
->  debugged by specifying global debug options followed by a list of slab names
->  with "-" as options::
->  
-> -	slab_debug=FZ;-,zs_handle,zspage
-> +	slab_debug=FZ;-,zspage
->  
->  The state of each debug option for a slab can be found in the respective files
->  under::
-> diff --git a/Documentation/mm/zsmalloc.rst b/Documentation/mm/zsmalloc.rst
-> index d2bbecd78e14..dbb5c1a8dcc3 100644
-> --- a/Documentation/mm/zsmalloc.rst
-> +++ b/Documentation/mm/zsmalloc.rst
-> @@ -23,8 +23,8 @@ uncompressed form). For allocation requests larger than this size, failure
->  is returned (see zs_malloc).
->  
->  Additionally, zs_malloc() does not return a dereferenceable pointer.
-> -Instead, it returns an opaque handle (unsigned long) which encodes actual
-> -location of the allocated object. The reason for this indirection is that
-> +Instead, it stores the encoded location of the allocated object in the
-> +provided ``struct zs_handle``. The reason for this indirection is that
+> Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-Should we explicitly call out that zsmalloc will keep a back pointer to
-the handle and update it asynchronously, so the owner shouldn't modify
-it, and should keep it allocated until zs_free() (or rebind)?
+I'm not against it but wonder whether it'd be useful to do it more gradually
+so that people can pipe up if they depend on it. ie. Mark it deprecated and
+put it behind EXPORT for a bit and then BROKEN before actual removal.
 
-Probably somewhere in the code comments too?
+Thanks.
 
->  zsmalloc does not keep zspages permanently mapped since that would cause
->  issues on 32-bit systems where the VA region for kernel space mappings
->  is very small. So, using the allocated memory should be done through the
-> diff --git a/include/linux/zsmalloc.h b/include/linux/zsmalloc.h
-> index 693c9484b638..6c76fd10344e 100644
-> --- a/include/linux/zsmalloc.h
-> +++ b/include/linux/zsmalloc.h
-> @@ -14,6 +14,7 @@
->  #ifndef _ZS_MALLOC_H_
->  #define _ZS_MALLOC_H_
->  
-> +#include <linux/compiler.h>
->  #include <linux/types.h>
->  
->  struct zs_pool_stats {
-> @@ -21,16 +22,39 @@ struct zs_pool_stats {
->  	atomic_long_t pages_compacted;
->  };
->  
-> +/*
-> + * zsmalloc writes object location into the handle and updates it when
-> + * the object moves (compaction, page migration), so the handle must not
-> + * be on the stack and must not be copied.  Use zs_rebind_handle() to
-> + * move an object to another handle.
-> + */
-> +struct zs_handle {
-> +	unsigned long __private obj;
-> +} __aligned(sizeof(unsigned long));
-
-Is alignment guaranteed even if this is embedded in a packed struct? I
-wonder if we should have an explicit alignment check in
-zs_malloc()/zs_store(), and probably rebind too?
-
-> +
-> +static inline void zs_handle_init(struct zs_handle *handle)
-> +{
-> +	ACCESS_PRIVATE(handle, obj) = 0;
-> +}
-> +
-> +static inline bool zs_handle_is_allocated(const struct zs_handle *handle)
-> +{
-> +	return READ_ONCE(ACCESS_PRIVATE(handle, obj)) != 0;
-> +}
-
-Can this ever give a false negative? I believe that's only possible with
-pfn=0, I don't know if this can be the case on any architecture. Should
-we use something like OBJ_ALLOCATED_TAG?
-
-> +
->  struct zs_pool;
-> -struct zs_handle;
->  struct scatterlist;
->  
->  struct zs_pool *zs_create_pool(const char *name);
->  void zs_destroy_pool(struct zs_pool *pool);
->  
-> -struct zs_handle *zs_malloc(struct zs_pool *pool, size_t size, gfp_t flags,
-> -			    const int nid);
-> +int zs_malloc(struct zs_pool *pool, struct zs_handle *handle, size_t size,
-> +	      gfp_t flags, const int nid);
->  void zs_free(struct zs_pool *pool, struct zs_handle *handle);
-> +#ifdef CONFIG_ZSMALLOC_REBIND_HANDLE
-
-FWIW, I don't think this is buying as much. It's one function that is
-only called by zram anyway.
-
-> +void zs_rebind_handle(struct zs_pool *pool, struct zs_handle *dst,
-> +		      struct zs_handle *src);
-
-A few comments in zsmalloc.c mention zs_free() reading the handle
-locklessly, do these apply to rebinding as well?
-
-> +#endif
->  
->  size_t zs_huge_class_size(struct zs_pool *pool);
-
-[..]
-> diff --git a/mm/zswap.c b/mm/zswap.c
-> index 397b06c9f33b..f28a46cae1e1 100644
-> --- a/mm/zswap.c
-> +++ b/mm/zswap.c
-> @@ -215,7 +215,7 @@ struct zswap_entry {
->  	unsigned int length;
->  	bool referenced;
->  	u8 pool_idx;
-> -	struct zs_handle *handle;
-> +	struct zs_handle handle;
->  	struct obj_cgroup *objcg;
->  	struct list_head lru;
->  };
-> @@ -769,6 +769,7 @@ static struct zswap_entry *zswap_entry_cache_alloc(gfp_t gfp, int nid)
->  	entry = kmem_cache_alloc_node(zswap_entry_cache, gfp, nid);
->  	if (!entry)
->  		return NULL;
-> +	zs_handle_init(&entry->handle);
->  	return entry;
->  }
->  
-> @@ -787,7 +788,7 @@ static void zswap_entry_free(struct zswap_entry *entry)
->  
->  	zswap_lru_del(entry);
->  	if (!WARN_ON_ONCE(!pool)) {
-
-This check is mostly defensive, and if the pool was ever NULL it
-prevented a NULL deref, and potentially leaked the underlying zsmalloc
-object, which is mostly fine as the pool being NULL points to a larger
-problem (e.g. corruption).
-
-However, if that happens now, the handle pointer in zsmalloc would point
-at the zswap entry after it's freed by zswap_entry_cache_free() below,
-potentially causing a UAF. It's arguably fine as it's just a cascade of
-corruptions, but I wonder if we should just bail early and skip all
-cleanups below if the pool is NULL.
-
-We'll leak the cgroup charge, stats, and the zswap entry itself -- but
-that's arguably the safer option if we already have a corruption
-problem.
-
-We can also just delete the NULL check, but it's cheap to keep and I'd
-rather have it tbh.
-
-> -		zs_free(pool->zs_pool, entry->handle);
-> +		zs_free(pool->zs_pool, &entry->handle);
->  		zswap_pool_put(pool);
->  	}
->  	if (entry->objcg) {
+-- 
+tejun
