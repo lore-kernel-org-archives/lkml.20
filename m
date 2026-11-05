@@ -1,44 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=8.221.36.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793841966;
-	b=0ABrB02qdCVxGLVXILWPzzyfWdVdO//eHYyUv5CBovTN94rV1QJvn8eKrGaa9Jq2RkWI
-	 XwcZlfCROiqcNxuYUoapAvCLOnU+hmWDkiYWJFlYKfqdjzTxwXaLLrueZk2mvVaQ1Ft8K
-	 T3iPGmNpXgwyZqni2Jjto4be+vynBGOkKFc5FEn9MkDO0sAaQ52YFVx36/ly7wW3wLIRs
-	 i+lgCrU0Sy8HLfpR6Tiygv58MZGd78on+uze0xcXczd1vBm8SEMyC/lT9PyIHKQJ6IH+h
-	 uC3vFo21RuWdH217mToTbNayL24brTDWvJ9kRmnWXRSKA4wcsGYtQz5QLCSVMhBjSrA==
+	t=1793841996;
+	b=Avo6gkLjQiEDQzLko3N+H9qgGzbKY/dUZxSXWkkO4+l7Frr1xMoz2wrFU0feLaYtXu6z
+	 0RURGVCmYHPfmQg9uXEdmv48jcuDnY4iEFfFA9SAD74fokOLfO7eu2zJai9JE55ydImie
+	 S3C7JZzUguKATgDpQVdA4u9UVJfXxtStgM+07kGBxGg/dGoBQCpjim8Zyptc903ansll2
+	 kK4dQXE1iGbT9z/qim3tkT/iwCIv2huYjP08eZuLo5GfMA6IhvHjd9anfLMBQKVGrOGt2
+	 lDE3kMTBKL1D+ULeBzef4462d7ZXFBFAK/FkBshP49rxXMfMNayeHchN+3zHvKZvwnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793841966;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=wYPlcYxWEFPPxDzllayWHKcttt65f1mLVtY971TaG9g=;
-	b=WMO8weEjPl4Tvg3lP/E4uAE69eo9UzQuAQlpLepzHovahLlTL4zLMxOtsWWNhlEt4HU8
-	 8u//xQij6u1z14tD4xMbPE8vr84q8RiFjnv84YohOx6JVrQP4aBkFU1aZE9nWl5tvAwRJ
-	 JqL54712whoISY/NR5NxFbtZXX7VtyGf/kApYSli3AjZ6FJQAz9HSiBb+EdRLAkTaWwBs
-	 JoKs1gflzcfNYjlViz2UllfMAvGgvfNKNeX+jdkBf3WEmQHBxxWk+n2xoXp4FH2Y/bVf8
-	 OiANkqWz0aE0LNjSezAWYxLpGWVW0Z4fM3zYmmJYpvXKO+wP6i8aKGuMB0j8ySc0NSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793841996;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=n1DnJmdevmI5Nsm8y0nDCKzgvnJMuAJfaF7/YYvjzW0=;
+	b=YLiTJ2EMJnjeRJcwKxKVF22e8qJSLUrYmjxQQw4PC72D0ZcjEcR6452Vmj7Gy83YGfyf
+	 0YAmkYfvv6GmfPINqlpeRMMhwJ1u2p7N3eSCCZMKR2BKBEaMgzEmze9T3EhsgS+77BPsH
+	 ooDgs5d1rRMkQwlSTMQTFj7h2IOGagP2JfhTl+39/hJDNNecJHm1wNkvulHGLLPGFC76V
+	 k8vrQqYXngbPYIJIdHVNs5dgBJ2Ee0fOfwHPOBRuoZgaaiIUjU6w95hAdtyD6RL1ISeC3
+	 qzcPt3JS/48KQPMNZbGlr3nFRD83T4wy9KFjGm42R6AyXqyx/IN7SjIocA2Htqu9JRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=g3zKO2fI;
-	arc=none smtp.remote-ip=8.221.36.198
-Received: from mail-m822136198.xmail.ntesmail.com (mail-m822136198.xmail.ntesmail.com [8.221.36.198])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="UHu/emdG";
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=CyW5sOQi;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D3B2606A31B;
-	Thu,  5 Nov 2026 01:26:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D3B2606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2EDC606A326;
+	Thu,  5 Nov 2026 01:26:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2EDC606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=g3zKO2fI
-Received: from [192.168.10.59] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 538ad91db;
-	Thu, 5 Nov 2026 09:25:51 +0800 (GMT+08:00)
-Message-ID: <8ab021df-dd10-4f29-bacf-9c01c22c7202@rock-chips.com>
-Date: Thu, 5 Nov 2026 09:25:50 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=UHu/emdG;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=CyW5sOQi
+Date: Thu, 05 Nov 2026 01:26:31 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793841993;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=n1DnJmdevmI5Nsm8y0nDCKzgvnJMuAJfaF7/YYvjzW0=;
+	b=UHu/emdG5g3IaIMQGCKwWxmP8nnlfKwtfceihM130gVshJ7ICWEJrXZCgJzG3xsMuD2Z6o
+	Cf+IQueZEYuATYXopCckDpPWE4hQCHyInXTSwNm9HFa8dd2XmguZl4Ljo3unmq055ND2qr
+	XB6lVHCuxyE9kCzf/XJ0ROYYitTkjfR0RXm6TD8SiOQhrnGWh+8yYLXnWGMEOV3dXm2YvJ
+	j87uR9AEXaKHN10BIjDUcNWetvjysL9VZOpuCvIAfNSe42+4soktidJ4iChm77l0EpGo0m
+	zCoWCYDjGZZVDdh5qNlOzIeyMkGTsTzKK4vNHIECK70oYBwRBaro0ZOF296o5Q==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793841993;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=n1DnJmdevmI5Nsm8y0nDCKzgvnJMuAJfaF7/YYvjzW0=;
+	b=CyW5sOQiavQroQ455uWmuz3FEaIvWwiuQFtNJSiAzpabjtKsXXbAH33siMDRBykdv7kkZw
+	TmH8gBfzC4Oo+rDA==
+From: "tip-bot2 for Ashish Kalra" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: x86/urgent] x86/sev: Set up RMPOPT only on an active SNP host
+Cc: Tom Lendacky <thomas.lendacky@amd.com>,
+ Ashish Kalra <ashish.kalra@amd.com>, "Borislav Petkov (AMD)" <bp@alien8.de>,
+ Pankaj Gupta <pankaj.gupta@amd.com>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: =?utf-8?q?=3C331aeb2f29710865ec064bacf9edacaadde2b094=2E1793216?=
+ =?utf-8?q?372=2Egit=2Eashish=2Ekalra=40amd=2Ecom=3E?=
+References: =?utf-8?q?=3C331aeb2f29710865ec064bacf9edacaadde2b094=2E17932163?=
+ =?utf-8?q?72=2Egit=2Eashish=2Ekalra=40amd=2Ecom=3E?=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,84 +81,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] ASoC: dt-bindings: rk3308-codec: describe
- detection and ADC routing
-To: Mark Brown <broonie@kernel.org>
-Cc: heiko@sntech.de, linux-sound@vger.kernel.org, luca.ceresoli@bootlin.com,
- lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
- linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- huangtao@rock-chips.com, sugar.zhang@rock-chips.com, lxt@rock-chips.com,
- xing.zheng@rock-chips.com
-References: <20261101040125.1864141-1-zhengxing@rock-chips.com>
- <20261101044149.2018744-1-zhengxing@rock-chips.com>
- <20261101044149.2018744-2-zhengxing@rock-chips.com>
- <aufBA7-uC7udM0qa@sirena.org.uk>
-Content-Language: en-US
-From: Xing Zheng <zhengxing@rock-chips.com>
-In-Reply-To: <aufBA7-uC7udM0qa@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1a94ff11e03a8kunmeffaf22e3a50de
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZT0NKVk0dTEofQk0dHhodGVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUJCSU
-	5LVUpLS1VKQktCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=g3zKO2fILayjVdGEZOCwKOnfIp7jt4rjJRF3J5aD3fldQeIQB47CNsGCkR6dKMnPT7odmhpFizQdvM2Ru9irAIQkLfADKCosoYb/99wAonx6O+0VOOdiq2L5clqxymPBnknZlowa8rtF1891us3q0aWT1/Tegbm9s8U1vtnTETs=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=wYPlcYxWEFPPxDzllayWHKcttt65f1mLVtY971TaG9g=;
-	h=date:mime-version:subject:message-id:from;
+Message-ID: <179384199170.1009794.12698724812746227631.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Mark,
+The following commit has been merged into the x86/urgent branch of tip:
 
-On 11/2/26 06:45, Mark Brown wrote:
-> On Sun, Nov 01, 2026 at 12:41:47PM +0800, Xing Zheng wrote:
->> Describe the optional detect-GRF phandle and named interrupt resources
->> used by the B/C headphone detector. Retain the legacy interrupt order
->> and index-based lookup when names are absent. Document the detector
->> disable and reversed-jack properties and their resource dependencies.
-> Please don't send new patches in reply to old patches or serieses, this
-> makes it harder for both people and tools to understand what is going
-> on - it can bury things in mailboxes and make it difficult to keep track
-> of what current patches are, both for the new patches and the old ones.
+Commit-ID:     dc2334c1752b3c5f58af74f1e7ad6769b38e1f33
+Gitweb:        https://git.kernel.org/tip/dc2334c1752b3c5f58af74f1e7ad6769b38=
+e1f33
+Author:        Ashish Kalra <ashish.kalra@amd.com>
+AuthorDate:    Wed, 28 Oct 2026 19:49:38=20
+Committer:     Borislav Petkov (AMD) <bp@alien8.de>
+CommitterDate: Wed, 04 Nov 2026 17:15:05 -08:00
 
-Understood. Any future patch series or revision I submit will start
-its own thread, with links to earlier versions in the cover letter.
+x86/sev: Set up RMPOPT only on an active SNP host
 
-I am putting this series on hold while I investigate playback and
-capture problems observed on our EVB with upstream codec changes
-backported to our downstream 6.12 kernel.
+rmpopt_init() setup work is gated only on X86_FEATURE_RMPOPT - a CPUID bit ad=
+vertised
+independently of whether SNP is active.  As a device_initcall it runs on ever=
+y system
+with that bit, so on a host where SNP is not enabled (disabled in the BIOS, o=
+r AMD
+IOMMU initialization fails to bring it up) the workqueue is allocated and the=
+ message
+is printed at boot even though RMPOPT is never used: snp_enable_rmpopt() bail=
+s out on
+a non-SNP host.
 
-Before these backports, sound/soc/codecs/rk3308_codec.c and .h matched
-the upstream versions at 2ba2d17170f9 ("ASoC: codecs: rk3308: fix
-building without CONFIG_OF"). On top of that codec baseline, I applied
-the following upstream commits:
+Rather than add an explicit SNP-host gate to the initcall, set RMPOPT up wher=
+e the
+host SNP state is established.  Call rmpopt_init() from the tail of
+snp_rmptable_init(), which runs only once the host RMP table has been set up =
+and
+CC_ATTR_HOST_SEV_SNP is guaranteed, and drop the device_initcall.
 
-   2d8a091725e6 ASoC: codecs: rk3308: convert to snd_soc_dapm_xxx()
-   0c55552b5f5e ASoC: codecs: rk33*: use .auto_selectable_formats
-   157f7cba77a9 ASoC: codecs: rk3308: add support for codec revision B
+This is soft initialization only - the workqueue and the announcement; the ac=
+tual
+RMPOPT_BASE programming is still done later by snp_enable_rmpopt(), which re-=
+checks
+X86_FEATURE_RMPOPT, CC_ATTR_HOST_SEV_SNP and rmpopt_soft_init.  An rmpopt_ini=
+t()
+failure is non-fatal to SNP and is intentionally ignored by snp_rmptable_init=
+().
 
-I also backported a1c99b6097af ("ASoC: soc-component: add
-snd_soc_component_to_dapm()") for the DAPM accessor used by the
-converted driver. These are upstream commit IDs; the rest of the
-kernel remains based on downstream 6.12.
+  [ bp: Massage commit message. ]
 
-I have not yet determined whether the playback and capture issues
-are in the upstream driver or in the backport/integration.
+Fixes: c6c6f156d192 ("x86/sev: Perform RMP optimizations asynchronously")
+Suggested-by: Tom Lendacky <thomas.lendacky@amd.com>
+Signed-off-by: Ashish Kalra <ashish.kalra@amd.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Reviewed-by: Pankaj Gupta <pankaj.gupta@amd.com>
+Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
+Link: https://patch.msgid.link/331aeb2f29710865ec064bacf9edacaadde2b094.17932=
+16372.git.ashish.kalra@amd.com
+---
+ arch/x86/virt/svm/sev.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-I will rework any necessary changes against the current upstream base
-and validate playback and capture on the EVB before resubmitting.
-Depending on the remaining scope, I will send either a revised v3 of
-this series or a separate, focused patch or series. In either case,
-the submission will start a new thread and reference the earlier
-series where relevant.
-
-Thank you for the review and the threading guidance.
-
-Best Regards
-Xing Zheng
-
-
+diff --git a/arch/x86/virt/svm/sev.c b/arch/x86/virt/svm/sev.c
+index 417e6a4..4de9681 100644
+--- a/arch/x86/virt/svm/sev.c
++++ b/arch/x86/virt/svm/sev.c
+@@ -662,7 +662,6 @@ static int __init rmpopt_init(void)
+=20
+ 	return 0;
+ }
+-device_initcall(rmpopt_init);
+=20
+ void snp_enable_rmpopt(void)
+ {
+@@ -726,6 +725,8 @@ int __init snp_rmptable_init(void)
+ 	 */
+ 	crash_kexec_post_notifiers =3D true;
+=20
++	rmpopt_init();
++
+ 	return 0;
+ }
+=20
