@@ -1,59 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793869416;
-	b=4E45c8JR93uGf3kxl23CFDm+T9ao3lvvrazyx2mrPRukUGsiXTSxMhqUIbXRKiRdGh2c
-	 iiGMFZVL1cBrbSR2cp0xXD3rFhBYwZWOJUus9c7PZMY4/dTZspvofQl+ggPUeVhDGyai3
-	 bcFPZCdL9jbyequcGCwcSFOaFmOAF6rmdH2oASOOZij6ai0oDa8zzQpIWrBtgFEw/zKxd
-	 CnHnWp2S2+wevWtfbB412QhjuGai8D019kA5OQrhJ+D/1yWU+SYvcmADFU+Pq+tDcSS31
-	 u9SBh23ZTFPk1M93KHaTdGqafpoREIEGcOMGupapreQFYRPBDovS4aNg9hgfzrli0dA==
+	t=1793869436;
+	b=MkRnb1o3Q3LxQ5yqPXexvBqjvHYQN2eo0a8r5SWbpo/cDT3FOKU1bhUEiynLKZlN9GCU
+	 pEdQT/eouCRccb+ubvxlT2ypa1QKCNW4jOlwZ8dMEAtb4o8vKee4f4FxKrSg/B/UMrGlx
+	 mTCv9wF5yNcOyGWg028TulUz65E4X3pHZIRmIgBLUSwvvH8INNHFEEUwer/MMCGoAzRAH
+	 lj0d1tHRMFZ/KdavouPvA3V9WRfx/L9oKSSMWCVvVmL4gbYgJyzwlrWtueyGpnLcOMbMY
+	 V18VnwjvQxgRw26EvgxgJpMcYXOR0FjoGG1SDYG9ahueLCstHk+EKgueRrPOsuRr0rA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793869416;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=eS9VYztUf5BhQvnJ4h2DtC/aMQpmGtFib9xuKTI/0vw=;
-	b=rajLvdOZyeWvvxQkc3HbxgNyj8os2mTinnJTdAxvmX7VL4B2uCHf0jUaZUp83tQ42hv/
-	 Vvl+i5KTRNYOwyuo0NFjUKzqc9Fohn/yXMGiFxiNfTIrgSTSwwCdHM3d1uEvYirUMAn1A
-	 aiTBnvo+64ERNuoASFNEKN4eTgk9e7bMHTndzrG0yZGpbK8cMhdrIajhw/g+miJpZM+F8
-	 FK/j75JQEZ5oxhIxAC2A+UMclQR9en3QyPEg3/28VJoL1Pc29JLo5jNnMJ6CzVN/r1vVo
-	 fIDwYmwE8NcHxlSI6jJVJZil0Z75UBO7moFuvarHM6gowWFjKjcDHGrd5e5ejBkLJZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793869436;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=L0FBc/nu89y4Xm6JuoFrkqKFD6mo2DuPJAFzDmDjfsc=;
+	b=aQ5mC6FDfCnjehO483myR0gQsbJaFxLtkWM79fUED0PXOxLb++Fd3BpdWVM2SaHLhSl7
+	 ZGhJGV80LtfDBkM2yOq0fgNkcweQTMdzeOvwBAO9fwTn+d89JQXQqqEKJxzgGdJ1IFUi7
+	 pkU2hiwNh+VI+mORIz54DtflLIUP0fiAbr5BM4VOGA22hqjukVWIT8QPkZZNlqABJ6RNQ
+	 QxX+Vg751iGMBM/0FkS9d7Qfxfwz4wHydljUdO8eD559jC306iOtq7Bb9PT6RxFzvqj7v
+	 P4vnEg7R3NuweK4yxX1c9fvCbWmyYMFUtVsnSeISiryu2lgv+OhX1mJLT2HSYcu8WtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=fpkytpAQ;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 48F11606A326;
-	Thu,  5 Nov 2026 09:03:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48F11606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=MNwkgc3X;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 215C5606A337
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:03:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 215C5606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=fpkytpAQ
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9D8921684;
-	Thu,  5 Nov 2026 01:03:30 -0800 (PST)
-Received: from e127648.cambridge.arm.com (e127648.arm.com [10.0.130.179])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 19C793F628;
-	Thu,  5 Nov 2026 01:03:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793869413; bh=GZMKqxaEq2gR6E0jak2AgZFPjcc1Ujbbf2jajBLL0gY=;
-	h=From:To:Cc:Subject:Date:From;
-	b=fpkytpAQZk+hGLsWE40JXJUHydyx9jjqOQwsbp9+TZ8FgWfOuQprujrkBzE3W3kNM
-	 ybxKj+9zA/gQaE+VOBnb7knDoiIS3JKUMVOUh8H2vOuRYvy+HR/DuYssgN0G6tQ7US
-	 GkMhNiwvp4g13LRoBYe99ptNw9mlBWB/WMGqnr2g=
-From: Christian Loehle <christian.loehle@arm.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
-	viresh.kumar@linaro.org
-Cc: linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	sumitg@nvidia.com,
-	zhanjie9@hisilicon.com,
-	superm1@kernel.org,
-	zhangpengjie2@huawei.com
-Subject: [PATCH v2 0/2] cpufreq: Fix global boost state updates
-Date: Thu,  5 Nov 2026 09:03:09 +0000
-Message-Id: <20261105090311.1026648-1-christian.loehle@arm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=MNwkgc3X
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=L0FBc/nu89y4Xm6JuoFrkqKFD6mo2DuPJAFzDmDjfsc=; b=MNwkgc3XxKJpOGtGRh2U0DthqQ
+	0WXQ9NMWGdybuw/Z/wIoUFl44PyYtOdJPGBEOHtry5wGCryOknsVtDfhlf40y7HyeO1HbfO/yd134
+	yysLrodjktHG92k7su2gdMHc4eVZbU8uiGL6rI8B82kshlyXzpVLNOj9sJGk5uKADxEl4YoXzunCe
+	rPYfEJpocFvAT3pYHHbt4ilhAewN9nCPNIvrCl+mvIfcK7MtWG2kFk0vb6nbrQhBLdmSCJyisPtmY
+	d35tJX3OXC0c+8OQSdV+zVaOPgV10hhq3ZErjJi+FldBae1+Pk+Y9IQN+rZinJLrtR4c8CnnneYvO
+	LGQSM+vg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xOtNn-00000006Vlv-1lKC;
+	Thu, 05 Nov 2026 09:03:43 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id F3B133002F0; Thu, 05 Nov 2026 10:03:42 +0100 (CET)
+Date: Thu, 5 Nov 2026 10:03:42 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Vineet Gupta <vineet.gupta@linux.dev>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/4] wait: Make ___wait_is_interruptible() return 0 or 1
+Message-ID: <20261105090342.GS2668804@noisy.programming.kicks-ass.net>
+References: <20261104160722.1637541-1-vineet.gupta@linux.dev>
+ <20261104160722.1637541-3-vineet.gupta@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,19 +85,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104160722.1637541-3-vineet.gupta@linux.dev>
 
-Preserve the global boost state on failure and serialize concurrent
-global boost writes.
+On Wed, Nov 04, 2026 at 08:07:19AM -0800, Vineet Gupta wrote:
+> GCC 17 adds -Wconstant-logical-operand to -Wall. It warns when an operand
+> of && or || folds to a constant other than 0 or 1. With a constant state
+> such as TASK_KILLABLE, ___wait_is_interruptible() breaks the build with
+> CONFIG_WERROR=y:
+> 
+>   include/linux/wait.h:285:39: error: use of logical '||' with constant operand '256' [-Werror=constant-logical-operand]
+> 
+> clang has the same warning, but it does not check an operator that comes
+> from a macro expansion.
+> 
+> Compare the masked state against 0. All callers test the result as a
+> truth value, so the behaviour does not change.
+> 
+> Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
+> ---
+>  include/linux/wait.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/include/linux/wait.h b/include/linux/wait.h
+> index c2af98b0074d..ebabdfb5b30c 100644
+> --- a/include/linux/wait.h
+> +++ b/include/linux/wait.h
+> @@ -283,7 +283,7 @@ static inline void wake_up_pollfree(struct wait_queue_head *wq_head)
+>  
+>  #define ___wait_is_interruptible(state)						\
+>  	(!__builtin_constant_p(state) ||					\
+> -	 (state & (TASK_INTERRUPTIBLE | TASK_WAKEKILL)))
+> +	 (state & (TASK_INTERRUPTIBLE | TASK_WAKEKILL)) != 0)
+>  
+>  extern void init_wait_entry(struct wait_queue_entry *wq_entry, int flags);
 
-Changes in v2:
-- Split rollback and serialization into separate patches, with the
-  corresponding Fixes tags (Zhongqiu Han)
-- Carry Pengjie Zhang's Reviewed-by onto both patches since code
-  is unchanged.
+What is the actual purpose of this warning? This doesn't seem to serve
+any value. Any non-zero value is a true, why is this a problem?
 
-v1: https://lore.kernel.org/r/20261104161657.546370-1-christian.loehle@arm.com
-
-Christian Loehle (2):
-  cpufreq: Preserve global boost state on failed updates
-  cpufreq: Serialize global boost updates
+GCC doing this, don't mean we can't turn if off again.
