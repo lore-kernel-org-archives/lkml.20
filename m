@@ -1,75 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793877684;
-	b=kR2Nuy48SUlPhEOeFfdYvg3M6V1kaW+kxKZXtyJuHgximEv09RSguTMWMgb4d5PDS+1a
-	 7CnCkP2t2gHIAlV0AQTlX44gnDrZ2zgD9S5ePEmuQDfUzc6PlfLrS2Lq5jldqvksacSr7
-	 eJzkdPM6AuAGnX8vzvbjxeX6hlKp+tcphavaKLeIjgkv4wdw6NrPtKsnMqaF5WV6ltyqk
-	 PGGltqeS4Z6PcecYFztmqtPH9K+u+7ObrFTnCUSxKVNmoTHSkTQXvBv5B3Sl2ADx1bMRt
-	 HPFadjxWTB7lssIIljet2n0xOXSv/v4s5+NJFLR85Ln4MzHba5Jpfdjr9rIF7JHmJ8Q==
+	t=1793877706;
+	b=lJ975fGEbJHQCQ0+Ad4o/asix81C/0Wji4fAP95rTaFF8GmAtiiuE++i3g3slZ4PABg+
+	 A3yalkp45JX+Q3KBWg1ZsJBxF5SDr12rElZ/ILY7G/x4uqRXAaoi8gIyIYpvmZMwLq6JB
+	 JnaO9v4CRXM3neZ+/4sJPy/Ua0R1Dih+BvC4cajI1lzKGN0QnB0bBy8/BaZhDf0RwBFJw
+	 apTFJe2nawfw/CK6xJFiJgQCjq+VmlEvI77tLo6jdhCyECqC4nhD9JtAXUeGEGli810R9
+	 /sKEqUF4ll74sor+Z4be1N5y9l5iuMQlzem3S0zlWsIDCAs1yfmSb0hA3zm7MGHmGzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793877684;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-META:
-	 X-MBO-RS-ID;
-	bh=XdbzovvwSk99PZMKZkCbqK04cZmQqVMPaRpFbjr+z+4=;
-	b=XNuFZ8z94VnHkTKzr8VzSqISTW/5TGtvfOrF0O5mgi0oUu7Db6Ybe+VivwWlvMkNeiWD
-	 zekOarh+R4Mmk4ZEtP9NIoScLB/LjxNc9lLeF4/o/a9PKKUPWNtgatFSM9ifIzfP2ziXb
-	 DsWsrNJF5XTkXNSD2hKjoLO6XC9SF7PE0VwdCD8ZPO9ey9YaGKdeexra9qM8Un5Ql0eDi
-	 t/U14t6Gqf/aZZCX2wLFjdXs7M6VOvnS/gl61mo06tN5UNP4PLmF8V/CCjO6GxeUkG3Ep
-	 FFctM7aG/Kb5FS0iti4DbhCz3wgDlB40BN/oYzig32O3kXWsnUPGsOyFttNNi1iLn1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793877706;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=MHdqHAA/2dqHJJZoi1LltUcmTq5osveA5RSMvjFd9mQ=;
+	b=Mbb9vvle4GgiYkqho3q4jRvT7JCQrp7lWMrhxdTM/j8FRXOCYFZmjqAdx3/aE2RN22SA
+	 Jtqx1vsRQfIMDqZwN5iNpIkqSPiMHfIvsHelgLG4EN/DmG1got7Y2PkTr/IWVBKTQSTJl
+	 Va9GTHniCkl0hppE5OoYO91qicgTk+skbMaOgRLT3nv5f777rB7L1tn4NIDnBcXa6jRoL
+	 q5u5KL5wdho2OFqcfYY5ZvcRla8Vu7cZ3s+aL23yBs25wyWqK3Zv77WNUo97KJtLnHXCi
+	 NKgBqUzMZFcXexLZ7Lyts1qnwrIHLZVnpB5B5abcsgZTOL9NPHlh8ZXformzQ0c43hQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=njV8wLyt;
-	arc=none smtp.remote-ip=80.241.56.152
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DSfMXnBZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EE8C606A328;
-	Thu,  5 Nov 2026 11:21:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EE8C606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98521606A31B;
+	Thu,  5 Nov 2026 11:21:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=njV8wLyt
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jL0HY4Pn5zKqL9;
-	Thu, 05 Nov 2026 12:21:13 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1793877673; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XdbzovvwSk99PZMKZkCbqK04cZmQqVMPaRpFbjr+z+4=;
-	b=njV8wLytjMNaeOBEinOo3eTUdTYGUYGxJJuPikjp8AuFNCTh+p4NMVS02uF9AeZ7qmoGH/
-	bTTP7agcl8lOUxOgxdG654aWWSKJYyEOe7p6SzErFH3FtECEFwGqNty1pPHTwrwFuRbiTZ
-	oJXY028uxUPvNmv/2knxNEvKz6A78/KYpNNLPqJQdKzio868XCwHRpZsmKq8tefdSaLh8/
-	ccBezvXKfsAecZixVKex0CC+7hbIGIqoR+yIoMISS4W8mbZnUjI7rTWa1C5LH2ci0zhuPi
-	0xlK5jSBOjb7oBe6UyFEdODW3l20lYyyzc58VI60mLerRDCFj0fVKS2prKRJ+Q==
-Message-ID: <32c82270b2ad0d10546af6f13daad9d01b55d234.camel@mailbox.org>
-Subject: Re: [PATCH v2] dma-buf/sw_sync: Optimize the retrieval of fence
- reference counts
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Edward Adam Davis <eadavis@sina.com>
-Cc: media-ci@linuxtv.org, sashiko-reviews@lists.linux.dev, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
-	sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org, 
-	robin.clark@oss.qualcomm.com
-Date: Thu, 05 Nov 2026 12:21:12 +0100
-In-Reply-To: <20261105093546.61098-1-eadavis@sina.com>
-References: <75367a9a19c1e9a007422e0a1b8ed0acaca2492a.camel@mailbox.org>
-	 <20261105093546.61098-1-eadavis@sina.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DSfMXnBZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AED81F000C1;
+	Thu,  5 Nov 2026 11:21:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793877706;
+	bh=MHdqHAA/2dqHJJZoi1LltUcmTq5osveA5RSMvjFd9mQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DSfMXnBZN6Z/mUHNWRm07w3iIh9jIOOmyNwdh7U2xlDX+dxtSg7Sh4IY4u5bMiOEU
+	 5YoSuShqYC/UqrdrgHY3r77kJIlx38ZhFWBjPFxZCdPyY7xzwN9OckNGv+BicYTGUh
+	 lkzxC41HtPbpUyGkLjf0yXpD7ObWI9V2USOSRsFfA3bOJ63XCiePk5tnGC83cjF+3h
+	 9cZa2va5GUTkcONiExKfUHdC5JyKuFkLEotkaukgGmhhZ/lWNJ8l3LK/W1hYZMYnbs
+	 4WNbbVzHCyn941YKKZsuQWbCeXzwOs5odV64Lum/Z5IAIlbe1aYZpzQMhPpxy0CC3x
+	 IrJLhhcxto5sg==
+Date: Thu, 5 Nov 2026 11:21:40 +0000
+From: Lee Jones <lee@kernel.org>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Pavel Machek <pavel@kernel.org>,
+	Griffin Kroah-Hartman <griffin@kroah.com>,
+	Sebastian Reichel <sre@kernel.org>, Ion Agorria <ion@agorria.com>,
+	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
+	Florian Krischer <florian.krischer@fkr.dev>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-input@vger.kernel.org, mfd@lists.linux.dev,
+	linux-leds@vger.kernel.org, linux-pm@vger.kernel.org
+Subject: Re: [PATCH v13 0/7] mfd: Add support for Asus Transformer embedded
+ controller
+Message-ID: <20261105112140.GI1650678@google.com>
+References: <20261104122606.215629-1-clamor95@gmail.com>
+ <179387759097.2453405.11589718445889906023.b4-ty@b4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,67 +67,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-META: diqbmt5rucdqa356ab5fw9o9ka4mcgmi
-X-MBO-RS-ID: 3579bb5641e3cc744d5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179387759097.2453405.11589718445889906023.b4-ty@b4>
 
-On Thu, 2026-11-05 at 17:35 +0800, Edward Adam Davis wrote:
-> On Thu, 05 Nov 2026 08:49:49 +0100, Philipp Stanner wrote:
-> > >=20
-> > > =C2=A0drivers/dma-buf/sw_sync.c | 6 +++++-
-> > > =C2=A01 file changed, 5 insertions(+), 1 deletion(-)
-> > >=20
-> > > diff --git a/drivers/dma-buf/sw_sync.c b/drivers/dma-buf/sw_sync.c
-> > > index 8df20b0218a9..261bc98b1ed6 100644
-> > > --- a/drivers/dma-buf/sw_sync.c
-> > > +++ b/drivers/dma-buf/sw_sync.c
-> > > @@ -221,7 +221,11 @@ static void sync_timeline_signal(struct sync_tim=
-eline *obj, unsigned int inc)
-> > > =C2=A0		if (!timeline_fence_signaled(&pt->base))
-> > > =C2=A0			break;
-> > > =C2=A0
-> > > -		dma_fence_get(&pt->base);
-> > > +		if (!dma_fence_get_rcu(&pt->base)) {
-> >=20
-> > You must hold the rcu_read_lock() while doing that, don't you?
-> dma_fence_get_rcu() is simply a wrapper around kref_get_unless_zero(),
-> it has nothing to do with RCU. For instance, the use of dma_fence_get_rcu=
-()
-> within sync_pt_create(), as seen in the SW_SYNC_IOC_CREATE_FENCE code pat=
-h
-> does not require an RCU lock.
+On Thu, 05 Nov 2026, Lee Jones wrote:
 
-How come the function you're using here literally says in its docu that
-you need RCU?
+> On Wed, 04 Nov 2026 14:25:59 +0200, Svyatoslav Ryhel wrote:
+> > Add support for embedded controller used in Asus Transformers for
+> > managing power and input functions.
+> 
+> Applied, thanks!
+> 
+> [1/7] dt-bindings: embedded-controller: document ASUS Transformer EC
+>       commit: 2880926d48fe884042a1b7b64b431f9ee9531806
+> [2/7] mfd: Add driver for ASUS Transformer embedded controller
+>       commit: ccb21236e307ff60ce6b96d2f9925abf0274ce8e
+> [3/7] input: serio: Add driver for ASUS Transformer dock keyboard and touchpad
+>       commit: 3fefdd9a8931eb3b8cade87193c81293256031f0
+> [4/7] input: keyboard: Add driver for ASUS Transformer dock multimedia keys
+>       commit: 4ace8a63a1612f8142cfdf5d6d4b8e1be37cce3b
+> [5/7] leds: Add driver for ASUS Transformer LEDs
+>       commit: 04819cdb3912f31586516ef6fc007daa3d976234
+> [6/7] power: supply: Add driver for ASUS Transformer battery
+>       commit: cd72536270e725b4f1d56df6287c4c34efe953a8
+> [7/7] power: supply: Add charger driver for Asus Transformers
+>       commit: db6674a08304d03a194f5e09b7543323462b3516
 
-/**
- * dma_fence_get_rcu - get a fence from a dma_resv_list with
- *                     rcu read lock
- * @fence: fence to increase refcount of
- *
- * Function returns NULL if no refcount could be obtained, or the fence.
- */
-static inline struct dma_fence *dma_fence_get_rcu(struct dma_fence *fence)
-{
-	if (kref_get_unless_zero(&fence->refcount))
-		return fence;
-	else
-		return NULL;
-}
+Now in soak.  If successful, I'll follow-up with a PR shortly.
 
+Note to self: ib-mfd-input-leds-power-7.5
 
-The rcu_read_lock() protects your kref_get_unless_zero() from running
-into UAF if refcount =3D=3D 0.
-
-That's why dma_fence_free() uses kfree_rcu(). Your read-side-lock
-prevents kfree() from running so that you can safely read the refcount
-=3D=3D 0 from memory.
-
-If we think about it, having kref_get_unless_zero() without RCU doesn't
-even make sense, because refcount =3D=3D 0 must mean that the object is now
-supposed to be freed. That's the point of refcounting.
-
-Or am I missing something?
-
->=20
-
-P.
+-- 
+Lee Jones
