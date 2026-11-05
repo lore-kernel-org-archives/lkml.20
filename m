@@ -1,111 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.23
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793881993;
-	b=ZixjYLjUQBU4vk/8iHKUNurDH9UIxl2qYRy7hexkGCFzlIT722GaMLs4YBG8Faq6Jy2/
-	 K6fr6qL5MWov1Tsl5X0cQ1WYLDDcLGjXBWbnh+3QpFDPZmJtNOnroA8IjImBgSm/evZ2j
-	 jKtf+tMh1lm6F+b1g73SgE3c+OiYakrLm5/C28EIZq7xKajil0f+al8i9dOURWR0nxBZi
-	 +DwDIHy+ZUtbQ4rq9N0kXN7IDS1amcigC/jmrD5/N2ANWO5vryFk5qBtH+VPW/+xI4MV2
-	 VD3zCX2bx1Zuo3D0wYW7s9vhGZP8nK0WZLr+TPBqTFg1hZlZu6AG3pj1q7MJPeQ+sAg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793881993;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:X-NVConfidentiality:Content-Transfer-Encoding:
-	 Content-Type:X-NV-OnPremToCloud:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=QteImdn9gQpltcHT+UEJHJpMBNG9Tc5bVE9nFyAop/A=;
-	b=XmHjDjI25qjKHBUWUdr501DSqu0Rn/RgPPoWtwD6jU0oMQXm+x4MMhagTsufLjhTbuJb
-	 oisCnAI4mVgT0SDnMZSHw7Un+ySsG+uSOXdW/s3Pt1iiSQcR0XxmZvqtza/o5UlWB8+XI
-	 83rcYeE7AHb9RFFd/I8e7TAjB8nK9j5IRgzrBs4sIVd5wOE/XIAS6BLaNTtr21uVVpq0K
-	 PxrTGlHrhpz3nW+diAukn3MUQ+JENwyV1E19Y4FlTmk9NVTywXt+mYPjUMTdd6jR3o/Tc
-	 mAUFz9ptyzCeNNJZAjTq0TJOmX5KqBpoaCV98UViwxV6M1nw5a4egALcgF/gysqp0sA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=n19CJGmM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.23
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012023.outbound.protection.outlook.com [52.101.48.23])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793882015;
+	b=pNjWVsVzHqhXqGGDTf0R0qiGIXh2eaAJMeIrhDK9gOCLQlCSwejaRN8Xlz6cunhMX9lV
+	 cU1WPMyhNHo0icBCGFMByEnxGCZvn8eRinmMeO9g4RJV1/VNmZTpRxBQYLD+Aci0sYwTj
+	 y0lxvPfbYsWDC5u1PHazEKiFAP1e4Uixkg1LCLPJ+Ne6X7Q5lpUIRSXruGXHBXEeWXt9t
+	 /yPjCovX6p42VfFGI2v1chmwYVt7SBsWm4Na1+kdFBPMuTBdpXwz1jay0ORDA7snphfCG
+	 J3SQeSJCRbs7zokBaTJm4lyDzBEhpEU8lokywue4Quh70dHuBhll92gOKxM/P5tha4w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793882015;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=CZZk5peVELEiv1KLNro17/tyxEUJ1iTiONLFotbu+D4=;
+	b=s9ikRf07tTPvT0fkwSciMyabmZujWygSr/7AWGP0fUD9miwgbqIxwFMYRyktCjModbwT
+	 7ylnVp4kf/RrlenSCzLUcmFcOCGjeOXn5wQ1lhf/n9JXxpaybNzxggXJVPRS6FO92F0ib
+	 DUt6mB3vmrKHCa1an9xgansWU6CqqTq3ziUY7bdN/jqnBCfHJVIFgo2WDZEj8RBbYmpVo
+	 mFeElhx7dBjaFV0GpqDt7p/mA0lUXxFHr1q07zXXlRRkzSye/S2eWUVg/+fZGNjhMJ5bn
+	 70gSWkZs5ZusuJwtEPzhXH7VALOuVYOGR3L4apkQ6LxVDAj9CGEXUxXX4h90hLEO4hQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=mB2QKLvz;
+	arc=none smtp.remote-ip=113.46.200.217
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C678606A328;
-	Thu,  5 Nov 2026 12:33:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C678606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F90606A32C
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:33:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73F90606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=n19CJGmM
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KSVQrAX4DS2koTSXQ9Ck/+ncqeiGW8GjCbcXZYzDufNf9c7bLHuzzUgCOlHLSOJfFtyDyqQvPXWvi+B3S112RBL9wWBELt+WySlEBDSVhSnqLSrpRu9WzfhY91NpwCoV/vT0OxFbghohUBWarmq5OYeRikDVvoiCjeZCEhrX7ebeP34f+Bc6eYw32Gs9OauUzk0Xqz0Gsx8CUwxk3VD6dxtaeBwIgOio1lFPkcoL/yVB/ALdZ45r0Ekn92pwjcsxMDtfRaOLWbmOvk+X+qllIsFRvIjdfinlIS3F0rD9RcTV6M/ujc0RJFm1cp1VeJ6leONCTR+AyTwQoo81A3Ggzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QteImdn9gQpltcHT+UEJHJpMBNG9Tc5bVE9nFyAop/A=;
- b=CcJsdsw6f5lxbwSuxbkegG5RcXw73IMAEXwO1JJp5cAkXli2VNODlqtH7xDDCibG14pT0okwek3jkdq8iHiyiEA+5dVTnCpnVdd7I0WEKSP1coOZA51LA2eGz9e9D/Mm6qFlsWNtYB9sfHEPS2Vt8bpO85lRwomNuyXPo2lwv3yPmyMk8RMyAVZbUhFRuacX0iae+XjuJKEZV8dnX2jvgaUPB+bgUirQzuw7wVpZjoGPOJD6GzGndSUeL7PezXaC2QPV5Ji/Whgv8t0wn00WGZrU9m74N2v53XEUWpu5cxgqN1q1x6pEf4tOBIdF9ELR1C/09oK1jaRxYSHlmSWzxQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.233) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QteImdn9gQpltcHT+UEJHJpMBNG9Tc5bVE9nFyAop/A=;
- b=n19CJGmM2/aITbRqn90a/G3azItUWQy/nHrGfHR7trWUWNlIib7L+jw/K5wnSONFDE+kFxKXq9gEm3Ldw7vvXnvz19Qk/ioQ1G5MNnJyTagn2ZzjpMH62G+0FtqFt7nxkQz863E2jpryN319kG9fYvVqh7Vn+h1FQfGMfIiHIH5RahUA1pgJZxwXrbPhPJA14xVf+Zj1aHKIEB8HUBJtImAZcx5SipifTO/at5pI2Q44m6GErykx3nUAh9occdGluEZI4dHPAyEd77lhJGbP6KmVjTDFxqr59Rmwx+J0AFenQCAViLTkilUA2faJdffY69NMcadpeaP1/GxVZBhlbg==
-Received: from PH5P220CA0009.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:34a::14)
- by BL1PR12MB5993.namprd12.prod.outlook.com (2603:10b6:208:399::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Thu, 5 Nov
- 2026 12:33:07 +0000
-Received: from PH4PEPF0000B60A.namprd21.prod.outlook.com
- (2603:10b6:510:34a:cafe::15) by PH5P220CA0009.outlook.office365.com
- (2603:10b6:510:34a::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Thu, 5
- Nov 2026 12:33:07 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.118.233) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.233) by
- PH4PEPF0000B60A.mail.protection.outlook.com (10.167.243.84) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.0 via Frontend Transport; Thu, 5 Nov 2026 12:33:07 +0000
-Received: from drhqmail202.nvidia.com (10.126.190.181) by mail.nvidia.com
- (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 5 Nov
- 2026 04:32:52 -0800
-Received: from drhqmail202.nvidia.com (10.126.190.181) by
- drhqmail202.nvidia.com (10.126.190.181) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 5 Nov 2026 04:32:51 -0800
-Received: from sumitg-l4t.nvidia.com (10.127.8.14) by mail.nvidia.com
- (10.126.190.181) with Microsoft SMTP Server id 15.2.2562.56 via Frontend
- Transport; Thu, 5 Nov 2026 04:32:47 -0800
-From: Sumit Gupta <sumitg@nvidia.com>
-To: <rafael@kernel.org>, <viresh.kumar@linaro.org>, <zhanjie9@hisilicon.com>,
-	<zhenglifeng1@huawei.com>, <christian.loehle@arm.com>, <benc@redhat.com>,
-	<linux-pm@vger.kernel.org>, <linux-tegra@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <treding@nvidia.com>, <jonathanh@nvidia.com>, <vsethi@nvidia.com>,
-	<ksitaraman@nvidia.com>, <sanjayc@nvidia.com>, <mochs@nvidia.com>,
-	<bbasu@nvidia.com>, <sumitg@nvidia.com>, <stable@vger.kernel.org>
-Subject: [PATCH] cpufreq: CPPC: Set CPPC Enable register in cpu_init
-Date: Thu, 5 Nov 2026 18:02:44 +0530
-Message-ID: <20261105123244.3132560-1-sumitg@nvidia.com>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=mB2QKLvz
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=CZZk5peVELEiv1KLNro17/tyxEUJ1iTiONLFotbu+D4=;
+	b=mB2QKLvzScDjGR87tR5UoUyH/4dnyp47Acq2S6e0+k1DRbO4mCHX7P1ZuSQ8gTA6OzIsxjN8I
+	EvhK4pATX47f7ysAI8kJnS0yBtLWOXrqb4NyBrqvT+Aw68NIQxE/2FNd74s0kGNwOKSeenSWrmk
+	aQwL/SLieLdTn+MVZDWJ3bQ=
+Received: from mail.maildlp.com (unknown [172.19.162.223])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4jL1tJ3q8QzcZy5;
+	Thu,  5 Nov 2026 20:32:56 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 5754840575;
+	Thu,  5 Nov 2026 20:33:25 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 5 Nov
+ 2026 20:33:24 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
+	<james.morse@arm.com>, <babu.moger@amd.com>, <tglx@kernel.org>,
+	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
+	<hpa@zytor.com>, <ben.horgan@arm.com>, <fenghuay@nvidia.com>,
+	<jic23@kernel.org>, <zengheng4@huawei.com>, <gshan@redhat.com>,
+	<x86@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [PATCH v2] arm_mpam: resctrl: Limit num_rmids to the CLOSIDs in use
+Date: Thu, 5 Nov 2026 20:33:04 +0800
+Message-ID: <20261105123304.2281987-1-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -116,77 +73,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH4PEPF0000B60A:EE_|BL1PR12MB5993:EE_
-X-MS-Office365-Filtering-Correlation-Id: 43e603ef-3b23-4e3e-4676-08df3b38f202
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|36860700016|82310400026|261026140227099003|11063799006|56012099006|261028144727099003|261009223027099003|261021121427099003|261022105027099003|10067099003|18002099003|261102123227099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	BhCY0TmN6oraw0tcu+8Z2YpZx2yQrv/h4u9OLMTq+kRWK367z08dl8lUcUQg65Y3Fji+JcSbm6jVhb2yBkS0JqXHPIgyUaMWqm/OL5DL9mSbIa+bu7uBit+MdANy+NREIgO9IM+yMqXbbfRURL+2LT0HW1rrWWgaANXmBZWODm1TeQ36sV6pifCry/KXkqDbpOTRdyagtPvgDIa3JjP4Za39CzMVaP8UvYuK9c+BZOgJNo5QQoLRlYr4A9848Tpap/3PYah7dT0j+N5F7eaUqR2cis69PEJZstGfQRQjaViOTCp0hcXjdojokgx66BPUjKy4m5Y7IY8ihgVEf07XjkbGw57di9YPWvpk3pw63k/FSsjRY0GmBIdD4Gp5bnSZiPZeBeq6tPN6Zl3eIQLA/8ITzGdzbOoEbn+96UrNIw0SVEjTLcWCfQpRFXtuNX5aQ9o+Z+iUJKv8SPvDlolAbNy/3SIyRrfxqpXeE0vlVlDTU08N8IgaN+Ebho6fqXWP7sjBVOyV5GLHvgWEqTDsqTG4QA00QUgBAKpUxLslKRPj0kMXWpCUQce886/Smqdtlr3KZgRUc/DSM+vfxPf8FeBe78ocY9jJxIoDCzlwalmUGQq14ElBRtuDQdwmzTYF/puwdXqNPN7EXv0QymeBLwLHMgiE2Y3XhaFUT7hAVI0NC7cbHRKjlpfYLz5/duVuhEtkvhkWcic8Du/rjIf5og==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(36860700016)(82310400026)(261026140227099003)(11063799006)(56012099006)(261028144727099003)(261009223027099003)(261021121427099003)(261022105027099003)(10067099003)(18002099003)(261102123227099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	orti8AEFVg1gX7ZvbBoZ84256WTLmvuX0iCzT4jMzI8yvkvJl5OoitYWcN3FNwJUKDl9wPGZ4ZWcjF6sVN2ROXBF8okWb0NzxjZQShPljlq5f/uYB1g5amVoJkh/EZWzX4Jqg/CU75UwhGu0GwaniY40WYRhB+LRMGPwf1r0WCkZAO/Whm3199hVXRVY5noSubMIYmApZ6xehu6qTmYL9TT2jpfo1j8ulR/8AvjcDniYjvxflNXoazMrPlU3l7Yk70eOOY7fTPqd6f3q0g6S8x4rjM3Wn9QtfU7yC0CxbhnfcV/K/qExnMzVXCrFAB9/H2rf0Wf4qSC5MXC82ysr30K0Ad1VZnkddS/IEAI//cuS2tJ3XY1c66Azro9v4YhmkONGyob3XJV1fZpc5Tk7Qvjo/mnpNtUBGl/pFHPOUmz7jAakbvbH6V+h5TW2p98S
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 12:33:07.3455
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 43e603ef-3b23-4e3e-4676-08df3b38f202
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	PH4PEPF0000B60A.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5993
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-As per ACPI 6.x s8.4.6.1.4 (CPPC Enable register):
-  "If supported by the platform, OSPM writes a one to this register
-   to enable CPPC on this processor. If not implemented, OSPM assumes
-   the platform always has CPPC enabled."
+On MPAM an RMID is a PMG within a PARTID, so resctrl can only allocate
+the PMGs of the CLOSIDs it uses. info/L3_MON/num_rmids is instead set
+to the whole PARTID and PMG space when the monitors are initialised,
+and halved when CDP is enabled. It reports more RMIDs than resctrl can
+allocate in two cases:
 
-The driver never writes this register. Call cppc_set_enable() at the
-start of cppc_cpufreq_cpu_init(). Errors are logged but not fatal, as
-the register is optional.
+- With CDP each CLOSID takes two PARTIDs, and resctrl halves the
+  CLOSID count rounding down, while MPAM halves the whole RMID space.
+  With 5 PARTIDs and 2 PMGs resctrl has 2 CLOSIDs and 4 RMIDs, but
+  num_rmids reads 5. The count is too high whenever the number of
+  PARTIDs is odd and there is more than one PMG.
 
-Fixes: 5477fb3bd1e8 ("ACPI / CPPC: Add a CPUFreq driver for use with CPPC")
-Cc: stable@vger.kernel.org # v6.16+
-Signed-off-by: Sumit Gupta <sumitg@nvidia.com>
+- On a monitor-only system there are no control groups and resctrl
+  only uses the default CLOSID, but num_rmids still covers every
+  PARTID. With 5 PARTIDs and 2 PMGs it reads 10 while only 2 RMIDs
+  can be allocated.
+
+RMID allocation is limited to the CLOSIDs in use, so only the value
+reported to userspace is too high. Creating as many monitor groups as
+num_rmids allows fails with -ENOSPC before that number is reached.
+
+Let resctrl tell the architecture how many CLOSIDs it uses on every
+mount. Add resctrl_arch_set_mon_rmid_count(), called after closid_init()
+and before the info files are created, and have MPAM report
+(pmg_max + 1) RMIDs for each CLOSID. The CLOSID count already accounts
+for CDP, as schemata_list_add() halves it when CDP is enabled, so drop
+the halving in resctrl_arch_set_cdp_enabled(). A monitor-only system
+passes 1 for the default CLOSID. On x86 the RMIDs do not depend on the
+CLOSIDs and the hook does nothing.
+
+Fixes: 264c285999fc ("arm_mpam: resctrl: Add monitor initialisation and domain boilerplate")
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: <stable@vger.kernel.org> # 7.1.x
+Cc: James Morse <james.morse@arm.com>
+Cc: Ben Horgan <ben.horgan@arm.com>
+Cc: Reinette Chatre <reinette.chatre@intel.com>
+Cc: Fenghua Yu <fenghuay@nvidia.com>
 ---
-Sending this separately from the autonomous mode boot parameter series
-where it was patch 1/2, as it is an independent bug fix.
-v5 of the series:
- https://lore.kernel.org/lkml/20260623080652.3353386-1-sumitg@nvidia.com/
+v2:
+- Use the "arm_mpam: resctrl:" prefix.
+- Also fix num_rmids on monitor-only systems, as Ben suggested: add
+  resctrl_arch_set_mon_rmid_count() so resctrl reports the number of
+  CLOSIDs it uses, and remove the CDP-only rounding.
+- Retitle from "arm_mpam: Round the CDP RMID count down to whole CLOSIDs".
+- v1: https://lore.kernel.org/all/20261104101622.563280-1-ruanjinjie@huawei.com/
+---
+ arch/x86/include/asm/resctrl.h |  3 +++
+ drivers/resctrl/mpam_resctrl.c | 18 ++++++++++++------
+ fs/resctrl/rdtgroup.c          |  2 ++
+ include/linux/resctrl.h        |  1 +
+ 4 files changed, 18 insertions(+), 6 deletions(-)
 
- drivers/cpufreq/cppc_cpufreq.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
-index 957fa7775260..b8f4399b6e0b 100644
---- a/drivers/cpufreq/cppc_cpufreq.c
-+++ b/drivers/cpufreq/cppc_cpufreq.c
-@@ -679,6 +679,14 @@ static int cppc_cpufreq_cpu_init(struct cpufreq_policy *policy)
- 	caps = &cpu_data->perf_caps;
- 	policy->driver_data = cpu_data;
+diff --git a/arch/x86/include/asm/resctrl.h b/arch/x86/include/asm/resctrl.h
+index 8f6edcdcfd87..50165027b92d 100644
+--- a/arch/x86/include/asm/resctrl.h
++++ b/arch/x86/include/asm/resctrl.h
+@@ -164,6 +164,9 @@ static inline bool resctrl_arch_match_rmid(struct task_struct *tsk, u32 ignored,
+ 	return READ_ONCE(tsk->rmid) == rmid;
+ }
  
-+	/*
-+	 * Enable CPPC. The Enable register is optional - some platforms
-+	 * may not support it.
-+	 */
-+	ret = cppc_set_enable(cpu, true);
-+	if (ret && ret != -EOPNOTSUPP)
-+		pr_warn("Failed to enable CPPC for CPU%u (%d)\n", cpu, ret);
++/* RMIDs are independent of CLOSIDs on x86. */
++static inline void resctrl_arch_set_mon_rmid_count(u32 num_closid) { }
 +
- 	/*
- 	 * Set min to lowest nonlinear perf to avoid any efficiency penalty (see
- 	 * Section 8.4.7.1.1.5 of ACPI 6.1 spec)
+ static inline void resctrl_arch_sched_in(struct task_struct *tsk)
+ {
+ 	if (static_branch_likely(&rdt_enable_key))
+diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+index 5468367776e2..cca9568bab70 100644
+--- a/drivers/resctrl/mpam_resctrl.c
++++ b/drivers/resctrl/mpam_resctrl.c
+@@ -217,11 +217,6 @@ int resctrl_arch_set_cdp_enabled(enum resctrl_res_level rid, bool enable)
+ 	cdp_enabled = enable;
+ 	mpam_resctrl_controls[rid].cdp_enabled = enable;
+ 
+-	if (enable)
+-		l3->mon.num_rmid = resctrl_arch_system_num_rmid_idx() / 2;
+-	else
+-		l3->mon.num_rmid = resctrl_arch_system_num_rmid_idx();
+-
+ 	/* The mbw_max feature can't hide cdp as it's a per-partid maximum. */
+ 	if (cdp_enabled && !mpam_resctrl_controls[RDT_RESOURCE_MBA].cdp_enabled)
+ 		mpam_resctrl_controls[RDT_RESOURCE_MBA].resctrl_res.alloc_capable = false;
+@@ -279,6 +274,16 @@ u32 resctrl_arch_system_num_rmid_idx(void)
+ 	return (mpam_pmg_max + 1) * (mpam_partid_max + 1);
+ }
+ 
++void resctrl_arch_set_mon_rmid_count(u32 num_closid)
++{
++	struct rdt_resource *l3 = &mpam_resctrl_controls[RDT_RESOURCE_L3].resctrl_res;
++
++	if (!l3->mon_capable)
++		return;
++
++	l3->mon.num_rmid = (mpam_pmg_max + 1) * num_closid;
++}
++
+ u32 resctrl_arch_rmid_idx_encode(u32 closid, u32 rmid)
+ {
+ 	return closid * (mpam_pmg_max + 1) + rmid;
+@@ -1350,7 +1355,8 @@ static int mpam_resctrl_monitor_init(struct mpam_resctrl_mon *mon,
+ 	 * each control group. Hence, advertise the whole rmid_idx space even
+ 	 * though each control group has its own pmg/rmid space. Unfortunately,
+ 	 * this does mean userspace needs to know the architecture to correctly
+-	 * interpret this value.
++	 * interpret this value. resctrl_arch_set_mon_rmid_count() replaces it
++	 * with the RMIDs of the CLOSIDs in use when resctrl is mounted.
+ 	 */
+ 	l3->mon.num_rmid = resctrl_arch_system_num_rmid_idx();
+ 
+diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+index 106e78fb1f1d..2335dd7054ca 100644
+--- a/fs/resctrl/rdtgroup.c
++++ b/fs/resctrl/rdtgroup.c
+@@ -3214,6 +3214,8 @@ static int rdt_get_tree(struct fs_context *fc)
+ 	if (ret)
+ 		goto out_schemata_free;
+ 
++	resctrl_arch_set_mon_rmid_count(closids_supported() ?: 1);
++
+ 	if (resctrl_arch_mon_capable())
+ 		flags |= RFTYPE_MON;
+ 
+diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
+index 10dfdca7f4bf..4a78f2e60bdf 100644
+--- a/include/linux/resctrl.h
++++ b/include/linux/resctrl.h
+@@ -417,6 +417,7 @@ static inline u32 resctrl_get_default_ctrl(struct rdt_resource *r)
+ /* The number of closid supported by this resource regardless of CDP */
+ u32 resctrl_arch_get_num_closid(struct rdt_resource *r);
+ u32 resctrl_arch_system_num_rmid_idx(void);
++void resctrl_arch_set_mon_rmid_count(u32 num_closid);
+ int resctrl_arch_update_domains(struct rdt_resource *r, u32 closid);
+ 
+ bool resctrl_enable_mon_event(enum resctrl_event_id eventid, bool any_cpu,
 -- 
 2.34.1
 
