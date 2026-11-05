@@ -1,55 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793884155;
-	b=5PE6Zh3eI0Dm2E8w9PSucsSic2JFMBXxfDq0v0JPf//VzP1YGhJye7u9k9Ss5wPgot+a
-	 swGUazscdAqpraprBQlwnqlEChoJ22WGKkpvw+lWx3y4H0tJQSGA5LL4Eu35lRS377edL
-	 CHcLL4QWdHAppCx7eMjXYRFMa9y971l7RmZNKaKGGpAujk91HDOaw07syIYKMcsWT97Kb
-	 Wb44Xwwl49y/lQ8wI66OifX6z+Xu34HUc/3eT9rGEc0WBPU60xT3z95BwVlZMsdvdip4M
-	 578ibHVRz5p4JfoOUMhvTQGqkFxHa+OJeXVSOg7f8zbUP88u4ZvtIcA3ftBpb2AZxTA==
+	t=1793884221;
+	b=UPLg6g2ltIMiRpvhfztZYE18Mxc5D46qrv6HuY5GJTKOshS9lKgU6hXHU8mcFjIKRo+Z
+	 JTl1HYH/DO2k5fseJXrCxqLwscHbJSOLbVYaoqMCZhUf1Tp55fZSlZFnhNc/tPOItJu0Q
+	 kjvzr0m2TeORMNIJaNlIDukHiMhzWudVyrm7SAYiKVR2oYN68H7lWeDEHc5vFmpkdRk/e
+	 DLQiOVWJm9Ua7gc/xmkaPKOPqJOuEvtFzDQ3iW1bglkWfJBCn2qBfhwSyDO23FW3cN6G5
+	 tlRR8M8Yf9sayXjD2oB9JAVVQ5/QlhYQCdjmopLG32UcFwJFK6QiK1uJw+aLgcM7j0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793884155;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=nKqS9ZMsRahIHs0QjU6Z8mMtCqLyoSSe36R37iF6B38=;
-	b=UDQ3Kt0MQw+cq8eVpJ0X2mTgI2HKF/EWTiKCbm/+nve34tZeQujdzC3fqNwVJYPfKcFz
-	 eBVTFQVgIqRakj6SMcbrSREr1kX8um49Mad738s6Yl/UD02pHSBG/jtZKkdJ0qBcA1XUd
-	 NJvKi0JouRbv18PQVESiXrs7Blo952v+TldrUcrqLCVXg1qs1AfuGym0m3HIPfbBjEv79
-	 1dbpu/IMNrIQ1HXNbelO5Mi5gzQi9SB8Fv2t7kJcdSZVgRFeFPCOkAXNmHX8J+kyFJJl/
-	 uy/Svv/UdBbztKEuJ3b4/rknDO61/kPBSuqovKtZN0cXPUb6fw//cjRbOA13tx2Frow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793884221;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Fvb4JO7ZDYHlLGwkUVgcr7dfex0gx0tUQH0jioa0NDA=;
+	b=poz81lvvCUMh/D3nOwnDcivO6bf5Ar7gh+UXsmmErYLpMp3LAFONvrIKpYABL9Yaf/Aj
+	 argVOX7ZZuvJiHQeStNdPGeDO2utjaGO/mVRi77EePooDPHyGGpy8+ZrdUeTSxNSVrjdL
+	 ozdfxG0JQRTZ8U4WYGRQSU+Ove136c5/Zg6wRHfo7Rtb9kpOjW6udLdEs57czT0WgxJIv
+	 GMfZJPp2uxb44NJmYjojRHb0kOSOD152KKmlPZyalKVrCT7deZVmAS+veaWo2auN6Znya
+	 4Ca6NFSKKZYdZTUR6T5q9fjM8UvzW2macqf4fLwyrkY+W9a+he2vRHVNzxjRzK+9pgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NrCJ+9KU;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dPTZXbna;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0660D606A31B;
-	Thu,  5 Nov 2026 13:09:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D452606A32D;
+	Thu,  5 Nov 2026 13:10:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NrCJ+9KU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B3CF1F000C1;
-	Thu,  5 Nov 2026 13:09:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793884154;
-	bh=nKqS9ZMsRahIHs0QjU6Z8mMtCqLyoSSe36R37iF6B38=;
-	h=From:To:Cc:Subject:Date;
-	b=NrCJ+9KUYB/7NPm+exFUKkv7HOVXzAFHLdPPqmNm0wFD8J6oNAfzm8cXLI33aJaHm
-	 vlzrFG0Y3+OxG8FytpVmg1r2rYpaxU7+/MfVenbPegPkbZsBagHW8d2pFNhP/0FbBZ
-	 d74iatEjPb2whsSxPNpoRbNAX10dU0cC33skX4OlGLeP9aLFHNTF2UZrrdg713hu4S
-	 6VwnB8qUoVAmpOnA5V8HgqyrhObD+oNwDtK71P4Hl8HSowHM/eJdkf2rB69h2neAFc
-	 T7uH5m4S4grCGCaDVcsR3HJA3+2W9TUpVSXT7xn52gNJrQ8yaYWls5ZwKZGFvfjzjn
-	 hZiqy03haFWXw==
-From: Thorsten Blum <blum@kernel.org>
-To: Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Thorsten Blum <blum@kernel.org>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] platform/x86: apple-gmux: Use guard(mutex) to simplify the code
-Date: Thu,  5 Nov 2026 14:08:27 +0100
-Message-ID: <20261105130826.345690-3-blum@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dPTZXbna
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 200571F000C1;
+	Thu,  5 Nov 2026 13:10:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793884219;
+	bh=Fvb4JO7ZDYHlLGwkUVgcr7dfex0gx0tUQH0jioa0NDA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dPTZXbnaU0ZHJ8FXpQSQDG9e4qeWzONxeoXKumor/CArasmlPPtNdWtmhxu7uzEck
+	 P1eEVY+hTIjDdP1uoDY8SaA9+TzLagQcJY2fIYcdYnBWSsIF+ScTQhOg6vLFtQOCdW
+	 fUjFfWCK7KWSrfvRHCvIG9d6xYwqBgHyE1Nr1kEA=
+Date: Thu, 5 Nov 2026 08:10:14 -0500
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Johan Hovold <johan@kernel.org>, Eric Dumazet <edumazet@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Nipun Gupta <nipun.gupta@amd.com>,
+	Nikhil Agarwal <nikhil.agarwal@amd.com>,
+	Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>,
+	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-input@vger.kernel.org, netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-bluetooth@vger.kernel.org, linux-acpi@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-pci@vger.kernel.org,
+	iommu@lists.linux.dev, Jason Gunthorpe <jgg@ziepe.ca>
+Subject: Re: [PATCH 10/17] driver core: Expose device trust authorization
+ through sysfs
+Message-ID: <2026110514-bunkhouse-handset-6a3a@gregkh>
+References: <20261105-device-trust-core-v1-0-1e536825b4eb@nvidia.com>
+ <20261105-device-trust-core-v1-10-1e536825b4eb@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,152 +84,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5005; i=blum@kernel.org; h=from:subject; bh=tt1H0sM720f4VaAxGTyX/iYAw4iKCiB5mCSt9KeFngE=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFlv6k/93K4jxP+nsvy5TL75xPA3D7KllvV8+sKz1svqx NoSx5rjHaUsDGJcDLJiiiwPZv2Y4VtaU7nJJGInzBxWJpAhDFycAjCRJ8IM//R3q0no357zYu0y tRv9G5VXX3IzOr3/v1AjG9vRJ6Z3uP0Y/nD8YvcLqo9isZR7/EE0+bTdTHc3nek338Zzx9sWKEx eygcA
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105-device-trust-core-v1-10-1e536825b4eb@nvidia.com>
 
-Use guard(mutex) and remove the manual mutex_unlock() calls. Return
-several results directly and drop the now-unused local variables.
+On Thu, Nov 05, 2026 at 01:42:23PM +0200, Leon Romanovsky wrote:
+> From: Leon Romanovsky <leonro@nvidia.com>
+> 
+> An initrd must authorize a disabled device after attestation even if a
+> built-in driver already attempted to probe it.
+> 
+> Expose requested trust_policy and read-only active trust. Allow explicit
+> disabled policy to advance once to adversary or full, fixing that decision
+> immediately. Reject later policy changes, including for a device claimed
+> before registration, while allowing same-value writes on live devices.
+> Keep initial unrestricted selection separate from explicit authorization
+> and bind-time commitment. Serialize writes with probing under the device
+> lock. Include the attributes in device ownership changes.
+> 
+> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> ---
+>  Documentation/ABI/testing/sysfs-devices-trust |  51 +++++++++++++
+>  MAINTAINERS                                   |   1 +
+>  drivers/base/base.h                           |   6 ++
+>  drivers/base/core.c                           |  15 +++-
+>  drivers/base/trust.c                          | 102 ++++++++++++++++++++++++++
+>  5 files changed, 174 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/ABI/testing/sysfs-devices-trust b/Documentation/ABI/testing/sysfs-devices-trust
+> new file mode 100644
+> index 0000000000000..97e07a174769c
+> --- /dev/null
+> +++ b/Documentation/ABI/testing/sysfs-devices-trust
+> @@ -0,0 +1,51 @@
+> +What:		/sys/devices/.../trust
+> +Date:		September 2026
+> +Contact:	driver-core@lists.linux.dev
+> +Description:
+> +		(RO) The active trust level for the device. The values are
+> +		"disabled", "adversary", and "full". Driver core resolves
+> +		the level before DMA configuration and probe, and retains it
+> +		through removal and DMA cleanup. Outside a bind transaction
+> +		the level is "disabled". This does not imply that policy is
+> +		writable or that the device has never operated.
+> +
+> +What:		/sys/devices/.../trust_policy
+> +Date:		September 2026
+> +Contact:	driver-core@lists.linux.dev
+> +Description:
+> +		(RW) The requested trust policy for the device. The initial
+> +		value may be selected by the bus before the device is
+> +		registered; otherwise it is "default". The policy is resolved
+> +		to an active trust level before the device is probed.
+> +
+> +		The values are "default", "disabled", "adversary", and
+> +		"full". "default" lets the bus select the active trust level.
+> +		"disabled" prevents a functional driver from binding.
+> +		"adversary" requests operation with the restrictions that the
+> +		bus and DMA layers can enforce for a potentially malicious
+> +		device; it does not isolate DMA by itself. "full" requests
+> +		normal operation.
+> +
+> +		Before an operating level is committed, policy may change
+> +		freely until "disabled" is selected. Explicit "disabled"
+> +		blocks binding while allowing a later write of "adversary" or
+> +		"full". Repeated rejected probes preserve this opportunity.
+> +		Authorization immediately fixes the requested policy.
+> +		Returning to "default" or "disabled", or selecting another
+> +		mode, fails.
+> +
+> +		Successful resolution to an allowed level commits policy
+> +		and operating level before driver or DMA setup. Both remain
+> +		fixed for the device object's lifetime, including through
+> +		failed or deferred probes, unbind, reset, and driver reload.
+> +		Later binds must resolve to the same level, including when
+> +		the policy is "default". A resolver error or disabled result
+> +		before commitment leaves the policy's writability unchanged.
 
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
- drivers/platform/x86/apple-gmux.c | 48 +++++++++----------------------
- 1 file changed, 14 insertions(+), 34 deletions(-)
+I understand you are aproaching this from a PCI point-of-view, but many
+busses do not care or have DMA at all, and need to actually talk to the
+device before being able to even "add" it to the kernel.  So you are
+making a driver core-specific policy based on mentioning DMA here, when
+really that should only be a bus-specific thing, right?  Some busses
+might require DMA to happen (i.e. USB needs their host controllers to
+use DMA to even talk to the device at all).
 
-diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/apple-gmux.c
-index 9c728ac4e045..6c7790012011 100644
---- a/drivers/platform/x86/apple-gmux.c
-+++ b/drivers/platform/x86/apple-gmux.c
-@@ -169,41 +169,32 @@ static int gmux_index_wait_complete(struct apple_gmux_data *gmux_data)
- 
- static u8 gmux_index_read8(struct apple_gmux_data *gmux_data, int port)
- {
--	u8 val;
--
--	mutex_lock(&gmux_data->index_lock);
-+	guard(mutex)(&gmux_data->index_lock);
- 	gmux_index_wait_ready(gmux_data);
- 	outb((port & 0xff), gmux_data->iostart + GMUX_PORT_READ);
- 	gmux_index_wait_complete(gmux_data);
--	val = inb(gmux_data->iostart + GMUX_PORT_VALUE);
--	mutex_unlock(&gmux_data->index_lock);
- 
--	return val;
-+	return inb(gmux_data->iostart + GMUX_PORT_VALUE);
- }
- 
- static void gmux_index_write8(struct apple_gmux_data *gmux_data, int port,
- 			      u8 val)
- {
--	mutex_lock(&gmux_data->index_lock);
-+	guard(mutex)(&gmux_data->index_lock);
- 	outb(val, gmux_data->iostart + GMUX_PORT_VALUE);
- 	gmux_index_wait_ready(gmux_data);
- 	outb(port & 0xff, gmux_data->iostart + GMUX_PORT_WRITE);
- 	gmux_index_wait_complete(gmux_data);
--	mutex_unlock(&gmux_data->index_lock);
- }
- 
- static u32 gmux_index_read32(struct apple_gmux_data *gmux_data, int port)
- {
--	u32 val;
--
--	mutex_lock(&gmux_data->index_lock);
-+	guard(mutex)(&gmux_data->index_lock);
- 	gmux_index_wait_ready(gmux_data);
- 	outb((port & 0xff), gmux_data->iostart + GMUX_PORT_READ);
- 	gmux_index_wait_complete(gmux_data);
--	val = inl(gmux_data->iostart + GMUX_PORT_VALUE);
--	mutex_unlock(&gmux_data->index_lock);
- 
--	return val;
-+	return inl(gmux_data->iostart + GMUX_PORT_VALUE);
- }
- 
- static void gmux_index_write32(struct apple_gmux_data *gmux_data, int port,
-@@ -212,7 +203,7 @@ static void gmux_index_write32(struct apple_gmux_data *gmux_data, int port,
- 	int i;
- 	u8 tmpval;
- 
--	mutex_lock(&gmux_data->index_lock);
-+	guard(mutex)(&gmux_data->index_lock);
- 
- 	for (i = 0; i < 4; i++) {
- 		tmpval = (val >> (i * 8)) & 0xff;
-@@ -222,7 +213,6 @@ static void gmux_index_write32(struct apple_gmux_data *gmux_data, int port,
- 	gmux_index_wait_ready(gmux_data);
- 	outb(port & 0xff, gmux_data->iostart + GMUX_PORT_WRITE);
- 	gmux_index_wait_complete(gmux_data);
--	mutex_unlock(&gmux_data->index_lock);
- }
- 
- static int gmux_mmio_wait(struct apple_gmux_data *gmux_data)
-@@ -241,24 +231,20 @@ static int gmux_mmio_wait(struct apple_gmux_data *gmux_data)
- 
- static u8 gmux_mmio_read8(struct apple_gmux_data *gmux_data, int port)
- {
--	u8 val;
--
--	mutex_lock(&gmux_data->index_lock);
-+	guard(mutex)(&gmux_data->index_lock);
- 	gmux_mmio_wait(gmux_data);
- 	iowrite8((port & 0xff), gmux_data->iomem_base + GMUX_MMIO_PORT_SELECT);
--	iowrite8(GMUX_MMIO_READ | sizeof(val),
-+	iowrite8(GMUX_MMIO_READ | sizeof(u8),
- 		gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
- 	gmux_mmio_wait(gmux_data);
--	val = ioread8(gmux_data->iomem_base);
--	mutex_unlock(&gmux_data->index_lock);
- 
--	return val;
-+	return ioread8(gmux_data->iomem_base);
- }
- 
- static void gmux_mmio_write8(struct apple_gmux_data *gmux_data, int port,
- 			      u8 val)
- {
--	mutex_lock(&gmux_data->index_lock);
-+	guard(mutex)(&gmux_data->index_lock);
- 	gmux_mmio_wait(gmux_data);
- 	iowrite8(val, gmux_data->iomem_base);
- 
-@@ -267,35 +253,29 @@ static void gmux_mmio_write8(struct apple_gmux_data *gmux_data, int port,
- 		gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
- 
- 	gmux_mmio_wait(gmux_data);
--	mutex_unlock(&gmux_data->index_lock);
- }
- 
- static u32 gmux_mmio_read32(struct apple_gmux_data *gmux_data, int port)
- {
--	u32 val;
--
--	mutex_lock(&gmux_data->index_lock);
-+	guard(mutex)(&gmux_data->index_lock);
- 	gmux_mmio_wait(gmux_data);
- 	iowrite8((port & 0xff), gmux_data->iomem_base + GMUX_MMIO_PORT_SELECT);
--	iowrite8(GMUX_MMIO_READ | sizeof(val),
-+	iowrite8(GMUX_MMIO_READ | sizeof(u32),
- 		gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
- 	gmux_mmio_wait(gmux_data);
--	val = ioread32be(gmux_data->iomem_base);
--	mutex_unlock(&gmux_data->index_lock);
- 
--	return val;
-+	return ioread32be(gmux_data->iomem_base);
- }
- 
- static void gmux_mmio_write32(struct apple_gmux_data *gmux_data, int port,
- 			       u32 val)
- {
--	mutex_lock(&gmux_data->index_lock);
-+	guard(mutex)(&gmux_data->index_lock);
- 	iowrite32be(val, gmux_data->iomem_base);
- 	iowrite8(port & 0xff, gmux_data->iomem_base + GMUX_MMIO_PORT_SELECT);
- 	iowrite8(GMUX_MMIO_WRITE | sizeof(val),
- 		gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
- 	gmux_mmio_wait(gmux_data);
--	mutex_unlock(&gmux_data->index_lock);
- }
- 
- static u8 gmux_read8(struct apple_gmux_data *gmux_data, int port)
+So can this be written to be more vague and generic and then put the
+specifics in the bus-specific portion?
+
+thanks,
+
+greg k-h
