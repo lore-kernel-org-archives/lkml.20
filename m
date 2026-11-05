@@ -1,95 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.136.65.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793863156;
-	b=YCe6Uj4cOdBYDud5esTW8oLSxsquoAZHTMjW0grSRBBqqAAi3fUIMW5QtSbN7c5QaVOF
-	 +d10dMLWPwiOxIqbfapVlPaxkm7MMs62dgZKTEyrCvYLounw0UVmh2vjC7N5VwpRHownm
-	 u34onKnJMRYn4/0qeAF4CjRvRxDJy9iDPxJ6+WIKUTyba99nSzZ/O49hFjw4wv8jSpo5Z
-	 7Zug3gRtzKOtmMzF/TnDYirIvjYNd/LsZ/OTRhNxeSU2U3sgbhKQskh0J+HUPHvpYz8IK
-	 OGq1tbV2S26xRK7u3wsoh9ZFq0q/2iQ6Dt5vlMcS2hxs8jwqMLUrPot+ixFlRncqHYA==
+	t=1793863182;
+	b=Uhm06w1ZW1wJDHPMUB69B3Tv5e3sVGnGrZcjSLXE3OgX216JdLVdqNVnu2PvX6d8SLXZ
+	 mZCZslRu21pihUIMOL46qOx5FK66CJlXCaMqL1+P8O8BH0gGiaALoSI3xGwa5yLfPzC1b
+	 JHLs26SdzkUIjgFrtUzt3eNg5Fk+TSdbTxfAfayJWRY6CpqYrvbNnN4fKBIaYCwsGmoSc
+	 ClPoE8H5xJNOFqxElE1iBippkhfDE4MZW+/gZBdADUqATj7P+6F9OlCtN4S7v0gywaaXV
+	 5hurFwBVEtM0AJsEETEdirmuIXuyFerInoxMH29F/yorHB2+RBp5yJGFvn3AYTqOtCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793863156;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:MIME-Version:Content-Transfer-Encoding:
-	 X-Flowmailer-Platform:Feedback-ID;
-	bh=2UeepKs1wiyGHBtfdukXuMgoSbbJsCgDnloMbndsSsg=;
-	b=U5gEKJmQUA7gy6IysYD7cMFjZ4uMNnk0PBF+PxOpumSFV8RDXWwNIbuhY/nX0cVzkIcz
-	 MW5crrvxMapFLR0kVo/59TROclxh7G+an7vqSPIexDL9Now9wbYlBXkLMW7HPLzfgq/fn
-	 pzBD67pdwquCtWeCuTi5bq0oLJC2G26ns7Jci6rIbP4MdTdQZQeTSOxqJJinzXwqCJpih
-	 m2BftpkkEdVnwpSr2P3uLOxrSHlkTMe21zSYdira64Lu+PuuNkV/TDjXmC7pRN0Vcl5Js
-	 s7k2Gb3Y/MnbVbkBASn0kjRhZEYLXzRAtvOowW+8y7o1uYPjQhzat52E0CeEbGDSNrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793863182;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=jtvDZEshy0cFy/xn5t5FZPavM2QZtUZi4LpThlcs6fg=;
+	b=lqd6zPOgYe7nFCC4Lvm8TDS7hTG7w3NvpIn5p14tgxX6sMNgjHW773tHu0IxYM8OP5Zm
+	 cYu0LhHjpMzOjYYdh8+WCAQNtsewjr/mj+GP+7R8Ot7AECTy1yYk+MfXa0jHFURocucd2
+	 w4b1gZAXZt4CZa0wDg2iNNG+IYY9Y++UJi+EKlrh3AEdOgbZ7/NmlitPO4C9ITALUxi8J
+	 EjFNmY7Yoxq6SwUyx4UlJvQ0heDoI7nR7oOLdprUHA90e3rUhgbAd8CXBBmVHYhKoD2cA
+	 qr9pvpXD/BzUendS1XW/0uvI2eLeqIHbveuoNeB7rnZ47hqBmsdBEhfJ7RM/pYcGDyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=siemens.com;
-	spf=pass smtp.mailfrom=rts-flowmailer.siemens.com;
-	dkim=pass header.d=siemens.com header.i=meng.ding@siemens.com header.a=rsa-sha256 header.s=fm2 header.b=MbHBkvax;
-	arc=none smtp.remote-ip=185.136.65.225
-Received: from mta-65-225.siemens.flowmailer.net (mta-65-225.siemens.flowmailer.net [185.136.65.225])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=UFMv31oz;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97488606A330
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 07:19:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97488606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50FE7606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 07:19:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50FE7606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=siemens.com header.i=meng.ding@siemens.com header.a=rsa-sha256 header.s=fm2 header.b=MbHBkvax
-Received: by mta-65-225.siemens.flowmailer.net with ESMTPSA id 20261105071905befc4137e6000207a3
-        for <linux-kernel@vger.kernel.org>;
-        Thu, 05 Nov 2026 08:19:06 +0100
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
- d=siemens.com; i=meng.ding@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
- bh=2UeepKs1wiyGHBtfdukXuMgoSbbJsCgDnloMbndsSsg=;
- b=MbHBkvaxkeyUCwfUVzgQ1zs+Ifzqcm8ShV801eVKdDDdOajsC1zROPDsFOkPrRLIXualRq
- ljtDbGgqh9sgFeK9izYu5evE/RyVB7DkhluMQi6IchNA2WJTSPoinSUux5Kh+O5m7J23Typ6
- 6W/xUDmoZN3krR2c8DZVE//prNykK4KKliRt59nFJI4tTPArUEVhmZ6/aR6QRJnrtgqD2P6u
- fNCZtVsRth7aWbl3n1hgVvlVxKHfcKfHe2goliePomWYhxBmJ63y44Z2kx6dZBZuKElPnmKY
- 3lSy9Nl6UBDRzyRII9rw8EzNd+ksmnMP0x3M+QBl0zfTffwOUCNwBAIw==;
-From: Ding Meng <meng.ding@siemens.com>
-To: netdev@vger.kernel.org,
-	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>
-Cc: florian.bezdeka@siemens.com,
-	jan.kiszka@siemens.com,
-	wq.wang@siemens.com,
-	p@1g4.org,
-	gerhard@engleder-embedded.com,
-	Ding Meng <meng.ding@siemens.com>,
-	Jason Xing <kerneljasonxing@gmail.com>,
-	Simon Horman <horms@kernel.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	intel-wired-lan@lists.osuosl.org,
-	linux-trace-kernel@vger.kernel.org,
-	bpf@vger.kernel.org
-Subject: [PATCH] net: mark skb NAPI IDs independently of busy polling
-Date: Thu,  5 Nov 2026 15:16:08 +0800
-Message-ID: <20261105071706.7043-1-meng.ding@siemens.com>
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=UFMv31oz
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a78ec32fadso3216835e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 23:19:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793863180; x=1794467980; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jtvDZEshy0cFy/xn5t5FZPavM2QZtUZi4LpThlcs6fg=;
+        b=UFMv31ozYG5jph81fL7uU1kjr4D2570+mEeA9zK2Esoqf7F3gIKeTIRxefpV8Ss+dV
+         uXxTBWprN4LiRaZbdwWx+RbhjGvB/6OIKygIHeiNDbd7/DKg2y1GEIxIIymAeeifb/NB
+         D9FA5nQ+deOQB4KRabQck4ZuvpbqcImw60wz0Ty5Lgivl2CClbzdMDavF3lUHXq0s/P8
+         OdAc26AwbiB+pZDQm3ElS0S0wtjq274oieEFLkRy8j6tUkOh4oU7lvWJLyWrSpiARzO3
+         UHmJGa7jbMVA/bjhlj1wGTL9bPz1OYHUxsZP6SyZNbbCUTjXsGG4xKslCnc7WqfRqA4P
+         EFhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793863180; x=1794467980;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jtvDZEshy0cFy/xn5t5FZPavM2QZtUZi4LpThlcs6fg=;
+        b=il0AZjIkFedr5Wt0Ks6TORQhirErpgDMQEWRSWc0Pu2wlyrT6Ytj2BQsw3X2Rv9xMh
+         MRUdvWKfRmlMh73jOtSZILKhs9Zj2cLCG9DhLOCm4alc6j/yeIwsyOHdrdVkaQltCRXg
+         GfzPwKJtBfV//oLeFgMqDKdX0nOTizP7XwTP0KMblXdYY2A/LYqIxTnHMu3p5yHMOSXF
+         bvHjEUQype0KpNVl3nkM87C+d7YckfEdGTrhvG+fVv/cx32rVAUPP/BzAFgGIL+6UlQB
+         o5ONuMamE3y7IVkao41n/iPyFQnfv7F3Xd7L/RxLzPU5A4Sm8VdNx6J4EQOKI/dHvkCq
+         te8w==
+X-Forwarded-Encrypted: i=1; AKwUvBw9Ip0TogX/yRxFUh1mCEWLgA+A38GSKP/Z3IS4uOQekJk3QAZlrdOXfwuoU6W3UzfjJodZKSvaeummpzg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9nW7yoXcs01x3qfBnDONiLk7dnUI8G7zRE0tTb20blGGAdepyF
+	QLX0BkbJWyz8gKGo3kcMq78qTM8KjscroJ+XZiGGGlgxJ0YSKqYHm6KLuhy3uCeg2IzTJ4UwBFl
+	QxDIe9TkWlA==
+X-Gm-Gg: AYBFou1I+FlyfQd7/9UIC6MTp240XqeYgM1Zz2ehy/jfphZmS/c07sWqzvDQBL6U5/U
+	9HnxbCXBkTLRKXKzpxrD1VK84N1ZAWMvCI2H7pfXcxpFjiACzXIjZgl85hOZhLyuFOJVZwkAEgP
+	2LHdOXZ7jsnP4GMdCWA/rz9Gf1/7Xm4ik8HpYg4V2pCKpQuPsbJaP7+xei3npBBRcOv/jNARqHV
+	v5BAkHHzkwo9lx+ZS0rq5COtMCCxLlbnTHhpPwJuZMuNBqTJTwRW59A6Cg+bJeo66OIE5nqQGjJ
+	cz+WCrFQ2Cvp9+8xIFc/0yKmIs82reEKdtwWNsIrbjHe0xhjZGkklBXmjKVp7+249bpeZ/HJ3Km
+	U1RPPQUMf8281qaMAc2kyHoHDhiRzhRCWNpTJ22ix/t874rVBnkJZkB90d/yKZhJnNn9jqrwGIm
+	JUefBOZZmTk2/Fh58XT2XGja3AgMB4Q7okHmkmsbI40AGLFlg85cCljjuSnGxo8NhKLnfe9fQUl
+	NLRNpNYxrYfWvZiHYvxxBiyMdSKb0rMD8LLXeFgGInZJlUWwSdArVsPgq5lZxurU0ptXizAiblP
+	+6DIvUU0wDXzOzq2ReH1ARjjmVjMJMTwfeqHB90LRApgAzEz/ayH9lr0iSKXeJtQ
+X-Received: by 2002:a05:600c:1798:b0:4a0:1f9e:5f78 with SMTP id 5b1f17b1804b1-4ac1228a41emr254417105e9.0.1793863179681;
+        Wed, 04 Nov 2026 23:19:39 -0800 (PST)
+Received: from localhost.localdomain ([202.127.77.110])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245b86fbesm14687084c88.1.2026.11.04.23.19.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 23:19:38 -0800 (PST)
+From: Heming Zhao <heming.zhao@suse.com>
+To: joseph.qi@linux.alibaba.com,
+	mark@fasheh.com,
+	jlbec@evilplan.org,
+	hch@lst.de
+Cc: Heming Zhao <heming.zhao@suse.com>,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH v5 0/4] migrates ocfs2 DIO from buffer_head to iomap
+Date: Thu,  5 Nov 2026 15:19:24 +0800
+Message-ID: <20261105071930.16399-1-heming.zhao@suse.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,205 +100,169 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Flowmailer-Platform: Siemens
-Feedback-ID: 519:519-1335312:519-21489:flowmailer
 
-Commit 97dc7cd92ac6 ("ptp: Support late timestamp determination")
-added support for deferring RX timestamp conversion to
-ndo_get_tstamp(). When the timestamp is consumed, get_timestamp()
-uses the skb's NAPI ID to find the device that owns the timestamp
-cookie and invoke its callback.
+This patch set migrates ocfs2 Direct I/O (DIO) from buffer_head mode
+to iomap mode. And the code base is commit 6628e7d4c6b2 (v7.4-rc1),
+and also merge Joseph's code and ideas from [1]:
 
-Commit e68b6e50fa35 ("udp: enable busy polling for all sockets")
-gated NAPI ID bookkeeping with CONFIG_NET_RX_BUSY_POLL. As a result,
-when busy polling is disabled, the skb may not carry a usable NAPI ID.
-The device lookup then fails, so the driver callback is not invoked.
-get_timestamp() falls back to hwtstamp, which does not contain the
-converted timestamp, resulting in an incorrect RX hardware timestamp.
+The key for the patch set
 
-Record skb NAPI IDs independently of busy-poll support to support
-drivers that use deferred timestamp conversion and future driver
-features that need to look up a device by its NAPI ID.
+To simplify iomap development, we currently adopt the simplest approach:
+retaining the buffer_head style, where only one cluster is allocated
+per iomap_begin() call.
 
-Signed-off-by: Ding Meng <meng.ding@siemens.com>
-Reviewed-by: Florian Bezdeka <florian.bezdeka@siemens.com>
----
-In the discussion of the issue reported at
-https://lore.kernel.org/netdev/20260630112056.885071-1-meng.ding@siemens.com/
-this previous patch added an igc-specific fallback for configurations
-with CONFIG_NET_RX_BUSY_POLL disabled. It populated skb's hwtstamp
-field with a timestamp converted using the default hardware timer,
-allowing get_timestamp() to return it without invoking ndo_get_tstamp().
-But Jakub Kicinski noted that the proposed fix appeared to be a
-driver-specific workaround for a generic problem. The engleder driver
-would also be affected by the same issue.
+Introduce OCFS2_MAX_LOGICAL_BLOCK to cap the logical offset in the iomap
+code path.
 
-This patch introduces a new configuration option to enable NAPI ID
-bookkeeping independently of busy polling. The option is enabled
-whenever busy polling is enabled, preserving the existing behavior.
-It is also selected by the igc and engleder drivers, ensuring that
-skbs carry a NAPI ID even when busy polling is disabled.
+Put zeroing and orphan inode handling in ocfs2_file_write_iter(), the
+buffer_head style is handled in ocfs2_dio_wr_get_block() with dwc
+helper.
 
-Another approach considered was to require drivers using deferred
-timestamp conversion, such as igc and engleder, to enable busy polling.
-However, this would introduce an unnecessary dependency between two
-independent features: hardware timestamp reporting should not require
-busy polling to be enabled.
+I attempted to implement .submit_io/.end_io in "struct iomap_dio_ops" to
+free dwc inside end_io. However, because ->bi_end_io runs in an interrupt
+context and ocfs2_iomap_dio_end_io_write() contains sleepable functions,
+this approach required scheduling a workqueue directly from the
+->bi_end_io callback and calling ocfs2_iomap_dio_end_io_write() within
+the workqueue thread context. Furthermore, since iomap_dio_ops.end_io
+still cannot access any private data, it cannot accurately wait for the
+work to finish. Testing with xfstests triggered hangs and crashes.
 
-Timestamping has been tested only with igc; it has not been tested
-with engleder.
+In iomap end_io, there is no dwc. ocfs2_iomap_dio_end_io_write() calls
+ocfs2_lock_allocators() with a roughly calculated extents_to_split value.
 
- Documentation/networking/timestamping.rst | 11 ++++++++---
- drivers/net/ethernet/engleder/Kconfig     |  1 +
- drivers/net/ethernet/intel/Kconfig        |  1 +
- include/linux/skbuff.h                    |  4 ++--
- include/net/busy_poll.h                   |  2 +-
- include/trace/events/net.h                |  2 +-
- net/Kconfig                               |  4 ++++
- net/core/filter.c                         |  2 +-
- net/core/skbuff.c                         |  2 +-
- 9 files changed, 20 insertions(+), 9 deletions(-)
+v5 changelog:
 
-diff --git a/Documentation/networking/timestamping.rst b/Documentation/networking/timestamping.rst
-index 2162c4f2b28a6..dbe40a1972639 100644
---- a/Documentation/networking/timestamping.rst
-+++ b/Documentation/networking/timestamping.rst
-@@ -278,9 +278,14 @@ SOF_TIMESTAMPING_OPT_PKTINFO:
-   packets with hardware timestamps. The message contains struct
-   scm_ts_pktinfo, which supplies the index of the real interface which
-   received the packet and its length at layer 2. A valid (non-zero)
--  interface index will be returned only if CONFIG_NET_RX_BUSY_POLL is
--  enabled and the driver is using NAPI. The struct contains also two
--  other fields, but they are reserved and undefined.
-+  interface index will be returned only if CONFIG_SKB_MARK_NAPI_ID is
-+  enabled and the driver is using NAPI. This hidden configuration is
-+  selected automatically by busy-poll support and by drivers that need
-+  skb NAPI IDs to resolve deferred hardware timestamps. Drivers that
-+  use deferred timestamp conversion must select it so the networking
-+  stack can find the device and call its timestamp callback even when
-+  busy polling is disabled. The struct contains also two other fields,
-+  but they are reserved and undefined.
- 
- SOF_TIMESTAMPING_OPT_TX_SWHW:
-   Request both hardware and software timestamps for outgoing packets
-diff --git a/drivers/net/ethernet/engleder/Kconfig b/drivers/net/ethernet/engleder/Kconfig
-index 3df6bf476ae7e..9700a243bea11 100644
---- a/drivers/net/ethernet/engleder/Kconfig
-+++ b/drivers/net/ethernet/engleder/Kconfig
-@@ -22,6 +22,7 @@ config TSNEP
- 	depends on PTP_1588_CLOCK_OPTIONAL
- 	select PHYLIB
- 	select PAGE_POOL
-+	select SKB_MARK_NAPI_ID
- 	help
- 	  Support for the Engleder TSN endpoint Ethernet MAC IP Core.
- 
-diff --git a/drivers/net/ethernet/intel/Kconfig b/drivers/net/ethernet/intel/Kconfig
-index 780f113986ea8..7fb63f351fc20 100644
---- a/drivers/net/ethernet/intel/Kconfig
-+++ b/drivers/net/ethernet/intel/Kconfig
-@@ -376,6 +376,7 @@ config IGC
- 	depends on PCI
- 	depends on PTP_1588_CLOCK_OPTIONAL
- 	depends on ETHTOOL_NETLINK
-+	select SKB_MARK_NAPI_ID
- 	help
- 	  This driver supports Intel(R) Ethernet Controller I225-LM/I225-V
- 	  family of adapters.
-diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
-index 6787fcf6ac3e4..164c862f7a403 100644
---- a/include/linux/skbuff.h
-+++ b/include/linux/skbuff.h
-@@ -1059,7 +1059,7 @@ struct sk_buff {
- 			__u16	vlan_tci;
- 		};
- 	};
--#if defined(CONFIG_NET_RX_BUSY_POLL) || defined(CONFIG_XPS)
-+#if defined(CONFIG_SKB_MARK_NAPI_ID) || defined(CONFIG_XPS)
- 	union {
- 		unsigned int	napi_id;
- 		unsigned int	sender_cpu;
-@@ -1267,7 +1267,7 @@ static inline bool skb_pkt_type_ok(u32 ptype)
-  */
- static inline unsigned int skb_napi_id(const struct sk_buff *skb)
- {
--#ifdef CONFIG_NET_RX_BUSY_POLL
-+#ifdef CONFIG_SKB_MARK_NAPI_ID
- 	return skb->napi_id;
- #else
- 	return 0;
-diff --git a/include/net/busy_poll.h b/include/net/busy_poll.h
-index 6e172d0f6ef5f..f7c0e62c6a7d7 100644
---- a/include/net/busy_poll.h
-+++ b/include/net/busy_poll.h
-@@ -130,7 +130,7 @@ static inline void sk_busy_loop(struct sock *sk, int nonblock)
- static inline void __skb_mark_napi_id(struct sk_buff *skb,
- 				      const struct gro_node *gro)
- {
--#ifdef CONFIG_NET_RX_BUSY_POLL
-+#ifdef CONFIG_SKB_MARK_NAPI_ID
- 	/* If the skb was already marked with a valid NAPI ID, avoid overwriting
- 	 * it.
- 	 */
-diff --git a/include/trace/events/net.h b/include/trace/events/net.h
-index dbc2c5598e35a..99ed7645242eb 100644
---- a/include/trace/events/net.h
-+++ b/include/trace/events/net.h
-@@ -208,7 +208,7 @@ DECLARE_EVENT_CLASS(net_dev_rx_verbose_template,
- 
- 	TP_fast_assign(
- 		__assign_str(name);
--#ifdef CONFIG_NET_RX_BUSY_POLL
-+#ifdef CONFIG_SKB_MARK_NAPI_ID
- 		__entry->napi_id = napi_id_valid(skb->napi_id) ?
- 				   skb->napi_id : 0;
- #else
-diff --git a/net/Kconfig b/net/Kconfig
-index 76ab44aa439a6..8fa7586dc08ca 100644
---- a/net/Kconfig
-+++ b/net/Kconfig
-@@ -346,9 +346,13 @@ config CGROUP_NET_CLASSID
- 	  Cgroup subsystem for use as general purpose socket classid marker that is
- 	  being used in cls_cgroup and for netfilter matching.
- 
-+config SKB_MARK_NAPI_ID
-+	bool
-+
- config NET_RX_BUSY_POLL
- 	bool
- 	default y if !PREEMPT_RT || (PREEMPT_RT && !NETCONSOLE)
-+	select SKB_MARK_NAPI_ID
- 
- config BQL
- 	bool
-diff --git a/net/core/filter.c b/net/core/filter.c
-index b7ac145b68b1f..e2218c18622b8 100644
---- a/net/core/filter.c
-+++ b/net/core/filter.c
-@@ -10274,7 +10274,7 @@ static u32 bpf_convert_ctx_access(enum bpf_access_type type,
- 		break;
- 
- 	case offsetof(struct __sk_buff, napi_id):
--#if defined(CONFIG_NET_RX_BUSY_POLL)
-+#if defined(CONFIG_SKB_MARK_NAPI_ID)
- 		*insn++ = BPF_LDX_MEM(BPF_W, si->dst_reg, si->src_reg,
- 				      bpf_target_off(struct sk_buff, napi_id, 4,
- 						     target_size));
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index eb9fcc4b1fd1a..386a32cdc0cc8 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -1581,7 +1581,7 @@ static void __copy_skb_header(struct sk_buff *new, const struct sk_buff *old)
- #ifdef CONFIG_NETWORK_SECMARK
- 	CHECK_SKB_FIELD(secmark);
- #endif
--#ifdef CONFIG_NET_RX_BUSY_POLL
-+#ifdef CONFIG_SKB_MARK_NAPI_ID
- 	CHECK_SKB_FIELD(napi_id);
- #endif
- #ifdef CONFIG_XPS
+Fix several issues found during the sashiko review[2].
 
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+Remove "map->flags = 0" in ocfs2_map_blocks().
+
+Remove some useless/unnecessary OCFS2_IOMAP_* definitions.
+
+When iomap falls back to buffered reads, add a check to ensure ki_pos is
+strictly less than i_size.
+
+In ocfs2_iomap_begin():
+- Remove redundant code for the case where blocks are already allocated.
+- Remove the IOMAP_ATOMIC code, which is not currently supported.
+
+In ocfs2_file_write_iter():
+- call kiocb_modified() after ocfs2_prepare_inode_for_write().
+- use direct_write_fallback() to handle fallback to the buffered write case. 
+
+
+[1]:
+https://gitee.com/anolis/storage-cloud-kernel/commit/ea3fe75e2060118ba093e90b1cd34fa382914b29
+
+[2]:
+https://sashiko.dev/#/patchset/20261103135605.22943-1-heming.zhao%40suse.com
+
+v1 patch set:
+https://lore.kernel.org/ocfs2-devel/20260724052559.15409-1-heming.zhao@suse.com/
+v2 patch set:
+https://lore.kernel.org/ocfs2-devel/20260727061802.18485-1-heming.zhao@suse.com/
+v3 patch set:
+https://lore.kernel.org/ocfs2-devel/20261018143319.22329-1-heming.zhao@suse.com/
+v3 sashiko review:
+https://sashiko.dev/#/patchset/20261018143319.22329-1-heming.zhao%40suse.com
+v4 patch set:
+https://lore.kernel.org/ocfs2-devel/20261103135605.22943-1-heming.zhao@suse.com/
+v4 sashiko review:
+https://sashiko.dev/#/patchset/20261103135605.22943-1-heming.zhao%40suse.com
+
+
+--------------
+# test report
+
+This patch set has been tested on 7.3.0-rc7 kernel with the following test
+cases.
+
+## ltp
+
+runltp -f dio -d /mnt/ocfs2/
+
+The test results: passed
+
+## xfstests
+
+./check -g quick -T -b -s ocfs2 -e generic/081 \
+-e generic/266 -e generic/272 -e generic/281 \
+-e generic/338 -e generic/347 -e generic/361 \
+-e generic/628 -e generic/629 -e generic/648 -e generic/650 
+
+The test results are the same before and after the patch set.
+
+```v7.4-rc1
+OCFS2_MKFS_LOCAL_OPT="-b 2K -C 8K --fs-features=local --fs-feature-level=max-features"
+Failures: generic/003 generic/056 generic/075 generic/091 generic/094
+generic/112 generic/177 generic/211 generic/225 generic/263 generic/321
+generic/322 generic/329 generic/331 generic/370 generic/376 generic/424
+generic/448 generic/467 generic/477 generic/481 generic/498 generic/510
+generic/512 generic/513 generic/534 generic/537 generic/552 generic/557
+generic/563 generic/564 generic/578 generic/588 generic/607 generic/620
+generic/630 generic/755 generic/759 generic/760 generic/771 generic/777
+generic/779 generic/784 ocfs2/001
+Failed 44 of 632 tests
+```
+
+Please note v7.3 kernel only has 35 cases failed, and v7.4-rc1 has 44
+cases failed, so the failures are not caused by this patch set.
+
+OCFS2_MKFS_LOCAL_OPT="-b 2K -C 8K --fs-features=local --fs-feature-level=max-features"
+Failures: generic/003 generic/075 generic/091 generic/094 generic/112
+generic/177 generic/211 generic/225 generic/263 generic/322 generic/329
+generic/331 generic/370 generic/376 generic/424 generic/448 generic/467
+generic/477 generic/481 generic/510 generic/513 generic/537 generic/552
+generic/563 generic/564 generic/578 generic/607 generic/620 generic/630
+generic/755 generic/759 generic/760 generic/777 generic/784 ocfs2/001
+Failed 35 of 632 tests
+
+
+## fio on single node
+
+fio --direct=1 --iodepth=32 --rw=write --ioengine=libaio --bs=128k --size=1g \
+--numjobs=4 --runtime=100 --group_reporting --filename=/mnt/ocfs2/write.1g --name=tst
+- before patch write: IOPS=31.5k, BW=3935MiB/s (4126MB/s)(4096MiB/1041msec)
+- before path overwrite (don't remove write.1g, run above fio command):
+      write: IOPS=39.5k, BW=4935MiB/s (5175MB/s)(4096MiB/830msec)
+- applied patch write: IOPS=37.4k, BW=4676MiB/s (4903MB/s)(4096MiB/876msec)
+- applied patch overwrite (don't remove write.1g, run above fio command):
+      write: IOPS=39.4k, BW=4929MiB/s (5168MB/s)(4096MiB/831msec)
+
+fio --direct=1 --iodepth=32 --rw=read --ioengine=libaio --bs=128k --size=1g \
+--numjobs=4 --runtime=100 --group_reporting --filename=/mnt/ocfs2/write.1g --name=tst
+- before patch : IOPS=47.7k, BW=5962MiB/s (6252MB/s)(4096MiB/687msec)
+- applied patch: IOPS=48.2k, BW=6024MiB/s (6316MB/s)(4096MiB/680msec)
+
+fio --direct=1 --iodepth=32 --rw=randwrite --ioengine=libaio --bs=4k --size=1g \
+--numjobs=4 --runtime=100 --group_reporting --filename=/mnt/ocfs2/write.1g --name=tst
+- before patch
+  - creating write      : IOPS=26.9k, BW=105MiB/s (110MB/s)(4096MiB/38985msec)
+  - overwriting write.1g: IOPS=231k, BW=902MiB/s (946MB/s)(4096MiB/4539msec)
+- applied patch
+  - creating write      : IOPS=26.9k, BW=105MiB/s (110MB/s)(4096MiB/38987msec)
+  - overwriting write.1g: IOPS=228k, BW=891MiB/s (935MB/s)(4096MiB/4595msec)
+
+fio --direct=1 --iodepth=32 --rw=randread --ioengine=libaio --bs=4k --size=1g \
+--numjobs=4 --runtime=100 --group_reporting --filename=/mnt/ocfs2/write.1g --name=tst
+- before patch  read: IOPS=361k, BW=1409MiB/s (1477MB/s)(4096MiB/2907msec)
+- applied patch read: IOPS=362k, BW=1416MiB/s (1485MB/s)(4096MiB/2893msec)
+
+---------------------
+
+Heming Zhao (4):
+  ocfs2: Add new ocfs2_map_blocks() to introduce iomap feature
+  ocfs2: switch DIO read path from buffer_head to iomap
+  ocfs2: switch dio write path from buffer_head to iomap
+  ocfs2: remove legacy blockdev direct-IO path APIs
+
+ fs/ocfs2/Kconfig    |   2 +-
+ fs/ocfs2/aops.c     | 539 ++++++++++++++++++++++++++++----------------
+ fs/ocfs2/aops.h     |  38 +---
+ fs/ocfs2/file.c     | 213 ++++++++++++++---
+ fs/ocfs2/ocfs2.h    |  25 +-
+ fs/ocfs2/ocfs2_fs.h |   3 +
+ 6 files changed, 565 insertions(+), 255 deletions(-)
+
 -- 
-2.47.3
+2.55.0
 
