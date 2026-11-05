@@ -1,95 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793880879;
-	b=eYU1EFyaw6/bWymRcmQU79+KAGfn6jkqyGCP/8uU/dq1ELmHlC+kGr1HkH6eCVl/gDZL
-	 yl+xdDlwUcrapcSNH+wwpGi49nmg/DqJcHi6QTrV8shgvgaxh7/JMOaSx6Kz9poOU7gDX
-	 tNthoYPjGKPZwTcRNxUyfQMPL0ygv7snCBI4Ao1dyUI0f6zdf3w/aa4esJh89MsdC4OtE
-	 Ub8MpZPiBRGYh2Hy6iYolcwbtt+zDpyQJN/neTLBlyrMPci+debMIHDgors16cRifVdp1
-	 YVydCowJmfljMHIp62QToBtEm/1hd7zRmH1jft4hagrYawZHexfIEH8vJ2rqjXfUI1w==
+	t=1793880877;
+	b=u5rVulnwXhW8Qg9Lqm+xP57ajuGizJY1RVPXP1ME4sGANSB54byUS31VZP9R08F8kojW
+	 lYIbf1mvtnyXzCkKNexBFE2uq7QSpJHcqA+SQcGuPEUcej1nKjYqk3wNj55Ojo0ztdCDv
+	 TroEG4Pza6WI218ek3XMDiKNW8wttFSqyonz9e88XgXeyuxEcHZJwPsFsUYqhtiRmngII
+	 xrykKOSVYUgmeHVLsmbchb5InN7xD9JEhgtMP36O3j9eu4sBsZK4FfMotmdgKvDZApDo5
+	 dYQRnPj+EEPN4vp5aalX7ifGFZwSSUglY9mdcN5FNOOeRCCIPn/Ma3fEXVXMzlaCmRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793880879;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=cRwA5sbmlFTv4dr/TsrihpefpRsTJ7E+PJDAiAJhZlc=;
-	b=uJ7Kv+r0nren0Cxc102iBT47VrzxBNN19TZ4okY3nF5mnAbYTJUueBMmjQI0drp5fXGX
-	 +SNPpz1p0IVMHVm0KqHNJvJiAxaUP1A5DDqHfJc6VTop36WdHw9x5UQizWRuFlnqpUksR
-	 wcaSpoXHbZVK9LryeOpI/Q4catypLv2nZLjnd+0C9D0aQRSRBFbqTkPbn24iLeqhTkuPz
-	 N/ATRAOzE41yMqPCTX0mdiw8VWHHi4eMjz38Rd0e00U6N2Kco2YQcoSSo/dUQjpDitje8
-	 jDZ82NNClVQzNyAusaK9glSQMWPFHBfIjZhzapIub/uDkaUDTvXzLyEmqKXdZH9NwOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793880877;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:CMS-TYPE:cpgsPolicy:
+	 X-CFilter-Loop:X-CMS-RootMailID:References;
+	bh=wj5nZozJQCUk77xJuRTCNGYRyYXNzGvjve+qA6nxMLQ=;
+	b=G49S0eMdkgGMdII0ChnOY7DZAH4CNKteRvtPwKv1kQ7rJbnBv7fzy4f2Q1VW4rBJN2Mu
+	 kBk4YTAN4lSqR/omCtglWiMzifhMLtulcDQmRxYOI0Wb8tlmv06AUlz+oEibye0PXhbxF
+	 2X84NTknwfI627tgUTXmAz4JP7+jLgoErXAPH2q6M9PwaJCSLe7j8f7KrFJWnI6Cp+bMA
+	 jf+97/ZnRClVEjbxQTBISnoGaYskVND2gQO7F/gk67IvoRRavhGzYCsyQlg8FrvX28eB+
+	 LpI7atYynmGtUZqZ77aUBfQJPj3cHrSS0waEpso5mDHfAKmKYQAbIW75rFAq7wq9Dsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KtCaKHyM;
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=KlciE+qb;
+	arc=none smtp.remote-ip=203.254.224.25
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32769606D81E;
-	Thu,  5 Nov 2026 12:14:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32769606D81E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B9C4606D806
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:14:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B9C4606D806
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KtCaKHyM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793880879; x=1825416879;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=hNZG3p/TmBT75mwn4JDU6B5IEwPzDkrT+siPwGcILcw=;
-  b=KtCaKHyMHxxht9DcYBJOaBrxoQ2w4pqfTvJ0n4e1LIgsQONR8E2mTAad
-   4x5LkcUHtl/MH0qClFiVu6l4alj7X7tArZlo7MZXhsnktxhk4CjPG7hjO
-   39eb2laydF4uCPMd+ZGeHUCXYLVK3XWNZYgXBQJYj5FaZO3yRxbwujkte
-   jfb3Zhw/wVvXrgbfwgGxhhIBla75nyrhWS16DL4csPsobeG7naU9nl63n
-   J10c6g+VbSmXL4KJpruQI5+cztiLLVyN554tjVxxnSLgVdWiRdn8rku4Y
-   MMBeIyCdaaTJhrp783ahqjsFu7BE1uFh8Ais1kn6roistt1Wr0sUi7xEA
-   A==;
-X-CSE-ConnectionGUID: p0LUOfGiTRKShOMkA1Oo/A==
-X-CSE-MsgGUID: tC/iXHxZRNS6I1xlBcTGiQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2659729"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2659729"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 04:14:38 -0800
-X-CSE-ConnectionGUID: n1CgJxqsSv2cC6PyZtAf1Q==
-X-CSE-MsgGUID: PaUjo+ZjS1y3BQJZcClOSA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7401165"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa007.fm.intel.com with ESMTP; 05 Nov 2026 04:14:33 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xOwMP-00000000mAX-3Cl8;
-	Thu, 05 Nov 2026 12:14:29 +0000
-Date: Thu, 5 Nov 2026 20:13:50 +0800
-From: kernel test robot <lkp@intel.com>
-To: Muchun Song <songmuchun@bytedance.com>,
-	David Hildenbrand <david@kernel.org>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Oscar Salvador <osalvador@suse.de>, Qi Zheng <qi.zheng@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>, linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-riscv@lists.infradead.org, x86@kernel.org,
-	loongarch@lists.linux.dev, linux-s390@vger.kernel.org
-Subject: Re: [PATCH v2 2/5] powerpc/mm: drop powerpc vmemmap_can_optimize()
-Message-ID: <202611052055.TcIXFI7V-lkp@intel.com>
-References: <20261105061217.13302-3-songmuchun@bytedance.com>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=KlciE+qb
+Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261105121428epoutp02305054ca0d3a289f16797484d37f8005~lJSVB2ELZ1418914189epoutp02N
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:14:28 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261105121428epoutp02305054ca0d3a289f16797484d37f8005~lJSVB2ELZ1418914189epoutp02N
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793880868;
+	bh=wj5nZozJQCUk77xJuRTCNGYRyYXNzGvjve+qA6nxMLQ=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=KlciE+qbCMkaUOkUK4D6Sae2H1DMmlQb8F3DOM9NJiRUnIAt96sAGAs04WIsiH8NW
+	 ufxEEtGKMxIIExRcdicKTupmUuDc97jai8wghV/YPgLfT+42Jkb01a9dfTexuuFrlg
+	 RJmmnbFbtV+KiyWkOJN9blHkKG3ldOEv86FI7xZY=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
+	20261105121427epcas5p228003b6804cbca3ff690f95a0510d951~lJSULzkdS1965619656epcas5p2T;
+	Thu,  5 Nov 2026 12:14:27 +0000 (GMT)
+Received: from epcas5p4.samsung.com (unknown [182.195.38.95]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4jL1Sy6N4wz3hhT7; Thu,  5 Nov
+	2026 12:14:26 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
+	20261105121426epcas5p4b41cf26c1a951083cb6f31cd29683c4d~lJSSwS8Wu2770827708epcas5p4R;
+	Thu,  5 Nov 2026 12:14:26 +0000 (GMT)
+Received: from vega.samsungds.net (unknown [107.108.73.84]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261105121423epsmtip1e06534b46800136188631e62189b7cd7~lJSP7nXCS3043930439epsmtip1f;
+	Thu,  5 Nov 2026 12:14:22 +0000 (GMT)
+From: Selvarasu Ganesan <selvarasu.g@samsung.com>
+To: gregkh@linuxfoundation.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, peter.griffin@linaro.org, alim.akhtar@samsung.com,
+	Thinh.Nguyen@synopsys.com, selvarasu.g@samsung.com,
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: jh0801.jung@samsung.com, h10.kim@samsung.com, dh10.jung@samsung.com,
+	akash.m5@samsung.com, hongpooh.kim@samsung.com, eomji.oh@samsung.com,
+	shijie.cai@samsung.com, muhammed.ali@samsung.com, thiagu.r@samsung.com
+Subject: [PATCH v5 0/2] Add USB DWC3 support for Samsung Exynos8855
+Date: Thu,  5 Nov 2026 17:43:59 +0530
+Message-Id: <20261105121401.1661711-1-selvarasu.g@samsung.com>
+X-Mailer: git-send-email 2.17.1
+X-CMS-MailID: 20261105121426epcas5p4b41cf26c1a951083cb6f31cd29683c4d
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261105121426epcas5p4b41cf26c1a951083cb6f31cd29683c4d
+References: <CGME20261105121426epcas5p4b41cf26c1a951083cb6f31cd29683c4d@epcas5p4.samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,162 +89,68 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105061217.13302-3-songmuchun@bytedance.com>
 
-Hi Muchun,
+The Samsung Exynos8855 SoC implements a Synopsys DesignWare USB3 DRD
+controller. The DWC3 core on the Exynos8855 is instantiated with the
+generic DWC3 platform driver using a flattened model, where the
+controller is directly addressable without a separate glue layer.
 
-kernel test robot noticed the following build errors:
+This is the first Samsung Exynos binding using the flattened
+representation, and this series adds the device tree binding and
+platform driver support for this configuration.
 
-[auto build test ERROR on dba8aba0a9a00ff781c03d82ae534fc6f8c2e263]
+Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
+---
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Muchun-Song/powerpc-mm-make-vmemmap_populate_compound_pages-static/20261105-141213
-base:   dba8aba0a9a00ff781c03d82ae534fc6f8c2e263
-patch link:    https://lore.kernel.org/r/20261105061217.13302-3-songmuchun%40bytedance.com
-patch subject: [PATCH v2 2/5] powerpc/mm: drop powerpc vmemmap_can_optimize()
-config: loongarch-allmodconfig (https://download.01.org/0day-ci/archive/20261105/202611052055.TcIXFI7V-lkp@intel.com/config)
-compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261105/202611052055.TcIXFI7V-lkp@intel.com/reproduce)
+Changes in v5:
+- Drop the alphabetical reorder of dwc3_generic_of_match and
+  just add the new entry, to avoid conflicts with the existing queued
+  changes, per Thinh's feedback.
+- Drop the Acked-by (Krzysztof Kozlowski) from patch 2 as the patch
+  changed. Re-requesting it.
+- Link to v4:
+  https://lore.kernel.org/all/20261026135715.33071-1-selvarasu.g@samsung.com/
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611052055.TcIXFI7V-lkp@intel.com/
+Changes in v4:
+- Drop redundant "binding" from the subject.
+- Reorder properties, interrupts after clocks, power-domains after
+  interrupts.
+- Reorder interrupt property in the example as well.
+- List clocks with per item descriptions.
+- Link to v3:
+  https://lore.kernel.org/all/20261023131501.3157463-1-selvarasu.g@samsung.com/
 
-All errors (new ones prefixed by >>):
+Changes in v3:
+- Drop the MAINTAINERS patch.
+- Drop the samsung,snps-dwc3 generic fallback compatible. The binding
+  now uses the SoC specific compatible samsung,exynos8855-dwc3 only.
+- Binding file is renamed to match the compatible string.
+- Remove the "select" from the binding.
+- List the clocks (ref, bus) explicitly and drop the redundant if/then
+  block.
+- Update the driver patch to use the new compatible string.
+- Drop the v2 Reviewed-by (Alim Akhtar) and Acked-by (Thinh Nguyen)
+  tags as the patches changed. re-requesting them.
+- Link to v2:
+  https://lore.kernel.org/all/20260916122229.2604003-1-selvarasu.g@samsung.com/
 
-   In file included from arch/loongarch/kernel/asm-offsets.c:11:
-   In file included from include/linux/mm.h:31:
-   In file included from include/linux/pgtable.h:6:
-   In file included from arch/loongarch/include/asm/pgtable.h:75:
-   include/linux/vmemmap-optimization.h:62:9: error: call to undeclared function 'vmemmap_optimizable_order'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-      62 |         return vmemmap_optimizable_order(section_compound_order(section));
-         |                ^
->> include/linux/vmemmap-optimization.h:68:22: error: use of undeclared identifier 'vmemmap'; did you mean 'mem_map'?
-      68 |         unsigned long pfn = page_to_pfn((struct page *)start);
-         |                             ^
-   include/asm-generic/memory_model.h:73:21: note: expanded from macro 'page_to_pfn'
-      73 | #define page_to_pfn __page_to_pfn
-         |                     ^
-   include/asm-generic/memory_model.h:47:54: note: expanded from macro '__page_to_pfn'
-      47 | #define __page_to_pfn(page)     (unsigned long)((page) - vmemmap)
-         |                                                          ^
-   include/linux/mmzone.h:1452:21: note: 'mem_map' declared here
-    1452 | extern struct page *mem_map;
-         |                     ^
-   In file included from arch/loongarch/kernel/asm-offsets.c:11:
-   In file included from include/linux/mm.h:31:
-   In file included from include/linux/pgtable.h:6:
-   In file included from arch/loongarch/include/asm/pgtable.h:75:
-   include/linux/vmemmap-optimization.h:138:20: error: conflicting types for 'vmemmap_optimizable_order'
-     138 | static inline bool vmemmap_optimizable_order(unsigned int order)
-         |                    ^
-   include/linux/vmemmap-optimization.h:62:9: note: previous implicit declaration is here
-      62 |         return vmemmap_optimizable_order(section_compound_order(section));
-         |                ^
-   In file included from arch/loongarch/kernel/asm-offsets.c:11:
-   In file included from include/linux/mm.h:36:
-   In file included from include/linux/rcuwait.h:6:
-   In file included from include/linux/sched/signal.h:7:
-   include/linux/signal.h:98:11: warning: array index 3 is past the end of the array (that has type 'unsigned long[1]') [-Warray-bounds]
-      98 |                 return (set->sig[3] | set->sig[2] |
-         |                         ^        ~
-   include/uapi/asm-generic/signal.h:62:2: note: array 'sig' declared here
-      62 |         unsigned long sig[_NSIG_WORDS];
-         |         ^
-   In file included from arch/loongarch/kernel/asm-offsets.c:11:
-   In file included from include/linux/mm.h:36:
-   In file included from include/linux/rcuwait.h:6:
-   In file included from include/linux/sched/signal.h:7:
-   include/linux/signal.h:98:25: warning: array index 2 is past the end of the array (that has type 'unsigned long[1]') [-Warray-bounds]
-      98 |                 return (set->sig[3] | set->sig[2] |
-         |                                       ^        ~
-   include/uapi/asm-generic/signal.h:62:2: note: array 'sig' declared here
-      62 |         unsigned long sig[_NSIG_WORDS];
-         |         ^
-   In file included from arch/loongarch/kernel/asm-offsets.c:11:
-   In file included from include/linux/mm.h:36:
-   In file included from include/linux/rcuwait.h:6:
-   In file included from include/linux/sched/signal.h:7:
-   include/linux/signal.h:99:4: warning: array index 1 is past the end of the array (that has type 'unsigned long[1]') [-Warray-bounds]
-      99 |                         set->sig[1] | set->sig[0]) == 0;
-         |                         ^        ~
-   include/uapi/asm-generic/signal.h:62:2: note: array 'sig' declared here
-      62 |         unsigned long sig[_NSIG_WORDS];
-         |         ^
-   In file included from arch/loongarch/kernel/asm-offsets.c:11:
-   In file included from include/linux/mm.h:36:
-   In file included from include/linux/rcuwait.h:6:
-   In file included from include/linux/sched/signal.h:7:
-   include/linux/signal.h:101:11: warning: array index 1 is past the end of the array (that has type 'unsigned long[1]') [-Warray-bounds]
-     101 |                 return (set->sig[1] | set->sig[0]) == 0;
-         |                         ^        ~
-   include/uapi/asm-generic/signal.h:62:2: note: array 'sig' declared here
-      62 |         unsigned long sig[_NSIG_WORDS];
-         |         ^
-   In file included from arch/loongarch/kernel/asm-offsets.c:11:
-   In file included from include/linux/mm.h:36:
-   In file included from include/linux/rcuwait.h:6:
-   In file included from include/linux/sched/signal.h:7:
-   include/linux/signal.h:114:11: warning: array index 3 is past the end of the array (that has type 'const unsigned long[1]') [-Warray-bounds]
-     114 |                 return  (set1->sig[3] == set2->sig[3]) &&
-         |                          ^         ~
-   include/uapi/asm-generic/signal.h:62:2: note: array 'sig' declared here
-      62 |         unsigned long sig[_NSIG_WORDS];
-         |         ^
-   In file included from arch/loongarch/kernel/asm-offsets.c:11:
-   In file included from include/linux/mm.h:36:
-   In file included from include/linux/rcuwait.h:6:
-   In file included from include/linux/sched/signal.h:7:
-   include/linux/signal.h:114:27: warning: array index 3 is past the end of the array (that has type 'const unsigned long[1]') [-Warray-bounds]
-     114 |                 return  (set1->sig[3] == set2->sig[3]) &&
-         |                                          ^         ~
-   include/uapi/asm-generic/signal.h:62:2: note: array 'sig' declared here
-      62 |         unsigned long sig[_NSIG_WORDS];
-         |         ^
-   In file included from arch/loongarch/kernel/asm-offsets.c:11:
-   In file included from include/linux/mm.h:36:
-   In file included from include/linux/rcuwait.h:6:
-   In file included from include/linux/sched/signal.h:7:
-   include/linux/signal.h:115:5: warning: array index 2 is past the end of the array (that has type 'const unsigned long[1]') [-Warray-bounds]
-     115 |                         (set1->sig[2] == set2->sig[2]) &&
-         |                          ^         ~
-   include/uapi/asm-generic/signal.h:62:2: note: array 'sig' declared here
-      62 |         unsigned long sig[_NSIG_WORDS];
-         |         ^
-   In file included from arch/loongarch/kernel/asm-offsets.c:11:
-   In file included from include/linux/mm.h:36:
-   In file included from include/linux/rcuwait.h:6:
-   In file included from include/linux/sched/signal.h:7:
-   include/linux/signal.h:115:21: warning: array index 2 is past the end of the array (that has type 'const unsigned long[1]') [-Warray-bounds]
-     115 |                         (set1->sig[2] == set2->sig[2]) &&
-         |                                          ^         ~
-   include/uapi/asm-generic/signal.h:62:2: note: array 'sig' declared here
-      62 |         unsigned long sig[_NSIG_WORDS];
+Changes in v2:
+- Commit 2/3: Clarify this is the first Samsung Exynos binding using
+  the flattened node representation.
+- Commit 3/3: Add the compatible entry in alphabetical order in the
+  of_match_table.
+- Link to v1:
+  https://lore.kernel.org/all/20260903071250.3421499-1-selvarasu.g@samsung.com/
 
+Selvarasu Ganesan (2):
+  dt-bindings: usb: Add Samsung Exynos8855 DWC3 controller
+  usb: dwc3: Add Exynos8855 to the generic platform driver
 
-vim +68 include/linux/vmemmap-optimization.h
+ .../bindings/usb/samsung,exynos8855-dwc3.yaml | 71 +++++++++++++++++++
+ drivers/usb/dwc3/dwc3-generic-plat.c          |  1 +
+ 2 files changed, 72 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/usb/samsung,exynos8855-dwc3.yaml
 
-    64	
-    65	static inline void section_vmemmap_optimization_disable(unsigned long start,
-    66			unsigned long end)
-    67	{
-  > 68		unsigned long pfn = page_to_pfn((struct page *)start);
-    69		unsigned long nr_pages = (end - start) / sizeof(struct page);
-    70		struct mem_section *section = __pfn_to_section(pfn);
-    71	
-    72		if (nr_pages < PAGES_PER_SECTION) {
-    73			VM_WARN_ON_ONCE(section_vmemmap_optimizable(section));
-    74			return;
-    75		}
-    76	
-    77		VM_WARN_ON_ONCE(!IS_ALIGNED(pfn | nr_pages, PAGES_PER_SECTION));
-    78		section_set_compound_order(section, 0);
-    79	}
-    80	
+-- 
+2.17.1
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
