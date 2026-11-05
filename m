@@ -1,52 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.243.244.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793841594;
-	b=Bsb8JbCPWbH4A2PJJLsfpE1giKmHL3DZVeQnlpCQReUnP2/6vNtQmPShFqEEVPcjFGiQ
-	 MOlAu0hHdXseU/T5YPsvm5TV/BQTVV3TREROnWCUn5QpLtLa6Lh+T3JxL4gU/X4YSytZD
-	 c1Fdf+d4bTY4AOprNv4rBCcWbKOtj69KV1t5dncNxQwn0VKIuVW9SESlBkV/UtbrvZ3Xv
-	 WbEidB0Ef23g47RamEcJKwP6tvx+trkxm817/ea+gxzVVrgnys/t4B/ywx3vIXcRSIqc3
-	 xAruI763wKZk1VgdGfhoVkeUskeil/soBsB/qHbSOoneCUqbV8j9UU+b8TO1VFfKRSQ==
+	t=1793841671;
+	b=FF3mqKwQsQYhD7iEPv8g7AKzXUKuQRD3tMOzefW+vYnldwqOuK6sEwIvKXIChM7NgxUh
+	 ixAsK4K2n+Z/lSIYUs/rRUoz6bXA8QO/bbZPQjuvxstJ2inxOyWbDrvMJUHtdWFZN4rpo
+	 cgmkkZu9W0P8YvrUSA2ptqzaduFbaDKOilIVf3aniMSYglhwBu+8RMXMF1SrwFeGCM+sh
+	 h6RtQa4sDuYlG6Azhy8mFdHRvn8+Nw/5HiuVjp+BzC5vy43pQcpmGf8loraAklJ/zvRsa
+	 XWOb1Mnb/0CGItUgTHHBzpCYtl4d5lbXsMuiUip7ZIp8fu3AdgI/RjRenRqqfyi3Ckw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793841594;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:X-Mailer:References:
-	 In-Reply-To:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
-	 X-QQ-RECHKSPAM;
-	bh=qg2+dZF3TjKEHvPr7q+CoS4vmmGWQlhmYsqxlyiBRfw=;
-	b=UvIc2g+6vNyT38H4nc7i1lNvN5kRB3wFaTTlMAAtU3nd0nbYSlxuNSOOIGL4in0TADLl
-	 6Dg+pprwJBkahz1NbIeQU4Ct3yr/Euf3EasbVQbuIXuzef/ckSdJBBaggKc+7ks5kO1Iv
-	 kSKUz9sdyTtUh8o9ykJM+EcTNwUUArTVzMlQYCNfy7eGFwcITdnN8/r7vtiqc1EMGKQeu
-	 NF4/m12xkzCh7hIkVxoBu2ggfstQbMxcYyv8s/nW2BxyMfYak05qpJC+9hgxCmsIJFjH1
-	 bU7kGWgNmDQiBTrZV6hKeKKlznsif+T8MoCrH7kJxdQOxdyeKsskRCDnJSYVf0IMzTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793841671;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Content-Disposition;
+	bh=x5QYTvCtCz3JW9P9W3Sr2AhKR5sD7hyZrYU2fGwOKig=;
+	b=PDvjM36HpQMtZpuu6TJDJ4D/wCYNKDinCeIy7Qn30+x1JTD5+cye/4moKCe2AVxx0DJ9
+	 K3IBCSKWYxa9n20pbRYGkmAKtJm8aRoVpGG0L2RRSTSar1GlagOFtLy4Esl/z8d4AJ8JP
+	 wlTnPEvFU3fDx5JBPESRUF8uK2kGS2HCUnSPvJRU8DFIQK8yYTAcLmHwLlT0xLMli2CKj
+	 jcqYnqPVJr7LBvnUVNtBjQkvOhJCLgAFlAqXbCR0Yi69xzmANd9KFdham8Ji2kvCcE987
+	 pwnHfplmSumxuzlYSgS9Wes2JIol39uuyBjgzKuJuWqcfTM7sgaTHos/HnvCe0TbgUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	arc=none smtp.remote-ip=54.243.244.52
-Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BD16ZQxg;
+	arc=none smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC6B8606A31B;
-	Thu,  5 Nov 2026 01:19:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC6B8606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1793841587;
-	bh=qg2+dZF3TjKEHvPr7q+CoS4vmmGWQlhmYsqxlyiBRfw=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=VV2k4dof/jU3tpPXeLLcXc88l4hymqTtXWhpTdPHJT9VseTmTRzr2ohyTIg16NOot
-	 NzEjZ4hCm3xsTm8RVM5LSbJWmMWQEfEeRbAbkdbd8TqiGrr39bOlnZlneqXvr99pHI
-	 8Q82csGSDnW+R9I0q8INw0WeBpfeHWP64Rt49ycg=
-X-QQ-mid: esmtpgz13t1793841586tce477b9b
-X-QQ-Originating-IP: db7vP0PyT1iv0ktdaH831sO646d7fHC9DdZ5Je/YyqQ=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 05 Nov 2026 09:19:44 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 394686068405469888
-EX-QQ-RecipientCnt: 14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98373606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 01:21:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98373606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BD16ZQxg
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-14fc585291cso1350897c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 17:21:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793841669; x=1794446469; darn=vger.kernel.org;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=x5QYTvCtCz3JW9P9W3Sr2AhKR5sD7hyZrYU2fGwOKig=;
+        b=BD16ZQxgHFmbFqo9AZgHLxmPK1yaIpujrhkdBWMRYRoO1wP182BXbj3NB7e5IaD78b
+         VN6bTJKTDfxdhAzEFCHFjywybvH+9QNhANiMPsiCKtSiKaCcX6sCkgsgDCB4Cr2GsWww
+         EOo9kbl7jT1tHh5EJiC/BV0GKpAxhVopG+9chtzgjfCzPwvx/RZEwg5c95pFMLd5cn79
+         sJ2XKTz6ewvm+3vuWaLJH6YpMx+6q7qUQ3ovWuJ+uAuzszpfr/D0qqQRxOEpKQ7RLE9I
+         YmZ407/QcVwCfBeKjct81iwjf7epmgD+ICtDiOgOSEZrdWICh9lnJBr3fwcEgaQk/H5q
+         7XYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793841669; x=1794446469;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=x5QYTvCtCz3JW9P9W3Sr2AhKR5sD7hyZrYU2fGwOKig=;
+        b=M/4S8jW+NUoxvd2KrWBMVazkjKHaYUEfHojgM8e4w6HHR0vW3u5kcBwQMaP6iRI5IZ
+         izxi3d6Bb3DTseawI4qxRm8bV5LnHWwytV8calBaTNv62I10pyT6ImbeuAwo9z8QbtFM
+         Za6KMdw+YUyrxECJpix7sCsb+wAdzMInw0BKvyWgdgtWtTCptVjlOpaFO3boj21EfOZl
+         GEthzvM4MXLxgQt1VfjHKlymIkrIa0jMrC5Fj2lklQLUFIU47YV7cKgOLPcEKJx7W3Wu
+         SuV+UKa8tpZMcR5kYmnktryqibiU5fS4Py/X9UDfMSO9iPwBey5hzJHIa2+d/org64kl
+         iehw==
+X-Forwarded-Encrypted: i=1; AKwUvByTH48zQqFXDLf+DoqARWtNLzN5FaMP2yNyn4PFY8Oum42Xj9D2AXvUmHWiNnWBq7Rt+w2hxM+1zq+hdww=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ivSAs61EY2jyIbHZAqgWcAn9BWm/3HJ/IbRL2NPVcFnbozgqJ
+	WTvFVwM1SOTXHNI0CkUOle+l7tmmM9GA/1FRsVpiCyIimHVtyvZsOGaj
+X-Gm-Gg: AYBFou2HVvTJ+O0VBktuJcehHPDDWakPC6UVkPcLrBhR2cddIH/Vuhh7y/Kbg1u2apK
+	9hXN5vpwCQ0VWaoUNgwFFo8qSuk+S0JGgEYNUoKhSPqLylUFrFPWfaSR692V2r6EGnYUClS2fix
+	IKz3mrzYbXgfxbvoejDiG9N9EI3ADlDoPtN5aPkFtr7oqqZlP3Le8zCf9LY0adyAwXi+nq4A2XN
+	mcHo5k4uePw5a/vifiCDtggCfEquiQ70NlsjIXM6cAwJDiqdNGYirWnskyEGGEjuGSZiWorGEHI
+	iSQpVpLbciWA7N+kQkqbiYGdGZ7Fb107QfZhEF3JqTnaxGvf5Jn+hJ7L5G9DpExbaonbQkX3jIp
+	Cm0e2ACuiCDzj3uBQ4f5XbgbJsUUFER9HCk0H73G+PcgMXLBdN6mvJxN+OdhIQDoPIczN1BJztn
+	NF84c0JMjFsKZsg5DXbabyfDbbNIwabZ3Uw3LcVsY4Obi9UmvD9bhd9NcoPn4WhFczCktvxGNoL
+	NqmfCxbGSdntPTw7q+IlNIWQLTFTwNnYIYqD+dSzyfndM+g1W4gOh++FbRDnVXrqtw007YnZ12+
+	cIlzOdDUWYE0TB7lC51+QDrzsEV/76ZMt3fcIIjCbZNaCankRS29B4kVLouqFTohs79jzg==
+X-Received: by 2002:a05:7022:29c:10b0:143:8860:afa1 with SMTP id a92af1059eb24-1ac5f36d693mr25685468c88.46.1793841669393;
+        Wed, 04 Nov 2026 17:21:09 -0800 (PST)
+Received: from localhost ([2a00:79e0:2ebe:8:c8f4:b7d9:252f:4483])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245ac2f44sm12371355c88.0.2026.11.04.17.21.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 17:21:08 -0800 (PST)
+Date: Wed, 04 Nov 2026 17:21:07 -0800
+Message-ID: <21f4cbf39c7872893f8f2d3bfde7d829@gmail.com>
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] driver core: fix race between bus_remove_driver() and dev_driver_uevent()
+In-Reply-To: <2026101409-unkind-ablaze-08a3@gregkh>
+References: <as71DkwHeLGNDsPv@google.com> <2026101444-unnoticed-caliber-21d5@gregkh> <as8dAu4R99pP1GHD@google.com> <2026101409-unkind-ablaze-08a3@gregkh>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,104 +100,45 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=2980ced06dce2ce2ba54e857a1b9e298e4eb13b22897ac4ebe45f64efc24;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Thu, 05 Nov 2026 01:19:43 +0000
-Message-Id: <DMMVRQOY5TBN.J0PHJAAZSC2F@linux.spacemit.com>
-Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 3/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05:
- Enable SD card support
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Sandie Cao" <sandie.cao@deepcomputing.io>, "Yixun Lan"
- <dlan@kernel.org>, "Troy Mitchell" <troy.mitchell@linux.spacemit.com>,
- "Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Paul Walmsley"
- <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou"
- <aou@eecs.berkeley.edu>
-X-Mailer: aerc 0.21.0-reader-ipc4
-References: <20261102060012.100623-1-sandie.cao@deepcomputing.io>
- <20261102060155.100679-1-sandie.cao@deepcomputing.io>
-In-Reply-To: <20261102060155.100679-1-sandie.cao@deepcomputing.io>
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OZsapEVPoiO6CysBWbheExxOP4cCHLxJ34n2xqQixQ170frSEKKltw99
-	deW+mD8REj37AlVlFArSgblpns9yP8QVCChwffS+mz0Urjc4A2PZXKPR2cSgvKwiRky4OcQ
-	NM0PzM77/ay+nnlvchbKuTyj2ZJ4Z3qhNpJWr7oxxlHyl5Q6wujnKe59wMwhHq/WsVQzJn9
-	OdMr4IdxGaGDF67l7nGCP0AuNomJ5bg0IKcthLbXUQ33CjaSeI4JXWJ4dF4R8gm59xdykP6
-	qQxm1qnfkS9YryM84bPsy3XXm4oxCIDthtUwra8Qs6M3XAE0fi5UXFxZWWw58wxYGaWf0Lt
-	pR/3bi1Cbxpov9/FLj9VFMVOsDOaSTX/FtiMoqTPrK0wlE6zCCCRjQCdGj3oUlTejM1ynLe
-	WuWMNKmTnrqAenO/qOQpJky6yLfWTXr3+8UYiZoLhyXZsnxv9soOrao8Yv8jUOYPagVKbr1
-	j1QKxaJYdhYKJiLaucSZnUhtkIVWpE4XJfQR1D7Uyr+EbD37oghckBMtPZdekvRdnEacgpx
-	WhlG1STbDAY9US0Er4sdkg0ZRpR/bbq3iYbWBWUiLRwZOFhCZFvfr5PTSb9Z0/VV/jdBcjp
-	SmFtOJlHLw16ccYKb8n/sMgyLvlIdZvAjwFevnJ6M4WExRI8GH1XVAiHY9Vk69eSmFvtFNA
-	AwcxywLn09McHKGmWO62ojaPbQvEGsJSLoWPCGgLYBrSQRkk20hQWpHzbf/UnCk6+tyl+Qj
-	fbaHxJkLBD/Ioomnu+ZnlpgakGThs0tIMYN6NRK/G97YJbxPYyzWiAKfwKIRT+kCRwrAsGV
-	/mo7lBEevQEw10ZWoU2uqbuHCMnp3o6XSQMbvSYMThOZlP3CSsRXLXr+YnfSNck71wSDo1Y
-	h8SiCJCMsRRYmU4aWwf5bSWueg8okGshBAC8gniA3PVgXXuUewBA+jSEUiGBstBJizURiB5
-	R9idTsQfVENpaf7wRsW70RpwEArr1OhTtnLjneAMInVKk8OqsEuFDhM/A0/L1CY3I+VUxdZ
-	tiFGpVZ51GWuarRRzqKjtN2eDGjsF+qmFBSy8EnYoCuTlF+LEdNsewy05LEyJPdgxE3ixM/
-	AT6Be3fFWKS+Z4zSpXLyKtZSCCZmW+EDI7mzqMT4dVG
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
---2980ced06dce2ce2ba54e857a1b9e298e4eb13b22897ac4ebe45f64efc24
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+Hi Greg,
 
-On Mon Nov 2, 2026 at 6:01 AM GMT, Sandie Cao wrote:
-> Add the device tree node SDHCI-0 controller for onboard Micro SD card slo=
-t.
+On Wed, Oct 14, 2026 at 02:16:50PM +0200, Greg Kroah-Hartman wrote:
+> On Tue, Oct 13, 2026 at 11:11:33PM -0700, Dmitry Torokhov wrote:
+> > On Wed, Oct 14, 2026 at 07:31:19AM +0200, Greg Kroah-Hartman wrote:
+> > > On Tue, Oct 13, 2026 at 08:24:20PM -0700, Dmitry Torokhov wrote:
+> > > > @@ -830,6 +830,15 @@ void bus_remove_driver(struct device_driver *drv)
+> > > >  	driver_remove_file(drv, &driver_attr_uevent);
+> > > >  	klist_remove(&drv->p->knode_bus);
+> > > >  	driver_detach(drv);
+> > > > +
+> > > > +	/*
+> > > > +	 * Ensure that any concurrent dev_driver_uevent() that observed
+> > > > +	 * dev->driver before driver_detach() cleared it, finishes
+> > > > +	 * accessing drv->name.
+> > > > +	 */
+> > > > +	scoped_guard(spinlock, &sp->klist_drivers.k_lock) {
+> > > > +	}
+> > > 
+> > > Shouldn't the compiler just no-op this away into nothing?
+> > 
+> > It better not. Why would it?
 >
-> Signed-off-by: Sandie Cao <sandie.cao@deepcomputing.io>
-> ---
->  .../spacemit/k3-deepcomputing-fml13v05.dts    | 22 +++++++++++++++++++
->  1 file changed, 22 insertions(+)
+> Sorry, early morning before my coffee had kicked in, I was thinking a
+> simple lock/unlock pair without any data in the middle might be compiled
+> away...
 >
-> diff --git a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts b=
-/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-> index 84f66dd8f962..4471338a9774 100644
-> --- a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-> @@ -184,6 +184,28 @@ &combophy {
->  	status =3D "okay";
->  };
-> =20
-> +/*
-> + * Onboard SD card slot:
-> + * Plugin/Plugout the SD card before power-on the board for secure.
-How about: "Please insert or remove the SD card while the device is powered=
- off."
-> + * It works as a boot media. so set it to non-removable.
-> + */
-> +&sdhci0 {
-[...]
-> +	non-removable;
-[...]
-> +};
-> +
->  &uart0 {
->  	pinctrl-names =3D "default";
->  	pinctrl-0 =3D <&uart0_0_cfg>;
+> Still feels odd though I don't have a better idea.
 
+Just a gentle ping on this patch. Could it be picked up, or would you
+prefer a plain spin_lock()/spin_unlock() pair instead of the empty
+scoped_guard() block?
 
---=20
-Troy Mitchell
+Thanks.
 
-
---2980ced06dce2ce2ba54e857a1b9e298e4eb13b22897ac4ebe45f64efc24
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCauvZryEcdHJveS5taXRj
-aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC+r8QD9GxMgY37x8+t/
-65Zh+PW3tAkCJ3fBNtdrazmtjmZmGfkA/3z7vLcrPG1IZT0PxKH+NE7ixhomH0B5
-aWKFU6efMCcD
-=Xgv+
------END PGP SIGNATURE-----
-
---2980ced06dce2ce2ba54e857a1b9e298e4eb13b22897ac4ebe45f64efc24--
+-- 
+Dmitry
