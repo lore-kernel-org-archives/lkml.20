@@ -1,101 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.182
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793837357;
-	b=xZ52HzlnHHwC3VIhWnRIs1U/oG2gkuNheR9K1s4mwFyx+UhE903nV0ujF6VsIy5ieVQz
-	 To6wXzIUan9Y8FIBwiZUAPD/Uk9oQMzCQCtvPqEr+IjQ1Xl8mrxRsFnRs9e/GCsyJ774J
-	 +8dtJFZUnwHATLVGEOZdKtLhvFV1GJjHEZv7RXNyJcWfVlXyNRisKU5g3Eu3EpICl/HAw
-	 hnUa+e3n4ABkCokPDH/boYEhoYfIbbumRyLYHAAW3C7jMBqrBCkyS0zRNvHPwiyR0nSoo
-	 0q8XqHL5ojDtYNzeWVZN+/aaJ6vW81uLwEnIU6SNxeGN59tXvlVCYYWX6qhwnARtvQg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793837357;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793837362;
+	b=w+YtFcD9nQHMRy5VYvnYOeKKJ/LjkXPIzIZh0XKbUP/DPf8gw/yq6XYwk0a8PHoo7t+s
+	 SsiIaamCUZGZQAM+JlPE7GdBzv30BohMgz9Dxv7Vr8fz3IFBKaA2swR//BPXfUFTSrwWT
+	 JpyHopliHklmUe4DLqYVo4ktmGkqjNp9j1KmrB04rU6/X2w31oAlk/0pZmv6cN6r8lKtc
+	 CMSwuHiDe9RXYtTClJb2l5po0N57B+4mlhEdywjomMCHHb/QDwBdoIs4BX/pf3fI2ux1X
+	 S1c8f6dwSQzb8ugUubRI8CJp9+bWQlpOgxKTTCnDT0tAp0Ah0u6Rou7yGp0HwiZan/A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793837362;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=HB+BFMHFfjLmudpcNjOWqHhQxCGm0P7UzEzu0uzUFsw=;
-	b=sZIloaAgJJ5wwU5BdSLqkyi1MTv0Vu1R5T8cCImccLgErOQW23yOIvAMKB+GphAOxyMu
-	 Kca3YwONfG6m6cdk9mCtm9ENAv2Xl4+cnyUCpHYCNpkME/90IPEtpeTQRJbvQTnyc6bXT
-	 ZYY/owlxTXenBNBvWFnA03N2U9XJUSudElgext5gA2xqNA/Nqo4/NXn6loMcTmHl/RSe9
-	 I3Ml92XyktHXGgYll78aDmJooHta6AfMINld2Boyc3JAd86aRWRy+i9bMVvxGnsB5tw+W
-	 kfJvaj1J2ju5I9BUU9H61w526wSYaU0v6LWVF0boa5K5kn0YkEGyYKzMiv1TCkM0a/w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QXaIFH6n;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.182
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=vIwsFQ9mq4AE+G3auhIPcX8ZrPg+4PCX1f2mZBFZYXw=;
+	b=MUo21dcGB/mD7ORGCtZYj/B3YExZ7Scl2uAuR4wtLubCoFnXQaMZkBjIdCTp+pOxWa2c
+	 w1amvbgatPbwkXyrDzs1mMpRyJEyR33Nztp28dX0rJNAj5hsQDRxOVl64d74zgPbs1kKz
+	 6Bo7YJQbIlD1p0kT3N7HYBR5fr7KxRp1OATLmxvV1u+jZxnyv7atLkkzjG7BOuskqKr/W
+	 kcL4UJ3vS7HVU4xnZpflOUBygl8oCi8uOHEw6Shk144+KXXWLhDgqiCkfgcfmaCJogx2d
+	 QLDl1QUAAaRvO7HQBefFEUKkMAvQSRlzUJIK2RlRw75TZ0HtJzIB8WqoKkieku9SzgQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZNLgfPbH;
+	arc=none smtp.remote-ip=209.85.216.53
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0017C606A32F
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:09:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0017C606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CC35606A332
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:09:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CC35606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QXaIFH6n
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e9f6a16afcso13305ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:09:15 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793837355; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CkNKTez0FSJ+FKRFVrvSfUkx/1IYXA+g8YnFlFWwgbHV2Z6WLG+CypEBNZGKOjmsWP
-         EMlC3/FBoDlqqW9Ji3aNa4nqJXOQWtRpKDBs1TLuf1cMMx3tvYQEmS0wSPnG8tmnohvH
-         9oehMxcopkcmdLzAxHmRQ672TaIS0B8fzC6qDFb96/Q6JC0izvXQTslHRo/XBJphURMF
-         irOl2yVs1R4tHIIXfUO7YNPqLsOV1E0BU6RAfBlabe30f9gQYLMd9W/f/wdjDbYSkont
-         LnMHP7sMM/u05v+83EColYTddVDX6d4rogBmmndlPGLWpN9qC8RziIYxNophbWq2JFtt
-         migA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=HB+BFMHFfjLmudpcNjOWqHhQxCGm0P7UzEzu0uzUFsw=;
-        fh=QimeAckEcNHnoIkheHzc9LJUFP5C53wmJKNWVE9kk54=;
-        b=aI6VjzN6KkiWwYiHnQYATL46dNY2QxMKyK6lngvAGkkAyNRGwMM+b5SWBHlfAlN+Vl
-         XpgGJ/JqewXtsCoytVok2wQQy/+yhy77fgq1+T6e7rl5JytrAIxuI1eZxFQRyM0Bmss1
-         hGQKikbHDA3zbsE84WhNz5w3ZCyW/X7xL4N5jsZA8t88vnDIiV/yk9BUd2j5qz+CeX0j
-         KsofAP9GdNirdQBThTp+KvKkdpq0dU2Wn/qrEZfagf3p4srr3BQK5aIdU0nII8u0Qed+
-         bZZLUgxH5LUZSg4YrACxGWBTxaHYChVm5ZNOVGaXp3ZHcg/sUTbnQAAdndRk9GHbF2V6
-         NrTQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZNLgfPbH
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3b0afe09854so183371a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:09:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793837355; x=1794442155; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HB+BFMHFfjLmudpcNjOWqHhQxCGm0P7UzEzu0uzUFsw=;
-        b=QXaIFH6nvmIEpsYVHjgTv9wsJb6tDyNMc4WjxLp++EaO8Y4wKyte5afOw7KHG+4lIv
-         l4znz9VzF81N7EuyqY+s4/BgMvgHQSZmi1yC34kb1lS4W5yZGnXVX1wmRO0XBLSYx2gy
-         /acNcmtqotpkuHAf6vYOSQxro3wRjNZgKijJ5GAygdiELdsFI6DTL20MdwtaVDmdxAmP
-         mu/uXk2dGQSy7280xtnyFGNAMlmy5Td+epcvzlusPsFo916i03FGi/u7nmHRzR804sa0
-         YwoUSS2qnNUoZxeMpJIEcMk4r4/2pBYQNuiO02rAH6qluGOfa0eZ5OMItTP7TDMo07kb
-         YkAQ==
+        d=gmail.com; s=20260707; t=1793837362; x=1794442162; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vIwsFQ9mq4AE+G3auhIPcX8ZrPg+4PCX1f2mZBFZYXw=;
+        b=ZNLgfPbH7vUmYfIeS9V0roTfzAAefwyXv0a+VKA/+NezG3VMXCTqt/w41TWm2V7ye2
+         v6JhDIsU5BB+OD9P4libjsoLfnr85WDlefj9L2sBhcdXrNPZUWiWIDjWC/HcBYLjdBum
+         sIOW+6+eZaq6bPwydSTBRK40gesxjKFo3fcBjIQCRmBPutlP/EftFTdPspj6OzXG6Cx8
+         w/MoRgtDoV6JppMpu/WqrXJcg599Xuf19Ip1da7/cLHXvX6Gr6i8ti5xH62iveYJHzGC
+         WSbAZeTIIEFYMSMyLHx3JAb9RONTjCR+vHXfVrLQXyz+8pQowrKLDmn8Mv6n0J3ldINb
+         rXyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793837355; x=1794442155;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HB+BFMHFfjLmudpcNjOWqHhQxCGm0P7UzEzu0uzUFsw=;
-        b=DmcfARTx8Va2nDqTgc3p09arWnOba4ZxNdEvP9mJOsrePK9vqir6CpCd4hIpdqfYaS
-         gM2Q8MY8nx2jQyowraDIf7c2bBgyRQ2XgZq8J5Lq5nXEIn3eVsCapKCdqvkyH8cJ/SkK
-         6Fs82dupsnOZyqXd81z1S+iImBKiStmRrM6nTscRfOFj7NqG+JM1ZciHUZWu9hUBXa00
-         deAOGe4PU5l9FxciNWVaoRTu2CehmlcGHPk38Ynw5lVIVpG/gS68JFmTTZOKwOVTe7/e
-         Bm5vUAOdsl05wMiCP58B4DM7TcYcAg2euHP5CRzuQc3rk1V2wgL88x4JQHdGR3kOKwc5
-         JgcQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzDIb+b6OyFz++/D7ggpbHCF8LhWzAgd6Xa6PncrfUPjmypCzEJ9AG0hmmFRfpe+eoMCU4v/fHH001OKfs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8yVjZLBRyKFhipdhko3lMeC+K5d/kWfKcWA15D7WY3fzVS6qoR
-	kpNidRlq1hYx2JtBG6K1jAHhLSa61jwX3BIiRhtGvr30JdDUXDKcarBPINuwxb/DxGbGP1++OQl
-	vw69vAi7fke0bw1lT9edkqZg5MVHAZ9NS17Hf/alSJ5q3oIQgDd/G/dP7
-X-Gm-Gg: AYBFou09wrOlabzzlw1PGY9zc79WqWT/jjsbJLC1mNhPGZgvZ8QPaOdxeFN9vp9EVN0
-	cbuqPnb6S/4fVM4NIiI3e8ehWpuIOmdeZz5G4p7K2TCWTPUoOxAq+2JFGe5/g/G3ZZ4ftJdracB
-	cnEjxkC4tzlSCxOs7BTop3Wf0q4IChAc+3EX4a8CUOrKOLq+A6oL1Kmn0eQhVPM5A+KJG/gdtBV
-	cmTnQYOjVEykiU0HiPlY/yRzXjbjKmmPUQDaobp1kCr9o9I4Bd5YbWnC63PjPbLFxRh7nQSCLfN
-	SxdtJSEV9vzoNQ4skB5veR9kRM+mHVttljNt7jVEkgOz19qti9ms9edMy6YdGEt4o6bpAepPfeq
-	KEQdbCS5fddvQKP7/vPfrFw+bjYbwMXiArQ7AbtrzySfMLM26ky7ZFMSKGLjy72sMswOP3axuVK
-	WRqi8Tgmo3RYZ7upn0PypNPw==
-X-Received: by 2002:a17:902:da4d:b0:2df:96ca:d7c7 with SMTP id
- d9443c01a7336-2ed27dd6f44mr1503915ad.10.1793837354522; Wed, 04 Nov 2026
- 16:09:14 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793837362; x=1794442162;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vIwsFQ9mq4AE+G3auhIPcX8ZrPg+4PCX1f2mZBFZYXw=;
+        b=ueOvy1Rr9ZAush+u6EWTYY2jeTliNAcbWDutMfrrLPnZCJMf7GsQnLTSUCDL58qd1J
+         +Vw6iTLzymjcH1hBOTBQhx6kzASYQ7cAS7sKglGMaI8x3oKHlUJWivbddNipnwBpTffM
+         2o4+tLA1E41CG3fDGTC+sFfQthS21wXpcngI7f0XifSmMCPuyZB8Z0ZiSMPn9E8H+2D5
+         q3TCcWYb4ICzd1XSLzgs9uP+PO27U4XvRqhTrYKXEHBosQgTOhN+IRGD8brl8TRLe/qT
+         dxbpRvOY/GWY6v9cnd9rv3HwEq843RZ12KRR+3joJd0DbNQy/UaWJkUth6sLD71j/lmH
+         nl5A==
+X-Forwarded-Encrypted: i=1; AKwUvByB8l/qGmjXyUpfBAY1SexK4iXxulfKZAE7DAoi1rfaDOQLIeCzArea7auKHI3uB1YAdewnz2zomAFSBcg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/CbTuxkozPOaSuYHufeAwSEbmvuirsYfJFCtSXG8XX7I9Dd8Jw
+	ivFtE8BmgzqRwDrlDJ6F3sfUrEaLL/5s+n2S9Djt+Zr6NRdHFoKNSaXb
+X-Gm-Gg: AYBFou3/K5PgDRrnob319dnw9clTQ27shBhrc97cqic0QLfKEDQVACt9wVXYCG24+lh
+	PGmZv6Ma49zdgTOS7Ecwf2BOd3580QThNY9WLhMh6SGIpBLOe9DkzeIK4n2nSV3bml1JHBRIGUi
+	cnuO2vQK/NlAnk4UdEhPZTLQEjmCjP32Jl9JX822ZdjPnEabN24AmsvNfpyGCcYsUrnmqHbR2AM
+	V8Yl77Tg3mzpsdMjIsLpeOHMnqaDaA8HWSnesBpd7Ki0BXJi1BpoKD2xWmqGz4WSRSWJk3sKyPs
+	J9XNGo2P0vJwYMYo8jjo+W4yGZT7+oF7uE/zCh0i5wsGK75muSVwo63xlogNzHQGkWlKXi96TnR
+	G0TRH36rW2olQG16YntHJr4NlDBESu9mtyP3PfTPd8K2AEp4yZxxavL95O1mK5zrLeBRbgc103W
+	0/OFoyBtvuJuiJbhqLOgTQU+Udp0z/4nrd6tygpNybYB4hGT+lLlw+Y7upnllY5MImqsdvAhycd
+	X2LEkO600vYTgn8BgQE85k7AA4oGGEoxqS8YBXj+YaEMamHWIWoKAmrBf/peWL2lUIzDWrqt9e7
+	IA3S+6pzGJ6nBSposUGAWr4KGvqWEqMf6p6CiZVajk1/kHhkq0ge/XJcM+u6nV3zvh+ZTrfuGRT
+	x9B28uz7XBfBS/QqAZPsO883LvAZosiwgKOdaGjWiaXmJyz4=
+X-Received: by 2002:a17:90b:2e07:b0:3b0:9e2c:9b5f with SMTP id 98e67ed59e1d1-3b09e2c9e85mr2639557a91.2.1793837361622;
+        Wed, 04 Nov 2026 16:09:21 -0800 (PST)
+Received: from localhost.localdomain ([183.96.175.225])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b323c18fsm897208a91.4.2026.11.04.16.09.17
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 04 Nov 2026 16:09:20 -0800 (PST)
+From: Joonho Lee <mynameisjune111@gmail.com>
+To: linux-sound@vger.kernel.org
+Cc: tiwai@suse.com,
+	perex@perex.cz,
+	anton.yakovlev@opensynergy.com,
+	mst@redhat.com,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org
+Subject: [PATCH v15 00/12] ALSA: virtio: staged capture recovery and PCM ACK handoff
+Date: Thu,  5 Nov 2026 09:09:03 +0900
+Message-ID: <20261105000915.15177-1-mynameisjune111@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,67 +103,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org> <20261104-work-procfs-bugfixes-v2-44-021c84d852e0@kernel.org>
-In-Reply-To: <20261104-work-procfs-bugfixes-v2-44-021c84d852e0@kernel.org>
-From: Jann Horn <jannh@google.com>
-Date: Thu, 5 Nov 2026 01:08:36 +0100
-X-Gm-Features: AclHuK9OZgoxGPef6pQV_HsS-hU8I1LV2S0BG0Ux9234a4e7Z7um8wA7D7hSN74
-Message-ID: <CAG48ez3=6q6hqMcN-=q6qNrghHjbpXr+i-Su_s0siw25reBkWA@mail.gmail.com>
-Subject: Re: [PATCH RESEND v2 44/51] proc: sysctl: resume readdir after the
- last name it returned
-To: Christian Brauner <brauner@kernel.org>
-Cc: Al Viro <viro@zeniv.linux.org.uk>, Kees Cook <kees@kernel.org>, 
-	Joel Granados <joel.granados@kernel.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 4, 2026 at 8:27=E2=80=AFPM Christian Brauner <brauner@kernel.or=
-g> wrote:
-> proc_sys_readdir() counts the entries of a directory and resumes a
-> listing at the number getdents64() stopped at. The entries are sorted
-> by name, so one that is registered or unregistered in between shifts
-> everything behind it by one. Listing /proc/sys/net/ipv4/conf with a
-> buffer that holds ".", ".." and "all" and registering a device whose
-> name sorts before "all" makes the next call return "all" a second time.
-> Unregistering one that sorted before the position makes it skip an
-> entry instead. So a listing that takes more than one call shows a name
-> twice, or not at all. Even the 64k buffer of ls needs a second call to
-> find the end of the directory, so a device that comes up right then
-> repeats the last entry.
->
-> So remember the name of the last entry a call emitted in the file and
-> resume at the first usable entry after it, like kernfs resumes after
-> the node it stopped at. The entry itself can't be pinned across calls,
-> unregistering waits for that. If the position was moved by a seek in
-> between the listing counts from the start like before, seeking to an
-> arbitrary position has never been better than that.
->
-> That also takes one walk down the tree to resume instead of a walk over
-> every entry in front of the position with a round trip through
-> sysctl_lock for each of them.
->
-> Fixes: 77b14db502cb ("[PATCH] sysctl: reimplement the sysctl proc support=
-")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-> ---
-[...]
-> @@ -756,8 +834,11 @@ static int scan(struct ctl_table_header *head, const=
- struct ctl_table *table,
->         else
->                 res =3D proc_sys_fill_cache(file, ctx, head, table);
->
-> -       if (res)
-> +       if (res) {
->                 ctx->pos =3D *pos;
-> +               sysctl_cursor_set(file, table->procname, strlen(table->pr=
-ocname),
-> +                                 ctx->pos);
+Hi Takashi,
 
-sysctl_cursor_set() is called here, when the output buffer is too
-small; but not if the proc_sys_readdir() loop ends because the end of
-the table was reached and "h" is NULL?
+This twelve-patch series replaces v14 and is based on
+a4311e9447bbb219044db38897f95be112f46a8a.
 
-Doesn't that mean that another getdents() after reaching end of the
-file would observe the last entries again?
+The follow-up closes a PCM ACK race after the core clears stop_operating and
+before sync_stop finishes. If a substream is already stopped with a transfer
+XRUN latched, playback and both capture ACK paths now return -EBADFD before
+they can re-enter the XRUN path and re-arm stop_operating. A transfer XRUN on
+an active stream keeps the existing -EPIPE behavior. A capture tail remains
+available during DRAINING when no transfer XRUN is latched.
+
+I reproduced the race in playback and capture. In each baseline run, the ACK
+returned -EPIPE, changed the PCM state to XRUN, and re-armed stop_operating.
+The candidate returned -EBADFD and kept the stream PREPARED with
+stop_operating clear. The capture comparisons cover a synthetic stage-04
+fixture and the real virtio-snd module at stage 12. A separate instrumented
+stage-12 QEMU run placed playback ACK in the core sync_stop handoff window;
+its production playback ACK functions match the candidate source byte for
+byte. The tests also checked the clean DRAINING tail and the latched-XRUN
+case.
+
+All twelve cumulative stages built on 7.3.0-rc7-virtio-next-kasan. The six
+ACK/XRUN race comparisons and three ops regression runs completed with exit
+status zero. KASAN and lockdep reported no diagnostics. KCSAN was not enabled.
+The stage-04 fixture logs include ignored notices for five module parameters;
+these are recorded separately from kernel diagnostics. No physical-device
+capture or suspend test was performed.
+
+The harness leaves behavior_passed unset, so the reported behavior is derived
+from the guest serial markers. The attached evidence records source, build,
+image, module, fixture, and serial-log hashes.
+
+Assisted-by: LLM
+
+Thanks,
+Joonho
+
+base-commit: a4311e9447bbb219044db38897f95be112f46a8a
