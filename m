@@ -1,96 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793893901;
-	b=b3cVkwfR4BPOS88Hmm8vd7Z3A2/qfWLTudN+KEe26uaTkucudwf+UtHzcqkuPVW+0fjg
-	 RjldkUN6tdPuv29TTpEhT15QfBtuKeKNjNVk6hyuCjr6eGg0ZMwAaaTFZXMHg51Z4Feqd
-	 cX8TXc8AFgfIHBKvqMrPpZQAKiCfXOnC6eheHqPOH3j9twsHgSc3x7xJMGr0pD9UYnBZs
-	 KsWwE91Fx95RUYawN075+X8lWWHDYByjqFQKBTYSlSWdZ0GexNymnkfQxS+jY5KtuZ3kQ
-	 7v3CyM8wpHv8stbhlSrkQx/mQ8qXApYufN+zHqk+wWjXJlbsDSvB3FiNTTEhcpi/L7Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793893901;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-ID:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=sb1nds3N1n1E4eNTokf+Kj95VGWvI0/rKQqniWGByQY=;
-	b=gBqCm2xNJcbFnPf7Rl8fS/nXbvkHxyKPNsq1GYukXudVzYA43CLE/TE7An/nD6KW1Xnt
-	 jvbJvaV5XkbfK5tQIO9ZASWmjLzRyhoKprpUXabYw3qo4whFP3gZITcLdJ1+bSix2LeZZ
-	 b/AMrY7cQTKuO5Cu8OxFCkgO0jy6wO1owz4PZUiUcCllS6QchPTQVwj2YKkBqPfp+tDet
-	 34AbnlEwGgmcnjPxY53+EBlfOltcE3QR0tZMJj6Xhis5E79k5olliIT+og6owc3rDJrXw
-	 K26mo2fkcn+n8c52bxBrLrsT5ojTLgWsAh0yXnbgdxvjjRNbZtL9JRJId20UdiRjuag==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ULAS4RRJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.42
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010042.outbound.protection.outlook.com [52.101.201.42])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.183.196
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793893912;
+	b=T89OCUoTf6yRcuKeJ4ierFYqyQK58uIZlZjo9evD45H7QB8rKfrh1sZ9/Y18WHCl63bi
+	 POdlSz2QXH604/yHPmhGDR2jQHsVdLIDyKNiPiHMwsAl0u0ryii364Jy8/+Ri7+5E9miC
+	 TniOQ3oD2nKJIjxcxrpp+pcBYtRE3Uart/OnoPgxn11GGaB9HRYXwZII29Efwi644rPBD
+	 Dhv2ShXzXbMUkkLPFLm3bWzarru8UY6EuJQgU695vUCraqTRa7wVihJFRlTR1hRxMfcj1
+	 reoDkj/fI2616HgcBcfEF2SvMkSdO1w+5zawM1LuIHmvJR+4+LSwCQHtbR5NTnZRBtQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793893912;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 X-GND-Sasl:X-GND-Score:X-GND-Cause:X-GND-State;
+	bh=EIK49Tcg3pu8WRBXo8Mfb4XG8bVZ55wdfLeeW4Ym45I=;
+	b=itdGmuhtPjDuPTRc+dGxdOhkxaZG6Wj491WPBCqgFVbRELnIqi6/QWpaObJToO4ct2hO
+	 3RvvPp1UE5wDB2vEr02FzWU6JPOD1oz7Zmc1bibSpjAzGzKbAM3gQWGcWgzZ3UJIuF1jL
+	 458GUs+9UM/M3cGf9HIs5kIs5K+ojPoskzX52nycpOrxTLcsDrthUFRt7Tir0tqe1j70D
+	 mnypjnRB3/FobNSQn11Qve6le3dwtcEzBQTfacDqL7qFMh66+Ddmio0uBYGmnoDDQlowE
+	 E7U9VMmIzEkTkVc9jcgEsUiZuKfYzCiFMeLtydlFEy9HzKKnpONsjsmeXLbMOuffoLA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=ghiti.fr;
+	spf=pass smtp.mailfrom=ghiti.fr;
+	arc=none smtp.remote-ip=217.70.183.196
+Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net [217.70.183.196])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66A98606A330
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:51:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66A98606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ULAS4RRJ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aDBJQRrcUNwr3dK0Es48g3WreV7o/4TITS4QHxpUwkMEKC8CKgEh3/qArR/cuYYvbnD4j+SzR8a9awMhjpqvn8bT6892Gq8ZHUGG2FkCGehzlzvYM1MsJlKUDiKupsXqvRUGEnyuhqMl6XGu+NuOfzOLJoTWnaHZSD+RZmY0eWSflFy5l3y8RRmdW6K71lhYYqUg5IIYPMIyR/eLZL0oOmlZs23GRGB/yUme1AZovfc3MuGdkwxIxZfV4P+BpR2SyRbMVb393cNVJfv/G+VulsU3Sh5BfBob7zfW5ORxxa4OiMWpqDiIuTX2rbDY/8dJdoaFHof68QWQ8sizaFUHxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sb1nds3N1n1E4eNTokf+Kj95VGWvI0/rKQqniWGByQY=;
- b=o0EODFgzyG/yyNwD9gf2R/KeNjqrxhlhSofZxIQ+Ot1zAIbWtVvCxtHJ4qN7E8a90K6ffkSA8fd/gGZEn9KDpBfrNcQVn5V6nvkbnfMbQLrcVU8zgNmWoXASDZqjravyoFhJxO5k7lSDxpVS485p9qk7DN/7bcfchI4z4S+kCAAHnWUp70JDSKC/jNGcjQjSf/6t6ER2ksIne2JEoNxAdtudh/Ndld+y6bvyZTO0QA1ktSXSLfmtI8oOeFbSsuYlBvGOS4o7uV01TTuTvaW6MiGS4W2/G+rVGsv2mLoC1S1VruW9gFgauZB78XE6t3tTq6/dY50dEvCaGyI2W+Iuxw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sb1nds3N1n1E4eNTokf+Kj95VGWvI0/rKQqniWGByQY=;
- b=ULAS4RRJ+BPxikUc1vAhhMxQxmxPD52PHyYM1d9MkkqHFwgJCmGOIVVzHYmjBFceB6hSxdanL7z++90Mv4QVE2StJw/V/VYUXAPxH1WzyqANtAYaNsDEAtPNT4zSspxUoIn1QRRng9xPGL4TexUtVpgvPqjKjl3Z3VVDEauQZ/Y=
-Received: from CH2PR15CA0021.namprd15.prod.outlook.com (2603:10b6:610:51::31)
- by SJ2PR12MB8111.namprd12.prod.outlook.com (2603:10b6:a03:4fe::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 15:51:35 +0000
-Received: from BN3PEPF0000B374.namprd21.prod.outlook.com
- (2603:10b6:610:51:cafe::99) by CH2PR15CA0021.outlook.office365.com
- (2603:10b6:610:51::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Thu, 5
- Nov 2026 15:51:34 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B374.mail.protection.outlook.com (10.167.243.171) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.0 via Frontend Transport; Thu, 5 Nov 2026 15:51:34 +0000
-Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 5 Nov
- 2026 09:51:33 -0600
-From: Mario Limonciello <mario.limonciello@amd.com>
-Date: Thu, 5 Nov 2026 09:51:28 -0600
-Subject: [PATCH v2] accel/amdxdna: Load the aie4 firmware variant the PSP
- reports
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE3D606D804
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:51:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BE3D606D804
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ghiti.fr
+Received: by mail.gandi.net (Postfix) with ESMTPSA id D7CD13EDD7;
+	Thu,  5 Nov 2026 15:51:40 +0000 (UTC)
+From: Alexandre Ghiti <alex@ghiti.fr>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Chris Li <chrisl@kernel.org>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Youngjun Park <youngjun.park@lge.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Alexandre Ghiti <alex@ghiti.fr>
+Subject: [PATCH v2 1/1] mm, swap: only prefer nonfull clusters on synchronous devices
+Date: Thu,  5 Nov 2026 16:50:17 +0100
+Message-ID: <20261105155032.240457-2-alex@ghiti.fr>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261105155032.240457-1-alex@ghiti.fr>
+References: <20261105155032.240457-1-alex@ghiti.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,322 +70,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261105-superm1-lms-npu-v2-1-ad6704226d47@amd.com>
-X-B4-Tracking: v=1; b=H4sIAP+l7GoC/3WNQQ6CMBBFr0Jm7RjaKlFX3MOwoMMgNRaaDhAN4
- e4WXLt8yfvvLyAcHQvcsgUiz07c0CfQhwyoq/sHo2sSg851oVR+QpkCR6/w5QX7MGFhyVjL5kL
- 6CmkVIrfuvRfv1Y9lsk+mcctsRudkHOJnv5zV5v2vzwoVNrZtic61JW3K2jdHGjxU67p+AXIn8
- Oi+AAAA
-X-Change-ID: 20261104-superm1-lms-npu-6bc3bbe38c29
-To: Lizhi Hou <lizhi.hou@amd.com>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Mario
- Limonciello" <mario.limonciello@amd.com>
-X-Mailer: b4 0.16.0
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B374:EE_|SJ2PR12MB8111:EE_
-X-MS-Office365-Filtering-Correlation-Id: 026e9ba4-48bc-4b8b-4fcb-08df3b54ab1e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|376014|23010399003|1800799024|18002099003|10067099003|11063799006|261026140227099003|261026121527099003|261102123227099003|261028144727099003|261022115727099003|261022105027099003|261022075727099003|261021123027099003|56012099006|261021121427099003|261009223027099003|260925021311599003|260925022911599003|260925021911599003;
-X-Microsoft-Antispam-Message-Info:
-	XsY4uQAQIssoWrf5js6nWCFMJ8AMhZwzPv8X7GqmiO9cSsTyzf8xKHrMS2BRDB5AP0PEyHGOeRX6aEw/VhncGvPzQfPWiarTIZNxV6mlMKQBq1P8NEkMAXjnOUuMv4zYbxjcdpPFNARL16/WOobS/86gfpXT2PIvIRsfuq4TumeYokaBI/d44lPXtHRICCBD9SSBtQQwUzu+xIRm1wrQuOB/U+T5zZ9Tyb81LG6b5LKiroftAFFpetH8aEXCr0nSSCeQpu8boa4ndNppUFRbCQQovemSkXYXGOq+Cj4XO3Fo6LDFhTIhiWSj1uhTdFREWP5e1gLu3oAzPOWePoN7hcnrlAe3aIgVGr5rxK/zwHX7hyQVr9IbXjtDZ4NIkvSG5QEO0XqkLdE6RGVuyMpa233y7yteTa4MVYZDyN/Q+7MAr+iBIP05cKY/qn3lPdLnOznH4Q3ltaTGY+NygZDXY9IjoFl4F1M6O3nkMZ6UTWkoZ9fZvzNi/tE3HaKu+6pM8nWMuh1+uXZiFzOYD+L97H7UFysu2AW3gYBVXsrfxTZalGIPrEEeHFApBs74TCn1x6KMd0LpamXNJYTx/VN0Ev7tLTfuwKldNu2H9sVpgDrmOTWTfxScN6yM5Kiast8e0zToiMziz+RpLivqcdfMtg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(23010399003)(1800799024)(18002099003)(10067099003)(11063799006)(261026140227099003)(261026121527099003)(261102123227099003)(261028144727099003)(261022115727099003)(261022105027099003)(261022075727099003)(261021123027099003)(56012099006)(261021121427099003)(261009223027099003)(260925021311599003)(260925022911599003)(260925021911599003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	xTHUz3bEU57lytdKcTkuPfDjLa6tqQtS+nvu/dqHdAXfT/hox4bvcUI9eyL5CVbpOyOAt4oUUpzSCuhLyJ7gwD5mONWKBcJPzUS6B2jR/GwSBP9iWiZpCUosWgWleoby9ylWBk2wBg/iLfhMKBNp6XmQUU4QbfisSYEeVQ5N6nVXmScMna3XvTtvOrH+i7UAcHEI7ha6gWzKd6KDwP+Pw9gmIYKKNCumw3aUOEm2f/C0n/xznKkSXQQ1v+NXUuFJcGXpZpe56JyTJ+W6eHY5SseqbhQX0PT5zZQU0oHc1pPRIFcFyQMADA+CLixzBV9oyd/zSDhImrUoEhLUlM5J8wbHt40zfN23qGUKDPvRVM83+EV+Fz2TzavjRHy/BNVN5mn6QpvtOj4vP78V4X4jbpCdSjqmFgcn5ZgvMjlfig1SM4xS0bE4EjJKCAyIt018
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 15:51:34.3651
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 026e9ba4-48bc-4b8b-4fcb-08df3b54ab1e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF0000B374.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8111
+Content-Transfer-Encoding: 8bit
+X-GND-Sasl: alex@ghiti.fr
+X-GND-Score: -100
+X-GND-Cause: dmFkZTE+woJDVoV0nQAdmju6GXPQzp/37WRGqRlscp+7unek+1nQNJTbvmeTlTd0ZpBK4WOforKxfGb9LZ+Ebki3ZTxLhTP2DkVqpWuUqkuMma22Pq3kWAdenYRiH/OB/oNr+X9LZjsiyptfHUdeuqMNYlPNonH82ECvysafYuTYEheuBQwDfnUuX3Ke+p6SrbAiZtE3gj391nmjpp6K2OwnrClynn4/9TK+ADwy1brBNcyTPAKRRe0o6mQN9X9LB+4Rl3VxjHOqCaEaD8OsyMsg9A6ZENWf6x6JPlMtd5ZZhDJGOcDNERaePHThGJqB6HmyKlCHwAwM62K9AATHCrb14vrLXtPQ59imH+DNJKnRz53f4kcVGtktkkWc0Ur+oVDUdARQKwX1ETe/qFU+1fvu+OMcRDLadNb3dOq6uNpuSZIH4B7lza8uIlF41USk7ZoLjRUsp6ec9+87ZnCfzn9pOkagalwwxyabncFmL06v4qxQya4WOmTYyKAh/Ow/LtIpSwqnGCORCdcGiiPBsEUNXVPHJnjdNjub/6goq4HkNQRXspoOT/KiieGnOpoxglicIEQnb0McGG4LVt8f1nLbhYqSAX4FH1wCKJO1yrIxPd+6jMa/G+gvbjr7NYZfxf3WtzIpOt+l9qIa2nXYKjQTI70eGt4NwdWeiYKvH5ZSjao0/w
+X-GND-State: clean
 
-Some Platforms ship BIOS with either a default or an alternative trust
-authority. The PSP validates the NPU firmware, so it must be signed with
-the matching scheme. Firmware for the alternative scheme is named with
-an "_l" suffix before the extension. A preproduction part needs firmware
-of its own, named with a "_p" suffix.
+Commit 9a42aed48421 ("mm, swap: prefer nonfull over free clusters") made
+allocations fill the nonfull clusters of their order before taking a
+free one, on every device without discard. Since commit 3cedb745d354
+("mm: clarify the folio_free_swap() for do_swap_page()"), an exclusive
+write fault frees the swap slot, so a workload that rewrites swapped out
+memory leaves holes in full clusters, which then go back on the nonfull
+list. Reclaim allocates slots one folio at a time, so a batch of folios
+gets scattered over those holes, its writes can't be merged and it is
+written with many small requests.
 
-The PSP reports the signing type in bit 6 of C2PMSG_63, and in bit 28
-whether this is a preproduction part. A preproduction part that also
-reports the alternative scheme is not expected, so warn about it and
-use the default firmware.
+So partially revert commit 9a42aed48421 ("mm, swap: prefer nonfull over
+free clusters") and prefer free clusters again, except on synchronous
+devices like zram: they don't merge I/O, so the contiguity of the slots
+doesn't matter to them, and filling the holes first keeps the free
+clusters for large folios.
 
-Add MODULE_FIRMWARE() entries for the "_l" variants of the npu and cert
-images of the aie4 devices so that initramfs generators include them.
-
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Fixes: 9a42aed48421 ("mm, swap: prefer nonfull over free clusters")
+Suggested-by: Kairui Song <kasong@tencent.com>
+Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
 ---
-Changes in v2:
-- Initialize val in aie4_psp_fw_variant() so a failed SMN read can't leave
-  it uninitialized
-- Only read the PSP firmware variant after the npufw/certfw path check, so
-  VFs (which have no firmware paths) skip the SMN access
-- Drop the redundant all-ones check, amd_smn_read() already returns -ENODEV
-- Link to v1: https://patch.msgid.link/20261104-superm1-lms-npu-v1-1-dbffcc5abc23@amd.com
----
- drivers/accel/amdxdna/Kconfig           |   1 +
- drivers/accel/amdxdna/aie4_pci.c        | 162 ++++++++++++++++++++++++++------
- drivers/accel/amdxdna/amdxdna_pci_drv.c |   8 ++
- 3 files changed, 141 insertions(+), 30 deletions(-)
+ mm/swapfile.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/accel/amdxdna/Kconfig b/drivers/accel/amdxdna/Kconfig
-index eddff490b4f75..cd17a89cf4146 100644
---- a/drivers/accel/amdxdna/Kconfig
-+++ b/drivers/accel/amdxdna/Kconfig
-@@ -6,6 +6,7 @@ config DRM_ACCEL_AMDXDNA
- 	depends on DRM_ACCEL
- 	depends on PCI && HAS_IOMEM
- 	depends on X86_64
-+	depends on AMD_NODE
- 	depends on AMD_PMF || !AMD_PMF
- 	select DRM_SCHED
- 	select DRM_GEM_SHMEM_HELPER
-diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
-index 02dcb2f813d45..26c6162893760 100644
---- a/drivers/accel/amdxdna/aie4_pci.c
-+++ b/drivers/accel/amdxdna/aie4_pci.c
-@@ -11,6 +11,8 @@
- #include <linux/debugfs.h>
- #include <linux/firmware.h>
- #include <linux/sizes.h>
-+#include <linux/string.h>
-+#include <asm/amd/node.h>
- 
- #include "aie.h"
- #include "aie4_msg_priv.h"
-@@ -558,46 +560,124 @@ static void aie4_classic_hw_stop(struct amdxdna_dev_hdl *ndev)
- 	aie4_fw_stop(ndev);
- }
- 
--static int aie4_request_firmware(struct amdxdna_dev_hdl *ndev,
--				 const struct firmware **npufw,
--				 const struct firmware **certfw)
-+/*
-+ * PSP C2PMSG_63 (SMN) bit 6: 0 = default firmware signing, 1 = alternative
-+ * PSP C2PMSG_63 (SMN) bit 28: 0 = production part, 1 = preproduction part
-+ */
-+#define AIE4_PSP_C2PMSG_63_SMN_ADDR	0x38109fc
-+#define AIE4_PSP_FW_SIGN_ALT		BIT(6)
-+#define AIE4_PSP_FW_PREPROD		BIT(28)
-+
-+enum aie4_fw_variant {
-+	AIE4_FW_DEFAULT,
-+	AIE4_FW_ALT,		/* "_l" images */
-+	AIE4_FW_PREPROD,	/* "_p" images */
-+};
-+
-+/*
-+ * The PSP only trusts firmware signed with the scheme the platform firmware
-+ * uses and a preproduction part needs firmware of its own. Reading which one is
-+ * in use is optional and only used as a hint for which images to try first:
-+ * anything but a clear answer is treated as default.
-+ */
-+static enum aie4_fw_variant aie4_psp_fw_variant(struct amdxdna_dev *xdna)
- {
--	struct amdxdna_dev *xdna = ndev->aie.xdna;
--	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
--	char fw_name[128];
-+	u32 val = 0;
- 	int ret;
- 
--	ret = snprintf(fw_name, sizeof(fw_name), "amdnpu/%04x_%02x/%s",
--		       pdev->device, pdev->revision, ndev->priv->npufw_path);
--	if (ret >= sizeof(fw_name)) {
--		XDNA_ERR(xdna, "npu firmware path is truncated");
--		return -EINVAL;
-+	ret = amd_smn_read(0, AIE4_PSP_C2PMSG_63_SMN_ADDR, &val);
-+	if (ret) {
-+		XDNA_DBG(xdna, "PSP firmware variant not available, ret %d", ret);
-+		return AIE4_FW_DEFAULT;
- 	}
- 
--	ret = request_firmware(npufw, fw_name, &pdev->dev);
--	if (ret) {
--		XDNA_ERR(xdna, "failed to request_firmware %s, ret %d", fw_name, ret);
--		return ret;
-+	if ((val & AIE4_PSP_FW_SIGN_ALT) && (val & AIE4_PSP_FW_PREPROD)) {
-+		XDNA_WARN(xdna,
-+			  "Preproduction part with alternative signing, using default firmware");
-+		return AIE4_FW_DEFAULT;
- 	}
- 
--	ret = snprintf(fw_name, sizeof(fw_name), "amdnpu/%04x_%02x/%s",
--		       pdev->device, pdev->revision, ndev->priv->certfw_path);
--	if (ret >= sizeof(fw_name)) {
--		XDNA_ERR(xdna, "cert firmware path is truncated");
--		ret = -EINVAL;
--		goto release_npufw;
-+	if (val & AIE4_PSP_FW_PREPROD)
-+		return AIE4_FW_PREPROD;
-+
-+	return (val & AIE4_PSP_FW_SIGN_ALT) ? AIE4_FW_ALT : AIE4_FW_DEFAULT;
-+}
-+
-+/*
-+ * Images for the other variants have a suffix before the ".sbin" extension.
-+ * Returns -ENOENT if @path has no such variant.
-+ */
-+static int aie4_fw_name(struct amdxdna_dev *xdna, char *name, size_t size,
-+			const char *path, enum aie4_fw_variant variant)
-+{
-+	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
-+	const char *suffix;
-+	size_t len, base;
-+	int ret;
-+
-+	ret = snprintf(name, size, "amdnpu/%04x_%02x/%s",
-+		       pdev->device, pdev->revision, path);
-+	if (ret >= size) {
-+		XDNA_ERR(xdna, "firmware path %s is truncated", path);
-+		return -EINVAL;
- 	}
- 
--	ret = request_firmware(certfw, fw_name, &pdev->dev);
--	if (ret) {
--		XDNA_ERR(xdna, "failed to request_firmware %s, ret %d", fw_name, ret);
--		goto release_npufw;
-+	switch (variant) {
-+	case AIE4_FW_ALT:
-+		suffix = "_l.sbin";
-+		break;
-+	case AIE4_FW_PREPROD:
-+		suffix = "_p.sbin";
-+		break;
-+	default:
-+		return 0;
- 	}
- 
-+	len = ret;
-+	if (len < strlen(".sbin") || strcmp(name + len - strlen(".sbin"), ".sbin"))
-+		return -ENOENT;
-+
-+	base = len - strlen(".sbin");
-+	if (strscpy(name + base, suffix, size - base) < 0)
-+		return -EOVERFLOW;
-+
- 	return 0;
-+}
-+
-+static int aie4_request_one(struct amdxdna_dev_hdl *ndev, const struct firmware **fw,
-+			    const char *path, enum aie4_fw_variant variant)
-+{
-+	struct amdxdna_dev *xdna = ndev->aie.xdna;
-+	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
-+	char name[128];
-+	int ret;
-+
-+	ret = aie4_fw_name(xdna, name, sizeof(name), path, variant);
-+	if (ret)
-+		return ret;
- 
--release_npufw:
--	release_firmware(*npufw);
-+	ret = firmware_request_nowarn(fw, name, &pdev->dev);
-+	if (ret)
-+		XDNA_DBG(xdna, "firmware %s not loaded, ret %d", name, ret);
-+
-+	return ret;
-+}
-+
-+/* The NPU and cert images are validated together, so both use the same variant */
-+static int aie4_request_firmware(struct amdxdna_dev_hdl *ndev,
-+				 const struct firmware **npufw,
-+				 const struct firmware **certfw,
-+				 enum aie4_fw_variant variant)
-+{
-+	int ret;
-+
-+	ret = aie4_request_one(ndev, npufw, ndev->priv->npufw_path, variant);
-+	if (ret)
-+		return ret;
-+
-+	ret = aie4_request_one(ndev, certfw, ndev->priv->certfw_path, variant);
-+	if (ret)
-+		release_firmware(*npufw);
- 
- 	return ret;
- }
-@@ -645,18 +725,40 @@ static int aie4_prepare_firmware(struct amdxdna_dev_hdl *ndev,
- 	return 0;
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index 189f04d8838f..1c1b5d0b724a 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -973,6 +973,17 @@ static bool __swap_cluster_alloc_entries(struct swap_info_struct *si,
+ 	return true;
  }
  
 +/*
-+ * The firmware can only be started once. It is the PSP that decides whether it
-+ * accepts the images, and it does that when the firmware is started, so there
-+ * is no trying a variant and falling back. Pick the variant that the PSP
-+ * reported (the default one if it can't be read) and use the others only if
-+ * its images are missing.
++ * Prefer a new cluster over a nonfull one if the device needs discard, to
++ * spread out the writes, or if it is not synchronous, to keep the slots
++ * of a swapout batch contiguous so that its writes can be merged.
 + */
- static int aie4_load_fw(struct amdxdna_dev_hdl *ndev,
- 			void __iomem *tbl[PCI_NUM_RESOURCES])
- {
-+	struct amdxdna_dev *xdna = ndev->aie.xdna;
- 	const struct firmware *npufw, *certfw;
--	int ret;
-+	enum aie4_fw_variant order[3], hint;
-+	int i, n = 0, ret = -ENOENT;
- 
- 	if (!ndev->priv->npufw_path && !ndev->priv->certfw_path)
- 		return 0;
- 
--	ret = aie4_request_firmware(ndev, &npufw, &certfw);
--	if (ret)
-+	hint = aie4_psp_fw_variant(xdna);
-+	order[n++] = hint;
-+	if (hint != AIE4_FW_DEFAULT)
-+		order[n++] = AIE4_FW_DEFAULT;
-+	if (hint != AIE4_FW_ALT)
-+		order[n++] = AIE4_FW_ALT;
++static bool swap_prefer_free_cluster(struct swap_info_struct *si)
++{
++	return (si->flags & SWP_PAGE_DISCARD) ||
++	       !(si->flags & SWP_SYNCHRONOUS_IO);
++}
 +
-+	for (i = 0; i < n; i++) {
-+		ret = aie4_request_firmware(ndev, &npufw, &certfw, order[i]);
-+		if (!ret)
-+			break;
-+	}
-+	if (ret) {
-+		XDNA_ERR(xdna, "failed to load firmware, ret %d", ret);
- 		return ret;
-+	}
+ /* Try use a new cluster for current CPU and allocate from it. */
+ static unsigned int alloc_swap_scan_cluster(struct swap_info_struct *si,
+ 					    struct swap_cluster_info *ci,
+@@ -1143,11 +1154,7 @@ static unsigned long cluster_alloc_swap_entry(struct swap_info_struct *si,
+ 	}
  
- 	ret = aie4_prepare_firmware(ndev, npufw, certfw, tbl);
- 	aie4_release_firmware(ndev, npufw, certfw);
-diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-index f233eb70a2957..dab8603e2381f 100644
---- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
-+++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-@@ -37,6 +37,14 @@ MODULE_FIRMWARE("amdnpu/17f1_13/npu.sbin");
- MODULE_FIRMWARE("amdnpu/17f1_13/cert.sbin");
- MODULE_FIRMWARE("amdnpu/17f2_13/npu.sbin");
- MODULE_FIRMWARE("amdnpu/17f2_13/cert.sbin");
-+MODULE_FIRMWARE("amdnpu/17f1_10/npu_l.sbin");
-+MODULE_FIRMWARE("amdnpu/17f1_10/cert_l.sbin");
-+MODULE_FIRMWARE("amdnpu/17f2_10/npu_l.sbin");
-+MODULE_FIRMWARE("amdnpu/17f2_10/cert_l.sbin");
-+MODULE_FIRMWARE("amdnpu/17f1_13/npu_l.sbin");
-+MODULE_FIRMWARE("amdnpu/17f1_13/cert_l.sbin");
-+MODULE_FIRMWARE("amdnpu/17f2_13/npu_l.sbin");
-+MODULE_FIRMWARE("amdnpu/17f2_13/cert_l.sbin");
+ new_cluster:
+-	/*
+-	 * If the device need discard, prefer new cluster over nonfull
+-	 * to spread out the writes.
+-	 */
+-	if (si->flags & SWP_PAGE_DISCARD) {
++	if (swap_prefer_free_cluster(si)) {
+ 		found = alloc_swap_scan_list(si, &si->free_clusters, folio, false);
+ 		if (found)
+ 			goto done;
+@@ -1159,7 +1166,7 @@ static unsigned long cluster_alloc_swap_entry(struct swap_info_struct *si,
+ 			goto done;
+ 	}
  
- /*
-  * 0.0: Initial version
-
----
-base-commit: e32e83a6c5ec031a7f59d4794113d8484b220254
-change-id: 20261104-superm1-lms-npu-6bc3bbe38c29
-
-Best regards,
---  
-Mario Limonciello <mario.limonciello@amd.com>
+-	if (!(si->flags & SWP_PAGE_DISCARD)) {
++	if (!swap_prefer_free_cluster(si)) {
+ 		found = alloc_swap_scan_list(si, &si->free_clusters, folio, false);
+ 		if (found)
+ 			goto done;
+-- 
+2.53.0-Meta
 
