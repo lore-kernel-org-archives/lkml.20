@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793879126;
-	b=0IL3j0bn5ammlf3sNIBhl4reWJs5YN1v4UWxlMGct1FDLAwnaAN7TOIkE98V9mp8P4AQ
-	 TcUw1n3NaN8NzFJLZSDxbqxSMk/iW3KAZIXquT9QwIbJzlzroTI8x8gFIHKFwtIEw2GGg
-	 ipfd+EijZjrWdXBBd4tftANg68JnznVd1E9W9kUfi1wbtuqi/YOQHpF7EiT0/QLXJOVCF
-	 ouQCOs/1KqPouHTTuti28V9TkuGPWqWCBmM7Vg9QDB3aqTQQX8t3vNwgZ5VWqdiX/NvIt
-	 2n201rHVNfgOYwmBW52sWpeqXhlVc6TUDtx6SNQHQLHcr5R7KpX1lFa763leGCSXjWA==
+	t=1793879133;
+	b=wVZDuLynTp+rnu++h7HDKohd1GPrEX+0mR+L/DAfEi2T6pkD/2T47Sk7beYhoWW8qcDs
+	 OE0nbk+eNn8yvq/Y8uD6rk1qnut6HNyAE1xhg9TybYaEI3+4lzvrVLbcmlMafb7CuV4Ga
+	 TWBXlruLZ9366KSBvCz3ki2BFX7LeTTxkihMbf0AgAhIGhhVHbu/eOirGMIf4tJHoUxg+
+	 pQcu2gIKaXt6D+569fS4iUdvsjg4XmbS9hDgGNWKdK8Q8jyESAOt9yVXEIxfJOaADMgX0
+	 9BxxqaO0cjaD0Op+Hlm2FZ/VxrERJJYwqPb8VTF+QP3TisnrCAUXyLvJTwBTvTKf8hQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793879126;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793879133;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=gZd6e2ni20P+OpySwPpNrzuCEe/t8gUcg0pg0WzBYrI=;
-	b=UaywNdfkEaWBJhgi3FFOcTgjR5iD3u7tTKJJdJjfk1rJwkj72tpWjIoF/0FcVOhTqQ3l
-	 Z0gR4wQO83NWSsZtrnzNxvpsm10MVyuCWBoF/QU18SdZG80ZFy5DKUtXUZr5MY8/LHU91
-	 rQe5fUy6svdZvObeyD2jCZG4qeMcz4IX6b2VelnQAYe7LbjIQox/sd20ReWIU3bcj2mrv
-	 F+pxyCjJj9R2aOLW7q+6LhcHlMYooImNZ8WKKbhc3xXlj4+0vNM+aztT+Qe7s3m9lFrK/
-	 Tg7kSbuXi3YCo2hOqXWPhlPZXXNYdBpjp8Rl2suOqs9BIAqfLzbEdZkl7ZVVPPujC9Q==
+	bh=oqj2T0WXB8ZBG5xgwGVwwKzGsMQkmNW87CSFX8dkW1c=;
+	b=O6lXglwRZuWgW4JbNWrbE4Gk8B9p84xL6++8Ze2kIGQkz4E3Pnu31VVkHXy0BrKNntRv
+	 gZL1FktpWB8lwRklnDSTOxiMccZymxq7MH1O6PDJ8R6LLTlwD+t80yQ+5KLqg2P47KgNd
+	 spa/Y3GJD+yduCYE+UCzyBC9a9ijjv5RaJUSI4YknEKyjzobnVpa/vEKjihpp8cgJvLSZ
+	 IfXR5PpUA1wCRxUtdWMUB7l417bddHghFem55BZBsXa2bDgtezkfRr35VlSqO4MZceCZX
+	 ggqOk7lnaFVX8bYpUJx8nZi50MM/u6UPSUM9vTujII1bjHJFAB0fmR9PJQgokY+DiTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=gJwHVSFi;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=yvofcizy;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15C9260A2612
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:45:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15C9260A2612
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CAD860A382F
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:45:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CAD860A382F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=gJwHVSFi
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-4923176309dso21834f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:45:25 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=yvofcizy
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a210470b49so13103655e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:45:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793879124; x=1794483924; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793879131; x=1794483931; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gZd6e2ni20P+OpySwPpNrzuCEe/t8gUcg0pg0WzBYrI=;
-        b=gJwHVSFiXARZWgQjVK1PPIL6vPBMS2i1wPbOV+zqI9mACph1+7aM9GK3EDwBJ24wYw
-         wTQYetRpiRptJE+REiIsdJYDDnv8x4yNETJxmCM8iKduVQi0Y96I7J0Sb3rhMEMn/olj
-         Uzt44eQWS6SQdokSKtOEtU31jevi4xpN+qp6WZ12TrZc1dIHJTtEIFTL1eu+/zP2VEhL
-         yfNxNWXqIfS7btzT2nL/kX2+jAl0EUsQNcitOPHlCeaMhQpQ6H/MYgVHGoFYsKhCBP/e
-         ZMsEQWMSMT8PoVcoDvXJ5Dw7anFYnn/3lX9ggX4/zeZqbo9sv9mn+80xwNgN9hQCBEUw
-         RmQw==
+        bh=oqj2T0WXB8ZBG5xgwGVwwKzGsMQkmNW87CSFX8dkW1c=;
+        b=yvofcizyVVfGyph+dJ3vEwbU4lVksshxBSC9jWPZbxyr30nySOhCXhqj5IAsACtT5u
+         zGxM8WAH0xU5MJQxzc4arn7QakSVdYo0stAl3HnGR+7+SxiC/HkFFt2qUrNZ9r9T5zB0
+         8PMlIlZcTiS084mhFxLxIVIEWgaEilXAylmTLPTQxEowlCOLy7puTJG7oZMekVz4RZff
+         Oh/ZTH9ZNrlq+Y6Zxhz7KSrAyQRzjs067+DQ1HSjnLH+F+J3wOgq9Cjzh4hcdrQQTPwW
+         j1mIz780qkEgp0cKZ9rIi6VBNPNzG1h8JxiFqE2VnMROYVD3v8TCWmrAmKOR+RyaOJjK
+         t/3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793879124; x=1794483924;
+        d=1e100.net; s=20260707; t=1793879131; x=1794483931;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gZd6e2ni20P+OpySwPpNrzuCEe/t8gUcg0pg0WzBYrI=;
-        b=yWSLYegdHjKugM9b1EOKek5kaBV6JOX8USFxz1cL0GO78Z/4FqyvzOsXFpWr6c05dt
-         Zl3ozRcwAA/OHY8pRTxp66gckfA8lXTNTmsEDISBPdvFvtvO0fpUDiQLzI/NBQFj2UzS
-         oRdaHydC9jtgmo0o03VVekjrbHboxPvN5aH6RRgkH0i35a4h7zwiJnJ2u7AX3iGJDen2
-         XAVstGhxBTSWEWTK3jymcyr1EHfD2feCJZ0ymtqKvl2DnmfnzzqHOHhQqofd+BoUhjlH
-         VNDX1x2+rgSJ1CcpHH/GF+oRBewHyA35ZMYgPTDIra6bBl77sfKs9VQiR0x4mtc2/+m1
-         3uXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzLftsWMLQ7hGGnpGsOUyO/hjSmDDt2YVqbTsjoC1byHOUeVijstkfCHHT/fsmStm9KS213kjuP8vRomSg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/5xm6TiYIKFtmsO4TPM7R5Od/IqL28NHnfUbeW4xRWai5Idlfz
-	iNS7S+ucnVUB7ZnEUzwPBLul1gQxOsK4WcAI9PMX7HhT44nRVhHa54Gkn+T1ca6skeo=
-X-Gm-Gg: AYBFou19lOiLbuGfaqxELEpC+IRfFdMGDcboyDZKPCaZ3yjKkmx8LmHzrMeYNBZIJ0f
-	6ZFfreVB90ih1KDkGXtnmz0VcaSyEO/sXJf2NcZFR+RtCxgIMIIIj0t+yb/M1Y7lIooAKobMf0K
-	Iu2lp79+B2mrNAPy9GZsaQeEfLvQyU4bMnLWmpQ+Qkbar+GVmZzmSOlr4OkpyN++FdkEzow0gWR
-	N2Ej15GatnQlXjE6tEDpKcEUs9bkpbaTKmgVqY8Vq/zuoQ2v45Z5caYcVs8gyk9jQYBeigQmZ47
-	VF8fTrmycdCe12qganpbt16jze80WTDLmCvb6CQ3ksYZqHlhnLCf2sk6iBsW8fgOl40DgVebM4j
-	a9XP0wOqq8dKWgraT5xZoTrukiGlWi2Os8WERSVCrtHjo4RCzbdxuOLzSo177zdJpJ6zX/6ELSS
-	yx8iJbN+QO67Than5RbBN2Qle8ysTrt1no+8SA6jk/Nw3OBDzQDPFBxZIvNammew/RtqkHOE2DG
-	yRkulRWmdBft1bkk/Y6dO3YD5oJ8/IDdGzYKc3i+q+cI9TIsJDRglSmOhtltQ8ar6b+9WoS4jIL
-	RNUoyj3DJnZcCmMZOXePN5ossqrtG7LF
-X-Received: by 2002:a05:600c:4704:b0:4a3:12fb:1ef1 with SMTP id 5b1f17b1804b1-4ac18992a21mr378217845e9.29.1793879124465;
-        Thu, 05 Nov 2026 03:45:24 -0800 (PST)
+        bh=oqj2T0WXB8ZBG5xgwGVwwKzGsMQkmNW87CSFX8dkW1c=;
+        b=sLSbrWWHOfhlEVvMKQQGFPlBN5figudjwsKPuYhXixep5DyMCWvUM1xf21Dz0dzVpk
+         q08PsTNbisWjNepM64TIFegMIEl5KLLvm7Ejf96IItkuGM62oZELKUxj9SpRiBNelX+l
+         SSnEyjr4kLflz5UDvjEyOmYxvbmcLrAe/2eE2vo+GgaOeKbxVjNY6UnB4To0Gtbxw4Qz
+         9sQdUGOLoUGOcrFckwPFXa3Zum+EAcBTcU663t7om5rn7HSLR7ktm2dwxuc2/+xFtjCq
+         Pjr92ZIfaDUIiyX/XUJVmbMaU929pAzOPdqGvV3EkVVXkTl9myIq8Zeg5HYvJ9Wvg6FY
+         ParA==
+X-Forwarded-Encrypted: i=1; AKwUvBxe7YARTwKLc/nDaP572qN71gVYQvR+7+rNFaaNQMoqMhDrNek/z3ccAdSz21hLxFvJ6+EE+4oesYHWng4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+k6ab5Kq7DGLjD3Igr7WOCPJY1ULdUHAt7M9LXVRJN7zSIWBBn
+	Sli55md5NJAXUBPx2Z+n098X5SYUYAIVJwbzLw35gejTjawaU6KmyMoEP0lQOth2biQ=
+X-Gm-Gg: AYBFou2wScitXohXFVSmUUQB2FO6klepP8oBD/owm55I01kf8Swh5z28sifh7fHVjWg
+	z80nl2pNl5DVzE6IrLxuOfsS46NeTdaTid462nhlTe+96+41DNQUTwaCWs5OeXIHMBjOGWCIqGB
+	ebsUIjNObifUFKu3Ysql+ZLxgIFR/WEojb1EQhy3PGzhn1U4UWj642SzJEXm/1z15u9S9aa8lAC
+	UysWKoTyB5oeDvqVUWk8W024QlDHd8ZPKAsJuxlYKiRhfJ/EM8aSTez2yhGpOW8de1Hm2snltcV
+	3EXjlcVqvkujL8kDhqMokX9gtV90TJAnLwZmCDyVh2IOjNIhos8jvHqtEZAlM6EAmaU5BHDIa7x
+	OlKJz4NObvGVDpP7IuB7NRUROchbG5kpn8W3OB++OI8VdhDoN1ngrxatXj4S31w2X8GVwZhTHRL
+	H9kBUjMJ/3h833FguVbWKdhK5vMY3GN1L3uDpDLAFOoaVkUXtP35qbTL/sJ61kXR8RQLWIicg5E
+	/+rhH5HWzAj2Pip3cD/UkLuhHoew0A9ZDgb+i3dAp/ijXVmL68W+2/Eo87SSx+1MhSlFJsVRJZd
+	ojBUAh8QIeuZVICxdjaTT5BYl24OFwsH
+X-Received: by 2002:a05:600c:a4e:b0:4a7:76fa:87e9 with SMTP id 5b1f17b1804b1-4ac187a766bmr411694955e9.21.1793879131015;
+        Thu, 05 Nov 2026 03:45:31 -0800 (PST)
 Received: from pop-os.local ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b571f46538sm56679525e9.5.2026.11.05.03.45.23
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b571f46538sm56679525e9.5.2026.11.05.03.45.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 03:45:24 -0800 (PST)
+        Thu, 05 Nov 2026 03:45:30 -0800 (PST)
 From: James Clark <james.clark@linaro.org>
-Date: Thu, 05 Nov 2026 11:44:52 +0000
-Subject: [PATCH v4 04/19] perf cs-etm: Use per-CPU queues for per-thread
- mode
+Date: Thu, 05 Nov 2026 11:44:57 +0000
+Subject: [PATCH v4 09/19] perf cs-etm: Increase default timestamp
+ generation period
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-james-cs-unformatted-per-thread-fix-v4-4-7759e0ce2449@linaro.org>
+Message-Id: <20261105-james-cs-unformatted-per-thread-fix-v4-9-7759e0ce2449@linaro.org>
 References: <20261105-james-cs-unformatted-per-thread-fix-v4-0-7759e0ce2449@linaro.org>
 In-Reply-To: <20261105-james-cs-unformatted-per-thread-fix-v4-0-7759e0ce2449@linaro.org>
 To: Leo Yan <leo.yan@linux.dev>, Adrian Hunter <adrian.hunter@intel.com>
@@ -114,115 +114,55 @@ Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
  James Clark <james.clark@linaro.org>, John Garry <john.garry@linux.dev>
 X-Mailer: b4 0.15.2
 
-This makes it easier to support multiple threads without creating a
-decode tree for every CPU for every thread. It also fixes the CPU field
-of synthesised samples being incorrect when the CPU can't be retrieved
-using the trace ID in unformatted mode.
+The original purpose of timestamps in per-CPU mode was to roughly emit
+samples in the order they occurred across multiple CPUs, rather than
+emit all the trace from CPU 1 followed by all from CPU 2 etc.
+Previously there was no way to change the interval from the minimum of 1
+cycle, but custom intervals are now supported by the driver.
 
-It also simplifies by removing a special case in the decode path for
-per-thread mode. Per-thread mode is now decoded in exactly the same way
-as per-CPU (apart from pre-initialising the context).
+Drastically reduce the number of timestamps emitted by increasing the
+interval, which is more than enough to interleave sample generation.
+This reduces the size of the trace generated.
 
 Reviewed-by: Leo Yan <leo.yan@arm.com>
 Tested-by: Leo Yan <leo.yan@arm.com>
 Signed-off-by: James Clark <james.clark@linaro.org>
 ---
- tools/perf/util/cs-etm.c | 40 ++++++++++++++++++++++++++++++----------
- 1 file changed, 30 insertions(+), 10 deletions(-)
+ tools/perf/arch/arm/util/cs-etm.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/tools/perf/util/cs-etm.c b/tools/perf/util/cs-etm.c
-index 5abdd726c6d2..966261429da6 100644
---- a/tools/perf/util/cs-etm.c
-+++ b/tools/perf/util/cs-etm.c
-@@ -296,9 +296,6 @@ static int cs_etm__map_trace_id(struct cs_etm_queue *etmq, u8 trace_chan_id,
+diff --git a/tools/perf/arch/arm/util/cs-etm.c b/tools/perf/arch/arm/util/cs-etm.c
+index 47b4e386cc53..5e7d09b7170c 100644
+--- a/tools/perf/arch/arm/util/cs-etm.c
++++ b/tools/perf/arch/arm/util/cs-etm.c
+@@ -70,6 +70,9 @@ static const char * const metadata_ete_ro[] = {
  
- static struct cs_etm_queue *cs_etm__get_queue(struct cs_etm_auxtrace *etm, int cpu)
- {
--	if (etm->per_thread_decoding)
--		return etm->queues.queue_array[0].priv;
--
- 	if (cpu < 0 || cpu >= (int)etm->queues.nr_queues)
- 		return NULL;
+ enum cs_etm_version { CS_NOT_PRESENT, CS_ETMV3, CS_ETMV4, CS_ETE };
  
-@@ -436,11 +433,7 @@ static int cs_etm__map_unformatted_trace_ids(struct cs_etm_auxtrace *etm)
- 			return -EINVAL;
- 		}
- 
--		if (etm->per_thread_decoding)
--			cpu_data = etm->metadata[0];
--		else
--			cpu_data = get_cpu_data(etm, queue->cpu);
--
-+		cpu_data = get_cpu_data(etm, queue->cpu);
- 		if (!cpu_data) {
- 			pr_err("CS_ETM: Unformatted queue missing CPU metadata\n");
- 			return -EINVAL;
-@@ -1301,7 +1294,7 @@ static int cs_etm__setup_queue(struct cs_etm_auxtrace *etm,
- 	queue->priv = etmq;
- 	etmq->etm = etm;
- 	etmq->queue_nr = queue_nr;
--	queue->cpu = queue_nr; /* Placeholder, may be reset to -1 in per-thread mode */
-+	queue->cpu = queue_nr;
- 	etmq->offset = 0;
- 	etmq->sink_id = SINK_UNSET;
- 
-@@ -2187,6 +2180,7 @@ static void cs_etm__flush_all_stack(struct cs_etm_queue *etmq)
-  */
- static int cs_etm__get_data_block(struct cs_etm_queue *etmq)
- {
-+	struct cs_etm_auxtrace *etm = etmq->etm;
- 	int ret;
- 
- 	/* The current block is not finished */
-@@ -2215,6 +2209,29 @@ static int cs_etm__get_data_block(struct cs_etm_queue *etmq)
++/* Default timestamp period of 256 cycles (2 ^ (9 - 1) = 256). */
++#define DEFAULT_TS	9
++
+ static bool cs_etm_is_ete(struct perf_pmu *cs_etm_pmu, struct perf_cpu cpu);
+ static int cs_etm_get_ro(struct perf_pmu *pmu, struct perf_cpu cpu, const char *path, __u64 *val);
+ static bool cs_etm_pmu_path_exists(struct perf_pmu *pmu, struct perf_cpu cpu, const char *path);
+@@ -458,7 +461,7 @@ static int cs_etm_recording_options(struct auxtrace_record *itr,
+ 		 * Timestamps are required to interleave samples from different
+ 		 * CPUs.
+ 		 */
+-		evsel__set_config_if_unset(cs_etm_evsel, "timestamp", 1);
++		evsel__set_config_if_unset(cs_etm_evsel, "timestamp", DEFAULT_TS);
+ 		/* Context IDs are required to associate trace to a process */
+ 		evsel__set_config_if_unset(cs_etm_evsel, "contextid", 1);
+ 	} else {
+@@ -481,7 +484,7 @@ static int cs_etm_recording_options(struct auxtrace_record *itr,
+ 	 * timestamp tracing.
  	 */
- 	cs_etm__flush_all_stack(etmq);
+ 	if (opts->sample_time_set)
+-		evsel__set_config_if_unset(cs_etm_evsel, "timestamp", 1);
++		evsel__set_config_if_unset(cs_etm_evsel, "timestamp", DEFAULT_TS);
  
-+	/*
-+	 * Per-thread mode still uses a queue for each CPU, but that CPU can run
-+	 * different threads. When the TID from the AUX record on a CPU changes,
-+	 * re-initialize the thread using the AUX record/buffer fragment TID so
-+	 * we can start decoding even if the context ID packet was cropped or
-+	 * they're disabled.
-+	 */
-+	if (etm->per_thread_decoding) {
-+		struct cs_etm_traceid_queue *tidq = cs_etm__etmq_get_traceid_queue(etmq,
-+							CS_ETM_PER_THREAD_TRACEID);
-+
-+		if (thread__tid(tidq->decode_thread) != etmq->buffer->tid) {
-+			thread__zput(tidq->frontend_thread);
-+			thread__zput(tidq->decode_thread);
-+			tidq->frontend_thread = machine__findnew_thread(
-+				&etm->session->machines.host, -1,
-+				etmq->buffer->tid);
-+			tidq->decode_thread = machine__findnew_thread(
-+				&etm->session->machines.host, -1,
-+				etmq->buffer->tid);
-+		}
-+	}
-+
- 	return 1;
- }
- 
-@@ -3288,7 +3305,9 @@ static int cs_etm__queue_aux_fragment(struct perf_session *session, off_t file_o
- 
- 	if (aux_offset >= auxtrace_event->offset &&
- 	    aux_offset + aux_size <= auxtrace_event->offset + auxtrace_event->size) {
--		struct cs_etm_queue *etmq = cs_etm__get_queue(etm, auxtrace_event->cpu);
-+		/* Old per-thread files have no CPU (before v6.4) */
-+		int queue_idx = sample->cpu == (u32)-1 ? 0 : sample->cpu;
-+		struct cs_etm_queue *etmq = cs_etm__get_queue(etm, queue_idx);
- 
- 		if (!etmq)
- 			return -EINVAL;
-@@ -3301,6 +3320,7 @@ static int cs_etm__queue_aux_fragment(struct perf_session *session, off_t file_o
- 		auxtrace_fragment.auxtrace.size = aux_size;
- 		auxtrace_fragment.auxtrace.offset = aux_offset;
- 		auxtrace_fragment.auxtrace.idx = etmq->queue_nr;
-+		auxtrace_fragment.auxtrace.cpu = etmq->queue_nr;
- 		file_offset += aux_offset - auxtrace_event->offset + auxtrace_event->header.size;
- 
- 		pr_debug3("CS ETM: Queue buffer size: %#"PRI_lx64" offset: %#"PRI_lx64
+ 	/* Add dummy event to keep tracking */
+ 	err = parse_event(evlist, "dummy:u");
 
 -- 
 2.43.0
