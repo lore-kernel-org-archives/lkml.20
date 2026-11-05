@@ -1,55 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793894120;
-	b=ehRWbth1tvnda7EyKiZEF5zfOZOWd7rVom8xJHAFDnIAjr2ItbAyGzmwJ2YDuPEf9BzN
-	 gya/fs9/9spD2Lx/JQtapztWunCYdqaTr6TAIcARe/VIgu2pnb/ZdBFsBl+GCjD6br+C4
-	 EJvDXCL8Y0MaUqrHVMkRw20xHYSWE7dFX6oDU7yvIEQWpneNwaxZa2oCb1vfPcXbao56B
-	 k2VjQeg4Osv09c4M2lmyBgLivSZ7encWE+ayGot2H1VNeomDvyo4phZQA2KznpOLAwnCU
-	 6y3E06QqW93VArfItghvsur4/mOte1z4RBj75zp3N7wacg8iEAA26erVOdTUFuBvSuA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793894120;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer;
-	bh=wVSP1QV8jlmARNWRy3bvsaIRXKQ7LdLg2AcQdwzTU60=;
-	b=NtZRaxqF+AO+hrPHCettx9gXoAwxdPWDIB0jcF5Dlj1TMHljVpabBiF1jArREkCuCeMU
-	 HSxc6KyYQ4zbwaYToxOpLoPa1QOF9gL1DUG797WNaIXwIa1Cchn1tiJG8plcB9ERGQ/Ae
-	 OqDIetxOn7QH9nEIFbzbF/lubYDNU2zHXaJJqFoZvYxcu7tc79RyLwEjswrGr7wwU8sQY
-	 Iwr+wRT7iRflBPYqqvlOjjEdHe+iOclX8Wz/CwK8kcagZ9t+goQpwbiWOcZig1JTa0cXg
-	 0RGH5XCHFv5fZsMGZ4WMKQAF0LHAYfrzc8ag4T21orz1n5KsyxzW0KsfK3qXc0N2QBQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=G775zhRN;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793894118;
+	b=oEt41iwYaKzZpKLIqzIQep7aUgOb7Krc5RR+dnxNxKyeQ4aLlw8A/eBl9tayacW974/a
+	 2v+5hGL59ZS6QrVtmJOpb4iahvPRTzH0er6LMnZ3LSrsL4K8FB9JHDxXY0SU+c3my9vAR
+	 vjy8eQtl8mTLyV4Uy1NG3C8D9U44HQIY0dUwPMfRMyhDLc4pk25n/IzBbnmT3RfvEvmFt
+	 fBwGjMT+cZGyq/fIPo6mwmEWpCX86GoUG0m1biwA8TcrnHaTh/um5l/iPuutJH87y2dEi
+	 scJ7Twgs05Kov5FNR+EjyK5kwEwMxzzslqPa7Arm6qvNnMUjzahtEntOx2dl4v67hgQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793894118;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=tdKl+siKq28S91b9oYIgCcRRzZiP/IWdXCqV8LvsSrQ=;
+	b=1IIriYAptrcUDWm+Iqg8TZvAScyGLlzfsiTf+T33VAGN7UsLrCAOc3r6pPu7On9Mm6bt
+	 CP+Yk1WgGbOhaDYEiTzysxUYodtDccL73PiXfcGaeL2aKD8NpJqt4F33FZHrmza4V7503
+	 D35cchQPyuEWbyWbJvzdLIUo6G/2vXEjv/CuVevQRAJeC+tgpwb2FSNaJani8Pl0UPQWV
+	 w6bBAjHhcMbIjJ0FptyW6+cbKRwe0lFdMN0vMZ+Fp9TsWufLxz/Uhm2PnkX8QXUfC/Taz
+	 tUgRHUe+VAyryKCNSb7f2kIYTQQjLGQvg++gUIwQ2veUedNSjLMqlOG50hYdZsmxb0w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=n3WfkUgW;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AJM5Ggwc;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 042DC606F97A;
-	Thu,  5 Nov 2026 15:55:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 042DC606F97A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FA9E606CF99
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:55:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FA9E606CF99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=G775zhRN
-ARC-Seal: i=1; a=rsa-sha256; t=1793894043; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=a78HBP4P2g0jzKoRoVWuX3AsyMZETCjIl/EEWXSf+vPGbyCaiWH1i9cGfSWZLRlPzd8QJSTmO24vUqjDz/pq72bgQqBreZXlDi+gwrGq3t3Ec+SUh/2S6K6a5bPwN4N4Bvq9c2JTXDZ5Hda+R/hJXUh9drGFVNRpPA2v4R2NkoY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793894043; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=wVSP1QV8jlmARNWRy3bvsaIRXKQ7LdLg2AcQdwzTU60=; 
-	b=bNWq4FGTjpTMEiTN66YbZUX23qIDR2vIWlcqe39ZoJ/HfXV25TOSLnk+TRwT3kiRnhNiTharqZRtxjGhWX6FOKHh8NQv2Pl2oIepp0GEbvLW77g4uH9prhuAXLejxKZKo/AAjx8wvMS4D2Wy1cWCoA370jBt/qgTTF9JEZCN0u8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
-	dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=G775zhRN4+Mo1LM4Gk2LETPzVc3WP3n20ZEc1p2DeRvROywMS+7HgOU6Z6pzu2/4OV0+mIbF8LSDk8WaEgaacKOQK9UkyR3n9isltV/EAVOUK4Z5Jxb6S5FhNay8dKmmkHHUlDA9MKD7R/nSheb1sAo6+K0HMnSejmkmT9w/Is0=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=wVSP1QV8jlmARNWRy3bvsaIRXKQ7LdLg2AcQdwzTU60=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793894040942663.770671604691;
-	Thu, 5 Nov 2026 07:54:00 -0800 (PST)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Thu, 05 Nov 2026 16:52:05 +0100
-Subject: [PATCH v2 14/27] drm/rockchip: vop2: Enable VRR
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=n3WfkUgW;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AJM5Ggwc
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EQJPG2004738
+	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 15:55:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=tdKl+siKq28S91b9oYIgCc
+	RRzZiP/IWdXCqV8LvsSrQ=; b=n3WfkUgWvmEYw4O7jKdcsHY4KqK4Q2Eif88Wb4
+	jvnjttLvCZLaTu5Z1cCVlw6beDjWqT/mayJ+sEvZ3OvOZFis+XGcOqNF/QAXbu9G
+	JGPUn+I1M1xDx5yZi1+Dm7bJJJt6ixzeyQm6hTk9cYNGknFAFi8xE/Rj9SxZuw1W
+	AKjPDU0DJ6x9FL8U/RQMUCgFI1ZNc+iFYNGgsDRaUG+6cwpRuwPY1NWJ73H2nF35
+	PUQgKYOG9sY0wLpBFr6i4Sjw6N8vPK/xgA08Ez+DnAGgj44q/lqvsUzuXeq+9ZBP
+	scejxph7V3O625FpnC2OGsasKH7zh/bquQb+pPNSXVd4U3bA==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrqpd1fna-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:55:17 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-9907de400a6so434862241.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:55:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793894116; x=1794498916; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=tdKl+siKq28S91b9oYIgCcRRzZiP/IWdXCqV8LvsSrQ=;
+        b=AJM5Ggwcrj/bfkV3iQ+pjZ0Q+dcApSD/aeaCrk0vHqKDlI7T+AbFbsBQWq7jyIJaHs
+         XdNa2XXyKtcApfnXpGOOq9iPWEG3TQyq0a2UILtf1L3J0wgJLRUEmn6ZVlCE/Clco+4w
+         cIo9vrbrm4rdxds/XEPI3UgYiL13gJHABwIDzo2fYBgsp7j376MVswfBAyDfI91i28R+
+         E/z/OCSEhkWfN21oKIiEofKShrxSVVR6gTIEhA4zL4uVJdZvV0BPl7w7eU9uzq73N8+K
+         Ydx2Ms1OaC3sPGw7Cz3Mtmj8iYDtQbFmqoU0GaEYpenSO/3B2cuw/lhFdN8iAgwhseom
+         W5cg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793894116; x=1794498916;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=tdKl+siKq28S91b9oYIgCcRRzZiP/IWdXCqV8LvsSrQ=;
+        b=1WAuU8yk7whJHjN+NTSlYIIO3JISTttaNj6mIPef2vvWgMPhb3SzIxo+arcp5o/gEy
+         wWZRrdeqcGnNdr1+e+V1GjjMVA/w3oo4P5ObIw+8UzAl/JfP1HnY+l10lNQj9vk/MWjA
+         LcJOvoedGgKI1Eq8QFMbspX1taeJdymGEIn/Trt975j+8OPCdb62niRQc/fvQ3xPD+Ez
+         yRrtu0KV2QIKaIpAFBUjRpcBJlR6gfJb/qh1MoxKnJL1q6nPbN1t+BE2eZs+9KHhsBwQ
+         WB3GedBrzqC1Un8ZaFgJeszYCkl+NlKzebR0tKlRqrjjM5LiQhIc+bwXDjJRH46L7f3s
+         rezA==
+X-Forwarded-Encrypted: i=1; AKwUvBy5t7ShV9ipAQ2H3NJJ5lYQb6rtdCTWKXXTBC48I5ceLOoLXD14oeF6A8d9F7WrNie4g0Aa++SIoRFQC9Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z97X2XosiMVEtSw5Lepi+svJtAZgOSzKa0pm0GSBDhwmBGZTuYF
+	A64xC0l8jNdNpziEsV2Jgl7qBm7CG91ZCm1bcJAXjIsg1nPFtZy8PW7xqsWHBFgke5zt+e75h2f
+	LTNrzniVt2G+7W7yyFq6fBWhx1KA74wi3kryXrD/lh5lD2oSkgprVE5jO05MVV3sZNsM=
+X-Gm-Gg: AYBFou3wmyyU6tMhuPptHa/15Ryciw0ryL+moB3gsZhcJa3jqO3dwhYvCGCnoG6RiCH
+	9s+uorynqB0kNCouU+/69GL16Eepg12dkmc1Yw+U/vTtzTgSeGY8GbJGdEhU3Qqx/7LowatkdiZ
+	B1/N+pyNfQS4Q2ZN85tsUz0idwS2o3vMq30OE/VZRsl+ur98JGe07f0GV7x+CItpnFA6NYGZcey
+	IGgFekv6dSHXVCGMm5POjb4FQe49Rv1wNlraadYbJLD/si/nX4JE03O7CM6+60yjw5XYA2aaKnn
+	eqZnt0pWGGtXt1OTGgEgk/pFFJhFhoEqkGmof5XvXZ+VroR2yxj6L5eSyvYf2bmE+qN4ifu2fBJ
+	wE2HZNHUAy2WF4+L7+ezqUsVvX1uKXoPFRB8culUU2Pj/9tSanfN08kCaB4bFpBnaa2+SfKNPsm
+	gc5A==
+X-Received: by 2002:a05:6102:604e:b0:7d0:9587:1b99 with SMTP id ada2fe7eead31-7d2a0fa8580mr4288137.0.1793894116425;
+        Thu, 05 Nov 2026 07:55:16 -0800 (PST)
+X-Received: by 2002:a05:6102:604e:b0:7d0:9587:1b99 with SMTP id ada2fe7eead31-7d2a0fa8580mr4268137.0.1793894115915;
+        Thu, 05 Nov 2026 07:55:15 -0800 (PST)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feda2007esm10612301f8f.47.2026.11.05.07.55.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 07:55:15 -0800 (PST)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Date: Thu, 05 Nov 2026 16:55:11 +0100
+Subject: [PATCH] power: sequencing: core: add a note on descriptor
+ serialization
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,229 +117,93 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-vrr-limiter-uapi-v2-14-55f4215be2c2@collabora.com>
-References: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
-In-Reply-To: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
-To: Xaver Hugl <xaver.hugl@gmail.com>, Vidith Madhu <vmadhu@nvidia.com>, 
- "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>, 
- Leo Li <sunpeng.li@amd.com>, Harry Wentland <harry.wentland@amd.com>, 
- Fangzhi Zuo <Jerry.Zuo@amd.com>, Daniel Stone <daniels@collabora.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Helge Deller <deller@gmx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andyshrk@163.com>, 
- =?utf-8?q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-fbdev@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, kernel@collabora.com, 
- Derek Foreman <derek.foreman@collabora.com>, 
- wayland-devel@lists.freedesktop.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-X-Mailer: b4 0.15.2
+Message-Id: <20261105-pwrseq-core-desc-kerneldoc-v1-1-e10a2b03ce1f@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAN6m7GoC/x3MQQqDQAwF0KtI1g04arX0KqULyXw1WGZsAm1Bv
+ LtDl2/zdnKYwule7WT4qGtOBeFSkSxjmsEai6mpmz6E+srb1xxvlmzgCBdeYQmvmIWHeAvSjX3
+ bYqISbIZJf//88TyOE6ZYwCBsAAAA
+X-Change-ID: 20261105-pwrseq-core-desc-kerneldoc-7d81c4a633ef
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1633;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=6xeukmjDq+lNKkylfxdTWLXrBwaRiFMGYWd8X7CRWMw=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq7KbiU/r6BxsMkL3eFph1es2+13kLmLBWAoMNd
+ HdxqUG2ysqJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCauym4gAKCRAFnS7L/zaE
+ w+vbEACVQmqNgC3PnpXovbOuKQp7LzwsZfRRlf3xxAjakv1ZjSbPWwD9/C13Xezr9n6C6Q2p8Rm
+ XTMdC1eY666HH9yFwyNoUV6tNNeO9jUOGV7X5JDutbMlp/k5dx+67DNJjiAbLWFiYtAtkG6kPe/
+ 4ryBo0yY2aKRaOVdNnyo6o8j43vaWdg+bDPsYmmmn8BK/0b1wwAYaHYpGQOFOnu38YDxceIZw+3
+ 3WGTv3qGGxhkmXbjzWVAulksIm+M6HFaMFAA6uWboxF87ToAE7ufoILjiSOrixPcfWApFHItOVm
+ 7oTB7QZdPYJRS2hsIXkiM0Xijo8Lf2CT84urTyy6Xim8rYHX+sii82M3KmO8MlLRmeDBcTd+aTd
+ dZHR3FaY4KqIVrxLBD7+LbVWMQEM8hklbN4WL+uWDpeevQ8CugvCPoz7Olo8V6YSQQpDEDEbjsn
+ nOEx0phuESu9HBaLO3hYOJJfan3Z1aBoS+RqcwSA70/mACdoLQYsYX9PDSRkn1uefg5J50ULBko
+ EEDr3N4p3bpPfirvh0alQIVcC8wodg/4Jmw1TotWetQrM9myJfgOysWIWGdjUYrdVGy+WMElAX/
+ 2qNBPFCSUqybJZdmDupiLP+OMAYxf3e+UR+gziPOlNk+f6DR3Pu7vNhrpQMgpCoJaFubvuFkCgh
+ KUW+P6tCOEi/UGA==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA2MyBTYWx0ZWRfXyrKV46oruTeA
+ E8fpldzHpeueyQuyrZaF7vt4VXEKnUNVLsMMUIEKZEkdkeSxpJMSL2nXyA4cevaPGOfkW44SAL6
+ iPdnfrkg5TLvS/yJVaMnV1HtAkYWP5E=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA2MyBTYWx0ZWRfX0v+WubAX5/Ct
+ S++nmbwFxA4740I7GAe+vfVscVFPVg/Ody5orDlxK9RJSfF8cdBF3t54kr363cUr1L9xIGmYz/N
+ 5nEMue6P2wGQ5YKeLBge/boDTPDdmJYeQkwDo172hYycxmwS41smr8JbuJcp81dqNMwnnivZ0Pr
+ y9SifccmqEgnn36Th4lem1RqUdriCxsw+02QuODuOzDtAcjaCtRorEo/6CwIaaHPpBRr2dTotFn
+ lZvbfowhqZaYhvLLi5K/kyJdnvsqHZ3r/ihn65a/SiI3TzCsXX9dMvksvV2arbKQGMeMpTs1p2/
+ S3hv3Uq/l/RY0sOPOwvjfqB/tzkp9rshR98e61hQuwWvE2khJPVTFB2FUqApdb7A78eUObXERIB
+ EzivIh/Vi9rfsOY11s2fiv01zU1kKGYGVXmg3+zBOa3SnAOv44NDkRBjmwspBvU2GTzRNsMl+ZE
+ iaiTW8J5ntyf9AkREcg==
+X-Proofpoint-ORIG-GUID: 8PBTYRaYTiJ9_ZXyM6tZEnwJeN7baIb-
+X-Proofpoint-GUID: 8PBTYRaYTiJ9_ZXyM6tZEnwJeN7baIb-
+X-Authority-Analysis: v=2.4 cv=Y5JtIReN c=1 sm=1 tr=0 ts=6aeca6e5 cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=c92rfblmAAAA:8
+ a=EUspDBNiAAAA:8 a=K8rka6OJ2oXCR8qD2JwA:9 a=QEXdDO2ut3YA:10
+ a=TD8TdBvy0hsOASGTdmB-:22 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_04,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 impostorscore=0 priorityscore=1501 bulkscore=0
+ suspectscore=0 clxscore=1015 lowpriorityscore=0 phishscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050063
 
-Use the new VRR state tracking to handle VRR front porch adjustment.
+Sashiko reported a race in pwrseq_enable/disable() which is a false
+positive. The descriptor structures are not synchronized by power
+sequencing core. Instead: the user that requested a descriptor is
+responsible for serializing access to it. Add a note to the kerneldoc.
 
-To avoid indenting too deeply, refactor the vblank handling into its own
-function while at it, where scope-based cleanup helpers for the lock can
-be used.
-
-Co-developed-by: Derek Foreman <derek.foreman@collabora.com>
-Signed-off-by: Derek Foreman <derek.foreman@collabora.com>
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Closes: https://sashiko.dev/#/bug/linux-d409bd5b-8a5d-485d-aa53-cbc9ddeb8436
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 65 +++++++++++++++++++++++-----
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.h | 10 +++++
- drivers/gpu/drm/rockchip/rockchip_vop2_reg.c |  4 ++
- 3 files changed, 67 insertions(+), 12 deletions(-)
+ drivers/power/sequencing/core.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index bfb384142568..d93b49025795 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -24,6 +24,7 @@
- #include <drm/drm_atomic_uapi.h>
- #include <drm/drm_blend.h>
- #include <drm/drm_crtc.h>
-+#include <drm/drm_crtc_helper.h>
- #include <linux/debugfs.h>
- #include <drm/drm_debugfs.h>
- #include <drm/drm_flip_work.h>
-@@ -2011,6 +2012,25 @@ static void vop2_crtc_atomic_begin(struct drm_crtc *crtc,
- 	vop2->ops->setup_overlay(vp);
- }
- 
-+static void vop2_vp_set_vrr_vtotal(struct vop2_video_port *vp, unsigned int vtotal)
-+{
-+	const u32 mask = RK3568_VP_DSP_VTOTAL_VS_END__DSP_VTOTAL |
-+			 RK3568_VP_DSP_VTOTAL_VS_END__IMD;
-+
-+	if (!vtotal) {
-+		vop2_vp_update_bits(vp, RK3568_VP_DSP_VTOTAL_VS_END,
-+				    RK3568_VP_DSP_VTOTAL_VS_END__IMD, 0);
-+		return;
-+	}
-+
-+	/* Value is 13 bits at most, saturate it if too large */
-+	if (vtotal > RK3568_VP_DSP_VTOTAL_VS_END__DSP_VTOTAL >> 16)
-+		vtotal = RK3568_VP_DSP_VTOTAL_VS_END__DSP_VTOTAL >> 16;
-+
-+	vop2_vp_update_bits(vp, RK3568_VP_DSP_VTOTAL_VS_END, mask,
-+			    vtotal << 16 | RK3568_VP_DSP_VTOTAL_VS_END__IMD);
-+}
-+
- static void vop2_crtc_atomic_flush(struct drm_crtc *crtc,
- 				   struct drm_atomic_commit *state)
- {
-@@ -2029,6 +2049,11 @@ static void vop2_crtc_atomic_flush(struct drm_crtc *crtc,
- 
- 	spin_lock_irq(&crtc->dev->event_lock);
- 
-+	if (crtc_state->vrr_enabled) {
-+		if (drm_crtc_helper_vrr_flush(crtc_state))
-+			vop2_vp_set_vrr_vtotal(vp, crtc_state->vrr_state.cur_vtotal);
-+	}
-+
- 	if (crtc->state->event) {
- 		WARN_ON(drm_crtc_vblank_get(crtc));
- 		vp->event = crtc->state->event;
-@@ -2371,6 +2396,30 @@ static irqreturn_t rk3576_vp_isr(int irq, void *data)
- 	return ret;
- }
- 
-+static void vop2_vp_handle_vblank(struct vop2_video_port *vp)
-+{
-+	struct drm_crtc *crtc = &vp->crtc;
-+	struct vop2 *vop2 = vp->vop2;
-+	u32 val;
-+
-+	guard(spinlock)(&crtc->dev->event_lock);
-+
-+	if (!vp->event)
-+		return;
-+
-+	val = vop2_readl(vop2, RK3568_REG_CFG_DONE);
-+
-+	if (!(val & BIT(vp->id))) {
-+		drm_crtc_send_vblank_event(crtc, vp->event);
-+		vp->event = NULL;
-+		drm_crtc_vblank_put(crtc);
-+
-+		if (crtc->state->vrr_enabled)
-+			if (drm_crtc_helper_vrr_vsync(crtc->state))
-+				vop2_vp_set_vrr_vtotal(vp, crtc->state->vrr_state.cur_vtotal);
-+	}
-+}
-+
- static irqreturn_t vop2_isr(int irq, void *data)
- {
- 	struct vop2 *vop2 = data;
-@@ -2402,18 +2451,7 @@ static irqreturn_t vop2_isr(int irq, void *data)
- 
- 			if (irqs & VP_INT_FS_FIELD) {
- 				drm_crtc_handle_vblank(crtc);
--				spin_lock(&crtc->dev->event_lock);
--				if (vp->event) {
--					u32 val = vop2_readl(vop2, RK3568_REG_CFG_DONE);
--
--					if (!(val & BIT(vp->id))) {
--						drm_crtc_send_vblank_event(crtc, vp->event);
--						vp->event = NULL;
--						drm_crtc_vblank_put(crtc);
--					}
--				}
--				spin_unlock(&crtc->dev->event_lock);
--
-+				vop2_vp_handle_vblank(vp);
- 				ret = IRQ_HANDLED;
- 			}
- 
-@@ -2635,6 +2673,9 @@ static int vop2_create_crtcs(struct vop2 *vop2)
- 
- 		drm_crtc_attach_background_color_property(&vp->crtc);
- 
-+		if (vp->data->vrr_limiter_capable)
-+			drm_crtc_attach_vrr_limiter_properties(&vp->crtc);
-+
- 		drm_crtc_helper_add(&vp->crtc, &vop2_crtc_helper_funcs);
- 		if (vop2->lut_regs) {
- 			const struct vop2_video_port_data *vp_data = &vop2_data->vp[vp->id];
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-index ffcb39c130aa..323e2533de34 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-@@ -231,6 +231,7 @@ struct vop2_video_port_data {
- 	 * @pixel_rate: pixel per cycle
- 	 */
- 	u8 pixel_rate;
-+	bool vrr_limiter_capable;
- };
- 
- struct vop2_video_port {
-@@ -655,6 +656,9 @@ enum dst_factor_mode {
- 
- #define RK3588_VP_DSP_CTRL__GAMMA_UPDATE_EN		BIT(22)
- 
-+#define RK3568_VP_DSP_VTOTAL_VS_END__DSP_VTOTAL		GENMASK(28, 16)
-+#define RK3568_VP_DSP_VTOTAL_VS_END__IMD		BIT(15)
-+
- #define RK3588_VP_CLK_CTRL__DCLK_OUT_DIV		GENMASK(3, 2)
- #define RK3588_VP_CLK_CTRL__DCLK_CORE_DIV		GENMASK(1, 0)
- 
-@@ -810,6 +814,12 @@ static inline void vop2_vp_write(struct vop2_video_port *vp, u32 offset, u32 v)
- 	regmap_write(vp->vop2->map, vp->data->offset + offset, v);
- }
- 
-+static inline void vop2_vp_update_bits(struct vop2_video_port *vp, u32 offset,
-+				       u32 mask, u32 v)
-+{
-+	regmap_update_bits(vp->vop2->map, vp->data->offset + offset, mask, v);
-+}
-+
- static inline u32 vop2_readl(struct vop2 *vop2, u32 offset)
- {
- 	u32 val;
-diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-index c44648e1bc0d..946ca420f3f5 100644
---- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-@@ -1063,6 +1063,7 @@ static const struct vop2_video_port_data rk3588_vop_video_ports[] = {
- 		/* hdr2sdr sdr2hdr hdr2hdr sdr2sdr */
- 		.pre_scan_max_dly = { 76, 65, 65, 54 },
- 		.offset = 0xc00,
-+		.vrr_limiter_capable = true,
- 	}, {
- 		.id = 1,
- 		.feature = VOP2_VP_FEATURE_OUTPUT_10BIT,
-@@ -1071,6 +1072,7 @@ static const struct vop2_video_port_data rk3588_vop_video_ports[] = {
- 		.max_output = { 4096, 2304 },
- 		.pre_scan_max_dly = { 76, 65, 65, 54 },
- 		.offset = 0xd00,
-+		.vrr_limiter_capable = true,
- 	}, {
- 		.id = 2,
- 		.feature = VOP2_VP_FEATURE_OUTPUT_10BIT,
-@@ -1079,12 +1081,14 @@ static const struct vop2_video_port_data rk3588_vop_video_ports[] = {
- 		.max_output = { 4096, 2304 },
- 		.pre_scan_max_dly = { 52, 52, 52, 52 },
- 		.offset = 0xe00,
-+		.vrr_limiter_capable = true,
- 	}, {
- 		.id = 3,
- 		.gamma_lut_len = 1024,
- 		.max_output = { 2048, 1536 },
- 		.pre_scan_max_dly = { 52, 52, 52, 52 },
- 		.offset = 0xf00,
-+		.vrr_limiter_capable = true,
- 	},
- };
- 
+diff --git a/drivers/power/sequencing/core.c b/drivers/power/sequencing/core.c
+index d7a545bb4ed2e22897843f4a81c337deb0c28062..588c6da12acbe942eb5b918e36be11b855c79e2b 100644
+--- a/drivers/power/sequencing/core.c
++++ b/drivers/power/sequencing/core.c
+@@ -270,6 +270,11 @@ static void pwrseq_device_put(struct pwrseq_device *pwrseq)
+  * @target: Reference to the target this descriptor allows to control.
+  * @powered_on: Power state set by the holder of the descriptor (not necessarily
+  * corresponding to the actual power state of the device).
++ *
++ * @note: The user that requested the descriptor from the provider is
++ * responsible for the serialization of access to it. Concurrent threads must
++ * not access the descriptor structure without synchronization as power
++ * sequencing core does not provide any per-descriptor locking.
+  */
+ struct pwrseq_desc {
+ 	struct pwrseq_device *pwrseq;
 
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20261105-pwrseq-core-desc-kerneldoc-7d81c4a633ef
+
+Best regards,
 -- 
-2.56.0
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
