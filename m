@@ -1,76 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793847457;
-	b=4ey9XuYcHupBe4Q3B42ZEqzclW4SrbRS2pk4oQf8CKlT/N9nd4edu2q/b2NT5NjB/Oj5
-	 rxqcsH0MMJuST2iSruWAU6Qf2JAZBNGVStvgNS6hFXJpyZGL8zP16jJEUDM07lCP2oS6E
-	 Q/FZ/qE9l1vZz7c8Zc2egp8QmDFQDpov987C4tdC8ebGY366zReKWZms3YqTkCwlsUqPL
-	 KYLpyHXB6ioXwdw9OeEmgoqGsG+rXHnNOi5kkQKy+Yzu+CdSQZpYTVWgiPvBOr3R4L7Td
-	 UG9cRvailS639umbDOQuNlLqoEysxNdrBtzHh+f8ac6qToO9IR0iG4oEq49z2UlA9Aw==
+	t=1793847766;
+	b=KzIU5md4S/BZl8RIk1U6LgLFJTcjmvXPmSKP2PasnXSbjeSCffX/xeSYT4cDUdnksGTn
+	 m7t3Ce1PUiE/hf6NoWKdhxkCmi1hPPkGyCEhoD7WGZMLHfYtPM4eDeYCwLXwytwy7WYee
+	 Cr4kYc6TOg/nG8a+O0qd7jDmV9dlUynn1/WApVJApqlNLysIVp1gpZsVtZ84xlV+QAI/x
+	 IaDkkHiFjXGiswx8YtLLbeHbYo4ElHk10o/xOETAYXDylD22jIOp/OBbNtPZx5PGTdPwH
+	 txbg/MsnCYFBund56suyeIVjl95HaopPIRSnIt7c3q/q7TqjUQhgln/HD0zczCQGYFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793847457;
-	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=GHVzZzSaSALrH85AAvCPrCKNFWtUKfUMPlV5DCMbabU=;
-	b=QV06X2vSNe3c2AQIK5FeYl+bSIYP/JO74NZQif5qsAvzKsYLYWWmqoa7i/RbLVDqbNVp
-	 kgeYl4EBR8Ionch3rLSy0OEtDz6ZZVZiKF46roAb9bw5BiR+f5Q8jhrNjNcKIMsf/eHBY
-	 8IzGn/nK+RshVP2chKEzcfa41G2BqvqNbVpMu6frsDZGHHSPHtI3hxEbACKlavOVzoyOU
-	 X0YKyBb0cnnWkFYVxER4kW1dcYzsMcNA1eqD1hF6x+uj08nn5jBM3DLTx6d3WmctFhYsG
-	 IRKzF5WFHKQf16WBHXUAenHFjp9miux+u7Ru46ZhO24f2xYRq1TFnqS1O5YoFsISTcg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793847766;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=zGZfT70XyONJWUn47AyDJ+cOnVzmjtxiZaxG/uXFuOA=;
+	b=KZIzzpB5WmNROLqA/gUIq5jQE+/agkdUuXEuaHuvnW2Q0XWs2HGdEvfaFWseacAacfYc
+	 QtqDTOpizOmbvXzOe24/z7ojRvoYJ4fpLzclT1ZszUNFgXT84g/i1lMgsWSuxGuzbdWxA
+	 DA1dd9OyZd/Xy8TFx8t3Sx0O3uighk6yxjsqlMKMjtT6V+VDgqMA6iDecPyQdP08B3X3J
+	 82xupFOiDpMHtFIV7jXsD0KnrXOn8Uwlq2DSBF+/bLiBGFVw6ZMCSI7Zdx0rSSj9OKt35
+	 0ZHVp+38Ir2LxIcHYmaMgEZ3QBWxmwgNP82kyewvMFb3zbWzWRMxNrM5vqNoRo5A/Sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=d-silva.org;
-	spf=pass smtp.mailfrom=d-silva.org;
-	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=hWAJVVP2;
-	arc=none smtp.remote-ip=119.15.109.137
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZRQbI+t8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68852606A33A;
-	Thu,  5 Nov 2026 02:57:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68852606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC767606A328;
+	Thu,  5 Nov 2026 03:02:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=hWAJVVP2
-Received: from Hawking.lan (hawking.lan [10.0.1.4])
-	by www.nmnhosting.com (Postfix) with ESMTP id 2A94B41A53;
-	Thu,  5 Nov 2026 13:57:29 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1793847449;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GHVzZzSaSALrH85AAvCPrCKNFWtUKfUMPlV5DCMbabU=;
-	b=hWAJVVP24JIwgcu1UZ6lnVK37J+8N2MBiWjw7HErrMpqknma72wbXgHBSmZ6qyyxVNrqDr
-	/NnknnNJQN+Qxw84MnMZcUaWNa4KOBsXnQjCce1MmCcQUDsZspeVADLmIuMXPO/yRzCp8e
-	lY5tj7OjGt5s2J9cegHoPsaMubsoOpl+2rnDlJ/0C3cOKI0zRXyAmZKAqyE1zp4Vc4FwLd
-	dOMvhsiSBSJXJbyercvLvtnzqiaEf6BP3ZrHOClwhwqncY5n1xMM9ri5cfHiUarEUSboP1
-	jB+JAPSzluqw5iODNOg9pbpGPmtn9TMQeOHW4IjTOrW+IgIR4PPRDYfnogXE0g==
-X-GPT-Reason: This is a legitimate technical communication regarding
-	a Linux kernel patch. The message content perfectly aligns with
-	the personal mailbox of alastair@d-silva.org, follows standard
-	open-source development formatting (signed-off-by, acked-by, and
-	specific technical refactoring details), and contains no marketing,
-	phishing, or scam indicators. The sender domain matches the recipient
-	domain, and there are no suspicious links or urgency tactics.
-From: Alastair D'Silva <alastair@d-silva.org>
-To: linux-wireless@vger.kernel.org,
-	Ping-Ke Shih <pkshih@realtek.com>,
-	Kalle Valo <kvalo@kernel.org>
-Cc: Luka Gejak <luka.gejak@linux.dev>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Alastair D'Silva <alastair@d-silva.org>
-Subject: [PATCH rtw-next v8 4/4] wifi: rtw88: sdio: Split rtw_sdio_rx_isr into 8051 and 3081 variants
-Date: Thu,  5 Nov 2026 13:57:00 +1100
-Message-ID: <20261105025700.1655219-5-alastair@d-silva.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZRQbI+t8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8E8B1F000C1;
+	Thu,  5 Nov 2026 03:02:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793847765;
+	bh=zGZfT70XyONJWUn47AyDJ+cOnVzmjtxiZaxG/uXFuOA=;
+	h=From:To:Cc:Subject:Date;
+	b=ZRQbI+t817mQXZkNttd+gHuqAA44iJMUXeDiQIUSXTrPFP/K3YlmPF8OMp6wcehz7
+	 ep2l76pxw6rI5FPtzNemsq9Zt8Hvxmlyc/AzpjxVhZd1LZPQFBHkHxxBrF2j49WNCu
+	 chDRbIiobEPaUNLWEW2Cmiqj9CtGnquQ5XqSCMUjkVXLQrk5Ti5HFaeBssFD5eneWt
+	 z14re8NUk/JAaGvdNg3DWwS3abUODHWy0aAKWNxIeRRGh6dv+a/T6LqWlLEwXQvHVl
+	 kbK340AdP6KM/rcyPE46Pbj3IYRNHz0RZ5Mvi30G0+W9t3pWd1V976WurCIiLdIquF
+	 LtgHowtaWKWRQ==
+From: Sasha Levin <sashal@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] selftests/mm: skip split_huge_page_test without the split_huge_pages file
+Date: Wed,  4 Nov 2026 22:02:42 -0500
+Message-ID: <20261105030242.1241448-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261105025700.1655219-1-alastair@d-silva.org>
-References: <20261105025700.1655219-1-alastair@d-silva.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,119 +72,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Split rtw_sdio_rx_isr() into separate 8051 and 3081 variants to be
-clear. The two differences between the architectures are:
-- Register size: REG_SDIO_RX0_REQ_LEN is 16-bit on 8051, 32-bit on 3081.
-- HISR behavior: 8051 re-reads REG_SDIO_HISR on each iteration, while
-  3081 drains based on rx_len without re-reading HISR.
+Every case in split_huge_page_test goes through
+/sys/kernel/debug/split_huge_pages. When that file does not exist,
+because debugfs is not mounted or the kernel has no CONFIG_DEBUG_FS, the
+first write bails out of the whole test and it is reported as a failure:
 
-This is a refactoring without any logic changes.
+  Bail out! write_file(/sys/kernel/debug/split_huge_pages): No such file or directory
 
-Assisted-by: LLM
-Acked-by: Ping-Ke Shih <pkshih@realtek.com>
-Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
-Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
+Skip the test in that case.
+
+Fixes: fa6c02315f74 ("mm: huge_memory: a new debugfs interface for splitting THP tests")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/wireless/realtek/rtw88/sdio.c | 58 +++++++++++++----------
- 1 file changed, 33 insertions(+), 25 deletions(-)
+Found with KernelCI's NVIDIA lab, which runs the tests in a chroot
+without debugfs. Tested on an AMD EPYC 9655P with KernelCI's x86_64
+build of next-20261104: without debugfs the test now skips, and with
+debugfs mounted it still passes all 62 cases.
 
-diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
-index eb1b60a517fb4..64d9f6a41660a 100644
---- a/drivers/net/wireless/realtek/rtw88/sdio.c
-+++ b/drivers/net/wireless/realtek/rtw88/sdio.c
-@@ -1459,17 +1459,13 @@ static int rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
- 	return 0;
- }
+ tools/testing/selftests/mm/split_huge_page_test.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/tools/testing/selftests/mm/split_huge_page_test.c b/tools/testing/selftests/mm/split_huge_page_test.c
+index 33a2473327bb7..deabb7db06192 100644
+--- a/tools/testing/selftests/mm/split_huge_page_test.c
++++ b/tools/testing/selftests/mm/split_huge_page_test.c
+@@ -610,6 +610,9 @@ int main(int argc, char **argv)
+ 	if (!thp_is_enabled())
+ 		ksft_exit_skip("Transparent Hugepages not available\n");
  
--static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
-+static void rtw_sdio_rx_isr_8051(struct rtw_dev *rtwdev)
- {
- 	u32 rx_len, hisr, total_rx_bytes = 0;
- 	int ret;
- 
- 	do {
--		if (rtw_chip_wcpu_8051(rtwdev))
--			rx_len = rtw_read16(rtwdev, REG_SDIO_RX0_REQ_LEN);
--		else
--			rx_len = rtw_read32(rtwdev, REG_SDIO_RX0_REQ_LEN);
--
-+		rx_len = rtw_read16(rtwdev, REG_SDIO_RX0_REQ_LEN);
- 		if (!rx_len)
- 			break;
- 
-@@ -1479,33 +1475,45 @@ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
- 
- 		total_rx_bytes += rx_len;
- 
--		if (rtw_chip_wcpu_8051(rtwdev)) {
--			/* Stop if no more RX requests are pending, even if
--			 * rx_len could be greater than zero in the next
--			 * iteration. This is needed because the RX buffer may
--			 * already contain data while either HW or FW are not
--			 * done filling that buffer yet. Still reading the
--			 * buffer can result in packets where
--			 * rtw_rx_pkt_stat.pkt_len is zero or points beyond the
--			 * end of the buffer.
--			 */
--			hisr = rtw_read32(rtwdev, REG_SDIO_HISR);
--		} else {
--			/* RTW_WCPU_3081 chips have improved hardware or
--			 * firmware and can use rx_len unconditionally.
--			 */
--			hisr = REG_SDIO_HISR_RX_REQUEST;
--		}
-+		/*
-+		 * Stop if no more RX requests are pending, even if
-+		 * rx_len could be greater than zero in the next
-+		 * iteration. This is needed because the RX buffer may
-+		 * already contain data while either HW or FW are not
-+		 * done filling that buffer yet. Still reading the
-+		 * buffer can result in packets where
-+		 * rtw_rx_pkt_stat.pkt_len is zero or points beyond the
-+		 * end of the buffer.
-+		 */
-+		hisr = rtw_read32(rtwdev, REG_SDIO_HISR);
- 	} while (total_rx_bytes < SZ_64K && hisr & REG_SDIO_HISR_RX_REQUEST);
- }
- 
-+static void rtw_sdio_rx_isr_3081(struct rtw_dev *rtwdev)
-+{
-+	u32 rx_len, total_rx_bytes = 0;
-+	int ret;
++	if (access(SPLIT_DEBUGFS, W_OK))
++		ksft_exit_skip("%s: %s\n", SPLIT_DEBUGFS, strerror(errno));
 +
-+	do {
-+		rx_len = rtw_read32(rtwdev, REG_SDIO_RX0_REQ_LEN);
-+		if (!rx_len)
-+			break;
-+
-+		ret = rtw_sdio_rxfifo_recv(rtwdev, rx_len);
-+		if (ret)
-+			break;
-+
-+		total_rx_bytes += rx_len;
-+	} while (total_rx_bytes < SZ_64K);
-+}
-+
- static void rtw_sdio_handle_interrupt_8051(struct rtw_dev *rtwdev, u32 hisr)
- {
- 	if (hisr & REG_SDIO_HISR_TXERR)
- 		rtw_sdio_tx_err_isr(rtwdev);
- 	if (hisr & REG_SDIO_HISR_RX_REQUEST) {
- 		hisr &= ~REG_SDIO_HISR_RX_REQUEST;
--		rtw_sdio_rx_isr(rtwdev);
-+		rtw_sdio_rx_isr_8051(rtwdev);
- 	}
+ 	if (argc > 1)
+ 		optional_xfs_path = argv[1];
  
- 	/*
-@@ -1535,7 +1543,7 @@ static void rtw_sdio_handle_interrupt_3081(struct rtw_dev *rtwdev, u32 hisr)
- 	if (hisr & REG_SDIO_HISR_TXERR)
- 		rtw_sdio_tx_err_isr(rtwdev);
- 	if (hisr & REG_SDIO_HISR_RX_REQUEST)
--		rtw_sdio_rx_isr(rtwdev);
-+		rtw_sdio_rx_isr_3081(rtwdev);
- 
- 	/*
- 	 * Unmasking HIMR re-asserts the IRQ line if new packets arrived or if
 -- 
 2.53.0
 
