@@ -1,91 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793854426;
-	b=fQESLP4aUqeyrU9UA8DElujX/8SJjOKXP2Xl/wtKL7E/pfAgcpKCJU4Nev27KiqlZTOD
-	 3OpUGMj57H74M+pui4WpwjzTwkDUmBQ1S+hW6oOUsVL3bb129rG72xWU3O0KKPhJCAHnF
-	 tQT/JIL2zeqXjE3ob2SZyQN+86PGRILk7q7uIPKmGg3onSnble0FRLJyn8kG73441g2Bz
-	 JybC3CwyX8SicONRm0RVTT5zGTMMM4xP2boICGsdj2Kwaq5zaOxIYYx+ZaHIk1C81LtPq
-	 lZDuH82eElPHgIUPlpagYFvq+QyLN5c/ILAe+sGq72HGusQL7xRtOY7+VCNT3Did/4w==
+	t=1793854455;
+	b=etYON6czh64GqNlh7rdRdLEx5PALwqfT1aK6waJ85b1eg5/hCdK2ojR6PuCGpQqe7o0A
+	 g93XgOFIhQrqlmYuGlQtxgVIPdD1+o3cj0ebixKHkXPNBKRgRaUlnVv0qoMghoz6+zdtt
+	 wHlCsEHvMjlb2XCMrkq8UndpHNufsPdCeElwSVi6zZerSRhBXL49fOZd82iE2dS5rubv5
+	 uNH0syzp1zWvSRFvILlw1WrB9iv/ETLMTOEeA/0feAJKp6IStA9kqEeXmqez83KpAXsnq
+	 4zz+AjRuzxKP1itrgeU70sZjbXT69g/i/tUrLMKf+3PLeNpZd1/y6TanfDqM7Dn719g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793854426;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793854455;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=ZDNxzWK7YpZlxTsXfg5V1qkMa52zlYAF5ggUQoqT++c=;
-	b=5M3xkPVBb9vYQpM51gQNkin10UBQZpgBgjaIaWmSIQFcRO2uYusTGeHOrUoSgsJFLnzm
-	 rcjbi9SEX1SVSKAmBY4d3OBwcaU4Z08leSAksF+N9Ly+WXVeSOLL9ymQaA/bu9WdeSLhc
-	 u6hz0vBL/dtyS96jZska9g0BKuHnnbz0WD7MibYQmwHXjmGEnXMCWtpylcp/eGAa2o0w4
-	 1ns4y860ZBfuA3HxNQSYAjlMjGt5D0era2eBy883Wsps60TFddzlvNwpaBJHLy52qMDiG
-	 J6vs0PoYrmf3f3NnTclYS/Ob0BlJIstViaMaSXinZiUOyS8mu7g4MDdd5hEHLkY6oFw==
+	bh=SOnxtD5kQgW2tF7PVrffOT/lerqKVdwMhcbBwPAH/FM=;
+	b=14HSymAJw/zOofsGm8DNtmDe5VbDHl5AURzb32HpGiBBXKzEtqCcznGHjJ9eQMw6uDZa
+	 iWh7MqweF7OWNo+qJVXouDgVtOK4oK0ZBYt8nMMkDq3GyNe1EsDte0yubhj5+m10t+hda
+	 OlZV3cvXjCG/mEED4MAnnt5Qq7bcAqsc6LXhwD06qtnTMrdgjezWba6yy18D/9RNXOeuy
+	 +4zwOJkk0Hhizrf61CdO7eYo3V7jtBeSieoDfntRCwqwrPGSMIzh07TGrb8+pR/Oqko31
+	 TKaUHMTOCewNH860aTbQ7d1xQjgJQJprExxh7+Myu/UOdqsPL51lzxMJFgN40mvMDhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=fail reason="signature verification failed" header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=ZAa4Q1Y8;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=R8+KcAAw;
+	arc=none smtp.remote-ip=95.215.58.216
+Received: from mta1.migadu.com (out-216.mta1.migadu.com [95.215.58.216])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B02606A32D;
-	Thu,  5 Nov 2026 04:53:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4B02606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EB6F606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:54:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EB6F606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=ZAa4Q1Y8
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 292CF40E0184;
-	Thu,  5 Nov 2026 04:53:42 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
-	reason="fail (body has been altered)" header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id 3_rAxhbUVBXB; Thu,  5 Nov 2026 04:53:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1793854419; bh=nrGcHTqOtpGTvsPDx/bmdCPRbhy65nSxqLA3PtWK+ls=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZAa4Q1Y8uQOXS99gQyK/P+nRvFObN5CmOSyDOcaLr6q1SB8IU/8HE3M6sZ4VuZJ4B
-	 73VVrzRHKqbpbY/X431R7SgZQedtdjQZwk/3UftOatv7Uofdon0kp8b+Rhh/U1yGVB
-	 EEvngoxgPANcXZByYcr53QyfmdgVxO9RNVaWYB6Q4EotX1ROx5/CoQSjixD12k9WYn
-	 mCWXFSGsv/cUAWZ9MeprBYbaAwEI5TEDJFw9POJxJGEKJzwwf996qYNsc0hTwnMvE4
-	 ru72pCqArlOUIBNN5kzpH/0sNMYnqzf9JTX/C6e6GkVWACV9HwvFVj6gp+6bPjOnYW
-	 mJlsoc6ajm9xpZinAyjjNE5Hi/ym02fvHms3yU1WDzJhJmh7gxYjQpwbVr1qqocNiD
-	 SKARca8kHjOBQkVdoyrMW0mEx6sOPk09mvZkVd7oiVTP1RNQQN/XLV8ezEZCZDqECq
-	 m4XujHyiwZ71dCL75nSJenlHOlMZIGj7zVWyprgk/ZzP4XzfovI0RunDXuvbGOEJKe
-	 1g80Wn7noaqHuR/UeifpTFad0i1om4GoxFdsKlxWhPHrzR967Q9oebORecZvBu7VCa
-	 JbzJet6ww2paUI8ZSqg1IznlG1sk1Lw2eR7zoaoJNoaZrJj1kOsgFWjLqd3FHoWj2f
-	 6pD0KqNRAexvx6Gz9rCr2VLA=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 52B6C40E0140;
-	Thu,  5 Nov 2026 04:53:24 +0000 (UTC)
-Date: Wed, 4 Nov 2026 20:53:21 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: Santino Wang =?utf-8?B?KOeOi+S/iuWCkSk=?= <Santino.Wang@mediatek.com>
-Cc: "jonathan.cameron@oss.qualcomm.com" <jonathan.cameron@oss.qualcomm.com>,
-	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
-	Sidney Chang =?utf-8?B?KOW8teWxpeW5syk=?= <Sidney.Chang@mediatek.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Fred-WY Chen =?utf-8?B?KOmZs+WogeWuhyk=?= <Fred-WY.Chen@mediatek.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Light Chen =?utf-8?B?KOmZs+aYseWFiSk=?= <Light.Chen@mediatek.com>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"tony.luck@intel.com" <tony.luck@intel.com>,
-	"linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
-	"matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
-	"mchehab@kernel.org" <mchehab@kernel.org>,
-	Arnab Layek <Arnab.Layek@mediatek.com>
-Subject: Re: [RFC PATCH 00/11] soc: mediatek: add a DRAM ECC error handling
- driver
-Message-ID: <20261105045321.GAauwLwdk2PSruRAcw@fat_crate.local>
-References: <20261102092334.138759-1-santino.wang@mediatek.com>
- <20261102123642.000044cf@oss.qualcomm.com>
- <20261102124434.00007741@oss.qualcomm.com>
- <78ce4a6ef441cb9836466e9ae5e72ffe21a88242.camel@mediatek.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=R8+KcAAw
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=qIbdiMjLr9Y0SUefhfkdE51Knh5aRfQ/kBIeoszyPGg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793854452; v=1; x=1794459252;
+ b=R8+KcAAwP5th3uxXwZF0lIDf5ASxqNS9DWJPnfcXG0mVIzDVJyDNOzlkeiRYDx7qxjDcFf9K
+ /Ko7fmQstorud3tguEysoSZ2htTJ+IeZMRmSfmx9JBGDfUo3xxYWjopCwmZqiMtGccOcV4IfTo2
+ 0MDpnF9TRoQsBPnAp+htccyE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f63fd72cc0f28980;
+	Thu, 05 Nov 2026 04:54:11 +0000
+X-Mizu-Trace-ID: f63fd72cc0f28980
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: baolin.wang@linux.alibaba.com
+Cc: akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	riel@surriel.com,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	harry@kernel.org,
+	jannh@google.com,
+	lance.yang@linux.dev,
+	qi.zheng@linux.dev,
+	pfalcato@suse.de,
+	ayushr@modal.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm: synchronize with PTE table reclaim for all folio sizes
+Date: Thu,  5 Nov 2026 12:54:06 +0800
+Message-ID: <20261105045406.39871-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <affd6da4e8d0de1424a4e0b3bafcd1324dfb6c97.1793847060.git.baolin.wang@linux.alibaba.com>
+References: <affd6da4e8d0de1424a4e0b3bafcd1324dfb6c97.1793847060.git.baolin.wang@linux.alibaba.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,44 +78,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <78ce4a6ef441cb9836466e9ae5e72ffe21a88242.camel@mediatek.com>
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 04:19:27AM +0000, Santino Wang (=E7=8E=8B=E4=BF=8A=
-=E5=82=91) wrote:
-> Which existing interfaces would you recommend for obtaining retirement
-> status from each memory owner? With that information available, can ite=
-ms
-> 5=E2=80=937 be maintained in userspace, or would they require support f=
-rom an MTK
-> driver?
 
-mm/memory-failure.c
+On Thu, Nov 05, 2026 at 10:56:28AM +0800, Baolin Wang wrote:
+>Similar to commit 243cf1f67b36 ("mm: memory: fix truncation removing mapped
+>folios"), the '!pmd_present()' check in page_vma_mapped_walk() can also race
+>with concurrent page table reclamation via zap_empty_pte_table().
 
-Look how the others use it.
+Good catch!
 
-What you write above sounds like you need an EDAC driver which collects a=
-nd
-reports errors. Look at examples in drivers/edac/ and there's some
-documentation in Documentation/edac/. Perhaps ask AI too.
+>page_vma_mapped_walk() is used by many functions including try_to_unmap(),
+>try_to_migrate(), folio_mkclean(), pfn_mkclean_range(), remove_migration_ptes(),
+>page_mapped_in_vma(), and mapping_wrprotect_range(). Except for try_to_unmap()
+>and try_to_migrate(), the other callers do not perform post-walk accounting
+>checks, so the race has no observable impact on them.
+>
+>For migration, the race can cause unnecessary retries. For reclaim via
+>try_to_unmap(), the race can cause failure to reclaim a folio that is in
+>fact already unmapped (as shown below), which may lead to unexpected OOM
+>or increased refaults.
+>
+>CPU 0 (reclaim)                      CPU 1 (MADV_DONTNEED)
+>--------------------------------    --------------------------------
+>folio_lock(F)
+>try_to_unmap(F, TTU_SYNC)
+>                                    zap_pte_range(full PMD range)
+>                                      spin_lock(ptl)
+>                                      clear PTEs
+>                                      zap_empty_pte_table()
+>                                        spin_trylock(pml)
+>                                        pmd_clear()
+>                                        spin_unlock(pml)
+>
+>  page_vma_mapped_walk()
+>    observe !pmd_present(pmde)
+>    nr_pages < HPAGE_PMD_NR
+>    skip synchronization
+>    return false
+>
+>try_to_unmap() returns
+>folio_mapped(F) == true
+>nr_unmap_fail += folio_nr_pages(F)
+>                                    tlb_flush_mmu_tlbonly()
+>                                    tlb_flush_rmaps()
+>                                      remove F's rmaps
+>                                    spin_unlock(ptl)
+>
+>Commit 243cf1f67b36 ("mm: memory: fix truncation removing mapped folios")
+>has already moved the PMD clear operation (via zap_empty_pte_table()) to
+>after tlb_flush_rmaps(). Similarly, page_vma_mapped_walk() also needs to
+>use sync_with_folio_pmd_zap() to synchronize and avoid memory ordering
+>issues on weakly ordered CPUs.
+>
+>Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in madvise(MADV_DONTNEED)")
+>Cc: stable@vger.kernel.org
+>Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+>Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+>---
+> mm/page_vma_mapped.c | 5 +----
+> 1 file changed, 1 insertion(+), 4 deletions(-)
+>
+>diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+>index e6b6170c2f4f..8797467b6f0c 100644
+>--- a/mm/page_vma_mapped.c
+>+++ b/mm/page_vma_mapped.c
+>@@ -293,10 +293,7 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+> 			spin_unlock(pvmw->ptl);
+> 			pvmw->ptl = NULL;
+> 		} else if (!pmd_present(pmde)) {
+>-			if ((pvmw->flags & PVMW_SYNC) &&
+>-			    thp_vma_suitable_order(vma, pvmw->address,
+>-						   PMD_ORDER) &&
+>-			    (pvmw->nr_pages >= HPAGE_PMD_NR))
+>+			if (pvmw->flags & PVMW_SYNC)
 
-If the stuff you need is not there, you can extend the existing interface=
-s by
-justifying the extensions properly.
+Right. Whether the folio can be PMD-mapped doesn't tell us whether its
+PTE table can be reclaimed, so those extra checks can skip synchronization
+that the caller explicitly asked for ;)
 
-But what you have - a completely separate RAS implementation, homegrown
-somewhere else in the kernel doesn't fly. I'm actually wondering how you =
-even
-managed to do this driver without *finding* all the RAS/EDAC glue we have=
- in
-the kernel. Googling for it would've told you that there's something...
+LGTM, thanks!
 
-HTH.
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
 
---=20
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+> 				sync_with_folio_pmd_zap(mm, pvmw->pmd);
+> 
+> 			goto next_pmd;
+>-- 
+>2.47.3
+>
+>
