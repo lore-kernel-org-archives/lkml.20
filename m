@@ -1,111 +1,126 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793909031;
-	b=CoWhk5Kg7SpZ9/3tAc3cxyRFSo57SVaSftsGbNkJyC0BpFp6bxzPUmmUECIKdK26/0sn
-	 CKZ6IOjYnnrHBVvdcYcQEnNpqC4O86+EMM4liPzy7Q4hfPzg1ju5HP2GAbsi9HmlHuPxZ
-	 f85D4YtNmAUl+JUfQxwm7O1oSy91Uqi9vEEWR6w3fkdcX3/6vJBLkveaWC755og+68aLm
-	 OYgVZhhrXWNmhtka58ACmt2BJq8YO0vdVqaPXZPsqG8cah4I/7Mnt+8nwD7JIEyrojkJB
-	 Vsl9yv9VmvoecNGgrN2JE9goOCnH7uUlnDBFeeAacycEoy5poOFgCzzH0HZ39kW6L8Q==
+	t=1793909064;
+	b=LqbX0IpJHcQdFvyyNXZAdEhPoEefV1PAxZCrI++BJXBeyGdA+eHPkpvxwQu6cbVZ0OzT
+	 nvSG9eGEuSpYJBlVoSdZWC3o17NiQc1jclBh6Pd1jQAmeWWqXeBtEys1mLVq8VKm3/HNW
+	 YVBO19wTUvjF3DOZ585oDk++uuP+xTsO+c0RBKDiog/wHuvXEmfHm7yGhFZdp7Zfo7q7v
+	 hB7l+VCP3w0mT6fth1RwKhvH4Wk4irsnVO0YbPI/cwfN3DA0PCJRZIhEa8UbCa3wCLzLA
+	 lUCIx6zED80tHdlD4ogJPdBZM2jOEC9YXQljKai6c1GnvlJuhiNfSYOK00EpoosmBfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793909031;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793909064;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=KJNqYYH4eS7zhfJ38fc5jVlk3yATsfNyOP5G1+rP9mE=;
-	b=JulAohG1E6lkFpZS3SyWweYuebbXRWbppWUi7Gu2HhvoSjG0OOvzuXdAIq5yBbSOg4tE
-	 BVfSUioTVtqOL4tb8Mf0xqjwJ9U0VGJ6QbNRGYbiRtRd+WO8XpADHfXBc8SLvkNfwWigF
-	 tBbFIY2UQP+kpLAA1jbiZOD/mt5r+3YxIhCiJX70bQcm6e7peAMlK92Lfe0pB/GroozDA
-	 beA6awsz4LoHDfj3fF1RHJkVBwYDtLdtIu2Fj/deT86ehH7Fm/vJZrBi1eRgB7DqIewdE
-	 om1Jha6ZLvsM58+S0HwtVRy4O67IWvSPQaZtwh9Zobl73QE5sqHVeMEf64aKe3ZfyQQ==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=Aw5degZrQHo3V3rpws5+g22RRHe/seP3Fa1C54u6MN0=;
+	b=xFEfcSLCDnmG2Q9fc7EECGylyfFwM5Sn3qVPuA6zJIfdG19a/1/Wx+s/QjM8kCuFWwHi
+	 obYSsDscxUomxIC7wluZ6YETSVIEsbvNol5Cj7xiAUDJg8IJOrS14NxGXkOEJZukeAfrz
+	 z6N6Xw8ZlXh9qKe6At0FRd13T8gkebHutHBGaQfsvZnJjH12w7oUXc0ZYdIVqmhcuyY7B
+	 GUWBIezLJX0ZDudXqKbX95Sk2tygN6BWcMtdXQDRBQl01jmegkQ4sixJaWmXfDDrc6kJ5
+	 CK8211ZS3sbiHEygey1FR8UuPPaLFurY+yZ70KnKjfVJlYbMkDvnov2n07L/+BEtKCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U0MPoP73;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b="l7XvB/r0";
+	arc=none smtp.remote-ip=209.85.160.182
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C16AE606D80A
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:03:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C16AE606D80A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26A7D606A32F
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:04:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26A7D606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U0MPoP73
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so24135235e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 12:03:50 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=l7XvB/r0
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-53634b8328eso19644111cf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 12:04:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793909029; x=1794513829; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KJNqYYH4eS7zhfJ38fc5jVlk3yATsfNyOP5G1+rP9mE=;
-        b=U0MPoP73M4axjc3quWeKwzXefidC2bo8u4p3hHYuR5+e1szw+56Ss/8zUbw/pLd2XS
-         RMTMg6FauS/7gWbL8k7Ge65xAnA39/GhxOI2jd7l0UXR/UWyficvd6ULojjTwon1MZg5
-         0MRrdPfDul8rpZu7Fli+zmtfEC9trEmE0G3AztYumPBdJWsC4gsAwkRvNm/tjkzjF/Mh
-         CjLAZSNYaQZWAMFnab62503Xxa0OOohSajpWu3C3I7CHqVAsYlc/53iRKLDAIZ5bT/1x
-         Qg9paZAFurWOheapa1zbGhx5VLDFcgzFxNygickYsVJAgv9i1p3y2yl9C9NIfh5lmkRr
-         gKQg==
+        d=rowland.harvard.edu; s=google; t=1793909062; x=1794513862; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Aw5degZrQHo3V3rpws5+g22RRHe/seP3Fa1C54u6MN0=;
+        b=l7XvB/r0EAsfmkvKwLXi9U+FCv4znlZ1uWBgyBwXXZBCaUNdokUJy53RUHWJ+2kEWT
+         BpwprXNHONWGHOvIsaDTpZHtcB6XsAeWhewDJaNhuiB2euiyoU1AbjQlFtg5R3UAb8Zl
+         j9ild+5nUdzM5UZbj7mYag8Dctagcxk6YhEm1Nh61f0Vznb26vlUpjb7sFwe3CVlNOPl
+         SyOS6Mi1UVvjAAp7m7mMB3CBgWNbht54CQ+BOwi4rfm1nRGeYFie5joT1aagUt7j+5ki
+         VjKs1rKf0ER8mcU7zk1mritepu2DeojMvspSrsP6rAbky9P1uX094nTddzM3XtqlzsCQ
+         csmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793909029; x=1794513829;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KJNqYYH4eS7zhfJ38fc5jVlk3yATsfNyOP5G1+rP9mE=;
-        b=gdtWYSNyWgl6zmfMecF2Sidx8yP/IKzp3vI85lbvDptF4K6zTpCb69q0IU7Lgx243q
-         IAk8oludFOfTDnGz0sdh1qMuobMBOhWhF7JoGaXFSaoE27pQ90Pui613VI6dfOz5W3L4
-         drnjq6C2qVss7UCZV+JvqOJ1yExtMT+kTJJ5sDdVnakGMZeVvV3NI9+EAMxi1n453y6n
-         1Uv/6CFfRgpsb4SjiHwaHSO9buniNnsXX8Lp6UiDo2Knav4LfFDepHeqf+sF/BnUcV/8
-         9ARMGqeVuGKhutNqU8VU+VY2otW8ih5Yz6rNMxCfBZKeVnS9iWOyLXBniQLQpVRAlMt9
-         xJVw==
-X-Forwarded-Encrypted: i=1; AKwUvByqDt43j3u6O9DLyLszAueHNknCR9cG3dBurCDE9jn/7LdA0DUu4t1oTEJOP7/scQijzt3WSm30tbB825c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8HGH3sPIw4/NS1R6vH+zkPTzAmFhLeSPrWdDx1sm/5XPLIVhkT
-	zcq2ho5YHwvwSmyNjWCZmsBzonv+ysl2rA0w/glt4zKtZlAc/6vjjcM5
-X-Gm-Gg: AYBFou3TE1zi9RsJbBhjMiB/BhxQlFUpLaFMQ19sql5sTWX1BtBwHlg2gzqIYS9C4TQ
-	fmOL2artUDv3nO0GttzWXKJAWQPZxsfRu+YRxyhtBj+0Inq4Za5uoewrIo0gRrn//Kv2TE2XiiX
-	4Tg8bsrDw7cFomd2aJBlbtsJmmJk+6pWjA70k2jkx1ME03LUGhNT1kufhYvKRBSMR6GZ2ekRBUO
-	iMk+0eS51xEzOOqHLTK6nQbtLh514k6iAOabNAlHBlzSQkvg5RO1P/OulnOBgKdQEmS56t674po
-	8vIj7DpLbFUNwcaKRyEvmxj8GDMovKI3B7snnVhGxg1fsTvyLGUkZg8uyNI1uJjYJvWP44cSAMY
-	4iCZYB73Kh80A/gNPVIvDBAS+AxRNyxZR+BD0j1AWzecSCZcZ2lGOoHTrmA0nk91luYFi6dsY97
-	iA2piCUdPoz8q7hmS0mJKqRSDo8cFhf64KRvnKkmju4WU1jN5xzJwR+zZpoN1xhTqIQ9eVlzDDC
-	PaSYirKERLD8mZPWyH8czwkLHFe2iR8UXU0oJeACkK9a5UEajdjW5vdNwI0ntIB/o7/TQBfwxLL
-	SJC6P/j3FcGxu/oUzjJjjpN9fcugUT8qxGNX268plYwJcVHyZV/beM6R+LMXEN/g1Jrk2QRutDW
-	7+Q==
-X-Received: by 2002:a05:600c:1d06:b0:4a2:180b:3153 with SMTP id 5b1f17b1804b1-4b6df02925bmr3479715e9.14.1793909029007;
-        Thu, 05 Nov 2026 12:03:49 -0800 (PST)
-Received: from localhost.localdomain ([86.124.84.219])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b57317cb8esm88965055e9.13.2026.11.05.12.03.47
+        d=1e100.net; s=20260707; t=1793909062; x=1794513862;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Aw5degZrQHo3V3rpws5+g22RRHe/seP3Fa1C54u6MN0=;
+        b=d6qTSXpKBALfSnNo+XwmdLqoHqV0/WRnGuwuYMNzs88FT+O0cwOWTvLrk7+/q3eOuA
+         qYFlTTOq9s3yXuhT6iwKg4zkEUEodiFuUV9cFIjNWoWfkaamOKldscr55dZFmlVuq2tF
+         N0NcNvIFSf+0eWXG4CTH6AqniNhwV4kfKf1uI5Ljy1zQHC6e7x0MhVbniToZh5DUtVb+
+         B8bWcVvOyID4wCIilcSROy/Az7bvcT0n/JguPCC5GW6hLkejLDCDECTSrId6Cbo5fvXP
+         DFTGPbFxuT0U4JkGiB6Uf2xkSo8BsyXH31yEnmte+/G/ITBdXkwQePKpGAmUOiOszDoC
+         s9JA==
+X-Forwarded-Encrypted: i=1; AKwUvBxfndM4yj0MBQ+S8kX0sjpaGjdVhpKSyFplfXcRp0BdGMm/v8pnOTZbZwta7mpbxw4KGORsQZwCJZ0j5L4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9FTJSJcz4soCRO5dxnmZayH1o21s18Lv/zqFUJhaLZnJzSTibx
+	dUgXUXe7sHCo8OnW21iBOuERiItQF+lxk9HP0Axr9773SBsvjSAt6Uqbi5QlAAHXxA==
+X-Gm-Gg: AYBFou01upj6ZYrp8ptz9bxa5TRD3If2kGvmPRjjAT+E6P3UZQESofjErpfaPapX/z+
+	rzmQGm9rfR8p8jQ6fBQAOR3KchM0j1WVektCaDXVZA3N1GmRXBAMW6IUcoLD54/SAjd0THUz2mZ
+	G5OzeIDOH0KT4Rn/Zg3O2EQeUXzWwVALRm4Q90GwGwE2OZcYTqFgG2270EVRNQz07JkbTfC0HFn
+	ChBLX4WzhYgIKGSHvYxUlVty7QKqFdyb2xppJ+8df3tB9fJGQloiEbGw/RKdCkWvncMAXfuDG5G
+	8UnkyFTPpqQQ8Zii7yJFBj0Wi55YYJVjsS3c4x+wmkzCfeoLMl2djUl9oq/Tt8/km+ecVPxV39C
+	glzlwiw/tD/BOAMbH8ybDWS6kolab9WugR7eQGY8a+UvCuzP0f/WOmCXm7lilp/gZ/kZZjoBECj
+	1DeKO1UbthvnaL7zceM6qT1MmhQJl7UzxpjPJDwCzma/JdGEhS+1oVk9jo6/wsRl/Nm1qDHBFx9
+	x3EyRBpbbaTBBrwaQjjLK+BJmrnM4GUYhV9T+aMYizV6UYaTWnzXr5kPOtpEBNenabMPs4LYrCg
+	wYJihmJedmQwLjwLVAjirnwLYoUd
+X-Received: by 2002:a05:622a:418d:b0:536:60e1:c87d with SMTP id d75a77b69052e-54e14266a2dmr6509601cf.35.1793909061778;
+        Thu, 05 Nov 2026 12:04:21 -0800 (PST)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54e270167afsm1403061cf.25.2026.11.05.12.04.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 12:03:48 -0800 (PST)
-From: Radu Toader <radu.m.toader@gmail.com>
-To: peterz@infradead.org,
-	mingo@redhat.com
-Cc: juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	tj@kernel.org,
-	void@manifault.com,
-	arighi@nvidia.com,
-	changwoo@igalia.com,
-	frederic@kernel.org,
-	anna-maria@linutronix.de,
-	tglx@kernel.org,
-	sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Radu Toader <radu.m.toader@gmail.com>
-Subject: [PATCH 2/2] softirq: Treat an interrupted idle task as idle in tick_irq_exit()
-Date: Thu,  5 Nov 2026 20:02:05 +0000
-Message-ID: <20261105200205.1178097-3-radu.m.toader@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261105200205.1178097-1-radu.m.toader@gmail.com>
-References: <20261105200205.1178097-1-radu.m.toader@gmail.com>
+        Thu, 05 Nov 2026 12:04:21 -0800 (PST)
+Date: Thu, 5 Nov 2026 15:04:18 -0500
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Johan Hovold <johan@kernel.org>, Eric Dumazet <edumazet@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Nipun Gupta <nipun.gupta@amd.com>,
+	Nikhil Agarwal <nikhil.agarwal@amd.com>,
+	Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>,
+	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-input@vger.kernel.org, netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-bluetooth@vger.kernel.org, linux-acpi@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-pci@vger.kernel.org,
+	iommu@lists.linux.dev, Jason Gunthorpe <jgg@ziepe.ca>
+Subject: Re: [PATCH 05/17] USB: Lock registered interfaces during manual
+ driver binding
+Message-ID: <bf756e50-c77e-40f2-916d-e88887426806@rowland.harvard.edu>
+References: <20261105-device-trust-core-v1-0-1e536825b4eb@nvidia.com>
+ <20261105-device-trust-core-v1-5-1e536825b4eb@nvidia.com>
+ <bb83fe3c-cebb-4bc8-bfc9-24df1cf72b0b@rowland.harvard.edu>
+ <20261105184442.GF8298@unreal>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,136 +130,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105184442.GF8298@unreal>
 
-tick_irq_exit() only runs tick_nohz_irq_exit() if sched_core_idle_cpu(),
-which is idle_cpu() unless core scheduling is built in. idle_cpu() is
-false when the run queue has tasks while the idle task runs.
+On Thu, Nov 05, 2026 at 08:44:42PM +0200, Leon Romanovsky wrote:
+> On Thu, Nov 05, 2026 at 12:24:33PM -0500, Alan Stern wrote:
+> > On Thu, Nov 05, 2026 at 01:42:18PM +0200, Leon Romanovsky wrote:
+> > > From: Leon Romanovsky <leonro@nvidia.com>
+> > > 
+> > > Interface claims hold the USB device lock, but device_bind_driver()
+> > > requires the target interface lock. Without it, trust-policy writes can
+> > > race admission.
+> > 
+> > This says nothing about usb_driver_release_refused_claim() and the code 
+> > related to it.  It is an incomplete description of the patch.
+> > 
+> > Note that nothing prevents drivers from using an interface they claim 
+> > before that interface is registered.  For your scheme to work properly, 
+> > you should make sure the claim is authorized when 
+> > usb_driver_claim_interface() is called, not when the interface is 
+> > registered.
+> 
+> This patch is unrelated to authorization;
 
-That is the normal state of a CPU under sched_ext whose BPF scheduler
-holds back a runnable task of that CPU in one of its queues, e.g. a task
-of a cgroup at its CPU limit: the task stays queued on the CPU's run
-queue and counts in rq->nr_running, while the CPU sits in the idle loop.
+I meant "authorization" in its generic sense.  When you don't trust 
+something, you don't authorize it to do anything.  Pretend I had written 
+"the interface being claimed is trusted" in place of "the claim is 
+authorized" above.
 
-tick_nohz_irq_exit() is what marks an idle CPU as idle again for the
-scheduler clock after an interrupt in the idle loop
-(TS_FLAG_IDLE_ACTIVE, sched_clock_idle_sleep_event()). Without it, the
-next exit from the idle loop doesn't resynchronize the CPU's sched_clock
-with sched_clock_idle_wakeup_event(). With an unstable sched_clock, e.g.
-under kvm-clock without a stable TSC, the clock of a CPU in tick-stopped
-idle is clamped to its last stamp plus a tick, so a task picked after a
-reschedule IPI (which doesn't go through irq_enter()) starts with a
-stale exec_start, and the next tick charges the whole idle stretch to
-it. A cgroup holding one such task was charged twice the CPU time it
-could possibly have used; numbers are in the cover letter.
+>  it ensures that the lock is
+> acquired when the driver is bound.
 
-Commit 548796e2e70b ("sched/core: introduce sched_core_idle_cpu()")
-fixed this same gate for the other case of "the idle task runs while
-nr_running > 0", forced idle under core scheduling, where the symptom
-was too little idle time in /proc/stat. sched_ext made that state
-reachable without CONFIG_SCHED_CORE, and there the symptom is idle time
-charged to a task as runtime.
+That may have been your intention when the patch was created, but if you 
+read the patch you'll see that it includes a whole bunch of material 
+not related to locking during binding.  Namely, this part:
 
-Ask whether the idle task is running, which covers both cases. CPUs
-whose run queue is really empty are unaffected; a CPU interrupted
-between leaving the idle loop and switching to a task has need_resched()
-set or has already left the idle accounting, see tick_nohz_irq_exit().
-sched_core_idle_cpu() has no users left and goes.
+> > > +/*
+> > > + * The driver core refused to bind an interface that a sibling claimed before
+> > > + * it was registered, and dropped the claim. Let the claimant release the
+> > > + * interface instead of operating it with a bound interface but no driver.
+> > > + */
+> > > +void usb_driver_release_refused_claim(struct usb_interface *iface,
+> > > +				      struct device_driver *claimant)
+> > > +{
+> > > +	struct device *dev = &iface->dev;
+> > > +
+> > > +	device_lock(dev);
+> > > +	if (!dev->driver && iface->condition == USB_INTERFACE_BOUND) {
+> > > +		dev->driver = claimant;
+> > > +		usb_unbind_interface(dev);
+> > > +		dev_set_drvdata(dev, NULL);
+> > > +		dev->driver = NULL;
+> > > +	}
+> > > +	device_unlock(dev);
+> > > +}
+> > > +
+> > >  /* returns 0 if no match, 1 if match */
+> > >  int usb_match_device(struct usb_device *dev, const struct usb_device_id *id)
+> > >  {
+> > > diff --git a/drivers/usb/core/message.c b/drivers/usb/core/message.c
+> > > index a738d03c23eac..d35a7710c8ef4 100644
+> > > --- a/drivers/usb/core/message.c
+> > > +++ b/drivers/usb/core/message.c
+> > > @@ -2264,6 +2264,7 @@ int usb_set_configuration(struct usb_device *dev, int configuration)
+> > >  	 */
+> > >  	for (i = 0; i < nintf; ++i) {
+> > >  		struct usb_interface *intf = cp->interface[i];
+> > > +		struct device_driver *claimant;
+> > >  
+> > >  		if (intf->dev.of_node &&
+> > >  		    !of_device_is_available(intf->dev.of_node)) {
+> > > @@ -2277,7 +2278,14 @@ int usb_set_configuration(struct usb_device *dev, int configuration)
+> > >  			dev_name(&intf->dev), configuration,
+> > >  			intf->cur_altsetting->desc.bInterfaceNumber);
+> > >  		device_enable_async_suspend(&intf->dev);
+> > > +		claimant = intf->dev.driver;
+> > > +		if (claimant && !try_module_get(claimant->owner))
+> > > +			claimant = NULL;
+> > >  		ret = device_add(&intf->dev);
+> > > +		if (!ret && claimant && !intf->dev.driver)
+> > > +			usb_driver_release_refused_claim(intf, claimant);
+> > > +		if (claimant)
+> > > +			module_put(claimant->owner);
+> > >  		if (ret != 0) {
+> > >  			dev_err(&dev->dev, "device_add(%s) --> %d\n",
+> > >  				dev_name(&intf->dev), ret);
+> > > diff --git a/drivers/usb/core/usb.h b/drivers/usb/core/usb.h
+> > > index a9b37aeb515be..293340a48b6c5 100644
+> > > --- a/drivers/usb/core/usb.h
+> > > +++ b/drivers/usb/core/usb.h
+> > > @@ -49,6 +49,8 @@ extern int usb_set_isoch_delay(struct usb_device *dev);
+> > >  extern int usb_get_bos_descriptor(struct usb_device *dev);
+> > >  extern void usb_release_bos_descriptor(struct usb_device *dev);
+> > >  extern int usb_set_configuration(struct usb_device *dev, int configuration);
+> > > +void usb_driver_release_refused_claim(struct usb_interface *iface,
+> > > +				      struct device_driver *claimant);
+> > >  extern int usb_choose_configuration(struct usb_device *udev);
+> > >  extern int usb_generic_driver_probe(struct usb_device *udev);
+> > >  extern void usb_generic_driver_disconnect(struct usb_device *udev);
 
-The new gate is strictly wider than the old one, and deliberately so.
-idle_cpu() is idle_rq(), rq->curr == rq->idle && !rq->nr_running &&
-!rq->ttwu_pending, so besides the two cases above it also skipped a CPU
-idling with a wakeup queued by TTWU_QUEUE whose IPI has not run yet.
-That case is now covered too, on any kernel and not just under
-sched_ext. It is the same latch failure for a shorter window, so
-covering it looks right rather than merely harmless, but it was reached
-by reading the code and not measured on its own. What keeps the wider
-gate from giving a CPU idle accounting it should not have is that
-tick_nohz_irq_exit() tests TS_FLAG_INIDLE itself and only does the idle
-bookkeeping inside the idle loop.
+Was this meant to be two separate patches that somehow got combined into 
+one?
 
-Compile-tested in four x86_64 defconfig variants - SCHED_CORE=y with
-NO_HZ_FULL=y, SCHED_CORE=n, NO_HZ_COMMON=n, and SCHED_CLASS_EXT=y with
-SCHED_CORE=y and NO_HZ_FULL=y - with no new warnings at W=1.
-
-Tooling: the bug was found and this patch and changelog were written by
-Claude Opus 5 (Claude Code), in a session measuring cgroup CPU limit
-enforcement under sched_ext. All of the patch and all of the changelog
-are tool-generated; the cover letter says what was and was not measured.
-By the threat model in Documentation/process/threat-model.rst this is a
-regular bug and not a vulnerability: it misreports CPU time under a
-legitimate configuration and crosses no privilege or isolation boundary.
-
-Fixes: f0e1a0643a59 ("sched_ext: Implement BPF extensible scheduler class")
-Signed-off-by: Radu Toader <radu.m.toader@gmail.com>
----
- include/linux/sched.h   |  2 --
- kernel/sched/syscalls.c | 12 ------------
- kernel/softirq.c        | 12 ++++++++++--
- 3 files changed, 10 insertions(+), 16 deletions(-)
-
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 1c93da75226e..0e704ea9416f 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -2326,11 +2326,9 @@ extern void sched_core_free(struct task_struct *tsk);
- extern void sched_core_fork(struct task_struct *p);
- extern int sched_core_share_pid(unsigned int cmd, pid_t pid, enum pid_type type,
- 				unsigned long uaddr);
--extern int sched_core_idle_cpu(int cpu);
- #else
- static inline void sched_core_free(struct task_struct *tsk) { }
- static inline void sched_core_fork(struct task_struct *p) { }
--static inline int sched_core_idle_cpu(int cpu) { return idle_cpu(cpu); }
- #endif
- 
- extern void sched_set_stop_task(int cpu, struct task_struct *stop);
-diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-index 45a127deeadd..22e316680a86 100644
---- a/kernel/sched/syscalls.c
-+++ b/kernel/sched/syscalls.c
-@@ -194,18 +194,6 @@ struct task_struct *idle_task(int cpu)
- 	return cpu_rq(cpu)->idle;
- }
- 
--#ifdef CONFIG_SCHED_CORE
--int sched_core_idle_cpu(int cpu)
--{
--	struct rq *rq = cpu_rq(cpu);
--
--	if (sched_core_enabled(rq) && rq->curr == rq->idle)
--		return 1;
--
--	return idle_cpu(cpu);
--}
--#endif /* CONFIG_SCHED_CORE */
--
- /**
-  * find_process_by_pid - find a process with a matching PID value.
-  * @pid: the pid in question.
-diff --git a/kernel/softirq.c b/kernel/softirq.c
-index 7fc2200392cd..e7d649c29c0c 100644
---- a/kernel/softirq.c
-+++ b/kernel/softirq.c
-@@ -738,8 +738,16 @@ static inline void tick_irq_exit(void)
- #ifdef CONFIG_NO_HZ_COMMON
- 	int cpu = smp_processor_id();
- 
--	/* Make sure that timer wheel updates are propagated */
--	if ((sched_core_idle_cpu(cpu) && !need_resched()) || tick_nohz_full_cpu(cpu)) {
-+	/*
-+	 * Make sure that timer wheel updates are propagated. An interrupted
-+	 * idle loop counts as idle even with runnable tasks queued on the
-+	 * CPU: forced idle under core scheduling, and the tasks sched_ext
-+	 * keeps on a CPU's run queue while its BPF scheduler holds them back.
-+	 * idle_cpu() would skip the idle bookkeeping of tick_nohz_irq_exit()
-+	 * for those, and with an unstable sched_clock the CPU's clock then
-+	 * isn't resynchronized when it leaves the idle loop.
-+	 */
-+	if ((is_idle_task(current) && !need_resched()) || tick_nohz_full_cpu(cpu)) {
- 		if (hardirq_count() == HARDIRQ_OFFSET)
- 			tick_nohz_irq_exit();
- 	}
--- 
-2.43.0
-
+Alan Stern
