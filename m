@@ -1,87 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793894344;
-	b=SJKCc+kTABff2NJ4XGbC4aft1B8Sgdhz9xApnOJAMTFsDuh0g1ZXvvKfi/e/r0Gq15Gq
-	 LjUCVBmWTa5Idp2lh31mhBg5g9ISAE+3yE4RIyCfmRMIgWpW8D2jqlCdfsJ2+YK3rw5rc
-	 /HajpZUeUhZv9rmbSYq7B191eUykZFWa8YAzozoYuFuzsAPPLyvSIDGUpRmm9xUGE0oPr
-	 0h8A3w/011/BVczDpkgv+lT50DXMBLY0nhaV04hxqIYENzT5x5nabl9jDwYIF5rLfiaVa
-	 h8b/+o8XczM0eRJ4WO1c0srQbrtBNTYyYjFgK5vbc4ERTyLbFBqRAJvAFczbtkP9hQg==
+	t=1793894352;
+	b=YSvhFela1E2hJ50QkG7ncbOqLg2+S4NbSoqR3+fh4tgsoKXkEp52BXGX/mGfNsieWI+r
+	 CMl9W3IWORf5cOOw46IEfQlRAgglvH3SVWITH+xkvtfG/Mrt9THaMbXSqF1A8Zx98l2RX
+	 K4RoDyKyJsy3a++jCZZ0Qo/yrcMLukBw79v9lDw0yOyT5ghRNh6b6UFhf6h0S+pawVUWe
+	 sV8VUmlvD1mdwFEYw7kFIMBMTKAJFrdxPNez9+/ZUoL0FWd5LmR2K97HbllU834t+VXIj
+	 j5XjUT0zngdt2Wv9Vq1d7RuVUPViXo61BVYXk0zjZoRVeMJrZkAhAHfZT/NS9yTq23g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793894344;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793894352;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type;
-	bh=Gt+dsVtY+Ulhd891trQ6/uOAHqZGdmuXZACRvYgf7jU=;
-	b=DdSiVlwn1R4+Bj10BSOKcfK51itt6HCuy2TjfvUTXeFVjJ4HExBdG9ITsXSMPRR/eOpE
-	 TAFOP42tJCnpz2JsdEoa48UkAox/vL/odgNemzqo4SnKOzdJDmkyXW/NfvUpS6fhkNjr7
-	 hPdfgxeOYjp/v7uCNv/Wdz1oHjx8FRWpooBi490Qoh9kUAFGSRrBbSD0YJV0OKUgPXsMS
-	 PwsWvp4kIG0DME+kFcLyoY5rurlLHoUY+KY/K1zLfpF84RgrzvHRyR/DuTewAjwbs1MmE
-	 nVtN4N3bKTSw4f4n6pk1ivn1qTyfmwBd8+YcGTBaRBs1LOWSd3CiJXXQCLvrMNJJ8mA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=S7QYdpXb8VDeYDOCOQvmGRySrKCk7ngW17iUEjSNiJ0=;
+	b=OEZz5WBvBprpe7R/ATfs2dsVVJCQZh0zW8z4jkagdhxWG6DwxbNrzQTmWJhVIJQ7F16E
+	 6Ok2bEI0LBzXUvwa0tF50S2stlEVgYb7H9UYFXfIMTnIRrCyfGniZCzbvM6ISGR+2ZoPv
+	 c3eYbSSang9Qy+47z00dPvNLRGwQKm+icL+005rz/Bipp8ioBgXBfDq7jRE4cSJyBP98l
+	 9mr4ZnebPhxwMqJqIhFMf2t/wtgpzPSfJpd9V1aLBmd7s+gNdCB0GXSPZtH8rgFnPYIK+
+	 9V5X9EcsM+s9WbsDpFBTffC7xC8xxtIAIHbsRAPLw+4GO+QYymkyEiK/Lu9yYRJMFwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=cr+QFFzV;
-	arc=none smtp.remote-ip=209.85.218.43
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=oBJuux5B;
+	arc=none smtp.remote-ip=209.85.218.44
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E018606A60D
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:59:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E018606A60D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD16F606A60D
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:59:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD16F606A60D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=cr+QFFzV
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c4d21051042so173700166b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:59:04 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=oBJuux5B
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c411e139259so230349466b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:59:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793894343; x=1794499143; darn=vger.kernel.org;
-        h=content-type:in-reply-to:autocrypt:from:content-language:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Gt+dsVtY+Ulhd891trQ6/uOAHqZGdmuXZACRvYgf7jU=;
-        b=cr+QFFzVeIoztZMODOzKaypScXTCAJiTeiA/Cv9wpMnKZV9+9BzE7e1A4dQag1+Dzd
-         uKmnNgB9yOtnueV0xwLoHZMFDJK9HMrr6ue6rzvwXcoa00gdMrv0danZBnL4v2GpcRoh
-         mJZsyzyDHCVsK4o4hBbuTxDLGDlwaXRS0t/GExa5bSPikNhb12YK7hB180Q/4JY+Fuap
-         Ot3UBzt0Fbn0kX65DM0N/uQSCRtejkKQhpRBMNlKwtreR9mrsLrazydtsoTq/Pk6/jMH
-         7b6lpjH4n5UeH2wxD4fpclkplHWvrUPO/a1Q1tJJTuxP7Tet4TXN/BQ0nXb5Zx+oVwuG
-         zFfA==
+        d=chromium.org; s=google; t=1793894350; x=1794499150; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=S7QYdpXb8VDeYDOCOQvmGRySrKCk7ngW17iUEjSNiJ0=;
+        b=oBJuux5BZXbXohvAs8BXtCKEDm4A5nYeEBTurLzcXiE5wnnWy56MMp4YmfMPd/YnXI
+         QQrMPuhnIdmWJ3sFnpZmhmyxLgxuzqYHtt55nPxZlPmS74xcC7FC/9H08lFZ91U2Zzih
+         LsOHzaAJ4B4IVEOHUK+wSdJ5OI2JBysly0SVg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793894343; x=1794499143;
-        h=content-type:in-reply-to:autocrypt:from:content-language:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Gt+dsVtY+Ulhd891trQ6/uOAHqZGdmuXZACRvYgf7jU=;
-        b=k2oM8WKqGaQy/4E2wVa96KSBe2eSLTreiwwvTOeHBTLXnZ5zB/1RDTDJUq2GLnv5dc
-         uS39qrtrj6N3tgfzVxt4dC8q7rFWdlPQXsr4mODPCLW+8g4HKNBF10qijpjbF5NnJk6X
-         l88+Lb9Lb6GjreK/rb1kiErxR4NAlkbmy+XAz2ub3ISHtuJNB0eWeFZtVsstZzIcaNz6
-         fv+5l9rwAc4XUBYGdySCRHd1AhJONNarvNvsAGig6m+t5CD3eB0Q+5VGo3rskt0H+WXf
-         9Meo7u4kMfclh/XG/6fycreV46fNvYcTJXK7DwWQ/wxrmZduhFGopbucUGkkuqrepNIK
-         mWLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwzNyFq9avg3wzoJ0QFICWRCSv38HjM/9eB+FG5XhXqg7B/+JGhnrb7r6tEez3Nir1+qld2vBZqzs3C8V8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Hgw67YFXNPovKJWQl7ONw7s56GW/t2kwQdiWHjDUfN0Ayv4ep
-	QAeQ1CA62mp1SMdA9PXxnniJ4FEwDJ+FUjRFinLfC8/SOyeFUzevUrLF34MSqWM9Mrk=
-X-Gm-Gg: AYBFou3sGzwi0l4RpR2qmw9NgrBDcT97J4jVe9WlEtaeiUdWUItI8QLXCtHQSwr9WaB
-	ZeUcLSpF36AWibxIxG8avvNiwbw3biVLMWlfx+vBRy3vgq//MRwQSyC98HTl+aKytqYjDAUM17W
-	htII9JBfY+huaNgkYo5ZShfPBQVkSij4cbbsNpv7xj0t1bZHI1meG5IqoL1wQwLW+GUOqL+PU/a
-	1TqHc0wtwPrkP18606m/q6H8EmR5i+a56ABUbwnetA3Q3c9XMag7fOWTB6nAEnDKnYxZ0i6ztx/
-	lHLYz+DNVqsY0YNZLxMSEN1LgqU9I4Z39ny8Sq/c8WmAu6syLxl6/6hhHlCds+SemVNQPVAJBox
-	UIZzvGA7y7+xIcQcv5X9OYrRX383dpggFR24cZ07UGrtmjpK+/mj8zEznsApFQKi9HJZ9ye6kyv
-	5792Nohd+zqngIudc1y78R20Pw0gqb7Dh0jhwk2yS40+Ea4Tv5K1cDrjeoSyhqBkb2pBIzf7t8m
-	OU1+KHLflLXiheQpLGStHzfmJwiIQ5UZ1hiNeUTfxePDpNdsVscPxg6wbE6bCzd5DSNXhfeL5lO
-	BKQdU4Y8KIWlpBYnJtOJTUlGz+OWjrNMsMl9oQExhNAEPkyIGkuVFLGWWTp2zaSLUxeu/uFb0Xk
-	VMeERpyEKzV1XVjbLhTRD0tb23cswiEar14kWygPEsS9C+wx/4Q==
-X-Received: by 2002:a17:906:dfc2:b0:c4d:2895:e492 with SMTP id a640c23a62f3a-c4d2895f829mr138239666b.21.1793894342532;
-        Thu, 05 Nov 2026 07:59:02 -0800 (PST)
-Received: from ?IPV6:2a00:12d0:afa3:c01:92cc:e257:77ba:97a1? (2a00-12d0-afa3-c01-92cc-e257-77ba-97a1.ip.tng.de. [2a00:12d0:afa3:c01:92cc:e257:77ba:97a1])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d0e43f586sm185869766b.35.2026.11.05.07.59.02
+        d=1e100.net; s=20260707; t=1793894350; x=1794499150;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=S7QYdpXb8VDeYDOCOQvmGRySrKCk7ngW17iUEjSNiJ0=;
+        b=n/PNO4i2XhOrn4zVJlP2AEYog9LY+Ja6JOKqUF5UZ5cHIYVadgrmI4K22cgortmmIp
+         ucMQYIfmrNXjsUAylDjPu6VqlMV0O1bV34zr9BbfKZfkdU1YtcfrpE3cdyAiVFPzxNH+
+         DhgOdU5zFPrpFFiXoIRgW0gS2QvWzTxC6g399prM52i+dHplDdQkuKgjN4AAuhixYtZI
+         BC3hSTO/bfgppT1khkbs8iCOWcGJEoXZ7Ta5yrRvkVxltAjjCKZcFDwdJvHWLp1FbA/X
+         nhIaxxBVi4/wLyPx2uMZEFJAPJXGXvUxxiXMAx9Lz7qZ2FGrciZ6LBbSMCtwcHK3/RGF
+         Jt8w==
+X-Forwarded-Encrypted: i=1; AKwUvBx7rHmRpoqW7FD7fsZym8YSTmOdUHdc1bSKTAObqKYgCLChx97w8xgqTpQ3IVVBmsFs7vpLieAq5OMTJQQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9w7QVJkLZ8RzLVpTnnjcFn6SaCyY+hQIOc+X6tkn/psphz8YBd
+	26QJiZg6xw8jdXRDKt7fGpF/Lav5xUeKxGUYS6Et+puHgwmf/WjLfJ67lJr4QlX+4g==
+X-Gm-Gg: AYBFou2mOMg2ImZRQ6gvFshBgnnOa2YEDztab77xPtPr/vKR2f5PwFstGEy3RYScfrc
+	3LvT4cAxC1nOypPkdE9rIYpPdFbVliWIvtUpJH+zMKGtSKXG7zYc7WdZcqsqzIaguDpX8urKMrd
+	0NFfYwRZbf/nyRakuxmw1YgTbcxsF6/cwGjvKRAVthKrObdbChHXYrLzAPHC2tusi7Ar9JfFM1i
+	sKlvmMC3axuAp/5hSRKGw5Ch6JbuUvVscmC0yAfz4vwP8Zi8RVkUkg/1m0bYZ7ulKDpOhPLg4lx
+	Hyt/8jyx7YpgVhP6Zefvoc03o/YsbantBGS/w+3G5SZI5z/ImLGUEsT0UPFRi7yQ+ColV7vexFX
+	Q8uQe3TVpLOeFlfXVBNxVpDZRKYmW2+QcCLmOw+foKfrPSMFMtRKicps3MjjhcS0OOCMm6tD4Z+
+	xcAlxjvYw5ELv9wkfKrY3NWJZ/Q5G8VBMq3O7Z/3oxi5hwO4twtfrMvChIvWAlojlzw0AwZIw9A
+	cZzKPMZl3031vR7GpWaRdUM57nDIOgf9laGRPgxVTQ0JGwU9SrqT3iRZys8ckgNXXvMhcwO5su9
+	GSQkpN0DvGBucHSzWS0X/yp+IPGorj4pyIpvo4UH1+sw66OCpFYpVC+e1OC6FPbIhYObrVlH
+X-Received: by 2002:a17:906:c143:b0:c4c:b545:f29d with SMTP id a640c23a62f3a-c4d34ca20demr657966b.36.1793894350065;
+        Thu, 05 Nov 2026 07:59:10 -0800 (PST)
+Received: from localhost (103.45.147.34.bc.googleusercontent.com. [34.147.45.103])
+        by smtp.gmail.com with UTF8SMTPSA id a640c23a62f3a-c4d0e43ea74sm189017566b.33.2026.11.05.07.59.09
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 07:59:02 -0800 (PST)
-Message-ID: <128f8491-d7d6-4b8d-85e5-20ce9ac506d6@suse.com>
-Date: Thu, 5 Nov 2026 16:59:01 +0100
+        Thu, 05 Nov 2026 07:59:09 -0800 (PST)
+From: Andrei Kuchynski <akuchynski@chromium.org>
+To: Tzung-Bi Shih <tzungbi@kernel.org>
+Cc: Jameson Thies <jthies@google.com>,
+	Benson Leung <bleung@chromium.org>,
+	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>,
+	Guenter Roeck <groeck@chromium.org>,
+	chrome-platform@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Andrei Kuchynski <akuchynski@chromium.org>
+Subject: [PATCH v4 0/2] USB Type-C mode selection
+Date: Thu,  5 Nov 2026 15:59:04 +0000
+Message-ID: <20261105155906.2670094-1-akuchynski@chromium.org>
+X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,139 +96,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] docs: submitting-patches: Clarify half-baked review
- tags
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, workflows@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Wolfram Sang <wsa+renesas@sang-engineering.com>
-References: <20261105082729.19622-2-krzysztof.kozlowski@oss.qualcomm.com>
- <auxKHF7U1x_Ozwpm@ashevche-desk.local>
- <37ae7a7d-5d1d-4571-b5aa-a793f058407c@suse.com>
- <a470cb65-4301-4b19-88fc-3555dff68b4c@kernel.org>
- <f5ac5472-da79-4ac5-82de-36b2f5978f45@suse.com>
- <76b98471-ae9b-4ff3-8337-b50d75c4b7de@kernel.org>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <76b98471-ae9b-4ff3-8337-b50d75c4b7de@kernel.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------qb0waMtCJNKIAE4U7Z52RYut"
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------qb0waMtCJNKIAE4U7Z52RYut
-Content-Type: multipart/mixed; boundary="------------HJIhk848qAwrRZ0XMGqs5pkq";
- protected-headers="v1"; hp="clear"
-Message-ID: <128f8491-d7d6-4b8d-85e5-20ce9ac506d6@suse.com>
-Date: Thu, 5 Nov 2026 16:59:01 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] docs: submitting-patches: Clarify half-baked review
- tags
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, workflows@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Wolfram Sang <wsa+renesas@sang-engineering.com>
-References: <20261105082729.19622-2-krzysztof.kozlowski@oss.qualcomm.com>
- <auxKHF7U1x_Ozwpm@ashevche-desk.local>
- <37ae7a7d-5d1d-4571-b5aa-a793f058407c@suse.com>
- <a470cb65-4301-4b19-88fc-3555dff68b4c@kernel.org>
- <f5ac5472-da79-4ac5-82de-36b2f5978f45@suse.com>
- <76b98471-ae9b-4ff3-8337-b50d75c4b7de@kernel.org>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <76b98471-ae9b-4ff3-8337-b50d75c4b7de@kernel.org>
+This patch series introduces priority-based alternate mode selection
+support for cros_ec_typec. 
+The base patch series and UCSI support was submitted here:
+https://lore.kernel.org/all/20260119131824.2529334-1-akuchynski@chromium.org/
 
---------------HJIhk848qAwrRZ0XMGqs5pkq
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+When AP-driven alternate mode selection is active, the driver enforces the
+mode_selection bit for each registered Alternate Mode. This blocks
+individual altmode drivers from self-activating. Once registration
+completes, the driver evaluates USB4 capability. If USB4 is unsupported,
+it falls back to priority-based negotiation via typec_mode_selection_start.
 
-T24gMDUuMTEuMjYgMTY6NTMsIEtyenlzenRvZiBLb3psb3dza2kgd3JvdGU6DQo+IFJldmll
-d2luZyBwaWVjZXMgb2YgdGhlIHBhdGNoIHdoaWxlIGlnbm9yaW5nIHRoZSBtYWluIHBhcnQg
-b2YgaXQsIGlzDQo+IG11Y2ggY2xvc2VyIHRvIEFja25vd2xlZGdtZW50LCB0aHVzIEFjaywg
-YW5kICJSZXZpZXdlZC1ieSIgY3JlZGl0IHNob3VsZA0KPiBub3QgYmUgYXBwbGljYWJsZS4N
-Cg0KSSBkaXNhZ3JlZSB3aXRoOg0KDQogPj4gUmV2aWV3aW5nIHBpZWNlcyBvZiB0aGUgcGF0
-Y2ggd2hpbGUgaWdub3JpbmcgdGhlIG1haW4gcGFydCBvZiBpdCwgaXMNCiA+PiBtdWNoIGNs
-b3NlciB0byBBY2tub3dsZWRnbWVudCwgdGh1cyBBY2ssIGFuZCAiUmV2aWV3ZWQtYnkiIGNy
-ZWRpdCBzaG91bGQNCiA+PiBub3QgYmUgYXBwbGljYWJsZS4NCg0KQW5kIEkgYWdyZWUgd2l0
-aCBBbmR5J3Mgc3RhdGVtZW50Og0KDQogPj4gVEw7RFI6IEFzIGEgcmV2aWV3ZXIgZm9yIHRo
-ZSBwaWVjZSBpbiBxdWVzdGlvbiBJIGhhdmUgZG9uZSBteSBwYXJ0IGZ1bGx5LiBJdCdzDQog
-Pj4gbm90IG15IGlzc3VlIHRoYXQgdGhlIHBpZWNlIGlzIGJ1bmRsZWQgaW50byBhIHNpbmds
-ZSBwYXRjaC4gV2UgaGF2ZSBvcHRpb25zOg0KID4+IDEpIGFzayB0byBzcGxpdCAoYW5kIHJl
-dmlldyBhcyBzdGFuZGFsb25lIHBpZWNlKTsNCiA+PiAyKSBhZGQgKHBhcnRpYWwpIFJiIHdp
-dGggdGhlIHBvaW50ZXJzIG9mIHdoYXQgZXhhY3RseSBoYXMgYmVlbiByZXZpZXdlZDsNCiA+
-PiAzKSBpZ25vcmUgKHNpbGVudCBhZ3JlZW1lbnQgd2l0aCB0aGUgcmVzcGVjdGl2ZSBzdWJz
-eXN0ZW0gbWFpbnRhaW5lcidzIG9waW5pb24pOw0KID4+IDQpIC4uLnNvbWV0aGluZyBJIGZv
-cmdvdD8uLg0KID4+DQogPj4gKGV2ZW4gcGFydGlhbCkgUmIgIT0gQWNrLg0KDQoNCkp1ZXJn
-ZW4NCg==
+Additionally, we swap the registration sequence of the port's alternate
+modes. Registering DisplayPort after Thunderbolt correctly ensures DP is
+prioritized.
 
---------------HJIhk848qAwrRZ0XMGqs5pkq--
+Changes in v4:
+- Dropped typec_altmode_state_update() call in cros_typec_altmode.c as
+  it is potentially unsafe.
+- Added explicit partner usb mode setting via
+  'typec_partner_set_usb_mode' upon successful USB4 mux configuration.
+- Rebased on top of the latest platform-chrome tree.
+Changes in v3:
+- Replaced delay/timeout consts with macros.
+- Downgraded USB4/mode selection error logs to dev_warn().
+- Fixed comment formatting and added comment for DP/TBT order.
+Changes in v2:
+- Added this cover letter.
+- Rebased on top of the latest platform-chrome tree.
+- Tested on Redrix with Linux Fedora 7.3.0-rc5+.
+v1 Link:
+https://lore.kernel.org/all/20260129131928.794768-1-akuchynski@chromium.org/
 
---------------qb0waMtCJNKIAE4U7Z52RYut
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+Andrei Kuchynski (2):
+  platform/chrome: cros_ec_typec: Enforce priority-based mode selection
+  platform/chrome: cros_ec_typec: Reorder altmode registration
 
------BEGIN PGP SIGNATURE-----
+ drivers/platform/chrome/cros_ec_typec.c | 67 +++++++++++++++++++++----
+ 1 file changed, 56 insertions(+), 11 deletions(-)
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmrsp8UFAwAAAAAACgkQsN6d1ii/Ey+N
-VggAkLl0JUIsq7ZxVjmN0SxrbYQqYpuEah/g2Vrw4O6iCIJnV9Pc5W5s7r2OumPDV1BA5LDGs9PI
-IlOPy1GEM4JjCaPiSwldXbmpdRZws9Incgf50Sb9hmDgyomoV1mrIlVmXqg+PVMqm9cXfEbxJ7Wv
-mK355dU/+RgO118V2Ylom84nifGOLPfFInzgxn7Y1PIir/6d4qznXNzezOfTUkj2osc1wumpvLb8
-h4OId8Bc56rP6vEUto7YoXvzpCudxQk4PEocw0FMYazaz79+C49aj1mgTHbNuE7Q5zO5CnWkXZoC
-9YhKUGJCOhYEAtPEmViOPxDBfe2s92bWuxWiNCUnJw==
-=FzgB
------END PGP SIGNATURE-----
+-- 
+2.56.0.398.g882cbad275-goog
 
---------------qb0waMtCJNKIAE4U7Z52RYut--
