@@ -1,112 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793836972;
-	b=D9D1l7oUq3ddP4aC+vFb+0cSsUBGHq6tfL7R3xOYZXwxdJXubCINa6bufzv7HXK7ftKZ
-	 HImj7JdQo84fAnr+XmFLzxA/LPQYSdKUNP2QqXhQkA7gynuWhGJTCOLSp+IhgntQ1iosP
-	 196j913pkYEPNzNsffnwVdbvk/jsP7p9LcQsCP2Nq2SQYrKV9dL+lzSvQe64Jfo3G61ON
-	 zhqRgdLXw5ttOzDCCyntplDBsArVX9gJGLq1IQE5NAaHbtfq6A2ZMKhrLAdOxhdX1PV67
-	 lt3q4az6gdzS8kAIAhEoV1A+qiO1PwX1WfCWHYtiQYaP0ldt5EoQuETqT9IMlw0o6og==
+	t=1793836998;
+	b=DVdinEtXZfKdAl1P4YARSMyukus+CTU/koR6hjZe8IYEFn0eys0N04+vS9NEbf/EXyCE
+	 VW40PbWkbR0CtSbzmWW3S43LtqsqrT8s0YMpiAC+IkkBTfvIdCskvgziXsy3gG1hcoIxB
+	 sCEnGKF3SDmGl4HHqOWTYPD0hRKDu7Olrk6qnLMOKrcKjR61/+lAFh4tMSWcLTE0mYkbk
+	 xAwbfYFkaLYLN+6k7up0QwWOoOIih7OjMH3qFtVZJ8eVuEEVMTyQVGgrbOWb1OBUuYlLz
+	 VoxcIp4+/n1d6SEzbVmhiJRHcgiq5DO9pl3XWvRRQoSV9jvWXiO5B1ori69bwO1lZBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793836972;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=9RSuIZdwtYVcc2DoJVsmwG7WZuhihyHHeboegvG5hKc=;
-	b=bUFV2IgP2szcQhTDPfar+S5ipVM8qnGpSNhPNbDhETchw+71z2+Ku8aw/fRUjGkR+p1U
-	 XiohaUK6C46V/iXFGh9W/A7hCfVviK/D2ZhtznHkrfvG2ebOZL6qoWAsVxgosYU94WNEL
-	 MTyhI0QvV5/LuXP4EmoHuUONIz3fo1RgF1CZEunllFiXsrXC40ZRSeevZlz9uL0+twjyL
-	 I2DB3s9tYS9CkDxHUCg5K130DtOJgEDrmnjiFlKvyFBbMAFON4kHFnX+hu4pe0A1K+fMc
-	 K6Njx+FPLVeG/G0Am83wvM4Eeet+K3WCGNEUjd1iC1KtXsfWdyl0cDNakF60OQ98vgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793836998;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Mj0OYqNWyM7ZRvEnqupH/g1QTFeLzpiA4WER+LFUBZI=;
+	b=fDh5/v4incS3xZX1ZE1JnAieRJjCY48Fdfws7FxoWPO7shJ/v1UO9uUt2kl33ik8yE7J
+	 ANc0H1YqUQIwtmPtAXHy0AuJKlo0rGx21AfYlV3u+4/THiJmv5OWmjgyCNBuwYziELMYi
+	 VCOc7FvX8Jli51twUI2Ajp28ji86hmpNgeJ+cfa9odCckIabxNCF906IgzVrcJu4JTqJZ
+	 vT0+8to1Q+35XAAcEpCuXy7FdE/YwXnjhETnoV8blmcp57buT2FeoGGEiYV/olJrlxbHa
+	 Kuuxhdt6Nn++WfZ87bzlR9IuT2YHwdEI0oUcy6AUXnsMvfq35CQhML52FDUIDXOBkaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AUZXkwZA;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="d7n/ri6f";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mO42Ab1/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E37F7606A32F
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:02:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E37F7606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31158606A332;
+	Thu,  5 Nov 2026 00:03:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AUZXkwZA;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=d7n/ri6f
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4MvaeI3033204
-	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 00:02:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	9RSuIZdwtYVcc2DoJVsmwG7WZuhihyHHeboegvG5hKc=; b=AUZXkwZArcmvGexQ
-	TQZmhATI0LtBwQwk7FyA2OyzObTgrdFIhZlSx7cVLhcg8Ds9mjRWwJ/b9xNyXr+C
-	7ZrhTuEpB41c4slKvyCvJHCrJzTtkK0IyNUJ9dnFmYgSMLK5SsPQqorXZKOjXM1I
-	7c3ZjL/PVtlhByF/694QQf2GFBtJntjViy6NCyd0KzFwEzEniE0fvRhuH0YQZK6O
-	o5iXSc7jPRqy3Hug6r8vN6pUFKL+ihL29AQl4U31u53iSDdVlXS1CQe4a0nSkhZq
-	iX7ayF9VfQLiq8aO30aTqO1ToqNH8/YUU/2VrYc//7JTr6uEWoVxt88flUeoQVah
-	yaY7KA==
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr8rv1nyg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:02:50 +0000 (GMT)
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1af203073e0so2140920c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:02:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793836970; x=1794441770; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9RSuIZdwtYVcc2DoJVsmwG7WZuhihyHHeboegvG5hKc=;
-        b=d7n/ri6ff6Qus9T0jgCmCs57uslm6jG7FtBDpISYK9eEIaoNvZVrKa51QjoCt+MWoG
-         2203nwhnCsoPWB1KpqrScrHBJ0EQj7SrN0GbP6lrnpoiLIsJddhujt8QM3IGTVeyba73
-         4d6vvV8Pw9na0oo5wxsoOYEMXye6pnvkLDUSdO0qyPCaJIv9BWVYVgc6dn08YroDj1Nf
-         THVG2buJh8+9UW3pdDvfIzHQzTCLLtWUfHi1Gj6Yeh0X7GekUfcSGIfhoKltZLBijXNN
-         T6it+1pUvAE4XR+p9MmtiPFVrh/eKYStmvE9zONBJX8qbtA9xzn31blhxT6VfqUCokUz
-         xCMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793836970; x=1794441770;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9RSuIZdwtYVcc2DoJVsmwG7WZuhihyHHeboegvG5hKc=;
-        b=U+TWX26SSN9pXXgyrHwC+P0rQuiTG3tbYvMI7jMN/q5xd+KdWmGrgnL23fEDlGinjP
-         IhWFJNAaXYusbTI/TJMiy+wf0yividoXLwur+nk68wzVenyF4qfkIXn63AxAHryqI0kD
-         z6vSZq1aTVliWHaN0f4e0mQjaW53cyXqVZ8FX6ym3LbohqUVhS5gKdwYyBLeWSH3sgrz
-         mPN25evegxPBFyd1adhmaKJKwuI2Ps+EsHH409uDARZjFn006pGg62rg0xcXVd6Ey8B9
-         WZpWx/jGOMchhM1Lhg01RA+BQi8iu5cCIt2PhsqJudYIIaeXithW5jBlbXLvM5oYBfZs
-         67LA==
-X-Forwarded-Encrypted: i=1; AKwUvBxlIRmgEAUMf/bGLe6hvV0egFQJ6i9m2vQLQe4VzG5IEqGygNSEyP5llp43iYcliuh6sBGLYr1YXvQ64ow=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Rf+yA084zBGBrA43A+GK9m0afEZPAuvvjrGS6GHwAb/W1dlvd
-	pvxSbswiTEuGZ2Q4fh4FvdxRhMZ2ubRhJrriKF7B6vP9s6GGrJy/3vW2q4wxA3gZWEO//0jjZsc
-	Zf2wzgvUiPLglFHV2EFdtMmkxwNo4rpB4DGPrgFZln8dGgR3fXVrXX6YgmUOdJVC1FPEn7Iwfn2
-	g=
-X-Gm-Gg: AYBFou1VxXHdI8dkASXjpuMbgmeEURhrFKxh3CIgV996br63cU7pY4309Z+mhGBK/Ud
-	E/rT40CZg/7QaEfj+BRFybNzLMYQWb4mn24ekHih7hyTm0ECqvAa6RCf7V6gY0ukt16Q8kX91tQ
-	Zc1niZc7g5frglHR5fm1UZIWu9rOed6HK4smOuiCPL+Qq7WWB0S2vvqmD0NCXvwFb7m4y/Oz1MA
-	WGmfQ0TyVTBzq38dPu5gF0bYiiBeSGVDt4nMr81nQxsAjU4t0U7KoPlf0WVb18okL12zzpdA5TN
-	ir2wkNAgaYT1rKTnLH/pBLvz/C1COcZihUIWDrhRcN0XkVuSJuzI78vJzL0DMAQ63bl5mWs5Xz4
-	KVzVBYPh4yJ+sSm2YRC+maLmPZkpLZxKoMzptn17x553dA2RyFtXsL2vpEhDF7DDUNGxn0H0=
-X-Received: by 2002:a05:701b:42cb:10b0:15b:afce:62c2 with SMTP id a92af1059eb24-1ac5fa237f9mr26890377c88.41.1793836969733;
-        Wed, 04 Nov 2026 16:02:49 -0800 (PST)
-X-Received: by 2002:a05:701b:42cb:10b0:15b:afce:62c2 with SMTP id a92af1059eb24-1ac5fa237f9mr26890329c88.41.1793836968977;
-        Wed, 04 Nov 2026 16:02:48 -0800 (PST)
-Received: from [192.168.1.9] ([106.222.231.155])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245b8822fsm13232698c88.2.2026.11.04.16.02.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 16:02:48 -0800 (PST)
-Message-ID: <4d24ae8d-24a3-4ea7-ab94-2b8886668428@oss.qualcomm.com>
-Date: Thu, 5 Nov 2026 05:32:41 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mO42Ab1/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 091C81F000C1;
+	Thu,  5 Nov 2026 00:03:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793836997;
+	bh=Mj0OYqNWyM7ZRvEnqupH/g1QTFeLzpiA4WER+LFUBZI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mO42Ab1/pdoAuYIMDGYMDLxa6lkLKh2MsW2SZh84mibd5Hc+gSzneHs7iORpdHaHb
+	 Vkojc4ygzX/H9t6rJELt8ktMMtcBjdgc9UtW37nS6sfvOn7BrYUCjHbHxN/YUGZMLN
+	 peVPvwUrIInq4FEcBy3iTP3X5fbn2dQrfHRsZjGHt7EPlH/PuuRdL1iKU90WWknYQX
+	 ecDO2RY0gj+jiAU1Dp8NGwcER0eRVpbuc43nWJnO//VelgiJWMPprk+uWRPBh0OYsW
+	 xmQvi7be0a3rf3OAXSCFKRGGgRD4YtvPr30HpRfSxZ7I3lYpvRAZE3t0TZVn0sXpW6
+	 gaSMwqLeHrZoA==
+Date: Thu, 5 Nov 2026 00:03:13 +0000
+From: Conor Dooley <conor@kernel.org>
+To: joseph@telaak.dev
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Chuanhong Guo <gch981213@gmail.com>, Yao Zi <me@ziyao.cc>,
+	linux-mips@vger.kernel.org, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/4] dt-bindings: clock: Add Siflower SF19A2890
+ peripheral clock/reset managers
+Message-ID: <20261104-remote-festive-1e6d807ef014@spud>
+References: <20261104-sf19a2890-sysm-v1-0-a4fac07df823@telaak.dev>
+ <20261104-sf19a2890-sysm-v1-3-a4fac07df823@telaak.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,122 +65,239 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/a8xx: Fix 1/2b alpha filtering precision
-To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
-        Danylo Piliaiev <dpiliaiev@igalia.com>, Sean Paul <sean@poorly.run>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        open list <linux-kernel@vger.kernel.org>
-References: <20261104212048.21010-1-robin.clark@oss.qualcomm.com>
-Content-Language: en-US
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-In-Reply-To: <20261104212048.21010-1-robin.clark@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=Vtm2kO2n c=1 sm=1 tr=0 ts=6aebc7aa cx=c_pps
- a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=Hj0ah+TxS5FywmoD0uLh0Q==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=V2sgnzSHAAAA:8 a=EUspDBNiAAAA:8 a=mnaISKIp132CONEVCwcA:9 a=QEXdDO2ut3YA:10
- a=vBUdepa8ALXHeOFLBtFW:22 a=Z31ocT7rh6aUJxSkT1EX:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA5NCBTYWx0ZWRfX0eo9dVGidPcE
- I5aHCuNwttC7QCyGrV/UT5sWO8OjPxFXSqcjdw1Eu4NTbfLQdZWNGIdU53vB/ITavRD1AnDK73c
- 2TFCGmt4GbokDK8giLUB31Sp9C+YKec=
-X-Proofpoint-ORIG-GUID: U-zazxkd2MWpP4pECutlbV5aK6DAHWpY
-X-Proofpoint-GUID: U-zazxkd2MWpP4pECutlbV5aK6DAHWpY
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA5NCBTYWx0ZWRfX8IVGscdvRTP+
- RGCixSHD6lyW+CqpoLes/4K/GSNm3FkJxKDSLe1UME3UHTB2XUwmJqVsurQy2ONjRYWpyQG+Zcy
- 2EbVGtEtfozIbqp11GqNAW4fRhq2rS34hghL6TK4/Jn+jLeKvuN/m/rjcitcZJKQhm4Q0QKRfAc
- SSTL/yP6S2BX112BQLyotoctFc7DL4Sl9eVqBYIL6ipkTdNUypiYvEKjOx3DInpDhczF7xmfjJU
- uRkik7y/YzWkuErfiS1CrpOEzIVVyQkw4EiWXpr8Nw7u7BijtCO4OcIQbPx6vGRqK7VjLhOyCye
- 3QWpdjZYEd4MMzc7VfrKsYJJZYk8BFnJ3xg0hmLmmUMJ4sGLzPVOuyVAk2p75ExCZdZeKLYrZZf
- xwwOUCykSWtgBqhRPk/AvaKfCQIojcwNiLmsXdydsEseMDqfsjnaOJJ1kGO8v8GN3MbgsnMRMf3
- B08VlAascDdoJUJCGzQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_05,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 spamscore=0 suspectscore=0 malwarescore=0
- phishscore=0 lowpriorityscore=0 priorityscore=1501 clxscore=1015 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040094
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="pzTvqsj+MD13nmtr"
+Content-Disposition: inline
+In-Reply-To: <20261104-sf19a2890-sysm-v1-3-a4fac07df823@telaak.dev>
 
+--pzTvqsj+MD13nmtr
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+On Wed, Nov 04, 2026 at 02:21:00AM -0500, Joseph Telaak via B4 Relay wrote:
+> From: Joseph Telaak <joseph@telaak.dev>
+>=20
+> Each peripheral block of the Siflower SF19A2890 has a clock and reset
+> manager of its own, with a reset register, a clock gate register and a
+> bus output enable. The blocks differ in which gate and reset bits they
+> use, so each has its own compatible, and clock N of a manager is its
+> input clock N, gated.
 
-On 11/5/2026 2:50 AM, Rob Clark wrote:
-> Need to set b25 in TPL1_DBG_ECO_CNTL1 on all gen8.
-> 
-> Reported-by: Danylo Piliaiev <dpiliaiev@igalia.com>
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+This binding looks like things that we often see that are actually
+incorrect models of the devices in question - things that should be a
+syscon but not implemented as one. I'd like to see what the actual dts
+for this device looks like before signing off (or really even reviewing
+this at all). Given how the clocks look, it is probably accurate but I
+wanna be sure.
+
+Cheers,
+Conor.
+
+>=20
+> Based on Chuanhong Guo's binding, which described every block with one
+> compatible and its bit layout in properties.
+>=20
+> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
 > ---
->  drivers/gpu/drm/msm/adreno/a8xx_catalog.c | 12 ++++++------
->  1 file changed, 6 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a8xx_catalog.c b/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
-> index a7d9ccf26493..510c2f6017db 100644
-> --- a/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
-> +++ b/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
-> @@ -61,7 +61,7 @@ static const struct adreno_reglist_pipe a830_nonctxt_regs[] = {
->  	{ REG_A6XX_TPL1_DBG_ECO_CNTL, 0x10000000, BIT(PIPE_NONE) },
->  	/* Enable cubemap small miplevel optimization settings */
->  	/* BIT(26): Disable final clamp for bicubic filtering */
-> -	{ REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x04000724, BIT(PIPE_NONE) },
-> +	{ REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x06000724, BIT(PIPE_NONE) },
->  	/* Disable tag bank id hashing */
->  	{ REG_A6XX_UCHE_MODE_CNTL, 0x00080000, BIT(PIPE_NONE) },
->  	{ REG_A8XX_UCHE_CCHE_MODE_CNTL, 0x00001000, BIT(PIPE_NONE) },
-> @@ -297,7 +297,7 @@ static const struct adreno_reglist_pipe x285_nonctxt_regs[] = {
->  	{ REG_A7XX_SP_READ_SEL, 0x0001ff00, BIT(PIPE_NONE) },
->  	{ REG_A6XX_TPL1_DBG_ECO_CNTL, 0x10000000, BIT(PIPE_NONE) },
->  	/* BIT(26): Disable final clamp for bicubic filtering */
-> -	{ REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x04000720, BIT(PIPE_NONE) },
-> +	{ REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x06000720, BIT(PIPE_NONE) },
->  	{ REG_A6XX_UCHE_MODE_CNTL, 0x80080000, BIT(PIPE_NONE) },
->  	{ REG_A8XX_UCHE_CCHE_MODE_CNTL, 0x00001000, BIT(PIPE_NONE) },
->  	{ REG_A8XX_UCHE_CCHE_CACHE_WAYS, 0x00000800, BIT(PIPE_NONE) },
-> @@ -397,7 +397,7 @@ static const struct adreno_reglist_pipe a810_nonctxt_regs[] = {
->  	{ REG_A6XX_SP_PERFCTR_SHADER_MASK, 0x0000003f, BIT(PIPE_NONE) },
->  	{ REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP, 0x00000080, BIT(PIPE_NONE) },
->  	{ REG_A6XX_TPL1_DBG_ECO_CNTL, 0x10100000, BIT(PIPE_NONE) },
-> -	{ REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x04000724, BIT(PIPE_NONE) },
-> +	{ REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x06000724, BIT(PIPE_NONE) },
->  	{ REG_A6XX_UCHE_MODE_CNTL, 0x00020000, BIT(PIPE_NONE) },
->  	{ REG_A8XX_UCHE_CCHE_MODE_CNTL, 0x00001000, BIT(PIPE_NONE) },
->  	{ REG_A8XX_UCHE_CCHE_CACHE_WAYS, 0x00000800, BIT(PIPE_NONE) },
-> @@ -630,7 +630,7 @@ static const struct adreno_reglist_pipe a840_nonctxt_regs[] = {
->  	{ REG_A7XX_SP_READ_SEL, 0x0001ff00, BIT(PIPE_NONE) },
->  	{ REG_A6XX_TPL1_DBG_ECO_CNTL, 0x10100000, BIT(PIPE_NONE) },
->  	/* BIT(26): Disable final clamp for bicubic filtering */
-> -	{ REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x04000720, BIT(PIPE_NONE) },
-> +	{ REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x06000720, BIT(PIPE_NONE) },
->  	{ REG_A6XX_UCHE_MODE_CNTL, 0x80080000, BIT(PIPE_NONE) },
->  	{ REG_A8XX_UCHE_CCHE_MODE_CNTL, 0x00001000, BIT(PIPE_NONE) },
->  	{ REG_A8XX_UCHE_CCHE_CACHE_WAYS, 0x00000800, BIT(PIPE_NONE) },
-> @@ -972,7 +972,7 @@ static const struct adreno_reglist_pipe a845_nonctxt_regs[] = {
->  	{ REG_A7XX_SP_READ_SEL, 0x0001ff00, BIT(PIPE_NONE) },
->  	{ REG_A8XX_SP_L0_PERF_TUNE, 0x00000024, BIT(PIPE_NONE) },
->  	{ REG_A6XX_TPL1_DBG_ECO_CNTL, 0x10100000, BIT(PIPE_NONE) },
-> -	{ REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x00000720, BIT(PIPE_NONE) },
-> +	{ REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x02000720, BIT(PIPE_NONE) },
->  	{ REG_A6XX_UCHE_MODE_CNTL, 0x80080000, BIT(PIPE_NONE) },
->  	{ REG_A8XX_UCHE_CCHE_MODE_CNTL, 0x00001000, BIT(PIPE_NONE) },
->  	{ REG_A8XX_UCHE_DBG_ECO_CNTL_0, BIT(31), BIT(PIPE_NONE) },
-> @@ -1030,7 +1030,7 @@ static const struct adreno_reglist_pipe a850_nonctxt_regs[] = {
->  	{ REG_A7XX_SP_READ_SEL, 0x0001ff00, BIT(PIPE_NONE) },
->  	{ REG_A8XX_SP_L0_PERF_TUNE, 0x00000024, BIT(PIPE_NONE) },
->  	{ REG_A6XX_TPL1_DBG_ECO_CNTL, 0x10100000, BIT(PIPE_NONE) },
-> -	{ REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x00000720, BIT(PIPE_NONE) },
-> +	{ REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x02000720, BIT(PIPE_NONE) },
->  	{ REG_A6XX_UCHE_MODE_CNTL, 0x80080000, BIT(PIPE_NONE) },
->  	{ REG_A8XX_UCHE_CCHE_MODE_CNTL, 0x00001000, BIT(PIPE_NONE) },
->  	{ REG_A8XX_UCHE_DBG_ECO_CNTL_0, BIT(31), BIT(PIPE_NONE) },
+>  .../clock/siflower,sf19a2890-periph-crm.yaml       | 169 +++++++++++++++=
+++++++
+>  1 file changed, 169 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/clock/siflower,sf19a2890-p=
+eriph-crm.yaml b/Documentation/devicetree/bindings/clock/siflower,sf19a2890=
+-periph-crm.yaml
+> new file mode 100644
+> index 000000000..7f0bce603
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/siflower,sf19a2890-periph-c=
+rm.yaml
+> @@ -0,0 +1,169 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/clock/siflower,sf19a2890-periph-crm.y=
+aml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Siflower SF19A2890 peripheral clock and reset manager
+> +
+> +maintainers:
+> +  - Joseph Telaak <joseph@telaak.dev>
+> +
+> +description: |
+> +  Each peripheral, or group of peripherals, of the Siflower SF19A2890 has
+> +  a clock and reset manager of its own: a reset register, a clock gate
+> +  register, and a bus output enable that the peripherals need as well as
+> +  their clocks to answer bus requests.
+> +
+> +  Clock N of the manager is input clock N, gated. The reset lines are:
+> +
+> +    gmac-crm:  0 GMAC
+> +    usb-crm:   0 USB controller, 1 USB PHY power-on, 2 USB PHY
+> +    uart-crm:  0 UART0, 1 UART1, 2 UART2
+> +    the others: 0 the block
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - siflower,sf19a2890-gmac-crm
+> +      - siflower,sf19a2890-gpio-crm
+> +      - siflower,sf19a2890-i2c-crm
+> +      - siflower,sf19a2890-pwm-crm
+> +      - siflower,sf19a2890-rf-crm
+> +      - siflower,sf19a2890-spi-crm
+> +      - siflower,sf19a2890-timer-crm
+> +      - siflower,sf19a2890-uart-crm
+> +      - siflower,sf19a2890-usb-crm
+> +      - siflower,sf19a2890-wdt-crm
+> +      - siflower,sf19a2890-wlan24-crm
+> +      - siflower,sf19a2890-wlan5-crm
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    minItems: 1
+> +    maxItems: 6
+> +
+> +  "#clock-cells":
+> +    const: 1
+> +
+> +  "#reset-cells":
+> +    const: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - "#clock-cells"
+> +  - "#reset-cells"
+> +
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: siflower,sf19a2890-gmac-crm
+> +    then:
+> +      properties:
+> +        clocks:
+> +          items:
+> +            - description: GMAC bus clock
+> +            - description: GMAC register clock
+> +            - description: RGMII transmit reference clock
+> +            - description: Timestamp unit clock
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - siflower,sf19a2890-wlan24-crm
+> +              - siflower,sf19a2890-wlan5-crm
+> +    then:
+> +      properties:
+> +        clocks:
+> +          items:
+> +            - description: AXI slave clock
+> +            - description: AXI master clock
+> +            - description: Radio platform clock
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: siflower,sf19a2890-rf-crm
+> +    then:
+> +      properties:
+> +        clocks:
+> +          items:
+> +            - description: Test clock
+> +            - description: AXI slave clock
+> +            - description: Boot clock
+> +            - description: Low-power clock
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: siflower,sf19a2890-usb-crm
+> +    then:
+> +      properties:
+> +        clocks:
+> +          items:
+> +            - description: USB controller clock
+> +            - description: AXI master clock
+> +            - description: USB PHY reference clock
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: siflower,sf19a2890-spi-crm
+> +    then:
+> +      properties:
+> +        clocks:
+> +          items:
+> +            - description: APB clock
+> +            - description: SSP clock
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: siflower,sf19a2890-uart-crm
+> +    then:
+> +      properties:
+> +        clocks:
+> +          items:
+> +            - description: UART0 APB clock
+> +            - description: UART1 APB clock
+> +            - description: UART2 APB clock
+> +            - description: UART0 clock
+> +            - description: UART1 clock
+> +            - description: UART2 clock
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - siflower,sf19a2890-gpio-crm
+> +              - siflower,sf19a2890-i2c-crm
+> +              - siflower,sf19a2890-pwm-crm
+> +              - siflower,sf19a2890-timer-crm
+> +              - siflower,sf19a2890-wdt-crm
+> +    then:
+> +      properties:
+> +        clocks:
+> +          maxItems: 1
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/siflower,sf19a2890-clk.h>
+> +
+> +    clock-controller@19e24c00 {
+> +        compatible =3D "siflower,sf19a2890-uart-crm";
+> +        reg =3D <0x19e24c00 0x10>;
+> +        clocks =3D <&clk CLK_MUXDIV_PBUS>, <&clk CLK_MUXDIV_PBUS>,
+> +                 <&clk CLK_MUXDIV_PBUS>, <&clk CLK_MUXDIV_UART>,
+> +                 <&clk CLK_MUXDIV_UART>, <&clk CLK_MUXDIV_UART>;
+> +        #clock-cells =3D <1>;
+> +        #reset-cells =3D <1>;
+> +    };
+>=20
+> --=20
+> Git-155)
+>=20
+>=20
 
-Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+--pzTvqsj+MD13nmtr
+Content-Type: application/pgp-signature; name=signature.asc
 
--Akhil
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauvHwAAKCRB4tDGHoIJi
+0tJsAP9hmAhQezOCEyCbsJRnvqw8Kn+Oogzh96Jrp+YtB8TFgwEA+IFe+z56AyHi
+f8NRcrJ/uPdeTb5jqVqP94TaDbEUzwU=
+=J/Ed
+-----END PGP SIGNATURE-----
+
+--pzTvqsj+MD13nmtr--
