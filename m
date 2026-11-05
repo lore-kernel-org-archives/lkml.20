@@ -1,99 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793901548;
-	b=vPri3BYMPgOLsfrozCUmds2il7gPzvQHsU+Dbg/YeDOOm6ci/CZle65Hr13fhA9lka60
-	 VCdYbtvOc+QGPwTIxlUWiYDLjq9Qm+UCrkJhwG2DozbHBGAAQeubHjmg01qVmmDweKjyY
-	 mDNPTo9cCNMT18abHDGq+zuTrmqNhn1OKHPR/9jmrUmzCtv7hnnSf48qDXZeN2lonAvoK
-	 /LtB/vx9jC8yYqlNDBLeoiWKCGWzKogPlBOsWN/L820T+ZyvfWjnOw4nSsOhgjuwmCLEf
-	 V6UkGgmvOIumRsCWA2KSuiBoRe23TZ1TOjYCX7K71+X8oBFWKmwGFz9maMjy/4DvEyA==
+	t=1793901585;
+	b=i998+/aCbB0yejvkO2VIIEGsOdZgwxqbu4jE/anT07ASRJ1apriQLZbPGPQfpwdLqNfT
+	 q+oot7OhnV4MUpqW7Y97d2Qq2IqWOBedWxcKmDDQ8AFMdRSFPYxQucpaj+IUIBBLc+H3P
+	 XmJYjmW+AGXDvbEaqG1oQusv0OtxgntqZ6XZRF2IBzl9km2lXJR0heIU5RNYZ5RLzTmYk
+	 Mk7jOlKTl2OFKlc8S9WPXB6SYtSvoQneLwJcHAIt3BSXskKPqpsE94Fvx59F8i49jRFrA
+	 z0ses7nr9wN5aljedk64vRMdd9+XBquLcjo/q0mrLl8xBIUQkvsgBV8nzor9Tz38xcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793901548;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Y7xeTFp5Z0R3BfvoCv14UiADEzEqwyyGG4Zubwum7Zo=;
-	b=B7zss2jTEu0e9mnOiSFjqhhDRacD+Uf46VD9sO6cwky9TofsmyXowgbQ3i8XdmDkzb5E
-	 ir8wFijX3YuWtHpVIiqlVdvs8wibY8nEqww0NMZievWiXmhNx+SY1hL/MFiHukEnEkAwZ
-	 kAds3U20ThLOtTd5t2/GcWQlqoCALC0E04hpQfC16M7IrB+t85yDfssD2FBetON55I6rP
-	 WxDjY/0t6j5lmkg6kjaQ/+B9OE1zYmybvr1fWLiHqVJB7PuQ4gK/Zb5Rquu09G8SUqpVB
-	 iXsOAtHn3drO8B7CLadwvaPlKfPka7UNtSZjlmDzkkb5CvS+uYgfQAfPxUZz4EbxhVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793901585;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=BvCUaVWI470iqdjXZh7SP+GUw9ziFNuq/JVw8WpCJEU=;
+	b=OXt/Pkh99fmd5idLOWvZ+Ceb00v6VUeqoQKVw6JM6677JxWNqbWsIg1y2vB8uKpJHRi9
+	 4q49lr3b9+G7xbw+rxtSKSzF7FSe6udspUDVY2uOS6LqMdz3pfL/RienTWpY7SoAiJLEM
+	 TombI6+IWE0uPlsjfKNuGGaskqV04mWx183e8JGn9o+kUOlBGKjQ0RKZuhcKhwBvAD19j
+	 ulHjWtyVhzPMUYi+eFSFcZ8uA08ded17juGMTfDNg0hdwatIdlGwSFvJ66545zZrCyKFp
+	 +6HHI+GOX8j0LReibBmOOZkr0nztPsRMANKysTCwr49Jf/jmfdk/KXXBiKCoOL3u+rg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=tenstorrent.com;
-	spf=pass smtp.mailfrom=tenstorrent.com;
-	dkim=pass header.d=tenstorrent.com header.i=@tenstorrent.com header.a=rsa-sha256 header.s=google header.b=dqJ44NkJ;
-	arc=none smtp.remote-ip=209.85.210.52
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 038B3606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:59:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 038B3606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tenstorrent.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=KPXo8JWi;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 82D38606A32C;
+	Thu,  5 Nov 2026 17:59:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82D38606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tenstorrent.com header.i=@tenstorrent.com header.a=rsa-sha256 header.s=google header.b=dqJ44NkJ
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-84e513874f8so1634785a34.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 09:59:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tenstorrent.com; s=google; t=1793901546; x=1794506346; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Y7xeTFp5Z0R3BfvoCv14UiADEzEqwyyGG4Zubwum7Zo=;
-        b=dqJ44NkJPiwGo2V96AHNwnQBndqAun+3UlTEsRT5Q7d+2bWxgD7zUbx4MAcSW3OVLv
-         CpBI53xmJwrpxIDNzDkdWDhm46YxXpkmMEcMoo21KCOT6WzLpQ1jaVjd/wbajl90/xrS
-         yFU5mkfQmPn1aCJBfCzRgxAhqy/lV6uDGRUtgtL4MRshxyqUrJ/Z1QGVUMk5qhT60yIM
-         3mueNUrasfH/oVVd4ADB7ZQ4HcaGDYdEsKHNoy1BJK/tdieMGN9OOtYaSBZXcnbErdNJ
-         YzSdAA2Dcnj4lQPwhMNUDyr3pYllAFHoZKHXfH4LsR6RfDYP+QDWA3gCThLqLMeChKPD
-         teSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793901546; x=1794506346;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Y7xeTFp5Z0R3BfvoCv14UiADEzEqwyyGG4Zubwum7Zo=;
-        b=MYs9VLFA0WLyGiyfpr15lSVKCV9O69EhqVJhaLAdGmtHlkD4WhtcL9OKy+1SXBK6AZ
-         g2K00yBoCXpN/ZxW4SV17vFOZEo0/51J2K0tj1T7ivyRdt7gfNNS/xteLGA2Q2Xr1/zj
-         bEM4/eAN7vTiZbDpQgdSoxJISRZ9Jz/i/1jXd79kSnmgc8ssogHskm/2APFxQiULwYUe
-         /916VFi1MkKe37qNtxQbLywws1rss3CgJ4TnoTk6kSrBE97+UjTGmrkV4eikIIfwuRLJ
-         8gyCXNm5JwHxema3CMjL/dfYDkNPr5avTNFuDa+Bl108LtUFaBIY6ovNU0dl7dWnR3uZ
-         sd7w==
-X-Forwarded-Encrypted: i=1; AKwUvBx5/mTxNKuiti9vGBGRzZi8oUbLkstmWxsVUNYMtsOqVSnnvt7l/ajWQ09ZO8efVxTkoSiCk+UkFNvAiuE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9IeAexIzg7FnjAeulbzQGcuPb6cpzplBDT1MQ7prTpURmh1IZ0
-	Zy8qiY2hOq+jTm5FijMDCXBb1jCy6xEzSLG4seo/glXIMU1VRwFUrSYm0kdR8TsyLDw=
-X-Gm-Gg: AYBFou1LNSBmobSn3TfLaX9hu4yMe3772HYduZJL5a3tbpXBRS7sWMwnuyB34u4fvtQ
-	YDeJVGkXzT/+qKWtLwuuFn4EbLnti1a6xoVtvVd2adteBMIbbuEWizqm6anO7n9tZUBLX03HWPO
-	M2gzhX00fAN1hP53rLCaFEaO+x7wFi6N7PGhddVKCEEVO5AzVb1MNtFrWp8hRBqNePGWgBxxzkm
-	dP9DQwNU0kCxeGBcA4O8ugxLnov+SGIeIKzoh8TWWHAUBPVmfaxgl279NwlOdeo+JiXpzwRqlAv
-	swxoSuMBAQ+AW6va1/xVfVP9OfbDdcGvzzwA6tdMlP6vY+7esH3p20yUl1KCOpRJYXCRMDUlHlC
-	/hWRzc8T+5ORHjAO/Aq/AVbnpCcZAOJpOhn2pr6FGEjQyUfjKY5VKAtrZ+ZYX2RN5aGMOylzF/3
-	eu5aacMr9VEpKkUsEfZND3UyXhenKQtayLsBVNTOFtg/lSU69skUWNCmLG+dVDK5TN8nhJy7crf
-	K28sh6g7sHQEiM3kDGhHhwRZv73eBTM8f20c7449VWWu+0NTVrVp8O4Mecwe1fto8wgcw/UD4Ll
-	ICvfOYyPGHQpekitD7ghm/cvZoAc9ssn825rVl0=
-X-Received: by 2002:a05:6830:2b0e:b0:85c:4897:f2ff with SMTP id 46e09a7af769-85f1d0de43bmr99174a34.25.1793901545806;
-        Thu, 05 Nov 2026 09:59:05 -0800 (PST)
-Received: from localhost ([12.55.13.134])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85ef3e603b9sm5021990a34.20.2026.11.05.09.59.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 09:59:05 -0800 (PST)
-Date: Thu, 5 Nov 2026 11:59:04 -0600
-From: Andy Chiu <tchiu@tenstorrent.com>
-To: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Andy Chiu <andybnac@gmail.com>,
-	Guobin Zhang <guobin.zhang@intel.com>,
-	Deepak Gupta <debug@rivosinc.com>, Shuah Khan <shuah@kernel.org>,
-	linux-riscv@lists.infradead.org, linux-kselftest@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=KPXo8JWi
+Received: by linux.microsoft.com (Postfix, from userid 1186)
+	id 9617C20B7169; Thu,  5 Nov 2026 09:59:28 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 9617C20B7169
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1793901568;
+	bh=BvCUaVWI470iqdjXZh7SP+GUw9ziFNuq/JVw8WpCJEU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=KPXo8JWiGMU7Cxvfx16IfaXHf2Roh/RCRU1xm7Ebc0MTBVu5Gq1UQZN+HU6iGV1oh
+	 yAAssdu3aDu3R6SwqDenRgwSf8LMWTkNmz9S8TdMB821yU932OzSf0UuBThk3cR5Ki
+	 q+2g3GViLQfS0vIJJ7jXTLnTx5C+l3FOYokHIgw4=
+From: Konstantin Taranov <kotaranov@linux.microsoft.com>
+To: kotaranov@microsoft.com,
+	snsanghvi@microsoft.com,
+	longli@microsoft.com,
+	jgg@ziepe.ca,
+	leon@kernel.org
+Cc: linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] selftests: riscv: test FP state restore when
- rt_sigreturn() faults
-Message-ID: <auzD6JgYSnW186Bb@Tao-Chiu's-Mac>
-References: <20261031161826.858908-1-nickolai@csail.mit.edu>
- <20261031161826.858908-3-nickolai@csail.mit.edu>
+Subject: [PATCH rdma-next v9 3/9] net/mana: Extend GDMA encoding for new RDMA WQEs
+Date: Thu,  5 Nov 2026 09:59:22 -0800
+Message-ID: <20261105175928.1326682-4-kotaranov@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20261105175928.1326682-1-kotaranov@linux.microsoft.com>
+References: <20261105175928.1326682-1-kotaranov@linux.microsoft.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,210 +63,182 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261031161826.858908-3-nickolai@csail.mit.edu>
+Content-Transfer-Encoding: 8bit
 
-Hi Nickolai,
+From: Konstantin Taranov <kotaranov@microsoft.com>
 
-On Sat, Oct 31, 2026 at 12:18:26PM -0400, Nickolai Zeldovich wrote:
-> Add a test for the previous patch: the signal frame sits on a
-> userfaultfd page that the handler drops after dirtying the FP
-> registers, so rt_sigreturn() sleeps in the middle of copying the FP
-> registers from the frame. The interrupted code must get its own
-> registers back.
-> 
-> The test is skipped without the D extension or when userfaultfd is not
-> available to the caller.
->
+Extend mana_gd_post_work_request() to support extra-large OOB data and
+fixed-size WQEs. These formats are supported only for power-of-two WQE
+sizes.
 
-The test is failing on qemu, with or without the patch applied.
+For fixed-size WQEs, use num_pad_sge to specify the padding size. Encode
+the WQE header fields required by RC QPs based on the WR flags.
 
-> Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
-> ---
->  .../selftests/riscv/sigreturn/.gitignore      |   1 +
->  .../selftests/riscv/sigreturn/Makefile        |   5 +-
->  .../selftests/riscv/sigreturn/fp_restore.c    | 146 ++++++++++++++++++
->  3 files changed, 151 insertions(+), 1 deletion(-)
->  create mode 100644 tools/testing/selftests/riscv/sigreturn/fp_restore.c
-> 
-> diff --git a/tools/testing/selftests/riscv/sigreturn/.gitignore b/tools/testing/selftests/riscv/sigreturn/.gitignore
-> index 35002b8ae780..8ed282ecb618 100644
-> --- a/tools/testing/selftests/riscv/sigreturn/.gitignore
-> +++ b/tools/testing/selftests/riscv/sigreturn/.gitignore
-> @@ -1 +1,2 @@
-> +fp_restore
->  sigreturn
-> diff --git a/tools/testing/selftests/riscv/sigreturn/Makefile b/tools/testing/selftests/riscv/sigreturn/Makefile
-> index 8c77508641f3..ac7ae7a7c2ae 100644
-> --- a/tools/testing/selftests/riscv/sigreturn/Makefile
-> +++ b/tools/testing/selftests/riscv/sigreturn/Makefile
-> @@ -4,9 +4,12 @@
->  
->  CFLAGS += -I$(top_srcdir)/tools/include
->  
-> -TEST_GEN_PROGS := sigreturn
-> +TEST_GEN_PROGS := sigreturn fp_restore
->  
->  include ../../lib.mk
->  
->  $(OUTPUT)/sigreturn: sigreturn.c
->  	$(CC) -static -o $@ $(CFLAGS) $(LDFLAGS) $^
-> +
-> +$(OUTPUT)/fp_restore: fp_restore.c
-> +	$(CC) -static -pthread -o $@ $(CFLAGS) $(LDFLAGS) $^
-> diff --git a/tools/testing/selftests/riscv/sigreturn/fp_restore.c b/tools/testing/selftests/riscv/sigreturn/fp_restore.c
-> new file mode 100644
-> index 000000000000..1a56684c5f28
-> --- /dev/null
-> +++ b/tools/testing/selftests/riscv/sigreturn/fp_restore.c
-> @@ -0,0 +1,146 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Check that rt_sigreturn() restores the FP registers from the signal
-> + * frame when the copy of the frame sleeps on a page fault while the
-> + * handler's FP state is dirty.  The frame is placed on a userfaultfd
-> + * page that the handler drops, so the copy faults after f0-f15.
-> + */
-> +#include <fcntl.h>
-> +#include <pthread.h>
-> +#include <signal.h>
-> +#include <stdint.h>
-> +#include <string.h>
-> +#include <sys/auxv.h>
-> +#include <sys/ioctl.h>
-> +#include <sys/mman.h>
-> +#include <sys/syscall.h>
-> +#include <ucontext.h>
-> +#include <unistd.h>
-> +#include <asm/hwcap.h>
-> +#include <linux/userfaultfd.h>
-> +#include "kselftest_harness.h"
-> +
-> +#define PAGE		4096UL
-> +#define STACK_SIZE	65536UL
-> +/* the page boundary falls this far into the FP image, after f0-f15 */
-> +#define SPLIT		128
-> +
-> +#define F0_15	"0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15"
-> +/* caller-saved only, so the handler's epilogue does not reload them */
-> +#define HANDLER_REGS	"0, 1, 2, 3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 15"
-> +
-> +static uint64_t pattern[16], handler_pattern[16];
-> +static void *saved;
-> +static int placed;
-> +
-> +static void handler(int sig, siginfo_t *si, void *context)
-> +{
-> +	ucontext_t *uc = context;
-> +	unsigned long split = (unsigned long)&uc->uc_mcontext.__fpregs + SPLIT;
-> +
-> +	placed = !(split & (PAGE - 1));
-> +	if (placed) {
-> +		/* rt_sigreturn() will fault on this page and wait for serve() */
-> +		memcpy(saved, (void *)split, PAGE);
-> +		if (madvise((void *)split, PAGE, MADV_DONTNEED))
-> +			_exit(1);
-> +	}
-> +	asm volatile(".irp i, " HANDLER_REGS "\n"
-> +		     "fld f\\i, \\i * 8(%[h])\n"
-> +		     ".endr\n"
-> +		     : : [h] "r" (handler_pattern)
-> +		     : "memory", "ft0", "ft1", "ft2", "ft3", "ft4", "ft5",
-> +		       "ft6", "ft7", "fa0", "fa1", "fa2", "fa3", "fa4", "fa5");
-> +}
-> +
-> +static void *serve(void *arg)
-> +{
-> +	struct uffdio_copy copy = { .src = (unsigned long)saved, .len = PAGE };
-> +	struct uffd_msg msg;
-> +	int fd = (long)arg;
-> +
-> +	while (read(fd, &msg, sizeof(msg)) == sizeof(msg)) {
-> +		copy.dst = msg.arg.pagefault.address & ~(PAGE - 1);
-> +		copy.copy = 0;
-> +		ioctl(fd, UFFDIO_COPY, &copy);
-> +	}
-> +	return NULL;
-> +}
-> +
-> +TEST(fp_restore_frame_fault)
-> +{
-> +	struct sigaction sa = {
-> +		.sa_sigaction = handler,
-> +		.sa_flags = SA_SIGINFO | SA_ONSTACK,
-> +	};
-> +	struct uffdio_api api = { .api = UFFD_API };
-> +	struct uffdio_register reg = { .mode = UFFDIO_REGISTER_MODE_MISSING };
-> +	stack_t ss = { .ss_size = STACK_SIZE };
-> +	long pid = getpid(), tid = syscall(__NR_gettid);
-> +	uint64_t out[16];
-> +	unsigned long fcsr, shift;
-> +	pthread_t thread;
-> +	int fd, i;
-> +
-> +	if (!(getauxval(AT_HWCAP) & COMPAT_HWCAP_ISA_D))
-> +		SKIP(return, "no D extension");
-> +
-> +	fd = syscall(__NR_userfaultfd, O_CLOEXEC);
-> +	if (fd < 0)
-> +		SKIP(return, "userfaultfd not available");
-> +	ASSERT_EQ(0, ioctl(fd, UFFDIO_API, &api));
-> +
-> +	for (i = 0; i < 16; i++) {
-> +		pattern[i] = 0x4010000000000000ULL + i;
-> +		handler_pattern[i] = 0xbff0000000000000ULL + i;
-> +	}
-> +
-> +	saved = mmap(NULL, PAGE, PROT_READ | PROT_WRITE,
-> +		     MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-> +	ASSERT_NE(MAP_FAILED, saved);
-> +	ss.ss_sp = mmap(NULL, STACK_SIZE, PROT_READ | PROT_WRITE,
-> +			MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-> +	ASSERT_NE(MAP_FAILED, ss.ss_sp);
-> +	/* populate it, so only the page the handler drops faults */
-> +	memset(ss.ss_sp, 0, STACK_SIZE);
-> +	reg.range.start = (unsigned long)ss.ss_sp;
-> +	reg.range.len = STACK_SIZE;
-> +	ASSERT_EQ(0, ioctl(fd, UFFDIO_REGISTER, &reg));
-> +	ASSERT_EQ(0, pthread_create(&thread, NULL, serve, (void *)(long)fd));
-> +	ASSERT_EQ(0, sigaction(SIGUSR1, &sa, NULL));
-> +
-> +	/* lower the frame until the FP image crosses a page at SPLIT */
-> +	for (shift = 0; shift < PAGE && !placed; shift += 16) {
-> +		register long a0 asm("a0") = pid;
-> +		register long a1 asm("a1") = tid;
-> +		register long a2 asm("a2") = SIGUSR1;
-> +		register long a7 asm("a7") = __NR_tgkill;
-> +
-> +		ss.ss_size = STACK_SIZE - shift;
-> +		ASSERT_EQ(0, sigaltstack(&ss, NULL));
-> +		fcsr = 0x1f;
-> +		asm volatile(".irp i, " F0_15 "\n"
-> +			     "fld f\\i, \\i * 8(%[in])\n"
-> +			     ".endr\n"
-> +			     "csrw fcsr, %[fcsr]\n"
-> +			     "ecall\n"
-> +			     "csrr %[fcsr], fcsr\n"
-> +			     ".irp i, " F0_15 "\n"
-> +			     "fsd f\\i, \\i * 8(%[out])\n"
-> +			     ".endr\n"
-> +			     : "+r" (a0), [fcsr] "+r" (fcsr)
-> +			     : "r" (a1), "r" (a2), "r" (a7),
-> +			       [in] "r" (pattern), [out] "r" (out)
-> +			     : "memory", "ft0", "ft1", "ft2", "ft3", "ft4", "ft5",
-> +			       "ft6", "ft7", "fs0", "fs1", "fa0", "fa1", "fa2",
-> +			       "fa3", "fa4", "fa5");
-> +	}
-> +	ASSERT_TRUE(placed);
-> +
-> +	for (i = 0; i < 16; i++) {
-> +		EXPECT_EQ(pattern[i], out[i]) TH_LOG("f%d", i);
-> +	}
-> +	EXPECT_EQ(0x1fUL, fcsr);
-> +}
-> +
-> +TEST_HARNESS_MAIN
-> -- 
-> 2.53.0
-> 
+Signed-off-by: Konstantin Taranov <kotaranov@microsoft.com>
+---
+v2:
+- Reject fixed WQEs that cannot fit the header, aligned OOB and SGEs.
+
+ .../net/ethernet/microsoft/mana/gdma_main.c   | 55 ++++++++++++++++---
+ include/net/mana/gdma.h                       | 21 +++++--
+ 2 files changed, 63 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+index 05ba7055405d..2717889e626e 100644
+--- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
++++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+@@ -1699,8 +1699,27 @@ static u32 mana_gd_write_client_oob(const struct gdma_wqe_request *wqe_req,
+ 	header->num_sge = wqe_req->num_sge;
+ 	header->inline_oob_size_div4 = client_oob_size / sizeof(u32);
+ 
++	if (client_oob_size == INLINE_OOB_EXTRA_LARGE_SIZE) {
++		/* Extra large oob is encoded as 7 */
++		header->inline_oob_size_div4 = 7;
++		/* Extra large oob has 8 byte padding  */
++		client_oob_size += 8;
++	}
++
++	if (wqe_req->wqe_size_in_bu) {
++		header->num_sge = (wqe_req->wqe_size_in_bu * GDMA_WQE_BU_SIZE
++			- sizeof(struct gdma_wqe) - client_oob_size) / sizeof(struct gdma_sge);
++		header->num_pad_sge = header->num_sge - wqe_req->num_sge;
++	}
++
++	header->check_rsn = !!(wqe_req->flags & GDMA_WR_CHECK_RSN);
++	header->check_sn = !!(wqe_req->flags & GDMA_WR_CHECK_SN);
++	header->fence = !!(wqe_req->flags & GDMA_WR_FENCE);
++	header->fence_extended = !!(wqe_req->flags & GDMA_WR_FENCE_EXTENDED);
++	header->generation1 = !!(wqe_req->flags & GDMA_WR_GENERATION_1);
++
+ 	if (oob_in_sgl) {
+-		WARN_ON_ONCE(wqe_req->num_sge < 2);
++		WARN_ON_ONCE(wqe_req->num_sge < 1);
+ 
+ 		header->client_oob_in_sgl = 1;
+ 
+@@ -1714,8 +1733,10 @@ static u32 mana_gd_write_client_oob(const struct gdma_wqe_request *wqe_req,
+ 	/* The size of gdma_wqe + client_oob_size must be less than or equal
+ 	 * to one Basic Unit (i.e. 32 bytes), so the pointer can't go beyond
+ 	 * the queue memory buffer boundary.
++	 * The exception is when the WQE size is fixed and a power of 2, as
++	 * such a wqe cannot go beyond the queue memory buffer boundary.
+ 	 */
+-	ptr = wqe_ptr + sizeof(header);
++	ptr = wqe_ptr + sizeof(struct gdma_wqe);
+ 
+ 	if (wqe_req->inline_oob_data && wqe_req->inline_oob_size > 0) {
+ 		memcpy(ptr, wqe_req->inline_oob_data, wqe_req->inline_oob_size);
+@@ -1724,8 +1745,8 @@ static u32 mana_gd_write_client_oob(const struct gdma_wqe_request *wqe_req,
+ 			memset(ptr + wqe_req->inline_oob_size, 0,
+ 			       client_oob_size - wqe_req->inline_oob_size);
+ 	}
+-
+-	return sizeof(header) + client_oob_size;
++	/* The hw requires that (gdma_wqe + client_oob_size) is sge size aligned */
++	return ALIGN(sizeof(struct gdma_wqe) + client_oob_size, sizeof(struct gdma_sge));
+ }
+ 
+ static void mana_gd_write_sgl(struct gdma_queue *wq, u32 sgl_offset,
+@@ -1784,7 +1805,8 @@ int mana_gd_post_work_request(struct gdma_queue *wq,
+ 		return -EINVAL;
+ 
+ 	if (wq->type == GDMA_RQ) {
+-		if (client_oob_size != 0)
++		if (client_oob_size != 0 &&
++		    client_oob_size != INLINE_OOB_SMALL_SIZE)
+ 			return -EINVAL;
+ 
+ 		client_oob_size = INLINE_OOB_SMALL_SIZE;
+@@ -1792,15 +1814,32 @@ int mana_gd_post_work_request(struct gdma_queue *wq,
+ 		max_wqe_size = GDMA_MAX_RQE_SIZE;
+ 	} else {
+ 		if (client_oob_size != INLINE_OOB_SMALL_SIZE &&
+-		    client_oob_size != INLINE_OOB_LARGE_SIZE)
++		    client_oob_size != INLINE_OOB_LARGE_SIZE &&
++		    client_oob_size != INLINE_OOB_EXTRA_LARGE_SIZE)
+ 			return -EINVAL;
+ 
+ 		max_wqe_size = GDMA_MAX_SQE_SIZE;
+ 	}
+ 
+ 	sgl_data_size = sizeof(struct gdma_sge) * wqe_req->num_sge;
+-	wqe_size = ALIGN(sizeof(struct gdma_wqe) + client_oob_size +
+-			 sgl_data_size, GDMA_WQE_BU_SIZE);
++	if (wqe_req->wqe_size_in_bu) {
++		wqe_size = wqe_req->wqe_size_in_bu * GDMA_WQE_BU_SIZE;
++		oob_len = ALIGN(sizeof(struct gdma_wqe) + client_oob_size,
++				sizeof(struct gdma_sge));
++		if (wqe_size < oob_len ||
++		    wqe_req->num_sge > (wqe_size - oob_len) / sizeof(struct gdma_sge))
++			return -EINVAL;
++	} else {
++		wqe_size = ALIGN(sizeof(struct gdma_wqe) + client_oob_size +
++				 sgl_data_size, GDMA_WQE_BU_SIZE);
++	}
++	/* Ensure the WQE size is a power of 2 when a fixed wqe size or extra large OOB are used.
++	 * Otherwise, the WQE may cross the queue memory buffer boundary, which is not allowed.
++	 */
++	if (wqe_req->wqe_size_in_bu || client_oob_size == INLINE_OOB_EXTRA_LARGE_SIZE) {
++		if (!is_power_of_2(wqe_size))
++			return -EINVAL;
++	}
+ 	if (wqe_size > max_wqe_size)
+ 		return -EINVAL;
+ 
+diff --git a/include/net/mana/gdma.h b/include/net/mana/gdma.h
+index 332f394b82e1..508da28591ae 100644
+--- a/include/net/mana/gdma.h
++++ b/include/net/mana/gdma.h
+@@ -56,6 +56,11 @@ enum gdma_work_request_flags {
+ 	GDMA_WR_OOB_IN_SGL		= BIT(0),
+ 	GDMA_WR_PAD_BY_SGE0		= BIT(1),
+ 	GDMA_WR_IB_SGL			= BIT(2),
++	GDMA_WR_CHECK_SN                = BIT(3),
++	GDMA_WR_CHECK_RSN               = BIT(4),
++	GDMA_WR_FENCE                   = BIT(5),
++	GDMA_WR_FENCE_EXTENDED          = BIT(6),
++	GDMA_WR_GENERATION_1            = BIT(7),
+ };
+ 
+ enum gdma_eqe_type {
+@@ -219,8 +224,8 @@ struct gdma_wqe_request {
+ 		struct ib_sge *ib_sgl;
+ 	};
+ 	u32 num_sge;
+-
+-	u32 inline_oob_size;
++	u16 wqe_size_in_bu;
++	u16 inline_oob_size;
+ 	const void *inline_oob_data;
+ 
+ 	u32 flags;
+@@ -538,7 +543,9 @@ void mana_gd_ring_dim(struct gdma_queue *cq, u32 mod_usec, bool mod_usec_vld,
+ 		      u32 mod_comps, bool mod_comps_vld);
+ 
+ struct gdma_wqe {
+-	u32 reserved	:24;
++	u32 num_pad_sge	:5;
++	u32 generation1	:1;
++	u32 reserved	:18;
+ 	u32 last_vbytes	:8;
+ 
+ 	union {
+@@ -548,9 +555,13 @@ struct gdma_wqe {
+ 			u32 num_sge		:8;
+ 			u32 inline_oob_size_div4:3;
+ 			u32 client_oob_in_sgl	:1;
+-			u32 reserved1		:4;
++			u32 check_rsn		:1;
++			u32 fence		:1;
++			u32 fence_extended	:1;
++			u32 reserved1		:1;
+ 			u32 client_data_unit	:14;
+-			u32 reserved2		:2;
++			u32 check_sn		:1;
++			u32 reserved2		:1;
+ 		};
+ 	};
+ }; /* HW DATA */
+-- 
+2.43.0
+
