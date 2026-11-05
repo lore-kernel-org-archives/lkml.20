@@ -1,88 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793892736;
-	b=vYQmAiDy0h5d6pFf/Shm5v0iPbcR6MSysBnWj/XgFFcKsWL7jsRuBvjNGtwUpn6nAb8k
-	 Qebb3Wov56YGujAKfJ5HpLcIbIjJdLqsH9/ZU5c4h6zdfggWU9qh6pArF8qcc+Xai5uJ7
-	 PPHQzz6yOfq3zBYFVAaAecPV0Z8Z5SIT9IByo9R/YU1gqa27e9liE6yNEbPkpQTbfKfHb
-	 Bu0NqC1NbRXpetD2w1hM4PejuChtmBG0RD/7bFNd4CMzH2f3MfHSheJLyFNMc6F7iYwcd
-	 FL0LSxLVp5smFTcwYo9bBnyaYTp65/xMLdL/YaZUBGWVzzJQquI01WjDJe1wd+ZpCug==
+	t=1793892745;
+	b=cEkEgYJQ6hyzSYLssMpNt+SjjW1EdwnoeBOR4NVO2IkDvLZZRNiC4dny01lchTus00uC
+	 LKVjAs1/fiO4U5XOUxzcF/bTvh8YHSeFl9jpwYSCaILsIY/wiGFR3/i1siH976k0xppxC
+	 Rq4tJXn48FjKn/FzC16veodIrj7yzKX+dcdJgw3hdpE4GkyvNaDLvx0F4+o9BMeC1EYhq
+	 M7F+D0+wH0IG7N+w8Lc5fxod70VGh7+13Pft5wXbbgaYzmeZzLslox/VUjsQEuwfBWNlh
+	 Jc6K7f9lc6ZuqLaGn8+MTyCFE46gptsZHpUN31T5iZJwpjemKk4wUdi+SYsmrNez+wQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793892736;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=nNEmWFWOJH+6Qm1DMHENRRuucMRAFbZmaDLX/0UWzQk=;
-	b=yXiTofF7Ov6FZOwRxnN63Ar9pO+LI8bx9e7D9Q5NE5dAeB/CYn411p4Y94dsdSJBsGbf
-	 Wa1vI6FvldJdorjCq1yVbhOjULHgGWJruvhi3fRh+mh6+q4cMGLpvtXGpa+WfLS0joAiC
-	 YXGTRbtgA91IJQA1fHXlqan8L2b36xxaVmtyHh2HHWaHr6Qv6HlYV5j1I7cCyOEr/DhmJ
-	 qaDFtcdDsdAAKUo2hop9qb5cPBHyzSQ7ZanyTPudltHf+bPkUbjXOFyIamA2Wmn7C7hUY
-	 YrHLcvPnIjCGdJ8nvO3sNJxJr/ZnrY3l/wosS8EwpUxqv7+NCSAsYBaQaRRy84fWLAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793892745;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=o9aybnm6z6uCy7Z3S2M1SU/Xzgy17fe/G/KhASnMe+U=;
+	b=V3Z56MXUu390DksqnoBSlvMx0+TPeELlzQZtxU0vj6KzOQR4/Bypu6RQ1oBkETDDqA3y
+	 P0fpUScHvlG7xpAG3RDNHK9mG4pkgtEvb0R7rBXJly4zok2Af0aWAdNWoXAnAVFOurhto
+	 1CC5GNILGa4Y2WMiZNXC8rh8rqYW7/aaG3qM7FKJqcYW+xEFpmJ60Wv185e25fo3hD+25
+	 pAlvJLBZZdmHoSGU7UcMNScefzx5bCFtr8XZuxM5ge1TZVmRMuhxN0OWz3SF1i9vG5730
+	 snnQJkZd6m5SofbvSv16qgpnguk8GYO/Wk+MpAwhl+XqBnCRksagsQpIdjGcBcCaeGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=toxicpanda.com;
-	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b="WIMfi/UZ";
-	arc=none smtp.remote-ip=209.85.217.49
-Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com [209.85.217.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=p1ILuSim;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iUsEEJqA;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1777C606A32C
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:32:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1777C606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55742606A335
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:32:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55742606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=WIMfi/UZ
-Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-7bec5112765so1238921137.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:32:15 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=p1ILuSim;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iUsEEJqA
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EQ7fh4133965
+	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 15:32:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	o9aybnm6z6uCy7Z3S2M1SU/Xzgy17fe/G/KhASnMe+U=; b=p1ILuSim5deoO8ja
+	3wphI/7Nsrgrqxx/+9uzSfHc6ihiO0isa17zG0dIcmjBGWCIGX3RU5A3vPW0Of+Z
+	zSGCJNAB4ydNwylGt4IqRlyIdK772pN6VFyPJf+TIvRvvzawMEqD48Zufsy500lU
+	VubhVlKSarv8F6EkCPH872vYZ3cSJoY89UoYVSApubdcnd6RDJO2UnKeGFvYYICp
+	CuKFeG0Ccl/lQpZv6Fm8y6DNZpuRQfpmwRav889WXfIwZFdWPmmFg7moo53X1wDB
+	OTdiorrPAVhsTwtpr+ft+Tf/Jg4bdcg9+1ooCmuyqK2aaebKn8G69z80h1MuY+9P
+	Sgg0Gw==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrksqadd1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:32:24 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5eac41ff334so1920426e0c.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:32:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1793892735; x=1794497535; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nNEmWFWOJH+6Qm1DMHENRRuucMRAFbZmaDLX/0UWzQk=;
-        b=WIMfi/UZ1nzy4H9h1W7KOjHcaaN49NXXpVwtNRy5geigzX3WyH18lA7T4hOB6ntywy
-         4AyakFJnzBEleZGcqr0zF5daigz12CAAhBl7qFwCyjn289BNq3u29gi4fKXvNn5r17w+
-         rY+/Qkud4qz29NvFl/G3vWdJQGyAaFggo4v9LSTp1VqDBHA9pyGdszIFqlfo70z4xNrt
-         f9M6jsN0SS+fYvs1rFz5h5T6Do5dZH/UmM5uzHPLEbmZ/ijGhJKOStc2PdWjp8fQi8e2
-         5PcCXi6wqtESY4NHbbDi0kTy/aNIxJto/jj9MMm+aBbrfepVjObxN+Z7cjNsp+asasBL
-         JMqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793892735; x=1794497535;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1793892744; x=1794497544; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=nNEmWFWOJH+6Qm1DMHENRRuucMRAFbZmaDLX/0UWzQk=;
-        b=0+BOtLY4bkRECR0uPaA78YKW/Y0RZqFFt9BTPI9rjl384a1GQqx51cHozyEmQWW4Iy
-         UKHVWEyy0J4/nVWqPsYCuFLBr5pxddoVCtV01kmnS0cvpFpCffXNZfdXCLM62aFESHc7
-         dwjF/H/+8KBvBerLmqUWi4wBmtdzFnZcsflX5dz5tyQd9abZ77QT9t4sJIGmrkxTKpow
-         pO+/X8Mvpsr7S9oOy+hTEYkeB4EieWbKqnU5KzR+fBGJI7E1NTG6qGIQ0lO5fjT5h6Sg
-         EhdjA59Ii/iQUpbcmcoZ1HwShfBu6nUbzCyaCJwc+1jTHb/ZBpjUWOk01ONxatBDrJSa
-         9F+Q==
-X-Forwarded-Encrypted: i=1; AKwUvByX6BNY6GG1ekKd8po6FMmkRTCSQkBnE58HxDLRpFfMnCskWnUmcWwIAUFw02X6ExlU/SlVc4n8vm5Rk9k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z83Lje1qKgh5Qn2lecNcnoHtHaUGpzQz5dUe/gd8IVaOZlwoBQH
-	WwB8D5ZDKaaO/+4Nu0PEmGxzRfGjKAQwi+8C6r/4CvaYi/6y5PFispoF2Dl0kfis0m8=
-X-Gm-Gg: AYBFou0pvkuWGW1zHU0/HRhOaWZcT2jETmfVoMQaBadrQxPDPl4D+c0XR6tTxWwaqU2
-	w5Em5UGY7S6pxggnUWJYpFHx0SJ9/6bJjVkmBJYBPtHrjrHNpNDExe0pTn1DohG5JX3CCWpPqST
-	d1I4n0jNJz5y0Q7il01HOlovKm1+61QffZ1yCrj5CugcGkPYkUqPfmVcatHG4DJ3FfJbWktZzH9
-	F5tMJ4a7jlXuWOuXbtwORs+8AV/tKS5bUjgUA0OJYEvAVcad1yPpoJ0y/CVvjLzzFDvTKLEAFH2
-	qTXgbf75w3JzDVlXhxNZI3tFxU6g1BRFKG3kBeKt4NjQEZeBZCNhrs64e9sIMmGgc50ya2c/TC0
-	Qjs2CA0AKZS8YD8rpugEv/2VXrdcIPN8mv1mxPqzEjoCy7oRjCfkGIkpKq3nf6SrQjmcTYaLIRt
-	zuXbaTq9kzaCLi7Z6zFRSzKxTjrN/GqCeYkqoKPbcpKZIBYZbGkCdiYEtXC5yrURQ2OtJMe1HnQ
-	ZIB0SeSxWnKoZdEMSlesNDjCwbXPDJ+eAIZZbSWcK5a0VmppRFYefN4uUoVTWY/STkq13zn7Co3
-	CA+ezq8LR/CPZ5IrkGDhshZ5+jIr4afOHTHmZOrzLoSu
-X-Received: by 2002:a05:6102:3e85:b0:7cc:306:d3ab with SMTP id ada2fe7eead31-7d07277bbc5mr9885732137.5.1793892734983;
-        Thu, 05 Nov 2026 07:32:14 -0800 (PST)
-Received: from toxicpanda.com ([153.61.196.255])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91e7dfe973bsm49902466d6.22.2026.11.05.07.32.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:32:13 -0800 (PST)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 05 Nov 2026 15:03:19 +0000
-Subject: [PATCH RFC v3 87/90] cells: add CONFIG_CELLS
+        bh=o9aybnm6z6uCy7Z3S2M1SU/Xzgy17fe/G/KhASnMe+U=;
+        b=iUsEEJqAEQ/1hYUc1sK1t45AlgNgX4bjkphvJjO01DQCT6acITHmMj0md6xEKoCZas
+         uK7NDeTE2VIcycrkpkj5meWzPhLKE4SPp53B/gCvWovvqwUpOo4/ZJP15skC6tUY0mmR
+         cjuIvYXg3LrCXWFRncgriN9gaOhy0gKCKCMf6jGW8rDR7jIKUpZHZQLwv+i/N+r51FOD
+         kK9gfTKhoxPrMhQC3mQ+XlXshbAgCF5xFmXqAXc4QvCSKj+xkDcwAIbnmCx3lIieu0/t
+         zMeAXMH7KHCUXam/0rSxx/3wn6On+YlSQdhdoQ6EhTON1VTF8ZUgDjim2SZQafAEpkTc
+         NwTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793892744; x=1794497544;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=o9aybnm6z6uCy7Z3S2M1SU/Xzgy17fe/G/KhASnMe+U=;
+        b=2qL7dOJc/lv4Ce7ijt6EykQbmGEQtX/TH2S/mcyMibgbGsfSwqw5cPba/axcLiyvVa
+         zgW3AU6YhorJdVlCg2esc6fyYt3z2a2eHNvPKZZrvEdEYKmAHoiPtfogjtaxeaiMYKox
+         GPPYJw3iUIQ4KKXBsSXtiug58k8nkUWxJLXgZ7ehLHGZ7xaXwxSZ7l2BsVmkU1RWKZtX
+         elti4rkWKjNzgMeik1l/FJHX4h19LSGkq4DXP2hyJQkOd20eAi14B0iT51VvdjZFVpga
+         z68qnBxz+jdzqUvpDnLqKFfVr5pxZT1e/TbhQIJU714CWk+l7uuDn8D0iOSI0z6v9GeP
+         HhwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzyaA306tlIUkVvQoYRkGGy4vGUwp57c+dhk+d/bwi+50G3fRrJae11RPYH7TI8LruCI9lOFrTmJZy1gV0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ODosg3ENFE/O02ujxsRNlTb9uQZ/vCMOst0NuUe5+Wq7Z3B64
+	Ma23fmHdsx2EJckRhe+7ug6G0onnCd73aTxdQ4juTZjPm6y38Znx4POUr6iHFk8/tpfEPZyPNv1
+	rNqxsVwAZLoYgvedXqu759OjVH70CaTAA5g6xaXLvL9lkgJHv4FnI1RdlMuRR97hUwC0=
+X-Gm-Gg: AYBFou1LqtGSUKXv+VDUCFbsI2a24SnW+RDIX6lYmLvHfWh+Ds9QDtbsfkVM9QZiIob
+	HMRgu+bVHxjwEImPdZ7uQSoYd8eU8dQRqZ75iidoumC5CTbIoGtRyJprjtnZaMAIjMcuDw55WdM
+	ND4v/Jres+vuzeroREySOJ4htZlYSIQkfRzIBxgBoiQ9tjp/Z5+TitpAly/dQ4Zhh6doObhS9Y3
+	xLZSf0ND9zhtozyZjTjow6/F97DyOJ/B5XlskomCUSaVBRbcWbsiGMC9r4qoAczfk/261lhXnQ/
+	JUcJ/j+POazOLC6BCgigRVt90FKEpDoLpNAqmT+gvSbkVhqkopCPDNmEUIEHr/d2tW3okdD0qzI
+	42RRPYpP88Ug6NqIDx7kanfkVUS/H9QL7mAQCtow4keCWVEHge9kc0cUrl3yviF8OjPpIfNXFpa
+	i+6MT6pawiBSDUKwUt
+X-Received: by 2002:a05:6122:469b:b0:5ea:b972:1403 with SMTP id 71dfb90a1353d-5ec68539420mr9780602e0c.3.1793892743673;
+        Thu, 05 Nov 2026 07:32:23 -0800 (PST)
+X-Received: by 2002:a05:6122:469b:b0:5ea:b972:1403 with SMTP id 71dfb90a1353d-5ec68539420mr9780528e0c.3.1793892743105;
+        Thu, 05 Nov 2026 07:32:23 -0800 (PST)
+Received: from [192.168.2.1] (146725694.box.freepro.com. [130.180.211.218])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56e58fcb8sm70424915e9.1.2026.11.05.07.32.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 07:32:22 -0800 (PST)
+Message-ID: <6740e6e8-6b77-47dc-8b9a-b81efb557664@oss.qualcomm.com>
+Date: Thu, 5 Nov 2026 16:32:17 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,89 +116,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-b4-cells-v3-87-bc9095937a84@toxicpanda.com>
-References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
-In-Reply-To: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
-To: Christian Brauner <brauner@kernel.org>, 
- James Bottomley <James.Bottomley@HansenPartnership.com>, 
- Andrew Halaney <andrew@amutable.com>, Jeremy Bingham <jbingham@gmail.com>, 
- Tahera Fahimi <taherafahimi@linux.microsoft.com>, 
- Serge Hallyn <sergeh@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1793890936; l=1981;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=QnStMcDyiDaV1vMhCiMKcNfrXjeRKepI1Ga9lr0Q4UQ=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QEBQjgBSgsAQ1k0wjhPj33XlLy5TcRZ8m4oVX8IprpyWHvV75ZwRovZGBtgxoxBD+OoXClTvc5I
- JlJOA+ViIgwI=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/6] powercap: Add generic zone hierarchy creation
+ helpers
+To: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
+        rafael@kernel.org
+Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Heiko Stuebner <heiko@sntech.de>, Shuah Khan <shuah@kernel.org>,
+        Lukasz Luba <lukasz.luba@arm.com>, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-rockchip@lists.infradead.org, linux-kselftest@vger.kernel.org
+References: <cover.1793666444.git.daniel.lezcano@oss.qualcomm.com>
+ <d33ddfe789ee42a00d3ff3df55e0c4011e69debc.1793666444.git.daniel.lezcano@oss.qualcomm.com>
+ <f018a2c1-2618-458d-a95f-a0cfdef9ac39@oss.qualcomm.com>
+Content-Language: en-US
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+In-Reply-To: <f018a2c1-2618-458d-a95f-a0cfdef9ac39@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA2MSBTYWx0ZWRfX22Xibt6X4rZN
+ qWGBICqTMbymo9Z4x6z46p3ivzQGL2/tLLQhjNnOgd6A1H5hl12ChHQVx2avVmRZ6RLtBSed/10
+ NGQoQW20sdobWA0M4ft8vSKZamu1qpAh/+bzatznBaAxtzDCSzSMuIQHUpwAMkUA/SyFtEQ/zBi
+ QGAI6KiJq85S3EikeY/ndjNZLwh9kzmnjM9II4uvPW/Ix6MM8UxrOW3ZcY0RSJI8Ea3wOJGy6Tk
+ gQrA/7u7wRMaa6pMRuUvDFIwLTX1gvWZf7/l8QEb7R/lX4sMUDOcSxCdNtYdZI/zVoAE3iNCrIh
+ nNIQDDztSYKzXY2fnMO2RiOZCk7EN9rt7A+XylRyGLA9ok1JTsxouVcQAeDktOtYGg8mILE+CS4
+ rJqJSWACMKFqiG35C4Fir4u/BK3gWfTegGcHFfTjH0rqfjl6YeoQKQJxKuQ4OPtBPuZgOZFXaB4
+ FSnPoarXf9ckGBJeKuQ==
+X-Proofpoint-ORIG-GUID: 1cv_Ap0QEehEwXwbz12YK31kiIXWYp7M
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA2MSBTYWx0ZWRfX8CC7F8qeQxD+
+ LrLrjhOyCOdIwEXL/EohkwZ07XxtYdO3QOre+GT4Z3M1chif7SGKTdsa43eVskQg/xFSo41AqiO
+ kCjihDP3I98qO5iegHvjg2nFR1jOkkw=
+X-Authority-Analysis: v=2.4 cv=CIe/zhrD c=1 sm=1 tr=0 ts=6aeca188 cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=uw/3876vWhRnNVL35W6mqQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=49fcMjTkyU320Q8Jtn8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=XD7yVLdPMpWraOa8Un9W:22
+X-Proofpoint-GUID: 1cv_Ap0QEehEwXwbz12YK31kiIXWYp7M
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_04,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 priorityscore=1501 bulkscore=0 suspectscore=0 adultscore=0
+ lowpriorityscore=0 phishscore=0 impostorscore=0 malwarescore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050061
 
-Everything is in place now. Add the config symbol, and build kernel/cell/,
-kernel/embryo.c and fs/cellfs.c if it is set.
 
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
- fs/Makefile     |  2 ++
- init/Kconfig    | 16 ++++++++++++++++
- kernel/Makefile |  1 +
- 3 files changed, 19 insertions(+)
+Hi Manaf,
 
-diff --git a/fs/Makefile b/fs/Makefile
-index 16f1108b64e1..6a15893003e3 100644
---- a/fs/Makefile
-+++ b/fs/Makefile
-@@ -127,3 +127,5 @@ obj-$(CONFIG_VBOXSF_FS)		+= vboxsf/
- obj-$(CONFIG_ZONEFS_FS)		+= zonefs/
- obj-$(CONFIG_BPF_LSM)		+= bpf_fs_kfuncs.o
- obj-$(CONFIG_RESCTRL_FS)	+= resctrl/
-+
-+obj-$(CONFIG_CELLS)		+= cellfs.o
-diff --git a/init/Kconfig b/init/Kconfig
-index 4013781e0a02..78690b74e6cb 100644
---- a/init/Kconfig
-+++ b/init/Kconfig
-@@ -1264,6 +1264,22 @@ config USER_NS_MAP_KUNIT_TEST
- 
- 	  If unsure, say N.
- 
-+config CELLS
-+	bool "Cells"
-+	depends on USER_NS && PID_NS && NET_NS && IPC_NS && UTS_NS && CGROUPS
-+	depends on UNIX
-+	help
-+	  A cell is a container as one kernel object. It is built from the
-+	  outside by filling slots from file descriptors, sealed, and has
-+	  tasks spawned into it. A task never changes cell and nothing can
-+	  enter one.
-+
-+	  This reserves the upper half of the uid and gid space for the
-+	  kernel to hand out to cells: with it enabled no file on a filesystem
-+	  of the host can be given to an id from 2147483648 to 4294901759.
-+
-+	  If unsure, say N.
-+
- config PID_NS
- 	bool "PID Namespaces"
- 	default y
-diff --git a/kernel/Makefile b/kernel/Makefile
-index da712b4399ff..ba60039affdb 100644
---- a/kernel/Makefile
-+++ b/kernel/Makefile
-@@ -90,6 +90,7 @@ obj-$(CONFIG_COMPAT) += compat.o
- obj-$(CONFIG_CGROUPS) += cgroup/
- obj-$(CONFIG_UTS_NS) += utsname.o
- obj-$(CONFIG_USER_NS) += user_namespace.o
-+obj-$(CONFIG_CELLS) += cell/ embryo.o
- obj-$(CONFIG_PID_NS) += pid_namespace.o
- obj-$(CONFIG_IKCONFIG) += configs.o
- obj-$(CONFIG_IKHEADERS) += kheaders.o
 
--- 
-2.55.0
+On 11/5/26 10:35, Manaf Meethalavalappu Pallikunhi wrote:
+> Hi Daniel,
+> 
+> 
+> On 11/3/2026 10:18 AM, Daniel Lezcano wrote:
+
+[ ... ]
+
+>>   drivers/powercap/powercap_sys.c | 204 +++++++++++++++++++++++++++++++
+>>   include/linux/powercap.h        | 205 ++++++++++++++++++++++++++++++++
+>>   2 files changed, 409 insertions(+)
+> 
+> I rebased my Qualcomm SPEL powercap driver series on top of this series 
+> and migrated the series without any issues.
+> 
+> Tested-by: Manaf Meethalavalappu Pallikunhi 
+> <manaf.pallikunhi@oss.qualcomm.com>
+
+Thanks for testing !
+
 
