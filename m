@@ -1,89 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793894103;
-	b=E7OXQyV21PLEOi/gz8XZnU8imhoA2MS+AHM5Ak1a/Qf7pSk4w0/IH/asA+21MZOmyQaY
-	 eNtzmuqSX/3yjGLQMisnpT0qgRzKit6KWZRKiE52v/nwvNH51FRO2aDBlfRARbM949e5H
-	 lIVI/ISWq+LmchPoYusVe0V3EkrJ77HkqUi2WZLoOJTO6ojHZn1izwrge5xxR9aVYmQnZ
-	 wA8LndATAwcQGyHcf+7kbHfjxkcWKprPlyHxsKVgTqWwGwh5O5Ibf3GibXpg8a5dApD0p
-	 l6Df7lKrL2Aq8tiMGv/tdfU7iCf+STsdE1tKxL9XNK4u4T31cOrxRGGCczaNK1ijz4g==
+	t=1793894105;
+	b=r1QNbNzakndGiN0K7sUuIWGol/Bm/6tO1q3gOoixpyw3B0b+fUu8RMjDVWLpy5zORspu
+	 itRc32mksBb+S7W010IYNolgWSQZ/cVh5d+bUWZdaTWCCbYOBIPbZLCC4IV34fDpWwbT9
+	 c5GI3YfUwhlja1STLgUPXdYp4rOAGei6jbwsMQ/UQR59tFCJSvnpgp1lBw49AsW2E9Sb4
+	 mc/wYbTTm0xCSyS+1a2LMx/42nEuOSoMx6XPS7d5Z8cdzULe5V05Kjj4bRpuAnjRp8O4z
+	 tkUKG9SKwQIJScs2VApLFTIFJPZX1x509+phDzp9B6tK34W52yUA+1ZDjO7i5MnsVtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793894103;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793894105;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
-	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=4gd5YBbTx7pIL/t9UDrPjuhr3sbKtTJ/cLT8Cj4GQTI=;
-	b=EMZESILEbV9MSjmvsIM0S7Th7TARVQK3IH1/YtSBWQCgSovK1PTLbFMCtS5fDL+xwVfQ
-	 dE3+czG+6agUQYI033+y8Rcol0DjBNkcI1jliAX0cikuVD9kk0HwO4eV/TdKs51XV3I4w
-	 rQofgYkm1j7L9hl8cGxYbSI/CzXL/nEhkmt8Xi1T/yDrbRe5cHcNgh74fARu/3nQsPJC8
-	 AtpxigS47fRZpz6NszHrXs45HXZ0o+076Ub7Rt9RGGIERNDi7KmpbYN1k3wu3nliStPvU
-	 2rrpfmkjzUWvHhgYmz6VrKBYCKRtqJG9S9VD5kVJVoLKBl4x7e37BrTHV593BJyIrwg==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=dL326s4hlVlCdK8Nbo2Jt7cLhdWe7U4R6wIiuXLSfdU=;
+	b=H9OOeSnEw/73Oul2vZRhJsS/OyzeKNH59/ZUaEO8rO5ejztygNr14l8Enxwka4+ITXTq
+	 nCGOHDkpH6Yk/jvHzODLZ5vyMNVFY5SVNSf0LZLE+cBIXDZvrpxuv+lWLvCeeBVLAvkO8
+	 drTHRJdjNEFccQAiuywuLrPU3rPpzk+9mPQGfOAnxeVzHXfwUcGflA/iyg/e3Um/Ehv85
+	 cVFbowtazHs4jMWvCpxZuB+bpiVer48RK+W/X5UsWDvEmS2/PYlEgIFfpPZLDmm6tjMQE
+	 uS3SvWshKPLrXwRMuAVgnOi6NTa4RX7s3nfzPgKQ9DIyGaDJ8sonaRtgri7qabDHTew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=iClzQah2;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GRAzJJQK;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35E9560A262A
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:55:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35E9560A262A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFE1A60A3806
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:55:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFE1A60A3806
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=iClzQah2
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso19273735e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:55:02 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GRAzJJQK
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4af520023fdso5545495e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:55:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793894101; x=1794498901; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4gd5YBbTx7pIL/t9UDrPjuhr3sbKtTJ/cLT8Cj4GQTI=;
-        b=iClzQah2ajwLi7VYVW4NdNIgIUvDD+ZdrLoWvGq8RGTZaKFCl02nUIcBqo7ISBioFK
-         wzMQQdBMaoHUNeHTdu94KwRSbVH94aM20kP6Doy3/qjEimbT2J8i0ONicN6vCBSSrLQM
-         1BZWPhsU4Jlu63t9tEh4TjaRgTMa3ckW4bHzdvkN8H5ceOA/ttWETPfOz4ikLxwpOAVe
-         45ZOBtaVvU6obODZYH7cSkplc3oqoXdT+ahh+qStMMzbSDfZyCHC8vyxnmvd775mY0Ru
-         mntkQzpi3eBfMVUvQ3ngvWs8+TLIKRSsVxQdtYZhe9cn2z6akGfRg5ZQk4B1PaIWVZSy
-         EFpw==
+        d=gmail.com; s=20260707; t=1793894103; x=1794498903; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dL326s4hlVlCdK8Nbo2Jt7cLhdWe7U4R6wIiuXLSfdU=;
+        b=GRAzJJQK3Ofx0pF/a5fPpjk8fVXGsbELbdamwdlPk0VtjOKsLe3wwVAs/DLvS/M/E0
+         tJkZITtMz4ZaqUztF7TnR7x+qAVMJIBVWlzK03hii8nM+cpIl5JYOfJ3ZIMAp6v3QdNk
+         wT07EgBZJ7mT0hTO1CukSoTvqZATZ/lp//XmyXnRlfrLEffytKqYAf8qLrcI5NglawbW
+         6VhcbX/0QR/ry2PFeCi4nNuKdkDNUp6wkIsXUD5Ycf0h4rtiPAi3SaYO565z8Axxkths
+         INOh/OzJyYhrE3KTCyq/ocO3t62aJn5MrGQ5eCzCtJGGrXO74ABVKtaFON0VnjdCK+CL
+         5OUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793894101; x=1794498901;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4gd5YBbTx7pIL/t9UDrPjuhr3sbKtTJ/cLT8Cj4GQTI=;
-        b=yC4dv7TEkTUIKnNev5Tx0Sb0OgbUET32RLEl/6FFRRDoYZPDeJEA1fJA7IdStwpFH4
-         vxPou3UcK95D/n+1eDQfGf40W/sQ5QWM5v1Pd5ITqvSin7bsx9JOTSuL+htbOYDnhOMi
-         jZ+4M6fwGh6XdltCkGTfFjOnEkHkURZWffHTpt7ZoqmZ2S5mO/m6oSTjDE+Re+bPMMx5
-         d54Z+qFO2HxKtnkaU0LW4gbhQ8/MnjhLDsCYTwsV1SreM8N7GynC/jLIH172tduZiIFM
-         vl5SnLC7BSV7tGozJTJ6le/3nlGdIIKDunKQI+5Hf2pLffJ36LRXbqkIlft2IJAJX1iT
-         NKzg==
-X-Forwarded-Encrypted: i=1; AKwUvBwfMLZ9mnf/n4fkVV5zmIn0bbwEshUHrELxw0b6ZrPzt7tWLQGgGQzyOGFiFWgEyfvpELVDcHnk71V2QIM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z//Ou+lFwkIToOdICSYJgtkeOsxeSSoq0UVtJhg9lEIGy0k0xCn
-	PgXriqj8vCaQ9eqs+l6bdwL5ebnxOrlcFPZlO854eGmJj9UgVu0vGM1611SPY95LGsU=
-X-Gm-Gg: AYBFou3n/2jeOC24q/aVSNu21q+KwA13P9v+xTNm5aaVnqBiCbsWapz0Fnl/CnvQoMZ
-	gklykrzxyLzfNQSOYmg89akVBw+/aemkZOgIM/GW7ONGIJ1tRyTxYdbwTW2SOAzVYCFkumjLZhE
-	MYItsOw916yOtyx9/e6r4/fMgYU6WEStPtw8d2FqcDcmmHhqazVgUBFqT2cVzdK7tJA2GWd3tn1
-	jXo1fk3V9DD0LjjTx0v88TZnmrxuwsGXxK4KAccqB//Nb9Icxxt5MiRUmsFYpO28JialWpCQVjZ
-	Dft52SW0qZ0EyXY4Zzj6nAp8dfpjaAnFQ6VtHYbNAEy92kixPwSW/0aZE2YnErm0Mn7bR5E4bUL
-	VEaA5OybbxeDdZ6YvIaXgFxYCiiMkg/TVP63O7sLcF621iCcb06Jszmiqc93idzMXstvc1uETGI
-	Q/VeZCpDLaLnfV8zuISuNDt3Mc5OotzXQFKulYF88t+YiVuuPx3tBizGrSdXGTcdzzM/wvW7qti
-	iRJM56PGWsH9NWmoyt91bArIOI6+j41upPEqs8+ouvzEMVcFNQ7EIR/LZW0oIrJy9Yx6q7du6lO
-	rpnQbF04MuGNx3SRhYEICTNw86Hfo2fckOm26MdrMhIgIMr6/260w0lw0QDfLT8cH3df5s2/cxP
-	s9zApyVg=
-X-Received: by 2002:a05:600c:6216:b0:4a3:5aea:21e5 with SMTP id 5b1f17b1804b1-4ac1737c533mr425955665e9.9.1793894101341;
-        Thu, 05 Nov 2026 07:55:01 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:106d:1080:9899:e54b:a2f2:3695? ([2a01:e0a:106d:1080:9899:e54b:a2f2:3695])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed92a753sm11994525f8f.45.2026.11.05.07.55.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 07:55:01 -0800 (PST)
-Message-ID: <1463c55e-3bcc-4a30-89db-def43c05fe44@linaro.org>
-Date: Thu, 5 Nov 2026 16:55:00 +0100
+        d=1e100.net; s=20260707; t=1793894103; x=1794498903;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dL326s4hlVlCdK8Nbo2Jt7cLhdWe7U4R6wIiuXLSfdU=;
+        b=L0agXOnSXHmlxu52ufRr9+6uUF0erYfMIdc8JmDFrGiw5zY4Xv/GBlLa54oO946FfL
+         l8gr8DXdKPpoB1hrpZdqgSv+tQaaUrDOrMlOYNuPLiQfdByLyGIPP2Eqm0srmEVYbC2v
+         aiUB5F5Pf5xwD/Zeg42VDh0fe2DoTm9IQzXOjz7CkFiLd6yPdfIdXqeYeueXa4MMx3ai
+         4bfSQTi9+BooiqZ84+VjGrTF7IErIkfa4+ttUYFXivJ1VZI93iEpdyt23Rbes8fHJ5qa
+         mscCrJuvmq1BB1KtCNW9gsY5fgr78Ld+Z15DVV80H39O0fn6wWU3XEbeVDtbwjUhDNXb
+         VTnQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzuCDb7eggVoFPOGkHpk5wtmGjLqUNitEpB4oBuUxag9tf32VcHV/ZGypNsiC7zk172dBbM6WMzgblWA/k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ewLDSS9zu1Iv1o+i7O5QlQLkrMxEgKHTryvFx/EXYCm+y1BY9
+	xKfNlVYrskQk05CqwSMda/sa8+9oOa7epIPKg+r3hN1illadMj7wc0SP
+X-Gm-Gg: AYBFou1EN96bYs46QTmlWW5ZXHdkeHaPbCI6sQs5KYlVZYo/zNCN0fpvqgem+19UB7y
+	zyR90hSCrDvb+sIl1cpEUJp9OEtmikiJGh3Mj9GN6nYII0ua/rQk7S4YhIDUQlhw4Vmb2PSllFk
+	oVuH+2K+g90xfrSQMh5wU0r5FT9kPG9jyM+WG+o8DYrAR5f6HkWOf7evl5mcimrGyJn1L7WQI5C
+	+RiNIO9cUMftEenZbqvS2DaeIfCClMitVgXVX2h5LVL0QBXLs7GGbj2HFkMNcIT5Fm4/EQC2pp5
+	lTzF6sE8OsacGlOvkM/8O5hu1f5emsBkgdeIQnZEVw1a1SM5sidGt0NyVI3kP926zVekfSre26o
+	E0xuzNRnddL5tRgSCCYAi2Na100h5WWnoAWo7+mLr7HmdJlRsNbywUmF3sVrO9QernGskvoUBS7
+	4kWubyNxbMQ0IIl87N7QGWH+K0KlKG7Sqirx5y75r+06LnzrVupChN4oIe3ph7R4hgsxKo0oj9q
+	q9Y20JLc8rttO5R8oyG3eM5ueRg8+KnfldIsjOKAW5lPQY/I3fMhkCr5KpLoiYtTUsCdbEuCTb3
+	AI9tNHAM6JjTFDAz/faZrb3HtqUVbK9bQRorTOmqaMMoTNH90Rdx7dY=
+X-Received: by 2002:a05:600c:a5a5:b0:4a1:e774:370d with SMTP id 5b1f17b1804b1-4ac1765d60fmr275939985e9.1.1793894103083;
+        Thu, 05 Nov 2026 07:55:03 -0800 (PST)
+Received: from scheduler.schedules ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56f0237aesm76917685e9.9.2026.11.05.07.55.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 07:55:02 -0800 (PST)
+Date: Thu, 5 Nov 2026 18:54:58 +0300
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: Qais Yousef <qyousef@layalina.io>
+Cc: Ingo Molnar <mingo@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Vincent Guittot <vincent.guittot@linaro.org>, Christian Loehle <christian.loehle@arm.com>, 
+	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	John Stultz <jstultz@google.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v5 3/4] Revert "sched/rt: Substract number of tasks
+ of throttled queues from rq->nr_running"
+Message-ID: <auyR6v0tKagzo986@scheduler.schedules>
+References: <20261103005953.56271-1-qyousef@layalina.io>
+ <20261103005953.56271-4-qyousef@layalina.io>
+ <auoRQiZbirZCFF1x@scheduler.schedules>
+ <8401ef7a-de1a-4cb2-a3eb-be02a8436360@layalina.io>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,119 +102,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH] arm64: dts: amlogic: khadas-vim3: add SPI NOR flash
- overlay
-To: Jose Nieto <jnieto.alaber@gmail.com>, Kevin Hilman
- <khilman@baylibre.com>, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
-Cc: Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261103164730.160593-1-jnieto.alaber@gmail.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261103164730.160593-1-jnieto.alaber@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <8401ef7a-de1a-4cb2-a3eb-be02a8436360@layalina.io>
 
-On 11/3/26 17:47, Jose Nieto wrote:
-> The Khadas VIM3 has a 16 MiB SPI NOR flash (W25Q128) whose data lines are
-> shared with the eMMC D4-D7 lines. Add an overlay that restricts the eMMC to
-> 4-bit mode and enables the SPI NOR controller, exposing the flash as an MTD
-> device.
+On Thu, Nov 05, 2026 at 01:31:37AM +0000, Qais Yousef wrote:
+> On 11/3/26 18:51, Kayra Cizmeci wrote:
 > 
-> The flash HOLD#/WP# lines are wired to the eMMC D3/D7 nets, so the
-> nor_hold_wp_pins pinctrl group is intentionally not used.
+> > So, as I was saying above I gave this a run. Did some tests:
+> > 
+> > In my base a RT task can only get a CPU's %95.5, with the series %99.9.
+> > Even when rt_throttled is 1, task doesn't stop running. I opened
+> > CONFIG_RT_GROUP_SCHED and set cpu.rt_runtime_us to 950000. cgroup v1.
+> > 
+> > 
+> > And AFAICT from the code and my tests, nr_running is handled
+> > differently/wrong with this patch.
+> > 
+> > When there is a RT group while throttling is enabled, with 2 tasks when
+> > the group throttles nr_running should be 0. Since, there is nothing to
+> > run. (If the group is alone in the rq tho :>) But with the patch series,
+> > it stays 2. I think it's because dec_rt_tasks() does not call
+> > sub_nr_running() in the group_rt_rq() case of se.
+> > 
+> > 
+> > Or am I missing something :-)?
 > 
-> Signed-off-by: Jose Nieto <jnieto.alaber@gmail.com>
-> ---
->   arch/arm64/boot/dts/amlogic/Makefile          |  2 ++
->   .../dts/amlogic/meson-khadas-vim3-spifc.dtso  | 24 +++++++++++++++++++
->   2 files changed, 26 insertions(+)
->   create mode 100644 arch/arm64/boot/dts/amlogic/meson-khadas-vim3-spifc.dtso
+> This is an RFC as I was looking for potential historical context why it had to
+> be done this way. I did call out in the cover letter that I am not sure about
+> the implementation of inc/dec_rt_tasks() and was looking for advise too.
 > 
-> diff --git a/arch/arm64/boot/dts/amlogic/Makefile b/arch/arm64/boot/dts/amlogic/Makefile
-> index 57bc440fa55c..3714cbaaa03e 100644
-> --- a/arch/arm64/boot/dts/amlogic/Makefile
-> +++ b/arch/arm64/boot/dts/amlogic/Makefile
-> @@ -23,6 +23,7 @@ dtb-$(CONFIG_ARCH_MESON) += meson-g12a-u200.dtb
->   dtb-$(CONFIG_ARCH_MESON) += meson-g12a-x96-max.dtb
->   dtb-$(CONFIG_ARCH_MESON) += meson-g12b-a311d-bananapi-m2s.dtb
->   dtb-$(CONFIG_ARCH_MESON) += meson-g12b-a311d-khadas-vim3.dtb
-> +dtb-$(CONFIG_ARCH_MESON) += meson-g12b-a311d-khadas-vim3-spifc.dtb
->   dtb-$(CONFIG_ARCH_MESON) += meson-g12b-a311d-khadas-vim3-ts050.dtb
->   dtb-$(CONFIG_ARCH_MESON) += meson-g12b-bananapi-cm4-cm4io.dtb
->   dtb-$(CONFIG_ARCH_MESON) += meson-g12b-bananapi-cm4-mnt-reform2.dtb
-> @@ -104,5 +105,6 @@ dtb-$(CONFIG_ARCH_MESON) += meson-sm1-x96-air.dtb
->   # Overlays
->   meson-g12a-fbx8am-brcm-dtbs	:= meson-g12a-fbx8am.dtb meson-g12a-fbx8am-brcm.dtbo
->   meson-g12a-fbx8am-realtek-dtbs	:= meson-g12a-fbx8am.dtb meson-g12a-fbx8am-realtek.dtbo
-> +meson-g12b-a311d-khadas-vim3-spifc-dtbs := meson-g12b-a311d-khadas-vim3.dtb meson-khadas-vim3-spifc.dtbo
->   meson-g12b-a311d-khadas-vim3-ts050-dtbs := meson-g12b-a311d-khadas-vim3.dtb meson-khadas-vim3-ts050.dtbo
->   meson-sm1-khadas-vim3l-ts050-dtbs	:= meson-sm1-khadas-vim3l.dtb meson-khadas-vim3-ts050.dtbo
-> diff --git a/arch/arm64/boot/dts/amlogic/meson-khadas-vim3-spifc.dtso b/arch/arm64/boot/dts/amlogic/meson-khadas-vim3-spifc.dtso
-> new file mode 100644
-> index 000000000000..c70780b11b9b
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/amlogic/meson-khadas-vim3-spifc.dtso
-> @@ -0,0 +1,24 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-> +/*
-> + * Copyright (c) 2026 Jose Nieto <jnieto.alaber@gmail.com>
+> I might have just missed that we have rt_task_is_entity(), does things get
+> better with the below? Otherwise I'll just need to find the time to figure out
+> the code and test it properly. Thanks!
+> 
+> --->8---
+> 
+> diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
+> index 96d37a1ccc2a8..520273086134d 100644
+> --- a/kernel/sched/rt.c
+> +++ b/kernel/sched/rt.c
+> @@ -1132,7 +1132,7 @@ void inc_rt_tasks(struct sched_rt_entity *rt_se, struct
+> rt_rq *rt_rq)
+>         inc_rt_prio(rt_rq, prio);
+>         inc_rt_group(rt_se, rt_rq);
+> 
+> -       if (!group_rt_rq(rt_se)) {
+> +       if (rt_entity_is_task(rt_se)) {
+>                 struct rq *rq = rq_of_rt_rq(rt_rq);
+> 
+>                 add_nr_running(rq, 1);
+> @@ -1151,7 +1151,7 @@ void dec_rt_tasks(struct sched_rt_entity *rt_se, struct
+> rt_rq *rt_rq)
+>         dec_rt_prio(rt_rq, rt_se_prio(rt_se));
+>         dec_rt_group(rt_se, rt_rq);
+> 
+> -       if (!group_rt_rq(rt_se)) {
+> +       if (rt_entity_is_task(rt_se)) {
+>                 struct rq *rq = rq_of_rt_rq(rt_rq);
+> 
+>                 sub_nr_running(rq, 1);
+> 
 
-This change comes directly from the U-Boot file arch/arm/dts/meson-khadas-vim3-u-boot.dtsi
-so at least keep the Copyright and where the changes comes from.
 
-Neil
+Well I'm *thinking* it's the same thing :/, no?
 
-> + *
-> + * The Khadas VIM3 on-board SPI NOR flash shares its data lines with the
-> + * eMMC data lines 4-7. Restrict the eMMC to 4-bit mode to free D4-D7 and
-> + * enable the SPI NOR controller, exposing the flash as an MTD device.
-> + *
-> + * The flash HOLD#/WP# lines are wired to the eMMC D3/D7 nets, so the
-> + * nor_hold_wp_pins pinctrl group is intentionally not used.
-> + */
-> +
-> +/dts-v1/;
-> +/plugin/;
-> +
-> +&sd_emmc_c {
-> +	pinctrl-0 = <&emmc_ctrl_pins>, <&emmc_data_4b_pins>, <&emmc_ds_pins>;
-> +	bus-width = <4>;
-> +};
-> +
-> +&spifc {
-> +	status = "okay";
-> +};
-> +
+  #define rt_entity_is_task(rt_se) (!(rt_se)->my_q)
+
+
+  And look at this:
+
+  static inline struct rt_rq *group_rt_rq(struct sched_rt_entity *rt_se)
+  {
+  	return rt_se->my_q;
+  }
+
+
+
+
+Also, my other test was for this case that you said:
+
+"It also had a confusing call in sched_rt_rq_dequeue() to
+dequeue_top_rt_rq() when it is essentially a dead code - in existing
+code base at least."
+
+It's not dead. My other test was just for that case. Normally it
+should, but when we change root's cgroup cpu.rt_runtime_us to 950000, it runs.
+
+Because of two things:
+
+
+1. We remove dequeue_top_rt_rq() calls, and in root throttle path that is
+the thing that preventing root from being selected with reseting
+rt_queued.
+
+2. We remove rt_queued itself AND remove the rt_queued check from
+rt_rq_is_runnable().
+
+So when we come to pick_task_rt() sched_rt_runnable() returns true,
+and we don't return NULL.
+
+
+Or, is my brain oopsed?
+
+BTW, fixing both of these AFAICT requires bit of
+doing the same thing as the commit we are trying to revert. So may be
+dropping the revert would be better. Its up to you tho.
+
+
+What ya think?
+
+
+
+Cheers,
+
+Kayra
 
