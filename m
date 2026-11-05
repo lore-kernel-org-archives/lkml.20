@@ -1,100 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793897971;
-	b=31Nz6bDuzVYBWYpZD1pLUj3zt2eCJDRqG+FLirydVRi/y0hdR/V3YJNb1dwbhWIZsjPD
-	 zMRMLAAEQ7x+9rSikwJ3MjgV6CG8kT9rNTXlXpDsaL5g6jmN7YzFq1yYD2+4MTzwecU7m
-	 CcxyqHXqzBeWDQNcTkF6ASnPWXgpxV0HJmvaueIfFHHSo6PAo/743rQZ1n9UpIEUF7VJC
-	 YqQCmmFC7FZZgZU7pRvGCA5AaPg/MLDKx+fuwNn4C/BXrTlZwxJNLzl3Bn1NVuNTwqTjA
-	 4E/w6RjxVtsThdqLQZHIp7Op/63gawQA7vexY9K6EnR6l12Br4vETxPKrgC7PQZvdiA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793897971;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ENTWrgdqNOnhBXm7Ydoc9z3n/Zlmn8Dt6MNiq3/7nzs=;
-	b=luUK3cIWiBz5GPNsGzh/9QksfUmYE/IWhcW2fUjxZ2pyCPv5FyCvfy7f98nDWX0YegKh
-	 UHQ75iDZCp2DJGufqHi4Gx08pvlTh989Iod9UOBBElmk6Y3Q1WD06FEiFIFCUYZEnIAyl
-	 lpdmA5V788j0DO6Z9qa2686lhXaOu+h4Ibfw8CWq2cbFgP8yhqDAjSPo+XpCBJfj914Hx
-	 dx+PTQtP9aJc0LZRT2B/abSDEfD7ew49ZPhH7RuPuBZEncve98csjFvS63xjmErBlR8E2
-	 Y5Zpfu+Lh+0qCSDo+LWrl5Q2SnN7zTsO8OTk8hUw3f07gZY7QEp6+o0cLGqG1N0ulgQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=amacapital.net;
-	spf=pass smtp.mailfrom=amacapital.net;
-	dkim=pass header.d=amacapital-net.20260707.gappssmtp.com header.i=@amacapital-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=M4rBHBr6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.45
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793898000;
+	b=C7Mnu3EbS2ukJ6i0TxgozPwqzyP92uy0z/sJt8ZsSgGEQm+MlRNDP2tIJq/1Hbkr7uki
+	 bYKk93jFlSi1PKmoS0vPhcM6XapdXEvUA7WS1qj/aP3n9Zo7++lZdpD4IJn49dVLgdYKx
+	 Gp6wA/0kQEQgWRIQJYvlsO/UdqCMfY1JhSbfB6NQ1cU+kLSU1Cxmr6Ep9rMmhq2O0fSDi
+	 r+inSLohbr0Ha+v/8w9+ncv4Ztj84k+1+xTur9PHoEeQ87BGs4crndixa4+pl0wOohNwE
+	 aYq4BqmxwwxILJm5QctFCXUTKY0Yv/VaPNg2Qnb+pr3SfsVRXwMJQDQVTqerRpL6EjQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793898000;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version:X-TM-AS-GCONF:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=4VdMmw9IgQMj60w2SfS0ONa+3TaIIoExykF4uE26k34=;
+	b=Ie1xOhUE8++rwtSD1MRlFeus9oHAHcjJ6umrNcPgCLTOHoTNDEpuQvTEP0valAxZHE0V
+	 fe3Qfeahs2KvEKXaQG1izCK5cCgbH/0qe7VtApGE/EaN+J42L4L1K2u0S3PEC8kCJ/yDT
+	 O+9YO1rfgEgAQMQYmYJgMzk2l8MpCCD/jFToTLwbvHwFTRVGT1TGRmEavGc4ZLWQ4DYN5
+	 gWgbsFLUPMqtK24f99k5IALjVmIXoOtVJe9gLIyQe2M8/maa8OxyC1CIQuceslXhz6/AJ
+	 5I/7eCyj2xwuqQ/R5biiOpPUZS7iX596teMRx5NaqfJ7Ja+QRSgXDFoBDkIn6SnuMqA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=h6eF5DSI;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BEEA606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:59:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BEEA606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amacapital.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amacapital.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1AE2606A326;
+	Thu,  5 Nov 2026 16:59:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1AE2606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amacapital-net.20260707.gappssmtp.com header.i=@amacapital-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=M4rBHBr6
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5bfbc67991cso1334381e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:59:31 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793897969; cv=none;
-        d=google.com; s=arc-20260327;
-        b=iV5JShpUNxfzhVv5pJvoixhgpDcv/ybeU8QutAa/AE4cazmlBjwP3YSbfcfBp2Sppz
-         u+x0sxP1ewNLINBkdAi/4yT725WfSGo2YsC9tR12HQtuttukp8hR3c1cM6eIzq/RN7J3
-         l3Ujc9g5Dv2J3sfu0m3/uahKNXr8y+0LTIRkrja/NXetzGDYxiBP4UWY1wA2oNYjclD2
-         hVTVOuo5dTbYq2kC4p1rSjEjCOm41pmOVn6yndyiu2u9RHyQ+QbMMFsk7R4gTmS34aHp
-         CHL3hjN/W/Rk94BsdZwnShtYgjSFAO3NcbMHM3aW4DkUq8FjdNYys0WXp7fxivoqonOX
-         Ks5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ENTWrgdqNOnhBXm7Ydoc9z3n/Zlmn8Dt6MNiq3/7nzs=;
-        fh=t3PhoKjeVc4g+JFCQsKv7SN8bfTumgmdboid1YMEJcU=;
-        b=PNGCph+xH4qxfNtJ/Vn7g5he46guzpb6CMjkDqUQJ6UpqeJFb5jKneN66PiMwamsCP
-         1K0L+81l0zlgPp97WqrtApHs/lZ8z2xwr8HNDqNlXHtiecDHMN4Ihs4YZ/Kgg+7xOanc
-         KOFupBtq7WIuiniusIXSBcgiBs2FoIgbie80z0an6rYHMi5yQZOD79pPLmngmM4ILM0y
-         iJLC9lbqVEqTeQxf6zF4y1Z2Cq5ZMw4IHGA0IQTW9nl1RhfY1dfIxWWrqhcX6U9kwxj/
-         tjr8Zexj0Ap98MRFr7En5g5u1sqqADv678X2TT1q6cWwKpR+2w49Qj8KfpQLcT2mh0UD
-         v54w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amacapital-net.20260707.gappssmtp.com; s=20260707; t=1793897969; x=1794502769; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ENTWrgdqNOnhBXm7Ydoc9z3n/Zlmn8Dt6MNiq3/7nzs=;
-        b=M4rBHBr63W/SAVwNNbCQfErkFQNKWB1qkv3HtqteP54rOiV/HHnDMbtUKJCArIzFu4
-         mYj0S1RcIb0q9pNYYwzfkrgcW/4hpcfT9cokBuN88bZN0gEMLrtAd9p4+/Q1wKWLERCs
-         DrW00xbJ3OukwQpHPe/em0QG+3GlYH+g3IYsga7TvOEBXsyzoIivcIrFXjcPfBtQMsJx
-         dhhKFMCZQePt2r/MCoc/hvcGaP1eaY7HE+KfNY0jNPytwrHw0Re5wyWLV4CIYYEeqBaz
-         M8PdhqQP2K58xdjOL5tlAIrLEOG/UBLGLNET3to0NrS8A3suRDOPofJdLYHDtzflD6hB
-         0Dzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793897969; x=1794502769;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ENTWrgdqNOnhBXm7Ydoc9z3n/Zlmn8Dt6MNiq3/7nzs=;
-        b=jm5f9gx+GEGPwRoLzVTJVCb/xYjHhcQZIbdjY062D90JfGxOiLzocMU15RbEVcw5l+
-         01SHjCp4Xjcy7cwxE7wodk7RLePu7KLhXDookFfnfwkCGcAsBdMJupvVJ6nakYyve5kE
-         JxuEz20wnSfGiTzQygFsHDbubjsC7PY0hxld3OEjz7IENuudaBcaC3etgLx/sm7zbqVC
-         gUIJ1EyhbVT0zat4+GaJi71a7fFFlo0XUMAosTiNGG9e/iqQqGDjOj4fKz6a6OQrYmkJ
-         w2kMtDclvlRjlGlb8qUh7EKWYsWZBR2lAsoo27RXMZJLcLpiBDEYwl5/Z3dUjL1OkEaR
-         +Vwg==
-X-Forwarded-Encrypted: i=1; AKwUvBwM1QiZ0EbcBoTR47HFibgbl+0NL+Hvgs3TGEsV1MGVW2GUoyRccu6UfmjRd80CNy0YPlTIx+4HrOuDbzU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+PzPWys7dt2Sb77v5hCYLiQXl9xS9yAsELmVfRIyn7HeTYUa3r
-	GJpFKzBYnNXvBMsqoDyvmO1d6A98ApkihD1abDDRidfe3Oj25M457evO71innzEEc/qGvR1rkaH
-	ZU4DCyReRKzfyIdEuFPG7G2Z8FLfyShZDY8HfonVX
-X-Gm-Gg: AYBFou34j02SJF6vc+cc/Rssom7l0ev+Qjs9fySI9iBqLfGLd2Kz37moQvjs2QhvIRm
-	xVawCRFpSl9lsHcVxX+lqCN61g3Vy4TV/owX76+DJ7c29tKiTKt16QdnuNYlqmMJhKlPZnRLxw9
-	QAt515MnAylq74DfG8eebkM7JGSSFoUr44Sw5pcLn/n1fgg2SXt82kn07/qdZYmvKcEc/CDQ1qd
-	OJKtvAz0juQapRTI2qnvP8GmMxaDWE4I4iCImqWl3Ijt4GMiHJPzSLDRqC3vpCZMi75QMkaranv
-	NgQCl2aa42KuFqzak3gbFfvNa08VSWdXpvjUuo5azLCzwjfz9cATIiCFcnT3JdfViqlqgHTLIlR
-	qqNn6t6FYwfyvCL9T+LiwsCM7/NBgLtGyTg==
-X-Received: by 2002:a05:6512:3e1c:b0:5b8:f97f:7a22 with SMTP id
- 2adb3069b0e04-5bfd957683fmr6945728e87.54.1793897969539; Thu, 05 Nov 2026
- 08:59:29 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=h6eF5DSI
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EiG8w3787897;
+	Thu, 5 Nov 2026 16:59:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=4VdMmw
+	9IgQMj60w2SfS0ONa+3TaIIoExykF4uE26k34=; b=h6eF5DSICEoAPw2m+QFrPo
+	VfyyLsBf95vEVvVWrZG8fqyte37gS6PS+D6RV+Wo3B6Nh3ACPHiO6kMeo7tmJRpA
+	yzkmBe72wJYNi0ey4SR9r0Ne4T9Xg1C1vUkJcvh1zCdeiV67wQyzqAC4gPPJAgai
+	tAg7156hH9dzoq9g8P1cDUk7wg0uvEGj+88WFfs/8I75wIMHqBIjUz4/kCAhC2gC
+	DtNS729NtJkS3rEq6Kng5FwvC4pTewRl67cjU2ToZTAGgwB6c6UXC139aF/wsTSc
+	XkiZZLcay+slEQyVtB+QyO9Liw/R2Ciz446FcCyK5X3KcLvzw1hjHZ210X4Qmzdw
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn8273vfp-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 05 Nov 2026 16:59:56 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5Gs6fj1685693;
+	Thu, 5 Nov 2026 16:59:55 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hrmrek01h-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 05 Nov 2026 16:59:55 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A5GxpXD42926360
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 5 Nov 2026 16:59:51 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B470D20043;
+	Thu,  5 Nov 2026 16:59:51 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7D78D20040;
+	Thu,  5 Nov 2026 16:59:51 +0000 (GMT)
+Received: from [9.68.14.168] (unknown [9.68.14.168])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  5 Nov 2026 16:59:51 +0000 (GMT)
+Message-ID: <5ba403bebb619e0361d9963c98c8c978c2000e07.camel@linux.ibm.com>
+Subject: Re: [PATCH v12 2/5] s390/pci: Improve function measurement state
+ management
+From: Gerd Bayer <gbayer@linux.ibm.com>
+To: Omar Elghoul <oelghoul@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org
+Cc: hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
+        borntraeger@linux.ibm.com, svens@linux.ibm.com, schnelle@linux.ibm.com,
+        mjrosato@linux.ibm.com, alifm@linux.ibm.com, farman@linux.ibm.com,
+        pasic@linux.ibm.com, alex@shazbot.org, frankja@linux.ibm.com,
+        imbrenda@linux.ibm.com, Gerd Bayer <gbayer@linux.ibm.com>
+Date: Thu, 05 Nov 2026 17:59:51 +0100
+In-Reply-To: <20261103150114.68873-3-oelghoul@linux.ibm.com>
+References: <20261103150114.68873-1-oelghoul@linux.ibm.com>
+	 <20261103150114.68873-3-oelghoul@linux.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,131 +101,209 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028221705.3915340-1-halg@google.com> <aunVmg42/S2uUDWR@hallyn.com>
- <auyink594bxptAPN@google.com>
-In-Reply-To: <auyink594bxptAPN@google.com>
-From: Andy Lutomirski <luto@amacapital.net>
-Date: Thu, 5 Nov 2026 08:59:17 -0800
-X-Gm-Features: AclHuK99RUxjga4Yt7Cih1iKUoXn780fqABuH5tRHwVrGa5--KTUob_Z762ltig
-Message-ID: <CALCETrWaFf-X-mD0moxqaqEDWOV+85geK2B2Rs3ArixKd=Ntfw@mail.gmail.com>
-Subject: Re: [PATCH 0/8] userns: per-namespace capability bounding set and
- opt-in netns loopback
-To: "Hallgrimur H. Gunnarsson" <halg@google.com>
-Cc: "Serge E. Hallyn" <serge@hallyn.com>, Christian Brauner <brauner@kernel.org>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Paul Moore <paul@paul-moore.com>, 
-	Serge Hallyn <sergeh@kernel.org>, Kees Cook <kees@kernel.org>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Jan Kara <jack@suse.cz>, 
-	James Morris <jmorris@namei.org>, Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Jann Horn <jannh@google.com>, =?UTF-8?Q?G=C3=BCnther_Noack?= <gnoack@google.com>, 
-	KP Singh <kpsingh@kernel.org>, Jonathan Calmels <jcalmels@3xx0.net>, 
-	Casey Schaufler <casey@schaufler-ca.com>, linux-fsdevel@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, linux-api@vger.kernel.org, 
-	containers@lists.linux.dev, netdev@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: gOJ5I3V8KOJWN5GBoZRATia1TjtZk9wM
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA2NiBTYWx0ZWRfX5DKQz1onL+ZQ
+ i/vySttEmNgRIOv8Np7YM9AybSuN1MOf4qTI2lI8sNjSs4rfCT++DQXr3JiMcc1u2Mc5ue1OsMl
+ 1swJGb0hcqztvm2eBlNNyBHOKd29wYEPTK1agwFywbDG3MTndjMgmgFTDJRhdm37ZN+ZXaG6b1r
+ qWyixodtrJu/iumxCJ1MPk+1mjqMTHZaXc9m0h/75q/ZTC/u/zRWlcVf0FoK3caxw5M8URWVUy0
+ HgwozHop862k6lcvwrOonom0rsyHmeU5tspXgJD7tLxcN62uHGFmsTF2q2Gj71LTjmgD/kxhBVi
+ Nem6pOmOJmWexB3o62ZV+pvonFw6tCTH8hznaT8y9ffZg5phLUuv9CM0H/99uiJA6d/fXHlSh+4
+ k7wPj7rxSQEB/381e0KeJAeX2THPJ2bl5WRGr0PkHexYqAfmVOZI0UY5eVPjrobOhwJTJUaPhGj
+ lYbD9EPItyIJXdKEWJg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA2NiBTYWx0ZWRfX1LyTnZEWbjdG
+ kWhq8S4m5HtjOhm7cdEILYQoSym8x9QYpDHLQ5GvBVeUYNp6Gr0pSueiqH2szFzRY1omRFUoV+Q
+ x4/T0RJuPWISTu/AirAen8HgNIGLSbU=
+X-Proofpoint-GUID: gOJ5I3V8KOJWN5GBoZRATia1TjtZk9wM
+X-Authority-Analysis: v=2.4 cv=EsJHPicA c=1 sm=1 tr=0 ts=6aecb60c cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
+ a=YjtKywxNojFmjcD5IdkA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_04,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0
+ priorityscore=1501 adultscore=0 impostorscore=0 phishscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611050066
 
-On Thu, Nov 5, 2026 at 7:48=E2=80=AFAM Hallgrimur H. Gunnarsson <halg@googl=
-e.com> wrote:
->
-> On Tue, Nov 03, 2026 at 06:37:46AM -0600, Serge E. Hallyn wrote:
-> > Generally, if I, or some users I support, need to use unprivileged cont=
-ainers
-> > or user namespaces, then when an 0day comes along, I can hopefully trus=
-t them
-> > not to exploit it.  The biggest danger comes from the fact that, right =
-now, if
-> > they can use them, anyone can.  So if someone can trigger some other co=
-de running
-> > as user nginx or something, that can become a root vector.
-> >
-> > So what if we had a built-in feature or LSM which implemented a credent=
-ial based
-> > whitelist, entered at firstboot?  Something like
-> >
-> > ```
-> > # Default deny
-> > uid =3D=3D 1000  # approved
-> > 1005 < uid < 1010  # approved
-> > gid =3D=3D 1005
-> > security_label =3D lxc_user_t  # Not sure how far we want to go with th=
-is
-> > tty # must have a session
-> > ```
-> >
-> > Now, if you want to use user namespaces for generic sandboxes for all
-> > users, e.g. to confine browser activity or nginx modules, then this mod=
-el
-> > may not fit.  Or rather, it might need a few tweaks.
->
-> Thanks for taking a look and sharing the credential-based allowlist.
->
-> The latter scenario (generic sandboxes for all users) is actually the
-> primary use case that I'm targeting. I want to allow unprivileged users t=
-o
-> create user namespaces, e.g. for sandboxing, but without granting them
-> security-sensitive network capabilities (CAP_NET_ADMIN/CAP_NET_RAW) when
-> they are not strictly needed, given the historically high risk of local
-> privilege escalation associated with them.
->
-> The two approaches target complementary layers of the problem. A credenti=
-al
-> allowlist at creation time controls who can create a user namespace, whil=
-e
-> this patch series controls what capabilities are available inside that
-> namespace (and its descendants) once it is created.
->
-> Gating creation works well when there is a clear boundary between trusted
-> and untrusted users. However, in a multi-tenant environment (like a large
-> container fleet), we generally treat workloads as untrusted by default.
-> Because we still want to allow these untrusted workloads to use unprivile=
-ged
-> user namespaces for sandboxing, it is essential to keep the attack surfac=
-e
-> small and follow the principle of least privilege whenever possible.
->
-> More specifically, this patch series enables that model of safe sandboxin=
-g
-> across three key use cases:
->
-> 1. Configurable capability stripping: Administrators can enable unprivile=
-ged
->    user namespaces for all users to support sandboxing, but configure the
->    system to strip CAP_NET_ADMIN and CAP_NET_RAW by default in new user
->    namespaces created by unprivileged users. Basic sandboxing rarely need=
-s
->    these (except to bring up loopback, which Patch 1 addresses via
->    CLONE_NEWNET_LOOPBACK).
->
->    The per-namespace bounding set can enforce this either globally via th=
-e
->    sysctl, or explicitly via clone3() at the container manager level. Thi=
-s
->    restriction is monotonic and persists down the namespace hierarchy.
->
-> 2. Selectively granting CAP_NET_ADMIN: Some containerized workloads
->    legitimately need CAP_NET_ADMIN to configure advanced networking for
->    sub-containers. Because an unprivileged creator's child namespace is
->    bounded by:
->
->      parent_bset & (sysctl_ceiling | creator_effective)
+On Tue, 2026-11-03 at 10:01 -0500, Omar Elghoul wrote:
+> When a zPCI function is disabled and re-enabled, the firmware implicitly
+> disables function measurement while the kernel still believes it is
+> enabled, leading to a disconnect between the user-visible state and the
+> actual device state.
+>=20
+> Add the statistics_on field to struct zpci_dev to track the desired FMB
+> state. Introduce the functions zpci_fmb_request_on()/_off(), which defer
+> to zpci_fmb_enable()/_disable() to perform the actual firmware change.
+> This decouples the enablement or disablement step from managing the
+> user's requested state.
+>=20
+> Restore the state in pcibios_enable_device(), pcibios_disable_device(),
+> and zpci_reenable_device(). New devices start with measurement on by
+> default, unchanged from before.
+>=20
+> Signed-off-by: Omar Elghoul <oelghoul@linux.ibm.com>
+> ---
+>  arch/s390/include/asm/pci.h |  7 +++--
+>  arch/s390/pci/pci.c         | 54 +++++++++++++++++++++++++++++++++----
+>  arch/s390/pci/pci_debug.c   |  4 +--
+>  3 files changed, 56 insertions(+), 9 deletions(-)
+>=20
+> diff --git a/arch/s390/include/asm/pci.h b/arch/s390/include/asm/pci.h
+> index 88a125b92bdd..dd58c48ac2ed 100644
+> --- a/arch/s390/include/asm/pci.h
+> +++ b/arch/s390/include/asm/pci.h
+> @@ -208,6 +208,7 @@ struct zpci_dev {
+>  	struct zpci_fmb *fmb;
+>  	u16		fmb_update;	/* update interval */
+>  	u16		fmb_length;
+> +	u8		statistics_on	: 1; /* desired FMB enablement */
+> =20
+>  	u8		version;
+>  	enum pci_bus_speed max_bus_speed;
+> @@ -349,8 +350,10 @@ int zpci_create_parent_msi_domain(struct zpci_bus *z=
+bus);
+>  void zpci_remove_parent_msi_domain(struct zpci_bus *zbus);
+> =20
+>  /* FMB */
+> -int zpci_fmb_enable_device(struct zpci_dev *);
+> -int zpci_fmb_disable_device(struct zpci_dev *);
+> +int zpci_fmb_request_on(struct zpci_dev *zdev);
+> +int zpci_fmb_request_off(struct zpci_dev *zdev);
+> +int zpci_fmb_enable(struct zpci_dev *zdev);
+> +int zpci_fmb_disable(struct zpci_dev *zdev);
+> =20
+>  /* Debug */
+>  int zpci_debug_init(void);
+> diff --git a/arch/s390/pci/pci.c b/arch/s390/pci/pci.c
+> index c055a9ad0972..f49736386eb7 100644
+> --- a/arch/s390/pci/pci.c
+> +++ b/arch/s390/pci/pci.c
+> @@ -164,8 +164,38 @@ int zpci_unregister_ioat(struct zpci_dev *zdev, u8 d=
+maas)
+>  	return cc;
+>  }
+> =20
+> +int zpci_fmb_request_on(struct zpci_dev *zdev)
+> +{
+> +	int rc;
+> +
+> +	lockdep_assert_held(&zdev->fmb_lock);
+> +
+> +	rc =3D zpci_fmb_enable(zdev);
+> +	if (rc)
+> +		return rc;
+> +
+> +	zdev->statistics_on =3D 1;
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(zpci_fmb_request_on);
+> +
+> +int zpci_fmb_request_off(struct zpci_dev *zdev)
+> +{
+> +	int rc;
+> +
+> +	lockdep_assert_held(&zdev->fmb_lock);
+> +
+> +	rc =3D zpci_fmb_disable(zdev);
+> +	if (rc)
+> +		return rc;
+> +
+> +	zdev->statistics_on =3D 0;
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(zpci_fmb_request_off);
+> +
+>  /* Modify PCI: Set PCI function measurement parameters */
+> -int zpci_fmb_enable_device(struct zpci_dev *zdev)
+> +int zpci_fmb_enable(struct zpci_dev *zdev)
+>  {
+>  	u64 req =3D ZPCI_CREATE_REQ(zdev->fh, 0, ZPCI_MOD_FC_SET_MEASURE);
+>  	struct zpci_iommu_ctrs *ctrs;
+> @@ -207,7 +237,7 @@ int zpci_fmb_enable_device(struct zpci_dev *zdev)
+>  }
+> =20
+>  /* Modify PCI: Disable PCI function measurement */
+> -int zpci_fmb_disable_device(struct zpci_dev *zdev)
+> +int zpci_fmb_disable(struct zpci_dev *zdev)
+>  {
+>  	u64 req =3D ZPCI_CREATE_REQ(zdev->fh, 0, ZPCI_MOD_FC_SET_MEASURE);
+>  	struct zpci_fib fib =3D {0};
+> @@ -644,7 +674,8 @@ int pcibios_enable_device(struct pci_dev *pdev, int m=
+ask)
+> =20
+>  	zpci_debug_init_device(zdev, dev_name(&pdev->dev));
+>  	mutex_lock(&zdev->fmb_lock);
+> -	zpci_fmb_enable_device(zdev);
+> +	if (zdev->statistics_on)
+> +		zpci_fmb_enable(zdev);
+>  	mutex_unlock(&zdev->fmb_lock);
+> =20
+>  	return pci_enable_resources(pdev, mask);
+> @@ -655,7 +686,8 @@ void pcibios_disable_device(struct pci_dev *pdev)
+>  	struct zpci_dev *zdev =3D to_zpci(pdev);
+> =20
+>  	mutex_lock(&zdev->fmb_lock);
+> -	zpci_fmb_disable_device(zdev);
+> +	if (zdev->statistics_on)
+> +		zpci_fmb_disable(zdev);
+>  	mutex_unlock(&zdev->fmb_lock);
+>  	zpci_debug_exit_device(zdev);
+>  }
+> @@ -737,8 +769,14 @@ int zpci_reenable_device(struct zpci_dev *zdev)
+>  	}
+> =20
+>  	rc =3D zpci_iommu_register_ioat(zdev, &status);
+> -	if (rc)
+> +	if (rc) {
+>  		zpci_disable_device(zdev);
+> +		return rc;
+> +	}
+> +
+> +	guard(mutex)(&zdev->fmb_lock);
+> +	if (zdev->statistics_on)
+> +		zpci_fmb_enable(zdev);
+> =20
+>  	return rc;
+>  }
+> @@ -847,6 +885,12 @@ struct zpci_dev *zpci_create_device(u32 fid, u32 fh,=
+ enum zpci_state state)
+>  		goto error;
+>  	zdev->state =3D  state;
+> =20
+> +	/*
+> +	 * Measurement is on by default for new functions, this will be honored
+> +	 * by pcibios_enable_device().
+> +	 */
+> +	zdev->statistics_on =3D 1;
+> +
+>  	mutex_init(&zdev->state_lock);
+>  	mutex_init(&zdev->fmb_lock);
+>  	mutex_init(&zdev->kzdev_lock);
+> diff --git a/arch/s390/pci/pci_debug.c b/arch/s390/pci/pci_debug.c
+> index c7ed7bf254b5..06e2e8bb2f82 100644
+> --- a/arch/s390/pci/pci_debug.c
+> +++ b/arch/s390/pci/pci_debug.c
+> @@ -156,10 +156,10 @@ static ssize_t pci_perf_seq_write(struct file *file=
+, const char __user *ubuf,
+>  	mutex_lock(&zdev->fmb_lock);
+>  	switch (val) {
+>  	case 0:
+> -		rc =3D zpci_fmb_disable_device(zdev);
+> +		rc =3D zpci_fmb_request_off(zdev);
+>  		break;
+>  	case 1:
+> -		rc =3D zpci_fmb_enable_device(zdev);
+> +		rc =3D zpci_fmb_request_on(zdev);
+>  		break;
+>  	}
+>  	mutex_unlock(&zdev->fmb_lock);
 
-Right after sending my last email, I had the following thought of a
-variant of the model.  Permission to gain CAP_NET_ADMIN via creating a
-userns is kind of like a capability itself, right?  We could get
-pretty close to nice semantics if we allocated a capability bit for
-this (CAP_USERNS_NET_ADMIN perhaps?) and, by default, giving it to all
-users.  Unfortunately, the latter part is tricky because even sticking
-it in the ambient set won't keep it from being dropped by setuid.
+Yeah - this looks good to me!
+Reviewed-by: Gerd Bayer <gbayer@linux.ibm.com>
 
-Perhaps we could have an extra capability mask that is for default-on
-capabilities.
-
-The intuition for this is that permission to gain capabilities in a
-userns is a mess if it's a sysctl (as sysctls are global and there is
-no clean way to say that a particular unprivileged task may
-nonetheless create namespaces with CAP_NET_ADMIN) and it's a mess if
-it's a securebit (still has the latter problem), but it's much tidier
-if it's tied to a task.
+Thank you for your work!
