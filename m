@@ -1,105 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793901199;
-	b=waQ37+S2LAOyw1bBj/B4G67WjyuVqkKOKHgpgE5KMtxVLAo5GDW7nXGDz9OajaOX3BqF
-	 l9QUZasF5QT84d/vuxeRDTTYSheZigmfYcRsvMQEhVYXq/kUYTJUBi6iHBQ/N8EvLO0fs
-	 XP9E/EiZIVQg0ZZIoiXNj1Wog18AMnJjqv/ZR/DooU+f3w638XtM+7AoqAeEtCvac99Z+
-	 NmK7yEGpvQfl5Y8MqhMARV3C8sag607BWxhnyJqhwvpoGhJgzrSwcmHpnIxuXSJeDPZTY
-	 sr2gPc+IYvhyC12VmYw7Zjyl7ugP9t9/aWWYXJrR4w3jDo8kqPWnHPlzpomREWOQekQ==
+	t=1793901226;
+	b=exeIBwpJWigqnVm6u5JG7v5R1B4taB6CG7RkewU4Pjbzyu5E4dLaohc8e+AYqNPmP1AH
+	 K/RSumXL35Fr1sffDQdMWAq3irO0H4uzQnfi5Vx195LJ7JpCvTI1mQ8EmzPRG9axARPsO
+	 bTVKTVOMLLCfLkW8TU0VGZhIBtANWmiIc3CU21RBQeytReQM+WDempngKl3sgms8WWj8/
+	 06zI52/+DsFQJ2jhl9VkKkSphWYfGdJa8jA8lI2CdUqCIcSlwPK52XV7yLp5b1h39ltdb
+	 ZXvgW90oDEBz7T42j/dZZWZOpRxnL5/S9mtZ0wE9XmSkl4Xi2OgH5WCUu3ekakPMtZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793901199;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=od5bQglY7/GGBrEmPf29Qqq2rBzZfNZGV89tObGuQzQ=;
-	b=1zLUzyNad7GTozvsuFjnCCkNIvj/fa6H/4/W6s+EXjgAnKlrJKipIHLgJ4GmjVgKA4rK
-	 1EvPP6/atz0fOzuIKYuyupVTmSQI3zUoAGaT8CC7jj9IHlJaZRLPm2jBM/Vuy947cYhrB
-	 nQvsSX4DbXdZrl/cExhM0tOYepP4TkfQ2Xu00644J6XEizWZY0oXKg1RuWGmAffjyBIfo
-	 d0sdVz2JyTjUhrAvtcZQZrz7TdLzl6c36I6OPgHT9UIIUNClML6+Pm5KTGz5MJLIEhrVo
-	 Zp+8O0gnAUWcvyeP0Fei1HNMyHbvYcVliHNiEYUYim2Q8J/jaZf9drdTmvW/8g2hZEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793901226;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=24DN6uReOLKC7T3rnRPsFJ0vyMkgerb5nS+GghuFNvU=;
+	b=ma3oZXigOYvigKTiSjBg8wuXTdUDHyfCi0RgUKTvMXjBvPpmYXVACVVE0n8rloQm9LZd
+	 6YtEyB5IgXaBMtrLzyvCClOINaHwS9UC+QK93llsRygpS7v7sYWUeEoi2M3sdhdAhCfVV
+	 6ydGU9o9a7XiDGc5jfI/wg6YH6HxfcGqlB8mcteCKsreRSIoWy4xU7ffPX8L+kitIeEKU
+	 Fp6IbCToC5ryKLtBFCPVry0b+xuyTjqxgU9L9GWEjNOUeP1fWSU05gM5tISwRGtphLh8v
+	 JTqJOC1hxl4FbsMz2Tm5SUllTC+MCFEXeT1yPVQsBkfP4eIUMVl7849xe+kWL/vEYFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L0ewaDC0;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=QiRPOTJs;
+	arc=none smtp.remote-ip=199.89.1.16
+Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 320D2606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:53:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 320D2606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA182606A31B;
+	Thu,  5 Nov 2026 17:53:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA182606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L0ewaDC0
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso23745565e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 09:53:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793901197; x=1794505997; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=od5bQglY7/GGBrEmPf29Qqq2rBzZfNZGV89tObGuQzQ=;
-        b=L0ewaDC0DdnIVizcuLN/6bUZotvexkC4yS4uKLIfK+dEjVuKgDOa6MjMssv6x8deKS
-         //ogv9UNKq2j92xv7SynG5IuLzA6xrSpHTtiOtzlfQR9zV+oalxFVMoqyd1iIAIT5QDV
-         8gWPwt8WdHfXCz7hznMz2j7vLVmh4KITMBo3KFJ8XRx83PcJv6mk2mr0qtlnPP7uz8rr
-         mBCiZDl0z33uHoQ80VTUQMwl5zStIolPNbnAvGrC6nsCgi7Be2SoiC6L+wpTgVkndBJT
-         83zvZGpAVXD/Qw9alacNL4DAvOwQNTZhrwLkzgrk6UpdOUkP7rt7FfbOurYx3wJJGuS7
-         0Ucg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793901197; x=1794505997;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=od5bQglY7/GGBrEmPf29Qqq2rBzZfNZGV89tObGuQzQ=;
-        b=SxxSbXTdNAlWLh3TLKouvadN2pAefkpQG0t7LssQQUpmhxkSyNvymProGqMaEwTt3B
-         jpgMEYnph52Uy+9u7kTblAvGoMQDSgtV+H9bm/ki2p6Gozy9HSS7yHZ4oVnB5YWyTE6Q
-         MjXMhq45Fejz9NnGOwHu0LY4PL/L4ADEE0LkI5tVNS0XOUuN9m9R+N9r8ttEQgS0nur2
-         ltlojT7FA0Xm/n5zSvoAbcvd/SIM3MVrA3WsbqLxvtnPDTrU2XLWy3cfRKHIftR4U/T6
-         aSQpLdmHDm4KPg4DfyBgLWQiC7NRhmuPqJZwcvPu9awDW6wcD1Cxtw2vcmsJJtbBqZc4
-         OAbA==
-X-Forwarded-Encrypted: i=1; AKwUvBzTW+lcp5q2ysDT5kJNP3zmMkt1c/pk1xOPaXupgKpo6vJbzaXya9fNmJlUZDe0q5zfhE8iTPMfvfIhAV4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z82YsDUU6h55Yo56dy06X1loPDL52eYbnw1gqtL9F5qs2jaNdjM
-	6QWxuKeQZcwkYcTfKON7UZG67/1uq0bp0I+7Ndf7s1uXH0Cc15WI/hF3NHmry4h1
-X-Gm-Gg: AYBFou2xYVTf2kv0I0ZcbPDy2RCY+6k2tBab2xGpcN3ryvRAXc4uZ0WITI8lDEpQO0j
-	QYOstOrcJPapI5r7fSrkI1tPb3R1/GHpk2Q0/0yI7cj2v/4lfdsSJ48XMzqHvpJoJr1o2xRzOrX
-	Fs7N5o2Wnuv0uomWiQMOmgsRokEhq7llIps1KLOAaSSlXC+7M/0qC0niBnirQjsOcCEFsROxP7l
-	OQ64/UeycYya/hKjlKOoTF5YglyUBzeWQtroOo95nZSo+57G/24Vly4dBy213YqD/bwxZMxrKeH
-	Gf0kxMxjb6bhJAIz32VtsKPCFKBFMt+MbN/lhdqaj7l4rj0/JDIK7P2Md2puqZe5fr4khpYSEq9
-	nQMrppfogvORVbr9U5G5euI8SRhbg/pQ5HPsQc1caJNopO3h5mqj5woRmALXtLOyJ+MF1OMPQZt
-	lI/o2zsJikPF3a+6kwO/wrNZHxeTaHkep8T5gCMChL/nQYuy7zClCntBVQnilXmUUzza7HQxnIW
-	elPN6GFuc11T6ezsrTjejIsY8w+kehiwyfSbPrYH/MkYwO8CjiH/cE9DHWeGdM0tWga7L095+Y0
-	frOOfTgUDUdy/aMZqfG0fATds/ayprUMm1bNNynWZJF+2Xxv88Z3Go4+YF5fAWToVJMd3mmmX4l
-	VgW2qx+E=
-X-Received: by 2002:a05:600c:354c:b0:4a2:8c5:5e5 with SMTP id 5b1f17b1804b1-4ac17d16b1fmr442399235e9.7.1793901197485;
-        Thu, 05 Nov 2026 09:53:17 -0800 (PST)
-Received: from andreayoga.localdomain ([151.43.242.194])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b4527fed5bsm200647785e9.3.2026.11.05.09.53.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 09:53:17 -0800 (PST)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Tycho Andersen <tycho@kernel.org>
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	Kees Cook <kees@kernel.org>,
-	Andy Lutomirski <luto@amacapital.net>,
-	Will Drewry <wad@chromium.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Sargun Dhillon <sargun@sargun.me>,
-	Hui Peng <benquike@gmail.com>,
-	Bradley Morgan <brads@mainlining.org>,
-	Cong Wang <cwang@multikernel.io>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	bpf@vger.kernel.org
-Subject: Re: [PATCH 1/4] seccomp: wake poll waiters after failed addfd send
-Date: Thu,  5 Nov 2026 18:53:08 +0100
-Message-ID: <20261105175309.2995-1-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <auy_NtEpqMU-g913@tycho.pizza>
-References: <20261104103736.71956-1-parri.andrea@gmail.com> <20261104103736.71956-2-parri.andrea@gmail.com> <autZ5kL0S5MkX_8l@tycho.pizza> <20261105153735.5368-1-parri.andrea@gmail.com> <auysN9YTg8Ih8QLZ@tycho.pizza> <20261105173530.39081-1-parri.andrea@gmail.com> <auy_NtEpqMU-g913@tycho.pizza>
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=QiRPOTJs
+Received: from localhost (localhost [127.0.0.1])
+	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jL90T1SgHzlgyGZ;
+	Thu,  5 Nov 2026 17:53:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1793901222; x=1796493223; bh=24DN6uReOLKC7T3rnRPsFJ0v
+	yMkgerb5nS+GghuFNvU=; b=QiRPOTJsNHIAH4NkS0k/ca9hP0Q42YeS5wUwg5MU
+	rAh+DarQds8lONUK/jd6pH4hc/1k2SC84UcK+bPZcf6/5/hlMtl8fuJ3VntrHNb/
+	Udso7jdU3w36Fg6rMb++24eX+CR9tal6iHJZ6LRPcoXIa9AbwBLNDofz2NHtdcB5
+	Mvfvn2qiNYpqTF4Y0SqQs0P4cTE9TkApuK2AUmkwjtv84MEWVpiN75kO2SVTiI8w
+	7pt4FMQLos5hZOmDwMXxMZbv5/xgC4PzOdCUZyNnOTt2nmC+tlHfi6AjuznmZs2n
+	CCrDcZCbSlBl8T2rVwklJFE+WgpB+qH4lVIvOcGeoX2xZw==
+X-Virus-Scanned: by MailRoute
+Received: from 013.lax.mailroute.net ([127.0.0.1])
+ by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id ehe7uoKOOPA2; Thu,  5 Nov 2026 17:53:42 +0000 (UTC)
+Received: from [100.80.231.125] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jL90Q2KzlzlfcTl;
+	Thu,  5 Nov 2026 17:53:42 +0000 (UTC)
+Message-ID: <ec1d1fd7-b832-4ea8-b3f3-87ff3d361d80@acm.org>
+Date: Thu, 5 Nov 2026 09:53:41 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,14 +70,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 2/2] ufs: mcq: poll OCS after sq cleanup for device
+ management commands
+To: Kiwoong Kim <kwmad.kim@samsung.com>, linux-scsi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, alim.akhtar@samsung.com, jejb@linux.ibm.com,
+ martin.petersen@oracle.com, kwangwon.min@samsung.com, hy50.seo@samsung.com,
+ cpgs@samsung.com, h10.kim@samsung.com
+Cc: stable@vger.kernel.org, stanleyjhu@google.com
+References: <20261105004333.1097899-1-kwmad.kim@samsung.com>
+ <CGME20261105004353epcas2p1bd2370dd10156570c69f8f80da3cbcfd@epcas2p1.samsung.com>
+ <20261105004333.1097899-3-kwmad.kim@samsung.com>
+ <8939a53e-1b21-4dd9-b65c-cbe03b8b72ce@acm.org>
+ <003701dd6cea$c396cd10$4ac46730$@samsung.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <003701dd6cea$c396cd10$4ac46730$@samsung.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 05, 2026 at 10:42:07AM -0700, Tycho Andersen wrote:
-> But what would it reply with other than EMFILE as you note or SIGKILL,
-> both of which it would do inline with the ioctl?
+On 11/4/26 9:59 PM, Kiwoong Kim wrote:
+>> The SQ is still stopped at this point, so this loop can stop fetching from
+>> the hardware queue for up to MCQ_POLL_US (500 ms). Please move the OCS
+>> poll after the ufshcd_mcq_sq_start() call.
+> 
+> I didn't get what you meant. The loop just reads updated OCS periodically
+> and from what I know, it's based on the assumption that when a task
+> is cleaned up by setting SQRTCy.ICU to one and it's successfully
+> done, the host updates OCS, even if SQ is stopped. If you feel I get
+> your comment wrong, please let me know.
+Let's start with the approach that you proposed. Making the change I
+proposed is probably unnecessary.
 
-Right, those actions can be handled inline with the ioctl.  That is why
-I'm dropping the wakeup changes and helper from v2.
+>> This code also waits for the interrupt handler to process the CQE. Why not
+>> reap the CQE from this function? ufshcd_clear_lu_cmds() already does that
+>> by calling ufshcd_mcq_poll_cqe_lock(hba, hwq) after ufshcd_clear_cmd().
+>> Calling ufshcd_mcq_poll_cqe_lock() before reading the OCS would remove the
+>> dependency on interrupt delivery and match the existing code.
+> 
+> Because a successful SQ cleanup leads to OCS update,
+> which subsequently leads to raising IS.CQES when MCQ is enabled. I
+> understand your idea with ufshcd_clear_lu_cmds, then do you intend 
+> Ignoring IS.CQES event in this case?
+That's not what I meant. An interrupt is generated after the status has 
+been changed to OCS_ABORTED, isn't it? Has it been considered to wait 
+for that interrupt instead of polling the OCS status?
 
 Thanks,
-  Andrea
+
+Bart.
