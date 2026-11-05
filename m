@@ -1,112 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793839746;
-	b=zZTeKlPK6IkR3N5Md45QdvETRa+GAdBes5VGBkxtligUCTA5ucBJhVcQUf1wDV0n1r+o
-	 /jEqDKwkgfChEsY92+ixRGOy6AK0efsIMFJhYijevsAHFXJV+vrVTRoGzMPXuSb7IPl+/
-	 2uLyB6gsbCBtUNW5FQPAzzYevtmp0P2j7B4ZoB20KJuP3XLBw+qeEUYDJojnHcROYumz4
-	 b1/LRQPwcNC2c8wVv6dEkVdYa/wb7EJ8YQAGgMqIobmrIgB4FuQLao9flaga+6+veyy8A
-	 JasAAFqYs51hBBmsrBkUbIFVO4JeEHF9EvXPk60Ejz5bSqTeGNS0rbSlpXH1W+KwHfQ==
+	t=1793839756;
+	b=3hXK/aUAq97EU/29ThpDW35M1LfKNQprAUnrKcGyRnQkgepoChmQyKjE5ZVAT0cxR12D
+	 ok7P8AOMQQS48nx+Gtb5JLFEdllcFz/oW3GZhtl8oI8GFQwlNohbwHqSgleJtZQfUYaaH
+	 eSi0O+xQcxSixd+ru1jVZB/ieV905ARNrlzIx2fETfusnBckIaVy8aF3WSoJv4rEjuMmz
+	 iQFkEnMUe92INXc5dVIHLYtgU7QaI/YxqJFjhntyOZpeOSfQzmX5BbBbnCcKN09Kbj5WL
+	 tknxNzcZ7Osb2FzrQ/YND5/hl5/enhmXJZtzQlggx6qfLYfMZUjWKTunOkeCQLVnVzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793839746;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=XqAWGD7OCucT8InwBEeCfRvI36YPHr11mO+feKHi2q0=;
-	b=1zpBhFXIA1kQo+/VdI5733w0OIQoYqzdTwiN9EVweF6U0h8LTcAdG1XY6tyD/k+Uaxn0
-	 GeraTgXRC4nCL+Vb4ou7deekU0tfJ48hGgIbL+ZCbJc77EcC9j/hAjRFFUHwS2DY3OwPf
-	 pcgbVFQx4ZAyp6KSbiKAJzEKfEbNfQ5OkcrmdrIDZWm6W4HoJZuDYS6K3edpeQo+RKqzo
-	 MLOeyNgd1uiAgnkdBd47GSJC++ZLNKcWgdrMlf1YmaRVlTQcpuJLClYNSYXrZx0aKn5AV
-	 T4pm4Eau47bJe4TjvjZy0fLGeRzIFSeadolorB7vIPcJsbvzs+qYpM0iMrJ7/a3kFOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793839756;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=CpS7GLzyshZWps/kEoS9IRvjJQudydLT99khEiIz7VU=;
+	b=1yGH8OsG3AuFyFipE1A/q8c8w9evXDvzTAYpDS27t5Te6wji4u5IXfOgDCDzaWoCTCHC
+	 vHLcsQkM1P9I5kzeFyk9qQPBvXrkqjRvP6+0eANWH1mGZENwZAA965fZecveKDQCGka6q
+	 x7kQqoTbCEc8BGJJoEeoDr85Z325etMi5noPGbwqXcONQgwo+p3q2V1UAcqIjxHEgr4kB
+	 ptFfXBsPmuygKMLzGpedXO0EJjcKKpXBuUvHmE6TPw6vz/QgvNK0FC9FGgQfPs+euEDoA
+	 /ptWUOvb4WzHIiGrHjn3dtxIBHN1gQvYqtpQlJNmEoY0dYaANHdlt1fUGCnykvLIq6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Mi73K9DP;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=C5wBzvAc;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jSyi771a;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56F1A606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:49:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56F1A606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F95B606A33E
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:49:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F95B606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Mi73K9DP;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=C5wBzvAc
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4MCpDk1292298
-	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 00:49:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	XqAWGD7OCucT8InwBEeCfRvI36YPHr11mO+feKHi2q0=; b=Mi73K9DPa6E7vBkJ
-	bQdUeEsC2XXy5CzNcLHD3Is9EV+IokS2ni3s4O9NDJfPlQC2GyzqrcKzQ9y+nf+0
-	j5KXnB86hJEjKK3EHX8U6UDsMb7kIfOjfgk6VRxVgl+2ZZzNG1NBd2nkwOAI9ZAy
-	YjsZR8I8Os4w3d0kzitHAUtfKXzVL4cMFwnEPtHw9472SQOA6kJN1qjO7+9OT69u
-	9svl8dDf2ba4LBV0i/En4Wpz4gBxNd6+DJPtDVtVEJnhMYiI6mFMEbaBBym0dfJ9
-	l2TXtDKFkwIyXBbc6kmu1eR1Pkbj3l7mGogT1thHhQbgEsFdZ8seZvR8x/HyMA1H
-	OU/pTw==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr163kstw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:49:00 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e94f72fb9fso12832575ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:49:00 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jSyi771a
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so15168265e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:49:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793839740; x=1794444540; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XqAWGD7OCucT8InwBEeCfRvI36YPHr11mO+feKHi2q0=;
-        b=C5wBzvAc3rZOpG2n9Kas/K1SHBOFInIzHAGLiYaOLMeB8WokpUsDywo08dUuYPP88+
-         1txFpS4lZuQJO20FGr+tMGCuR9b27BSE1mmHOTwY0BDzCdsKrj7gqhT3E3kgsWcgQjDq
-         cUsY6S5VAkRGLqJmas9uVAW/0g5+vCxZ3+UjPhrrgqUf/A+TNsVDKKy/nWrKgA7QALEQ
-         aCnkb+gw88DMxykwr09f/T1g9wHuEpyhBmm1BT3CSikU9VxKq/RPSYxKjvgykMTKXOVo
-         5tbVKoWe9JCMCzfx8/pHvJBoQbmVGiwrcDS3nfbVvogvRxWsWVRgFQ4B9UqUjnneNe9E
-         wYhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793839740; x=1794444540;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793839754; x=1794444554; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XqAWGD7OCucT8InwBEeCfRvI36YPHr11mO+feKHi2q0=;
-        b=2yLq4rajgoUWVbWm0LIyc7mW/InaQJWo2PqxzK2+LzBq0SpCLgHEbH2MkKNluHyVt1
-         c8mi7sIUm3zgCvS3w53OHCtDxdTpMv3ipcG0fTF7D8P9RG2A0Q20RNehgUo/eOZBQSbg
-         taSnEB7jv+03p6f7qaQivwjU8OEnUUk0QI7lIVUGMAj5qHPjcRhjbfcFbFHUrWOJ9rhk
-         +yR98/Oe7T64ag/QYIFcKbl0ygTl+Sha8sNe89zJMyYy9ErOCDDLCR886g9y3hhmUL5C
-         9/2kkUHlRi6n1As0YXzqopF+1blWtHteELr1HKkbBwbPFZHIhWReln8wfVcV25ny8Orz
-         ma5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzZVwtDGnzN8sj98Xi6q6CgOKbnFp69MFDj7iftFfbLABucA9XIji21z2tawFHfPF3IeTZETsYmQcxY29Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+iw92PEoEboGoBnSmQpewSGjDseRiME2n3wQbM+ATU3bv+xa/g
-	pivWCmPuQh/7nfLF/AAaIIKgAwJd5oMPMErcacsDQ/nlTufxhDIOAXBwvZsgwKCfZ4qre/c23Sv
-	XGIYnDYCR15BxguRIWZ3xFTLpIIj1vJm00rKeRfJA/1/S7D+8o72nEibD4g1J1LBiAnc=
-X-Gm-Gg: AYBFou39c66zOKsdS1aB0XcdlTyTisLfmNpVn6xUGWa5A0f94H+UFgTaGg1gzoRG6nE
-	Bt+9kyFAcYrRJ8hLf7XbTTIc9+w6hJMN6nsnl3ukDgZJnwaNcEZcsNlF2bsJLAepDS08oWDw4sZ
-	VNmP2/4qqI8h+GMwzx4k/B89k3p5GxI7cWuW/qX3mfzQdV2ii577R5Whv/OGEBLexvi1tXWrViK
-	kezmd6uzpkD5wYQKuBwEl2T9GHuKzKGcxcHp9JveBSCoSAenEG00h8Y+K7zp3xVZ2AuGPPJMYkH
-	cRrLjDfa3Ka9vyuY7MHJ+kGzv2PXhisWLTw5pcx9J1IQeBRyUxfxbrcBx+qEdP6Ww+5havsDzIx
-	4mRnMuIt7KdjXPOdnJmA0ET2PLJ4D1BI3xmW0m0PBvvcHGioXegqKCi5eQyQORPhF24mSb1j83A
-	==
-X-Received: by 2002:a17:902:e5d2:b0:2e9:5175:2eb with SMTP id d9443c01a7336-2eb364024ecmr175302825ad.1.1793839739703;
-        Wed, 04 Nov 2026 16:48:59 -0800 (PST)
-X-Received: by 2002:a17:902:e5d2:b0:2e9:5175:2eb with SMTP id d9443c01a7336-2eb364024ecmr175302605ad.1.1793839739240;
-        Wed, 04 Nov 2026 16:48:59 -0800 (PST)
-Received: from [10.239.155.32] ([114.94.8.21])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed091f35cesm11791855ad.71.2026.11.04.16.48.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 16:48:58 -0800 (PST)
-Message-ID: <4edbe80d-f1f0-4e85-9973-86da7649e9bf@oss.qualcomm.com>
-Date: Thu, 5 Nov 2026 08:48:53 +0800
+        bh=CpS7GLzyshZWps/kEoS9IRvjJQudydLT99khEiIz7VU=;
+        b=jSyi771aSl1Rx4d1iTMMy3LLn2WobFNClF7Q1jPZHE35svH+Jbwk210AN47Q0QgFmf
+         v1iILxJ9rIsDPBJx08DuZvs9EIvPWwS3vS6Gu2GpdwsIyZWm1t6KYXQ/Gz7caJgQQ+Eu
+         +XkJaUkzQ3HcYhk9t8vR1Gu8cKoJ5/LUzhhwHHLkRPmHJTHrcfe+XG/Vx7515l+X2EtW
+         OcW5VZ1a5WMrFgX8e+KntpjbaTPnjdUC3bH68LgZkEZDPDMcjtUrfxOC8dJGc52w1XtV
+         n+0PBCqYiqPuOsokZsH/7HIBO86FPRYzLwbnrr4dyjWIInPpFANRcdTdih4prlSqG+CP
+         e4ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793839754; x=1794444554;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CpS7GLzyshZWps/kEoS9IRvjJQudydLT99khEiIz7VU=;
+        b=pk4MQfutZdhFhctlcE9hGtpLs017mApVaqpdauOnTznj6drgMpnoSbZ1+9VUCWHzvS
+         uN1DcOG2lCktwTPEG7j4Lj0kxDmBwH01JrVQdvV6jNjdR6nmX0sIrokD/EISJCibfrNV
+         WkvrW+igC8ICrBQvh74T/QYa9B0n1SIwFJZNdneVgriiSiKocVZ48qX+dJY/p57oq+JI
+         I6EhjFFtaUplfaTjtpzOUQi+7+1/R3i1jsSjlGnANd4lDIE4l2NrA/LVvT+DGfCTWF9C
+         j+5/BpKzQ5eydrO7ZplZCIfL+23PhekQHiJmbWi3CHKeeXiMx65q2p4/3HKbA6yLbL7g
+         IYtw==
+X-Forwarded-Encrypted: i=1; AKwUvBxx3dlAPqWBUsd3EvTaZXpH6RlW+OjYJTSrEtTJblmg9+LQVu5m5YxSvbBDLAehiKVhVc0rRwSDOE6YV1c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9RY5ZIswNlSbjimLaGJVR6z+Ae7z5h/3ep6IXHR1c73nYTAF0L
+	Kwp/zmQOJ6IUFAW30MkXAV5DGuvCusiiqo8RfH9QGqfIVQ1JoDb6J6aS
+X-Gm-Gg: AYBFou0+xeTF/tIOqEhPDw92y0EbXjxZB+7+vAnbDxqVs/B/t0jX0B1FBGBM8pfhsiw
+	6qN23tsRaKIS10crsl80oFOIDp19V9wbGU6bRtSYREm1QtewwpHZwRYv1FsPcvEE4hfU7t/H9zM
+	cXEXSvF2iUJoAxhWuhcU9DNgYGRb64LLF0lMRx4mXYAgR+WMUTC4mt37FCT/NeW44JAaU6tvuQU
+	OXIC+edqeyvDVzmdGzDmyBdtXTiU8DFa067JZWoA1VMMx9Dm4cm/XEbyolb5zV3mvUayF0EUzb3
+	LmYQwLRc+an3EH5sROBVdPnVHY5kg3YoUbyiOm63mpAt7YvDUj0YzdhbPlZEEhz3LMeDq0NUTbs
+	I36eV7aKsrxGhbYMaQHhcJYuvZ4eJC2fJmNtE7ABTgyDYJ/n+wxI2DqubiWp461LJUPY3S3gEvF
+	TYYCjycoV4pl49jyooygeWaKu1+Npd546GEnf1pApVWOgywKWPESB2RmRFNOYWmkaQ1w8DA7hl/
+	02+Zt6mtXTYkVLk0GNdSoTdPrpXWhBvbQdazys7uEUmihqoVV6y3j89YVEUTztZU8kWQRY7zejJ
+	L84XPlx/yHkuApIE5IgxKhaZ6z9n4CFY0xSTEfmqCZy0ZhXGEIebxumSeAq+8nBF/Gx1GhH2kZa
+	kOoT/w/nPVw==
+X-Received: by 2002:a05:600c:6087:b0:4a1:fe26:24f0 with SMTP id 5b1f17b1804b1-4ac1765ce52mr372660305e9.20.1793839754380;
+        Wed, 04 Nov 2026 16:49:14 -0800 (PST)
+Received: from raviolimobile.tail5f26fd.ts.net ([84.70.180.170])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b572bba0f3sm21341515e9.9.2026.11.04.16.49.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 16:49:13 -0800 (PST)
+From: Fernando Rimoli <fernandorimoli11@gmail.com>
+To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>
+Cc: Fernando Rimoli <fernandorimoli11@gmail.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Hans Verkuil <hans@jjverkuil.nl>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3 2/2] media: i2c: vd55g1: Use the control handler lock for the subdev state
+Date: Thu,  5 Nov 2026 00:49:05 +0000
+Message-ID: <20261105004907.150545-3-fernandorimoli11@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261105004907.150545-1-fernandorimoli11@gmail.com>
+References: <20261105004907.150545-1-fernandorimoli11@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,84 +104,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND v7 1/2] dt-bindings: input: Add Qualcomm SPMI PMIC
- haptics
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org,
-        Dmitry Torokhov
- <dmitry.torokhov@gmail.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        David Collins <david.collins@oss.qualcomm.com>,
-        Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        linux-input@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, David Heidelberg <david@ixit.cz>
-References: <20261103-qcom-spmi-haptics-v7-0-418de67ef84a@oss.qualcomm.com>
- <20261103-qcom-spmi-haptics-v7-1-418de67ef84a@oss.qualcomm.com>
- <20261104-myrtle-kelpie-of-chemistry-de43cf@quoll>
- <6964d550-2ddd-463a-a142-9e8f72588803@oss.qualcomm.com>
-Content-Language: en-US
-From: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-In-Reply-To: <6964d550-2ddd-463a-a142-9e8f72588803@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: IetxSWTOsI8rn8pZ-Evfu56mkYEL_QLQ
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDAwMiBTYWx0ZWRfX/XMl8JLHeSIn
- UpGvXdqCa7/A/uY8kwKiNMDfTk1CaUgHc2ktLjMijlFy7tHnB8wp4jSxef1lQyVpafeTmLnxe1k
- VPFIFttnkUIsMrCPtpWjUAdz4nWrvuE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDAwMiBTYWx0ZWRfX4jEa3/B3ECMW
- 0KrayMXYic/bKscS1/Y+xKJLnFcUinxkhgjCVdcfLPJKS+oO8j2EsKgNBPjiDkZyZV2nWWZClG2
- +sH+eU5vNEqb4NqMmS2DXM40a3VcXZ5KUu/Q7GuZFDXXrbrDd9Dhe57RHk0SAZwPP+LHfutrp8I
- NgbMX+lcZ2yTo8PwbOL5OsDIIRPO+1wO9+5d2Oi9bztJbVT/fyZNSMQcTcLa7Ad5WiJ9kTdhA9W
- dlh4bROXjerEfvkge1vDgMNRpkM4YvI8XNwzRinDn2HDVPN2T2qdSgI1jgKnYqO+nKKu1QC2T15
- 5Zlb+2S/WpEHD6xX6vTpnOPNYbOvzVpzg0IZLU69j8tkA7A25WzFv36Cn1mEU+UNjIApE/Kz4hC
- 5j+QiIRBErrH2nIpZyhjuc2D5ct9O4g3vpJSNiODuzYIhP54BpEqVtNpu4WPnD0nLbB7ZyK1F6K
- JL9vY4LsimwfltLvmOA==
-X-Proofpoint-GUID: IetxSWTOsI8rn8pZ-Evfu56mkYEL_QLQ
-X-Authority-Analysis: v=2.4 cv=O5OsLx9W c=1 sm=1 tr=0 ts=6aebd27c cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=DT_BFmYFbp2_FYglL2YA:9 a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_05,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0
- clxscore=1015 impostorscore=0 suspectscore=0 priorityscore=1501 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050002
+Content-Transfer-Encoding: 8bit
 
+vd55g1_subdev_init() sets sd.state_lock to ctrl_handler.lock before the
+control handler is initialised, while the pointer is still NULL, so the
+subdev state gets a mutex of its own. vd55g1_s_ctrl() under
+VIDIOC_S_CTRL, and __v4l2_ctrl_modify_range() and
+__v4l2_ctrl_handler_setup() under set_fmt and enable_streams, then run
+without the lock they assert, and format and control changes can race.
 
+Initialise the controls first and finalise last. The blanking ranges
+depend on the format, so set them, and the default frame length, once
+the active state exists. vd55g1_grab_ctrls() now runs with the lock
+held, so use __v4l2_ctrl_grab().
 
-On 11/4/2026 4:44 PM, Krzysztof Kozlowski wrote:
-> On 04/11/2026 09:29, Krzysztof Kozlowski wrote:
->> On Tue, Nov 03, 2026 at 08:51:17PM -0800, Fenglin Wu wrote:
->>> Add binding document for the haptics module inside Qualcomm PMIC
->>> PMIH0108.
->>>
->>
->> Why are you ending this? On what sort of ancient, downstream fork are
-> 
-> s/ending/sending/
-> 
->> you working?
->>
->>
->> NAK
-> Best regards,
-> Krzysztof
+With the control handler set, v4l2_subdev_init_finalize() also enables
+control events, which v4l2-compliance reported missing.
 
-What's the concern on sending them? I don't understand.
+Fixes: e56616d7b23c ("media: i2c: Add driver for ST VD55G1 camera sensor")
+Cc: stable@vger.kernel.org
+Signed-off-by: Fernando Rimoli <fernandorimoli11@gmail.com>
+---
+ drivers/media/i2c/vd55g1.c | 61 +++++++++++++++++++++-----------------
+ 1 file changed, 33 insertions(+), 28 deletions(-)
 
-Thanks
-Fenglin
+diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
+index 69ffb3a..9f737ea 100644
+--- a/drivers/media/i2c/vd55g1.c
++++ b/drivers/media/i2c/vd55g1.c
+@@ -1113,10 +1113,10 @@ static int vd55g1_ro_ctrls_setup(struct vd55g1 *sensor, struct v4l2_rect *crop)
+ static void vd55g1_grab_ctrls(struct vd55g1 *sensor, bool enable)
+ {
+ 	/* These settings cannot change during stream */
+-	v4l2_ctrl_grab(sensor->hflip_ctrl, enable);
+-	v4l2_ctrl_grab(sensor->vflip_ctrl, enable);
+-	v4l2_ctrl_grab(sensor->patgen_ctrl, enable);
+-	v4l2_ctrl_grab(sensor->hdr_ctrl, enable);
++	__v4l2_ctrl_grab(sensor->hflip_ctrl, enable);
++	__v4l2_ctrl_grab(sensor->vflip_ctrl, enable);
++	__v4l2_ctrl_grab(sensor->patgen_ctrl, enable);
++	__v4l2_ctrl_grab(sensor->hdr_ctrl, enable);
+ }
+ 
+ static int vd55g1_enable_streams(struct v4l2_subdev *sd,
+@@ -1580,14 +1580,6 @@ static int vd55g1_init_ctrls(struct vd55g1 *sensor)
+ 	struct v4l2_ctrl_handler *hdl = &sensor->ctrl_handler;
+ 	struct v4l2_ctrl *ctrl;
+ 	struct v4l2_fwnode_device_properties fwnode_props;
+-	struct vd55g1_vblank_limits vblank;
+-	unsigned int hblank;
+-	struct v4l2_subdev_state *state =
+-		v4l2_subdev_lock_and_get_active_state(&sensor->sd);
+-	struct v4l2_rect *crop =
+-		v4l2_subdev_state_get_crop(state, 0);
+-	struct v4l2_mbus_framefmt *format =
+-		v4l2_subdev_state_get_format(state, 0);
+ 	int ret;
+ 
+ 	v4l2_ctrl_handler_init(hdl, 16);
+@@ -1645,15 +1637,13 @@ static int vd55g1_init_ctrls(struct vd55g1 *sensor)
+ 					     V4L2_CID_HDR_SENSOR_MODE,
+ 					     ARRAY_SIZE(vd55g1_hdr_menu) - 1, 0,
+ 					     VD55G1_NO_HDR, vd55g1_hdr_menu);
+-	hblank = vd55g1_get_hblank_min(sensor, format, crop);
++	/* Placeholder ranges, set from the format in vd55g1_subdev_init() */
+ 	sensor->hblank_ctrl = v4l2_ctrl_new_std(hdl, ops, V4L2_CID_HBLANK,
+-						hblank, hblank, 1, hblank);
++						1, 1, 1, 1);
+ 	if (sensor->hblank_ctrl)
+ 		sensor->hblank_ctrl->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+-	vd55g1_get_vblank_limits(sensor, crop, &vblank);
+ 	sensor->vblank_ctrl = v4l2_ctrl_new_std(hdl, ops, V4L2_CID_VBLANK,
+-						vblank.min, vblank.max,
+-						1, vblank.def);
++						1, 1, 1, 1);
+ 
+ 	/* Additional controls based on device tree properties */
+ 	if (sensor->ext_leds_mask) {
+@@ -1673,12 +1663,11 @@ static int vd55g1_init_ctrls(struct vd55g1 *sensor)
+ 		goto free_ctrls;
+ 
+ 	sensor->sd.ctrl_handler = hdl;
+-	goto unlock_state;
++
++	return 0;
+ 
+ free_ctrls:
+ 	v4l2_ctrl_handler_free(hdl);
+-unlock_state:
+-	v4l2_subdev_unlock_state(state);
+ 	return ret;
+ }
+ 
+@@ -1915,6 +1904,9 @@ static int vd55g1_parse_dt(struct vd55g1 *sensor)
+ 
+ static int vd55g1_subdev_init(struct vd55g1 *sensor)
+ {
++	struct v4l2_subdev_state *state;
++	struct v4l2_mbus_framefmt *format;
++	struct v4l2_rect *crop;
+ 	int ret;
+ 
+ 	/* Init sub device */
+@@ -1930,6 +1922,14 @@ static int vd55g1_subdev_init(struct vd55g1 *sensor)
+ 		return ret;
+ 	}
+ 
++	ret = vd55g1_init_ctrls(sensor);
++	if (ret) {
++		dev_err(sensor->dev, "Controls initialization failed %d\n",
++			ret);
++		goto err_media;
++	}
++
++	/* The state shares the control handler lock, so finalize last */
+ 	sensor->sd.state_lock = sensor->ctrl_handler.lock;
+ 	ret = v4l2_subdev_init_finalize(&sensor->sd);
+ 	if (ret) {
+@@ -1937,19 +1937,24 @@ static int vd55g1_subdev_init(struct vd55g1 *sensor)
+ 		goto err_ctrls;
+ 	}
+ 
+-	/*
+-	 * Initialize controls after v4l2_subdev_init_finalize() to make sure
+-	 * active state is set
+-	 */
+-	ret = vd55g1_init_ctrls(sensor);
++	/* Set the format dependent ranges and the default frame length */
++	state = v4l2_subdev_lock_and_get_active_state(&sensor->sd);
++	format = v4l2_subdev_state_get_format(state, 0);
++	crop = v4l2_subdev_state_get_crop(state, 0);
++	ret = vd55g1_new_format_change_controls(sensor, format, crop);
++	if (!ret)
++		ret = __v4l2_ctrl_s_ctrl(sensor->vblank_ctrl,
++					 sensor->vblank_ctrl->default_value);
++	v4l2_subdev_unlock_state(state);
+ 	if (ret) {
+-		dev_err(sensor->dev, "Controls initialization failed %d\n",
+-			ret);
+-		goto err_media;
++		dev_err(sensor->dev, "Controls update failed %d\n", ret);
++		goto err_state;
+ 	}
+ 
+ 	return 0;
+ 
++err_state:
++	v4l2_subdev_cleanup(&sensor->sd);
+ err_ctrls:
+ 	v4l2_ctrl_handler_free(sensor->sd.ctrl_handler);
+ 
+-- 
+2.43.0
 
