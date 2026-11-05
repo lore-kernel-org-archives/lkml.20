@@ -1,88 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793855032;
-	b=p7U8lTZWIHgNkzL0Zb2gfT82pNZl0q27fRLhzgIWHMGgnMRSnCQAkP+YgvMqB/Juk6p3
-	 qdkpSsaNE814H6EP+++xjMUUSjJ8Ve6TtnRko74PY/L9sBKMAzE2IGuJPCAWhXmBcB8hY
-	 vm0z2vEeseqWcls9YTL0/2tuF++FEw+HXiCSmr5RRhqSqAZl8WLUZLL9klKFjRoEwUAyJ
-	 obm+YMMmhvLivw1U6yZ5m4t1BP0hIDGh/d12wZBC15SNSsilxiP1knpJAQObu/nS/zfzG
-	 UNZQbMpgPtRYlTOeTGXNiq9AMWxpf1rF1am4tsCA1D4GFPPY+BVC2kf/z2G+n+rzFAQ==
+	t=1793855125;
+	b=b9PYtDCHChw3aJocN/2ShLlCO+mGJhsAOk3pQ2LGx1bVc43EPTEaAfU+pQ4I95ARFq8E
+	 0ZBJF+dG705fHVb6P6gkT6SEg+nYUZcNSUsIme+3MLii8Syi7v0UjeXBvQkR9pSxlbSrD
+	 YpTl5DrT6arHsHHtP3C+LIZXex5HoFzl6mlceod9aqOv7B3Rjo4Ml7UKa8cW4T9ppfuJy
+	 K4YBuulr3eMqsiZ+lj5UIYdbvEZfRcdWzkw0we74kkdXHdl+J9PcQd/igGZuAeYc5o+gE
+	 NuB2vnHt9bJnU8uGEgiNvYk2OGxnu4N+ymMUNeKJLbTHI5fKWnxnFycDEVzfd7/DQBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793855032;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793855125;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=9/MyriLLIFlAEHMufWPIWBvD7cPvXwMz6qb27EKImvY=;
-	b=ISWd5YPwKh9/rx/j3/yKk6K+nX32emgc2bakhJkj4hkvHPhMEe7NwZM3q7VppQC6p509
-	 VcWZHAr0CmuRNk6gzs6I9zXxvJ18eOV3LTxe/Sesi4Ipl0oRi4/PiFUi2+qG6kpY6nGvm
-	 jTxvUpdccKCiTx+Q/EPPfupVvKF1/sZ6qP4AyOnoZ5uPL+v5qF5x7Z+C3TiEEu1N9qD1W
-	 eckKnPySOwvtoUqGChjNO68Vj4U9ILuObI5xi1OUODWwDQShiQW+rcQrt0DlbR0nTijk0
-	 0DJb7HZt/lJVTalzPkwPX4S28YgAUNemOkMuX2wKUBICurIJiMowUxg/Lbj6UyZRjJw==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=mGyyLkfMtTuuKs4xriRESG+abVUcpds9iYOPA5vDlKw=;
+	b=Hk1euSvTMr7BxIZ3MQcyTmca5cKt5ugTMCeyTx4hAi2remb3UCRbqX3ramgD1eirpKCg
+	 +jxzRv9iSB/zDAS8tRgs9g1JXoLSR3Npn2hBjT2z3eIbCJUTrAhuxVrxrQ6gPl0N6FEFC
+	 q1mtxpw56uumSJJAwSuOJufbFwG8xgSPo65W4bis34B+2zPMcP40hwuVRGL/aeNPe9Cch
+	 QmIGEtavtM2oVjphOGD5HhtXEK7EJkgZGho8U5diFczGHjRK/rNif093tH6pAiWZHZU8e
+	 dtAquHuupQ9YTlA2t7LwN6zUJcvqYSGRkJRBR9mIlgo2PDLssw7I0mN5EO+IuBODP0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eK4UPpiE;
-	arc=none smtp.remote-ip=209.85.210.48
-Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=CNrOJBFv;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85AC4606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 05:03:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85AC4606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12D8C606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 05:05:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12D8C606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eK4UPpiE
-Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-8446af403b5so896877a34.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 21:03:52 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=CNrOJBFv
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-36e99cf7bb3so39447eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 21:05:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793855031; x=1794459831; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=9/MyriLLIFlAEHMufWPIWBvD7cPvXwMz6qb27EKImvY=;
-        b=eK4UPpiErrl4l7SqxayZeQBSeqp3a0aHy162SBx8mFLn3ae6nYQqS0pc5V4jrsEc2r
-         7HE0+xrI49crfF4O5Nq8OCOEs8/acn00YPGbekFh0OzhyCbdlKFy2FMWYdw/iw9pRy0o
-         ODcHSOYabbt6Lmecs5rJwELO3wx/K3s4zvje7jEOWigRTM4OCDjZSpnNLBHJsOlMxhqM
-         8cyebKBsIG6Gny7B8TQajdEPwFlM4Lyge36404Zq+eaLQKnX9Deiem+56DFTVPuJCKLf
-         hgu6TnJQOGonG5TkncsLTn9THdEb2AQKidAfOlqo2ntcUrJy2ZVHcH91el5wdz8jwVcr
-         fXLg==
+        d=chromium.org; s=google; t=1793855124; x=1794459924; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mGyyLkfMtTuuKs4xriRESG+abVUcpds9iYOPA5vDlKw=;
+        b=CNrOJBFvIQS09wflU2f5Qg9k7gNS1rJM7wAEsKeL64gdDdK8c4vkEnHs4szatfpUsz
+         wpHxgx9YA+y54KKAeOOcAoKZi3TGX56AgOlUDqvWpn7Cb5rfg1gBEFxoT/CQzib6GVZt
+         9yzmfafam4JICM8VASuHGDl3lhZvAttVyYmQU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793855031; x=1794459831;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=9/MyriLLIFlAEHMufWPIWBvD7cPvXwMz6qb27EKImvY=;
-        b=uhkzZcEU8M3WmYHTp4AhlhcBGUHM1SQoqDEqROK7w/ikgbvVHYMiO2+r99xFxg7MQU
-         dvNvdpmm5YMc6f0VVIXiO7ZPF2iqRG/DDG3Qa8U869Mmtr2KkTnjkUctuO+rYBTGmCdw
-         UmWOrP/y1L9a17BpQUc/Uew3krWoBsnLl6KsG4mEI7L5e5dUDaiGK2IGq7V/uPaBTH3f
-         IOX9mTkB2g1I0iGzO9cWYZDigvvMmixqHGwtFGXLWPcPcC2pfr3QBPmKEOIFWg0PkY9M
-         Xa+nOxyVw+0icVhdAjlkR545/XxNQO/ZKuKMHOpYSr7F3lrXt1CEBn2NZKV7ppy6Y+n/
-         3Rsg==
-X-Forwarded-Encrypted: i=1; AKwUvBzuR7ru3BfKipJhEgpKI/vmRRLK/Tdy9hkbwcyg1QBFn5WLojrOLMcZVLfbXfrt9isq+l9wENfvMfVt/rU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z++4TRdumeN1uh/TRwqfwWLmk408ZdCdPh53uQaSXg7rRAnemzG
-	+dsMVwRczuWTR5M5Mk2Gq7A0+qhU6/huhBMxvd8bKJypVUogefnLIY91
-X-Gm-Gg: AYBFou1v2ylRnlvKgRPJwlGbkVe1N0W9kVy2AywShJwSdE0dACKrGHz6181ZdImZFTQ
-	Iqu70CQU3jD69g9cdt5zOcn51HQcgfeffcbenG+eznajXcqDl5sUMSROoDxZVfo/Mn8oaRNrYMb
-	dSfEeGyU5UpCjgJiAYIGObw/yVkde+1t4ctq7/6nWkkkUI92R3whjhrDmo30tTCo+6S3w+Yi4Gc
-	Xt1JZsEW4JzoX2GSQzFwjIlTKKYAfYsDJnSiev/p36o9fWBViqs3cTksj6LkDPFzA31pBbOrMrY
-	nf+Ox8x2FuzBic7SxsuOggyyVfsxlZM2rtttccq6xQQEY9aW2RudrHDOspfWxgDpOz9Bc2Z90L7
-	ZDvFsfXuPp1Km2xGYeBPYI6x/rWFtcWZQcLsF+hWuVzDHc/MJ+9X1OSTL5V/Kesybf7UOGJUvmI
-	pxVWNzSLIC2OnrSgq08Gqnpd9arcOYKsYGrbmH4LEWG7uvo+3e2VDi5plXNNemleAGfgHST4+Mt
-	5cK32CyBMXCvv5QhY9P2HckFQEA0uthu3xI7EEY05uTIJZXr+0c9MO7Qu5mz4xlWPaKZRp49KXS
-	UUBofrlwxG8Yw2IRP3MVqBkVRieo+7EuStlRM0XBVBHtMCwJ0Q+vD8ojxMhoyjZ/B0Hxd/RfNKD
-	HIuezDpZFNpX4AH3ZzwBjx6jSKEh0Ke92MJ0lTnHBHtCCuvhjajW+Nwufz8B6D4DhSKGMq/QZaO
-	9etqB1qJM5TwwgTQRdjKbxsx7E+K/g9vU3hNSt8dc6EbngY9GFt+U=
-X-Received: by 2002:a05:6808:191f:b0:556:82f5:5aaf with SMTP id 5614622812f47-5640ddca454mr13902714b6e.49.1793855031069;
-        Wed, 04 Nov 2026 21:03:51 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9fdfa53sm3256982b6e.15.2026.11.04.21.03.50
+        d=1e100.net; s=20260707; t=1793855124; x=1794459924;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mGyyLkfMtTuuKs4xriRESG+abVUcpds9iYOPA5vDlKw=;
+        b=pCJK+wS1n3stvWtsubu+bk/8BS3Vb4xC/I7LgByJvlexbOAWmYToDMzUXzwzpVGHS4
+         /jBFcOn2Jw+pgEWcmHIscL+FFBxpEdnoEQ3gLrt+dgb5I9Ss0chs3UYIrqd1bIcfRcwt
+         mBNBPvfSgFkQ4Sn2ELGBu3kFQ7BKs4DwnI0FUuLQetBO4oeGS1jNtBRCcol6imL2vWEA
+         Ul/Lfl/a0kxGUj+fKW942u7Z6ANnz63LBiEYaw8Ttv8bUx6JorFr5yUlRo8Z/2/qe8UD
+         VUdPgvzcYtoZrnS80nw4E7cWVXK/eAVBrjQT/So+QhcZFdH+ZDczaf5rQss3gutdBNQX
+         Y1IQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxPcP1bkzCId8TunzUmujD1s31SLoFPyXYNgwqUbo5NnmZh63/cKGedlgk3x13GJA+1Pv21v6vCkZHVyY8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+FzzoT3L9U5LMstSsxydcsBTx3K69jUn0WeJnJq+EpTWMuBsLM
+	fRkAMEmJ/A0TGtjkI9QxUWxP6AmjOqfhBkmPqQxLYbHn1laufmoz6b09pEyVwEoT/w==
+X-Gm-Gg: AYBFou2bzo1wETWOou/AFq33RhVrTxKfbmn5KyLClXHxzVzp3LuLaEUoDNuhjy8h3bn
+	p2l0OUQcqqSOe2zn8vzwElIxAE9aQuYu4A24WI9dUH5TgiqyUmFPRlJlc2p7d4B0T/SYyYAIKeR
+	cXTVQSn9wuUsgEzYTnBycEA40/S7RYdK5BSqS91x5NZxqJVmAi7PF12+kYCLEeWOMJVBYI84y7U
+	TOWCpAPRfifaktqoHRBW2NoR9T4TODsHw/LflnsPDvpSpFTNR7jKVLfApgtvnERMIDaZqDswLnd
+	4K62bIa7+Voecf+Zwn4QQfBLJkz5U8REBky7L20eWrfioFUhxF7cSvjkVgagomYRly2NhEoFrWd
+	EC+kogbc2D0sSfTHXVys+aqLi9WDj5My6dj3n5U0ntRkDAFT/3Mn2DwVXm4vu0jX/7tyfGxyzZ2
+	VDeFo/d558D82dBTtZbhlKNwg303hNe2gr9l60VPcGrmrZESm+RvG3U8euPlAGJ3mVIgX2S+mWt
+	nGdc3vgyRUOHvw387+G0jocPsZ/tqnYz7dg7XFkEjA5fkE/bBPkGm4EYze0Cr7jEoP/vpfk9Pnq
+	mcBK9MVKHbXhygvKnvDo0hPN+e95JSYcknEIjUZSqlSD9c7l83IgmZ0gyU+qM54CX3ZGPA==
+X-Received: by 2002:a05:693c:20c9:20b0:351:245b:d1e7 with SMTP id 5a478bee46e88-36a42061e10mr23766914eec.0.1793855123743;
+        Wed, 04 Nov 2026 21:05:23 -0800 (PST)
+Received: from google.com ([2a00:79e0:2031:6:37bc:b763:7ec7:65b4])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36dad72dc52sm5463602eec.0.2026.11.04.21.05.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 21:03:50 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Wed, 04 Nov 2026 22:03:38 -0700
-Subject: [PATCH] mtd: core: skip empty read and write requests
+        Wed, 04 Nov 2026 21:05:23 -0800 (PST)
+Date: Thu, 5 Nov 2026 14:05:18 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Xueyuan Chen <xueyuan.chen21@gmail.com>
+Cc: Nhat Pham <nphamcs@gmail.com>, Chris Wiseman <chriswiseman@google.com>, 
+	Sergey Senozhatsky <senozhatsky@chromium.org>, Xueyuan Chen <xueyuan.chen@vivo.com>, 
+	Barry Song <baohua@kernel.org>, Yosry Ahmed <yosry.ahmed@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Brian Geffon <bgeffon@google.com>, 
+	Minchan Kim <minchan@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 0/2] mm: zsmalloc: make shrinker compaction
+ budget-aware
+Message-ID: <auwOBaRtM9p_Wxfx@google.com>
+References: <47ed45b5-de67-41aa-aa21-a3ba3479a7cc@vivo.com>
+ <anXJ-5_vO7-toSe1@google.com>
+ <CAKEwX=Mm2tXcen-quRXHf1Y2qSHYvpEUe4xiw-mHYaJnRUR-EA@mail.gmail.com>
+ <auKqt6b4AxCLziIH@google.com>
+ <aufPMirl4cD7tz0X@google.com>
+ <18e4542967ebdd10.3137322e32332e3235332e313736.1dfc41.0000sendgmr@google.com>
+ <CAKEwX=MV_xEUvz91pz6uc4qXWnWOUDtXZ2zASdNVOBHBLeA60w@mail.gmail.com>
+ <18e4ebf806e937ec.3137322e32332e3235332e313736.1bf52a.0000sendgmr@google.com>
+ <CAKEwX=PFdgEbba+H3fEnJFDnfkxCTsvuHEb4numVwJRaiMgwKQ@mail.gmail.com>
+ <179384102494.19062.12740032892044628762.b4-reply@b4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,73 +107,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-submit-mtd-empty-io-v1-v1-1-3f6bcf474e2a@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ5FMBBA0V+RWZukgzTyfkUs0MFIirQlRPy7P
- pZnce8Fnp2wh19ygeNdvCxzBKUJdGMzD4xioiFTmSZSBfqttRLQBoNs13CiLLgT6kZp05a6oJw
- gxqvjXo53XNWfYzlxF/43uO8HzgQKvnoAAAA=
-X-Change-ID: 20261104-submit-mtd-empty-io-v1-6a06db864131
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Boris Brezillon <bbrezillon@kernel.org>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179384102494.19062.12740032892044628762.b4-reply@b4>
 
-Converting mtd_read() and mtd_write() to wrappers around the OOB helpers
-removed their zero-length checks. Neither mtd_read_oob() nor
-mtd_write_oob() stops an empty request from reaching the driver.
+On (26/11/05 09:10), Xueyuan Chen wrote:
+[..]
+> > SGTM, but I'll let Sergey chime in!
+> 
+> Thanks, Nhat and Chris, for the discussion.
+> 
+> If Sergey has no objections, I'd be happy to send a follow-up series
+> to make the shrinker configurable and add the unlocked pre-check as
+> Nhat suggested.
 
-For example, the raw NAND read paths select a target and can read a page
-or its OOB area before checking the remaining length. An empty request
-at the end of the device can therefore select a target past the last
-available one.
-
-Return success from the common helpers when both lengths are zero,
-after mtd_check_oob_ops() has normalized lengths for absent buffers.
-Keep the existing range, write-protection and operation-support checks,
-and clear the per-request read statistics before returning. Both return
-lengths have already been initialized to zero.
-
-Fixes: 2431c4f5b46c ("mtd: Implement mtd_{read,write}() as wrappers around mtd_{read,write}_oob()")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/r/sashiko-outbox-198544@kernel.org
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/mtd/mtdcore.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/mtd/mtdcore.c b/drivers/mtd/mtdcore.c
-index 491a27d0315f..93e7ff3ba8a0 100644
---- a/drivers/mtd/mtdcore.c
-+++ b/drivers/mtd/mtdcore.c
-@@ -1805,6 +1805,9 @@ int mtd_read_oob(struct mtd_info *mtd, loff_t from, struct mtd_oob_ops *ops)
- 	if (ops->stats)
- 		memset(ops->stats, 0, sizeof(*ops->stats));
- 
-+	if (!ops->len && !ops->ooblen)
-+		return 0;
-+
- 	if (mtd->flags & MTD_SLC_ON_MLC_EMULATION)
- 		ret_code = mtd_io_emulated_slc(mtd, from, true, ops);
- 	else
-@@ -1849,6 +1852,9 @@ int mtd_write_oob(struct mtd_info *mtd, loff_t to,
- 	if (!master->_write_oob && (!master->_write || ops->oobbuf))
- 		return -EOPNOTSUPP;
- 
-+	if (!ops->len && !ops->ooblen)
-+		return 0;
-+
- 	if (mtd->flags & MTD_SLC_ON_MLC_EMULATION)
- 		return mtd_io_emulated_slc(mtd, to, false, ops);
- 
-
----
-base-commit: 1c1a342aceec79528b3ba51f376eca2be5928fe7
-change-id: 20261104-submit-mtd-empty-io-v1-6a06db864131
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
-
+Thanks.  Sounds like you and Chris will to have "Rock-Paper-Scissors"
+to determine who sends a oatch ;)  Just joking, let's first figure
+out how exactly we want that zsmalloc-shrinker thing to behave wrt
+zswap expectations.
