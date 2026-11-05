@@ -1,95 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.203
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793904002;
-	b=aR4tHYolANU+uUX+DRZGeSxsG9Ev2rl7bxZGLAhtZe0/UDJ1kmK7gxIYO9Ikn1FxkI1G
-	 cvbQL63ErMZ81DUTQapU7CQS98kPkePeRCApYxzy0QrPJbhcjDdWwOA6mg/CVVQqcXBYE
-	 E5jO/A2z1+C/ClbXSD5hJ3X4K8E34V6tzDeKWnz8hrfW3sQ0g9BWyDxPxq2YFTb/F5wuY
-	 sfYkB5ZcCNe6vtNGmRKgxTvvhMI/KJZTqYJs7kq5RcIPMZKVegeiq+/tuXNvLph3Z03C6
-	 trAhHkIKxtVeQMV44BJX9S0bsRnFlLRgRUsY20quMrFi0qXLGEV86WPmJ1bYoXv9nOQ==
+	t=1793904006;
+	b=jHOhPNsydDcNX8xVKrmT52oMs6YzA9nf8astOOSzZTgVjQ2BqOz2zFXPCuEhV5wzLU8T
+	 kg9GE0bm9SRStbtBlDh55h2kaoFtqc0V5SY3Nux1jDkb3IQcNSneF87OTiUsy947kYaHC
+	 DBYA39H/gGCBxBCcC8l5GktmrIJD5zVOK21xO+xjVLz0Lg8p++CtfCh8qs4xqQoHY7L/7
+	 TMFoaulA9wT/OM39WgGP1VXU5NG6pN66s6rRKQgYmElzGugigNZ/88bkUUUFmDwMRrdPW
+	 lXW9l02JiSF0CfeHVnLnChEHfW/VD0ApCZSl3v1zgIorv30XyNBhhKCj+n3JEkLuPaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793904002;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=lYBFuxLfjxEha3Zx3xH+M3FFSL5fyPFntbBy1o8Jggo=;
-	b=A40MhPHLscXP3Wsk+D1Q8o9QIKHuPe1Wfl0Bd6Bkucw/o4yLNIUaRUMk/1DOmfaLF8YA
-	 SLT0dy//1XCcPmztl4fn1cvPDn3RfnYJUpUZMF7EqRfyxieu7U1uJ6XNgSA1gdgd80l5P
-	 vJPsePEeiFNEOxMPCjWaNDBQGf/ZPRYi//r8ib3Y1tGtmqqZOovpxZ8JAuZThIhxPOEaA
-	 XyspM+0pkF7seiW90EuNSqi2XdPzdJeq35Am+gI9J4+A7RWCE70lvUY7PWakmssQFNRQM
-	 53ToMpyOylYCDSoxLVSrBHrJVYvc8nT0TffMTjJMn1eKpdJpEawpTnPrjuQvOPQdENg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793904006;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=SOmm+v5+q4Ie3UaOXttJQyvUvoppMzAuwuREpO3lnEM=;
+	b=Li9ek4jqMxqTS01yHxobahJ1v2oklMiOrZ1VfhALf5sg+KkI05/wThQq2z1SfQvci0tJ
+	 ixz408HMv/KLN1i4MywoXRczG/A9DQEIsCxDOxOo+3CXKs0ho1XV1RNf0FZPedTfMhzNT
+	 fN65pxu/Kf7HUTojaWxmRBMksDxZE1xG2GP9N4ieaYrPc//myDSWYQZTzSPaSnFsifFYh
+	 UpM2WUlqliQEbqCGlgdO2HmCVK5LtdbZ6+TYtyuKUAnl0SBISBDtdMpFg7VwbtnffyfOs
+	 2l/4JG1pULunyTTNQ+ayMOrq8IQ41QBjqCOQgt30c1OYwCAgWOa/ddLj4rFgNQ+kVwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AQ3Ee0zm;
-	arc=none smtp.remote-ip=95.215.58.203
-Received: from mta1.migadu.com (out-203.mta1.migadu.com [95.215.58.203])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kHqVyogz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE35606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:40:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAE35606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ED93606A32C;
+	Thu,  5 Nov 2026 18:40:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AQ3Ee0zm
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=XRcso4PQ7v/i8n+ltndwCCW38yTYyFOtjhZRQfQOu3s=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793903999; v=1; x=1794508799;
- b=AQ3Ee0zmoGLIrzFiqbNwH2X6z4iaE4E+ceCi77tS0EPnX4dETtsMFXi2XkALaPbkF5CBGMMy
- Kdn7kPwMRZDlQSnK7ZZE3U30X8kBunbwyKCdhgzdzRqW1CENcx+pkRvpuoHq84DRccjbVL7mVny
- VBCbRoF4lj6cxAjAaJn3j8cQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 2158ee7e6f7dbbd2;
-	Thu, 05 Nov 2026 18:39:59 +0000
-X-Mizu-Trace-ID: 2158ee7e6f7dbbd2
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	david@kernel.org,
-	chrisl@kernel.org,
-	kasong@tencent.com,
-	ljs@kernel.org,
-	ziy@nvidia.com,
-	linux-mm@kvack.org
-Cc: chenhuacai@kernel.org,
-	ying.huang@linux.alibaba.com,
-	Baoquan He <baoquan.he@linux.dev>,
-	willy@infradead.org,
-	youngjun.park@lge.com,
-	hannes@cmpxchg.org,
-	riel@surriel.com,
-	shakeel.butt@linux.dev,
-	alex@ghiti.fr,
-	kas@kernel.org,
-	baohua@kernel.org,
-	dev.jain@arm.com,
-	baolin.wang@linux.alibaba.com,
-	Nico Pache <nico.pache@linux.dev>,
-	Liam R. Howlett <liam@infradead.org>,
-	ryan.roberts@arm.com,
-	Vlastimil Babka <vbabka@kernel.org>,
-	lance.yang@linux.dev,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kHqVyogz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1217D1F00A18;
+	Thu,  5 Nov 2026 18:40:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793904006;
+	bh=SOmm+v5+q4Ie3UaOXttJQyvUvoppMzAuwuREpO3lnEM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kHqVyogzxsCRzbS2q/auJxr4pB0zr5JgupIkFB6KKutUygpmgt7VYrAQFJue/Pz/w
+	 28tnsWGOvYXwsiIvV0mvvH99HGIIS9wLk5ojKNiaJxPEseODZAIjI/S9+/OXG+vIo5
+	 edjll3odBTvSxADMyEGsW9kNw6/HV+F7zDPAlKLUwOjHMLMDXe77uzptrzWAF/wCzN
+	 3rYvxfMIxMHsRpovZdVUIn4U2H8phrrfBp4tgsUU1wCf0cLyLXb6xQb5GriPhh3tWB
+	 9IaUxHBm4vvhLY2Ccrx8ff3jMCTw1FuBwqH3d8RNAstjN5wH6aNveqfreLOEl/ADyj
+	 dfJjNPhZ9VQCA==
+From: Conor Dooley <conor@kernel.org>
+To: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Conor Dooley <conor@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Junhui Liu <junhui.liu@pigmoral.tech>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Conor Dooley <conor.dooley@microchip.com>,
+	Brian Masney <bmasney@redhat.com>,
+	Yixun Lan <dlan@kernel.org>,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	nphamcs@gmail.com,
-	shikemeng@huaweicloud.com,
-	yosry@kernel.org,
-	qi.zheng@linux.dev,
-	luizcap@redhat.com,
-	kernel-team@meta.com,
-	Usama Arif <usama.arif@linux.dev>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v9 02/32] arm64: mm: add PMD swap-exclusive helpers
-Date: Thu,  5 Nov 2026 10:38:46 -0800
-Message-ID: <20261105183940.2236717-3-usama.arif@linux.dev>
+	linux-riscv@lists.infradead.org,
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Subject: Re: (subset) [PATCH v5 0/6] clk/reset: anlogic: add support for DR1V90 SoC
+Date: Thu,  5 Nov 2026 18:39:42 +0000
+Message-ID: <179390394383.1477457.11835179524789645900.b4-ty@microchip.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261105183940.2236717-1-usama.arif@linux.dev>
-References: <20261105183940.2236717-1-usama.arif@linux.dev>
+In-Reply-To: <20260514-dr1v90-cru-v5-0-34f3021aab51@pigmoral.tech>
+References: <20260514-dr1v90-cru-v5-0-34f3021aab51@pigmoral.tech>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,40 +78,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=598; i=conor.dooley@microchip.com; h=from:subject:message-id; bh=1bhIAEPOqIDfQnMAOf+CD7PXBGi6CxXqji1n09U0SHw=; b=owGbwMvMwCVWscWwfUFT0iXG02pJDFlvzuamnc3+cvftEbGlvI99zzNxFFX2KjW3f7uheVqN4 UzkhIzVHaUsDGJcDLJiiiyJt/tapNb/cdnh3PMWZg4rE8gQBi5OAZhI+39Ghs7leoxhfKLLlV8t zpd6lKl5OHinLuM8E3erPENP3cgOFYb/Ee/vbmH7PZcvRuvujFNhjD+3Xw3Wr5h+ZpPD811rft3 p4QMA
+X-Developer-Key: i=conor.dooley@microchip.com; a=openpgp; fpr=F9ECA03CF54F12CD01F1655722E2C55B37CF380C
 Content-Transfer-Encoding: 8bit
 
-Prepare for keeping a PMD-mapped anonymous THP mapped by a PMD across the
-swap round-trip, which makes PG_anon_exclusive have to survive in a swap
-PMD and not just in a swap PTE.
+From: Conor Dooley <conor.dooley@microchip.com>
 
-arm64 encodes a swap PMD exactly like a swap PTE, so the new helpers wrap
-the PTE ones and reuse PTE_SWP_EXCLUSIVE.
+On Thu, 14 May 2026 17:27:16 +0800, Junhui Liu wrote:
+> Add Clock and Reset Unit (CRU) support for the Anlogic DR1V90 SoC, as
+> well as corresponding dts bindings and dts integration.
+> 
+> The CRU driver framework is built around the clock controller as the
+> primary device, with the reset controller implemented as an auxiliary
+> device. The clock part refers to the vendor's code [1] to determine the
+> structure of the clock tree.
+> 
+> [...]
 
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
----
- arch/arm64/include/asm/pgtable.h | 6 ++++++
- 1 file changed, 6 insertions(+)
+Applied to riscv-soc-fixes, thanks!
 
-diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-index a474c9fb485ad..dfcb4b9e66f39 100644
---- a/arch/arm64/include/asm/pgtable.h
-+++ b/arch/arm64/include/asm/pgtable.h
-@@ -560,6 +560,12 @@ static inline int pmd_protnone(pmd_t pmd)
- #define pmd_swp_clear_uffd(pmd) \
- 				pte_pmd(pte_swp_clear_uffd(pmd_pte(pmd)))
- #endif /* CONFIG_HAVE_ARCH_USERFAULTFD_WP */
-+#ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
-+#define pmd_swp_exclusive(pmd)	pte_swp_exclusive(pmd_pte(pmd))
-+#define pmd_swp_mkexclusive(pmd)	pte_pmd(pte_swp_mkexclusive(pmd_pte(pmd)))
-+#define pmd_swp_clear_exclusive(pmd) \
-+				pte_pmd(pte_swp_clear_exclusive(pmd_pte(pmd)))
-+#endif
- 
- #define pmd_write(pmd)		pte_write(pmd_pte(pmd))
- 
--- 
-2.53.0-Meta
+[5/6] riscv: dts: anlogic: add clocks and CRU for DR1V90
+      (no commit info)
 
+Thanks,
+Conor.
