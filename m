@@ -1,94 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793899931;
-	b=ll2gFevgORzhzhT87Ldo1q2f7DKtovgXdMQGj1R11JqnFv7pA71oKJ6HSHfe3jev+Yu4
-	 ccH7P8kgxxkllk++auOi2nwdpcEBXSb60LjFfNMoqOgco15SwbmBcnSyjrA7AFAarr0ME
-	 J1ZoV20k9shfh80RWTVyjmjGHhlZcK++Fu0NkjSP3O+3XR92/ICnkJkEvGHDzVDWNKzIK
-	 MPqRxyzSr/SKewxNoN2TDrzJcO5ekYC9If/npPGMHIxT9r0I+CUPG0HhDPI+z8dTlc+JV
-	 a8Qb/11dR+Hn44IsQenBwpslo2ESzFdT9bIde7VMUzVzcvGZ80tlZ+wvQVW2WfC1rQg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793899931;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793899953;
+	b=UobB1TPcgsw61awndPQt+Gym2mSlrQhZftNKSiLyJXqHle360o5VW/pd1sV44jH7VBki
+	 i0/ISvdocJx92lLusBUQ8CQnLT6DW432L4n/Pc8kx9Q8Akt5+L2JgN+Yr80f6vuWC8H+G
+	 cLdIYEQ/AtRDQ8HVpiH4ebwd3R+C12yv9iX5KRhMl8jU8wDQOsNdkcOdun2XGZC34F9WW
+	 jE31IwsViJJTUlckFFOlra366npb67Mivz7WBk3lVkaaz542ekvb9Pmm8jiLiCDmdlNFQ
+	 2mf2TE2RQiXgvOqi577gCo7j3B4YQEcydWmgcjsnl7kcP49Q0gjIDDPtd5xCtwI7CAA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793899953;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=u8e5CcNv9oY6VuYoJpUdtWSR3IA6s9zG0LDKZaQi/Ss=;
-	b=vL8hZPoDnHwROiDTMUSkwQNcMIAX80nKV3DaBXO96yBB6liLPahOqvyrH2frB+k+elDB
-	 2rQTGzpAE7L+UbySV28TVUaVJ9zwbfOPxeKeNJwTBJroJVwyyPmTmwffdvFmDp/d5SSVs
-	 /xs1hwawjqVAjZhacTJ/CxxKmgwSGZwzZz18qfU3clQkfj9rx5FV+AMwNS/seBHbihF4B
-	 8T1fkxeQFNKEvdDp3BSz6B1T+3rwmDyveCgQAzt4HL2TS1gCOv2NsJ+bcbGPHc+XQJ2b1
-	 PqRSL0AiMlrxWQZtepdY+B4lg+udY+yWfoHs1Pj80rfaiBitBy0X3wRhczd8vWxs+1g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="BcMOg/C7";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=Fw/TE8Xsp2zBtCiKWBPoOkAIZEd639KSPQ+dZpJxChE=;
+	b=02t58A/8hdy439ml6Gm+yfZkDCtA43Rw2b4DcFkWSiFyjwyoB+XZ1TCHObLjtTReg1OA
+	 4RGbonvKb5QhTP+2zErKgrxbAxEID+scwlhN93a8CMl84Iulmctama9kCR7hstbiXDJ4p
+	 2aq7Y/eSqbSfGMbZZ8S6EYbxBdnP0maCNw3takqTdZ/39Sn5eve3nkIDdJCdtUMC/hISY
+	 ubeAlXuTW/OfjOUIu4vyvkNCjfTspcMYs4pyQ52vaESmiSvaGExOgh1INEC6JqRw8OZMn
+	 Qi65Wz0NKYBlCNEtFK5AmLtYoSvcyLwaJa9jylSOVu49jKZVe1RGiTodqt88p30WiJA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=K1uXJ197;
+	arc=none smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE47C606A328;
-	Thu,  5 Nov 2026 17:32:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE47C606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00384606A32D;
+	Thu,  5 Nov 2026 17:32:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00384606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=BcMOg/C7
-Received: from ptx.office.stw.pengutronix.de (ptx.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::109])
-	(Authenticated sender: relay-from-ptx.office.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C21582020B9;
-	Thu, 05 Nov 2026 18:32:03 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793899923;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=u8e5CcNv9oY6VuYoJpUdtWSR3IA6s9zG0LDKZaQi/Ss=;
-	b=BcMOg/C7H7WJFt/S1JRxxIF9WXG/BXAjBQHBqve6ml8Ujh49lRId1pGfsFZ4vMJu8Z9qwc
-	0/DZyNltrHH1Ps6iYoVXg+cNr0Qh2X3Jzs5qOhP16WHOGbqwZCgpK8j/fNGhRN7lrA6HeP
-	PsD7itsZyec1TBKqY46nwajLrRVtCZANw/dGGvh3UO94YDMeDsVpjMj0UMdqMnH8ZxdZms
-	F02Oq6KqnH5Y+ic4+j8CnRt8F71FUnQv2aGbkOZI5DdBNzKsZxV9ifkqPBneBdePJxDY8E
-	V0TVF5Hh0hC7TkHM9m3FRTWTSi3xDPe02LwIBvW42PJaRmVisdVVHuwWdT3IPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793899923;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=u8e5CcNv9oY6VuYoJpUdtWSR3IA6s9zG0LDKZaQi/Ss=;
-	b=ECXZQbomhNek9IQFp2tpaR9wkgR6pt/GtdOnFIHMJgc8XCdtCgLkyoDCF/mH7SEwNqBFwQ
-	VgJdgcTShUDPjlaP1ByZCjcp8ui07ES+ZaqAz2LkvCDVnv/l8GVZk/nRbHWWi7Eh7Etqrq
-	2eo24gz8t3HgXvi3jIRe9BOZZxB0z8/rGg9JhDecAxGQglzBTfOKeBT3g+GMZGYuAGx9Kv
-	fB/vc9H+dM984DCX5ZNh7ZTGznbRWsMrS2DctNJ5rBdFBUSBHPvEEGCPUplqJZKtEkvxRm
-	2Jwkft+CLf4fmcfNvB2EKWFQ96DLq8C7PoKSviue0TrrxCXD8siCGZCUb+vI5g==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-ptx.office.stw.pengutronix.de smtp.mailfrom=mfe@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793899923; a=rsa-sha256;
-	cv=none;
-	b=Sk1CkR4+30LuOcX/BVLGSe504iIChL/PB43dkT4f65ElMCyQwzOD+FyGl29nWbe1UaUHeM
-	x4X1utkSJgR++hBrVh3nJYnbdlixn+IRJyFB5c50Ik/mgZZZRWeOogQw35JDKM/X0BO9h4
-	b32TUmda0A6s8cGaphKuGxPxy9tc7OWB+X9l2gzS2OXjq6wOS69oMWkwGgYl0BE2XJU0Bo
-	yH8DW3pW6i02huKHBT+Cmq62ei+z2Kkpwbnn5tTQadfxlPvM12DIcQHggLzH59teQmb10Z
-	ztRcOU30tcFP8duLG2F0RHFuvlIlyu5oexsV/fplq8oEtyhmfZJGgTCWKre23Q==
-Received: by ptx.office.stw.pengutronix.de (Postfix, from userid 1064)
-	id 9E0131BF678; Thu, 05 Nov 2026 18:32:03 +0100 (CET)
-Date: Thu, 5 Nov 2026 18:32:03 +0100
-From: Marco Felsch <m.felsch@pengutronix.de>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
-	Conor Dooley <conor+dt@kernel.org>, imx@lists.linux.dev, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Fabio Estevam <festevam@gmail.com>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2] ARM: dts: nxp/imx6: Drop unused .dtsi
-Message-ID: <vsnztvararyghlx4dh7kzfb7m4euztjacrzai5ucupcptncg4b@axurae5hrtfb>
-References: <20261105144920.2796623-2-robh@kernel.org>
- <krvg6bwsueypasvt6fqszh7itqr3gu3qsqbji2ernqqy6g3t4c@b7hqenmaugik>
- <CAL_JsqLETyrx7ew0zirS9r6+3=GEFaRE0g96OZHYwqjxMCZKcQ@mail.gmail.com>
- <hvrfbvmyzsa6npzh6wpa6o3xxygslqc7g5ukt7ph7ty4povogh@wge2z4rejnf7>
- <vvsd6rchs6wff2n7zxtcarxcvbnuxd7fx632xogm6hrcxxxqsl@dp5dvof3qa7c>
- <auyx155Caf3kwT4h@SMW015318>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=K1uXJ197
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793899952; x=1825435952;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=kzqQSRJBlTTXdErRT8YlRUVaPuC8/FkNEumQJo077ZM=;
+  b=K1uXJ1978rJO86GwWSPOh7CZBE8v6NanTcliBVHz7C/RWFyWEr4NYhZJ
+   ynAYozhmoqH1woZlSA4UdbhlAwX92IJpgE7W+s98lNMd39WjeexQw3Wlm
+   P2E+WcE9ehzxsviWLZViJIYj9LVK/GhBgxjpbiTqdCcC53bMNvMRFyesg
+   wzoF/wsPr4Dp6bGC2SWprbkjX6gNkFLU1JhLgsxuOIvzZkBm2exmLYi7D
+   +/PCYSgGx93vFOHlWbCmsqC0QVryr/E05Ax+MvJ3kt4xJaINRyhrMp/uo
+   AcnvaGk51Htug/mnOMEKtXefzORsq5iXlZsyXyGMKpUIsovflkgLAT08b
+   w==;
+X-CSE-ConnectionGUID: DV/pPnqdTFqyWduYyWB/qQ==
+X-CSE-MsgGUID: MvbztwtsSsitIKYEb+3fQQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2736875"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2736875"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 09:32:31 -0800
+X-CSE-ConnectionGUID: fCjY+B8bQ82fED1PGAqWSQ==
+X-CSE-MsgGUID: rcQgfxUdRoOtTtEqb3gguQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="6969100"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 09:32:27 -0800
+Date: Thu, 5 Nov 2026 19:32:24 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	linux@analog.com
+Subject: Re: [PATCH v6 3/3] iio: adc: add driver for the MAX34417
+ Four-Channel High Dynamic Range Power Accumulator
+Message-ID: <auy9qPZopjJjZ3ZB@ashevche-desk.local>
+References: <20261105-topic-sm8x50-iio-max34417-adc-v6-0-63b4e8279633@linaro.org>
+ <20261105-topic-sm8x50-iio-max34417-adc-v6-3-63b4e8279633@linaro.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,69 +92,301 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <auyx155Caf3kwT4h@SMW015318>
+In-Reply-To: <20261105-topic-sm8x50-iio-max34417-adc-v6-3-63b4e8279633@linaro.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 26-11-05 10:41, Frank Li wrote:
-> On Thu, Nov 05, 2026 at 04:35:11PM +0100, Marco Felsch wrote:
-> > On 26-11-05 16:09, Marco Felsch wrote:
-> > > On 26-11-05 09:06, Rob Herring wrote:
-> > > > On Thu, Nov 5, 2026 at 9:00 AM Marco Felsch <m.felsch@pengutronix.de> wrote:
-> > > > >
-> > > > > On 26-11-05 08:49, Rob Herring (Arm) wrote:
-> > > > > > These .dtsi files are not included anywhere in the tree and can't be
-> > > > > > tested.
-> > > > > >
-> > > > > > Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> > > > > > ---
-> > > > > > v2:
-> > > > > >  - Rebased
-> > > > > >
-> > > > > > It's been nearly a year and these are still orphans. There was a promise
-> > > > > > to upstream something for the kontron ones, but that hasn't happened.
-> > > > >
-> > > > > That's unfortunate, but these includes are used at least by the barebox
-> > > > > bootloader [1,2], dropping these would cause a DT regresssion.
-> > > > >
-> > > > > Would it help to upstream [1,2]?
-> > > >
-> > > > You said you were going to do that on v1:
-> > >
-> > > Unfortunate no Kontron dev was chiming in. Will do it now!
-> >
-> > Okay, after checking the current linux source tree I noticed that
-> > Kontron did upstream the carrier board .dts files but in a different
-> > manner:
-> >
-> >  * arch/arm/boot/dts/nxp/imx/imx6dl-kontron-samx6i-ads2.dts
-> >  * arch/arm/boot/dts/nxp/imx/imx6q-kontron-samx6i-ads2.dts
-> >
-> > This means that barebox would need to adapt the includes. Can you please
-> > mention that the .dtsi are not used by linux mainline and instead a
-> > different approach was used?
+On Thu, Nov 05, 2026 at 01:42:48PM +0100, Neil Armstrong wrote:
+> The MAX34417 is a specialized current and voltage monitor used to
+> determine power consumption of portable systems. The driver support
+> getting the channels voltage, average power, accumulated average
+> power and energy over an I2C/SMBUS serial interface.
 > 
-> So, Is it okay to pick this patch?
-
-Yes, if the commit message points out that the final linux devicetrees
-did land in a different way. This helps the other projects to adapt
-their devicetree ports.
-
-Regards,
-  Marco
-
+> The MAX34417 datasheet only specified on how to calculate the
+> accumulated average power, but with the Sample Per Second rate
+> we can easily get accumulated Energy in Joules.
 > 
-> Frank
+> By default the IIO driver only supports single-shot Voltage
+> and Power sensing, but the accumulation can be enabled by
+> enabling the Energy IIO channel which then enables the
+> Continuous Accumulation Mode.
 > 
-> >
-> > Regards,
-> >   Marco
-> >
-> >
-> > >
-> > > Regards,
-> > >   Marco
-> > >
-> > > >
-> > > > >> I will add the som.dts, please don't remove the kontron dtsi files yet.
-> > >
-> > >
-> >
+> The counter is common to all channels, so when reading a single
+> channel we will copy all accumulators to registers, so in order
+> to permit reading individual channels we must accumulate the
+> other channels in the driver when Continuous Accumulation Mode
+> is enabled.
+
+I have a few nit-picks, mostly about the style. The only two seems more
+important, actually the very first two (_uOhm suffix and use of a bitmap).
+
+...
+
+> +#define MAX34417_MIN_RSENSE		(1 * MILLI) /* 1000 microOhm */
+> +#define MAX34417_MAX_RSENSE		(100 * MILLI) /* 100000 microOhm */
+> +#define MAX34417_DEFAULT_RSENSE		(1 * MILLI) /* 1000 microOhm */
+
+Why not adding a unit suffix _uOhm and drop the comments?
+
+Moreover the burden of a typo is now in the comments and in such a case may
+confuse the reader.
+
+...
+
+> +struct max34417_data {
+> +	struct iio_dev *indio_dev;
+> +	struct regmap *regmap;
+> +	struct mutex lock;
+> +	u32 input_correction[MAX34417_CHANNEL_COUNT];
+> +	const char *input_label[MAX34417_CHANNEL_COUNT];
+> +	s64 acc_power[MAX34417_CHANNEL_COUNT];
+> +	s64 acc_count[MAX34417_CHANNEL_COUNT];
+
+> +	bool overflow[MAX34417_CHANNEL_COUNT];
+
+Why not a bitmap?
+
+	DECLARE_BITMAP(overflow, MAX34417_CHANNEL_COUNT);
+
+> +	ktime_t last_update;
+> +	bool cam_mode;
+> +};
+
+...
+
+> +static int max34417_check_ovf(struct max34417_data *max34417)
+> +{
+> +	struct regmap *map = max34417->regmap;
+> +	u32 control;
+> +	int rc;
+> +
+> +	rc = regmap_read(map, MAX34417_CONTROL_REG, &control);
+> +	if (rc)
+> +		return rc;
+> +
+> +	if (!(control & MAX34417_CONTROL_OVF))
+> +		return 0;
+
+> +	rc = regmap_clear_bits(map, MAX34417_CONTROL_REG,
+> +			       MAX34417_CONTROL_OVF);
+
+It's precisely a single line
+
+> +	if (rc)
+> +		return rc;
+> +
+> +	rc = regmap_write(map, MAX34417_UPDATE_REG, 1);
+> +	if (rc)
+> +		return rc;
+> +
+> +	/* Save the timestamp for the next read */
+> +	max34417->last_update = ktime_get();
+> +
+> +	return 0;
+> +}
+
+...
+
+> +{
+> +	s64 delta_us = ktime_us_delta(ktime_get(), max34417->last_update);
+
+It's better to split the assignment of the variable (that's going to be
+validated) from maintenance p.o.v.
+
+> +	struct regmap *map = max34417->regmap;
+> +	u8 buf[MAX34417_VOLTAGE_READ_LENGTH];
+> +	int rc;
+> +
+> +	/* Sleep up to 1msec to make sure we have a measurement cycle done */
+> +	if (delta_us >= 0 && delta_us < (1 * USEC_PER_MSEC))
+> +		fsleep((1 * USEC_PER_MSEC) - delta_us);
+
+	struct regmap *map = max34417->regmap;
+	u8 buf[MAX34417_VOLTAGE_READ_LENGTH];
+	s64 delta_us;
+	int rc;
+
+	/* Sleep up to 1msec to make sure we have a measurement cycle done */
+	delta_us = ktime_us_delta(ktime_get(), max34417->last_update);
+	if (delta_us >= 0 && delta_us < (1 * USEC_PER_MSEC))
+		fsleep((1 * USEC_PER_MSEC) - delta_us);
+
+> +	/*
+> +	 * When not in CAM mode, we use the default mode where each
+> +	 * UPDATE command will move the current accumulated data to the
+> +	 * SMbus registers, reset those accumulators and run a new
+> +	 * measurement cycle.
+> +	 */
+> +	if (!max34417->cam_mode) {
+> +		/* Reset the accumulators and perform a measurement cycle */
+> +		rc = regmap_write(map, MAX34417_UPDATE_REG, 1);
+> +		if (rc)
+> +			return rc;
+> +		/*
+> +		 * UPDATE commands should be no less than 1msec apart for reliable
+> +		 * measurements, since in Manual mode the SPS is 1kHz, we need wait
+> +		 * for the measurement to finish before moving the data in the SMbus
+> +		 * registers.
+> +		 */
+
+This comment goes up to 85 characters...
+
+> +		fsleep(1 * USEC_PER_MSEC);
+> +	}
+> +
+> +	/*
+> +	 * Move the new UPDATE data into the SMBus read registers.
+> +	 * This will also reset the accumulators, returning the
+> +	 * power accumulated since the last UPDATE.
+> +	 */
+
+...and this one only up to 67. Can you bring some consistency to that?
+Same comment to other similar cases all over the code.
+
+> +	rc = regmap_write(map, MAX34417_UPDATE_REG, 1);
+> +	if (rc)
+> +		return rc;
+> +
+> +	/* Save the timestamp for the next read */
+> +	max34417->last_update = ktime_get();
+> +
+> +	if (max34417->cam_mode) {
+
+> +
+
+Redundant blank line.
+
+> +		/* Retrieve all channels to avoid missing data for other channels */
+> +		rc = max34417_save_accumulators(max34417);
+> +		if (rc)
+> +			return rc;
+> +	}
+> +
+> +	rc = regmap_noinc_read(map, chan->address, &buf, sizeof(buf));
+> +	if (rc)
+> +		return rc;
+> +
+> +	/* Ignore first byte which contains the Byte Count & data starts at Bit 2 */
+> +	*val = get_unaligned_be16(&buf[MAX34417_VOLTAGE_READ_OFFSET]) >> 2;
+> +
+> +	return IIO_VAL_INT;
+> +}
+
+...
+
+> +static int max34417_read_energy(struct max34417_data *max34417,
+> +			       const struct iio_chan_spec *chan,
+> +			       int *val, int *val2)
+> +{
+> +	struct regmap *map = max34417->regmap;
+> +	s64 delta_us = ktime_us_delta(ktime_get(), max34417->last_update);
+
+Split the assignment.
+
+> +	s64 acc_power;
+> +	int rc;
+> +
+> +	/* Sleep up to 1msec to make sure we have a measurement cycle done */
+> +	if (delta_us >= 0 && delta_us < (1 * USEC_PER_MSEC))
+> +		fsleep((1 * USEC_PER_MSEC) - delta_us);
+> +
+> +	/* Move the data to the SMBus registers */
+> +	rc = regmap_write(map, MAX34417_UPDATE_REG, 1);
+> +	if (rc)
+> +		return rc;
+> +
+> +	/* Save the timestamp for the next read */
+> +	max34417->last_update = ktime_get();
+> +
+> +	/* Retrieve all channels to avoid missing data for other channels */
+> +	rc = max34417_save_accumulators(max34417);
+> +	if (rc)
+> +		return rc;
+> +
+> +	if (max34417->overflow[chan->channel]) {
+> +		max34417->overflow[chan->channel] = false;
+> +		max34417->acc_power[chan->channel] = 0;
+> +		max34417->acc_count[chan->channel] = 0;
+> +		return -EOVERFLOW;
+> +	}
+> +
+> +	/* Get current channel power and reset them */
+> +	acc_power = max34417->acc_power[chan->channel];
+> +	max34417->acc_power[chan->channel] = 0;
+> +	max34417->acc_count[chan->channel] = 0;
+> +
+> +	iio_val_s64_decompose(acc_power, val, val2);
+> +
+> +	return IIO_VAL_INT_64;
+> +}
+
+...
+
+> +static int max34417_probe_channel_node(struct device *dev,
+> +				       struct max34417_data *max34417,
+> +				       struct fwnode_handle *node)
+> +{
+> +	u32 rsense_uOhm, index;
+> +	int rc;
+> +
+> +	rc = fwnode_property_read_u32(node, "reg", &index);
+> +	if (rc)
+> +		return dev_err_probe(dev, rc, "failure reading reg property of %pfwP\n",
+> +				     node);
+> +
+> +	if (index >= MAX34417_CHANNEL_COUNT)
+> +		return dev_err_probe(dev, -ECHRNG, "invalid reg %d of %pfwP\n",
+> +				     index, node);
+
+> +	if (fwnode_property_present(node, "label")) {
+> +		rc = fwnode_property_read_string(node, "label",
+> +						 &max34417->input_label[index]);
+> +		if (rc)
+> +			return dev_err_probe(dev, rc,
+> +					     "failure reading label property of %pfwP\n",
+> +					     node);
+> +	}
+
+Can be
+
+	const char *propname;
+	...
+	propname = "label";
+	...
+	propname = "shunt-resistor-micro-ohms";
+
+> +	if (fwnode_property_present(node, "shunt-resistor-micro-ohms")) {
+> +		rc = fwnode_property_read_u32(node, "shunt-resistor-micro-ohms",
+> +					      &rsense_uOhm);
+> +		if (rc)
+> +			return dev_err_probe(dev, rc,
+> +					     "failure reading shunt property of %pfwP\n",
+
+...and here you can refer to it in full using %s.
+
+> +					     node);
+> +
+> +		if (rsense_uOhm < MAX34417_MIN_RSENSE ||
+> +		    rsense_uOhm > MAX34417_MAX_RSENSE)
+> +			return dev_err_probe(dev, -EINVAL,
+
+-ERANGE?
+
+> +					     "invalid shunt value %d of %pfwP\n",
+
+Same here — use %s and propname.
+
+> +					     rsense_uOhm, node);
+> +
+> +		max34417->input_correction[index] =
+> +			max34417_calc_input_correction(rsense_uOhm);
+> +	}
+> +
+> +	return 0;
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
