@@ -1,114 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793909243;
-	b=ut1kzMEpKJbDk+P3PluEoifiueRQApcvQfNgPoJ+DF+z9mPCaXsoeV5dzKR0XGmS1tms
-	 JJmk0MJYrRudy11bBZEyEp3x/TBxTGuoAE6z8GVsHzoOPxY6dTNu1gAfurkNKbXTqqakN
-	 1FMTZ0yPoqHXan3C/vMOcT/WMtfRf9oZe5n4KaYseXrK82If84seBVs+/rqWCRWN3Agma
-	 PCeZ83is3pduC4TYs4GjeR+krrroSKm0hYJ5kj9Qvd4YxDvIocBSzjhcjAUYhqwTzZyuM
-	 6m/AFdTMB0rdiSGPTaxKMT6I+MnZs/dH1OXA08hNK5KvhL7ZB7sqDzo8X5fzTkYFAOQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793909243;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=v8EgQl9rPmO32J3WQwpPn6FuQGoxmZBgtbFEiMNkqUg=;
-	b=sDExTLySxnZqP6q3MPYcLVCK5+HSKemPZns5wPTSHNO6adXiFkm3yx0vk9PKVBbZA76m
-	 /LjxtRbbWIXGyK30XvdZ9uAS7fxE8ZZNMZb0R1FY306XrtbVZTKP2Q8uLfsJ4rZwxabux
-	 aZcIagJdR297rjVoKRmqljs6ZDMziiw1mPwJUXy8uyf++JisiihD2Z90tlReMiMh1/YH2
-	 fmDvoKIhcjW8pBTeY5QG1329jqWB+lqJG9LdRDX+JeMym5h1CX7AesKqsoU9QlUFpufVG
-	 px3ucc7zOvqPOYd6yrhNS4xNuGQQknq9VxUkHq3YJO6eYfYW2c0iUZfrDmH0WRJcoLg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ky8XXgSK;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793909248;
+	b=Fv16aNmUfT/2LhWyNpte48Q3vL4tVYHIN54ts+RyasPDdlZu1axUuQZHoLYil3juutcA
+	 wqw+Z2ToTSTZ5wxE/mfODCwi6fV/IJxF6qKvEOc+UL7kz9y4ItSbLPIb3uEBP7MzgyrfQ
+	 5n/KGQw22aNrtH8kOCI7X/2QZWuHOsnULHfamJdBL8djgECjLplbA/OFXJyHbfiL84crY
+	 qjxumsNgDgMz5oiAWrnuClHDtQv0uqgNkK0iOc+MEbELhralCPZ801Q0YDgEZDG9aDcpv
+	 piZ/IvjleVG0Bs/Y45qDg4JcIvg6phuSrPUM/vTfmjepwU/3QqtAXLtwh8xRfIiOb3A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793909248;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=rlBVJT4GPajviox7GVvnaU/1fuJu0H3trSYA5DJJsWk=;
+	b=4973ctJASvveNd82/jORKnDXuC/QowzQpnBv48cas3428y5bcT/e6GjjKjxTaUZU9+VF
+	 PQYCcXFsQQUrv7NgrdnBMcMfjGQe007FRmxQGe/bLq0DqWzbZeKhO3QAA6pJcHTcZDsFt
+	 ImLXzDLoGL0tITB3vIUNYUdJ5ZXIBEXC57C0fnpYcEEAViJsruWjjoN9+NdfC2afKyQtC
+	 9DT2mBWYUDK8fKKeLSupxsUGNUVRJ6NYUJBFSpqwmVtD2XJ8e5a6J5PevxIwANuWKHghN
+	 jDfmjTj4pj8s0cQKpf9YuqBO+AE+HhkFX4eGoX+wKQ9s3USOx6KKzlurwZs2Q9VFCYg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XoYrWIet;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Ee3ze1zY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D0EF60A262D
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:07:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D0EF60A262D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D22A0606EE8C
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:07:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D22A0606EE8C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ky8XXgSK
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a2072b9832so6268385e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 12:07:22 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XoYrWIet;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Ee3ze1zY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793909246;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rlBVJT4GPajviox7GVvnaU/1fuJu0H3trSYA5DJJsWk=;
+	b=XoYrWIetAiNx5SoNtKwVPFeR5BPdmBKMVGCJ9nP+V1pi8YgTUYlE1spbvigz5YtWKAZuxi
+	RSVhM8PTwAcSEQ4u26BYWX+ipjJcE2B6CHTrAU10TzGpQgYTj0tdd/y3REVNoGi24TIUjw
+	rNb1YsdSub8Ttg/93ejPYINGZPoNzYw=
+Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com
+ [209.85.128.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-223-WuJJ20yNPKijwVf1R6TaKQ-1; Thu, 05 Nov 2026 15:07:25 -0500
+X-MC-Unique: WuJJ20yNPKijwVf1R6TaKQ-1
+X-Mimecast-MFC-AGG-ID: WuJJ20yNPKijwVf1R6TaKQ_1793909244
+Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-8b18c67095dso34409407b3.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 12:07:24 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793909244; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Z/NIbsG+TQUUtLhqI/cI+QiE50Ry9EejHhGH3vCwX1vIAE676R7FltFIjxXfq62zDL
+         J7H4/nXgwF6esy+1yzlhqiiJV+S0b0MF5HHNh7GtJFYqqzjvsTkyRPVfvaI2f0rnVH+j
+         NeSeka6Uob+36/Heh4mFT0Fdqia8hQbgcfBToYswVWRraLiqfMTGK/87ZPhJA3VhpFDK
+         3vV7T2LBRwZnukeOgabuA4ZQKBAwICLH+yN4E1xes9JDJcqsAMkFkbesf9GJjqpOr7Yb
+         JXZigvDNfjeRUNbmBE432eeFrWKcb3TO5eGz6BSR/zuS/TntVEnXOPrdLovpy60FtT03
+         zqJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rlBVJT4GPajviox7GVvnaU/1fuJu0H3trSYA5DJJsWk=;
+        fh=DvxFaw2Hz+Zx8jEBsR+p9wlaQsHr3A8P8mhG9iIB5Tc=;
+        b=l2fUESMMNzFVBWBmL+uJnO3TfDEYHI7LAGmzrWxIqnVOc1wR4Zj71XvNXdgsxRT0fz
+         gdh585UoYjNF9zZixJ4TdQSyUNm+gR/3Suq7phqcr+iH2UEvLZxm7/wWq9b4J9W50ELR
+         ZYMtU0pw+1fI3ViotMf4zUhgbEr2IAk2XQSTLQzIZF3Cn4VeW/JOv02L4u4mgAasUBAK
+         xRCqZxobSU0CVClmQFjZl4ZuhKS5rKoT5f5iIqZm8l26VHVvFkvr1mNhETr0mPL8bGFp
+         vS17AREUhyeP7icdJmDiVd9k8wXv9prpBb2IxgBKaki47Y997/ee8S3PbZfNmwjHvetA
+         EcSQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793909241; x=1794514041; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=redhat.com; s=google; t=1793909244; x=1794514044; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=v8EgQl9rPmO32J3WQwpPn6FuQGoxmZBgtbFEiMNkqUg=;
-        b=ky8XXgSKR4LDmSw+T0DhDyOrGs3XZkNTyVogIJ5ZMCUgYvCL+XcF9ijQUXbm6G0pdW
-         1X9pQDBxTpsQml3HWJf7rvqo9xWjOx8S8PrVvhrAmiTBiIszCRDZuSMgHS2jTkocNuDf
-         Z7aAN63abnacm4e3UduDErGi1KAyBUTpZcRdkjyOBi6xYJS2gKquIQuiXw2KD4K8D/c7
-         +JHV7w+p1H8hNRFjFCp++6SPhEsyGr+7i50H3aNLSmJAgtDE2X0TYCTZUF7uY5NrO7fb
-         VH4kcot4Xxa78/NeHBqcjmhTV6xvKVTV32yGmm3oMsMZySVPe7OmCQ/nKTmjOTrJpI/w
-         5ZQw==
+        bh=rlBVJT4GPajviox7GVvnaU/1fuJu0H3trSYA5DJJsWk=;
+        b=Ee3ze1zYdT0eV/aiucR0vbiqgKfgzYyAowuWNKuIGfUqBuqooBsNxQq/X+ck/Y1B29
+         /6gqlJPnos9NJtjx5Q5JC0WyJ5SsweOM/brXpxG67W//Q8+3q2xe8x5sBBf9NJKhPxo1
+         9rBByQxaX5wn76ttWW3e35yJflZnZ0NegN1wEoqxg4ul+xbZcIpBbLJoU1uelwSweP62
+         xvrQxMWvzVSZj/iweB5+94NQoLUmUkpTzVKPKKggd1Rwm5TWD2O9h9Qnv7mFhXjLJOO3
+         AYV86KM9cZ/kRCKS5NavQzV0OxmY5i+MwMl1Kl3IC1NkWg9/3QRI0WR8JUix2h5w5iPQ
+         QxgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793909241; x=1794514041;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1793909244; x=1794514044;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=v8EgQl9rPmO32J3WQwpPn6FuQGoxmZBgtbFEiMNkqUg=;
-        b=z6j2SR5xep9Lu5eHzylNr8f/pRUIAfLl5OZQszxW9R1u/xxa2iJuzOre1Qa9KYd8mi
-         Q+k0sITc7bfLnExHH2omuh3bw4xkjDBEGz+FLZo9uiHuSku5VW2f+DwfbuXp3CMhhMiv
-         4XA3vJ0VThuMtdpR82TJyNuPTor945R5k9LZbc7f5n4P3xyny5PYEtnF7LJEvLWWqIaY
-         B6KgUBVUTXK/A+aB3REaBwRZQpixiljEV39oFvFO+p0/++zm5j/5q/6bG9COW3dXqM6z
-         5pLUkDl2ZKtqsoGf3d4ObvegW5OArBA4UN8DQimhCmmRwE2W8LVEbA7ydrDlXJByKy2K
-         VVPg==
-X-Forwarded-Encrypted: i=1; AKwUvBy6oegJXZM9lsgpJ3J5yED6SJrXD95JoiJMUbbxM7qfvow3OwgZLo2DgJn4aNyj5yO9oEfvqIQjNze3o9c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8pMPj4CnqnVpVxDY+zeqXjT8pHvgkp8gvOfM2QyKVu+AqcIpb1
-	9dh6xeo4k2AXazet5j+lVVRrg/j5Cz6BTc4KbRExwmGjuB77rvfy2kFq
-X-Gm-Gg: AYBFou0x15gS/PDY7/hlGoegv/5KwZoudlqGTIFylqttCYa63H1OiTY6uLsgI73SGBP
-	0wZIdLWc0arMyYKyL5Q/ubKSRmYhZ3x9+uZ4f+ALNgaLezaPmFProGBmQd5UpMupxktT3D2h5Nf
-	LvCMCbns//0lleYBS/Guz4sJICDyd9kXy2c/LNnAALJL9m0KArLWuF0RDHpemGJDt/2rJbLBZsX
-	HdByyWNGRCMR9LjJEVYxr1DwktPc5jZv3UKuCVgEwwYxijUuzEqCBg62iy0TNk9EzwfKio4bVHA
-	KzJ+uy2lb2Vnx1ztj1fF7D1Y29Ug5GB6Lt5022/tRJV9iiRQ0wvcO/M+gd3PLJQpySMHPwmAI32
-	3A82ltQo6bUv3/ZH0p5qdna6HvPdLwyHhDBhBwFIbXoaOlTQmycJv3csM99wkzNdaFSwY2+zw0y
-	goNG6ExsleW3KwQZeh1cL9o0iKrVx1DB+TWvjhL4WxP4QOzH+nhWeUGAsPkB3FfhM589j9NJBss
-	yjcf4WBW2N7nhExLxWD8jRC5roGB/BCTViqm5kzqNF7wuxIQFukvQelOxO9dok1Eu1YhFcuHyO0
-	Ws+5J0tAZevnJrk0NJTapPUuXiPoBVKfgh0rEYnRL741bkSGKJWvaRi5iOX9hScPQsk6xbEIoeH
-	7CyPB
-X-Received: by 2002:a05:600c:4f42:b0:4b2:4b5e:8141 with SMTP id 5b1f17b1804b1-4b6df4f2304mr3830505e9.9.1793909240484;
-        Thu, 05 Nov 2026 12:07:20 -0800 (PST)
-Received: from antoniarch (78-212-29-45.subs.proxad.net. [78.212.29.45])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b433ebd278sm131671835e9.3.2026.11.05.12.07.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 12:07:20 -0800 (PST)
-From: Antoni Pokusinski <apokusinski01@gmail.com>
-To: vigneshr@ti.com,
-	andi.shyti@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	aaro.koskinen@iki.fi,
-	andreas@kemnade.info,
-	khilman@baylibre.com,
-	rogerq@kernel.org,
-	tony@atomide.com,
-	jmkrzyszt@gmail.com,
-	sumit.semwal@linaro.org,
-	christian.koenig@amd.com,
-	phasta@kernel.org
-Cc: linux-omap@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	Antoni Pokusinski <apokusinski01@gmail.com>
-Subject: [PATCH 3/3] i2c: omap: add DMA support
-Date: Thu,  5 Nov 2026 21:05:54 +0100
-Message-ID: <20261105200556.34240-5-apokusinski01@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261105200556.34240-2-apokusinski01@gmail.com>
-References: <20261105200556.34240-2-apokusinski01@gmail.com>
+        bh=rlBVJT4GPajviox7GVvnaU/1fuJu0H3trSYA5DJJsWk=;
+        b=2tdMU6s1pvcz5LNu/nuw5qzZ7flpnARO+ZmIJ4YPQZL+UfvbXUBq2e9gkQYmS+M2tR
+         INAFJt2800M1i+C+LI9AzqWPPVK96TriY0LkzM7rAPqy0HLQkuyI/nE0VFPOemCWKb2q
+         D+0KtB7VePh5ya/Cy8xb4yqzwQQyvqaJH5tJLFPfAziCJ7u6YU66+2md0TJk3rb1NIbw
+         dsC6RBe0pF3V4ppveeR9CLeCer4T0aD9lXVzgN4iA63t5PVTtINAnwUGJa3l3D+dmNS0
+         jLiAkCRoghTuAU5ubjAL4/egAAGyDPcHajjy8xhG/3POVetKQXNpp+tGkwOX1L0du1/4
+         tCzQ==
+X-Forwarded-Encrypted: i=1; AL+hErFL0+6yR7MPOkZQDCCniQPu1+HihLGRI0vQk17KjWZMXTEOxBFUc5rjR1oQw/YJwwmXIwp3Kp+U+9xHxXU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8OWzPoGSgRu6Kfhyi//nbxh/2jHheMYFjdLP1J+llypkL5DiYl
+	AjzqNrcQEs5foH/OeKkjtqxnoxOn8kGkpS350B2z3W/QFV/mfFDnln3e258kGYSMzPTD9YBhqMx
+	td7YVwSy2ino6bYGTwAfKF+CB8q0cdGf057Jsze5nXVwDRZZLRd/51a1bRqoLx28deEjXFu4DmD
+	YFMm2Y5huXtlsDvwm5XqKILjkazA798D0t6jxNOpeK
+X-Gm-Gg: AYBFou3ECFhWDdIlLdT7h/w5RM+0WeZT3sZ9e29SjKqqXGP5K4gz53IrZUtMZxbZVfO
+	K/NxlyfD+ceAEufLgwyQZHgU04m0+gYWXNJhAb63G6KiKUmJgYMZPl1Nl7bGvODW+Cqpqlp4PKQ
+	j6Gvc1AOcIwN8aNumUkoqN/qLaVX428Q54Z5xaMBbg+aTQJ237i0Ur58X94lg6nvD1PxXeetq8X
+	uOGMXdnGkXZu1g8hwnU+FvX0sYb7stFV2ipIOtuw38dgg==
+X-Received: by 2002:a05:690c:c513:b0:8b1:368b:392f with SMTP id 00721157ae682-8b3419be4e8mr580267b3.49.1793909243409;
+        Thu, 05 Nov 2026 12:07:23 -0800 (PST)
+X-Received: by 2002:a05:690c:c513:b0:8b1:368b:392f with SMTP id
+ 00721157ae682-8b3419be4e8mr579957b3.49.1793909242884; Thu, 05 Nov 2026
+ 12:07:22 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,443 +125,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261103023804.8074-1-wuyiqing@cmss.chinamobile.com> <auo_CehOVzTMq6kc@dread>
+In-Reply-To: <auo_CehOVzTMq6kc@dread>
+From: Andreas Gruenbacher <agruenba@redhat.com>
+Date: Thu, 5 Nov 2026 21:07:11 +0100
+X-Gm-Features: AclHuK_7bPPStvyJ7t0t9o12YGqSYrx1SyDLCxIY-DGoYpyY0de9k9HjzorVUGE
+Message-ID: <CAHc6FU6aE1hdi4zsOgu6LUGJx6CE__PMwOfTY8KMccASRzzRaw@mail.gmail.com>
+Subject: Re: [PATCH] iomap: allow writeback from kswapd again
+To: Dave Chinner <dgc@kernel.org>
+Cc: Yiqing Wu <wuyiqing@cmss.chinamobile.com>, Christian Brauner <brauner@kernel.org>, 
+	gfs2@lists.linux.dev, Kefeng Wang <wangkefeng.wang@huawei.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	syzbot+5e659793378ad9e06387@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add support for the TX and RX DMA requests of the OMAP I2C controller.
-The DMA transactions are dispatched only if the I2C message size is
-a multiple of the configured FIFO threshold and is greater than a
-predefined threshold of 8 bytes.
+On Tue, Nov 3, 2026 at 9:17=E2=80=AFPM Dave Chinner <dgc@kernel.org> wrote:
+> On Tue, Nov 03, 2026 at 10:38:04AM +0800, Yiqing Wu wrote:
+> > Commit ff59f71f1c95 ("iomap: simplify writepages reclaim guard") remove=
+d
+> > the PF_KSWAPD exemption from the iomap_writepages() guard on the
+> > assumption that kswapd can no longer reach filesystem writeback now
+> > that pageout() returns PAGE_ACTIVATE for non-shmem, non-anon folios.
+> > That assumption only covers the folio reclaim path.  kswapd can still
+> > reach filesystem writeback through the inode shrinkers, and syzbot
+> > reports exactly that on GFS2:
+> >
+> >   WARNING: (current->flags & PF_MEMALLOC) in iomap_writepages
+> >   kswapd -> balance_pgdat -> shrink_node -> shrink_slab
+> >   -> super_cache_scan -> prune_icache_sb -> evict
+> >   -> gfs2_evict_inode -> evict_linked_inode -> gfs2_log_flush
+> >   -> gfs2_ordered_write -> filemap_fdatawrite -> do_writepages
+> >   -> gfs2_writepages -> iomap_writepages
+>
+> Oh, that's awful. Nothing should be calling into iomap_writepages
+> from reclaim context.
+>
+> i.e. Doing data writeback from the inode cache shrinker is extremely
+> suboptimal for many reasons, so I'd consider this a gfs2 bug, not an
+> iomap issue. It's even worse when data writeback is being driven by
+> an inode cache shrinker. I'm surprised that lockdep hasn't thrown a
+> hissy-fit over this (i.e. inode locks taken in writeback appearing
+> both above and below reclaim.
+>
+> This is the patch series that Jan Kara came up with to deal with
+> these issues in inode eviction:
+>
+> https://lore.kernel.org/linux-fsdevel/20261009133253.20102-1-jack@suse.cz=
+/
+>
+> This allows filesystems to defer inode eviction that might block
+> (e.g. due to transaction reservations, journal commits, metadata
+> read requirements, data writeback requirements, etc) to a context
+> where the work is allowed to block and isn't running under memory
+> reclaim context or restrictions.
+>
+> That patchset is needed for ext4, XFS alreayd does this, and it
+> would seem that gfs2 needs it for glock reclaim....
 
-Support for DMA transactions that are not a multiple of the FIFO
-threshold can be added in the future using the draining feature.
+Yes, Jan's deferred inode reclaim patch queue (plus a tiny gfs2 patch
+on top) should take care of that.
 
-Signed-off-by: Antoni Pokusinski <apokusinski01@gmail.com>
----
- drivers/i2c/busses/i2c-omap.c | 291 +++++++++++++++++++++++++++++++++-
- 1 file changed, 287 insertions(+), 4 deletions(-)
+I see that Jan wanted to send a v4 of this patch queue. Are there any
+remaining serious problems?
 
-diff --git a/drivers/i2c/busses/i2c-omap.c b/drivers/i2c/busses/i2c-omap.c
-index f02d294db42a..59e633c80236 100644
---- a/drivers/i2c/busses/i2c-omap.c
-+++ b/drivers/i2c/busses/i2c-omap.c
-@@ -5,6 +5,7 @@
-  * Copyright (C) 2003 MontaVista Software, Inc.
-  * Copyright (C) 2005 Nokia Corporation
-  * Copyright (C) 2004 - 2007 Texas Instruments.
-+ * Copyright (C) 2026 Antoni Pokusiński
-  *
-  * Originally written by MontaVista Software, Inc.
-  * Additional contributions by:
-@@ -13,10 +14,13 @@
-  *	Juha Yrjölä <juha.yrjola@solidboot.com>
-  *	Syed Khasim <x0khasim@ti.com>
-  *	Nishant Menon <nm@ti.com>
-+ *	Antoni Pokusiński <apokusinski01@gmail.com>
-  */
- 
- #include <linux/module.h>
- #include <linux/delay.h>
-+#include <linux/dma-mapping.h>
-+#include <linux/dmaengine.h>
- #include <linux/i2c.h>
- #include <linux/err.h>
- #include <linux/interrupt.h>
-@@ -50,6 +54,8 @@
- /* timeout for making decision on bus free status */
- #define OMAP_I2C_BUS_FREE_TIMEOUT (msecs_to_jiffies(10))
- 
-+#define OMAP_I2C_DMA_THRESHOLD	8
-+
- /* For OMAP3 I2C_IV has changed to I2C_WE (wakeup enable) */
- enum {
- 	OMAP_I2C_REV_REG = 0,
-@@ -57,6 +63,10 @@ enum {
- 	OMAP_I2C_STAT_REG,
- 	OMAP_I2C_IV_REG,
- 	OMAP_I2C_WE_REG,
-+	OMAP_I2C_DMARXENABLE_SET,
-+	OMAP_I2C_DMATXENABLE_SET,
-+	OMAP_I2C_DMARXENABLE_CLR,
-+	OMAP_I2C_DMATXENABLE_CLR,
- 	OMAP_I2C_SYSS_REG,
- 	OMAP_I2C_BUF_REG,
- 	OMAP_I2C_CNT_REG,
-@@ -176,12 +186,27 @@ enum {
- 
- #define OMAP_I2C_IP_V2_INTERRUPTS_MASK	0x6FFF
- 
-+struct omap_i2c_dma {
-+	struct dma_chan		*chan_rx;
-+	struct dma_chan		*chan_tx;
-+	struct dma_chan		*chan_using;
-+	struct device		*dma_dev;
-+	u8			*curr_msg_buf;
-+	struct i2c_msg		*curr_msg;
-+	dma_addr_t		dma_buf;
-+	unsigned int		dma_len;
-+	enum dma_data_direction dma_data_dir;
-+	struct completion	complete;
-+	dma_addr_t		phy_addr;
-+};
-+
- struct omap_i2c_dev {
- 	struct device		*dev;
- 	void __iomem		*base;		/* virtual */
- 	int			irq;
- 	int			reg_shift;      /* bit shift for I2C register addresses */
- 	struct completion	cmd_complete;
-+	struct omap_i2c_dma	*dma;
- 	struct resource		*ioarea;
- 	u32			latency;	/* maximum mpu wkup latency */
- 	void			(*set_mpu_wkup_lat)(struct device *dev,
-@@ -242,6 +267,10 @@ static const u8 reg_map_ip_v2[] = {
- 	[OMAP_I2C_STAT_REG] = 0x28,
- 	[OMAP_I2C_IV_REG] = 0x34,
- 	[OMAP_I2C_WE_REG] = 0x34,
-+	[OMAP_I2C_DMARXENABLE_SET] = 0x38,
-+	[OMAP_I2C_DMATXENABLE_SET] = 0x3c,
-+	[OMAP_I2C_DMARXENABLE_CLR] = 0x40,
-+	[OMAP_I2C_DMATXENABLE_CLR] = 0x44,
- 	[OMAP_I2C_SYSS_REG] = 0x90,
- 	[OMAP_I2C_BUF_REG] = 0x94,
- 	[OMAP_I2C_CNT_REG] = 0x98,
-@@ -655,6 +684,144 @@ static void omap_i2c_wait(struct omap_i2c_dev *omap)
- 	} while (!(stat & mask) && count < 5);
- }
- 
-+static void omap_i2c_dma_callback(void *arg)
-+{
-+	struct omap_i2c_dev *omap = (struct omap_i2c_dev *)arg;
-+
-+	complete(&omap->dma->complete);
-+}
-+
-+static int omap_i2c_dma_xfer(struct omap_i2c_dev *omap, struct i2c_msg *msg)
-+{
-+	int ret;
-+	struct dma_slave_config dma_sconfig = {0};
-+	struct omap_i2c_dma *dma = omap->dma;
-+	struct dma_async_tx_descriptor *txdesc;
-+	struct device *dev = &omap->adapter.dev;
-+
-+	dma->curr_msg = msg;
-+
-+	dma->curr_msg_buf = i2c_get_dma_safe_msg_buf(msg, 1);
-+	if (!dma->curr_msg_buf)
-+		return -ENOMEM;
-+
-+	if (omap->receiver) {
-+		dma->chan_using = dma->chan_rx;
-+
-+		dma_sconfig.src_addr = dma->phy_addr +
-+				(omap->regs[OMAP_I2C_DATA_REG]
-+					<< omap->reg_shift);
-+		dma_sconfig.src_addr_width = DMA_SLAVE_BUSWIDTH_1_BYTE;
-+		dma_sconfig.src_maxburst = omap->threshold;
-+		dma_sconfig.direction = DMA_DEV_TO_MEM;
-+	} else {
-+		dma->chan_using = dma->chan_tx;
-+
-+		dma_sconfig.dst_addr = dma->phy_addr +
-+				(omap->regs[OMAP_I2C_DATA_REG]
-+					<< omap->reg_shift);
-+		dma_sconfig.dst_addr_width = DMA_SLAVE_BUSWIDTH_1_BYTE;
-+		dma_sconfig.dst_maxburst = omap->threshold;
-+		dma_sconfig.direction = DMA_MEM_TO_DEV;
-+	}
-+
-+	ret = dmaengine_slave_config(dma->chan_using, &dma_sconfig);
-+	if (ret < 0) {
-+		dev_err(dev, "DMA channel config failed: %d\n", ret);
-+		goto err_map;
-+	}
-+
-+	dma->dma_len = msg->len;
-+	dma->dma_data_dir = omap->receiver ? DMA_FROM_DEVICE : DMA_TO_DEVICE;
-+
-+	dma->dma_dev = dmaengine_get_dma_device(dma->chan_using);
-+
-+	dma->dma_buf = dma_map_single(dma->dma_dev, dma->curr_msg_buf,
-+				      dma->dma_len, dma->dma_data_dir);
-+	if (dma_mapping_error(dma->dma_dev, dma->dma_buf)) {
-+		dev_err(dev, "DMA mapping failed\n");
-+		ret = -EINVAL;
-+		goto err_map;
-+	}
-+
-+	txdesc = dmaengine_prep_slave_single(dma->chan_using, dma->dma_buf,
-+					     dma->dma_len,
-+					     omap->receiver ? DMA_DEV_TO_MEM :
-+							      DMA_MEM_TO_DEV,
-+					     DMA_PREP_INTERRUPT | DMA_CTRL_ACK);
-+	if (!txdesc) {
-+		dev_err(dev, "Not able to get desc for DMA xfer\n");
-+		ret = -EINVAL;
-+		goto err_desc;
-+	}
-+
-+	reinit_completion(&dma->complete);
-+
-+	dmaengine_desc_set_callback(txdesc, omap_i2c_dma_callback, NULL, omap);
-+	ret = dma_submit_error(dmaengine_submit(txdesc));
-+	if (ret < 0) {
-+		dev_err(dev, "DMA submit failed\n");
-+		goto err_submit;
-+	}
-+
-+	dma_async_issue_pending(dma->chan_using);
-+	return 0;
-+
-+err_submit:
-+	dmaengine_terminate_sync(dma->chan_using);
-+err_desc:
-+	dma_unmap_single(dma->dma_dev, dma->dma_buf, dma->dma_len,
-+			 dma->dma_data_dir);
-+err_map:
-+	i2c_put_dma_safe_msg_buf(dma->curr_msg_buf, msg, false);
-+	return ret;
-+}
-+
-+static void omap_i2c_dma_cleanup(struct omap_i2c_dev *omap, bool xferred)
-+{
-+	struct omap_i2c_dma *dma = omap->dma;
-+
-+	dma_unmap_single(dma->dma_dev, dma->dma_buf, dma->dma_len,
-+			 dma->dma_data_dir);
-+	i2c_put_dma_safe_msg_buf(dma->curr_msg_buf, dma->curr_msg, xferred);
-+}
-+
-+static void omap_i2c_dma_enable_req(struct omap_i2c_dev *omap)
-+{
-+	u16 w;
-+
-+	w = omap_i2c_read_reg(omap, OMAP_I2C_BUF_REG);
-+	if (omap->receiver) {
-+		w |= OMAP_I2C_BUF_RDMA_EN;
-+		omap_i2c_write_reg(omap, OMAP_I2C_BUF_REG, w);
-+
-+		omap_i2c_write_reg(omap, OMAP_I2C_DMARXENABLE_SET, 1);
-+	} else {
-+		w |= OMAP_I2C_BUF_XDMA_EN;
-+		omap_i2c_write_reg(omap, OMAP_I2C_BUF_REG, w);
-+
-+		omap_i2c_write_reg(omap, OMAP_I2C_DMATXENABLE_SET, 1);
-+	}
-+}
-+
-+static void omap_i2c_dma_disable_req(struct omap_i2c_dev *omap)
-+{
-+	u16 w;
-+
-+	w = omap_i2c_read_reg(omap, OMAP_I2C_BUF_REG);
-+	if (omap->receiver) {
-+		w &= ~OMAP_I2C_BUF_RDMA_EN;
-+		omap_i2c_write_reg(omap, OMAP_I2C_BUF_REG, w);
-+
-+		omap_i2c_write_reg(omap, OMAP_I2C_DMARXENABLE_CLR, 1);
-+	} else {
-+		w &= ~OMAP_I2C_BUF_XDMA_EN;
-+		omap_i2c_write_reg(omap, OMAP_I2C_BUF_REG, w);
-+
-+		omap_i2c_write_reg(omap, OMAP_I2C_DMATXENABLE_CLR, 1);
-+	}
-+}
-+
- /*
-  * Low level master read/write transaction.
-  */
-@@ -664,7 +831,7 @@ static int omap_i2c_xfer_msg(struct i2c_adapter *adap,
- 	struct omap_i2c_dev *omap = i2c_get_adapdata(adap);
- 	unsigned long time_left;
- 	u16 w;
--	int ret;
-+	int ret, use_dma;
- 
- 	dev_dbg(omap->dev, "addr: 0x%04x, len: %d, flags: 0x%x, stop: %d\n",
- 		msg->addr, msg->len, msg->flags, stop);
-@@ -672,6 +839,14 @@ static int omap_i2c_xfer_msg(struct i2c_adapter *adap,
- 	omap->receiver = !!(msg->flags & I2C_M_RD);
- 	omap_i2c_resize_fifo(omap, msg->len, omap->receiver);
- 
-+	/**
-+	 * REVISIT: If the message size is not a multiple of the threshold,
-+	 * the draining feature must be used.
-+	 */
-+	use_dma = !polling && omap->dma && msg->len >= OMAP_I2C_DMA_THRESHOLD &&
-+		  !(omap->flags & OMAP_I2C_FLAG_NO_FIFO) &&
-+		  msg->len % omap->threshold == 0;
-+
- 	omap_i2c_write_reg(omap, OMAP_I2C_SA_REG, msg->addr);
- 
- 	/* REVISIT: Could the STB bit of I2C_CON be used with probing? */
-@@ -692,6 +867,17 @@ static int omap_i2c_xfer_msg(struct i2c_adapter *adap,
- 		reinit_completion(&omap->cmd_complete);
- 	omap->cmd_err = 0;
- 
-+	if (use_dma) {
-+		ret = omap_i2c_dma_xfer(omap, msg);
-+		if (ret) {
-+			omap_i2c_reset(omap);
-+			__omap_i2c_init(omap);
-+			return ret;
-+		}
-+
-+		omap_i2c_dma_enable_req(omap);
-+	}
-+
- 	w = OMAP_I2C_CON_EN | OMAP_I2C_CON_MST | OMAP_I2C_CON_STT;
- 
- 	/* High speed configuration */
-@@ -742,8 +928,17 @@ static int omap_i2c_xfer_msg(struct i2c_adapter *adap,
- 	 * into arbitration and we're currently unable to recover from it.
- 	 */
- 	if (!polling) {
--		time_left = wait_for_completion_timeout(&omap->cmd_complete,
--							OMAP_I2C_TIMEOUT);
-+		time_left = OMAP_I2C_TIMEOUT;
-+
-+		if (use_dma)
-+			time_left = wait_for_completion_timeout(
-+						&omap->dma->complete,
-+						time_left);
-+
-+		if (time_left)
-+			time_left = wait_for_completion_timeout(
-+						&omap->cmd_complete,
-+						time_left);
- 	} else {
- 		do {
- 			omap_i2c_wait(omap);
-@@ -753,6 +948,15 @@ static int omap_i2c_xfer_msg(struct i2c_adapter *adap,
- 		time_left = !ret;
- 	}
- 
-+	if (use_dma) {
-+		omap_i2c_dma_disable_req(omap);
-+
-+		if (!time_left || omap->cmd_err)
-+			dmaengine_terminate_sync(omap->dma->chan_using);
-+
-+		omap_i2c_dma_cleanup(omap, time_left && !omap->cmd_err);
-+	}
-+
- 	if (time_left == 0) {
- 		omap_i2c_reset(omap);
- 		__omap_i2c_init(omap);
-@@ -1338,10 +1542,70 @@ static struct i2c_bus_recovery_info omap_i2c_bus_recovery_info = {
- 	.recover_bus		= i2c_generic_scl_recovery,
- };
- 
-+static struct omap_i2c_dma *omap_i2c_dma_init(struct omap_i2c_dev *omap,
-+					      dma_addr_t phy_addr)
-+{
-+	struct device *dev = omap->dev;
-+	struct omap_i2c_dma *dma;
-+	int ret;
-+
-+	dma = devm_kzalloc(dev, sizeof(*dma), GFP_KERNEL);
-+	if (!dma)
-+		return ERR_PTR(-ENOMEM);
-+
-+	dma->phy_addr = phy_addr;
-+
-+	init_completion(&dma->complete);
-+
-+	dma->chan_tx = dma_request_chan(dev, "tx");
-+	if (IS_ERR(dma->chan_tx)) {
-+		ret = PTR_ERR(dma->chan_tx);
-+		if (ret != -ENODEV)
-+			dev_err_probe(dev, ret,
-+				      "can't request DMA tx channel\n");
-+		goto dma_free;
-+	}
-+
-+	dma->chan_rx = dma_request_chan(dev, "rx");
-+	if (IS_ERR(dma->chan_rx)) {
-+		ret = PTR_ERR(dma->chan_rx);
-+		if (ret != -ENODEV)
-+			dev_err_probe(dev, ret,
-+				      "can't request DMA rx channel\n");
-+		goto dma_tx_fail;
-+	}
-+
-+	return dma;
-+
-+dma_tx_fail:
-+	dma_release_channel(dma->chan_tx);
-+dma_free:
-+	devm_kfree(dev, dma);
-+
-+	return ERR_PTR(ret);
-+}
-+
-+static void omap_i2c_dma_free(struct omap_i2c_dev *omap)
-+{
-+	struct omap_i2c_dma *dma = omap->dma;
-+
-+	dma->dma_buf = 0;
-+	dma->dma_len = 0;
-+
-+	dma_release_channel(dma->chan_tx);
-+	dma->chan_tx = NULL;
-+
-+	dma_release_channel(dma->chan_rx);
-+	dma->chan_rx = NULL;
-+
-+	dma->chan_using = NULL;
-+}
-+
- static int
- omap_i2c_probe(struct platform_device *pdev)
- {
- 	struct omap_i2c_dev	*omap;
-+	struct resource		*res;
- 	struct i2c_adapter	*adap;
- 	const struct omap_i2c_bus_platform_data *pdata =
- 		dev_get_platdata(&pdev->dev);
-@@ -1359,7 +1623,7 @@ omap_i2c_probe(struct platform_device *pdev)
- 	if (!omap)
- 		return -ENOMEM;
- 
--	omap->base = devm_platform_ioremap_resource(pdev, 0);
-+	omap->base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
- 	if (IS_ERR(omap->base))
- 		return PTR_ERR(omap->base);
- 
-@@ -1478,6 +1742,22 @@ omap_i2c_probe(struct platform_device *pdev)
- 		goto err_unuse_clocks;
- 	}
- 
-+	if (omap->scheme != OMAP_I2C_SCHEME_0) {
-+		omap->dma = omap_i2c_dma_init(omap, (dma_addr_t)res->start);
-+		if (PTR_ERR(omap->dma) == -EPROBE_DEFER) {
-+			r = -EPROBE_DEFER;
-+			dev_err_probe(&pdev->dev, r,
-+				      "can't get DMA channels\n");
-+			goto err_unuse_clocks;
-+		} else if (PTR_ERR(omap->dma) == -ENODEV) {
-+			dev_dbg(omap->dev, "DMA setup failed\n");
-+			omap->dma = NULL;
-+		} else if (IS_ERR(omap->dma)) {
-+			r = PTR_ERR(omap->dma);
-+			goto err_unuse_clocks;
-+		}
-+	}
-+
- 	adap = &omap->adapter;
- 	i2c_set_adapdata(adap, omap);
- 	adap->owner = THIS_MODULE;
-@@ -1523,6 +1803,9 @@ static void omap_i2c_remove(struct platform_device *pdev)
- 	if (omap->mux_state)
- 		mux_state_deselect(omap->mux_state);
- 
-+	if (omap->dma)
-+		omap_i2c_dma_free(omap);
-+
- 	ret = pm_runtime_get_sync(&pdev->dev);
- 	if (ret < 0)
- 		dev_err(omap->dev, "Failed to resume hardware, skip disable\n");
--- 
-2.56.0
+> > Under memory pressure kswapd evicts GFS2 inodes whose glock is still
+> > dirty, and gfs2_evict_inode() -> gfs2_log_flush() ->
+> > gfs2_ordered_write() then writes back the ordered data of every inode
+> > on sd_log_ordered.  This is long-standing, intentional behaviour: in
+> > the default data=3Dordered mode GFS2 must flush dirty data before the
+> > log commit that writes the metadata.
+>
+> It's also long standing, known broken behaviour w.r.t. shrinkers
+> running in memory reclaim contexts.
+>
+> So, why doesn't this warning happen through the direct reclaim path?
+> i.e.  what makes only kswapd trigger this?
+>
+> I see nothing that prevents direct reclaim doing inode eviction
+> from triggering this same path through gfs2_evict_inode(). IOWs,
+> direct reclaim should also be triggering the warning in
+> iomap_writepages(), hence it is not clear to me why re-adding the
+> kswapd guard is anything other than a band-aid over the broken code
+> in gfs2....
+
+It's also happening under direct reclaim. Here is an attempt at a fix
+from before I was aware of Jan's patch queue that describes such a
+scenario:
+
+https://lore.kernel.org/gfs2/20260921211712.1563575-1-agruenba@redhat.com/
+
+> > Writeback from kswapd has been
+> > explicitly allowed since 2010, when the guard was still in XFS:
+> > commit d4f7a5cbd544 ("xfs: allow writeback from kswapd"), because
+> > the kswapd stack usage is low and it cannot deadlock on the
+> > filesystem.
+>
+> No, that was a regression fix for turning off all writeback from
+> reclaim in XFS as a 'what problems does stopping mm reclaim
+> writeback actually cause' experiment. That was the first steps we
+> took down the path to get rid of the problematic random dirty page
+> writeback issues that memory reclaim had.
+>
+> IOWs, we didn't want to allow it, but we had to tolerate it because
+> the MM behaviour was unfixable at the time. Now that the
+> pageout()->.writepage() path for dirty filebacked page writeback is
+> gone from the mm, we no longer have to tolerate this behaviour
+> and so the guard got removed. It only took 15 years to get to this
+> point....
+>
+> tl;dr: Writeback through iomap in memory reclaim context is -a bug-.
+>
+> > Beyond the noisy warning the new guard is actively harmful: it returns
+> > -EIO on every hit (WARN_ON_ONCE only limits the report), while
+> > gfs2_ordered_write() ignores the filemap_fdatawrite() return value, so
+> > the log commit proceeds with metadata even though the ordered data was
+> > never written, breaking the data-before-metadata ordering guarantee of
+> > data=3Dordered mode.
+>
+> This is definitely a gfs2 bug - writeback can fail for -many-
+> reasons, so ignoring IO submission failures when data integrity is
+> required is a definitely filesystem bug.
+>
+> > diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
+> > index d6e2f1ded5ca..324da0f5cb29 100644
+> > --- a/fs/iomap/buffered-io.c
+> > +++ b/fs/iomap/buffered-io.c
+> > @@ -2082,7 +2082,7 @@ iomap_writepages(struct iomap_writepage_ctx *wpc)
+> >        * Writeback from reclaim context should never happen except in t=
+he case
+> >        * of a VM regression so warn about it and refuse to write the da=
+ta.
+> >        */
+> > -     if (WARN_ON_ONCE((current->flags & PF_MEMALLOC)))
+> > +     if (WARN_ON_ONCE((current->flags & PF_MEMALLOC) && !current_is_ks=
+wapd()))
+> >               return -EIO;
+>
+> AFAICT, direct reclaim will still trigger this warning and the bad
+> gfs2 behaviour, so I'm struggling to see this as anything other than
+> shooting the messenger...
+>
+> Cheers,
+>
+> Dave.
+> --
+> Dave Chinner
+> dgc@kernel.org
+
+Thanks,
+Andreas
 
