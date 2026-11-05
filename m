@@ -1,65 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.108.3.167
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793878734;
-	b=3ZPgrALe4txnzYduCZAFow11dsuR9T6fMzLCaePI3F1Ve1vl5F6Qzu+oQDF4EkRsmD/X
-	 ln8YsAJb8YCqmYDKVV9m/Zj4L/FDXFOiKtdd6bIwjLiBYXOBEspH/6YVtxNEXqOjNg3V3
-	 qjm+DpPnYp40N/Ojq/MplUaioznutlyz1lZ25J8TMjyyrJj9c3nL5rg80+jJrvnBw9o+7
-	 Km734QNQ6Ez+R/f/pgGfUvnFyH/ZWWo0+4WE4JV7mokrryqSOxjUZoacKvaPJd95sy6WD
-	 teOuMUVkTqxvC/XWU1PH+Ycxl6cX4/+CmAOPMGvz4+Zz9nhYvt3gBZXx19v7GfX5Zwg==
+	t=1793878737;
+	b=RIrOSuXo+Y0naCT/vaYk4q84at8b/m7RBRVSYiwp28VGUH8s9PNSUxLG0mlx7jCcJ+eL
+	 /wsNESy233p4PLeNxbuYkQJ0G2VwApmS9ueuQwXPbnCzZqlOvlhicfgUIk9xLLra7Powu
+	 aJDdQzr30RnFZT5usmaa8crmJE6gfBp47CLFkLGge63t/yIlx8mMbn/bwowQhAKYdxUrB
+	 POxlvOOEoKtCO44sKQiEzs3LWCjzRmiY3Pjy97M6M7XSTBOtFhMSPJUBbP1eogYx+ekK9
+	 WQgj5cyqzijntZVXmNcSc4pCHvI4wnE681leCU4lls3+6SYUr1T8HyiMnbizeE950CQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793878734;
-	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
-	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=tY7QWpvVd5l3MqdH8XX93jgpLXZFpNeSnWHI3amMvrQ=;
-	b=r1SjLKsBG4U71e+mdX8JlLJtzPf1gHir82femHxz7KgBa301gOXll710nEg2sgcWRnG3
-	 IFnF9QM+QP/IHBLR0sqbAEuzVzlRDZ4zDALVONeo/cqzyZGbK8dpeb64C3H3UJo10IqVn
-	 fx8qqdSAcNiZ5SiXqW+z88VND3VX8Chnr+wfVx+IUh3kgEtRrGdIpUcUjlIZOXd3c/Cla
-	 Z6doffYNgYnZOWlR6JcYahcy9bURL1LYsF+/sbthLJLd+KnHabbQ3j2aerzCV8VwL51dc
-	 7xtIIvReO2LQTrnOSMVc5efODbS9cn5yEFnaLMCnf3Vd4tVLKQEozhfKhjsLeuszLDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793878737;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=iuAuq2ID5TGFzn2pe0VJ1GBuLXTQHkhjD0pbehz9mLo=;
+	b=f9IiegzVA7HZ5sKA0Ycig0Nu6VotEbP+W0WvjyKu1So7t8Ss/krYWwfo6XAczxGRDM8i
+	 M/3tlXhuilUiWS/o/D/xkihSG8KP1v/sl1wK5l0exgb/1Vlg9YHXzNi5yAETekPouTkOg
+	 iH2z+h++wK/Rd2J3JTRoX31rqnN+bS6xefG0Mo1Z/WF0eJeJMoYwH0Cs+F7vAr4EsoNjb
+	 Cb8p0RmMxF3x4IkAwMmHnO6gpQ6Oa0dBOYOpGu1hIVSSbdu+uuzTzGqucdEfysOGhRAXd
+	 iUC1wUKqWq+0WPlmVt2V7lheJdycBMMQC6xSMKxv2nEsod6QdztWMHqjtZGCRQlhO+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sina.com;
-	spf=pass smtp.mailfrom=sina.com;
-	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b="HUG5b2n/";
-	arc=none smtp.remote-ip=202.108.3.167
-Received: from mail3-167.sinamail.sina.com.cn (mail3-167.sinamail.sina.com.cn [202.108.3.167])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MKsbFlx8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 450C3606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:38:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 450C3606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA220606A335;
+	Thu,  5 Nov 2026 11:38:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=HUG5b2n/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1793878731;
-	bh=tY7QWpvVd5l3MqdH8XX93jgpLXZFpNeSnWHI3amMvrQ=;
-	h=From:Subject:Date:Message-ID;
-	b=HUG5b2n/Z0s7M3jAo4MqiLC1zI1JlLE5/uvTfVgRUook1piCEVwD7Oje052iN4mo/
-	 ETY3Ueycg4t7/q7jC+9xTt8Lgv6ikU83OZ7H80/O2yHl21/Lt8sR88FWCGwMzPezXo
-	 /MG/gqylSwClcq9tLVWLPhdbH9MFtYvQswUkvQd8=
-X-SMAIL-HELO: lxu-pcd
-Received: from unknown (HELO lxu-pcd)([111.198.231.89])
-	by sina.com (10.54.253.33) with ESMTP
-	id 6AEC6ABA00007D81; Thu, 5 Nov 2026 19:38:40 +0800 (CST)
-X-Sender: eadavis@sina.com
-X-Auth-ID: eadavis@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=eadavis@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=eadavis@sina.com
-X-SMAIL-MID: 7591716685168
-X-SMAIL-UIID: 1B2DBB9BA20E4DEF95F3F24B859562F6-20261105-193840-1
-From: Edward Adam Davis <eadavis@sina.com>
-To: syzbot+41e0d7cdfb1ecfc4a007@syzkaller.appspotmail.com
-Cc: linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [dm?] BUG: unable to handle kernel NULL pointer dereference in dm_bufio_client_create
-Date: Thu,  5 Nov 2026 19:38:34 +0800
-Message-ID: <20261105113834.63912-1-eadavis@sina.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <6ae78418.6552420f.2a0efc.005b.GAE@google.com>
-References: <6ae78418.6552420f.2a0efc.005b.GAE@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MKsbFlx8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2F1A1F000C1;
+	Thu,  5 Nov 2026 11:38:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793878736;
+	bh=iuAuq2ID5TGFzn2pe0VJ1GBuLXTQHkhjD0pbehz9mLo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MKsbFlx8167Xt68/FdC4AGG+0FAoLxd96i0SMW6DYf1Rp9REAm71JsCQK64LXDfmD
+	 jpQIFxb8Ljs+dtF4hCQ/J1SH4KWevWOD31InLwMOA50QmzkxVFoluVhfd3A7+h3STZ
+	 05rOnfFDuaxSVd0sstW+I76xhw0/RFbI6uhBJfujzHjG7C9sqCPTV3OdBm3XqHLER7
+	 +vop+yVrDaDhHo/gUpdEEj1gnzpiH+lZgCkS4+2bl48d/XaHjeFbe29HfC2zih8t6s
+	 Wxx9UZwCgE7j7t3xTYS1fATgSwwd4D4elFQ74zzj1PrVCpl9NqB65HOSzGHKBeLEkQ
+	 Fh/jNGj55+tcQ==
+Date: Thu, 5 Nov 2026 12:38:47 +0100
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Andy Shevchenko <andy@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v1 0/2] Add strprefix() and fix a bug with it
+Message-ID: <auxn9fKsOKeIFIJa@devuan>
+References: <cover.1793876837.git.alx@kernel.org>
+ <CAHp75VdFH146fNhw1ysUbgCPbpv+K++kWvbyZxU=V7tDh0T88Q@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,49 +69,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rgj25ae5zgxkqfls"
+Content-Disposition: inline
+In-Reply-To: <CAHp75VdFH146fNhw1ysUbgCPbpv+K++kWvbyZxU=V7tDh0T88Q@mail.gmail.com>
 
-From: Edward Aadm Davis <eadavis@sina.com>
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git abf8c33470f7
+--rgj25ae5zgxkqfls
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Andy Shevchenko <andy@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v1 0/2] Add strprefix() and fix a bug with it
+Message-ID: <auxn9fKsOKeIFIJa@devuan>
+References: <cover.1793876837.git.alx@kernel.org>
+ <CAHp75VdFH146fNhw1ysUbgCPbpv+K++kWvbyZxU=V7tDh0T88Q@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAHp75VdFH146fNhw1ysUbgCPbpv+K++kWvbyZxU=V7tDh0T88Q@mail.gmail.com>
 
-diff --git a/drivers/md/dm-thin.c b/drivers/md/dm-thin.c
-index 358ed77ffb2b..f15d5815ffab 100644
---- a/drivers/md/dm-thin.c
-+++ b/drivers/md/dm-thin.c
-@@ -3292,6 +3292,7 @@ static int pool_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 	dm_block_t low_water_blocks;
- 	struct dm_dev *metadata_dev;
- 	blk_mode_t metadata_mode;
-+	struct block_device *md_bdev, *data_bdev;
- 
- 	/*
- 	 * FIXME Remove validation from scope of lock.
-@@ -3331,6 +3332,7 @@ static int pool_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 		ti->error = "Error opening metadata block device";
- 		goto out_unlock;
- 	}
-+	md_bdev = metadata_dev->bdev;
- 	warn_if_metadata_device_too_big(metadata_dev->bdev);
- 
- 	r = dm_get_device(ti, argv[1], BLK_OPEN_READ | BLK_OPEN_WRITE, &data_dev);
-@@ -3338,6 +3340,9 @@ static int pool_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 		ti->error = "Error getting data device";
- 		goto out_metadata;
- 	}
-+	data_bdev = data_dev->bdev;
-+	if (md_bdev == data_bdev)
-+		metadata_dev = data_dev;
- 
- 	if (kstrtoul(argv[2], 10, &block_size) || !block_size ||
- 	    block_size < DATA_DEV_BLOCK_SIZE_MIN_SECTORS ||
-@@ -3428,7 +3433,8 @@ static int pool_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- out:
- 	dm_put_device(ti, data_dev);
- out_metadata:
--	dm_put_device(ti, metadata_dev);
-+	if (md_bdev != data_bdev)
-+		dm_put_device(ti, metadata_dev);
- out_unlock:
- 	mutex_unlock(&dm_thin_pool_table.mutex);
- 
+Hi Andy,
+
+> Date: 2026-11-05 13:24:18+0200
+> From: Andy Shevchenko <andy.shevchenko@gmail.com>
+>
+> On Thu, Nov 5, 2026 at 1:13=E2=80=AFPM Alejandro Colomar <alx@kernel.org>=
+ wrote:
+> >
+> > str_has_prefix() is based on sizes and lengths, which means it must
+> > overload the valid length 0 to mean not found.  This is a typical
+> > consequence of choosing to design an API around sizes and lengths, and
+> > vanishes when moving to pointer-based similar APIs.
+> >
+> > This patch set adds strprefix(), deprecates str_has_prefix(), and uses
+> > strprefix() in one place to fix a bug reported by Bartosz.
+> >
+> > We can later work on replacing the other uses of str_has_prefix(), which
+> > might hide similar bugs.
+> >
+> > Testing
+> > ~~~~~~~
+> >
+> > I've built this patch set with 'allmodconfig'.  I've not run the
+> > resulting kernel, though.
+>=20
+> No, all lib/ new code should be accompanied with new (Kunit) test
+> cases. Update the respective lib/tests/* for that or if not yet
+> converted to Kunit something in lib/*test*.c
+
+Thanks!  Does this sound good to you?
+
+	diff --git i/lib/tests/string_kunit.c w/lib/tests/string_kunit.c
+	index 0819ace5b027..702030dbb93b 100644
+	--- i/lib/tests/string_kunit.c
+	+++ w/lib/tests/string_kunit.c
+	@@ -287,6 +287,14 @@ static void string_test_strspn(struct kunit *test)
+		}
+	 }
+	=20
+	+static void string_test_strprefix(struct kunit *test)
+	+{
+	+       KUNIT_ASSERT_EQ(test, strcmp(strprefix("foobar", "foo"), "bar"), 0=
+);
+	+       KUNIT_ASSERT_EQ(test, strcmp(strprefix("foobar", ""), "foobar"), 0=
+);
+	+       KUNIT_ASSERT_EQ(test, strcmp(strprefix("foobar", "foobar"), ""), 0=
+);
+	+       KUNIT_ASSERT_NULL(test, strprefix("foobar", "bar"));
+	+}
+	+
+	 static char strcmp_buffer1[STRCMP_LARGE_BUF_LEN];
+	 static char strcmp_buffer2[STRCMP_LARGE_BUF_LEN];
+	=20
+
+BTW, I don't see any existing tests of str_has_prefix() --the API I'm
+replacing-- under lib/.
+
+	$ grep -rn str_has_prefix lib/
+	$=20
+
+
+Have a lovely day!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--rgj25ae5zgxkqfls
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrsasEACgkQ64mZXMKQ
+wqk9Qg/+OQAqxdYzvH5vd6JAN205T5MzqQ/i65YlKf7EUl2HRQyrb2LYH5Hih1M9
+NwzT6aHOK2UtZhMmHBp7tqqWKDinP2l5MS8OyFX5E67DsK2OMzxlxk/mHqoAwjsH
+PrVOHXTVU5DYQr8+qnEtkNcHVk0eCR9+rlp26DKymdDv/qRdIsIYfYx0UiFV0t7g
+TSBmvl0Ys/VswxpEcZmDKybM0PB7zCjG9w/aTYKS6UW7v6soSyTkZfjKJvntk5H7
+DBZVjLbN4dyrIQcs0QCP4Q1Prto1xHAaXHI0AFNvRzW0wf4MMaY9GzXHu5NZ2aO9
+SNvjSVkgwtY3AN8DBEucqt3zC/q1c2dwY2G7WmAOR6T3AS/pw4ME/rLOnJgiLP4n
+5qbO2a8ozXnJkp4XYdLefBWreYgkVxmHkSDzd5XL8Z1ymtAKu623HeXGxLkGsuwc
+nIxoMfFVV6YsMvDXKFnwYj8jZoXAB4iYXxzUuRJRX38FBY0YtS+ZTTSxkg3orl6i
+PNx5buOyY9SUvMaj0kW07uWBNSFMeUgjcE1GOFnLvTRTGVOFW3VACpCdUx5jtpqv
+tRu2pi6+7rQJfaoT0m6vvy84m9qHrFnWbh5dfgZK2WH2MO9zuU2/ma2zIy+m+t1K
+BwtfkKVuv4DAapnOpA08RMO79tt6dtnO217R7F2ffvNHTr8Ix3A=
+=29ag
+-----END PGP SIGNATURE-----
+
+--rgj25ae5zgxkqfls--
