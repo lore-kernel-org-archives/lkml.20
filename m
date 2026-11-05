@@ -1,96 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793878599;
-	b=LU4Lw8iw3L4t8K/n9Hh6UJocvA+pzDOKA0VqDcJycGal9N9qVKv7jP40LTqCwmsDG66c
-	 GWerN5hzcQ+OcZNSUwp/UMiVhb4fXgnfGvP3sq8ArzqS60SepQ0IEOYh8eqyhMw+WdAHb
-	 xuhmdYlauENK5eAJsb4pjzkK9ziARyy8yFo+zbPd/4qvbxWMXT6dcmpey5FJuaTVwiTPy
-	 G7GetQSk5HEVd1DPBc2+4IddUJAVrFzwgoeYeBH4TsiBk2Nm6Ji/RB48GKXb6p72Ie8Mm
-	 ZLf3qzjHDrsWGIxEZth9e/Mbx6UQd/vShHRA42fUoWDV12vA+zsCez3IUmJSNvEmu1w==
+	t=1793878648;
+	b=aN6pwvXLUEWrqAnlDG3RFmeS6eTugHO3BQVAMoA76/VEllaoaKX2eRkdlK+HfMtzeoba
+	 Ewft79RgDZjLZbrOA0hGViyCjlOC6iLA/cv5LQ5/UWXIMnaa0JLqqsVrGcU8fWYEi8h1o
+	 evv0n9KRXyQEgz/PlVx+/qOhkFIWwFl3CL1u1+CppZ24lvEiuo0TlU59m3etC+E0rOGzs
+	 FtO1i2yDXmYiVNgjwH4BB+JXdcVH/HPlT23x26pswBHJcEt0b0vo2beTvP5H55hRNo6Dg
+	 C16rQ2StdU5MyHYss6DJXDoABMvD4lqScZ1Gk9lo6Ku5jJFhQ3cf5BlaKB47l8hYvCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793878599;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=30J4sbOlYJiNq7Z4tRszcjWu8hBcWrg7tEn3jlctPwo=;
-	b=xRxzWa8Xy4evAl6NaL+mYks4IQacTnLfihp+tzxY8uHo+NLYRbz3tSNSLnEL+1FfvDD2
-	 D3UZh7Sdoe6MocHg6nC5GUObrjQ/GPDZebN/rvGlBt+1pRd49aXzeOiCNfAVhObDYPjqo
-	 SYF5bSg2fqmzfE6lfpcNInuPiYYpxbPm5jQMqdiSoPLRyOvQtnFWh3lLz86ILih1SIJts
-	 zAyaf9Iz+mUIYRg/rSH7RZB2uaEGoZgCQ8tPkFM8HvoH9nbKCfxaFijqflQL51ChPlssy
-	 7VDNqq3k9XuUeQNw96pJK2OJHqW/ogIy4nTJ9Ufw8pEGM3hW82pHdNSrea78h3Z3XpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793878648;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=VMhnWUVSQ2tILOB4G/emtQlgU+NR+argJ27mPCGNL+4=;
+	b=TT1rHMVZFzdo4e25CnMDgAG4yZ6BgXsCIAUBI7BDW8UDaO8FAGpwnT43dy/mjQdTWvfF
+	 Jup+a4tormNOHjlJAseG5aGA+CKo8mI/YFoftsW7g4o6hFsuSznqFBFEUEojGmVSnUXO0
+	 46DeCgwjLRE3i3fCtYMn1UmneSpwDBGMoe2QIcirtgo6ohCqHQDH5N5zMb+SV6bGNCR0W
+	 LgIXRvY7dRXhfYsogZbBDA+7a/qCm7w8yckh4jrKTrrCJf52WfOJOiJGSmckLw2XLxxPv
+	 IfDM3iHHpg2ofzHe0G7Z7Ab5YOkokyP8B7550FEDRTHhM9GhaE7eg/D9Mof0n8Ov0mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kH6kTpAi;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=ovcCqlh7;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79418606A336;
-	Thu,  5 Nov 2026 11:36:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79418606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49FE0606A31B;
+	Thu,  5 Nov 2026 11:37:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49FE0606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kH6kTpAi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793878598; x=1825414598;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=J9dOmPMshDIpYmZ/TrqPMjz7mHsp3Z6+Ou1qHQ88q2c=;
-  b=kH6kTpAiQCWPXNnHfol4Ir8+s9VJjZqKUrEiOYYXZ519D9v6B5xP2gry
-   GnxiwbeLFhRczydH6mZJ0OLOiGGGZE6rGnuWsdi7YptLDmfnzWYK9ipH0
-   dFC+58sXrURL/5et1b81u3MYRwTIazl4W9H6PFyG6JrBjGDynR8P86946
-   XGW7UEKjEwT0v0iPok/BKikScign00RZapSIvNNIiIqAoLcjFjvBcwcNF
-   mL/HcsTXXDUec0Erc9ynncQVAqW6Z3TJ/1Z9sXlIVcBTPVZLkkuPAbbCG
-   vltsW6FpoPg9oXfRHm1xluCStSwpy0jt6Dfl66lBwsO3byRFQOjk4dw6n
-   g==;
-X-CSE-ConnectionGUID: cQ8hzN4ESnqlamJQ6T0ujw==
-X-CSE-MsgGUID: KjYgmGU8SNG9TKQz2y0m6w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2547422"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2547422"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 03:36:37 -0800
-X-CSE-ConnectionGUID: NU49M+y7SoqJQQ7rq8Z1Cw==
-X-CSE-MsgGUID: /gbM1bnkQwynnPU6B2caeg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7163862"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa003.fm.intel.com with ESMTP; 05 Nov 2026 03:36:29 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xOvlZ-00000000m7v-0S9w;
-	Thu, 05 Nov 2026 11:36:25 +0000
-Date: Thu, 5 Nov 2026 19:35:46 +0800
-From: kernel test robot <lkp@intel.com>
-To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, Jann Horn <jannh@google.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Chris Mason <chris.mason@fusionio.com>,
-	Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>,
-	Christoph Hellwig <hch@lst.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Joel Granados <joel.granados@kernel.org>,
-	Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>,
-	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
-	linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-um@lists.infradead.org, linux-wireless@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org,
-	ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org,
-	coreteam@netfilter.org, kexec@lists.infradead.org,
-	linux-pci@vger.kernel.org
-Subject: Re: [PATCH RESEND v2 01/51] alloc_tag: don't remove /proc/allocinfo
- under the codetag module lock
-Message-ID: <202611051923.pLSSWWkA-lkp@intel.com>
-References: <20261104-work-procfs-bugfixes-v2-1-021c84d852e0@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=ovcCqlh7
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=VMhnWUVSQ2tILOB4G/emtQlgU+NR+argJ27mPCGNL+4=; b=ovcCqlh7VrjwANEc7//D13mAC7
+	VksmRuZHZ/2GBLXZhGPO/i9gLDz/Uh4ZlTcJfTilOWw4jrcidB6sCY0aa2IDhhiBXBMCcei44br/N
+	xQcZJKGqIHwaf9qXFMnN9G1DRw6VnLyoS0iZFFUu2jLH/Xz4t1VU84HUJEOlSjsk5uPc1FSiF9//a
+	lEDTZWM7pNflmGJh4AhEWFG4WpBUlVTUQzFQLASEFPXmGwpbNlEcFN5iFwV1S8Ysu/S4uFy6V6NOx
+	jycjBSr6knqI86H0o3xwoslL8tbZgX14BtXg+ll1GWEPWB5wwgB5v+5iErkUTxlZlxEbrwGuHsdB/
+	Qt56sqfg==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Yaozhong Li <yaozhonguwl@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Shawn Lin <shawn.lin@rock-chips.com>,
+ Jonas Karlman <jonas@kwiboo.se>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Yaozhong Li <yaozhonguwl@gmail.com>
+Subject:
+ Re: [PATCH v2] arm64: dts: rockchip: enable SD UHS-I on Firefly-RK3399
+Date: Thu, 05 Nov 2026 12:37:13 +0100
+Message-ID: <3342569.D8ZAKjAxdT@diego>
+In-Reply-To: <20261105102556.1365-1-yaozhonguwl@gmail.com>
+References: <20261105102556.1365-1-yaozhonguwl@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,54 +63,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104-work-procfs-bugfixes-v2-1-021c84d852e0@kernel.org>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Hi Christian,
+Am Donnerstag, 5. November 2026, 11:25:56 Mitteleurop=C3=A4ische Normalzeit=
+ schrieb Yaozhong Li:
+> Contrary to its name, vcc_sdio is the IO supply of the SD card slot: the
+> schematics route it to SDMMC0_VDD. It is listed as the vmmc-supply
+> of the WiFi SDIO node instead, and that consumer keeps the rail from
+> switching to 1.8V.
+>=20
+> The WiFi module's main VBAT input comes from vcc3v3_sys, and its IO
+> supply stays vcc1v8_s3.
+>=20
+> Fix the supplies of sdio0 and sdmmc accordingly and enable SDR104, which
+> now becomes possible.
+>=20
+> With UHS enabled, sequential read from a 64GB SDXC card inserted after
+> boot goes from 22 MB/s to 60 MB/s. WiFi remained associated at 5 GHz,
+> with no WiFi errors.
+>=20
+> Assisted-by: LLM
+> Signed-off-by: Yaozhong Li <yaozhonguwl@gmail.com>
+> ---
+> Changes in v2:
+> - Point the sdio0 vmmc-supply at vcc3v3_sys, the WiFi module's VBAT input,
+>   instead of dropping it (Heiko)
+> - Rewrite the commit message (Heiko)
+> - Link to v1: https://lore.kernel.org/all/20260922055011.14972-1-yaozhong=
+uwl@gmail.com/
+>=20
+> A note on testing: with a card in the slot at boot, the first
+> initialisation fails tuning ("All phases bad") and the card comes up in
+> high speed mode, as it does without this patch. A card inserted after
+> boot, or a rebind of the controller, comes up in SDR104; the numbers
+> above were taken that way.
+>=20
+> The GRF io-domain device binds about 250 ms after fe320000.mmc here, so
+> SDMMC0_VDD is still configured for 3.3V when the card switches to 1.8V.
+> Forcing that GRF_IO_VSEL bit to 3.3V with the io-domain driver unbound
+> reproduces the same failure on demand. This looks like the probe
+> ordering issue Jonas described for the ROCK 3B [1]. It also happens with
+> SDR50, with a second card, and with sdio0 left without a vmmc-supply as
+> in v1.
+>=20
+> If you would rather not enable UHS until that is solved, I can send the
+> supply changes on their own.
+>=20
+> [1] https://lore.kernel.org/all/e9ff5387-b3c1-41a7-b251-a12789d25a70@kwib=
+oo.se/
+>=20
+>  arch/arm64/boot/dts/rockchip/rk3399-firefly.dts | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts b/arch/arm64=
+/boot/dts/rockchip/rk3399-firefly.dts
+> index 0568dfa..fe1f8d7 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
+> @@ -777,7 +777,7 @@ &sdio0 {
+> =20
+>  	/* Power supply */
+>  	vqmmc-supply =3D <&vcc1v8_s3>;	/* IO line */
+> -	vmmc-supply =3D <&vcc_sdio>;	/* card's power */
+> +	vmmc-supply =3D <&vcc3v3_sys>;	/* card's power */
+> =20
+>  	#address-cells =3D <1>;
+>  	#size-cells =3D <0>;
+> @@ -804,6 +804,8 @@ &sdmmc {
+>  	max-frequency =3D <150000000>;
+>  	pinctrl-names =3D "default";
+>  	pinctrl-0 =3D <&sdmmc_clk &sdmmc_cmd &sdmmc_bus4>;
+> +	sd-uhs-sdr104;
 
-kernel test robot noticed the following build warnings:
+=46rom the schematics vcc3v3_sys also supplies the sd-slot (via an
+always-on regulator / page 20 for me),  so adding
 
-[auto build test WARNING on 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4]
+	vmmc-supply =3D <&vcc3v3_sys>;
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Christian-Brauner/alloc_tag-don-t-remove-proc-allocinfo-under-the-codetag-module-lock/20261104-200606
-base:   6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-patch link:    https://lore.kernel.org/r/20261104-work-procfs-bugfixes-v2-1-021c84d852e0%40kernel.org
-patch subject: [PATCH RESEND v2 01/51] alloc_tag: don't remove /proc/allocinfo under the codetag module lock
-config: sh-randconfig-1001-20261105 (https://download.01.org/0day-ci/archive/20261105/202611051923.pLSSWWkA-lkp@intel.com/config)
-compiler: sh4-linux-gcc (GCC) 16.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261105/202611051923.pLSSWWkA-lkp@intel.com/reproduce)
+would be nice, so that the declaration becomes more complete.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611051923.pLSSWWkA-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> mm/alloc_tag.c:620:13: warning: 'shutdown_mem_profiling_async' defined but not used [-Wunused-function]
-     620 | static void shutdown_mem_profiling_async(void)
-         |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> +	vqmmc-supply =3D <&vcc_sdio>;
+>  	status =3D "okay";
+>  };
 
 
-vim +/shutdown_mem_profiling_async +620 mm/alloc_tag.c
+Thanks
+Heiko
 
-   613	
-   614	/*
-   615	 * A module's tags are reserved with the codetag module lock held for
-   616	 * writing, and a reader of /proc/allocinfo takes that lock with the entry
-   617	 * pinned. Removing the entry there would wait for that reader for good, so
-   618	 * let a work item do it.
-   619	 */
- > 620	static void shutdown_mem_profiling_async(void)
-   621	{
-   622		if (!mem_profiling_support)
-   623			return;
-   624		shutdown_mem_profiling(false);
-   625		schedule_work(&remove_allocinfo_work);
-   626	}
-   627	
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
