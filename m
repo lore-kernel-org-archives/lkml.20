@@ -1,66 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.183.196
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793893912;
-	b=T89OCUoTf6yRcuKeJ4ierFYqyQK58uIZlZjo9evD45H7QB8rKfrh1sZ9/Y18WHCl63bi
-	 POdlSz2QXH604/yHPmhGDR2jQHsVdLIDyKNiPiHMwsAl0u0ryii364Jy8/+Ri7+5E9miC
-	 TniOQ3oD2nKJIjxcxrpp+pcBYtRE3Uart/OnoPgxn11GGaB9HRYXwZII29Efwi644rPBD
-	 Dhv2ShXzXbMUkkLPFLm3bWzarru8UY6EuJQgU695vUCraqTRa7wVihJFRlTR1hRxMfcj1
-	 reoDkj/fI2616HgcBcfEF2SvMkSdO1w+5zawM1LuIHmvJR+4+LSwCQHtbR5NTnZRBtQ==
+	t=1793893951;
+	b=mqDow0PlTbIbDrsEEy9geh1bl+0eUmC3OxwE6R4+ISZyLfBbZOObQ6cXcd5LR4mB+IOf
+	 V/4p3JujQJkGwnbjleW0IudYmEht+0pN55UiBlSlr3GQv+ThlcedmYNjb28paZqQv1tnk
+	 RGp8El7bBMlQKSJ7XJ7USNoYBjx4x9O/q520bD0clEEMVgJ1Wb38fNuFsG1G5cEXPPAXx
+	 YSI5guLcLVjhlSniGtCrki0a1wdkN8e8YfpmbdAD+5ib5FxKuO59K12iZ2lJBpyDiw4oR
+	 FVxepdgH3Ifhj319Fc6KCg5K+c/stujql6Co3tlwdrmjJbBdURogs84k0HrlznW68Kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793893912;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 X-GND-Sasl:X-GND-Score:X-GND-Cause:X-GND-State;
-	bh=EIK49Tcg3pu8WRBXo8Mfb4XG8bVZ55wdfLeeW4Ym45I=;
-	b=itdGmuhtPjDuPTRc+dGxdOhkxaZG6Wj491WPBCqgFVbRELnIqi6/QWpaObJToO4ct2hO
-	 3RvvPp1UE5wDB2vEr02FzWU6JPOD1oz7Zmc1bibSpjAzGzKbAM3gQWGcWgzZ3UJIuF1jL
-	 458GUs+9UM/M3cGf9HIs5kIs5K+ojPoskzX52nycpOrxTLcsDrthUFRt7Tir0tqe1j70D
-	 mnypjnRB3/FobNSQn11Qve6le3dwtcEzBQTfacDqL7qFMh66+Ddmio0uBYGmnoDDQlowE
-	 E7U9VMmIzEkTkVc9jcgEsUiZuKfYzCiFMeLtydlFEy9HzKKnpONsjsmeXLbMOuffoLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793893951;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=WfgRPY/YU7G2OQ79c3MVCjhf2opOR2LJnv1zeXpVLvQ=;
+	b=eIB64WbQAXm6VQfMDmPPqSCI78l5mc+CRhfmrrlid8pokhKGMRCK5oeMeEsQJokLaTVU
+	 XhiEe9ZiY6GuC1GXiLUTL+e6q7w/C4JcrtvDI2Zqe0kT8IjukSq1vMzSqukCIrotfBErX
+	 fXGbZqLgANT1tYaG7R8WV1jvv7JyDOcbGACcSTxQZnG6ME/8OWYRRIKPxeE9Ka1+s86eH
+	 UHkn8aIhZmC59tX/wr4SKh0MCwbJ5rhTF5AnkXqeCkmWQsqu39okZPLsbkN978SicDpB6
+	 FHORls03Ly75YYpbWM0JQzu0+a9pFIGxWS/x9ECIkcZRMni7F7Mne6ZoGM7Mrb9pzCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ghiti.fr;
-	spf=pass smtp.mailfrom=ghiti.fr;
-	arc=none smtp.remote-ip=217.70.183.196
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net [217.70.183.196])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YZuriFzO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE3D606D804
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:51:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BE3D606D804
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ghiti.fr
-Received: by mail.gandi.net (Postfix) with ESMTPSA id D7CD13EDD7;
-	Thu,  5 Nov 2026 15:51:40 +0000 (UTC)
-From: Alexandre Ghiti <alex@ghiti.fr>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Kairui Song <kasong@tencent.com>,
-	Barry Song <baohua@kernel.org>,
-	Chris Li <chrisl@kernel.org>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Hugh Dickins <hughd@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	David Hildenbrand <david@kernel.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Alexandre Ghiti <alex@ghiti.fr>
-Subject: [PATCH v2 1/1] mm, swap: only prefer nonfull clusters on synchronous devices
-Date: Thu,  5 Nov 2026 16:50:17 +0100
-Message-ID: <20261105155032.240457-2-alex@ghiti.fr>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261105155032.240457-1-alex@ghiti.fr>
-References: <20261105155032.240457-1-alex@ghiti.fr>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B0C606D807;
+	Thu,  5 Nov 2026 15:52:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YZuriFzO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B82D81F000C1;
+	Thu,  5 Nov 2026 15:52:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793893950;
+	bh=WfgRPY/YU7G2OQ79c3MVCjhf2opOR2LJnv1zeXpVLvQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YZuriFzOLl6ZdHAC5cD6nUsgRhpTdrGdAtahBLYP0mihztxH74WKqktymoPWUe10S
+	 tfDMCqH97lkS9ldarmWoYno/o8lzmYAovJAH7eBIhZ5dcjegVqZzkaX7Z53Vfsv75m
+	 aDf1noCM/WjD/zOx12MBAURFcazz+c79+JzSImHvirJbaeTE56kCj84FdnejOz8BdU
+	 +jFEeef9vTtkV/FclYG6e4MccIqNNbx20sBPY/1GGvon1ihSL5QHCHNRZ7cL+nd4HV
+	 MHM6IP4PQcTNd2xXGPK9+Z5jpJO6qnfeY2HJ+S+QqGWHIi2A/rp9s8Q62ZGJt/UPVB
+	 TGmduGcvD8tvQ==
+Date: Thu, 5 Nov 2026 05:52:29 -1000
+From: Tejun Heo <tj@kernel.org>
+To: Shaojie Sun <sunshaojie@kylinos.cn>
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] cgroup: replace BUG_ON()s in compare_css_sets() with
+ WARN_ON_ONCE()
+Message-ID: <auymPbeInX5BsUMT@slm.duckdns.org>
+References: <20261105124813.862460-1-sunshaojie@kylinos.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,79 +58,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-GND-Sasl: alex@ghiti.fr
-X-GND-Score: -100
-X-GND-Cause: dmFkZTE+woJDVoV0nQAdmju6GXPQzp/37WRGqRlscp+7unek+1nQNJTbvmeTlTd0ZpBK4WOforKxfGb9LZ+Ebki3ZTxLhTP2DkVqpWuUqkuMma22Pq3kWAdenYRiH/OB/oNr+X9LZjsiyptfHUdeuqMNYlPNonH82ECvysafYuTYEheuBQwDfnUuX3Ke+p6SrbAiZtE3gj391nmjpp6K2OwnrClynn4/9TK+ADwy1brBNcyTPAKRRe0o6mQN9X9LB+4Rl3VxjHOqCaEaD8OsyMsg9A6ZENWf6x6JPlMtd5ZZhDJGOcDNERaePHThGJqB6HmyKlCHwAwM62K9AATHCrb14vrLXtPQ59imH+DNJKnRz53f4kcVGtktkkWc0Ur+oVDUdARQKwX1ETe/qFU+1fvu+OMcRDLadNb3dOq6uNpuSZIH4B7lza8uIlF41USk7ZoLjRUsp6ec9+87ZnCfzn9pOkagalwwxyabncFmL06v4qxQya4WOmTYyKAh/Ow/LtIpSwqnGCORCdcGiiPBsEUNXVPHJnjdNjub/6goq4HkNQRXspoOT/KiieGnOpoxglicIEQnb0McGG4LVt8f1nLbhYqSAX4FH1wCKJO1yrIxPd+6jMa/G+gvbjr7NYZfxf3WtzIpOt+l9qIa2nXYKjQTI70eGt4NwdWeiYKvH5ZSjao0/w
-X-GND-State: clean
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105124813.862460-1-sunshaojie@kylinos.cn>
 
-Commit 9a42aed48421 ("mm, swap: prefer nonfull over free clusters") made
-allocations fill the nonfull clusters of their order before taking a
-free one, on every device without discard. Since commit 3cedb745d354
-("mm: clarify the folio_free_swap() for do_swap_page()"), an exclusive
-write fault frees the swap slot, so a workload that rewrites swapped out
-memory leaves holes in full clusters, which then go back on the nonfull
-list. Reclaim allocates slots one folio at a time, so a batch of folios
-gets scattered over those holes, its writes can't be merged and it is
-written with many small requests.
+On Thu, Nov 05, 2026 at 08:48:13PM +0800, Shaojie Sun wrote:
+> compare_css_sets() walks the cgrp_links lists of two css_sets in
+> lockstep.  Both lists carry exactly one link per hierarchy root, so a
+> length or ordering mismatch just means the two css_sets are not the same
+> one, which is what the function already reports with "return false".
+> The caller keeps walking the hash chain and allocates a new css_set if
+> nothing matches.
+> 
+> None of these checks is a user-reachable error path; they are invariant
+> checks on kernel-internal bookkeeping that are expected never to fire,
+> and each one has a way out.
+> 
+> No functional change for a consistent state.
 
-So partially revert commit 9a42aed48421 ("mm, swap: prefer nonfull over
-free clusters") and prefer free clusters again, except on synchronous
-devices like zram: they don't merge I/O, so the contiguity of the slots
-doesn't matter to them, and filling the holes first keeps the free
-clusters for large folios.
+Why are we changing this now? These never fired, and if they ever fire,
+we're in a very deep doodoo.
 
-Fixes: 9a42aed48421 ("mm, swap: prefer nonfull over free clusters")
-Suggested-by: Kairui Song <kasong@tencent.com>
-Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
----
- mm/swapfile.c | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
+Thanks.
 
-diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 189f04d8838f..1c1b5d0b724a 100644
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -973,6 +973,17 @@ static bool __swap_cluster_alloc_entries(struct swap_info_struct *si,
- 	return true;
- }
- 
-+/*
-+ * Prefer a new cluster over a nonfull one if the device needs discard, to
-+ * spread out the writes, or if it is not synchronous, to keep the slots
-+ * of a swapout batch contiguous so that its writes can be merged.
-+ */
-+static bool swap_prefer_free_cluster(struct swap_info_struct *si)
-+{
-+	return (si->flags & SWP_PAGE_DISCARD) ||
-+	       !(si->flags & SWP_SYNCHRONOUS_IO);
-+}
-+
- /* Try use a new cluster for current CPU and allocate from it. */
- static unsigned int alloc_swap_scan_cluster(struct swap_info_struct *si,
- 					    struct swap_cluster_info *ci,
-@@ -1143,11 +1154,7 @@ static unsigned long cluster_alloc_swap_entry(struct swap_info_struct *si,
- 	}
- 
- new_cluster:
--	/*
--	 * If the device need discard, prefer new cluster over nonfull
--	 * to spread out the writes.
--	 */
--	if (si->flags & SWP_PAGE_DISCARD) {
-+	if (swap_prefer_free_cluster(si)) {
- 		found = alloc_swap_scan_list(si, &si->free_clusters, folio, false);
- 		if (found)
- 			goto done;
-@@ -1159,7 +1166,7 @@ static unsigned long cluster_alloc_swap_entry(struct swap_info_struct *si,
- 			goto done;
- 	}
- 
--	if (!(si->flags & SWP_PAGE_DISCARD)) {
-+	if (!swap_prefer_free_cluster(si)) {
- 		found = alloc_swap_scan_list(si, &si->free_clusters, folio, false);
- 		if (found)
- 			goto done;
 -- 
-2.53.0-Meta
-
+tejun
