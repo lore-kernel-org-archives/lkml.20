@@ -1,93 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793881076;
-	b=XkkanB4I56bVnjKi5QVO2svwxXZb7cMyCPwRHXVJlGB+E9qQJv4bKIXOPpj48SrzpTAD
-	 9kp+H52qHzm8mAmjqKm7fyFC5bqP1ORJNe8JEA7x3J9zu3BORgvf5tJRU0ZM1Ep7XKsYg
-	 nXhw+LOo7xCTL0a9EjiJOmU6FcSb3qVuaa+vJCzOI93fSX+M+bigW/aIZGzxLX9GDNJuC
-	 8SmOazQYBsLpIlLp9chJlJ5X+DMHBEQuxIt9zdFQx38FwCrUoVa4xg0nr54ZFWRmRakY0
-	 7pFjrE8Qh8Tc+GvJ21q/qnJiXc3Dk2SbIS7cIe4ibTzBnBC8/9oKCy7BlX/NhXcdoMQ==
+	t=1793881094;
+	b=lHmqT01Ytni8Ku+/5e577CdhJ8U/xwRKl2I/vSfHdt+8Xn3hoWP3Bbz9twbWToOvLA30
+	 1JUGW2VVm4s/9yCF6UKovML9m8EC6oejgtZQYSheddmbugJRFSKoZkc2JjDJ6fcAkBmSV
+	 UE0UimewPq31XCyINpmWASdYccdRgzinpT9cdZlb5u072bfdQpwe9tadlCspsMIsEpX32
+	 Ao2d8VK8+McgDjC+PtzzodqdI/lL2vfZ1QRDQe884dL2GWotW5keufZO80arWPNN6bzOP
+	 AYhAyMWyGBWkRBXfQ5+NPZQOy+fTNlGdC7Ml7a4oVMb8qGIrwjL51Qa4OXArUmUnF3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793881076;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=b+uH6WmJ4dKpiVVWC0is8ktZTKKWmWBCxyuQvk6QJv0=;
-	b=dRfKJFnZxS8VjGj1xJXPvwD+n2SRADhGYY5Qa8nWb/93rTMU5LCdEuP0szE5w8IjpTz7
-	 iKewUlk2TpFiGXZBXtSs1klXX/fB6lTQnrzQ9ZraljgPLTNRfvdKCs95iDeIsknttLe3g
-	 9V6mb3IPMnJ3G41DjWTKv7zyJWOLXos3e6DUSp+N48eypEtSK7gYbK7dmzNL+snY/3cpj
-	 TEzu1w6juSTkjUXRo875phSWWAlmkBAgVZFkbiNbbBAroTNCflzI4+Kfm0wPyMeEGdkpy
-	 rVvzPstx7irmtn/5ox6eZeKGwSAO//xDnBw04BOOvGHT590v/o8VlsvKrVOF8PX0gmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793881094;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=LYwKJrBAnJtHxiDkBCxn9IhfjGpNulq61w4ODpcgG9I=;
+	b=k4DAIX94mIuSpjiMoTdJ7EC27DP8hFJElSeZKYgDekctMz5Oytp0dWfAW9vTeo8HGk/7
+	 EXbVJ+3lJLkNxkQrYm2Ws54yIO6sFlpB1AJ+4xPv/InA+GWIzSB7YRigrLgdlhXY4GRzw
+	 Hz8Ag7DHzsbru7MHNGqlelEwkh/AhpHo90gmjVPcKDeZmVacwATu8z1SLTMeVoBKsz61c
+	 x0cijGZnqsct0uPo5Ig3yKSfQGwug8g6av502yPTTjB9Ml99Y08KCs1KSy+eo1SQe3VXd
+	 zVSXl+YgPS5qkYRTD5hTZIjaLYQpEPMbi2WLiqfflJDy2hVCXQ3H2lDff5evGNf3itA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TOXBG2m7;
-	arc=none smtp.remote-ip=209.85.215.172
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F5oN8F5k;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA95606D81F
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:17:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BA95606D81F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EEC3606A32C
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:18:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TOXBG2m7
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cdb2893531bso1003348a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 04:17:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793881075; x=1794485875; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b+uH6WmJ4dKpiVVWC0is8ktZTKKWmWBCxyuQvk6QJv0=;
-        b=TOXBG2m7FJQ3Yh+WQm2NULGJ/tRtV0VIllgqJgUZIusi/Qn3STSU2ImWzMmDAVE3VL
-         Q4WJQEXiu/5fZB8B1rYG0BJClWpaXLBgcCxYs/QBOlX3j9jI+HkSUjkE9FZ965f7WQMN
-         leQOcL1i+nxlMc8m75D6XZao3PEmlCwGyUk/C/EAIiirOz6VNZn8CKg4GYRtsdndwzCk
-         3d67G8JRsh81q62mOAbi7KoDcDq6U/IoNTCY8hV/cpS/tJZGPGX42X3HhPu3p4tFvROd
-         85J1WqhrjvrLqvKl5Qmglz8Ej7YksZQmnXsMvR2TtmHs8wjsZnfzMA99dgVJcFRZumpB
-         bOfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793881075; x=1794485875;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b+uH6WmJ4dKpiVVWC0is8ktZTKKWmWBCxyuQvk6QJv0=;
-        b=nhlJVJ2tN1epxU1+q61BmmRPmLnadNzzSBYLZLgrFMngwxp98vbdlohKW8bhYvwoma
-         aw3oKRFY3alggmSUNxLLTe+5bzANHQCrDDR5Ay/ipbs6EM6Kjmq2lN5pUiX69sHxbh1q
-         EEVUwJoVxi+WMPFyVbFg1umIVOIRiaOpYc6XN5zETDJyxCOS4hgGlyOOJkkrGVHfi4fj
-         A00Yx8lrMyjtOiwjNnOr6MxaJ5Rd4SKvAbg119/7fPJ9YAJcgadnFBEAOMbPE7sbrXuo
-         rIuOnXUKHstrrlaXimAMActJq4F706OLrFYunxrTR2Xf/gw58RUbRc+HOuaggV0dMEhg
-         8EHg==
-X-Forwarded-Encrypted: i=1; AKwUvBzSiHdGryLft+6PW8pYoTpAiK59D3zKgP3en8O0e4NQTmyWh+KL7/skiDYliRpHlcb9WKDIyzJ+DBjm7y4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8HNxHZlAnh6mZvX8RDb0PEekNTVYEKAknjxueKnSAwWWWngFzD
-	cG2m/mN1eWCy9e0GAu2SLMIImGTQ6Do/ZidxNqS7y1YSZn2cmcbmwTdF
-X-Gm-Gg: AYBFou3Snkwp+JDHCXKFTMSlGz4V1dAoUwgn0pxp+LFx9XY+oNqAVZIzGMqf7y0qa8W
-	3bm89xcTG925DahYWoaxEZH4p/u0/bBtjmPHe0EEahDlvdsqdoAwQWcZkqDt/5BHhipgY4wADl5
-	nXB2sPgtc6STngWfLtwFtYSWT/CJtf6CftPhUqe8nj7/sxCwxS6zZQX2MTw5wpbCGQNqc2Q/eAm
-	vxuyFg9Zb/ZcFsGAl++Xrt1G2GjwH+tft/NLD1L2F121BcJia3gW+LYN6aDuh85GoYRWhbBCIeZ
-	vB//fog6fxhnxj3ggu+bYea8HlZzFmXuwYVvBX/FZ6iJgAl96PsWbAW+NZliP83kgyWpZHvYFUo
-	ecmw0FMROFhG+1taMujEZRoQ6vpfbH+fWv/pl6cHSO549XTrKByLUojdVIkWdM8XWoHF2vHGC66
-	Xg1XP6T8BIYmDsBEBks+cNX11jkWSSrODFB/pbIxAYDufeaGx2jTuaBK5EI3D7g0VMAZbvTO8FL
-	ketT9CQi7H/W2FZ00Oe1CgS/pO+8oVq91qL23qX07NwVVROUNgRLyiZSI7bg0FBVCZS9tdAIlhY
-	2BlD8oO4WGl7mspjBJqEkBuF8HzrZcgKcZf3Jva8auZTKkrC
-X-Received: by 2002:a17:90b:528d:b0:3ae:5525:dc25 with SMTP id 98e67ed59e1d1-3ae89850a1amr15976995a91.51.1793881074813;
-        Thu, 05 Nov 2026 04:17:54 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b31cd6c0sm3645307a91.13.2026.11.05.04.17.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 04:17:54 -0800 (PST)
-From: hyunjungg <hj351016@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Bradford Love <brad@nextdimension.cc>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH] media: au0828: reject too-short isochronous packets in au0828_isoc_copy
-Date: Thu,  5 Nov 2026 21:17:39 +0900
-Message-ID: <20261105121739.1590426-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F5oN8F5k
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B2F21F00A15
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:18:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793881093;
+	bh=LYwKJrBAnJtHxiDkBCxn9IhfjGpNulq61w4ODpcgG9I=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=F5oN8F5kbkIU5oDeMSLlUZsZ2036p1iGjuQgjTFWyb8klHswl2ZVaUkZ/Q1y8ye3u
+	 OgAutOQiDQELs1LstWzqE9PSP4EXLZCMgD2Y31DcuTg45IX6h+KrOFwdWGi//Wp+N4
+	 QgMdq4uFSmoLH305pbvChaOf5Gd6wL4xoVWd5NUF1Sh1RU2Kg2SJLZmQBYMtuxwDMi
+	 geySOYLgnph4I83BNLcSjYMJC39bxFwdBlYkVUbKRzycd1Y9Uvy2KCAtJLTjwJxpn+
+	 suJVJ0Mb9geF/FNsh8z9UIh8+/im8K2Qrwy3YQcnR+dlKA5dpTMRr7fjpUs05Thclk
+	 rCAkE5wHsB3XA==
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5bfa7c09c9eso1283956e87.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 04:18:13 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvByRGsJAU1baOZlIcQUsJE85VOR97htJx/S5CF2eFeak/GO7QiaaFLIDq6vBsEaa8fMPsClHEFANzt/2DiA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Y5BnOBNyi9qKzjRmH+HvSjdM6WV0LTM3Bkv/06kHkqce9Y6Qu
+	BatFfm0DXJceGsSSFSbaBkCAcCmnw6g4dae1j2P/1T25teeYW8xwLogyl4tQxf1jeYPzCitfaW/
+	I6EFr5x+5/aGMWWCYCcJfMmTFLjZF/po=
+X-Received: by 2002:a05:6512:688b:20b0:5bf:e901:9e31 with SMTP id
+ 2adb3069b0e04-5bfe9019e66mr2798186e87.2.1793881091737; Thu, 05 Nov 2026
+ 04:18:11 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,76 +59,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261030083633.1699270-1-christian.loehle@arm.com> <be158e9a-a4f8-4ce4-8183-85c747af2129@arm.com>
+In-Reply-To: <be158e9a-a4f8-4ce4-8183-85c747af2129@arm.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Thu, 5 Nov 2026 13:17:58 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0hHhRYihhssF1PSqbNRKH6w_qBbWR6G1YWdJeMtAfMNbg@mail.gmail.com>
+X-Gm-Features: AclHuK87hEG2KlXf3FE4-KhWNYZlNXaavnhHlGAASeP6reyN9eLnBhYb0iuyXG0
+Message-ID: <CAJZ5v0hHhRYihhssF1PSqbNRKH6w_qBbWR6G1YWdJeMtAfMNbg@mail.gmail.com>
+Subject: Re: [PATCH 0/2] cpuidle: idle_miss accounting fixes
+To: Christian Loehle <christian.loehle@arm.com>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Hyunjung Ko <hj351016@gmail.com>
+On Thu, Nov 5, 2026 at 9:11=E2=80=AFAM Christian Loehle
+<christian.loehle@arm.com> wrote:
+>
+> On 10/30/26 08:36, Christian Loehle wrote:
+> > These two fixes exclude timer-broadcast fallbacks from governor miss
+> > accounting and respect the entry-time latency constraint when looking f=
+or
+> > a better deeper state.
+> > No functional change outside of sysfs above/below and tracing.
+> >
+> > Patch 1: Exclude timer-broadcast fallbacks
+> >
+> > When tick_broadcast_enter() fails, the core forces a shallower state.
+> > Exclude these entries from governor miss accounting while retaining
+> > residency, usage and governor feedback.
+> >
+> > On Orion O6, traces with menu and TEO running schbench, tbench and hack=
+bench
+> > recorded 6930 cpu_idle_miss events on 8172 broadcast fallbacks before t=
+he
+> > fix, and none on 7763 fallbacks with patch 1. All matched fallbacks ent=
+ered
+> > WFI.
+> >
+> > Patch 2: Respect latency constraints for below misses
+> >
+> > An enabled deeper state may violate the latency QoS constraint, causing=
+ a
+> > false below miss. Save the governor latency limit at entry and exclude
+> > states exceeding it, without an additional state-table walk. Disable fl=
+ags
+> > continue to be checked at exit as they are expected to change less freq=
+uently.
+> >
+> > Christian Loehle (2):
+> >   cpuidle: Skip miss accounting for timer broadcast fallbacks
+> >   cpuidle: Respect latency constraints when accounting below misses
+> >
+> >  drivers/cpuidle/cpuidle.c | 16 +++++++++++++++-
+> >  1 file changed, 15 insertions(+), 1 deletion(-)
+> >
+>
+> Rafael, any opinions?
 
-au0828_isoc_copy() strips a 4-byte (or 8-byte, for a field-start packet)
-in-band header from each isochronous packet and computes the remaining
-payload length:
-
-	len = urb->iso_frame_desc[i].actual_length - 4;
-	p += 4;
-	if (fbyte & 0x80) {
-		len -= 4;
-		p += 4;
-		...
-	}
-
-actual_length is only validated for <= 0 and for exceeding max_pkt_size,
-and len is a signed int, so a malicious or malfunctioning USB device that
-completes an isochronous IN packet with actual_length 1..3 (or 1..7 for a
-field-start packet) makes len negative.
-
-The negative len is then handed to au0828_copy_vbi(), whose length
-parameter is unsigned long, so it is sign-extended to a value close to
-ULONG_MAX and drives the copy loop:
-
-	for (i = 0; i < len; i += 2)
-		startwrite[j++] = startread[i+1];
-
-The only guard, "if (dma_q->pos + len > buf->length)", is defeated once
-dma_q->pos (an int) is a few bytes into the field: pos + len wraps around
-modulo 2^64 to a small value that does not exceed buf->length, so len is
-left untouched and the loop writes far past the end of the VBI vb2 plane,
-corrupting kernel memory. (au0828_copy_video() escapes this because it
-truncates len back into a signed int that stays negative.)
-
-An unprivileged user able to open /dev/vbiX and start streaming can reach
-this path with a crafted/emulated device.
-
-Skip packets that are too short to hold any payload once the header has
-been removed.
-
-Found by code review and reproduced under QEMU with KASAN and no hardware:
-with an emulated au0828 streaming VBI, a field-start packet (so dma_q->pos
-advances) followed by a 3-byte isochronous packet drives len negative and
-triggers a KASAN-confirmed out-of-bounds write of the VBI vb2 plane in
-au0828_copy_vbi() (inlined into au0828_isoc_copy()) in isochronous-
-completion softirq context. With this patch the runt packet is dropped.
-
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
----
-Reproduced with KASAN under QEMU (no hardware): an emulated au0828 over
-raw-gadget, with dummy_hcd extended to deliver isochronous packets. KASAN
-reports a vmalloc out-of-bounds write in au0828_copy_vbi() (inlined into
-au0828_isoc_copy()) in isochronous-completion softirq context; the
-vulnerable code itself was not modified. A self-contained reproducer and
-the full report are available on request.
-
- drivers/media/usb/au0828/au0828-video.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/media/usb/au0828/au0828-video.c b/drivers/media/usb/au0828/au0828-video.c
---- a/drivers/media/usb/au0828/au0828-video.c
-+++ b/drivers/media/usb/au0828/au0828-video.c
-@@ -599,6 +599,9 @@ static inline int au0828_isoc_copy(struct au0828_dev *dev, struct urb *urb)
- 			dma_q->pos = 0;
- 		}
- 
-+		if (len <= 0)
-+			continue;
-+
- 		vbi_field_size = dev->vbi_width * dev->vbi_height * 2;
- 		if (dev->vbi_read < vbi_field_size) {
- 			remain  = vbi_field_size - dev->vbi_read;
+I have only looked at the patches briefly and I don't seem to have any
+concerns ATM.
