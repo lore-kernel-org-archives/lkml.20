@@ -1,105 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793896625;
-	b=PGgMLqOWRP8TudEr0OuYUywJVNjPr8qpAP0EHQ8EZ5Cl7B8G017PQdwGfQtJGpDM4sYF
-	 2Z7cpWjSCkHvYtV9jAiKNSPTFz9FKKgqsAypLwP2lGB7wY76LUiFGyUxqDwkXRs52XYgv
-	 +mCdEpGde6w8A0M6pyMzR0fFhIdQ8ebkQpA0xc5Jgs0khundp49yFPoOZEq2uJVqlIi9O
-	 MP1UUy3ZfXO2UHT2HhAT+OirN+Iq5gIOVvFTTPw5fKCEcvvv0PupukTbj5uS8K2rBJPc1
-	 sW0JRHqk+7PoL1JGzu7au5iG0Wl7eBcGwiA0930UK3O8SlEa1b8Wcz247tBOEJzX1kw==
+	t=1793896658;
+	b=FamRppQ/3qlT+FWyP61mFTzXrMnudfF3Ox2GkE4ORFtsFqL/vSqm6dqCvsMu4VPMEROy
+	 kuJdHAkixHInKEPYQmvcp1bim0METkHwlyg9a4w5VkWp0vIv0SaLfh9qUgQsrUXvfot+P
+	 /MWumTlAA4SPPOIysaTomarOS1eBi57XlK03Eamq9t70ZIyNLFzRelVvoNRQ0KD+n6Vkj
+	 YT0GpRuqqaid9Y0oankaDVJmn8e44ZuEGRZE6vV0d1mFzqjdkGRbejISC9qF1SCyzJ6MA
+	 B3g1L9hXKaf8vYMGHpPyE7bXHngRHZNZEg0l7k25fuNuOJ/6y4OEyNBNxPXXHPfoLOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793896625;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:Content-Transfer-Encoding:MIME-Version;
-	bh=EMTT2HHjSkY1uGJyH89VPeEJ36kiCXEDFii0T4E6Iac=;
-	b=T0hveX8/7zjgoAQE8una7yQHVk+Ym48rOitXrptI6ATR8FAe+nIuMlz/tOU2GYBq0MK0
-	 Hv45u+IYQgXyvVcV7X6Rb+vG6xTUyt5LNHx+0+vjlktdXd0UgKeIvkmLPITBSEd/frmVk
-	 M30rSs1G0HiFYaQLhBOvtrT3gIRyVGxxucZXtVEKI9hLoi8Y8jhjqs3k7TDxAezIi3l8+
-	 8OplnpasoQGa2/N3sAFL7XK+ahAgNkLCUqSXEPfD45c73znRP5068bDGiemFlwdBz4nyn
-	 Wr1brhpnxCT3DVab9bK+ASFrOhwqji3AKPiDRWZ9NWAWKGz1oMo8OSpWggHvgf0AcDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793896658;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=csElEp+VhdZG2jnq1WLbmjmoJ99uEQ9BCkuzOTjKEJ4=;
+	b=ozXfonuAKUbDZJIijbQYUsuRwiIdsFa9vZeYpHOyqUAx2c/EPZh3dD12aCj4vFbnkSs5
+	 tspuEBKcsL1EzSbo26eSlwiaZgrsZ8QQoDBjkPYS29+cVvGtTfjJR3y7J+Hf7lX7MLGmH
+	 V8sjN5ULkUR+/HLSU+yBkx04fNkOSGKEJ83M1FEMZ8Bn1MO8WXM9tO9qwY2fMFWbXNld8
+	 aZTCm130IWH3Ftc2v0+4qHUPzQ1JkEF26xE57kHSg7o6NFLRGBe8BG52KUIjkBa8p2fSp
+	 DttpxO1OsH2WPO2oCxWPb4brckrffnUNxaQ7ecBhZIptchnqo6tHeTZlWFrBcW4iT2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h43CPja3;
-	arc=none smtp.remote-ip=209.85.215.180
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=OADZb1yX;
+	arc=none smtp.remote-ip=115.124.30.112
+Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 969EB606B3DA
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:37:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 969EB606B3DA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91D5D606CBCD;
+	Thu,  5 Nov 2026 16:37:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91D5D606CBCD
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h43CPja3
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cdb684859cbso203432a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:37:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793896624; x=1794501424; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EMTT2HHjSkY1uGJyH89VPeEJ36kiCXEDFii0T4E6Iac=;
-        b=h43CPja397Wxk7BuUAKdbooVEpDaqJLuGmG3AT5/791iKKS5eiAU6lh7u1JbE0Mq78
-         +9oRSianhKPO/HA1gBL2vrU3w6lIR7qSraYBEdVYl2uPJ65ncsS1I9I2leOVuGrcv/bt
-         sAy/aUnI4dnTLwPZC2bvNsTsU3icEgBMF6UpzeBqy/b0rCnmZGuF2bDQzCh8XbcZgzR7
-         yKsxt1bp1lX5qfOUdhfexth16YT+tHLrRTx2oVdFuCI2YzD+TdredLDDH/ZKAC+4wHi7
-         EB/KRd04cjwrwGzxsPxdGWxuJHdoqObrQeSF2bNgnOpZueQPe7OyekDD96xtrxdjvPtR
-         59nw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793896624; x=1794501424;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EMTT2HHjSkY1uGJyH89VPeEJ36kiCXEDFii0T4E6Iac=;
-        b=w2DrcDCWWLTra0dnlN9swEAbMfDXY9k0Ctv/r2n00ohbd36paEhBu2wlPTkDTD13RZ
-         ECAgz0AvrhERhhE/8b4iG5Rtgij1dqz6RhtLVtRAmVZiD9udfeIkvPFTuc5+gY9MiPVX
-         AIL8DE9eFDBekl8RdEVRJoTBsqnm36atI3/XoxZiqVKppU0IfMALFmTbEPIxbTzEbki4
-         gSroIGhWE4bV62NSCV3I9rqRPoQlUMsdMhgxLwGM2o6uBZNOmzvHvmjFP+UI4PCBcfpm
-         Cx0cKZGg977bqpxpDp7jNhKyAlcxpq3X8e2hZRI3J78bFoSnGjH5XomVtjnorDcXcoxD
-         EGxQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxoO04FWIn4zKzA+HRoSpv68DCSjJXyFxA5WxtZN49xfkAjfvTyOOyfcgg9rycQb40ZFGhQYdFqz/Kki7E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+WVByBEDwNk0DkP21FsX3UwCrxt8CfFYHjCA1AzKYPHjFfgJt8
-	9T9nYSGR1h1sQ0nFsm8AltrU17fVqfCRl0eqHxQy/OXD8KPZf2S1jKSA
-X-Gm-Gg: AYBFou1hK5hcR5Vq5J3Q9h1rtQo7PTOuJ7E+/jmeqoPttGHAJ7FcjXeDXlYqwzy2rM0
-	VdT7WK8WQ1eIDSvgu8BLsT1DAVciAVtDtz2jQbR3x4nisPTHrI0o+DfIAe/Wdk9qJF8ninlf5yl
-	syPCD69Nbsr41+SB5YgWW+xlF7lQLJar2KWd7UP8TFxAemDN9spJZxQCt+uPQJO+FzzS3q7l7jh
-	xzy411LvW1l8BlWKkAJhRI6n72DV/itmuAm6fFE9tu+mAcAeaTOwmDyUFRD5p/8UsZmD6YVKsbB
-	UAJVc7UP2UhQp0C1XaPo17pSpdHMGvXPq6TFixK8RxJsqqVYmEbcaRRidxEyaAxYi5qv29o3Yje
-	B9NEOy1nvqAeb0ud4U+yGXatp69DhnPzKbgTUmTpuLxRAB+G3x+7D2Lab/OGv6SHoZEatyTKyoT
-	OGCNSSSZ2ZyYdK0X63JR1vmLCRELDlwYscn+5/t8KZJ33ni129zjbJQ+8AUFOj6wu3SadeO4FhQ
-	FI4mkmDF8JdRWZsMDH/roI+tizmebY4GKtzhf1eDPumfX/2ASmVzjCTQs/mAP2vmV+MP3sxc7qa
-	3j3tD8LKTuM+FD37y628cdi/v0nkxeG3sE4rJe5DnnYAvrAyNBaKqkbaLIg+ZmBgdVgq5wENDrq
-	5jue8Y7f2Eb8ekPYloe1xoJ3vjW6rNz5Zng==
-X-Received: by 2002:a17:90b:4d85:b0:3b0:a378:1cf with SMTP id 98e67ed59e1d1-3b0a378049cmr4183905a91.22.1793896623555;
-        Thu, 05 Nov 2026 08:37:03 -0800 (PST)
-Received: from localhost ([153.61.198.248])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b3160634sm4692625a91.6.2026.11.05.08.37.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 08:37:02 -0800 (PST)
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 05 Nov 2026 16:37:02 +0000
-Message-Id: <DMNFA3D0M816.2K02S8LB47QM4@gmail.com>
-Cc: <eddyz87@gmail.com>, <martin.lau@linux.dev>, <song@kernel.org>,
- <yonghong.song@linux.dev>, <jolsa@kernel.org>, <emil@etsalapatis.com>,
- <ihor.solodrai@linux.dev>, <pulehui@huawei.com>, <pjw@kernel.org>,
- <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
- <luke.r.nels@gmail.com>, <xi.wang@gmail.com>, <shuah@kernel.org>,
- <rgbi3307@gmail.com>, <guoren@kernel.org>, <bpf@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <linux-kselftest@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 bpf-next 3/3] selftests/bpf: Add a runtime test for
- private stack and stack arguments
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Chen Pei" <cp0613@linux.alibaba.com>, <daniel@iogearbox.net>,
- <andrii@kernel.org>, <memxor@gmail.com>, <bjorn@kernel.org>,
- <puranjay@kernel.org>
-In-Reply-To: <20261104100411.997-4-cp0613@linux.alibaba.com>
-References: <20261104100411.997-1-cp0613@linux.alibaba.com> <20261104100411.997-4-cp0613@linux.alibaba.com>
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=OADZb1yX
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793896652; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=csElEp+VhdZG2jnq1WLbmjmoJ99uEQ9BCkuzOTjKEJ4=;
+	b=OADZb1yX25qqRO0W23iOHaPjIk7pHhc5AzDX9N/3sKfGr8PQBpcQ+cZUewCLD55eGxTxHsVf6mVeLGBTW43a7Fg1kr2jh1ZVqqXwEMkNw6ZoZi1ohqUYQEKDwxDMkBXOUHqqNCvuqtdJaodJNzL6jQM4keQ0bVas/8oAYhel0rs=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R811e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0XE98I-._1793896650;
+Received: from 30.42.176.22(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0XE98I-._1793896650 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 06 Nov 2026 00:37:31 +0800
+Message-ID: <ae6f5ba2-8afc-43db-8d0a-f82d0163702d@linux.alibaba.com>
+Date: Fri, 6 Nov 2026 00:37:30 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,87 +54,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] fscrypt: Cap data units at the page size
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: linux-fscrypt@vger.kernel.org, jaegeuk@kernel.org, tytso@mit.edu,
+ linux-ext4@vger.kernel.org, adilger.kernel@dilger.ca, jack@suse.cz,
+ yi.zhang@huawei.com, ojaswin@linux.ibm.com, ritesh.list@gmail.com,
+ linux-kernel@vger.kernel.org
+References: <20261103153132.4154855-1-libaokun@linux.alibaba.com>
+ <20261103153132.4154855-2-libaokun@linux.alibaba.com>
+ <20261103224006.GC2281@quark>
+ <922240f9-8233-4466-a787-2f7ddba7c490@linux.alibaba.com>
+ <20261104195127.GA1971@quark>
+Content-Language: en-US
+From: Baokun Li <libaokun@linux.alibaba.com>
+In-Reply-To: <20261104195127.GA1971@quark>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 04, 2026 at 02:04 AM Chen Pei <cp0613@linux.alibaba.com> wrote:
->  .../selftests/bpf/private_stack_runtime.h     |  12 ++
->  .../bpf/prog_tests/private_stack_runtime.c    |  84 +++++++++++
->  .../bpf/progs/private_stack_runtime.c         | 140 ++++++++++++++++++
->  3 files changed, 236 insertions(+)
+On 2026/11/5 03:51, Eric Biggers wrote:
+> On Wed, Nov 04, 2026 at 10:31:46AM +0800, Baokun Li wrote:
+>> What I had in mind before was to keep the default as min(bs, PS) and
+>> allow DU > PS only when explicitly specified, which seemed to give
+>> better compatibility.  Cross-machine or cross-page-size cases seem
+>> uncommon, and existing machines have probably already avoided them by
+>> specifying a 4K or smaller DU.
+>>
+>> Keeping the existing default semantics and returning an error in the
+>> LBS case for the user to specify seems feasible.  But then
+>> test_dummy_encryption and the xfstests cases that use the default would
+>> need to specify the DU explicitly, otherwise the LBS + encrypt test
+>> coverage would drop a lot.  That is, in the kernel or the tests we
+>> always have to set a default DU size.
+>>
+>> If you confirm that we should take the route where LBS requires an
+>> explicit data unit size and the default is rejected, I can adapt the
+>> kernel and xfstests in v2.  Or should we go back to the more compatible
+>> DU > page size approach?
+> 
+> It will indeed be annoying to have to explicitly specify the data unit
+> size, but I don't see a better solution for now, given the complexity of
+> supporting data unit sizes larger than the page size.  I think making
+> the on-disk format needing PAGE_SIZE to interpret is a no-go.
+> 
 
-bpf ci is right in the other email.
+Agreed.
 
-pw-bot: cr
+> I suppose that in theory, how FS_IOC_SET_ENCRYPTION_POLICY handles
+> log2_data_unit_size=0 could be changed: it could start actually writing
+> log2_data_unit_size=12 to disk (rather than writing 0 which means the
+> filesystem block size).  I think that can still lead to problems,
+> though.  For one FS_IOC_GET_ENCRYPTION_POLICY would return something
+> different from what was set.
 
-Also, the test runs on riscv64 only. BPF CI runs arm64 and not riscv64.
-arm64 has the same combination and no test for it.
-The run time part has nothing specific to riscv64.
-The __jited patterns pin the frame sizes that clang picks for C code.
-zero_stack doesn't use the private stack.
-It's the only reason for serial_.
+I also considered making the default explicit, e.g. 4096, when the
+bs > PS.  GET_ENCRYPTION_POLICY would then report 4096 instead of
+the 0 that was set, which I think is fine provided we log it:
+an unset field means "use the kernel default", and this just pins
+down what that default is.  This works for v2.
 
-Two asm progs in verifier_stack_arg.c are enough.
-BPF_PROG_TEST_RUN runs a raw_tp prog. No need to attach it.
-The test runs on x86-64, arm64 and riscv64.
-On x86-64 both frames stay on the kernel stack.
+I dropped it over test_dummy_encryption: mount options are parsed
+before the block size is known, and the policy is const once it is,
+so only invasive changes would work.
 
-Like (not even compile tested):
+But the dummy policy is recreated on every mount and never persisted,
+so there is no on-disk policy to stay compatible with.  The template
+can just use SECTOR_SHIFT (simplest); alternatively, refuse it on such
+a fs, or support an explicit du_size through a helper shared by the fs
+(most complex).
 
-diff --git a/tools/testing/selftests/bpf/progs/verifier_stack_arg.c b/tools/testing/selftests/bpf/progs/verifier_stack_arg.c
-index abf319c..9423048 100644
---- a/tools/testing/selftests/bpf/progs/verifier_stack_arg.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_stack_arg.c
-@@ -667,6 +667,53 @@ __naked void stack_arg_precision_fallback(void)
- 	);
- }
+> 
+> Regarding xfstests, take a look at how common/verity adds $FSV_BLOCKSIZE
+> to all 'fsverity enable' commands by default, to select some Merkle tree
+> block size that the filesystem supports.  Something similar could be
+> done with fscrypt.  Yes, this won't work with v1 encryption policies,
+> but v1 policies are obsolete.  Most of the xfstests that use v1 policies
+> should just be updated to use v2 instead.  The btrfs folks were working
+> on that earlier, since they're not planning to support v1 at all.
+> 
 
-+/* Writes both ends of its frame, then reads args 9, 10 and the frame of the caller. */
-+__naked __noinline __used
-+static long priv_stack_10args(long a, long b, long c, long d, long e, long f, long g, long h,
-+			      long i, long *j)
-+{
-+	asm volatile (
-+		"r1 = 0;"
-+		"*(u64 *)(r10 - 8) = r1;"
-+		"*(u64 *)(r10 - 64) = r1;"
-+		"r0 = *(u64 *)(r11 + 32);"
-+		"r1 = *(u64 *)(r11 + 40);"
-+		"r1 = *(u64 *)(r1 + 0);"
-+		"r0 += r1;"
-+		"exit;"
-+	);
-+}
-+
-+/*
-+ * A frame of 64 bytes in a raw_tp prog goes to the private stack.
-+ * arm64 and riscv64 pass args 9 and 10 on the kernel stack.
-+ */
-+SEC("raw_tp")
-+__description("stack_arg: private stack in the caller and in the callee")
-+__success __retval(890)
-+__naked void stack_arg_priv_stack(void)
-+{
-+	asm volatile (
-+		"r1 = 800;"
-+		"*(u64 *)(r10 - 64) = r1;"
-+		"r1 = r10;"
-+		"r1 += -64;"
-+		"*(u64 *)(r11 - 40) = r1;"
-+		"*(u64 *)(r11 - 32) = 90;"
-+		"*(u64 *)(r11 - 24) = 8;"
-+		"*(u64 *)(r11 - 16) = 7;"
-+		"*(u64 *)(r11 - 8) = 6;"
-+		"r1 = 1;"
-+		"r2 = 2;"
-+		"r3 = 3;"
-+		"r4 = 4;"
-+		"r5 = 5;"
-+		"call priv_stack_10args;"
-+		"exit;"
-+		::: __clobber_all
-+	);
-+}
-+
- #else
+Agreed on rejecting v1.  The xfstests cases that need it will have to
+be skipped or converted to v2; I can do that if nobody else is on it.
 
- SEC("socket")
+So, to enable this by default when bs > PS:
+
+  1. reject v1, and convert the xfstests cases;
+  2. in fscrypt_ioctl_set_policy(), make the default 4096 explicit
+     and log it;
+  3. for dummy, either use SECTOR_SHIFT, refuse it on such a
+     fs and skip the tests, or support an explicit du_size?
+
+Looking forward to hearing your thoughts.
+
+
+Cheers,
+Baokun
 
