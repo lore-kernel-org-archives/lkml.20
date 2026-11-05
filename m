@@ -1,107 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793871383;
-	b=ok3Uy3mwHmUhj7cjR3JqOX2SXvr5i+XSbnaBj+WP8QHCKWidVQBEVg50U08+tGiXBS3e
-	 F6fshM//g9xUcHnu61jRANLOB1+JxwLyptFXUrySywRA80Tt9WMlIj3glK8snTFtFVJaQ
-	 wKEUESJhtgVj64IWxX/wBqLsf1UUgOfSd3/Pk3K+WMbnHCL90c6LHKZqTBZT1QgR+SuMQ
-	 d6WBF9UgiaVEJ6QcaUuK16TiR2yAOl/yYjA9/7sdJ9S1QJLMvbM619382IN/93YZRzXVy
-	 zo3GFcglDYnSXlCtiFpiX9yORh30n6qAo35BKIiQoqSkhE9ORCQ+4VdTFpyL4LXRfSA==
+	t=1793871391;
+	b=1avTobBWSpwDiAaVFB378kTMB0nevJdJscfe6OuJ6TqfYrVWwaUqRUn0H7vB7kvApN7H
+	 g9o2NYIKKSkPfOlHTkZxEB0JVGY/ysBXXo4TlsCrqxoQ38Lu6LzSEwaCa9hqoBfI8eZ9j
+	 jTdnlyVuFaeo5jz++N1L5nM5YcqBmLBc8OWGueFKF3VN4lruSjVL98ZCy78crhmco8N+b
+	 IPErWxFhaT6rW8sY+FAcE+3MR2IjuTDnaBzDPoa4EdXa3nhyMSTscIDocYJwEMlzJtTSC
+	 PLms5wk83zH77H7j3k3Vlp7tiJtTkGkj+FrcG70QbE7digR2tVimE37qGfhedqbzWEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793871383;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-ADIRuleOP-NewSCL:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=MumIVYPiJUww4r0IEseLvlrMWFg+FDiS1WSf8u8LEug=;
-	b=2EqF52HCm7lK/6W5YCoD9zMZlDCa1sHkw3G+5vwmndZc+7sJ1CwrmxnTbLk4VM+8Bu2e
-	 Mq4jffEetCPMFzDsM6QGuTZk9Z91J0MVy/95+dLoXE01nNVCOo500J39StTEuQl5w1NZA
-	 UWAQMznMukWKREH34+gl2rBIlJB4XMkZpsasZ1OnZjAnPp17vvhJPRc8rpteU3gwgmj3l
-	 Fx56GgU4eruF1EzkjbQI4t8sU81K584RoAMH8Ls5ZQHb7KdwarLgeZqp/PlbbMKmNkXq8
-	 01+tU0mHqC0VKb0UBcm3tvZisZUMgn7/gK6J30OAW0iu9jG1+JgC9lWyDXWH/8+98DA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793871391;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=t7tMtv9nbHUIAtxv3eTEVgmJcIdaFB9h8nrHOfA0Uqg=;
+	b=44FGIuu9uaWwpAVS1dLNyyyreRfO2Sl6SoFZqIn3RYFk2Ylu0p2Val2hhtWM9tXcioxf
+	 6zg3P00GhwOxIfYHTS4uC0x/kF3wcIqXz1yv05+pU/ragYUbC3RIwlBLAlWLeGiujn9sa
+	 mqvGEJxtV8ee4mfMRQ2bs1WpaMSRSshygZ9uUDT9AYppoQ5vHkalLJeNP2YWo7CRtF3CT
+	 43mHjf4N7eW5bZeufnhJti5eIpOxuywR9siSSIc7VLt0wckIcPZj/xOWoMsW1thDjIozl
+	 3U0zs+dFSZGyE6fe3U6JBcdJwUdq4Me/izxYnPoHwnk9Ubhpgy087vhb9aIBmeg//fQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=analog.com;
-	spf=pass smtp.mailfrom=analog.com;
-	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=MJKCWBY5;
-	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=rbbjJf0U;
-	arc=none smtp.remote-ip=148.163.135.77
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Nv/Hec1t";
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F07606A32D;
-	Thu,  5 Nov 2026 09:36:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1F07606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A09606A339
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:36:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00A09606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=MJKCWBY5;
-	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=rbbjJf0U
-Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A56WUNX1458013;
-	Thu, 5 Nov 2026 04:36:20 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	DKIM; bh=MumIVYPiJUww4r0IEseLvlrMWFg+FDiS1WSf8u8LEug=; b=MJKCWBY
-	5+CGybTps7PJwaLLFz15PZCppG7MDanNebmU9pCn8h4x1GgybQf/6OxON7sYgLmk
-	bCDU0j8mNIprpWoeCtJR8yWmosLd93Po2/X0GDJgok5USOFdx4UVSM13Kb6cGOLR
-	J/DpfFXzH0xkrP/SH4w/yC6QkCJDegzX+jwNRJJpqNtzgTYfPIUhlGqyZr6wYKkq
-	/UqPCD9vM7lffM9j8+2k9jUBti5Yd5K/GwQiKohtOWl54knnrgstGcEfKGNn1D8b
-	0Tp+t51y6fbZGv6ObE2Zyp82RExa3/o/BzVAKQtgKXHW01kDDsq0tkJX/PXch79G
-	CRsjN0bsW+8m4kA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=MumIV
-	YPiJUww4r0IEseLvlrMWFg+FDiS1WSf8u8LEug=; b=rbbjJf0UbdQS1KejM3epc
-	u7qjlTpQ0XbPVXqOgaR0cDMm4J2CXA+LanuqQwYdgKmpfOmmf6DaQuikuFjHgUKQ
-	xacF9nkBbF5CUIXtZNWw4jqjikOZQf9Yr/SWU77lc3Ije4/NnfKHgmFgE0Ceqkl9
-	28tzKZ+apGENnFb7Q/P6ZInywcYyPSf27+EzNADWfiAcHm+ofG2i7U8D8Sok1Xo8
-	Vxu4PCe5JKSE2OXqfOKbac1zMm2BFaseqIAo2l/cyqGyvu1/+1eIlN3QXez4Fx3J
-	uv04AvBGeo3bLypcEu476iYdSuz1UEFrOfwkYyehrruqqGIA97eD5NOLVPqz8ZqW
-	g==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hr873d4jx-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 05 Nov 2026 04:36:19 -0500 (EST)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 6A59aICD010832
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 5 Nov 2026 04:36:18 -0500
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Thu, 5 Nov
- 2026 04:36:18 -0500
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Thu, 5 Nov 2026 04:36:18 -0500
-Received: from HYB-0FPP35J6CsI ([10.66.6.191])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6A59a69P024433;
-	Thu, 5 Nov 2026 04:36:09 -0500
-From: Pop Ioan Daniel <pop.ioan-daniel@analog.com>
-To: <jic23@kernel.org>
-CC: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-        Michael Hennerich
-	<Michael.Hennerich@analog.com>,
-        David Lechner <dlechner@baylibre.com>,
-        Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof
- Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Dragos
- Bogdan <dragos.bogdan@analog.com>,
-        Ioan Daniel <pop.ioan-daniel@analog.com>, <linux@analog.com>,
-        <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-Subject: [PATCH v2 1/2] dt-bindings: iio: adc: ad7405: Add ADuM7801/7802/7811/7812 support
-Date: Thu, 5 Nov 2026 11:35:30 +0200
-Message-ID: <20261105093531.7562-2-pop.ioan-daniel@analog.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261105093531.7562-1-pop.ioan-daniel@analog.com>
-References: <20261105093531.7562-1-pop.ioan-daniel@analog.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Nv/Hec1t
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-353804b591eso3192820eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:36:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793871390; x=1794476190; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=t7tMtv9nbHUIAtxv3eTEVgmJcIdaFB9h8nrHOfA0Uqg=;
+        b=Nv/Hec1tBbrs+gQGPwId1zOfhmpR73x9S1gapAOwp3H4td0/knMPSD1yx/Hbo9+n2Q
+         R44ItVEPb0CCQO75+YzxIKTAoBMsSQQmDtlcqHYxgnOitP+Z0yu35jUFfYG99E8mJfaI
+         w5FVh7e7tyILA4pu+Pve5OIWV+X7iV/mznao+HwyQN0m+VsmtmL4phU9Es82zLm2vcyT
+         0s302RvFPaa79xOpW5+KyhCSmBPmZffS9sSdGknkA5hO4X18o5yuaLmQPEXvbadO75Pl
+         chD+vfDJjLRHopkfxCYP3wcVuW2IWEwJMB+YJGEWt+CDYtzlvl36qqh5KWqk+hGULFHH
+         1TSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793871390; x=1794476190;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=t7tMtv9nbHUIAtxv3eTEVgmJcIdaFB9h8nrHOfA0Uqg=;
+        b=ato/G81KqbksiJCRyvFKwA+vpNf1Fiv5k1KugxbtjN9+YQoSX88raN1kqyWGEjEXi1
+         aYhsK4xU4JYQH/U/erZTPxgbRFYWX06nSz0XvKWKXUyNEbL/SIpogHXW0A4iZKqR53DC
+         hnV5ZsrfDBxHXpNnLTRB6sW5cPc8rAVDVX4V3gQ9nK6qTLvxF9jSJ3EE/2C01SXDXb71
+         I9PX3JC53vLU1AjlztXg/UgKyGlxsZpg6lGwqf8x8AQ02vy/MRXhnUFgRiKixp+WekVk
+         9v6TEhnthQSfRUwZfLuT0qyQ72eKCu59uWdnnqHJh2QLtq9SXPNWDTyEF1ijC9SeFfL2
+         ybLg==
+X-Forwarded-Encrypted: i=1; AKwUvBwKjgSQlcjuP7YD/JNXHk+ctnCuSVnmliTctASNB2EccNrybSDKk60BCf32tfm6aXu9rnEigKfK81MTKEs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+lvbXJgdk0e+Ui8Gt8M6UjGM3j47S4u1DSATw1wInzTpjQEeru
+	lcSrP6fesjDXXitbTSh1ixIucOOW5pS1pZXNMVLtVNqrnbTLUESxQMVq
+X-Gm-Gg: AYBFou2WPm7iCWTZc4hWmAtEBOCMxKxSasr6pVmu1nI20+rN5SN381jmPPtrv+GNovW
+	auRJduTjPy9L1Oui3yEdxrqVSwIV6jo5b7cHmb9X/8q01JrX7p9Bx66a0VSfacKOGPR2FY/gPbY
+	7oBaQ1O3Qfa0uTB91kzSCeAyQwZ+1/HSEMp8NNykYT87If/Jp9XoAVWy6PLKba8dCPWNGIaro85
+	ECypjCFiJo9V1EmX9yrgE4CP9zh2LrDBu+5r7QlVfqIBxGINYu5ekKPZJ2z1I/HIliMO626lRfq
+	TqKnJXYduVmSWO9SWPlJx5UZxLhmzam0gEanfBo7khV+rmi7XheE9p5BfYwDiIanlKsWIxH6net
+	tzBa8eZ9e+AMv3pyJ7cFXrJy4IGoEuI6UF95RgkUW6N3sQA2PaDGz69qd+wtL3E5cowIXg6bKyX
+	pLMfPO4Sy8KqI1LWtAyVDYDGQk78t759b8F+gAT+iJUfYFkb3xGlOgGCGywG9SnPj9tgQWmN3Em
+	/sHnLfYJBZv3hBkP7R4FDhiQvND7eEqfy5uAbJGb23Fpvc6fGfycYzC5qP/70luMRbeCAcdVPGQ
+	1TT142p2189D2r2fLyHI3Xie
+X-Received: by 2002:a05:693c:8817:10b0:36a:1788:3d1c with SMTP id 5a478bee46e88-36a423fd04dmr28133229eec.34.1793871389924;
+        Thu, 05 Nov 2026 01:36:29 -0800 (PST)
+Received: from [127.0.1.1] ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38fa273sm17363207eec.16.2026.11.05.01.36.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 01:36:29 -0800 (PST)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Date: Thu, 05 Nov 2026 04:36:15 -0500
+Subject: [PATCH v2 2/2] selftests/mm: cover merging KSM pages aged by smart
+ scan
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,94 +92,178 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDAzOCBTYWx0ZWRfX6b0M0xtrBN1L
- m/bpKDBadeBz/peovRc6iCojEptZhWNji2FBzr6rSs0gigle6MH2Wdh+lwQSr6RqWA4zuEKwSxN
- Du3EzkTJU9KXeSJvLACFZUziLOMap/9lgsGbF5frBTTj6yBECRKx
-X-Proofpoint-GUID: KC9pQ9fQTZdAbqvTBNOi1s7G1r-0NJYD
-X-Authority-Analysis: v=2.4 cv=S4tMU4sP c=1 sm=1 tr=0 ts=6aec4e13 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=uXIjobp8t2wMuQ0fPvqm:22 a=gAnH3GRIAAAA:8
- a=MMREOpu7j-QvK7y3GyIA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: KC9pQ9fQTZdAbqvTBNOi1s7G1r-0NJYD
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDAzOCBTYWx0ZWRfX8WAQEJRzYhZT
- BI99Kldh4DPr9f3JgNjJqbogXRELUOozkavWUJKG8DRSrFoGekGac/jfZaC12yLBUeUhS0HJ1tX
- cRwA/M6Ax5V4jNixK8gEXah+Yj/4gw4+ULTMqTDucN+yJXO41d+QTwyIWr91PbT3SQhYkN88sWV
- Toqi2zLdfSrmybUrcqfxero75o1kGuojtpqX/Gu5Oft1EasgZKU4JCxuvkts97R+AyFlkGx8jEg
- IjazcngpJwfeEqLeW7VeUsZBo0lGEBSQ9W2QTvbZ5mmyyblh7+Ps0I70agRLNClXz9cv9ZbwNfT
- XUbP2faS/VuuTdoKLWtxAZFJJI2fHTWVZifTjE8LlB4I4aDuVv8Bw8Y6RL+L3rvXVn7zXaLCAiq
- TcoyHb/1oyrQDfm/DRCFRoiRTVr2nEvuEzayE263/ncccIbYiU4xwWTXKro0OTApQLl1iMhTlFm
- mPRAw1T5WOB+SLCqh+A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_02,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 adultscore=0 phishscore=0 malwarescore=0
- bulkscore=0 impostorscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050038
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-bug-mm-ksm-smart-scan-align-skips-v2-2-8a9780b6844e@gmail.com>
+References: <20261105-bug-mm-ksm-smart-scan-align-skips-v2-0-8a9780b6844e@gmail.com>
+In-Reply-To: <20261105-bug-mm-ksm-smart-scan-align-skips-v2-0-8a9780b6844e@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Xu Xin <xu.xin@linux.dev>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Stefan Roesch <shr@devkernel.io>, 
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Shuah Khan <shuah@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
+X-Mailer: b4 0.13.0
 
-Add compatible strings for the ADuM7801, ADuM7802, ADuM7811 and
-ADuM7812 16-bit isolated sigma-delta modulators.
+ksm_functional_tests checks merging and unmerging with ksmd's default
+settings, but nothing there exercises smart scan, which skips pages KSM
+has failed to merge for a while.
 
-The ADuM7801 and ADuM7811 have the same ±320 mV full-scale input range
-as the ADuM7701, and the ADuM7802 and ADuM7812 have the same ±64 mV
-full-scale input range as the ADuM7702. Apart from that, software
-handles them the same way. The ADuM780x support a master clock of up
-to 25 MHz and the ADuM781x of up to 50 MHz, which needs no special
-handling. Use the ADuM7701 and ADuM7702 as fallback compatibles.
+Smart scan used to time those skips per page, so two identical pages
+that became mergeable some scans apart could end up never being looked
+at in the same scan, and were never merged. "mm/ksm: align smart scan
+skips with the scan number" fixed that.
 
-Signed-off-by: Pop Ioan Daniel <pop.ioan-daniel@analog.com>
+Add a case that lets sixteen unique pages age for a dozen scans, then
+makes a duplicate of each mergeable one scan apart, and expects every
+pair to be merged 32 scans later:
+
+  kernel               failures, two boots
+  before the fix       20/20, 20/20
+  with the fix          0/20,  0/20
+
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 ---
-changes in v2:
- - use adi,adum7701 as fallback compatible for ADuM7801/7811 and
-   adi,adum7702 for ADuM7802/7812
+ tools/testing/selftests/mm/ksm_functional_tests.c | 108 +++++++++++++++++++++-
+ 1 file changed, 107 insertions(+), 1 deletion(-)
 
- .../bindings/iio/adc/adi,ad7405.yaml          | 25 +++++++++++++++----
- 1 file changed, 20 insertions(+), 5 deletions(-)
+diff --git a/tools/testing/selftests/mm/ksm_functional_tests.c b/tools/testing/selftests/mm/ksm_functional_tests.c
+index 31c06c72203fd..71d9b3cbdb8c1 100644
+--- a/tools/testing/selftests/mm/ksm_functional_tests.c
++++ b/tools/testing/selftests/mm/ksm_functional_tests.c
+@@ -695,6 +695,111 @@ static void test_fork_ksm_merging_page_count(void)
+ 	munmap(map, size);
+ }
+ 
++static int ksm_wait_full_scans(long nr)
++{
++	long start, cur;
++
++	start = ksm_get_full_scans();
++	if (start < 0)
++		return start;
++	do {
++		cur = ksm_get_full_scans();
++		if (cur < 0)
++			return cur;
++	} while (cur < start + nr);
++
++	return 0;
++}
++
++static void test_merge_aged_pairs(void)
++{
++	const unsigned int pairs = 16;
++	const unsigned long size = 2 * pairs * pagesize;
++	char *map, old_smart_scan = '1';
++	int smart_scan_fd;
++	unsigned int i;
++
++	ksft_print_msg("[RUN] %s\n", __func__);
++
++	smart_scan_fd = open("/sys/kernel/mm/ksm/smart_scan", O_RDWR);
++	if (smart_scan_fd < 0) {
++		ksft_test_result_skip("smart_scan not supported\n");
++		return;
++	}
++	if (pread(smart_scan_fd, &old_smart_scan, 1, 0) != 1 ||
++	    pwrite(smart_scan_fd, "1", 1, 0) != 1) {
++		ksft_test_result_fail("Enabling smart_scan failed\n");
++		goto close_fd;
++	}
++
++	if (ksm_stop() < 0) {
++		ksft_test_result_fail("Disabling (unmerging) KSM failed\n");
++		goto restore;
++	}
++
++	map = mmap(NULL, size, PROT_READ | PROT_WRITE,
++		   MAP_PRIVATE | MAP_ANON, -1, 0);
++	if (map == MAP_FAILED) {
++		ksft_test_result_fail("mmap() failed\n");
++		goto restore;
++	}
++	if (madvise(map, size, MADV_NOHUGEPAGE) && errno != EINVAL) {
++		ksft_test_result_fail("MADV_NOHUGEPAGE failed\n");
++		goto unmap;
++	}
++
++	/*
++	 * Page i of the first half and page i of the second half form a
++	 * pair with content no other page shares.
++	 */
++	for (i = 0; i < pairs; i++) {
++		memset(map + i * pagesize, i + 1, pagesize);
++		memset(map + (pairs + i) * pagesize, i + 1, pagesize);
++	}
++
++	/* Let the first page of each pair age without a duplicate. */
++	if (madvise(map, size / 2, MADV_MERGEABLE)) {
++		ksft_test_result_fail("MADV_MERGEABLE failed\n");
++		goto unmap;
++	}
++	if (ksm_start() < 0 || ksm_wait_full_scans(12) < 0) {
++		ksft_test_result_fail("Running KSM failed\n");
++		goto unmap;
++	}
++
++	/*
++	 * Make the duplicates mergeable one scan apart so that each pair
++	 * starts out with a different distance in scans.
++	 */
++	for (i = 0; i < pairs; i++) {
++		if (madvise(map + (pairs + i) * pagesize, pagesize,
++			    MADV_MERGEABLE)) {
++			ksft_test_result_fail("MADV_MERGEABLE failed\n");
++			goto unmap;
++		}
++		if (ksm_wait_full_scans(1) < 0) {
++			ksft_test_result_fail("Running KSM failed\n");
++			goto unmap;
++		}
++	}
++
++	if (ksm_wait_full_scans(32) < 0) {
++		ksft_test_result_fail("Running KSM failed\n");
++		goto unmap;
++	}
++
++	ksft_test_result(ksm_get_self_merging_pages() == 2 * pairs,
++			 "Pages aged by smart scan got merged\n");
++unmap:
++	ksm_stop();
++	munmap(map, size);
++restore:
++	if (pwrite(smart_scan_fd, &old_smart_scan, 1, 0) != 1)
++		ksft_print_msg("Restoring smart_scan failed\n");
++close_fd:
++	close(smart_scan_fd);
++}
++
+ static void init_global_file_handles(void)
+ {
+ 	mem_fd = open("/proc/self/mem", O_RDWR);
+@@ -720,7 +825,7 @@ static void init_global_file_handles(void)
+ 
+ int main(int argc, char **argv)
+ {
+-	unsigned int tests = 9;
++	unsigned int tests = 10;
+ 	int err;
+ 
+ 	if (argc > 1 && !strcmp(argv[1], FORK_EXEC_CHILD_PRG_NAME)) {
+@@ -753,6 +858,7 @@ int main(int argc, char **argv)
+ 	test_prctl_fork_exec();
+ 	test_prctl_unmerge();
+ 	test_fork_ksm_merging_page_count();
++	test_merge_aged_pairs();
+ 
+ 	err = ksft_get_fail_cnt();
+ 	if (err)
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad7405.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad7405.yaml
-index 57f0970257050..41eef107e9f0d 100644
---- a/Documentation/devicetree/bindings/iio/adc/adi,ad7405.yaml
-+++ b/Documentation/devicetree/bindings/iio/adc/adi,ad7405.yaml
-@@ -20,14 +20,29 @@ description: |
-   https://www.analog.com/media/en/technical-documentation/data-sheets/adum7701.pdf
-   https://www.analog.com/media/en/technical-documentation/data-sheets/adum7702.pdf
-   https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM7703.pdf
-+  https://www.analog.com/media/en/technical-documentation/data-sheets/adum7801.pdf
-+  https://www.analog.com/media/en/technical-documentation/data-sheets/adum7802.pdf
-+  https://www.analog.com/media/en/technical-documentation/data-sheets/adum7811.pdf
-+  https://www.analog.com/media/en/technical-documentation/data-sheets/adum7812.pdf
- 
- properties:
-   compatible:
--    enum:
--      - adi,ad7405
--      - adi,adum7701
--      - adi,adum7702
--      - adi,adum7703
-+    oneOf:
-+      - enum:
-+          - adi,ad7405
-+          - adi,adum7701
-+          - adi,adum7702
-+          - adi,adum7703
-+      - items:
-+          - enum:
-+              - adi,adum7801
-+              - adi,adum7811
-+          - const: adi,adum7701
-+      - items:
-+          - enum:
-+              - adi,adum7802
-+              - adi,adum7812
-+          - const: adi,adum7702
- 
-   clocks:
-     maxItems: 1
 -- 
-2.34.1
+2.43.0
 
