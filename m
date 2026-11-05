@@ -1,75 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793848118;
-	b=g4O0uZT6xpvriFdrsVRP1A7JaqYUWe9Eug63Ob3R0uBb/z47X3imDDENbT5jKrlqIzj1
-	 kwXv4XDpF0pz2UHCo/zgYEyjvQOGCxBP9M+Mf1KcQgEe8Tf5NKBoKLCkFIlJC3L4bUhbR
-	 fapuAazN/cc88q/iFX83LmXDUWhx6e3VljDqfEy9y7BrnIUgI66Hn7rZNQwyXytBdTiWx
-	 xN0cKZktcnOHZdvb9joWWTGfOiEv8Lq/EYsVHVoMhTruyoWm/HNs7Qrd5n4WANcNmbePt
-	 sz5gN49o6giG4fSfhF35d7Af6tV9/cqPbDi1KqcG430n/Kbti30DSdVf2C4/B3oEszA==
+	t=1793848127;
+	b=VDQmLgd+7yYFs5YXO9VgioP2Tqg2O/kCa5Chlm6lOWlir5Mqs4/NGxEhsASgmJUjGY8I
+	 s+vqEdyXBLflEIdU52hw3jayZIry7WnouYSDloZTkf497b4dgW4FeVNY1uxy3IEjl4lx+
+	 bgrIVB8riZ8usMw2s87DRrzsvSm80sSCT693w3p8Ir7AIaey1+G8VGlMVZUW7riltS6Yt
+	 PTeUcItOZPtYRjFAb6C//B7iaUuk9aP7HFvHFWVblwgmdf7jOpsMybyUaRZWqrwSxbL7R
+	 TTXm9Zjg7mNkH/XKm6Avyr5DWejVYN/8UGwdkzWxp301bRrcwd6ArInx62VH/YJMaOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793848118;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793848127;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=+hTcrw2qlCHhO70X54WC3Z16qJoO8Le0y8rhZa3WBPA=;
-	b=R58lM1DQRcmhhrED+z++9qM0mufbOO1AfX+qcgb3+7SJSwsBENGVRlSvpikg6M6mxTXZ
-	 mVhz/FaPRmBj58lWKJUK2z/1eTFitEWgvVYU6qYFuX0tKTBKu7suMGoJ/bjlxj6uB5gtF
-	 M2pevqA+ZQ4Uy2MsgJu514aNa6wXGATzdEP7nJuXjAZhQqeS/WELXrZZwjQ1joP31JBjp
-	 RrbXBqTBMh34jq0xL44eP9ShMWzBZ2luOJ7uFbOXt679pbMU33X5uHfeAHQEWt0hrxejC
-	 Q5wI9GBvL6cUQO5d9osQ1ZBs/aIQ1kpdfdtWHeabNKh1OXSfi7WcbgaWc1HQzw/4GCQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=dk+WGnu7U2he9A5n6a73SfgBiibQ/uVJWoRKp23Ly48=;
+	b=GS1s5nHnz5BJ/xbvHLhMmC1/Na0U3C32GgI50upy2WFuH9HaLSHe6O/l2RPZLLb0KAN1
+	 xYhgeG6rdwgclS0DnHvenqNqRl9EY9T9cPahrM7EMeKFqZxVAJ73wOlbmyREsJpN55fi3
+	 dvuTgxmGao/5rx/CUZf1E2FwPlGk9BAGnx4WYacyI4uAVM0A/MN/IpODfv8PoFG/Wv4dg
+	 JEOdV1taqAV0PVrSGDYJNmqP7WWfm1ubrM1csgVRbXpb4/3saK1IRP09xEm6RX6dPfzPw
+	 sLWpbup3PqpsEWGn/RM6dskVLa7QVDEiwhVHmsb0vi57UXuvGi7yjK6kI6sWKi0ymkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--wakel.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XhKUI6Xq;
-	arc=none smtp.remote-ip=209.85.214.197
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CsDcX3nK;
+	arc=none smtp.remote-ip=74.125.82.70
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD991606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 03:08:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD991606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9757F606A33D
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 03:08:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9757F606A33D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wakel.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XhKUI6Xq
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2eaf8ea208bso12094775ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 19:08:37 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CsDcX3nK
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-147be78cd56so2600220c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 19:08:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793848117; x=1794452917; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+hTcrw2qlCHhO70X54WC3Z16qJoO8Le0y8rhZa3WBPA=;
-        b=XhKUI6XqNxb34vhkv7Xp1GhTqJ/8iFS/JNQCI+ZjY1NqHajvZqgZxCFZrDUwYMwvE6
-         BP3hw1pJEKqMfWHwNp4VFifFDntIMLzANbnT39cBRcH2bcpyXKvyGeh/g2k6i4WZ+1DM
-         waphUfBfdMgHKwUp0jio826vFDu9gAZOm5JagNhghm9vpnKVlVA3xf/GKx/Isqbl8W4+
-         yoxLa6+9ZH3GPn0TmquzEUxOlC9dKnWE/YbAWz/aZGxDK9lov4bf9BhqFksAazbDyvQj
-         0ELyOh6vCKlysmai1zFRysjZHoQ3AuJkQPY3bHNWaybinsO5k/NqxRmSG7+RkICE/i2J
-         YWmA==
+        d=google.com; s=20260707; t=1793848126; x=1794452926; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dk+WGnu7U2he9A5n6a73SfgBiibQ/uVJWoRKp23Ly48=;
+        b=CsDcX3nKRwdsdG86VswautjP8KAHQT3Hml41XXUq6KT+/IgwmNTOgGJet72r0trjJF
+         Bp37X+qDspYxqVKP4ZnvDCJiS1xPKFYkydMBS+k60j42JrIhDGkb5u1m2729gJx6HDys
+         RLZvwTcP2pZr76QoeCKoMaWFDKjsWvmfFCVFmHmXlGCJU3LNvFaPrBiik+8lOs+IG+tN
+         sBEBeYDXuK7ZClGvr+9+sFEQIyMW5NNYO9u9zr/m1au+oxDEJRVgZzqaK/guUQ8UK06B
+         8JJCH9a6lwaBGzTW3gbZo1iKOwu4mZ7xLwBSzkPLAavx8WBtW4h9RS+Rq64UXvrSg8zv
+         W0KQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793848117; x=1794452917;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+hTcrw2qlCHhO70X54WC3Z16qJoO8Le0y8rhZa3WBPA=;
-        b=LL0AEpc7Da+enTiR+5S/kqPfPv1nqF9NIJYtbEPvguvZ3Dd39A8O0MTDMQrBXND/mU
-         B571dzE37bcH1tjZjg8n3pX1zUgtnrw2qpLxd2sIxIxEvByYAWmPro2L/JiqRPps6djH
-         vxCWVSx2uG7eWDjrwPDycVq3OO5c9rogfZSTnzA3v01eNzwC9TNyUNbTB+zh19/u1kIP
-         LpFvhlOeqbUI7WBgB0R9FqWUP0j0WrD22g6STdQzmCCs4OD8Fa8i0La4XJqT/f/+Nwjn
-         dqu0gcFXyy4y+CcwAs3g8PHkqrc1dUn3889MLoyLS6wWqyEW0vFgeiiUOz6kzNmv/XPT
-         9UfA==
-X-Forwarded-Encrypted: i=1; AKwUvBy/attVMPoj4CtKnv9Q18WdrrJDdYXxWrMuILapOPJFE7NrSjQFUW/WmT7wOTpoVJXJAhkSMweT1aoiZIQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9F/XT/cDh4n2w1BZCFmKbxP4L3MLjQOrefzwpCL+rI4hxhoIZh
-	btxjfEE+KtwW6UqpBuOEXnVNz+PLETgiCk7YWiPDPWGTORRkNrGgh/XzHRJwLp+BYN5iESAFrKV
-	6Zw==
-X-Received: from plof6.prod.google.com ([2002:a17:902:8606:b0:2e2:f305:e980])
- (user=wakel job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:3b8b:b0:2e9:7ff5:544c
- with SMTP id d9443c01a7336-2eb3642fe87mr148706835ad.25.1793848116599; Wed, 04
- Nov 2026 19:08:36 -0800 (PST)
-Date: Thu,  5 Nov 2026 03:08:34 +0000
-In-Reply-To: <20260910034821.2935214-1-wakel@google.com>
+        d=1e100.net; s=20260707; t=1793848126; x=1794452926;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dk+WGnu7U2he9A5n6a73SfgBiibQ/uVJWoRKp23Ly48=;
+        b=GHpuPDx9yFgUcHRdVBzGNsWU20/6tbRTZeE8uX6wDe+rfB494kn7ITXqB2M1p1TNKe
+         LgjX8yKCIg+zPR9BsJdeP0za/XB8eNub7+kBOXLWqPv4aWO4ZbMn0DezeTORi2TC3S5r
+         hHIXgPzbqgi6nHKfloiNkFPxbuAwf6rAq9yfpZ8+g/YhwY10d1VLf/qosO0g4RWwSoqz
+         CY07JiQD7gmWC6363Kwyjc+egtZ+uxlm9Q9k2/GX67xVLOw7H1V/dGq9kDV43gM46Fie
+         K5ZkeLisoUH1URmN92iQVpfkKqVhJPq65qjYpBGyao20KwsN9Hqz35HXx+aCHLJGUTXO
+         iihw==
+X-Forwarded-Encrypted: i=1; AKwUvBzMrJ58GhnU8Eo8IorAlEx+LryRLcddenX7anW1Z/kRK7fwe1cmwWs30l6peebY0cpyMHaHbVDTuPz+OYY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+SWB4DTQSlKicMvH4uDQzej6/nH/ya7nka/XiuXk2lCzecyWWX
+	RsftoBZmjEKwLrt5jUnhHI1flA/U3obo2nt+edT3vv0y3UmPutpso5Htng5XjYq2yEAXQp58zf5
+	JcA==
+X-Received: from dlar7.prod.google.com ([2002:a05:701b:21c7:b0:195:8b4e:20b7])
+ (user=wakel job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:208a:b0:1b0:4272:4282
+ with SMTP id a92af1059eb24-1b042725256mr18017569c88.17.1793848125583; Wed, 04
+ Nov 2026 19:08:45 -0800 (PST)
+Date: Thu,  5 Nov 2026 03:08:43 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,110 +76,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <20260910034821.2935214-1-wakel@google.com>
 X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
-Message-ID: <20261105030834.3318480-1-wakel@google.com>
-Subject: [PATCH v2] selftests: rtc: Support harness test filtering and arguments
+Message-ID: <20261105030843.3319056-1-wakel@google.com>
+Subject: [PATCH] selftests/memfd: Rename local union semun to avoid bionic clash
 From: Wake Liu <wakel@google.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Shuah Khan <shuah@kernel.org>
-Cc: Shuah Khan <skhan@linuxfoundation.org>, linux-rtc@vger.kernel.org, 
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Aristeu Rozanski <aris@redhat.com>, Shuah Khan <shuah@kernel.org>, Aleksa Sarai <cyphar@cyphar.com>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Carlos Llamas <cmllamas@google.com>, linux-mm@kvack.org, 
 	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	Wake Liu <wakel@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-rtctest implements its own main() function with a rigid switch (argc)
-check that only accepts an optional single argument for the RTC device
-node path. This prevents kselftest_harness standard arguments from
-working properly:
+Commit b24335521de9 ("selftests/memfd: use IPC semaphore instead of
+SIGSTOP/SIGCONT") added a local definition of union semun, since glibc
+and musl expect the caller to define it before calling semctl().
+Bionic, however, already defines union semun in <sys/sem.h>, so
+memfd_test no longer builds against it:
 
-1. Passing filter options like -t <name> or -T <name> triggers a usage
-   error because argc is greater than 2.
-2. Passing -l or -h causes rtctest to treat "-l" or "-h" as the device
-   node path and fail with access() errors before ever reaching the
-   harness argument checker.
+  memfd_test.c:45:7: error: redefinition of 'semun'
 
-Parse command line arguments with getopt() to pass all kselftest harness
-options (such as -t, -T, -v, -V, -f, -F, -r, -d, -h, and -l) through to
-test_harness_run(), while preserving the ability to specify an optional
-RTC device node path as a non-option argument. Also ensure optind is
-reset before invoking test_harness_run() so the harness can inspect the
-options, and bypass device accessibility checks when help or test
-listing is requested.
+Rename the local union to memfd_semun. Its layout is unchanged, so it
+can still be passed as the variadic semctl() argument with any C
+library.
 
+Fixes: b24335521de9 ("selftests/memfd: use IPC semaphore instead of SIGSTOP/SIGCONT")
 Signed-off-by: Wake Liu <wakel@google.com>
-Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
 ---
-v2:
-- Rebased onto v7.4-rc1, no code changes.
-- Added Alexandre's Acked-by.
+ tools/testing/selftests/memfd/memfd_test.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-Alexandre, the other rtctest changes for v7.4 went through the RTC
-tree. Would you be willing to queue this one there as well? Shuah,
-please let me know if you would rather take it via kselftest.
-
-v1: https://lore.kernel.org/all/20260910034821.2935214-1-wakel@google.com/
-
- tools/testing/selftests/rtc/rtctest.c | 44 +++++++++++++++++++++------
- 1 file changed, 35 insertions(+), 9 deletions(-)
-
-diff --git a/tools/testing/selftests/rtc/rtctest.c b/tools/testing/selftests/rtc/rtctest.c
-index 552191fe1ca0..eb26d957835d 100644
---- a/tools/testing/selftests/rtc/rtctest.c
-+++ b/tools/testing/selftests/rtc/rtctest.c
-@@ -487,18 +487,44 @@ TEST_F_TIMEOUT(rtc, alarm_wkalm_set_minute, 65) {
- int main(int argc, char **argv)
+diff --git a/tools/testing/selftests/memfd/memfd_test.c b/tools/testing/selftests/memfd/memfd_test.c
+index cdab3a837624..188cb7c32db1 100644
+--- a/tools/testing/selftests/memfd/memfd_test.c
++++ b/tools/testing/selftests/memfd/memfd_test.c
+@@ -42,7 +42,13 @@
+ 		    F_SEAL_EXEC)
+ 
+ #define MFD_NOEXEC_SEAL	0x0008U
+-union semun {
++
++/*
++ * glibc and musl leave union semun for the caller to define, but bionic
++ * already provides it in <sys/sem.h>. Use a private name so the test
++ * builds against all of them.
++ */
++union memfd_semun {
+ 	int val;
+ 	struct semid_ds *buf;
+ 	unsigned short int *array;
+@@ -1387,7 +1393,7 @@ static void test_sysctl_sysctl2_failset(void)
+ static int sysctl_nested_child(void *arg)
  {
- 	int ret = -1;
-+	int opt, i;
-+	int non_opt = 0;
-+
-+	while ((opt = getopt(argc, argv, "dhlF:f:V:v:t:T:r:")) != -1) {
-+		switch (opt) {
-+		case 'h':
-+			fprintf(stderr,
-+				"Usage: %s [-h|-l|-d] [-t|-T|-v|-V|-f|-F|-r name] [rtcdev]\n\n",
-+				argv[0]);
-+			optind = 1;
-+			return test_harness_run(argc, argv);
-+		case 'l':
-+			optind = 1;
-+			return test_harness_run(argc, argv);
-+		case '?':
-+			fprintf(stderr,
-+				"Usage: %s [-h|-l|-d] [-t|-T|-v|-V|-f|-F|-r name] [rtcdev]\n",
-+				argv[0]);
-+			return KSFT_FAIL;
-+		default:
-+			break;
-+		}
-+	}
+ 	int pid, sem;
+-	union semun semun;
++	union memfd_semun semun;
+ 	struct sembuf sembuf;
  
--	switch (argc) {
--	case 2:
--		rtc_file = argv[1];
--		/* FALLTHROUGH */
--	case 1:
--		break;
--	default:
--		fprintf(stderr, "usage: %s [rtcdev]\n", argv[0]);
--		return 1;
-+	for (i = optind; i < argc; i++) {
-+		if (non_opt == 0) {
-+			rtc_file = argv[i];
-+			non_opt++;
-+		} else {
-+			fprintf(stderr,
-+				"Usage: %s [-h|-l|-d] [-t|-T|-v|-V|-f|-F|-r name] [rtcdev]\n",
-+				argv[0]);
-+			return KSFT_FAIL;
-+		}
- 	}
- 
-+	optind = 1;
-+
- 	/* Run the test if rtc_file is accessible */
- 	if (access(rtc_file, R_OK) == 0)
- 		ret = test_harness_run(argc, argv);
+ 	printf("%s nested sysctl 0\n", memfd_str);
 
 base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
