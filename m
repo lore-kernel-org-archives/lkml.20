@@ -1,100 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793880687;
-	b=u7Zrjh7+hEUo9NTpFQ8qanIkZGRUK2sc9QVwUyhwlW5gYxY9Xfjgnidhx13l5Cvsgclj
-	 KtFfgVSTZoINGUwEqnOwdCBMlkOZ+r/W8aaBJdUn0eXYE6LMHRF9Cmsr+prx3MhDY0ahX
-	 tcojhrNjRbafuZ/pcoHUiZcUCIT/qQoZcLl/ikevvsltfPUakactxbSRBE8mdGYbXMvGm
-	 ydnlI12LU5RC+ZW5w1A2yvnlNlyL/f/jwCEDywABwmyc/6m78SuFbfneGwt+fejKE1LWV
-	 mtd35+VASf+y+4D8E/IAhf+iPuyaaQeZq3L4gu8XocvZzSZ6NCtjfatjnISeOekKeuQ==
+	t=1793880669;
+	b=tLYSY0SUJzN+LFIcF/eCuFqswcRiVKnWD0+01da9MZq6W5ZF2Fw4IqasJ26iLyV+mt12
+	 twKuJqlzTHRMQ94FtJL9jmRuVhb9dmiqfGemuApB+e1UtMFRrmC7/CL/7A8xX0Ymz/jSB
+	 ZICE7C/rlWF0pMIygNCuq524UYyaB3WMftR/MypHM/ZPytY8Nq7811Q+P6HxocZj1Megb
+	 Shr01O/y71SJtbK+jp82KO+l97utcaZ/WtljwpCB8kZQyU96b+Sn94N9Bugb2ZNXLrwSK
+	 J+UzDJGlZlEROYwNfgCkbLxNpTUawj3lVymnOgFCB1vnaXdT6XYgw+J0BQsGZYNEXuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793880687;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=oU3a7xXmURYifUlGxPa33qdnIX73vZnsxZLBFb+NsI8=;
-	b=vqMQAgY+yVKHK2ofQThEvPsolBg+U0WHoV5sBa+THxowJ1oSVYyCXjFOPpOMyVnEjEy9
-	 PcbFc5fylm/7OYOAKi0vd6zpsa4gi60+/nSXmVSy9K/v0bcI4ppMP3qOq5j+PTQ1/msbH
-	 NLcRc9UrwVPzBBpsVwV20fUNS0llraHNPMJ1/iiRco5JTGNN9RGd2AbUG1Mt7XS+gT7hB
-	 Gm2wyJalBsDJAMn/uq+ii9GblkNgaGCXMnYK3ATU/Yh61wj+j+CLOKoY5OovenQb1BBtn
-	 0Namv+Ceu5m1ec5NdNzIeMXMo6ybXqawg+wcf/QT4xm83YYJ9KX0eRH9S0GUJa+hvEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793880669;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=Tiu8/sTPNEplZjLK9CvT6QJBjBM6O2zkosy8TKudNwI=;
+	b=z3K0UL7u2rrbnldcUn45kfBBICN9zhqUf4SBBETEGC482FAu0yS1ERlP2KzwaDGaGG/L
+	 GygVpbng+sVwYrHbJ79bpDsosiIsLCIKxt1+2L6WQ3QUJLVN5UvE/G6S9deHiBVbEQ1/L
+	 hFkc33mLYmGss3xZCqMp+pnPD2Slw/9nlJkUpZJY3QHBjYv1Xw2bgMQpxCDmmk2F6zs2B
+	 Wa6+QNgZapdMEdNrI0+jD2bYKpVo3Id4Za38wxcwr+XRaebreWtaEshofJOXaB8umuuO+
+	 uVkgg/nrrxnrBSmiCklQ0TTaJ0pfXkIHwRsUjWwegnoNfMTl08S08ScMeNfW1IyOBLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="VEn26V/p";
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=AF0vBzVY;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=7JoiF1X7;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=AF0vBzVY;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=7JoiF1X7;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF9E9606EE91
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:11:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF9E9606EE91
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB2C1606A326;
+	Thu,  5 Nov 2026 12:11:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB2C1606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VEn26V/p
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-490c1d337d8so836397f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 04:11:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793880685; x=1794485485; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oU3a7xXmURYifUlGxPa33qdnIX73vZnsxZLBFb+NsI8=;
-        b=VEn26V/p8NYKFjB6iovnRMzQb5XBCGJfH1f7fzdCf1fyjdKd+EI/7GGp9Q2IluxPS9
-         XjquYP1XiVth52a9Xe3nW2R8vZ87a/Mm1bgbEd7a0P0WlqgRNKOLdFSgnC9qm6iNS5Hx
-         XfRM6cf3gdCv6DLJJ4Pwbd008COZ5BoH03HTts0GjLBxequGn4OnLaYkE4vW+jBn+cs9
-         hrWYU8NkgMZo6NUbu8FhM2Uo8F2hOjksf23LsDuj9q9WdRgukZ3qbWEby/SbVXNcNzgL
-         ud5zTlb6+hxsDrKj0nQymAPSplNGD27T/w2x+bfPG/Eg61dpkuAmqJ3ggUzDMNX8i3H8
-         Oj6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793880685; x=1794485485;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oU3a7xXmURYifUlGxPa33qdnIX73vZnsxZLBFb+NsI8=;
-        b=Vr82ZQQKAqplHT/lNxhK380VTISV0YeptHdmCHmO80h+jeZxwXbtbXCzpM+yQGXiRE
-         P0wUZLKpymgYDLw7SDCCkCqiMSpQW9abgY+7FP5Ik+VtRUMKK/+o7vJl8xWRz9kghoJ6
-         KPpAp74YWgbRwg3m8EcZnVazKTjqw0aX24V9p2m8hUtUr5g9WXYbWg2DQaJgAAsAoTms
-         Ana3Cr/uUeuEobJZ9sKcFveeSUfpQo1UCjA5EvViNfVyc0/2/9yNqMrCQodaWZRVvwdo
-         5oLulSGqf34v7+fEtS5hJA7slQf98wdd0G1DT7YhVky84nPYEAWc2j0nvtXJk2oG8aHr
-         js+g==
-X-Forwarded-Encrypted: i=1; AKwUvBxxk+XsL49RXdQmarIhs3tH+iaIUtbO04HDn+m9FEkopqTsVfZscmTMJAR5mGSBPqlu3lu4RxLXTcYRQt0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z94dOKLIFm1ro6PolH0lGN9PssPubyYHKKkbLqsuwUhxBpTqWiS
-	kDX/JqEPnWLaR16kJuKA4WivesOipI7vn1EkScMQStDJGRx4MfuDsU7N
-X-Gm-Gg: AYBFou0RuU1HQeCR5jmPHTIxe5rLlGBdTep+V3wYrzWK/IISau2WHTn5NMhdV5cBXE0
-	QLcj76I+OKFYXrYGs666tkWET0sOtJBXi8+bhgK30vR8K+sj8aDU5gozW8Fs02rPaIKLNHMMH19
-	DMGtJBxE4LNCFpkTxT9N1xXnFe2PqIU4u8tmV0V5l9fcml8Oucm6vwc5swAT9sMPhU8m4+qL2hk
-	2f+1JJG+hVPkdHzI3sFR2WJ3BywbnhcComieoM6U8ey+wSebmpNWFBk5eE9nQvffJ1HuHRdIpjk
-	RNlfI+K+MdG7WDBnFLnWVsgJe2aCHyPyZOyWLko8x6KUZhtmdNSf7W0IjlwLDZItH3g7bpaJUzk
-	QKiOj8zvwSC07hlALRKQAk13X5NR7OJdOGNC2z7O7IYvNbEIx2SvEd8iab8n+JaLkxmefv8fBnX
-	5E7dGtSZ3uFN9jLRs5KJHLNOJ3J2k+et2rjHA6laU7d9ZLAxhp1TPL7nPZSd81RgWapWI7Ngxoe
-	dgn/ih6oLzapq1aLf2MIsMQdyXbVdJOKqtkYWBG9IXegkBCZm4l86yVAtE4piWluulJ1BUeUg3A
-	JXi1oxkuxEZIrRCLV/knY82ZRZloX7+6uWuQROtcyx46G58YBndCz+MfvFHpbt/v4sWPVd0SG63
-	+5TUIoIOD4YBrRxwoteiRr4sX
-X-Received: by 2002:a05:600c:3554:b0:4a1:e7ce:107b with SMTP id 5b1f17b1804b1-4ac150b20eamr442431325e9.2.1793880684946;
-        Thu, 05 Nov 2026 04:11:24 -0800 (PST)
-Received: from Ansuel-XPS24.lan (93-34-90-148.ip49.fastwebnet.it. [93.34.90.148])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4b56f02386bsm58869885e9.7.2026.11.05.04.11.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 04:11:24 -0800 (PST)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Felix Fietkau <nbd@nbd.name>,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Christian Marangi <ansuelsmth@gmail.com>
-Subject: [PATCH v10 0/5] clk: add support for Airoha AN7583 clock
-Date: Thu,  5 Nov 2026 13:10:53 +0100
-Message-ID: <20261105121059.11201-1-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=AF0vBzVY;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=7JoiF1X7;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=AF0vBzVY;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=7JoiF1X7
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 2B33A21FA1;
+	Thu,  5 Nov 2026 12:11:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793880667; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Tiu8/sTPNEplZjLK9CvT6QJBjBM6O2zkosy8TKudNwI=;
+	b=AF0vBzVY3zQ6Vdtyzlnd2GX1KnIr1XJT3SFmA54tWfPHGy6ECYuTRMeTFFLnasIgVme0YZ
+	PThupxuU6qmedBWykcq8T+6m0PpaGSoqpA2H5zGIK2sKtK6eDiPUzWRwILl2WLIL1NXKQk
+	HTqj2KBB6e0dR9olXjD094Hc8YjLNc8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793880667;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Tiu8/sTPNEplZjLK9CvT6QJBjBM6O2zkosy8TKudNwI=;
+	b=7JoiF1X7I2Iguu9nV9GXjnaaMmyPjs8fCUlps77JZ5omTCl+PEQZZxIADuFQG05WHYF+cK
+	CBi4Cau1ROf8pYCA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793880667; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Tiu8/sTPNEplZjLK9CvT6QJBjBM6O2zkosy8TKudNwI=;
+	b=AF0vBzVY3zQ6Vdtyzlnd2GX1KnIr1XJT3SFmA54tWfPHGy6ECYuTRMeTFFLnasIgVme0YZ
+	PThupxuU6qmedBWykcq8T+6m0PpaGSoqpA2H5zGIK2sKtK6eDiPUzWRwILl2WLIL1NXKQk
+	HTqj2KBB6e0dR9olXjD094Hc8YjLNc8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793880667;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Tiu8/sTPNEplZjLK9CvT6QJBjBM6O2zkosy8TKudNwI=;
+	b=7JoiF1X7I2Iguu9nV9GXjnaaMmyPjs8fCUlps77JZ5omTCl+PEQZZxIADuFQG05WHYF+cK
+	CBi4Cau1ROf8pYCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F14FC133F6;
+	Thu,  5 Nov 2026 12:11:06 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id RrhmMVpy7GoeFgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 05 Nov 2026 12:11:06 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 6CB91B6CE; Thu, 05 Nov 2026 13:11:06 +0100 (CET)
+Date: Thu, 5 Nov 2026 13:11:06 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+	Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
+	Eric Dumazet <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Al Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+	Greg Kroah-Hartman <gregkh@suse.de>, Joel Granados <joel.granados@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, linux-acpi@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+	linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	netdev@vger.kernel.org, ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+	coreteam@netfilter.org, kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
+	linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
+	linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
+	linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+	sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
+	Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+	linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, linux-debuggers@vger.kernel.org, 
+	Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH RFC 24/38] proc/vmcore: don't let vmcore_cleanup() run
+ twice at once
+Message-ID: <6deqqw2vjfaot34sgogukcsbdh2vngvu2ewmsjzb2h53zo7mwn@zofl4rxl2nnb>
+References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
+ <20261102-work-procfs-bugfixes-v1-24-59422ed3e465@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,76 +131,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102-work-procfs-bugfixes-v1-24-59422ed3e465@kernel.org>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-11.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_COUNT_THREE(0.00)[3];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	R_RATELIMIT(0.00)[to_ip_from(RL63fqwwx8ot6gmekemcs76f9d)];
+	MISSING_XM_UA(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[60];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,suse.cz:email]
+X-Spam-Score: -11.30
 
-This small series introduce some cleanup and support for
-clock and reset of Airoha AN7583.
+On Mon 02-11-26 15:21:39, Christian Brauner wrote:
+> vmcore_cleanup() has a single caller, fadump's release_mem_store() on
+> powerpc. That checks fw_dump.dump_active without a lock and calls
+> vmcore_cleanup() without one, and kernfs only serializes the writers of
+> one open file. So two tasks that write to
+> /sys/kernel/fadump/release_mem through different files run
+> vmcore_cleanup() at the same time.
+> 
+> The first one removes /proc/vmcore and waits for its readers in
+> proc_remove(). The second one finds the entry already unlinked, returns
+> from proc_remove() right away and frees vmcore_list, the ELF headers
+> and the device dumps while those readers still walk them. Or both of
+> them free the same lists at once.
+> 
+> Serialize vmcore_cleanup() with a mutex of its own. It can't be
+> vmcore_mutex, removing /proc/vmcore calls release_vmcore() which takes
+> it. The second caller then finds nothing left to free.
+> 
+> Reported-by: Chris Mason <mason@kernel.org>
+> Fixes: b500afff11f6 ("fadump: Invalidate registration and release reserved memory for general use.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-The implementation is similar to EN7581 but AN7583 introduce
-new reset and more clock divisor support.
+Looks good. Feel free to add:
 
-Changes v10:
-- Fix whitespace in include patch
-- Add reset and phy cell as required
-- Add additional patch for devm variant
-- Add additional patch for lock for clock and reset access
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Changes v9:
-- Fix compilation error for priv (again) (this time fixed)
+								Honza
 
-Changes v8:
-- Add ACK tag by Connor
-- Fix missing priv->base assign
-
-Changes v7:
-- Add further info for DT patch
-- Add serdes selection support
-- Rebase on top of linux-next
-  Link: https://lore.kernel.org/all/20261009070725.13196-1-ansuelsmth@gmail.com/
-
-Changes v6:
-- Address bot suggestion for DT patch
-- Add further information on chip-scu phandle
-- Add dedicated PERSTOUT reset and PCIE_HB reset
-  Link: https://lore.kernel.org/all/20260819221458.30040-1-ansuelsmth@gmail.com/
-
-Changes v5:
-- Rebase on top of linux-next
-- Drop even more patch to reduce patch delta
-- Make chip-scu specific to AN7583
-  Link: https://lore.kernel.org/all/20260528190000.9164-1-ansuelsmth@gmail.com
-
-Changes v4:
-- Add review tag for DT patch
-- Fix clock patch to use en7581-chip-scu compatible
-- Drop PCIE SCU SSR write
-
-Changes v3:
-- Drop .set_rate patch (will be proposed later)
-- Drop chip-scu binding and related patch
-  Link: https://lore.kernel.org/all/20251106195935.1767696-1-ansuelsmth@gmail.com
-
-Changes v2:
-- Add .set_rate support
-- Rework DT to EN7581 implementation (clock driver is parent)
-- Add additional cleanup patch
-- Merge binding with schema patch
-- Add chip_scu phandle
-
-Christian Marangi (5):
-  dt-bindings: clock: airoha: Document support for AN7583 clock
-  clk: en7523: use devm variant for clk_hw_register and fixed clock
-  clk: en7523: protect concurrent access to reset and PCI register
-  clk: en7523: generalize register clocks function
-  clk: en7523: add support for Airoha AN7583 clock
-
- .../bindings/clock/airoha,en7523-scu.yaml     |  25 ++
- drivers/clk/clk-en7523.c                      | 332 +++++++++++++++++-
- include/dt-bindings/clock/en7523-clk.h        |   3 +
- .../dt-bindings/reset/airoha,an7583-reset.h   |  65 ++++
- 4 files changed, 418 insertions(+), 7 deletions(-)
- create mode 100644 include/dt-bindings/reset/airoha,an7583-reset.h
-
+> ---
+>  fs/proc/vmcore.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/fs/proc/vmcore.c b/fs/proc/vmcore.c
+> index 1fe70c4ecc54..ccb795b85509 100644
+> --- a/fs/proc/vmcore.c
+> +++ b/fs/proc/vmcore.c
+> @@ -1764,6 +1764,11 @@ fs_initcall(vmcore_init);
+>  /* Cleanup function for vmcore module. */
+>  void vmcore_cleanup(void)
+>  {
+> +	/* Not vmcore_mutex, removing /proc/vmcore calls release_vmcore(). */
+> +	static DEFINE_MUTEX(vmcore_cleanup_mutex);
+> +
+> +	/* Two writers of fadump's release_mem can get here at once. */
+> +	guard(mutex)(&vmcore_cleanup_mutex);
+>  	if (proc_vmcore) {
+>  		proc_remove(proc_vmcore);
+>  		proc_vmcore = NULL;
+> 
+> -- 
+> 2.53.0
+> 
 -- 
-2.55.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
