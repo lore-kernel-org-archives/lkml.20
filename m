@@ -1,76 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793870651;
-	b=ZVnO1zr2ZgIzyAmLWDBNwSfCDUvbFgCc/AOAtRioBfrcZ4amsNePXf/iXveedwF1/M4H
-	 qfRZVjGEQ9E+wPo3A+kb4G5e5DBls6en4NQ2HX3R1Ykhq4i+VwCR6+A+/VNZyy4Cfjq8h
-	 e+uysjtmGUzdy+fKT7oWH2SJFNWq8NsDOS/6V2AswzZczosAkTYuSFJWv92gohJUfs7MH
-	 MzwoLZQuMUQA1gt8c01uvVBKdyWjAf0dfTLymk0kz4hMqI0OYDH58/ppxGjirJ9gUBEsS
-	 u+j3OG5S2yD5uYffAF0E6ENaImTS4dB9JflM5T3v6/5YtIdE/89etSDUNbNsKkT/oZg==
+	t=1793870645;
+	b=IUR/IEwTiDCBVAt2eZkfAUIzqzfCbEMGvyLFEYhJ7xsJ3tIEWXVax5QglpZv+vifXqmr
+	 IFXmI6vqAuXIrNGeMQwXqGi33z1TuRjNKs9r387aNzLw8a+Mv3OyTSZKbJoFZhhhd4Wn1
+	 JZ6DV5oKldR+cKGetIOeRWJLtz0ndQrOzo954WfEqejSkfH7PVIaULSIBjfzY69SxcAi3
+	 sMW/QWz4FZn6P+MjThA7OiPDFCVCGx3S6nqiLouXB5o2n28dbGCkybtfdIvYBAFC7kUj+
+	 rycT92jt6LxzGBgbmwJawS/JklG+za8rgCkM4BxbXKkfjROgVsH3tvb2gRh1rsQ8bZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793870651;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=pdLSFARJtZZaOSy89wvFfnir+tkCHpND5r/hzAKJUn0=;
-	b=B1Xx/zF8CvO1CvQL83jp4y/Fy3qzBEp0i52ZnXtLEcIlj9hEx+xCvO/mpeWs8zyCImVT
-	 UMYmZuABOr/xltbNct0E9eFi4LZl/nSRQppjiV2WN67znddBXHVKoK5tvQ9WaGpUrQjEB
-	 mwFcr3l6ojYl3BYYkacbxUjD/4zJHq+m3gcHptx+G6Q0nEegFOzNwYyWXp89PvC+Xv0mI
-	 YvZ0kcqvxCNu4ezsnxKF4JZNOgBfSRe8kLb2rZGo/MDb2eKSqieqc17/81rXebaxs8LYT
-	 OzgBoey3IWpgZ4jac5LSELAJc0SgiO2B63luqW3/809BYh3GSDMsgJpU0MH45tRE6dQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793870645;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=jHdgjJk6xIGbyst8scCaL6YlxLPI/vAvF2nihFmwgTg=;
+	b=vj1aEpg0PLu9awHL1ZINnI+Vt72ts3ETQb5IptiTBk7+DG6v8DkkW5gsuEj1v7fCdRol
+	 QskGtPbK57s30nRscZniMKpRYABHPhCOhHaeBi2m86SqX6xGOgDT9swS20US6sUjeg/4u
+	 NfXtUYeble1+b5Kv4Y3f7ModN5YYhSpVcejv2yWi/w/3OP8ktAAX+KLfsApaPzBmChomE
+	 kXT7rooo7zddFJzCEsGyXGp6VuiymvSln7fUMBW19cJJ46p2/3RouCyWEPobj8eZZ1HwK
+	 oRZjpUQFI7PULRzoxF6tlyZDXdDlxWaqV+Mv7i1ZtVS5/ttX2iy/sDAWuHOqztxUlHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.216.50
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=QnnzrWAl;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ABD0606A335
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:24:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5ABD0606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3b0a519049aso889045a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:24:11 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793870651; x=1794475451;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=pdLSFARJtZZaOSy89wvFfnir+tkCHpND5r/hzAKJUn0=;
-        b=JBa7ugWwLksPmMz6rmBsiXSDJLsqzE+rZc9yv5xR7in73WD/mbV++DsATYzZpwEmhY
-         eAGPFtMMMo3MZ4cU53/YeU54UlNfaoYpGhZGaijshR2JAIoIO+50AEXaCG8/IfGH46Na
-         K1E84G+QNjcNPfjXNaYta9MS3ZgDy62jgtZ97XyfhMDhgJ0SF1UFNXUTvU6FDLzJ/xEA
-         s2DWvXFRjB9439WKxXRFC1wmdcleLoyoNNB8mTBRFASiLNv6DLBlaHEeLwyPw8Jeg4g2
-         WgY+9ZEmhyR0WwND5ZDVdv00Fz8LGGIvI88I02da+Cu3Jyv2nERegNGf04KHC3Td4/K5
-         1wtw==
-X-Forwarded-Encrypted: i=1; AKwUvBzq1tzV37KA/zskn9UjK7ZfaKVobRc6vSiphEHLVm2fRCvGwHd4LbshE19J+nFge++0PngDjiZEAjDk0EY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+V7rYJVIffRkTUZyfqrLwPlpOHOx1wigdrDfpI814W4PtBCX1u
-	yhCdki9PAGuxBizowhYrIzgx0SFlWpJjsp//R1KIvvLKcSeSvEbman/ln/1p6PSu2Os=
-X-Gm-Gg: AYBFou0puoskcmDQJB1UipzqCYP4D69v1KuRELn4myU6R0Nz4kEgIHSEhifSd78Jv0+
-	kQNWSP0xF7a+lpXswUB7I95ZFIGvwH1lwG45YIGS+O6cPnSVDDMCJugY7fW57bOgOLU5ZJIfvnm
-	FV8X8k3y3gnr8mtWW4g9EW8HXbvpDIrvDdiPdhilrT3LTjUrBRxnwdcIhMzisweTN2Zx8lfJWqa
-	Bi9piql1AwClL2DyN+cpKnUpdOYkEEZCIrzGhLBtA2kOHTAPPId00OSWowpOTd+g2z4fMiHcoUg
-	ufPWUjJTPwVVQabrM8bgI92QvNQj/wrBO90jMOuFqQG2YbMJoBGFM1TcNQkkzbCN+H39Pxe3GPx
-	ygrPl8tnA3kUs/D5BmGawmQ9XINWSsXtwEgegiwg2GdpcXEXcIvAPUKNKVJxnauiKeV7lANRQ6Y
-	48apuqAVjbidJGapPaHes5pOsPgnwqiReFo+MQNC14994jbwrRraJxhW2LcQP4gtlHo3Dq8cbJW
-	DwBo5n/+iPtzwuOAzkbAhaDFjnngChtalpz0ulAopQlKSiSk1JcEFyzolssG3g4g2QT7HKe5F2G
-	cm8HUh6IVshD8ayL+RgCzm7pBI44uCv0Mngk01e+saR8tXbWn0PVAfD6Fl0nFCTu
-X-Received: by 2002:a17:90b:3d4b:b0:3ad:eb4c:26fb with SMTP id 98e67ed59e1d1-3ae897c87acmr16215843a91.23.1793870650555;
-        Thu, 05 Nov 2026 01:24:10 -0800 (PST)
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com. [74.125.82.49])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0969b35c7sm3572859a91.3.2026.11.05.01.24.09
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 01:24:09 -0800 (PST)
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1a2af4c8d00so289651c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:24:09 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBypyxJy3SnZe6noVXVsWIr8UOzoQeh/uSSJ5cBo06MqwCQmjPwK9khUTmSfq4meUz5W9gvpFFtdN/laPrk=@vger.kernel.org
-X-Received: by 2002:a05:6102:3711:b0:7c8:1fd5:82b5 with SMTP id
- ada2fe7eead31-7d072695e4emr7033715137.14.1793870187629; Thu, 05 Nov 2026
- 01:16:27 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DA7D606A328;
+	Thu,  5 Nov 2026 09:24:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DA7D606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=QnnzrWAl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1793870643;
+	bh=oFWx0G4SNUn6EJg5WoDciGHt6BRaaIO/akfCKMdbA+E=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=QnnzrWAlzT1lm1vy146BWZIZpxIQXMief68D0NDiyCNQBm6055VQ23pHa/0bHlbjz
+	 VZtZ/k9ikQaSdMUS4DM/XuaWYoDamzsb6U+6kyiGNvv/CwhkS9ivWJ1mjLWK5/dLU5
+	 Vi7s+uYVPG2FFA34K59wxY8jql0DNjjj/Q1DoqueG8apAqu9iPslPTrAdUUWGlGO6K
+	 +UjVxOoZeVDdtLfLhBkudVJT4O5CTjZcqdvTQuBjRnfH79oOukhxLVgOD8s7VYwCM5
+	 rXq4/fpmLFEUfxTmJu+B0p7gSHSF1XfgS+tXG8EiB9knBcTvc0fyLUXDvW5+hioGoO
+	 NXYSCeasyKzNQ==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id DBDE617E05D6;
+	Thu, 05 Nov 2026 10:24:02 +0100 (CET)
+Message-ID: <21e22f14-38ef-4645-82c5-b8b520d93c48@collabora.com>
+Date: Thu, 5 Nov 2026 10:24:02 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,114 +61,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104152253.3279052-1-Frank.Li@oss.nxp.com>
- <b656861c-a087-4087-952e-91fd15fadd52@kernel.org> <auuZHTvr5UI9Q9Q4@ashevche-desk.local>
- <fbcb650d-0f60-468d-b1cc-255ea8a93db3@kernel.org> <auxF9RT5aljXkfh7@ashevche-desk.local>
- <auxGdYgJvjq9EBu6@ashevche-desk.local>
-In-Reply-To: <auxGdYgJvjq9EBu6@ashevche-desk.local>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 5 Nov 2026 10:16:15 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdUkzXMsv_4KHP20qidmH1B4Ew3=VuTJ8jqfqvx4_+pm4Q@mail.gmail.com>
-X-Gm-Features: AclHuK9751j09IKd6_4EIkqyFvn0FA5bsvqOYkEgIDax6KzLeXviQYPveqzIsxk
-Message-ID: <CAMuHMdUkzXMsv_4KHP20qidmH1B4Ew3=VuTJ8jqfqvx4_+pm4Q@mail.gmail.com>
-Subject: Re: [PATCH v2 1/1] spi: use dmaengine_desc_set_callback()
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Konstantin Ryabitsev <mricon@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Frank.Li@oss.nxp.com, Mark Brown <broonie@kernel.org>, 
-	Nicolas Ferre <nicolas.ferre@microchip.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
-	Radu Pirea <radu_nicolae.pirea@upb.ro>, CL Wang <cl634@andestech.com>, 
-	Ryan Wanner <ryan.wanner@microchip.com>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui <rjui@broadcom.com>, 
-	Scott Branden <sbranden@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Vladimir Oltean <olteanv@gmail.com>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>, 
-	Haibo Chen <haibo.chen@nxp.com>, Linus Walleij <linusw@kernel.org>, Daniel Mack <daniel@zonque.org>, 
-	Haojian Zhuang <haojian.zhuang@gmail.com>, Robert Jarzmik <robert.jarzmik@free.fr>, 
-	Heiko Stuebner <heiko@sntech.de>, Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Andi Shyti <andi.shyti@kernel.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, 
-	Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
-	Yixun Lan <dlan@kernel.org>, Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Alain Volmat <alain.volmat@foss.st.com>, Chen-Yu Tsai <wens@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Laxman Dewangan <ldewangan@nvidia.com>, Thierry Reding <thierry.reding@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Sowjanya Komatineni <skomatineni@nvidia.com>, 
-	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	"open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>, 
-	"moderated list:ARM/Microchip (AT91) SoC support" <linux-arm-kernel@lists.infradead.org>, 
-	open list <linux-kernel@vger.kernel.org>, 
-	"moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE" <linux-rpi-kernel@lists.infradead.org>, 
-	"open list:FREESCALE DSPI DRIVER" <imx@lists.linux.dev>, 
-	"open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>, 
-	"open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>, 
-	"open list:RENESAS RZ/V2H(P) RSPI DRIVER" <linux-renesas-soc@vger.kernel.org>, 
-	"open list:SAMSUNG SPI DRIVERS" <linux-samsung-soc@vger.kernel.org>, 
-	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>, 
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>, 
-	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>, 
-	"open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>, 
-	"open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>, 
-	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, Thierry Reding <treding@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] pinctrl: mediatek: Add MT8901/MT8971 ACPI driver
+To: Shubham Paralikar <shubham.paralikar@mediatek.com>,
+ Sean Wang <sean.wang@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+References: <20261105050535.2551413-1-shubham.paralikar@mediatek.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20261105050535.2551413-1-shubham.paralikar@mediatek.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, 5 Nov 2026 at 10:04, Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
-> On Thu, Nov 05, 2026 at 11:01:55AM +0200, Andy Shevchenko wrote:
-> > On Thu, Nov 05, 2026 at 12:02:21AM +0100, Krzysztof Kozlowski wrote:
-> > > On 04/11/2026 21:44, Andy Shevchenko wrote:
-> > > >> Andy,
-> > > >> These three lines look correct.
-> > > >>
-> > > >> LGTM:
-> > > >>
-> > > >> Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
-> > > >
-> > > > As
-> > > >
-> > > >   Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org> # atmel-quadspi
-> > > >
-> > > > Note, it's in your power to ask the author to split out what you maintain
-> > > > to a separate change. So, it's your choice what to do, Ack the full patch,
-> > > > give a partial Rb, ask for a split, ignore reviewing (often means silent
-> > > > agreement when maintainer just applies that kind of a patch)
-> > >
-> > > The "# note" after the tag solves the problem partially, if people were
-> > > actually using it. Solves people looking at the Git commit and being
-> > > mislead by partial review applying to entire commit. Does not solve
-> > > credits, because Rb for three lines is not the same as for 100.
-> > >
-> > > From v1 of this patch, four people (Alain, Lab, Troy, Kunihiko) did not
-> > > use it even though reviewing only part. Only Wolfram, so 20% of partial
-> > > reviews, used that syntax. Without that syntax, b4 will pick up Rb tag
-> > > like it was for entire commit.
-> > >
-> > > So I do repeat - if one does not want to use that syntax, then just Ack,
-> > > instead of creating false impression of reviewing everything.
-> >
-> > +Konstantin, then we need to teach `b4` not to break that or convert it to
-> > something like
-> >
-> >   [FirstName: reviewed only ...]
-> >   Reviewed-by: FirstName LastName <...>
->
-> And Ack is not the same as Rb, when I *reviewed* patch, I have *reviewed* it,
-> even if it was partial one.
+On 11/5/26 06:05, Shubham Paralikar wrote:
+> MT8901 and MT8971 are booted with ACPI firmware and both describe their
+> GPIO controller with the same _HID, NVDA9221. The existing MediaTek
+> Paris pinctrl drivers only probe from devicetree and pick their SoC
+> data from the match table, so neither SoC gets pin control, GPIOs or
+> EINT interrupts, and two per-SoC drivers could not both bind the one
+> shared HID.
+> 
+> Add a single driver, pinctrl-mt89xx, that matches NVDA9221 and selects
+> the MT8901 or MT8971 pin and EINT tables at probe time from the
+> "ChipId" property in the controller's vendor _DSD. That _DSD uses a
+> MediaTek UUID rather than the Device Properties UUID, so
+> device_property_read_u32() cannot read it; pinctrl-mtk-dsd evaluates
+> _DSD and walks the package directly. All four objects are linked into
+> one module, pinctrl-mtk-mt89xx.
+> 
+> Make the shared Paris, common-v2 and EINT code work on ACPI and with
+> these SoCs:
 
-Exactly.
+Okay, that's big, and ACPI is definitely welcome, but the implementation can
+be better.
 
-Ab means I won't take it through my tree, please take it through a
-different tree.
+> 
+> - paris: add mtk_paris_pinctrl_probe_soc() for drivers that pick the
+>    SoC data themselves. ACPI resources have no names, so map the pin
+>    register bases by resource index on ACPI. Register a GPIO range and
+>    request the ACPI _AEI event interrupts, and support
+>    PIN_CONFIG_BIAS_BUS_HOLD.
+> - common-v2: on ACPI, count the EINT banks from the MEM resources and
+>    take the IRQ from the platform device instead of from DT. Add
+>    reg_order[] field tables for SoCs whose per-pin registers sit at a
+>    fixed stride (MT8971), wake-event EINT lists and bus-hold bias
+>    (PU=1, PD=1).
+> - mtk-eint: add a skip list so the init-time mask sweep leaves
+>    firmware-owned EINTs alone (MT8971 EINT215, PROCHOT), and add the
+>    MT8901 debounce table. On SoCs with a wake-event mask (MT8901),
+>    unmask the event for the static event list at init and for EINTs
+>    armed through irq_set_wake(), mask it again when wake is disabled,
+>    and re-apply both on resume.
+> - MT8901: add EINT-only virtual GPIOs 182-208, such as the xHCI wake
+>    events, which firmware describes as GpioInt resources on this
+>    controller. Skip pinmux, direction and pinconf for them, and report
+>    debounce as unsupported on EINTs without debounce hardware.
+> - Add mtk_pinctrl_program_bias_by_gpio() in
+>    include/linux/soc/mediatek/mtk-pinctrl.h so client drivers can
+>    program pad bias by absolute GPIO number.
+> - gpio: declare acpi_gpiochip_request_interrupts() and
+>    acpi_gpiochip_free_interrupts() in linux/gpio/driver.h. MediaTek
+>    EINT provides .to_irq instead of a gpio_irq_chip, so gpiolib does
+>    not request the _AEI interrupts for this controller by itself.
+> 
+> Signed-off-by: Shubham Paralikar <shubham.paralikar@mediatek.com>
+> ---
+>   drivers/pinctrl/mediatek/Kconfig              |   14 +-
+>   drivers/pinctrl/mediatek/Makefile             |    3 +
+>   drivers/pinctrl/mediatek/mtk-eint.c           |  251 +-
+>   drivers/pinctrl/mediatek/mtk-eint.h           |   16 +-
+>   drivers/pinctrl/mediatek/pinctrl-mt8901.c     | 1437 +++++++++++
+>   drivers/pinctrl/mediatek/pinctrl-mt8971.c     |   58 +
+>   drivers/pinctrl/mediatek/pinctrl-mt89xx.c     |  102 +
 
-Gr{oetje,eeting}s,
+89xx? No wildcards please.
 
-                        Geert
+This can be pinctrl-mtk-acpi maybe?
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+>   .../pinctrl/mediatek/pinctrl-mtk-common-v2.c  |  252 +-
+>   .../pinctrl/mediatek/pinctrl-mtk-common-v2.h  |   43 +
+>   drivers/pinctrl/mediatek/pinctrl-mtk-dsd.c    |  140 +
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+DSD is an ACPI table... and this is a parser... I guess this can go in the
+pinctrl-mtk-acpi driver as well?
+
+I think that the best way to go here is:
+
+1. Have a pinctrl-mtk-acpi.c for all the ACPI specific handling, then
+2. MediaTek SoC specific driver should register themselves with NVDA9221 ID
+    and pass their own mtk_pin_soc pointer to pinctrl-mtk-acpi.c, so that the
+    pinctrl-mtk-acpi.c doesn't have an array of mtk_gpio_soc_table.
+
+Imagine what happens if we get 45 SoCs in there.
+
+This is the first and very important feedback that I can give you - everything
+else is about some code style and unnecessary dev_info that has to be turned in
+debug prints instead, but it's useless for me to go and actually do a careful
+review because I think the code will be changing a bit.
+
+>   drivers/pinctrl/mediatek/pinctrl-mtk-dsd.h    |   36 +
+>   drivers/pinctrl/mediatek/pinctrl-mtk-mt8901.h | 2296 +++++++++++++++++
+>   drivers/pinctrl/mediatek/pinctrl-mtk-mt8971.h | 1646 ++++++++++++
+>   drivers/pinctrl/mediatek/pinctrl-paris.c      |  144 +-
+>   drivers/pinctrl/mediatek/pinctrl-paris.h      |    6 +
+>   include/linux/gpio/driver.h                   |    5 +
+>   include/linux/soc/mediatek/mtk-pinctrl.h      |   43 +
+>   17 files changed, 6450 insertions(+), 42 deletions(-)
+>   create mode 100644 drivers/pinctrl/mediatek/pinctrl-mt8901.c
+>   create mode 100644 drivers/pinctrl/mediatek/pinctrl-mt8971.c
+>   create mode 100644 drivers/pinctrl/mediatek/pinctrl-mt89xx.c
+>   create mode 100644 drivers/pinctrl/mediatek/pinctrl-mtk-dsd.c
+>   create mode 100644 drivers/pinctrl/mediatek/pinctrl-mtk-dsd.h
+>   create mode 100644 drivers/pinctrl/mediatek/pinctrl-mtk-mt8901.h
+>   create mode 100644 drivers/pinctrl/mediatek/pinctrl-mtk-mt8971.h
+>   create mode 100644 include/linux/soc/mediatek/mtk-pinctrl.h
+
+soc/mediatek/mtk-pinctrl.h? No, no, no. Unless you strongly justify that, for me
+it's wrong in principle.
+
+Cheers,
+Angelo
