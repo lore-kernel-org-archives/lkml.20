@@ -1,75 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793922477;
-	b=bOYlIARKtnL3AK0bVnju/f5jRw1N3tnBuwKz6g3NzC4GQblVueh5TkGg8JthOgmwaYnQ
-	 QkiXoDLOSV2FUxywKVtZhTUL0YXs9DW9pRxX2IMR8uNNUPudUmghuy/CXsZlPB3MmLpPP
-	 gxT2Ok8/hizWWLDdByoTM8pkIlWJA/OArjWXBYKBDECi74ZkhCPTU78p5BRTwCZpUwfAn
-	 qFlyuWFQqhjNxa9D1vmVP/fB+hbd8XfUbB58DI/cXdxNd9h57AIfxynjrjFyrt1fAgwM/
-	 M0qd1Z7+/G4HWHlXRQLOYS2vueAZeDNEqgGf2vm1WX2YbQnf52xWe3XFStJB5/F3NCA==
+	t=1793922606;
+	b=xemLOdK1OJhgtKEwq9fRKNmzItvCIx2z7Un/3CkkGq5l8Ta+PI/xHE47mz6YUwD2kfbo
+	 1KA5KiH3a1y+Q/6WL8z3gv1NyJa+CB4AeUWRTqUssBF7C50Sm3m9oMy5F+oZOQHBNEts5
+	 5YoOpFRYzKB9mcKUR055YYeBXkC8Y/HGgwJpYlrllf4fAKJI4SutY/90Byr+Fz4k2vtFM
+	 je26LVVc/DO0ZoXV67YbLo6Ae6HrgC4iBMeotgk+EXXrn4Gwpr7YYhSpBMNww1wtn+fGt
+	 mUX8C+RA/wYHVG4mTbgvtfsI6OP/63wwhGwbL3NBWXJLIs1W0CMnFV6UXgEDhI7WAnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793922477;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Developer-Key:X-Developer-Signature:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=LEEA2Tm4kPEuiFuwPm6vN9ZoPvkNTxKJCKru87/Ki1Y=;
-	b=J0EA1X6wJxdj11l/liDykeh8ASX67LG6pF2KnQIOLJYyLSzh7+1lNUcWQAZ9kH9aShJZ
-	 SIQb61phnRLqxK2SFF20cum9695JtWrdLaAW1cVaZlbqYat8SLvIfVryYwLt7irFzODyA
-	 WcPjzWuoXMqJthqllalc371ZKVS8vTxUpJhMoW955dK+1OCqXEudhDtMxxI6yj47iRRNK
-	 qktyRWBOCdpz9wkkCE3CZVJCZyBqpoQt12CrRuoECxSO0nZLk6xLPnWG06UBcVvX9Xk9O
-	 g3Wtititqsmo2lVb61yQJ05O/Z27EGtI7H3NF+FaGhEyMrh8FmqKAVuv+2ToXbdRoIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793922606;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=7iiR35x4lGpNQ0avK+S/KIS1SfMoxbs/VtZHBn/dnVM=;
+	b=f9RtWqELcyQXq80KF248//coKJbkfocLnRKvO3J7W1MZm0vtDyxIo7fUKSwLOIpeJeq7
+	 c1hgwAbyy+scBbmSgAhssnvPs4FSq35qGQisw1zOfoK4RmU9bC6Nv2J7HHfnydfr0CO09
+	 2byFYbLofp153szL+gxLoSXNQZ4miD0VHHkXSFbe8lNhlzWsZPqE5Amu27Dt+uexmkCeA
+	 a6OPGA68REg8eVl9CRSfnPOAjVdhcZE+2eauKamqWwy03TNgDtma30CxzB+xVR6rACBA4
+	 mMLoJgJ4DodvCD+ixLzS9YaPJqcOU78h6L4BPNcPFHAhWVQgfCF+pMiK8uX/v90epFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--wyihan.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mkBDJPnB;
-	arc=none smtp.remote-ip=209.85.216.70
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R7keFfd2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F1606083601
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 23:47:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F1606083601
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wyihan.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0073606A31B;
+	Thu,  5 Nov 2026 23:50:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mkBDJPnB
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ad30487d55so139863a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:47:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793922477; x=1794527277; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LEEA2Tm4kPEuiFuwPm6vN9ZoPvkNTxKJCKru87/Ki1Y=;
-        b=mkBDJPnBpOJI7ZDHZ/cokPtxysCsyUsPC+CEi3TMzsQdSEL3aY8+epwkW5mNfiSki1
-         e3qpVaCtWJc0QwQelZ69DrbxtExBsz+i33uiLdGM8zHOjj7ce4LOTXTEhB4W8dD0OU8q
-         Nj1sslqEzmpMWJ0W91ReP7ac2RPN8f8oikM8NJjSD/4ZAB0HpxX7dQ9/rrVSm2xIIJsm
-         PkBhERn3pkBdd04ux5FfZ+t474l/kX6amyalyQenAKxTRK0zE03eALcjjcvVhEGh3VBX
-         Zjhwyz1SSlAGmfw2FXrfhI+T0VhvTXwkHev7Ne6Zfa+ETw1IdLwX22mBAlkO0RFsDSHu
-         Xupg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793922477; x=1794527277;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LEEA2Tm4kPEuiFuwPm6vN9ZoPvkNTxKJCKru87/Ki1Y=;
-        b=lu8aJBbmVABf8bfZ+IIlxUeCo9IUtU2467HIVyZWjF3N4z4y3ztOUniHxho5ur3AdT
-         N81u/fcw1zqOxyi5eyz+nGN+5S1ssM2Qj6cb2al+tR7KiXeAT1B7ENDAeHe8Y6KRbdZN
-         CapAGA0MMfJXRF50G0SCBev9iht4m2swIZ4RHI/+27pxpDCWX/DIGmQBtq38ay65h/pe
-         0k2K1GNDY2B21MNh2osYZNKMbugLa65CZH5ersdxOuPrQl8Rh8v5F6QdYL38yYSW/C7/
-         HdKWrKSL0aUtSxSyUS37LLTqABVUK644epC4o5SRZa5iCMMO1gUkP4z30XCKgCflHeN4
-         3YzA==
-X-Forwarded-Encrypted: i=1; AKwUvBx0xtx6SYc9Gm4VvHyaDVq0s0JkVGQgpexCf6qnqCwkKdsvXAbBzDpPg85TcXSOLHx8qZPjQ+Tq3vIKE7Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+nPG/Fvo3ugMVrkNbztCV5331fdZEzQ+1spiiEFv80xg4eUXOH
-	QnfkW4QSI5sJkkHvnUhBHmcZWrgrav0KYpMs1y7kbQD2mcA2aQUM78gIUEqv9wgjGnHT/+ncBpC
-	qqsOANw==
-X-Received: from pjbkl7.prod.google.com ([2002:a17:90b:4987:b0:3b0:98dd:7ee1])
- (user=wyihan job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4a10:b0:3b0:a38a:6715
- with SMTP id 98e67ed59e1d1-3b0db7109dfmr651139a91.59.1793922476377; Thu, 05
- Nov 2026 15:47:56 -0800 (PST)
-Date: Thu, 05 Nov 2026 23:46:59 +0000
-In-Reply-To: <20261105-tdx-selftests-v16-0-2024e8fa517a@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R7keFfd2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A7E91F0089F;
+	Thu,  5 Nov 2026 23:50:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793922605;
+	bh=7iiR35x4lGpNQ0avK+S/KIS1SfMoxbs/VtZHBn/dnVM=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=R7keFfd2mAjnWwzITb8UnetvkolU7SeLPQKiZ/wHTFAu+Z7TdhpwuZHcBNnU9O++x
+	 qhTl8dO2dCuqkw3QOmJTTVLNXwHOv2DLOetJF7dL3LStaB4uy/DYXP3RPNXAS7+6v8
+	 o28/pPrWz0LAObfWBRhkU41d0q4h79bPNnc6lW81XjtRIRBX8QiLVtgdEfGnKt2icI
+	 QVzf3Zt3lZeUWHRJZLVlg5vCCtwMBesth9v5YxfGPbAbB7ykUVybKGZELTIJNhycD4
+	 YFxBvPXOYpRuFMdmLeDpzCSMBCsLzRw2cu2rCcUjLgB1X/ABrRmSCwsBhA1xEgbPIu
+	 rlZ9tdtTegjsw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5E1D6391B1AB;
+	Thu,  5 Nov 2026 23:50:05 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,147 +52,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261105-tdx-selftests-v16-0-2024e8fa517a@google.com>
-X-Developer-Key: i=wyihan@google.com; a=ed25519; pk=cRi0fKzS5BMxlHyHY2pJv3w/1zcgfYKr6EYGYppdMYc=
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793922452; l=4183;
- i=wyihan@google.com; s=20260319; h=from:subject:message-id;
- bh=1fvLyz4z13NOla+r1Hs/PHs9uu0rmBs1fjzBUkzz5ls=; b=URFC8RL1z2/ZNFCgOd5qDDtoX2nyoFhNLaevMBRotwPmJ5vC3rmXdQQwK9H2ZBcga0vYT5Ufu
- 8WbXpQfFQ8iAhgNsNuFnDerSLmV+oaqLomuf/g5u2c9ub0IXp/b6CX+
-X-Mailer: b4 0.14.3
-Message-ID: <20261105-tdx-selftests-v16-15-2024e8fa517a@google.com>
-Subject: [PATCH v16 15/20] KVM: selftests: Add helpers to init TDX memory and
- finalize VM
-From: Lisa Wang <wyihan@google.com>
-To: Andrew Jones <ajones@ventanamicro.com>, Ackerley Tng <ackerleytng@google.com>, 
-	Binbin Wu <binbin.wu@linux.intel.com>, Chao Gao <chao.gao@intel.com>, 
-	Chenyi Qiang <chenyi.qiang@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Erdem Aktas <erdemaktas@google.com>, Ira Weiny <iweiny@kernel.org>, 
-	Isaku Yamahata <isaku.yamahata@intel.com>, Kiryl Shutsemau <kas@kernel.org>, 
-	linux-kselftest@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, 
-	"Pratik R. Sampat" <pratikrajesh.sampat@amd.com>, Reinette Chatre <reinette.chatre@intel.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Roger Wang <runanwang@google.com>, 
-	Ryan Afranji <afranji@google.com>, Sagi Shahar <sagis@google.com>, 
-	Sean Christopherson <seanjc@google.com>, Shuah Khan <shuah@kernel.org>, Xiaoyao Li <xiaoyao.li@intel.com>, 
-	Oliver Upton <oupton@kernel.org>
-Cc: Jeremiah McReynolds <jmcrey@google.com>, kvm@vger.kernel.org, linux-coco@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, x86@kernel.org, Lisa Wang <wyihan@google.com>, 
-	Ira Weiny <iweiny@kernel.org>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2] net: ipa: Drop unused qmi_elem_info arrays
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179392260418.243275.9113410895242562474.git-patchwork-notify@kernel.org>
+Date: Thu, 05 Nov 2026 23:50:04 +0000
+References: <20261102123653.151700-2-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20261102123653.151700-2-krzysztof.kozlowski@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, elder@riscstar.com
 
-From: Ackerley Tng <ackerleytng@google.com>
+Hello:
 
-TDX protected memory needs to be measured and encrypted before it can be
-used by the guest. Introduce tdx_load_private_memory() to traverse the
-VM's memory regions and initialize all protected ranges by calling
-KVM_TDX_INIT_MEM_REGION.
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-Once all initial private memory is initialized, the VM can be finalized
-by calling tdx_vm_finalize(), which invokes KVM_TDX_FINALIZE_VM.
+On Mon,  2 Nov 2026 13:36:54 +0100 you wrote:
+> 'ipa_mem_array_ei' is not used anywhere, so can be dropped completely.
+> 'ipa_mem_bounds_ei' and 'ipa_mem_range_ei' are not used outside of their
+> units, so they can be narrowed to file-scope.
+> 
+> Reviewed-by: Alex Elder <elder@riscstar.com>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> 
+> [...]
 
-Co-developed-by: Erdem Aktas <erdemaktas@google.com>
-Signed-off-by: Erdem Aktas <erdemaktas@google.com>
-Co-developed-by: Sagi Shahar <sagis@google.com>
-Signed-off-by: Sagi Shahar <sagis@google.com>
-Co-developed-by: Lisa Wang <wyihan@google.com>
-Signed-off-by: Lisa Wang <wyihan@google.com>
-Signed-off-by: Ackerley Tng <ackerleytng@google.com>
-Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-Reviewed-by: Ira Weiny <ira.weiny@intel.com>
-Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
----
- .../selftests/kvm/include/x86/tdx/tdx_util.h       |  3 ++
- tools/testing/selftests/kvm/lib/x86/tdx/tdx_util.c | 61 ++++++++++++++++++++++
- 2 files changed, 64 insertions(+)
+Here is the summary with links:
+  - [v2] net: ipa: Drop unused qmi_elem_info arrays
+    https://git.kernel.org/netdev/net-next/c/303d91a15925
 
-diff --git a/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h b/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h
-index 1cc876891589..67e717521409 100644
---- a/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h
-+++ b/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h
-@@ -74,4 +74,7 @@ void tdx_vm_load_common_boot_parameters(struct kvm_vm *vm);
- void tdx_vcpu_init(struct kvm_vcpu *vcpu);
- void tdx_vcpu_set_entry_point(struct kvm_vcpu *vcpu, void *guest_code);
- 
-+void tdx_load_private_memory(struct kvm_vm *vm);
-+void tdx_vm_finalize(struct kvm_vm *vm);
-+
- #endif /* SELFTESTS_TDX_TDX_UTIL_H */
-diff --git a/tools/testing/selftests/kvm/lib/x86/tdx/tdx_util.c b/tools/testing/selftests/kvm/lib/x86/tdx/tdx_util.c
-index 324f3c41aa61..ea40bd51530d 100644
---- a/tools/testing/selftests/kvm/lib/x86/tdx/tdx_util.c
-+++ b/tools/testing/selftests/kvm/lib/x86/tdx/tdx_util.c
-@@ -1,5 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-only
- 
-+#include <linux/align.h>
- #include <linux/sizes.h>
- 
- #include "processor.h"
-@@ -237,3 +238,63 @@ void tdx_init_vm(struct kvm_vm *vm)
- 
- 	free(init_vm);
- }
-+
-+static void tdx_init_mem_region(struct kvm_vm *vm, void *source_pages,
-+				u64 gpa, u64 size)
-+{
-+	u32 flags = KVM_TDX_MEASURE_MEMORY_REGION;
-+	struct kvm_tdx_init_mem_region mem_region = {
-+		.source_addr = (u64)source_pages,
-+		.gpa = gpa,
-+		.nr_pages = size / PAGE_SIZE,
-+	};
-+	struct kvm_vcpu *vcpu;
-+
-+	vcpu = list_first_entry_or_null(&vm->vcpus, struct kvm_vcpu, list);
-+
-+	TEST_ASSERT(size && IS_ALIGNED(size, PAGE_SIZE),
-+		    "Cannot add partial pages to the guest memory.");
-+	TEST_ASSERT(IS_ALIGNED((u64)source_pages, PAGE_SIZE),
-+		    "Source memory buffer is not page aligned");
-+	tdx_vcpu_ioctl(vcpu, KVM_TDX_INIT_MEM_REGION, flags, &mem_region);
-+}
-+
-+void tdx_load_private_memory(struct kvm_vm *vm)
-+{
-+	struct userspace_mem_region *region;
-+	int ctr;
-+
-+	hash_for_each(vm->regions.slot_hash, ctr, region, slot_node) {
-+		const struct sparsebit *protected_pages = region->protected_phy_pages;
-+		const gpa_t gpa_base = region->region.guest_phys_addr;
-+		const u64 hva_base = region->region.userspace_addr;
-+		const sparsebit_idx_t lowest_page_in_region = gpa_base >> vm->page_shift;
-+		void *source_pages = NULL;
-+		sparsebit_idx_t i, j;
-+
-+		if (!sparsebit_any_set(protected_pages))
-+			continue;
-+
-+		TEST_ASSERT(region->region.guest_memfd != -1,
-+			    "TD private memory must be backed by guest_memfd");
-+
-+		sparsebit_for_each_set_range(protected_pages, i, j) {
-+			const u64 size_to_load = (j - i + 1) * vm->page_size;
-+			const u64 offset =
-+				(i - lowest_page_in_region) * vm->page_size;
-+			const u64 hva = hva_base + offset;
-+			const u64 gpa = gpa_base + offset;
-+
-+			if (!kvm_has_gmem_attributes)
-+				source_pages = (void *)hva;
-+
-+			vm_mem_set_private(vm, gpa, size_to_load);
-+			tdx_init_mem_region(vm, source_pages, gpa, size_to_load);
-+		}
-+	}
-+}
-+
-+void tdx_vm_finalize(struct kvm_vm *vm)
-+{
-+	tdx_vm_ioctl(vm, KVM_TDX_FINALIZE_VM, 0, NULL);
-+}
-
+You are awesome, thank you!
 -- 
-2.56.0.455.g6c5a503b38-goog
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
