@@ -1,49 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793868272;
-	b=nbwl9krz7udZ4Oxn5BjOR6Tm/hzLAPTn+XSls4UJI+9xtyyYF3oAI2xobUak1KVsPbsf
-	 vlD35z1gk08g5doFDVBRfT/QvwgX8OKIDWBMOqUqoXWccX4cH3P0yM2G6O1kH7CbzMrF+
-	 FKh9gboiw98H4qgiqY8W4PhMTIN7qU70KhsFd7UoRg7uglLuf5pCf0tGWsc3KUjlFQq8k
-	 h2AjqPPP//WTlkFEL/VKaq2fVwVKdpWlXhLGESTNNodOsymS5Dojf2pXen0JiHkheRAor
-	 +fr79Jcjs8Ptp2SEruu8a6qverLj15YI5crD/oQZnQBrobXzcQxezvOw7olSME78lHw==
+	t=1793868277;
+	b=Al2ULwBmE5mFv8AZ1MD8mLoDOYwKq3ZOLn0HcpFrWBlGg4xabODhPJSeqtUg9j6kNR44
+	 eSGeGUDX+MmdL8jgEhRhhtv8oKqDtn9e71eYTYPosebugGk4ypj9QrIjp+xer7i8Pc85L
+	 FZs2RjVf4SAqkrdCQRbIf606D3AntfT74sX/PCj1TgLnL/j0b3n0mdcU3/O14oOLO+klT
+	 VQStlch884EMpD21I5VYm42JZQXSCRc+OfMPS5ryqUQkYTB5yTN7FEATD0yws+787601w
+	 8j97vHAMBnFZzx32ts8gIiqsX2BBeSnLyqYXKjBoQ1sxyX3S4cjXxRDH/RgY6uJctyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793868272;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer;
-	bh=BJRLNNmJfikXOgBL5Y+Y26aKpB5dn+CgY+okcx//Lv8=;
-	b=y3+skQqRtuErtRgWzo6Agg5JfcyLcax/1isfdKMMBDYY8yQvPuhvh01Bg6Gb1wCDD6vb
-	 m0WfzhmoPsrjhh9+7kVzISv9iDUBoDVAl7wcKTiQAiTVxj9XGsgKZ2+5uFbXbWUyXkzpO
-	 3RcBqNneCGbzBf+yFrHA4lNmu6vhNtmD38Ym+YkS3NGyuiYfMa5ylHSUFRE18NGkcqCth
-	 9HZ4zSFJGjUjweFakagKLOscPFF/6H4QG0PafEb8srCoXv8mwxeTIIpHcmaugPsxZtiR8
-	 sRJb3DYfSbWToFQYtH4XXuGXz3quSEe1xdYbLb2elOE5vKJKZnZ0VrqlovNDCcUbxgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793868277;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=H47SyQm6XOF9+D0wTu3wJ2QVExzRbX0luU1OhEL59YE=;
+	b=S2Z7muvx97wAQR0CCGnCjmf74znppYPQ9pqLMopXVzfc+R03uQvPiJHhjWpMq6eixvQ2
+	 G5QndSUaZNvSkSRZPLD/4UPbvdA79A3bRHRGoyjHHZWQVcM7XD0nheLjO8I1Pl1VY+MVW
+	 5dY741aTECmc0O8NMyCGqplcA265XBVwk1YEuWhJ2OIfa5x8DwfKPg8Jrzd8nkpMdemGC
+	 M4NQHIzAcjI2FO1Er6jk+HIkrcLHuE5rbk6XT61QyAkb7wVBSzhIZksElB108zHFHTyEi
+	 ShwErKJfqOooEl6UxFI4FM2c+FJ42A9ZhjxeITwkO0FVJott6vIqT7y29FfrHPcf9sA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QEd3CURb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S+q1xpCh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8497F606A336
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:44:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F1C606A338
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:44:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QEd3CURb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B54A1F00A02;
-	Thu,  5 Nov 2026 08:44:28 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S+q1xpCh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47CC21F00A02
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:44:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793868272;
-	bh=BJRLNNmJfikXOgBL5Y+Y26aKpB5dn+CgY+okcx//Lv8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=QEd3CURbZ1esykt5LXMmEU3mwfK3EPhyW4UmuoNSMMCIN8OxCLQbdK870kStRfTnO
-	 QMMsFWLj8laFl6eA49dxZKYC1ULRf1t2E24GpHMErTIuoqYLvmllXe/IVm1KklhF7U
-	 bfdtqxYIdhutvs4jwZ/U0mQyCQ238T4Fp9Wp1RN6sIrFrCMEfuiaTFbwYe5RiGTnjP
-	 Polc3flX5ZMI0pt6pblTm11jZOj5//4eIDS+pYy9b5FZ3INDYpAzhGAgGY2UJrbt67
-	 s88iZHrYv7r4GY/HEMwsqZRk36NKW9mINCO3d2goF5qhaJeZwMrWEWENLTETQJZqV0
-	 z6OxSufCJlS6A==
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Date: Thu, 05 Nov 2026 09:43:59 +0100
-Subject: [PATCH v3 10/10] mm, slab: deprecate CONFIG_SLUB_TINY and reduce
- its Kconfig effects
+	s=k20260515; t=1793868277;
+	bh=H47SyQm6XOF9+D0wTu3wJ2QVExzRbX0luU1OhEL59YE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=S+q1xpCh7hTsizY2yWhWEm3POUTJQoVDIHwB3V12Zl9GnCYkeC/mMg+NsI9aleUWP
+	 a9EvW6hCuw5e4vxtZAQpdGQC8KcO5QjYpN9qOFNC47rbDAgVRSTzXt2aL5h/JjOmSX
+	 ScXmqb2AXpBy9PW8riJtaeq7kFEaIZsAJi9cC54v89CQfwtM1mobNFYSCsdU8+gPwx
+	 OdNTuobaRUj28RBs5hify13XGz/c+GnzP9bzZ93wyHLhgVK7TYHNHyrwUB6ndrrFP5
+	 NWSQF9o/0nqt/b3fqDzb7RTUo6xHN0L3nB4cApEU0jtqzywsAx0BQY0fNd0AVCJG5+
+	 wZXtdkMS1iOJA==
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5bcb0f245e0so1508735e87.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:44:37 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwubu4HEgPpCVxunisuFY7CDkonGlr4JkXIJXwDUeKH0Z4GVV8vFk/MpPN70YqP2m93MsBJDoMiT3DeHmc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/0zs1B2QV9fLfNd3o0q3HZU83R8/xjHdFlh9zk41LpseoOFmaK
+	a1a7lSUekRzDV0/YsHpDOAyscLODEstHsvRhcfkY8/iPCra44NtE8N56ZypvAaDo/l/jVZ4WEU0
+	vxXbOhluU8etydIK3wftjGk8nUYT/Ys8=
+X-Received: by 2002:a05:6512:1111:b0:5be:5209:9f1e with SMTP id
+ 2adb3069b0e04-5bfd9560832mr6000618e87.19.1793868276115; Thu, 05 Nov 2026
+ 00:44:36 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,146 +59,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-slub_tiny_rework-v3-10-0484ce59eabb@kernel.org>
-References: <20261105-slub_tiny_rework-v3-0-0484ce59eabb@kernel.org>
-In-Reply-To: <20261105-slub_tiny_rework-v3-0-0484ce59eabb@kernel.org>
-To: Harry Yoo <harry@kernel.org>, Andrey Ryabinin <ryabinin.a.a@gmail.com>
-Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
- David Rientjes <rientjes@google.com>, 
- Roman Gushchin <roman.gushchin@linux.dev>, 
- Geert Uytterhoeven <geert@linux-m68k.org>, Conor Dooley <conor@kernel.org>, 
- Damien Le Moal <dlemoal@kernel.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, Alexander Potapenko <glider@google.com>, 
- Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
- Vincenzo Frascino <vincenzo.frascino@arm.com>, kasan-dev@googlegroups.com, 
- "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-X-Mailer: b4 0.16.0
+References: <20261103-i2c-nomadik-fixes-v1-0-655c6af2cb70@mobileye.com> <20261103-i2c-nomadik-fixes-v1-8-655c6af2cb70@mobileye.com>
+In-Reply-To: <20261103-i2c-nomadik-fixes-v1-8-655c6af2cb70@mobileye.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 5 Nov 2026 09:44:24 +0100
+X-Gmail-Original-Message-ID: <CAD++jLnLz_Y_W3Yg13WNntN=iy8tzxAWN4Z0rr5YnO2QfYdrCg@mail.gmail.com>
+X-Gm-Features: AclHuK_DuZ25j9_4w6ziN20_9JjToRWYCmaLaXk3QmbA1dnJxgT3Zd7fLk7HDIs
+Message-ID: <CAD++jLnLz_Y_W3Yg13WNntN=iy8tzxAWN4Z0rr5YnO2QfYdrCg@mail.gmail.com>
+Subject: Re: [PATCH 8/8] i2c: nomadik: reduce FIFO flush timeout to avoid long
+ interrupt handling
+To: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>, 
+	srinidhi kasagar <srinidhi.kasagar@stericsson.com>, Ben Dooks <ben-linux@fluff.org>, 
+	Andrea Gallo <andrea.gallo@stericsson.com>, linux-i2c@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-At this point CONFIG_SLUB_TINY only affects the default value of
-slab_tiny_enabled which has a boot-time parameter. Thus deprecate it in
-the Kconfig description.
+On Tue, Nov 3, 2026 at 9:30=E2=80=AFAM Dmitry Guzman <Dmitry.Guzman@mobiley=
+e.com> wrote:
 
-Also remove its interactions with other Kconfig option, as they are not
-necessary:
+> In flush_i2c_fifo(), the driver sets FTX and FRX flags and waits until
+> they are reset (these bits are self-clearing). If after the first read
+> one or both of these bits is set, it waits until both are reset. The
+> timeout is 10 * I2C transfer timeout. I2C transfer timeout is by default
+> 200 milliseconds. 2 seconds are much more than needed: as stated in the
+> comment above, the flushing operation takes just several cycles before
+> completed.
+>
+> flush_i2c_fifo() is called from init_hw() that may be called from
+> interrupt handler. So, if the I2C controller is stuck and the FIFO does
+> not get flushed, the CPU may spend up to 2 seconds in the interrupt
+> handler and cause watchdog timeout or other unwanted consequences.
+> Moreover, if the interrupt is handled by the same CPU core that updates
+> jiffies, the loop may not finish at all.
+>
+> To avoid too long waiting, reduce the timeout to 100 microseconds and
+> use read_poll_timeout_atomic() instead of relying on jiffies.
+>
+> Fixes: 3f9900f17cdb ("i2c: Add support for Ux500/Nomadik I2C controller")
 
-- KASAN, SLUB_DEBUG or SLUB_STATS support do not need !SLUB_TINY
+Is it really "fixing" that? I don't know if I agree that this is an error
+in the initial submission in 2010...
 
-- KVFREE_RCU_BATCHED can simply depend on !TINY_RCU
+>
+> Signed-off-by: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
 
-- various hardening options do not need to be excluded, although it's
-  unlikely that somebody would enable those with extra memory overhead
-  together with slab_tiny
+Surplus newline above? Maintainer can remove it when applying.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-- SLAB_MERGE_DEFAULT does not need to be selected, although it's likely
-  to be used together
-
-Keep the "depends on EXPERT && !COMPILE_TEST" as there's no point making
-the deprecated option more visible.
-
-Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
----
- lib/Kconfig.kasan |  2 +-
- mm/Kconfig        | 16 +++++++---------
- mm/Kconfig.debug  |  2 +-
- 3 files changed, 9 insertions(+), 11 deletions(-)
-
-diff --git a/lib/Kconfig.kasan b/lib/Kconfig.kasan
-index a4bb610a7a6f..f20b574f6653 100644
---- a/lib/Kconfig.kasan
-+++ b/lib/Kconfig.kasan
-@@ -49,7 +49,7 @@ menuconfig KASAN
- 		     (HAVE_ARCH_KASAN_SW_TAGS && CC_HAS_KASAN_SW_TAGS)) && \
- 		    CC_HAS_WORKING_NOSANITIZE_ADDRESS) || \
- 		   HAVE_ARCH_KASAN_HW_TAGS
--	depends on SYSFS && !SLUB_TINY
-+	depends on SYSFS
- 	select STACKDEPOT_ALWAYS_INIT
- 	help
- 	  Enables KASAN (Kernel Address Sanitizer) - a dynamic memory safety
-diff --git a/mm/Kconfig b/mm/Kconfig
-index afff1b25b543..ec91a4cc6c83 100644
---- a/mm/Kconfig
-+++ b/mm/Kconfig
-@@ -167,16 +167,18 @@ config SLUB
- 
- config KVFREE_RCU_BATCHED
- 	def_bool y
--	depends on !SLUB_TINY && !TINY_RCU
-+	depends on !TINY_RCU
- 	depends on !RCU_STRICT_GRACE_PERIOD
- 
- config SLUB_TINY
--	bool "Configure for minimal memory footprint"
-+	bool "Enable slab_tiny by default"
- 	depends on EXPERT && !COMPILE_TEST
--	select SLAB_MERGE_DEFAULT
- 	help
-+	   Deprecated option that enables the slab_tiny boot parameter by
-+	   default, and can be overridden by booting with slab_tiny=0.
-+
- 	   Configures the slab allocator in a way to achieve minimal memory
--	   footprint, sacrificing scalability, debugging and other features.
-+	   footprint, sacrificing scalability.
- 	   This is intended only for the smallest system that had used the
- 	   SLOB allocator and is not recommended for systems with more than
- 	   16MB RAM.
-@@ -199,7 +201,6 @@ config SLAB_MERGE_DEFAULT
- 
- config SLAB_FREELIST_RANDOM
- 	bool "Randomize slab freelist"
--	depends on !SLUB_TINY
- 	help
- 	  Randomizes the freelist order used on creating new pages. This
- 	  security feature reduces the predictability of the kernel slab
-@@ -207,7 +208,6 @@ config SLAB_FREELIST_RANDOM
- 
- config SLAB_FREELIST_HARDENED
- 	bool "Harden slab freelist metadata"
--	depends on !SLUB_TINY
- 	help
- 	  Many kernel heap attacks try to target slab cache metadata and
- 	  other infrastructure. This options makes minor performance
-@@ -216,7 +216,6 @@ config SLAB_FREELIST_HARDENED
- 
- config SLAB_BUCKETS
- 	bool "Support allocation from separate kmalloc buckets"
--	depends on !SLUB_TINY
- 	default SLAB_FREELIST_HARDENED
- 	help
- 	  Kernel heap attacks frequently depend on being able to create
-@@ -234,7 +233,7 @@ config SLAB_BUCKETS
- config SLUB_STATS
- 	default n
- 	bool "Enable performance statistics"
--	depends on SYSFS && !SLUB_TINY
-+	depends on SYSFS
- 	help
- 	  The statistics are useful to debug slab allocation behavior in
- 	  order find ways to optimize the allocator. This should never be
-@@ -245,7 +244,6 @@ config SLUB_STATS
- 	  Try running: slabinfo -DA
- 
- config KMALLOC_PARTITION_CACHES
--	depends on !SLUB_TINY
- 	bool "Partitioned slab caches for normal kmalloc"
- 	default RANDOM_KMALLOC_CACHES
- 	help
-diff --git a/mm/Kconfig.debug b/mm/Kconfig.debug
-index 9ae75229c76d..1c43b6aeac9f 100644
---- a/mm/Kconfig.debug
-+++ b/mm/Kconfig.debug
-@@ -48,7 +48,7 @@ config DEBUG_PAGEALLOC_ENABLE_DEFAULT
- config SLUB_DEBUG
- 	default y
- 	bool "Enable SLUB debugging support" if EXPERT
--	depends on SYSFS && !SLUB_TINY
-+	depends on SYSFS
- 	select STACKDEPOT if STACKTRACE_SUPPORT
- 	help
- 	  SLUB has extensive debug support features. Disabling these can
-
--- 
-2.56.0
-
+Yours,
+Linus Walleij
