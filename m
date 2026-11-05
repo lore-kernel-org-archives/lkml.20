@@ -1,57 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793838991;
-	b=2w4FNCyiUdnObQ42Bjp6dAeYbwTwj1L4bdyh0b1wj8VWJiATRuevDJWQ13P8ybR+ogDC
-	 F908HO4/+1E+rUtsxkv5HrY06Fq45TyAgPwhSvb736dvsKpUjPYGPk1lrMjZmPmL9xmI5
-	 5BWexzTzQcrlFnyPdb24kAzQPxSBMsG718aqFH523mYkmUxqSgU/wPRu76gss8rgVBMaN
-	 yPhLkbZTM111565m+qlbY5PLSZgToVIcF7ugcCcNXL3RwgByY7CfoeeiQgAfM12Xsrub6
-	 RrcYj349kob3fpRTuAX3ZQBN5CHDWdYYrzHk0my9MLe/gYxnK0HfYjPTtPAjBP/WQpQ==
+	t=1793839075;
+	b=SHRrr0kp+MoT+eBVFib0tRUgNa2NjYw3SbeoU1lXLqgnuJ2yYhJ3QjWdBmDPyysOzMWj
+	 1l83y4rp6Jba0cXWEkjGcwZUqBAb9rpNCTtT/6g2KAIQLvk9Vdss8LX0znunmTDpLK6qn
+	 swW+SSfhi/DfL8kJOpRmMERldquVNaJQ6OWBCqRKj5hQAuqiurr+TR5m0VXG66da7yH1C
+	 ZBKUbA9tzLUpod8xKqdUJpRRtaI4UAzzquGVTf3oZRC4LG+WPERdPELRfPLh6S+8+AyP7
+	 KmO7lwwDGzLvze2QQ1BMB45opr57TEclisNbTcAGlgtRi3lpD6yEF7fV5Lh7rcrH0Lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793838991;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=3iNCC6xLWWcFyrcMl4HD2CdXqo+pD0srI7x5T7EPMmM=;
-	b=EUO8k3x/lOAdUJPxC2x04mWw5u24XbrWVxjaIkNMbeVKuQFPrdwFfEzOBinvYC2V53j5
-	 ijcKos9RqM+PxrRtcrfHjBRikBK1xP/L5qubjb5nXPrLWlLUr7+KAYkrmG/BqlGHglysq
-	 IE06dudLP58NlDIBGcmQMePiXyj7Q77U/FLi3Dcj1cIgdd8HcjRaOal1qRyIQyFw+ciD/
-	 5hQE3EwZZMPOr01fSGBMyg6QzU/9E4/rK0BwJ4y2YjarWupNUPmdv1Zc7w21/YtkoXQ7B
-	 vrnG3/CSG4cndwE226EguGIkPViNZhhj/JecUXVHC9NYULLUQ/xqvqdlmuWYMS6JGkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793839075;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=Vpb41zcJVGYE44AvbnXqBZTI4bGUMjrzPqgcCq7kR3A=;
+	b=5FswIVjMWNiC+O6qe3U9oEJbrx4EbflG60PlFl03QDhee8ClYAAbF7jcPCKMMPfwJ+WH
+	 /+83qmpA4RCD1a7qZuSAYq1Ah4Ti/8VFBSmGIFMulTocBmnhaHHMBEweUDcrZrUvcT4i3
+	 wiZkQyCZtPA1Fahy3R0XGiGJgfOFOwe3amZoLpaSbTfv4/xWnDWXvuR8GzxTZFz0W3Ogs
+	 KZy1BqElfxdODU6Yj4i75wVtN9Y02t/ij59urHp81W5EbhcFzYoV77CsfM4Rl9XuLpxUp
+	 6cIhcd+QBauctO1tZ0wRYrlQeUIBVtjqWN3vgr8N9ai+EQmH8EjjfeVhSYnmZR7EsOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S3cW24Lp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Vvt3n5e5;
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7A77606A326;
-	Thu,  5 Nov 2026 00:36:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16386606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:37:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16386606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S3cW24Lp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B2471F000C1;
-	Thu,  5 Nov 2026 00:36:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793838990;
-	bh=3iNCC6xLWWcFyrcMl4HD2CdXqo+pD0srI7x5T7EPMmM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=S3cW24LpB9eFkriChRv96sf3vIrUpsYPR/7H9wOuvsbckmAQk7cGqn0akDBVSQMrH
-	 t2AKHm1IKYi3fc2T+DLtlsA/0jxu6Ra2TOsF9mD4yKf0uBfyiGIndSJe8KIb5Uyhlv
-	 1btfYBJTLzxXnRGX4d+9uWIJ3lhw7h59/ZEOyLLMMrixD6WbimCZ3woXXlaGENgsVa
-	 z7GOZ2vlaKlXU3yQBC8XtS+AK4xqugwxCytcRVaCj1FTL1n0BPHM/uuGGzgpeRhW9c
-	 zN2IXPBWs+MPq81PN5IRFo5QZGKwp3bCZcwt6LVQXt5W+hMwi0ES+om1gi5OgKRpuq
-	 J85koQn80bt1Q==
-Message-ID: <sashiko-outbox-198366@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 21/21] sched/deadline: Count the bandwidth a boosted
- task is given
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
-In-Reply-To: <20261104211207.1392343-22-mathieu.desnoyers@efficios.com>
-References: <20261104211207.1392343-1-mathieu.desnoyers@efficios.com>
- <20261104211207.1392343-22-mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 00:36:29 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Vvt3n5e5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793839074; x=1825375074;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=GYNcMJfNAnvDIKFOA6xoGlRUzTahIzzwSi38f6HW67c=;
+  b=Vvt3n5e5wdUAcV7Wd/qoVBDhBWFkung9OlF8j2lRtfYRcz41vQKwKuYj
+   eEcea7OVdgy4T+xSVn2cY+WV6AOPcHG1WhrC3GgowO+2Jk9jPfCkEaFU/
+   fPDZODm0dvA2rKfOLJsjbNvq11GRDiZGjm/wfCp1K8Ew4PVy8jzZla0yq
+   J7OTa+HDpdIfBcJkzgo6e1lj47EV+buISi9LXQXSnJP01gFkODvkKJ4qB
+   8y7nUVl5ii2psfhlT+vAwrVuarGOyjQ3srLUuiYXjeHiuKR29gkd0AeCy
+   PzMl+WYh29ga19+kZX0+2zVvxy3xx49PTO3pNVZilrhbFinD/i/E2Pyvl
+   A==;
+X-CSE-ConnectionGUID: 38MXNniaRmewYrbkbIjXng==
+X-CSE-MsgGUID: LyZw0Xj3SEaUMssXtasdcw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2717822"
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="2717822"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 16:37:53 -0800
+X-CSE-ConnectionGUID: NFdWQiMHQAqeFftS6eFpTw==
+X-CSE-MsgGUID: rCsCTnJuR/Gt0nWbkQiYSA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="7413708"
+Received: from rchatre-desk1.jf.intel.com ([10.165.154.99])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 16:37:52 -0800
+From: Reinette Chatre <reinette.chatre@intel.com>
+To: tony.luck@intel.com,
+	ben.horgan@arm.com,
+	james.morse@arm.com,
+	Dave.Martin@arm.com,
+	babu.moger@amd.com,
+	bp@alien8.de,
+	tglx@linutronix.de,
+	dave.hansen@linux.intel.com
+Cc: x86@kernel.org,
+	hpa@zytor.com,
+	fustini@kernel.org,
+	fenghuay@nvidia.com,
+	peternewman@google.com,
+	yu.c.chen@intel.com,
+	linux-kernel@vger.kernel.org,
+	patches@lists.linux.dev,
+	reinette.chatre@intel.com
+Subject: [PATCH] MAINTAINERS: Add Ben Horgan as fs/resctrl reviewer
+Date: Wed,  4 Nov 2026 16:37:47 -0800
+Message-ID: <c68cbba4455d3f5e65c38b76b3daadc04217abca.1793838993.git.reinette.chatre@intel.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,111 +90,37 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] sched/deadline: dl_change_utilization() checks old flags before =
-update
---
+The resctrl filesystem provides the user interface to the resource control
+features of multiple architectures, among them Arm's MPAM. Ben Horgan,
+MPAM maintainer, has consistently helped keep MPAM's requirements in view,
+both in discussions about new resctrl features and in review of resctrl
+changes.
 
-commit f342e630523d7367eb408895a6057749ace71951
-Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Add Ben Horgan as a reviewer so that he is copied on resctrl submissions.
 
-sched/deadline: Count the bandwidth a boosted task is given
+Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
+---
+Position entry to avoid conflict with RISC-V change in same area:
+https://lore.kernel.org/lkml/20261104-dfustini-atl-sc-cbqri-dt-v10-6-1636a003a3c0@kernel.org/
+---
+ MAINTAINERS | 1 +
+ 1 file changed, 1 insertion(+)
 
-This commit moves the runqueue bandwidth accounting update from
-sched_dl_overflow() to __setparam_dl() so that tasks already in the deadline
-class due to priority inheritance have their new bandwidth added to the
-runqueue's this_bw when sched_setattr() sets SCHED_DEADLINE parameters.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 93abbb315065..04bdbba16138 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -23460,6 +23460,7 @@ RDT - RESOURCE ALLOCATION
+ M:	Tony Luck <tony.luck@intel.com>
+ M:	Reinette Chatre <reinette.chatre@intel.com>
+ M:	x86@kernel.org
++R:	Ben Horgan <ben.horgan@arm.com>
+ R:	Dave Martin <Dave.Martin@arm.com>
+ R:	James Morse <james.morse@arm.com>
+ R:	Babu Moger <babu.moger@amd.com>
+-- 
+2.56.0
 
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index 15d224846ebad..a3b45bb4f35e1 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-> @@ -442,22 +442,32 @@ void cancel_inactive_timer(struct sched_dl_entity *=
-dl_se)
->  	cancel_dl_timer(dl_se, &dl_se->inactive_timer);
->  }
-> =20
-> +/*
-> + * The runqueue a sleeping task is on counts the bandwidth the task has:
-> + * give it @new_bw in place of what it counts of the task's.
-> + */
->  static void dl_change_utilization(struct task_struct *p, u64 new_bw)
->  {
-> -	WARN_ON_ONCE(p->dl.flags & SCHED_FLAG_SUGOV);
-> +	struct sched_dl_entity *dl_se =3D &p->dl;
-> +	struct rq *rq =3D task_rq(p);
-> =20
-> -	if (task_on_rq_queued(p))
-> +	if (task_on_rq_queued(p) || dl_entity_is_special(dl_se))
->  		return;
-
-[ ... ]
-
-> @@ -4266,6 +4275,18 @@ int sched_dl_overflow(struct task_struct *p, int p=
-olicy,
->  void __setparam_dl(struct task_struct *p, const struct sched_attr *attr)
->  {
->  	struct sched_dl_entity *dl_se =3D &p->dl;
-> +	u64 period =3D attr->sched_period ?: attr->sched_deadline;
-> +
-> +	/*
-> +	 * The bandwidth of a special entity is counted on no runqueue.
-> +	 * The rest have theirs changed here, where their parameters are:
-> +	 * switched_to_dl() hands it to the runqueue of a task that enters
-> +	 * the class, and a task that priority inheritance boosted into the
-> +	 * class is in it already, so nothing dequeues it and enqueues it
-> +	 * back for that.
-> +	 */
-> +	if (!(attr->sched_flags & SCHED_FLAG_SUGOV))
-> +		dl_change_utilization(p, to_ratio(period, attr->sched_runtime));
-> =20
->  	dl_se->dl_runtime =3D attr->sched_runtime;
->  	dl_se->dl_deadline =3D attr->sched_deadline;
-
-[Severity: Medium]
-Does dl_change_utilization() check the old dl_se->flags before __setparam_d=
-l()
-updates them?
-
-In __setparam_dl(), dl_change_utilization() is called when attr->sched_flags
-does not have SCHED_FLAG_SUGOV set, before dl_se->flags is updated from
-attr->sched_flags:
-
-kernel/sched/deadline.c:__setparam_dl() {
-	if (!(attr->sched_flags & SCHED_FLAG_SUGOV))
-		dl_change_utilization(p, to_ratio(period, attr->sched_runtime));
-
-	dl_se->dl_runtime =3D attr->sched_runtime;
-	dl_se->dl_deadline =3D attr->sched_deadline;
-	dl_se->dl_period =3D attr->sched_period ?: dl_se->dl_deadline;
-	dl_se->flags =3D attr->sched_flags & SCHED_DL_FLAGS;
-}
-
-If a sleeping task that previously had SCHED_FLAG_SUGOV set in dl_se->flags=
- is
-reconfigured via __sched_setscheduler() -> __setscheduler_params() ->
-__setparam_dl() without SCHED_FLAG_SUGOV, dl_entity_is_special(dl_se) in
-dl_change_utilization() still observes the old SCHED_FLAG_SUGOV flag and
-returns early without adding new_bw to rq->dl.this_bw or setting
-dl_se->dl_bw_oncpu =3D 1.
-
-Immediately afterward, __setparam_dl() clears SCHED_FLAG_SUGOV in dl_se->fl=
-ags,
-and switched_to_dl() does not run because the task is already in
-dl_sched_class. When the task later wakes up on the same CPU, task_contendi=
-ng()
-sees !dl_entity_is_special(dl_se) and adds dl_se->dl_bw to rq->dl.running_bw
-while rq->dl.this_bw does not include it, triggering:
-
-	WARN_ON_ONCE(dl_rq->running_bw > dl_rq->this_bw);
-
-Since __setparam_dl() is the only caller of dl_change_utilization() and alr=
-eady
-checks !(attr->sched_flags & SCHED_FLAG_SUGOV), should the
-dl_entity_is_special(dl_se) check in dl_change_utilization() be dropped?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104211207.1392=
-343-1-mathieu.desnoyers@efficios.com?part=3D21
