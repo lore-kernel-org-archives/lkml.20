@@ -1,52 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.115
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793852146;
-	b=mVjboV77OC1iFJrmrZvBOjIdxarP7xy+n7voNLWDgHpSmw7MzguWSRnvlvZPp8W/mHET
-	 Vks9BBDInVFznGGUnXPdgJxlt3kMJh7CRpUGd/QNAdIZJ15R63z1qw3UniEbZV0wiZSwD
-	 Kj5zplZOsmvZQlI+O2C1uRRUr7/VwT4d8TpaKSoB59IHycQzf6fUn1dXAm5SlA4EF7iRM
-	 ju2+gK5dEFv+4PvWZzRzkcbiRATklyPYgIjKfGN1kxTkU0SZSyQpzyYSQbETmiVoHyhml
-	 oAlufgNR8jqZ/xeiVdskzLlCINj8q1yM6N8DiyI8iI08p09jC6x8xX/gZFf1ds4hfmQ==
+	t=1793852165;
+	b=ajxmGV1nuAu2ya1hkK38C7sEi/YXwMyC0QDeDvna3EtroRPsHD8q7ZEA3r2ui7xiydVx
+	 blpDg9tNdr271I9POzIF3MaPv8TJDL0Ah9PqxfObqiX82OosWC9Cc8pOrptY0xcj0qU98
+	 tWeVw+I4+6J31JJTs8WE2eXAPV08Kbx0YE+gta0jA/clc/41jzzKClOlXeNkFPfeju+xS
+	 oX72lTkmLMZ+tx6ebKYwVR6xbmXTHlnVYwuIfZVWVPmA8M11theq4884gpcreBk+O4XAu
+	 jN2fdecTbI9fp4owVbeJzQbmucOp5Dc8sKKMtnfZzNtAkw8VvTxOamgSjC1lxKbWUUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793852146;
-	h=DMARC-Filter:DKIM-Signature:User-Agent:Content-Type:To:Mime-Version:
-	 X-Lms-Return-Path:Content-Transfer-Encoding:X-Original-From:
-	 References:Message-Id:In-Reply-To:Cc:From:Subject:Date;
-	bh=QZwA1ylfcTQpoiqvqbwvBbujn8CAZYbBXuwI3cwgUxk=;
-	b=VGvgqyJ0AJXBSJbhIegINP0qeCkmR2zOfGhFMxD49P+ENaHKmUI+ElD5aVwT693BXDsu
-	 2aIR5nThJFetBcTwOhCPAUx7EfQjzQODcb583LCBLLjQO8H2X5uTlImphEFmsh6Iwy+tq
-	 yIxvsyiK5g/4tAgEtOGlnD49Jtzo2puUJfgWRC17cPEpwUe6hqPRAfSj4JRoCLzhaY3PR
-	 mXbum2g6aKMAHQ4awrobac/6NklCGFbfOnfGW2WtbNSNfbhXbGBtGIGxty7l5wtvWImUR
-	 TMN6Vkayx5FZjtgZfFF+tsqi7VBq9fseoV8mtfgiXV15ebEsYBi3WOWN3hu6euMdx9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793852165;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:In-Reply-To:Subject:Date:Message-ID:
+	 MIME-Version:Content-Transfer-Encoding:X-Mailer:Thread-Index:
+	 Content-Language:X-CMS-MailID:X-Msg-Generator:Content-Type:
+	 X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:
+	 X-CMS-RootMailID:References;
+	bh=PTDP7WG69NzViQWlu0aPWTRMmjri3oiyHsFITdaJblA=;
+	b=LC/LiHbc27UaXiXqoCCouIjDOFdXs8ZZZC/IwS7mtLLBRJlLTssWXQ5Vs+SytE+1PDiu
+	 8UApon+B5qORMQZ2VBCDdEdoGYpqS+vUgDBhXPEK9Nf/6Wgg1VtVvOTaeU+UpSGt6y0zh
+	 MJ3JriVbDD/ZMn5ABfMPuytVYPecorgJBayOzSSJ2BCmG/5vV0V0ndfYnwpVVFGHuIm4B
+	 GB1rRN0lP1V8ZbiKiHDRsSNL8KKoUCHezUFeasm1Et2zP/iGqAb+5x7550IsKKXvgeKI9
+	 ZV8uS78/snYmJdo1sruo52aWrKuprx8oNYWHfThN0e849PmoqDNOW69lXH8KHg+NtjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=dcoBMuqC;
-	arc=none smtp.remote-ip=209.127.230.115
-Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=UGUZL2ZS;
+	arc=none smtp.remote-ip=203.254.224.33
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DD37606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:15:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DD37606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D2E1606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:15:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D2E1606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=dcoBMuqC
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1793852139; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=QZwA1ylfcTQpoiqvqbwvBbujn8CAZYbBXuwI3cwgUxk=;
- b=dcoBMuqC9Ugy3/YP8rWZ9pogd982RtlOsQiKGJDu90izjwKAI0D12GAblLdJ/1/2xWrPHM
- JD3nRIEe9hdHLCUDNiNNCgnAWjsqQgyzVB8WeEHdVc6AYV1534xJR2186bXWA4gzG7XbNS
- S1qtyz8ztDMYWjbQzel8ZBHCkf8SohvKVIUs+tOezwhfXd7d0m2jeeJ2VPoLOWOj+BpUmT
- nIfn/1yWVA/7WBu9Nz90YTzuM902nJsja1PFa6SU9c/7tLjDb+PyR+t81Onyz4dr0fPZkP
- +6yRdXCmmW7GQxKqK/J6HDDjmVJaFa8ZXjuOI8z4wsMFebocPTStJMvUgTjxeQ==
-User-Agent: Mozilla Thunderbird
-Content-Type: text/plain; charset=UTF-8
-To: "Will Deacon" <will@kernel.org>, 
-	"Catalin Marinas" <catalin.marinas@arm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=UGUZL2ZS
+Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
+	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261105041554epoutp03be61689d97e6dba939da04d67fb29ade~lCwfZaaxq1756217562epoutp03I
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:15:54 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261105041554epoutp03be61689d97e6dba939da04d67fb29ade~lCwfZaaxq1756217562epoutp03I
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793852154;
+	bh=PTDP7WG69NzViQWlu0aPWTRMmjri3oiyHsFITdaJblA=;
+	h=From:To:In-Reply-To:Subject:Date:References:From;
+	b=UGUZL2ZSQGih/lxDmLE7NrJFU3paaa4orks5EWEaImP3vEBb9YokeOH/NgfkJBBQe
+	 PKk3l2j5mvh5s/z0pwelvydzemYY4eunfWsp7A+ITfK1CF5SnDjcF84rtmGYz3nIwQ
+	 Gu+avi0Xh2V1gkJ6NU9l6uNmTc82QZgnlf60BRjQ=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas2p2.samsung.com (KnoxPortal) with ESMTPS id
+	20261105041554epcas2p2312fe29fe79952fdfb5674613d5daea1~lCwevPLl81571115711epcas2p2m;
+	Thu,  5 Nov 2026 04:15:54 +0000 (GMT)
+Received: from epcas2p4.samsung.com (unknown [182.195.38.200]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4jKprn638Rz6B9m7; Thu,  5 Nov
+	2026 04:15:53 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas2p4.samsung.com (KnoxPortal) with ESMTPA id
+	20261105041553epcas2p44a33fec882036232b8518af58f06f50e~lCwdzXOo02954629546epcas2p4q;
+	Thu,  5 Nov 2026 04:15:53 +0000 (GMT)
+Received: from KORCO118546 (unknown [12.80.207.184]) by epsmtip1.samsung.com
+	(KnoxPortal) with ESMTPA id
+	20261105041553epsmtip1b7bd1621205a374f639e966ed70a6b35~lCwduNdJQ1989819898epsmtip1d;
+	Thu,  5 Nov 2026 04:15:53 +0000 (GMT)
+From: "hoyoung seo" <hy50.seo@samsung.com>
+To: "'Bart Van Assche'" <bvanassche@acm.org>, <linux-scsi@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <mkp@kernel.org>,
+	<martin.petersen@oracle.com>, <stanleyjhu@google.com>,
+	<alim.akhtar@samsung.com>, <kwangwon.min@samsung.com>,
+	<kwmad.kim@samsung.com>, <cpgs@samsung.com>, <h10.kim@samsung.com>
+In-Reply-To: <a291e852-9ca8-48ad-8c4b-bf5de057203d@acm.org>
+Subject: RE: [PATCH v3 0/2] scsi: ufs: core: Avoid redundant link recovery
+ during system resume
+Date: Thu, 5 Nov 2026 13:15:52 +0900
+Message-ID: <000001dd6cdc$58d12790$0a7376b0$@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,48 +80,83 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26aec02e9+737ce7+vger.kernel.org+zhaogongyi@bytedance.com>
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
-References: <20261023110710.10145-1-zhaogongyi@bytedance.com> <at-czRUYRPRxi9dy@arm.com> <aus2Aq12Z-PKvoW7@willie-the-truck>
-Message-Id: <56ed8952-fb5a-4f88-90c9-6fe5476237cc@bytedance.com>
-In-Reply-To: <aus2Aq12Z-PKvoW7@willie-the-truck>
-Cc: <mark.rutland@arm.com>, <oleg@redhat.com>, <ruanjinjie@huawei.com>, 
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
-Subject: Re: [PATCH v2] arm64: ptrace: don't warn on missing siginfo in a group-stop
-Date: Thu, 5 Nov 2026 12:15:24 +0800
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQJ/QZZDmtVAdWwyMiqPGLvdDdGG1AG1hp9yArw/7OsCKA0/NbWmOuiA
+Content-Language: ko
+X-CMS-MailID: 20261105041553epcas2p44a33fec882036232b8518af58f06f50e
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-234,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261103093825epcas2p3d741e7c61c82ea89cbd63299b853732d
+References: <cover.1792989286.git.hy50.seo@samsung.com>
+	<CGME20261103093825epcas2p3d741e7c61c82ea89cbd63299b853732d@epcas2p3.samsung.com>
+	<20261103093358.1835628-1-hy50.seo@samsung.com>
+	<a291e852-9ca8-48ad-8c4b-bf5de057203d@acm.org>
 
-Hi Will,
+Hi Bart,
 
-On 11/4/26 9:41 PM, Will Deacon wrote:
-> I can't quite get my head around what it means to set NT_ARM_SYSTEM_CALL
-> in this context. Suddenly, in_syscall() will return true, which has
-> implications for things like signal handling that seem bizarre if we're
-> not actually in a syscall. Should we be avoiding this situation to start
-> with?
-> 
+Thank you for the review and for the report. I checked the points in the
+report against the code and agree with them. I will send a v4 that
+follows the suggested direction as far as I could verify it:
 
-I ran an additional arm64 KVM test with SIGUSR1 and SIGUSR2 queued at a
-group-stop. After the tracer set NT_ARM_SYSTEM_CALL to __NR_getpid, the
-second signal-handling pass saw syscallno=172 (the control saw -1),
-although the task had not entered a syscall. I did not observe an
-incorrect restart: x0 held the first signal number (10) by that point.
+ - Patch 1/2 is unchanged apart from a Fixes: tag.
+ - Patch 2/2 replaces the is_sys_suspended check. The early link
+   recovery in ufshcd_err_handler() is only taken while a runtime PM
+   operation is in progress. For system PM the error handler waits for
+   host_sem, and during shutdown it stops, so it no longer runs
+   concurrently with __ufshcd_wl_resume(), ufs_mtk_resume(), system
+   suspend or shutdown. This needs a new field,
+   hba->runtime_pm_in_progress, because pm_op_in_progress does not tell
+   which PM operation is running.
 
-system_call_set() assigns syscallno before calling
-update_syscall_orig_x0_after_ptrace(), so retaining the early return
-will not prevent that state. I can investigate separately whether the
-regset write should be rejected at such a stop.
+I kept the early link recovery for runtime resume as well, not only for
+runtime suspend. The comment added by commit e23ef4f22db3 and commit
+35dabf4503b9 describe a deadlock when the error handler runs during
+runtime resume, and I could not confirm that the regular path, which
+waits in ufshcd_err_handling_prepare(), is safe there. As a result the
+race with __ufshcd_wl_resume() during runtime resume is not removed.
+Do you think the early path can be dropped for runtime resume as well,
+e.g. after commit 01d5e237b339?
 
+For the remaining early path in runtime PM I did not add a check of
+ufshcd_err_handling_should_stop() before the link recovery. I can send
+it as a separate patch if you think it is needed.
 
-> I was trying to limit the scope of this hack as much as possible, so I
-> think I'd prefer the early return tbh (i.e. just drop the WARN_ON_ONCE()
-> and update the comment).
-> 
-
-Agreed. I'll retain the early return, drop WARN_ON_ONCE(), update the 
-comment, and send v3 with that minimal change.
+I also did not add a mutex around ufshcd_link_recovery(). It calls
+ufshcd_probe_hba(), and if a device command times out there,
+ufshcd_eh_timed_out() calls ufshcd_link_recovery() again from the
+timeout context while the first call waits for that command. A mutex
+would turn this into a deadlock, so I would like to avoid it unless you
+see a way around that.
 
 Thanks,
-Gongyi
+Hoyoung
+
+> -----Original Message-----
+> From: Bart Van Assche <bvanassche@acm.org>
+> Sent: Wednesday, November 4, 2026 3:25 AM
+> To: HOYOUNG SEO <hy50.seo@samsung.com>; linux-scsi@vger.kernel.org; linux-
+> kernel@vger.kernel.org; mkp@kernel.org; martin.petersen@oracle.com;
+> stanleyjhu@google.com; alim.akhtar@samsung.com; kwangwon.min@samsung.com;
+> kwmad.kim@samsung.com; cpgs@samsung.com; h10.kim@samsung.com
+> Subject: Re: [PATCH v3 0/2] scsi: ufs: core: Avoid redundant link recovery
+> during system resume
+> 
+> On 11/3/26 1:33 AM, HOYOUNG SEO wrote:
+> > Any review or comment would be appreciated, especially on 2/2 and the
+> > system PM vs. runtime PM difference.
+> 
+> Please take a look at the attached review report from an LLM. According to
+> that review this series isn't ready yet for integration in the upstream
+> kernel.
+> 
+> Thanks,
+> 
+> Bart.
+
