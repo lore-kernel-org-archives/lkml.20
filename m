@@ -1,73 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793917523;
-	b=KdkDx6aWDLhEzi00iyMxk/NKdeakuRjyg7x05TIE7pTjX28EMv/wBl+iOB22YcVrBEbN
-	 E33zWkb5llVVUBi0w3mSzAGK//NmmMrbVXdX5hMnsyKe5X/tJegvD1GK/rk0L9L5lZXbb
-	 GQuYz3p0dSXY/IZFARRbYZ2SsYs8zqJw7cUbb4eg3MAONx2AKE3Xuz9QIv6eBj5/NFABU
-	 EJIkTf5jIb/zRFZ3sPneHddeXyXtx/ZV4mn5wArVX0HKTCeUZC4pYJ4tJZ2nQ+wzp3qGs
-	 75JRoBwhqqcD14mYKIdN2ikC6Ylju/othmE4j1MhGdbKMrMgYGtm7bCJbFMOrs8t5Bg==
+	t=1793917605;
+	b=kKWcdI92so119SlAdDL3gCEX/ac9xhsurNK6gzseJanS+JfJJldvZ8HU8B2/t1pceIt/
+	 aGQClh/ryl7pAif6mDSd+Hc9s6vZ9On2QwW+y5ntt+o9Pgy8Yq/mYy71i1QVvacneHfNQ
+	 fN2Tu30XtA5UcXXKoaBe+6RjYcRFzDjPg4Id9jiyAP8quXB2fCilqB+RwbtxWydwtsXKG
+	 fpdtTwhWTrvw9zKCgXLLWwelxoJ4KUmdmXtVe/kVartP4MHauirZ9gTuNdSSqjUVZ5Il5
+	 fJbPBTvFaGYBpeih1gvOvWBUKMQtTKf/mwqX9Obx6AqAhsKudOg/IZJlMACzzhG3FpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793917523;
-	h=Received:DKIM-Signature:Date:From:To:List-Id:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=6Np0cUB79EyEFeICv6zfCgUE71AE9FMZbFEnxyzvjSQ=;
-	b=gvojtOK+g6Kqb9mSnDjd2zArNJ4klp4i38B2HlDpqRpuHtglxf1U8pMe4fDJ8B7QKqqL
-	 KOLtTpewCI1FfvXpUUwx3hU+VfA5JW79kDQM2oZlQ5ZimP6RjnSmXTicHzbNTbTu2zaAR
-	 EC9B/mIBpmoqVS++qh0eYsvuenBh4sEvlMIb0Z0Oj5qFdr5GfjXyZ3A/8pWCJenvs0CJp
-	 5AgFbPQYoLW77zbMok+lF2jntxcGWjoqIh/mfYVY90aHjUoy8DOHZN4bhGOdKYqYDbFnH
-	 DPki5HoakT0FZKWhrE4TF5Tj7DFrsry2JYRxm+vos5gbHYbU7KPl3RFtEsOsnn4o+Aw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793917605;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=Ub4KS0c67znfqPuuGGrCdZPsAUTqtjypyv5in5APvsk=;
+	b=a+MlNjcn0uUiFvPe9H75gYUOftXCMBMbpvaSD/fAr3Rw+K4DZfTG2jLVhxqxyZDNs833
+	 OfNPD5FMoRy9ttNu8+X2phDIrzIXvXYXjYpIMaNvdjIBnY8fTagpfc7m2nxJSC6Twv8tk
+	 v0b75/cxcrq7WKYIsiIgwoLulpmJ+vp78eZyT5TF9KwHFs+Qax/fkKyvaG5MTI5Fwsnb6
+	 R8Ivmg9LiqFuczoWt2TvxBRwAgjKBOnnknbuMhbJk3KAn+NSWTD+JreG2MdUkDPl8Jjn7
+	 rbKFp7Cb8O2b2u+rUIyPyqoTkcbGfeZ3RjOvDhHEKak6bW7C96Fjix5seSiz4q2vQ5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KPRDKmOF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=QtZXyt44;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0620E606A326;
-	Thu,  5 Nov 2026 22:25:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74283606A31B;
+	Thu,  5 Nov 2026 22:26:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74283606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KPRDKmOF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 228ED1F008A1;
-	Thu,  5 Nov 2026 22:25:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793917522;
-	bh=6Np0cUB79EyEFeICv6zfCgUE71AE9FMZbFEnxyzvjSQ=;
-	h=Date:From:To:List-Id:Cc:Subject:References:In-Reply-To;
-	b=KPRDKmOFG7dUNVBgmlAgES1Y92EiIHJY6uDZfPMhaaQq6n4GEg+QZl3FL0vI55qBD
-	 rDm4w6R6IJsC31Tizj35YmllUeBh6++/rvUajEjIKN0n1MllBslu5HAA9L025rI4gB
-	 iIrhdmPDKxH0kSWvnI9U7gVDdJUSgXwdukEwPU47aBkIONt2XOKLKJFBrD17iwm+tw
-	 OkjTgWoB5WN8IQdF7UBBjpPb0XxZ4Cb+t3Z/7DOdmBaiVe8/0BeMpfsmGRIL7lgqny
-	 O89zX/V5mVXrE572LdWo4oVKNDCYj7r8zST5/8FV48FxooexiNRS3XmZdAymIes3pY
-	 NTPUn5X6T43/Q==
-Date: Thu, 5 Nov 2026 23:25:15 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Alejandro Colomar <alx+linux-hardening@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	linux-hardening@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, Linus Walleij <linusw@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Saravana Kannan <saravanak@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] string: Add strprefix(), and deprecate
- str_has_prefix()
-Message-ID: <auz79Izf6Q5qOQPi@devuan>
-References: <cover.1793876837.git.alx@kernel.org>
- <9c81f6f62fd0e908e683c4c08b09a1f95bc2ec9c.1793876837.git.alx@kernel.org>
- <20261105111423.360f4ba8@gandalf.local.home>
- <auyuINXEJKc1KoG7@devuan>
- <20261105115019.2fe7c91b@gandalf.local.home>
- <auy0O467UqOzqYub@devuan>
- <auzGMV1YbO9DodBq@ashevche-desk.local>
- <auzHFRzd86iV4-RA@ashevche-desk.local>
- <auzxXyAU6zyHtMtn@devuan>
- <CAHk-=wjD-fQvBvozu7+TjXa4=arAFgVzyixw4W_A=14Y8rhSLA@mail.gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=QtZXyt44
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=Ub4KS0c67znfqPuuGGrCdZPsAUTqtjypyv5in5APvsk=; b=QtZXyt44cZ6WYIR4u51L9qY8QV
+	8U5nIyigKIP/Xj5h+Vv79DO+7rFc2OjaMkpkcyMJkubmBwA8X588eHyenyiC5IKZeUHMaYMt1xbkV
+	eFSO6Tbbl24nXwHJFjL/79ZuhHJsyoRr21nF7jBw4VOg/oSZwxdqnIvzb/B7vwP8DE30=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xP5uj-00EeBs-9g; Thu, 05 Nov 2026 23:26:33 +0100
+Date: Thu, 5 Nov 2026 23:26:33 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: tommy shih <tommy.shih92@gmail.com>
+Cc: netdev@vger.kernel.org,
+	Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	"Lucien . Jheng" <lucienzx159@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next] net: phy: air_an8801: add WAKE_PHY Wake-on-LAN
+ support
+Message-ID: <1779e3fa-08a0-4726-af42-bcb8a64d769a@lunn.ch>
+References: <20261102132903.713908-1-tommy.shih92@gmail.com>
+ <7e1ac14e-b306-4921-84fa-8266b3263f2d@lunn.ch>
+ <CABXpiCoUqhq_Jt8AWcZRQWue-pTvoYSGxNkbz7e5MLvw0Mjh2Q@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,171 +72,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lqrtrf3hhpuzbu5e"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAHk-=wjD-fQvBvozu7+TjXa4=arAFgVzyixw4W_A=14Y8rhSLA@mail.gmail.com>
+In-Reply-To: <CABXpiCoUqhq_Jt8AWcZRQWue-pTvoYSGxNkbz7e5MLvw0Mjh2Q@mail.gmail.com>
 
+> I don't have a concrete use case for it. Waking on link change does
+> not seem to be a common way to wake a system over Ethernet; magic
+> packet is the usual method.
 
---lqrtrf3hhpuzbu5e
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-List-Id: <linux-hardening.lore.kernel.org>
-Cc: Alejandro Colomar <alx+linux-hardening@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	linux-hardening@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, Linus Walleij <linusw@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Saravana Kannan <saravanak@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] string: Add strprefix(), and deprecate
- str_has_prefix()
-Message-ID: <auz79Izf6Q5qOQPi@devuan>
-References: <cover.1793876837.git.alx@kernel.org>
- <9c81f6f62fd0e908e683c4c08b09a1f95bc2ec9c.1793876837.git.alx@kernel.org>
- <20261105111423.360f4ba8@gandalf.local.home>
- <auyuINXEJKc1KoG7@devuan>
- <20261105115019.2fe7c91b@gandalf.local.home>
- <auy0O467UqOzqYub@devuan>
- <auzGMV1YbO9DodBq@ashevche-desk.local>
- <auzHFRzd86iV4-RA@ashevche-desk.local>
- <auzxXyAU6zyHtMtn@devuan>
- <CAHk-=wjD-fQvBvozu7+TjXa4=arAFgVzyixw4W_A=14Y8rhSLA@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAHk-=wjD-fQvBvozu7+TjXa4=arAFgVzyixw4W_A=14Y8rhSLA@mail.gmail.com>
+I'm tempted to reject this, because you don't seem to need it, and it
+is not clear if it is even correct usage of the API.
 
-Hi Linus,
-
-> Date: 2026-11-05 13:48:18-0800
-> From: Linus Torvalds <torvalds@linux-foundation.org>
->
-> On Thu, 5 Nov 2026 at 13:24, Alejandro Colomar
-> <alx+linux-hardening@kernel.org> wrote:
-> >
-> > I think it might indeed be that find(1) is slow at filtering, because
-> > using git-ls-files(1) is faster without piping to grep(1):
->=20
-> No. Your find | grep" speedup is because you use two cores for this.
-> So it's slower, but does it in parallel, which is faster on a machine
-> with idle cores.
->=20
-> The reason git ls-files is faster is different: it's because git
-> ls-files is just that fast.
->=20
-> And it's so fast that now the pipe overhead is much much more
-> expensive than git itself, and so doing "git ls-files | grep" is
-> slower and only adds overhead even if you have idle cores.
->=20
-> And the reason git ls-files is so fast is because it doesn't do any
-> directory searches. It just looks at the git index file.
->=20
-> So git ls-files really does something very different from 'find'. It
-> just looks at the files that git already knows about, and it basically
-> only opens '.git/index' and parses it.
-
-Oh, thanks!  That makes sense.
-
-[...]
->=20
-> Anyway, if you search sources and don't want to care about object
-> files or other generated files etc, I'd heavily suggest using "git
-> ls-files" and "git grep" exactly because it's much faster.
-
-Indeed, git-ls-files(1) seems more appropriate than find(1), especially
-after having built a kernel, which makes find(1) go turtle-slow and list
-the built stuff.
-
-> (Ok, "git grep" isn't always faster, the whole regex algorithm issue
-> can go both ways, but 'git grep' does do the same "just look at files
-> that are actually known to git" thing, and obviously it can look at
-> different revisions etc too, so it's really *good* at greapping the
-> actual committed history, although if you go back in history you'll
-> obviously be paying a much higher price because now the cost is often
-> not the regex, but the unpacking of the objects etc)
-
-I'm not a fan of git-grep(1), because it's easier to remember grep(1),
-as I already need to remember it for other stuff.
-
-But yeah, a pipe `git ls-files | xargs grep ...` seems what I'd be
-using.  After all, the slow thing is find(1), not grep(1).  And I like
-the separation of concerns, so that one program is listing files, and
-another one is searching their contents.
-
-I'm finding some issues with git-ls-files(1), though: it's listing
-symlinks, which grep(1) complains about.  I wish I could discard those
-with something like '-type f'.
-
-	$ time git ls-files | xargs grep ARRAY_SIZE | wc -l
-	grep: scripts/dtc/include-prefixes/arc: Is a directory
-	grep: scripts/dtc/include-prefixes/arm: Is a directory
-	grep: scripts/dtc/include-prefixes/arm64: Is a directory
-	grep: scripts/dtc/include-prefixes/dt-bindings: Is a directory
-	grep: scripts/dtc/include-prefixes/microblaze: Is a directory
-	grep: scripts/dtc/include-prefixes/mips: Is a directory
-	grep: scripts/dtc/include-prefixes/nios2: Is a directory
-	grep: scripts/dtc/include-prefixes/openrisc: Is a directory
-	grep: scripts/dtc/include-prefixes/powerpc: Is a directory
-	grep: scripts/dtc/include-prefixes/riscv: Is a directory
-	grep: scripts/dtc/include-prefixes/sh: Is a directory
-	grep: scripts/dtc/include-prefixes/xtensa: Is a directory
-	grep: tools/testing/selftests/devices/probe/boards/Dell: No such file or d=
-irectory
-	grep: Inc.,XPS: No such file or directory
-	grep: 13: No such file or directory
-	grep: 9300.yaml: No such file or directory
-	60570
-
-	real	0m0.819s
-	user	0m0.439s
-	sys	0m0.430s
-	$ time git grep ARRAY_SIZE | wc -l
-	60568
-
-	real	0m0.308s
-	user	0m0.443s
-	sys	0m1.172s
-
-When searching in old versions, I usually am git-blame(1)ing stuff, so
-I already know which file to list.  In that case, I tend to do
-`git show v6.0:some/file.c | grep something`.
-
-
-Have a lovely night!
-Alex
-
->=20
->             Linus
-
---=20
-<https://www.alejandro-colomar.es>
-
---lqrtrf3hhpuzbu5e
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrtAkAACgkQ64mZXMKQ
-wqlnwA//U2IIiZPQ4PdneZ0WRKyzeGHalEIn6Ix83qdUJCof9JoDaxARs/IF9afY
-84HhMxdmBNcMTP7POW+vCiW2cAOyDc7eXcZzKW/ourFbhhWDm07x+stN+piH0qG+
-ulQcoCcq7paBJabwJFO0CN6Ve0MpPR3/07uJizXhe/UL+zjcVKRaJv7l1xD3bRRk
-FvKbLNta+OcLw1NPJyHFuvXzSpQpurge2LRPBJrs3UbjRQOsqYAjs+t9IhtFTsPn
-2RvICzKDS22YARS+ILoZNvIZG0/rrERWuuZX7mrMaihSC/sq41iAwEl7rHYQ5xj+
-J9JQw4QA9iw3OPJ5y4HOENsvvkbzkEemwxmatilgSSr4qdmFujxbgUr1sHM9MZfY
-wiyHXsHL0aHTBigniHng+Gz9F0GEd20Z7HxnLri13JlrqBLZjvSf5QdXWGjlW5SG
-5qasMIn3DKcXjjZVdk+0cq1MnimrMzv5+CexDrwNjzOl1aVW3/iARgPhyvDrDzG2
-SQWwyG8k0rYaKPd7gSTXx9oCsM9nUlhZ95L6nXl7jjY2XsC0LobmtGk9xP7pmQtv
-NNTUSc0CerNaM4+MX87B/cTv70P0PwDgIQ+gFnMTcYN2mF3bsV0KSoszOzw4Pgsv
-ElIIrJTFEY5AOjPehpjau2GDLUF7q291TKbpzEecgPBA40j/vxw=
-=YfjE
------END PGP SIGNATURE-----
-
---lqrtrf3hhpuzbu5e--
+   Andrew
