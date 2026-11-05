@@ -1,104 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793891794;
-	b=OtPAEw7gydPvFwgeMy1WY/KFCzHtHYxJN6cqvDvT5VNWaL/vSKgq5PEZD7wiwnY5cefR
-	 s/tR8HTmXvbg7z0ax2+QF7mWkMeJINoQKX+skajVKnoH3ZrWxK1vqJewwzgtrrAP1rwG/
-	 zABLn8UliCVU4DyVwxkHVL8DBDeH/ZkjnvbUKVr02Q54qeI4wSIl9E6v5aaMtSw/4jH4l
-	 a2HYNS7FiId46G+ELIEg6/G8Fw1fEX0fc41nniVSlYPMRHTbiK6RgTB8NPiU4cE9d7FS9
-	 QDFEbRvj2/9skmJVxnY2bHR/3s6CATXFZQr0c62HqwyJEwmtM0QXh97YFFI3EnB8lRw==
+	t=1793891786;
+	b=LUUNVWTQD0IPUHOZjboX+J2Qm8p/siEUfeADdH4gnI0+rMRhXa2o6BMv7ToCbzc0JsMN
+	 mo30K7O3wtc3bRl8BkwjW8yztMgE0NGDfLEg9eZdE8Ntmuqqbz3xoVCs8HLw6NZg4XkZM
+	 ZsbdUWUS8vS3f0PSDVu7ePUfS6FwopupihpMjJRHwn9mE07mPGqN3u7tpuN1eFIDWxh0R
+	 pSqcsnvJIxGbQzxjk3/y1xmSuIr/4LWM/shyskxJHmMIgZHDtnLOKlnmVcqRgpNUHcNnp
+	 5A3PASNmOXh6/pG31QnRYU2JmEq4YRtdGZEqw1q1ck3adX/FckrS7X83WTa8tlDe25w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793891794;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793891786;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=U/zU+iezW2GfOw/f0OPPGRnhbVffrS1qpT7D+WVa544=;
-	b=T6jnBY2pOthj7I03WJ5EwmkuVmKStjEdM071q49ZvDRvnuy0pSEEL/hYeSrqTjrtbwje
-	 rWjW8V8UHNrjVl03sMXJUsMkS6EljWyr92BPQ1oUaa7Xc8h7v4C2gIIL1reNkrIb4J1Tf
-	 RPn4NmwqQMeKLM3UW4p56WcIQoWzsh6LvShCyCwAeWpZoiid/ZG1tbrH/5P1jAIGXiyHm
-	 Rgh3LPnP9pBO/OOeQ3ZVUmZMqo43MFH588g2uqwk4Nd+m7EsFV1McHv6uhk6FneBDmcTk
-	 JpWyJKsLTdB570FKFn4Czmq3xU8a0MRWMxPFHt3afhrVubfdVHTR2waZ+v9RIyCOkvw==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=7g1z1fdgH8pC7wU8IArmzkDI6Bi5iuUSZYwLMGECsDo=;
+	b=y1EugLB+io2x8EtnY+1zqV3mMzA5hkQfBJoMJ1G8C7fvMHB2f1srmWFEbaGH52MdhgFp
+	 6XTr6AiDBlcxvvZPSTSg+VuvnEF6urVXnSOcEbVxmQY6JzNnYZREYW5ubEzoCOUD+Mkph
+	 Z2RvF6Viwyvb4leEUNvFOgncjS0IX+Kf5jznBfYkboXgjqBXLL9kD5Zjm88G3PtGzXbyt
+	 SrmO/OeXEA9+KccUrc7/DpHOyfX/vbodJDVVOm9XW/iyVqtpJG9XQ3VlsWGoxDOET6Oak
+	 wqUsNtK7Afs/Pw0mhEDbzY71VNOLFYvg6SeotI2MVbZLi6ad35i9qnfbx5tvtID+QcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A52DYuen;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	dmarc=none header.from=toxicpanda.com;
+	spf=pass smtp.mailfrom=toxicpanda.com;
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=emmxrjZg;
+	arc=none smtp.remote-ip=209.85.219.43
+Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA59606D80F
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:16:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EA59606D80F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 173AA606A32F
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:16:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 173AA606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A52DYuen
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-36a315ed211so915715eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:16:32 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=emmxrjZg
+Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-91c19fc50abso21003586d6.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:16:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793891792; x=1794496592; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=U/zU+iezW2GfOw/f0OPPGRnhbVffrS1qpT7D+WVa544=;
-        b=A52DYuenr7bzlJoCxPAatYBB6pF0MG2SDxAWbIBVtVQf0VYBSX5Ll9EESy0/Kx/Q9G
-         X0SB//hh9z0JyGyKpbermPtkf8AjJT5IKoSdXLQl0FS3f4dqf56Z3/G6oZg7DSsedyDI
-         A9EHu61VL1czaqVqoicUSk42ZS6XmyM/nuNlgtsdTmWLJQUut4lPkS0SKDriewfwda/P
-         T9EuXVxss5FnKqS6+MivDpBIfHoMxlorSEgQfnV8lEfh65g070kSUKeHtNs0gPHZFn8F
-         lBM9b7vYv6zrWUnS7y4lq1EMpJKFaLEJ4+sPNEmRAmIv0JE9OSpH/giOhAfnoJTQhc3F
-         703A==
+        d=toxicpanda.com; s=google; t=1793891785; x=1794496585; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7g1z1fdgH8pC7wU8IArmzkDI6Bi5iuUSZYwLMGECsDo=;
+        b=emmxrjZgnzgS8cICYm5ecvPwQRHRq0svHOm82G8MFAJ7W9ZOSKAdxQ40r7qxoBxgr5
+         f5FhG1bPxBvjY6qf2yIN/l+1GrAoVB+P4CnRpckQ2nC8sK9uJZqOE3bfLOXsfCothntb
+         T4mu2BX54Yk8gCfbqcLLBw/1Hw0ExsCWJIjNxdC+xy2/nLW1RIAIbaGai3E+GW0JJOhC
+         WEWo1dcCy5Af7E9cH533yMuwsWTZrqjwOawIXPRUqf9g2mEm/I7jSXMJ+66bQId2M2Y6
+         pgYuIM/VzwoAF8h563QKXpt2pfiFlT4qMAZTLIminPE3njOlPL7S06m2/sSjCt0ggO9n
+         F7iA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793891792; x=1794496592;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1793891785; x=1794496585;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=U/zU+iezW2GfOw/f0OPPGRnhbVffrS1qpT7D+WVa544=;
-        b=qSdAZ1A0obGUmSuD1O8JoLMGELgqACbjQgX0fZcdWt1R4g4+V0jfQnONtPtNmlgrX6
-         kHZS4m+3mO6+5zk//IkanX1t0G8aDv9zB8oaRDfAHjzCJf8hrvKsV1wfknlxqGkYZxzf
-         vycO2SCiiGlGSh7ciOi/UilyXyA2P6wa5Wq19z+UuSXQtadu4AMcl6jjC3TtMRSraui7
-         1ZU00dnGcaoMbdWVgMbXa6keg1z+yb8ryTuxSE9M6iDZykpuF6JzkKaXKSIyzlUtUIhO
-         YLwBMUWu1/e5dxKEstYlokcQX5TvPbYOBwqJACzlUL0C9TuKtKiFUvIUdVEcu90nA3yQ
-         KTbA==
-X-Forwarded-Encrypted: i=1; AKwUvByKC/YspjOsCMWIGeF0tb4IjvM12UEcPgVBQ1tiV3J1QkVVrtf45AuTTHs7f3kIFIbLSV2cusmS840/jGw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8hjTkc/4K2uUwHzfkAvmZ6ps4TbmMxtkBf6E9Af0Up9eDLxoYJ
-	YEaBRwEcx479ZlbtzX8HV6u0ESvWhaKjHNPzuK0HaTQlaSKU2JL9crCJvhcW5wDIBxY=
-X-Gm-Gg: AYBFou0F+7ukBeTx1wdp7SV/7zQWmmfro5Qiegv0WASO4m68nwf+R9+T739GV2fP3eM
-	FwuKGGGwVyQqbLe4AgYBs6cfzJtZmHfYafx1kYOh+jJSuLx90nivMiszhz/L8Xrnh7g+MErsHcH
-	ALK/iX3faVxstyDLQIgzy9hakG6XEACKuAUxTtxjxa50RIg8tYclqTqDgPwuYK0Fn1af4WE6y3u
-	J2H4H5ZkwAK0kdU+AmvgVJOD+OCd8vggj9cQq8rV0FsV+7lAA30KfHJhqp2yvBE4uttmYcxfk5L
-	0SJHSnYC1V5gdzYWKoISwjo0BACJlGhSBwNhuKi6dH4tKUCOc5jateLvZ448+04SujFoUcmBOIo
-	qSQraGxJFKqfHZO19hEnMZT3343JSeR1CP8/JQbuvpAqbPj2V1d1Z5TyL2j6HjiroPgG6lOyCrG
-	y0/Tfv8obzwvOR3oFBvYAPWHm6OeZhp0u5dLaL92S1+d/HDIoLQ/mcwL9pwiVX6tDa6wJwulu7Q
-	ZyvgZzlhuaKnfHT/O26h9AHCijtHGDyW+djhMhPhd+5LICNCmKYmtCireGCqzac7Eg2RU033FZi
-	Yvk5ryYlK/38SNi+GbHl5VvTOmJQxo4k9/3mt0TygM2KN9aV2Pv5OinKVMhMcDfndXLzjUZ0zY9
-	tzsesU1tjVzAeHUDqISjujgfrhqOccWlWGOIcSCvbRFn0ob1I
-X-Received: by 2002:a05:7300:fd04:b0:36c:a2cb:6ad0 with SMTP id 5a478bee46e88-36de5f6f455mr5699497eec.8.1793891790984;
-        Thu, 05 Nov 2026 07:16:30 -0800 (PST)
-Received: from cachyos (2a01cb0c82caf900a186612f304bfea5.ipv6.abo.wanadoo.fr. [2a01:cb0c:82ca:f900:a186:612f:304b:fea5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38a6d3dsm21567087eec.7.2026.11.05.07.16.23
+        bh=7g1z1fdgH8pC7wU8IArmzkDI6Bi5iuUSZYwLMGECsDo=;
+        b=HYZS6Bc1XLod0w46gMNLLjnU6foyu5LMsWonJBDvD/M081Ieuib4MsHzUDzD37lPIw
+         gwuxwKVVg9J32tp//mQk9/vJ5NNk+BoF7IhgUcK3VFqXG2VApLLMmvcv2D0apOr+ADBa
+         BwRPoA+5bcoRmTGUUPnyTsAR0bXNE2c9Zazp5qzJT+EL5sPUcZ96rs/Gh3nhvYb7gSQ+
+         pA586bwvQv4oCskOyZnjl374jyewJzy/SCvrSOWp0OicbrGEqTAddMZ3ElvX2Ox4XPsW
+         25Vsbz9yc2fztK89xl7Z9utGaz3bENvm7uZtkJSDUT27QkrkCZcLmScMPVZIeMjp03jg
+         QxZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx3VViL+3SW3PPkSKDU4Cfxh22MxgG2Mowcu1T9cuamB0J//jG7ZuVe/ZhGT61yp721UzcL2hF+C+/BUqw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+1f8cVWXVoLXODHxIOp+CcEYm2Z+mT0dQAvlLsuS6IGZKAyeGQ
+	ARTvV+Hzqb0rEmf70N7rgMdb/qUa9ZAoJBmWJiXbKXWuqhGCxhFsEuT4uN/L50/U+k8=
+X-Gm-Gg: AYBFou3GL+80uDSlWwN+ZUtN4vu/oaRzS5CQBrGyRi5nrUMn8ZJQBCrHimvLIZHZ2Sw
+	rLdMBsfksf2SLdXKDJP25Y1Nd86JbytDx6e2haazRpFhCmXz/FJcj9plGhLYx016x4yj+YQ2s2Y
+	wBTNbbz7QkJOWMv5bJ1GDNlsnpTgksxFjhOuDw/NbdK3SdYSVG1yj3jm/n/mL1eGOa3q6E6RSl3
+	01F5qED8ELWMPoJbToyvKaOM3L7LhAeuOZlYEO27WIk9NqxqZBuDcx1+gciybp3PRh+NjOAnuH3
+	w3YSqkGmmRcpW/6ah5K3k6ZrELvz2nmHGjQ8aEIy7mSI/gd0H+WaWe0JW0i2xwaw9Fg3hDhlfo/
+	TOryfIgFf/vBetQQfl9G30HufO7IpCl9iq7QDZoPIyCiZOz7krVK0n1wA/tAe33rv8WkgwVOKfC
+	ZA9OR5koXabm0zLclfcWvascrej9qFOu7d3eLZDnxC9IzTB+03C/qRd5Xh3BTyYg1yPIb7BiX3p
+	AsO45annL7q7L53Ragov33Vn8KT6Jb2Ei8sBFwtOETxTzcPBWylrwVkxOg4cxg/KQS6bxL4ewRd
+	bOjirLIath9YbP36JafraAratFCFWvRjQ6hqqJyU2tGos6o=
+X-Received: by 2002:a05:6214:dcf:b0:91c:6027:5542 with SMTP id 6a1803df08f44-91ca4b90bfemr314210956d6.57.1793891784906;
+        Thu, 05 Nov 2026 07:16:24 -0800 (PST)
+Received: from toxicpanda.com ([153.61.196.255])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91e9a5d0656sm16256346d6.16.2026.11.05.07.16.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:16:30 -0800 (PST)
-From: =?UTF-8?q?Isma=C3=AFl=20Bahloul?= <i.bahloul01@gmail.com>
-To: linux-sound@vger.kernel.org
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	linux-usb@vger.kernel.org,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
-	=?UTF-8?q?Isma=C3=AFl=20Bahloul?= <i.bahloul01@gmail.com>,
-	David Fredman <davfre@gmail.com>
-Subject: [PATCH v8 2/8] ALSA: usb: babyfacepro: add output masters and crosspoint routing
-Date: Thu,  5 Nov 2026 16:15:47 +0100
-Message-ID: <20261105151553.223722-3-i.bahloul01@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261105151553.223722-1-i.bahloul01@gmail.com>
-References: <20261105151553.223722-1-i.bahloul01@gmail.com>
+        Thu, 05 Nov 2026 07:16:23 -0800 (PST)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Thu, 05 Nov 2026 15:02:36 +0000
+Subject: [PATCH RFC v3 44/90] pidfd: let pidfd_configure() name a cgroup to
+ start in
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,969 +93,178 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-b4-cells-v3-44-bc9095937a84@toxicpanda.com>
+References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
+In-Reply-To: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
+To: Christian Brauner <brauner@kernel.org>, 
+ James Bottomley <James.Bottomley@HansenPartnership.com>, 
+ Andrew Halaney <andrew@amutable.com>, Jeremy Bingham <jbingham@gmail.com>, 
+ Tahera Fahimi <taherafahimi@linux.microsoft.com>, 
+ Serge Hallyn <sergeh@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1793890934; l=5440;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=Q7qmfYiZWh2k967NZLGElGMNdLq2eA92Jmb5C4uWviE=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QB9Ri4RbbwO6mSV3bifvChAs1PoT0JyD/+e2dfYBYzKqbLIKY8+DRMUCX2txSXakT9/QyB6tgrB
+ LonYgPXAx5wc=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-Add the first mixer controls: the six output masters (volume + mute)
-and the 6x14 crosspoint matrix.  The device has no readback for any of
-them, so the driver keeps the state host-side and the controls read
-that cache.
+A new task of a cell starts in the budget of the cell. That stops working
+once the init of the cell manages cgroups. It moves itself out of the
+budget and enables controllers there, which systemd does right at the
+start. A cgroup that distributes a controller to its children cannot
+contain tasks, so from then on every start fails with EBUSY. Spawning is
+the replacement for entering a container, so this means that nothing can
+be added to a running cell.
 
-The probe's cold init clears the mixer registers, so probe writes a
-power-on default: every playback channel into every output at 0 dB,
-the hardware inputs off until a mixer raises them, and the two analog
-outputs (AN1/2, PH3/4) at -20 dB, the level the hardware DIM button
-uses.  AN1/2 is the first block of the one crosspoint map (0x0000),
-not a separate "low map" beside a standard one.  A volume change
-leaves a muted output muted.
+Container runtimes have the same problem today and solve it themselves.
+runc exec accepts a cgroup for the new process. If it is given none and
+gets EBUSY, it looks up the cgroup of the init of the container and uses
+that.
 
-The masters count the 8-bit register's 0.5 dB steps over the front
-panel's range: 0 is mute, 1 is -90 dB and BF_MASTER_STEP_MAX is +6 dB.
-The control value is that step, so no log table converts it, and the
-16-bit companion register is derived from the same step.
+So let the spawner choose. PIDFD_SET_FD with the key "cgroup" names the
+cgroup that the task starts in. Which cgroup to use is a policy decision,
+and it stays with the runtime. For containers that share a cell, like
+those of a pod, this is also how each of them gets its own cgroup.
 
-A userspace usbfs claim (PipeWire, a libusb mixer daemon) detaches and
-re-probes the interface, and the cold init of the re-probe clears the
-mixer registers; alsactl restores the user's settings once the card is
-registered again.
+The cgroup must be the budget or lie below it, because a kill finds the
+tasks of the cell through the budget. The fork checks this with
+cgroup_mutex held, along with whether the cgroup still exists and can
+contain tasks. It has to be checked that late because the cell can change
+what is below its budget at any time. The task is created in the cgroup
+rather than moved there, so it is never anywhere else.
 
-Co-developed-by: David Fredman <davfre@gmail.com>
-Signed-off-by: David Fredman <davfre@gmail.com>
-Signed-off-by: Ismaïl Bahloul <i.bahloul01@gmail.com>
+No permission on the cgroup is required. Whoever holds the cellfd can
+already do anything to the cell, including killing it, and the permission
+to put tasks into the budget was checked when the slot was filled.
+Requiring write access to cgroup.procs would not work in practice: the
+cgroups that the init of a cell creates are owned by ids that nobody
+outside of the cell has, so only a builder with CAP_DAC_OVERRIDE would
+pass.
+
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 ---
- sound/usb/babyfacepro/Makefile          |   2 +-
- sound/usb/babyfacepro/babyfacepro-ctl.c | 656 ++++++++++++++++++++++++
- sound/usb/babyfacepro/babyfacepro.c     |  60 ++-
- sound/usb/babyfacepro/babyfacepro.h     | 124 ++++-
- 4 files changed, 839 insertions(+), 3 deletions(-)
- create mode 100644 sound/usb/babyfacepro/babyfacepro-ctl.c
+ include/linux/sched/task.h |  1 +
+ kernel/cgroup/cgroup.c     |  8 ++++++++
+ kernel/embryo.c            | 31 +++++++++++++++++++++++++++++++
+ 3 files changed, 40 insertions(+)
 
-diff --git a/sound/usb/babyfacepro/Makefile b/sound/usb/babyfacepro/Makefile
-index 5adc6d474..a50647a06 100644
---- a/sound/usb/babyfacepro/Makefile
-+++ b/sound/usb/babyfacepro/Makefile
-@@ -1,4 +1,4 @@
- # SPDX-License-Identifier: GPL-2.0-only
--snd-usb-babyface-pro-y := babyfacepro.o
-+snd-usb-babyface-pro-y := babyfacepro.o babyfacepro-ctl.o
+diff --git a/include/linux/sched/task.h b/include/linux/sched/task.h
+index 97e3675101bd..83bc58598ea0 100644
+--- a/include/linux/sched/task.h
++++ b/include/linux/sched/task.h
+@@ -50,6 +50,7 @@ struct kernel_clone_args {
+ 	unsigned int kill_seq;
+ 	struct pid *pid;
+ 	struct cell *cell;
++	struct cgroup *cell_cgrp;
+ 	struct embryo *embryo;
+ };
  
- obj-$(CONFIG_SND_USB_BABYFACE_PRO) += snd-usb-babyface-pro.o
-diff --git a/sound/usb/babyfacepro/babyfacepro-ctl.c b/sound/usb/babyfacepro/babyfacepro-ctl.c
-new file mode 100644
-index 000000000..942d4732c
---- /dev/null
-+++ b/sound/usb/babyfacepro/babyfacepro-ctl.c
-@@ -0,0 +1,656 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * RME Babyface Pro / Pro FS - proprietary-mode USB audio driver
-+ *
-+ * ALSA control surface: the hardware mixer (output masters and mutes,
-+ * the crosspoint matrix, preamps, routing flags, varispeed pitch).
-+ *
-+ * See babyfacepro.h for the shared device state and register map,
-+ * and babyfacepro.c for the core driver (protocol, PCM streaming,
-+ * state persistence, card lifecycle).
-+ */
-+#include <linux/log2.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/unaligned.h>
-+#include <linux/usb.h>
-+#include <linux/workqueue.h>
-+#include <sound/control.h>
-+#include <sound/tlv.h>
-+#include <sound/core.h>
-+#include <sound/initval.h>
-+#include <sound/pcm.h>
-+
-+#include "babyfacepro.h"
-+
-+/* The flag-cycle counter, its writer and the per-block crosspoint
-+ * "cross" register clear are crosspoint/mixer-only, so they live here
-+ * rather than in the core driver file.
-+ */
-+
-+/* The transaction-flag counter cycle on 16-bit writes. */
-+const u16 bf_flag_cycle[4] = { 0xc000, 0x4000, 0x8000, 0x0000 };
-+
-+/* Write with the per-transaction flag-cycle word OR'd into idx.  The
-+ * device wants the flag word (0xc000/0x4000/0x8000/0x0000, rotating)
-+ * set on every 0x12/0x1a write; this is the hot path for the mixer
-+ * puts, so it is factored out.
-+ */
-+int bf_vendor_write_cycle(struct snd_usb_babyface *chip, u8 req, u16 val, u16 idx)
-+{
-+	u16 flag = bf_flag_cycle[chip->flag_cnt];
-+
-+	chip->flag_cnt = (chip->flag_cnt + 1) & 3;
-+	return bf_vendor_write(chip, req, val, idx | flag);
-+}
-+
-+/* The 0x16 cold-init clear covers only 0x00-0x3D - the "cross"
-+ * registers of a block (L-reg odd / R-reg even of the stereo
-+ * sources) survive from the previous session and would sum L+R into
-+ * BOTH channels of the output (mono).  Zero them explicitly: 10 odd
-+ * L-registers (5,7,...23) + 10 even R-registers (4,6,...22).
-+ */
-+int bf_crosspoint_clear_cross(struct snd_usb_babyface *chip,
-+			      unsigned int pair)
-+{
-+	int ret, k;
-+
-+	for (k = BF_CROSS_L_FIRST; k <= BF_CROSS_L_LAST; k += 2) {
-+		ret = bf_vendor_write_cycle(chip, BF_REQ_CROSSPOINT, 0x0000,
-+					    BF_REG_XPOINT_BASE_L +
-+					    BF_REG_XPOINT_STRIDE * pair + k);
-+		if (ret < 0)
-+			return ret;
-+	}
-+	for (k = BF_CROSS_R_FIRST; k <= BF_CROSS_R_LAST; k += 2) {
-+		ret = bf_vendor_write_cycle(chip, BF_REQ_CROSSPOINT, 0x0000,
-+					    BF_REG_XPOINT_BASE_R +
-+					    BF_REG_XPOINT_STRIDE * pair + k);
-+		if (ret < 0)
-+			return ret;
-+	}
-+	return 0;
-+}
-+
-+const struct bf_source bf_sources[14] = {
-+	{ "AN1",     0,  0 },
-+	{ "AN2",     1,  1 },
-+	{ "AN3",     2,  2 },
-+	{ "AN4",     3,  3 },
-+	{ "AS1/2",   4,  5 },
-+	{ "ADAT3/4", 6,  7 },
-+	{ "ADAT5/6", 8,  9 },
-+	{ "ADAT7/8", 10, 11 },
-+	{ "PB1",    12, 13 },
-+	{ "PB2",    14, 15 },
-+	{ "PB3",    16, 17 },
-+	{ "PB4",    18, 19 },
-+	{ "PB5",    20, 21 },
-+	{ "PB6",    22, 23 },
-+};
-+
-+/* The crosspoint blocks are in the canonical output order (AN1/2, PH3/4,
-+ * AS1/2, ...), one per output pair at 0x34 * pair, see BF_REG_XPOINT_BASE_L.
-+ * They used to be read as starting at 0x34, with the first two swapped,
-+ * which put every pair from AS1/2 on the wrong output (see that comment).
-+ */
-+
-+/* Master-register output order - the master map lists AN1/2 first
-+ * (0x03E0) and the Phones master SECOND (0x03E2, HARDWARE-VERIFIED
-+ * 2026-08-24).  Control index -> canonical output (AN1/2=0, PH3/4=1, ...)
-+ * = the master register position directly: the names 'AN1/2 Playback
-+ * Volume' etc. must match the register they write (corrected 2026-08-26
-+ * - a {1,0,...} swap made 'AN1/2' drive the Phones and 'PH3/4' drive
-+ * the AN1/2 analog out).
-+ */
-+static const u8 bf_master_out[6] = { 0, 1, 2, 3, 4, 5 };
-+
-+/* dBx2 -> 16-bit master (0x2000*2^(half_db/12), rounded), from the
-+ * 12th-root table 2^(n/12).
-+ */
-+static const u16 bf_twelfth[12] = {
-+	0x1000, 0x10f4, 0x11f6, 0x1307, 0x1429, 0x155c,
-+	0x16a1, 0x17f9, 0x1966, 0x1ae9, 0x1c82, 0x1e34,
-+};
-+
-+int bf_master_16bit(int half_db)
-+{
-+	int k = half_db / 12;
-+	int n = half_db % 12;
-+	u32 v;
-+
-+	if (n < 0) {
-+		n += 12;
-+		k--;
-+	}
-+	v = (u32)bf_twelfth[n] << 1;	/* 0x2000*2^(n/12) */
-+	if (k >= 0) {
-+		v <<= k;
-+	} else {
-+		v += 1u << (-k - 1);	/* round-half-up */
-+		v >>= -k;
-+	}
-+	return (u16)clamp(v, 1, 0x4000);
-+}
-+
-+/* A master control step (BF_MASTER_STEP_*) -> the two registers. */
-+u8 bf_master_reg8(unsigned int step)
-+{
-+	if (step == 0)
-+		return BF_MASTER_MUTE;
-+	return (u8)clamp((int)step - BF_MASTER_STEP_0DB + BF_MASTER_8_0DB,
-+			 BF_MASTER_8_MIN, 0xff);
-+}
-+
-+u16 bf_master_reg16(unsigned int step)
-+{
-+	if (step == 0)
-+		return 0;
-+	return bf_master_16bit((int)step - BF_MASTER_STEP_0DB);
-+}
-+
-+/* The cold-init register clear zeroes the mixer registers TotalMix
-+ * re-uploads afterwards.  The kernel driver has no saved scene (no
-+ * readback for faders), so on a probe with no saved state it applies a
-+ * factory routing so the card makes sound without any user-space mixer:
-+ * the six playback channels feed every output at unity, and the
-+ * hardware inputs (AN1-4, AS1/2, ADAT) are NOT routed - raising an
-+ * input's crosspoint in a mixer is what monitors it.
-+ *
-+ * The inputs are left out deliberately.  Routing all 14 sources into
-+ * every output at unity (the earlier default) summed a live mic or line
-+ * input straight into the main out and the headphones the moment the
-+ * module loaded, before alsa-restore had a chance to put the user's own
-+ * levels back - the feedback/level hazard issue #4 raised, and the "mic
-+ * audible in the phones" surprise.  The failure is asymmetric: a
-+ * default that is too quiet is turned up in a second, one that is too
-+ * loud cannot be taken back.
-+ *
-+ * The two analog masters (AN1/2, the main out; PH3/4, the headphone
-+ * out) come up at -20 dB rather than TotalMix's 0 dB, for the same
-+ * reason - the six playback channels into an output at unity sum, and
-+ * -20 dB is plainly audible but safe.  It is not an invented number: it
-+ * is the exact 8-bit/16-bit pair the hardware's own DIM button writes.
-+ *
-+ * The other four outputs (AS1/2, ADAT3/4, ADAT5/6, ADAT7/8) are all
-+ * digital, carried over the single optical port - nothing downstream
-+ * of them can be damaged by a loud signal the way a speaker or a pair
-+ * of headphones can, so there is no hazard to mitigate, only a
-+ * digital feed that would otherwise arrive 20 dB quiet for no reason
-+ * a downstream device could infer.  They keep TotalMix's own 0 dB
-+ * default (raised 2026-09-15 after David Fredman pointed out the
-+ * blanket -20 dB reached them too, on his report of the AN1/2/PH3/4
-+ * default - issue #4).
-+ */
-+int babyface_write_default_mixer(struct snd_usb_babyface *chip)
-+{
-+	int out, src, ret;
-+	u16 flag;
-+	u16 level;
-+
-+	/* Output masters: the two analog outputs at -20 dB, the four
-+	 * digital ones at 0 dB (see the comment above).  Unmuted either
-+	 * way.
-+	 */
-+	for (out = 0; out < 6; out++) {
-+		bool analog = out < 2;
-+		u8 gain8 = analog ? BF_MASTER_MINUS20_8 : BF_MASTER_UNMUTE;
-+		u16 gain16 = analog ? BF_MASTER_MINUS20_16 : BF_MASTER_0DB;
-+
-+		ret = bf_vendor_write(chip, BF_REQ_GAIN, gain8,
-+				      BF_REG_MASTER_8 + 2 * out);
-+		if (ret < 0)
-+			return ret;
-+		ret = bf_vendor_write(chip, BF_REQ_GAIN, gain8,
-+				      BF_REG_MASTER_8 + 2 * out + 1);
-+		if (ret < 0)
-+			return ret;
-+		flag = bf_flag_cycle[chip->flag_cnt];
-+		chip->flag_cnt = (chip->flag_cnt + 1) & 3;
-+		ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, gain16,
-+				      (BF_REG_MASTER_16 + 2 * out) | flag);
-+		if (ret < 0)
-+			return ret;
-+		ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, gain16,
-+				      (BF_REG_MASTER_16 + 2 * out + 1) | flag);
-+		if (ret < 0)
-+			return ret;
-+		chip->master[out][0] = analog ? BF_MASTER_STEP_MINUS20 :
-+						BF_MASTER_STEP_0DB;
-+		chip->master[out][1] = chip->master[out][0];
-+		chip->muted[out] = false;
+diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
+index 3869cfa6af50..d3a36b586cd3 100644
+--- a/kernel/cgroup/cgroup.c
++++ b/kernel/cgroup/cgroup.c
+@@ -6917,6 +6917,14 @@ static int cgroup_css_set_fork_cell(struct kernel_clone_args *kargs,
+ 	struct cgroup *dst_cgrp = cell_budget(kargs->cell);
+ 	int ret;
+ 
++	/* Somewhere below, if whoever spawns says so. Nowhere else: a kill goes by the budget. */
++	if (kargs->cell_cgrp) {
++		ret = -EPERM;
++		if (!cgroup_is_descendant(kargs->cell_cgrp, dst_cgrp))
++			goto err;
++		dst_cgrp = kargs->cell_cgrp;
 +	}
 +
-+	/* Every playback source into every output pair, L and R, at 0 dB,
-+	 * and the hardware inputs off.  The addresses use the source's
-+	 * idx_l/idx_r on the pair's block - writing the raw index on both
-+	 * bases would put PB1 R on the L side and PB1 L on the R side (L+R
-+	 * on both = mono).  The "cross" registers (L-reg idx_r / R-reg
-+	 * idx_l) are cleared.
-+	 */
-+	for (out = 0; out < 6; out++) {
-+		for (src = 0; src < 14; src++) {
-+			/* Only the playback channels are routed out of the
-+			 * box; a hardware input stays out of every output
-+			 * until a mixer raises its crosspoint.
-+			 */
-+			level = src < BF_SRC_PB1 ? 0 : BF_FADER_0DB;
-+			ret = bf_xpoint_write(chip, out, src, level, level);
-+			if (ret < 0)
-+				return ret;
-+		}
-+		ret = bf_crosspoint_clear_cross(chip, out);
-+		if (ret < 0)
-+			return ret;
-+	}
-+
-+	/* Mirror the defaults into the control cache (14 controls/output). */
-+	for (out = 0; out < 6; out++)
-+		for (src = 0; src < 14; src++) {
-+			level = src < BF_SRC_PB1 ? 0 : BF_FADER_0DB;
-+			chip->xpoint[out][src][0] = level;
-+			chip->xpoint[out][src][1] = level;
-+		}
-+
-+	/* Host settings word (clock source Internal). */
-+	return bf_settings_write(chip);
-+}
-+
-+/* The cold init's 0x16 clear leaves the 8-bit masters muted: the
-+ * output stays silent until a master write lands (hardware-verified
-+ * 2026-08-24 - only a write un-mutes the 8-bit register).  Re-apply
-+ * the six output masters + mutes from the cache; used by the state
-+ * restore that follows the cold init.
-+ */
-+int bf_apply_masters(struct snd_usb_babyface *chip)
-+{
-+	int out, ret;
-+	u16 flag;
-+
-+	for (out = 0; out < 6; out++) {
-+		u16 l = chip->muted[out] ? 0 : chip->master[out][0];
-+		u16 r = chip->muted[out] ? 0 : chip->master[out][1];
-+		u8 l8 = bf_master_reg8(l);
-+		u8 r8 = bf_master_reg8(r);
-+
-+		ret = bf_vendor_write(chip, BF_REQ_GAIN, l8,
-+				      BF_REG_MASTER_8 + 2 * out);
-+		if (ret < 0)
-+			return ret;
-+		ret = bf_vendor_write(chip, BF_REQ_GAIN, r8,
-+				      BF_REG_MASTER_8 + 2 * out + 1);
-+		if (ret < 0)
-+			return ret;
-+		flag = bf_flag_cycle[chip->flag_cnt];
-+		chip->flag_cnt = (chip->flag_cnt + 1) & 3;
-+		ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, bf_master_reg16(l),
-+				      (BF_REG_MASTER_16 + 2 * out) | flag);
-+		if (ret < 0)
-+			return ret;
-+		ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, bf_master_reg16(r),
-+				      (BF_REG_MASTER_16 + 2 * out + 1) | flag);
-+		if (ret < 0)
-+			return ret;
-+	}
-+	return 0;
-+}
-+
-+/* dB TLV for the output masters: 0.5 dB per step, step 0 = mute,
-+ * step 1 = -90 dB, 181 = 0 dB, and the top step 193 = +6 dB, above
-+ * unity as on the OUT wheel (BF_MASTER_STEP_*).  WirePlumber needs it
-+ * to map the volume 1:1 to the hardware control instead of applying a
-+ * software volume on top.
-+ */
-+static const DECLARE_TLV_DB_SCALE(bf_master_tlv, -9050, 50, 1);
-+
-+static int bf_master_info(struct snd_kcontrol *kctl,
-+			  struct snd_ctl_elem_info *uinfo)
-+{
-+	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
-+	uinfo->count = 2;
-+	uinfo->value.integer.min = 0;
-+	uinfo->value.integer.max = BF_MASTER_STEP_MAX;
-+	uinfo->value.integer.step = 1;
-+	return 0;
-+}
-+
-+static int bf_master_get(struct snd_kcontrol *kctl,
-+			 struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
-+	int out = bf_master_out[kctl->private_value];
-+
-+	ucontrol->value.integer.value[0] = chip->master[out][0];
-+	ucontrol->value.integer.value[1] = chip->master[out][1];
-+	return 0;
-+}
-+
-+static int bf_master_put(struct snd_kcontrol *kctl,
-+			 struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
-+	int out = bf_master_out[kctl->private_value];
-+	long nl = ucontrol->value.integer.value[0];
-+	long nr = ucontrol->value.integer.value[1];
-+	u16 l, r, wire_l, wire_r, flag;
-+	int ret = 0;
-+
-+	/* Reject anything outside the declared range, so the registers and
-+	 * the cache stay in spec (the ALSA core only enforces this with
-+	 * CONFIG_SND_CTL_INPUT_VALIDATION).  Check before narrowing:
-+	 * .value.integer.value[] is a long.
-+	 */
-+	if (nl < 0 || nl > BF_MASTER_STEP_MAX ||
-+	    nr < 0 || nr > BF_MASTER_STEP_MAX)
-+		return -EINVAL;
-+	l = nl;
-+	r = nr;
-+
-+	guard(mutex)(&chip->mutex);
-+	if (l == chip->master[out][0] && r == chip->master[out][1])
-+		return 0;
-+
-+	wire_l = chip->muted[out] ? 0 : l;
-+	wire_r = chip->muted[out] ? 0 : r;
-+	flag = bf_flag_cycle[chip->flag_cnt];
-+	chip->flag_cnt = (chip->flag_cnt + 1) & 3;
-+
-+	/* Both registers, as TotalMix writes them: the 8-bit is the analog
-+	 * level, the 16-bit the digital one.
-+	 */
-+	ret = bf_vendor_write(chip, BF_REQ_GAIN, bf_master_reg8(wire_l),
-+			      BF_REG_MASTER_8 + 2 * out);
-+	if (ret < 0)
-+		return ret;
-+	ret = bf_vendor_write(chip, BF_REQ_GAIN, bf_master_reg8(wire_r),
-+			      BF_REG_MASTER_8 + 2 * out + 1);
-+	if (ret < 0)
-+		return ret;
-+	ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, bf_master_reg16(wire_l),
-+			      (BF_REG_MASTER_16 + 2 * out) | flag);
-+	if (ret < 0)
-+		return ret;
-+	ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, bf_master_reg16(wire_r),
-+			      (BF_REG_MASTER_16 + 2 * out + 1) | flag);
-+	if (ret < 0)
-+		return ret;
-+
-+	chip->master[out][0] = l;
-+	chip->master[out][1] = r;
-+	return 1;
-+}
-+
-+static int bf_mute_info(struct snd_kcontrol *kctl,
-+			struct snd_ctl_elem_info *uinfo)
-+{
-+	uinfo->type = SNDRV_CTL_ELEM_TYPE_BOOLEAN;
-+	/* One switch for the pair: bf_mute_put() writes both channels
-+	 * together, so a count of 2 would silently ignore value[1].
-+	 */
-+	uinfo->count = 1;
-+	uinfo->value.integer.min = 0;
-+	uinfo->value.integer.max = 1;
-+	return 0;
-+}
-+
-+static int bf_mute_get(struct snd_kcontrol *kctl,
-+		       struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
-+	int out = bf_master_out[kctl->private_value];
-+
-+	/* ALSA convention: 1 = enabled (sound on) = not muted. */
-+	ucontrol->value.integer.value[0] = !chip->muted[out];
-+	ucontrol->value.integer.value[1] = !chip->muted[out];
-+	return 0;
-+}
-+
-+static int bf_mute_put(struct snd_kcontrol *kctl,
-+		       struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
-+	int out = bf_master_out[kctl->private_value];
-+	bool muted = !ucontrol->value.integer.value[0];
-+	u16 flag;
-+	int ret = 0;
-+
-+	guard(mutex)(&chip->mutex);
-+	if (muted == chip->muted[out])
-+		return 0;
-+
-+	flag = bf_flag_cycle[chip->flag_cnt];
-+	chip->flag_cnt = (chip->flag_cnt + 1) & 3;
-+
-+	if (muted) {
-+		ret = bf_vendor_write(chip, BF_REQ_GAIN, BF_MASTER_MUTE,
-+				      BF_REG_MASTER_8 + 2 * out);
-+		if (ret < 0)
-+			return ret;
-+		ret = bf_vendor_write(chip, BF_REQ_GAIN, BF_MASTER_MUTE,
-+				      BF_REG_MASTER_8 + 2 * out + 1);
-+		if (ret < 0)
-+			return ret;
-+		ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, 0x0000,
-+				      (BF_REG_MASTER_16 + 2 * out) | flag);
-+		if (ret < 0)
-+			return ret;
-+		ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, 0x0000,
-+				      (BF_REG_MASTER_16 + 2 * out + 1) | flag);
-+		if (ret < 0)
-+			return ret;
-+	} else {
-+		/* Unmute restores the cached volume (TotalMix keeps the
-+		 * pre-mute fader value host-side), 8-bit + 16-bit.
-+		 */
-+		ret = bf_vendor_write(chip, BF_REQ_GAIN,
-+				      bf_master_reg8(chip->master[out][0]),
-+				      BF_REG_MASTER_8 + 2 * out);
-+		if (ret < 0)
-+			return ret;
-+		ret = bf_vendor_write(chip, BF_REQ_GAIN,
-+				      bf_master_reg8(chip->master[out][1]),
-+				      BF_REG_MASTER_8 + 2 * out + 1);
-+		if (ret < 0)
-+			return ret;
-+		ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT,
-+				      bf_master_reg16(chip->master[out][0]),
-+				      (BF_REG_MASTER_16 + 2 * out) | flag);
-+		if (ret < 0)
-+			return ret;
-+		ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT,
-+				      bf_master_reg16(chip->master[out][1]),
-+				      (BF_REG_MASTER_16 + 2 * out + 1) | flag);
-+		if (ret < 0)
-+			return ret;
-+	}
-+	chip->muted[out] = muted;
-+	return 1;
-+}
-+
-+/* The crosspoint fader is linear in amplitude: BF_FADER_0DB (0x16a0) is
-+ * unity and BF_FADER_TOP (0x2d41) is exactly twice that, i.e. +6 dB; the
-+ * whole fader span follows raw = BF_FADER_0DB * 10^(dB/20).  Raw 0 is
-+ * off.
-+ */
-+static const DECLARE_TLV_DB_LINEAR(bf_xpoint_tlv, TLV_DB_GAIN_MUTE, 600);
-+
-+/* Write a crosspoint slot on the wire: the pair's block of the map, see
-+ * BF_REG_XPOINT_BASE_L.
-+ *
-+ * AN1/2 is the block at 0x0000.  It used to be written as a "low map"
-+ * beside a "standard map" that this function put at 0x0068 (AN1/2 was
-+ * thought to be the second block, the Phones the first), and every other
-+ * pair was written one block off.  Measured on a Pro FS through the six
-+ * digital loopbacks (2026-10-26), one source routed to one pair at a time:
-+ * the AN1/2 control came out on AN1/2 and AS1/2, AS1/2 on ADAT3/4, ADAT3/4
-+ * on ADAT5/6, ADAT5/6 on ADAT7/8, and ADAT7/8 on nothing (0x0138 is the FX
-+ * send).  That also explains the finding of 2026-09-14 that sweeping the
-+ * "standard map" alone changed nothing on AN1/2: it was AS1/2's submix.
-+ *
-+ * The AN1/2 block has only ever been written without the rotating
-+ * transaction bits of wIndex, and keeps being: issue #31 reads them as the
-+ * gain's lowest bits, which is a separate question.
-+ */
-+int bf_xpoint_write(struct snd_usb_babyface *chip, int out, int src,
-+		    u16 l, u16 r)
-+{
-+	const struct bf_source *s = &bf_sources[src];
-+	u16 flag = 0;
-+	int ret;
-+
-+	if (out) {
-+		flag = bf_flag_cycle[chip->flag_cnt];
-+		chip->flag_cnt = (chip->flag_cnt + 1) & 3;
-+	}
-+	ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, l,
-+			      (BF_REG_XPOINT_BASE_L +
-+			       BF_REG_XPOINT_STRIDE * out + s->idx_l) | flag);
-+	if (ret < 0)
-+		return ret;
-+	return bf_vendor_write(chip, BF_REQ_CROSSPOINT, r,
-+			       (BF_REG_XPOINT_BASE_R +
-+				BF_REG_XPOINT_STRIDE * out + s->idx_r) | flag);
-+}
-+
-+static int bf_xpoint_info(struct snd_kcontrol *kctl,
-+			  struct snd_ctl_elem_info *uinfo)
-+{
-+	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
-+	uinfo->count = 2;
-+	uinfo->value.integer.min = 0;
-+	uinfo->value.integer.max = BF_FADER_TOP;	/* +6 dB fader top */
-+	uinfo->value.integer.step = 1;
-+	return 0;
-+}
-+
-+static int bf_xpoint_get(struct snd_kcontrol *kctl,
-+			 struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
-+	int out = kctl->private_value >> 8;
-+	int src = kctl->private_value & 0xff;
-+
-+	ucontrol->value.integer.value[0] = chip->xpoint[out][src][0];
-+	ucontrol->value.integer.value[1] = chip->xpoint[out][src][1];
-+	return 0;
-+}
-+
-+static int bf_xpoint_put(struct snd_kcontrol *kctl,
-+			 struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
-+	int out = kctl->private_value >> 8;
-+	int src = kctl->private_value & 0xff;
-+	long nl = ucontrol->value.integer.value[0];
-+	long nr = ucontrol->value.integer.value[1];
-+	u16 l, r;
-+	int ret = 0;
-+
-+	/* Check before narrowing: a value of 0x10000 or more would wrap to a
-+	 * passing u16 (see the note in bf_master_put()).
-+	 */
-+	if (nl < 0 || nl > BF_FADER_TOP || nr < 0 || nr > BF_FADER_TOP)
-+		return -EINVAL;
-+	l = nl;
-+	r = nr;
-+
-+	guard(mutex)(&chip->mutex);
-+	if (l == chip->xpoint[out][src][0] && r == chip->xpoint[out][src][1])
-+		return 0;
-+
-+	ret = bf_xpoint_write(chip, out, src, l, r);
-+	if (ret < 0)
-+		return ret;
-+
-+	chip->xpoint[out][src][0] = l;
-+	chip->xpoint[out][src][1] = r;
-+	return 1;
-+}
-+
-+int babyface_create_xpoints(struct snd_usb_babyface *chip)
-+{
-+	struct snd_kcontrol *kctl;
-+	int out, src, err;
-+
-+	for (out = 0; out < 6; out++) {
-+		for (src = 0; src < 14; src++) {
-+			kctl = snd_ctl_new1(&(struct snd_kcontrol_new){
-+				.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
-+				.name = "Playback Volume",
-+				.index = out * 14 + src,
-+				.access = SNDRV_CTL_ELEM_ACCESS_READWRITE |
-+					  SNDRV_CTL_ELEM_ACCESS_TLV_READ,
-+				.info = bf_xpoint_info,
-+				.get = bf_xpoint_get,
-+				.put = bf_xpoint_put,
-+				.tlv.p = bf_xpoint_tlv,
-+				.private_value = (out << 8) | src,
-+			}, chip);
-+			if (!kctl)
-+				return -ENOMEM;
-+			/* Name the control by its source: "AN1 Playback Volume",
-+			 * "PB1 Playback Volume"... with a unique index.
-+			 */
-+			strscpy(kctl->id.name, bf_sources[src].name,
-+				sizeof(kctl->id.name));
-+			strlcat(kctl->id.name, " Playback Volume",
-+				sizeof(kctl->id.name));
-+			err = snd_ctl_add(chip->card, kctl);
-+			if (err < 0)
-+				return err;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+int babyface_create_masters(struct snd_usb_babyface *chip)
-+{
-+	static const char * const out_names[6] = {
-+		"AN1/2", "PH3/4", "AS1/2", "ADAT3/4", "ADAT5/6", "ADAT7/8"
-+	};
-+	struct snd_kcontrol *kctl;
-+	int i, err;
-+
-+	for (i = 0; i < 6; i++) {
-+		kctl = snd_ctl_new1(&(struct snd_kcontrol_new){
-+			.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
-+			.name = out_names[i],
-+			.index = i,
-+			.access = SNDRV_CTL_ELEM_ACCESS_READWRITE |
-+				  SNDRV_CTL_ELEM_ACCESS_TLV_READ,
-+			.info = bf_master_info,
-+			.get = bf_master_get,
-+			.put = bf_master_put,
-+			.tlv.p = bf_master_tlv,
-+			.private_value = i,
-+		}, chip);
-+		if (!kctl)
-+			return -ENOMEM;
-+		strlcat(kctl->id.name, " Playback Volume", sizeof(kctl->id.name));
-+		err = snd_ctl_add(chip->card, kctl);
-+		if (err < 0)
-+			return err;
-+		chip->master_kctl[i] = kctl;
-+
-+		kctl = snd_ctl_new1(&(struct snd_kcontrol_new){
-+			.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
-+			.name = out_names[i],
-+			.index = i,
-+			.info = bf_mute_info,
-+			.get = bf_mute_get,
-+			.put = bf_mute_put,
-+			.private_value = i,
-+		}, chip);
-+		if (!kctl)
-+			return -ENOMEM;
-+		strlcat(kctl->id.name, " Playback Switch", sizeof(kctl->id.name));
-+		err = snd_ctl_add(chip->card, kctl);
-+		if (err < 0)
-+			return err;
-+
-+		dev_dbg(&chip->dev->dev, "output %d = %s\n", i, out_names[i]);
-+	}
-+
-+	return 0;
-+}
-diff --git a/sound/usb/babyfacepro/babyfacepro.c b/sound/usb/babyfacepro/babyfacepro.c
-index ac1414adc..0bf94ff5d 100644
---- a/sound/usb/babyfacepro/babyfacepro.c
-+++ b/sound/usb/babyfacepro/babyfacepro.c
-@@ -5,7 +5,8 @@
-  * Core driver: USB vendor requests + cold init, interrupt-URB PCM
-  * streaming, and the card lifecycle (probe/disconnect/module entry).
-  *
-- * See babyfacepro.h for the shared device state and register map.
-+ * See babyfacepro.h for the shared device state and register map,
-+ * and babyfacepro-ctl.c for the ALSA control surface.
+ 	ret = -ENODEV;
+ 	if (cgroup_is_dead(dst_cgrp))
+ 		goto err;
+diff --git a/kernel/embryo.c b/kernel/embryo.c
+index 0ad85cd2b865..0a04f39fa37a 100644
+--- a/kernel/embryo.c
++++ b/kernel/embryo.c
+@@ -19,6 +19,7 @@
   */
- #include <linux/delay.h>
- #include <linux/math64.h>
-@@ -249,6 +250,42 @@ int bf_cold_init(struct snd_usb_babyface *chip)
+ #include <linux/binfmts.h>
+ #include <linux/cell.h>
++#include <linux/cgroup.h>
+ #include <linux/completion.h>
+ #include <linux/cred.h>
+ #include <linux/fdtable.h>
+@@ -73,6 +74,7 @@ struct embryo {
+ 	kuid_t			uid;
+ 	kgid_t			gid;
+ 	struct group_info	*groups;
++	struct cgroup		*cgrp;		/* where in the budget, or NULL for the budget */
+ 
+ 	struct pid		*pid;		/* the reference alloc_pid_struct() returned */
+ 	struct cell		*cell;		/* where the task is going to be */
+@@ -133,6 +135,9 @@ static void embryo_drop_config(struct embryo *e)
+ 	if (e->groups)
+ 		put_group_info(e->groups);
+ 	e->groups = NULL;
++	if (e->cgrp)
++		cgroup_put(e->cgrp);
++	e->cgrp = NULL;
+ }
+ 
+ static void embryo_put(struct embryo *e)
+@@ -540,6 +545,26 @@ static int embryo_set_fd(struct embryo *e, const char *key, struct file *file)
  	return 0;
  }
  
-+/* Re-apply the whole cached mixer state to the device, whose registers
-+ * the cold init cleared.  Caller holds chip->mutex.
++/*
++ * Where in the budget of the cell the task starts. Whether it is in there, still
++ * there and able to hold a task is for the fork to say, with cgroup_mutex held:
++ * what is below the budget is the cell's to change at any time.
++ *
++ * It takes no permission. Whoever holds the cellfd can do anything to the cell, and
++ * what the cell made in there belongs to ids that nobody outside of it has.
 + */
-+int babyface_restore_state(struct snd_usb_babyface *chip)
++static int embryo_set_cgroup(struct embryo *e, int fd)
 +{
-+	int out, src, ret;
++	struct cgroup *cgrp = cgroup_get_from_fd(fd);
 +
-+	/* Masters (8-bit = the real volume) + mutes. */
-+	ret = bf_apply_masters(chip);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Crosspoints: one block per output pair, see BF_REG_XPOINT_BASE_L. */
-+	for (out = 0; out < 6; out++) {
-+		for (src = 0; src < 14; src++) {
-+			ret = bf_xpoint_write(chip, out, src,
-+					      chip->xpoint[out][src][0],
-+					      chip->xpoint[out][src][1]);
-+			if (ret < 0)
-+				return ret;
-+		}
-+		ret = bf_crosspoint_clear_cross(chip, out);
-+		if (ret < 0)
-+			return ret;
-+	}
-+
-+	/* The rate (family register), then the varispeed ratio, which is
-+	 * sticky in the device and so must be re-sent even at pitch 0 in
-+	 * case something else wrote it while we were detached.
-+	 */
-+	ret = bf_clock_write(chip);
-+	if (ret < 0)
-+		return ret;
-+	return bf_pitch_write(chip, chip->pitch);
++	if (IS_ERR(cgrp))
++		return PTR_ERR(cgrp);
++	if (e->cgrp)
++		cgroup_put(e->cgrp);
++	e->cgrp = cgrp;
++	return 0;
 +}
 +
- static bool babyface_capture_copy(struct snd_usb_babyface *chip,
- 				  struct snd_pcm_substream *subs,
- 				  const u8 *data, unsigned int frames)
-@@ -1377,6 +1414,15 @@ static int babyface_probe(struct usb_interface *intf,
- 		goto error;
+ static int embryo_start(struct embryo *e)
+ {
+ 	struct kernel_clone_args args = {
+@@ -569,6 +594,8 @@ static int embryo_start(struct embryo *e)
+ 		ret = e->started ? -EBUSY : e->exec ? 0 : -EINVAL;
+ 		if (!ret)
+ 			e->started = true;
++		/* Nobody changes it from here on. */
++		args.cell_cgrp = e->cgrp;
  	}
+ 	if (ret) {
+ 		cell_fork_finish(e->cell);
+@@ -698,6 +725,10 @@ SYSCALL_DEFINE5(pidfd_configure, int, pidfd, unsigned int, cmd,
+ 	case PIDFD_SET_FD: {
+ 		CLASS(fd, slot)(aux);
  
-+	/* The 0x16 clear zeroed the mixer registers: apply the factory
-+	 * default routing to keep the outputs live out of the box.  alsactl
-+	 * restores the user's settings once the card is registered.
-+	 */
-+	err = babyface_write_default_mixer(chip);
-+	if (err < 0) {
-+		dev_err(&intf->dev, "default mixer restore failed: %d\n", err);
-+		goto error;
-+	}
- 	/* Keep the allocation size independent of the active USB mode. */
- 	urbsize = BF_WORDS_PER_FRAME * sizeof(u32) * chip->frames_per_urb;
- 	chip->urbs_in = kcalloc(chip->nurbs, sizeof(*chip->urbs_in), GFP_KERNEL);
-@@ -1425,6 +1471,18 @@ static int babyface_probe(struct usb_interface *intf,
- 		goto error;
- 	}
- 
-+	err = babyface_create_masters(chip);
-+	if (err < 0) {
-+		dev_err(&intf->dev, "master control creation failed: %d\n", err);
-+		goto error;
-+	}
-+
-+	err = babyface_create_xpoints(chip);
-+	if (err < 0) {
-+		dev_err(&intf->dev, "crosspoint creation failed: %d\n", err);
-+		goto error;
-+	}
-+
- 	err = snd_card_register(chip->card);
- 	if (err < 0) {
- 		dev_err(&intf->dev, "snd_card_register failed: %d\n", err);
-diff --git a/sound/usb/babyfacepro/babyfacepro.h b/sound/usb/babyfacepro/babyfacepro.h
-index 93ef4c3a1..a3b118bed 100644
---- a/sound/usb/babyfacepro/babyfacepro.h
-+++ b/sound/usb/babyfacepro/babyfacepro.h
-@@ -11,7 +11,10 @@
-  * standalone (snd-usb-caiaq-style interrupt streaming) instead of an
-  * snd-usb-audio quirk.
-  *
-- * babyfacepro.c holds the card lifecycle and the PCM stream.
-+ * babyfacepro.c holds the card lifecycle, the PCM stream and the
-+ * mixer-state persistence across re-probes;
-+ * babyfacepro-ctl.c holds the ALSA control surface - the hardware
-+ * mixer.
-  *
-  * The protocol (vendor requests + 14x32-bit frame layout) was
-  * reverse-engineered from Windows captures and validated on hardware -
-@@ -90,8 +93,10 @@
- 
- /* Vendor requests (bmRequestType 0x40, value in wValue, no data phase). */
- #define BF_REQ_KEEPALIVE		0x10	/* settings word / stream trigger */
-+#define BF_REQ_CROSSPOINT		0x12	/* 16-bit crosspoint / master */
- #define BF_REQ_REG_CLEAR		0x16	/* cold-init register clear */
- #define BF_REQ_PREAMP			0x17	/* 48V/PAD state + readback */
-+#define BF_REQ_GAIN			0x1a	/* 8-bit gain / master companion */
- #define BF_REQ_DDS			0x1b	/* clock quads */
- #define BF_REQ_STATUS_2			0x1c	/* read 4 B */
- #define BF_REQ_SESSION_START		0x1d
-@@ -114,6 +119,96 @@
-  */
- #define BF_SETTINGS_CLOCK_INTERNAL	0x0001
- 
-+/* Register addresses (masters + crosspoint matrix). */
-+#define BF_REG_MASTER_16		0x03e0	/* + 2*out (bReq 0x12) */
-+#define BF_REG_MASTER_8			0x0004	/* + 2*out (bReq 0x1a) */
-+/* The crosspoint map, one block per output pair, in the canonical order
-+ * (AN1/2, PH3/4, AS1/2, ADAT3/4, ADAT5/6, ADAT7/8), then the FX send bus:
-+ *
-+ *	left side  = 0x0000 + 0x34 * pair + idx_l
-+ *	right side = 0x001a + 0x34 * pair + idx_r		(bReq 0x12)
-+ *
-+ * Measured on a Pro FS through the six digital loopbacks (2026-10-26, and
-+ * issue #31 from captures of RME's driver): the block at 0x0034 feeds
-+ * PH3/4, 0x0068 AS1/2, 0x009c ADAT3/4, 0x00d0 ADAT5/6, 0x0104 ADAT7/8 and
-+ * 0x0138 the FX send.  AN1/2 is the block at 0x0000, the one this file
-+ * used to call the "low map": it is not a layer beside a standard map but
-+ * the first pair of the one map.  The map used to start at 0x0034 with
-+ * the blocks swapped, which fed every pair from AS1/2 on the wrong output.
-+ */
-+#define BF_REG_XPOINT_BASE_L		0x0000	/* + 0x34*pair + idx_l */
-+#define BF_REG_XPOINT_BASE_R		0x001a	/* + 0x34*pair + idx_r */
-+#define BF_REG_XPOINT_STRIDE		0x0034
-+/* The AN1/2 block, for the features that only reach that output. */
-+#define BF_REG_LOWMAP_BASE_L		BF_REG_XPOINT_BASE_L
-+#define BF_REG_LOWMAP_BASE_R		BF_REG_XPOINT_BASE_R
-+
-+/* The "cross" register block within each output: the L-registers sit at
-+ * odd offsets 5..23 and the R-registers at even offsets 4..22 (the stereo
-+ * source pairs that can be cross-linked).  bf_crosspoint_clear_cross()
-+ * zeroes them because the cold-init clear does not cover them.
-+ */
-+#define BF_CROSS_L_FIRST		5
-+#define BF_CROSS_L_LAST			23
-+#define BF_CROSS_R_FIRST		4
-+#define BF_CROSS_R_LAST			22
-+
-+/* Calibrated master value: 0 dB = 0x2000 (+6 dB = 0x4000).  See
-+ * CALIBRATION.md.  The crosspoint fader curve is DIFFERENT (0 dB =
-+ * 0x16a0, top 0x2d41 - see below).
-+ */
-+#define BF_MASTER_0DB			0x2000
-+
-+/* Each output has two master registers, and TotalMix writes both.  The
-+ * 8-bit one is the analog level (hardware-verified 2026-08-24: writing
-+ * it changes the level of an analog output, the 16-bit does not), in
-+ * 0.5 dB steps: 0xf3 = 0 dB (the scene-load default), bottom 0x73 =
-+ * -64 dB (silence), top 0xff = +6 dB, mute 0x3B.  The 16-bit one is
-+ * linear (BF_MASTER_0DB) and is the level of the digital outputs.
-+ */
-+#define BF_MASTER_8_0DB			0xf3
-+#define BF_MASTER_8_MIN			0x73
-+#define BF_MASTER_MUTE			0x3b
-+#define BF_MASTER_UNMUTE		0xf3
-+/* -20 dB master, 8-bit and 16-bit: the exact pair the hardware DIM
-+ * button writes (cap_dim2.pcap), reused as the power-on default.
-+ */
-+#define BF_MASTER_MINUS20_8		0xcb
-+#define BF_MASTER_MINUS20_16		0x0333
-+
-+/* The output master controls count the 8-bit register's 0.5 dB steps,
-+ * over the front-panel OUT wheel's range: 0 is mute, 1 is -90 dB and
-+ * BF_MASTER_STEP_MAX is +6 dB.  Below -64 dB the 8-bit register stays
-+ * at its bottom and only the 16-bit one goes lower.
-+ */
-+#define BF_MASTER_STEP_0DB		181
-+#define BF_MASTER_STEP_MAX		193
-+#define BF_MASTER_STEP_MINUS20		(BF_MASTER_STEP_0DB - 40)
-+
-+/* Crosspoint fader curve: 0 dB = 0x16a0, +6 dB = 0x2d41 (fader curve,
-+ * DIFFERENT from the master 0x4000 top - see CALIBRATION.md).
-+ */
-+#define BF_FADER_0DB			0x16a0
-+#define BF_FADER_TOP			0x2d41
-+
-+/* The crosspoint matrix sources (14 controls per output). */
-+struct bf_source {
-+	const char *name;
-+	u8 idx_l;
-+	u8 idx_r;
-+};
-+
-+/* Crosspoint-source order (babyfacepro-ctl.c). */
-+extern const struct bf_source bf_sources[14];
-+
-+/* The first playback source in bf_sources[]: the four analog inputs, the
-+ * optical input and the three ADAT pairs come first, the six playback
-+ * channels last.  babyface_write_default_mixer() routes only the
-+ * playback out of the box; a hardware input is not monitored into any
-+ * output until a mixer raises its crosspoint.
-+ */
-+#define BF_SRC_PB1			8
-+
- struct snd_usb_babyface {
- 	struct snd_card *card;
- 	struct usb_device *dev;
-@@ -160,6 +255,13 @@ struct snd_usb_babyface {
- 	 */
- 	ktime_t in_done;
- 	unsigned int out_inflight;
-+
-+	/* mixer state (no gain readback exists - host-side mirror) */
-+	u8 flag_cnt;			/* 0xc000/0x4000/0x8000/0x0000 */
-+	struct snd_kcontrol *master_kctl[6];
-+	u16 master[6][2];		/* cached masters, in BF_MASTER_STEP_* */
-+	bool muted[6];
-+	u16 xpoint[6][14][2];		/* cached crosspoints (out, src, L/R) */
- };
- 
- struct bf_rate {
-@@ -185,3 +287,23 @@ void babyface_stream_kill(struct snd_usb_babyface *chip);
- void babyface_pcm_stop_both(struct snd_usb_babyface *chip, snd_pcm_state_t state);
- void babyface_stream_work(struct work_struct *work);
- extern const struct snd_pcm_hw_constraint_list bf_rates_constraint;
-+
-+/* Mixer-state persistence across interface re-probes. */
-+int babyface_restore_state(struct snd_usb_babyface *chip);
-+
-+/* babyfacepro-ctl.c */
-+extern const u16 bf_flag_cycle[4];
-+int bf_vendor_write_cycle(struct snd_usb_babyface *chip, u8 req, u16 val, u16 idx);
-+int bf_crosspoint_clear_cross(struct snd_usb_babyface *chip,
-+			      unsigned int pair);
-+int babyface_write_default_mixer(struct snd_usb_babyface *chip);
-+int bf_apply_masters(struct snd_usb_babyface *chip);
-+int bf_xpoint_write(struct snd_usb_babyface *chip, int out, int src,
-+		    u16 l, u16 r);
-+int babyface_create_masters(struct snd_usb_babyface *chip);
-+int babyface_create_xpoints(struct snd_usb_babyface *chip);
-+
-+/* Master gain-law helpers (babyfacepro-ctl.c). */
-+int bf_master_16bit(int half_db);	/* dBx2 -> 16-bit master */
-+u8 bf_master_reg8(unsigned int step);	/* master step -> 8-bit register */
-+u16 bf_master_reg16(unsigned int step);	/* master step -> 16-bit register */
++		if (!strcmp(key, "cgroup")) {
++			ret = embryo_set_cgroup(e, aux);
++			break;
++		}
+ 		ret = -EBADF;
+ 		if (!fd_empty(slot))
+ 			ret = embryo_set_fd(e, key, fd_file(slot));
+
 -- 
-2.56.0
+2.55.0
 
