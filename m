@@ -1,49 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.76.5.236
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.231
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793855852;
-	b=wUKlz+kr5h7E9cCvCRMP2iZB5qvjIdlhQ322JE9f1Gkumwrb7QpYH0lMGf/9dlBPnHyu
-	 uUNmHbE+0B1sq4gW+IgcPFXRxN5fqR4FtFu+c2xaZ78WzQGgZIiWZ0Piun5w+49H7vpiv
-	 iUWxF2kLFlxUg6h9sUt/BWC79zPBWNV1YVIcSNYJSqCKM93XspVb9RdKH635sCpsYQEzs
-	 Nz2of70rKxTKiDo7rFH+ScRLSrrLawTwSAqDyWwo2/xUlFCrVRkpFOxBvoAA2EvL5bAdN
-	 v2vIzRBoFakXoV44CCpwUaUhzt2sUVo5YLFQdSvX0NRmjE8RtCWg2l8U5NNN+NQiKUQ==
+	t=1793855899;
+	b=Q5+Pxb1QN3mrflW1c2TiEZNyhYk7C4QRmm5f8e7amZp8nuoHLyWkTWBc5qgISSaNNh7s
+	 kW31sy2Vjcb1lv400pv8ynpCuIxSzpokbJyMEGXX/ibw11CXLAQUN6tpFAM7MpDaOOdjQ
+	 jFPSXW1fPbqFewsiiqXKiIl5JAA/XQ+ND2lGkThk1wDyJAEAIa+0hIttC4GmsCwP20xx+
+	 6yZkkRnkBynouHfCz5S+mB2w7o8dSDaxcb7QxqZOwz0McTfjI4xDJrOSxKZCt3aGGkWOZ
+	 DsA1KdntGQXaFxl4EkqUBB8gpNsWZTzf19aWWXVQI/BCajGBS+xgw5xlRBToGtGWsIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793855852;
-	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:DKIM-Signature;
-	bh=mo4tZCwDPyINsh+mtEZQ6SccSEU/b2YuNT4z9b45fwA=;
-	b=SVEA9RRu6reWjCC0Nmj/pUz1XmvxzneA5HU5N4t2QTNWZhZTOC7WExJvzevxgoQKhZD6
-	 DTEy5ZYm2ETPbePi/JmO/BAmLbVCMZgXXTPGJo6UHk9t0mTNmqeqXdqCopE0AzD2r+ZNF
-	 a/JvQqUfU1wlvVsoxc3zrJh7Csk3ecRuNyr/SSw+DECIvw4UDMPngyeMTMj5VQ7vog+ZG
-	 voiMunU14RbcVoRfkKvKoDB7gy1m4DB9/tWy03xt2ZDOGG1sVR7jaR+cjmFvG9xhw3xQL
-	 HwFrDTOBJd9RyUh2sjW7x7KiWvgP33mhg2uzO7SYcBh67RlK4GvcO3WsVqpuEEVX0JQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793855899;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=EHHTNOyGnr1PE5k2wGmLgV3xyiVaxO8J8/TzziII9T8=;
+	b=5Pa6+1xX+JyVdcqSNZebfFfxfYP49i2QLpYIb1pXdxqVZZdoohsBJ9cTHxz1PSebBhkt
+	 RhB9jjY+USTLjzjPrlssJTdVDgWShvoxGl0OkmOd587xLEHv68jcKM9hjZVkLF5TvucuQ
+	 1YNZCtAJ+6VoCkfFVYSLN53efjAbMRpsGO9GNQWRcAwyr4ltDO/Fxl2q+9g/WZde9d/Bi
+	 6t5+y1fd0p/fN8vTaNMKxIKe7BPoYWed8PCp+Y+ts6Rw9Ilf2+llXh40RF6KOYnKmE2t5
+	 FqLB45fKqnu58JZYk6PowolJlYDSvcP+SQL6TsFciXaOKTGiOF+NtskI0iwz1MwfJMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baidu.com;
-	spf=pass smtp.mailfrom=baidu.com;
-	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=KcIENYho;
-	arc=none smtp.remote-ip=180.76.5.236
-Received: from outbound.baidu.com (outbound.baidu.com [180.76.5.236])
-	by smtp.subspace.kernel.org (Postfix) with SMTP id 25E90606A32E
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 05:17:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25E90606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=iIUY62sq;
+	arc=none smtp.remote-ip=91.218.175.231
+Received: from mta0.migadu.com (out-231.mta0.migadu.com [91.218.175.231])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91502606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 05:18:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91502606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=KcIENYho
-X-MD-Sfrom: zhangyili01@baidu.com
-X-MD-SrcIP: 172.31.51.15
-From: Yili Zhang <zhangyili01@baidu.com>
-To: <muchun.song@linux.dev>
-CC: <akpm@linux-foundation.org>, <david@kernel.org>, <kas@kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>, <osalvador@suse.de>,
-	<rppt@kernel.org>, <zhangyili01@baidu.com>
-Subject: Re: [PATCH] mm/hugetlb: do not invoke the OOM killer when optimizing vmemmap
-Date: Thu, 5 Nov 2026 13:17:15 +0800
-Message-ID: <20261105051715.95172-1-zhangyili01@baidu.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <6773CA2D-35EF-441D-A736-BBEA4A07B074@linux.dev>
-References: <6773CA2D-35EF-441D-A736-BBEA4A07B074@linux.dev>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=iIUY62sq
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=c1YgwgSqOv/daQ+67ELiYNYLj7qD2N3amAckkdhSUFU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793855896; v=1; x=1794460696;
+ b=iIUY62sqPmW2pMv6ePdgQW66I8R2QKho+cZ+beRy3JpXoTHp1SmyC4FJVzNpsPofkSrP0ZbF
+ df3S1o3gvdk74hb8luIwDiYBP8G02Sx9Vqc11wtqZLLaKXVxU55pcUCk5gZvanh67ffmnd6I87Z
+ GwYBa0qIXYejXkd6Yb2mZ/vU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 6facb84ef91715ec;
+	Thu, 05 Nov 2026 05:18:16 +0000
+X-Mizu-Trace-ID: 6facb84ef91715ec
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,38 +57,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: bjkjy-exc14.internal.baidu.com (172.31.51.14) To
- BJKJY-Exc19.internal.baidu.com (172.31.51.15)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
-	s=selector1; t=1793855846;
-	bh=mo4tZCwDPyINsh+mtEZQ6SccSEU/b2YuNT4z9b45fwA=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
-	b=KcIENYho3LBTqPq92nE2sW2s0UcGToUXRRmoZ/N/FrXkVUVoy4KGyxRhjFoGY/T4y
-	 uQznbnnzBMpGx+3nEAFQ8q/elZn8K1TlN/GO5UpRmzQXm0Xhlt9UlxuDHoaIJhGjhi
-	 kwF7eQp7I7AvuZBgh3894is0agcT9XUtEZ2jYdqTjiOdixEvog+rHTM//YR6mWKHA4
-	 ZDh3fpjfbqNax9hFSfGGXptmDlBowU7rB9j7dpR/W7f/SAArdnOCClcFdtc/87OAbo
-	 bfbg+hSRra4KEpaCshgRWbL8l+lkD1DI8nn8Xi3O7Zb2+5HKxj1drg3T/O02j5yUWy
-	 ZtegfnKNfFbtQ==
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
+Subject: Re: [PATCH v2 3/4] mm: hugetlb: fix GFP mask propagation to CMA
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <ac2de9b321f68c1025333e92e3ce94beadcb0b6c.1793850539.git.zhengqi.arch@bytedance.com>
+Date: Thu, 5 Nov 2026 13:17:57 +0800
+Cc: osalvador@suse.de,
+ David Hildenbrand <david@kernel.org>,
+ akpm@linux-foundation.org,
+ azpijr@gmail.com,
+ Lance Yang <lance.yang@linux.dev>,
+ linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org,
+ Qi Zheng <zhengqi.arch@bytedance.com>,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: 7bit
+Message-Id: <711211AD-BD2A-497D-8541-B63C68509920@linux.dev>
+References: <cover.1793850539.git.zhengqi.arch@bytedance.com>
+ <ac2de9b321f68c1025333e92e3ce94beadcb0b6c.1793850539.git.zhengqi.arch@bytedance.com>
+To: Qi Zheng <qi.zheng@linux.dev>
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
 
-On 2026-11-05 10:38, Muchun Song wrote:
-> 
-> Thanks for fixing, but I realized that I've already fix it here [1], and I didn't
-> realize it's a real production issue. If you don't mind, I could add your Reported-by,
-> and make it a very small fix patch so that it can be backported more easily.
-> 
-> [1] https://lore.kernel.org/all/20261104023510.260766-5-songmuchun@bytedance.com/
-> 
-> Thanks,
-> Muchun
-> 
- 
-I checked [1] and it fixes the issue. Please add:
 
-  Reported-by: Yili Zhang <zhangyili01@baidu.com>
 
-Thanks,
-Yili 
+> On Nov 5, 2026, at 12:07, Qi Zheng <qi.zheng@linux.dev> wrote:
+> 
+> From: Qi Zheng <zhengqi.arch@bytedance.com>
+> 
+> cma_alloc_frozen_compound() uses GFP_KERNEL, allowing direct reclaim
+> during the first MPOL_PREFERRED_MANY allocation attempt even though
+> the caller clears __GFP_DIRECT_RECLAIM.
+> 
+> Pass the caller's GFP mask through the helper so CMA respects its
+> reclaim constraints when trying the preferred nodes.
+
+More natural.
+
+> 
+> Fixes: 9bda131c6093 ("mm: cma: add cma_alloc_frozen{_compound}()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+
+Acked-by: Muchun Song <muchun.song@linux.dev>
+
+Thanks.
 
