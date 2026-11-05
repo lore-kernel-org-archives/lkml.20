@@ -1,75 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793897438;
-	b=V6CyyDhvaYWYrT0UW21KbBl0Y3xOON+39PvINZif3rqBsx5h9u5VbWfglRd+NpRo2nZZ
-	 /7pO+240hHTkJYSvrIcLYpdnKEb0tifxd+Hvhe983pCX2n/wPi4oO2lumX1tlWxvBSsSP
-	 CU285vX9daXp6pw0Q8ZRRBzlUWJoOiC7OinnPZJdvrBFEB4rcDgms+zYuTu6eauIL9qkD
-	 AQSqgzAED523ulTr+FD0mqTJ5YOi/lgEOCOC1zQs0VXYvzCe42zfuquUu4MIqri8KgY+m
-	 wi05ce15MzEBd2AlcMnfONl2qezJ89wJMsTU8HMrVsCkDe1IDtxny9wWX0YFAxbM61w==
+	t=1793897457;
+	b=tJUnYq3GFihq0TERjFF5stpR/9OXXUrRWlBY02oG+qzES5FHM8TCeg2XJJq927sbiQej
+	 hPOOPcwyjyfRdYL/EFO8rMSLMKfTFP+f1Jf+GVWjjDDburqIFJleBT8RsdJE+B+Fps7y6
+	 oECV+h0+yZ5Irjn6kbfqfCx0sDpUIvyLmtnrp1tfCbPcruwZY6FYliwRjASiK1pPiaJdc
+	 wx5tqU5KaWmQ8HX4Xy2W1nvsI6H/bDI8Rrtz0nDxlDDjI+Io0DS0FvKeknQkOPji0XDos
+	 tp5JPwCeAlg1zwflURX273RWYOTUNpjPTWPfR/nE/J/GT/kLPSvk2JAvRB/htREwc5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793897438;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=5Zwkee7Eda/oQ5obU9MTZY8ne/gaSD2tfbbvFVf8sL4=;
-	b=cl2/lKZfdhLxLgHz+/o+QqHnEbr4tgFTD4HbuoJHhfdzb4WMSEF6BcBugJSD6iJsa0xK
-	 a5JxLFaRgCtAVFs9T3B6BKsJG/hdjR+lHYMHGEmXZ7/rJ7ffy0xfAvbhFluHllw65uDvC
-	 EIOWHaphmXElaMrEosYdRC1/9v6Zps5Xt3adqyg54AgnSGmIJw1ELOYXKxv4tmRedgEG8
-	 tBG5Ba6Xsj+ZRZkY/DJWWbxGaWDIXLUlRpCfD/5+6etrjkKEei2MvlDC0nSphsqlIBUst
-	 HF5yGIIotkmZk/DrDrfoCM+HCpBhZQodkhxU0NJqMxH9kfaa6++b+W9tBW+hrdXG2Iw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793897457;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=zYjAjHYUh9bx+ZmiCJ1frNx1z8/yeils8zJb4uj3tGA=;
+	b=EDy6ajDjkKLjhvFCZiZy6g/uXxZi2PhMDdJsrJRIwfdkIjCpdjjo2cvMblhOY9VInWEt
+	 BkkkVEnwgFQLyDnO60JwWSA4GjKyLvlv5O1HBHajClHnABF8SMlcpApNP9vb5KhQQTYJG
+	 iunBglmAg5KX/ygS1x2bM1uT6QVZcPQqeSgxIEhukz6vC7ntbSS92QtuUeLPiFs5ifOJA
+	 1Z5nJ+l29btZBLIkAUyDTj6wvbrJuuAPZ3BQ+vUaBhGo7Q388V2EK3aq3FcTd7PcdkIYm
+	 czoDH+cKD8QmNuvkCt+B20kUILxmb/mbVLAl/BEjyStOIOYdihxAuOBAwaEQ2fHzdqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=bIOcdG4J;
-	arc=none smtp.remote-ip=216.40.44.17
-Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=eCxQGP2k;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2B94606D807;
-	Thu,  5 Nov 2026 16:50:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2B94606D807
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81BD5606A32E
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:50:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81BD5606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=bIOcdG4J
-Received: from omf02.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay06.hostedemail.com (Postfix) with ESMTP id DCFD8A8A1E;
-	Thu,  5 Nov 2026 16:50:26 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf02.hostedemail.com (Postfix) with ESMTPA id E64E280014;
-	Thu,  5 Nov 2026 16:50:20 +0000 (UTC)
-Date: Thu, 5 Nov 2026 11:50:19 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Alejandro Colomar <alx+linux-hardening@kernel.org>
-Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Andreas Schwab
- <schwab@linux-m68k.org>, Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>, Andy Shevchenko <andy@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>,
- Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches
- <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook
- <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Len Brown <lenb@kernel.org>, Linus Torvalds
- <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Rob Herring <robh@kernel.org>, Sakari Ailus
- <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>,
- linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] string: Add strprefix(), and deprecate
- str_has_prefix()
-Message-ID: <20261105115019.2fe7c91b@gandalf.local.home>
-In-Reply-To: <auyuINXEJKc1KoG7@devuan>
-References: <cover.1793876837.git.alx@kernel.org>
-	<9c81f6f62fd0e908e683c4c08b09a1f95bc2ec9c.1793876837.git.alx@kernel.org>
-	<20261105111423.360f4ba8@gandalf.local.home>
-	<auyuINXEJKc1KoG7@devuan>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=eCxQGP2k
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so19927615e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:50:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793897455; x=1794502255; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zYjAjHYUh9bx+ZmiCJ1frNx1z8/yeils8zJb4uj3tGA=;
+        b=eCxQGP2knSD23iXofcO+K1VyLJQbY9Sjj2CmB7Yux7vke/7oxutp/6OXrbqN9XpTT5
+         sbEkLd0BxDXqRjboX30W2BjovP3AQx9IG5okhMf7H9lm330MJfTbpU5CCFvJXHYlK9wR
+         IQrqcg24lvkaVdj9oSVWh/VEu91h+Zx8TcN/6u5Kg2u6fXimRO3fBlgiwvh9+dC7EHcO
+         sivEb92mJE7Rj1mt66hFBmyv3bMVMYyC7iXea+PAUPkCosOva1YVBqhpNGq6Tr1T0DMj
+         +XLdkCHi61/9qZO53zEYeazJomOCOkXhmkMR1ffaV73BB2M96wmyk1jKnrnMfAb5n3YY
+         d/mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793897455; x=1794502255;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zYjAjHYUh9bx+ZmiCJ1frNx1z8/yeils8zJb4uj3tGA=;
+        b=V2iWJzjvjD6INdXfUsIndPhTWk9N+UTZBRW6YdHiX/dLuVqbEDhROZNu8UpP9R7Amy
+         mEc3rmL+tJD9OZFWwQARXZMwcP9cSwsJHdq4m9BlUiRfa5fUrktAqrPlhJrzrfotrYeI
+         39DZhxSriJJtv6nd5TudINH61+JmDEfigHs793r4G8X6KmV0n5PFOjC/OxKNFjF6C/XY
+         HnHmznuxXLXKr5X/mK2cxdpBOpk1gRh+lZfu7+EmWG+lwMQuY9MczlZOl5FoFmYS2Eqz
+         7xkxIrFkWCWX+wNdIifpwEeI+Cj7RQ/U2+y0W1k4D+8Ds7h8uJ4QUJNRWM54qmp+SeKf
+         gLuA==
+X-Forwarded-Encrypted: i=1; AKwUvBxoFjsyAavtb47+EmlM1EwxV7Yl/Yl1DCqCUJ7CXR0nFVdv4IZGlXXRRVmaS5LZBlwaWP2keP/xOu4hvM8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8AY+8IgfhL4y8hnMd9Tcye50UbxG5oZDAOUoD+g+anf576LUT4
+	dolAXTvb3BRJdApWIc7EFgGy3BVS2OpS1w1zXp90Mr9696VJUvz0esoMslYkasxbfFg=
+X-Gm-Gg: AYBFou3BhpnQaFLIOYGSs7+9cxJhQIgztstvgVCKaAG6cbvgQa5o5B/BI1yr74i49oU
+	zZcGkYXrGwe7Sh+koZkcgP6tp9JHIOD8v/rZsWKMVGH2x6CQ3aBPxd1w9HLBSlSXAv41IaQ57l+
+	ASSh3JWudwZTpNsysp1SOnFnsNdbwBu00GvwSrU5S1/1SzxhD85xTaooI/rJ4lMjzHIUsmgTKqr
+	/QuFgEfi41w+j7r89TxcY/KvlddPxkOlljFmQKAjnS9m228vx3EqqAj7to7p9V9h2eZpoW4D3N0
+	eIUzokh+Du6v6I6bApPbJqQ19bO2OG318g7oQW1iACyGnLI+vGEXQb7SKzfrNjl7qaFu4byNdiL
+	CJ04kev9BEN0tWUWgefzafFsiPZP8rzjoB8JZsYf3elVBv05FGtRGdlcA/29Qt+1LbbZ2Hg6RnJ
+	aZ3rEgoqs67/VAQNMgL3DjpqHt8DouZO8k4SES94zkxnN36az9X2AKLJTcVc7FLQYa8bBZBMPaG
+	CDKkZ03QYsAiTjjb5093kez9AwNf3LGuo8956xYM/Y46k+wyI+evaEFphwwNw1tw0jSdAQgoFA3
+	dS2HF3F3WtqV0l7KWUWpzx6EiqbKkA==
+X-Received: by 2002:a05:600c:1d02:b0:4a0:1c94:7042 with SMTP id 5b1f17b1804b1-4ac16bc4731mr472900765e9.8.1793897454794;
+        Thu, 05 Nov 2026 08:50:54 -0800 (PST)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b4104d600fsm134692505e9.0.2026.11.05.08.50.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 08:50:54 -0800 (PST)
+Date: Thu, 5 Nov 2026 17:50:52 +0100
+From: Petr Mladek <pmladek@suse.com>
+To: John Ogness <john.ogness@linutronix.de>
+Cc: Breno Leitao <leitao@debian.org>, Ryan Roberts <ryan.roberts@arm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Rio <rioo.tsukatsukii@gmail.com>, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v1] panic: Flush unsafe consoles before panic reboot
+Message-ID: <auyz7JPCK7K9QFT_@pathway.suse.cz>
+References: <auI40MZlSYO0oAAS@gmail.com>
+ <87a4nwyiaw.fsf@jogness.linutronix.de>
+ <auMmQjcy1A6E0eUm@gmail.com>
+ <874ie4y5mw.fsf@jogness.linutronix.de>
+ <auNaD8LELWok3LOF@pathway>
+ <auTaBZlNbpm3jgvb@gmail.com>
+ <auhl3cdwrHt4Vw7U@pathway>
+ <87v76e3mcc.fsf@jogness.linutronix.de>
+ <auniMWhvteH8C3E0@pathway.suse.cz>
+ <8733tgc0b5.fsf@jogness.linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,145 +108,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout03
-X-Rspamd-Queue-Id: E64E280014
-X-Stat-Signature: jt6ge55y663npwc3oayseghzdtk7e3df
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19cl3Y/smj00nYIJMgPA2EZab7rnczjCaE=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=5Zwkee7Eda/oQ5obU9MTZY8ne/gaSD2tfbbvFVf8sL4=; b=bIOcdG4J9j+16rixy1pyX/3+Km8E1J+gNaFcVTjGgYdWeCpzwVrKDrvCmTjHXmV1SmxYCuxDHAhfGHCafk0sO2et1SokUSAKCU4zUkjQyOJgaW8I+27HNX/DYqiiYYumoaJgQMC2uZsXGqgQ+2hUaPJmPrYo6p2L7tfHwgBcu54=
-X-HE-Tag: 1793897420-811383
-X-HE-Meta: U2FsdGVkX19bCecB5jioIhguq6rRgMe3rxF4TgEhqk9KP9NeKNMkUT+69RNNihc+daKgEKTqOXJQTs0rHkp15vWrQ3K+pvCwXnEYcFTSvqifAYR+m+FPHWu1d9zP7kvFElFCpDT8P78g6KnZxNm0r9p6JjBd+ViGmA1lo5/duRsnCadbZBGHHKc5/rqGhfV0FYIUh/TjJ1Tvz52bXk8eQ1YbHfPmZ6c8MyebafoN+YsfZYmzGr6UepNjTBEFsFDp4cZJfNtCcJsBaGpaCqaxKqUnFQPBIWjCJKjwkRi/gm8svcFm2yP2sU5oW/su03ZZRY6GYvn+nVCG3z+IsIxo6PgDUoCAwbrpo1jPUQAyX/DtL47Kb0zipc6wlaas3hUUdw8ZQTTtQ4x9zX17ar2qbz4fkpASG2qccBseCBJGprc=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8733tgc0b5.fsf@jogness.linutronix.de>
 
-On Thu, 5 Nov 2026 17:33:02 +0100
-Alejandro Colomar <alx+linux-hardening@kernel.org> wrote:
-
-> Hi Steve,
-> 
-> > Date: 2026-11-05 11:14:23-0500
-> > From: Steven Rostedt <rostedt@goodmis.org>
+On Wed 2026-11-04 12:24:06, John Ogness wrote:
+> On 2026-11-03, Petr Mladek <pmladek@suse.com> wrote:
+> >> I can accept this, since legacy-netconsole had these risks anyway. My
+> >> only concern is when we add an interface for the unsafe flushing policy,
+> >> will we continue to have unsafe flushing be the default for netconsole?
+> >> I guess we would need to keep it the same to avoid regressions (just as
+> >> we need to have it on by default now).
 > >
-> > On Thu, 5 Nov 2026 12:13:03 +0100
-> > Alejandro Colomar <alx@kernel.org> wrote:
-> >   
-> > > As Bartosz reported, str_has_prefix() has a bug: it can't differentiate
-> > > between an empty prefix matching an empty string from a non-matching
-> > > prefix.  This is a fundamental design flaw in this API, and not
-> > > something that can be fixed.
-> > > 
-> > > As always, this is a consequence of choosing sizes instead of pointers.
-> > > Sizes are often the wrong choice.  In this specific case, pointers are
-> > > more capable of differentiating these cases, as NULL is a special
-> > > sentinel value that doesn't need to overload a valid value.
-> > > 
-> > > Let's implement strprefix(), a function that returns a pointer
-> > > right after the prefix if found, and a null pointer if not found.
-> > > 
-> > > We'll slowly migrate existing code from str_has_prefix() to strprefix().
-> > > 
-> > > Reported-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>  
-> > 
-> > Is there a link to the report? Please add that.  
+> > Good point. I think that this basically goes down to the question
+> > whether we would later introduce an option:
+> >
+> >    --panic-focus-on-debug   or   --panic-focus-on-reboot
+> >
+> > The current state is somewhere in the middle. I would say
+> > that:
+> >
+> >   + the legacy consoles are more focusing on the debugging side
+> >     because bust_spinlocks() is called early. And
+> >     console_flush_on_panic() is called before emergency_restart().
+> >
+> >   + the nbcon console are more focusing on safe reboot because
+> >     nbcon_atomic_flush_unsafe() is called only when followed
+> >     by an infinite diod blinking.
 > 
-> Message-Id: <20261104-fwnode-for-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com>
+> Note that this difference between legacy and nbcon was one of the
+> primary design goals for nbcon. It is not chance that we are avoiding
+> "hope and pray mode".
 > 
-> or in link format,
+> > It looked like the nbcon handling was good enough before
+> > we added netconsole with an unsafe write_atomic. And maybe
+> > even before converting the widely used uart 8250 serial
+> > console driver.
+> >
+> > People started complaining about missing messages with
+> > the converted netconsole and uart 8250 drivers. The current
+> > nbcon handling looks like a regression to these people.
 > 
-> Link: <https://lore.kernel.org/linux-hardening/20261104-fwnode-for-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com/>
+> Please let's not throw everything into the same pot. The reported
+> missing 8250 messages are real regressions due to missing flushes. These
+> must be fixed.
 > 
-> Which one do you prefer?
+> The netconsole issue is separate. Unlike 8250, the netconsole does not
+> provide a safe variant. This is also a regression, but for different
+> reasons.
 
-The correct method is:
+Just to explain. I reacted on the sentence:
 
- Link: https://lore.kernel.org/linux-hardening/20261104-fwnode-for-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com/
+    "My only concern is when we add an interface for the unsafe flushing policy,
+     will we continue to have unsafe flushing be the default for netconsole?"
+
+I wanted to point out that the recent reports about missing messages
+from both act 8250 and netconsole were seen as regressions. And
+we should try to make it behave as before.
+
+But you are right that the there is a difference. The messages were
+missing with:
+
+  + UAW 8250 because of bugs. All nbcon consoles relayed on kthreads
+    in situations where they did not worked. We are solving this by
+    explicitly switching to the atomic mode or by an explicit flush.
+
+  + netconsole by design. The netconsole does not have a safe
+    write_atomic() callback. We should allow unsafe takeover
+    in some situations.
+
+Now, the question is where to allow the unsafe takeover for
+netconsole. I guess that we will need to allow it in similar
+situations where people complained about DAR 8250 driver,
+or pl011, e.g. even in emergency_restart().
 
 
+> And maybe users want safe drivers (such as 8250) to enter "hope and pray
+> mode" on kernel ending sites, which is something even legacy consoles
+> could not always do.
 
+I think that I finally understand your concern. You would like to
+add a per-console flag for "debugging" or "safe" mode. But
+it might be weird when:
+
+  + netconsole is in the "debugging" mode by default.
+
+  + other serial consoles are in the "safe" mode by default.
+
+Do I get it correctly, please?
+
+> > My take would be to modify the nbcon handling to be more
+> > like the legacy one and focus more on debugging. If anyone
+> > gets concerned by the reboot reliability then we
+> > could add the --panic-focus-on-reboot and make
+> > the reboot more safe in this case.
 > 
-> >   
-> > >  
-> > > +/**
-> > > + * strprefix - string prefix
-> > > + * @s: The string to be tested
-> > > + * @prefix: The string to see if @s starts with
-> > > + *  
-> > 
-> > Needs a better description. Feel free to use the one for str_has_prefix().  
+> I prefer we do not hard-code policies. It would be trivial to add a
+> policy field and flags to the console struct. We could allow drivers to
+> declare their own diverging defaults if they want. When we are touching
+> all these flush sites, let us add code guided by policy instead of
+> hard-coding policy.
 > 
-> Ok.
-> 
-> > > + * Returns:
-> > > + * *  @s+strlen(@prefix) if @s starts with @prefix
-> > > + * *  NULL if @s does not start with @prefix
-> > > + */
-> > > +static __always_inline char *strprefix(const char *s, const char *prefix)
-> > > +{
-> > > +	size_t len = strlen(prefix);
-> > > +	return strncmp(s, prefix, len) == 0 ? (char *) s + len : NULL;
-> > > +}
-> > > +
-> > >  /**
-> > >   * str_has_prefix - Test if a string has a given prefix
-> > >   * @str: The string to test
-> > >   * @prefix: The string to see if @str starts with
-> > >   *
-> > > + * DEPRECATED: Use strprefix()  
-> > 
-> > No, it is still useful. Converting trace_event_filter() to strprefix()
-> > would be very painful, and likely error prone.  
-> 
-> What is trace_event_filter()?
+> And _later_, once we have /sys/class/consoles, it becomes trivial to
+> expose these policies to userspace for reading/modifying.
 
-Oops, typo, I meant trace_event_filter.c
+I think that we should avoid people reporting regressions so that
+we should allow unsafe takeover for the netconsole where reasonable
+by default.
 
-> 
-> 	alx@devuan:~/src/linux/linux/master$ grep -rn '\<trace_event_filter\>'
-> 	alx@devuan:~/src/linux/linux/master$ grepc trace_event_filter .
-> 	alx@devuan:~/src/linux/linux/master$ grep -rn trace_event_filter
-> 	kernel/trace/trace_events.c:2833:static const struct file_operations ftrace_event_filter_fops = {
-> 	kernel/trace/trace_events.c:3222:			*fops = &ftrace_event_filter_fops;
-> 
-> If you point me to a specific line of code, I can attempt a rewrite.
+I see two solutions:
 
-I rather not touch that code.
+   1. Keep all NBCON consoles consistent and allow unsafe takeover
+      on more locations, independently whether they have safe
+      or unsafe write_atomic().
 
-> 
-> > > + *
-> > >   * A common way to test a prefix of a string is to do:
-> > >   *  strncmp(str, prefix, sizeof(prefix) - 1)
-> > >   *
-> > >   * But this can lead to bugs due to typos, or if prefix is a pointer
-> > > - * and not a constant. Instead use str_has_prefix().
-> > > + * and not a constant. Instead use strprefix().  
-> > 
-> > The above can be replaced with:
-> > 
-> >  * This is useful for testing for a prefix and returning the length.
-> >  * If you only need to test the prefix and perhaps get the pointer to the
-> >  * position of the string after the prefix, then use strprefix().  
-> 
-> Ok, conditional to being convinced that str_has_prefix() is
-> actually useful in some case.
+   2. Allow the unsafe takeover on more locations only for netconsole.
+      And later allow to set both per-console policies: "debugging" vs. "safe".
+      And accept that netconsole has different default policy.
 
-Note, the only "bug" is that it can't handle an empty prefix case, which
-was never what it was designed to do. The place that the above fixes, was a
-helper function that used this inappropriately.
+I personally prefer the 2nd solution. Netconsole has always been
+a bit special. And maybe someone would implement the safe write_atomic
+in the future which will make it more normal, ...
 
-Hence, the use of str_has_prefix() was never meant for an empty string. I
-should have added (and can still add)
-
-	/* Empty prefix is undefined */
-	WARN_ON_ONCE(!prefix[0]);
-
-The fwnode_name_eq() could have done:
-
-	/* Empty prefix always matches */
-	return name[0] || str_has_prefix(node_name, name) == len;
-
-Instead.
-
--- Steve
-
-
-
+Best Regards,
+Petr
