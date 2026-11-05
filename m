@@ -1,111 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793891341;
-	b=08JlHjBm48DcXuX1GDdyxDFbMhA/KNHsPo3xsPk3YFuL0ohRr69m7fQPHPRkVMkDQBTd
-	 lJuWokMlffXx5Sqi4FYaJrjpYD1/R1d8PsT9OvnRd055T17oo19/N8vbUcZd0Yp6usbJn
-	 MQ63h3M2ZoUI8LCXJ507dnLfEiXQYFosJUVaDL0hV/19WwZdKFgebBkI5cYgksLf5h4cl
-	 VILfpAHveVORtX492zUEYeKsasGCZvS7pJ7POd7mrZM8OCXMP7DHhiNRn4dypOaTfstBr
-	 HmfbvyrPYjWJau7pyxhqr+oz2GNSu7BQdj4kkul3NXsDk492VSRDPhbUE8h8M/qpEBQ==
+	t=1793891337;
+	b=rtM907XqUDGv7QRPhvHkMWXklajkxn9sv9MyefrhMr2AZPyWN2zehldKQb2ZfHwjNERc
+	 B6Q4qsXw8a20wM1vIoIfTzI11yHWj64KVtNMymTaP30Gi8SAuFcGLit/QhgnzngoLy/QP
+	 wJ9kwqzUoFWnWUeWh9Og0zg7C2Zfz/BaYH1XrgpPmmBL4WDWFQJIaGf1DdghzV/HJQsYi
+	 hzP3izEwc8uh9y+6iLbBo9667EYJZeC79g0hPGoLO7qScf30JJE6LAKtfL7r1PNXtsII9
+	 MiZ9jdGiwEvMBDHvfkOdsgEXxB4AFG/aRW0SZDiQ+0jdPUsZndWLxRavkPWz8/yCCKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793891341;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=thrFFsAVoZM5qvImPaq4dRUCRKPov7KswCoNGlUYbsY=;
-	b=zOz3BQnsXURq2Iu0A+Yuq60QLXwtC6LYGFx6YjK8+k5fxPiGsd6jU8wKJtjOtjkf1SGM
-	 ty2E2+ENUuvwKMyDQeZrMKMezVeLXNb+4GMQ0Z/5XKHcfNZ5OyVvGG1yE1FRQ/P3jI5d0
-	 J0Brjjmt1YR2QmCZsh/flDYdS7NPpz7sVW0bsC0Bj4PR2f/ZBJQLfHITaUg9TSlwtZPBu
-	 de9zMfalUJrc3snQv852AVnL42UbC5Tpx+7qziexQe4DQ4G1fmduoRp/ljLPrehESCoFy
-	 uDxw9Gbrtgwg6kvmKoRmY5/sm6c1v9q/2Zt/RJeBObygx1BXCqEUpbRTUK71fksiccg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793891337;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=dY68tvJnp6gWamN+k8DNUEp72LNVYh68JCB4JZkYFGE=;
+	b=q8pabGCptBXBbqiwJNCKyHXlPbGaiHrSoSIafGxqBuUFj7FRQVNUBpGs+09/fg5pVjd/
+	 NTzYn5TPqTS0KgiNocVMu63NA3bcCzgaFefyR6iPKjscBVJRHl5DFDjRPPlVHWpiwj8oX
+	 dPB38/op6sHicACdH+Mef4R5cvGYdxANDhdGk7yfIo9sLXiYU6EC2eLEy3rjlx4mcfkHg
+	 tmthU2kKGq3P57c4ql7reKZoCcglVXtI6cFttxbFRjlZuSCGQGrmqMEutqyP2ncyrxxAC
+	 Y9E5J1+5iiGI7bHE4TDzXut4/qVQwWK1dp62zLsML0LF06Jj9j10iemZgLhRnXIKDdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MWzqO0PJ;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iaHMQumY;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=toxicpanda.com;
+	spf=pass smtp.mailfrom=toxicpanda.com;
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=qFvVaxr9;
+	arc=none smtp.remote-ip=209.85.160.176
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA263606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:08:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA263606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F557606A330
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:08:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F557606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MWzqO0PJ;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iaHMQumY
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EQ7J64134032
-	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 15:08:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=thrFFsAVoZM5qvImPaq4dR
-	UCRKPov7KswCoNGlUYbsY=; b=MWzqO0PJdRVP+QbGlzvgsxO1MRAbzooLBcA5pS
-	OBdmmqfmHqO62yEcGERruGy4eGd71G+DOPfB4C3/5KnMu/eL2CJzw8QyMJ34pJzt
-	Fn0OeZcJt9oaeiwO9niOiG2B3SMMEDwD5SXUI9S5cc0bwMr9R2cX/jpSyT1Gs6WH
-	BvnktwJlmOTWtrvzccjH3e2E/Pz1QTrxjgLJaNmf8QyEDtVuAgfytpE7Mnm3mB2U
-	1Hoe4xwK32WN2cLPehBTGm+/1yA8tlFiQ7eWbrP1/9igTR3+RrSxuDF4UPT3TlbX
-	35Ptjxsx7CE+fXe/qoRo5cKjJqa6xufXTsBrCEkvct8JSCNQ==
-Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrksqaa3k-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:08:58 +0000 (GMT)
-Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-999bc06bfd0so1079832241.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:08:58 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=qFvVaxr9
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-5363c8de563so20420991cf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:08:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793891338; x=1794496138; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=thrFFsAVoZM5qvImPaq4dRUCRKPov7KswCoNGlUYbsY=;
-        b=iaHMQumY5y+8rIdydmBJXlTNVr4Jl7iVFlCfSL3nZ/D6hmS2SaYyPjnCCLS9zaryWc
-         hHxz8ihKzZjkdMCcbF7whjLiqgSHWFu8w2iZo1CcK5ZWfBEdeCUR1q+x/sh3Ho7lBD1o
-         ZVlRtGe9pODAJHyVKYwVitbjnXP+Pcm0MYFIK4VpizFozH2EuiYUq1v7bH1j6/9RFqhh
-         RpgMJlCGRLi+w+xjkFnUZJ/9wuxg49zCfOOTawqNxxN8CfI6qTviXuLa0xA29bwqfOGq
-         6ncw0hMGAUYltHt43aDNZNHSO5A4/FwnZWh2D9fePLoSqs6ze2KDBAg6UV602NmY9UpB
-         0Mlw==
+        d=toxicpanda.com; s=google; t=1793891336; x=1794496136; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dY68tvJnp6gWamN+k8DNUEp72LNVYh68JCB4JZkYFGE=;
+        b=qFvVaxr9m320v2pczE6or2v2XUEMk7uYKtnyQ7NuPdYjAZ1CASs3Oq8DAbmqmul5+K
+         ARlx4H7eAPg0V1xkCDyPE74LXnIdH4e77gdP4jQx+3RtimfDWSe2D++t8/ly0wgsKb+C
+         04eUKunno/j+1W+UwAZ9vd4vS8yWslupLUjfP/cxHi9fW1PewipWOnccVzk7IJDYxSt0
+         CCOy2OKUN3ki1IcfiGtFCoyuSn3q6T4fzzBFANVI25BZe55qx1YJJ07wCrDY1b57NYCc
+         jj46cVJKGJIlQ+FVw426NHT4vF0WxmEJyrrIJvNIWW+BbpO36YR0bRKsIVsFW4Bu5Gla
+         WEMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793891338; x=1794496138;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=thrFFsAVoZM5qvImPaq4dRUCRKPov7KswCoNGlUYbsY=;
-        b=1GgkQbIxht27fGfyThjij0uTIwHkpbKXwvQA5lUo5zAaSa60WxVp8hz6TqplQclDsz
-         DqrLTPoqpoSW348CFKFYmm6yvXPfU+M4ArKqiQB/tv7EEx/I60UQKifbwcUZPpQjqXUl
-         KD4nMlGRX7H/7rQq3qBidEHVm77oEUyJReWOQ82MKQtT7KKHZ4A+IJ4pJgKnkIEFLYNv
-         JyCJaLuQYvLoajRpAdfUd7khJbxPoe0KRiWL7iBTS0SGiAUt8Zf57lIsHxrg2goJ262r
-         EVcBjAgC+VgTxXexPOTuq1nyu+ThR+RkNqyXcRrPyM5DkY70lb7NxvZtKOvTz1GtreOa
-         EKdA==
-X-Forwarded-Encrypted: i=1; AKwUvBybUEEmdlm3IJhLN9nLSsIJgQ0YnGIORUWYRdpfRYX4o3Uk+ofMHVqYMzvC5g+j8Zqfdi4Crqceo5Sc6vY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9mYMjhQqYZZJ5nXA6Ly0cCNAZNzwtyuqnKfPpjlMBYpn0GIrag
-	yxmvJuHBfVWzU6u0GiXB4VKSweCcYEwVeR2/lg0DGaqz2GVZq2hfhF6Ka6Hqyd7qkYcPy+PFkV6
-	3Lj9mW8SI4p5+XNNs+NRifVZyJlOEOI9p6SgaAGUwsHL2iiE9PXi1OWeBJDzU91Ij5kKEDZkcG/
-	g=
-X-Gm-Gg: AYBFou1SnvMXDmO9ddYVy+Jgg7YUJGdemgYZqaKljx3mygXyBDpHKMs1FqKrGBQQTow
-	HsC5p/mCSJyL/o0iv12IrqZ8J9PZ0Z7IYpjpFdlAAE1lKPgVe7ULvZZsxFztxK1ZXneSwRDyCb6
-	zmVMAI4x/49P+0xTJM2NNKb83nhKdLbaK8oGnjKVBv/plbBeMKICQ3EktEbmsqpQ73gFs7BybeA
-	cu8HJ2ZUGLzJwxZ7slQbbZxqBZRpHp/AB28gEdH8BIzcteP1zVXR3aj5/yVa97ifjfL4xwGmUL9
-	kHjPl2hl+pID8pmuEeAzTahtD2xYdlpDhjkUvO7zuFa5QRvJa7RWYqhqcl6ivc8ikAEDTxe4aXb
-	ZWx1JsSBsjVboCYNIMBBSSVjVkI2FxesItI7el0ASs1RLQnP/UGnkUA5OveqjA1czMahMb68V3Y
-	+trrdIaGrmgZocEgGjQi+EoOz0pFqrDY3VP3mZu7zQPHn/VcltCZ498QZG5VPYNH/EDvZbcpm5H
-	BN2avsZyHvcMBFb1jlNLbxDlDPm
-X-Received: by 2002:a05:6102:83ce:20b0:7d1:cf05:f2fc with SMTP id ada2fe7eead31-7d1cf05fd37mr3546613137.27.1793891337898;
-        Thu, 05 Nov 2026 07:08:57 -0800 (PST)
-X-Received: by 2002:a05:6102:83ce:20b0:7d1:cf05:f2fc with SMTP id ada2fe7eead31-7d1cf05fd37mr3546572137.27.1793891337359;
-        Thu, 05 Nov 2026 07:08:57 -0800 (PST)
-Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:f048:3e89:c517:10cd])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b5725061e1sm76689575e9.7.2026.11.05.07.08.55
+        d=1e100.net; s=20260707; t=1793891336; x=1794496136;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dY68tvJnp6gWamN+k8DNUEp72LNVYh68JCB4JZkYFGE=;
+        b=xV58X81mS0WN4kaCejNjKeGHV7c3Lyl3KufMGayTW9ocJPq/h+VYdUOTWKu/0VMNGr
+         PueLH3pK4fOwIDy6WSzG+X1HNTjoglxrI6MwqVNXW3CDXjAwRJkpYW8XsUCZDDpQoy/A
+         fFQM06cjQofs/MEupjaW5jXid3iduSEKOkEfPQRI56UoC4Cf5oEbeabZFrewhA8viFAD
+         OnmBUAYzcns5HxuELsz3fX7LxsEndQFRfx4nzf9T1+PK2FkmSwCpgkFGylvOs58NNK7J
+         EyLTt1NiFjpJ8bkp6/ls/etE5zHidu0oLZ/L34ccrYBRBgtfW5MD3617nqmswtA1eptx
+         H92g==
+X-Forwarded-Encrypted: i=1; AKwUvByn+2MmWYZKjN2kcqg/lwEqQDW2kJI9XewZjiFIr4KZSN1YQtLROCFNvth4B8A5mEFR4zyzMLICpeTIxTA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9yAYhBIeMvLmOvmtDq7qlyonbiYcOk7Dx4fy2+fhv48T9GwRI5
+	RNdFtQQ1l/6JeqIbBQsxzGbI3Fn3JUxJacK4oGpcgOKFd89KTfjR/GXJG+vdVvQmEBk=
+X-Gm-Gg: AYBFou08nJvZL5cQE2Zktgi/WoYaSH0ruvBCS1uDt73GhQt/c8UDXOw2nWj/ceXcfJ6
+	5KiFrsbaNVtcFvZuik/0BWQ0rv+oiHdalogg/Yvpe0m3WfbJD9sq4OZ5r+ipZI3xxhTmgYBnjfR
+	gf/m2UFAaVcNtf6/K/3kRpGyKxer/RSZpH8lmA6DeGgW10YBHb07DLlB75lxH6f9PBm2RkotV0l
+	ziHuNiDbE0dqX2epeL5v1+wDQl78wAnAxBOhQ2Hofn/aS4qtAZ9KDrwkNAoq3PU5QmQqo/VKa4r
+	vT4LeNxmgEE7r4BQUIELGUsApJ4qx7WTFpHqDF7QrW79dT+xz5MBJyu1xIdrgSyLOxj8HiWPhls
+	dXyTS2hwdtKzVDi+F9EAIg7EzXs3oQZcQMfp5DM50UnlErSpjQJlAvm1SFfOGjkfNGUQq0LRhZA
+	2fvX5NMBH8DCIJeFB0zw8wHK1UjSwxQGul8birQrdP6meyx+wmms5F1mpX02NNLgOUeD5rrNMbq
+	5P3XxIfuUXj17k3slWY+VioN96v1eAaArJyHCsx3WeBF6ObOTaTMqn06NE0i1Bv4KAv1BFkJsKZ
+	1NapGBoGNFWgq8AVMxomK/FKm06PpdgQPG+gfPZUcfi9xw==
+X-Received: by 2002:a05:622a:2b0f:b0:535:2521:f07c with SMTP id d75a77b69052e-542b3c7330bmr308825631cf.7.1793891335226;
+        Thu, 05 Nov 2026 07:08:55 -0800 (PST)
+Received: from toxicpanda.com ([153.61.196.254])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54b10a7ab83sm53518841cf.13.2026.11.05.07.08.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:08:56 -0800 (PST)
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Thu, 05 Nov 2026 16:08:55 +0100
-Subject: [PATCH] media: qcom: camss: Use contiguous DMA buffers
+        Thu, 05 Nov 2026 07:08:52 -0800 (PST)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Thu, 05 Nov 2026 15:02:16 +0000
+Subject: [PATCH RFC v3 24/90] cells: add the cell object and cell_create()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,146 +94,706 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-camss-fix-dma-v1-1-74e9ec56e518@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAAac7GoC/x2MSQqAMAwAvyI5G2ijFvEr4qG0UXNwoQERSv9u8
- TgMMxmUk7DC1GRI/IjKdVawbQNh9+fGKLEykCFnrRkw+EMVV3kxHh5DRzSOzvUxEtTmTlzV/5u
- XUj41McekXwAAAA==
-X-Change-ID: 20261105-camss-fix-dma-c32288664dd2
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Todor Tomov <todor.too@gmail.com>, Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Allan Siriani <allan@fatecpompeia.edu.br>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA2MCBTYWx0ZWRfXzAUMUXDmx2Nk
- hXLatep9FLBdDaQpOiGWgumdJef96tWWkBG3Qxqg9pOeskQYWYFf8xiQNWXLxQHWYC0PDvc7Hxs
- gVKYhyPZeW+zJUW0NtHLK+1U2s6VEiMLCVx25bHSQUhvaANHErTBwTMaxcwvAaytkPzjaTfSetn
- cGL+caLM/fUThM37CutTp1ePGvtCq4uiRfVt+TtDgNvMfw37ANgeG+c9unzlWoCIYHgpJfO6cbg
- nTj8Ai3RtwG5sWGg/wwjqYPZKa/LtJDM/ONSXIwWvkLzOv4FQGvnM+drZd8WCU55OwoF1Sfsx2O
- g0ZXBXG4qQrhsJLlA0ldur8a/hhAp7BMCr/KAz2r49bpvP+dRyVk1poQog+CjToXimhx8MtPxAq
- SYEiBkGhoutOWDT+L7hqb7iwZMSOcJWud0FwCslbqBzQf2e6E9yj7NmZJiCdBkP2PYIfKfxmIeW
- LrDWO6BIu5uWf7ljzuA==
-X-Proofpoint-ORIG-GUID: -o771Ov9pDxRdnwmhTWJ3G-LCDoBIQzk
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA2MCBTYWx0ZWRfX3E86yJVZp0Hf
- edcx5nsL114Ls4WVDVPgxFdDA9cs2vHw+yTs1kBxT/nVQKro4vm8FIFnpkEPN2z9sR2ELhcn66W
- 8q8iYMy7K3XlOd200vTjpgNPqr6AUnQ=
-X-Authority-Analysis: v=2.4 cv=CIe/zhrD c=1 sm=1 tr=0 ts=6aec9c0a cx=c_pps
- a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=3UBxRJvOpeY5cryqNLgA:9 a=QEXdDO2ut3YA:10
- a=1WsBpfsz9X-RYQiigVTh:22
-X-Proofpoint-GUID: -o771Ov9pDxRdnwmhTWJ3G-LCDoBIQzk
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_04,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 bulkscore=0 suspectscore=0 adultscore=0
- lowpriorityscore=0 phishscore=0 impostorscore=0 malwarescore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050060
+Message-Id: <20261105-b4-cells-v3-24-bc9095937a84@toxicpanda.com>
+References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
+In-Reply-To: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
+To: Christian Brauner <brauner@kernel.org>, 
+ James Bottomley <James.Bottomley@HansenPartnership.com>, 
+ Andrew Halaney <andrew@amutable.com>, Jeremy Bingham <jbingham@gmail.com>, 
+ Tahera Fahimi <taherafahimi@linux.microsoft.com>, 
+ Serge Hallyn <sergeh@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1793890932; l=20453;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=C442R3ZTPv8OvTRA52vJxT3/LzychJ0G+Uagg7R58ms=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QD8OGVI92/yAU4Nq1jhF0XpHZ7sMLtIWtIizbKubQhKRXBcLPThrecMGwouH3saoBLA0m6PXP28
+ 5IcXQR1Hs0AU=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-The VFE write masters are programmed with a single base address per
-plane and then write the whole plane from there. video_buf_init() took
-that address from sg_dma_address() of the first scatterlist entry of a
-vb2_dma_sg buffer, which is only correct when the whole plane is mapped
-as one contiguous range in the device address space.
+Add the cell object in kernel/cell/, a small filesystem called cellfs that
+backs its file descriptor, and the system call cell_create().
+cell_create() creates a new, empty cell and returns a cellfd. It requires
+no privilege. A task of a cell cannot call it, see cell_may_spawn().
 
-Neither the driver nor the hardware can handle a plane split across
-several DMA segments, so scatter-gather buffers were never really
-supported here. The issue stayed dormant because vb2_dma_sg gives no
-IOVA contiguity guarantee but still tries hard to keep the number of
-segments low, and with an IOMMU dma_map_sgtable() usually maps the
-whole table into a single IOVA range. The mapping therefore almost
-always came back contiguous in the device address space, so reading
-only the first entry happened to work.
+A cell goes through the states BUILDING, SEALED, RUNNING, DYING and DEAD,
+in that order and never backwards. This patch implements the two ends: a
+cell that holds only its user namespace, and the teardown that drops
+whatever a cell holds.
 
-Where that does not hold, the write master runs past the first segment
-and writes the rest of the frame into memory belonging to someone else.
+The cellfd becomes readable for poll() once the cell is DEAD. read() then
+returns the wait status of the first task of the cell. DEAD is only
+reported after the budget is empty and the cell has dropped all of its
+references.
 
-This recently surfaced as patch proposals enforcing contiguity in
-camss itself, walking the scatterlist to verify that the DMA segments
-follow each other, which amounts to re-implementing what the dma-contig
-framework already provides.
+A cellfd can be passed to another process, but it cannot be reopened
+through /proc/<pid>/fd. So when the last cellfd is closed nobody can reach
+the cell any more, and the cell is killed. If the process that created the
+cell is killed, the cell dies with it, unless the cellfd was passed on. A
+cell without a cellfd could not be killed, spawned into or waited for.
 
-Use vb2_dma_contig instead. It guarantees that each plane is mapped as
-a single contiguous range in the device address space, one IOVA range
-when an IOMMU is present, physically contiguous memory when there is
-none.
+Every cell has a 64 bit id that is never reused. It is meant for code that
+has to remember a cell for longer than anything pins it. It is also the
+inode number of the cellfd. cell_id() is exported, because some of that
+code can be built as a module.
 
-Fixes: 0ac2586c410f ("media: camss: Add files which handle the video device nodes")
-Reported-by: Allan Siriani <allan@fatecpompeia.edu.br>
-Link: https://lore.kernel.org/all/20261104202313.72494-2-allan@fatecpompeia.edu.br/
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 ---
-Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
----
- drivers/media/platform/qcom/camss/Kconfig       |  2 +-
- drivers/media/platform/qcom/camss/camss-video.c | 14 ++++----------
- 2 files changed, 5 insertions(+), 11 deletions(-)
+ fs/cellfs.c                | 141 ++++++++++++++++++++
+ include/linux/cell.h       |  23 ++++
+ include/uapi/linux/cell.h  |  24 ++++
+ include/uapi/linux/fcntl.h |   1 +
+ include/uapi/linux/magic.h |   1 +
+ kernel/cell/Makefile       |   2 +
+ kernel/cell/core.c         | 312 +++++++++++++++++++++++++++++++++++++++++++++
+ kernel/cell/internal.h     |  62 +++++++++
+ 8 files changed, 566 insertions(+)
 
-diff --git a/drivers/media/platform/qcom/camss/Kconfig b/drivers/media/platform/qcom/camss/Kconfig
-index b51745c942c9fd71a95d09993213bde4b7e877e2..e1967bc20cf03ea1b0b159c5175294eeb40fe1c1 100644
---- a/drivers/media/platform/qcom/camss/Kconfig
-+++ b/drivers/media/platform/qcom/camss/Kconfig
-@@ -5,7 +5,7 @@ config VIDEO_QCOM_CAMSS
- 	depends on (ARCH_QCOM && IOMMU_DMA) || COMPILE_TEST
- 	select MEDIA_CONTROLLER
- 	select VIDEO_V4L2_SUBDEV_API
--	select VIDEOBUF2_DMA_SG
-+	select VIDEOBUF2_DMA_CONTIG
- 	select V4L2_FWNODE
- 	select GENERIC_PHY
- 	imply PHY_QCOM_MIPI_CSI2
-diff --git a/drivers/media/platform/qcom/camss/camss-video.c b/drivers/media/platform/qcom/camss/camss-video.c
-index 0852eb6f13154cfae7147ce39d22de64d14a5cba..5de6ff5ecc76a2863e536fca1c40ae6b2de6dc0c 100644
---- a/drivers/media/platform/qcom/camss/camss-video.c
-+++ b/drivers/media/platform/qcom/camss/camss-video.c
-@@ -13,7 +13,7 @@
- #include <media/v4l2-device.h>
- #include <media/v4l2-ioctl.h>
- #include <media/v4l2-mc.h>
--#include <media/videobuf2-dma-sg.h>
-+#include <media/videobuf2-dma-contig.h>
+diff --git a/fs/cellfs.c b/fs/cellfs.c
+new file mode 100644
+index 000000000000..744ed39abbba
+--- /dev/null
++++ b/fs/cellfs.c
+@@ -0,0 +1,141 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * cellfs: the pseudo filesystem a cellfd lives on.
++ *
++ * Modelled on pidfs. One inode per cell, numbered by the cell's id, which is
++ * never reused. The inode holds a reference on the cell.
++ */
++#include <linux/cell.h>
++#include <linux/file.h>
++#include <linux/fs.h>
++#include <linux/magic.h>
++#include <linux/mount.h>
++#include <linux/pseudo_fs.h>
++
++#include "internal.h"
++
++static struct vfsmount *cellfs_mnt __ro_after_init;
++
++static void cellfs_evict_inode(struct inode *inode)
++{
++	struct cell *cell = inode->i_private;
++
++	clear_inode(inode);
++	cell_put(cell);
++}
++
++static const struct super_operations cellfs_sops = {
++	.drop_inode	= inode_just_drop,
++	.evict_inode	= cellfs_evict_inode,
++	.statfs		= simple_statfs,
++};
++
++static char *cellfs_dname(struct dentry *dentry, char *buffer, int buflen)
++{
++	return dynamic_dname(buffer, buflen, "cell:[%llu]",
++			     d_inode(dentry)->i_ino);
++}
++
++static const struct dentry_operations cellfs_dentry_operations = {
++	.d_dname	= cellfs_dname,
++	.d_prune	= stashed_dentry_prune,
++};
++
++static int cellfs_setattr(const struct mnt_idmap *idmap, struct dentry *dentry,
++			  struct iattr *attr)
++{
++	return -EOPNOTSUPP;
++}
++
++static const struct inode_operations cellfs_inode_operations = {
++	.setattr	= cellfs_setattr,
++};
++
++static int cellfs_init_inode(struct inode *inode, void *data)
++{
++	struct cell *cell = data;
++
++	inode->i_private = data;
++	inode->i_flags |= S_PRIVATE | S_ANON_INODE;
++	inode->i_mode |= 0700;
++	inode->i_op = &cellfs_inode_operations;
++	inode->i_fop = &cell_file_operations;
++	inode->i_ino = cell_id(cell);
++	return 0;
++}
++
++static void cellfs_put_data(void *data)
++{
++	cell_put(data);
++}
++
++static const struct stashed_operations cellfs_stashed_ops = {
++	.init_inode	= cellfs_init_inode,
++	.put_data	= cellfs_put_data,
++};
++
++static int cellfs_init_fs_context(struct fs_context *fc)
++{
++	struct pseudo_fs_context *ctx;
++
++	ctx = init_pseudo(fc, CELL_FS_MAGIC);
++	if (!ctx)
++		return -ENOMEM;
++
++	ctx->s_d_flags |= DCACHE_DONTCACHE;
++	ctx->ops = &cellfs_sops;
++	ctx->dops = &cellfs_dentry_operations;
++	fc->s_fs_info = (void *)&cellfs_stashed_ops;
++	return 0;
++}
++
++static struct file_system_type cellfs_type = {
++	.name			= "cellfs",
++	.init_fs_context	= cellfs_init_fs_context,
++	.kill_sb		= kill_anon_super,
++};
++
++/**
++ * cell_from_file - the cell a file is a handle on
++ * @file: any file
++ *
++ * Return: the cell, or NULL if @file is no cellfd. No reference is taken: @file
++ * pins the inode, which holds one.
++ */
++struct cell *cell_from_file(const struct file *file)
++{
++	if (file->f_op != &cell_file_operations)
++		return NULL;
++	return file_inode(file)->i_private;
++}
++
++/**
++ * cellfs_alloc_file - make a new handle on a cell
++ * @cell: the cell. The caller keeps its own reference
++ *
++ * This is the only way to a handle. A cellfd cannot be opened again through
++ * /proc/<pid>/fd.
++ *
++ * Return: a file open for reading and writing, or an ERR_PTR().
++ */
++struct file *cellfs_alloc_file(struct cell *cell)
++{
++	struct path path __free(path_put) = {};
++	int ret;
++
++	ret = path_from_stashed(cell_stashed(cell), cellfs_mnt, cell_get(cell),
++				&path);
++	if (ret < 0)
++		return ERR_PTR(ret);
++
++	return dentry_open(&path, O_RDWR, current_cred());
++}
++
++static int __init cellfs_init(void)
++{
++	cellfs_mnt = kern_mount(&cellfs_type);
++	if (IS_ERR(cellfs_mnt))
++		panic("Failed to mount cellfs pseudo filesystem");
++	return 0;
++}
++fs_initcall(cellfs_init);
+diff --git a/include/linux/cell.h b/include/linux/cell.h
+index 37fde4bfea44..75dc59518c91 100644
+--- a/include/linux/cell.h
++++ b/include/linux/cell.h
+@@ -69,6 +69,20 @@ static inline struct cell *current_cell(void)
+ 	return cred_cell(current_cred());
+ }
  
- #include "camss-video.h"
- #include "camss.h"
-@@ -154,16 +154,10 @@ static int video_buf_init(struct vb2_buffer *vb)
- 						   vb);
- 	const struct v4l2_pix_format_mplane *format =
- 						&video->active_fmt.fmt.pix_mp;
--	struct sg_table *sgt;
- 	unsigned int i;
++/**
++ * cell_may_spawn - may the caller make cells and start tasks in them?
++ *
++ * This is the "spawn" slot of the cell the caller acts in. There is nothing to
++ * fill it with yet, so it is always empty, and the host holds everything. That
++ * no cellfd gets into a cell is not what this rests on.
++ *
++ * Return: true if it may.
++ */
++static inline bool cell_may_spawn(void)
++{
++	return !current_cell();
++}
++
+ /**
+  * task_cell - the cell a task is in
+  * @task: a task
+@@ -137,6 +151,7 @@ void cell_put(struct cell *cell);
+ static inline struct cell *userns_cell(const struct user_namespace *ns) { return NULL; }
+ static inline struct cell *cred_cell(const struct cred *cred) { return NULL; }
+ static inline struct cell *current_cell(void) { return NULL; }
++static inline bool cell_may_spawn(void) { return true; }
+ static inline struct cell *task_cell(const struct task_struct *t) { return NULL; }
+ static inline bool cell_same(const struct cred *a, const struct cred *b) { return true; }
+ static inline u64 cred_cell_id(const struct cred *cred) { return 0; }
+@@ -152,4 +167,12 @@ void cell_block_release(u32 block);
+ static inline void cell_block_release(u32 block) { }
+ #endif
  
--	for (i = 0; i < format->num_planes; i++) {
--		sgt = vb2_dma_sg_plane_desc(vb, i);
--		if (!sgt)
--			return -EFAULT;
--
--		buffer->addr[i] = sg_dma_address(sgt->sgl);
--	}
-+	for (i = 0; i < format->num_planes; i++)
-+		buffer->addr[i] = vb2_dma_contig_plane_dma_addr(vb, i);
++/* The cellfd. */
++#ifdef CONFIG_CELLS
++extern const struct file_operations cell_file_operations;
++struct file *cellfs_alloc_file(struct cell *cell);
++struct cell *cell_from_file(const struct file *file);
++struct dentry **cell_stashed(struct cell *cell);
++#endif
++
+ #endif /* _LINUX_CELL_H */
+diff --git a/include/uapi/linux/cell.h b/include/uapi/linux/cell.h
+new file mode 100644
+index 000000000000..f3589a23a596
+--- /dev/null
++++ b/include/uapi/linux/cell.h
+@@ -0,0 +1,24 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++#ifndef _UAPI_LINUX_CELL_H
++#define _UAPI_LINUX_CELL_H
++
++#include <linux/types.h>
++
++/*
++ * A cell is a container: one kernel object that a task is born into and never
++ * leaves. It is built from the outside, by filling named slots from file
++ * descriptors the builder holds, and then sealed.
++ */
++
++/* cell_create(): @parent is CELL_SELF, see <linux/fcntl.h>. */
++
++/* Life of a cell. It only ever moves down this list. */
++enum cell_state {
++	CELL_BUILDING		= 0,	/* Slots may be filled */
++	CELL_SEALED		= 1,	/* Immutable, nothing spawned yet */
++	CELL_RUNNING		= 2,	/* Has, or had, its first task */
++	CELL_DYING		= 3,	/* Killed, or its init exited */
++	CELL_DEAD		= 4,	/* Nothing left. The status can be read */
++};
++
++#endif /* _UAPI_LINUX_CELL_H */
+diff --git a/include/uapi/linux/fcntl.h b/include/uapi/linux/fcntl.h
+index e43e3de3e9ee..951c97e47e99 100644
+--- a/include/uapi/linux/fcntl.h
++++ b/include/uapi/linux/fcntl.h
+@@ -125,6 +125,7 @@ struct delegation {
+ #define FD_PIDFS_ROOT			-10002 /* Root of the pidfs filesystem */
+ #define FD_NSFS_ROOT			-10003 /* Root of the nsfs filesystem */
+ #define FD_FAILFS_ROOT			-10004 /* Root of the failfs filesystem */
++#define CELL_SELF			-10005 /* The caller's own cell */
+ #define FD_INVALID			-10009 /* Invalid file descriptor: -10000 - EBADF = -10009 */
  
- 	if (format->pixelformat == V4L2_PIX_FMT_NV12 ||
- 			format->pixelformat == V4L2_PIX_FMT_NV21 ||
-@@ -699,7 +693,7 @@ int msm_video_register(struct camss_video *video, struct v4l2_device *v4l2_dev,
+ /* Generic flags for the *at(2) family of syscalls. */
+diff --git a/include/uapi/linux/magic.h b/include/uapi/linux/magic.h
+index 66a91c8b1cb9..093e68790b47 100644
+--- a/include/uapi/linux/magic.h
++++ b/include/uapi/linux/magic.h
+@@ -107,5 +107,6 @@
+ #define GUEST_MEMFD_MAGIC	0x474d454d	/* "GMEM" */
+ #define NULL_FS_MAGIC		0x4E554C4C	/* "NULL" */
+ #define FAIL_FS_MAGIC		0x4641494C	/* "FAIL" */
++#define CELL_FS_MAGIC		0x43454C4C	/* "CELL" */
  
- 	q = &video->vb2_q;
- 	q->drv_priv = video;
--	q->mem_ops = &vb2_dma_sg_memops;
-+	q->mem_ops = &vb2_dma_contig_memops;
- 	q->ops = &msm_video_vb2_q_ops;
- 	q->type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
- 	q->io_modes = VB2_DMABUF | VB2_MMAP | VB2_READ;
+ #endif /* __LINUX_MAGIC_H__ */
+diff --git a/kernel/cell/Makefile b/kernel/cell/Makefile
+new file mode 100644
+index 000000000000..e343e0fa72b0
+--- /dev/null
++++ b/kernel/cell/Makefile
+@@ -0,0 +1,2 @@
++# SPDX-License-Identifier: GPL-2.0-only
++obj-y += core.o
+diff --git a/kernel/cell/core.c b/kernel/cell/core.c
+new file mode 100644
+index 000000000000..d0243779af19
+--- /dev/null
++++ b/kernel/cell/core.c
+@@ -0,0 +1,312 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Cells: a container as one kernel object.
++ *
++ * A task is born in a cell and never leaves it. There is no way to enter one.
++ * A cell is built from the outside: the builder fills named slots from file
++ * descriptors it holds, seals the cell, and spawns the first task into it.
++ * Holding the cellfd is the authority to do all of that.
++ *
++ * Life:  BUILDING -> SEALED -> RUNNING -> DYING -> DEAD
++ *
++ * References. The cell owns a reference on its user namespace until it is torn
++ * down. The user namespace owns a reference on the cell until it is freed, so
++ * that current_cell() can be followed from any credential. Teardown breaks the
++ * cycle, and every cell is torn down: by a kill, by the exit of its first task,
++ * or by the last cellfd going away before anything ran.
++ *
++ * Locking. cell->lock serialises configuration, sealing, spawning and killing.
++ * It is held across copy_process(), which is what closes a kill against a spawn
++ * in flight. It nests outside cgroup_mutex and namespace_sem.
++ */
++#include <linux/cgroup.h>
++#include <linux/fs.h>
++#include <linux/mnt_namespace.h>
++#include <linux/nsproxy.h>
++#include <linux/pid_namespace.h>
++#include <linux/poll.h>
++#include <linux/sched/task.h>
++#include <linux/slab.h>
++#include <linux/syscalls.h>
++#include <net/net_namespace.h>
++#include <uapi/linux/cell.h>
++
++#include "internal.h"
++
++static atomic64_t cell_next_id = ATOMIC64_INIT(0);
++
++/**
++ * cell_id - the id of a cell
++ * @cell: a cell
++ *
++ * Return: the id. It is never 0, which stands for the host, and never reused.
++ */
++u64 cell_id(const struct cell *cell)
++{
++	return cell->id;
++}
++EXPORT_SYMBOL_GPL(cell_id);
++
++/**
++ * cell_stashed - where cellfs keeps the dentry of a cell
++ * @cell: a cell
++ *
++ * Return: the location to hand to path_from_stashed().
++ */
++struct dentry **cell_stashed(struct cell *cell)
++{
++	return &cell->stashed;
++}
++
++/**
++ * cell_get - take a reference on a cell
++ * @cell: a cell the caller already holds a reference on
++ *
++ * A reference keeps the memory of the cell around and nothing else. It neither
++ * keeps the cell alive nor is it a handle on it.
++ *
++ * Return: @cell.
++ */
++struct cell *cell_get(struct cell *cell)
++{
++	refcount_inc(&cell->ref);
++	return cell;
++}
++
++/**
++ * cell_put - drop a reference on a cell
++ * @cell: a cell, or NULL
++ *
++ * Context: Process context. The cell is freed after a grace period.
++ */
++void cell_put(struct cell *cell)
++{
++	if (!cell || !refcount_dec_and_test(&cell->ref))
++		return;
++	if (cell->groups)
++		put_group_info(cell->groups);
++	kfree_rcu(cell, rcu);
++}
++
++/*
++ * Teardown. Drops every reference the cell holds and only then says DEAD. What
++ * that sets off, the release of mounts, of the network namespace and of the
++ * block of ids, completes on its own time.
++ */
++static void cell_teardown(struct cell *cell)
++{
++	struct cgroup *budget = cell->budget;
++
++	lockdep_assert_held(&cell->lock);
++
++	/* cell_may_migrate() looks at this under nothing but RCU. */
++	WRITE_ONCE(cell->budget, NULL);
++
++	if (cell->nsproxy)
++		put_nsproxy(cell->nsproxy);
++	cell->nsproxy = NULL;
++	path_put(&cell->root);
++	memset(&cell->root, 0, sizeof(cell->root));
++	if (cell->mnt_ns)
++		put_mnt_ns(cell->mnt_ns);
++	cell->mnt_ns = NULL;
++	if (cell->pid_ns)
++		put_pid_ns(cell->pid_ns);
++	cell->pid_ns = NULL;
++	if (cell->net)
++		put_net(cell->net);
++	cell->net = NULL;
++	if (budget) {
++		/*
++		 * The ids of the cell were only lent, so nothing may go on
++		 * being owned by them. If that cannot be had, the block is
++		 * never handed out again.
++		 */
++		if (cgroup_cell_budget_put(budget, cell->sealed, cell->budget_uid,
++					   cell->budget_gid))
++			userns_retire_cell_block(cell->user_ns);
++	}
++	put_user_ns(cell->user_ns);
++	cell->user_ns = NULL;
++
++	/* Pairs with the acquire of whoever goes on to read the status. */
++	smp_store_release(&cell->state, CELL_DEAD);
++	wake_up_all(&cell->wait);
++}
++
++static void cell_kill_locked(struct cell *cell)
++{
++	lockdep_assert_held(&cell->lock);
++
++	switch (cell->state) {
++	case CELL_BUILDING:
++	case CELL_SEALED:
++		/* Nothing ever ran. */
++		cell->exit_status = SIGKILL;
++		cell_teardown(cell);
++		break;
++	case CELL_RUNNING:
++		WRITE_ONCE(cell->state, CELL_DYING);
++		fallthrough;
++	case CELL_DYING:
++		/* The exit of the cell's init finishes the job. */
++		cgroup_cell_kill(cell->budget);
++		break;
++	case CELL_DEAD:
++		break;
++	}
++}
++
++static void cell_kill(struct cell *cell)
++{
++	guard(mutex)(&cell->lock);
++	cell_kill_locked(cell);
++}
++
++/* The last cellfd is gone, and there is no way to get another. */
++static void cell_kill_workfn(struct work_struct *work)
++{
++	struct cell *cell = container_of(work, struct cell, kill_work);
++
++	cell_kill(cell);
++	cell_put(cell);
++}
++
++/* The cellfd. */
++
++static int cell_file_open(struct inode *inode, struct file *file)
++{
++	/*
++	 * A handle is handed out, by cellfs_alloc_file(), and passed on. It is
++	 * not opened again through /proc/<pid>/fd: the inode is immutable, so
++	 * may_open() refuses that for writing, and this refuses the rest.
++	 */
++	if (!(file->f_mode & FMODE_WRITE))
++		return -ENXIO;
++
++	return 0;
++}
++
++static int cell_file_release(struct inode *inode, struct file *file)
++{
++	struct cell *cell = inode->i_private;
++
++	/*
++	 * A cell has the one file that cell_create() made, however many file
++	 * descriptors refer to it. Nobody can reach the cell any more, and there
++	 * is no way to get another handle, so it goes: a cell lives for as long
++	 * as somebody holds it. The last fput() may come from anywhere, so only
++	 * owe the kill here.
++	 */
++	cell_get(cell);
++	if (!queue_work(system_dfl_wq, &cell->kill_work))
++		cell_put(cell);
++	return 0;
++}
++
++static bool cell_is_dead(struct cell *cell)
++{
++	/* Pairs with the release in cell_teardown(): the status is there. */
++	return smp_load_acquire(&cell->state) == CELL_DEAD;
++}
++
++static __poll_t cell_file_poll(struct file *file, poll_table *pts)
++{
++	struct cell *cell = cell_from_file(file);
++
++	poll_wait(file, &cell->wait, pts);
++	if (cell_is_dead(cell))
++		return EPOLLIN | EPOLLRDNORM;
++	return 0;
++}
++
++/* Reads the wait status of the cell's first task. Repeatable. */
++static ssize_t cell_file_read(struct file *file, char __user *buf, size_t count,
++			      loff_t *ppos)
++{
++	struct cell *cell = cell_from_file(file);
++	__s32 status;
++	int ret;
++
++	if (count < sizeof(status))
++		return -EINVAL;
++
++	if (!cell_is_dead(cell)) {
++		if (file->f_flags & O_NONBLOCK)
++			return -EAGAIN;
++		ret = wait_event_interruptible(cell->wait, cell_is_dead(cell));
++		if (ret)
++			return ret;
++	}
++
++	status = cell->exit_status;
++	if (copy_to_user(buf, &status, sizeof(status)))
++		return -EFAULT;
++	return sizeof(status);
++}
++
++const struct file_operations cell_file_operations = {
++	.open		= cell_file_open,
++	.release	= cell_file_release,
++	.poll		= cell_file_poll,
++	.read		= cell_file_read,
++	.llseek		= noop_llseek,
++};
++
++/**
++ * sys_cell_create - make a new, empty cell
++ * @parent: CELL_SELF
++ * @flags:  none yet, must be 0
++ *
++ * The cell holds nothing, is in state CELL_BUILDING and can already be killed.
++ * It takes no privilege beyond what making a user namespace takes. A task of a
++ * cell cannot make one.
++ *
++ * Return: a cellfd, which is always close-on-exec, or a negative error.
++ */
++SYSCALL_DEFINE2(cell_create, int, parent, unsigned int, flags)
++{
++	struct cell *cell;
++	struct cred *cred;
++	int ret;
++
++	if (flags)
++		return -EINVAL;
++	if (parent != CELL_SELF)
++		return -EINVAL;
++	if (!cell_may_spawn())
++		return -EPERM;
++
++	cell = kzalloc_obj(struct cell, GFP_KERNEL_ACCOUNT);
++	if (!cell)
++		return -ENOMEM;
++
++	refcount_set(&cell->ref, 1);
++	cell->id = atomic64_inc_return(&cell_next_id);
++	mutex_init(&cell->lock);
++	init_waitqueue_head(&cell->wait);
++	INIT_WORK(&cell->kill_work, cell_kill_workfn);
++	strscpy(cell->hostname, "(none)");
++
++	/* The scratch credential is only here to carry the new namespace. */
++	cred = prepare_creds();
++	if (!cred) {
++		kfree(cell);
++		return -ENOMEM;
++	}
++	ret = create_cell_user_ns(cred, cell);
++	if (ret) {
++		abort_creds(cred);
++		kfree(cell);
++		return ret;
++	}
++	cell->user_ns = get_user_ns(cred->user_ns);
++	cell->groups = get_group_info(cred->group_info);
++	abort_creds(cred);
++
++	ret = FD_ADD(O_CLOEXEC, cellfs_alloc_file(cell));
++	if (ret < 0)
++		cell_kill(cell);
++	cell_put(cell);
++	return ret;
++}
+diff --git a/kernel/cell/internal.h b/kernel/cell/internal.h
+new file mode 100644
+index 000000000000..01a7a8581ff7
+--- /dev/null
++++ b/kernel/cell/internal.h
+@@ -0,0 +1,62 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef _KERNEL_CELL_INTERNAL_H
++#define _KERNEL_CELL_INTERNAL_H
++
++#include <linux/capability.h>
++#include <linux/cell.h>
++#include <linux/file.h>
++#include <linux/mutex.h>
++#include <linux/path.h>
++#include <linux/rcupdate.h>
++#include <linux/refcount.h>
++#include <linux/uidgid.h>
++#include <linux/utsname.h>
++#include <linux/wait.h>
++#include <linux/workqueue.h>
++
++#define CELL_KEY_MAX	64
++
++struct cell {
++	refcount_t		ref;
++	u64			id;
++	struct dentry		*stashed;
++
++	struct mutex		lock;
++	unsigned int		state;		/* enum cell_state */
++
++	/* Gone once the cell is DEAD. */
++	struct user_namespace	*user_ns;
++	u32			ids_count;
++	struct group_info	*groups;	/* of whoever made the cell */
++
++	/* Slots. */
++	struct mnt_namespace	*mnt_ns;
++	struct pid_namespace	*pid_ns;
++	struct net		*net;
++	struct cgroup		*budget;
++	u64			budget_id;
++	kuid_t			budget_uid;	/* who owned it before */
++	kgid_t			budget_gid;
++	bool			sealed;		/* the budget was handed over */
++	char			hostname[__NEW_UTS_LEN + 1];
++	kernel_cap_t		caps;		/* what a task starts with */
++
++	/* What sealing makes of them. */
++	struct nsproxy		*nsproxy;
++	struct path		root;
++
++	int			exit_status;
++	wait_queue_head_t	wait;
++	struct work_struct	kill_work;
++	struct delayed_work	exit_work;
++	struct rcu_head		rcu;
++};
++
++static inline struct cell *cell_from_fd(const struct fd *f)
++{
++	if (fd_empty(*f))
++		return ERR_PTR(-EBADF);
++	return cell_from_file(fd_file(*f)) ?: ERR_PTR(-EINVAL);
++}
++
++#endif /* _KERNEL_CELL_INTERNAL_H */
 
----
-base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
-change-id: 20261105-camss-fix-dma-c32288664dd2
-
-Best regards,
 -- 
-Loic Poulain <loic.poulain@oss.qualcomm.com>
+2.55.0
 
