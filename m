@@ -1,87 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793879150;
-	b=jfeN5vx0+i6Ri4M5YX8u756/1RkMBhZFua/bCiK5CmDwbH4cQzR3+tW1mr9WO5Sd/kHE
-	 M5lYZmqWg98iOsE/ljZMksScytdBRtCpqwFBEH8H/uWMsNfkt3vVfyjWP6usSfKqG+dUX
-	 wT6Dkv9vNHGWlO6YNRVdlqQqzmzeRtrRL+DbokF6GZXuIBb6b9mrDEIMXU5GwVgsceJVH
-	 LSeWzR0ZbEw3mSYrPtue/9P8xeBTEGJ90cLXgesBlK/NhAF8POKLjRZI89ph2EROEE7/8
-	 bjNNJU6/vud6RLWK5tahKNK+/aCTHQKX0lWanG36oNJmCCmBxT5O6vHKkJSnVOmPMjw==
+	t=1793879151;
+	b=orEEmbNmNxmFQIPTCSrMQPeKGDYIvk5c0uCYongxKJqUr6/osYenlozysZ/4Ft3xo+wu
+	 a4TEaWuXpUElid9ovIwYmZdtAtHXewvnZWfy9a7/gneKyHGpxLVm4jNhkQ6U6woHB68VL
+	 BS9pzr146T0WdtbCKq3rTqkVxD0OiaujPB8LjU7KcHngDOCOVSTvk1f4INgEb+qng3DP2
+	 JXDHgWN3m5zqhPAZwD77ilB5sBZ0JBomreyoarQDvj0m+ddUmO0LkR4MyozhlrBn8LIeP
+	 lbfkrFNYgwZVVo1m9Z63Giz11rqzLFCu4JeaoiuVN2q5rndk2j/86RO14ACv0TGbfvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793879150;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793879151;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=K6SaFtQqKwsgNERxw2YHc13oEMre1Ry8xi3YCZpxsYU=;
-	b=sayq8MlIpFZtyuhgn/Uz70T8I0btOYCprREEDPYM6HETGpL4pxRrHJURm603eZSA2vmU
-	 qpdM0JdHM1Sp4Q9EESN0p6O8RkzhIOQg5xlKNipHuWOQy4zpoUFGWIQq5Jb1mAQv3S4/8
-	 z78SvR+6/HURIgIEmGu6Z38nezTFQtSb6Kr1jDThnCWtJA0y1nUXfwpee9+T8wS9RDuRV
-	 wrX1hCP5NRq109+dH27xQ7WDnXlpV+sF4GZwtNxGjcyX4Vo2H3USbzo098FZHvpnVaoTo
-	 EwmNbAQJXybgjfsWtZr9cJUE5kmNG/RTPBDShNTFSW5lQpCVR+YWvAD3i7TAY8bCF4Q==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=15pU14wC+qRzWaNivBHeKFWVeFUX6sdrS3OUT9FNZzY=;
+	b=gdS/s3U5EQwCxkx7SxTO+eikENOX8QirGrX8LtusVerzGyHPJ2S/L0PXlBXxLkKNAOHU
+	 dAfY9g4FmgMQSBcJDyqvx8aI+pn7jOwsiVsK8dzjNyvClYEONUYXTOF9jJWeQjmMFcDUM
+	 /T6yOaJ+e6vhR9pCpxC5xRbdVfVLCl8UkgDYcEsxLeFIRt/r+keJfIG++2LIqCXbpwXIw
+	 1R79YQK3fw+8nO8AkG3GJnHCzD5L4Fsl5YgO0LgDKp+JBefXtS0cfeYJddrHED5yjEOUj
+	 3cnf8U3S+Uupe6ftKKsIsgcuQVqsfLySiU0q55CXI4mBJVcvwXmv37M46wGwKpm4u0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ex9MeRvg;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TpIQMvVl;
+	arc=none smtp.remote-ip=74.125.82.47
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D50F2606AB2A
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:45:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D50F2606AB2A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D68406075F01
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:45:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D68406075F01
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ex9MeRvg
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a5720b0a57so3243725e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:45:49 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TpIQMvVl
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1a2af4c8d00so527743c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:45:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793879148; x=1794483948; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=K6SaFtQqKwsgNERxw2YHc13oEMre1Ry8xi3YCZpxsYU=;
-        b=ex9MeRvgxf8OthR+ykcSraFjQf2M1WOA86U2Fyr8z/S/bLhwMNSebNL2K8bhaHn9Go
-         BjkkSM0e5+zsm2UFf+xBByJOR9siue/+yqCJH9aelxgYEznoKWP3rg8CflugEMzk5h96
-         8i2GSpmycaB1kcqQXKQMAfD2XYU2eStmfOp7L+Jgr2fhiG0vioIcGaUH9ZP6rePGZB9U
-         OgEaUR2KuIuTq4Fl8Q0AgcdeE5DXUVGmadz8eGW/ndq6JY9iViPlXbDI+Igyd0KugMXO
-         YogmN7vDE4ufq2kBuv1aFznTMoLBD/g4bIPKm20fNOZWS58AMkDLrnPIUIiV+WPshWtA
-         +4lg==
+        d=gmail.com; s=20260707; t=1793879150; x=1794483950; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=15pU14wC+qRzWaNivBHeKFWVeFUX6sdrS3OUT9FNZzY=;
+        b=TpIQMvVlaH+nxXSDTOg663dX7GsW753XS7RLYAIWjDwh9SiYSvTQ6gVy8Tg7fasmd8
+         uXoI8QsR20+OKVuR+Gpkbyrdn5n8raeW8gPko4MdoD6HCEMcWSywkMd3Qg71Akva/DPn
+         x9W5lhBBCCdhuyTgXiGWrjT4JBt/3IC/5/ffkkZIcn5yh7FDa17nc3Qf10XIjwqjDgT8
+         8ntu927yuDClEAvBCCH5Y6LDmSnB44An1sMeGdWovrUvWq54zsuCoYD0G+1HnUEkoi7z
+         D75FDN7UIs089vZuakezNOJYrqS1ts+9zynf49+UrgLX5hhl5il0C7RH64BM3PcZlj+T
+         JbXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793879148; x=1794483948;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=K6SaFtQqKwsgNERxw2YHc13oEMre1Ry8xi3YCZpxsYU=;
-        b=M9pNi8XtSlHDSg9Lam2VwgnlkGD5/9G4htE8VhjMXXTddyN2lpTJ54hv4UdD3vFFOq
-         C3mICuJ8H208EHkFdvdUt2N1TWjXQcEDsOSxJJbtI50L+ZgaOq39XzIGKdM7ES42YEsq
-         NbKNhG1FhFj6wTFkN2Ru7czsypxLYyCca7TQMz0J6xZPcR7w1sayCZLYkw74hF/kGdvH
-         eN43DEJoiXiYVct6lLwXylh0W6iN5MKNWYbXIN84w1jGh1Bv443fBnkIStxx+kudLkMy
-         AzkTn9ZP8wf/XjBudCsqr8Eb3DE5Ak55do51iMNpcltqWAnSaTDWz5OZTuiPglUZ4ekb
-         a1tQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx1NnSBjY/6KhV8AEZfJUjscB0snIPRc354+LPQoBCsK+3nSfvjlWx/oCSM4PK/3TuCztF0f6y1OVWB7Mk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+q7LL/0jAOq5ipCUm4jZnQzUPnZTi0zYFy3Bs4epPBPnPMvkay
-	vJEAaa2KMCrMYHy4z8BGBeZUoISirWwVFCC8dppSG3oVyGsulN3X8uGZFE528P892cM=
-X-Gm-Gg: AYBFou2saOrp6dlraXbWzQ3nUsNKrypOqQrqepCDvQF+eolexokECxMoalSOy8Fdsq8
-	Ty1pXCkCSuY6Oy188TMLSAjQygRSm/VujVws3lyoh4s+GmRF5hUZFVp8AN2StyTwQtV5wEFzNBp
-	Pxg5Ep+jG54MPHC2xqxXCn5Lo23ffA5tYh+frqW7j0KXJgyIdU5/ymvhZciBOq7mqByBC6yiRQs
-	73vq6eMeaOIx1j/D/Fp5igQWAxxAhl9dOYRtv+IGlf3Ymd1GzNOG5YekD/6BpOdxHV14U2N4ieX
-	p007jLKC8UlQE4/Ct5Ix9mVymmo+/JNxAjsazlSKSSsjxtgY3J7rOi6G4ZuMNkjAs95cW9Q+FS+
-	9Cu2VnaIRV2hbKgYuvxE9k8lznos+rbOBa4GKkQMqCMjoBPvoGrZAAULK5GQ52YG2hIm6H+KrHV
-	ULvRy9psdtN/PZM9uJrI1XBK6+1S5zPNeIOGpR2T90mCmUoCwsdlyzcMe5V73pPxCZe+p5ViYqr
-	lXLH4i9K4ZY8qpIhgcMwByEmGY9RQKlIwrIhPMv29Gov8mlYQeZOtcCEvGZZ9W/tSJqTcHMUeey
-	MmwuKpnjbNZXxNroW8R1losouWPIPdY7
-X-Received: by 2002:a05:600c:e556:20b0:4a1:c6f5:2450 with SMTP id 5b1f17b1804b1-4b55e07fb14mr25741525e9.17.1793879148405;
-        Thu, 05 Nov 2026 03:45:48 -0800 (PST)
-Received: from pop-os.local ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b571f46538sm56679525e9.5.2026.11.05.03.45.47
+        d=1e100.net; s=20260707; t=1793879150; x=1794483950;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=15pU14wC+qRzWaNivBHeKFWVeFUX6sdrS3OUT9FNZzY=;
+        b=zp8nklMueAXSBFlhKoyobYJ0g9iRGgzmz2x+TqG1AfPZzmIxnARyQ9yC4++EcbxTna
+         /LqO2bJJBY/2M4GgGmxfxpowCAO+zU7ZVc2h4JZlPaj2xMdyIYpscymGXfDoOEf9MKz9
+         YwhXH7fg10S1d4AlDi71o6yJQNxlpZXnBvBu6zbTFPeXe3K13UVQWQ8rtUo1GGWPCBye
+         FheSVDikks8pSf8h2pM01r8uxK94qbxawBdzZZmNQ31vqNRpPt2k9cMO0SJWZ/OlASKw
+         8yF8LD/hvEcRoexQua/uinSdRTOuHzMpcuSZqh7ikdVdWlLizP4aF8bqD/UqQ6LrzwYv
+         dOUg==
+X-Forwarded-Encrypted: i=1; AKwUvBxKncDe/rkxg/thEq7bbMg7Jd7Zi0ZtTijPn3gnXeC6XLygdW/0KudDcvk1x5uVtno0wYm1unScSU3M68s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8nqXwlBEY3pbfv51FtW0Po4DIVDv8QxyPXG8nDtC4giGGkopfX
+	27dq0J3QG++16aV2aefpRglYoK8kZNNC0MlptLOQMihFlSxLIUAVdYJk
+X-Gm-Gg: AYBFou2SCwCKUgJk0AB2eERfWySjZNYC6QO7lOJ4AKLpFzCARh9I1XyusGgSxTbXFuu
+	/uQE7zdIQrdLXEK9yyx2/Tui9geXtvYATLZ070O8096c2FS94xO/ZBWq1qtMLO8/3BPXZU9vu1q
+	jaFzfi9Kq4Bk07hnPQxPJSftE9GQjWZ9LkCUFiBhC9uS+P8Rz1D6u1QqeAZmPUk+fO/HMplZS4k
+	7dTnzXzphFEhznV0s4RyRuCH4qPwsJJR8ZF+22PHLJKCPN+sJNfT6ntfkKWXyjOQWrG4VNHsT4L
+	AzLizZUmM6fjzHYsgZbX0+4nS06f9Wu98yCGQS8uQgZDj0X9SnQBSwMx6kCTbsEEZOxYciQJhNc
+	0nzGCaYBgGGZBm8IWwUvxGrSwU/aYkdadCsc9jGO0IkGIdQK7j7fkT2NyQwOkHq6TeAdlDeWe+f
+	laBglIEuBuDq3fOCx+/NYeuq4J3qbiztaKZgDkqbL15hwZ/By4gS4rdnGmWZGH6CCQffv4bZxJm
+	QIiiMwWo/bgTEE2XkXrU77i0mK9FbFpbvD0humeGM/4Zk7iB9lewktDUZIzhj5ce+8HoLindXln
+	GMO54h3qsNUfr2RTaI+TnqnPji0lcg1FtvxA1dFg5QeYAL4m6sxptWdF+FVfu/eCctZ951MUWvI
+	hNWkiLjUDWw==
+X-Received: by 2002:a05:7022:5f02:b0:166:862b:9bcc with SMTP id a92af1059eb24-1ac5ac4caecmr26940791c88.18.1793879149565;
+        Thu, 05 Nov 2026 03:45:49 -0800 (PST)
+Received: from lwq-System-Product-Name.. ([23.247.137.158])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c772fdsm19035554c88.22.2026.11.05.03.45.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 03:45:48 -0800 (PST)
-From: James Clark <james.clark@linaro.org>
-Date: Thu, 05 Nov 2026 11:45:07 +0000
-Subject: [PATCH v4 19/19] perf test: cs-etm: Increase snapshot size
+        Thu, 05 Nov 2026 03:45:49 -0800 (PST)
+From: Yaohan Li <shunsheng1218@gmail.com>
+To: amit@kernel.org,
+	arnd@arndb.de,
+	gregkh@linuxfoundation.org
+Cc: rusty@rustcorp.com.au,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] virtio_console: fix buffer ownership and unplug races in the read path
+Date: Thu,  5 Nov 2026 19:45:35 +0800
+Message-Id: <20261105114535.972013-1-shunsheng1218@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,59 +98,434 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-james-cs-unformatted-per-thread-fix-v4-19-7759e0ce2449@linaro.org>
-References: <20261105-james-cs-unformatted-per-thread-fix-v4-0-7759e0ce2449@linaro.org>
-In-Reply-To: <20261105-james-cs-unformatted-per-thread-fix-v4-0-7759e0ce2449@linaro.org>
-To: Leo Yan <leo.yan@linux.dev>, Adrian Hunter <adrian.hunter@intel.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Mike Leach <mike.leach@arm.com>, Leo Yan <leo.yan@arm.com>, 
- Will Deacon <will@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>, 
- linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org, 
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Arnaldo Carvalho de Melo <acme@redhat.com>, linux-doc@vger.kernel.org, 
- James Clark <james.clark@linaro.org>, John Garry <john.garry@linux.dev>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-AUX maps require at least two pages, so for machines with 64K pages,
-128K is the minimum.
+The read path hands port buffers to readers without any ownership
+protocol.  Two threads sharing one file descriptor can both pick up
+port->inbuf, copy from it concurrently and requeue it twice, and an
+input virtqueue callback prefetching the next buffer can drop the
+remainder a reader is about to put back.  During port unplug a
+reader can also call add_inbuf() on a virtqueue that is being torn
+down (KASAN: slab-use-after-free in virtqueue_get_buf_ctx), or
+requeue a buffer nobody will free anymore.
 
-Signed-off-by: James Clark <james.clark@linaro.org>
+Track buffer ownership explicitly:
+
+- fill_readbuf() claims port->inbuf under inbuf_lock and owns it
+  exclusively across the unlocked copy.  port_has_data() and the
+  input virtqueue callback no longer prefetch the next buffer while
+  a claim is held (nor once the port is being unplugged), so a
+  partially consumed buffer is always finished before the next one
+  and the byte order is preserved.
+
+- A claimed buffer counts as data pending for the EOF and
+  host-disconnect logic, so a peer reader sharing the file descriptor
+  does not observe EOF while another reader still owns unread bytes;
+  it waits for the claim instead.  A nonblocking reader gets -EAGAIN
+  (or 0 when the host has disconnected and no data is left).  The
+  atomic HVC poll simply retries.
+
+- unplug_port() publishes an "unplugging" state under inbuf_lock
+  before any teardown.  Readers stop touching the input virtqueue
+  from that point; a reader returning a claimed buffer frees it
+  instead of requeueing it.  free_buf() always runs outside the
+  lock: the teardown, copy-fault and failed-requeue paths defer the
+  free until inbuf_lock is dropped, so free_buf() may sleep for DMA
+  buffers when called from a userspace read.  Nothing reads the
+  buffer after it is freed, and the claim is always released with a
+  wakeup, so readers waiting for the claim are not stalled until
+  the next packet.
+
+This issue was investigated and the fix was developed with AI
+assistance (ZCode/GLM-4).
+
+Testing with QEMU and KASAN injection (lockdep and
+CONFIG_DEBUG_ATOMIC_SLEEP enabled in the test kernel):
+
+- A shared-fd, two-reader test without unplug delivered all 20000
+  records exactly once, with no corruption or reordering.  The
+  unmodified kernel delivered 19979 of them more than once and only
+  48 could be attributed to any consistent stream order.
+- During concurrent unplug, readers received a valid contiguous
+  prefix before disconnect, with no duplicates or KASAN reports;
+  the same stall sequences produce six slab use-after-free reports
+  per run on the unmodified kernel.
+- A separate fault-injection run exercised 20 failed buffer
+  requeues, all going through the deferred free path, without a
+  reported use-after-free, lockdep splat or invalid-context sleep.
+- With one reader parked while holding a claim and the host
+  disconnecting, a nonblocking read from the second reader returns
+  -EAGAIN instead of a premature EOF, and the following blocking
+  read receives the remainder the first reader puts back; without
+  this change the same sequence returns 0 (premature EOF).
+
+Fixes: 203baab8ba319 ("virtio: console: Introduce function to hand off data from host to readers")
+Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
 ---
- tools/perf/tests/shell/coresight/test_arm_coresight_disasm.sh | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/tools/perf/tests/shell/coresight/test_arm_coresight_disasm.sh b/tools/perf/tests/shell/coresight/test_arm_coresight_disasm.sh
-index 236c4160e480..404317c2b96f 100755
---- a/tools/perf/tests/shell/coresight/test_arm_coresight_disasm.sh
-+++ b/tools/perf/tests/shell/coresight/test_arm_coresight_disasm.sh
-@@ -48,7 +48,7 @@ branch_search='[[:space:]](bl|b(\.(eq|ne|cs|cc|mi|pl|vs|vc|hi|ls|ge|lt|gt|le|al)
- ## Test kernel ##
- if [ "$(id -u)" == 0 ] && [ -e /proc/kcore ]; then
- 	echo "Testing kernel disassembly"
--	perf record -o ${perfdata} -e cs_etm//k --kcore -Se -m,64K -- touch $file > /dev/null 2>&1
-+	perf record -o ${perfdata} -e cs_etm//k --kcore -Se -m,128K -- touch $file > /dev/null 2>&1
- 	perf script -i ${perfdata} arm-cs-trace-disasm -- \
- 		-d --stop-sample=6 -k ${perfdata}/kcore_dir/kcore 2> /dev/null > ${file}
- 	grep -q -E ${branch_search} ${file}
-@@ -60,7 +60,7 @@ fi
+Changes since v1:
+- v1 only fenced the requeue point against virtqueue teardown.  A full
+  review of the read path showed the deeper problem: buffers have no
+  ownership across the unlocked copy, so concurrent readers (threads
+  sharing one file descriptor, or the HVC console poll) can duplicate,
+  drop or reorder data.  This version adds the claim protocol and also
+  gates the prefetch sites (port_has_data and the input virtqueue
+  callback, the latter also once the port is being unplugged).
+- A reader that finds the buffer claimed now waits instead of
+  returning a spurious short read/EOF, and keeps blocking until new
+  data arrives or the port disconnects; a nonblocking reader gets
+  -EAGAIN (or 0 when the host has disconnected and no data is left).
+- A claimed buffer counts as data pending for the EOF and
+  host-disconnect logic: a peer reader on the same file descriptor does
+  not receive EOF while another reader still owns unread bytes.  Tested
+  with one reader parked on a claim while the host disconnects: the
+  second reader's nonblocking read returns -EAGAIN (the same sequence
+  returns 0 without this change), and its following blocking read
+  receives the remainder the first reader puts back.
+- A failed requeue no longer leaks the buffer, and nothing reads the
+  buffer after it is freed.  Every free_buf() in the read path now
+  runs outside inbuf_lock: the teardown, copy-fault and failed-requeue
+  paths defer the free until the lock is dropped, so a userspace
+  context may sleep in free_buf() for DMA buffers.  The claim is
+  always released with a wakeup, including on the teardown and
+  copy-fault exits.
+- Claimed-buffer releases in the read path use can_sleep=false only
+  through the atomic HVC get_chars() path.  Rproc-serial ports do not
+  register an HVC adapter, so their claimed buffers are released
+  directly by userspace readers with can_sleep=true.  Other rproc DMA
+  buffers may be deferred by atomic cleanup paths and are reclaimed
+  during unplug teardown.
+- Fixes tag: blame shows the unsynchronized ownership handoff was
+  introduced by the fill_readbuf() handoff commit (203baab8ba319).
+- Tested with KASAN injection and, additionally, a lockdep and
+  CONFIG_DEBUG_ATOMIC_SLEEP enabled kernel: shared-fd two-reader
+  integrity, concurrent unplug with a valid contiguous prefix, 20
+  forced requeue failures through the deferred free path, and the
+  claimed-buffer/host-disconnect EOF case above, all without reports.
+- This patch is independent of the other virtio_console read/unplug
+  fix ("defer HVC polling out of the virtqueue callback"); both touch
+  in_intr() in non-overlapping hunks and stack cleanly on the same
+  base.
+
+v1: https://lore.kernel.org/r/179378543196.71890.7555371342727156729@gmail.com/
+ drivers/char/virtio_console.c | 214 +++++++++++++++++++++++++++++++---
+ 1 file changed, 201 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/char/virtio_console.c b/drivers/char/virtio_console.c
+index 019bcae81af5c..191dceb77df1b 100644
+--- a/drivers/char/virtio_console.c
++++ b/drivers/char/virtio_console.c
+@@ -180,6 +180,23 @@ struct port {
+ 	/* The current buffer from which data has to be fed to readers */
+ 	struct port_buffer *inbuf;
  
- ## Test user ##
- echo "Testing userspace disassembly"
--perf record -o ${perfdata} -e cs_etm//u -Se -m,64K -- touch $file > /dev/null 2>&1
-+perf record -o ${perfdata} -e cs_etm//u -Se -m,128K -- touch $file > /dev/null 2>&1
- perf script -i ${perfdata} arm-cs-trace-disasm -- \
- 	-d --stop-sample=6 2> /dev/null > ${file}
- grep -q -E ${branch_search} ${file}
++	/*
++	 * True while a reader owns an exclusively claimed inbuf outside
++	 * inbuf_lock, possibly sleeping in copy_to_user().  Nobody may
++	 * prefetch the next buffer meanwhile: the claimer's unconsumed
++	 * remainder goes back to inbuf first, or the prefetched buffer
++	 * would be dropped or the stream reordered.
++	 */
++	bool inbuf_claimed;
++
++	/*
++	 * Set at the start of unplug_port(), before any teardown.  The
++	 * read path checks it under inbuf_lock and stops touching the
++	 * input virtqueue; a reader returning a claimed buffer frees it
++	 * instead of requeueing it.
++	 */
++	bool unplugging;
++
+ 	/*
+ 	 * To protect the operations on the in_vq associated with this
+ 	 * port.  Has to be a spinlock because it can be called from
+@@ -541,10 +558,28 @@ static bool port_has_data(struct port *port)
+ 
+ 	ret = false;
+ 	spin_lock_irqsave(&port->inbuf_lock, flags);
++
++	/* The port is going away; its vqs are being torn down. */
++	if (port->unplugging || !port->portdev)
++		goto out_unlock;
++
++	/*
++	 * A reader owns the claimed buffer, possibly sleeping in
++	 * copy_to_user().  Report data as pending for the
++	 * EOF/host-disconnect logic, but do not prefetch the next
++	 * buffer: the claimer's unconsumed remainder must go back to
++	 * inbuf first, or the prefetched buffer would be dropped.
++	 */
++	if (port->inbuf_claimed) {
++		ret = true;
++		goto out_unlock;
++	}
++
+ 	port->inbuf = get_inbuf(port);
+ 	if (port->inbuf)
+ 		ret = true;
+ 
++out_unlock:
+ 	spin_unlock_irqrestore(&port->inbuf_lock, flags);
+ 	return ret;
+ }
+@@ -692,24 +727,111 @@ static ssize_t __send_to_port(struct port *port, struct scatterlist *sg,
+  * Give out the data that's requested from the buffer that we have
+  * queued up.
+  */
++static bool will_read_block(struct port *port);
++
+ static ssize_t fill_readbuf(struct port *port, u8 __user *out_buf,
+-			    size_t out_count, bool to_user)
++			    size_t out_count, bool to_user, bool nonblock)
+ {
+ 	struct port_buffer *buf;
+ 	unsigned long flags;
++	bool free_requeue_buf = false;
++	int err;
++
++	if (!out_count)
++		return 0;
++
++retry:
++	spin_lock_irqsave(&port->inbuf_lock, flags);
+ 
+-	if (!out_count || !port_has_data(port))
++	/* The port is going away; its vqs are being torn down. */
++	if (port->unplugging || !port->portdev) {
++		spin_unlock_irqrestore(&port->inbuf_lock, flags);
+ 		return 0;
++	}
+ 
++	/*
++	 * Another reader (a userspace read() or the HVC console poll)
++	 * owns the claimed buffer, possibly sleeping in copy_to_user().
++	 * Prefetching the next buffer here would drop or reorder the
++	 * claimed data once the owner returns its unconsumed remainder,
++	 * so report no data instead.  The HVC poll will simply retry;
++	 * a userspace reader waits for the claim to be released.
++	 */
++	if (port->inbuf_claimed) {
++		spin_unlock_irqrestore(&port->inbuf_lock, flags);
++		if (!to_user)
++			return 0;
++		if (nonblock)
++			return -EAGAIN;
++
++		err = wait_event_freezable(port->waitqueue,
++					   !READ_ONCE(port->inbuf_claimed) ||
++					   READ_ONCE(port->unplugging));
++		if (err)
++			return err;
++		goto retry;
++	}
++
++	port->inbuf = get_inbuf(port);
+ 	buf = port->inbuf;
++	if (!buf) {
++		spin_unlock_irqrestore(&port->inbuf_lock, flags);
++		if (!to_user)
++			return 0;
++		if (nonblock)
++			return !port->host_connected ? 0 : -EAGAIN;
++		/*
++		 * The data we saw was consumed by another reader while we
++		 * waited for its claim.  Keep blocking like the fops-level
++		 * wait instead of reporting a spurious EOF: wait for new
++		 * data, a disconnect or the unplug fence.
++		 */
++		err = wait_event_freezable(port->waitqueue,
++					   !will_read_block(port));
++		if (err)
++			return err;
++		if (!port->guest_connected)
++			return -ENODEV;
++		if (!port->host_connected && !port_has_data(port))
++			return 0;
++		goto retry;
++	}
++
++	/*
++	 * Claim the buffer: we own it exclusively while copying,
++	 * without holding inbuf_lock.
++	 */
++	port->inbuf = NULL;
++	port->inbuf_claimed = true;
++	spin_unlock_irqrestore(&port->inbuf_lock, flags);
++
+ 	out_count = min(out_count, buf->len - buf->offset);
+ 
+ 	if (to_user) {
+ 		ssize_t ret;
+ 
+ 		ret = copy_to_user(out_buf, buf->buf + buf->offset, out_count);
+-		if (ret)
++		if (ret) {
++			bool free_it;
++
++			/*
++			 * The copy failed: hand the buffer back with its
++			 * data intact, unless the port is being unplugged,
++			 * in which case nobody would free it anymore.
++			 */
++			spin_lock_irqsave(&port->inbuf_lock, flags);
++			free_it = port->unplugging || !port->portdev;
++			if (!free_it)
++				port->inbuf = buf;
++			port->inbuf_claimed = false;
++			spin_unlock_irqrestore(&port->inbuf_lock, flags);
++
++			if (free_it)
++				free_buf(buf, true);
++			else
++				wake_up_interruptible(&port->waitqueue);
+ 			return -EFAULT;
++		}
+ 	} else {
+ 		memcpy((__force u8 *)out_buf, buf->buf + buf->offset,
+ 		       out_count);
+@@ -717,19 +839,57 @@ static ssize_t fill_readbuf(struct port *port, u8 __user *out_buf,
+ 
+ 	buf->offset += out_count;
+ 
+-	if (buf->offset == buf->len) {
++	spin_lock_irqsave(&port->inbuf_lock, flags);
++
++	if (port->unplugging || !port->portdev) {
++		/*
++		 * The port was unplugged while we were copying: the vqs
++		 * are going away, so free the buffer instead of requeueing
++		 * it.  Runs outside the lock; sleepability matches the
++		 * caller's context (to_user == false is the atomic HVC
++		 * path, whose DMA frees are deferred by free_buf()).
++		 */
++		port->inbuf_claimed = false;
++		spin_unlock_irqrestore(&port->inbuf_lock, flags);
++		free_buf(buf, to_user);
++		wake_up_interruptible(&port->waitqueue);
++		return out_count;
++	}
++
++	if (buf->offset < buf->len) {
++		/* Data left in this buffer; serve it before the next one. */
++		port->inbuf = buf;
++	} else {
+ 		/*
+ 		 * We're done using all the data in this buffer.
+ 		 * Re-queue so that the Host can send us more data.
+ 		 */
+-		spin_lock_irqsave(&port->inbuf_lock, flags);
+-		port->inbuf = NULL;
+-
+-		if (add_inbuf(port->in_vq, buf) < 0)
++		if (add_inbuf(port->in_vq, buf) < 0) {
+ 			dev_warn(port->dev, "failed add_buf\n");
+-
+-		spin_unlock_irqrestore(&port->inbuf_lock, flags);
++			/*
++			 * Defer the free: free_buf() may call
++			 * dma_free_coherent() (rproc buffers) when the
++			 * caller can sleep, which is illegal with
++			 * inbuf_lock held and IRQs off.
++			 */
++			free_requeue_buf = true;
++		}
+ 	}
++
++	/*
++	 * Release the claim.  Do not touch buf afterwards: it may have
++	 * been freed above (failed requeue).  Wake unconditionally:
++	 * readers waiting for the claim need a wakeup even when the
++	 * buffer was fully consumed.
++	 */
++	port->inbuf_claimed = false;
++	spin_unlock_irqrestore(&port->inbuf_lock, flags);
++
++	if (free_requeue_buf)
++		free_buf(buf, to_user);
++
++	wake_up_interruptible(&port->waitqueue);
++
+ 	/* Return the number of bytes actually copied */
+ 	return out_count;
+ }
+@@ -811,7 +971,8 @@ static ssize_t port_fops_read(struct file *filp, char __user *ubuf,
+ 	if (!port_has_data(port) && !port->host_connected)
+ 		return 0;
+ 
+-	return fill_readbuf(port, ubuf, count, true);
++	return fill_readbuf(port, ubuf, count, true,
++			     filp->f_flags & O_NONBLOCK);
+ }
+ 
+ static int wait_port_writable(struct port *port, bool nonblock)
+@@ -1206,7 +1367,7 @@ static ssize_t get_chars(u32 vtermno, u8 *buf, size_t count)
+ 	/* If we don't have an input queue yet, we can't get input. */
+ 	BUG_ON(!port->in_vq);
+ 
+-	return fill_readbuf(port, (__force u8 __user *)buf, count, false);
++	return fill_readbuf(port, (__force u8 __user *)buf, count, false, false);
+ }
+ 
+ static void resize_console(struct port *port)
+@@ -1400,6 +1561,8 @@ static int add_port(struct ports_device *portdev, u32 id)
+ 
+ 	port->name = NULL;
+ 	port->inbuf = NULL;
++	port->inbuf_claimed = false;
++	port->unplugging = false;
+ 	port->cons.hvc = NULL;
+ 	port->async_queue = NULL;
+ 
+@@ -1533,6 +1696,17 @@ static void remove_port_data(struct port *port)
+  */
+ static void unplug_port(struct port *port)
+ {
++	/*
++	 * Mark the port as being unplugged before any teardown, so the
++	 * read path stops touching the input virtqueue: readers check
++	 * this flag under inbuf_lock and bail out, and a reader that is
++	 * returning a claimed buffer frees it instead of requeueing it
++	 * to a virtqueue that may already be gone.
++	 */
++	spin_lock_irq(&port->inbuf_lock);
++	port->unplugging = true;
++	spin_unlock_irq(&port->inbuf_lock);
++
+ 	spin_lock_irq(&port->portdev->ports_lock);
+ 	list_del(&port->list);
+ 	spin_unlock_irq(&port->portdev->ports_lock);
+@@ -1579,6 +1753,12 @@ static void unplug_port(struct port *port)
+ 	debugfs_remove(port->debugfs_file);
+ 	kfree(port->name);
+ 
++	/*
++	 * Reclaim rproc DMA buffers deferred by the atomic cleanup
++	 * paths before the port is fully torn down.
++	 */
++	reclaim_dma_bufs();
++
+ 	/*
+ 	 * Locks around here are not necessary - a port can't be
+ 	 * opened after we removed the port struct from ports_list
+@@ -1791,7 +1971,15 @@ static void in_intr(struct virtqueue *vq)
+ 	}
+ 
+ 	spin_lock_irqsave(&port->inbuf_lock, flags);
+-	port->inbuf = get_inbuf(port);
++
++	/*
++	 * A reader may own an exclusively claimed buffer, possibly
++	 * sleeping in copy_to_user().  Do not prefetch the next buffer
++	 * now: the claimer's unconsumed remainder must go back to
++	 * port->inbuf first, or the prefetched buffer would be lost.
++	 */
++	if (!port->unplugging && !port->inbuf_claimed)
++		port->inbuf = get_inbuf(port);
+ 
+ 	/*
+ 	 * Normally the port should not accept data when the port is
 
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.43.0
+2.34.1
 
