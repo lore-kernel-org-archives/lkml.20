@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.203
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793903996;
-	b=4WWTAxJPwRbyvGkQbzLswdppdcCQQwN5lTj5okkdLtIHdPG/x3xLPHTqOJRBrDJNa3ZJ
-	 j8pHl1vtUdvo8WgzGnFhDcddMwUdy8Nx38jcYARDLYpSp5snJWvSoZSz8nlHCu4vOLHkX
-	 vDQeyFZIPzKX9Kkfv0zZY2Q4CwdWm+62YUc06GWD6WKYk7w0dqbMFmIrSUm+EMZqhktxk
-	 yG0Jp89wNctR+g4CeU0E7yRDGOWV76J6+l+B3c56+hEL0kqQPmz3vAI/1FBAmENxZR/3y
-	 8Bjmu3cEm07+VNI3dnBpAzROJo2YpRc2RX7miqja4GAf1hXmrvKOqVgm9aMP46xf1aA==
+	t=1793904002;
+	b=aR4tHYolANU+uUX+DRZGeSxsG9Ev2rl7bxZGLAhtZe0/UDJ1kmK7gxIYO9Ikn1FxkI1G
+	 cvbQL63ErMZ81DUTQapU7CQS98kPkePeRCApYxzy0QrPJbhcjDdWwOA6mg/CVVQqcXBYE
+	 E5jO/A2z1+C/ClbXSD5hJ3X4K8E34V6tzDeKWnz8hrfW3sQ0g9BWyDxPxq2YFTb/F5wuY
+	 sfYkB5ZcCNe6vtNGmRKgxTvvhMI/KJZTqYJs7kq5RcIPMZKVegeiq+/tuXNvLph3Z03C6
+	 trAhHkIKxtVeQMV44BJX9S0bsRnFlLRgRUsY20quMrFi0qXLGEV86WPmJ1bYoXv9nOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793903996;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793904002;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=31fzmOt0FaYCeiQ/tx8wUE7G9kVsrSfC5pQ2mgLEW7Y=;
-	b=VxMJI777ObP31CWFvim2Tanm8oFXQ0Pb5/LWsT/APB69NRujC/xzI1rCEOJ3Y+l21jZu
-	 eQy/aI+7o2lfAzYrRYkEOT33DTtlRgKL3/5BUaB2gUcWa9Yii0NiAm99UsMilju0uf1I6
-	 o9Q8poHsxv6unc2ASg00hUxHn6Iz7WC5fq+9DtiwusDxYdvPuKTFY9R+btqwl6eX39vm+
-	 frtjeMvufOzcWxEXfYXvCc7TM3TXDrw5Tx90D8JF8E0GCuctyLMcYAX1KKp5ymNkMu/nC
-	 SkP9v+t2H15++3R2wcwTDxFAH/0QcWUSgwm0oWd/VwaNNKybD54ulPAdduu3dMssYuA==
+	bh=lYBFuxLfjxEha3Zx3xH+M3FFSL5fyPFntbBy1o8Jggo=;
+	b=A40MhPHLscXP3Wsk+D1Q8o9QIKHuPe1Wfl0Bd6Bkucw/o4yLNIUaRUMk/1DOmfaLF8YA
+	 SLT0dy//1XCcPmztl4fn1cvPDn3RfnYJUpUZMF7EqRfyxieu7U1uJ6XNgSA1gdgd80l5P
+	 vJPsePEeiFNEOxMPCjWaNDBQGf/ZPRYi//r8ib3Y1tGtmqqZOovpxZ8JAuZThIhxPOEaA
+	 XyspM+0pkF7seiW90EuNSqi2XdPzdJeq35Am+gI9J4+A7RWCE70lvUY7PWakmssQFNRQM
+	 53ToMpyOylYCDSoxLVSrBHrJVYvc8nT0TffMTjJMn1eKpdJpEawpTnPrjuQvOPQdENg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=hE2WxQ19;
-	arc=none smtp.remote-ip=95.215.58.181
-Received: from mta1.migadu.com (out-181.mta1.migadu.com [95.215.58.181])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AQ3Ee0zm;
+	arc=none smtp.remote-ip=95.215.58.203
+Received: from mta1.migadu.com (out-203.mta1.migadu.com [95.215.58.203])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A736606A333
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:39:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A736606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE35606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:40:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAE35606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=hE2WxQ19
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AQ3Ee0zm
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=NVSvaau1XB8Yml9Wa3VUU7m/rYm6KsytcRcD12Fn9UI=;
+DKIM-Signature: a=rsa-sha256; bh=XRcso4PQ7v/i8n+ltndwCCW38yTYyFOtjhZRQfQOu3s=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793903993; v=1; x=1794508793;
- b=hE2WxQ19C/7BXi0JBo3cP2SACLOm8qPtTBDKL4qNwkfQwkIZxBkY6MetGV+H+JqVGssDtcA0
- ZXEz+wQUR7vZufy1lta9/hGgFDudbH2jhXEnkLNQRQfqQ+06dlNcNf20boTN2MuNCZEOR2QiE00
- oi21vQC6YybEDBHw8usBckMM=
+ t=1793903999; v=1; x=1794508799;
+ b=AQ3Ee0zmoGLIrzFiqbNwH2X6z4iaE4E+ceCi77tS0EPnX4dETtsMFXi2XkALaPbkF5CBGMMy
+ Kdn7kPwMRZDlQSnK7ZZE3U30X8kBunbwyKCdhgzdzRqW1CENcx+pkRvpuoHq84DRccjbVL7mVny
+ VBCbRoF4lj6cxAjAaJn3j8cQ=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 64e6de2e787aa644;
-	Thu, 05 Nov 2026 18:39:53 +0000
-X-Mizu-Trace-ID: 64e6de2e787aa644
+Received: by mta11.migadu.com with ESMTPS id 2158ee7e6f7dbbd2;
+	Thu, 05 Nov 2026 18:39:59 +0000
+X-Mizu-Trace-ID: 2158ee7e6f7dbbd2
 X-Migadu-Flow: FLOW_OUT
 From: Usama Arif <usama.arif@linux.dev>
 To: Andrew Morton <akpm@linux-foundation.org>,
@@ -80,10 +80,13 @@ Cc: chenhuacai@kernel.org,
 	qi.zheng@linux.dev,
 	luizcap@redhat.com,
 	kernel-team@meta.com,
-	Usama Arif <usama.arif@linux.dev>
-Subject: [PATCH v9 01/32] mm: rename pmd_to_softleaf_folio() to pmd_softleaf_to_folio()
-Date: Thu,  5 Nov 2026 10:38:45 -0800
-Message-ID: <20261105183940.2236717-2-usama.arif@linux.dev>
+	Usama Arif <usama.arif@linux.dev>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v9 02/32] arm64: mm: add PMD swap-exclusive helpers
+Date: Thu,  5 Nov 2026 10:38:46 -0800
+Message-ID: <20261105183940.2236717-3-usama.arif@linux.dev>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261105183940.2236717-1-usama.arif@linux.dev>
 References: <20261105183940.2236717-1-usama.arif@linux.dev>
@@ -98,62 +101,38 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-pmd_to_softleaf_folio() reads as if it converted a PMD into a folio. What
-it does is decode the softleaf entry stored in the PMD and return the
-folio that entry references - the direction softleaf_to_folio() already
-spells out.
+Prepare for keeping a PMD-mapped anonymous THP mapped by a PMD across the
+swap round-trip, which makes PG_anon_exclusive have to survive in a swap
+PMD and not just in a swap PTE.
 
-No functional change intended.
+arm64 encodes a swap PMD exactly like a swap PTE, so the new helpers wrap
+the PTE ones and reuse PTE_SWP_EXCLUSIVE.
 
-Suggested-by: Dev Jain <dev.jain@arm.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Will Deacon <will@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org
 Signed-off-by: Usama Arif <usama.arif@linux.dev>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Reviewed-by: Baoquan He <baoquan.he@linux.dev>
-Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
 ---
- include/linux/leafops.h | 4 ++--
- mm/huge_memory.c        | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ arch/arm64/include/asm/pgtable.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/include/linux/leafops.h b/include/linux/leafops.h
-index 4c1476ae32343..7c13c58a5e218 100644
---- a/include/linux/leafops.h
-+++ b/include/linux/leafops.h
-@@ -657,7 +657,7 @@ static inline bool pmd_is_valid_softleaf(pmd_t pmd)
- }
+diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
+index a474c9fb485ad..dfcb4b9e66f39 100644
+--- a/arch/arm64/include/asm/pgtable.h
++++ b/arch/arm64/include/asm/pgtable.h
+@@ -560,6 +560,12 @@ static inline int pmd_protnone(pmd_t pmd)
+ #define pmd_swp_clear_uffd(pmd) \
+ 				pte_pmd(pte_swp_clear_uffd(pmd_pte(pmd)))
+ #endif /* CONFIG_HAVE_ARCH_USERFAULTFD_WP */
++#ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
++#define pmd_swp_exclusive(pmd)	pte_swp_exclusive(pmd_pte(pmd))
++#define pmd_swp_mkexclusive(pmd)	pte_pmd(pte_swp_mkexclusive(pmd_pte(pmd)))
++#define pmd_swp_clear_exclusive(pmd) \
++				pte_pmd(pte_swp_clear_exclusive(pmd_pte(pmd)))
++#endif
  
- /**
-- * pmd_to_softleaf_folio() - Convert the PMD entry to a folio.
-+ * pmd_softleaf_to_folio() - Convert the PMD softleaf entry to a folio.
-  * @pmd: PMD entry.
-  *
-  * The PMD entry is expected to be a valid PMD softleaf entry.
-@@ -665,7 +665,7 @@ static inline bool pmd_is_valid_softleaf(pmd_t pmd)
-  * Returns: the folio the softleaf entry references if this is a valid softleaf
-  * entry, otherwise NULL.
-  */
--static inline struct folio *pmd_to_softleaf_folio(pmd_t pmd)
-+static inline struct folio *pmd_softleaf_to_folio(pmd_t pmd)
- {
- 	const softleaf_t entry = softleaf_from_pmd(pmd);
+ #define pmd_write(pmd)		pte_write(pmd_pte(pmd))
  
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index cda3c886ec533..e425a5b05aa2e 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -2516,7 +2516,7 @@ static struct folio *normal_or_softleaf_folio_pmd(struct vm_area_struct *vma,
- 
- 	if (!thp_migration_supported())
- 		WARN_ONCE(1, "Non present huge pmd without pmd migration enabled!");
--	return pmd_to_softleaf_folio(pmdval);
-+	return pmd_softleaf_to_folio(pmdval);
- }
- 
- static bool vma_has_deposited_pgtable(struct vm_area_struct *vma)
 -- 
 2.53.0-Meta
 
