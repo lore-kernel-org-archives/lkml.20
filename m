@@ -1,59 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793914384;
-	b=KeJuBFJ3pKMHNJnkQdYoomRzuCZ3u4fhSW8MSAmzsfVUxR+GdrAZv9uu9pkhlWrgC2o4
-	 cvI8LKtgBKihpTa09RaD0oBazRrfUBzfFFXVevBK2InXSpt9UZmlXc30R3KqAsTqRvCWs
-	 QAXwWeH5BjieRrUgnQDkNf0qxYdkTg7BqU2q4f5o2NMOsjIdyb7LBeAIjplsq02jv2bI5
-	 LKMDUnP+BF3DU26p38YYa6jB0mI9x6otPHwFTwhpTBt19sqRG0e5Gwnyd4uH3Wo6AoRyg
-	 EBSiq62d2+yWP6UnIh6/boWd4Ar7NexO0TKY0wjltFO/m+memXbTju6C7/8a5rBTJ6w==
+	t=1793914405;
+	b=3I+5Khtq8mC3/YkJhKFLCjiP4zEZ8wW57o+R7aalVMF+Uqi3SZju+oRcsHBSyx7ejiw8
+	 9RgRSDJ3/up/cpljamQuwKsldV123u6VJoLbpp1z8YwKhxGWAGoprPdjUJ4SGS2VfjQPE
+	 OCw/mxOoQe5yPWnJ3PwRSYhJQgCYR0Ip09FaM7g+kdWtKnwrYddXDwZcaHXpUE/6OL+3R
+	 vXZAkp1lLh88a6yPDCX+a9bVnTgRYgbB2NM5swMSF7u2zzCX8MxyPJhBeEO6gnorJY3X5
+	 t82940B+/Ls2lxYDIewNQaAR6e/OPmzyMt8eVJSZg5NJ1D5FFjFW1y8KzbZEHuSAuNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793914384;
-	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
-	bh=mYWQMgmtAbrrOg+zxyPg6GK7jDDVD20JhuFz73fq5z8=;
-	b=BeAXYoe6IJOOnPFSnIjwb+DZ+KyKk2rcRjM8gaY+PM+DU/qQaM6Wudt32bAXLDH3j04l
-	 0YutYxxp2iPYDwny4xAMwDvMA1eyCdVkNe6B7cT6jS9cpw/0OGWi8ufhGmIGPrxnrp/FH
-	 NLJa+14xe6nyxUy4kep2Gj/n//O1fVsQUu3E1cNFWAuEfvkzjzJOWNATD9rGwssBhkNgp
-	 Qy1rI3kgk9WmHCaipAsek7AuxGZIkXq6jEndnSsx3c2EI/IN/Q2KTg3O6/FUCiNai+AmS
-	 oDu58CoHl2P68w/ITLCRZ+x0IpIgSt3wg/NN0tofyqaGeC1K3dPCXdJWwLXn99kGzDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793914405;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=M0pYf4wz8leHRtACWiiE+5QjHFuiPzSaPBJ/BygPIB8=;
+	b=c3dRxK74kbTEv0pYFzANVuHY/o3tT5iHZlquA+E51FRl63dDbxafOgFVvVyHKrEsQw6C
+	 Ox/HxEiRb3A7RtzdD01az4Ain7Khpslg9zspIshgo+EaqS1LQ9xjCdOp+hL2OSBWi4MoW
+	 1lYyJLXXpC2vcJ7D0I5ZmkWDfxPTxLJqTMmdqaLawE7C/UIMFfzv8ijwWXKrw0kFLfE74
+	 O9tgaw47N0WXaOW+aF0OSLzzqOYwuSzyXa3nn3NvUMoEdJooUACX6GBUdbmwyeziOqffT
+	 NBLJSARbAuf0C++zaKEzohhovADADjqKR1orLxjzHFvRL1v0XXKUVWHz3kdFxPkDKdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmx.com;
-	spf=pass smtp.mailfrom=gmx.com;
-	dkim=pass header.d=gmx.com header.i=quwenruo.btrfs@gmx.com header.a=rsa-sha256 header.s=s31663417 header.b=lbFjtvVF;
-	arc=none smtp.remote-ip=212.227.17.22
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B5vNiziv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B00C3606A32D;
-	Thu,  5 Nov 2026 21:33:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B00C3606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E76D2606A326;
+	Thu,  5 Nov 2026 21:33:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmx.com header.i=quwenruo.btrfs@gmx.com header.a=rsa-sha256 header.s=s31663417 header.b=lbFjtvVF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.com;
-	s=s31663417; t=1793914375; x=1794519175; i=quwenruo.btrfs@gmx.com;
-	bh=mYWQMgmtAbrrOg+zxyPg6GK7jDDVD20JhuFz73fq5z8=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=lbFjtvVFQbCXZF7+uIAPymgA5CNYle1h150B7uNPxUCVtzyetascPLGWpyaLRjZ3
-	 WPVu2wqzYmG/nAenoaPQnCxeDdPPb2GetvqPZGGirxfAJch/8jOvDYpdKDrxlT3lk
-	 tw2rV+v5ZS3aEzJJzpEQVBAVuTTYltBhV+JkBo8yM5SuJktR3KAgoF43C3dqKSNV+
-	 CcphfTJxE8I1ceQ3jfEGDcKIlKVuIqbxYtfdpLPTfw7Y5EbqzgNaIsfAQwkp+HfHq
-	 C48FqTvZg83x5AYASlrqQkWsol53Rjbe+c+DBpmp4sy+mCdZADMUvTF/U2MCf/X8h
-	 wWzJPke93uSKP4MR9Q==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.174]) with ESMTPSA (Nemesis) id 1MF3DM-1xIRFm0uM4-00Ao4s; Thu, 05
- Nov 2026 22:32:54 +0100
-Message-ID: <c2166059-7964-4f1f-b87a-2798c96a2db9@gmx.com>
-Date: Fri, 6 Nov 2026 08:02:48 +1030
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B5vNiziv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 308621F0089F;
+	Thu,  5 Nov 2026 21:33:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793914404;
+	bh=M0pYf4wz8leHRtACWiiE+5QjHFuiPzSaPBJ/BygPIB8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=B5vNizivHZEU1KoNI86QKGoZ078bEirUQPKmYN2ZC5I+UovaOMaR7kxE0je9fMD31
+	 HaYi8+to8sOuLxjaZxifCqDxztBTi51kFe9a98XyXbRD7OtyoPxM0JS8X3xP1WR9GP
+	 DTsGwu3IST4+RHoKgTvjk6pz1hf6DxiPyCgRkccebG1AFbChb4l83vlGjhM/clWVl8
+	 RhZq/VTVtO9Df23SXK/dkkWy4uCF3qQAnYkttXvsPSoI/cqoIUuoj98/ILanad4VRj
+	 NDdELiEC2TR27LnCIdX2sXR0YgorK/Nd1hWUOmKo1MF5O1lcbC/mKHbYP+rOVPk8li
+	 2fYJIyFAm9KDA==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Thu, 05 Nov 2026 21:30:57 +0000
+Subject: [PATCH 06/13] mm/ksm: convert VMA flag tests to use vma_flags_t
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,289 +52,150 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] btrfs: tag all metadata I/O with REQ_META
-To: Mark Korenberg <socketpair@gmail.com>, Qu Wenruo <wqu@suse.com>
-Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
- Mark Harmstone <mark@harmstone.com>, linux-btrfs@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261104-btrfs-sb-read-req-meta-v1-1-e06b4d059897@gmail.com>
- <9e2c808e-6edf-42b4-a70f-5fecc8f1eb69@suse.com>
- <35f7fdfe3efd8e949f9abfb1411de4db@gmail.com>
-Content-Language: en-US
-From: Qu Wenruo <quwenruo.btrfs@gmx.com>
-Autocrypt: addr=quwenruo.btrfs@gmx.com; keydata=
- xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
- 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
- 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
- 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
- gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
- AAHNIlF1IFdlbnJ1byA8cXV3ZW5ydW8uYnRyZnNAZ214LmNvbT7CwJQEEwEIAD4CGwMFCwkI
- BwIGFQgJCgsCBBYCAwECHgECF4AWIQQt33LlpaVbqJ2qQuHCPZHzoSX+qAUCat7o8gUJFKS8
- OQAKCRDCPZHzoSX+qAogB/9C5ErH7KGAGpcLPte3Wcfdt3acCkGAuMpCjqOt8BVw30mX0kmF
- SRo2nODjz8YsYhWR1T8L3ylANAS/IGIJ64idBmObaqGHQn845nXLIvG33LqMsAGXmOJdRgTT
- BnBA+QFCEIZpo7L9Qt1dOQdHSpHT31Ta1kKsbDm582KPVBl6KRcJJBnjudIerOA1/L/zEyDa
- YjIfHIcvuM3Xm8AS00iBpsmc151QgCPljqnSRXBiup9C1oMgVlaROhY1iDam4UIQB6glkHQs
- LZhUmFDNimX5LxfOzi2pFJSjJvPclRZVX7Sq6XhK/OFb6IvswN7i0nUYZMQfuGDNqGn70ic3
- AQImzsBNBFnVga8BCACqU+th4Esy/c8BnvliFAjAfpzhI1wH76FD1MJPmAhA3DnX5JDORcga
- CbPEwhLj1xlwTgpeT+QfDmGJ5B5BlrrQFZVE1fChEjiJvyiSAO4yQPkrPVYTI7Xj34FnscPj
- /IrRUUka68MlHxPtFnAHr25VIuOS41lmYKYNwPNLRz9Ik6DmeTG3WJO2BQRNvXA0pXrJH1fN
- GSsRb+pKEKHKtL1803x71zQxCwLh+zLP1iXHVM5j8gX9zqupigQR/Cel2XPS44zWcDW8r7B0
- q1eW4Jrv0x19p4P923voqn+joIAostyNTUjCeSrUdKth9jcdlam9X2DziA/DHDFfS5eq4fEv
- ABEBAAHCwHwEGAEIACYCGwwWIQQt33LlpaVbqJ2qQuHCPZHzoSX+qAUCat7pCgUJFMw7KQAK
- CRDCPZHzoSX+qEjbB/9crFFjips2NKxkt2XUutUIKjBoUlg/xCeFIj8PsTuJePhrV9HzgKsa
- rJgSqo3t78oQWmeaP9WPoDYjfhOkQXEs+G9UwHe/LENm70+Q1jrwY3nlcR3YrkDCJ+EvMZOW
- ackgcOYn46Iri9DN91FbSTszPMnwHi/nf0aeJXicO9krrY5C8mUxv4CSKeKSRg/5BR59uDiy
- 9CMRHDtIDnpDWaLOXtUeowCdiC5O/jA571PMFx3Aolc7g4SSyNbYodblCBOdJrh0CVm2LlQW
- 3SXrvFpSAw7LMVDgsS8pTRt4A11eTIS7mz0zqafTohXP1wt+575IBHK5ZpThQb+PzSQmxAqa
-In-Reply-To: <35f7fdfe3efd8e949f9abfb1411de4db@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:Pe/pHCT2wUs1rPg75ChhVGl257iIoC6zUkk9uvzQEd7ND+irX/4
- GJImy7bowE+AYxY5EAFKWbVr+qGYe/OKxfL47t9tfqEO3/hLPGqOUY7psjwrjzMn7D8fVeo
- Z/6SFWGXOpMt9AKz4sefq6Bv8CK8rvrOPveWgFD3BKQy80CsHp9cy7fzR00YGxzVderQiHW
- n8kDpMhQulWD0ayCFJZYQ==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:C4BuR3+fz30=;oy46kO6+TPpHgHUtW4ZBpls+2W9
- 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
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-late-2026-vma-flags-v1-6-0d3cd15ab75f@kernel.org>
+References: <20261105-late-2026-vma-flags-v1-0-0d3cd15ab75f@kernel.org>
+In-Reply-To: <20261105-late-2026-vma-flags-v1-0-0d3cd15ab75f@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Rik van Riel <riel@surriel.com>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, 
+ Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, 
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+ Shrikanth Hegde <sshegde@linux.ibm.com>, Pedro Falcato <pfalcato@suse.de>, 
+ Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Leon Romanovsky <leon@kernel.org>, 
+ SJ Park <sj@kernel.org>, Rakie Kim <rakie.kim@sk.com>, 
+ David Rientjes <rientjes@google.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ John Johansen <john.johansen@canonical.com>, 
+ Georgia Garcia <georgia.garcia@canonical.com>, 
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
+ "Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>, 
+ Roberto Sassu <roberto.sassu@huawei.com>, 
+ Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
+ Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ kvm@vger.kernel.org, damon@lists.linux.dev, 
+ linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+ apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org, 
+ linux-integrity@vger.kernel.org, selinux@vger.kernel.org, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2315; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=xZlktZwJsOHuvEUJpFUKz3hiGmT/MeLFJ/LiKv6KqSo=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLefF0WIiXRO6NsUtnEorKsaV4B8YsNutOPhpzRcjw46
+ 8z2Q9vZO0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjAR4R5GhlO/r1jOXb2bl9X0
+ /dHAF6kHI3p/3VSO9VAy1ryzcNKLZlOGfwpr7cIrqwPev3nt5SQX++zQYwdj5rQ3NdZbn1fZ/tw
+ oyAgA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
+Replace use of the legacy vm_flags_t flags with vma_flags_t values where
+KSM tests VMA flags directly.
 
+The ksm_madvise() interface continues to take legacy flags for the time
+being.
 
-=E5=9C=A8 2026/11/6 01:17, Mark Korenberg =E5=86=99=E9=81=93:
-> On 2026/11/5 19:37, Qu Wenruo wrote:
-[...]
->>
->> E.g. a btrfs over a LVM/mdraid, and btrfs passes REQ_META for a tree
->> block read, then should the LVM/mdraid pass REQ_META to the underlying
->> devices?
->=20
-> dm clones keep bi_opf, so LVM and dm-crypt pass REQ_META down.  md
-> raid1/raid10 pass it too since e879a0d9cb08 ("md/raid1,raid10: don't
-> ignore IO flags"), which names the priority inversion when REQ_META is
-> cleared.  md raid5 drops it: ops_run_io() builds the per-device bios
-> with FUA and SYNC only.  I see that as a gap in raid5 that the
-> raid1/raid10 fix did not cover, not as something to follow.
+No functional change intended.
 
-I'd say, for all reads (RAID56 reads are no different from RAID0 with=20
-rotation), keep the REQ_META as long as it's an extent buffer read.
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ mm/ksm.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-For simple writes (everything but RAID56), keep the REQ_META too.
+diff --git a/mm/ksm.c b/mm/ksm.c
+index d6f736a1aa2f..61b772bba229 100644
+--- a/mm/ksm.c
++++ b/mm/ksm.c
+@@ -779,7 +779,7 @@ static struct vm_area_struct *find_mergeable_vma(struct mm_struct *mm,
+ 	if (ksm_test_exit(mm))
+ 		return NULL;
+ 	vma = vma_lookup(mm, addr);
+-	if (!vma || !(vma->vm_flags & VM_MERGEABLE) || !vma_has_anon_rmap(vma))
++	if (!vma || !vma_test(vma, VMA_MERGEABLE_BIT) || !vma_has_anon_rmap(vma))
+ 		return NULL;
+ 	return vma;
+ }
+@@ -1243,7 +1243,8 @@ static int unmerge_and_remove_all_rmap_items(void)
+ 			goto mm_exiting;
+ 
+ 		for_each_vma(vmi, vma) {
+-			if (!(vma->vm_flags & VM_MERGEABLE) || !vma_has_anon_rmap(vma))
++			if (!vma_test(vma, VMA_MERGEABLE_BIT) ||
++			    !vma_has_anon_rmap(vma))
+ 				continue;
+ 			err = break_ksm(vma, vma->vm_start, vma->vm_end, false);
+ 			if (err)
+@@ -2698,7 +2699,7 @@ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
+ 		goto no_vmas;
+ 
+ 	for_each_vma(vmi, vma) {
+-		if (!(vma->vm_flags & VM_MERGEABLE))
++		if (!vma_test(vma, VMA_MERGEABLE_BIT))
+ 			continue;
+ 		if (ksm_scan.address < vma->vm_start)
+ 			ksm_scan.address = vma->vm_start;
+@@ -2890,7 +2891,7 @@ static int __ksm_del_vma(struct vm_area_struct *vma)
+ {
+ 	int err;
+ 
+-	if (!(vma->vm_flags & VM_MERGEABLE))
++	if (!vma_test(vma, VMA_MERGEABLE_BIT))
+ 		return 0;
+ 
+ 	if (vma_has_anon_rmap(vma)) {
+@@ -3027,7 +3028,7 @@ int ksm_madvise(struct vm_area_struct *vma, unsigned long start,
+ 
+ 	switch (advice) {
+ 	case MADV_MERGEABLE:
+-		if (vma->vm_flags & VM_MERGEABLE)
++		if (vma_test(vma, VMA_MERGEABLE_BIT))
+ 			return 0;
+ 		if (!vma_ksm_compatible(vma))
+ 			return 0;
+@@ -3484,7 +3485,7 @@ bool ksm_process_mergeable(struct mm_struct *mm)
+ 	mmap_assert_locked(mm);
+ 	VMA_ITERATOR(vmi, mm, 0);
+ 	for_each_vma(vmi, vma)
+-		if (vma->vm_flags & VM_MERGEABLE)
++		if (vma_test(vma, VMA_MERGEABLE_BIT))
+ 			return true;
+ 
+ 	return false;
 
-For raid56 writes/recovery, scrub/replace/reloaction, just don't bother.
-
-LVM's pv move won't know if the data it's copying is metadata or data.
-
-Although btrfs has some clue, it's not reliable clue, and furthermore,=20
-it's not the usual metadata IO pattern.
-
-Regular btrfs metadata IO has its size limited to nodesize, and never=20
-merge the bios from btrfs.
-
-Scrub/replace/relocation and RAID56 writes/recovery doesn't follow that,=
-=20
-thus I can always argue they are no different than data IO patterns.
-
->=20
->> If not, I see no particular reason to strictly follow that for
->> scrub/dev-replace/raid56 recovery.
->=20
-> md resync cannot know what it copies, btrfs scrub and dev-replace do.
-
-Scrub don't care. It's just reading out the full 64KiB in one go,=20
-doesn't care what's in it unless there is some corruption and need to be=
-=20
-repaired.
-
-And again, the pattern doesn't match metadata IO patterns.
-
->=20
->> I'm more interested in what you really want to archieve?
->>
->> Just to make the REQ_META more consistent?
->=20
-> Not only.  The ublk zoned device I use sees REQ_META as
-> UBLK_IO_F_META, and its server caches and places metadata differently
-> from data.
-
-That's to benefit regular metadata IOs.
-
-Scrub/replace/balance doesn't follow that pattern, and I'd say doing=20
-such metadata caching may not cause any benefit.
-
-Furthermore, I'd say the optimization should be transparent, and should=20
-only be an optimization.
-
-Their optimization may even not be suitable for btrfs' dynamic chunk=20
-allocation.
-
-E.g. previously one chunk is metadata, but later the chunk is freed and=20
-re-allocated with a data chunk.
-
-I don't think it should be something to follow dogmatically.
-
->  A tree block read issued by scrub or by RAID56 recovery is
-> still a metadata read for it.
-
-In fact, the scrub case is exactly an anti-example.
-
-Scrub should have lower priority, no matter if it's handling a metadata.
-
-Scrub is always working on committed metadata/data, and it should not=20
-compete with existing metadata priority.
-
->  The same holds for the in-kernel users:
-> BFQ prefers REQ_META requests, blk-cgroup issues them as root to avoid
-> priority inversion, and wbt does not throttle them.
->=20
->> At least I do not think it's a good idea to touch RAID56, unless you ca=
-n
->> prove that mdraid is also passing those flags.
->>
->> I want to align btrfs to existing RAID56 implementation, not the opposi=
-te.
->=20
-> I'll move the RAID56 part to a separate patch in v2, so the rest does
-> not wait on it.
-
-No, I think it should not be done at all for RAID56/scrub/replace/balance.
-
->=20
-> Still, I don't see what it can break: it changes no algorithm, only
-> the hint.
-
-The hint is already against what we expect for scrub.
-
-> And within btrfs, metadata writes on DUP, RAID1, RAID1C3/4
-> and RAID10 already carry REQ_META, because the per-mirror bios are
-> clones of the original.
-
-And that's the only part I agree.
-
->  RAID56 is the only profile that builds new
-> per-device bios and loses it.  md raid1/raid10 pass it as well, see
-> above.
->=20
->>> +static inline blk_opf_t btrfs_chunk_req_meta(u64 type)
->>> +{
->>> +	return (type & BTRFS_BLOCK_GROUP_DATA) ? 0 : REQ_META;
->>
->> Missing BLOCK_GROUP_METADATA_REMAP and also handling BLOCK_GROUP_SYSTEM=
-.
->=20
-> Both get REQ_META: the check is for the DATA bit, and tree-checker
-> allows only five chunk types (DATA, METADATA, SYSTEM, METADATA_REMAP
-> and DATA|METADATA), so METADATA, SYSTEM and METADATA_REMAP are all
-> tagged.  The SYSTEM rows in my test show it, METADATA_REMAP I did not
-> test on its own.
->=20
-> That is clearly too implicit, and it leaves mixed chunks out.  In v2
-> the helper returns 0 only for a pure data chunk:
->=20
-> 	return (type & BTRFS_BLOCK_GROUP_TYPE_MASK) =3D=3D BTRFS_BLOCK_GROUP_DA=
-TA ?
-> 	       0 : REQ_META;
->=20
-> and the comment lists what gets tagged: METADATA, SYSTEM,
-> METADATA_REMAP and mixed chunks.
+-- 
+2.56.0
 
