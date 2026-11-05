@@ -1,48 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793901827;
-	b=W077dKE0gBr7A/LOXlZPqMDIwo1oizrWRKs0d5ewjL5eEtnOV19DIDRvC5k/khCrwKup
-	 onvS6mbOyjFxJBLuvholyx4FSMFJXUOTVosQi39y442CJgcXXA30oR3tAZoV+rEYrX8ff
-	 ABmQFvuQ7a0OQgM0FXCwjznMTdcQtW+6OSdGsma+xAXPu8kp5DPJjgUFbap00Bf5d6Nr5
-	 Y1McK0jBT0MfFGsrMd57lGEDuWnpia1k9NfjL3rWI4nLPtYZeuqkEb58XQGnj+VdAC07S
-	 klTxESMPmbRpTxrzIVKU76gak0bv2JtljPW56ZxlzTYkPRCch4SWth9x5Ss9aRk21ZQ==
+	t=1793901849;
+	b=M/Q9K+kdE7HqsMJid1L9MZSpBQnE7M9OiBDurhyPuMr7NNlxyyhVxzi8WXyisyti3n+k
+	 FW4zTIK9SVIcDPkMabg7LGYFbcc8E3LH9gnwGbcJcIo1w+R+B/7aJ7/eJobWGntHZgifl
+	 QgPiTg9Yfq4vgFpU6I0t7RiiWVFWl8foq0JIlRSN93icYtfJkB0hmEjnVJi9j1mhUseI6
+	 HeNcDSFC2GS6AkOH55hPswLxHS2+fN5fPAd3giVuiOAXnQ8b0ymee6WjjTv5JiduvPNB3
+	 Lqp7ZlQR38Xq3E9Ji8/sp4oQ9na8N/lKK5vCpqkY5dwNvj9CXvisX9rkcUofVta1C0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793901827;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer;
-	bh=FszNzi5W6BVkUDAXdQk1QKMMfImnvE6FsmKPIP4VJgs=;
-	b=szke6/ZI5JoXKZydy0vVlk0lxib5FBL6C1C9g8YChSdIO3HuXlFhbVrx1vY8xUESYBIR
-	 j3kTB8H3E2+hWl2xN1j8m8lwaxMsTo+1E2ZRfR/AXCPOmoF8DkfMcJiqBk9iysyWlj81W
-	 vOFTdA6jnbnZRr6NL+BLXfF8xlohj0VCyG2WsaYd9E6t1ZZWKpKtK8GbZWBQVW7a9uRLe
-	 8qcgFJkshicP/8blnaZe4jP+F4DUkZUcvBJ+MkJbXBwQAMZ6e7xJbFHknZjAYsoEqerlM
-	 XPaFHFuYs7i1LWz7PEy42ZSN6pyNO2JaSfpRbZDVD7ewq3irZa/si1DDwcbDO7JXADQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793901849;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=XnmxEFlwrYLXPYbiM4rRFqk5iRr+FlXWIqL+SZFi5xA=;
+	b=Hrs01JpHayfIlqq/31xqZeVQSr2z2iZwIjGY+taH8XSx+GgSMblZncbeqq93Y2qQmDCr
+	 Ort/tbFNGqNpWTMVhyViQ/GP/GJZOtSJGRg/htdTi0/QFcqvkq7XIfTM73JNaGnXP3I0+
+	 d04bRFnAcCxn4Wh8gd6g+E1uvTjgvN8mVww93Kjl/d19ZVuFhlh4lNorRm18Hx6NWSfAY
+	 ZKDco9e+AL1chfXqAVYBxv2QVd8YD4jSyv2HADx52K6FmYY97cXTxSfiSSn/YJxb6BVMq
+	 5co1gl26qvTZ8SQ/mcXtagE+0ubYHML+0XQqLbNiS1InEKpzHWewpttIg2qhxKCZCig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S40ARWyb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yLgPglEV;
+	arc=none smtp.remote-ip=209.85.216.44
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9008606A31B;
-	Thu,  5 Nov 2026 18:03:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C81B4606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:04:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C81B4606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S40ARWyb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFEFA1F000C1;
-	Thu,  5 Nov 2026 18:03:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793901826;
-	bh=FszNzi5W6BVkUDAXdQk1QKMMfImnvE6FsmKPIP4VJgs=;
-	h=From:Date:Subject:To:Cc;
-	b=S40ARWyb0TrRGVbXkaX/OJiCEryidQoK/raNHWPNsXaPEzD6a6IrTqJNlmmUSN/r4
-	 HdxeJzOZdBlSRwWBhjozbLLvuYf8mvPlAcI65fAMoi4Gm2ep0R6tx491jNuW8tcrlR
-	 cG8nVDn4p0fkFx3xjShuJFv0ffwyIrPjGwLJphQVwrmR9z3v3bMNF/meQshsAIFIjk
-	 2Biaz1h5G5WoPzlluuIxDHebYE5LqFLTnfgFPG4DaIoFAHUsAl38YaHX9pz47nq4o4
-	 AodDv3Z+hqcCxXoyKPKtfwtKX1NtYcowXbKJBVJgFQVHImzQIqEx/D8mGOKdMdEdyh
-	 npQ7/Za6LSzOw==
-From: Mario Limonciello <superm1@kernel.org>
-Date: Thu, 05 Nov 2026 12:03:36 -0600
-Subject: [PATCH] pinctrl: amd: Drop CONFIG_ACPI ifdef
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yLgPglEV
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3acdcfa2bd3so1900670a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 10:04:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793901848; x=1794506648; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XnmxEFlwrYLXPYbiM4rRFqk5iRr+FlXWIqL+SZFi5xA=;
+        b=yLgPglEV7GIVD4E6i5KZiOI0zcHNXpKf7e278ayvsmQ+qjQ56E1zqMuh/choBfY4ld
+         XRD2plRdXUfNrEVuTNrobS7Psfu3kXVCz8LfQ3ulWq/ZOT97B2qO2Kn5Q2cab4zV3GTI
+         cGXxIinwB3b+zb7dOHnzw1BFttOEI14pRogyuDb2S5B3qJTHmS45wn8aINQrFt1gIiPp
+         iGb/qo2jTitloBoFZdqILA6VKwrYSIcjjPhqDGJuaTTsUkME/OCt2o4BdHyhST0n73Tz
+         c3MGTgAjCsRnnverO385lQL4+O+3VnrwhA83QTh2yHLOng4y/VFyRlvuIduNKFMFfwEv
+         zYoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793901848; x=1794506648;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XnmxEFlwrYLXPYbiM4rRFqk5iRr+FlXWIqL+SZFi5xA=;
+        b=VP575EuJ/59q5pR0xY1+uxLT5dfLMahG8G4cTFJB/4Nn1sb+Wuv1TLgM/PdSnQ1P02
+         3iY7//Tra1R1FtIKBJGSSmOtvm3RIQvfjz8Y1YxlIaausGthx4PP+SpLIVRe5JzWg/yE
+         /3Y4nJb4ydo3S9+vphObHM5KmXlz1LXvhlWPGkkwFhj8H9qIEeywVRw102UVa3YFchTS
+         PzQ0i1NSfaVEqlTUkWTHdqnPICxaf0P/Dvc2PrWx4mMWTnoDTxuPrwophFlfSmJmC7tD
+         ABTO7fjZEVSiU07IWdgsn9CZOvAKcFRCv4Pdlr3aATLO3NfiZO1xLlfuTtufGRgsUDg8
+         gkYg==
+X-Forwarded-Encrypted: i=1; AKwUvByO1F52ajO7Pbe0z4UQuo4hfaG8qvY0GDQibA1I3jRVCw7x9IdJi4+3mZKcCBsU1nBoN9f8jAjg3tMxUJA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/8Z26kW2SPvGvmgasVWpHMiAvB4+a5CNZxOfBOw9HgKaynAh8f
+	B8v5hRhsqr45eTfd60+Ct0oN3rcDQt9zIYUzwDtP4Hf9t1rCyP9rcvL5
+X-Gm-Gg: AYBFou0dXGIji2fq9FbmicWUHaZ9MnhoQXaA6gFHH6zoP4xWx20blhvh0zXy1OxMQTT
+	3ivUUbRLJDTzQ+W+A08VOH3l9sOZFu3nBJZK9DkOIXSdF73rWERbqRGZ0yXLAi5a9EEKpK56p26
+	U0qtmkOJ+g1RqMOCo87kM+NuTyMiErP9IYDd9BYROpbyI9b9oi30pxqj4RJMnwFHd0pBm6nW7z3
+	ZEkmsqpHoyFVlEgQ3Hn/EcvtDfp4ptpnxPYlU0dgVsVW8aP20UUT7JbW+ZyTbarpuOREJCSKlSI
+	d+Uz3KEmACLZIFNrrO/f0r+mKdxHRZacaraEv9d6OVrws6k9Z84+YrHVXDSv7by1bmZ1bNyVwcJ
+	uX0rUVx7w2L/39sevdBRMtBBrn65mPZP5iJlG0W9Xyl/rD/PLYjipYyYM6IlgWslEJWN+Gf4RsM
+	PQjBJGHQLlCOFq+vGzCJ5Tstc42Y6lh9uE52w8kDAoos2VEZpgF/pkURYA+QWCqsoA7QG0CY6QR
+	RGQv0ySItX44urzQHdXmHpzL0dZL+i8E8T3X3q5Xv+gwBex7SQJCxcNLvxeuq7NUB16Tg2Nkhes
+	yrnWPOy2s/Jl0Zj9zKEAqueiYcVbkdvpRzb6R0+4de9RmjytcAnM
+X-Received: by 2002:a17:90b:4d09:b0:3b0:cc6f:1046 with SMTP id 98e67ed59e1d1-3b0cc6f11cbmr1403236a91.67.1793901848105;
+        Thu, 05 Nov 2026 10:04:08 -0800 (PST)
+Received: from localhost.localdomain ([152.136.45.109])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b094d70a60sm4855031a91.1.2026.11.05.10.04.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 10:04:07 -0800 (PST)
+From: Qing Zhang <diasyzhangqing@gmail.com>
+To: Tyler Hicks <code@tyhicks.com>
+Cc: ecryptfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+2e8c4ecc07730b29ae27@syzkaller.appspotmail.com,
+	Roberto Sassu <roberto.sassu@polito.it>,
+	diasyzhang@tencent.com
+Subject: [PATCH] ecryptfs: validate auth token payload length before use
+Date: Fri,  6 Nov 2026 02:04:02 +0800
+Message-ID: <20261105180403.675338-1-diasyzhangqing@gmail.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <6aec66fb.059f5055.2712e4.0000.GAE@google.com>
+References: <6aec66fb.059f5055.2712e4.0000.GAE@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,54 +100,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-superm1-pinctrl-acpi-v1-1-2367e584912f@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCQAxG4auUrA1MihbxKuJinP7ViI5D0opQe
- nfHdvkt3pvJYQqnUzOT4aOu71whu4bSPeYbWPtqakPbiQRhnwrsJVw0p9GeHFNRHiLQ7w9HQRe
- opsUw6Hfdni+bfbo+kMb/i5blBzsgZxl4AAAA
-X-Change-ID: 20261101-superm1-pinctrl-acpi-faeed4581e60
-To: Basavaraj Natikar <Basavaraj.Natikar@amd.com>, 
- Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, 
- Linus Walleij <linusw@kernel.org>
-Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-acpi@vger.kernel.org, Mario Limonciello <superm1@kernel.org>
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
 
-commit e7280ab196ba4 ("ACPI: bus: Use acpi/acpi_bus.h without
-CONFIG_ACPI") added a stub that means that we don't need a #ifdef
-anymore for the _AEI check
+From: Qing Zhang <diasyzhang@tencent.com>
 
-Signed-off-by: Mario Limonciello <superm1@kernel.org>
+eCryptfs treats user and encrypted key payloads as struct
+ecryptfs_auth_tok without checking their length. Short payloads with
+valid version and token type fields can pass verification and cause
+out-of-bounds reads during file or filename encryption.
+
+Reject undersized payloads in both payload accessors with -EINVAL
+before any authentication token fields are accessed.
+
+Fixes: 237fead61998 ("[PATCH] ecryptfs: fs/Makefile and fs/Kconfig")
+Fixes: 1252cc3b232e ("eCryptfs: added support for the encrypted key type")
+Reported-by: syzbot+2e8c4ecc07730b29ae27@syzkaller.appspotmail.com
+Closes: https://syzbot.org/bug?extid=2e8c4ecc07730b29ae27
+Signed-off-by: Qing Zhang <diasyzhang@tencent.com>
 ---
- drivers/pinctrl/pinctrl-amd.c | 2 --
- 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/pinctrl/pinctrl-amd.c b/drivers/pinctrl/pinctrl-amd.c
-index 9fa752f552d43..efe8859fcd5a9 100644
---- a/drivers/pinctrl/pinctrl-amd.c
-+++ b/drivers/pinctrl/pinctrl-amd.c
-@@ -955,14 +955,12 @@ static void amd_gpio_irq_init(struct amd_gpio *gpio_dev)
- 
- 	mask = BIT(WAKE_CNTRL_OFF_S0I3) | BIT(WAKE_CNTRL_OFF_S3);
- 
--#ifdef CONFIG_ACPI
- 	/*
- 	 * Platforms without _AEI leave GPIO wake sources to firmware, so
- 	 * preserve their S4 wake bits.
- 	 */
- 	if (acpi_has_method(ACPI_HANDLE(&gpio_dev->pdev->dev), "_AEI"))
- 		mask |= BIT(WAKE_CNTRL_OFF_S4);
--#endif
- 
- 	for (i = 0; i < desc->npins; i++) {
- 		int pin = desc->pins[i].number;
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+ fs/ecryptfs/ecryptfs_kernel.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261101-superm1-pinctrl-acpi-faeed4581e60
-
-Best regards,
---  
-Mario Limonciello <superm1@kernel.org>
+diff --git a/fs/ecryptfs/ecryptfs_kernel.h b/fs/ecryptfs/ecryptfs_kernel.h
+index 58165928ed1e..4315c18ba1cd 100644
+--- a/fs/ecryptfs/ecryptfs_kernel.h
++++ b/fs/ecryptfs/ecryptfs_kernel.h
+@@ -88,6 +88,9 @@ ecryptfs_get_encrypted_key_payload_data(struct key *key)
+ 	if (!payload)
+ 		return ERR_PTR(-EKEYREVOKED);
+ 
++	if (payload->payload_datalen < sizeof(struct ecryptfs_auth_tok))
++		return ERR_PTR(-EINVAL);
++
+ 	return (struct ecryptfs_auth_tok *)payload->payload_data;
+ }
+ 
+@@ -124,6 +127,9 @@ ecryptfs_get_key_payload_data(struct key *key)
+ 	if (!ukp)
+ 		return ERR_PTR(-EKEYREVOKED);
+ 
++	if (ukp->datalen < sizeof(struct ecryptfs_auth_tok))
++		return ERR_PTR(-EINVAL);
++
+ 	return (struct ecryptfs_auth_tok *)ukp->data;
+ }
+ 
+-- 
+2.43.7
 
