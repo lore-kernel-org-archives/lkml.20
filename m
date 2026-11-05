@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.133.224.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793840592;
-	b=gUmpTsQEtchoC5et1mqOTcNlLzmdH7Jy27oiSzfC0hMD7VeN8PrBfiNoqKb7rtwGcORW
-	 UHNRFA1c55WFvDF+LIaEvN5vWQmbD8cCedgr0W8yj/N51nCid4lHuUHgnfbhD0MgpR4+S
-	 f1BC8Il0mcJaeSLbEpG85/fXST8s5PhFghoesgS3lhcdj2GYgNwzjHF9cKXfXIM5itHec
-	 EWygln0KtVCqW6xLUK6w0MpY1CSuWElz9EWFOs5G2wpy6FaWjrSYLdMfGJV7o8FmOvbHD
-	 WQq8lxAvm14tNrNraOPYMk0rJYpnSzeab84VjJdkUmsItl2NC64d+zA23d/yw5hp0Fw==
+	t=1793840629;
+	b=SOUP9/9LacrGZcPOF9T9XNk8yxcfrCpnJ8XTsskJCdB+y4YknrRKkwnMv7P/TXy0i3js
+	 ldRRMUy8AH4FmZg3GrJhMOhIvP+nIwLETx4FaQLl6gxJzZK+AVDgXRY+sqcpHs1yQhZwW
+	 tlftmJpMQQiHyyln1fVFlrU6bTAS5fmNOKcs/u7c+3GvciZq9VuZHbUvRIK1Edqf8LEQy
+	 dgKfu0GrfoKNa08pEWgq1LCL738pPKEtASCrdYkhvHKPvHW8FOnPv01uVhkwOhUqtkuJy
+	 BFuRmKjWYZxLOAh0LNRegLMHo/H7+pCx2dEgrPIlj2tvkgd1B3MgSfeP1DScYt2mNQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793840592;
-	h=DMARC-Filter:Received:Received:Date:From:To:cc:Subject:In-Reply-To:
-	 Message-ID:References:User-Agent:MIME-Version:Content-Type;
-	bh=OuNd+pKBbVN1S0Cs6wrgHCzUKej80GAQlnUey2/zlUk=;
-	b=irPshHvTwS1WMwggEAbTrbIAVG1Y/tSkzEmfswIBkt8OglwrD51ciepNLqw9WsEuWNPh
-	 oRbHEZOgFsxAtP0fSP6qci1vjSK7kO4VD4U7M+N04VEx/yIwZCCu/if1WT3RzPokqTE7e
-	 fe07uqC1QdXVQILRDgF/rP0t/eCRKENFX+cRoalkOVnr44QKGK0b1/VDxbkOWYwCgymo+
-	 Nw84+LBpGiV7lEZKaewVxVh5koOU83zVdWO8juWTR0+DBethEo+1HN5u53KFedfVuKN+b
-	 67BFVujBmskbKV9Tudk67GuEwmTWxjgHhXsSiGGGABOn90Qlfm1sR9koLf90Y46stbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793840629;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Fv78+LB5sCU/1qjmS8UnRJz33uLZYiq0BfE+tEhtIXs=;
+	b=gOdNzvmW3JjJqJEZ2+1BKROS+/2PRVXlhK+L7PcYw1Iup/H42yE1pRc7AI0xXQW5w3Ab
+	 bvIQ3CnhSROmn+BdR9u+tyIGrTbHGYJbLCGs8QGYEvrBWgfNs+FeYJ5eOFz4Gpb53yj+N
+	 Cd+F/ODtlNlv4gR376gkdn8btBhbTCe+tkr/XP77XguJI7XRmZYaE88ZP+q/MkmnCMwDp
+	 22LDHgpxtqR83XcWUrnyt9u/TsPrjqjhdVlX/gRj5jf7x95BDMCxTMZfezX4loj4DYe5Z
+	 7cjAlcknkxzG6gTSDv95XaeYoosxGfbdvrSm0EG1wew3gb/KuGyfuSz7scvEhdR7zqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=orcam.me.uk;
-	spf=none smtp.mailfrom=orcam.me.uk;
-	arc=none smtp.remote-ip=78.133.224.34
-Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2E8C4606A331;
-	Thu,  5 Nov 2026 01:03:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E8C4606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
-Received: by angie.orcam.me.uk (Postfix, from userid 500)
-	id 038B292009E; Thu,  5 Nov 2026 02:03:08 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
-	by angie.orcam.me.uk (Postfix) with ESMTP id F061792009C;
-	Thu,  5 Nov 2026 01:03:08 +0000 (GMT)
-Date: Thu, 5 Nov 2026 01:03:08 +0000 (GMT)
-From: "Maciej W. Rozycki" <macro@orcam.me.uk>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Jiri Slaby <jirislaby@kernel.org>, sashiko-reviews@lists.linux.dev
-cc: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-    =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, 
-    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    Crescent Hsieh <crescentcy.hsieh@moxa.com>, 
-    Hugo Villeneuve <hvilleneuve@dimonoff.com>, 
-    Johan Hovold <johan@kernel.org>, John Ogness <john.ogness@linutronix.de>, 
-    Karl Mehltretter <kmehltretter@gmail.com>, linux-kernel@vger.kernel.org, 
-    linux-serial@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] serial: core: Don't clobber the baud rate on
- hangup via B0
-In-Reply-To: <sashiko-outbox-196102@kernel.org>
-Message-ID: <alpine.DEB.2.21.2611050052250.6502@angie.orcam.me.uk>
-References: <alpine.DEB.2.21.2611030057510.15685@angie.orcam.me.uk> <alpine.DEB.2.21.2611032050590.15685@angie.orcam.me.uk> <sashiko-outbox-196102@kernel.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MlhaWu7j;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E52A8606A326;
+	Thu,  5 Nov 2026 01:03:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MlhaWu7j
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E01441F000C1;
+	Thu,  5 Nov 2026 01:03:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793840628;
+	bh=Fv78+LB5sCU/1qjmS8UnRJz33uLZYiq0BfE+tEhtIXs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MlhaWu7joO+SJjKKNZxbmdN51EYPLK4jKXnkge2s+qfW8Y2Xm43UloDt7sgEV2eYo
+	 FGdPWWCTFO5894vA2XekYZcrDI9JvKN2hrN8Hf1qkkWNxWURvEkhH8xCf9/hEq2xiC
+	 +iL6jgQqwWICEHpdA2X6UccKrkBNK2T/dfg+wXc36R+mumGp46z263AEC9WV3kbxv7
+	 qdvBtEw6xPwxCuo+Jsxd++IWpObu+JGCYbt2du8f9t1K1GJMJvlrRVTU9zvvJ+4F4Y
+	 27NKOrMgPyPiMDsQoS5M4OyTuGZVCVtloAqUb/HKOsiR6LeHm58yyfBAIBGv1HmT6q
+	 u7jdqcFZF0eMA==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Mani Tofigh <mt4022@columbia.edu>
+Cc: Naveen N Rao <naveen@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, "David S. Miller" <davem@davemloft.net>, linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org, tz2294@columbia.edu
+Subject: Re: [PATCH 0/3] kprobes: Fix optprobe state after forced unoptimization
+Date: Thu, 05 Nov 2026 10:03:44 +0900
+Message-ID: <undine-1793840624744635023-c869c5456423bd51@undined.local>
+X-Mailer: UndineD 0.1
+In-Reply-To: <20261103-kprobes-optprobe-state-v1-0-6aaac612abe6@columbia.edu>
+References: <20261103-kprobes-optprobe-state-v1-0-6aaac612abe6@columbia.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,33 +58,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, 3 Nov 2026, sashiko-bot@kernel.org wrote:
+On Tue, 03 Nov 2026 13:45:58 -0500, Mani Tofigh <mt4022@columbia.edu> wrote:
+> Since commit 06e0d3b89da1 ("kprobes: Make optprobe optimizer
+> multi-generational and asynchronous") a forced unoptimization can leave
+> a probe's int3 in the wrong state.  A disabled probe can be freed with
+> its int3 still in the text, an unhashed probe gets disarmed twice and a
+> reused probe never gets armed.
+>
+> Patch 2 relies on patch 1 since it assumes every disabled probe on a
+> cooling list is already disarmed.
 
-> [Severity: Low]
-> Does Documentation/driver-api/serial/driver.rst also need to be updated for
-> this rename? It still lists uart_get_baud_rate under the kernel-doc
-> identifiers for drivers/tty/serial/serial_core.c:
+Thanks for the fix! Can you update the series according to the comment?
+I'm also working on fixing the same commit, so I would like to rebase
+mine on your series.
 
- I missed that, will update in v4.
+Thanks!
 
-> [Severity: High]
-> What happens in uart_get_baud_rate_save() when B0 is requested and
-> port->hup_speed is outside the [min, max] range passed by the caller?
+>
+> ---
+> Mani Tofigh (3):
+>       kprobes: Disarm disabled optprobe on forced unoptimization
+>       kprobes: Do not disarm unhashed optprobe on dispatch
+>       kprobes: Arm reused optprobe on cooling list
+>
+>  kernel/kprobes.c | 19 +++++++++++++++++--
+>  1 file changed, 17 insertions(+), 2 deletions(-)
+> ---
+> base-commit: d4d028a7ae6401ce70825a3eb663f0a2dfc49db6
+> change-id: 20261103-kprobes-optprobe-state-90dbf55b246c
+>
+> Best regards,
+> --  
+> Mani Tofigh <mt4022@columbia.edu>
+>
+>
 
- Failure return discussed along with 1/2.  For B0 we'd preferably not poke 
-at the BRG setting programmed in hardware in the first place, but I find 
-that infeasible maintenance-wise for the huge set of UART drivers we have.
-
- Any thoughts otherwise, anyone?
-
-> [Severity: Medium]
-> Can saving port->hup_speed inside uart_get_baud_rate_save() also break B0
-> hangup in drivers/tty/serial/dz.c when an unsupported baud rate within
-> [50, 9600] is requested?
-
- That needs to be handled in the driver.  I'll have a look, especially as 
-I own it anyway and have the hardware too.
-
-  Maciej
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
