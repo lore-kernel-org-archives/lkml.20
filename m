@@ -1,101 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793866388;
-	b=e0YfYHkjqVQC/UBRQCjWblnV51/NoyXt1oXH495zc45x3DFXwTm9EVKK87et2lWxTu9l
-	 n1p015rM78OqjeUtLFT6/91Vzqq8i4v9nFhXtgaNQxoRdQhYtqt2wEWfSc7uJuHCqTPiM
-	 36+IDekIaExQmwXSm5/PzSxt/nKbUwe0dAuNta8BMrISFnhpHTe/4EwQhfFetvYW24Fgc
-	 OyQCxY/QONgW6n6zFVFBvf3ZU2Ldp5siAKSDkbvENLj4sY8FyUUS7jmdAeLzcWKLn/uJa
-	 24xdgy91lbuqxd5QIMO74KAfdRcIE7/SRHdP5TU04nt0B4hxOMmwhZFpxtFUUjS2Vzg==
+	t=1793866394;
+	b=WC1Ss3rssQ7fH0Bv6SzdbsZ7pNMzbrnKKkHZ5seTRCq5FAGL7+65mNou4pLVxmSdKvB6
+	 G7iJak8Nr5Jl7HccFmVh1Hd1RJMR1yFlxFLZwi89VU8Kol8fD7GvPAtEuG5FIFq1Hj1Et
+	 bF7tS4TjHfr4l7XsyI3mjXNASYKzhoQlqk+WlSi1ei3kfY71bCh4ANnKX0dPU6JPeYtWs
+	 gUwGmtUMUit7yuRvkO9kJHPQkZbDDAKSN+B0I+0O886kIHvXTdBnZPUl4d8bg2MVeAuEQ
+	 aUViqDBogUaDVYs00qYqNJIVXA5yY4wtYMXtY17kTLbVf9cpZNrAX5ElSnxf4wmgn5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793866388;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=9dHqEQDspEWpNSsGAH3iVlCCP1/Qrk4vRtH/AtYlCt0=;
-	b=WekxBkPnn7Ga/glDAbHMrmymNPte5yZC2wK5Pr6MKW8wHRdeROExq/j/9pAY1nA0TIb+
-	 f2Go2Uw5vcBxM2f9T6ucWkQt9wPL98IFsccUuAK97kE/LB7Y7jVVxKGE+q21vsHKRQoTV
-	 k7ChDu/6kK3ZKnfjy5as6ASk9j22Fkr5nF2D3q6RJ6NeZNMP32IUnA2RGnLZoCd9SNclG
-	 0rvJ/gONKuFFiUXNFfFu0576Pc1yvPqC1dxj+1f7GBkkzroFkn4vNKLd4tep3akyLBtFM
-	 I+Qgw0WAGG2lT4dCGcz9eM43cSromFOA6NBwHYK5Gb9/SEPvCV9IV7hnJ7oqMkOB6mA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793866394;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=pzyTF+YCyBmuOsCK2HopAmTXfJO1/Kz+71WIRqgcgkQ=;
+	b=0dX8ZjBSBcMybMy26sIinbE1/eCjHVb9F1tD2oy1UWd+dZdvm5lwX+QLnFbCi8SDT0aL
+	 ePe/q+KxqVY07QQCzj0n/70VrRmGVMnQt/uuxPuu23821XN06eRsnGkO4oiw9vEoDvHkx
+	 Qt8ihFZrGCIbllqfCOUXo30OjuVyiQuqGj/2M/wrM/jBpS8y8poRzPbhKWa11K0XDUizY
+	 ODUtjUp+Iof1p7yKWv7D/eo/8wSt58sHfBET82wiQdgGG9jvlZ0awSlWxlw+cyiNSQOlW
+	 lTfVY29qRvPbws1Zpf2PGgDzp3cskqUPacrwKOVFPYjgr3ZFSuPDDIVCIZwOLM4XfOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gszowiG2;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PPLZtSRm;
+	arc=none smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED3C6606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:13:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED3C6606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C3B2606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:13:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C3B2606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gszowiG2
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e09aa5264so794069f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:13:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793866386; x=1794471186; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9dHqEQDspEWpNSsGAH3iVlCCP1/Qrk4vRtH/AtYlCt0=;
-        b=gszowiG2ccQVtUg1EsYV87agHiRL09NHFwH6O/IOTo3qFvWgpHNPasdcYKX81gAJrH
-         7HXtUnEC6c47sLD2gMa2wUNO0I+U0YyWbIUPQjOAiakkPBDpupTR2VqjfAqgiGTkC6aC
-         RLVQXRHKUz37McSjaCsqhHlr6qnYE16VSE5kX540qPAjiPjm0W4zvSTqZ3d3q47j5qrd
-         qGuX5My9myNkSTPYJI1O+T2uGDg1rN5Pxf7nfcbnHMCEG8RBjr3MVYQwTx5t9wSRX6qv
-         4yvglYXy38lMf22Ua0id4PivbWTUrdmVSyJb/Mjx0wNfF046lRBGgVCgyk5Cls5Y+H9t
-         t8XQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793866386; x=1794471186;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9dHqEQDspEWpNSsGAH3iVlCCP1/Qrk4vRtH/AtYlCt0=;
-        b=mhvO5pOUlvOJ6QetXyVL0b4GZOmQucTEY1lsnqhUqmnwv67RqypuPEf0vwST8nu7Uq
-         MpOshP7a6711823bKRot+6hAmFWyuSc3DjQjFYKKOtUTugEGU64zjf9iDd6csWjDLbg0
-         7djDi6BFBFBWQ4zyDGTkXuphF4prMdaXnjNbfXOWtkmbSDWFOYpBVwMn3NWt6IIjX1Qa
-         n/55NjxruIYW4s8AblJAeVD6VS7DdT8Jau/MkpTJ8+B2dTYTb1OMmGYkWbf85X0aFpbm
-         Vqf3U+Q0kk3oHVfHHvsWH0LA0KzLkwEAvZsSL6WstpSFj7uQL9fLeUMCYLvKhNcqTVwu
-         Es/w==
-X-Forwarded-Encrypted: i=1; AKwUvBwXQqhlSnYbG3PU8So/ww7d+uKDENEn9+5no7EgiWlO0/6nqSSovQa3GjufTFhvjcfaPhIPZsHOnvjxTRo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/BkRI34chdU90IDgSZbXWNiS+iiBQzzLCFkY7S+VchAncsCax2
-	V/2M/7HuI80yjo34Hy16J3NMUEDyo8+Q1aLIC0/WTXDPEa3FDFMc9DDf
-X-Gm-Gg: AYBFou0iSEaGQUe+oOpS5W2szgV8jyzojJYVjdHNJh4V4hWVvxtGEyfYjkSeJ4D7kFY
-	lsPns70vsaIPVeVaqQg5610tk9jgZXPcsuQTwRTZi9DIXtWfOK7QMxH4Rw60JnyuDjLU61a75nz
-	GI+GhbVIsobIh/d8G1qEFuLX9/VMtl+fkZfK7ZA4vz7PA/lIVjCzSFTFj2MvsorFThI1JBilwZl
-	gmb4uGNtVOh+N/qdMJhdSMIo6yUzZA1eubGGSNVYZN9FEucHCZpv/FRlt4hZA5nt/8J3KvATv1p
-	7G0K/cGZIywjdU4wbSH6Bk3yB7hA+gJm7UTEFQnEPePNEN+/d4iOZUKEBgb/EulyngOq8WInp4z
-	ivznutV+PRO/ent0oiihH5fhbTzmUsP+ZeXDZkkiGAxazpQj/1k8dcymY/qF+BvpRf9T4yEXU3/
-	73kfuvfRbdmBRrdsKyB4mIpIr9ctxTC2MZeoJoCYIN82ggLjFreyWJ2j6bn4qRhoK+aEPKud2Ss
-	FMOvU/Caef1So0FF44jlRp8yeQlaRLSNCmgy6VsFezjyqn1YKIMSdkOJgZtNwA2n82d2vDIitqu
-	20A+Fkwr8Mr90js+V3k=
-X-Received: by 2002:a05:600c:4e50:b0:4a1:7d9b:d4ae with SMTP id 5b1f17b1804b1-4ac16fa3523mr419543105e9.5.1793866386076;
-        Thu, 05 Nov 2026 00:13:06 -0800 (PST)
-Received: from fedora ([2.35.201.240])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56fca22f4sm79093385e9.13.2026.11.05.00.13.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 00:13:05 -0800 (PST)
-From: Francesco Nigro <nigro.fra@gmail.com>
-To: K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Mike Galbraith <efault@gmx.de>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Huang Rui <ray.huang@amd.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PPLZtSRm
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793866392; x=1825402392;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=2Iru4H8XdSj0jlhBugEi4B6U3aBSwDnqs48wxlGEtzU=;
+  b=PPLZtSRmYXbbuA6rxUQodq7dClIv/Du5Y2IQJOdyYlSDYD731WSkORzK
+   I8vz5mnnhYtNOPEQbD1mmOUr/xXvbNoWT3X5N3HdP+dzkVCu1Bu++JMis
+   UV9jnBM1LcAH5PEpt1wOPHCYSXtFFkt6G3I22Yjwh2QF+UbS3AWtdqXc3
+   CopVFnmzZonj/x6aVa6XdtPXczd6ZVu5+ZEf471yYMH8LoTgu94Fg/zSE
+   0kfIb8lxkbrP3Yo2fF/3d+odT2cbW3vYZUi0bW0MJrpsJMklEOYjJy6Y2
+   GplX7haLVLXGJ7B8uMyVc9fNTaBdf6Wjyt7Fyf+/kmkwcsLd/HJZUKEbB
+   A==;
+X-CSE-ConnectionGUID: JHaKmm81TH+y+R7C+4J0XQ==
+X-CSE-MsgGUID: cPQRFDSpQduTg9895zEdtg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2544159"
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="2544159"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 00:13:11 -0800
+X-CSE-ConnectionGUID: 90Xx8q/eRS6YpbpxgQ0DCg==
+X-CSE-MsgGUID: 0QaQZvT8Sj61hItdIsDXdQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="7072993"
+Received: from yufei-super-server.sh.intel.com ([10.239.92.104])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 00:13:08 -0800
+From: "Yu, Fei" <fei.yu@intel.com>
+To: tursulin@ursulin.net
+Cc: christian.koenig@amd.com,
+	airlied@gmail.com,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org
-Subject: Re: [REPORT] sched: ITMT + DELAY_DEQUEUE: woken task waits ~1 ms behind another task on the preferred CPU while allowed CPUs are idle
-Date: Thu,  5 Nov 2026 09:12:45 +0100
-Message-ID: <20261105081245.81773-1-nigro.fra@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <5af4860d-096a-4e9d-a3b3-0b8277924146@amd.com>
-References: <20261103154603.1893325-1-nigro.fra@gmail.com> <5af4860d-096a-4e9d-a3b3-0b8277924146@amd.com>
+	maarten.lankhorst@linux.intel.com,
+	madhurkumar004@gmail.com,
+	mripard@kernel.org,
+	simona@ffwll.ch,
+	syzbot+95416f957d84e858b377@syzkaller.appspotmail.com,
+	tzimmermann@suse.de
+Subject: Re: [PATCH v2] drm/syncobj: Limit the number of handles and use kvmalloc for user-sized arrays
+Date: Thu,  5 Nov 2026 16:18:45 +0800
+Message-ID: <20261105081845.1230910-1-fei.yu@intel.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <39be711e-cd56-4a04-87ee-6aa2a0b69779@ursulin.net>
+References: <39be711e-cd56-4a04-87ee-6aa2a0b69779@ursulin.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,42 +88,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Thu, 2026-11-05 at 09:41 +0530, K Prateek Nayak wrote:
-> Hello Francesco,
+From: Fei Yu <fei.yu@intel.com>
 
-Hi Prateek,
+On 04/11/2026 10:27, Tvrtko Ursulin wrote:
+> On 04/11/2026 09:44, Christian König wrote:
+>> On 11/4/26 04:09, Yu, Fei wrote:
+>>> +#define DRM_SYNCOBJ_MAX_HANDLES        (INT_MAX / sizeof(struct syncobj_wait_entry))
+>>
+>> I really wonder if we should put that into the uAPI files?
+>>
+>> Not that userspace is potentially using it, but this is part of the uAPI
+>> and makes sense for documentation purposes.
 
-thanks a lot for looking into this, and for the patch.
+I thought about that, but I'd prefer to keep it kernel internal, at
+least for this fix:
 
-This is a corporate machine, so I can't promise I will be able to boot
-a patched kernel on it, but I will try.
+ - The value is derived from the size of a kernel internal struct and
+   from the kvmalloc() size limit, so it is not the same on 32-bit and
+   64-bit. To put it in drm.h I would have to replace it with a fixed
+   number, and that number becomes ABI. We could not easily raise or
+   lower it later.
 
-> Since you say ITMT disabled actually solves this issue, I suspect there is a
-> race between the idle balancer moving the delayed task to a preferred CPU vs
-> a wakeup that also lands on the same CPU.
+ - Tvrtko's series below avoids most of these allocations. Once that
+   lands, the right limit may be different, and an internal define is
+   easier to change.
 
-perf sched shows a race like that, but the task moved is the running
-one, by active balance. One example (perf sched timehist, trimmed; ms):
+ - The patch has a Fixes tag, and keeping it out of the uAPI header
+   keeps the stable backport small.
 
-    .654334  [6]  worker 482   awakened: migration/7
-    .654337  [6]  worker 482   blocks
-    .654338  [7]  worker 481   preempted while running
-    .654341  [7]  migration/7  migrated: worker 481 cpu 7 => 6
-    .654341  [2]  waker        awakened: worker 482
-    .655572  [6]  worker 482   ran 1.006 after 0.224 sch delay
+For documentation, I could send a follow-up that adds a sentence to the
+uAPI struct comments, saying that count_handles above an implementation
+defined limit is rejected with -EINVAL. That documents the behavior
+without fixing a number. Would that work for you?
 
-Does your change cover the active balance path too?
+>> That kvmalloc_array() + the following copy_from_user should probably be
+>> replaced by using vmemdup_array_user(). But that should of course be a
+>> separate patch.
+>
+> Btw I tried to do that some time ago:
+>
+> https://lore.kernel.org/dri-devel/20251106132645.28208-1-tvrtko.ursulin@igalia.com/#t
+>
+> I have as local, more recent version which applies, but apparently never
+> sent it.
+>
+> Interesting part should also be the other patches from the above linked
+> series which avoid allocations altogether for the vast majority of cases.
+>
+> If there is interest I can re-base and re-send after this is merged.
 
-> So at this point, I would have expected B to have already been
-> moved by a newidle / idle balance.
+Thanks, I wasn't aware of that series. I'll leave the
+vmemdup_array_user() and points array cleanups to it, so we don't
+duplicate work. Happy to test it once this fix is in.
 
-Not here: in 270 of 286 waits of 0.5 ms or more, neither worker left
-CPU 6, and CPUs 4, 5 and 7 were idle for at least 98 % of the wait.
-
-Trace summary and excerpt:
-https://github.com/franz1981/itmt-delay-dequeue-repro/tree/827b6b2
-
-Thanks,
-Franz
+Regards,
+Fei
