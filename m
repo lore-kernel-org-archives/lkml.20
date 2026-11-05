@@ -1,45 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.76.5.236
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793864282;
-	b=DwPeiIfwtiUFIxRTMxkwxT01CGa+OBtPSibNRfmx7D2ArX7KKklKC9xog/KEie4cAFtq
-	 Vwx5wlY3bI+3MCefo3S4G/jDPfvlEKrguA+/yr5aImf+9eQ80oHoWhZtQ3pJ07Jj9/Vea
-	 9d8k0mHBm+jNGw/Z6279i1ZhtikIRaL0T1TvguPp2QsR3AR3rKyn1LAkjyKEqfSWQ7Q6U
-	 2pnvbdPkDWgNj5VvL7YaFRaeJmvvK+4Jz156z+yl3JMoRr07tUzAWci3z8+93pjqWg79V
-	 3IqbmXJ83LqCTnGulS3m+10dzFSd/LraF0LM2n2KU8GcHgxnZhgCDT5r/3JG3RPoLmQ==
+	t=1793864285;
+	b=dJlf39PkemMXdulpAJeLe3lid/UR06jXTJ4z967CUDzX6Dm+ct47Hpv+g755FLydkiVP
+	 WFyMycaSrtgg64dMceNAN8RIKnJrmhIyFBOnDq8DVDlUscPxEB+EnW/w/Fq/SLcVwwfd8
+	 GAS2JP7Jtx+BgfToeQhGdtc1IzN8iWVrpmATOPfVLFd+x9EACPB5q6Y4XnOvnBj/YPKG2
+	 IcHHjJR38nhVbl9buS/06yyu+F6wXHcYgvk38L05MWLvJc+2R3L9RaHOeZBY0wEQgtEwD
+	 rab3YepimuGbjHwxzX1N5KsXfrG6pD+Jx1CoLu95MKEN/s4CYFoQMTEaOWVQyP4/IIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793864282;
-	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:DKIM-Signature;
-	bh=O+DefVadtLa6SPaklYpaHc8GZx+rmsOjmeUFC9PQ6G8=;
-	b=LhfTySBaw+xTHwUOI2rYp86eUFtptvhKy1Vn04LkuY9HZxXUM6AijxmzGecrovpqKs7J
-	 JX/nD7SPoskxsfN0UD/pRcdJMcXc0QKLjqnV79vkGFnwg5ADEFD3vNNi7wA05WW72sDhK
-	 zkphhV/jpF9LLghRDwLjfzs/fjoMBs/cjGB8hsTusb0vhNQ1ajVrWRzV3hOHqkhyvrzPE
-	 iwJ0Zo3M9BMdMD7gJAX8OGG+McOg5ImKwMEXSljFVBBVDuI0TMHamaId8DHmZP8t19k7P
-	 f3A4j8a0xwdye1EHSPkD6Zc2wNt3B+WFaJ+XgBcYW0muWOQDRPQLEi7yay7y91a508w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793864285;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=TG1eyQll9htKpm1l6pz9QtWqy0Nr7PBzEnyal9UacVU=;
+	b=oK91CMjfLSFuohlZU+j0D0uKO29dl3RYLh/8Hn1cE8leZVPoYIRNzhDNHgUGOvGXUBSm
+	 7cPn1CZIHsavcLbKYOa+oMfrCIkoMjlBl2AITDTrvTKQL42Yj2d07IXCIiE/onDyCP/M1
+	 MPNwlXYXScBP50dfnlrG7rjc22H9bh31oT/6TSHUHxseKI/VeigGl4+cnXFhXM4ZaqHLl
+	 yXN5olgCOmmSsmfPh1ueCiKA0nmfy8SYA5B7BwZUU6uOeb5MKDJCwAQDn2TSGLGn/BQHQ
+	 L7qzhdojzQ2qPClRB+n/8pmERcKvawfJTJNskGTwJRilu+wmn7kHzCaifiGyOqZEHdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baidu.com;
-	spf=pass smtp.mailfrom=baidu.com;
-	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=Cno54tmj;
-	arc=none smtp.remote-ip=180.76.5.236
-Received: from outbound.baidu.com (outbound.baidu.com [180.76.5.236])
-	by smtp.subspace.kernel.org (Postfix) with SMTP id 406C8606A31B;
-	Thu,  5 Nov 2026 07:37:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 406C8606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QfSHTVGc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8028606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 07:38:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=Cno54tmj
-X-MD-Sfrom: lirongqing@baidu.com
-X-MD-SrcIP: 172.31.50.47
-From: lirongqing <lirongqing@baidu.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	<linux-rtc@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: Li RongQing <lirongqing@baidu.com>
-Subject: [PATCH] rtc: interface: skip the RTC read in rtc_timer_do_work() on an empty queue
-Date: Thu, 5 Nov 2026 15:37:42 +0800
-Message-ID: <20261105073742.2193-1-lirongqing@baidu.com>
-X-Mailer: git-send-email 2.17.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QfSHTVGc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90D0A1F000C1;
+	Thu,  5 Nov 2026 07:38:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793864284;
+	bh=TG1eyQll9htKpm1l6pz9QtWqy0Nr7PBzEnyal9UacVU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QfSHTVGcwrQys8RV+6x3At5nZLdDK7XGzGgRHRSu8JWtk8fcy3PA4yCF7uveYwPYD
+	 ImifG34ifLN9BxRMKKTAjgZdyiCfbkUvQP5ql/1C/33+Zi1ncYEng4QWnxJf0JXa5L
+	 qw0nl+cwTL8lUePSvRKIBnvRzUWN0u9CR7GV55tzleee9tQDeYKoSx/RY+qiwy63zC
+	 cf58EcJgLmpbsSc7NkybzCZLbd31V3bV6HVmHWaKfOnS6i2gb6MliyfaeZ2qXnmVkY
+	 Haevm1iNN+m9SbjgdfBdMbcebeRQ63uV2XnCUt0LPLtxrdhBqwWWLDWcWi3N7IVLsL
+	 iqVkpBK8/wZaw==
+Date: Thu, 5 Nov 2026 08:37:59 +0100
+From: Lorenzo Pieralisi <lpieralisi@kernel.org>
+To: Sascha Bischoff <sascha.bischoff@arm.com>
+Cc: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Timothy Hayes <timothy.hayes@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 09/10] irqchip/gic-v5: Clean the allocated linear
+ device table size
+Message-ID: <auwyV6kcrddK1VKf@red-moon>
+References: <20261104-host_gicv5_fixes-v2-0-e47ad20ea3c8@arm.com>
+ <20261104-host_gicv5_fixes-v2-9-e47ad20ea3c8@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,55 +63,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: bjkjy-exc12.internal.baidu.com (172.31.51.12) To
- bjkjy-exc3.internal.baidu.com (172.31.50.47)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
-	s=selector1; t=1793864276;
-	bh=O+DefVadtLa6SPaklYpaHc8GZx+rmsOjmeUFC9PQ6G8=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
-	b=Cno54tmj4wTuN3ciBdGPpwjo+RD+6741yC02XkHL9cLwoJJKY8AebK2ZhvIZg+YKW
-	 z36btYR2q5no0pC9xLDeqjPk/DhCdNG0qYN6rk9STSK+S4fGp7IVejKjzoAPX7SyTW
-	 2YVR4bs8NZGzkxvYuirK3j3SBLGc3URA0xUVaaNDw/E6YIecnRazfZcVjouAh98po4
-	 2LgphnMEm6N5JTnW4SqlKx73MArCCIqXH5AGZfDuFNe/PQM/47Aa0dTZGCvsdsTGrU
-	 FcMOcs6fJ4YWIb5VycG4SdPqrxtn5KrLuuidVTh2N2YlwQ6qnSMiaPg5Ink6PBCw9e
-	 G20rX2f+erHlA==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104-host_gicv5_fixes-v2-9-e47ad20ea3c8@arm.com>
 
-From: Li RongQing <lirongqing@baidu.com>
+On Wed, Nov 04, 2026 at 05:48:03PM +0000, Sascha Bischoff wrote:
+> When the linear device table exceeds the kmalloc limit, the driver
+> caps the DeviceID width before allocation but keeps the original size
+> for cache maintenance. On a noncoherent ITS, this cleans beyond the
+> allocated table.
+> 
+> Recalculate the size after capping the DeviceID width.
+> 
+> Fixes: 57d72196dfc85 ("irqchip/gic-v5: Add GICv5 ITS support")
+> Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
+> ---
+>  drivers/irqchip/irq-gic-v5-its.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
 
-After rtc_set_time(), the RTC core schedules rtc->irqwork to re-read
-the clock and reprocess the timer queue.
+Acked-by: Lorenzo Pieralisi <lpieralisi@kernel.org>
 
-When the timer queue is empty, there is no timer to expire and no
-next alarm to program, so reading the RTC is unnecessary. However,
-an RTC read can take up to 3ms on some systems, blocking the CPU for
-a significant amount of time. Even on faster systems, it can still
-take around 50us.
-
-Check whether the timer queue is empty under ops_lock before reading
-the RTC. If it is empty, release the lock and return immediately.
-
-Signed-off-by: Li RongQing <lirongqing@baidu.com>
----
- drivers/rtc/interface.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/rtc/interface.c b/drivers/rtc/interface.c
-index 96626f8..a65b594 100644
---- a/drivers/rtc/interface.c
-+++ b/drivers/rtc/interface.c
-@@ -977,6 +977,11 @@ void rtc_timer_do_work(struct work_struct *work)
- 		container_of(work, struct rtc_device, irqwork);
- 
- 	mutex_lock(&rtc->ops_lock);
-+	if (!timerqueue_getnext(&rtc->timerqueue)) {
-+		pm_relax(rtc->dev.parent);
-+		mutex_unlock(&rtc->ops_lock);
-+		return;
-+	}
- again:
- 	err = __rtc_read_time(rtc, &tm);
- 	if (err) {
--- 
-2.9.4
-
+> diff --git a/drivers/irqchip/irq-gic-v5-its.c b/drivers/irqchip/irq-gic-v5-its.c
+> index 4de07bbdc4923..aebab9f306476 100644
+> --- a/drivers/irqchip/irq-gic-v5-its.c
+> +++ b/drivers/irqchip/irq-gic-v5-its.c
+> @@ -594,14 +594,14 @@ static int gicv5_its_alloc_devtab_linear(struct gicv5_its_chip_data *its,
+>  	 * kmalloc limits so that the system can chug along with a linear
+>  	 * device table.
+>  	 */
+> -	sz = BIT_ULL(device_id_bits) * sizeof(*devtab);
+> -	if (sz > KMALLOC_MAX_SIZE) {
+> -		u8 device_id_cap = ilog2(KMALLOC_MAX_SIZE/sizeof(*devtab));
+> +	if (BIT_ULL(device_id_bits) * sizeof(*devtab) > KMALLOC_MAX_SIZE) {
+> +		u8 device_id_cap = ilog2(KMALLOC_MAX_SIZE / sizeof(*devtab));
+>  
+>  		pr_warn("Limiting device ID bits from %u to %u\n",
+>  			device_id_bits, device_id_cap);
+>  		device_id_bits = device_id_cap;
+>  	}
+> +	sz = BIT_ULL(device_id_bits) * sizeof(*devtab);
+>  
+>  	devtab = kcalloc(BIT(device_id_bits), sizeof(*devtab), GFP_KERNEL);
+>  	if (!devtab)
+> 
+> -- 
+> 2.34.1
+> 
