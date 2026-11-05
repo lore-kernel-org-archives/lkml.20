@@ -1,93 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793878977;
-	b=u01Ky0WJrd7RieMb1IgZk+dAPmqPUStOtLerhuK2qwwpm0Uhnqe9uuQIvbKaswqUSYh+
-	 25JrEn1m2an9xf51FytUGwrrGrPWyORLC8L1FZTeB1ADKvt0TaU0+ikCE/WB2HZDGpukq
-	 ok1A9DAkyzaCNvRl3HMUTmYV/SAUGv+EUVukpECqKGurPyfHiIwkG2gUxJUvhO1Z/vCmg
-	 9pDmZO/Dh8ukHEJoc7S1BpqLfcSglyJ2OEVRHPSpXJVuyjPgSfIFzsRviVSw9oXBmTTDv
-	 JDL65CbawsNzwFSbtw9X/heZT0vhmDojl5a6CiPX5bBp0Qk8eIilK4k4ZdmIVCVbeJQ==
+	t=1793878999;
+	b=ZTd48aeUPAv7X+QA90zFWI20jNvH4c3F2u4F4fVs3nn5lRSyCkgQI+lj1c+tY+3Dqdao
+	 mPSeJV9bnksNQMJrKui/p2L+jCsaBboRls1YhEaQDWsrcPi9XSqj5+2AQA7XgPOe7wmtT
+	 bqjyRszYOsu3XzOlviKFkbHs+cEgFpoVCSUztBcxx0yLxOxWCcMJxsJS3DNGsfYJ/qsnd
+	 KVu32wgLtiIX6ZiNAjl/xuikQoNdpkr++cmkF17ZMBWmC1qsq+avhwifvyJ3Hs4SAH9/w
+	 2kajAnzqQ0A14gqPK4XWjtleT4FV7H1pH6KT+QQZ0QJH8qxTfoo2LWpnVJLfaKEGhYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793878977;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
-	 Content-Transfer-Encoding;
-	bh=Y/diz28OtqaYX4DdZb+JhCSN/xAyOePemSvH2IVI+oI=;
-	b=dGyOQHr94Mdi2Qm7LFsvZhDEtuNo98cH4R00nA3PzCzEfgFEUIfNgYuARY8Im4fp/ToH
-	 QheJKeMOA0IDLk/lXG9U+e0DaumMIChA4M2jTVymDVIFjIzNKlR9ez8CC1UISq3QT8hb0
-	 21DQauUUz00cVvVbuzFPZTIs4C41h5wD0pBn80UrGKG8sl3m+8oTnIrNYjeIrY4RNaW5u
-	 TFxj0IzfrKpnihV0uWW7v2xFQ5f6I2kzQYM1xDsi3wpaB8O3AW8Do7xyyMFcRIonFWpwa
-	 3GlU3j8HDvasRYrbyODMlm925Qg2+ak8qJak60fkDk1D0UM7HQF4TLkFFXaHt2j4FJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793878999;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=3arWtRYMgXECqw7+BWms5meFgKjfCsn5/zO/hbfOvZ8=;
+	b=nkoupdAQJu6mJA4ww1H8nDPjMkNYQQLscDrRxXaqTrY05Jug9oO4dIUlexb/ItE4InTH
+	 xzXQLgOuCn8dYPxPFWzT4djiuuLEYC8om1PrQMSOPdgFTDmLdouQTHdjtKiSeky48buLW
+	 f5dI/Tw25dU+nAseuw1pHdIF/h19WFAXEqL10W42kmqqbm06KlJ6uEr1fFx8X0jJlgqxJ
+	 AmsBkh1kl0CkgFnEAAYs7clTME7hEih3rqU1LzPJX0B9ImUVz81ZZrCEfkVUXIrfdVUUQ
+	 cffA/ugYOjk8/ZkiUM58GI6/RQwl26waxrNDQKw9B4UI2LPfGzY+hLfBeNIzDrtX6mA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WbL5QjYs;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A884C606D830;
-	Thu,  5 Nov 2026 11:42:56 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=vAw5UIhC;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 55F4D60A5BFE;
+	Thu,  5 Nov 2026 11:43:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55F4D60A5BFE
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WbL5QjYs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 425D71F00A15;
-	Thu,  5 Nov 2026 11:42:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793878976;
-	bh=Y/diz28OtqaYX4DdZb+JhCSN/xAyOePemSvH2IVI+oI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WbL5QjYsFkg65r1u2G3TgevctJY75JgPBr4BQeGQMD/7QzqtkIWrbIB8hZGRT0mfw
-	 /kfVAiYZJu8K/qqQnLel87sKZgqwTFBI5uhJnqJsg9HJGz2xXyCHHqsy5pMzCyYUOA
-	 nXRvT8P29UgyOeBEE0eY6Km0xdBtugwoUUqc1uyUwYj3cCGJwZYddOkcTeqNb6ZzV9
-	 748SmpPnmX+lnfiPSSwGHW6o11kAwCvZmoBqacXlE0V8Fms7gCltsiTTiyrfi4tIEh
-	 fF/Q8HZs6P/tuorrRu9e7N/eT7XRGR92gPVL1D6yFrgwtW2RGnfWcWaNT4pU7Pwsd9
-	 LqiLwc4CO4n9g==
-From: Leon Romanovsky <leon@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=vAw5UIhC
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7F65A1684;
+	Thu,  5 Nov 2026 03:43:14 -0800 (PST)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3A1A13F628;
+	Thu,  5 Nov 2026 03:43:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793878997; bh=tNLSO+hdm+nSfzMoKkNnsSWYMdy8kNf8a0WRixCTXUY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=vAw5UIhC3psCGMOX+MMnb+D9GR290XkKa9AuHmSzLQJdiC0S0HbR7Iw5xHPxficMw
+	 +TW40584w8silG5YCpCe0YcnPdUIGx5aR6jKkTCPT2UtXjT2DrSxQxUUJgZJVJ0OK+
+	 tSJJs5TLqJStkuTvwEC8gE4FdxkqVgPJAtDF0E/E=
+Date: Thu, 5 Nov 2026 11:43:15 +0000
+From: Leo Yan <leo.yan@arm.com>
+To: Amir Ayupov <aaupov@fb.com>
+Cc: James Clark <james.clark@linaro.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
 	Randy Dunlap <rdunlap@infradead.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Vasant Hegde <vasant.hegde@amd.com>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	Johan Hovold <johan@kernel.org>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Nipun Gupta <nipun.gupta@amd.com>,
-	Nikhil Agarwal <nikhil.agarwal@amd.com>,
-	Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>
-Cc: linux-kernel@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	linux-input@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-bluetooth@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	iommu@lists.linux.dev,
-	Jason Gunthorpe <jgg@ziepe.ca>
-Subject: [PATCH 06/17] PNP: Attach card devices through the driver core
-Date: Thu,  5 Nov 2026 13:42:19 +0200
-Message-ID: <20261105-device-trust-core-v1-6-1e536825b4eb@nvidia.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261105-device-trust-core-v1-0-1e536825b4eb@nvidia.com>
-References: <20261105-device-trust-core-v1-0-1e536825b4eb@nvidia.com>
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Daniel Pereira <danielmaraboo@gmail.com>,
+	coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+	linux-perf-users@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 0/7] coresight: Pulse an ETM external output for a PMU
+ event
+Message-ID: <20261105114315.GT9176@e132581.arm.com>
+References: <cover.1792907332.git.aaupov@fb.com>
+ <cover.1792989860.git.aaupov@fb.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,67 +73,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15-dev-18f8f
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1792989860.git.aaupov@fb.com>
 
-From: Leon Romanovsky <leonro@nvidia.com>
+On Sun, Oct 25, 2026 at 10:48:20PM -0700, Amir Ayupov wrote:
+> Add an ETMv4 configuration, pmu_pulse, that drives trace unit external
+> output 1 on every traced cycle, so a PMU event counting it (TRCEXTOUT1)
+> can end a fixed-length ETM window, for example with aux-action=pause.
+> The feature only loads on an ETE whose PMU counts its external outputs.
+> 
+> Patch 1 is Leo's fix for TRCIDR0.NUMEVENT decoding, which patch 6 relies
+> on for the number of external outputs.
 
-Card device requests probe the selected link driver before driver core can
-perform admission and setup.
+Maybe it is worth to update patch 03 for Suzuki's comment:
+https://lore.kernel.org/linux-arm-kernel/82adee03-a169-4106-99f2-7624a4926037@arm.com/
 
-Use device_driver_attach() for the normal binding transaction. Keep the
-card link owned by the enclosing card probe until the device is bound, so
-probe cleanup and debug removal cannot free a link still in use by that
-transaction.
+This series looks good to me and I have verified it:
 
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
----
- drivers/pnp/card.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/pnp/card.c b/drivers/pnp/card.c
-index df5e3d3cbf6c0..9aaaa03d5ffa9 100644
---- a/drivers/pnp/card.c
-+++ b/drivers/pnp/card.c
-@@ -52,13 +52,17 @@ static const struct pnp_card_device_id *match_card(struct pnp_card_driver *drv,
- 
- static void card_remove(struct pnp_dev *dev)
- {
--	dev->card_link = NULL;
-+	if (device_is_bound(&dev->dev))
-+		dev->card_link = NULL;
- }
- 
- static void card_remove_first(struct pnp_dev *dev)
- {
- 	struct pnp_card_driver *drv = to_pnp_card_driver(dev->driver);
- 
-+	/* The card probe still owns its link until this device is bound. */
-+	if (!device_is_bound(&dev->dev))
-+		return;
- 	if (!dev->card || !drv)
- 		return;
- 	if (drv->remove)
-@@ -331,16 +335,12 @@ struct pnp_dev *pnp_request_card_device(struct pnp_card_link *clink,
- 
- found:
- 	dev->card_link = clink;
--	dev->dev.driver = &drv->link.driver;
--	if (pnp_bus_type.probe(&dev->dev))
--		goto err_out;
--	if (device_bind_driver(&dev->dev))
-+	if (device_driver_attach(&drv->link.driver, &dev->dev))
- 		goto err_out;
- 
- 	return dev;
- 
- err_out:
--	dev->dev.driver = NULL;
- 	dev->card_link = NULL;
- 	return NULL;
- }
-
--- 
-2.56.0
-
+Tested-by: Leo Yan <leo.yan@arm.com>
