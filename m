@@ -1,90 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793914607;
-	b=HHPx7N2pTdT0Fl0HOxABCFx9txfGOtDUIvIavEi6wEKYlSUbJ7rM4A81m5BLYJp9xb+n
-	 9+W3S4mT1YeKRPlrnuMIDIQ2LTT93m38fyKcZwAocazyfD0zrOXGJcLy9e5er6XFk06Qc
-	 Sun7N0UBNR7hTdsH0eYSaolDZXenJKMkKjPXTPu7nz71LcNlxt/TfY8NtDrXd9cXhqYe0
-	 TenPdhm50ts6+2jZhaGJUT4d7yxIM5AjhygQIavEEa6ywroQ16HwKjpha1V8lw4Aysukn
-	 zjPXeTu8XfRTviIeqg97smjmb0OT/2vIGwVbxchd4Rj6t3zU6qFbMfBUvn6ogXayQ5g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793914607;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793914614;
+	b=GHT0CxDFHZE7ANRhfWsfO2MHWPile5nmLCx5C6JBHKbF3SWCR8/VogMPTbyHCFOU2y+c
+	 mWuaPJt2imxy1jErdm055mnUXpp8IwTMFuu/GsG9Dna4fvlAKsoLbsJgeTYqRMtF8tDDp
+	 C1mbUdVfy/gi3YAgMhenz74KzB9+vD1TsEVrVd3+CX4Y+5Fh7yjlu7HNvVjxW7pqyGdk8
+	 dutpkeHzoSAdmm0HMfR5OwueigTG3iy3ncZUtHrS7xpO1HCuWXuZHyQwKU5XKg9ABLFR/
+	 +sacyHKpGmw+NzyI+t0CF6rSjO1VNMzZX6c6j/Zce5iuwEOTvMPawtQ30sU+xYdhtOA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793914614;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=vM+JVI5ou9wldEifJVsxeGyTetK3uxHfHsrd/HXw/z4=;
-	b=AQzfEUIyvRwpWDq2IjMchzSlzRAecnFbzNdVKvmVVjcOK0EXivWwUc8QJo2Uy1iuBfC/
-	 PybgTGwjbWSd/z70zdkgZCym49lnoG/MSgISiLFrjjLDmke4kSYGbXTroxrjFfCYoJsYo
-	 hgjN2R1qoCcl6XFNfCfDAVftKMxyCJC0TeCebV5J4P+F0JnLoJT2ywBQ2A9BgwN/X57Nw
-	 RZaFZ0q1wp+UNJgB2W6F6nWttyPmUzV7JrM2w8+OXgSnVPUKWQIGssYEXsp/EWhaYmByS
-	 7WcMwM63s9qLnnvklz19qDjOo8QLBMoksScxcpO8ZRsVtg1pQyOFkTmiZxepINi5I+A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=kliKIKab;
-	arc=none smtp.remote-ip=209.85.218.42
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	bh=2E4Xme3iGj8AG7tp5kyRL4U0PVxMRPmUII8euE4aY4I=;
+	b=qmp7GbI5lhCBz53BNziOSokQR3Pr6afF/1R4cyD+Odo7SzKvXHeo3lZd8yqRcD1694Mf
+	 u71o1ztbxH2GipIQPB3rDat+0UHUuEsOTDa9BI/2AIFl0hp3lfBz5pEskxUeREgu5J3FT
+	 4iHi1p+AHeLXoAED8cunpjmOsW5fbkhZqWvOg86XpHYHpRqyq2pnClhAz5m5qENsaC+es
+	 0RbxQ89YxyDiiFwfefKc7v6rvLxu4l54AS5QSy7gml8Nvgybmss3MWu2by+A6J5YGzbHL
+	 UmWqzl3XrVKq9G8PFf8qttphU6vxsSDVugWUeHpbboTNSihwjfde2YhfrZOTb5yHrVw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=qNV3YK2A;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D900606D802
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:36:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D900606D802
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6174606A33F
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:36:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6174606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=kliKIKab
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4d2b741ed9so38550366b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:36:47 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=qNV3YK2A
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c45551fa84eso388535266b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:36:53 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793914612; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HT/hlc1YYRltu7tIEt9G7iavwkq2DJIJERvLMKm1erJ27qVrgMIOmz8DBVY5ImzWxX
+         +xrTth0vFeXtrRNrKX7Ht3aPne2mAT0VGiG0wadNqqJAzomKBJImzWvZBLvbfPRjItVh
+         CbXDmcYUN9O/ZBhNXNNIciNTJKZJhzG3Ji+ZxXudXTHfV1BN5N5ge+tEZIyvUwXTRJYC
+         i8bXFy84QcoiLAF/vJdfFwPW/7DOOW13DT/hQUnvrOgpOhMoGilWNliDR4n/tCXupkPH
+         vhW/V8r+LICVuu5umfKTnYLMmrLmq/pUwzFX8SXSS+lkG7g9RGPE25AjpjX+sDlqJxvp
+         lcgg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2E4Xme3iGj8AG7tp5kyRL4U0PVxMRPmUII8euE4aY4I=;
+        fh=e5Ftv/GfdU7V4Mo8C9UoFI46jSqL7dFhE9MH4S949s0=;
+        b=gStxi8raNCaNigxgg0GZ8thpyuLkQfwHLwiyTncGnNj0Nxxwx6T5WiR5CdhbARcYm5
+         1jZceM4d1uo4TBRDfMlnUzyNwXNYDWSxCvnZTTRHS6u/TEXOqoFLkfhDhIHYhiOhmYM5
+         UFVFmd3uou03nc2iePn7YgvVvWrrlR9o0tCF6/6dXpt80zhn4DzK0nBMbHeJc6FJR+ck
+         ALo/Vu8+D4Y60v60eZKunf0D0DaAoU+g3yplRcmGo7P+7aB9ECyZHLQSvmeRhYIHwnR8
+         9yHwadNzNSRX/oINnN1rtfhFU4f36cvvq9E2l5ZCaKv1E7kFeglLG3FDN6/CferqNnQ7
+         5uGg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793914606; x=1794519406; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793914612; x=1794519412; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=vM+JVI5ou9wldEifJVsxeGyTetK3uxHfHsrd/HXw/z4=;
-        b=kliKIKabEACqkyERCWqWoQPfwtgG9JZ6W3k7sp8Aa+8NW3OiVFTw3gwBicWPpPsgTK
-         0oVdCp1cUd89lBRZxD0U/IaoMlIsdYiLVCf64/2cJOsR46C/2ZOCaaWxhDVH63w1zNsX
-         Gh5ezqCntThFPer69FEJ3sfkje6BPeCD91Ypg=
+        bh=2E4Xme3iGj8AG7tp5kyRL4U0PVxMRPmUII8euE4aY4I=;
+        b=qNV3YK2AvifU1tOsCQ8wk4axq2Bpnp9T4w05lcq35MoN1lflDph5Y1IYtTpLN9oiu1
+         oljv6zhoDl0Vdx6KwOE+YZ2XrvF12KIBahqeuzL0AI1Ihf1xglBIFGRlNFmbLRw1BvGj
+         cHOsnpHe5ExcVUNebf5XytYqgD/im+o9YfI2/bO5gRjiKXBfTL4w9S2eMuvmZ4trc6CA
+         kCNJxMHTFWh4eiUO3KMPLUXRVAjTsqzWtt3brnLtM+MWPucllL2IlplxbMf3C29B/5Fm
+         Zq9m93kWEpns5SBYbYB5Q3+CTVkb/fUXg2wz7C4TsaW16nXsgwuTB3NnvQNvu0l335c9
+         ZYPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793914606; x=1794519406;
+        d=1e100.net; s=20260707; t=1793914612; x=1794519412;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vM+JVI5ou9wldEifJVsxeGyTetK3uxHfHsrd/HXw/z4=;
-        b=tArdbUos7beggIwKy36IgbBbvox2UGNR8XCHHL+mx7a5qHR1iGeXjr0XBoOsfcwbfa
-         Vd5gmhnCU32u5SP27tIchBTrkcwVbeswzgagMWjtuLU3Z0+cm92xcnw/72peyofR2u8o
-         ih6d8mBMGmIqG/UUh/R95N+JpS6LkF0p+vL3Ww7S2Bkbwfhj67NP3o9Isf200PkReWeJ
-         pwWTGMgUhnFZdeUxvfhVDpT6EjbjIfCDKaVpbQia2gGQLTXvVdaSeVTe1ZlMwx3JXV1T
-         atRYjKZZD6cHVjJWAidSrm/nC4B+jf98QDc5dUrOeWQKVxwe3o9BGyrtptNKfke8KaJS
-         pk1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw5FhxmwaCHjHMNbbc+n6ZgqZz91yKpttk0BBo6h/RC4VvIL9ROSjd+BuQPvhEArrucRZY8/aTZ/H+xU04=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9M7ecY/zx+vuOEnphoGUaB+TdzNSZ3sU1cjZh1V5uVMkF9cy1E
-	dc71I3ZERXC32jeKgmN7QMa1gHusY/2g66OUp8FrPdYyNxDagUPa3hjxdJ/YMKoxnxHzTlVMBGA
-	GnFZOfreu
-X-Gm-Gg: AYBFou0qF5sk1yFSk5M6T3+h2mv2k3Ki0XVQxiHrW1B0jh26tVhCOToZKGBC1hssQwr
-	8BHb5ujNt/90o1yT4z9CcZDNWyrrMyXZLi8nm0kgEudSyLYh2tvKtx8LRnmiUZqcwslpPrbBvPR
-	VKa0CzGRoMyf04W6lO80e4C85IAcmiNh/qkz0j6o7hyS44gOZbfH3TD/WTl5o0KWBZbQtFJ7u/s
-	xTpOACIuWl3u0eUady1HkyBf0759vg6FANJR5kYwGhrTv92M82uhyFcXiWOn7Xe4P1TZo89j6om
-	UN8g96j1haEHDq6YL+2H+iIwNwldrDRniWyCkNI1tlAjKZUggXxAeOPQDnmthavymnIzOGNnzFB
-	D3YX2ty7qssjEnCgKaIRlC0Kh7oOMTjv7nPgCoYki3Z3vLq1naTT2Wk9hJBSNnr1sX/Dwvgcu8n
-	+9nztpKRkDOnIs1KjTVIBh+FHU5IzNvB2864Fs7XMJ5d34I6QzEXSZLfLFzT0h8UMEoMLQevgHx
-	ojwA8TwlTBM7zZo3zxtGCQqfR+MmbU5lOF9HQ5hSfjwdOny+HJui1JecJAK82ZhZXG+3w2iYGRt
-	JTszRVh7zRwbJzQ+GrK9JiEOohSxNpKdgOXXcWiceHmd81UJZak9zQtixKs01/q6Dcif
-X-Received: by 2002:a17:906:9fc7:b0:c31:e958:408c with SMTP id a640c23a62f3a-c4d353a39dbmr60127466b.38.1793914605785;
-        Thu, 05 Nov 2026 13:36:45 -0800 (PST)
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com. [209.85.208.50])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d356c5b76sm19120366b.68.2026.11.05.13.36.45
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 13:36:45 -0800 (PST)
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b1aa2848d2so3899356a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:36:45 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBz4hWlc6TST5pyIN1oF1H6YE1MdxLzEQpdZQpxCypYPvw1sSlq2SJRseAlKrlcdtRgAaf7mN+0x3cyAzXo=@vger.kernel.org
-X-Received: by 2002:a05:6000:46cc:b0:492:a72:92fc with SMTP id
- ffacd0b85a97d-49277e91d94mr899867f8f.44.1793914223349; Thu, 05 Nov 2026
- 13:30:23 -0800 (PST)
+        bh=2E4Xme3iGj8AG7tp5kyRL4U0PVxMRPmUII8euE4aY4I=;
+        b=CI+FmGAUDCzzSGbzELUdJivBTjiQSet8ZYGliF6Gh2wt69YInDQS/Zc+hHAE4z6csk
+         MR56JPJpF8JEe/GcmcdtD0OuscWKTh0vU2ImZ/nUGr8wbDuJxGfQJG1Wq4ohZaZJs5jf
+         dIoD4EA97vDT8VGNByn23DwGuj7QK1UNllKM/R4NHWeGboep8U0gp+VUxYmDxk3oHFfD
+         9gk2TtBAvelF90/fsT9vEQLLMFyguBS3LW6dqvTUn9SiqDHMdC/dzGfvVO4vCql4q9EW
+         nPBQQ8zPcn6Y32ghT20+avMT3MybWeU/7eMe3qSlNNm6WYw5SpDh+y8qEB72j6MTkBz2
+         5HUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx43iBjn18a7bYCq+5bSnslfXW5lQDXEoVCk+LtICH+dlEAwuczoff6YRzYuuBZoealv6np1zg+DJlj9X0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Nt5NNf401sgFmXhBlkojCUZl2aJ7VC9njH0X4cGhtprSw3Zj0
+	h8dZlP5J8lEldxVkmcU5IvQirambYUx4Ol7rbssFeHYecnKhczXKwXnnFTcjoFFhLX4aoNqXI2W
+	oejqzGkuAVpH3ff+XQ3JNwJkNRTostl4xzjJ4aY9L
+X-Gm-Gg: AYBFou1T+rMvR+ql6koqlAh1BXlc/dTOyLq02h58TN5VAxu9NgFkhzNgmXVOwtWnTFH
+	VEJKXF/VUsef9o5E/XQl7oywUjmyr468K+lSheNIHzxB6z+B/FvcOkTJUkcYeGi7S2MpPE48cu7
+	3adQQwNmAkfx/mOKQ+rlmMxOXkdfkCrcI/zC48OmT3F8bA34+vV91PlLOZImAI23RDMYqh4u8OP
+	M81CUVR5pnI5db/MHdQFTpQLhhTs3Bgx3DtzvG84YQCU6eQkba7TU/e0+EHKXkrpVbcHzJ5CVcI
+	A8z6ANmq1rnlg+0cgdpVK58juSsHUgwXSZO11YjS8yahTSlr3B+xhlEy8KYUglFK0W8hRWALeaD
+	xFK47/UNlr2XnQfAWaiFRBEXYb46CAifXFeOA4bMZ/TFdg6XDQ8QNXYGOhpyBahuPtGg9CIM=
+X-Received: by 2002:a17:906:9f89:b0:c46:645f:cedf with SMTP id
+ a640c23a62f3a-c4d3546bf6emr55329366b.15.1793914611758; Thu, 05 Nov 2026
+ 13:36:51 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,91 +104,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104174554.1.I8556199ea4f1335169ce16e97309aa63ae2e2310@changeid>
- <20261105052401.GA862715@ax162> <CAD=FV=Vx4gHvF0TegRBwZetTNjP5AsjbBK9+sjNA43OpL1Wjiw@mail.gmail.com>
- <CAF1bQ=S52KWHopqxksctbBirFEr5Mz1dKKMAoWh-dqLHii3Nig@mail.gmail.com>
-In-Reply-To: <CAF1bQ=S52KWHopqxksctbBirFEr5Mz1dKKMAoWh-dqLHii3Nig@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 5 Nov 2026 13:30:11 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=XE+KuTDCa3cLOsHPfQ9ngFOXrokFbxr=jDm_UFwKdQDQ@mail.gmail.com>
-X-Gm-Features: AclHuK8NeWv7Eqboity3c_xvquX4Ve8KJUxgkkfaa6zSURNg96EK107B0KPq_54
-Message-ID: <CAD=FV=XE+KuTDCa3cLOsHPfQ9ngFOXrokFbxr=jDm_UFwKdQDQ@mail.gmail.com>
-Subject: Re: [PATCH] kbuild: AutoFDO: Enable -salvage-stale-profile
-To: Rong Xu <xur@google.com>
-Cc: Nathan Chancellor <nathan@kernel.org>, llvm@lists.linux.dev, linux-kbuild@vger.kernel.org, 
-	Han Shen <shenhan@google.com>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Han Wang <nesthanwang@google.com>, 
-	Alexandre Courbot <acourbot@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Benno Lossin <lossin@kernel.org>, 
-	Bill Wendling <morbo@google.com>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Boqun Feng <boqun@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	Justin Stitt <justinstitt@google.com>, Miguel Ojeda <ojeda@kernel.org>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Tamir Duberstein <tamird@kernel.org>, Trevor Gross <tmgross@umich.edu>, linux-kernel@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org
+References: <20261023001603.560210-8-wusamuel@google.com> <20261023001603.560210-9-wusamuel@google.com>
+ <20261028134012.01d52e94@pumpkin> <CAG2KctpGPHo-S3AEvBhK5HPUnDHfoJu6Z-r+cS1hQ4Ps=B3DmQ@mail.gmail.com>
+ <20261030100215.6f8e0d4f@pumpkin> <CAG2KctqdPq6NmK6rB13s2bgM7kP2w4OMMy2hdp_OFMVYYhTnZA@mail.gmail.com>
+ <20261104142307.431fc12f@pumpkin> <CAG2KctrY6GmVqsKP+fXYCsL6wDR4zp1kdRd7a7uOdCgg_JcMdQ@mail.gmail.com>
+ <20261105083712.14847dcf@pumpkin>
+In-Reply-To: <20261105083712.14847dcf@pumpkin>
+From: Samuel Wu <wusamuel@google.com>
+Date: Thu, 5 Nov 2026 13:36:40 -0800
+X-Gm-Features: AclHuK-4-3cdEVpuwe7ZR8h4IzWEsLs5z4V7r2FIsMuL4z-PpEQaIZ0fXLkqICE
+Message-ID: <CAG2KctocE=kj2CO29D0tVmrBeWmCDYA6FhpHr-7ZbD63GM1CsQ@mail.gmail.com>
+Subject: Re: [PATCH bpf-next v2 1/6] kallsyms: Add KALLSYMS_QUERY ioctl to /proc/kallsyms
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Andrii Nakryiko <andrii@kernel.org>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, kernel-team@android.com, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, llvm@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
-
-On Thu, Nov 5, 2026 at 10:23=E2=80=AFAM Rong Xu <xur@google.com> wrote:
+On Thu, Nov 5, 2026 at 12:37=E2=80=AFAM David Laight
+<david.laight.linux@gmail.com> wrote:
 >
-> The issue you mentioned regarding excessive time in applyFlowInference
-> comes from Profi.
+> On Wed, 4 Nov 2026 16:05:52 -0800
+> Samuel Wu <wusamuel@google.com> wrote:
 >
-> The AutoFDO implementation used in the kernel is FS-AFDO (which uses
-> FS discriminators). There are known issues when using Profi with
-> FS-AFDO; enabling Profi actually degrades performance compared to
-> original profile propagation. When we tested and worked on AutoFDO for
-> the kernel, we did not enable Profi.
+> > > I think it might be more sensible (less pitfalls later on) to return
+> > > the symbol number - not that of the next one.
+> >
+> > What pitfalls were you anticipating? If the current symbol's position
+> > is returned, userspace needs another ioctl() call and an -ENOENT
+> > check, to learn that there are no more matches. Alternatively,
+> > returning the next position means every call pays for a look-ahead,
+> > which for an unfiltered query walks the module symbols even when
+> > userspace only wants the first match.
 >
-> While I haven't looked into this specific bug yet and am unsure if it
-> is unique to FS-AFDO, I recommend using -fno-sample-profile-use-profi
-> to disable Profi for now.
+> I was thinking more of the kernel api.
 
-Interesting. I can suggest that to the team digging into it and see if
-it solves the problem. My AI agent says it will though. It claims that
-the default flipped recently and "-fno-sample-profile-use-profi" will
-restore the old (tested) behavior.
+Ahh ok, makes more sense now. I misunderstood your previous reply to
+be about the ioctl(), not the internal kernel functions.
 
-Should I send a patch adding that flag?
+> The 'position' is just an array index.
+> So a 'read by symbol name' would return the array index of that symbol.
+> A 'read by symbol name index' would return the name (uncompressed) and
+> do the lookup (binary search and linear scan) to find the value.
+>
+> I've used a bit in the 'sorted by name array' to indicate that the
+> symbol is a duplicate of the previous one.
+> So checking an 'exact match' for being a duplicate is cheap.
+> But for a partial match you start needing the name buffer to be in-out
+> on the read-by position request.
+> So you start needing 'read by position' and 'read by position with
+> name compare'.
+> It is likely that the caller will need to validate the name anyway.
 
+Got it, thanks for clarifying! That works with QUERY_BY_NAME in v3:
+- In the UAPI, the input query string
+(kallsyms_query_by_name.sym_name) and the output matched name
+(kallsyms_query_by_name ->kallsyms_sym.sym_name) are separate buffers,
+so the name buffer is not in-out.
+- In kernel/kallsyms.c, the vmlinux lookup only needs the two helpers
+you described:
+1. lookup by name/prefix -> index
+2. index -> uncompressed name + address
 
-> Regarding the "--mllvm=3D-salvage-stale-profile" flag, I also have
-> reservations about adding it for the following reasons:
-> 1.  It is heuristic-based and not enabled by default. I am unsure how
-> thoroughly it has been tested, so we should assess it further before
-> enabling it.
+> An 'interesting' idea would be an ioctl that returned the value of
+> the nth symbol along with the name of the n+1th.
+> That might get confusing though.
 
-FWIW, we did find that Android seems to enable this globally across
-its userspace, which suggests it has been fairly well tested. You can
-see the change here, which landed about 1.5 years ago.
-
-https://android-review.git.corp.google.com/c/platform/build/soong/+/3524291
-
-A few notes:
-
-* That change _also_ adds
-"--salvage-stale-profile-max-callsites=3D2000". Internally, there has
-been debate about whether adding that would be a good idea, too.
-
-* This kernel change _also_ adds the flag to rust compiling.
-
-
-> 2.  The recommended usage model for kernel AutoFDO (as documented) is
-> to use the same source. While it might help in an iterative build
-> model, I don't see a strong reason to use it if there is no source
-> drift.
-
-Hmmm. I guess in the purist sense we'd want the AudoFDO profile to be
-for the exact source. ...but from my experience, that's not what
-happens in reality. If nothing else, developers locally working on the
-kernel still want to keep the AutoFDO optimizations so they're testing
-as close to what's in the field as possible. However, the act of
-working on the kernel will touch _some_ of the source. Keeping AFDO
-working as much as possible seems nice to me. Of course, I'm by no
-means an AutoFDO expert and mostly just got dragged into this issue,
-so happy to defer to the experts. ;-)
-
--Doug
+Agreed, it's simpler to have the ioctl() return a single symbol.
