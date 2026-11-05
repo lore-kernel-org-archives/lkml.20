@@ -1,62 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=207.54.77.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793896706;
-	b=eQ3ZgQWIt1IbQrhIn7gza9Zfd9GViqoXbilZZK9WFjNDQuA4Vzx0bwNnwHd62C9irNUc
-	 cwcVAAX+qlaWchf6tIfo4Ju3GSecbShudnFfx0GtOxbdhoOB5iuv/gwkgMkU2qRKSmTMM
-	 JRW3ry7V1JRlbn4bsQSi7Nbw3TW+NUmHEs7IRRvvVomOWaBK27h00tAlHWk5u3dv4Pj3v
-	 gutpmP3TpFnnCc2RG8lJVcgD+ChBXRw0VVqWxr0B/ojWxev/FcBEDJkGK1kkUgESZJv3s
-	 4/4PDXexBnBzjX19wUeBaSargJ/j0cA5xFVaWil6GSSam/DidA6uA054saD03UE0uTQ==
+	t=1793896745;
+	b=lCaq5NAizVqyQt1pfKP/0j7nqzquHXn0uuUC8daRxIgLTi0hLCq3XcqvU9Yb9NfI2sXK
+	 TEgfHInoDiSoAWtSGJEzwkDUeqXPJxdJwX9r21xjLJPq8wTQ7axaymxO1Yq2052dHXqPH
+	 T3IursP8pf8KbOw4yWtQHVYGAcQhktgzzDF9edBpsgo9h9O4HdhbDdcMzKSuVKWg3GYIj
+	 /nbkHe1RYSb7zDxFWRIJTAlzz4wMzw3uaYenMPwZbApyg4CkSxCOZGYnhNbxiAQ6Zf3Bh
+	 3+7M9i1VRonwDRXfdex4EqFSvku+k5OuXkETbsWqpdPjGVUDWSwyLBPzyR3ASb/XNiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793896706;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-Amp-Result:X-Amp-File-Uploaded:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:Received:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer;
-	bh=eGJncRZo7pGOtgDIQrvzb7fQrMtZ5o5Cn5x2f91k7gQ=;
-	b=4w0nErOFCUJtms5+s7p42h0x+7oorwncTmSMDgLedyoDHcVsqH/Wa4Rr55LbV6UmLwRW
-	 Oo/dwUmg7l8rL214TCfAPVqN8Q6mGiHIWPnT6X+C0zA2Do1HA/GZJqfN0MZm3y65l2eja
-	 tvr2EoRSovFjZViL67Ge7F8FlAbcJ1PMRzK7VEyLIZvNaQppZF3SRmmHNh5j84Gx0oz8R
-	 IvJjGHErJXHvwP/kmrhyRlE3aIkEIfwK5puJwfUr+8BfFnaRj0jldiUNEmOj4kHWZeCY7
-	 JKFXaTCsXodpD/g6gpng1z/TVzwDkkfKNiqzXVjazO5Q8RWbEf2EbsyK2JrSHMvunyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793896745;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=kq5cypGlHYrtedqahWiyNWkNdooOV+Ht4WFr1V8te0Q=;
+	b=eUTiG8bpJLX4ogD33+ei3zlmURsIqyLsUxt1m8ZlFcV5jnpGw/NSfwjlE5xJjnpoj5oB
+	 sX6sFDPS+3sbYe514gyP1Z8H3v2lfUdMkgUlEwdN4x/iwonQkwPWEkV5I7BNzdKVjrXJu
+	 gtevNCSBE5gYKx7pfasf2UDuzaCZOtcYvB4eKsk3Rk9vaba0ft6k7tH4/m0x75gH/46HK
+	 22oxhhgOgTNLRH50imr80cr5YlCdIU5Mv1PZh84qSOXTt19nDazFeti/ZbPMo6sJB03tc
+	 xVZPcQsPkWag2WswCLfRlgzQ2aDXRgYRI7xArIDC5U9oEgof76RK3C5i53oc4Oy1OYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mobileye.com;
-	spf=pass smtp.mailfrom=mobileye.com;
-	arc=none smtp.remote-ip=207.54.77.171
-Received: from esa4.hc555-34.eu.iphmx.com (esa4.hc555-34.eu.iphmx.com [207.54.77.171])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C8C4C606A32C;
-	Thu,  5 Nov 2026 16:38:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8C4C606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
-  t=1793896702; x=1825432702;
-  h=from:subject:date:message-id:mime-version:
-   content-transfer-encoding:to:cc;
-  bh=WvyUYNeaZ1LL9KGoOQ7tav19Ed1rArF0jm0dRRx4+Ug=;
-  b=TV5JssVhOEKiLOvJ+MqV+KLxQ81QiNt9aqECl7hIb0v8aLZSrN1+rDmo
-   tMJLQEjhlelVAOUu9obwC4nIpxEYoSEJEIyF4JCsNtMBksYVYhSZw+FQs
-   DcQXC6iuHePFuyDuhVifMyuKwOhF17RPrJfwOtYvFvgg135sEPJd1oUIC
-   S7XnGzS0MYuiRXPl9cfqOgpu/Rj0bYfgH7URwts7ROI+i1DeI4J5BVgid
-   kQFioOB+1XW+kuU6z7wxQB9m08/sG0j61wJ3wxQJm1t5ja2lhPKJtUFSX
-   hKGGj+uY/IxQcRf+dVaGdsToe9AitgcCwQ2/lmObRfg6N27L4b1Hwi+su
-   g==;
-X-CSE-ConnectionGUID: kxlx5RjZRbCDeUXhqehlfg==
-X-CSE-MsgGUID: tvmmzmU8TMWCEwyPNQvxEg==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from unknown (HELO ces03_data.me-corp.lan) ([146.255.191.134])
-  by esa4.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 18:38:13 +0200
-X-CSE-ConnectionGUID: 6zHfRl9qR8Wg4YoysQMoXw==
-X-CSE-MsgGUID: snS1cDkuTMebzCQMYkG3wA==
-Received: from unknown (HELO epgd071.me-corp.lan) ([10.154.54.2])
-  by ces03_data.me-corp.lan with SMTP; 05 Nov 2026 18:46:01 +0200
-Received: by epgd071.me-corp.lan (sSMTP sendmail emulation); Thu, 05 Nov 2026 18:38:11 +0200
-From: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
-Subject: [PATCH v5 0/3] riscv: support CPUs with slow Zaamo
-Date: Thu, 05 Nov 2026 18:37:35 +0200
-Message-Id: <20261105-lrsc-only-v5-0-f0648f57b2e1@mobileye.com>
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b="b6Num/TW";
+	arc=none smtp.remote-ip=216.40.44.14
+Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com [216.40.44.14])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A92F7606A32C;
+	Thu,  5 Nov 2026 16:39:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A92F7606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=b6Num/TW
+Received: from omf12.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay08.hostedemail.com (Postfix) with ESMTP id F0C9A140B24;
+	Thu,  5 Nov 2026 16:39:01 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf12.hostedemail.com (Postfix) with ESMTPA id 2F0AE18;
+	Thu,  5 Nov 2026 16:38:59 +0000 (UTC)
+Date: Thu, 5 Nov 2026 11:38:57 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, Masami Hiramatsu <mhiramat@kernel.org>, Mathieu
+ Desnoyers <mathieu.desnoyers@efficios.com>, Ilya Maximets
+ <i.maximets@ovn.org>, Matthieu Baerts	 <matttbe@kernel.org>, Aaron Conole
+ <aconole@redhat.com>, Eelco Chaudron	 <echaudro@redhat.com>,
+ dev@openvswitch.org, Adrian Moreno <amorenoz@redhat.com>, Antoine Tenart
+ <atenart@kernel.org>
+Subject: Re: [PATCH v7 0/4] tracing: improve symbolic printing
+Message-ID: <20261105113857.4737cffb@gandalf.local.home>
+In-Reply-To: <ba474cdb3bb30c3eaf4aafc6534d0e77cfde64d4.camel@sipsolutions.net>
+References: <20260922110955.363677-6-johannes@sipsolutions.net>
+	<20261105091216.7b91db5a@gandalf.local.home>
+	<8da2902c233de42ce756b3bfba5e5821f4dfa82b.camel@sipsolutions.net>
+	<20261105112444.7873d9c9@gandalf.local.home>
+	<ba474cdb3bb30c3eaf4aafc6534d0e77cfde64d4.camel@sipsolutions.net>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,181 +68,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIANCw7GoC/12MQQ6CMBBFr0K6tmamLURceQ/jwg6DNAFKWtNIC
- He3sJG4mMWb/PcWETk4juJaLCJwctH5MUN5KgR1z/HF0jWZhQJVASqQfYgk/djPkggqo1RbWos
- i76fArfvsrfsjc+fi24d5Tye9ffcK5jtUkpYgmVRNF6yhtXgbvHU9z3wmP4gtlMxPRsCjbLJsG
- BtAMJW2+k9e1/ULdy9YjeIAAAA=
-X-Change-ID: 20260120-lrsc-only-cc06422f5bb1
-To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Will Deacon <will@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Mark Rutland <mark.rutland@arm.com>, Gary Guo <gary@garyguo.net>, 
- Yury Norov <yury.norov@gmail.com>, 
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
- Chao-ying Fu <chao-ying.fu@globalfoundries.com>, 
- torvalds@linux-foundation.org, olof@lixom.net, 
- aleksa.paunovic@htecgroup.com, arikalo@gmail.com, 
- Boqun Feng <boqun@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Luke Nelson <luke.r.nels@gmail.com>, Xi Wang <xi.wang@gmail.com>, 
- =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@kernel.org>, 
- Pu Lehui <pulehui@huawei.com>, Puranjay Mohan <puranjay@kernel.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Boqun Feng <boqun@kernel.org>
-Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Vladimir.Kondratiev@mobileye.com, bpf@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, 
- Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
-X-Mailer: b4 0.16.0
+X-Rspamd-Server: rspamout07
+X-Rspamd-Queue-Id: 2F0AE18
+X-Stat-Signature: h4zn1ddzjz7nn7h6ct6z6hidbaidy6g3
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18ZYiExF9YG4u8wCaH23+av+MdUttndELo=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=kq5cypGlHYrtedqahWiyNWkNdooOV+Ht4WFr1V8te0Q=; b=b6Num/TWvcXNyT6YYpp9UlfprOPzdny3/CU2E2mmd4ayuZIxTDHdmMfKwgSMAk1xuN5Qhhzw1G4v/Od8pX8eOYbn+nd/w+r/1m80YazZA3iuV7r3ECnxtzyOil1dqZBiYU9ArQlf5m0CVnsi+ulAkmfeLXQzAdWce26QScVn1w8=
+X-HE-Tag: 1793896739-173868
+X-HE-Meta: U2FsdGVkX18Ge+M/eMh4AycP6vbERni8fpZULNY2gTG/6/YpT0pw1HRsKIzF535NQRSMArPWMzs2pWF+Y2hmCKI58pTClRTtt+ZdiPB8xQxT2rifSpobdZKhDk6IZlapVhv7Q3kbla14sUlywXTneIpTGQNQdeeSL7EVtTgq1A7hxHsV0GuTo/mpIHVl7eXy6dRVFS0qOW080KykFQKGnpQc1OeRYSPQ4LOefCxlwMpgdXvh4+7yXPXDbs9m/CNH4lQkb1ag50K+yKXskuHsui/8dLzUNdO2LPGuU2bAU7ZsNgA7It3if51Ejm3NX0kHzf3h6BLSPmi+wTSvX8zIWJeq9dUB15cEYYHzmie1W19Dcv7XG+vYVXUG7og5V48b
 
-RISC-V split the A extension into Zaamo (AMO*.w/AMO*.d) and Zalrsc
-(LR/SC). The kernel puts "a" in -march and emits AMO for atomic_add,
-bitops, xchg and the like, and LR/SC for cmpxchg.
+On Thu, 05 Nov 2026 17:26:58 +0100
+Johannes Berg <johannes@sipsolutions.net> wrote:
 
-Zaamo is not always native. On MIPS P8700 [1] every AMO instruction
-traps into M-mode and is emulated there, so the extension is formally
-supported, and advertised to userspace, but very slow. A typical
-uncontended atomic increment costs:
+> On Thu, 2026-11-05 at 11:24 -0500, Steven Rostedt wrote:
+> > > Any objection to simply converting the __print_symbolic() sample? It
+> > > would look something like this:  
+> > 
+> > Actually, keeping them both would be very useful. That way one can see how
+> > to do it the other way. We can say, the old way is being deprecated so
+> > please use the new way.  
+> 
+> What's the point? But OK, sure.
 
-  native AMO                                     2..5 cycles
-  LR/SC, private L1 reservation monitor         6..12 cycles
-  LR/SC, PoC (L2) reservation monitor       about 40 cycles
-  AMO emulated by an M-mode trap           about 600 cycles
+I thought I mentioned the point? "That way one can see how to do it the
+other way". Basically, seeing the equivalent way.
 
-The last two were measured on the eyeq7h hardware. On such a CPU the
-kernel has to use LR/SC for every atomic.
+> 
+> > > +/*
+> > > + * Alternatively, you could define a function for the names:
+> > > + *
+> > > + * The _lookup() function returns the string for the given value.
+> > > + *
+> > > + * The _show() function must
+> > > + *	seq_printf(m, ", { %u, \"%s\" }", value, name);
+> > > + * for each value that userspace should be able to parse.
+> > > + */
+> > > +const char *sample_names2_lookup(unsigned long long value);
+> > > +void sample_names2_show(struct seq_file *m);  
+> > 
+> > Are the above going to be defined somewhere?  
+> 
+> Well, it's a sample, and I wasn't even using "sample_names2" in the
+> below, so I didn't actually define it. I can flesh that out even more,
+> but I'm not sure it's worth it?
 
-Mobileye is going to use the "eyeq7h" platform, built on this CPU, for
-ADAS and autonomous driving. Kernel atomics are on the scheduling,
-memory-management and driver paths of that product, so the emulated
-AMO cost is not acceptable there.
+It is, otherwise it is confusing. If it is in the sample code, people will
+think it's required.
 
-Patch 1 adds RISCV_ISA_ZAAMO. It defaults to y and nothing changes:
--march keeps "a" and the generated code is the same. When it is turned
-off, -march carries _zalrsc instead of "a" and every kernel atomic is
-an LR/SC loop. Such a kernel runs on any hart that implements A, it
-just does not use AMO, so the option does not depend on NONPORTABLE.
-Turning Zaamo off needs a compiler that accepts _zaamo and _zalrsc in
--march; GCC 15.1 is the first release that does.
+> 
+> I reckon most users won't even need the dynamic way, but obviously part
+> of the reason I'm doing this is that I _do_ need the dynamic way for the
+> drop reasons, which are registered/built at runtime.
 
-The choice is made at compile time rather than with alternatives.
-Nearly every CPU has a native A extension, and an alternative would
-inflate all those kernels with the nops needed to pad one AMO to the
-size of an LR/SC loop, at every atomic site, for the benefit of a few.
+Right, but if we want to deprecate the old way, we need to have the
+simplest sample of it. That is, have one event that shows the simple way to
+do this (one that simply replaces the old way), and then have another
+example of how to do it in a more complex and featureful way.
 
-Nothing changes for userspace. The hart still advertises "a", which is
-true. Userspace that cares can know about the slow AMO upfront, or
-measure it.
+Honestly, this is why I asked for this. Your updates use the complex
+method, I wasn't sure from the code how to do it for the simple case. That
+is, what wasn't needed for just replacing static __print_symbolic() lists.
 
-Zalrsc stays mandatory. cmpxchg, conditional atomics and futex CAS are
-already LR/SC sequences; Zaamo cannot replace them. RISCV_ISA_ZALRSC
-is always y and exists as the Kconfig counterpart of
-RISCV_ISA_EXT_ZALRSC, which hwcap.h already has next to
-RISCV_ISA_EXT_ZAAMO; the two sets are tested together, for example by
-rv_ext_enabled() in the BPF JIT. RISCV_ISA_A exists for the same
-reason, paired with RISCV_ISA_EXT_A.
-
-Three sets of extensions provide every atomic Linux needs: "a", which
-is what the kernel supports today; Zalrsc plus Ziccrse, which this
-series adds, with Ziccrse as the forward-progress guarantee for the
-constrained LR/SC loops; and Zaamo plus Zacas, with CAS loops in place
-of LR/SC as on x86. The series leaves the last one open:
-RISCV_ISA_ZALRSC is where it would go, by allowing "n" there and making
-amocas the base implementation.
-
-The BPF JIT encodes its own atomics. Patch 2 makes it emit LR/SC loops
-when Zaamo is disabled, so BPF programs do not trap either. The Zabha
-and Zacas paths in the JIT and in cmpxchg.h are selected at runtime
-from the ISA string; firmware for a CPU that emulates AMO should not
-advertise them, as both extensions are AMO.
-
-A breakpoint inside an LR/SC sequence drops the reservation and the
-loop never completes. With every atomic an LR/SC loop that is easy to
-hit, so patch 3 makes kprobes and uprobes reject such addresses.
-kprobes walk from the enclosing symbol; uprobes scan forward using the
-constrained-sequence rules from the ISA. This patch fixes a problem
-that exists today, since cmpxchg is already an LR/SC loop. It does not
-depend on the rest of the series and can be merged on its own.
-
-[1] https://mips.com/products/hardware/p8700/
-
-Changes in v5:
-- Treat Zaamo as supported but slow rather than absent. The hart keeps
-  advertising "a" and the kernel keeps accepting it, so the boot-time
-  extension check patch is dropped.
-- Drop the NONPORTABLE dependency. A kernel built without Zaamo runs
-  on any hart that implements A.
-- Rename TOOLCHAIN_HAS_ZALRSC to TOOLCHAIN_HAS_ZALRSC_ZAAMO and test
-  both _zaamo and _zalrsc in -march.
-- Explain why RISCV_ISA_ZALRSC and RISCV_ISA_A exist, and why the
-  choice is made at compile time rather than with alternatives.
-- Add the BPF JIT patch. Without Zaamo the JIT emits LR/SC loops for
-  the BPF read-modify-write atomics on RV32 and RV64, and reserves a
-  second exception-table entry for the sc of an arena atomic.
-- Reject kprobes and uprobes on lr and sc, and on any instruction
-  between them.
-- Link to v4: https://patch.msgid.link/20261101-lrsc-only-v4-0-4e1d010463b3@mobileye.com
-
-Changes in v4:
-- Require a compiler that accepts _zalrsc in -march before Zaamo can
-  be disabled. GCC 15.1 introduces that support. Older compilers keep
-  Zaamo enabled and -march keeps "a".
-- Link to v3: https://patch.msgid.link/20261026-lrsc-only-v3-0-ec29c8190fb1@mobileye.com
-
-Changes in v3:
-- Make Zalrsc mandatory. cmpxchg and the conditional atomics already
-  use LR/SC, so RISCV_ISA_ZALRSC can no longer be turned off.
-- Check AMO and LR/SC support independently. A kernel that emits both
-  requires "a", or both "zaamo" and "zalrsc".
-- Put the LR/SC bitop sequence in its own block so two inlined
-  set_bit or clear_bit calls compile.
-- Remove the LR/SC loop that ran after the hart lottery and accessed
-  address 1. Build the lottery increment with add so RV32 assembles.
-- Add an exception-table entry for sc as well as lr in the futex
-  LR/SC helper.
-
-Changes in v2:
-- Switch from a runtime choice of atomic implementation to a
-  compile-time one, gated by NONPORTABLE.
-
-Signed-off-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
----
-Vladimir Kondratiev (3):
-      riscv: build kernel atomics from LR/SC when Zaamo is disabled
-      riscv, bpf: emit LR/SC loops when Zaamo is disabled
-      riscv: probes: reject probes inside an LR/SC sequence
-
- arch/riscv/Kconfig                     |  53 ++++++++++++++++
- arch/riscv/Makefile                    |  16 +++--
- arch/riscv/include/asm/atomic.h        |  52 +++++++++++++++-
- arch/riscv/include/asm/bitops.h        |  47 ++++++++++++++
- arch/riscv/include/asm/cmpxchg.h       |  16 +++++
- arch/riscv/include/asm/futex.h         |  45 ++++++++++++++
- arch/riscv/include/asm/insn.h          |  28 +++++++++
- arch/riscv/kernel/entry.S              |   7 +++
- arch/riscv/kernel/head.S               |  12 ++++
- arch/riscv/kernel/probes/decode-insn.c |  94 ++++++++++++++++++++++++++++
- arch/riscv/kernel/probes/decode-insn.h |   7 +++
- arch/riscv/kernel/probes/kprobes.c     |  22 ++++++-
- arch/riscv/kernel/probes/uprobes.c     |  31 ++++++++++
- arch/riscv/net/bpf_jit.h               |   1 +
- arch/riscv/net/bpf_jit_comp32.c        |  81 +++++++++++++++++++++++--
- arch/riscv/net/bpf_jit_comp64.c        | 108 ++++++++++++++++++++++++++++++++-
- arch/riscv/net/bpf_jit_core.c          |  29 +++++++++
- 17 files changed, 636 insertions(+), 13 deletions(-)
----
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-change-id: 20260120-lrsc-only-cc06422f5bb1
-
-Best regards,
---  
-Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
-
+-- Steve
