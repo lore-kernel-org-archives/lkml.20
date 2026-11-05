@@ -1,125 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.152.16
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793913099;
-	b=yrk914blBk7dY/WNtr5s5LblDrv+G9zQI5yik4zFUNIXossQI4aIqLgB/M5ZsT2MckXZ
-	 nupVBeLiFIvG+Rfxnyq2TA/mpSabmJyD6I6nH0mupefS9/m17WkLGSduBwm8jAGU0J0dU
-	 9csnpfmHZuGxR4mkkFifR7xd2kx4ebuVX0BgJg2QZIEXlvwq2sms6fXCX9WVQYug8p/6f
-	 /BBWfpPLxdXn0k3RJBngxyuBJ33xt4cb55iU3UFGL4yVIDp7NVxVJxX0JPjEDMsNCB4hu
-	 C7/Ezzq0WnzPNLPbrI/ifJsOB0Bp3+hoVf6I7+mhk1Ig6EqgaieIkyfz13rt2O3PHtA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793913099;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=ww/Ky12z8kY0m7ktU2CqeMinUpnlKKPyaD44um6v3bw=;
-	b=hgTTtGcND5NyrOuvrCQWgBTMZfe+ikE3g5VSVwxap8dm/mEeSIyB65KTl+UBIP9eKjwc
-	 tb86E3U/jlfiwUX7F1RJNx6fMiHXSjUTpiyxviBKCnIDWa1G3TFYQRLwUsamEHQi2RE2Z
-	 PEeteNKqTvinqsgUt/k3eqwwovAm9aTEvj0XTV8REdN/GrA91u9KtTGTDEl5eoX+0jrqZ
-	 R8rtSfQFBS8Y9lvDVoYJN3/6HaoNL5pb79I2xReoj8V6fsxnK7pIp8wEUw2Q9Pk4YVpZX
-	 I0K4/b8Rb0Dm6SGpZKFBGB7X0gXUw6pvuY0lmkO5zoQLchrti98hShfK+XxrwjGUeMQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crowdstrike.com;
-	spf=pass smtp.mailfrom=crowdstrike.com;
-	dkim=pass header.d=crowdstrike.com header.i=@crowdstrike.com header.a=rsa-sha256 header.s=default header.b=wmuSZD6G;
-	dkim=pass header.d=crowdstrike.com header.i=@crowdstrike.com header.a=rsa-sha256 header.s=google header.b="Hcmb/f/k";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.152.16
-Received: from mx0b-00206402.pphosted.com (mx0b-00206402.pphosted.com [148.163.152.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793913134;
+	b=YX6ylFDWYqj3ROZ1YNa4iKuHkZ+nopMCj1dwqlqjWQM+f1rLgXC8Kt9sQyN33Hi+NHQW
+	 g0K+GAU2yNYJkpt/V6I4DfU3HIK9a9yXQFWSboezjHtdl7VvYTAsf7SHzxu7sYeSQ+vZT
+	 QVk1HJ9lz++XfFJ3L7kKwBaBk4vP2BV4WP/YmP24liWNYIoU1CYu1w1G96Zjogg2sreUj
+	 sLL7WM7vSvJt1AWZsvICs45ySksqLBMvpTgCQNpij8DDLUZQxhhH/M8xiuZRtyV74pd5R
+	 rEoYcn3iW3CC5M2Jpnk16VLC8S7olrOehMk3cEdRUdZHk4+gS/xfRP+jq0HlnC7a3Rg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793913134;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=el8UefO7rpr/wOf0GvsC+VQdx4hFeG+XXR6vxfOLdeE=;
+	b=t4ny23vECWbLJDIxTylXmW61100wFE1sd8XgLkEH9bo2967cthr1n+SrvUh491twK1tj
+	 kxtUJ82VLznT3PGNucr/jTzSNO7J0rmK/+ojzK/UUZg0PgXumYM3EGWikbyKMs3h4TZNN
+	 7vCltVaxhq7+/ibAB+RvdCLGb/wOifBEUf5oMn/u1RY4Tei9QntUjgsecohq1VRLJleC3
+	 LfdBGsIJ8VUT3HCgOCAECOZH0Ha9YNnf6IhkUcqi+o/xIPd/kkE4L+fA7rBDzHOuNZ46+
+	 OKZo91RhJOaeI/9qIz7D8cpO5AxznAslaPEv6vumIyCODu35cb8oPP8l2GPHa1M+Mvg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q4JDxf5L;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33206606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:11:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33206606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crowdstrike.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0BE2606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:12:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0BE2606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=crowdstrike.com header.i=@crowdstrike.com header.a=rsa-sha256 header.s=default header.b=wmuSZD6G;
-	dkim=pass (2048-bit key, unprotected) header.d=crowdstrike.com header.i=@crowdstrike.com header.a=rsa-sha256 header.s=google header.b=Hcmb/f/k
-Received: from pps.filterd (m0354655.ppops.net [127.0.0.1])
-	by mx0b-00206402.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5KLFlY2433735
-	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 21:11:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crowdstrike.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	default; bh=ww/Ky12z8kY0m7ktU2CqeMinUpnlKKPyaD44um6v3bw=; b=wmuS
-	ZD6GJgOLyd9o3FxMzCIWfh/isB98pMHOKECgcbilgrNptojIzJa88Fntl8SAKgBy
-	7H79EMg9VJaA8qHLYrLktT7RCTByV8pDfGTKiub9g+96E+cR3LhnVWwWtaMOXVZ6
-	7UgFDRhReTbkLqFj/8XW8fxIRABa+UaMuGN56w1C79bYx5kFgRGh+nYFWQVp2FgH
-	ygNNq46gKOBD/j551zQah9c0c9TS1dd15Azgo0wkSkZWhldBzpZqjoYy5A/F+aq8
-	J0b5ydWnNlsXQ162gJ4TqSbwkjsDEX/rLVq3bXP8972y1Fud0LiG+WqWAa0W8QiH
-	yGFX5zUlNeJVcqIotQ==
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com [209.85.218.72])
-	by mx0b-00206402.pphosted.com (PPS) with ESMTPS id 4hrm99b1ny-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 21:11:32 +0000 (GMT)
-Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c4d34d6082fso26958966b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:11:31 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793913091; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LaB02rZXdB2NHrUDzwAIf2j+/Qsa27TI0/B6Fad2w38YxQS7Z0d2f+owtv6YkoX9R5
-         +JnEsRlfBApk9Q4VufLjYpHostMI4GJlqpmg1oaaZoZB5RzMvcxmV/ifECJlq1Qeo76+
-         NUziq1M44XQaHui7P3L7VtkXoUAiWmsZjy5N9NOmsrSZHKLx07aBpIdnBU0Gdhf7h/cS
-         oX/fd28+s41GHsqEAswCxZKXwpqVik3dkOMIKgVhebLs7EJJxWIad5/1f1HCfkDl7Nmm
-         StBl9TMOUOACnPx5k8xhTUx1EWP9l58zJqzLqrzUEmEE1yWwJi9unGoZXdMQy1tApxgN
-         cruQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ww/Ky12z8kY0m7ktU2CqeMinUpnlKKPyaD44um6v3bw=;
-        fh=Mf8l2ZacSw2SeMlBhdjuq2NlURFpwLwwQODJnAkrKI0=;
-        b=AtVBiW3vPCGjDayu7PgSH48iqc1tCmwlIUDJ0E73rFB6BztQanaOYQM4XhWFY4luxT
-         OLjhsfFCF0ISBVoQNG8bx3PTGYs4qLDYo4IF9N8XxxIQunr1/o1KHhGjqRO15wFxDCDt
-         V0UsSv72PoXQLeTYx7wvQJWAJZuyhdb6HMiWOQU3VpXWoD/U8YSyMF77ErVYIYiJ8vYS
-         RDl0DoyCsPqS9MvU55q0e11GMrkJJMuEPbw2i8T4yTKO7ZcwnUQAmWubgTWG4+d9P/Sx
-         vV/ixG2tV3pJmK39Kx7LMPA2QIPWOQ/uqzNWvWzM9uitZ8zlN/iXqSSKasK9OqjNzlOP
-         Bb2g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q4JDxf5L
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-4919a880834so13080f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:12:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=crowdstrike.com; s=google; t=1793913091; x=1794517891; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ww/Ky12z8kY0m7ktU2CqeMinUpnlKKPyaD44um6v3bw=;
-        b=Hcmb/f/kif60JRaO89pC7K6vrAeZqaS9XXmio+c77pBbfy/RTNPa01K8I0mh8oPYI0
-         L9c5Gp6aWYIZ7YA75PPrMLB0CGqMgUb2rSEjOM/Xu9NG1/ToVA4LISRUWLQ8siwn8Ow4
-         Rn9wzEG3cHERVPD4VdaurcO2x0DptX7aUq7uvZ6pv6UyV4j943KXnMdtlnqOhn1329hg
-         7f39RpyZT2LBhhmb6IcA+zfyvmhHwJPTgJF88sEWMja93e+mi8hvMk9EZVtTU5qB3QN4
-         Ck59u+gSJ1BzJpjB66yshJe7g8WVh9U6X0daHf/Mmx2fXqS+0CjIhtVH9m30P8mPMIn7
-         Rmzw==
+        d=gmail.com; s=20260707; t=1793913132; x=1794517932; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=el8UefO7rpr/wOf0GvsC+VQdx4hFeG+XXR6vxfOLdeE=;
+        b=q4JDxf5L2LWswqnHpLm48eiDUPJNMr/N0W/sKzOggrPXzmqsWZuyGk8M4vXlBZiTG+
+         folBIb6R9Cd+pczRgv8NWmer+NbzJqFXAZJ/5C0u4dyU9LLeosGLfHsPqjfY6eOCL3fz
+         0pbCqzD/8dZa1P4mmZtCtasFx4i9XKNDC0c0N+BBgrwm4ePD3fqlNPF8zmUZhVVYzpiy
+         KODGnoEjdHyVZYhBV4SDSpTXI5X0oZjTEQ6bIb4IcsxdupDGOOBWVNg2Aa6uMtXuPtZN
+         WdETnZx/QKZeMrDJix+h9WWpweOMPRgVKJAedT4D1dGJoRjPwI/9drf3gwwXH8x8qKZp
+         ROzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793913091; x=1794517891;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ww/Ky12z8kY0m7ktU2CqeMinUpnlKKPyaD44um6v3bw=;
-        b=zzdSgqHmcBXNMzTm6wuNxAFUKdnOLkahd562TORwW4mJuaqV5V8e3znD5aDsAU14QA
-         2kx6v0qZGCBGrcUrtvO44NHrWTqUPuCHCONRWVoFkFzW/HfNPlxNNA/4XJ84mVtGux42
-         HJi+Lvk56wadorm59x96ElJEKHbZedfSwQBfX0mzaFRXXVPXB536iO/VadjhIdyKl6gq
-         57+B/UotdYGoky8AomrjfnWi1M3vO2u0shxQCtoWi7eTdpMnzELCwgj++1J0vu3yhlDk
-         EYIoG27XvCROEx+35nWQMJUXzSObPTaR2YDw+qlZu0fArRgW5dT5NILIRuV3FcDjtLch
-         nyFw==
-X-Forwarded-Encrypted: i=1; AKwUvBw/fBWS/X1KmovsnpnLiQh+rDmViweImnzJvBKIR6+x2QT2eV3kfbZZAiAz/paHXwD0t3VI8MGbrZJV/nI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8zv83aiRdlHMMlrAQPIOZkRlkurj34v7ro9y6icfj+LVh0Gia4
-	HlU05W6OmBmI2NI/t4HwpUcl56BF5MjCAGDSuIyyKAwY7YVvthwWiN2Ine7R+uITf5RaoYLSuNd
-	wUw3XPqN+Pv4MpszoVgSdEd88fQMVoH0CN9oXAO5UUgpYuD3xJ88TaANF8s0L7Dn8lKsUFlKSQE
-	4KesAtkB36vP22okdm5qgFwomKD/l9vhws7LFwHcnQ
-X-Gm-Gg: AYBFou3mnN9u44F+nSRpnfnj4qmJk6iPGod4uXJiO1R46lKXFytId8dfQgwEw7+24bM
-	F9qdZGtjJNgNprCjulSLKZ8biF7bd1N6/ghWj8W0b4zhBgJrXEwM4rf+JMH2FMCY6rkmicUZ58A
-	hvFNohXrzsSSvMDTTyTR4yr4guI4tLtSmWFE5GCHWpRT29g7ttKK5EhajX919KXDxh6bBSPRfow
-	M+IOSXJBEiZxGKq+T9zubgj6wmJK26/fSyOVQy5BF/ce2O+0WMqeXpUM8kg0kd/lPU4Q8LQwmTs
-	3g==
-X-Received: by 2002:a17:907:d22:b0:c29:659e:2fd2 with SMTP id a640c23a62f3a-c4d35519e9fmr51349566b.27.1793913090837;
-        Thu, 05 Nov 2026 13:11:30 -0800 (PST)
-X-Received: by 2002:a17:907:d22:b0:c29:659e:2fd2 with SMTP id
- a640c23a62f3a-c4d35519e9fmr51345666b.27.1793913090205; Thu, 05 Nov 2026
- 13:11:30 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793913132; x=1794517932;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=el8UefO7rpr/wOf0GvsC+VQdx4hFeG+XXR6vxfOLdeE=;
+        b=xr+IgcgJLo8EHFKQe15D3aKJCdexEKgddsp14qB1UzhwPv4y+xBJvyqj3f3U8ixfpg
+         u9w6lQH1BObe+yzFkHALxBx0iKG01dBalt1ZMqxYwMoq2/tlPdxN67gDfTK2bcg9w6A+
+         8pYJ20h+Tk6kvkl4pv+CDUianscUQCKKFbQMcFkeHrv7QQ9/vk8+9jFLf6Y9He2AK7O8
+         jxi6lQ0y6TVcQmoXdM0InrKReuG0/2r6GHfqajw4kwBIpgP/NDxF1eED2KZQsbJQcMfV
+         fpni3DprZ7ytsqg7E7vXiYND/AE+Bob2r9zCzjc4Oc6Ksl6m7TEAA5ia8dy5WLQQBAdb
+         yJ4w==
+X-Forwarded-Encrypted: i=1; AKwUvBzv/x3JDVnLXCsZ/OjY05Y+21+uBLF5glAIjWxZ4lJpmNqwNJaH8vxNZcwCgo3673ECC5R9VciVrFqUrbI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8P60QAIWRJBqWeU329YDZw2kr+ZE58oVnqsZdhgxtARCI8hbcj
+	5uW1HHqmu2whHzwhqF8n2pC9Estc8Kv3se4lrkUHXVx82/fe4i12ftBH
+X-Gm-Gg: AYBFou0Cta4TOWZO70rAjVXPjDLf7QSnkC4gICfycBxSTN4t4Fyy+bF1tKo9rtAXODQ
+	sA/+tggxtJ+lwvek9BHCyTP57uZl3HlR2pq9pr3isisUzGDxCTrHzd5N0qYpHdb0rM8V1dvRDKw
+	SD0aou1nYtaN3v3RhdkNs05eZtUp6Lb+U+J+Y5Xr2pRXd4pVS6s0mcdfMc1fOjJTicX9lHkkx3h
+	re/qQ0Oe18PmD6BI/xche3mnuH6N7/VIok8xgCbsbw65lJGaVBi5LgaZa5sEJJrzkytvLvMOPlT
+	1s5C0rnldg05F4yKXNLtpmMjyxMH0qgGtDLmkQGKap3mq3OdqSo+zf/dgC9oBSbLp1YZVJTzVA8
+	SuN4F0t7wjUvqTyfFJ8SjldEXJajS3OBysn4h5Mj4P4B97bkQKOHJpsF9tV6e0laeiOAlWYtAdH
+	KUeFqXpM1Ulk4SXx0EXEHdMzYXhxYG5CF8FdgNWsEqouayphLTqXk96nZjtfG3ZtjG7ZPEIBeC7
+	+4YwSp7Wy4P802iFdM9KLl2J2MN+H0qQYNCXb+y53yuVxobOVook/4vg09/OwMx5l8MSK63KyW+
+	bRCzfcs8rpUmfEtZHQSqTQYr4qS4tdAS0rF7ZVo=
+X-Received: by 2002:a05:6000:184e:b0:490:5327:7670 with SMTP id ffacd0b85a97d-49274bc834bmr1865777f8f.10.1793913131990;
+        Thu, 05 Nov 2026 13:12:11 -0800 (PST)
+Received: from fedora ([109.76.85.13])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed552aaesm12408979f8f.40.2026.11.05.13.12.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 13:12:11 -0800 (PST)
+From: Paul Dolan <paul.dolan.dev@gmail.com>
+To: kees@kernel.org,
+	shuah@kernel.org
+Cc: x86@kernel.org,
+	eyal.birger@gmail.com,
+	jolsa@kernel.org,
+	mhiramat@kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Paul Dolan <paul.dolan.dev@gmail.com>
+Subject: [PATCH] selftests: reject malformed uprobe sysfs values
+Date: Thu,  5 Nov 2026 21:11:50 +0000
+Message-ID: <20261105211150.9964-1-paul.dolan.dev@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,76 +100,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261025-b4-bpf-trampoline-preempt-v1-0-198dcdc0c6ac@sentinelone.com>
- <DMIIV9CE0PN4.309YUGIXQUZNF@gmail.com> <e3f63654-0f7c-462b-b58d-05f3164fe340@linux.dev>
- <DMM2G9OX9ACV.231CHJEPK0OHU@gmail.com> <CAPnbwjpQBR-KHwOMG2bo1uhdp22ZW_O5sUj3=vjazVu=Rdnb7A@mail.gmail.com>
- <DMN0RC27TJRM.3KUSPS9QTBV4G@gmail.com>
-In-Reply-To: <DMN0RC27TJRM.3KUSPS9QTBV4G@gmail.com>
-From: Martin Kelly <martin.kelly@crowdstrike.com>
-Date: Thu, 5 Nov 2026 13:10:53 -0800
-X-Gm-Features: AclHuK80YOzI2BQNU2ehKijMeyWHkLC1DDyHgXW5LfR8ObnEvZ5A2mjJk9W6SIw
-Message-ID: <CAH=2mMD-N+JXZR3eeXf3cOf4snnjkAHjRditS1o1Fb_oxNQEdg@mail.gmail.com>
-Subject: Re: [EXT.MSG] Re: [PATCH RFC bpf-next 0/2] bpf: Do not let preemption
- cause false recursion drops in trampoline progs
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: Mike Bazov <mikeba@sentinelone.com>, JP Kobryn <jp.kobryn@linux.dev>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Andrii Nakryiko <andrii@kernel.org>,
-        Martin KaFai Lau <martin.lau@linux.dev>,
-        Eduard Zingerman <eddyz87@gmail.com>,
-        Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>,
-        Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
-        John Fastabend <john.fastabend@gmail.com>,
-        Shuah Khan <shuah@kernel.org>, bpf@vger.kernel.org,
-        linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA4NCBTYWx0ZWRfX1zjdVT8R2vOM
- pqKjnZeg5Se/K4u7yzThef2Di8A70lsqDlyAyuba8TX4painV9pSSuq/0FAAFU9rNZcAZYcblm0
- tJ9EoWZTsE+MPBwe95kP+IO9PU/Pvd+xJQcSqv/ap9UYo3Md0HmjOLrJKV5PJ19zNQ180mtzgXd
- SKoM5+zDmwc0D3oxJy5uM9JLrEXNod8zCfKUx4F9INYOThz3eBY5xWTpkaBNT1EHgWz1bM2rpdx
- KOvgFHIP+kFgkl0do/U61mBAos8mUxD9rJDbxzBJjBxjbcuDrnqXSX4yxNWB+M0KpfUelqg2vUR
- kKg0GWocOBNv9MtYmcVmpu+80VidWy3YHmCE5j7O/eHjdU4ag7lTLGLsR9+cazeALxz+/M1Qun9
- fC8+pSFXwBart5DlvVqlpqcKQHyzLFtayhYtxqNEG2MhNpySoi9JL+tP3HxgYGubwr3nF02yIO7
- WuAzNgo6ocge3s/q1CA==
-X-Proofpoint-GUID: NxsmiGEE8HzLPI8pfJhTi4ddWhok_mJ6
-X-Proofpoint-ORIG-GUID: NxsmiGEE8HzLPI8pfJhTi4ddWhok_mJ6
-X-Authority-Analysis: v=2.4 cv=PJ6aavqC c=1 sm=1 tr=0 ts=6aecf104 cx=c_pps
- a=D+UBI74RbQA8i2EYnbuvxw==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=KZhmPCYDdY0A:10 a=VkNPw1HP01LnGYTKEx00:22 a=T2KQ53IYiC3MXPrxx8bB:22
- a=vDKVRhTs-M86Ea50iKLw:22 a=pGLkceISAAAA:8 a=FZbjhw69-ufqTzFgkyEA:9
- a=QEXdDO2ut3YA:10 a=PsfoTyiJ_72bb7xyA04f:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA4NCBTYWx0ZWRfX8j6gQt9GLyu3
- +ydmPvJKTvoJqHnW9tLLgjBKe5JTLntWeun+xTq4nEgQgffxN8A64OfFz3Yu+Vnn+onZCxXPTWp
- ieCOuO1Sv7pK0ZjGeJyqbxaHsJUgUyrHf/AKn4TTKVNl8Rj0dZ1/
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11957
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 bulkscore=0 suspectscore=0 phishscore=0
- lowpriorityscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611050084
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 4, 2026 at 9:21=E2=80=AFPM Alexei Starovoitov
-<alexei.starovoitov@gmail.com> wrote:
-> >      run_cnt 38040015, recursion_misses 4063
->
-> hmm. you really cannot tolerate that small drop? it's tracing at the end.
+The uprobe helpers in the seccomp and x86 selftests parse integer values
+from sysfs with fscanf(). A matching failure returns zero and does not
+necessarily set errno, so malformed input can be returned as a valid
+zero value.
 
-We realize tracing programs don't have a full guarantee, but prior to
-7.0 and HRTICK, they were still reliable in many practical cases. It's
-less about the absolute rate and more that the same workload had a
-~35-300x increased drop rate (depending on hook) in one release, and
-that behavior is now the default. Since the long-term direction of the
-kernel is for more preemption, the recursion_misses issue looks like it
-will keep getting worse until we can move away from per-CPU BPF
-recursion counters.
+Both callers treat non-negative values as successful parses, allowing
+the failure to propagate as valid uprobe configuration.
 
-> Also it needs to be per-task + per-prog. How will it look like?
+Return -EINVAL for matching failures while preserving the existing
+handling for successful parses and EOF.
 
-We're going to look into options for per-task + per-prog tracking and
-let you know how it goes.
+Fixes: c2debdb8544f ("selftests/seccomp: validate uretprobe syscall passes through seccomp")
+Fixes: 29edd8b003db ("selftests/x86: Add return uprobe shadow stack test")
+Signed-off-by: Paul Dolan <paul.dolan.dev@gmail.com>
+---
+ tools/testing/selftests/seccomp/seccomp_bpf.c   | 3 +++
+ tools/testing/selftests/x86/test_shadow_stack.c | 2 +-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-Thanks,
-Martin
+diff --git a/tools/testing/selftests/seccomp/seccomp_bpf.c b/tools/testing/selftests/seccomp/seccomp_bpf.c
+index 66bb53bad93b..5671890f0b13 100644
+--- a/tools/testing/selftests/seccomp/seccomp_bpf.c
++++ b/tools/testing/selftests/seccomp/seccomp_bpf.c
+@@ -5752,6 +5752,9 @@ static int parse_uint_from_file(const char *file, const char *fmt)
+ 	if (f) {
+ 		err = fscanf(f, fmt, &ret);
+ 		fclose(f);
++
++		if (!err)
++			err = -EINVAL;
+ 	}
+ 	return err == 1 ? ret : err;
+ }
+diff --git a/tools/testing/selftests/x86/test_shadow_stack.c b/tools/testing/selftests/x86/test_shadow_stack.c
+index 3d6ca33edba4..ab1232fbe523 100644
+--- a/tools/testing/selftests/x86/test_shadow_stack.c
++++ b/tools/testing/selftests/x86/test_shadow_stack.c
+@@ -748,7 +748,7 @@ static int parse_uint_from_file(const char *file, const char *fmt)
+ 	}
+ 	err = fscanf(f, fmt, &ret);
+ 	if (err != 1) {
+-		err = err == EOF ? -EIO : -errno;
++		err = err == EOF ? -EIO : -EINVAL;
+ 		printf("failed to parse '%s': %d\n", file, err);
+ 		fclose(f);
+ 		return err;
+-- 
+2.56.0
+
