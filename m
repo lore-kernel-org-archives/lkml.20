@@ -1,54 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793879404;
-	b=2GVasFjSL9efANEyO9jvx5bl1zYhOmExFayhV31P3FG/0XAvTIHyLEOP3ebx8UXbVLQ5
-	 Ycha9QLP0PUAZiRfvv2Y+XUFZiAyKON6dF0YuFwsN4KksittOJ5XdOAf6yMZEnJJIKsl2
-	 lolDJ4qQxwFR7UyzWcrBdRou7pQeMYSlV8ezduCP/7gik3/8/FMhFuhc/rf9zbDusA/3V
-	 SxlRm2c1qnratSU443uazQX0kIB0ceomIpbU/gzvLPdIETD1fo2WPoTyZ6SkgZVwR/DQ7
-	 1KvCv9N0RJGxRoNbjtrQzud7ORfBgSIfBq5wyD51j9YLtQb07b+sr3FjseOyC7qWCIg==
+	t=1793879466;
+	b=rdByK+hZUsOuI9F0J1V1iUmB4Mw2MyYCBrlA8jwcG2+lJDeq7nqh3F7JSiehSs5QBpbv
+	 gSNX6fCEO5A90uFQW/fyOq//zfQ4KUnPNktQ0WDCNDZ3H6EKHeYdxcNcnP/zckwGtgKX8
+	 ovPT6hemPXxG+Tu83kGdaL3F/hxfgzpuqZq4S21nx/+UeZKKwcU2+g87OP4QpPpbnMlWW
+	 awqqXj1xHdyjWhW3S52wZacqIbyfNlZ31HOYvoj6our7JAyzy3iqnpODcSIlgNPwgjd2z
+	 fOXtgtkrDH3WsTA3xifl5G4aFKW+u3+NUtIsTMy9GQtoWHlYoe6clju8H9e44j6mfbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793879404;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793879466;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=oDKfQDAIoGUbqzr7+NW0qlqn3XhkGoaI8l2e454ELsg=;
-	b=JNNQYO+jo3FacfOF0NVhXSaqKKQHS1KFy40k7LFwfkpSHKP2ryxumHcaWAqJmbWu7n+a
-	 /ooqRNEgIY3uKnUUbwhEXI1rRZfhLTs6xvFVZIN30mPTXR4rWVXA2CcB2E4rM+1ukHP6B
-	 5HZ98e5AYoCG5SIcGsmd4KZkDVLpjwdZYxfucc+GsOcL/QKhJjNpox4l07gZjNW1RoCef
-	 Ro6QGZV0Aamt1TH+MajjRPtv1wEguMQgjGWQ27B9rybKP7OXVlUtGBEosDBUp9UmBM9b9
-	 mBpdCkK6FNV2xTGmloMYna22Y927xtYzeZpO8OjWWyl1zqoZvsNHl7ie0T7B8i70xTQ==
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=4OS3i6eFd7tcdMjfachyyV6i3nKbEcsVPS6UTpVoEG0=;
+	b=tOHxZfTWp9S/jCcKqbhi1jo3prnHuPCfi39NRaheqZLhVQuAHN+0F3Vc0P4bf4z++1+c
+	 1AWAbQZFJgFhI6+yksFvIca2SsLPmUWngr7nrSSx2Y/+YrjGoXhzssavED1oz/LEaYd67
+	 +lHl7YbZC2HRzTd3ACSI9Xy0oDvHTTXvleGoOeXja6A4UcYkV1IGkNNNyS/Ga9ccIHO78
+	 +fLEZTfiTtQ5IVUp/6c9vacIgv2L8wqqhG8supMsoNEvVifwNeIvdPNDw01L8T/wxlItf
+	 9T4a+2ESIiwZVV6qYekcuLBpap6Au2ErfMzm7C7GblOldwi+fVnuT9MlS0/RqZuSnww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MTaO8neH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IGE+28uN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DEC5606D819;
-	Thu,  5 Nov 2026 11:50:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF64606D819;
+	Thu,  5 Nov 2026 11:51:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MTaO8neH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C997F1F00A20;
-	Thu,  5 Nov 2026 11:50:01 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IGE+28uN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F30D1F000C1;
+	Thu,  5 Nov 2026 11:51:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793879403;
-	bh=oDKfQDAIoGUbqzr7+NW0qlqn3XhkGoaI8l2e454ELsg=;
+	s=k20260515; t=1793879465;
+	bh=4OS3i6eFd7tcdMjfachyyV6i3nKbEcsVPS6UTpVoEG0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MTaO8neHaewLBM/bDyKXSqHYZNXi63YLUP1tARtL9v7p35p4N4rT+Tj3p52qK6g95
-	 hzAuCkpEpDggwkgzCAddPGZp2APD0vjNcP8no8G1SZzjJVblpMSw30JJhtbA933v+G
-	 15roy3x4+JxFE967FILojGjNP/UXNfIkr5l0kmMyrLs36M7WR5X+LtORotz8ShSrcE
-	 6/U2vUZ5XoToEVKzPFjfDUyUsPwHD3uhCeFYdZgR4yzRCMmi3qx8Ypg/WJD5pmgCYz
-	 LZBbgpVRjrwS/7eWQpPbRCETxYTT7k+SO+aLdWq/mPpy5gLVsXERE4BPhULSSpQXBb
-	 CDiWvU4LPSDTw==
-Date: Thu, 5 Nov 2026 12:49:59 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Mariia Nikitash <nikitash.mariiaw@gmail.com>, 
-	dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, kees@kernel.org, justinstitt@google.com, morbo@google.com
-Subject: Re: [PATCH] Input: mouse: vsxxxaa: Replace strlcat() with strscpy()
-Message-ID: <auxrRmyg50gvP1HE@devuan>
-References: <20261104062319.288360-1-nikitash.mariiaw@gmail.com>
- <20261105112813.13210334@pumpkin>
+	b=IGE+28uNn0cQzvWb3P23I+Y3Y9vuvK6VC6xP68IsCJD/M64adDVLKoG85s06au+G1
+	 J1Obn+d6Gm+CsWIH23qmxfKWtjQ0P9Ul4EIfHSTFHks5si+zlB3BjKVyxqbtJA0KV9
+	 RgnOsaRULKxZIRLpHjq28Z6fmqBclgfbuB3hL9AgqZvHVVjxQ7TVuMPDKi00AdIcDH
+	 bQxA0WJJEuNowi3dV+k79udSkhT5NK3lPeUH1B7xkzM5iS5szeFaG+IFgr1S6HFqIh
+	 U9aksm3FlI1cHrtihxazmZEWUsN4wicDI/UHDHJ39YRlfInMv35rprdxxUrA6/6WPA
+	 pHABR9k1OoZLg==
+Date: Thu, 5 Nov 2026 12:51:02 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Hongliang Yang =?utf-8?B?KOadqOWuj+S6rik=?= <hongliang.yang@cixtech.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Gary Yang =?utf-8?B?KOadqOaWsOS8nyk=?= <Gary.Yang@cixtech.com>, 
+	Fugang Duan =?utf-8?B?KOauteWvjOWImik=?= <fugang.duan@cixtech.com>, "linux-phy@lists.infradead.org" <linux-phy@lists.infradead.org>, 
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, cix-kernel-upstream <cix-kernel-upstream@cixtech.com>
+Subject: Re: [PATCH v6 0/3] phy: Add CIX Sky1 USB3 PHY support
+Message-ID: <20261105-illegal-fervent-swift-3c05c2@quoll>
+References: <20261105011751.4058411-1-hongliang.yang@cixtech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,141 +63,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="r3dy3xcwqerpul3i"
-Content-Disposition: inline
-In-Reply-To: <20261105112813.13210334@pumpkin>
-
-
---r3dy3xcwqerpul3i
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Mariia Nikitash <nikitash.mariiaw@gmail.com>, 
-	dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, kees@kernel.org, justinstitt@google.com, morbo@google.com
-Subject: Re: [PATCH] Input: mouse: vsxxxaa: Replace strlcat() with strscpy()
-Message-ID: <auxrRmyg50gvP1HE@devuan>
-References: <20261104062319.288360-1-nikitash.mariiaw@gmail.com>
- <20261105112813.13210334@pumpkin>
-MIME-Version: 1.0
-In-Reply-To: <20261105112813.13210334@pumpkin>
+In-Reply-To: <20261105011751.4058411-1-hongliang.yang@cixtech.com>
 
-Hi David,
-
-> Date: 2026-11-05 11:28:13+0000
-> From: David Laight <david.laight.linux@gmail.com>
->
-> On Tue,  3 Nov 2026 22:23:18 -0800
-> Mariia Nikitash <nikitash.mariiaw@gmail.com> wrote:
+On Thu, Nov 05, 2026 at 01:17:56AM +0000, Hongliang Yang (=E6=9D=A8=E5=AE=
+=8F=E4=BA=AE) wrote:
+> This series adds support for the USB3 PHY integrated in the CIX Sky1
+> SoC.
 >=20
-> > In preparation for removing the deprecated strlcat() API[1], use
-> > strscpy() to initialize the mouse device name.
-> >=20
-> > The destination is zero-initialized, and the constant string fits
-> > within the buffer. Since the return value is unused, this preserves
-> > the existing behavior.
-> >=20
-> > Link: https://github.com/KSPP/linux/issues/370 [1]
-> > Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-> > ---
-> >  drivers/input/mouse/vsxxxaa.c | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> >=20
-> > diff --git a/drivers/input/mouse/vsxxxaa.c b/drivers/input/mouse/vsxxxa=
-a.c
-> > index 042a17fe81db..b3a0d7ff5738 100644
-> > --- a/drivers/input/mouse/vsxxxaa.c
-> > +++ b/drivers/input/mouse/vsxxxaa.c
-> > @@ -463,8 +463,8 @@ static int vsxxxaa_connect(struct serio *serio, str=
-uct serio_driver *drv)
-> > =20
-> >  	mouse->dev =3D input_dev;
-> >  	mouse->serio =3D serio;
-> > -	strlcat(mouse->name, "DEC VSXXX-AA/-GA mouse or VSXXX-AB digitizer",
-> > -		 sizeof(mouse->name));
-> > +	strscpy(mouse->name, "DEC VSXXX-AA/-GA mouse or VSXXX-AB digitizer",
-> > +		sizeof(mouse->name));
+> Patch 1 adds the device tree binding, patch 2 the PHY driver, and
+> patch 3 the SoC node plus the board enablement.
 >=20
-> You might as well use the 2 argument form.
-> Moreover, if you use strcpy() you'll get a compile-time error if the
-> string doesn't fit.
-> strscpy() will truncate and return an errors.
+> The PHY provides the SuperSpeed lanes for the Cadence USBSSP
+> controllers of the SoC. The block drives both USB3 lanes: it is
+> exposed as a single PHY provider with #phy-cells =3D <0>, and its
+> init/exit calls are reference counted so that both controllers can
+> share it.
 >=20
-> The other question is whether mouse->name even has to be char[].
+> Tested on Radxa Orion O6 (Sky1) together with the USBSSP controller
+> series: the PHY probes and USB 3.x devices enumerate at SuperSpeed.
 >=20
-> Personally I think that while there are issues with strlcat()
-> (mostly to do with its return value), and that there are often
-> much better (and faster - so sprintf is out) ways of getting
-> the same result, the deprecation really needs to propose a
-> sensible alternative (not inlined strlen() + strscpy()).
-
-One alternative would be to add strscat(), with the obvious internal
-strlen(3).  This would be a drop-in replacement, and wouldn't have the
-issues of strlcat(3) --mainly, the DoS vulnerability which is
-consequence of the return value, and also the more difficult error
-handling of doing '>=3Dsizeof(...)' than '<0'--.
-
-There's an implementation of strscat() in shadow-utils, where we call it
-strtcat() --because what it does is Truncating the string, so a T feels
-more appropriate--:
-<https://github.com/shadow-maint/shadow/blob/214a2e6e0a5f81fa281b272be7cf9e=
-9d3aff8f34/lib/string/strcpy/strtcat.h#L28>
-
-Another alternative which would avoid the internal strlen(3) call, and
-thus would be faster, would be to add a stpecpy() function, similar to
-stpcpy(3), but which would take a pointer one-past-the-last element in
-the buffer, to perform truncation.  This is fundamentally Plan9's
-strecpy(2), except that Plan9's API has a bug.
-
-There's an implementation of stpecpy() in shadow-utils:
-<https://github.com/shadow-maint/shadow/blob/214a2e6e0a5f81fa281b272be7cf9e=
-9d3aff8f34/lib/string/strcpy/stpecpy.h#L28>
-
-We've been using stpecpy() quite extensively in shadow-utils, and it's
-a great API.  Of course, there's also the decades-long experience in
-Plan9, which apart from their bug --which I found, by comparing their
-implementation to mine--, shows that it's a quite useful API.
-
-And stpecpy() produces the simplest code of all truncating functions.
-
-
-Have a lovely day!
-Alex
-
-> This case is, of course one of the 'better ways' cases.
+> The controller device tree nodes use the PHY phandle added here; the
+> USBSSP controller series is posted separately.
 >=20
-> David
+> The series applies on top of v7.4-rc1.
 >=20
-> >  	snprintf(mouse->phys, sizeof(mouse->phys), "%s/input0", serio->phys);
-> > =20
-> >  	input_dev->name =3D mouse->name;
->=20
->=20
+> Changes in v6:
+> - Drop the per-port child nodes; the PHY provider node itself is
+>   referenced with #phy-cells =3D <0> and the driver exports a single
+>   PHY instance shared by both controllers.
+> - Select REGMAP in the PHY Kconfig.
+> - Use dev_err_probe() for the reset, clock and regmap acquisition
+>   failures in the probe path.
+> - Corrected the mail sender name: v5 was sent with a non-ASCII
+>   display name in the From header, v6 uses the plain ASCII name
+>   that matches the Signed-off-by.
 
---=20
-<https://www.alejandro-colomar.es>
+No, you did not.
 
---r3dy3xcwqerpul3i
-Content-Type: application/pgp-signature; name="signature.asc"
+Best regards,
+Krzysztof
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrsbWIACgkQ64mZXMKQ
-wqkq9Q//UW6QwkSie8ECdEChrKHPAnBCwiZw1qTwxY4XWzrHHNlPa0FYuC31kBbq
-+qWM8MEQ+eolkMZxZibf9GRvHUJVyi4dR6uiLURvNRJ9PzSPqRftGrnFkFFMEge0
-wqsXrJIFqW90ZaJINRVKtfqApEDIABnD9TWgA5ldyOgAvH8Qctw6rVWIchV0fg9u
-y8HoYY0oeRWdXS4Xi1JjF3t2YbxcaNkgRvFe4IyOehrzITZVVw6V73KXJ7tk75qn
-Zt4rM8Ge66zdPBJe3vyNG+o3Cd1+5jDVklD2fSYmQ7+cQickIJNAjf906GbBaZGH
-URb5e3imbM/UXt2VpD6+sRjLtmo3SOKa3SnIvJnfUCs4RYYRd9G5N61aBsj8Lsm4
-aGShVCJ7ruXIZgUHh4LarOWVfvZtBTirc0sYgg4s9OsV6yxtmI4MkzmvF5NH/XRD
-qXVbWM/fWNgFL/7VBaoTMCQ13/3iDj321nTfbG76l+B1mkhyxdEe7nXtNXArTi4y
-bsL+nFoc7trM7DBPBpr7TzOuLcg3eJhynRW9UU/vF+p3WZyLnHrl6Bhfsbomwo/+
-k3IxB5EDufvzia2R5NXYd+tV6BUDnU/Gw1vxJZQyGagG3GCUBIyuwMoqoTR14taB
-1CTBz9raaaEZLYFVLA6nnWXjGSYpCqtzKoOiipAIbc3kEc0qCSY=
-=CGAl
------END PGP SIGNATURE-----
-
---r3dy3xcwqerpul3i--
